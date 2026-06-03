@@ -1036,125 +1036,84 @@ theorem markov_root_recovery (a b c : Nat) (hc : 1 < c) (ha : a < c)
       (neg_one_qr_of_mod a b c (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 h hmod)
   · exact markov_recovery a b c hc hco ha
 
-/-! ### Assembling full uniqueness at `1325` from the root-recovery bundle
+/-! ### General per-`c` uniqueness from a 4-root certificate
 
-The four roots of `x² ≡ −1 (mod 1325)` split into two **phantom** (`182, 1143` — no `b` closes a
-triple) and two **valid** (`507, 818` — each closes exactly one triple).  These are the per-root
-1-D certificates (`∀ b < 1325`, decidable, like the phantom filter).  Combined with
-`markov_root_recovery` (triple ↦ root) and `sqrtNegOneRoots_1325` (root ∈ the four), they pin
-every ordered triple at maximum `1325` to `(13, 34)` — *conditional only on coprimality of the
-middle entry with `1325`* (the one descent-flavoured input not proved here). -/
+With general coprimality (`markov_hcop_general`) and the recovery map (`markov_root_recovery`),
+uniqueness at any 4-root composite Markov number `c` reduces to *purely decidable* data: the root
+set of `x²≡−1 (mod c)` is `{r₁,r₂,r₃,r₄}`, and for each `rᵢ` the 1-D search over `b` pins the
+ordered triple.  Phantom roots discharge vacuously (`markovEq` false), the unordered partner
+discharges vacuously (`(rᵢ·b)%c ≤ b` false).  This packages the whole 2-D→1-D reduction so a new
+composite is a one-liner. -/
 
-set_option maxRecDepth 40000 in
-/-- Phantom root `182`: no `b < 1325` closes a triple. -/
-theorem markov_root_182 : ∀ b, b < 1325 → ¬ markovEq ((182 * b) % 1325) b 1325 := by decide
-set_option maxRecDepth 40000 in
-/-- Phantom root `1143`: no `b < 1325` closes a triple. -/
-theorem markov_root_1143 : ∀ b, b < 1325 → ¬ markovEq ((1143 * b) % 1325) b 1325 := by decide
-set_option maxRecDepth 40000 in
-/-- Valid root `507`: the *only* `b < 1325` closing a triple is `b = 34`, recovering `a = 13`. -/
-theorem markov_root_507 :
-    ∀ b, b < 1325 → markovEq ((507 * b) % 1325) b 1325 → (507 * b) % 1325 = 13 ∧ b = 34 := by decide
-set_option maxRecDepth 40000 in
-/-- Valid root `818`: the *only* `b < 1325` closing a triple is `b = 13`, recovering `a = 34`
-    (the unordered partner — excluded once `a ≤ b` is imposed). -/
-theorem markov_root_818 :
-    ∀ b, b < 1325 → markovEq ((818 * b) % 1325) b 1325 → (818 * b) % 1325 = 34 ∧ b = 13 := by decide
-set_option maxRecDepth 40000 in
-/-- No triple has two top entries equal to `1325`. -/
-theorem markov_no_top_1325 : ∀ a, a ≤ 1325 → ¬ markovEq a 1325 1325 := by decide
+/-- The smallest entry of a Markov triple with maximum `c ≥ 2` is positive (`a = 0` forces
+    `c = 0`). -/
+theorem markov_a_pos {a b c : Nat} (hc : 2 ≤ c) (hm : markovEq a b c) : 1 ≤ a := by
+  rcases Nat.eq_zero_or_pos a with h0 | hp
+  · exfalso
+    subst h0
+    have e : 0 * 0 + b * b + c * c = 3 * 0 * b * c := hm
+    have hrhs : (3 : Nat) * 0 * b * c = 0 := by rw [Nat.mul_zero, Nat.zero_mul, Nat.zero_mul]
+    have hlhs : (0 : Nat) * 0 + b * b + c * c = b * b + c * c := by rw [Nat.zero_mul, Nat.zero_add]
+    rw [hlhs, hrhs] at e
+    have hccpos : 0 < c * c := Nat.mul_pos (Nat.lt_of_lt_of_le (by decide) hc)
+      (Nat.lt_of_lt_of_le (by decide) hc)
+    have hpos : 0 < b * b + c * c := Nat.lt_of_lt_of_le hccpos (Nat.le_add_left (c * c) (b * b))
+    rw [e] at hpos; exact absurd hpos (Nat.lt_irrefl 0)
+  · exact hp
 
-/-- ★★★★★ **Conditional full uniqueness at the first 4-root composite Markov number.**
-    `MarkovMaxUnique 1325` — every ordered triple with maximum `1325` is `(13, 34, 1325)` —
-    follows from the root-recovery bundle, the exact four-root set, and the four per-root 1-D
-    certificates, *conditional only on* `hcop`: that the middle entry of any such triple is
-    coprime to `1325`.  `hcop` is the one descent-flavoured input (pairwise coprimality of an
-    arbitrary triple at a fixed maximum) NOT proved here — it holds along the Markov tree
-    (`markov_reachable_gcd_bc`), and closing the gap to *all* triples is Markov's descent theorem.
-    Everything else — the 2-D→1-D collapse — is ∅-axiom and unconditional. -/
-theorem markov_max_unique_1325_of_coprime
-    (hcop : ∀ a b, a ≤ b → b ≤ 1325 → markovEq a b 1325 → gcd213 b 1325 = 1) :
-    MarkovMaxUnique 1325 := by
-  refine markov_max_unique_of_single (a₀ := 13) (b₀ := 34) ?_
-  intro a b hab hb hm
-  -- b < 1325 (no triple has the top entry equal to the maximum)
-  rcases Nat.eq_or_lt_of_le hb with rfl | hblt
-  · exact absurd hm (markov_no_top_1325 a hab)
-  have ha : a < 1325 := Nat.lt_of_le_of_lt hab hblt
-  -- the recovered root u, with a = (u·b) mod 1325
+/-- ★★★★★ **General uniqueness from a 4-root certificate.**  `MarkovMaxUnique c` for any `c ≥ 2`
+    whose `x²≡−1` root set is `{r₁,r₂,r₃,r₄}` and whose per-root 1-D certificates pin the unique
+    ordered pair `(a₀,b₀)`.  All hypotheses are decidable; the descent theorem supplies coprimality
+    and `a ≥ 1`, `b < c` internally.  Each new 4-root composite Markov number is now a one-liner. -/
+theorem markov_max_unique_of_4roots (c a₀ b₀ r₁ r₂ r₃ r₄ : Nat) (hc : 2 ≤ c)
+    (hroots : ∀ u, u < c → (u * u + 1) % c = 0 → u = r₁ ∨ u = r₂ ∨ u = r₃ ∨ u = r₄)
+    (h₁ : ∀ b, b < c → markovEq ((r₁ * b) % c) b c → (r₁ * b) % c ≤ b → (r₁ * b) % c = a₀ ∧ b = b₀)
+    (h₂ : ∀ b, b < c → markovEq ((r₂ * b) % c) b c → (r₂ * b) % c ≤ b → (r₂ * b) % c = a₀ ∧ b = b₀)
+    (h₃ : ∀ b, b < c → markovEq ((r₃ * b) % c) b c → (r₃ * b) % c ≤ b → (r₃ * b) % c = a₀ ∧ b = b₀)
+    (h₄ : ∀ b, b < c → markovEq ((r₄ * b) % c) b c → (r₄ * b) % c ≤ b → (r₄ * b) % c = a₀ ∧ b = b₀) :
+    MarkovMaxUnique c := by
+  refine markov_max_unique_of_single (a₀ := a₀) (b₀ := b₀) ?_
+  intro a b hab hbc hm
+  have ha : 1 ≤ a := markov_a_pos hc hm
+  have hbc' : b < c := markov_mid_lt_max a b c hm ha hab hbc hc
+  have hac : a < c := Nat.lt_of_le_of_lt hab hbc'
+  have hco : gcd213 b c = 1 := markov_hcop_general c hc a b hab hbc hm
   obtain ⟨u, hu_lt, hu_root, hu_rec⟩ :=
-    markov_root_recovery a b 1325 (by decide) ha (hcop a b hab hb hm) hm
-  subst hu_rec
-  rcases sqrtNegOneRoots_1325 u hu_lt hu_root with rfl | rfl | rfl | rfl
-  · exact absurd hm (markov_root_182 b hblt)
-  · exact markov_root_507 b hblt hm
-  · -- u = 818 recovers the unordered partner (34, 13); a ≤ b excludes it
-    have h818 := markov_root_818 b hblt hm
-    rw [h818.1, h818.2] at hab
-    exact absurd hab (by decide)
-  · exact absurd hm (markov_root_1143 b hblt)
+    markov_root_recovery a b c (Nat.lt_of_lt_of_le (by decide) hc) hac hco hm
+  rcases hroots u hu_lt hu_root with rfl | rfl | rfl | rfl
+  · obtain ⟨e1, e2⟩ := h₁ b hbc' (hu_rec ▸ hm) (hu_rec ▸ hab); exact ⟨hu_rec.trans e1, e2⟩
+  · obtain ⟨e1, e2⟩ := h₂ b hbc' (hu_rec ▸ hm) (hu_rec ▸ hab); exact ⟨hu_rec.trans e1, e2⟩
+  · obtain ⟨e1, e2⟩ := h₃ b hbc' (hu_rec ▸ hm) (hu_rec ▸ hab); exact ⟨hu_rec.trans e1, e2⟩
+  · obtain ⟨e1, e2⟩ := h₄ b hbc' (hu_rec ▸ hm) (hu_rec ▸ hab); exact ⟨hu_rec.trans e1, e2⟩
 
-/-- ★★★★★ **UNCONDITIONAL full uniqueness at `c = 1325 = 5²·53`** — the first complete Markov
-    uniqueness theorem at a 4-root composite Markov number, with **no** hypotheses.  Every ordered
-    triple `(a,b,1325)` is `(13,34,1325)`.  Assembled from the conditional reduction
-    (`markov_max_unique_1325_of_coprime`) by discharging coprimality via the general descent
-    theorem (`markov_hcop_general`) — entirely ∅-axiom. -/
+set_option maxRecDepth 40000 in
+/-- ★★★★★ **UNCONDITIONAL uniqueness at `c = 610 = 2·5·61`** — the first **even** composite Markov
+    number closed ∅-axiom, no hypotheses.  Four roots `{133,233,377,477}`, unique triple
+    `(1,233,610)`.  A one-liner via `markov_max_unique_of_4roots`. -/
+theorem markov_max_unique_610 : MarkovMaxUnique 610 :=
+  markov_max_unique_of_4roots 610 1 233 133 233 377 477 (by decide)
+    (by decide) (by decide) (by decide) (by decide) (by decide)
+
+/-! ### Full uniqueness at the 4-root composite Markov numbers `1325`, `985`
+
+Each is a one-liner via `markov_max_unique_of_4roots`: the root set plus the four per-root
+certificates (all `decide`), with coprimality discharged by the descent theorem.  The earlier
+narrative milestones `markov_composite_separation` / `sqrtNegOneRoots_1325` (above) spell out the
+`1325` root split explicitly. -/
+
+set_option maxRecDepth 40000 in
+/-- ★★★★★ **UNCONDITIONAL `MarkovMaxUnique 1325`** (`1325 = 5²·53`) — the first complete Markov
+    uniqueness at a 4-root composite Markov number.  Roots `{182,507,818,1143}`, unique triple
+    `(13,34,1325)`.  ∅-axiom, no hypotheses. -/
 theorem markov_max_unique_1325 : MarkovMaxUnique 1325 :=
-  markov_max_unique_1325_of_coprime (markov_hcop_general 1325 (by decide))
-
-/-! ### A second 4-root composite Markov number, `c = 985 = 5·197` — same template
-
-`985 = 5·197` (both primes `≡ 1 mod 4`, four roots `{183,408,577,802}`, triple `(2,169,985)`).
-The same machinery — `markov_root_recovery`, the exact root set, per-root certificates, and
-coprimality via the general descent theorem (`markov_hcop_general`) — yields `MarkovMaxUnique 985`
-unconditionally, confirming the route generalises beyond `1325`. -/
+  markov_max_unique_of_4roots 1325 13 34 182 507 818 1143 (by decide)
+    (by decide) (by decide) (by decide) (by decide) (by decide)
 
 set_option maxRecDepth 40000 in
-/-- Root set of `x² ≡ −1 (mod 985)` is exactly `{183, 408, 577, 802}`. -/
-theorem sqrtNegOneRoots_985 :
-    ∀ u, u < 985 → (u * u + 1) % 985 = 0 → u = 183 ∨ u = 408 ∨ u = 577 ∨ u = 802 := by decide
-set_option maxRecDepth 40000 in
-/-- Phantom root `183`. -/
-theorem markov_root_183 : ∀ b, b < 985 → ¬ markovEq ((183 * b) % 985) b 985 := by decide
-set_option maxRecDepth 40000 in
-/-- Phantom root `802`. -/
-theorem markov_root_802 : ∀ b, b < 985 → ¬ markovEq ((802 * b) % 985) b 985 := by decide
-set_option maxRecDepth 40000 in
-/-- Valid root `408`: the only closing `b` is `169`, recovering `a = 2`. -/
-theorem markov_root_408 :
-    ∀ b, b < 985 → markovEq ((408 * b) % 985) b 985 → (408 * b) % 985 = 2 ∧ b = 169 := by decide
-set_option maxRecDepth 40000 in
-/-- Valid root `577`: the only closing `b` is `2`, recovering `a = 169` (unordered partner). -/
-theorem markov_root_577 :
-    ∀ b, b < 985 → markovEq ((577 * b) % 985) b 985 → (577 * b) % 985 = 169 ∧ b = 2 := by decide
-set_option maxRecDepth 40000 in
-/-- No triple has two top entries equal to `985`. -/
-theorem markov_no_top_985 : ∀ a, a ≤ 985 → ¬ markovEq a 985 985 := by decide
-
-/-- Conditional uniqueness at `985`, on coprimality of the middle entry. -/
-theorem markov_max_unique_985_of_coprime
-    (hcop : ∀ a b, a ≤ b → b ≤ 985 → markovEq a b 985 → gcd213 b 985 = 1) :
-    MarkovMaxUnique 985 := by
-  refine markov_max_unique_of_single (a₀ := 2) (b₀ := 169) ?_
-  intro a b hab hb hm
-  rcases Nat.eq_or_lt_of_le hb with rfl | hblt
-  · exact absurd hm (markov_no_top_985 a hab)
-  have ha : a < 985 := Nat.lt_of_le_of_lt hab hblt
-  obtain ⟨u, hu_lt, hu_root, hu_rec⟩ :=
-    markov_root_recovery a b 985 (by decide) ha (hcop a b hab hb hm) hm
-  subst hu_rec
-  rcases sqrtNegOneRoots_985 u hu_lt hu_root with rfl | rfl | rfl | rfl
-  · exact absurd hm (markov_root_183 b hblt)
-  · exact markov_root_408 b hblt hm
-  · have h577 := markov_root_577 b hblt hm
-    rw [h577.1, h577.2] at hab
-    exact absurd hab (by decide)
-  · exact absurd hm (markov_root_802 b hblt)
-
-/-- ★★★★★ **UNCONDITIONAL full uniqueness at `c = 985 = 5·197`** — a second 4-root composite
-    Markov number closed ∅-axiom, no hypotheses.  `(2,169,985)` is the unique ordered triple.
-    Coprimality discharged by the general descent theorem (`markov_hcop_general`). -/
+/-- ★★★★★ **UNCONDITIONAL `MarkovMaxUnique 985`** (`985 = 5·197`) — roots `{183,408,577,802}`,
+    unique triple `(2,169,985)`.  ∅-axiom, no hypotheses. -/
 theorem markov_max_unique_985 : MarkovMaxUnique 985 :=
-  markov_max_unique_985_of_coprime (markov_hcop_general 985 (by decide))
+  markov_max_unique_of_4roots 985 2 169 183 408 577 802 (by decide)
+    (by decide) (by decide) (by decide) (by decide) (by decide)
 
 end E213.Lib.Math.Real213.MarkovUniqueness
