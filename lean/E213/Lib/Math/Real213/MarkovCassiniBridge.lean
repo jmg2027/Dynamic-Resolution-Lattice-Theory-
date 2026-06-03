@@ -107,4 +107,13 @@ theorem spine_residue_farey (n : Nat) :
   rw [hc] at hcancel
   exact add_left_cancel_pure _ _ _ hcancel
 
+/-- ★★★★ **Zhang Lemma 2 on the spine: the residue ratio is strictly increasing.**  The convergent
+    ratios `u_n/m_n = fib(2n)/fib(2n+1)` strictly increase — cross-multiplied,
+    `fib(2n)·fib(2n+3) < fib(2n+1)·fib(2n+2)` — an immediate consequence of `spine_residue_farey`
+    (the Farey cross-determinant is `+1`).  So distinct spine positions have distinct residues:
+    the Farey-monotone recovery (`SamePairInjective`) holds *on the Fibonacci spine*. -/
+theorem spine_residue_strict_mono (n : Nat) :
+    fib (2 * n) * fib (2 * n + 3) < fib (2 * n + 1) * fib (2 * n + 2) := by
+  rw [spine_residue_farey n]; exact Nat.lt_succ_self _
+
 end E213.Lib.Math.Real213.MarkovCassiniBridge
