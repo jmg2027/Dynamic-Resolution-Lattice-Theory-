@@ -303,4 +303,40 @@ theorem leibTerm_rowSwap (M : Nat → Nat → Int) (pre : List Nat) {x y : Nat} 
      = -(psign (pre ++ x :: y :: l) * prodDiagFrom M 0 (pre ++ x :: y :: l))
   rw [prodDiag_rowSwap, psign_swap_prefix pre l h, neg_mul]
 
+/-! ## §6 — the position-swap operation `swapAt`
+
+The list-level adjacent transposition: `swapAt k` swaps entries at positions `k, k+1`.  It is
+an `LPerm` (`swapAt_lperm`) and realizes the prefix decomposition (`swapAt_prefix`), tying the
+per-term identity to a single operation that the enumeration-closure (next file) reasons about. -/
+
+/-- Swap the entries at positions `k` and `k+1` of a list. -/
+def swapAt (k : Nat) (p : List Nat) : List Nat :=
+  match p with
+  | []     => []
+  | a :: r =>
+    match k, r with
+    | 0,      b :: r' => b :: a :: r'
+    | 0,      []      => [a]
+    | k' + 1, _       => a :: swapAt k' r
+
+/-- `swapAt k` is a list permutation (`LPerm`). -/
+theorem swapAt_lperm (k : Nat) (p : List Nat) : LPerm (swapAt k p) p := by
+  induction p generalizing k with
+  | nil => cases k <;> exact LPerm.nil
+  | cons a r ih =>
+    cases k with
+    | zero =>
+      cases r with
+      | nil       => exact LPerm.cons a LPerm.nil
+      | cons b r' => exact LPerm.swap a b r'
+    | succ k => exact LPerm.cons a (ih k)
+
+/-- `swapAt` at `pre.length` on `pre ++ y :: x :: l` swaps `y` and `x`. -/
+theorem swapAt_prefix : ∀ (pre : List Nat) (y x : Nat) (l : List Nat),
+    swapAt pre.length (pre ++ y :: x :: l) = pre ++ x :: y :: l
+  | [],        y, x, l => rfl
+  | a :: pre,  y, x, l => by
+    show a :: swapAt pre.length (pre ++ y :: x :: l) = a :: (pre ++ x :: y :: l)
+    rw [swapAt_prefix pre y x l]
+
 end E213.Lib.Math.Linalg213.Permutation
