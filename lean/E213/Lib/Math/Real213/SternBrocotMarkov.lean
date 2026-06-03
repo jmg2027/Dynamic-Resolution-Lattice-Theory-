@@ -1,5 +1,7 @@
 import E213.Lib.Math.Real213.MarkovInjectivity
+import E213.Lib.Math.Real213.ModularElliptic
 import E213.Meta.Nat.PolyNatMTactic
+import E213.Meta.Int213.PolyIntMTactic
 
 /-!
 # SternBrocotMarkov — the proper det-1 Stern-Brocot tree (toward the Markov recovery)
@@ -78,5 +80,59 @@ theorem sbInterval_mediant_coprime (path : List Bool) :
     gcd213 ((sbInterval path).1.1 + (sbInterval path).2.1)
            ((sbInterval path).1.2 + (sbInterval path).2.2) = 1 :=
   adj_mediant_coprime (sbInterval path) (sbInterval_adj path)
+
+/-! ## §2 — the Markoff-matrix carrier (the recommended residue vehicle)
+
+Per the classical proof (Zhang §5; Frobenius), the cleanest carrier of the Markov number `m_t` and
+residue `u_t` along the tree is the **Markoff matrix** `M_t ∈ SL₂(ℤ)`, multiplicative under mediant
+(`M_{r⊕s} = M_r·M_s`), with `m_t = (M_t)₂₁` (`.c`) and `u_t = (M_t)₂₂ − (M_t)₂₁`.  The Frobenius
+determinant identities (the engine of monotonicity / `SamePairInjective`) then become a one-multiply
+entry read-off using `det = 1`.  The backbone is **determinant multiplicativity**: -/
+
+open E213.Lib.Math.Real213.ModularElliptic (Mat2 mul I2)
+
+/-- The `2×2` determinant on `Mat2`. -/
+def det2 (M : Mat2) : Int := M.a * M.d - M.b * M.c
+
+/-- ★★★★★ **Determinant is multiplicative** — `det(MN) = det M · det N`.  Pure `ℤ` polynomial
+    identity (`ring_intZ`); the backbone making the whole Markoff-matrix tree `det = 1`. -/
+theorem det2_mul (M N : Mat2) : det2 (mul M N) = det2 M * det2 N := by
+  show (M.a * N.a + M.b * N.c) * (M.c * N.b + M.d * N.d)
+       - (M.a * N.b + M.b * N.d) * (M.c * N.a + M.d * N.c)
+     = (M.a * M.d - M.b * M.c) * (N.a * N.d - N.b * N.c)
+  ring_intZ
+
+/-- Markoff matrix generators: `M_{0/1} = [[2,1],[1,1]]` (`genL`), `M_{1/0} = [[3,4],[2,3]]`
+    (`genR`), both in `SL₂(ℤ)`. -/
+def genL : Mat2 := ⟨2, 1, 1, 1⟩
+def genR : Mat2 := ⟨3, 4, 2, 3⟩
+
+/-- The Markoff matrix at a Stern-Brocot path (a word in the two generators). -/
+def mMat : List Bool → Mat2
+  | []     => I2
+  | b :: t => mul (if b then genL else genR) (mMat t)
+
+/-- ★★★★★ **Every Markoff matrix has `det = 1`** (`SL₂(ℤ)`) — by `det2_mul` + the det-1
+    generators, the same det-1 invariant as the Farey-interval tree (`sbInterval_adj`). -/
+theorem mMat_det1 (path : List Bool) : det2 (mMat path) = 1 := by
+  induction path with
+  | nil => show (1 : Int) * 1 - 0 * 0 = 1; ring_intZ
+  | cons b t ih =>
+      show det2 (mul (if b then genL else genR) (mMat t)) = 1
+      rw [det2_mul]
+      cases b
+      · show det2 genR * det2 (mMat t) = 1; rw [ih]; show (3 * 3 - 4 * 2) * 1 = 1; ring_intZ
+      · show det2 genL * det2 (mMat t) = 1; rw [ih]; show (2 * 1 - 1 * 1) * 1 = 1; ring_intZ
+
+/-- The Markov number at a node = the `(2,1)` matrix entry. -/
+def markovNum (path : List Bool) : Int := (mMat path).c
+
+/-- The residue at a node = `(M)₂₂ − (M)₂₁`. -/
+def markovRes (path : List Bool) : Int := (mMat path).d - (mMat path).c
+
+/-- Sanity: the root mediant `1/1 = (0/1)⊕(1/0)` gives `(m, u) = (5, 2)` — the Markov number `5`
+    and its `√(−1)` residue `2` (`2²+1 = 5`). -/
+theorem markov_root_node : markovNum [true, false] = 5 ∧ markovRes [true, false] = 2 := by
+  refine ⟨?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.Real213.SternBrocotMarkov
