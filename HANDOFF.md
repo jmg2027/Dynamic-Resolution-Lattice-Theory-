@@ -1,3 +1,47 @@
+# Session Handoff — 2026-06-03 (Markov marathon — tree residue closed)
+
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.
+
+## ★ THIS ITERATION: `Real213/SternBrocotMarkov` now **37 PURE** (was 27)
+The Markoff-matrix tree carrier is fully wired for the residue analysis.  Earlier this marathon:
+`mInterval`/`mNode` (interval-mediant tree, NOT word products), `det2_mul`, `mInterval_det`,
+`mNode_det1`, `markoff_frobenius`, `markoff_vieta(_trace)(_R)`, `mInterval_shape` (tr=3c keystone),
+`mInterval_markov` (the tree generates Markov triples).  **New §4–§6 this iteration:**
+
+- **§4 positivity** (`posMat`, `posMat_mul`, `mInterval_pos`, `mNode_pos`, `markovNum_pos`): every
+  bound + node matrix has all four entries `≥ 1` (tree induction; `mul` preserves it).  Pure Int
+  positivity helpers (`one_le_mul`, `one_le_add_nonneg`, `nonneg_of_one_le`, `sub_zero_int`) via the
+  `Int.NonNeg`/`add_nonneg`/`mul_nonneg` backbone.  The monotonicity-sign prerequisite.
+- **§5 `u_t² ≡ −1 (mod m_t)`** (`markovRes_sq`, `markovNum_dvd_res_sq_succ`): one-shot ring identity
+  `u_t²+1 = (m_t+d−b)·m_t` from `det=1` + entry-shape.  The `SqrtNegOneTwoRoots` congruence on every
+  node — each residue is an honest √(−1) mod its Markov number.
+- **§6 Frobenius residue cross + recovery**:
+  - `markoff_frobenius_res` (generic det-1 identity) + `markovRes_cross`: `u_r·m_t − u_t·m_r = m_l`.
+    (The mirror `u_t·m_l − u_l·m_t = m_r` is **tree-specific**, 54/2000 on random det-1 matrices —
+    needs induction, deferred.  Confirmed by sympy/random search.)
+  - **`markovRes_recovery_dvd`**: `m_t ∣ (u_t·m_l − m_r)`, i.e. `u_t·m_l ≡ m_r (mod m_t)` — the
+    `SamePairInjective` recovery congruence, derived **purely by modular arithmetic** from §5+§6
+    (multiply `u_t·m_r ≡ −m_l` by `u_t`, use `u_t² ≡ −1`).  NO tree induction.  INSIGHT: the recovery
+    is free once you have the √(−1) congruence + the one generic Frobenius residue identity.
+
+**Net**: every tree node carries the full `(root, recovery)` data of `SamePairInjective` — squares
+to −1 mod `m_t` AND recovers the partner Markov number.  This is the *tree → data* direction.
+
+### Precise remaining gap to `SamePairInjective` (the open conjecture core)
+`SamePairInjective c` (`MarkovInjectivity.lean`) is over **arbitrary Nat triples** at max `c`.  Two
+genuinely-hard pieces remain, both tree-specific (NOT generic ring identities — verified):
+  1. **Surjectivity** — every Nat Markov triple with max `c` is on the tree (Frobenius completeness).
+  2. **Entry ordering `c ≤ d ≤ a ≤ b`** (⟹ window `0 < u_t < m_t/2` ⟹ residue injective on tree).
+     Window `0<u_t` ⟺ `c<d`; `2u_t<m_t` ⟺ `d<a` (via `a+d=3c`).  NOT generic (49/59 det-1+shape+pos
+     matrices violate it — the bounds violate, nodes satisfy) → needs the **coupled-invariant tree
+     induction** on the bounds (à la `mInterval_shape`), the "[subtle: inequalities]" step.  Find the
+     bound-invariant numerically first.
+
+Next session: attempt the §7 ordering induction (coupled invariant on interval bounds), then window
+→ `SamePairInjective` on the tree.  Surjectivity is the separate hard half.
+
+---
+
 # Session Handoff — 2026-06-02 (Markov uniqueness marathon)
 
 ## Branch
