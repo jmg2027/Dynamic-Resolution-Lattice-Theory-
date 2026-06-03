@@ -1,8 +1,25 @@
 # Session Handoff — 2026-06-02 (Markov uniqueness marathon)
 
 ## Branch
-`claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**.
-Full `lake build` clean.  Markov: `MarkovUniqueness` **80 PURE** + `ModArith/MarkovPrimeFactor`
+`claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` re-merged** (the
+Cassini/orbit/depth thread — `CassiniUnimodular`, `CassiniDepthFloor`, `SecondCasoratian`,
+`FibCassiniNat`; `CayleyDickson/.../UnitsToModular`; `ring_intZ`/`PolyIntM`).  HANDOFF kept ours.
+
+## ★ NEW (this session): `Real213/MarkovCassiniBridge` (3 PURE) — Markov spine ↔ main's Cassini
+Using merged-main's `CassiniUnimodular` (`det_closed`: `D(n)=qⁿ·D(0)`, the `q=±1` floor) +
+`FibCassiniNat.fib_cassini_norm`, the Markov–Fibonacci spine reads the Cassini unimodular dichotomy:
+- `markov_spine_sqrt_neg_one_cassini` (`q=−1`): `fib(2n+3) ∣ fib(2n+2)²+1` because
+  `fib(2n+2)²+1 = fib(2n+1)·fib(2n+3)` IS `fib_cassini_norm` — the √(−1)-residue is the `q=−1`
+  Casoratian value.
+- `markov_fib_second_cassini` (`q=+1`): `fib(2n+1)·fib(2n+5) = fib(2n+3)²+1` — the spine's
+  index-gap-2 Cassini is the conserved unit (`det_closed` at `q=1` for `s(n+2)=3s(n+1)−s(n)`).
+- `markov_spine_cassini_dichotomy` bundles them; both reduce to `fib_cassini_norm`.
+**Idea-level (not yet Lean)**: `UnitsToModular.repI i = S` ⟹ the √(−1)-residue `u` is `S`'s
+eigenvalue mod `c` (eigenvector `(u,1)`: `S·(u,1)≡u·(u,1)` iff `u²≡−1`); the Cohn matrix
+(`cohn_sq_neg_one_mod`) is `S = `Gaussian-`i` reduced mod `c`.
+
+Full `lake build` clean.  Markov: `MarkovUniqueness` **80 PURE** + `MarkovCassiniBridge` 3 PURE +
+`ModArith/MarkovPrimeFactor`
 28 PURE = 108, all ∅-axiom.  **★ Frobenius uniqueness verified for EVERY Markov number
 `2 ≤ c ≤ 1325`** — `{2,5,13,29,34,89,169,194,233,433,610,985,1325}`, all unconditional ∅-axiom,
 each a one-liner via `markov_max_unique_of_{2,4}roots` (or the small `markov_max_unique_{5,13,29,34}`

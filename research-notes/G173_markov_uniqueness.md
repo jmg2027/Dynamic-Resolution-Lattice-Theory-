@@ -148,3 +148,34 @@ root all coincide on the Fibonacci convergents.
    done: prove `triple ↦ a·b⁻¹ (mod c)` injective on ordered triples with max `c` (recover
    `(a,b)` from the root `u` + size bounds + the Markov equation).  Attempt in isolation,
    guarding against vacuity.  Closing it would give prime-Markov-number uniqueness (C7) outright.
+
+## Main-content synthesis (2026-06 re-merge: Cassini / orbit / modular threads)
+
+Re-merging `origin/main` brought the **Cassini-unimodular / orbit-depth** thread
+(`CassiniUnimodular`, `CassiniDepthFloor`, `SecondCasoratian`, `FibCassiniNat`), the
+**`UnitsToModular`** bridge (`ℤ[i]^× → M₂(ℤ)` regular rep, `repI i = S`), and the **`ring_intZ`**
+ℤ-reflection tactic.  These illuminate the Markov work:
+
+- **The √(−1)-residue IS a Casoratian/Cassini value (now a theorem).**  `CassiniUnimodular`'s
+  `det_closed` says a 2nd-order `Int` orbit's Cassini `D(n)=qⁿ·D(0)` is governed by the shift's
+  multiplier `q`.  The Markov–Fibonacci spine carries both unimodular readings:
+  `q=−1` (standard Cassini, alternating) gives the √(−1) — `fib(2n+2)²+1 = fib(2n+1)·fib(2n+3)`
+  (= `fib_cassini_norm`), so `fib(2n+3) ∣ fib(2n+2)²+1`; `q=+1` (index-gap-2, conserved) gives the
+  unit — `fib(2n+1)·fib(2n+5) = fib(2n+3)²+1`.  Both ∅-axiom in `Real213/MarkovCassiniBridge`
+  (`markov_spine_{sqrt_neg_one_cassini, fib_second_cassini, cassini_dichotomy}`).  This grounds
+  G174's "Casoratian = Cassini = √(−1)" as Lean, and places the Markov spine on the depth-0
+  Cassini floor (`CassiniDepthFloor`).
+
+- **The √(−1)-residue = the Gaussian unit `i` = `S`, reduced mod `c`** (idea-level).
+  `UnitsToModular.repI i = S` (`S = [[0,-1],[1,0]]`, order 4, `S²=−I`).  Mod a Markov number `c`,
+  the residue `u` (with `u²≡−1`) is `S`'s eigenvalue: `S·(u,1) ≡ u·(u,1)` exactly when `u²≡−1`
+  (component 1 is `−1 ≡ u²`).  So `(u,1)` is the `i`-eigenvector mod `c`, and the Cohn matrix
+  (`cohn_sq_neg_one_mod`, `tr=3c,det=1,C²≡−I`) is the Markov-tree image of `S` mod `c`.  This
+  realizes the HANDOFF "213-native conjecture" (Markov↦√(−1) = Stern-Brocot↦`PSL₂(ℤ)`-elliptic)
+  concretely — content is `u²≡−1` redressed in the modular-generator language (honest: a
+  structure-map reading, per `UnitsToModular`'s own construction-tautology caveat).
+
+- **`ring_intZ` for the open injectivity (C6).**  The residue-map injectivity argument is
+  cleanest over `ℤ` (the quadratic `f(b)=(b−c)(b−c')`, the Vieta sign reasoning I did awkwardly in
+  `ℕ` for `markov_vieta_partner_le`).  `ring_intZ` (multivariate `Int` reflection) is the tool if
+  C6 is attempted — work the descent/injectivity over `ℤ` then cast.
