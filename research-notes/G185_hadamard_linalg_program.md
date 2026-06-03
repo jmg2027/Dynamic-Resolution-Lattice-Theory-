@@ -285,6 +285,29 @@ determinant is **alternating**, ∅-axiom, via antisymmetrization — the essay'
 home, no funext/propext/Quot/Classical.  A full clean ∅-axiom `List` substrate (`mem_*`,
 `length_append'`, `map_map'`, `Nodup`-as-`cnt≤1`, …) was built since core's are tainted.
 
+### Determinant property suite COMPLETE (PermClosure, 76 PURE)
+
+alternating (`leibDet_rowSwap`, `leibDet_eq_zero_of_rows_eq`, `leibDet_eq_zero_of_two_rows_eq`,
+`leibDet_rows_eq_ne`), multilinearity (`leibDet_setRow_add`/`_smul`), degeneracy
+(`leibDet_proportional_rows`, `leibDet_zero_row`).  The defining determinant axioms, ∅-axiom.
+
+### Laplace → CH → cfiniteZ_mul (chosen path; `Linalg213/Laplace.lean` started)
+
+- **§1 relabeling DONE (4 PURE)**: `unshift j` (drop value `j`) = inverse of `DetN.colShift j`
+  on `[0,…,n]∖{j}`; `colShift_unshift`, `unshift_colShift`, `colShift_ne`.
+- **§2 next — cofactor expansion along row 0**: `leibDet (n+1) M = Σⱼ altSign j · M 0 j ·
+  leibDet n (DetN.minor M j)`.  Bijection: a permutation value-list of `[0,…,n]` with first
+  entry `j` is `j :: rest`, `rest` a permutation of `[0,…,n]∖{j}`; relabel `rest` by
+  `unshift j` to a permutation of `[0,…,n-1]` (= a `perms n` element).  Sign:
+  `psign (j::rest) = altSign (ltCount j rest) · psign rest` (`PermClosure.psign_cons`), and
+  `ltCount j rest = j` (rest has exactly `j` values `< j`).  Product:
+  `prodDiagFrom M 1 rest = prodDiagFrom (minor M j) 0 (relabel rest)` via `colShift_unshift`.
+  Then sum over `j`.  Needs the `perms (n+1)` ↔ `⋃ⱼ {j} × perms n` reindex (the heaviest part).
+- **§3 cofactor along any row `i`**: from §2 + multilinearity / row swaps.
+- **§4 adjugate** `M · adj M = det M · I`: diagonal = §3; off-diagonal = `leibDet_rows_eq_ne` (✓).
+- **§5 integer Cayley–Hamilton** via the adjugate of `zI − M` over `ℤ[z]`.
+- **§6 Kronecker `M`** for the Hadamard + extract `cfiniteZ_mul`.
+
 **Next (downstream of alternating):**
 - General equal rows (any `a < b`, not just adjacent): move adjacent via `leibDet_rowSwap` swaps.
 - `leibDet = DetN.det` (Laplace expansion) — transport alternating to the cofactor determinant.
