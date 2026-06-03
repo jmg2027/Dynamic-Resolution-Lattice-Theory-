@@ -47,7 +47,7 @@ open E213.Lib.Math.Cauchy.FiniteDepthAlgebra
   (vanishZ polyDepthZ_iff_vanish liftKZ_smul liftKZ_shift liftKZ_add)
 open E213.Meta.Int213.PolyIntM (powInt)
 open E213.Meta.Int213
-  (zero_mul mul_add add_comm mul_comm zero_add)
+  (zero_mul mul_add add_comm mul_comm zero_add mul_one mul_eq_zero sub_add_cancel_int)
 
 /-! ## §1 — the geometric eigen-sequence `2ⁿ` over `ℤ` -/
 
@@ -190,5 +190,67 @@ theorem cfiniteZ_add_sameRec {s t : Nat → Int} {k : Nat} {c : Nat → Int}
     CFiniteZ (fun m => s m + t m) := by
   refine ⟨k, c, fun n => ?_⟩
   rw [liftKZ_add s t k n, hs n, ht n, linComb_add c s t k n]
+
+/-! ## §5 — the general geometric family `cⁿ` (orbit dimension 1) -/
+
+/-- The geometric sequence `n ↦ cⁿ` over `ℤ`, via the core-free power `powInt`.
+    (`twoPowZ = geomZ 2`.) -/
+def geomZ (c : Int) : Nat → Int := fun n => powInt c n
+
+/-- ★ **The geometric eigen-identity, general base.**  `Δ(cⁿ) = (c−1)·cⁿ`
+    (`cⁿ⁺¹ − cⁿ = c·cⁿ − cⁿ = (c−1)·cⁿ`).  Base `c = 2` recovers `Δ(2ⁿ) = 2ⁿ`. -/
+theorem geom_diffZ (c : Int) (n : Nat) : diffZ (geomZ c) n = (c - 1) * geomZ c n := by
+  show powInt c n * c - powInt c n = (c - 1) * powInt c n
+  ring_intZ
+
+/-- Every iterate: `Δᵏ(cⁿ) = (c−1)ᵏ·cⁿ`.  The `Δ`-orbit is the single line `⟨cⁿ⟩`. -/
+theorem liftKZ_geomZ (c : Int) : ∀ k n,
+    liftKZ k (geomZ c) n = powInt (c - 1) k * geomZ c n
+  | 0,   n => by show geomZ c n = 1 * geomZ c n; rw [Int.one_mul]
+  | k+1, n => by
+    show liftKZ k (geomZ c) (n+1) - liftKZ k (geomZ c) n
+       = powInt (c - 1) k * (c - 1) * geomZ c n
+    rw [liftKZ_geomZ c k (n+1), liftKZ_geomZ c k n]
+    show powInt (c - 1) k * (geomZ c n * c) - powInt (c - 1) k * geomZ c n
+       = powInt (c - 1) k * (c - 1) * geomZ c n
+    ring_intZ
+
+/-- ★ **Every geometric sequence is C-finite** (orbit dimension 1, annihilator
+    `Δ − (c−1)`).  The whole geometric family sits on the first rung above the
+    polynomials. -/
+theorem cfiniteZ_geom (c : Int) : CFiniteZ (geomZ c) := by
+  refine ⟨1, (fun _ => c - 1), fun n => ?_⟩
+  show liftKZ 1 (geomZ c) n = (0 : Int) + (c - 1) * liftKZ 0 (geomZ c) n
+  rw [liftKZ_geomZ c 1 n, zero_add]
+  show 1 * (c - 1) * geomZ c n = (c - 1) * geomZ c n
+  ring_intZ
+
+/-- `xᵏ⁺¹ = 0 ⟹ x = 0` over `ℤ` (no zero divisors). -/
+theorem powInt_eq_zero : ∀ (x : Int) (k : Nat), powInt x (k+1) = 0 → x = 0
+  | x, 0,   h => by
+    have h' : (1 : Int) * x = 0 := h
+    rwa [Int.one_mul] at h'
+  | x, k+1, h => by
+    have h' : powInt x (k+1) * x = 0 := h
+    rcases mul_eq_zero h' with h1 | h2
+    · exact powInt_eq_zero x k h1
+    · exact h2
+
+/-- ★ **A geometric sequence `cⁿ` with `c ≠ 1` is not a polynomial.**  Its iterated
+    differences `Δᵏ(cⁿ) = (c−1)ᵏ·cⁿ` never vanish (`(c−1)ᵏ⁺¹ = 0` would force
+    `c = 1`), so it has no finite divergence depth — the geometric family `c ≠ 1`
+    lies strictly above the polynomials, orbit dimension exactly 1. -/
+theorem geom_not_polyDepthZ {c : Int} (hc : c ≠ 1) (d : Nat) :
+    ¬ polyDepthZ d (geomZ c) := by
+  intro h
+  have hv : liftKZ (d+1) (geomZ c) 0 = 0 := (polyDepthZ_iff_vanish.mp h) 0
+  rw [liftKZ_geomZ c (d+1) 0] at hv
+  have hv2 : powInt (c - 1) (d+1) = 0 := by
+    have hh : powInt (c - 1) (d+1) * geomZ c 0 = 0 := hv
+    rwa [show geomZ c 0 = 1 from rfl, mul_one] at hh
+  have hc1 : c - 1 = 0 := powInt_eq_zero (c - 1) d hv2
+  apply hc
+  have hcc : c - 1 + 1 = 0 + 1 := congrArg (· + 1) hc1
+  rwa [sub_add_cancel_int, zero_add] at hcc
 
 end E213.Lib.Math.Cauchy.OrbitDimension
