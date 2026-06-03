@@ -320,6 +320,14 @@ periodic recurrences), the trichotomy — *elliptic* `periodic_elliptic_{S,U}` (
 *parabolic* `parabolic_iff_depth1` (`disc=0` ⟺ linear depth-1, an iff), *hyperbolic*
 `hyperbolic_strictMono` / `hyperbolic_grows` (strictly increasing, unbounded).
 
+`E213.Lens.Number.FoundingDynamicBridge` — **1 PURE**.  `founding_swap_is_elliptic_floor`: the
+number-tower founding's static invert-**swap** (= negation, period-2 by `NT`, `NatPairToInt.
+swap_realizes_negation`) is the **elliptic floor** of the dynamic discriminant dial — `comp 0 1 = S`,
+`Mat2.det (comp 0 1) = NS − NT` (floor determinant = the shared founding unit), `disc < 0`,
+`S² = −I` (negation-of-identity), `zero_unique_negation_fixed`.  The static number-tower founding and
+the dynamic non-holonomicity dial pinned as one structure (shared floor = unit `1`; shared ceiling =
+the residue).
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and

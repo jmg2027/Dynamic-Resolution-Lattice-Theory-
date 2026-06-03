@@ -96,6 +96,22 @@ and the genuine non-holonomic reals (π's continued fraction) have *no* finite C
 all.  φ is the hyperbolic extreme of this ladder (the slowest, all-`1` partial quotients); π is the
 pole where no finite order closes.
 
+**The elliptic floor is the number-tower's founding move, set in motion.**  The dial's bottom rung
+meets the *static* founding of the number system at one theorem
+(`FoundingDynamicBridge.founding_swap_is_elliptic_floor`).  The number tower `ℕ → ℤ → ℚ → ℝ` is
+built by one move — the pair **swap** `(a,b) ↦ (b,a)`, which the projection reads as **negation**
+(`NatPairToInt.swap_realizes_negation`), period-2 because `NT = 2`, fixed only at the residue's `0`
+(`zero_unique_negation_fixed`), carrying the shared unit `1 = NS − NT = det P`
+(`SharedUnitAcrossReadings`).  The discriminant dial sets that pair-move in *motion* as the order-2
+recurrence — and its elliptic floor is exactly that swap iterated: `comp 0 1 = S` with
+`Mat2.det (comp 0 1) = NS − NT` (the floor determinant *is* the founding unit), `disc < 0`, and the
+central element `S² = −I` *is* negation-of-identity — the same period-2 negation the founding swap
+realises.  So the static "invert is one move" and the dynamic discriminant floor are one structure:
+the tower completes the pair once; the dial iterates it, the elliptic floor being the iteration that
+remains the pure period-2 swap.  Both chains share this floor (the unit `1`) and the same ceiling
+(the residue — `ℝ` the Cauchy fixpoint no convergent reaches, the non-holonomic real no finite
+machine reaches: one non-surjection, `object1_not_surjective`).
+
 ## Holonomicity is a property of the pointing, not of the real
 
 The continued-fraction holonomicity tiers (`cf_holonomicity_hierarchy.md`) climb from periodic
