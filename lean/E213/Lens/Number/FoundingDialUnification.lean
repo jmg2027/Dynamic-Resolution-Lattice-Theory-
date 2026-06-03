@@ -33,7 +33,8 @@ both pin `NS = 3`), not for free.  All ∅-axiom.
 
 namespace E213.Lens.Number.FoundingDialUnification
 
-open E213.Lib.Math.Cauchy.EllipticPeriodicTier (comp comp_det comp_disc)
+open E213.Lib.Math.Cauchy.EllipticPeriodicTier (comp comp_det comp_disc parabolic_iff_depth1)
+open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ liftKZ)
 open E213.Lib.Math.Real213.HyperbolicEllipticTrace (Mat2)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
@@ -60,5 +61,27 @@ theorem founding_unit_floors_dial_trace_runs_tiers :
   · rw [comp_disc]; decide
   · rw [comp_disc]; decide
   · rw [comp_disc]; decide
+
+/-- ★★★★ **The parabolic tier (trace `NT`) is the difference-Lens rung.**  The founding's first
+    bundling, the **difference-Lens** (`ℤ`), is read on a sequence as its first finite difference
+    `liftKZ 1 s n = s(n+1) − s n` — exactly the `m − n` of the directed count-pair.  The
+    discriminant dial's **parabolic** tier sits at trace `NT` (`disc (comp NT 1) = 0`), and a
+    sequence is parabolic iff that difference-Lens output is **constant** — `polyDepthZ 1`, depth-1
+    (`parabolic_iff_depth1`).  So:
+
+      * elliptic (trace `0`) = the difference-Lens **sign** (the period-2 swap, `S² = −I`);
+      * **parabolic (trace `NT`) = the difference-Lens applied once reaching a constant** (depth-1,
+        `Δ²s = 0`) — the `ℤ` magnitude rung;
+      * hyperbolic (trace `NS`) = the ratio/Pell growth (`ℚ`/`ℝ`).
+
+    The founding number-rungs *are* the discriminant tiers: `ℤ`'s sign and magnitude are the
+    elliptic and parabolic floors, the golden ratio the hyperbolic growth.  The parabolic trace is
+    `NT` because the second-difference middle coefficient is `NT = 2` (`Δ²s = s(n+2) − NT·s(n+1) +
+    s n`). -/
+theorem parabolic_at_NT_is_difference_lens_depth1 (s : Nat → Int) :
+    Mat2.disc (comp (NT : Int) 1) = 0
+    ∧ ((∀ n, s (n + 2) = (NT : Int) * s (n + 1) - s n) ↔ polyDepthZ 1 s)
+    ∧ (∀ n, liftKZ 1 s n = s (n + 1) - s n) :=
+  ⟨by rw [comp_disc]; decide, parabolic_iff_depth1 s, fun _ => rfl⟩
 
 end E213.Lens.Number.FoundingDialUnification
