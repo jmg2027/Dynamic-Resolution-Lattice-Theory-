@@ -21,7 +21,7 @@ conceptual ranking.
 | [`compose.md`](compose.md)         | `Lens/Compose/`         | 7 |
 | [`instances.md`](instances.md)     | `Lens/Instances/`       | 35 (largest sub-tree) |
 | [`lattice.md`](lattice.md)         | `Lens/Lattice/`         | 9 |
-| [`number_systems.md`](number_systems.md) | `Lens/Number/`     | 17 (Nat213 covered in universe_chain) |
+| [`number_systems.md`](number_systems.md) | `Lens/Number/`     | 25 (Nat213 covered in universe_chain; founding sub-tree under `Founding` umbrella) |
 | [`properties.md`](properties.md)   | `Lens/Properties/`      | 21 |
 | [`universal.md`](universal.md)     | `Lens/Universal/`       | 13 (universal Lens anchor) |
 | [`api.md`](api.md)                 | `Lens/API/` + `Lens/Internal/` | (API surface) |
