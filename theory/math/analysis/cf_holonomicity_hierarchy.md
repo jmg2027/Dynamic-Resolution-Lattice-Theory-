@@ -40,6 +40,24 @@ classical formal handle on "P-recursive / holonomic partial quotients".
 Reusable pure infrastructure born here: `pow_mul_pure`, `mul_sub_pure_le`, `polyDepth_congr`,
 `resP_mod`, `res3_div` (each replacing a `propext`/`Quot.sound`-leaking core lemma).
 
+A companion file `Cauchy/PositiveFloorUnbounded.lean` (13 PURE) adds the unboundedness side:
+
+| Theorem | Statement (informal) |
+|---|---|
+| `positive_floor_unbounded` | a positive *constant* top finite-difference (`polyDepth (m+1) s`, `Δ^{m+1}s(0) ≥ 1`) ⟹ `s` unbounded, with explicit witness `n` for every bound `B` |
+| `bounded_floor_zero` | (decidable `ℕ` contrapositive) bounded depth-`(m+1)` sequence ⟹ `Δ^{m+1}s(0) = 0` |
+| `positive_linear_exact` | positive-floor depth-1 ⟹ *exact* `s n = s 0 + c·n` (the ∅-axiom positive-linear case of `QuasiPolyCF ⟹ polynomially-bounded`) |
+| `ePQ_unbounded` | e's partial quotients are unbounded — its `2k+2` section has positive top difference, so `positive_floor_unbounded` fires |
+
+A third file `Cauchy/NonHolonomicWitness.lean` (22 PURE) reaches the genuinely-non-holonomic tier:
+
+| Theorem | Statement (informal) |
+|---|---|
+| `HolonomicGrowth` | the eventual Klazar growth majorant — `∃ k C D N, ∀ n ≥ N, s(n+k) ≤ C(n+1)^D · windowSum k s n` |
+| `holonomicGrowth_envelope` | `⟹ windowSum k s (N+m) ≤ windowSum k s N · (C+1)ᵐ · ((N+m)!)^D` (window-sum telescoping) |
+| `envelope_exceeded` | `(n!)ⁿ` exceeds every envelope at an explicit `m = 2(W+C+D+2)²+2` |
+| `superFact_nonHolonomic` | `¬ HolonomicGrowth ((n!)ⁿ)` — genuine non-holonomicity, ∅-axiom |
+
 ## Narrative
 
 ### The quasi-polynomial class
@@ -96,6 +114,58 @@ Yet `2ⁿ` is C-finite (`2ⁿ⁺¹ = 2·2ⁿ`), hence holonomic.  So the "non-Hu
 non-empty *inside* the holonomic class: being non-Hurwitzian is **strictly weaker** than
 being non-holonomic.  This is the precise altitude of the π frontier.
 
+### The genuinely non-holonomic tier — `(n!)ⁿ`
+
+Above the non-Hurwitzian-but-holonomic `2ⁿ` sits the tier of sequences with *no*
+polynomial-coefficient linear recurrence at all.  `Cauchy/NonHolonomicWitness.lean` (22 PURE)
+populates it ∅-axiom, via the elementary form of **Klazar's growth bound** (holonomic ⟹
+`|aₙ| ≤ cⁿ·(n!)^d`).  The bound is formalised through the *growth majorant*
+
+  `HolonomicGrowth s := ∃ k C D N, 1 ≤ k ∧ ∀ n ≥ N, s(n+k) ≤ C·(n+1)^D · windowSum k s n`,
+
+the eventual (`∃N`, mandated by the leading-coefficient roots of a genuine P-recurrence)
+shadow that every ℕ-valued P-recursive sequence satisfies.  `holonomicGrowth_envelope` derives
+the Klazar envelope `windowSum k s (N+m) ≤ windowSum k s N · (C+1)ᵐ · ((N+m)!)^D` by
+subtraction-free window-sum telescoping, and `envelope_exceeded` shows the super-factorial
+witness `superFact n = (n!)ⁿ` beats *every* envelope — so
+**`superFact_nonHolonomic : ¬ HolonomicGrowth ((n!)ⁿ)`**.  The certificate is one-directional
+(`HolonomicGrowth` is *necessary* for P-recursive, so its failure certifies non-holonomicity;
+it is not a characterisation).  This is the first ∅-axiom **non-holonomicity proper** result —
+the genuine top tier, strictly above the merely non-Hurwitzian `2ⁿ`, and the altitude π's CF
+is *conjectured* to reach.
+
+  | tier | class | witness | status |
+  |---|---|---|---|
+  | 0 | quadratic | `φ`, `√2` | periodic ⟹ holonomic |
+  | 1 | Hurwitzian | `e`, `tan 1` | quasi-poly ⟹ holonomic |
+  | 2 | non-Hurwitzian, C-finite | `2ⁿ` | still **holonomic** |
+  | 3 | **non-holonomic** | `(n!)ⁿ` (proven); π (conjectured) | no P-recurrence |
+
+### A second, orthogonal certificate — bounded sequences by the zero-run argument
+
+Growth is not the only ∅-axiom route into tier 3.  `Cauchy/ZeroRunNonHolonomic.lean` (3 PURE)
+gives a certificate that works on **bounded** sequences, via the **homogeneity** of a
+P-recursive recurrence rather than its size.  A holonomic integer sequence obeys a homogeneous
+recurrence `lead(n)·a(n+k) = Σᵢ qᵢ(n)·a(n+i)` with `lead` a nonzero polynomial (so `lead(n) ≠ 0`
+past its finitely many roots); hence **a window of `k` consecutive zeros past those roots forces
+every later term to be zero**.  Therefore `zero_run_not_homogRec`: a sequence with *arbitrarily
+long zero-runs at arbitrarily large positions* and *infinitely many nonzero terms* is
+non-holonomic (`HomogRec` abstracts the homogeneous-recurrence class; non-membership is the
+certificate — no growth, no `funext`, no analysis).
+
+`Cauchy/ZeroRunNonHolonomicWitness.lean` (18 PURE) inhabits it with the **indicator of the
+powers of two** `χ` (`chi_nonHolonomic : ¬ HomogRec χ`): the gaps between consecutive powers of
+two grow without bound, giving arbitrarily long zero-runs, while the powers themselves are
+infinitely many `1`s.  So `χ` is **bounded** (values `{0,1}`) yet non-holonomic — the sparse
+companion to the unbounded `(n!)ⁿ`.
+
+The two certificates are orthogonal: `(n!)ⁿ` is rejected for growing *too fast* (Klazar), `χ`
+for being *too sparse* (zero-runs).  The zero-run route applies only to sequences with
+arbitrarily long zero-runs (sparse), not to dense aperiodic sequences such as Thue–Morse
+(overlap-free, no long runs); the growth route applies only to super-`(n!)^d` growth.  Neither
+reaches π, whose continued fraction is conjecturally dense and slowly-varying — the genuine open
+frontier.
+
 ### Orthogonality
 
 The CF-holonomicity tier separates e (tier 1) from a geometric Liouville-type CF (top tier)
@@ -120,9 +190,28 @@ Two honest layers sit below it:
 The credible route is the **Flajolet–Gerhold–Salvy asymptotic obstruction**: a holonomic
 sequence has asymptotics of the restricted form `C·ρ⁻ⁿ·n^θ·(log n)^κ`, against which π's
 Gauss–Kuzmin statistics are conjecturally incompatible — but this is itself conditional on
-π being Gauss–Kuzmin normal, which is also open.  Adamczewski–Bugeaud prove the related
-statement that an algebraic number of degree `≥ 3` cannot have an *automatic* continued
-fraction; the holonomic analogue for π is beyond current methods.
+π being Gauss–Kuzmin normal, which is also open.  A second obstruction is **Klazar's growth
+bound** (holonomic ⟹ `|aₙ| ≤ cⁿ·(n!)^d`): super-`(n!)^d` growth ⟹ non-holonomic — the route
+to a genuinely *non-holonomic* witness above the merely *non-Hurwitzian* `2ⁿ`.
+Adamczewski–Bugeaud prove the related statement that an algebraic number of degree `≥ 3`
+cannot have an *automatic* continued fraction; the holonomic analogue for π is beyond current
+methods.
+
+### Where the difficulty is localized — the boundedness frontier
+
+Whether π's partial quotients are **bounded** is itself **open** (not even a sharply-stated
+conjecture; unboundedness is only the Gauss–Kuzmin *heuristic*, and π is not known to be
+Gauss–Kuzmin normal).  This open boundedness is exactly where the difficulty sits.  *If* π's
+partial quotients were bounded, π would be non-holonomic by an elementary route — bounded +
+holonomic ⟹ eventually periodic (a classical fact for integer P-recursive sequences, via the
+mod-`m` periodicity of the polynomial recurrence coefficients; Garrabrant–Pak) ⟹ quadratic
+irrational (Lagrange) ⟹ contradiction with π transcendental.  Since π's partial quotients are
+*expected unbounded*, this elementary route is unavailable: any proof of π's non-holonomicity
+must engage the unbounded growth of the partial quotients **directly**.  `PositiveFloorUnbounded`
+proves the ∅-axiom nucleus of this picture — a genuine positive-degree polynomial section
+*forces* unbounded partial quotients (`ePQ_unbounded` for e) — while deliberately **not**
+proving "bounded ⟹ eventually constant", which over `ℕ` is the monotone-sequence principle,
+equivalent to the limited principle of omniscience (LPO; Mandelkern 1988), hence not ∅-axiom.
 
 ### Relationship to the irrationality measure
 

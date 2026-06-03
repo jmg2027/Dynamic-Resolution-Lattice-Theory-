@@ -24,7 +24,7 @@ external parameters, all PURE in Lean.
 | **(NS, NT, c, d)** | Atomic 4-tuple = (3, 2, 2, 5).  Uniquely forced (see `physics/foundations/atomic_constants.md`). |
 | **K_{m,n}^{(c)}** | Bipartite multigraph with m S-vertices, n T-vertices, c edges per (s, t) pair.  213's canonical Lattice. |
 | **Δⁿ** | n-simplex on (n+1) vertices.  Δ⁴ pairs with K_{3,2}^{(2)} as dual fillings. |
-| **N_U = d^(d²) = 5²⁵** | Count-Lens output at fractal level 2.  Resolution limit per `seed/RESOLUTION_LIMIT_SPEC.md`. |
+| **configCountD d n = d^(d^n)** | Parametric configuration count (`lean/E213/Lib/Math/Cohomology/Fractal/ConfigCount.lean`); a count-Lens readout, **no level privileged** — not a universe constant. |
 | **Cup-ring** | Cochain cup-product structure.  Closure form for K_{3,2}^{(c=2)} observables. |
 | **Cochain n k** | `Fin (binom n k) → Bool` — free ℤ/2-module on k-subset basis of Δⁿ⁻¹. |
 | **Modulus** | Explicit `Nat → Nat` replacing ε-δ existentials.  Per `theory/math/modulus.md`. |
@@ -134,3 +134,17 @@ rings, not infrastructure layers below Math / Physics.  Per
 build-time dependency only — Lens application is itself a
 residue-internal event, not a substrate beneath Raw.  See
 `theory/lens/api.md` for the canonical statement.
+
+## Standalone treatise
+
+`book/` — **The Lens Tower: From the Residue to the Discriminant, and the Descent Home.**
+A 6-chapter book reading the orbit/axis/discriminant structure in 213-native primitives: the
+number tower as Lens bundlings (residue → count `+` → iterated `×` → difference-Lens `ℤ`), the
+Cassini as readout layer (with the genus category-error caught and corrected), the native/imported
+separation of `{2,4,6}`/discriminants, and the descent of "disc −2 skipped" to one count-Lens fact
+— `leaves(a/b) = 1+1 = NT` is non-square. Every claim cites a PURE Lean theorem. See `book/README.md`.
+
+`book/foundations/` — **The Founding of the Number Tower.**  The companion working treatise that
+*founds* the tower the main book applies: is `ℕ → ℤ → ℚ → ℝ` a complete tower (yes — `ℝ` is a
+Cauchy fixpoint), one axis or many (hybrid — one unit, many readings), and forced (only at its
+seams)?  Mirrors the `Lens/Number/Founding` sub-tree; see `theory/lens/number_systems.md`.

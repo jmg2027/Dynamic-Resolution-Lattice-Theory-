@@ -26,8 +26,8 @@ This is the *sufficiency* direction `q = 1 ⟹ depth 0`, the structural floor be
 
 namespace E213.Lib.Math.Cauchy.CassiniDepthFloor
 
-open E213.Lib.Math.CassiniUnimodular (det det_step)
-open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ isConstZ newtonZ)
+open E213.Lib.Math.CassiniUnimodular (det det_step det_closed qpow)
+open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ isConstZ newtonZ diffZ)
 open E213.Lib.Math.Cauchy.DepthCharacterization (finite_depthZ_iff)
 open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
 open E213.Lib.Math.Mobius213.Px.CharPolySelf (L_rec)
@@ -109,5 +109,88 @@ theorem cassini_is_polynomial (p : Int) (s : Nat → Int)
     (hrec : ∀ n, s (n + 2) = p * s (n + 1) - 1 * s n) :
     ∃ c : Nat → Int, ∀ n, det s n = newtonZ c 0 n :=
   finite_depthZ_iff.mp (cassini_conserved_depth0 p s hrec)
+
+/-! ## §4 — the orbit is C-finite: the Δ-orbit closes at dimension ≤ 2 (the middle rung)
+
+Where §3 puts the *Cassini* on the polynomial bottom rung, the *orbit itself* sits on the
+**C-finite** middle rung of the orbit-dimension ladder (`G183_above_the_polynomials`): a 2nd-order
+constant-coefficient recurrence makes the difference-orbit `⟨s, Δs, Δ²s, …⟩` close at dimension
+`≤ 2` — the **second difference is a constant-coefficient combination of `s` and `Δs`** (the
+"Cayley–Hamilton for `Δ`").  This is finite-`Δ`-orbit-over-`ℚ` for order 2, the witness that the
+orbit is C-finite (and, generically, divergence-depth `∞` — above the polynomials, even as its
+Cassini collapses to depth 0). -/
+
+/-- ★★★ **The Δ-orbit closes at dimension ≤ 2 (C-finite witness).**  For a 2nd-order
+    constant-coefficient orbit `s(n+2) = p·s(n+1) − q·s(n)`, the second difference is a *constant*
+    -coefficient combination of `s` and `Δs`: `Δ²s n = (p − q − 1)·s n + (p − 2)·Δs n`.  So the
+    difference-orbit `⟨s, Δs, Δ²s, …⟩` is spanned by `{s, Δs}` over `ℚ` — the orbit is C-finite
+    (orbit dimension `≤ 2`), the middle rung of the divergence-depth ladder. -/
+theorem second_diff_closure (p q : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - q * s n) (n : Nat) :
+    diffZ (diffZ s) n = (p - q - 1) * s n + (p - 2) * diffZ s n := by
+  show (s (n + 2) - s (n + 1)) - (s (n + 1) - s n)
+       = (p - q - 1) * s n + (p - 2) * (s (n + 1) - s n)
+  rw [hrec n]
+  ring_intZ
+
+/-- ★★★ **The orbit on the ladder: order-2 C-finite, Cassini drops it by one order.**  For a
+    2nd-order constant-coefficient orbit, two complementary structures:
+
+    1. **additive / middle rung** — the orbit is C-finite, `Δ²s = (p−q−1)·s + (p−2)·Δs`
+       (`second_diff_closure`): the difference-orbit closes at dimension `≤ 2`;
+    2. **multiplicative / order-drop** — its Cassini determinant is *geometric* (order-1 C-finite),
+       `det s n = qⁿ · det s 0` (`det_closed`): the quadratic Cassini invariant **drops the order
+       by one** — from the order-2 orbit to an order-1 geometric sequence (and, when `q = 1`, to
+       the order-0 constant of the polynomial bottom rung, `cassini_is_polynomial`).
+
+    So the Cassini map is a one-step descent of the orbit-dimension ladder: order-2 C-finite ↦
+    order-1 geometric ↦ (at `q=1`) order-0 polynomial. -/
+theorem cfinite_orbit_ladder_placement (p q : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - q * s n) :
+    (∀ n, diffZ (diffZ s) n = (p - q - 1) * s n + (p - 2) * diffZ s n)
+    ∧ (∀ n, det s n = qpow q n * det s 0) :=
+  ⟨second_diff_closure p q s hrec, det_closed p q s hrec⟩
+
+/-! ## §5 — the orbit lies on a conic (genus 0): a *determinantal* ladder, NOT a genus ladder
+
+Geometric reading of the conserved Cassini.  The consecutive triple `(s n, s(n+1), s(n+2))` of
+an order-2 orbit lies on a **fixed conic** `X·Z − Y² = c` (the Cassini/Pell quadric, the `2×2`
+Hankel determinant): the "circle" the two-orbit traces.
+
+**Honest scope (an adversarial-math audit corrected a category error here).**  The tempting
+"depth ↦ genus" reading — order-2 → conic (genus 0), order-3 → elliptic curve (genus 1),
+order-`k` → genus `k−1` — is **wrong, a stereotype-match, not a conjecture worth chasing**:
+
+  * **the genus does not climb.**  A const-coeff *linear* recurrence's orbit is genus 0 at
+    *every* order (its dynamics are a companion matrix on `ℤᵏ` — a toric / linear-algebraic
+    object).  The order-`k` invariant is the **`k×k` Casorati/Hankel determinant**, which obeys
+    the *same* multiplier law `Wₖ(n+1) = q·Wₖ(n)` (the Abel/Casorati identity) — a
+    **determinantal/arithmetic** ascent, all genus 0.  Degree-`k` of a *form in many variables*
+    is **not** the genus `binom(d−1,2)` of a *plane curve* (which also needs smoothness — the
+    `k×k` Hankel determinant is a *singular/reducible* determinantal variety, never a smooth
+    plane cubic).  So the real ladder is `det_step` generalised to order `k`, **not** a genus
+    ascent.
+  * **the shift is the Pell *unit* group, not the modular group.**  The `q=1` shift is a single
+    *hyperbolic* element of `SL₂(ℤ)` generating the rank-1 Pell unit group `⟨ε⟩ ≅ ℤ×ℤ/2` (the
+    conic's automorphisms) — **not** the rank-2 free-product modular group `PSL₂(ℤ)=ℤ/2*ℤ/3`
+    (`Real213.ModularElliptic`, whose generators are the *elliptic* `S, U` of finite order, which
+    the hyperbolic shift is not).  They share the ambient `SL₂(ℤ)`; they are different groups.
+  * **Apéry/ζ(3) is a different category.**  The Apéry recurrence is order-2 **holonomic**
+    (polynomial-coefficient), not order-3 const-coeff; Beukers' modularity is a **K3-surface /
+    weight-4 / Picard–Fuchs** phenomenon, not an elliptic curve attached to a recurrence orbit.
+
+So: genus-0 conic = proved; the honest ascent is the **order-`k` Casorati determinant**
+(`second_casoratian` below, order 3); "genus climbs / modular elliptic curve" is a category
+error, recorded and dropped. -/
+
+/-- ★★★ **The order-2 SL₂ orbit lies on a fixed conic (genus 0).**  For `q=1`, every consecutive
+    triple `(s n, s(n+1), s(n+2))` satisfies the *same* conic equation `X·Z − Y² = s 0·s 2 − s 1²`
+    — the Cassini/Pell quadric (the `2×2` Hankel determinant).  The two-orbit traces a conic,
+    conserved by the shift (a hyperbolic element of the Pell unit group).  (A restatement of
+    `cassini_conserved_depth0` in conic-geometry form.) -/
+theorem orbit_on_conic (p : Int) (s : Nat → Int)
+    (hrec : ∀ n, s (n + 2) = p * s (n + 1) - 1 * s n) (n : Nat) :
+    s n * s (n + 2) - s (n + 1) * s (n + 1) = s 0 * s 2 - s 1 * s 1 :=
+  cassini_conserved_depth0 p s hrec n
 
 end E213.Lib.Math.Cauchy.CassiniDepthFloor

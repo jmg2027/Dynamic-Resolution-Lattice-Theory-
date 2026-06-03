@@ -25,7 +25,7 @@ readings of that one conserved determinant.
 namespace E213.Lib.Math.Cauchy.PhiResidueGlue
 
 open E213.Lib.Math.Cauchy.DepthFloorDetOne (W W_eq_one)
-open E213.Lib.Math.Mobius213OneAsGlue (ns_minus_nt_is_one mobius_det_eq_ns_minus_nt)
+open E213.Lib.Math.Mobius213OneAsGlue (ns_minus_nt_is_one mobius_det_eq_ns_minus_nt ns_is_succ_nt)
 open E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_universal)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
@@ -64,5 +64,20 @@ theorem residue_unit_three_scales (n : Nat) :
     ∧ NS - NT = 1
     ∧ ((2 : Int) * 1 - 1 * 1 = (NS : Int) - (NT : Int)) :=
   ⟨orbit_det_is_glue n, phi_residue_is_glue n, ns_minus_nt_is_one, mobius_det_eq_ns_minus_nt⟩
+
+/-- ★★★ **2-1-3 as orbit residue-generation (Mingu Jeong's orbit reading).**  The `2-1-3`
+    structure read through the orbit: the **two** (`NT = 2`) circle — an order-2 orbit, the pair
+    `(s(n), s(n+1))` that keeps turning — and their orbital motion *generates* a conserved
+    residue, the Cassini unit, read over the `NS = 3`-term window: it is the glue `NS − NT`
+    (`W n = NS − NT`), produced *identically at every layer* (`W m = W 0`, conserved — the orbit
+    keeps drawing the same residue each turn).  Counting that generated residue together with the
+    pair gives the **three** seen at each layer: `NS = NT + 1` — not three independent atoms, but
+    the two-that-orbit plus the one-they-generate. -/
+theorem orbit_two_generates_residue_seen_as_three (n : Nat) :
+    NT = 2
+    ∧ W n = NS - NT
+    ∧ (∀ m, W m = W 0)
+    ∧ NS = NT + 1 :=
+  ⟨by decide, phi_residue_is_glue n, fun m => (W_eq_one m).trans (W_eq_one 0).symm, ns_is_succ_nt⟩
 
 end E213.Lib.Math.Cauchy.PhiResidueGlue
