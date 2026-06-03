@@ -18,7 +18,8 @@ structurally on the `List.Mem` constructors.  All ∅-axiom.
 namespace E213.Lib.Math.Linalg213.PermClosure
 
 open E213.Lib.Math.Linalg213.Permutation
-  (LPerm insertEverywhere permsOf perms iota swapAt swapAt_lperm)
+  (LPerm insertEverywhere permsOf perms iota swapAt swapAt_lperm swapAt_prefix
+   sumZ sumZ_lperm sumZ_map_neg map_lperm leibTerm leibDet rowSwapAt leibTerm_rowSwap)
 
 /-! ## §0 — clean (∅-axiom) `List` membership helpers -/
 
@@ -530,5 +531,69 @@ theorem perms_swap_closed (n k : Nat) : LPerm ((perms n).map (swapAt k)) (perms 
       (LPerm.trans (LPerm.symm (swapAt_lperm k q)) (permsOf_sound (iota n) _ hm))
   · exact fun hm => permsOf_complete (iota n) (swapAt k q)
       (LPerm.trans (swapAt_lperm k q) (permsOf_sound (iota n) q hm))
+
+/-! ## §9 — the alternating property (adjacent row swap negates `leibDet`)
+
+Clean `List` helpers (core's are `propext`-tainted), the split of a permutation at position
+`k`, and the assembly: each term negates (`leibTerm_rowSwap` on the split), `sumZ_map_neg`
+factors the sign, and `perms_swap_closed` reindexes the sum — so `leibDet (rowSwapAt k M) =
+−leibDet M`. -/
+
+/-- `length` of an append (∅-axiom). -/
+theorem length_append' {α : Type} : ∀ (L M : List α), (L ++ M).length = L.length + M.length
+  | [],     M => by show M.length = 0 + M.length; rw [Nat.zero_add]
+  | _ :: l, M => by
+    show (l ++ M).length + 1 = (l.length + 1) + M.length
+    rw [length_append' l M, Nat.succ_add]
+
+/-- `map` fusion (∅-axiom). -/
+theorem map_map' {α β γ : Type} (f : α → β) (g : β → γ) :
+    ∀ (L : List α), (L.map f).map g = L.map (fun x => g (f x))
+  | []     => rfl
+  | a :: l => by
+    show g (f a) :: (l.map f).map g = g (f a) :: l.map (fun x => g (f x))
+    rw [map_map' f g l]
+
+/-- `map` congruence on members (∅-axiom). -/
+theorem map_eq_of_mem {α β : Type} (f g : α → β) : ∀ {L : List α},
+    (∀ x ∈ L, f x = g x) → L.map f = L.map g
+  | [],     _ => rfl
+  | a :: l, h => by
+    show f a :: l.map f = g a :: l.map g
+    rw [h a (List.Mem.head _), map_eq_of_mem f g (fun x hx => h x (List.Mem.tail _ hx))]
+
+/-- `(iota n).length = n`. -/
+theorem length_iota : ∀ n, (iota n).length = n
+  | 0     => rfl
+  | n + 1 => by
+    show (iota n ++ [n]).length = n + 1
+    rw [length_append' (iota n) [n], length_iota n, show ([n] : List Nat).length = 1 from rfl]
+
+/-- `LPerm` carries `Nodup` backward. -/
+theorem nodup_of_lperm {α : Type} [DecidableEq α] {p L : List α} (h : LPerm p L) (hL : Nodup L) :
+    Nodup p := fun a => Nat.le_trans (Nat.le_of_eq (cnt_lperm h)) (hL a)
+
+/-- In a nodup `pre ++ y :: x :: l`, the two adjacent entries differ. -/
+theorem ne_of_nodup_adjacent {pre : List Nat} {y x : Nat} {l : List Nat}
+    (h : Nodup (pre ++ y :: x :: l)) : x ≠ y := by
+  intro e
+  have hc := h y
+  rw [cnt_append] at hc
+  change cnt y pre + ((if y = y then 1 else 0) + ((if x = y then 1 else 0) + cnt y l)) ≤ 1 at hc
+  rw [if_pos rfl, if_pos e] at hc
+  have h2 : 1 + 1 ≤ 1 :=
+    Nat.le_trans (Nat.add_le_add_left (Nat.le_add_right 1 (cnt y l)) 1)
+      (Nat.le_trans (Nat.le_add_left _ (cnt y pre)) hc)
+  exact absurd h2 (Nat.not_succ_le_self 1)
+
+/-- Split a list at position `k` (when `k+1 < length`). -/
+theorem split_at : ∀ (p : List Nat) (k : Nat), k + 1 < p.length →
+    ∃ pre y x l, p = pre ++ y :: x :: l ∧ pre.length = k
+  | [],          _,     h => absurd h (Nat.not_lt_zero _)
+  | [_],         _,     h => absurd (Nat.lt_of_succ_lt_succ h) (Nat.not_lt_zero _)
+  | a :: b :: p', 0,    _ => ⟨[], a, b, p', rfl, rfl⟩
+  | a :: b :: p', k + 1, h => by
+    rcases split_at (b :: p') k (Nat.lt_of_succ_lt_succ h) with ⟨pre, y, x, l, he, hl⟩
+    exact ⟨a :: pre, y, x, l, congrArg (a :: ·) he, congrArg (· + 1) hl⟩
 
 end E213.Lib.Math.Linalg213.PermClosure
