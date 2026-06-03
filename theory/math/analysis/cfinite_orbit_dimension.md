@@ -4,7 +4,7 @@
 **orbit dimension = recurrence order** equivalence, and the Hadamard product with an
 **explicit-spectrum factor** (`cⁿ·s` and `(Σ aᵢcᵢⁿ)·t`) are closed; the *general* Hadamard
 product (both factors non-split, e.g. `fib·fib`) is the documented open frontier.  Source of
-truth (all ∅-axiom): `lean/E213/Lib/Math/Cauchy/OrbitDimension.lean` (30 PURE) and
+truth (all ∅-axiom): `lean/E213/Lib/Math/Cauchy/OrbitDimension.lean` (32 PURE) and
 `lean/E213/Lib/Math/Cauchy/CFiniteRing.lean` (82 PURE).
 
 ## Overview
@@ -42,6 +42,7 @@ polynomials, and the algebraic structure carried on it — a commutative ring un
 | `twoPow_not_polyDepthZ` | `OrbitDimension` | `2ⁿ` is not a polynomial — the strict inclusion |
 | `cfiniteZ_geom` / `geom_not_polyDepthZ` | `OrbitDimension` | every `cⁿ` is C-finite (orbit dim 1); not polynomial for `c ≠ 1` |
 | `cfiniteZ_fib` | `OrbitDimension` | Fibonacci is C-finite (orbit dim 2) |
+| `cassini_fibZ_step` | `OrbitDimension` | the Fibonacci Cassini det `Cₙ = fibₙfibₙ₊₂ − fibₙ₊₁²` oscillates `Cₙ₊₁ = −Cₙ` — the orbit's conserved unit `±1` |
 | `cfiniteZ_zero` / `cfiniteZ_neg` / `cfiniteZ_smul` | `OrbitDimension` | the `ℤ`-module structure |
 | `cfiniteZ_geom_mul` | `OrbitDimension` | `cⁿ·dⁿ = (cd)ⁿ` is C-finite — the geometric Hadamard case |
 | `applyOp` / `conv` / `applyOp_comm` | `CFiniteRing` | the difference-operator algebra; operators commute |
@@ -73,7 +74,12 @@ The general geometric family `cⁿ` carries the same structure for every base: `
 (`cfiniteZ_geom`), and not polynomial unless `c = 1` (`geom_not_polyDepthZ`, since `(c−1)ᵏ⁺¹ = 0`
 forces `c = 1` over `ℤ`).  Fibonacci is the first **non-geometric** witness: the shift
 recurrence `f(n+2) = f(n+1) + f(n)` becomes the `Δ`-orbit recurrence `Δ²f = f − Δf` (because
-`E² − E − I = Δ² + Δ − I` under `E = I + Δ`), orbit dimension exactly `2` (`cfiniteZ_fib`).
+`E² − E − I = Δ² + Δ − I` under `E = I + Δ`), orbit dimension exactly `2` (`cfiniteZ_fib`).  Its
+`2×2` Casoratian (Cassini cross-determinant) is the **conserved unit** `±1` oscillating with period
+2 (`cassini_fibZ_step`, `cassini_fibZ_zero`): the same unimodular `det Qⁿ = ±1` the number-tower
+founding reads as `ℚ`'s lowest-terms / the shared unit `det P = NS − NT = 1` (`RatioLensFounding`),
+the period-2 flip being the count-Lens negation — so the C-finite orbit's conserved unit *is* the
+founding's shared unit, on the difference axis.
 
 This sits one rung above [`cf_holonomicity_hierarchy.md`](cf_holonomicity_hierarchy.md), where
 `2ⁿ` already appears as the inhabitant of the non-Hurwitzian top tier that is *still* C-finite,
@@ -180,4 +186,4 @@ cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Cauchy.OrbitDimension
 python3 tools/scan_axioms.py E213.Lib.Math.Cauchy.CFiniteRing
 ```
-Reports `30 pure / 0 dirty` and `82 pure / 0 dirty`.
+Reports `32 pure / 0 dirty` and `82 pure / 0 dirty`.
