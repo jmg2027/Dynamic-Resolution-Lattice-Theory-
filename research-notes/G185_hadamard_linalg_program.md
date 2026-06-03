@@ -293,16 +293,28 @@ alternating (`leibDet_rowSwap`, `leibDet_eq_zero_of_rows_eq`, `leibDet_eq_zero_o
 
 ### Laplace → CH → cfiniteZ_mul (chosen path; `Linalg213/Laplace.lean` started)
 
-- **§1 relabeling DONE (4 PURE)**: `unshift j` (drop value `j`) = inverse of `DetN.colShift j`
-  on `[0,…,n]∖{j}`; `colShift_unshift`, `unshift_colShift`, `colShift_ne`.
-- **§2 next — cofactor expansion along row 0**: `leibDet (n+1) M = Σⱼ altSign j · M 0 j ·
-  leibDet n (DetN.minor M j)`.  Bijection: a permutation value-list of `[0,…,n]` with first
-  entry `j` is `j :: rest`, `rest` a permutation of `[0,…,n]∖{j}`; relabel `rest` by
-  `unshift j` to a permutation of `[0,…,n-1]` (= a `perms n` element).  Sign:
-  `psign (j::rest) = altSign (ltCount j rest) · psign rest` (`PermClosure.psign_cons`), and
-  `ltCount j rest = j` (rest has exactly `j` values `< j`).  Product:
-  `prodDiagFrom M 1 rest = prodDiagFrom (minor M j) 0 (relabel rest)` via `colShift_unshift`.
-  Then sum over `j`.  Needs the `perms (n+1)` ↔ `⋃ⱼ {j} × perms n` reindex (the heaviest part).
+- **§1 relabeling DONE (4 PURE)**: `unshift j` = inverse of `DetN.colShift j`.
+- **§2 per-element factorization DONE (Laplace, 19 PURE)** — each perm of `[0,…,n]` is
+  `j :: rel.map (colShift j)` (`rel ∈ perms n`):
+  - A′ `psign_map_colShift` (sign preserved under the order-embedding `colShift j`, via
+    `colShift_lt_mono`/`le_mono` + `inversions_map_colShift`).
+  - B′ `prodDiag_minor` (`prodDiagFrom M 1 (rel.map (colShift j)) = prodDiagFrom (minor M j) 0 rel`).
+  - C′ `ltCount_perm_colShift` (`ltCount j (rel.map (colShift j)) = j`, via `ltCount_iota` +
+    `ltCount_lperm` + `ltCount_colShift_self`).
+  - ★ `leibTerm_cons_colShift`: `leibTerm M (j :: rel.map (colShift j)) = altSign j · M 0 j ·
+    leibTerm (minor M j) rel`.
+  - D-foundation `lperm_of_nodup_mem_iff` (Nodup + same-membership ⟹ `LPerm`).
+- **§2 (D) remaining — the reindex** `LPerm (perms (n+1)) ((iota (n+1)).flatMap (fun j =>
+  (perms n).map (fun rel => j :: rel.map (colShift j))))`, via `lperm_of_nodup_mem_iff`:
+  - nodup RHS: `nodup_flatMap` (g = the headDecomp, section = `List.head`/recover `j`; each fiber
+    nodup via `nodup_map` of the injective `rel ↦ j :: rel.map (colShift j)` over `perms n`).
+  - membership equiv `q ∈ perms (n+1) ↔ q ∈ flatMap …`: (⟸) `LPerm (j :: (iota n).map (colShift j))
+    (iota (n+1))` (canonical, via cnt) + `map_lperm` + `permsOf_complete`; (⟹) decompose
+    `q = j :: tail`, `rel := tail.map (unshift j) ∈ perms n` (multiset `[0,…,n]∖{j} → [0,…,n-1]`),
+    `tail = rel.map (colShift j)` (via `colShift_unshift`, `q` nodup ⟹ `j ∉ tail`).
+  - **assembly** `cofactor_row0`: `leibDet (n+1) M = sumZ ((iota (n+1)).map (fun j =>
+    altSign j · M 0 j · leibDet n (minor M j)))` — `sumZ_lperm` (D) + `cnt`/append over flatMap +
+    `map_map'` + `map_eq_of_mem` (`leibTerm_cons_colShift`) + `sumZ_map_smul`.
 - **§3 cofactor along any row `i`**: from §2 + multilinearity / row swaps.
 - **§4 adjugate** `M · adj M = det M · I`: diagonal = §3; off-diagonal = `leibDet_rows_eq_ne` (✓).
 - **§5 integer Cayley–Hamilton** via the adjugate of `zI − M` over `ℤ[z]`.
