@@ -181,8 +181,13 @@ def permsOf : List Nat → List (List Nat)
   | []      => [[]]
   | x :: xs => (permsOf xs).flatMap (insertEverywhere x)
 
+/-- `[0, 1, …, n−1]` (clean recursion: `iota (n+1) = iota n ++ [n]` by `rfl`). -/
+def iota : Nat → List Nat
+  | 0     => []
+  | n + 1 => iota n ++ [n]
+
 /-- All permutation value lists of `[0,…,n−1]`. -/
-def perms (n : Nat) : List (List Nat) := permsOf (List.range n)
+def perms (n : Nat) : List (List Nat) := permsOf (iota n)
 
 /-- The **Leibniz determinant**: `Σ_σ sign(σ)·Πᵢ M i (σ i)`. -/
 def leibDet (n : Nat) (M : Nat → Nat → Int) : Int := sumZ ((perms n).map (leibTerm M))

@@ -18,7 +18,7 @@ structurally on the `List.Mem` constructors.  All ∅-axiom.
 namespace E213.Lib.Math.Linalg213.PermClosure
 
 open E213.Lib.Math.Linalg213.Permutation
-  (LPerm insertEverywhere permsOf perms swapAt swapAt_lperm)
+  (LPerm insertEverywhere permsOf perms iota swapAt swapAt_lperm)
 
 /-! ## §0 — clean (∅-axiom) `List` membership helpers -/
 
@@ -469,5 +469,66 @@ theorem nodup_permsOf : ∀ {xs : List Nat}, Nodup xs → Nodup (permsOf xs)
     · exact fun r hr => nodup_insEv a r (fun hm => hays (LPerm.mem (permsOf_sound ys r hr) hm))
     · exact fun r hr q hq =>
         removeFirst_insEv a r (fun hm => hays (LPerm.mem (permsOf_sound ys r hr) hm)) q hq
+
+/-! ## §8 — `iota` is nodup, and the closure under `swapAt` -/
+
+/-- `cnt` of a singleton. -/
+theorem cnt_singleton {α : Type} [DecidableEq α] (a x : α) : cnt a [x] = if x = a then 1 else 0 := by
+  show (if x = a then 1 else 0) + cnt a ([] : List α) = if x = a then 1 else 0
+  exact Nat.add_zero _
+
+/-- Append-a-fresh-singleton preserves `Nodup`. -/
+theorem nodup_append_singleton {α : Type} [DecidableEq α] {x : α} {L : List α}
+    (hx : x ∉ L) (hL : Nodup L) : Nodup (L ++ [x]) := by
+  intro a
+  rw [cnt_append, cnt_singleton]
+  by_cases hxa : x = a
+  · rw [if_pos hxa, cnt_eq_zero_of_not_mem (hxa ▸ hx), Nat.zero_add]; exact Nat.le_refl 1
+  · rw [if_neg hxa, Nat.add_zero]; exact hL a
+
+/-- Every element of `iota n` is `< n`. -/
+theorem lt_of_mem_iota : ∀ {n a : Nat}, a ∈ iota n → a < n
+  | 0,     _, h => by cases h
+  | n + 1, a, h => by
+    rcases mem_append' h with h1 | h2
+    · exact Nat.lt_succ_of_lt (lt_of_mem_iota h1)
+    · rw [mem_singleton' h2]; exact Nat.lt_succ_self n
+
+/-- `n ∉ iota n`. -/
+theorem not_mem_iota (n : Nat) : n ∉ iota n := fun h => Nat.lt_irrefl n (lt_of_mem_iota h)
+
+/-- `iota n` has no repeats. -/
+theorem nodup_iota : ∀ n, Nodup (iota n)
+  | 0     => fun _ => Nat.zero_le _
+  | n + 1 => nodup_append_singleton (not_mem_iota n) (nodup_iota n)
+
+/-- `n ≤ 1` and `0 < n` force `n = 1` (propext-free). -/
+theorem eq_one_of_le_one_of_pos : ∀ {n : Nat}, n ≤ 1 → 0 < n → n = 1
+  | 0,     _, hp => absurd hp (Nat.lt_irrefl 0)
+  | 1,     _, _  => rfl
+  | _ + 2, h, _  => absurd (Nat.le_of_succ_le_succ h) (Nat.not_succ_le_zero _)
+
+/-- Under `Nodup`, count depends only on the membership status. -/
+theorem cnt_eq_of_iff_mem {α : Type} [DecidableEq α] {L : List α} {q q' : α}
+    (hnd : Nodup L) (hiff : q ∈ L ↔ q' ∈ L) : cnt q L = cnt q' L := by
+  cases Nat.eq_zero_or_pos (cnt q L) with
+  | inl h0 =>
+    have hq : q ∉ L := fun hm => absurd (h0 ▸ cnt_pos_of_mem hm) (Nat.lt_irrefl 0)
+    rw [h0, cnt_eq_zero_of_not_mem (fun h => hq (hiff.mpr h))]
+  | inr hp =>
+    rw [eq_one_of_le_one_of_pos (hnd q) hp,
+        eq_one_of_le_one_of_pos (hnd q') (cnt_pos_of_mem (hiff.mp (cnt_pos_mem hp)))]
+
+/-- ★★★ **The enumeration is closed under an adjacent position-swap** (up to `LPerm`). -/
+theorem perms_swap_closed (n k : Nat) : LPerm ((perms n).map (swapAt k)) (perms n) := by
+  apply lperm_of_cnt_eq
+  intro q
+  rw [cnt_map_inv (swapAt k) (swapAt_invol k) q (perms n)]
+  refine cnt_eq_of_iff_mem (nodup_permsOf (nodup_iota n)) ?_
+  constructor
+  · exact fun hm => permsOf_complete (iota n) q
+      (LPerm.trans (LPerm.symm (swapAt_lperm k q)) (permsOf_sound (iota n) _ hm))
+  · exact fun hm => permsOf_complete (iota n) (swapAt k q)
+      (LPerm.trans (swapAt_lperm k q) (permsOf_sound (iota n) q hm))
 
 end E213.Lib.Math.Linalg213.PermClosure
