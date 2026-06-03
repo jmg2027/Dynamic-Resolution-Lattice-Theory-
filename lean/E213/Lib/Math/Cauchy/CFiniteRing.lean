@@ -617,4 +617,18 @@ theorem cfiniteZ_of_shiftRec {k : Nat} {b s : Nat → Int} (h : ShiftRecZ k b s)
       applyOp_smulL (-1) (eCombo b k) s n, applyOp_eCombo b s k n, applyOp_ePow s k n, h n]
   rw [neg_mul, Int.one_mul, add_comm, add_neg_cancel]
 
+/-- **End-to-end validation of the reverse bridge.**  Fibonacci's natural *shift*
+    recurrence `f(n+2) = f(n+1) + f(n)` (order 2, coefficients `1, 1`) feeds
+    `cfiniteZ_of_shiftRec` to re-derive `CFiniteZ fibZ` — independently of the
+    `Δ`-recurrence route `OrbitDimension.cfiniteZ_fib`.  Both give orbit dimension 2:
+    a concrete instance of "shift recurrence order = `Δ`-orbit dimension". -/
+theorem cfiniteZ_fib_via_shift : CFiniteZ OrbitDimension.fibZ :=
+  cfiniteZ_of_shiftRec (k := 2) (b := fun _ => 1) (fun n => by
+    show OrbitDimension.fibZ (n + 2)
+       = (0 + 1 * OrbitDimension.fibZ (n + 0)) + 1 * OrbitDimension.fibZ (n + 1)
+    rw [zero_add, Int.one_mul, Int.one_mul]
+    show OrbitDimension.fibZ (n + 1) + OrbitDimension.fibZ n
+       = OrbitDimension.fibZ n + OrbitDimension.fibZ (n + 1)
+    exact add_comm _ _)
+
 end E213.Lib.Math.Cauchy.CFiniteRing
