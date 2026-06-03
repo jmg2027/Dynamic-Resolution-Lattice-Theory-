@@ -32,12 +32,13 @@ conjecture.  (Our per-`c` `decide` certificates do this counting concretely up t
 namespace E213.Lib.Math.Real213.MarkovInjectivity
 
 open E213.Lib.Math.Real213.MarkovTree (markovEq)
-open E213.Tactic.NatHelper (gcd213 add_sub_cancel_right)
+open E213.Tactic.NatHelper (gcd213 add_sub_cancel_right mul_mod_right)
+open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
 open E213.Lib.Math.Real213.MarkovUniqueness
   (SqrtNegOneTwoRoots sqrtNegOneTwoRoots_prime_pow markov_ordered_coprime markov_a_pos
    MarkovMaxUnique markov_mid_lt_max markov_root_recovery dvd_mul_right_213 eq_one_of_dvd_one)
 open E213.Lib.Math.ModArith.MarkovPrimeFactor (euclid_of_coprime le_of_dvd_loc)
-open E213.Meta.Nat.Gcd213 (gcd213_comm gcd213_dvd_left gcd213_dvd_right dvd_sub_213)
+open E213.Meta.Nat.Gcd213 (gcd213_comm gcd213_dvd_left gcd213_dvd_right dvd_sub_213 dvd_add_213)
 open E213.Lib.Math.Real213.GoldenFormMarkov (add_left_cancel_pure)
 
 /-! ## §1 — the parallel reduction (true, but does not self-close) -/
@@ -116,6 +117,25 @@ theorem root_unique_below_half_prime_pow (p k : Nat) (hp3 : 3 ≤ p)
     (hrx : (x * x + 1) % p ^ (k + 1) = 0) (hry : (y * y + 1) % p ^ (k + 1) = 0) : x = y :=
   root_unique_below_half (p ^ (k + 1)) (sqrtNegOneTwoRoots_prime_pow p k hp3 hpr)
     hx hy hxh hyh hrx hry
+
+/-- ★★★★ **The ±-root pairing**: if `r` is a `√(−1)` mod `c`, so is `c − r`.  `(c−r)² ≡ r² ≡ −1`,
+    via the `ℕ` identity `(c−r)² + 2cr = c² + r²` (so `(c−r)²+1 ≡ r²+1 ≡ 0`).  The two roots of
+    `x²≡−1` thus form the pair `{r, c−r}` — the structural fact behind `SqrtNegOneTwoRoots`'s
+    `x+y=c` branch and the window normalization. -/
+theorem neg_root_is_root (c r : Nat) (hr : r ≤ c) (h : (r * r + 1) % c = 0) :
+    ((c - r) * (c - r) + 1) % c = 0 := by
+  obtain ⟨d, hd⟩ := Nat.le.dest hr
+  have hcr : c - r = d := by rw [← hd, Nat.add_comm]; exact add_sub_cancel_right d r
+  rw [hcr]
+  have hid : (d * d + 1) + 2 * c * r = c * c + (r * r + 1) := by rw [← hd]; ring_nat
+  have hRdvd : c ∣ c * c + (r * r + 1) :=
+    dvd_add_213 c (c * c) (r * r + 1) ⟨c, rfl⟩ (dvd_of_mod_eq_zero h)
+  have h2cr : c ∣ 2 * c * r := ⟨2 * r, by ring_nat⟩
+  have hdvd : c ∣ (d * d + 1) := by
+    have hs := dvd_sub_213 (2 * c * r) ((d * d + 1) + 2 * c * r) c
+      (Nat.le_add_left _ _) h2cr (hid ▸ hRdvd)
+    rwa [add_sub_cancel_right] at hs
+  obtain ⟨k, hk⟩ := hdvd; rw [hk]; exact mul_mod_right c k
 
 /-! ## §3 — the capstone reduction: uniqueness ⟸ root-count + residue injectivity -/
 
