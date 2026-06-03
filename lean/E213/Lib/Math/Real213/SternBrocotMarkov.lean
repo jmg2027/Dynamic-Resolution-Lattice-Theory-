@@ -518,4 +518,29 @@ theorem markovRes_recovery_dvd (path : List Bool) :
              * (((mNode path).c + (mNode path).d - (mNode path).b) * (mNode path).c) := by ring_intZ
   rw [e, hs]; ring_intZ
 
+/-! ## §7 — strict slope monotonicity (Zhang Lemma 2, the right half)
+
+  The Frobenius residue cross-determinant `u_r·m_t − u_t·m_r = m_l` (`markovRes_cross`) with
+  `m_l ≥ 1 > 0` (`mInterval_pos`) gives the **strict** inequality `u_t·m_r < u_r·m_t`, i.e. the
+  node's residue slope `u_t/m_t` is strictly below the right bound's `u_r/m_r`.  This is the right
+  half of Zhang's Lemma 2 (the mediant slope lies strictly between the two bounds); the left half
+  `u_l·m_t < u_t·m_l` needs the tree-specific identity `u_t·m_l − u_l·m_t = m_r` (deferred). -/
+
+/-- Int bridge: `b − a = m` and `1 ≤ m → a < b`.  `a < b` is `Int.NonNeg (b − (a+1))`;
+    `b − (a+1) = (b−a) − 1 = m − 1`, and `1 ≤ m` is `Int.NonNeg (m − 1)`. -/
+private theorem lt_of_sub_eq_of_one_le {a b m : Int} (h : b - a = m) (hm : 1 ≤ m) : a < b := by
+  show Int.NonNeg (b - (a + 1))
+  have e : b - (a + 1) = (b - a) - 1 := by ring_intZ
+  rw [e, h]; exact hm
+
+/-- ★★★★★ **Strict slope monotonicity (right half of Zhang Lemma 2)**: `u_t·m_r < u_r·m_t` — the
+    node's residue slope is strictly less than the right interval bound's.  Immediate from
+    `markovRes_cross` (`u_r·m_t − u_t·m_r = m_l`) and `1 ≤ m_l` (`mInterval_pos`).  This is the
+    strict monotonicity that, with the (deferred) left half, gives residue-injectivity along the
+    tree. -/
+theorem markov_node_slope_lt_right (path : List Bool) :
+    markovRes path * (mInterval path).2.c
+      < ((mInterval path).2.d - (mInterval path).2.c) * (mNode path).c :=
+  lt_of_sub_eq_of_one_le (markovRes_cross path) (mInterval_pos path).1.2.2.1
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
