@@ -2,8 +2,9 @@
 
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**.
-Full `lake build` clean.  Markov: `MarkovUniqueness` **90 PURE** + `ModArith/MarkovPrimeFactor`
-28 PURE = 118, all ∅-axiom.
+Full `lake build` clean.  Markov: `MarkovUniqueness` **82 PURE** + `ModArith/MarkovPrimeFactor`
+28 PURE = 110, all ∅-axiom.  (Net −8: descent theorem added, per-c reduced-equation coprimality
+method retired — module build now far faster, no 266²/198² decides.)
 
 ## ★ CAPSTONES — UNCONDITIONAL ∅-axiom uniqueness at TWO 4-root composite Markov numbers
 `markov_max_unique_1325 : MarkovMaxUnique 1325` (`1325=5²·53`, triple `(13,34,1325)`) **and**
@@ -123,19 +124,22 @@ next is `610 = 2·5·61` (NOTE: even — factor 2 needs the mod-2 parity branch 
 `maxHeartbeats 0` + `maxRecDepth 20000`, ~60–110 s.  And the `dvd_of_sq_dvd_cert` residue cert
 `∀r<p, r²≡0→r=0` needs `maxRecDepth ≥ ~4000` once `p` is large (e.g. 197).
 
-### 3c. Markov descent theorem — ENGINE DONE (§2b, 4 lemmas), recursion remaining.
-The descent *engine* is now ∅-axiom proven: `markov_descent_ineq` (`a²+2b² ≤ 3ab²`, `1≤a≤b`),
-`markov_vieta_partner_le` (`c'=3ab−c ≤ b` for `1≤a≤b`, `b<c`), `markov_partner_lt_max` (`c'<c`),
-`markov_mid_lt_max` (`b<c` for any triple with `c≥2`).  The `c'≤b` ℕ sign argument was done by
-writing `c=b+1+d`, `c'=b+1+e` and showing the gap `(d+1)(e+1)>0` contradicts the descent
-inequality in product form `c·c'+b² ≤ b·c+b·c'`.
-**Remaining**: well-founded recursion on the max — define `MarkovTriple a b c := markovEq ∧ 1≤a≤b≤c`
-and prove `every ordered triple with c≥2 is the up-Vieta image of a smaller one` (using
-`markov_partner_lt_max` for termination, `markov_partner_is_triple` for the step), giving **every
-triple reachable** ⟹ general pairwise coprimality (`markov_reachable_coprime` already done for the
-tree) ⟹ `markov_hcop_<c>` for ALL `c` at once.  Needs `WellFounded`/`Nat.strong_induction` —
-check it stays ∅-axiom (structural Nat recursion is fine; avoid `WellFounded.fix` axiom leaks).
-This is the route to the GENERAL conjecture's coprimality half.
+### 3c. Markov descent theorem — DONE (§10b).  General coprimality achieved.
+`markov_ordered_reachable`: every ordered Markov triple is reachable from `(1,1,1)`
+(`reachable_of_fuel`, structural recursion on a fuel bounding the max — ∅-axiom, no
+`WellFounded.fix`; `c≥2` descends to `{a,b,3ab−c}`, max `= b < c`, via the §2b engine).
+`markov_ordered_coprime`: pairwise coprime for ALL triples (descent ∘ `markov_reachable_coprime`).
+`markov_hcop_general (c≥2)`: the `hcop` input for ALL `c` at once — `markov_max_unique_{1325,985}`
+now route through it; the per-c reduced-equation method (266²/198² decides) is deleted.
+
+### 3d. NEXT — extend uniqueness to more composites / push toward the general conjecture.
+With general coprimality + the recovery reduction, each new composite Markov number `c` needs ONLY
+its decidable certificates: `sqrtNegOneRoots_<c>` (root set), per-root phantom/valid 1-D certs,
+`markov_no_top_<c>`, then `markov_max_unique_<c> := markov_max_unique_<c>_of_coprime
+(markov_hcop_general c (by decide))`.  Targets: `610 = 2·5·61` (even — root recovery needs `b`
+coprime to `c`; gcd already general), `2210`, `1597`(prime, 2-root, easy).  The GENERAL conjecture
+crux remains the residue-map injectivity (`triple ↦ a·b⁻¹ mod c`) for arbitrary `c` — still open;
+per-c certs sidestep it.  Coprimality half is now fully general.
 
 ### 3. C6 — root-count reduction `SqrtNegOneTwoRoots c → MarkovMaxUnique c` — classically OPEN-ish
 **Input now done for prime POWERS** (full Button/Zhang class): `two_roots_of_prime` (primes) and

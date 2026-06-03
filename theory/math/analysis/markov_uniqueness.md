@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (73 PURE / 0 dirty):
+explicit open target.  Source of truth (82 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -183,19 +183,21 @@ kernel at `c = 1325`):
      `markov_root_{507,818}` valid) — assembled by `markov_max_unique_of_single` and
      `markov_max_unique_1325_of_coprime`.
 
-  2. **Coprimality by finite descent** (`markov_hcop_1325`).  The reduction needs `gcd(b,1325)=1`.
-     Suppose `5 ∣ b`.  Reducing the Markov equation mod `5` (and `5 ∣ 1325`) gives `5 ∣ a²+b²`
-     (`markov_5_dvd_sum`), so `5 ∣ a²`, so `5 ∣ a` (`dvd_of_sq_dvd_cert`).  Writing `a = 5a'`,
-     `b = 5b'` and dividing the equation by `25` lands on the *generalised* Markov equation
-     `a'² + b'² + 70225 = 3975 a'b'`, which has **no** solution with `a',b' ≤ 265` — a bounded
-     decidable check (`reduced_eq_5_no_sol`).  Likewise `53 ∣ b` reduces (÷`53²`) to
-     `a'² + b'² + 625 = 3975 a'b'`, no solution with `a',b' ≤ 25`.  A divisor of `1325 = 5²·53`
-     coprime to both `5` and `53` is `1`, so `gcd(b,1325) = 1`.  This is the primitivity of Markov
-     triples, proved here by *finite* descent + enumeration — no infinite descent, no appeal to
-     the Markov tree.
+  2. **Coprimality by Markov's descent theorem** (`markov_hcop_general`).  The reduction needs
+     `gcd(b,1325) = 1`.  This is the *primitivity* of Markov triples, and it now holds for **every**
+     triple, unconditionally.  The descent engine (`markov_descent_ineq`: `a²+2b² ≤ 3ab²`;
+     `markov_vieta_partner_le`: the down-move `c' = 3ab − c ≤ b < c`) drives a structural recursion
+     `reachable_of_fuel` (bounded by a fuel `≥ c` — plain `Nat.rec`, no `WellFounded.fix`, so
+     ∅-axiom): any ordered triple with `c ≥ 2` descends to `{a, b, 3ab−c}` whose maximum is
+     `b < c`, terminating at the root `(1,1,1)`.  Hence `markov_ordered_reachable` — every ordered
+     Markov triple is on the tree — and `markov_ordered_coprime` — every triple is pairwise coprime
+     (composing with the tree invariant `markov_reachable_coprime`).  `markov_hcop_general c`
+     (`c ≥ 2`) packages this as the coprimality input for *all* maxima at once.
 
-The route is reusable: extending to `610 = 2·5·61` or `985 = 5·197` repeats the per-root
-certificates and the per-prime reduced-equation checks.
+The route is fully reusable: a new composite Markov number `c` needs only its decidable
+certificates — `sqrtNegOneRoots_c` (the root set) and the per-root phantom/valid checks — then
+`markov_max_unique_c := markov_max_unique_c_of_coprime (markov_hcop_general c (by decide))`.  This
+is how both `1325` and `985 = 5·197` are closed; the coprimality half is no longer per-`c`.
 
 ## Pairwise coprimality is the tree's invariant
 
