@@ -17,10 +17,11 @@ This file builds the relabeling foundation first.  All ∅-axiom.
 
 namespace E213.Lib.Math.Linalg213.Laplace
 
-open E213.Lib.Math.Linalg213.DetN (colShift minor altSign altSign_add)
+open E213.Lib.Math.Linalg213.DetN (colShift colShift_lt colShift_ge minor altSign altSign_add)
 open E213.Lib.Math.Linalg213.Permutation
-  (prodDiagFrom psign leibTerm leibDet perms sumZ ltCount inversions psign_cons)
-open E213.Lib.Math.Linalg213.PermClosure (cnt)
+  (prodDiagFrom psign leibTerm leibDet perms iota LPerm ltCount inversions psign_cons
+   ltCount_append sumZ)
+open E213.Lib.Math.Linalg213.PermClosure (cnt permsOf_sound lt_of_mem_iota length_iota)
 
 /-! ## §1 — the minor relabeling (`unshift`, inverse of `colShift`) -/
 
@@ -122,5 +123,69 @@ theorem psign_map_colShift (j : Nat) (rel : List Nat) :
     psign (rel.map (colShift j)) = psign rel := by
   show altSign (inversions (rel.map (colShift j))) = altSign (inversions rel)
   rw [inversions_map_colShift]
+
+/-! ## §2 (C′) — the leading inversion count is `j` -/
+
+/-- `ltCount` is `LPerm`-invariant. -/
+theorem ltCount_lperm {a : Nat} {L1 L2 : List Nat} (h : LPerm L1 L2) : ltCount a L1 = ltCount a L2 := by
+  induction h with
+  | nil => rfl
+  | cons x _ ih => show (if x < a then 1 else 0) + ltCount a _ = (if x < a then 1 else 0) + ltCount a _; rw [ih]
+  | swap x y l =>
+    show (if y < a then 1 else 0) + ((if x < a then 1 else 0) + ltCount a l)
+       = (if x < a then 1 else 0) + ((if y < a then 1 else 0) + ltCount a l)
+    exact Nat.add_left_comm _ _ _
+  | trans _ _ ih₁ ih₂ => exact ih₁.trans ih₂
+
+/-- If every entry is `< j`, the inversion-count is the length. -/
+theorem ltCount_all (j : Nat) : ∀ {L : List Nat}, (∀ v ∈ L, v < j) → ltCount j L = L.length
+  | [],     _ => rfl
+  | a :: l, h => by
+    show (if a < j then 1 else 0) + ltCount j l = l.length + 1
+    rw [if_pos (h a (List.Mem.head _)), ltCount_all j (fun v hv => h v (List.Mem.tail _ hv)),
+        Nat.add_comm]
+
+/-- `iota n` has all entries `< j` when `n ≤ j`, so its inversion-count is `n`. -/
+theorem ltCount_iota_all {n j : Nat} (h : n ≤ j) : ltCount j (iota n) = n := by
+  rw [ltCount_all j (fun v hv => Nat.lt_of_lt_of_le (lt_of_mem_iota hv) h), length_iota]
+
+/-- `ltCount` of a singleton. -/
+theorem ltCount_singleton (j n : Nat) : ltCount j [n] = if n < j then 1 else 0 := by
+  show (if n < j then 1 else 0) + ltCount j ([] : List Nat) = if n < j then 1 else 0
+  exact Nat.add_zero _
+
+/-- ★ **`ltCount j (iota n) = j`** for `j ≤ n` (exactly `j` of `[0,…,n-1]` are `< j`). -/
+theorem ltCount_iota : ∀ (n j : Nat), j ≤ n → ltCount j (iota n) = j
+  | 0,     j, hj => (Nat.le_antisymm hj (Nat.zero_le j)).symm
+  | n + 1, j, hj => by
+    show ltCount j (iota n ++ [n]) = j
+    rw [ltCount_append j (iota n) [n], ltCount_singleton]
+    by_cases hjn : j ≤ n
+    · rw [ltCount_iota n j hjn, if_neg (Nat.not_lt.mpr hjn), Nat.add_zero]
+    · have hje : j = n + 1 :=
+        Nat.le_antisymm hj (Nat.succ_le_of_lt (Nat.lt_of_not_le hjn))
+      subst hje
+      rw [ltCount_iota_all (Nat.le_succ n), if_pos (Nat.lt_succ_self n)]
+
+/-- `ltCount j` against `j` is unchanged by the `colShift j` embedding (it preserves `< j`). -/
+theorem ltCount_colShift_self (j : Nat) : ∀ (rel : List Nat),
+    ltCount j (rel.map (colShift j)) = ltCount j rel
+  | []      => rfl
+  | l :: ls => by
+    show (if colShift j l < j then 1 else 0) + ltCount j (ls.map (colShift j))
+       = (if l < j then 1 else 0) + ltCount j ls
+    rw [ltCount_colShift_self j ls]
+    have hif : (if colShift j l < j then (1 : Nat) else 0) = (if l < j then 1 else 0) := by
+      by_cases hl : l < j
+      · rw [colShift_lt hl]
+      · rw [colShift_ge (Nat.not_lt.mp hl), if_neg hl,
+            if_neg (Nat.not_lt.mpr (Nat.le_succ_of_le (Nat.not_lt.mp hl)))]
+    rw [hif]
+
+/-- ★ **C′** — the leading inversion count of `j :: rel.map (colShift j)` is `j`
+    (for `rel ∈ perms n`, `j ≤ n`). -/
+theorem ltCount_perm_colShift {n j : Nat} (hj : j ≤ n) {rel : List Nat} (hrel : rel ∈ perms n) :
+    ltCount j (rel.map (colShift j)) = j := by
+  rw [ltCount_colShift_self, ltCount_lperm (permsOf_sound (iota n) rel hrel), ltCount_iota n j hj]
 
 end E213.Lib.Math.Linalg213.Laplace
