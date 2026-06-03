@@ -57,9 +57,10 @@ Scoping (Explore agent) + a **correction**: the repo's `Mobius213SternBrocot.Ste
 `mediant` constructor takes mediants of *any* two reachable pairs, so it includes **non-coprime**
 pairs (e.g. `(2,2)=(1,0)+(1,2)`) — the naive "SB-reachable ⟹ coprime" bridge is **FALSE** for this
 definition.  A real bridge needs the *adjacency-restricted* mediant (Farey neighbours, det ±1) or a
-direct Farey-order/monotonicity argument.  Layers: (1) Farey-adjacency-preserving SB subtree +
-coprimality; (2) Markov-pair → Farey-slope map; (3) **the deep open piece** — residue strictly
-monotone in slope (`farey_slope_monotone`, Zhang Lemma 2), realized so far only on the spine.
+direct Farey-order/monotonicity argument.  Layers: (1) **DONE** — Farey-adjacency foundations `farey_mediant_coprime` (`p·s=q·r+1 ⟹
+gcd(p+r,q+s)=1`) + `farey_mediant_adjacent` (mediant stays det-1 to both parents); (2) Markov-pair
+→ Farey-slope map; (3) **the deep open piece** — residue strictly monotone in slope
+(`farey_slope_monotone`, Zhang Lemma 2), realized so far only on the spine (`spine_residue_strict_mono`).
 `ConvergentDet.det_one_four_readings` (Farey det=1, the four readings incl. `spine_residue_farey`)
 is the anchor.  This is a multi-session project; the spine instances show the shape.
   See G173 "Injectivity analysis".
