@@ -250,10 +250,12 @@ unimodular): the companion is a finite-order generator — `comp 0 1 = S` (order
 `s(n+2) = 2·s(n+1) − s(n)`, i.e. `Δ²s = 0` — exactly **polynomial depth 1** (linear), the floor of
 the generating ring, and this is an **iff** (`parabolic_iff_depth1`).  *Hyperbolic* (`disc > 0`,
 e.g. `comp 3 1`, the golden/Lucas `disc = 5`): a real quadratic-irrational iterator whose orbit
-**grows** — unbounded partial quotients, the quadratic-irrational CF tier (`PositiveFloorUnbounded`).
-So the same trace discriminant that names the residue's φ (scaling) and π (rotation) faces is the
-dial across the hierarchy — periodic floor `<0`, linear-polynomial floor `=0`, growing C-finite
-`>0`: the φ/π pole work and the depth hierarchy are one structure, read at the order-2 rung.
+**grows strictly** — `hyperbolic_strictMono` (`s(n+2)=3·s(n+1)−s(n)` with `0 < s 0 < s 1` is
+`EvStrictMonoZ 0`) and `hyperbolic_grows` (`s 0 + i ≤ s i`, hence unbounded), the quadratic-irrational
+CF tier.  All three rungs are proven, not merely classified.  So the same trace discriminant that
+names the residue's φ (scaling) and π (rotation) faces is the dial across the hierarchy — periodic
+floor `<0`, linear-polynomial floor `=0`, strictly-growing C-finite `>0`: the φ/π pole work and the
+depth hierarchy are one structure, read at the order-2 rung.
 
 ## The verdict on the two cores
 

@@ -1,6 +1,8 @@
 import E213.Lib.Math.Real213.HyperbolicEllipticTrace
 import E213.Lib.Math.Cauchy.CFiniteHomogRec
 import E213.Lib.Math.Cauchy.NewtonGregory
+import E213.Lib.Math.Cauchy.PolyDepthMonotone
+import E213.Meta.Int213.Order
 import E213.Meta.Int213.PolyIntMTactic
 
 /-!
@@ -30,6 +32,8 @@ open E213.Lib.Math.Real213.HyperbolicEllipticTrace (Mat2)
 open E213.Lib.Math.Cauchy.CFiniteHomogRec (order2_homogRec)
 open E213.Lib.Math.Cauchy.ZeroRunNonHolonomic (HomogRec)
 open E213.Lib.Math.Cauchy.NewtonGregory (diffZ liftKZ polyDepthZ)
+open E213.Lib.Math.Cauchy.PolyDepthMonotone (EvStrictMonoZ evStrictMonoZ_ge)
+open E213.Meta.Int213.Order
 
 /-- The companion matrix of `s(n+2) = p·s(n+1) − q·s(n)`. -/
 def comp (p q : Int) : Mat2 := ⟨p, -q, 1, 0⟩
@@ -120,5 +124,43 @@ theorem parabolic_iff_depth1 (s : Nat → Int) :
       (E213.Meta.Int213.sub_add_cancel_int (s (n + 2)) (s (n + 1))).symm
     rw [e'] at step
     rw [step]; ring_intZ
+
+/-! ## The hyperbolic rung: `disc > 0` ⟹ strictly increasing orbit (growth)
+
+`comp 3 1` (`disc = 5`, the golden/Lucas characteristic) is hyperbolic; the recurrence
+`s(n+2) = 3·s(n+1) − s(n)` with positive increasing seed grows strictly — the opposite of the
+elliptic periodic floor, and the unbounded-partial-quotient (quadratic-irrational) CF tier. -/
+
+/-- ★★★ **Hyperbolic ⟹ strictly increasing.**  `s(n+2) = 3·s(n+1) − s(n)` with `0 < s 0 < s 1`
+    is strictly increasing everywhere (`EvStrictMonoZ 0 s`).  Invariant `0 < s n ∧ s n < s(n+1)`:
+    `s(n+2) − s(n+1) = 2·s(n+1) − s(n) > 0` because `s(n) < s(n+1) ≤ 2·s(n+1)`. -/
+theorem hyperbolic_strictMono (s : Nat → Int) (hrec : ∀ n, s (n + 2) = 3 * s (n + 1) - s n)
+    (h0 : 0 < s 0) (h01 : s 0 < s 1) : EvStrictMonoZ 0 s := by
+  have aux : ∀ n, 0 < s n ∧ s n < s (n + 1) := by
+    intro n
+    induction n with
+    | zero => exact ⟨h0, h01⟩
+    | succ n ih =>
+      obtain ⟨hpos, hlt⟩ := ih
+      have hpos1 : 0 < s (n + 1) := lt_trans hpos hlt
+      have hdouble : s (n + 1) ≤ 2 * s (n + 1) := by
+        apply le_of_sub_nonneg
+        rw [show 2 * s (n + 1) - s (n + 1) = s (n + 1) by ring_intZ]
+        exact nonneg_of_le_zero (le_of_lt hpos1)
+      have hlt2 : s n < 2 * s (n + 1) := lt_of_lt_of_le hlt hdouble
+      have hstep : s (n + 1) < s (n + 2) := by
+        apply lt_of_sub_pos
+        rw [hrec n, show 3 * s (n + 1) - s n - s (n + 1) = 2 * s (n + 1) - s n by ring_intZ]
+        exact sub_pos_of_lt hlt2
+      exact ⟨hpos1, hstep⟩
+  intro n _; exact (aux n).2
+
+/-- The hyperbolic orbit grows at least linearly: `s 0 + i ≤ s i` for all `i` — hence **unbounded**
+    (the quadratic-irrational CF tier, opposite the elliptic periodic floor). -/
+theorem hyperbolic_grows (s : Nat → Int) (hrec : ∀ n, s (n + 2) = 3 * s (n + 1) - s n)
+    (h0 : 0 < s 0) (h01 : s 0 < s 1) : ∀ i, s 0 + Int.ofNat i ≤ s i := by
+  intro i
+  have h := evStrictMonoZ_ge (hyperbolic_strictMono s hrec h0 h01) i
+  rwa [Nat.zero_add] at h
 
 end E213.Lib.Math.Cauchy.EllipticPeriodicTier
