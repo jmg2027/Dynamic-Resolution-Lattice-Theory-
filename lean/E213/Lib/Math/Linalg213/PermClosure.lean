@@ -596,4 +596,27 @@ theorem split_at : ∀ (p : List Nat) (k : Nat), k + 1 < p.length →
     rcases split_at (b :: p') k (Nat.lt_of_succ_lt_succ h) with ⟨pre, y, x, l, he, hl⟩
     exact ⟨a :: pre, y, x, l, congrArg (a :: ·) he, congrArg (· + 1) hl⟩
 
+/-- The per-term identity for a genuine permutation `p ∈ perms n` (decomposed at position `k`). -/
+theorem leibTerm_rowSwap_mem (M : Nat → Nat → Int) (n k : Nat) (hk : k + 1 < n)
+    (p : List Nat) (hp : p ∈ perms n) :
+    leibTerm (rowSwapAt k M) p = - leibTerm M (swapAt k p) := by
+  have hsound : LPerm p (iota n) := permsOf_sound (iota n) p hp
+  have hlen : p.length = n := (LPerm.length_eq hsound).trans (length_iota n)
+  have hnd : Nodup p := nodup_of_lperm hsound (nodup_iota n)
+  rcases split_at p k (hlen ▸ hk) with ⟨pre, y, x, l, he, hl⟩
+  subst he
+  rw [← hl, swapAt_prefix]
+  exact leibTerm_rowSwap M pre l (ne_of_nodup_adjacent hnd)
+
+/-- ★★★ **The alternating property**: an adjacent row swap negates the Leibniz determinant. -/
+theorem leibDet_rowSwap (M : Nat → Nat → Int) (n k : Nat) (hk : k + 1 < n) :
+    leibDet n (rowSwapAt k M) = - leibDet n M := by
+  show sumZ ((perms n).map (leibTerm (rowSwapAt k M))) = - sumZ ((perms n).map (leibTerm M))
+  rw [map_eq_of_mem (leibTerm (rowSwapAt k M)) (fun p => - leibTerm M (swapAt k p))
+        (fun p hp => leibTerm_rowSwap_mem M n k hk p hp),
+      sumZ_map_neg (fun p => leibTerm M (swapAt k p)) (perms n)]
+  congr 1
+  rw [(map_map' (swapAt k) (leibTerm M) (perms n)).symm]
+  exact sumZ_lperm (map_lperm (leibTerm M) (perms_swap_closed n k))
+
 end E213.Lib.Math.Linalg213.PermClosure
