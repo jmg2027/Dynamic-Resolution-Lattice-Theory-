@@ -805,4 +805,91 @@ theorem markov_window (path : List Bool) :
     0 < markovRes path ∧ 2 * markovRes path < markovNum path :=
   node_window_of_bounds path (mInterval_window path).1.1 (mInterval_window path).2.2
 
+/-! ## §10 — the Markoff matrix tree ⊆ the Markov tree (forward bridge)
+
+  Every matrix-tree node's `(2,1)`-entry triple `(m_l, m_r, m_t)` (as `Nat`) is `MarkovReachable`
+  (`MarkovUniqueness`: root `(1,1,1)` + Vieta jumps + transpositions).  So the Markoff-matrix tree
+  realises exactly the Markov tree, and every tree node inherits the reachable-triple theorems
+  (pairwise coprimality, no `3 mod 4` factor, the `√(−1)` QR structure).  Proof: induction — each
+  L/R mediant step is a Vieta jump (`markoff_vieta(_R)` + entry-shape give `m_t' = 3·m_i·m_j − m_k`),
+  matched to the `jump` constructor after reordering by `swap`s.  Bridges ℤ→ℕ via `Int.toNat` (entries
+  are positive, `mInterval_pos`). -/
+
+open E213.Lib.Math.Real213.MarkovUniqueness (MarkovReachable)
+
+private theorem toNat_of_nonneg : ∀ {a : Int}, 0 ≤ a → Int.ofNat a.toNat = a
+  | .ofNat _, _ => rfl
+  | .negSucc _, h => by nomatch h
+
+private theorem toNat_add {a b : Int} (ha : 0 ≤ a) (hb : 0 ≤ b) :
+    (a + b).toNat = a.toNat + b.toNat := by
+  obtain ⟨m, rfl⟩ : ∃ m, a = Int.ofNat m := ⟨a.toNat, (toNat_of_nonneg ha).symm⟩
+  obtain ⟨n, rfl⟩ : ∃ n, b = Int.ofNat n := ⟨b.toNat, (toNat_of_nonneg hb).symm⟩
+  rfl
+
+private theorem toNat_mul {a b : Int} (ha : 0 ≤ a) (hb : 0 ≤ b) :
+    (a * b).toNat = a.toNat * b.toNat := by
+  obtain ⟨m, rfl⟩ : ∃ m, a = Int.ofNat m := ⟨a.toNat, (toNat_of_nonneg ha).symm⟩
+  obtain ⟨n, rfl⟩ : ∃ n, b = Int.ofNat n := ⟨b.toNat, (toNat_of_nonneg hb).symm⟩
+  rfl
+
+/-- The ℤ Vieta jump equation `b + c' = 3·a·mt` (nonneg entries) transfers to the ℕ jump condition. -/
+private theorem jump_eq_toNat {a b c' mt : Int}
+    (hb : 0 ≤ b) (hc : 0 ≤ c') (ha : 0 ≤ a) (hmt : 0 ≤ mt) (he : b + c' = 3 * a * mt) :
+    b.toNat + c'.toNat = 3 * a.toNat * mt.toNat := by
+  have h3a : (0 : Int) ≤ 3 * a := E213.Meta.Int213.mul_nonneg (by decide) ha
+  rw [← toNat_add hb hc, he, toNat_mul h3a hmt, toNat_mul (by decide) ha]
+  rfl
+
+/-- ★★★★★ **The Markoff matrix tree realises the Markov tree.**  Every node's `(2,1)`-entry triple
+    `(m_l, m_r, m_t)` is `MarkovReachable` — the matrix tree is exactly Markov's tree of triples. -/
+theorem mInterval_reachable (path : List Bool) :
+    MarkovReachable (mInterval path).1.c.toNat (mInterval path).2.c.toNat (mNode path).c.toNat := by
+  induction path with
+  | nil =>
+      show MarkovReachable 1 2 5
+      exact MarkovReachable.jump
+        (MarkovReachable.swap23
+          (MarkovReachable.jump MarkovReachable.root (by decide : (1 : Nat) + 2 = 3 * 1 * 1)))
+        (by decide : (1 : Nat) + 5 = 3 * 1 * 2)
+  | cons b t ih =>
+      have d1 := (mInterval_det t).1
+      have d2 := (mInterval_det t).2
+      have s1 := (mInterval_shape t).1
+      have s2 := (mInterval_shape t).2.1
+      have hA : (0 : Int) ≤ (mInterval t).1.c := nonneg_of_one_le (mInterval_pos t).1.2.2.1
+      have hB : (0 : Int) ≤ (mInterval t).2.c := nonneg_of_one_le (mInterval_pos t).2.2.2.1
+      have hC : (0 : Int) ≤ (mNode t).c := nonneg_of_one_le (markovNum_pos t)
+      cases b
+      · -- R-step (false): node = mul M_t M_r; jump m_l → m_t' = 3·m_t·m_r − m_l
+        have hRv : (mNode (false :: t)).c
+                 = 3 * (mul (mInterval t).1 (mInterval t).2).c * (mInterval t).2.c
+                   - (mInterval t).1.c := by
+          show (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).c = _
+          rw [markoff_vieta_R (mInterval t).1 (mInterval t).2 d2, s2]; ring_intZ
+        have hC' : (0 : Int) ≤ (mNode (false :: t)).c := nonneg_of_one_le (markovNum_pos (false :: t))
+        have heq : (mInterval t).1.c + (mNode (false :: t)).c
+                 = 3 * (mul (mInterval t).1 (mInterval t).2).c * (mInterval t).2.c := by
+          rw [hRv]; ring_intZ
+        have hjump : (mInterval t).1.c.toNat + (mNode (false :: t)).c.toNat
+                   = 3 * (mul (mInterval t).1 (mInterval t).2).c.toNat * (mInterval t).2.c.toNat :=
+          jump_eq_toNat hA hC' hC hB heq
+        show MarkovReachable (mNode t).c.toNat (mInterval t).2.c.toNat (mNode (false :: t)).c.toNat
+        exact (((ih.swap23).swap12).swap23).jump hjump
+      · -- L-step (true): node = mul M_l M_t; jump m_r → m_t' = 3·m_l·m_t − m_r
+        have hLv : (mNode (true :: t)).c
+                 = 3 * (mInterval t).1.c * (mul (mInterval t).1 (mInterval t).2).c
+                   - (mInterval t).2.c := by
+          show (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).c = _
+          rw [markoff_vieta (mInterval t).1 (mInterval t).2 d1, s1]
+        have hC' : (0 : Int) ≤ (mNode (true :: t)).c := nonneg_of_one_le (markovNum_pos (true :: t))
+        have heq : (mInterval t).2.c + (mNode (true :: t)).c
+                 = 3 * (mInterval t).1.c * (mul (mInterval t).1 (mInterval t).2).c := by
+          rw [hLv]; ring_intZ
+        have hjump : (mInterval t).2.c.toNat + (mNode (true :: t)).c.toNat
+                   = 3 * (mInterval t).1.c.toNat * (mul (mInterval t).1 (mInterval t).2).c.toNat :=
+          jump_eq_toNat hB hC' hA hC heq
+        show MarkovReachable (mInterval t).1.c.toNat (mNode t).c.toNat (mNode (true :: t)).c.toNat
+        exact (ih.swap23).jump hjump
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
