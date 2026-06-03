@@ -101,12 +101,21 @@ involution-fixed point is the axis unit, and the diagonal is the shared structur
 
 ## Carryover / promotion targets
 
-1. `MonoidPairCompletion M` structure (commutative-monoid Grothendieck completion)
-   instantiated at `(Nat213,+)→ℤ213` and `(Nat213,·)→ℚ_+` — makes "invert is one move"
-   a theorem instead of two mirror files.  Would need a `Nat213`-based `ℤ` (currently
-   `NatPairToInt` is Lean-`Nat`-based) for a *literal* common carrier.
+1. **DONE** — `Lens/Number/Nat213/Tower/PairCompletion.lean` (13 PURE).  A generic
+   `CommCancelSemigroup` on `Nat213` (op + comm + assoc + right-cancel, **no unit**) with
+   its pair-completion `pairEquiv M p q := M.op p.1 q.2 = M.op p.2 q.1`, equivalence-relation
+   proofs, `swap` involution, and `combine`.  Key result `combine_swap_equiv_diagonal`:
+   `x ∘ inv(x)` lands on the diagonal — the group identity **emerges** as the diagonal
+   class, unit-free (which is *forced*: `Nat213` has no additive `0`, yet ℤ has one).
+   Instantiated `addCCS` (`op=+` → ℤ model) and `mulCCS` (`op=·` → ℚ_+);
+   `mulCCS_recovers_qpairEquiv : pairEquiv mulCCS = NatPairToQPos.qpairEquiv` (`Iff.rfl`).
+   Capstone `invert_is_one_move` bundles it: ℤ and ℚ_+ are one construction read at `+`
+   and `·`, the operation the only difference.  *"Invert is one move" is now a theorem,
+   not two mirror files.*  (The literal common carrier is `Nat213`; the additive instance
+   is a `Nat213`-pair ℤ model alongside the Lean-`Nat`-based `NatPairToInt`.)
 2. `Nat213` square-injectivity → complete `reciprocal_fixed_of_unit` to a full iff
-   (twin of `zero_unique_negation_fixed`).
+   (twin of `zero_unique_negation_fixed`).  Needs an order/strict-mono lemma set on
+   `Nat213` (currently absent).
 3. `book/foundations/03_one_axis_or_many.md` §3.2: cite the reciprocal-involution twin
    as the *why* behind ℤ⊥ℚ — they are independent because they are the same swap read
    by two folds, fixing two units; the independence is the orthogonality of `+` and `·`,

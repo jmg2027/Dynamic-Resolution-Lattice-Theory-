@@ -76,6 +76,23 @@ do not stand one above the other; they stand to either side of the count, one fo
 differs is only which unit it collapses to — the pair-level shadow of the single shared
 unit `1` (`theory/essays/tower_atlas.md`'s `grand_unification`), read at `0` and at `1`.
 
+This is not only a parallel of names — it is one construction, as a theorem:
+
+> `Nat213/Tower/PairCompletion.invert_is_one_move`: for *any* commutative cancellative
+> semigroup `M` on the counts (`CommCancelSemigroup` — operation, commutativity,
+> associativity, right-cancellation, **no unit**), the pair relation
+> `(a, b) ~ (c, d) ⟺ a ∘ d = b ∘ c` is an equivalence, the swap `(a, b) ↦ (b, a)` is the
+> inverse (`combine_swap_equiv_diagonal`: `x ∘ inv(x)` lands on the diagonal), and the
+> group identity *emerges* as the diagonal class.  Instantiating `M` at `+` gives the
+> `ℤ` model (`addCCS`) and at `·` gives `ℚ_+` (`mulCCS`), which recovers
+> `NatPairToQPos.qpairEquiv` definitionally.
+
+That the construction needs **no base unit** is forced, not incidental: `Nat213` has no
+additive `0`, yet its additive completion `ℤ` has an identity — because the identity is
+the emergent diagonal, not an inherited element.  So the additive and multiplicative
+axes are genuinely one move read on two operations, and the linear tower's serialization
+of them is a presentation, not a dependency.
+
 ## 3.3 The repo already carries an explicit two-axis invariant
 
 The breadth/additive/multiplicative split is not a reading imposed here — the codebase
