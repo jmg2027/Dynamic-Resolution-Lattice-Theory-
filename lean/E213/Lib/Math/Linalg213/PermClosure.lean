@@ -369,4 +369,28 @@ theorem nodup_cons {α : Type} [DecidableEq α] {x : α} {L : List α} (hx : x �
   · rw [if_pos hxa, cnt_eq_zero_of_not_mem (hxa ▸ hx)]; exact Nat.le_refl 1
   · rw [if_neg hxa, Nat.zero_add]; exact hL a
 
+/-- Counting an in-range value under an injective map: `cnt (f c) (map f L) = cnt c L`. -/
+theorem cnt_map_inj_eq {α β : Type} [DecidableEq α] [DecidableEq β] {f : α → β}
+    (hf : ∀ x y, f x = f y → x = y) (c : α) :
+    ∀ (L : List α), cnt (f c) (L.map f) = cnt c L
+  | []     => rfl
+  | d :: l => by
+    rw [show cnt (f c) ((d :: l).map f) = (if f d = f c then 1 else 0) + cnt (f c) (l.map f) from rfl,
+        show cnt c (d :: l) = (if d = c then 1 else 0) + cnt c l from rfl, cnt_map_inj_eq hf c l]
+    by_cases hdc : d = c
+    · rw [if_pos hdc, if_pos (congrArg f hdc)]
+    · rw [if_neg hdc, if_neg (fun he => hdc (hf d c he))]
+
+/-- An injective `map` preserves `Nodup`. -/
+theorem nodup_map {α β : Type} [DecidableEq α] [DecidableEq β] {f : α → β}
+    (hf : ∀ x y, f x = f y → x = y) : ∀ {L : List α}, Nodup L → Nodup (L.map f)
+  | [],     _  => fun q => Nat.zero_le _
+  | d :: l, hL => fun q => by
+    show (if f d = q then 1 else 0) + cnt q (l.map f) ≤ 1
+    by_cases hfdq : f d = q
+    · rw [if_pos hfdq, ← hfdq, cnt_map_inj_eq hf d l, nodup_head_cnt_zero hL]
+      exact Nat.le_refl 1
+    · rw [if_neg hfdq, Nat.zero_add]
+      exact nodup_map hf (nodup_tail hL) q
+
 end E213.Lib.Math.Linalg213.PermClosure
