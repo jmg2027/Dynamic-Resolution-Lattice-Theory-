@@ -250,4 +250,66 @@ theorem cnt_map_inv {α : Type} [DecidableEq α] (f : α → α) (hf : ∀ x, f 
     · rw [if_pos hbq, if_pos ((congrArg f hbq).trans (hf q))]
     · rw [if_neg hbq, if_neg (fun h : f b = q => hbq ((hf b).symm.trans (congrArg f h)))]
 
+/-! ## §6 — enumeration completeness (every rearrangement is enumerated) -/
+
+/-- `mem`-introduction for `map`. -/
+theorem mem_map_mpr {α β : Type} (f : α → β) {x : α} : ∀ {L : List α}, x ∈ L → f x ∈ L.map f
+  | [],      h => by cases h
+  | _ :: _,  h => by
+    cases h with
+    | head      => exact List.Mem.head _
+    | tail _ h' => exact List.Mem.tail _ (mem_map_mpr f h')
+
+/-- `mem`-introduction for append (left). -/
+theorem mem_append_left {α : Type} {q : α} : ∀ {L1 : List α} (L2 : List α), q ∈ L1 → q ∈ L1 ++ L2
+  | _ :: _, L2, h => by
+    cases h with
+    | head      => exact List.Mem.head _
+    | tail _ h' => exact List.Mem.tail _ (mem_append_left L2 h')
+
+/-- `mem`-introduction for append (right). -/
+theorem mem_append_right {α : Type} {q : α} : ∀ (L1 : List α) {L2 : List α}, q ∈ L2 → q ∈ L1 ++ L2
+  | [],     _, h => h
+  | _ :: l, _, h => List.Mem.tail _ (mem_append_right l h)
+
+/-- `mem`-introduction for `flatMap`. -/
+theorem mem_flatMap_mpr {α β : Type} (f : α → List β) {x : α} {q : β} :
+    ∀ {L : List α}, x ∈ L → q ∈ f x → q ∈ L.flatMap f
+  | _ :: l, hx, hq => by
+    cases hx with
+    | head      => exact mem_append_left _ hq
+    | tail _ h' => exact mem_append_right _ (mem_flatMap_mpr f h' hq)
+
+/-- `a :: p` is the head insertion. -/
+theorem insEv_head (a : Nat) (p : List Nat) : (a :: p) ∈ insertEverywhere a p := by
+  cases p <;> exact List.Mem.head _
+
+/-- `insertEverywhere a` produces every insertion of `a`. -/
+theorem insEv_complete (a : Nat) : ∀ (q1 q2 : List Nat),
+    (q1 ++ a :: q2) ∈ insertEverywhere a (q1 ++ q2)
+  | [],      q2 => insEv_head a q2
+  | c :: q1, q2 => List.Mem.tail _ (mem_map_mpr (c :: ·) (insEv_complete a q1 q2))
+
+/-- ★ **Completeness**: every rearrangement of `xs` is enumerated in `permsOf xs`. -/
+theorem permsOf_complete : ∀ (xs q : List Nat), LPerm q xs → q ∈ permsOf xs
+  | [],      q, h => by
+    have hq : q = [] := cnt_eq_zero_nil (fun a => cnt_lperm h)
+    subst hq; exact List.Mem.head _
+  | a :: ys, q, h => by
+    have ha : a ∈ q := LPerm.mem (LPerm.symm h) (List.Mem.head _)
+    rcases mem_split q ha with ⟨q1, q2, hq⟩
+    subst hq
+    have hlp : LPerm (q1 ++ q2) ys := by
+      apply lperm_of_cnt_eq
+      intro b
+      have hc := cnt_lperm h (a := b)
+      rw [cnt_append] at hc
+      change cnt b q1 + ((if a = b then 1 else 0) + cnt b q2) = (if a = b then 1 else 0) + cnt b ys
+        at hc
+      rw [Nat.add_left_comm] at hc
+      rw [cnt_append]
+      exact add_left_cancel' _ hc
+    exact mem_flatMap_mpr (insertEverywhere a) (permsOf_complete ys (q1 ++ q2) hlp)
+      (insEv_complete a q1 q2)
+
 end E213.Lib.Math.Linalg213.PermClosure
