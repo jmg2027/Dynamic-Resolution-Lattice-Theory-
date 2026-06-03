@@ -26,6 +26,7 @@ import E213.Lib.Math.Cauchy.DepthMonotoneSynthesis
 import E213.Lib.Math.Cauchy.CFiniteHomogRec
 import E213.Lib.Math.Cauchy.EllipticPeriodicTier
 import E213.Lib.Math.Cauchy.DetZeroCollapse
+import E213.Lib.Math.Cauchy.WronskianDepth
 import E213.Lib.Math.Cauchy.QuasiPolyBound
 import E213.Lib.Math.Cauchy.FiniteDepthAlgebra
 import E213.Lib.Math.Cauchy.BinomialTransform
