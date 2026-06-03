@@ -3,7 +3,7 @@
 **Tier 1 (volatile).**  Marathon working note for the Markov uniqueness conjecture
 (Frobenius 1913), continuing the Markov arc (`theory/math/analysis/markov_spectrum.md`,
 `Real213/{GoldenFormMarkov, MarkovTree}`).  Source of truth for the closed part:
-`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (72 PURE / 0 dirty).  Promoted narrative:
+`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (76 PURE / 0 dirty).  Promoted narrative:
 `theory/math/analysis/markov_uniqueness.md`.
 
 ## The conjecture
@@ -31,7 +31,7 @@ So prime-power `c = pᵏ` (and `2pᵏ, 4pᵏ`) give exactly 2 roots ⟹ unique (
 1998/2001, Lang–Tan 2005, Zhang 2006).  The **open zone is exactly composite `c` with ≥2
 distinct prime factors** (≥4 roots), where root-counting no longer forces a unique triple.
 
-## What is closed ∅-axiom (`MarkovUniqueness.lean`, 72 PURE)
+## What is closed ∅-axiom (`MarkovUniqueness.lean`, 76 PURE)
 
 | theorem | content |
 |---|---|
@@ -72,6 +72,8 @@ distinct prime factors** (≥4 roots), where root-counting no longer forces a un
 | ★★ `markov_max_unique_of_4roots` | **general per-`c` uniqueness from a 4-root certificate**: root-set disjunction `{r₁..r₄}` + four decidable per-root certs ⟹ `MarkovMaxUnique c` (coprimality/`a≥1`/`b<c` discharged internally via descent + recovery).  Each new 4-root composite is a one-liner |
 | `markov_a_pos` | `a ≥ 1` for any Markov triple with `c ≥ 2` (`a=0` forces `c=0`) |
 | ★ `markov_max_unique_1325`, `_985`, `_610` | **UNCONDITIONAL** uniqueness at three 4-root composites: `1325=5²·53` `(13,34)`, `985=5·197` `(2,169)`, **`610=2·5·61` `(1,233)` — the first EVEN composite**.  Each a one-liner via `markov_max_unique_of_4roots`, all ∅-axiom |
+| `markov_max_unique_of_2roots` | the **2-root (prime / prime-power) class**, packaged like `of_4roots` with two certs (`c = pᵏ,2pᵏ,4pᵏ` have roots `{r,c−r}`) |
+| ★ `markov_max_unique_169`, `_233`, `_433` | **UNCONDITIONAL** Button/Zhang class: `169=13²` `(2,29)` — **first prime-power composite**; `233` (prime) `(1,89)` roots `{89,144}` consecutive Fibonacci; `433` (prime) `(5,29)` |
 | `markov_reachable_no_3mod4_factor` | **no prime `≡3(mod4)` divides a reachable Markov number** (Zhang 2007) — joins the two files: `√(−1)` exists mod `c` (`markov_reachable_neg_one_qr`) but not mod a `p≡3` factor (`no_sqrt_neg_one_4k3`) |
 | `MarkovPrimeFactor.euclid_of_coprime` | **fully general Euclid's lemma**: `gcd213 a m = 1 ∧ m∣a·b ⟹ m∣b` (any `m>1`) |
 | `MarkovPrimeFactor.coprime_prime_pow` | `p∤n ⟹ gcd213 n (pᵏ) = 1` (`dvd_prime_pow_cases`: divisors of `pᵏ` are `1` or `p·…`) |

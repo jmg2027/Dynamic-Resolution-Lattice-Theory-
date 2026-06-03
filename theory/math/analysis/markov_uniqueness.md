@@ -2,7 +2,7 @@
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
 verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (72 PURE / 0 dirty):
+explicit open target.  Source of truth (76 PURE / 0 dirty):
 `lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
 
 ## The conjecture
@@ -194,13 +194,15 @@ kernel at `c = 1325`):
      (composing with the tree invariant `markov_reachable_coprime`).  `markov_hcop_general c`
      (`c ≥ 2`) packages this as the coprimality input for *all* maxima at once.
 
-The route is packaged once and for all as `markov_max_unique_of_4roots`: given the root set
-`{r₁,r₂,r₃,r₄}` (a decidable disjunction) and the four per-root certificates (each a 1-D `decide`
-over `b`), it returns `MarkovMaxUnique c`, with coprimality, `a ≥ 1`, and `b < c` all discharged
-internally by the descent theorem and the recovery map.  A new 4-root composite Markov number is
-then a single line.  This closes `1325 = 5²·53` `(13,34)`, `985 = 5·197` `(2,169)`, and
-`610 = 2·5·61` `(1,233)` — the last being the first **even** composite Markov number — all
-∅-axiom, with no per-`c` coprimality argument.
+The route is packaged once and for all as `markov_max_unique_of_4roots` (and its two-root twin
+`markov_max_unique_of_2roots`): given the root set as a decidable disjunction and one certificate
+per root (each a 1-D `decide` over `b`), it returns `MarkovMaxUnique c`, with coprimality, `a ≥ 1`,
+and `b < c` all discharged internally by the descent theorem and the recovery map.  A new Markov
+number is then a single line.  Closed so far, all ∅-axiom and with no per-`c` coprimality
+argument: the 4-root composites `1325 = 5²·53` `(13,34)`, `985 = 5·197` `(2,169)`, `610 = 2·5·61`
+`(1,233)` (the first **even** composite); and the 2-root prime / prime-power class
+`169 = 13²` `(2,29)` (the first **prime-power composite**, the Button/Zhang case), `233` `(1,89)`,
+`433` `(5,29)`.
 
 ## Pairwise coprimality is the tree's invariant
 

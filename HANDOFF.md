@@ -2,9 +2,10 @@
 
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**.
-Full `lake build` clean.  Markov: `MarkovUniqueness` **72 PURE** + `ModArith/MarkovPrimeFactor`
-28 PURE = 100, all ∅-axiom.  Three composite Markov numbers closed unconditionally —
-**`MarkovMaxUnique {610, 985, 1325}`** — each now a one-liner via `markov_max_unique_of_4roots`.
+Full `lake build` clean.  Markov: `MarkovUniqueness` **76 PURE** + `ModArith/MarkovPrimeFactor`
+28 PURE = 104, all ∅-axiom.  **Six Markov numbers closed unconditionally**: 2-root (prime /
+prime-power) `{169=13², 233, 433}` via `markov_max_unique_of_2roots`; 4-root (composite)
+`{610=2·5·61, 985, 1325}` via `markov_max_unique_of_4roots`.  Each a one-liner.
 
 ## ★ CAPSTONES — UNCONDITIONAL ∅-axiom uniqueness at TWO 4-root composite Markov numbers
 `markov_max_unique_1325 : MarkovMaxUnique 1325` (`1325=5²·53`, triple `(13,34,1325)`) **and**
@@ -132,13 +133,14 @@ next is `610 = 2·5·61` (NOTE: even — factor 2 needs the mod-2 parity branch 
 `markov_hcop_general (c≥2)`: the `hcop` input for ALL `c` at once — `markov_max_unique_{1325,985}`
 now route through it; the per-c reduced-equation method (266²/198² decides) is deleted.
 
-### 3d. Per-c uniqueness PACKAGED — `markov_max_unique_of_4roots`.
-A new 4-root composite Markov number is now ONE LINE:
-`markov_max_unique_<c> := markov_max_unique_of_4roots c a₀ b₀ r₁ r₂ r₃ r₄ (by decide)×6`
-(root-set disjunction + four per-root certs, all `decide`; coprimality/`a≥1`/`b<c` internal).
-Done for `610` (even, first), `985`, `1325`.  More 4-root composites (`2210=2·5·13·17`? no, that's
-8-root; `1769=29·61`, `4181=37·113`, …) are mechanical.  An 8-root / 2-root analogue
-(`markov_max_unique_of_{8,2}roots`) would cover the rest by the same template.
+### 3d. Per-c uniqueness PACKAGED — `markov_max_unique_of_{2,4}roots`.
+A new prime / prime-power Markov number (2 roots) is ONE LINE:
+`markov_max_unique_of_2roots c a₀ b₀ r₁ r₂ (by decide)×4`; a 4-root composite is
+`markov_max_unique_of_4roots c a₀ b₀ r₁ r₂ r₃ r₄ (by decide)×6` (root-set disjunction + per-root
+certs; coprimality/`a≥1`/`b<c` internal).  Done: 2-root `{169,233,433}`, 4-root `{610,985,1325}`.
+An **8-root** analogue (`markov_max_unique_of_8roots`) would cover `c` with 3 distinct odd prime
+factors (e.g. `6466=2·53·61`, the next).  All mechanical per-`c`; the `(by decide)` over `b<c`
+grows with `c` (needs `maxRecDepth 40000`; ~OK to `c≈3000`).
 
 ### 3e. GENERAL conjecture crux (still open).
 The residue-map injectivity (`triple ↦ a·b⁻¹ mod c` is injective on triples with max `c`) for
