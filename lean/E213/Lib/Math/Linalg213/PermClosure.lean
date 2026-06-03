@@ -108,4 +108,37 @@ theorem permsOf_sound : ∀ (xs q : List Nat), q ∈ permsOf xs → LPerm q xs
     rcases mem_flatMap' _ h with ⟨p, hp, hq⟩
     exact LPerm.trans (insEv_sound a p q hq) (LPerm.cons a (permsOf_sound ys p hp))
 
+/-! ## §3 — length and occurrence-count under `LPerm`
+
+Toward `LPerm` cancellation (needed for completeness): the **occurrence count** `cnt a` and
+its `LPerm`-invariance.  The reverse — count-equality ⟹ `LPerm` — is the cancellation engine
+(next). -/
+
+/-- `LPerm` preserves length. -/
+theorem LPerm.length_eq {α : Type} {L1 L2 : List α} (h : LPerm L1 L2) :
+    L1.length = L2.length := by
+  induction h with
+  | nil               => rfl
+  | cons x _ ih        => exact congrArg (· + 1) ih
+  | swap x y l         => rfl
+  | trans _ _ ih₁ ih₂  => exact ih₁.trans ih₂
+
+/-- Occurrence count of `a` in a `Nat` list. -/
+def cnt (a : Nat) : List Nat → Nat
+  | []     => 0
+  | b :: l => (if b = a then 1 else 0) + cnt a l
+
+/-- `LPerm` preserves every occurrence count. -/
+theorem cnt_lperm {a : Nat} {L1 L2 : List Nat} (h : LPerm L1 L2) : cnt a L1 = cnt a L2 := by
+  induction h with
+  | nil => rfl
+  | cons x _ ih =>
+    show (if x = a then 1 else 0) + cnt a _ = (if x = a then 1 else 0) + cnt a _
+    rw [ih]
+  | swap x y l =>
+    show (if y = a then 1 else 0) + ((if x = a then 1 else 0) + cnt a l)
+       = (if x = a then 1 else 0) + ((if y = a then 1 else 0) + cnt a l)
+    exact Nat.add_left_comm _ _ _
+  | trans _ _ ih₁ ih₂ => exact ih₁.trans ih₂
+
 end E213.Lib.Math.Linalg213.PermClosure
