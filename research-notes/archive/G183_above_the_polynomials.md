@@ -1,5 +1,9 @@
 # G183 — above the polynomials: the orbit-dimension ladder
 
+> **Promoted.**  The closed narrative now lives in
+> `theory/math/analysis/cfinite_orbit_dimension.md` (mirrors `Cauchy/OrbitDimension` +
+> `Cauchy/CFiniteRing`).  This note is retained as scratch provenance.
+
 **Date**: 2026-06-02.  **Status**: **Conjecture C-A built** (`Cauchy/OrbitDimension`, 15 PURE) —
 the strict inclusion `polynomial ⊊ C-finite` is now an ∅-axiom theorem.  Remaining: the full
 `ℤ[Δ]`-ring closure (C-A's product/general-sum part), C-B (Casoratian rank), C-C (holonomic),
