@@ -2,9 +2,9 @@
 
 ## Branch
 `claude/markov-uniqueness-0R0Ut` — pushed.  Working tree clean.  **`origin/main` merged in**.
-Full `lake build` clean.  Markov: `MarkovUniqueness` **82 PURE** + `ModArith/MarkovPrimeFactor`
-28 PURE = 110, all ∅-axiom.  (Net −8: descent theorem added, per-c reduced-equation coprimality
-method retired — module build now far faster, no 266²/198² decides.)
+Full `lake build` clean.  Markov: `MarkovUniqueness` **72 PURE** + `ModArith/MarkovPrimeFactor`
+28 PURE = 100, all ∅-axiom.  Three composite Markov numbers closed unconditionally —
+**`MarkovMaxUnique {610, 985, 1325}`** — each now a one-liner via `markov_max_unique_of_4roots`.
 
 ## ★ CAPSTONES — UNCONDITIONAL ∅-axiom uniqueness at TWO 4-root composite Markov numbers
 `markov_max_unique_1325 : MarkovMaxUnique 1325` (`1325=5²·53`, triple `(13,34,1325)`) **and**
@@ -132,14 +132,21 @@ next is `610 = 2·5·61` (NOTE: even — factor 2 needs the mod-2 parity branch 
 `markov_hcop_general (c≥2)`: the `hcop` input for ALL `c` at once — `markov_max_unique_{1325,985}`
 now route through it; the per-c reduced-equation method (266²/198² decides) is deleted.
 
-### 3d. NEXT — extend uniqueness to more composites / push toward the general conjecture.
-With general coprimality + the recovery reduction, each new composite Markov number `c` needs ONLY
-its decidable certificates: `sqrtNegOneRoots_<c>` (root set), per-root phantom/valid 1-D certs,
-`markov_no_top_<c>`, then `markov_max_unique_<c> := markov_max_unique_<c>_of_coprime
-(markov_hcop_general c (by decide))`.  Targets: `610 = 2·5·61` (even — root recovery needs `b`
-coprime to `c`; gcd already general), `2210`, `1597`(prime, 2-root, easy).  The GENERAL conjecture
-crux remains the residue-map injectivity (`triple ↦ a·b⁻¹ mod c`) for arbitrary `c` — still open;
-per-c certs sidestep it.  Coprimality half is now fully general.
+### 3d. Per-c uniqueness PACKAGED — `markov_max_unique_of_4roots`.
+A new 4-root composite Markov number is now ONE LINE:
+`markov_max_unique_<c> := markov_max_unique_of_4roots c a₀ b₀ r₁ r₂ r₃ r₄ (by decide)×6`
+(root-set disjunction + four per-root certs, all `decide`; coprimality/`a≥1`/`b<c` internal).
+Done for `610` (even, first), `985`, `1325`.  More 4-root composites (`2210=2·5·13·17`? no, that's
+8-root; `1769=29·61`, `4181=37·113`, …) are mechanical.  An 8-root / 2-root analogue
+(`markov_max_unique_of_{8,2}roots`) would cover the rest by the same template.
+
+### 3e. GENERAL conjecture crux (still open).
+The residue-map injectivity (`triple ↦ a·b⁻¹ mod c` is injective on triples with max `c`) for
+arbitrary `c` is the remaining open part — per-c certs sidestep it by enumerating the finite root
+set.  The coprimality half is fully general (`markov_ordered_coprime`).  A genuine general-`c`
+result would need to bound the number of ordered triples per root *without* enumeration — the
+`SqrtNegOneTwoRoots → MarkovMaxUnique` reduction at prime powers (Button/Zhang) is the model;
+formalising that family (`MarkovMaxUnique (p^k)`) is the next non-mechanical target.
 
 ### 3. C6 — root-count reduction `SqrtNegOneTwoRoots c → MarkovMaxUnique c` — classically OPEN-ish
 **Input now done for prime POWERS** (full Button/Zhang class): `two_roots_of_prime` (primes) and
