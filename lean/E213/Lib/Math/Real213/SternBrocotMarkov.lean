@@ -414,4 +414,42 @@ theorem mNode_pos (path : List Bool) : posMat (mNode path) :=
 theorem markovNum_pos (path : List Bool) : 1 ≤ markovNum path :=
   (mNode_pos path).2.2.1
 
+/-! ## §5 — the residue is a square root of `−1` mod the Markov number
+
+  The residue `u_t = (M_t)₂₂ − (M_t)₂₁ = d − c` satisfies `u_t² ≡ −1 (mod m_t)` (with `m_t = c`),
+  the defining congruence of the recovery (`markov_root_recovery` / `SqrtNegOneTwoRoots`).  This is
+  a one-shot ring identity: with `det M_t = 1` and the entry-shape `a + d = 3c`,
+  `u_t² + 1 = (c + d − b)·c`, so `m_t ∣ u_t² + 1`.  (Verified witness on the first node
+  `M = ⟨8,11,5,7⟩`: `u² + 1 = 5 = (5 + 7 − 11)·5`.) -/
+
+/-- ★★★★★ **The residue squares to `−1` modulo the Markov number** (exact integer form).  For every
+    node, `u_t² + 1 = (m_t + d − b)·m_t` (`u_t = d − c`, `m_t = c`), using `det = 1` (`mNode_det1`)
+    and the entry-shape `a + d = 3c` (`mNode_shape`).  The two correction terms
+    `−(det − 1)` and `d·(tr − 3c)` vanish.  Pure ℤ ring identity:
+    `(d−c)² + 1 = (c+d−b)·c − (ad−bc−1) + d·(a+d−3c)`. -/
+theorem markovRes_sq (path : List Bool) :
+    markovRes path * markovRes path + 1
+    = ((mNode path).c + (mNode path).d - (mNode path).b) * (mNode path).c := by
+  have hd : (mNode path).a * (mNode path).d - (mNode path).b * (mNode path).c = 1 := mNode_det1 path
+  have hs : (mNode path).a + (mNode path).d = 3 * (mNode path).c := mNode_shape path
+  show ((mNode path).d - (mNode path).c) * ((mNode path).d - (mNode path).c) + 1
+     = ((mNode path).c + (mNode path).d - (mNode path).b) * (mNode path).c
+  calc ((mNode path).d - (mNode path).c) * ((mNode path).d - (mNode path).c) + 1
+      = ((mNode path).c + (mNode path).d - (mNode path).b) * (mNode path).c
+        + (-(((mNode path).a * (mNode path).d - (mNode path).b * (mNode path).c) - 1))
+        + (mNode path).d * (((mNode path).a + (mNode path).d) - 3 * (mNode path).c) := by ring_intZ
+    _ = ((mNode path).c + (mNode path).d - (mNode path).b) * (mNode path).c
+        + (-((1 : Int) - 1))
+        + (mNode path).d * (3 * (mNode path).c - 3 * (mNode path).c) := by rw [hd, hs]
+    _ = ((mNode path).c + (mNode path).d - (mNode path).b) * (mNode path).c := by ring_intZ
+
+/-- ★★★★★ **`m_t ∣ u_t² + 1`** — the residue is a square root of `−1` modulo the Markov number, the
+    `SqrtNegOneTwoRoots` congruence realised on every tree node (witness `m_t + d − b`). -/
+theorem markovNum_dvd_res_sq_succ (path : List Bool) :
+    markovNum path ∣ markovRes path * markovRes path + 1 :=
+  ⟨(mNode path).c + (mNode path).d - (mNode path).b, by
+    show markovRes path * markovRes path + 1
+       = (mNode path).c * ((mNode path).c + (mNode path).d - (mNode path).b)
+    rw [markovRes_sq]; ring_intZ⟩
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
