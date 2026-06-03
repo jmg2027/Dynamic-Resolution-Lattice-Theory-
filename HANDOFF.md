@@ -26,7 +26,7 @@ unit `i`, `UnitsToModular.repI i = S`) + `ring_intZ`:
 So the √(−1)-residue indexing a Markov number is the eigenvalue of the Gaussian unit `i = S` on the
 Markov pair `(a,b)` mod `c`.  (The only formality between the two is the Nat→Int dvd cast.)
 
-## ★ NEW (this session): `Real213/MarkovInjectivity` (5 PURE) — the injectivity analysis
+## ★ NEW (this session): `Real213/MarkovInjectivity` (9 PURE) — the injectivity analysis
 After a literature deep-dive (Zhang 2007, Lang–Tan, Baragar, Button, Aigner), the open locus is
 recalibrated.  Reduction: `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c ∧ residue-map-injective`.
 - **Zhang Lemma 4 — DONE**: `root_unique_below_half` (with the 2-root property, ≤1 root of `x²≡−1`
@@ -46,11 +46,22 @@ recalibrated.  Reduction: `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c ∧ residu
 - **Triple determined by two largest entries** (`markov_same_mid_eq`): two ordered triples sharing
   `(b,c)` coincide (`a` = the unique root `≤ b` of the Vieta quadratic; the partner `3bc−a > b`).
   So uniqueness at `c` reduces to **middle-entry uniqueness**.
-- **Spine realization** (`MarkovCassiniBridge.spine_residue_farey`): on the Fibonacci spine the
-  `(residue fib(2n), max fib(2n+1))` pairs are Farey/Stern-Brocot neighbors
-  (`fib(2n+1)·fib(2n+2)=fib(2n)·fib(2n+3)+1`, unimodular cross-det) — the structural basis of
-  Zhang Lemma 2 on the spine.  Generalising this monotone recovery to all of `c` (via the repo's
-  `Mobius213SternBrocot`/`ConvergentDet`) is the next step toward `SamePairInjective`.
+- **Spine realization** (`MarkovCassiniBridge.spine_residue_farey` + `spine_residue_strict_mono`):
+  on the Fibonacci spine the `(residue fib(2n), max fib(2n+1))` pairs are Farey/Stern-Brocot
+  neighbors (`fib(2n+1)·fib(2n+2)=fib(2n)·fib(2n+3)+1`), and the residue ratio `u_n/m_n` is
+  **strictly increasing** (`fib(2n)·fib(2n+3) < fib(2n+1)·fib(2n+2)`) — Zhang Lemma 2 realized ON
+  the spine.
+
+## Next frontier: `SamePairInjective` for all `c` (= Zhang Lemma 2 / Farey-monotone recovery)
+Scoping (Explore agent) + a **correction**: the repo's `Mobius213SternBrocot.SternBrocotReachable`
+`mediant` constructor takes mediants of *any* two reachable pairs, so it includes **non-coprime**
+pairs (e.g. `(2,2)=(1,0)+(1,2)`) — the naive "SB-reachable ⟹ coprime" bridge is **FALSE** for this
+definition.  A real bridge needs the *adjacency-restricted* mediant (Farey neighbours, det ±1) or a
+direct Farey-order/monotonicity argument.  Layers: (1) Farey-adjacency-preserving SB subtree +
+coprimality; (2) Markov-pair → Farey-slope map; (3) **the deep open piece** — residue strictly
+monotone in slope (`farey_slope_monotone`, Zhang Lemma 2), realized so far only on the spine.
+`ConvergentDet.det_one_four_readings` (Farey det=1, the four readings incl. `spine_residue_farey`)
+is the anchor.  This is a multi-session project; the spine instances show the shape.
   See G173 "Injectivity analysis".
 
 Full `lake build` clean.  Markov: `MarkovUniqueness` **80 PURE** + `MarkovCassiniBridge` 3 PURE +
