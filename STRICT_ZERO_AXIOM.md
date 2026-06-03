@@ -239,6 +239,27 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Number-tower founding + invert-move addition (2026-06-03)
+
+`E213.Lens.Number.Nat213.Tower.PairCompletion` — **13 PURE / 0 DIRTY**.  The **invert
+move as one theorem**: a generic `CommCancelSemigroup` on `Nat213` (op + comm + assoc +
+right-cancel, **no unit**) with pair-completion `pairEquiv M p q := M.op p.1 q.2 =
+M.op p.2 q.1`, equivalence-relation proofs (`pairEquiv_{refl,symm,trans}`), the `swap`
+involution, and `combine`.  `combine_swap_equiv_diagonal` — `x ∘ inv(x)` lands on the
+diagonal, so the completed group's identity **emerges** as the diagonal class, unit-free
+(forced: `Nat213` has no additive `0`, yet its additive completion has an identity).
+Instances `addCCS` (`op=+` → ℤ model) and `mulCCS` (`op=·` → ℚ_+); `mulCCS_recovers_qpairEquiv`
+(`Iff.rfl`) recovers `NatPairToQPos.qpairEquiv`; capstone `invert_is_one_move`.  ℤ and ℚ_+
+are one construction read on the two operations.
+
+`E213.Lens.Number.Nat213.Tower.NatPairToQPos` — **+7 PURE (18 total) / 0 DIRTY**.  The
+**reciprocal involution**, multiplicative twin of `NatPairToInt`'s negation: `qSwap`
+(period-2, `qSwap_involutive`), `qpair_mul_swap_eq_qOne` (`x·(1/x)=1`, the reciprocal law),
+`qOne_reciprocal_fixed` (`1/1=1`), `qpair_diagonal_collapse` (diagonal ~ unit `1`),
+`reciprocal_fixed_of_unit` (forward half of the fixed-point characterization), and the
+bundle `reciprocal_is_multiplicative_twin_of_negation`.  One swap, two folds, two units
+(`0` for `+`, `1` for `·`).
+
 ### Real-number stratification addition (2026-06-01)
 
 `E213.Lib.Math.Real213.RateStratification` — **12 PURE / 0 DIRTY**.
