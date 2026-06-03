@@ -393,4 +393,81 @@ theorem nodup_map {α β : Type} [DecidableEq α] [DecidableEq β] {f : α → �
     · rw [if_neg hfdq, Nat.zero_add]
       exact nodup_map hf (nodup_tail hL) q
 
+/-- Remove the first occurrence of `a`. -/
+def removeFirst (a : Nat) : List Nat → List Nat
+  | []     => []
+  | b :: l => if b = a then l else b :: removeFirst a l
+
+/-- From `a ∉ b :: ys`: `a ≠ b` and `a ∉ ys`. -/
+theorem ne_and_not_mem {a b : Nat} {ys : List Nat} (h : a ∉ b :: ys) : a ≠ b ∧ a ∉ ys := by
+  constructor
+  · intro e; subst e; exact h (List.Mem.head _)
+  · intro hm; exact h (List.Mem.tail _ hm)
+
+/-- `removeFirst a` recovers `r` from any insertion of `a` into `r` (when `a ∉ r`). -/
+theorem removeFirst_insEv (a : Nat) : ∀ (r : List Nat), a ∉ r → ∀ (q : List Nat),
+    q ∈ insertEverywhere a r → removeFirst a q = r
+  | [],      _,  q, h => by
+    have hq : q = [a] := mem_singleton' h
+    subst hq; show (if a = a then [] else a :: removeFirst a []) = []; rw [if_pos rfl]
+  | b :: ys, hr, q, h => by
+    have hab := ne_and_not_mem hr
+    cases h with
+    | head =>
+      show (if a = a then b :: ys else a :: removeFirst a (b :: ys)) = b :: ys
+      rw [if_pos rfl]
+    | tail _ hmap =>
+      rcases mem_map' _ hmap with ⟨q', hq', hb⟩
+      subst hb
+      show (if b = a then q' else b :: removeFirst a q') = b :: ys
+      rw [if_neg (fun e => hab.1 e.symm), removeFirst_insEv a ys hab.2 q' hq']
+
+/-- `insertEverywhere a r` has no repeats (when `a ∉ r`). -/
+theorem nodup_insEv (a : Nat) : ∀ (r : List Nat), a ∉ r → Nodup (insertEverywhere a r)
+  | [],      _  => nodup_cons (fun h => by cases h) (fun _ => Nat.zero_le _)
+  | b :: ys, hr => by
+    have hab := ne_and_not_mem hr
+    apply nodup_cons
+    · intro hm
+      rcases mem_map' _ hm with ⟨x, _, hx⟩
+      exact hab.1 (List.cons.inj hx).1.symm
+    · exact nodup_map (fun x y hxy => (List.cons.inj hxy).2) (nodup_insEv a ys hab.2)
+
+/-- `flatMap` is nodup when the base is nodup, each fiber is nodup, and a section `s` recovers
+    the base index from any fiber element. -/
+theorem nodup_flatMap {α β : Type} [DecidableEq α] [DecidableEq β] (g : α → List β) (s : β → α) :
+    ∀ (P : List α), Nodup P → (∀ r ∈ P, Nodup (g r)) → (∀ r ∈ P, ∀ q, q ∈ g r → s q = r) →
+      Nodup (P.flatMap g)
+  | [],      _,  _,  _  => fun _ => Nat.zero_le _
+  | r :: P', hP, hg, hs => fun q => by
+    show cnt q (g r ++ (P'.flatMap g)) ≤ 1
+    rw [cnt_append]
+    cases Nat.eq_zero_or_pos (cnt q (g r)) with
+    | inl h0 =>
+      rw [h0, Nat.zero_add]
+      exact nodup_flatMap g s P' (nodup_tail hP)
+        (fun r' hr' => hg r' (List.Mem.tail _ hr')) (fun r' hr' => hs r' (List.Mem.tail _ hr')) q
+    | inr hpos =>
+      have hsq : s q = r := hs r (List.Mem.head _) q (cnt_pos_mem hpos)
+      have hzero : cnt q (P'.flatMap g) = 0 := by
+        apply cnt_eq_zero_of_not_mem
+        intro hmem
+        rcases mem_flatMap' g hmem with ⟨r', hr', hqr'⟩
+        have hrr : r = r' := hsq ▸ (hs r' (List.Mem.tail _ hr') q hqr')
+        exact nodup_head_not_mem hP (hrr.symm ▸ hr')
+      rw [hzero]
+      exact hg r (List.Mem.head _) q
+
+/-- ★ **`permsOf xs` has no repeats** when `xs` does. -/
+theorem nodup_permsOf : ∀ {xs : List Nat}, Nodup xs → Nodup (permsOf xs)
+  | [],      _   => nodup_cons (fun h => by cases h) (fun _ => Nat.zero_le _)
+  | a :: ys, hxs => by
+    have hays : a ∉ ys := nodup_head_not_mem hxs
+    have hys : Nodup ys := nodup_tail hxs
+    refine nodup_flatMap (insertEverywhere a) (removeFirst a) (permsOf ys)
+      (nodup_permsOf hys) ?_ ?_
+    · exact fun r hr => nodup_insEv a r (fun hm => hays (LPerm.mem (permsOf_sound ys r hr) hm))
+    · exact fun r hr q hq =>
+        removeFirst_insEv a r (fun hm => hays (LPerm.mem (permsOf_sound ys r hr) hm)) q hq
+
 end E213.Lib.Math.Linalg213.PermClosure
