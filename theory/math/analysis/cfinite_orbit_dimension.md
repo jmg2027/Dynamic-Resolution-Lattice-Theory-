@@ -166,6 +166,13 @@ Three directions remain, in rough difficulty order.
   power-sum route's `÷k` integrality being "the determinant in disguise".  `FiniteDepthAlgebra.
   polyDepthZ_mul` (see [`newton_gregory.md`](newton_gregory.md)) is the finite-*depth* analogue via
   the discrete Leibniz rule; the full C-finite version needs the Hadamard/resultant construction.
+  The general `n×n` determinant for this is under construction in `Linalg213.DetN` (cofactor
+  expansion over `ℤ`; first-row multilinearity and the column-skip commutation
+  `colShift a ∘ colShift c = colShift (c+1) ∘ colShift a` — the geometric core of the alternating
+  property — are in place).  `Linalg213.FibCassiniDet` already grounds it: `det 2` of the Fibonacci
+  Casoratian `[[fibₙ, fibₙ₊₁], [fibₙ₊₁, fibₙ₊₂]]` is exactly the orbit's conserved unit `(−1)ⁿ⁺¹`,
+  so the determinant program's base size returns the same unimodular `det Qⁿ = ±1` as the
+  conserved-unit section above.
 
 - **Casoratian rank = orbit dimension** — C-finite iff the Hankel/Casoratian determinants of the
   shift-orbit eventually vanish, the orbit dimension equalling that rank.  Connects directly to

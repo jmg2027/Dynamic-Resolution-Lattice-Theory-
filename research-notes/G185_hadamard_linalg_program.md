@@ -157,3 +157,51 @@ So the determinant program's remaining cost is concentrated in this single hard 
 downstream (linear dependence, char poly monic, CH, Kronecker `M`, `cfiniteZ_mul`) is gated by it.
 Alternative: the permutation/parity determinant (alternating = parity-flip = the count-Lens
 negation) makes alternating clean but needs a permutations+sign ∅-axiom build instead.
+
+## Update — §3 column-skip commutation banked + the integration loop closed (18+3 PURE)
+
+`Linalg213/DetN` → **18 PURE** (added §3); new bridge `Linalg213/FibCassiniDet` → **3 PURE**.
+
+**Banked (the geometric core of alternating):**
+- `colShift j l = if l < j then l else l+1` factored out of `minor`; `colShift_lt`/`colShift_ge`.
+- ★ `colShift_comm {a ≤ c} : colShift a ∘ colShift c = colShift (c+1) ∘ colShift a` — deleting
+  two columns in either order is the same.  Proven ∅-axiom by `Nat.lt_or_ge` case-splits +
+  clean core ordering lemmas (`Nat.lt_of_lt_of_le`, `Nat.lt_irrefl`, `Nat.succ_lt_succ`, …, all
+  PURE per `Pigeonhole`).  No propext.
+- `detMinorMinor_comm {a ≤ c} : det n (minor (minor M a) c) = det n (minor (minor M (c+1)) a)` —
+  lifts it to the double minor's determinant, pointwise via `det_congr`.
+
+**Integration loop closed (the "monic = shared unit" 아하, concretely):** `FibCassiniDet`:
+- `fibCas n i j = fibZ (n+i+j)` (the `2×2` companion power `Qⁿ` window).
+- `cassini_fibZ_eq_altSign : fibₙ·fibₙ₊₂ − fibₙ₊₁² = altSign (n+1) = (−1)ⁿ⁺¹` (closed form, via
+  `cassini_fibZ_zero` + `cassini_fibZ_step`).
+- ★ `fibCas_det_eq_unit : det 2 (fibCas n) = (−1)ⁿ⁺¹` — the general determinant's `2×2` base
+  **is** the orbit's conserved unit, the same unimodular `det = ±1` as the founding's shared unit
+  (`PnFibonacciUniversal.det_pn_universal`, `det Qⁿ = unit`).  DetN validated against real content.
+
+### The precise remaining gap (walk-in for the next session)
+
+The whole alternating property reduces to ONE base case, then clean inductions:
+
+1. **Base (hard):** *top two rows equal ⟹ `det (n+2) M = 0`.*  Double-expand: `det = Σⱼ Σₖ
+   (−1)^{j+k} M₀ⱼ · M₀,(colShift j k) · det n (minor (minor M j) k)` (using row0=row1).  The
+   involution pairing two distinct columns `a<b`: term `(j=a, k=b−1)` ↔ term `(j=b, k=a)` — by
+   `detMinorMinor_comm` they share the double minor; `altSign` ratio is `−1` (since `b = (b−1)+1`);
+   the row-0 scalars `M₀ₐM₀ᵦ = M₀ᵦM₀ₐ` are equal ⟹ the pair **cancels**.  Every term pairs (no
+   self-fixed point, `colShift j k ≠ j`), so the sum is `0`.  *Obstacle*: reorganizing the
+   **nested recursive `cofSum`** by this `(a,b−1)↔(b,a)` involution — there is no `Finset`/Fubini
+   infra here, so a small "sum-over-nested-ranges with a sign-reversing involution ⟹ 0" lemma
+   must be built first (the genuine remaining work; `colShift_comm`/`detMinorMinor_comm` are its
+   per-term inputs, now ready).
+2. **Multilinearity in any row `r`** (have it for `r=0`): expand along row 0, `M`'s row `r`
+   becomes the minor's row `r−1`; induct.  Clean.
+3. **Adjacent-rows-equal ⟹ 0, any position `i`**: expand along row 0 for `i≥1` (minor has the
+   pair at `i−1`); base `i=0` is (1).  Clean.
+4. **Adjacent-swap antisymmetry**: from (2)+(3) via `det(…,rᵢ+rᵢ₊₁,rᵢ+rᵢ₊₁,…)=0`.  Clean.
+5. **Any two equal rows ⟹ 0**: move one row adjacent by (4)'s swaps; sign-only, lands on (3).
+
+So the single irreducible build is the **nested-sum sign-reversing-involution ⟹ 0** lemma feeding
+base (1); everything else is the clean induction ladder above.  This is the recommended next unit
+(self-contained, reusable).  The permutation/parity determinant remains the alternative (alternating
+= `sign(σ∘τ)=−sign σ`, also a list-involution reindex — same class of obstacle, plus a sign-by-
+inversion-count build).
