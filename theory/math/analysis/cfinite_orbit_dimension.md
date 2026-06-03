@@ -1,10 +1,10 @@
 # C-finite and the orbit-dimension ladder — above the polynomials
 
-**Status**: The `+`-ring, the orbit-recurrence ⟺ annihilator characterization, and the
-**orbit dimension = recurrence order** equivalence are closed; the Hadamard product is the
-documented open frontier.  Source of truth (all ∅-axiom):
-`lean/E213/Lib/Math/Cauchy/OrbitDimension.lean` (30 PURE) and
-`lean/E213/Lib/Math/Cauchy/CFiniteRing.lean` (77 PURE).
+**Status**: The `+`-ring, the orbit-recurrence ⟺ annihilator characterization, the
+**orbit dimension = recurrence order** equivalence, and the **geometric-factor Hadamard
+product** (`cⁿ·s`) are closed; the general Hadamard product is the documented open frontier.
+Source of truth (all ∅-axiom): `lean/E213/Lib/Math/Cauchy/OrbitDimension.lean` (30 PURE) and
+`lean/E213/Lib/Math/Cauchy/CFiniteRing.lean` (79 PURE).
 
 ## Overview
 
@@ -51,6 +51,7 @@ polynomials, and the algebraic structure carried on it — a commutative ring un
 | `applyOp_shift` / `applyOp_ePow` | `CFiniteRing` | `E = applyOp [1,1] = I+Δ`; `Eᵏ` as a `Δ`-operator, `applyOp (ePow k) s n = s(n+k)` |
 | `applyShift_diffBase` / `applyShift_dPow` | `CFiniteRing` | `Δ = applyShift [-1,1] = E−I`; `Δᵏ` as a shift operator, `applyShift (dPow k) s n = Δᵏs(n)` |
 | `cfiniteZ_iff_shiftRec` | `CFiniteRing` | **C-finite ⟺ has a monic shift recurrence** — orbit dimension = recurrence order |
+| `cfiniteZ_geomScale` | `CFiniteRing` | `cⁿ · s` is C-finite for every C-finite `s` (Hadamard product, geometric factor) |
 
 ## Narrative
 
@@ -139,12 +140,16 @@ and its inverse `Δⁿ = (E−I)ⁿ` — is the binomial transform of
 
 Three directions remain, in rough difficulty order.
 
-- **The Hadamard (pointwise) product `s·t`** — the remaining ring operation.  The geometric case
-  is closed (`cfiniteZ_geom_mul`, `cⁿ·dⁿ = (cd)ⁿ`, orbit dimensions multiply `1·1 = 1`), but the
-  general product is genuinely harder: the characteristic roots multiply pairwise (a tensor of
-  recurrences, degree `k·m`).  `FiniteDepthAlgebra.polyDepthZ_mul` (see
-  [`newton_gregory.md`](newton_gregory.md)) is the finite-*depth* analogue via the discrete
-  Leibniz rule; the C-finite version needs the Hadamard/resultant construction.
+- **The Hadamard (pointwise) product `s·t`** — the remaining ring operation, closed at its corners.
+  A **geometric factor** is fully handled: `cfiniteZ_geomScale` proves `cⁿ · s` is C-finite for
+  *every* C-finite `s` (same recurrence order — a geometric weight rescales the shift coefficients,
+  `(cⁿs)(n+k) = Σ aᵢ c^{k−i} (cⁿs)(n+i)`, worked through `cfiniteZ_iff_shiftRec` since `E` is
+  multiplicative on the geometric factor), generalizing `cfiniteZ_geom_mul` (`cⁿ·dⁿ = (cd)ⁿ`) to
+  `cⁿ · (n²)`, `cⁿ · fib`, etc.  The **general** product `s · t` (both factors non-geometric) is the
+  open part: the characteristic roots multiply pairwise (a tensor of recurrences, degree `k·m`),
+  whose annihilator is the resultant of the two characteristic polynomials.  `FiniteDepthAlgebra.
+  polyDepthZ_mul` (see [`newton_gregory.md`](newton_gregory.md)) is the finite-*depth* analogue via
+  the discrete Leibniz rule; the full C-finite version needs the Hadamard/resultant construction.
 
 - **Casoratian rank = orbit dimension** — C-finite iff the Hankel/Casoratian determinants of the
   shift-orbit eventually vanish, the orbit dimension equalling that rank.  Connects directly to
@@ -165,4 +170,4 @@ cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Cauchy.OrbitDimension
 python3 tools/scan_axioms.py E213.Lib.Math.Cauchy.CFiniteRing
 ```
-Reports `30 pure / 0 dirty` and `77 pure / 0 dirty`.
+Reports `30 pure / 0 dirty` and `79 pure / 0 dirty`.

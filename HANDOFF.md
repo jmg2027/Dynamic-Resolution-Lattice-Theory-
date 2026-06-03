@@ -29,7 +29,7 @@ separates them.  Built **Conjecture C-A** (strict inclusion `polynomial ⊊ C-fi
 - **Abelian group**: `cfiniteZ_zero`/`cfiniteZ_neg` (here) + `CFiniteRing.cfiniteZ_sub` — C-finite is
   an abelian group under `±` (commutative ring under `+`).
 
-### 2. `Cauchy/CFiniteRing` (77 PURE) — operator algebra + ring + §8–§9 C-D reverse + §10–§11 C-D forward
+### 2. `Cauchy/CFiniteRing` (79 PURE) — operator algebra + ring + §8–§9 C-D reverse + §10–§11 C-D forward
 - `applyOp p s = Σ_i pᵢ·Δⁱs` (coeff list low-to-high `Δ`-power); `applyOp_add`/`smul`/`zero`/`congr`,
   `applyOp_diffZ` (`Δ`-commutation), ★ `applyOp_comm` (`p(Δ)q(Δ)s=q(Δ)p(Δ)s` — operators commute,
   proven directly, **no `conv_comm` needed**).
@@ -55,12 +55,14 @@ files).  **Default build now reaches every Cauchy module (0 orphans).**
 
 ## Open Problems (Priority Order)
 
-### 1. Hadamard (pointwise) product closure `s·t` — the other ring operation [top open]
-`cfiniteZ_add` (sum closure) is **done**; the geometric instance `cfiniteZ_geom_mul` (`cⁿ·dⁿ=(cd)ⁿ`)
-is done.  The *general* product closure `CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)` is genuinely
-harder: characteristic roots multiply pairwise (tensor of recurrences, degree `k·m`).
-`FiniteDepthAlgebra.polyDepthZ_mul` is the finite-*depth* analogue (discrete Leibniz); the C-finite
-version needs the Hadamard/resultant construction.  C-B-adjacent.
+### 1. General Hadamard (pointwise) product `s·t` [geometric-factor corner DONE]
+The **geometric factor** is closed: `cfiniteZ_geomScale` (`cⁿ·s` C-finite for every C-finite `s`,
+via `cfiniteZ_iff_shiftRec` + `geom_shiftSum`), generalizing `cfiniteZ_geom_mul`.  The **general**
+product `CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)` (both factors non-geometric) is the open part:
+characteristic roots multiply pairwise (tensor of recurrences, degree `k·m`), annihilator = the
+resultant of the two characteristic polynomials.  `FiniteDepthAlgebra.polyDepthZ_mul` is the
+finite-*depth* analogue (discrete Leibniz).  Needs a determinant/resultant or km-dim linear-algebra
+argument — the genuinely hard remaining piece.  C-B-adjacent.
 
 ### 2. C-B — Casoratian/Hankel rank = orbit dimension (`research-notes/G183` conj C-B)
 The C-finite ⟺ Hankel determinants eventually vanish; orbit dimension = Casoratian rank.  Connects to
@@ -85,7 +87,7 @@ Tables unchanged — `catalogs/physics-constants.md`, `catalogs/falsifiers.md`.
 ```
 NEW Lean (∅-axiom):
   lean/E213/Lib/Math/Cauchy/OrbitDimension.lean   ← poly ⊊ C-finite + geometric/Fibonacci/Hadamard/group (30 PURE)
-  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring + C-D both directions (77 PURE)
+  lean/E213/Lib/Math/Cauchy/CFiniteRing.lean      ← operator algebra + ring + C-D both directions + geometric Hadamard (79 PURE)
 MODIFIED:
   lean/E213/Lib/Math/Cauchy.lean   ← wired in OrbitDimension, CFiniteRing + the orphaned depth thread
   lean/E213/Lib/Math/Cauchy/INDEX.md
@@ -95,7 +97,7 @@ MODIFIED:
 
 ## Three-tier state
 - **Promoted (thread closed)**: the C-finite / orbit-dimension thread is now a Tier-3 chapter
-  `theory/math/analysis/cfinite_orbit_dimension.md` (mirrors `OrbitDimension` + `CFiniteRing`, 107 PURE);
+  `theory/math/analysis/cfinite_orbit_dimension.md` (mirrors `OrbitDimension` + `CFiniteRing`, 109 PURE);
   the research note is archived under `research-notes/archive/`.  Open items (the general Hadamard
   product, Casoratian rank, holonomic `ℚ(n)`-orbit) live in the chapter's **Open frontier** section.
 - No active Tier-1 scratch remains for this thread.
