@@ -452,4 +452,40 @@ theorem markovNum_dvd_res_sq_succ (path : List Bool) :
        = (mNode path).c * ((mNode path).c + (mNode path).d - (mNode path).b)
     rw [markovRes_sq]; ring_intZ⟩
 
+/-! ## §6 — the Frobenius residue cross-determinant (the monotonicity engine)
+
+  The residue version of `markoff_frobenius`: for the mediant `M_t = M_l·M_r` with `det M_r = 1`,
+  `u_r·m_t − u_t·m_r = m_l` (`u_• = d − c`, `m_• = c`).  Since `m_l ≥ 1 > 0` (`mInterval_pos`), this
+  pins the *sign* of the residue cross-determinant between the right bound and the node — the engine
+  of Zhang's Lemma 2 (strict monotonicity of the residue slope `u_t/m_t`), the route to
+  `SamePairInjective`.  Pure ℤ identity: the difference is `m_l·(det M_r − 1) = 0`.
+
+  (The *left* analogue `u_t·m_l − u_l·m_t = m_r` is **not** a generic det-1 identity — it holds only
+  on the tree, 54/2000 on random det-1 shape matrices — so it needs tree induction, deferred.) -/
+
+/-- ★★★★★ **Frobenius residue cross-determinant** (generic, the monotonicity engine).  With
+    `det M_r = 1`, `u_r·(M_l M_r)_c − u_t·m_r = m_l` where `u_r = (M_r)_d − (M_r)_c`,
+    `u_t = (M_l M_r)_d − (M_l M_r)_c`, `m_r = (M_r)_c`, `m_l = (M_l)_c`.  Proof: the difference is
+    `(M_l)_c·(det M_r − 1)` (`ring_intZ`) `= 0`. -/
+theorem markoff_frobenius_res (Ml Mr : Mat2) (hd : det2 Mr = 1) :
+    (Mr.d - Mr.c) * (mul Ml Mr).c - ((mul Ml Mr).d - (mul Ml Mr).c) * Mr.c = Ml.c := by
+  have hd' : Mr.a * Mr.d - Mr.b * Mr.c = 1 := hd
+  show (Mr.d - Mr.c) * (Ml.c * Mr.a + Ml.d * Mr.c)
+     - ((Ml.c * Mr.b + Ml.d * Mr.d) - (Ml.c * Mr.a + Ml.d * Mr.c)) * Mr.c = Ml.c
+  calc (Mr.d - Mr.c) * (Ml.c * Mr.a + Ml.d * Mr.c)
+       - ((Ml.c * Mr.b + Ml.d * Mr.d) - (Ml.c * Mr.a + Ml.d * Mr.c)) * Mr.c
+      = Ml.c + Ml.c * ((Mr.a * Mr.d - Mr.b * Mr.c) - 1) := by ring_intZ
+    _ = Ml.c + Ml.c * ((1 : Int) - 1) := by rw [hd']
+    _ = Ml.c := by ring_intZ
+
+/-- ★★★★★ **Tree Frobenius residue identity**: at every node, `u_r·m_t − u_t·m_r = m_l` — the right
+    interval bound's residue, the node's residue/number, and the left bound's number satisfy the
+    Frobenius cross-determinant.  Corollary of `markoff_frobenius_res` at `det M_r = 1`
+    (`mInterval_det`).  `m_l ≥ 1 > 0` fixes the slope's monotone sign. -/
+theorem markovRes_cross (path : List Bool) :
+    ((mInterval path).2.d - (mInterval path).2.c) * (mNode path).c
+      - markovRes path * (mInterval path).2.c
+    = (mInterval path).1.c :=
+  markoff_frobenius_res (mInterval path).1 (mInterval path).2 (mInterval_det path).2
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
