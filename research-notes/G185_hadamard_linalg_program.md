@@ -69,3 +69,52 @@ phase.  Current: Phase A definition + sanity committed (`DetN`, 6 PURE).
   - Target: `theory/math/analysis/cfinite_orbit_dimension.md` "Open frontier" (the general
     Hadamard bullet) + `Cauchy/CFiniteRing.cfiniteZ_geomScale` (the geometric-factor corner).
   - New: `lean/E213/Lib/Math/Linalg213/DetN.lean`.
+
+## The number-tower reframing (the native direction)
+
+Recognizing the `Lens/Number` **number-tower founding** thread (on `main`:
+`DifferenceLensFounding` ℤ, `RatioLensFounding` ℚ, `PairCompletion`, `NatPairToQPos`,
+`book/foundations`) recasts this whole program:
+
+  - **`+`-closure and Hadamard `⊙`-closure are the ℤ/ℚ sibling duality.**  `conv` (sum-closure)
+    multiplies char polys → roots are the **union** `α ∪ β` (additive/count reading = the ℤ rung,
+    `DifferenceLensFounding`).  Hadamard needs the **composed product** → roots are the pairwise
+    **product** `{αᵢβⱼ}` (multiplicative/ratio reading = the ℚ rung, `RatioLensFounding`).
+    `PairCompletion` already proves "invert is one move" — one mechanism (pair + diagonal-quotient
+    + swap) read at `+` (ℤ, swap = negation) and `·` (ℚ, swap = reciprocal).  So `+`/`⊙` on
+    C-finite are that same invert-move read on two operations; `⊙` is the multiplicative twin of
+    `conv`, not a foreign object.
+
+  - **The monic obstruction = the shared unit `det P = NS−NT = 1`.**  `RatioLensFounding`:
+    ℚ's lowest-terms (coprimality) *is* the unimodular `det P = 1`, shared with ℤ
+    (`SharedUnitAcrossReadings.the_unit_is_one_across_readings`).  My "monic = leading coeff a
+    unit" requirement is the same condition; monic-ness of the resultant is the **unit preserved
+    across the multiplicative reading**.  Concretely: the Fibonacci witness `cfiniteZ_fib`'s Cassini
+    `fib(n+2)fib(n)−fib(n+1)² = ±1` *is* `PnFibonacciUniversal.det_pn_universal` (`det Qⁿ = unit`) —
+    the same object.
+
+  - **C-finite = the ratio rung of a sequence-tower** parallel to `ℕ→ℤ→ℚ→ℝ`: polynomial
+    (Δ-nilpotent = count/ℤ rung) ⊊ C-finite (rational generating function `A(x)/Q(x)` = ratio/ℚ
+    rung) ⊊ holonomic ⊊ … with non-holonomic π = the resolution/residue diagonal (the "runs upward
+    without end" of `book/foundations/02`).  "Closed under an operation" = `book`'s
+    **completeness-as-fixpoint** ("the operation returns its own codomain"); Hadamard closure makes
+    C-finite a fixpoint under `⊙` too.
+
+  - **`E = I + Δ` is the same one-move bundling.**  The dual operator algebras
+    (`applyOp`/`applyShift`, `ePow=[1,1]ⁿ` / `dPow=[-1,1]ⁿ`) bundle `Δ = E − I` by one move — the
+    `PairCompletion` mechanism, independently rediscovered at the operator level.
+
+### Native redirect for the determinant-free composed product
+
+The multiplicative twin of `conv` ("`mconv`", roots → pairwise products) should be built
+*foundationally*, not by importing a Sylvester determinant.  Candidate route (being designed in the
+companion note): **power sums multiply** — `pₗ(αβ) = pₗ(α)·pₗ(β)` — with Newton's identities
+converting coeffs ↔ power sums.  The cross-check that `conv` ↔ power-sums-**add** confirms the
+`+`/`⊙` = additive/multiplicative duality at the power-sum level.  Open feasibility: the Newton
+`÷k` step over `ℤ` (∅-axiom integrality).  If `mconv` lands division-free, it is the genuinely
+native Hadamard annihilator and likely sidesteps the full `n×n` determinant.  `DetN` remains the
+fallback (resultant) and is independently needed for C-B (Casoratian rank).
+
+**Integration TODO** (needs merging `main`'s founding thread into this branch): wire
+`det_pn_universal` / `ns_minus_nt_is_one` to state "monic = shared unit" as a theorem; extend the
+`book`/chapter with the C-finite ratio-rung as a parallel bundling chain.
