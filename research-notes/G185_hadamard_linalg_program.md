@@ -134,3 +134,26 @@ dependence give only non-monic — the power-sum route is "the determinant in di
 — `(Σ aᵢ cᵢⁿ)·t` is C-finite for every C-finite `t` (one factor split / explicit integer spectrum),
 via `cfiniteZ_geomScale` + `cfiniteZ_add`.  The general (both-non-split) case stays the determinant
 program (Phase B/C: `DetN` → integer Cayley–Hamilton → Kronecker `M`), which also unlocks C-B.
+
+## Update — DetN Phase B (multilinearity) + the alternating hard core
+
+`Linalg213/DetN` extended to **13 PURE** (Phase B partial):
+- `det_congr` — `det` respects *pointwise* matrix equality.  Crucial: `funext` is
+  `Quot.sound`-dirty, so all matrix-as-function reasoning must go through pointwise congruence,
+  not function equality.  This is the ∅-axiom matrix-work pattern.
+- `setRow0`/`detMinor_setRow0` (the cofactor is row-0-independent), `det_row0_add`/`det_row0_smul`
+  — `det` is a linear functional of the first row.
+
+**The alternating property is the irreducible hard core.**  Two equal rows ⟹ `det = 0` (equivalently
+antisymmetry under a row swap) does NOT decompose into easy pieces for a first-row cofactor `det`:
+- Equal rows *both ≥ 1* (away from row 0): the minors inherit the equal pair — but when the pair is
+  rows 1,2 the minor's pair is at positions 0,1, i.e. the *position-0* case again.
+- The **row-0 ↔ row-1 swap** is genuinely not reducible to first-row expansion; the standard proof
+  is a **double cofactor expansion** with `2×2` sub-minor sign bookkeeping (~200+ lines, ∅-axiom,
+  no `funext`).  This is the one hard theorem gating linear-dependence (the `(−1)ʲ`-minor
+  construction needs "repeated row ⟹ 0") and Cayley–Hamilton (the adjugate identity).
+
+So the determinant program's remaining cost is concentrated in this single hard lemma; everything
+downstream (linear dependence, char poly monic, CH, Kronecker `M`, `cfiniteZ_mul`) is gated by it.
+Alternative: the permutation/parity determinant (alternating = parity-flip = the count-Lens
+negation) makes alternating clean but needs a permutations+sign ∅-axiom build instead.
