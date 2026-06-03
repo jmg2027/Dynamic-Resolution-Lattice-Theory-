@@ -19,7 +19,8 @@ namespace E213.Lib.Math.Linalg213.PermClosure
 
 open E213.Lib.Math.Linalg213.Permutation
   (LPerm insertEverywhere permsOf perms iota swapAt swapAt_lperm swapAt_prefix
-   sumZ sumZ_lperm sumZ_map_neg map_lperm leibTerm leibDet rowSwapAt leibTerm_rowSwap)
+   sumZ sumZ_lperm sumZ_map_neg map_lperm leibTerm leibDet rowSwapAt leibTerm_rowSwap
+   prodDiagFrom psign)
 
 /-! ## §0 — clean (∅-axiom) `List` membership helpers -/
 
@@ -618,5 +619,52 @@ theorem leibDet_rowSwap (M : Nat → Nat → Int) (n k : Nat) (hk : k + 1 < n) :
   congr 1
   rw [(map_map' (swapAt k) (leibTerm M) (perms n)).symm]
   exact sumZ_lperm (map_lperm (leibTerm M) (perms_swap_closed n k))
+
+/-! ## §10 — equal adjacent rows ⟹ `leibDet = 0` -/
+
+/-- `prodDiagFrom` respects pointwise matrix equality. -/
+theorem prodDiagFrom_congr {M M' : Nat → Nat → Int} (h : ∀ r c, M r c = M' r c) :
+    ∀ (i : Nat) (p : List Nat), prodDiagFrom M i p = prodDiagFrom M' i p
+  | _, []      => rfl
+  | i, a :: ps => by
+    show M i a * prodDiagFrom M (i + 1) ps = M' i a * prodDiagFrom M' (i + 1) ps
+    rw [h i a, prodDiagFrom_congr h (i + 1) ps]
+
+/-- `leibDet` respects pointwise matrix equality. -/
+theorem leibDet_congr (n : Nat) {M M' : Nat → Nat → Int} (h : ∀ r c, M r c = M' r c) :
+    leibDet n M = leibDet n M' := by
+  show sumZ ((perms n).map (leibTerm M)) = sumZ ((perms n).map (leibTerm M'))
+  rw [map_eq_of_mem (leibTerm M) (leibTerm M') (fun p _ => by
+    show psign p * prodDiagFrom M 0 p = psign p * prodDiagFrom M' 0 p
+    rw [prodDiagFrom_congr h 0 p])]
+
+/-- Equal rows `k, k+1` make `rowSwapAt k M` agree with `M` pointwise. -/
+theorem rowSwapAt_eq_of_rows_eq (M : Nat → Nat → Int) (k : Nat)
+    (hrows : ∀ c, M k c = M (k + 1) c) (r c : Nat) : rowSwapAt k M r c = M r c := by
+  show (if r = k then M (k + 1) c else if r = k + 1 then M k c else M r c) = M r c
+  by_cases h1 : r = k
+  · rw [if_pos h1, h1]; exact (hrows c).symm
+  · rw [if_neg h1]
+    by_cases h2 : r = k + 1
+    · rw [if_pos h2, h2]; exact hrows c
+    · rw [if_neg h2]
+
+/-- Over `ℤ`, `x = −x` forces `x = 0`. -/
+theorem int_eq_zero_of_eq_neg {x : Int} (h : x = -x) : x = 0 := by
+  have hxx : x + x = 0 := (congrArg (x + ·) h).trans (E213.Meta.Int213.add_neg_cancel x)
+  cases x with
+  | ofNat m =>
+    rw [show Int.ofNat m + Int.ofNat m = Int.ofNat (m + m) from rfl] at hxx
+    have hm0 : m = 0 := Nat.eq_zero_of_add_eq_zero_right (Int.ofNat.inj hxx)
+    subst hm0; rfl
+  | negSucc m =>
+    rw [show Int.negSucc m + Int.negSucc m = Int.negSucc (m + m + 1) from rfl] at hxx
+    exact Int.noConfusion hxx
+
+/-- ★★★ **Two equal adjacent rows ⟹ the Leibniz determinant vanishes.** -/
+theorem leibDet_eq_zero_of_rows_eq (M : Nat → Nat → Int) (n k : Nat) (hk : k + 1 < n)
+    (hrows : ∀ c, M k c = M (k + 1) c) : leibDet n M = 0 :=
+  int_eq_zero_of_eq_neg
+    ((leibDet_congr n (rowSwapAt_eq_of_rows_eq M k hrows)).symm.trans (leibDet_rowSwap M n k hk))
 
 end E213.Lib.Math.Linalg213.PermClosure
