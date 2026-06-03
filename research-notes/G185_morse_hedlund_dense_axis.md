@@ -34,7 +34,7 @@ with different continuations — so the autonomous-machine class is escaped *by 
 aperiodic sequence whatever*.  This is exactly the class the sparse route misses: dense,
 bounded-run-length, aperiodic (Thue–Morse run-length ≤ 2, Sturmian complexity `n+1`).
 
-## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 40 PURE)
+## Phase E — Thue–Morse: the genuinely-dense witness (∅-axiom, `Cauchy/ThueMorseAperiodic.lean` 42 PURE)
 
 The dense axis is now non-vacuous on the canonical example.  **Thue–Morse** (`tm`, run-length
 `≤ 2`, no long runs) is defined by its self-similar recurrence via *fuel-structural* recursion
@@ -80,6 +80,14 @@ notions: finite memory *in the digits of the index* (automatic — Thue–Morse 
 previous terms* (window-recurrence — Thue–Morse lacks it).  Classically: automatic ∧ aperiodic
 ⟹ non-holonomic (Cobham/Christol); here both hypotheses are ∅-axiom, the term-window escape is
 the elementary shadow.
+
+### Dyadic self-similarity / complement fold — `tm_shift_pow`
+
+`tm(2^k + n) = ¬tm(n)` for `n < 2^k` (`tm_shift_pow`): on `[2^k, 2^{k+1})` Thue–Morse is the
+bitwise complement of `[0, 2^k)`.  The disjoint high bit adds one to the digit-sum and flips the
+parity — `s2_add_pow : s2(2^k+n) = s2 n + 1` (induction on `k` with the parity split of `n`), then
+`succ_parity`.  This is the self-similar doubling fold that *is* the 2-automaton: the next dyadic
+block is the current one negated.
 
 ### Sparse and dense witnesses are one automaton — `isPow2_eq_s2_one`
 

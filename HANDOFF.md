@@ -10,7 +10,7 @@ State after this leg (all ∅-axiom, pushed):
     `{0,1}`-embedding **⟺** eventually periodic.  Forward = `bool_autoRec_periodic` (pigeonhole);
     converse = `bool_evPeriodic_autoRec` (period `p`+threshold `N` ⟹ window `N+p`, single-slot
     rule `F w = w N`).  Escaping `AutoRec` ⟺ aperiodic, **no slack**.
-  - `ThueMorseAperiodic.lean` **40 PURE** — the canonical dense witness, complete: definition
+  - `ThueMorseAperiodic.lean` **42 PURE** — the canonical dense witness, complete: definition
     (`tmF`/`tmF_canon` fuel-structural), recurrence (`tm_even`/`tm_odd`/`tm_pair_differ`),
     **run-length ≤ 2** (`tm_run_le_two`: no three consecutive equal), **aperiodicity**
     (`tm_not_evPeriodic`, period-descent), the **dense escape** (`tm_morse_not_autoRec`), the

@@ -505,6 +505,46 @@ theorem isPow2_eq_s2_one (n : Nat) : isPow2 n = decide (s2 n = 1) := by
       rw [hp] at hpt
       exact absurd hpt (by decide)
 
+/-! ## Dyadic self-similarity: the second half is the complement
+
+The structural heart of automaticity: on `[2^k, 2^{k+1})` Thue–Morse is the **bitwise complement**
+of `[0, 2^k)`.  The extra high bit `2^k` is disjoint from `n < 2^k`, so it adds exactly one to the
+digit-sum, flipping the parity: `tm(2^k + n) = ¬tm(n)`.  This is the self-similar fold that makes
+the sequence a fixed point of the doubling substitution. -/
+
+/-- `popcount(2^k + n) = popcount(n) + 1` for `n < 2^k` (the high bit is disjoint from `n`). -/
+theorem s2_add_pow : ∀ k n, n < 2 ^ k → s2 (2 ^ k + n) = s2 n + 1 := by
+  intro k
+  induction k with
+  | zero =>
+    intro n hn
+    cases n with
+    | zero => rfl
+    | succ m => exact absurd (Nat.le_of_lt_succ hn) (Nat.not_succ_le_zero m)
+  | succ k ih =>
+    intro n hn
+    have h2 : 2 ^ (k + 1) = 2 * 2 ^ k := by rw [Nat.pow_succ, Nat.mul_comm]
+    have hq : n / 2 < 2 ^ k :=
+      E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul (by rw [← h2]; exact hn)
+    have hdm : 2 * (n / 2) + n % 2 = n := E213.Meta.Nat.AddMod213.div_add_mod n 2
+    rcases E213.Meta.Nat.AddMod213.mod_two_zero_or_one n with he | ho
+    · have en : 2 * (n / 2) = n := by rw [he, Nat.add_zero] at hdm; exact hdm
+      have ekey : 2 * (2 ^ k + n / 2) = 2 ^ (k + 1) + n := by
+        rw [Nat.mul_add, en, ← h2]
+      have hsn : s2 n = s2 (n / 2) := (congrArg s2 en.symm).trans (s2_even (n / 2))
+      rw [← ekey, s2_even, ih (n / 2) hq, hsn]
+    · have en : 2 * (n / 2) + 1 = n := by rw [ho] at hdm; exact hdm
+      have ekey : 2 * (2 ^ k + n / 2) + 1 = 2 ^ (k + 1) + n := by
+        rw [Nat.mul_add, Nat.add_assoc, en, ← h2]
+      have hsn : s2 n = s2 (n / 2) + 1 := (congrArg s2 en.symm).trans (s2_odd (n / 2))
+      rw [← ekey, s2_odd, ih (n / 2) hq, hsn]
+
+/-- ★★★ **Dyadic self-similarity / complement fold.**  On `[2^k, 2^{k+1})` Thue–Morse is the
+    bitwise complement of `[0, 2^k)`: `tm(2^k + n) = ¬tm(n)` for `n < 2^k`.  The high bit flips the
+    digit-sum parity (`s2_add_pow` + `succ_parity`). -/
+theorem tm_shift_pow (k n : Nat) (h : n < 2 ^ k) : tm (2 ^ k + n) = !tm n := by
+  rw [tm_eq_popParity (2 ^ k + n), tm_eq_popParity n, s2_add_pow k n h, succ_parity]
+
 /-! ## A concrete bounded aperiodic continued fraction
 
 The dense witness, realised as an actual **continued fraction**.  Mapping the `{0,1}` output to

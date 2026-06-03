@@ -129,6 +129,13 @@ digit-automatic (`tm_eq_popParity`) and aperiodic (`tm_not_evPeriodic`), is non-
 generating-function scale — the term-window escape `tm_morse_not_autoRec` is the elementary,
 ∅-axiom shadow of that boundary, with the *automatic* hypothesis now also formalised.
 
+**Dyadic self-similarity.**  The automaticity has a visible fold: on `[2^k, 2^{k+1})` Thue–Morse is
+the *bitwise complement* of `[0, 2^k)` — `tm(2^k + n) = ¬tm(n)` for `n < 2^k`
+(`tm_shift_pow`), because the disjoint high bit `2^k` adds exactly one to the digit-sum and flips
+its parity (`s2_add_pow : s2(2^k+n) = s2 n + 1`).  This is the self-similar doubling that *is* the
+2-automaton: the next dyadic block is the current one negated, so the whole sequence is generated
+by folding, never by a finite window of past terms.
+
 **One automaton, two output maps.**  The sparse and dense witnesses are not two automata but one,
 read differently.  Both `χ`/`isPow2` (powers of two) and `tm` (Thue–Morse) are output functions of
 the *same* `2`-automatic digit-sum `s2 = popcount`: `isPow2 n = (s2 n == 1)`
