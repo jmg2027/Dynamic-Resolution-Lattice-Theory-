@@ -503,4 +503,13 @@ theorem cfiniteZ_one_add_twoPow :
     (OrbitDimension.polyDepthZ_cfiniteZ (d := 0) (s := fun _ => (1 : Int)) (fun _ => rfl))
     OrbitDimension.cfiniteZ_twoPow
 
+/-- **C-finite is closed under subtraction** — together with `cfiniteZ_add`,
+    `cfiniteZ_zero`, `cfiniteZ_neg` (`OrbitDimension`), the C-finite sequences form
+    an **abelian group** under pointwise `±` (in fact a commutative ring under `+`;
+    the Hadamard product is the open frontier). -/
+theorem cfiniteZ_sub {s t : Nat → Int}
+    (hs : CFiniteZ s) (ht : CFiniteZ t) : CFiniteZ (fun n => s n - t n) :=
+  OrbitDimension.cfiniteZ_congr (fun n => by rw [Int.sub_eq_add_neg])
+    (cfiniteZ_add hs (OrbitDimension.cfiniteZ_neg ht))
+
 end E213.Lib.Math.Cauchy.CFiniteRing

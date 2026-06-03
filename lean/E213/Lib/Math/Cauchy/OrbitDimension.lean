@@ -206,6 +206,14 @@ theorem cfiniteZ_congr {s t : Nat → Int} (h : ∀ n, s n = t n) (hs : CFiniteZ
   refine ⟨k, c, fun n => ?_⟩
   rw [← liftKZ_congrZ h k n, hrec n, linComb_congr c h k n]
 
+/-- The zero sequence is C-finite (constant polynomial, orbit dimension 0). -/
+theorem cfiniteZ_zero : CFiniteZ (fun _ => (0 : Int)) :=
+  polyDepthZ_cfiniteZ (d := 0) (fun _ => rfl)
+
+/-- **C-finite is closed under negation.**  (`−s = (−1)·s`.) -/
+theorem cfiniteZ_neg {s : Nat → Int} (h : CFiniteZ s) : CFiniteZ (fun n => - s n) :=
+  cfiniteZ_congr (fun n => by rw [neg_mul, Int.one_mul]) (cfiniteZ_smul (-1) h)
+
 /-! ## §5 — the general geometric family `cⁿ` (orbit dimension 1) -/
 
 /-- The geometric sequence `n ↦ cⁿ` over `ℤ`, via the core-free power `powInt`.
