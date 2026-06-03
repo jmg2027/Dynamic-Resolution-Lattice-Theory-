@@ -10,19 +10,28 @@ State after this leg (all ∅-axiom, pushed):
     `{0,1}`-embedding **⟺** eventually periodic.  Forward = `bool_autoRec_periodic` (pigeonhole);
     converse = `bool_evPeriodic_autoRec` (period `p`+threshold `N` ⟹ window `N+p`, single-slot
     rule `F w = w N`).  Escaping `AutoRec` ⟺ aperiodic, **no slack**.
-  - `ThueMorseAperiodic.lean` **21 PURE** — the canonical dense witness, complete: definition
+  - `ThueMorseAperiodic.lean` **34 PURE** — the canonical dense witness, complete: definition
     (`tmF`/`tmF_canon` fuel-structural), recurrence (`tm_even`/`tm_odd`/`tm_pair_differ`),
     **run-length ≤ 2** (`tm_run_le_two`: no three consecutive equal), **aperiodicity**
-    (`tm_not_evPeriodic`, period-descent), the **dense escape** (`tm_morse_not_autoRec`), and the
-    **automatic structure** (`tm_eq_popParity` = popcount mod 2).
+    (`tm_not_evPeriodic`, period-descent), the **dense escape** (`tm_morse_not_autoRec`), the
+    **automatic structure** (`tm_eq_popParity` = popcount mod 2), the **ring-escape** (`s2` =
+    popcount unbounded yet non-monotone: `s2_not_eventually_monotone`, `s2_unbounded`,
+    `s2_pw2`/`s2_ones`), and an **actual continued fraction** (`tmCF` = `{1,2}`-valued: `tmCF_mem`,
+    `tmCF_ge_one`, `tmCF_not_autoRec` via shift-invariance `autoRec_shift`).
   - **Location, sharp**: `χ` escapes both machine classes (zero-runs); Thue–Morse escapes
     `AutoRec` only — its `¬ HomogRec` is *not* ∅-axiom-closable (run-length ≤ 2 forbids the
     zero-run certificate; the real obstruction is the deep automatic∧aperiodic⟹non-holonomic
     theorem, sharing π's open status).
 
-### Conjecture captured (`G185`, on-goal "추측들도 만들고")
-The crisp shape an *elementary shadow* of Cobham/Christol would need, stated as the open ∅-axiom
-target for the dense `HomogRec` side — see `research-notes/G185` "Open conjecture".
+### Conjecture + open Lean target captured (`G185`, on-goal "추측들도 만들고")
+Two open items recorded precisely (honest, not half-done):
+  - **Dense `HomogRec` escape conjecture** — the crisp shape an *elementary shadow* of
+    Cobham/Christol would need (a certificate `C ⟹ ¬HomogRec` for a bounded no-long-run sequence).
+  - **`eventually_monotone_of_polyDepth` bridge** — the one classical step to upgrade the
+    ring-escape from narrative to `¬ ∃ d, polyDepthZ d s2`.  Scouted: needs a faithful-`Int`
+    both-sign `EvStrictMono`/`EvStrictAnti` descent (the repo has no pure Int `<`
+    transitivity/trichotomy yet, so it is a real ~Int-ordering-layer build, not a quick reuse of
+    `positive_floor_unbounded` — that only covers the top-difference-≥1 branch).
 
 ## Earlier this leg: Thue–Morse — dense Morse–Hedlund witness + automatic structure → `Cauchy/ThueMorseAperiodic.lean` (21 PURE)
 
