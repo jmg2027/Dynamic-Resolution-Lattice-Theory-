@@ -32,12 +32,12 @@ conjecture.  (Our per-`c` `decide` certificates do this counting concretely up t
 namespace E213.Lib.Math.Real213.MarkovInjectivity
 
 open E213.Lib.Math.Real213.MarkovTree (markovEq)
-open E213.Tactic.NatHelper (gcd213)
+open E213.Tactic.NatHelper (gcd213 add_sub_cancel_right)
 open E213.Lib.Math.Real213.MarkovUniqueness
   (SqrtNegOneTwoRoots sqrtNegOneTwoRoots_prime_pow markov_ordered_coprime markov_a_pos
-   MarkovMaxUnique markov_mid_lt_max markov_root_recovery)
+   MarkovMaxUnique markov_mid_lt_max markov_root_recovery dvd_mul_right_213 eq_one_of_dvd_one)
 open E213.Lib.Math.ModArith.MarkovPrimeFactor (euclid_of_coprime le_of_dvd_loc)
-open E213.Meta.Nat.Gcd213 (gcd213_comm)
+open E213.Meta.Nat.Gcd213 (gcd213_comm gcd213_dvd_left gcd213_dvd_right dvd_sub_213)
 open E213.Lib.Math.Real213.GoldenFormMarkov (add_left_cancel_pure)
 
 /-! ## §1 — the parallel reduction (true, but does not self-close) -/
@@ -233,5 +233,30 @@ theorem markov_same_mid_eq (a₁ a₂ b c : Nat) (hc : 2 ≤ c)
       have heq : 3 * b * c = 2 * a₂ + d := Nat.eq_of_mul_eq_mul_left hdpos hmul
       have hsum : a₁ + a₂ = 3 * b * c := by rw [heq, ← hd]; ring_nat
       exact absurd (hsum ▸ hsum_le) (Nat.not_le_of_lt hsum_lt)
+
+/-! ## §5 — Farey foundations toward `SamePairInjective` (the open recovery)
+
+A bridge to the Farey-monotone recovery (Zhang Lemma 2) needs the Stern-Brocot tree as the lattice
+of *coprime* pairs.  Note the repo's `Mobius213SternBrocot.SternBrocotReachable` takes mediants of
+*any* two reachable pairs, so it includes non-coprime pairs (e.g. `(2,2)=(1,0)+(1,2)`) — coprimality
+needs the **Farey-adjacency** (det `±1`) restriction.  The foundational fact: -/
+
+/-- ★★★★ **The mediant of two Farey-adjacent pairs is coprime.**  If `(p,q)`, `(r,s)` are Farey
+    neighbours (`p·s = q·r + 1`), then `gcd(p+r, q+s) = 1`: any common divisor of `p+r` and `q+s`
+    divides `(p+r)·s − (q+s)·r = p·s − q·r = 1`.  This is the coprimality engine of the
+    Stern-Brocot / continued-fraction recovery — the correct (adjacency-restricted) form of the
+    "SB node = coprime pair" backbone. -/
+theorem farey_mediant_coprime (p q r s : Nat) (hdet : p * s = q * r + 1) :
+    gcd213 (p + r) (q + s) = 1 := by
+  have hgA : gcd213 (p + r) (q + s) ∣ (p + r) * s := dvd_mul_right_213 _ _ _ (gcd213_dvd_left _ _)
+  have hgB : gcd213 (p + r) (q + s) ∣ (q + s) * r := dvd_mul_right_213 _ _ _ (gcd213_dvd_right _ _)
+  have hkey : (p + r) * s = (q + s) * r + 1 := by
+    rw [show (p+r)*s = p*s + r*s from by ring_nat, hdet,
+        show (q+s)*r = q*r + s*r from by ring_nat]; ring_nat
+  have hle : (q + s) * r ≤ (p + r) * s := by rw [hkey]; exact Nat.le_succ _
+  have hsub := dvd_sub_213 ((q + s) * r) ((p + r) * s) (gcd213 (p + r) (q + s)) hle hgB hgA
+  rw [hkey, show (q + s) * r + 1 - (q + s) * r = 1 from by
+        rw [Nat.add_comm ((q + s) * r) 1]; exact add_sub_cancel_right 1 ((q + s) * r)] at hsub
+  exact eq_one_of_dvd_one hsub
 
 end E213.Lib.Math.Real213.MarkovInjectivity
