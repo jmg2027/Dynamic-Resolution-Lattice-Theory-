@@ -37,7 +37,7 @@ namespace E213.Lib.Math.CassiniUnimodular
 
 open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
 open E213.Lib.Math.Mobius213.Px.CharPolySelf (cassini_general L_rec)
-open E213.Lib.Physics.Simplex.Counts (d)
+open E213.Lib.Physics.Simplex.Counts (d NT)
 
 /-- `-(a − b) = b − a`, ∅-axiom via the `Int213` primitives (no core `Int.neg_sub`,
     which is not available propext-free here). -/
@@ -165,5 +165,28 @@ theorem cassini_law_one_at_two_multipliers :
     ∧ (∀ (s : Nat → Int), (∀ m, s (m + 2) = s m) → ∀ n, det s (n + 1) = (-1) * det s n) :=
   ⟨det_step 3 1 L (fun n => by rw [Int.one_mul]; exact L_rec n),
    fun s hp => det_step 0 (-1) s (fun n => by rw [zero_sub_negone_mul]; exact hp n)⟩
+
+/-- The golden multiplier `q = 1` is idempotent under iteration — `qpow 1 n = 1` always. -/
+theorem qpow_one : ∀ n : Nat, qpow 1 n = 1
+  | 0     => rfl
+  | n + 1 => by show (1 : Int) * qpow 1 n = 1; rw [Int.one_mul]; exact qpow_one n
+
+/-- ★★★ **The unimodular multiplier `q = ±1` factors as (unit magnitude, order-`NT` sign).**
+    The conserved Cassini structure carries exactly two shared constants, and they are the two
+    halves of the multiplier:
+
+      * the **golden multiplier** `q = +1` conserves the determinant at every step
+        (`qpow 1 n = 1`) — the **unit magnitude**;
+      * the **swap multiplier** `q = −1` has order **exactly `NT = 2`**: `qpow (−1) NT = 1`
+        (it returns to the unit after `NT` steps) but `qpow (−1) 1 ≠ 1` (not before) — the
+        **order-`NT` sign**.
+
+    So "the unit `1` and the residue of size `NT`" — the two invariants the orbit-readings share
+    — are the magnitude and the sign-order of the *one* unimodular multiplier `±1`.  This is the
+    genuine `(unit, period) = (1, NT)` factorization (the arithmetic re-readings of `NS = NT + 1`
+    are not). -/
+theorem multiplier_unit_magnitude_sign_order_NT :
+    (∀ n, qpow 1 n = 1) ∧ qpow (-1) NT = 1 ∧ qpow (-1) 1 ≠ 1 ∧ NT = 2 :=
+  ⟨qpow_one, by decide, by decide, rfl⟩
 
 end E213.Lib.Math.CassiniUnimodular

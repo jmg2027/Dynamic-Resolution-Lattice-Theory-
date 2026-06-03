@@ -149,6 +149,14 @@ theorem eq_of_sub_eq_zero {a b : Int} (h : a - b = 0) : a = b := by
   rw [sub_add_cancel_int, zero_add] at h2
   exact h2
 
+theorem le_antisymm {a b : Int} (hab : a ≤ b) (hba : b ≤ a) : a = b := by
+  apply eq_of_sub_eq_zero
+  have hx : (0 : Int) ≤ a - b := le_zero_of_nonneg (sub_nonneg_of_le hba)
+  have hy : (0 : Int) ≤ b - a := le_zero_of_nonneg (sub_nonneg_of_le hab)
+  have hsum : (a - b) + (b - a) = 0 := by
+    rw [show b - a = -(a - b) by ring_intZ]; exact add_neg_cancel (a - b)
+  exact (add_eq_zero_of_nonneg hx hy hsum).1
+
 /-! ## Negation reverses order -/
 
 theorem zero_sub (a : Int) : (0 : Int) - a = -a := by show (0 : Int) + -a = -a; exact zero_add (-a)

@@ -85,8 +85,15 @@ needs, so the only route to `¬ HomogRec` for a no-long-run sequence is the deep
 *automatic ∧ aperiodic ⟹ non-holonomic* theorem (Cobham/Christol), which has no elementary
 constructive shadow.  So the two canonical witnesses sit on *different* sides of the same map: `χ`
 is caught by the cheap zero-run mechanism on both axes; Thue–Morse is caught only by the dense
-automaton route, and its P-recursive escape shares π's open status.  Density is not a strengthening
-of the sparse witness — it is the regime where the cheap certificate is structurally unavailable.
+automaton route.  Its P-recursive escape is **classically proven** — bounded + P-recursive ⟹
+eventually periodic (Pólya–Carlson: an integer power series of radius 1 is rational or has the unit
+circle as a natural boundary, and D-finite forbids the boundary; hence rational with roots-of-unity
+poles, hence eventually periodic — so Thue–Morse ∉ P-recursive is an established corollary).  What is
+out of reach is only the *elementary, ∅-axiom* proof — the hard step (Pólya–Carlson, or
+Birkhoff–Trjitzinsky on the analytic side) has no constructive shadow.  This is **not** π's status:
+π is *genuinely open*; the dense-`HomogRec` escape is *settled but non-elementary*.  Density is not a
+strengthening of the sparse witness — it is the regime where the cheap certificate is structurally
+unavailable.
 
 **Why the tier is a ring stratification.**  The finite-Δ-depth `ℤ`-sequences form a ring
 (`PolynomialDepth.polyDepthZ_mul`: depths add under product; `polyDepthZ_add`/`polyDepthZ_mono`)
@@ -274,16 +281,23 @@ remains:
 
 > `HomogRec a ∧ bounded a ⟹ EvPeriodic a`  — the **bounded-P-recursive theorem**.
 
-Its contrapositive *is* the dense escape `aperiodic ∧ bounded ⟹ ¬ HomogRec`.  And it is **not**
-∅-axiom-elementary, for a precise reason: the time-varying recurrence drives the state vector by an
-`n`-dependent transition `M(n)`, so a bounded integer sequence's finitely-many states recur
-(pigeonhole) but at *different* transitions — equal states at `n₁ ≠ n₂` give no periodicity, exactly
-the step the `AutoRec` (time-invariant) iff could take and this cannot.  The zero-run certificate is
-the *only* elementary handle on `HomogRec`, and it needs run-length `→ ∞`; a bounded-run-length
-witness (Thue–Morse, run-length `≤ 2`) defeats `HomogRec` only up to order `2` (its `00` windows),
-never all orders.  **Verdict:** dense `HomogRec` escape ≡ the bounded-P-recursive theorem; elementary
-half ∅-axiom-closed, hard half identified and outside elementary reach — it is π's neighbour, not a
-gap in the program.
+Its contrapositive *is* the dense escape `aperiodic ∧ bounded ⟹ ¬ HomogRec`.  This direction is
+**classically proven** (Pólya–Carlson / Bézivin: bounded D-finite ⟹ rational ⟹ eventually
+periodic) but **not ∅-axiom-elementary**.  The elementary handles fail for a precise reason: the
+time-varying recurrence drives the state vector by an `n`-dependent transition `M(n)`, so a bounded
+integer sequence's finitely-many states recur (pigeonhole) but at *different* transitions — equal
+states at `n₁ ≠ n₂` give no periodicity, exactly the step the `AutoRec` (time-invariant) iff could
+take and this cannot.  The zero-run certificate is the *only* elementary handle on `HomogRec`, and it
+needs run-length `→ ∞`; a bounded-run-length witness (Thue–Morse, run-length `≤ 2`) defeats
+`HomogRec` only up to order `2` (its `00` windows), never all orders.  The single non-elementary
+kernel is Pólya–Carlson (an integer power series of radius 1 is rational or has the unit circle as a
+natural boundary); special cases *are* elementary (constant/eventually-nonzero leading coefficient
+via Poincaré–Perron characteristic roots; first-order hypergeometric; `{0,1}`-valued via
+Skolem–Mahler–Lech).  **Verdict:** dense `HomogRec` escape ≡ the bounded-P-recursive theorem —
+*classically settled, only the elementary proof out of reach*.  This is **not** π's status: π is
+genuinely open; the dense escape is proven-but-non-elementary.  The clean formalization frontier is
+the **Poincaré–Perron reduction** (time-varying → time-invariant under "leading coefficient
+eventually nonzero, non-degenerate limit roots"), leaving only the coincident-unit-modulus kernel.
 
 ### π — concluded as the open core, boundary exactly mapped
 

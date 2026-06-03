@@ -239,6 +239,55 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Invert universal property + deep-research additions (2026-06-03)
+
+`E213.Lens.Number.FoundingDialUnification` — **4 PURE / 0 DIRTY**.  The number-tower founding
+meets the concurrent non-holonomicity discriminant-dial marathon at one order-2 companion
+`comp p q`, split along its two coordinates: `founding_unit_floors_dial_trace_runs_tiers` — the
+founding unit `q = NS − NT` is the dial's fixed determinant (`det (comp p q) = q`); the trace `p`
+runs the discriminant (`disc = p² − 4q`); the forced atomic counts are the tier boundaries —
+`p = 0` elliptic (founding swap `S`), `p = NT` parabolic (`disc = 0`), `p = NS` hyperbolic (golden,
+`disc = NS² − 4 = NS + NT = d`).  (Det-floor + trace-dial parametric; `p = NT`/`p = NS` landing on
+the tiers is atomic — pins `NS = 3`.)  And `parabolic_at_NT_is_difference_lens_depth1` — the
+parabolic tier (trace `NT`) is the **difference-Lens rung**: `liftKZ 1 s n = s(n+1) − s n` is the
+`ℤ`-difference, and parabolic ⟺ that output is constant (`polyDepthZ 1`, depth-1).  And
+`hyperbolic_at_NS_is_ratio_cauchy_rung` — the hyperbolic tier (trace `NS`, det = unit `NS−NT`,
+disc = `d`) is the ratio/Cauchy rung: the convergents' cross-det is the *same* unit
+(`convergent_lowest_terms_is_det`), completing to `φ` (`phiCauchy_limit_eq_phiCut`).  So the
+founding number-rungs *are* the tiers: `ℤ`-sign = elliptic, `ℤ`-difference (depth-1) = parabolic,
+`ℚ`/`ℝ` ratio/Cauchy = hyperbolic.  And `count_constants_are_difference_fixed_below_parabolic` —
+`ℕ` (count, depth-0 constants) is the difference-Lens **fixed locus** (`liftKZ 1 (const) = 0`),
+sitting at the bottom of the parabolic (depth-1) tier.  So *every* founding rung is placed on the
+dial: `ℕ` difference-fixed bottom of parabolic, `ℤ`-difference full parabolic, `ℤ`-sign elliptic,
+`ℚ`/`ℝ` hyperbolic.  Builds on `FoundingDynamicBridge`.
+
+`E213.Lens.Number.Nat213.Tower.PairCompletionUniversal` — **19 PURE / 0 DIRTY**.  The invert
+move's **complete universal property** (existence ∧ uniqueness), Quot-free and choice-free,
+**validated concretely**: `intTarget` (`Int` as an `AbTarget` from the PURE `Int213` kit),
+`natToInt_hom`, `liftZ`, and `addCCS_completion_is_Int` — the additive completion of
+`(Nat213, +)` is `ℤ` (`liftZ` is the integer-difference map; `(2,1) ↦ +1`, `(1,2) ↦ −1`), and by
+the capstone it is the unique factoring hom.  The universal property is non-vacuous.
+`AbTarget` (abelian-group target, laws as ∀-equalities); `lift M H f (a,b) = f a − f b`;
+existence — `lift_respects_pairEquiv` (well-defined on the completion), `lift_combine`
+(homomorphism), `lift_eta` (factors `f` through `η m = (m∘a,a)`); uniqueness — `lift_unique`
+(any `g` respecting `pairEquiv` + `combine` + `η` equals `lift`), via `pair_equiv_eta_combine`
+(every pair `~ η(a) ∘ inv(η(b))`); capstones `invert_factors_through_any_group` and
+`invert_is_the_universal_group_completion`.  Group-algebra toolkit `ab_neg_add`,
+`ab_add_add_add_comm`, `ab_add_{left,right}_cancel`, `ab_neg_unique`.  Makes "invert is one
+move" precise: the invert move is *the* universal group completion, unique up to iso (initiality,
+not an imported adjunction).
+
+`E213.Lens.Number.Nat213.Tower.PairCompletion` — **+2 PURE (17 total)**.
+`diagonal_is_combine_identity` (the emergent diagonal *is* the `combine`-identity, unit-free —
+the no-exterior principle in a readout) and `invert_branch_two_distinct_instances`
+(`ℤ ⊥ ℚ_+`: `add 1 1 ≠ mul 1 1`, two instances of one move joined at the diagonal).
+
+`E213.Lib.Math.CassiniUnimodular` — **+2 PURE (13 total)**.  `qpow_one` and
+`multiplier_unit_magnitude_sign_order_NT`: the unimodular multiplier `q = ±1` factors as (unit
+magnitude `qpow 1 n = 1`, order-`NT` sign `qpow (−1) NT = 1 ∧ qpow (−1) 1 ≠ 1`) — the genuine
+`(unit, period) = (1, NT)` factorization (the arithmetic re-readings of `NS = NT+1` are
+numerology).
+
 ### Number-tower founding + invert-move addition (2026-06-03)
 
 `E213.Lens.Number.SharedUnitAcrossReadings` — **1 PURE / 0 DIRTY**.  The honest unification
@@ -313,12 +362,33 @@ killed by an `if`-guarded `lead`/`R`).
 `order3_homogRec` (a constant-coefficient recurrence *is* `HomogRec`), `trib_homogRec` (Tribonacci is
 holonomic — the opposite pole from Thue–Morse).
 
-`E213.Lib.Math.Cauchy.EllipticPeriodicTier` — **13 PURE**.  The order-2 companion discriminant as the
+`E213.Lib.Math.Cauchy.EllipticPeriodicTier` — **17 PURE**.  The order-2 companion discriminant as the
 holonomicity-hierarchy dial: `comp_disc` (`disc (comp p q) = p²−4q` = the `HyperbolicEllipticTrace`
 discriminant), `comp_eq_S` / `comp_eq_U` (the elliptic generators *are* the companions of the
 periodic recurrences), the trichotomy — *elliptic* `periodic_elliptic_{S,U}` (periodic floor),
 *parabolic* `parabolic_iff_depth1` (`disc=0` ⟺ linear depth-1, an iff), *hyperbolic*
-`hyperbolic_strictMono` / `hyperbolic_grows` (strictly increasing, unbounded).
+`hyperbolic_strictMono` / `hyperbolic_grows` (strictly increasing, unbounded).  **The dial is
+special to order 2 — it does not lift**: `cubic_disc` + `cubic_disc_witnesses` show `Δ₃`'s sign does
+not classify periodicity (periodic `(0,0,1)` and growing Tribonacci `(1,1,1)` both `Δ₃<0`); the
+order-3 periodicity dial is root-location (cyclotomic, `|c|=1`), witnessed by
+`periodic_elliptic_order3_p4` / `periodic_elliptic_order3_p6`.
+
+`E213.Lens.Number.FoundingDynamicBridge` — **1 PURE**.  `founding_swap_is_elliptic_floor`: the
+number-tower founding's static invert-**swap** (= negation, period-2 by `NT`, `NatPairToInt.
+swap_realizes_negation`) is the **elliptic floor** of the dynamic discriminant dial — `comp 0 1 = S`,
+`Mat2.det (comp 0 1) = NS − NT` (floor determinant = the shared founding unit), `disc < 0`,
+`S² = −I` (negation-of-identity), `zero_unique_negation_fixed`.  The static number-tower founding and
+the dynamic non-holonomicity dial pinned as one structure (shared floor = unit `1`; shared ceiling =
+the residue).
+
+`E213.Lib.Math.CeilingSchema` — **5 PURE**.  The residue ceiling is **one phenomenon**, not five
+engines: `ReachedByNoStage gen target := ∀ s, gen s ≠ target`, `not_surjective_of_reachedByNoStage`
+(the schema *is* non-surjectivity), and `ceilings_are_nonsurjectivity` bundling the universal
+diagonal (`diag_reached`, Cantor archetype `∀ f, ¬Surjective f`), the non-holonomicity escape
+(`s2Z_poly_reached`, popcount = no `newtonZ c d`), and the foundational residue
+(`object1_not_surjective`) as one shape — the finite-stage map missing its target.  Classically one
+Cantor/cardinality argument; ∅-axiom forces named constructive witnesses (the "engines" are
+realizers, the domains Lens-carvings).
 
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
