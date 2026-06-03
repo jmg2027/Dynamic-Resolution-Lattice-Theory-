@@ -1,9 +1,10 @@
 # The Markov uniqueness conjecture — the neighbor congruence and the `√(−1)` encoding
 
-**Status**: The arithmetic spine of the conjecture is closed ∅-axiom; the conjecture itself is
-verified decidably at small maxima and stated formally with its classical reduction held as an
-explicit open target.  Source of truth (80 PURE / 0 dirty):
-`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean`.
+**Status**: The arithmetic spine of the conjecture is closed ∅-axiom; uniqueness is proven
+unconditionally for every Markov number `≤ 1325`, and the residue-map injectivity is analysed down
+to a single open input (the Farey-monotone recovery).  Source of truth (all ∅-axiom):
+`lean/E213/Lib/Math/Real213/{MarkovUniqueness, MarkovCassiniBridge, MarkovModularBridge,
+MarkovInjectivity}.lean` + `ModArith/MarkovPrimeFactor.lean`.
 
 ## The conjecture
 
@@ -250,12 +251,56 @@ is congruent mod `m` to the entry of `−I`), instantiated at `cohn5_sq_neg_one_
 (`C=[[12,5],[7,3]]`, `C² = [[179,75],[105,44]] ≡ −I (mod 5)`).  So the defining relation of the
 order-4 modular generator survives reduction mod every Markov number, along any tree path.
 
+## The injectivity analysis: reduction to the Farey-monotone recovery
+
+The conjecture at fixed `c` reduces to **injectivity of the residue map** `triple ↦ u`.  Following
+the classical literature (Frobenius 1913; Baragar, Button, Lang–Tan, Zhang; Aigner), the analysis
+(`Real213/MarkovInjectivity`) separates the elementary from the open:
+
+  * **The classical reduction, formalised** (`markov_max_unique_of_same_pair_injective`):
+    `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c ∧ SamePairInjective c`, where `SamePairInjective` is
+    the residue-map injectivity up to sign.  Both inputs are honest — neither is `MarkovMaxUnique`
+    in disguise.  For an odd prime power `c = p^(k+1)` the root-count input is discharged by
+    `sqrtNegOneTwoRoots_prime_pow`, so `markov_prime_pow_unique_of_same_pair_injective` reduces
+    **Button's prime-power unicity (an infinite family) to the single input `SamePairInjective`**.
+
+  * **Zhang's Lemma 4 — done** (`root_unique_below_half`): with the two-root property, `x² ≡ −1`
+    has at most one root in the window `(0, c/2)` (the `x+y=c` alternative is impossible when
+    `2x, 2y < c`).  Primality enters *only* here.
+
+  * **The triple is determined by its two largest entries** (`markov_same_mid_eq`): two ordered
+    triples sharing `(b,c)` coincide — `a` is the unique root `≤ b` of `x² − 3bc·x + (b²+c²)` (the
+    Vieta partner `3bc − a > b`).  So uniqueness reduces further to *middle-entry* uniqueness.
+
+  * **A dead end, recorded**: same-root triples are parallel mod `c` (`markov_same_root_parallel`:
+    `c ∣ a₁b₂ − a₂b₁`), and coprime + *exact* parallel ⟹ equal (`coprime_cross_eq`).  But the
+    tempting finish `|a₁b₂ − a₂b₁| < c` is **false** — by Frobenius's identities the
+    cross-determinant equals a *neighbour Markov number* (`≈ c`).  No determinant size bound closes
+    it.
+
+  * **The recovery realised on the spine** (`MarkovCassiniBridge.spine_residue_farey`): the
+    Fibonacci spine's `(residue fib(2n), max fib(2n+1))` pairs are unimodular Farey/Stern-Brocot
+    neighbors (`fib(2n+1)·fib(2n+2) = fib(2n)·fib(2n+3) + 1`), so `u_n/m_n` is a strictly monotone
+    convergent sequence — Zhang Lemma 2 on the spine.
+
+What remains for prime-power uniqueness as an infinite family is exactly `SamePairInjective` (the
+Farey-monotone recovery, Zhang Lemma 2) generalised off the spine to all `c` — buildable on the
+repo's `Mobius213SternBrocot` / `ConvergentDet`.  The *general* conjecture's open content is
+*root-counting* (Markov-realisability of the `2^{ω−1}` window-roots for composite `c`, `ω ≥ 2`),
+not the injectivity of `triple ↦ u`.
+
 ## How to verify
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Real213.MarkovUniqueness
+lake build E213.Lib.Math.Real213.MarkovUniqueness \
+           E213.Lib.Math.Real213.MarkovCassiniBridge \
+           E213.Lib.Math.Real213.MarkovModularBridge \
+           E213.Lib.Math.Real213.MarkovInjectivity
 cd ..
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovUniqueness
+for m in MarkovUniqueness MarkovCassiniBridge MarkovModularBridge MarkovInjectivity; do
+  python3 tools/scan_axioms.py E213.Lib.Math.Real213.$m
+done
 ```
-Reports `52 pure / 0 dirty`.
+All `pure / 0 dirty` (`MarkovUniqueness` 80, `MarkovCassiniBridge` 4, `MarkovModularBridge` 2,
+`MarkovInjectivity` 9; plus `ModArith/MarkovPrimeFactor` 28).
