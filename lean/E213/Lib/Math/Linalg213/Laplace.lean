@@ -188,4 +188,19 @@ theorem ltCount_perm_colShift {n j : Nat} (hj : j ≤ n) {rel : List Nat} (hrel 
     ltCount j (rel.map (colShift j)) = j := by
   rw [ltCount_colShift_self, ltCount_lperm (permsOf_sound (iota n) rel hrel), ltCount_iota n j hj]
 
+/-! ## §2 — the per-term cofactor factorization -/
+
+/-- ★ **Per-term cofactor identity**: the Leibniz term of `j :: rel.map (colShift j)` (a
+    permutation of `[0,…,n]` with first entry `j`) factors as `(−1)ʲ · M 0 j · (minor term)`. -/
+theorem leibTerm_cons_colShift (M : Nat → Nat → Int) (n j : Nat) (hj : j ≤ n) {rel : List Nat}
+    (hrel : rel ∈ perms n) :
+    leibTerm M (j :: rel.map (colShift j)) = altSign j * M 0 j * leibTerm (minor M j) rel := by
+  show psign (j :: rel.map (colShift j)) * prodDiagFrom M 0 (j :: rel.map (colShift j))
+     = altSign j * M 0 j * (psign rel * prodDiagFrom (minor M j) 0 rel)
+  rw [psign_cons, ltCount_perm_colShift hj hrel, psign_map_colShift]
+  show (altSign j * psign rel) * (M 0 j * prodDiagFrom M 1 (rel.map (colShift j)))
+     = altSign j * M 0 j * (psign rel * prodDiagFrom (minor M j) 0 rel)
+  rw [prodDiag_minor M j 0 rel]
+  ring_intZ
+
 end E213.Lib.Math.Linalg213.Laplace
