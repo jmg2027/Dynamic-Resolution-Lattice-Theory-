@@ -96,6 +96,42 @@ and the genuine non-holonomic reals (π's continued fraction) have *no* finite C
 all.  φ is the hyperbolic extreme of this ladder (the slowest, all-`1` partial quotients); π is the
 pole where no finite order closes.
 
+**The dial is special to order 2 — it does not lift.**  At order 3 the discriminant loses its
+classifying power (`EllipticPeriodicTier`, the order-3 section).  The cubic discriminant `Δ₃`'s sign
+splits *three-real-roots* from *one-real-plus-two-complex*, but it does **not** classify periodicity:
+the periodic `(0,0,1)` (`x³−1`) and the *growing* Tribonacci `(1,1,1)` both have `Δ₃ < 0`
+(`cubic_disc_witnesses`: `−27` and `−44`).  The genuine order-3 periodicity dial is *root-location* —
+all roots on the unit circle, i.e. a product of cyclotomics (Kronecker), with necessary condition
+`|c| = 1` (the unimodular `SL₃` floor, mirroring order-2 `q = ±1`); the periodic witnesses
+`periodic_elliptic_order3_p4` (char `(x−1)(x²+1)`, period 4) and `periodic_elliptic_order3_p6`
+(char `(x−1)(x²−x+1)`, period 6) sit there.  Why order 2 is special: `tr² − 4` is exactly the
+order-2 quantity that *couples* the additive datum (trace) and the multiplicative datum
+(determinant); above order 2 the discriminant degenerates to a coarse real/complex split and the
+finer cyclotomic data takes over.  The single trace-discriminant dial is a rung-2 phenomenon, not a
+ladder.
+
+**The elliptic floor is the number-tower's founding move, set in motion.**  The dial's bottom rung
+meets the *static* founding of the number system at one theorem
+(`FoundingDynamicBridge.founding_swap_is_elliptic_floor`).  The number tower `ℕ → ℤ → ℚ → ℝ` is
+built by one move — the pair **swap** `(a,b) ↦ (b,a)`, which the projection reads as **negation**
+(`NatPairToInt.swap_realizes_negation`), period-2 because `NT = 2`, fixed only at the residue's `0`
+(`zero_unique_negation_fixed`), carrying the shared unit `1 = NS − NT = det P`
+(`SharedUnitAcrossReadings`).  The discriminant dial sets that pair-move in *motion* as the order-2
+recurrence — and its elliptic floor is exactly that swap iterated: `comp 0 1 = S` with
+`Mat2.det (comp 0 1) = NS − NT` (the floor determinant *is* the founding unit), `disc < 0`, and the
+central element `S² = −I` *is* negation-of-identity — the same period-2 negation the founding swap
+realises.  So the static "invert is one move" and the dynamic discriminant floor are one structure:
+the tower completes the pair once; the dial iterates it, the elliptic floor being the iteration that
+remains the pure period-2 swap.  The two chains share this floor — the unit `1` —
+*at the theorem level* (`founding_swap_is_elliptic_floor`).  They also share a *ceiling* — the residue,
+reached by no finite stage — but only **thematically**: the ℝ side (`CauchyLensFounding`) is a
+positive convergence statement, and the escapes that inhabit the residue run on *mechanically
+disjoint* engines (Cantor diagonal `object1_not_surjective`; finite-tree leaf-path `spineL_escapes`;
+eventual-monotonicity `s2Z_not_polyDepthZ`; finite-window pigeonhole `aperiodic_not_autoRec`).  The
+honest common form is a *shape* — "reached by no finite stage" — instantiated by each escape under
+its own proof, not one non-surjection; `object1_not_surjective` (every map misses something) is
+strictly stronger than the pointwise escapes.  The floor is one theorem; the ceiling is one theme.
+
 ## Holonomicity is a property of the pointing, not of the real
 
 The continued-fraction holonomicity tiers (`cf_holonomicity_hierarchy.md`) climb from periodic
