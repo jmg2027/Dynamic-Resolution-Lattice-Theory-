@@ -1,8 +1,8 @@
 # Session Handoff — 2026-06-03 (number-tower founding + closure-move marathon)
 
 ## Branch
-`claude/concrete-non-fixed-point-witness-vi1IQ` — **pushed**, working tree clean,
-16 commits this session (HEAD `fb5dcb8`).  NOT merged to `main` (session branch).
+`claude/concrete-non-fixed-point-witness-vi1IQ` — **merged to `main`** this session (after
+merging `origin/main`'s non-holonomicity thread in; see §6).  Working tree clean.
 Full `cd lean && lake build` clean (1500+ modules); every new theorem ∅-axiom
 (`tools/scan_axioms.py` → `N pure / 0 dirty`, run from **repo root**).
 
@@ -66,6 +66,19 @@ choice — no exterior dialer), #5 unify axes (`the_unit_is_one_across_readings`
 - Fixed stale `N_U = d^(d²) = 5²⁵` / `seed/RESOLUTION_LIMIT_SPEC.md` (nonexistent) in **two**
   places (`seed/AXIOM/06_lens_readings.md` §6.7 and `theory/INDEX.md`) → parametric
   `configCountD d n = d^(d^n)`, no level privileged.
+
+### 6. Merged from `main` (concurrent non-holonomicity session — do not re-derive)
+This branch merged `origin/main` (the `claude/non-holonomicity-rGhug` thread) before going to
+`main`.  Disjoint from this session's `Lens/Number/` work; adjacent PURE material now on `main`:
+- **`Meta/Int213/Order` (34 PURE)** — ∅-axiom `Int` ordering layer (core `Int.le_trans` /
+  `lt_trichotomy` are propext-dirty).  Pairs with this session's `Nat213/Order` — two native
+  order layers now exist (`Int` and `Nat213`); future order work should reuse, not rebuild.
+- **`Cauchy/{PolyDepthMonotone, ThueMorseRingEscape, ThueMorseAperiodic, MorseHedlund,
+  EllipticPeriodicTier, CFiniteHomogRec, DepthMonotoneSynthesis, HomogRecPeriodic, …}`** — the
+  non-holonomicity / holonomicity-hierarchy thread closed end-to-end (polynomial ⊆ C-finite ⊆
+  P-recursive ⊊ non-holonomic; Thue–Morse dense witness `tm_eq_popParity`; discriminant↔hierarchy
+  at the order-2 rung, `comp_disc = p²−4q`).  π non-holonomicity mapped (located, not forced).
+- Notes: `research-notes/G170, G173–G176, G183, G184` (+ `archive/G185`).
 
 ---
 
