@@ -488,4 +488,34 @@ theorem markovRes_cross (path : List Bool) :
     = (mInterval path).1.c :=
   markoff_frobenius_res (mInterval path).1 (mInterval path).2 (mInterval_det path).2
 
+/-- ★★★★★ **The residue recovers `m_r` from `m_l`**: `m_t ∣ (u_t·m_l − m_r)`, i.e.
+    `u_t·m_l ≡ m_r (mod m_t)` — the recovery congruence of `SamePairInjective` realised on every
+    tree node.  Derived purely by modular arithmetic from the two preceding facts (NO tree
+    induction): `markovRes_cross` gives `u_t·m_r ≡ −m_l`, and `markovNum_dvd_res_sq_succ` gives
+    `u_t² ≡ −1`; multiplying the first by `u_t` and using the second yields `u_t·m_l ≡ m_r`.  The
+    explicit witness is `q = u_t·u_r − (m_t + d − b)·m_r`, verified by the ring identity
+    `u_t·m_l − m_r = m_t·q − m_r·(u_t²+1) + m_r·(m_t+d−b)·m_t` with the two substitutions. -/
+theorem markovRes_recovery_dvd (path : List Bool) :
+    markovNum path ∣ markovRes path * (mInterval path).1.c - (mInterval path).2.c := by
+  refine ⟨markovRes path * ((mInterval path).2.d - (mInterval path).2.c)
+          - ((mNode path).c + (mNode path).d - (mNode path).b) * (mInterval path).2.c, ?_⟩
+  have hc := markovRes_cross path
+  have hs := markovRes_sq path
+  show markovRes path * (mInterval path).1.c - (mInterval path).2.c
+     = (mNode path).c
+       * (markovRes path * ((mInterval path).2.d - (mInterval path).2.c)
+          - ((mNode path).c + (mNode path).d - (mNode path).b) * (mInterval path).2.c)
+  rw [← hc]
+  have e : markovRes path
+             * (((mInterval path).2.d - (mInterval path).2.c) * (mNode path).c
+                - markovRes path * (mInterval path).2.c)
+           - (mInterval path).2.c
+         = (mNode path).c
+             * (markovRes path * ((mInterval path).2.d - (mInterval path).2.c)
+                - ((mNode path).c + (mNode path).d - (mNode path).b) * (mInterval path).2.c)
+           - (mInterval path).2.c * (markovRes path * markovRes path + 1)
+           + (mInterval path).2.c
+             * (((mNode path).c + (mNode path).d - (mNode path).b) * (mNode path).c) := by ring_intZ
+  rw [e, hs]; ring_intZ
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
