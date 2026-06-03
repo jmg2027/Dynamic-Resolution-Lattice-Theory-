@@ -241,7 +241,7 @@ DIRTY: every Lean-core axiom use is structurally justified per
 
 ### Invert universal property + deep-research additions (2026-06-03)
 
-`E213.Lens.Number.FoundingDialUnification` — **3 PURE / 0 DIRTY**.  The number-tower founding
+`E213.Lens.Number.FoundingDialUnification` — **4 PURE / 0 DIRTY**.  The number-tower founding
 meets the concurrent non-holonomicity discriminant-dial marathon at one order-2 companion
 `comp p q`, split along its two coordinates: `founding_unit_floors_dial_trace_runs_tiers` — the
 founding unit `q = NS − NT` is the dial's fixed determinant (`det (comp p q) = q`); the trace `p`
@@ -255,7 +255,11 @@ parabolic tier (trace `NT`) is the **difference-Lens rung**: `liftKZ 1 s n = s(n
 disc = `d`) is the ratio/Cauchy rung: the convergents' cross-det is the *same* unit
 (`convergent_lowest_terms_is_det`), completing to `φ` (`phiCauchy_limit_eq_phiCut`).  So the
 founding number-rungs *are* the tiers: `ℤ`-sign = elliptic, `ℤ`-difference (depth-1) = parabolic,
-`ℚ`/`ℝ` ratio/Cauchy = hyperbolic; `ℕ` is the base.  Builds on `FoundingDynamicBridge`.
+`ℚ`/`ℝ` ratio/Cauchy = hyperbolic.  And `count_constants_are_difference_fixed_below_parabolic` —
+`ℕ` (count, depth-0 constants) is the difference-Lens **fixed locus** (`liftKZ 1 (const) = 0`),
+sitting at the bottom of the parabolic (depth-1) tier.  So *every* founding rung is placed on the
+dial: `ℕ` difference-fixed bottom of parabolic, `ℤ`-difference full parabolic, `ℤ`-sign elliptic,
+`ℚ`/`ℝ` hyperbolic.  Builds on `FoundingDynamicBridge`.
 
 `E213.Lens.Number.Nat213.Tower.PairCompletionUniversal` — **19 PURE / 0 DIRTY**.  The invert
 move's **complete universal property** (existence ∧ uniqueness), Quot-free and choice-free,

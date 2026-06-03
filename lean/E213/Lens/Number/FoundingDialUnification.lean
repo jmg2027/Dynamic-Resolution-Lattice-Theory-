@@ -109,4 +109,21 @@ theorem hyperbolic_at_NS_is_ratio_cauchy_rung :
   ⟨comp_tr (NS : Int) 1, by rw [comp_det]; decide, by rw [comp_disc]; decide,
    convergent_lowest_terms_is_det, phiCauchy_limit_eq_phiCut⟩
 
+/-- ★★★★ **The count `ℕ` sits at the bottom of the parabolic tier — the difference-Lens fixed
+    points (depth-0).**  A constant sequence (the count `ℕ` *before* any difference is taken) has
+    vanishing first difference (`liftKZ 1 (const) = 0` — it is fixed by the difference-Lens), so it
+    satisfies the parabolic recurrence at trace `NT` and has depth `1` (`polyDepthZ 1`).  Constants
+    (depth-0) are the fixed sub-locus of the difference-Lens, sitting at the bottom of the parabolic
+    (depth-1) tier.  This places every founding rung on the dial: `ℕ` (count, depth-0) is the
+    difference-fixed bottom of parabolic; `ℤ`-difference is full parabolic (depth-1); `ℤ`-sign is
+    elliptic; `ℚ`/`ℝ` is hyperbolic. -/
+theorem count_constants_are_difference_fixed_below_parabolic (c : Int) :
+    (∀ n, liftKZ 1 (fun _ => c) n = 0)
+    ∧ (∀ n, (fun _ => c) (n + 2) = (NT : Int) * (fun _ => c) (n + 1) - (fun _ => c) n)
+    ∧ polyDepthZ 1 (fun _ => c) := by
+  have hrec : ∀ n, (fun _ => c) (n + 2) = (NT : Int) * (fun _ => c) (n + 1) - (fun _ => c) n := by
+    intro _; show c = (2 : Int) * c - c; ring_intZ
+  exact ⟨fun _ => E213.Meta.Int213.Order.sub_self_zero c, hrec,
+         (parabolic_iff_depth1 (fun _ => c)).mp hrec⟩
+
 end E213.Lens.Number.FoundingDialUnification
