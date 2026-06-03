@@ -205,3 +205,38 @@ base (1); everything else is the clean induction ladder above.  This is the reco
 (self-contained, reusable).  The permutation/parity determinant remains the alternative (alternating
 = `sign(σ∘τ)=−sign σ`, also a list-involution reindex — same class of obstacle, plus a sign-by-
 inversion-count build).
+
+## Update — route chosen: permutation/Leibniz (essay-pinned); cornerstones banked
+
+The intuition "det = Lens-quotient characteristic; det=0 = collapse of distinguishing" was pinned
+as `theory/essays/determinant_as_quotient_characteristic.md`, which argues alternating's **natural
+home is antisymmetrization** (`sign(σ∘τ)=−sign σ`), not the cofactor involution.  Route A is now
+underway in `Linalg213/Permutation.lean` (**12 PURE**):
+
+- **§1 (cornerstone)** `LPerm` (4-constructor list permutation-equivalence) + `refl`/`symm`;
+  `sumZ` (Int list sum); ★ `sumZ_lperm` — **sum invariant under `LPerm`** (via Int213's
+  propext-free `add_left_comm`).  This is the "reindex the Leibniz sum by a row swap, value
+  unchanged" engine.
+- **§2 (cornerstone)** `ltCount`/`inversions`/`psign` (`psign l = altSign (inversions l)`);
+  ★ `psign_swap_adj` — **an adjacent swap of two distinct values flips the sign**
+  (`psign (y::x::l) = −psign (x::y::l)`, `x≠y`).  The concrete `sign(σ∘τ)=−sign σ` for adjacent
+  `τ`.  `ac_form` (shared Nat inversion-rearrangement) + `altSign_succ` propext-free.
+
+### Remaining assembly (the next big unit, route A)
+
+1. **§3 enumeration** `permsOf : List Nat → List (List Nat)` (insertion-based: `insertEverywhere`
+   + `flatMap`), `perms n = permsOf (range n)`.
+2. **§4 the Leibniz determinant** `leibDet n M = sumZ ((perms n).map (fun p => psign p * prodDiag M p))`
+   with `prodDiag M p = Πᵢ M i (p.get i)`.
+3. **§5 alternating** (the real theorem): swapping rows `a,b` of `M` reindexes the Leibniz sum by
+   `σ ↦ σ∘τ` (`τ=(a b)`); this is an `LPerm` of the term list with every term sign-flipped
+   (`psign_swap_adj` lifted from adjacent to general `τ` via adjacent-transposition decomposition),
+   so `leibDet (rowSwap M) = − leibDet M` (`sumZ_lperm` + global negation), whence equal rows ⟹ 0.
+   *Cost*: permutation composition + inverse + the product-reindex `Πᵢ M[τi,σi] = Πⱼ M[j,(σ∘τ)j]`
+   + "perms closed under `∘τ` up to `LPerm`".  Heavier than the cofactor involution in line count
+   but better-factored (reusable symmetric-group infra), and alternating falls out structurally.
+4. **§6 bridge** `leibDet = DetN.det` (Laplace expansion theorem) to transport alternating onto the
+   cofactor determinant used by the char-poly/adjugate/Cayley–Hamilton program — OR re-derive the
+   cofactor expansion from `leibDet` and use `leibDet` throughout.
+
+Cornerstones §1–§2 are route-A-essential and reusable regardless; §3–§6 is the focused next pass.
