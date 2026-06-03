@@ -86,4 +86,25 @@ theorem markov_spine_cassini_dichotomy (n : Nat) :
     ∧ fib (2 * n + 1) * fib (2 * n + 5) = fib (2 * n + 3) * fib (2 * n + 3) + 1 :=
   ⟨markov_spine_sqrt_neg_one_cassini n, markov_fib_second_cassini n⟩
 
+/-- ★★★★ **Consecutive spine `(residue, Markov-number)` pairs are Farey/Stern-Brocot neighbors.**
+    With residue `u_n = fib(2n)` (`fib(2n)²+1 = fib(2n−1)·fib(2n+1)`) and Markov number
+    `m_n = fib(2n+1)`, the pairs `(fib(2n), fib(2n+1))`, `(fib(2n+2), fib(2n+3))` have unimodular
+    cross-determinant: `fib(2n+1)·fib(2n+2) = fib(2n)·fib(2n+3) + 1`.  This is the structural basis
+    of Zhang Lemma 2 (the Farey-monotone recovery) *on the Fibonacci spine*: the `(u_n, m_n)` walk a
+    Stern-Brocot path (det `±1`), so `u_n/m_n` is a strictly monotone convergent sequence and the
+    residue determines the spine position.  (Reduces to `fib_cassini_norm`.) -/
+theorem spine_residue_farey (n : Nat) :
+    fib (2 * n + 1) * fib (2 * n + 2) = fib (2 * n) * fib (2 * n + 3) + 1 := by
+  have hc := fib_cassini_norm n
+  have h2 : fib (2 * n + 2) = fib (2 * n + 1) + fib (2 * n) := rfl
+  have h3 : fib (2 * n + 3) = fib (2 * n + 2) + fib (2 * n + 1) := rfl
+  rw [h3, h2]
+  rw [h2] at hc
+  have hcancel :
+      ((fib (2*n+1)+fib (2*n))*(fib (2*n+1)+fib (2*n))+1) + fib (2*n+1)*(fib (2*n+1)+fib (2*n))
+      = ((fib (2*n+1)+fib (2*n))*fib (2*n+1)+fib (2*n+1)*fib (2*n+1))
+        + (fib (2*n)*((fib (2*n+1)+fib (2*n))+fib (2*n+1)) + 1) := by ring_nat
+  rw [hc] at hcancel
+  exact add_left_cancel_pure _ _ _ hcancel
+
 end E213.Lib.Math.Real213.MarkovCassiniBridge
