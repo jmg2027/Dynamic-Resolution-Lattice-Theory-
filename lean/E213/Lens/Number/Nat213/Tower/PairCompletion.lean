@@ -1,5 +1,6 @@
 import E213.Lens.Number.Nat213.Peano
 import E213.Lens.Number.Nat213.Tower.NatPairToQPos
+import E213.Lib.Physics.Simplex.Counts
 
 /-!
 # Lens.Number.Nat213.Tower.PairCompletion — the invert move, once
@@ -27,6 +28,7 @@ All theorems ∅-axiom.
 namespace E213.Lens.Number.Nat213.Tower.PairCompletion
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
+open E213.Lib.Physics.Simplex.Counts (NT)
 
 /-- A **commutative cancellative semigroup** on `Nat213` — exactly the data the invert
     move consumes: associative, commutative, right-cancellative.  No unit. -/
@@ -133,5 +135,30 @@ theorem invert_is_one_move :
         pairEquiv M (combine M p (swap p)) (k, k))
     ∧ (∀ p q : Nat213 × Nat213, pairEquiv mulCCS p q ↔ NatPairToQPos.qpairEquiv p q) :=
   ⟨pairEquiv_refl, combine_swap_equiv_diagonal, mulCCS_recovers_qpairEquiv⟩
+
+/-! ### The period is `NT`: why the involution is order 2 and not order `k`
+
+The invert move's inverse is the *swap* of a **pair** — an ordered tuple with exactly
+`NT = 2` positions.  The swap permutes those positions, so it generates the symmetric
+group on `NT = 2` letters, which has order `NT = 2`: the swap is an involution
+(`swap_involutive`, order divides 2) and it is not the identity (`swap_ne_id`, order ≠ 1),
+hence its order is *exactly* `NT`.  There is no order-3 (or order-`k`, `k ≠ 2`) sign
+structure here because there are only `NT` positions to permute — period-2 is forced by
+`NT = 2`, not chosen. -/
+
+/-- The swap genuinely moves an off-diagonal pair — so its order is not 1. -/
+theorem swap_ne_id : swap (Nat213.one, Nat213.two) ≠ (Nat213.one, Nat213.two) := by
+  decide
+
+/-- ★★★ **The swap has order exactly `NT = 2`.**  Involution (`swap_involutive`, order
+    divides `NT`) and non-identity (`swap_ne_id`, order ≠ 1), with `NT = 2`.  A pair has
+    `NT` positions; the inverse-realising swap permutes them; its order is exactly `NT`.
+    So the period-2 sign of `ℤ` (and the period-2 reciprocal of `ℚ_+`) is *forced* by the
+    count `NT = 2` — there is no room for a period-`k`, `k ≠ 2`, involution on a pair. -/
+theorem swap_order_eq_NT :
+    (∀ p : Nat213 × Nat213, swap (swap p) = p)
+    ∧ (∃ p : Nat213 × Nat213, swap p ≠ p)
+    ∧ NT = 2 :=
+  ⟨swap_involutive, ⟨(Nat213.one, Nat213.two), swap_ne_id⟩, rfl⟩
 
 end E213.Lens.Number.Nat213.Tower.PairCompletion
