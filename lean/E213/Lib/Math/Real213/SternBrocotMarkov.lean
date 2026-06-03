@@ -892,4 +892,12 @@ theorem mInterval_reachable (path : List Bool) :
         show MarkovReachable (mInterval t).1.c.toNat (mNode t).c.toNat (mNode (true :: t)).c.toNat
         exact (ih.swap23).jump hjump
 
+/-- ★★★★ **Every matrix-tree node triple is pairwise coprime** — inherited from
+    `MarkovUniqueness.markov_reachable_coprime` via the forward bridge `mInterval_reachable`.  A
+    demonstration that the matrix-tree nodes pick up the full reachable-triple theory. -/
+theorem mNode_triple_coprime (path : List Bool) :
+    E213.Lib.Math.Real213.MarkovUniqueness.MarkovPairwiseCoprime
+      (mInterval path).1.c.toNat (mInterval path).2.c.toNat (mNode path).c.toNat :=
+  E213.Lib.Math.Real213.MarkovUniqueness.markov_reachable_coprime (mInterval_reachable path)
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
