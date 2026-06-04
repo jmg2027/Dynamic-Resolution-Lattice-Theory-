@@ -529,4 +529,32 @@ theorem det_cyc (n : Nat) : ∀ (i : Nat) (M : Nat → Nat → Int), i < n →
     show altSign i * -det n M = -(altSign i) * det n M
     rw [E213.Meta.Int213.mul_neg, E213.Meta.Int213.neg_mul]
 
+/-- The `(i,j)`-minor: drop row `i`, column `j`. -/
+def minorAt (i j : Nat) (M : Nat → Nat → Int) : Nat → Nat → Int :=
+  fun i' l => M (if i' < i then i' else i' + 1) (colShift j l)
+
+/-- The row-0 minor of `cyc i M` is the `(i,j)`-minor of `M`. -/
+theorem minor_cyc_eq (i j : Nat) (M : Nat → Nat → Int) (i' l : Nat) :
+    minor (cyc i M) j i' l = minorAt i j M i' l := by
+  show (if i' + 1 = 0 then M i (colShift j l)
+        else if i' + 1 ≤ i then M i' (colShift j l) else M (i' + 1) (colShift j l))
+     = M (if i' < i then i' else i' + 1) (colShift j l)
+  rw [if_neg (fun h => Nat.noConfusion h)]
+  by_cases h : i' < i
+  · rw [if_pos (Nat.succ_le_of_lt h), if_pos h]
+  · rw [if_neg (fun hle => h (Nat.lt_of_succ_le hle)), if_neg h]
+
+/-- `(−1)ⁱ · det = Σⱼ (−1)ʲ · M i j · det (minorAt i j M)` (expand `cyc i M` along row 0). -/
+theorem det_cyc_expand (M : Nat → Nat → Int) (n i : Nat) (hi : i < n + 1) :
+    altSign i * det (n + 1) M
+      = sumZ ((iota (n + 1)).map (fun j => altSign j * M i j * det n (minorAt i j M))) := by
+  rw [← det_cyc (n + 1) i M hi]
+  show cofSum (det n) (cyc i M) (n + 1)
+     = sumZ ((iota (n + 1)).map (fun j => altSign j * M i j * det n (minorAt i j M)))
+  rw [cofSum_eq_sumZ_iota]
+  apply congrArg sumZ
+  apply map_eq_of_mem
+  intro j _
+  rw [show cyc i M 0 j = M i j from rfl, det_congr n (minor_cyc_eq i j M)]
+
 end E213.Lib.Math.Linalg213.Laplace
