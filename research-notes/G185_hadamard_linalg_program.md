@@ -568,3 +568,25 @@ by induction on `N` (base: `matMul_Bm_zero` + `matMul_id_*`; step: `matMul_Bm_su
 Session tally (all ∅-axiom): `CayleyHamilton` 25 + `PolyZ` 47 + `PolyDet` 13 + `CharPolyAdj` 22 =
 **107 PURE**.  Integer Cayley–Hamilton is reduced to one telescoping induction over the banked
 matrix-form relations + `B_{n+1}=0`.
+
+## Update — ★★★ INTEGER CAYLEY–HAMILTON PROVEN (CharPolyAdj 29 PURE)
+
+`χ_M(M) = 0` over `ℤ`, ∅-axiom, from scratch (`CharPolyAdj` §7):
+- `CayleyHamilton` §6: ★ `matPow_succ_right` (`Mᴺ·M = Mᴺ⁺¹` pointwise) + bounded `matMul_congr_bd`.
+- `CharPolyAdj` §7: `sumZ_map_sub`, `charSum`/`charSum_zero`/`charSum_succ` (the partial sum
+  `Σ_{m=0}^{N} cₘ·(Mᵐ)_{ik}`), `tele_step` (`Mᴺ⁺²·B_{N+1} = Mᴺ⁺¹·B_N − c_{N+1}·Mᴺ⁺¹`), ★ `telescope`
+  (`charSum N = −Mᴺ⁺¹·B_N`, induction), and ★★★ **`cayley_hamilton`**:
+  `Σ_{m=0}^{n+1} (coeff χ_M m)·(Mᵐ)_{ik} = 0` — the entry-wise `χ_M(M) = 0`, boundary vanishing by
+  `padj_coeff_top_zero` (`B_{n+1}=0`).
+
+The centerpiece of the G185 program is done.  Total CH stack (all ∅-axiom): `Permutation` 33 +
+`PermClosure` 76 + `Laplace` 53 + `CayleyHamilton` 27 + `PolyZ` 47 + `PolyDet` 13 + `CharPolyAdj` 29.
+
+**Remaining — Phase D: `cfiniteZ_mul`** (the application; ~200 lines, touches `Cauchy/`):
+1. **Monicity** `coeff (charPoly M N) N = 1` (the `Xᴺ` term of `det(X·I−M)` = product of diagonal
+   `X`'s; a `pdet` leading-coefficient induction, ~40 lines).
+2. **Kronecker companion** `M` (size `pq`) from the two monic recurrences `pₛ`, `pₜ`; the product
+   vector `V(n)_{(a,b)} = s(n+a)·t(n+b)`; `V(n+1) = M·V(n)` ⟹ `V(n+m) = Mᵐ·V(n)` (induction).
+3. **Extract**: `cayley_hamilton` ⟹ `(Σ_m cₘ Mᵐ)_{ik} = 0` ⟹ `Σ_m cₘ V(n+m) = 0` (apply to the
+   cyclic vector) ⟹ first component `Σ_m cₘ·u(n+m) = 0` with `c_{pq}=1` (monicity) ⟹ monic shift
+   recurrence for `u = s·t` ⟹ `cfiniteZ_mul` via `Cauchy/CFiniteRing` (`cfiniteZ_of_shiftRec`).

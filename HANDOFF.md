@@ -43,18 +43,22 @@ relations `cayley_rel_zero`/`cayley_rel_succ`, their matrix form ★★ `matMul_
 + ★★ `matMul_Bm_succ` (`M·B_{m+1} = Bₘ − c_{m+1}·I`), and the degree bound ★ `padj_coeff_top_zero`
 (`B_{n+1}=0`).  `Bm M n m`, `cm M n m` defined.  Everything the telescoping needs is banked.
 
-**The ONLY remaining piece — the telescoping induction** (pure `CayleyHamilton` matrix algebra,
-no new math):
-- prove `S(N) i k := Σ_{m=0}^{N} cm m · (matPow M m) i k = − matMul (matPow M (N+1)) (Bm N) i k`
-  by induction on `N` (base: `matMul_Bm_zero` + `matMul_id_*`; step: `matMul_Bm_succ` +
-  `matMul_assoc` + `matPow_succ_right`); at `N = n+1`, `S = χ_M(M)` and boundary `= 0` (`B_{n+1}=0`).
-  ⟹ ★★★ **integer Cayley–Hamilton** `χ_M(M)=0`.
-- helpers to add to `CayleyHamilton`: a **bounded** `matMul_congr` (agreement on `iota` only) +
-  ★ `matPow_succ_right` (`M^N·M = M^{N+1}` pointwise, induction via `matMul_assoc` + bounded congr).
-- then **§7 Kronecker `M`** + first-component extraction ⟹ `cfiniteZ_mul` (`cfiniteZ_of_shiftRec`).
+★★★ **INTEGER CAYLEY–HAMILTON IS PROVEN** (`CharPolyAdj.cayley_hamilton`, ∅-axiom):
+`Σ_{m=0}^{n+1} (coeff χ_M m)·(Mᵐ)_{ik} = 0` — the characteristic polynomial annihilates its own
+integer matrix, `χ_M(M) = 0`, built from scratch (telescoping `telescope` + `tele_step` +
+`matPow_succ_right`; boundary vanishes by `padj_coeff_top_zero`).  The centerpiece of G185 is done.
 
-This session banked (all ∅-axiom): `CayleyHamilton` 25 + `PolyZ` 47 + `PolyDet` 13 + `CharPolyAdj`
-22 = **107 PURE**.  Integer Cayley–Hamilton is reduced to one telescoping induction.
+**Remaining — Phase D: `cfiniteZ_mul`** (the application, ~200 lines, touches `Cauchy/`):
+1. **Monicity** `coeff (charPoly M N) N = 1` (`Xᴺ` term of `det(X·I−M)`; a `pdet` leading-coeff
+   induction).
+2. **Kronecker companion** `M` (size `pq`) from the two monic recurrences; product vector
+   `V(n)_{(a,b)} = s(n+a)·t(n+b)`; `V(n+1)=M·V(n)` ⟹ `V(n+m)=Mᵐ·V(n)`.
+3. **Extract**: `cayley_hamilton` ⟹ `Σ_m cₘ V(n+m) = 0` (apply to the cyclic vector) ⟹ first
+   component `Σ_m cₘ·u(n+m)=0` with `c_{pq}=1` ⟹ monic shift recurrence for `u=s·t` ⟹ `cfiniteZ_mul`
+   via `Cauchy/CFiniteRing.cfiniteZ_of_shiftRec`.
+
+This session banked (all ∅-axiom): `CayleyHamilton` 27 + `PolyZ` 47 + `PolyDet` 13 + `CharPolyAdj`
+29 = **116 PURE**, closing integer Cayley–Hamilton.
 
 ## Other live threads
 - C-finite orbit dimension: `theory/math/analysis/cfinite_orbit_dimension.md`
