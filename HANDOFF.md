@@ -1,8 +1,23 @@
-# Session Handoff — 2026-06-04b (Markov — ★ FIRST COMPOSITE Markov number closed, ∅-axiom)
+# Session Handoff — 2026-06-04c (Markov — ★ the UPPER-FOLD PATTERN formalized, §20)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **77 PURE**.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **82 PURE**.
 
-## ★★★ NEW: composite-`c` uniqueness, beyond Button (§16–§19)
+## ★★★ NEW (§20): the upper-fold pattern — window = ±-fold transversal
+The template (§18) is **not** a number-closing device; it IS the generalization insight of the
+**upper-fold pattern** (per Mingu's correction).  §20 makes that explicit:
+- **`window_excludes_partner` (c r) (2r<c) : c < 2(c−r)** — a windowed root has its ±-partner `c−r`
+  *outside* the window.  Proved omega-free (omega leaks propext+Quot.sound) via `NatHelper.add_sub_of_le`.
+- **`window_fold_transversal` (c r) (r<c) (root) (2r<c) : ((c−r)²+1)%c=0 ∧ ¬(2(c−r)<c)** — bundles
+  `neg_root_is_root` (σ(u)=c−u preserves the root set) with `window_excludes_partner`: the window
+  (0,c/2) is a **transversal** of the ± involution σ, exactly one rep per {u, c−u} pair.
+
+  **Markov uniqueness = fold by σ (the window) + the realized fold-point is unique
+  (`WindowRealizedUnique`).**  Same fold the repo reads as the unit's two faces
+  (`HyperbolicEllipticTrace`, the Δ-sign φ/π split §14), 0/∞ as one reciprocal hole
+  (`ZeroInfinityHole`), and the ±/Cassini sign (`DetSpectrumPoles`).
+- Dropped a redundant `0<r` hypothesis from both (assume-nothing).
+
+## ★★★ composite-`c` uniqueness, beyond Button (§16–§19)
 - **First three composite Markov numbers closed ∅-axiom** (all with the `2^ω=4` root explosion where
   `SqrtNegOneTwoRoots` FAILS): `markov_max_unique_610` (2·5·61=F₁₅), `markov_max_unique_985` (5·197),
   `markov_max_unique_1325` (5²·53).  Plus `markov_max_unique_65` (non-Markov, vacuous).
