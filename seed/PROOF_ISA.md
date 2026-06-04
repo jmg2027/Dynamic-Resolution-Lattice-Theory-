@@ -76,7 +76,7 @@ instruction (e.g. `SEPARATE`) holds on every finite sample, and pointing at the 
 open content.  So the standing method is not only "compile this one problem" but **catalogue the lifts of
 problems already solved** — each solved lift is a reusable template, and a problem missing the *same* lift
 as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/ProofISALifts.lean`, all
-`∅`-axiom) records three structurally distinct archetypes:
+`∅`-axiom) records four structurally distinct archetypes:
 
   - **DIAGONAL / direct** (`lift_diagonal`, Cantor) — the `DIAGONALIZE` instruction self-supplies the
     uniform witness; **lift cost zero**.
@@ -84,6 +84,12 @@ as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/P
     the binomial mod `p`) lifted by induction; **cost one induction**.
   - **ORBIT / free-action** (`lift_orbit`, composite Markov uniqueness) — a free group action collapses a
     finite window onto orbit representatives; **cost: free-action collapse + a realizability residue**.
+  - **REFRAME / presentation-transport** (`lift_reframe`, CRT `2·pᵏ`; `lift_reframe_modulus`, the `3c±2`
+    modulus shift) — the meta-lift: when `SEPARATE` fails under one reading, factor a shared invariant
+    (modulus / discriminant) and re-`READ` through the prime-power factor where a solved `SEPARATE` fires
+    (`REFLECT → READ → SEPARATE`); **cost: a good factor of the invariant**.  Conditional (needs a
+    prime-power factor) and the dual of in-place monovariant exhaustion — transport the problem rather than
+    improve the reading.
 
 Markov `H` matches none cleanly — closest is **ORBIT**, which is *in `H`'s own family* (the same
 free-unit-root action already lifts a finite root-window to uniform composite uniqueness, leaving a per-`c`
