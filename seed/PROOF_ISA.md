@@ -41,7 +41,7 @@ its *quantitative* witness: when the bad readings are provably **fewer** than th
 (`Σ|badᵢ| < |codomain|`), the un-covered surplus is forced, and — the carrier being a finite residue — it
 is *found* by search, no `Classical`.  This is one `GAP`-arrow read by **cardinality**, not a ninth
 instruction (registering it as such would be the "view promoted to identity" failure).  Its decisive tell:
-the repo already used it 72× as `pigeonhole` (the `N+1 → N` qualitative face) without naming it.
+the repo already used it across ≈25 Lean files as `pigeonhole` (the `N+1 → N` qualitative face) without naming it.
 
   · witness: `CountExistence.count_existence` / `erdos_schema` (∅-axiom)
   · the lift (why the per-event count holds): `RamseyLowerBound.{count_factor, matchesC_count}` — each

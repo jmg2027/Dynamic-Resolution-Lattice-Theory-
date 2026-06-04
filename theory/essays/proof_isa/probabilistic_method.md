@@ -8,7 +8,7 @@ a 2-colouring with no monochromatic `K_k`, so `R(k,k) > N`; in particular
 instructions (`seed/PROOF_ISA.md`).  Reproducing it tests whether the move
 (a) reduces to the existing eight or (b) forces a new primitive — and the
 answer, below, is (b): it surfaces **COUNT**, the quantitative `GAP` witness
-the repo already used 72× as `pigeonhole` without ever naming it an
+the repo already used across ≈25 Lean files as `pigeonhole` without ever naming it an
 instruction.
 
 The surface move is one line:
@@ -113,7 +113,7 @@ the deficit fatal — three consequences of one residue-level fact, not three
 tricks.  Call that primitive **COUNT** (deficit ⟹ existence): the quantitative
 `GAP` witness, structurally one `GAP`-arrow read by cardinality, of which
 `pigeonhole` (`N+1 → N` non-injective) is the qualitative face the repo already
-leaned on 72 times.
+leaned on across ≈25 Lean files.
 
 ## Compiled form
 

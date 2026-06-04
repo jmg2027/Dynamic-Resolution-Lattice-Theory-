@@ -27,7 +27,7 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
 
   · [`probabilistic_method.md`](probabilistic_method.md) — Erdős (1947)
     `R(k,k) > 2^{k/2}`.  Surfaces **COUNT** (the quantitative `GAP` witness:
-    deficit ⟹ existence) — the primitive the repo already used 72× as
+    deficit ⟹ existence) — the primitive the repo already used across ≈25 Lean files as
     `pigeonhole` without naming.  Why counting forces existence:
     `count` is a residue-internal reading and the residue's cardinality is
     **multiplicative in its distinguishings**.

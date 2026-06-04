@@ -7,7 +7,7 @@ reduces to a composition of the existing eight, or (b) forces a new primitive.
 
 Target: **Erdős (1947), `R(k,k) > 2^{k/2}`** — the founding result of the
 *probabilistic method*.  Criterion for picking it: the repo has `pigeonhole`
-in 72 files but `Ramsey`/`probabilistic`/`union bound` essentially absent, and
+in ≈25 Lean files but `Ramsey`/`probabilistic`/`union bound` essentially absent, and
 no ISA instruction names a counting/averaging move.
 
 ## The actual proof (Erdős)
@@ -39,7 +39,7 @@ Checked against the eight instructions:
 
 So the probabilistic method = the **GAP family with a counting witness**.  Call
 that witness **COUNT** (deficit ⟹ existence).  Decisive corroboration: the repo
-*already uses* exactly this 72 times as `pigeonhole` — pigeonhole is the
+*already uses* exactly this across ≈25 Lean files as `pigeonhole` — pigeonhole is the
 *qualitative* COUNT (`N+1 → N` non-injective), the probabilistic union bound is
 the *quantitative* COUNT, and the recurring finite→uniform **lift** counting is
 the same primitive.  Compiling Erdős is what makes the un-named instruction
@@ -122,7 +122,7 @@ COUNT is now registered as the **quantitative `GAP` sub-mode** (not a 9th
 instruction — that would be "view promoted to identity"):
 
   · `seed/PROOF_ISA.md` — GAP sub-mode subsection (witness `count_existence`,
-    the 72× `pigeonhole` tell, the doubling lift).
+    the ≈25-Lean-file `pigeonhole` tell, the doubling lift).
   · `lean/E213/Lib/Math/Foundations/ProofISALifts.lean` — **Archetype 4**
     COUNT / cardinality-doubling (`lift_count = count_existence`,
     `lift_count_factor = matchesC_count`, both PURE); the `GAP`-cardinality

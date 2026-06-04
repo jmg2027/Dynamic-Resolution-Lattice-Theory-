@@ -1,4 +1,5 @@
 import E213.Meta.Tactic.Omega213
+import E213.Meta.Tactic.Mod213
 
 /-!
 # The parity / invariant argument — the mutilated chessboard (∅-axiom)
@@ -24,22 +25,21 @@ objects apart).  So the parity method compiles to **READ ∘ SEPARATE**: a
 landing (the probabilistic + linear-algebra methods both compiled to COUNT;
 this one does not — conservation is the SEPARATE direction, not the GAP one).
 
-Parity is kept `mod`-free as a `Bool` recursion (`parNat`), so the local flip is
-`rfl` and the file is strict ∅-axiom (`Int` / `Nat.mod` carry `propext` /
-`Quot.sound`).
+Parity is the canonical `mod`-free `Bool` primitive `Mod213.parity` (reused, not
+re-defined), so the local flip is `Mod213.parity_succ` and the file is strict
+∅-axiom (`Int` / `Nat.mod` carry `propext` / `Quot.sound`).
 
 Companion "why": `theory/essays/proof_isa/parity_invariant_method.md`.
 -/
 
 namespace E213.Lib.Math.Combinatorics.ParityInvariant
 
-/-- `mod`-free parity: `parNat (n+1) = !(parNat n)` holds by definition. -/
-def parNat : Nat → Bool
-  | 0 => false
-  | n + 1 => !(parNat n)
+open E213.Tactic.Mod213 (parity parity_succ)
 
-/-- A cell's colour = parity of `i + j`. -/
-def par (c : Nat × Nat) : Bool := parNat (c.1 + c.2)
+/-- A cell's colour = parity of `i + j`.  Reuses the canonical ∅-axiom
+    `Mod213.parity` (the smallest cohomological-trajectory primitive) rather
+    than a local copy. -/
+def par (c : Nat × Nat) : Bool := parity (c.1 + c.2)
 
 /-- A domino: two cells adjacent horizontally or vertically. -/
 def Adj (c1 c2 : Nat × Nat) : Prop :=
@@ -60,16 +60,16 @@ def cfalse : List (Nat × Nat) → Nat
   | [] => 0
   | c :: cs => (bif par c then 0 else 1) + cfalse cs
 
-/-- **The local invariant.**  Adjacent cells carry opposite colour — by `rfl`
-    on the `Bool` parity recursion (no `mod`). -/
+/-- **The local invariant.**  Adjacent cells carry opposite colour — the parity
+    flip `parity (m+1) = !parity m` (`Mod213.parity_succ`). -/
 theorem adj_par {c1 c2 : Nat × Nat} (h : Adj c1 c2) : par c2 = !(par c1) := by
   rcases h with ⟨h1, h2⟩ | ⟨h1, h2⟩
-  · show parNat (c2.1 + c2.2) = !(parNat (c1.1 + c1.2))
+  · show parity (c2.1 + c2.2) = !(parity (c1.1 + c1.2))
     rw [← h1, ← h2]   -- c2 = (c1.1, c1.2 + 1) ; c1.1 + (c1.2+1) ≡ (c1.1+c1.2)+1
-    rfl
-  · show parNat (c2.1 + c2.2) = !(parNat (c1.1 + c1.2))
+    exact parity_succ (c1.1 + c1.2)
+  · show parity (c2.1 + c2.2) = !(parity (c1.1 + c1.2))
     rw [← h1, ← h2, Nat.succ_add]   -- c2 = (c1.1+1, c1.2) ; (c1.1+1)+c1.2 = (c1.1+c1.2)+1
-    rfl
+    exact parity_succ (c1.1 + c1.2)
 
 /-- ★ **The invariant (CONSERVE core).**  Every domino-tiling covers the two
     colours equally — each domino contributes one of each, and the colour-count
@@ -92,7 +92,7 @@ theorem tiling_balanced :
         rw [Nat.zero_add, Nat.zero_add]
 
 /-- **The obstruction seed.**  The two opposite corners share a colour
-    (`parNat 0 = parNat 14 = false`): removing them unbalances the colour-counts,
+    (`parity 0 = parity 14 = false`): removing them unbalances the colour-counts,
     which by `tiling_balanced` no tiling can match. -/
 theorem corners_same_colour : par (0, 0) = par (7, 7) := by decide
 

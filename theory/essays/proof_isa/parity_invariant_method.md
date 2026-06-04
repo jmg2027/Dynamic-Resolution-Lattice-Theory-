@@ -90,9 +90,37 @@ board") needs the board model: the full board's two colour-counts are equal
 equal to the board (as a multiset) would force `ctrue = cfalse`.  Finite
 counting + a permutation-invariance of the count — no new "why".
 
+## Connections to the corpus (sweep)
+
+Cross-referencing against the existing PURE corpus (the same discipline that
+sharpened the König boundary) located two anchors, one a reuse and one a kin:
+
+  - **`par` reuses `Mod213.parity`** — the colour is the canonical ∅-axiom
+    parity primitive (`E213.Tactic.Mod213.parity`, the smallest
+    cohomological-trajectory primitive), not a local copy; the flip `adj_par` is
+    `Mod213.parity_succ`.  (A first draft re-defined it; the sweep deduplicated.)
+  - **the conserved-fold pattern is the repo's δ⁰-colouring machinery** —
+    `GraphConnectivity.IsClosed (Adj) (σ) := ∀ u v, Adj u v → σ u = σ v` with
+    `closed_const`/`closed_false_or_true` (a colouring constant along a relation
+    is globally one of two constants) is the *same shape* as a conserved
+    reading along a dynamics, and the cohomology `KernelConstancyUniversal`
+    promotes it (kernel `δ⁰` = the two constants, for connected `K_{NS,NT}^{(c)}`).
+    The domino colouring is the **complementary** case — *opposite* on each
+    adjacency (a proper 2-colouring / bipartite class function, `δ⁰par = `
+    all-ones), not *same* on each edge (the kernel) — so it is the bipartite
+    dual of the closed-colouring kernel, not a literal `IsClosed` instance.  The
+    shared primitive is "a `READ` conserved along a relation"; the two readings
+    sit on the two sides of `δ⁰`.
+
+This is the same lesson as König: the conserved-reading move was already in the
+corpus (δ⁰-closed colourings); the parity argument is one reading of it.
+
 ## Witnesses
 
   - `lean/E213/Lib/Math/Combinatorics/ParityInvariant.lean` —
-    `parNat`, `par`, `adj_par`, `tiling_balanced`, `corners_same_colour`.
+    `par` (= `Mod213.parity`), `adj_par` (= `parity_succ`), `tiling_balanced`,
+    `corners_same_colour`.
+  - the conserved-fold corpus: `Lib/Math/Combinatorics/GraphConnectivity.lean`
+    (`IsClosed`, `closed_const`), `Cohomology/.../KernelConstancyUniversal.lean`.
   - instruction set: `seed/PROOF_ISA.md`, `lean/E213/Lens/ProofISA.lean`
     (`isa_read`, `isa_separate`).

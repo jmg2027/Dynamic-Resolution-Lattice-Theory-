@@ -17,8 +17,12 @@ finite and badness decidable, it can be **found** (no `Classical`, no LEM).
 So the compilation verdict is *not* "already in the ISA": it is a new witness
 of the `GAP` family — a **quantitative GAP** keyed on a cardinality
 comparison.  The repo already *uses* this everywhere as `pigeonhole`
-(72 files) without naming it an instruction; the probabilistic method is what
-makes the missing primitive explicit.  Name it **COUNT** (deficit ⟹ existence).
+(≈25 Lean files) without naming it an instruction — the abstract forms
+`Combinatorics.Pigeonhole.no_inj_lt` (no injection `Fin k → Fin N`, `N < k`) and
+`Tactic.List213.nodup_length_le_of_subset` (the cardinality form, reused in
+`LinearDependence`); the probabilistic method is what makes the missing
+primitive explicit.  Name it **COUNT** (deficit ⟹ existence).  (`deficit_exists`
+below is the `Bool`-list deficit form, a direct finite search.)
 
 Built over the `BoolEnum` carrier (`allBoolLists n` = the `2ⁿ`
 2-colourings of `n` edges):
