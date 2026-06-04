@@ -194,6 +194,78 @@ theorem coeff_mulP_pair_succ (c d : Int) (q : PolyZ) (k : Nat) :
   show coeff (addP (scaleP c q) (shiftP (mulP [d] q))) (k + 1) = c * coeff q (k + 1) + d * coeff q k
   rw [coeff_addP, coeff_scaleP, coeff_shiftP_succ, coeff_mulP_single]
 
+/-! ## Degree bound — `degLe p d` (`deg p ≤ d`) and its closure laws -/
+
+/-- `p` has degree `≤ d`: all coefficients above index `d` vanish. -/
+def degLe (p : PolyZ) (d : Nat) : Prop := ∀ m, d < m → coeff p m = 0
+
+/-- The zero polynomial: all coefficients vanish. -/
+def IsZeroP (p : PolyZ) : Prop := ∀ m, coeff p m = 0
+
+theorem degLe_nil (d : Nat) : degLe [] d := fun _ _ => rfl
+
+/-- A larger degree bound is weaker. -/
+theorem degLe_mono {p : PolyZ} {d e : Nat} (h : degLe p d) (hde : d ≤ e) : degLe p e :=
+  fun m hm => h m (Nat.lt_of_le_of_lt hde hm)
+
+theorem degLe_addP {p q : PolyZ} {d : Nat} (hp : degLe p d) (hq : degLe q d) :
+    degLe (addP p q) d :=
+  fun m hm => by rw [coeff_addP, hp m hm, hq m hm, add_zero']
+
+theorem degLe_scaleP {p : PolyZ} {d : Nat} (c : Int) (hp : degLe p d) : degLe (scaleP c p) d :=
+  fun m hm => by rw [coeff_scaleP, hp m hm, mul_zero']
+
+theorem degLe_shiftP {p : PolyZ} {d : Nat} (hp : degLe p d) : degLe (shiftP p) (d + 1) := by
+  intro m hm
+  cases m with
+  | zero => exact absurd hm (Nat.not_lt_zero _)
+  | succ m' => rw [coeff_shiftP_succ]; exact hp m' (Nat.lt_of_succ_lt_succ hm)
+
+/-- Drop the head: `deg (a :: p') ≤ d+1 ⟹ deg p' ≤ d`. -/
+theorem degLe_tail {a : Int} {p' : PolyZ} {d : Nat} (h : degLe (a :: p') (d + 1)) : degLe p' d :=
+  fun m hm => h (m + 1) (Nat.succ_lt_succ hm)
+
+/-- A degree-`0` cons has a zero tail. -/
+theorem isZeroP_tail_of_degLe_zero {a : Int} {p' : PolyZ} (h : degLe (a :: p') 0) : IsZeroP p' :=
+  fun m => h (m + 1) (Nat.succ_pos m)
+
+theorem isZeroP_shiftP {p : PolyZ} (h : IsZeroP p) : IsZeroP (shiftP p) := by
+  intro m
+  cases m with
+  | zero   => rfl
+  | succ k => exact h k
+
+/-- `0 · q = 0` (the zero polynomial absorbs on the left). -/
+theorem mulP_isZeroP_left : ∀ (p : PolyZ), IsZeroP p → ∀ (q : PolyZ), IsZeroP (mulP p q)
+  | [],      _, _ => fun _ => rfl
+  | a :: p', h, q => fun m => by
+    have ha : a = 0 := h 0
+    have hmul : IsZeroP (mulP p' q) := mulP_isZeroP_left p' (fun k => h (k + 1)) q
+    show coeff (addP (scaleP a q) (shiftP (mulP p' q))) m = 0
+    rw [coeff_addP, coeff_scaleP, ha, E213.Meta.Int213.zero_mul,
+        isZeroP_shiftP hmul m, E213.Meta.Int213.zero_add]
+
+/-- ★ **Degree of a product** is `≤` the sum of degrees. -/
+theorem degLe_mulP : ∀ (p : PolyZ) (dp : Nat) (q : PolyZ) (dq : Nat),
+    degLe p dp → degLe q dq → degLe (mulP p q) (dp + dq)
+  | [],      _,  _, _,  _,  _  => fun m _ => rfl
+  | a :: p', dp, q, dq, hp, hq => by
+    show degLe (addP (scaleP a q) (shiftP (mulP p' q))) (dp + dq)
+    apply degLe_addP
+    · exact degLe_mono (degLe_scaleP a hq) (Nat.le_add_left dq dp)
+    · cases dp with
+      | zero =>
+        have hz : IsZeroP (mulP p' q) := mulP_isZeroP_left p' (isZeroP_tail_of_degLe_zero hp) q
+        exact fun m _ => isZeroP_shiftP hz m
+      | succ d' =>
+        have hp' : degLe p' d' := degLe_tail hp
+        rw [Nat.succ_add]
+        exact degLe_shiftP (degLe_mulP p' d' q dq hp' hq)
+
+/-- Coefficients above the degree bound vanish (the usable form). -/
+theorem coeff_eq_zero_of_degLe {p : PolyZ} {d : Nat} (h : degLe p d) {m : Nat} (hm : d < m) :
+    coeff p m = 0 := h m hm
+
 /-! ## Uniqueness — synthetic division, root bound, coefficient identity -/
 
 /-- `a - b = 0 → a = b` over `ℤ`. -/
