@@ -101,10 +101,17 @@ unimodular unit, the residue's `NS − NT = det P = 1`.
 The cocycle is built **on the Stern-Brocot tree** (the L/R sub-semigroup of
 `SL(2,ℤ)`).  Genuinely open: the full-group cocycle composition law on non-tree
 generators; the **higher-weight** period integrals and the analytic
-`H^1(SL(2,ℤ), V_k)` identification (these need integration — analysis — and would
-break ∅-axiom purity if imported from Mathlib); and the multifractal Hölder
-spectrum of `?`.  The residue supplies the *tree-level, weight-2* cocycle in full;
-the analytic completion is pointed at, not constructed (`reached_by_none.md`).
+`H^1(SL(2,ℤ), V_k)` identification; and the multifractal Hölder spectrum of `?`.
+These obstructions are **constructive, not axiom-cost**: integration itself is
+∅-axiom-native here — the repo builds its own dyadic Riemann integral
+(`Real213/CutIntegral.cutIntegralOver`, `DyadicRiemann`, with linearity,
+additivity, the constant fundamental theorem, and `no_pi_in_finite_riemann`, all
+PURE), and the weight-2 period has an ∅-axiom *analytic* representative alongside
+its algebraic one (`MinkowskiPeriodIntegral.weight2_period_integral_pure`).  What
+is missing is a modular-form contour over `ℍ` and a general power-rule primitive
+`∫ z^{k−2} dz` — a frontier to *build*, not a purity wall.  The residue supplies
+the *tree-level, weight-2* cocycle in full; the higher-weight analytic completion
+is pointed at, not yet constructed (`reached_by_none.md`).
 
 ## Self-check
 

@@ -33,9 +33,15 @@ results.  All PURE, on `main`.
   and infinite escape are one `+1`-graduation, two regimes.
 - **`Simplex/FaceTerms.simplex_face_euler_zero`** (PURE) — `Σ(−1)ᵏC(5,k)=0`: the
   face axis is the *bounded/closed* direction (degree + multiplicity are unbounded).
-- **Honest negatives**: "residue = a spectrum" is **rejected** (Steenrod/Massey
-  vacuous at the `d=5` truncation); higher-weight periods / full `SL(2,ℤ)` cocycle
-  / multifractal spectrum need analysis and stay open.
+- **`Real213/MinkowskiPeriodIntegral.weight2_period_integral_pure`** (PURE) — the
+  weight-2 period has an ∅-axiom **analytic** representative via the repo's own
+  dyadic Riemann integral (`CutIntegral`, `DyadicRiemann`), alongside its algebraic
+  (`√(−1)`) one.  Integration is ∅-axiom-native (corrects an earlier claim).
+- **Honest negatives / open**: "residue = a spectrum" is **rejected** (Steenrod/
+  Massey vacuous at the `d=5` truncation).  Open but **constructive, not
+  purity-blocked**: higher-weight periods / full `H^1(SL(2,ℤ),V_k)` need a modular
+  contour + power-rule primitive to *build*; full `SL(2,ℤ)` cocycle off-tree; the
+  multifractal Hölder spectrum of `?`.
 - Frontier: `research-notes/frontiers/residue_expression_atlas.md` (open board);
   essay scoped: `theory/essays/foundations/reached_by_none.md` (no-back face only).
 
@@ -185,6 +191,7 @@ research-notes/frontiers/markov_lagrange/G189-G193*.md      ← relocated from t
 research-notes/archive/{G178,G182, spiral_axis/G181}*.md   ← archived (closed)
 lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiCocycle.lean      ← NEW: ? as Markov-valued modular cocycle (6 PURE)
 lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiGoldenExtremal.lean ← NEW: φ = extremal weight-2 period instance (1 PURE)
+lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiPeriodIntegral.lean ← NEW: weight-2 period via the ∅-axiom dyadic integral (1 PURE)
 lean/E213/Lib/Physics/AlphaEM/CupLadderResidueUnit.lean            ← NEW: cohomology graduation = residue unit; finite↔infinite (3 PURE)
 lean/E213/Lib/Physics/Simplex/FaceTerms.lean                       ← +simplex_face_euler_zero (face axis closes)
 theory/essays/foundations/reached_by_none.md                       ← NEW essay: expressing the essential residue (no-back face)

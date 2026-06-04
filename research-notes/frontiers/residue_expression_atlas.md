@@ -96,9 +96,13 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   Fibonacci (period-1) spine to `fib(2n+3) ∣ fib(2n+2)²+1`, with anisotropy (`golden_anisotropic`)
   and the Cassini `W=±1` floor (= the residue unit).  So the Markov/Lagrange minimum is the
   residue-internal extremal case of the `?`-cocycle, unifying the session's `?` work with the repo's
-  Markov pillar.  **Open**: the *higher-weight* period integrals / full `H^1(SL(2,ℤ), V_k)` (needs
-  analysis — integration — and would break ∅-axiom purity if imported); the full `SL(2,ℤ)` cocycle
-  composition law on non-tree generators; the multifractal Hölder spectrum of `?`.
+  Markov pillar.  **Integration is ∅-axiom-native** (correcting an earlier claim): the repo's own
+  dyadic Riemann integral (`CutIntegral.cutIntegralOver`, `DyadicRiemann`, PURE) gives the weight-2
+  period an analytic representative (`MinkowskiPeriodIntegral.weight2_period_integral_pure`).
+  **Open (constructive, not purity)**: the *higher-weight* period integrals / full `H^1(SL(2,ℤ), V_k)`
+  need a modular contour over `ℍ` + a power-rule primitive `∫ z^{k−2} dz` (to *build*, not import);
+  the full `SL(2,ℤ)` cocycle composition law on non-tree generators; the multifractal Hölder spectrum
+  of `?`.
 
 - **residue as a (truncated) spectrum — NEGATIVE (honest).**  The spectrum analogy **breaks**: the
   Steenrod/Massey structure on `K_{3,2}^{(c=2)}` is *vacuous* at the `d = 5` truncation — `Sq¹·Sq¹=0`
