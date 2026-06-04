@@ -44,8 +44,19 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     not deficit→existence) and *not* a new instruction — the SEPARATE-side of
     the eight, where the two COUNT essays sit on the GAP-side.
 
+  · [`konig_boundary.md`](konig_boundary.md) — König's lemma (infinite tree ⟹
+    infinite path).  The first reproduction that **stalls**: compiles to
+    **LOOP ∘ ⟦DECIDE InfBelow⟧**, the path-construction internal (∅-axiom
+    `konig_conditional`), but the child-choice needs deciding a `Π⁰₁` predicate —
+    the residue-external `DECIDE` (`LLPO`/`WKL`).  Not a missing instruction: the
+    missing move *is* the exterior.  Marks the boundary.
+
 ## Cumulative finding
 
-Three surface-diverse solved methods, **no new instruction forced** — they
-collapse onto the named eight (two onto COUNT/GAP, one onto READ ∘ SEPARATE).
-The collapse itself is the evidence for the instruction set's completeness.
+Four surface-diverse solved techniques.  **Three close ∅-axiom** with no new
+instruction forced — they collapse onto the named eight (two onto COUNT/GAP, one
+onto READ ∘ SEPARATE), evidence the set is complete *for constructive proofs*.
+**One stalls** (König) — and the stall is located exactly: a decision for a
+non-recursive predicate, which is the exterior by definition, not a ninth move.
+Together they bound the instruction set from both sides: complete for the
+constructive interior, stalling precisely at the non-constructive `DECIDE`.
