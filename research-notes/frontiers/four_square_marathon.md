@@ -9,7 +9,11 @@ Stays over `ℤ` with ring identities + `centered_div_int`.  `NumberTheory.FourS
   - **`four_sq_id` (DONE)** — Euler's four-square identity (ring_intZ); `isSum4_mul`.
   - **`descent_core` (DONE)** — `m·p = Σaᵢ²`, `aᵢ = qᵢm+Aᵢ`, `m·r = ΣAᵢ²` ⟹ `p·r = Σdⱼ²`
     (Euler ⟹ `(mp)(mr) = Σcⱼ²`, each `m∣cⱼ`, `/m²`).  + pure ℤ cancellation
-    (`mul_left_cancel_pos`, `eq_zero_of_mul_pos`, `le_of_not_lt`).
+    (`mul_left_cancel_pos`, `eq_zero_of_mul_pos`, `le_of_not_lt`, `lt_of_mul_lt_mul_pos`,
+    `sq_eq_zero`).
+  - **even-`m` branch (DONE)** — `int_even_or_odd`, `sum_two_sq_of_even_diff`, `two_c_ne_one`,
+    `sq_sum_even_imp_diff_even`, `combine`, `halve4` (8-case parity pigeonhole), and
+    ★`halve_step : isSum4 (2m'·p) ⟹ isSum4 (m'·p)`.
 
 ### Remaining (precise)
   1. **Residue setup** — `centered_div_int_sq aᵢ m` ⟹ `aᵢ = qᵢm + Aᵢ`, `4Aᵢ² ≤ m²`.  `r` is
