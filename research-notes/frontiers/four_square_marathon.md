@@ -1,9 +1,21 @@
 # Frontier — Lagrange's four-square theorem (`∀ n, ∃ a b c d, n = a²+b²+c²+d²`)
 
-**Date**: 2026-06-04.  **Status**: Pillar I CLOSED; Pillar II foundation + descent-core DONE,
-residue-setup/recursion/assembly remaining.  **Tier**: 1.
+**Date**: 2026-06-04.  **Status**: CLOSED (∅-axiom).  `NumberTheory.FourSquare.nat_isSum4 :
+∀ n, isSum4 ↑n` is axiom-free (`#print axioms → does not depend on any axioms`); 35 PURE / 0
+dirty.  **Tier**: 1 (promotion to `theory/` per `PROMOTION_CRITERIA` is the follow-on).
 
-## Pillar II — Euler descent (IN PROGRESS, ∅-axiom; avoids the quaternion gcd)
+## Closing assembly (∅-axiom)
+
+The Euler-descent route closed end to end (over `ℤ`, no quaternion gcd):
+  - `seed_multiple` — `four_square_seed` ⟹ `k·p = x²+y²+1²+0²`, `1 ≤ k < p` (`k·p ≤ 2m²+1 < p²`).
+  - `dvd_dec` / `searchDiv` / `exists_prime_factor` — constructive least-divisor prime
+    factorization (`n ≥ 2 ⟹ ∃ prime q ∣ n`), ∅-axiom via the `n % k` bridge (no `Decidable`
+    propext; `Nat.dvd_refl` / `Nat.succ_ne_zero` both leak propext — replaced by `⟨1, (mul_one
+    _).symm⟩` and `Nat.noConfusion`).
+  - `prime_isSum4` — `p = 2 = 1²+1²+0²+0²` directly; odd `p` via `seed_multiple` + `descent_rec`.
+  - `nat_isSum4` — all `n` via prime factorization + `isSum4_mul` (`n = 0,1` base cases).
+
+## Pillar II — Euler descent (CLOSED, ∅-axiom; avoids the quaternion gcd)
 
 Stays over `ℤ` with ring identities + `centered_div_int`.  `NumberTheory.FourSquare`:
   - **`four_sq_id` (DONE)** — Euler's four-square identity (ring_intZ); `isSum4_mul`.
