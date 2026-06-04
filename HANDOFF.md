@@ -1,8 +1,27 @@
-# Session Handoff — 2026-06-04c (Markov — ★ the UPPER-FOLD PATTERN formalized, §20)
+# Session Handoff — 2026-06-04d (Markov — ★ the UPPER-FOLD PATTERN, two levels, §20–§21)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **82 PURE**.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **88 PURE**.
 
-## ★★★ NEW (§20): the upper-fold pattern — window = ±-fold transversal
+## ★★★ NEW (§21): the next fold — root set is a torsor under the unit-root group
+Templatizing §20 hits the next wall (ω≥2 composites leave phantom roots).  The wall is *again a fold*,
+one level up: the `√(−1)` root set is a **torsor under the square-root-of-unity group**, and §20's `±`
+involution `σ` is that group's distinguished order-2 element `c−1 ≡ −1`.
+- **`SqrtUnity c e := (e*e)%c = 1`** — the acting group.
+- **`one_sqrtUnity` / `neg_one_sqrtUnity`** : `{1, c−1} ⊆ SqrtUnity` (always present).
+- **`neg_one_mul_is_neg`** : `(c−1)·r + r ≡ 0` (so `c−1 = −1` exactly; with `neg_one_sqrtUnity` this
+  identifies `σ = ·(c−1)`, the §20 fold, as one element of the group).
+- **`sqrtUnity_mul`** : closed under mod-multiplication (it IS a group).
+- **`sqrtUnity_acts_on_root`** : `e²≡1 ∧ (r²+1)≡0 ⟹ ((e·r)²+1)≡0` — the torsor action;
+  `neg_root_is_root` (§20) is the `e=c−1` instance.
+- **Reading**: prime power ⟹ `SqrtUnity={±1}` ⟹ each orbit is one `±`-pair ⟹ window unique (Button,
+  §13).  `ω≥2` ⟹ `SqrtUnity ⊋ {±1}` ⟹ orbits exceed `±`-pairs ⟹ window leaves `2^(ω−1)` reps = the
+  phantoms.  `WindowRealizedUnique` is the second constraint collapsing them.
+- **Next thread**: the still-open piece is the nontrivial-unit-root *existence* for `ω≥2` (needs CRT /
+  Bezout — check if `Padic`/`ModArith` already has a pure CRT) + the "phantom is a different `σ`-orbit"
+  injectivity (needs `e·u ≡ ±u ⟹ e ≡ ±1`, i.e. cancel by the unit `u`).  That's the genuine open
+  content; everything structural around it is now ∅-axiom.
+
+## ★★★ (§20): the upper-fold pattern — window = ±-fold transversal
 The template (§18) is **not** a number-closing device; it IS the generalization insight of the
 **upper-fold pattern** (per Mingu's correction).  §20 makes that explicit:
 - **`window_excludes_partner` (c r) (2r<c) : c < 2(c−r)** — a windowed root has its ±-partner `c−r`
