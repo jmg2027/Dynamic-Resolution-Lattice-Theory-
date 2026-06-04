@@ -2,7 +2,16 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — THE FROBENIUS BRIDGE PROVED: markovNum = Cohn-trace/3 (∅-axiom, all paths)
+## ★★★ NEWEST — E5: continuant monotonicity ⟹ Cohn Markov-number ordering (Aigner pipeline, ∅-axiom)
+- **`ContinuantMarkov.cohnTrace_lt_true/false`** (PURE): the Cohn-word Markov number tr/3 strictly
+  increases under prepending a generator (`cohnTrace bs < cohnTrace (true::bs)` and `(false::bs)`), via
+  positive-matrix trace growth `tr(G·M)−tr(M)>0` (cohn_entries_pos: M.a≥1 from continuant≥1, M.b,M.c≥0).
+  Pure Int plumbing built: `one_le_ofNat, lt_add_nonneg, pos_sum` (omega is propext+Quot.sound dirty;
+  core Int order lemmas propext-dirty — all avoided). The continuant→Markov-ordering pipeline closed.
+- **Honest scope**: cross-word ordering on Cohn/Christoffel-indexed Markov numbers (Aigner building block);
+  full m_{p/q} Fixed-Num/Denom/Sum needs path↔rational cutting-sequence indexing (the remaining infra).
+
+## THE FROBENIUS BRIDGE PROVED: markovNum = Cohn-trace/3 (∅-axiom, all paths)
 - **`ContinuantMarkov.markovNum_eq_cohn_trace`** (PURE): `3·markovNum p = tr(cNode p)` for ALL paths.
   The Cohn matrix tree `cInterval`/`cNode` = `mInterval` with the genuine Cohn right-seed B=contMatProd[2,2]
   (left seed cohnA=contMatProd[1,1]=genL coincides). genR≠B, but the trace-triple (trL,trR,tr(L·R))
