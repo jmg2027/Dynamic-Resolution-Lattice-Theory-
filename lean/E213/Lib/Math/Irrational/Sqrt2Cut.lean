@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cauchy.Archimedean
+import E213.Meta.Nat.NatRing213
 
 /-!
 # Sqrt2Cut: Dedekind cut of √2 (213 irrational instance)
@@ -31,22 +32,6 @@ open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
 /-- Pell-like condition. -/
 def IsPellSol (x y : Nat) : Prop := x * x = 2 * y * y + 1
 
-/-- Helper (forward): a ≤ b → a*a ≤ b*b. -/
-private theorem nat_sq_le_of_le {a b : Nat} (h : a ≤ b) : a * a ≤ b * b :=
-  Nat.mul_le_mul h h
-
-/-- Helper (backward): a*a ≤ b*b → a ≤ b. -/
-private theorem nat_le_of_sq_le {a b : Nat} (hsq : a * a ≤ b * b) : a ≤ b := by
-  by_cases hba : b ≥ a
-  · exact hba
-  · exfalso
-    have hab : a > b := Nat.lt_of_not_le hba
-    have hapos : 0 < a := Nat.lt_of_le_of_lt (Nat.zero_le b) hab
-    have h1 : b * a < a * a := Nat.mul_lt_mul_of_pos_right hab hapos
-    have h2 : b * b ≤ b * a := Nat.mul_le_mul_left b (Nat.le_of_lt hab)
-    exact absurd (Nat.lt_of_le_of_lt h2 h1) (Nat.not_lt_of_le hsq)
-
-
 /-- **Pell solutions: orderProj true when m/k > √2 (rationally
     captured as 2k² < m²)**.  Assumes y² ≥ k² (y sufficiently large). -/
 theorem pell_orderProj_above (x y m k : Nat)
@@ -55,7 +40,7 @@ theorem pell_orderProj_above (x y m k : Nat)
     orderProj m k (x, y) = true := by
   show decide (x * k ≤ y * m) = true
   apply decide_eq_true
-  apply nat_le_of_sq_le
+  apply E213.Meta.Nat.NatRing213.sq_le_imp
   -- Goal: (x * k) * (x * k) ≤ (y * m) * (y * m)
   have hPell' : x * x = 2 * (y * y) + 1 := by
     unfold IsPellSol at hPell
@@ -101,7 +86,7 @@ theorem pell_orderProj_below (x y m k : Nat)
   apply decide_eq_false
   intro hle
   -- (x*k)² ≤ (y*m)² from hle
-  have hle_sq : (x * k) * (x * k) ≤ (y * m) * (y * m) := nat_sq_le_of_le hle
+  have hle_sq : (x * k) * (x * k) ≤ (y * m) * (y * m) := Nat.mul_le_mul hle hle
   have hPell' : x * x = 2 * (y * y) + 1 := by
     unfold IsPellSol at hPell
     have heq : 2 * y * y = 2 * (y * y) := E213.Tactic.NatHelper.mul_assoc 2 y y
