@@ -40,8 +40,11 @@ so the cleaned log reads cleanly.  Preserve each kept entry verbatim.
 
 ### 4 — Report + commit
 Report counts: kept / noise-pruned / paste-pruned / flagged-uncertain.
+Raw session logs are gitignored (`prompt-log/*.md`), so the cleaned file
+must be **force-added**:
 ```bash
-git add prompt-log/ && git commit -m "prompt-log: clean session <session8> (<k> kept, <n> pruned)
+git add -f prompt-log/<date>_<session8>.md
+git commit -m "prompt-log: clean session <session8> (<k> kept, <n> pruned)
 
 https://claude.ai/code/<session-url>"
 ```

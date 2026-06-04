@@ -56,3 +56,9 @@ tools/_ast_shape_rows.tsv
 tools/_ast_typesig_last.log
 tools/_ast_typesig_edges.tsv
 tools/_ast_typesig_sorts.tsv
+
+# Per-session prompt logs (UserPromptSubmit hook) are gitignored raw — they
+# churn every prompt and would nag the stop hook each turn.  Committed only
+# after the `prompt-log` cleanup, via `git add -f`.  INDEX.md stays tracked.
+prompt-log/*.md
+!prompt-log/INDEX.md

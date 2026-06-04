@@ -19,8 +19,11 @@ gets steered.  Companion to `research-notes/promotion_essay_log.md`.
    noise and blocks that read as pasted-not-typed (long formatted dumps,
    code/error logs, quoted external text), keep the originator's own typed
    directives.
-3. **Commit** — the cleaned file is committed.  Until committed it lives only
-   in the ephemeral container, so cleanup + commit happen before session end.
+3. **Commit** — raw session logs are **gitignored** (`prompt-log/*.md`, except
+   this INDEX), so they do not churn or nag the stop hook every prompt.  The
+   cleaned file is committed at cleanup via `git add -f`.  Until then it lives
+   only in the ephemeral container, so cleanup + commit happen before session
+   end (uncommitted = lost when the container is reclaimed).
 
 ## Not a research tier
 
