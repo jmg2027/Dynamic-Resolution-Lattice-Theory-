@@ -133,4 +133,21 @@ theorem isEven_self_mul (m : Nat) : isEven (m * m) = isEven m := by
       obtain ⟨k, hk⟩ := h
       rw [hk, isEven_sq_of_odd, isEven_two_mul_succ]
 
+/-- ★ **Left cancellation for `+`** (pure — core `Nat.add_left_cancel` carries `propext`).
+    The canonical pure-`Nat` left-cancellation; `Beq213.nat_add_left_cancel_pure`,
+    `NatHelper.add_left_cancel_pure`, and `GoldenFormMarkov.add_left_cancel_pure` delegate here. -/
+theorem add_left_cancel : ∀ {a b c : Nat}, a + b = a + c → b = c
+  | 0,     _, _, h => by rw [Nat.zero_add, Nat.zero_add] at h; exact h
+  | a + 1, _, _, h =>
+      @add_left_cancel a _ _ (Nat.succ.inj (by rw [← Nat.succ_add, ← Nat.succ_add]; exact h))
+
+/-- `n < 2ⁿ` (pure; the core lemma's name varies across toolchains, so proved inline). -/
+theorem lt_two_pow : ∀ n, n < 2 ^ n
+  | 0     => by decide
+  | n + 1 => by
+      have hpos : 0 < 2 ^ n := Nat.pos_pow_of_pos n (by decide)
+      calc n + 1 ≤ 2 ^ n := lt_two_pow n
+        _ < 2 ^ n + 2 ^ n := Nat.lt_add_of_pos_right hpos
+        _ = 2 ^ (n + 1) := by rw [Nat.pow_succ, Nat.mul_two]
+
 end E213.Meta.Nat.PureNat

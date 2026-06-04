@@ -16,7 +16,7 @@ the successor — and the residue's escape space is the `2`-adic integers `ℤ�
 
 - `lean/E213/Theory/Raw/Odometer.lean` (41 PURE, 0 DIRTY) — the binary `+1` odometer on the
   bit-stream space `Nat → Bool` (the residue's escape carrier, `CoResidue`).
-- `lean/E213/Theory/Raw/OdometerValue.lean` (18 PURE, 0 DIRTY) — the profinite value `bval`, the
+- `lean/E213/Theory/Raw/OdometerValue.lean` (16 PURE, 0 DIRTY) — the profinite value `bval`, the
   carry-explicit `+1 mod 2ᵏ` identity (`bval_odo`), and **freeness** of the `ℤ`-action (`odo_free`).
 - `lean/E213/Lib/Math/NumberSystems/Real213/ZeckendorfCarry.lean` (7 PURE, 0 DIRTY) — the golden
   (Fibonacci-base) carry, the residue's own variable base.

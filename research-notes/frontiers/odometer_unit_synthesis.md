@@ -31,9 +31,12 @@ closure made visible.
 
 ## New questions / seeds
 
-- **Promote the pure-`Nat` cancellation + the trap-checklist to `Meta/Nat`.**  `add_left_cancel_pure`
-  lives locally in `OdometerValue`; it (and `lt_two_pow`) are generic and belong in
-  `Meta/Nat/PureNat` so future proofs reuse rather than re-derive.  Concrete infra task.
+- **Pure-`Nat` toolkit — done.**  `lt_two_pow` (n < 2ⁿ) and the canonical left-cancellation
+  `add_left_cancel` now live in `Meta/Nat/PureNat`; the three former duplicate proofs
+  (`Beq213.nat_add_left_cancel_pure`, `NatHelper.add_left_cancel_pure`,
+  `GoldenFormMarkov.add_left_cancel_pure`) are now thin one-line delegations to it (signatures
+  preserved, so all consumers — `OdometerValue`, `MarkovTree`, `Padic/SetoidAssoc`, the cohomology
+  essays — are unchanged).  One proof, three re-export wrappers; all PURE.
 
 - **Odometer `ℤ`-action ↔ Markov / Stern-Brocot.**  Both the odometer (`ℤ₂` successor) and the
   Markov/Stern-Brocot tree (`frontiers/markov_lagrange/`) are `SL(2,ℤ)`/numeration structures on
