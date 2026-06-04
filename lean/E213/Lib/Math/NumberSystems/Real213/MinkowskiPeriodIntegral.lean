@@ -6,20 +6,17 @@ import E213.Lib.Math.NumberSystems.Real213.DiffCutModulus
 /-!
 # MinkowskiPeriodIntegral — the period integral is ∅-axiom, not Mathlib-dependent
 
-A correction and a foothold.  An earlier claim held that the higher-weight Eichler–Shimura *period
-integrals* "need analysis (integration) and would break ∅-axiom purity if imported from Mathlib."
-That is **false**: the repository builds its **own** ∅-axiom integral — the dyadic Riemann sample
-sum `riemannSampleSum` lifted to `cutIntegralOver` over `DyadicMeasurableSet`s
+Integration is ∅-axiom-native here: the repository builds its **own** integral — the dyadic Riemann
+sample sum `riemannSampleSum` lifted to `cutIntegralOver` over `DyadicMeasurableSet`s
 (`Real213/CutIntegral`, `Real213/CutIntegralLinearity`, `Analysis/DyadicSearch/DyadicRiemann`), with
 linearity, additivity, the constant fundamental theorem, and `no_pi_in_finite_riemann`, **all PURE**.
-Integration is ∅-axiom-native here.
 
 So the weight-2 period of the `?`-cocycle (`MinkowskiCocycle.minkowski_weight2_period_relation`) has,
 besides its **algebraic** representative (the `√(−1)` residue), an **analytic** one — the dyadic
 integral of the `V_0` (constant) integrand, `∫_a^b c \, dx = c·(b−a)` — and *both are ∅-axiom*.  The
-genuine obstruction to *full* Eichler–Shimura (higher weight `V_{k−2}`) is **constructive**, not
-axiom-cost: the repo lacks a modular-form contour over `ℍ` and a general power-rule primitive
-`∫ z^{k−2} dz`.  That is a frontier to build, not a purity wall.
+obstruction to *full* Eichler–Shimura (higher weight `V_{k−2}`) is **constructive**, not axiom-cost:
+the modular-form contour over `ℍ` is a frontier to build, not a purity wall (the polynomial power
+rule `∫ z^{k−2} dz` itself is closed — `MinkowskiHigherWeightPeriod`).
 -/
 
 namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodIntegral

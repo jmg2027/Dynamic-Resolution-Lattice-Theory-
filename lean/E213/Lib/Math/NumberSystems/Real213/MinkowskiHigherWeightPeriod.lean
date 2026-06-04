@@ -3,9 +3,8 @@ import E213.Lib.Math.Analysis.Integration.ClassicAnti
 /-!
 # MinkowskiHigherWeightPeriod — higher-weight period integration is already ∅-axiom (FTC)
 
-A third correction, the deepest.  Earlier I held that the higher-weight Eichler–Shimura periods are
-"open / need a power-rule primitive `∫ z^{k−2} dz` to *build*."  That, too, undersold the repo: the
-**fundamental theorem of calculus and the polynomial antiderivatives already exist** ∅-axiom, in
+The higher-weight Eichler–Shimura period needs a polynomial power rule `∫ z^{k−2} dz`, and the repo
+has it: the **fundamental theorem of calculus and the polynomial antiderivatives** are ∅-axiom, in
 `Lib/Math/Analysis/Integration/` (`Antiderivative`, `IntegralViaAnti`, `ClassicAnti`) on the flux
 formalism (`FluxMVT`).  The monomial integrands carry `ClassicCalc_at` instances — `square_calc` for
 `z²`, `cube_calc` for `z³` — and their integrals over the unit bracket are computed exactly:

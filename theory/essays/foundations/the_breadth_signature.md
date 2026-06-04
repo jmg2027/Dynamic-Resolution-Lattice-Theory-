@@ -31,10 +31,10 @@ not its source."  Primacy is *breadth* — the residue reproducing domain after
 domain — and so the reach is the evidence, measured one domain at a time, never
 assumed.
 
-**The demonstration (this session).**  Take a domain reputed to need heavy
-analytic machinery: the **Eichler–Shimura** periods of modular forms.  The claim
-"this needs analysis / breaks ∅-axiom" failed six times, each time because the
-piece was already the residue in another frame:
+**The demonstration.**  Take a domain reputed to need heavy analytic machinery:
+the **Eichler–Shimura** periods of modular forms.  The claim "this needs analysis
+/ breaks ∅-axiom" fails at each piece, because each piece is already the residue
+in another frame:
 - *integration* is ∅-axiom-native — the dyadic Riemann integral and the
   fundamental theorem of calculus (`Lib/Math/Analysis/Integration/`,
   `MinkowskiPeriodIntegral`, `MinkowskiHigherWeightPeriod`: `z²`, `z³` integrate
