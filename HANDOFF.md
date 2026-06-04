@@ -34,6 +34,18 @@ Narrative: `theory/math/linalg213.md` + `theory/math/analysis/cfinite_orbit_dime
 4. **Casoratian converse** — ⚠ over `ℤ` only a `ℚ` statement (Cramer gives rational coefficients).
 5. **Holonomic = `ℚ(n)`-orbit** — the top rung (rational-function coefficients; Apéry ζ(3)).  Large.
 
-## DRLT Validation Standard
-Still the repo's stated real target (untouched by this math thread): a ppb–ppm precision theorem
-and/or a strict ∅-axiom falsifier (`N_gen=3`, `θ_QCD`).
+## Where this sits in the project (read `seed/AXIOM/07_primacy.md` §7.1)
+
+213's primacy is demonstrated by **breadth of ∅-axiom derivation** — the residue, read under the
+right Lens, reproducing what domain after domain records (`§7.1`: "the wider the range over which
+derivation succeeds … the more 213 demonstrates that the default position is genuine").  This thread
+rebuilt **linear algebra + the C-finite sequence ring** ∅-axiom from the residue — one more domain
+the residue reproduces, in the spirit of "학문 몇 개를 다시 세우는" (rebuilding several disciplines)
+and "아무것도 가정하지 않고" (assume nothing).  It is a genuine primacy-demonstration, not auxiliary.
+
+The **DRLT Validation Standard** (`CLAUDE.md`) is the self-test of the *physics deployment* (`DRLT` —
+constants, observables): a ppb–ppm precision theorem or a strict ∅-axiom falsifier (`N_gen=3`,
+`θ_QCD`).  That is the gate for the **physics** branch — one domain's falsifiability bar (the genesis
+domain per `seed/ORIGIN.md`: physical intuition → math chain → foundational necessity) — **not** a
+yardstick that ranks the math-derivation work above/below it.  Both are the same project: residue →
+every domain, each derivation ∅-axiom-audited (`§8`).
