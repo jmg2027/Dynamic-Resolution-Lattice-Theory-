@@ -129,9 +129,13 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   PURE): the `(1+S)`/`(1+U+U²)` relations are governed by the `{4,6}` elliptic torsion — `S` order 4
   (Gaussian unit `i`), `U` order 6 (Eisenstein `ω`) — both in the repo
   (`UTracePeriodic.elliptic_orders_four_and_six`), and the weight-2 period is exactly `S`'s eigenvalue
-  on the Markov pair (`MarkovModularBridge`).  So the residual for higher-weight is just the **slash
-  action on `V_{k−2}`** (finite ℤ-linear algebra over `S`,`U`) + the complex `ℍ`-contour — neither a
-  purity nor an integration wall.
+  on the Markov pair (`MarkovModularBridge`).  **Slash action on `V_{k−2}` now BUILT** (`MinkowskiPeriodPolynomial`, 12 PURE): `S`/`U` realised on
+  the weight-4 degree-2 coefficient module, the period relations solved — the weight-4 period
+  polynomial is **`1 − X²`** (`period_satisfies_relations`), the unique line `ℤ·(1 − X²)` killed by
+  both `r|(1+S)=0` and `r|(1+U+U²)=0` (`relations_closed_form`, `period_line_in_kernel`).  So the
+  residual for higher-weight Eichler–Shimura is now **only the complex `ℍ`-contour** (+ general-weight
+  slash, the weight-4 instance done) — a single construction frontier, neither a purity, integration,
+  group-structure, nor slash-action wall.
   (Three successive corrections under "ㄱㄱ": integration is ∅-axiom (CutIntegral); the wall isn't
   k≥2 (it's distinct-sample addition / completion); and the power rule is already done (FTC).  Each
   revealed the framework integrates natively; the residual is the complex contour alone.)

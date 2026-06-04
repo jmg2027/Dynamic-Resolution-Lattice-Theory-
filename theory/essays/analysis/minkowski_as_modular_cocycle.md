@@ -118,12 +118,17 @@ integration the higher-weight period needs is *built*.  And the period relations
 (`UTracePeriodic.elliptic_orders_four_and_six`) — govern `r|(1+S)=0` and
 `r|(1+U+U²)=0`, and the weight-2 period is exactly `S`'s eigenvalue
 (`MinkowskiPeriodRelations.weight2_period_is_S_eigenvalue`,
-`MarkovModularBridge`).  What genuinely remains is the **slash action on the
-polynomial module `V_{k−2}`** (finite ℤ-linear algebra over these generators) and
-the **complex modular contour over `ℍ`** — a far narrower frontier than
-"integration."  The residue supplies the *tree-level, weight-2* cocycle in full,
-with the `(1+S)` generator carrying its `√(−1)` period; the higher-weight slash
-action and contour are pointed at, not yet constructed (`reached_by_none.md`).
+`MarkovModularBridge`).  And the **slash action on `V_{k−2}` is now built** (weight
+4): `MinkowskiPeriodPolynomial` realises `S`/`U` on the degree-2 coefficient module
+and solves the period relations — the weight-4 period polynomial is **`1 − X²`**
+(`period_satisfies_relations`), the unique line `ℤ·(1 − X²)` annihilated by both
+`r|(1+S)=0` and `r|(1+U+U²)=0` (`relations_closed_form`, `period_line_in_kernel`),
+the `−1`-eigenvector of `S` cycled with order 3 by `U`.  So what genuinely remains
+for the higher-weight analytic period is **only the complex modular contour over
+`ℍ`** (and the general-weight slash, the weight-4 instance done) — a single
+construction frontier.  The residue supplies the *tree-level, weight-2* cocycle in
+full and the *weight-4 period polynomial* `1 − X²`; the complex contour is pointed
+at, not yet constructed (`reached_by_none.md`).
 
 ## Self-check
 
@@ -146,6 +151,8 @@ action and contour are pointed at, not yet constructed (`reached_by_none.md`).
 #check @golden_is_extremal_weight2_period    -- φ = extremal instance (Lagrange √5)
 #check @weight2_period_is_S_eigenvalue       -- weight-2 period = S-eigenvalue ((1+S) generator)
 #check @higher_weight_period_integrands_integrate  -- z²/z³ integrate exactly via FTC
+#check @period_satisfies_relations            -- 1 − X² is the weight-4 period polynomial
+#check @period_line_in_kernel                 -- the period space is the line ℤ·(1 − X²)
 ```
 
 All ∅-axiom (`tools/scan_axioms.py` PURE).
