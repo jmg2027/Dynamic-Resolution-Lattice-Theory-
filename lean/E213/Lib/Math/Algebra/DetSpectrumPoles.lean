@@ -1,4 +1,4 @@
-import E213.Lib.Math.MaxEntropy
+import E213.Lib.Math.Probability.MaxEntropy
 import E213.Lib.Math.Analysis.Cauchy.ZeroInfinityHole
 
 /-!
@@ -35,7 +35,7 @@ namespace E213.Lib.Math.Algebra.DetSpectrumPoles
 open E213.Lib.Math.Analysis.Cauchy.DetZeroCollapse (cas cas_conserved_unit)
 open E213.Lib.Math.Analysis.Cauchy.WronskianDepth (cas_unit_depth0 cas_neg_unit_no_finite_depth)
 open E213.Lib.Math.Analysis.Cauchy.ZeroInfinityHole (cas_zero_collapses)
-open E213.Lib.Math.MaxEntropy (MaxEntropy)
+open E213.Lib.Math.Probability.MaxEntropy (MaxEntropy)
 open E213.Lib.Math.Analysis.Cauchy.NewtonGregory (polyDepthZ)
 
 /-- ★★★★ **Two poles, one center.**  For an order-2 orbit `s` with determinant coefficient `q`:

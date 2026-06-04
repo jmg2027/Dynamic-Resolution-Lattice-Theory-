@@ -19,7 +19,7 @@ import E213.Lens
 import E213.Meta
 
 -- Universal Math infrastructure used at this top level.
-import E213.Lib.Math.Pigeonhole
+import E213.Lib.Math.Combinatorics.Pigeonhole
 
 -- App/ legacy tier removed 2026-05-13 Session H — its sole member
 -- (App/Simplex.lean) moved to `Lib/Math/Combinatorics/Simplex5.lean`

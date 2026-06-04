@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberTheory.DyadicFSM.Tier.TierBridge
-import E213.Lib.Math.Pigeonhole
+import E213.Lib.Math.Combinatorics.Pigeonhole
 import E213.Meta.Nat.EncodePair213
 
 import E213.Lib.Math.NumberTheory.DyadicFSM.Signature.Signature
@@ -14,7 +14,7 @@ PURE (∅-axiom; verified).
 
 namespace E213.Lib.Math.NumberTheory.DyadicFSM.Forward.ForwardPeriodicity
 
-open E213.Lib.Math.Pigeonhole
+open E213.Lib.Math.Combinatorics.Pigeonhole
 open E213.Lib.Math.NumberTheory.DyadicFSM.Signature.Signature (signature nextVertex)
 
 /-- Bool-valued collision test (decidable, no Classical). -/

@@ -85,7 +85,7 @@ All theorems in these modules are individually verified ∅-axiom.
 
 | File | Theorems | Notes |
 |---|---|---|
-| `Lib/Math/Pigeonhole.lean` | 2 | 20 omega + 2 simp + Fin.elim0 + literal `(0 : Fin 1)` |
+| `Lib/Math/Combinatorics/Pigeonhole.lean` | 2 | 20 omega + 2 simp + Fin.elim0 + literal `(0 : Fin 1)` |
 | `Theory/Atomicity/NonDecomposable.lean` | 3 | omega + rcases + match-on-value pattern |
 | `Theory/Atomicity/ArityForcing.lean` | 2 | omega-pigeonhole on Fin 2 → 6-case `cases_lt_two` |
 | `Lens/Cardinality/Pair.lean` | 5 | 5 omega + Nat.add_left/right_cancel + Prod.mk.injEq |

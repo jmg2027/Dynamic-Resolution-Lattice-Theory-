@@ -40,7 +40,7 @@ the residue's genericity is the *theorem* `object1_not_surjective`; a `MaxEntrop
 constructive realizer of that one non-surjection.
 -/
 
-namespace E213.Lib.Math.MaxEntropy
+namespace E213.Lib.Math.Probability.MaxEntropy
 
 open E213.Lib.Math.Analysis.Cauchy.NewtonGregory (polyDepthZ newtonZ)
 open E213.Lib.Math.Analysis.Cauchy.DepthCharacterization (finite_depthZ_iff)
@@ -108,4 +108,4 @@ theorem maxEntropy_two_faces (s : Nat → Int) (hrec : ∀ n, s (n + 2) = s (n +
    ⟨golden_cassini_maxEntropy s hrec h0,
     maxEntropy_not_surjective (cas s) (golden_cassini_maxEntropy s hrec h0)⟩⟩
 
-end E213.Lib.Math.MaxEntropy
+end E213.Lib.Math.Probability.MaxEntropy

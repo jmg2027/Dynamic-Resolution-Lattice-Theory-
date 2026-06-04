@@ -1,4 +1,4 @@
-import E213.Lib.Math.Pigeonhole
+import E213.Lib.Math.Combinatorics.Pigeonhole
 
 /-!
 # Arity Forcing (general N): for any `k` and any base `Fin N` with
@@ -9,7 +9,7 @@ and prove that whenever `N < k`, the step constructor can never fire
 (every Reachable term reduces to a base object via pigeonhole).
 
 This generalizes `E213.Theory.Atomicity.ArityForcing` (which handled `N = 2, k = 3`)
-to arbitrary `N, k` with `N < k`, using `E213.Lib.Math.Pigeonhole.no_inj_lt`.
+to arbitrary `N, k` with `N < k`, using `E213.Lib.Math.Combinatorics.Pigeonhole.no_inj_lt`.
 
 213-native (∅-axiom): the original used `(ih i).choose` which
 pulls `Classical.choice`.  Per `research-notes/G5_213_as_sublanguage.md`
@@ -71,7 +71,7 @@ theorem reachable_isBase {N k : Nat} (h : N < k) :
         intro i j hij heq
         apply hne i j hij
         rw [hgeq i, hgeq j, heq]
-      exact E213.Lib.Math.Pigeonhole.no_inj_lt h g g_inj
+      exact E213.Lib.Math.Combinatorics.Pigeonhole.no_inj_lt h g g_inj
 
 /-- **Main vacuousness theorem.** If `N < k`, every Reachable term is
     a base object; no rel-term is Reachable.  Recovered constructively

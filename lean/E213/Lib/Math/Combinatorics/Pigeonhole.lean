@@ -13,7 +13,7 @@ Now uses explicit `Nat.*` core lemmas + `dif_pos`/`dif_neg` rewrites
 
 open E213.Tactic E213.Tactic.NatHelper E213.Tactic.Fin213
 
-namespace E213.Lib.Math.Pigeonhole
+namespace E213.Lib.Math.Combinatorics.Pigeonhole
 
 /-- Reindex `Fin (n+1) \ {v}` into `Fin n`: drop `v`, relabel. -/
 private def shiftAround {n : Nat} (v w : Fin (n+1)) (h : w ≠ v) : Fin n :=
@@ -122,4 +122,4 @@ theorem no_inj_lt {N k : Nat} (h : N < k) (g : Fin k → Fin N)
     fun heqv => hval_ne (congrArg (α := Fin k) Fin.val heqv)
   exact hinj _ _ hidx_ne heq'
 
-end E213.Lib.Math.Pigeonhole
+end E213.Lib.Math.Combinatorics.Pigeonhole

@@ -51,12 +51,12 @@ import E213.Lib.Math.Geometry.TriangularTower
 import E213.Lib.Math.Foundations.UniverseChain
 import E213.Meta.Nat
 import E213.Lib.Math.Analysis.CascadeCalculus
-import E213.Lib.Math.Pigeonhole
+import E213.Lib.Math.Combinatorics.Pigeonhole
 import E213.Lib.Math.Algebra.PolyZ
 import E213.Lib.Math.Algebra.Polynomial213
-import E213.Lib.Math.PrimeDescentObservations
+import E213.Lib.Math.NumberTheory.PrimeDescentObservations
 import E213.Lib.Math.Analysis.Cauchy
-import E213.Lib.Math.MaxEntropy
+import E213.Lib.Math.Probability.MaxEntropy
 import E213.Lib.Math.Algebra.DetSpectrumPoles
 
 /-! Spec-as-code entry point for `E213.Lib.Math` — full 213 mathematics library.
