@@ -3,9 +3,12 @@
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **77 PURE**.
 
 ## ★★★ NEW: composite-`c` uniqueness, beyond Button (§16–§19)
-- **`markov_max_unique_1325`**: `MarkovMaxUnique 1325` (= 5²·53, **first composite Markov number**
-  with the `2^ω=4` root explosion, `SqrtNegOneTwoRoots` FALSE) — ∅-axiom.  Beyond Button's
-  prime-power family.
+- **First three composite Markov numbers closed ∅-axiom** (all with the `2^ω=4` root explosion where
+  `SqrtNegOneTwoRoots` FAILS): `markov_max_unique_610` (2·5·61=F₁₅), `markov_max_unique_985` (5·197),
+  `markov_max_unique_1325` (5²·53).  Plus `markov_max_unique_65` (non-Markov, vacuous).
+- **`window_realized_unique_of_one_phantom`** (§19): windowed roots `⊆ {P,Q}` with `P` phantom ⟹
+  `WindowRealizedUnique c`.  Reduces each `ω=2` composite to two `O(c)` `decide`s (windowed-root set
+  + the phantom's `∀b<c ¬markovEq`).  New composite = supply `(c, P, Q)` + two decides.
 - **The template `markov_max_unique_of_window_realized_unique`** (§18): `5≤c ∧ WindowRealizedUnique c
   ⟹ MarkovMaxUnique c` — the genuine reduction of composite-`c` uniqueness to **phantom elimination**,
   as a ∅-axiom theorem.  `WindowRealizedUnique` = only the *realized* windowed `√(−1)` roots need be
