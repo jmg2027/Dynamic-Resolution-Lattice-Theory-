@@ -1466,4 +1466,39 @@ theorem detN_two_mul (M N : Mat2) :
     = E213.Lib.Math.Linalg213.DetN.det 2 (matFun M) * E213.Lib.Math.Linalg213.DetN.det 2 (matFun N) := by
   rw [← det2_eq_detN, ← det2_eq_detN, ← det2_eq_detN]; exact det2_mul M N
 
+/-! ## §16 — the mediant is the strict maximum of the node triple
+
+  Building block toward the realized-windowed-root template (the composite-`c` reduction): the node
+  number `m_t = (mNode).c` strictly exceeds both interval bound numbers `m_l, m_r`.  From the `mul`
+  formula `m_t = m_l·M_r.a + M_l.d·m_r` and positivity (`mInterval_pos`): `m_t − m_r = m_l·M_r.a +
+  (M_l.d−1)·m_r ≥ 1`, `m_t − m_l = M_l.d·m_r + m_l·(M_r.a−1) ≥ 1`.  (So in every node triple, `c` is
+  the max — the orientation `markovEq`/recovery facts the template needs.) -/
+
+/-- ★★★★ **The mediant is the strict max**: both interval bound numbers are `< m_t = (mNode).c`. -/
+theorem mNode_max (path : List Bool) :
+    (mInterval path).1.c < (mNode path).c ∧ (mInterval path).2.c < (mNode path).c := by
+  obtain ⟨_, _, hlc, hld⟩ := (mInterval_pos path).1
+  obtain ⟨hra, _, hrc, _⟩ := (mInterval_pos path).2
+  refine ⟨lt_of_pos_sub ?_, lt_of_pos_sub ?_⟩
+  · have e : (mNode path).c - (mInterval path).1.c
+           = (mInterval path).1.d * (mInterval path).2.c
+             + (mInterval path).1.c * ((mInterval path).2.a - 1) := by
+      show ((mInterval path).1.c * (mInterval path).2.a
+            + (mInterval path).1.d * (mInterval path).2.c) - (mInterval path).1.c = _
+      ring_intZ
+    rw [e]
+    exact lt_of_sub_eq_of_one_le (sub_zero_int _)
+      (one_le_add_nonneg (one_le_mul hld hrc)
+        (E213.Meta.Int213.mul_nonneg (nonneg_of_one_le hlc) (nonneg_sub_of_le hra)))
+  · have e : (mNode path).c - (mInterval path).2.c
+           = (mInterval path).1.c * (mInterval path).2.a
+             + ((mInterval path).1.d - 1) * (mInterval path).2.c := by
+      show ((mInterval path).1.c * (mInterval path).2.a
+            + (mInterval path).1.d * (mInterval path).2.c) - (mInterval path).2.c = _
+      ring_intZ
+    rw [e]
+    exact lt_of_sub_eq_of_one_le (sub_zero_int _)
+      (one_le_add_nonneg (one_le_mul hlc hra)
+        (E213.Meta.Int213.mul_nonneg (nonneg_sub_of_le hld) (nonneg_of_one_le hrc)))
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
