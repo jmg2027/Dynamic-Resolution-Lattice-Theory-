@@ -617,3 +617,30 @@ Two of the three Phase-D pieces done, ∅-axiom:
 
 The hard mathematical content (integer Cayley–Hamilton, monicity, the recurrence bridge) is all
 banked; the remainder is the companion-matrix construction + the C-finite Δ↔shift plumbing.
+
+## Update — grid-sum decomposition banked; the index-bijection obstacle (CFiniteHadamard 2 PURE)
+
+`Cauchy/CFiniteHadamard.lean` started: `append_nil'`/`append_assoc'` (clean, core's are propext-tainted),
+`iota_add` (`iota (m+q) = iota m ++ shifted iota q`), and ★ `sumZ_grid` — **`sumZ` over `iota (p*q)` =
+the double sum over the `p×q` grid** under `(a,b) ↦ a*q+b`.  The key reindexing lemma for the
+Kronecker `VecRec`.
+
+**The crux obstacle for the remaining `VecRec`**: `ch_recurrence` fixes `w, M : Nat → Nat → Int`
+(flat index `J < pq`), so connecting to the 2-D product `w(n)_{(a,b)} = s(n+a)t(n+b)` needs the
+flat↔grid **bijection** `J ↔ (J/q, J%q)`.  But core `Nat./`, `Nat.%` lemmas
+(`add_mul_div_right`, `div_add_mod`, `mul_add_div`, …) are **propext/Quot.sound-dirty** (`Nat.div`/`mod`
+are well-founded-recursive).  So an ∅-axiom flat↔grid bijection must be **built from scratch** —
+either clean division lemmas, or a **fuel-structural `divmod`** (`divmod : Nat→Nat→Nat→Nat×Nat`,
+structural on a fuel arg = `p`, using only clean `Nat.sub`) proven inverse to `(a,b)↦a*q+b` by
+induction.  (~80–100 lines.)  Then:
+- **Kronecker companion** `M J K = mEntry (decode J) (decode K)` with the 4-case `mEntry`
+  (interior `(a+1,b+1)`; `a`-boundary `α_{a'}`; `b`-boundary `β_{b'}`; corner `α_{a'}β_{b'}`);
+  `VecRec` proof: decode `J`, `RHS = sumZ_grid` ⟹ double sum over `(a',b')`, 4-way case split using
+  `hp : ShiftRecZ p α s`, `hq : ShiftRecZ q β t`.
+- **Assembly**: `ch_recurrence` at `J = decode⁻¹(0,0)` ⟹ `Σ_{m} cₘ·u(n+m) = 0`, `c_{pq}=1`
+  (`charPoly_monic`) ⟹ `ShiftRecZ pq (−c) u` ⟹ `cfiniteZ_mul` (`cfiniteZ_of_shiftRec`).
+  Edge cases `p=0`/`q=0` ⟹ `s≡0`/`t≡0` ⟹ product `≡0` (`cfiniteZ_zero`).
+- Forward `CFiniteZ → ShiftRecZ` is **`CFiniteRing.shiftRec_of_cfiniteZ`** (already exists, ✓).
+
+All mathematical content (integer Cayley–Hamilton, monicity, the recurrence bridge) + the grid
+reindex are banked; the remaining is the clean index-bijection + the companion's `VecRec` + assembly.

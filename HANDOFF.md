@@ -52,19 +52,21 @@ integer matrix, `χ_M(M) = 0`, built from scratch (telescoping `telescope` + `te
 ★★★ `CharPolyAdj.ch_recurrence` — **a vector sequence with `w(n+1)=M·w(n)` has every component
 satisfy the monic recurrence `Σ_{m=0}^{N+1} (coeff χ_M m)·w(n+m)_j = 0`** (via `wPow` + `cayley_hamilton`).
 
-**Remaining — the Kronecker assembly** (`cfiniteZ_mul`):
-1. **Forward** `CFiniteZ → ShiftRecZ` (monic shift recurrence for `s`,`t`): `CFiniteRing` has the
-   reverse `cfiniteZ_of_shiftRec` + `cfiniteZ_annih_snoc` (monic `Δ`-annihilator); need the Δ→shift
-   conversion (invert `ePow`/`applyOp_ePow`) to get `s(n+p)=Σ_{a<p} α_a s(n+a)`.
-2. **Kronecker companion** `M` (size `pq`, index `(a,b)↦a·q+b`) + product vector
-   `w(n)_{(a,b)} = s(n+a)·t(n+b)`; prove the `VecRec` hypothesis (interior shift `(a+1,b+1)`,
-   boundaries use the `s`/`t` recurrences); `w(n)_{(0,0)} = s(n)t(n)`.
-3. **Assemble**: `ch_recurrence` at `(0,0)` ⟹ `Σ_{m=0}^{pq} cₘ·u(n+m)=0`, `c_{pq}=1` ⟹
-   `ShiftRecZ pq (fun m => −cₘ) u` ⟹ `cfiniteZ_mul` via `cfiniteZ_of_shiftRec`.
+**Remaining — the Kronecker assembly** (`cfiniteZ_mul`), now started:
+- **DONE** `Cauchy/CFiniteHadamard` §1: `append_nil'`/`append_assoc'` (clean), `iota_add`, and
+  ★ `sumZ_grid` — `sumZ` over `iota (p*q)` = the double sum over the `p×q` grid (the `VecRec`
+  reindex).  Forward `CFiniteZ → ShiftRecZ` is `CFiniteRing.shiftRec_of_cfiniteZ` (✓ exists).
+- **The crux obstacle**: `ch_recurrence` fixes flat `w, M : Nat → Nat → Int`, so connecting to the
+  2-D product `w(n)_{(a,b)}=s(n+a)t(n+b)` needs the flat↔grid bijection `J ↔ (J/q, J%q)`.  Core
+  `Nat./`/`Nat.%` lemmas are **propext/Quot-dirty** ⟹ build an ∅-axiom bijection from scratch (a
+  **fuel-structural `divmod`** using only clean `Nat.sub`, proven inverse to `(a,b)↦a*q+b`).  Then:
+  the 4-case Kronecker companion `mEntry` + `VecRec` (via `sumZ_grid` + `hp`/`hq` shift recurrences),
+  and the assembly: `ch_recurrence` at `(0,0)` ⟹ `Σ cₘ·u(n+m)=0`, `c_{pq}=1` (`charPoly_monic`) ⟹
+  `ShiftRecZ pq (−c) u` ⟹ `cfiniteZ_of_shiftRec`.  Edge `p=0`/`q=0` ⟹ zero product.
 
 This session banked (all ∅-axiom): `CayleyHamilton` 27 + `PolyZ` 47 + `PolyDet` 20 + `CharPolyAdj`
-31 = **125 PURE** — integer Cayley–Hamilton, monicity, and the recurrence bridge.  The Kronecker
-assembly (companion construction + Δ↔shift plumbing) is the last unit.
+31 + `CFiniteHadamard` 2 = **127 PURE** — integer Cayley–Hamilton, monicity, the recurrence bridge,
+and the grid reindex.  The Kronecker `VecRec` (gated on a clean flat↔grid bijection) is the last unit.
 
 ## Other live threads
 - C-finite orbit dimension: `theory/math/analysis/cfinite_orbit_dimension.md`
