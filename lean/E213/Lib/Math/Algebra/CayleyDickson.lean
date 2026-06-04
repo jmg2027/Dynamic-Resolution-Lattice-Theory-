@@ -53,6 +53,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.GaussianCrossDet
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ParabolicSignature
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitting
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinClassNumber
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrt
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrt2
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrt2Domain

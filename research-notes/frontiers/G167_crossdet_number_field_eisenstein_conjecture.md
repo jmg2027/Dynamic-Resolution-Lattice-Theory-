@@ -288,6 +288,19 @@ quadratic reciprocity for `−3` + Euclidean descent in `ℤ[ω]` — the disc-`
 theorem, out of reflection-prover reach.  Multiplicativity, ramification, and the inert
 obstruction are pinned; the split-existence and the period value stay open.
 
+## The keystone — class number one for disc `−3` (`EisensteinClassNumber`, 1 PURE)
+
+Why is there a *single* Eisenstein form (no genus/class ambiguity), so the period's
+L-function carries one form?  Because **`h(−3) = 1`**: `reduced_disc_neg3_unique` proves the
+only reduced positive-definite form of discriminant `−3` is the principal `x²+xy+y²`.
+Finite inequality argument: a reduced `(a,b,c)` (`|b|≤a≤c`) with `4ac = b²+3` satisfies
+`4a² ≤ 4ac = b²+3 ≤ a²+3`, so `3a² ≤ 3`, `a=1`, then `4c = b²+3`, `|b|≤1` forces `b=±1`,
+`c=1`.  No reciprocity, no descent — ∅-axiom over ℕ (needed a hand-rolled pure
+left-cancellation `le_cancel_add_left`, since `Nat.le_of_add_le_add_left`/`mul_assoc`/`add_mul`
+are propext-dirty; the pure `PureNat` versions + induction replace them).  This is the
+form-class shadow of `ℤ[ω]` being a PID — the structural reason `EisensteinSplitting`'s
+single principal form governs the whole Epstein zeta.
+
 ## One-line summary
 
 The `W = d`/det-one references are the **real-quadratic (disc > 0, golden, infinite
