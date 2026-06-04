@@ -301,6 +301,20 @@ are propext-dirty; the pure `PureNat` versions + induction replace them).  This 
 form-class shadow of `ℤ[ω]` being a PID — the structural reason `EisensteinSplitting`'s
 single principal form governs the whole Epstein zeta.
 
+## Toward the split converse — the covering-radius bound (`EisensteinEuclidean`, 1 PURE)
+
+The split converse (`p≡1 mod3 ⟹ p = N(π)`) rests on `ℤ[ω]` being a PID, i.e. norm-Euclidean.
+The geometric heart is the **covering radius**: `covering_bound` proves that with
+`4x²≤N²`, `4y²≤N²` (centered remainders `2|·|≤N`), `8(x²−xy+y²) ≤ 6N²` — covering radius²
+`≤ 3/4 < 1`, so the Euclidean remainder always shrinks the norm.  ∅-axiom via the
+sum-of-nonnegatives identity `6N²−8(x²−xy+y²) = 3(N²−4x²)+3(N²−4y²)+(2x+2y)²`.
+
+**Wall**: this is the load-bearing inequality; the *full* Euclidean algorithm (centered
+integer division → `‖ρ‖²<‖β‖²` → gcd / UFD → the descent) plus the QR input (`−3` a QR mod
+`p` ⟺ `p≡1 mod3`, needing an order-3 element of `(ℤ/p)ˣ`, i.e. the primitive-root theorem)
+is the remaining multi-step work.  The covering radius `<1` — the reason `ℤ[ω]` is Euclidean
+— is pinned; the split-existence and the period value stay open.
+
 ## One-line summary
 
 The `W = d`/det-one references are the **real-quadratic (disc > 0, golden, infinite
