@@ -45,8 +45,14 @@ prime in `ℤ[ω]` ⟹ `p = N(π)`.  Rests on `ℤ[ω]` being norm-Euclidean (he
 Phases 0–2 and Phase 4 are closed: **45 PURE theorems, 0 dirty** across `OrderMul`,
 `CenteredDivision`, `EisensteinEuclidean`, `EisensteinDivStep`, `EisensteinDvd`,
 `EisensteinGcd`, `EisensteinSplit`, `PrimeSquareFactor`.  `split_form` gives the disc-`−3`
-representation given the primitive-cube-root input.  The single remaining gate is Phase 3
-(Lagrange's root bound), recorded above as a separate sub-marathon.
+representation given the primitive-cube-root input.
+
+**Phase 3 reduction also closed**: `ModArith.EisensteinCubeRoot.cube_root_of_order3` (1 PURE) —
+`p ∣ z·(z²+3z+3)`, `p ∤ z` ⟹ `∃ x, p ∣ x²+x+1` (`x = z+1`), the Euclid step.  So Phase 3 now
+reduces to exactly: (a) the **FLT-modular connection** (`z+1 = aᵐ`, `p ∣ (aᵐ)³−1` via
+`universal_flt_main` — mechanical modular arithmetic, reachable), and (b) the **existence of a
+non-cube-fixed element** (`∃ a, aᵐ ≢ 1 mod p`) — the lone genuine wall, equivalent to
+Lagrange's root bound (a polynomial-root library mod `p`, a separate sub-marathon).
 
 ## Honest scope
 
