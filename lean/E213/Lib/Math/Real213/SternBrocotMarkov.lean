@@ -1732,4 +1732,84 @@ theorem window_fold_transversal (c r : Nat) (hrc : r < c)
   ⟨E213.Lib.Math.Real213.MarkovInjectivity.neg_root_is_root c r (Nat.le_of_lt hrc) hroot,
    fun hcon => Nat.lt_irrefl c (Nat.lt_trans (window_excludes_partner c r hrw) hcon)⟩
 
+/-! ## §21 — the next fold: the `√(−1)` root set is a torsor under the unit-root group, and §20's
+`±` involution `σ` is that group's distinguished order-2 element `c−1 ≡ −1`
+
+Templatizing §20 hits the next wall: at a composite `c` with `ω ≥ 2` distinct primes `≡ 1 mod 4`,
+the windowed roots no longer reduce to a single `±`-pair — *phantom* roots survive (§19,
+`markov_composite_separation`).  The structural reason, made `∅`-axiom here: the `√(−1)` roots form a
+**torsor under the group of square-roots-of-unity** `SqrtUnity c = {e : e² ≡ 1 mod c}` — closed under
+mod-multiplication (`sqrtUnity_mul`), and acting on the root set (`sqrtUnity_acts_on_root`: if `r` is a
+`√(−1)` and `e` a unit-root, `e·r` is again a `√(−1)`).
+
+The `±` involution `σ(r) = c−r` of §20 is *one* element of this group — multiplication by `c−1`:
+`neg_one_sqrtUnity` ((c−1)² ≡ 1) + `neg_one_mul_is_neg` ((c−1)·r ≡ −r) pin `c−1 = −1` exactly.  The
+window is the transversal of the `⟨c−1⟩ = {1, c−1}` *subgroup*'s action.
+
+  - prime power `p^k`: `SqrtUnity = {1, c−1}` exactly → each orbit IS a `±`-pair → window picks one rep
+    → uniqueness (Button, §13).
+  - composite `ω ≥ 2`: `SqrtUnity ⊋ {1, c−1}` (a nontrivial `e ≠ ±1` exists, by `CRT`) → orbits are
+    *larger* than `±`-pairs → the window leaves `2^{ω−1}` reps → the extras are the phantoms.
+
+So the wall is again a fold, **one level up**: the involution is no longer `σ` alone but the whole
+`SqrtUnity` group, with `σ = ·(c−1)` its distinguished order-2 generator (`σ² = id`,
+`AddMod213.double_neg_mod_at`).  Markov realizability (`WindowRealizedUnique`) is the *second*
+constraint that re-collapses the enlarged transversal to the one true residue — the recurring
+upper-fold pattern, the same self-pointing read at the next resolution. -/
+
+/-- A **square root of unity** mod `c`: `e² ≡ 1`.  The group acting on the `√(−1)` root torsor;
+    `{1, c−1}` is always inside it, and equals it exactly at prime powers. -/
+def SqrtUnity (c e : Nat) : Prop := (e * e) % c = 1
+
+/-- `1` is the identity unit-root. -/
+theorem one_sqrtUnity (c : Nat) (hc : 2 ≤ c) : SqrtUnity c 1 := by
+  show (1 * 1) % c = 1
+  rw [Nat.one_mul]; exact Nat.mod_eq_of_lt hc
+
+/-- `c−1 ≡ −1` is a unit-root: `(c−1)² ≡ 1`.  This is `σ`'s membership in the group. -/
+theorem neg_one_sqrtUnity (c : Nat) (hc : 2 ≤ c) : SqrtUnity c (c - 1) := by
+  obtain ⟨e, he⟩ := Nat.le.dest hc
+  have hceq : c = e + 2 := by rw [← he]; exact Nat.add_comm 2 e
+  have hcd : c - 1 = e + 1 := by rw [hceq]; exact E213.Tactic.NatHelper.add_sub_cancel_right (e + 1) 1
+  show (c - 1) * (c - 1) % c = 1
+  rw [hcd, hceq, show (e + 1) * (e + 1) = 1 + e * (e + 2) from by ring_nat,
+     E213.Tactic.NatHelper.add_mul_mod_self_pure 1 (e + 2) e]
+  exact Nat.mod_eq_of_lt (Nat.lt_of_lt_of_le (by decide) (Nat.le_add_left 2 e))
+
+/-- **`c−1` acts as additive negation**: `(c−1)·r + r ≡ 0`, i.e. `(c−1)·r ≡ −r mod c`.  Together with
+    `neg_one_sqrtUnity` this is the exact identification `σ = ·(c−1) = ·(−1)` — the §20 fold *is* one
+    element of the unit-root group. -/
+theorem neg_one_mul_is_neg (c r : Nat) (hc : 1 ≤ c) : ((c - 1) * r + r) % c = 0 := by
+  have hcc : c - 1 + 1 = c := Nat.succ_pred_eq_of_pos hc
+  have hrr : (c - 1) * r + r = (c - 1 + 1) * r := by ring_nat
+  rw [hcc] at hrr
+  rw [hrr]
+  exact E213.Tactic.NatHelper.mul_mod_right c r
+
+/-- **The unit-root group is closed under mod-multiplication** — `SqrtUnity` is a group (monoid; with
+    `c−1` it has the order-2 element and inverses).  `(ef)² = e²f² ≡ 1·1 = 1`. -/
+theorem sqrtUnity_mul (c e f : Nat) (hc : 2 ≤ c)
+    (he : SqrtUnity c e) (hf : SqrtUnity c f) : SqrtUnity c ((e * f) % c) := by
+  show (((e * f) % c) * ((e * f) % c)) % c = 1
+  rw [← E213.Meta.Nat.MulMod213.mul_mod_pure (e * f) (e * f) c,
+      show (e * f) * (e * f) = (e * e) * (f * f) from by ring_nat,
+      E213.Meta.Nat.MulMod213.mul_mod_pure (e * e) (f * f) c, he, hf, Nat.one_mul]
+  exact Nat.mod_eq_of_lt hc
+
+/-- ★★★★★ **The unit-root group acts on the `√(−1)` root set** — the root set is a torsor.  If `r` is
+    a `√(−1)` mod `c` and `e` a unit-root (`e² ≡ 1`), then `e·r` is again a `√(−1)`:
+    `(er)² + 1 = e²r² + 1 ≡ r² + 1 ≡ 0`.  The §20 `±`-pairing `neg_root_is_root` is the `e = c−1`
+    instance.  For prime powers the group is `{±1}` so each orbit is a single `±`-pair (Button); for
+    `ω ≥ 2` the group is larger and the extra orbit-members are the phantoms. -/
+theorem sqrtUnity_acts_on_root (c e r : Nat) (he : SqrtUnity c e)
+    (hr : (r * r + 1) % c = 0) :
+    (((e * r) % c) * ((e * r) % c) + 1) % c = 0 := by
+  have hsq : (((e * r) % c) * ((e * r) % c)) % c = (r * r) % c := by
+    rw [← E213.Meta.Nat.MulMod213.mul_mod_pure (e * r) (e * r) c,
+        show (e * r) * (e * r) = (e * e) * (r * r) from by ring_nat,
+        E213.Meta.Nat.MulMod213.mul_mod_pure (e * e) (r * r) c, he, Nat.one_mul,
+        E213.Meta.Nat.AddMod213.mod_mod]
+  rw [E213.Meta.Nat.AddMod213.add_mod_gen, hsq,
+      ← E213.Meta.Nat.AddMod213.add_mod_gen, hr]
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
