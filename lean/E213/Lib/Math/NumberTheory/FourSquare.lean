@@ -244,6 +244,37 @@ theorem Asq_bound (A : Int) (k : Nat) (hb : 2 * A.natAbs ≤ 2 * k + 1) :
     rw [show ((4 * (k * k) : Nat) : Int) = 4 * ((k : Int) * (k : Int)) from rfl]; ring_intZ
   rw [e1, e2]; exact ofNat_le_of_le hsq
 
+/-- `0 ≤ A²`. -/
+theorem sq_nonneg (A : Int) : 0 ≤ A * A := by
+  rw [← Int.natAbs_mul_self]; exact Int.ofNat_nonneg _
+
+/-- The strict `r < m` bound (odd `m`): four coordinates with `4Aᵢ² ≤ (m−1)²` and `ΣAᵢ² = m·r`
+    force `r < m` — `4(m·r) = 4ΣAᵢ² ≤ 4(m−1)² < 4m²`. -/
+theorem rlt (m r A1 A2 A3 A4 : Int) (hmpos : 0 < m) (h1m : 1 ≤ m)
+    (hb1 : 4 * (A1 * A1) ≤ (m - 1) * (m - 1)) (hb2 : 4 * (A2 * A2) ≤ (m - 1) * (m - 1))
+    (hb3 : 4 * (A3 * A3) ≤ (m - 1) * (m - 1)) (hb4 : 4 * (A4 * A4) ≤ (m - 1) * (m - 1))
+    (hmr : A1 * A1 + A2 * A2 + A3 * A3 + A4 * A4 = m * r) : r < m := by
+  have hs := add_le_add (add_le_add (add_le_add hb1 hb2) hb3) hb4
+  have hle : 4 * (m * r) ≤ 4 * ((m - 1) * (m - 1)) := by
+    rw [show 4 * (m * r) = 4 * (A1 * A1) + 4 * (A2 * A2) + 4 * (A3 * A3) + 4 * (A4 * A4)
+        from by rw [← hmr]; ring_intZ,
+      show 4 * ((m - 1) * (m - 1))
+        = (m - 1) * (m - 1) + (m - 1) * (m - 1) + (m - 1) * (m - 1) + (m - 1) * (m - 1)
+        from by ring_intZ]
+    exact hs
+  have h8 : (8 : Int) ≤ 8 * m := by
+    have := mul_le_mul_left_nonneg h1m 8 (by decide)
+    rwa [show (8 : Int) * 1 = 8 from by ring_intZ] at this
+  have hstrict : 4 * ((m - 1) * (m - 1)) < 4 * (m * m) := by
+    apply lt_of_sub_pos
+    rw [show 4 * (m * m) - 4 * ((m - 1) * (m - 1)) = 8 * m - 4 from by ring_intZ]
+    have h4 : (4 : Int) ≤ 8 * m - 4 := by
+      have := add_le_add_right h8 (-4)
+      rwa [show (8 : Int) + (-4) = 4 from by ring_intZ,
+        show 8 * m + (-4) = 8 * m - 4 from by ring_intZ] at this
+    exact lt_of_lt_of_le (by decide) h4
+  exact lt_of_mul_lt_mul_pos hmpos (lt_of_mul_lt_mul_pos (by decide) (lt_of_le_of_lt hle hstrict))
+
 /-- ★★★ **Even-`m` descent (parity-halving).**  `isSum4 (2m'·p) ⟹ isSum4 (m'·p)`. -/
 theorem halve_step (m' p : Int) (h : isSum4 (2 * m' * p)) : isSum4 (m' * p) := by
   obtain ⟨a1, a2, a3, a4, ha⟩ := h
