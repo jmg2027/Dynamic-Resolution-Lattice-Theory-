@@ -61,7 +61,7 @@ others together):
 
 **IX. `methodology/` — methodology & PURE-Lean infra.**
 `pure_funext_avoidance`, `pure_nat_ring_methodology`,
-`bool_assoc_failure_meaning`.
+`bool_assoc_failure_meaning`, `reframe_presentation_transport`.
 
 ## Current essays
 
@@ -98,6 +98,7 @@ others together):
 | `c_counter_programme_closure.md` | How do the five directions (A/B/C/E/T) of the c-counter programme interlock?  Same-shape parallel to P-orbit closure? | `math/cohomology/k_nm_c_classification.md` + `master_Knn_c_counter_resolved` + `parametric_arbitrary_m_full_kill_capstone` + `parametric_dual_span_capstone` + `mediant_cohomology_functor_capstone` + `self_containment_cohomology_verdict` |
 | `layer_multiplication_pattern.md` | Why does the same proof shape (invariant + offset + cancellation) appear in cohomology layers, P-orbit depth, AND mediant Vandermonde? | `theory/essays/cohomology/c_counter_as_layer_count.md` + `theory/essays/p_orbit/p_orbit_closure_master.md` + `theory/essays/cohomology/vandermonde_mediant_counts.md` + `Beq213.nat_decide_add_left_assoc{1,2}` + `Combinatorics/Binomial.binom_add_2` + `Px/CharPolySelf.L_recurrence_2` |
 | `synthesis_interlock_map.md` | How do the three synthesis essays (c-counter, P-orbit, layer-multiplication) explicitly correspond row by row? | `theory/essays/cohomology/c_counter_programme_closure.md` + `theory/essays/p_orbit/p_orbit_closure_master.md` + `theory/essays/synthesis/layer_multiplication_pattern.md` |
+| `methodology/reframe_presentation_transport.md` | When a reading fails to SEPARATE (over-counts), how does 213 read the same residue at a resolution where it separates? (Markov uniqueness, Zhang's 3c±2, presentation-transport as a lift) | `Foundations/ProofISALifts` (`lift_reframe`) + `math/analysis/markov_uniqueness.md` + `MarkovUniqueness.markov_max_unique_via_3c_pm2` + `MarkovPrimeFactor.sq_eq_collapse_pp` + CLAUDE.md *External-ruler smuggling* |
 | `k32_cohomology_simplex_higher_insight.md` | 213/K₃,₂²/코호몰로지 심플렉스 고차 통찰 — G140 + G138 B/D 프로모션 연결 | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
 | `mobius_self_form_fixed_point.md` | 모습 자체가 뫼비우스 행렬 — P는 왜 자기 설명 함자의 고정점인가? | `Px/MobiusSelfForm` + `Px/CharPolySelf` + `Px/PnFibonacciUniversal` + `math/mobius213_p_orbit_closure.md` |
 | `gra_universality_one_principle.md` | Walk-length, cup-length, truncation, chromatic height, resolution exponent — why are these the same? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/` umbrella + `GRA/Translation.lean` |

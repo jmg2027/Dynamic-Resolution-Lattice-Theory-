@@ -10,9 +10,18 @@ below.  The composite Markov numbers `610, 985, 1325` are closed the same way; `
 Markov number** (its triple set is empty), so its `MarkovMaxUnique` is *vacuously* true and is a unit
 test, not a uniqueness result on a par with `1325`.  For composite `c` the structural reduction is
 complete — root-count (`= 2^{ω−1}`), the unit-root group, its free action, and nontrivial-root
-existence — and recovery is closed by `slope_path_inj`, so the **single** open input is one
-realisability hypothesis `H` (which `±`-suborbit carries a triple; the orbit tower, §20–§29).  Source
-of truth (all ∅-axiom): `lean/E213/Lib/Math/NumberSystems/Real213/{MarkovUniqueness, MarkovCassiniBridge,
+existence — and recovery is closed by `slope_path_inj`, so the orbit-realizability input is one
+realisability hypothesis `H` (which `±`-suborbit carries a triple; the orbit tower, §20–§29).
+**Two further infinite composite families close unconditionally** by reading the same residue at a
+different resolution (`theory/essays/methodology/reframe_presentation_transport`): the **even `2·pᵏ`
+family** by CRT recombination (`markov_two_prime_pow_unique`, `MarkovPrimeFactor.two_roots_of_two_prime_pow`),
+and **Zhang's `3c±2` criterion** — when `3c−2` or `3c+2` is a prime power, the discriminant
+`9c²−4 = (3c−2)(3c+2)` is read mod the prime-power factor (gap `b−a` for `3c−2`, sum `a+b` for `3c+2`),
+collapsing the c-side `≥ 4`-root reading to `≤ 2` (`markov_max_unique_via_3c_pm2`, with `markovMaxUnique_985`
+a concrete composite `c = 5·197`).  The residual hard case is composite `c` with **both** `3c±2` composite
+(smallest `1325 = 5²·53`), whose realized/phantom discriminator is the class-number / fundamental-unit
+content of the order of discriminant `9c²−4` — the genuine Frobenius core.  Source of truth (all ∅-axiom):
+`lean/E213/Lib/Math/NumberSystems/Real213/{MarkovUniqueness, MarkovCassiniBridge,
 MarkovModularBridge, MarkovInjectivity, SternBrocotMarkov}.lean` + `ModArith/MarkovPrimeFactor.lean`.
 
 ## The conjecture
