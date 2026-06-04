@@ -32,7 +32,7 @@ Columns:
 
 | # | Date | Type | Topic / target | Situation (what prompted it) | Outcome (path) |
 |---|------|------|----------------|------------------------------|----------------|
-| — | — | — | — | *(first live entry appended next session)* | — |
+| 1 | 2026-06-04 | essay | first Betti number / `1/α₃ = 8 = NS²−1` from `b₁ = E−V+1` | Just closed the universal b₁ end-to-end ∅-axiom (cardinality realised by the complement involution, no Fintype/funext/division), and the same `8` is the SU(3) octet — a cross-frame (cohomology ↔ confined coupling) synthesis worth stating as a trajectory, where the "−1" unified three frames (kernel constant / adjoint trace / self-pointing axis). | in-conversation |
 
 ## Reading the log later (pattern analysis)
 
