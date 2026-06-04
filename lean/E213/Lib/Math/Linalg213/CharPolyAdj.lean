@@ -1,5 +1,6 @@
 import E213.Lib.Math.Linalg213.Laplace
 import E213.Lib.Math.Linalg213.PolyDet
+import E213.Lib.Math.Linalg213.CayleyHamilton
 
 /-!
 # Linalg213 — the polynomial adjugate identity `(X·I − M)·adj = χ_M·I` over `ℤ[X]`
@@ -21,13 +22,16 @@ All ∅-axiom.
 namespace E213.Lib.Math.Linalg213.CharPolyAdj
 
 open E213.Lib.Math.Linalg213.Permutation (sumZ iota)
-open E213.Lib.Math.Linalg213.PermClosure (map_eq_of_mem map_map')
+open E213.Lib.Math.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_add)
 open E213.Lib.Math.Linalg213.DetN (det altSign colShift det_congr)
 open E213.Lib.Math.Linalg213.Laplace (matMul adj minorAt matMul_adj_diag matMul_adj_offdiag)
+open E213.Lib.Math.Linalg213.CayleyHamilton (sumZ_iota_delta_lt)
 open E213.Lib.Math.Linalg213.PolyDet
   (pdet evalMat eval_pdet charMat charPoly eval_charPoly evalMat_charMat)
 open E213.Lib.Math.PolyZ
-  (PolyZ eval addP mulP scaleP coeff eval_addP eval_mulP eval_scaleP coeff_unique)
+  (PolyZ eval addP mulP scaleP coeff eval_addP eval_mulP eval_scaleP coeff_unique
+   coeff_addP coeff_mulP_single coeff_mulP_pair_zero coeff_mulP_pair_succ one_mul' add_zero'
+   coeff_nil)
 
 /-! ## §1 — `PolyZ` matrix product and its evaluation soundness -/
 
@@ -120,5 +124,63 @@ theorem padj_identity (M : Nat → Nat → Int) (n i k : Nat) (hi : i < n + 1) (
     ∀ kk, coeff (pmatMul (n + 1) (charMat M) (padj n (charMat M)) i k) kk
         = coeff (charScalarId M (n + 1) i k) kk :=
   coeff_unique _ _ (padj_identity_eval M n i k hi hk)
+
+/-! ## §4 — the Cayley–Hamilton coefficient relations -/
+
+/-- `coeff` of a `PolyZ` matrix product = the `Int` sum of the entry-product coefficients. -/
+theorem coeff_pmatMul (n : Nat) (A B : Nat → Nat → PolyZ) (i k kk : Nat) :
+    coeff (pmatMul n A B i k) kk = sumZ ((iota n).map (fun j => coeff (mulP (A i j) (B j k)) kk)) := by
+  show coeff (psumZ ((iota n).map (fun j => mulP (A i j) (B j k)))) kk = _
+  rw [show ∀ (L : List PolyZ), coeff (psumZ L) kk = sumZ (L.map (fun p => coeff p kk)) from
+        (fun L => by
+          induction L with
+          | nil => rfl
+          | cons p ps ih =>
+            show coeff (addP p (psumZ ps)) kk = coeff p kk + sumZ (ps.map (fun p => coeff p kk))
+            rw [coeff_addP, ih]),
+      map_map' (fun j => mulP (A i j) (B j k)) (fun p => coeff p kk)]
+
+/-- `coeff` of `χ_M·I` (the scalar matrix) at entry `(i,k)`. -/
+theorem coeff_charScalarId (M : Nat → Nat → Int) (N i k kk : Nat) :
+    coeff (charScalarId M N i k) kk = if i = k then coeff (charPoly M N) kk else 0 := by
+  by_cases h : i = k
+  · rw [show charScalarId M N i k = charPoly M N from if_pos h, if_pos h]
+  · rw [show charScalarId M N i k = ([] : PolyZ) from if_neg h, if_neg h, coeff_nil]
+
+/-- ★★ **CH relation at constant order**: `−(M·B₀) = c₀·I` (entry-wise).  Here
+    `Bₖ(j,k) = coeff (adj(X·I−M)) k`, `cₖ = coeff χ_M k`. -/
+theorem cayley_rel_zero (M : Nat → Nat → Int) (n i k : Nat) (hi : i < n + 1) (hk : k < n + 1) :
+    sumZ ((iota (n + 1)).map (fun j => (- M i j) * coeff (padj n (charMat M) j k) 0))
+      = (if i = k then coeff (charPoly M (n + 1)) 0 else 0) := by
+  rw [← coeff_charScalarId, ← padj_identity M n i k hi hk 0, coeff_pmatMul]
+  apply congrArg sumZ
+  apply map_eq_of_mem
+  intro j _
+  by_cases h : i = j
+  · rw [show charMat M i j = [(- M i j), 1] from if_pos h]
+    exact (coeff_mulP_pair_zero (- M i j) 1 (padj n (charMat M) j k)).symm
+  · rw [show charMat M i j = [(- M i j)] from if_neg h]
+    exact (coeff_mulP_single (- M i j) (padj n (charMat M) j k) 0).symm
+
+/-- ★★ **CH relation at order `m+1`**: `Bₘ − M·B_{m+1} = c_{m+1}·I` (entry-wise). -/
+theorem cayley_rel_succ (M : Nat → Nat → Int) (n i k m : Nat) (hi : i < n + 1) (hk : k < n + 1) :
+    sumZ ((iota (n + 1)).map (fun j => (- M i j) * coeff (padj n (charMat M) j k) (m + 1)))
+        + coeff (padj n (charMat M) i k) m
+      = (if i = k then coeff (charPoly M (n + 1)) (m + 1) else 0) := by
+  rw [← coeff_charScalarId, ← padj_identity M n i k hi hk (m + 1), coeff_pmatMul,
+      map_eq_of_mem (fun j => coeff (mulP (charMat M i j) (padj n (charMat M) j k)) (m + 1))
+        (fun j => (- M i j) * coeff (padj n (charMat M) j k) (m + 1)
+                  + (if i = j then coeff (padj n (charMat M) j k) m else 0))
+        (fun j _ => by
+          show coeff (mulP (charMat M i j) (padj n (charMat M) j k)) (m + 1)
+             = (- M i j) * coeff (padj n (charMat M) j k) (m + 1)
+               + (if i = j then coeff (padj n (charMat M) j k) m else 0)
+          by_cases h : i = j
+          · rw [show charMat M i j = [(- M i j), 1] from if_pos h, coeff_mulP_pair_succ,
+                if_pos h, one_mul']
+          · rw [show charMat M i j = [(- M i j)] from if_neg h, coeff_mulP_single, if_neg h,
+                add_zero']),
+      sumZ_map_add,
+      sumZ_iota_delta_lt (fun j => coeff (padj n (charMat M) j k) m) i (n + 1) hi]
 
 end E213.Lib.Math.Linalg213.CharPolyAdj

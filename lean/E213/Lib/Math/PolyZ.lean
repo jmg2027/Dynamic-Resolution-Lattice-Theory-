@@ -155,6 +155,9 @@ theorem coeff_negP : ∀ (p : PolyZ) (k : Nat), coeff (negP p) k = - coeff p k
   | _ :: _,  0     => rfl
   | _ :: p', k + 1 => coeff_negP p' k
 
+/-- `coeff` of the zero polynomial. -/
+theorem coeff_nil (k : Nat) : coeff ([] : PolyZ) k = 0 := rfl
+
 /-- `coeff` of a scalar multiple. -/
 theorem coeff_scaleP : ∀ (c : Int) (p : PolyZ) (k : Nat), coeff (scaleP c p) k = c * coeff p k
   | c, [],      _     => (mul_zero' c).symm
