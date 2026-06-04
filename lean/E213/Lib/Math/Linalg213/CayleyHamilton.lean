@@ -14,7 +14,7 @@ associativity.  All ∅-axiom.
 namespace E213.Lib.Math.Linalg213.CayleyHamilton
 
 open E213.Lib.Math.Linalg213.Permutation (sumZ iota)
-open E213.Lib.Math.Linalg213.PermClosure (sumZ_map_add sumZ_map_smul map_eq_of_mem)
+open E213.Lib.Math.Linalg213.PermClosure (sumZ_map_add sumZ_map_smul map_eq_of_mem lt_of_mem_iota)
 open E213.Lib.Math.Linalg213.Laplace (sumZ_append matMul map_append')
 
 /-! ## §1 — finite-sum Fubini -/
@@ -255,5 +255,32 @@ theorem matSumZ_add (F G : Nat → (Nat → Nat → Int)) (L : List Nat) (i j : 
   show sumZ (L.map (fun k => F k i j + G k i j))
      = sumZ (L.map (fun k => F k i j)) + sumZ (L.map (fun k => G k i j))
   rw [← sumZ_map_add]
+
+/-! ## §6 — matrix powers commute with the base (toward the Cayley–Hamilton telescoping) -/
+
+/-- Matrix product respects pointwise factor equality over the summation range `iota n`. -/
+theorem matMul_congr_bd (n : Nat) (A A' B B' : Nat → Nat → Int) (i k : Nat)
+    (hA : ∀ j, j < n → A i j = A' i j) (hB : ∀ j, j < n → B j k = B' j k) :
+    matMul n A B i k = matMul n A' B' i k := by
+  show sumZ ((iota n).map (fun j => A i j * B j k)) = sumZ ((iota n).map (fun j => A' i j * B' j k))
+  apply congrArg sumZ
+  apply map_eq_of_mem
+  intro j hj
+  rw [hA j (lt_of_mem_iota hj), hB j (lt_of_mem_iota hj)]
+
+/-- ★ **`M^N · M = M^{N+1}`** (pointwise; powers commute with the base). -/
+theorem matPow_succ_right (n : Nat) (M : Nat → Nat → Int) :
+    ∀ (N i k : Nat), i < n + 1 → k < n + 1 →
+      matMul (n + 1) (matPow (n + 1) M N) M i k = matPow (n + 1) M (N + 1) i k
+  | 0,     i, k, hi, hk => by
+    show matMul (n + 1) matId M i k = matMul (n + 1) M matId i k
+    rw [matMul_id_left (n + 1) M i k hi, matMul_id_right (n + 1) M i k hk]
+  | N + 1, i, k, hi, hk => by
+    show matMul (n + 1) (matMul (n + 1) M (matPow (n + 1) M N)) M i k
+       = matMul (n + 1) M (matPow (n + 1) M (N + 1)) i k
+    rw [← matMul_assoc]
+    apply matMul_congr_bd
+    · intro j _; rfl
+    · intro j hj; exact matPow_succ_right n M N j k hj hk
 
 end E213.Lib.Math.Linalg213.CayleyHamilton
