@@ -33,6 +33,7 @@ Columns:
 | # | Date | Type | Topic / target | Situation (what prompted it) | Outcome (path) |
 |---|------|------|----------------|------------------------------|----------------|
 | 1 | 2026-06-04 | essay | The counting bound behind two representation theorems (disc−3 `a²−ab+b²` + disc−4 `a²+b²`) | Two representation iffs closed ∅-axiom in one session by the *same* field-agnostic engine (`RootBound.eval_zero` + `centered_div`); the cross-domain reuse (one Lagrange bound, two exponents/radii) was the synthesis worth naming. `/essay` invoked at session end. | theory/essays/synthesis/representation_theorems_one_counting_bound.md |
+| 2 | 2026-06-04 | promotion+essay | Lagrange's four-square theorem (`FourSquare.nat_isSum4`) | Four-square closed ∅-axiom by a route the disc-`−D` engine does not reach — an *additive* pigeonhole seed + an over-`ℤ` parity descent, ungated by congruence and ranging over all `n`. The two-engine contrast (additive vs. multiplicative counting) was the pattern worth naming; closure triggered promotion (chapter-as-essay) + frontier-note archive. `/essay` invoked in the marathon. | theory/essays/synthesis/four_square_additive_pigeonhole.md |
 
 ## Reading the log later (pattern analysis)
 
