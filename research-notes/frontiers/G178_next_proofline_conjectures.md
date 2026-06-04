@@ -44,9 +44,10 @@ non-holonomicity arc):
   - `spineL_shift_fixed` — `spineL` the period-1 (shift-fixed) escape (= `spineL_unique`'s p=1).
   - `boolSpine_swap_shift_commute` — the lone symmetry commutes with the shift.
   - `boolSpine_shift_dynamics` — capstone: νF carries the full shift as a faithful sub-coalgebra.
-  Fed the essay's "the frontier carries dynamics" layer.  Remaining open: the C1/C7-phys
-  consolidation bridges below (C3-phys closed; the ε₀-diagonal and frozen=dynamic-φ adjacents
-  were already closed — see the survey footer).
+  Fed the essay's "the frontier carries dynamics" layer.  **All C-phys consolidation bridges now
+  resolved**: C3/C6/C7 closed ∅-axiom, C1 closed-as-non-bridge (see the Consolidation-bridges
+  section).  The ε₀-diagonal and frozen=dynamic-φ adjacents were already closed (survey footer).
+  The genuine open next is the §19→G181 shift↔Ostrowski-odometer cross-arc.
 
 ## Recommended next proof-line (νF population — all ∅-axiom-feasible)
 
@@ -118,12 +119,20 @@ Tractability: med.  Do P1/P2 first; the branch-distinctness bookkeeping mirrors
   `ResidueForm` docstring asserted (now cited from it).  Complements the two pre-existing
   single-scale bundles (`ReentryUnit.reentry_unit_across_scales` = Raw-dynamics;
   `the_unit_is_one_across_readings` = number-axes).
-- **C1-phys (`N_gen` via the atom's own solver)** — link `C(NS,NT)=3` to the
-  `solve_2a_3b_eq_5` machinery of `atomic_iff_five`, not a parallel `binom` fact.  ⚠ risk:
-  `C(3,2)=3=NS` may be a small-number coincidence — must carry structure, not just numerics.
-- **C7-phys (Koide `2/3 = NT/NS`)** — connect `koide_falsifier` (F21) to `Mobius213OneAsGlue`
-  so Koide's `2/3` and the det atoms are the *same two atoms*.  Clean internal link; honest
-  only as a *forced reading*, which F21 already frames correctly.
+- **C1-phys (`N_gen` via the atom's own solver)** — ⛔ **structural link declined 2026-06-04**
+  (numeric part subsumed).  The legitimate forced numeric (`binom NS NT = 3` tied to
+  `pair_forcing`) is already in `FalsifierRosterForced.falsifier_roster_forced` (F2).  Forcing
+  `C(NS,NT)=3` *into* the `2a+3b=5` atomic-solver machinery is the recorded **non-bridge**: per
+  this note's own "Non-bridges — record and STOP" (`N_gen = C(NS,NT)` is a combinatorial-selection
+  `3`, a *different* `3` from `NS`), and the failure-mode discipline forbids forcing it.  So
+  C1-phys is closed-as-non-bridge: the forced count stands (in C6-phys), the solver-identification
+  does not, by design.
+- **C7-phys (Koide `2/3 = NT/NS`)** — ✅ **CLOSED 2026-06-04** ∅-axiom:
+  `KoideFormula.koide_atoms_are_det_atoms` (PURE) connects Koide's ratio to `Mobius213OneAsGlue`:
+  the forced pair `(NS,NT)=(3,2)` read three ways — **ratio** `NT·3 = NS·2` (Koide `2/3`),
+  **difference** `det P = NS−NT = 1` (`mobius_det_eq_ns_minus_nt`, the residue unit), **product**
+  `NS·NT = 6` (`ns_nt_product`, the `K_{3,2}` edge count).  Koide's two atoms ARE the det atoms;
+  honest as a *forced reading* (same pair, no forced map).
 - **C6-phys (falsifier-roster uniqueness super-theorem)** — ✅ **CLOSED 2026-06-04** ∅-axiom:
   `Lib/Physics/Foundations/FalsifierRosterForced.falsifier_roster_forced` (1 PURE) binds the two
   forcing iffs (`atomic_iff_five` → d=5; `pair_forcing` → (NT,NS)=(2,3)) to the headline

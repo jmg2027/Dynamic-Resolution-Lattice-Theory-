@@ -126,8 +126,9 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - `G178_next_proofline_conjectures` — cross-arc conjecture seed / ranked agenda
   for populating νF (post-FSM).  P1–P6 + §18 (`coSwap_boolSpine_free_action`, the
   swap group's free action on the bit-stream escapes) closed ∅-axiom; remaining
-  open = the C1/C7-phys consolidation bridges (C3-phys + C6-phys closed; ε₀ diagonal +
-  frozen=dynamic-φ adjacents already closed & chaptered).
+  all C-phys consolidation bridges resolved (C3/C6/C7 closed, C1 closed-as-non-bridge;
+  ε₀ diagonal + frozen=dynamic-φ adjacents already closed & chaptered).  Genuine open
+  next: the §19 shift ↔ G181 Ostrowski-odometer cross-arc.
   Closure record: `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form}.md`.
 
 Closure record (promoted off this board):

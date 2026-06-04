@@ -54,8 +54,15 @@ forcing iffs (`atomic_iff_five` → d=5; `pair_forcing` → (NT,NS)=(2,3)) to th
 integers as polynomials in the *forced* triple (F1 5, F2 3, F8 22, F22/F26 6, F26 10, F24 192,
 F15/F19 12, F21 Koide 3·NT=2·NS).  The load-bearing content is the *forcing* (integers follow
 from the unique triple, not fits).  Wired into `Lib/Physics/Foundations.lean`; recorded in
-`catalogs/falsifiers.md`.  G178's remaining consolidation bridges: C1-phys (`N_gen` via the
-atom's solver), C7-phys (Koide `2/3`) — both internal, lower novelty.
+`catalogs/falsifiers.md`.
+
+### 5. G178 — C7-phys closed, C1-phys closed-as-non-bridge (consolidation surface complete)
+`KoideFormula.koide_atoms_are_det_atoms` (PURE): Koide's two atoms ARE the determinant's — the
+forced pair `(NS,NT)=(3,2)` read three ways: ratio `NT·3=NS·2` (Koide `2/3`), difference
+`det P = NS−NT = 1` (residue unit), product `NS·NT = 6` (`K_{3,2}` edge count).  C1-phys
+(`N_gen`) declined as a structural bridge: the forced numeric (`binom NS NT = 3`) is in C6-phys;
+forcing it *into* the `2a+3b=5` solver is the recorded "different 3" non-bridge.  **All C-phys
+consolidation bridges now resolved** (C3/C6/C7 closed, C1 closed-as-non-bridge).
 
 ## Current Precision Results (0 free parameters)
 Unchanged this session (math-frontier work; no physics-constant edits).  Canonical:
@@ -68,10 +75,11 @@ The Markov sole open freedom — structure fully pinned, realizability *selectio
 a forced fixed point (G193 Part C).  Continuant program E2–E5 (Aigner bridge) ranked next on that
 arc (`Real213/Continuant.lean` tool already built).
 
-### 2. G178 remaining — consolidation bridges + adjacent
-- **Consolidation bridges (C-phys)** in `research-notes/frontiers/G178_next_proofline_conjectures.md`:
-  C3-phys (det-1 = ascent-1 = glue-1, safest), C1-phys (`N_gen` via the atom's own solver),
-  C7-phys (Koide 2/3).  Internal, lower novelty.  (C3-phys + C6-phys closed this session.)
+### 2. G178 — consolidation surface COMPLETE
+All C-phys bridges resolved this session: **C3** (`unit_bridges_dynamics_and_readings`), **C6**
+(`falsifier_roster_forced`), **C7** (`koide_atoms_are_det_atoms`) closed ∅-axiom; **C1** closed-as-
+non-bridge (forced numeric in C6; solver-identification is the recorded "different 3").  No C-phys
+bridge remains open.
 - **Adjacent — both closed** (survey label was stale): ε₀ diagonal
   (`DepthHeightDiagonal.{height_diagonal_escapes,epsilon_direction}`, chaptered in
   `completeness_without_completeness.md` Part IV §14; native ε₀ object out of ∅-axiom reach, not
