@@ -1,6 +1,19 @@
 # Session Handoff — 2026-06-04n (Markov — ★ direction (b): continuant tool + Raw/Lens boundary + axiom-level attack map)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
+## ⟲ MERGED `origin/main` (NumberSystems restructure) into this branch — build clean, ∅-axiom preserved
+- `origin/main` (large restructure) merged in (commit `bd050ce`).  Main's intent adopted:
+  `Lib/Math/Real213/` → `Lib/Math/NumberSystems/Real213/`, namespace
+  `E213.Lib.Math.Real213.*` → `E213.Lib.Math.NumberSystems.Real213.*`; research-notes moved into
+  `research-notes/frontiers/` (process/frontier discipline, see `PROCESS.md`).
+- **All this-branch work migrated to the new namespace/path** and re-verified:
+  `NumberSystems/Real213/{Continuant (25 PURE), ContinuantMarkov (34 PURE), MarkovUniquenessRaw (8 PURE)}`,
+  `SternBrocotMarkov` (incl. `markov_max_unique_985_via_orbit`, namespace-fixed),
+  `Lens/{ProofISA, ProofISADemo (2 PURE), NoExteriorClosure (3 PURE)}`, plus seed §1.0/§1.0′/§5.3 +
+  `seed/PROOF_ISA.md`.  `cd lean && lake build E213` ✓ (306 modules).  All migrated theorems ∅-axiom.
+- Old umbrella `Lib/Math/Real213.lean` deleted (main); new files wired into
+  `Lib/Math/NumberSystems/Real213.lean` umbrella.  Deferred scratch: `research-notes/G198_action_options_ABC.md`.
+
+## Branch `claude/markov-uniqueness-0R0Ut`.  `NumberSystems/Real213/SternBrocotMarkov` §34 + `…/Continuant` PURE.
 
 ## ★★★ SESSION CERTIFICATION — the whole Markov/continuant arc is strict ∅-axiom
 `tools/scan_axioms.py`: `Real213.Continuant` = **25 PURE / 0 dirty**; `Real213.ContinuantMarkov` =
