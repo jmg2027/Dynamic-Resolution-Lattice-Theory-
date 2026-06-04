@@ -307,7 +307,12 @@ alternating (`leibDet_rowSwap`, `leibDet_eq_zero_of_rows_eq`, `leibDet_eq_zero_o
 - **§2 COMPLETE (Laplace, 32 PURE)** ✅ — ★★★ `cofactor_row0`: `leibDet (n+1) M = Σ_{j≤n}
   (−1)ʲ · M 0 j · leibDet n (minor M j)`.  The reindex `perms_succ_lperm` (head-decomposition),
   per-element `leibTerm_cons_colShift`, and the `sumZ`/`flatMap` assembly all done, ∅-axiom.
-  **Next: §3 any-row expansion → §4 adjugate (`M·adj = det·I`; off-diag = `leibDet_rows_eq_ne` ✅)
+  **§3 bridge `leibDet_eq_det` ✅** (det properties transferred to `DetN.det`).
+- **§4 row-i expansion DONE (Laplace, 46 PURE)** ✅ — `det_rowSwap`, `cyc`/`det_cyc` (moving a row
+  to the top multiplies det by `(−1)ⁱ`), `minorAt`/`minor_cyc_eq`, and ★★ `det_cyc_expand`:
+  `(−1)ⁱ · det (n+1) M = Σ_{j≤n} (−1)ʲ · M i j · det n (minorAt i j M)` — cofactor expansion along
+  ANY row.
+  **Next: §5 adjugate (`M·adj = det·I`; off-diag = `leibDet_rows_eq_ne` ✅)
   → §5 integer Cayley–Hamilton → §6 Kronecker `M` → `cfiniteZ_mul`.**
 
 - **(done) §2 (D) — the reindex** `LPerm (perms (n+1)) ((iota (n+1)).flatMap (fun j =>
