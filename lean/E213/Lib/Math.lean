@@ -52,6 +52,7 @@ import E213.Lib.Math.UniverseChain
 import E213.Meta.Nat
 import E213.Lib.Math.CascadeCalculus
 import E213.Lib.Math.Pigeonhole
+import E213.Lib.Math.PolyZ
 import E213.Lib.Math.Polynomial213
 import E213.Lib.Math.PrimeDescentObservations
 import E213.Lib.Math.Cauchy
