@@ -2,10 +2,10 @@ import E213.Lib.Math.NumberSystems.Real213
 import E213.Lib.Math.Analysis
 import E213.Lib.Math.Geometry.AngleStructure
 import E213.Lib.Math.ArityForcingGeneral
-import E213.Lib.Math.AxiomSystems
+import E213.Lib.Math.Foundations.AxiomSystems
 import E213.Lib.Math.Geometry.BipartiteDecomp
 import E213.Lib.Math.Geometry.CartesianVsDisjoint
-import E213.Lib.Math.Choice
+import E213.Lib.Math.Foundations.Choice
 import E213.Lib.Math.Cohomology
 import E213.Lib.Math.NumberSystems.Complex
 import E213.Lib.Math.NumberTheory.DyadicFSM
@@ -34,7 +34,7 @@ import E213.Lib.Math.ODE
 import E213.Lib.Math.Geometry.OperationTopology
 import E213.Lib.Math.NumberSystems.SignedCut
 import E213.Lib.Math.Tactic
-import E213.Lib.Math.PatternCatalog
+import E213.Lib.Math.Foundations.PatternCatalog
 import E213.Lib.Math.Probability
 import E213.Lib.Math.Probability.Information
 import E213.Lib.Math.Combinatorics.Logic
@@ -48,7 +48,7 @@ import E213.Lib.Math.ParadigmDomainGradedRing
 import E213.Lib.Math.ResolutionLimit
 import E213.Lib.Math.Geometry.Topology
 import E213.Lib.Math.Geometry.TriangularTower
-import E213.Lib.Math.UniverseChain
+import E213.Lib.Math.Foundations.UniverseChain
 import E213.Meta.Nat
 import E213.Lib.Math.Analysis.CascadeCalculus
 import E213.Lib.Math.Pigeonhole

@@ -1,5 +1,5 @@
 import E213.Theory.Raw.API
-import E213.Lib.Math.UniverseChain.Recursion
+import E213.Lib.Math.Foundations.UniverseChain.Recursion
 import E213.Lib.Math.Algebra.Mobius213.TowerLInfty
 import E213.Lib.Math.NumberSystems.Real213.PhiCut
 import E213.Lib.Math.NumberSystems.Real213.PhiConvergence
@@ -34,7 +34,7 @@ namespace E213.Lib.Math.SelfSimilarityBridge
 
 open E213.Theory (Raw)
 open E213.Lib.Math.Cohomology.Fractal.Level (numV)
-open E213.Lib.Math.UniverseChain.Recursion (numV_def)
+open E213.Lib.Math.Foundations.UniverseChain.Recursion (numV_def)
 open E213.Meta.Nat.PureNat (pow_add)
 
 /-- **Quantitative self-similarity**: the level count replicates under level

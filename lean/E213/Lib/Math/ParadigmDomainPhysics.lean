@@ -1,5 +1,5 @@
 import E213.Lib.Math.ParadigmDomain
-import E213.Lib.Math.PatternCatalog.ParadigmBridge
+import E213.Lib.Math.Foundations.PatternCatalog.ParadigmBridge
 /-!
 # ParadigmDomain — physics-side extension
 

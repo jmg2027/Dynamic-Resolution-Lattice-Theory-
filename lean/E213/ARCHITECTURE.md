@@ -36,7 +36,7 @@ Canonical statements:
     addition to Raw" — `seed/AXIOM/07_primacy.md` §7.
   - "All classical foundations are Lens compositions reading
     the same Raw residue" —
-    `lean/E213/Lib/Math/AxiomSystems/INDEX.md`.
+    `lean/E213/Lib/Math/Foundations/AxiomSystems/INDEX.md`.
 
 When any sub-INDEX uses "substrate", "foundation", "bare-metal",
 "sits between", or similar architectural metaphors, those are to
