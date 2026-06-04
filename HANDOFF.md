@@ -1,5 +1,21 @@
 # Session Handoff — 2026-06-04n (Markov — ★ direction (b): continuant tool + Raw/Lens boundary + axiom-level attack map)
 
+## ✅ Open-kernel attack (expert agents) — Zhang `3c±2` route: foundation formalized (∅-axiom)
+Three expert agents attacked the open ω≥2 kernel.  Decisive find (Agent C): **Zhang's `3c±2` criterion**
+(Acta Arith. 2007) — `c` unique if `3c−2` or `3c+2` is a prime power — reuses this session's
+`two_roots_of_prime_pow` on the modulus `M = 3c±2`, closing composite/ω=3 Markov numbers (985, 4181, 610,
+195025) uniformly.  **Formalized this session (all strict ∅-axiom)**:
+- `zhang_linear_core`: `b·(3c−2)+2(b−a)+2a = 3bc` ⟹ `3bc−2a ≡ 2(b−a) (mod M)` (recovery handle).
+- `zhang_quadratic`: `(3c−2)·ab = (b−a)²+c²` (Markov eq via the gap `δ=b−a`).
+- `zhang_gap_dvd`: `M=3c−2 ∣ (b−a)²+c²` (the `√(−1)` data lives on `M`).
+- Verified: encoding `(3bc−2a)²+(2c)²≡0 mod M`, `t≡2(b−a)`, `3·985−2=2953` prime, `3·4181−2=12541` prime.
+- Agent B (deep): the c-side residual (`1325`-type, both `3c±2` composite) needs class-number data = the
+  genuine Frobenius core; elementary methods provably stop there.
+- **NEXT (documented, `research-notes/G202`)**: `zhang_gap_determines_pair` (same gap ⟹ same pair, via
+  `zhang_quadratic` + strict monotonicity — recovery core, fully argued) + modular root-count bridge
+  (`w=δ·c⁻¹`, `two_roots_of_prime_pow` on `M`, odd-`M` parity kills the partner root) → capstone
+  `markov_max_unique_via_3c_pm2`.  All steps specified; remaining work is pure-ℕ transcription.
+
 ## ✅ Action (b) advance — a NEW infinite Markov family closed: even `2·pᵏ` (∅-axiom)
 - **`SternBrocotMarkov.markov_two_prime_pow_unique`** (strict ∅-axiom): for odd prime `p`, `5 ≤ 2·p^(k+1)`
   ⟹ `MarkovMaxUnique (2·p^(k+1))`.  Extends Button's odd prime-power family to the **even** Markov numbers

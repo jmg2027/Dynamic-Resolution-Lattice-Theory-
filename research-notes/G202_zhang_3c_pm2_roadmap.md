@@ -86,17 +86,21 @@ argument that kills the phantom, mirroring the c-side window.
    `M = 3c−2 ∣ (b−a)² + c²`.  The `√(−1)` data on the modulus `M`, and the `(c,δ)↦a` pin.  (This is a
    cleaner route than the `(3bc−2a)² = (9c²−4)b²−4c²` form: `zhang_gap_dvd` gives the divisibility
    directly via the gap `δ = b−a`.)
-3. `zhang_root_unit` — with `inverse_of_coprime` for `(2c)⁻¹` (and `gcd(2c, M)=1` for `M` odd), promote
-   `zhang_gap_dvd` to `w² ≡ −1 (mod M)` for `w = (b−a)·(c)⁻¹`-style root.  *Green/Yellow.*
-4. `zhang_recovery` — triple ↦ `(b−a)` injective: `zhang_linear_core` gives the residue `= 2(b−a)`
-   (no wraparound for `c>2`), and `zhang_quadratic` pins `a` from `(c, δ)`; odd-`M` parity kills the
-   partner root.  *Yellow* — the one new lemma, transcribing the closed c-side window argument.
-5. `markov_max_unique_via_3c_pm2` — capstone: `M = 3c±2` an odd prime power ⟹ `MarkovMaxUnique c`, via
-   `two_roots_of_prime_pow` on `M`.  Mirrors `markov_prime_pow_unique`.
+3. ✅ **DONE** `zhang_gap_determines_pair` (∅-axiom) — two max-`c` triples with the same gap `b−a` are
+   equal.  Via `zhang_quadratic` (equal gap ⟹ equal `ab` after cancelling `3c−2`), then equal product +
+   gap ⟹ equal sum (`sum_sq_gap` + `sq_inj_le`) ⟹ equal pair.  **The recovery half.**
+4. `zhang_root_unit` + bridge — with `inverse_of_coprime` for `c⁻¹ mod M` (`gcd(c, M)=1`, `M` odd),
+   promote `zhang_gap_dvd` (`δ² ≡ −c² mod M`) to `(δ·c⁻¹)² ≡ −1 mod M`; `two_roots_of_prime_pow` on
+   `M = pᵏ` gives `w₁ = w₂ ∨ w₁+w₂ = M`, i.e. `δ₁ = δ₂ ∨ δ₁+δ₂ ≡ 0`; range `δ_i < c`, `δ₁+δ₂ < 2c < M`
+   forces `δ₁ = δ₂`.  *Yellow* — modular plumbing (reuses the c-side modular machinery).
+5. `markov_max_unique_via_3c_minus_2` — capstone: feed `δ₁ = δ₂` to `zhang_gap_determines_pair`.
+   *One-liner once step 4 lands.*
 
-**Done this session**: steps 1–2 (the algebraic foundation, all ∅-axiom + sanity-checked: `985`,
-`2953 ∣ 167²+985²` with quotient `338 = 2·169 = ab`).  Remaining: steps 3–5 (root-unit + recovery +
-capstone), the transcription of the c-side window/recovery to modulus `M`.
+**Done this session**: steps 1–3 (algebraic foundation **+ the entire recovery half**, all ∅-axiom +
+sanity-checked: `985`, `2953 ∣ 167²+985²`, quotient `338 = 2·169 = ab`).  Remaining: step 4 (modular
+root-count bridge — `c⁻¹ mod M` + `two_roots_of_prime_pow` on `M` + the `δ < c` range argument) then the
+one-line capstone (step 5).  Lemmas done: `zhang_linear_core`, `zhang_quadratic`, `zhang_gap_dvd`,
+`zhang_gap_determines_pair` (+ helpers `sq_inj_le`, `sum_sq_gap`).
 
 ## Status
 

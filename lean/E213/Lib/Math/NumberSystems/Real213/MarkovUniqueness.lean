@@ -261,6 +261,57 @@ theorem zhang_gap_dvd (a b c : Nat) (h : markovEq a b c) (hab : a ≤ b) (hc : 1
     (3 * c - 2) ∣ ((b - a) * (b - a) + c * c) :=
   ⟨a * b, (zhang_quadratic a b c h hab hc).symm⟩
 
+/-- Square-injectivity on `ℕ` (with the order side supplied): `x ≤ y → x² = y² → x = y`. -/
+private theorem sq_inj_le {x y : Nat} (hxy : x ≤ y) (h : x * x = y * y) : x = y := by
+  rcases Nat.lt_or_ge x y with hlt | hge
+  · exfalso
+    have hy : 0 < y := Nat.lt_of_le_of_lt (Nat.zero_le x) hlt
+    have hsq : x * x < y * y := Nat.mul_lt_mul_of_lt_of_le hlt hxy hy
+    rw [h] at hsq; exact Nat.lt_irrefl _ hsq
+  · exact Nat.le_antisymm hxy hge
+
+/-- The sum-square / gap identity: `(a+b)² = (b−a)² + 4ab` for `a ≤ b`.  Pure `ℕ` via `b = a + d`. -/
+private theorem sum_sq_gap (a b : Nat) (hab : a ≤ b) :
+    (a + b) * (a + b) = (b - a) * (b - a) + 4 * (a * b) := by
+  obtain ⟨d, hd⟩ := Nat.le.dest hab
+  have hba : b - a = d := by
+    rw [← hd, Nat.add_comm a d, E213.Tactic.NatHelper.add_sub_cancel_right]
+  rw [hba, ← hd]; ring_nat
+
+/-- ★★★★★ **Zhang recovery: the gap determines the pair.**  Two Markov triples with the same max `c` and
+    the same gap `b−a` are equal.  Via `zhang_quadratic` (equal gap ⟹ equal product `ab`, after
+    cancelling `3c−2`), then equal product + equal gap ⟹ equal sum (`sum_sq_gap` + `sq_inj_le`) ⟹ equal
+    pair.  This is the recovery half of Zhang's `3c±2` route: a `√(−1)`-root mod `M = 3c−2` fixes
+    `b−a` (`zhang_linear_core`), which fixes the triple. -/
+theorem zhang_gap_determines_pair {a₁ b₁ a₂ b₂ c : Nat}
+    (h1 : markovEq a₁ b₁ c) (h2 : markovEq a₂ b₂ c)
+    (ho1 : a₁ ≤ b₁) (ho2 : a₂ ≤ b₂) (hc : 1 ≤ c)
+    (hgap : b₁ - a₁ = b₂ - a₂) : a₁ = a₂ ∧ b₁ = b₂ := by
+  have hM : 0 < 3 * c - 2 :=
+    Nat.lt_of_lt_of_le (by decide) (Nat.sub_le_sub_right (Nat.le_mul_of_pos_right 3 hc) 2)
+  have hprodeq : a₁ * b₁ = a₂ * b₂ :=
+    Nat.eq_of_mul_eq_mul_left hM (by
+      rw [zhang_quadratic a₁ b₁ c h1 ho1 hc, zhang_quadratic a₂ b₂ c h2 ho2 hc, hgap])
+  have hsumsq : (a₁ + b₁) * (a₁ + b₁) = (a₂ + b₂) * (a₂ + b₂) := by
+    rw [sum_sq_gap a₁ b₁ ho1, sum_sq_gap a₂ b₂ ho2, hgap, hprodeq]
+  have hsum : a₁ + b₁ = a₂ + b₂ := by
+    rcases Nat.le_total (a₁ + b₁) (a₂ + b₂) with hle | hge
+    · exact sq_inj_le hle hsumsq
+    · exact (sq_inj_le hge hsumsq.symm).symm
+  -- (a+b)+(b-a) = b+b
+  have e1 : (a₁ + b₁) + (b₁ - a₁) = b₁ + b₁ := by
+    rw [Nat.add_comm a₁ b₁, Nat.add_assoc, E213.Tactic.NatHelper.add_sub_of_le ho1]
+  have e2 : (a₂ + b₂) + (b₂ - a₂) = b₂ + b₂ := by
+    rw [Nat.add_comm a₂ b₂, Nat.add_assoc, E213.Tactic.NatHelper.add_sub_of_le ho2]
+  have hbb : b₁ + b₁ = b₂ + b₂ := by rw [← e1, ← e2, hsum, hgap]
+  have hb : b₁ = b₂ := by
+    have h2 : 2 * b₁ = 2 * b₂ := by rw [Nat.two_mul, Nat.two_mul]; exact hbb
+    exact Nat.eq_of_mul_eq_mul_left (by decide) h2
+  have ha : a₁ = a₂ := by
+    rw [hb] at hsum
+    exact E213.Tactic.NatHelper.add_right_cancel_pure hsum
+  exact ⟨ha, hb⟩
+
 /-- **The down-move strictly decreases the maximum.**  `c' = 3ab − c < c` under `1 ≤ a ≤ b`,
     `b < c`.  Immediate from `c' ≤ b < c`.  The well-foundedness of Markov descent. -/
 theorem markov_partner_lt_max (a b c : Nat) (h : markovEq a b c)
