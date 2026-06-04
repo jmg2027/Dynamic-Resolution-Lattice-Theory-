@@ -213,4 +213,13 @@ theorem split_norm (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ m, m ∣ p → m = 1 ∨
     apply not_dvd_unit_im (p : Int) (⟨x, -1⟩ : ZOmega) hp1 (Or.inr rfl)
     exact ⟨e.conj * m, by rw [hm, hd_eq, mul_assoc]⟩
 
+/-- ★★★★ **The Eisenstein split, form level.**  `p` prime, `p ∣ x²+x+1`, `¬(p:ℤ)∣1` ⟹
+    `p = a² − ab + b²` for some integers `a, b` (the real-part/imaginary-part of the norm-`p`
+    element).  The disc-`−3` Fermat representation, given the primitive-cube-root input. -/
+theorem split_form (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ m, m ∣ p → m = 1 ∨ m = p)
+    (hp1 : ¬ ((p : Int) ∣ (1 : Int))) (x : Int) (hx : (p : Int) ∣ (x * x + x + 1)) :
+    ∃ a b : Int, (p : Int) = a * a - a * b + b * b := by
+  obtain ⟨d, hd⟩ := split_norm p hp2 hpr hp1 x hx
+  exact ⟨d.re, d.im, hd.symm⟩
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
