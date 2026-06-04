@@ -267,6 +267,27 @@ the *period value* stays open, exactly as G168 (both branches) recorded.  This i
 falsifier doing its work: the residue reproduces the disc-`−3` character fingerprint while
 testable, and the transcendental value is honestly marked not-yet-reached.
 
+## The local splitting of the period's L-function (`EisensteinSplitting`, 5 PURE)
+
+Completes the χ₋₃ arithmetic from the *value-representability* side.  The period's Epstein
+zeta `Σ' 1/(a²+ab+b²)^s = 6 ζ L(·,χ₋₃)` has an Euler product whose local factor at `p` is
+the splitting of `p` in `ℤ[ω]`, indexed by `χ₋₃(p) = p mod 3`:
+
+  - **split** `p ≡ 1`: `eisForm 3 1 = 7`, `eisForm 4 1 = 13` — `p = N(π)`, a form value;
+  - **ramified** `p = 3`: `N(1−ω) = 3` and `(1−ω)² = −3ω` (`eisenstein_ramified_three`) —
+    `(3) = (1−ω)²·unit`, the conductor of χ₋₃;
+  - **inert** `p ≡ 2`: `2` not a value (`eisenstein_inert_two`, from the character).
+
+Glued by ★★★ `eisForm_composition` — the disc-`−3` **Brahmagupta–Fibonacci identity**
+`(a²−ab+b²)(c²−cd+d²) = E²−EF+F²`, `E=ac−bd`, `F=ad+bc−bd` (the `ℤ[ω]` multiplication law,
+∅-axiom `ring_intZ`): the Loeschian numbers are a multiplicative monoid — the norm-growth
+multiplicativity governing convergence.
+
+**Wall**: the *split converse* (every `p≡1 mod 3` is a value, not just `7,13,…`) needs
+quadratic reciprocity for `−3` + Euclidean descent in `ℤ[ω]` — the disc-`−3` Fermat
+theorem, out of reflection-prover reach.  Multiplicativity, ramification, and the inert
+obstruction are pinned; the split-existence and the period value stay open.
+
 ## One-line summary
 
 The `W = d`/det-one references are the **real-quadratic (disc > 0, golden, infinite

@@ -33,6 +33,13 @@ These are the **first non-trivial witnesses** for the
     `ZOmegaQuadOrderDist.lean`  — quadruple stage
   - `ZOmegaOct.lean`,
     `ZOmegaOctOrderDist.lean`   — octuple stage
+  - `EisensteinSignature.lean` / `ParabolicSignature.lean` — the disc `−3` / `0` / `+5`
+    signature trichotomy (positive-definite / degenerate / indefinite → curve / cusp / line)
+  - `EisensteinCrossDet.lean` / `EisensteinCompletion.lean` / `GaussianCrossDet.lean` —
+    the ℤ[ω]- and ℤ[i]-convergent cross-determinant, its 6- and 4-unit floor rotation
+  - `EisensteinSplitting.lean` — the local splitting of the Eisenstein period's L-function:
+    Brahmagupta multiplicativity (`eisForm_composition`), ramification at 3, split/inert
+    witnesses, the χ₋₃ Euler-factor trichotomy
 
 ### ZSqrt = ℤ[√D] (parametric family)
   - `ZSqrt.lean`              — generic carrier
