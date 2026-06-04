@@ -19,7 +19,7 @@ open E213.Lib.Math.Linalg213.PermClosure
 open E213.Lib.Math.Linalg213.DetN (det det_congr)
 open E213.Lib.Math.Linalg213.Laplace
   (det_setRow_add det_setRow_smul det_rows_eq_ne leibDet_eq_det sumZ_append map_append')
-open E213.Lib.Math.Linalg213.CayleyHamilton (sumZ_singleton sumZ_map_zero mul_zero')
+open E213.Lib.Math.Linalg213.CayleyHamilton (sumZ_singleton sumZ_map_zero mul_zero' add_zero')
 
 /-- Peel the top index of a `sumZ` over `iota (K+1)`. -/
 theorem sumZ_iota_succ (g : Nat → Int) (K : Nat) :
@@ -80,5 +80,20 @@ theorem det_row_combo_zero (n i : Nat) (hi : i < n) (K : Nat) (c : Nat → Int) 
                 (fun cc => by rw [setRow_at, setRow_off i (M (idx a)) M (hidx_ne a (lt_of_mem_iota ha))]),
               mul_zero']),
       sumZ_map_zero]
+
+/-- ★★ **Elementary row operation**: adding a multiple of row `j` to row `i` (`i ≠ j`) leaves the
+    determinant unchanged — the basis of Gaussian elimination.  `det (setRow i (Mᵢ + a·Mⱼ) M) = det M`. -/
+theorem det_addRowMul (n i j : Nat) (hi : i < n) (hj : j < n) (hij : i ≠ j) (a : Int)
+    (M : Nat → Nat → Int) :
+    det n (setRow i (fun c => M i c + a * M j c) M) = det n M := by
+  rw [det_setRow_add n i hi (fun c => M i c) (fun c => a * M j c) M,
+      det_setRow_smul n i hi a (fun c => M j c) M,
+      det_rows_eq_ne (setRow i (fun c => M j c) M) n i j hij hi hj
+        (fun cc => by rw [setRow_at, setRow_off i (fun c => M j c) M (fun h => hij h.symm)]),
+      mul_zero', add_zero',
+      det_congr n (fun a' cc => by
+        by_cases hai : a' = i
+        · rw [hai, setRow_at]
+        · rw [setRow_off i _ M hai])]
 
 end E213.Lib.Math.Linalg213.RowDependence

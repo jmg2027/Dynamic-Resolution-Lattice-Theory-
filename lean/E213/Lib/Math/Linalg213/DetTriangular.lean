@@ -11,9 +11,9 @@ and the `(0,0)`-minor is again lower-triangular, so the diagonal product accumul
 namespace E213.Lib.Math.Linalg213.DetTriangular
 
 open E213.Lib.Math.Linalg213.Permutation (iota)
-open E213.Lib.Math.Linalg213.PermClosure (map_map')
+open E213.Lib.Math.Linalg213.PermClosure (map_map' map_eq_of_mem)
 open E213.Lib.Math.Linalg213.DetN (det cofSum minor colShift altSign)
-open E213.Lib.Math.Linalg213.CayleyHamilton (add_zero' one_mul' mul_zero')
+open E213.Lib.Math.Linalg213.CayleyHamilton (add_zero' one_mul' mul_zero' matId)
 
 /-- Product of an `Int` list. -/
 def prodZ : List Int → Int
@@ -80,5 +80,22 @@ theorem det_lower_triangular : ∀ (n : Nat) (M : Nat → Nat → Int), (∀ i j
     intro a _
     show minor M 0 a a = M (a + 1) (a + 1)
     rw [show minor M 0 a a = M (a + 1) (colShift 0 a) from rfl, show colShift 0 a = a + 1 from rfl]
+
+/-- `prodZ` of a constant-`1` map is `1`. -/
+theorem prodZ_map_one {α : Type} : ∀ (L : List α), prodZ (L.map (fun _ => (1 : Int))) = 1
+  | []     => rfl
+  | _ :: l => by
+    show (1 : Int) * prodZ (l.map (fun _ => (1 : Int))) = 1
+    rw [prodZ_map_one l, one_mul']
+
+/-- ★ **The identity matrix has determinant `1`** (it is lower-triangular with unit diagonal). -/
+theorem det_matId (n : Nat) : det n matId = 1 := by
+  rw [det_lower_triangular n matId (fun i j hij => by
+        show (if i = j then (1 : Int) else 0) = 0
+        rw [if_neg (Nat.ne_of_lt hij)]),
+      map_eq_of_mem (fun i => matId i i) (fun _ => (1 : Int)) (fun i _ => by
+        show (if i = i then (1 : Int) else 0) = 1
+        rw [if_pos rfl]),
+      prodZ_map_one]
 
 end E213.Lib.Math.Linalg213.DetTriangular
