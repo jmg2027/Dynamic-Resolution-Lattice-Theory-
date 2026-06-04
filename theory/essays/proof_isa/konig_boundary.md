@@ -79,6 +79,29 @@ residue cannot internalise.  Together they bound the instruction set from both
 sides: complete for the constructive, and stalling at precisely the
 non-constructive `DECIDE`, which is the exterior by definition.
 
+## The interior, concretely — it is not a claim, it is the corpus
+
+"Complete for the constructive interior" is *witnessed*, not asserted: the
+repo's PURE corpus (`STRICT_ZERO_AXIOM.md`: **1145 PURE / 0 real DIRTY**;
+`catalogs/math-theorems.md`) already compiles, ∅-axiom, an entire breadth that
+these three instruction-compositions exemplify —
+
+  - **number systems rebuilt**: `ℂ` (`NumberSystems/Complex`), `p`-adic
+    (`Padic`, 27 files), quaternions/octonions (`CayleyDickson`, 101 files),
+    hyperreals (`Hyper`), `Real213` + the signed cut;
+  - **a real-analysis course**: Cauchy completeness (`Analysis/Cauchy`, 65
+    files), differentiation, integration + FTC (`Integration`, `ClassicCalc`,
+    `FluxMVT`), measure, `modulus`, multivariable, ODE, series;
+  - **algebra / topology / number theory**: `Group`, `Linalg213`,
+    `Polynomial213`, cohomology cup / Steenrod / Massey (`Cohomology`, 299
+    files), geometry, combinatorics, probability.
+
+Every one of these closed ∅-axiom — the residue reaching domain after domain
+(`seed/AXIOM/07_primacy.md` §7.1).  König's lemma is exactly the first wall that
+corpus does **not** pass through: not for lack of a domain, but because the move
+it needs is the exterior.  That is the boundary, drawn against a fully-mapped
+interior.
+
 ## Witnesses
 
   - `lean/E213/Lib/Math/Combinatorics/KonigConditional.lean` —

@@ -60,3 +60,10 @@ onto READ ∘ SEPARATE), evidence the set is complete *for constructive proofs*.
 non-recursive predicate, which is the exterior by definition, not a ninth move.
 Together they bound the instruction set from both sides: complete for the
 constructive interior, stalling precisely at the non-constructive `DECIDE`.
+
+The "constructive interior" is concrete — the repo's **1145 PURE / 0 real
+DIRTY** corpus (`STRICT_ZERO_AXIOM.md`, `catalogs/math-theorems.md`): number
+systems (`ℂ`, `p`-adic, octonions, hyperreals, `Real213`), a real-analysis
+course (Cauchy completeness, differentiation, integration + FTC, measure,
+modulus, multivariable, ODE, series), algebra / cohomology / number theory — all
+∅-axiom.  These three compositions exemplify that interior; König bounds it.
