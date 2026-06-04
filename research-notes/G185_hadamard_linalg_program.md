@@ -416,3 +416,43 @@ identity over `PolyZ` by **evaluation + uniqueness**, transporting the Int ident
 
 The matrix-ring (§1–§5) + `PolyZ` are banked and route-independent; the gate is now step 2
 (polynomial uniqueness) which itself **reuses the Int adjugate identity** (Vandermonde route).
+
+## Update — poly-det + characteristic polynomial banked (PolyDet 11 PURE)
+
+`Linalg213/PolyDet.lean` (11 PURE) — the polynomial determinant and the characteristic
+polynomial, **reusing the `Int` determinant via evaluation** (no cofactor/adjugate re-derivation
+over `PolyZ`):
+- `pdet n A` (row-0 cofactor recursion over `PolyZ`-entried `A`); ★★ `eval_pdet` —
+  `eval (pdet n A) x = det n (evalMat A x)` (poly-det evaluated = Int det of evaluated matrix).
+- `charMat M = X·I − M`, `charPoly M N = pdet N (charMat M)`; ★ `eval_charPoly` —
+  `eval (charPoly M N) x = det N (x·I − M)` for every integer `x`.  **The characteristic
+  polynomial now exists as an actual integer-coefficient list with the right values.**
+
+### The remaining gate, precisely: polynomial uniqueness (then telescoping)
+
+Everything downstream needs **`eval`-equal ⟹ coefficient-equal** to transport the `Int` adjugate
+identity (`Laplace.matMul_adj_diag/offdiag`, holds for every integer `x` at `A = xI−M`) into the
+`PolyZ` identity `charMat · padj = χ • I`, whose coefficient-comparison telescopes to `χ(M)=0`.
+
+**Chosen route — the factor theorem + root bound (constructive, no Vandermonde det):**
+1. `synth p r : PolyZ` (synthetic-division quotient, low-to-high) with
+   `eval p x = eval p r + (x − r) * eval (synth p r) x` (proven by Horner induction; the recursion
+   `synth (a::p') r = (eval p' r) :: synth p' r`).  ⚠ `synth` preserves `length` (trailing `0`):
+   use `eval`-ignores-trailing-zero, or bound the *effective* degree, so the root-count induction
+   strictly decreases.
+2. `roots_bound` : `length p ≤ L → (p vanishes at L distinct integer nodes) → ∀x, eval p x = 0`,
+   by induction on `L`: factor at `r₀` (step 1), the quotient vanishes at the remaining `L`−1 nodes
+   (ℤ integral domain `Int213.mul_eq_zero`, nodes distinct), recurse.
+3. `coeff_unique` : `(∀x, eval p x = eval q x) → ∀k, coeff p k = coeff q k` — apply `roots_bound`
+   to `addP p (negP q)` over `length`+1 nodes `0,1,…`.  (`eval_addP`/`eval_negP` already give
+   `eval (p − q) x = 0`.)
+4. **PolyZ adjugate** `padj := poly-adj charMat` (an `adj` mirrored over `PolyZ`, or via
+   `coeff`-of-`pdet`-of-minors); identity `charMat · padj = χ • polyId` by `eval`-at-all-`x`
+   (Int adjugate + `eval_pdet`) + `coeff_unique`.
+5. **telescoping**: `B_k := coeff-matrix k of padj`, `c_k := coeff χ k`; relations `−M B_0 = c_0 I`,
+   `B_{k−1} − M B_k = c_k I`, `B_{N−1} = I`; index-shift ⟹ `χ(M) = Σ_k c_k M^k = 0` — consumes the
+   §4/§5 matrix-ring laws (`matMul_addL`, `matMul_matSumZ_*`, `matPow`).  ⟹ ★★★ integer CH.
+6. **§7 Kronecker `M`** + first-component extraction ⟹ `cfiniteZ_mul` (`cfiniteZ_of_shiftRec`).
+
+Banked this session (route-independent, all PURE): the matrix ring (`CayleyHamilton` 25),
+`PolyZ` (16), `PolyDet`/`charPoly` (11).  **Next concrete unit: step 1–3 (polynomial uniqueness).**

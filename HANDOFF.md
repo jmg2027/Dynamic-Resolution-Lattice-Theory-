@@ -1,45 +1,51 @@
-# Session Handoff — 2026-06-03 (∅-axiom determinant via antisymmetrization)
+# Session Handoff — 2026-06-04 (integer Cayley–Hamilton: matrix ring + char poly banked)
 
 ## Branch
-`claude/goal-g183-CxU4X` — `origin/main` (invert-universal-property + concurrent threads) merged
-in.  Full `cd lean && lake build` clean; every new theorem ∅-axiom (`tools/scan_axioms.py` →
-`N pure / 0 dirty`, run from repo root).
+`claude/goal-g183-CxU4X` (merged to `main` earlier; develop here).  Full `cd lean && lake build`
+clean; every new theorem ∅-axiom (`tools/scan_axioms.py` → `N pure / 0 dirty`, from repo root).
 
-## Headline this session: a complete ∅-axiom determinant
+## Headline this session: the matrix ring + the characteristic polynomial
 
-Built the Leibniz determinant and **all its defining properties** via antisymmetrization — the
-natural home the determinant essay predicted (`theory/essays/determinant_as_quotient_characteristic.md`).
-No `funext`/`propext`/`Quot.sound`/`Classical`/Mathlib.
+Continuing **Laplace → CH → cfiniteZ_mul** (`research-notes/G185_hadamard_linalg_program.md`),
+with the adjugate identity `M·adj M = det M·I` (`Laplace`, 53 PURE) already in hand, built the
+infrastructure the integer Cayley–Hamilton telescoping needs.  No `funext`/`propext`/`Quot.sound`/
+`Classical`/Mathlib.
 
-- **`Linalg213/Permutation` (33 PURE)** — `LPerm`, `psign` (inversion sign), `swapAt`, the
-  Leibniz determinant `leibDet n M = Σ_σ sign(σ)·Πᵢ M i (σ i)`, the per-term row-swap identity.
-- **`Linalg213/PermClosure` (76 PURE)** — the symmetric-group machinery, ∅-axiom from scratch
-  (core's `List.mem_*`/`length_append`/`map_map`/`range`/`Nodup` are propext/Quot-tainted):
-  - clean `List` substrate (`mem_*`, `length_append'`, `map_map'`, `Nodup := ∀a, cnt a L ≤ 1`).
-  - soundness + completeness (`q ∈ permsOf xs ⟺ LPerm q xs`), `nodup_permsOf` (via a `removeFirst`
-    retraction), the count engine `lperm_of_cnt_eq`, and ★ `perms_swap_closed` (enumeration closed
-    under `swapAt`, via a clean self-defined `iota`).
-  - ★ **alternating**: `leibDet_rowSwap` (adjacent row swap negates), `leibDet_eq_zero_of_rows_eq`
-    / `leibDet_eq_zero_of_two_rows_eq` / `leibDet_rows_eq_ne` (equal rows ⟹ 0, any positions).
-  - ★ **multilinearity**: `leibDet_setRow_add` / `leibDet_setRow_smul` (linear in each row).
-  - ★ **degeneracy**: `leibDet_proportional_rows`, `leibDet_zero_row`.
-- **`Linalg213/FibCassiniDet` (3 PURE)** — `det 2 (Fibonacci Casoratian) = (−1)ⁿ⁺¹` (the unit end).
-- **`Linalg213/Laplace` (4 PURE, started)** — the minor relabeling `unshift` = inverse of
-  `colShift` (cofactor-expansion foundation).
+- **`Linalg213/CayleyHamilton` (25 PURE)** — the **matrix ring** over `Nat → Nat → Int`:
+  - §1 Fubini `sumZ_swap`; §2 ★★ `matMul_assoc`.
+  - §3 `matId`/`matAdd`/`matNeg`/`matScalar` + Kronecker-delta sums + `matMul_id_left/right`.
+  - §4 distributivity (`matMul_addL/addR`, `matMul_scalarL/negL`) + `matPow`.
+  - §5 matrix sums `matSumZ` + `matMul_matSumZ_left/right` (matMul distributes over a matrix sum).
+- **`Lib/Math/PolyZ` (16 PURE)** — **integer-coefficient polynomials** (`List Int`, Horner `eval`,
+  `addP`/`negP`/`scaleP`/`shiftP`/`mulP`/`coeff`) with full **eval soundness** (`eval_mulP` etc.);
+  the `ℕ`-valued `Polynomial213` cannot carry the signed `XI−M`.
+- **`Linalg213/PolyDet` (11 PURE)** — the **polynomial determinant** `pdet` + ★★ `eval_pdet`
+  (`eval (pdet n A) x = det n (evalMat A x)` — poly-det evaluated = Int det of the evaluated
+  matrix), and the **characteristic polynomial** `charPoly M N = pdet N (X·I − M)` with ★
+  `eval_charPoly` (`= det N (x·I − M)` for every `x`).  The char poly is now an actual integer
+  polynomial; identities about it are proven by evaluation, **reusing the `Int` determinant theory**
+  instead of re-deriving cofactor/adjugate over `PolyZ`.
 
-## Open path (in progress) — `research-notes/G185_hadamard_linalg_program.md`
+## Open path — the remaining gate (precise plan in `research-notes/G185`, last two § Update blocks)
 
-**Laplace → CH → cfiniteZ_mul** (chosen; toward the general C-finite Hadamard product):
-§1 relabeling ✅ → §2 row-0 cofactor expansion `leibDet (n+1) M = Σⱼ altSign j · M 0 j ·
-leibDet n (minor M j)` (the heaviest: `perms (n+1)` ↔ `⋃ⱼ perms n` reindex; sign via
-`psign_cons`, product via `colShift_unshift`) → §3 any-row expansion → §4 adjugate
-(`M·adj = det·I`; off-diagonal = `leibDet_rows_eq_ne` ✅) → §5 integer Cayley–Hamilton →
-§6 Kronecker `M` → `cfiniteZ_mul`.
+The single gate is **polynomial uniqueness** (`eval`-equal ⟹ coefficient-equal), which transports
+the `Int` adjugate identity (holds for every `x` at `A = xI−M`) into the `PolyZ` identity
+`charMat · padj = χ • I`, whose coefficient comparison telescopes to `χ(M)=0`.  Concrete next units:
 
-## Other live threads (earlier this branch)
-- C-finite orbit dimension promoted to `theory/math/analysis/cfinite_orbit_dimension.md`
-  (`Cauchy/OrbitDimension`, `Cauchy/CFiniteRing`).
-- Number-tower founding (`Lens/Number/`, `book/`) merged from main.
+1. `synth p r` (synthetic-division quotient) with `eval p x = eval p r + (x−r)·eval (synth p r) x`
+   (Horner induction; mind the trailing-`0` length, use eval-ignores-trailing-zero).
+2. `roots_bound` (`length p ≤ L` + `L` distinct integer roots ⟹ `eval p ≡ 0`), induction on `L`,
+   factoring at one root (ℤ integral domain `Int213.mul_eq_zero`).
+3. `coeff_unique` (`∀x eval p x = eval q x → ∀k coeff p k = coeff q k`) via `roots_bound` on `p−q`.
+4. PolyZ adjugate `padj` + identity `charMat·padj = χ•I` by eval-at-all-`x` + `coeff_unique`.
+5. telescoping `χ(M)=Σ c_k M^k = 0` (consumes §4/§5 ring laws) ⟹ ★★★ integer Cayley–Hamilton.
+6. §7 Kronecker `M` + first-component extraction ⟹ `cfiniteZ_mul` (`cfiniteZ_of_shiftRec`).
+
+## Other live threads
+- C-finite orbit dimension: `theory/math/analysis/cfinite_orbit_dimension.md`
+  (`Cauchy/OrbitDimension`, `Cauchy/CFiniteRing`); `cfiniteZ_add`/`_sub` done, `cfiniteZ_mul` is
+  the open ring operation this program closes.
+- Number-tower founding (`Lens/Number/`, `book/`) on `main`.
 
 ## DRLT Validation Standard
 Still the repo's stated real target (untouched): ppb-ppm precision theorem and/or a strict
