@@ -82,8 +82,7 @@ multi-directional** expression (degree × multiplicity × face,
 none (here) *and* the only thing that fits (there) — and the two poles share one unit
 `1 = NS − NT = det P` (`CupLadderResidueUnit.cup_ladder_graduation_is_residue_unit`
 wires the cohomology-degree graduation to that unit).  The full cross-repo map of
-expression modes is an **open** frontier (`research-notes/frontiers/residue_expression_atlas.md`),
-not closed by this chapter.
+expression modes is an **open** frontier, not closed by this chapter.
 
 ## Why this is the whole answer *for the escape family*
 

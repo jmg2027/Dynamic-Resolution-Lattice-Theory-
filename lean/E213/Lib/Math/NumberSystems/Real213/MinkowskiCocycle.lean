@@ -19,9 +19,8 @@ structure is **unimodular** (`det = 1`, the residue unit `NS − NT`).  This is 
 shadow of the Eichler–Shimura picture: a 1-cocycle on the modular tree valued in a lattice module,
 with the cusp at `∞` the right Farey endpoint.  Honest scope: the cocycle is built **on the
 Stern-Brocot tree** (the `L/R` sub-semigroup of `SL(2,ℤ)`); the extension to a full `SL(2,ℤ)`
-1-cocycle and the period-polynomial / `H^1(SL(2,ℤ), V)` identification are open
-(`research-notes/frontiers/residue_expression_atlas.md`).  All ∅-axiom (composes existing PURE
-Frobenius identities).
+1-cocycle and the period-polynomial / `H^1(SL(2,ℤ), V)` identification are open frontiers.  All
+∅-axiom (composes existing PURE Frobenius identities).
 -/
 
 namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiCocycle

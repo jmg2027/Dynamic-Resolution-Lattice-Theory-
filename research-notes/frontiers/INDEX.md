@@ -138,6 +138,17 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `residue_expression_atlas` — **the residue is expressed multi-directionally**, not by one
+  mechanism (Cantor diagonal).  Cross-repo survey of the expression modes (non-surjection /
+  fixed-point / forcing / graded cohomology) + the Minkowski-`?`-as-modular-cocycle arc.  Open
+  side: the `c`-axis / face-axis unit wires; the finite(`d=5`)↔infinite(νF) regime synthesis; and
+  (period sub-thread) the single irreducible **analytic atom** — the period value of a modular form
+  over one unimodular symbol (integration, the period-relation generators, the slash action /
+  weight-4 period polynomial `1−X²`, and the Manin contour decomposition all now ∅-axiom).  Closure
+  records: `theory/essays/analysis/minkowski_as_modular_cocycle.md`,
+  `theory/essays/foundations/reached_by_none.md`, and `Real213/{MinkowskiCocycle,MinkowskiGoldenExtremal,
+  MinkowskiPeriodIntegral,MinkowskiHigherWeightPeriod,MinkowskiPeriodRelations,MinkowskiPeriodPolynomial,
+  MinkowskiModularSymbol}` + `CupLadderResidueUnit`.
 - `odometer_unit_synthesis` — post-closure synthesis of the residue-unit `+1`
   dynamics arc: patterns (single-primitive-as-full-dynamics; the ∅-purity
   pure-`Nat` trap catalog; carry-explicit over modular) + next seeds (promote
