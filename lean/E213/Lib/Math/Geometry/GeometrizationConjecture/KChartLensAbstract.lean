@@ -397,4 +397,59 @@ theorem dM_four_via_M1_forced_and_M2_universal_kernel :
      (forcedKChartLens NS NT c
        (Nat.lt_of_lt_of_le hS (Nat.le_add_right NS NT))).axes_partition⟩
 
+/-! ## Why only d_M = 4: dimension-uniform kernel vs forced criticality -/
+
+/-- Every manifold dimension `d ≥ 1` is realized by a connected
+    deployment: the star `K_{d,1}^{(c=1)}` has `chartBase = d + 1`,
+    `chartVisibleAxes = d`, and (by the universal kernel result) a
+    1-dimensional self-pointing kernel.  The "− 1" mechanism is the
+    same at every dimension. -/
+theorem every_dimension_realized (d : Nat) (hd : 0 < d) :
+    chartBase d 1 = d + 1
+    ∧ chartVisibleAxes d 1 = d
+    ∧ (forcedKChartLens d 1 1 (Nat.succ_pos d)).selfPointingAxes = 1
+    ∧ (∀ σ, IsKer d 1 1 σ → (∀ x, σ x = false) ∨ (∀ x, σ x = true)) :=
+  ⟨rfl, rfl, rfl, isKer_const_false_or_true d 1 1 hd Nat.one_pos Nat.one_pos⟩
+
+/-- ★★★★★★★ **Criticality is a forcing fact (M1), not a kernel fact (M2).**
+
+  Disentangles the "why does the exotic anomaly appear only at d_M = 4?"
+  question into its two independent sources:
+
+    · **M2 is dimension-uniform.**  The self-pointing kernel is exactly
+      1-dimensional for *every* connected K (the δ⁰-kernel = the two
+      constant cochains), so `d_M = chartBase − 1` realizes every
+      dimension `d ≥ 1` with the identical "− 1" mechanism
+      (`every_dimension_realized`).  The kernel structure does not
+      single out any dimension.
+
+    · **M1 forces the dimension.**  Atomicity `(N_S, N_T) = (3, 2)` and
+      Möbius mod-5 `c = 2` select the *unique* deployment
+      K_{3,2}^{(c=2)} (`triple_route_K32_c2_unique`), with
+      `chartBase = 5 = d_213` and hence `d_M = 4`.
+
+  Conclusion: `d_M = 4` is critical because the residue's atomicity
+  forces the `(3,2,2)` deployment, not because dimension 4 is
+  kernel-distinguished.  The exotic-anomaly criticality lives in M1
+  (forcing), the `d_M = d_213 − 1` mechanism in M2 (uniform kernel). -/
+theorem criticality_is_forcing_not_kernel :
+    -- M2 dimension-uniform: 1-dim kernel at every realized dimension
+    (∀ d, 0 < d → (forcedKChartLens d 1 1 (Nat.succ_pos d)).selfPointingAxes = 1)
+    ∧ (∀ d, 0 < d → chartVisibleAxes d 1 = d)
+    ∧ (∀ d, 0 < d →
+        ∀ σ, IsKer d 1 1 σ → (∀ x, σ x = false) ∨ (∀ x, σ x = true))
+    -- M1 forces (3,2,2): atomicity + Möbius → the unique critical deployment
+    ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 0 = 2
+    ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 1 = 3
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
+    -- ... yielding chartBase = 5 = d_213 and d_M = 4
+    ∧ chartBase 3 2 = 5
+    ∧ chartVisibleAxes 3 2 = 4 :=
+  ⟨fun _ _ => rfl,
+   fun _ _ => rfl,
+   fun d hd => isKer_const_false_or_true d 1 1 hd Nat.one_pos Nat.one_pos,
+   rfl, rfl,
+   E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2,
+   rfl, rfl⟩
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz

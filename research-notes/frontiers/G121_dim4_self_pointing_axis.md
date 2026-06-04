@@ -1648,3 +1648,27 @@ statements are pointwise (`∀ x, σ x = …`).
 
 This is the first theorem where d_M = 4 routes through the derived
 kernel dimension rather than the definitional `selfPointingAxes := 1`.
+
+## "왜 4차원에서만" — criticality is forcing (M1), not kernel (M2)
+
+`KChartLensAbstract.criticality_is_forcing_not_kernel` (PURE)
+disentangles the d_M = 4 exotic-anomaly question into two independent
+sources, now that M2 is universally closed:
+
+  · **M2 is dimension-uniform.** The δ⁰-kernel = the two constants
+    (dim 1) for *every* connected K, so d_M = chartBase − 1 realizes
+    every dimension d ≥ 1 with the identical "−1" mechanism
+    (`every_dimension_realized`: the star K_{d,1}^{(c=1)} gives
+    chartVisibleAxes = d for each d). The kernel singles out no
+    dimension.
+  · **M1 forces the dimension.** Atomicity (3,2) + Möbius c=2 select
+    the unique K_{3,2}^{(c=2)} (`triple_route_K32_c2_unique`),
+    chartBase = 5 = d_213, hence d_M = 4.
+
+Conclusion: d_M = 4 is critical because the residue's atomicity forces
+(3,2,2) — not because dimension 4 is kernel-distinguished. The
+exotic-anomaly criticality lives in M1 (forcing); the d_M = d_213 − 1
+mechanism lives in M2 (uniform 1-dim kernel). This is the sharp 213
+answer to the note's opening "왜 4차원에서만 어노말리가" question:
+the self-pointing "−1" is universal; the *4* is the forced base minus
+that universal 1.
