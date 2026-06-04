@@ -61,16 +61,17 @@ theorem not_isInjectiveLens_constLens {α : Type} (e : α) :
     hinj (by rw [constLens_view, constLens_view])
   exact absurd hab (by decide)
 
-/-- ★★★★★ **Injectivity is NOT upward-closed.**  A *finer* injective Lens can refine a *coarser*
+/-- ★★★★ **Injectivity is NOT upward-closed.**  A *finer* injective Lens can refine a *coarser*
     non-injective one: `idLens` (injective, the bottom) refines `constLens e` (not injective).  So
     while injectivity is inherited *down* the refinement order (`isInjectiveLens_of_refines`), it is
     *not* inherited *up* — the injective Lenses form a proper down-set (order ideal) with least element
     `idLens`, not an up-set.
 
-    This is the exact structural shape of the slope/size wall (`SternBrocotMarkov` §32): the slope
-    reading is injective and refines the coarser size reading, but the size reading's injectivity (the
-    kernel `H`) is *not forced* — because injectivity does not propagate up the order.  `H` asks whether
-    the size coarsening happens to stay injective; the foundation says nothing forces it to. -/
+    This is the order-theoretic *analogue* of the slope/size situation (`SternBrocotMarkov` §32): a
+    finer injective reading refining a coarser one whose injectivity is not forced.  The analogy is not
+    a theorem about Markov: the size reading is provably **not** a Raw-`Lens` (`markovGen_noncommutative`
+    + `Lens.DirectionFree`), so it does not literally live in this lattice — `H` is *analogous to*, not
+    *identified with*, "an injective coarsening", and this lemma neither proves nor bounds `H`. -/
 theorem injectivity_not_upward_closed {α : Type} (e : α) :
     idLens.refines (constLens e) ∧ IsInjectiveLens idLens ∧ ¬ IsInjectiveLens (constLens e) :=
   ⟨idLens_refines_all (constLens e), isInjectiveLens_idLens, not_isInjectiveLens_constLens e⟩

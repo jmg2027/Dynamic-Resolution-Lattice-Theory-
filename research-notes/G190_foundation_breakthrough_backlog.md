@@ -61,10 +61,13 @@ The slope-vs-size wall is exactly the seed's open "two readings, one injective, 
   join (`Lattice/Join.lean`, the parity/depth incomparable instances) — the abstract shape of "two
   readings disagree, the join measures it," which is the slope/size relation (B.3).
 
-So `H` is not an isolated number-theory accident: it is the **first concrete, fully-stated instance of
-the seed's open injectivity-hierarchy / no-incomparability metatheorem** — the framework asking, in a
-case where one reading is provably injective, whether the other is.  Closing `H` would be one data
-point for (B.1)–(B.2); a general `IsInjectiveLens` calculus would be the metatheorem above it.
+So `H` is *analogous to* the seed's open injectivity-hierarchy question — the framework asking, in a
+case where one reading is injective, whether the other is.  **Caveat (load-bearing).**  This is an
+analogy, not an identification: the size reading is provably **not** a Raw-`Lens` (§D.2–3 below,
+`markovGen_noncommutative`), so it does not literally live in the `IsInjectiveLens` lattice; and the
+path-level `Function.Injective markovNum` is *not* formally tied to `MarkovMaxUnique` (that needs
+`reverse_bridge`, unformalized here).  So "`H` = an injective coarsening" is a named analogy, and the
+order calculus below neither proves nor bounds `H`.
 
 ## D. Landed this round — the foundation made concrete (in the right order)
 
@@ -100,32 +103,38 @@ Two `∅`-axiom installments, foundation first:
    its concrete Markov instance: the size combine is non-symmetric, so the size reading provably escapes
    the residue.
 
-4. **`H` as a determination, mechanized** (`SternBrocotMarkov` §32, PURE).  `slope_determines_size`
-   (equal slope ⟹ equal Markov number, via `slope_path_inj`) — the finer reading determines the coarser,
-   proven.  `sizeDeterminesSlope_iff_markovNum_injective` — the *converse* (equal Markov number ⟹ equal
-   slope) is exactly `Function.Injective markovNum`, the size reading injective = `H` in path form.  So
-   the slope/size relation is one-directional: slope→size proven, size→slope = `H`.  This is the
-   "two readings, one injective, is the other?" question (B.3) made into a literal iff: slope is
-   injective and determines size; `H` asks the same of size, the coarser orientation-dependent reading.
+4. **Slope determines size; the converse is `markovNum` injectivity** (`SternBrocotMarkov` §32, PURE —
+   real Markov objects).  `slope_determines_size` (equal slope ⟹ equal Markov number, via the *real*
+   `slope_path_inj`; `markovNum = (mNode).c`, the integer node max) — a genuine theorem about the tree.
+   `sizeDeterminesSlope_iff_markovNum_injective` — the converse is exactly `Function.Injective markovNum`.
+   **Honest scope**: this iff is a *light restatement* (immediate from `slope_path_inj`), and
+   `Injective markovNum` is the *path form* — its identification with `MarkovMaxUnique` (via
+   `reverse_bridge`) is **not formalized**, so this is not proven `= H`.
 
-5. **Why `H` is not forced — injectivity is not upward-closed** (`Lens/Lattice/Injectivity.lean`,
-   `injectivity_not_upward_closed`, PURE).  Injectivity is inherited *down* the refinement order
-   (`isInjectiveLens_of_refines`) but *not up*: `idLens` (injective, the bottom) refines `constLens`
-   (not injective).  So the injective Lenses form a proper *down-set* (order ideal), least element
-   `idLens`.  This is the exact structural reason `H` is open: slope (injective) refines the coarser
-   size reading (§32), but injectivity does not propagate up the order, so size's injectivity (`H`) is
-   not forced — the foundation says nothing compels the coarsening to stay injective.  The chain
-   ①–⑤ thus *locates* `H` precisely: the injectivity of an orientation-dependent coarsening of an
-   injective residue-native reading — exactly the place the refinement order stops carrying injectivity.
+5. **Injectivity is not upward-closed — an order analogue, not a Markov theorem**
+   (`Lens/Lattice/Injectivity.lean`, `injectivity_not_upward_closed`, PURE).  Injectivity is inherited
+   *down* the refinement order (`isInjectiveLens_of_refines`) but *not up*: `idLens` refines `constLens`.
+   So the injective Lenses form a proper *down-set*, least element `idLens`.  **Honest scope**: this is
+   the order-theoretic *analogue* of the slope/size situation, **not** a statement about `H`.  The size
+   reading is provably **not** a Raw-`Lens` (item 3), so it does not literally live in this lattice;
+   `H` is *analogous to* "an injective coarsening", and this lemma neither proves nor bounds it.  The
+   chain ①–⑥ thus builds a real abstract injectivity calculus and two real Markov restatements (§31–§32)
+   whose *connection* to the conjecture is a named analogy — it does not explain why `H` is hard.
 
 ## Honest verdict
 
-Nothing here proves `H` or closes a frontier — it is a *map*.  Its value: (i) it surfaces a stack of
-already-`∅`-axiom tools (`equivG`, `slashNu_final`, `kernel_correspondence`, FSM-minimality) waiting for
-a problem; (ii) it transcribes the seed's own doctrinal backlog into a list of formalizable metatheorem
-targets; and (iii) it places `H` precisely inside that backlog (the injectivity-hierarchy question),
-giving any future session a foundation-level reason the Markov wall is hard, not just a local one.  The
-reframing is a naming, recorded at that status.
+Nothing here proves `H`, bounds it, or explains why it is hard.  What is real: (i) an `∅`-axiom abstract
+injectivity calculus in the Lens lattice (§D.1, ⑥) — genuine order theory; (ii) the `∅`-axiom theorem
+that residue-native readings are direction-free (§D.3, `DirectionFree`) and its concrete Markov instance
+(`markovGen_noncommutative`); (iii) two real Markov restatements (§D.4, slope→size and the `markovNum`
+injectivity iff, via the real `slope_path_inj`).  What is *not* a theorem, only a named analogy: that
+this abstract calculus *is* about `H`.  Two unformalized joints carry the analogy — `Injective markovNum`
+↔ `MarkovMaxUnique` (needs `reverse_bridge`), and the size reading living in the Raw-`Lens` lattice
+(false: it is provably not a Raw-`Lens`).  So the accurate headline is **"an abstract structure analogous
+to `H`, plus real Markov restatements"** — *not* "`H`'s position in the foundation characterised."  A
+correction in the spirit of the prior rounds: the abstract theorems stand; the claim that they locate or
+explain `H` is demoted to the analogy it is.  Closing either joint as a real theorem would be the move
+that earns the stronger headline.
 
 ### Pointers
 - frontier: `research-notes/G189_geodesic_lens_markov_frontier.md`, `§30` of `Real213/SternBrocotMarkov`

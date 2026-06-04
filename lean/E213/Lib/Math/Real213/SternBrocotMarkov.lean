@@ -2379,20 +2379,22 @@ count-style one. -/
     a commutative combine) — it is a free-monoid reading on the oriented tree. -/
 theorem markovGen_noncommutative : mul genL genR ≠ mul genR genL := by decide
 
-/-! ## §32 — slope determines size; the converse *is* `H`
+/-! ## §32 — slope determines size; the converse is `markovNum` injectivity
 
 The slope/size pair is a *one-directional determination*.  One way is proven: `slope_determines_size`
-— equal slope ⟹ equal Markov number (the finer, residue-native slope reading determines the coarser
-size reading, via `slope_path_inj`).  The converse — equal Markov number ⟹ equal slope — is exactly
-`markovNum` injectivity (`sizeDeterminesSlope_iff_markovNum_injective`), i.e. the size reading is
-injective: the open kernel `H` in path form (each Markov number from one node; corresponds to
-`MarkovMaxUnique` via `reverse_bridge`).
+— equal slope ⟹ equal Markov number, via `slope_path_inj` (real objects: `mNode`, `markovNum = (mNode).c`,
+the integer node max).  The converse — equal Markov number ⟹ equal slope — is exactly `markovNum`
+injectivity (`sizeDeterminesSlope_iff_markovNum_injective`).
 
-This is the "two readings, one injective, is the other?" shape made concrete: slope is injective
-(`slope_path_inj`) and determines size; `H` asks whether *size* — the coarser, orientation-dependent
-reading (§31) — is *also* injective.  In the `Lens` frame (`Lens/Lattice/Injectivity.lean`): a reading
-is injective iff it refines `idLens`; slope refines `idLens` and refines size; `H` = "size refines
-`idLens`", the open half. -/
+Scope, honestly.  `sizeDeterminesSlope_iff_markovNum_injective` is a *light restatement*: given
+`slope_path_inj`, "`markovNum` determines slope" and "`markovNum` is injective" are immediately
+equivalent.  And `Function.Injective markovNum` is the *path form* of the conjecture — its
+identification with `MarkovMaxUnique` (via `reverse_bridge`, paths ↔ triples) is **not formalized here**,
+so this section does not prove "= `H`"; it restates path-level `markovNum` injectivity.  The `Lens`
+injectivity framing (`Lens/Lattice/Injectivity.lean`) is by *analogy*: the size reading is provably
+**not** a Raw-`Lens` (`markovGen_noncommutative` + `Lens.DirectionFree`), so the abstract refinement
+lattice does not literally contain it.  What is `∅`-axiom here is the slope→size determination and its
+restatement; the link to the conjecture is named, not derived. -/
 
 /-- **Slope determines size**: equal slope ⟹ equal Markov number.  The finer (residue-native) reading
     determines the coarser one, directly from `slope_path_inj`. -/
@@ -2400,9 +2402,10 @@ theorem slope_determines_size (p q : List Bool)
     (h : slopeEq (mNode p) (mNode q)) : markovNum p = markovNum q := by
   rw [slope_path_inj p q h]
 
-/-- ★★★★★ **The converse is `H`**: "size determines slope" (equal Markov number ⟹ equal slope) is
-    exactly `markovNum` injectivity — the size reading injective.  Both directions via `slope_path_inj`
-    + reflexivity of `slopeEq`. -/
+/-- **The converse is `markovNum` injectivity**: "size determines slope" (equal Markov number ⟹ equal
+    slope) is exactly `Function.Injective markovNum` — both directions via `slope_path_inj` + reflexivity
+    of `slopeEq`.  A light restatement; the path form of the conjecture (its identification with
+    `MarkovMaxUnique` is not formalized here). -/
 theorem sizeDeterminesSlope_iff_markovNum_injective :
     (∀ p q : List Bool, markovNum p = markovNum q → slopeEq (mNode p) (mNode q))
       ↔ Function.Injective markovNum := by
