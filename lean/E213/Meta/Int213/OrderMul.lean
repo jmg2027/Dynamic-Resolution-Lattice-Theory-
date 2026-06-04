@@ -13,10 +13,10 @@ All zero-axiom.
 
 namespace E213.Meta.Int213.OrderMul
 
-open E213.Meta.Int213 (mul_nonneg sub_mul mul_neg mul_comm)
+open E213.Meta.Int213 (mul_nonneg sub_mul mul_neg mul_comm mul_one)
 open E213.Meta.Int213.Order
   (le_of_sub_nonneg sub_nonneg_of_le le_zero_of_nonneg nonneg_of_le_zero
-   lt_of_sub_one_nonneg zero_sub ofNat_succ_sub_one)
+   lt_of_sub_one_nonneg zero_sub ofNat_succ_sub_one le_of_lt lt_of_lt_of_le)
 
 /-- ★★ **Right-multiplication is monotone for a nonnegative factor.** -/
 theorem mul_le_mul_right_nonneg {a b : Int} (hab : a ≤ b) (c : Int) (hc : 0 ≤ c) :
@@ -67,5 +67,24 @@ theorem natAbs_cast_of_nonneg {N : Int} (h : 0 ≤ N) : (N.natAbs : Int) = N := 
   cases N with
   | ofNat n => rfl
   | negSucc n => exact absurd h (by intro hc; cases hc)
+
+/-! ## §3 — strict positivity of a product, and irreflexivity -/
+
+/-- ★★ **Product of positives is positive** (`Int.mul_pos` is `propext`-dirty). -/
+theorem mul_pos {a b : Int} (ha : 0 < a) (hb : 0 < b) : 0 < a * b := by
+  have h1a : (1 : Int) ≤ a := ha
+  have hb0 : (0 : Int) ≤ b := le_of_lt hb
+  have hble : b ≤ a * b := by
+    have hx := mul_le_mul_right_nonneg h1a b hb0
+    rwa [mul_comm 1 b, mul_one] at hx
+  exact lt_of_lt_of_le hb hble
+
+/-- ★★ **`<` is irreflexive** (`Int.lt_irrefl` is `propext`-dirty), by reducing `a < a` to
+    `(-1).NonNeg`. -/
+theorem int_lt_irrefl (a : Int) : ¬ (a < a) := by
+  intro h
+  have hnn : (a - (a + 1)).NonNeg := h
+  rw [show a - (a + 1) = -1 from by ring_intZ] at hnn
+  cases hnn
 
 end E213.Meta.Int213.OrderMul

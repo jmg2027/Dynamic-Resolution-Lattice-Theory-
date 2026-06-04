@@ -1,6 +1,8 @@
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.NatRing213
 import E213.Meta.Int213.PolyIntMTactic
+import E213.Meta.Int213.OrderMul
+import E213.Meta.Nat.PolyNatMTactic
 
 /-!
 # CenteredDivision — the centered (balanced) integer division
@@ -77,5 +79,43 @@ theorem centered_div (A : Int) (N : Nat) (hN : 0 < N) :
       have hneg : (Int.negSucc a) = -((a + 1 : Nat) : Int) := rfl
       rw [hneg, heq]; ring_intZ
     · rw [Int.natAbs_neg]; exact hb
+
+/-! ## §3 — the integer-modulus wrapper and the squared bound -/
+
+open E213.Meta.Int213.Order (le_of_lt)
+open E213.Meta.Int213.OrderMul (ofNat_le_of_le natAbs_cast_of_nonneg)
+
+/-- ★★ **Centered division by an integer modulus** `N > 0`. -/
+theorem centered_div_int (A N : Int) (hN : 0 < N) :
+    ∃ q r : Int, A = q * N + r ∧ 2 * r.natAbs ≤ N.natAbs := by
+  have hNnat : 0 < N.natAbs := by
+    cases N with
+    | ofNat n =>
+      cases n with
+      | zero => exact absurd hN (by intro hc; cases hc)
+      | succ m => exact Nat.succ_pos m
+    | negSucc n => exact absurd hN (by intro hc; cases hc)
+  have hNeq : (N.natAbs : Int) = N := natAbs_cast_of_nonneg (le_of_lt hN)
+  obtain ⟨q, r, heq, hb⟩ := centered_div A N.natAbs hNnat
+  exact ⟨q, r, by rw [← hNeq]; exact heq, hb⟩
+
+/-- ★★★ **The squared centered bound** `4(r·r) ≤ N·N` (the `covering_bound` hypothesis). -/
+theorem centered_div_int_sq (A N : Int) (hN : 0 < N) :
+    ∃ q r : Int, A = q * N + r ∧ 4 * (r * r) ≤ N * N := by
+  obtain ⟨q, r, heq, hb⟩ := centered_div_int A N hN
+  refine ⟨q, r, heq, ?_⟩
+  have hNeq : (N.natAbs : Int) = N := natAbs_cast_of_nonneg (le_of_lt hN)
+  -- Nat bound: 4*(rn*rn) ≤ Nn*Nn
+  have hNatB : 4 * (r.natAbs * r.natAbs) ≤ N.natAbs * N.natAbs := by
+    have hsq : (2 * r.natAbs) * (2 * r.natAbs) ≤ N.natAbs * N.natAbs := Nat.mul_le_mul hb hb
+    have he : (2 * r.natAbs) * (2 * r.natAbs) = 4 * (r.natAbs * r.natAbs) := by ring_nat
+    rw [he] at hsq; exact hsq
+  -- cast to ℤ and rewrite both sides
+  have hcast := ofNat_le_of_le hNatB
+  have hL : ((4 * (r.natAbs * r.natAbs) : Nat) : Int) = 4 * (r * r) := by
+    rw [Int.ofNat_mul, Int.natAbs_mul_self]; rfl
+  have hR : ((N.natAbs * N.natAbs : Nat) : Int) = N * N := Int.natAbs_mul_self
+  rw [hL, hR] at hcast
+  exact hcast
 
 end E213.Lib.Math.NumberTheory.ModArith.CenteredDivision

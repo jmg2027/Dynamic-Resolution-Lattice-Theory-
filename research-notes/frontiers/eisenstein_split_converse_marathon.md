@@ -52,6 +52,19 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
     helpers `normSq_pos` (`β≠0 → 0<‖β‖²`), `mul_conj_self` (`β·conjβ = ofInt‖β‖²`),
     `normSq_conj` (`‖conju‖²=‖u‖²`).  Note: `ring_intZ` cannot close `expr = 0` directly
     (reflection normalizer mismatch on `PE.C 0`) — route via `= q*q − q*q` + `sub_self_zero`.
+  - **Phase 1b atomic pieces (ALL DONE, PURE)** — every brick the assembly needs is built and
+    ∅-axiom: `CenteredDivision.centered_div_int` / `centered_div_int_sq` (`4r²≤N²`);
+    `EisensteinEuclidean.covering_bound`; `EisensteinDivStep.{normSq_pos, mul_conj_self,
+    normSq_conj}`; `ZOmega.{normSq_mul, conj_mul}`; `Int213.OrderMul.{mul_le_mul_*_nonneg,
+    int_sign, mul_nonpos_*, ofNat_le_of_le, natAbs_cast_of_nonneg, mul_pos, int_lt_irrefl}`.
+    Remaining is pure glue (`zomega_div_step`), blocked only on a Lean-engineering snag:
+    `ring_intZ` does not see through ZOmega `.re`/`.im` projections of `mk` (gives
+    `application type mismatch` in the reflection prover).  Two routes: (a) explicit `show`
+    with the sub/neg-unfolded component forms (`u - v = u + -v`), then `ring_intZ`; (b)
+    abstract `CommRing213 ZOmega` manipulation `ρ·conjβ = α·conjβ − γ·(β·conjβ) = α·conjβ −
+    γ·ofInt N` via `mul_conj_self` + a `sub_mul`/`mul_comm`/`mul_assoc` chain.  The math is
+    settled: `‖ρ‖²·N = rre²−rre·rim+rim²`, then `covering_bound` ⇒ `8‖ρ‖²N ≤ 6N²`, then the
+    `int_sign` contradiction (`N ≤ ‖ρ‖² ⇒ 8N² ≤ 6N²` vs `0 < 2N²` by `mul_pos`/`int_lt_irrefl`).
   - **Phase 1b-assembly (next)** — `zomega_div_step : β≠0 → ∃ γ ρ, α = βγ + ρ ∧ ‖ρ‖² < ‖β‖²`.
     Path: `centered_div_int` wrapper (β.normSq : Int>0 from `normSq_pos`); `γ = ⟨qre,qim⟩` from
     `centered_div` on `(α·conjβ).re/.im`; prove `ρ·conjβ = ⟨rre,rim⟩` (ext + ring_intZ, with
