@@ -1407,6 +1407,22 @@ theorem markov_prime_pow_unique (p k : Nat) (hp3 : 3 ≤ p)
   markov_max_unique_tree (p ^ (k + 1)) h5
     (E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.sqrtNegOneTwoRoots_prime_pow p k hp3 hpr)
 
+/-- ★★★★★ **Markov uniqueness on the even `2·pᵏ` family (∅-axiom).**  For an odd prime `p` and
+    `5 ≤ 2·p^(k+1)`, the ordered Markov triple with maximum `2·p^(k+1)` is unique.  Extends Button's
+    odd prime-power family to the **even** Markov numbers of the form `2·pᵏ` (`34 = 2·17`, `194 = 2·97`,
+    …) — the `2·pᵏ` two-roots input (`sqrtNegOneTwoRoots_two_prime_pow`, CRT recombination) fed to the
+    same Farey-monotone tree recovery. -/
+theorem markov_two_prime_pow_unique (p k : Nat) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h5 : 5 ≤ 2 * p ^ (k + 1)) :
+    MarkovMaxUnique (2 * p ^ (k + 1)) :=
+  markov_max_unique_tree (2 * p ^ (k + 1)) h5
+    (E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.sqrtNegOneTwoRoots_two_prime_pow p k hp3 hpr)
+
+/-- `MarkovMaxUnique 34` — the smallest **even** Markov number (`34 = 2·17`), the first instance of the
+    `2·pᵏ` family. -/
+theorem markovMaxUnique_34 : MarkovMaxUnique 34 :=
+  markov_max_unique_tree 34 (by decide) (by decide)
+
 /-! ## §14 — import: the Markov tree on the hyperbolic (φ) face of `SL₂`
 
   Main's `HyperbolicEllipticTrace` classifies a det-1 `2×2` matrix by `Δ = tr² − 4·det`: `Δ>0`

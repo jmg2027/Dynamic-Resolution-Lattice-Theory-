@@ -470,6 +470,16 @@ theorem sqrtNegOneTwoRoots_prime_pow (p k : Nat) (hp3 : 3 ≤ p)
   fun x hx y hy hxr hyr =>
     E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.two_roots_of_prime_pow p k hp3 hpr x y hx hy hxr hyr
 
+/-- ★★★★ **`SqrtNegOneTwoRoots` on the `2·pᵏ` layer** — the input for Markov uniqueness on the **even**
+    `2·pᵏ` family.  For an odd prime `p` (`3 ≤ p`, divisors `1, p`), `x² ≡ −1 (mod 2·p^(k+1))` has at most
+    the two roots `±u`.  The named form of `MarkovPrimeFactor.two_roots_of_two_prime_pow` (CRT
+    recombination: the factor `2` splits off the prime-power split since both roots are odd).  Covers the
+    even Markov numbers `34 = 2·17`, `194 = 2·97`, …, beyond Button's odd prime-power family. -/
+theorem sqrtNegOneTwoRoots_two_prime_pow (p k : Nat) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) : SqrtNegOneTwoRoots (2 * p ^ (k + 1)) :=
+  fun x hx y hy hxr hyr =>
+    E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.two_roots_of_two_prime_pow p k hp3 hpr x y hx hy hxr hyr
+
 /-! ### The phantom-root filter (sniping the C6 barrier at the first composite)
 
 Zhang's theorem (`markov_reachable_no_3mod4_factor`) fixes that a composite `c` with `ω` distinct
