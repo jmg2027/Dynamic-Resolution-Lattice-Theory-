@@ -53,8 +53,11 @@ closure made visible.
       (`dyInterval_value`: `(dyInterval path).1 = binVal path`, the odometer's world); the
       Stern-Brocot side is the mediant fraction `sbMediant`; `?` is the path-indexed map between
       them.
-    - **L3 order** (monotonicity of both value readings = `?` order-iso) — the genuine remaining
-      bounded step (uses the SternBrocotMarkov monotonicity engine).
+    - **L3 order** (partial, `dyadic_local_order`) — the dyadic side is order-preserving:
+      `binVal (true::t) < binVal (false::t)` (`2k < 2k+1`).  The Stern-Brocot side is the same local
+      order on the mediant fraction, reducing to the det-1 invariant (cross-mult gap
+      `3·(bc−ae) = 3 > 0`); that `ℤ` cross-multiplication + the global monotonicity over all
+      path-pairs is the remaining bounded step (the SternBrocotMarkov §7–§8 slope engine).
     - **L4 analytic** — the singular `?` (order-completion / limit) is residual, reached by no
       finite path (`object1_not_surjective` pattern).
 

@@ -142,4 +142,25 @@ theorem minkowski_compile :
                           (sbInterval path).1.2 + (sbInterval path).2.2)) :=
   ⟨dyInterval_value, fun _ _ => rfl, fun _ => rfl⟩
 
+/-! ### `?` compilation, layer 3 (partial) — the order: the dyadic side is monotone
+
+`?` is an *order*-isomorphism: along the L/R path, both value readings increase the same way
+(`true` child < `false` child).  The **dyadic** side is clean: `binVal (true :: t) < binVal
+(false :: t)` (`dyadic_local_order` — they are `2k` and `2k+1`).  The **Stern-Brocot** side is the
+same local order on the mediant fraction, and it reduces to the det-1 invariant: at a node
+`((a,b),(c,e))` with `b·c = a·e + 1` (`sbInterval_adj`), the `true`/`false` mediants `(2a+c)/(2b+e)`
+and `(a+2c)/(2b+e)`... cross-multiply to a gap of `3·(b·c − a·e) = 3 > 0` — so the mediant order
+matches the binary order.  That cross-multiplication (a `ring_intZ`-shaped `ℤ` identity) plus the
+global monotonicity over *all* path-pairs is the genuine remaining bounded step (the
+`SternBrocotMarkov` §7–§8 slope-monotonicity engine, Zhang Lemma 2).  ∅-axiom (dyadic side). -/
+
+/-- ★★ **The dyadic side of `?` is order-preserving (local).**  `binVal (true :: t) < binVal
+    (false :: t)`: prepending the `true` (left) child gives a strictly smaller binary value than the
+    `false` (right) child — they are `2·binVal t` and `2·binVal t + 1`.  The order-iso content of
+    `?` on the dyadic side. -/
+theorem dyadic_local_order (t : List Bool) : binVal (true :: t) < binVal (false :: t) := by
+  show 0 + 2 * binVal t < 1 + 2 * binVal t
+  rw [Nat.zero_add, Nat.add_comm 1 (2 * binVal t)]
+  exact Nat.lt_succ_self _
+
 end E213.Lib.Math.NumberSystems.Real213.OdometerSternBrocotUnit
