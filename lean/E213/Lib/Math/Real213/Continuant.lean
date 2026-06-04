@@ -247,4 +247,40 @@ theorem continuant_last_strict_mono (l : List Nat) (a a' : Nat)
   show continuant (a :: l.reverse) < continuant (a' :: l.reverse)
   exact continuant_head_strict_mono a a' l.reverse haa hk
 
+/-! ## The trace identity — heart of the Cohn/Frobenius formula `markovNumber = tr/3`
+
+Completing the entry picture: `(contMatProd l)` is `[[K[l], …],[K[tail l], …]]`, with the `(1,2)`-entry
+the reversed "previous" (via transpose).  The **trace** `(1,1)+(2,2)` is then `K[l] + K[middle]` — for a
+Cohn word (a product of `A = [[2,1],[1,1]] = contMatProd [1,1]` and `B = [[5,2],[2,1]] = contMatProd
+[2,2]`) this trace is `3·(Markov number)`, the Frobenius continuant formula. -/
+
+/-- The `(1,2)`-entry is the reversed continuant's "previous" `K[reverse l minus last]` (via transpose). -/
+theorem contMatProd_b (l : List Nat) : (contMatProd l).b = ((contPair l.reverse).2 : Int) :=
+  calc (contMatProd l).b
+      = (transp (contMatProd l)).c := rfl
+    _ = (contMatProd l.reverse).c := by rw [contMatProd_reverse]
+    _ = ((contPair l.reverse).2 : Int) := (contMatProd_eq l.reverse).2
+
+/-- The `(2,2)`-entry for a nonempty word: `K[reverse(tail l) minus last]` — the "middle" continuant. -/
+theorem contMatProd_d_cons (a : Nat) (t : List Nat) :
+    (contMatProd (a :: t)).d = ((contPair t.reverse).2 : Int) := by
+  show (1 : Int) * (contMatProd t).b + 0 * (contMatProd t).d = ((contPair t.reverse).2 : Int)
+  rw [Int.one_mul, E213.Meta.Int213.zero_mul, Int.add_zero, contMatProd_b]
+
+/-- ★★★★★ **The trace identity** (Cohn/Frobenius heart): for a nonempty word, the trace of
+    `∏[[aᵢ,1],[1,0]]` is `K[a₁,…,aₙ] + K[a₂,…,aₙ₋₁]` (full continuant plus the "middle" continuant).
+    For a Cohn word this equals `3·(Markov number)`. -/
+theorem contMatProd_trace_cons (a : Nat) (t : List Nat) :
+    (contMatProd (a :: t)).a + (contMatProd (a :: t)).d
+      = ((continuant (a :: t) + (contPair t.reverse).2 : Nat) : Int) := by
+  rw [continuant_eq_contMatProd, contMatProd_d_cons, ← Int.ofNat_add]
+
+/-- **Concrete Cohn check**: `tr(A) = 3·1`, `tr(B) = 3·2`, `tr(AB) = 3·5` — the Markov numbers `1, 2, 5`
+    as `tr/3` of the standard Cohn words `A = [1,1]`, `B = [2,2]`, `AB = [1,1,2,2]`. -/
+theorem cohn_trace_examples :
+    (contMatProd [1, 1]).a + (contMatProd [1, 1]).d = 3
+    ∧ (contMatProd [2, 2]).a + (contMatProd [2, 2]).d = 6
+    ∧ (contMatProd ([1, 1] ++ [2, 2])).a + (contMatProd ([1, 1] ++ [2, 2])).d = 15 := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
 end E213.Lib.Math.Real213.Continuant
