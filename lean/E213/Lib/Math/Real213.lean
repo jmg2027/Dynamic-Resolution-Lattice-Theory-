@@ -82,6 +82,8 @@ import E213.Lib.Math.Real213.MarkovModularBridge
 import E213.Lib.Math.Real213.MarkovInjectivity
 import E213.Lib.Math.Real213.SternBrocotMarkov
 import E213.Lib.Math.Real213.LagrangeExtremes
+import E213.Lib.Math.Real213.PentagonGoldenTrace
+import E213.Lib.Math.Real213.HyperbolicEllipticTrace
 import E213.Lib.Math.Real213.TowerNativeCompleteness
 import E213.Lib.Math.Real213.ExpLog.EulerCertifiedBracket
 import E213.Lib.Math.Real213.ExpLog.EulerModulus

@@ -239,6 +239,222 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Invert universal property + deep-research additions (2026-06-03)
+
+`E213.Lens.Number.FoundingDialUnification` — **4 PURE / 0 DIRTY**.  The number-tower founding
+meets the concurrent non-holonomicity discriminant-dial marathon at one order-2 companion
+`comp p q`, split along its two coordinates: `founding_unit_floors_dial_trace_runs_tiers` — the
+founding unit `q = NS − NT` is the dial's fixed determinant (`det (comp p q) = q`); the trace `p`
+runs the discriminant (`disc = p² − 4q`); the forced atomic counts are the tier boundaries —
+`p = 0` elliptic (founding swap `S`), `p = NT` parabolic (`disc = 0`), `p = NS` hyperbolic (golden,
+`disc = NS² − 4 = NS + NT = d`).  (Det-floor + trace-dial parametric; `p = NT`/`p = NS` landing on
+the tiers is atomic — pins `NS = 3`.)  And `parabolic_at_NT_is_difference_lens_depth1` — the
+parabolic tier (trace `NT`) is the **difference-Lens rung**: `liftKZ 1 s n = s(n+1) − s n` is the
+`ℤ`-difference, and parabolic ⟺ that output is constant (`polyDepthZ 1`, depth-1).  And
+`hyperbolic_at_NS_is_ratio_cauchy_rung` — the hyperbolic tier (trace `NS`, det = unit `NS−NT`,
+disc = `d`) is the ratio/Cauchy rung: the convergents' cross-det is the *same* unit
+(`convergent_lowest_terms_is_det`), completing to `φ` (`phiCauchy_limit_eq_phiCut`).  So the
+founding number-rungs *are* the tiers: `ℤ`-sign = elliptic, `ℤ`-difference (depth-1) = parabolic,
+`ℚ`/`ℝ` ratio/Cauchy = hyperbolic.  And `count_constants_are_difference_fixed_below_parabolic` —
+`ℕ` (count, depth-0 constants) is the difference-Lens **fixed locus** (`liftKZ 1 (const) = 0`),
+sitting at the bottom of the parabolic (depth-1) tier.  So *every* founding rung is placed on the
+dial: `ℕ` difference-fixed bottom of parabolic, `ℤ`-difference full parabolic, `ℤ`-sign elliptic,
+`ℚ`/`ℝ` hyperbolic.  Builds on `FoundingDynamicBridge`.
+
+`E213.Lens.Number.Nat213.Tower.PairCompletionUniversal` — **19 PURE / 0 DIRTY**.  The invert
+move's **complete universal property** (existence ∧ uniqueness), Quot-free and choice-free,
+**validated concretely**: `intTarget` (`Int` as an `AbTarget` from the PURE `Int213` kit),
+`natToInt_hom`, `liftZ`, and `addCCS_completion_is_Int` — the additive completion of
+`(Nat213, +)` is `ℤ` (`liftZ` is the integer-difference map; `(2,1) ↦ +1`, `(1,2) ↦ −1`), and by
+the capstone it is the unique factoring hom.  The universal property is non-vacuous.
+`AbTarget` (abelian-group target, laws as ∀-equalities); `lift M H f (a,b) = f a − f b`;
+existence — `lift_respects_pairEquiv` (well-defined on the completion), `lift_combine`
+(homomorphism), `lift_eta` (factors `f` through `η m = (m∘a,a)`); uniqueness — `lift_unique`
+(any `g` respecting `pairEquiv` + `combine` + `η` equals `lift`), via `pair_equiv_eta_combine`
+(every pair `~ η(a) ∘ inv(η(b))`); capstones `invert_factors_through_any_group` and
+`invert_is_the_universal_group_completion`.  Group-algebra toolkit `ab_neg_add`,
+`ab_add_add_add_comm`, `ab_add_{left,right}_cancel`, `ab_neg_unique`.  Makes "invert is one
+move" precise: the invert move is *the* universal group completion, unique up to iso (initiality,
+not an imported adjunction).
+
+`E213.Lens.Number.Nat213.Tower.PairCompletion` — **+2 PURE (17 total)**.
+`diagonal_is_combine_identity` (the emergent diagonal *is* the `combine`-identity, unit-free —
+the no-exterior principle in a readout) and `invert_branch_two_distinct_instances`
+(`ℤ ⊥ ℚ_+`: `add 1 1 ≠ mul 1 1`, two instances of one move joined at the diagonal).
+
+`E213.Lib.Math.CassiniUnimodular` — **+2 PURE (13 total)**.  `qpow_one` and
+`multiplier_unit_magnitude_sign_order_NT`: the unimodular multiplier `q = ±1` factors as (unit
+magnitude `qpow 1 n = 1`, order-`NT` sign `qpow (−1) NT = 1 ∧ qpow (−1) 1 ≠ 1`) — the genuine
+`(unit, period) = (1, NT)` factorization (the arithmetic re-readings of `NS = NT+1` are
+numerology).
+
+### Number-tower founding + invert-move addition (2026-06-03)
+
+`E213.Lens.Number.SharedUnitAcrossReadings` — **1 PURE / 0 DIRTY**.  The honest unification
+of the axis-readings: `the_unit_is_one_across_readings` — the unit `1` is one value across
+count-difference (`NS − NT`, `ns_minus_nt_is_one`), the Möbius/ratio determinant
+(`mobius_det_eq_ns_minus_nt`, `mobius_det_is_unit`), the Cassini oscillation
+(`toggle_det_unit`), and the reciprocal law (`qpair_mul_swap_eq_qOne`).  Identity-of-the-unit
+(downward), not an operator monoid (which has no shared carrier).
+
+`E213.Lens.Number.Nat213.Tower.PairCompletion` — **15 PURE / 0 DIRTY**.  Includes
+`swap_order_eq_NT` (the swap's order is exactly `NT = 2`: involution + non-identity, so
+period-2 is forced by the count, not chosen — no period-`k` on a pair).  The **invert
+move as one theorem**: a generic `CommCancelSemigroup` on `Nat213` (op + comm + assoc +
+right-cancel, **no unit**) with pair-completion `pairEquiv M p q := M.op p.1 q.2 =
+M.op p.2 q.1`, equivalence-relation proofs (`pairEquiv_{refl,symm,trans}`), the `swap`
+involution, and `combine`.  `combine_swap_equiv_diagonal` — `x ∘ inv(x)` lands on the
+diagonal, so the completed group's identity **emerges** as the diagonal class, unit-free
+(forced: `Nat213` has no additive `0`, yet its additive completion has an identity).
+Instances `addCCS` (`op=+` → ℤ model) and `mulCCS` (`op=·` → ℚ_+); `mulCCS_recovers_qpairEquiv`
+(`Iff.rfl`) recovers `NatPairToQPos.qpairEquiv`; capstone `invert_is_one_move`.  ℤ and ℚ_+
+are one construction read on the two operations.
+
+`E213.Lens.Number.Nat213.Order` — **8 PURE / 0 DIRTY**.  Native strict order
+`lt a b := ∃ c, add a c = b` (no Lean `Nat` order — `Nat.lt_or_ge` / `Nat.le_antisymm` /
+`Nat.mul_lt_mul_right` all pull `propext` + `Classical.choice` + `Quot.sound`).
+`add_ne_self`, `lt_irrefl`, `lt_ne`, `succ_lt_succ_of_lt`, `lt_trichotomy` (structural
+double recursion), `lt_mul_self` (strict square-monotonicity, **purely from
+distributivity** — no order lemma), and the payoff `mul_self_inj` (`a·a = b·b → a = b`).
+
+`E213.Lens.Number.Nat213.Tower.NatPairToQPos` — **+8 PURE (19 total) / 0 DIRTY**.  The
+**reciprocal involution**, multiplicative twin of `NatPairToInt`'s negation: `qSwap`
+(period-2, `qSwap_involutive`), `qpair_mul_swap_eq_qOne` (`x·(1/x)=1`, the reciprocal law),
+`qOne_reciprocal_fixed` (`1/1=1`), `qpair_diagonal_collapse` (diagonal ~ unit `1`),
+`reciprocal_fixed_of_unit` + `reciprocal_fixed_iff_unit` (the *exact* fixed-point
+characterization `qSwap p ~ p ↔ p ~ qOne`, full twin of `zero_unique_negation_fixed`, via
+`Order.mul_self_inj`), and the bundle `reciprocal_is_multiplicative_twin_of_negation`.  One
+swap, two folds, two units (`0` for `+`, `1` for `·`).
+
+### Non-holonomicity finite-state escape + depth-monotone bridge + discriminant dial (2026-06-03)
+
+The non-holonomicity / holonomicity-hierarchy thread, closed end to end (all **0 DIRTY**):
+
+`E213.Meta.Int213.Order` — **34 PURE**.  The ∅-axiom `Int` ordering layer (Lean-core
+`Int.le_trans` / `lt_trichotomy` carry `propext`), rebuilt from the inductive `Int.NonNeg` +
+the `ring_intZ` reflection tactic: `le_trans` / `lt_trans` / `lt_of_le_of_lt` / `lt_of_lt_of_le`,
+`lt_irrefl` (the contradiction engine), `le_of_lt`, `add_le_add_{left,right}`, the sign trichotomy
+`pos_zero_or_neg`, negation-reverses-order (`lt_of_neg_lt_neg`, `neg_pos_of_neg`), and the `ofNat`
+order embedding (`ofNat_le`, `le_of_ofNat_le`).  Reusable foundation.
+
+`E213.Lib.Math.Cauchy.PolyDepthMonotone` — **11 PURE**.  `polyDepthZ_evMono`: every finite-Δ-depth
+integer sequence is eventually monotone (non-decreasing or non-increasing).  LPO-free via the
+constant-top-difference sign trichotomy — `c>0` ⟹ eventual strict increase (`posTop_evStrictMonoZ`,
+the faithful-`Int` port of `positive_floor`'s descent + the eventual-positivity telescope
+`evStrictMonoZ_eventually_pos`), `c<0` ⟹ negation (`liftKZ_negS_apply`, pointwise to dodge
+`funext`'s `Quot.sound`), `c=0` ⟹ genuine depth-drop (faithful `Int` difference — the branch the
+`ℕ` truncated version could not close).
+
+`E213.Lib.Math.Cauchy.ThueMorseRingEscape` — **4 PURE**.  `s2Z_not_polyDepthZ`: the binary digit-sum
+(popcount) has no finite difference-depth (`MonoFromZ` contradicts `s2_not_eventually_monotone`,
+`AntiFromZ` ⟹ bounded ⟹ contradicts `s2_unbounded` via `s2 (ones k) = k`).
+
+`E213.Lib.Math.Cauchy.DepthMonotoneSynthesis` — **2 PURE**.  Joins the algebraic and order-theoretic
+readings of depth: `newtonZ_evMono` (every Newton polynomial is eventually monotone) and
+`s2Z_not_polynomial` (popcount equals **no** polynomial `newtonZ c d`, the ring-escape read through
+`DepthCharacterization.finite_depthZ_iff`).
+
+`E213.Lib.Math.Cauchy.HomogRecPeriodic` — **1 PURE**.  `evPeriodic_homogRec`: eventually periodic ⟹
+`HomogRec` (the elementary half of the bounded-`HomogRec` characterization; order `k=p`, prefix
+killed by an `if`-guarded `lead`/`R`).
+
+`E213.Lib.Math.Cauchy.CFiniteHomogRec` — **3 PURE**.  C-finite ⊆ P-recursive: `order2_homogRec` /
+`order3_homogRec` (a constant-coefficient recurrence *is* `HomogRec`), `trib_homogRec` (Tribonacci is
+holonomic — the opposite pole from Thue–Morse).
+
+`E213.Lib.Math.Cauchy.EllipticPeriodicTier` — **17 PURE**.  The order-2 companion discriminant as the
+holonomicity-hierarchy dial: `comp_disc` (`disc (comp p q) = p²−4q` = the `HyperbolicEllipticTrace`
+discriminant), `comp_eq_S` / `comp_eq_U` (the elliptic generators *are* the companions of the
+periodic recurrences), the trichotomy — *elliptic* `periodic_elliptic_{S,U}` (periodic floor),
+*parabolic* `parabolic_iff_depth1` (`disc=0` ⟺ linear depth-1, an iff), *hyperbolic*
+`hyperbolic_strictMono` / `hyperbolic_grows` (strictly increasing, unbounded).  **The dial is
+special to order 2 — it does not lift**: `cubic_disc` + `cubic_disc_witnesses` show `Δ₃`'s sign does
+not classify periodicity (periodic `(0,0,1)` and growing Tribonacci `(1,1,1)` both `Δ₃<0`); the
+order-3 periodicity dial is root-location (cyclotomic, `|c|=1`), witnessed by
+`periodic_elliptic_order3_p4` / `periodic_elliptic_order3_p6`.
+
+`E213.Lens.Number.FoundingDynamicBridge` — **1 PURE**.  `founding_swap_is_elliptic_floor`: the
+number-tower founding's static invert-**swap** (= negation, period-2 by `NT`, `NatPairToInt.
+swap_realizes_negation`) is the **elliptic floor** of the dynamic discriminant dial — `comp 0 1 = S`,
+`Mat2.det (comp 0 1) = NS − NT` (floor determinant = the shared founding unit), `disc < 0`,
+`S² = −I` (negation-of-identity), `zero_unique_negation_fixed`.  The static number-tower founding and
+the dynamic non-holonomicity dial pinned as one structure (shared floor = unit `1`; shared ceiling =
+the residue).
+
+`E213.Lib.Math.CeilingSchema` — **5 PURE**.  The residue ceiling is **one phenomenon**, not five
+engines: `ReachedByNoStage gen target := ∀ s, gen s ≠ target`, `not_surjective_of_reachedByNoStage`
+(the schema *is* non-surjectivity), and `ceilings_are_nonsurjectivity` bundling the universal
+diagonal (`diag_reached`, Cantor archetype `∀ f, ¬Surjective f`), the non-holonomicity escape
+(`s2Z_poly_reached`, popcount = no `newtonZ c d`), and the foundational residue
+(`object1_not_surjective`) as one shape — the finite-stage map missing its target.  Classically one
+Cantor/cardinality argument; ∅-axiom forces named constructive witnesses (the "engines" are
+realizers, the domains Lens-carvings).
+
+`E213.Lib.Math.Cauchy.DetZeroCollapse` — **6 PURE**.  The determinant spectrum of the order-2
+recurrence read on the Cassini / discrete-Wronskian `cas s n := s n · s(n+2) − s(n+1)²`:
+`geometric_cas_zero` (order-1 ⟹ `cas ≡ 0`, the `det = 0` collapse — the orbit is a geometric ray,
+one ratio value), `cas_step` (Abel–Liouville: `cas s (n+1) = q · cas s n`, so the Wronskian's
+geometric ratio *is* the determinant `q`), `cas_conserved_unit` (`q = 1` ⟹ `cas` conserved) and
+`cas_period2_neg_unit` (`q = −1` ⟹ `cas s (n+2) = cas s n`).  `det` is the quotient-space
+characteristic value: `0` collapse, `±1` unit, `|q| ≥ 2` expansion.
+
+`E213.Lib.Math.Cauchy.WronskianDepth` — **8 PURE**.  The unit's two faces have **opposite
+additive-depth status**: `cas_unit_depth0` (`det = +1` ⟹ the conserved Wronskian is `polyDepthZ 0`,
+additively trivial — the magnitude unit) and `cas_neg_unit_no_finite_depth` (`det = −1` with
+`W₀ ≠ 0` ⟹ the period-2 sign-flipping Wronskian is **not eventually monotone**, so has **no finite
+depth** — additively maximal, the sign unit), bundled in `unit_faces_opposite_depth`.  Support:
+`int_ne_neg_self`, `cas_neg_unit_ne_zero`, `cas_neg_unit_consecutive_ne`,
+`period2_nonconst_not_evMono`.  One multiplicative unit, two opposite additive readings (the §5.2
+`NT = 2` sign carries the additive richness).
+
+`E213.Lib.Math.Cauchy.GoldenPiFaces` — **3 PURE**.  φ and π named as the two unit faces:
+`golden_companion_sign_face` (`comp 1 (-1)`, the Fibonacci companion `x²−x−1`, has `disc = 5 =
+NS+NT` and `det = −1` — φ is the **sign face**), `golden_cassini_period2` (any golden orbit's
+Cassini is period-2, the classical `F(n+2)F(n)−F(n+1)² = (−1)^{n+1}`), and
+`golden_cassini_no_finite_depth` (with nonzero initial Cassini, φ's Cassini has no finite
+difference-depth — additively maximal).  π is the `det = +1` magnitude (elliptic/rotation) face at
+an irrational angle — the open pole where the periodic floor fails.
+
+`E213.Lib.Math.Cauchy.ZeroInfinityHole` — **5 PURE**.  `0` and `∞` as **one hole, not two dual
+values** — the single point where the reciprocal fold `x ↦ 1/x` returns no value, named twice (`0`
+from inside the values, `∞` through the reciprocal).  `zero_no_reciprocal` (`q · 0 ≠ 1` — `0` is the
+unique non-invertible point, the value-side name of `∞`), `self_reciprocal_iff_unit` (`q·q = 1 ↔ q =
+±1`, via the PURE `Int213.int_sq_le_one` — the reciprocal-fixed core is exactly the units) and its
+contrapositive `non_unit_not_self_reciprocal`, `cas_zero_collapses` (`det = 0` ⟹ the Casoratian
+vanishes from the next step — the hole's value-image is the area crushed to `0`), bundled in
+`zero_is_hole_units_are_core`.  Treating `0` as a value smuggles half of an `∞`-system: a
+reciprocal-closed value-system admitting `0` is forced to admit `1/0`; the founding's `ℚ₊` excludes
+both symmetrically (`qSwap` total, unique fixed point `1`).  Collapse at the hole, conservation on the
+reciprocal-fixed core `±1`.
+
+`E213.Lib.Math.MaxEntropy` — **8 PURE**.  Structurelessness as a **positive intrinsic property**.
+`MaxEntropy s := ¬ ∃ d, polyDepthZ d s` — no finite holonomic certificate generates `s` (the
+*incompressibility* / measure-free reading of maximum entropy; the measure reading would smuggle an
+exterior ruler).  `maxEntropy_reachedByNoStage` / `maxEntropy_not_surjective` (a max-entropy
+sequence forces the universal Newton generator `newtonGen` to be non-surjective — the ceiling's own
+non-surjection, read as a property of `s` not of a tactic).  The proven escapes collected under the
+one predicate: `thueMorse_maxEntropy` (the dense automatic popcount counter) and
+`golden_cassini_maxEntropy` (the `det = −1` sign face), joined in `maxEntropy_two_faces`.  The
+non-holonomic pole is not a blank left open but the *presence* of maximal genericity —
+source-without-enclosure named in information terms; not stipulated (the residue's genericity is the
+theorem `object1_not_surjective`, and a `MaxEntropy` sequence is its constructive realizer).
+
+`E213.Lib.Math.DetSpectrumPoles` — **1 PURE**.  The capstone uniting the two ends of the
+det-spectrum as the **two folds' non-values**: `det_spectrum_poles_and_center` — for an order-2 orbit
+read on its Casoratian, `q = 0` collapses into the **multiplicative hole** (`cas s (n+1) = 0`,
+`ZeroInfinityHole`); `q = −1` (nonzero seed) is the **additive ceiling** (`MaxEntropy (cas s)`, no
+finite handle, `WronskianDepth`); and the magnitude unit `q = +1` (nonzero seed) is the
+**doubly-finite center** — never `0` (away from the hole, via conservation) and `polyDepthZ 0` (away
+from the ceiling).  The two degeneracies bracketing the live region are not unrelated pathologies but
+the multiplicative fold's hole (`0`/`∞`) and the additive fold's ceiling (maximum entropy /
+non-surjection) — the two non-values the number tower excludes; the unit is where a genuine
+distinguishing survives.
+
+Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
+canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
+self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
+`Cauchy.MorseHedlund` (16 PURE — `bool_autoRec_iff_evPeriodic`).
+
 ### Real-number stratification addition (2026-06-01)
 
 `E213.Lib.Math.Real213.RateStratification` — **12 PURE / 0 DIRTY**.
@@ -314,6 +530,18 @@ the two non-trivial `SelfReferenceThreeOutcomes` readings of one object.
 `E213.Lib.Math.Cauchy.DepthCharacterization` — **13 PURE / 0 DIRTY**.  ★ The capstone of the divergence-depth thread: **finite divergence depth ⟺ polynomial**, over ℤ.  `finite_depthZ_iff` — `polyDepthZ d s ↔ ∃ c, ∀ n, s n = newtonZ c d n` (degree-≤d Newton form).  ⟹ is `NewtonGregory.reconstruct` (cⱼ=Δʲs0); ⟸ is `polyDepthZ_newtonZ` (Newton form has depth d), built on the new **ℤ binom-column depth** `polyDepthZ_binomColZ` (`polyDepthZ k (C(·,k):ℤ)`) via the ℤ-Pascal difference `diffZ_binomColZ` (`Δ C(·,k+1)=C(·,k)`) + the finite-depth ring (`polyDepthZ_add/smul`, `polyDepthZ_mono`).  Unifies the ℕ depth ladder ⊕ the concurrent-session ℤ reconstruct into one equivalence.  **Exactness** (`newtonZ_depth_drop`): a degree-`(e+1)` Newton form drops to depth `e` iff its top coefficient `c_{e+1}=0` — via `liftKZ_newtonZ_const` (`Δ^d(Newton form)=c_d`, from the shift `diffZ_newtonZ`).  So divergence depth = degree *exactly*.
 
 `E213.Lib.Math.Cauchy.PolynomialDepth` — **13 PURE / 0 DIRTY**.  Every degree-`d` polynomial sequence has divergence-depth `d`, general: `polyDepthZ_polySeq` — `∀ a d, polyDepthZ d (polySeq a d)` where `polySeq a d n = Σ_{i≤d} aᵢ·nⁱ` (any `ℤ`-coefficients).  Via the finite-depth **ring** (`FiniteDepthAlgebra.polyDepthZ_{add,smul,mul}`): `idZ` (n↦n) depth 1 (`diffZ_id`, PURE Int213 `add_assoc`/`add_neg_cancel`), `powSeq i` (n↦nⁱ) depth `i` (`polyDepthZ_mul` ×`i`), `polyDepthZ_mono` lifts, `polyDepthZ_add` sums.  Subsumes the quadratic/cubic rungs in one — no Stirling, no per-degree reorder; the ring does the bookkeeping.  Unifies the ℕ depth ladder (`DepthAperyCubic` etc.) with the concurrent ℤ finite-depth ring.  `aperyLeadZ_depth` (instance): the ζ(3) Apéry leading coefficient `34n³−51n²+27n−5` (negative coeffs) has depth 3 over ℤ with **no reindex** (the ℕ `DepthAperyCubic.aperyLead` needed `n=m+2`); `aperyLeadZ_value` checks it `= 117` at `n=2`.
+
+`E213.Lib.Math.Cauchy.OrbitDimension` — **32 PURE / 0 DIRTY**.  The C-finite rung strictly above the polynomials, the first step on the orbit-dimension ladder past `DepthCharacterization.finite_depthZ_iff`.  The divergence-depth axis is coarse above the polynomials (it bins `2ⁿ`, `e`'s value sequence, Fibonacci, Liouville all at `∞`); the **orbit dimension** of `⟨s, Δs, Δ²s, …⟩` separates them.  ★ `twoPow_is_diffZ_fixed` — the geometric **eigen-identity** `Δ(2ⁿ)=2ⁿ` (`2·2ⁿ−2ⁿ=2ⁿ`, via `ring_intZ` over the core-free `powInt`); `liftKZ_twoPow_fixed` — every iterate fixes it, the orbit is the single line `⟨2ⁿ⟩`.  `CFiniteZ s := ∃ k c, ∀ n, Δᵏs n = Σ_{i<k} cᵢ·Δⁱs n` (a monic constant-coefficient `Δ`-orbit recurrence; finite orbit dimension).  ★ `polyDepthZ_cfiniteZ` — **polynomial ⟹ C-finite** (zero lower part, annihilator `Δ^{d+1}`).  ★ `cfiniteZ_twoPow` — **`2ⁿ` is C-finite** (annihilator `Δ−1`, orbit dim 1).  ★★★ `twoPow_not_polyDepthZ` — **`2ⁿ` is not a polynomial** (`Δᵏ(2ⁿ)=2ⁿ`, never `≡0` since `2⁰=1≠0` via `Int.ofNat.inj`+`Nat.noConfusion`), the **strict inclusion** `polynomial ⊊ C-finite`.  `cfiniteZ_smul` / `cfiniteZ_shift` — C-finite is a module, shift-stable (same annihilator); `cfiniteZ_add_sameRec` — closed under `+` of two sequences sharing one annihilator (general `+` closure is `CFiniteRing.cfiniteZ_add`).  **The general geometric family** `geomZ c = cⁿ`: `geom_diffZ` (`Δ(cⁿ)=(c−1)·cⁿ`), `liftKZ_geomZ` (`Δᵏ(cⁿ)=(c−1)ᵏ·cⁿ`), `cfiniteZ_geom` (every geometric sequence is C-finite, orbit dim 1, annihilator `Δ−(c−1)`), `geom_not_polyDepthZ` (`c≠1 ⟹` not polynomial, via `powInt_eq_zero`: `xᵏ⁺¹=0⟹x=0`).  **Fibonacci** `fibZ`: `cfiniteZ_fib` — `fibZ` is C-finite with **orbit dimension 2** (`Δ²f=f−Δf` from `E²−E−I=Δ²+Δ−I`), the cleanest non-geometric, non-polynomial witness.  **Abelian-group structure**: `cfiniteZ_congr` (respects pointwise eq), `cfiniteZ_zero`, `cfiniteZ_neg` (`−s=(−1)·s`); `cfiniteZ_geom_mul` (`cⁿ·dⁿ=(cd)ⁿ`, the geometric Hadamard instance, orbit dims multiply `1·1=1`).  **Conserved unit**: `cassini_fibZ_step`/`cassini_fibZ_zero` — the Fibonacci Cassini cross-determinant `Cₙ=fibₙfibₙ₊₂−fibₙ₊₁²` oscillates `Cₙ₊₁=−Cₙ` (period-2), the conserved unit `±1` (= `det Qⁿ` = the number-tower's shared unit `det P=NS−NT=1`, the period-2 flip being the count-Lens negation).
+
+`E213.Lib.Math.Cauchy.CFiniteRing` — **82 PURE / 0 DIRTY**.  The **difference-operator algebra** and the **C-finite ring closure under `+`**.  `applyOp p s = Σ_i pᵢ·Δⁱs` (coefficient list low-to-high `Δ`-power); linearity (`applyOp_add`/`applyOp_smul`), `Δ`-commutation (`applyOp_diffZ`), and ★★★ `applyOp_comm` (`p(Δ)q(Δ)s = q(Δ)p(Δ)s` — difference operators commute).  `conv` (coefficient convolution = operator product) with `applyOp_conv` (`(p·q)(Δ) = p(Δ)∘q(Δ)`).  ★★★ **the ring law** `conv_annih_add`: if `p` annihilates `s` and `q` annihilates `t`, the product `conv p q` annihilates `s+t` — the constant-coefficient annihilators *multiply* (orbit dimensions add).  **Bridge** (both directions): `cfiniteZ_to_annih` (`CFiniteZ s ⟹ ∃ monic `opOf`-operator annihilating `s`, via `applyOp_opOf` evaluating `Δᵏ−ΣcᵢΔⁱ` and `opOf_getLastD` proving leading `1`) + `annih_snoc_to_cfiniteZ` (a monic `lo++[1]` annihilator *is* the orbit recurrence `Δ^{|lo|}s=ΣcᵢΔⁱs`, via `applyOp_snoc_one` + `applyOp_eq_linComb`).  So **C-finite ⟺ has a monic constant-coefficient annihilator** — the orbit-recurrence definition coincides with the standard annihilating-polynomial one.  ★★★ **the capstone** `cfiniteZ_add`: `CFiniteZ s → CFiniteZ t → CFiniteZ (s+t)` — the monic annihilators multiply (`conv_snoc`: leading coefficients multiply, `1·1=1`; `+0`/`*1` syntactic noise absorbed by an existential-value `conv_snoc`), so `polynomial ⊊ C-finite` is a genuine **ring** under `+`, with the `conv`-monic toolkit `length_snoc`/`smulL_snoc`/`addL_snoc_right`/`length_addL_right_ge`/`opOf_snoc` (all `Nat.max`-free).  `cfiniteZ_one_add_twoPow`: `1+2ⁿ` is C-finite, a concrete sequence `+` generates that is neither polynomial nor geometric.  `cfiniteZ_sub` (with `OrbitDimension`'s `cfiniteZ_zero`/`cfiniteZ_neg`) completes the **abelian group under `±`**.  **§8 the shift as a difference operator** (toward C-D): `applyOp_shift` (`applyOp [1,1] = E`, the forward shift *is* `I+Δ`), `ePow k` (= `[1,1]` convolved `k` times = `Eᵏ`), `applyOp_ePow` (`applyOp (ePow k) s n = s(n+k)` — the `k`-shift is a polynomial in `Δ`).  So a monic shift recurrence is a monic `Δ`-annihilator.  **§9 C-D reverse direction** `cfiniteZ_of_shiftRec`: a sequence satisfying a monic order-`k` shift recurrence `s(n+k)=Σ_{i<k} bᵢ s(n+i)` (`ShiftRecZ`) is C-finite (`Δ`-orbit dim ≤ k) — via `eCombo` (shift→`Δ` operator `Σ bᵢ ePow i`, no binomial sums), `ePow_eq_snoc` (`ePow k` monic degree k), `eCombo_length_le`, `addL_snoc_right`.  So the standard constant-recursive definition ⟹ the `Δ`-orbit-recurrence one; `cfiniteZ_fib_via_shift` validates it end-to-end (Fibonacci's shift recurrence ⟹ `CFiniteZ fibZ`).  **§10–§11 C-D forward** — the dual shift-operator algebra `applyShift` (`Δ = applyShift [-1,1] = E−I` via `applyShift_diffBase`; `Δᵏ` as a shift operator `applyShift_dPow`; conv = composition `applyShift_conv`), `sCombo`/`dPow_eq_snoc`, and `shiftRec_of_cfiniteZ` (`CFiniteZ ⟹ ∃ monic shift recurrence`, the exact mirror of the reverse, no binomial sums).  ★★★ `cfiniteZ_iff_shiftRec`: **`CFiniteZ s ↔ ∃ K b, ShiftRecZ K b s`** — the full **"orbit dimension = recurrence order"** equivalence; `CFiniteZ` is exactly the standard constant-recursive class.  **§12 Hadamard, geometric factor** `cfiniteZ_geomScale`: `cⁿ·s` is C-finite for every C-finite `s` (a geometric weight rescales the shift coefficients `aᵢ↦aᵢ·c^{k−i}`, via `cfiniteZ_iff_shiftRec` + `geom_shiftSum`), generalizing `cfiniteZ_geom_mul` to `cⁿ·(n²)`, `cⁿ·fib`, ….  **§13 Hadamard, explicit-spectrum factor** `cfiniteZ_geomCombo_mul`: `(Σ aᵢcᵢⁿ)·t` is C-finite for every C-finite `t` (`geomCombo` = explicit `ℤ`-combination of geometrics; via `cfiniteZ_geomScale`+`cfiniteZ_add`, no determinant) — covers `(2·3ⁿ−5·2ⁿ)·fib`, `(3ⁿ+5ⁿ)·n²`.  (The *general* product `s·t`, both factors non-split, needs the monic resultant = `det(zI−M)`; determinant-free routes give only non-monic relations — the open frontier, C-B-adjacent.)
+
+`E213.Lib.Math.Linalg213.DetN` — **19 PURE / 0 DIRTY**.  The general `n×n` **determinant over `ℤ`** (first-row cofactor / Laplace expansion), the foundational gap for the C-finite **Hadamard product** (monic annihilator = resultant = a determinant) and the **Casoratian rank**.  A matrix is `M : Nat → Nat → Int`; `det (n+1) M = Σⱼ (−1)ʲ·M 0 j·det n (minor M j)`, base `det 0 _ = 1` (`altSign`, `minor`, `cofSum`, `det`; sanity `det_one`, `det_two`).  ★ `det_congr` — `det` respects **pointwise** matrix equality (the ∅-axiom matrix-work pattern: `funext` is `Quot.sound`-dirty, so all matrix-as-function reasoning goes through pointwise congruence).  **§2 multilinearity in the first row**: `setRow0`, `detMinor_setRow0` (cofactor is row-0-independent), ★ `det_row0_add`/`det_row0_smul` (`det` is a linear functional of row 0).  **§3 the column-skip commutation** (the geometric core of the alternating property): `colShift j l = if l<j then l else l+1` (factored from `minor`), `colShift_lt`/`colShift_ge`, ★ `colShift_comm` (`a≤c ⟹ colShift a ∘ colShift c = colShift (c+1) ∘ colShift a` — deleting two columns in either order is the same; ∅-axiom via `Nat.lt_or_ge` case-splits, no propext), and `detMinorMinor_comm` (lifts it to the double minor's `det`, pointwise via `det_congr`).  (The full alternating property — two equal rows ⟹ `det=0` — reduces to one base case "top two rows equal ⟹ 0" whose per-term inputs are `colShift_comm`/`detMinorMinor_comm`; the remaining build is a nested-sum sign-reversing-involution ⟹ 0 lemma.  See `research-notes/G185`.)
+
+`E213.Lib.Math.Linalg213.FibCassiniDet` — **3 PURE / 0 DIRTY**.  The bridge closing the loop between the determinant program and the C-finite orbit theory it serves.  `fibCas n i j = fibZ (n+i+j)` (the `2×2` Fibonacci Casoratian = companion power `Qⁿ` window); `cassini_fibZ_eq_altSign` (the Cassini cross-determinant in closed form `fibₙ·fibₙ₊₂−fibₙ₊₁² = altSign(n+1) = (−1)ⁿ⁺¹`, via `cassini_fibZ_zero`+`cassini_fibZ_step`); ★ `fibCas_det_eq_unit` — **`det 2 (fibCas n) = (−1)ⁿ⁺¹`**, the general determinant's `2×2` base *is* the orbit's conserved unit, the same unimodular `det = ±1` as the number-tower founding's shared unit `det = NS−NT = 1` (`PnFibonacciUniversal.det_pn_universal`, `det Qⁿ = unit`).  "Monic = the preserved unit" made concrete; `DetN` validated against real C-finite content.
+
+`E213.Lib.Math.Linalg213.Permutation` — **30 PURE / 0 DIRTY**.  The permutation/sign substrate and the **Leibniz determinant**, where the **alternating** property is antisymmetrization (`theory/essays/determinant_as_quotient_characteristic.md`).  **§1**: `LPerm` (the four-constructor list permutation-equivalence `nil`/`cons`/adjacent-`swap`/`trans`), `LPerm.refl`/`LPerm.symm`, `sumZ` (Int list sum), ★ `sumZ_lperm` — **a sum is invariant under `LPerm`** (reordering preserves the sum, via Int213's propext-free `add_left_comm`); the "row swap reindexes the Leibniz sum, value unchanged" engine.  **§2**: `ltCount`/`inversions`/`psign` (`psign l = (−1)^(inversions l) = DetN.altSign (inversions l)`), ★ `psign_swap_adj` — **an adjacent swap of two distinct values flips the sign** (`psign (y::x::l) = −psign (x::y::l)` for `x≠y`), the concrete `sign(σ∘τ) = −sign σ` for an adjacent transposition (`ac_form` Nat inversion-rearrangement + `altSign_succ`, propext-free).  **§3**: `ltCount_append`, `ltCount_cons2_comm`, `psign_cons` (head factorization via `DetN.altSign_add`), ★ `psign_swap_prefix` — the sign flip for a swap of two distinct adjacent entries **after any prefix** (the bridge to swapping rows `i,i+1`).  **§4**: `prodDiagFrom`/`leibTerm`/`insertEverywhere`/`permsOf`/`perms`/`leibDet` (`leibDet n M = Σ_σ sign(σ)·Πᵢ M i (σ i)`), `leibDet_two_id` sanity (`rfl`), and the assembly lemmas `sumZ_map_neg` (pointwise negation negates the sum) + `map_lperm` (`map` is an `LPerm` congruence).    **§5**: `prodDiagFrom_append`, `rowSwapAt`/`rowSwapAt_{other,at,at1}`, `prodDiagFrom_eq_{below,above}` (rows outside `{k,k+1}` unaffected), `prodDiag_rowSwap` (diagonal products agree via `mul_left_comm`), and ★ `leibTerm_rowSwap` — an adjacent row swap (rows `k=pre.length`, `k+1`) sends the Leibniz term at `pre++y::x::l` to `−(term at pre++x::y::l)` for `x≠y`, the determinant's core combinatorial content.  (Full alternating now gates only on `perms` closed under the position-swap up to `LPerm` + nodup of `perms` elements; documented `research-notes/G185`.)
+
+`E213.Lib.Math.Linalg213.PermClosure` — **76 PURE / 0 DIRTY**.  Toward the Leibniz determinant's **alternating** property: the enumeration `perms n` realizes the symmetric-group action.  **§0** clean ∅-axiom `List` membership (`mem_append'`/`mem_map'`/`mem_flatMap'`/`mem_singleton'` — structural on the `List.Mem` constructors, since core's `mem_*` iff-lemmas are `propext`/`Quot.sound`-tainted).  **§1** `LPerm.mem` (membership preserved), `lperm_swap_prefix`.  **§2** soundness `insEv_sound`/`permsOf_sound` (every enumerated list is a genuine rearrangement of its input).  **§3** `LPerm.length_eq`, occurrence count `cnt` + `cnt_lperm` (LPerm-invariant).  **§4** ★ `lperm_of_cnt_eq` — **count-equality ⟹ `LPerm`** (the cancellation engine: `cnt_append`/`cnt_eq_zero_nil`/`cnt_pos_mem`/`mem_split`/`lperm_mid_to_front`, with `add_left_cancel'` a propext-free replacement for the tainted `Nat.add_left_cancel`).  **§5** `swapAt_invol` + `cnt_map_inv` (count under an involution-map).  **§6** completeness `permsOf_complete` (`LPerm q xs → q ∈ permsOf xs`) — with soundness, `q ∈ permsOf xs ⟺ LPerm q xs`.  **§7** `nodup_permsOf` (the enumeration has no repeats — `removeFirst` retraction + `nodup_flatMap`/`nodup_map`/`nodup_insEv`; `Nodup L := ∀a, cnt a L ≤ 1`).  **§8** ★★★ `perms_swap_closed` — the enumeration is closed under an adjacent position-swap up to `LPerm` (via `cnt_map_inv` involution + `cnt_eq_of_iff_mem` under nodup + sound/complete); uses a clean self-defined `iota` (`List.range`'s lemmas are propext/Quot-dirty).  **§9** ★★★ `leibDet_rowSwap` — **an adjacent row swap negates the Leibniz determinant** (the per-term `leibTerm_rowSwap` over a `split_at` decomposition, `sumZ_map_neg` for the sign, `perms_swap_closed`+`map_map'`+`sumZ_lperm` for the reindex).  **§10** ★★★ `leibDet_eq_zero_of_rows_eq` — **two equal adjacent rows ⟹ `leibDet = 0`** (`leibDet_congr` pointwise + `int_eq_zero_of_eq_neg` over ℤ).  The determinant is **alternating**, ∅-axiom, via antisymmetrization — no funext/propext/Quot.  Clean ∅-axiom `List` substrate built throughout (core's `mem_*`/`length_append`/`map_map`/`range` lemmas are propext/Quot-tainted).
 
 `E213.Lib.Math.Cauchy.CasoratianStep` — **5 PURE / 0 DIRTY**.  The discrete-Wronskian
 (Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form, + its telescoping:

@@ -209,6 +209,16 @@ an equivalence.
 - milestone 1: HurwitzianCF (e, tan1, periodic, certificate, geometric properness) 19 PURE,
   promoted to `theory/math/analysis/cf_holonomicity_hierarchy.md`.
 - positioning: μ-vs-213 analysis drafted; agent E dispatched to ground novelty/finer-vs-orthogonal.
+- **boundedness frontier thread → `G173`** (`Cauchy/PositiveFloorUnbounded`, 11 PURE).  New
+  ∅-axiom theorem `positive_floor_unbounded` (positive constant top finite-difference ⟹
+  unbounded, explicit witness; constructive, no LPO) + `bounded_floor_zero` (decidable ℕ
+  contrapositive).  e's `2k+2` section ⟹ `ePQ_unbounded`.  3 agents (literature / red-team /
+  infra).  Key: π's p.q. boundedness is OPEN (not "conjecturally unbounded"); "bounded
+  monotone ⟹ eventually constant" = LPO (Mandelkern), so only the witnessed direction is
+  ∅-axiom.  Honest scope: theorem covers positive-degree polynomial sections only — NOT the
+  periodic floor nor the `2ⁿ` gap.  New conjectures C8 (boundedness *localization*, modest),
+  C9 (proven nucleus), C10 (Klazar super-`(n!)^d` route to a true non-holonomic witness — next
+  target).  See `research-notes/G173_pi_cf_boundedness_frontier.md`.
 - **Markov-spectrum thread — DONE ∅-axiom** (`Real213/GoldenFormMarkov`, 8 PURE).  The
   repo's golden form `Q=m²−mk−k²` (P-spiral invariant, disc 5) is the **first Markov form**:
   `golden_anisotropic` (Vieta descent `(m,k)↦(k,m−k)`, no mod-5/omega — cleaner than the

@@ -1,4 +1,5 @@
 import E213.Lens.Number.Nat213.Peano
+import E213.Lens.Number.Nat213.Order
 
 /-!
 # Lens.Number.Nat213.Tower.NatPairToQPos — ℚ_+ via multiplicative quotient
@@ -102,5 +103,100 @@ theorem qpairEquiv_trans {p q r : QPair}
   rw [h1]
   rw [Nat213.mul_assoc p.2 q.1 r.2, h2]
   rw [Nat213.mul_comm q.2 r.1, ← Nat213.mul_assoc p.2 r.1 q.2]
+
+/-! ### Reciprocal involution — the multiplicative twin of ℤ's negation
+
+`NatPairToInt` reads the pair-swap `(a, b) ↦ (b, a)` through the **additive** fold
+`a − b` as **negation**, fixing the additive unit `0` (`swap_realizes_negation`,
+`zero_unique_negation_fixed`, `zero_is_diagonal_collapse`).  This section proves the
+twin on this file's **multiplicative** fold `a / b`: the *same* swap is **reciprocal**,
+fixing the multiplicative unit `1`.
+
+The two foldings are one axis-generator move seen on `+` and on `·`; the
+involution-fixed point is the axis unit in each case — `0` additively, `1`
+multiplicatively — both materialized as the swap-fixed diagonal `{(k, k)}`.  This is
+the pair-level shadow of the shared-unit identity (`theory/essays/tower_atlas.md`'s
+`grand_unification`): negation and reciprocal are the one period-2 swap read by two
+folds, and they fix the one unit read at `0` and at `1`. -/
+
+/-- The pair swap `(a, b) ↦ (b, a)` — the SAME involution `NatPairToInt` reads as
+    negation, here read by the multiplicative fold as reciprocal. -/
+def qSwap (p : QPair) : QPair := (p.2, p.1)
+
+/-- ★ **The swap is a period-2 involution** — `qSwap (qSwap p) = p`, the
+    multiplicative-side `1/(1/x) = x`, the twin of ℤ's `−(−x) = x`. -/
+theorem qSwap_involutive (p : QPair) : qSwap (qSwap p) = p := rfl
+
+/-- Pairwise product of `QPair`s: `(a, b) · (c, d) = (a·c, b·d)` — represents
+    `(a/b) · (c/d) = (a·c)/(b·d)`. -/
+def qPairMul (p q : QPair) : QPair :=
+  (Nat213.mul p.1 q.1, Nat213.mul p.2 q.2)
+
+/-- ★★★ **The swap realizes reciprocal — `x · (1/x) = 1`.**  The product of a pair
+    with its swap is the unit class: `(a, b) · (b, a) = (a·b, b·a) ~ qOne`, since
+    `a·b = b·a`.  This is the reciprocal law `(a/b)·(b/a) = 1`, the multiplicative
+    twin of ℤ's `x + (−x) = 0`.  So the swap-fold is genuinely the inverse on the `·`
+    axis, exactly as it is on the `+` axis. -/
+theorem qpair_mul_swap_eq_qOne (p : QPair) :
+    qpairEquiv (qPairMul p (qSwap p)) qOne := by
+  show Nat213.mul (Nat213.mul p.1 p.2) Nat213.one
+      = Nat213.mul (Nat213.mul p.2 p.1) Nat213.one
+  rw [Nat213.mul_one, Nat213.mul_one]
+  exact Nat213.mul_comm p.1 p.2
+
+/-- ★ **The unit is reciprocal-fixed** — `qSwap qOne ~ qOne`, i.e. `1/1 = 1`, the
+    twin of ℤ's `−0 = 0`. -/
+theorem qOne_reciprocal_fixed : qpairEquiv (qSwap qOne) qOne := rfl
+
+/-- ★ **The diagonal collapses to the unit** — every `(k, k)` is in the unit class,
+    `(k, k) ~ qOne`, since `k·1 = k·1`.  The multiplicative twin of ℤ's
+    `zero_is_diagonal_collapse` (the diagonal collapses to `0`): the swap-fixed
+    diagonal is the axis unit, `0` additively and `1` multiplicatively. -/
+theorem qpair_diagonal_collapse (k : Nat213) : qpairEquiv (k, k) qOne := rfl
+
+/-- ★ **The unit class is reciprocal-fixed** — if `(a, b) ~ qOne` (i.e. `a = b`) then
+    `qSwap (a, b) ~ (a, b)`.  The forward inclusion of the fixed-point characterization
+    (the converse is `reciprocal_fixed_iff_unit`, via `Nat213` square-injectivity). -/
+theorem reciprocal_fixed_of_unit {p : QPair} (h : qpairEquiv p qOne) :
+    qpairEquiv (qSwap p) p := by
+  have hab : p.1 = p.2 := by
+    have e : Nat213.mul p.1 Nat213.one = Nat213.mul p.2 Nat213.one := h
+    rw [Nat213.mul_one, Nat213.mul_one] at e
+    exact e
+  show Nat213.mul p.2 p.2 = Nat213.mul p.1 p.1
+  rw [hab]
+
+/-- ★★★ **The reciprocal fixed points are exactly the unit class** — `qSwap p ~ p ↔
+    p ~ qOne`.  The full multiplicative twin of ℤ's `zero_unique_negation_fixed` (`−z = z
+    ↔ z = 0`): a pair is its own reciprocal iff it is the unit `1`.  The forward
+    direction is `Nat213.Order.mul_self_inj` (`b·b = a·a → a = b`, native square-
+    injectivity); the backward is `reciprocal_fixed_of_unit`. -/
+theorem reciprocal_fixed_iff_unit {p : QPair} :
+    qpairEquiv (qSwap p) p ↔ qpairEquiv p qOne := by
+  constructor
+  · intro h
+    have h' : Nat213.mul p.2 p.2 = Nat213.mul p.1 p.1 := h
+    have hba : p.2 = p.1 := E213.Lens.Number.Nat213.Order.mul_self_inj h'
+    show Nat213.mul p.1 Nat213.one = Nat213.mul p.2 Nat213.one
+    rw [hba]
+  · exact reciprocal_fixed_of_unit
+
+/-- ★★★ **The reciprocal is the multiplicative twin of negation.**  Bundle: the pair
+    swap is a period-2 involution (`1/(1/x) = x`); reading it by the multiplicative
+    fold gives the reciprocal law `x · (1/x) = 1`; its fixed point is the unit `1`
+    (`qOne` is reciprocal-fixed, and the unit class is fixed); and the swap-fixed
+    diagonal `{(k, k)}` collapses to that unit.  Place this beside
+    `NatPairToInt.swap_realizes_negation` / `zero_unique_negation_fixed` /
+    `zero_is_diagonal_collapse` / `zero_unique_negation_fixed`: one swap, two folds, two
+    units (`0` for `+`, `1` for `·`) — the invert move is a single mechanism read on the
+    two operations, including the *exact* fixed-point characterization in each. -/
+theorem reciprocal_is_multiplicative_twin_of_negation :
+    (∀ p : QPair, qSwap (qSwap p) = p)
+    ∧ (∀ p : QPair, qpairEquiv (qPairMul p (qSwap p)) qOne)
+    ∧ qpairEquiv (qSwap qOne) qOne
+    ∧ (∀ k : Nat213, qpairEquiv (k, k) qOne)
+    ∧ (∀ p : QPair, qpairEquiv (qSwap p) p ↔ qpairEquiv p qOne) :=
+  ⟨qSwap_involutive, qpair_mul_swap_eq_qOne, qOne_reciprocal_fixed,
+   qpair_diagonal_collapse, fun _ => reciprocal_fixed_iff_unit⟩
 
 end E213.Lens.Number.Nat213.Tower.NatPairToQPos

@@ -12,7 +12,23 @@ import E213.Lib.Math.Cauchy.DepthPRecursive
 import E213.Lib.Math.Cauchy.DepthPRecursiveInstances
 import E213.Lib.Math.Cauchy.DepthPiQuartic
 import E213.Lib.Math.Cauchy.HurwitzianCF
+import E213.Lib.Math.Cauchy.PositiveFloorUnbounded
+import E213.Lib.Math.Cauchy.NonHolonomicWitness
+import E213.Lib.Math.Cauchy.ZeroRunNonHolonomic
+import E213.Lib.Math.Cauchy.ZeroRunNonHolonomicWitness
+import E213.Lib.Math.Cauchy.MorseHedlund
+import E213.Lib.Math.Cauchy.ThueMorseAperiodic
+import E213.Lib.Math.Cauchy.HomogRecPeriodic
 import E213.Lib.Math.Cauchy.NewtonGregory
+import E213.Lib.Math.Cauchy.PolyDepthMonotone
+import E213.Lib.Math.Cauchy.ThueMorseRingEscape
+import E213.Lib.Math.Cauchy.DepthMonotoneSynthesis
+import E213.Lib.Math.Cauchy.CFiniteHomogRec
+import E213.Lib.Math.Cauchy.EllipticPeriodicTier
+import E213.Lib.Math.Cauchy.DetZeroCollapse
+import E213.Lib.Math.Cauchy.WronskianDepth
+import E213.Lib.Math.Cauchy.GoldenPiFaces
+import E213.Lib.Math.Cauchy.ZeroInfinityHole
 import E213.Lib.Math.Cauchy.QuasiPolyBound
 import E213.Lib.Math.Cauchy.FiniteDepthAlgebra
 import E213.Lib.Math.Cauchy.BinomialTransform
@@ -30,6 +46,20 @@ import E213.Lib.Math.Cauchy.DepthOverflowDuality
 import E213.Lib.Math.Cauchy.ReentryUnit
 import E213.Lib.Math.Cauchy.DepthClosure
 import E213.Lib.Math.Cauchy.DepthCoordGenerator
+import E213.Lib.Math.Cauchy.DepthAperyCubic
+import E213.Lib.Math.Cauchy.DepthQuadraticGeneric
+import E213.Lib.Math.Cauchy.DepthCubicGeneric
+import E213.Lib.Math.Cauchy.CasoratianStep
+import E213.Lib.Math.Cauchy.CasoratianSigned
+import E213.Lib.Math.Cauchy.CassiniSigned
+import E213.Lib.Math.Cauchy.DepthResidueFloor
+import E213.Lib.Math.Cauchy.DepthSelfReference
+import E213.Lib.Math.Cauchy.PhiResidueGlue
+import E213.Lib.Math.Cauchy.PolynomialDepth
+import E213.Lib.Math.Cauchy.DepthCharacterization
+import E213.Lib.Math.Cauchy.CassiniDepthFloor
+import E213.Lib.Math.Cauchy.OrbitDimension
+import E213.Lib.Math.Cauchy.CFiniteRing
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cauchy`.
 

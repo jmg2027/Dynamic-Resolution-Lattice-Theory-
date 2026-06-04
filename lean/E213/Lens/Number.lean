@@ -17,6 +17,13 @@ import E213.Lens.Number.Int213
                      Raw, different Lens.  Integers emerge in the
                      Lens codomain (`Int`) rather than as a new
                      type.  Negation is `Raw.swap`.
+    * `SharedUnitAcrossReadings`
+                   — the honest unification of the axis-readings:
+                     the unit `1` is one value across count-difference
+                     (`NS − NT`), the Möbius/ratio determinant, the
+                     Cassini oscillation, and the reciprocal law.  One
+                     orbit, many readings, one unit — not an operator
+                     monoid.
 
   ## Future
 

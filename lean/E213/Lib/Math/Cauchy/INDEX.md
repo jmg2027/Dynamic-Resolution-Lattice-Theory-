@@ -64,6 +64,19 @@ Narrative: `theory/math/completeness_without_completeness.md`.
                                       at the exponential `2^{2^n}`
   - `DepthCoordGenerator.lean`     — the tower as a coordinate system: `binom·d` /
                                       `expTower` realize every coordinate, top-down
+  - `OrbitDimension.lean`          — above the polynomials: the **C-finite** rung.
+                                      `Δ(2ⁿ)=2ⁿ` eigen-identity; `CFiniteZ` (finite
+                                      `Δ`-orbit); strict inclusion `polynomial ⊊
+                                      C-finite`; module + shift closure; the general
+                                      geometric family `cⁿ` (orbit dim 1) and
+                                      Fibonacci (orbit dim 2) as concrete witnesses
+  - `CFiniteRing.lean`             — the **difference-operator algebra** + the
+                                      **C-finite ring closure**: `applyOp` (`Σ pᵢΔⁱ`),
+                                      `conv` (operator product), `applyOp_comm`
+                                      (operators commute), `conv_annih_add`
+                                      (annihilators multiply), the bridge `CFiniteZ ⟺
+                                      monic annihilator`, and ★ `cfiniteZ_add`
+                                      (C-finite closed under `+`; orbit dimensions add)
 
 ## Companion clusters
 

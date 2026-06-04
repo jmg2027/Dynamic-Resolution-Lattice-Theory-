@@ -9,9 +9,11 @@ import E213.Lens.Number.Nat213.NumberingSystem
 import E213.Lens.Number.Nat213.Peano
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.Number.Nat213.RawCut
+import E213.Lens.Number.Nat213.Order
 import E213.Lens.Number.Nat213.Tower.NatPairToInt
 import E213.Lens.Number.Nat213.Tower.NatPairToQPos
 import E213.Lens.Number.Nat213.Tower.NatTripleToZ2
+import E213.Lens.Number.Nat213.Tower.PairCompletion
 
 /-! Spec-as-code entry point for `E213.Lens.Number.Nat213`.
 
@@ -41,6 +43,10 @@ import E213.Lens.Number.Nat213.Tower.NatTripleToZ2
     * `RawCut`           — Lean-free cut prototype on
                            `Raw → Raw → Raw`; vertical projection
                            parallel to `Bool213.booleanProj`.
+    * `Order`            — native strict order `lt a b := ∃ c, add a c = b`
+                           (no Lean `Nat` order, which is propext-dirty);
+                           trichotomy, strict square-monotonicity, and
+                           square-injectivity `a·a = b·b → a = b`.
 
   ## Tower/
 
@@ -56,6 +62,12 @@ import E213.Lens.Number.Nat213.Tower.NatTripleToZ2
     * `Tower/NatTripleToZ2`  — ℤ² via 3-axis projection
                                 (Lean Nat 위; Eisenstein basis).
                                 `(a, b, c) ↦ (a - c, b - c)`.
+    * `Tower/PairCompletion` — the invert move once: a generic
+                                commutative-cancellative-semigroup pair
+                                completion, instantiated at `+` (ℤ) and
+                                `·` (ℚ₊).  The group identity emerges as
+                                the diagonal — unit-free, since `Nat213`
+                                has no additive `0`.
 
   All theorems ∅-axiom.
 -/
