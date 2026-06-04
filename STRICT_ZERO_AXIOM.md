@@ -534,6 +534,15 @@ monoid law the dial's readings presuppose: with `I2` it makes `Mⁿ` well-define
 Cayley–Hamilton trace recurrence `tr(Mⁿ⁺¹) = tr·tr(Mⁿ) − det·tr(Mⁿ⁻¹)` available — the bridge from
 the static dial to iteration dynamics (elliptic orders, hyperbolic growth).
 
+`E213.Lib.Math.Real213.Mat2TraceRecurrence` — **5 PURE**.  The trace recurrence, Cayley–Hamilton
+iterated: `trace_recurrence` — `tr(Mⁿ⁺²) = tr(M)·tr(Mⁿ⁺¹) − det(M)·tr(Mⁿ)` (via `mul_assoc` +
+`cayley_hamilton` + `tr_mul_charComb`).  The matrix powers' traces are a constant-coefficient
+recurrence whose characteristic discriminant is the dial `disc = tr²−4·det` — the trichotomy made
+dynamic (elliptic bounded/periodic, hyperbolic growing).  Golden boost: `golden_trace_recurrence`
+(`tr(Gⁿ⁺²) = 3·tr(Gⁿ⁺¹) − tr(Gⁿ)`, the Lucas recurrence) + `golden_trace_seed` (`2, 3` → `2,3,7,18,…`
+strictly increasing, so `G` is aperiodic — the hyperbolic infinite order, dynamic shadow of
+`disc = 5 > 0`).  `pow` matrix power; `tr_mul_charComb` trace-linearity over the CH combination.
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
