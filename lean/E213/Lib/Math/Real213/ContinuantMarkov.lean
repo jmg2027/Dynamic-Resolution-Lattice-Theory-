@@ -204,6 +204,22 @@ theorem contMatProd_chrInterval : ∀ path,
       show contMatProd ((chrInterval t).1 ++ (chrInterval t).2) = mul (cInterval t).1 (cInterval t).2
       rw [contMatProd_append, h1, h2]
 
+/-- Binary tree paths of length exactly `n`. -/
+def pathsOfLen : Nat → List (List Bool)
+  | 0 => [[]]
+  | n + 1 => (pathsOfLen n).flatMap (fun w => [true :: w, false :: w])
+
+/-- All tree paths of length `≤ n`. -/
+def pathsUpTo (n : Nat) : List (List Bool) := (List.range (n + 1)).flatMap pathsOfLen
+
+set_option maxRecDepth 4000 in
+/-- ★★★★ **The trace SEPARATE holds case-by-case** (Markov uniqueness on the depth-`≤ 4` tree truncation):
+    `markovNum` is injective on all paths of length `≤ 4` — distinct paths give distinct Markov numbers.
+    The `decide`/`DIAGONALIZE` SEPARATE works on every finite sample; the *uniform* (all-paths) version is
+    the irreducible open kernel. -/
+theorem markovNum_injective_pathsUpTo_4 :
+    (pathsUpTo 4).Pairwise (fun p q => markovNum p = markovNum q → p = q) := by decide
+
 /-- Every Christoffel interval left-bound starts with `1` (the seed `[1,1]` head, preserved by the
     mediant). -/
 theorem chrInterval_fst_head : ∀ p, ∃ t, (chrInterval p).1 = 1 :: t
