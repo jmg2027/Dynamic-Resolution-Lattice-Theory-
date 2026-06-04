@@ -74,7 +74,19 @@ non-fold.  Proof closes by folding; it does not terminate at an atom.
 ## Open frontier
 
 The fold tower closes everything *around* `H` — count, group, free action, existence, *which*
-suborbit realises (the tree residue) — and isolates `H` itself: that *no other* suborbit realises.
-That residual is the genuine open Frobenius conjecture.  The pattern reaches it and names it
-precisely; it does not dissolve it.  Honest closure is "the open content is one realisability
-statement," not "the conjecture is resolved."
+suborbit realises (the tree residue) — and the reduction is now an **equivalence**, not a sufficiency:
+`MarkovMaxUnique c ↔ WindowRealizedUnique c ↔ OrbitRealizabilityH c` is `∅`-axiom
+(`markovMaxUnique_iff_orbitRealizabilityH`).  But read that honestly: what is closed is *that the three
+are equivalent*, not their truth value — the chain's last link is the open conjecture.  The output is
+*"Frobenius restated, exactly, in `∅`-axiom orbit/window form"*, not progress toward its proof; the
+pattern reaches `H` and names it precisely, it does not dissolve it.
+
+And the difficulty does not sit where it first looks.  `slope_path_inj` is non-constructive, so a
+residue does not hand back a triple with the present objects — but that is *labor* (extract a
+`(u,c) → path` recovery function; injectivity is already `∅`-axiom, so its inverse is well-defined),
+not a barrier.  Even a recovery function would only reduce `H` to a decidable check ("does the
+recovered node have max `= c`?") — bypassing the `decide` wall — and recovery (find the triple at `c`,
+unique if it exists) is *not* `H` (does a triple at `c` exist).  `H`'s real weight is the cross-`c`
+**passing pattern**: which `ℤ` lift survives the full Vieta descent.  That pattern is the conjecture
+itself — classically, the monotone-slope characterisation (stable norm / Christoffel words).  Honest
+closure is "the reduction is exact and the kernel is named," not "the conjecture is nearly resolved."
