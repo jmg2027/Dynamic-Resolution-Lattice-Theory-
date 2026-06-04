@@ -43,6 +43,27 @@ Now closed **universally and ∅-axiom** at the structural level:
 - `Ansatz.selfPointingAxes` docstring updated: the `1` is now the
   *derived* kernel dimension, not a committed value.
 
+### Graph-connectedness induction infrastructure (the cited missing piece)
+The parametric cohomology had flagged "graph-connectedness induction
+infrastructure" as absent.  Now built:
+- **NEW** `lean/E213/Lib/Math/Combinatorics/GraphConnectivity.lean`
+  (8 PURE).  Abstract reachability `Reach Adj root` (inductive
+  predicate) over any `Adj : V → V → Prop` + `closed_const`,
+  `closed_false_or_true`, `closed_root_determines`: a δ⁰-closed Bool
+  colouring on a connected graph is globally constant (b₀ = 1).
+  Structural induction on the inductive predicate ⇒ ∅-axiom.
+- Instantiated in `KernelConstancyUniversal` (`bipAdj`,
+  `bipAdj_connected` — K_{NS,NT}^{(c)} connected for NS,NT≥1 —,
+  `isKer_const_via_framework`), isolating the only graph-specific
+  fact (connectedness) from the domain-agnostic framework.
+
+### Headline synthesis (M1 ∘ M2)
+`KChartLensAbstract.dM_four_via_M1_forced_and_M2_universal_kernel`
+(PURE): M1 (forced chartBase = 5 = d_213) ∘ M2 (forced deployment's
+δ⁰-kernel = 2 constants ⇒ selfPointingAxes = dim ker δ⁰ = 1, derived)
+⇒ d_M = chartBase − 1 = 4.  First theorem where d_M = 4 routes through
+the derived kernel dimension, not the definitional `selfPointingAxes`.
+
 ### Why the old enumeration route was blocked (recorded)
 Counting flat cochain indices universally forces core Lean's
 `Nat.div` / `Nat.mod` lemmas to decode `Fin (c·NS·NT)` → `(s,t,m)`;
@@ -82,7 +103,8 @@ being the universally 1-dimensional self-pointing kernel.
 
 ## File Map
 ```
-lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/KernelConstancyUniversal.lean  ← NEW (14 PURE): universal δ⁰-kernel = constants
+lean/E213/Lib/Math/Combinatorics/GraphConnectivity.lean                           ← NEW (8 PURE): abstract graph-connectedness induction
+lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/KernelConstancyUniversal.lean  ← NEW (20 PURE): universal δ⁰-kernel = constants + framework instantiation
 lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/INDEX.md                       ← +KernelConstancyUniversal row + universal-closure section
 lean/E213/Lib/Math/Geometry/GeometrizationConjecture/KChartLensAbstract.lean       ← +forcedKChartLens, m2_universal_forced_partition (import KernelConstancyUniversal)
 lean/E213/Lib/Math/Geometry/GeometrizationConjecture/Ansatz.lean                   ← selfPointingAxes docstring (derived)
