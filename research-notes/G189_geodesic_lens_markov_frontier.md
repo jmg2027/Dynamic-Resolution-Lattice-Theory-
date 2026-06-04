@@ -77,12 +77,19 @@ is itself the conventional reflex this project exists to test):
 
 ## The formalizable brick (and its honest ceiling)
 
-The `∅`-axiom-reachable next target is **continuant monotonicity along Stern-Brocot lines** — the
-discrete shadow of (1), i.e. the Aigner constant-numerator / constant-denominator / constant-sum
-monotonicity statements, whose classical proofs run on continued fractions / continuants (integer
-recurrences), not on the metric stable norm.  The repo already carries the engine (the Frobenius
-determinant identity, the `genL`/`genR` products, `mNode_max`); a continuant-monotonicity lemma is the
-natural extension of `§7–§8`'s slope monotonicity from the *direction* entry to the *size* entry.
+The `∅`-axiom-reachable target is **continuant monotonicity along Stern-Brocot lines** — the discrete
+shadow of (1), i.e. the Aigner constant-numerator / constant-denominator / constant-sum monotonicity
+statements, whose classical proofs run on continued fractions / continuants (integer recurrences), not
+on the metric stable norm.  The repo already carries the engine (the Frobenius determinant identity, the
+`genL`/`genR` products, `mNode_max`).
+
+**Landed (the descent half, `§30` of `SternBrocotMarkov`).**  `markovNum_lt_extend` (`(mNode p).c <
+(mNode (b::p)).c`) and `markovNum_lt_append` (strict increase along any descent) — the size reading is
+strictly monotone *down* the tree, `∅`-axiom, *immediately* from `mNode_max`.  This is the honest
+measure of how far the discrete machinery reaches alone: **all the way down a line, none of the way
+across lines.**  Descent monotonicity is essentially `mNode_max` repackaged; the cross-line comparison
+(different slopes, related positions) is a *global* statement `mNode_max` does not see — it is the
+Aigner content proper, and the open kernel.
 
 **Honest ceiling (do not misread this as a path to `H`).**  Aigner monotonicity along the three line
 families is *weaker* than uniqueness — it constrains collisions only *within* a Stern-Brocot line, and
@@ -99,10 +106,16 @@ size-reading's injectivity, the one reading of the three not yet closed.  The cl
 the stable-norm *value* is already the native integer `markovNum`, and — by the precedent of
 `slope_path_inj` discretising the analytically-framed Zhang Lemma 2 — whether the monotonicity itself
 admits a discrete/continuant proof is **open, not out of reach**.  Aigner's within-line monotonicity is
-the `∅`-axiom-reachable piece (continuants), classically proven but weaker than `H`.  The concrete next move, if a
-frontier session wants a real brick rather than the conjecture: **formalize continuant monotonicity
-along one Stern-Brocot line** (extend `§7–§8` from slope to size), banked honestly as adjacent-to-frontier,
-not as progress on the kernel.
+the `∅`-axiom-reachable piece (continuants), classically proven but weaker than `H`.
+
+Acting on it (this round) landed the **descent half** (`§30`: `markovNum_lt_extend`,
+`markovNum_lt_append`) — size strictly monotone down the tree, free from `mNode_max`.  That is the
+honest boundary the discrete machinery reaches alone: descent is `mNode_max`; the *cross-line* Aigner
+comparison (the within-line monotonicity across the `(p,q)` grid, and beyond it the across-line kernel)
+is a global statement `mNode_max` does not supply — the genuine wall, still the open `H`.  So the
+discrete structure goes exactly as far as the tree's order relation and no further on its own; closing
+the cross-line gap needs a new global argument (continuant comparison across incomparable nodes), not a
+repackaging of what is here.
 
 ### Pointers
 - engine: `Real213/ModularGeodesicLens` (`mediantLens`, `mediantLens_view_reachable`)

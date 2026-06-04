@@ -2326,4 +2326,37 @@ theorem markovMaxUnique_iff_orbitRealizabilityH (c : Nat) (hc5 : 5 ≤ c) :
   (markovMaxUnique_iff_windowRealizedUnique c hc5).trans
     (windowRealizedUnique_iff_orbitRealizabilityH c hc5)
 
+/-! ## §30 — the size reading is strictly monotone under descent (the easy half of stable-norm
+monotonicity)
+
+The "size" reading `markovNum p = (mNode p).c` strictly increases at every tree step: a deeper node is
+a strictly larger Markov number.  This is the **descent** direction of size-monotonicity, immediate
+from `mNode_max` (the mediant is the strict max of its two bounds) — the discrete shadow's easy half,
+the continuant version of "go down the tree, the stable norm grows".
+
+It is **not** the Aigner / stable-norm cross-line content: comparing *incomparable* nodes (different
+slopes at related Stern-Brocot positions) is the genuine wall = the open kernel `H`
+(`markovMaxUnique_iff_orbitRealizabilityH`).  `mNode_max` settles descent; the cross-line comparison is
+not reachable from it.  So this section honestly bounds how far the discrete machinery reaches on its
+own: all the way down a line, none of the way across lines. -/
+
+/-- **Size strictly increases per tree step**: `markovNum p < markovNum (b :: p)` for every step `b`.
+    A child node is a strictly larger Markov number than its parent — directly from `mNode_max`, since
+    the child's relevant interval bound is exactly the parent node `mNode p`. -/
+theorem markovNum_lt_extend (b : Bool) (p : List Bool) :
+    (mNode p).c < (mNode (b :: p)).c := by
+  cases b with
+  | true  => exact (mNode_max (true :: p)).2
+  | false => exact (mNode_max (false :: p)).1
+
+/-- **Size strictly increases along any descent**: `markovNum p < markovNum (q ++ p)` for nonempty
+    `q` — strictly monotone from any node down to any descendant (iterated `markovNum_lt_extend`). -/
+theorem markovNum_lt_append : ∀ (q p : List Bool), q ≠ [] → (mNode p).c < (mNode (q ++ p)).c
+  | [], _, hq => absurd rfl hq
+  | [b], p, _ => markovNum_lt_extend b p
+  | b :: c :: q', p, _ =>
+      E213.Meta.Int213.Order.lt_trans
+        (markovNum_lt_append (c :: q') p (fun h => List.noConfusion h))
+        (markovNum_lt_extend b ((c :: q') ++ p))
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
