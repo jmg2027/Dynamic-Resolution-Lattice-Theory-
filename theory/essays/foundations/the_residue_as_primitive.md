@@ -18,11 +18,11 @@ observation), not a bisimulation.
 ## Lean source
 
 - Files: `lean/E213/Theory/Raw/MuNuMirror.lean` (7 PURE),
-  `lean/E213/Theory/Raw/CoResidue.lean` (99 PURE, 0 DIRTY); umbrella
+  `lean/E213/Theory/Raw/CoResidue.lean` (107 PURE, 0 DIRTY); umbrella
   `lean/E213/Theory/Raw/API.lean`.
 - Built on `Theory/Raw/Lambek` (µF: `decompose`, `isPart_wf`, `no_infinite_descent`,
   `terminal_iff_atom`) and `Theory/Raw/PrimitiveTower` (`rawTower`).
-- ∅-axiom: 0 DIRTY (CoResidue 99 / MuNuMirror 7 PURE in the dependency-closed scan).
+- ∅-axiom: 0 DIRTY (CoResidue 107 / MuNuMirror 7 PURE in the dependency-closed scan).
 
 ## Narrative
 
@@ -123,6 +123,15 @@ positive-`Distinct`, pointwise, ∅-axiom discipline:
     induction, bisimulation-free (the positive-`Distinct` discipline makes even νF uniqueness a
     plain path induction).
 
+  - **The escapes carry the shift** (`boolSpine_shift_dynamics`).  `boolSpine` is the coalgebra
+    hom from the shift `(Nat→Bool ; head, tail)` into νF: the root branches, the left descent
+    reads the head bit `f 0` (`boolSpine_coLeft`), and the right descent **is** the shift
+    (`boolSpine_coRight`: `coRightAt (boolSpine f) [] = boolSpine ∘ tail`).  So the Bernoulli
+    shift embeds faithfully as a sub-coalgebra; **self-similarity is shift-periodicity**
+    (`boolSpine_periodic_selfsimilar`), with `spineL` the period-1 fixed point
+    (`spineL_shift_fixed`) — the `p = 1` case of `spineL_unique` — and `coSwap` commutes with the
+    shift (`boolSpine_swap_shift_commute`).
+
 These bundle into `nu_population_capstone`: νF is a `Distinct`-rich carrier — faithful finite
 embedding, a `Raw`-indexed family of escapes, a bit-stream injection, the lone automorphism
 acting, and `spineL` pinned by uniqueness.  So νF is not a single escapee above the finite µF
@@ -147,6 +156,7 @@ deep spine — the tight converse to the reachability upper bound.)
 | `boolSpine_injects_bitstreams` | `Theory/Raw/CoResidue` | `(Nat→Bool) ↪ SlashNu` preserving `Distinct` (honest "uncountable") |
 | `coSwap_nu_endomorphism` | `Theory/Raw/CoResidue` | `swap` acts on νF (leaf-relabel involution; moves `spineL`) |
 | `coSwap_boolSpine_free_action` | `Theory/Raw/CoResidue` | `swap` acts *freely* on the bit-stream escapes (exact intertwining, no fixed escapee) |
+| `boolSpine_shift_dynamics` | `Theory/Raw/CoResidue` | the bit-stream escapes carry the shift (sub-coalgebra); self-similarity = periodicity, `spineL` the period-1 point |
 | `spineL_unique` | `Theory/Raw/CoResidue` | `spineL` is the unique left-spine fixpoint (path induction) |
 | `nu_population_capstone` | `Theory/Raw/CoResidue` | νF is a `Distinct`-rich populated carrier (capstone) |
 | `exact_descent` | `Theory/Raw/StateMachine` | every state reaches an atom in *exactly* `depth` unit-steps |

@@ -32,8 +32,20 @@ escapes —
     order-2 swap group on the `(Nat→Bool)`-many escapes).
   - `boolSpine_swap_orbit`, `coSwap_boolSpine_free_action` — the 2-element orbit + capstone.
   Fed the promoted essay `theory/essays/foundations/the_frontier_has_a_form.md` (the populated +
-  *symmetric* frontier).  Remaining open: the consolidation bridges (C-phys) below + adjacent
-  (native ε₀ diagonal G173, frozen=dynamic φ).
+  *symmetric* frontier).
+
+**STATUS 2026-06-04 — §19 shift dynamics closed** ∅-axiom (CoResidue 99→107 PURE).  The
+bit-stream escapes carry the **shift dynamical system** (cross-arc §12 ⊗ §15 ⊗ §18 ⊗ the
+non-holonomicity arc):
+  - `boolSpine_congr` — pointwise stream-eq → pointwise spine-eq (funext-free, reads periodicity).
+  - `boolSpine_coLeft` / `boolSpine_coRight` — left descent = head bit, right descent = the shift.
+  - `boolSpine_shift_coalgebra` — `boolSpine` is the shift→νF coalgebra hom.
+  - `boolSpine_periodic_selfsimilar` — self-similarity = shift-periodicity.
+  - `spineL_shift_fixed` — `spineL` the period-1 (shift-fixed) escape (= `spineL_unique`'s p=1).
+  - `boolSpine_swap_shift_commute` — the lone symmetry commutes with the shift.
+  - `boolSpine_shift_dynamics` — capstone: νF carries the full shift as a faithful sub-coalgebra.
+  Fed the essay's "the frontier carries dynamics" layer.  Remaining open: the consolidation
+  bridges (C-phys) below + adjacent (native ε₀ diagonal G173, frozen=dynamic φ identity).
 
 ## Recommended next proof-line (νF population — all ∅-axiom-feasible)
 

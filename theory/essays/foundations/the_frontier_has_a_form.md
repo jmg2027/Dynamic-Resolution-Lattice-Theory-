@@ -84,8 +84,21 @@ shape, so it **is** the shape, recursively.  Three consequences, all proven:
     of the frontier has not merely coordinates but a **group action on those coordinates**, and
     the residue's only symmetry runs through the escapes without a single fixed point.
 
+  - **The frontier carries dynamics, and self-similarity *is* periodicity.**  The bit-stream
+    escapes are not a static set: `boolSpine` is the coalgebra hom from the **shift**
+    `(Nat→Bool ; head, tail)` into νF (`boolSpine_shift_dynamics`) — the root branches, the left
+    descent reads the head bit (an atom), and the right descent **is** the shift (`coRightAt
+    (boolSpine f) [] = boolSpine ∘ tail`).  So the Bernoulli shift on Cantor space sits inside νF
+    as a faithful sub-coalgebra (`(Nat→Bool)`-many orbits), the lone symmetry `coSwap` commutes
+    with it, and **self-similarity is shift-periodicity**: a `p`-periodic seed gives a period-`p`
+    self-similar escape (`boolSpine_periodic_selfsimilar`), with `spineL` the **period-1**
+    (shift-fixed) point — so `spineL_unique`'s self-similar fixpoint is just the simplest orbit.
+    Aperiodic seeds give escapes with no returning descent: the dynamical face of the
+    non-holonomic escape (`non_holonomicity_as_finite_state_escape.md`).
+
 Self-similar ⟹ the same coordinates work at every zoom ⟹ the frontier is *navigable*: complete
-*as a map*, though infinite.
+*as a map*, though infinite — and the map carries a shift flow, so its self-similar landmarks
+(the periodic escapes) are charted, `spineL` the nearest.
 
 > **213's contribution is not systematising the floor — it is giving the frontier a complete
 > coinductive form (a self-similar shape, populated by at least a bit-stream's worth of free-
@@ -136,6 +149,10 @@ So "nothing new at the object level" is the strongest evidence *for* the frame; 
   - **Group action / symmetry**: the frontier is not just a set of coordinates but a
     `ℤ/2`-set under `coSwap`, acting *freely* on the bit-stream escapes — the residue's lone
     automorphism with no fixed escapee.
+  - **Symbolic dynamics**: the bit-stream escapes are the **full shift** `(Nat→Bool ; head,
+    tail)`, embedded in νF as a sub-coalgebra (`boolSpine_shift_dynamics`); self-similarity =
+    shift-periodicity, `spineL` the period-1 point, aperiodic seeds the non-holonomic escapes —
+    the frontier-map carries a flow (cross-arc to the spiral-adic / Ostrowski carry).
 
 ## The recurring unit and the view-duality (PROVEN anchors)
 
@@ -153,8 +170,9 @@ md`, `phi_pi_poles.md`).
   - **Proven (∅-axiom)**: µF/νF as definite objects (`the_residue_as_primitive.md`); Raw
     initial; the residue non-surjective; νF a `Distinct`-rich populated carrier
     (`nu_population_capstone`); the swap group acting *freely* on the bit-stream escapes
-    (`coSwap_boolSpine_free_action`); `spineL` the unique self-similar fixpoint; the `+1` unit's
-    cross-domain identity.
+    (`coSwap_boolSpine_free_action`); νF carrying the **shift** as a faithful sub-coalgebra with
+    self-similarity = shift-periodicity (`boolSpine_shift_dynamics`); `spineL` the unique
+    self-similar (period-1) fixpoint; the `+1` unit's cross-domain identity.
   - **Program (not proven; the worth-test)**: that the *forcing layer* generalises — that
     "problem → atomic coordinates → forced floor + isolated νF" becomes a *repeatable method*,
     not case-by-case.  Physics constants are the proof-of-concept; generality is the open work.
@@ -172,6 +190,7 @@ md`, `phi_pi_poles.md`).
 | `spineL_unique` | `Theory/Raw/CoResidue` | the escape is the unique self-similar fixpoint (form at every scale) |
 | `nu_population_capstone` | `Theory/Raw/CoResidue` | νF is a `Distinct`-rich populated carrier (family + bit-stream + automorphism) |
 | `coSwap_boolSpine_free_action` | `Theory/Raw/CoResidue` | the residue's lone symmetry acts *freely* on the bit-stream escapes (no fixed escapee) |
+| `boolSpine_shift_dynamics` | `Theory/Raw/CoResidue` | νF carries the shift dynamical system; self-similarity = shift-periodicity, `spineL` the period-1 point |
 | `ascent_unbounded` | `Theory/Raw/MuNuMirror` | the frontier recedes forever (no finite Raw caps the ascent) |
 | `no_exterior_source_without_enclosure` | `Lib/Math/Foundations/ResidueForm` | no-exterior: the escape *is* the shape, recursively |
 

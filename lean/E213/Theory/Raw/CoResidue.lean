@@ -1131,4 +1131,101 @@ theorem coSwap_boolSpine_free_action :
    coSwap_boolSpine_distinct,
    spineL_eq_boolSpine_true⟩
 
+/-! ## §19 — the bit-stream escapes carry the shift; `spineL` is its period-1 fixpoint
+
+The §15 family is not a static `(Nat→Bool)`-set; it carries the **shift dynamical system**.
+`boolSpine` is the coalgebra hom from the shift `(Nat→Bool ; head, tail)` into νF: the root
+branches (`boolSpine f [] = none`), the **left** subtree reads the head bit `f 0` (a constant
+leaf — the atom `a` when `f 0`, `b` otherwise), and the **right** subtree is the **shifted**
+spine `boolSpine (tail f)` (`coRightAt (boolSpine f) [] = boolSpine ∘ tail`).  So the Bernoulli
+shift on Cantor space sits inside νF as a sub-coalgebra, faithfully (`boolSpine_inj`:
+`(Nat→Bool)`-many orbits).
+
+Two payoffs.  **Self-similarity is shift-periodicity**: a `p`-periodic seed gives an escape
+unchanged by a full-period descent (`boolSpine_periodic_selfsimilar`), and `spineL`
+(= `boolSpine (fun _ => true)`, §18) is the **period-1** fixed point — the constant shift-fixed
+stream — so `spineL_unique`'s self-similar fixpoint `coRightAt s [] = s` is exactly the `p = 1`
+case (`spineL_shift_fixed`).  **The lone symmetry commutes with the shift**
+(`boolSpine_swap_shift_commute`): νF's `ℤ/2`-action (§18) and its shift dynamics are compatible.
+Aperiodic seeds give escapes with no returning descent — the dynamical face of the non-holonomic
+escape (`theory/essays/analysis/non_holonomicity_as_finite_state_escape.md`).  All ∅-axiom,
+pointwise (no `funext`: stream-equality is read pointwise via `boolSpine_congr`). -/
+
+/-- Pointwise-equal seed streams give pointwise-equal spines — a `funext`-free congruence,
+    needed to read periodicity (where the period-shifted seed equals the seed only pointwise). -/
+theorem boolSpine_congr {f g : Nat → Bool} (h : ∀ n, f n = g n) :
+    ∀ q, boolSpine f q = boolSpine g q
+  | []           => rfl
+  | (true :: _)  => by show some (f 0) = some (g 0); rw [h 0]
+  | (false :: q) => boolSpine_congr (fun n => h (n + 1)) q
+
+/-- **Left descent reads the head bit.**  The root's left subtree of `boolSpine f` is the
+    constant leaf `some (f 0)` — the atom `a` (if `f 0`) or `b` (otherwise). -/
+theorem boolSpine_coLeft (f : Nat → Bool) :
+    ∀ q, coLeftAt (boolSpine f) [] q = some (f 0) := fun _ => rfl
+
+/-- **Right descent is the shift.**  The root's right subtree of `boolSpine f` is the spine of
+    the *shifted* seed: `coRightAt (boolSpine f) [] = boolSpine (fun n => f (n+1))` (= `tail`). -/
+theorem boolSpine_coRight (f : Nat → Bool) :
+    ∀ q, coRightAt (boolSpine f) [] q = boolSpine (fun n => f (n + 1)) q := fun _ => rfl
+
+/-- ★★★ **`boolSpine` is the shift → νF coalgebra hom.**  Bundles: the root branches, the left
+    subtree reads the head bit (`boolSpine_coLeft`), the right subtree is the shift
+    (`boolSpine_coRight`).  So the Bernoulli shift `(Nat→Bool ; head, tail)` embeds in νF as a
+    sub-coalgebra (pointwise; distinct streams give distinct images by `boolSpine_inj`). -/
+theorem boolSpine_shift_coalgebra (f : Nat → Bool) :
+    boolSpine f [] = none
+    ∧ (∀ q, coLeftAt (boolSpine f) [] q = some (f 0))
+    ∧ (∀ q, coRightAt (boolSpine f) [] q = boolSpine (fun n => f (n + 1)) q) :=
+  ⟨rfl, boolSpine_coLeft f, boolSpine_coRight f⟩
+
+/-- ★★★ **Self-similarity is shift-periodicity.**  If the seed `f` is `p`-periodic
+    (`∀ n, f (n + p) = f n`), the escape is unchanged by a full-period descent:
+    `boolSpine (fun n => f (n + p)) = boolSpine f` pointwise (`boolSpine_congr`).  So a
+    `p`-periodic seed gives a period-`p` self-similar escape (the `p`-fold right-descent
+    returns). -/
+theorem boolSpine_periodic_selfsimilar {f : Nat → Bool} {p : Nat}
+    (hper : ∀ n, f (n + p) = f n) :
+    ∀ q, boolSpine (fun n => f (n + p)) q = boolSpine f q :=
+  boolSpine_congr hper
+
+/-- ★★★ **`spineL` is the shift's period-1 fixed point.**  `spineL = boolSpine (fun _ => true)`
+    (§18, a constant shift-fixed stream), so its right-descent returns to itself: `coRightAt
+    spineL [] = spineL` — exactly the self-similar fixpoint that pins `spineL_unique`, now read
+    as the `p = 1` case of `boolSpine_periodic_selfsimilar`. -/
+theorem spineL_shift_fixed :
+    ∀ q, coRightAt spineL [] q = spineL q := fun _ => rfl
+
+/-- ★★ **The lone symmetry commutes with the shift.**  `coSwap` and the right-descent (shift)
+    commute on the bit-stream family — both sides reduce to `Bool.not`-relabelled shifted spine,
+    so `coRightAt (coSwap (boolSpine f)) [] = coSwap (coRightAt (boolSpine f) [])` pointwise.
+    νF's `ℤ/2`-symmetry (§18) and its shift dynamics are compatible. -/
+theorem boolSpine_swap_shift_commute (f : Nat → Bool) :
+    ∀ q, coRightAt (coSwap (boolSpine f)) [] q = coSwap (coRightAt (boolSpine f) []) q :=
+  fun _ => rfl
+
+/-- ★★★ **§19 capstone — νF carries the shift dynamical system on its escapes.**  Bundles the
+    sub-coalgebra structure of the Bernoulli shift inside νF:
+
+    1. `boolSpine` is the shift → νF coalgebra hom (root branches, left = head bit, right =
+       shift);
+    2. it is faithful — distinct streams give `Distinct` images (`(Nat→Bool)`-many shift-orbits);
+    3. the lone symmetry `coSwap` (§18) commutes with the shift;
+    4. `spineL` is the period-1 (shift-fixed) escape.
+
+    So the frontier (νF) carries not just a populated, symmetric *shape* (§17/§18) but the full
+    shift *dynamics* — self-similarity = shift-periodicity.  ∅-axiom, pointwise. -/
+theorem boolSpine_shift_dynamics :
+    (∀ f : Nat → Bool, boolSpine f [] = none
+        ∧ (∀ q, coLeftAt (boolSpine f) [] q = some (f 0))
+        ∧ (∀ q, coRightAt (boolSpine f) [] q = boolSpine (fun n => f (n + 1)) q))
+    ∧ (∀ f g : Nat → Bool, (∃ k, f k ≠ g k) → Distinct (boolSpine f) (boolSpine g))
+    ∧ (∀ (f : Nat → Bool) q,
+        coRightAt (coSwap (boolSpine f)) [] q = coSwap (coRightAt (boolSpine f) []) q)
+    ∧ (∀ q, coRightAt spineL [] q = spineL q) :=
+  ⟨boolSpine_shift_coalgebra,
+   fun _ _ h => boolSpine_inj h,
+   boolSpine_swap_shift_commute,
+   spineL_shift_fixed⟩
+
 end E213.Theory.Raw.CoResidue
