@@ -65,4 +65,38 @@ theorem eval_pdet : ∀ (n : Nat) (A : Nat → Nat → PolyZ) (x : Int),
   | 0,     A, x => eval_C 1 x
   | n + 1, A, x => eval_pcofSum n A x (fun B => eval_pdet n B x) (n + 1)
 
+/-! ## §2 — the characteristic polynomial `χ_M = det(XI − M)` -/
+
+/-- The **characteristic matrix** `X·I − M` as a polynomial matrix: the diagonal entries are
+    `X − Mᵢᵢ = [−Mᵢᵢ, 1]`, the off-diagonal entries the constants `[−Mᵢⱼ]`. -/
+def charMat (M : Nat → Nat → Int) : Nat → Nat → PolyZ :=
+  fun i j => if i = j then [(- M i j), 1] else [(- M i j)]
+
+/-- The **characteristic polynomial** `χ_M = det(X·I − M)` (an `N×N` determinant), as an
+    actual integer-coefficient polynomial. -/
+def charPoly (M : Nat → Nat → Int) (N : Nat) : PolyZ := pdet N (charMat M)
+
+/-- Evaluating the characteristic matrix at `x` gives `x·I − M` pointwise. -/
+theorem evalMat_charMat (M : Nat → Nat → Int) (x : Int) (i j : Nat) :
+    evalMat (charMat M) x i j = (if i = j then x else 0) - M i j := by
+  show eval (if i = j then [(- M i j), 1] else [(- M i j)]) x = (if i = j then x else 0) - M i j
+  by_cases h : i = j
+  · rw [if_pos h, if_pos h]
+    show (- M i j) + x * (1 + x * eval [] x) = x - M i j
+    rw [Int.sub_eq_add_neg, show eval ([] : PolyZ) x = 0 from rfl,
+        E213.Meta.Int213.mul_comm x 0, E213.Meta.Int213.zero_mul,
+        E213.Meta.Int213.add_comm (1 : Int) 0, E213.Meta.Int213.zero_add,
+        E213.Meta.Int213.mul_one, E213.Meta.Int213.add_comm (- M i j) x]
+  · rw [if_neg h, if_neg h]
+    show (- M i j) + x * eval [] x = 0 - M i j
+    rw [Int.sub_eq_add_neg, show eval ([] : PolyZ) x = 0 from rfl,
+        E213.Meta.Int213.mul_comm x 0, E213.Meta.Int213.zero_mul,
+        E213.Meta.Int213.add_comm (- M i j) 0]
+
+/-- ★ **The characteristic polynomial evaluates to `det(x·I − M)`** for every integer `x`. -/
+theorem eval_charPoly (M : Nat → Nat → Int) (N : Nat) (x : Int) :
+    eval (charPoly M N) x = det N (fun i j => (if i = j then x else 0) - M i j) := by
+  rw [show charPoly M N = pdet N (charMat M) from rfl, eval_pdet N (charMat M) x]
+  exact det_congr N (evalMat_charMat M x)
+
 end E213.Lib.Math.Linalg213.PolyDet
