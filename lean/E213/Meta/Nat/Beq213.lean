@@ -1,8 +1,8 @@
 /-!
 # Nat.beq cancellation helpers
 
-Pure (∅-axiom) proofs of `Nat.beq` cancellation lemmas needed for
-symbolic offset reductions in parametric cohomology proofs.
+Pure (∅-axiom) proofs of `Nat.beq` / `==` cancellation lemmas for
+symbolic offset reductions — ring-independent `Nat` plumbing.
 
   · `nat_beq_refl' : Nat.beq n n = true` — pure structural recursion
   · `nat_beq_add_left : Nat.beq (a + b) (a + c) = Nat.beq b c` —
@@ -11,16 +11,16 @@ symbolic offset reductions in parametric cohomology proofs.
     contrapositive of `Nat.eq_of_beq_eq_true`
   · `nat_beq_false_of_lt : n < m → Nat.beq n m = false`
   · `nine_block_disjoint` — `Nat.beq (9·a + r₁) (9·b + r₂) = false`
-    when `a ≠ b`, `r₁ < 9`, `r₂ < 9` (the "9-block disjoint" fact
-    needed for cross-layer vanishing in K_{3,3}^{(c)})
+    when `a ≠ b`, `r₁ < 9`, `r₂ < 9` (size-9 blocks are disjoint)
 
 These bridge abstract-`m` offsets (`9·m.val + k`) into
-layer-independent `Nat.beq` comparisons, unlocking the arbitrary-`m`
-parametric kill lemmas in `V33EnrichedParametric` and the
-cross-layer vanishing in `V33EnrichedParametricDualSpan`.
+layer-independent `Nat.beq` comparisons.  Used by the parametric
+kill lemmas in `Cohomology/Bipartite/V33EnrichedParametric*`, where
+each K_{3,3}^{(c)} layer occupies a contiguous `[9m, 9m + 9)` range
+of edge indices.
 -/
 
-namespace E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
+namespace E213.Meta.Nat.Beq213
 
 /-- `Nat.beq n n = true` by structural recursion on `n`. -/
 theorem nat_beq_refl' : ∀ (n : Nat), Nat.beq n n = true
@@ -159,4 +159,4 @@ theorem nine_block_disjoint_op {a b r1 r2 : Nat}
   rw [nine_block_disjoint h_ab h1 h2] at this
   exact Bool.noConfusion this
 
-end E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
+end E213.Meta.Nat.Beq213

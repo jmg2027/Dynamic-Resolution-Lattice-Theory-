@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
+import E213.Meta.Nat.Beq213
 
 /-!
 # Enriched 2-complex at K_{3,3}^{(c)} — parametric in c
@@ -39,7 +39,7 @@ direction per multiplicity layer.
 STRICT ∅-AXIOM.
 -/
 
-open E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
+open E213.Meta.Nat.Beq213
 
 namespace E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
 

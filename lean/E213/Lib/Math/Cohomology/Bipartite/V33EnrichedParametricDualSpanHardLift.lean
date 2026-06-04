@@ -42,7 +42,7 @@ namespace E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametricDualSpanHardLi
 open E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
 open E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametricDualSpan
 open E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametricDualSpanHard
-open E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
+open E213.Meta.Nat.Beq213
 
 /-! ## §1 — Layer slice and promotion -/
 
