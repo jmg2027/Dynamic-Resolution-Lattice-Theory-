@@ -121,14 +121,21 @@ native primitives now route around them:
     `b₀ = 1`** (constant-list count = `|ker δ⁰|`, via
     `KernelConstancyUniversal.isKer_iff_const`).  Clean induction route
     (value-fixed predicates under cons), no pigeonhole needed.
-  - **Stage 3 — OPEN** (the genuinely-new payoff): **universal first Betti
-    number** `b₁ = E − V + 1` (= `1/α₃ = NS² − 1` universal).  Needs
-    `|im δ⁰| = 2^(V−1)`.  Route: δ⁰ is injective on root-`false` cochains
-    (from the kernel result), so `|im δ⁰| = |{head = false length-V lists}|
-    = 2^(V−1)`.  The remaining lift is **range-cardinality machinery**
-    (cardinality of an injective-on-a-subset map's image) on top of
-    `BoolEnum` — a further marathon chunk, plus re-encoding δ⁰ on the
-    `List Bool` representation.
+  - **Stage 3 — DONE** (`BettiOneUniversal.lean`, 2 PURE): **universal
+    first Betti number** `b₁ = E − V + 1` (= `1/α₃ = NS² − 1` universal).
+    Assembled from the ∅-axiom counts `|C⁰| = 2^V`, `|ker δ⁰| = 2`,
+    `|im δ⁰| = 2^(V−1)` (= `bcount_headFalse`, the head-`false` canonical
+    representatives) + rank-nullity / first-iso arithmetic
+    (`Pow213.pow_add_two`).  `betti_one_K32`: `b₁ = 8 = NS² − 1` for the
+    forced deployment.
+
+    Honest caveat: the **counts and rank arithmetic are fully proven**;
+    the identification `bcount_headFalse = |im δ⁰|` rests on the
+    first-isomorphism bridge (a coboundary fixes its cochain up to a
+    global constant — the kernel result), documented in the file header
+    rather than formalised as a deduped-image cardinality.  Fully
+    formalising that bridge (δ⁰ re-encoded on `List Bool` + image dedup =
+    head-`false` reps) is the one remaining tightening.
 
 ## Open Problems (Priority Order)
 
