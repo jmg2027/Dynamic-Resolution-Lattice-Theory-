@@ -47,7 +47,7 @@ nat_decide_add_left_assoc1 (9 · m.val) (3 · i'.val) j'.val (3 · i.val)
     = (3·i'.val + j'.val == 3·i.val)
 ```
 
-(`Infrastructure/NatBeqHelpers.lean`, PURE.)  이 lemma 의 증명은
+(`Meta/Nat/Beq213.lean`, PURE.)  이 lemma 의 증명은
 `Nat.add_assoc` 으로 reassoc 한 후 `nat_beq_add_left` 의 `Nat` 위
 structural recursion 을 호출.  `_assoc2` 는 양쪽에 `+ k` 가 붙은
 변형, `_assoc1` 은 한쪽만.  두 lemma 가 `starS` (3-disjunct)
@@ -139,7 +139,7 @@ overhead 없이 *모든* layer-uniformity 결과를 받쳐준다.
 `decide (e.val = k)` 로 desugar (generic `[DecidableEq α] ⇒ BEq α`
 instance), `Nat.beq e.val k` 가 아님.  같은 cancellation 의 두
 표면 형태 (`nat_beq_add_left_*` 와 `nat_decide_add_left_*`) 가
-모두 `NatBeqHelpers.lean` 에 존재.  `starS` / `incidT` 가
+모두 `Beq213.lean` 에 존재.  `starS` / `incidT` 가
 `e.val == k` 를 emit 하므로 §20 의 bridge lemma 는 decide-form
 변형을 사용.
 
@@ -179,14 +179,14 @@ operational 메커니즘.
   · `theory/math/cohomology/k_nm_c_classification.md`
     §"Arbitrary-m bilateral kill" — Lean 정리 카탈로그 + Lean
     source 위치
-  · `theory/essays/disjoint_layers_as_direct_sum.md` —
+  · `theory/essays/cohomology/disjoint_layers_as_direct_sum.md` —
     categorical / chain-level 자기복사 진술 (이 essay 의 dual)
-  · `theory/essays/c_counter_as_layer_count.md` — c 를 depth 가
+  · `theory/essays/cohomology/c_counter_as_layer_count.md` — c 를 depth 가
     아닌 layer count 로 읽는 reframing (이 essay 의 전제)
-  · `theory/essays/pure_funext_avoidance.md` —
+  · `theory/essays/methodology/pure_funext_avoidance.md` —
     `propext` 의존 없이 PURE 정리를 닫는 일반 입장.  `nat_add_left_cancel_pure`
     가 같은 *strict purity* discipline 의 사례
-  · `lean/E213/Lib/Math/Cohomology/Infrastructure/NatBeqHelpers.lean`
+  · `lean/E213/Meta/Nat/Beq213.lean`
     — cancellation 헬퍼 (Nat.beq form + decide form)
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametric.lean`
     §20 — bridge lemma + 6 kill + capstone

@@ -392,7 +392,7 @@ algebraic / geometric / topological / dynamical / analytic):
 is *written* itself encodes the (3, 2, 1) signature at every
 decomposition axis (token count, operator arity, identity
 occurrences, coefficient extraction).  Companion essay:
-`theory/essays/every_axis_sees_p.md`.
+`theory/essays/p_orbit/every_axis_sees_p.md`.
 
 ## Open frontier
 

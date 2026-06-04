@@ -243,9 +243,9 @@ is a finite extension of the toolkit + a Nat-additive induction.
 
   · `theory/math/algebra/mobius213_p_orbit_closure.md` — the chapter; the
     universal closures are listed under "Closure status".
-  · `theory/essays/p_orbit_closure_master.md` — 11-phase marathon
+  · `theory/essays/p_orbit/p_orbit_closure_master.md` — 11-phase marathon
     synthesis; this essay closes two of its three remaining
     frontiers.
-  · `theory/essays/pure_funext_avoidance.md` — companion essay on
+  · `theory/essays/methodology/pure_funext_avoidance.md` — companion essay on
     avoiding `funext` in PURE Lean (similar discipline at a
     different layer).

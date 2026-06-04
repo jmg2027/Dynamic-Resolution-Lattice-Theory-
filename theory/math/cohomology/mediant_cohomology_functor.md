@@ -148,7 +148,7 @@ python3 tools/scan_axioms.py E213.Lib.Math.Combinatorics.Binomial
     universal `(NS, NT, c)` cohomology classification
   · `theory/math/algebra/mobius_canonical_equivalence.md` — Möbius P,
     Stern-Brocot mediant closure
-  · `theory/essays/vandermonde_mediant_counts.md` —
+  · `theory/essays/cohomology/vandermonde_mediant_counts.md` —
     cross-cutting essay on the count-Vandermonde structure
-  · `theory/essays/stern_brocot_as_universal_lattice.md` —
+  · `theory/essays/p_orbit/stern_brocot_as_universal_lattice.md` —
     Stern-Brocot tree as universal sample space

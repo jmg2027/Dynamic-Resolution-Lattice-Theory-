@@ -123,7 +123,7 @@ Each row's pointwise-equality lemma uses `promote_edge_at_layer_m`
 (when `m' = m`) and the existing `cupOpp_{starS,incidT}_cross_layer_zero`
 + `starS_layer_disjoint` / `incidT_layer_disjoint` lemmas (when
 `m' ≠ m`).  The cross-layer cases are exactly Direction A's
-disjoint-layer factorisation (`theory/essays/disjoint_layers_as_direct_sum.md`)
+disjoint-layer factorisation (`theory/essays/cohomology/disjoint_layers_as_direct_sum.md`)
 re-used at the inductive lift.
 
 `promote_edge` itself is defined as a 9-fold `cond` cascade
@@ -147,7 +147,7 @@ specific cocycles with specific single-edge cochains — every
 generator's existence is its construction.  Layer-promotion is
 the syntactic shadow of layer-disjointness — the same
 `9·m + r` block structure that closes Direction B's kill
-(`nat_decide_add_left_assoc{1,2}` in `NatBeqHelpers`) also makes
+(`nat_decide_add_left_assoc{1,2}` in `Beq213`) also makes
 `promote_edge` map each edge_idx to the right offset.  Same
 equation, no separate justification step.
 
@@ -202,14 +202,14 @@ is generator choice, not structural.
   · `theory/math/cohomology/k_nm_c_classification.md` — main
     chapter; this essay supports the "Per-layer completeness at
     c = 1" and "∀c lift via layer-promotion" sections.
-  · `theory/essays/cup_image_dual_span.md` — companion essay
+  · `theory/essays/cohomology/cup_image_dual_span.md` — companion essay
     on the SPAN side (now both directions closed).
-  · `theory/essays/disjoint_layers_as_direct_sum.md` — the
+  · `theory/essays/cohomology/disjoint_layers_as_direct_sum.md` — the
     categorical structure that makes the promotion natural.
-  · `theory/essays/multiplicity_layer_uniformity.md` — the
+  · `theory/essays/cohomology/multiplicity_layer_uniformity.md` — the
     `9·m` cancellation appears here too; layer-promotion is its
     structural mirror at the inductive-type level.
-  · `theory/essays/pure_funext_avoidance.md` — the cong
+  · `theory/essays/methodology/pure_funext_avoidance.md` — the cong
     constructor as 5th funext-bypass pattern.
   · `theory/lens/unified_equivalence.md` — the single-concept
     backbone.  The cong constructor is the manifestation at the

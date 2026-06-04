@@ -64,7 +64,7 @@ Three layers:
 ## Cross-references
 
   · Theory chapter: `theory/math/algebra/mobius213_p_orbit_closure.md`
-  · Essay: `theory/essays/p_orbit_closure_master.md`
+  · Essay: `theory/essays/p_orbit/p_orbit_closure_master.md`
   · Umbrella: `lean/E213/Lib/Math/Algebra/Mobius213/Px.lean`
 
 ## Open frontier

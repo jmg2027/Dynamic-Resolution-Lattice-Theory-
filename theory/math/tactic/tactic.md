@@ -33,4 +33,4 @@ infrastructure separately:
 ## Connection
 
 - `theory/math/foundations/algebra213_meta_theorems.md` — meta-narrative
-- `theory/math/cayley_dickson/algebra_tower.md` — primary tactic consumer
+- `theory/math/algebra/cayley_dickson/algebra_tower.md` — primary tactic consumer

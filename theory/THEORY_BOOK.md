@@ -560,7 +560,7 @@ P is therefore both the *atomic algebraic anchor* (Part III)
 and the *equivalence-class structure on cuts* (here).
 
 **Möbius P Grand Unification — 10-conjunct master**.
-`lean/E213/Lib/Math/Mobius213GrandUnification.lean` —
+`lean/E213/Lib/Math/Algebra/Mobius213GrandUnification.lean` —
 `grand_unification` is a single bundled theorem with ten
 distinct readings of P as one event:
 
@@ -593,7 +593,7 @@ Lens-frames.
 
 ### IV.3 Cayley-Dickson tower
 
-`theory/math/cayley_dickson/algebra_tower.md` —
+`theory/math/algebra/cayley_dickson/algebra_tower.md` —
 ZI (Gaussian integers) → Lipschitz (integer quaternions) →
 Cayley (integer octonions) → Sedenion → Pathion →
 Trigintaduoionion.  Layers indexed by the CD doubling.
@@ -648,7 +648,7 @@ independent closure routes, each ∅-axiom:
 
   · **A — `codim ≥ c` parametric**.  `V33EnrichedParametric`
     proves the lower bound for every `(NS, NT, c)`.  The
-    `9 · m` offset cancellation in `NatBeqHelpers` absorbs
+    `9 · m` offset cancellation in `Beq213` absorbs
     280+ proof sites across 12 templates (L1 parametric
     consolidation, per Part VIII.4).
   · **B — `codim ≤ c` unconditional**.  Closed via 8 explicit
@@ -954,7 +954,7 @@ Reading.
 
 ### VII.7 The capstone framing
 
-Per the essay `theory/essays/gra_as_substrate_of_cat_hott.md`:
+Per the essay `theory/essays/gra/gra_as_substrate_of_cat_hott.md`:
 
 > The (2, 3)-arithmetic forced by atomic distinguishing IS what
 > Category theory and HoTT name when their grade structure is
@@ -1090,7 +1090,7 @@ proof-fingerprint suite at four levels:
 When N proofs share byte-identical fingerprint across
 independent scanners, **extract the shared implicit lemma**
 (L1 parametric consolidation).  Example:
-`9 · m` offset cancellation in `NatBeqHelpers` absorbs 280+
+`9 · m` offset cancellation in `Beq213` absorbs 280+
 sites across 12 templates.
 
 ### VIII.8 Falsifiability operationalised
@@ -1218,8 +1218,8 @@ proofs)
 → HANDOFF.md → this book's Part 0
 
 **For the (2, 3)-arithmetic capstone**:
-Part VI in full + `theory/essays/gra_as_substrate_of_cat_hott.md`
-+ `theory/essays/gra_universality_one_principle.md`
+Part VI in full + `theory/essays/gra/gra_as_substrate_of_cat_hott.md`
++ `theory/essays/gra/gra_universality_one_principle.md`
 
 **For audit / verification**:
 Part VIII → `STRICT_ZERO_AXIOM.md` → `tools/scan_axioms.py`

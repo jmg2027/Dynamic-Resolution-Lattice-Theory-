@@ -71,7 +71,7 @@ content work, not by meta-scans on this branch.
 See:
 - `theory/physics/foundations/atomic_constants.md` (C2 closure)
 - `theory/math/foundations/universe_chain.md` (atomicity → CRT)
-- `theory/math/cayley_dickson/algebra_tower.md` (algebra-tower
+- `theory/math/algebra/cayley_dickson/algebra_tower.md` (algebra-tower
   asymptote φ matching Möbius signature)
 
 ### (γ) Operational / definitional reduction — FALSE in general

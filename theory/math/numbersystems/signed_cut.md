@@ -16,7 +16,7 @@ SignedCut is the **first Cayley-Dickson level** on Real213 cuts:
 - ...
 
 At each level the CD-doubling is structural; the algebra-tower
-chapter (`theory/math/cayley_dickson/algebra_tower.md`) covers the
+chapter (`theory/math/algebra/cayley_dickson/algebra_tower.md`) covers the
 abstract level-N structure, this chapter covers the concrete
 SignedCut level + its CD-doubled descendants.
 

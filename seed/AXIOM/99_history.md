@@ -165,4 +165,4 @@ concretely as the count-Lens on an *ordered* count-pair `(m,n) ↦ m−n`
 (magnitude Nat-style, sign Bool-style §5.2; orientation = §2.4 clause-3
 direction-freedom broken), grounded in `Int213`'s `subNatNat` pair-arithmetic.
 Refinement, not a new chapter — ℤ-as-Lens-output was already foundational in
-§6.7.  Essay: `theory/essays/integers_as_difference_lens.md`.
+§6.7.  Essay: `theory/essays/analysis/integers_as_difference_lens.md`.

@@ -195,7 +195,7 @@ verified ∅-axiom.
     enumerates *what P describes*; universal reduction would
     state that *every framework operation factors through
     P + decomposition pattern*.  The five architectural patterns
-    in `theory/essays/pure_funext_avoidance.md` are the
+    in `theory/essays/methodology/pure_funext_avoidance.md` are the
     within-fiber operational content; a sixth pattern
     (CD-Tensor Bundling) for fiber-changing operations is
     formalised in

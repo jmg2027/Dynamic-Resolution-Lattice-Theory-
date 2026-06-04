@@ -195,7 +195,7 @@ one Lean theorem.
     hosting the formal classification + parametric c-counter
   · `theory/math/algebra/mobius_canonical_equivalence.md` — Möbius P as
     cut equivalence generator; Stern-Brocot mediant closure
-  · `theory/essays/c_counter_as_layer_count.md` — orthogonal
+  · `theory/essays/cohomology/c_counter_as_layer_count.md` — orthogonal
     c-axis decoupling from (NS, NT) lattice position
-  · `theory/essays/every_axis_sees_p.md` — P as the universal
+  · `theory/essays/p_orbit/every_axis_sees_p.md` — P as the universal
     generator across 55 framework axes

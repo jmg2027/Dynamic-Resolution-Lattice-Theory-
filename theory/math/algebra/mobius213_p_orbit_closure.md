@@ -72,7 +72,7 @@ the only cohomology-level path.
 
 See `theory/math/cohomology/tripartite_self_containment.md`
 for the full formal account, and
-`theory/essays/bipartite_tripartite_self_containment.md` for
+`theory/essays/p_orbit/bipartite_tripartite_self_containment.md` for
 the cross-cutting reading.
 
 ## Mod-p period catalog
@@ -193,7 +193,7 @@ These two readings coincide on P.  Every static integer that
 emerges from any P-related construction is some `L(k)` or a
 ℤ-combination thereof — by definition of the framework.
 
-The essay `theory/essays/p_orbit_naturalness_boundary.md`
+The essay `theory/essays/p_orbit/p_orbit_naturalness_boundary.md`
 develops this dynamic-static coincidence at the operational
 level (depth-0 atomic vs depth-k iteration; the curatorial
 choice of "depth ≤ 1" for the 36-species catalog).
@@ -382,8 +382,8 @@ the P-orbit level, not the atomic level.
     (avoiding Nat subtraction) and the IH-driven polynomial
     helper `Q00² = Q00·Q01 + Q01² + 1`.
 
-See `theory/essays/p_orbit_closure_master.md` for the 11-phase
-synthesis and `theory/essays/pure_nat_ring_methodology.md` for the
+See `theory/essays/p_orbit/p_orbit_closure_master.md` for the 11-phase
+synthesis and `theory/essays/methodology/pure_nat_ring_methodology.md` for the
 PURE ring discovery + closure pattern.
 
 ## Self-form fixed-point (G139)
@@ -527,12 +527,12 @@ p-adic library narrative (308 PURE theorems).
     bipartite cohomology side (K_{NS,NT}^{(c)} classification)
   · `theory/math/numbersystems/padic_real213.md` — ∅-axiom p-adic number
     construction (the Lens-arena for mod-p reductions)
-  · `theory/essays/p_orbit_naturalness_boundary.md` — synthesis
+  · `theory/essays/p_orbit/p_orbit_naturalness_boundary.md` — synthesis
     essay on the dynamic = static coincidence at P
-  · `theory/essays/mobius_self_form_fixed_point.md` — G139 essay:
+  · `theory/essays/p_orbit/mobius_self_form_fixed_point.md` — G139 essay:
     P as self-form fixed point (모습 자체가 뫼비우스 행렬)
-  · `theory/essays/bipartite_tripartite_self_containment.md` —
+  · `theory/essays/p_orbit/bipartite_tripartite_self_containment.md` —
     the self-containment thesis (K_{3,2}^{(c=2)} already carries
     both "2" and "3" without K_{2,1,3} extension)
-  · `theory/essays/every_axis_sees_p.md` — 55 framework axes,
+  · `theory/essays/p_orbit/every_axis_sees_p.md` — 55 framework axes,
     all yielding `{NS, NT, det}` integers

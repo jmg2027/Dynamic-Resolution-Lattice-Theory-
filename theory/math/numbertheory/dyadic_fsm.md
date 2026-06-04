@@ -146,7 +146,7 @@ F_{p²}) to Pisano-statements-on-the-FSM.
 
 - `theory/math/foundations/universe_chain.md` — Möbius P matrix [[2,1],[1,1]]
   is the Pell-Fib generator; DyadicFSM closes the P^n identities
-- `theory/math/cayley_dickson/algebra_tower.md` — algebra-tower
+- `theory/math/algebra/cayley_dickson/algebra_tower.md` — algebra-tower
   asymptote rate uses Pisano periods
 - `theory/math/numbersystems/real213.md` — Real213 brackets use dyadic encodings
 

@@ -34,7 +34,7 @@ the framework has been pointing at.
 | c-counter direction | Role | P-orbit phase | Role |
 |---|---|---|---|
 | A — universal `(NS, NT, c)` framework (`EnrichedKNSNTc` master capstone) | parametric universality via `PairEnum NS` + `psi_layer_param` | Phases 1–2 — `CharPolySelf` (Cayley-Hamilton) + `POrbitRing` (12-prime ring catalogue) | seed + ring generation; the recurrence anchor |
-| B — arbitrary-m bilateral kill (`9·m` offset cancellation, `NatBeqHelpers`) | per-layer uniformity through index translation | Phase 3 — `OrbitForcing` (Pell-Lucas recurrence coefficients forced from atomic seeds) | uniqueness of the recurrence step from atomic data |
+| B — arbitrary-m bilateral kill (`9·m` offset cancellation, `Beq213`) | per-layer uniformity through index translation | Phase 3 — `OrbitForcing` (Pell-Lucas recurrence coefficients forced from atomic seeds) | uniqueness of the recurrence step from atomic data |
 | C — cup-image dual span (codim ≤ c via PRIMARY cup-image + `nine_block_disjoint`) | matching upper bound; cross-layer vanishing | Phases 4–5 — `PeriodDepthBounds` (depth-tagged primes up to 97) + `CrossProductAxes` (`CrossAddress` schema) | depth-bounded placement of every mod-p period in the ring |
 | E — Stern-Brocot mediant Vandermonde (`binom_add_2` + V/E/F decompositions + `mediant_cohomology_functor_capstone`) | count-level functoriality over mediant | Phase 5 — `CrossProductAxes` (triple-axis address: bipartite, tripartite, P-orbit) | same Stern-Brocot mediant lifting traces to depth in P-iteration |
 | T — bipartite-tripartite self-containment (V32LocalSignature positive + V32V213CohomologyBridge negative) | atomic-level duality preserved, cohomology-level duality broken | Phase 6 — `Cohomology/Tripartite/V213ShadowProjection` (Massey shadow vanishes; external tripartite closure negative confirmed) | cohomology-level test of tripartite extension; same negative verdict from a Massey angle |
@@ -72,7 +72,7 @@ Reading down the table column-by-column:
     `binom_add_2` + `add_mul_pure` (count).
 
 The cancellation lemmas live at three different
-infrastructure layers (`NatBeqHelpers` / `Px/CharPolySelf` /
+infrastructure layers (`Beq213` / `Px/CharPolySelf` /
 `Combinatorics/Binomial`) precisely because each closure
 chose the cancellation that fit its surface.  The shapes
 agree; the surfaces differ.
@@ -112,13 +112,13 @@ duality.
 
 ## Cross-references
 
-  · `theory/essays/c_counter_programme_closure.md` — five
+  · `theory/essays/cohomology/c_counter_programme_closure.md` — five
     directions, this essay's column-1 source
-  · `theory/essays/p_orbit_closure_master.md` — six phases,
+  · `theory/essays/p_orbit/p_orbit_closure_master.md` — six phases,
     this essay's column-3 source
-  · `theory/essays/layer_multiplication_pattern.md` — the
+  · `theory/essays/synthesis/layer_multiplication_pattern.md` — the
     proof shape underlying every row
-  · `theory/essays/disjoint_layers_as_direct_sum.md` —
+  · `theory/essays/cohomology/disjoint_layers_as_direct_sum.md` —
     categorical reading of the cohomology axis
   · `theory/math/cohomology/k_nm_c_classification.md` —
     chapter hosting Directions A/B/C/E in formal detail

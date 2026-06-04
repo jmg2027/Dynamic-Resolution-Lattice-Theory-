@@ -198,10 +198,10 @@ just an insight: K_{3, 2}^{(c=2)} is the unique locus of the
   · `theory/math/algebra/mobius213_p_orbit_closure.md` — tripartite
     K_{2,1,3} formalisation (Reading A) + bipartite-tripartite
     × P-orbit conjecture
-  · `theory/essays/p_orbit_naturalness_boundary.md` —
+  · `theory/essays/p_orbit/p_orbit_naturalness_boundary.md` —
     naturalness depth bound; K_{3,2}^{(c=2)} as minimal-depth
     anchor
-  · `theory/essays/every_axis_sees_p.md` — 55 axes all yielding
+  · `theory/essays/p_orbit/every_axis_sees_p.md` — 55 axes all yielding
     `{NS, NT, det}` integers (the every-point recurrence
     pattern at the catalog level)
     — full insight note with Lean-deferred Option I framework

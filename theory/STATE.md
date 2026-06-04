@@ -29,8 +29,8 @@ Three independent closures share **one proof shape**: an
 invariant at a base level, an offset translation indexing
 parallel copies, and a cancellation lemma that absorbs the
 offset.  Stack the copies, count the summands — that is the
-closure.  See `theory/essays/layer_multiplication_pattern.md`
-for the shape and `theory/essays/synthesis_interlock_map.md`
+closure.  See `theory/essays/synthesis/layer_multiplication_pattern.md`
+for the shape and `theory/essays/synthesis/synthesis_interlock_map.md`
 for the explicit correspondence between c-counter directions
 and P-orbit phases.
 
@@ -77,14 +77,14 @@ funext + propext) are catalogued in `STRICT_ZERO_AXIOM.md`
    philosophical anchor (re-read every session).
 2. This file — current framework state.
 3. `theory/INDEX.md` — book map (117 chapters).
-4. `theory/essays/c_counter_programme_closure.md` — the
+4. `theory/essays/cohomology/c_counter_programme_closure.md` — the
    five-direction closure synthesis with parallel to
    P-orbit closure.
-5. `theory/essays/p_orbit_closure_master.md` — the algebraic
+5. `theory/essays/p_orbit/p_orbit_closure_master.md` — the algebraic
    side (Lucas-Pell trace ring, OrbitForcing).
-6. `theory/essays/layer_multiplication_pattern.md` — the
+6. `theory/essays/synthesis/layer_multiplication_pattern.md` — the
    shared proof shape across c-counter, P-orbit, mediant.
-7. `theory/essays/synthesis_interlock_map.md` — explicit
+7. `theory/essays/synthesis/synthesis_interlock_map.md` — explicit
    correspondence table between the three synthesis essays.
 
 ## Volatile session state vs. permanent state

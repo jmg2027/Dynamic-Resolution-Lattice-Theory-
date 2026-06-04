@@ -306,7 +306,7 @@ The 8-geometry decomposition (Geometrization) collapses with:
   same 8-class cohomology
 - **Universe chain Möbius P** (`theory/math/foundations/universe_chain.md`):
   same generator [[2,1],[1,1]] now read through 7 mod-k Lenses
-- **Algebra tower asymptote φ** (`theory/math/cayley_dickson/algebra_tower.md`):
+- **Algebra tower asymptote φ** (`theory/math/algebra/cayley_dickson/algebra_tower.md`):
   same Möbius signature
 
 → **Geometrization 8 geometries + gluon octet + K_{3,2}^{(c=2)}

@@ -349,7 +349,7 @@ The next-shot focus should be one of:
     applied: `theory/math/cohomology/k_nm_c_classification.md`
     overview + key-results + open frontier; STATE.md c-counter
     row.  Follow-on essay update in
-    `theory/essays/c_counter_programme_closure.md` still
+    `theory/essays/cohomology/c_counter_programme_closure.md` still
     pending.
   · **1.2 SATISFIED (closed 2026-05-25)**: atomic forcing chain
     (NS, NT, d, c) = (3, 2, 5, 2) is now fully Lean-formalised
@@ -400,9 +400,9 @@ scope and should not appear in any item's "Action":
   · `theory/INDEX.md` — book map
   · `HANDOFF.md` — volatile session state
     conjecture catalog (active scratch)
-  · `theory/essays/c_counter_programme_closure.md` — Tier-1
+  · `theory/essays/cohomology/c_counter_programme_closure.md` — Tier-1
     items 1.1–1.3 anchor essay
-  · `theory/essays/p_orbit_closure_master.md` — Tier-2 item
+  · `theory/essays/p_orbit/p_orbit_closure_master.md` — Tier-2 item
     2.3 anchor essay
-  · `theory/essays/synthesis_interlock_map.md` — the c-counter
+  · `theory/essays/synthesis/synthesis_interlock_map.md` — the c-counter
     ↔ P-orbit ↔ layer-multiplication correspondence

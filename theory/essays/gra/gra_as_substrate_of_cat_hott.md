@@ -143,7 +143,7 @@ exterior position from which "GRA is one structure among many."
 
 Four resolutions of the same self-forcing pattern:
 
-  · `det(P) = 1` (`theory/essays/mobius_self_form_fixed_point.md`):
+  · `det(P) = 1` (`theory/essays/p_orbit/mobius_self_form_fixed_point.md`):
     P's char-poly orbit IS P's data; no external recipe.
   · `K_{3,2}^{(c=2)}` closure form: every observable factors as
     `R(NS, NT, d, c) · Π(1 + κ · αⁿ)`.  The exponent `n` is a

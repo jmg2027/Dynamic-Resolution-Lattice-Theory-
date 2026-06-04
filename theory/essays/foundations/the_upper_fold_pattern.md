@@ -56,7 +56,7 @@ The fold the window transverses is the fold the repo reads everywhere as the uni
 the `Δ = tr² − 4` sign splitting hyperbolic `φ` from elliptic `π` (`HyperbolicEllipticTrace`), `0`
 and `∞` as one reciprocal hole (`ZeroInfinityHole`), the `±`/Cassini sign as the fold's non-value
 (`DetSpectrumPoles`).  And `±` itself is the readout of the difference-Lens
-(`theory/essays/integers_as_difference_lens.md`).  `WindowRealizedUnique` is "the fold's realised
+(`theory/essays/analysis/integers_as_difference_lens.md`).  `WindowRealizedUnique` is "the fold's realised
 non-value is unique" — the Markov face of the same object.
 
 ## Why this is forced, not heuristic
@@ -65,7 +65,7 @@ non-value is unique" — the Markov face of the same object.
 of no-exterior (`seed/AXIOM/05_no_exterior.md` §5.1, §8.1).  An obstruction cannot be *external*:
 there is no outside to locate it in.  So every wall is internal self-reference, and internal
 self-reference correctly abstracted *is* a fold — the residue pointing at itself
-(`theory/essays/the_form_of_the_residue.md`).  The recursion does not bottom out into a non-fold
+(`theory/essays/foundations/the_form_of_the_residue.md`).  The recursion does not bottom out into a non-fold
 base case because no view surjects onto the residue (`object1_not_surjective`,
 `theory/math/numbersystems/completeness_without_completeness.md`): each template is a facet, the residue is outside
 every facet's image, so refinement *converges* on the residue without ever *reaching* a final

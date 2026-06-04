@@ -128,6 +128,6 @@ python3 tools/scan_axioms.py Lib/Math/Foundations/PatternCatalog
 
 ## Citation guidance
 
-- ✅ `theory/math/pattern_catalog/pattern_catalog.md` (narrative)
+- ✅ `theory/math/foundations/pattern_catalog/pattern_catalog.md` (narrative)
 - ✅ archived notes for the audit arc:
   `research-notes/archive/pattern_catalog/G##_*.md`

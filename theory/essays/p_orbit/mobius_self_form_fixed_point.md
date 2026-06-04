@@ -191,12 +191,12 @@ Five independent surfaces, one conclusion: the form IS the matrix.
 
   · `theory/math/algebra/mobius213_p_orbit_closure.md` §"Self-form
     fixed-point (G139)" — chapter integration
-  · `theory/essays/every_axis_sees_p.md` — multi-axis convergence
+  · `theory/essays/p_orbit/every_axis_sees_p.md` — multi-axis convergence
     (the 55-axis catalog is the "many surfaces" version)
-  · `theory/essays/p_orbit_closure_master.md` — the generating
+  · `theory/essays/p_orbit/p_orbit_closure_master.md` — the generating
     direction (P → integers); this essay is the reconstruction
     direction (integers → P)
-  · `theory/essays/pure_nat_ring_methodology.md` — how
+  · `theory/essays/methodology/pure_nat_ring_methodology.md` — how
     `det_pn_universal` was proved PURELY
   · `lean/E213/Lib/Math/Algebra/Mobius213/Px/MobiusSelfForm.lean` — source
   · `lean/E213/Lib/Math/Algebra/Mobius213/Px/CharPolySelf.lean` — orbit

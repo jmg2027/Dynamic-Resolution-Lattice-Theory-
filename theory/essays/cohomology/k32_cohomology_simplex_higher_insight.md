@@ -145,7 +145,7 @@ skeleton-by-skeleton으로 펼쳐진 형태이다.
 - `lean/E213/Lib/Math/Algebra/Mobius213/Mobius213K32Bridge.lean` — P ↔ K₃,₂²
 - `lean/E213/Lib/Math/Algebra/Mobius213/Px/PGeneratesNat.lean` — G140
 - `lean/E213/Lib/Math/Algebra/Mobius213/Px/ConvergentDet.lean` — Farey/Cassini
-- `theory/essays/synthesis_interlock_map.md` — 5-row correspondence
-- `theory/essays/p_orbit_closure_master.md` — 6-phase P-orbit
+- `theory/essays/synthesis/synthesis_interlock_map.md` — 5-row correspondence
+- `theory/essays/p_orbit/p_orbit_closure_master.md` — 6-phase P-orbit
 - `theory/physics/simplex.md` — Δ⁴ + 3-generation
   LocalSignature self-containment
