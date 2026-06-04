@@ -1,8 +1,28 @@
-# Session Handoff — 2026-06-04e (Markov — ★ the UPPER-FOLD PATTERN, three levels, §20–§22)
+# Session Handoff — 2026-06-04f (Markov — ★ UPPER-FOLD PATTERN, four levels + ω=2 existence, §20–§23)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **92 PURE**.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **95 PURE**.
 
-## ★★★ NEW (§22): the fold is a product of folds — `SqrtUnity` factors over coprime components
+## ★★★ NEW (§23): nontrivial unit-root EXISTENCE — open content closed for ω=2
+The CRT *existence* half of the open Markov content, now ∅-axiom.
+- **`nontrivial_unit_root_exists`** `(3≤m)(3≤n)(gcd m n=1) : ∃ e, SqrtUnity (m·n) e ∧ e≠1 ∧ e≠m·n−1`.
+  Construction `e = 1 + m·t`, `t ≡ (n−2)·m⁻¹ mod n` (`m⁻¹` from `inverse_of_coprime`/`modBezout`):
+  `e ≡ 1 mod m`, `e ≡ −1 mod n` — the CRT product `(1,−1) ∈ Z/m × Z/n`, non-diagonal ⟹ `≠ ±1`.
+  `sqrtUnity_lift` (§22) certifies `e²≡1 mod c`.
+- **Consequence**: `SqrtUnity c ⊋ {±1}` *unconditionally* at every two-factor composite ⟹ the `2^ω`
+  root explosion is real, phantoms genuinely exist ⟹ Markov uniqueness there **cannot** come from
+  root-counting; it must come from realizability (`WindowRealizedUnique`, §18).  This formally locates
+  the open content: it is *exactly* the phantom-elimination `WindowRealizedUnique` supplies.
+- **`aux_1_add_sub2`, `aux_pred_mul_mod`** : the two ∅-axiom Nat arithmetic helpers (via `Nat.le.dest`
+  / `succ_pred` / `add_mul_mod_self_pure`; no `omega` — `omega` leaks propext+Quot.sound).
+
+### Remaining open content (now precisely ONE thing)
+With existence done, the only piece left for `ω=2` uniqueness is the **orbit-injectivity**:
+`e·u ≡ ±u mod c ⟹ e ≡ ±1` (cancel by the unit `u`; `u²≡−1` makes `u` invertible via `modBezout`).
+That + existence = "the window's two reps are the two `±`-suborbits, and only the diagonal one is
+Markov-realized" — i.e. it reduces `WindowRealizedUnique` to a *single* realizability check per
+phantom orbit.  Engine fully ready (`mul_dvd_of_coprime`, `inverse_of_coprime`, `sqrtUnity_acts_on_root`).
+
+## ★★★ (§22): the fold is a product of folds — `SqrtUnity` factors over coprime components
 Third level of the recursion: the §21 unit-root group is *multiplicative* across coprime factors, so
 the composite fold IS a product of the per-prime-power `±` folds — the exact mechanism by which `ω`
 controls the phantom count.
