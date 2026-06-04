@@ -1,6 +1,15 @@
-# Session Handoff — 2026-06-04i (Markov — ★ orbit tower §20–§26 + capstone + end-to-end 1325)
+# Session Handoff — 2026-06-04j (Markov — ★ orbit tower §20–§27 + promoted to theory/)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **105 PURE**.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **106 PURE**.
+
+## ★★★ NEW: promoted to `theory/math/analysis/markov_uniqueness.md` + §27 tree-residue determination
+- **Promotion (theory tier-3)**: the §20–§26 orbit tower is now narrated in
+  `theory/math/analysis/markov_uniqueness.md` "The upper-fold pattern" section (status header + verify
+  block + INDEX entry updated; §20 docstring cites the theory path).
+- **`tree_residue_realized_windowed`** (§27): the node residue `markovRes p` mod `mNode p` is BOTH a
+  windowed `√(−1)` root (`node_window_nat`) AND realised by the actual triple `(m_r,m_l,c)`
+  (`node_realized`).  Names *which* `±`-suborbit realises (the tree-residue one); `H`'s open content
+  (§26) is exactly the converse — no OTHER suborbit realises.
 
 ## ★★★ NEW (§26 + capstone): `MarkovMaxUnique` from the orbit realizability condition
 - **`markov_max_unique_of_orbit`** `(5≤c)(H) : MarkovMaxUnique c` — the §20–§25 tower in ONE entry
