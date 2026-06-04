@@ -49,6 +49,18 @@ The disc-`−3` Fermat representation `p ∣ x²+x+1 ⟹ p = a²−ab+b²` — *
   `4·form = (2a−b)²+3b²`) and the full ★`eisenstein_iff`:
   for a prime `p ≠ 3`, `p ≡ 1 (mod 3) ⟺ ∃ a b : Int, ↑p = a²−ab+b²`.
 
+### 5. Gaussian disc-`−4` arc — Fermat's two-square theorem CLOSED (∅-axiom)
+`p ≡ 1 (mod 4) ⟹ p = a² + b²`, end to end, no `propext`/Classical/`native_decide`.  Built by
+generalising the disc-`−3` engine (the `PolyRoot` Lagrange machinery is field-agnostic):
+- `ModArith/NonFixedExists.exists_nonfixed_gen` — exponent-generic non-residue existence.
+- `ModArith/QRNegOne.qr_neg_one` — Pillar I: `p ≡ 1 mod 4 ⟹ ∃ x, p ∣ x²+1` (`−1` a QR), via
+  a non-`(p−1)/2`-fixed element + FLT + Euclid.
+- `Integer/GaussianDivStep.zi_div_step` — `ℤ[i]` is norm-Euclidean (covering radius² = 1/2).
+- `Integer/GaussianDvd` — divisibility↔norm bridge in `ℤ[i]`.
+- `Integer/GaussianGcd.gcd_bezout` — Euclidean gcd + Bezout in `ℤ[i]` (fuel induction).
+- `Integer/GaussianSplit.split_form` — Pillar II: `p ∣ x²+1 ⟹ p = a²+b²`.
+- `Integer/GaussianTwoSquare.two_square_of_mod4` — ★ the assembled Fermat theorem (axiom-free).
+
 ## Open Problems (Priority Order)
 
 ### 1. `¬ (p:ℤ) ∣ 1` for primes — RESOLVED inside `eisenstein_split_converse`
