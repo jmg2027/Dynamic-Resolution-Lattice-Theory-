@@ -43,8 +43,11 @@ The disc-`−3` Fermat representation `p ∣ x²+x+1 ⟹ p = a²−ab+b²` — *
 - `ModArith/CubeFromFLT` (6) — FLT bridge: a non-cube-fixed `aᵐ` ⟹ `∃ x, p∣x²+x+1`.
 - `ModArith/NonFixedExists` (7) — ★`exists_nonfixed`: a non-cube-fixed element exists,
   produced by a **constructive bounded search** refuted in its `none`-branch by `eval_zero`.
-- `Integer/EisensteinConverse` (4) — ★`eisenstein_split_converse`, assembling both pillars
-  (FLT primality bridged from divisor-dichotomy via `prime_coprime`/`modBezout_gcd_one`).
+- `Integer/EisensteinConverse` (9) — ★`eisenstein_split_converse`, assembling both pillars
+  (FLT primality bridged from divisor-dichotomy via `prime_coprime`/`modBezout_gcd_one`);
+  plus the **necessity** direction (`form_mod3`: `a²−ab+b² ≢ 2 mod 3` over ℤ via
+  `4·form = (2a−b)²+3b²`) and the full ★`eisenstein_iff`:
+  for a prime `p ≠ 3`, `p ≡ 1 (mod 3) ⟺ ∃ a b : Int, ↑p = a²−ab+b²`.
 
 ## Open Problems (Priority Order)
 
@@ -67,11 +70,11 @@ Unchanged this session (math-frontier work, no physics-constant edits).  Canonic
   `research-notes/frontiers/G167_crossdet_number_field_eisenstein_conjecture.md`.
 
 ## Next
-The split converse is fully closed.  Natural follow-ons: (a) the *necessity* direction packaged
-with the converse into one iff (`p ≡ 1 mod 3 ⟺ p = a²−ab+b²`, the χ₋₃ fingerprint already gives
-`≢ 2`); (b) promote the closed PolyRoot + Eisenstein-converse sub-tree to `theory/` per
-`PROMOTION_CRITERIA`; (c) generalise Lagrange's bound + the cyclotomic existence pattern to the
-disc-`−4` (Gaussian, `p ≡ 1 mod 4`) and other class-number-one imaginary quadratic fields.
+The split iff is fully closed (both directions, ∅-axiom).  Natural follow-ons: (a) promote the
+closed PolyRoot + Eisenstein-converse sub-tree to `theory/` per `PROMOTION_CRITERIA`;
+(b) generalise Lagrange's bound + the cyclotomic-existence pattern to the disc-`−4` (Gaussian,
+`p ≡ 1 mod 4` ⟺ `p = a²+b²`) and other class-number-one imaginary quadratic fields — the
+`PolyRoot` library + `centered_div` balanced-residue tooling are field-agnostic and ready.
 
 ## (archived) Phase 3 plan
 Phase 3 (Lagrange's root bound mod `p`) was the single classical input gating the full split
