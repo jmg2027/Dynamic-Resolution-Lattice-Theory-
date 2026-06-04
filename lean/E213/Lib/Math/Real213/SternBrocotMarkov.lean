@@ -4,6 +4,7 @@ import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Int213.PolyIntMTactic
 import E213.Meta.Tactic.List213
 import E213.Lib.Math.Linalg213.DetN
+import E213.Meta.Int213.Order
 
 /-!
 # SternBrocotMarkov — the proper det-1 Stern-Brocot tree (toward the Markov recovery)
@@ -1500,5 +1501,145 @@ theorem mNode_max (path : List Bool) :
     exact lt_of_sub_eq_of_one_le (sub_zero_int _)
       (one_le_add_nonneg (one_le_mul hlc hra)
         (E213.Meta.Int213.mul_nonneg (nonneg_sub_of_le hld) (nonneg_of_one_le hrc)))
+
+/-! ## §17 — the node residue is realized (recovery congruence, ℕ form)
+
+  Toward the realized-windowed-root template: every node's windowed residue `r = u_t.toNat` recovers
+  the right bound number via `(r·m_l) % c = m_r` (ℕ).  From `markovRes_recovery_dvd` (ℤ `c ∣ r·m_l −
+  m_r`) + `mNode_max` (`m_r < c`), converted with the pure `ofNat_sub_ofNat` bridge. -/
+
+/-- `ofNat c ∣ (ofNat A − ofNat B)` with `B < c`, `1 ≤ c` ⟹ `A % c = B` (pure ℤ→ℕ mod transfer). -/
+private theorem mod_eq_of_ofNat_dvd_sub {A B c : Nat} (hc : 1 ≤ c) (hB : B < c)
+    (h : (Int.ofNat c) ∣ (Int.ofNat A - Int.ofNat B)) : A % c = B := by
+  rcases Nat.lt_or_ge A B with hAB | hAB
+  · have h' : (Int.ofNat c) ∣ (Int.ofNat B - Int.ofNat A) := by
+      obtain ⟨q, hq⟩ := h
+      exact ⟨-q, by rw [E213.Meta.Int213.mul_neg, ← hq]; ring_intZ⟩
+    rw [E213.Meta.Int213.Order.ofNat_sub_ofNat,
+        E213.Meta.Int213.subNatNat_of_le (Nat.le_of_lt hAB)] at h'
+    obtain ⟨k, hk⟩ := nat_dvd_of_ofNat_dvd hc h'
+    have hBval : B = A + k * c := by
+      rw [← E213.Tactic.NatHelper.add_sub_of_le (Nat.le_of_lt hAB), hk, Nat.mul_comm c k]
+    have hmod : B % c = A % c := by
+      rw [hBval]; exact E213.Tactic.NatHelper.add_mul_mod_self_pure A c k
+    exact hmod.symm.trans (Nat.mod_eq_of_lt hB)
+  · rw [E213.Meta.Int213.Order.ofNat_sub_ofNat, E213.Meta.Int213.subNatNat_of_le hAB] at h
+    obtain ⟨k, hk⟩ := nat_dvd_of_ofNat_dvd hc h
+    have hA : A = B + k * c := by
+      rw [← E213.Tactic.NatHelper.add_sub_of_le hAB, hk, Nat.mul_comm c k]
+    rw [hA, E213.Tactic.NatHelper.add_mul_mod_self_pure, Nat.mod_eq_of_lt hB]
+
+/-- ★★★★ **The node residue recovers the right bound mod `c`**: `(r·m_l) % m_t = m_r` (ℕ). -/
+theorem node_recovery_nat (p : List Bool) :
+    ((markovRes p).toNat * (mInterval p).1.c.toNat) % (mNode p).c.toNat
+    = (mInterval p).2.c.toNat := by
+  have hrnn : (0 : Int) ≤ markovRes p := nonneg_of_one_le (markov_window p).1
+  have hlnn : (0 : Int) ≤ (mInterval p).1.c := nonneg_of_one_le (mInterval_pos p).1.2.2.1
+  have hmrnn : (0 : Int) ≤ (mInterval p).2.c := nonneg_of_one_le (mInterval_pos p).2.2.2.1
+  have hc1 : 1 ≤ (mNode p).c.toNat :=
+    int_toNat_lt (x := 0) (y := (mNode p).c) (by decide) (markovNum_pos p)
+  have hmrc : (mInterval p).2.c.toNat < (mNode p).c.toNat := int_toNat_lt hmrnn (mNode_max p).2
+  have e1 : Int.ofNat ((markovRes p).toNat * (mInterval p).1.c.toNat)
+          = markovRes p * (mInterval p).1.c := by
+    show Int.ofNat (markovRes p).toNat * Int.ofNat (mInterval p).1.c.toNat = _
+    rw [toNat_of_nonneg hrnn, toNat_of_nonneg hlnn]
+  have e2 : Int.ofNat (mInterval p).2.c.toNat = (mInterval p).2.c := toNat_of_nonneg hmrnn
+  have e3 : Int.ofNat (mNode p).c.toNat = (mNode p).c :=
+    toNat_of_nonneg (nonneg_of_one_le (mNode_pos p).2.2.1)
+  have hd : (mNode p).c ∣ markovRes p * (mInterval p).1.c - (mInterval p).2.c :=
+    markovRes_recovery_dvd p
+  rw [← e1, ← e2, ← e3] at hd
+  exact mod_eq_of_ofNat_dvd_sub hc1 hmrc hd
+
+/-! ## §18 — the realized-windowed-root template (generalizing past `SqrtNegOneTwoRoots`)
+
+  The composite-`c` reduction, made a ∅-axiom theorem.  `markov_max_unique_tree` needed
+  `SqrtNegOneTwoRoots c` (≤ 2 roots **total**) — which fails for composite `c`.  The honest weakening:
+  only the **realized** windowed roots need be unique.  Every node residue is realized
+  (`node_realized`), so the template closes uniqueness from `WindowRealizedUnique`, a strictly weaker
+  (and per-`c` decidable) hypothesis.  `SqrtNegOneTwoRoots ⟹ WindowRealizedUnique`, so Button is a
+  special case. -/
+
+/-- ★★★★ **The node residue is realized**: `(markovRes·m_l) % m_t = m_r` and `(m_r,m_l,m_t)` is a
+    Markov triple, so the windowed residue `u_t.toNat` is recovered by an actual triple (`b = m_l`). -/
+theorem node_realized (p : List Bool) :
+    ∃ b, b < (mNode p).c.toNat ∧
+      markovEq (((markovRes p).toNat * b) % (mNode p).c.toNat) b (mNode p).c.toNat := by
+  refine ⟨(mInterval p).1.c.toNat,
+    int_toNat_lt (nonneg_of_one_le (mInterval_pos p).1.2.2.1) (mNode_max p).1, ?_⟩
+  rw [node_recovery_nat p]
+  have ht := E213.Lib.Math.Real213.MarkovUniqueness.markov_reachable_is_triple (mInterval_reachable p)
+  show (mInterval p).2.c.toNat * (mInterval p).2.c.toNat
+       + (mInterval p).1.c.toNat * (mInterval p).1.c.toNat
+       + (mNode p).c.toNat * (mNode p).c.toNat
+     = 3 * (mInterval p).2.c.toNat * (mInterval p).1.c.toNat * (mNode p).c.toNat
+  rw [show (mInterval p).2.c.toNat * (mInterval p).2.c.toNat
+        + (mInterval p).1.c.toNat * (mInterval p).1.c.toNat
+        + (mNode p).c.toNat * (mNode p).c.toNat
+      = (mInterval p).1.c.toNat * (mInterval p).1.c.toNat
+        + (mInterval p).2.c.toNat * (mInterval p).2.c.toNat
+        + (mNode p).c.toNat * (mNode p).c.toNat from by ring_nat,
+      show 3 * (mInterval p).2.c.toNat * (mInterval p).1.c.toNat * (mNode p).c.toNat
+      = 3 * (mInterval p).1.c.toNat * (mInterval p).2.c.toNat * (mNode p).c.toNat from by ring_nat]
+  exact ht
+
+/-- **Realized windowed roots are unique**: among windowed `√(−1)` roots mod `c`, those realized by
+    an actual Markov triple coincide.  Strictly weaker than `SqrtNegOneTwoRoots` (phantom roots may
+    multiply), and decidable for each numeral `c`. -/
+def WindowRealizedUnique (c : Nat) : Prop :=
+  ∀ u₁ u₂ : Nat, u₁ < c → u₂ < c → 2 * u₁ < c → 2 * u₂ < c →
+    (u₁ * u₁ + 1) % c = 0 → (u₂ * u₂ + 1) % c = 0 →
+    (∃ b₁, b₁ < c ∧ markovEq ((u₁ * b₁) % c) b₁ c) →
+    (∃ b₂, b₂ < c ∧ markovEq ((u₂ * b₂) % c) b₂ c) →
+    u₁ = u₂
+
+/-- ★★★★★ **The realized-windowed-root template.**  `MarkovMaxUnique c` from `5 ≤ c` and
+    `WindowRealizedUnique c` — the genuine reduction of composite-`c` Markov uniqueness to phantom
+    elimination.  (Same proof as `markov_max_unique_tree`, but feeding `h` the two node residues'
+    realizations via `node_realized` instead of `root_unique_below_half`.) -/
+theorem markov_max_unique_of_window_realized_unique
+    (c : Nat) (hc5 : 5 ≤ c) (h : WindowRealizedUnique c) : MarkovMaxUnique c := by
+  intro a₁ b₁ a₂ b₂ hab1 hb1c hab2 hb2c hm1 hm2
+  have hc2 : 2 ≤ c := Nat.le_trans (by decide) hc5
+  have ha1 : 1 ≤ a₁ := E213.Lib.Math.Real213.MarkovUniqueness.markov_a_pos hc2 hm1
+  have ha2 : 1 ≤ a₂ := E213.Lib.Math.Real213.MarkovUniqueness.markov_a_pos hc2 hm2
+  obtain ⟨p1, hcp1, hpair1⟩ := node_data (reverse_bridge a₁ b₁ c hm1 ha1 hab1 hb1c hc5)
+  obtain ⟨p2, hcp2, hpair2⟩ := node_data (reverse_bridge a₂ b₂ c hm2 ha2 hab2 hb2c hc5)
+  obtain ⟨hlo1, hhi1, hmod1⟩ := node_window_nat p1
+  obtain ⟨hlo2, hhi2, hmod2⟩ := node_window_nat p2
+  rw [hcp1] at hlo1 hhi1 hmod1
+  rw [hcp2] at hlo2 hhi2 hmod2
+  have hr12 : (markovRes p1).toNat = (markovRes p2).toNat := by
+    obtain ⟨bb1, l1, eq1⟩ := node_realized p1; rw [hcp1] at l1 eq1
+    obtain ⟨bb2, l2, eq2⟩ := node_realized p2; rw [hcp2] at l2 eq2
+    exact h _ _ hlo1 hlo2 hhi1 hhi2 hmod1 hmod2 ⟨bb1, l1, eq1⟩ ⟨bb2, l2, eq2⟩
+  have hrnn1 : (0 : Int) ≤ markovRes p1 := nonneg_of_one_le (markov_window p1).1
+  have hrnn2 : (0 : Int) ≤ markovRes p2 := nonneg_of_one_le (markov_window p2).1
+  have hReq : markovRes p1 = markovRes p2 := by
+    rw [← toNat_of_nonneg hrnn1, ← toNat_of_nonneg hrnn2, hr12]
+  have hcc : (mNode p1).c = (mNode p2).c := by
+    rw [← toNat_of_nonneg (nonneg_of_one_le (mNode_pos p1).2.2.1),
+        ← toNat_of_nonneg (nonneg_of_one_le (mNode_pos p2).2.2.1), hcp1, hcp2]
+  have hslope : slopeEq (mNode p1) (mNode p2) := by
+    show markovRes p1 * (mNode p2).c = markovRes p2 * (mNode p1).c
+    rw [hReq, hcc]
+  have hpeq : p1 = p2 := slope_path_inj p1 p2 hslope
+  subst hpeq
+  rcases hpair1 with ⟨e1a, e1b⟩ | ⟨e1a, e1b⟩ <;> rcases hpair2 with ⟨e2a, e2b⟩ | ⟨e2a, e2b⟩
+  · exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
+  · have hLR : (mInterval p1).1.c.toNat = (mInterval p1).2.c.toNat :=
+      Nat.le_antisymm (e1a ▸ e1b ▸ hab1) (e2b ▸ e2a ▸ hab2)
+    exact ⟨e1a.trans (hLR.trans e2a.symm), e1b.trans (hLR.symm.trans e2b.symm)⟩
+  · have hLR : (mInterval p1).1.c.toNat = (mInterval p1).2.c.toNat :=
+      Nat.le_antisymm (e2a ▸ e2b ▸ hab2) (e1b ▸ e1a ▸ hab1)
+    exact ⟨e1a.trans (hLR.symm.trans e2a.symm), e1b.trans (hLR.trans e2b.symm)⟩
+  · exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
+
+/-- `SqrtNegOneTwoRoots ⟹ WindowRealizedUnique` — Button's two-roots input is a special case of the
+    realized-uniqueness hypothesis (the realization witnesses are simply ignored, `root_unique`). -/
+theorem window_realized_unique_of_sqrtNegOne (c : Nat) (h2 : SqrtNegOneTwoRoots c) :
+    WindowRealizedUnique c :=
+  fun u₁ u₂ hu1 hu2 hh1 hh2 hr1 hr2 _ _ =>
+    root_unique_below_half c h2 hu1 hu2 hh1 hh2 hr1 hr2
 
 end E213.Lib.Math.Real213.SternBrocotMarkov
