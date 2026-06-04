@@ -2,7 +2,18 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — continuant E3: genL continuant-native, genR NOT (bridge obstruction localized)
+## ★★★ NEWEST — continuant reversal symmetry + full monotonicity (Aigner technical core, ∅-axiom)
+- **`Real213/Continuant`** reversal block (all PURE): `continuant_reverse` (K[a₁..aₙ]=K[aₙ..a₁], the
+  palindrome via transpose — M(a)=[[a,1],[1,0]] symmetric ⟹ (∏M)ᵀ=∏M reversed, transpose fixes (1,1));
+  `continuant_last_strict_mono` (strict mono in the LAST quotient via reversal+head) — with
+  `continuant_head_strict_mono`, continuant is strictly monotone in EVERY position = the technical core
+  of the Aigner orderings.  Reusable Mat2 algebra: `transp, mat2_ext, mul_assoc', id_mul', mul_id',
+  transp_mul, contMatProd_append/singleton/reverse`.  Pure list helpers `reverseAux_eq/reverse_cons'/
+  reverse_append'` (core List.reverse_* carry propext).
+- Continuant theory now: E1 (primitive+mono), E2 (=matrix entry), reversal+any-position monotonicity.
+  Independent of the E3 genR-normalization obstruction; this is the Aigner combinatorial core proper.
+
+## continuant E3: genL continuant-native, genR NOT (bridge obstruction localized)
 - **`Real213/ContinuantMarkov`** (3 PURE): `genL_eq_contMatProd` (`contMatProd [1,1] = genL`, i.e.
   genL = M(1)² = Fibonacci-matrix² = standard Cohn A), `genL_a_eq_continuant` (genL.a = continuant[1,1]=2),
   `genR_a_lt_b` (genR.a=3 < genR.b=4).  A positive continuant matrix has (1,1)=K[full] ≥ K[prefix]=(1,2);
