@@ -281,6 +281,16 @@ def forcedKChartLens (NS NT c : Nat) (h : 0 < NS + NT) : KChartLens NS NT c wher
   selfPointingAxes := 1
   axes_partition := pred_add_one h
 
+/-- The forced visible-axis count agrees with the ansatz-level
+    `chartVisibleAxes NS NT = (NS + NT) − 1` for every (NS, NT, c)
+    (with `0 < NS + NT`).  `(NS + NT).pred` and `(NS + NT) − 1` are
+    the same Nat, so the connectedness-forced value and the ansatz
+    definition coincide. -/
+theorem forcedKChartLens_chartVisible_eq_ansatz (NS NT c : Nat)
+    (h : 0 < NS + NT) :
+    (forcedKChartLens NS NT c h).chartVisibleAxes = chartVisibleAxes NS NT :=
+  rfl
+
 /-- The forced K_{3,2}^{(c=2)} chart-Lens recovers the hand-written
     `K32_chart_lens` values (visible 4, self 1). -/
 theorem forcedKChartLens_K32 :

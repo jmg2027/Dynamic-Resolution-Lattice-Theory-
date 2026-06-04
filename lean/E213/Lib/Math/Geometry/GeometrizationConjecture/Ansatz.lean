@@ -25,16 +25,20 @@ open E213.Lens (Lens)
 -/
 def chartBase (NS NT : Nat) : Nat := NS + NT
 
-/-- Count of chart-Lens-invisible axes under the  ansatz §4.1.
+/-- Count of chart-Lens-invisible axes under the chart-axis reading §4.1.
 
     Per `seed/AXIOM/05_no_exterior.md` §5.1 (no exterior), the
     self-pointing residue does not pass through chart-Lens readout.
-    The ansatz commits to exactly **one** such axis.
+    There is exactly **one** such axis.
 
-    Structural derivation: open (, knot M2).  A future
-    Lens-level theorem in `lean/E213/Lens/` may derive this from
-    chart-Lens + self-reference axioms; until then, the `1` is the
-    ansatz committed to.
+    Structural derivation (connectedness): for every connected
+    K_{NS,NT}^{(c)} (NS ≥ 1, NT ≥ 1, c ≥ 1) the δ⁰-kernel is exactly
+    the constant cochains — a single Bool of freedom — proven
+    universally and ∅-axiom in
+    `Cohomology/Bipartite/Parametric/KernelConstancyUniversal`.  The
+    chart-axes consumer `KChartLensAbstract.forcedKChartLens` /
+    `m2_universal_forced_partition` forces this `1` from
+    connectedness; the bare `1` here is that derived value.
 -/
 def selfPointingAxes : Nat := 1
 
