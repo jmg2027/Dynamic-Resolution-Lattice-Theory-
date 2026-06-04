@@ -110,10 +110,13 @@ Tractability: med.  Do P1/P2 first; the branch-distinctness bookkeeping mirrors
 
 ## Consolidation bridges (safe but internal — low novelty)
 
-- **C3-phys (det-`1` = ascent-`1` = glue-`1`)** — one ∅-axiom theorem identifying the Möbius
-  `det P = NS−NT = 1`, the ascent unit (`ascent_adds_unit`), and the descent unit
-  (`part_depth_succ_le`) as the *same* `1`.  Safest, fully internal; the `ResidueForm`
-  docstring already asserts this unity narratively — this demands the Lean witness.
+- **C3-phys (det-`1` = ascent-`1` = glue-`1`)** — ✅ **CLOSED 2026-06-04** ∅-axiom:
+  `Lens/Number/SharedUnitAcrossReadings.unit_bridges_dynamics_and_readings` identifies the
+  ascent unit (`ascent_adds_unit`), the descent unit (`part_depth_succ_le`), the glue
+  `NS−NT = 1`, and the Möbius `det P = 1` as the *same* `1` — the dynamics↔algebra bridge the
+  `ResidueForm` docstring asserted (now cited from it).  Complements the two pre-existing
+  single-scale bundles (`ReentryUnit.reentry_unit_across_scales` = Raw-dynamics;
+  `the_unit_is_one_across_readings` = number-axes).
 - **C1-phys (`N_gen` via the atom's own solver)** — link `C(NS,NT)=3` to the
   `solve_2a_3b_eq_5` machinery of `atomic_iff_five`, not a parallel `binom` fact.  ⚠ risk:
   `C(3,2)=3=NS` may be a small-number coincidence — must carry structure, not just numerics.
