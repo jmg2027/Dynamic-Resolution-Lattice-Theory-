@@ -53,9 +53,13 @@ non-holonomicity arc):
 machine) — built and read as the µF/νF mirror at the arithmetic scale: carry terminates iff the
 stream has a floor (`carry_dies_iff_has_false`, µF) and runs forever on the all-`true` =
 `spineL`-seed stream (`allTrue_carry_forever`, νF), so the canonical escape IS the odometer
-overflow (`spineL_seed_is_odo_overflow`).  Realises G181's identified build target (binary base;
-variable-base Ostrowski/Zeckendorf carry is the next step).  Fed `the_frontier_has_a_form.md`
-("the escape's arithmetic face") + the G181 note's STATUS.
+overflow (`spineL_seed_is_odo_overflow`).  Realises G181's identified build target.  Fed `the_frontier_has_a_form.md`
+("the escape's arithmetic face") + the G181 note's STATUS.  **Variable-base companion also
+built**: `Real213/ZeckendorfCarry` (7 PURE) — the golden/Zeckendorf adic carry `011 → 100` =
+the Fibonacci recurrence (`zeck_carry_weight`), value-preserving (`fibValFrom_carry`),
+admissibility = Cassini; Ostrowski(φ), the residue's own spiral base.  Promoted to
+`theory/math/algebra/phi_self_similarity.md` §3.7.  The §19→G181 arc is now closed on both the
+binary and the golden base.
 
 ## Recommended next proof-line (νF population — all ∅-axiom-feasible)
 

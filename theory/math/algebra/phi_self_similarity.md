@@ -185,6 +185,30 @@ identical across the ascent/descent dynamics and the glue/determinant readings. 
 shared unit: the residue between a fixed point and its convergents *is* the residue
 unit.
 
+### 3.7 φ as a numeration base — the golden (Zeckendorf) adic carry (`Real213/ZeckendorfCarry.lean`)
+
+φ is not only a cut and a limit; it is the residue's own **numeration base**.  The Fibonacci
+place values `fib 2, fib 3, fib 4, … = 1, 2, 3, 5, 8, …` (the `P`-orbit, §"count" reading) give
+the **Zeckendorf / golden adic** — digits `∈ {0,1}`, no two consecutive `1`s — which is exactly
+**Ostrowski(φ)**, the continued-fraction numeration of the all-`1` quotient sequence.  Its carry
+is `011 → 100`:
+
+  - ★ `zeck_carry_weight` — `fib (i+2) + fib (i+3) = fib (i+4)`: two consecutive rungs sum to the
+    next, the Fibonacci recurrence as the carry, the residue unit `+1` lifting one spiral rung
+    (ground instance `1 + 2 = 3`, "the result of 2 is 3");
+  - ★ `fibValFrom_carry` — the `011 → 100` rewrite is **value-preserving** on Fibonacci-base
+    digit lists: two consecutive `1`s at rungs `(i, i+1)` rewrite to a single carried `1` at rung
+    `i+2`, the Zeckendorf value unchanged (the golden-adic odometer step);
+  - the admissibility law — *no two consecutive `1`s* — is the Cassini `W = ±1` / `det P = 1`
+    digit law (`FibCassiniNat.fib_cassini_norm`), the µF floor written in digits;
+  - `golden_adic_carry` bundles all four.
+
+This is the variable-base companion of the binary `+1` odometer (`Theory/Raw/Odometer`, where the
+all-`1` overflow is the canonical νF escape `spineL`): same residue unit `+1`, now in the
+residue's own spiral base.  Honest scope: the golden adic is Ostrowski(φ) = Zeckendorf (a known
+numeration); the 213 reading is that its carry IS the residue unit and its base IS the
+self-pointing spiral.
+
 ## The single statement
 
 `SelfSimilarityBridge.self_similarity_three_readings` bundles form + count +
@@ -219,6 +243,7 @@ python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PellFibCutBridge
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PhiFrozenDynamic
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.ZeckendorfCarry
 python3 tools/scan_axioms.py E213.Lib.Math.SelfSimilarityBridge
 ```
 

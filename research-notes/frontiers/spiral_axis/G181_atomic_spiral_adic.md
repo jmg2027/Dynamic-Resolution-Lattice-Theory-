@@ -147,6 +147,15 @@ a native reading of the known one.
 *runs forever* on the all-`true` stream (`allTrue_carry_forever` — the νF face).  The all-`true`
 seed is exactly `spineL` (`CoResidue.spineL_eq_boolSpine_true`), so the canonical νF escape **is**
 the odometer overflow (`spineL_seed_is_odo_overflow`) — the `+1` that never lands.  This realises
-the "Direction" above (binary base; the variable-base Ostrowski(α) / Zeckendorf carry is the next
-step).  Honest scope: the 2-adic odometer is the known object; the content is the residue reading
-(`+1` = act, overflow = escape), per the FINDINGS verdict.
+the "Direction" above at the binary base.  Honest scope: the 2-adic odometer is the known object;
+the content is the residue reading (`+1` = act, overflow = escape), per the FINDINGS verdict.
+
+**STATUS 2026-06-04 (cont.) — the variable-base golden/Zeckendorf carry built ∅-axiom.**
+`Real213/ZeckendorfCarry` (7 PURE): the residue's *own* base — the Fibonacci spiral
+(`fib 2,3,4,… = 1,2,3,5,8`) — carries `011 → 100` via the Fibonacci recurrence
+(`zeck_carry_weight`: `fib (i+2) + fib (i+3) = fib (i+4)`, the `+1` lifting one spiral rung,
+ground instance `1 + 2 = 3` = "2의 결과가 3").  Stated as a **value-preserving** digit-list
+rewrite (`fibValFrom_carry`): two consecutive `1`s rewrite to a carried `1` one rung up with the
+Zeckendorf value unchanged.  The admissibility law (no two consecutive `1`s) = Cassini `W = ±1`
+(`fib_cassini_norm`).  `golden_adic_carry` bundles it.  This is the §32 "golden/Zeckendorf adic"
+realisation — Ostrowski(φ), the residue's own variable base, carry = the unit `+1`.

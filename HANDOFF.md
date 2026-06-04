@@ -92,9 +92,17 @@ adding machine on the §19 bit-streams, read as the µF/νF mirror at the arithm
 carry terminates iff the stream has a floor (a `0`, `carry_dies_iff_has_false`, µF) and runs
 forever on the all-`true` = `spineL`-seed stream (`allTrue_carry_forever`, νF), so the canonical
 escape IS the odometer overflow (`spineL_seed_is_odo_overflow`).  The `+1` = the self-pointing
-act, the carry = the residue unit.  Realises G181's identified build target (binary base).  Fed
-`the_frontier_has_a_form.md` + G181/G178 notes.  **Next on this arc**: the variable-base
-Ostrowski(α) / Zeckendorf carry (the genuine spiral-adic, harder).
+act, the carry = the residue unit.  Realises G181's identified build target (binary base).
+
+### 7. G181 — the variable-base golden/Zeckendorf carry (the residue's own base)
+New `Real213/ZeckendorfCarry` (7 PURE, wired into `Real213.lean`): the Fibonacci-base adic carry
+`011 → 100` = the Fibonacci recurrence (`zeck_carry_weight`: `fib(i+2)+fib(i+3)=fib(i+4)`, the
+`+1` lifting one spiral rung, ground `1+2=3`), as a **value-preserving** digit-list rewrite
+(`fibValFrom_carry`); admissibility (no consecutive `1`s) = Cassini (`fib_cassini_norm`);
+`golden_adic_carry` bundles it.  This is Ostrowski(φ) = Zeckendorf, the residue's own spiral
+base.  Promoted to `phi_self_similarity.md` §3.7.  **Note**: core `Nat.add_mul`/`Nat.mul_assoc`
+and `omega` are propext/Quot-tainted — used `Meta.Nat.PureNat.add_mul` and manual `Nat` lemmas
+for ∅-purity (the §19/odometer/Zeckendorf arc is now closed on both binary and golden bases).
 
 ### 3. (carried) Promotion candidates
 PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov
