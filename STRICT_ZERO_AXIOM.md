@@ -550,6 +550,13 @@ and ★ `golden_aperiodic` (`Gⁿ⁺¹ ≠ I` for every `n` — the trace exceed
 The golden boost has **infinite order**, the dynamic signature of `disc = 5 > 0` (contrast the
 elliptic `S⁴ = I`, `U⁶ = I`); φ's iterator never comes back.
 
+`E213.Lib.Math.Real213.EllipticTracePeriodic` — **4 PURE**.  The mirror of `GoldenAperiodic`: the
+elliptic trace recurrence collapses to `tr(Sⁿ⁺²) = − tr(Sⁿ)` (`S_trace_recurrence`, `tr S = 0`,
+`det S = 1`), so the trace is **period 4** (`S_trace_period4`) and **bounded**, cycling `2, 0, −2, 0`
+(`S_trace_seed`).  Boundedness is the `disc < 0` elliptic signature, opposite the `disc > 0`
+hyperbolic unbounded Lucas growth.  Capstone `elliptic_trace_periodic`.  (Local ∅-axiom `nneg`
+`− −x = x`; `zero_mul` / `one_mulZ` / `Order.zero_sub` collapse the recurrence.)
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
