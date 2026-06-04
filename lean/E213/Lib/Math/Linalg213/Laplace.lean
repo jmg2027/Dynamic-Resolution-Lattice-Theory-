@@ -28,7 +28,8 @@ open E213.Lib.Math.Linalg213.PermClosure
    nodup_cons nodup_map nodup_iota nodup_permsOf nodup_flatMap
    mem_map' mem_map_mpr mem_flatMap' mem_flatMap_mpr mem_append_left mem_append_right map_eq_of_mem
    map_map' nodup_of_lperm nodup_head_not_mem sumZ_map_smul LPerm.length_eq LPerm.mem
-   leibDet_rows_eq_ne leibDet_setRow_add leibDet_setRow_smul leibDet_rowSwap)
+   leibDet_rows_eq_ne leibDet_setRow_add leibDet_setRow_smul leibDet_rowSwap
+   setRow setRow_at setRow_off)
 
 /-! ## §1 — the minor relabeling (`unshift`, inverse of `colShift`) -/
 
@@ -456,8 +457,6 @@ theorem leibDet_eq_det : ∀ (n : Nat) (M : Nat → Nat → Int), leibDet n M = 
 
 /-! ## §3 — determinant properties transferred to `DetN.det` (via the bridge) -/
 
-open E213.Lib.Math.Linalg213.PermClosure (setRow)
-
 /-- ★ **`DetN.det`: two equal rows ⟹ 0** (any distinct positions). -/
 theorem det_rows_eq_ne (M : Nat → Nat → Int) (n i j : Nat) (hij : i ≠ j) (hi : i < n) (hj : j < n)
     (hrows : ∀ c, M i c = M j c) : det n M = 0 := by
@@ -577,5 +576,53 @@ theorem cofactor_row_i (M : Nat → Nat → Int) (n k : Nat) (hk : k < n + 1) :
     rw [altSign_add]
     ring_intZ
   rw [← key, ← det_cyc_expand M n k hk, ← E213.Meta.Int213.mul_assoc, altSign_self k, Int.one_mul]
+
+/-! ## §5 — the adjugate identity `M · adj M = det M · I` -/
+
+/-- Matrix product (`n×n`). -/
+def matMul (n : Nat) (M N : Nat → Nat → Int) : Nat → Nat → Int :=
+  fun i k => sumZ ((iota n).map (fun j => M i j * N j k))
+
+/-- The adjugate of an `(n+1)×(n+1)` matrix (transpose of the cofactor matrix). -/
+def adj (n : Nat) (M : Nat → Nat → Int) : Nat → Nat → Int :=
+  fun a b => altSign (b + a) * det n (minorAt b a M)
+
+/-- `minorAt k j` is unaffected by `setRow k` (it drops row `k`). -/
+theorem minorAt_setRow (k j : Nat) (r : Nat → Int) (M : Nat → Nat → Int) (i' l : Nat) :
+    minorAt k j (setRow k r M) i' l = minorAt k j M i' l := by
+  have hne : (if i' < k then i' else i' + 1) ≠ k := by
+    by_cases h : i' < k
+    · rw [if_pos h]; exact Nat.ne_of_lt h
+    · rw [if_neg h]; exact Ne.symm (Nat.ne_of_lt (Nat.lt_succ_of_le (Nat.not_lt.mp h)))
+  show setRow k r M (if i' < k then i' else i' + 1) (colShift j l)
+     = M (if i' < k then i' else i' + 1) (colShift j l)
+  rw [setRow_off k r M hne]
+
+/-- ★★ **Adjugate, diagonal**: `(M · adj M) k k = det M`. -/
+theorem matMul_adj_diag (M : Nat → Nat → Int) (n k : Nat) (hk : k < n + 1) :
+    matMul (n + 1) M (adj n M) k k = det (n + 1) M := by
+  show sumZ ((iota (n + 1)).map (fun j => M k j * adj n M j k)) = det (n + 1) M
+  rw [cofactor_row_i M n k hk]
+  apply congrArg sumZ
+  apply map_eq_of_mem
+  intro j _
+  show M k j * (altSign (k + j) * det n (minorAt k j M))
+     = altSign (k + j) * M k j * det n (minorAt k j M)
+  ring_intZ
+
+/-- ★★ **Adjugate, off-diagonal**: `(M · adj M) i k = 0` for `i ≠ k`. -/
+theorem matMul_adj_offdiag (M : Nat → Nat → Int) (n i k : Nat) (hik : i ≠ k)
+    (hi : i < n + 1) (hk : k < n + 1) : matMul (n + 1) M (adj n M) i k = 0 := by
+  have heq : matMul (n + 1) M (adj n M) i k = det (n + 1) (setRow k (fun c => M i c) M) := by
+    rw [cofactor_row_i (setRow k (fun c => M i c) M) n k hk]
+    apply congrArg sumZ
+    apply map_eq_of_mem
+    intro j _
+    rw [setRow_at, det_congr n (minorAt_setRow k j (fun c => M i c) M)]
+    show M i j * (altSign (k + j) * det n (minorAt k j M))
+       = altSign (k + j) * M i j * det n (minorAt k j M)
+    ring_intZ
+  rw [heq, det_rows_eq_ne (setRow k (fun c => M i c) M) (n + 1) i k hik hi hk
+    (fun c => by rw [setRow_off k _ M hik, setRow_at])]
 
 end E213.Lib.Math.Linalg213.Laplace
