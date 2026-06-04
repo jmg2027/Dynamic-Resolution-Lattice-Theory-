@@ -1,6 +1,34 @@
-# Session Handoff — 2026-06-04j (Markov — ★ orbit tower §20–§27 + promoted to theory/)
+# Session Handoff — 2026-06-04k (Markov — ★ §28–§29 equivalence chain + audit perimeter closed)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **106 PURE**.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed (feature + main), clean.  `Real213/SternBrocotMarkov` **112 PURE**.
+
+## ★★★ NEW (§28–§29): the equivalence chain `MarkovMaxUnique c ↔ WindowRealizedUnique c ↔ OrbitRealizabilityH c`
+All `∅`-axiom, `5 ≤ c`.  `markovMaxUnique_iff_windowRealizedUnique` (§28, `(→)` cancels the unit middle
+entry) + `markovMaxUnique_iff_orbitRealizabilityH` (§29, names `H` + `WRU→H` via `root_orbit_inj`).  So
+"`H` is the Frobenius conjecture at `c`" is now a THEOREM, uniform over `5≤c` (Button vs open-composite
+differ only by whether `H` is vacuous).  Statement-faithfulness audited (Button = genuine `∀` over odd
+prime powers, divisor-primality hypothesis; `markovEq`/`MarkovMaxUnique`/`WindowRealizedUnique`/`H` all
+faithful).
+
+## ⚠ HONEST PERIMETER (read before any "frontier" work — no "almost done")
+Everything closed across §20–§29 is **perimeter**: Button (theorem), residue-map injectivity content
+(`slope_path_inj`), the equivalence chain.  The **irreducible kernel `H` is untouched** — the chain
+being `∅`-axiom means Frobenius is *restated exactly*, NOT proven-closer.
+- **(B) diagnostic answered (LATTER case)**: residue→node is NOT a free reformulation.  `mInterval`
+  (⟹ `mNode`,`markovRes`) is structural recursion on the **path**; `reverse_bridge` consumes the **full
+  ℤ triple** `(a,b,c)` (Vieta `3ab−c`).  `slope_path_inj` is injectivity only, no computable inverse.
+  So "is windowed root `u` realised?" needs inverting residue→path = recovering an integer triple from
+  data given only **mod `c`**.  `u = mNode.d − mNode.c` is the node's mod-`c` shadow; the descent needs
+  the integers the shadow discards.  This `mod c ↔ ℤ` gap is the SHAPE of `H`'s difficulty and a lower
+  bound on the general conjecture.
+- **195025 = 5²·29·269 (ω=3)** direct-recovery is therefore NOT cheap (needs a non-`decide`
+  residue→path enumerator first); as a single ω=3 data point its info value is low.  If pursued, the
+  deliverable must be the general residue→path recovery FUNCTION (reusable: 195025 + decide-wall bypass
+  + the realize-decision object for general `H`), not one `c`.
+- Frontier proper (general `H` = Frobenius): stable-norm / Christoffel monotone-slope characterisation
+  (Lee–Li–Rabideau–Schiffler) — large formalisation, next-session cost call.
+
+## ★★★ orbit tower §20–§27 + promoted to theory/ (earlier this branch)
 
 ## ★★★ NEW: promoted to `theory/math/analysis/markov_uniqueness.md` + §27 tree-residue determination
 - **Promotion (theory tier-3)**: the §20–§26 orbit tower is now narrated in
