@@ -2,7 +2,14 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — E5: continuant monotonicity ⟹ Cohn Markov-number ordering (Aigner pipeline, ∅-axiom)
+## ★★★ NEWEST — a NAMED Aigner ordering: Fixed-Numerator p=1, via the continuant pipeline (∅-axiom)
+- **`ContinuantMarkov.fixed_numerator_one`** (PURE): `cohnTrace (anB n) < cohnTrace (anB (n+1))` where
+  `anB n := AⁿB` (Christoffel word for 1/(n+1)); the Markov numbers m_{1/(n+1)} = cohnTrace/3 = 2,5,13,34,…
+  strictly increase. Proved by the continuant method (A^{n+1}B = A·(AⁿB) prepend ⟹ cohnTrace_lt_true),
+  NOT the tree's descent. `anB_examples` (B,AB,AAB ↦ 6,15,39 = 3·{2,5,13}). The first named Aigner
+  ordering in the repo. General Fixed-Numerator p needs the Christoffel word of p/q (same method).
+
+## E5: continuant monotonicity ⟹ Cohn Markov-number ordering (Aigner pipeline, ∅-axiom)
 - **`ContinuantMarkov.cohnTrace_lt_true/false`** (PURE): the Cohn-word Markov number tr/3 strictly
   increases under prepending a generator (`cohnTrace bs < cohnTrace (true::bs)` and `(false::bs)`), via
   positive-matrix trace growth `tr(G·M)−tr(M)>0` (cohn_entries_pos: M.a≥1 from continuant≥1, M.b,M.c≥0).
