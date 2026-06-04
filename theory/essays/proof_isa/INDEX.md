@@ -31,3 +31,9 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     `pigeonhole` without naming.  Why counting forces existence:
     `count` is a residue-internal reading and the residue's cardinality is
     **multiplicative in its distinguishings**.
+  · [`linear_algebra_method.md`](linear_algebra_method.md) — the dimension bound
+    (`m > n` vectors in `𝔽₂^n` are dependent; engine of Borsuk's disproof,
+    Frankl–Wilson, cap-set).  Compiles to **COUNT through the subset-sum Lens**:
+    `2^m > 2^n` subset-sums collide (pigeonhole), the dependency is the
+    collision's residue.  *Not* a new instruction — confirms COUNT by reusing
+    its exact witness (`nodup_length_le_of_subset`) in a linear codomain.
