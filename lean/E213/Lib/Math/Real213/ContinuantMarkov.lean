@@ -31,7 +31,7 @@ machine-checked obstruction (`genR`).
 namespace E213.Lib.Math.Real213.ContinuantMarkov
 
 open E213.Lib.Math.Real213.ModularElliptic (Mat2 mul)
-open E213.Lib.Math.Real213.SternBrocotMarkov (genL genR)
+open E213.Lib.Math.Real213.SternBrocotMarkov (genL genR markovNum)
 open E213.Lib.Math.Real213.Continuant (contMat contMatProd continuant continuant_eq_contMatProd)
 
 /-- **`genL` is the all-`1` continuant word** `[[1,1],[1,0]]² = contMatProd [1,1]` — the square of the
@@ -47,5 +47,38 @@ theorem genL_a_eq_continuant : genL.a = ((continuant [1, 1] : Nat) : Int) := by
     (`3 < 4`), impossible for `∏[[aᵢ,1],[1,0]]` with all `aᵢ ≥ 1` (where `(1,1) = K[full] ≥ K[prefix] =
     (1,2)`).  So the `markovNum`→continuant bridge is not a naive `genL`/`genR` basis change. -/
 theorem genR_a_lt_b : genR.a < genR.b := by decide
+
+/-! ## The continuant-native Cohn Markov generator, and the bridge subtlety
+
+Over the standard Cohn generators `A = [[2,1],[1,1]] = contMatProd [1,1]` and `B = [[5,2],[2,1]] =
+contMatProd [2,2]`, every word produces a Markov number as `tr/3` (Cohn), and by `contMatProd_trace_cons`
+that trace is a **continuant** — so this is a continuant-native Markov-number generator.  But its per-word
+indexing is *not* the repo tree's path indexing: the genuine correspondence is the run-length /
+Christoffel cutting-sequence map, not a naive wrap of the path (ruled out below). -/
+
+/-- The Cohn word of a binary word: `true ↦ A = [1,1]`, `false ↦ B = [2,2]` (block concatenation). -/
+def cohnWord : List Bool → List Nat
+  | [] => []
+  | true :: bs => 1 :: 1 :: cohnWord bs
+  | false :: bs => 2 :: 2 :: cohnWord bs
+
+/-- The Cohn trace `tr(∏ A/B blocks)` — three times the Markov number of the word (by `contMatProd_trace_cons`
+    this is a continuant expression). -/
+def cohnTrace (bs : List Bool) : Int := (contMatProd (cohnWord bs)).a + (contMatProd (cohnWord bs)).d
+
+/-- ★★★★ **The continuant-native Cohn generator produces the Markov numbers** as `tr/3`:
+    `A, B, AB, AAB, ABB ↦ 1, 2, 5, 13, 29` (traces `3, 6, 15, 39, 87`). -/
+theorem cohnTrace_markov_examples :
+    cohnTrace [true] = 3 ∧ cohnTrace [false] = 6 ∧ cohnTrace [true, false] = 15
+    ∧ cohnTrace [true, true, false] = 39 ∧ cohnTrace [true, false, false] = 87 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- **The naive path→word bridge fails on mixed paths.**  The formula `3·markovNum p = cohnTrace
+    (true :: p ++ [false])` holds for single-run paths (`[]`, `[true]`, `[false]`, `[true,true]`, …) but
+    **fails** at the alternating path `[true, false]` (`markovNum = 433`): so the repo path → Cohn word
+    correspondence is the genuine *run-length / Christoffel cutting-sequence* map, not a naive wrap.  This
+    machine-checked counterexample pins the remaining bridge as the nontrivial one. -/
+theorem naive_bridge_fails :
+    decide (3 * markovNum [true, false] = cohnTrace [true, true, false, false]) = false := by decide
 
 end E213.Lib.Math.Real213.ContinuantMarkov
