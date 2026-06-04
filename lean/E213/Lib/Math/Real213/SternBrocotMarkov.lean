@@ -1960,4 +1960,76 @@ theorem nontrivial_unit_root_exists (m n : Nat) (hm : 3 ≤ m) (hn : 3 ≤ n)
     rw [he, aux_pred_mul_mod m n hm0 hn0] at ham
     exact absurd (ham ▸ Nat.sub_le_sub_right hm 1 : (2 : Nat) ≤ 1) (by decide)
 
+/-! ## §24 — orbit-injectivity: the unit-root group acts FREELY on the root set
+
+The last piece for `ω = 2` uniqueness.  A `√(−1)` root `u` is a *unit* — its inverse is `c−u`
+(`root_inverse`: `u·(c−u) ≡ 1`, since `u·(c−u) + (u²+1) = u·c + 1`).  Multiplication by a unit is
+*cancellable* (`unit_cancel_of_inv`: `a·u ≡ b·u ⟹ a ≡ b`), so the unit-root group acts **freely** on
+the root set.  Hence `e·u ≡ u ⟹ e ≡ 1` (`root_orbit_inj`) and `e·u ≡ (c−1)·u ⟹ e ≡ c−1`
+(`root_orbit_inj_neg`): the orbit map `e ↦ e·u` is injective mod `c`.
+
+Combined with §21–§23: the `2^ω` unit-roots give `2^ω` *distinct* roots (free action), the window's
+`⟨−1⟩`-transversal keeps `2^{ω−1}` distinct windowed roots, and each is a distinct `±`-suborbit.  So
+"how many windowed roots" is settled exactly (`= 2^{ω−1}`), and the ONLY remaining Markov question is
+realizability — which of these `2^{ω−1}` suborbits carries a Markov triple.  `WindowRealizedUnique`
+(§18) is precisely the statement that exactly one does.  This is the full structural reduction; the
+residual arithmetic content (which suborbit realizes) is the genuine open Frobenius conjecture. -/
+
+/-- ★★★★★ **Unit cancellation (free action), explicit inverse form**: if `u·s ≡ 1 mod c` then
+    `a·u ≡ b·u mod c ⟹ a ≡ b mod c`.  Multiply both sides by the inverse `s` — no subtraction. -/
+theorem unit_cancel_of_inv (c u s a b : Nat) (hs : (u * s) % c = 1)
+    (h : (a * u) % c = (b * u) % c) : a % c = b % c := by
+  calc a % c
+      = (a * 1) % c := by rw [Nat.mul_one]
+    _ = (a * ((u * s) % c)) % c := by rw [hs]
+    _ = (a * (u * s)) % c := (E213.Meta.Nat.MulMod213.mul_mod_right_pure a (u * s) c).symm
+    _ = ((a * u) * s) % c := by rw [show a * (u * s) = (a * u) * s from by ring_nat]
+    _ = (((a * u) % c) * s) % c := E213.Meta.Nat.MulMod213.mul_mod_left_pure (a * u) s c
+    _ = (((b * u) % c) * s) % c := by rw [h]
+    _ = ((b * u) * s) % c := (E213.Meta.Nat.MulMod213.mul_mod_left_pure (b * u) s c).symm
+    _ = (b * (u * s)) % c := by rw [show (b * u) * s = b * (u * s) from by ring_nat]
+    _ = (b * ((u * s) % c)) % c := E213.Meta.Nat.MulMod213.mul_mod_right_pure b (u * s) c
+    _ = (b * 1) % c := by rw [hs]
+    _ = b % c := by rw [Nat.mul_one]
+
+/-- **Unit cancellation, coprime form**: `gcd(u,c)=1 ⟹ (a·u ≡ b·u ⟹ a ≡ b)` — the inverse is produced
+    from coprimality by `modBezout`.  The general statement that the unit-root group acts freely. -/
+theorem unit_cancel (c u a b : Nat) (hc : 1 < c) (hu : gcd213 u c = 1)
+    (h : (a * u) % c = (b * u) % c) : a % c = b % c := by
+  have hs : (u * (E213.Lib.Math.ModArith.ModBezout.modBezout u c).2) % c = 1 := by
+    rw [E213.Lib.Math.ModArith.MarkovPrimeFactor.inverse_of_coprime u c
+          (Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hc)) hu, Nat.mod_eq_of_lt hc]
+  exact unit_cancel_of_inv c u (E213.Lib.Math.ModArith.ModBezout.modBezout u c).2 a b hs h
+
+/-- **A `√(−1)` root is a unit, with explicit inverse `c−u`**: `u·(c−u) ≡ 1 mod c`.  From the identity
+    `u·(c−u) + (u²+1) = u·c + 1`: the first summand `≡` the residue, `u²+1 ≡ 0`, `u·c ≡ 0`. -/
+theorem root_inverse (c u : Nat) (hc : 1 < c) (hu : u ≤ c) (h : (u * u + 1) % c = 0) :
+    (u * (c - u)) % c = 1 := by
+  have hcu : (c - u) + u = c := E213.Tactic.NatHelper.sub_add_cancel hu
+  have hid : u * (c - u) + (u * u + 1) = u * c + 1 := by
+    rw [show u * (c - u) + (u * u + 1) = u * ((c - u) + u) + 1 from by ring_nat, hcu]
+  have hL : (u * (c - u) + (u * u + 1)) % c = (u * (c - u)) % c := by
+    rw [E213.Meta.Nat.AddMod213.add_mod_gen, h, Nat.add_zero, E213.Meta.Nat.AddMod213.mod_mod]
+  have hR : (u * c + 1) % c = 1 := by
+    rw [E213.Meta.Nat.AddMod213.add_mod_gen, Nat.mul_comm u c,
+        E213.Tactic.NatHelper.mul_mod_right c u, Nat.zero_add,
+        E213.Meta.Nat.AddMod213.mod_mod, Nat.mod_eq_of_lt hc]
+  rw [← hL, hid]; exact hR
+
+/-- ★★★★★ **Orbit-injectivity (`+` side)**: `e·u ≡ u mod c ⟹ e ≡ 1 mod c`.  Free action: cancel the
+    unit `u` (inverse `c−u`). -/
+theorem root_orbit_inj (c u e : Nat) (hc : 1 < c) (hu : u ≤ c) (hroot : (u * u + 1) % c = 0)
+    (h : (e * u) % c = u % c) : e % c = 1 := by
+  have hcancel := unit_cancel_of_inv c u (c - u) e 1 (root_inverse c u hc hu hroot)
+    (by rw [Nat.one_mul]; exact h)
+  rwa [Nat.mod_eq_of_lt hc] at hcancel
+
+/-- ★★★★★ **Orbit-injectivity (`−` side)**: `e·u ≡ (c−1)·u mod c ⟹ e ≡ c−1 mod c`.  The fold-partner
+    case — `e·u` lands on `σ(u)`'s orbit iff `e ≡ −1`. -/
+theorem root_orbit_inj_neg (c u e : Nat) (hc : 1 < c) (hu : u ≤ c) (hroot : (u * u + 1) % c = 0)
+    (h : (e * u) % c = ((c - 1) * u) % c) : e % c = c - 1 := by
+  have hc0 : 0 < c := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hc)
+  have hcancel := unit_cancel_of_inv c u (c - u) e (c - 1) (root_inverse c u hc hu hroot) h
+  rwa [Nat.mod_eq_of_lt (Nat.sub_lt hc0 (by decide))] at hcancel
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
