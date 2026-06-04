@@ -1,5 +1,13 @@
 # Session Handoff — 2026-06-04n (Markov — ★ direction (b): continuant tool + Raw/Lens boundary + axiom-level attack map)
 
+## ✅✅✅ Zhang's FULL `3c±2` criterion formalized (∅-axiom) — both halves + unified
+`markov_max_unique_via_3c_pm2` (strict ∅-axiom): `3c−2` **or** `3c+2` an odd prime power ⟹
+`MarkovMaxUnique c`.  Both halves: `..._via_3c_minus_2` (gap route) + `..._via_3c_plus_2` (sum route — the
+`3c+2` reframes through the SUM `a+b`: `(3c+2)·ab = (a+b)²+c²`, range exclusion `markov_sum_le_max`:
+`a+b ≤ c`).  New ∅-axiom: `zhang_quadratic_sum`, `zhang_sum_dvd`, `markov_sum_le_max`,
+`markov_sum_determines_pair`, `sum_prod_determines_pair`.  REFRAME anchor (`ProofISALifts.lift_reframe_modulus`)
+now points at the unified `via_3c_pm2`.
+
 ## ✅✅ LANDMARK — Zhang's `3c±2` criterion (prime-power case) FULLY formalized (∅-axiom)
 `markov_max_unique_via_3c_minus_2` (strict ∅-axiom, `MarkovUniqueness.lean`): if `M = 3c−2` is an odd
 prime power `p^(k+1)`, then `MarkovMaxUnique c` — closing **composite** Markov numbers (985 [M=2953 prime],

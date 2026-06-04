@@ -96,10 +96,14 @@ argument that kills the phantom, mirroring the c-side window.
    power `p^(k+1)` ⟹ `MarkovMaxUnique c`.  `δ²≡δ'² (mod M)` (from `zhang_gap_dvd`) + `sq_eq_collapse_pp`
    (using `p∤c ⟹ p∤δ`) ⟹ `δ=δ'` (`δ+δ'=M` excluded by `δ ≤ c`, `2c < M`) ⟹ `zhang_gap_determines_pair`.
 
-## ✅ COMPLETE — Zhang's `3c±2` (prime-power case) fully formalized, ∅-axiom
+## ✅ COMPLETE — Zhang's full `3c±2` criterion (prime-power case) formalized, ∅-axiom
 
-All steps done.  `markov_max_unique_via_3c_minus_2` closes **composite** Markov numbers (985, 4181, 610,
-195025, Fibonacci-spine …) uniformly and structurally — **no per-`c` `decide` on the triple**.  The
+Both halves done.  `markov_max_unique_via_3c_minus_2` (gap route, `3c−2`) **and**
+`markov_max_unique_via_3c_plus_2` (sum route, `3c+2`), unified as `markov_max_unique_via_3c_pm2`
+(`3c−2` **or** `3c+2` a prime power ⟹ unique).  The `3c+2` half reframes through the **sum** `a+b`
+(`3bc−2a ≡ −2(a+b) mod 3c+2`; `(3c+2)·ab = (a+b)²+c²`; range exclusion via `markov_sum_le_max`: `a+b ≤ c`).
+Closes **composite** Markov numbers (985, 4181, 610, 195025, Fibonacci-spine …) uniformly and
+structurally — **no per-`c` `decide` on the triple**.  The
 genuine open content (`1325`-type, both `3c±2` composite; general ω≥2) is unchanged: Frobenius 1913
 needs class-number data (Agent B).  Lemmas (all strict ∅-axiom): `zhang_linear_core`, `zhang_quadratic`,
 `zhang_gap_dvd`, `zhang_gap_determines_pair`, `sq_collapse_pow_ordered`, `sq_eq_collapse_pp`,

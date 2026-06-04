@@ -98,10 +98,11 @@ abbrev lift_orbit_freeaction := @E213.Lib.Math.NumberSystems.Real213.SternBrocot
 abbrev lift_reframe := @E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.two_roots_of_two_prime_pow
 
 /-- **A4 REFRAME (discriminant / modulus-shift form)** — factor the discriminant `9c²−4 = (3c−2)(3c+2)`
-    and read mod the prime-power factor `M = 3c−2`, collapsing the c-side `4`-root reading to `2` roots:
-    composite Markov uniqueness, structurally (Zhang's `3c±2` criterion). -/
+    and read mod the prime-power factor (`3c−2` via the gap, `3c+2` via the sum), collapsing the c-side
+    `4`-root reading to `2` roots: composite Markov uniqueness, structurally (Zhang's full `3c±2`
+    criterion). -/
 abbrev lift_reframe_modulus :=
-  @E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_max_unique_via_3c_minus_2
+  @E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_max_unique_via_3c_pm2
 
 /-- **A4 (the fiber collapse)** — the prime-power square collapse the reframed reading invokes:
     `x² ≡ y² (mod pᵏ)` with `p∤x,y` ⟹ `x = y ∨ x+y = pᵏ`. -/
