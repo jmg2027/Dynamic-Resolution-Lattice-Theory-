@@ -40,9 +40,7 @@ The Raw-side projection `leavesCountRaw` is absent.  ℕ₊ is the *image* of
 Raw-internal projection.  Conceptually this is the same
 `projection r ∈ image` shape, but the codomain has moved from Raw
 to Nat — the Raw side carries only the chart representative
-(`Raw.numeral`).  See
-`research-notes/2026-05-18_lens_emergence_path.md` for the full
-reasoning.
+(`Raw.numeral`).
 
 ## ChainToCut bridge — ℕ₊ chain ↔ Real213 cut
 

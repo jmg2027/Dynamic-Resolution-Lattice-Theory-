@@ -817,8 +817,7 @@ closures:
   · `canonical_5adic_p` — 5-adic lift of the base prime `5`,
     with digit smoke-tests.
 
-Chapter: `theory/math/padic_real213.md`.
-Source note: `research-notes/archive/G122_real213_padic_research_direction.md`.
+Chapter: `theory/math/numbersystems/padic_real213.md`.
 
 **2026-05-09 (later, marathon batch 1)**: User directive "seal
 없애버리고 다 213 native로" — emptied SEALED_DIRTY_PREFIXES.  Full

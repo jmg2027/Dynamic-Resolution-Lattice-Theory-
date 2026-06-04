@@ -58,9 +58,8 @@ self-reference.
 Bool-style is liar-like.  The map `not : Bool → Bool` is its own
 inverse and admits no fixed point: `not(not(x)) = x` and
 `not(x) ≠ x`.  The self-reference loops without grounding —
-oscillation, not convergence.  This is the form recorded in
-`research-notes/archive/30_bool_is_liar_paradox.md` as the Bool
-liar isomorphism: any framework whose self-reference closes only
+oscillation, not convergence.  This is the **Bool liar
+isomorphism**: any framework whose self-reference closes only
 through `Bool`-level negation cannot complete in the way 213's
 residue does.
 

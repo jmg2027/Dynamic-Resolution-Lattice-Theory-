@@ -122,10 +122,8 @@ The sideways reading does not close under the falsifiability
 contract via Lean alone; it uses a Lens whose codomain reaches
 beyond what Lean encodes.  This is not a weakness of the
 reading.  Both §4.1 and §4.2 read the same residue, with
-different Lens codomains.  Long-form discussions of the meaning
-side live in `research-notes/75_semantic_atom.md` and
-`research-notes/76_ultimate_ouroboros.md`; the formal Lean
-coverage in `Lens/SemanticAtom.lean` is the bridge.
+different Lens codomains.  The formal Lean coverage of the
+meaning side is in `Lens/SemanticAtom.lean`.
 
 ---
 

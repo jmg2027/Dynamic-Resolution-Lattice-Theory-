@@ -187,10 +187,7 @@ seed/
 
 Static-analysis archetypes (11 scanner types + dual-branch process
 model): `seed/META_SCAN_ARCHETYPES.md`.  Pattern catalogue +
-methodology suite: `LESSONS_LEARNED.md` Patterns #1-#20.  Open
-action items + abstraction candidates registry:
-`research-notes/archive/metascan/G107_action_items_registry.md`. Tier-2/3 corpus
-quantitative profiles: `research-notes/G108`-`G116`.  Tooling
+methodology suite: `LESSONS_LEARNED.md` Patterns #1-#20.  Tooling
 inventory: `tools/*.py` (each scanner accepts `--report-only`
 against cached TSV).
 

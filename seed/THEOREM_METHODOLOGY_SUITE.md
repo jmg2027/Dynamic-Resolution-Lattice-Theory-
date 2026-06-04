@@ -22,8 +22,7 @@ the falsifier surface, TH-4 extracts the parametric helper.
 
 Companions: `seed/META_SCAN_ARCHETYPES.md` (the 11 scanner
 archetypes + dual-branch process model), `LESSONS_LEARNED.md`
-Patterns #1-#20, `research-notes/archive/metascan/G107_action_items_registry.md`
-(open registry).
+Patterns #1-#20.
 
 ---
 

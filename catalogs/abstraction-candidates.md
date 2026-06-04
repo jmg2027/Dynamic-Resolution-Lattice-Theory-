@@ -1,11 +1,8 @@
 # Abstraction Candidates — executor status
 
-CAT-2 per `research-notes/archive/metascan/G107_action_items_registry.md` §10.2.
 Tracks per-item status of every abstraction candidate surfaced by
-the G90-G106 meta scans.  Update when an item closes.
-
-Source registry: `research-notes/archive/metascan/G107_action_items_registry.md`
-sections §2 (mechanical), §3 (mid-size), §4 (smaller).
+the meta scans, grouped as §2 (mechanical), §3 (mid-size), §4
+(smaller).  Update when an item closes.
 
 Status keys:
   · **DONE** — abstraction committed, all sites refactored, PURE.
@@ -102,9 +99,6 @@ PHYS-1 (FractalLevelZeta), PHYS-2 (bracket-containment), L5 (CDDouble).
 
 One research direction remains (not a marathon item):
 FSM-1 (2) Pisano period theorem for Pell-5 (5-10 sessions, number theory).
-
-**See `research-notes/G118_marathon_deferred_items.md`** for the
-final closure status.
 Still open from §10: TH-1 (proof-shape fingerprint, key data already
 in CAT-3 + ARCHITECTURE.md note), TH-4 (L1 methodology, partial via
 LeibnizAlgLiftBeta).  Neither blocks; redundancy with already-shipped

@@ -7,9 +7,8 @@ deprecated R-frame note that earlier sessions referenced.
 
 Earlier drafts introduced an **R1–R5 judgment-game frame** as a
 "naturalness" criterion for Lens choice.  The frame was stepped
-back from after `research-notes/archive/30_bool_is_liar_paradox.md`
-revealed that R1–R5 is a self-reference loop on `Bool`; the
-frame itself fell.
+back from once it was seen that R1–R5 is a self-reference loop on
+`Bool` (the Bool liar isomorphism); the frame itself fell.
 
 The current uniqueness story does NOT route through R1–R5:
 

@@ -1,7 +1,5 @@
 # Internal Hubs
 
-CAT-4 per `research-notes/archive/metascan/G107_action_items_registry.md` §10.2.
-
 The load-bearing E213-internal infrastructure across `lean/E213/`.
 Use this catalog before any refactor of these names — they have
 the largest downstream blast radius.

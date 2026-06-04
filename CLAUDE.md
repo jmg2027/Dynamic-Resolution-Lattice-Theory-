@@ -17,7 +17,7 @@ spec file overlap, **the spec file wins**.
    primacy = *breadth* of ∅-axiom derivation (residue reproducing domain
    after domain, math AND physics); rebuilding a discipline *is* the work.
    DRLT Standard below = physics branch's gate, not a ranking of math work.
-3. **`research-notes/G29_residue.md`** + **`theory/essays/the_form_of_the_residue.md`**
+3. **`seed/AXIOM/01_residue.md`** + **`theory/essays/foundations/the_form_of_the_residue.md`**
    — what 213 *is* (minimum-commitment) and the residue's *form*
    (source-without-enclosure), pinned so it is not re-fought each session.
 4. **`HANDOFF.md`** (if exists) — current session state.
@@ -202,7 +202,7 @@ volatile scratchpad).
 | Universe-constant framing | "N_U is THE system invariant" | Numerical readouts are Lens outputs; no quantity is a universe constant |
 | Tier mismatch | Long-form narrative under `research-notes/G##_...md` for a topic already closed in Lean | Promote to `theory/<mirror>` per PROMOTION_CRITERIA; archive original |
 | Equivalence-pluralism | Treating equivalence / equivalence-class / isomorphism / homomorphism as four separate 213 concepts (e.g. "let me classify the equivalence definitions"); listing `cutEq, ZpSeqEquiv, signedEq, ...` as parallel objects | They are decompositions of one Lens-arrow (`Lens.refines`).  See `theory/lens/unified_equivalence.md` |
-| View promoted to identity | Declaring one reading (separation/non-separation, distinct/미분화, gap/glue) *what the residue IS* | Reading = facet, not the thing; residue is outside *every* view's image (`FlatOntologyClosure.object1_not_surjective`). See `research-notes/G152_residue_self_covering.md` |
+| View promoted to identity | Declaring one reading (separation/non-separation, distinct/미분화, gap/glue) *what the residue IS* | Reading = facet, not the thing; residue is outside *every* view's image (`FlatOntologyClosure.object1_not_surjective`). |
 | External-ruler smuggling | "apply an external measure/ruler (Wallis, a presentation) to break the structure / *reach* the limit" | No exterior (§5.1); a presentation is a residue-internal pointing.  Holonomicity/depth is a property of the *pointing* (approximant sequence), not the real (`Real213/PresentationDependence.crossDetSmall_is_presentation_dependent`, `rcut_rescale`); the residue is presentation-invariant and *reached by none* — pointings only converge (`object1_not_surjective`) |
 | ℤ / sign as exterior import | "adjoin signed integers", "ℤ keeps the signed distinguishing", ℕ-vs-ℤ dichotomy, sign as a Raw primitive | ℤ is the **readout group of the difference-Lens** — the count-Lens on a *directed* count-pair `(m,n)↦m−n`; magnitude Nat-style, sign Bool-style pair-swap (`Int213.neg_subNatNat`), not in Raw.  Canonical: `seed/AXIOM/06_lens_readings.md` §6.7 + `theory/essays/integers_as_difference_lens.md` |
 | 0/∞ as a stratum-value (mixed-status fold) | "`0` is a value here, `∞` a limit/state there"; "`0` is the center in one fold, the `∞`-boundary in another"; treating `0` and `∞` with different status in one Lens | §6.5 point ≡ K_∞ ≡ `∞`: `0` and `∞` are one pre-Lens residue, not a dual pair.  §6.6 state = state-transition: a fold using `0`-as-value must use `∞`-as-value (and vice versa) — mixed status imports before/after = torsion.  "`0` as a value" names the whole diagonal `{(n,n)}` = folds a degenerate sub-view in (a layer up), not one Lens.  Floor/boundary/center are Lens-artifacts (no exterior).  Canonical: `seed/AXIOM/06_lens_readings.md` §6.9 |

@@ -13,10 +13,8 @@ commitments of the axiom.  Each is a way of asking "what does the
 residue look like through *this* Lens?" and getting an answer
 that the residue supports.
 
-The long-form discussion lives in
-`research-notes/2026-05-18_lens_emergence_path.md`; this chapter
-records the principles, with cross-references rather than full
-re-derivation.
+This chapter records the principles, with cross-references rather
+than full re-derivation.
 
 ---
 
