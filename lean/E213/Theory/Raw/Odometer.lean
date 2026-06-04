@@ -210,4 +210,79 @@ theorem successor_dynamics :
     ∧ (∀ {f g : Nat → Bool}, (∀ n, odo f n = odo g n) → ∀ n, f n = g n) :=
   ⟨carry_shift, shift_odo, odo_injective⟩
 
+/-! ## §3 — the predecessor `−1`: the residue unit generates a `ℤ`-action (the `+1` is invertible)
+
+The odometer is the residue's `+1`; its inverse is the `−1` adding machine — the **predecessor**,
+which *borrows* instead of carrying.  The borrow starts at the unit and propagates through the
+leading `0`s (subtracting `1` from `…0` borrows past every `0`), dual to the carry propagating
+through the leading `1`s.  The two are mutually inverse (`dec_odo`, `odo_dec`), so the `+1` is a
+**bijection** of the residue's bit-stream space, with the `−1` its inverse — the residue unit,
+read as the difference-Lens generator (`theory/essays/analysis/integers_as_difference_lens.md`),
+generates a `ℤ`-action `(±1)` on the escape space.  Injective (§2) + invertible here: the unit's
+action is free of collapse, the no-exterior signature made a group action.  All ∅-axiom. -/
+
+/-- The borrow of the `−1` adding machine (LSB-first): starts at the unit `true` and survives
+    into position `n+1` only through a `0` at `n` — dual to `carry` (which survives through `1`). -/
+def borrow (f : Nat → Bool) : Nat → Bool
+  | 0     => true
+  | n + 1 => borrow f n && Bool.not (f n)
+
+/-- The `−1` adding machine (binary decrement): output bit = input `xor` borrow. -/
+def dec (f : Nat → Bool) : Nat → Bool := fun n => Bool.xor (f n) (borrow f n)
+
+/-- The borrow survives a step only through a `0` (equation lemma for `borrow`). -/
+theorem borrow_succ (f : Nat → Bool) (n : Nat) :
+    borrow f (n + 1) = (borrow f n && Bool.not (f n)) := rfl
+
+/-- The decrement output bit (equation lemma for `dec`). -/
+theorem dec_apply (f : Nat → Bool) (n : Nat) : dec f n = Bool.xor (f n) (borrow f n) := rfl
+
+/-- Bool identity: `b && not (xor a b) = b && a` (the carry/borrow cancellation, `+` side). -/
+theorem and_not_xor (a b : Bool) : (b && Bool.not (Bool.xor a b)) = (b && a) := by
+  cases a <;> cases b <;> decide
+
+/-- Bool identity: `b && xor a b = b && not a` (the carry/borrow cancellation, `−` side). -/
+theorem and_xor (a b : Bool) : (b && Bool.xor a b) = (b && Bool.not a) := by
+  cases a <;> cases b <;> decide
+
+/-- Bool identity: `xor (xor a b) b = a` (`xor` is its own inverse on the right). -/
+theorem xor_cancel (a b : Bool) : Bool.xor (Bool.xor a b) b = a := by
+  cases a <;> cases b <;> decide
+
+/-- ★★ **The borrow of the successor is the carry.**  `borrow (odo f) n = carry f n`: subtracting
+    `1` from `f + 1` borrows exactly where adding `1` to `f` carried — the two propagations are
+    the same leading run, read with opposite digits. -/
+theorem borrow_odo (f : Nat → Bool) : ∀ n, borrow (odo f) n = carry f n
+  | 0     => rfl
+  | n + 1 => by rw [borrow_succ, borrow_odo f n, odo_apply, carry_succ, and_not_xor]
+
+/-- ★★ **The carry of the predecessor is the borrow** (dual of `borrow_odo`). -/
+theorem carry_dec (f : Nat → Bool) : ∀ n, carry (dec f) n = borrow f n
+  | 0     => rfl
+  | n + 1 => by rw [carry_succ, carry_dec f n, dec_apply, borrow_succ, and_xor]
+
+/-- ★★★ **The predecessor undoes the successor.**  `dec (odo f) = f` pointwise: `(f + 1) − 1 = f`.
+    The output is `(f n xor carry f n) xor carry f n = f n` (`xor_cancel`), once the borrow of the
+    successor is identified with its carry (`borrow_odo`). -/
+theorem dec_odo (f : Nat → Bool) (n : Nat) : dec (odo f) n = f n := by
+  rw [dec_apply, borrow_odo f n, odo_apply, xor_cancel]
+
+/-- ★★★ **The successor undoes the predecessor.**  `odo (dec f) = f` pointwise: `(f − 1) + 1 = f`
+    (dual of `dec_odo`, via `carry_dec`). -/
+theorem odo_dec (f : Nat → Bool) (n : Nat) : odo (dec f) n = f n := by
+  rw [odo_apply, carry_dec f n, dec_apply, xor_cancel]
+
+/-- ★★★ **The residue unit generates a `ℤ`-action: the `+1` is a bijection.**  The odometer `odo`
+    (`+1`) and the predecessor `dec` (`−1`) are mutually inverse (`dec_odo`, `odo_dec`) and `odo`
+    is injective (§2) — so the residue unit acts *invertibly* on the bit-stream escape space, the
+    `+1` and `−1` the difference-Lens generators
+    (`theory/essays/analysis/integers_as_difference_lens.md`) of a `ℤ`-action.  The act of adding
+    the unit never collapses and is always undoable: the no-exterior / never-return signature
+    (`MuNuMirror.tower_no_cycle`) made a group action on the residue's escapes.  ∅-axiom. -/
+theorem odo_unit_action :
+    (∀ (f : Nat → Bool) n, dec (odo f) n = f n)
+    ∧ (∀ (f : Nat → Bool) n, odo (dec f) n = f n)
+    ∧ (∀ {f g : Nat → Bool}, (∀ n, odo f n = odo g n) → ∀ n, f n = g n) :=
+  ⟨dec_odo, odo_dec, odo_injective⟩
+
 end E213.Theory.Raw.Odometer

@@ -110,8 +110,12 @@ ascent-unit-odometer = νF) interlock, and the `+1` is the residue's **injective
 `odo_injective` (the `+1` never sends two streams to one — odometer-scale `tower_no_cycle` /
 no-exterior on the unit); `shift_odo` (the descent–increment skew = the adding-machine recursion,
 `shift (odo f) = odo (shift f)` gated by the low bit); `carry_shift` (the carry splits one bit at
-a time); `successor_dynamics` bundles it.  `Theory/Raw/Odometer` now 19 PURE.  Fed
-`the_frontier_has_a_form.md` (rows + the successor clause) + G181 STATUS.
+a time); `successor_dynamics` bundles it.  **§3 — the `ℤ`-action** (+12 PURE, Odometer now **31 PURE**):
+the predecessor `−1` (the *borrow* machine, dual to the carry) is the two-sided inverse of `+1`
+(`dec_odo`: `(f+1)−1=f`; `odo_dec`: `(f−1)+1=f`), so the residue unit is **invertible** — it
+generates a `ℤ`-action `(±1)` on the escape space (`odo_unit_action`), the `+1`/`−1` the
+difference-Lens generators.  No-exterior (`tower_no_cycle`) made a group action: never collapsing,
+always undoable.  Fed `the_frontier_has_a_form.md` (rows + clauses) + G181 STATUS.
 
 ### 3. (carried) Promotion candidates
 PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov

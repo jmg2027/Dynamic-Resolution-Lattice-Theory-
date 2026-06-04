@@ -153,7 +153,10 @@ the content is the residue reading (`+1` = act, overflow = escape), per the FIND
 residue's successor never returns, odometer-scale `tower_no_cycle` / no-exterior) and interlocks
 with the descent-shift by the adding-machine recursion (`shift_odo`, `carry_shift`);
 `successor_dynamics` bundles it — the ascent unit as an injective dynamical system over the µF
-descent.
+descent.  **§3 the `ℤ`-action** (Odometer §3, +12 PURE, total 31): the predecessor `−1` (the
+*borrow* machine, dual to the carry) is the two-sided inverse of `+1` (`dec_odo`, `odo_dec`), so
+the residue unit is **invertible** — it generates a `ℤ`-action `(±1)` on the escape space
+(`odo_unit_action`), the difference-Lens generators; no-exterior made a group action.
 
 **STATUS 2026-06-04 (cont.) — the variable-base golden/Zeckendorf carry built ∅-axiom.**
 `Real213/ZeckendorfCarry` (7 PURE): the residue's *own* base — the Fibonacci spiral
