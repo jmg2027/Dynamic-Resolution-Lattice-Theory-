@@ -2,7 +2,20 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — direction (b) explored three ways; standing record `G193`
+## ★★★ NEWEST — direction (2) forced-fixed-point attack: the locality obstruction + new case `G194`
+- **`markov_max_unique_985_via_orbit`** (`SternBrocotMarkov`, PURE): new ∅-axiom composite `985 = 5·197`
+  (next `ω=2`, both primes ≡1 mod 4).  Windowed roots `{183,408}`, realized `408` (triple `(2,169,985)`),
+  phantom `183`; `u₁=u₂=408` closes structurally via `root_orbit_inj`.  Extends tower closure beyond 1325.
+- **`G194`** records the shot: the forced reduction is ALREADY MAXIMAL (`windowRealizedUnique_of_orbit`);
+  the Bool symmetry-breaking (window sections ±1, free action) is complete; the wall is exactly
+  realizability.  **Locality obstruction** (sharp): the Bool object (√−1 mod c) is fixed-`c` (local), the
+  Nat object (Vieta descent) shrinks the modulus (global); realizability is non-local in `c` while all
+  forcing is local — so a pure-forcing attack provably cannot cross.  Any crossing must be cross-`c`
+  (continuant/Christoffel, stable norm).  Direction (2) as pure forcing is CLOSED; residue = obstruction
+  + verified cases.  Live: G193 #1 (continuant bridge), #3 (count theorem), #4 (cohomology δ, the one
+  local-but-cross-suborbit candidate that might evade the obstruction).
+
+## ★★★ direction (b) explored three ways; standing record `G193`
 - **`G191`** classical: sourced confirmation the §34 iff IS modern Frobenius (map injectivity, open 2026);
   Aigner orderings (LLRS/McShane) proven but **necessary-not-sufficient**.  Core tool = continuant.
 - **`Real213/Continuant.lean`** (6 PURE): Euler continuant `K[a₁..aₙ]` + monotonicity (`continuant_cons2`
