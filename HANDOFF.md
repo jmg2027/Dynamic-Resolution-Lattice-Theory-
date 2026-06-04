@@ -27,13 +27,17 @@ Hensel `mul_right_cancel_trunc`); `teichmullerCofactor` + `_trunc_one`
 (u = ω⁻¹·x ≡ 1 mod p) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split at trunc.
 Concrete: `i_5_pow_four_trunc` (i₅⁴ ≡ 1 at every level → `i₅ ∈ μ₄`).
 
-### 3. G123 direction G — general division (non-unit denominator)
+### 3. G123 direction G — general division (non-unit denominator) + correctness
 `Padic/Arith.lean`: `Zp.shiftRight` + factorisation exactness
 `shiftLeft_shiftRight_digit_of_low_zero` (digit) +
 `shiftLeft_shiftRight_trunc_of_low_zero` (every truncation: x = p^v·u
 exact).  `Padic/Field.lean`: `QpSeq.invGeneral` / `divGeneral` (denominator
 of arbitrary valuation v via the shift); `invGeneral_unit_eq_inv` reduces
-*definitionally* to `QpSeq.inv` at v=0.
+*definitionally* to `QpSeq.inv` at v=0.  **Correctness**
+`Zp.div_general_value`: `y · u⁻¹ ≡ p^v` at every truncation (= `y·(1/y) ≡ 1`
+in ℚ_p, the shift p^(−v) matching), via two pure shift-bookkeeping
+helpers (`mul_mod_mul_left_pure` factor-out, `trunc_add_mod`) — no QpSeq
+setoid needed.
 
 ### 4. The missing ring fact — `(−1)·(−1) ≡ 1`
 `Padic/Arith.neg_one_sq_trunc` (all levels).  The library had **no**
@@ -81,12 +85,11 @@ trunc-vs-sequence boundary as the ring-axiom layer: may need a quotient
 construction outside strict-∅, or trunc-level may BE the 213-native
 statement (sequence-level uniqueness an imported residue).  Open.
 
-### 2. General-division correctness `b · (1/b) ≡ 1` in ℚ_p
-`invGeneral`/`divGeneral` have unfoldings + the v=0 reduction, and the
-exactness engine (`shiftLeft_shiftRight_trunc_of_low_zero`) is now in
-place, but the full `b·invGeneral b = 1` needs a QpSeq value-equivalence
-(none defined yet) and a shiftLeft-commutes-with-mul lemma.  Bounded but
-real; the pieces are staged.
+### 2. General-division correctness — CLOSED (numerator level)
+`Zp.div_general_value` proves `y · u⁻¹ ≡ p^v` (= `y·(1/y) ≡ 1` in ℚ_p).
+What remains optional: a `QpSeq` value-equivalence (cross-multiplication
+setoid) to state it as `QpSeq.equiv (b · 1/b) one` for *general* b
+(not just `ofZp y`) — cosmetic packaging; the substance is done.
 
 ### 3. (carried) H — DRLT 5-adic, arithmetic-first only
 Any future H must avoid the deleted count-vs-truncation category error
@@ -96,9 +99,10 @@ toward an observable.  Open until an unforced arithmetic handle appears.
 Tracked in `frontiers/G124_padic_drlt_5adic.md`.
 
 ## Next
-Either (2) general-division correctness (define a minimal QpSeq value
-equivalence + shiftLeft/mul commute, then close `b·(1/b)≡1`), or step off
-the p-adic tree — the closable A/B/G arc is done.
+The closable A/B/G arc + its correctness are done.  Remaining p-adic
+options are both optional/heavy: (1) sequence-level uniqueness of the
+`ω·u` split, or the cosmetic QpSeq value-equivalence packaging of (2).
+Otherwise step off the p-adic tree.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: A/B/G folded into the existing Padic
