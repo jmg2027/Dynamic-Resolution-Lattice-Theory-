@@ -229,6 +229,38 @@ theorem zhang_linear_core (a b c : Nat) (hab : a ≤ b) (hc : 1 ≤ c) :
     Nat.le_trans (Nat.mul_le_mul (by decide) (Nat.le_refl b)) (Nat.le_mul_of_pos_right (3 * b) hc)
   rw [Nat.add_assoc, h1, hms, E213.Tactic.NatHelper.sub_add_cancel hle]
 
+/-- ★★★★ **Zhang quadratic identity**: `(3c−2)·ab = (b−a)² + c²` for a Markov triple (`a ≤ b`, `1 ≤ c`).
+    This is `a²+b²+c² = 3abc` rewritten with the gap `δ = b−a` (`(b−a)²+2ab = a²+b²`, `(3c−2)ab+2ab =
+    3abc`).  Consequence: `M = 3c−2 ∣ (b−a)²+c²` (`zhang_gap_dvd`) — the modulus `M = 3c±2` carries the
+    `√(−1)` data, and `(c, δ)` pins `a` (single positive root): the recovery core of Zhang's `3c±2`
+    route to composite Markov uniqueness. -/
+theorem zhang_quadratic (a b c : Nat) (h : markovEq a b c) (hab : a ≤ b) (hc : 1 ≤ c) :
+    (3 * c - 2) * (a * b) = (b - a) * (b - a) + c * c := by
+  obtain ⟨d, hd⟩ := Nat.le.dest hab
+  have hba : b - a = d := by
+    rw [← hd, Nat.add_comm a d, E213.Tactic.NatHelper.add_sub_cancel_right]
+  have h2c : 2 ≤ 3 * c := Nat.le_trans (by decide) (Nat.le_mul_of_pos_right 3 hc)
+  have hL : (3 * c - 2) * (a * b) + 2 * (a * b) = a * a + b * b + c * c := by
+    rw [← E213.Tactic.NatHelper.add_mul, E213.Tactic.NatHelper.sub_add_cancel h2c]
+    have e : 3 * c * (a * b) = 3 * a * b * c := by ring_nat
+    rw [e]; exact h.symm
+  have hR : (b - a) * (b - a) + 2 * (a * b) = a * a + b * b := by
+    rw [hba, ← hd]; ring_nat
+  have key : (3 * c - 2) * (a * b) + 2 * (a * b)
+           = ((b - a) * (b - a) + c * c) + 2 * (a * b) := by
+    rw [hL]
+    calc a * a + b * b + c * c
+        = (a * a + b * b) + c * c := by ring_nat
+      _ = ((b - a) * (b - a) + 2 * (a * b)) + c * c := by rw [hR]
+      _ = ((b - a) * (b - a) + c * c) + 2 * (a * b) := by ring_nat
+  exact E213.Tactic.NatHelper.add_right_cancel_pure key
+
+/-- `M = 3c−2 ∣ (b−a)² + c²` for a Markov triple — the `√(−1)`-root data lives on the modulus `3c±2`
+    (Zhang).  Direct from `zhang_quadratic` (witness `ab`). -/
+theorem zhang_gap_dvd (a b c : Nat) (h : markovEq a b c) (hab : a ≤ b) (hc : 1 ≤ c) :
+    (3 * c - 2) ∣ ((b - a) * (b - a) + c * c) :=
+  ⟨a * b, (zhang_quadratic a b c h hab hc).symm⟩
+
 /-- **The down-move strictly decreases the maximum.**  `c' = 3ab − c < c` under `1 ≤ a ≤ b`,
     `b < c`.  Immediate from `c' ≤ b < c`.  The well-foundedness of Markov descent. -/
 theorem markov_partner_lt_max (a b c : Nat) (h : markovEq a b c)

@@ -78,18 +78,25 @@ a single positive root `a`.  Finally, for `c` odd, `M = 3c−2` is odd, so the p
 **odd** ⟹ not of the form `2·(b′−a′)` ⟹ exactly one of the ±-roots is realizable: the parity/window
 argument that kills the phantom, mirroring the c-side window.
 
-## Formalization plan (next session — mostly reuse)
+## Formalization plan (mostly reuse)
 
-1. `zhang_double_square_id` — `(3bc−2a)² = (9c²−4)b² − 4c²`.  One `ring` (ℤ) / `ring_nat`.  *Green.*
-2. `zhang_linear_reduction` — `b·(3c−2) + 2(b−a) + 2a = 3bc` (additive, pure ℕ), giving `t ≡ 2(b−a)
-   (mod M)`.  *Green.*  **← the anchor; attempted this session.**
-3. `zhang_root_mod` — `M ∣ (3bc−2a)² + (2c)²`; with `inverse_of_coprime` for `(2c)⁻¹`, `w² ≡ −1 (mod M)`.
-   *Green/Yellow.*
-4. `zhang_recovery` — triple ↦ `(b−a)` injective via step 2 + the quadratic `(3c−2)(a²+aδ)=δ²+c²`; the
-   odd-`M` parity kills the partner root.  *Yellow* — the one new lemma, but transcribes the closed
-   c-side window argument.
+1. ✅ **DONE** `zhang_linear_core` (∅-axiom) — `b·(3c−2) + 2(b−a) + 2a = 3bc`, giving
+   `3bc−2a ≡ 2(b−a) (mod M)`.  The recovery handle.
+2. ✅ **DONE** `zhang_quadratic` (∅-axiom) — `(3c−2)·ab = (b−a)² + c²`; and `zhang_gap_dvd` (∅-axiom):
+   `M = 3c−2 ∣ (b−a)² + c²`.  The `√(−1)` data on the modulus `M`, and the `(c,δ)↦a` pin.  (This is a
+   cleaner route than the `(3bc−2a)² = (9c²−4)b²−4c²` form: `zhang_gap_dvd` gives the divisibility
+   directly via the gap `δ = b−a`.)
+3. `zhang_root_unit` — with `inverse_of_coprime` for `(2c)⁻¹` (and `gcd(2c, M)=1` for `M` odd), promote
+   `zhang_gap_dvd` to `w² ≡ −1 (mod M)` for `w = (b−a)·(c)⁻¹`-style root.  *Green/Yellow.*
+4. `zhang_recovery` — triple ↦ `(b−a)` injective: `zhang_linear_core` gives the residue `= 2(b−a)`
+   (no wraparound for `c>2`), and `zhang_quadratic` pins `a` from `(c, δ)`; odd-`M` parity kills the
+   partner root.  *Yellow* — the one new lemma, transcribing the closed c-side window argument.
 5. `markov_max_unique_via_3c_pm2` — capstone: `M = 3c±2` an odd prime power ⟹ `MarkovMaxUnique c`, via
    `two_roots_of_prime_pow` on `M`.  Mirrors `markov_prime_pow_unique`.
+
+**Done this session**: steps 1–2 (the algebraic foundation, all ∅-axiom + sanity-checked: `985`,
+`2953 ∣ 167²+985²` with quotient `338 = 2·169 = ab`).  Remaining: steps 3–5 (root-unit + recovery +
+capstone), the transcription of the c-side window/recovery to modulus `M`.
 
 ## Status
 
