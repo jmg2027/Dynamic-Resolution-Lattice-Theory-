@@ -208,8 +208,7 @@ The reverse direction `mobiusEq → cutEq` requires Stern-Brocot
 coverage (every coprime pair reached as a finite mediant
 composition of `(0, 1)` and `(1, 0)`) plus scale-invariance for
 non-coprime pairs.  Coverage is the standard CS result about the
-Stern-Brocot tree; the Lean closure is open at this writing
-.
+Stern-Brocot tree; the Lean closure is open at this writing.
 
 **Why this is canonical, not optional**: the conditions for a
 relation to be an equivalence under iteration —

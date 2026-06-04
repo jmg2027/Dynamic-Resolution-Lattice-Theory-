@@ -66,9 +66,7 @@ The cork-frame closes FW-1 (signed Donaldson count) internally:
   · Cork-frame resolution: Sym(3)-orbits inherit Z/2 grading from
     M_S01 cork-twist → signed count `+4 = 32 − 28` — fully 213-internal.
 
-Chapter narrative: `theory/math/exotic_4mfd_cork.md`.  Archived
-research direction:
-.
+Chapter narrative: `theory/math/exotic_4mfd_cork.md`.
 
 ## Open work (beyond current close)
 

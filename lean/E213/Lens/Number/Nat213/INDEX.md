@@ -93,5 +93,5 @@ on `Nat` and routes through the chart via `Raw.numeral` /
 `Raw.value`.  `Chain.lean` rewritten to use Nat-routed operations.
 `Bridge.lean` slimmed to chart bijection + value-level homomorphism.
 `Lib/Math/NumberSystems/Real213/Cauchy/ChainToCut.lean` migrated to use Peano
-arithmetic via the new `value_toRaw_{add,mul}`.  Cf.
- Option C.
+arithmetic via the new `value_toRaw_{add,mul}` (the lens-emergence
+roadmap, Option C).

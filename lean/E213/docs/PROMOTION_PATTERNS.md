@@ -170,13 +170,13 @@ lean/E213/Lib/Physics/Symmetry/ (24 files; INDEX was stale at 6 files!)
 ### Example trace (α_em, commit `a3f2b585`)
 
 ```
- (stays active, 17 domains)
+the 213-Algebra catalog (17 domains, stays active)
   + §0.5 Promotion status (new) — tracks C1/C5 (→ chapter), C3 (→ other), C2/C4/C6
 lean/E213/Lib/Physics/AlphaEM/ (23 files)
   → theory/physics/alpha_em/precision_derivation.md (new, 261 lines)
   + Open frontier: C1 Step 5+, C5 Step 7+ (within chapter)
   + AlphaEM/INDEX.md narrative pointer added
-  + G35 citations in Lean docstrings UNCHANGED (still valid)
+  + source-note citations decoupled per PROCESS.md sink rule
 ```
 
 ### Pitfalls

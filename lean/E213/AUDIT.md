@@ -609,8 +609,7 @@ separate module.
 ### Mode of existence
 
 Lean `inductive` is by definition compatible with either
-Platonic or stepwise interpretation.  Companion narrative:
-. Current Lean
+Platonic or stepwise interpretation.  Current Lean
 coverage: `lean/E213/Lens/Cardinality/Tower.lean` and
 `lean/E213/Lens/Cardinality/Chain.lean`.
 
