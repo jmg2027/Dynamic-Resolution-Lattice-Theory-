@@ -501,6 +501,16 @@ order 3 (`U_proj_order_3`, `U³ = −I`): its Möbius action `z ↦ −1/(z+1)` 
 orders `2, 3` are the free factors of the modular group; the matrix orders `4, 6` reduce through the
 central `−I`.  All by `rfl` / `decide`.
 
+`E213.Lib.Math.Real213.HyperbolicBoost` — **11 PURE**.  The hyperbolic face of "product of two
+reflections": the golden iterator `G = [[2,1],[1,1]]` (φ's Möbius map, `det = 1`) factors as
+`A · B` (`golden_boost_eq`) with `A = [[1,0],[−1,−1]]`, `B = [[2,1],[−3,−2]]` both involutive
+reflections (`A_involutive`, `B_involutive`; `A_det = B_det = −1`).  `G` is **hyperbolic**
+(`G_hyperbolic`: `trace 3 > 2`, `disc = tr²−4 = 5 = NS+NT`, real eigenvalues, infinite order — no
+periodic floor), the boost to the elliptic `S = N·R`'s rotation (`FoldReflections`).  Capstone
+`two_reflections_compose_to_golden_boost`: every `SL(2,ℤ)` element is a product of two reflections;
+`|trace|` against `2` selects rotation (elliptic, periodic) vs boost (hyperbolic, aperiodic) — the
+same `tr²−4` dial.  All by `decide`.
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
