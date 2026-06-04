@@ -3,7 +3,7 @@
 Real213-p-adic construction: ∅-axiom p-adic integers `ℤ_p` (`ZpSeq p`)
 and p-adic numbers `ℚ_p` (`QpSeq`) via carry-propagation FSM.
 
-**Status**: CLOSED — 26 files, ~462 PURE declarations.
+**Status**: CLOSED — 27 files, ~480 PURE declarations.
 All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 
 ## File map
@@ -25,7 +25,8 @@ All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 | `SetoidFramework.lean` | 4 | 12 | `ZpSeqEquiv` setoid + reflexivity/symmetry/transitivity |
 | `SetoidAssoc.lean` | 4 | 8 | Ring operation associativity under setoid |
 | `SetoidAlgebra.lean` | 4 | 8 | Algebraic structure under setoid equivalence |
-| `Teichmuller.lean` | 4 | 7 | Frobenius lift, `teichmuller_iter_cauchy`, geometric sum |
+| `Teichmuller.lean` | 4 | 13 | Frobenius lift, `teichmuller_iter_cauchy`, geometric sum; explicit representative `teichmuller` (`ω(x)`, diagonal limit), Frobenius fix `teichmuller_pow_p_trunc` (`ω^p ≡ ω`) |
+| `TeichmullerUnit.lean` | 4 | 5 | `ω(x)` as `(p−1)`-th root of unity (`teichmuller_pow_pred_trunc`); principal-unit decomposition `x = ω·u` (`teichmullerCofactor`, `u ≡ 1 mod p`) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split |
 | `Field.lean` | 5 | 40 | `QpSeq` (ℚ_p): add/sub/mul/neg/inv/div/sqrt |
 | `DRLT.lean` | 6 | 4 | `canonical_5adic_p` (= 5), digit smokes |
 | `DRLTIntegration.lean` | 6 | 6 | 5-adic ↔ configCount: `trunc_25_lt_config2` + bridge bundle |
@@ -41,7 +42,7 @@ All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 
 ```
 Foundation
-   ├── Arith ─── Pow ─── Teichmuller
+   ├── Arith ─── Pow ─── Teichmuller ─── TeichmullerUnit (+ Hensel)
    │     └── NegInvolution{,Digit1,Full,Preserve}
    │     └── SetoidFramework ─── SetoidAssoc ─── SetoidAlgebra
    ├── Norm ─── Valuation
@@ -65,7 +66,11 @@ All under namespace `E213.Lib.Math.NumberSystems.Padic.*`.
 
 ## Open frontier
 
-  · Teichmüller representative as concrete `ZpSeq` (diagonal
-    stabilization, analog of `sqrtFull`)
-  · `ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)` structural isomorphism
+  · ~~Teichmüller representative as concrete `ZpSeq`~~ — **closed**
+    (`Teichmuller.teichmuller`, diagonal limit)
+  · ~~`ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)`~~ — **closed at trunc level**
+    (`TeichmullerUnit`: `teichmuller_pow_pred_trunc` + `teichmullerCofactor`).
+    Remaining: the full sequence-level group isomorphism (uniqueness of
+    the `ω·u` factorisation as `ZpSeq`).
+  · `Zp.div` general division → `QpSeq`
   · Lift DRLT precision-bounded results to 5-adic analogues

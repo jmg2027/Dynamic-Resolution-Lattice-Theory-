@@ -10,6 +10,25 @@ This note records candidate next directions for follow-up campaigns.
 Each entry includes: statement, dependency chain, estimated
 difficulty, and a note on 213-native angle.
 
+## Status (updated post-A/B campaign)
+
+- **A — Explicit Teichmüller representative `ω(x)`: CLOSED.**
+  `Zp.teichmuller` (diagonal of the iteration `x ↦ x^p`) +
+  `teichmuller_pow_p_trunc` (the Frobenius fix `ω^p ≡ ω`) in
+  `Padic/Teichmuller.lean`.  Simpler than anticipated: the Cauchy
+  lemma `teichmuller_iter_cauchy` IS the diagonal trunc-recursion, so
+  *no separate digit-stability lemma was needed* (unlike `invFull`).
+- **B — `ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)`: CLOSED at trunc level.**
+  `teichmuller_pow_pred_trunc` (`ω^(p−1) ≡ 1`, root of unity) +
+  `teichmullerCofactor` / `teichmullerCofactor_trunc_one`
+  (`u = ω⁻¹·x ≡ 1 mod p`) in `Padic/TeichmullerUnit.lean` (bridges
+  Teichmuller + Hensel).  Remaining open: sequence-level uniqueness of
+  the `ω·u` split (same caveat as direction C — sequence-level equality
+  may be a non-213-native question).
+
+Next on-path candidates: **G** (general `Zp.div`), then **H** (DRLT
+5-adic content).
+
 ## A. Explicit Teichmüller representative `ω(x)`
 
 **Statement**: construct `Zp.teichmuller p hp x sb : ZpSeq p` such that

@@ -817,6 +817,18 @@ closures:
   · `canonical_5adic_p` — 5-adic lift of the base prime `5`,
     with digit smoke-tests.
 
+Follow-on (G123 directions A/B): the explicit Teichmüller
+representative and the unit-group decomposition, all PURE:
+
+  · `Zp.teichmuller` — `ω(x)` as the diagonal of the iteration
+    `x ↦ x^p`; `Zp.teichmuller_pow_p_trunc` — the Frobenius fix
+    `ω^p ≡ ω` (`Padic.Teichmuller`).
+  · `Zp.teichmuller_pow_pred_trunc` — `ω(x)^(p−1) ≡ 1` for units
+    (`(p−1)`-th root of unity); `Zp.teichmullerCofactor` +
+    `Zp.teichmullerCofactor_trunc_one` — the principal-unit split
+    `x = ω·u`, `u ≡ 1 mod p`, i.e. `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` at
+    trunc level (`Padic.TeichmullerUnit`).
+
 Chapter: `theory/math/numbersystems/padic_real213.md`.
 
 **2026-05-09 (later, marathon batch 1)**: User directive "seal

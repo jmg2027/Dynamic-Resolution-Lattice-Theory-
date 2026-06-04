@@ -53,7 +53,8 @@ The library is ∅-axiom throughout: every theorem reports
 | `Pow.lean` | `Zp.pow x n` recursive, `pow_trunc` (homomorphism), `pow_add_trunc` / `pow_mul_trunc`, `pow_p_trunc_one` / `pow_p_minus_one_trunc_one` (Fermat at digit 0 / for units, p prime), `teichmuller_iter` (`x ↦ x^p` iteration), `valAtLeast_pow` |
 | `Norm.lean` | `valAtLeast` / `valEq`, full ultrametric: `valAtLeast_add`, `valAtLeast_mul`, `valAtLeast_neg`, `valEq_add_of_lt` (strong: differing valuations), `valEq_mul` (precise mul ultrametric), `valEq_neg` |
 | `Hensel.lean` | Inverse: `invDigit0` (Bezout), `invSeq` / `invFull`, `mul_invSeq_correct` / `mul_invFull_correct`, `inv_trunc_unique`, `mul_left_cancel_trunc` / `mul_right_cancel_trunc`.  Sqrt: `SqrtBase`, `sqrtSeq` / `sqrtFull`, `sqr_sqrtSeq_correct` / `sqr_sqrtFull_correct`, `sqr_unique_trunc`, `sqrtFull_eq_of_sqr`.  Concrete: `i_5`, `i_13`, `sqrt_two_7` |
-| `Teichmuller.lean` | `sum_geo_pow` (ZpSeq geometric sum), `frobenius_lift` (`y ≡ z mod p^k → y^p ≡ z^p mod p^(k+1)`, any `p ≥ 1`), `teichmuller_iter_cauchy` (iteration is Cauchy in p-adic metric); Nat-level engine `pow_add_factor` + `geo_sum_mod_zero_at_p` + `frobenius_lift_nat` (binomial-free) |
+| `Teichmuller.lean` | `sum_geo_pow` (ZpSeq geometric sum), `frobenius_lift` (`y ≡ z mod p^k → y^p ≡ z^p mod p^(k+1)`, any `p ≥ 1`), `teichmuller_iter_cauchy` (iteration is Cauchy in p-adic metric); the explicit representative `teichmuller` (`ω(x)`, diagonal limit) + `teichmuller_trunc_succ` / `teichmuller_digit_zero` + Frobenius fix `teichmuller_pow_p_trunc` (`ω^p ≡ ω`); Nat-level engine `pow_add_factor` + `geo_sum_mod_zero_at_p` + `frobenius_lift_nat` (binomial-free) |
+| `TeichmullerUnit.lean` | `teichmuller_pow_pred_trunc` (`ω^(p−1) ≡ 1`, `(p−1)`-th root of unity); `teichmullerCofactor` (`ω⁻¹·x`) + `teichmullerCofactor_trunc_one` (`u ≡ 1 mod p`) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split at trunc level (bridges Teichmuller + Hensel) |
 | `Field.lean` | `QpSeq` (num + shift), `QpSeq.{add,sub,mul,neg,ofNat}`, `QpSeq.inv` (Hensel via `invFull` + `shiftLeft`), `QpSeq.div`, `QpSeq.sqrt` (even-shift only — `√p ∉ ℚ_p`) + `sqr_sqrt_num_correct` |
 | `DRLT.lean` | `canonical_5adic_p` (= 5) + digit smokes, `canonical_5adic_zero` (canonical 5-adic embeddings) |
 
@@ -272,6 +273,10 @@ Grouped by module.
 |---|---|
 | `Zp.frobenius_lift` | `y ≡ z mod p^k, k ≥ 1 → y^p ≡ z^p mod p^(k+1)` (any `p ≥ 1`) |
 | `Zp.teichmuller_iter_cauchy` | `iter x (n+1) ≡ iter x n (mod p^(n+1))` |
+| `Zp.teichmuller` | explicit representative `ω(x)`, the diagonal `digits k := (iter x k).digits k` |
+| `Zp.teichmuller_pow_p_trunc` | `ω(x)^p ≡ ω(x)` at every level (Frobenius fix `ω^p = ω`) |
+| `Zp.teichmuller_pow_pred_trunc` | `ω(x)^(p−1) ≡ 1` for units (`(p−1)`-th root of unity) |
+| `Zp.teichmullerCofactor_trunc_one` | `(ω(x)⁻¹·x) ≡ 1 (mod p)` (principal-unit cofactor) |
 
 **Field** (ℚ_p)
 | Theorem | Statement |
@@ -372,6 +377,65 @@ identity.  Primality enters only at the digit-0 step (Fermat) when
 we invoke `pow_p_trunc_one` for the base case of the Cauchy
 induction.
 
+### The explicit representative `ω(x)` — diagonal of the iteration
+
+Cauchy convergence names a *limit*; `Zp.teichmuller` exhibits it
+as a concrete `ZpSeq`.  The construction is the same
+diagonal-extraction template that produced `invFull` / `sqrtFull`
+from their approximation sequences:
+
+  `ω(x).digits k := (teichmuller_iter x k).digits k`.
+
+Each digit `k` is read off the `k`-th iterate, which has settled
+by level `k`.  Where `invFull` needed a separate digit-stability
+lemma, here the Cauchy identity *is* the diagonal trunc-recursion:
+
+  `ω(x).trunc (n+1) = (iter x n).trunc (n+1)`     (`teichmuller_trunc_succ`)
+
+— the step case is exactly `teichmuller_iter_cauchy n`.  This is
+the 213-native form of "the limit reached by none of the
+approximants is the diagonal of the approximant family": no
+completion functor, no inverse-limit existence axiom — the limit
+object is read directly out of the iteration it limits.
+
+`ω(x)` carries the two defining properties of a Teichmüller
+representative:
+
+- **lifts the residue**: `ω(x).digits 0 = x.digits 0`
+  (`teichmuller_digit_zero`) — `ω(x) ≡ x (mod p)`;
+- **Frobenius-fixed**: `(ω(x)^p).trunc n = ω(x).trunc n` for all
+  `n` (`teichmuller_pow_p_trunc`) — `ω^p = ω`, the idempotent that
+  the classical theory takes as the *definition* of `ω`.
+
+The Frobenius fix chains four existing facts at level `n+1`:
+`pow_trunc` rewrites `(ω^p).trunc(n+1)` to `(ω.trunc(n+1))^p % p^(n+1)`;
+`teichmuller_trunc_succ` swaps `ω.trunc(n+1)` for `(iter x n).trunc(n+1)`
+(on *both* sides at once); `pow_trunc` backward and `iter_succ` fold
+the power into `(iter x (n+1)).trunc(n+1)`; `teichmuller_iter_cauchy`
+closes it.
+
+### `ω(x)` as a root of unity, and the unit decomposition
+
+For a **unit** `x` (digit-0 coprime to `p`) the Frobenius fix
+refines multiplicatively.  Writing `p = (p−1) + 1` gives
+`ω^p = ω^(p−1) · ω`; the fix reads `ω^(p−1) · ω ≡ ω = 1 · ω`, and
+cancelling the unit `ω` on the right (the Hensel cancellation
+`mul_right_cancel_trunc`, since `ω.digits 0 = x.digits 0` is a
+unit) leaves
+
+  `ω(x)^(p−1) ≡ 1`     (`teichmuller_pow_pred_trunc`).
+
+So `ℤ_p` contains the full group `μ_{p−1}` of `(p−1)`-th roots of
+unity, realised **explicitly** as Teichmüller representatives —
+not asserted via a counting/existence theorem.  The companion
+cofactor `u(x) := ω(x)⁻¹ · x` is principal, `u ≡ 1 (mod p)`
+(`teichmullerCofactor_trunc_one`), because `ω` and `x` share
+digit 0.  Together these give the canonical split
+`ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)` at every truncation level (the
+`TeichmullerUnit` module).  The one piece still open is the
+*sequence-level* uniqueness of the `ω·u` factorisation — the same
+trunc-vs-sequence boundary that the ring-axiom layer meets.
+
 ## Closing reflection
 
 What the Real213-p-adic campaign produced:
@@ -431,17 +495,14 @@ What the Real213-p-adic campaign produced:
   convolution-style reindexing argument for `mulRaw_comm`.  Either
   would push us outside the strict-∅ guarantee.
 
-- Construct the Teichmüller representative `ω(x)` as a concrete
-  `ZpSeq`.  We have Cauchy convergence, but the limit object (the
-  fixed point of the iteration in the inverse limit) requires
-  either a completion construction or explicit digit extraction
-  via diagonal stabilization (analog of `sqrtFull` for the
-  iteration).  This is plausible follow-up work.
-
-- Bridge to representations of the multiplicative group `ℤ_p^×`.
-  We have the building blocks (unit predicate via `modBezout`,
-  Fermat at digit 0, Teichmüller Cauchy) but not the structural
-  isomorphism `ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)`.
+- Lift the multiplicative group decomposition `ℤ_p^× ≃ μ_{p−1} ×
+  (1 + p·ℤ_p)` from the trunc level (now closed —
+  `teichmuller_pow_pred_trunc` + `teichmullerCofactor`) to a
+  *sequence-level* isomorphism with uniqueness of the `ω·u` split.
+  This meets the same trunc-vs-`ZpSeq` boundary as the ring-axiom
+  layer: it may require a quotient construction outside strict-∅,
+  or it may be that trunc-level is the 213-native statement and the
+  sequence-level uniqueness is an imported residue.
 
 **Methodology note**.  Most proofs in `Teichmuller.lean` and
 `Hensel.lean` look like a sequence of `rw` over `mul_trunc`,
@@ -496,7 +557,8 @@ python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Padic.Foundation \
                               E213.Lib.Math.NumberSystems.Padic.Norm \
                               E213.Lib.Math.NumberSystems.Padic.Hensel \
                               E213.Lib.Math.NumberSystems.Padic.Teichmuller \
+                              E213.Lib.Math.NumberSystems.Padic.TeichmullerUnit \
                               E213.Lib.Math.NumberSystems.Padic.Field \
                               E213.Lib.Math.NumberSystems.Padic.DRLT
-# Expected: 308 PURE / 0 DIRTY
+# Expected: 0 DIRTY (all PURE)
 ```

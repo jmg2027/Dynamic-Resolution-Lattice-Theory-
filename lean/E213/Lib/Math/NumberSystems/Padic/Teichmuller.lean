@@ -369,4 +369,94 @@ theorem Zp.teichmuller_iter_cauchy (p : Nat) (hp : 1 < p) (x : ZpSeq p)
       (Zp.teichmuller_iter p hp x (n + 1)) (Zp.teichmuller_iter p hp x n)
       (n + 1) (Nat.succ_le_succ (Nat.zero_le n)) ih
 
+/-! ## The explicit Teichmüller representative `ω(x)`
+
+The iteration `iter x n = x^(p^n)` is Cauchy (`teichmuller_iter_cauchy`):
+each step fixes one more digit.  Classical theory introduces the
+limit `ω(x) = lim_n x^(p^n)` via the projective limit.  Here the
+limit object is the **diagonal** of the iteration —
+`ω(x).digits k := (iter x k).digits k` — exactly the construction
+that produced `invFull` / `sqrtFull` from their approximation
+sequences (`Hensel.lean`).
+
+Unlike `invFull`, no separate digit-stability lemma is needed: the
+Cauchy identity `(iter x (n+1)).trunc (n+1) = (iter x n).trunc (n+1)`
+IS the trunc recursion for the diagonal.
+
+`ω(x)` is the unique Frobenius-fixed lift of `x.digits 0`:
+- `ω(x).digits 0 = x.digits 0` (digit-0 invariant),
+- `(ω(x)^p).trunc n = ω(x).trunc n` for all `n` (the defining
+  idempotent `ω^p = ω`, i.e. `ω` is a `(p−1)`-th root of unity for
+  units).
+-/
+
+/-- The explicit Teichmüller representative `ω(x) : ZpSeq p`, the
+    diagonal of the iteration `iter x n = x^(p^n)`.  Each digit `k` is
+    read off the `k`-th iterate, which has settled by level `k`
+    (`teichmuller_iter_cauchy`). -/
+def Zp.teichmuller (p : Nat) (hp : 1 < p) (x : ZpSeq p) : ZpSeq p where
+  digits := fun k => (Zp.teichmuller_iter p hp x k).digits k
+
+/-- **Diagonal trunc identity**: `ω(x).trunc (n+1) = (iter x n).trunc (n+1)`.
+    The diagonal agrees with the level-`n` iterate up to level `n+1`,
+    because each lower digit settled at its own level (Cauchy). -/
+theorem Zp.teichmuller_trunc_succ (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (h_prime_gcd : ∀ m, 0 < m → m < p
+                  → (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m p).1 = 1) :
+    ∀ n, (Zp.teichmuller p hp x).trunc (n + 1)
+       = (Zp.teichmuller_iter p hp x n).trunc (n + 1)
+  | 0 => rfl
+  | n + 1 => by
+    have ih := Zp.teichmuller_trunc_succ p hp x h_prime_gcd n
+    -- The diagonal digit at position n+1 is, by definition, the (n+1)-th iterate's.
+    have hdig : (Zp.teichmuller p hp x).digits (n + 1)
+              = (Zp.teichmuller_iter p hp x (n + 1)).digits (n + 1) := rfl
+    show (Zp.teichmuller p hp x).trunc (n + 1)
+          + ((Zp.teichmuller p hp x).digits (n + 1)).val * p^(n + 1)
+        = (Zp.teichmuller_iter p hp x (n + 1)).trunc (n + 1)
+          + ((Zp.teichmuller_iter p hp x (n + 1)).digits (n + 1)).val * p^(n + 1)
+    -- ih fixes the trunc; Cauchy converts (iter x (n+1)).trunc(n+1) → (iter x n).trunc(n+1).
+    rw [ih, hdig, Zp.teichmuller_iter_cauchy p hp x h_prime_gcd n]
+
+/-- **Digit-0 invariant**: `ω(x).digits 0 = x.digits 0`.  The
+    representative lifts the residue `x mod p`. -/
+theorem Zp.teichmuller_digit_zero (p : Nat) (hp : 1 < p) (x : ZpSeq p) :
+    (Zp.teichmuller p hp x).digits 0 = x.digits 0 := rfl
+
+/-- `ω(x).trunc 1 = x.trunc 1` — agreement mod `p`. -/
+theorem Zp.teichmuller_trunc_one (p : Nat) (hp : 1 < p) (x : ZpSeq p) :
+    (Zp.teichmuller p hp x).trunc 1 = x.trunc 1 := rfl
+
+/-- **Frobenius-fixed (idempotent `ω^p = ω`)**: for `p` prime,
+    `(ω(x)^p).trunc n = ω(x).trunc n` at every level `n`.
+
+    This is the defining property of the Teichmüller representative:
+    `ω` is the unique fixed point of the Frobenius `y ↦ y^p` lifting
+    `x.digits 0`.  Chain at level `n+1`:
+    `(ω^p).trunc(n+1) = (ω.trunc(n+1))^p % p^(n+1)`  [pow_trunc]
+    `= ((iter x n).trunc(n+1))^p % p^(n+1)`           [trunc_succ]
+    `= ((iter x n)^p).trunc(n+1) = (iter x (n+1)).trunc(n+1)`  [pow_trunc, iter_succ]
+    `= (iter x n).trunc(n+1) = ω.trunc(n+1)`.         [Cauchy, trunc_succ] -/
+theorem Zp.teichmuller_pow_p_trunc (p : Nat) (hp : 1 < p) (x : ZpSeq p)
+    (h_prime_gcd : ∀ m, 0 < m → m < p
+                  → (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m p).1 = 1) :
+    ∀ n, (Zp.pow p hp (Zp.teichmuller p hp x) p).trunc n
+       = (Zp.teichmuller p hp x).trunc n
+  | 0 => rfl
+  | n + 1 => by
+    rw [Zp.pow_trunc p hp (Zp.teichmuller p hp x) (n + 1) p]
+    rw [Zp.teichmuller_trunc_succ p hp x h_prime_gcd n]
+    rw [← Zp.pow_trunc p hp (Zp.teichmuller_iter p hp x n) (n + 1) p]
+    rw [← Zp.teichmuller_iter_succ p hp x n]
+    -- `teichmuller_trunc_succ` already rewrote the RHS `ω.trunc(n+1)` to
+    -- `(iter x n).trunc(n+1)`; Cauchy closes the residual goal.
+    rw [Zp.teichmuller_iter_cauchy p hp x h_prime_gcd n]
+
+/-- Smoke: the 5-adic Teichmüller representative of digit-0 = 2 has
+    digit 0 equal to 2 (the lift of `2 ∈ F_5`). -/
+theorem Zp.smoke_teichmuller_5_digit_two :
+    ((Zp.teichmuller 5 (by decide)
+      ⟨fun k => if k = 0 then ⟨2, by decide⟩ else ⟨0, by decide⟩⟩).digits 0).val
+      = 2 := rfl
+
 end E213.Lib.Math.NumberSystems.Padic
