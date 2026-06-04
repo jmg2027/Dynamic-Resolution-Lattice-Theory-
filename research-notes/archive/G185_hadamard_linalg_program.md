@@ -1,5 +1,11 @@
 # G185 — the linear-algebra program for the general Hadamard product
 
+> **ARCHIVED — PROGRAM COMPLETE.**  `cfiniteZ_mul` is proven, ∅-axiom
+> (`Cauchy/CFiniteHadamard.cfiniteZ_mul`).  Promoted narrative:
+> `theory/math/linalg213.md` "the integer determinant → Cayley–Hamilton tower" +
+> `theory/math/analysis/cfinite_orbit_dimension.md`.  Kept for the design rationale + the
+> number-tower reframing.
+
 **Date**: 2026-06-03.  **Status**: foundation started (Phase A, the `n×n` determinant).
 The last open ring operation of `theory/math/analysis/cfinite_orbit_dimension.md`:
 `CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)` (pointwise/Hadamard product).  Geometric

@@ -96,7 +96,7 @@ bijection needed there is a fresh ∅-axiom **fuel-structural `divmod`** (core `
 - `research-notes/G4_chiral_phase_duality.md` (active foundational)
   — anchored here
 - `theory/physics/alpha_em/precision_derivation.md` — Gram correction
-- `research-notes/G185_hadamard_linalg_program.md` — the determinant → Cayley–Hamilton →
-  Hadamard program log (the tower above; ready to archive)
+- `research-notes/archive/G185_hadamard_linalg_program.md` — the determinant → Cayley–Hamilton →
+  Hadamard program log (archived; the tower above)
 - `theory/essays/determinant_as_quotient_characteristic.md` — the alternating-as-antisymmetrization
   intuition that chose the Leibniz route
