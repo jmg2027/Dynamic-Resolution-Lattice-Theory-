@@ -1642,4 +1642,39 @@ theorem window_realized_unique_of_sqrtNegOne (c : Nat) (h2 : SqrtNegOneTwoRoots 
   fun u₁ u₂ hu1 hu2 hh1 hh2 hr1 hr2 _ _ =>
     root_unique_below_half c h2 hu1 hu2 hh1 hh2 hr1 hr2
 
+/-! ## §19 — concrete composite closures (beyond Button), via the template
+
+  The template `markov_max_unique_of_window_realized_unique` closes composite `c` where Button's
+  `SqrtNegOneTwoRoots` **fails** (≥ 4 roots), using the repo's phantom-root data.  `c = 65 = 5·13`
+  (`SqrtNegOneTwoRoots 65` false, `not_sqrtNegOneTwoRoots_65`) is non-Markov so vacuous; `c = 1325 =
+  5²·53` is the **first composite Markov number** with the `2^ω = 4` root explosion — uniqueness now
+  ∅-axiom, the realized windowed root `507` separated from the phantom `182`. -/
+
+/-- `MarkovMaxUnique 65` (composite, `SqrtNegOneTwoRoots` **false**): the template handles it — 65 is
+    not a Markov number so every realize-antecedent is false (`markov_phantom_root_filter`). -/
+theorem markov_max_unique_65 :
+    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 65 := by
+  refine markov_max_unique_of_window_realized_unique 65 (by decide) ?_
+  intro u₁ u₂ _ _ _ _ _ _ hr1 _
+  obtain ⟨b₁, hb1, hmk1⟩ := hr1
+  exact absurd hmk1 (E213.Lib.Math.Real213.MarkovUniqueness.markov_phantom_root_filter.2.2
+    ((u₁ * b₁) % 65) (Nat.le_of_lt (Nat.mod_lt _ (by decide))) b₁ (Nat.le_of_lt hb1))
+
+set_option maxRecDepth 200000 in
+/-- ★★★★★ **`MarkovMaxUnique 1325` — the first composite Markov number, ∅-axiom (beyond Button).**
+    `1325 = 5²·53` has `2^ω = 4` roots of `x²≡−1` (so `SqrtNegOneTwoRoots 1325` fails), windowed
+    `{182, 507}`; `507` is realized by `(13,34,1325)`, `182` is phantom (`markov_composite_separation`).
+    The template separates them: any realized windowed root is `507`, so the triple is unique. -/
+theorem markov_max_unique_1325 :
+    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 1325 := by
+  refine markov_max_unique_of_window_realized_unique 1325 (by decide) ?_
+  have roots : ∀ u, u < 1325 → (u * u + 1) % 1325 = 0 → 2 * u < 1325 → u = 182 ∨ u = 507 := by decide
+  have phantom := E213.Lib.Math.Real213.MarkovUniqueness.markov_composite_separation.2.2.2.1
+  intro u₁ u₂ h1c h2c hh1 hh2 hr1 hr2 hreal1 hreal2
+  rcases roots u₁ h1c hr1 hh1 with rfl | rfl
+  · obtain ⟨b, hb, hmk⟩ := hreal1; exact absurd hmk (phantom b hb)
+  · rcases roots u₂ h2c hr2 hh2 with rfl | rfl
+    · obtain ⟨b, hb, hmk⟩ := hreal2; exact absurd hmk (phantom b hb)
+    · rfl
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
