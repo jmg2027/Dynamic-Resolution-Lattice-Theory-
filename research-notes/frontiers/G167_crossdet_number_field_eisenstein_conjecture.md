@@ -192,7 +192,7 @@ built, pending a decision on whether 213 wants the modular-group layer at all.  
 ∅-axiom reach entirely: geodesic flow, modular forms, the `j`-map, the modularity
 theorem, analytic continuation.
 
-## CAPSTONE — the two trichotomies are one (`CrossDetTraceField`, 17 PURE)
+## CAPSTONE — the two trichotomies are one (`CrossDetTraceField`, 20 PURE)
 
 The arc had grown **two parallel trichotomies** that were never joined by a theorem:
 
@@ -226,6 +226,11 @@ The form is not merely dimensionally matched: the monodromy is an **automorph** 
 (`reference_forms_preserved`: `G` holds the golden form, `U` the cyclotomic Eisenstein
 form) — the geodesic's invariant, the form-side shadow of the Cassini cross-determinant
 conservation `crossDet_step` (multiplier `−q`).
+
+Each fixed-point form is moreover a **named number-field norm**: `formEval (fixForm G) = `
+golden form `m²−mk−k²` (ℚ(√5)), `formEval (fixForm U) a (−b) = ` Eisenstein norm `a²−ab+b²`
+(ℚ(ω), the cyclotomic `x²+x+1` read at the `−ω` orientation), `formEval (fixForm S) = a²+b²`
+(Gaussian norm, disc −4, `j=1728`).
 
 `crossdet_number_field_is_trace_field` bundles all three faces + the universal identity;
 `disc_sign_is_line_cusp_curve` reads the elliptic conjecture exactly: `D > 0` (two real

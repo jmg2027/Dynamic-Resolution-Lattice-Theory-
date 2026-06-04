@@ -192,6 +192,37 @@ theorem crossdet_number_field_is_trace_field :
    ⟨fixForm_U, by decide, by decide⟩,
    fixForm_disc_eq_traceDisc⟩
 
+/-! ## §5b — each fixed-point form is a named number-field norm -/
+
+/-- `formEval (fixForm G) m k = goldenForm m k` — the fixed-point form of the hyperbolic
+    boost is **exactly** the golden form `m² − mk − k²`, the disc-`+5` real-quadratic norm
+    of `ℤ[φ]` (up to sign the field norm `N(m+kφ)`). -/
+theorem formEval_G_eq_golden (m k : Int) :
+    formEval (fixForm G) m k = goldenForm m k := by
+  rw [fixForm_G]
+  show (1 : Int) * (m * m) + (-1) * (m * k) + (-1) * (k * k) = m * m - m * k - k * k
+  ring_intZ
+
+/-- `formEval (fixForm U) a (−b) = eisForm a b` — the cyclotomic form `x² + xy + y²` is the
+    `b ↦ −b` orientation of the Eisenstein norm `a² − ab + b²`.  Same disc-`−3` field
+    `ℚ(ω)`, the two representatives differing only by the lattice orientation (`ω` vs `−ω`):
+    the prose "equivalent representative" is this equation. -/
+theorem formEval_U_eq_eis (a b : Int) :
+    formEval (fixForm U) a (-b) = eisForm a b := by
+  rw [fixForm_U]
+  show (1 : Int) * (a * a) + 1 * (a * -b) + 1 * (-b * -b) = a * a - a * b + b * b
+  ring_intZ
+
+/-- `formEval (fixForm S) a b = a² + b²` — the fixed-point form of the order-4 generator is
+    the **Gaussian norm** `‖a + bi‖²`, disc `−4`, the `j = 1728` CM point. -/
+theorem formEval_S_eq_gaussian (a b : Int) :
+    formEval (fixForm S) a b = a * a + b * b := by
+  rw [fixForm_S]
+  show (1 : Int) * (a * a) + 0 * (a * b) + 1 * (b * b) = a * a + b * b
+  rw [E213.Meta.Int213.PolyIntM.one_mulZ, E213.Meta.Int213.PolyIntM.one_mulZ,
+      E213.Meta.Int213.zero_mul, E213.Meta.Int213.add_comm (a * a) 0,
+      E213.Meta.Int213.zero_add]
+
 /-- ★★★ **The golden and Eisenstein reference forms are exactly preserved by their
     monodromy.**  Since `G, U ∈ SL(2,ℤ)` (`det = 1`), `fixForm_automorph` gives exact
     invariance: the golden form `m²−mk−k²` is conserved by the hyperbolic boost `G`, and
