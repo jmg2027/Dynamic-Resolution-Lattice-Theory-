@@ -126,7 +126,8 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - `G178_next_proofline_conjectures` — cross-arc conjecture seed / ranked agenda
   for populating νF (post-FSM).  P1–P6 + §18 (`coSwap_boolSpine_free_action`, the
   swap group's free action on the bit-stream escapes) closed ∅-axiom; remaining
-  open = the consolidation bridges (C-phys) + adjacent (ε₀ diagonal, φ identity).
+  open = the C1/C6/C7-phys consolidation bridges (C3-phys closed; ε₀ diagonal +
+  frozen=dynamic-φ adjacents already closed & chaptered).
   Closure record: `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form}.md`.
 
 Closure record (promoted off this board):

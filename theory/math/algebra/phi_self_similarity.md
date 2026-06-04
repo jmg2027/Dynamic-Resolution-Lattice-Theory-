@@ -158,6 +158,33 @@ Pell convergents (§3.5) — on **both** the native-`fib` sequence and the canon
 `pellConvergentCut`.  The residue's irrational limit-ratio signature is one
 213-native Cut, however it is approached.
 
+### 3.6 frozen = dynamic φ, with the residue unit between (`Real213/PhiFrozenDynamic.lean`)
+
+`seed/AXIOM/05_no_exterior.md` §5.7 names the two readings §3.3/§3.5 build and
+states they are one object — **closed** by `PhiFrozenDynamic.frozen_eq_dynamic_phi`
+(2 PURE):
+
+  - **frozen, algebraic** — `phi_discriminant_is_P_charpoly`: φ's defining cut
+    discriminant `5` (the `5k² ≤ (2m−k)²` of `phiCut`) **is** `P`'s characteristic
+    discriminant `(L 1)² − 4` with `L 1 = NS = trace P = 3`.  So the *frozen* φ is
+    `P`'s fixed-point datum, not an independent constant.
+  - **dynamic = frozen** — `phiCauchy_limit_eq_phiCut` (§3.5) read as the §5.7
+    identification: the limit of `P`'s Möbius orbit lands on the *same* 213-native
+    cut as the algebraic φ.
+  - **the residue between** — `FibCassiniNat.fib_cassini_norm`
+    (`fib(2n+2)² + 1 = fib(2n+2)·fib(2n+1) + fib(2n+1)²`) and
+    `convergent_never_frozen`: the `Nat` orbit stays *exactly* the unit `1` off the
+    frozen fixed-point relation and never reaches it.  The dynamic approaches but
+    never lands on the frozen; the gap is the irreducible `+1`.
+
+That `+1` is the Cassini `W = ±1` of the Fibonacci/Pell matrix — `det P = 1` raised
+to the orbit — i.e. the *same* unit that
+`Lens/Number/SharedUnitAcrossReadings.unit_bridges_dynamics_and_readings` proves
+identical across the ascent/descent dynamics and the glue/determinant readings.  So
+"frozen approached by dynamic, never reached, gap `1`" is the φ-face of the one
+shared unit: the residue between a fixed point and its convergents *is* the residue
+unit.
+
 ## The single statement
 
 `SelfSimilarityBridge.self_similarity_three_readings` bundles form + count +
@@ -191,6 +218,7 @@ lake build E213.Lib.Math.NumberSystems.Real213 E213.Lib.Math.SelfSimilarityBridg
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PellFibCutBridge
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PhiFrozenDynamic
 python3 tools/scan_axioms.py E213.Lib.Math.SelfSimilarityBridge
 ```
 

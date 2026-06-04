@@ -66,8 +66,12 @@ arc (`Real213/Continuant.lean` tool already built).
   C3-phys (det-1 = ascent-1 = glue-1, safest), C1-phys (`N_gen` via the atom's own solver),
   C7-phys (Koide 2/3), C6-phys (falsifier-roster uniqueness super-theorem).  Internal, lower
   novelty, but C6-phys has Validation-Standard value.
-- **Adjacent still-open** (survey): native ε₀ diagonal (G173, hard); frozen=dynamic φ identity
-  (med).  Cross-arc to the spiral-adic / Ostrowski carry (G181) now reachable from §19's shift.
+- **Adjacent — both closed** (survey label was stale): ε₀ diagonal
+  (`DepthHeightDiagonal.{height_diagonal_escapes,epsilon_direction}`, chaptered in
+  `completeness_without_completeness.md` Part IV §14; native ε₀ object out of ∅-axiom reach, not
+  forced) and frozen=dynamic φ (`PhiFrozenDynamic.frozen_eq_dynamic_phi`, §5.7 — **promoted this
+  session** to `phi_self_similarity.md` §3.6).  Cross-arc to the spiral-adic / Ostrowski carry
+  (G181) is the genuine next open, now reachable from §19's shift.
 
 ### 3. (carried) Promotion candidates
 PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov

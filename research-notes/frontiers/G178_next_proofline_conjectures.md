@@ -44,8 +44,9 @@ non-holonomicity arc):
   - `spineL_shift_fixed` — `spineL` the period-1 (shift-fixed) escape (= `spineL_unique`'s p=1).
   - `boolSpine_swap_shift_commute` — the lone symmetry commutes with the shift.
   - `boolSpine_shift_dynamics` — capstone: νF carries the full shift as a faithful sub-coalgebra.
-  Fed the essay's "the frontier carries dynamics" layer.  Remaining open: the consolidation
-  bridges (C-phys) below + adjacent (native ε₀ diagonal G173, frozen=dynamic φ identity).
+  Fed the essay's "the frontier carries dynamics" layer.  Remaining open: the C1/C6/C7-phys
+  consolidation bridges below (C3-phys closed; the ε₀-diagonal and frozen=dynamic-φ adjacents
+  were already closed — see the survey footer).
 
 ## Recommended next proof-line (νF population — all ∅-axiom-feasible)
 
@@ -156,4 +157,11 @@ preemptively warn against (mirrors the `5²⁵ = N_U` deletion):
 Three agents (frontier survey, µF/νF extension, physics bridge), 2026-06-02.  Anchors:
 `Theory/Raw/{CoResidue,MuNuMirror,Lambek,PrimitiveTower,StateMachine,Swap}`,
 `Lib/Math/Foundations/ResidueForm`, `Theory/Atomicity/Five`, essays `the_residue_as_{primitive,state_machine}`.
-Adjacent still-open (survey): native ε₀ diagonal (G173, hard), frozen=dynamic φ identity (med).
+Adjacent (survey) — both ✅ **CLOSED ∅-axiom**, the "still-open" survey label was stale:
+  - **ε₀ diagonal** — `Cauchy/DepthHeightDiagonal.{height_diagonal_escapes,epsilon_direction,
+    diag_self_applies}` (4 PURE); chaptered at `theory/math/numbersystems/completeness_without_completeness.md`
+    Part IV §14.  Honest ceiling: no native `Ordinal`/`ε₀` object (not forced) — the ∅-axiom
+    content is "naming the whole `ω^r` ladder escapes every finite height," not a constructed ε₀.
+  - **frozen=dynamic φ** (§5.7) — `Real213/PhiFrozenDynamic.frozen_eq_dynamic_phi` (2 PURE);
+    now chaptered at `theory/math/algebra/phi_self_similarity.md` §3.6 (promoted 2026-06-04),
+    tying the frozen/dynamic gap `1` to the C3-phys shared unit.
