@@ -1,124 +1,128 @@
-# Session Handoff — 2026-06-04 (merge: markov-uniqueness → re-architected tree)
+# Session Handoff — 2026-06-04 (G123 p-adic follow-up: A/B/G closed, H mapped)
 
 ## Branch
-`claude/docs-code-org-review-vOYM6` — pushed, clean.
-`cd lean && lake build E213` ✓ (301 modules).  All merged modules
-∅-axiom (141 pure / 0 dirty on the markov + geodesic + lattice files).
+`claude/p-adic-library-direction-Tp3EK` — pushed, clean.
+`cd lean && lake build E213` ✓ (301 modules).  All touched Padic modules
+∅-axiom PURE (0 dirty).  Sink rule: 0 violations.
 
-This branch carries (1) the repository re-architecture + process work
-done earlier this session and (2) the just-integrated
-`claude/markov-uniqueness-0R0Ut` frontier.
+This branch carries the **G123 p-adic follow-up campaign**: the
+post-closure directions of the (already-promoted, G122) Padic library —
+A (explicit Teichmüller representative), B (μ_{p−1} root-of-unity + unit
+decomposition), G (general division), plus H (DRLT 5-adic) mapped, an
+essay, a promotion-cycle pass, and an org-audit.
 
 ## What Was Done This Session
 
-### 1. Integrated `claude/markov-uniqueness-0R0Ut` (23 commits, PURE ✓)
-The incoming branch predated the `Lib/Math` re-architecture, so it
-authored under the old flat `E213.Lib.Math.{Real213,Linalg213,ModArith}`
-namespaces.  Resolution preserved the branch's content/decisions **as
-established** and re-homed the Lean into the new architecture
-(`Real213→NumberSystems.Real213`, `Linalg213→Algebra.Linalg213`,
-`ModArith→NumberTheory.ModArith`):
-- **`Real213/SternBrocotMarkov` §30–§34** — the size-reading ⟷ injectivity
-  iff, **closed both directions**: `markovMaxUnique_iff_markovNum_injective`.
-  §33 forward (`markov_max_unique_of_markovNum_injective`), §34 converse
-  (`markovNum_injective_of_markovMaxUnique`, routed through §28 windowed
-  √(−1) residues — no new number theory).  Orbit kernel
-  `OrbitRealizabilityH` + `markovMaxUnique_iff_orbitRealizabilityH`.
-- **`Real213/Continuant`** (6 PURE) — Euler continuants `K[a₁..aₙ]` +
-  monotonicity (`continuant_cons2`, `one_le_continuant`,
-  `continuant_head_strict_mono`, `continuant_lt_prepend`); the Aigner core
-  tool for the continuant program.
-- **`Real213/ModularGeodesicLens`** — the geodesic engine as a Raw-Lens:
-  `mediantLens` + `mediantLens_view_reachable` (mediant-Lens view ⊆
-  `SternBrocotReachable`, ∅-axiom) — the residue read at `ℍ/PSL(2,ℤ)`.
-- **`Lens/DirectionFree`** + **`Lens/Lattice/Injectivity`** — `IsInjectiveLens`
-  calculus; `injectivity_not_upward_closed` (the structural reason `H` is
-  not forced); direction-freedom forced for residue-native readings.
-- Narrative: `theory/essays/p_orbit/the_modular_geodesic_lens.md`,
-  `theory/math/analysis/markov_uniqueness.md`; G189–G193 frontier notes.
+### 1. G123 direction A — explicit Teichmüller representative `ω(x)`
+`Padic/Teichmuller.lean` (+6 PURE).  `Zp.teichmuller` = the diagonal of
+the iteration `x ↦ x^p` (`digits k := (iter x k).digits k`).  No separate
+digit-stability lemma needed — `teichmuller_iter_cauchy` IS the diagonal
+trunc-recursion (`teichmuller_trunc_succ`).  `teichmuller_digit_zero`
+(ω ≡ x mod p) + Frobenius fix `teichmuller_pow_p_trunc` (ω^p ≡ ω).
 
-### 2. Repository re-architecture + process (earlier this session)
-- `Lib/Math` re-clustered into 10 thematic dirs within the rings;
-  `theory/` + `theory/essays/` physically mirrored by path.
-- **PROCESS.md** + `process` skill: the tier-role discipline + the **sink
-  rule** (no permanent tier cites a `research-notes/` file).  `org-audit`
-  skill added.  `.claude` skills/hooks decoupled from pre-rearchitecture
-  paths.
-- research-notes reorganized: top level anchors-only, open work under
-  `research-notes/frontiers/`, `archive/` pruned.
+### 2. G123 direction B — `ω(x)` as a `(p−1)`-th root of unity
+`Padic/TeichmullerUnit.lean` (+7 PURE; bridges Teichmuller + Hensel).
+`teichmuller_pow_pred_trunc` (ω^(p−1) ≡ 1 for units, via Frobenius fix +
+Hensel `mul_right_cancel_trunc`); `teichmullerCofactor` + `_trunc_one`
+(u = ω⁻¹·x ≡ 1 mod p) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split at trunc.
+Concrete: `i_5_pow_four_trunc` (i₅⁴ ≡ 1 at every level → `i₅ ∈ μ₄`).
+
+### 3. G123 direction G — general division (non-unit denominator)
+`Padic/Arith.lean`: `Zp.shiftRight` + factorisation exactness
+`shiftLeft_shiftRight_digit_of_low_zero` (digit) +
+`shiftLeft_shiftRight_trunc_of_low_zero` (every truncation: x = p^v·u
+exact).  `Padic/Field.lean`: `QpSeq.invGeneral` / `divGeneral` (denominator
+of arbitrary valuation v via the shift); `invGeneral_unit_eq_inv` reduces
+*definitionally* to `QpSeq.inv` at v=0.
+
+### 4. The missing ring fact — `(−1)·(−1) ≡ 1`
+`Padic/Arith.neg_one_sq_trunc` (all levels).  The library had **no**
+neg-mul machinery; proved by difference-of-squares
+(`t·t = P·(t−1)+1`, `t+1 = p^(n+1)`) through an `s+1` split that avoids
+propext-dirty Nat subtraction.  This upgraded `i₅⁴ ≡ 1` from a
+computational trunc-2 `decide` to a general theorem.
+
+### 5. H (DRLT 5-adic) — terrain mapped, NOT forced
+`research-notes/frontiers/G124_padic_drlt_5adic.md`.  H1 (5²⁵-resolution
+obstruction): **settled-as-removed** (`RERESEARCH_n_u_removal.md` — the
+N_U chain is deleted, not deferred).  H2 (i₅ spinors/CP) + H3 (5-adic
+L-values): **no internal handle** — no i₅↔physics edge anywhere; asserting
+one would be a forcible map onto physics (forbidden).  Recorded plainly
+per `05_no_exterior.md` §5.4.  The pure-math handle that looking DID turn
+up — `i₅ ∈ μ₄` — is closed (above).
+
+### 6. Promotion cycle + essay + org-audit
+- **Promotion** (`process` skill): A/B/G fold into the already-promoted
+  G122 chapter `theory/math/numbersystems/padic_real213.md` (extended,
+  not a new chapter).  `promotion_essay_log.md` rows 1–2.  Decoupled a
+  G123 cite I had introduced in `TeichmullerUnit.lean`.
+- **Essay**: `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`
+  — ω(x) as the forced fixed point of Frobenius, reached as the diagonal
+  of its own approximants (cross-frame: P(φ)=φ, §5.2 Nat-style closure,
+  `object1_not_surjective`).
+- **org-audit**: stripped stale "Phase N" process-narration from the
+  Padic tree (Foundation preview block, Valuation labels +
+  `phase3_valuation_close` → `valuation_capstone`, ZpSeqMobiusBridge);
+  sorted the top-level essay orphan `the_modular_geodesic_lens.md` into
+  `theory/essays/p_orbit/` (7 path refs updated); essays INDEX 43 grouped.
 
 ## Current Precision Results (0 free parameters)
-Unchanged this session (org + math-frontier work, no physics-constant
-edits).  Canonical table: `catalogs/physics-constants.md`.  Markov work
-is the **math** branch (Diophantine uniqueness), not a DRLT observable.
+Unchanged this session — all work is the **math** branch (p-adic number
+theory).  No DRLT physics-constant edits.  Canonical table:
+`catalogs/physics-constants.md`.  H confirmed the 5²⁵-resolution reading
+stays removed; no physics observable touched.
 
 ## Open Problems (Priority Order)
 
-### 1. The orbit-realizability kernel `H` (`OrbitRealizabilityH`)
-The **sole** open freedom.  Structure is fully pinned (slope = ℚ-Lens,
-coprimality from `det P = 1`, tree rooted at the φ self-reference fixed
-point `markovNum [] = 5 = d`); what remains is realizability *selection*.
-Per G192/G193: the geodesic engine structurally stops at orientation —
-slope (`mediantLens`) IS a Raw-Lens, size (`markovNum`) is NOT
-(`markovGen_noncommutative`), and `H` lives exactly at that boundary.
-Suggested: attack `H` as a **forced fixed point** (G193 Part C, §4.3
-shape move) — high risk, the real shot.  `H` = compatibility of the two
-§5.2 self-reference forms (Bool-oscillation Cohn `C²≡−I` order-4 ↔
-Nat-convergent Vieta descent).
+### 1. Sequence-level uniqueness of the `ω·u` factorisation
+The `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split is closed at every `trunc n` but
+not as a `ZpSeq`-level isomorphism with uniqueness.  Hits the same
+trunc-vs-sequence boundary as the ring-axiom layer: may need a quotient
+construction outside strict-∅, or trunc-level may BE the 213-native
+statement (sequence-level uniqueness an imported residue).  Open.
 
-### 2. Continuant program E2–E5 (Aigner bridge)
-Ranked next (G193): **E2** `continuant = matrix entry` (cheap, on-path) →
-E3/E4/E5 oriented bridge (E4 substantial).  Tool already built in
-`Continuant.lean`; the orderings (LLRS/McShane) are
-necessary-not-sufficient, so the continuant is the load-bearing piece.
+### 2. General-division correctness `b · (1/b) ≡ 1` in ℚ_p
+`invGeneral`/`divGeneral` have unfoldings + the v=0 reduction, and the
+exactness engine (`shiftLeft_shiftRight_trunc_of_low_zero`) is now in
+place, but the full `b·invGeneral b = 1` needs a QpSeq value-equivalence
+(none defined yet) and a shiftLeft-commutes-with-mul lemma.  Bounded but
+real; the pieces are staged.
 
-### 3. (carried) promotion candidates
-PURE-closed Lean sub-trees lacking a `theory/` chapter — check
-`theory/PROMOTION_CRITERIA.md`.  The Markov sub-tree now has narrative
-(`theory/math/analysis/markov_uniqueness.md`) but `H` keeps it
-mixed-status (Pattern 3): chapter stays active until `H` resolves.
-
-## Unresolved from This Session
-- `H` not crossed by any of the three directions explored (classical /
-  Raw-Lens / axiom-level).  Honest verdict (G193): structure pinned,
-  realizability selection is the lone open freedom.  Directions A, D, E
-  solid; B is a *location* of `H`, C is a *steer*, neither a proof.
-- The `Real213/INDEX.md` Markov section was added during this merge (the
-  family was previously undocumented in that INDEX); the rest of the
-  INDEX predates several Markov files — a fuller INDEX refresh is a
-  candidate for the next `org-audit` pass.
+### 3. (carried) H — DRLT 5-adic, arithmetic-first only
+Any future H must avoid the deleted count-vs-truncation category error
+and the forcible-map trap: ask whether a 5-adic *arithmetic* invariant of
+an object the corpus already builds is non-trivial, and only then read it
+toward an observable.  Open until an unforced arithmetic handle appears.
+Tracked in `frontiers/G124_padic_drlt_5adic.md`.
 
 ## Next
-Take **E2** (`continuant = matrix entry`) in `Real213/Continuant.lean` —
-cheapest on-path step toward the oriented bridge — then re-attempt `H`
-as a forced fixed point (G193 Part C) with the continuant entry-form in
-hand.
+Either (2) general-division correctness (define a minimal QpSeq value
+equivalence + shiftLeft/mul commute, then close `b·(1/b)≡1`), or step off
+the p-adic tree — the closable A/B/G arc is done.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: none new (markov narrative arrived with the
-  merge; chapter stays active per Pattern 3 while `H` is open).
-- **Promotion candidates**: PURE-closed sub-trees without `theory/`
-  chapters (see `theory/PROMOTION_CRITERIA.md`).
-- **Active scratchpad**: `research-notes/G189`–`G193` (markov frontier),
-  `research-notes/frontiers/` open board.  Sink rule holds: no permanent
-  tier cites any of these files.
+- **Promotions this session**: A/B/G folded into the existing Padic
+  chapter (log row 1); essay written (log row 2).  No new chapter (closed
+  sub-tree extension, not a fresh closure).
+- **Active scratchpad**: `frontiers/G123_padic_next_directions.md`
+  (A/B/G marked closed), `frontiers/G124_padic_drlt_5adic.md` (H terrain
+  map — the live open note).  Sink rule holds: no permanent tier cites
+  either.
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberSystems/Real213/SternBrocotMarkov.lean   ← +§30–§34 iff, OrbitRealizabilityH (remapped to new arch)
-lean/E213/Lib/Math/NumberSystems/Real213/Continuant.lean          ← NEW: Euler continuants + monotonicity (remapped)
-lean/E213/Lib/Math/NumberSystems/Real213/ModularGeodesicLens.lean ← NEW: geodesic engine as Raw-Lens (remapped)
-lean/E213/Lib/Math/NumberSystems/Real213.lean                     ← aggregator + Continuant/ModularGeodesicLens imports
-lean/E213/Lib/Math/NumberSystems/Real213/INDEX.md                 ← added Markov + modular-geodesic section
-lean/E213/Lens/DirectionFree.lean                                 ← NEW: direction-freedom for residue-native readings
-lean/E213/Lens/Lattice/Injectivity.lean                           ← NEW: IsInjectiveLens calculus, not upward-closed
-lean/E213/Lens.lean, lean/E213/Lens/Lattice.lean                  ← aggregator imports
-theory/essays/p_orbit/the_modular_geodesic_lens.md                        ← NEW essay
-theory/essays/INDEX.md                                            ← added modular-geodesic-lens row
-theory/math/analysis/markov_uniqueness.md                         ← upper-fold + iff narrative
-research-notes/G189_geodesic_lens_markov_frontier.md              ← NEW
-research-notes/G190_foundation_breakthrough_backlog.md            ← NEW
-research-notes/G191_continuant_aigner_program.md                  ← NEW
-research-notes/G192_markov_kernel_raw_lens_native.md              ← NEW
-research-notes/G193_axioms_against_markov_kernel.md               ← NEW (standing attack map for H)
+lean/E213/Lib/Math/NumberSystems/Padic/Teichmuller.lean        ← +ω(x) diagonal, Frobenius fix
+lean/E213/Lib/Math/NumberSystems/Padic/TeichmullerUnit.lean    ← NEW: μ_{p−1}, unit split, i₅∈μ₄
+lean/E213/Lib/Math/NumberSystems/Padic/Arith.lean              ← +shiftRight, factorisation exactness, neg_one_sq_trunc
+lean/E213/Lib/Math/NumberSystems/Padic/Field.lean              ← +invGeneral/divGeneral (general division)
+lean/E213/Lib/Math/NumberSystems/Padic/Foundation.lean         ← org-audit: removed Phase-2 preview block
+lean/E213/Lib/Math/NumberSystems/Padic/Valuation.lean          ← org-audit: Phase labels → current-state
+lean/E213/Lib/Math/NumberSystems/Padic/INDEX.md                ← counts + new rows + open-frontier
+theory/math/numbersystems/padic_real213.md                     ← chapter extended (A/B/G/H narrative + key results)
+theory/essays/algebra/teichmuller_as_forced_fixed_point.md     ← NEW essay
+theory/essays/p_orbit/the_modular_geodesic_lens.md             ← MOVED from essays/ top level (orphan sort)
+research-notes/frontiers/G123_padic_next_directions.md         ← A/B/G marked closed
+research-notes/frontiers/G124_padic_drlt_5adic.md              ← NEW: H terrain map
+research-notes/promotion_essay_log.md                          ← rows 1 (promotion) + 2 (essay)
+STRICT_ZERO_AXIOM.md                                           ← G123 A/B/G + (−1)²≡1 + i₅∈μ₄ follow-on
 ```
