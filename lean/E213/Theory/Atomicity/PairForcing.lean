@@ -12,14 +12,13 @@ This file strengthens `E213.Theory.Atomicity.Five.atomic_iff_five` to the
       the count of atomic decompositions equals 1
       ⟺ (p, q) = (2, 3).
 
-## ∅-axiom note (2026-05)
+## ∅-axiom note
 
-The original proof used `omega` on `Nat.div` predicates, which leaks
-`propext` and `Quot.sound` through Lean-core lemmas like
-`Nat.div_add_mod`, `Nat.div_lt_iff_lt_mul`, `Nat.le_div_iff_mul_le`.
-This file rewrites the count formula via a *structurally recursive*
-`half : Nat → Nat` (peel off 2 at a time), bypassing `Nat.div`
-entirely.  All theorems below verify `#print axioms` empty.
+To verify `#print axioms` empty (no `propext` / `Quot.sound`, which
+`omega` on `Nat.div` predicates would leak through Lean-core lemmas
+like `Nat.div_add_mod`), the count formula is expressed via a
+*structurally recursive* `half : Nat → Nat` (peel off 2 at a time),
+bypassing `Nat.div` entirely.
 
 ## The count formula
 

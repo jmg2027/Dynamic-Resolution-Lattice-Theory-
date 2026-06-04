@@ -63,12 +63,11 @@ import E213.Lens.Instances.Leaves
       `ZMod6`         — additional research-track instances
     * `Leaves/`       — depth-leaf hierarchy sub-cluster
                         (Mod3, ModNat, DepthJoin, DepthIncomparable,
-                         RefinesParity) — 2026-05-13 folded from
-                        `Lens/Leaves/` per LENS_AUDIT §4
+                         RefinesParity)
 
   ## Status
 
-  All 29 instances build clean (post-M14 deferred-cluster repair):
+  All 29 instances build clean:
   `CompoundBool`, `NegSq`, `ParityXorIncomparable`, `ParityXorJoin`,
   `RawAChar` restored by namespace-drift fixes
   (`open E213.Meta` → `open E213.Lens.Instances.{Bool,Parity}`,

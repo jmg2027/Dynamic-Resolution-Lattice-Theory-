@@ -14,12 +14,9 @@ whose single constructor `mk : ∀ n, NonNeg (ofNat n)` cannot match
 constructor injection — no propext needed.
 
 This is the **Int-side companion** to `Meta/Tactic/NatHelper.lean`
-and `Meta/Tactic/ListHelper.lean`.  Helpers here were promoted from:
-
-  · `Lib/Math/CayleyDickson/Integer/ZOmegaUnits §5` (diophantine)
-
-per  +  centralisation.  Existing call sites remain
-compatible via `@[reducible]` aliases in the original locations.
+and `Meta/Tactic/ListHelper.lean`, centralising the diophantine
+Int bound helpers (e.g. those used by
+`Lib/Math/CayleyDickson/Integer/ZOmegaUnits §5`).
 
 All theorems below are **PURE**.
 -/

@@ -21,11 +21,10 @@ Arithmetic homomorphism is expressed at the **value level**
 the Raw operation level: per
 `research-notes/2026-05-18_lens_emergence_path.md` §5 Option C, the
 abstract number-theoretic operations live on `Nat`, and the Raw
-side carries only the chart representative.  Closed-Raw arithmetic
-has been deliberately removed from `Raw.lean`; consumers that
-previously used `Raw.add` / `Raw.mul` should now use Peano
-arithmetic (via the `+` / `*` instances) followed by `toRaw` and
-`value_toRaw_add` / `value_toRaw_mul`.
+side carries only the chart representative.  Arithmetic lives on
+`Peano` (via the `+` / `*` instances); to land a result on the Raw
+side, follow it with `toRaw` and `value_toRaw_add` /
+`value_toRaw_mul`.
 
 ∅-axiom standard; no Mathlib / Classical / propext / Quot.sound /
 omega / native_decide.

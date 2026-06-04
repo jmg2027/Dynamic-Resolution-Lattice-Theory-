@@ -95,10 +95,9 @@ The directory tree is the spec; this file is the top-level entry.
 
   ### Topical sub-trees
     * `Cohomology`      — K_{NS,NT}^{(c)} cohomology + Hodge programme
-                          (~100 files post Phase C peer-promotion)
+                          (~100 files)
     * `DyadicFSM`       — dyadic / FSM / Pell / Pisano / Trib / Legendre
-                          classification engine (116 files; promoted from
-                          Cohomology/Dyadic in Phase C1)
+                          classification engine (116 files)
     * `GeometrizationConjecture` — 213-Lens reading of
                           Thurston/Perelman Geometrization + d=4
                           exotic-smoothness anomaly (ansatz;

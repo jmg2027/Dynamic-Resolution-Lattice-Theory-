@@ -121,8 +121,8 @@ theorem full_residual_decomposition :
 
       ω-weighted  =  α³/d²  +  12  =  gram_correction_alpha3_e9 + 12.
 
-    The "12 × 10⁻⁹" previously labelled as `sub-noise` is absorbed
-    structurally into the `NS² · 1/d` weight refinement
+    The "12 × 10⁻⁹" term is absorbed structurally into the
+    `NS² · 1/d` weight refinement
     (α³/d² → NS²·α³/d³ = α³/d² · NS²/d = α³/d² · (9/5) ≈ α³/d²
     × 1.8 within Nat precision). -/
 theorem omega_weighted_includes_cup_ladder :

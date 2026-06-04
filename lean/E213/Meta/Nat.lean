@@ -12,9 +12,6 @@ import E213.Meta.Nat.PolyNat
   Every file is leaf-level — no E213-internal imports beyond
   `Kernel.Tactic.Nat213` and friends.
 
-  These were previously 6 loose files at `Math/` root; M14 Phase B1
-  collected them into this sub-cluster.
-
   ## Files
 
     * `AddMod213`    — addition modulo small primes (`mod 3`, `mod 5`, …)

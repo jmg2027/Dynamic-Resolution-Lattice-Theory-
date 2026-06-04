@@ -73,15 +73,13 @@ def mid_pass {f g} (pf : Passthrough_at f) (pg : Passthrough_at g) :
 
 end FluxCut.Passthrough_at
 
-/-! ### ClassicCalc (function-eq) namespace removed (2026-05-XX, part 19)
+/-! ### ClassicCalc — strict ∅-axiom `_at` formulation
 
-The function-eq `mid_calc / mid_id_square_calc / mid_square_cube_calc /
-mid_id_square_mvt / mid_square_cube_mvt / mid_capstone` were dropped
-during the cutEq migration (part 19) because their definitions
-inherited funext = Quot.sound from `FluxCut.Passthrough.mid_pass`
-(which uses `rw` on function-eq fields).  The PURE `_at` analogues
-in the `ClassicCalc_at` namespace below provide the same content
-with strict ∅-axiom guarantees.
+The `ClassicCalc_at` namespace below carries the classic-calculus
+content (`mid_*`) in the pointwise `_at` form, which avoids the
+`funext` = Quot.sound that function-equality fields would inherit
+from `FluxCut.Passthrough.mid_pass` — giving strict ∅-axiom
+guarantees.
 
 No downstream consumers existed for the removed identifiers. -/
 

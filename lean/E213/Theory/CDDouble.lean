@@ -29,10 +29,10 @@ no per-layer hand-written instance.
 + `Theory/CDDouble/GenericLiftDemo.lean`.
 -/
 
-namespace E213.Theory.CDDouble.UniversalOrder4
-
 open E213.Meta.Algebra213
 open E213.Meta.Algebra213.CDDouble
+
+namespace E213.Theory.CDDouble.UniversalOrder4
 
 variable {α : Type} [StarRing213 α]
 
@@ -75,8 +75,6 @@ end E213.Theory.CDDouble.UniversalOrder4
 
 namespace E213.Theory.CDDouble.GenericLiftDemo
 
-open E213.Meta.Algebra213
-open E213.Meta.Algebra213.CDDouble
 open E213.Theory.CDDouble.UniversalOrder4
 
 /-- ★ Sanity demo: `cdd_lift_squared` at *second* CD layer, derived

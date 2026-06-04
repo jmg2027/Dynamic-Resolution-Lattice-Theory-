@@ -6,9 +6,8 @@ import E213.Prelude
 /-!
 # LensCharacterisation: structural iff theorems
 
-Consolidates the Lens-level theorems that were previously
-sprinkled through `LensCatalog` and `SelfRecognising` into a
-clean "necessary and sufficient" toolkit.
+The Lens-level structural "necessary and sufficient" toolkit
+drawing on `LensCatalog` and `SelfRecognising`.
 
 ## Theorems
 

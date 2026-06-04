@@ -230,9 +230,9 @@ fiveSeventh / hundredth / sevenThirteenth at depths 2..30 live as
 PURE `_at` variants below (Σ_{depth n} (a/b) ≡ (2^n·a)/b at every
 (m, k)).  See the "Pointwise PURE wrappers" section.
 
-Function-equality wrappers were removed (2026-05-XX, part 19) per
-the Core/Bridges discipline — they introduced `funext` =
-Quot.sound for no semantic gain over the cutEq formulation. -/
+The cutEq formulation is used throughout rather than
+function-equality wrappers, which would introduce `funext` =
+Quot.sound for no semantic gain. -/
 
 /-- **Riemann constant doubling recurrence**, cutEq (PURE):
     at depth n+1, the constant-a/b Riemann sum is the cutSum of

@@ -3,7 +3,7 @@ import E213.Lib.Math.CascadeCalculus.Core
 /-!
 # 213 Pattern Catalog
 
-Initial 4-game survey (2026-05-XX, 970 .lean files): Locality
+A 4-game survey across the corpus: Locality
 (`_at`/`_pure`/`_congr`), Aggregation (`*_capstone*`), Typeclass
 (`structure`/`class`), Catamorphism (`Raw.fold`/`Raw.rec`).  Two
 additions discovered by H1 sweep: Dynamical (FSM cluster), ForcedUniq
@@ -145,7 +145,7 @@ structure ForcedValueWitness (Param : Type) where
 
     Captures `Math/AxiomSystems/`: same Raw expression validates
     Peano-theorem AND ZFC-theorem AND depth-theorem at once.
-    Per Mingu (2026-05-XX):
+    Per Mingu Jeong:
       "다른 수학 이론들 심지어 공리계라는 것도 렌즈들의 조합인거지"
 
     Structurally this is **Catamorphism × Catamorphism** plus a
