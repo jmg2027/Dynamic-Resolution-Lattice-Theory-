@@ -355,7 +355,7 @@ distinguishing framework가 Raw → α의 Lens로 factor (Initiality).
 **근거 — 출처**:
 - `Theory/Raw/Core.lean` (Raw 정의)
 - `Lens/LensCore.lean` + `Lens/Initiality.lean` (Lens factoring)
-- `Lens/Universal/Witnesses/*` (universality; moved from `Meta/UniversalLens/` 2026-05-13)
+- `Lens/Universal/Witnesses/*` (universality)
 - `research-notes/G3_raw_as_universal_trajectory.md` (G3 종합)
 
 **가드레일**: 213이 어떻게 어떤 분야를 다룰 수 있냐 의문이 들면,

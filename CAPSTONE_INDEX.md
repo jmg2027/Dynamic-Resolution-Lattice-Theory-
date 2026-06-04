@@ -50,7 +50,6 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 - `Lens/Universal/Witnesses/TripleCapstone.universal_lens_triple_capstone`
 - `Lens/Universal/Witnesses/PaddingCapstone.padding_capstone`
   — abstract padding lemma + 4 instances
-  (moved Meta/UniversalLens → Lens/Universal/Witnesses 2026-05-13)
 
 ## Class C atomic catalog (multi-reading magic integers)
 - `Lib/Physics/Foundations/AtomicSuperCatalog.super_catalog` —

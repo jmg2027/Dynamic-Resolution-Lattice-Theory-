@@ -88,8 +88,8 @@ All theorems in these modules are individually verified ∅-axiom.
 | `Lib/Math/Pigeonhole.lean` | 2 | 20 omega + 2 simp + Fin.elim0 + literal `(0 : Fin 1)` |
 | `Theory/Atomicity/NonDecomposable.lean` | 3 | omega + rcases + match-on-value pattern |
 | `Theory/Atomicity/ArityForcing.lean` | 2 | omega-pigeonhole on Fin 2 → 6-case `cases_lt_two` |
-| `Lens/Cardinality/Pair.lean` | 5 | 5 omega + Nat.add_left/right_cancel + Prod.mk.injEq (moved from `Lib/Math/Infinity/` to `Lens/Cardinality/` 2026-05-13) |
-| `Lib/Math/Atomicity/ArityForcingGeneral.lean` | 6 | **Classical.choice** → `isBase`/`getBase` constructive extraction (G5 §3 in code) (moved to Lib/Math during 2026-05-12 4-ring rename — ARCHITECTURE.md note: ArityForcingGeneral is generic enough to live in Lib rather than Theory) |
+| `Lens/Cardinality/Pair.lean` | 5 | 5 omega + Nat.add_left/right_cancel + Prod.mk.injEq |
+| `Lib/Math/Atomicity/ArityForcingGeneral.lean` | 6 | **Classical.choice** → `isBase`/`getBase` constructive extraction (G5 §3 in code) — generic enough to live in Lib rather than Theory |
 | `Meta/BitPatternUniqueness.lean` | 5 (+ 4 private helpers) | `% 2` → `Mod213.parity`; `Nat.{pow_lt_pow_of_lt, pow_dvd_pow, le_of_dvd, dvd_sub}` → `Pow213.{pow_lt_pow_two, pow_dvd_pow_two, le_of_dvd_pos, dvd_sub_two}`; omega → explicit |
 
 ## Catalog of axiom leaks discovered

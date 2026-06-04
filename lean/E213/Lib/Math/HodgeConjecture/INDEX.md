@@ -152,10 +152,9 @@ Citation: `E213.Lib.Math.HodgeConjecture.API.HC213`
 ## Companion narrative
 
 **Primary**: `theory/math/cohomology/hodge_conjecture.md`
-(promoted 2026-05-21 — read this for the human-readable account).
+(read this for the human-readable account).
 
-Original exploration notes (archived 2026-05-21,
-`research-notes/archive/hodge/`):
+Original exploration notes (`research-notes/archive/hodge/`):
 
   · `G6_hodge_213_translation.md`      Standard ↔ 213 dictionary
   · `G7_lens_initiality_cup_blueprint.md`  Uniform-proof sketch

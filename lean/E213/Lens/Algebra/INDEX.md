@@ -19,10 +19,9 @@ Form), not directly consumed by App or downstream code.
   - `SwapInvariant.lean` — swap-invariant Lens characterisation
 
 Cardinality lower bound (`CardinalityLB.lean`) + Lens-image
-cardinality (`LensCardinality.lean`) moved 2026-05-13 to
-`Lens/Cardinality/` together with the Cantor / Tower / Countable /
-Gödel / BoolSpace / Pair / Chain files relocated from
-`Lib/Math/Infinity/`.
+cardinality (`LensCardinality.lean`) live in `Lens/Cardinality/`
+together with the Cantor / Tower / Countable / Gödel / BoolSpace /
+Pair / Chain files.
 
 ## Public API
 

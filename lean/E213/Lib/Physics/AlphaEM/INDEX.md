@@ -4,8 +4,7 @@
 Δ⁴ topology + fractal level structure.
 
 **Narrative**: `theory/physics/alpha_em/precision_derivation.md`
-(promoted 2026-05-22; covers C1 Steps 1-4 + C5 Steps 1-6 + open
-frontier).
+(covers C1 Steps 1-4 + C5 Steps 1-6 + open frontier).
 
 The cluster is organised around two `research-notes/G35` conjectures:
   - **C1** — pure cup-ring 1/α_em formula (no SO(10), no Dyson)
