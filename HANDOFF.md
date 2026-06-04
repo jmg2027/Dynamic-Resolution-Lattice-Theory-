@@ -13,6 +13,21 @@
 - Old umbrella `Lib/Math/Real213.lean` deleted (main); new files wired into
   `Lib/Math/NumberSystems/Real213.lean` umbrella.  Deferred scratch: `research-notes/G198_action_options_ABC.md`.
 
+## ✅ Action A advance — distance-1 cross-line SEPARATE closed (∅-axiom, `SternBrocotMarkov` §35)
+- **`markovNum_children_ne`** (strict ∅-axiom): `markovNum (true::p) ≠ markovNum (false::p)` for all `p`
+  — the two immediate children of **every** node carry distinct Markov numbers, uniformly.  A genuine
+  **fragment of the open kernel `H`**: a *size* separation (NOT slope — `slope_path_inj` doesn't give it),
+  `H`'s own difficulty type.
+- Mechanism (A3 trace-monovariant archetype at the base): Vieta trace factorisation
+  `tr(L²R) − tr(LR²) = (tr L − tr R)(tr(LR)+1)`; mediant trace strictly dominates both bound traces
+  (`trace_lt_mediant_left/right`, `mInterval_bound_traces_ne`), product nonzero (`eq_zero_of_mul_eq_zero_pos`).
+- **Pair-class status of `H`** now: comparable = closed (`markovNum_lt_append`); cross-line distance 1 =
+  **closed** (this); cross-line distance ≥ 2 = open residue of `H` (size interleaving across the fork).
+- Narrative: `research-notes/G200`.
+- **NEXT (open)**: climb past distance 1 — bounded-distance induction (`k ⟹ k+1`, LOOP archetype) or a
+  value-window monovariant; or a `decide`-survey of distance-2 cross pairs to test if distance 2 already
+  carries the full interleaving.
+
 ## ✅ Actions B + C done — proof-ISA lift catalog (commit `9a98597`)
 - **B (catalog)**: `lean/E213/Lib/Math/Foundations/ProofISALifts.lean` (∅-axiom) pins **three solved
   infinite-abstract theorems by their distinct finite→uniform lift archetype**:
