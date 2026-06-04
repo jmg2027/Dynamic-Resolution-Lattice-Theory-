@@ -318,11 +318,8 @@ the P-orbit level, not the atomic level.
 
 ## Research-note provenance
 
-  · `research-notes/archive/G139_mobius_self_form.md`
     — self-form fixed-point thesis + 3 levels of "form = P"
-  · `research-notes/archive/G146_p_orbit_naturalness_boundary.md`
     — three sharpenings + crystallized master claim
-  · `research-notes/archive/G144_p_symmetry_meta_patterns.md` —
     36-species programme + meta-patterns (atomic catalog as
     minimum-depth slice)
 

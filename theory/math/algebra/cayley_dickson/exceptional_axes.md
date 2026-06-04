@@ -230,7 +230,6 @@ square root `ℕ` does not contain.  The exact form is the integer matrix;
 
 ## Research-note provenance
 
-- `research-notes/archive/exceptional_axes/G150_meta_cd_tower_subset.md`
   — the full marathon journal (Phases 1–27).  Phases 1–14 (meta-CD-tower,
   A-D-E census, binary polyhedral groups) feed `algebra_tower.md`;
   Phases 15–27 (this chapter) derive the exceptional axes.
@@ -265,4 +264,4 @@ python3 tools/scan_axioms.py Lib/Math/Algebra/CayleyDickson/Tower
 - ✅ `theory/math/cayley_dickson/algebra_tower.md` (sibling: the CD
   algebra tower / 4-row type matrix)
 - ✅ archived journal:
-  `research-notes/archive/exceptional_axes/G150_meta_cd_tower_subset.md`
+ `research-notes/archive/exceptional_axes/G150_meta_cd_tower_subset.md`

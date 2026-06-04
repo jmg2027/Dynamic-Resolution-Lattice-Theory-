@@ -295,7 +295,7 @@ in the meaning-framework category).  Uniqueness is
 algebra category; the symmetric-combine hypothesis is needed
 for the uniqueness half.
 
-**75 thesis** (`research-notes/75_semantic_atom.md`): "Nothing
+**75 thesis**: "Nothing
 with meaning escapes 213."  Lean form: every meaning-framework
 α has a `HasDistinguishing` instance, and Raw embeds into it
 canonically.

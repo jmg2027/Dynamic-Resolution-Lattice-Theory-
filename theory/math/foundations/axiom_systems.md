@@ -39,7 +39,6 @@ Lens-derived foundations).
 
 ## Connection
 
-- `research-notes/G12_layered_api_classification.md` (active top-level
   foundational note) — layered API framework
 - `theory/math/cross_domain_unification.md` (C6) — extends to
   marathon-completed paradigm domains

@@ -6,7 +6,7 @@ import E213.Lib.Math.NumberTheory.DyadicFSM.Signature.Signature
 /-!
 # Dyadic-tier bridge — K_{3,2}^{(2)} signature ↔ D2 hierarchy
 
-D2 (`research-notes/archive/D2_complexity_class_hierarchy.md`) classifies
+D2 classifies
 213 numbers into 3 tiers: FSM (rationals + algebraic — Pell-style
 modular state), ICT (e, π — Cauchy modulus, no FSM), Power-set
 (non-computable, outside framework).

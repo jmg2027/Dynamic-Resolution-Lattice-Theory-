@@ -204,4 +204,4 @@ python3 tools/scan_axioms.py E213.Lib.Math.SelfSimilarityBridge
   `Lib/Math/NumberSystems/Real213/{PhiNormInvariant, PhiConvergence, PhiAsCut, FibCassiniNat}`.
 - Larger frame (CD / universe-chain / GRA / Raw towers as readings of the same
   P-orbit): `theory/essays/tower_atlas.md`.  The "one closure or two" /
-  residue-self-covering discussion: `research-notes/G152_residue_self_covering.md`.
+ residue-self-covering discussion: `research-notes/G152_residue_self_covering.md`.

@@ -399,7 +399,6 @@ scope and should not appear in any item's "Action":
     closures
   · `theory/INDEX.md` — book map
   · `HANDOFF.md` — volatile session state
-  · `research-notes/G35_chiral_cup_ring_catalog.md` — per-
     conjecture catalog (active scratch)
   · `theory/essays/c_counter_programme_closure.md` — Tier-1
     items 1.1–1.3 anchor essay

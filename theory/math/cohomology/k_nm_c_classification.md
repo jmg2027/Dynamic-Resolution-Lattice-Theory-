@@ -727,10 +727,8 @@ Stern-Brocot path while cup-product / cochain lift remains open.
 
 ## Research-note provenance
 
-  · `research-notes/archive/G143_c_multiplicity_hierarchy_refined.md`
     — c = 3 verification; (c−1)-codim falsification; Candidate A
     (richer 2-complex) closes positive
-  · `research-notes/archive/G145_c_counter_structural_theory.md` —
     multiplicity-layer interpretation; five structural insights;
     Stern-Brocot sampling thesis
 

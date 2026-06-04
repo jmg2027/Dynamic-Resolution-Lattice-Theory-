@@ -21,7 +21,7 @@ Two ends of this iteration are already named in the development:
     `P = [[2,1],[1,1]]` orbit (`det P = 1`, the Cassini invariant, fixed point φ), the
     **self-same rule whose coefficients do not depend on `n`**: re-pointing it returns it
     unchanged, **depth 0**.  This is the residue's own algebraic image (`seed/AXIOM/
-    05_no_exterior.md §5.6`, `research-notes/G29_residue.md`): `P(φ) = φ`, self-reference
+ 05_no_exterior.md §5.6`, `research-notes/G29_residue.md`): `P(φ) = φ`, self-reference
     that closes immediately.
 
 This file records the **ladder between them**, as a single ∅-axiom statement.  Read

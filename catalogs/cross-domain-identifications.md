@@ -271,7 +271,7 @@ cross-namespace groups in DRLT (G109).
 
 ## Pointers
 
-  · Source method: `research-notes/archive/metascan/G109_cross_domain_identification_scan.md`
+ · Source method: `research-notes/archive/metascan/G109_cross_domain_identification_scan.md`
   · Re-run: shape-vector grouping over
     `tools/_ast_shape_rows.tsv` (gitignored; regenerable via
     `python3 tools/ast_shape_scan.py`)

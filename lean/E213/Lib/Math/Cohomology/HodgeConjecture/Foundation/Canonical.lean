@@ -8,7 +8,7 @@ import E213.Lib.Physics.Simplex.Counts
 # Hodge Conjecture (213-internal form) — HC²¹³
 
 Translation step: standard Hodge conjecture rendered into 213-internal
-cup-chain cohomology.  See `research-notes/archive/hodge/G6_hodge_213_translation.md`
+cup-chain cohomology. See `research-notes/archive/hodge/G6_hodge_213_translation.md`
 for the full standard-vs-213 dictionary, motivation, and strategy.
 
 ## Statement (informal)
@@ -93,7 +93,7 @@ theorem hodge_involution_5_0 :
     On K_{3,2}^{(c=2)}: dim/rank-nullity witnesses + ker δ_0 = 2
     (constants only) confirm edge indicators span H^1.
 
-    See `research-notes/archive/hodge/G6_hodge_213_translation.md`. -/
+ See `research-notes/archive/hodge/G6_hodge_213_translation.md`. -/
 theorem hodge_conjecture_213_canonical :
     -- (4.1) Δ⁴: every C^0 cochain ∈ {0, unit_C0}
     (∀ σ : Cochain 5 0, ∀ i : Fin (binom 5 0),

@@ -26,7 +26,7 @@ full predicate space does not (this file) — and the gap between "definable" an
 "all" is exactly the residue.  So the self-covering "closes exactly up to the
 residue": faithful and round-tripping on what can be pointed at / described, with
 the unpointable surplus being the residue itself.  This is the ∅-axiom statement
-of the session thesis (`research-notes/G152_residue_self_covering.md`): pointing
+of the session thesis: pointing
 is finite; the completed-infinite surplus is a finite *name*, not an inhabitant.
 -/
 

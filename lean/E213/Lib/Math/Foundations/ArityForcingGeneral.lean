@@ -12,7 +12,7 @@ This generalizes `E213.Theory.Atomicity.ArityForcing` (which handled `N = 2, k =
 to arbitrary `N, k` with `N < k`, using `E213.Lib.Math.Combinatorics.Pigeonhole.no_inj_lt`.
 
 213-native (∅-axiom): the original used `(ih i).choose` which
-pulls `Classical.choice`.  Per `research-notes/G5_213_as_sublanguage.md`
+pulls `Classical.choice`. Per `research-notes/G5_213_as_sublanguage.md`
 §3, `Classical.choice` is a *theorem* in 213 for `Reachable` trajectories
 — the witness is a structurally extracted `Fin N` index, not a
 Hilbert-ε.  Here we replace `Exists.choose` by a `Bool`-guard

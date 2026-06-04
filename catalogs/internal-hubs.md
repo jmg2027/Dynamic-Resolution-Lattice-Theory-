@@ -6,8 +6,8 @@ The load-bearing E213-internal infrastructure across `lean/E213/`.
 Use this catalog before any refactor of these names — they have
 the largest downstream blast radius.
 
-Sourced from G92 §B (`research-notes/G92_citation_graph_and_constructs.md`)
-+ G102 §Expr-level (`research-notes/G102_full_expr_callgraph.md`).
+Sourced from G92 §B
++ G102 §Expr-level.
 G102 §2 contains the corrected Expr-level hub list (G104 §3 adds
 type-signature hubs).
 
@@ -117,11 +117,8 @@ All TSVs are gitignored; scanner code is committed.
 
 ## Cross-references
 
-  · `research-notes/G92_citation_graph_and_constructs.md` — full
     surface-citation atlas.
-  · `research-notes/G102_full_expr_callgraph.md` — Expr-level call
     graph.
-  · `research-notes/G104_raw_derivation_three_levels.md` §3 —
     type-signature hub asymmetry.
   · `LESSONS_LEARNED.md` Pattern #10 — adoption-gap detection
     methodology that surfaces hub centralisation opportunities.

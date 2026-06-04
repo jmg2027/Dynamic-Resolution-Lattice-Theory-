@@ -116,7 +116,7 @@ residual cost, not a hidden assumption.  Where possible:
 
 The words "exist", "there are", "is an element" when
 applied to Raw smuggle existence-mode (see
-`research-notes/archive/17_existence_mode_lens.md`).  Prefer neutral
+`research-notes/archive/17_existence_mode_lens.md`). Prefer neutral
 forms:
 
 | Avoid                        | Prefer                                |
@@ -154,7 +154,7 @@ This reflects the recommendation of `lean/E213/AUDIT.md` §9.5.2(C).
 - PR review: any occurrence of `{a`, `{b`, `∈ Raw`, or
   "Lens is a functor" triggers a required revision.
 - Grep sanity check (should return no hits outside this
-  file and `research-notes/archive/19_lens_not_functor.md`):
+ file and `research-notes/archive/19_lens_not_functor.md`):
   ```
   grep -n 'Lens.*functor\|functor.*Lens' lean/E213/
   grep -nE '\{\s*(a|b)\s*[,}]' lean/E213/

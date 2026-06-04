@@ -148,5 +148,4 @@ skeleton-by-skeleton으로 펼쳐진 형태이다.
 - `theory/essays/synthesis_interlock_map.md` — 5-row correspondence
 - `theory/essays/p_orbit_closure_master.md` — 6-phase P-orbit
 - `theory/physics/simplex.md` — Δ⁴ + 3-generation
-- `research-notes/G146_K32_bipartite_tripartite_self_containment.md` —
   LocalSignature self-containment

@@ -174,7 +174,6 @@ atomic content.
 
 ## Research-note provenance
 
-  · `research-notes/archive/c_counter/G146_K32_bipartite_tripartite_self_containment.md`
     — original insight + Option I / II proposal; both now
     closed with the verdict above
 

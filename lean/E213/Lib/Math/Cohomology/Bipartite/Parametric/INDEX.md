@@ -70,9 +70,7 @@ Linear chain.  All under namespace
 
   · `theory/math/cohomology/bipartite.md` "Parametric V32Betti"
     section — chapter narrative for this sub-tree
-  · `research-notes/archive/G129_v32betti_parametric_generalization.md`
     — 6-phase plan + partial-close summary (deep-dive)
-  · `research-notes/archive/G128_geometrization_open_followups.md` §4.5 —
     V32Betti entry in spin-off marathon table
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V32Betti.lean` —
     K_{3,2}^{(c=2)}-specific predecessor

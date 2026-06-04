@@ -208,7 +208,7 @@ that the scanners surfaced have all been resolved:
     *is* the proof).
   · The remaining mass-reduction target — fully `(n, k, l)`-
     general Leibniz lift — folds into the Cup-Leibniz open
-    in `research-notes/G86_self_referential_lex_cup_leibniz.md`.
+ in `research-notes/G86_self_referential_lex_cup_leibniz.md`.
 
 Theory documentation lands alongside: a Raw-derivation
 three-level taxonomy (`theory/meta/raw_derivation_levels.md`),

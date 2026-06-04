@@ -324,7 +324,6 @@ meaning"), not a statement shape.  See `STRICT_ZERO_AXIOM.md` and
   · `seed/AXIOM/10_encoding_costs.md` §10.1, §10.4 — encoding
     costs of quotient-vs-representation and the
     cmp-independence metatheorem
-  · `research-notes/archive/G139_mobius_equivalence_unification.md`
     — the source conjecture for the canonical-form ladder
   · `theory/lens/dirty_recovery_patterns.md` — methodology
     chapter: four named patterns for converting DIRTY claims

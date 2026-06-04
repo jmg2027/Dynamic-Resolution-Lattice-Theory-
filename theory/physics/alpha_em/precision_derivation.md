@@ -440,7 +440,7 @@ For the α_em derivation itself, prefer this chapter:
 
 -- ✅ still valid for broader 213-Algebra catalog
 `research-notes/G35_chiral_cup_ring_catalog.md` (12+5-domain catalog)
-`research-notes/G35_chiral_cup_ring_catalog.md` §<C##>  (specific conjecture)
+`research-notes/G35_chiral_cup_ring_catalog.md` §<C##> (specific conjecture)
 ```
 
 Existing Lean docstring citations to the relevant section / `§C5` remain valid

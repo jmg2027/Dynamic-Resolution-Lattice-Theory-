@@ -8,8 +8,6 @@ points where a naïve formulation would call `funext` / `propext` /
 relations stated pointwise.
 
 See also:
-  - `research-notes/archive/universe_chain/G84_closed_form_pattern_unification.md`
-    (探索 note)
   - `lean/E213/Lens/Number/Nat213/*` and
     `lean/E213/Lens/Bool213/*` (Lean implementation, post-Option-C
     layout)

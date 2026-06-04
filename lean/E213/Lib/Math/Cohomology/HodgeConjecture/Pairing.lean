@@ -96,6 +96,6 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.TripleProductSurfacePara
       n = 2:  (3, 3)   = (½·6, ½·6)
       n = 3:  (10, 10) predicted = (½·20, ½·20)
 
-  See `research-notes/archive/hodge/G12_T2_pattern.md` for the full
+ See `research-notes/archive/hodge/G12_T2_pattern.md` for the full
   exposition + open follow-ups.
 -/

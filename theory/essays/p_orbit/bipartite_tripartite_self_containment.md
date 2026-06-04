@@ -204,5 +204,4 @@ just an insight: K_{3, 2}^{(c=2)} is the unique locus of the
   · `theory/essays/every_axis_sees_p.md` — 55 axes all yielding
     `{NS, NT, det}` integers (the every-point recurrence
     pattern at the catalog level)
-  · `research-notes/archive/G146_K32_bipartite_tripartite_self_containment.md`
     — full insight note with Lean-deferred Option I framework

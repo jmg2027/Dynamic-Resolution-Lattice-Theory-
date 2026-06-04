@@ -38,7 +38,7 @@ Lean theorems that close them.
 ## How to read
 
 1. If you've never seen 213: start with `seed/AXIOM/01_residue.md`
-   and `research-notes/G29_residue.md` (the residue of pointing).
+ and `research-notes/G29_residue.md` (the residue of pointing).
 2. For the formal axiom: `seed/AXIOM/01_nat.md`.
 3. For derived results: `theory/math/INDEX.md` and
    `theory/physics/INDEX.md`.

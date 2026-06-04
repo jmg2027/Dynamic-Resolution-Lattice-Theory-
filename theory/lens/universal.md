@@ -34,7 +34,6 @@ the universalLens is the initial Lens.
 
 ## Connection
 
-- `research-notes/G1_universal_lens.md` (active foundational note)
 - `theory/lens/algebra.md` — kernel theory
 - `theory/lens/lattice.md` — universal = bottom of lattice
 - `theory/lens/compose.md` — factor-through definition

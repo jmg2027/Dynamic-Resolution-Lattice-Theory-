@@ -24,7 +24,7 @@ So the "1" carries **two** closures, not one: Lambek gives the rotation-shape
 (structure = its own image), well-foundedness gives the finite bottom.  Neither
 implies the other (Lambek alone holds for νF too); together they pin Raw = μF.
 This is the ∅-axiom form of the question "one closure or two?": **two, mutually
-supporting.**  See `research-notes/G152_residue_self_covering.md` for the
+supporting.** See `research-notes/G152_residue_self_covering.md` for the
 discussion.
 
 §5 makes the well-foundedness of §2 a *theorem about the descent re-entry*, not only a

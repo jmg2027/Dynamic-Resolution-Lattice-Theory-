@@ -7,9 +7,7 @@ negative claim (¬ P, x ≠ y, ¬ ∃, ¬ ∀).  These are the
 CANNOT happen.
 
 Source:
-  · `research-notes/G100_decide_failure_mining.md` —
     automated catalog (135 entries)
-  · `research-notes/G87_raw_native_emergence_audit.md`
     (parallel branch) — manual headline catalog (~10 entries)
 
 The G100 automated catalog is the complete machine-verified
@@ -198,9 +196,7 @@ python3 tools/falsifier_mining_scan.py
 
 ## Cross-references
 
-  · `research-notes/G100_decide_failure_mining.md` — full
     automated catalog with categories + samples.
-  · `research-notes/G87_raw_native_emergence_audit.md`
     (parallel branch) — manual headline catalog.
   · `seed/AXIOM/08_falsifiability.md` — falsifiability
     doctrine.

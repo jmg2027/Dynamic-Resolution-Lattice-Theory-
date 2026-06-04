@@ -22,7 +22,7 @@ Historical note: prior names `R12Codomain` / `R3Codomain` /
 `R4Codomain` came from an R1–R5 judgment-game frame (now
 deprecated — see `seed/AXIOM/99_history.md` §9 "Naturalness of Lens choice
 (deprecated R1–R5 frame)" and
-`research-notes/archive/30_bool_is_liar_paradox.md`).  The
+`research-notes/archive/30_bool_is_liar_paradox.md`). The
 *content* (commutative combine, no-zero-divisors, swap-matching
 involution) is independent of that frame and is used as a
 generic codomain spec; the typeclasses are renamed here per

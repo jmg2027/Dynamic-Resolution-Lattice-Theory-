@@ -25,14 +25,14 @@
 
 ## Dual function
 
-이 네 패턴은 classical Lean의 funext 우회 트릭이면서, *동시에* 213의 trajectory-witness 원칙 (`research-notes/G2_trajectory_principle.md`)의 구체화다 — *함수가 같다*가 아니라 *trajectory의 distinguishing endpoint가 일치한다*가 213의 동일성이다.  Funext가 강제하는 packaging("두 함수가 모든 점에서 같으면 그들은 같다")을 벗기고 나면 남는 것이 바로 G2의 trajectory-as-witness, 즉 *동일성은 도달하는 distinguishing의 일치다*라는 입장.
+이 네 패턴은 classical Lean의 funext 우회 트릭이면서, *동시에* 213의 trajectory-witness 원칙의 구체화다 — *함수가 같다*가 아니라 *trajectory의 distinguishing endpoint가 일치한다*가 213의 동일성이다. Funext가 강제하는 packaging("두 함수가 모든 점에서 같으면 그들은 같다")을 벗기고 나면 남는 것이 바로 G2의 trajectory-as-witness, 즉 *동일성은 도달하는 distinguishing의 일치다*라는 입장.
 
 ## Cross-frame connections
 
 같은 구조적 사실의 다섯 가지 표현:
   - **State Accumulator** = §5 self-pointing이 *현재 상태를 통해서만* 다음 step에 영향을 미친다 (외부 history 참조 없음).
   - **Bundled Subtype** = §8.4 dichotomy avoidance의 type-level 실현 (가정을 외부 hypothesis로 두지 않고 구조 안에 묶음).
-  - **Setoid Category** = `research-notes/76_ultimate_ouroboros.md` — 동일성을 별도 외부 판정자 없이 *내부 관계*로 정의.
+ - **Setoid Category** = `research-notes/76_ultimate_ouroboros.md` — 동일성을 별도 외부 판정자 없이 *내부 관계*로 정의.
   - **Residual Induction** = G2 trajectory-as-witness가 carry chain 대신 truncation에서 작동.
   - **Inductive cong constructor** = inductive 구조 *안에* 동치류를 embedding — Setoid가 외부 관계를 type-level로 끌어들이는 데 비해, cong은 동치 자체를 inductive type의 한 case로 만든다 (predicate가 동치류에서 정의된다는 것을 *형태*가 명시).
 

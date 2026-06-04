@@ -203,5 +203,4 @@ Five independent surfaces, one conclusion: the form IS the matrix.
     self-reference
   · `lean/E213/Lib/Math/Algebra/Mobius213/Px/PnFibonacciUniversal.lean` —
     universal det preservation
-  · `research-notes/archive/G139_mobius_self_form.md` — original
     research note (Tier 1 → promoted)

@@ -69,7 +69,6 @@ header).  Other files may carry decidability dependencies.
   - `Lib/Math/Cohomology/CupAW`                 — Alexander-Whitney cup product
   - `Lib/Physics/Symmetry/`                     — C3 chain (gluon octet from H¹(K))
   - `theory/physics/alpha_em/precision_derivation.md` — narrative
-  - `research-notes/G35_chiral_cup_ring_catalog.md`   — broader 213-Algebra catalog (active scratch)
 
 ## Where to add new α_em-related files
 

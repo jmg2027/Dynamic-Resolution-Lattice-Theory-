@@ -564,5 +564,4 @@ retired.
     methodology.
   · `theory/meta/raw_derivation_levels.md` — Tier-3 chapter
     expanding §TH-2.
-  · `research-notes/archive/metascan/G107_action_items_registry.md` — full
     abstraction registry.

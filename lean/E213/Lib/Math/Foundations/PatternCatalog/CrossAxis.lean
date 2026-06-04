@@ -6,7 +6,7 @@ import E213.Lib.Math.Foundations.AxiomSystems.CrossTheoryCohabit
 
 The merge of branch `claude/beilinson-conjecture-port-hg4Jf` brought in
 the G17–G29 empirical audit corpus.  Reading G24
-(`research-notes/audit/G24_six_families.md`) reveals that the audit's
+ reveals that the audit's
 **six functional families** classify theorems by *statement shape*,
 while `PatternCatalog.lean`'s **six atomic games + 1 composite**
 classify theorems by *codebase design pattern*.  These axes are

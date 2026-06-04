@@ -85,8 +85,6 @@ observation, not yet capstoned in Lean.
 - `theory/math/modulus.md` — explicit moduli
 - `theory/math/real213.md` — Real213 carrier underlies FluxCut
 - `theory/physics/couplings.md` — primary downstream consumer
-- `research-notes/archive/metascan/G110_fluxmvt_deep_dive.md` — 22-file Tier-2 deep dive
-- `research-notes/archive/G118_marathon_deferred_items.md` — REAL-1+REAL-2 closure registered
 
 ## Telescoping ↔ Gauss / Conservation — closed (TelescopingConservation.lean)
 

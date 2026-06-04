@@ -278,7 +278,6 @@ object encodes:
 
 ## Research-note provenance
 
-- `research-notes/archive/G139_mobius_equivalence_unification.md`
   (the originating conjecture note; archived after closure).
 - Wave 13 cutSumN parametric closure
   (`Lib/Math/NumberSystems/Real213/Sum/CutSumN.lean`,

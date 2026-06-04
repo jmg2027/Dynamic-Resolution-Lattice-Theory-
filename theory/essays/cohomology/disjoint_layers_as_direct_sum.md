@@ -164,6 +164,5 @@ direct sum, each contributing its own non-coboundary class.
     reframing of c from depth to layer count
   · `theory/math/cohomology/k_nm_c_classification.md` —
     chapter hosting the parametric theorem
-  · `research-notes/archive/G145_c_counter_structural_theory.md`
     §Insight 2 — original "Disjointness of edge sets is the
     master structural fact" statement

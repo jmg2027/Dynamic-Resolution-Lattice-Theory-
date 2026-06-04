@@ -30,7 +30,7 @@ This is verified ∅-axiom by 55 Lean theorems in
 ## Derivation
 
 Six readings emerge naturally from the matrix itself
-(`research-notes/archive/algebra_tower/G57_213_mobius_signature.md`):
+:
 
   · **Algebraic**: trace = NS, det = 1, disc = d, eigenvalues
     `φ²`, `1/φ²`
