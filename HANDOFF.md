@@ -119,8 +119,17 @@ always undoable.  **§4 — the reversibility asymmetry** (+6 PURE, Odometer now
 descent (shift) is surjective-not-injective (`shift_surjective` + `shift_not_injective` — a
 forgetful quotient, the dropped low bit lost), the ascent unit (odo) is bijective
 (`descent_forgets_ascent_remembers`).  µF grounds irreversibly, νF's unit is a reversible
-`ℤ`-action — reversibility is the operational µF/νF signature.  Fed `the_frontier_has_a_form.md`
-(rows + clauses) + G181 STATUS.
+`ℤ`-action — reversibility is the operational µF/νF signature.  **§5 — the `ℤ₂`-successor
+homeomorphism** (+2 PURE, Odometer now **38 PURE**): `odo_prefix_determined` (continuity — output
+bit `n` determined by input prefix `[0,n]`) + `odo_homeomorphism` (bijective + continuous = the
+residue's `+1` is the `ℤ₂`-successor as a topological-group automorphism; the escape space carries
+the `2`-adic integer structure).
+
+**Promoted** the closed arc to a dedicated essay
+`theory/essays/foundations/the_residue_unit_odometer.md` ("the arithmetic face of the `+1`") — the
+third residue-triptych companion (coalgebra face = `the_residue_as_primitive`; the form =
+`the_frontier_has_a_form`; arithmetic face = this).  `essays/INDEX` updated (42→43).  Open frontier
+recorded in the essay: ℤ-action freeness, the profinite value-mod-`2ᵏ`, carry-depth classification.
 
 ### 3. (carried) Promotion candidates
 PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov
