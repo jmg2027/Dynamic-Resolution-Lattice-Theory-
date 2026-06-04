@@ -2140,4 +2140,25 @@ theorem markov_max_unique_of_orbit (c : Nat) (hc5 : 5 ≤ c)
   markov_max_unique_of_window_realized_unique c hc5
     (windowRealizedUnique_of_orbit c (Nat.lt_of_lt_of_le (by decide) hc5) H)
 
+set_option maxRecDepth 400000 in
+/-- ★★★★★ **End-to-end: `MarkovMaxUnique 1325` through the orbit tower.**  Discharges the §26 `H` at
+    `c = 1325 = 25·53` using the structural machinery: the windowed roots are `{182, 507}` (one
+    `decide`), `182` is the phantom (`∀ b, ¬ markovEq …`, one `decide`).  The genuinely new step is the
+    `u₁ = u₂ = 507` case: a nontrivial `e` with `e·507 ≡ 507` would force `e ≡ 1` by `root_orbit_inj`
+    (§24, free action), contradicting `e ∉ {1, c−1}`.  So the full §20–§26 tower closes a real
+    `ω = 2` composite the structural way (not only via the `decide`-wall reducer §19). -/
+theorem markov_max_unique_1325_via_orbit :
+    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 1325 := by
+  apply markov_max_unique_of_orbit 1325 (by decide)
+  intro u₁ u₂ e _hu1pos hu1lt hu1w hr1 hu2lt hu2w hr2 he1 _hec he_eq hreal1 hreal2
+  have hroots : ∀ u, u < 1325 → (u * u + 1) % 1325 = 0 → 2 * u < 1325 → u = 182 ∨ u = 507 := by
+    decide
+  have hphantom : ∀ b, b < 1325 → ¬ markovEq ((182 * b) % 1325) b 1325 := by decide
+  rcases hroots u₂ hu2lt hr2 hu2w with rfl | rfl
+  · obtain ⟨b, hb, hmk⟩ := hreal2; exact absurd hmk (hphantom b hb)
+  · rcases hroots u₁ hu1lt hr1 hu1w with rfl | rfl
+    · obtain ⟨b, hb, hmk⟩ := hreal1; exact absurd hmk (hphantom b hb)
+    · exact he1 (root_orbit_inj 1325 507 e (by decide) (by decide) (by decide)
+        (he_eq.trans (Nat.mod_eq_of_lt (by decide)).symm))
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
