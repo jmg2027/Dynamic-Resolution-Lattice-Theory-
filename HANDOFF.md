@@ -129,13 +129,17 @@ native primitives now route around them:
     (`Pow213.pow_add_two`).  `betti_one_K32`: `b₁ = 8 = NS² − 1` for the
     forced deployment.
 
-    Honest caveat: the **counts and rank arithmetic are fully proven**;
-    the identification `bcount_headFalse = |im δ⁰|` rests on the
-    first-isomorphism bridge (a coboundary fixes its cochain up to a
-    global constant — the kernel result), documented in the file header
-    rather than formalised as a deduped-image cardinality.  Fully
-    formalising that bridge (δ⁰ re-encoded on `List Bool` + image dedup =
-    head-`false` reps) is the one remaining tightening.
+    Caveat now mostly closed: the **counts, rank arithmetic, AND the
+    combinatorial half of the first-iso bridge are proven**
+    (`im_dim_via_transversal` + `ListCount` nodup-cardinality toolkit +
+    `BoolEnum` complement involution / `headFalse_transversal`): the
+    head-`false` reps count `2^(V−1)` and form a transversal of the
+    `{σ, complement σ}` pairs.  The only cited step is *fiber = pair*,
+    which is the proven kernel result `isKer_iff_const` combined with
+    δ⁰-linearity; the residual is that δ⁰-linearity is not separately
+    formalised on the `List Bool` representation (delta0Tri is on
+    `Fin → Bool`).  Reusable: `ListCount` (nodup cardinality equality),
+    `BoolEnum` complement/transversal.
 
 ## Open Problems (Priority Order)
 
