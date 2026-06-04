@@ -149,6 +149,11 @@ seed is exactly `spineL` (`CoResidue.spineL_eq_boolSpine_true`), so the canonica
 the odometer overflow (`spineL_seed_is_odo_overflow`) — the `+1` that never lands.  This realises
 the "Direction" above at the binary base.  Honest scope: the 2-adic odometer is the known object;
 the content is the residue reading (`+1` = act, overflow = escape), per the FINDINGS verdict.
+**§2 successor dynamics** (Odometer §2, +8 PURE): the `+1` is **injective** (`odo_injective` — the
+residue's successor never returns, odometer-scale `tower_no_cycle` / no-exterior) and interlocks
+with the descent-shift by the adding-machine recursion (`shift_odo`, `carry_shift`);
+`successor_dynamics` bundles it — the ascent unit as an injective dynamical system over the µF
+descent.
 
 **STATUS 2026-06-04 (cont.) — the variable-base golden/Zeckendorf carry built ∅-axiom.**
 `Real213/ZeckendorfCarry` (7 PURE): the residue's *own* base — the Fibonacci spiral

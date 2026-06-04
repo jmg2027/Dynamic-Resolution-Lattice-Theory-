@@ -104,6 +104,15 @@ base.  Promoted to `phi_self_similarity.md` §3.7.  **Note**: core `Nat.add_mul`
 and `omega` are propext/Quot-tainted — used `Meta.Nat.PureNat.add_mul` and manual `Nat` lemmas
 for ∅-purity (the §19/odometer/Zeckendorf arc is now closed on both binary and golden bases).
 
+### 8. New structure — the residue's successor dynamics (`Theory/Raw/Odometer` §2, +8 PURE)
+The genuinely-new pioneering piece: the two fundamental bit-stream maps (descent-shift = µF,
+ascent-unit-odometer = νF) interlock, and the `+1` is the residue's **injective** successor.
+`odo_injective` (the `+1` never sends two streams to one — odometer-scale `tower_no_cycle` /
+no-exterior on the unit); `shift_odo` (the descent–increment skew = the adding-machine recursion,
+`shift (odo f) = odo (shift f)` gated by the low bit); `carry_shift` (the carry splits one bit at
+a time); `successor_dynamics` bundles it.  `Theory/Raw/Odometer` now 19 PURE.  Fed
+`the_frontier_has_a_form.md` (rows + the successor clause) + G181 STATUS.
+
 ### 3. (carried) Promotion candidates
 PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov
 chapter stays active (Pattern 3) while `H` is open.

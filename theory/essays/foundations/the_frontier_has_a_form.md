@@ -106,7 +106,14 @@ shape, so it **is** the shape, recursively.  Three consequences, all proven:
     overflow (`spineL_seed_is_odo_overflow`): "the escape" (νF) and "the carry that never lands"
     (the residue unit `+1` demanding a new rung) are one object.  The mathematics is the 2-adic
     odometer (the Vershik–Bratteli `+1`, a known object); the 213 reading is that its `+1` IS the
-    self-pointing act and its overflow IS the escape.
+    self-pointing act and its overflow IS the escape.  And the `+1` is **injective**
+    (`odo_injective`) — the residue's successor never returns, the odometer-scale `tower_no_cycle`
+    (no-exterior on the `+1`) — interlocking with the descent-shift by the adding-machine
+    recursion (`shift_odo`): the descent and the ascent unit are one successor structure
+    (`successor_dynamics`).  The residue's *own* base — the Fibonacci spiral — carries the same
+    `+1` as the golden/Zeckendorf adic (`Real213/ZeckendorfCarry`, `011 → 100` = the Fibonacci
+    recurrence, value-preserving), so the unit `+1` runs through both the binary and the golden
+    odometer.
 
 Self-similar ⟹ the same coordinates work at every zoom ⟹ the frontier is *navigable*: complete
 *as a map*, though infinite — and the map carries a shift flow, so its self-similar landmarks
@@ -208,6 +215,8 @@ md`, `phi_pi_poles.md`).
 | `coSwap_boolSpine_free_action` | `Theory/Raw/CoResidue` | the residue's lone symmetry acts *freely* on the bit-stream escapes (no fixed escapee) |
 | `boolSpine_shift_dynamics` | `Theory/Raw/CoResidue` | νF carries the shift dynamical system; self-similarity = shift-periodicity, `spineL` the period-1 point |
 | `spineL_seed_is_odo_overflow` | `Theory/Raw/Odometer` | the canonical escape `spineL` is the `+1`-odometer's non-terminating overflow (the escape's arithmetic face) |
+| `successor_dynamics` | `Theory/Raw/Odometer` | the `+1` is injective (never returns) and interlocks with the descent-shift by the adding-machine recursion |
+| `golden_adic_carry` | `Real213/ZeckendorfCarry` | the residue's own base (Fibonacci spiral): the golden/Zeckendorf carry `011→100` = the Fibonacci recurrence, value-preserving |
 | `ascent_unbounded` | `Theory/Raw/MuNuMirror` | the frontier recedes forever (no finite Raw caps the ascent) |
 | `no_exterior_source_without_enclosure` | `Lib/Math/Foundations/ResidueForm` | no-exterior: the escape *is* the shape, recursively |
 
