@@ -15,6 +15,53 @@ derivation+citation+dual-function+cross-frame+self-check
   · Land on a syntactic object (constructive accessibility)
   · Document open frontier honestly
 
+## Reading by theme
+
+The 41 essays live flat in this directory (one file per insight; moving
+them would break cross-corpus links).  For navigation they group into
+nine themes — distinct facets, not redundancies (the synthesis essays
+in IV deliberately tie the others together):
+
+**I. The residue (foundations).**
+`the_form_of_the_residue`, `the_residue_as_primitive`,
+`the_residue_as_state_machine`, `the_upper_fold_pattern`.
+
+**II. Cohomology & the c-counter programme.**
+`c_counter_as_layer_count`, `disjoint_layers_as_direct_sum`,
+`multiplicity_layer_uniformity`, `cup_image_dual_span`,
+`per_layer_completeness_constructive_closure`, `c_counter_programme_closure`,
+`kplus1_alpha_power_graduation`, `steenrod_whitehead_bridge`,
+`vandermonde_mediant_counts`, `k32_cohomology_simplex_higher_insight`,
+`cut_off_marathon`.
+
+**III. P-orbit, Möbius & the atomic signature.**
+`p_orbit_closure_master`, `p_orbit_naturalness_boundary`,
+`mobius_self_form_fixed_point`, `every_axis_sees_p`,
+`cut_equality_and_atomicity`, `stern_brocot_as_universal_lattice`,
+`bipartite_tripartite_self_containment`.
+
+**IV. Synthesis & the master tower.**
+`synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`.
+
+**V. Analysis, depth & number systems.**
+`polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
+`real_without_completeness`, `integers_as_difference_lens`,
+`the_modular_group_from_two_folds`.
+
+**VI. Algebra tower & linear algebra.**
+`cd_tower_polarization`, `exceptional_seeds_are_forced`,
+`determinant_as_quotient_characteristic`, `cayley_hamilton_self_characteristic`.
+
+**VII. GRA & higher structure.**
+`gra_universality_one_principle`, `gra_as_substrate_of_cat_hott`.
+
+**VIII. Topology, geometry & 4-manifolds.**
+`4mfd_geometrization_joint_reading`, `cup_ladder_cork_h1_bridge`.
+
+**IX. Methodology & PURE-Lean infrastructure.**
+`pure_funext_avoidance`, `pure_nat_ring_methodology`,
+`bool_assoc_failure_meaning`.
+
 ## Current essays
 
 | Essay | Triggering question | Anchor chapters |

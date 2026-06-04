@@ -2,10 +2,11 @@
 
 Math chapters.  Mirrors `lean/E213/Lib/Math/` (+ `Lens/Number/`).
 
-## Closed chapters (59)
+## Closed chapters (87)
 
 Hub chapters:
 - [`cohomology/hodge_conjecture.md`](cohomology/hodge_conjecture.md) — HodgeConjecture/ (67 files, 6 layers)
+- [`exotic_4mfd_cork.md`](exotic_4mfd_cork.md) — AkbulutCork/ (8 files; cork twist + higher H² + multi-cork + Sym(3) cross-frame)
 - [`cayley_dickson/algebra_tower.md`](cayley_dickson/algebra_tower.md) — CayleyDickson/ (50 files)
 - [`cayley_dickson/exceptional_axes.md`](cayley_dickson/exceptional_axes.md) — CayleyDickson/Tower/ E₆E₇E₈ derivation (13 files, ~65 PURE; `{√−3,√2,√5}` from `{NS,NT}` + the map `D(x)=x²−NT`; surd-free `ℕ` form)
 - [`universe_chain.md`](universe_chain.md) — UniverseChain + Mobius213 + Nat213 (~32 files)
@@ -15,8 +16,11 @@ Hub chapters:
 - [`geometrization_conjecture.md`](geometrization_conjecture.md) — GeometrizationConjecture/ (13 files, R1 closed, R1+ partial)
 - [`padic_real213.md`](padic_real213.md) — Padic/ (8 files, 308 PURE; ring axioms, Hensel inv/sqrt with existence + uniqueness, full ultrametric, Frobenius lift, Teichmüller Cauchy, ℚ_p, DRLT 5-adic anchor)
 
-Cohomology sub-clusters (12 in `cohomology/`):
+Cohomology sub-clusters (18 in `cohomology/`, incl. the `hodge_conjecture`
+hub above and the 3 classification-extension chapters below):
 - `cohomology/{cochain, cup, cupaw, delta, bipartite, fractal, aurifeuillean, hodge, surfaces, universal, examples, bridge}.md`
+- [`cohomology/cup_ladder_graduation.md`](cohomology/cup_ladder_graduation.md) — H^k → α^(k+1) cup-ladder graduation (the `(k+1)` α-power rule)
+- [`cohomology/k32_higher_cohomology.md`](cohomology/k32_higher_cohomology.md) — K_{3,2}^{(c=2)} higher H² / Sym(3) 8-fold decomposition
 
 Analysis sub-clusters (16 in `analysis/`):
 - `analysis/{minimal_root, classic_calc, differentiation, flux_m_v_t, integration}.md`
@@ -38,13 +42,13 @@ Discrete-substrate geometry (10):
 Marathon-completed domains (6):
 - `combinatorics, information, logic, probability, group, modular_arithmetic` (modular_arithmetic extended by G119 to 13 files: +Bezout / FLT / F_{p²})
 
-Infrastructure (10):
+Infrastructure (20):
 - `axiom_systems, cross_domain_unification, pattern_catalog/pattern_catalog, linalg213, polynomial213, irrational, hyper, cauchy, topology, ode, multivariable, complex, measure, functional, extras, tactic, choice, geometry, cascade_calculus, modulus_structure`
 
 Universal meta-structure (1):
 - [`gra_book.md`](gra_book.md) — **GRA Book** (textbook treatment): Ch.0–9 + appendices. Formal Definition→Theorem→Proof flow. 7 axioms, 5 Readings (cohomology/operad/HoTT/graph/analysis), GRA Tower ↔ CD Tower duality, number system unification, dimensional proliferation fractal, Adelic decomposition, one-paragraph master statement. **CLOSED** (Marathon 16 — `lean/E213/Lib/Math/GRA/` umbrella, 28 files / 0 sorry). Lean cross-reference table in Appendix B.1.
 
-Cross-frame synthesis (3):
+Cross-frame synthesis (7):
 - [`sym3_spine.md`](sym3_spine.md) — Sym(3) 8-fold decomposition `2·trivial ⊕ 3·standard` across K_{3,2}^{(c=2)} H¹, Thurston geometries, gluon octet, Akbulut cork; capstone `X1_sym3_cross_frame_capstone`
 - [`mobius_canonical_equivalence.md`](mobius_canonical_equivalence.md) — Möbius P = [[2,1],[1,1]] as the canonical equivalence on cuts via Stern-Brocot mediant closure (7 files / 68 PURE); cutEq ↔ sternBrocotEq ∧ (0,0); ValidCutN + signedEq bridges; Pell unit invariant + atomicity anchor
 - [`mobius213_p_orbit_closure.md`](mobius213_p_orbit_closure.md) — P-orbit naturalness boundary (13 Px modules / 206 PURE); tripartite K_{2,1,3} additive complement; mod-p periods + Lucas-Pell trace orbit; refined naturalness hierarchy
