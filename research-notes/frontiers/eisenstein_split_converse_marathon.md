@@ -84,9 +84,17 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
     `p` prime, `a·b = p²`, `2 ≤ a, b` ⟹ `a = p`.  The descent's conclusion-arithmetic: once
     `p = d·e` (non-units) is in hand, `p² = ‖d‖²·‖e‖²` with both `≥ 2` gives `‖d‖² = p`.
     Built on the `MarkovPrimeFactor` prime-power library (`dvd_prime_pow_cases`).
-  - **Phase 2c-gcd (next, substantial)** — the missing connective: the `ℤ[ω]` Euclidean gcd
-    (fuel-bounded on `‖·‖²` à la `Gcd213`, using `zomega_div_step` as the step) + Bezout +
-    Euclid's lemma, to turn `p ∤ (x−ω)`, `p ∣ (x−ω)·conj(x−ω)` into the reducibility `p = d·e`.
+  - **Phase 2c-gcd-dvd (DONE)** — `EisensteinGcd` (2 PURE): `Dvd ZOmega` instance + the
+    closure lemmas `zdvd_add` and ★`zdvd_combo` (`d∣β → d∣ρ → α=βγ+ρ → d∣α`, the Euclidean-step
+    transfer carrying a common divisor up the recursion).
+  - **Phase 2c-gcd-main (next, substantial)** — `gcd_bezout` by **fuel-induction** on
+    `‖β‖².natAbs` (avoids constructive-function refactor + Classical): `∀ n α β,
+    ‖β‖².natAbs ≤ n → ∃ d s t, d = s·α + t·β ∧ d∣α ∧ d∣β`.  Base `β=0`: `d=α` (`s=ofInt 1,
+    t=ofInt 0`).  Step: `zomega_div_step α β → α=βγ+ρ, ‖ρ‖²<‖β‖²`; recurse on `(β,ρ)`; `d∣α`
+    by `zdvd_combo`; Bezout rearranges `s·β+t·(α−βγ) = t·α+(s−tγ)·β`.  Needs: a `One`-free
+    base (ZOmega has no Lean `One` instance — use `ofInt 1`), the `0≤x<y ⟹ x.natAbs<y.natAbs`
+    fuel-decrease (pure), and `normSq.natAbs=0 ⟹ β=0`.  Then Euclid's lemma + the reducibility
+    `p = d·e`, closing with `PrimeSquareFactor.eq_p_of_mul_eq_psq` ⟹ `‖d‖² = p`.
     Path: `centered_div_int` wrapper (β.normSq : Int>0 from `normSq_pos`); `γ = ⟨qre,qim⟩` from
     `centered_div` on `(α·conjβ).re/.im`; prove `ρ·conjβ = ⟨rre,rim⟩` (ext + ring_intZ, with
     `mul_conj_self`); `‖ρ‖²·N = eisForm rre rim` (`normSq_mul` + `normSq_conj`); `covering_bound`
