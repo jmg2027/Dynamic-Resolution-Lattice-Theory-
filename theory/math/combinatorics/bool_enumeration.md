@@ -36,14 +36,13 @@ cardinality `2^n`, with completeness and no overcounting.
 
 ## Pure `List` toolkit
 
-To stay ∅-axiom the file re-proves, by structural induction, the `List`
-lemmas whose core versions carry `propext`:
-
-  - `mem_map_of_mem`, `exists_of_mem_map`,
-  - `mem_append_left`, `mem_append_right`, `mem_append_iff`,
-  - `nodup_append` (disjoint append), `nodup_map_cons` (injective cons).
-
-These are reusable for any finite-Bool counting argument.
+The generic ∅-axiom `List` lemmas this builds on — `mem_map_of_mem`,
+`exists_of_mem_map`, `mem_append_*`, `mem_flatMap_*`, `nodup_append`,
+`nodup_map_of_inj`, `map_congr` / `map_eq_comp`, `getD_*`, `list_ext_getD`,
+the `filter` lemmas, and the nodup-cardinality comparison
+(`nodup_length_le_of_subset`, `nodup_length_eq_of_mem_iff`) — live in
+`lean/E213/Meta/Tactic/List213.lean` (the propext-free `List` library), so
+they are reusable across the whole repo, not just here.
 
 ## Counting (count-Lens b₀ = 1)
 

@@ -26,12 +26,18 @@ Companion: `theory/math/cohomology/bipartite.md`.
 
 namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.KEdgeCochain
 
-open E213.Lib.Math.Combinatorics.BoolEnum (allBoolLists complement headFalse mem_append_left
-  mem_append_right mem_append_iff mem_map_of_mem exists_of_mem_map length_of_mem_allBoolLists
-  mem_allBoolLists)
+open E213.Lib.Math.Combinatorics.BoolEnum
+  (allBoolLists complement headFalse length_of_mem_allBoolLists mem_allBoolLists)
+open E213.Tactic.List213
+  (mem_append_left mem_append_right mem_append_iff mem_map_of_mem exists_of_mem_map
+   mem_flatMap_intro mem_flatMap_elim getD_map_ib map_congr map_eq_comp list_ext_getD getD_ge)
 open E213.Lib.Math.Cohomology.Bipartite.Parametric.PathCoboundary (im_count_inj_complement)
 
-/-! ## Index enumeration (own `rangeL`, pure membership) -/
+/-! ## Index enumeration
+
+Generic ∅-axiom `List` helpers (`mem_*`, `flatMap`, `getD`, `map_eq_comp`,
+`list_ext_getD`) live in `Meta.Tactic.List213`; this file keeps the
+`rangeL` index enumeration and the edge cochain. -/
 
 /-- `[0, 1, …, n−1]` (own definition — core `List.range` membership lemmas
     carry `propext` / `Quot.sound`). -/
@@ -48,15 +54,6 @@ theorem mem_rangeL : ∀ {n i : Nat}, i < n → i ∈ rangeL n
       · -- i = n
         have : i = n := Nat.le_antisymm (Nat.le_of_lt_succ h) hge
         exact mem_append_right _ (this ▸ List.Mem.head _)
-
-/-- Pure `flatMap` membership introduction. -/
-theorem mem_flatMap_intro {α β : Type _} {f : α → List β} {b : β} {a : α} :
-    ∀ {l : List α}, a ∈ l → b ∈ f a → b ∈ l.flatMap f
-  | x :: t, ha, hb => by
-      show b ∈ f x ++ t.flatMap f
-      cases ha with
-      | head => exact mem_append_left hb
-      | tail _ h' => exact mem_append_right _ (mem_flatMap_intro h' hb)
 
 /-! ## The edge cochain -/
 
@@ -80,13 +77,6 @@ def edgeCochain (NS NT : Nat) (σ : List Bool) : List Bool :=
 
 /-! ## Complement invariance -/
 
-/-- `getD` of `map` in bounds. -/
-private theorem getD_map_ib {α β} (f : α → β) (d' : α) (d : β) :
-    ∀ (l : List α) (i : Nat), i < l.length → (l.map f).getD i d = f (l.getD i d')
-  | _ :: _, 0, _ => rfl
-  | _ :: t, i + 1, h => getD_map_ib f d' d t i (Nat.lt_of_succ_lt_succ h)
-  | [], i, h => absurd h (Nat.not_lt_zero i)
-
 /-- `(complement σ).getD i false = (σ.getD i false == false)` in bounds. -/
 private theorem complement_getD {σ : List Bool} {i : Nat} (h : i < σ.length) :
     (complement σ).getD i false = (σ.getD i false == false) :=
@@ -101,15 +91,6 @@ theorem lt_of_mem_rangeL : ∀ {n i : Nat}, i ∈ rangeL n → i < n
         | head => exact Nat.lt_succ_self n
         | tail _ h'' => nomatch h''
 
-/-- Pure `flatMap` membership elimination. -/
-theorem mem_flatMap_elim {α β : Type _} {f : α → List β} {b : β} :
-    ∀ {l : List α}, b ∈ l.flatMap f → ∃ a, a ∈ l ∧ b ∈ f a
-  | x :: t, h => by
-      rcases mem_append_iff (show b ∈ f x ++ t.flatMap f from h) with h' | h'
-      · exact ⟨x, List.Mem.head _, h'⟩
-      · rcases mem_flatMap_elim h' with ⟨a, ha, hb⟩
-        exact ⟨a, List.Mem.tail _ ha, hb⟩
-
 /-- Edge-pair membership elimination. -/
 theorem lt_of_mem_edgePairs {NS NT : Nat} {st : Nat × Nat} (h : st ∈ edgePairs NS NT) :
     st.1 < NS ∧ st.2 < NT := by
@@ -119,14 +100,6 @@ theorem lt_of_mem_edgePairs {NS NT : Nat} {st : Nat × Nat} (h : st ∈ edgePair
   exact ⟨lt_of_mem_rangeL hs, lt_of_mem_rangeL ht⟩
 
 /-! ## Complement invariance -/
-
-/-- `map` congruence: pointwise-equal functions give equal maps. -/
-private theorem map_congr {α β} {f g : α → β} :
-    ∀ {l : List α}, (∀ x, x ∈ l → f x = g x) → l.map f = l.map g
-  | [], _ => rfl
-  | a :: t, h => by
-      show f a :: t.map f = g a :: t.map g
-      rw [h a (List.Mem.head _), map_congr (fun x hx => h x (List.Mem.tail _ hx))]
 
 /-- `xor` of two negations is the original `xor`. -/
 private theorem xor_not_not (a b : Bool) : xor (a == false) (b == false) = xor a b := by
@@ -145,34 +118,6 @@ theorem edgeCochain_complement (NS NT : Nat) {σ : List Bool}
   rw [complement_getD h1, complement_getD h2, xor_not_not]
 
 /-! ## Head-`false` injectivity (reconstruction) -/
-
-/-- `map f l = map g l → ∀ x ∈ l, f x = g x`. -/
-private theorem map_eq_comp {α β} {f g : α → β} :
-    ∀ {l : List α}, l.map f = l.map g → ∀ x, x ∈ l → f x = g x
-  | a :: t, he, x, hx => by
-      have h1 : f a = g a := by injection he
-      have h2 : t.map f = t.map g := by injection he
-      cases hx with
-      | head => exact h1
-      | tail _ h' => exact map_eq_comp h2 x h'
-
-/-- List extensionality via `getD`. -/
-private theorem list_ext_getD :
-    ∀ {σ τ : List Bool}, σ.length = τ.length →
-      (∀ i, σ.getD i false = τ.getD i false) → σ = τ
-  | [], [], _, _ => rfl
-  | a :: s, c :: t, hl, hg => by
-      rw [show a = c from hg 0,
-          show s = t from list_ext_getD (Nat.succ.inj hl) (fun i => hg (i + 1))]
-  | [], _ :: _, hl, _ => Nat.noConfusion hl
-  | _ :: _, [], hl, _ => Nat.noConfusion hl
-
-/-- `getD` past the end is the default. -/
-private theorem getD_ge {α} (d : α) :
-    ∀ {l : List α} {i : Nat}, l.length ≤ i → l.getD i d = d
-  | [], _, _ => rfl
-  | _ :: _, 0, h => absurd h (Nat.not_succ_le_zero _)
-  | _ :: t, i + 1, h => getD_ge d (l := t) (Nat.le_of_succ_le_succ h)
 
 /-- A head-`false` colouring has `getD 0 = false`. -/
 private theorem headFalse_getD0 : ∀ {σ : List Bool}, headFalse σ = true →
@@ -221,7 +166,7 @@ theorem edgeCochain_inj_headFalse (NS NT : Nat) (hNS : 0 < NS) (hNT : 0 < NT)
       rw [hk] at e1
       rw [← e1]; exact hd0
   -- list extensionality
-  refine list_ext_getD (hσl.trans hτl.symm) (fun i => ?_)
+  refine list_ext_getD false (hσl.trans hτl.symm) (fun i => ?_)
   rcases Nat.lt_or_ge i (NS + NT) with hi | hi
   · exact eq_of_xor_false (key i hi)
   · rw [getD_ge false (hσl ▸ hi), getD_ge false (hτl ▸ hi)]

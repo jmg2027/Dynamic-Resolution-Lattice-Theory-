@@ -1,5 +1,5 @@
 import E213.Lib.Math.Combinatorics.BoolEnum
-import E213.Lib.Math.Combinatorics.ListCount
+import E213.Meta.Tactic.List213
 
 /-!
 # A concrete connected coboundary: `|im δ⁰| = 2^(V−1)` fully ∅-axiom
@@ -38,10 +38,10 @@ namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.PathCoboundary
 
 open E213.Lib.Math.Combinatorics.BoolEnum
   (allBoolLists headFalse complement bcount bcount_headFalse headFalse_transversal
-   length_of_mem_allBoolLists mem_allBoolLists mem_map_of_mem nodup_allBoolLists
+   length_of_mem_allBoolLists mem_allBoolLists nodup_allBoolLists
    filter_length_eq_bcount)
-open E213.Lib.Math.Combinatorics.ListCount
-  (nodup_map_of_inj mem_filter mem_filter_of nodup_filter)
+open E213.Tactic.List213
+  (mem_map_of_mem nodup_map_of_inj mem_filter mem_filter_of nodup_filter)
 open E213.Tactic.List213 (length_map)
 
 /-! ## The path coboundary -/
