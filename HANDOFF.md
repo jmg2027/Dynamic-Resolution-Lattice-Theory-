@@ -1,6 +1,32 @@
-# Session Handoff — 2026-06-04k (Markov — ★ §28–§29 equivalence chain + audit perimeter closed)
+# Session Handoff — 2026-06-04l (Markov — ★ §34 reverse bridge: the markovNum-injectivity iff is fully closed)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed (feature + main), clean.  `Real213/SternBrocotMarkov` **112 PURE**.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` builds; §34 + iff PURE.
+
+## ★★★ NEWEST (§30–§34): the size-reading-injectivity iff, fully closed both directions
+All `∅`-axiom (`#print axioms` clean).  In `Real213/SternBrocotMarkov`:
+- §30 `markovNum_lt_extend`/`markovNum_lt_append` — size strictly increases down the tree (`mNode_max`).
+- §31 `markovGen_noncommutative` (`mul genL genR ≠ mul genR genL`, `by decide`) — the size combine is
+  non-commutative, so the size reading is **not** a Raw-`Lens` (`Lens/DirectionFree`).
+- §32 `slope_determines_size` + `sizeDeterminesSlope_iff_markovNum_injective` (light restatements).
+- §33 `markov_max_unique_of_markovNum_injective` : `Function.Injective markovNum → ∀ c≥5, MarkovMaxUnique c` (`→`).
+- **§34 `markovNum_injective_of_markovMaxUnique`** : the converse (`←`) — proved with NO new number
+  theory by routing through §28: `MarkovMaxUnique c → WindowRealizedUnique c`
+  (`markovMaxUnique_to_windowRealizedUnique`) collapses the two nodes' realised windowed `√(−1)`
+  residues (`node_window_nat`+`node_realized`) ⟹ equal `markovRes` ⟹ equal slope ⟹ `slope_path_inj`.
+  Helper `mNode_ge_5` (root 5, strictly increasing).
+- **`markovMaxUnique_iff_markovNum_injective`** : `Function.Injective markovNum ↔ ∀ c≥5, MarkovMaxUnique c`.
+  The path-level fourth formulation of the conjecture, now a closed equivalence.
+- **Honest scope (load-bearing)**: this is a *formulation-equivalence* (PERIMETER) — it identifies two
+  statements of the open Frobenius conjecture, proves NEITHER, and does NOT touch the cross-node
+  `mod c ↔ ℤ` kernel.  §32/§33 docstrings + `G190` verdict + `theory/math/analysis/markov_uniqueness.md`
+  updated to "iff fully closed, still perimeter".
+- **G189 corrected**: the Casoratian apparatus (`casoratian_step` = two solutions of ONE order-2
+  recurrence; `second_casoratian` = one sequence's adjacent Hankel window) is **within-recurrence**, NOT
+  a cross-node tool.  Two incomparable lines are iterates of DIFFERENT transfer matrices, so the existing
+  Casoratian shape does not express their comparison.  The cross-node kernel tool is **missing** (not
+  merely unaimed) — the only direction toward the kernel, with no ready instrument.
+
+## (earlier) §28–§29 equivalence chain `MarkovMaxUnique c ↔ WindowRealizedUnique c ↔ OrbitRealizabilityH c`
 
 ## ★★★ NEW (§28–§29): the equivalence chain `MarkovMaxUnique c ↔ WindowRealizedUnique c ↔ OrbitRealizabilityH c`
 All `∅`-axiom, `5 ≤ c`.  `markovMaxUnique_iff_windowRealizedUnique` (§28, `(→)` cancels the unit middle
