@@ -154,4 +154,63 @@ theorem matMul_id_right (n : Nat) (M : Nat → Nat → Int) (i j : Nat) (hj : j 
           · rw [if_neg h, if_neg (fun he => h he.symm)]; exact mul_zero' (M i k)),
       sumZ_iota_delta_lt (fun k => M i k) j n hj]
 
+/-! ## §4 — distributivity, scalar/negation, and matrix powers -/
+
+/-- ★ **Left distributivity**: `(A + B)·C = A·C + B·C`. -/
+theorem matMul_addL (n : Nat) (A B C : Nat → Nat → Int) (i j : Nat) :
+    matMul n (matAdd A B) C i j = matAdd (matMul n A C) (matMul n B C) i j := by
+  show sumZ ((iota n).map (fun k => (A i k + B i k) * C k j))
+     = sumZ ((iota n).map (fun k => A i k * C k j)) + sumZ ((iota n).map (fun k => B i k * C k j))
+  rw [← sumZ_map_add]
+  apply congrArg sumZ
+  apply map_eq_of_mem
+  intro k _
+  exact E213.Meta.Int213.add_mul (A i k) (B i k) (C k j)
+
+/-- ★ **Right distributivity**: `A·(B + C) = A·B + A·C`. -/
+theorem matMul_addR (n : Nat) (A B C : Nat → Nat → Int) (i j : Nat) :
+    matMul n A (matAdd B C) i j = matAdd (matMul n A B) (matMul n A C) i j := by
+  show sumZ ((iota n).map (fun k => A i k * (B k j + C k j)))
+     = sumZ ((iota n).map (fun k => A i k * B k j)) + sumZ ((iota n).map (fun k => A i k * C k j))
+  rw [← sumZ_map_add]
+  apply congrArg sumZ
+  apply map_eq_of_mem
+  intro k _
+  exact E213.Meta.Int213.mul_add (A i k) (B k j) (C k j)
+
+/-- ★ **Left scalar**: `(c • A)·B = c • (A·B)`. -/
+theorem matMul_scalarL (n : Nat) (c : Int) (A B : Nat → Nat → Int) (i j : Nat) :
+    matMul n (matScalar c A) B i j = matScalar c (matMul n A B) i j := by
+  show sumZ ((iota n).map (fun k => c * A i k * B k j)) = c * sumZ ((iota n).map (fun k => A i k * B k j))
+  rw [← sumZ_map_smul]
+  apply congrArg sumZ
+  apply map_eq_of_mem
+  intro k _
+  exact E213.Meta.Int213.mul_assoc c (A i k) (B k j)
+
+/-- `-0 = 0` over `ℤ`. -/
+theorem neg_zero' : -(0 : Int) = 0 :=
+  (E213.Meta.Int213.zero_add (-0)).symm.trans (E213.Meta.Int213.add_neg_cancel 0)
+
+/-- Negation pulls out of `sumZ`. -/
+theorem sumZ_map_neg {α : Type} (f : α → Int) : ∀ (L : List α),
+    sumZ (L.map (fun a => - f a)) = - sumZ (L.map f)
+  | []     => neg_zero'.symm
+  | a :: l => by
+    show - f a + sumZ (l.map (fun a => - f a)) = -(f a + sumZ (l.map f))
+    rw [sumZ_map_neg f l, E213.Meta.Int213.neg_add]
+
+/-- ★ **Left negation**: `(-A)·B = -(A·B)`. -/
+theorem matMul_negL (n : Nat) (A B : Nat → Nat → Int) (i j : Nat) :
+    matMul n (matNeg A) B i j = matNeg (matMul n A B) i j := by
+  show sumZ ((iota n).map (fun k => (- A i k) * B k j)) = - sumZ ((iota n).map (fun k => A i k * B k j))
+  rw [map_eq_of_mem (fun k => (- A i k) * B k j) (fun k => -(A i k * B k j))
+        (fun k _ => E213.Meta.Int213.neg_mul (A i k) (B k j)),
+      sumZ_map_neg (fun k => A i k * B k j)]
+
+/-- Matrix power: `M^0 = I`, `M^(k+1) = M · M^k`. -/
+def matPow (n : Nat) (M : Nat → Nat → Int) : Nat → (Nat → Nat → Int)
+  | 0     => matId
+  | k + 1 => matMul n M (matPow n M k)
+
 end E213.Lib.Math.Linalg213.CayleyHamilton
