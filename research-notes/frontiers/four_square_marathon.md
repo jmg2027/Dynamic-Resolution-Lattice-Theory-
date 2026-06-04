@@ -1,5 +1,29 @@
 # Frontier — Lagrange's four-square theorem (`∀ n, ∃ a b c d, n = a²+b²+c²+d²`)
 
+**Date**: 2026-06-04.  **Status**: Pillar I CLOSED; Pillar II foundation + descent-core DONE,
+residue-setup/recursion/assembly remaining.  **Tier**: 1.
+
+## Pillar II — Euler descent (IN PROGRESS, ∅-axiom; avoids the quaternion gcd)
+
+Stays over `ℤ` with ring identities + `centered_div_int`.  `NumberTheory.FourSquare`:
+  - **`four_sq_id` (DONE)** — Euler's four-square identity (ring_intZ); `isSum4_mul`.
+  - **`descent_core` (DONE)** — `m·p = Σaᵢ²`, `aᵢ = qᵢm+Aᵢ`, `m·r = ΣAᵢ²` ⟹ `p·r = Σdⱼ²`
+    (Euler ⟹ `(mp)(mr) = Σcⱼ²`, each `m∣cⱼ`, `/m²`).  + pure ℤ cancellation
+    (`mul_left_cancel_pos`, `eq_zero_of_mul_pos`, `le_of_not_lt`).
+
+### Remaining (precise)
+  1. **Residue setup** — `centered_div_int_sq aᵢ m` ⟹ `aᵢ = qᵢm + Aᵢ`, `4Aᵢ² ≤ m²`.  `r` is
+     **explicit**: `r = p − 2Σaᵢqᵢ + mΣqᵢ²`, `m·r = ΣAᵢ²` by `ring_intZ`.  `ΣAᵢ² ≤ m²` ⟹
+     `0 ≤ r ≤ m` (needs positive-mul `≤`-cancel lemmas).
+  2. **`r ≥ 1`** (`r=0` excl.) — `Aᵢ=0 ⟹ m∣aᵢ ⟹ m²∣mp ⟹ m∣p`; `m<p` prime ⟹ `m=1`, contra.
+  3. **`r < m`** (`r=m` excl.) — THE CRUX: all `|Aᵢ|=m/2`, `m` even, `Σ(2qᵢ±1)² ≡ 4 mod 8 =
+     4·odd`, so `m∣p` ⟹ contra.  Mod-8 odd-square reasoning.
+  4. **Fuel recursion** on `m` (`2 ≤ m < p`) ⟹ `p = Σ4²`.
+  5. **Seed → initial multiple** — `four_square_seed` ⟹ `k·p = x²+y²+1²+0²`, `1 ≤ k < p`.
+  6. **All `n`** — `2=1²+1²+0²+0²`; primes above; composites by `isSum4_mul`.
+
+----
+
 **Date**: 2026-06-04.  **Status**: Pillar I CLOSED (∅-axiom); Pillar II open.  **Tier**: 1.
 
 ## Pillar I — DONE (∅-axiom, constructive)
