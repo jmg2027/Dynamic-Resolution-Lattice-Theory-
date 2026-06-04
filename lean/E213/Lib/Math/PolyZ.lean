@@ -1,4 +1,5 @@
 import E213.Meta.Int213.Core
+import E213.Meta.Int213.PolyIntMTactic
 
 /-!
 # PolyZ — integer-coefficient polynomials (∅-axiom)
@@ -71,6 +72,10 @@ theorem mul_zero' (a : Int) : a * 0 = 0 := by
 theorem one_mul' (a : Int) : 1 * a = a := by
   rw [E213.Meta.Int213.mul_comm, E213.Meta.Int213.mul_one]
 
+/-- `-0 = 0`. -/
+theorem neg_zero' : -(0 : Int) = 0 :=
+  (E213.Meta.Int213.zero_add (-0)).symm.trans (E213.Meta.Int213.add_neg_cancel 0)
+
 /-! ## Evaluation soundness — each operation commutes with `eval` -/
 
 /-- `eval` of a constant. -/
@@ -134,5 +139,131 @@ theorem eval_mulP : ∀ (p q : PolyZ) (x : Int), eval (mulP p q) x = eval p x * 
     show eval (addP (scaleP a q) (shiftP (mulP p q))) x = (a + x * eval p x) * eval q x
     rw [eval_addP, eval_scaleP, eval_shiftP, eval_mulP p q x,
         E213.Meta.Int213.add_mul, E213.Meta.Int213.mul_assoc]
+
+/-! ## Coefficient soundness for `addP` / `negP` -/
+
+/-- `coeff` of a sum. -/
+theorem coeff_addP : ∀ (p q : PolyZ) (k : Nat), coeff (addP p q) k = coeff p k + coeff q k
+  | [],      q,      k     => by show coeff q k = 0 + coeff q k; rw [E213.Meta.Int213.zero_add]
+  | a :: p', [],     k     => by show coeff (a :: p') k = coeff (a :: p') k + 0; rw [add_zero']
+  | _ :: _,  _ :: _, 0     => rfl
+  | _ :: p', _ :: q', k + 1 => coeff_addP p' q' k
+
+/-- `coeff` of a negation. -/
+theorem coeff_negP : ∀ (p : PolyZ) (k : Nat), coeff (negP p) k = - coeff p k
+  | [],      _     => neg_zero'.symm
+  | _ :: _,  0     => rfl
+  | _ :: p', k + 1 => coeff_negP p' k
+
+/-! ## Uniqueness — synthetic division, root bound, coefficient identity -/
+
+/-- `a - b = 0 → a = b` over `ℤ`. -/
+theorem sub_eq_zero_imp {a b : Int} (h : a - b = 0) : a = b := by
+  rw [← E213.Meta.Int213.sub_add_cancel_int a b, h, E213.Meta.Int213.zero_add]
+
+/-- `a + -b = 0 → a = b` over `ℤ`. -/
+theorem eq_of_add_neg {a b : Int} (h : a + -b = 0) : a = b := by
+  have hb : (a + -b) + b = 0 + b := by rw [h]
+  rwa [E213.Meta.Int213.add_assoc, E213.Meta.Int213.add_left_neg, add_zero',
+       E213.Meta.Int213.zero_add] at hb
+
+/-- Synthetic-division quotient of `p` by `(X − r)` (low-to-high, no trailing zero). -/
+def synth : PolyZ → Int → PolyZ
+  | [],          _ => []
+  | [_],         _ => []
+  | a :: p',     r => eval p' r :: synth p' r
+
+/-- **Factor theorem**: `p(x) = p(r) + (x − r)·q(x)` where `q = synth p r`. -/
+theorem eval_synth : ∀ (p : PolyZ) (r x : Int),
+    eval p x = eval p r + (x - r) * eval (synth p r) x
+  | [],              r, x => by
+    show (0 : Int) = 0 + (x - r) * 0
+    rw [mul_zero', E213.Meta.Int213.zero_add]
+  | [a],             r, x => by
+    show a + x * eval ([] : PolyZ) x = (a + r * eval ([] : PolyZ) r) + (x - r) * eval ([] : PolyZ) x
+    rw [show eval ([] : PolyZ) x = 0 from rfl, show eval ([] : PolyZ) r = 0 from rfl]
+    ring_intZ
+  | a :: b :: rest, r, x => by
+    show a + x * eval (b :: rest) x
+       = (a + r * eval (b :: rest) r)
+         + (x - r) * (eval (b :: rest) r + x * eval (synth (b :: rest) r) x)
+    rw [eval_synth (b :: rest) r x]
+    ring_intZ
+
+/-- `synth` drops exactly one degree (length decreases by one). -/
+theorem length_synth_cons (a : Int) (p' : PolyZ) (r : Int) :
+    (synth (a :: p') r).length + 1 = (a :: p').length := by
+  induction p' generalizing a with
+  | nil => rfl
+  | cons b rest ih =>
+    show ((eval (b :: rest) r :: synth (b :: rest) r).length) + 1 = (a :: b :: rest).length
+    show (synth (b :: rest) r).length + 1 + 1 = (b :: rest).length + 1
+    rw [ih b]
+
+/-- ★ **Root bound**: a polynomial of length `≤ L` with `L` distinct roots is the zero function. -/
+theorem roots_bound (r : Nat → Int) (hinj : ∀ i j, r i = r j → i = j) :
+    ∀ (L : Nat) (p : PolyZ), p.length ≤ L → (∀ i, i < L → eval p (r i) = 0) →
+      ∀ x, eval p x = 0
+  | 0,     [],       _,    _,      _ => rfl
+  | 0,     a :: _,   hlen, _,      _ => absurd hlen (Nat.not_succ_le_zero _)
+  | L + 1, [],       _,    _,      _ => rfl
+  | L + 1, a :: p',  hlen, hroots, x => by
+    have hrL : eval (a :: p') (r L) = 0 := hroots L (Nat.lt_succ_self L)
+    have hlenq : (synth (a :: p') (r L)).length ≤ L := by
+      have hl := length_synth_cons a p' (r L)
+      rw [← hl] at hlen
+      exact Nat.le_of_succ_le_succ hlen
+    have hqroots : ∀ i, i < L → eval (synth (a :: p') (r L)) (r i) = 0 := by
+      intro i hi
+      have hfac := eval_synth (a :: p') (r L) (r i)
+      rw [hrL, hroots i (Nat.lt_succ_of_lt hi), E213.Meta.Int213.zero_add] at hfac
+      have hne : r i - r L ≠ 0 := fun he =>
+        Nat.ne_of_lt hi (hinj i L (sub_eq_zero_imp he))
+      rcases E213.Meta.Int213.mul_eq_zero hfac.symm with h0 | h0
+      · exact absurd h0 hne
+      · exact h0
+    have hq : ∀ y, eval (synth (a :: p') (r L)) y = 0 :=
+      roots_bound r hinj L (synth (a :: p') (r L)) hlenq hqroots
+    have hfacx := eval_synth (a :: p') (r L) x
+    rw [hrL, E213.Meta.Int213.zero_add, hq x, mul_zero'] at hfacx
+    exact hfacx
+
+/-- ★ **Coefficient identity**: a polynomial that vanishes everywhere has all coefficients `0`. -/
+theorem coeff_zero_of_eval_zero : ∀ (p : PolyZ), (∀ x, eval p x = 0) → ∀ k, coeff p k = 0
+  | [],      _ => fun _ => rfl
+  | a :: p', h => by
+    have ha : a = 0 := by
+      have h0 := h 0
+      rw [show eval (a :: p') 0 = a + 0 * eval p' 0 from rfl, E213.Meta.Int213.zero_mul,
+          add_zero'] at h0
+      exact h0
+    have hmul : ∀ x, x * eval p' x = 0 := by
+      intro x
+      have hx := h x
+      rw [show eval (a :: p') x = a + x * eval p' x from rfl, ha, E213.Meta.Int213.zero_add] at hx
+      exact hx
+    have hp' : ∀ x, eval p' x = 0 :=
+      roots_bound (fun i => Int.ofNat (i + 1))
+        (fun i j he => Nat.succ.inj (Int.ofNat.inj he)) p'.length p' (Nat.le_refl _)
+        (fun i _ => by
+          rcases E213.Meta.Int213.mul_eq_zero (hmul (Int.ofNat (i + 1))) with h0 | h0
+          · exact absurd h0 (fun he => Nat.noConfusion (Int.ofNat.inj he))
+          · exact h0)
+    intro k
+    cases k with
+    | zero => exact ha
+    | succ k' => exact coeff_zero_of_eval_zero p' hp' k'
+
+/-- ★★ **Uniqueness**: two polynomials agreeing at every integer have equal coefficients. -/
+theorem coeff_unique (p q : PolyZ) (h : ∀ x, eval p x = eval q x) :
+    ∀ k, coeff p k = coeff q k := by
+  have hd : ∀ x, eval (addP p (negP q)) x = 0 := by
+    intro x
+    rw [eval_addP, eval_negP, h x, E213.Meta.Int213.add_neg_cancel]
+  have hc := coeff_zero_of_eval_zero (addP p (negP q)) hd
+  intro k
+  have hk := hc k
+  rw [coeff_addP, coeff_negP] at hk
+  exact eq_of_add_neg hk
 
 end E213.Lib.Math.PolyZ
