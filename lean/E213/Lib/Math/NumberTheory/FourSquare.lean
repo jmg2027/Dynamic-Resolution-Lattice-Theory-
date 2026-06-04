@@ -135,4 +135,79 @@ theorem sum_two_sq_of_even_diff (a b k : Int) (h : a - b = 2 * k) :
   have ha : a = b + 2 * k := by rw [← h]; ring_intZ
   rw [ha]; ring_intZ
 
+/-- `2c ≠ 1` over `ℤ` (via `natAbs`: `2·natAbs = 1` impossible). -/
+theorem two_c_ne_one (c : Int) : 2 * c ≠ 1 := by
+  intro h
+  have hn : (2 * c).natAbs = (1 : Int).natAbs := by rw [h]
+  rw [E213.Lib.Math.NumberTheory.PolyRoot.natAbs_mul, show (2 : Int).natAbs = 2 from rfl,
+    show (1 : Int).natAbs = 1 from rfl] at hn
+  rcases Nat.eq_zero_or_pos c.natAbs with h0 | h0
+  · rw [h0] at hn; exact absurd hn (by decide)
+  · have h2 : 2 ≤ 2 * c.natAbs := by have := Nat.mul_le_mul_left 2 h0; rwa [Nat.mul_one] at this
+    rw [hn] at h2; exact absurd h2 (by decide)
+
+/-- `a²+b²` even ⟹ `a−b` even (same parity). -/
+theorem sq_sum_even_imp_diff_even (a b : Int) (h : ∃ N, a * a + b * b = 2 * N) :
+    ∃ u, a - b = 2 * u := by
+  obtain ⟨N, hN⟩ := h
+  rcases int_even_or_odd a with ⟨x, ha⟩ | ⟨x, ha⟩ <;> rcases int_even_or_odd b with ⟨y, hb⟩ | ⟨y, hb⟩
+  · exact ⟨x - y, by rw [ha, hb]; ring_intZ⟩
+  · exfalso; rw [ha, hb] at hN
+    apply two_c_ne_one (N - (2 * x * x + 2 * y * y + 2 * y))
+    rw [show 2 * (N - (2 * x * x + 2 * y * y + 2 * y))
+      = 2 * N - 2 * (2 * x * x + 2 * y * y + 2 * y) from by ring_intZ, ← hN]; ring_intZ
+  · exfalso; rw [ha, hb] at hN
+    apply two_c_ne_one (N - (2 * x * x + 2 * x + 2 * y * y))
+    rw [show 2 * (N - (2 * x * x + 2 * x + 2 * y * y))
+      = 2 * N - 2 * (2 * x * x + 2 * x + 2 * y * y) from by ring_intZ, ← hN]; ring_intZ
+  · exact ⟨x - y, by rw [ha, hb]; ring_intZ⟩
+
+/-- Given a same-parity pair `(a,b)` and `Σ4²` even, halve into four squares. -/
+theorem combine (a b c d : Int) (hab : ∃ u, a - b = 2 * u)
+    (h : ∃ N, a * a + b * b + c * c + d * d = 2 * N) :
+    ∃ s1 s2 s3 s4, a * a + b * b + c * c + d * d = 2 * (s1 * s1 + s2 * s2 + s3 * s3 + s4 * s4) := by
+  obtain ⟨u, hu⟩ := hab
+  obtain ⟨s, t, hst⟩ := sum_two_sq_of_even_diff a b u hu
+  obtain ⟨N, hN⟩ := h
+  have hcd : ∃ M, c * c + d * d = 2 * M := ⟨N - (s * s + t * t), by
+    have e : c * c + d * d = 2 * N - (a * a + b * b) := by rw [← hN]; ring_intZ
+    rw [e, hst]; ring_intZ⟩
+  obtain ⟨v, hv⟩ := sq_sum_even_imp_diff_even c d hcd
+  obtain ⟨s', t', hst'⟩ := sum_two_sq_of_even_diff c d v hv
+  refine ⟨s, t, s', t', ?_⟩
+  have e : a * a + b * b + c * c + d * d = (a * a + b * b) + (c * c + d * d) := by ring_intZ
+  rw [e, hst, hst']; ring_intZ
+
+/-- **Halving a sum of four squares.**  `Σaᵢ² = 2N` ⟹ `Σaᵢ² = 2·Σsᵢ²` (pair two same-parity
+    `aᵢ` — pigeonhole on `a₁,a₂,a₃` — the complement matches by `Σ` even). -/
+theorem halve4 (a1 a2 a3 a4 : Int) (h : ∃ N, a1 * a1 + a2 * a2 + a3 * a3 + a4 * a4 = 2 * N) :
+    ∃ s1 s2 s3 s4, a1 * a1 + a2 * a2 + a3 * a3 + a4 * a4 = 2 * (s1 * s1 + s2 * s2 + s3 * s3 + s4 * s4) := by
+  obtain ⟨N, hN⟩ := h
+  have hh : ∀ b1 b2 b3 b4 : Int, b1 * b1 + b2 * b2 + b3 * b3 + b4 * b4 = a1 * a1 + a2 * a2 + a3 * a3 + a4 * a4 →
+      ∃ M, b1 * b1 + b2 * b2 + b3 * b3 + b4 * b4 = 2 * M := fun b1 b2 b3 b4 heq => ⟨N, by rw [heq]; exact hN⟩
+  have conv : ∀ b1 b2 b3 b4 : Int, b1 * b1 + b2 * b2 + b3 * b3 + b4 * b4 = a1 * a1 + a2 * a2 + a3 * a3 + a4 * a4 →
+      (∃ s1 s2 s3 s4, b1 * b1 + b2 * b2 + b3 * b3 + b4 * b4 = 2 * (s1 * s1 + s2 * s2 + s3 * s3 + s4 * s4)) →
+      ∃ s1 s2 s3 s4, a1 * a1 + a2 * a2 + a3 * a3 + a4 * a4 = 2 * (s1 * s1 + s2 * s2 + s3 * s3 + s4 * s4) :=
+    fun b1 b2 b3 b4 heq hex => by
+      obtain ⟨s1, s2, s3, s4, hg⟩ := hex; exact ⟨s1, s2, s3, s4, by rw [← heq]; exact hg⟩
+  rcases int_even_or_odd a1 with ⟨x1, p1⟩ | ⟨x1, p1⟩ <;>
+    rcases int_even_or_odd a2 with ⟨x2, p2⟩ | ⟨x2, p2⟩ <;>
+    rcases int_even_or_odd a3 with ⟨x3, p3⟩ | ⟨x3, p3⟩
+  · exact combine a1 a2 a3 a4 ⟨x1 - x2, by rw [p1, p2]; ring_intZ⟩ ⟨N, hN⟩
+  · exact combine a1 a2 a3 a4 ⟨x1 - x2, by rw [p1, p2]; ring_intZ⟩ ⟨N, hN⟩
+  · exact conv a1 a3 a2 a4 (by ring_intZ) (combine a1 a3 a2 a4 ⟨x1 - x3, by rw [p1, p3]; ring_intZ⟩ (hh a1 a3 a2 a4 (by ring_intZ)))
+  · exact conv a2 a3 a1 a4 (by ring_intZ) (combine a2 a3 a1 a4 ⟨x2 - x3, by rw [p2, p3]; ring_intZ⟩ (hh a2 a3 a1 a4 (by ring_intZ)))
+  · exact conv a2 a3 a1 a4 (by ring_intZ) (combine a2 a3 a1 a4 ⟨x2 - x3, by rw [p2, p3]; ring_intZ⟩ (hh a2 a3 a1 a4 (by ring_intZ)))
+  · exact conv a1 a3 a2 a4 (by ring_intZ) (combine a1 a3 a2 a4 ⟨x1 - x3, by rw [p1, p3]; ring_intZ⟩ (hh a1 a3 a2 a4 (by ring_intZ)))
+  · exact combine a1 a2 a3 a4 ⟨x1 - x2, by rw [p1, p2]; ring_intZ⟩ ⟨N, hN⟩
+  · exact combine a1 a2 a3 a4 ⟨x1 - x2, by rw [p1, p2]; ring_intZ⟩ ⟨N, hN⟩
+
+/-- ★★★ **Even-`m` descent (parity-halving).**  `isSum4 (2m'·p) ⟹ isSum4 (m'·p)`. -/
+theorem halve_step (m' p : Int) (h : isSum4 (2 * m' * p)) : isSum4 (m' * p) := by
+  obtain ⟨a1, a2, a3, a4, ha⟩ := h
+  obtain ⟨s1, s2, s3, s4, hs⟩ := halve4 a1 a2 a3 a4 ⟨m' * p, by rw [← ha]; ring_intZ⟩
+  refine ⟨s1, s2, s3, s4, ?_⟩
+  apply mul_left_cancel_pos (show (0 : Int) < 2 by decide)
+  rw [show 2 * (m' * p) = 2 * m' * p from by ring_intZ, ha]; exact hs
+
 end E213.Lib.Math.NumberTheory.FourSquare
