@@ -1,6 +1,33 @@
-# Session Handoff — 2026-06-04 (Markov marathon — ★ BUTTON'S THEOREM CLOSED, ∅-axiom)
+# Session Handoff — 2026-06-04b (Markov — ★ FIRST COMPOSITE Markov number closed, ∅-axiom)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **77 PURE**.
+
+## ★★★ NEW: composite-`c` uniqueness, beyond Button (§16–§19)
+- **`markov_max_unique_1325`**: `MarkovMaxUnique 1325` (= 5²·53, **first composite Markov number**
+  with the `2^ω=4` root explosion, `SqrtNegOneTwoRoots` FALSE) — ∅-axiom.  Beyond Button's
+  prime-power family.
+- **The template `markov_max_unique_of_window_realized_unique`** (§18): `5≤c ∧ WindowRealizedUnique c
+  ⟹ MarkovMaxUnique c` — the genuine reduction of composite-`c` uniqueness to **phantom elimination**,
+  as a ∅-axiom theorem.  `WindowRealizedUnique` = only the *realized* windowed `√(−1)` roots need be
+  unique (strictly weaker than `SqrtNegOneTwoRoots`).  `window_realized_unique_of_sqrtNegOne` makes
+  Button a special case.
+- Plumbing: `mNode_max` (mediant is strict max, §16), `node_recovery_nat` ((r·m_l)%c=m_r ℕ, §17, via
+  pure `mod_eq_of_ofNat_dvd_sub` + main's `ofNat_sub_ofNat`), `node_realized` (every node residue is
+  realized).
+- 1325 closure uses the repo's existing `markov_composite_separation` (182 phantom / 507 realized)
+  + a feasible `decide` that windowed roots ⊆ {182,507}.  Correction to earlier note: the *naive*
+  `∀u₁∀u₂` decide is `c²`-infeasible, but the windowed-roots `decide` is `c` (feasible), and the
+  realize-uniqueness is closed structurally via the phantom data.
+- §14 (hyperbolic disc, Markov tree on φ-face of SL₂) + §15 (`det2 = DetN.det` at n=2, + 2×2
+  multiplicativity back to general `DetN`) — concept imports from the main merge.
+
+### Path to MORE composite Markov numbers
+Each composite Markov number `c` closes the same way: `decide` the windowed-root set (feasible, `c`)
++ supply the phantom roots' `∀b<c ¬markovEq` (feasible, `c` per root) → `WindowRealizedUnique c` →
+template.  `610 = 2·5·61` is the next; the bottleneck is producing the `markov_composite_separation`-
+style phantom data per `c` (mechanical).
+
+## ★ EARLIER 2026-06-04: BUTTON'S THEOREM CLOSED, ∅-axiom
 
 ## ★★★ MILESTONE: `Real213/SternBrocotMarkov` **63 PURE** — prime-power uniqueness DONE
 The whole chain is now closed, fully ∅-axiom (`#print axioms` clean):
