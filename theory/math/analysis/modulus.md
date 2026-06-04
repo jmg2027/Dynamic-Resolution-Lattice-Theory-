@@ -60,4 +60,3 @@ python3 tools/scan_axioms.py Lib/Math/Analysis/Modulus
 ## Citation guidance
 
 - ✅ `theory/math/modulus.md`
-- ✅ archived: `research-notes/archive/discrete_geometry/G40_epsilon_delta_modulus.md`

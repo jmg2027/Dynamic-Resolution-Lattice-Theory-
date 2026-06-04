@@ -36,10 +36,7 @@ its `depth` strictly drops, bottoming out at the atoms:
     floor (`atoms_are_floor : a.depth = 0 ∧ b.depth = 0`).
 
 The "floor" is therefore not where a regress is *stopped* but the shape that is
-*invariant under refinement* — a fixed shape, with a terminating descent.  (The
-two distinct closures meeting here — the Lambek self-fixed-point and the
-well-founded floor — are separated in `two_closures`; see
-`research-notes/G152_residue_self_covering.md`.)
+*invariant under refinement* — a fixed shape, with a terminating descent.
 
 ## 2. Count — `5^L` replication (`Lib/Math/SelfSimilarityBridge.lean`)
 

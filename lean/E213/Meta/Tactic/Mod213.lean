@@ -5,8 +5,7 @@
 not Lean's well-founded `% n` (which forces propext through
 `Nat.add_mod_right` etc.).
 
-Rationale (`research-notes/G2_trajectory_principle.md`,
-`G3_raw_as_universal_trajectory.md`):
+Rationale:
 
   - Lean's `Nat.mod` = well-founded recursion → reduction lemmas
     bring `propext`.

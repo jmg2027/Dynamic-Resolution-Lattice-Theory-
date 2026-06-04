@@ -25,8 +25,7 @@ Current closure:
   (Step 6).
 
 Both conjectures are subsections of the broader 213-Algebra catalog
-(`research-notes/G35_chiral_cup_ring_catalog.md` §C1, §C5 — still
-active scratch for the field-level meta-catalog).
+.
 
 The single citable precision theorem is `invAlphaEm_precision_theorem`
 ∈ `AlphaEM.GramStructuralCapstone` (0.2 ppb, π² as a literal input),
