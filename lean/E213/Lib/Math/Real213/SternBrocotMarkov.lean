@@ -1405,4 +1405,36 @@ theorem markov_prime_pow_unique (p k : Nat) (hp3 : 3 ≤ p)
   markov_max_unique_tree (p ^ (k + 1)) h5
     (E213.Lib.Math.Real213.MarkovUniqueness.sqrtNegOneTwoRoots_prime_pow p k hp3 hpr)
 
+/-! ## §14 — import: the Markov tree on the hyperbolic (φ) face of `SL₂`
+
+  Main's `HyperbolicEllipticTrace` classifies a det-1 `2×2` matrix by `Δ = tr² − 4·det`: `Δ>0`
+  hyperbolic (φ/Fibonacci scaling, golden `G=⟨2,1,1,1⟩` has `Δ=5`), `Δ<0` elliptic (π, orders 4/6).
+  Every Markoff node matrix has `tr = 3·m_t` (`mNode_shape`) and `det = 1` (`mNode_det1`), so its
+  discriminant is `Δ = 9·m_t² − 4 > 0`: **the entire Markov tree lives on the hyperbolic face**, and
+  its left generator `genL = ⟨2,1,1,1⟩ = G` is exactly the golden `Δ=5` pole — the Markov-spectrum
+  minimum `√5` (`GoldenFormMarkov`).  The `Δ = 9c²−4` is the discriminant of the Markov form. -/
+
+/-- The discriminant of a node matrix is `tr² − 4·det = 9·m_t² − 4` (`tr = 3 m_t`, `det = 1`). -/
+theorem markov_node_disc (path : List Bool) :
+    ((mNode path).a + (mNode path).d) * ((mNode path).a + (mNode path).d) - 4 * det2 (mNode path)
+    = 9 * ((mNode path).c * (mNode path).c) - 4 := by
+  rw [mNode_shape path, mNode_det1 path]; ring_intZ
+
+/-- ★★★★ **Every Markov node matrix is hyperbolic** (`Δ = 9 m_t² − 4 > 0`): the tree is a tree of
+    scalings (the φ/Fibonacci face), `genL = G` the golden `Δ=5` pole.  Since `m_t ≥ 1`,
+    `Δ = 5 + 9(m_t²−1) ≥ 5 > 0`. -/
+theorem markov_node_hyperbolic (path : List Bool) :
+    0 < ((mNode path).a + (mNode path).d) * ((mNode path).a + (mNode path).d)
+        - 4 * det2 (mNode path) := by
+  have h2 : 1 ≤ (mNode path).c * (mNode path).c :=
+    one_le_mul (markovNum_pos path) (markovNum_pos path)
+  have hnn : (0 : Int) ≤ 9 * ((mNode path).c * (mNode path).c - 1) :=
+    E213.Meta.Int213.mul_nonneg (by decide) (nonneg_sub_of_le h2)
+  have e : ((mNode path).a + (mNode path).d) * ((mNode path).a + (mNode path).d)
+           - 4 * det2 (mNode path)
+         = (5 : Int) + 9 * ((mNode path).c * (mNode path).c - 1) := by
+    rw [mNode_shape path, mNode_det1 path]; ring_intZ
+  rw [e]
+  exact lt_of_sub_eq_of_one_le (sub_zero_int _) (one_le_add_nonneg (by decide) hnn)
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
