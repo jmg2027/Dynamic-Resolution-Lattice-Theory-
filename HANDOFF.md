@@ -33,14 +33,22 @@ infrastructure the integer Cayley–Hamilton telescoping needs.  No `funext`/`pr
 at every integer have equal coefficients).  This transports the `Int` adjugate identity
 (`Laplace.matMul_adj_diag/offdiag`, holds ∀`x` at `A = xI−M`) into a `PolyZ` coefficient identity.
 
-**Remaining (steps 4–6; all infrastructure now in place):**
-4. `pmatMul` (PolyZ matrix product) + eval-soundness; `padj` (poly-adjugate of `charMat`) +
-   eval-soundness; the entrywise identity `pmatMul charMat padj = χ • polyId` by eval-at-all-`x`
-   (Int adjugate + `eval_pdet`) + `coeff_unique`.  (New file importing `Laplace`+`PolyDet`+
-   `CayleyHamilton`.)
-5. telescoping `χ(M) = Σ_k c_k M^k = 0` (`B_k := coeff-matrix of padj`, `c_k := coeff χ`; index-shift
-   via §4/§5 matrix-ring laws) ⟹ ★★★ integer Cayley–Hamilton.
-6. §7 Kronecker `M` + first-component extraction ⟹ `cfiniteZ_mul` (`cfiniteZ_of_shiftRec`).
+★★★ **Step 4 done** (`Linalg213/CharPolyAdj`, 11 PURE): the **polynomial adjugate identity**
+`(X·I − M)·adj(X·I − M) = χ_M·I` over `ℤ[X]` (`padj_identity`) — lifted from the `Int` adjugate
+identity by `pmatMul`/`padj` eval-soundness + `coeff_unique`.  The conceptual heart of integer
+Cayley–Hamilton is now closed.
+
+**Remaining (steps 5–6; coefficient bookkeeping + companion construction):**
+5. **Telescoping** ⟹ `χ(M) = Σ_k c_k M^k = 0`: read `padj_identity` coefficient-wise — need
+   `coeff_psumZ` + `coeff_mulP` (convolution) + `charMat M i j = [−M_ij, δ_ij]`, giving the matrix
+   relations `B_{k−1} − M B_k = c_k I` (`B_k(i,j) := coeff (padj … i j) k`, `c_k := coeff χ k`),
+   then index-shift telescoping with the §4/§5 `CayleyHamilton` ring laws (`matMul_addL`,
+   `matMul_matSumZ_*`, `matPow`).  ⟹ integer Cayley–Hamilton.
+6. **§7 Kronecker `M`** (tensor of the two companion matrices) + `V(n+1)=M·V(n)` + first-component
+   extraction ⟹ `cfiniteZ_mul` via `cfiniteZ_of_shiftRec`.
+
+This session banked (all ∅-axiom): matrix ring (`CayleyHamilton` 25) + `PolyZ` 26 + `PolyDet` 11
++ `CharPolyAdj` 11 = **73 PURE**.
 
 ## Other live threads
 - C-finite orbit dimension: `theory/math/analysis/cfinite_orbit_dimension.md`

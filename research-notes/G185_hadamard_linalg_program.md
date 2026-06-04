@@ -484,3 +484,31 @@ evaluation, then read coefficient-wise for the telescoping.
 5. telescoping `χ(M) = Σ_k c_k M^k = 0` (`B_k := coeff-matrix of padj`, `c_k := coeff χ`; the
    relations from step 4 read at each power; index-shift via §4/§5 matrix-ring laws) ⟹ ★★★ CH.
 6. §7 Kronecker `M` + first-component extraction ⟹ `cfiniteZ_mul`.
+
+## Update — ★★★ polynomial adjugate identity CLOSED (CharPolyAdj 11 PURE)
+
+Step 4 done, ∅-axiom (`Linalg213/CharPolyAdj.lean`): **`(X·I − M)·adj(X·I − M) = χ_M·I` over `ℤ[X]`**.
+Matrix products/adjugates over `PolyZ` carry evaluation soundness — `pmatMul`+`eval_pmatMul`,
+`padj`+`eval_padj` (`eval (padj n A a b) x = Laplace.adj n (evalMat A x) a b`) — so the identity is
+**lifted from the `Int` adjugate identity by evaluation + `coeff_unique`**, re-deriving nothing over
+`PolyZ`:
+- `padj_identity_eval`: at every `x`, entry `(i,k)` of `(XI−M)·adj` evaluates to the `Int` adjugate
+  value (`matMul_congr` to swap in `evalMat`, then `Laplace.matMul_adj_diag`/`_offdiag`;
+  `eval_charPoly` for the diagonal `χ`).
+- ★★★ `padj_identity`: `∀ kk, coeff (pmatMul (n+1) charMat padj i k) kk = coeff (charScalarId M (n+1) i k) kk`
+  (i.e. equal as integer polynomials) via `coeff_unique`.
+
+**Remaining (steps 5–6):**
+5. **Telescoping** ⟹ `χ(M) = Σ_k c_k M^k = 0`.  Read `padj_identity` coefficient-wise: need
+   `coeff_psumZ` (coeff of a `PolyZ` sum) + `coeff_mulP` (coeff of a product = convolution) + the
+   length-≤2 `charMat M i j = [−M_ij, δ_ij]`, giving the matrix relations `B_{k−1} − M B_k = c_k I`
+   (`B_k(i,j) := coeff (padj … i j) k`, `c_k := coeff χ k`), boundary `B_{N−1}=I`, `−M B_0 = c_0 I`;
+   then the index-shift telescoping with §4/§5 `CayleyHamilton` ring laws (`matMul_addL`,
+   `matMul_matSumZ_*`, `matPow`).  ⟹ integer Cayley–Hamilton.
+6. **§7 Kronecker `M`** (tensor of the two companion matrices) + `V(n+1)=M·V(n)` + first-component
+   extraction ⟹ `cfiniteZ_mul` via `cfiniteZ_of_shiftRec`.
+
+Banked this session (all ∅-axiom): matrix ring (`CayleyHamilton` 25) + `PolyZ` 26 (incl. the
+uniqueness gate) + `PolyDet`/`charPoly` 11 + `CharPolyAdj` 11 = **73 PURE**.  The conceptual heart
+(uniqueness + polynomial adjugate identity) is done; steps 5–6 are coefficient bookkeeping + the
+companion-matrix construction.
