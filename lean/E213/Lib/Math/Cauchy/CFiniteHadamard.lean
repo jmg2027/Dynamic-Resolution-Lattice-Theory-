@@ -122,4 +122,36 @@ theorem dec_spec {q : Nat} (hq : 0 < q) (J : Nat) :
     decA q J * q + decB q J = J ∧ decB q J < q :=
   divmod_spec q hq J J (lt_mul_succ_self hq J)
 
+/-- **Uniqueness of division**: the quotient is determined by `x·q + r = a·q + s` with `r,s < q`. -/
+theorem divmod_unique (q : Nat) : ∀ (x a r s : Nat),
+    x * q + r = a * q + s → r < q → s < q → x = a
+  | 0,     0,     _, _, _, _,  _  => rfl
+  | 0,     a + 1, r, s, h, hr, _  => by
+    rw [Nat.zero_mul, Nat.zero_add] at h
+    have qler : q ≤ r := by
+      rw [h]; exact Nat.le_trans (Nat.le_mul_of_pos_left q (Nat.succ_pos a)) (Nat.le_add_right _ s)
+    exact absurd (Nat.lt_of_le_of_lt qler hr) (Nat.lt_irrefl q)
+  | x + 1, 0,     r, s, h, _,  hs => by
+    rw [Nat.zero_mul, Nat.zero_add] at h
+    have qles : q ≤ s := by
+      rw [← h]; exact Nat.le_trans (Nat.le_mul_of_pos_left q (Nat.succ_pos x)) (Nat.le_add_right _ r)
+    exact absurd (Nat.lt_of_le_of_lt qles hs) (Nat.lt_irrefl q)
+  | x + 1, a + 1, r, s, h, hr, hs => by
+    rw [Nat.succ_mul, Nat.succ_mul, Nat.add_right_comm (x * q) q r,
+        Nat.add_right_comm (a * q) q s] at h
+    rw [divmod_unique q x a r s (E213.Tactic.NatHelper.add_right_cancel h) hr hs]
+
+/-- ★ **Encode roundtrip (row)**: `decA q (a·q + b) = a` for `b < q`. -/
+theorem decA_encode {q : Nat} (hq : 0 < q) (a b : Nat) (hb : b < q) :
+    decA q (a * q + b) = a := by
+  obtain ⟨h1, h2⟩ := dec_spec hq (a * q + b)
+  exact divmod_unique q (decA q (a * q + b)) a (decB q (a * q + b)) b h1 h2 hb
+
+/-- ★ **Encode roundtrip (column)**: `decB q (a·q + b) = b` for `b < q`. -/
+theorem decB_encode {q : Nat} (hq : 0 < q) (a b : Nat) (hb : b < q) :
+    decB q (a * q + b) = b := by
+  obtain ⟨h1, _⟩ := dec_spec hq (a * q + b)
+  rw [decA_encode hq a b hb] at h1
+  exact E213.Tactic.NatHelper.add_left_cancel h1
+
 end E213.Lib.Math.Cauchy.CFiniteHadamard
