@@ -2,7 +2,20 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — direction (2) forced-fixed-point attack: the locality obstruction + new case `G194`
+## ★★★ NEWEST — direction (#4) cohomology δ probe: real space-identification, refuted selection `G195`
+- **Positive (solid)**: windowed √(−1) roots ≅ im(δ⁰) on the prime-vertices — a sign choice s∈{±1}^ω,
+  window = global flip = ker δ⁰, so windowed roots = relative-sign cochains.  Clean ∅-axiom-able
+  cohomological identification of the root SPACE (local in c, cross-suborbit — the candidate to evade
+  G194's locality wall).
+- **Negative (machine-checked)**: `realized_root_relative_sign_not_uniform` (PURE).  Realizability is NOT
+  a fixed-c δ-class: realized roots at 985 (408) & 1325 (507) have opposite prime-signs (δ⁰-edge 1), but
+  4181 (1597, Fibonacci-spine (1,1597,4181)) agrees (edge 0).  Selection is GLOBAL (tree position), not a
+  local-in-c cohomological condition — locality obstruction holds.
+- **Verdict**: #4 structures the space but doesn't select; a *tree*-indexed δ (Vieta-adjacency) would be
+  where H lives, but that re-imports cross-c character (same wall as continuant/stable-norm). Positive
+  residue worth building: general `windowed roots ≅ im δ⁰`.
+
+## direction (2) forced-fixed-point attack: the locality obstruction + new case `G194`
 - **`markov_max_unique_985_via_orbit`** (`SternBrocotMarkov`, PURE): new ∅-axiom composite `985 = 5·197`
   (next `ω=2`, both primes ≡1 mod 4).  Windowed roots `{183,408}`, realized `408` (triple `(2,169,985)`),
   phantom `183`; `u₁=u₂=408` closes structurally via `root_orbit_inj`.  Extends tower closure beyond 1325.
