@@ -31,7 +31,8 @@ machine-checked obstruction (`genR`).
 namespace E213.Lib.Math.Real213.ContinuantMarkov
 
 open E213.Lib.Math.Real213.ModularElliptic (Mat2 mul)
-open E213.Lib.Math.Real213.SternBrocotMarkov (genL genR markovNum)
+open E213.Lib.Math.Real213.SternBrocotMarkov (genL genR markovNum mInterval mInterval_det
+  det2 det2_mul mInterval_shape markoff_vieta_trace markoff_vieta_trace_R)
 open E213.Lib.Math.Real213.Continuant (contMat contMatProd continuant continuant_eq_contMatProd)
 
 /-- **`genL` is the all-`1` continuant word** `[[1,1],[1,0]]² = contMatProd [1,1]` — the square of the
@@ -80,5 +81,85 @@ theorem cohnTrace_markov_examples :
     machine-checked counterexample pins the remaining bridge as the nontrivial one. -/
 theorem naive_bridge_fails :
     decide (3 * markovNum [true, false] = cohnTrace [true, true, false, false]) = false := by decide
+
+/-! ## The bridge, proved: `markovNum p = tr(Cohn tree node)/3` (continuant-trace)
+
+The genuine path → Christoffel-word correspondence.  The **Cohn matrix tree** is `mInterval` with the
+true Cohn right-seed `B = [[5,2],[2,1]] = contMatProd [2,2]` in place of the repo's conjugate `genR`
+(the left seed `cohnA = contMatProd [1,1] = genL` already coincides).  Although the matrices differ
+(`genR ≠ B`), the **trace-triple `(tr L, tr R, tr (L·R))` follows a recursion in traces alone** — by the
+SL₂ identities `tr(L²R) = tr L·tr(LR) − tr R` (`markoff_vieta_trace`) and its `R`-form — and both trees
+share the base `(3, 6, 15)`.  Hence the traces coincide at every node, so `tr(cohn node) = tr(mNode) =
+3·markovNum` (`mInterval_shape`).  This is the cutting-sequence bijection at the trace level. -/
+
+/-- Cohn left/right seeds: `cohnA = [[2,1],[1,1]] = genL`, `cohnB = [[5,2],[2,1]]` (standard Cohn `B`). -/
+def cohnA : Mat2 := contMatProd [1, 1]
+def cohnB : Mat2 := contMatProd [2, 2]
+
+/-- The Cohn matrix tree (`mInterval` recursion with the genuine Cohn seeds). -/
+def cInterval : List Bool → Mat2 × Mat2
+  | [] => (cohnA, cohnB)
+  | true :: t => ((cInterval t).1, mul (cInterval t).1 (cInterval t).2)
+  | false :: t => (mul (cInterval t).1 (cInterval t).2, (cInterval t).2)
+
+/-- The Cohn tree node. -/
+def cNode (p : List Bool) : Mat2 := mul (cInterval p).1 (cInterval p).2
+
+/-- Both Cohn interval bounds are `SL₂(ℤ)` (det 1). -/
+theorem cInterval_det : ∀ path, det2 (cInterval path).1 = 1 ∧ det2 (cInterval path).2 = 1
+  | [] => by decide
+  | true :: t => by
+      obtain ⟨h1, h2⟩ := cInterval_det t
+      refine ⟨h1, ?_⟩
+      show det2 (mul (cInterval t).1 (cInterval t).2) = 1
+      rw [det2_mul, h1, h2]; decide
+  | false :: t => by
+      obtain ⟨h1, h2⟩ := cInterval_det t
+      refine ⟨?_, h2⟩
+      show det2 (mul (cInterval t).1 (cInterval t).2) = 1
+      rw [det2_mul, h1, h2]; decide
+
+/-- ★★★★★ **The trace-triple of the Cohn tree equals that of the repo tree, at every node.**  Proved by
+    the traces-only Vieta recursion (`markoff_vieta_trace(_R)`) from the shared base `(3,6,15)`. -/
+theorem cohn_trace_eq : ∀ path,
+    ((cInterval path).1.a + (cInterval path).1.d = (mInterval path).1.a + (mInterval path).1.d)
+    ∧ ((cInterval path).2.a + (cInterval path).2.d = (mInterval path).2.a + (mInterval path).2.d)
+    ∧ ((mul (cInterval path).1 (cInterval path).2).a + (mul (cInterval path).1 (cInterval path).2).d
+        = (mul (mInterval path).1 (mInterval path).2).a + (mul (mInterval path).1 (mInterval path).2).d)
+  | [] => by refine ⟨?_, ?_, ?_⟩ <;> decide
+  | true :: t => by
+      obtain ⟨i1, i2, i3⟩ := cohn_trace_eq t
+      obtain ⟨d1c, _⟩ := cInterval_det t
+      obtain ⟨d1m, _⟩ := mInterval_det t
+      refine ⟨i1, i3, ?_⟩
+      show (mul (cInterval t).1 (mul (cInterval t).1 (cInterval t).2)).a
+           + (mul (cInterval t).1 (mul (cInterval t).1 (cInterval t).2)).d
+         = (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).a
+           + (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).d
+      rw [markoff_vieta_trace (cInterval t).1 (cInterval t).2 d1c,
+          markoff_vieta_trace (mInterval t).1 (mInterval t).2 d1m, i1, i3, i2]
+  | false :: t => by
+      obtain ⟨i1, i2, i3⟩ := cohn_trace_eq t
+      obtain ⟨_, d2c⟩ := cInterval_det t
+      obtain ⟨_, d2m⟩ := mInterval_det t
+      refine ⟨i3, i2, ?_⟩
+      show (mul (mul (cInterval t).1 (cInterval t).2) (cInterval t).2).a
+           + (mul (mul (cInterval t).1 (cInterval t).2) (cInterval t).2).d
+         = (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).a
+           + (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).d
+      rw [markoff_vieta_trace_R (cInterval t).1 (cInterval t).2 d2c,
+          markoff_vieta_trace_R (mInterval t).1 (mInterval t).2 d2m, i1, i2, i3]
+
+/-- ★★★★★ **The Frobenius bridge, proved**: `3·markovNum p = tr(Cohn node p)` — the Markov number is the
+    trace (over 3) of the Christoffel/Cohn matrix word at path `p`.  Via `cohn_trace_eq` (Cohn trace =
+    repo trace) and `mInterval_shape` (repo trace = `3·markovNum`).  Composed with the continuant trace
+    identity (`Continuant.contMatProd_trace_cons`), this expresses every Markov number as a continuant —
+    the Frobenius (1913) continuant formula, ∅-axiom. -/
+theorem markovNum_eq_cohn_trace (path : List Bool) :
+    3 * markovNum path
+      = (mul (cInterval path).1 (cInterval path).2).a + (mul (cInterval path).1 (cInterval path).2).d := by
+  show 3 * (mul (mInterval path).1 (mInterval path).2).c
+       = (mul (cInterval path).1 (cInterval path).2).a + (mul (cInterval path).1 (cInterval path).2).d
+  rw [(cohn_trace_eq path).2.2, (mInterval_shape path).2.2]
 
 end E213.Lib.Math.Real213.ContinuantMarkov
