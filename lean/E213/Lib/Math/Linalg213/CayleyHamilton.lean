@@ -15,7 +15,7 @@ namespace E213.Lib.Math.Linalg213.CayleyHamilton
 
 open E213.Lib.Math.Linalg213.Permutation (sumZ iota)
 open E213.Lib.Math.Linalg213.PermClosure (sumZ_map_add sumZ_map_smul map_eq_of_mem)
-open E213.Lib.Math.Linalg213.Laplace (sumZ_append matMul)
+open E213.Lib.Math.Linalg213.Laplace (sumZ_append matMul map_append')
 
 /-! ## §1 — finite-sum Fubini -/
 
@@ -72,5 +72,86 @@ theorem matMul_assoc (n : Nat) (M N P : Nat → Nat → Int) (i l : Nat) :
           apply map_eq_of_mem
           intro j _
           rw [E213.Meta.Int213.mul_assoc])]
+
+/-! ## §3 — the matrix ring: identity, addition, scalar, and the identity laws -/
+
+/-- `a + 0 = a` over `ℤ` (propext-free, `Int213` has no `add_zero`). -/
+theorem add_zero' (a : Int) : a + 0 = a := by
+  rw [E213.Meta.Int213.add_comm, E213.Meta.Int213.zero_add]
+
+/-- `1 * a = a` over `ℤ`. -/
+theorem one_mul' (a : Int) : 1 * a = a := by
+  rw [E213.Meta.Int213.mul_comm, E213.Meta.Int213.mul_one]
+
+/-- `a * 0 = 0` over `ℤ`. -/
+theorem mul_zero' (a : Int) : a * 0 = 0 := by
+  rw [E213.Meta.Int213.mul_comm, E213.Meta.Int213.zero_mul]
+
+/-- `sumZ` of a singleton. -/
+theorem sumZ_singleton (x : Int) : sumZ [x] = x := add_zero' x
+
+/-- The `n×n` identity matrix (Kronecker delta). -/
+def matId : Nat → Nat → Int := fun i j => if i = j then 1 else 0
+
+/-- Entrywise matrix addition. -/
+def matAdd (M N : Nat → Nat → Int) : Nat → Nat → Int := fun i j => M i j + N i j
+
+/-- Entrywise negation. -/
+def matNeg (M : Nat → Nat → Int) : Nat → Nat → Int := fun i j => - M i j
+
+/-- The zero matrix. -/
+def matZero : Nat → Nat → Int := fun _ _ => 0
+
+/-- Scalar multiple of a matrix. -/
+def matScalar (c : Int) (M : Nat → Nat → Int) : Nat → Nat → Int := fun i j => c * M i j
+
+/-- **Kronecker-delta sum (vanishing range)**: when `i ≥ n`, every index `k < n` of
+    `iota n` differs from `i`, so the delta sum is `0`. -/
+theorem sumZ_iota_delta_ge (f : Nat → Int) (i : Nat) : ∀ (n : Nat), n ≤ i →
+    sumZ ((iota n).map (fun k => if i = k then f k else 0)) = 0
+  | 0,     _ => rfl
+  | n + 1, h => by
+    rw [show iota (n + 1) = iota n ++ [n] from rfl, map_append', sumZ_append,
+        show List.map (fun k => if i = k then f k else 0) [n] = [if i = n then f n else 0] from rfl,
+        sumZ_singleton, sumZ_iota_delta_ge f i n (Nat.le_of_succ_le h),
+        if_neg (Nat.ne_of_gt h), E213.Meta.Int213.zero_add]
+
+/-- ★ **Kronecker-delta sum (hit)**: summing `if i = k then f k else 0` over `iota n`
+    picks out `f i` exactly when `i < n`. -/
+theorem sumZ_iota_delta_lt (f : Nat → Int) (i : Nat) : ∀ (n : Nat), i < n →
+    sumZ ((iota n).map (fun k => if i = k then f k else 0)) = f i
+  | n + 1, hi => by
+    rw [show iota (n + 1) = iota n ++ [n] from rfl, map_append', sumZ_append,
+        show List.map (fun k => if i = k then f k else 0) [n] = [if i = n then f n else 0] from rfl,
+        sumZ_singleton]
+    by_cases h : i = n
+    · subst h
+      rw [sumZ_iota_delta_ge f i i (Nat.le_refl i), if_pos rfl, E213.Meta.Int213.zero_add]
+    · rw [sumZ_iota_delta_lt f i n (Nat.lt_of_le_of_ne (Nat.le_of_lt_succ hi) h),
+          if_neg h, add_zero']
+
+/-- ★ **Left identity**: `matId · M = M` (at any row `i < n`). -/
+theorem matMul_id_left (n : Nat) (M : Nat → Nat → Int) (i j : Nat) (hi : i < n) :
+    matMul n matId M i j = M i j := by
+  show sumZ ((iota n).map (fun k => matId i k * M k j)) = M i j
+  rw [map_eq_of_mem (fun k => matId i k * M k j) (fun k => if i = k then M k j else 0)
+        (fun k _ => by
+          show (if i = k then (1 : Int) else 0) * M k j = if i = k then M k j else 0
+          by_cases h : i = k
+          · rw [if_pos h, if_pos h]; exact one_mul' (M k j)
+          · rw [if_neg h, if_neg h]; exact E213.Meta.Int213.zero_mul (M k j)),
+      sumZ_iota_delta_lt (fun k => M k j) i n hi]
+
+/-- ★ **Right identity**: `M · matId = M` (at any column `j < n`). -/
+theorem matMul_id_right (n : Nat) (M : Nat → Nat → Int) (i j : Nat) (hj : j < n) :
+    matMul n M matId i j = M i j := by
+  show sumZ ((iota n).map (fun k => M i k * matId k j)) = M i j
+  rw [map_eq_of_mem (fun k => M i k * matId k j) (fun k => if j = k then M i k else 0)
+        (fun k _ => by
+          show M i k * (if k = j then (1 : Int) else 0) = if j = k then M i k else 0
+          by_cases h : k = j
+          · rw [if_pos h, if_pos h.symm]; exact E213.Meta.Int213.mul_one (M i k)
+          · rw [if_neg h, if_neg (fun he => h he.symm)]; exact mul_zero' (M i k)),
+      sumZ_iota_delta_lt (fun k => M i k) j n hj]
 
 end E213.Lib.Math.Linalg213.CayleyHamilton
