@@ -413,4 +413,52 @@ theorem odd_descent (p : Nat) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
   · rw [natCast_natAbs_nonneg hrnn]
     exact ⟨d1, d2, d3, d4, by rw [show rI * (p : Int) = (p : Int) * rI from by ring_intZ]; exact hdc⟩
 
+/-! ## §5 — the parity-split fuel recursion -/
+
+open E213.Meta.Nat.AddMod213 (div_add_mod)
+
+/-- Every `Nat` is even or odd (`∅`-axiom; via `div_add_mod` + `cases_lt_two`). -/
+theorem nat_even_or_odd (m : Nat) : (∃ k, m = 2 * k) ∨ (∃ k, m = 2 * k + 1) := by
+  have hdm := div_add_mod m 2
+  rcases cases_lt_two (Nat.mod_lt m (by decide)) with h0 | h1
+  · left; rw [h0, Nat.add_zero] at hdm; exact ⟨m / 2, hdm.symm⟩
+  · right; rw [h1] at hdm; exact ⟨m / 2, hdm.symm⟩
+
+/-- ★★★★★ **The descent recursion.**  `p` prime; for `1 ≤ m < p` with `isSum4 (m·p)`,
+    every such `m` descends to `m = 1`, giving `isSum4 p`.  Even `m` halves (`halve_step`),
+    odd `m > 1` strictly shrinks (`odd_descent`); the `fuel` bounds the descent length. -/
+theorem descent_rec (p : Nat) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p) :
+    ∀ (fuel m : Nat), m ≤ fuel → 1 ≤ m → m < p →
+      isSum4 ((m : Int) * (p : Int)) → isSum4 ((p : Int)) := by
+  intro fuel
+  induction fuel with
+  | zero => intro m hmf h1 _ _; exact absurd (Nat.le_trans h1 hmf) (by decide)
+  | succ n ih =>
+    intro m hmf h1 hmlt hsum
+    rcases Nat.lt_or_ge 1 m with h2 | h2
+    · rcases nat_even_or_odd m with ⟨m', he⟩ | ⟨k, ho⟩
+      · -- even `m = 2 m'`
+        have hm'1 : 1 ≤ m' := by
+          rcases Nat.eq_zero_or_pos m' with hz | hz
+          · rw [hz, Nat.mul_zero] at he; rw [he] at h2; exact absurd h2 (by decide)
+          · exact hz
+        have hm'lt : m' < m := by
+          rw [he, Nat.two_mul]; exact Nat.lt_add_of_pos_left hm'1
+        have hcast : (m : Int) = 2 * (m' : Int) := by rw [he]; rfl
+        have hs2 : isSum4 (2 * (m' : Int) * (p : Int)) := by
+          rw [show 2 * (m' : Int) * (p : Int) = (m : Int) * (p : Int) from by rw [hcast]]
+          exact hsum
+        exact ih m' (Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hm'lt hmf)) hm'1
+          (Nat.lt_trans hm'lt hmlt) (halve_step (m' : Int) (p : Int) hs2)
+      · -- odd `m = 2 k + 1`, `m > 1`
+        obtain ⟨r, hr1, hrlt, hrs⟩ :=
+          odd_descent p hpr m k ho h2 hmlt hsum
+        exact ih r (Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hrlt hmf)) hr1
+          (Nat.lt_trans hrlt hmlt) hrs
+    · -- `m = 1`
+      have hm1 : m = 1 := Nat.le_antisymm h2 h1
+      rw [hm1, show ((1 : Nat) : Int) * (p : Int) = (p : Int) from by
+        rw [show ((1 : Nat) : Int) = 1 from rfl]; ring_intZ] at hsum
+      exact hsum
+
 end E213.Lib.Math.NumberTheory.FourSquare
