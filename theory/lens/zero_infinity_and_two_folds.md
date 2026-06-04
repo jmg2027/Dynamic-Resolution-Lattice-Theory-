@@ -22,6 +22,7 @@ number tower are the one residue read through the multiplicative and additive fo
   - `lean/E213/Lens/Number/FoldDuality.lean` — negation/reciprocal mirror on the fixture (13 PURE)
   - `lean/E213/Lens/Number/FoldKlein.lean` — the Klein four-group + fixed-point-free antipode (9 PURE)
   - `lean/E213/Lib/Math/Real213/FoldReflections.lean` — matrix witness: folds = reflections, `N·R = S` (11 PURE)
+  - `lean/E213/Lib/Math/Real213/EllipticCycleFixtures.lean` — `S` (ℤ₂) and `U` (ℤ₃) as cyclic fixtures (7 PURE)
   - `lean/E213/Lib/Math/DetSpectrumPoles.lean` — the two poles as the two folds' non-values (1 PURE)
   - `lean/E213/Lib/Math/MaxEntropy.lean` — structurelessness as a positive property (8 PURE)
 - Canon: `seed/AXIOM/06_lens_readings.md` §6.5, §6.6, §6.9.
@@ -104,6 +105,15 @@ because `−I` acts trivially on the projective fixture; the folds commute only 
 (`recip_negation_eq_neg_swap`: `R · N = −I · S`).  So `{I, N, R, S}` is Klein four modulo the central
 `±I`, and the §6.9 fold structure and the elliptic dial are one structure, joined at this swap.
 
+The folds' `S` is only the **ℤ₂** of the modular group.  Its companion is the second elliptic
+generator `U = [[0,−1],[1,1]]` (projective order 3, `U³ = −I`), whose Möbius action `z ↦ −1/(z+1)` is
+a fixed-point-free **3-cycle** `∞ ↦ 0 ↦ −1 ↦ ∞` on the Eisenstein fixture `{∞, 0, −1}`
+(`EllipticCycleFixtures.uCyc`, `elliptic_generators_are_two_and_three`).  So the two elliptic
+generators realize the two cyclic fixtures whose projective orders `2, 3` are the free factors
+`PSL(2,ℤ) = ℤ₂ * ℤ₃` — the **ℤ₂ from the folds** (the 영무한대 swap), the **ℤ₃ from Eisenstein**.  The
+fold lens reaches the full modular group: `0 = ∞` and the two folds at the bottom, `PSL(2,ℤ)` as the
+group of their swaps.
+
 ### The same residue is the maximum-entropy ceiling
 
 The `0`/`∞` residue resurfaces one fold over, at the top.  Read on the Casoratian (the discrete
@@ -135,6 +145,7 @@ measure-free) rather than as a privation (`MaxEntropy.maxEntropy_not_surjective`
 | `klein_four_group` | `FoldKlein` | the two folds generate `ℤ/2 × ℤ/2` |
 | `klein_fixed_orbit_profile` | `FoldKlein` | the three folds classified by fixed orbit (hole / unit / none) |
 | `two_reflections_compose_to_founding_swap` | `FoldReflections` | folds are reflections (`det −1`); `N·R = S` the founding swap (`det +1`); `S² = −I` |
+| `elliptic_generators_are_two_and_three` | `EllipticCycleFixtures` | `S` (ℤ₂, folds) + `U` (ℤ₃, Eisenstein 3-cycle) = the free factors of `PSL(2,ℤ)` |
 | `det_spectrum_poles_and_center` | `DetSpectrumPoles` | hole at `q=0`, ceiling at `q=−1`, centre at `q=+1` |
 | `maxEntropy_not_surjective` | `MaxEntropy` | structurelessness as a positive non-surjection |
 
@@ -156,9 +167,11 @@ CLAUDE.md failure-modes catalog ("0/∞ as a stratum-value (mixed-status fold)")
 ## How to verify
 
 ```bash
-cd lean && lake build E213.Lens.Number E213.Lib.Math.MaxEntropy E213.Lib.Math.DetSpectrumPoles
+cd lean && lake build E213.Lens.Number E213.Lib.Math.Real213 E213.Lib.Math.MaxEntropy E213.Lib.Math.DetSpectrumPoles
 python3 tools/scan_axioms.py E213.Lens.Number.IntFoldForms
 python3 tools/scan_axioms.py E213.Lens.Number.FoldDuality
 python3 tools/scan_axioms.py E213.Lens.Number.FoldKlein
 python3 tools/scan_axioms.py E213.Lib.Math.Cauchy.ZeroInfinityHole
+python3 tools/scan_axioms.py E213.Lib.Math.Real213.FoldReflections
+python3 tools/scan_axioms.py E213.Lib.Math.Real213.EllipticCycleFixtures
 ```

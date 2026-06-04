@@ -1,46 +1,57 @@
-# Session Handoff — 2026-06-03 (∅-axiom determinant via antisymmetrization)
+# Session Handoff — 2026-06-04 (0=∞ / the two folds / modular group)
 
 ## Branch
-`claude/goal-g183-CxU4X` — `origin/main` (invert-universal-property + concurrent threads) merged
-in.  Full `cd lean && lake build` clean; every new theorem ∅-axiom (`tools/scan_axioms.py` →
-`N pure / 0 dirty`, run from repo root).
+`claude/non-holonomicity-rGhug` — fast-forwarded onto `origin/main` (concurrent determinant /
+CFinite / OrbitDimension threads merged in).  Every new theorem ∅-axiom
+(`python3 tools/scan_axioms.py <mod>` from repo root → `N pure / 0 dirty`).  Build clean:
+`cd lean && lake build E213.Lib.Math E213.Lens.Number`.
 
-## Headline this session: a complete ∅-axiom determinant
+## Headline this leg: 0 = ∞ is one residue; the two folds generate PSL(2,ℤ)
 
-Built the Leibniz determinant and **all its defining properties** via antisymmetrization — the
-natural home the determinant essay predicted (`theory/essays/determinant_as_quotient_characteristic.md`).
-No `funext`/`propext`/`Quot.sound`/`Classical`/Mathlib.
+A `det = 0` / "is `0` a value?" intuition opened into a full thread, now closed end to end and
+promoted.  Spine: `0` and `∞` are **one pre-Lens residue** (not a dual pair); a fold may handle the
+pair only status-symmetrically; the two founding folds (negation, reciprocal) are mirror involutions
+whose product is the founding elliptic swap, and the elliptic generators give `PSL(2,ℤ) = ℤ₂ * ℤ₃`.
 
-- **`Linalg213/Permutation` (33 PURE)** — `LPerm`, `psign` (inversion sign), `swapAt`, the
-  Leibniz determinant `leibDet n M = Σ_σ sign(σ)·Πᵢ M i (σ i)`, the per-term row-swap identity.
-- **`Linalg213/PermClosure` (76 PURE)** — the symmetric-group machinery, ∅-axiom from scratch
-  (core's `List.mem_*`/`length_append`/`map_map`/`range`/`Nodup` are propext/Quot-tainted):
-  - clean `List` substrate (`mem_*`, `length_append'`, `map_map'`, `Nodup := ∀a, cnt a L ≤ 1`).
-  - soundness + completeness (`q ∈ permsOf xs ⟺ LPerm q xs`), `nodup_permsOf` (via a `removeFirst`
-    retraction), the count engine `lperm_of_cnt_eq`, and ★ `perms_swap_closed` (enumeration closed
-    under `swapAt`, via a clean self-defined `iota`).
-  - ★ **alternating**: `leibDet_rowSwap` (adjacent row swap negates), `leibDet_eq_zero_of_rows_eq`
-    / `leibDet_eq_zero_of_two_rows_eq` / `leibDet_rows_eq_ne` (equal rows ⟹ 0, any positions).
-  - ★ **multilinearity**: `leibDet_setRow_add` / `leibDet_setRow_smul` (linear in each row).
-  - ★ **degeneracy**: `leibDet_proportional_rows`, `leibDet_zero_row`.
-- **`Linalg213/FibCassiniDet` (3 PURE)** — `det 2 (Fibonacci Casoratian) = (−1)ⁿ⁺¹` (the unit end).
-- **`Linalg213/Laplace` (4 PURE, started)** — the minor relabeling `unshift` = inverse of
-  `colShift` (cofactor-expansion foundation).
+- **`Cauchy/ZeroInfinityHole` (5 PURE)** — `0` = the single reciprocal hole (`zero_no_reciprocal`);
+  reciprocal-fixed core = the units (`self_reciprocal_iff_unit`, via `Int213.int_sq_le_one`);
+  `det = 0` collapses the Casoratian (`cas_zero_collapses`).
+- **`MaxEntropy` (8 PURE)** — structurelessness as a *positive* property `¬∃d, polyDepthZ d s`
+  (incompressibility, measure-free); a max-entropy sequence forces the Newton generator
+  non-surjective (`maxEntropy_not_surjective`); witnesses `thueMorse_maxEntropy`,
+  `golden_cassini_maxEntropy`.
+- **`DetSpectrumPoles` (1 PURE)** — `det_spectrum_poles_and_center`: `q=0` multiplicative hole,
+  `q=−1` additive ceiling (MaxEntropy), `q=+1` doubly-finite centre.
+- **`Lens/Number/IntFoldForms` (13 PURE)** — ℤ's two status-symmetric closures of negation:
+  one-point `ℤ̂` (`0,∞` both fixed) and two-point `ℤ̄` (`0` fixed, `±∞` swapped); plain ℤ torsioned.
+- **`Lens/Number/FoldDuality` (13 PURE)** — on `Q4 = {∞,0,±1}`, negation **fixes** `{0,∞}`/swaps
+  `{±1}`; reciprocal the mirror (`two_folds_dual_on_pairs`).
+- **`Lens/Number/FoldKlein` (9 PURE)** — the two folds generate `ℤ/2 × ℤ/2`; antipode
+  `bothSwap = negQ∘recQ` is fixed-point-free; `klein_fixed_orbit_profile`.
+- **`Real213/FoldReflections` (11 PURE)** — matrix witness: `N`(neg), `R`(recip) are reflections
+  (`det −1`), `N·R = S` the founding swap (`det +1`), `S² = −I` (order 4 → proj 2).
+- **`Real213/EllipticCycleFixtures` (7 PURE)** — `U` (proj order 3) as a 3-cycle `∞↦0↦−1↦∞`; with
+  `S` gives `PSL(2,ℤ) = ℤ₂ * ℤ₃` (`elliptic_generators_are_two_and_three`).
 
-## Open path (in progress) — `research-notes/G185_hadamard_linalg_program.md`
+## Canon + promotion
+- **`seed/AXIOM/06_lens_readings.md` §6.9** — new: "0 and ∞ are pre-Lens, status-symmetric, never a
+  single-stratum value" (refines §6.5/§6.6).  Failure-mode row added to CLAUDE.md
+  ("0/∞ as a stratum-value (mixed-status fold)").
+- **`theory/lens/zero_infinity_and_two_folds.md`** — promoted synthesis chapter mirroring the whole
+  thread (registered in `theory/lens/INDEX.md`).
 
-**Laplace → CH → cfiniteZ_mul** (chosen; toward the general C-finite Hadamard product):
-§1 relabeling ✅ → §2 row-0 cofactor expansion `leibDet (n+1) M = Σⱼ altSign j · M 0 j ·
-leibDet n (minor M j)` (the heaviest: `perms (n+1)` ↔ `⋃ⱼ perms n` reindex; sign via
-`psign_cons`, product via `colShift_unshift`) → §3 any-row expansion → §4 adjugate
-(`M·adj = det·I`; off-diagonal = `leibDet_rows_eq_ne` ✅) → §5 integer Cayley–Hamilton →
-§6 Kronecker `M` → `cfiniteZ_mul`.
+## Earlier this session (also on main)
+Non-holonomicity / det-spectrum: `Meta/Int213/Order`, `Cauchy/{PolyDepthMonotone, ThueMorseRingEscape,
+DepthMonotoneSynthesis, CFiniteHomogRec, EllipticPeriodicTier, DetZeroCollapse, WronskianDepth,
+GoldenPiFaces, HomogRecPeriodic}`, `CeilingSchema`, `Lens/Number/FoundingDynamicBridge`.
 
-## Other live threads (earlier this branch)
-- C-finite orbit dimension promoted to `theory/math/analysis/cfinite_orbit_dimension.md`
-  (`Cauchy/OrbitDimension`, `Cauchy/CFiniteRing`).
-- Number-tower founding (`Lens/Number/`, `book/`) merged from main.
+## Open frontier / next candidates
+- **hyperbolic side** — is the golden iterator `G` (det 1, disc 5) a product of two reflections
+  (a boost), paralleling the elliptic `S = N·R`?  φ as the hyperbolic fold.
+- **ℚ̂ reciprocal fold, full** — extend `Q4` to projective rationals via `NatPairToQPos` + `{0,∞}`.
+- **π** — the elliptic irrational-rotation pole; CF non-holonomicity the standing open boundary
+  (`theory/math/analysis/phi_pi_poles.md`).
 
-## DRLT Validation Standard
-Still the repo's stated real target (untouched): ppb-ppm precision theorem and/or a strict
-∅-axiom falsifier (`N_gen=3`, `θ_QCD`).
+## Marathon mode
+Close one thread, open the next.  Commit after every increment; never amend; push to
+`claude/non-holonomicity-rGhug` and fast-forward `main` (permission granted).
