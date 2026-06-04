@@ -2,7 +2,21 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — continuant-native Cohn Markov generator + the bridge subtlety pinned (∅-axiom)
+## ★★★ NEWEST — THE FROBENIUS BRIDGE PROVED: markovNum = Cohn-trace/3 (∅-axiom, all paths)
+- **`ContinuantMarkov.markovNum_eq_cohn_trace`** (PURE): `3·markovNum p = tr(cNode p)` for ALL paths.
+  The Cohn matrix tree `cInterval`/`cNode` = `mInterval` with the genuine Cohn right-seed B=contMatProd[2,2]
+  (left seed cohnA=contMatProd[1,1]=genL coincides). genR≠B, but the trace-triple (trL,trR,tr(L·R))
+  follows a traces-only Vieta recursion (`markoff_vieta_trace(_R)`) from shared base (3,6,15) ⟹
+  `cohn_trace_eq` (Cohn trace-triple = repo trace-triple everywhere) ⟹ the bridge via `mInterval_shape`.
+  `cInterval_det` (both Cohn bounds SL₂ℤ). Composed with `contMatProd_trace_cons`: every Markov number
+  is a continuant — the Frobenius (1913) continuant formula, ∅-axiom. Naive wrap ruled out
+  (`naive_bridge_fails`); genuine map = word-mediant Christoffel tree; proof routes through TRACE
+  (sidesteps genR≠B since trace carries markovNum).
+- **G191 E-program now: E1✅ E2✅ reversal+any-pos-monotonicity✅ E4 trace identity✅ BRIDGE✅.** The full
+  continuant/Cohn/Frobenius apparatus for Markov numbers is ∅-axiom. (Aigner orderings = continuant
+  monotonicity + this bridge; necessary-not-sufficient for the kernel OrbitRealizabilityH, still open.)
+
+## continuant-native Cohn Markov generator + the bridge subtlety pinned (∅-axiom)
 - **`ContinuantMarkov`**: `cohnWord`/`cohnTrace` (true↦A=[1,1], false↦B=[2,2]; trace=tr/3, continuant-
   expressible); `cohnTrace_markov_examples` (A,B,AB,AAB,ABB ↦ 1,2,5,13,29 — the continuant-native generator
   produces the Markov numbers); `naive_bridge_fails` (machine-checked: 3·markovNum p = cohnTrace

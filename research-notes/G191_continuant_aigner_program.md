@@ -90,9 +90,17 @@ adjacency `sbInterval_adj` + `sbInterval_mediant_coprime`; Vandermonde-2 mediant
      expression, verified.  Also: reversal symmetry (`continuant_reverse`) + any-position strict
      monotonicity (`continuant_head_strict_mono`, `continuant_last_strict_mono`) — the Aigner ordering
      core.  **Remaining (research-level)**: the path→Christoffel-word translation wiring the repo's
-     `markovNum p` (tree path) to a *specific* Cohn word / CF-shape — the repo's `genR` is a conjugate of
-     standard Cohn `B`, so the repo tree and the standard-Cohn continuant tree generate the same Markov
-     numbers but the per-path identification needs the cutting-sequence bijection.  This is the last gap.
+     `markovNum p` (tree path) to a *specific* Cohn word / CF-shape.  **CLOSED at the trace level**
+     (`ContinuantMarkov`, ∅-axiom): the Cohn matrix tree `cInterval`/`cNode` is `mInterval` with the
+     genuine Cohn right-seed `B = [[5,2],[2,1]] = contMatProd [2,2]` (left seed `= genL` already).
+     Although `genR ≠ B`, the trace-triple `(trL, trR, tr(L·R))` follows a **traces-only** Vieta recursion
+     (`markoff_vieta_trace(_R)`: `tr(L²R) = trL·tr(LR) − trR`) from the shared base `(3,6,15)`, so
+     `cohn_trace_eq` (Cohn trace-triple = repo trace-triple at every node) gives
+     **`markovNum_eq_cohn_trace : 3·markovNum p = tr(cNode p)` for ALL paths**.  Composed with
+     `contMatProd_trace_cons`, every Markov number is a continuant — the **Frobenius (1913) continuant
+     formula, ∅-axiom**.  (The naive per-bit wrap was ruled out by `naive_bridge_fails`; the genuine map
+     is the word-mediant Christoffel tree, and the proof routes through the trace, sidestepping the
+     `genR`-vs-`B` matrix difference entirely since trace is what carries `markovNum`.)
   5. **One Aigner ordering** (e.g. Fixed Numerator `p=1` first — the single-spine case, likely already
      near `markovNum_lt_append`; then general `p`) as the first genuine **cross-node** ∅-axiom Markov
      ordering theorem.  Necessary-not-sufficient for `H`, but real new frontier content.
