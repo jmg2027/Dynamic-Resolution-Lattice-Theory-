@@ -204,6 +204,25 @@ theorem contMatProd_chrInterval : ∀ path,
       show contMatProd ((chrInterval t).1 ++ (chrInterval t).2) = mul (cInterval t).1 (cInterval t).2
       rw [contMatProd_append, h1, h2]
 
+/-- Every Christoffel interval left-bound starts with `1` (the seed `[1,1]` head, preserved by the
+    mediant). -/
+theorem chrInterval_fst_head : ∀ p, ∃ t, (chrInterval p).1 = 1 :: t
+  | [] => ⟨[1], rfl⟩
+  | true :: t => chrInterval_fst_head t
+  | false :: t => by
+      obtain ⟨t', ht⟩ := chrInterval_fst_head t
+      exact ⟨t' ++ (chrInterval t).2, by
+        show (chrInterval t).1 ++ (chrInterval t).2 = 1 :: (t' ++ (chrInterval t).2); rw [ht]; rfl⟩
+
+/-- ★★★★ **Every Christoffel tree word starts with `1` (=`A`).**  So a word's *reverse* (which starts
+    with `2`=`B`, the word ending in `B`) is never itself a tree word — reverse-pairs do not occur as
+    distinct paths, and the reversal-invariance of the continuant-trace (`continuant_reverse`) is harmless
+    for the size-injectivity question. -/
+theorem chrNode_starts_one (p : List Bool) : ∃ t, chrNode p = 1 :: t := by
+  obtain ⟨t', ht⟩ := chrInterval_fst_head p
+  exact ⟨t' ++ (chrInterval p).2, by
+    show (chrInterval p).1 ++ (chrInterval p).2 = 1 :: (t' ++ (chrInterval p).2); rw [ht]; rfl⟩
+
 /-- `contMatProd` of the Christoffel word equals the Cohn matrix node. -/
 theorem contMatProd_chrNode (path : List Bool) : contMatProd (chrNode path) = cNode path := by
   obtain ⟨h1, h2⟩ := contMatProd_chrInterval path
