@@ -36,6 +36,7 @@ Columns:
 | 2 | 2026-06-04 | promotion | frozen = dynamic φ (§5.7) | a closed ∅-axiom result (`PhiFrozenDynamic.frozen_eq_dynamic_phi`, 2 PURE) had **no** `theory/` narrative — gap found while pursuing the ε₀/φ adjacents | `theory/math/algebra/phi_self_similarity.md` §3.6 |
 | 3 | 2026-06-04 | essay | the residue unit's odometer | a multi-section Lean sub-tree (`Theory/Raw/Odometer` 41 + `OdometerValue` 18 + `ZeckendorfCarry` 7 = 66 PURE) matured into a coherent new sub-theory (the residue-unit `+1` dynamics) — closed arc needing one narrative home | `theory/essays/foundations/the_residue_unit_odometer.md` |
 | 4 | 2026-06-04 | promotion | G178 + G181 (archive) | both frontier notes fully resolved (νF population + C-phys bridges + odometer/Zeckendorf cross-arc); content promoted to the foundations essay triptych — sink check 0, so the cycle's archive step ran | `archive/G178_…`, `archive/spiral_axis/G181_…` |
+| 5 | 2026-06-04 | essay | the unit `1` (the residue's `+1`) | `/essay` invoked; the session's through-line — `1` proven byte-identical across ascent/descent/glue/det (C3-phys `unit_bridges_dynamics_and_readings`) + carry/Cassini/reciprocal — wanted a cross-frame synthesis distinct from the odometer-as-map essay (this is the `+1` as shared *value*, not as map) | in-conversation (not saved; candidate `theory/essays/foundations/the_unit.md` if canonicalised) |
 
 ## Reading the log later (pattern analysis)
 
