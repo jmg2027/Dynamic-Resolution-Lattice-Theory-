@@ -1,0 +1,103 @@
+---
+name: process
+description: Audit and enforce the repository's tier discipline — the directory roles and the one rule that research-notes/ is a volatile sink (no permanent tier cites a research-notes file). Promotes closed frontiers, decouples canonical→research-notes citations, organizes frontiers/, and prunes process-artifacts from archive/. Canonical statement is PROCESS.md. Triggered by "process", "tier discipline", "decouple", "sink check", "role audit", "프로세스", "디커플링", "research cycle".
+---
+
+# process — tier discipline + the research cycle
+
+Canonical statement: **`PROCESS.md`** (repo root).  This skill *applies and
+audits* it.  Read `PROCESS.md` first; it defines every directory's role and
+the one rule below.
+
+## The rule being enforced
+
+> **No permanent tier cites a `research-notes/` file.**
+> `seed/`, `lean/`, `theory/`, `catalogs/`, `book/` are permanent and may
+> cite each other; `research-notes/` is a volatile sink — it cites anything,
+> nothing canonical cites into it.
+
+When content a permanent tier needs lives in a research note, **promote it**
+(`theory/PROMOTION_CRITERIA.md`) into the permanent tier, then the note
+records only the path, cited by nothing.
+
+**Two things are NOT violations** (do not "fix" them):
+- **Role/structure references** — a doc may name `research-notes/`,
+  `research-notes/frontiers/`, `research-notes/archive/<topic>/`, or
+  `research-notes/INDEX.md` to *describe the structure*.  Only specific
+  **note-file** citations (`research-notes/.../<note>.md`, basename ≠
+  `INDEX.md`) are violations.
+- **Process tooling** — `.claude/skills/` that operate on research-notes
+  (autonomous-research, handoff) are the machinery of the cycle.
+
+## Procedure
+
+### Step 1 — Audit the sink rule
+List every permanent-tier file that cites a research-notes **note file**
+(exclude directory refs and INDEX.md):
+```bash
+python3 - <<'EOF'
+import os,re,subprocess
+out=subprocess.run("grep -rn 'research-notes/[A-Za-z0-9_./-]*\\.md' --include=*.md --include=*.lean "
+  "seed theory catalogs book blueprints lean rust-engine CLAUDE.md README.md "
+  "STRICT_ZERO_AXIOM.md LESSONS_LEARNED.md CAPSTONE_INDEX.md 2>/dev/null",
+  shell=True,capture_output=True,text=True).stdout
+v=[l for l in out.splitlines()
+   if (lambda m: m and os.path.basename(m.group(0))!="INDEX.md")(re.search(r'research-notes/[A-Za-z0-9_./-]+\.md',l))]
+print(f"{len(v)} violations"); [print(" ",l[:140]) for l in v]
+EOF
+```
+
+### Step 2 — Fix each violation (PROSE-SAFE — hard-won lessons)
+For each citation, drop the `research-notes/...md` pointer and make the
+sentence stand on its own.  The canonical content already exists (or should
+be promoted); the note is recoverable from git.
+
+- **DO** edit prose per-sentence so it reads cleanly ("X lives in `note`." →
+  "X." or repoint to the permanent home, e.g. a `seed/`/`theory/`/`lean/`
+  path or theorem name).
+- **DO** delete pure-citation bullet lines / provenance bullets.
+- **DO** remove pure-citation parentheticals `(`note`)` whole.
+- **NEVER** run a whole-file whitespace collapse (`[ \t]{2,}→ `) — it
+  destroys Lean indentation and breaks the build.
+- **NEVER** strip directory/INDEX refs (Step-1 rule already excludes them).
+- Boot anchors (CLAUDE.md) repoint to the permanent home, e.g.
+  `research-notes/G29_residue.md` → `seed/AXIOM/01_residue.md`.
+
+Safe automation for the mechanical subset (bullets + multi-line pure-cite
+parentheticals only; never whitespace-collapse): adapt the verified script
+pattern in this repo's history (commit messages "process: …decouple…").
+Hand-edit the inline-sentence cases.
+
+### Step 3 — Run the cycle (promotion = decoupling)
+When a `research-notes/frontiers/<topic>/` arc closes ∅-axiom in `lean/`:
+1. Promote per `theory/PROMOTION_CRITERIA.md` (write the `theory/` chapter
+   /essay, update `catalogs/`, land quantitative results in
+   `STRICT_ZERO_AXIOM.md` / `catalogs/`).
+2. Confirm Step 1 reports **no** permanent-tier citation of the source notes.
+3. `git mv` the source notes to `research-notes/archive/<topic>/`; remove the
+   topic from `research-notes/frontiers/INDEX.md`.
+
+### Step 4 — Keep research-notes/ a clean sink
+- **Top-level** holds only boot-sequence anchors + `INDEX.md` + `frontiers/`.
+- **`frontiers/`** = the live open board, grouped by topic (`frontiers/INDEX.md`).
+- **`archive/`** = closed material, grouped by topic.
+- **Prune** pure-process artifacts that don't even warrant archiving (dated
+  audit snapshots, resolved-build-gate records, promotion checklists,
+  non-research drafts) — but KEEP anything a permanent tier or seed spec
+  still cites by path (verify before deleting: `grep -rl <name> seed catalogs lean`).
+
+### Step 5 — Verify + commit
+```bash
+cd lean && lake build E213 2>&1 | tail -2        # green (Lean unaffected by doc edits, but confirm)
+cd .. && python3 -c "import subprocess,re,os; ..."  # re-run Step 1 → 0 in the tier you cleaned
+git add -A && git commit -m "process: <what was decoupled/promoted/pruned>
+
+https://claude.ai/code/<session-url>"
+git push -u origin <current-branch>
+```
+
+### Step 6 — Report
+Print: violations found → fixed (by tier), any promotions run, any archive
+prunes (with the kept-because-cited exceptions). If a tier is fully
+decoupled, say so; if inline-sentence sites remain, report the count for the
+next iteration.
