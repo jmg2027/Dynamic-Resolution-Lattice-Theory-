@@ -3,6 +3,7 @@ import E213.Lib.Math.Real213.ModularElliptic
 import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Int213.PolyIntMTactic
 import E213.Meta.Tactic.List213
+import E213.Lib.Math.Linalg213.DetN
 
 /-!
 # SternBrocotMarkov — the proper det-1 Stern-Brocot tree (toward the Markov recovery)
@@ -1436,5 +1437,33 @@ theorem markov_node_hyperbolic (path : List Bool) :
     rw [mNode_shape path, mNode_det1 path]; ring_intZ
   rw [e]
   exact lt_of_sub_eq_of_one_le (sub_zero_int _) (one_le_add_nonneg (by decide) hnn)
+
+/-! ## §15 — import: the `2×2` determinant is the general `DetN.det` at `n = 2`
+
+  Main's `Linalg213/DetN` builds the general `n×n` determinant by cofactor (Laplace) expansion.  Its
+  `det_two` formula `det 2 M = M₀₀·M₁₁ − M₀₁·M₁₀` is exactly the `det2` of the Markoff-matrix carrier.
+  So every tree-determinant fact (`mNode_det1`: `det = 1` at each node) is an instance of the general
+  determinant — and `det2_mul` (det multiplicative for `2×2`) is the `n=2` case of the (not-yet-proven
+  general) `det(MN)=det M·det N`. -/
+
+/-- `Mat2` as a row/column function `ℕ → ℕ → ℤ` (`⟨a,b,c,d⟩ = [[a,b],[c,d]]`). -/
+def matFun (M : Mat2) : Nat → Nat → Int :=
+  fun i j => if i = 0 then (if j = 0 then M.a else M.b) else (if j = 0 then M.c else M.d)
+
+/-- ★★★★ **The Markoff-carrier `det2` is the general determinant at `n = 2`.** -/
+theorem det2_eq_detN (M : Mat2) : det2 M = E213.Lib.Math.Linalg213.DetN.det 2 (matFun M) := by
+  rw [E213.Lib.Math.Linalg213.DetN.det_two]; rfl
+
+/-- Every Markoff node matrix has general determinant `1` (`mNode_det1` via `det2_eq_detN`). -/
+theorem mNode_detN (path : List Bool) :
+    E213.Lib.Math.Linalg213.DetN.det 2 (matFun (mNode path)) = 1 := by
+  rw [← det2_eq_detN]; exact mNode_det1 path
+
+/-- ★★★★ **General-determinant multiplicativity at `n = 2`** (`det(MN)=det M·det N`), the `2×2` case
+    that the general `DetN` does not yet prove — contributed back via `det2_mul`. -/
+theorem detN_two_mul (M N : Mat2) :
+    E213.Lib.Math.Linalg213.DetN.det 2 (matFun (mul M N))
+    = E213.Lib.Math.Linalg213.DetN.det 2 (matFun M) * E213.Lib.Math.Linalg213.DetN.det 2 (matFun N) := by
+  rw [← det2_eq_detN, ← det2_eq_detN, ← det2_eq_detN]; exact det2_mul M N
 
 end E213.Lib.Math.Real213.SternBrocotMarkov
