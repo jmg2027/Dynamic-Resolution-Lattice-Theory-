@@ -2,7 +2,19 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — continuant reversal symmetry + full monotonicity (Aigner technical core, ∅-axiom)
+## ★★★ NEWEST — E4 Cohn/Frobenius trace identity BUILT: markovNumber = tr/3 as a continuant (∅-axiom)
+- **`Real213/Continuant`** trace block (all PURE): `contMatProd_b` ((1,2)-entry = reversed cont-prev via
+  transpose), `contMatProd_d_cons` ((2,2)-entry = middle continuant), `contMatProd_trace_cons`
+  (tr(∏[[aᵢ,1],[1,0]]) = K[a₁..aₙ] + K[a₂..aₙ₋₁] = full + middle), `cohn_trace_examples`
+  (tr(A)/3=1, tr(B)/3=2, tr(AB)/3=5 — Markov numbers 1,2,5 as tr/3 of std Cohn words A=[1,1],B=[2,2]).
+  So markovNumber(Cohn word) = tr/3 is a continuant expression, VERIFIED.
+- **Continuant theory now COMPLETE on the universal side**: E1 (primitive+mono), E2 (=matrix entry),
+  reversal + any-position monotonicity (Aigner core), E4 trace identity (Cohn/Frobenius). 
+- **Last gap (research-level)**: path→Christoffel-word translation wiring repo's markovNum p (tree path)
+  to a specific Cohn word/CF-shape. Repo genR is a conjugate of std Cohn B ⟹ same Markov numbers, but the
+  per-path identification needs the cutting-sequence bijection. That's the remaining E5/bridge.
+
+## continuant reversal symmetry + full monotonicity (Aigner technical core, ∅-axiom)
 - **`Real213/Continuant`** reversal block (all PURE): `continuant_reverse` (K[a₁..aₙ]=K[aₙ..a₁], the
   palindrome via transpose — M(a)=[[a,1],[1,0]] symmetric ⟹ (∏M)ᵀ=∏M reversed, transpose fixes (1,1));
   `continuant_last_strict_mono` (strict mono in the LAST quotient via reversal+head) — with

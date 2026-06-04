@@ -82,11 +82,17 @@ adjacency `sbInterval_adj` + `sbInterval_mediant_coprime`; Vandermonde-2 mediant
      *conjugate* of `B` — same trace `6`, different basis.)  So the obstruction is the repo's `genR`
      normalisation, not the math: rewriting `genL/genR` words as `[[a,1],[1,0]]` words fails because one
      generator is not a continuant matrix.
-  4. **Frobenius formula** `markovNum p = K(shape p)` — reframed by (3): does **not** go through a basis
-     change.  It routes through the **Cohn trace** (`markovNum = tr(mNode)/3`, `mInterval_shape`;
-     `C² ≡ −I (mod c)`, `cohn_sq_neg_one_mod`) and the **doubled Christoffel word** — a research-level
-     development (reconcile the repo's conjugated `genR` with standard Cohn `B`, or rebuild on standard
-     Cohn generators), larger than a single rung.  This is the genuine boundary of the continuant route.
+  4. ✅ **Cohn/Frobenius trace identity — BUILT** (`Real213/Continuant`, ∅-axiom).  The universal side of
+     the Frobenius formula: `contMatProd_b`/`contMatProd_d_cons` (the `(1,2)`/`(2,2)` entries as reversed/
+     middle continuants), `contMatProd_trace_cons` (`tr(∏[[aᵢ,1],[1,0]]) = K[a₁..aₙ] + K[a₂..aₙ₋₁]`), and
+     `cohn_trace_examples` (`tr(A)/3=1, tr(B)/3=2, tr(AB)/3=5` — the Markov numbers `1,2,5` as `tr/3` of
+     the standard Cohn words `A=[1,1]`, `B=[2,2]`).  So `markovNumber(Cohn word) = tr/3` is a continuant
+     expression, verified.  Also: reversal symmetry (`continuant_reverse`) + any-position strict
+     monotonicity (`continuant_head_strict_mono`, `continuant_last_strict_mono`) — the Aigner ordering
+     core.  **Remaining (research-level)**: the path→Christoffel-word translation wiring the repo's
+     `markovNum p` (tree path) to a *specific* Cohn word / CF-shape — the repo's `genR` is a conjugate of
+     standard Cohn `B`, so the repo tree and the standard-Cohn continuant tree generate the same Markov
+     numbers but the per-path identification needs the cutting-sequence bijection.  This is the last gap.
   5. **One Aigner ordering** (e.g. Fixed Numerator `p=1` first — the single-spine case, likely already
      near `markovNum_lt_append`; then general `p`) as the first genuine **cross-node** ∅-axiom Markov
      ordering theorem.  Necessary-not-sufficient for `H`, but real new frontier content.
