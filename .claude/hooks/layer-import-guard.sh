@@ -71,8 +71,7 @@ fi
 #   - files in Theory/Raw/ itself (own cluster, OK)
 #   - import of Theory.Raw.API (the sole canonical entry; the
 #     Theory.Raw alias shim was removed 2026-05-15)
-#   - (no more Mobius exception — migrated to Lib/Math/Mobius213
-#     in 2026-05-12 cleanup)
+#   - (no more Mobius exception — migrated to Lib/Math/Algebra/Mobius213)
 case "$PATH_" in
   */lean/E213/Theory/Raw/*) ;;  # own cluster — skip
   *)

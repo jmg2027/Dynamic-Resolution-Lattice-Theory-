@@ -40,12 +40,12 @@ sections containing the 213-native expression.  Examples:
 
 | Concept | Primary targets |
 |---|---|
-| limit | `theory/math/modulus.md` + `theory/math/cauchy.md` + G40 |
-| completeness | `theory/math/real213.md` + G6 §0 |
-| equality | `theory/lens/algebra.md` + `theory/lens/universal.md` + 76 |
-| residue | `research-notes/G29_residue.md` + `theory/math/universe_chain.md` Möbius P |
+| limit | `theory/math/analysis/modulus.md` + `theory/math/analysis/cauchy.md` |
+| completeness | `theory/math/numbersystems/real213.md` |
+| equality | `theory/lens/algebra.md` + `theory/lens/universal.md` |
+| residue | `seed/AXIOM/01_residue.md` + `theory/math/foundations/universe_chain.md` Möbius P |
 | gauge | `theory/physics/symmetry/c3_chain.md` |
-| infinity | G6 §0 corrected position + `seed/RESOLUTION_LIMIT_SPEC.md` |
+| infinity | `seed/RESOLUTION_LIMIT_SPEC.md` |
 
 If no clear chapter exists, the concept may not be promoted yet —
 flag this honestly; do not invent.
