@@ -1,6 +1,34 @@
-# Session Handoff — 2026-06-03f (Markov marathon — REVERSE BRIDGE closed, 61 PURE)
+# Session Handoff — 2026-06-04 (Markov marathon — ★ BUTTON'S THEOREM CLOSED, ∅-axiom)
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.
+
+## ★★★ MILESTONE: `Real213/SternBrocotMarkov` **63 PURE** — prime-power uniqueness DONE
+The whole chain is now closed, fully ∅-axiom (`#print axioms` clean):
+- **`markov_max_unique_tree`** (§13): `5 ≤ c ∧ SqrtNegOneTwoRoots c ⟹ MarkovMaxUnique c`.  Two
+  ordered triples at `c` are both tree nodes (`reverse_bridge` §12); each node's residue is the
+  unique windowed `√(−1)` mod `c` (`node_window_nat` = `markov_window` §9 + `markovNum_dvd_res_sq_succ`
+  §5 converted ℤ→ℕ, + `root_unique_below_half`); equal residues ⟹ equal slopes (same `c`) ⟹ equal
+  nodes (`slope_path_inj` §11) ⟹ equal triples.
+- **`markov_prime_pow_unique`** (§13): `c = p^(k+1)` odd prime power, `5 ≤ c` ⟹ `MarkovMaxUnique c`
+  (via `sqrtNegOneTwoRoots_prime_pow`).  **Button's theorem — the infinite prime-power family of the
+  Markov uniqueness conjecture — fully ∅-axiom.**
+- ℤ→ℕ assembly helpers (`int_toNat_lt`, `nat_dvd_of_ofNat_dvd`, `node_window_nat`, `node_data`) all
+  pure; avoided propext leaks (`Nat.mul_mod_right`→`NatHelper.mul_mod_right`, `Nat.add_left_cancel`,
+  `Nat.sub_add_cancel`, `Nat.mul_assoc`, core `List` lemmas).
+
+### Full architecture (all ∅-axiom, in `SternBrocotMarkov`):
+§1 det-1 Stern-Brocot tree · §2 Markoff-matrix tree (det=1, Frobenius, Vieta) · §3 generates Markov
+triples · §4 positivity · §5 `u²≡−1` · §6 Frobenius residue cross + recovery · §7–§8 strict slope
+monotonicity (both halves) · §9 window `0<u<m/2` · §10 forward bridge (tree = Markov tree) · §11
+**global slope injectivity** · §12 **reverse bridge** · §13 **Button's theorem**.
+
+### What remains OPEN (correctly untouched): composite `c` with ≥2 prime factors ≡1 mod 4
+`SqrtNegOneTwoRoots` *fails* there (≥4 roots) — the genuinely open zone of the conjecture.  The tree
+machinery (`markov_max_unique_tree`) is general; only the `SqrtNegOneTwoRoots` input is missing for
+composite `c`.  Possible future: `markov_max_unique_of_same_pair_injective` interface, or pushing the
+window/injectivity to handle multiple ±pairs.
+
+## ★ EARLIER (this marathon): §12 reverse bridge (61 PURE)
 
 ## ★ LATEST: `Real213/SternBrocotMarkov` **61 PURE** — §12 reverse bridge (objective #1 DONE)
 - **`reverse_bridge`**: every ordered Markov triple `(a,b,c)`, `1≤a≤b≤c`, `5≤c`, is a matrix-tree
