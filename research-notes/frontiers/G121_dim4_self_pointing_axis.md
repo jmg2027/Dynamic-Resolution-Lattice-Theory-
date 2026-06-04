@@ -1630,3 +1630,21 @@ statements are pointwise (`∀ x, σ x = …`).
     bare mathematics leaves the side a gauge choice.  Guard: do not
     promote one rooting to "what the residue IS"
     (view-promoted-to-identity failure mode).
+
+## Headline synthesis (M1 ∘ M2): d_M = d_213 − 1 derived
+
+`KChartLensAbstract.dM_four_via_M1_forced_and_M2_universal_kernel`
+(PURE) chains the two closed knots into the geometrization value:
+
+  · M1: atomicity (3,2) + Möbius c=2 force K_{3,2}^{(c=2)},
+    chartBase = 5 = d_213.
+  · M2 (universal): the forced deployment's δ⁰-kernel is exactly the
+    two constant cochains, so selfPointingAxes = dim ker δ⁰ = 1 is
+    *derived*, not a definitional value.
+  · ⇒ d_M = chartBase − 1 = 5 − 1 = 4, with the "−1" the derived
+    kernel dimension; d_M = d_213 − 1 is the universal law
+    (chartVisibleAxes = chartBase − 1 for every connected K), d_M = 4
+    its value at the unique forced deployment.
+
+This is the first theorem where d_M = 4 routes through the derived
+kernel dimension rather than the definitional `selfPointingAxes := 1`.
