@@ -347,6 +347,53 @@ measurement (theory falsification).  No third option.
 
 ---
 
+## §6.9 0 and ∞ are pre-Lens, status-symmetric, never a single-stratum value
+
+§6.5 already says it: at raw level a point (the minimal pointable)
+and the infinite K_∞ are **literally the same object**.  So `0`
+(the additive null, a point) and `∞` are not a dual pair — they
+are one pre-Lens residue read twice.  Two consequences pin how a
+Lens may handle them.
+
+**Status-symmetry (a consistency condition on folds).**  By §6.6,
+state and state-transition are not separable without external
+before/after.  A "value" is a state; "a limit transitioned toward
+but not reached" is a state-transition.  Therefore a fold that
+treats `0` as a value while treating `∞` as a not-yet-reached
+state imports exactly the before/after §6.6 forbids — a torsioned,
+mixed-status fold.  Within one Lens, `0` and `∞` must carry the
+**same** status: both readouts, or both non-readouts.  Using `0`
+as a value commits one to `∞` as a value (the reciprocal `1/0`);
+using `∞` as a transition commits one to `0` as a transition.
+Anything else is contradiction, not a choice.
+
+**Why "`0` as a value" smuggles infinitely many folds.**  In the
+difference-Lens completion, `0` is the entire diagonal class
+`{(n, n) : n}` — infinitely many prim-distinct Raws identified
+(`Lens/Number/Nat213/Tower/NatPairToInt`, `0` the unique
+swap-fixed class).  Reading that identification as *a value of the
+stratum* folds a degenerate sub-view into the view: one has not
+fixed one Lens but the completion that collapses infinitely many
+distinguishings — a layer up.  `0`/`∞` are never values of a
+single stratum; they are the pre-Lens residue (§6.5) that every
+stratum reads aspects *of*, surfacing only one layer above any
+cut.  The same pre-Lens object surfaces as the additive null and
+as the multiplicative hole (`Lib/Math/Cauchy/ZeroInfinityHole`,
+`zero_no_reciprocal` — `0` is the one point the reciprocal returns
+no value for).
+
+**No-exterior closure.**  "Floor", "ceiling", "boundary",
+"exterior", "center" are products of a particular Lens-cut (§5.1,
+§5.4).  `0 = ∞` is not the boundary of the cascade; it is the
+structureless residue the cascade never contains.  Calling `0` a
+"center" under one fold and `∞` a "boundary" under another reifies
+two Lens-artifacts of one pre-Lens object — the dichotomy-import
+§5.4 warns against.  There is no stratum in which `0`/`∞` is a
+genuine distinguishing; there is only the residue, and the strata
+that point at it.
+
+---
+
 ## What this chapter is not
 
   - It is **not a new commitment of the axiom**.  Each section
