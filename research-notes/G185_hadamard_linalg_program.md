@@ -590,3 +590,30 @@ The centerpiece of the G185 program is done.  Total CH stack (all ∅-axiom): `P
 3. **Extract**: `cayley_hamilton` ⟹ `(Σ_m cₘ Mᵐ)_{ik} = 0` ⟹ `Σ_m cₘ V(n+m) = 0` (apply to the
    cyclic vector) ⟹ first component `Σ_m cₘ·u(n+m) = 0` with `c_{pq}=1` (monicity) ⟹ monic shift
    recurrence for `u = s·t` ⟹ `cfiniteZ_mul` via `Cauchy/CFiniteRing` (`cfiniteZ_of_shiftRec`).
+
+## Update — Phase D core: monicity + the CH recurrence bridge (PolyDet 20, CharPolyAdj 31)
+
+Two of the three Phase-D pieces done, ∅-axiom:
+- **`PolyDet` §4 monicity** ★★ `charPoly_monic`: `coeff (charPoly M N) N = 1` (the `Xᴺ` term of
+  `det(X·I−M)`; via `pdet_congr` + `pminor_charMat_zero` — the `(0,0)`-minor of `X·I−M` is the
+  char-matrix of the shifted `M` — + the cofactor leading-coeff lemmas; induction reusing the IH on
+  the shifted matrix).
+- **`CharPolyAdj` §8 the recurrence bridge** ★★★ `ch_recurrence`: if a vector sequence evolves by
+  `w(n+1) = M·w(n)` (component-wise over `< N+1`), then every component satisfies the **monic
+  order-`(N+1)` recurrence** `Σ_{m=0}^{N+1} (coeff χ_M m)·w(n+m)_j = 0` (via `wPow`: `w(n+m)=Mᵐ·w(n)`,
+  then Fubini-swap the `m`/`k` sums and apply `cayley_hamilton`).  Monic because `coeff χ_M (N+1)=1`.
+
+**Remaining — the Kronecker assembly** (`cfiniteZ_mul`):
+1. **Forward** `CFiniteZ → ShiftRecZ` (a monic shift recurrence for `s`, `t`).  `CFiniteRing` has the
+   *reverse* `cfiniteZ_of_shiftRec` + `cfiniteZ_annih_snoc` (monic `Δ`-operator annihilator); need the
+   Δ→shift conversion (`applyOp_ePow`/`ePow` give `Eⁱ` as a `Δ`-operator — invert it) to extract
+   `s(n+p)=Σ_{a<p} α_a s(n+a)`.
+2. **Kronecker companion** `M` (size `pq`, index `(a,b)↦a·q+b`) + product vector
+   `w(n)_{(a,b)} = s(n+a)·t(n+b)`; the `VecRec` hypothesis `w(n+1)_{(a,b)} = Σ M·w(n)` (case split:
+   interior shift `(a+1,b+1)`, boundaries use `s`/`t` recurrences); `w(n)_{(0,0)} = u(n) = s(n)t(n)`.
+3. **Assemble**: `ch_recurrence` at component `(0,0)` ⟹ `Σ_{m=0}^{pq} cₘ·u(n+m) = 0`, `c_{pq}=1`
+   (monicity) ⟹ `u(n+pq) = Σ_{m<pq} (−cₘ)·u(n+m)` = `ShiftRecZ pq (fun m => −cₘ) u` ⟹ `cfiniteZ_mul`
+   via `cfiniteZ_of_shiftRec`.
+
+The hard mathematical content (integer Cayley–Hamilton, monicity, the recurrence bridge) is all
+banked; the remainder is the companion-matrix construction + the C-finite Δ↔shift plumbing.

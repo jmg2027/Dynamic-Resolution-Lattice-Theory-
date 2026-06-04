@@ -48,17 +48,23 @@ relations `cayley_rel_zero`/`cayley_rel_succ`, their matrix form ★★ `matMul_
 integer matrix, `χ_M(M) = 0`, built from scratch (telescoping `telescope` + `tele_step` +
 `matPow_succ_right`; boundary vanishes by `padj_coeff_top_zero`).  The centerpiece of G185 is done.
 
-**Remaining — Phase D: `cfiniteZ_mul`** (the application, ~200 lines, touches `Cauchy/`):
-1. **Monicity** `coeff (charPoly M N) N = 1` (`Xᴺ` term of `det(X·I−M)`; a `pdet` leading-coeff
-   induction).
-2. **Kronecker companion** `M` (size `pq`) from the two monic recurrences; product vector
-   `V(n)_{(a,b)} = s(n+a)·t(n+b)`; `V(n+1)=M·V(n)` ⟹ `V(n+m)=Mᵐ·V(n)`.
-3. **Extract**: `cayley_hamilton` ⟹ `Σ_m cₘ V(n+m) = 0` (apply to the cyclic vector) ⟹ first
-   component `Σ_m cₘ·u(n+m)=0` with `c_{pq}=1` ⟹ monic shift recurrence for `u=s·t` ⟹ `cfiniteZ_mul`
-   via `Cauchy/CFiniteRing.cfiniteZ_of_shiftRec`.
+**Phase D core DONE** (∅-axiom): ★★ `PolyDet.charPoly_monic` (`coeff (charPoly M N) N = 1`) and
+★★★ `CharPolyAdj.ch_recurrence` — **a vector sequence with `w(n+1)=M·w(n)` has every component
+satisfy the monic recurrence `Σ_{m=0}^{N+1} (coeff χ_M m)·w(n+m)_j = 0`** (via `wPow` + `cayley_hamilton`).
 
-This session banked (all ∅-axiom): `CayleyHamilton` 27 + `PolyZ` 47 + `PolyDet` 13 + `CharPolyAdj`
-29 = **116 PURE**, closing integer Cayley–Hamilton.
+**Remaining — the Kronecker assembly** (`cfiniteZ_mul`):
+1. **Forward** `CFiniteZ → ShiftRecZ` (monic shift recurrence for `s`,`t`): `CFiniteRing` has the
+   reverse `cfiniteZ_of_shiftRec` + `cfiniteZ_annih_snoc` (monic `Δ`-annihilator); need the Δ→shift
+   conversion (invert `ePow`/`applyOp_ePow`) to get `s(n+p)=Σ_{a<p} α_a s(n+a)`.
+2. **Kronecker companion** `M` (size `pq`, index `(a,b)↦a·q+b`) + product vector
+   `w(n)_{(a,b)} = s(n+a)·t(n+b)`; prove the `VecRec` hypothesis (interior shift `(a+1,b+1)`,
+   boundaries use the `s`/`t` recurrences); `w(n)_{(0,0)} = s(n)t(n)`.
+3. **Assemble**: `ch_recurrence` at `(0,0)` ⟹ `Σ_{m=0}^{pq} cₘ·u(n+m)=0`, `c_{pq}=1` ⟹
+   `ShiftRecZ pq (fun m => −cₘ) u` ⟹ `cfiniteZ_mul` via `cfiniteZ_of_shiftRec`.
+
+This session banked (all ∅-axiom): `CayleyHamilton` 27 + `PolyZ` 47 + `PolyDet` 20 + `CharPolyAdj`
+31 = **125 PURE** — integer Cayley–Hamilton, monicity, and the recurrence bridge.  The Kronecker
+assembly (companion construction + Δ↔shift plumbing) is the last unit.
 
 ## Other live threads
 - C-finite orbit dimension: `theory/math/analysis/cfinite_orbit_dimension.md`
