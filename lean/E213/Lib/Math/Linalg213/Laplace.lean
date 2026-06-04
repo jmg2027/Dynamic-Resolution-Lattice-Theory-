@@ -557,4 +557,25 @@ theorem det_cyc_expand (M : Nat → Nat → Int) (n i : Nat) (hi : i < n + 1) :
   intro j _
   rw [show cyc i M 0 j = M i j from rfl, det_congr n (minor_cyc_eq i j M)]
 
+/-- `(−1)ᵏ · (−1)ᵏ = 1`. -/
+theorem altSign_self : ∀ k, altSign k * altSign k = 1
+  | 0     => rfl
+  | k + 1 => by
+    show (-(altSign k)) * (-(altSign k)) = 1
+    rw [E213.Meta.Int213.neg_mul, E213.Meta.Int213.mul_neg, Int.neg_neg, altSign_self k]
+
+/-- ★★ **Cofactor expansion along row `k` (signed `(−1)^(k+j)` form).** -/
+theorem cofactor_row_i (M : Nat → Nat → Int) (n k : Nat) (hk : k < n + 1) :
+    det (n + 1) M
+      = sumZ ((iota (n + 1)).map (fun j => altSign (k + j) * M k j * det n (minorAt k j M))) := by
+  have key : altSign k * sumZ ((iota (n + 1)).map (fun j => altSign j * M k j * det n (minorAt k j M)))
+           = sumZ ((iota (n + 1)).map (fun j => altSign (k + j) * M k j * det n (minorAt k j M))) := by
+    rw [← sumZ_map_smul]
+    apply congrArg sumZ
+    apply map_eq_of_mem
+    intro j _
+    rw [altSign_add]
+    ring_intZ
+  rw [← key, ← det_cyc_expand M n k hk, ← E213.Meta.Int213.mul_assoc, altSign_self k, Int.one_mul]
+
 end E213.Lib.Math.Linalg213.Laplace
