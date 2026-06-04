@@ -2379,4 +2379,39 @@ count-style one. -/
     a commutative combine) — it is a free-monoid reading on the oriented tree. -/
 theorem markovGen_noncommutative : mul genL genR ≠ mul genR genL := by decide
 
+/-! ## §32 — slope determines size; the converse *is* `H`
+
+The slope/size pair is a *one-directional determination*.  One way is proven: `slope_determines_size`
+— equal slope ⟹ equal Markov number (the finer, residue-native slope reading determines the coarser
+size reading, via `slope_path_inj`).  The converse — equal Markov number ⟹ equal slope — is exactly
+`markovNum` injectivity (`sizeDeterminesSlope_iff_markovNum_injective`), i.e. the size reading is
+injective: the open kernel `H` in path form (each Markov number from one node; corresponds to
+`MarkovMaxUnique` via `reverse_bridge`).
+
+This is the "two readings, one injective, is the other?" shape made concrete: slope is injective
+(`slope_path_inj`) and determines size; `H` asks whether *size* — the coarser, orientation-dependent
+reading (§31) — is *also* injective.  In the `Lens` frame (`Lens/Lattice/Injectivity.lean`): a reading
+is injective iff it refines `idLens`; slope refines `idLens` and refines size; `H` = "size refines
+`idLens`", the open half. -/
+
+/-- **Slope determines size**: equal slope ⟹ equal Markov number.  The finer (residue-native) reading
+    determines the coarser one, directly from `slope_path_inj`. -/
+theorem slope_determines_size (p q : List Bool)
+    (h : slopeEq (mNode p) (mNode q)) : markovNum p = markovNum q := by
+  rw [slope_path_inj p q h]
+
+/-- ★★★★★ **The converse is `H`**: "size determines slope" (equal Markov number ⟹ equal slope) is
+    exactly `markovNum` injectivity — the size reading injective.  Both directions via `slope_path_inj`
+    + reflexivity of `slopeEq`. -/
+theorem sizeDeterminesSlope_iff_markovNum_injective :
+    (∀ p q : List Bool, markovNum p = markovNum q → slopeEq (mNode p) (mNode q))
+      ↔ Function.Injective markovNum := by
+  constructor
+  · intro hsd p q hpq
+    exact slope_path_inj p q (hsd p q hpq)
+  · intro hinj p q hpq
+    have hpq' : p = q := hinj hpq
+    subst hpq'
+    rfl
+
 end E213.Lib.Math.Real213.SternBrocotMarkov

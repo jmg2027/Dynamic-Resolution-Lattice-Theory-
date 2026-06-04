@@ -100,6 +100,14 @@ Two `∅`-axiom installments, foundation first:
    its concrete Markov instance: the size combine is non-symmetric, so the size reading provably escapes
    the residue.
 
+4. **`H` as a determination, mechanized** (`SternBrocotMarkov` §32, PURE).  `slope_determines_size`
+   (equal slope ⟹ equal Markov number, via `slope_path_inj`) — the finer reading determines the coarser,
+   proven.  `sizeDeterminesSlope_iff_markovNum_injective` — the *converse* (equal Markov number ⟹ equal
+   slope) is exactly `Function.Injective markovNum`, the size reading injective = `H` in path form.  So
+   the slope/size relation is one-directional: slope→size proven, size→slope = `H`.  This is the
+   "two readings, one injective, is the other?" question (B.3) made into a literal iff: slope is
+   injective and determines size; `H` asks the same of size, the coarser orientation-dependent reading.
+
 ## Honest verdict
 
 Nothing here proves `H` or closes a frontier — it is a *map*.  Its value: (i) it surfaces a stack of
