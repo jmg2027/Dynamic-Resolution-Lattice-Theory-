@@ -63,6 +63,19 @@ generalising the disc-`−3` engine (the `PolyRoot` Lagrange machinery is field-
   direction (`form4_residue`: `a²+b² ≢ 3 mod 4`) and ★ `two_square_iff`:
   for an odd prime `p`, `p ≡ 1 (mod 4) ⟺ p = a²+b²` (axiom-free).
 
+### 6. Parametric `ℤ[√−D]` descent — the disc generalised over the radicand (∅-axiom)
+The Gaussian descent lifted to a single parametric family `ZSqrt D` (norm `re² + D·im²`),
+norm-Euclidean exactly for `D ∈ {1,2}` (covering radius² `(1+D)/4 < 1`):
+- `Integer/ZSqrtNegDivStep.zsqrt_div_step` — `1 ≤ D ≤ 2` ⟹ `ℤ[√−D]` norm-Euclidean (one proof,
+  `ring_intZ` with `D` a free variable).
+- `Integer/ZSqrtNegSplit.split_form` — `1 ≤ D ≤ 2`, `p ∣ x²+D`, `¬(p:ℤ)∣1` ⟹ `p = a²+D·b²`;
+  `split_form_two` instantiates `D = 2` (`p = a²+2b²`, disc-`−8`), `D = 1` recovers Gaussian.
+- **Open boundary** (made precise): the descent form reaches `ℤ[√−D]` only for `D ≤ 2`
+  (`D = 3` needs the half-integer ring `ℤ[ω]`); the Pillar-I residue input (which primes have
+  `−D` a QR) is unconditional only for `D = 1,3` (single order argument) — `D = 2` (`p ≡ 1,3
+  mod 8`) needs the quadratic character of `2`, so the `D = 2` arc is the conditional split
+  `p ∣ x²+2 ⟹ p = a²+2b²`, not yet the congruence iff.
+
 ## Open Problems (Priority Order)
 
 ### 1. `¬ (p:ℤ) ∣ 1` for primes — RESOLVED inside `eisenstein_split_converse`
