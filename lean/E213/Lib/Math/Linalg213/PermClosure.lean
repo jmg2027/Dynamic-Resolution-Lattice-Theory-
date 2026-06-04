@@ -1,4 +1,5 @@
 import E213.Lib.Math.Linalg213.Permutation
+import E213.Meta.Tactic.List213
 
 /-!
 # Linalg213 — the permutation enumeration realizes the symmetric-group action
@@ -21,6 +22,7 @@ open E213.Lib.Math.Linalg213.Permutation
   (LPerm insertEverywhere permsOf perms iota swapAt swapAt_lperm swapAt_prefix
    sumZ sumZ_lperm sumZ_map_neg map_lperm leibTerm leibDet rowSwapAt leibTerm_rowSwap
    prodDiagFrom psign rowSwapAt_other rowSwapAt_at prodDiagFrom_append)
+open E213.Tactic.List213 (length_append)
 
 /-! ## §0 — clean (∅-axiom) `List` membership helpers -/
 
@@ -540,13 +542,6 @@ Clean `List` helpers (core's are `propext`-tainted), the split of a permutation 
 factors the sign, and `perms_swap_closed` reindexes the sum — so `leibDet (rowSwapAt k M) =
 −leibDet M`. -/
 
-/-- `length` of an append (∅-axiom). -/
-theorem length_append' {α : Type} : ∀ (L M : List α), (L ++ M).length = L.length + M.length
-  | [],     M => by show M.length = 0 + M.length; rw [Nat.zero_add]
-  | _ :: l, M => by
-    show (l ++ M).length + 1 = (l.length + 1) + M.length
-    rw [length_append' l M, Nat.succ_add]
-
 /-- `map` fusion (∅-axiom). -/
 theorem map_map' {α β γ : Type} (f : α → β) (g : β → γ) :
     ∀ (L : List α), (L.map f).map g = L.map (fun x => g (f x))
@@ -568,7 +563,7 @@ theorem length_iota : ∀ n, (iota n).length = n
   | 0     => rfl
   | n + 1 => by
     show (iota n ++ [n]).length = n + 1
-    rw [length_append' (iota n) [n], length_iota n, show ([n] : List Nat).length = 1 from rfl]
+    rw [length_append (iota n) [n], length_iota n, show ([n] : List Nat).length = 1 from rfl]
 
 /-- `LPerm` carries `Nodup` backward. -/
 theorem nodup_of_lperm {α : Type} [DecidableEq α] {p L : List α} (h : LPerm p L) (hL : Nodup L) :

@@ -1,5 +1,6 @@
 import E213.Lib.Math.GeometrizationConjecture.Generalization
 import E213.Lib.Math.Cohomology.Bipartite.Filled3Cell
+import E213.Meta.Tactic.List213
 
 /-!
 # R1+ — JSJ deeper: 3-cell complex extension scaffold (partial)
@@ -1696,26 +1697,14 @@ theorem heegaard_shape_joint_universal :
           shapeOf_eq_jForm,
           ?_, ?_⟩ <;> decide
 
-/-! ## §FW-2.DD'' — PURE List.length_append + connectedSumAttaching chi universal
+/-! ## §FW-2.DD'' — connectedSumAttaching chi universal
 
-Core `List.length_append` uses propext.  PURE version proven
-term-level via `induction` tactic + `Nat.zero_add` + `Nat.succ_add`
-(both PURE).  Enables universal connectedSumAttaching χ preservation
-without relying on DIRTY List lemmas.
+Uses the ∅-axiom `length_append` (`Meta.Tactic.List213`) in place of
+the propext-carrying core `List.length_append`, enabling universal
+connectedSumAttaching χ preservation without DIRTY List lemmas.
 -/
 
-/-- `(l₁ ++ l₂).length = l₁.length + l₂.length` PURE.
-    Term-level via `induction` tactic (which avoids the propext
-    that core `List.length_append` pulls). -/
-theorem list_length_append_pure {α : Type _} (l₁ l₂ : List α) :
-    (l₁ ++ l₂).length = l₁.length + l₂.length := by
-  induction l₁ with
-  | nil => exact (Nat.zero_add l₂.length).symm
-  | cons _ rest ih =>
-    show (rest ++ l₂).length + 1 = rest.length + 1 + l₂.length
-    exact Eq.trans
-      (congrArg (· + 1) ih)
-      (Nat.succ_add rest.length l₂.length).symm
+open E213.Tactic.List213 (length_append)
 
 /-- `(l.drop n).length = l.length - n` (this is `Nat.sub_zero`-style
     when n ≤ l.length, but the Nat-truncated version still holds
@@ -1725,14 +1714,14 @@ theorem list_length_drop_pure {α : Type _} (n : Nat) (l : List α) :
 
 /-- `num2Cells (connectedSumAttaching a₁ a₂)
       = a₁.cells2.length + a₂.cells2.length − 7` (when 7 ≤ a₂.cells2.length).
-    PURE via `list_length_append_pure` + `list_length_drop_pure`. -/
+    PURE via `length_append` + `list_length_drop_pure`. -/
 theorem connectedSumAttaching_num2Cells_universal
     (a₁ a₂ : CellComplexK32Attaching) :
     num2Cells (connectedSumAttaching a₁ a₂)
     = a₁.cells2.length + (a₂.cells2.length - 7) := by
   show (a₁.cells2 ++ a₂.cells2.drop 7).length
        = a₁.cells2.length + (a₂.cells2.length - 7)
-  rw [list_length_append_pure, list_length_drop_pure]
+  rw [length_append, list_length_drop_pure]
 
 /-- `num3Cells (connectedSumAttaching a₁ a₂)
       = a₁.cells3.length + a₂.cells3.length`. -/
@@ -1742,7 +1731,7 @@ theorem connectedSumAttaching_num3Cells_universal
     = a₁.cells3.length + a₂.cells3.length := by
   show (a₁.cells3 ++ a₂.cells3).length
        = a₁.cells3.length + a₂.cells3.length
-  exact list_length_append_pure _ _
+  exact length_append _ _
 
 /-- Universal connectedSumAttaching cell counts. -/
 theorem connectedSumAttaching_cells_universal :
@@ -1808,7 +1797,7 @@ theorem Lpq_attaching_isNatClosed : isNatClosed3Mfd Lpq_attaching := by decide
 
   The closed-3-mfd predicate `isNatClosed3Mfd` (= Nat-level
   `cells2.length = cells3.length + 7`) is preserved under
-  arbitrary connected sums, PURE via list_length_append_pure +
+  arbitrary connected sums, PURE via length_append +
   add_sub_self_right_pure (no DIRTY list / Int axioms). -/
 theorem connectedSumAttaching_universal_close :
     -- Universal cell counts (concrete cell-list arithmetic)
