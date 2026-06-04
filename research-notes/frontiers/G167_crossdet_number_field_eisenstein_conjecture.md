@@ -192,6 +192,42 @@ built, pending a decision on whether 213 wants the modular-group layer at all.  
 ∅-axiom reach entirely: geodesic flow, modular forms, the `j`-map, the modularity
 theorem, analytic continuation.
 
+## CAPSTONE — the two trichotomies are one (`CrossDetTraceField`, 14 PURE)
+
+The arc had grown **two parallel trichotomies** that were never joined by a theorem:
+
+  - **number-field side** (`EisensteinSignature`/`ParabolicSignature`): the reference
+    forms golden / parab / eisenstein, disc **+5 / 0 / −3** → line / cusp / curve;
+  - **dynamics side** (`HyperbolicBoost`/`ParabolicTranslation`/`UTracePeriodic`): the
+    `SL₂(ℤ)` matrices `G` / `T` / `U`, `tr²−4` = **+5 / 0 / −3** →
+    hyperbolic / parabolic / elliptic.
+
+The discriminants matched numerically; nothing proved *why*.  The missing structural
+object is the **fixed-point form** of the Möbius map.  `M = [[a,b],[c,d]]` fixes the roots
+of `c·z² + (d−a)·z − b`, i.e. the binary form `fixForm M = (c, d−a, −b)`, whose
+discriminant is, **as a pure ring identity over ℤ**,
+
+> `formDisc (fixForm M) = (d−a)² + 4bc = (a+d)² − 4(ad−bc) = tr² − 4·det = traceDisc M`
+> (`fixForm_disc_eq_traceDisc`, ∀ `M`, by `ring_intZ`).
+
+So the number field `ℚ(√D)` the cross-determinant's reference lives in (`D` = form disc)
+**is** the modular trace field `tr²−4` — because the reference form is the fixed-point
+form of the monodromy matrix.  This is the literal content of the title "교차행렬식의 수체
+읽기".  On the three faces `fixForm` recovers the reference forms on the nose:
+
+  - `fixForm G = (1,−1,−1)` = the **golden form** (root φ, disc +5, hyperbolic, line);
+  - `fixForm T = (0,0,−1)` = degenerate, fixed point at ∞ (disc 0, parabolic, cusp);
+  - `fixForm U = (1,1,1)` = the **cyclotomic form** `x²+x+1` (root ω, disc −3, elliptic,
+    curve = the `j=0` lattice `ℂ/ℤ[ω]`); `fixForm S = (1,0,1)` = `x²+1` (root i, disc −4).
+
+`crossdet_number_field_is_trace_field` bundles all three faces + the universal identity;
+`disc_sign_is_line_cusp_curve` reads the elliptic conjecture exactly: `D > 0` (two real
+fixed points → geodesic line) / `D = 0` (repeated real → cusp) / `D < 0` (complex-conjugate
+pair → elliptic point, the Eisenstein **curve**).  Mingu's "Eisenstein ↦ curve" *is* the
+`D < 0` face — definite norm ⟺ negative disc ⟺ complex fixed points ⟺ elliptic point ⟺
+bounded torus.  ∅-axiom; no CM/modular-forms edifice imported (only `Mat2` + the existing
+signature forms).
+
 ## One-line summary
 
 The `W = d`/det-one references are the **real-quadratic (disc > 0, golden, infinite
@@ -199,4 +235,6 @@ units) → convergent-line** side; the Eisenstein reference is the **imaginary-q
 (disc −3, definite, 6 units) → torus = `j = 0` elliptic-curve-lattice** side.  213
 already carries both (`ProbeTwistConic` vs `ZOmega`); the line-vs-curve dichotomy is the
 sign of the discriminant, and *that* — not the CM/modular machinery — is the ∅-axiom
-heart of the conjecture.
+heart of the conjecture.  The capstone `CrossDetTraceField` proves the form discriminant
+*is* the matrix trace discriminant `tr²−4`, fusing the number-field reading and the
+modular trace reading into one number `D`.
