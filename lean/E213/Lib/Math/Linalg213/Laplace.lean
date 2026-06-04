@@ -18,17 +18,17 @@ This file builds the relabeling foundation first.  All ∅-axiom.
 namespace E213.Lib.Math.Linalg213.Laplace
 
 open E213.Lib.Math.Linalg213.DetN
-  (colShift colShift_lt colShift_ge minor altSign altSign_add det cofSum)
+  (colShift colShift_lt colShift_ge minor altSign altSign_add det cofSum det_congr)
 open E213.Lib.Math.Linalg213.Permutation
   (prodDiagFrom psign leibTerm leibDet perms iota LPerm ltCount inversions psign_cons
-   ltCount_append sumZ map_lperm sumZ_lperm)
+   ltCount_append sumZ map_lperm sumZ_lperm rowSwapAt rowSwapAt_other rowSwapAt_at rowSwapAt_at1)
 open E213.Lib.Math.Linalg213.PermClosure
   (cnt permsOf_sound permsOf_complete lt_of_mem_iota length_iota Nodup cnt_pos_mem cnt_pos_of_mem
    cnt_eq_zero_of_not_mem eq_one_of_le_one_of_pos lperm_of_cnt_eq cnt_lperm add_left_cancel'
    nodup_cons nodup_map nodup_iota nodup_permsOf nodup_flatMap
    mem_map' mem_map_mpr mem_flatMap' mem_flatMap_mpr mem_append_left mem_append_right map_eq_of_mem
    map_map' nodup_of_lperm nodup_head_not_mem sumZ_map_smul LPerm.length_eq LPerm.mem
-   leibDet_rows_eq_ne leibDet_setRow_add leibDet_setRow_smul)
+   leibDet_rows_eq_ne leibDet_setRow_add leibDet_setRow_smul leibDet_rowSwap)
 
 /-! ## §1 — the minor relabeling (`unshift`, inverse of `colShift`) -/
 
@@ -474,5 +474,59 @@ theorem det_setRow_smul (n i : Nat) (hi : i < n) (a : Int) (r : Nat → Int) (M 
     det n (setRow i (fun c => a * r c) M) = a * det n (setRow i r M) := by
   rw [← leibDet_eq_det, ← leibDet_eq_det]
   exact leibDet_setRow_smul n i hi a r M
+
+/-- ★ **`DetN.det`: an adjacent row swap negates** (for `k+1 < n`). -/
+theorem det_rowSwap (M : Nat → Nat → Int) (n k : Nat) (hk : k + 1 < n) :
+    det n (rowSwapAt k M) = - det n M := by
+  rw [← leibDet_eq_det, ← leibDet_eq_det]; exact leibDet_rowSwap M n k hk
+
+/-! ## §4 — row-`i` cofactor expansion (move row `i` to the top) -/
+
+/-- Move row `i` to the top: rows `0,…,i-1` shift down to `1,…,i`. -/
+def cyc (i : Nat) (M : Nat → Nat → Int) : Nat → Nat → Int := fun r c =>
+  if r = 0 then M i c else if r ≤ i then M (r - 1) c else M r c
+
+/-- `cyc 0 = id`. -/
+theorem cyc0 (M : Nat → Nat → Int) (r c : Nat) : cyc 0 M r c = M r c := by
+  show (if r = 0 then M 0 c else if r ≤ 0 then M (r - 1) c else M r c) = M r c
+  by_cases hr : r = 0
+  · rw [if_pos hr, hr]
+  · rw [if_neg hr, if_neg (fun h => hr (Nat.le_antisymm h (Nat.zero_le r)))]
+
+/-- One bubble step: `cyc (i+1) M = cyc i (rowSwapAt i M)`. -/
+theorem cyc_succ_eq (i : Nat) (M : Nat → Nat → Int) : ∀ (r c : Nat),
+    cyc (i + 1) M r c = cyc i (rowSwapAt i M) r c
+  | 0,     c => by show M (i + 1) c = rowSwapAt i M i c; rw [rowSwapAt_at]
+  | s + 1, c => by
+    show (if s + 1 ≤ i + 1 then M ((s + 1) - 1) c else M (s + 1) c)
+       = (if s + 1 ≤ i then rowSwapAt i M ((s + 1) - 1) c else rowSwapAt i M (s + 1) c)
+    by_cases h1 : s + 1 ≤ i + 1
+    · rw [if_pos h1]
+      by_cases h2 : s + 1 ≤ i
+      · rw [if_pos h2]
+        have hsi : s < i := Nat.lt_of_succ_le h2
+        show M s c = rowSwapAt i M s c
+        rw [rowSwapAt_other i M (Nat.ne_of_lt hsi) (Nat.ne_of_lt (Nat.lt_succ_of_lt hsi))]
+      · rw [if_neg h2]
+        have hsi : s = i := Nat.le_antisymm (Nat.le_of_succ_le_succ h1)
+          (Nat.le_of_lt_succ (Nat.lt_of_not_le h2))
+        rw [hsi]
+        show M i c = rowSwapAt i M (i + 1) c
+        rw [rowSwapAt_at1]
+    · rw [if_neg h1, if_neg (fun h => h1 (Nat.le_succ_of_le h))]
+      have hgt : i < s := Nat.lt_of_succ_lt_succ (Nat.lt_of_not_le h1)
+      rw [rowSwapAt_other i M (Ne.symm (Nat.ne_of_lt (Nat.lt_succ_of_lt hgt)))
+        (Ne.symm (Nat.ne_of_lt (Nat.succ_lt_succ hgt)))]
+
+/-- ★ **Moving row `i` to the top multiplies the determinant by `(−1)ⁱ`.** -/
+theorem det_cyc (n : Nat) : ∀ (i : Nat) (M : Nat → Nat → Int), i < n →
+    det n (cyc i M) = altSign i * det n M
+  | 0,     M, _  => by
+    rw [det_congr n (cyc0 M)]; show det n M = 1 * det n M; rw [Int.one_mul]
+  | i + 1, M, hi => by
+    rw [det_congr n (cyc_succ_eq i M), det_cyc n i (rowSwapAt i M) (Nat.lt_of_succ_lt hi),
+        det_rowSwap M n i hi]
+    show altSign i * -det n M = -(altSign i) * det n M
+    rw [E213.Meta.Int213.mul_neg, E213.Meta.Int213.neg_mul]
 
 end E213.Lib.Math.Linalg213.Laplace
