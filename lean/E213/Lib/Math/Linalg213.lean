@@ -13,6 +13,7 @@ import E213.Lib.Math.Linalg213.Gram
 import E213.Lib.Math.Linalg213.Permutation
 import E213.Lib.Math.Linalg213.RowDependence
 import E213.Lib.Math.Linalg213.DetTriangular
+import E213.Lib.Math.Linalg213.DetScale
 import E213.Lib.Math.Linalg213.PermClosure
 import E213.Lib.Math.Linalg213.Rank
 import E213.Lib.Math.Linalg213.Rank5Concrete
