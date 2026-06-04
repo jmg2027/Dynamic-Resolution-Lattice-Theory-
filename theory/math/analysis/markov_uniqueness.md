@@ -340,6 +340,19 @@ the converse `orbitRealizabilityH_of_windowRealizedUnique` (`→ H`, via `root_o
 merely *sufficient* for Markov uniqueness — it **is** it; "`H` is the Frobenius conjecture at `c`" is a
 theorem.
 
+A fourth, **path-level** formulation closes the loop on the matrix tree itself
+(`markovMaxUnique_iff_markovNum_injective`, ∅-axiom): `Function.Injective markovNum ↔ ∀ c ≥ 5,
+MarkovMaxUnique c`, where `markovNum p = (mNode p).c` is the integer node maximum.  `(→)` is §33
+(`markov_max_unique_of_markovNum_injective`); `(←)` is §34 (`markovNum_injective_of_markovMaxUnique`),
+proved with *no new number theory* by routing through the window equivalence — `MarkovMaxUnique c`
+gives `WindowRealizedUnique c`, which collapses the two nodes' realised windowed `√(−1)` residues
+(`node_window_nat` + `node_realized`), hence equal `markovRes`, hence equal slope, hence `slope_path_inj`
+gives the same path.  So the size reading injective on tree paths *is* Markov uniqueness — the
+"distinct paths ⟹ distinct Markov numbers" formulation and the triple-uniqueness formulation are one
+and the same open statement.  This is a *formulation-equivalence* (perimeter): it identifies two
+statements of the open Frobenius conjecture, it does not prove either, and it does not touch the
+cross-node `mod c ↔ ℤ` kernel.
+
 **Definition-faithfulness + uniformity** (the same lens applied to the reduction itself).
 `WindowRealizedUnique c` (`∀ u₁ u₂ windowed √(−1) roots, both realised ⟹ u₁=u₂`) and
 `OrbitRealizabilityH c` (`no nontrivial-unit-root image of a realised windowed root is realised`) are

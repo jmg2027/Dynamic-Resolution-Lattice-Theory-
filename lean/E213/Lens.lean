@@ -15,6 +15,7 @@ import E213.Lens.SelfReferenceThreeOutcomes
 import E213.Lens.Instances
 import E213.Lens.Algebra
 import E213.Lens.Cardinality
+import E213.Lens.DirectionFree
 import E213.Lens.Lattice
 import E213.Lens.Number
 import E213.Lens.Properties

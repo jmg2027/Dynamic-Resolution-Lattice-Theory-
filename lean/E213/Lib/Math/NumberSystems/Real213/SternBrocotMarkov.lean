@@ -2326,4 +2326,200 @@ theorem markovMaxUnique_iff_orbitRealizabilityH (c : Nat) (hc5 : 5 ≤ c) :
   (markovMaxUnique_iff_windowRealizedUnique c hc5).trans
     (windowRealizedUnique_iff_orbitRealizabilityH c hc5)
 
+/-! ## §30 — the size reading is strictly monotone under descent (the easy half of stable-norm
+monotonicity)
+
+The "size" reading `markovNum p = (mNode p).c` strictly increases at every tree step: a deeper node is
+a strictly larger Markov number.  This is the **descent** direction of size-monotonicity, immediate
+from `mNode_max` (the mediant is the strict max of its two bounds) — the discrete shadow's easy half,
+the continuant version of "go down the tree, the stable norm grows".
+
+It is **not** the Aigner / stable-norm cross-line content: comparing *incomparable* nodes (different
+slopes at related Stern-Brocot positions) is the genuine wall = the open kernel `H`
+(`markovMaxUnique_iff_orbitRealizabilityH`).  `mNode_max` settles descent; the cross-line comparison is
+not reachable from it.  So this section honestly bounds how far the discrete machinery reaches on its
+own: all the way down a line, none of the way across lines. -/
+
+/-- **Size strictly increases per tree step**: `markovNum p < markovNum (b :: p)` for every step `b`.
+    A child node is a strictly larger Markov number than its parent — directly from `mNode_max`, since
+    the child's relevant interval bound is exactly the parent node `mNode p`. -/
+theorem markovNum_lt_extend (b : Bool) (p : List Bool) :
+    (mNode p).c < (mNode (b :: p)).c := by
+  cases b with
+  | true  => exact (mNode_max (true :: p)).2
+  | false => exact (mNode_max (false :: p)).1
+
+/-- **Size strictly increases along any descent**: `markovNum p < markovNum (q ++ p)` for nonempty
+    `q` — strictly monotone from any node down to any descendant (iterated `markovNum_lt_extend`). -/
+theorem markovNum_lt_append : ∀ (q p : List Bool), q ≠ [] → (mNode p).c < (mNode (q ++ p)).c
+  | [], _, hq => absurd rfl hq
+  | [b], p, _ => markovNum_lt_extend b p
+  | b :: c :: q', p, _ =>
+      E213.Meta.Int213.Order.lt_trans
+        (markovNum_lt_append (c :: q') p (fun h => List.noConfusion h))
+        (markovNum_lt_extend b ((c :: q') ++ p))
+
+/-! ## §31 — the size reading is not residue-native: the Markov combine is non-commutative
+
+The Farey/slope reading folds the *direction-free* residue: its combine is the mediant, which is
+commutative (`ModularGeodesicLens.mediant_sym`), so it is a genuine Raw-`Lens` — Raw's `a/b = b/a`
+(direction-freedom, the third axiom clause) is respected.  The Markov **size** reading does not: its
+combine is the matrix product of the generators, and `genL · genR ≠ genR · genL`.  A non-commutative
+combine cannot be a Raw-fold (`Raw.fold_slash` requires `combine u v = combine v u`), so the size
+reading is **not** a residue-`Lens` — it lives on the *oriented* `List Bool` tree (the free monoid on
+two letters), one structural level above the direction-free residue.
+
+This is the foundation-level root of the slope/size asymmetry: the slope reading is residue-native
+(foldable, its injectivity `slope_path_inj` provable), while size injectivity (the kernel `H`) requires
+exactly the orientation the residue discards — a difference-style reading (orientation-breaking), not a
+count-style one. -/
+
+/-- **The Markov generators do not commute**: `genL · genR ≠ genR · genL`.  Hence the size reading's
+    combine is non-commutative, so the Markov size is not a Raw-`Lens` (the residue's `a/b = b/a` forces
+    a commutative combine) — it is a free-monoid reading on the oriented tree. -/
+theorem markovGen_noncommutative : mul genL genR ≠ mul genR genL := by decide
+
+/-! ## §32 — slope determines size; the converse is `markovNum` injectivity
+
+The slope/size pair is a *one-directional determination*.  One way is proven: `slope_determines_size`
+— equal slope ⟹ equal Markov number, via `slope_path_inj` (real objects: `mNode`, `markovNum = (mNode).c`,
+the integer node max).  The converse — equal Markov number ⟹ equal slope — is exactly `markovNum`
+injectivity (`sizeDeterminesSlope_iff_markovNum_injective`).
+
+Scope, honestly.  `sizeDeterminesSlope_iff_markovNum_injective` is a *light restatement* (given
+`slope_path_inj`).  The link to the actual conjecture is now a **full equivalence** (§33 `→` + §34 `←`):
+`markovMaxUnique_iff_markovNum_injective` proves `Function.Injective markovNum ↔ ∀ c ≥ 5,
+MarkovMaxUnique c` — the size-injectivity formulation and the triple-uniqueness formulation are *one and
+the same* open statement.  Honest scope: this is a *formulation-equivalence* between two statements of
+the open Frobenius conjecture (perimeter), not a proof of either, and it does not touch the cross-node
+kernel.  Separately, the `Lens`-lattice framing (`Lens/Lattice/Injectivity.lean`) stays an analogy:
+the size reading is provably **not** a Raw-`Lens` (`markovGen_noncommutative` + `Lens.DirectionFree`), so
+the abstract refinement lattice does not literally contain it. -/
+
+/-- **Slope determines size**: equal slope ⟹ equal Markov number.  The finer (residue-native) reading
+    determines the coarser one, directly from `slope_path_inj`. -/
+theorem slope_determines_size (p q : List Bool)
+    (h : slopeEq (mNode p) (mNode q)) : markovNum p = markovNum q := by
+  rw [slope_path_inj p q h]
+
+/-- **The converse is `markovNum` injectivity**: "size determines slope" (equal Markov number ⟹ equal
+    slope) is exactly `Function.Injective markovNum` — both directions via `slope_path_inj` + reflexivity
+    of `slopeEq`.  A light restatement; the path form of the conjecture (its identification with
+    `MarkovMaxUnique` is not formalized here). -/
+theorem sizeDeterminesSlope_iff_markovNum_injective :
+    (∀ p q : List Bool, markovNum p = markovNum q → slopeEq (mNode p) (mNode q))
+      ↔ Function.Injective markovNum := by
+  constructor
+  · intro hsd p q hpq
+    exact slope_path_inj p q (hsd p q hpq)
+  · intro hinj p q hpq
+    have hpq' : p = q := hinj hpq
+    subst hpq'
+    rfl
+
+/-! ## §33 — the bridge: `markovNum` injectivity ⟹ Markov uniqueness (closing the analogy, `→`)
+
+`sizeDeterminesSlope_iff_markovNum_injective` (§32) restated the size reading's injectivity as a path
+fact; this section ties it to the actual conjecture.  `markov_max_unique_of_markovNum_injective`:
+`Function.Injective markovNum → ∀ c ≥ 5, MarkovMaxUnique c`.  So the size reading injective is not merely
+*analogous* to `H` — it is a theorem-level **sufficient condition** for the Markov uniqueness conjecture.
+The proof is `markov_max_unique_tree`'s backbone with the residue/window/slope steps replaced by
+`markovNum` injectivity: two ordered triples at `c` are tree nodes (`reverse_bridge`) with the same
+`markovNum = c`, so injectivity forces the same path, hence the same triple.  (The converse —
+`MarkovMaxUnique` ⟹ `markovNum` injective — is §34 `markovNum_injective_of_markovMaxUnique`, so the
+identification is now literal: `markovMaxUnique_iff_markovNum_injective`.) -/
+
+/-- ★★★★★ **Size-injectivity ⟹ Markov uniqueness.**  If `markovNum` is injective on paths, then every
+    `MarkovMaxUnique c` (`c ≥ 5`) holds: two ordered triples at `c` are nodes (`reverse_bridge`) of equal
+    `markovNum`, which injectivity collapses to one path and hence one triple. -/
+theorem markov_max_unique_of_markovNum_injective (hinj : Function.Injective markovNum)
+    (c : Nat) (hc5 : 5 ≤ c) : E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique c := by
+  intro a₁ b₁ a₂ b₂ hab1 hb1c hab2 hb2c hm1 hm2
+  have hc2 : 2 ≤ c := Nat.le_trans (by decide) hc5
+  have ha1 : 1 ≤ a₁ := E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_a_pos hc2 hm1
+  have ha2 : 1 ≤ a₂ := E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_a_pos hc2 hm2
+  obtain ⟨p1, hc1, hpair1⟩ := node_data (reverse_bridge a₁ b₁ c hm1 ha1 hab1 hb1c hc5)
+  obtain ⟨p2, hc2', hpair2⟩ := node_data (reverse_bridge a₂ b₂ c hm2 ha2 hab2 hb2c hc5)
+  have hcc : (mNode p1).c = (mNode p2).c := by
+    rw [← toNat_of_nonneg (nonneg_of_one_le (mNode_pos p1).2.2.1),
+        ← toNat_of_nonneg (nonneg_of_one_le (mNode_pos p2).2.2.1), hc1, hc2']
+  have hpeq : p1 = p2 := hinj (show markovNum p1 = markovNum p2 from hcc)
+  subst hpeq
+  rcases hpair1 with ⟨e1a, e1b⟩ | ⟨e1a, e1b⟩ <;> rcases hpair2 with ⟨e2a, e2b⟩ | ⟨e2a, e2b⟩
+  · exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
+  · have hLR : (mInterval p1).1.c.toNat = (mInterval p1).2.c.toNat :=
+      Nat.le_antisymm (e1a ▸ e1b ▸ hab1) (e2b ▸ e2a ▸ hab2)
+    exact ⟨e1a.trans (hLR.trans e2a.symm), e1b.trans (hLR.symm.trans e2b.symm)⟩
+  · have hLR : (mInterval p1).1.c.toNat = (mInterval p1).2.c.toNat :=
+      Nat.le_antisymm (e2a ▸ e2b ▸ hab2) (e1b ▸ e1a ▸ hab1)
+    exact ⟨e1a.trans (hLR.symm.trans e2a.symm), e1b.trans (hLR.trans e2b.symm)⟩
+  · exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
+
+/-! ## §34 — the reverse bridge: Markov uniqueness ⟹ `markovNum` injectivity (closing the iff)
+
+§33 gave `Function.Injective markovNum → ∀ c ≥ 5, MarkovMaxUnique c`.  This section proves the
+**converse** with no new number theory, by routing through the §28 frontier equivalence:
+`MarkovMaxUnique c` gives `WindowRealizedUnique c` (`markovMaxUnique_to_windowRealizedUnique`), which
+forces the two nodes' residues — both *realized* windowed `√(−1)` mod the common `c`
+(`node_window_nat` + `node_realized`) — to coincide, hence equal `markovRes`, hence equal slope, hence
+(`slope_path_inj`) the same path.  Composed with §33 this closes the literal identification
+
+  `Function.Injective markovNum ↔ ∀ c ≥ 5, MarkovMaxUnique c`
+
+— the size-reading-injective formulation and the triple-uniqueness formulation are **one and the same
+open statement**.  Honest scope: this is a *formulation-equivalence* between two statements of the open
+Frobenius conjecture (perimeter), not a proof of either, and it does not touch the cross-node kernel. -/
+
+/-- Every node's Markov number is `≥ 5`: the root is `5` (`mNode [] = mul genL genR`, `.c = 5`) and the
+    size strictly increases at every tree step (`markovNum_lt_extend`). -/
+theorem mNode_ge_5 (p : List Bool) : (5 : Int) ≤ (mNode p).c := by
+  induction p with
+  | nil => show (5 : Int) ≤ (mul genL genR).c
+           decide
+  | cons b t ih => exact le_of_lt (lt_of_le_of_lt ih (markovNum_lt_extend b t))
+
+/-- ★★★★★ **Markov uniqueness ⟹ `markovNum` injectivity** (the converse of §33, no new number theory).
+    If every `c ≥ 5` satisfies `MarkovMaxUnique`, then `markovNum` is injective on paths: two paths of
+    equal Markov number `c` have, via `WindowRealizedUnique` (`markovMaxUnique_to_windowRealizedUnique`),
+    the same windowed residue `markovRes`, hence the same slope, hence (`slope_path_inj`) the same path. -/
+theorem markovNum_injective_of_markovMaxUnique
+    (hmu : ∀ c : Nat, 5 ≤ c → E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique c) :
+    Function.Injective markovNum := by
+  intro p1 p2 hpq
+  have hcZ : (mNode p1).c = (mNode p2).c := hpq
+  have hc2N : (mNode p2).c.toNat = (mNode p1).c.toNat := by rw [hcZ]
+  have hc5 : 5 ≤ (mNode p1).c.toNat := by
+    have h4 : (4 : Int) < (mNode p1).c := lt_of_lt_of_le (by decide : (4 : Int) < 5) (mNode_ge_5 p1)
+    exact int_toNat_lt (by decide : (0 : Int) ≤ 4) h4
+  have hwru : WindowRealizedUnique (mNode p1).c.toNat :=
+    markovMaxUnique_to_windowRealizedUnique (mNode p1).c.toNat hc5
+      (hmu (mNode p1).c.toNat hc5)
+  obtain ⟨hlo1, hhi1, hmod1⟩ := node_window_nat p1
+  obtain ⟨hlo2, hhi2, hmod2⟩ := node_window_nat p2
+  rw [hc2N] at hlo2 hhi2 hmod2
+  obtain ⟨b1, hb1lt, hb1eq⟩ := node_realized p1
+  obtain ⟨b2, hb2lt, hb2eq⟩ := node_realized p2
+  rw [hc2N] at hb2lt hb2eq
+  have hueq : (markovRes p1).toNat = (markovRes p2).toNat :=
+    hwru _ _ hlo1 hlo2 hhi1 hhi2 hmod1 hmod2 ⟨b1, hb1lt, hb1eq⟩ ⟨b2, hb2lt, hb2eq⟩
+  have hrnn1 : (0 : Int) ≤ markovRes p1 := nonneg_of_one_le (markov_window p1).1
+  have hrnn2 : (0 : Int) ≤ markovRes p2 := nonneg_of_one_le (markov_window p2).1
+  have hReq : markovRes p1 = markovRes p2 := by
+    rw [← toNat_of_nonneg hrnn1, ← toNat_of_nonneg hrnn2, hueq]
+  have hslope : slopeEq (mNode p1) (mNode p2) := by
+    show markovRes p1 * (mNode p2).c = markovRes p2 * (mNode p1).c
+    rw [hReq, hcZ]
+  exact slope_path_inj p1 p2 hslope
+
+/-- ★★★★★ **The literal identification**: `markovNum` injectivity ⟺ Markov max-uniqueness at every
+    `c ≥ 5`.  `(→)` is §33 (`markov_max_unique_of_markovNum_injective`), `(←)` is §34
+    (`markovNum_injective_of_markovMaxUnique`).  Both sides are the same open conjecture, in the
+    size-reading-injective and the triple-uniqueness formulations — a formulation-equivalence (perimeter),
+    not a proof of either. -/
+theorem markovMaxUnique_iff_markovNum_injective :
+    Function.Injective markovNum
+      ↔ ∀ c : Nat, 5 ≤ c → E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique c :=
+  ⟨fun hinj c hc5 => markov_max_unique_of_markovNum_injective hinj c hc5,
+   markovNum_injective_of_markovMaxUnique⟩
+
 end E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov

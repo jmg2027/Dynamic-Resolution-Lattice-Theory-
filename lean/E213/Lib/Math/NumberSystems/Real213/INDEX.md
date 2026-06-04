@@ -108,6 +108,23 @@
   - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five
     pieces (boundary, Liouville, closure, generator, residue) bundled.
 
+**Markov spectrum + modular-geodesic** (narrative
+`theory/math/analysis/markov_uniqueness.md` +
+`theory/essays/the_modular_geodesic_lens.md`):
+  - `MarkovTree.lean` / `MarkovUniqueness.lean` / `MarkovInjectivity.lean` —
+    the Markov-number tree, the uniqueness statement, and the injectivity
+    reading (`markovNum` injective ⟺ `MarkovMaxUnique`).
+  - `SternBrocotMarkov.lean` — ★ the Stern-Brocot ⟷ Markov bridge: size
+    reading strictly monotone under descent (§30), slope determines size
+    (§32), the forward + reverse bridges closing the iff
+    (`markovMaxUnique_iff_markovNum_injective`, §33–§34), and the orbit-
+    realizability kernel `H` (`OrbitRealizabilityH`).
+  - `Continuant.lean` — Euler continuants `K[a₁..aₙ]` + monotonicity (the
+    Aigner core tool for the continuant/Markov program).
+  - `ModularGeodesicLens.lean` — ★ the geodesic engine as a Raw-Lens:
+    `mediantLens` + `mediantLens_view_reachable` (mediant-Lens view ⊆
+    `SternBrocotReachable`, ∅-axiom) — the residue read at `ℍ/PSL(2,ℤ)`.
+
 ## Architecture notes
 
 - Real = (sequence + modulus) pair — type-level form of Cauchy completeness.

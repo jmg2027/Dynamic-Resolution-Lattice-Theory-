@@ -91,6 +91,8 @@ import E213.Lib.Math.NumberSystems.Real213.UTracePeriodic
 import E213.Lib.Math.NumberSystems.Real213.MarkovModularBridge
 import E213.Lib.Math.NumberSystems.Real213.MarkovInjectivity
 import E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+import E213.Lib.Math.NumberSystems.Real213.Continuant
+import E213.Lib.Math.NumberSystems.Real213.ModularGeodesicLens
 import E213.Lib.Math.NumberSystems.Real213.LagrangeExtremes
 import E213.Lib.Math.NumberSystems.Real213.PentagonGoldenTrace
 import E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace

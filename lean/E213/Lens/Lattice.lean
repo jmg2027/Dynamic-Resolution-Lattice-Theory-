@@ -7,6 +7,7 @@ import E213.Lens.Lattice.Lattice
 import E213.Lens.Lattice.Meet
 import E213.Lens.Lattice.Chain
 import E213.Lens.Lattice.Preorder
+import E213.Lens.Lattice.Injectivity
 
 /-! Spec-as-code entry point for `E213.Lens.Lattice`.
 
