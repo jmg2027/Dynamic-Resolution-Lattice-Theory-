@@ -45,6 +45,12 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
   - **Phase 0 (done)** — `covering_bound` (`EisensteinEuclidean`): covering radius² ≤ 3/4 < 1.
   - **Phase 1a (DONE)** — `ModArith.CenteredDivision.centered_div` (2 PURE): centered division
     `∀ A (N>0), ∃ q r, A = qN + r ∧ 2|r| ≤ N`, built exactly per the scouting below.
+  - **Phase 1b-infra (DONE)** — `Meta.Int213.OrderMul` (4 PURE): the pure `Int` multiplicative
+    order lemmas the descent's final inequality needs (`mul_le_mul_right_nonneg`,
+    `mul_le_mul_left_nonneg`, `int_sign` trichotomy, `mul_nonpos_of_nonneg_of_nonpos`) — the
+    core versions are `propext`-dirty.  Remaining Phase 1b: the ZOmega assembly
+    `∃ γ, ‖α−βγ‖² < ‖β‖²` using `β·conjβ = ofInt ‖β‖²`, `normSq_mul`, `covering_bound`,
+    `centered_div`, and these order lemmas (sign-trichotomy contradiction `N ≤ ‖ρ‖² ⟹ 2N² ≤ 0`).
   - **Phase 1a (scouting record)** — centered division `∀ A (N>0), ∃ q r, A = qN + r ∧ 2|r| ≤ N`.
     Toolkit: pure Nat `AddMod213.div_add_mod` + `Nat.mod_lt` (both PURE) for the ordinary
     remainder, then center (subtract `N` when `2·(a%N) > N`).  **Purity caveat**: the core
