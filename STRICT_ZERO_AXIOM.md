@@ -450,6 +450,18 @@ the multiplicative fold's hole (`0`/`∞`) and the additive fold's ceiling (maxi
 non-surjection) — the two non-values the number tower excludes; the unit is where a genuine
 distinguishing survives.
 
+`E213.Lens.Number.IntFoldForms` — **13 PURE**.  Realizes canon §6.9 (status-symmetric folds): ℤ's
+own fold is negation `x ↦ −x`, and a fold is correct only if `0` and `∞` carry the same status (both
+genuine carrier elements).  Plain ℤ is torsioned (`0` present, `∞` absent); there are exactly **two**
+correct closures.  **One-point** `ℤ̂ = Option Int` with `∞ = −∞`: `negHat` is an involution
+(`negHat_involutive`) whose fixed points are exactly `{0, ∞}` (`negHat_fixed_iff`) — both fixed
+(`negHat_zero_and_inf_fixed`), the form reciprocal reads by *swapping* `0 ↔ ∞`.  **Two-point**
+`ℤ̄ = IntBar` with `+∞ ≠ −∞`: `negBar` fixes only `0` (`negBar_fixed_iff`) and **swaps** `±∞`
+(`negBar_zero_fixed_inf_swapped`).  In both the genuine integers `n ≠ 0` are proper 2-cycles `{n, −n}`
+(`negHat_value_two_cycle`) — `0`/`∞` are the fold's symmetry centres, not stratum-values.  Bundled in
+`int_correct_fold_forms`.  `neg_neg_int` / `neg_self_zero` (constructor-matched Int helpers, the
+`int_ne_neg_self` pattern); literal `−0 = 0` closures by `decide`.
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
