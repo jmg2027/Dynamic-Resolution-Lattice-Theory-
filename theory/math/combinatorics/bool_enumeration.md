@@ -45,15 +45,33 @@ lemmas whose core versions carry `propext`:
 
 These are reusable for any finite-Bool counting argument.
 
+## Counting (count-Lens b₀ = 1)
+
+On top of the enumeration, a hand-rolled count `bcount` (own definition —
+core `List.countP` lemmas carry `propext`; uses the `Bool` conditional
+`bif`, which reduces by `rfl`) with its `append` / `map` / `congr` /
+always-false lemmas gives:
+
+  - `bcount_allFalse` / `bcount_allTrue` — exactly **one** length-`n`
+    list is all-`false` (resp. all-`true`);
+  - `bcount_const` — exactly **two** colourings of each nonempty length
+    are constant.
+
+`bcount_const` is the **division-free, universal, ∅-axiom count-Lens
+form of `b₀ = 1`**: a cochain lies in the δ⁰-kernel of a connected
+`K_{NS,NT}^{(c)}` iff it is constant (`KernelConstancyUniversal.
+isKer_iff_const`), so the constant-list count `= 2` is `|ker δ⁰| = 2`
+for every nonempty deployment at once — where the existing
+`kerSizeDelta0Direct = 2` is `decide`-only (its binary decode pulls core
+`Nat.div`).
+
 ## Role
 
 This is the cardinality base for counting `Bool`-cochain subsets without
-`decide`-per-instance — e.g. a division-free universal count of the
-δ⁰-kernel (`= 2`, the count-Lens reading of the structural
-`KernelConstancyUniversal` result), and downstream the first Betti
-number of the bipartite cohomology.  The structural kernel result is
-already closed; this supplies the finite-cardinality machinery a
-count-form statement needs.
+`decide`-per-instance.  The structural kernel result is already closed;
+`bcount_const` supplies its count form.  Downstream it underwrites the
+first Betti number of the bipartite cohomology (`|im δ⁰| = 2^(V−1)` by
+fiber counting over the enumeration).
 
 ## Connection
 

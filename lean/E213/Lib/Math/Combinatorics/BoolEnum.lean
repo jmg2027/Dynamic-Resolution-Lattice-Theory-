@@ -162,4 +162,112 @@ theorem nodup_allBoolLists : ∀ n, (allBoolLists n).Nodup
       rcases exists_of_mem_map ht with ⟨_, _, he⟩
       nomatch he
 
+/-! ## Counting constant lists — the count-Lens form of `kernel = 2 constants`
+
+A cochain is in the δ⁰-kernel of a connected `K_{NS,NT}^{(c)}` iff it is a
+constant colouring (`KernelConstancyUniversal.isKer_iff_const`).  Counting
+the constant length-`n` Bool lists in the enumeration therefore gives the
+count-Lens reading of `|ker δ⁰| = 2` (`b₀ = 1`) — **universally and
+division-free**, where the existing `kerSizeDelta0Direct = 2` is
+`decide`-only (its binary decode pulls core `Nat.div`).
+
+Own count function (core `List.countP` lemmas carry `propext`). -/
+
+/-- Count of entries of a `List (List Bool)` satisfying `p`.  Uses the
+    `Bool` conditional `bif` (reduces by `rfl` on literals, unlike the
+    `Prop`/`Decidable` `if`). -/
+def bcount (p : List Bool → Bool) : List (List Bool) → Nat
+  | [] => 0
+  | a :: rest => (bif p a then 1 else 0) + bcount p rest
+
+/-- `bcount` distributes over append. -/
+theorem bcount_append (p : List Bool → Bool) :
+    ∀ (L₁ L₂ : List (List Bool)),
+      bcount p (L₁ ++ L₂) = bcount p L₁ + bcount p L₂
+  | [], L₂ => (Nat.zero_add _).symm
+  | a :: rest, L₂ => by
+      show (bif p a then 1 else 0) + bcount p (rest ++ L₂)
+            = ((bif p a then 1 else 0) + bcount p rest) + bcount p L₂
+      rw [bcount_append p rest L₂, Nat.add_assoc]
+
+/-- `bcount` under `map` reindexes the predicate. -/
+theorem bcount_map (p : List Bool → Bool) (f : List Bool → List Bool) :
+    ∀ (L : List (List Bool)), bcount p (L.map f) = bcount (fun x => p (f x)) L
+  | [] => rfl
+  | a :: rest => by
+      show (bif p (f a) then 1 else 0) + bcount p (rest.map f)
+            = (bif p (f a) then 1 else 0) + bcount (fun x => p (f x)) rest
+      rw [bcount_map p f rest]
+
+/-- `bcount` respects pointwise-equal predicates. -/
+theorem bcount_congr {p q : List Bool → Bool} (h : ∀ x, p x = q x) :
+    ∀ (L : List (List Bool)), bcount p L = bcount q L
+  | [] => rfl
+  | a :: rest => by
+      show (bif p a then 1 else 0) + bcount p rest
+            = (bif q a then 1 else 0) + bcount q rest
+      rw [h a, bcount_congr h rest]
+
+/-- The always-false predicate counts nothing. -/
+theorem bcount_false : ∀ (L : List (List Bool)), bcount (fun _ => false) L = 0
+  | [] => rfl
+  | _ :: rest => by
+      show (0 : Nat) + bcount (fun _ => false) rest = 0
+      rw [bcount_false rest]
+
+/-! ### The value-fixed predicates -/
+
+/-- All entries are `false`. -/
+def isAllFalse : List Bool → Bool
+  | [] => true
+  | a :: l => (a == false) && isAllFalse l
+
+/-- All entries are `true`. -/
+def isAllTrue : List Bool → Bool
+  | [] => true
+  | a :: l => (a == true) && isAllTrue l
+
+/-- Constant colouring: all-`false` or all-`true`. -/
+def isConst (l : List Bool) : Bool := isAllFalse l || isAllTrue l
+
+/-- `bcount` over the `(n+1)`-enumeration splits into the `false`-headed
+    and `true`-headed predicate counts at level `n`. -/
+theorem bcount_allBoolLists_succ (p : List Bool → Bool) (n : Nat) :
+    bcount p (allBoolLists (n + 1))
+      = bcount (fun x => p (false :: x)) (allBoolLists n)
+        + bcount (fun x => p (true :: x)) (allBoolLists n) := by
+  show bcount p ((allBoolLists n).map (false :: ·)
+        ++ (allBoolLists n).map (true :: ·)) = _
+  rw [bcount_append, bcount_map, bcount_map]
+
+/-- Exactly one length-`n` list is all-`false`. -/
+theorem bcount_allFalse : ∀ n, bcount isAllFalse (allBoolLists n) = 1
+  | 0 => rfl
+  | n + 1 => by
+      rw [bcount_allBoolLists_succ,
+          show (fun x => isAllFalse (false :: x)) = isAllFalse from rfl,
+          show (fun x => isAllFalse (true :: x)) = (fun _ => false) from rfl,
+          bcount_false, bcount_allFalse n]
+
+/-- Exactly one length-`n` list is all-`true`. -/
+theorem bcount_allTrue : ∀ n, bcount isAllTrue (allBoolLists n) = 1
+  | 0 => rfl
+  | n + 1 => by
+      rw [bcount_allBoolLists_succ,
+          show (fun x => isAllTrue (false :: x)) = (fun _ => false) from rfl,
+          show (fun x => isAllTrue (true :: x)) = isAllTrue from rfl,
+          bcount_false, bcount_allTrue n, Nat.zero_add]
+
+/-- **Count-Lens b₀ = 1**: every nonempty length is realised by exactly
+    **two** constant colourings (all-`false`, all-`true`) — the
+    division-free universal count matching the structural
+    `KernelConstancyUniversal` result `ker δ⁰ = 2 constants`. -/
+theorem bcount_const (n : Nat) : bcount isConst (allBoolLists (n + 1)) = 2 := by
+  rw [bcount_allBoolLists_succ,
+      bcount_congr (p := fun x => isConst (false :: x)) (q := isAllFalse)
+        (fun x => Bool.or_false (isAllFalse x)),
+      bcount_congr (p := fun x => isConst (true :: x)) (q := isAllTrue)
+        (fun x => Bool.false_or (isAllTrue x)),
+      bcount_allFalse n, bcount_allTrue n]
+
 end E213.Lib.Math.Combinatorics.BoolEnum

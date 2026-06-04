@@ -14,7 +14,7 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
 | `Pigeonhole.lean` | no injection `Fin (N+1) → Fin N` (∅-axiom, core-lemma route avoided) | ∅-axiom |
 | `Logic.lean` | umbrella for the `Logic/` sub-tree | — |
 | `GraphConnectivity.lean` | abstract graph reachability (`Reach` inductive) → δ⁰-closed colouring is constant on a connected graph (`closed_const`, `closed_false_or_true`, b₀ = 1); instantiated for complete bipartite in `Cohomology/Bipartite/Parametric/KernelConstancyUniversal` | ∅-axiom |
-| `BoolEnum.lean` | finite Bool-cardinality enumeration: `allBoolLists n` (all `2^n` length-`n` Bool lists) + `length = 2^n` + completeness + nodup; reusable pure `List` mem/nodup toolkit (no `Fintype`/`funext`/`Nat.div`) | ∅-axiom |
+| `BoolEnum.lean` | finite Bool-cardinality enumeration: `allBoolLists n` (all `2^n` length-`n` Bool lists) + `length = 2^n` + completeness + nodup; reusable pure `List` mem/nodup toolkit (no `Fintype`/`funext`/`Nat.div`).  Counting: `bcount` toolkit + `bcount_const` (= 2 constant colourings per nonempty length, the division-free universal count-Lens form of `b₀ = 1`) | ∅-axiom |
 | `Capstone.lean` | 4 cluster witnesses + total_witness | ∅-axiom |
 | `Combinatorics.lean` | umbrella (sibling) | — |
 
