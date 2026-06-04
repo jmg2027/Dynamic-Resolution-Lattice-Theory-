@@ -1,12 +1,18 @@
 # The Markov uniqueness conjecture — the neighbor congruence and the `√(−1)` encoding
 
-**Status**: The arithmetic spine of the conjecture is closed ∅-axiom; uniqueness is proven
-unconditionally for every odd prime power (Button's theorem) and for the composite Markov numbers
-`65, 610, 985, 1325`.  For composite `c` the structural reduction is complete: root-count
-(`= 2^{ω−1}`), the unit-root group, its free action, and nontrivial-root existence are all closed, so
-the entire open content is isolated to one realisability hypothesis `H` (the upper-fold orbit tower,
-§20–§26).  The residue-map injectivity is separately analysed down to the Farey-monotone recovery.
-Source of truth (all ∅-axiom): `lean/E213/Lib/Math/Real213/{MarkovUniqueness, MarkovCassiniBridge,
+**Status**: The arithmetic spine is closed ∅-axiom, and **`MarkovMaxUnique` itself (the uniqueness
+conclusion, not merely the root-count input) is proven unconditionally for the entire odd-prime-power
+family** — Button's theorem, `markov_prime_pow_unique` (`#print axioms` clean).  The load-bearing step
+is the Markoff-matrix tree: the recovery injectivity `triple ↦ residue` is discharged by the tree's
+**global slope monotonicity** `slope_path_inj`, so `markov_max_unique_tree` needs *no*
+`SamePairInjective`-style hypothesis — superseding the size-bound cross-determinant dead end recorded
+below.  The composite Markov numbers `610, 985, 1325` are closed the same way; `65 = 5·13` is **not a
+Markov number** (its triple set is empty), so its `MarkovMaxUnique` is *vacuously* true and is a unit
+test, not a uniqueness result on a par with `1325`.  For composite `c` the structural reduction is
+complete — root-count (`= 2^{ω−1}`), the unit-root group, its free action, and nontrivial-root
+existence — and recovery is closed by `slope_path_inj`, so the **single** open input is one
+realisability hypothesis `H` (which `±`-suborbit carries a triple; the orbit tower, §20–§27).  Source
+of truth (all ∅-axiom): `lean/E213/Lib/Math/Real213/{MarkovUniqueness, MarkovCassiniBridge,
 MarkovModularBridge, MarkovInjectivity, SternBrocotMarkov}.lean` + `ModArith/MarkovPrimeFactor.lean`.
 
 ## The conjecture
@@ -62,8 +68,10 @@ more distinct prime factors, where the root count is at least four.
 Two definitions carry this in Lean.  `MarkovMaxUnique c` is the conjecture at a fixed maximum;
 `SqrtNegOneTwoRoots c` is the root-count input (`x² ≡ −1 (mod c)` has at most the two roots
 `±u`).  The reduction `SqrtNegOneTwoRoots c → MarkovMaxUnique c` is the spine of every partial
-result, and its one non-elementary step — injectivity of the residue map
-`triple ↦ a·b⁻¹ (mod c)` — is held as an explicit open target rather than asserted.
+result; its one non-elementary step — injectivity of the residue map `triple ↦ a·b⁻¹ (mod c)` — is
+**now discharged** by `SternBrocotMarkov.markov_max_unique_tree` (the tree recovers the path from the
+slope, `slope_path_inj`; see "The upper-fold pattern" below).  So the reduction is a *theorem*, not a
+conditional, and Button's prime-power family is closed `MarkovMaxUnique` ∅-axiom.
 
 The root-count input itself is now proved **generally for primes**.  In
 `ModArith/MarkovPrimeFactor`, `two_roots_of_prime` shows `SqrtNegOneTwoRoots p` for every prime
@@ -78,8 +86,9 @@ shows `SqrtNegOneTwoRoots (p^(k+1))` for odd prime `p`.  The new ingredient is t
 at most one of `x−y, x+y` (else `p ∣ x`, impossible since `x² ≡ −1`); the coprime one is coprime
 to `p^(k+1)` (`coprime_prime_pow`, from `dvd_prime_pow_cases`: divisors of `pᵏ` are `1` or
 multiples of `p`) and cancels via the fully general Euclid's lemma `euclid_of_coprime`.  So the
-reduction's hypothesis is discharged at every prime-power maximum; the remaining open step is the
-residue-map injectivity above.
+reduction's root-count hypothesis is discharged at every prime-power maximum — and, with the
+residue-map injectivity now supplied by the tree (`slope_path_inj`, below), `markov_prime_pow_unique`
+closes `MarkovMaxUnique (p^(k+1))` outright for the whole odd-prime-power family.
 
 What is established directly: the conjecture itself at small maxima, `MarkovMaxUnique` for
 `c = 5, 13, 29` (assembled from the decidable single-pair checks `markov_max_unique_{5,13,29,34}`);
@@ -264,8 +273,9 @@ the classical literature (Frobenius 1913; Baragar, Button, Lang–Tan, Zhang; Ai
     `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c ∧ SamePairInjective c`, where `SamePairInjective` is
     the residue-map injectivity up to sign.  Both inputs are honest — neither is `MarkovMaxUnique`
     in disguise.  For an odd prime power `c = p^(k+1)` the root-count input is discharged by
-    `sqrtNegOneTwoRoots_prime_pow`, so `markov_prime_pow_unique_of_same_pair_injective` reduces
-    **Button's prime-power unicity (an infinite family) to the single input `SamePairInjective`**.
+    `sqrtNegOneTwoRoots_prime_pow`, so this route reduces Button's prime-power unicity to the single
+    input `SamePairInjective`.  *(Superseded below: the Markoff-matrix tree's `slope_path_inj`
+    discharges that input outright, so Button needs no `SamePairInjective` hypothesis.)*
 
   * **Zhang's Lemma 4 — done** (`root_unique_below_half`): with the two-root property, `x² ≡ −1`
     has at most one root in the window `(0, c/2)` (the `x+y=c` alternative is impossible when
@@ -278,25 +288,35 @@ the classical literature (Frobenius 1913; Baragar, Button, Lang–Tan, Zhang; Ai
   * **A dead end, recorded**: same-root triples are parallel mod `c` (`markov_same_root_parallel`:
     `c ∣ a₁b₂ − a₂b₁`), and coprime + *exact* parallel ⟹ equal (`coprime_cross_eq`).  But the
     tempting finish `|a₁b₂ − a₂b₁| < c` is **false** — by Frobenius's identities the
-    cross-determinant equals a *neighbour Markov number* (`≈ c`).  No determinant size bound closes
-    it.
+    cross-determinant equals a *neighbour Markov number* (`≈ c`).  No determinant *size* bound closes
+    it — but the tree's *global* slope monotonicity (`slope_path_inj`) does, by recovering the path
+    from the slope rather than bounding the cross-determinant (see the closing paragraph).
 
   * **The recovery realised on the spine** (`MarkovCassiniBridge.spine_residue_farey`): the
     Fibonacci spine's `(residue fib(2n), max fib(2n+1))` pairs are unimodular Farey/Stern-Brocot
     neighbors (`fib(2n+1)·fib(2n+2) = fib(2n)·fib(2n+3) + 1`), so `u_n/m_n` is a strictly monotone
     convergent sequence — Zhang Lemma 2 on the spine.
 
-What remains for prime-power uniqueness as an infinite family is exactly `SamePairInjective` (the
-Farey-monotone recovery, Zhang Lemma 2) generalised off the spine to all `c` — buildable on the
-repo's `Mobius213SternBrocot` / `ConvergentDet`.  The *general* conjecture's open content is
-*root-counting* (Markov-realisability of the `2^{ω−1}` window-roots for composite `c`, `ω ≥ 2`),
-not the injectivity of `triple ↦ u`.
+This size-bound dead end is **closed by a different route** in `Real213/SternBrocotMarkov`: the
+recovery injectivity is supplied not by a local determinant bound but by the tree's **global slope
+monotonicity** `slope_path_inj` (the path is recovered from the slope `u/c`).  Two ordered triples at
+`c` are both Stern-Brocot nodes (`reverse_bridge`); equal windowed residue ⟹ equal slope ⟹ equal path
+⟹ equal triple (`markov_max_unique_tree`, lines using `slope_path_inj`).  So `markov_max_unique_tree`
+proves `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c` with **no `SamePairInjective` hypothesis** — the
+recovery is *discharged, not assumed* — and `markov_prime_pow_unique` closes **Button's entire
+odd-prime-power family ∅-axiom**: the conclusion is `MarkovMaxUnique (p^{k+1})` itself, not merely the
+root-count input (verified `#print axioms … does not depend on any axioms`).  The `SamePairInjective`
+reduction above (`markov_max_unique_of_same_pair_injective`, `MarkovInjectivity`) is the *weaker,
+superseded* formulation — still a valid theorem, but no longer the frontier; the recovery it left as a
+hypothesis is the fact `slope_path_inj` proves.  For composite `c` the recovery is likewise closed by
+`slope_path_inj`, so the **sole** open input is *root-realisability* — which `±`-suborbit carries a
+triple (`H`, next section) — not the residue map `triple ↦ u`.
 
 ## The upper-fold pattern: the unit-root group and the orbit reduction
 
 The composite case (`ω ≥ 2`) is closed structurally down to a single residual statement by a tower
 of six folds, each the same `±` self-pointing read at a finer resolution
-(`Real213/SternBrocotMarkov`, §20–§26).  The method is uniform: every wall, when templatised, is
+(`Real213/SternBrocotMarkov`, §20–§27).  The method is uniform: every wall, when templatised, is
 again a fold.
 
   * **The window is the `±`-fold transversal** (`window_fold_transversal`, §20).  The roots of
@@ -368,4 +388,4 @@ done
 ```
 All `pure / 0 dirty` (`MarkovUniqueness` 80, `MarkovCassiniBridge` 4, `MarkovModularBridge` 2,
 `MarkovInjectivity` 9, `SternBrocotMarkov` 105; plus `ModArith/MarkovPrimeFactor` 28).  The orbit
-tower of the upper-fold section is §20–§26 of `SternBrocotMarkov`.
+tower of the upper-fold section is §20–§27 of `SternBrocotMarkov`.
