@@ -1,6 +1,7 @@
 import E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
 import E213.Meta.Int213.Core
 import E213.Meta.Int213.PolyIntMTactic
+import E213.Meta.Nat.AddMod213
 
 /-!
 # PolyRoot/IntEuclid — Euclid's lemma over `ℤ` for a prime modulus
@@ -73,5 +74,21 @@ theorem int_euclid (p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d 
   have h2 : ¬ p ∣ a.natAbs := fun hd => hna (nat_dvd_to_int p a hd)
   have hco : gcd213 a.natAbs p = 1 := by rw [gcd213_comm]; exact prime_coprime p a.natAbs hpr h2
   exact nat_dvd_to_int p b (euclid_of_coprime a.natAbs b.natAbs p hp hco h1)
+
+/-- `(↑(m+n) : ℤ) = ↑m + ↑n` (rfl cast). -/
+private theorem ncast_add (m n : Nat) : ((m + n : Nat) : Int) = (m : Int) + (n : Int) := rfl
+/-- `(↑(m·n) : ℤ) = ↑m · ↑n` (rfl cast). -/
+private theorem ncast_mul (m n : Nat) : ((m * n : Nat) : Int) = (m : Int) * (n : Int) := rfl
+
+/-- `a % p = b % p` ⟹ `↑p ∣ (↑a − ↑b)` over `ℤ`.  (`a = p·(a/p) + a%p`; the remainders cancel.)
+    A reusable modular bridge — e.g. the four-square seed needs distinct squares mod `p`. -/
+theorem mod_eq_imp_dvd_sub (a b p : Nat) (h : a % p = b % p) :
+    (p : Int) ∣ ((a : Int) - (b : Int)) := by
+  refine ⟨((a / p : Nat) : Int) - ((b / p : Nat) : Int), ?_⟩
+  have ha : (a : Int) = (p : Int) * ((a / p : Nat) : Int) + ((a % p : Nat) : Int) := by
+    rw [← ncast_mul, ← ncast_add, E213.Meta.Nat.AddMod213.div_add_mod a p]
+  have hb : (b : Int) = (p : Int) * ((b / p : Nat) : Int) + ((b % p : Nat) : Int) := by
+    rw [← ncast_mul, ← ncast_add, E213.Meta.Nat.AddMod213.div_add_mod b p]
+  rw [ha, hb, h]; ring_intZ
 
 end E213.Lib.Math.NumberTheory.PolyRoot
