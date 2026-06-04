@@ -24,10 +24,11 @@ namespace E213.Lib.Math.Linalg213.CharPolyAdj
 open E213.Lib.Math.Linalg213.Permutation (sumZ iota)
 open E213.Lib.Math.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_add)
 open E213.Lib.Math.Linalg213.DetN (det altSign colShift det_congr)
-open E213.Lib.Math.Linalg213.Laplace (matMul adj minorAt matMul_adj_diag matMul_adj_offdiag)
+open E213.Lib.Math.Linalg213.Laplace
+  (matMul adj minorAt matMul_adj_diag matMul_adj_offdiag sumZ_append map_append')
 open E213.Lib.Math.Linalg213.CayleyHamilton
-  (sumZ_iota_delta_lt sumZ_map_neg matMul_assoc matPow matId matScalar matSumZ
-   matMul_id_right matMul_matSumZ_right matSumZ_cons matMul_negL matMul_scalarL)
+  (sumZ_iota_delta_lt sumZ_map_neg sumZ_map_zero sumZ_singleton
+   matMul_assoc matPow matId matMul_id_left matMul_id_right matMul_congr_bd matPow_succ_right)
 open E213.Lib.Math.Linalg213.PolyDet
   (pdet evalMat eval_pdet charMat charPoly eval_charPoly evalMat_charMat degLe_pdet)
 open E213.Lib.Math.PolyZ
@@ -253,5 +254,117 @@ theorem matMul_Bm_succ (M : Nat → Nat → Int) (n i k m : Nat) (hi : i < n + 1
        - (if i = k then coeff (charPoly M (n + 1)) (m + 1) else 0)
   rw [Int.sub_eq_add_neg, ← h]
   ring_intZ
+
+/-! ## §7 — the telescoping ⟹ integer Cayley–Hamilton `χ_M(M) = 0` -/
+
+/-- `sumZ` of a pointwise difference. -/
+theorem sumZ_map_sub {α : Type} (f g : α → Int) (L : List α) :
+    sumZ (L.map (fun a => f a - g a)) = sumZ (L.map f) - sumZ (L.map g) := by
+  show sumZ (L.map (fun a => f a + -(g a))) = sumZ (L.map f) - sumZ (L.map g)
+  rw [E213.Lib.Math.Linalg213.PermClosure.sumZ_map_add f (fun a => -(g a)), sumZ_map_neg g,
+      Int.sub_eq_add_neg]
+
+/-- Partial characteristic sum `Σ_{m=0}^{N} c_m·(Mᵐ)_{ik}`. -/
+def charSum (M : Nat → Nat → Int) (n N i k : Nat) : Int :=
+  sumZ ((iota (N + 1)).map (fun m => cm M n m * matPow (n + 1) M m i k))
+
+theorem charSum_zero (M : Nat → Nat → Int) (n i k : Nat) :
+    charSum M n 0 i k = cm M n 0 * matPow (n + 1) M 0 i k := by
+  show sumZ ((iota 1).map (fun m => cm M n m * matPow (n + 1) M m i k))
+     = cm M n 0 * matPow (n + 1) M 0 i k
+  rw [show (iota 1).map (fun m => cm M n m * matPow (n + 1) M m i k)
+        = [cm M n 0 * matPow (n + 1) M 0 i k] from rfl, sumZ_singleton]
+
+theorem charSum_succ (M : Nat → Nat → Int) (n N i k : Nat) :
+    charSum M n (N + 1) i k
+      = charSum M n N i k + cm M n (N + 1) * matPow (n + 1) M (N + 1) i k := by
+  show sumZ ((iota (N + 2)).map (fun m => cm M n m * matPow (n + 1) M m i k))
+     = sumZ ((iota (N + 1)).map (fun m => cm M n m * matPow (n + 1) M m i k))
+       + cm M n (N + 1) * matPow (n + 1) M (N + 1) i k
+  rw [show iota (N + 2) = iota (N + 1) ++ [N + 1] from rfl, map_append', sumZ_append,
+      show ([N + 1] : List Nat).map (fun m => cm M n m * matPow (n + 1) M m i k)
+        = [cm M n (N + 1) * matPow (n + 1) M (N + 1) i k] from rfl, sumZ_singleton]
+
+/-- The telescoping step: `Mᴺ⁺²·B_{N+1} = Mᴺ⁺¹·B_N − c_{N+1}·Mᴺ⁺¹` (entry-wise). -/
+theorem tele_step (M : Nat → Nat → Int) (n N i k : Nat) (hi : i < n + 1) (hk : k < n + 1) :
+    matMul (n + 1) (matPow (n + 1) M (N + 2)) (Bm M n (N + 1)) i k
+      = matMul (n + 1) (matPow (n + 1) M (N + 1)) (Bm M n N) i k
+        - cm M n (N + 1) * matPow (n + 1) M (N + 1) i k := by
+  rw [matMul_congr_bd (n + 1) (matPow (n + 1) M (N + 2))
+        (matMul (n + 1) (matPow (n + 1) M (N + 1)) M) (Bm M n (N + 1)) (Bm M n (N + 1)) i k
+        (fun j hj => (matPow_succ_right n M (N + 1) i j hi hj).symm) (fun _ _ => rfl),
+      ← matMul_assoc,
+      matMul_congr_bd (n + 1) (matPow (n + 1) M (N + 1)) (matPow (n + 1) M (N + 1))
+        (matMul (n + 1) M (Bm M n (N + 1)))
+        (fun j k' => Bm M n N j k' - (if j = k' then cm M n (N + 1) else 0)) i k
+        (fun _ _ => rfl) (fun j hj => matMul_Bm_succ M n j k N hj hk)]
+  show sumZ ((iota (n + 1)).map
+        (fun j => matPow (n + 1) M (N + 1) i j
+          * (Bm M n N j k - (if j = k then cm M n (N + 1) else 0))))
+     = matMul (n + 1) (matPow (n + 1) M (N + 1)) (Bm M n N) i k
+       - cm M n (N + 1) * matPow (n + 1) M (N + 1) i k
+  rw [map_eq_of_mem
+        (fun j => matPow (n + 1) M (N + 1) i j
+          * (Bm M n N j k - (if j = k then cm M n (N + 1) else 0)))
+        (fun j => matPow (n + 1) M (N + 1) i j * Bm M n N j k
+          - matPow (n + 1) M (N + 1) i j * (if j = k then cm M n (N + 1) else 0))
+        (fun j _ => by
+          show matPow (n + 1) M (N + 1) i j * (Bm M n N j k - (if j = k then cm M n (N + 1) else 0))
+             = matPow (n + 1) M (N + 1) i j * Bm M n N j k
+               - matPow (n + 1) M (N + 1) i j * (if j = k then cm M n (N + 1) else 0)
+          ring_intZ),
+      sumZ_map_sub (fun j => matPow (n + 1) M (N + 1) i j * Bm M n N j k)
+        (fun j => matPow (n + 1) M (N + 1) i j * (if j = k then cm M n (N + 1) else 0))]
+  have hY : sumZ ((iota (n + 1)).map
+        (fun j => matPow (n + 1) M (N + 1) i j * (if j = k then cm M n (N + 1) else 0)))
+      = cm M n (N + 1) * matPow (n + 1) M (N + 1) i k := by
+    rw [map_eq_of_mem
+          (fun j => matPow (n + 1) M (N + 1) i j * (if j = k then cm M n (N + 1) else 0))
+          (fun j => if k = j then cm M n (N + 1) * matPow (n + 1) M (N + 1) i k else 0)
+          (fun j _ => by
+            show matPow (n + 1) M (N + 1) i j * (if j = k then cm M n (N + 1) else 0)
+               = if k = j then cm M n (N + 1) * matPow (n + 1) M (N + 1) i k else 0
+            by_cases h : j = k
+            · rw [if_pos h, if_pos h.symm, h]; ring_intZ
+            · rw [if_neg h, if_neg (fun he => h he.symm), mul_zero']),
+        sumZ_iota_delta_lt (fun _ => cm M n (N + 1) * matPow (n + 1) M (N + 1) i k) k (n + 1) hk]
+  rw [hY]
+  rfl
+
+/-- ★ **The telescoping identity**: `Σ_{m=0}^{N} c_m·Mᵐ = − Mᴺ⁺¹·B_N` (entry-wise). -/
+theorem telescope (M : Nat → Nat → Int) (n : Nat) :
+    ∀ (N i k : Nat), i < n + 1 → k < n + 1 →
+      charSum M n N i k = - matMul (n + 1) (matPow (n + 1) M (N + 1)) (Bm M n N) i k
+  | 0,     i, k, hi, hk => by
+    rw [charSum_zero,
+        matMul_congr_bd (n + 1) (matPow (n + 1) M 1) M (Bm M n 0) (Bm M n 0) i k
+          (fun j hj => matMul_id_right (n + 1) M i j hj) (fun _ _ => rfl),
+        matMul_Bm_zero M n i k hi hk, Int.neg_neg]
+    show cm M n 0 * matId i k = if i = k then cm M n 0 else 0
+    by_cases h : i = k
+    · rw [if_pos h]; show cm M n 0 * (if i = k then 1 else 0) = cm M n 0
+      rw [if_pos h, E213.Meta.Int213.mul_one]
+    · rw [if_neg h]; show cm M n 0 * (if i = k then 1 else 0) = 0
+      rw [if_neg h, mul_zero']
+  | N + 1, i, k, hi, hk => by
+    rw [charSum_succ, telescope M n N i k hi hk, tele_step M n N i k hi hk]
+    ring_intZ
+
+/-- ★★★ **Integer Cayley–Hamilton** (entry-wise): the characteristic polynomial annihilates
+    its own matrix, `χ_M(M) = 0`, i.e. `Σ_{m=0}^{n+1} c_m·(Mᵐ)_{ik} = 0`.  ∅-axiom. -/
+theorem cayley_hamilton (M : Nat → Nat → Int) (n i k : Nat) (hi : i < n + 1) (hk : k < n + 1) :
+    sumZ ((iota (n + 2)).map (fun m => coeff (charPoly M (n + 1)) m * matPow (n + 1) M m i k)) = 0 := by
+  show charSum M n (n + 1) i k = 0
+  rw [telescope M n (n + 1) i k hi hk]
+  have hzero : matMul (n + 1) (matPow (n + 1) M (n + 2)) (Bm M n (n + 1)) i k = 0 := by
+    show sumZ ((iota (n + 1)).map
+      (fun j => matPow (n + 1) M (n + 2) i j * Bm M n (n + 1) j k)) = 0
+    rw [map_eq_of_mem
+          (fun j => matPow (n + 1) M (n + 2) i j * Bm M n (n + 1) j k) (fun _ => 0)
+          (fun j _ => by
+            show matPow (n + 1) M (n + 2) i j * Bm M n (n + 1) j k = 0
+            rw [show Bm M n (n + 1) j k = 0 from padj_coeff_top_zero M n j k, mul_zero']),
+        sumZ_map_zero]
+  rw [hzero, Int.neg_zero]
 
 end E213.Lib.Math.Linalg213.CharPolyAdj
