@@ -136,6 +136,12 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   residual for higher-weight Eichler–Shimura is now **only the complex `ℍ`-contour** (+ general-weight
   slash, the weight-4 instance done) — a single construction frontier, neither a purity, integration,
   group-structure, nor slash-action wall.
+  **And the contour's combinatorial skeleton is BUILT** (`MinkowskiModularSymbol`, 5 PURE): in the
+  modular-symbols formalism the period is the **Manin** sum of unimodular symbols `{p/q,r/s}`
+  (`det=±1`) = the Stern-Brocot/Farey neighbours; `manin_unimodular_decomposition` proves the mediant
+  subdivision preserves the determinant, so `{0,∞}` (`root_symbol_unimodular`, det=1) decomposes into
+  unimodular Stern-Brocot pieces ∅-axiom.  The residual narrows once more: from "the complex contour"
+  to just the **analytic atom** — the period value of `f` over *one* unimodular symbol.
   (Three successive corrections under "ㄱㄱ": integration is ∅-axiom (CutIntegral); the wall isn't
   k≥2 (it's distinct-sample addition / completion); and the power rule is already done (FTC).  Each
   revealed the framework integrates natively; the residual is the complex contour alone.)

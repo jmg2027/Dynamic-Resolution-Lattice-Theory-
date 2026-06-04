@@ -202,6 +202,7 @@ lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiPeriodIntegral.lean ← NEW: w
 lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiHigherWeightPeriod.lean ← NEW: z²/z³ period integrands integrate exactly via FTC (1 PURE)
 lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiPeriodRelations.lean ← NEW: weight-2 period = S-eigenvalue; {4,6} torsion = (1+S)/(1+U+U²) generators (1 PURE)
 lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiPeriodPolynomial.lean ← NEW: slash action on V_2; weight-4 period polynomial = 1−X² (12 PURE)
+lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiModularSymbol.lean ← NEW: Manin unimodular decomposition of the period contour (5 PURE)
 lean/E213/Lib/Physics/AlphaEM/CupLadderResidueUnit.lean            ← NEW: cohomology graduation = residue unit; finite↔infinite (3 PURE)
 lean/E213/Lib/Physics/Simplex/FaceTerms.lean                       ← +simplex_face_euler_zero (face axis closes)
 theory/essays/foundations/reached_by_none.md                       ← NEW essay: expressing the essential residue (no-back face)

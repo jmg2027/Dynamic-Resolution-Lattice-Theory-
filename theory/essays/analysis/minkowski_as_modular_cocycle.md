@@ -123,12 +123,19 @@ integration the higher-weight period needs is *built*.  And the period relations
 and solves the period relations — the weight-4 period polynomial is **`1 − X²`**
 (`period_satisfies_relations`), the unique line `ℤ·(1 − X²)` annihilated by both
 `r|(1+S)=0` and `r|(1+U+U²)=0` (`relations_closed_form`, `period_line_in_kernel`),
-the `−1`-eigenvector of `S` cycled with order 3 by `U`.  So what genuinely remains
-for the higher-weight analytic period is **only the complex modular contour over
-`ℍ`** (and the general-weight slash, the weight-4 instance done) — a single
-construction frontier.  The residue supplies the *tree-level, weight-2* cocycle in
-full and the *weight-4 period polynomial* `1 − X²`; the complex contour is pointed
-at, not yet constructed (`reached_by_none.md`).
+the `−1`-eigenvector of `S` cycled with order 3 by `U`.  And the contour itself
+need not be analytic: in the **modular-symbols** formalism the period over the
+geodesic `{α, β}` is a formal class, and the **Manin trick** decomposes it into
+unimodular symbols `{p/q, r/s}` (`det = ±1`) — exactly the Stern-Brocot/Farey
+neighbours the repo builds.  `MinkowskiModularSymbol.manin_unimodular_decomposition`
+proves the mediant subdivision preserves the determinant, so the contour's
+*combinatorial skeleton* is the Stern-Brocot path of unimodular pieces, ∅-axiom.
+What genuinely remains is then only the **analytic atom** — the value of `f`'s
+period over a *single* unimodular symbol — the combinatorial decomposition into
+those atoms being done.  The residue supplies the *tree-level, weight-2* cocycle in
+full, the *weight-4 period polynomial* `1 − X²`, and the *Manin decomposition* of
+the contour; the single-symbol analytic value is pointed at, not yet constructed
+(`reached_by_none.md`).
 
 ## Self-check
 
