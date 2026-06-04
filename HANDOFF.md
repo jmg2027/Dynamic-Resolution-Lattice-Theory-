@@ -1,146 +1,142 @@
-# Session Handoff — 2026-06-04 (post-merge: residue-unit odometer theory → main)
+# Session Handoff — 2026-06-04 (proof-ISA compilation series)
 
 ## Branch
-`main` — the feature branch `claude/math-frontier-research-6Bw68` is **merged**
-(`--no-ff` commit `536031359`) and pushed.  `cd lean && lake build E213` ✓ (303
-modules, fresh `rm -rf .lake/build` build clean).  Working tree clean.
+`claude/novel-math-discoveries-fMR2z` — **not pushed**, ahead of
+`origin/claude/novel-math-discoveries-fMR2z` by **58 commits** (47 from the
+`origin/main` fast-forward merge at the session start + 11 this session).
+Working tree clean.  Each new module build-verified clean + **PURE**
+(`#print axioms` empty) individually; `lake build E213` (root) clean.
 
-This session built a complete ∅-axiom theory of the **residue unit `+1`** (the
-act of pointing as an arithmetic dynamical system) and merged it into the
-re-architected main (which had advanced +50 commits with the p-adic /
-universal-Betti / geometrization work — all preserved through the merge).
+> Unverified-signature hook: every commit's author is `Claude
+> <noreply@anthropic.com>` (correct); the "Unverified" badge is the missing
+> GPG/SSH signature, which this environment cannot produce — `amend`/`rebase`
+> will NOT fix it and must not be run (would rewrite the merged main history).
 
 ## What Was Done This Session
 
-### 1. The residue unit `+1` as a complete dynamical theory (∅-axiom)
-- **`Theory/Raw/Odometer`** (41 PURE) — the binary `+1` adding machine on the
-  bit-stream escape space (`CoResidue`): §1 carry/escape (µF/νF mirror, the
-  canonical escape `spineL` IS the overflow); §2 successor dynamics (`+1`
-  injective = `tower_no_cycle`, the descent–increment skew `shift_odo`); §3 the
-  `ℤ`-action (`+1` invertible via the predecessor `−1`/borrow, `odo_unit_action`);
-  §4 reversibility asymmetry (descent forgets / ascent-unit remembers); §5 the
-  `ℤ₂`-successor homeomorphism (`odo_homeomorphism`); §6 the carry = leading run
-  = floor distance (`carry_profile`).
-- **`Theory/Raw/OdometerValue`** (16 PURE) — the profinite value `bval`:
-  `bval_odo` proves `odo = (+1 mod 2ᵏ)` carry-explicitly, and **`odo_free`** the
-  full `ℤ`-action freeness (`odoʲ f = f → j = 0`; `ℤ₂` torsion-free).
-- **`Real213/ZeckendorfCarry`** (7 PURE) — the golden/Fibonacci-base carry
-  `011 → 100` = the Fibonacci recurrence, value-preserving (`golden_adic_carry`);
-  admissibility = Cassini.  Ostrowski(φ), the residue's own variable base.
+The session began by answering "is there genuinely-new math here?" (4 rounds of
+literature deep-research → verdict: the repo is, by design, mostly ∅-axiom
+**re-statement**; honest novelty is thin — `K_{m,n}^{(c)}` cup-codim and the
+Eisenstein cross-det were the only defensible candidates, both later down-graded
+on arXiv comparison).  That re-framed the work around the repo's *actual* thesis
+(`seed/PROOF_ISA.md`, merged from main): **mathematics as compilation from the
+residue instruction set** — open problems are *compiled* to a shared ISA, not
+cracked.  The rest of the session executed that programme.
 
-### 2. νF population — two new cross-arc sections in `Theory/Raw/CoResidue` (94→108 PURE)
-- §18: the lone Raw automorphism `coSwap` acts **freely** on the bit-stream
-  escapes (`coSwap_boolSpine_free_action`).
-- §19: the escapes carry the **shift dynamical system** (`boolSpine_shift_dynamics`);
-  self-similarity = shift-periodicity, `spineL` the period-1 point.
+### 1. The COUNT instruction (probabilistic method) — PURE ✓
+Compiled Erdős (1947) `R(k,k) > 2^{k/2}`.  Its move (`#bad < #total ⟹ ∃ good`)
+is **not** one of the eight named instructions — it is the **quantitative `GAP`
+witness**, the primitive the repo already used (≈25 Lean files) as `pigeonhole`
+without naming.  Registered as a **GAP sub-mode** (not a 9th instruction).
+- `Lib/Math/Combinatorics/CountExistence.lean` — `union_bound`, `deficit_exists`
+  (constructive finite-search extraction — why the method is ∅-axiom at all),
+  `count_existence` (the instruction), `erdos_schema` (the method as one thm).
+- `Lib/Math/Combinatorics/RamseyLowerBound.lean` — the per-event count's *why*:
+  `count_factor` (each free distinguishing **doubles** the count → existence-
+  counting factors because distinguishings multiply), `mono_event_count`
+  (`2·2^{E−m}` derived), `matchesC_count` (arbitrary-subset count; **observed**:
+  permutation-invariance is unnecessary, the `Option Bool` per-position model
+  handles scattered subsets directly).
+- Registered: `seed/PROOF_ISA.md` (GAP sub-mode), `ProofISALifts.lean`
+  Archetype 4 (`lift_count`, `lift_count_factor`).
 
-### 3. C-phys consolidation bridges (DRLT falsifier surface)
-- **C3** `Lens/Number/SharedUnitAcrossReadings.unit_bridges_dynamics_and_readings`
-  — the unit `1` byte-identical across ascent/descent/glue/det.
-- **C6** `Lib/Physics/Foundations/FalsifierRosterForced.falsifier_roster_forced`
-  — the falsifier integers as forced polynomials in the unique `(NS,NT,d)`.
-- **C7** `KoideFormula.koide_atoms_are_det_atoms` — Koide's `2/3` atoms ARE the
-  determinant atoms.  (C1 closed-as-non-bridge per the "different 3" discipline.)
+### 2. The linear-algebra (dimension) method = COUNT in a linear codomain — PURE ✓
+`Lib/Math/Combinatorics/LinearDependence.lean` — `dimension_bound_is_count`:
+`m>n` vectors in `𝔽₂^n` are dependent because their `2^m` subset-sums collide in
+the `2^n`-value space (**pigeonhole = COUNT**); the dependency is the collision's
+residue.  Reuses the *exact* COUNT witness `List213.nodup_length_le_of_subset`.
+(`vsum`/`vxor` hand-rolled; `vxor_len_eq` avoids `List.length_zipWith`'s propext.)
 
-### 4. Narrative — 4 foundations essays + φ chapter
-- New: `theory/essays/foundations/{the_frontier_has_a_form, the_residue_unit_odometer, the_unit}.md`
-  (G182 promoted; the residue triptych + the unit-as-value synthesis).
-- `theory/math/algebra/phi_self_similarity.md` §3.6 (frozen=dynamic φ) + §3.7
-  (golden adic).  Essays now **46**.
+### 3. The parity / invariant method = READ ∘ SEPARATE — PURE ✓
+`Lib/Math/Combinatorics/ParityInvariant.lean` — mutilated chessboard.
+`tiling_balanced` (every domino-tiling balances the two colours — a conserved
+`READ`/catamorphism), `corners_same_colour` (the obstruction = `SEPARATE`).
+**Not** COUNT (conservation→separation, not deficit→existence), **not** a new
+instruction.  `par` reuses canonical `Mod213.parity` (`adj_par` = `parity_succ`).
 
-### 5. Process + org-audit + merge
-- Frontier board pruned: G178/G181 closed & archived; G189–G193 (Markov frontier)
-  relocated to `frontiers/markov_lagrange/`; promotion ledger updated.
-- `Theory/Raw/INDEX` rewritten (was stale: phantom Hom/Signed, omitted the
-  residue-extension layer) → accurate 20 modules.
-- Merged into main (4 markdown conflicts resolved: log unioned, INDEX counts,
-  frontiers closure-records, HANDOFF); merged tree builds clean, all PURE.
+### 4. König's lemma — the boundary marker (where ∅ stalls) — conditional PURE ✓
+`Lib/Math/Combinatorics/KonigConditional.lean` — the first reproduction that
+**stalls**.  Compiles to `LOOP ∘ ⟦DECIDE InfBelow⟧`: the path-construction is
+internal (`konig_conditional`, `walk`+`walk_inf`, PURE); the stall is the oracle
+= deciding `InfBelow` (`Π⁰₁`, an `LLPO`/`WKL` import).  `InfChildExists` stated,
+**left unproved** (proving it as a Bool-choice IS the exterior).  Sharpened by the
+corpus sweep: the residue *has* constructive infinite descent
+(`CoResidue.spineL`/`allBranch`, given by definition); König's stall is the
+decision about a *foreign* tree, not infinity itself.
+
+### 5. The why-archive + corpus grounding + dedup sweep
+- New `theory/essays/proof_isa/` (INDEX + 4 essays) — the "why" of each
+  reproduction at the residue level.
+- Grounded the "constructive interior is complete" claim in the real corpus
+  (`STRICT_ZERO_AXIOM.md`: **1145 PURE / 0 real DIRTY**; number systems / a
+  real-analysis course / algebra-cohomology-number-theory).
+- **Corpus cross-ref sweep** (the König discipline applied to all essays):
+  deduped `parNat → Mod213.parity`; corrected the `72×` pigeonhole figure to the
+  verifiable ≈25 Lean files; cited the abstract pigeonhole primitives; connected
+  the parity "conserved READ" to `GraphConnectivity.IsClosed`/`closed_const`
+  (honestly — the domino 2-colouring is the bipartite *dual* of the same-on-edge
+  δ⁰-kernel, not a literal instance).  **Lesson logged: search the corpus before
+  building — it dedups and sharpens.**
 
 ## Current Precision Results (0 free parameters)
-Unchanged this session — this was **math-frontier + foundations** work (the
-residue unit's dynamics), not a physics-constant edit.  Canonical table:
-`catalogs/physics-constants.md`.  The new physics-adjacent result is the
-falsifier-roster forcing (`falsifier_roster_forced`, PURE) — the integers
-`{5,3,22,6,10,192,12}` and Koide `2/3` as forced polynomials in `(NS,NT,d)=(3,2,5)`.
+**Unchanged this session** — this was math-frontier / methodology work
+(the proof-ISA compilation series), not a physics-constant edit.  Canonical
+table: `catalogs/physics-constants.md` (`1/α_em` 0.09 ppb, `m_μ/m_e` 0.48 ppb,
+`m_p` 0.000%, etc.).
 
 ## Open Problems (Priority Order)
 
-### 1. Markov uniqueness — the kernel `H` (TERMINAL localization, on main)
-The `markov-uniqueness` branch (merged) has **maximally localized `H`** to one
-irreducible instruction-residue — the uniform cross-word continuant-trace
-`SEPARATE` (`G197`).  Everything around it is ∅-axiom; finite instances are
-`decide`-verified (`MarkovUniquenessRaw`/`ContinuantMarkov`,
-`markovNum_injective_pathsUpTo_4`).  **Pointing at the uniform residue IS Frobenius
-(1913) — not a bounded step**, so this is honestly *not a tractable next theorem*;
-the productive directions are the other open frontiers.  Frontier notes:
-`research-notes/frontiers/markov_lagrange/{G194…G199}.md` (`G197` = the terminal finding).
+### 1. Named `R(k,k) > 2^{k/2}` closure — pure `K_N` bookkeeping (no new "why")
+All engine pieces built ∅-axiom (`erdos_schema` + `mono_event_count` +
+`matchesC_count`).  Remaining: a `K_N` edge↔position indexing + `k`-subset
+enumeration giving `t = C(N,k)` events, each `= matchesC(some false on S) ∨
+matchesC(some true on S)` (count `2·2^{E−|S|}`), then feed
+`t·c < 2^E ⟺ 2·C(N,k) < 2^{C(k,2)}` into `erdos_schema`.
+Frontier note: `research-notes/frontiers/G200_probabilistic_method_count_compilation.md`.
 
-### 2. Pure-`Nat` toolkit + left-cancellation dedup — DONE
-`lt_two_pow` and the canonical `add_left_cancel` live in `Meta/Nat/PureNat`; the
-three former duplicate proofs (`Beq213.nat_add_left_cancel_pure`,
-`NatHelper.add_left_cancel_pure`, `GoldenFormMarkov.add_left_cancel_pure`) now
-delegate to it as one-line wrappers (signatures preserved, consumers unchanged).
-One proof, three re-exports; all PURE.
-
-### 3. Odometer `ℤ`-action ↔ Markov / Stern-Brocot (`SL(2,ℤ)`) — first bridge DONE
-`Real213/OdometerSternBrocotUnit.odometer_sternbrocot_shared_unit` (2 PURE): the dyadic odometer
-and the Stern-Brocot mediant tree are both `List Bool`-path-indexed residue descents sharing the
-unimodular unit (`det genL = NS−NT = 1`, `genL = P`); and `minkowski_skeleton` builds the
-**Minkowski `?` skeleton** — the Stern-Brocot (Farey `det=1`) and dyadic (binary `2·lo`/`2·lo+1`)
-trees are one `List Bool` tree under two unimodular labellings, the path-identity their order-iso.
-Honest scope: the combinatorial `?`; the analytic singular `?` (the order-completion) is residual.
-Frontier note: `research-notes/frontiers/odometer_unit_synthesis.md`.
-
-### 4. (carried) Other open frontiers
-π non-holonomicity (`frontiers/pi_nonholonomicity/`), spiral-axis
-(`frontiers/spiral_axis/` G169/G171/G185), completability, sequence-depth, the
-p-adic direction H (`frontiers/G124_padic_drlt_5adic`), geometrization knots
-(`frontiers/G121_dim4_self_pointing_axis`), Eisenstein (`frontiers/G167_…`).
-See `research-notes/frontiers/INDEX.md`.
+### 2. (carried) Markov uniqueness kernel `H` — the orbit-realizability residue
+Frobenius 1913.  ISA-localized to one named residue (uniform cross-word
+continuant-trace `SEPARATE`); closest lift archetype = **ORBIT** (A3, same
+family).  Frobenius continuant formula proved ∅-axiom (`markovNum_eq_cohn_trace`).
+Frontier notes: `research-notes/frontiers/markov_lagrange/{G191,G192,G193,G197}*`.
 
 ## Unresolved from This Session
-- Carry-depth as a *fully decidable* real-classification coordinate is
-  constructively obstructed (`¬∀ ↔ ∃` = `object1_not_surjective` at the
-  bit-stream scale) — recorded as an honest ceiling in the odometer essay, not a
-  gap.  A decidable *sub-class* (eventually-periodic streams) may be reachable.
-- `tools/sync_namespaces.py`: 116 pre-existing namespace/path mismatches
-  repo-wide (not from this branch) — a standing cleanup, deferred.
+- The König stall (`InfChildExists`) is **deliberately** unproved — it is the
+  exterior boundary, not a gap to close ∅-axiom.  Do **not** attempt to prove it
+  (that would import `LLPO`/`WKL`).
+- No technique reproduced this session forced a **new** instruction; the eight
+  held (3 closed onto COUNT / READ∘SEPARATE, 1 stalled).  Whether a genuinely
+  ISA-extending technique exists is open — candidates would be other
+  non-constructive methods (compactness done; Banach–Tarski/AC, ultrafilters).
 
 ## Next
-Either (a) the Minkowski-`?` dyadic↔CF conjugacy as a residue-internal order-iso
-(Open Problem 3 continuation), or (b) resume the Markov `H` kernel via the
-continuant program (`Real213/Continuant.lean`, Open Problem 1).  (Open Problems 2
-and the first odometer↔Stern-Brocot bridge are done.)
+Either (a) close the named `R(k,k)` `K_N` bookkeeping (Open #1 — mechanical,
+build on `erdos_schema`), or (b) compile another solved technique to keep
+mapping the ISA (a method that might force a new instruction, or another
+boundary-stall).  The why-archive `theory/essays/proof_isa/INDEX.md` is the
+running ledger.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: `the_frontier_has_a_form` (G182 → essay),
-  `the_residue_unit_odometer` + `the_unit` (new essays), `phi_self_similarity`
-  §3.6/§3.7 (frozen=dynamic φ + golden adic); G178/G181 archived.  Ledger:
-  `research-notes/promotion_essay_log.md`.
-- **Promotion candidates**: PURE-closed sub-trees lacking `theory/` chapters —
-  see `theory/PROMOTION_CRITERIA.md`.
-- **Active scratchpad**: `research-notes/frontiers/` (open board; markov_lagrange,
-  pi_nonholonomicity, spiral_axis, …).  Top-level = anchors only.  Sink rule
-  holds (0 permanent-tier citations of research-notes files).
+- **Promotions this session**: `theory/essays/proof_isa/{INDEX,probabilistic_method,
+  linear_algebra_method,parity_invariant_method,konig_boundary}.md` — the why-archive
+  (Tier 3), mirroring the Tier-2 Lean in `Lib/Math/Combinatorics/`.
+- **Promotion candidates**: none pending (the proof-ISA Lean + essays are paired).
+- **Active scratchpad**: `research-notes/frontiers/G200_*` (proof-ISA series,
+  one open rung); carried Markov-`H` frontier notes.
 
 ## File Map
 ```
-lean/E213/Theory/Raw/Odometer.lean                         ← NEW: binary +1 odometer (41 PURE), §1-§6
-lean/E213/Theory/Raw/OdometerValue.lean                    ← NEW: profinite value + ℤ-freeness (16 PURE)
-lean/E213/Theory/Raw/CoResidue.lean                        ← +§18 (free swap-action) +§19 (shift dynamics), →108 PURE
-lean/E213/Theory/Raw/API.lean                              ← +Odometer, OdometerValue imports
-lean/E213/Theory/Raw/INDEX.md                              ← rewritten: accurate 20-module listing
-lean/E213/Lib/Math/NumberSystems/Real213/ZeckendorfCarry.lean  ← NEW: golden adic carry (7 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/OdometerSternBrocotUnit.lean ← NEW: odometer ↔ Stern-Brocot shared unit (2 PURE)
-lean/E213/Lib/Physics/Foundations/FalsifierRosterForced.lean   ← NEW: falsifier roster forced (1 PURE)
-lean/E213/Lens/Number/SharedUnitAcrossReadings.lean        ← +unit_bridges_dynamics_and_readings (C3)
-lean/E213/Lib/Physics/Foundations/KoideFormula.lean        ← +koide_atoms_are_det_atoms (C7)
-lean/E213/Lib/Math/Foundations/ResidueForm.lean            ← +C3 bridge citation
-theory/essays/foundations/the_frontier_has_a_form.md       ← NEW essay (G182 promoted)
-theory/essays/foundations/the_residue_unit_odometer.md     ← NEW essay (the +1 as a map)
-theory/essays/foundations/the_unit.md                      ← NEW essay (the 1 as a shared value)
-theory/math/algebra/phi_self_similarity.md                 ← +§3.6 frozen=dynamic φ, +§3.7 golden adic
-research-notes/frontiers/odometer_unit_synthesis.md        ← NEW: post-closure synthesis + seeds
-research-notes/frontiers/markov_lagrange/G189-G193*.md      ← relocated from top-level
-research-notes/archive/{G178,G182, spiral_axis/G181}*.md   ← archived (closed)
+NEW Lean (all PURE, in Lib/Math/Combinatorics/):
+  CountExistence.lean      ← COUNT instruction: union_bound, deficit_exists, count_existence, erdos_schema
+  RamseyLowerBound.lean    ← per-event "why": count_factor, mono_event_count, matchesC_count
+  LinearDependence.lean    ← dimension_bound_is_count (= COUNT in 𝔽₂ codomain)
+  ParityInvariant.lean     ← tiling_balanced, corners_same_colour (= READ ∘ SEPARATE); par=Mod213.parity
+  KonigConditional.lean    ← konig_conditional, walk, walk_inf (the LOOP); InfBelow/InfChildExists (the stall)
+NEW theory (why-archive):
+  theory/essays/proof_isa/INDEX.md + {probabilistic,linear_algebra,parity_invariant}_method.md + konig_boundary.md
+MODIFIED:
+  seed/PROOF_ISA.md                          ← COUNT registered as GAP sub-mode
+  lean/E213/Lib/Math/Foundations/ProofISALifts.lean ← Archetype 4 (lift_count, lift_count_factor)
+  research-notes/frontiers/INDEX.md          ← proof-ISA series + G200 registered
+  research-notes/frontiers/G200_probabilistic_method_count_compilation.md ← the COUNT frontier note
 ```
