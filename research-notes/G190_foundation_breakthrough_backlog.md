@@ -108,10 +108,15 @@ Two `∅`-axiom installments, foundation first:
    `slope_path_inj`; `markovNum = (mNode).c`, the integer node max) — a genuine theorem about the tree.
    `sizeDeterminesSlope_iff_markovNum_injective` — the converse is exactly `Function.Injective markovNum`.
    **Honest scope**: this iff is a *light restatement* (immediate from `slope_path_inj`).  The link to
-   the actual conjecture is now **half a theorem** (§33, `markov_max_unique_of_markovNum_injective`,
-   PURE): `Function.Injective markovNum → ∀ c ≥ 5, MarkovMaxUnique c`.  So size-injectivity is a proved
-   *sufficient condition* for the conjecture — no longer a bare analogy in this direction.  The converse
-   (`MarkovMaxUnique` ⟹ injective, needing triple→path recovery) would make `= H` literal; not yet done.
+   the actual conjecture is now a **full equivalence** (§33 `→` + §34 `←`,
+   `markovMaxUnique_iff_markovNum_injective`, PURE): `Function.Injective markovNum ↔ ∀ c ≥ 5,
+   MarkovMaxUnique c`.  Both directions are theorems: §33 `markov_max_unique_of_markovNum_injective`
+   (`→`), and §34 `markovNum_injective_of_markovMaxUnique` (`←`, proved with *no new number theory* by
+   routing through the §28 window equivalence — `MarkovMaxUnique c → WindowRealizedUnique c` collapses
+   the two nodes' realized windowed `√(−1)` residues, hence equal `markovRes`, hence equal slope, hence
+   `slope_path_inj`).  So "size-injective `= H`" is now **literal**, not an analogy.  Honest scope: this
+   is a *formulation-equivalence* between two statements of the open Frobenius conjecture (perimeter), not
+   a proof of either, and it does not touch the cross-node `mod c ↔ ℤ` kernel.
 
 5. **Injectivity is not upward-closed — an order analogue, not a Markov theorem**
    (`Lens/Lattice/Injectivity.lean`, `injectivity_not_upward_closed`, PURE).  Injectivity is inherited
@@ -129,16 +134,18 @@ Nothing here proves `H`, bounds it, or explains why it is hard.  What is real: (
 injectivity calculus in the Lens lattice (§D.1, ⑥) — genuine order theory; (ii) the `∅`-axiom theorem
 that residue-native readings are direction-free (§D.3, `DirectionFree`) and its concrete Markov instance
 (`markovGen_noncommutative`); (iii) two real Markov restatements (§D.4, slope→size and the `markovNum`
-injectivity iff, via the real `slope_path_inj`).  One joint is now **half-closed as a theorem**: `Function.Injective markovNum → ∀ c ≥ 5, MarkovMaxUnique c`
-(§33, `markov_max_unique_of_markovNum_injective`, PURE) — so size-injectivity is a proved *sufficient
-condition* for the conjecture, no longer a bare analogy in that direction.  Still only analogy: the
-*converse* (`MarkovMaxUnique` ⟹ injective, the other half of the literal identification), and the
-size reading living in the Raw-`Lens` lattice (false — provably not a Raw-`Lens`, so `⑥`'s order facts
-apply only by analogy).  So the accurate headline is **"an abstract injectivity calculus, plus a proved
-one-directional bridge (size-injective ⟹ conjecture) and real Markov restatements"** — *not* "`H`'s
-position characterised / why-it's-hard explained."  In the spirit of the prior rounds: the abstract
-theorems stand, the forward bridge is now real, and the remaining claim (full `= H`, and the order
-calculus *explaining* `H`) stays demoted to the converse-still-open / analogy it is.
+injectivity iff, via the real `slope_path_inj`).  The slope/size joint is now **fully closed as an
+equivalence**: `Function.Injective markovNum ↔ ∀ c ≥ 5, MarkovMaxUnique c`
+(`markovMaxUnique_iff_markovNum_injective`, PURE — §33 `→` + §34 `←`).  So "size-injective `= H`" is
+**literal**, not an analogy: the size-reading-injective formulation and the triple-uniqueness
+formulation are *the same* open statement.  Still analogy-only: the size reading living in the
+Raw-`Lens` lattice (false — provably not a Raw-`Lens`, so `⑥`'s order facts apply only by analogy).  So
+the accurate headline is **"an abstract injectivity calculus, plus a closed formulation-equivalence
+(size-injective ⟺ conjecture) and real Markov restatements"** — *not* "`H`'s position characterised /
+why-it's-hard explained."  Crucially the equivalence is **perimeter**: it shows two statements of the
+open Frobenius conjecture coincide, it does not prove either, and it does not touch the cross-node
+`mod c ↔ ℤ` kernel (the only direction toward which — genuine incomparable-node comparison — remains
+unbuilt, with no ready tool, per `G189`).
 
 ### Pointers
 - frontier: `research-notes/G189_geodesic_lens_markov_frontier.md`, `§30` of `Real213/SternBrocotMarkov`

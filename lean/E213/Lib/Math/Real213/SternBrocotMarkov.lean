@@ -2387,11 +2387,12 @@ the integer node max).  The converse — equal Markov number ⟹ equal slope —
 injectivity (`sizeDeterminesSlope_iff_markovNum_injective`).
 
 Scope, honestly.  `sizeDeterminesSlope_iff_markovNum_injective` is a *light restatement* (given
-`slope_path_inj`).  The link to the actual conjecture is now **half a theorem**: §33's
-`markov_max_unique_of_markovNum_injective` proves `Function.Injective markovNum → ∀ c ≥ 5,
-MarkovMaxUnique c` — so size-injectivity is a proved *sufficient* condition for `H`, not a bare analogy.
-The converse (`MarkovMaxUnique` ⟹ injective) — which would make the identification literal — is not yet
-formalized.  Separately, the `Lens`-lattice framing (`Lens/Lattice/Injectivity.lean`) stays an analogy:
+`slope_path_inj`).  The link to the actual conjecture is now a **full equivalence** (§33 `→` + §34 `←`):
+`markovMaxUnique_iff_markovNum_injective` proves `Function.Injective markovNum ↔ ∀ c ≥ 5,
+MarkovMaxUnique c` — the size-injectivity formulation and the triple-uniqueness formulation are *one and
+the same* open statement.  Honest scope: this is a *formulation-equivalence* between two statements of
+the open Frobenius conjecture (perimeter), not a proof of either, and it does not touch the cross-node
+kernel.  Separately, the `Lens`-lattice framing (`Lens/Lattice/Injectivity.lean`) stays an analogy:
 the size reading is provably **not** a Raw-`Lens` (`markovGen_noncommutative` + `Lens.DirectionFree`), so
 the abstract refinement lattice does not literally contain it. -/
 
@@ -2425,7 +2426,8 @@ fact; this section ties it to the actual conjecture.  `markov_max_unique_of_mark
 The proof is `markov_max_unique_tree`'s backbone with the residue/window/slope steps replaced by
 `markovNum` injectivity: two ordered triples at `c` are tree nodes (`reverse_bridge`) with the same
 `markovNum = c`, so injectivity forces the same path, hence the same triple.  (The converse —
-`MarkovMaxUnique` ⟹ `markovNum` injective — would complete the literal identification.) -/
+`MarkovMaxUnique` ⟹ `markovNum` injective — is §34 `markovNum_injective_of_markovMaxUnique`, so the
+identification is now literal: `markovMaxUnique_iff_markovNum_injective`.) -/
 
 /-- ★★★★★ **Size-injectivity ⟹ Markov uniqueness.**  If `markovNum` is injective on paths, then every
     `MarkovMaxUnique c` (`c ≥ 5`) holds: two ordered triples at `c` are nodes (`reverse_bridge`) of equal
