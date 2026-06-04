@@ -1,5 +1,19 @@
 # Session Handoff — 2026-06-04n (Markov — ★ direction (b): continuant tool + Raw/Lens boundary + axiom-level attack map)
 
+## ✅ Action (b) advance — a NEW infinite Markov family closed: even `2·pᵏ` (∅-axiom)
+- **`SternBrocotMarkov.markov_two_prime_pow_unique`** (strict ∅-axiom): for odd prime `p`, `5 ≤ 2·p^(k+1)`
+  ⟹ `MarkovMaxUnique (2·p^(k+1))`.  Extends Button's odd prime-power family to the **even** Markov numbers
+  `34 = 2·17`, `194 = 2·97`, … (`markovMaxUnique_34` = first instance, ∅-axiom).
+- **`MarkovPrimeFactor.two_roots_of_two_prime_pow`** (∅-axiom): `x²≡−1 (mod 2·pᵏ)` has ≤ 2 roots, by **CRT
+  recombination** (the prime-power split's coprimality fails for the factor 2; reduce mod `pᵏ` + force
+  oddness mod 2 + recombine via `gcd(2,pᵏ)=1`).  Pure-ℕ: replaced propext-tainted core lemmas
+  (`Nat.div_add_mod`, `Nat.mod_two_eq_zero_or_one`, `Nat.mul_assoc`, `Nat.add_sub_add_right`) with
+  `AddMod213.*` / `NatHelper.*` pure equivalents.
+- **Honest scope**: ONE infinite family (the `ω=1`-shaped case on the even side, root count 2), NOT full
+  Frobenius.  `ω ≥ 2` (≥4 roots, realizability/phantom elimination) remains the open residue of `H`.
+- Family status: odd `pᵏ` (Button) ✓ · even `2·pᵏ` ✓ (this) · `985,1325` (orbit/decide) ✓ · `ω≥2` open.
+- Narrative: `research-notes/G201`.
+
 ## ⟲ MERGED `origin/main` (NumberSystems restructure) into this branch — build clean, ∅-axiom preserved
 - `origin/main` (large restructure) merged in (commit `bd050ce`).  Main's intent adopted:
   `Lib/Math/Real213/` → `Lib/Math/NumberSystems/Real213/`, namespace
