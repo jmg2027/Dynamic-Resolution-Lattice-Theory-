@@ -15,7 +15,7 @@ Atomic content:
   * Right-moving impulse on a 4-cell ring: closed-form check.
 -/
 
-namespace E213.Lib.Math.ODE.WaveEqDiscrete
+namespace E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
 
 /-- Periodic right neighbour. -/
 def rightNbr (n x : Nat) : Nat := (x + 1) % n
@@ -40,4 +40,4 @@ theorem wave_const_rest (n c x : Nat) :
 theorem wave_zero_rest (n x : Nat) :
     waveStepNum n (constField 0) (constField 0) x = 0 := rfl
 
-end E213.Lib.Math.ODE.WaveEqDiscrete
+end E213.Lib.Math.Analysis.ODE.WaveEqDiscrete

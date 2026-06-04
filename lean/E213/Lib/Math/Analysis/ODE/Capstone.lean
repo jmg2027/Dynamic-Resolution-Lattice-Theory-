@@ -1,7 +1,7 @@
-import E213.Lib.Math.ODE.PicardIterate
-import E213.Lib.Math.ODE.LinearODE
-import E213.Lib.Math.ODE.HeatEqDiscrete
-import E213.Lib.Math.ODE.WaveEqDiscrete
+import E213.Lib.Math.Analysis.ODE.PicardIterate
+import E213.Lib.Math.Analysis.ODE.LinearODE
+import E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+import E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
 
 /-!
 # Differential Equations 213 — Capstone synthesis
@@ -13,16 +13,16 @@ PDE on a finite periodic grid is purely combinatorial; no
 existence-theorem chase, no analytic-completeness arguments.
 -/
 
-namespace E213.Lib.Math.ODE.Capstone
+namespace E213.Lib.Math.Analysis.ODE.Capstone
 
-open E213.Lib.Math.ODE.PicardIterate
+open E213.Lib.Math.Analysis.ODE.PicardIterate
   (picardIterate constRHS expRHS picard_const picard_exp)
-open E213.Lib.Math.ODE.LinearODE
+open E213.Lib.Math.Analysis.ODE.LinearODE
   (linearGrowth geometricGrowth linearODE_eq_picard
    geometricODE_eq_picard geometricGrowth_three)
-open E213.Lib.Math.ODE.HeatEqDiscrete
+open E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
   (heatStepNum constInit heatStep_const_eq_two_c)
-open E213.Lib.Math.ODE.WaveEqDiscrete
+open E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
   (waveStepNum constField wave_const_rest wave_zero_rest)
 
 /-- ★ **Picard witness** — constant + exponential RHS closed forms. -/
@@ -64,4 +64,4 @@ theorem total_witness (y0 a n c x : Nat) :
    heatStep_const_eq_two_c n c x,
    wave_const_rest n c x⟩
 
-end E213.Lib.Math.ODE.Capstone
+end E213.Lib.Math.Analysis.ODE.Capstone

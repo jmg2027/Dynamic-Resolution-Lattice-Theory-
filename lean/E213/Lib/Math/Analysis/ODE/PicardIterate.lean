@@ -15,7 +15,7 @@ Atomic content:
   * Identity `f := fun y => y` collapses to `y0 · 2^n`.
 -/
 
-namespace E213.Lib.Math.ODE.PicardIterate
+namespace E213.Lib.Math.Analysis.ODE.PicardIterate
 
 /-- **Picard iteration** at the discrete `Nat` level: starting at
     `y0`, apply `step y := y + f y` `n` times. -/
@@ -72,4 +72,4 @@ theorem picard_exp (y0 : Nat) : ∀ n,
       show y0 * (2 ^ n * 2) = y0 * 2 ^ (n + 1)
       rfl
 
-end E213.Lib.Math.ODE.PicardIterate
+end E213.Lib.Math.Analysis.ODE.PicardIterate

@@ -1,4 +1,4 @@
-import E213.Lib.Math.ODE.PicardIterate
+import E213.Lib.Math.Analysis.ODE.PicardIterate
 import E213.Meta.Tactic.NatHelper
 
 /-!
@@ -15,9 +15,9 @@ Atomic content:
     needed — the discrete dyadic grid IS the trajectory.
 -/
 
-namespace E213.Lib.Math.ODE.LinearODE
+namespace E213.Lib.Math.Analysis.ODE.LinearODE
 
-open E213.Lib.Math.ODE.PicardIterate
+open E213.Lib.Math.Analysis.ODE.PicardIterate
   (picardIterate picard_const picard_exp constRHS expRHS)
 
 /-- Linear-growth solution: `y' = constant a`, so the discrete
@@ -55,4 +55,4 @@ theorem geometricGrowth_init (y0 : Nat) :
 theorem geometricGrowth_three (y0 : Nat) :
     geometricGrowth y0 3 = y0 * 8 := rfl
 
-end E213.Lib.Math.ODE.LinearODE
+end E213.Lib.Math.Analysis.ODE.LinearODE

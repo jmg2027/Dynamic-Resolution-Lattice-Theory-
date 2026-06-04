@@ -16,7 +16,7 @@ Atomic content:
   * Constant initial condition is fixed (heat equilibrium).
 -/
 
-namespace E213.Lib.Math.ODE.HeatEqDiscrete
+namespace E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
 
 /-- Periodic neighbour: `(x + 1) mod n`. -/
 def rightNbr (n x : Nat) : Nat := (x + 1) % n
@@ -45,4 +45,4 @@ theorem heatStep_const_eq_two_c (n c x : Nat) :
   show c + c = 2 * c
   exact (Nat.two_mul c).symm
 
-end E213.Lib.Math.ODE.HeatEqDiscrete
+end E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
