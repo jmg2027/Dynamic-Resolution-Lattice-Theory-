@@ -492,6 +492,15 @@ halving to projective order `2`; the folds commute only projectively (`recip_neg
 `two_reflections_compose_to_founding_swap`.  All by `decide`.  Closes the cross-frame link
 `FoldKlein` left narrative.
 
+`E213.Lib.Math.Real213.EllipticCycleFixtures` — **7 PURE**.  The two elliptic generators of
+`PSL(2,ℤ) = ℤ₂ * ℤ₃` as cyclic fixtures.  `S` (the folds' product, `FoldReflections`) has projective
+order 2 (`S_proj_order_2`, `S² = −I`) — the 영무한대 swap.  `U = [[0,−1],[1,1]]` has projective
+order 3 (`U_proj_order_3`, `U³ = −I`): its Möbius action `z ↦ −1/(z+1)` is a fixed-point-free
+**3-cycle** `∞ ↦ 0 ↦ −1 ↦ ∞` on the Eisenstein fixture `{∞, 0, −1}` (`uCyc`, `uCyc_cube`,
+`uCyc_no_fixed`, `uCyc_sq_no_fixed`).  Capstone `elliptic_generators_are_two_and_three`: projective
+orders `2, 3` are the free factors of the modular group; the matrix orders `4, 6` reduce through the
+central `−I`.  All by `rfl` / `decide`.
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
