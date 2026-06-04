@@ -27,7 +27,9 @@ Frobenius identities).
 namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiCocycle
 
 open E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
-  (det2 mInterval mNode markovRes markovNum markovRes_cross markovRes_cross_left mInterval_det)
+  (det2 mInterval mNode markovRes markovNum markovRes_cross markovRes_cross_left mInterval_det
+   markoff_vieta markoff_vieta_R mInterval_shape)
+open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (mul)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
 /-- ★★★ **The Minkowski `?` defect is a Markov-valued, unimodular 1-cocycle.**  At every
@@ -56,5 +58,40 @@ theorem minkowski_is_markov_valued_cocycle (path : List Bool) :
     ∧ ((NS : Int) - NT = 1) := by
   refine ⟨markovRes_cross path, markovRes_cross_left path, ?_, mInterval_det path, by decide⟩
   rw [markovRes_cross path, markovRes_cross_left path]
+
+/-! ## The cocycle twist — the generator action is the Markov–Vieta (Cayley–Hamilton) jump
+
+A 1-cocycle's defining relation is the *twist*: `c(g·h) = c(g) + g·c(h)`.  Here the coefficient
+module is the Markov data and the `SL(2,ℤ)` generator acts by **Cayley–Hamilton** (`M² = tr(M)·M − I`,
+`det = 1`).  So under each L/R descent the cocycle defect (the Markov number) transforms by exactly
+the **Markov-equation Vieta jump** `m' = 3·m_bound·m_node − m_other` — the generator's action on the
+module.  This is `markoff_vieta`/`markoff_vieta_R` with the entry-shape `tr = 3·m`
+(`mInterval_shape`), read as the cocycle twist. -/
+
+/-- ★★ **Cocycle twist, L-generator.**  `markovNum (true :: t) = 3·m_l·m_t − m_r` — the left descent
+    acts on the Markov defect by the Vieta/Cayley–Hamilton jump (trace `= 3·m_l`). -/
+theorem minkowski_cocycle_twist_L (t : List Bool) :
+    markovNum (true :: t) = 3 * (mInterval t).1.c * markovNum t - (mInterval t).2.c := by
+  show (mul (mInterval t).1 (mul (mInterval t).1 (mInterval t).2)).c
+       = 3 * (mInterval t).1.c * (mul (mInterval t).1 (mInterval t).2).c - (mInterval t).2.c
+  rw [markoff_vieta (mInterval t).1 (mInterval t).2 (mInterval_det t).1, (mInterval_shape t).1]
+
+/-- ★★ **Cocycle twist, R-generator.**  `markovNum (false :: t) = 3·m_r·m_t − m_l` — the mirror jump
+    (trace `= 3·m_r`). -/
+theorem minkowski_cocycle_twist_R (t : List Bool) :
+    markovNum (false :: t) = 3 * (mInterval t).2.c * markovNum t - (mInterval t).1.c := by
+  show (mul (mul (mInterval t).1 (mInterval t).2) (mInterval t).2).c
+       = 3 * (mInterval t).2.c * (mul (mInterval t).1 (mInterval t).2).c - (mInterval t).1.c
+  rw [markoff_vieta_R (mInterval t).1 (mInterval t).2 (mInterval_det t).2, (mInterval_shape t).2.1]
+
+/-- ★★★ **The cocycle twist law.**  Under each Stern-Brocot generator the `?`-cocycle defect
+    transforms by the `SL(2,ℤ)` Cayley–Hamilton action — the Markov-equation Vieta jump
+    `m' = 3·m_bound·m_node − m_other`.  Together with `minkowski_is_markov_valued_cocycle` (the defect
+    *is* the bounding Markov number) this is the full 1-cocycle datum on the tree: a module
+    (Markov data), a generator action (Vieta/Cayley–Hamilton), and the defect identity.  ∅-axiom. -/
+theorem minkowski_cocycle_twist (t : List Bool) :
+    (markovNum (true :: t) = 3 * (mInterval t).1.c * markovNum t - (mInterval t).2.c)
+    ∧ (markovNum (false :: t) = 3 * (mInterval t).2.c * markovNum t - (mInterval t).1.c) :=
+  ⟨minkowski_cocycle_twist_L t, minkowski_cocycle_twist_R t⟩
 
 end E213.Lib.Math.NumberSystems.Real213.MinkowskiCocycle

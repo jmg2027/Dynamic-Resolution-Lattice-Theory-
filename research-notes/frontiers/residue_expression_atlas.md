@@ -78,8 +78,13 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   `Real213/MinkowskiCocycle.minkowski_is_markov_valued_cocycle` (PURE): the analytic `?`'s failure to
   be additive under the L/R generators is a **1-cocycle whose defect is the bounding Markov number** —
   the two Frobenius cross-determinants `u_r·m_t − u_t·m_r = m_l` (`markovRes_cross`) and
-  `u_t·m_l − u_l·m_t = m_r` (`markovRes_cross_left`), unimodular (`det = 1`, the residue unit).  This
-  is the residue-internal, tree-restricted Eichler–Shimura cocycle.  **Open**: extension to a full
+  `u_t·m_l − u_l·m_t = m_r` (`markovRes_cross_left`), unimodular (`det = 1`, the residue unit).  The
+  **twist law** also landed (`minkowski_cocycle_twist`): under each L/R generator the defect
+  transforms by the Markov-equation Vieta jump `m' = 3·m_bound·m_node − m_other` — the `SL(2,ℤ)`
+  Cayley–Hamilton action on the module (`markoff_vieta` + `tr = 3·m`).  So the full 1-cocycle datum is
+  built on the tree (module = Markov data, generator action = Cayley–Hamilton, defect = neighbour
+  Markov number) — the residue-internal, tree-restricted Eichler–Shimura cocycle.  **Open**: extension
+  to a full
   `SL(2,ℤ)` 1-cocycle (not just the L/R sub-semigroup) and the period-polynomial /
   `H^1(SL(2,ℤ), V)` identification — the deepest classical bridge, genuinely open.
 
