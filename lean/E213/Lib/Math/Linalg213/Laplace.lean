@@ -17,7 +17,8 @@ This file builds the relabeling foundation first.  All ∅-axiom.
 
 namespace E213.Lib.Math.Linalg213.Laplace
 
-open E213.Lib.Math.Linalg213.DetN (colShift colShift_lt colShift_ge minor altSign altSign_add)
+open E213.Lib.Math.Linalg213.DetN
+  (colShift colShift_lt colShift_ge minor altSign altSign_add det cofSum)
 open E213.Lib.Math.Linalg213.Permutation
   (prodDiagFrom psign leibTerm leibDet perms iota LPerm ltCount inversions psign_cons
    ltCount_append sumZ map_lperm sumZ_lperm)
@@ -414,5 +415,42 @@ theorem cofactor_row0 (M : Nat → Nat → Int) (n : Nat) :
         (fun j => sumZ (((perms n).map (fun rel => j :: rel.map (colShift j))).map (leibTerm M)))
         (fun j => altSign j * M 0 j * leibDet n (minor M j))
         (fun j hj => cofactor_term M n j (Nat.le_of_lt_succ (lt_of_mem_iota hj)))]
+
+/-! ## §3 — bridge to the recursive determinant `DetN.det` -/
+
+/-- `a + 0 = a` over `ℤ` (propext-free). -/
+private theorem add_zero' (a : Int) : a + 0 = a :=
+  (E213.Meta.Int213.add_comm a 0).trans (E213.Meta.Int213.zero_add a)
+
+/-- `DetN.cofSum` (the left-fold cofactor sum) equals the `sumZ`-over-`iota` form. -/
+theorem cofSum_eq_sumZ_iota (g : (Nat → Nat → Int) → Int) (M : Nat → Nat → Int) : ∀ c,
+    cofSum g M c = sumZ ((iota c).map (fun j => altSign j * M 0 j * g (minor M j)))
+  | 0     => rfl
+  | c + 1 => by
+    show cofSum g M c + altSign c * M 0 c * g (minor M c)
+       = sumZ ((iota c ++ [c]).map (fun j => altSign j * M 0 j * g (minor M j)))
+    rw [map_append', sumZ_append, cofSum_eq_sumZ_iota g M c]
+    show sumZ ((iota c).map (fun j => altSign j * M 0 j * g (minor M j)))
+           + altSign c * M 0 c * g (minor M c)
+       = sumZ ((iota c).map (fun j => altSign j * M 0 j * g (minor M j)))
+           + (altSign c * M 0 c * g (minor M c) + 0)
+    rw [add_zero']
+
+/-- `cofSum` respects a pointwise-equal inner determinant. -/
+theorem cofSum_congr {g g' : (Nat → Nat → Int) → Int} (M : Nat → Nat → Int)
+    (h : ∀ M', g M' = g' M') : ∀ c, cofSum g M c = cofSum g' M c
+  | 0     => rfl
+  | c + 1 => by
+    show cofSum g M c + altSign c * M 0 c * g (minor M c)
+       = cofSum g' M c + altSign c * M 0 c * g' (minor M c)
+    rw [cofSum_congr M h c, h (minor M c)]
+
+/-- ★★ **The Leibniz determinant equals the cofactor (recursive) determinant `DetN.det`.** -/
+theorem leibDet_eq_det : ∀ (n : Nat) (M : Nat → Nat → Int), leibDet n M = det n M
+  | 0,     _ => by show (1 : Int) * 1 + 0 = 1; rw [E213.Meta.Int213.mul_one, add_zero']
+  | n + 1, M => by
+    rw [cofactor_row0, ← cofSum_eq_sumZ_iota (leibDet n) M (n + 1),
+        cofSum_congr M (fun M' => leibDet_eq_det n M') (n + 1)]
+    rfl
 
 end E213.Lib.Math.Linalg213.Laplace
