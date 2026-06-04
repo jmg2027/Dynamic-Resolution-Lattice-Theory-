@@ -360,4 +360,59 @@ theorem perms_succ_lperm (n : Nat) :
       exact LPerm.trans (LPerm.cons j (map_lperm (colShift j) (permsOf_sound (iota n) rel hrel)))
         (canonical_lperm n j (Nat.le_of_lt_succ (lt_of_mem_iota hj)))
 
+/-! ## §2 — assembly: the row-0 cofactor expansion -/
+
+/-- `sumZ` over append. -/
+theorem sumZ_append : ∀ (L M : List Int), sumZ (L ++ M) = sumZ L + sumZ M
+  | [],     M => by show sumZ M = 0 + sumZ M; rw [E213.Meta.Int213.zero_add]
+  | a :: l, M => by
+    show a + sumZ (l ++ M) = (a + sumZ l) + sumZ M
+    rw [sumZ_append l M, E213.Meta.Int213.add_assoc]
+
+/-- `map` over append. -/
+theorem map_append' {α β : Type} (f : α → β) : ∀ (L M : List α),
+    (L ++ M).map f = L.map f ++ M.map f
+  | [],     _ => rfl
+  | a :: l, M => by show f a :: (l ++ M).map f = f a :: (l.map f ++ M.map f); rw [map_append' f l M]
+
+/-- `map` over `flatMap`. -/
+theorem map_flatMap {α β γ : Type} (f : β → γ) (g : α → List β) : ∀ (L : List α),
+    (L.flatMap g).map f = L.flatMap (fun x => (g x).map f)
+  | []     => rfl
+  | a :: l => by
+    show (g a ++ l.flatMap g).map f = (g a).map f ++ l.flatMap (fun x => (g x).map f)
+    rw [map_append' f (g a) (l.flatMap g), map_flatMap f g l]
+
+/-- `sumZ` over `flatMap` = sum of the inner sums. -/
+theorem sumZ_flatMap {α : Type} (h : α → List Int) : ∀ (L : List α),
+    sumZ (L.flatMap h) = sumZ (L.map (fun x => sumZ (h x)))
+  | []     => rfl
+  | a :: l => by
+    show sumZ (h a ++ l.flatMap h) = sumZ (h a) + sumZ (l.map (fun x => sumZ (h x)))
+    rw [sumZ_append (h a) (l.flatMap h), sumZ_flatMap h l]
+
+/-- The `j`-headed block sums to the cofactor term `(−1)ʲ · M 0 j · det (minor M j)`. -/
+theorem cofactor_term (M : Nat → Nat → Int) (n j : Nat) (hj : j ≤ n) :
+    sumZ (((perms n).map (fun rel => j :: rel.map (colShift j))).map (leibTerm M))
+      = altSign j * M 0 j * leibDet n (minor M j) := by
+  show sumZ (((perms n).map (fun rel => j :: rel.map (colShift j))).map (leibTerm M))
+     = altSign j * M 0 j * sumZ ((perms n).map (leibTerm (minor M j)))
+  rw [map_map',
+      map_eq_of_mem (fun rel => leibTerm M (j :: rel.map (colShift j)))
+        (fun rel => altSign j * M 0 j * leibTerm (minor M j) rel)
+        (fun rel hrel => leibTerm_cons_colShift M n j hj hrel),
+      sumZ_map_smul (altSign j * M 0 j) (leibTerm (minor M j)) (perms n)]
+
+/-- ★★★ **Cofactor (Laplace) expansion along row 0**:
+    `det (n+1) M = Σⱼ (−1)ʲ · M 0 j · det n (minor M j)`. -/
+theorem cofactor_row0 (M : Nat → Nat → Int) (n : Nat) :
+    leibDet (n + 1) M
+      = sumZ ((iota (n + 1)).map (fun j => altSign j * M 0 j * leibDet n (minor M j))) := by
+  show sumZ ((perms (n + 1)).map (leibTerm M)) = _
+  rw [sumZ_lperm (map_lperm (leibTerm M) (perms_succ_lperm n)), map_flatMap, sumZ_flatMap,
+      map_eq_of_mem
+        (fun j => sumZ (((perms n).map (fun rel => j :: rel.map (colShift j))).map (leibTerm M)))
+        (fun j => altSign j * M 0 j * leibDet n (minor M j))
+        (fun j hj => cofactor_term M n j (Nat.le_of_lt_succ (lt_of_mem_iota hj)))]
+
 end E213.Lib.Math.Linalg213.Laplace
