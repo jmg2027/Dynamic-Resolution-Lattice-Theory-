@@ -439,6 +439,17 @@ non-holonomic pole is not a blank left open but the *presence* of maximal generi
 source-without-enclosure named in information terms; not stipulated (the residue's genericity is the
 theorem `object1_not_surjective`, and a `MaxEntropy` sequence is its constructive realizer).
 
+`E213.Lib.Math.DetSpectrumPoles` — **1 PURE**.  The capstone uniting the two ends of the
+det-spectrum as the **two folds' non-values**: `det_spectrum_poles_and_center` — for an order-2 orbit
+read on its Casoratian, `q = 0` collapses into the **multiplicative hole** (`cas s (n+1) = 0`,
+`ZeroInfinityHole`); `q = −1` (nonzero seed) is the **additive ceiling** (`MaxEntropy (cas s)`, no
+finite handle, `WronskianDepth`); and the magnitude unit `q = +1` (nonzero seed) is the
+**doubly-finite center** — never `0` (away from the hole, via conservation) and `polyDepthZ 0` (away
+from the ceiling).  The two degeneracies bracketing the live region are not unrelated pathologies but
+the multiplicative fold's hole (`0`/`∞`) and the additive fold's ceiling (maximum entropy /
+non-surjection) — the two non-values the number tower excludes; the unit is where a genuine
+distinguishing survives.
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
