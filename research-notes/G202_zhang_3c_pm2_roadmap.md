@@ -106,8 +106,11 @@ needs class-number data (Agent B).  Lemmas (all strict ∅-axiom): `zhang_linear
 `markov_max_unique_via_3c_minus_2`.  Sanity-verified: `985 → M=2953` prime, `4181 → M=12541` prime,
 `2953 ∣ 167²+985²`.
 
-(Concrete instantiation needs a primality witness for `M = 3c±2`; in-kernel `decide` over `∀d≤M` overflows
-for `M ~ 3000`, so a `√M`-bounded primality lemma is the small follow-up to exhibit specific closed `c`.)
+**Concrete trophy** ✅ `markovMaxUnique_985` (∅-axiom): the first COMPOSITE Markov number (`985 = 5·197`,
+which has 4 roots of `x²≡−1 mod 985`) closed **structurally** — `3·985−2 = 2953` is prime, so the capstone
+fires with only a `√2953`-bounded primality check (`prime_of_no_small_factor`, new ∅-axiom; the bounded
+`decide` uses `2953 % d = 0` not `d ∣ 2953` to stay propext-free, since `Nat.decidableBallLT` + `Dvd`
+decidability pulls propext but `+ %`-equation does not).  No `decide` on the triple itself.
 
 ## Status
 

@@ -624,6 +624,20 @@ theorem markov_max_unique_via_3c_minus_2 (c p k : Nat) (hc5 : 5 ≤ c) (hp3 : 3 
         (Nat.lt_of_lt_of_le (by decide) (Nat.sub_le_sub_right hc5 2))
     exact Nat.lt_irrefl _ (hsum ▸ Nat.lt_of_le_of_lt hsumle h2cM)
 
+/-- ★★★★★ **`MarkovMaxUnique 985` — the first COMPOSITE Markov number closed structurally.**  `985 = 5·197`
+    has `4` roots of `x²≡−1 (mod 985)` (the `c`-side over-counts), but `3·985−2 = 2953` is **prime**, so
+    Zhang's `3c−2` route (`markov_max_unique_via_3c_minus_2`) closes it — no `decide` on the triple, only a
+    `√2953`-bounded primality check (`prime_of_no_small_factor`). -/
+theorem markovMaxUnique_985 : MarkovMaxUnique 985 := by
+  apply markov_max_unique_via_3c_minus_2 985 2953 0 (by decide) (by decide) ?_ (by decide)
+  apply E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.prime_of_no_small_factor 2953 (by decide)
+  intro d hd2 hdsq hdvd
+  obtain ⟨q, hq⟩ := hdvd
+  have hmod : 2953 % d = 0 := by rw [hq]; exact E213.Tactic.NatHelper.mul_mod_right d q
+  rcases Nat.lt_or_ge d 55 with hlt | hge
+  · exact (by decide : ∀ d, d < 55 → 2 ≤ d → 2953 % d = 0 → False) d hlt hd2 hmod
+  · exact absurd hdsq (Nat.not_le_of_lt (Nat.lt_of_lt_of_le (by decide) (Nat.mul_le_mul hge hge)))
+
 /-- `MarkovMaxUnique 5`, via the general reduction + the decidable single-pair check. -/
 theorem markovMaxUnique_5 : MarkovMaxUnique 5 :=
   markov_max_unique_of_single (fun a b hab hb m => markov_max_unique_5 a (Nat.le_trans hab hb) b hb hab m)

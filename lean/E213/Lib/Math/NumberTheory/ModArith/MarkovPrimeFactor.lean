@@ -809,4 +809,26 @@ theorem sq_eq_collapse_pp (p k x y : Nat) (hp3 : 3 ≤ p) (hpr : ∀ e, e ∣ p 
     · left; rw [← hd, h, Nat.add_zero]
     · right; rw [← hd, Nat.add_comm x (x + d)]; exact h
 
+/-- **`√M`-bounded primality**: if no `d` with `2 ≤ d`, `d² ≤ M` divides `M`, then `M` is prime
+    (`∀ e, e∣M → e = 1 ∨ e = M`).  A composite `M = e·f` with `2 ≤ e ≤ f` has `min` factor `e ≤ √M`
+    (`e² ≤ e·f = M`), which the hypothesis forbids.  Lets primality of a concrete `M = 3c±2` be checked
+    by a `√M`-bounded `decide` (the naive `∀d≤M` overflows the kernel). -/
+theorem prime_of_no_small_factor (M : Nat) (hM : 2 ≤ M)
+    (h : ∀ d, 2 ≤ d → d * d ≤ M → ¬ d ∣ M) : ∀ e, e ∣ M → e = 1 ∨ e = M := by
+  intro e he
+  obtain ⟨f, hf⟩ := he
+  match e, f, hf with
+  | 0, f, hf => rw [Nat.zero_mul] at hf; rw [hf] at hM; exact absurd hM (by decide)
+  | 1, f, hf => exact Or.inl rfl
+  | (n + 2), 0, hf => rw [Nat.mul_zero] at hf; rw [hf] at hM; exact absurd hM (by decide)
+  | (n + 2), 1, hf => exact Or.inr (by rw [Nat.mul_one] at hf; exact hf.symm)
+  | (n + 2), (m + 2), hf =>
+      exfalso
+      rcases Nat.le_total (n + 2) (m + 2) with hle | hle
+      · exact h (n + 2) (Nat.le_add_left 2 n)
+          (by rw [hf]; exact Nat.mul_le_mul (Nat.le_refl (n + 2)) hle) ⟨m + 2, hf⟩
+      · exact h (m + 2) (Nat.le_add_left 2 m)
+          (by rw [hf]; exact Nat.mul_le_mul hle (Nat.le_refl (m + 2)))
+          ⟨n + 2, by rw [hf]; exact Nat.mul_comm (n + 2) (m + 2)⟩
+
 end E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor

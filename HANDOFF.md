@@ -10,8 +10,10 @@ Full ∅-axiom chain: `zhang_linear_core` → `zhang_quadratic` → `zhang_gap_d
 collapse, residue-free generalization of `two_roots_pow_ordered`) → capstone.  Mechanism: `δ²≡δ'² (mod M)`
 + `p∤c⟹p∤δ` ⟹ `δ=δ'` (the `δ+δ'=M` branch excluded by `2c<M`) ⟹ gap determines pair.
 - Open content unchanged: `1325`-type (both `3c±2` composite) + general ω≥2 = Frobenius 1913 (class-number).
-- Follow-up: a `√M`-bounded primality lemma to exhibit concrete closed `c` (in-kernel `decide` over `∀d≤M`
-  overflows for `M~3000`).  Narrative: `research-notes/G202`.
+- **`markovMaxUnique_985` (strict ∅-axiom)** — the FIRST composite Markov number (`985 = 5·197`, 4 roots)
+  closed **structurally** via Zhang's `3c−2` route (`M = 2953` prime), with NO `decide` on the triple —
+  only a `√2953`-bounded primality check (`prime_of_no_small_factor`, new ∅-axiom).  The bounded check
+  uses the `% = 0` form (not `∣`) to stay propext-free.  Narrative: `research-notes/G202`.
 
 ## ✅ Open-kernel attack (expert agents) — Zhang `3c±2` route: foundation formalized (∅-axiom)
 Three expert agents attacked the open ω≥2 kernel.  Decisive find (Agent C): **Zhang's `3c±2` criterion**
