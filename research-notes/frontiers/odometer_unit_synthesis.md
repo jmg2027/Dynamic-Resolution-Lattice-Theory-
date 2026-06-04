@@ -31,14 +31,12 @@ closure made visible.
 
 ## New questions / seeds
 
-- **Pure-`Nat` toolkit — partially done; dedup remains.**  `lt_two_pow` (n < 2ⁿ) is now in
-  `Meta/Nat/PureNat`; `OdometerValue` reuses the existing `Beq213.nat_add_left_cancel_pure`
-  instead of a local copy.  *Discovery*: the pure left-cancellation is **duplicated** across
-  `Meta/Nat/Beq213` (`nat_add_left_cancel_pure`), `Meta/Tactic/NatHelper` (`add_left_cancel_pure`),
-  and `Real213/GoldenFormMarkov` (`add_left_cancel_pure`).  Remaining task: consolidate the three
-  to one canonical home (`Meta/Nat/PureNat`) + re-export, updating the consumers
-  (`Padic/SetoidAssoc`, `MarkovTree`, the cohomology essays that cite it).  A real dedup pass
-  (rippley — own commit chain).
+- **Pure-`Nat` toolkit — done.**  `lt_two_pow` (n < 2ⁿ) and the canonical left-cancellation
+  `add_left_cancel` now live in `Meta/Nat/PureNat`; the three former duplicate proofs
+  (`Beq213.nat_add_left_cancel_pure`, `NatHelper.add_left_cancel_pure`,
+  `GoldenFormMarkov.add_left_cancel_pure`) are now thin one-line delegations to it (signatures
+  preserved, so all consumers — `OdometerValue`, `MarkovTree`, `Padic/SetoidAssoc`, the cohomology
+  essays — are unchanged).  One proof, three re-export wrappers; all PURE.
 
 - **Odometer `ℤ`-action ↔ Markov / Stern-Brocot.**  Both the odometer (`ℤ₂` successor) and the
   Markov/Stern-Brocot tree (`frontiers/markov_lagrange/`) are `SL(2,ℤ)`/numeration structures on

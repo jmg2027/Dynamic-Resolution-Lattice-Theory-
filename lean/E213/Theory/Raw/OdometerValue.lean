@@ -1,6 +1,5 @@
 import E213.Theory.Raw.Odometer
 import E213.Meta.Nat.PureNat
-import E213.Meta.Nat.Beq213
 
 /-!
 # Theory.Raw.OdometerValue — the profinite value: the `+1` is `+1 mod 2ᵏ` on the first `k` bits
@@ -21,8 +20,7 @@ namespace E213.Theory.Raw.OdometerValue
 
 open E213.Theory.Raw.Odometer
   (carry odo shift carry_zero carry_succ odo_apply shift_apply carry_shift)
-open E213.Meta.Nat.PureNat (lt_two_pow)
-open E213.Meta.Nat.Beq213 (nat_add_left_cancel_pure)
+open E213.Meta.Nat.PureNat (add_left_cancel lt_two_pow)
 
 /-- A bit's numeric value: `1` for `true`, `0` for `false`. -/
 def bit (b : Bool) : Nat := cond b 1 0
@@ -161,7 +159,7 @@ theorem bval_odoIter (k : Nat) (f : Nat → Bool) :
 theorem odo_free (f : Nat → Bool) (j : Nat) (h : ∀ n, odoIter j f n = f n) : j = 0 := by
   obtain ⟨c, hc⟩ := bval_odoIter j f j
   rw [bval_congr j h] at hc
-  have hcj : c * 2 ^ j = j := nat_add_left_cancel_pure hc
+  have hcj : c * 2 ^ j = j := add_left_cancel hc
   cases c with
   | zero => rw [Nat.zero_mul] at hcj; exact hcj.symm
   | succ c' =>

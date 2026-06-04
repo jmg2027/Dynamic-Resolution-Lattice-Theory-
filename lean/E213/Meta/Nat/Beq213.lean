@@ -1,3 +1,5 @@
+import E213.Meta.Nat.PureNat
+
 /-!
 # Nat.beq cancellation helpers
 
@@ -72,13 +74,10 @@ The cancellation lemmas below operate on the `decide` surface form
 that `starS`/`incidT` definitions actually emit, sidestepping the
 `Nat.beq` ↔ `decide` symbol mismatch in `rw`-based tactics. -/
 
-/-- Pure (∅-axiom) left-cancellation for `Nat`, replacing
-    `Nat.add_left_cancel` which depends on `propext`. -/
-theorem nat_add_left_cancel_pure : ∀ {a b c : Nat}, a + b = a + c → b = c
-  | 0, b, c, h => by rw [Nat.zero_add, Nat.zero_add] at h; exact h
-  | a+1, b, c, h => by
-    rw [nat_succ_add a b, nat_succ_add a c] at h
-    exact nat_add_left_cancel_pure (Nat.succ.inj h)
+/-- Pure (∅-axiom) left-cancellation for `Nat` (delegates to the canonical
+    `Meta.Nat.PureNat.add_left_cancel`; core `Nat.add_left_cancel` carries `propext`). -/
+theorem nat_add_left_cancel_pure {a b c : Nat} (h : a + b = a + c) : b = c :=
+  E213.Meta.Nat.PureNat.add_left_cancel h
 
 /-- `decide`/`==`-flavoured left-cancellation, propext-free. -/
 theorem nat_decide_add_left (a b c : Nat) :

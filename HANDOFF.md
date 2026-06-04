@@ -71,12 +71,12 @@ The sole open freedom of the Markov arc (structure pinned, realizability
 ranked next (`Real213/Continuant.lean` tool built).
 Frontier notes: `research-notes/frontiers/markov_lagrange/{G173_markov_uniqueness,G191_continuant_aigner_program,G193_axioms_against_markov_kernel}.md`.
 
-### 2. Dedup the pure-`Nat` left-cancellation (partly done)
-`lt_two_pow` is now in `Meta/Nat/PureNat`; `OdometerValue` reuses
-`Beq213.nat_add_left_cancel_pure`.  Remaining: the pure left-cancellation is
-**triplicated** (`Meta/Nat/Beq213`, `Meta/Tactic/NatHelper`,
-`Real213/GoldenFormMarkov`) — consolidate to one canonical `PureNat` home +
-re-export, updating consumers.  Frontier note: `research-notes/frontiers/odometer_unit_synthesis.md`.
+### 2. Pure-`Nat` toolkit + left-cancellation dedup — DONE
+`lt_two_pow` and the canonical `add_left_cancel` live in `Meta/Nat/PureNat`; the
+three former duplicate proofs (`Beq213.nat_add_left_cancel_pure`,
+`NatHelper.add_left_cancel_pure`, `GoldenFormMarkov.add_left_cancel_pure`) now
+delegate to it as one-line wrappers (signatures preserved, consumers unchanged).
+One proof, three re-exports; all PURE.
 
 ### 3. Odometer `ℤ`-action ↔ Markov / Stern-Brocot (`SL(2,ℤ)`)
 Both are `SL(2,ℤ)`/numeration structures on the residue carrying a shared
@@ -99,10 +99,10 @@ See `research-notes/frontiers/INDEX.md`.
   repo-wide (not from this branch) — a standing cleanup, deferred.
 
 ## Next
-Either (a) the dedup of the triplicated pure left-cancellation to one `PureNat`
-home (Open Problem 2 remainder), (b) the odometer↔Markov `SL(2,ℤ)` bridge (Open
-Problem 3), or (c) resume the Markov `H` kernel via the continuant program
-(`Real213/Continuant.lean`, Open Problem 1).
+Either (a) the odometer↔Markov `SL(2,ℤ)` bridge (Open Problem 3), or (b) resume
+the Markov `H` kernel via the continuant program (`Real213/Continuant.lean`,
+Open Problem 1).  (Open Problem 2 — the pure-`Nat` toolkit + cancellation dedup —
+is done.)
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: `the_frontier_has_a_form` (G182 → essay),
