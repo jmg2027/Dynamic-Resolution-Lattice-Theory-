@@ -528,6 +528,12 @@ the two — Cayley–Hamilton is the primitive, the elliptic/parabolic/hyperboli
 of its discriminant.  (`S²=−I`, `U²=U−I`, `T²=2T−I`, `G²=3G−I` are the `(tr,det)` specializations.)
 Proved propext-free via `show` + entry `rw` (`Mat2.mk.injEq` / `simp` pulls `propext`).
 
+`E213.Lib.Math.Real213.Mat2Assoc` — **1 PURE**.  `mul_assoc` — `Mat2` multiplication is associative,
+`(M·N)·P = M·(N·P)`, proved **generally** by `ring_intZ` (propext-free, `show` + entry `rw`).  The
+monoid law the dial's readings presuppose: with `I2` it makes `Mⁿ` well-defined and the
+Cayley–Hamilton trace recurrence `tr(Mⁿ⁺¹) = tr·tr(Mⁿ) − det·tr(Mⁿ⁻¹)` available — the bridge from
+the static dial to iteration dynamics (elliptic orders, hyperbolic growth).
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and

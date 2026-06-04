@@ -81,6 +81,7 @@ import E213.Lib.Math.Real213.EllipticCycleFixtures
 import E213.Lib.Math.Real213.HyperbolicBoost
 import E213.Lib.Math.Real213.ParabolicTranslation
 import E213.Lib.Math.Real213.Mat2CayleyHamilton
+import E213.Lib.Math.Real213.Mat2Assoc
 import E213.Lib.Math.Real213.LagrangeExtremes
 import E213.Lib.Math.Real213.PentagonGoldenTrace
 import E213.Lib.Math.Real213.HyperbolicEllipticTrace
