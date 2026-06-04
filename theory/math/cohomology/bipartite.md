@@ -104,6 +104,25 @@ this 1-dimensional kernel into the axes partition, forcing
 `selfPointingAxes = 1` and `chartVisibleAxes = chartBase − 1` for
 arbitrary connected K.
 
+### Universal first Betti number `b₁ = E − V + 1`
+
+`BettiOneUniversal.lean` (`betti_one_universal`) assembles the first
+Betti number from ∅-axiom cardinalities counted via
+`Combinatorics.BoolEnum` (cochains as `List Bool`, count by
+`List.length` — no `Fintype`, `funext`, or `Nat.div`):
+
+  - `|C⁰| = 2^V`        (`allBoolLists_length`),
+  - `|ker δ⁰| = 2`      (`bcount_const`; kernel ⟺ constant) — `dim ker = 1`,
+  - `|im δ⁰| = 2^(V−1)` (`bcount_headFalse`) — `dim im = V − 1`.
+
+The head-`false` representative count is `|im δ⁰|` via the first
+isomorphism bridge (a coboundary fixes its cochain up to a global
+constant, so each coboundary has a unique head-`false` representative).
+Granting it, the rank relations are exact ∅-axiom arithmetic
+(`2^(m+1) = 2 · 2^m`, `2^E = 2^(V−1) · 2^{b₁}` with `E = (V−1) + b₁`),
+giving `dim H¹ = b₁ = E − V + 1`.  For the forced `K_{3,2}^{(c=2)}`
+(`betti_one_K32`): `V = 5`, `E = 12`, `b₁ = 8 = NS² − 1 = 1/α₃`.
+
 The same conclusion is also reached through the abstract
 graph-connectedness induction of
 `theory/math/combinatorics/graph_connectivity.md`

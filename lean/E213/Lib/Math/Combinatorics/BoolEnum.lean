@@ -270,4 +270,34 @@ theorem bcount_const (n : Nat) : bcount isConst (allBoolLists (n + 1)) = 2 := by
         (fun x => Bool.false_or (isAllTrue x)),
       bcount_allFalse n, bcount_allTrue n]
 
+/-! ### Half-count: the canonical coboundary representatives
+
+`|im δ⁰| = 2^(V−1)`: a coboundary `δ⁰σ` is determined by `σ` up to a
+global constant (`KernelConstancyUniversal`), so each coboundary has a
+unique representative with first vertex coloured `false`.  Counting those
+representatives gives `dim im δ⁰ = V − 1` — the rank that makes
+`b₁ = E − V + 1`. -/
+
+/-- The always-true predicate counts everything. -/
+theorem bcount_true : ∀ (L : List (List Bool)), bcount (fun _ => true) L = L.length
+  | [] => rfl
+  | _ :: rest => by
+      show (1 : Nat) + bcount (fun _ => true) rest = rest.length + 1
+      rw [bcount_true rest, Nat.add_comm]
+
+/-- First entry is `false`. -/
+def headFalse : List Bool → Bool
+  | false :: _ => true
+  | _ => false
+
+/-- **Half the colourings have first vertex `false`**: exactly `2^n` of
+    the `2^(n+1)` length-`(n+1)` lists.  These are the canonical
+    coboundary representatives, so `dim im δ⁰ = (n+1) − 1 = n`. -/
+theorem bcount_headFalse (n : Nat) :
+    bcount headFalse (allBoolLists (n + 1)) = 2 ^ n := by
+  rw [bcount_allBoolLists_succ,
+      show (fun x => headFalse (false :: x)) = (fun _ => true) from rfl,
+      show (fun x => headFalse (true :: x)) = (fun _ => false) from rfl,
+      bcount_true, bcount_false, allBoolLists_length n, Nat.add_zero]
+
 end E213.Lib.Math.Combinatorics.BoolEnum
