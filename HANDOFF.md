@@ -76,6 +76,28 @@ norm-Euclidean exactly for `D ∈ {1,2}` (covering radius² `(1+D)/4 < 1`):
   mod 8`) needs the quadratic character of `2`, so the `D = 2` arc is the conditional split
   `p ∣ x²+2 ⟹ p = a²+2b²`, not yet the congruence iff.
 
+### 7. Sharpness — the `ℤ[√−D]` descent bound `D ≤ 2` is optimal (∅-axiom, a NEGATIVE result)
+`Integer/ZSqrtNegSharp.descent_false_at_three`: no universal `p ∣ x²+3 ⟹ p = a²+3b²` holds —
+witness `2 ∣ 1²+3` yet `2 ≠ a²+3b²` (`form_a2_3b2_mod4`: `a²+3b² ∈ {0,1,3} mod 4`, never `2`).
+The same finite engine that *constructs* representations (`D≤2`) here *constructs the
+counterexample* at `D=3`, where the covering radius `(1+D)/4` crosses `1` (`ℤ[√−3] ⊊ ℤ[ω]` not
+integrally closed).
+
+### 8. Lagrange's four-square theorem — Pillar I CLOSED, Pillar II core DONE (∅-axiom)
+The first repo result needing an **additive** pigeonhole + an **all-`n`** descent.
+- `NumberTheory/FourSquareSeed.four_square_seed` (★ Pillar I, axiom-free, **constructive**):
+  odd prime `p = 2m+1` ⟹ `∃ x y ≤ m, p ∣ x²+y²+1`.  The repo's first additive pigeonhole
+  (`no_inj_lt` on `gval`); witness via a bounded 2-D search refuted in its `none`-branch (no
+  Classical).  Dodges two propext traps (`Decidable (p∣a)` via `a%p`; the `Int.natAbs` triangle
+  by staying in ℕ).  16 PURE incl. `sq_distinct`, `nat_prime_dvd_mul`.
+- `NumberTheory/FourSquare` (Pillar II, Euler-descent route — over ℤ, no quaternion gcd):
+  `four_sq_id` (Euler's identity), `isSum4_mul`, ★`descent_core` (the descent's algebraic heart:
+  `m·p=Σaᵢ², m·r=ΣAᵢ² ⟹ p·r=Σdⱼ²`), + pure ℤ cancellation (`mul_left_cancel_pos` etc.).
+- **Remaining** (precise plan + the cleaner odd/even route that avoids the `r=m` mod-8 crux in
+  `research-notes/frontiers/four_square_marathon.md`): residue setup, `r=0` excl., the
+  parity-split recursion (odd `m`: strict `r<m`; even `m`: parity-halve), seed→initial-multiple,
+  all-`n` assembly.
+
 ## Open Problems (Priority Order)
 
 ### 1. `¬ (p:ℤ) ∣ 1` for primes — RESOLVED inside `eisenstein_split_converse`
@@ -97,11 +119,14 @@ Unchanged this session (math-frontier work, no physics-constant edits).  Canonic
   `research-notes/frontiers/G167_crossdet_number_field_eisenstein_conjecture.md`.
 
 ## Next
-The split iff is fully closed (both directions, ∅-axiom).  Natural follow-ons: (a) promote the
-closed PolyRoot + Eisenstein-converse sub-tree to `theory/` per `PROMOTION_CRITERIA`;
-(b) generalise Lagrange's bound + the cyclotomic-existence pattern to the disc-`−4` (Gaussian,
-`p ≡ 1 mod 4` ⟺ `p = a²+b²`) and other class-number-one imaginary quadratic fields — the
-`PolyRoot` library + `centered_div` balanced-residue tooling are field-agnostic and ready.
+Primary open frontier: **finish Lagrange's four-square theorem** (Pillar II Euler descent) —
+`research-notes/frontiers/four_square_marathon.md` has the precise step list and the cleaner
+odd/even parity-split recursion (avoids the `r=m` mod-8 crux).  Pillar I + the descent core are
+done; remaining is the residue setup + parity-split recursion + seed→multiple + all-`n` assembly.
+
+Other follow-ons: promote the closed PolyRoot / Eisenstein-converse / Gaussian / ℤ[√−D]
+sub-trees to `theory/` per `PROMOTION_CRITERIA`; the disc-`−8` congruence iff (needs the
+quadratic character of `2`).
 
 ## (archived) Phase 3 plan
 Phase 3 (Lagrange's root bound mod `p`) was the single classical input gating the full split

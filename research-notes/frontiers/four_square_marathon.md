@@ -16,9 +16,17 @@ Stays over `ℤ` with ring identities + `centered_div_int`.  `NumberTheory.FourS
      **explicit**: `r = p − 2Σaᵢqᵢ + mΣqᵢ²`, `m·r = ΣAᵢ²` by `ring_intZ`.  `ΣAᵢ² ≤ m²` ⟹
      `0 ≤ r ≤ m` (needs positive-mul `≤`-cancel lemmas).
   2. **`r ≥ 1`** (`r=0` excl.) — `Aᵢ=0 ⟹ m∣aᵢ ⟹ m²∣mp ⟹ m∣p`; `m<p` prime ⟹ `m=1`, contra.
-  3. **`r < m`** (`r=m` excl.) — THE CRUX: all `|Aᵢ|=m/2`, `m` even, `Σ(2qᵢ±1)² ≡ 4 mod 8 =
-     4·odd`, so `m∣p` ⟹ contra.  Mod-8 odd-square reasoning.
-  4. **Fuel recursion** on `m` (`2 ≤ m < p`) ⟹ `p = Σ4²`.
+  3. **`r < m`** — ★ **cleaner route found** (avoids the `r=m` mod-8 crux): split the recursion
+     by parity of `m`.
+       - **`m` odd** (`≥ 3`): centred residues satisfy `2|Aᵢ| ≤ m` with `2|Aᵢ|` even `≤` odd `m`
+         ⟹ `2|Aᵢ| ≤ m−1` ⟹ `4Aᵢ² ≤ (m−1)²` ⟹ `ΣAᵢ² ≤ (m−1)² < m²` ⟹ `r < m` **strictly,
+         no `r=m` edge**.
+       - **`m` even**: parity-halve instead of centred descent — `mp = Σaᵢ²` even ⟹ even count
+         of odd `aᵢ`; pair the four into two same-parity pairs `(a,b),(c,d)`; then
+         `((a+b)/2)²+((a−b)/2)²+((c+d)/2)²+((c−d)/2)² = (a²+b²+c²+d²)/2 = (m/2)·p` — a ring
+         identity on the halved integers.  `m → m/2 < m`.  (Pairing = parity casework, not mod-8.)
+  4. **Fuel recursion** on `m` (`1 ≤ m < p`): odd ⟹ centred-strict, even ⟹ halve, both shrink
+     `m`; reach `m=1` ⟹ `p = Σ4²`.
   5. **Seed → initial multiple** — `four_square_seed` ⟹ `k·p = x²+y²+1²+0²`, `1 ≤ k < p`.
   6. **All `n`** — `2=1²+1²+0²+0²`; primes above; composites by `isSum4_mul`.
 
