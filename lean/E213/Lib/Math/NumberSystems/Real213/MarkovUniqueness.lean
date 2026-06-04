@@ -203,6 +203,32 @@ theorem markov_vieta_partner_le (a b c : Nat) (h : markovEq a b c)
     exact absurd hstar (Nat.not_le_of_lt (Nat.lt_add_of_pos_right hp))
   · exact hle'
 
+/-! ## §2c — Zhang's `3c±2` encoding: the recovery handle
+
+Zhang (2007, Acta Arith. 128): a Markov number `c` is unique if `3c−2` or `3c+2` is a prime power.  The
+lever: every max-`c` triple injects into the `√(−1)`-roots mod `M = 3c±2` (from `(3bc−2a)² ≡ −(2c)²`,
+since `9c²−4 = (3c−2)(3c+2)`); when `M` is a prime power the repo's `MarkovPrimeFactor.two_roots_of_prime_pow`
+gives `≤ 2` roots, forcing uniqueness even for composite `c` with `≥ 4` roots on the `c`-side (e.g.
+`c = 985` with `3c−2 = 2953` prime; `c = 4181` with `3c−2 = 12541` prime).  The recovery handle is that
+the linear form reduces to twice the gap. -/
+
+/-- ★★★★ **Zhang linear core**: `b·(3c−2) + 2(b−a) + 2a = 3bc` (pure `ℕ`, `a ≤ b`, `1 ≤ c`).  Hence
+    `3bc − 2a = b·(3c−2) + 2(b−a)`, so `3bc − 2a ≡ 2(b−a) (mod 3c−2)` — a `√(−1)`-root mod `M = 3c−2`
+    encodes exactly the gap `b−a` (and `2(b−a) < 3c−2` for `c > 2`, so the residue is `2(b−a)` on the
+    nose).  This is the injectivity handle of Zhang's `3c±2` route to composite Markov uniqueness. -/
+theorem zhang_linear_core (a b c : Nat) (hab : a ≤ b) (hc : 1 ≤ c) :
+    b * (3 * c - 2) + 2 * (b - a) + 2 * a = 3 * b * c := by
+  have h1 : 2 * (b - a) + 2 * a = 2 * b := by
+    rw [E213.Tactic.NatHelper.mul_sub,
+        E213.Tactic.NatHelper.sub_add_cancel (Nat.mul_le_mul (Nat.le_refl 2) hab)]
+  have e1 : b * (3 * c) = 3 * b * c := by ring_nat
+  have e2 : b * 2 = 2 * b := by ring_nat
+  have hms : b * (3 * c - 2) = 3 * b * c - 2 * b := by
+    rw [E213.Tactic.NatHelper.mul_sub, e1, e2]
+  have hle : 2 * b ≤ 3 * b * c :=
+    Nat.le_trans (Nat.mul_le_mul (by decide) (Nat.le_refl b)) (Nat.le_mul_of_pos_right (3 * b) hc)
+  rw [Nat.add_assoc, h1, hms, E213.Tactic.NatHelper.sub_add_cancel hle]
+
 /-- **The down-move strictly decreases the maximum.**  `c' = 3ab − c < c` under `1 ≤ a ≤ b`,
     `b < c`.  Immediate from `c' ≤ b < c`.  The well-foundedness of Markov descent. -/
 theorem markov_partner_lt_max (a b c : Nat) (h : markovEq a b c)
