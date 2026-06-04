@@ -29,7 +29,7 @@ priority": *213 sees discrete decomposition first*.  JSJ becomes
 *π₁-injectivity* (algebraic); Ricci flow becomes *chart-Lens
 coherentization flow*.
 
-The R1 close certificate (step 25, `Capstone.R1_close_certificate`)
+The close certificate (`Capstone.R1_close_certificate`)
 bundles 20 conjuncts across the 5 Geometrization pillars.
 
 ## d=4 anomaly reframing (Mingu's central insight)
@@ -130,10 +130,9 @@ Linear chain.  All under namespace
 
 ### 2. One algebraic source, eight geometries
 
-The deepest finding (step 22, user-derived): all 8 model
+The deepest finding (Mingu): all 8 model
 geometries arise from **a single algebraic object** — the Möbius
-matrix P [[2,1],[1,1]] (per `theory/math/foundations/universe_chain.md`
-Step 7) — read through **different Lens applications**:
+matrix P [[2,1],[1,1]] (per `theory/math/foundations/universe_chain.md`) — read through **different Lens applications**:
 
 | Modulus / Lens | Polynomial mod p | Geometric narrative |
 |---|---|---|
@@ -146,11 +145,11 @@ Step 7) — read through **different Lens applications**:
 | F_11 | reducible (4² = 5 mod 11) | split-geometry candidate |
 
 **One algebraic source (Möbius P), seven Lens readings, eight
-geometric narratives**.  Step 22 (Mingu): "F_5 Nil via mod-5
+geometric narratives**.  Mingu: "F_5 Nil via mod-5
 nilpotent collapse" — the user-derived insight that crystallized
 the unification.
 
-### 3. Sym(3) structural mapping (step 24, ★★★★★★★★★★)
+### 3. Sym(3) structural mapping (★★★★★★★★★★)
 
 The 8 geometries decompose under the Sym(3) symmetric-group action:
 
@@ -167,7 +166,7 @@ Connects to:
 gluon octet, K_{3,2}^{(c=2)} cohomology) share the same algebraic
 spine: Sym(3) decomposition on an 8-element substrate.**
 
-### 4. d=4 information richness (step 25)
+### 4. d=4 information richness
 
 The closing insight that re-reads the d=4 exotic anomaly.  In
 standard math: d=4 is *broken* (continuum-many smooth structures
@@ -207,7 +206,7 @@ reading — significant cross-frame convergence.
 | `chartBase_5_tree_and_critical_coexist` | `Capstone` | d=4 info richness: both branches coexist |
 | `dim_spectrum_d_M_eq_4_unique` | `DimSpectrum` | d_M = d_213 − 1 = 4 forcing |
 | `eight_geometries_via_mobius_P` | `EightGeometries` | One Möbius P + 3 Lenses = 8 geometries |
-| `sym3_decomp_8_eq_3_iso_5_aniso` | `StructuralMapping` | Step 24 ultimate structural mapping |
+| `sym3_decomp_8_eq_3_iso_5_aniso` | `StructuralMapping` | ultimate structural mapping |
 | `K32_ricci_modulus_partial_close` | `Ricci` | Ricci flow → BracketCauchy parallel |
 | `poincare_via_K31_unique_tree` | `Poincare` | Poincaré via K_{3,1}^{(c=1)} |
 | `cohomology_depth_filter_K32` | `ScopeAndDepth` | Sym(3) + c=2 binary cover filter |
@@ -334,7 +333,7 @@ The 8-geometry decomposition (Geometrization) collapses with:
 → **Geometrization 8 geometries + gluon octet + K_{3,2}^{(c=2)}
 cohomology + Möbius P pentagonal closure** — four 213-native pillars
 sharing one algebraic spine.  This convergence is the
-"ultimate structural mapping" of step 24.
+"ultimate structural mapping".
 
 ## How to verify
 
