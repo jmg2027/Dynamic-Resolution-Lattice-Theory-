@@ -95,6 +95,35 @@ The headline `d_M = d_213 − 1` now holds **universally**:
 `chartVisibleAxes = chartBase − 1` for every connected K, the "−1"
 being the universally 1-dimensional self-pointing kernel.
 
+## Native ∅-axiom primitives built this arc (foundations the repo lacked)
+
+The G121 work repeatedly hit Mathlib-free Lean-core walls — core
+`Nat.div`/`Nat.mod`, `List` mem/nodup/length, and function `funext` all
+carry `propext`, and there is no `Fintype`/`Finset.card`.  Three reusable
+native primitives now route around them:
+
+- `Lib/Math/NumberTheory/EuclideanDivision.lean` (4 PURE) — `n = d·q + r`,
+  `r < d` existence + uniqueness by upward induction (no core `Nat.div`).
+- `Lib/Math/Combinatorics/GraphConnectivity.lean` (8 PURE) — abstract
+  reachability induction → δ⁰-closed colouring constant on a connected
+  graph (b₀ = 1 for any adjacency).
+- `Lib/Math/Combinatorics/BoolEnum.lean` (12 PURE) — finite Bool-cardinality
+  enumeration: `allBoolLists n` (the `2^n` length-`n` Bool lists) +
+  `length = 2^n` + completeness + nodup, with a reusable pure `List`
+  mem/nodup toolkit.  Cochains as `List Bool` ⇒ no `funext`, count by
+  `List.length` ⇒ no `Fintype`, structural enumeration ⇒ no division.
+
+### Cardinality-framework roadmap (the hard track)
+`BoolEnum` is **stage 1**.  The high-value continuation:
+  - **Stage 2** — a pigeonhole counting lemma (`nodup` + ≤ 2 distinct
+    values ⇒ `length ≤ 2`) + constant-list characterisation ⇒
+    **universal `kerCount = 2`** (the count-Lens form of the already-closed
+    structural `KernelConstancyUniversal` result), division-free.
+  - **Stage 3** — `|im δ⁰| = 2^(V−1)` (fiber/coset counting over the
+    enumeration) ⇒ **universal first Betti number** `b₁ = E − V + 1`
+    (the `1/α₃ = NS² − 1` reading made universal).  This is the genuinely
+    new substance the framework unlocks.
+
 ## Open Problems (Priority Order)
 
 1. **M3 (NT-axis split)** — the lone knot needing a genuine
