@@ -91,14 +91,32 @@ probabilistic method counts what it counts":
 
 Both `#print axioms → "does not depend on any axioms"`.
 
-**Remaining mechanical rung** (no new "why", just bookkeeping): an arbitrary
-`k`-subset `S` reduces to the suffix case by relabelling edge positions (a
-count-invariant permutation of the `Bool` list), and the event enumeration
-gives `t = C(N,k)`; feeding `c = 2^(C(k,2))` ... wait `c = 2·2^{E−C(k,2)}` and
-`t = C(N,k)` into `erdos_schema` with `t·c < 2^E ⟺ 2·C(N,k) < 2^{C(k,2)}`
-closes the *named* `R(k,k) > 2^{k/2}`.  Logging the
-`count_factor`/`mono_event_count` lift in `ProofISALifts` is the cumulative
-half of the workflow.
+### Arbitrary-subset count — DONE, with an observation (`matchesC_count`)
+
+The naive plan for an arbitrary (scattered) `k`-subset was "relabel edges to a
+suffix, invoke permutation-invariance of `bcount`".  Doing it directly yielded a
+better route + an observation:
+
+  - ★ **`matchesC_count`** (∅-axiom) — model the constraint per-position as
+    `Option Bool` (`some b` fixes, `none` free); then
+    `bcount (matchesC c) (allBoolLists c.length) = 2 ^ countNone c` for an
+    **arbitrary** interleaving of fixed/free positions.
+  - **Observation:** permutation-invariance is *unnecessary*.  Each `none`
+    doubles, each `some` fixes (`×1`), independent of order — so the subset may
+    sit anywhere, and this *is why* permutation-invariance holds (it is a
+    corollary of per-position independence, not a prerequisite).  The heavy
+    list-permutation-action + enumeration-bijection machinery is sidestepped.
+
+So `matchesC_count` subsumes `count_factor` for the per-event count of an
+arbitrary `S`: monochromatic-on-`S` `= matchesC(some false on S) ∨
+matchesC(some true on S)`, disjoint, count `2·2^{E−|S|}`.
+
+**Remaining rung** (now just the `K_N` model): an edge↔position indexing and
+`k`-subset enumeration giving `t = C(N,k)` events, then `erdos_schema` with
+`c = 2·2^{E−C(k,2)}`, `E = C(N,2)`, `t·c < 2^E ⟺ 2·C(N,k) < 2^{C(k,2)}` closes
+the *named* `R(k,k) > 2^{k/2}`.  Log the
+`count_factor`/`mono_event_count`/`matchesC_count` lift in `ProofISALifts` as
+the cumulative half.
 
 ## Reading
 

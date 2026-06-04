@@ -66,4 +66,71 @@ theorem mono_event_count (m r : Nat) :
       = 2 ^ (r + 1) := by
   rw [count_factor isConst (m + 1) r, bcount_const m, Nat.pow_succ]
 
+/-! ## Arbitrary position-subsets — observation: no permutation lemma needed
+
+`count_factor` handles a *contiguous suffix* block.  An arbitrary `k`-subset's
+edges are scattered, so the naive expectation is "reduce to the suffix by a
+coordinate **permutation**, then invoke permutation-invariance of `bcount`".
+That invariance is real but heavy to formalise ∅-axiom (a list-permutation
+action + bijection-of-the-enumeration).
+
+Observation: it is **unnecessary**.  Model the constraint position-by-position
+as `Option Bool` (`some b` fixes that bit to `b`, `none` leaves it free).  The
+count then factors *directly* over an arbitrary interleaving — each `none`
+doubles, each `some` fixes (`×1`) — so the subset may sit anywhere.  Coordinate
+order never enters, which is *why* permutation-invariance holds without being
+invoked: each position's contribution is independent of the others' order. -/
+
+/-- Per-position constraint: `some b` fixes the bit to `b`, `none` leaves it free. -/
+def matchesC : List (Option Bool) → List Bool → Bool
+  | [], [] => true
+  | some b :: cs, x :: xs => (x == b) && matchesC cs xs
+  | none :: cs, _ :: xs => matchesC cs xs
+  | _, _ => false
+
+/-- Number of free (`none`) positions — the exponent of the count. -/
+def countNone : List (Option Bool) → Nat
+  | [] => 0
+  | none :: cs => countNone cs + 1
+  | some _ :: cs => countNone cs
+
+/-- ★ **Arbitrary-subset count.**  Colourings matching a fixed pattern on an
+    arbitrary set of constrained positions (the `some` entries, anywhere) number
+    `2 ^ (#free)` — `count_factor` generalised off the suffix, with permutation
+    handled implicitly by the per-position interleaving. -/
+theorem matchesC_count :
+    ∀ (c : List (Option Bool)),
+      bcount (matchesC c) (allBoolLists c.length) = 2 ^ countNone c
+  | [] => rfl
+  | none :: cs => by
+      show bcount (matchesC (none :: cs)) (allBoolLists (cs.length + 1))
+            = 2 ^ countNone (none :: cs)
+      rw [bcount_allBoolLists_succ,
+          bcount_congr (p := fun x => matchesC (none :: cs) (false :: x))
+            (q := matchesC cs) (fun _ => rfl) (allBoolLists cs.length),
+          bcount_congr (p := fun x => matchesC (none :: cs) (true :: x))
+            (q := matchesC cs) (fun _ => rfl) (allBoolLists cs.length),
+          matchesC_count cs]
+      show 2 ^ countNone cs + 2 ^ countNone cs = 2 ^ (countNone cs + 1)
+      rw [Nat.pow_succ, Nat.mul_two]
+  | some b :: cs => by
+      show bcount (matchesC (some b :: cs)) (allBoolLists (cs.length + 1))
+            = 2 ^ countNone (some b :: cs)
+      rw [bcount_allBoolLists_succ]
+      cases b with
+      | false =>
+          have hcn : countNone (some false :: cs) = countNone cs := rfl
+          rw [bcount_congr (p := fun x => matchesC (some false :: cs) (false :: x))
+                (q := matchesC cs) (fun _ => rfl) (allBoolLists cs.length),
+              bcount_congr (p := fun x => matchesC (some false :: cs) (true :: x))
+                (q := fun _ => false) (fun _ => rfl) (allBoolLists cs.length),
+              bcount_false, matchesC_count cs, Nat.add_zero, hcn]
+      | true =>
+          have hcn : countNone (some true :: cs) = countNone cs := rfl
+          rw [bcount_congr (p := fun x => matchesC (some true :: cs) (false :: x))
+                (q := fun _ => false) (fun _ => rfl) (allBoolLists cs.length),
+              bcount_congr (p := fun x => matchesC (some true :: cs) (true :: x))
+                (q := matchesC cs) (fun _ => rfl) (allBoolLists cs.length),
+              bcount_false, matchesC_count cs, Nat.zero_add, hcn]
+
 end E213.Lib.Math.Combinatorics.RamseyLowerBound

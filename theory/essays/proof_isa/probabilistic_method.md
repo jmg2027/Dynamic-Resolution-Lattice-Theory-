@@ -129,16 +129,23 @@ R(k,k) > N
 `erdos_schema` + `mono_event_count` give the *named* bound once two
 count-symmetry facts are supplied, neither carrying new "why":
 
-  1. an arbitrary `k`-subset `S` reduces to the suffix block of
-     `mono_event_count` by **relabelling edge positions** — `bcount` is
-     invariant under permuting coordinates (a distinguishing is unordered;
-     counting is symmetric in its distinguishings — itself a Layer-3
-     corollary), so every `S`'s event also counts `2·2^{E−m}`;
-  2. the event list has length `C(N,k)`.
+  1. ~~an arbitrary `k`-subset `S` reduces to the suffix block by relabelling
+     edge positions (permutation-invariance of `bcount`)~~ — **done**, and the
+     attempt yielded an observation: permutation-invariance is *not* needed.
+     Modelling the constraint per-position as `Option Bool` (`some` fixes,
+     `none` free), the count factors *directly* over an arbitrary interleaving
+     (`matchesC_count : bcount (matchesC c) (allBoolLists c.length)
+     = 2 ^ countNone c`, ∅-axiom).  Each `none` doubles, each `some` fixes;
+     coordinate order never enters — which is *why* permutation-invariance holds
+     without being invoked.  An arbitrary `S`'s "monochromatic" event is then
+     `matchesC (all-`some false` on S) ∨ matchesC (all-`some true` on S)`,
+     disjoint, count `2·2^{E−|S|}`.
+  2. the event list has length `C(N,k)` — the remaining piece: a `K_N` edge
+     model + `k`-subset enumeration, then feed `t = C(N,k)`,
+     `c = 2·2^{E−C(k,2)}`, `E = C(N,2)` into `erdos_schema`, where
+     `t·c < 2^E` is `2·C(N,k) < 2^{C(k,2)}`.
 
-Feeding `t = C(N,k)`, `c = 2·2^{E−C(k,2)}`, `E = C(N,2)` into `erdos_schema`,
-the hypothesis `t·c < 2^E` is `2·C(N,k) < 2^{C(k,2)}`, and the conclusion is a
-Ramsey colouring.  Tracked in `research-notes/frontiers/G200_*`.
+Tracked in `research-notes/frontiers/G200_*`.
 
 ## Witnesses
 
