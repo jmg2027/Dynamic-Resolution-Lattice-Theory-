@@ -78,12 +78,13 @@ stays removed; no physics observable touched.
 
 ## Open Problems (Priority Order)
 
-### 1. Sequence-level uniqueness of the `ω·u` factorisation
-The `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split is closed at every `trunc n` but
-not as a `ZpSeq`-level isomorphism with uniqueness.  Hits the same
-trunc-vs-sequence boundary as the ring-axiom layer: may need a quotient
-construction outside strict-∅, or trunc-level may BE the 213-native
-statement (sequence-level uniqueness an imported residue).  Open.
+### 1. Sequence-level uniqueness of the `ω·u` factorisation — CLOSED
+`Zp.teichmuller_unique` (Frobenius-fixed lift unique up to `ZpSeqEquiv`,
+via `frobenius_lift` + the fix) + `Zp.unit_decomp_unique` (the
+`μ_{p−1} × (1+p·ℤ_p)` split unique up to `ZpSeqEquiv`).  Only a *literal*
+`ZpSeq`-structure iso remains, and it needs funext/propext — the imported
+residue 213 declines; `ZpSeqEquiv` (trunc-agreement) IS the 213-native
+equality, and the iso is well-defined there.
 
 ### 2. General-division correctness — CLOSED (numerator level)
 `Zp.div_general_value` proves `y · u⁻¹ ≡ p^v` (= `y·(1/y) ≡ 1` in ℚ_p).
@@ -99,10 +100,11 @@ toward an observable.  Open until an unforced arithmetic handle appears.
 Tracked in `frontiers/G124_padic_drlt_5adic.md`.
 
 ## Next
-The closable A/B/G arc + its correctness are done.  Remaining p-adic
-options are both optional/heavy: (1) sequence-level uniqueness of the
-`ω·u` split, or the cosmetic QpSeq value-equivalence packaging of (2).
-Otherwise step off the p-adic tree.
+A/B/G + correctness + Teichmüller/decomposition uniqueness are all done
+∅-axiom.  The only remaining p-adic items require funext/propext (literal
+`ZpSeq`-structure iso) — declined as imported residue — or are cosmetic
+(QpSeq value-equivalence packaging).  The closable p-adic arc is
+complete; recommend stepping off the tree.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: A/B/G folded into the existing Padic
