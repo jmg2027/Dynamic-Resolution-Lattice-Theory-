@@ -140,11 +140,14 @@ recorded in the essay: ℤ-action freeness, the profinite value-mod-`2ᵏ`, carr
 Closes the essay's profinite-value frontier: `bval k f` reads the first `k` bits as a number
 (LSB-first), and `bval_odo` proves `bval k (odo f) + carryVal k f = bval k f + 1` — the odometer is
 the arithmetic successor on every finite truncation, `odo = (+1 mod 2ᵏ)` carry-explicit (no
-division), pinning the escape space as `ℤ₂ = lim ℤ/2ᵏ` quantitatively.  `odo_no_fixpoint` (the `+1`
-flips the low bit ⟹ fixes no stream) closes the `j = 1` case of ℤ-action freeness.  Wired into
-`Theory/Raw/API.lean`; essay (rows + "profinite value" section + open-frontier update).  Arithmetic
-is pure `Nat` (no `omega`/`Nat.add_mul` — propext-tainted).  Remaining open: full ℤ-freeness (all
-`j`, via iterating `bval_odo`); carry-depth deployment as a real-classification coordinate.
+division), pinning the escape space as `ℤ₂ = lim ℤ/2ᵏ` quantitatively.  Wired into
+`Theory/Raw/API.lean`.  **Full ℤ-action freeness CLOSED** (`odo_free`, `OdometerValue` now 18 PURE):
+iterating `bval_odo` (`bval_odoIter`: `∃ c, bval k (odoʲ f) + c·2ᵏ = bval k f + j`), a period
+`odoʲ f = f` at `k = j` forces `c·2ʲ = j` with `j < 2ʲ` (`lt_two_pow`), so `j = 0` — the `+1`,
+iterated, never returns (`ℤ₂` torsion-free; full no-exterior at the odometer scale).  All three
+user frontiers now addressed: **(a) freeness CLOSED, (b) profinite value CLOSED, (c) carry-depth
+characterised** (`carry_profile`; full real-classification deployment remains).  Arithmetic pure
+`Nat` (`add_left_cancel_pure` replaces propext-tainted `Nat.add_left_cancel`).  Essay updated.
 
 ### 3. (carried) Promotion candidates
 PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov

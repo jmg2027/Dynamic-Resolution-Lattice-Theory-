@@ -1,4 +1,5 @@
 import E213.Theory.Raw.Odometer
+import E213.Meta.Nat.PureNat
 
 /-!
 # Theory.Raw.OdometerValue — the profinite value: the `+1` is `+1 mod 2ᵏ` on the first `k` bits
@@ -99,9 +100,87 @@ theorem bval_odo (f : Nat → Bool) : ∀ k, bval k (odo f) + carryVal k f = bva
 
 /-- ★★★ **The residue unit `+1` is fixed-point-free.**  `odo f 0 ≠ f 0`: incrementing always flips
     the least-significant bit, so the `+1` fixes no stream — the act of pointing always changes
-    something (the `k = 1` case of the `ℤ`-action's freeness). -/
+    something (the `j = 1` case of the `ℤ`-action's freeness). -/
 theorem odo_no_fixpoint (f : Nat → Bool) : odo f 0 ≠ f 0 := by
   rw [odo_apply, carry_zero]
   cases f 0 <;> decide
+
+/-! ## §2 — freeness of the `ℤ`-action: the only period is `0` -/
+
+/-- Iterated odometer: `odoIter j f = f + j`. -/
+def odoIter : Nat → (Nat → Bool) → (Nat → Bool)
+  | 0,     f => f
+  | j + 1, f => odo (odoIter j f)
+
+theorem odoIter_succ (j : Nat) (f : Nat → Bool) :
+    odoIter (j + 1) f = odo (odoIter j f) := rfl
+
+/-- The carry-out value is a multiple of `2ᵏ` (`0` or `1` times it). -/
+theorem carryVal_is_mul (k : Nat) (g : Nat → Bool) : ∃ d, carryVal k g = d * 2 ^ k := by
+  cases h : carry g k with
+  | false =>
+      refine ⟨0, ?_⟩
+      show cond (carry g k) (2 ^ k) 0 = 0 * 2 ^ k
+      rw [h, cond_false, Nat.zero_mul]
+  | true  =>
+      refine ⟨1, ?_⟩
+      show cond (carry g k) (2 ^ k) 0 = 1 * 2 ^ k
+      rw [h, cond_true, Nat.one_mul]
+
+/-- ★★★ **Iterating the `+1`: the value advances by `j` modulo `2ᵏ`** (carry-explicit): for every
+    `j`, `∃ c, bval k (odoIter j f) + c·2ᵏ = bval k f + j` — the truncated value is `bval k f + j`
+    up to whole wraps `c·2ᵏ`.  By induction on `j`, each step adding `1` with its carry-out
+    (`bval_odo`, `carryVal_is_mul`). -/
+theorem bval_odoIter (k : Nat) (f : Nat → Bool) :
+    ∀ j, ∃ c, bval k (odoIter j f) + c * 2 ^ k = bval k f + j
+  | 0     => ⟨0, by show bval k f + 0 * 2 ^ k = bval k f + 0; rw [Nat.zero_mul]⟩
+  | j + 1 => by
+      obtain ⟨c, hc⟩ := bval_odoIter k f j
+      obtain ⟨d, hd⟩ := carryVal_is_mul k (odoIter j f)
+      have hstep := bval_odo (odoIter j f) k
+      refine ⟨c + d, ?_⟩
+      calc bval k (odoIter (j + 1) f) + (c + d) * 2 ^ k
+          = bval k (odo (odoIter j f)) + (d * 2 ^ k + c * 2 ^ k) := by
+            rw [odoIter_succ, E213.Meta.Nat.PureNat.add_mul, Nat.add_comm (c * 2 ^ k) (d * 2 ^ k)]
+        _ = (bval k (odo (odoIter j f)) + carryVal k (odoIter j f)) + c * 2 ^ k := by
+            rw [← Nat.add_assoc, hd]
+        _ = (bval k (odoIter j f) + 1) + c * 2 ^ k := by rw [hstep]
+        _ = (bval k (odoIter j f) + c * 2 ^ k) + 1 := by rw [Nat.add_right_comm]
+        _ = (bval k f + j) + 1 := by rw [hc]
+        _ = bval k f + (j + 1) := by rw [Nat.add_assoc]
+
+/-- `n < 2ⁿ` (pure; the core lemma's name varies across toolchains, so proved inline). -/
+theorem lt_two_pow : ∀ n, n < 2 ^ n
+  | 0     => by decide
+  | n + 1 => by
+      have hpos : 0 < 2 ^ n := Nat.pos_pow_of_pos n (by decide)
+      calc n + 1 ≤ 2 ^ n := lt_two_pow n
+        _ < 2 ^ n + 2 ^ n := Nat.lt_add_of_pos_right hpos
+        _ = 2 ^ (n + 1) := by rw [← two_mul_pow, Nat.two_mul]
+
+/-- Left cancellation for `+` (pure — core `Nat.add_left_cancel` carries `propext`). -/
+theorem add_left_cancel_pure : ∀ (a : Nat) {b c : Nat}, a + b = a + c → b = c
+  | 0,     _, _, h => by rw [Nat.zero_add, Nat.zero_add] at h; exact h
+  | a + 1, _, _, h => add_left_cancel_pure a (Nat.succ.inj (by rw [← Nat.succ_add, ← Nat.succ_add]; exact h))
+
+/-- ★★★ **The `ℤ`-action is free: the only period is `0`.**  If `odoIter j f = f` (the `+1`
+    applied `j` times returns `f`), then `j = 0`.  Taking the truncation at `k = j`: the value
+    advances by `j` up to whole wraps (`bval_odoIter`), so `c·2ʲ = j`; but `j < 2ʲ`
+    (`Nat.lt_two_pow`), forcing `c = 0` and hence `j = 0`.  So the residue unit's `ℤ`-action has no
+    nonzero period — the act of pointing, iterated, *never* returns (the full no-exterior /
+    `tower_no_cycle` statement at the odometer scale). -/
+theorem odo_free (f : Nat → Bool) (j : Nat) (h : ∀ n, odoIter j f n = f n) : j = 0 := by
+  obtain ⟨c, hc⟩ := bval_odoIter j f j
+  rw [bval_congr j h] at hc
+  have hcj : c * 2 ^ j = j := add_left_cancel_pure _ hc
+  cases c with
+  | zero => rw [Nat.zero_mul] at hcj; exact hcj.symm
+  | succ c' =>
+      exfalso
+      have hge : 2 ^ j ≤ (c' + 1) * 2 ^ j := by
+        rw [E213.Meta.Nat.PureNat.add_mul, Nat.one_mul]
+        exact Nat.le_add_left (2 ^ j) (c' * 2 ^ j)
+      rw [hcj] at hge
+      exact Nat.lt_irrefl j (Nat.lt_of_lt_of_le (lt_two_pow j) hge)
 
 end E213.Theory.Raw.OdometerValue
