@@ -18,17 +18,19 @@ This file assembles it from ∅-axiom cardinalities counted in
     `KernelConstancyUniversal.isKer_iff_const`) — so `dim ker δ⁰ = 1`,
   - `|im δ⁰| = 2^(V−1)` (`bcount_headFalse`) — `dim im δ⁰ = V − 1`.
 
-The last identity reads `bcount headFalse` as `|im δ⁰| = 2^(V−1)`.  That
-`2^(V−1)` is now an **actually-counted image cardinality**, fully ∅-axiom:
-`PathCoboundary.im_pathDelta_card` proves the concrete connected
-(list-valued) path coboundary has exactly `2^(V−1)` distinct values
-(head-`false` representatives map injectively + surjectively onto the
-image — no `funext`, `Fintype`, or `Nat.div`).  Since `dim im δ⁰ =
-V − dim ker δ⁰ = V − 1` is the same for **every** connected graph on `V`
-vertices (rank–nullity; `dim ker = 1` is the connectedness content,
-proven for `K_{NS,NT}^{(c)}` in `isKer_iff_const`), this is `|im δ⁰|` for
-the complete-bipartite deployment too.  The two rank relations are then
-exact ∅-axiom arithmetic:
+The last identity reads `bcount headFalse` as `|im δ⁰| = 2^(V−1)`, an
+**actually-counted image cardinality**, fully ∅-axiom.
+`PathCoboundary.im_count_inj_complement` proves the general fact: any
+`β`-valued map on length-`V` colourings that is complement-invariant and
+injective on head-`false` colourings has exactly `2^(V−1)` distinct values
+(head-`false` reps map injectively + surjectively onto the image — no
+`funext`, `Fintype`, `Nat.div`).  This is rank–nullity
+`|im| = |C⁰| / |ker| = 2^V / 2` realised combinatorially.  Its two
+hypotheses are the *only* graph input, and both hold for the
+complete-bipartite `δ⁰`: complement-invariance always (a coboundary kills
+constants), and head-`false` injectivity is exactly `ker δ⁰ = constants`
+(`isKer_iff_const`).  `im_pathDelta_card` is the path-graph instance.  The
+two rank relations are then exact ∅-axiom arithmetic:
 
   - rank–nullity `|C⁰| = |ker δ⁰| · |im δ⁰|`  ↔  `2^(m+1) = 2 · 2^m`,
   - first iso `|C¹| = |im δ⁰| · |H¹|`         ↔  `2^E = 2^(V−1) · 2^{b₁}`,

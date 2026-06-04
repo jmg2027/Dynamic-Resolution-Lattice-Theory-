@@ -111,39 +111,48 @@ private theorem head?_of_headFalse : ∀ {l : List Bool}, headFalse l = true →
 private theorem complement_length (l : List Bool) :
     (complement l).length = l.length := length_map l _
 
-/-- ★★★★★★ **`|im pathDelta| = 2^(V−1)` — fully ∅-axiom.**
+/-- ★★★★★★ **Image cardinality of any connected coboundary `= 2^(V−1)`.**
 
-  The head-`false` colourings of length `n + 1` map under `pathDelta` to a
-  list of coboundaries that is `Nodup` (injectivity, via
-  `pathDelta_reconstruct`), has length `2^n` (`bcount_headFalse`), and
-  contains every coboundary (surjectivity from representatives, via
-  `pathDelta_complement` + `headFalse_transversal`).  So the path
-  coboundary has exactly `2^n = 2^(V−1)` distinct values — `dim im = V−1`,
-  no `funext` / `Fintype` / `Nat.div`. -/
-theorem im_pathDelta_card (n : Nat) :
-    (((allBoolLists (n + 1)).filter headFalse).map pathDelta).Nodup
-    ∧ (((allBoolLists (n + 1)).filter headFalse).map pathDelta).length = 2 ^ n
+  For *any* `β`-valued map `f` on length-`(n+1)` colourings that is
+
+    · **complement-invariant** — `f (complement l) = f l` (a coboundary
+      adds a constant, and `δ⁰` kills constants); and
+    · **injective on head-`false` colourings** — equivalently `ker f`
+      meets the head-`false` colourings only in all-`false`, i.e.
+      `ker f = constants` (connectedness),
+
+  the head-`false` representatives map injectively + surjectively onto the
+  image of `f`, so `f` has exactly `2^n = 2^(V−1)` distinct values
+  (`dim im = V − 1`).  No `funext` / `Fintype` / `Nat.div`.
+
+  This is the rank–nullity count `|im| = |C⁰| / |ker| = 2^V / 2` realised
+  combinatorially; the two hypotheses are the *only* graph input, and both
+  hold for the complete-bipartite `δ⁰` (complement-invariance always;
+  head-`false` injectivity from `KernelConstancyUniversal.isKer_iff_const`).
+  `im_pathDelta_card` below is the path-graph instance. -/
+theorem im_count_inj_complement {β : Type _} [DecidableEq β] (n : Nat)
+    (f : List Bool → β)
+    (hcomp : ∀ l, f (complement l) = f l)
+    (hinj : ∀ σ τ, σ ∈ allBoolLists (n + 1) → τ ∈ allBoolLists (n + 1) →
+        headFalse σ = true → headFalse τ = true → f σ = f τ → σ = τ) :
+    (((allBoolLists (n + 1)).filter headFalse).map f).Nodup
+    ∧ (((allBoolLists (n + 1)).filter headFalse).map f).length = 2 ^ n
     ∧ ∀ σ, σ ∈ allBoolLists (n + 1) →
-        pathDelta σ ∈ ((allBoolLists (n + 1)).filter headFalse).map pathDelta := by
+        f σ ∈ ((allBoolLists (n + 1)).filter headFalse).map f := by
   refine ⟨?_, ?_, ?_⟩
-  · -- Nodup: pathDelta is injective on the head-false representatives
+  · -- Nodup: f is injective on the head-false representatives
     refine nodup_map_of_inj ?_ (nodup_filter headFalse (nodup_allBoolLists (n + 1)))
-    intro σ hσ τ hτ hpd
-    exact pathDelta_reconstruct
-      ((length_of_mem_allBoolLists (mem_filter hσ).1).trans
-        (length_of_mem_allBoolLists (mem_filter hτ).1).symm)
-      hpd
-      ((head?_of_headFalse (mem_filter hσ).2).trans
-        (head?_of_headFalse (mem_filter hτ).2).symm)
+    intro σ hσ τ hτ hfe
+    exact hinj σ τ (mem_filter hσ).1 (mem_filter hτ).1
+      (mem_filter hσ).2 (mem_filter hτ).2 hfe
   · -- length = 2^n
     rw [length_map, filter_length_eq_bcount, bcount_headFalse]
-  · -- surjectivity: every coboundary comes from a head-false representative
+  · -- surjectivity: every value comes from a head-false representative
     intro σ hσ
     have hσl : σ.length = n + 1 := length_of_mem_allBoolLists hσ
     cases hhf : headFalse σ with
-    | true => exact mem_map_of_mem pathDelta (mem_filter_of hσ hhf)
+    | true => exact mem_map_of_mem f (mem_filter_of hσ hhf)
     | false =>
-        -- representative is complement σ (head-false), same coboundary
         have hchf : headFalse (complement σ) = true := by
           cases σ with
           | nil => exact Nat.noConfusion hσl
@@ -156,7 +165,24 @@ theorem im_pathDelta_card (n : Nat) :
         have hcmem : complement σ ∈ allBoolLists (n + 1) := by
           have hl : (complement σ).length = n + 1 := by rw [complement_length, hσl]
           exact hl ▸ mem_allBoolLists (complement σ)
-        rw [(pathDelta_complement σ).symm]
-        exact mem_map_of_mem pathDelta (mem_filter_of hcmem hchf)
+        rw [(hcomp σ).symm]
+        exact mem_map_of_mem f (mem_filter_of hcmem hchf)
+
+/-- **`|im pathDelta| = 2^(V−1)`** — the path-graph instance of
+    `im_count_inj_complement`.  `pathDelta` is complement-invariant
+    (`pathDelta_complement`) and injective on head-`false` colourings
+    (`pathDelta_reconstruct`, the head and consecutive XORs determine the
+    colouring). -/
+theorem im_pathDelta_card (n : Nat) :
+    (((allBoolLists (n + 1)).filter headFalse).map pathDelta).Nodup
+    ∧ (((allBoolLists (n + 1)).filter headFalse).map pathDelta).length = 2 ^ n
+    ∧ ∀ σ, σ ∈ allBoolLists (n + 1) →
+        pathDelta σ ∈ ((allBoolLists (n + 1)).filter headFalse).map pathDelta :=
+  im_count_inj_complement n pathDelta pathDelta_complement
+    (fun σ τ hσ hτ hσf hτf hpd =>
+      pathDelta_reconstruct
+        ((length_of_mem_allBoolLists hσ).trans (length_of_mem_allBoolLists hτ).symm)
+        hpd
+        ((head?_of_headFalse hσf).trans (head?_of_headFalse hτf).symm))
 
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.PathCoboundary
