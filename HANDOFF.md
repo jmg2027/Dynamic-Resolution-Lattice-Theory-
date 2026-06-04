@@ -1,182 +1,136 @@
-# Session Handoff — 2026-06-04 (νF population: swap free-action + shift dynamics; G182 promoted)
+# Session Handoff — 2026-06-04 (post-merge: residue-unit odometer theory → main)
 
 ## Branch
-`claude/math-frontier-research-6Bw68` — pushed, clean.
-`cd lean && lake build E213` ✓ (301 modules).  `Theory/Raw/CoResidue` **108 PURE / 0 DIRTY**.
+`main` — the feature branch `claude/math-frontier-research-6Bw68` is **merged**
+(`--no-ff` commit `536031359`) and pushed.  `cd lean && lake build E213` ✓ (303
+modules, fresh `rm -rf .lake/build` build clean).  Working tree clean.
+
+This session built a complete ∅-axiom theory of the **residue unit `+1`** (the
+act of pointing as an arithmetic dynamical system) and merged it into the
+re-architected main (which had advanced +50 commits with the p-adic /
+universal-Betti / geometrization work — all preserved through the merge).
 
 ## What Was Done This Session
 
-Goal: **G178** (νF-population cross-arc conjecture seed) + **G182** ("the frontier has a form",
-essay-in-waiting).  Both advanced; G182 promoted.
+### 1. The residue unit `+1` as a complete dynamical theory (∅-axiom)
+- **`Theory/Raw/Odometer`** (41 PURE) — the binary `+1` adding machine on the
+  bit-stream escape space (`CoResidue`): §1 carry/escape (µF/νF mirror, the
+  canonical escape `spineL` IS the overflow); §2 successor dynamics (`+1`
+  injective = `tower_no_cycle`, the descent–increment skew `shift_odo`); §3 the
+  `ℤ`-action (`+1` invertible via the predecessor `−1`/borrow, `odo_unit_action`);
+  §4 reversibility asymmetry (descent forgets / ascent-unit remembers); §5 the
+  `ℤ₂`-successor homeomorphism (`odo_homeomorphism`); §6 the carry = leading run
+  = floor distance (`carry_profile`).
+- **`Theory/Raw/OdometerValue`** (18 PURE) — the profinite value `bval`:
+  `bval_odo` proves `odo = (+1 mod 2ᵏ)` carry-explicitly, and **`odo_free`** the
+  full `ℤ`-action freeness (`odoʲ f = f → j = 0`; `ℤ₂` torsion-free).
+- **`Real213/ZeckendorfCarry`** (7 PURE) — the golden/Fibonacci-base carry
+  `011 → 100` = the Fibonacci recurrence, value-preserving (`golden_adic_carry`);
+  admissibility = Cassini.  Ostrowski(φ), the residue's own variable base.
 
-### 1. G178 — νF population, two new cross-arc sections (CoResidue 94→108 PURE)
+### 2. νF population — two new cross-arc sections in `Theory/Raw/CoResidue` (94→108 PURE)
+- §18: the lone Raw automorphism `coSwap` acts **freely** on the bit-stream
+  escapes (`coSwap_boolSpine_free_action`).
+- §19: the escapes carry the **shift dynamical system** (`boolSpine_shift_dynamics`);
+  self-similarity = shift-periodicity, `spineL` the period-1 point.
 
-**§18 — the swap automorphism acts *freely* on the bit-stream escapes** (cross-arc §14 ⊗ §15):
-- `coSwap_boolSpine` — exact intertwining `coSwap ∘ boolSpine = boolSpine ∘ (Bool.not ∘ ·)`,
-  clean precisely where §14's *tree-seed* intertwining fails (a leaf has no children to reorder).
-- `coSwap_boolSpine_distinct` — `coSwap` fixes *no* bit-stream escape (free ℤ/2-action on the
-  `(Nat→Bool)`-many escapes).
-- `spineL_eq_boolSpine_true`, `boolSpine_swap_orbit`, `coSwap_boolSpine_free_action` (capstone).
+### 3. C-phys consolidation bridges (DRLT falsifier surface)
+- **C3** `Lens/Number/SharedUnitAcrossReadings.unit_bridges_dynamics_and_readings`
+  — the unit `1` byte-identical across ascent/descent/glue/det.
+- **C6** `Lib/Physics/Foundations/FalsifierRosterForced.falsifier_roster_forced`
+  — the falsifier integers as forced polynomials in the unique `(NS,NT,d)`.
+- **C7** `KoideFormula.koide_atoms_are_det_atoms` — Koide's `2/3` atoms ARE the
+  determinant atoms.  (C1 closed-as-non-bridge per the "different 3" discipline.)
 
-**§19 — the bit-stream escapes carry the shift dynamical system** (cross-arc §12 ⊗ §15 ⊗ §18 ⊗
-non-holonomicity):
-- `boolSpine_congr` — pointwise stream-eq → pointwise spine-eq (funext-free; reads periodicity).
-- `boolSpine_coLeft` / `boolSpine_coRight` — left descent = head bit, right descent = the shift.
-- `boolSpine_shift_coalgebra` — `boolSpine` is the shift `(Nat→Bool; head,tail)` → νF coalgebra hom.
-- `boolSpine_periodic_selfsimilar` — self-similarity = shift-periodicity.
-- `spineL_shift_fixed` — `spineL` the period-1 (shift-fixed) escape (= `spineL_unique`'s p=1 case).
-- `boolSpine_eventually_true_reaches_spineL` — eventually-constant seeds reach the attractor in
-  finitely many descents (holonomic / finite-state end; aperiodic seeds = non-holonomic escapes).
-- `boolSpine_swap_shift_commute`, `boolSpine_shift_dynamics` (capstone).
+### 4. Narrative — 4 foundations essays + φ chapter
+- New: `theory/essays/foundations/{the_frontier_has_a_form, the_residue_unit_odometer, the_unit}.md`
+  (G182 promoted; the residue triptych + the unit-as-value synthesis).
+- `theory/math/algebra/phi_self_similarity.md` §3.6 (frozen=dynamic φ) + §3.7
+  (golden adic).  Essays now **46**.
 
-### 2. G182 — "the frontier has a form" promoted to an essay
-- New `theory/essays/foundations/the_frontier_has_a_form.md`: µF inductive-complete (crank) vs
-  νF coinductive-complete (map); no-exterior forces the escape to *be* the residue shape —
-  self-similar (`spineL_unique`), populated (`nu_population_capstone`), acted on *freely* by the
-  lone symmetry (`coSwap_boolSpine_free_action`), and carrying the **shift dynamics**
-  (`boolSpine_shift_dynamics`).  Lands on a syntactic object; honest boundary (summits open).
-- Source `G182` archived → `research-notes/archive/G182_completed_system_synthesis.md`.
-- `theory/essays/INDEX.md` (foundations group + Current-essays row, 41→42), and
-  `the_residue_as_primitive.md` (the §18/§19 rows + count 94→108) updated.
-- Sink rule verified clean (no `theory/` → `research-notes/` citation).
-
-### 3. G178 — C3-phys consolidation bridge closed (the shared unit `1`)
-`Lens/Number/SharedUnitAcrossReadings.unit_bridges_dynamics_and_readings` (PURE): the ascent
-unit (`ascent_adds_unit`), the descent unit (`part_depth_succ_le`), the glue `NS−NT = 1`, and
-the Möbius `det P = 1` are the *same* `1` — the dynamics↔algebra bridge the `ResidueForm`
-narrative asserted (now cited from it).  Complements the two pre-existing single-scale bundles
-(`ReentryUnit.reentry_unit_across_scales` = Raw-dynamics; `the_unit_is_one_across_readings` =
-number-axes).
-
-### 4. G178 — C6-phys falsifier-roster super-theorem closed
-`Lib/Physics/Foundations/FalsifierRosterForced.falsifier_roster_forced` (1 PURE): binds the two
-forcing iffs (`atomic_iff_five` → d=5; `pair_forcing` → (NT,NS)=(2,3)) to the headline falsifier
-integers as polynomials in the *forced* triple (F1 5, F2 3, F8 22, F22/F26 6, F26 10, F24 192,
-F15/F19 12, F21 Koide 3·NT=2·NS).  The load-bearing content is the *forcing* (integers follow
-from the unique triple, not fits).  Wired into `Lib/Physics/Foundations.lean`; recorded in
-`catalogs/falsifiers.md`.
-
-### 5. G178 — C7-phys closed, C1-phys closed-as-non-bridge (consolidation surface complete)
-`KoideFormula.koide_atoms_are_det_atoms` (PURE): Koide's two atoms ARE the determinant's — the
-forced pair `(NS,NT)=(3,2)` read three ways: ratio `NT·3=NS·2` (Koide `2/3`), difference
-`det P = NS−NT = 1` (residue unit), product `NS·NT = 6` (`K_{3,2}` edge count).  C1-phys
-(`N_gen`) declined as a structural bridge: the forced numeric (`binom NS NT = 3`) is in C6-phys;
-forcing it *into* the `2a+3b=5` solver is the recorded "different 3" non-bridge.  **All C-phys
-consolidation bridges now resolved** (C3/C6/C7 closed, C1 closed-as-non-bridge).
+### 5. Process + org-audit + merge
+- Frontier board pruned: G178/G181 closed & archived; G189–G193 (Markov frontier)
+  relocated to `frontiers/markov_lagrange/`; promotion ledger updated.
+- `Theory/Raw/INDEX` rewritten (was stale: phantom Hom/Signed, omitted the
+  residue-extension layer) → accurate 20 modules.
+- Merged into main (4 markdown conflicts resolved: log unioned, INDEX counts,
+  frontiers closure-records, HANDOFF); merged tree builds clean, all PURE.
 
 ## Current Precision Results (0 free parameters)
-Unchanged this session (math-frontier work; no physics-constant edits).  Canonical:
-`catalogs/physics-constants.md`.
+Unchanged this session — this was **math-frontier + foundations** work (the
+residue unit's dynamics), not a physics-constant edit.  Canonical table:
+`catalogs/physics-constants.md`.  The new physics-adjacent result is the
+falsifier-roster forcing (`falsifier_roster_forced`, PURE) — the integers
+`{5,3,22,6,10,192,12}` and Koide `2/3` as forced polynomials in `(NS,NT,d)=(3,2,5)`.
 
 ## Open Problems (Priority Order)
 
-### 1. (carried) The orbit-realizability kernel `H` (`OrbitRealizabilityH`)
-The Markov sole open freedom — structure fully pinned, realizability *selection* open.  Attack as
-a forced fixed point (`frontiers/markov_lagrange/G193…` Part C).  Continuant program E2–E5 (Aigner
-bridge) ranked next on that arc (`frontiers/markov_lagrange/G191…`; `Real213/Continuant.lean` tool
-already built).
+### 1. Markov uniqueness — the orbit-realizability kernel `H`
+The sole open freedom of the Markov arc (structure pinned, realizability
+*selection* open); attack as a forced fixed point, continuant/Aigner program
+ranked next (`Real213/Continuant.lean` tool built).
+Frontier notes: `research-notes/frontiers/markov_lagrange/{G173_markov_uniqueness,G191_continuant_aigner_program,G193_axioms_against_markov_kernel}.md`.
 
-### 2. G178 — consolidation surface COMPLETE
-All C-phys bridges resolved this session: **C3** (`unit_bridges_dynamics_and_readings`), **C6**
-(`falsifier_roster_forced`), **C7** (`koide_atoms_are_det_atoms`) closed ∅-axiom; **C1** closed-as-
-non-bridge (forced numeric in C6; solver-identification is the recorded "different 3").  No C-phys
-bridge remains open.
-- **Adjacent — both closed** (survey label was stale): ε₀ diagonal
-  (`DepthHeightDiagonal.{height_diagonal_escapes,epsilon_direction}`, chaptered in
-  `completeness_without_completeness.md` Part IV §14; native ε₀ object out of ∅-axiom reach, not
-  forced) and frozen=dynamic φ (`PhiFrozenDynamic.frozen_eq_dynamic_phi`, §5.7 — **promoted this
-  session** to `phi_self_similarity.md` §3.6).
+### 2. Promote the pure-`Nat` cancellation toolkit to `Meta/Nat`
+`add_left_cancel_pure` + `lt_two_pow` live locally in `OdometerValue`; they are
+generic and belong in `Meta/Nat/PureNat` (core `Nat.add_left_cancel`/`Nat.add_mul`/
+`omega` are propext-tainted — the pure replacements should be shared).  Concrete
+infra task.  Frontier note: `research-notes/frontiers/odometer_unit_synthesis.md`.
 
-### 6. G181 — §19→odometer cross-arc closed (the escape's arithmetic face)
-New `Theory/Raw/Odometer` (11 PURE, wired into `Theory/Raw/API.lean`): the binary (2-adic) `+1`
-adding machine on the §19 bit-streams, read as the µF/νF mirror at the arithmetic scale — the
-carry terminates iff the stream has a floor (a `0`, `carry_dies_iff_has_false`, µF) and runs
-forever on the all-`true` = `spineL`-seed stream (`allTrue_carry_forever`, νF), so the canonical
-escape IS the odometer overflow (`spineL_seed_is_odo_overflow`).  The `+1` = the self-pointing
-act, the carry = the residue unit.  Realises G181's identified build target (binary base).
+### 3. Odometer `ℤ`-action ↔ Markov / Stern-Brocot (`SL(2,ℤ)`)
+Both are `SL(2,ℤ)`/numeration structures on the residue carrying a shared
+`det = 1` unit; does the odometer `+1` relate to the mediant descent
+(`ModularGeodesicLens`)?  Frontier note: `research-notes/frontiers/odometer_unit_synthesis.md`.
 
-### 7. G181 — the variable-base golden/Zeckendorf carry (the residue's own base)
-New `Real213/ZeckendorfCarry` (7 PURE, wired into `Real213.lean`): the Fibonacci-base adic carry
-`011 → 100` = the Fibonacci recurrence (`zeck_carry_weight`: `fib(i+2)+fib(i+3)=fib(i+4)`, the
-`+1` lifting one spiral rung, ground `1+2=3`), as a **value-preserving** digit-list rewrite
-(`fibValFrom_carry`); admissibility (no consecutive `1`s) = Cassini (`fib_cassini_norm`);
-`golden_adic_carry` bundles it.  This is Ostrowski(φ) = Zeckendorf, the residue's own spiral
-base.  Promoted to `phi_self_similarity.md` §3.7.  **Note**: core `Nat.add_mul`/`Nat.mul_assoc`
-and `omega` are propext/Quot-tainted — used `Meta.Nat.PureNat.add_mul` and manual `Nat` lemmas
-for ∅-purity (the §19/odometer/Zeckendorf arc is now closed on both binary and golden bases).
+### 4. (carried) Other open frontiers
+π non-holonomicity (`frontiers/pi_nonholonomicity/`), spiral-axis
+(`frontiers/spiral_axis/` G169/G171/G185), completability, sequence-depth, the
+p-adic direction H (`frontiers/G124_padic_drlt_5adic`), geometrization knots
+(`frontiers/G121_dim4_self_pointing_axis`), Eisenstein (`frontiers/G167_…`).
+See `research-notes/frontiers/INDEX.md`.
 
-### 8. New structure — the residue's successor dynamics (`Theory/Raw/Odometer` §2, +8 PURE)
-The genuinely-new pioneering piece: the two fundamental bit-stream maps (descent-shift = µF,
-ascent-unit-odometer = νF) interlock, and the `+1` is the residue's **injective** successor.
-`odo_injective` (the `+1` never sends two streams to one — odometer-scale `tower_no_cycle` /
-no-exterior on the unit); `shift_odo` (the descent–increment skew = the adding-machine recursion,
-`shift (odo f) = odo (shift f)` gated by the low bit); `carry_shift` (the carry splits one bit at
-a time); `successor_dynamics` bundles it.  **§3 — the `ℤ`-action** (+12 PURE, Odometer now **31 PURE**):
-the predecessor `−1` (the *borrow* machine, dual to the carry) is the two-sided inverse of `+1`
-(`dec_odo`: `(f+1)−1=f`; `odo_dec`: `(f−1)+1=f`), so the residue unit is **invertible** — it
-generates a `ℤ`-action `(±1)` on the escape space (`odo_unit_action`), the `+1`/`−1` the
-difference-Lens generators.  No-exterior (`tower_no_cycle`) made a group action: never collapsing,
-always undoable.  **§4 — the reversibility asymmetry** (+6 PURE, Odometer now **36 PURE**):
-descent (shift) is surjective-not-injective (`shift_surjective` + `shift_not_injective` — a
-forgetful quotient, the dropped low bit lost), the ascent unit (odo) is bijective
-(`descent_forgets_ascent_remembers`).  µF grounds irreversibly, νF's unit is a reversible
-`ℤ`-action — reversibility is the operational µF/νF signature.  **§5 — the `ℤ₂`-successor
-homeomorphism** (+2 PURE, Odometer now **38 PURE**): `odo_prefix_determined` (continuity — output
-bit `n` determined by input prefix `[0,n]`) + `odo_homeomorphism` (bijective + continuous = the
-residue's `+1` is the `ℤ₂`-successor as a topological-group automorphism; the escape space carries
-the `2`-adic integer structure).
-
-**§6 — the carry profile** (+3 PURE, Odometer now **41 PURE**): `carry_eq_true_iff` (the carry is
-exactly the leading run of `1`s — `carry f n = true ↔ ∀ m<n, f m = true`), `carry_monotone` (once
-dead stays dead), `carry_profile` (capstone): the carry is `true` on `[0,R)` where `R` = the floor
-distance (the first `0`), `false` after — the carry-depth as a 213-native invariant.
-
-**Promoted** the closed arc to a dedicated essay
-`theory/essays/foundations/the_residue_unit_odometer.md` ("the arithmetic face of the `+1`") — the
-third residue-triptych companion (coalgebra face = `the_residue_as_primitive`; the form =
-`the_frontier_has_a_form`; arithmetic face = this).  `essays/INDEX` updated (42→43).  Open frontier
-recorded in the essay: ℤ-action freeness, the profinite value-mod-`2ᵏ`, carry-depth classification.
-
-### 9. New — the profinite value: `odo = +1 mod 2ᵏ` (`Theory/Raw/OdometerValue`, 11 PURE)
-Closes the essay's profinite-value frontier: `bval k f` reads the first `k` bits as a number
-(LSB-first), and `bval_odo` proves `bval k (odo f) + carryVal k f = bval k f + 1` — the odometer is
-the arithmetic successor on every finite truncation, `odo = (+1 mod 2ᵏ)` carry-explicit (no
-division), pinning the escape space as `ℤ₂ = lim ℤ/2ᵏ` quantitatively.  Wired into
-`Theory/Raw/API.lean`.  **Full ℤ-action freeness CLOSED** (`odo_free`, `OdometerValue` now 18 PURE):
-iterating `bval_odo` (`bval_odoIter`: `∃ c, bval k (odoʲ f) + c·2ᵏ = bval k f + j`), a period
-`odoʲ f = f` at `k = j` forces `c·2ʲ = j` with `j < 2ʲ` (`lt_two_pow`), so `j = 0` — the `+1`,
-iterated, never returns (`ℤ₂` torsion-free; full no-exterior at the odometer scale).  All three
-user frontiers now addressed: **(a) freeness CLOSED, (b) profinite value CLOSED, (c) carry-depth
-characterised** (`carry_profile`; full real-classification deployment remains).  Arithmetic pure
-`Nat` (`add_left_cancel_pure` replaces propext-tainted `Nat.add_left_cancel`).  Essay updated.
-
-### 3. (carried) Promotion candidates
-PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov
-chapter stays active (Pattern 3) while `H` is open.
+## Unresolved from This Session
+- Carry-depth as a *fully decidable* real-classification coordinate is
+  constructively obstructed (`¬∀ ↔ ∃` = `object1_not_surjective` at the
+  bit-stream scale) — recorded as an honest ceiling in the odometer essay, not a
+  gap.  A decidable *sub-class* (eventually-periodic streams) may be reachable.
+- `tools/sync_namespaces.py`: 116 pre-existing namespace/path mismatches
+  repo-wide (not from this branch) — a standing cleanup, deferred.
 
 ## Next
-Either (a) the §19→G181 cross-arc (the shift on νF = the Ostrowski/spiral-adic odometer carry),
-a genuine new bridge; or (b) C3-phys (det-1=ascent-1=glue-1), the safest consolidation; or
-(c) return to the Markov `H` kernel via continuant E2.  The νF arc (`CoResidue`) is now large
-(108 PURE) — prefer a *different* structural axis over more CoResidue micro-sections (rule 9).
+Either (a) promote `add_left_cancel_pure`/`lt_two_pow` to `Meta/Nat/PureNat`
+(quick infra, Open Problem 2), (b) the odometer↔Markov `SL(2,ℤ)` bridge (Open
+Problem 3), or (c) resume the Markov `H` kernel via the continuant program
+(`Real213/Continuant.lean`, Open Problem 1).
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: G182 → `theory/essays/foundations/the_frontier_has_a_form.md`
-  (source archived).
-- **Frontier board pruned 2026-06-04**: `G178_next_proofline_conjectures` and
-  `G181_atomic_spiral_adic` are **closed & archived** (content fully promoted to the
-  `foundations/` essay triptych + `phi_self_similarity` §3.7); the odometer essay's three open
-  frontiers (freeness, profinite value, carry-depth) are all addressed.  Remaining genuinely-open
-  frontiers on the board: π non-holonomicity, Markov/Lagrange (`H` kernel), spiral-axis
-  (G169/G171/G185), completability, sequence-depth, and the standalone meta-frontiers.  Sink rule holds.
+- **Promotions this session**: `the_frontier_has_a_form` (G182 → essay),
+  `the_residue_unit_odometer` + `the_unit` (new essays), `phi_self_similarity`
+  §3.6/§3.7 (frozen=dynamic φ + golden adic); G178/G181 archived.  Ledger:
+  `research-notes/promotion_essay_log.md`.
+- **Promotion candidates**: PURE-closed sub-trees lacking `theory/` chapters —
+  see `theory/PROMOTION_CRITERIA.md`.
+- **Active scratchpad**: `research-notes/frontiers/` (open board; markov_lagrange,
+  pi_nonholonomicity, spiral_axis, …).  Top-level = anchors only.  Sink rule
+  holds (0 permanent-tier citations of research-notes files).
 
 ## File Map
 ```
-lean/E213/Theory/Raw/CoResidue.lean                              ← +§18 (swap free action) +§19 (shift dynamics), 94→108 PURE
-theory/essays/foundations/the_frontier_has_a_form.md             ← NEW essay (G182 promoted)
-theory/essays/foundations/the_residue_as_primitive.md            ← +§18/§19 rows + bullets, counts 94→108
-theory/essays/INDEX.md                                           ← foundations group + Current-essays row (41→42)
-research-notes/archive/G182_completed_system_synthesis.md        ← archived (was frontiers/), promoted-to pointer
-research-notes/frontiers/G178_next_proofline_conjectures.md      ← +§18/§19 STATUS; remaining open = C-phys + adjacent
-research-notes/frontiers/INDEX.md                                ← G182 closure record; G178 §18/§19 note
+lean/E213/Theory/Raw/Odometer.lean                         ← NEW: binary +1 odometer (41 PURE), §1-§6
+lean/E213/Theory/Raw/OdometerValue.lean                    ← NEW: profinite value + ℤ-freeness (18 PURE)
+lean/E213/Theory/Raw/CoResidue.lean                        ← +§18 (free swap-action) +§19 (shift dynamics), →108 PURE
+lean/E213/Theory/Raw/API.lean                              ← +Odometer, OdometerValue imports
+lean/E213/Theory/Raw/INDEX.md                              ← rewritten: accurate 20-module listing
+lean/E213/Lib/Math/NumberSystems/Real213/ZeckendorfCarry.lean  ← NEW: golden adic carry (7 PURE)
+lean/E213/Lib/Physics/Foundations/FalsifierRosterForced.lean   ← NEW: falsifier roster forced (1 PURE)
+lean/E213/Lens/Number/SharedUnitAcrossReadings.lean        ← +unit_bridges_dynamics_and_readings (C3)
+lean/E213/Lib/Physics/Foundations/KoideFormula.lean        ← +koide_atoms_are_det_atoms (C7)
+lean/E213/Lib/Math/Foundations/ResidueForm.lean            ← +C3 bridge citation
+theory/essays/foundations/the_frontier_has_a_form.md       ← NEW essay (G182 promoted)
+theory/essays/foundations/the_residue_unit_odometer.md     ← NEW essay (the +1 as a map)
+theory/essays/foundations/the_unit.md                      ← NEW essay (the 1 as a shared value)
+theory/math/algebra/phi_self_similarity.md                 ← +§3.6 frozen=dynamic φ, +§3.7 golden adic
+research-notes/frontiers/odometer_unit_synthesis.md        ← NEW: post-closure synthesis + seeds
+research-notes/frontiers/markov_lagrange/G189-G193*.md      ← relocated from top-level
+research-notes/archive/{G178,G182, spiral_axis/G181}*.md   ← archived (closed)
 ```
