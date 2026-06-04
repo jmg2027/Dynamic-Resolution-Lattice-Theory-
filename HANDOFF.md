@@ -2,7 +2,12 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — word↔rational link: chrNode length = 2·(p+q) (∅-axiom)
+## ★★★ SESSION CERTIFICATION — the whole Markov/continuant arc is strict ∅-axiom
+`tools/scan_axioms.py`: `Real213.Continuant` = **25 PURE / 0 dirty**; `Real213.ContinuantMarkov` =
+**29 PURE / 0 dirty**; SternBrocotMarkov §30–§34 + `markov_max_unique_985` + `realized_root_relative_sign_not_uniform`
+all PURE (verified individually). The entire arc below is certified.
+
+## ★★★ word↔rational link: chrNode length = 2·(p+q) (∅-axiom)
 - **`ContinuantMarkov.chrNode_length`** (PURE): `(chrNode p).length = 2·((markovRat p).1+(markovRat p).2)`
   — the Christoffel cutting-sequence word's size = twice the rational's height p+q. Connects the explicit
   word chrNode to the reduced rational markovRat (via chrInterval_length: bound lengths = 2·SB-pair-sums).
