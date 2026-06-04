@@ -71,8 +71,13 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
     sub/neg-unfolded components (`u−v = u+−v`) + `ring_intZ`; the final inequality extracted
     as `div_step_ineq` (no `set` — that tactic is Mathlib-only); `ring_intZ` leading-`0`
     limitation (`0−(P−N)`) routed through `zero_sub` + `-(P−N)=N−P`.
-  - **Phase 2 (next)** — gcd / divisibility in `ℤ[ω]` from the Euclidean step (well-founded
-    on `‖·‖²`), then the "non-prime ⟹ proper norm factor" descent.
+  - **Phase 2a (DONE)** — `Integer.EisensteinDvd` (3 PURE): the divisibility↔norm bridge.
+    `normSq_dvd_of_dvd` (`a ∣ b ⟹ ‖a‖² ∣ ‖b‖²`, the workhorse turning a proper `ℤ[ω]`-factor
+    of `p` into a proper `ℤ`-factor of `p²`); `unit_of_normSq_one` + `normSq_one_of_unit`
+    (the full `unit ⟺ ‖·‖² = 1` — so a norm-`p` element is never a unit).
+  - **Phase 2b (next)** — the gcd / descent: `p` prime, `p ∣ N(θ)`, `p ∤ θ` ⟹ a proper
+    divisor `d = gcd(p, θ)` with `‖d‖² = p` (needs the Euclidean gcd — well-founded on
+    `‖·‖²`, or an explicit-bound variant à la `Gcd213`).
     Path: `centered_div_int` wrapper (β.normSq : Int>0 from `normSq_pos`); `γ = ⟨qre,qim⟩` from
     `centered_div` on `(α·conjβ).re/.im`; prove `ρ·conjβ = ⟨rre,rim⟩` (ext + ring_intZ, with
     `mul_conj_self`); `‖ρ‖²·N = eisForm rre rim` (`normSq_mul` + `normSq_conj`); `covering_bound`
