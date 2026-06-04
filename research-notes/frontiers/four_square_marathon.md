@@ -14,6 +14,19 @@ Stays over `ℤ` with ring identities + `centered_div_int`.  `NumberTheory.FourS
   - **even-`m` branch (DONE)** — `int_even_or_odd`, `sum_two_sq_of_even_diff`, `two_c_ne_one`,
     `sq_sum_even_imp_diff_even`, `combine`, `halve4` (8-case parity pigeonhole), and
     ★`halve_step : isSum4 (2m'·p) ⟹ isSum4 (m'·p)`.
+  - **odd-`m` strict bound (DONE)** — `Asq_bound` (`2|A|≤2k+1 ⟹ 4A² ≤ (2k)²`, the odd
+    refinement that kills the `r=m` edge), `sq_nonneg`, `add_le_add`, and ★`rlt`
+    (`4Aᵢ²≤(m−1)², ΣAᵢ²=m·r ⟹ r<m`).  `odd_descent` itself is ~2/3 validated in scratch
+    (centred residues → explicit `r` → `descent_core` → `rlt`/`0≤r` all check); remaining
+    inside it: pure `natAbs` casts (`↑r.natAbs = r` for `r≥0`, `0<r` from `0≤r ∧ r≠0`,
+    `1≤r.natAbs`), the `r=0`→`m∣p` exclusion (approach validated: `ΣAᵢ²=0 ⟹ Aᵢ=0 ⟹ m∣p`
+    via `mul_left_cancel_pos` + `int_dvd_to_nat`), and the ℤ→ℕ conversion of `r`.
+
+### Then (glue)
+  - `nat_even_or_odd` + a fuel recursion (`m≤fuel`, `1≤m<p`): odd ⟹ `odd_descent`, even ⟹
+    `halve_step`, both shrink `m`; `m=1 ⟹ isSum4 p`.
+  - seed→initial-multiple (`four_square_seed` ⟹ `k·p = x²+y²+1²+0²`, `k<p`) ⟹ `isSum4 p`.
+  - all `n`: `2 = 1²+1²+0²+0²`; primes by the above; composites by `isSum4_mul`.
 
 ### Remaining (precise)
   1. **Residue setup** — `centered_div_int_sq aᵢ m` ⟹ `aᵢ = qᵢm + Aᵢ`, `4Aᵢ² ≤ m²`.  `r` is
