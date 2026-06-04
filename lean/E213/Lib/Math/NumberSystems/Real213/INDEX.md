@@ -125,6 +125,10 @@
     `011 → 100` = the Fibonacci recurrence, value-preserving (`golden_adic_carry`);
     admissibility = Cassini.  The residue's own variable base (Ostrowski(φ)),
     companion to the binary `Theory/Raw/Odometer`.
+  - `OdometerSternBrocotUnit.lean` — the odometer (dyadic `Theory/Raw/Odometer`)
+    and the Stern-Brocot mediant tree (`SternBrocotMarkov.mInterval`) share the
+    `List Bool` path index + the unimodular unit (`det genL = NS−NT = 1`); the
+    shared residue unit across the two `List Bool`-indexed descents.
   - `ModularGeodesicLens.lean` — ★ the geodesic engine as a Raw-Lens:
     `mediantLens` + `mediantLens_view_reachable` (mediant-Lens view ⊆
     `SternBrocotReachable`, ∅-axiom) — the residue read at `ℍ/PSL(2,ℤ)`.

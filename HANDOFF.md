@@ -78,10 +78,13 @@ three former duplicate proofs (`Beq213.nat_add_left_cancel_pure`,
 delegate to it as one-line wrappers (signatures preserved, consumers unchanged).
 One proof, three re-exports; all PURE.
 
-### 3. Odometer `ℤ`-action ↔ Markov / Stern-Brocot (`SL(2,ℤ)`)
-Both are `SL(2,ℤ)`/numeration structures on the residue carrying a shared
-`det = 1` unit; does the odometer `+1` relate to the mediant descent
-(`ModularGeodesicLens`)?  Frontier note: `research-notes/frontiers/odometer_unit_synthesis.md`.
+### 3. Odometer `ℤ`-action ↔ Markov / Stern-Brocot (`SL(2,ℤ)`) — first bridge DONE
+`Real213/OdometerSternBrocotUnit.odometer_sternbrocot_shared_unit` (2 PURE): the dyadic odometer
+and the Stern-Brocot mediant tree are both `List Bool`-path-indexed residue descents sharing the
+unimodular unit (`det genL = NS−NT = 1`, `genL = P`).  Honest scope: shared *value* + *index*, not
+the (residual) dyadic↔CF Minkowski-`?` conjugacy.  **Next on this arc**: build `?` as a
+residue-internal order-isomorphism of the two `List Bool` trees (harder).  Frontier note:
+`research-notes/frontiers/odometer_unit_synthesis.md`.
 
 ### 4. (carried) Other open frontiers
 π non-holonomicity (`frontiers/pi_nonholonomicity/`), spiral-axis
@@ -99,10 +102,10 @@ See `research-notes/frontiers/INDEX.md`.
   repo-wide (not from this branch) — a standing cleanup, deferred.
 
 ## Next
-Either (a) the odometer↔Markov `SL(2,ℤ)` bridge (Open Problem 3), or (b) resume
-the Markov `H` kernel via the continuant program (`Real213/Continuant.lean`,
-Open Problem 1).  (Open Problem 2 — the pure-`Nat` toolkit + cancellation dedup —
-is done.)
+Either (a) the Minkowski-`?` dyadic↔CF conjugacy as a residue-internal order-iso
+(Open Problem 3 continuation), or (b) resume the Markov `H` kernel via the
+continuant program (`Real213/Continuant.lean`, Open Problem 1).  (Open Problems 2
+and the first odometer↔Stern-Brocot bridge are done.)
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: `the_frontier_has_a_form` (G182 → essay),
@@ -123,6 +126,7 @@ lean/E213/Theory/Raw/CoResidue.lean                        ← +§18 (free swap-
 lean/E213/Theory/Raw/API.lean                              ← +Odometer, OdometerValue imports
 lean/E213/Theory/Raw/INDEX.md                              ← rewritten: accurate 20-module listing
 lean/E213/Lib/Math/NumberSystems/Real213/ZeckendorfCarry.lean  ← NEW: golden adic carry (7 PURE)
+lean/E213/Lib/Math/NumberSystems/Real213/OdometerSternBrocotUnit.lean ← NEW: odometer ↔ Stern-Brocot shared unit (2 PURE)
 lean/E213/Lib/Physics/Foundations/FalsifierRosterForced.lean   ← NEW: falsifier roster forced (1 PURE)
 lean/E213/Lens/Number/SharedUnitAcrossReadings.lean        ← +unit_bridges_dynamics_and_readings (C3)
 lean/E213/Lib/Physics/Foundations/KoideFormula.lean        ← +koide_atoms_are_det_atoms (C7)

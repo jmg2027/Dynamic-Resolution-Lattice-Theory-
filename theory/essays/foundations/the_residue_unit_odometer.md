@@ -123,6 +123,7 @@ the residue's own spiral base.
 | `odo_no_fixpoint` | `Theory/Raw/OdometerValue` | the `+1` is fixed-point-free (`odo f 0 ≠ f 0`) — the act of pointing always changes something |
 | `odo_free` | `Theory/Raw/OdometerValue` | the `ℤ`-action is **free**: `odoʲ f = f → j = 0` — the `+1`, iterated, never returns (no nonzero period) |
 | `golden_adic_carry` | `Real213/ZeckendorfCarry` | the golden/Zeckendorf carry `011→100` = Fibonacci recurrence, value-preserving; admissibility = Cassini |
+| `odometer_sternbrocot_shared_unit` | `Real213/OdometerSternBrocotUnit` | the dyadic odometer and the Stern-Brocot mediant tree share the `List Bool` path index + the unimodular unit `det genL = NS−NT = 1` |
 
 ## Honest scope (what this is and is not)
 

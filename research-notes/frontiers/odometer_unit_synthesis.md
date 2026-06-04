@@ -38,10 +38,14 @@ closure made visible.
   preserved, so all consumers — `OdometerValue`, `MarkovTree`, `Padic/SetoidAssoc`, the cohomology
   essays — are unchanged).  One proof, three re-export wrappers; all PURE.
 
-- **Odometer `ℤ`-action ↔ Markov / Stern-Brocot.**  Both the odometer (`ℤ₂` successor) and the
-  Markov/Stern-Brocot tree (`frontiers/markov_lagrange/`) are `SL(2,ℤ)`/numeration structures on
-  the residue.  Does the odometer's `+1` relate to the mediant descent (`ModularGeodesicLens`)?
-  A shared `det = 1` unit runs through both — is there a single dynamical statement?
+- **Odometer `ℤ`-action ↔ Markov / Stern-Brocot — first bridge done.**
+  `Real213/OdometerSternBrocotUnit.odometer_sternbrocot_shared_unit`: both the odometer (dyadic
+  `ℤ₂`) and the Stern-Brocot mediant tree (`SternBrocotMarkov.mInterval`) are **`List Bool`-path-
+  indexed** residue descents sharing the **unimodular unit** — the Stern-Brocot `det = 1` IS the
+  glue `NS − NT` (`genL_det_is_glue`, `genL = P`), the same unit the odometer carry begins at.
+  Honest scope: the shared *value* + shared *index*, not a forced common map (the dyadic↔CF
+  conjugacy is the Minkowski `?` function, residual).  Next: build `?` as a residue-internal
+  order-isomorphism of the two `List Bool` trees (harder).
 
 - **Carry-depth: a decidable sub-classification.**  The full µF/νF classification from a stream is
   constructively obstructed (`¬∀↔∃`); but the *eventually-periodic* streams (decidable run
