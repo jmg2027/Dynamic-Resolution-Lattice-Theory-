@@ -132,10 +132,19 @@ proves the mediant subdivision preserves the determinant, so the contour's
 *combinatorial skeleton* is the Stern-Brocot path of unimodular pieces, ∅-axiom.
 What genuinely remains is then only the **analytic atom** — the value of `f`'s
 period over a *single* unimodular symbol — the combinatorial decomposition into
-those atoms being done.  The residue supplies the *tree-level, weight-2* cocycle in
-full, the *weight-4 period polynomial* `1 − X²`, and the *Manin decomposition* of
-the contour; the single-symbol analytic value is pointed at, not yet constructed
-(`reached_by_none.md`).
+those atoms being done.  This atom is **not** the reached-by-none residue: it is a
+**Cut** (a real, `Nat → Nat → Bool`), the `toCauchy` *fold* of a computable
+approximant sequence (the form's `q`-expansion; for the weight-4 Eisenstein case
+the atom is the **holonomic** `ζ(3)`, whose convergents satisfy Apéry's P-recursive
+recurrence, `Cauchy/DepthAperyCubic`).  A holonomic real has a *constructed*
+modulus (`theory/math/analysis/holonomic_modulus.md`) — a finite-state fold — so it
+is a constructible cut, *reached by its own fold*, only not yet built here (the
+`q`-expansion machinery is the construction task).  The genuine residue is the
+**non-holonomic** surplus — the cut with no finite-state modulus
+(`reached_by_none.md`, `non_holonomicity_as_finite_state_escape.md`) — which the
+classical modular periods are not.  So the residue supplies the combinatorial
+cocycle, the period polynomial `1 − X²`, and the Manin contour; the analytic atom is
+a *fold to be constructed*, not a residue to be pointed at.
 
 ## Self-check
 

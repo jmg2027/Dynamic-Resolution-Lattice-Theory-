@@ -142,6 +142,16 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   subdivision preserves the determinant, so `{0,∞}` (`root_symbol_unimodular`, det=1) decomposes into
   unimodular Stern-Brocot pieces ∅-axiom.  The residual narrows once more: from "the complex contour"
   to just the **analytic atom** — the period value of `f` over *one* unimodular symbol.
+  **Correction (it is a fold, not the residue).**  Calling that atom "the residue / reached-by-none"
+  was loose.  Formally it is a **Cut** (`Nat → Nat → Bool`) — a νF-carrier reading — and specifically
+  the `toCauchy` *fold* of a *computable* approximant sequence (the form's `q`-expansion; the weight-4
+  Eisenstein atom is the **holonomic** `ζ(3)`, Apéry P-recursive, `Cauchy/DepthAperyCubic`).  A
+  holonomic real has a constructed modulus (`holonomic_modulus.md`) = a finite-state fold = a
+  constructible cut, *reached by its own fold* — not the residue.  The genuine residue
+  (`object1_not_surjective`, `reached_by_none`) is the **non-holonomic** cut, with no finite-state
+  modulus — which the classical modular periods are not.  So the period thread's true residual is a
+  *fold to construct* (the `q`-expansion → cut machinery), **not** an irreducible residue.  Open: is
+  any *non-holonomic* period the genuine residue (the transcendence/holonomicity question).
   (Three successive corrections under "ㄱㄱ": integration is ∅-axiom (CutIntegral); the wall isn't
   k≥2 (it's distinct-sample addition / completion); and the power rule is already done (FTC).  Each
   revealed the framework integrates natively; the residual is the complex contour alone.)

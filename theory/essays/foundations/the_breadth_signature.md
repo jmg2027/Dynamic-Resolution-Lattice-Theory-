@@ -75,11 +75,17 @@ cohomology degree, and modular determinant
 ## Open frontier
 
 Breadth is a claim *under test*, not a shield (§5.4).  The period thread's residual
-— the analytic value of a modular form over one unimodular symbol — is a genuine
-irreducible atom: it needs `f` as analytic input, and is *pointed at*, not yet
-constructed (`reached_by_none.md`).  Whether it, too, is the residue in some
-unmet frame is open (`research-notes/frontiers/`); until then it is recorded as a
-single named atom, not papered over.
+— the analytic value of a modular form over one unimodular symbol — is **not** an
+irreducible residue: it is a **Cut** (a real, a νF-carrier reading), the `toCauchy`
+fold of a *computable* approximant sequence (the form's `q`-expansion; the weight-4
+Eisenstein atom is the holonomic `ζ(3)`, `Cauchy/DepthAperyCubic`).  A holonomic
+real has a constructed modulus — a finite-state fold — so it is a constructible
+cut, reached by its own fold, only *not yet built here*.  The genuine residue is
+the **non-holonomic** cut, with no finite-state modulus (`reached_by_none.md`) —
+which classical periods are not.  So even this residual is a *fold to construct*,
+not a wall — the breadth claim survives; whether some *non-holonomic* period is the
+true residue is the open transcendence/holonomicity question
+(`research-notes/frontiers/`).
 
 ## Constructive accessibility
 
