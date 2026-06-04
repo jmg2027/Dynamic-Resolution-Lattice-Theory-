@@ -27,7 +27,8 @@ open E213.Lib.Math.Linalg213.PermClosure
    cnt_eq_zero_of_not_mem eq_one_of_le_one_of_pos lperm_of_cnt_eq cnt_lperm add_left_cancel'
    nodup_cons nodup_map nodup_iota nodup_permsOf nodup_flatMap
    mem_map' mem_map_mpr mem_flatMap' mem_flatMap_mpr mem_append_left mem_append_right map_eq_of_mem
-   map_map' nodup_of_lperm nodup_head_not_mem sumZ_map_smul LPerm.length_eq LPerm.mem)
+   map_map' nodup_of_lperm nodup_head_not_mem sumZ_map_smul LPerm.length_eq LPerm.mem
+   leibDet_rows_eq_ne leibDet_setRow_add leibDet_setRow_smul)
 
 /-! ## §1 — the minor relabeling (`unshift`, inverse of `colShift`) -/
 
@@ -452,5 +453,26 @@ theorem leibDet_eq_det : ∀ (n : Nat) (M : Nat → Nat → Int), leibDet n M = 
     rw [cofactor_row0, ← cofSum_eq_sumZ_iota (leibDet n) M (n + 1),
         cofSum_congr M (fun M' => leibDet_eq_det n M') (n + 1)]
     rfl
+
+/-! ## §3 — determinant properties transferred to `DetN.det` (via the bridge) -/
+
+open E213.Lib.Math.Linalg213.PermClosure (setRow)
+
+/-- ★ **`DetN.det`: two equal rows ⟹ 0** (any distinct positions). -/
+theorem det_rows_eq_ne (M : Nat → Nat → Int) (n i j : Nat) (hij : i ≠ j) (hi : i < n) (hj : j < n)
+    (hrows : ∀ c, M i c = M j c) : det n M = 0 := by
+  rw [← leibDet_eq_det]; exact leibDet_rows_eq_ne M n i j hij hi hj hrows
+
+/-- ★ **`DetN.det` is additive in any row.** -/
+theorem det_setRow_add (n i : Nat) (hi : i < n) (r1 r2 : Nat → Int) (M : Nat → Nat → Int) :
+    det n (setRow i (fun c => r1 c + r2 c) M) = det n (setRow i r1 M) + det n (setRow i r2 M) := by
+  rw [← leibDet_eq_det, ← leibDet_eq_det, ← leibDet_eq_det]
+  exact leibDet_setRow_add n i hi r1 r2 M
+
+/-- ★ **`DetN.det` is scalar-homogeneous in any row.** -/
+theorem det_setRow_smul (n i : Nat) (hi : i < n) (a : Int) (r : Nat → Int) (M : Nat → Nat → Int) :
+    det n (setRow i (fun c => a * r c) M) = a * det n (setRow i r M) := by
+  rw [← leibDet_eq_det, ← leibDet_eq_det]
+  exact leibDet_setRow_smul n i hi a r M
 
 end E213.Lib.Math.Linalg213.Laplace
