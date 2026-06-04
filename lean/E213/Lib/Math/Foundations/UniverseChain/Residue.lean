@@ -6,7 +6,7 @@ import E213.Theory.Raw.API
 Mingu's articulation:
 > "구분을 하면 항상 잔여물이 남는거 아냐?"
 
-Direct reading of `research-notes/G29_residue.md` point 3:
+Direct reading point 3:
 > "그 짝도 다시 가리킬 수 있다."
 
 ## Formalization

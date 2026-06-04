@@ -7,8 +7,7 @@ import E213.Lib.Math.Analysis.Cauchy.GoldenPiFaces
 The ceiling has been written *negatively* throughout: a witness escapes the finite-difference ring
 (`¬ ∃ d, polyDepthZ d s`), the residue is outside every view's image (`¬ Function.Surjective`).  That
 negative bookkeeping reads structurelessness as a *privation* — "no handle".  This module flips it to
-the **positive** reading the residue actually carries (`seed/AXIOM/05_no_exterior.md` §5,
-`research-notes/G29_residue.md`): being outside every enclosure is not poverty but **maximal lack of
+the **positive** reading the residue actually carries (`seed/AXIOM/05_no_exterior.md` §5): being outside every enclosure is not poverty but **maximal lack of
 constraint** — *source-without-enclosure*.  Named in information terms, that is **maximum entropy**.
 
 So the structurelessness of the non-holonomic pole is not a hole to leave blank; it is a *property*,

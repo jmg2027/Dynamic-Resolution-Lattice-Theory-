@@ -10,7 +10,7 @@ contains only the *chart structure* — chart constructors
 (`value : Raw → Nat`) and their atomic lemmas.
 
 **Arithmetic on Raw is intentionally absent.** Per
-`research-notes/2026-05-18_lens_emergence_path.md` §5 Option C: the
+ Option C: the
 abstract number-theoretic operations (`+`, `·`) live on `Nat` (the
 abstract object); the Raw side carries only the canonical
 representative.  Closed-Raw arithmetic is a category error — Raw

@@ -4,7 +4,7 @@ import E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 # Aut(K_{3,2}^{(c=2)}) — automorphism group structure (C3 step 1)
 
 Step 1 of conjecture C3 (Aut(K) gauge group emergence) per
-`research-notes/G35_chiral_cup_ring_catalog.md`.
+.
 
 The automorphism group of K_{3,2}^{(c=2)} as a multi-graph
 decomposes into

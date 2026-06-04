@@ -21,7 +21,7 @@ distinguishing.  At decidable codomains (`Bool`, `Nat`) `same` is `=` (already
 definitionally to `equiv` / `refines` (default) and `equivR` / `refinesR`
 (`Raw → Prop`).  This is the carrier of 213's one sameness across the Lens ring;
 see `theory/lens/unified_equivalence.md`, `seed/AXIOM/06_lens_readings.md` §6.3,
-and `research-notes/RFC_reading_equivalence_primitive.md`.
+and.
 -/
 
 namespace E213.Lens

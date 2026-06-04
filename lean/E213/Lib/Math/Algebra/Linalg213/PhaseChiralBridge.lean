@@ -19,7 +19,7 @@ K_{3,2}^{(2)} skeleton (atomic shape (NS, NT, d) = (3, 2, 5)):
 
 Both views agree on the same 5-vertex graph.  They co-exist
 *because* atomicity forces (NS, NT, d) = (3, 2, 5) — see
-`research-notes/G4_chiral_phase_duality.md` for the principle.
+ for the principle.
 
 This file is the canonical import site for any future "d = 5"
 theorem that needs either reading, ensuring the two Lens

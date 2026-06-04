@@ -321,7 +321,7 @@ theorem symmetry_species_meta_master :
     — strict proof requires demonstrating no further species
     exists outside the catalogue, which presupposes a closed
     taxonomy of "natural symmetry families".  See
- `research-notes/archive/c_counter/G142_p_x_symmetry_classification_algorithm.md`
+ 
     for the algorithmic-tractability analysis. -/
 
 end E213.Lib.Math.Algebra.Mobius213.Px.SymmetrySpecies

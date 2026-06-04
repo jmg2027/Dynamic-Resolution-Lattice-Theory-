@@ -7,7 +7,7 @@ import E213.Lens.Cardinality.Cantor
 `FlatOntology` realises every sort (object / type / relation / function / Lens)
 as one primitive: a decidable predicate on `Raw^n`.  It defers the *closure*
 direction — encoding a predicate back as a Raw (`seed/AXIOM/06_lens_readings.md`
-§6.3; `research-notes/G29_residue.md` "자기-덮음").
+§6.3; "자기-덮음").
 
 This file records the *limit* shape of that closure:
 

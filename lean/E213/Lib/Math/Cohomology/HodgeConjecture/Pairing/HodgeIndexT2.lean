@@ -26,7 +26,7 @@ Phase 2 closure summary marked deferred:
   >  T²×T² shadow with non-zero middle cohomology) are concrete
   >  follow-up tasks…"
 
- — `research-notes/archive/hodge/G10_post_hodge_program.md`
+ 
 
 STRICT ∅-AXIOM (all by `decide` on the 2×2 cup matrix).
 -/

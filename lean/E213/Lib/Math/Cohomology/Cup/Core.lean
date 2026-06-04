@@ -29,7 +29,7 @@ It is NOT:
 The lex-projection cup admits its own natural Leibniz rule with a
 **boundary-endpoint correction term** distinguishing it from both
 AW and full wedge.  See `Cup/LeibnizLex.lean` for the (1, 1)
-universal form, and `research-notes/archive/G85_cup_delta_lens_mismatch.md`
+universal form, and 
 for the 213-native re-reading of cup / δ as parallel Lens choices.
 
 The prior docstring's "Alexander–Whitney" label was a misclaim —

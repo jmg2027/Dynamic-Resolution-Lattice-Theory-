@@ -4,7 +4,7 @@ import E213.Meta.Tactic.NatHelper
 /-!
 # Lens.Number.Nat213.ChartGeneral — chart-parameterised Method A chain (Option D)
 
-Per `research-notes/2026-05-18_lens_emergence_path.md` §5 Option D.
+ Option D.
 The existing `Nat213.Raw.numeral` hardcodes the chart `(Raw.a, Raw.b)`.
 This file exposes the *general* chart: any two distinct Raws can
 serve as chain seeds, and `value` grows linearly along the chain.

@@ -67,7 +67,7 @@ class HasDistinguishing (α : Type) where
       records distinguishing-content symmetry, not Lean `=`.  The laws +
       `combine_cong` default (via `autoParam`) to the `Eq` proofs, so an
       `Eq`-codomain instance needs no extra fields.  See
- `research-notes/RFC_reading_equivalence_primitive.md`. -/
+ . -/
   same : α → α → Prop := Eq
   same_refl : ∀ x, same x x := by intro x; rfl
   same_symm : ∀ {x y}, same x y → same y x := by intro x y h; exact h.symm

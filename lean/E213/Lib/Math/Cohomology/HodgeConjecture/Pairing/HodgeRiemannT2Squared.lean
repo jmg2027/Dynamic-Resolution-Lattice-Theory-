@@ -4,7 +4,7 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemannT2
 /-!
 # Hodge–Riemann ℚ-positivity refinement on T²×T² primitive (1,1) part
 
-Closes the open follow-up from `research-notes/archive/hodge/G12_T2_pattern.md` §6:
+Closes the open follow-up:
 
 > **Hodge-Riemann ℚ-positivity refinement on T²×T²** — extend
 > `hodge_riemann_t2_capstone`'s positivity statement from H¹ to
