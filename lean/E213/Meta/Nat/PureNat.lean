@@ -133,4 +133,13 @@ theorem isEven_self_mul (m : Nat) : isEven (m * m) = isEven m := by
       obtain ⟨k, hk⟩ := h
       rw [hk, isEven_sq_of_odd, isEven_two_mul_succ]
 
+/-- `n < 2ⁿ` (pure; the core lemma's name varies across toolchains, so proved inline). -/
+theorem lt_two_pow : ∀ n, n < 2 ^ n
+  | 0     => by decide
+  | n + 1 => by
+      have hpos : 0 < 2 ^ n := Nat.pos_pow_of_pos n (by decide)
+      calc n + 1 ≤ 2 ^ n := lt_two_pow n
+        _ < 2 ^ n + 2 ^ n := Nat.lt_add_of_pos_right hpos
+        _ = 2 ^ (n + 1) := by rw [Nat.pow_succ, Nat.mul_two]
+
 end E213.Meta.Nat.PureNat

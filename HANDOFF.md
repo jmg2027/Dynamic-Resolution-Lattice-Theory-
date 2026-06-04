@@ -71,11 +71,12 @@ The sole open freedom of the Markov arc (structure pinned, realizability
 ranked next (`Real213/Continuant.lean` tool built).
 Frontier notes: `research-notes/frontiers/markov_lagrange/{G173_markov_uniqueness,G191_continuant_aigner_program,G193_axioms_against_markov_kernel}.md`.
 
-### 2. Promote the pure-`Nat` cancellation toolkit to `Meta/Nat`
-`add_left_cancel_pure` + `lt_two_pow` live locally in `OdometerValue`; they are
-generic and belong in `Meta/Nat/PureNat` (core `Nat.add_left_cancel`/`Nat.add_mul`/
-`omega` are propext-tainted — the pure replacements should be shared).  Concrete
-infra task.  Frontier note: `research-notes/frontiers/odometer_unit_synthesis.md`.
+### 2. Dedup the pure-`Nat` left-cancellation (partly done)
+`lt_two_pow` is now in `Meta/Nat/PureNat`; `OdometerValue` reuses
+`Beq213.nat_add_left_cancel_pure`.  Remaining: the pure left-cancellation is
+**triplicated** (`Meta/Nat/Beq213`, `Meta/Tactic/NatHelper`,
+`Real213/GoldenFormMarkov`) — consolidate to one canonical `PureNat` home +
+re-export, updating consumers.  Frontier note: `research-notes/frontiers/odometer_unit_synthesis.md`.
 
 ### 3. Odometer `ℤ`-action ↔ Markov / Stern-Brocot (`SL(2,ℤ)`)
 Both are `SL(2,ℤ)`/numeration structures on the residue carrying a shared
@@ -117,7 +118,7 @@ Problem 3), or (c) resume the Markov `H` kernel via the continuant program
 ## File Map
 ```
 lean/E213/Theory/Raw/Odometer.lean                         ← NEW: binary +1 odometer (41 PURE), §1-§6
-lean/E213/Theory/Raw/OdometerValue.lean                    ← NEW: profinite value + ℤ-freeness (18 PURE)
+lean/E213/Theory/Raw/OdometerValue.lean                    ← NEW: profinite value + ℤ-freeness (16 PURE)
 lean/E213/Theory/Raw/CoResidue.lean                        ← +§18 (free swap-action) +§19 (shift dynamics), →108 PURE
 lean/E213/Theory/Raw/API.lean                              ← +Odometer, OdometerValue imports
 lean/E213/Theory/Raw/INDEX.md                              ← rewritten: accurate 20-module listing

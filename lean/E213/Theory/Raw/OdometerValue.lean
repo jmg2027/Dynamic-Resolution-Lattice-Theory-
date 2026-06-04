@@ -1,5 +1,6 @@
 import E213.Theory.Raw.Odometer
 import E213.Meta.Nat.PureNat
+import E213.Meta.Nat.Beq213
 
 /-!
 # Theory.Raw.OdometerValue — the profinite value: the `+1` is `+1 mod 2ᵏ` on the first `k` bits
@@ -20,6 +21,8 @@ namespace E213.Theory.Raw.OdometerValue
 
 open E213.Theory.Raw.Odometer
   (carry odo shift carry_zero carry_succ odo_apply shift_apply carry_shift)
+open E213.Meta.Nat.PureNat (lt_two_pow)
+open E213.Meta.Nat.Beq213 (nat_add_left_cancel_pure)
 
 /-- A bit's numeric value: `1` for `true`, `0` for `false`. -/
 def bit (b : Bool) : Nat := cond b 1 0
@@ -149,20 +152,6 @@ theorem bval_odoIter (k : Nat) (f : Nat → Bool) :
         _ = (bval k f + j) + 1 := by rw [hc]
         _ = bval k f + (j + 1) := by rw [Nat.add_assoc]
 
-/-- `n < 2ⁿ` (pure; the core lemma's name varies across toolchains, so proved inline). -/
-theorem lt_two_pow : ∀ n, n < 2 ^ n
-  | 0     => by decide
-  | n + 1 => by
-      have hpos : 0 < 2 ^ n := Nat.pos_pow_of_pos n (by decide)
-      calc n + 1 ≤ 2 ^ n := lt_two_pow n
-        _ < 2 ^ n + 2 ^ n := Nat.lt_add_of_pos_right hpos
-        _ = 2 ^ (n + 1) := by rw [← two_mul_pow, Nat.two_mul]
-
-/-- Left cancellation for `+` (pure — core `Nat.add_left_cancel` carries `propext`). -/
-theorem add_left_cancel_pure : ∀ (a : Nat) {b c : Nat}, a + b = a + c → b = c
-  | 0,     _, _, h => by rw [Nat.zero_add, Nat.zero_add] at h; exact h
-  | a + 1, _, _, h => add_left_cancel_pure a (Nat.succ.inj (by rw [← Nat.succ_add, ← Nat.succ_add]; exact h))
-
 /-- ★★★ **The `ℤ`-action is free: the only period is `0`.**  If `odoIter j f = f` (the `+1`
     applied `j` times returns `f`), then `j = 0`.  Taking the truncation at `k = j`: the value
     advances by `j` up to whole wraps (`bval_odoIter`), so `c·2ʲ = j`; but `j < 2ʲ`
@@ -172,7 +161,7 @@ theorem add_left_cancel_pure : ∀ (a : Nat) {b c : Nat}, a + b = a + c → b = 
 theorem odo_free (f : Nat → Bool) (j : Nat) (h : ∀ n, odoIter j f n = f n) : j = 0 := by
   obtain ⟨c, hc⟩ := bval_odoIter j f j
   rw [bval_congr j h] at hc
-  have hcj : c * 2 ^ j = j := add_left_cancel_pure _ hc
+  have hcj : c * 2 ^ j = j := nat_add_left_cancel_pure hc
   cases c with
   | zero => rw [Nat.zero_mul] at hcj; exact hcj.symm
   | succ c' =>
