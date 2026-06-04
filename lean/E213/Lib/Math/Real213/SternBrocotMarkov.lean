@@ -1693,4 +1693,43 @@ theorem markov_max_unique_1325 :
   markov_max_unique_of_window_realized_unique 1325 (by decide)
     (window_realized_unique_of_one_phantom 1325 182 507 (by decide) (by decide))
 
+/-! ## §20 — the upper-fold pattern: the window is the transversal of the `±` involution
+
+  The template `markov_max_unique_of_window_realized_unique` is not just a tool for closing numbers —
+  it is the **upper-fold pattern** made into a theorem.  The roots of `x²≡−1 mod c` carry the natural
+  **`±` involution** `σ(u) = c − u = −u mod c` (`neg_root_is_root`: `σ` preserves the root set,
+  `σ²=id`).  The **window** `0 < u < c/2` (`markov_window`, where the tree's residue always lands) is a
+  **transversal** of `σ` — it picks exactly one representative of each pair `{u, c−u}`
+  (`window_excludes_partner`: if `u` is windowed its fold-partner `c−u` is not).  So:
+
+    Markov uniqueness  =  fold by `σ` (window) + the realized fold-point is unique.
+
+  This is the same fold the repo reads elsewhere as the unit's two faces (`HyperbolicEllipticTrace`,
+  the `Δ`-sign φ/π split — §14 here), `0/∞` as one reciprocal hole (`ZeroInfinityHole`), and the
+  `±`/Cassini sign (the fold's "non-value", `DetSpectrumPoles`).  `WindowRealizedUnique` = "the fold's
+  realized non-value is unique." -/
+
+/-- ★★★★ **The window excludes the fold-partner**: a windowed root `r` (`2r<c`) has its `±`-partner
+    `c−r` *outside* the window (`2(c−r)>c`).  So the window is a transversal of `σ(u)=c−u`. -/
+theorem window_excludes_partner (c r : Nat) (hrw : 2 * r < c) : c < 2 * (c - r) := by
+  have hrc : r < c := Nat.lt_of_le_of_lt (Nat.le_mul_of_pos_left r (by decide)) hrw
+  have h2r : r + r < c := by rw [← Nat.two_mul]; exact hrw
+  have hr_lt : r < c - r := by
+    have h3 : r + r < r + (c - r) := by
+      rw [E213.Tactic.NatHelper.add_sub_of_le (Nat.le_of_lt hrc)]; exact h2r
+    exact Nat.lt_of_add_lt_add_left h3
+  calc c = r + (c - r) := (E213.Tactic.NatHelper.add_sub_of_le (Nat.le_of_lt hrc)).symm
+    _ < (c - r) + (c - r) := Nat.add_lt_add_right hr_lt (c - r)
+    _ = 2 * (c - r) := (Nat.two_mul (c - r)).symm
+
+/-- ★★★★★ **The window is the `±`-fold transversal**: for a root `r` of `x²≡−1 mod c` in the window,
+    the fold-partner `c−r` is *also a root* (`neg_root_is_root`) but *not windowed*
+    (`window_excludes_partner`).  So windowed roots = one representative per `±`-pair — the upper fold.
+    `WindowRealizedUnique` is then exactly "the realized point of this fold is unique." -/
+theorem window_fold_transversal (c r : Nat) (hrc : r < c)
+    (hroot : (r * r + 1) % c = 0) (hrw : 2 * r < c) :
+    ((c - r) * (c - r) + 1) % c = 0 ∧ ¬ (2 * (c - r) < c) :=
+  ⟨E213.Lib.Math.Real213.MarkovInjectivity.neg_root_is_root c r (Nat.le_of_lt hrc) hroot,
+   fun hcon => Nat.lt_irrefl c (Nat.lt_trans (window_excludes_partner c r hrw) hcon)⟩
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
