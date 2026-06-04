@@ -69,6 +69,28 @@ realizability ("which windowed residue is realized"); the remaining search is wh
 composition *forces* the realized residue.  The framework supplies the instruction set and the
 compilation target; the search for the composition is the work (`05_no_exterior.md` §5.3).
 
+## The lift catalog — compilation as a cumulative instrument
+
+An open problem's difficulty, once compiled to L1, is a **missing finite→uniform lift**: the residue
+instruction (e.g. `SEPARATE`) holds on every finite sample, and pointing at the *uniform* version is the
+open content.  So the standing method is not only "compile this one problem" but **catalogue the lifts of
+problems already solved** — each solved lift is a reusable template, and a problem missing the *same* lift
+as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/ProofISALifts.lean`, all
+`∅`-axiom) records three structurally distinct archetypes:
+
+  - **DIAGONAL / direct** (`lift_diagonal`, Cantor) — the `DIAGONALIZE` instruction self-supplies the
+    uniform witness; **lift cost zero**.
+  - **INDUCTIVE / LOOP** (`lift_loop`, Fermat `a^p ≡ a`) — a finite per-step identity (`COMPILE-DOWN` of
+    the binomial mod `p`) lifted by induction; **cost one induction**.
+  - **ORBIT / free-action** (`lift_orbit`, composite Markov uniqueness) — a free group action collapses a
+    finite window onto orbit representatives; **cost: free-action collapse + a realizability residue**.
+
+Markov `H` matches none cleanly — closest is **ORBIT**, which is *in `H`'s own family* (the same
+free-unit-root action already lifts a finite root-window to uniform composite uniqueness, leaving a per-`c`
+realizability residue).  The catalog is the instrument that says so: the direction is to probe the
+orbit / µ-ν lift of the trace-`SEPARATE`, the one archetype with a realized same-family precedent.
+Compiling each new solved theorem into the catalog is the cumulative half of the workflow.
+
 ## Honest status (so it is a programme, not a shield)
 
 Church–Turing-flavoured.  Each instruction is a **theorem** witness.  "Every proof compiles to these"
@@ -81,6 +103,7 @@ instruction set.  That change is the substance behind "this is not wordplay."
 ## Pointers
 
   - instruction index: `lean/E213/Lens/ProofISA.lean`
+  - lift catalog (solved finite→uniform lift archetypes): `lean/E213/Lib/Math/Foundations/ProofISALifts.lean`
   - closure (nothing exhibitable as outside): `seed/AXIOM/01_residue.md` §1.0, `Lens/NoExteriorClosure.lean`
   - solving = pointing at the proof-residue: `seed/AXIOM/05_no_exterior.md` §5.3
   - the residue as Cantor's diagonal: `Lens/FlatOntologyClosure.lean` (`object1_not_surjective`), `Lens/Cardinality/Cantor.lean`
