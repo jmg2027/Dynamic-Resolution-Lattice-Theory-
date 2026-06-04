@@ -2280,4 +2280,50 @@ theorem markovMaxUnique_iff_windowRealizedUnique (c : Nat) (hc5 : 5 ≤ c) :
   ⟨markovMaxUnique_to_windowRealizedUnique c hc5,
    markov_max_unique_of_window_realized_unique c hc5⟩
 
+/-! ## §29 — the realizability hypothesis `H` named, and `MarkovMaxUnique c ↔ H c`
+
+`windowRealizedUnique_of_orbit` (§25) gives `H → WindowRealizedUnique`; this section adds the converse
+`WindowRealizedUnique → H` (via `root_orbit_inj`, §24), so the orbit-realizability hypothesis is not
+merely *sufficient* but **equivalent** to Markov uniqueness.  Composed with §28: `MarkovMaxUnique c ↔
+H c` — the headline "`H` is the Frobenius conjecture at `c`" is now a theorem, not a one-directional
+sufficiency.  (`H` is the irreducible kernel because root-count, the unit-root group, its free action,
+and recovery are all closed; for prime powers `H` holds vacuously — `SqrtUnity = {±1}`, no nontrivial
+multiplier `e` — recovering Button.) -/
+
+/-- The **orbit-realizability hypothesis** `H c`: no nontrivial-unit-root image (`e ∉ {1,c−1}`,
+    `e·u₁ ≡ u₂`) of a realized windowed root `u₁` is itself realized.  The named form of the hypothesis
+    of `windowRealizedUnique_of_orbit`. -/
+def OrbitRealizabilityH (c : Nat) : Prop :=
+  ∀ u₁ u₂ e, 0 < u₁ → u₁ < c → 2 * u₁ < c → (u₁ * u₁ + 1) % c = 0 →
+    u₂ < c → 2 * u₂ < c → (u₂ * u₂ + 1) % c = 0 →
+    e % c ≠ 1 → e % c ≠ c - 1 → (e * u₁) % c = u₂ →
+    (∃ b₁, b₁ < c ∧ markovEq ((u₁ * b₁) % c) b₁ c) →
+    ¬ (∃ b₂, b₂ < c ∧ markovEq ((u₂ * b₂) % c) b₂ c)
+
+/-- ★★★★★ **`WindowRealizedUnique → H`** (the missing converse).  If at most one windowed root is
+    realized, then a nontrivial-unit-root image of a realized root cannot be realized: else both are
+    realized so `u₂ = u₁` (`WindowRealizedUnique`), and `e·u₁ ≡ u₁` forces `e ≡ 1` (`root_orbit_inj`),
+    contradicting `e ∉ {1,c−1}`. -/
+theorem orbitRealizabilityH_of_windowRealizedUnique (c : Nat) (hc5 : 5 ≤ c)
+    (hwru : WindowRealizedUnique c) : OrbitRealizabilityH c := by
+  have hc1 : 1 < c := Nat.lt_of_lt_of_le (by decide) hc5
+  intro u₁ u₂ e _hu1pos hu1lt hu1w hr1 hu2lt hu2w hr2 he1 _hec heq hreal1 hreal2
+  have heqr : u₁ = u₂ := hwru u₁ u₂ hu1lt hu2lt hu1w hu2w hr1 hr2 hreal1 hreal2
+  exact he1 (root_orbit_inj c u₁ e hc1 (Nat.le_of_lt hu1lt) hr1
+    (heq.trans (heqr.symm.trans (Nat.mod_eq_of_lt hu1lt).symm)))
+
+/-- **`WindowRealizedUnique c ↔ H c`** (`5 ≤ c`). -/
+theorem windowRealizedUnique_iff_orbitRealizabilityH (c : Nat) (hc5 : 5 ≤ c) :
+    WindowRealizedUnique c ↔ OrbitRealizabilityH c :=
+  ⟨orbitRealizabilityH_of_windowRealizedUnique c hc5,
+   windowRealizedUnique_of_orbit c (Nat.lt_of_lt_of_le (by decide) hc5)⟩
+
+/-- ★★★★★ **The headline as a theorem**: `MarkovMaxUnique c ↔ H c` (`5 ≤ c`).  Markov uniqueness at
+    `c` is *equivalent* to the orbit-realizability hypothesis — `H` is exactly the Frobenius conjecture
+    at `c`, with root-count, group structure, free action, and recovery all stripped off ∅-axiom. -/
+theorem markovMaxUnique_iff_orbitRealizabilityH (c : Nat) (hc5 : 5 ≤ c) :
+    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique c ↔ OrbitRealizabilityH c :=
+  (markovMaxUnique_iff_windowRealizedUnique c hc5).trans
+    (windowRealizedUnique_iff_orbitRealizabilityH c hc5)
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
