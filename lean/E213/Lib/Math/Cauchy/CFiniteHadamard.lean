@@ -227,4 +227,44 @@ theorem Mt_sum {q : Nat} {β : Nat → Int} {t : Nat → Int} {n : Nat}
             rw [if_neg h]),
         ← shiftSum_eq_sumZ β t n q, ← hq n, Nat.add_assoc n b 1, hbq]
 
+/-- ★★ **The vector recurrence**: `w(n+1) = M·w(n)` for the product vector and Kronecker companion. -/
+theorem vecRec {p q : Nat} {α β : Nat → Int} {s t : Nat → Int}
+    (hp : ShiftRecZ p α s) (hq : ShiftRecZ q β t) (hqpos : 0 < q) (n J : Nat) (hJ : J < p * q) :
+    Wvec s t q (n + 1) J
+      = sumZ ((iota (p * q)).map (fun K => Mmat p q α β J K * Wvec s t q n K)) := by
+  obtain ⟨hrec, _⟩ := dec_spec hqpos J
+  have ha : decA q J < p := by
+    rcases Nat.lt_or_ge (decA q J) p with h | h
+    · exact h
+    · have h1 : p * q ≤ decA q J * q := Nat.mul_le_mul_right q h
+      have h2 : decA q J * q ≤ J := Nat.le.intro hrec
+      exact absurd (Nat.lt_of_le_of_lt (Nat.le_trans h1 h2) hJ) (Nat.lt_irrefl (p * q))
+  rw [sumZ_grid q (fun K => Mmat p q α β J K * Wvec s t q n K) p,
+      map_eq_of_mem
+        (fun a' => sumZ ((iota q).map (fun b' => Mmat p q α β J (a' * q + b') * Wvec s t q n (a' * q + b'))))
+        (fun a' => Ms p α (decA q J) a' * s (n + a') * t (n + decB q J + 1))
+        (fun a' _ => by
+          show sumZ ((iota q).map (fun b' => Mmat p q α β J (a' * q + b') * Wvec s t q n (a' * q + b')))
+             = Ms p α (decA q J) a' * s (n + a') * t (n + decB q J + 1)
+          rw [map_eq_of_mem
+                (fun b' => Mmat p q α β J (a' * q + b') * Wvec s t q n (a' * q + b'))
+                (fun b' => Ms p α (decA q J) a' * s (n + a') * (Mt q β (decB q J) b' * t (n + b')))
+                (fun b' hb' => by
+                  have hbq' : b' < q := lt_of_mem_iota hb'
+                  show Mmat p q α β J (a' * q + b') * Wvec s t q n (a' * q + b')
+                     = Ms p α (decA q J) a' * s (n + a') * (Mt q β (decB q J) b' * t (n + b'))
+                  rw [show Mmat p q α β J (a' * q + b') = Ms p α (decA q J) a' * Mt q β (decB q J) b' from by
+                        show Ms p α (decA q J) (decA q (a' * q + b')) * Mt q β (decB q J) (decB q (a' * q + b')) = _
+                        rw [decA_encode hqpos a' b' hbq', decB_encode hqpos a' b' hbq'],
+                      show Wvec s t q n (a' * q + b') = s (n + a') * t (n + b') from by
+                        show s (n + decA q (a' * q + b')) * t (n + decB q (a' * q + b')) = _
+                        rw [decA_encode hqpos a' b' hbq', decB_encode hqpos a' b' hbq']]
+                  ring_intZ),
+              sumZ_map_smul (Ms p α (decA q J) a' * s (n + a')) (fun b' => Mt q β (decB q J) b' * t (n + b')),
+              Mt_sum hq (by exact (dec_spec hqpos J).2)]),
+      ← sumZ_map_smul_right (t (n + decB q J + 1)) (fun a' => Ms p α (decA q J) a' * s (n + a')),
+      Ms_sum hp ha]
+  show s (n + 1 + decA q J) * t (n + 1 + decB q J) = s (n + decA q J + 1) * t (n + decB q J + 1)
+  rw [Nat.add_right_comm n 1 (decA q J), Nat.add_right_comm n 1 (decB q J)]
+
 end E213.Lib.Math.Cauchy.CFiniteHadamard
