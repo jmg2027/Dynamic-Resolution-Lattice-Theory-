@@ -413,6 +413,27 @@ but *realisability* — an `∃!`-style statement that the `±`-fold relation be
 obstructs simultaneous Markov-realisation.  For prime powers `H` is vacuous (`SqrtUnity = {±1}`,
 recovering Button); for `ω ≥ 2` it is the live Frobenius conjecture.
 
+### What is closed, and what `H` actually costs (no "almost done")
+
+A caution against misreading the equivalence chain.  `MarkovMaxUnique c ↔ WindowRealizedUnique c ↔
+OrbitRealizabilityH c` is `∅`-axiom, but what is closed is *that the three are equivalent*, not their
+truth value — the chain's last link is still the open conjecture.  Across this whole development the
+closed results are all **perimeter**: Button (a genuine theorem), the residue-map injectivity content
+(`slope_path_inj`), and the equivalence chain.  The **irreducible kernel `H` is untouched.**  The
+output is therefore *"Frobenius restated, exactly, in `∅`-axiom orbit/window form"* — not progress
+toward its proof.
+
+The kernel's cost is visible in the code's asymmetry.  Recovery is closed only as *injectivity*
+(`slope_path_inj`: equal slope `u/c` ⟹ equal path), not as a *function* from a residue to a triple:
+`mInterval` (hence `mNode`, `markovRes`) is structural recursion on the **path**, and `reverse_bridge`
+consumes the **full integer triple** `(a,b,c)` (Vieta descent on `3ab − c`), not the residue.  So
+deciding "is the windowed root `u` realised?" would require inverting residue `↦` path — recovering an
+integer triple from data given only **mod `c`**.  The residue `u = mNode.d − mNode.c` is the node's
+mod-`c` shadow; the Vieta descent needs the actual integers `a,b` the shadow discards.  This `mod c`
+↔ `ℤ` gap *is* the shape of `H`'s difficulty: a non-`decide`, structural realisability decision
+(equivalently, a residue→path recovery) lower-bounds the general conjecture, and is the first brick of
+any frontier attempt — not a corollary of what is already closed.
+
 ## How to verify
 
 ```bash
