@@ -27,11 +27,11 @@ open E213.Lib.Math.Linalg213.DetN (det altSign colShift det_congr)
 open E213.Lib.Math.Linalg213.Laplace (matMul adj minorAt matMul_adj_diag matMul_adj_offdiag)
 open E213.Lib.Math.Linalg213.CayleyHamilton (sumZ_iota_delta_lt)
 open E213.Lib.Math.Linalg213.PolyDet
-  (pdet evalMat eval_pdet charMat charPoly eval_charPoly evalMat_charMat)
+  (pdet evalMat eval_pdet charMat charPoly eval_charPoly evalMat_charMat degLe_pdet)
 open E213.Lib.Math.PolyZ
   (PolyZ eval addP mulP scaleP coeff eval_addP eval_mulP eval_scaleP coeff_unique
    coeff_addP coeff_mulP_single coeff_mulP_pair_zero coeff_mulP_pair_succ one_mul' add_zero'
-   coeff_nil)
+   coeff_nil degLe coeff_scaleP coeff_eq_zero_of_degLe mul_zero')
 
 /-! ## §1 — `PolyZ` matrix product and its evaluation soundness -/
 
@@ -182,5 +182,34 @@ theorem cayley_rel_succ (M : Nat → Nat → Int) (n i k m : Nat) (hi : i < n + 
                 add_zero']),
       sumZ_map_add,
       sumZ_iota_delta_lt (fun j => coeff (padj n (charMat M) j k) m) i (n + 1) hi]
+
+/-! ## §5 — the top adjugate coefficient vanishes (`B_{n+1} = 0`) -/
+
+/-- Each entry of the characteristic matrix has degree `≤ 1`. -/
+theorem degLe_charMat (M : Nat → Nat → Int) (i j : Nat) : degLe (charMat M i j) 1 := by
+  intro m hm
+  by_cases h : i = j
+  · rw [show charMat M i j = [(- M i j), 1] from if_pos h]
+    cases m with
+    | zero => exact absurd hm (Nat.not_lt_zero _)
+    | succ m1 =>
+      cases m1 with
+      | zero   => exact absurd hm (Nat.lt_irrefl 1)
+      | succ _ => rfl
+  · rw [show charMat M i j = [(- M i j)] from if_neg h]
+    cases m with
+    | zero   => exact absurd hm (Nat.not_lt_zero _)
+    | succ _ => rfl
+
+/-- ★ **The degree-`(n+1)` coefficient of the adjugate vanishes** (`adj(X·I−M)` has degree `≤ n`).
+    This is the telescoping's vanishing boundary term. -/
+theorem padj_coeff_top_zero (M : Nat → Nat → Int) (n i j : Nat) :
+    coeff (padj n (charMat M) i j) (n + 1) = 0 := by
+  show coeff (scaleP (altSign (j + i)) (pdet n (pminorAt j i (charMat M)))) (n + 1) = 0
+  rw [coeff_scaleP,
+      coeff_eq_zero_of_degLe
+        (degLe_pdet n (pminorAt j i (charMat M)) (fun _ _ => degLe_charMat M _ _))
+        (Nat.lt_succ_self n),
+      mul_zero']
 
 end E213.Lib.Math.Linalg213.CharPolyAdj
