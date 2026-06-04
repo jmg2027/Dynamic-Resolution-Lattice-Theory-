@@ -60,9 +60,15 @@ this session and its PURE/DIRTY status per `STRICT_ZERO_AXIOM.md`)
 ## Open Problems (Priority Order)
 ### 1. [Highest priority problem]
 Description. Current status. Suggested approach.
+Frontier note: `research-notes/frontiers/<topic>/<note>.md`
 
 ### 2. ...
-(Carry forward unsolved items + this session's new gaps)
+(Carry forward unsolved items + this session's new gaps.  Per `PROCESS.md`
+frontier-recording rule, **each open problem listed here must have a note in
+`research-notes/frontiers/`** — cite it on the line.  If a problem surfaced
+this session and has no frontier note yet, create/append one and register it
+in `frontiers/INDEX.md` BEFORE finishing the handoff.  The handoff is the
+pointer; `frontiers/` is the durable home.)
 
 ## Unresolved from This Session
 (Anything attempted but not completed. Dead ends discovered.
@@ -113,6 +119,11 @@ still reference the file; no manual loop wiring needed.
   in the File Map with its purpose.
 - **Open problems must be actionable.** "Higgs mass 3% gap" is good.
   "Things to think about" is not.
+- **Every open problem has a frontier note.** Per `PROCESS.md`
+  frontier-recording rule, each item under "Open Problems" cites a
+  `research-notes/frontiers/<topic>/` note.  Create/register one (in
+  `frontiers/INDEX.md`) for any new open direction before finishing — the
+  handoff points at the frontier, it does not replace it.
 - **The handoff must be self-contained.** Reading ONLY HANDOFF.md
   (without any other context) should give enough information to
   resume productive work.

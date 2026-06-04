@@ -143,7 +143,7 @@ Lean disagree, Lean wins.
 
 **Entry points**:
   - `README.md` — 30-second overview
-  - `PROCESS.md` — directory roles + cycle; rule: no permanent tier cites a `research-notes/` file (sink).  Skill: `process`.
+  - `PROCESS.md` — directory roles + cycle; rules: sink (no permanent tier cites a `research-notes/` file) + every open frontier recorded in `research-notes/frontiers/`.  Skill: `process`.
   - `HANDOFF.md` — current session state (volatile)
   - `lean/E213/ARCHITECTURE.md` — layer spec
   - `seed/INDEX.md` — foundational docs index

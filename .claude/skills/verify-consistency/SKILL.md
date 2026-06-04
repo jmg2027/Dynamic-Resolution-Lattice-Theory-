@@ -118,6 +118,12 @@ to the `process` skill for the full decouple sweep.
 - `theory/INDEX.md` is canonical for the narrative book.
 - Closed Lean sub-trees lacking a `theory/` chapter → INFO (promotion
   candidate), don't block.
+- **Frontier-recording rule** (`PROCESS.md`): every open frontier lives in
+  `research-notes/frontiers/`.  A `theory/` chapter "Open frontier" section,
+  or a HANDOFF "Open Problems" item, that names an open direction with **no**
+  corresponding `frontiers/<topic>/` note + `frontiers/INDEX.md` entry →
+  WARNING (homeless frontier).  Fix: record it (defer to the `process`
+  skill).
 
 ---
 

@@ -42,6 +42,31 @@ content-dependencies:
   `research-notes/` (autonomous-research writes `frontiers/`, handoff reads
   session state) are the machinery of the cycle, not canonical content.
 
+## The companion rule: every open frontier is recorded in `frontiers/`
+
+> **No open frontier lives only in chat, a commit message, or a chapter
+> tail.**  Every open problem / conjecture / deferred direction has a note
+> under `research-notes/frontiers/<topic>/`, registered in
+> `research-notes/frontiers/INDEX.md`.
+
+This is the **opening** side of the cycle; the sink rule is the **closing**
+side.  Together they make `research-notes/` the single home of work in
+motion: a frontier *enters* as a note here, and the cycle below carries its
+content into the permanent tiers once it closes.
+
+Concretely, the instant an open direction is identified — while proving,
+auditing, writing a handoff, or thinking out loud — it is recorded as a
+frontier note (a new note, or a section under the right topic's note) and
+listed in `frontiers/INDEX.md`.  A `theory/` chapter's "Open frontier"
+section may *name* the residual work, but the frontier itself **lives** in
+`research-notes/frontiers/` where it is tracked and worked — the chapter
+section points at the topic group, it does not stand in for it.
+
+Rationale: open frontiers are the research agenda.  Scattered across commit
+messages and chat, they cannot be resumed next session; the agenda needs
+one durable, discoverable home.  `frontiers/INDEX.md` is that home — the
+live board (read it for the current topics).
+
 ## The research cycle
 
 ```
