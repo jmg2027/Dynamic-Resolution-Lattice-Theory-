@@ -838,6 +838,9 @@ Follow-on (G123 direction G): general p-adic division, all PURE:
     and division for a denominator of arbitrary valuation, via the
     valuation shift; `QpSeq.invGeneral_unit_eq_inv` reduces them to the
     unit-only `QpSeq.inv` at `v=0`.
+  · `Zp.i_5_pow_four_trunc_two` (`Padic.TeichmullerUnit`) — `i₅⁴ ≡ 1`,
+    the concrete 5-adic imaginary unit is a 4-th root of unity
+    (`i₅ ∈ μ₄`), the explicit `p=5` instance of the μ_{p−1} result.
 
 Chapter: `theory/math/numbersystems/padic_real213.md`.
 

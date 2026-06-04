@@ -26,7 +26,7 @@ All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 | `SetoidAssoc.lean` | 4 | 8 | Ring operation associativity under setoid |
 | `SetoidAlgebra.lean` | 4 | 8 | Algebraic structure under setoid equivalence |
 | `Teichmuller.lean` | 4 | 13 | Frobenius lift, `teichmuller_iter_cauchy`, geometric sum; explicit representative `teichmuller` (`ω(x)`, diagonal limit), Frobenius fix `teichmuller_pow_p_trunc` (`ω^p ≡ ω`) |
-| `TeichmullerUnit.lean` | 4 | 5 | `ω(x)` as `(p−1)`-th root of unity (`teichmuller_pow_pred_trunc`); principal-unit decomposition `x = ω·u` (`teichmullerCofactor`, `u ≡ 1 mod p`) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split |
+| `TeichmullerUnit.lean` | 4 | 6 | `ω(x)` as `(p−1)`-th root of unity (`teichmuller_pow_pred_trunc`); principal-unit decomposition `x = ω·u` (`teichmullerCofactor`, `u ≡ 1 mod p`) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split; concrete `i₅ ∈ μ₄` (`i_5_pow_four_trunc_two`) |
 | `Field.lean` | 5 | 48 | `QpSeq` (ℚ_p): add/sub/mul/neg/inv/div/sqrt; general division `invGeneral`/`divGeneral` (non-unit denominator via valuation shift, reduces to `inv`/`div` at v=0) |
 | `DRLT.lean` | 6 | 4 | `canonical_5adic_p` (= 5), digit smokes |
 | `DRLTIntegration.lean` | 6 | 6 | 5-adic ↔ configCount: `trunc_25_lt_config2` + bridge bundle |
@@ -75,4 +75,7 @@ All under namespace `E213.Lib.Math.NumberSystems.Padic.*`.
   · ~~General division (non-unit denominator) → `QpSeq`~~ — **closed**
     (`Field.invGeneral`/`divGeneral`; `Arith.shiftRight` + factorisation
     exactness `shiftLeft_shiftRight_digit_of_low_zero`)
-  · Lift DRLT precision-bounded results to 5-adic analogues
+  · DRLT-specific 5-adic content (H) — terrain mapped: `5²⁵`-resolution
+    removed, `i₅`/L-value physics readings have no internal handle (no
+    forcible map); pure-math `i₅ ∈ μ₄` closed.  Any future H is
+    arithmetic-first; tracked in `research-notes/frontiers/`.

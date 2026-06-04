@@ -302,6 +302,7 @@ Grouped by module.
 | `Zp.teichmuller_pow_p_trunc` | `ω(x)^p ≡ ω(x)` at every level (Frobenius fix `ω^p = ω`) |
 | `Zp.teichmuller_pow_pred_trunc` | `ω(x)^(p−1) ≡ 1` for units (`(p−1)`-th root of unity) |
 | `Zp.teichmullerCofactor_trunc_one` | `(ω(x)⁻¹·x) ≡ 1 (mod p)` (principal-unit cofactor) |
+| `Zp.i_5_pow_four_trunc_two` | `i₅⁴ ≡ 1 (mod 25)` — the 5-adic imaginary unit is a primitive 4-th root of unity, `i₅ ∈ μ₄` |
 
 **Field** (ℚ_p)
 | Theorem | Statement |
@@ -531,13 +532,24 @@ What the Real213-p-adic campaign produced:
   or it may be that trunc-level is the 213-native statement and the
   sequence-level uniqueness is an imported residue.
 
-**Open frontier**.  The one live open direction for this sub-tree is
-**DRLT-specific 5-adic content**: whether the 5-adic envelope of
-`N_U = 5²⁵` operates meaningfully for DRLT (a 5-adic obstruction to a
-precision result; physics meaning for `i_5 = √(−1) ∈ ℤ_5`; 5-adic
-L-values for `α_em` / `m_μ/m_e`), or is formal residue only.  This is
-research, not closure — tracked under `research-notes/frontiers/` and
-governed by `seed/RESOLUTION_LIMIT_SPEC.md`.
+The concrete root of unity makes the abstract `μ_{p−1}` tangible at
+`p = 5`: the 5-adic imaginary unit `i₅ = √(−1) ∈ ℤ_5` has digit-0 `2`,
+a primitive root mod 5, so `i₅² ≡ −1` and `i₅⁴ ≡ 1`
+(`Zp.i_5_pow_four_trunc_two`) — `i₅ ∈ μ₄`, a Teichmüller representative,
+not a structure adjoined to `ℤ_5`.
+
+**Open frontier**.  The DRLT-specific 5-adic direction (H) was mapped
+and largely settled.  The `5²⁵ = N_U`-resolution reading is *removed,
+not deferred* (`RERESEARCH_n_u_removal.md` — `configCount 2 = 5^25` is
+bare arithmetic, no privileged level).  The physics readings of `i₅`
+(spinors / CP) and 5-adic L-values for `α_em` / `m_μ/m_e` have **no
+internal handle**: asserting them would be a forcible map onto physics,
+which the operating principles forbid.  Stated plainly per
+`seed/AXIOM/05_no_exterior.md` §5.4: after looking, no internal bridge
+is there — the falsifier doing its work, not a deferral.  Any future H
+must be arithmetic-first (a 5-adic invariant of an object the corpus
+already builds), tracked under `research-notes/frontiers/`, governed by
+`seed/RESOLUTION_LIMIT_SPEC.md`.
 
 **Methodology note**.  Most proofs in `Teichmuller.lean` and
 `Hensel.lean` look like a sequence of `rw` over `mul_trunc`,

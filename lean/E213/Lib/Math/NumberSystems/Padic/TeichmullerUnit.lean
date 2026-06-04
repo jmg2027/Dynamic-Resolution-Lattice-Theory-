@@ -118,4 +118,22 @@ theorem Zp.smoke_teichmullerCofactor_5_trunc_one
       = 1 :=
   Zp.teichmullerCofactor_trunc_one 5 (by decide) _ h_gcd
 
+/-! ## The concrete root of unity: `i₅ ∈ μ₄`
+
+The abstract `μ_{p−1}` (above) is realised concretely by the 5-adic
+imaginary unit `i₅ = √(−1) ∈ ℤ_5` (`Hensel.i_5`).  Its digit 0 is `2`,
+a *primitive* root mod 5 (`2, 4, 3, 1` mod 5 — order 4 = p−1), so `i₅`
+is a primitive `4`-th root of unity: `i₅² ≡ −1` (`i_5_sq_trunc_two`) and
+`i₅⁴ ≡ 1`.  This is the `p = 5` instance of `teichmuller_pow_pred_trunc`
+made fully explicit — the "imaginary unit" of `ℤ_5` IS a Teichmüller
+representative, not an extra structure adjoined to it. -/
+
+/-- **`i₅⁴ ≡ 1 (mod 25)`**: the 5-adic imaginary unit is a 4th root of
+    unity.  With `i₅² ≡ −1` (`Zp.i_5_sq_trunc_two`) this pins the
+    multiplicative order at exactly `4 = p − 1`, so `i₅ ∈ μ₄ ⊂ ℤ_5^×`. -/
+theorem Zp.i_5_pow_four_trunc_two :
+    (Zp.mul 5 (by decide)
+      (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5)
+      (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5)).trunc 2 = 1 := by decide
+
 end E213.Lib.Math.NumberSystems.Padic
