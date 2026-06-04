@@ -61,4 +61,30 @@ theorem weight2_period_integral_pure :
         ∃ M : Nat, cutEq (riemannSampleSum (constCutFn (constCut a b)) db n) (constCut M b)) :=
   ⟨fundamental_dyadic_calculus_const, cutIntegralOver_cons_append, no_pi_in_finite_riemann⟩
 
+/-! ## The power-rule frontier, located precisely
+
+The natural next rung is a power-rule primitive `∫ z^k dz` to unlock higher-weight periods.  The
+midpoint sample rule (`riemannSampleSum` samples at `db.midCut`) is **exact for affine integrands**,
+so the weight-`k=1` (`V_1`, linear) period is exact — *and it is exact already at depth 0, with no
+refinement*: the depth-0 sample of the identity is the midpoint cut `(numA+numB)/2^{E+1}`, the exact
+mean.  This is the affine power rule, ∅-axiom, below.
+
+The honest wall is **not** at `k ≥ 2`.  It is at **exact addition of distinct dyadic samples**:
+refining the affine integral to depth `≥ 1` sums two *different* half-midpoints, and the ∅-axiom
+same-denominator cut addition `cutSum (constCut a c) (constCut b c) ≟ constCut (a+b) c` holds only in
+the **forward** direction for `c ≥ 3` (the divisibility precision artifact, `Sum/CutSumGeneral`) — not
+as an exact `cutEq`.  So exact refinement, and every `k ≥ 1` value requiring summation of distinct
+samples, needs the **cut-completion** (the Cauchy completion the repo builds elsewhere), not a new
+axiom.  This is the same constructive-incompleteness face as `no_pi_in_finite_riemann`: the finite
+∅-axiom integral is exact on constants (all depths) and on affine integrands (depth 0), and *points
+at* the rest through a completion — never an axiom cost. -/
+
+/-- ★★ **The affine (`V_1`, weight-`k=1`) period is midpoint-exact at depth 0.**  The depth-0 dyadic
+    sample of the identity integrand is the midpoint cut `(numA + numB)/2^{E+1}` — the exact mean of
+    `z` over the bracket, hence the exact affine period with no refinement (midpoint rule is exact for
+    affine).  The next rung — exact higher-depth refinement — needs the cut-completion, blocked
+    ∅-axiom only by the cut-addition precision artifact (`Sum/CutSumGeneral`), not by purity. -/
+theorem affine_period_depth0_closed (db : DyadicBracket) :
+    riemannSampleSum (fun c => c) db 0 = constCut db.midNum (2 ^ (db.expE + 1)) := rfl
+
 end E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodIntegral

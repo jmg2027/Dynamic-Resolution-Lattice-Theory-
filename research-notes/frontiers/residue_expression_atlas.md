@@ -103,6 +103,16 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   need a modular contour over `ℍ` + a power-rule primitive `∫ z^{k−2} dz` (to *build*, not import);
   the full `SL(2,ℤ)` cocycle composition law on non-tree generators; the multifractal Hölder spectrum
   of `?`.
+  **Power-rule wall LOCATED** (`MinkowskiPeriodIntegral.affine_period_depth0_closed`, PURE): the
+  midpoint rule is exact for affine, so the weight-`k=1` (`V_1`) period is exact *already at depth 0*
+  (`= (numA+numB)/2^{E+1}`, the mean) — no refinement.  The wall is **not** at `k ≥ 2`: it is at
+  **exact addition of distinct dyadic samples**.  Refining to depth `≥ 1` sums two different
+  half-midpoints, and ∅-axiom same-denominator cut addition holds only *forward* for `c ≥ 3` (the
+  divisibility precision artifact, `Sum/CutSumGeneral`), not as `cutEq`.  So every period value needing
+  distinct-sample summation needs the **cut-completion** (the Cauchy completion the repo builds
+  elsewhere), not a new axiom — the same constructive-incompleteness face as `no_pi_in_finite_riemann`.
+  Constant (`k=0`) exact at all depths; affine (`k=1`) exact at depth 0; the rest is *pointed at
+  through completion*.
 
 - **residue as a (truncated) spectrum — NEGATIVE (honest).**  The spectrum analogy **breaks**: the
   Steenrod/Massey structure on `K_{3,2}^{(c=2)}` is *vacuous* at the `d = 5` truncation — `Sq¹·Sq¹=0`
