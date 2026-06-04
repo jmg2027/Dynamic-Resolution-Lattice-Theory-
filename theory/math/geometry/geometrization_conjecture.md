@@ -53,6 +53,28 @@ The self-pointing-dim-4 ansatz: **d_M = d_213 − 1 = 5 − 1 = 4** is *forced b
 self-pointing structure*, not a geometric coincidence.  M1/M2/M3/M4
 "knots" formalize the chain.
 
+### The "− 1" is universal; the "4" is forced
+
+The chart-axis reading separates into two independent facts, both now
+∅-axiom:
+
+  · **M2 (the "− 1" mechanism) is dimension-uniform.**  For *every*
+    connected K_{NS,NT}^{(c)} the δ⁰-kernel is exactly the two constant
+    cochains, so the self-pointing residue is 1-dimensional and
+    `chartVisibleAxes = chartBase − 1` at every chartBase
+    (`Cohomology/Bipartite/Parametric/KernelConstancyUniversal`,
+    `KChartLensAbstract.every_dimension_realized`).  The kernel singles
+    out no dimension — the star K_{d,1}^{(c=1)} realizes every d_M = d.
+  · **M1 (the value "4") is forcing.**  Atomicity `(N_S, N_T) = (3, 2)`
+    and Möbius mod-5 `c = 2` select the unique K_{3,2}^{(c=2)},
+    `chartBase = 5 = d_213` (`triple_route_K32_c2_unique`).
+
+So `criticality_is_forcing_not_kernel`: d_M = 4 is critical because the
+residue's atomicity forces the (3,2,2) deployment, not because dimension
+4 is kernel-distinguished.  The general graph-connectedness induction
+behind the uniform "− 1" lives in `Combinatorics/GraphConnectivity`
+(`theory/math/combinatorics/graph_connectivity.md`).
+
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/` (15 files, linear dependency chain)
@@ -79,9 +101,9 @@ self-pointing structure*, not a geometric coincidence.  M1/M2/M3/M4
 
 | File | Target | PURE | Content |
 |---|---|---|---|
-| `Generalization.lean` | Real213-p-adic extensions B | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended |
-| `JsjDeep.lean` | Real213-p-adic extensions A | ~6 | JSJ 3-cell complex Euler-target scaffold |
-| `MetricGeometries.lean` | Real213-p-adic extensions C | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family |
+| `Generalization.lean` | K-deployment generalization (FW-3) | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended |
+| `JsjDeep.lean` | JSJ 3-cell extension (FW-2) | ~6 | JSJ 3-cell complex Euler-target scaffold |
+| `MetricGeometries.lean` | metric geometries (FW-4) | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family |
 
 ### Dependency chain
 
@@ -101,7 +123,7 @@ Linear chain.  All under namespace
 | Pillar | 213-Lens form | Status |
 |---|---|---|
 | **8 geometries** | Möbius P + 3 Lenses (ℝ/ℤ/F_5) ↔ Sym(3) decomp (2·trivial + 3·standard) | ✅ COMPLETE |
-| **JSJ** | bipartite S/T + Filled cells (+JsjDeep χ-targets) | ✓ PARTIAL (Real213-p-adic extensions A partial) |
+| **JSJ** | bipartite S/T + Filled cells (+JsjDeep χ-targets) | ✓ PARTIAL |
 | **Poincaré** | K_{3,1}^{(c=1)} unique tree + S³ = ∂Δ⁴ | ✅ DOUBLY REALIZED |
 | **Generalized Poincaré** | K_{1,k}^{(c=1)} all chartBase | ✅ GENERALIZED |
 | **Ricci flow** | `K32_ricci_modulus` averaging | ✅ PARTIAL CLOSE |

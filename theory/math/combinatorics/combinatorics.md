@@ -38,6 +38,9 @@ graded-ring underlying type used in:
 
 ## Connection
 
+- `theory/math/combinatorics/graph_connectivity.md` — abstract
+  graph-connectedness induction (`Reach` → δ⁰-closed colouring is
+  constant); underwrites the universal bipartite δ⁰-kernel result
 - `theory/math/foundations/cross_domain_unification.md` (C6) — Combinatorics
   as paradigm instance
 - `theory/physics/alpha_em/precision_derivation.md` — `CoeffSeq`
