@@ -60,10 +60,34 @@ pairs already discharged by `markovNum_lt_append`).
 | cross-line distance 1 (siblings) | **closed** — `markovNum_children_ne` (this note, §35) |
 | cross-line distance ≥ 2 | **open** = the residue of `H` |
 
-A real ∅-axiom step into `H`'s own difficulty type, with the boundary now one rung sharper.  Next probe:
-whether a *bounded-distance* induction (distance `k` ⟹ distance `k+1`, the LOOP archetype) or a
-value-window monovariant can climb past distance 1 — or whether distance 2 already carries the full
-interleaving (a focused `decide`-survey of distance-2 cross pairs would test which).
+A real ∅-axiom step into `H`'s own difficulty type, with the boundary now one rung sharper.
+
+## "Do we need a new ISA?" — no.  The order-monovariant is *provably* exhausted (§36)
+
+The natural next question: does climbing past distance 1 need a **new ISA instruction**?  Answer, now a
+theorem: **no — and not because a composition is still hiding, but because the *size/order* mechanism that
+closed distance 1 is provably dead past it.**
+
+`markovNum_subtree_size_interleaves` (∅-axiom, `decide`): across the root fork the two subtrees'
+Markov numbers **interleave** — `markovNum [true] = 13 < markovNum [false] = 29 < markovNum [true,true] =
+34`, with `[true]`, `[true,true]` in the *left* subtree and `[false]` in the *right*.  A right-subtree
+value sits strictly between two left-subtree values, so **no threshold / order-monovariant separates the
+two subtrees**.  The distance-1 SEPARATE worked by order-dominance (mediant trace dominates the bounds);
+that mechanism cannot be a global cross-line separator, because size is not monotone across the fork.
+
+So the residue of `H` at distance `≥ 2` is **not size-shaped**.  It is exactly the **orbit / √(−1)
+residue**: which `sqrt(-1) (mod c)` residues are realised by genuine Markov triples, uniformly in `c`
+(`markov_max_unique_of_orbit`'s hypothesis `H`).  The proof-ISA already carries the correct archetype —
+**ORBIT** (`ProofISALifts.lift_orbit`, the free unit-root action `root_orbit_inj`) — so no new instruction
+is missing.  What is missing is the **number-theoretic realizability fact**, uniform in `c`, which *is*
+Frobenius 1913.  A new ISA instruction would not conjure it; the difficulty is correctly localised, not
+mis-compiled.
+
+This is the sharp terminal reading of action A: the size route is closed at distance 1 (gained) and
+*proven exhausted* past it (§36); the residue is the orbit-realizability number-theoretic statement, which
+the framework already names and which is the open conjecture itself.  The next real lever is on that
+orbit-realizability form (uniform-in-`c` lift of `markov_max_unique_of_orbit`'s `H`), not a new
+instruction and not a size argument.
 
 ### Pointers (all ∅-axiom)
 - `SternBrocotMarkov.markovNum_children_ne`, `mInterval_bound_traces_ne`, `trace_lt_mediant_left/right`

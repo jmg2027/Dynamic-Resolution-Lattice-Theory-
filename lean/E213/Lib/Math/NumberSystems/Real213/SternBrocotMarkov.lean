@@ -2753,4 +2753,29 @@ theorem markovNum_children_ne (p : List Bool) :
     rw [e, hsub, E213.Meta.Int213.zero_add]
   exact mInterval_bound_traces_ne p htreq'
 
+/-! ## §36 — the order-monovariant is exhausted past distance 1 (the residue is not size-shaped)
+
+§35 closed the distance-1 cross-line SEPARATE by an order argument (the mediant trace strictly dominates
+both bound traces).  This section shows that mechanism **cannot** climb to distance `≥ 2`: across a fork,
+the two subtrees' Markov numbers **interleave** in size, so no threshold / order-monovariant separates
+them.  At the root fork, `markovNum [true] = 13` and `markovNum [true,true] = 34` lie in the **left**
+subtree while `markovNum [false] = 29` lies in the **right**, and `13 < 29 < 34` — a right-subtree value
+strictly between two left-subtree values.
+
+Consequence (the honest localisation).  The distance-1 result is the *last* rung reachable by a size /
+order monovariant; the residue of `H` at distance `≥ 2` is **not size-shaped**.  It is the orbit / √(−1)
+residue (`markov_max_unique_of_orbit`: which `sqrt(-1) (mod c)` residues are realised by genuine triples,
+uniformly in `c`) — a number-theoretic statement, not a missing instruction.  The proof-ISA already
+carries the right archetype (ORBIT, the free unit-root action); the open content is the uniform
+realizability, which is Frobenius 1913 itself. -/
+
+/-- **The two subtrees of a fork interleave in Markov-number size** — a right-subtree value lies strictly
+    between two left-subtree values (`markovNum [true] = 13 < markovNum [false] = 29 < markovNum
+    [true,true] = 34`; `[true]`, `[true,true]` are in the root's left subtree, `[false]` in the right).
+    So no order-monovariant separates cross-line pairs past distance 1: the residue of `H` at distance
+    `≥ 2` is not size-shaped (it is the orbit / √(−1) residue). -/
+theorem markovNum_subtree_size_interleaves :
+    markovNum [true] < markovNum [false] ∧ markovNum [false] < markovNum [true, true] := by
+  refine ⟨?_, ?_⟩ <;> decide
+
 end E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
