@@ -203,6 +203,115 @@ theorem markov_vieta_partner_le (a b c : Nat) (h : markovEq a b c)
     exact absurd hstar (Nat.not_le_of_lt (Nat.lt_add_of_pos_right hp))
   · exact hle'
 
+/-! ## §2c — Zhang's `3c±2` encoding: the recovery handle
+
+Zhang (2007, Acta Arith. 128): a Markov number `c` is unique if `3c−2` or `3c+2` is a prime power.  The
+lever: every max-`c` triple injects into the `√(−1)`-roots mod `M = 3c±2` (from `(3bc−2a)² ≡ −(2c)²`,
+since `9c²−4 = (3c−2)(3c+2)`); when `M` is a prime power the repo's `MarkovPrimeFactor.two_roots_of_prime_pow`
+gives `≤ 2` roots, forcing uniqueness even for composite `c` with `≥ 4` roots on the `c`-side (e.g.
+`c = 985` with `3c−2 = 2953` prime; `c = 4181` with `3c−2 = 12541` prime).  The recovery handle is that
+the linear form reduces to twice the gap. -/
+
+/-- ★★★★ **Zhang linear core**: `b·(3c−2) + 2(b−a) + 2a = 3bc` (pure `ℕ`, `a ≤ b`, `1 ≤ c`).  Hence
+    `3bc − 2a = b·(3c−2) + 2(b−a)`, so `3bc − 2a ≡ 2(b−a) (mod 3c−2)` — a `√(−1)`-root mod `M = 3c−2`
+    encodes exactly the gap `b−a` (and `2(b−a) < 3c−2` for `c > 2`, so the residue is `2(b−a)` on the
+    nose).  This is the injectivity handle of Zhang's `3c±2` route to composite Markov uniqueness. -/
+theorem zhang_linear_core (a b c : Nat) (hab : a ≤ b) (hc : 1 ≤ c) :
+    b * (3 * c - 2) + 2 * (b - a) + 2 * a = 3 * b * c := by
+  have h1 : 2 * (b - a) + 2 * a = 2 * b := by
+    rw [E213.Tactic.NatHelper.mul_sub,
+        E213.Tactic.NatHelper.sub_add_cancel (Nat.mul_le_mul (Nat.le_refl 2) hab)]
+  have e1 : b * (3 * c) = 3 * b * c := by ring_nat
+  have e2 : b * 2 = 2 * b := by ring_nat
+  have hms : b * (3 * c - 2) = 3 * b * c - 2 * b := by
+    rw [E213.Tactic.NatHelper.mul_sub, e1, e2]
+  have hle : 2 * b ≤ 3 * b * c :=
+    Nat.le_trans (Nat.mul_le_mul (by decide) (Nat.le_refl b)) (Nat.le_mul_of_pos_right (3 * b) hc)
+  rw [Nat.add_assoc, h1, hms, E213.Tactic.NatHelper.sub_add_cancel hle]
+
+/-- ★★★★ **Zhang quadratic identity**: `(3c−2)·ab = (b−a)² + c²` for a Markov triple (`a ≤ b`, `1 ≤ c`).
+    This is `a²+b²+c² = 3abc` rewritten with the gap `δ = b−a` (`(b−a)²+2ab = a²+b²`, `(3c−2)ab+2ab =
+    3abc`).  Consequence: `M = 3c−2 ∣ (b−a)²+c²` (`zhang_gap_dvd`) — the modulus `M = 3c±2` carries the
+    `√(−1)` data, and `(c, δ)` pins `a` (single positive root): the recovery core of Zhang's `3c±2`
+    route to composite Markov uniqueness. -/
+theorem zhang_quadratic (a b c : Nat) (h : markovEq a b c) (hab : a ≤ b) (hc : 1 ≤ c) :
+    (3 * c - 2) * (a * b) = (b - a) * (b - a) + c * c := by
+  obtain ⟨d, hd⟩ := Nat.le.dest hab
+  have hba : b - a = d := by
+    rw [← hd, Nat.add_comm a d, E213.Tactic.NatHelper.add_sub_cancel_right]
+  have h2c : 2 ≤ 3 * c := Nat.le_trans (by decide) (Nat.le_mul_of_pos_right 3 hc)
+  have hL : (3 * c - 2) * (a * b) + 2 * (a * b) = a * a + b * b + c * c := by
+    rw [← E213.Tactic.NatHelper.add_mul, E213.Tactic.NatHelper.sub_add_cancel h2c]
+    have e : 3 * c * (a * b) = 3 * a * b * c := by ring_nat
+    rw [e]; exact h.symm
+  have hR : (b - a) * (b - a) + 2 * (a * b) = a * a + b * b := by
+    rw [hba, ← hd]; ring_nat
+  have key : (3 * c - 2) * (a * b) + 2 * (a * b)
+           = ((b - a) * (b - a) + c * c) + 2 * (a * b) := by
+    rw [hL]
+    calc a * a + b * b + c * c
+        = (a * a + b * b) + c * c := by ring_nat
+      _ = ((b - a) * (b - a) + 2 * (a * b)) + c * c := by rw [hR]
+      _ = ((b - a) * (b - a) + c * c) + 2 * (a * b) := by ring_nat
+  exact E213.Tactic.NatHelper.add_right_cancel_pure key
+
+/-- `M = 3c−2 ∣ (b−a)² + c²` for a Markov triple — the `√(−1)`-root data lives on the modulus `3c±2`
+    (Zhang).  Direct from `zhang_quadratic` (witness `ab`). -/
+theorem zhang_gap_dvd (a b c : Nat) (h : markovEq a b c) (hab : a ≤ b) (hc : 1 ≤ c) :
+    (3 * c - 2) ∣ ((b - a) * (b - a) + c * c) :=
+  ⟨a * b, (zhang_quadratic a b c h hab hc).symm⟩
+
+/-- Square-injectivity on `ℕ` (with the order side supplied): `x ≤ y → x² = y² → x = y`. -/
+private theorem sq_inj_le {x y : Nat} (hxy : x ≤ y) (h : x * x = y * y) : x = y := by
+  rcases Nat.lt_or_ge x y with hlt | hge
+  · exfalso
+    have hy : 0 < y := Nat.lt_of_le_of_lt (Nat.zero_le x) hlt
+    have hsq : x * x < y * y := Nat.mul_lt_mul_of_lt_of_le hlt hxy hy
+    rw [h] at hsq; exact Nat.lt_irrefl _ hsq
+  · exact Nat.le_antisymm hxy hge
+
+/-- The sum-square / gap identity: `(a+b)² = (b−a)² + 4ab` for `a ≤ b`.  Pure `ℕ` via `b = a + d`. -/
+private theorem sum_sq_gap (a b : Nat) (hab : a ≤ b) :
+    (a + b) * (a + b) = (b - a) * (b - a) + 4 * (a * b) := by
+  obtain ⟨d, hd⟩ := Nat.le.dest hab
+  have hba : b - a = d := by
+    rw [← hd, Nat.add_comm a d, E213.Tactic.NatHelper.add_sub_cancel_right]
+  rw [hba, ← hd]; ring_nat
+
+/-- ★★★★★ **Zhang recovery: the gap determines the pair.**  Two Markov triples with the same max `c` and
+    the same gap `b−a` are equal.  Via `zhang_quadratic` (equal gap ⟹ equal product `ab`, after
+    cancelling `3c−2`), then equal product + equal gap ⟹ equal sum (`sum_sq_gap` + `sq_inj_le`) ⟹ equal
+    pair.  This is the recovery half of Zhang's `3c±2` route: a `√(−1)`-root mod `M = 3c−2` fixes
+    `b−a` (`zhang_linear_core`), which fixes the triple. -/
+theorem zhang_gap_determines_pair {a₁ b₁ a₂ b₂ c : Nat}
+    (h1 : markovEq a₁ b₁ c) (h2 : markovEq a₂ b₂ c)
+    (ho1 : a₁ ≤ b₁) (ho2 : a₂ ≤ b₂) (hc : 1 ≤ c)
+    (hgap : b₁ - a₁ = b₂ - a₂) : a₁ = a₂ ∧ b₁ = b₂ := by
+  have hM : 0 < 3 * c - 2 :=
+    Nat.lt_of_lt_of_le (by decide) (Nat.sub_le_sub_right (Nat.le_mul_of_pos_right 3 hc) 2)
+  have hprodeq : a₁ * b₁ = a₂ * b₂ :=
+    Nat.eq_of_mul_eq_mul_left hM (by
+      rw [zhang_quadratic a₁ b₁ c h1 ho1 hc, zhang_quadratic a₂ b₂ c h2 ho2 hc, hgap])
+  have hsumsq : (a₁ + b₁) * (a₁ + b₁) = (a₂ + b₂) * (a₂ + b₂) := by
+    rw [sum_sq_gap a₁ b₁ ho1, sum_sq_gap a₂ b₂ ho2, hgap, hprodeq]
+  have hsum : a₁ + b₁ = a₂ + b₂ := by
+    rcases Nat.le_total (a₁ + b₁) (a₂ + b₂) with hle | hge
+    · exact sq_inj_le hle hsumsq
+    · exact (sq_inj_le hge hsumsq.symm).symm
+  -- (a+b)+(b-a) = b+b
+  have e1 : (a₁ + b₁) + (b₁ - a₁) = b₁ + b₁ := by
+    rw [Nat.add_comm a₁ b₁, Nat.add_assoc, E213.Tactic.NatHelper.add_sub_of_le ho1]
+  have e2 : (a₂ + b₂) + (b₂ - a₂) = b₂ + b₂ := by
+    rw [Nat.add_comm a₂ b₂, Nat.add_assoc, E213.Tactic.NatHelper.add_sub_of_le ho2]
+  have hbb : b₁ + b₁ = b₂ + b₂ := by rw [← e1, ← e2, hsum, hgap]
+  have hb : b₁ = b₂ := by
+    have h2 : 2 * b₁ = 2 * b₂ := by rw [Nat.two_mul, Nat.two_mul]; exact hbb
+    exact Nat.eq_of_mul_eq_mul_left (by decide) h2
+  have ha : a₁ = a₂ := by
+    rw [hb] at hsum
+    exact E213.Tactic.NatHelper.add_right_cancel_pure hsum
+  exact ⟨ha, hb⟩
+
 /-- **The down-move strictly decreases the maximum.**  `c' = 3ab − c < c` under `1 ≤ a ≤ b`,
     `b < c`.  Immediate from `c' ≤ b < c`.  The well-foundedness of Markov descent. -/
 theorem markov_partner_lt_max (a b c : Nat) (h : markovEq a b c)
@@ -425,6 +534,298 @@ theorem markov_max_unique_of_single {c a₀ b₀ : Nat}
   obtain ⟨e2a, e2b⟩ := hpin a₂ b₂ h2 hb2 m2
   exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
 
+/-- ★★★★★ **Zhang's `3c±2` criterion (the `3c−2` prime-power case), ∅-axiom.**  If `M = 3c−2` is an odd
+    prime power `p^(k+1)` (`3 ≤ p`, divisors `1,p`), the Markov triple with maximum `c` is unique — even
+    for **composite** `c` with `≥ 4` roots of `x²≡−1 (mod c)` (e.g. `c = 985`, `M = 2953` prime;
+    `c = 4181`, `M = 12541` prime).  Each max-`c` triple's gap `δ = b−a` has `M ∣ δ²+c²`
+    (`zhang_gap_dvd`), so `δ²≡δ'² (mod M)`; the prime-power square collapse (`sq_eq_collapse_pp`, using
+    `p∤c ⟹ p∤δ`) forces `δ = δ'` (the `δ+δ'=M` branch excluded by `δ ≤ c`, `2c < M`), and the gap
+    determines the pair (`zhang_gap_determines_pair`).  Closes composite Markov numbers uniformly, with no
+    per-`c` `decide`. -/
+theorem markov_max_unique_via_3c_minus_2 (c p k : Nat) (hc5 : 5 ≤ c) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (hM : 3 * c - 2 = p ^ (k + 1)) :
+    MarkovMaxUnique c := by
+  intro a₁ b₁ a₂ b₂ ho1 hb1c ho2 hb2c hm1 hm2
+  have hc1 : 1 ≤ c := Nat.le_trans (by decide) hc5
+  have hp1 : 1 < p := Nat.lt_of_lt_of_le (by decide) hp3
+  have hpM : p ∣ (3 * c - 2) := by rw [hM]; exact ⟨p ^ k, by rw [Nat.pow_succ, Nat.mul_comm]⟩
+  have h2le3c : 2 ≤ 3 * c := Nat.le_trans (by decide) (Nat.le_mul_of_pos_right 3 hc1)
+  have hgap1 : (3 * c - 2) ∣ (b₁ - a₁) * (b₁ - a₁) + c * c := zhang_gap_dvd a₁ b₁ c hm1 ho1 hc1
+  have hgap2 : (3 * c - 2) ∣ (b₂ - a₂) * (b₂ - a₂) + c * c := zhang_gap_dvd a₂ b₂ c hm2 ho2 hc1
+  have hpc_not : ¬ p ∣ c := by
+    intro hpc
+    have hp3c : p ∣ 3 * c := by
+      have := E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.dvd_mul_right_loc p c 3 hpc; rwa [Nat.mul_comm c 3] at this
+    have hp2 : p ∣ 2 := by
+      have hd := dvd_sub_213 (3 * c - 2) (3 * c) p (Nat.sub_le _ _) hpM hp3c
+      rwa [E213.Tactic.NatHelper.sub_sub_self h2le3c] at hd
+    exact absurd (E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.le_of_dvd_loc (by decide) hp2)
+      (Nat.not_le_of_lt (Nat.lt_of_lt_of_le (by decide) hp3))
+  have hpδ : ∀ a b, a ≤ b → markovEq a b c → ¬ p ∣ (b - a) := by
+    intro a b hab hm hpd
+    have hpsq : p ∣ (b - a) * (b - a) := E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.dvd_mul_right_loc p (b - a) (b - a) hpd
+    have hpsum : p ∣ (b - a) * (b - a) + c * c :=
+      E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.dvd_trans_loc p (3 * c - 2) _ hpM (zhang_gap_dvd a b c hm hab hc1)
+    have hpc2 : p ∣ c * c := by
+      have hd := dvd_sub_213 ((b - a) * (b - a)) ((b - a) * (b - a) + c * c) p
+        (Nat.le_add_right _ _) hpsq hpsum
+      rwa [Nat.add_comm, E213.Tactic.NatHelper.add_sub_cancel_right] at hd
+    have hcoc : gcd213 c p = 1 := by
+      rw [gcd213_comm]; exact E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.prime_coprime p c hpr hpc_not
+    exact hpc_not (E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.euclid_of_coprime c c p hp1 hcoc hpc2)
+  have hMc : c < 3 * c - 2 := by
+    have h2c2 : 2 ≤ 2 * c := Nat.le_trans (by decide) (Nat.le_mul_of_pos_right 2 hc1)
+    have e : 3 * c - 2 = c + (2 * c - 2) := by
+      have key : c + (2 * c - 2) + 2 = 3 * c := by
+        rw [Nat.add_assoc, E213.Tactic.NatHelper.sub_add_cancel h2c2]; ring_nat
+      rw [← key, E213.Tactic.NatHelper.add_sub_cancel_right]
+    rw [e]
+    exact Nat.lt_add_of_pos_right
+      (Nat.lt_of_lt_of_le (by decide) (Nat.sub_le_sub_right (Nat.mul_le_mul (Nat.le_refl 2) hc5) 2))
+  have hδ1M : b₁ - a₁ < p ^ (k + 1) := by
+    rw [← hM]; exact Nat.lt_of_le_of_lt (Nat.le_trans (Nat.sub_le b₁ a₁) hb1c) hMc
+  have hδ2M : b₂ - a₂ < p ^ (k + 1) := by
+    rw [← hM]; exact Nat.lt_of_le_of_lt (Nat.le_trans (Nat.sub_le b₂ a₂) hb2c) hMc
+  have modbridge : ∀ A B : Nat, B ≤ A → (3 * c - 2) ∣ (A - B) →
+      A % (3 * c - 2) = B % (3 * c - 2) := by
+    intro A B hBA hdvd
+    obtain ⟨q, hq⟩ := hdvd
+    have hA : A = B + q * (3 * c - 2) := by
+      have hsa := E213.Tactic.NatHelper.sub_add_cancel hBA
+      rw [hq] at hsa
+      rw [← hsa, Nat.mul_comm (3 * c - 2) q, Nat.add_comm]
+    rw [hA]; exact E213.Tactic.NatHelper.add_mul_mod_self_pure B (3 * c - 2) q
+  have hsq : ((b₁ - a₁) * (b₁ - a₁)) % p ^ (k + 1) = ((b₂ - a₂) * (b₂ - a₂)) % p ^ (k + 1) := by
+    rw [← hM]
+    rcases Nat.le_total ((b₂ - a₂) * (b₂ - a₂)) ((b₁ - a₁) * (b₁ - a₁)) with hle | hle
+    · apply modbridge _ _ hle
+      have hd := dvd_sub_213 ((b₂ - a₂) * (b₂ - a₂) + c * c) ((b₁ - a₁) * (b₁ - a₁) + c * c)
+        (3 * c - 2) (Nat.add_le_add_right hle _) hgap2 hgap1
+      rwa [E213.Tactic.NatHelper.add_sub_add_right] at hd
+    · refine (modbridge _ _ hle ?_).symm
+      have hd := dvd_sub_213 ((b₁ - a₁) * (b₁ - a₁) + c * c) ((b₂ - a₂) * (b₂ - a₂) + c * c)
+        (3 * c - 2) (Nat.add_le_add_right hle _) hgap1 hgap2
+      rwa [E213.Tactic.NatHelper.add_sub_add_right] at hd
+  rcases E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.sq_eq_collapse_pp p k
+      (b₁ - a₁) (b₂ - a₂) hp3 hpr hδ1M hδ2M (hpδ a₁ b₁ ho1 hm1) (hpδ a₂ b₂ ho2 hm2) hsq with heq | hsum
+  · exact zhang_gap_determines_pair hm1 hm2 ho1 ho2 hc1 heq
+  · exfalso
+    rw [← hM] at hsum
+    have hsumle : (b₁ - a₁) + (b₂ - a₂) ≤ c + c :=
+      Nat.add_le_add (Nat.le_trans (Nat.sub_le b₁ a₁) hb1c) (Nat.le_trans (Nat.sub_le b₂ a₂) hb2c)
+    have h2cM : c + c < 3 * c - 2 := by
+      have e : 3 * c - 2 = (c + c) + (c - 2) := by
+        have key : (c + c) + (c - 2) + 2 = 3 * c := by
+          rw [Nat.add_assoc, E213.Tactic.NatHelper.sub_add_cancel (Nat.le_trans (by decide) hc5)]
+          ring_nat
+        rw [← key, E213.Tactic.NatHelper.add_sub_cancel_right]
+      rw [e]
+      exact Nat.lt_add_of_pos_right
+        (Nat.lt_of_lt_of_le (by decide) (Nat.sub_le_sub_right hc5 2))
+    exact Nat.lt_irrefl _ (hsum ▸ Nat.lt_of_le_of_lt hsumle h2cM)
+
+/-- ★★★★★ **`MarkovMaxUnique 985` — the first COMPOSITE Markov number closed structurally.**  `985 = 5·197`
+    has `4` roots of `x²≡−1 (mod 985)` (the `c`-side over-counts), but `3·985−2 = 2953` is **prime**, so
+    Zhang's `3c−2` route (`markov_max_unique_via_3c_minus_2`) closes it — no `decide` on the triple, only a
+    `√2953`-bounded primality check (`prime_of_no_small_factor`). -/
+theorem markovMaxUnique_985 : MarkovMaxUnique 985 := by
+  apply markov_max_unique_via_3c_minus_2 985 2953 0 (by decide) (by decide) ?_ (by decide)
+  apply E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.prime_of_no_small_factor 2953 (by decide)
+  intro d hd2 hdsq hdvd
+  obtain ⟨q, hq⟩ := hdvd
+  have hmod : 2953 % d = 0 := by rw [hq]; exact E213.Tactic.NatHelper.mul_mod_right d q
+  rcases Nat.lt_or_ge d 55 with hlt | hge
+  · exact (by decide : ∀ d, d < 55 → 2 ≤ d → 2953 % d = 0 → False) d hlt hd2 hmod
+  · exact absurd hdsq (Nat.not_le_of_lt (Nat.lt_of_lt_of_le (by decide) (Nat.mul_le_mul hge hge)))
+
+/-! ### Zhang's `3c+2` case — the symmetric route through the SUM `a+b`
+
+`mod (3c+2)` reduces `3bc−2a ≡ −2(a+b)`, so the `√(−1)`-root encodes the **sum** `a+b` (where `3c−2`
+encoded the gap `b−a`).  The identity is `(3c+2)·ab = (a+b)² + c²`, and the range exclusion uses `a+b ≤ c`
+(`markov_sum_le_max`). -/
+
+/-- Zhang quadratic, sum form: `(3c+2)·ab = (a+b)² + c²` for a Markov triple.  Pure `ℕ`, no ordering. -/
+theorem zhang_quadratic_sum (a b c : Nat) (h : markovEq a b c) :
+    (3 * c + 2) * (a * b) = (a + b) * (a + b) + c * c := by
+  have e1 : (3 * c + 2) * (a * b) = 3 * a * b * c + 2 * (a * b) := by ring_nat
+  have e2 : (a + b) * (a + b) + c * c = (a * a + b * b + c * c) + 2 * (a * b) := by ring_nat
+  rw [e1, e2, h]
+
+/-- `M = 3c+2 ∣ (a+b)² + c²` for a Markov triple (witness `ab`). -/
+theorem zhang_sum_dvd (a b c : Nat) (h : markovEq a b c) :
+    (3 * c + 2) ∣ ((a + b) * (a + b) + c * c) :=
+  ⟨a * b, (zhang_quadratic_sum a b c h).symm⟩
+
+/-- Equal sum + equal product (with orderings) ⟹ equal pair (via the gap, `sum_sq_gap` + `sq_inj_le`). -/
+private theorem sum_prod_determines_pair {a₁ b₁ a₂ b₂ : Nat}
+    (hsum : a₁ + b₁ = a₂ + b₂) (hprod : a₁ * b₁ = a₂ * b₂)
+    (ho1 : a₁ ≤ b₁) (ho2 : a₂ ≤ b₂) : a₁ = a₂ ∧ b₁ = b₂ := by
+  have hg : (b₁ - a₁) * (b₁ - a₁) = (b₂ - a₂) * (b₂ - a₂) := by
+    have key : (b₁ - a₁) * (b₁ - a₁) + 4 * (a₁ * b₁)
+             = (b₂ - a₂) * (b₂ - a₂) + 4 * (a₂ * b₂) := by
+      rw [← sum_sq_gap a₁ b₁ ho1, ← sum_sq_gap a₂ b₂ ho2, hsum]
+    rw [hprod] at key
+    exact E213.Tactic.NatHelper.add_right_cancel_pure key
+  have hgap : b₁ - a₁ = b₂ - a₂ := by
+    rcases Nat.le_total (b₁ - a₁) (b₂ - a₂) with hle | hle
+    · exact sq_inj_le hle hg
+    · exact (sq_inj_le hle hg.symm).symm
+  have e1 : (a₁ + b₁) + (b₁ - a₁) = b₁ + b₁ := by
+    rw [Nat.add_comm a₁ b₁, Nat.add_assoc, E213.Tactic.NatHelper.add_sub_of_le ho1]
+  have e2 : (a₂ + b₂) + (b₂ - a₂) = b₂ + b₂ := by
+    rw [Nat.add_comm a₂ b₂, Nat.add_assoc, E213.Tactic.NatHelper.add_sub_of_le ho2]
+  have hbb : b₁ + b₁ = b₂ + b₂ := by rw [← e1, ← e2, hsum, hgap]
+  have hb : b₁ = b₂ := by
+    have h2 : 2 * b₁ = 2 * b₂ := by rw [Nat.two_mul, Nat.two_mul]; exact hbb
+    exact Nat.eq_of_mul_eq_mul_left (by decide) h2
+  have ha : a₁ = a₂ := by rw [hb] at hsum; exact E213.Tactic.NatHelper.add_right_cancel_pure hsum
+  exact ⟨ha, hb⟩
+
+/-- ★★★★ **The sum is `≤` the maximum**: `a + b ≤ c` for a Markov triple (`1 ≤ a ≤ b < c`).  From the
+    descent `3ab − c ≤ b` (`markov_vieta_partner_le`) and `c ≤ 3ab`: `3ab ≤ b+c`, and `a+2b ≤ 3b ≤ 3ab`,
+    so `a+2b ≤ b+c`, i.e. `a+b ≤ c`.  The range bound Zhang's `3c+2` route needs. -/
+theorem markov_sum_le_max (a b c : Nat) (h : markovEq a b c) (ha : 1 ≤ a) (hab : a ≤ b)
+    (hbc : b < c) : a + b ≤ c := by
+  have hcpos : 0 < c := Nat.lt_of_le_of_lt (Nat.zero_le b) hbc
+  have hle3 : c ≤ 3 * a * b := markov_le_3mul a b c hcpos h
+  have hpartner : 3 * a * b - c ≤ b := markov_vieta_partner_le a b c h ha hab hbc
+  have h3 : 3 * a * b ≤ b + c :=
+    calc 3 * a * b = c + (3 * a * b - c) := (E213.Tactic.NatHelper.add_sub_of_le hle3).symm
+      _ ≤ c + b := Nat.add_le_add_left hpartner c
+      _ = b + c := Nat.add_comm c b
+  have hab2 : a + 2 * b ≤ 3 * a * b := by
+    have h3b : 3 * b ≤ 3 * a * b := by
+      have e : 3 * b = 3 * 1 * b := by ring_nat
+      rw [e]; exact Nat.mul_le_mul (Nat.mul_le_mul (Nat.le_refl 3) ha) (Nat.le_refl b)
+    have ha2b : a + 2 * b ≤ 3 * b := by
+      have e : 3 * b = b + 2 * b := by ring_nat
+      rw [e]; exact Nat.add_le_add_right hab (2 * b)
+    exact Nat.le_trans ha2b h3b
+  have hfin : a + 2 * b ≤ b + c := Nat.le_trans hab2 h3
+  have e1 : a + 2 * b = (a + b) + b := by ring_nat
+  have e2 : b + c = c + b := Nat.add_comm b c
+  rw [e1, e2] at hfin
+  have hfin2 := Nat.sub_le_sub_right hfin b
+  rwa [E213.Tactic.NatHelper.add_sub_cancel_right, E213.Tactic.NatHelper.add_sub_cancel_right] at hfin2
+
+/-- Two max-`c` Markov triples with the same sum `a+b` are equal (`zhang_quadratic_sum` ⟹ same product,
+    then `sum_prod_determines_pair`). -/
+theorem markov_sum_determines_pair {a₁ b₁ a₂ b₂ c : Nat}
+    (h1 : markovEq a₁ b₁ c) (h2 : markovEq a₂ b₂ c) (ho1 : a₁ ≤ b₁) (ho2 : a₂ ≤ b₂)
+    (hsum : a₁ + b₁ = a₂ + b₂) : a₁ = a₂ ∧ b₁ = b₂ := by
+  have hM : 0 < 3 * c + 2 := Nat.lt_of_lt_of_le (by decide) (Nat.le_add_left 2 (3 * c))
+  have hprodeq : a₁ * b₁ = a₂ * b₂ :=
+    Nat.eq_of_mul_eq_mul_left hM (by
+      rw [zhang_quadratic_sum a₁ b₁ c h1, zhang_quadratic_sum a₂ b₂ c h2, hsum])
+  exact sum_prod_determines_pair hsum hprodeq ho1 ho2
+
+/-- ★★★★★ **Zhang's `3c±2` criterion (the `3c+2` prime-power case), ∅-axiom.**  If `M = 3c+2` is an odd
+    prime power, then `MarkovMaxUnique c`.  Symmetric to the `3c−2` case but through the **sum** `a+b`
+    (`zhang_sum_dvd`: `M ∣ (a+b)²+c²`); the prime-power square collapse forces equal sums (the
+    `(a+b)+(a'+b')=M` branch excluded by `a+b ≤ c`, `2c < M`, `markov_sum_le_max`), and the sum determines
+    the pair (`markov_sum_determines_pair`).  With `markov_max_unique_via_3c_minus_2`, this is the full
+    `3c±2` criterion. -/
+theorem markov_max_unique_via_3c_plus_2 (c p k : Nat) (hc5 : 5 ≤ c) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (hM : 3 * c + 2 = p ^ (k + 1)) :
+    MarkovMaxUnique c := by
+  intro a₁ b₁ a₂ b₂ ho1 hb1c ho2 hb2c hm1 hm2
+  have hc1 : 1 ≤ c := Nat.le_trans (by decide) hc5
+  have hc2 : 2 ≤ c := Nat.le_trans (by decide) hc5
+  have hp1 : 1 < p := Nat.lt_of_lt_of_le (by decide) hp3
+  have hapos : ∀ a b, markovEq a b c → 1 ≤ a := by
+    intro a b hm
+    rcases Nat.eq_zero_or_pos a with h0 | hpa
+    · exfalso
+      subst h0
+      have e : 0 * 0 + b * b + c * c = 3 * 0 * b * c := hm
+      have hrhs : (3 : Nat) * 0 * b * c = 0 := by rw [Nat.mul_zero, Nat.zero_mul, Nat.zero_mul]
+      have hlhs : (0 : Nat) * 0 + b * b + c * c = b * b + c * c := by rw [Nat.zero_mul, Nat.zero_add]
+      rw [hlhs, hrhs] at e
+      have hccpos : 0 < c * c := Nat.mul_pos (Nat.lt_of_lt_of_le (by decide) hc2)
+        (Nat.lt_of_lt_of_le (by decide) hc2)
+      have hpos : 0 < b * b + c * c := Nat.lt_of_lt_of_le hccpos (Nat.le_add_left (c * c) (b * b))
+      rw [e] at hpos; exact absurd hpos (Nat.lt_irrefl 0)
+    · exact hpa
+  have hpM : p ∣ (3 * c + 2) := by rw [hM]; exact ⟨p ^ k, by rw [Nat.pow_succ, Nat.mul_comm]⟩
+  have hsd1 : (3 * c + 2) ∣ (a₁ + b₁) * (a₁ + b₁) + c * c := zhang_sum_dvd a₁ b₁ c hm1
+  have hsd2 : (3 * c + 2) ∣ (a₂ + b₂) * (a₂ + b₂) + c * c := zhang_sum_dvd a₂ b₂ c hm2
+  have hpc_not : ¬ p ∣ c := by
+    intro hpc
+    have hp3c : p ∣ 3 * c := by
+      have := E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.dvd_mul_right_loc p c 3 hpc
+      rwa [Nat.mul_comm c 3] at this
+    have hp2 : p ∣ 2 := by
+      have hd := dvd_sub_213 (3 * c) (3 * c + 2) p (Nat.le_add_right _ _) hp3c hpM
+      rwa [Nat.add_comm, E213.Tactic.NatHelper.add_sub_cancel_right] at hd
+    exact absurd (E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.le_of_dvd_loc (by decide) hp2)
+      (Nat.not_le_of_lt (Nat.lt_of_lt_of_le (by decide) hp3))
+  have hps : ∀ a b, markovEq a b c → ¬ p ∣ (a + b) := by
+    intro a b hm hpd
+    have hpsq : p ∣ (a + b) * (a + b) :=
+      E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.dvd_mul_right_loc p (a + b) (a + b) hpd
+    have hpsum : p ∣ (a + b) * (a + b) + c * c :=
+      E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.dvd_trans_loc p (3 * c + 2) _ hpM
+        (zhang_sum_dvd a b c hm)
+    have hpc2 : p ∣ c * c := by
+      have hd := dvd_sub_213 ((a + b) * (a + b)) ((a + b) * (a + b) + c * c) p
+        (Nat.le_add_right _ _) hpsq hpsum
+      rwa [Nat.add_comm, E213.Tactic.NatHelper.add_sub_cancel_right] at hd
+    have hcoc : gcd213 c p = 1 := by
+      rw [gcd213_comm]; exact E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.prime_coprime p c hpr hpc_not
+    exact hpc_not (E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.euclid_of_coprime c c p hp1 hcoc hpc2)
+  have hbc1 : b₁ < c := markov_mid_lt_max a₁ b₁ c hm1 (hapos a₁ b₁ hm1) ho1 hb1c hc2
+  have hbc2 : b₂ < c := markov_mid_lt_max a₂ b₂ c hm2 (hapos a₂ b₂ hm2) ho2 hb2c hc2
+  have hs1 : a₁ + b₁ ≤ c := markov_sum_le_max a₁ b₁ c hm1 (hapos a₁ b₁ hm1) ho1 hbc1
+  have hs2 : a₂ + b₂ ≤ c := markov_sum_le_max a₂ b₂ c hm2 (hapos a₂ b₂ hm2) ho2 hbc2
+  have hMc : c < 3 * c + 2 :=
+    Nat.lt_of_le_of_lt (Nat.le_mul_of_pos_left c (by decide)) (Nat.lt_add_of_pos_right (by decide))
+  have hs1M : a₁ + b₁ < p ^ (k + 1) := by rw [← hM]; exact Nat.lt_of_le_of_lt hs1 hMc
+  have hs2M : a₂ + b₂ < p ^ (k + 1) := by rw [← hM]; exact Nat.lt_of_le_of_lt hs2 hMc
+  have modbridge : ∀ A B : Nat, B ≤ A → (3 * c + 2) ∣ (A - B) →
+      A % (3 * c + 2) = B % (3 * c + 2) := by
+    intro A B hBA hdvd
+    obtain ⟨q, hq⟩ := hdvd
+    have hA : A = B + q * (3 * c + 2) := by
+      have hsa := E213.Tactic.NatHelper.sub_add_cancel hBA
+      rw [hq] at hsa
+      rw [← hsa, Nat.mul_comm (3 * c + 2) q, Nat.add_comm]
+    rw [hA]; exact E213.Tactic.NatHelper.add_mul_mod_self_pure B (3 * c + 2) q
+  have hsq : ((a₁ + b₁) * (a₁ + b₁)) % p ^ (k + 1) = ((a₂ + b₂) * (a₂ + b₂)) % p ^ (k + 1) := by
+    rw [← hM]
+    rcases Nat.le_total ((a₂ + b₂) * (a₂ + b₂)) ((a₁ + b₁) * (a₁ + b₁)) with hle | hle
+    · apply modbridge _ _ hle
+      have hd := dvd_sub_213 ((a₂ + b₂) * (a₂ + b₂) + c * c) ((a₁ + b₁) * (a₁ + b₁) + c * c)
+        (3 * c + 2) (Nat.add_le_add_right hle _) hsd2 hsd1
+      rwa [E213.Tactic.NatHelper.add_sub_add_right] at hd
+    · refine (modbridge _ _ hle ?_).symm
+      have hd := dvd_sub_213 ((a₁ + b₁) * (a₁ + b₁) + c * c) ((a₂ + b₂) * (a₂ + b₂) + c * c)
+        (3 * c + 2) (Nat.add_le_add_right hle _) hsd1 hsd2
+      rwa [E213.Tactic.NatHelper.add_sub_add_right] at hd
+  rcases E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.sq_eq_collapse_pp p k
+      (a₁ + b₁) (a₂ + b₂) hp3 hpr hs1M hs2M (hps a₁ b₁ hm1) (hps a₂ b₂ hm2) hsq with heq | hsum
+  · exact markov_sum_determines_pair hm1 hm2 ho1 ho2 heq
+  · exfalso
+    rw [← hM] at hsum
+    have hsumle : (a₁ + b₁) + (a₂ + b₂) ≤ c + c := Nat.add_le_add hs1 hs2
+    have h2cM : c + c < 3 * c + 2 := by
+      have e : c + c = 2 * c := by ring_nat
+      rw [e]
+      exact Nat.lt_of_le_of_lt (Nat.mul_le_mul (by decide) (Nat.le_refl c))
+        (Nat.lt_add_of_pos_right (by decide))
+    exact Nat.lt_irrefl _ (hsum ▸ Nat.lt_of_le_of_lt hsumle h2cM)
+
+/-- ★★★★★ **Zhang's `3c±2` criterion, full (prime-power case), ∅-axiom.**  If `3c−2` **or** `3c+2` is an
+    odd prime power, the Markov triple with maximum `c` is unique.  The union of the gap-route (`3c−2`)
+    and the sum-route (`3c+2`) — closing every composite Markov `c` with a prime-power neighbour `3c±2`,
+    structurally (no `decide` on the triple). -/
+theorem markov_max_unique_via_3c_pm2 (c p k : Nat) (hc5 : 5 ≤ c) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p)
+    (hM : 3 * c - 2 = p ^ (k + 1) ∨ 3 * c + 2 = p ^ (k + 1)) :
+    MarkovMaxUnique c := by
+  rcases hM with h | h
+  · exact markov_max_unique_via_3c_minus_2 c p k hc5 hp3 hpr h
+  · exact markov_max_unique_via_3c_plus_2 c p k hc5 hp3 hpr h
+
 /-- `MarkovMaxUnique 5`, via the general reduction + the decidable single-pair check. -/
 theorem markovMaxUnique_5 : MarkovMaxUnique 5 :=
   markov_max_unique_of_single (fun a b hab hb m => markov_max_unique_5 a (Nat.le_trans hab hb) b hb hab m)
@@ -469,6 +870,16 @@ theorem sqrtNegOneTwoRoots_prime_pow (p k : Nat) (hp3 : 3 ≤ p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) : SqrtNegOneTwoRoots (p ^ (k + 1)) :=
   fun x hx y hy hxr hyr =>
     E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.two_roots_of_prime_pow p k hp3 hpr x y hx hy hxr hyr
+
+/-- ★★★★ **`SqrtNegOneTwoRoots` on the `2·pᵏ` layer** — the input for Markov uniqueness on the **even**
+    `2·pᵏ` family.  For an odd prime `p` (`3 ≤ p`, divisors `1, p`), `x² ≡ −1 (mod 2·p^(k+1))` has at most
+    the two roots `±u`.  The named form of `MarkovPrimeFactor.two_roots_of_two_prime_pow` (CRT
+    recombination: the factor `2` splits off the prime-power split since both roots are odd).  Covers the
+    even Markov numbers `34 = 2·17`, `194 = 2·97`, …, beyond Button's odd prime-power family. -/
+theorem sqrtNegOneTwoRoots_two_prime_pow (p k : Nat) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) : SqrtNegOneTwoRoots (2 * p ^ (k + 1)) :=
+  fun x hx y hy hxr hyr =>
+    E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.two_roots_of_two_prime_pow p k hp3 hpr x y hx hy hxr hyr
 
 /-! ### The phantom-root filter (sniping the C6 barrier at the first composite)
 

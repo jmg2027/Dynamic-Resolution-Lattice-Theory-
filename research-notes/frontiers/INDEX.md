@@ -51,8 +51,15 @@ Closure record (the proven side of this arc):
 ## Markov / Lagrange spectrum  (`markov_lagrange/`)
 
 **Core open problem:** the Markov uniqueness conjecture (Frobenius 1913) —
-each Markov number determines a unique triple.
+each Markov number determines a unique triple.  **Current state (`G204`):** the
+prime-power-neighbour families are ∅-axiom *closed* (`pᵏ`, `2·pᵏ`, and `3c±2`
+a prime power — Zhang's modulus-shift criterion); the residual is the
+class-number core (composite `c` with both `3c±2` composite, smallest `1325`).
 
+- `G204_post_zhang_residual` — **standing record after the prime-power families
+  closed**: the closure table (`markov_prime_pow_unique`, `markov_two_prime_pow_unique`,
+  `markov_max_unique_via_3c_pm2`, `markovMaxUnique_985`) + the sharpened residual
+  (class-number / fundamental-unit core) + the REFRAME tool and its limit.
 - `G173_markov_uniqueness` — the ∅-axiom arithmetic spine (neighbor
   congruence, √(−1) encoding, Button prime-power closure) + the conjecture
   slate reducing composite uniqueness to one realisability hypothesis `H`.
@@ -206,3 +213,23 @@ Closure records (promoted off this board):
 - `G182_completed_system_synthesis` ("the frontier (νF) has a form") →
   `theory/essays/foundations/the_frontier_has_a_form.md`; archived at
   `archive/G182_completed_system_synthesis.md`.
+
+## proof-ISA compilation series  (`G200_*`)
+
+**The experiment:** reproduce *solved* hard techniques by compiling them down the
+proof-ISA (`seed/PROOF_ISA.md`), to map the instruction set's interior and edge.
+Mostly **closed** — the "why" archive is promoted to
+`theory/essays/proof_isa/` (5 files: INDEX + probabilistic, linear-algebra,
+parity, könig).  Cumulative finding: three surface-diverse methods collapse onto
+the named eight (probabilistic + linear-algebra → COUNT; parity → READ ∘
+SEPARATE), no new instruction forced; König **stalls** exactly at the
+non-constructive `DECIDE` (the exterior).  COUNT registered as the quantitative
+`GAP` sub-mode (`seed/PROOF_ISA.md`) + lift Archetype 4 (`ProofISALifts.lean`).
+
+- `G200_probabilistic_method_count_compilation` — the COUNT discovery + the
+  compilation verdict + the concrete lift status.
+
+**Open rung (only):** the *named* `R(k,k) > 2^{k/2}` closure — pure `K_N`
+bookkeeping (edge↔position indexing + `k`-subset enumeration giving `t=C(N,k)`,
+then `erdos_schema`), **no new "why"**.  All engine pieces built ∅-axiom
+(`CountExistence`, `RamseyLowerBound.{count_factor,mono_event_count,matchesC_count}`).

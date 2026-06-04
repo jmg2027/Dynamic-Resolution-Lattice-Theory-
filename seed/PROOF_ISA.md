@@ -33,6 +33,22 @@ You do not re-derive the ISA per application; you **compile** the application do
 This is the "most primitive atomic element, all already built."  Earlier scattered foundational
 theorems, seen as *one instruction set*.
 
+### GAP sub-mode — COUNT (quantitative `GAP`: deficit ⟹ existence)
+
+`GAP` above is *qualitative* (a structural reason a reading misses its codomain — "not every function is
+a fold").  Compiling the **probabilistic method** (Erdős 1947, `R(k,k) > 2^{k/2}`) down the ISA surfaced
+its *quantitative* witness: when the bad readings are provably **fewer** than the codomain
+(`Σ|badᵢ| < |codomain|`), the un-covered surplus is forced, and — the carrier being a finite residue — it
+is *found* by search, no `Classical`.  This is one `GAP`-arrow read by **cardinality**, not a ninth
+instruction (registering it as such would be the "view promoted to identity" failure).  Its decisive tell:
+the repo already used it across ≈25 Lean files as `pigeonhole` (the `N+1 → N` qualitative face) without naming it.
+
+  · witness: `CountExistence.count_existence` / `erdos_schema` (∅-axiom)
+  · the lift (why the per-event count holds): `RamseyLowerBound.{count_factor, matchesC_count}` — each
+    free distinguishing **doubles** the count, so existence-counting *factors* because distinguishings
+    multiply (catalogued, Archetype 4, `ProofISALifts.lean`).
+  · the "why" in full: `theory/essays/proof_isa/probabilistic_method.md`.
+
 ## Methodology — compile, do not crack
 
 Research an open problem by **compiling it down the layers** (`L3 → L2 → L1`) and locating the right
@@ -76,7 +92,7 @@ instruction (e.g. `SEPARATE`) holds on every finite sample, and pointing at the 
 open content.  So the standing method is not only "compile this one problem" but **catalogue the lifts of
 problems already solved** — each solved lift is a reusable template, and a problem missing the *same* lift
 as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/ProofISALifts.lean`, all
-`∅`-axiom) records three structurally distinct archetypes:
+`∅`-axiom) records five structurally distinct archetypes:
 
   - **DIAGONAL / direct** (`lift_diagonal`, Cantor) — the `DIAGONALIZE` instruction self-supplies the
     uniform witness; **lift cost zero**.
@@ -84,6 +100,16 @@ as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/P
     the binomial mod `p`) lifted by induction; **cost one induction**.
   - **ORBIT / free-action** (`lift_orbit`, composite Markov uniqueness) — a free group action collapses a
     finite window onto orbit representatives; **cost: free-action collapse + a realizability residue**.
+  - **REFRAME / presentation-transport** (`lift_reframe`, CRT `2·pᵏ`; `lift_reframe_modulus`, the `3c±2`
+    modulus shift) — the meta-lift: when `SEPARATE` fails under one reading, factor a shared invariant
+    (modulus / discriminant) and re-`READ` through the prime-power factor where a solved `SEPARATE` fires
+    (`REFLECT → READ → SEPARATE`); **cost: a good factor of the invariant**.  Conditional (needs a
+    prime-power factor) and the dual of in-place monovariant exhaustion — transport the problem rather than
+    improve the reading.
+  - **COUNT / cardinality-doubling** (`lift_count`, the probabilistic method / Erdős `R(k,k) > 2^{k/2}`) —
+    on a finite residue, `Σ|badᵢ| < |codomain|` forces a good element; the lift is multiplicativity of
+    counting (each free distinguishing doubles the count); **cost: a counting bound**.  The quantitative
+    face of `GAP` (`pigeonhole` is its qualitative face).
 
 Markov `H` matches none cleanly — closest is **ORBIT**, which is *in `H`'s own family* (the same
 free-unit-root action already lifts a finite root-window to uniform composite uniqueness, leaving a per-`c`

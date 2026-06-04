@@ -239,6 +239,21 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Markov composite uniqueness: prime-power-neighbour families addition (2026-06-04)
+
+`E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness` + `…SternBrocotMarkov` +
+`E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor` — **all PURE / 0 DIRTY**.  Composite Markov
+uniqueness (`MarkovMaxUnique c`) closed unconditionally for two further infinite families beyond Button's
+odd prime powers: the **even `2·pᵏ`** family (`markov_two_prime_pow_unique`, via CRT recombination
+`two_roots_of_two_prime_pow`) and **Zhang's `3c±2` criterion** (`markov_max_unique_via_3c_pm2`: if `3c−2`
+or `3c+2` is an odd prime power, unique — the discriminant `9c²−4 = (3c−2)(3c+2)` read mod the prime-power
+factor, `sq_eq_collapse_pp`), with `markovMaxUnique_985` a concrete composite (`5·197`, `3c−2 = 2953`
+prime).  Supporting `∅`-axiom chain: `zhang_linear_core`, `zhang_quadratic(_sum)`, `zhang_gap_dvd` /
+`zhang_sum_dvd`, `zhang_gap_determines_pair` / `markov_sum_determines_pair`, `markov_sum_le_max`,
+`sq_collapse_pow_ordered`, `prime_of_no_small_factor`.  The proof-method (read the same residue mod a
+prime-power factor where `SEPARATE` fires) is the `REFRAME` lift archetype (`Foundations.ProofISALifts`,
+`lift_reframe`).  `#print axioms` clean on all.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

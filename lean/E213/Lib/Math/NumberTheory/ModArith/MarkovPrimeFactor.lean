@@ -558,4 +558,277 @@ theorem two_roots_of_prime_pow (p k : Nat) (hp3 : 3 ≤ p) (hpr : ∀ e, e ∣ p
     · left; rw [← hd, h, Nat.add_zero]
     · right; rw [← hd, Nat.add_comm x (x + d)]; exact h
 
+/-! ### The `2·pᵏ` two-roots family (CRT recombination of the prime-power split)
+
+The prime-power split (`two_roots_pow_ordered`) needs `∀ n, ¬p∣n → gcd(n, m) = 1` — which fails for
+`m = 2·pᵏ` (the factor `2` is `p`-coprime but not `m`-coprime).  Markov numbers include even values
+(`34 = 2·17`, `194 = 2·97`), exactly the `2·pᵏ` shape (`p ≡ 1 mod 4`).  Here the two-roots fact is
+recovered for `m = 2·pᵏ` by **CRT recombination**: reduce a root mod `2·pᵏ` to a root mod `pᵏ` (reuse
+`two_roots_of_prime_pow`), force oddness mod `2`, and recombine via `2·pᵏ ∣ a` from `2 ∣ a ∧ pᵏ ∣ a`
+(coprimality of `2` and the odd `pᵏ`). -/
+
+/-- `P ∣ x² − (x % P)²` — the square reduces mod `P` (pure: `div_add_mod` + `ring_nat`). -/
+private theorem dvd_sq_sub_mod_sq (P x : Nat) : P ∣ (x * x - (x % P) * (x % P)) := by
+  have hdm : P * (x / P) + x % P = x := E213.Meta.Nat.AddMod213.div_add_mod x P
+  refine ⟨P * (x / P) * (x / P) + 2 * (x / P) * (x % P), ?_⟩
+  have hsq : x * x = (P * (x / P) + x % P) * (P * (x / P) + x % P) := by rw [hdm]
+  have hexp : (P * (x / P) + x % P) * (P * (x / P) + x % P)
+            = (x % P) * (x % P) + P * (P * (x / P) * (x / P) + 2 * (x / P) * (x % P)) := by ring_nat
+  rw [hsq, hexp, Nat.add_comm, E213.Tactic.NatHelper.add_sub_cancel_right]
+
+/-- A root mod `2·…` reduces to a root mod `P`: `P ∣ x²+1 ⟹ (x%P)²+1 ≡ 0 (mod P)`. -/
+private theorem root_mod_P (P x : Nat) (hP1 : 1 < P) (hPx : P ∣ (x * x + 1)) :
+    ((x % P) * (x % P) + 1) % P = 0 := by
+  have hd : P ∣ (x * x - (x % P) * (x % P)) := dvd_sq_sub_mod_sq P x
+  have hle : (x % P) * (x % P) ≤ x * x := Nat.mul_le_mul (Nat.mod_le x P) (Nat.mod_le x P)
+  have hle2 : (x * x - (x % P) * (x % P)) ≤ (x * x + 1) :=
+    Nat.le_trans (Nat.sub_le _ _) (Nat.le_succ _)
+  have hsub : P ∣ ((x * x + 1) - (x * x - (x % P) * (x % P))) := dvd_sub_213 _ _ P hle2 hd hPx
+  have heq : (x * x + 1) - (x * x - (x % P) * (x % P)) = (x % P) * (x % P) + 1 := by
+    have hAcancel : (x * x - (x % P) * (x % P)) + (x % P) * (x % P) = x * x :=
+      E213.Tactic.NatHelper.sub_add_cancel hle
+    have hA1 : x * x + 1 = (x * x - (x % P) * (x % P)) + ((x % P) * (x % P) + 1) := by
+      rw [← Nat.add_assoc, hAcancel]
+    rw [hA1, Nat.add_comm (x * x - (x % P) * (x % P)) _,
+        E213.Tactic.NatHelper.add_sub_cancel_right]
+  rw [heq] at hsub
+  obtain ⟨w, hw⟩ := hsub
+  rw [hw]; exact E213.Tactic.NatHelper.mul_mod_right P w
+
+/-- `M ∣ d` and `d < M` give `d = 0`. -/
+private theorem eq_zero_of_dvd_lt {M d : Nat} (hd : M ∣ d) (hlt : d < M) : d = 0 := by
+  rcases Nat.eq_zero_or_pos d with h | h
+  · exact h
+  · exact absurd (le_of_dvd_loc h hd) (Nat.not_le_of_lt hlt)
+
+/-- `2 ∣ x²+1 ⟹ x` is odd (`x % 2 = 1`). -/
+private theorem odd_of_two_dvd_sq_succ (x : Nat) (h : 2 ∣ (x * x + 1)) : x % 2 = 1 := by
+  rcases E213.Meta.Nat.AddMod213.mod_two_zero_or_one x with h0 | h1
+  · exfalso
+    have h2x : 2 ∣ x := dvd_of_mod_eq_zero h0
+    have h2xx : 2 ∣ (x * x) := dvd_mul_right_loc 2 x x h2x
+    have h21 : 2 ∣ 1 := by
+      have hs := dvd_sub_213 (x * x) (x * x + 1) 2 (Nat.le_succ _) h2xx h
+      rwa [E213.Tactic.NatHelper.succ_sub] at hs
+    exact absurd (le_of_dvd_loc (by decide) h21) (by decide)
+  · exact h1
+
+/-- `M ∣ (x − y)` whenever `x ≡ y (mod M)` (pure: `add_sub_add_right` cancels the common residue). -/
+private theorem dvd_sub_of_mod_eq (M x y : Nat) (hmod : x % M = y % M) : M ∣ (x - y) := by
+  refine ⟨x / M - y / M, ?_⟩
+  have hx : M * (x / M) + x % M = x := E213.Meta.Nat.AddMod213.div_add_mod x M
+  have hy : M * (y / M) + y % M = y := E213.Meta.Nat.AddMod213.div_add_mod y M
+  calc x - y
+      = (M * (x / M) + x % M) - (M * (y / M) + y % M) := by rw [hx, hy]
+    _ = (M * (x / M) + y % M) - (M * (y / M) + y % M) := by rw [hmod]
+    _ = M * (x / M) - M * (y / M) := E213.Tactic.NatHelper.add_sub_add_right _ _ _
+    _ = M * (x / M - y / M) := (E213.Tactic.NatHelper.mul_sub _ _ _).symm
+
+/-- CRT: `2 ∣ a` and `P ∣ a` with `gcd(2,P)=1` give `2·P ∣ a`. -/
+private theorem two_P_dvd (P a : Nat) (hP1 : 1 < P) (hco : gcd213 2 P = 1)
+    (h2 : 2 ∣ a) (hP : P ∣ a) : 2 * P ∣ a := by
+  obtain ⟨t, ht⟩ := h2
+  have hPt : P ∣ t := euclid_of_coprime 2 t P hP1 hco (ht ▸ hP)
+  obtain ⟨s, hs⟩ := hPt
+  exact ⟨s, by rw [ht, hs]; exact (E213.Tactic.NatHelper.mul_assoc 2 P s).symm⟩
+
+/-- ★★★★★ **≤ 2 roots of `x² ≡ −1` mod `2·p^(k+1)`** (`p` odd prime).  Any two roots `x, y < 2·p^(k+1)`
+    satisfy `x = y ∨ x + y = 2·p^(k+1)` — i.e. `SqrtNegOneTwoRoots (2·p^(k+1))`, the input for Markov
+    uniqueness on the **even** `2·pᵏ` family (`34 = 2·17`, `194 = 2·97`, …).  By CRT recombination of the
+    prime-power split (`two_roots_of_prime_pow` mod `p^(k+1)`) with the odd-forcing mod `2`. -/
+theorem two_roots_of_two_prime_pow (p k : Nat) (hp3 : 3 ≤ p) (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p)
+    (x y : Nat) (hx : x < 2 * p ^ (k + 1)) (hy : y < 2 * p ^ (k + 1))
+    (hxr : (x * x + 1) % (2 * p ^ (k + 1)) = 0) (hyr : (y * y + 1) % (2 * p ^ (k + 1)) = 0) :
+    x = y ∨ x + y = 2 * p ^ (k + 1) := by
+  have hp2 : 2 ≤ p := Nat.le_trans (by decide) hp3
+  have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) hp2
+  have hPpos : 0 < p ^ (k + 1) := Nat.pos_pow_of_pos _ hppos
+  have hpm : p ∣ p ^ (k + 1) := ⟨p ^ k, by rw [Nat.pow_succ, Nat.mul_comm]⟩
+  have hP1 : 1 < p ^ (k + 1) :=
+    Nat.lt_of_lt_of_le (Nat.lt_of_lt_of_le (by decide) hp3) (le_of_dvd_loc hPpos hpm)
+  have hm1 : 1 < 2 * p ^ (k + 1) :=
+    Nat.lt_of_lt_of_le hP1 (Nat.le_mul_of_pos_left _ (by decide))
+  have hp_not2 : ¬ p ∣ 2 :=
+    fun h => absurd (Nat.le_trans hp3 (le_of_dvd_loc (by decide) h)) (by decide)
+  have hco : gcd213 2 (p ^ (k + 1)) = 1 := coprime_prime_pow p 2 hp2 hpr hp_not2 (k + 1)
+  have hPdvdm : p ^ (k + 1) ∣ 2 * p ^ (k + 1) := ⟨2, by rw [Nat.mul_comm]⟩
+  have h2dvdm : 2 ∣ 2 * p ^ (k + 1) := ⟨p ^ (k + 1), rfl⟩
+  have hPx : p ^ (k + 1) ∣ (x * x + 1) := dvd_trans_loc _ _ _ hPdvdm (dvd_of_mod_eq_zero hxr)
+  have hPy : p ^ (k + 1) ∣ (y * y + 1) := dvd_trans_loc _ _ _ hPdvdm (dvd_of_mod_eq_zero hyr)
+  have h2x : 2 ∣ (x * x + 1) := dvd_trans_loc _ _ _ h2dvdm (dvd_of_mod_eq_zero hxr)
+  have h2y : 2 ∣ (y * y + 1) := dvd_trans_loc _ _ _ h2dvdm (dvd_of_mod_eq_zero hyr)
+  have hxodd : x % 2 = 1 := odd_of_two_dvd_sq_succ x h2x
+  have hyodd : y % 2 = 1 := odd_of_two_dvd_sq_succ y h2y
+  have hxr' : ((x % p ^ (k + 1)) * (x % p ^ (k + 1)) + 1) % p ^ (k + 1) = 0 :=
+    root_mod_P (p ^ (k + 1)) x hP1 hPx
+  have hyr' : ((y % p ^ (k + 1)) * (y % p ^ (k + 1)) + 1) % p ^ (k + 1) = 0 :=
+    root_mod_P (p ^ (k + 1)) y hP1 hPy
+  have hxlt' : x % p ^ (k + 1) < p ^ (k + 1) := Nat.mod_lt x hPpos
+  have hylt' : y % p ^ (k + 1) < p ^ (k + 1) := Nat.mod_lt y hPpos
+  rcases two_roots_of_prime_pow p k hp3 hpr (x % p ^ (k + 1)) (y % p ^ (k + 1))
+      hxlt' hylt' hxr' hyr' with hEq | hSum
+  · -- equal residues mod P ⟹ x = y (recombine with equal parity mod 2)
+    left
+    have hmod2 : x % 2 = y % 2 := by rw [hxodd, hyodd]
+    have hPsub : p ^ (k + 1) ∣ (x - y) := dvd_sub_of_mod_eq (p ^ (k + 1)) x y hEq
+    have h2sub : 2 ∣ (x - y) := dvd_sub_of_mod_eq 2 x y hmod2
+    have hmsub : 2 * p ^ (k + 1) ∣ (x - y) := two_P_dvd (p ^ (k + 1)) (x - y) hP1 hco h2sub hPsub
+    have hPsub' : p ^ (k + 1) ∣ (y - x) := dvd_sub_of_mod_eq (p ^ (k + 1)) y x hEq.symm
+    have h2sub' : 2 ∣ (y - x) := dvd_sub_of_mod_eq 2 y x hmod2.symm
+    have hmsub' : 2 * p ^ (k + 1) ∣ (y - x) := two_P_dvd (p ^ (k + 1)) (y - x) hP1 hco h2sub' hPsub'
+    have hx0 : x - y = 0 :=
+      eq_zero_of_dvd_lt hmsub (Nat.lt_of_le_of_lt (Nat.sub_le x y) hx)
+    have hy0 : y - x = 0 :=
+      eq_zero_of_dvd_lt hmsub' (Nat.lt_of_le_of_lt (Nat.sub_le y x) hy)
+    exact Nat.le_antisymm (Nat.le_of_sub_eq_zero hx0) (Nat.le_of_sub_eq_zero hy0)
+  · -- residues sum to P ⟹ x + y = 2P (recombine with both odd)
+    right
+    have hPsum : p ^ (k + 1) ∣ (x + y) := by
+      refine ⟨x / p ^ (k + 1) + y / p ^ (k + 1) + 1, ?_⟩
+      have ex : p ^ (k + 1) * (x / p ^ (k + 1)) + x % p ^ (k + 1) = x := E213.Meta.Nat.AddMod213.div_add_mod x _
+      have ey : p ^ (k + 1) * (y / p ^ (k + 1)) + y % p ^ (k + 1) = y := E213.Meta.Nat.AddMod213.div_add_mod y _
+      calc x + y
+          = (p ^ (k + 1) * (x / p ^ (k + 1)) + x % p ^ (k + 1))
+            + (p ^ (k + 1) * (y / p ^ (k + 1)) + y % p ^ (k + 1)) := by rw [ex, ey]
+        _ = p ^ (k + 1) * (x / p ^ (k + 1)) + p ^ (k + 1) * (y / p ^ (k + 1))
+            + (x % p ^ (k + 1) + y % p ^ (k + 1)) := by ring_nat
+        _ = p ^ (k + 1) * (x / p ^ (k + 1)) + p ^ (k + 1) * (y / p ^ (k + 1)) + p ^ (k + 1) := by
+              rw [hSum]
+        _ = p ^ (k + 1) * (x / p ^ (k + 1) + y / p ^ (k + 1) + 1) := by ring_nat
+    have h2sum : 2 ∣ (x + y) := by
+      refine ⟨x / 2 + y / 2 + 1, ?_⟩
+      have ex : 2 * (x / 2) + x % 2 = x := E213.Meta.Nat.AddMod213.div_add_mod x _
+      have ey : 2 * (y / 2) + y % 2 = y := E213.Meta.Nat.AddMod213.div_add_mod y _
+      calc x + y
+          = (2 * (x / 2) + x % 2) + (2 * (y / 2) + y % 2) := by rw [ex, ey]
+        _ = 2 * (x / 2) + 2 * (y / 2) + (x % 2 + y % 2) := by ring_nat
+        _ = 2 * (x / 2) + 2 * (y / 2) + (1 + 1) := by rw [hxodd, hyodd]
+        _ = 2 * (x / 2 + y / 2 + 1) := by ring_nat
+    have hmsum : 2 * p ^ (k + 1) ∣ (x + y) := two_P_dvd (p ^ (k + 1)) (x + y) hP1 hco h2sum hPsum
+    have hx1 : 1 ≤ x := by
+      rcases Nat.eq_zero_or_pos x with h | h
+      · exfalso; rw [h, Nat.zero_mul, Nat.zero_add, Nat.mod_eq_of_lt hm1] at hxr
+        exact absurd hxr (by decide)
+      · exact h
+    exact eq_p_of_dvd (2 * p ^ (k + 1)) (x + y) hm1
+      (Nat.lt_of_lt_of_le hx1 (Nat.le_add_right x y))
+      (by rw [Nat.two_mul]; exact Nat.add_lt_add hx hy) hmsum
+
+/-! ### Prime-power square collapse (residue-free) — the Zhang `3c±2` bridge core
+
+The core of `two_roots_pow_ordered` is residue-free: `m = p^(k+1) ∣ d·(2y+d) = (y+d)²−y²` with
+`p ∤ (y+d)` collapses to `d = 0 ∨ (y+d)+y = m`.  The `+1` of the `√(−1)` case only supplied `p ∤ (y+d)`.
+Taken as a hypothesis, the collapse serves any residue — in particular `x² ≡ y² (mod m)` with `p ∤ x,y`
+(`sq_eq_collapse_pp`), the form Zhang's `3c±2` route needs (`δ² ≡ −c² (mod M)`). -/
+
+/-- Prime-power square collapse (residue-free): `m = p^(k+1)`, `m ∣ d·(2y+d)`, `p ∤ (y+d)`, `1 ≤ y`,
+    `y+d < m` ⟹ `d = 0 ∨ (y+d)+y = m`. -/
+theorem sq_collapse_pow_ordered (p m y d : Nat) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (hpm : p ∣ m) (hm1 : 1 < m)
+    (hcop : ∀ n, ¬ p ∣ n → gcd213 n m = 1)
+    (hlt : y + d < m) (hy1 : 1 ≤ y) (hpx : ¬ p ∣ (y + d))
+    (hdiff : m ∣ (d * (2 * y + d))) : d = 0 ∨ (y + d) + y = m := by
+  have hp1 : 1 < p := Nat.lt_of_lt_of_le (by decide) hp3
+  have hp_not2 : ¬ p ∣ 2 :=
+    fun h => absurd (Nat.le_trans hp3 (le_of_dvd_loc (by decide) h)) (by decide)
+  have hsum : 2 * y + d = (y + d) + y := by rw [two_mul, Nat.add_right_comm y y d]
+  have hpos : 0 < (y + d) + y :=
+    Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_trans hy1 (Nat.le_add_left y (y + d)))
+  have hlt2 : (y + d) + y < 2 * m := by
+    rw [two_mul]; exact Nat.add_lt_add hlt (Nat.lt_of_le_of_lt (Nat.le_add_right y d) hlt)
+  rcases hpr (gcd213 p d) (gcd213_dvd_left p d) with hg1 | hgp
+  · right
+    have hpd : ¬ p ∣ d := by
+      intro hpd
+      have : p ∣ gcd213 p d := gcd213_greatest p d p ⟨1, (Nat.mul_one p).symm⟩ hpd
+      rw [hg1] at this
+      exact absurd (le_of_dvd_loc (by decide) this) (Nat.not_le_of_lt hp1)
+    have h2yd : m ∣ (2 * y + d) := euclid_of_coprime d (2 * y + d) m hm1 (hcop d hpd) hdiff
+    rw [hsum] at h2yd
+    exact eq_p_of_dvd m ((y + d) + y) hm1 hpos hlt2 h2yd
+  · left
+    have hpd : p ∣ d := hgp ▸ gcd213_dvd_right p d
+    have hp_not : ¬ p ∣ (2 * y + d) := by
+      intro hp2yd
+      have hp2y : p ∣ (2 * y) := by
+        have := dvd_sub_213 d (2 * y + d) p (Nat.le_add_left d (2 * y)) hpd hp2yd
+        rwa [E213.Tactic.NatHelper.add_sub_cancel_right] at this
+      have hpy : p ∣ y := euclid_of_coprime 2 y p hp1
+        (by rw [E213.Meta.Nat.Gcd213.gcd213_comm]; exact prime_coprime p 2 hpr hp_not2) hp2y
+      exact hpx (dvd_add_213 p y d hpy hpd)
+    have hmd : m ∣ d := euclid_of_coprime (2 * y + d) d m hm1 (hcop (2 * y + d) hp_not)
+      (by rw [Nat.mul_comm] at hdiff; exact hdiff)
+    rcases Nat.eq_zero_or_pos d with h0 | h0
+    · exact h0
+    · exact absurd (le_of_dvd_loc h0 hmd)
+        (Nat.not_le_of_lt (Nat.lt_of_le_of_lt (Nat.le_add_left d y) hlt))
+
+/-- ★★★★★ **Prime-power square equality**: for `m = p^(k+1)` (odd prime `p`), if `x² ≡ y² (mod m)` with
+    `p ∤ x` and `p ∤ y`, then `x = y ∨ x + y = m`.  The residue-free generalization of
+    `two_roots_of_prime_pow` — Zhang's `3c±2` route applies it to `δ² ≡ −c² (mod M)`. -/
+theorem sq_eq_collapse_pp (p k x y : Nat) (hp3 : 3 ≤ p) (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p)
+    (hx : x < p ^ (k + 1)) (hy : y < p ^ (k + 1)) (hpx : ¬ p ∣ x) (hpy : ¬ p ∣ y)
+    (hsq : (x * x) % p ^ (k + 1) = (y * y) % p ^ (k + 1)) : x = y ∨ x + y = p ^ (k + 1) := by
+  have hp2 : 2 ≤ p := Nat.le_trans (by decide) hp3
+  have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) hp2
+  have hpm : p ∣ p ^ (k + 1) := ⟨p ^ k, by rw [Nat.pow_succ, Nat.mul_comm]⟩
+  have hm1 : 1 < p ^ (k + 1) :=
+    Nat.lt_of_lt_of_le (Nat.lt_of_lt_of_le (by decide) hp3) (le_of_dvd_loc (Nat.pos_pow_of_pos _ hppos) hpm)
+  have hcop : ∀ n, ¬ p ∣ n → gcd213 n (p ^ (k + 1)) = 1 :=
+    fun n hn => coprime_prime_pow p n hp2 hpr hn (k + 1)
+  have hy1 : 1 ≤ y := by
+    rcases Nat.eq_zero_or_pos y with h0 | h0
+    · exact absurd (by rw [h0]; exact ⟨0, (Nat.mul_zero p).symm⟩) hpy
+    · exact h0
+  have hx1 : 1 ≤ x := by
+    rcases Nat.eq_zero_or_pos x with h0 | h0
+    · exact absurd (by rw [h0]; exact ⟨0, (Nat.mul_zero p).symm⟩) hpx
+    · exact h0
+  rcases Nat.le_total y x with hyx | hxy
+  · obtain ⟨d, hd⟩ := Nat.le.dest hyx
+    have hdiff : p ^ (k + 1) ∣ (d * (2 * y + d)) := by
+      have hd1 : p ^ (k + 1) ∣ (x * x - y * y) := dvd_sub_of_mod_eq (p ^ (k + 1)) (x * x) (y * y) hsq
+      rw [← hd, sq_expand y d, Nat.add_comm (y * y) (d * (2 * y + d)),
+          E213.Tactic.NatHelper.add_sub_cancel_right] at hd1
+      exact hd1
+    have hpx' : ¬ p ∣ (y + d) := by rw [hd]; exact hpx
+    have hlt : y + d < p ^ (k + 1) := by rw [hd]; exact hx
+    rcases sq_collapse_pow_ordered p (p ^ (k + 1)) y d hp3 hpr hpm hm1 hcop hlt hy1 hpx' hdiff with h | h
+    · left; rw [← hd, h, Nat.add_zero]
+    · right; rw [← hd]; exact h
+  · obtain ⟨d, hd⟩ := Nat.le.dest hxy
+    have hdiff : p ^ (k + 1) ∣ (d * (2 * x + d)) := by
+      have hd1 : p ^ (k + 1) ∣ (y * y - x * x) :=
+        dvd_sub_of_mod_eq (p ^ (k + 1)) (y * y) (x * x) hsq.symm
+      rw [← hd, sq_expand x d, Nat.add_comm (x * x) (d * (2 * x + d)),
+          E213.Tactic.NatHelper.add_sub_cancel_right] at hd1
+      exact hd1
+    have hpx' : ¬ p ∣ (x + d) := by rw [hd]; exact hpy
+    have hlt : x + d < p ^ (k + 1) := by rw [hd]; exact hy
+    rcases sq_collapse_pow_ordered p (p ^ (k + 1)) x d hp3 hpr hpm hm1 hcop hlt hx1 hpx' hdiff with h | h
+    · left; rw [← hd, h, Nat.add_zero]
+    · right; rw [← hd, Nat.add_comm x (x + d)]; exact h
+
+/-- **`√M`-bounded primality**: if no `d` with `2 ≤ d`, `d² ≤ M` divides `M`, then `M` is prime
+    (`∀ e, e∣M → e = 1 ∨ e = M`).  A composite `M = e·f` with `2 ≤ e ≤ f` has `min` factor `e ≤ √M`
+    (`e² ≤ e·f = M`), which the hypothesis forbids.  Lets primality of a concrete `M = 3c±2` be checked
+    by a `√M`-bounded `decide` (the naive `∀d≤M` overflows the kernel). -/
+theorem prime_of_no_small_factor (M : Nat) (hM : 2 ≤ M)
+    (h : ∀ d, 2 ≤ d → d * d ≤ M → ¬ d ∣ M) : ∀ e, e ∣ M → e = 1 ∨ e = M := by
+  intro e he
+  obtain ⟨f, hf⟩ := he
+  match e, f, hf with
+  | 0, f, hf => rw [Nat.zero_mul] at hf; rw [hf] at hM; exact absurd hM (by decide)
+  | 1, f, hf => exact Or.inl rfl
+  | (n + 2), 0, hf => rw [Nat.mul_zero] at hf; rw [hf] at hM; exact absurd hM (by decide)
+  | (n + 2), 1, hf => exact Or.inr (by rw [Nat.mul_one] at hf; exact hf.symm)
+  | (n + 2), (m + 2), hf =>
+      exfalso
+      rcases Nat.le_total (n + 2) (m + 2) with hle | hle
+      · exact h (n + 2) (Nat.le_add_left 2 n)
+          (by rw [hf]; exact Nat.mul_le_mul (Nat.le_refl (n + 2)) hle) ⟨m + 2, hf⟩
+      · exact h (m + 2) (Nat.le_add_left 2 m)
+          (by rw [hf]; exact Nat.mul_le_mul hle (Nat.le_refl (m + 2)))
+          ⟨n + 2, by rw [hf]; exact Nat.mul_comm (n + 2) (m + 2)⟩
+
 end E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor

@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 52 essays are grouped into nine thematic sub-directories — distinct
+The 58 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -63,7 +63,13 @@ others together):
 
 **IX. `methodology/` — methodology & PURE-Lean infra.**
 `pure_funext_avoidance`, `pure_nat_ring_methodology`,
-`bool_assoc_failure_meaning`, `why_the_reframing_recurs`.
+`bool_assoc_failure_meaning`, `reframe_presentation_transport`,
+`why_the_reframing_recurs`.
+
+**X. `proof_isa/` — proof as compilation to the residue ISA.**
+`what_is_a_proof` (series synthesis), `probabilistic_method`,
+`linear_algebra_method`, `parity_invariant_method`, `konig_boundary`.
+The "why" of each reproduced technique; the instruction set's interior + edge.
 
 ## Current essays
 
@@ -104,6 +110,7 @@ others together):
 | `c_counter_programme_closure.md` | How do the five directions (A/B/C/E/T) of the c-counter programme interlock?  Same-shape parallel to P-orbit closure? | `math/cohomology/k_nm_c_classification.md` + `master_Knn_c_counter_resolved` + `parametric_arbitrary_m_full_kill_capstone` + `parametric_dual_span_capstone` + `mediant_cohomology_functor_capstone` + `self_containment_cohomology_verdict` |
 | `layer_multiplication_pattern.md` | Why does the same proof shape (invariant + offset + cancellation) appear in cohomology layers, P-orbit depth, AND mediant Vandermonde? | `theory/essays/cohomology/c_counter_as_layer_count.md` + `theory/essays/p_orbit/p_orbit_closure_master.md` + `theory/essays/cohomology/vandermonde_mediant_counts.md` + `Beq213.nat_decide_add_left_assoc{1,2}` + `Combinatorics/Binomial.binom_add_2` + `Px/CharPolySelf.L_recurrence_2` |
 | `synthesis_interlock_map.md` | How do the three synthesis essays (c-counter, P-orbit, layer-multiplication) explicitly correspond row by row? | `theory/essays/cohomology/c_counter_programme_closure.md` + `theory/essays/p_orbit/p_orbit_closure_master.md` + `theory/essays/synthesis/layer_multiplication_pattern.md` |
+| `methodology/reframe_presentation_transport.md` | When a reading fails to SEPARATE (over-counts), how does 213 read the same residue at a resolution where it separates? (Markov uniqueness, Zhang's 3c±2, presentation-transport as a lift) | `Foundations/ProofISALifts` (`lift_reframe`) + `math/analysis/markov_uniqueness.md` + `MarkovUniqueness.markov_max_unique_via_3c_pm2` + `MarkovPrimeFactor.sq_eq_collapse_pp` + CLAUDE.md *External-ruler smuggling* |
 | `representation_theorems_one_counting_bound.md` | Why are `p = a²−ab+b²` (disc −3), `p = a²+b²` (disc −4), and the `ℤ[√−D]` family all one theorem? | `PolyRoot/RootBound.eval_zero` + `NonFixedExists.exists_nonfixed_gen` + `Integer/{EisensteinSplit,GaussianSplit,ZSqrtNegSplit}.split_form` + `Integer/ZSqrtNegSharp.descent_false_at_three` |
 | `four_square_additive_pigeonhole.md` | Why is every `n = a²+b²+c²+d²`, and why does this need a *different* engine than the disc-`−D` representation theorems? | `NumberTheory/FourSquare.{four_sq_id,isSum4_mul,descent_core,odd_descent,halve_step,descent_rec,seed_multiple,exists_prime_factor,prime_isSum4,nat_isSum4}` + `FourSquareSeed.four_square_seed` + `Combinatorics/Pigeonhole.no_inj_lt` |
 | `k32_cohomology_simplex_higher_insight.md` | 213/K₃,₂²/코호몰로지 심플렉스 고차 통찰 — G140 + G138 B/D 프로모션 연결 | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
