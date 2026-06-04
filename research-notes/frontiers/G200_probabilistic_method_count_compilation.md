@@ -114,9 +114,25 @@ matchesC(some true on S)`, disjoint, count `2·2^{E−|S|}`.
 **Remaining rung** (now just the `K_N` model): an edge↔position indexing and
 `k`-subset enumeration giving `t = C(N,k)` events, then `erdos_schema` with
 `c = 2·2^{E−C(k,2)}`, `E = C(N,2)`, `t·c < 2^E ⟺ 2·C(N,k) < 2^{C(k,2)}` closes
-the *named* `R(k,k) > 2^{k/2}`.  Log the
-`count_factor`/`mono_event_count`/`matchesC_count` lift in `ProofISALifts` as
-the cumulative half.
+the *named* `R(k,k) > 2^{k/2}`.
+
+### Cumulative half — DONE (registered in the framework)
+
+COUNT is now registered as the **quantitative `GAP` sub-mode** (not a 9th
+instruction — that would be "view promoted to identity"):
+
+  · `seed/PROOF_ISA.md` — GAP sub-mode subsection (witness `count_existence`,
+    the 72× `pigeonhole` tell, the doubling lift).
+  · `lean/E213/Lib/Math/Foundations/ProofISALifts.lean` — **Archetype 4**
+    COUNT / cardinality-doubling (`lift_count = count_existence`,
+    `lift_count_factor = matchesC_count`, both PURE); the `GAP`-cardinality
+    complement to A1's `GAP`-diagonal, *not* in `H`'s ORBIT family.
+  · `theory/essays/proof_isa/probabilistic_method.md` — the full "why".
+
+**Decision (this checkpoint):** the named `R(k,k)` closure is pure `K_N`
+bookkeeping with no new "why", so it is left as the stated rung; the conceptual
+payoff (the COUNT instruction + its lift archetype) is banked into the
+framework, which is the experiment's actual yield.
 
 ## Reading
 

@@ -33,6 +33,22 @@ You do not re-derive the ISA per application; you **compile** the application do
 This is the "most primitive atomic element, all already built."  Earlier scattered foundational
 theorems, seen as *one instruction set*.
 
+### GAP sub-mode — COUNT (quantitative `GAP`: deficit ⟹ existence)
+
+`GAP` above is *qualitative* (a structural reason a reading misses its codomain — "not every function is
+a fold").  Compiling the **probabilistic method** (Erdős 1947, `R(k,k) > 2^{k/2}`) down the ISA surfaced
+its *quantitative* witness: when the bad readings are provably **fewer** than the codomain
+(`Σ|badᵢ| < |codomain|`), the un-covered surplus is forced, and — the carrier being a finite residue — it
+is *found* by search, no `Classical`.  This is one `GAP`-arrow read by **cardinality**, not a ninth
+instruction (registering it as such would be the "view promoted to identity" failure).  Its decisive tell:
+the repo already used it 72× as `pigeonhole` (the `N+1 → N` qualitative face) without naming it.
+
+  · witness: `CountExistence.count_existence` / `erdos_schema` (∅-axiom)
+  · the lift (why the per-event count holds): `RamseyLowerBound.{count_factor, matchesC_count}` — each
+    free distinguishing **doubles** the count, so existence-counting *factors* because distinguishings
+    multiply (catalogued, Archetype 4, `ProofISALifts.lean`).
+  · the "why" in full: `theory/essays/proof_isa/probabilistic_method.md`.
+
 ## Methodology — compile, do not crack
 
 Research an open problem by **compiling it down the layers** (`L3 → L2 → L1`) and locating the right
