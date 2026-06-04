@@ -17,8 +17,10 @@ namespace E213.Lib.Math.Cauchy.CFiniteHadamard
 
 open E213.Lib.Math.Linalg213.Permutation (sumZ iota)
 open E213.Lib.Math.Linalg213.Laplace (sumZ_append map_append')
-open E213.Lib.Math.Linalg213.PermClosure (map_map')
-open E213.Lib.Math.Linalg213.CayleyHamilton (sumZ_singleton)
+open E213.Lib.Math.Linalg213.PermClosure (map_map' map_eq_of_mem sumZ_map_smul lt_of_mem_iota)
+open E213.Lib.Math.Linalg213.CayleyHamilton (sumZ_singleton sumZ_map_smul_right sumZ_iota_delta_lt)
+open E213.Lib.Math.Cauchy.CFiniteRing (shiftSum ShiftRecZ)
+open E213.Lib.Math.PolyZ (one_mul')
 
 /-! ## §1 — clean list helpers + the grid-sum decomposition -/
 
@@ -153,5 +155,76 @@ theorem decB_encode {q : Nat} (hq : 0 < q) (a b : Nat) (hb : b < q) :
   obtain ⟨h1, _⟩ := dec_spec hq (a * q + b)
   rw [decA_encode hq a b hb] at h1
   exact E213.Tactic.NatHelper.add_left_cancel h1
+
+/-! ## §4 — the (factored) Kronecker companion and the vector recurrence -/
+
+/-- `shiftSum` as a `sumZ` over `iota`. -/
+theorem shiftSum_eq_sumZ (b s : Nat → Int) (n : Nat) : ∀ (k : Nat),
+    shiftSum b s k n = sumZ ((iota k).map (fun i => b i * s (n + i)))
+  | 0     => rfl
+  | k + 1 => by
+    show shiftSum b s k n + b k * s (n + k) = sumZ ((iota (k + 1)).map (fun i => b i * s (n + i)))
+    rw [shiftSum_eq_sumZ b s n k, show iota (k + 1) = iota k ++ [k] from rfl, map_append',
+        sumZ_append,
+        show ([k] : List Nat).map (fun i => b i * s (n + i)) = [b k * s (n + k)] from rfl,
+        sumZ_singleton]
+
+/-- The `s`-shift row of the companion: shift if interior, the recurrence row at the `s`-boundary. -/
+def Ms (p : Nat) (α : Nat → Int) (a a' : Nat) : Int :=
+  if a + 1 < p then (if a + 1 = a' then 1 else 0) else α a'
+
+/-- The `t`-shift row. -/
+def Mt (q : Nat) (β : Nat → Int) (b b' : Nat) : Int :=
+  if b + 1 < q then (if b + 1 = b' then 1 else 0) else β b'
+
+/-- The product vector `w(n)_J = s(n + J/q)·t(n + J%q)`. -/
+def Wvec (s t : Nat → Int) (q : Nat) : Nat → Nat → Int :=
+  fun n J => s (n + decA q J) * t (n + decB q J)
+
+/-- The Kronecker companion `M_{JK} = M_s(decA J, decA K)·M_t(decB J, decB K)`. -/
+def Mmat (p q : Nat) (α β : Nat → Int) : Nat → Nat → Int :=
+  fun J K => Ms p α (decA q J) (decA q K) * Mt q β (decB q J) (decB q K)
+
+/-- ★ **The `s`-row reproduces the shift**: `Σ_{a'<p} M_s(a,a')·s(n+a') = s(n+a+1)`. -/
+theorem Ms_sum {p : Nat} {α : Nat → Int} {s : Nat → Int} {n : Nat}
+    (hp : ShiftRecZ p α s) {a : Nat} (ha : a < p) :
+    sumZ ((iota p).map (fun a' => Ms p α a a' * s (n + a'))) = s (n + a + 1) := by
+  by_cases h : a + 1 < p
+  · rw [map_eq_of_mem (fun a' => Ms p α a a' * s (n + a')) (fun a' => if a + 1 = a' then s (n + a') else 0)
+          (fun a' _ => by
+            show (if a + 1 < p then (if a + 1 = a' then 1 else 0) else α a') * s (n + a')
+               = if a + 1 = a' then s (n + a') else 0
+            rw [if_pos h]
+            by_cases h2 : a + 1 = a'
+            · rw [if_pos h2, if_pos h2, one_mul']
+            · rw [if_neg h2, if_neg h2, E213.Meta.Int213.zero_mul]),
+        sumZ_iota_delta_lt (fun a' => s (n + a')) (a + 1) p h, Nat.add_assoc n a 1]
+  · have hap : a + 1 = p := Nat.le_antisymm (Nat.succ_le_of_lt ha) (Nat.le_of_not_lt h)
+    rw [map_eq_of_mem (fun a' => Ms p α a a' * s (n + a')) (fun a' => α a' * s (n + a'))
+          (fun a' _ => by
+            show (if a + 1 < p then (if a + 1 = a' then 1 else 0) else α a') * s (n + a') = α a' * s (n + a')
+            rw [if_neg h]),
+        ← shiftSum_eq_sumZ α s n p, ← hp n, Nat.add_assoc n a 1, hap]
+
+/-- ★ **The `t`-row reproduces the shift**: `Σ_{b'<q} M_t(b,b')·t(n+b') = t(n+b+1)`. -/
+theorem Mt_sum {q : Nat} {β : Nat → Int} {t : Nat → Int} {n : Nat}
+    (hq : ShiftRecZ q β t) {b : Nat} (hb : b < q) :
+    sumZ ((iota q).map (fun b' => Mt q β b b' * t (n + b'))) = t (n + b + 1) := by
+  by_cases h : b + 1 < q
+  · rw [map_eq_of_mem (fun b' => Mt q β b b' * t (n + b')) (fun b' => if b + 1 = b' then t (n + b') else 0)
+          (fun b' _ => by
+            show (if b + 1 < q then (if b + 1 = b' then 1 else 0) else β b') * t (n + b')
+               = if b + 1 = b' then t (n + b') else 0
+            rw [if_pos h]
+            by_cases h2 : b + 1 = b'
+            · rw [if_pos h2, if_pos h2, one_mul']
+            · rw [if_neg h2, if_neg h2, E213.Meta.Int213.zero_mul]),
+        sumZ_iota_delta_lt (fun b' => t (n + b')) (b + 1) q h, Nat.add_assoc n b 1]
+  · have hbq : b + 1 = q := Nat.le_antisymm (Nat.succ_le_of_lt hb) (Nat.le_of_not_lt h)
+    rw [map_eq_of_mem (fun b' => Mt q β b b' * t (n + b')) (fun b' => β b' * t (n + b'))
+          (fun b' _ => by
+            show (if b + 1 < q then (if b + 1 = b' then 1 else 0) else β b') * t (n + b') = β b' * t (n + b')
+            rw [if_neg h]),
+        ← shiftSum_eq_sumZ β t n q, ← hq n, Nat.add_assoc n b 1, hbq]
 
 end E213.Lib.Math.Cauchy.CFiniteHadamard
