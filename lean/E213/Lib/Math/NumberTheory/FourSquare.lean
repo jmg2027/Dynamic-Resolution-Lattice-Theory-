@@ -24,7 +24,7 @@ namespace E213.Lib.Math.NumberTheory.FourSquare
 open E213.Meta.Int213.OrderMul (int_sign mul_pos int_lt_irrefl mul_le_mul_left_nonneg ofNat_le_of_le)
 open E213.Meta.Int213.Order
   (le_antisymm le_of_sub_nonneg nonneg_of_le_zero sub_pos_of_lt lt_of_sub_pos zero_sub sub_self_zero
-   lt_of_lt_of_le le_of_lt le_trans add_le_add_right add_le_add_left)
+   lt_of_lt_of_le lt_of_le_of_lt le_of_lt le_trans add_le_add_right add_le_add_left)
 open E213.Meta.Int213 (mul_neg zero_add)
 
 /-- `a ≤ b`, `c ≤ d ⟹ a+c ≤ b+d` (pure). -/
