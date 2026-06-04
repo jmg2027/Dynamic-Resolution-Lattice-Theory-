@@ -1,8 +1,10 @@
 import E213.Lib.Math.NumberTheory.FourSquareSeed
 import E213.Lib.Math.NumberTheory.ModArith.CenteredDivision
+import E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
 import E213.Meta.Int213.PolyIntMTactic
 import E213.Meta.Int213.OrderMul
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.NatRing213
 
 /-!
 # FourSquare — Lagrange's four-square theorem via Euler descent (Pillar II)
@@ -460,5 +462,175 @@ theorem descent_rec (p : Nat) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p) :
       rw [hm1, show ((1 : Nat) : Int) * (p : Int) = (p : Int) from by
         rw [show ((1 : Nat) : Int) = 1 from rfl]; ring_intZ] at hsum
       exact hsum
+
+/-! ## §6 — seed → initial multiple -/
+
+open E213.Lib.Math.NumberTheory.FourSquareSeed (four_square_seed)
+
+/-- **Seed to initial multiple.**  For a prime `p = 2m+1`, the seed `p ∣ x²+y²+1` (`x,y ≤ m`)
+    gives `k·p = x²+y²+1²+0²` with `1 ≤ k < p` (`k·p ≤ 2m²+1 < p²`). -/
+theorem seed_multiple (p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hpm : 2 * m + 1 = p) :
+    ∃ k : Nat, 1 ≤ k ∧ k < p ∧ isSum4 ((k : Int) * (p : Int)) := by
+  obtain ⟨x, y, hx, hy, hdvd⟩ := four_square_seed p m hp hpr hpm
+  obtain ⟨k, hk⟩ := hdvd   -- hk : x*x+y*y+1 = p*k
+  -- `m ≥ 1`
+  have hm1 : 1 ≤ m := by
+    rcases Nat.eq_zero_or_pos m with hz | hz
+    · exfalso; rw [hz, Nat.mul_zero, Nat.zero_add] at hpm
+      rw [← hpm] at hp; exact absurd hp (by decide)
+    · exact hz
+  refine ⟨k, ?_, ?_, ?_⟩
+  · -- `k ≥ 1`
+    rcases Nat.eq_zero_or_pos k with hz | hz
+    · exfalso; rw [hz, Nat.mul_zero] at hk; exact Nat.noConfusion hk
+    · exact hz
+  · -- `k < p`
+    have hxm : x * x ≤ m * m := Nat.mul_le_mul hx hx
+    have hym : y * y ≤ m * m := Nat.mul_le_mul hy hy
+    have hbound : x * x + y * y + 1 ≤ m * m + m * m + 1 :=
+      Nat.add_le_add (Nat.add_le_add hxm hym) (Nat.le_refl 1)
+    have hpsq : m * m + m * m + 1 + (2 * (m * m) + 4 * m) = p * p := by rw [← hpm]; ring_nat
+    have hppos : 0 < 2 * (m * m) + 4 * m :=
+      Nat.lt_of_lt_of_le (Nat.mul_pos (by decide) hm1) (Nat.le_add_left (4 * m) (2 * (m * m)))
+    have hstrict : m * m + m * m + 1 < p * p := by
+      rw [← hpsq]; exact Nat.lt_add_of_pos_right hppos
+    have hlt : x * x + y * y + 1 < p * p := Nat.lt_of_le_of_lt hbound hstrict
+    have hpklt : p * k < p * p := by rw [← hk]; exact hlt
+    cases Nat.lt_or_ge k p with
+    | inl h => exact h
+    | inr h =>
+      exfalso
+      exact absurd (Nat.lt_of_lt_of_le hpklt (Nat.mul_le_mul_left p h)) (Nat.lt_irrefl (p * k))
+  · -- `isSum4 (k·p)`
+    refine ⟨(x : Int), (y : Int), 1, 0, ?_⟩
+    have e1 : (p : Int) * (k : Int) = (x : Int) * (x : Int) + (y : Int) * (y : Int) + 1 := by
+      have h2 : ((x * x + y * y + 1 : Nat) : Int) = ((p * k : Nat) : Int) := by rw [hk]
+      exact h2.symm
+    rw [show (1 : Int) * 1 = 1 from rfl, show (0 : Int) * 0 = 0 from rfl, Int.add_zero,
+      show (k : Int) * (p : Int) = (p : Int) * (k : Int) from by ring_intZ]
+    exact e1
+
+/-! ## §7 — prime factorization → all `n` -/
+
+open E213.Lib.Math.NumberTheory.FourSquareSeed (mod_zero_of_dvd)
+open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
+open E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor (dvd_trans_loc le_of_dvd_loc)
+open E213.Meta.Nat.NatRing213 (nat_mul_lt_mul_right)
+
+/-- Decidable divisibility (constructive), `∅`-axiom via `n % k`. -/
+theorem dvd_dec (k n : Nat) (hk : 0 < k) : (k ∣ n) ∨ ¬ k ∣ n := by
+  rcases Nat.eq_zero_or_pos (n % k) with h0 | hp
+  · exact Or.inl (dvd_of_mod_eq_zero h0)
+  · exact Or.inr (fun hd => by rw [mod_zero_of_dvd n k hd] at hp; exact Nat.lt_irrefl 0 hp)
+
+/-- Bounded search: either `n` has a nontrivial divisor `2 ≤ d < n`, or no such `d < k` exists. -/
+theorem searchDiv (n : Nat) : ∀ (k : Nat),
+    (∃ d, 2 ≤ d ∧ d < n ∧ d ∣ n) ∨ (∀ d, 2 ≤ d → d < n → d < k → ¬ d ∣ n) := by
+  intro k
+  induction k with
+  | zero => exact Or.inr (fun d _ _ hlt => absurd hlt (Nat.not_lt_zero d))
+  | succ k ih =>
+    rcases ih with hfound | hnone
+    · exact Or.inl hfound
+    · rcases Nat.lt_or_ge k 2 with hk2 | hk2
+      · refine Or.inr (fun d hd2 hdn hdk1 => ?_)
+        rcases Nat.lt_or_ge d k with hdk | hdk
+        · exact hnone d hd2 hdn hdk
+        · have he : d = k := Nat.le_antisymm (Nat.le_of_lt_succ hdk1) hdk
+          rw [he] at hd2; exact absurd (Nat.lt_of_le_of_lt hd2 hk2) (Nat.lt_irrefl 2)
+      · rcases Nat.lt_or_ge k n with hkn | hkn
+        · rcases dvd_dec k n (Nat.lt_of_lt_of_le (by decide) hk2) with hdvd | hndvd
+          · exact Or.inl ⟨k, hk2, hkn, hdvd⟩
+          · refine Or.inr (fun d hd2 hdn hdk1 => ?_)
+            rcases Nat.lt_or_ge d k with hdk | hdk
+            · exact hnone d hd2 hdn hdk
+            · have he : d = k := Nat.le_antisymm (Nat.le_of_lt_succ hdk1) hdk
+              rw [he]; exact hndvd
+        · refine Or.inr (fun d hd2 hdn hdk1 => ?_)
+          rcases Nat.lt_or_ge d k with hdk | hdk
+          · exact hnone d hd2 hdn hdk
+          · have he : d = k := Nat.le_antisymm (Nat.le_of_lt_succ hdk1) hdk
+            rw [he] at hdn; exact absurd (Nat.lt_of_lt_of_le hdn hkn) (Nat.lt_irrefl k)
+
+/-- **Every `n ≥ 2` has a prime factor** (`∅`-axiom; least-divisor argument via `searchDiv`). -/
+theorem exists_prime_factor : ∀ (fuel n : Nat), n ≤ fuel → 2 ≤ n →
+    ∃ q, 1 < q ∧ (∀ d, d ∣ q → d = 1 ∨ d = q) ∧ q ∣ n := by
+  intro fuel
+  induction fuel with
+  | zero => intro n hn h2; exact absurd (Nat.le_trans h2 hn) (by decide)
+  | succ f ih =>
+    intro n hnf h2
+    rcases searchDiv n n with ⟨d, hd2, hdn, hddvd⟩ | hnone
+    · obtain ⟨q, hq1, hqpr, hqd⟩ :=
+        ih d (Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hdn hnf)) hd2
+      exact ⟨q, hq1, hqpr, dvd_trans_loc q d n hqd hddvd⟩
+    · refine ⟨n, h2, ?_, ⟨1, (Nat.mul_one n).symm⟩⟩
+      intro e hen
+      have hen_le : e ≤ n := le_of_dvd_loc (Nat.lt_of_lt_of_le (by decide) h2) hen
+      rcases Nat.lt_or_ge e n with helt | hege
+      · rcases Nat.lt_or_ge e 2 with he2 | he2
+        · rcases cases_lt_two he2 with h0 | h1
+          · exfalso; rw [h0] at hen
+            obtain ⟨c, hc⟩ := hen; rw [Nat.zero_mul] at hc
+            rw [hc] at h2; exact absurd h2 (by decide)
+          · exact Or.inl h1
+        · exact absurd hen (hnone e he2 helt helt)
+      · exact Or.inr (Nat.le_antisymm hen_le hege)
+
+/-- **Every prime is a sum of four squares.**  `p = 2` directly; odd `p` via the seed multiple
+    and the descent recursion. -/
+theorem prime_isSum4 (p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p) :
+    isSum4 ((p : Int)) := by
+  rcases nat_even_or_odd p with ⟨k, he⟩ | ⟨k, ho⟩
+  · -- even ⟹ `p = 2`
+    have h2p : (2 : Nat) = p := by
+      rcases hpr 2 ⟨k, he⟩ with h | h
+      · exact absurd h (by decide)
+      · exact h
+    rw [← h2p]; exact ⟨1, 1, 0, 0, by decide⟩
+  · -- odd
+    have hk1 : 1 ≤ k := by
+      rcases Nat.eq_zero_or_pos k with hz | hz
+      · exfalso; rw [hz, Nat.mul_zero, Nat.zero_add] at ho
+        rw [ho] at hp; exact absurd hp (by decide)
+      · exact hz
+    obtain ⟨c, hc1, hclt, hcs⟩ := seed_multiple p k hp hpr ho.symm
+    exact descent_rec p hpr p c (Nat.le_of_lt hclt) hc1 hclt hcs
+
+/-- ★★★★★ **Lagrange's four-square theorem.**  Every natural number is a sum of four squares. -/
+theorem nat_isSum4 : ∀ (n : Nat), isSum4 ((n : Int)) := by
+  have main : ∀ (fuel n : Nat), n ≤ fuel → isSum4 ((n : Int)) := by
+    intro fuel
+    induction fuel with
+    | zero =>
+      intro n hn
+      have : n = 0 := Nat.le_antisymm hn (Nat.zero_le n)
+      rw [this]; exact ⟨0, 0, 0, 0, by decide⟩
+    | succ f ih =>
+      intro n hnf
+      rcases Nat.lt_or_ge n 2 with hlt | hge
+      · -- `n = 0` or `n = 1`
+        rcases cases_lt_two hlt with h0 | h1
+        · rw [h0]; exact ⟨0, 0, 0, 0, by decide⟩
+        · rw [h1]; exact ⟨1, 0, 0, 0, by decide⟩
+      · -- `n ≥ 2`: split off a prime factor
+        obtain ⟨q, hq1, hqpr, hqd⟩ := exists_prime_factor n n (Nat.le_refl n) hge
+        obtain ⟨r, hr⟩ := hqd   -- hr : n = q * r
+        have hr1 : 1 ≤ r := by
+          rcases Nat.eq_zero_or_pos r with hz | hz
+          · exfalso; rw [hz, Nat.mul_zero] at hr
+            rw [hr] at hge; exact absurd hge (by decide)
+          · exact hz
+        have hrlt : r < n := by
+          rw [hr]
+          have : 1 * r < q * r := nat_mul_lt_mul_right hr1 hq1
+          rwa [Nat.one_mul] at this
+        have hqsum : isSum4 ((q : Int)) := prime_isSum4 q hq1 hqpr
+        have hrsum : isSum4 ((r : Int)) :=
+          ih r (Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hrlt hnf))
+        have hmul : isSum4 ((q : Int) * (r : Int)) := isSum4_mul hqsum hrsum
+        rw [hr]; exact hmul
+  intro n; exact main n n (Nat.le_refl n)
 
 end E213.Lib.Math.NumberTheory.FourSquare
