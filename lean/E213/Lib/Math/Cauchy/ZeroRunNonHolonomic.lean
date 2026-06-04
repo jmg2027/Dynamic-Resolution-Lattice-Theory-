@@ -41,13 +41,6 @@ def HomogRec (a : Nat → Int) : Prop :=
     (∀ n (w : Nat → Int), (∀ i, i < k → w i = 0) → R n w = 0) ∧
     (∀ n, lead n * a (n + k) = R n (fun i => a (n + i)))
 
-/-- A nonzero `lead` times a value is zero ⟹ the value is zero (`Int` has no zero divisors).
-    Decidable case split (no `propext` from the `mul_eq_zero` iff). -/
-theorem int_eq_zero_of_mul_left {x y : Int} (hx : x ≠ 0) (h : x * y = 0) : y = 0 := by
-  rcases E213.Meta.Int213.mul_eq_zero h with hx0 | hy0
-  · exact absurd hx0 hx
-  · exact hy0
-
 /-- ★★★ **Zero-run non-holonomicity.**  If `a` has arbitrarily long zero-runs at arbitrarily
     large positions and infinitely many nonzero terms, it satisfies **no** homogeneous
     finite-window recurrence with eventually-nonzero leading coefficient — in particular it is
@@ -81,7 +74,8 @@ theorem zero_run_not_homogRec (a : Nat → Int)
         rw [hRzero] at hrecn
         have hleadne : lead (N + (t - k)) ≠ 0 :=
           lead_ne (N + (t - k)) (Nat.le_trans hNR₀ (Nat.le_add_right N (t - k)))
-        have haz : a (N + (t - k) + k) = 0 := int_eq_zero_of_mul_left hleadne hrecn
+        have haz : a (N + (t - k) + k) = 0 :=
+          E213.Meta.Int213.int_eq_zero_of_mul_left hleadne hrecn
         have hidx : N + (t - k) + k = N + t := by
           rw [Nat.add_assoc, E213.Tactic.NatHelper.sub_add_cancel hkt]
         rwa [hidx] at haz

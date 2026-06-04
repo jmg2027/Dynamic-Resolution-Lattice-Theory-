@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cauchy.DetZeroCollapse
 import E213.Lib.Math.Cauchy.PolyDepthMonotone
+import E213.Meta.Int213.Core
 
 /-!
 # The unit's two faces have opposite additive-depth status
@@ -35,12 +36,6 @@ theorem cas_unit_depth0 (p : Int) (s : Nat → Int)
 
 /-! ## `det = −1`: period-2, non-constant ⟹ no finite depth -/
 
-/-- A nonzero integer differs from its negation. -/
-theorem int_ne_neg_self {x : Int} (h : x ≠ 0) : x ≠ -x := by
-  match x with
-  | Int.ofNat 0 => exact absurd rfl h
-  | Int.ofNat (k + 1) => intro he; exact Int.noConfusion he
-  | Int.negSucc k => intro he; exact Int.noConfusion he
 
 /-- `x ≠ 0 ⟹ (-1)·x ≠ 0`. -/
 theorem neg_one_mul_ne_zero {x : Int} (h : x ≠ 0) : (-1) * x ≠ 0 := by
@@ -65,7 +60,7 @@ theorem cas_neg_unit_consecutive_ne (p : Int) (s : Nat → Int)
     ∀ n, cas s n ≠ cas s (n + 1) := by
   intro n
   rw [cas_step p (-1) s hrec n, show (-1) * cas s n = -(cas s n) by ring_intZ]
-  exact int_ne_neg_self (cas_neg_unit_ne_zero p s hrec h0 n)
+  exact E213.Meta.Int213.int_ne_neg_self (cas_neg_unit_ne_zero p s hrec h0 n)
 
 /-- A period-2 sequence whose consecutive terms always differ is **not eventually monotone**
     (neither non-decreasing nor non-increasing). -/

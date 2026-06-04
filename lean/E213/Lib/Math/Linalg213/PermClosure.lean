@@ -1,5 +1,6 @@
 import E213.Lib.Math.Linalg213.Permutation
 import E213.Meta.Tactic.List213
+import E213.Meta.Int213.Core
 
 /-!
 # Linalg213 — the permutation enumeration realizes the symmetric-group action
@@ -644,22 +645,10 @@ theorem rowSwapAt_eq_of_rows_eq (M : Nat → Nat → Int) (k : Nat)
     · rw [if_pos h2, h2]; exact hrows c
     · rw [if_neg h2]
 
-/-- Over `ℤ`, `x = −x` forces `x = 0`. -/
-theorem int_eq_zero_of_eq_neg {x : Int} (h : x = -x) : x = 0 := by
-  have hxx : x + x = 0 := (congrArg (x + ·) h).trans (E213.Meta.Int213.add_neg_cancel x)
-  cases x with
-  | ofNat m =>
-    rw [show Int.ofNat m + Int.ofNat m = Int.ofNat (m + m) from rfl] at hxx
-    have hm0 : m = 0 := Nat.eq_zero_of_add_eq_zero_right (Int.ofNat.inj hxx)
-    subst hm0; rfl
-  | negSucc m =>
-    rw [show Int.negSucc m + Int.negSucc m = Int.negSucc (m + m + 1) from rfl] at hxx
-    exact Int.noConfusion hxx
-
 /-- ★★★ **Two equal adjacent rows ⟹ the Leibniz determinant vanishes.** -/
 theorem leibDet_eq_zero_of_rows_eq (M : Nat → Nat → Int) (n k : Nat) (hk : k + 1 < n)
     (hrows : ∀ c, M k c = M (k + 1) c) : leibDet n M = 0 :=
-  int_eq_zero_of_eq_neg
+  E213.Meta.Int213.int_eq_zero_of_eq_neg
     ((leibDet_congr n (rowSwapAt_eq_of_rows_eq M k hrows)).symm.trans (leibDet_rowSwap M n k hk))
 
 /-! ## §11 — general equal rows (any gap) ⟹ `leibDet = 0` -/
