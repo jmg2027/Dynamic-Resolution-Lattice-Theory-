@@ -239,6 +239,28 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
+
+The cross-determinant's number-field reading, promoted to
+`theory/math/numbertheory/eisenstein_period_arithmetic.md` — **38 PURE / 0 DIRTY** across:
+
+- `Real213.CrossDetTraceField` (**20 PURE**) — `fixForm_disc_eq_traceDisc`: the fixed-point
+  form `(c, d−a, −b)` of a Möbius `M` has discriminant `tr²−4` (ring identity, ∀ `M`);
+  `crossdet_number_field_is_trace_field` (golden `+5` / cusp `0` / Eisenstein `−3` faces);
+  `fixForm_automorph` (monodromy preserves its form up to `det`); `disc_sign_is_line_cusp_curve`.
+- `ModArith.EisensteinFormCharacter` (**11 PURE**) — `eisCyc_mod3_ne_two`: `a²+ab+b² ≢ 2 (mod 3)`,
+  the χ₋₃ fingerprint; `mod3` shown a ring hom (`mod3_add`, `mod3_mul`).
+- `Integer.EisensteinSplitting` (**5 PURE**) — `eisForm_composition` (disc-`−3` Brahmagupta
+  multiplicativity); `eisenstein_local_splitting` (split `7,13` / ramified `N(1−ω)=3` / inert `2`).
+- `Integer.EisensteinClassNumber` (**1 PURE**) — `reduced_disc_neg3_unique`: `h(−3)=1`, the only
+  reduced form is `x²+xy+y²`.
+- `Integer.EisensteinEuclidean` (**1 PURE**) — `covering_bound`: covering radius² `≤ 3/4 < 1`,
+  why `ℤ[ω]` is norm-Euclidean.
+
+Open frontier (recorded in `research-notes/frontiers/`): the split converse (`p≡1 mod3 ⟹` value,
+needs the primitive-root theorem + Euclidean descent) and the transcendental period value
+(`Γ(1/3)`, needs the cubic AGM / `L(1,χ₋₃)`).
+
 ### Invert universal property + deep-research additions (2026-06-03)
 
 `E213.Lens.Number.FoundingDialUnification` — **4 PURE / 0 DIRTY**.  The number-tower founding

@@ -1,7 +1,11 @@
 # G167 — the cross-determinant classification's number-field reading, and the Eisenstein/elliptic conjecture
 
 **Date**: 2026-06-01.  **Status**: conjecture (originator: Mingu Jeong) + repo-grounded
-analysis.  **Tier**: 1 (research scratch — open frontier, not promoted).
+analysis.  **Tier**: 1 (research scratch — open frontier).
+
+**Closed core promoted** → `theory/math/numbertheory/eisenstein_period_arithmetic.md`
+(the number-field = trace-field unification + the Eisenstein-period arithmetic, 38 PURE).
+This note stays for the two open frontiers below (split converse + period value).
 
 ## The seed (Mingu Jeong)
 
