@@ -94,20 +94,15 @@ mirror chapters; the per-sub-tree INDEX flags them.  See
 
 ## Active research (not promoted)
 
-Top-level `research-notes/` registries:
-
-| Class | Notes | Purpose |
-|---|---|---|
-| Foundational anchors | `G29_residue.md`, `G1-G5`, `G12`, `75`, `76` | Boot-sequence, thesis anchors, semantic atom, ouroboros |
-| Methodology & catalogs | `G35` (algebra catalog) | Cross-session tooling references |
-| Open conjectures | `G85, G87` (cup-Δ observations), `G86` (Cup-Leibniz ∀(k,l)) | Conjecture catalog |
-| Open research directions | `G121` (Geometrization R1+ — chapter active, side-observations open) | Active scratch — chapter handles R1; note hosts the open marathon front |
-| Synthesis / deep-dive | `G108-G116`, `G135-G137` | Tier-2 analytical scans annotating already-promoted chapters |
-| Lens emergence | `2026-05-18_lens_emergence_path.md` | Specification |
-
-Deep-dive synthesis notes annotate already-promoted chapters per the
-`essay` skill protocol — they are analytical scans, not closure
-narratives, so do not become chapters themselves.
+`research-notes/` holds the boot-sequence **anchors** at top level (the
+residue, semantic atom, ouroboros, universal lens, trajectory, chiral/phase,
+sublanguage, layered-API, algebra catalog, lens-emergence) and the **live
+open frontiers** under `research-notes/frontiers/` — grouped by topic
+(π non-holonomicity, Markov/Lagrange, spiral-axis, completability,
+sequence-depth, + standalone geometrization / p-adic / Eisenstein agendas).
+See `research-notes/frontiers/INDEX.md` for the open board and
+`research-notes/INDEX.md` for the cycle.  Closed material lives in
+`research-notes/archive/<topic>/`.
 
 ## Companion specs
 

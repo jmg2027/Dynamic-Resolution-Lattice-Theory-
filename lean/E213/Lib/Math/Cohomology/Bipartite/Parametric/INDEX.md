@@ -35,7 +35,7 @@ levels:
 
 ## Coverage
 
-All K-deployments enumerated in `research-notes/G121_dim4_self_pointing_axis.md`
+All K-deployments enumerated in `research-notes/frontiers/G121_dim4_self_pointing_axis.md`
 and `research-notes/archive/G128_geometrization_open_followups.md` are PURE-verified:
   · Trees: K_{1,1}, K_{1,2}, K_{2,1}, K_{1,3}, K_{3,1}, K_{1,4}, K_{4,1}
   · 4-cycle: K_{2,2}^{(c=1)}, K_{2,2}^{(c=2)}

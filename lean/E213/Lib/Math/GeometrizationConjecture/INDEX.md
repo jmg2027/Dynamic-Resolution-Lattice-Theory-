@@ -7,7 +7,7 @@ and the dimension-4 exotic-smoothness anomaly.
   · **G121 R1 CLOSED** at ~149 PURE / 0 DIRTY across 25 steps (2026-05-22)
   · **G121 R1+ PARTIAL** for G123/G124/G125 (2026-05-22 extension)
 
-Cross-reference: `research-notes/G121_dim4_self_pointing_axis.md`.
+Cross-reference: `research-notes/frontiers/G121_dim4_self_pointing_axis.md`.
 
 ## File map
 
