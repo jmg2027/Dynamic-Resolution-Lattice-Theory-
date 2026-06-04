@@ -43,7 +43,9 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
 ## Progress
 
   - **Phase 0 (done)** — `covering_bound` (`EisensteinEuclidean`): covering radius² ≤ 3/4 < 1.
-  - **Phase 1a (scouted)** — centered division `∀ A (N>0), ∃ q r, A = qN + r ∧ 2|r| ≤ N`.
+  - **Phase 1a (DONE)** — `ModArith.CenteredDivision.centered_div` (2 PURE): centered division
+    `∀ A (N>0), ∃ q r, A = qN + r ∧ 2|r| ≤ N`, built exactly per the scouting below.
+  - **Phase 1a (scouting record)** — centered division `∀ A (N>0), ∃ q r, A = qN + r ∧ 2|r| ≤ N`.
     Toolkit: pure Nat `AddMod213.div_add_mod` + `Nat.mod_lt` (both PURE) for the ordinary
     remainder, then center (subtract `N` when `2·(a%N) > N`).  **Purity caveat**: the core
     subtraction lemmas `Nat.sub_add_cancel`, `Nat.add_sub_cancel`, `Int.ofNat_sub` are
