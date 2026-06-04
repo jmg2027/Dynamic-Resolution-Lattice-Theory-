@@ -40,6 +40,16 @@ non-holonomicity):
   `the_residue_as_primitive.md` (the §18/§19 rows + count 94→108) updated.
 - Sink rule verified clean (no `theory/` → `research-notes/` citation).
 
+### 3. G178 — C3-phys consolidation bridge closed (the shared unit `1`)
+`Lens/Number/SharedUnitAcrossReadings.unit_bridges_dynamics_and_readings` (PURE): the ascent
+unit (`ascent_adds_unit`), the descent unit (`part_depth_succ_le`), the glue `NS−NT = 1`, and
+the Möbius `det P = 1` are the *same* `1` — the dynamics↔algebra bridge the `ResidueForm`
+narrative asserted (now cited from it).  Complements the two pre-existing single-scale bundles
+(`ReentryUnit.reentry_unit_across_scales` = Raw-dynamics; `the_unit_is_one_across_readings` =
+number-axes).  G178's remaining consolidation bridges: C1-phys (`N_gen` via the atom's solver),
+C7-phys (Koide 2/3), C6-phys (falsifier-roster uniqueness super-theorem — highest
+Validation-Standard value).
+
 ## Current Precision Results (0 free parameters)
 Unchanged this session (math-frontier work; no physics-constant edits).  Canonical:
 `catalogs/physics-constants.md`.
