@@ -88,6 +88,7 @@ EXEMPT_PREFIX = (
     ".claude/",
     "tools/",  # audit / scan scripts
     ".github/",
+    "prompt-log/",  # verbatim user prompts — carry whatever the user typed
 )
 
 
