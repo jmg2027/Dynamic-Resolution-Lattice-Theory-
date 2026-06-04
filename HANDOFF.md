@@ -21,7 +21,7 @@ universal-Betti / geometrization work — all preserved through the merge).
   §4 reversibility asymmetry (descent forgets / ascent-unit remembers); §5 the
   `ℤ₂`-successor homeomorphism (`odo_homeomorphism`); §6 the carry = leading run
   = floor distance (`carry_profile`).
-- **`Theory/Raw/OdometerValue`** (18 PURE) — the profinite value `bval`:
+- **`Theory/Raw/OdometerValue`** (16 PURE) — the profinite value `bval`:
   `bval_odo` proves `odo = (+1 mod 2ᵏ)` carry-explicitly, and **`odo_free`** the
   full `ℤ`-action freeness (`odoʲ f = f → j = 0`; `ℤ₂` torsion-free).
 - **`Real213/ZeckendorfCarry`** (7 PURE) — the golden/Fibonacci-base carry
@@ -99,8 +99,8 @@ See `research-notes/frontiers/INDEX.md`.
   repo-wide (not from this branch) — a standing cleanup, deferred.
 
 ## Next
-Either (a) promote `add_left_cancel_pure`/`lt_two_pow` to `Meta/Nat/PureNat`
-(quick infra, Open Problem 2), (b) the odometer↔Markov `SL(2,ℤ)` bridge (Open
+Either (a) the dedup of the triplicated pure left-cancellation to one `PureNat`
+home (Open Problem 2 remainder), (b) the odometer↔Markov `SL(2,ℤ)` bridge (Open
 Problem 3), or (c) resume the Markov `H` kernel via the continuant program
 (`Real213/Continuant.lean`, Open Problem 1).
 
