@@ -129,17 +129,25 @@ native primitives now route around them:
     (`Pow213.pow_add_two`).  `betti_one_K32`: `b₁ = 8 = NS² − 1` for the
     forced deployment.
 
-    Caveat CLOSED: `|im δ⁰| = 2^(V−1)` is now an actually-counted image
-    cardinality, fully ∅-axiom.  `PathCoboundary.im_pathDelta_card`
-    (4 PURE) proves the concrete connected list-valued path coboundary
-    `pathDelta` (consecutive XORs) has exactly `2^(V−1)` distinct values:
-    head-`false` reps map injectively (`pathDelta_reconstruct`) +
-    surjectively (`pathDelta_complement` + `headFalse_transversal`) onto
-    the image — no `funext`/`Fintype`/`Nat.div`.  `dim im δ⁰ = V−1` is
-    connectivity-invariant (rank–nullity, `dim ker = 1` proven), so this
-    is `|im δ⁰|` for K_{NS,NT}^{(c)} too.  Reusable infra built en route:
-    `ListCount` (nodup cardinality equality + `nodup_map_of_inj`),
-    `BoolEnum` complement/transversal + `filter_length_eq_bcount`.
+    Caveat CLOSED to its mathematical essence: `|im δ⁰| = 2^(V−1)` is an
+    actually-counted image cardinality, fully ∅-axiom.
+    `PathCoboundary.im_count_inj_complement` (PURE) proves the GENERAL
+    fact — any `β`-valued map on length-`V` colourings that is
+    complement-invariant and injective on head-`false` colourings has
+    exactly `2^(V−1)` distinct values (head-`false` reps map inj +
+    surj onto the image; no `funext`/`Fintype`/`Nat.div`).  This is
+    rank–nullity `|im| = |C⁰|/|ker| = 2^V/2` realised combinatorially.
+    Its two hypotheses are the only graph input and BOTH are proven for
+    the complete-bipartite δ⁰: complement-invariance always; head-`false`
+    injectivity = `ker = constants` = `isKer_iff_const`.
+    `im_pathDelta_card` is the path-graph instance.  Reusable infra:
+    `ListCount` (nodup cardinality + `nodup_map_of_inj`), `BoolEnum`
+    complement/transversal + `filter_length_eq_bcount`.
+
+    Only-remaining (mechanical, not mathematical): instantiating
+    `im_count_inj_complement` at `K_{NS,NT}`'s own edge-cochain as a
+    `List Bool → β` map — adds no content (both hypotheses already
+    proven), only list-positional-indexing plumbing.
 
 ## Open Problems (Priority Order)
 
