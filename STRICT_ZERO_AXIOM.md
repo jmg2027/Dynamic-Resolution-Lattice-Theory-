@@ -673,6 +673,8 @@ the two non-trivial `SelfReferenceThreeOutcomes` readings of one object.
 
 `E213.Lib.Math.Linalg213.RowDependence` — **5 PURE / 0 DIRTY**.  **Row dependence ⟹ `det = 0`**, feeding the Casoratian rank bridge.  `sumZ_iota_succ`, `det_zero_row` (a zero row ⟹ `det=0`), `setRow_eq`, ★ `det_setRow_sumZ` (multilinearity over a finite `ℤ`-combination), and ★★ `det_row_combo_zero` — **row `i` = a `ℤ`-combination of other rows ⟹ `det = 0`** (`det_setRow_add`/`_smul` + `det_rows_eq_ne`).
 
+`E213.Lib.Math.Linalg213.DetTriangular` — **6 PURE / 0 DIRTY**.  ★★ **The triangular determinant** `det_lower_triangular`: a lower-triangular matrix (`M i j = 0` for `i < j`) has `det n M = Π_{i<n} Mᵢᵢ` (`prodZ` of the diagonal).  Row-`0` cofactor expansion collapses to the single `M₀₀·det(minor M 0)` term (`cofSum_lowerTri`, since the rest of row `0` is zero), and the `(0,0)`-minor is again lower-triangular with shifted diagonal (`minor0_lowerTri`); induction accumulates the product (front-peel `iota_cons`: `iota (n+1) = 0 :: (iota n).map succ`).
+
 `E213.Lib.Math.Cauchy.CasoratianStep` — **5 PURE / 0 DIRTY**.  The discrete-Wronskian
 (Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form, + its telescoping:
 `telescope` — `P(n+1)g(n+1)=Q(n+1)g(n) ⟹ (∏P)·g(n)=(∏Q)·g(0)` (the sign-definite ζ(3)
