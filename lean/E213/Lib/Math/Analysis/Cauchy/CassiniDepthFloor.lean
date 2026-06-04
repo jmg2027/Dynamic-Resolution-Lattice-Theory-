@@ -1,4 +1,4 @@
-import E213.Lib.Math.CassiniUnimodular
+import E213.Lib.Math.Algebra.CassiniUnimodular
 import E213.Lib.Math.Analysis.Cauchy.NewtonGregory
 import E213.Lib.Math.Analysis.Cauchy.DepthCharacterization
 
@@ -26,7 +26,7 @@ This is the *sufficiency* direction `q = 1 ⟹ depth 0`, the structural floor be
 
 namespace E213.Lib.Math.Analysis.Cauchy.CassiniDepthFloor
 
-open E213.Lib.Math.CassiniUnimodular (det det_step det_closed qpow)
+open E213.Lib.Math.Algebra.CassiniUnimodular (det det_step det_closed qpow)
 open E213.Lib.Math.Analysis.Cauchy.NewtonGregory (polyDepthZ isConstZ newtonZ diffZ)
 open E213.Lib.Math.Analysis.Cauchy.DepthCharacterization (finite_depthZ_iff)
 open E213.Lib.Math.Algebra.Mobius213.Px.POrbitClosure (L)

@@ -21,7 +21,7 @@ open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_map' map_eq_of_mem sumZ_ma
 open E213.Lib.Math.Algebra.Linalg213.CayleyHamilton
   (sumZ_singleton sumZ_map_smul_right sumZ_iota_delta_lt sumZ_map_neg)
 open E213.Lib.Math.Analysis.Cauchy.CFiniteRing (shiftSum ShiftRecZ cfiniteZ_of_shiftRec)
-open E213.Lib.Math.PolyZ (one_mul' mul_zero' coeff)
+open E213.Lib.Math.Algebra.PolyZ (one_mul' mul_zero' coeff)
 open E213.Lib.Math.Analysis.Cauchy.OrbitDimension (CFiniteZ cfiniteZ_congr cfiniteZ_zero)
 open E213.Lib.Math.Algebra.Linalg213.PolyDet (charPoly charPoly_monic)
 open E213.Lib.Math.Algebra.Linalg213.CharPolyAdj (ch_recurrence)

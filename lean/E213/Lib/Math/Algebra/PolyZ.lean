@@ -16,7 +16,7 @@ All operations come with an `eval` **soundness** lemma (each op commutes with ev
 making `PolyZ` a commutative-ring reflection of `Int`.  All ∅-axiom (over `Int213`).
 -/
 
-namespace E213.Lib.Math.PolyZ
+namespace E213.Lib.Math.Algebra.PolyZ
 
 /-- An integer polynomial: coefficient list, low-to-high (`[a₀, a₁, a₂] = a₀ + a₁x + a₂x²`). -/
 abbrev PolyZ := List Int
@@ -377,4 +377,4 @@ theorem coeff_unique (p q : PolyZ) (h : ∀ x, eval p x = eval q x) :
   rw [coeff_addP, coeff_negP] at hk
   exact eq_of_add_neg hk
 
-end E213.Lib.Math.PolyZ
+end E213.Lib.Math.Algebra.PolyZ

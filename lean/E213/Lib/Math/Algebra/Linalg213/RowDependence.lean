@@ -1,5 +1,5 @@
 import E213.Lib.Math.Algebra.Linalg213.CayleyHamilton
-import E213.Lib.Math.PolyZ
+import E213.Lib.Math.Algebra.PolyZ
 
 /-!
 # Linalg213 — row dependence ⟹ `det = 0`

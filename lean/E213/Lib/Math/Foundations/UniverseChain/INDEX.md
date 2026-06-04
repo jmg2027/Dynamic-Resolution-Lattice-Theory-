@@ -38,7 +38,7 @@ of (NS, NT, d) via Möbius P matrix `[[2, 1], [1, 1]]`.
 
 Theorems are split across the current 4-ring layout:
 `Lens/Number/Nat213/{Core,Lenses,AtomicityCorrespondence}.lean`,
-`Lib/Math/Mobius213OneAsGlue.lean`,
+`Lib/Math/Algebra/Mobius213OneAsGlue.lean`,
 `Lib/Math/Geometry/Nat213{Rotation,AlgebraicGeometry}.lean`, and
 `Lens/Number/Nat213/Tower/{NatPairToInt,NatTripleToZ2,NatPairToQPos}.lean`.
 102 ∅-axiom theorems in the extension.

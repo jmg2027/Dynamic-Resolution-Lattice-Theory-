@@ -1,4 +1,4 @@
-import E213.Lib.Math.Mobius213SignatureAxisCatalog
+import E213.Lib.Math.Algebra.Mobius213SignatureAxisCatalog
 import E213.Lib.Math.Cohomology.Bipartite.V32Betti
 import E213.Lib.Math.Geometry.Topology.EulerChi
 import E213.Lib.Physics.Couplings.SpectrumComplete
@@ -20,7 +20,7 @@ new arithmetic; pure cross-domain unification.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213SignatureAxisCatalogPhase2
+namespace E213.Lib.Math.Algebra.Mobius213SignatureAxisCatalogPhase2
 
 open E213.Lib.Math.Cohomology.Bipartite.V32Betti
   (b0_eq_1 b1_eq_8_dim_count b1_eq_NS_sq_minus_1 cochV_count cochE_count
@@ -233,4 +233,4 @@ every framework reading of the atomic signature lands on
 {NS, NT, det, d, NS·NT, NS²-1, ...} — no external axis produces
 different data. -/
 
-end E213.Lib.Math.Mobius213SignatureAxisCatalogPhase2
+end E213.Lib.Math.Algebra.Mobius213SignatureAxisCatalogPhase2

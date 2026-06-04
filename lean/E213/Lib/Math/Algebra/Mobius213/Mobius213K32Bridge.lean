@@ -1,4 +1,4 @@
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Lib.Physics.Simplex.Counts
 import E213.Theory.Atomicity
 
@@ -40,7 +40,7 @@ All declarations PURE (∅-axiom).
 
 namespace E213.Lib.Math.Algebra.Mobius213.Mobius213K32Bridge
 
-open E213.Lib.Math.Mobius213OneAsGlue
+open E213.Lib.Math.Algebra.Mobius213OneAsGlue
   (mobius_entries_sum_to_d ns_nt_product ns_is_succ_nt
    mobius_det_eq_ns_minus_nt off_diagonal_is_two_ones)
 open E213.Lib.Physics.Simplex.Counts (d NS NT partition_sum)

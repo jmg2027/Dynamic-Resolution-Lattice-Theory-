@@ -1,4 +1,4 @@
-import E213.Lib.Math.Mobius213CrossDomainMeta
+import E213.Lib.Math.Algebra.Mobius213CrossDomainMeta
 import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulN
 import E213.Lib.Math.NumberSystems.Real213.NValidCutMul
 import E213.Lib.Math.Algebra.Mobius213.Mobius213K32Bridge
@@ -59,7 +59,7 @@ analytic-tower asymptotes, and the Pell-Fibonacci dynamics.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213GrandUnification
+namespace E213.Lib.Math.Algebra.Mobius213GrandUnification
 
 /-! ## §1 — Grand-unification capstone
 
@@ -137,4 +137,4 @@ theorem grand_unification :
    E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant.Pseq_cross_pell_invariant,
    ⟨by decide, E213.Theory.Atomicity.Five.atomic_five⟩⟩
 
-end E213.Lib.Math.Mobius213GrandUnification
+end E213.Lib.Math.Algebra.Mobius213GrandUnification

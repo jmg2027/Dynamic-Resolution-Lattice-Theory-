@@ -32,7 +32,7 @@ open E213.Lib.Math.Algebra.Linalg213.CayleyHamilton
    matMul_assoc matPow matId matMul_id_left matMul_id_right matMul_congr_bd matPow_succ_right)
 open E213.Lib.Math.Algebra.Linalg213.PolyDet
   (pdet evalMat eval_pdet charMat charPoly eval_charPoly evalMat_charMat degLe_pdet)
-open E213.Lib.Math.PolyZ
+open E213.Lib.Math.Algebra.PolyZ
   (PolyZ eval addP mulP scaleP coeff eval_addP eval_mulP eval_scaleP coeff_unique
    coeff_addP coeff_mulP_single coeff_mulP_pair_zero coeff_mulP_pair_succ one_mul' add_zero'
    coeff_nil degLe coeff_scaleP coeff_eq_zero_of_degLe mul_zero')

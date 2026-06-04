@@ -1,5 +1,5 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Lib.Math.Algebra.Mobius213
 import E213.Lib.Physics.Simplex.Counts
 
@@ -36,7 +36,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote
   (BaseType asymptote_ab rank_0_asymptote_eq rank_1_asymptote_eq
    rank_2_asymptote_eq)
 open E213.Lib.Math.Algebra.Mobius213 (mobius_213_discriminant)
-open E213.Lib.Math.Mobius213OneAsGlue (mobius_det_is_unit ns_is_succ_nt)
+open E213.Lib.Math.Algebra.Mobius213OneAsGlue (mobius_det_is_unit ns_is_succ_nt)
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
 
 /-! ## §1 — Type C asymptote = (disc P, Pell unit) -/

@@ -1,4 +1,4 @@
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Lib.Physics.Simplex.Counts
 
 /-!

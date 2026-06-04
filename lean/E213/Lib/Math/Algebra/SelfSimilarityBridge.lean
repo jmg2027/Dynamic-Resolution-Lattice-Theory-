@@ -30,7 +30,7 @@ count-Lens.  `replicate_image_card : numV 2 = numV 1 · numV 1` is the base
 instance; `self_similar_count` is the general law.
 -/
 
-namespace E213.Lib.Math.SelfSimilarityBridge
+namespace E213.Lib.Math.Algebra.SelfSimilarityBridge
 
 open E213.Theory (Raw)
 open E213.Lib.Math.Cohomology.Fractal.Level (numV)
@@ -157,4 +157,4 @@ theorem self_similar_ratio_pins_phi :
     ∧ ( 3 * pellDen 2 < 2 * pellNum 2 ∧ 3 * pellNum 2 < 5 * pellDen 2 ) :=
   E213.Lib.Math.NumberSystems.Real213.PhiConvergence.phi_is_unique_nested_limit
 
-end E213.Lib.Math.SelfSimilarityBridge
+end E213.Lib.Math.Algebra.SelfSimilarityBridge

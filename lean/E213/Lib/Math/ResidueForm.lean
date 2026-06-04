@@ -1,6 +1,6 @@
 import E213.Lens.SemanticAtom
 import E213.Lens.FlatOntologyClosure
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Theory.Atomicity
 
 /-!
@@ -81,7 +81,7 @@ theorem no_exterior_source_without_enclosure :
     (∀ n : Nat, E213.Theory.Atomicity.Five.Atomic n ↔ n = 5) :=
   ⟨fun α => raw_initial α,
    E213.Lens.FlatOntologyClosure.object1_not_surjective,
-   E213.Lib.Math.Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt,
+   E213.Lib.Math.Algebra.Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt,
    E213.Theory.Atomicity.Five.atomic_iff_five⟩
 
 end E213.Lib.Math.ResidueForm

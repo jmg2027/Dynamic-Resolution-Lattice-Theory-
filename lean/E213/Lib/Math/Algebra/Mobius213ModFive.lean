@@ -27,7 +27,7 @@ K_{3,2}^{(c=2)}.
 PURE.  All decide.
 -/
 
-namespace E213.Lib.Math.Mobius213ModFive
+namespace E213.Lib.Math.Algebra.Mobius213ModFive
 
 /-! ## §1.  P^5 matrix entries
 
@@ -120,4 +120,4 @@ theorem pentagonal_closure_signature :
     ∧ (5 : Nat) = E213.Lib.Physics.Simplex.Counts.NS + E213.Lib.Physics.Simplex.Counts.NT := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.Mobius213ModFive
+end E213.Lib.Math.Algebra.Mobius213ModFive

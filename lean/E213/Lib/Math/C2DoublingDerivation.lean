@@ -1,4 +1,4 @@
-import E213.Lib.Math.Mobius213ModFive
+import E213.Lib.Math.Algebra.Mobius213ModFive
 import E213.Lib.Physics.Simplex.Counts
 import E213.Lib.Math.Cohomology.Bipartite.V32
 

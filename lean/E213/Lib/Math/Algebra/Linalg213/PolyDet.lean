@@ -1,5 +1,5 @@
 import E213.Lib.Math.Algebra.Linalg213.DetN
-import E213.Lib.Math.PolyZ
+import E213.Lib.Math.Algebra.PolyZ
 
 /-!
 # Linalg213 — the polynomial determinant `pdet` and its evaluation soundness
@@ -22,7 +22,7 @@ All ∅-axiom.
 namespace E213.Lib.Math.Algebra.Linalg213.PolyDet
 
 open E213.Lib.Math.Algebra.Linalg213.DetN (det cofSum minor colShift altSign det_congr)
-open E213.Lib.Math.PolyZ (PolyZ eval C addP scaleP mulP coeff eval_C eval_addP eval_scaleP eval_mulP
+open E213.Lib.Math.Algebra.PolyZ (PolyZ eval C addP scaleP mulP coeff eval_C eval_addP eval_scaleP eval_mulP
   degLe degLe_nil degLe_addP degLe_scaleP degLe_mulP degLe_mono
   coeff_addP coeff_scaleP coeff_mulP_single coeff_mulP_pair_succ coeff_eq_zero_of_degLe
   one_mul' mul_zero')

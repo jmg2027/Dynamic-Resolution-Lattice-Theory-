@@ -5,7 +5,7 @@ import E213.Meta.Nat.PolyNatMTactic
 /-!
 # MarkovCassiniBridge — the Markov–Fibonacci spine reads the Cassini unimodular dichotomy
 
-The merged-`main` thread `Lib/Math/CassiniUnimodular` proved that a 2nd-order `Int` orbit's
+The merged-`main` thread `Lib/Math/Algebra/CassiniUnimodular` proved that a 2nd-order `Int` orbit's
 Cassini determinant `D(n) = s(n)·s(n+2) − s(n+1)²` is governed entirely by its **multiplier**
 `q` (the determinant of the shift): `det_closed` gives `D(n) = qⁿ · D(0)`, so the two *unimodular*
 multipliers `q = ±1` are exactly the conserved (`q=1`) and sign-alternating (`q=−1`) readings —

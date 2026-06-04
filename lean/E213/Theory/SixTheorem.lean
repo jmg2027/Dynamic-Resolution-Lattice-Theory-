@@ -1,7 +1,7 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaUnits
 import E213.Lib.Math.Geometry.AlgebraicGeometry
 import E213.Lib.Math.Geometry.Topology.EulerChi
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 
 /-!
 # Theory.SixTheorem — the 6-theorem: ten readings of 6 = NS · NT

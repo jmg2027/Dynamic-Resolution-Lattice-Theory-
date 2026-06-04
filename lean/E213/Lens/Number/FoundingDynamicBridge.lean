@@ -1,5 +1,5 @@
 import E213.Lens.Number.Nat213.Tower.NatPairToInt
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Lib.Math.Analysis.Cauchy.EllipticPeriodicTier
 
 /-!

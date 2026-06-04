@@ -39,7 +39,7 @@ Plus the algebraic content:
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213CrossDomainMeta
+namespace E213.Lib.Math.Algebra.Mobius213CrossDomainMeta
 
 /-! ## §1 — The cross-domain meta capstone -/
 
@@ -117,4 +117,4 @@ Möbius-orbit on the appropriate coordinate space — the framework's
 distinct equality definitions are projections of the *same*
 mediant-closure structure read on different coordinate shapes. -/
 
-end E213.Lib.Math.Mobius213CrossDomainMeta
+end E213.Lib.Math.Algebra.Mobius213CrossDomainMeta

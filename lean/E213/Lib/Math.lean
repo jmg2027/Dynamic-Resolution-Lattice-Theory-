@@ -22,8 +22,8 @@ import E213.Lib.Math.NumberSystems.Irrational
 import E213.Lib.Math.Geometry.LevelTopology
 import E213.Lib.Math.Algebra.Linalg213
 import E213.Lib.Math.Algebra.CayleyDickson
-import E213.Lib.Math.CassiniUnimodular
-import E213.Lib.Math.FiveFloorUnification
+import E213.Lib.Math.Algebra.CassiniUnimodular
+import E213.Lib.Math.Algebra.FiveFloorUnification
 import E213.Lib.Math.ResidueForm
 import E213.Lib.Math.Analysis.Measure
 import E213.Lib.Math.NumberTheory.ModArith
@@ -41,7 +41,7 @@ import E213.Lib.Math.Combinatorics.Logic
 import E213.Lib.Math.Combinatorics
 import E213.Lib.Math.CrossDomainUnification
 import E213.Lib.Math.DualCollapseCapstone
-import E213.Lib.Math.SelfSimilarityBridge
+import E213.Lib.Math.Algebra.SelfSimilarityBridge
 import E213.Lib.Math.ParadigmDomain
 import E213.Lib.Math.ParadigmDomainGraded
 import E213.Lib.Math.ParadigmDomainGradedRing
@@ -52,12 +52,12 @@ import E213.Lib.Math.Foundations.UniverseChain
 import E213.Meta.Nat
 import E213.Lib.Math.Analysis.CascadeCalculus
 import E213.Lib.Math.Pigeonhole
-import E213.Lib.Math.PolyZ
+import E213.Lib.Math.Algebra.PolyZ
 import E213.Lib.Math.Algebra.Polynomial213
 import E213.Lib.Math.PrimeDescentObservations
 import E213.Lib.Math.Analysis.Cauchy
 import E213.Lib.Math.MaxEntropy
-import E213.Lib.Math.DetSpectrumPoles
+import E213.Lib.Math.Algebra.DetSpectrumPoles
 
 /-! Spec-as-code entry point for `E213.Lib.Math` — full 213 mathematics library.
 

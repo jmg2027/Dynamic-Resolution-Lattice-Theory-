@@ -33,7 +33,7 @@ vs +1" reading is exactly `q = −1` vs `q = +1` — both unimodular.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.CassiniUnimodular
+namespace E213.Lib.Math.Algebra.CassiniUnimodular
 
 open E213.Lib.Math.Algebra.Mobius213.Px.POrbitClosure (L)
 open E213.Lib.Math.Algebra.Mobius213.Px.CharPolySelf (cassini_general L_rec)
@@ -189,4 +189,4 @@ theorem multiplier_unit_magnitude_sign_order_NT :
     (∀ n, qpow 1 n = 1) ∧ qpow (-1) NT = 1 ∧ qpow (-1) 1 ≠ 1 ∧ NT = 2 :=
   ⟨qpow_one, by decide, by decide, rfl⟩
 
-end E213.Lib.Math.CassiniUnimodular
+end E213.Lib.Math.Algebra.CassiniUnimodular

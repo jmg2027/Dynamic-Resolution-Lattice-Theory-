@@ -1,7 +1,7 @@
 import E213.Theory.Raw.API
 import E213.Lens.FlatOntologyClosure
 import E213.Lib.Math.NumberSystems.Real213.ObjectIsReadingScaleInvariant
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 
 /-!
 # DualCollapseCapstone — every framework-internal dual is one shape under the
@@ -72,6 +72,6 @@ theorem every_dual_is_one_shape :
   ⟨ E213.Theory.Raw.Lambek.two_closures,
     E213.Lens.FlatOntologyClosure.self_covering_closure,
     E213.Lib.Math.NumberSystems.Real213.ObjectIsReadingScaleInvariant.object_is_reading_scale_invariant,
-    E213.Lib.Math.Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt ⟩
+    E213.Lib.Math.Algebra.Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt ⟩
 
 end E213.Lib.Math.DualCollapseCapstone

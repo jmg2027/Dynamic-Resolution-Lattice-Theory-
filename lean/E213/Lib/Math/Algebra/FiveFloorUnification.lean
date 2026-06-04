@@ -32,7 +32,7 @@ close into one self-covering loop; here that loop is pinned to the McKay E₈ ru
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.FiveFloorUnification
+namespace E213.Lib.Math.Algebra.FiveFloorUnification
 
 open E213.Lib.Math.NumberSystems.Real213.FloorReferenceForm (floor_reference_is_indefinite)
 open E213.Lib.Math.Algebra.CayleyDickson.Tower.MobiusPIcosian (mobius_P_meets_icosian_endpoint)
@@ -65,4 +65,4 @@ theorem five_floor_unifies :
             = 10) :=
   ⟨floor_reference_is_indefinite, mobius_P_meets_icosian_endpoint⟩
 
-end E213.Lib.Math.FiveFloorUnification
+end E213.Lib.Math.Algebra.FiveFloorUnification

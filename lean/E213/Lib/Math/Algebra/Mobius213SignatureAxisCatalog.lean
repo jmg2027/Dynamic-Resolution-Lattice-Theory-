@@ -1,6 +1,6 @@
 import E213.Lib.Math.Algebra.Mobius213
-import E213.Lib.Math.Mobius213OneAsGlue
-import E213.Lib.Math.Mobius213ModFive
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213ModFive
 import E213.Lib.Math.Algebra.Mobius213.Mobius213K32Bridge
 import E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
 import E213.Lib.Math.Algebra.CayleyDickson.Tower.Mobius213CDBridge
@@ -34,14 +34,14 @@ work.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.Mobius213SignatureAxisCatalog
+namespace E213.Lib.Math.Algebra.Mobius213SignatureAxisCatalog
 
-open E213.Lib.Math.Mobius213OneAsGlue
+open E213.Lib.Math.Algebra.Mobius213OneAsGlue
   (mobius_entries_sum_to_d ns_nt_product ns_is_succ_nt ns_minus_nt_is_one
    mobius_det_eq_ns_minus_nt one_is_det off_diagonal_is_two_ones)
 open E213.Lib.Math.Algebra.Mobius213
   (mobius_213_discriminant mobius_213_trace mobius_213_det)
-open E213.Lib.Math.Mobius213ModFive
+open E213.Lib.Math.Algebra.Mobius213ModFive
   (P_pow_5_eq_neg_I_mod_5 P_pow_10_eq_I_mod_5)
 open E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
   (disc_atom_orbit_master)
@@ -207,4 +207,4 @@ theorem signature_axis_master_phase_1 :
   all_goals first | decide | (show Atomic 5; exact atomic_five)
                   | exact mobius_det_eq_ns_minus_nt
 
-end E213.Lib.Math.Mobius213SignatureAxisCatalog
+end E213.Lib.Math.Algebra.Mobius213SignatureAxisCatalog

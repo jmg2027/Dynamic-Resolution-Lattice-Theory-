@@ -30,7 +30,7 @@ survives in both folds, its `−1` face is itself the additive ceiling (a multip
 additive non-value — the founding sign carrying the richness).
 -/
 
-namespace E213.Lib.Math.DetSpectrumPoles
+namespace E213.Lib.Math.Algebra.DetSpectrumPoles
 
 open E213.Lib.Math.Analysis.Cauchy.DetZeroCollapse (cas cas_conserved_unit)
 open E213.Lib.Math.Analysis.Cauchy.WronskianDepth (cas_unit_depth0 cas_neg_unit_no_finite_depth)
@@ -61,4 +61,4 @@ theorem det_spectrum_poles_and_center (p : Int) (s : Nat → Int) :
      ⟨fun n => by rw [cas_conserved_unit p s hrec n]; exact h0, cas_unit_depth0 p s hrec⟩,
    fun hrec h0 => cas_neg_unit_no_finite_depth p s hrec h0⟩
 
-end E213.Lib.Math.DetSpectrumPoles
+end E213.Lib.Math.Algebra.DetSpectrumPoles

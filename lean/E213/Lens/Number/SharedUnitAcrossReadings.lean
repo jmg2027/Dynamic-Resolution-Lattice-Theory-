@@ -1,5 +1,5 @@
-import E213.Lib.Math.Mobius213OneAsGlue
-import E213.Lib.Math.CassiniUnimodular
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.CassiniUnimodular
 import E213.Lens.Number.Nat213.Tower.NatPairToQPos
 
 /-!
@@ -36,9 +36,9 @@ namespace E213.Lens.Number.SharedUnitAcrossReadings
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
-open E213.Lib.Math.Mobius213OneAsGlue
+open E213.Lib.Math.Algebra.Mobius213OneAsGlue
   (ns_minus_nt_is_one mobius_det_eq_ns_minus_nt mobius_det_is_unit)
-open E213.Lib.Math.CassiniUnimodular (det toggle toggle_det_unit)
+open E213.Lib.Math.Algebra.CassiniUnimodular (det toggle toggle_det_unit)
 open E213.Lens.Number.Nat213.Tower.NatPairToQPos
   (QPair qpairEquiv qPairMul qSwap qOne qpair_mul_swap_eq_qOne)
 

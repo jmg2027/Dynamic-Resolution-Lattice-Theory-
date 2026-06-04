@@ -22,7 +22,7 @@ are exactly the structural glue user described.
 All theorems ∅-axiom.
 -/
 
-namespace E213.Lib.Math.Mobius213OneAsGlue
+namespace E213.Lib.Math.Algebra.Mobius213OneAsGlue
 
 open E213.Lib.Physics.Simplex.Counts (d NS NT partition_sum)
 
@@ -110,4 +110,4 @@ theorem mobius_inverse_bot_left : (1 : Int) * 1 + 1 * (-1) = 0 := by decide
     needed because det = 1). -/
 theorem mobius_inverse_bot_right : (1 : Int) * (-1) + 1 * 2 = 1 := by decide
 
-end E213.Lib.Math.Mobius213OneAsGlue
+end E213.Lib.Math.Algebra.Mobius213OneAsGlue

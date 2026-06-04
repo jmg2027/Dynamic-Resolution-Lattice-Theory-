@@ -1,7 +1,7 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZI
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega
 import E213.Lib.Math.NumberSystems.Real213.ModularElliptic
-import E213.Lib.Math.CassiniUnimodular
+import E213.Lib.Math.Algebra.CassiniUnimodular
 import E213.Meta.Int213.PolyIntMTactic
 
 /-!
@@ -40,7 +40,7 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.UnitsToModular
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZI (ZI)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 S U I2 negI2 mul)
-open E213.Lib.Math.CassiniUnimodular (det det_step)
+open E213.Lib.Math.Algebra.CassiniUnimodular (det det_step)
 
 /-! ## §1 — Gaussian `ℤ[i]`: the regular representation sends `i` to `S` (literally) -/
 

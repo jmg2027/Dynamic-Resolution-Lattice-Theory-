@@ -26,8 +26,8 @@ Sub-tree `Px/` houses the bulk (25 files, ~424 decls).
   · Theory: `theory/math/mobius213_p_orbit_closure.md`
   · Theory: `theory/math/mobius_canonical_equivalence.md`
   · Companion files (outside this tree):
-    - `Lib/Math/Mobius213GrandUnification.lean`
-    - `Lib/Math/Mobius213SignatureAxisCatalog{,Phase2}.lean`
-    - `Lib/Math/Mobius213OneAsGlue.lean`
-    - `Lib/Math/Mobius213CrossDomainMeta.lean`
-    - `Lib/Math/Mobius213ModFive.lean`
+    - `Lib/Math/Algebra/Mobius213GrandUnification.lean`
+    - `Lib/Math/Algebra/Mobius213SignatureAxisCatalog{,Phase2}.lean`
+    - `Lib/Math/Algebra/Mobius213OneAsGlue.lean`
+    - `Lib/Math/Algebra/Mobius213CrossDomainMeta.lean`
+    - `Lib/Math/Algebra/Mobius213ModFive.lean`

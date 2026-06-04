@@ -1,5 +1,5 @@
 import E213.Lens.Number
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Lib.Math.Algebra.Mobius213
 import E213.Lib.Math.Geometry.Topology.EulerChi
 

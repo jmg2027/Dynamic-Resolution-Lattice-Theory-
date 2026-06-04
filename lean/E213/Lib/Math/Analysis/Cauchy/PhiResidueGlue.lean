@@ -1,5 +1,5 @@
 import E213.Lib.Math.Analysis.Cauchy.DepthFloorDetOne
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal
 import E213.Lib.Math.NumberSystems.Real213.PhiFrozenDynamic
 
@@ -25,7 +25,7 @@ readings of that one conserved determinant.
 namespace E213.Lib.Math.Analysis.Cauchy.PhiResidueGlue
 
 open E213.Lib.Math.Analysis.Cauchy.DepthFloorDetOne (W W_eq_one)
-open E213.Lib.Math.Mobius213OneAsGlue (ns_minus_nt_is_one mobius_det_eq_ns_minus_nt ns_is_succ_nt)
+open E213.Lib.Math.Algebra.Mobius213OneAsGlue (ns_minus_nt_is_one mobius_det_eq_ns_minus_nt ns_is_succ_nt)
 open E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_universal)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
