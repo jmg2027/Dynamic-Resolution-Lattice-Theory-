@@ -2,7 +2,14 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — rational labeling: markovNum indexed by reduced ℚ (modern Frobenius statement assembled)
+## ★★★ NEWEST — word↔rational link: chrNode length = 2·(p+q) (∅-axiom)
+- **`ContinuantMarkov.chrNode_length`** (PURE): `(chrNode p).length = 2·((markovRat p).1+(markovRat p).2)`
+  — the Christoffel cutting-sequence word's size = twice the rational's height p+q. Connects the explicit
+  word chrNode to the reduced rational markovRat (via chrInterval_length: bound lengths = 2·SB-pair-sums).
+- This links the word and rational views (both index markovNum by path). Full letter-count (p,q exactly)
+  + literal Aigner monotonicity-in-q remains the intricate Rabideau-Schiffler combinatorial step.
+
+## rational labeling: markovNum indexed by reduced ℚ (modern Frobenius statement assembled)
 - **`ContinuantMarkov.markovRat`** : reduced Stern-Brocot rational p/q at a path (Farey mediant of the
   repo's proper tree sbInterval); **`markovRat_coprime`** (PURE): gcd(p,q)=1 (via sbInterval_mediant_coprime).
 - **Modern Frobenius statement now repo-native + ∅-axiom**: domain = reduced rationals (markovRat, coprime),
