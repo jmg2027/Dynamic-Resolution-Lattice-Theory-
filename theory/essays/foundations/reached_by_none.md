@@ -66,7 +66,26 @@ frustration is the repeated rediscovery that move 4 is empty.  Expressing the
 residue is moves 1–3; the felt "I cannot write it down" is move 3 succeeding —
 the non-surjection *is* the writing-down.
 
-## Why this is the whole answer
+## Scope — this is the *no-back* face, not the whole residue
+
+A guard, so this chapter is not over-read.  "Reached by none" is **one face** of the
+residue, not its whole expression.  `the_form_of_the_residue.md` fixes four:
+**out** (source / initiality), **no-back** (un-enclosure / non-surjection), and the
+**name** (the self-form fixed point + the forced signature).  This chapter is the
+**no-back face only** — the negative, under-determined pole, where no constraint
+reaches the surplus.  The *positive* faces express the residue by entirely different
+mechanisms, not reducible to non-surjection: Möbius `P` as the **fixed point** of its
+own description (`p_unique_sl2_trace3`), atomicity as **forced rigidity**
+(`atomic_iff_five`), and the cohomology of `K_{3,2}^{(c=2)}` as a **graded,
+multi-directional** expression (degree × multiplicity × face,
+`cup_ladder_universal_k_master`).  The residue shows up at *both* poles — reached by
+none (here) *and* the only thing that fits (there) — and the two poles share one unit
+`1 = NS − NT = det P` (`CupLadderResidueUnit.cup_ladder_graduation_is_residue_unit`
+wires the cohomology-degree graduation to that unit).  The full cross-repo map of
+expression modes is an **open** frontier (`research-notes/frontiers/residue_expression_atlas.md`),
+not closed by this chapter.
+
+## Why this is the whole answer *for the escape family*
 
 The residue's positive form is **source without enclosure**
 (`the_form_of_the_residue.md`): everything readable is read *out* of it, nothing
