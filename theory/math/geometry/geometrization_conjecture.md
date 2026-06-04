@@ -29,7 +29,7 @@ priority": *213 sees discrete decomposition first*.  JSJ becomes
 *π₁-injectivity* (algebraic); Ricci flow becomes *chart-Lens
 coherentization flow*.
 
-The R1 close certificate (step 25, `Capstone.R1_close_certificate`)
+The close certificate (`Capstone.R1_close_certificate`)
 bundles 20 conjuncts across the 5 Geometrization pillars.
 
 ## d=4 anomaly reframing (Mingu's central insight)
@@ -52,6 +52,28 @@ richness.*
 The self-pointing-dim-4 ansatz: **d_M = d_213 − 1 = 5 − 1 = 4** is *forced by Raw
 self-pointing structure*, not a geometric coincidence.  M1/M2/M3/M4
 "knots" formalize the chain.
+
+### The "− 1" is universal; the "4" is forced
+
+The chart-axis reading separates into two independent facts, both now
+∅-axiom:
+
+  · **M2 (the "− 1" mechanism) is dimension-uniform.**  For *every*
+    connected K_{NS,NT}^{(c)} the δ⁰-kernel is exactly the two constant
+    cochains, so the self-pointing residue is 1-dimensional and
+    `chartVisibleAxes = chartBase − 1` at every chartBase
+    (`Cohomology/Bipartite/Parametric/KernelConstancyUniversal`,
+    `KChartLensAbstract.every_dimension_realized`).  The kernel singles
+    out no dimension — the star K_{d,1}^{(c=1)} realizes every d_M = d.
+  · **M1 (the value "4") is forcing.**  Atomicity `(N_S, N_T) = (3, 2)`
+    and Möbius mod-5 `c = 2` select the unique K_{3,2}^{(c=2)},
+    `chartBase = 5 = d_213` (`triple_route_K32_c2_unique`).
+
+So `criticality_is_forcing_not_kernel`: d_M = 4 is critical because the
+residue's atomicity forces the (3,2,2) deployment, not because dimension
+4 is kernel-distinguished.  The general graph-connectedness induction
+behind the uniform "− 1" lives in `Combinatorics/GraphConnectivity`
+(`theory/math/combinatorics/graph_connectivity.md`).
 
 ## Lean source
 
@@ -79,9 +101,9 @@ self-pointing structure*, not a geometric coincidence.  M1/M2/M3/M4
 
 | File | Target | PURE | Content |
 |---|---|---|---|
-| `Generalization.lean` | Real213-p-adic extensions B | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended |
-| `JsjDeep.lean` | Real213-p-adic extensions A | ~6 | JSJ 3-cell complex Euler-target scaffold |
-| `MetricGeometries.lean` | Real213-p-adic extensions C | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family |
+| `Generalization.lean` | K-deployment generalization (FW-3) | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended |
+| `JsjDeep.lean` | JSJ 3-cell extension (FW-2) | ~6 | JSJ 3-cell complex Euler-target scaffold |
+| `MetricGeometries.lean` | metric geometries (FW-4) | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family |
 
 ### Dependency chain
 
@@ -101,17 +123,16 @@ Linear chain.  All under namespace
 | Pillar | 213-Lens form | Status |
 |---|---|---|
 | **8 geometries** | Möbius P + 3 Lenses (ℝ/ℤ/F_5) ↔ Sym(3) decomp (2·trivial + 3·standard) | ✅ COMPLETE |
-| **JSJ** | bipartite S/T + Filled cells (+JsjDeep χ-targets) | ✓ PARTIAL (Real213-p-adic extensions A partial) |
+| **JSJ** | bipartite S/T + Filled cells (+JsjDeep χ-targets) | ✓ PARTIAL |
 | **Poincaré** | K_{3,1}^{(c=1)} unique tree + S³ = ∂Δ⁴ | ✅ DOUBLY REALIZED |
 | **Generalized Poincaré** | K_{1,k}^{(c=1)} all chartBase | ✅ GENERALIZED |
 | **Ricci flow** | `K32_ricci_modulus` averaging | ✅ PARTIAL CLOSE |
 
 ### 2. One algebraic source, eight geometries
 
-The deepest finding (step 22, user-derived): all 8 model
+The deepest finding (Mingu): all 8 model
 geometries arise from **a single algebraic object** — the Möbius
-matrix P [[2,1],[1,1]] (per `theory/math/universe_chain.md`
-Step 7) — read through **different Lens applications**:
+matrix P [[2,1],[1,1]] (per `theory/math/foundations/universe_chain.md`) — read through **different Lens applications**:
 
 | Modulus / Lens | Polynomial mod p | Geometric narrative |
 |---|---|---|
@@ -124,11 +145,11 @@ Step 7) — read through **different Lens applications**:
 | F_11 | reducible (4² = 5 mod 11) | split-geometry candidate |
 
 **One algebraic source (Möbius P), seven Lens readings, eight
-geometric narratives**.  Step 22 (Mingu): "F_5 Nil via mod-5
+geometric narratives**.  Mingu: "F_5 Nil via mod-5
 nilpotent collapse" — the user-derived insight that crystallized
 the unification.
 
-### 3. Sym(3) structural mapping (step 24, ★★★★★★★★★★)
+### 3. Sym(3) structural mapping (★★★★★★★★★★)
 
 The 8 geometries decompose under the Sym(3) symmetric-group action:
 
@@ -145,7 +166,7 @@ Connects to:
 gluon octet, K_{3,2}^{(c=2)} cohomology) share the same algebraic
 spine: Sym(3) decomposition on an 8-element substrate.**
 
-### 4. d=4 information richness (step 25)
+### 4. d=4 information richness
 
 The closing insight that re-reads the d=4 exotic anomaly.  In
 standard math: d=4 is *broken* (continuum-many smooth structures
@@ -185,7 +206,7 @@ reading — significant cross-frame convergence.
 | `chartBase_5_tree_and_critical_coexist` | `Capstone` | d=4 info richness: both branches coexist |
 | `dim_spectrum_d_M_eq_4_unique` | `DimSpectrum` | d_M = d_213 − 1 = 4 forcing |
 | `eight_geometries_via_mobius_P` | `EightGeometries` | One Möbius P + 3 Lenses = 8 geometries |
-| `sym3_decomp_8_eq_3_iso_5_aniso` | `StructuralMapping` | Step 24 ultimate structural mapping |
+| `sym3_decomp_8_eq_3_iso_5_aniso` | `StructuralMapping` | ultimate structural mapping |
 | `K32_ricci_modulus_partial_close` | `Ricci` | Ricci flow → BracketCauchy parallel |
 | `poincare_via_K31_unique_tree` | `Poincare` | Poincaré via K_{3,1}^{(c=1)} |
 | `cohomology_depth_filter_K32` | `ScopeAndDepth` | Sym(3) + c=2 binary cover filter |
@@ -304,15 +325,15 @@ The 8-geometry decomposition (Geometrization) collapses with:
   H¹(K_{3,2}^{(c=2)}) substrate
 - **Hodge conjecture HC_K32** (`theory/math/cohomology/hodge_conjecture.md`):
   same 8-class cohomology
-- **Universe chain Möbius P** (`theory/math/universe_chain.md`):
+- **Universe chain Möbius P** (`theory/math/foundations/universe_chain.md`):
   same generator [[2,1],[1,1]] now read through 7 mod-k Lenses
-- **Algebra tower asymptote φ** (`theory/math/cayley_dickson/algebra_tower.md`):
+- **Algebra tower asymptote φ** (`theory/math/algebra/cayley_dickson/algebra_tower.md`):
   same Möbius signature
 
 → **Geometrization 8 geometries + gluon octet + K_{3,2}^{(c=2)}
 cohomology + Möbius P pentagonal closure** — four 213-native pillars
 sharing one algebraic spine.  This convergence is the
-"ultimate structural mapping" of step 24.
+"ultimate structural mapping".
 
 ## How to verify
 
@@ -349,7 +370,7 @@ open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
 
 ```
 -- ✅ preferred (closed R1 narrative)
-`theory/math/geometrization_conjecture.md`
+`theory/math/geometry/geometrization_conjecture.md`
 
 -- ✅ also valid (R1+ extensions, open frontier, Real213-p-adic research and its extensions, side observations)
 

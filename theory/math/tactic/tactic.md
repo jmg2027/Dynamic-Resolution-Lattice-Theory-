@@ -17,7 +17,7 @@ identities at the CD-tower levels: `Ring213` (base), `HurwitzRing`
 
 ## Narrative
 
-See `theory/math/algebra213_meta_theorems.md` for the
+See `theory/math/foundations/algebra213_meta_theorems.md` for the
 meta-theoretical narrative.  This chapter documents the tactic
 infrastructure separately:
 
@@ -32,5 +32,5 @@ infrastructure separately:
 
 ## Connection
 
-- `theory/math/algebra213_meta_theorems.md` — meta-narrative
-- `theory/math/cayley_dickson/algebra_tower.md` — primary tactic consumer
+- `theory/math/foundations/algebra213_meta_theorems.md` — meta-narrative
+- `theory/math/algebra/cayley_dickson/algebra_tower.md` — primary tactic consumer

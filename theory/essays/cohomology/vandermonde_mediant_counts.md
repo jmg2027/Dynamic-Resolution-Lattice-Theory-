@@ -149,7 +149,7 @@ computation hides.
   · `theory/math/cohomology/k_nm_c_classification.md`
     §"Mediant cohomology functor (count level)" — full
     formal statements + K_{4,3} marquee
-  · `theory/essays/stern_brocot_as_universal_lattice.md` —
+  · `theory/essays/p_orbit/stern_brocot_as_universal_lattice.md` —
     the Stern-Brocot tree as the universal sample space
-  · `theory/essays/c_counter_as_layer_count.md` — c-counter
+  · `theory/essays/cohomology/c_counter_as_layer_count.md` — c-counter
     decouples from (NS, NT) lattice position

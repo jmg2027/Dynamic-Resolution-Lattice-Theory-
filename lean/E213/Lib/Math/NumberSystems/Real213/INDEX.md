@@ -131,7 +131,7 @@
 
 **Markov spectrum + modular-geodesic** (narrative
 `theory/math/analysis/markov_uniqueness.md` +
-`theory/essays/the_modular_geodesic_lens.md`):
+`theory/essays/p_orbit/the_modular_geodesic_lens.md`):
   - `MarkovTree.lean` / `MarkovUniqueness.lean` / `MarkovInjectivity.lean` —
     the Markov-number tree, the uniqueness statement, and the injectivity
     reading (`markovNum` injective ⟺ `MarkovMaxUnique`).
@@ -142,6 +142,14 @@
     realizability kernel `H` (`OrbitRealizabilityH`).
   - `Continuant.lean` — Euler continuants `K[a₁..aₙ]` + monotonicity (the
     Aigner core tool for the continuant/Markov program).
+  - `ZeckendorfCarry.lean` — the golden (Fibonacci-base) odometer carry
+    `011 → 100` = the Fibonacci recurrence, value-preserving (`golden_adic_carry`);
+    admissibility = Cassini.  The residue's own variable base (Ostrowski(φ)),
+    companion to the binary `Theory/Raw/Odometer`.
+  - `OdometerSternBrocotUnit.lean` — the odometer (dyadic `Theory/Raw/Odometer`)
+    and the Stern-Brocot mediant tree (`SternBrocotMarkov.mInterval`) share the
+    `List Bool` path index + the unimodular unit (`det genL = NS−NT = 1`); the
+    shared residue unit across the two `List Bool`-indexed descents.
   - `ModularGeodesicLens.lean` — ★ the geodesic engine as a Raw-Lens:
     `mediantLens` + `mediantLens_view_reachable` (mediant-Lens view ⊆
     `SternBrocotReachable`, ∅-axiom) — the residue read at `ℍ/PSL(2,ℤ)`.

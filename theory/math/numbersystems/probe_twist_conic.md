@@ -453,5 +453,5 @@ transcendentals is a separate, higher theory this construction does not reach.
     is a diagonalisation (`diag_not_in_seq`); it reproduces the foundational residue
     (`ceiling_reference_leaves_residue` = `cantor_general`,
     `ceiling_residue_is_pointing_residue` = `self_covering_closure`); the arc closes
-  - Companion: `theory/math/completeness_relocated.md` (modulus forms),
-    `theory/math/phi_self_similarity.md` (φ as nested-bracket limit).
+  - Companion: `theory/math/numbersystems/completeness_relocated.md` (modulus forms),
+    `theory/math/algebra/phi_self_similarity.md` (φ as nested-bracket limit).

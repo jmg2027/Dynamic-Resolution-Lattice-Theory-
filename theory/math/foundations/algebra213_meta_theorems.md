@@ -51,9 +51,9 @@ the algebraic side of the tower.
 
 ## Connection to other chapters
 
-- **Algebra tower** (`theory/math/cayley_dickson/algebra_tower.md`):
+- **Algebra tower** (`theory/math/algebra/cayley_dickson/algebra_tower.md`):
   uses these tactics for the Order-4 monopoly proofs at L3-L6.
-- **Universe chain** (`theory/math/universe_chain.md`): Möbius P
+- **Universe chain** (`theory/math/foundations/universe_chain.md`): Möbius P
   matrix identities (`P^10 ≡ I mod 5`) use `Ring213` at the
   underlying linear-algebra level.
 

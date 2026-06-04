@@ -679,7 +679,7 @@ the two non-trivial `SelfReferenceThreeOutcomes` readings of one object.
 
 `E213.Lib.Math.Algebra.Linalg213.FibCassiniDet` — **3 PURE / 0 DIRTY**.  The bridge closing the loop between the determinant program and the C-finite orbit theory it serves.  `fibCas n i j = fibZ (n+i+j)` (the `2×2` Fibonacci Casoratian = companion power `Qⁿ` window); `cassini_fibZ_eq_altSign` (the Cassini cross-determinant in closed form `fibₙ·fibₙ₊₂−fibₙ₊₁² = altSign(n+1) = (−1)ⁿ⁺¹`, via `cassini_fibZ_zero`+`cassini_fibZ_step`); ★ `fibCas_det_eq_unit` — **`det 2 (fibCas n) = (−1)ⁿ⁺¹`**, the general determinant's `2×2` base *is* the orbit's conserved unit, the same unimodular `det = ±1` as the number-tower founding's shared unit `det = NS−NT = 1` (`PnFibonacciUniversal.det_pn_universal`, `det Qⁿ = unit`).  "Monic = the preserved unit" made concrete; `DetN` validated against real C-finite content.
 
-`E213.Lib.Math.Algebra.Linalg213.Permutation` — **30 PURE / 0 DIRTY**. The permutation/sign substrate and the **Leibniz determinant**, where the **alternating** property is antisymmetrization (`theory/essays/determinant_as_quotient_characteristic.md`). **§1**: `LPerm` (the four-constructor list permutation-equivalence `nil`/`cons`/adjacent-`swap`/`trans`), `LPerm.refl`/`LPerm.symm`, `sumZ` (Int list sum), ★ `sumZ_lperm` — **a sum is invariant under `LPerm`** (reordering preserves the sum, via Int213's propext-free `add_left_comm`); the "row swap reindexes the Leibniz sum, value unchanged" engine. **§2**: `ltCount`/`inversions`/`psign` (`psign l = (−1)^(inversions l) = DetN.altSign (inversions l)`), ★ `psign_swap_adj` — **an adjacent swap of two distinct values flips the sign** (`psign (y::x::l) = −psign (x::y::l)` for `x≠y`), the concrete `sign(σ∘τ) = −sign σ` for an adjacent transposition (`ac_form` Nat inversion-rearrangement + `altSign_succ`, propext-free). **§3**: `ltCount_append`, `ltCount_cons2_comm`, `psign_cons` (head factorization via `DetN.altSign_add`), ★ `psign_swap_prefix` — the sign flip for a swap of two distinct adjacent entries **after any prefix** (the bridge to swapping rows `i,i+1`). **§4**: `prodDiagFrom`/`leibTerm`/`insertEverywhere`/`permsOf`/`perms`/`leibDet` (`leibDet n M = Σ_σ sign(σ)·Πᵢ M i (σ i)`), `leibDet_two_id` sanity (`rfl`), and the assembly lemmas `sumZ_map_neg` (pointwise negation negates the sum) + `map_lperm` (`map` is an `LPerm` congruence). **§5**: `prodDiagFrom_append`, `rowSwapAt`/`rowSwapAt_{other,at,at1}`, `prodDiagFrom_eq_{below,above}` (rows outside `{k,k+1}` unaffected), `prodDiag_rowSwap` (diagonal products agree via `mul_left_comm`), and ★ `leibTerm_rowSwap` — an adjacent row swap (rows `k=pre.length`, `k+1`) sends the Leibniz term at `pre++y::x::l` to `−(term at pre++x::y::l)` for `x≠y`, the determinant's core combinatorial content.
+`E213.Lib.Math.Algebra.Linalg213.Permutation` — **30 PURE / 0 DIRTY**. The permutation/sign substrate and the **Leibniz determinant**, where the **alternating** property is antisymmetrization (`theory/essays/algebra/determinant_as_quotient_characteristic.md`). **§1**: `LPerm` (the four-constructor list permutation-equivalence `nil`/`cons`/adjacent-`swap`/`trans`), `LPerm.refl`/`LPerm.symm`, `sumZ` (Int list sum), ★ `sumZ_lperm` — **a sum is invariant under `LPerm`** (reordering preserves the sum, via Int213's propext-free `add_left_comm`); the "row swap reindexes the Leibniz sum, value unchanged" engine. **§2**: `ltCount`/`inversions`/`psign` (`psign l = (−1)^(inversions l) = DetN.altSign (inversions l)`), ★ `psign_swap_adj` — **an adjacent swap of two distinct values flips the sign** (`psign (y::x::l) = −psign (x::y::l)` for `x≠y`), the concrete `sign(σ∘τ) = −sign σ` for an adjacent transposition (`ac_form` Nat inversion-rearrangement + `altSign_succ`, propext-free). **§3**: `ltCount_append`, `ltCount_cons2_comm`, `psign_cons` (head factorization via `DetN.altSign_add`), ★ `psign_swap_prefix` — the sign flip for a swap of two distinct adjacent entries **after any prefix** (the bridge to swapping rows `i,i+1`). **§4**: `prodDiagFrom`/`leibTerm`/`insertEverywhere`/`permsOf`/`perms`/`leibDet` (`leibDet n M = Σ_σ sign(σ)·Πᵢ M i (σ i)`), `leibDet_two_id` sanity (`rfl`), and the assembly lemmas `sumZ_map_neg` (pointwise negation negates the sum) + `map_lperm` (`map` is an `LPerm` congruence). **§5**: `prodDiagFrom_append`, `rowSwapAt`/`rowSwapAt_{other,at,at1}`, `prodDiagFrom_eq_{below,above}` (rows outside `{k,k+1}` unaffected), `prodDiag_rowSwap` (diagonal products agree via `mul_left_comm`), and ★ `leibTerm_rowSwap` — an adjacent row swap (rows `k=pre.length`, `k+1`) sends the Leibniz term at `pre++y::x::l` to `−(term at pre++x::y::l)` for `x≠y`, the determinant's core combinatorial content.
 
 `E213.Lib.Math.Algebra.Linalg213.PermClosure` — **76 PURE / 0 DIRTY**.  Toward the Leibniz determinant's **alternating** property: the enumeration `perms n` realizes the symmetric-group action.  **§0** clean ∅-axiom `List` membership (`mem_append'`/`mem_map'`/`mem_flatMap'`/`mem_singleton'` — structural on the `List.Mem` constructors, since core's `mem_*` iff-lemmas are `propext`/`Quot.sound`-tainted).  **§1** `LPerm.mem` (membership preserved), `lperm_swap_prefix`.  **§2** soundness `insEv_sound`/`permsOf_sound` (every enumerated list is a genuine rearrangement of its input).  **§3** `LPerm.length_eq`, occurrence count `cnt` + `cnt_lperm` (LPerm-invariant).  **§4** ★ `lperm_of_cnt_eq` — **count-equality ⟹ `LPerm`** (the cancellation engine: `cnt_append`/`cnt_eq_zero_nil`/`cnt_pos_mem`/`mem_split`/`lperm_mid_to_front`, with `add_left_cancel'` a propext-free replacement for the tainted `Nat.add_left_cancel`).  **§5** `swapAt_invol` + `cnt_map_inv` (count under an involution-map).  **§6** completeness `permsOf_complete` (`LPerm q xs → q ∈ permsOf xs`) — with soundness, `q ∈ permsOf xs ⟺ LPerm q xs`.  **§7** `nodup_permsOf` (the enumeration has no repeats — `removeFirst` retraction + `nodup_flatMap`/`nodup_map`/`nodup_insEv`; `Nodup L := ∀a, cnt a L ≤ 1`).  **§8** ★★★ `perms_swap_closed` — the enumeration is closed under an adjacent position-swap up to `LPerm` (via `cnt_map_inv` involution + `cnt_eq_of_iff_mem` under nodup + sound/complete); uses a clean self-defined `iota` (`List.range`'s lemmas are propext/Quot-dirty).  **§9** ★★★ `leibDet_rowSwap` — **an adjacent row swap negates the Leibniz determinant** (the per-term `leibTerm_rowSwap` over a `split_at` decomposition, `sumZ_map_neg` for the sign, `perms_swap_closed`+`map_map'`+`sumZ_lperm` for the reindex).  **§10** ★★★ `leibDet_eq_zero_of_rows_eq` — **two equal adjacent rows ⟹ `leibDet = 0`** (`leibDet_congr` pointwise + `int_eq_zero_of_eq_neg` over ℤ).  The determinant is **alternating**, ∅-axiom, via antisymmetrization — no funext/propext/Quot.  Clean ∅-axiom `List` substrate built throughout (core's `mem_*`/`length_append`/`map_map`/`range` lemmas are propext/Quot-tainted).
 
@@ -838,6 +838,46 @@ closures:
   · `QpSeq` ℚ_p localization with add/sub/mul/neg/inv/div/sqrt.
   · `canonical_5adic_p` — 5-adic lift of the base prime `5`,
     with digit smoke-tests.
+
+Follow-on (G123 directions A/B): the explicit Teichmüller
+representative and the unit-group decomposition, all PURE:
+
+  · `Zp.teichmuller` — `ω(x)` as the diagonal of the iteration
+    `x ↦ x^p`; `Zp.teichmuller_pow_p_trunc` — the Frobenius fix
+    `ω^p ≡ ω` (`Padic.Teichmuller`).
+  · `Zp.teichmuller_pow_pred_trunc` — `ω(x)^(p−1) ≡ 1` for units
+    (`(p−1)`-th root of unity); `Zp.teichmullerCofactor` +
+    `Zp.teichmullerCofactor_trunc_one` — the principal-unit split
+    `x = ω·u`, `u ≡ 1 mod p`, i.e. `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)`
+    (`Padic.TeichmullerUnit`).
+  · `Zp.teichmuller_unique` (`Padic.Teichmuller`) — Teichmüller
+    uniqueness: two Frobenius-fixed lifts agreeing mod `p` agree at
+    every truncation (engine: `frobenius_lift` + the fix, no Hensel
+    derivative).  `Zp.unit_decomp_unique_equiv` (`Padic.TeichmullerUnit`)
+    — the `ω·u` decomposition is unique in the **canonical 213 equality**
+    `ZpSeqEquiv`, via the funext-free bridge `ZpSeqEquiv.of_trunc_all`
+    (`SetoidFramework`).  Raw Lean `=` on `ZpSeq` is a Lens artifact
+    (needs funext); `ZpSeqEquiv` is the equality the residue carries.
+
+Follow-on (G123 direction G): general p-adic division, all PURE:
+
+  · `Zp.shiftRight` + `Zp.shiftLeft_shiftRight_digit_of_low_zero`
+    (`Padic.Arith`) — the unit-part extractor and factorisation
+    exactness `x = p^v·u` (bottom-v digits zero).
+  · `QpSeq.invGeneral` / `QpSeq.divGeneral` (`Padic.Field`) — inverse
+    and division for a denominator of arbitrary valuation, via the
+    valuation shift; `QpSeq.invGeneral_unit_eq_inv` reduces them to the
+    unit-only `QpSeq.inv` at `v=0`.  Correctness `Zp.div_general_value`:
+    `y · u⁻¹ ≡ p^v` at every truncation (the numerator side of
+    `y · (1/y) ≡ 1` in ℚ_p, the `p^v` matched by the shift `p^(−v)`).
+  · `Zp.neg_one_sq_trunc` (`Padic.Arith`) — `(−1)·(−1) ≡ 1` at every
+    level (the missing ring identity for `−1`); `Zp.i_5_pow_four_trunc`
+    (`Padic.TeichmullerUnit`) — `i₅⁴ ≡ 1` at every level, the concrete
+    5-adic imaginary unit is a 4-th root of unity (`i₅ ∈ μ₄`), the
+    explicit `p=5` instance of the μ_{p−1} result.
+  · `Zp.shiftLeft_shiftRight_trunc_of_low_zero` (`Padic.Arith`) —
+    factorisation exactness `x = p^v·u` at every truncation level (the
+    structural engine of general division).
 
 Chapter: `theory/math/numbersystems/padic_real213.md`.
 
@@ -1087,7 +1127,7 @@ pointwise form.
   - Math.Infinity.Godel: Cantor-style countability/equipotence
     proofs use Iff between cardinality propositions.
   - DyadicTrajectory: Cauchy-limit structural inequality preserved by
-    ∅-axiom regime; documented in `seed/RESOLUTION_LIMIT_SPEC.md` §1.
+    ∅-axiom regime.
   - Bridges: intentional axiom-demonstration cluster.
 
 **This is the canonical 213 axiom standard** (formalized 2026-05-02,
@@ -1482,5 +1522,5 @@ tools/scan_all_axioms.py                 # full tree scan
 Migration patterns that recur across sessions are catalogued in
 `LESSONS_LEARNED.md` (omega → decide / kernel rewrite, simp →
 rw, funext avoidance via Setoid/Bundled-subtype) and detailed in
-`theory/essays/pure_funext_avoidance.md`.  Git log preserves the
+`theory/essays/methodology/pure_funext_avoidance.md`.  Git log preserves the
 per-session record of conversions.

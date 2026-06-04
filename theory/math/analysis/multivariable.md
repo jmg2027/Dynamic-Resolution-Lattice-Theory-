@@ -26,5 +26,5 @@ multivariable polynomial = `Nat^n → Nat` lift of single-variable
 
 ## Connection to other chapters
 
-- `theory/math/real213.md` — Real213^n base
-- `theory/math/cross_domain_unification.md` (C6) — paradigm domain
+- `theory/math/numbersystems/real213.md` — Real213^n base
+- `theory/math/foundations/cross_domain_unification.md` (C6) — paradigm domain

@@ -1,5 +1,11 @@
 # G178 — next proof-line conjectures: populating νF (post-FSM arc)
 
+> **CLOSED & archived 2026-06-04.**  Every direction here is resolved: νF population (P1–P6 +
+> §18 free swap-action + §19 shift dynamics), all C-phys consolidation bridges (C3/C6/C7 closed,
+> C1 closed-as-non-bridge), the ε₀-diagonal and frozen=dynamic-φ adjacents (already closed), and
+> the §19→G181 odometer cross-arc (binary + golden + ℤ-action freeness + profinite value).
+> Canonical: `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form,the_residue_unit_odometer}.md`.
+
 **Date**: 2026-06-02.  **Status**: conjecture seed (tier-1 scratchpad).  **Method**: three
 parallel agents (frontier survey + µF/νF extension + physics-bridge), synthesized + ranked.
 **Context**: the self-pointing functor `F X = {a}⊎{b}⊎{x/y : x≠y}` arc is closed on both faces
@@ -21,6 +27,45 @@ two are category errors to record-and-stop (below).  Recommended order: **C1 →
   - P5 `spineL_unique` (CoResidue §16) — `spineL` the unique left-spine fixpoint (path induction).
   - P6 `nu_population_capstone` (CoResidue §17) — νF a `Distinct`-rich populated carrier.
   Adversarial-reviewed; essays `the_residue_as_{primitive,state_machine}.md` updated.
+
+**STATUS 2026-06-04 — §18 cross-arc closed** ∅-axiom (CoResidue 94→99 PURE).  The §14 ⊗ §15
+graft (`coSwap` ⊗ `boolSpine`): the lone Raw automorphism acts *freely* on the bit-stream
+escapes —
+  - `spineL_eq_boolSpine_true` — `spineL` is the `f ≡ true` member of the §15 injection.
+  - `coSwap_boolSpine` — exact intertwining `coSwap ∘ boolSpine = boolSpine ∘ (Bool.not ∘ ·)`,
+    clean precisely where §14's tree-seed intertwining fails (a leaf has no children to reorder).
+  - `coSwap_boolSpine_distinct` — `coSwap` fixes *no* bit-stream escape (free action of the
+    order-2 swap group on the `(Nat→Bool)`-many escapes).
+  - `boolSpine_swap_orbit`, `coSwap_boolSpine_free_action` — the 2-element orbit + capstone.
+  Fed the promoted essay `theory/essays/foundations/the_frontier_has_a_form.md` (the populated +
+  *symmetric* frontier).
+
+**STATUS 2026-06-04 — §19 shift dynamics closed** ∅-axiom (CoResidue 99→107 PURE).  The
+bit-stream escapes carry the **shift dynamical system** (cross-arc §12 ⊗ §15 ⊗ §18 ⊗ the
+non-holonomicity arc):
+  - `boolSpine_congr` — pointwise stream-eq → pointwise spine-eq (funext-free, reads periodicity).
+  - `boolSpine_coLeft` / `boolSpine_coRight` — left descent = head bit, right descent = the shift.
+  - `boolSpine_shift_coalgebra` — `boolSpine` is the shift→νF coalgebra hom.
+  - `boolSpine_periodic_selfsimilar` — self-similarity = shift-periodicity.
+  - `spineL_shift_fixed` — `spineL` the period-1 (shift-fixed) escape (= `spineL_unique`'s p=1).
+  - `boolSpine_swap_shift_commute` — the lone symmetry commutes with the shift.
+  - `boolSpine_shift_dynamics` — capstone: νF carries the full shift as a faithful sub-coalgebra.
+  Fed the essay's "the frontier carries dynamics" layer.  **All C-phys consolidation bridges now
+  resolved**: C3/C6/C7 closed ∅-axiom, C1 closed-as-non-bridge (see the Consolidation-bridges
+  section).  The ε₀-diagonal and frozen=dynamic-φ adjacents were already closed (survey footer).
+
+**STATUS 2026-06-04 — §19→G181 odometer cross-arc closed** ∅-axiom (`Theory/Raw/Odometer`,
+11 PURE).  The other fundamental map on the §19 bit-streams — the **odometer** (`+1` adding
+machine) — built and read as the µF/νF mirror at the arithmetic scale: carry terminates iff the
+stream has a floor (`carry_dies_iff_has_false`, µF) and runs forever on the all-`true` =
+`spineL`-seed stream (`allTrue_carry_forever`, νF), so the canonical escape IS the odometer
+overflow (`spineL_seed_is_odo_overflow`).  Realises G181's identified build target.  Fed `the_frontier_has_a_form.md`
+("the escape's arithmetic face") + the G181 note's STATUS.  **Variable-base companion also
+built**: `Real213/ZeckendorfCarry` (7 PURE) — the golden/Zeckendorf adic carry `011 → 100` =
+the Fibonacci recurrence (`zeck_carry_weight`), value-preserving (`fibValFrom_carry`),
+admissibility = Cassini; Ostrowski(φ), the residue's own spiral base.  Promoted to
+`theory/math/algebra/phi_self_similarity.md` §3.7.  The §19→G181 arc is now closed on both the
+binary and the golden base.
 
 ## Recommended next proof-line (νF population — all ∅-axiom-feasible)
 
@@ -85,20 +130,34 @@ Tractability: med.  Do P1/P2 first; the branch-distinctness bookkeeping mirrors
 
 ## Consolidation bridges (safe but internal — low novelty)
 
-- **C3-phys (det-`1` = ascent-`1` = glue-`1`)** — one ∅-axiom theorem identifying the Möbius
-  `det P = NS−NT = 1`, the ascent unit (`ascent_adds_unit`), and the descent unit
-  (`part_depth_succ_le`) as the *same* `1`.  Safest, fully internal; the `ResidueForm`
-  docstring already asserts this unity narratively — this demands the Lean witness.
-- **C1-phys (`N_gen` via the atom's own solver)** — link `C(NS,NT)=3` to the
-  `solve_2a_3b_eq_5` machinery of `atomic_iff_five`, not a parallel `binom` fact.  ⚠ risk:
-  `C(3,2)=3=NS` may be a small-number coincidence — must carry structure, not just numerics.
-- **C7-phys (Koide `2/3 = NT/NS`)** — connect `koide_falsifier` (F21) to `Mobius213OneAsGlue`
-  so Koide's `2/3` and the det atoms are the *same two atoms*.  Clean internal link; honest
-  only as a *forced reading*, which F21 already frames correctly.
-- **C6-phys (falsifier-roster uniqueness super-theorem)** — every falsifier integer (F1 `5`,
-  F2 `3`, F8 `22`, F22 `6`, F26 `10`, F24 `192`) is a polynomial in `(NS,NT,d)`, the unique
-  triple forced by `atomic_iff_five`+`pair_iff_two`.  High Validation-Standard value (one
-  ∅-axiom theorem covering the surface) but capstone-inflation labor.
+- **C3-phys (det-`1` = ascent-`1` = glue-`1`)** — ✅ **CLOSED 2026-06-04** ∅-axiom:
+  `Lens/Number/SharedUnitAcrossReadings.unit_bridges_dynamics_and_readings` identifies the
+  ascent unit (`ascent_adds_unit`), the descent unit (`part_depth_succ_le`), the glue
+  `NS−NT = 1`, and the Möbius `det P = 1` as the *same* `1` — the dynamics↔algebra bridge the
+  `ResidueForm` docstring asserted (now cited from it).  Complements the two pre-existing
+  single-scale bundles (`ReentryUnit.reentry_unit_across_scales` = Raw-dynamics;
+  `the_unit_is_one_across_readings` = number-axes).
+- **C1-phys (`N_gen` via the atom's own solver)** — ⛔ **structural link declined 2026-06-04**
+  (numeric part subsumed).  The legitimate forced numeric (`binom NS NT = 3` tied to
+  `pair_forcing`) is already in `FalsifierRosterForced.falsifier_roster_forced` (F2).  Forcing
+  `C(NS,NT)=3` *into* the `2a+3b=5` atomic-solver machinery is the recorded **non-bridge**: per
+  this note's own "Non-bridges — record and STOP" (`N_gen = C(NS,NT)` is a combinatorial-selection
+  `3`, a *different* `3` from `NS`), and the failure-mode discipline forbids forcing it.  So
+  C1-phys is closed-as-non-bridge: the forced count stands (in C6-phys), the solver-identification
+  does not, by design.
+- **C7-phys (Koide `2/3 = NT/NS`)** — ✅ **CLOSED 2026-06-04** ∅-axiom:
+  `KoideFormula.koide_atoms_are_det_atoms` (PURE) connects Koide's ratio to `Mobius213OneAsGlue`:
+  the forced pair `(NS,NT)=(3,2)` read three ways — **ratio** `NT·3 = NS·2` (Koide `2/3`),
+  **difference** `det P = NS−NT = 1` (`mobius_det_eq_ns_minus_nt`, the residue unit), **product**
+  `NS·NT = 6` (`ns_nt_product`, the `K_{3,2}` edge count).  Koide's two atoms ARE the det atoms;
+  honest as a *forced reading* (same pair, no forced map).
+- **C6-phys (falsifier-roster uniqueness super-theorem)** — ✅ **CLOSED 2026-06-04** ∅-axiom:
+  `Lib/Physics/Foundations/FalsifierRosterForced.falsifier_roster_forced` (1 PURE) binds the two
+  forcing iffs (`atomic_iff_five` → d=5; `pair_forcing` → (NT,NS)=(2,3)) to the headline
+  falsifier integers as polynomials in the forced triple (F1 5=d, F2 3=binom NS NT, F8 22=d²−NS,
+  F22/F26 6=NS·NT, F26 10=d·NT, F24 192=(NS²−1)(d²−1), F15/F19 12=2·NS·NT, F21 Koide 3·NT=2·NS).
+  The load-bearing content is the *forcing* (integers follow from the unique triple, not fits),
+  recorded in `catalogs/falsifiers.md`.
 
 ## Non-bridges — record and STOP re-fighting (per the failure-mode discipline)
 
@@ -128,4 +187,11 @@ preemptively warn against (mirrors the `5²⁵ = N_U` deletion):
 Three agents (frontier survey, µF/νF extension, physics bridge), 2026-06-02.  Anchors:
 `Theory/Raw/{CoResidue,MuNuMirror,Lambek,PrimitiveTower,StateMachine,Swap}`,
 `Lib/Math/Foundations/ResidueForm`, `Theory/Atomicity/Five`, essays `the_residue_as_{primitive,state_machine}`.
-Adjacent still-open (survey): native ε₀ diagonal (G173, hard), frozen=dynamic φ identity (med).
+Adjacent (survey) — both ✅ **CLOSED ∅-axiom**, the "still-open" survey label was stale:
+  - **ε₀ diagonal** — `Cauchy/DepthHeightDiagonal.{height_diagonal_escapes,epsilon_direction,
+    diag_self_applies}` (4 PURE); chaptered at `theory/math/numbersystems/completeness_without_completeness.md`
+    Part IV §14.  Honest ceiling: no native `Ordinal`/`ε₀` object (not forced) — the ∅-axiom
+    content is "naming the whole `ω^r` ladder escapes every finite height," not a constructed ε₀.
+  - **frozen=dynamic φ** (§5.7) — `Real213/PhiFrozenDynamic.frozen_eq_dynamic_phi` (2 PURE);
+    now chaptered at `theory/math/algebra/phi_self_similarity.md` §3.6 (promoted 2026-06-04),
+    tying the frozen/dynamic gap `1` to the C3-phys shared unit.

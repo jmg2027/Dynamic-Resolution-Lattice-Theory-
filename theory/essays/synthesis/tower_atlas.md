@@ -120,7 +120,7 @@ refuses (`05_no_exterior.md` §5.4).  The honest map separates them:
     on that shared bounded scale, not as one object.
   - **ℝ-encoding tower** — `TriangularTower/` encodes reals as
     finite-level squashed paths under `NS = 3` absorption
-    (`theory/math/triangular_tower.md`).  It borrows the signature `NS`,
+    (`theory/math/geometry/triangular_tower.md`).  It borrows the signature `NS`,
     but it is a *representation* construction, not the doubling-arrow
     orbit.
   - **Physics hierarchy towers** — `Physics/Mass/HierarchyTowers` stacks
@@ -139,8 +139,8 @@ CD reading is the orbit's, not the textbook construction's.
 The GRA-tower ↔ CD-tower *duality* (level `n` of property loss ↔ level
 `5−n` of Reading-iso gain) is conceptual only (`math/gra_book.md` §5.3,
 Conjecture 5.3.1).  The "every axis sees P" catalog stands at 55 axes
-(`theory/essays/every_axis_sees_p.md`); whether it is exhaustive is open.
+(`theory/essays/p_orbit/every_axis_sees_p.md`); whether it is exhaustive is open.
 And within the CD column, the flexibility rung past Cayley is not yet
 closed (`Meta/Algebra213/CDDoubleFlexible.lean`; see
 `math/cayley_dickson/algebra_tower.md` §"Open frontier" #2 and
-`theory/essays/cd_tower_polarization.md`).
+`theory/essays/algebra/cd_tower_polarization.md`).

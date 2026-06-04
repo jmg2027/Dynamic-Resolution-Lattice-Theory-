@@ -218,7 +218,7 @@ Adjacent: C2a (uniqueness of `c · m · n = m² + m + n − 2` at c = 2)
 and C2c (`d = 5` derivation from `c · m · n` constraint) have
 explicit decide checks but no parametric extension yet.  These are
 secondary because c = 2 and d = 5 follow from C2b + the
-fractal-resolution lift `d^(d²) = N_U` (per `seed/RESOLUTION_LIMIT_SPEC.md`).
+fractal lift `d^(d²) = 5²⁵` (`Lib/Math/Cohomology/Fractal/ConfigCount.lean`).
 
 ## How to verify
 

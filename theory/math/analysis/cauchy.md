@@ -47,9 +47,9 @@ corrected position).
 
 ## Connection to other chapters
 
-- `theory/math/real213.md` — Cauchy sequences feed Real213 cuts
-- `theory/math/modulus.md` — explicit moduli used here
-- `theory/math/dyadic_fsm.md` — Pell sequence via DyadicFSM
+- `theory/math/numbersystems/real213.md` — Cauchy sequences feed Real213 cuts
+- `theory/math/analysis/modulus.md` — explicit moduli used here
+- `theory/math/numbertheory/dyadic_fsm.md` — Pell sequence via DyadicFSM
 - `theory/physics/alpha_em/precision_derivation.md` — Wallis used
   in α_em derivation (S_Wallis bracket)
 

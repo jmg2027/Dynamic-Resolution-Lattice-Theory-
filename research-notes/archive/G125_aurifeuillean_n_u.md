@@ -339,7 +339,7 @@ the codebase:
     is the dominant eigenvalue of `[[2,1],[1,1]]` with
     characteristic polynomial `λ² − 3λ + 1` (trace 3 = NS,
     det 1, disc 5 = NS + NT).  Frozen + dynamic dual reading.
-  · `theory/math/modular_arithmetic.md` + `theory/math/dyadic_fsm.md`
+  · `theory/math/numbertheory/modular_arithmetic.md` + `theory/math/numbertheory/dyadic_fsm.md`
     (G119 closure): the Pell-Fibonacci substrate over `F_{p²}` is
     the modular reduction of the same `ℤ[√d]` extension.
   · `lean/E213/Lib/Math/Mobius213.lean`: the Möbius `P(x) =

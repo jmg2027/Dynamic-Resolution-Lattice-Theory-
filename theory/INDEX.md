@@ -27,7 +27,7 @@ external parameters, all PURE in Lean.
 | **configCountD d n = d^(d^n)** | Parametric configuration count (`lean/E213/Lib/Math/Cohomology/Fractal/ConfigCount.lean`); a count-Lens readout, **no level privileged** — not a universe constant. |
 | **Cup-ring** | Cochain cup-product structure.  Closure form for K_{3,2}^{(c=2)} observables. |
 | **Cochain n k** | `Fin (binom n k) → Bool` — free ℤ/2-module on k-subset basis of Δⁿ⁻¹. |
-| **Modulus** | Explicit `Nat → Nat` replacing ε-δ existentials.  Per `theory/math/modulus.md`. |
+| **Modulus** | Explicit `Nat → Nat` replacing ε-δ existentials.  Per `theory/math/analysis/modulus.md`. |
 | **∅-axiom (PURE)** | `#print axioms <thm>` returns empty.  No `propext`, no `Classical`, no Mathlib. |
 | **Closure Form** | Every K_{3,2}^{(c=2)} observable = R(NS,NT,d,c)·Π(1+κ·αⁿ).  Per `rust-engine/docs/closure-algorithm.md`. |
 
@@ -75,15 +75,15 @@ Chapter exists when the Lean sub-tree closed per
     integration, narrative depth, physics deployment,
     architecture)
 
-## Current chapters (~176 total, incl. 44 essays)
+## Current chapters (~186 total, incl. 51 essays)
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
-| `math/`    | 88 | [`math/INDEX.md`](math/INDEX.md) |
+| `math/`    | 91 | [`math/INDEX.md`](math/INDEX.md) |
 | `physics/` | 18 | [`physics/INDEX.md`](physics/INDEX.md) |
 | `lens/`    | 14 | [`lens/INDEX.md`](lens/INDEX.md) |
 | `meta/`    |  7 | [`meta/INDEX.md`](meta/INDEX.md) |
-| `essays/`  | 44 | [`essays/INDEX.md`](essays/INDEX.md) |
+| `essays/`  | 51 | [`essays/INDEX.md`](essays/INDEX.md) |
 
 Every closed Lean sub-tree has a corresponding `theory/` chapter.
 **Synthesis chapters** — consolidating content distributed across
@@ -106,7 +106,7 @@ See `research-notes/frontiers/INDEX.md` for the open board and
 
 ## Companion specs
 
-Foundational spec corpus alongside `seed/RESOLUTION_LIMIT_SPEC.md`:
+Foundational spec corpus:
 
 - `seed/THEOREM_METHODOLOGY_SUITE.md` — §TH-1 proof-shape fingerprinting (companions `theory/meta/scanner_suite.md` §1), §TH-2 Raw-derivation taxonomy (companions `theory/meta/raw_derivation_levels.md`), §TH-3 falsifier-surface spec, §TH-4 L1 parametric methodology
 - `seed/META_SCAN_ARCHETYPES.md` — 11 reusable scanner archetypes

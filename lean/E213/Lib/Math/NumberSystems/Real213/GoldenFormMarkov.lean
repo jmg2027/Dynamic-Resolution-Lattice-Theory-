@@ -28,14 +28,10 @@ namespace E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov
 /-! ## §0 — pure square-monotonicity (core `Nat.mul_lt_mul_right` is an `Iff` that leaks
 `propext`/`Classical.choice`/`Quot.sound`) -/
 
-/-- Pure left-cancellation `a + b = a + c → b = c` (core `Nat.add_left_cancel` leaks
-    `propext`). -/
-theorem add_left_cancel_pure : ∀ (a b c : Nat), a + b = a + c → b = c
-  | 0, _, _, h => by rw [Nat.zero_add, Nat.zero_add] at h; exact h
-  | a + 1, b, c, h => by
-      apply add_left_cancel_pure a
-      rw [Nat.succ_add, Nat.succ_add] at h
-      exact Nat.succ.inj h
+/-- Pure left-cancellation `a + b = a + c → b = c` (delegates to the canonical
+    `Meta.Nat.PureNat.add_left_cancel`; core `Nat.add_left_cancel` leaks `propext`). -/
+theorem add_left_cancel_pure (a b c : Nat) (h : a + b = a + c) : b = c :=
+  E213.Meta.Nat.PureNat.add_left_cancel h
 
 /-- `m < k → m² < k²` over `ℕ`, ∅-axiom. -/
 theorem sq_lt_sq (m k : Nat) (h : m < k) : m * m < k * k := by

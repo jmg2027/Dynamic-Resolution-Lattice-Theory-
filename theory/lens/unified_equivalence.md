@@ -133,7 +133,7 @@ This is *representational*, not a quotient type.  Classical
 ℤ-as-quotient `(ℕ × ℕ)/~` requires `Quot.sound`; 213's
 `SignedCut` keeps the pair representation and replaces equality
 with `signedEq` (`Lib/Math/NumberSystems/SignedCut/Core/Equivalence.lean`,
-`theory/math/signed_cut.md`).  The "class" is the fiber; the
+`theory/math/numbersystems/signed_cut.md`).  The "class" is the fiber; the
 "quotient" is the image; neither needs Quot.sound to **state**,
 only to **propositionally collapse**.
 
@@ -315,7 +315,7 @@ meaning"), not a statement shape.  See `STRICT_ZERO_AXIOM.md` and
     homomorphism reading)
   · `theory/lens/universal.md` — `universalLens` construction
     (the kernel-realisation direction)
-  · `theory/math/mobius_canonical_equivalence.md` — Möbius
+  · `theory/math/algebra/mobius_canonical_equivalence.md` — Möbius
     P-orbit detail at the mathematics layer
   · `seed/AXIOM/05_no_exterior.md` §5.4 — dichotomy-avoidance
     that frames the unification claim

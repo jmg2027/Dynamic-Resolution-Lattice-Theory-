@@ -38,4 +38,4 @@ full atomic-vertex inventory of Δ⁴.
 
 This is the 213-native realization of "dimensions emerge by
 counting orthogonal directions", made structural.  Companion to
-triangular-tower architecture triangular tower (`theory/math/triangular_tower.md`).
+triangular-tower architecture triangular tower (`theory/math/geometry/triangular_tower.md`).

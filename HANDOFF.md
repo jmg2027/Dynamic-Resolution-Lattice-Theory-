@@ -9,7 +9,14 @@
 
 This branch closed a sequence of classical representation theorems ∅-axiom, capped by Lagrange's
 four-square theorem, then ran a full merge-readiness marathon (`/process /essay /org-audit
-/purity-check /ready-to-merge /handoff`).
+/purity-check /ready-to-merge /handoff`) and merged `origin/main` in.
+
+**Merged from main this pass** (separate arc, promoted to permanent tiers — see
+`research-notes/frontiers/INDEX.md` + `theory/essays/`): the residue-expression atlas + the
+Minkowski-`?` modular cocycle (`theory/essays/analysis/minkowski_as_modular_cocycle.md`), the
+breadth-signature thesis (`theory/essays/foundations/the_breadth_signature.md`), the Markov-`H`
+ISA-localization terminal finding (`frontiers/markov_lagrange/G197…`), and the p-adic
+Teichmüller G123 A/B/G closure (`theory/math/numbersystems/padic_real213.md`).
 
 ### 1. Lagrange's four-square theorem — CLOSED + PROMOTED (∅-axiom)
 `NumberTheory/FourSquare.nat_isSum4 : ∀ n, isSum4 ↑n` is axiom-free — the first repo result

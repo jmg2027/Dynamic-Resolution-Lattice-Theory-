@@ -396,7 +396,7 @@ LensCardinality / CardinalityLB).  These are **Lens
 observables**, not Raw-level facts.  Finiteness,
 countability, cardinality lower bounds, Cantor's diagonal —
 each becomes a predicate that holds *of a given Lens* on Raw,
-not of Raw itself.  Per `seed/RESOLUTION_LIMIT_SPEC.md`: no
+not of Raw itself.  No
 quantity is a universe constant; `N_U = 5^25` is the count-
 Lens output at fractal level 2.
 
@@ -442,7 +442,7 @@ property of `K_{3, 2}^{(c=2)}` or its self-cup
 
 ### III.4 Möbius P
 
-`theory/math/mobius_canonical_equivalence.md` is the canonical
+`theory/math/algebra/mobius_canonical_equivalence.md` is the canonical
 chapter.  Lean: `lean/E213/Lib/Math/Algebra/Mobius213/`.
 
   · `P = [[2, 1], [1, 1]]` ∈ SL(2, ℤ)
@@ -464,7 +464,7 @@ det(P) = 1, trace(P) = NS = 3, row 1 = (NS, det), row 2 =
 
 ### III.5 P-orbit naturalness boundary
 
-`theory/math/mobius213_p_orbit_closure.md` — the framework-
+`theory/math/algebra/mobius213_p_orbit_closure.md` — the framework-
 natural integers are exactly the Lucas-Pell trace ring
 `⟨{L(k)} ∪ {NT, NS, d}⟩_ℤ`.  P-orbit period `D(p) ≤ 4` for
 `p ≤ 97` (empirical).  Conjecture: `O(log p)` (open).
@@ -560,7 +560,7 @@ P is therefore both the *atomic algebraic anchor* (Part III)
 and the *equivalence-class structure on cuts* (here).
 
 **Möbius P Grand Unification — 10-conjunct master**.
-`lean/E213/Lib/Math/Mobius213GrandUnification.lean` —
+`lean/E213/Lib/Math/Algebra/Mobius213GrandUnification.lean` —
 `grand_unification` is a single bundled theorem with ten
 distinct readings of P as one event:
 
@@ -593,12 +593,12 @@ Lens-frames.
 
 ### IV.3 Cayley-Dickson tower
 
-`theory/math/cayley_dickson/algebra_tower.md` —
+`theory/math/algebra/cayley_dickson/algebra_tower.md` —
 ZI (Gaussian integers) → Lipschitz (integer quaternions) →
 Cayley (integer octonions) → Sedenion → Pathion →
 Trigintaduoionion.  Layers indexed by the CD doubling.
 
-`theory/math/sym3_spine.md` — Sym(3) 8-fold decomposition
+`theory/math/cohomology/sym3_spine.md` — Sym(3) 8-fold decomposition
 appears across CD layers and Thurston geometries (Part V).
 The same decomposition reaches into the eventual physics
 deployment (gauge sector) but that side is out of scope
@@ -606,34 +606,33 @@ here.
 
 ### IV.4 Real213
 
-`theory/math/real213.md` (57 files in `lean/E213/Lib/Math/
+`theory/math/numbersystems/real213.md` (57 files in `lean/E213/Lib/Math/
 Real213/`).  Cuts of P-orbit pairs, parameterised by a
 modulus.  No Cauchy sequences; no ε-δ.  The modulus replaces
 existential quantification.
 
-`theory/math/modulus.md` — the modulus is an explicit
+`theory/math/analysis/modulus.md` — the modulus is an explicit
 `Nat → Nat` function; replaces `∀ ε > 0, ∃ N, …` with
 constructive `f` such that `n ≥ f(k)` implies the property at
 resolution `k`.
 
 ### IV.5 Padic
 
-`theory/math/padic_real213.md` — 213-native p-adic numbers
+`theory/math/numbersystems/padic_real213.md` — 213-native p-adic numbers
 for arbitrary prime `p`.  `ZpSeq`, Hensel lifting (existence +
 uniqueness), Teichmüller iteration, ℚ_p, full ultrametric.
 
-5-adic specifically anchors DRLT (the resolution constant
-`N_U = 5^25` is a count-Lens output, per
-`seed/RESOLUTION_LIMIT_SPEC.md`).
+5-adic specifically anchors DRLT (`N_U = 5^25` is a count-Lens
+output, not a universe constant).
 
 ### IV.6 Cauchy, Modulus, FSM
 
-  · `theory/math/cauchy.md` — Cauchy / Euler / Wallis / Pell
+  · `theory/math/analysis/cauchy.md` — Cauchy / Euler / Wallis / Pell
     sequences
-  · `theory/math/dyadic_fsm.md` — 101 files; Pell-Pisano /
+  · `theory/math/numbertheory/dyadic_fsm.md` — 101 files; Pell-Pisano /
     Tribonacci / Legendre classification via finite-state
     machines
-  · `theory/math/cascade_calculus.md` — cascade locality /
+  · `theory/math/analysis/cascade_calculus.md` — cascade locality /
     aggregation
 
 ---
@@ -648,7 +647,7 @@ independent closure routes, each ∅-axiom:
 
   · **A — `codim ≥ c` parametric**.  `V33EnrichedParametric`
     proves the lower bound for every `(NS, NT, c)`.  The
-    `9 · m` offset cancellation in `NatBeqHelpers` absorbs
+    `9 · m` offset cancellation in `Beq213` absorbs
     280+ proof sites across 12 templates (L1 parametric
     consolidation, per Part VIII.4).
   · **B — `codim ≤ c` unconditional**.  Closed via 8 explicit
@@ -711,7 +710,7 @@ bridge}.md` — 12 sub-clusters under cohomology.
 
 ### V.6 Sym(3) spine cross-frame
 
-`theory/math/sym3_spine.md` — `2 · trivial ⊕ 3 · standard`
+`theory/math/cohomology/sym3_spine.md` — `2 · trivial ⊕ 3 · standard`
 Sym(3)-decomposition appears in K_{3, 2}^{(c=2)} H¹, in
 Thurston's 8 geometries, in the Akbulut cork.  Same
 decomposition, three independent math frames.  (A fourth
@@ -721,7 +720,7 @@ side; out of scope here.)  Capstone:
 
 ### V.7 Universe chain
 
-`theory/math/universe_chain.md` — UniverseChain + Mobius213 +
+`theory/math/foundations/universe_chain.md` — UniverseChain + Mobius213 +
 Nat213 (~32 files).  The chain of universes is forced by P-orbit
 iteration.
 
@@ -751,7 +750,7 @@ Cayley-Dickson layers without `propext`.  Hurwitz norm
 identity, associativity at each CD level, quadratic-extension
 algebra.
 
-`theory/math/algebra213_meta_theorems.md` — the meta-theorems
+`theory/math/foundations/algebra213_meta_theorems.md` — the meta-theorems
 for the Ring213 / StarRing213 / CDDouble functor tower.  This
 is the algebraic substrate that makes the CD construction
 PURE through every layer.
@@ -772,7 +771,7 @@ fractal turn.
 
 ### V.11 H³, H⁴ stable at +6
 
-`theory/math/exotic_4mfd_cork.md` + `H3Twist.lean` — the
+`theory/math/geometry/exotic_4mfd_cork.md` + `H3Twist.lean` — the
 3-skeleton and 4-skeleton truncations stabilise the signed
 cork-twist count at `+6` (H¹ = +4, H² = +2, H³ = 0, H⁴ = 0).
 The 4-simplex closure of the `K_{3, 2}^{(c=2)} ↪ Δ⁴` dual
@@ -784,7 +783,7 @@ filling.
 
 GRA — Graded Residue Arithmetic — is the *universal meta-
 structure* of 213: the (2, 3)-graded arithmetic forced by
-`gcd(NT, NS) = gcd(2, 3) = 1`.  See `theory/math/gra_book.md`
+`gcd(NT, NS) = gcd(2, 3) = 1`.  See `theory/math/algebra/gra_book.md`
 for the textbook treatment, including (post-consolidation)
 the master statement, the algebraic-tower / dimensional-
 proliferation / Adelic frontiers (Ch. 8–9).
@@ -928,7 +927,7 @@ Raw.
 
 `lean/E213/Lib/Math/Foundations/AxiomSystems/ClassicalAnalysisCompletenessAsLens.lean`
 — LUB property is a Lens kernel; the modulus replaces ε-δ
-(per `theory/math/modulus.md`).
+(per `theory/math/analysis/modulus.md`).
 
 ### VII.4 Cross-theory cohabit
 
@@ -954,7 +953,7 @@ Reading.
 
 ### VII.7 The capstone framing
 
-Per the essay `theory/essays/gra_as_substrate_of_cat_hott.md`:
+Per the essay `theory/essays/gra/gra_as_substrate_of_cat_hott.md`:
 
 > The (2, 3)-arithmetic forced by atomic distinguishing IS what
 > Category theory and HoTT name when their grade structure is
@@ -1090,7 +1089,7 @@ proof-fingerprint suite at four levels:
 When N proofs share byte-identical fingerprint across
 independent scanners, **extract the shared implicit lemma**
 (L1 parametric consolidation).  Example:
-`9 · m` offset cancellation in `NatBeqHelpers` absorbs 280+
+`9 · m` offset cancellation in `Beq213` absorbs 280+
 sites across 12 templates.
 
 ### VIII.8 Falsifiability operationalised
@@ -1218,8 +1217,8 @@ proofs)
 → HANDOFF.md → this book's Part 0
 
 **For the (2, 3)-arithmetic capstone**:
-Part VI in full + `theory/essays/gra_as_substrate_of_cat_hott.md`
-+ `theory/essays/gra_universality_one_principle.md`
+Part VI in full + `theory/essays/gra/gra_as_substrate_of_cat_hott.md`
++ `theory/essays/gra/gra_universality_one_principle.md`
 
 **For audit / verification**:
 Part VIII → `STRICT_ZERO_AXIOM.md` → `tools/scan_axioms.py`

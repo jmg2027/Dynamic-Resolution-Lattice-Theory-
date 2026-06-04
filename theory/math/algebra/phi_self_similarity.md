@@ -158,6 +158,57 @@ Pell convergents (§3.5) — on **both** the native-`fib` sequence and the canon
 `pellConvergentCut`.  The residue's irrational limit-ratio signature is one
 213-native Cut, however it is approached.
 
+### 3.6 frozen = dynamic φ, with the residue unit between (`Real213/PhiFrozenDynamic.lean`)
+
+`seed/AXIOM/05_no_exterior.md` §5.7 names the two readings §3.3/§3.5 build and
+states they are one object — **closed** by `PhiFrozenDynamic.frozen_eq_dynamic_phi`
+(2 PURE):
+
+  - **frozen, algebraic** — `phi_discriminant_is_P_charpoly`: φ's defining cut
+    discriminant `5` (the `5k² ≤ (2m−k)²` of `phiCut`) **is** `P`'s characteristic
+    discriminant `(L 1)² − 4` with `L 1 = NS = trace P = 3`.  So the *frozen* φ is
+    `P`'s fixed-point datum, not an independent constant.
+  - **dynamic = frozen** — `phiCauchy_limit_eq_phiCut` (§3.5) read as the §5.7
+    identification: the limit of `P`'s Möbius orbit lands on the *same* 213-native
+    cut as the algebraic φ.
+  - **the residue between** — `FibCassiniNat.fib_cassini_norm`
+    (`fib(2n+2)² + 1 = fib(2n+2)·fib(2n+1) + fib(2n+1)²`) and
+    `convergent_never_frozen`: the `Nat` orbit stays *exactly* the unit `1` off the
+    frozen fixed-point relation and never reaches it.  The dynamic approaches but
+    never lands on the frozen; the gap is the irreducible `+1`.
+
+That `+1` is the Cassini `W = ±1` of the Fibonacci/Pell matrix — `det P = 1` raised
+to the orbit — i.e. the *same* unit that
+`Lens/Number/SharedUnitAcrossReadings.unit_bridges_dynamics_and_readings` proves
+identical across the ascent/descent dynamics and the glue/determinant readings.  So
+"frozen approached by dynamic, never reached, gap `1`" is the φ-face of the one
+shared unit: the residue between a fixed point and its convergents *is* the residue
+unit.
+
+### 3.7 φ as a numeration base — the golden (Zeckendorf) adic carry (`Real213/ZeckendorfCarry.lean`)
+
+φ is not only a cut and a limit; it is the residue's own **numeration base**.  The Fibonacci
+place values `fib 2, fib 3, fib 4, … = 1, 2, 3, 5, 8, …` (the `P`-orbit, §"count" reading) give
+the **Zeckendorf / golden adic** — digits `∈ {0,1}`, no two consecutive `1`s — which is exactly
+**Ostrowski(φ)**, the continued-fraction numeration of the all-`1` quotient sequence.  Its carry
+is `011 → 100`:
+
+  - ★ `zeck_carry_weight` — `fib (i+2) + fib (i+3) = fib (i+4)`: two consecutive rungs sum to the
+    next, the Fibonacci recurrence as the carry, the residue unit `+1` lifting one spiral rung
+    (ground instance `1 + 2 = 3`, "the result of 2 is 3");
+  - ★ `fibValFrom_carry` — the `011 → 100` rewrite is **value-preserving** on Fibonacci-base
+    digit lists: two consecutive `1`s at rungs `(i, i+1)` rewrite to a single carried `1` at rung
+    `i+2`, the Zeckendorf value unchanged (the golden-adic odometer step);
+  - the admissibility law — *no two consecutive `1`s* — is the Cassini `W = ±1` / `det P = 1`
+    digit law (`FibCassiniNat.fib_cassini_norm`), the µF floor written in digits;
+  - `golden_adic_carry` bundles all four.
+
+This is the variable-base companion of the binary `+1` odometer (`Theory/Raw/Odometer`, where the
+all-`1` overflow is the canonical νF escape `spineL`): same residue unit `+1`, now in the
+residue's own spiral base.  Honest scope: the golden adic is Ostrowski(φ) = Zeckendorf (a known
+numeration); the 213 reading is that its carry IS the residue unit and its base IS the
+self-pointing spiral.
+
 ## The single statement
 
 `SelfSimilarityBridge.self_similarity_three_readings` bundles form + count +
@@ -191,6 +242,8 @@ lake build E213.Lib.Math.NumberSystems.Real213 E213.Lib.Math.SelfSimilarityBridg
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PellFibCutBridge
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PhiFrozenDynamic
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.ZeckendorfCarry
 python3 tools/scan_axioms.py E213.Lib.Math.SelfSimilarityBridge
 ```
 
@@ -200,4 +253,4 @@ python3 tools/scan_axioms.py E213.Lib.Math.SelfSimilarityBridge
 - Lean source of truth: `Theory/Raw/Lambek`, `Lib/Math/SelfSimilarityBridge`,
   `Lib/Math/NumberSystems/Real213/{PhiNormInvariant, PhiConvergence, PhiAsCut, FibCassiniNat}`.
 - Larger frame (CD / universe-chain / GRA / Raw towers as readings of the same
-  P-orbit): `theory/essays/tower_atlas.md`.
+  P-orbit): `theory/essays/synthesis/tower_atlas.md`.

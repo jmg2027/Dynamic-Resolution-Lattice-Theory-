@@ -1,5 +1,10 @@
 # G181 — the atomic spiral structural adic (variable-base, carry = the residue unit)
 
+> **CLOSED & archived 2026-06-04.**  The identified build target is built ∅-axiom: the binary
+> odometer (`Theory/Raw/Odometer`), the golden/Zeckendorf carry (`Real213/ZeckendorfCarry`), the
+> ℤ-action freeness + profinite value (`Theory/Raw/OdometerValue`).  Canonical narrative:
+> `theory/essays/foundations/the_residue_unit_odometer.md` + `theory/math/algebra/phi_self_similarity.md` §3.7.
+
 **Tier 1 (volatile).**  Design note from a discussion session on the residue framework.
 Companion synthesis: `theory/essays/the_form_of_the_residue.md`, `research-notes/G170`
 (π non-holonomicity), the Markov/Lagrange arc (`theory/math/analysis/markov_spectrum.md`).
@@ -138,4 +143,36 @@ content is the *reading*, not a new numeration.**
 **Direction**: if anything is to be *built*, the target is the **Ostrowski/Vershik odometer
 as the arithmetic face of the pointing act** (`+1` = the act, carry = spiral lift, profinite
 limit = νF) — connecting `rawTower` / `MuNuMirror` to Ostrowski numeration.  Not a new adic;
-a native reading of the known one.  (Done elsewhere per branch policy.)
+a native reading of the known one.
+
+**STATUS 2026-06-04 — first odometer increment built ∅-axiom.**  `Theory/Raw/Odometer`
+(11 PURE) builds the binary (2-adic) `+1` adding machine on the §19 bit-streams and reads the
+µF/νF mirror at the odometer scale: the carry starts at the residue unit (`carry_zero`),
+*terminates iff the stream has a floor* (a `0`, `carry_dies_iff_has_false` — the µF face) and
+*runs forever* on the all-`true` stream (`allTrue_carry_forever` — the νF face).  The all-`true`
+seed is exactly `spineL` (`CoResidue.spineL_eq_boolSpine_true`), so the canonical νF escape **is**
+the odometer overflow (`spineL_seed_is_odo_overflow`) — the `+1` that never lands.  This realises
+the "Direction" above at the binary base.  Honest scope: the 2-adic odometer is the known object;
+the content is the residue reading (`+1` = act, overflow = escape), per the FINDINGS verdict.
+**§2 successor dynamics** (Odometer §2, +8 PURE): the `+1` is **injective** (`odo_injective` — the
+residue's successor never returns, odometer-scale `tower_no_cycle` / no-exterior) and interlocks
+with the descent-shift by the adding-machine recursion (`shift_odo`, `carry_shift`);
+`successor_dynamics` bundles it — the ascent unit as an injective dynamical system over the µF
+descent.  **§3 the `ℤ`-action** (Odometer §3, +12 PURE, total 31): the predecessor `−1` (the
+*borrow* machine, dual to the carry) is the two-sided inverse of `+1` (`dec_odo`, `odo_dec`), so
+the residue unit is **invertible** — it generates a `ℤ`-action `(±1)` on the escape space
+(`odo_unit_action`), the difference-Lens generators; no-exterior made a group action.  **§4 the
+reversibility asymmetry** (+6 PURE, total 36): descent (shift) is surjective-not-injective
+(forgetful — drops the low bit), ascent unit (odo) is bijective
+(`descent_forgets_ascent_remembers`) — µF grounds irreversibly, νF's unit is a reversible group
+action.
+
+**STATUS 2026-06-04 (cont.) — the variable-base golden/Zeckendorf carry built ∅-axiom.**
+`Real213/ZeckendorfCarry` (7 PURE): the residue's *own* base — the Fibonacci spiral
+(`fib 2,3,4,… = 1,2,3,5,8`) — carries `011 → 100` via the Fibonacci recurrence
+(`zeck_carry_weight`: `fib (i+2) + fib (i+3) = fib (i+4)`, the `+1` lifting one spiral rung,
+ground instance `1 + 2 = 3` = "2의 결과가 3").  Stated as a **value-preserving** digit-list
+rewrite (`fibValFrom_carry`): two consecutive `1`s rewrite to a carried `1` one rung up with the
+Zeckendorf value unchanged.  The admissibility law (no two consecutive `1`s) = Cassini `W = ±1`
+(`fib_cassini_norm`).  `golden_adic_carry` bundles it.  This is the §32 "golden/Zeckendorf adic"
+realisation — Ostrowski(φ), the residue's own variable base, carry = the unit `+1`.

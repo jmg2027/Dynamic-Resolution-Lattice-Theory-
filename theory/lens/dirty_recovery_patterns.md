@@ -333,7 +333,7 @@ type itself*, not through an external axiom or external bridge
 lemma.
 
 This pattern is the **5th funext-avoidance pattern** documented in
-`theory/essays/pure_funext_avoidance.md` (which complements this
+`theory/essays/methodology/pure_funext_avoidance.md` (which complements this
 chapter at the Padic / Real213 layer).  P1 and the cong
 constructor share a single principle (pointwise-equality bridge);
 they differ only in level — P1 brings two **Lens** values to
@@ -345,10 +345,10 @@ class.
 
   · `theory/lens/unified_equivalence.md` — the single-concept
     backbone these patterns rely on
-  · `theory/essays/pure_funext_avoidance.md` — sister methodology
+  · `theory/essays/methodology/pure_funext_avoidance.md` — sister methodology
     chapter at Padic / Real213 / Cohomology layer; the 5th pattern
     (Inductive cong constructor) ↔ P1 at inductive-predicate level
-  · `theory/essays/per_layer_completeness_constructive_closure.md`
+  · `theory/essays/cohomology/per_layer_completeness_constructive_closure.md`
     — concrete deployment of the cong-constructor pattern in the
     HARD direction of `codim ≤ c`
   · `STRICT_ZERO_AXIOM.md` — DIRTY catalog + sealed-by-design

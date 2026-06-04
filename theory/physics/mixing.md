@@ -23,11 +23,11 @@ CKM/PMNS angles in DRLT derive from φ (golden ratio):
 - **Neutrino mass ratios**: ratios of consecutive Fibonacci numbers
 
 φ appears as the universe-chain fixed point (per
-`theory/math/universe_chain.md`) and the algebra-tower asymptote
-(per `theory/math/cayley_dickson/algebra_tower.md`).  The same φ
+`theory/math/foundations/universe_chain.md`) and the algebra-tower asymptote
+(per `theory/math/algebra/cayley_dickson/algebra_tower.md`).  The same φ
 governs all three.
 
 ## Connection
 
-- `theory/math/universe_chain.md` — φ as Möbius fixed point
-- `theory/math/cayley_dickson/algebra_tower.md` — φ asymptote rate
+- `theory/math/foundations/universe_chain.md` — φ as Möbius fixed point
+- `theory/math/algebra/cayley_dickson/algebra_tower.md` — φ asymptote rate

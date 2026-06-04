@@ -37,7 +37,7 @@ S-star `i` and edge cochain `β`, in
 shift adds `9 · m.val` to the edge index.
 
 **Cancellation**:
-`nat_decide_add_left_assoc{1,2}` (`NatBeqHelpers`) shows
+`nat_decide_add_left_assoc{1,2}` (`Beq213`) shows
 `(9·m + a == 9·m + b) = (a == b)`.  The `9·m` offset cancels
 both sides of the equality.
 
@@ -113,7 +113,7 @@ infrastructure layers:
 
 | Closure | Cancellation lemma | Layer |
 |---|---|---|
-| c-counter | `nat_decide_add_left_assoc{1,2}` | `Cohomology/Infrastructure/NatBeqHelpers` |
+| c-counter | `nat_decide_add_left_assoc{1,2}` | `Cohomology/Infrastructure/Beq213` |
 | P-orbit | Cayley-Hamilton on P (`L(k+2) = NS·L(k+1) − L(k)`) | `Px/CharPolySelf`, `Px/PnFibonacci` |
 | Mediant | `binom_add_2`, `add_mul_pure` | `Combinatorics/Binomial` |
 
@@ -141,7 +141,7 @@ Briefly catalogued:
     layer-multiplication shape (offset cancellation in the
     Massey input cochains).
   · **Cup-image cross-layer vanishing**: `nine_block_disjoint`
-    (`NatBeqHelpers`) shows distinct layers occupy disjoint
+    (`Beq213`) shows distinct layers occupy disjoint
     9-blocks of edge indices.  The cancellation absorbs the
     `9·m` translate; cross-layer cup vanishes structurally.
   · **Pseq Pell-Fibonacci recurrence**: every Pseq orbit step
@@ -173,7 +173,7 @@ of the same closure machinery.
 
 Three Lean theorems, three different layers, one proof shape:
 
-  · `nat_decide_add_left_assoc1` (`NatBeqHelpers`) —
+  · `nat_decide_add_left_assoc1` (`Beq213`) —
     `(a + b + c == a + d) = (b + c == d)`.  The cohomology
     side.
   · `binom_add_2` (`Combinatorics/Binomial`) —
@@ -188,16 +188,16 @@ single proof template propagate across the parameter range.
 
 ## Cross-references
 
-  · `theory/essays/c_counter_as_layer_count.md` — c-counter
+  · `theory/essays/cohomology/c_counter_as_layer_count.md` — c-counter
     reframing as layer count (instance 1)
-  · `theory/essays/disjoint_layers_as_direct_sum.md` —
+  · `theory/essays/cohomology/disjoint_layers_as_direct_sum.md` —
     categorical direct-sum reading of the cohomology layers
-  · `theory/essays/multiplicity_layer_uniformity.md` — `9·m`
+  · `theory/essays/cohomology/multiplicity_layer_uniformity.md` — `9·m`
     cancellation in detail (instance 1's cancellation lemma)
-  · `theory/essays/p_orbit_closure_master.md` — P-orbit
+  · `theory/essays/p_orbit/p_orbit_closure_master.md` — P-orbit
     closure synthesis (instance 2)
-  · `theory/essays/vandermonde_mediant_counts.md` — mediant
+  · `theory/essays/cohomology/vandermonde_mediant_counts.md` — mediant
     Vandermonde (instance 3)
-  · `theory/essays/c_counter_programme_closure.md` — five-
+  · `theory/essays/cohomology/c_counter_programme_closure.md` — five-
     direction synthesis where the layer-multiplication pattern
     underlies Directions A/B/C and reappears in Direction E

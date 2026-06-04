@@ -4,6 +4,8 @@ import E213.Lib.Math.Combinatorics.Stirling
 import E213.Lib.Math.Combinatorics.GeneratingFunction
 import E213.Lib.Math.Combinatorics.Simplex5
 import E213.Lib.Math.Combinatorics.Capstone
+import E213.Lib.Math.Combinatorics.GraphConnectivity
+import E213.Lib.Math.Combinatorics.BoolEnum
 
 /-!
 # Combinatorics 213 — umbrella

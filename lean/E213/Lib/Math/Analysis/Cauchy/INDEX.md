@@ -4,7 +4,7 @@
 bounded, Archimedean, profinite sequences, the classical families (Euler, Wallis,
 Pell), and the divergence-depth / resolution-axis tower.
 
-Narrative: `theory/math/completeness_without_completeness.md`.
+Narrative: `theory/math/numbersystems/completeness_without_completeness.md`.
 
 ## Foundations + properties
 

@@ -29,9 +29,9 @@ This is the cup-as-measure paradigm shift (per chiral cup ring catalog §C6).
 
 ## Connection to other chapters
 
-- `theory/math/cross_domain_unification.md` (C6) — measure as
+- `theory/math/foundations/cross_domain_unification.md` (C6) — measure as
   paradigm instance
 - `theory/math/cohomology/hodge_conjecture.md` — cup-pairings on T²
   use the same machinery
-- `theory/math/probability.md` — atomic dyadic probability is the
+- `theory/math/probability/probability.md` — atomic dyadic probability is the
   σ-free measure-theoretic counterpart

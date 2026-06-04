@@ -11,7 +11,7 @@ under composition — two paths through the tower can land on
 **different** topologies even from the same starting level.
 
 This is the topological-side counterpart to the algebra tower
-(`theory/math/cayley_dickson/algebra_tower.md`).
+(`theory/math/algebra/cayley_dickson/algebra_tower.md`).
 
 ## Lean source
 
@@ -56,6 +56,6 @@ topological.
 
 ## Companion clusters
 
-- `Lib/Math/Algebra/CayleyDickson/Tower/` (algebra tower, `theory/math/cayley_dickson/algebra_tower.md`)
-- `Lib/Math/Geometry/AngleStructure/` (angle-structure — `theory/math/angle_structure.md`)
-- `Lib/Math/Geometry/TriangularTower/` (triangular-tower architecture — `theory/math/triangular_tower.md`)
+- `Lib/Math/Algebra/CayleyDickson/Tower/` (algebra tower, `theory/math/algebra/cayley_dickson/algebra_tower.md`)
+- `Lib/Math/Geometry/AngleStructure/` (angle-structure — `theory/math/geometry/angle_structure.md`)
+- `Lib/Math/Geometry/TriangularTower/` (triangular-tower architecture — `theory/math/geometry/triangular_tower.md`)

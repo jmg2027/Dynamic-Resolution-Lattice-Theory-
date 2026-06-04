@@ -1529,3 +1529,150 @@ M3 (NT-axis split) and M4 (KK firewall) are downstream — only
 relevant if/when physics interpretation is reactivated.
 See §6 + §7 + new step-11 narrative.
 
+
+---
+
+# Part 4 — M2 universal close (structural), 2026-06-04
+
+Branch `claude/g121-geometric-knot-OIMkV`.
+
+## What moved
+
+M2 was previously an **abstract close for K_{3,2}^{(c=2)} only**:
+`KChartLens NS NT c` carried `selfPointingAxes` as a *user-supplied*
+value, and the `selfPointingAxes = 1` derivation came from
+`V32Betti.kerSizeDelta0_eq_2` (a `decide` on the 32 cochains of the
+one deployment).  The parametric `kerSizeDelta0Direct NS NT c = 2`
+was `decide`-checked across a finite representative range only; three
+files (`Delta0AndConnectedness`, `EulerAndCapstone`, the Parametric
+INDEX) flagged the fully universal `∀ NS NT c` version as open,
+"requires graph-walk connectedness induction".
+
+Now closed **universally and ∅-axiom** at the structural level:
+`lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/KernelConstancyUniversal.lean`
+(14 PURE / 0 DIRTY) proves, for every connected K_{NS,NT}^{(c)}
+(NS ≥ 1, NT ≥ 1, c ≥ 1):
+
+  · `isKer_iff_const` — δ⁰-kernel cochain ⟺ globally constant
+  · `isKer_const_false_or_true` — kernel = exactly the 2 constants
+  · `isKer_root_determines` — root colour is the single free
+    parameter ⇒ `dim ker δ⁰ = 1`
+  · `visible_plus_one` — `(NS+NT) − 1` exists additively
+  · ★★★★★ `universal_kernel_close` — the bundle.
+
+Consumer (Geometry layer):
+`GeometrizationConjecture/KChartLensAbstract.lean` gains
+`forcedKChartLens` (selfPointingAxes = 1 + chartVisibleAxes =
+(NS+NT).pred forced by connectedness, no supplied value) and
+★★★★★★ `m2_universal_forced_partition`.
+
+## Why this route (and why the old one was blocked)
+
+The old enumeration route counts how many of the `2^(NS+NT)` flat
+cochain indices pass the edge test.  Doing that *universally* forces
+core Lean's `Nat.div` / `Nat.mod` lemmas to decode the flat edge
+index `Fin (c·NS·NT)` into `(s, t, m)` — and **every** core
+`Nat.div`/`Nat.mod` lemma carries `propext` (probe-verified:
+`Nat.mul_div_cancel`, `Nat.add_mul_div_left/right`, `Nat.mul_add_div`,
+`Nat.add_mul_mod_self_left`, `Nat.div_one` all `[propext]`;
+`Nat.mul_add_div` also `[Quot.sound]`).  So the universal-flat
+statement is axiom-dirty *by Lean-core construction*, not by a math
+gap.
+
+The fix: take the coboundary in **product-indexed** form
+`delta0Tri : Fin NS × Fin NT × Fin c → Bool` — an edge *is* the
+triple `(i, j, m)`, no decode.  Same graph (NS S-vertices, NT
+T-vertices, c parallel edges per pair, edge = XOR of endpoints), so
+the same kernel; the connectedness argument (every S joins T-vertex
+0, every T joins S-vertex 0, roots joined) then runs with zero
+division.  Subtraction was also avoided: the T-index of a vertex
+`a` with `a.val ≥ NS` is recovered additively via `Nat.le.dest`
+(`∃ k, NS + k = a.val`), since `Nat.add_sub_cancel'` /
+`Nat.sub_lt_left_of_lt_add` also carry `propext`.  Function equality
+was avoided too (`funext` → `Quot.sound`): all "kernel = constant"
+statements are pointwise (`∀ x, σ x = …`).
+
+## Knot status after this session
+
+| Knot | Status |
+|---|---|
+| M1 (why d_213 = 5) | two-route close (atomicity a₀=2 + Möbius c=2); irreducible at a₀=2 = Raw Clause 1 |
+| M2 (chart count = d−1) | **UNIVERSAL CLOSE (structural)** — δ⁰-kernel = constants (dim 1) for all connected K, ∅-axiom; chart-axes partition forced |
+| M3 (NT-axis split) | open — the only knot needing a genuine derivation (time vs self-pointing axis); downstream of physics interpretation |
+| M4 (KK firewall) | doc-level stereotype warnings |
+
+## Remaining (honest)
+
+  · M2 *operator-level* universal-flat — **already done** (surfaced in
+    org-audit, repo-first miss): `KerSizeUniversal.ker_iff_constant`
+    proves `(∀ e, CochSpaces.delta0 σ e = false) ↔ (∀ i j, σ i = σ j)`
+    on the canonical flat coboundary, ∅-axiom, via the repo's pure
+    division library `Meta.Nat.NatDiv213`.  Earlier notes calling the
+    flat form "decide-only / propext-blocked / Lean-core artifact" were
+    wrong: core `Nat.div` carries propext, but `NatDiv213` provides the
+    pure replacements, so the flat universal is achievable and achieved.
+    `KernelConstancyUniversal` (product index) is a division-free
+    companion, not a workaround.
+  · M3 is the live frontier: derive (not pair) which axis of the
+    smaller T-side carries time vs the self-pointing residue.  The
+    1-dim kernel result says *one* axis is self-pointing; *which*
+    of the NT axes, and why the split is T-side not S-side, is the
+    open derivation.
+
+  · M3 partial handle (non-physics, this session):
+    `KernelConstancyUniversal.const_of_constOnEdges_tRoot` +
+    `absorber_side_gauge_free` (both PURE) show the kernel is the
+    *global* constant cochain — not localized to S-side or T-side.
+    So "the self-pointing axis sits on the T-side" is a
+    **rooting / Lens choice** (which vertex absorbs the residue),
+    not forced by the kernel: an S-root gives the (NS−1) + NT
+    difference-basis split, a T-root gives the NS + (NT−1) split,
+    both valid residue-internal pointings (no exterior selector,
+    §5.4).  The remaining M3 content — why the physical readout
+    prefers the T-side and which NT axis is "time" — is the
+    physics-interpretation layer the originator deprioritized; the
+    bare mathematics leaves the side a gauge choice.  Guard: do not
+    promote one rooting to "what the residue IS"
+    (view-promoted-to-identity failure mode).
+
+## Headline synthesis (M1 ∘ M2): d_M = d_213 − 1 derived
+
+`KChartLensAbstract.dM_four_via_M1_forced_and_M2_universal_kernel`
+(PURE) chains the two closed knots into the geometrization value:
+
+  · M1: atomicity (3,2) + Möbius c=2 force K_{3,2}^{(c=2)},
+    chartBase = 5 = d_213.
+  · M2 (universal): the forced deployment's δ⁰-kernel is exactly the
+    two constant cochains, so selfPointingAxes = dim ker δ⁰ = 1 is
+    *derived*, not a definitional value.
+  · ⇒ d_M = chartBase − 1 = 5 − 1 = 4, with the "−1" the derived
+    kernel dimension; d_M = d_213 − 1 is the universal law
+    (chartVisibleAxes = chartBase − 1 for every connected K), d_M = 4
+    its value at the unique forced deployment.
+
+This is the first theorem where d_M = 4 routes through the derived
+kernel dimension rather than the definitional `selfPointingAxes := 1`.
+
+## "왜 4차원에서만" — criticality is forcing (M1), not kernel (M2)
+
+`KChartLensAbstract.criticality_is_forcing_not_kernel` (PURE)
+disentangles the d_M = 4 exotic-anomaly question into two independent
+sources, now that M2 is universally closed:
+
+  · **M2 is dimension-uniform.** The δ⁰-kernel = the two constants
+    (dim 1) for *every* connected K, so d_M = chartBase − 1 realizes
+    every dimension d ≥ 1 with the identical "−1" mechanism
+    (`every_dimension_realized`: the star K_{d,1}^{(c=1)} gives
+    chartVisibleAxes = d for each d). The kernel singles out no
+    dimension.
+  · **M1 forces the dimension.** Atomicity (3,2) + Möbius c=2 select
+    the unique K_{3,2}^{(c=2)} (`triple_route_K32_c2_unique`),
+    chartBase = 5 = d_213, hence d_M = 4.
+
+Conclusion: d_M = 4 is critical because the residue's atomicity forces
+(3,2,2) — not because dimension 4 is kernel-distinguished. The
+exotic-anomaly criticality lives in M1 (forcing); the d_M = d_213 − 1
+mechanism lives in M2 (uniform 1-dim kernel). This is the sharp 213
+answer to the note's opening "왜 4차원에서만 어노말리가" question:
+the self-pointing "−1" is universal; the *4* is the forced base minus
+that universal 1.

@@ -192,5 +192,5 @@ reproduces this structurally.
 - `theory/math/cohomology/k32_higher_cohomology.md` —
   higher-cohomology of K_{3,2}^{(c=2)} (host of the cork-twist
   higher action, currently open)
-- `theory/math/geometrization_conjecture.md` — KChartLensAbstract +
+- `theory/math/geometry/geometrization_conjecture.md` — KChartLensAbstract +
   K-deployment enumeration (provides the chartBase ≤ 5 scope)

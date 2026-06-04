@@ -2,7 +2,7 @@
 
 **Status**: CLOSED (Marathon 16 — GRA Universality, Phases 1–22)
 **Lean source**: `lean/E213/Lib/Math/GRA/` (umbrella `GRA.lean`, 28 files, 0 sorry)
-**Companion**: `theory/math/gra_book.md` (textbook treatment, Ch.0–8 + appendices)
+**Companion**: `theory/math/algebra/gra_book.md` (textbook treatment, Ch.0–8 + appendices)
 **Companion essay**: `theory/essays/gra_as_substrate_of_cat_hott.md` (GRA-as-substrate, Cat / HoTT as Readings — Phases 17–22 close the carrier-level / universal-property / universe-lifting / iso-symmetric / categorical-distinctness / Lens-equivalence-class frontiers in sequence)
 **Purity**: **401 PURE / 0 DIRTY** (strict ∅-axiom; `ax_coprime` uses `gcd213` instead of Lean-core `Nat.gcd`, every proof uses `rfl` / kernel-`decide` / explicit Nat helpers; no `omega`, no `simp`, no Mathlib, no `Classical`).
 

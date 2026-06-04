@@ -40,5 +40,5 @@ themselves are Lens choices on Raw.
 
 ## Connection
 
-- `theory/math/axiom_systems.md` — layered-API classification Tier 5 (the level above this)
+- `theory/math/foundations/axiom_systems.md` — layered-API classification Tier 5 (the level above this)
 - `seed/AXIOM/09_lean_correspondence.md` — R1-R5 judgment game framework

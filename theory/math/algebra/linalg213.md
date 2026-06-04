@@ -96,5 +96,5 @@ bijection needed there is a fresh ∅-axiom **fuel-structural `divmod`** (core `
   — anchored here
 - `theory/physics/alpha_em/precision_derivation.md` — Gram correction
   Hadamard program log (archived; the tower above)
-- `theory/essays/determinant_as_quotient_characteristic.md` — the alternating-as-antisymmetrization
+- `theory/essays/algebra/determinant_as_quotient_characteristic.md` — the alternating-as-antisymmetrization
   intuition that chose the Leibniz route

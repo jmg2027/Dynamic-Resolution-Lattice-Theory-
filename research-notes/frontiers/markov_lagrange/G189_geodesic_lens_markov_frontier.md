@@ -1,7 +1,7 @@
 # G189 — The geodesic-Lens view of the Markov frontier: where stable-norm / Christoffel sits
 
 Tier-1 frontier analysis (not a closed result).  Applies the Raw/Lens + mediant-engine viewpoint
-(`theory/essays/the_modular_geodesic_lens.md`, `Real213/ModularGeodesicLens`) to the open Markov
+(`theory/essays/p_orbit/the_modular_geodesic_lens.md`, `Real213/ModularGeodesicLens`) to the open Markov
 uniqueness kernel `H` (`markovMaxUnique_iff_orbitRealizabilityH`, the frontier `(C)` of
 `theory/math/analysis/markov_uniqueness.md`).  Goal: locate *exactly* which part of the classical
 stable-norm / Christoffel route is `∅`-axiom-reachable and which is genuine import, by reading the
@@ -180,5 +180,5 @@ merely *unaimed*.
   OrbitDimension}`, `Mobius213/Px/CharPolySelf` (`cassini_general`), `Linalg213/FibCassiniDet`
 - structural parallels: `Cohomology/MediantCohomologyFunctor` (Vandermonde-2 mediant), `GRA/` (the
   `(2,3)=P` backbone), `Meta/Algebra213` (`normSq_mul`, the norm rhyme)
-- narrative: `theory/essays/the_modular_geodesic_lens.md`, `theory/math/analysis/markov_uniqueness.md`
+- narrative: `theory/essays/p_orbit/the_modular_geodesic_lens.md`, `theory/math/analysis/markov_uniqueness.md`
 - prior frontier notes: G167 (geodesic-flow framing, out of scope), G173/G174 (Markov uniqueness)

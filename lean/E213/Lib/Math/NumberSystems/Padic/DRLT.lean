@@ -10,7 +10,7 @@ canonical instances and their digit smoke-tests.
 
 Whether the "infinite" 5-adic structure is operationally meaningful
 in DRLT, or is a formal extension only, is itself a research
-question — see `seed/RESOLUTION_LIMIT_SPEC.md`.
+question.
 -/
 
 namespace E213.Lib.Math.NumberSystems.Padic

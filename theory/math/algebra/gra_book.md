@@ -27,7 +27,7 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > truncation hierarchy and the `E_n` ladder *are* the same
 > Raw-projection, hence the same Reading under different
 > vocabularies — follows by `rfl` (companion essay:
-> `theory/essays/gra_as_substrate_of_cat_hott.md`).  Phase 17
+> `theory/essays/gra/gra_as_substrate_of_cat_hott.md`).  Phase 17
 > closes the essay's open frontier: `canonical_ge_2` enables
 > direct construction of `bipartiteRealize : Raw →
 > BipartiteCarrier`, bypassing `Raw.fold_slash` on the enriched

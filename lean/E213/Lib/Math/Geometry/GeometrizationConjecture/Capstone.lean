@@ -212,7 +212,7 @@ theorem R1_close_certificate :
     ∧ b1_corrected 3 2 2 = 8
     -- (10) Nil via Möbius P mod 5 (step 22)
     ∧ (10 : Int) % 5 = 0
-    -- selfPointingAxes = 1 (ansatz commitment)
+    -- selfPointingAxes = 1 (derived: dim ker δ⁰ = 1, KChartLensAbstract)
     ∧ selfPointingAxes = 1 := by
   refine ⟨rfl, rfl, ?_, ?_, ?_, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, rfl, rfl, ?_, ?_, ?_, rfl⟩
   · exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1

@@ -68,12 +68,12 @@ the only computational content.
 
 ## Connection to other chapters
 
-  · `theory/math/topology.md` — host area; modulus structure
+  · `theory/math/geometry/topology.md` — host area; modulus structure
     is one of the analysis-topology bridges.
-  · `theory/math/modulus.md` — ε-δ modulus combinators (sibling chapter).
-  · `theory/math/cauchy.md` — Cauchy-sequence machinery
+  · `theory/math/analysis/modulus.md` — ε-δ modulus combinators (sibling chapter).
+  · `theory/math/analysis/cauchy.md` — Cauchy-sequence machinery
     (uses bracket-length L parametrisation).
-  · `theory/math/geometrization_conjecture.md` — Ricci flow
+  · `theory/math/geometry/geometrization_conjecture.md` — Ricci flow
     derivation (host of `IsRicciModulus`).
   · `theory/physics/alpha_em/precision_derivation.md` — α_em
     precision stack; C5 Step 6 hosts `zeta_modulus`.

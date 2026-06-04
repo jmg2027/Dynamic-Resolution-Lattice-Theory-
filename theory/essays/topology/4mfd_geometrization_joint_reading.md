@@ -28,14 +28,14 @@ The substrate is the same.  K_{3,2}^{(c=2)} sits at chartBase
 closure, `theory/math/cohomology/bipartite.md`).  At this single
 graph:
 
-- **Cork frame** (`theory/math/exotic_4mfd_cork.md`): the H¹
+- **Cork frame** (`theory/math/geometry/exotic_4mfd_cork.md`): the H¹
   Sym(3)-fixed subspace has cardinality 4
   (`Sym3IrrepDecomp.fixedSize = 4`); the cork-twist signed count
   via M_S01 Z/2 grading is `+4 = #twistEven − #twistOdd
   = 32 − 28`.  Supersedes FW-1 signed Donaldson construction
   internally.
 
-- **JSJ frame** (`theory/math/geometrization_conjecture.md`,
+- **JSJ frame** (`theory/math/geometry/geometrization_conjecture.md`,
   FW-2 deepening): bipartite S/T cut separates K_{3,2}^{(c=2)}
   into 3 + 2 = 5 isolated vertex-components with 12 crossing edges
   — JSJ-torus parallel one dimension lower (graph cohomology

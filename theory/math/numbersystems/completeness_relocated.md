@@ -362,6 +362,6 @@ means, now a theorem.
   - `lean/E213/Lib/Math/Analysis/Cauchy/MonotonicBounded.lean` §180–194 — the
     deliberate LEM refusal
 
-Companions: `theory/math/real213.md` (the Real213 sub-tree),
-`theory/math/phi_self_similarity.md §3.5` (φ as a Cauchy-complete limit
+Companions: `theory/math/numbersystems/real213.md` (the Real213 sub-tree),
+`theory/math/algebra/phi_self_similarity.md §3.5` (φ as a Cauchy-complete limit
 object).

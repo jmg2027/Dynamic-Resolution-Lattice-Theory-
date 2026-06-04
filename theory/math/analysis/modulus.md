@@ -59,4 +59,4 @@ python3 tools/scan_axioms.py Lib/Math/Analysis/Modulus
 
 ## Citation guidance
 
-- ✅ `theory/math/modulus.md`
+- ✅ `theory/math/analysis/modulus.md`

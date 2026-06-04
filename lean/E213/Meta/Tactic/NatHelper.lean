@@ -1,3 +1,5 @@
+import E213.Meta.Nat.PureNat
+
 /-!
 # `Nat` helpers — ∅-axiom replacements (Lean Nat, NOT a Nat213 type)
 
@@ -666,11 +668,8 @@ theorem add_right_cancel_pure : ∀ {a b c : Nat},
     `a + b = a + c → b = c`.  Reduces to `add_right_cancel_pure`
     via `Nat.add_comm` (which is PURE). -/
 theorem add_left_cancel_pure {a b c : Nat}
-    (h : a + b = a + c) : b = c := by
-  have h' : b + a = c + a := by
-    rw [Nat.add_comm b a, Nat.add_comm c a]
-    exact h
-  exact add_right_cancel_pure h'
+    (h : a + b = a + c) : b = c :=
+  E213.Meta.Nat.PureNat.add_left_cancel h
 
 /-- ∅-axiom replacement for `Nat.div_self`: `p / p = 1` when
     `0 < p`.  Uses `Nat.div_eq_sub_div` (PURE) + `Nat.sub_self`

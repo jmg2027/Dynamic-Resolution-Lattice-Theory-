@@ -1,6 +1,7 @@
 import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Lib.Math.Algebra.CassiniUnimodular
 import E213.Lens.Number.Nat213.Tower.NatPairToQPos
+import E213.Theory.Raw.API
 
 /-!
 # SharedUnitAcrossReadings — the number axes are unified by one unit, not one operator
@@ -41,6 +42,10 @@ open E213.Lib.Math.Algebra.Mobius213OneAsGlue
 open E213.Lib.Math.Algebra.CassiniUnimodular (det toggle toggle_det_unit)
 open E213.Lens.Number.Nat213.Tower.NatPairToQPos
   (QPair qpairEquiv qPairMul qSwap qOne qpair_mul_swap_eq_qOne)
+open E213.Theory (Raw)
+open E213.Theory.Raw.PrimitiveTower (rawTower)
+open E213.Theory.Raw.MuNuMirror (ascent_adds_unit)
+open E213.Theory.Raw.Lambek (IsPart part_depth_succ_le)
 
 /-- ★★★ **The unit `1` is one value across the number-axis readings.**  The count-difference
     glue `NS − NT`, the Möbius/ratio determinant `det P` (the coprimality datum of `ℚ`), the
@@ -58,5 +63,31 @@ theorem the_unit_is_one_across_readings :
     ∧ (∀ p : QPair, qpairEquiv (qPairMul p (qSwap p)) qOne) :=
   ⟨ns_minus_nt_is_one, mobius_det_eq_ns_minus_nt, mobius_det_is_unit,
    toggle_det_unit, qpair_mul_swap_eq_qOne⟩
+
+/-- ★★★ **The unit `1` bridges the Raw-dynamics scale and the number-axis readings.**  The
+    shared `1` is not confined to the algebraic readings (`the_unit_is_one_across_readings`): it
+    is the *same* value that runs the self-pointing dynamics on `Raw`.  Four conjuncts, one `1`:
+
+      1. **ascent** — each tower rung climbs by exactly the unit:
+         `(rawTower (n+1)).depth = (rawTower n).depth + 1` (`ascent_adds_unit`);
+      2. **descent** — each peel drops by (at least) the same unit:
+         `IsPart c p → c.depth + 1 ≤ p.depth` (`part_depth_succ_le`);
+      3. **glue / axis** — `NS − NT = 1` (`ns_minus_nt_is_one`);
+      4. **Möbius determinant** — `det P = NS − NT = 1` (`mobius_det_eq_ns_minus_nt`,
+         `mobius_det_is_unit`).
+
+    So the `+1` the residue's ascent adds and its descent drops (the dynamics unit,
+    `Cauchy/ReentryUnit`) is the *same* `1` as the off-diagonal glue and the convergent
+    determinant (the algebra unit) — the downward unification the `ResidueForm` narrative
+    asserts, now witnessed across **both** scales by one theorem.  Identity of the unit, not a
+    forced operator across the peel-on-`Raw` and determinant-on-`ℤ` types. -/
+theorem unit_bridges_dynamics_and_readings :
+    (∀ n : Nat, (rawTower (n + 1)).depth = (rawTower n).depth + 1)
+    ∧ (∀ c p : Raw, IsPart c p → c.depth + 1 ≤ p.depth)
+    ∧ (NS - NT = 1)
+    ∧ ((2 : Int) * 1 - 1 * 1 = (NS : Int) - (NT : Int))
+    ∧ ((2 : Int) * 1 - 1 * 1 = 1) :=
+  ⟨ascent_adds_unit, part_depth_succ_le, ns_minus_nt_is_one,
+   mobius_det_eq_ns_minus_nt, mobius_det_is_unit⟩
 
 end E213.Lens.Number.SharedUnitAcrossReadings

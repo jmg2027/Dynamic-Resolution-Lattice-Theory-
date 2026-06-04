@@ -5,8 +5,9 @@ V32 / V32Betti cohomology infrastructure (b_0 / b_1 / Euler) and the
 K_{3,3}^{(c)}-specific V33EnrichedParametric enriched-2-complex
 infrastructure (codim ≥ c via per-layer ψ-functionals).
 
-**Status**: 7 files, ~166 PURE.  Direction A **CLOSED** at three
-levels:
+**Status**: 8 files at root + `Betti/` subcluster (5 files); ~221 PURE.  Direction A **CLOSED** at three
+levels; universal δ⁰-kernel = constants closed structurally in
+`KernelConstancyUniversal.lean`:
 
   1. **8-family master coverage** for `min(NS, NT) ∈ {3, 4, 5, 6}`
      (`EnrichedKNSNTcMaster.master_Knn_c_counter_resolved`).
@@ -28,6 +29,7 @@ levels:
 | `CochSpaces.lean` | 1 | 13 | Parametric `CochV NS NT` / `CochE NS NT c` types + `srcOf` / `tgtOf` / `multOf` endpoint extractors + `srcFin` / `tgtFin` packaged + `delta0` parametric coboundary + K_{3,2}^{(c=2)} numerical sanity checks |
 | `Delta0AndConnectedness.lean` | 2-3 | 16 | `cochVAt` binary-decoded cochains + `isInKerDelta0Direct` test + `kerSizeDelta0Direct` enumeration count + `b_0 = 1` (ker size = 2) verified across all G121-relevant deployments via `decide` (K_{1,1}, K_{1,2}, K_{1,3}, K_{2,2}, K_{1,4}, K_{3,2}^{(c=2)}, K_{3,3}^{(c=2)}, ...) + V32Betti compatibility |
 | `EulerAndCapstone.lean` | 4-6 | 7 | `eulerChar : Int` parametric formula + `b1Formula : Nat` for connected case + chartBase-≤-5 deployment-family b_1 table + `chartVisibleAxes` bridge to KChartLens + ★★★★★★ `parametric_close_capstone` |
+| `Betti/` | 46 | **Universal b₀ / b₁ subcluster** (5 files) — kernel = constants + image count + `b₁ = E−V+1 = 1/α₃`; see `Betti/INDEX.md` |
 | `EnrichedKNSNTc.lean` | — | 63 | `(NS, NT, c)`-parametric enriched-2-complex framework + abstract Q-decomposition kill + concrete instances at every parity-OK pair.  Adds `qT_param_zero_NT5` (mirror of `qS_param_zero_NS5`) + `kills_delta1_KNS5` family + K_{4,5} and K_{5,5} closures. |
 | `EnrichedKNSNTcEvenEven.lean` | — | 41 | Parity-failing closures via **vertex-excluding ψ** (both S- and T-side dual families).  Six families: `psi_excl_S0_NS{4,6}` for K_{4, NT} / K_{6, NT}; `psi_excl_T0_NT{4,6}` for K_{NS, 4} / K_{NS, 6}.  Plus concrete K_{4,4}, K_{6,4}, K_{4,6}, K_{6,6} capstones |
 | `EnrichedKNSNTcUniversal.lean` | — | 14 | **Universal-`n` framework**: central inductive theorem.  `isOdd : Nat → Bool` (structural recursive parity) + `foldXor_const` / `foldXor_xor_const` (helpers) + recursive `foldXor_pair_lex n f` (abstract pair-XOR encoding the lex enumeration) + ★ `foldXor_pair_lex_eq` (central theorem: `foldXor_pair_lex n f = bif isOdd n then false else foldXor n f`).  `IsLexFold n pE` (compatibility predicate) + `qT_param_zero_universal` / `qS_param_zero_universal` (parametric `Q = 0` under `IsLexFold + isOdd`) + ★ `kills_delta1_universal_T / S` (universal kill).  Concrete `isLexFold_pairEnum3` witness + `universal_kill_for_odd_n` + `universal_kill_n3_witness`.  The framework closes the foldXor identity for ALL `n` — `pairLex_n : PairEnum n` construction for arbitrary `n ≥ 7` is mechanical given `chooseTwo_step` (currently blocked on core Lean's `Nat.add_mul_div_right` carrying propext) |
@@ -44,25 +46,33 @@ All K-deployments below are PURE-verified:
 V32Betti compatibility theorem: parametric `kerSizeDelta0Direct 3 2 2`
 matches `V32Betti.kerSizeDelta0` exactly.
 
-## Open work (full universal parametric closure)
+## Universal parametric closure (structural)
 
-The fully universal `∀ (NS NT c : Nat), 1 ≤ NS → 1 ≤ NT → 1 ≤ c →
-kerSizeDelta0 NS NT c = 2` requires either:
-  · Induction over graph-walk connectedness for arbitrary (NS, NT, c)
-  · A connectedness-lemma library not yet present in 213
+`KernelConstancyUniversal.lean` closes the universal kernel statement
+at the **structural** level, ∅-axiom: for all (NS ≥ 1, NT ≥ 1, c ≥ 1)
+the δ⁰-kernel is exactly the two constant cochains, so `dim ker δ⁰ = 1`
+(b_0 = 1) and `dim im δ⁰ = (NS + NT) − 1`.  It uses the product-indexed
+coboundary `delta0Tri` to sidestep the flat-index `Nat.div` decode.
 
-This file's `decide`-based representative range covers all G121-relevant
-deployments; full universal closure deferred to future sessions.
+The **flat-operator** form is `KerSizeUniversal.ker_iff_constant`:
+`(∀ e, CochSpaces.delta0 σ e = false) ↔ (∀ i j, σ i = σ j)` for the
+canonical flat coboundary, ∅-axiom — its integer edge-decode uses the
+repo's pure division library `Meta.Nat.NatDiv213` (the propext-free
+replacements for core `Nat.div` / `Nat.mod`).  So the flat universal is
+proven directly; `KernelConstancyUniversal` is the division-free
+product-indexed companion carrying the count-form lemmas and the
+graph-connectedness instantiation.
 
 ## Dependency chain
 
 ```
 CochSpaces
-   └── Delta0AndConnectedness (+ V32Betti import for compatibility)
-         └── EulerAndCapstone
+   ├── Delta0AndConnectedness (+ V32Betti import for compatibility)
+   │     └── EulerAndCapstone
+   └── KernelConstancyUniversal  (structural ∀-NS-NT-c kernel close)
 ```
 
-Linear chain.  All under namespace
+All under namespace
 `E213.Lib.Math.Cohomology.Bipartite.Parametric.*`.
 
 ## Cross-references

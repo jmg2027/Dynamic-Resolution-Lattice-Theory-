@@ -13,7 +13,7 @@ residue — as one trajectory, marking **(L)** zero-axiom Lean theorem,
 
 To *use* a real is never to hold its completed decimal; it is to answer
 comparisons — "given `m/k`, is `x ≤ m/k`?" — at every precision. Take that
-as the definition: `Real213` cut + `ValidCut` (`theory/math/real213.md`).
+as the definition: `Real213` cut + `ValidCut` (`theory/math/numbersystems/real213.md`).
 No completion step, no equivalence-class quotient is *needed* for the object
 to exist. The cut is the real; two cuts denote the same real when each
 refines the other, and "refine" is one Lens-arrow `Lens.refines`, not four
@@ -27,7 +27,7 @@ The classical move — "a real *is* an equivalence class of Cauchy sequences"
 completeness* becomes a **constructed theorem** about cuts — `MonotonicBounded`
 → `Math.Analysis.CauchyComplete` — not an axiom about a quotient. The limit is
 not posited; it is the cut the procedure already computes. That is the first
-sense of "completeness without completeness" (`theory/math/completeness_relocated.md`).
+sense of "completeness without completeness" (`theory/math/numbersystems/completeness_relocated.md`).
 
 Graspable, then — in what sense? 213 calls *reaching a pointable syntactic
 object* graspability (constructive accessibility). The identity of a real is
@@ -38,7 +38,7 @@ preserved (`ProbeTwistConic.Q_preserved`), so each real wobbles on its own
 hyperbola `Q=N`. Algebraic = stays on **one** conic (φ is twist-fixed
 `PhiProbeFixed`; √2 keeps Pell `pell_invariant`); transcendental = **escapes
 every** conic (e is not fixed, `ProbeTwistFixedPoint`). The identity is the
-conic, not a coordinate (`theory/math/probe_twist_conic.md`).
+conic, not a coordinate (`theory/math/numbersystems/probe_twist_conic.md`).
 
 Even the *manner* of escape is finitely grasped. The cross-determinant
 (discrete Wronskian) `Wₙ`: φ gives `±1` (Cassini), e gives `−n!`, π gives
@@ -115,7 +115,7 @@ not closing is itself another face of the residue.
 ## Anchor chapters
 
 This essay is the on-demand trajectory form of the capstone paper
-`theory/math/completeness_without_completeness.md`; the constructed-modulus
+`theory/math/numbersystems/completeness_without_completeness.md`; the constructed-modulus
 mechanism is `theory/math/analysis/holonomic_modulus.md`. Foundational
-chapters: `theory/math/real213.md`, `completeness_relocated.md`,
+chapters: `theory/math/numbersystems/real213.md`, `completeness_relocated.md`,
 `probe_twist_conic.md`.

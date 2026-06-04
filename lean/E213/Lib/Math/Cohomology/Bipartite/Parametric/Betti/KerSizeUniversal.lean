@@ -28,7 +28,7 @@ hence σ constant.
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.KerSizeUniversal
+namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KerSizeUniversal
 
 open E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces
 open E213.Meta.Nat.NatRing213 (mul_lt_mul_left_pure nat_mul_assoc)
@@ -299,4 +299,4 @@ theorem ker_iff_constant (NS NT c : Nat)
     rw [h]
     cases (σ (tgtFin NS NT c hpos e)) <;> rfl
 
-end E213.Lib.Math.Cohomology.Bipartite.Parametric.KerSizeUniversal
+end E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KerSizeUniversal

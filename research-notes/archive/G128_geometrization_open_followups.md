@@ -9,13 +9,13 @@ shape, narrower scope.
 
 Sources:
   · `research-notes/G121_dim4_self_pointing_axis.md` §6 + §FW + R1+ tail
-  · `theory/math/geometrization_conjecture.md` "Open frontier"
+  · `theory/math/geometry/geometrization_conjecture.md` "Open frontier"
   · `lean/E213/Lib/Math/GeometrizationConjecture/INDEX.md` marathon table
   · `HANDOFF.md` 2026-05-22 closure log
 
 R1 itself is **CLOSED** at 149 PURE / 0 DIRTY across 25 steps; this
 registry covers only what remains after promotion of R1 to
-`theory/math/geometrization_conjecture.md` and after the three
+`theory/math/geometry/geometrization_conjecture.md` and after the three
 R1+ files (`Generalization`, `JsjDeep`, `MetricGeometries`) landed.
 
 ---
@@ -36,7 +36,7 @@ The G121-internal labels are therefore stale:
 | ex-G129 | K_{NS,NT}^{(c)} chartBase ≥ 9      | **FW-3**  (partial via `Generalization.lean`) |
 | ex-G130 | E³/H³/H²×ℝ direct realization      | **FW-4**  (partial via `MetricGeometries.lean`) |
 
-`theory/math/geometrization_conjecture.md` already silently
+`theory/math/geometry/geometrization_conjecture.md` already silently
 relabeled these as "Real213-p-adic extensions A/B/C"; this file
 makes the rename explicit.  When any of FW-1..FW-4 actually
 launches as a marathon, it picks the next chronological G-number
@@ -329,7 +329,7 @@ I-3 is parallel to anything; can interleave.
 
 ### Closed sources
   · `research-notes/G121_dim4_self_pointing_axis.md` — full G121 narrative
-  · `theory/math/geometrization_conjecture.md` — promoted R1 chapter
+  · `theory/math/geometry/geometrization_conjecture.md` — promoted R1 chapter
   · `lean/E213/Lib/Math/GeometrizationConjecture/` — Lean sub-tree (12 files + INDEX)
 
 ### Registry kin

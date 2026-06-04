@@ -33,7 +33,7 @@ from `m = ⟨0, _⟩` to every `m : Fin c`.  Mechanism:
 `starS c i m` and `incidT c j m` at same-layer
 `edge_idx c i' j' m` reduce to **layer-independent triple Bool
 disjunctions** after cancelling the common `9·m.val` offset.
-The cancellation lives in `Infrastructure/NatBeqHelpers.lean`:
+The cancellation lives in `Meta/Nat/Beq213.lean`:
 `nat_decide_add_left_assoc{1,2}` cancels the `9·m.val` offset
 on the `==`-surface form emitted by `starS` / `incidT`,
 `nat_add_left_cancel_pure` is the propext-free Nat
@@ -63,7 +63,7 @@ joint ψ-kernel.
 incidT-cup, and XOR.
 
 **Cross-layer vanishing unconditionally closed** via
-`nine_block_disjoint` (`NatBeqHelpers`): edge indices
+`nine_block_disjoint` (`Beq213`): edge indices
 `9·a + r` form disjoint blocks for distinct layers, so
 `starS i m` evaluates to false on every layer-m' edge for
 `m' ≠ m`, and the cup `cupOpp(starS i m, β)` vanishes layer-
@@ -93,7 +93,7 @@ at every c.  Unconditional capstones
 `parametric_dual_span_unconditional` +
 `codim_upper_bound_unconditional` close `codim = c` at every
 Stern-Brocot position against the PRIMARY cup-image.  See
-`theory/essays/per_layer_completeness_constructive_closure.md`.
+`theory/essays/cohomology/per_layer_completeness_constructive_closure.md`.
 
 ### Direction E — mediant cohomology functor (count level)
 
@@ -203,18 +203,18 @@ for unconditional Direction C is discharged at every c by
     central chapter hosting the formal closures
   · `theory/math/cohomology/tripartite_self_containment.md` —
     Direction T
-  · `theory/math/mobius213_p_orbit_closure.md` — parallel
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` — parallel
     P-orbit closure programme
-  · `theory/essays/c_counter_as_layer_count.md` — the reframing
+  · `theory/essays/cohomology/c_counter_as_layer_count.md` — the reframing
     "c as layer count" that makes the five-direction closure
     possible
-  · `theory/essays/disjoint_layers_as_direct_sum.md` — the
+  · `theory/essays/cohomology/disjoint_layers_as_direct_sum.md` — the
     categorical reading underlying all five directions
-  · `theory/essays/multiplicity_layer_uniformity.md` —
+  · `theory/essays/cohomology/multiplicity_layer_uniformity.md` —
     Direction B essay
-  · `theory/essays/cup_image_dual_span.md` — Direction C essay
-  · `theory/essays/vandermonde_mediant_counts.md` — Direction E
-  · `theory/essays/bipartite_tripartite_self_containment.md` —
+  · `theory/essays/cohomology/cup_image_dual_span.md` — Direction C essay
+  · `theory/essays/cohomology/vandermonde_mediant_counts.md` — Direction E
+  · `theory/essays/p_orbit/bipartite_tripartite_self_containment.md` —
     Direction T
-  · `theory/essays/p_orbit_closure_master.md` — parallel
+  · `theory/essays/p_orbit/p_orbit_closure_master.md` — parallel
     P-orbit programme synthesis

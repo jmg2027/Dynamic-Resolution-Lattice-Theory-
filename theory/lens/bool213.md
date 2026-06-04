@@ -30,5 +30,5 @@ itself carries the two-element structure.
 
 ## Connection
 
-- `theory/math/logic.md` (Logic 213) — atomic Bool LEM
+- `theory/math/combinatorics/logic.md` (Logic 213) — atomic Bool LEM
 - `theory/lens/instances.md` — booleanProj as Lens instance

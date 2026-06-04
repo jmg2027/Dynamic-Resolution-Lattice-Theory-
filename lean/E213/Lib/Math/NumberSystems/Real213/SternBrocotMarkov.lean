@@ -2163,6 +2163,41 @@ theorem markov_max_unique_1325_via_orbit :
     · exact he1 (root_orbit_inj 1325 507 e (by decide) (by decide) (by decide)
         (he_eq.trans (Nat.mod_eq_of_lt (by decide)).symm))
 
+set_option maxRecDepth 400000 in
+/-- ★★★★★ **`MarkovMaxUnique 985` through the orbit tower** (`985 = 5·197`, the next `ω = 2` composite
+    Markov number — both primes `≡ 1 (mod 4)`, so `x² ≡ −1 (mod 985)` has the full `2^ω = 4` root
+    explosion).  Windowed roots `{183, 408}` (one `decide`); `408` is realized by the actual triple
+    `(2, 169, 985)` (`(408·169) % 985 = 2`, `408² + 1 = 985·169`), `183` is the phantom (tied to `34`,
+    `183² + 1 = 985·34`; one `decide`).  The `u₁ = u₂ = 408` case closes **structurally** via
+    `root_orbit_inj` (§24 free action), not by `decide`.  A new ∅-axiom verified composite at the next
+    `ω = 2` Markov number, extending the structural-tower closure beyond `1325`. -/
+theorem markov_max_unique_985_via_orbit :
+    E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique 985 := by
+  apply markov_max_unique_of_orbit 985 (by decide)
+  intro u₁ u₂ e _hu1pos hu1lt hu1w hr1 hu2lt hu2w hr2 he1 _hec he_eq hreal1 hreal2
+  have hroots : ∀ u, u < 985 → (u * u + 1) % 985 = 0 → 2 * u < 985 → u = 183 ∨ u = 408 := by
+    decide
+  have hphantom : ∀ b, b < 985 → ¬ markovEq ((183 * b) % 985) b 985 := by decide
+  rcases hroots u₂ hu2lt hr2 hu2w with rfl | rfl
+  · obtain ⟨b, hb, hmk⟩ := hreal2; exact absurd hmk (hphantom b hb)
+  · rcases hroots u₁ hu1lt hr1 hu1w with rfl | rfl
+    · obtain ⟨b, hb, hmk⟩ := hreal1; exact absurd hmk (hphantom b hb)
+    · exact he1 (root_orbit_inj 985 408 e (by decide) (by decide) (by decide)
+        (he_eq.trans (Nat.mod_eq_of_lt (by decide)).symm))
+
+/-- **The realized `√(−1)` root's CRT relative-sign is not a fixed-`c` invariant.**  By CRT, a windowed
+    `√(−1)` root mod a composite `c = ∏ pᵢ` is a sign choice `(sᵢ)` over the prime factors (`sᵢ = +` iff
+    `u ≡ rᵢ`, with `rᵢ` the windowed root `< pᵢ/2`); the windowed roots are exactly the **relative-sign
+    classes** — the image of the simplicial `δ⁰` on the prime-vertices, the global flip being `ker δ⁰`.
+    So one may ask whether *realizability* selects a distinguished `δ`-class.  It does not, at fixed `c`:
+    the realized root at `985 = 5·197` (`408`) and at `1325 = 25·53` (`507`) has its two signs
+    **disagree** (`δ⁰`-edge `1`), but at `4181 = 37·113` (`1597`, the Fibonacci-spine triple
+    `(1,1597,4181)`) they **agree** (edge `0`).  A machine-checked counterexample: the realized class is
+    not a fixed-`c` cohomological condition on the primes (the selection is global, not local in `c`). -/
+theorem realized_root_relative_sign_not_uniform :
+    ((decide (408 % 5 = 2) == decide (408 % 197 = 14))
+      == (decide (1597 % 37 = 6) == decide (1597 % 113 = 15))) = false := by decide
+
 /-! ## §27 — which suborbit realises: the tree residue is the distinguished realised windowed root
 
 The Markov-tree determination of the realised `±`-suborbit.  §24–§26 settle the *count* of windowed

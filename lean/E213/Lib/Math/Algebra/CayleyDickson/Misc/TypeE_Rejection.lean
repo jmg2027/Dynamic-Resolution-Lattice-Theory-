@@ -15,7 +15,7 @@ Higher candidates (Q(ζ_5), Q(ζ_8), icosian) are EXCLUDED via the
 Dirichlet bound (their unit groups are infinite or live over
 non-ℤ coefficient rings).
 
-See `theory/math/cayley_dickson/algebra_tower.md` for the conceptual
+See `theory/math/algebra/cayley_dickson/algebra_tower.md` for the conceptual
 argument.
 -/
 

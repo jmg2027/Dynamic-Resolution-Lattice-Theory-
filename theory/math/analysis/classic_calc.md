@@ -14,5 +14,5 @@
 ## Connection
 
 - `theory/math/analysis/minimal_root.md` (DyadicSearch sibling)
-- `theory/math/modulus.md` — explicit moduli
-- `theory/math/real213.md` — Real213 carrier
+- `theory/math/analysis/modulus.md` — explicit moduli
+- `theory/math/numbersystems/real213.md` — Real213 carrier

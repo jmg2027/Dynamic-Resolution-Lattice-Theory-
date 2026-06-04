@@ -60,8 +60,37 @@ each Markov number determines a unique triple.
   (Stern-Brocot, φ/π extremes, Hurwitz cosines).
 - `G174_markov_newton_synthesis` — idea-level graft of Markov uniqueness onto
   the Newton / Casoratian / FSM frameworks (Myhill–Nerode reading of the crux).
+- `G189_geodesic_lens_markov_frontier` — the geodesic-Lens view: where
+  stable-norm / Christoffel sits relative to the mediant engine.
+- `G190_foundation_breakthrough_backlog` — a map of the Raw/Lens corpus and
+  where the Markov `H` kernel sits in the foundation's breakthrough backlog.
+- `G191_continuant_aigner_program` — the continuant / Aigner program: where
+  modern Markov theory meets the repo, and what it can(not) close (the
+  ranked-next attack on `H`; `Real213/Continuant.lean` tool built).
+- `G192_markov_kernel_raw_lens_native` — the kernel in Raw/Lens-native terms:
+  where the geodesic engine reaches and where it structurally stops.
+- `G193_axioms_against_markov_kernel` — the 213 axiom corpus read against the
+  Markov kernel: a standing attack map for `H`.
+- `G194_forced_fixed_point_attack` — the forced-fixed-point attack on `H` (and
+  why it returns to the conjecture's difficulty).
+- `G195_cohomology_selection_probe` — the cohomological δ angle on the kernel: a
+  real space-identification, a refuted selection.
+- `G196_H_compiled_to_the_isa` — `H` compiled to the proof-ISA; the one missing
+  composition named (a cross-word continuant-trace `SEPARATE`).
+- `G197_isa_localization_terminal` — ★ **terminal finding**: the ISA compilation
+  has **maximally localized `H`** to one irreducible instruction-residue (the
+  uniform cross-word continuant-trace `SEPARATE`), everything around it ∅-axiom,
+  finite instances `decide`-verified (`markovNum_injective_pathsUpTo_4`).  Pointing
+  at the uniform residue **is Frobenius (1913) itself — not a bounded step**.
+- `G198_action_options_ABC` — post-localization options (A loop/µ-ν certification
+  via `slashNu_final`, B compilation catalog, C …); each circles back to the full
+  difficulty.
+- `G199_compilation_catalog_lift_archetypes` — the finite→uniform lift archetypes
+  (the compilation-catalog methodology generalised).
 
 Closure record: `theory/math/analysis/{markov_uniqueness,markov_spectrum}.md`.
+**Status of `H`**: maximally localized (terminal, `G197`) — the open residue *is*
+the Frobenius conjecture; the Lean scaffold + finite instances are ∅-axiom.
 
 ## Spiral-axis / modular-tower classification  (`spiral_axis/`)
 
@@ -75,10 +104,12 @@ depth; axis = unit-group order `{2,4,6}`), and its tower extension.
   (SL(2)→PSL→SL(3); e→π→ζ(3)); honest split of proven vs speculative rows.
 - `G185_spiral_axis_deep_research` — the two CM points and the honest unifier
   for `{2,4,6}=2·{1,2,3}` ↔ Cassini sign; ranked conjecture agenda (A5…).
-- `G181_atomic_spiral_adic` — design: the atomic spiral as a variable-base adic
-  (carry = the residue unit).
 
 Closure record: `theory/math/analysis/spiral_coordinate_classification.md`.
+`G181_atomic_spiral_adic` (the variable-base adic / carry = the residue unit) is
+**closed & archived** → `archive/spiral_axis/G181_atomic_spiral_adic.md`; built as
+`Theory/Raw/{Odometer,OdometerValue}` + `Real213/ZeckendorfCarry`, narrated in
+`theory/essays/foundations/the_residue_unit_odometer.md` + `theory/math/algebra/phi_self_similarity.md` §3.7.
 
 ## Real-completeness / intensional completability  (`completability/`)
 
@@ -107,6 +138,22 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `residue_expression_atlas` — **the residue is expressed multi-directionally**, not by one
+  mechanism (Cantor diagonal).  Cross-repo survey of the expression modes (non-surjection /
+  fixed-point / forcing / graded cohomology) + the Minkowski-`?`-as-modular-cocycle arc.  Open
+  side: the `c`-axis / face-axis unit wires; the finite(`d=5`)↔infinite(νF) regime synthesis; and
+  (period sub-thread) the single irreducible **analytic atom** — the period value of a modular form
+  over one unimodular symbol (integration, the period-relation generators, the slash action /
+  weight-4 period polynomial `1−X²`, and the Manin contour decomposition all now ∅-axiom).  Closure
+  records: `theory/essays/analysis/minkowski_as_modular_cocycle.md`,
+  `theory/essays/foundations/reached_by_none.md`, and `Real213/{MinkowskiCocycle,MinkowskiGoldenExtremal,
+  MinkowskiPeriodIntegral,MinkowskiHigherWeightPeriod,MinkowskiPeriodRelations,MinkowskiPeriodPolynomial,
+  MinkowskiModularSymbol}` + `CupLadderResidueUnit`.
+- `odometer_unit_synthesis` — post-closure synthesis of the residue-unit `+1`
+  dynamics arc: patterns (single-primitive-as-full-dynamics; the ∅-purity
+  pure-`Nat` trap catalog; carry-explicit over modular) + next seeds (promote
+  `add_left_cancel_pure`/`lt_two_pow` to `Meta/Nat`; odometer `ℤ`-action ↔
+  Markov/Stern-Brocot `SL(2,ℤ)`; a decidable carry-depth sub-class).
 - `research_grade_closure_gate` — **meta-frontier**: `∅`-axiom is a
   necessary integrity check, not a sufficient *seriousness* check.
   Candidate "research-grade" closure gates (non-triviality/depth,
@@ -120,20 +167,42 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `archive/completeness/G168_eisenstein_completion.md` (the proven core).
 - `G121_dim4_self_pointing_axis` — the `d_M = d_213 − 1` geometrization ansatz;
   four open knots (M1)-(M4).  Side-observations feed
-  `theory/math/geometrization_conjecture.md` (R1 closed; R1+ open).
+  `theory/math/geometry/geometrization_conjecture.md` (R1 closed; R1+ open).
+- `betti_alpha_one_raw_lens` — synthesis: the "− 1" of `b₁ = NS² − 1 = 1/α₃`
+  read as one Raw self-pointing under three Lenses (kernel constant /
+  `SU(NS)` adjoint trace / self-pointing axis); seeds for the other forced
+  constants and a `c`-dependent higher-`b_k`.
 - `G123_padic_next_directions` — post-closure direction memo for the p-adic
-  library (`theory/math/padic_real213.md`).
-- `G178_next_proofline_conjectures` — cross-arc conjecture seed / ranked agenda
-  for populating νF (post-FSM).
-- `G182_completed_system_synthesis` — "the frontier (νF) has a form" — an
-  essay-in-waiting (candidate promotion to `theory/essays/` once reconciled).
+  library (`theory/math/numbersystems/padic_real213.md`).  Directions A
+  (explicit Teichmüller ω), B (μ_{p−1} root-of-unity + unit decomposition),
+  G (general division) now **closed** in `lean`.  The remaining direction H
+  is tracked in its own note `G124_padic_drlt_5adic`.
+- `G125_padic_closure_synthesis` — post-closure harvest: the diagonal-limit
+  constructor, `frobenius_lift` as a uniqueness engine, `ZpSeqEquiv` as the
+  funext-free canonical equality (retiring direction C), and the reachable
+  `i₅ = teichmuller(2-lift)`.
+- `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
+  (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
+  (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic
+  L-values) have **no internal handle** — recorded plainly per §5.4, no
+  forcible map onto physics.  Pure-math spinoff `i₅ ∈ μ₄` (the 5-adic
+  imaginary unit is a 4-th root of unity) CLOSED ∅-axiom and folded into the
+  Teichmüller chapter + essay.
 - `sums_of_squares_engines` — synthesis seed after four-square closure: the
   two representation engines (multiplicative root-bound vs. additive
   pigeonhole), and the next number-theory seeds (disc-`−8` congruence iff via
   the quadratic character of `2`; the three-square theorem as a hard
   out-of-both-engines frontier).
-- Lagrange's four-square theorem — **CLOSED** (∅-axiom) and promoted:
+
+Closure records (promoted off this board):
+- Lagrange's four-square theorem — **closed & promoted**:
   `∀ n, isSum4 ↑n` (`lean/E213/Lib/Math/NumberTheory/FourSquare.nat_isSum4`) +
-  the additive-pigeonhole seed (`FourSquareSeed.four_square_seed`).  Closure
-  record: `theory/essays/synthesis/four_square_additive_pigeonhole.md` +
+  the additive-pigeonhole seed (`FourSquareSeed.four_square_seed`) → canonical
+  `theory/essays/synthesis/four_square_additive_pigeonhole.md`; archived at
   `archive/four_square/four_square_marathon.md`.
+- `G178_next_proofline_conjectures` (νF population + C-phys bridges + odometer cross-arc) —
+  **closed & archived** → `archive/G178_next_proofline_conjectures.md`; canonical
+  `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form,the_residue_unit_odometer}.md`.
+- `G182_completed_system_synthesis` ("the frontier (νF) has a form") →
+  `theory/essays/foundations/the_frontier_has_a_form.md`; archived at
+  `archive/G182_completed_system_synthesis.md`.
