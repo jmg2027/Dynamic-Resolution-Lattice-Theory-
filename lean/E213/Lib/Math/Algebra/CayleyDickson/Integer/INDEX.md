@@ -33,6 +33,19 @@ These are the **first non-trivial witnesses** for the
     `ZOmegaQuadOrderDist.lean`  — quadruple stage
   - `ZOmegaOct.lean`,
     `ZOmegaOctOrderDist.lean`   — octuple stage
+  - `EisensteinSignature.lean` / `ParabolicSignature.lean` — the disc `−3` / `0` / `+5`
+    signature trichotomy (positive-definite / degenerate / indefinite → curve / cusp / line)
+  - `EisensteinCrossDet.lean` / `EisensteinCompletion.lean` / `GaussianCrossDet.lean` —
+    the ℤ[ω]- and ℤ[i]-convergent cross-determinant, its 6- and 4-unit floor rotation
+  - `EisensteinSplitting.lean` — the local splitting of the Eisenstein period's L-function:
+    Brahmagupta multiplicativity (`eisForm_composition`), ramification at 3, split/inert
+    witnesses, the χ₋₃ Euler-factor trichotomy
+  - `EisensteinClassNumber.lean` — class number one for disc `−3` (`reduced_disc_neg3_unique`):
+    the principal form `x²+xy+y²` is the only reduced form, the form-class shadow of `ℤ[ω]`
+    being a PID (why the period's L-function carries a single form)
+  - `EisensteinEuclidean.lean` — the covering-radius bound (`covering_bound`): the Eisenstein
+    lattice's covering radius² is `≤ 3/4 < 1`, the geometric reason `ℤ[ω]` is norm-Euclidean
+    (the split-prime descent's load-bearing inequality)
 
 ### ZSqrt = ℤ[√D] (parametric family)
   - `ZSqrt.lean`              — generic carrier

@@ -1,114 +1,114 @@
-# Session Handoff — 2026-06-04 (residue-expression atlas + the Minkowski-`?` modular cocycle)
+# Session Handoff — 2026-06-04
 
 ## Branch
-`main` — all work committed and pushed.  `cd lean && lake build E213` ✓ (fresh
-`rm -rf .lake/build` build clean, 1744 modules); `tools/scan_axioms.py` PURE on
-every module touched this session; `/purity-check` clean (0 sorry / 0 axiom / 0
-native_decide / 0 Mathlib).
-
-This session established the **residue-expression atlas** — *the residue is
-expressed multi-directionally, not by one mechanism* — and, on the `?`/period
-sub-thread, rebuilt the bulk of classical **Eichler–Shimura** ∅-axiom, leaving a
-single irreducible analytic atom.
+`claude/eisenstein-elliptic-conjecture-Vvzcx` — pushed, ahead by 4 commits (this marathon).
+`cd lean && rm -rf .lake/build && lake build` ✓ (full fresh build clean).  Kernel regress
+45/45 0-axiom.  All new modules strict ∅-axiom (`does not depend on any axioms`).
 
 ## What Was Done This Session
 
-### 1. The residue-expression atlas (foundational thesis)
-"How is the essential residue expressed?" is **not** one phenomenon (Cantor
-diagonal).  A cross-repo survey + new theorems show it is multi-directional:
-- **negative face** (reached-by-none) = `object1_not_surjective` on different
-  carriers (`reached_by_none.md` essay + `analytic_minkowski_residue`);
-- **positive faces** = Möbius fixed-point, atomicity forcing, **graded cohomology**
-  (degree × multiplicity × face);
-- the cohomological axes split: **degree + multiplicity unbounded, face bounded**
-  (`CupLadderResidueUnit.graduation_escapes`, `Simplex/FaceTerms.simplex_face_euler_zero`),
-  unified by the residue unit `NS−NT = det P = 1` (`cup_ladder_graduation_is_residue_unit`).
-- Honest negative recorded: "residue = a spectrum" is **rejected** (Steenrod/Massey
-  vacuous at the `d=5` truncation).
-Frontier: `research-notes/frontiers/residue_expression_atlas.md`.
+This branch closed a sequence of classical representation theorems ∅-axiom, capped by Lagrange's
+four-square theorem, then ran a full merge-readiness marathon (`/process /essay /org-audit
+/purity-check /ready-to-merge /handoff`) and merged `origin/main` in.
 
-### 2. The Minkowski `?` is the residue's modular cocycle (PURE) — and Eichler–Shimura rebuilt
-`Real213/Minkowski*` (all ∅-axiom):
-- `MinkowskiCocycle` (6) — `?`'s additivity defect is the bounding **Markov number**
-  (Frobenius cross-determinants); twist = `SL(2,ℤ)` **Cayley–Hamilton** jump;
-  off-tree defect `= det M · N.c`; weight-2 period = the `√(−1)` congruence.
-- `MinkowskiGoldenExtremal` (1) — `φ` (Lagrange floor `√5`) is the extremal instance
-  of the weight-2 period (Fibonacci spine).
-- `MinkowskiPeriodIntegral` (5) — integration is ∅-axiom-native (dyadic Riemann);
-  affine exact at depth 0; period integrands carry explicit moduli.
-- `MinkowskiHigherWeightPeriod` (1) — the FTC/antiderivative integral
-  (`Integration/`, `FluxMVT`) integrates `z²`,`z³` exactly: the **power rule is closed**.
-- `MinkowskiPeriodRelations` (1) — the weight-2 period **is `S`'s eigenvalue** (the
-  order-4 Gaussian generator); `S`/`U` orders `{4,6}` = the `(1+S)`/`(1+U+U²)` generators.
-- `MinkowskiPeriodPolynomial` (12) — the **slash action on `V_2`** built; the
-  weight-4 **period polynomial is `1 − X²`**, the unique line `ℤ·(1−X²)`.
-- `MinkowskiModularSymbol` (5) — the **Manin** decomposition: the period contour is
-  the Stern-Brocot sum of unimodular symbols (mediant preserves the determinant).
-Narrative: `theory/essays/analysis/minkowski_as_modular_cocycle.md`.
+**Merged from main this pass** (separate arc, promoted to permanent tiers — see
+`research-notes/frontiers/INDEX.md` + `theory/essays/`): the residue-expression atlas + the
+Minkowski-`?` modular cocycle (`theory/essays/analysis/minkowski_as_modular_cocycle.md`), the
+breadth-signature thesis (`theory/essays/foundations/the_breadth_signature.md`), the Markov-`H`
+ISA-localization terminal finding (`frontiers/markov_lagrange/G197…`), and the p-adic
+Teichmüller G123 A/B/G closure (`theory/math/numbersystems/padic_real213.md`).
 
-### 3. Marathon cleanup (process / essay / org-audit / purity / ready-to-merge)
-- `/process`: 2 sink violations decoupled; atlas frontier registered in `frontiers/INDEX.md`.
-- `/essay`: `the_breadth_signature.md` (why ∅-axiom reaches every domain) saved;
-  essays **49**; ledger rows 9–11 added.
-- `/org-audit`: 8 orphan modules wired into umbrellas (`Real213.lean`, `AlphaEM.lean`);
-  legacy-correction narration stripped from permanent-tier docstrings.
-- `/purity-check`, `/ready-to-merge`: clean, READY.
+### 1. Lagrange's four-square theorem — CLOSED + PROMOTED (∅-axiom)
+`NumberTheory/FourSquare.nat_isSum4 : ∀ n, isSum4 ↑n` is axiom-free — the first repo result
+reached by neither the multiplicative counting-bound nor the commutative CD machinery (35 PURE /
+0 dirty).  An **additive** pigeonhole seed + an **all-`n`** Euler descent over `ℤ`:
+- `FourSquareSeed.four_square_seed` (Pillar I, constructive): odd prime `p = 2m+1` ⟹
+  `∃ x y ≤ m, p ∣ x²+y²+1`, via `Pigeonhole.no_inj_lt` on a sum-collision (`gval`); witness from
+  a bounded 2-D search refuted in its `none`-branch.  Dodges two propext traps (`a%p` instead of
+  `Decidable (p∣a)`; ℕ-only to avoid the `Int.natAbs` triangle).
+- `FourSquare`: `four_sq_id` (Euler's identity), `isSum4_mul`, `descent_core`; the **parity-split
+  descent** — `halve_step` (even `m` halves) + `odd_descent` (odd `m` strict `r<m`, killing the
+  `r=m` mod-8 crux) + `descent_rec` (fuel recursion); `seed_multiple` (`k·p = x²+y²+1²+0²`,
+  `1≤k<p`); `dvd_dec`/`searchDiv`/`exists_prime_factor` (constructive least-divisor prime
+  factorization); `prime_isSum4`; `nat_isSum4`.  Two more propext leaks caught (`Nat.dvd_refl`,
+  `Nat.succ_ne_zero`) → `⟨1,(mul_one _).symm⟩` and `Nat.noConfusion`.
+- Promoted: `theory/essays/synthesis/four_square_additive_pigeonhole.md` (the two-engine
+  contrast); frontier note archived to `research-notes/archive/four_square/`.
+
+### 2. Earlier on this branch (closed ∅-axiom, carried into the merge)
+- **Eisenstein split-converse iff** — `EisensteinConverse.eisenstein_iff`: prime `p ≠ 3`,
+  `p ≡ 1 (mod 3) ⟺ ∃ a b, ↑p = a²−ab+b²`.  Pillar I (Lagrange root bound mod `p` via `PolyRoot`)
+  + ℤ[ω] norm-Euclidean descent.  Promoted: `theory/math/numbertheory/eisenstein_period_arithmetic.md`.
+- **Gaussian two-square iff** — `GaussianTwoSquare.two_square_iff`: odd prime, `p ≡ 1 (mod 4) ⟺
+  p = a²+b²`.
+- **Parametric ℤ[√−D]** — `ZSqrtNegSplit.split_form` (`1≤D≤2`, `p∣x²+D ⟹ p = a²+D·b²`); the
+  `D=2` (disc-`−8`) conditional split.
+- **Sharpness (negative result)** — `ZSqrtNegSharp.descent_false_at_three`: the descent bound
+  `D≤2` is optimal (`2 ∣ 1²+3` yet `2 ≠ a²+3b²`).
+- Synthesis essay: `theory/essays/synthesis/representation_theorems_one_counting_bound.md`.
+
+### 3. Marathon hygiene (this pass)
+- **process**: decoupled the FourSquare docstring from its frontier note (sink rule: 0 violations).
+- **org-audit**: refreshed `theory/INDEX` + `theory/essays/INDEX` counts (essays 41→44, math
+  87→88, ~176 total); narrative + stale-ref clean.
+- **ODE build fix**: `Analysis/ODE.lean` had imports after the docstring (Lean-invalid, masked by
+  olean cache) — hoisted them; `E213.Lib.Math` aggregator now builds.
+- **ready-to-merge synthesis**: `research-notes/frontiers/sums_of_squares_engines.md`.
 
 ## Current Precision Results (0 free parameters)
-Unchanged this session — this was **math-frontier / foundations** work (modular
-forms, the residue's expression modes), not a physics-constant edit.  Canonical
-table: `catalogs/physics-constants.md`.
+Unchanged this session (math-frontier work only; no physics-constant edits).  Canonical table:
+`catalogs/physics-constants.md`.
 
 ## Open Problems (Priority Order)
-All recorded in `research-notes/frontiers/residue_expression_atlas.md` (+ `INDEX.md`).
 
-### 1. The single analytic atom of the period thread
-Higher-weight Eichler–Shimura is rebuilt ∅-axiom **except** the value of a modular
-form `f`'s period over **one unimodular symbol** — a genuine irreducible analytic
-atom (needs `f` as analytic input).  Everything else (integration, `{4,6}`
-generators, slash action / `1−X²`, Manin contour) is ∅-axiom.
+### 1. Disc-`−8` congruence iff
+`ZSqrtNegSplit.split_form_two` gives `p ∣ x²+2 ⟹ p = a²+2b²`; the missing forward half is which
+primes have `−2` a QR (`p ≡ 1,3 mod 8`), i.e. the quadratic character of `2` — the one input the
+multiplicative engine still lacks.  Frontier: `research-notes/frontiers/sums_of_squares_engines.md`.
 
-### 2. The atlas's remaining unit-wires + regime synthesis
-The `c`-axis and face-axis unit-wires; and the deep **finite(`d=5`)↔infinite(νF)**
-regime synthesis — is the analytic `?` the νF-completion of the finite cup-ladder?
+### 2. Three-square theorem (`n = a²+b²+c²` iff `n ≠ 4ᵏ(8m+7)`)
+Outside both representation engines: three squares is not multiplicative, so the prime reduction
+does not apply.  Hard / possibly out-of-reach ∅-axiom (classical proof needs Dirichlet + ternary
+genus theory).  Frontier: `research-notes/frontiers/sums_of_squares_engines.md`.
 
-### 3. (carried) Markov uniqueness `H`, π non-holonomicity, spiral-axis, p-adic H, etc.
-See `research-notes/frontiers/INDEX.md`.
+### 3. Promotion backlog
+Gaussian / ℤ[√−D] / PolyRoot PURE-closed sub-trees still lack `theory/` chapters.  Frontier:
+`research-notes/frontiers/research_grade_closure_gate.md` (gate discussion); promote per
+`theory/PROMOTION_CRITERIA.md`.
+
+### 4. (carried) Markov uniqueness, π non-holonomicity, spiral-axis, completability
+See `research-notes/frontiers/INDEX.md` for the full open board.
 
 ## Unresolved from This Session
-- The full `SL(2,ℤ)` cocycle composition law on **non-tree** generators (the tree /
-  L-R sub-semigroup version is done).
-- The general-weight slash action (weight-4 instance `1−X²` done).
-- Purity lesson recorded: `ring_intZ` cannot reduce `x + -x` to the `C 0` normal
-  form — use `Meta.Int213` `add_neg_cancel`/`mul_neg`/`sub_zero` for cancel-to-zero goals.
+None attempted-and-failed.  One informational backlog surfaced by `ready-to-merge`: **121
+repo-wide namespace mismatches** (`tools/sync_namespaces.py`, e.g. `Lens/Cardinality/Godel`) —
+pre-existing drift, not from this branch (its files are namespace-clean).  Deserves a dedicated
+`sync_namespaces --apply` commit chain, not a merge-audit fold-in.
 
 ## Next
-Either (a) probe whether the single analytic atom (one unimodular symbol's `f`-period)
-is the residue in some unmet frame, or (b) wire the `c`-axis / face-axis units to
-complete the atlas's 3-axis unit bundle (Open Problem 2).
+- Disc-`−8` congruence iff: derive the quadratic character of `2` ∅-axiom (Pillar-I residue
+  input), then close `p ≡ 1,3 (mod 8) ⟺ p = a²+2b²`.
+- Or: clear the namespace-drift backlog (`sync_namespaces --apply`) as its own commit chain.
+- Or: promote the Gaussian / ℤ[√−D] / PolyRoot closed sub-trees to `theory/`.
 
-## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions / essays this session**: `the_breadth_signature`,
-  `minkowski_as_modular_cocycle`, `reached_by_none` (foundations/analysis essays);
-  ledger `research-notes/promotion_essay_log.md` rows 9–11.
-- **Promotion candidates**: the `Real213/Minkowski*` period sub-tree is PURE-closed;
-  its narrative already lives in `minkowski_as_modular_cocycle.md`.
-- **Active scratchpad**: `research-notes/frontiers/` (residue_expression_atlas,
-  odometer_unit_synthesis, markov_lagrange, pi_nonholonomicity, …).  Sink rule holds.
+## Three-tier state
+- **Promotions this session**: `theory/essays/synthesis/four_square_additive_pigeonhole.md` ←
+  `research-notes/frontiers/four_square_marathon.md` (now `archive/four_square/`).
+- **Promotion candidates**: Gaussian (`GaussianTwoSquare`), ℤ[√−D] (`ZSqrtNegSplit/Sharp`),
+  PolyRoot (`RootBound`/`IntEuclid`/…) — PURE-closed, no `theory/` chapter yet.
+- **Active scratchpad**: `research-notes/frontiers/` open board (see its `INDEX.md`).
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiCocycle.lean          ← NEW: ? as Markov-valued modular cocycle (6 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiGoldenExtremal.lean   ← NEW: φ = extremal weight-2 period instance (1 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiPeriodIntegral.lean   ← NEW: period via the ∅-axiom dyadic integral + modulus (5 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiHigherWeightPeriod.lean ← NEW: z²/z³ integrate exactly via FTC (1 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiPeriodRelations.lean  ← NEW: weight-2 period = S-eigenvalue; {4,6} torsion (1 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiPeriodPolynomial.lean ← NEW: slash action on V_2; weight-4 period = 1−X² (12 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiModularSymbol.lean    ← NEW: Manin unimodular decomposition of the contour (5 PURE)
-lean/E213/Lib/Physics/AlphaEM/CupLadderResidueUnit.lean                 ← NEW: cohomology graduation = residue unit; finite↔infinite (3 PURE)
-lean/E213/Lib/Physics/Simplex/FaceTerms.lean                            ← +simplex_face_euler_zero (face axis closes)
-lean/E213/Lib/Math/NumberSystems/Real213.lean, Lib/Physics/AlphaEM.lean ← umbrellas: +the new modules
-theory/essays/analysis/minkowski_as_modular_cocycle.md                  ← NEW essay (the ? cocycle)
-theory/essays/foundations/{reached_by_none,the_breadth_signature}.md    ← NEW essays
-research-notes/frontiers/residue_expression_atlas.md                    ← NEW frontier (the atlas; open board)
+lean/E213/Lib/Math/NumberTheory/FourSquare.lean        ← +§5-§7: descent_rec, seed_multiple,
+                                                          exists_prime_factor, prime_isSum4,
+                                                          nat_isSum4 (35 PURE / 0 dirty)
+lean/E213/Lib/Math/Analysis/ODE.lean                   ← imports hoisted above docstring (build fix)
+theory/essays/synthesis/four_square_additive_pigeonhole.md  ← NEW essay (four-square promotion)
+theory/essays/INDEX.md                                 ← +2 synthesis rows, count 41→44
+theory/INDEX.md                                        ← counts essays 44 / math 88 / ~176
+research-notes/frontiers/sums_of_squares_engines.md    ← NEW synthesis seed
+research-notes/frontiers/INDEX.md                      ← four-square closure record + new seed
+research-notes/archive/four_square/four_square_marathon.md  ← archived (was in frontiers/)
+research-notes/promotion_essay_log.md                  ← +1 promotion+essay row
 ```
