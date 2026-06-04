@@ -24,7 +24,8 @@ begins at (`theory/essays/foundations/the_unit.md`).  All ∅-axiom.
 namespace E213.Lib.Math.NumberSystems.Real213.OdometerSternBrocotUnit
 
 open E213.Theory.Raw.Odometer (carry carry_zero odo dec dec_odo)
-open E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov (det2 genL mInterval mInterval_det)
+open E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+  (det2 genL mInterval mInterval_det sbStep sbInterval adj sbInterval_adj)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
 /-- The Stern-Brocot left generator is the Möbius matrix `P = [[2,1],[1,1]]`; its determinant is the
@@ -46,5 +47,52 @@ theorem odometer_sternbrocot_shared_unit :
     ∧ (∀ (f : Nat → Bool) n, dec (odo f) n = f n)
     ∧ ((NS : Int) - NT = 1) :=
   ⟨mInterval_det, genL_det_is_glue, carry_zero, dec_odo, by decide⟩
+
+/-! ## The Minkowski `?` skeleton — two unimodular labellings of one `List Bool` tree
+
+The Stern-Brocot tree (`sbInterval`) and the **dyadic** bisection tree (`dyInterval`) are the *same*
+binary tree — both `List Bool`-path-indexed, both refining by the same L/R recursion.  They differ
+only in the *value labelling*: the Stern-Brocot side inserts the **Farey mediant** (the unimodular
+`det = q·r − p·s = 1`, `sbInterval_adj`); the dyadic side inserts the **binary midpoint** — its
+left/right children are `2·lo` and `2·lo + 1`, the binary digits, the odometer's own numeration.
+
+The combinatorial **Minkowski `?` function** is the path-identity matching the two labellings node
+for node: the same `List Bool` path is a number's Stern-Brocot (continued-fraction) address *and*
+its `?`-image's binary expansion.  Honest scope: this is the `?` *skeleton* (the shared tree + the
+two unimodular labellings); the analytic singular `?` itself (the limit / order-completion) is the
+residue, reached by no finite path. -/
+
+/-- One dyadic bisection step on `(lo, depth)` (interval `[lo/2ᵈ, (lo+1)/2ᵈ]`): `true` = left half
+    (`lo ↦ 2·lo`), `false` = right half (`lo ↦ 2·lo + 1`) — the binary digit, the odometer's world. -/
+def dyStep : Bool → Nat × Nat → Nat × Nat
+  | true,  (lo, d) => (2 * lo, d + 1)
+  | false, (lo, d) => (2 * lo + 1, d + 1)
+
+/-- The dyadic interval at a Stern-Brocot path (root `[0, 1]`; head = last step) — the binary
+    subdivision, parallel to `sbInterval`'s Farey subdivision. -/
+def dyInterval : List Bool → Nat × Nat
+  | []     => (0, 0)
+  | b :: t => dyStep b (dyInterval t)
+
+/-- ★★★ **The Minkowski `?` skeleton.**  The Stern-Brocot tree and the dyadic tree are one
+    `List Bool` binary tree under two unimodular labellings:
+
+      1. both refine by the same L/R `List Bool` recursion (`sbInterval (b::t) = sbStep b …`,
+         `dyInterval (b::t) = dyStep b …`);
+      2. the Stern-Brocot labelling carries the Farey unit `det = q·r − p·s = 1` at every path
+         (`sbInterval_adj`);
+      3. the dyadic labelling's children are `2·lo` / `2·lo + 1` — the binary digits, the
+         odometer's numeration.
+
+    So the path-identity is the order-isomorphism between the continued-fraction and the dyadic
+    addresses — the combinatorial Minkowski `?`.  The analytic singular `?` (the order-completion)
+    is residual.  ∅-axiom. -/
+theorem minkowski_skeleton :
+    (∀ (b : Bool) (t : List Bool), sbInterval (b :: t) = sbStep b (sbInterval t))
+    ∧ (∀ (b : Bool) (t : List Bool), dyInterval (b :: t) = dyStep b (dyInterval t))
+    ∧ (∀ path : List Bool, adj (sbInterval path))
+    ∧ (∀ lo d : Nat, dyStep true (lo, d) = (2 * lo, d + 1)
+        ∧ dyStep false (lo, d) = (2 * lo + 1, d + 1)) :=
+  ⟨fun _ _ => rfl, fun _ _ => rfl, sbInterval_adj, fun _ _ => ⟨rfl, rfl⟩⟩
 
 end E213.Lib.Math.NumberSystems.Real213.OdometerSternBrocotUnit

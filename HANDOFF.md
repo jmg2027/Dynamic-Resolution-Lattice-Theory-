@@ -85,10 +85,11 @@ One proof, three re-exports; all PURE.
 ### 3. Odometer `ℤ`-action ↔ Markov / Stern-Brocot (`SL(2,ℤ)`) — first bridge DONE
 `Real213/OdometerSternBrocotUnit.odometer_sternbrocot_shared_unit` (2 PURE): the dyadic odometer
 and the Stern-Brocot mediant tree are both `List Bool`-path-indexed residue descents sharing the
-unimodular unit (`det genL = NS−NT = 1`, `genL = P`).  Honest scope: shared *value* + *index*, not
-the (residual) dyadic↔CF Minkowski-`?` conjugacy.  **Next on this arc**: build `?` as a
-residue-internal order-isomorphism of the two `List Bool` trees (harder).  Frontier note:
-`research-notes/frontiers/odometer_unit_synthesis.md`.
+unimodular unit (`det genL = NS−NT = 1`, `genL = P`); and `minkowski_skeleton` builds the
+**Minkowski `?` skeleton** — the Stern-Brocot (Farey `det=1`) and dyadic (binary `2·lo`/`2·lo+1`)
+trees are one `List Bool` tree under two unimodular labellings, the path-identity their order-iso.
+Honest scope: the combinatorial `?`; the analytic singular `?` (the order-completion) is residual.
+Frontier note: `research-notes/frontiers/odometer_unit_synthesis.md`.
 
 ### 4. (carried) Other open frontiers
 π non-holonomicity (`frontiers/pi_nonholonomicity/`), spiral-axis

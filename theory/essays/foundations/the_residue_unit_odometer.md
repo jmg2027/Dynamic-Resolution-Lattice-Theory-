@@ -124,6 +124,7 @@ the residue's own spiral base.
 | `odo_free` | `Theory/Raw/OdometerValue` | the `ℤ`-action is **free**: `odoʲ f = f → j = 0` — the `+1`, iterated, never returns (no nonzero period) |
 | `golden_adic_carry` | `Real213/ZeckendorfCarry` | the golden/Zeckendorf carry `011→100` = Fibonacci recurrence, value-preserving; admissibility = Cassini |
 | `odometer_sternbrocot_shared_unit` | `Real213/OdometerSternBrocotUnit` | the dyadic odometer and the Stern-Brocot mediant tree share the `List Bool` path index + the unimodular unit `det genL = NS−NT = 1` |
+| `minkowski_skeleton` | `Real213/OdometerSternBrocotUnit` | the Stern-Brocot (Farey `det=1`) and dyadic (binary `2·lo`/`2·lo+1`) trees are one `List Bool` tree under two unimodular labellings — the combinatorial Minkowski `?` (path-identity order-iso) |
 
 ## Honest scope (what this is and is not)
 
