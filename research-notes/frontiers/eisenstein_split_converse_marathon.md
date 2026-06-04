@@ -75,9 +75,15 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
     `normSq_dvd_of_dvd` (`a ∣ b ⟹ ‖a‖² ∣ ‖b‖²`, the workhorse turning a proper `ℤ[ω]`-factor
     of `p` into a proper `ℤ`-factor of `p²`); `unit_of_normSq_one` + `normSq_one_of_unit`
     (the full `unit ⟺ ‖·‖² = 1` — so a norm-`p` element is never a unit).
-  - **Phase 2b (next)** — the gcd / descent: `p` prime, `p ∣ N(θ)`, `p ∤ θ` ⟹ a proper
-    divisor `d = gcd(p, θ)` with `‖d‖² = p` (needs the Euclidean gcd — well-founded on
-    `‖·‖²`, or an explicit-bound variant à la `Gcd213`).
+  - **Phase 2b (DONE)** — `EisensteinDvd` §2 (3 PURE): the descent setup.
+    `dvd_components_of_dvd` (`ofInt p ∣ θ ⟹ p ∣ θ.re ∧ p ∣ θ.im`); `normSq_x_sub_omega`
+    (`‖x−ω‖² = x²+x+1`); `not_dvd_x_sub_omega` (`p` non-unit ⟹ `p ∤ (x−ω)`, since its
+    imaginary part is the unit `−1`).  So when `p ∣ x²+x+1`: `p ∣ ‖x−ω‖²` yet `p ∤ (x−ω)` —
+    `p` is reducible in `ℤ[ω]`.
+  - **Phase 2c (next)** — the gcd / Euclid's lemma: in a Euclidean domain, `p` irreducible ⟺
+    prime; `p ∤ (x−ω)`, `p ∤ conj(x−ω)`, `p ∣ (x−ω)·conj(x−ω)` ⟹ `p` reducible ⟹
+    `p = ‖d‖²` (needs the Euclidean gcd — well-founded on `‖·‖²` or fuel-bounded à la
+    `Gcd213`; this is the substantial remaining step before Phase 3 primitive roots).
     Path: `centered_div_int` wrapper (β.normSq : Int>0 from `normSq_pos`); `γ = ⟨qre,qim⟩` from
     `centered_div` on `(α·conjβ).re/.im`; prove `ρ·conjβ = ⟨rre,rim⟩` (ext + ring_intZ, with
     `mul_conj_self`); `‖ρ‖²·N = eisForm rre rim` (`normSq_mul` + `normSq_conj`); `covering_bound`

@@ -73,4 +73,41 @@ theorem normSq_one_of_unit (u v : ZOmega) (h : u * v = ZOmega.ofInt 1) :
   have hn : u.normSq * v.normSq = 1 := by rw [← normSq_mul, h]; rfl
   exact int_mul_eq_one_nonneg (normSq_nonneg u) (normSq_nonneg v) hn
 
+/-! ## §2 — the descent setup: `p ∣ θ` forces `p` to divide both coordinates -/
+
+/-- ★★★ **`ofInt p ∣ θ` forces `p` to divide both coordinates.**  `ofInt p · c = ⟨p·c.re,
+    p·c.im⟩`, so `p ∣ θ.re` and `p ∣ θ.im` in `ℤ`. -/
+theorem dvd_components_of_dvd (p : Int) (θ c : ZOmega) (h : θ = ZOmega.ofInt p * c) :
+    (p ∣ θ.re) ∧ (p ∣ θ.im) := by
+  have hre : θ.re = p * c.re := by
+    rw [h]
+    show p * c.re - 0 * c.im = p * c.re
+    rw [E213.Meta.Int213.zero_mul, E213.Meta.Int213.Order.sub_zero]
+  have him : θ.im = p * c.im := by
+    rw [h]
+    show p * c.im + 0 * c.re - 0 * c.im = p * c.im
+    rw [E213.Meta.Int213.zero_mul, E213.Meta.Int213.zero_mul,
+        E213.Meta.Int213.Order.sub_zero, E213.Meta.Int213.add_comm,
+        E213.Meta.Int213.zero_add]
+  exact ⟨⟨c.re, hre⟩, ⟨c.im, him⟩⟩
+
+/-- The element `x − ω = ⟨x, −1⟩` has norm `x² + x + 1` (the cyclotomic value `p` divides
+    when `x` is a primitive cube root mod `p`). -/
+theorem normSq_x_sub_omega (x : Int) : (⟨x, -1⟩ : ZOmega).normSq = x * x + x + 1 := by
+  show x * x - x * (-1) + (-1) * (-1) = x * x + x + 1
+  ring_intZ
+
+/-- ★★★ **`p` (a non-unit of `ℤ`) does not divide `x − ω`.**  Its imaginary part is the unit
+    `−1`, so `ofInt p ∣ ⟨x,−1⟩` would give `p ∣ −1`, hence `p ∣ 1` — excluded for a prime.
+    (Takes `¬ p ∣ 1` — true for any prime — as hypothesis, sidestepping the `propext`-dirty
+    `Int.le_of_dvd`.) -/
+theorem not_dvd_x_sub_omega (p x : Int) (hp : ¬ (p ∣ (1 : Int))) :
+    ¬ ∃ c : ZOmega, (⟨x, -1⟩ : ZOmega) = ZOmega.ofInt p * c := by
+  intro hd
+  obtain ⟨c, hc⟩ := hd
+  have hpm1 : p ∣ (-1 : Int) := (dvd_components_of_dvd p ⟨x, -1⟩ c hc).2
+  obtain ⟨k, hk⟩ := hpm1
+  have h1 : (1 : Int) = p * (-k) := by rw [E213.Meta.Int213.mul_neg, ← hk, Int.neg_neg]
+  exact hp ⟨-k, h1⟩
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDvd
