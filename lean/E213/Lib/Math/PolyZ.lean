@@ -155,6 +155,42 @@ theorem coeff_negP : ∀ (p : PolyZ) (k : Nat), coeff (negP p) k = - coeff p k
   | _ :: _,  0     => rfl
   | _ :: p', k + 1 => coeff_negP p' k
 
+/-- `coeff` of a scalar multiple. -/
+theorem coeff_scaleP : ∀ (c : Int) (p : PolyZ) (k : Nat), coeff (scaleP c p) k = c * coeff p k
+  | c, [],      _     => (mul_zero' c).symm
+  | _, _ :: _,  0     => rfl
+  | c, _ :: p', k + 1 => coeff_scaleP c p' k
+
+/-- `coeff` of `X·p` at `0`. -/
+theorem coeff_shiftP_zero (p : PolyZ) : coeff (shiftP p) 0 = 0 := rfl
+
+/-- `coeff` of `X·p` at `k+1`. -/
+theorem coeff_shiftP_succ (p : PolyZ) (k : Nat) : coeff (shiftP p) (k + 1) = coeff p k := rfl
+
+/-- The constant `[0]` has all coefficients `0`. -/
+theorem coeff_c_zero : ∀ (k : Nat), coeff ([0] : PolyZ) k = 0
+  | 0     => rfl
+  | _ + 1 => rfl
+
+/-- `coeff` of a product by a degree-`0` polynomial `[c]`. -/
+theorem coeff_mulP_single (c : Int) (q : PolyZ) (k : Nat) :
+    coeff (mulP [c] q) k = c * coeff q k := by
+  show coeff (addP (scaleP c q) (shiftP (mulP ([] : PolyZ) q))) k = c * coeff q k
+  rw [coeff_addP, coeff_scaleP, show shiftP (mulP ([] : PolyZ) q) = ([0] : PolyZ) from rfl,
+      coeff_c_zero, add_zero']
+
+/-- `coeff` of a product by a degree-`≤1` polynomial `[c, d]` at `0`. -/
+theorem coeff_mulP_pair_zero (c d : Int) (q : PolyZ) :
+    coeff (mulP [c, d] q) 0 = c * coeff q 0 := by
+  show coeff (addP (scaleP c q) (shiftP (mulP [d] q))) 0 = c * coeff q 0
+  rw [coeff_addP, coeff_scaleP, coeff_shiftP_zero, add_zero']
+
+/-- `coeff` of a product by a degree-`≤1` polynomial `[c, d]` at `k+1`. -/
+theorem coeff_mulP_pair_succ (c d : Int) (q : PolyZ) (k : Nat) :
+    coeff (mulP [c, d] q) (k + 1) = c * coeff q (k + 1) + d * coeff q k := by
+  show coeff (addP (scaleP c q) (shiftP (mulP [d] q))) (k + 1) = c * coeff q (k + 1) + d * coeff q k
+  rw [coeff_addP, coeff_scaleP, coeff_shiftP_succ, coeff_mulP_single]
+
 /-! ## Uniqueness — synthetic division, root bound, coefficient identity -/
 
 /-- `a - b = 0 → a = b` over `ℤ`. -/
