@@ -108,6 +108,16 @@ Two `∅`-axiom installments, foundation first:
    "two readings, one injective, is the other?" question (B.3) made into a literal iff: slope is
    injective and determines size; `H` asks the same of size, the coarser orientation-dependent reading.
 
+5. **Why `H` is not forced — injectivity is not upward-closed** (`Lens/Lattice/Injectivity.lean`,
+   `injectivity_not_upward_closed`, PURE).  Injectivity is inherited *down* the refinement order
+   (`isInjectiveLens_of_refines`) but *not up*: `idLens` (injective, the bottom) refines `constLens`
+   (not injective).  So the injective Lenses form a proper *down-set* (order ideal), least element
+   `idLens`.  This is the exact structural reason `H` is open: slope (injective) refines the coarser
+   size reading (§32), but injectivity does not propagate up the order, so size's injectivity (`H`) is
+   not forced — the foundation says nothing compels the coarsening to stay injective.  The chain
+   ①–⑤ thus *locates* `H` precisely: the injectivity of an orientation-dependent coarsening of an
+   injective residue-native reading — exactly the place the refinement order stops carrying injectivity.
+
 ## Honest verdict
 
 Nothing here proves `H` or closes a frontier — it is a *map*.  Its value: (i) it surfaces a stack of
