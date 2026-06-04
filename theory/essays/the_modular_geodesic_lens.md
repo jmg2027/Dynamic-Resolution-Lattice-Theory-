@@ -16,6 +16,14 @@ two faces of the surface are the difference-Lens sign — the `Δ = tr²−4` sp
 213's one engine" is the right *feeling* and the wrong *grammar*: the engine is `P` (the residue's
 shadow); geodesic-projection is the **modular Lens** through which `P`'s cluster becomes one object.
 
+This is a Lean object, not only a reading: `ModularGeodesicLens.mediantLens : Lens (ℕ×ℕ)` is the
+Raw-`Lens` with atoms `0/1`, `1/0` and `combine` = the mediant `(a,b)⊕(c,d)=(a+c,b+d)`, and the engine
+theorem `mediantLens_view_reachable` proves every `mediantLens.view r` is `SternBrocotReachable` — Raw's
+self-pointing, read through the modular Lens, lands `∅`-axiom on the Farey set the whole cluster is
+built on.  (Honestly: the image is *inside* the reachable set, not equal to it — `Raw.slash` forbids
+self-mediants and arbitrary children are not unimodular-adjacent, so the engine *feeds* the cluster
+without exhausting it; the `W²=1` floor is a property of the path/interval, not of bare mediants.)
+
 ## Derivation — one Lens, six facets
 
 The engine.  `P = [[2,1],[1,1]]` is the single generative object every framework-internal reading lands
