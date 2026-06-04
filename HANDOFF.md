@@ -2,7 +2,18 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — continuant E2 done: continuant = matrix-product entry (the aimed cross-c route's rung 2)
+## ★★★ NEWEST — continuant E3: genL continuant-native, genR NOT (bridge obstruction localized)
+- **`Real213/ContinuantMarkov`** (3 PURE): `genL_eq_contMatProd` (`contMatProd [1,1] = genL`, i.e.
+  genL = M(1)² = Fibonacci-matrix² = standard Cohn A), `genL_a_eq_continuant` (genL.a = continuant[1,1]=2),
+  `genR_a_lt_b` (genR.a=3 < genR.b=4).  A positive continuant matrix has (1,1)=K[full] ≥ K[prefix]=(1,2);
+  genR violates it ⟹ genR is NOT a continuant word.  Standard Cohn B=[[5,2],[2,1]]=M(2)²=contMatProd[2,2]
+  IS continuant-native, but repo genR is a *conjugate* of B (same tr 6, different basis).
+- **Finding**: the markovNum→continuant bridge is NOT a naive basis change (one generator isn't a
+  continuant matrix). The Frobenius formula routes through Cohn trace (markovNum=tr(mNode)/3) + doubled
+  Christoffel word — research-level, larger than a rung. G191 E3 ⚠️ obstructed, E4 reframed (Cohn route).
+  The obstruction is the repo's genR normalization, not the math.
+
+## continuant E2 done: continuant = matrix-product entry (the aimed cross-c route's rung 2)
 - **`Real213/Continuant` E2** (PURE): `contMat`/`contMatProd` (∏[[aᵢ,1],[1,0]]), `contMatProd_eq`
   ((1,1)-entry = K[a₁..aₙ], (2,1)=K[a₂..aₙ], joint induction), `continuant_eq_contMatProd`.  The
   continuant now lives in the repo's `Mat2` algebra (same `mul` as `genL`/`genR`/`mInterval`).  Used pure

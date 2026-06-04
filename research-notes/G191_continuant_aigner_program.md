@@ -73,10 +73,20 @@ adjacency `sbInterval_adj` + `sbInterval_mediant_coprime`; Vandermonde-2 mediant
   2. ✅ **Continuant ↔ matrix-product entry**: `K[a₁..aₙ] = (∏[[aᵢ,1],[1,0]]).(1,1)`
      (`contMatProd_eq`, `continuant_eq_contMatProd`, ∅-axiom) — the continuant now lives inside the repo's
      `Mat2` algebra (the same `mul` carrying `genL`/`genR`/`mInterval`).
-  3. **Path → CF partial quotients**: extract the run-length (Christoffel) encoding of `p : List Bool`
-     and relate the `genL/genR` product to the `[[aᵢ,1],[1,0]]` product.  Medium; the genL/genR basis is
-     not the `[[a,1],[1,0]]` basis, so a conjugation/normalisation is needed.
-  4. **Frobenius formula** `markovNum p = K(shape p)` — the bridge (D, substantial).
+  3. ⚠️ **Path → CF / basis change — OBSTRUCTED as a naive basis change** (`Real213/ContinuantMarkov`,
+     ∅-axiom).  Asymmetric result: `genL = [[2,1],[1,1]] = M(1)² = contMatProd [1,1]` is continuant-native
+     (the Fibonacci/φ spine — `genL_eq_contMatProd`), and it equals the *standard Cohn `A`*.  But
+     `genR = [[3,4],[2,3]]` has `(1,1)=3 < 4=(1,2)` (`genR_a_lt_b`), impossible for a positive continuant
+     matrix (`K[full] ≥ K[prefix]`), so `genR` is **not** a continuant word.  (The standard Cohn
+     `B = [[5,2],[2,1]] = M(2)² = contMatProd [2,2]` *is* continuant-native; the repo's `genR` is a
+     *conjugate* of `B` — same trace `6`, different basis.)  So the obstruction is the repo's `genR`
+     normalisation, not the math: rewriting `genL/genR` words as `[[a,1],[1,0]]` words fails because one
+     generator is not a continuant matrix.
+  4. **Frobenius formula** `markovNum p = K(shape p)` — reframed by (3): does **not** go through a basis
+     change.  It routes through the **Cohn trace** (`markovNum = tr(mNode)/3`, `mInterval_shape`;
+     `C² ≡ −I (mod c)`, `cohn_sq_neg_one_mod`) and the **doubled Christoffel word** — a research-level
+     development (reconcile the repo's conjugated `genR` with standard Cohn `B`, or rebuild on standard
+     Cohn generators), larger than a single rung.  This is the genuine boundary of the continuant route.
   5. **One Aigner ordering** (e.g. Fixed Numerator `p=1` first — the single-spine case, likely already
      near `markovNum_lt_append`; then general `p`) as the first genuine **cross-node** ∅-axiom Markov
      ordering theorem.  Necessary-not-sufficient for `H`, but real new frontier content.
