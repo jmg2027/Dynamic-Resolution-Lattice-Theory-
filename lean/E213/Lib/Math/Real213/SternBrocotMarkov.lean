@@ -2163,4 +2163,25 @@ theorem markov_max_unique_1325_via_orbit :
     · exact he1 (root_orbit_inj 1325 507 e (by decide) (by decide) (by decide)
         (he_eq.trans (Nat.mod_eq_of_lt (by decide)).symm))
 
+/-! ## §27 — which suborbit realises: the tree residue is the distinguished realised windowed root
+
+The Markov-tree determination of the realised `±`-suborbit.  §24–§26 settle the *count* of windowed
+roots (`= 2^{ω−1}`) and reduce uniqueness to: among those suborbits, exactly one realises (`H`).  This
+section names *which* one — the tree-node residue — and shows it always realises.  So `H`'s entire
+open content is the converse: that no *other* suborbit realises. -/
+
+/-- ★★★★★ **The tree residue is THE distinguished realised windowed root.**  For every Stern-Brocot
+    path `p`, the node residue `u = markovRes p` mod `c = mNode p` is simultaneously a **windowed
+    `√(−1)` root** (`node_window_nat`) and **realised** by the actual Markov triple `(m_r, m_l, c)`
+    (`node_realized`, witness `b = m_l`).  So of the `2^{ω−1}` windowed `±`-suborbits, the
+    tree-residue one always realises — the distinguished suborbit of the §25 reduction.  The open
+    Frobenius content (`H`, §26) is exactly that *no other* suborbit realises. -/
+theorem tree_residue_realized_windowed (p : List Bool) :
+    (markovRes p).toNat < (mNode p).c.toNat
+    ∧ 2 * (markovRes p).toNat < (mNode p).c.toNat
+    ∧ ((markovRes p).toNat * (markovRes p).toNat + 1) % (mNode p).c.toNat = 0
+    ∧ (∃ b, b < (mNode p).c.toNat ∧
+        markovEq (((markovRes p).toNat * b) % (mNode p).c.toNat) b (mNode p).c.toNat) :=
+  ⟨(node_window_nat p).1, (node_window_nat p).2.1, (node_window_nat p).2.2, node_realized p⟩
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
