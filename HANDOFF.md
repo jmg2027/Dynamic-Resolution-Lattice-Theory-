@@ -136,6 +136,16 @@ third residue-triptych companion (coalgebra face = `the_residue_as_primitive`; t
 `the_frontier_has_a_form`; arithmetic face = this).  `essays/INDEX` updated (42→43).  Open frontier
 recorded in the essay: ℤ-action freeness, the profinite value-mod-`2ᵏ`, carry-depth classification.
 
+### 9. New — the profinite value: `odo = +1 mod 2ᵏ` (`Theory/Raw/OdometerValue`, 11 PURE)
+Closes the essay's profinite-value frontier: `bval k f` reads the first `k` bits as a number
+(LSB-first), and `bval_odo` proves `bval k (odo f) + carryVal k f = bval k f + 1` — the odometer is
+the arithmetic successor on every finite truncation, `odo = (+1 mod 2ᵏ)` carry-explicit (no
+division), pinning the escape space as `ℤ₂ = lim ℤ/2ᵏ` quantitatively.  `odo_no_fixpoint` (the `+1`
+flips the low bit ⟹ fixes no stream) closes the `j = 1` case of ℤ-action freeness.  Wired into
+`Theory/Raw/API.lean`; essay (rows + "profinite value" section + open-frontier update).  Arithmetic
+is pure `Nat` (no `omega`/`Nat.add_mul` — propext-tainted).  Remaining open: full ℤ-freeness (all
+`j`, via iterating `bval_odo`); carry-depth deployment as a real-classification coordinate.
+
 ### 3. (carried) Promotion candidates
 PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov
 chapter stays active (Pattern 3) while `H` is open.
