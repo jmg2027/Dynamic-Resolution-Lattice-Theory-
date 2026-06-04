@@ -170,7 +170,7 @@ lean/E213/Lib/Physics/Symmetry/ (24 files; INDEX was stale at 6 files!)
 ### Example trace (α_em, commit `a3f2b585`)
 
 ```
-research-notes/G35_chiral_cup_ring_catalog.md (stays active, 17 domains)
+ (stays active, 17 domains)
   + §0.5 Promotion status (new) — tracks C1/C5 (→ chapter), C3 (→ other), C2/C4/C6
 lean/E213/Lib/Physics/AlphaEM/ (23 files)
   → theory/physics/alpha_em/precision_derivation.md (new, 261 lines)

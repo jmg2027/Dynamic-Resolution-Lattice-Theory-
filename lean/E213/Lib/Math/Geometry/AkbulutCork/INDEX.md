@@ -68,7 +68,7 @@ The cork-frame closes FW-1 (signed Donaldson count) internally:
 
 Chapter narrative: `theory/math/exotic_4mfd_cork.md`.  Archived
 research direction:
-`research-notes/archive/G126_akbulut_cork_213_native.md`.
+.
 
 ## Open work (beyond current close)
 

@@ -4,7 +4,7 @@
 covers one *trajectory-vocabulary domain*.  All theorems verified
 ∅-axiom (no `propext`, no `Quot.sound`).
 
-See `research-notes/G2_trajectory_principle.md` and
+ and
 `G3_raw_as_universal_trajectory.md` for the unifying frame.
 
 ## Files (production)

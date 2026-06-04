@@ -610,7 +610,7 @@ separate module.
 
 Lean `inductive` is by definition compatible with either
 Platonic or stepwise interpretation.  Companion narrative:
-`research-notes/archive/17_existence_mode_lens.md`. Current Lean
+. Current Lean
 coverage: `lean/E213/Lens/Cardinality/Tower.lean` and
 `lean/E213/Lens/Cardinality/Chain.lean`.
 
