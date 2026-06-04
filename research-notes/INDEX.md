@@ -15,10 +15,11 @@ not canonical statement.
   archive/<topic>/   ◀──────────────────────┘  (source note moves here)
 ```
 
-Top-level holds **only** the boot-sequence anchors.  Everything in motion
-lives under `frontiers/` (grouped by topic; see `frontiers/INDEX.md` — the
-open board).  Everything closed lives under `archive/` (grouped by topic;
-record of the path).
+Top-level holds **only** the boot-sequence anchors + process ledgers
+(`INDEX.md`, `promotion_essay_log.md`).  Everything in motion lives under
+`frontiers/` (grouped by topic; see `frontiers/INDEX.md` — the open board).
+Everything closed lives under `archive/` (grouped by topic; record of the
+path).
 
 ## Three-tier discipline (canonical: `theory/INDEX.md`)
 
@@ -49,6 +50,12 @@ volatile, so CLAUDE.md "no session-number in long-lived names" doesn't apply).
 | `G152_residue_self_covering.md` | Residue self-covering (cited by CLAUDE.md "View promoted to identity") |
 | `RERESEARCH_n_u_removal.md` | Registry of the `5²⁵ = N_U`-as-resolution deletion (cited by CLAUDE.md) |
 | `RFC_reading_equivalence_primitive.md` | Accepted+implemented RFC (cited by `Lens/{ReadingEquiv,SemanticAtom}.lean`) |
+
+## Process ledgers (top-level, human-reviewed)
+
+| File | Theme |
+|---|---|
+| `promotion_essay_log.md` | Append-only log of promotion-ㄱ / essay-ㄱ triggers + the situation that prompted each — reviewed to pattern-ize when promotion/essay should happen.  Appended by the `process` + `essay` skills. |
 
 ## Subdirectories
 

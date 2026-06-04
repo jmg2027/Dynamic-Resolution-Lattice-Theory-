@@ -107,6 +107,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `research_grade_closure_gate` — **meta-frontier**: `∅`-axiom is a
+  necessary integrity check, not a sufficient *seriousness* check.
+  Candidate "research-grade" closure gates (non-triviality/depth,
+  iff-completeness, honest-status, reproduction-or-novelty, axiom-cost
+  ledger, canonicality) curated for a later decision on whether to extend
+  `theory/PROMOTION_CRITERIA.md`.  Candidates only — nothing adopted yet.
+
 - `G167_crossdet_number_field_eisenstein_conjecture` — the cross-determinant
   classification's number-field reading; the Eisenstein/elliptic conjecture
   (originator: Mingu Jeong).  Closure record:

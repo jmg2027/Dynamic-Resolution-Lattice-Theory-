@@ -91,6 +91,10 @@ When a `research-notes/frontiers/<topic>/` arc closes ∅-axiom in `lean/`:
 2. Confirm Step 1 reports **no** permanent-tier citation of the source notes.
 3. `git mv` the source notes to `research-notes/archive/<topic>/`; remove the
    topic from `research-notes/frontiers/INDEX.md`.
+4. **Log it.** Append one row to `research-notes/promotion_essay_log.md`
+   (Type = `promotion`), capturing the *situation* that triggered it (what
+   had just closed / why now), not only the target.  This is the ledger the
+   originator reviews to pattern-ize promotion triggers.
 
 ### Step 3.5 — Audit the frontier-recording rule
 Every open frontier must have a home in `frontiers/`.  Two cheap checks:
@@ -109,7 +113,8 @@ open problem + the closure record (where the proven side lives, if any).
 Do not leave an open frontier homeless.
 
 ### Step 4 — Keep research-notes/ a clean sink
-- **Top-level** holds only boot-sequence anchors + `INDEX.md` + `frontiers/`.
+- **Top-level** holds only boot-sequence anchors + `INDEX.md` +
+  `promotion_essay_log.md` (process ledger) + `frontiers/`.
 - **`frontiers/`** = the live open board, grouped by topic (`frontiers/INDEX.md`).
 - **`archive/`** = closed material, grouped by topic.
 - **Prune** pure-process artifacts that don't even warrant archiving (dated

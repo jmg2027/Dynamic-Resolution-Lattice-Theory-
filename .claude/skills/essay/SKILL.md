@@ -161,6 +161,16 @@ homes:
 Forced essays violate "rest is taste" (round-2 agent F finding).
 Don't write chapters that weren't asked for.
 
+## Log the event
+
+When this skill is invoked (the user said "에세이 ㄱ" / "essay", or an
+essay is written), append one row to `research-notes/promotion_essay_log.md`
+(Type = `essay`).  Capture the **situation** that prompted it — a recurring
+question? a cross-domain synthesis? a corrected misconception? — not just
+the topic.  This is the data the originator reviews to pattern-ize essay
+triggers later.  If the essay stays in-conversation (not saved), still log
+it with Outcome = "in-conversation".
+
 ## Failure modes
 
 | Failure | Symptom | Correction |
