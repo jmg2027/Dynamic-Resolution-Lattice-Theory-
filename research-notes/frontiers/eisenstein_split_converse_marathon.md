@@ -80,10 +80,13 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
     (`‖x−ω‖² = x²+x+1`); `not_dvd_x_sub_omega` (`p` non-unit ⟹ `p ∤ (x−ω)`, since its
     imaginary part is the unit `−1`).  So when `p ∣ x²+x+1`: `p ∣ ‖x−ω‖²` yet `p ∤ (x−ω)` —
     `p` is reducible in `ℤ[ω]`.
-  - **Phase 2c (next)** — the gcd / Euclid's lemma: in a Euclidean domain, `p` irreducible ⟺
-    prime; `p ∤ (x−ω)`, `p ∤ conj(x−ω)`, `p ∣ (x−ω)·conj(x−ω)` ⟹ `p` reducible ⟹
-    `p = ‖d‖²` (needs the Euclidean gcd — well-founded on `‖·‖²` or fuel-bounded à la
-    `Gcd213`; this is the substantial remaining step before Phase 3 primitive roots).
+  - **Phase 2c-arith (DONE)** — `ModArith.PrimeSquareFactor.eq_p_of_mul_eq_psq` (1 PURE):
+    `p` prime, `a·b = p²`, `2 ≤ a, b` ⟹ `a = p`.  The descent's conclusion-arithmetic: once
+    `p = d·e` (non-units) is in hand, `p² = ‖d‖²·‖e‖²` with both `≥ 2` gives `‖d‖² = p`.
+    Built on the `MarkovPrimeFactor` prime-power library (`dvd_prime_pow_cases`).
+  - **Phase 2c-gcd (next, substantial)** — the missing connective: the `ℤ[ω]` Euclidean gcd
+    (fuel-bounded on `‖·‖²` à la `Gcd213`, using `zomega_div_step` as the step) + Bezout +
+    Euclid's lemma, to turn `p ∤ (x−ω)`, `p ∣ (x−ω)·conj(x−ω)` into the reducibility `p = d·e`.
     Path: `centered_div_int` wrapper (β.normSq : Int>0 from `normSq_pos`); `γ = ⟨qre,qim⟩` from
     `centered_div` on `(α·conjβ).re/.im`; prove `ρ·conjβ = ⟨rre,rim⟩` (ext + ring_intZ, with
     `mul_conj_self`); `‖ρ‖²·N = eisForm rre rim` (`normSq_mul` + `normSq_conj`); `covering_bound`

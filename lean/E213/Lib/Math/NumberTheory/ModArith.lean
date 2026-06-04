@@ -13,6 +13,7 @@ import E213.Lib.Math.NumberTheory.ModArith.ModBezout
 import E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant
 import E213.Lib.Math.NumberTheory.ModArith.UniversalFLT
 import E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
+import E213.Lib.Math.NumberTheory.ModArith.PrimeSquareFactor
 import E213.Lib.Math.NumberTheory.ModArith.FP2Sqrt5
 import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 
