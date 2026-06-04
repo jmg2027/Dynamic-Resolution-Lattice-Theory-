@@ -1,8 +1,29 @@
-# Session Handoff — 2026-06-04d (Markov — ★ the UPPER-FOLD PATTERN, two levels, §20–§21)
+# Session Handoff — 2026-06-04e (Markov — ★ the UPPER-FOLD PATTERN, three levels, §20–§22)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **88 PURE**.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **92 PURE**.
 
-## ★★★ NEW (§21): the next fold — root set is a torsor under the unit-root group
+## ★★★ NEW (§22): the fold is a product of folds — `SqrtUnity` factors over coprime components
+Third level of the recursion: the §21 unit-root group is *multiplicative* across coprime factors, so
+the composite fold IS a product of the per-prime-power `±` folds — the exact mechanism by which `ω`
+controls the phantom count.
+- **`mul_dvd_of_coprime`** `(1<n)(gcd m n=1)(m∣k)(n∣k) : m*n ∣ k` — the previously-MISSING reusable
+  ∅-axiom primitive, via `euclid_of_coprime` (MarkovPrimeFactor).
+- **`sqrtUnity_lift`** `(1<m)(1<n)(gcd=1)(e²≡1 mod m)(e²≡1 mod n) : SqrtUnity (m*n) e` — so
+  `SqrtUnity c ⊇ ∏ {±1 mod pᵢ}`: `ω` independent `±` folds → `2^ω` unit-roots → window's `⟨−1⟩`
+  transversal keeps `2^(ω−1)` → all but one phantom.
+- **`sqrtUnity_1325_nontrivial`** : `SqrtUnity 1325 476 ∧ 476∉{1,1324}` — `SqrtUnity ⊋ {±1}` concrete.
+- **`phantom_is_unit_root_image_1325`** : `476·507 ≡ 182 mod 1325` (507,182 both √−1) — the nontrivial
+  unit-root carries the realized root 507 to the phantom 182; same full-group orbit, different
+  `±`-suborbits = exactly why the window can't separate them.  `sqrtUnity_acts_on_root` made arithmetic.
+
+### Remaining open content (now sharply isolated)
+The genuine open Markov piece = **nontrivial-unit-root existence for general `ω≥2`** (CRT construction:
+`e ≡ 1 mod m`, `e ≡ −1 mod n`, then `sqrtUnity_lift`).  Engine ready (`mul_dvd_of_coprime` +
+`inverse_of_coprime`/`modBezout`); what's left is the CRT *existence* of `e` (build `e = 1 + m·t` with
+`t ≡ −2·m⁻¹ mod n`) + the orbit-injectivity `e·u ≡ ±u ⟹ e ≡ ±1` (cancel by the unit `u`, since
+`u²≡−1` makes `u` invertible).  Everything *structural* around it is now ∅-axiom.
+
+## ★★★ (§21): the next fold — root set is a torsor under the unit-root group
 Templatizing §20 hits the next wall (ω≥2 composites leave phantom roots).  The wall is *again a fold*,
 one level up: the `√(−1)` root set is a **torsor under the square-root-of-unity group**, and §20's `±`
 involution `σ` is that group's distinguished order-2 element `c−1 ≡ −1`.
