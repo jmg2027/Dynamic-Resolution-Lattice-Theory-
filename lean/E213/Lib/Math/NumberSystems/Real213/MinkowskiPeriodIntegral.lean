@@ -1,6 +1,7 @@
 import E213.Lib.Math.NumberSystems.Real213.CutIntegral
 import E213.Lib.Math.NumberSystems.Real213.CutIntegralLinearity
 import E213.Lib.Math.NumberSystems.Real213.Core.CutPoset
+import E213.Lib.Math.NumberSystems.Real213.DiffCutModulus
 
 /-!
 # MinkowskiPeriodIntegral — the period integral is ∅-axiom, not Mathlib-dependent
@@ -33,6 +34,9 @@ open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
   (riemannSampleSum fundamental_dyadic_calculus_const no_pi_in_finite_riemann)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.Measure.MeasurableSet (DyadicMeasurableSet)
+open E213.Lib.Math.NumberSystems.Real213.DiffCutModulus
+  (DiffCutModulus idDiffCutModulus mulDiffCutModulus)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
 
 /-- ★★★ **The weight-2 period integral is ∅-axiom** (correcting "integration needs Mathlib").
     The analytic representative of the `?`-cocycle's weight-2 period — the dyadic integral of the
@@ -86,5 +90,39 @@ at* the rest through a completion — never an axiom cost. -/
     ∅-axiom only by the cut-addition precision artifact (`Sum/CutSumGeneral`), not by purity. -/
 theorem affine_period_depth0_closed (db : DyadicBracket) :
     riemannSampleSum (fun c => c) db 0 = constCut db.midNum (2 ^ (db.expE + 1)) := rfl
+
+/-! ## The completion bridge — the period integrands carry an explicit modulus
+
+The wall above (exact distinct-sample addition) is crossed not by a new axiom but by the repo's own
+**cut-completion** (`AbCutSeq.toCauchy`, the Cauchy completion of a cut sequence given a modulus), the
+same machinery that builds `φ`, `e`, `π` as ∅-axiom cut limits.  Completion consumes a **modulus of
+continuity**, and the higher-weight period integrands `z^{k−2}` *supply* one: the repo's
+`DiffCutModulus` calculus builds a modulus for the identity (`idDiffCutModulus`) and propagates it
+through multiplication (`mulDiffCutModulus`), so every monomial period integrand `z^k` is
+differentiable with an **explicit, computable modulus**.  That is the completion precondition for the
+higher-weight periods, ∅-axiom — the bridge is built, not imported. -/
+
+/-- The quadratic period integrand `z²` (the weight-4 `V_2` building block), modulus-continuous with
+    an explicit `DiffCutModulus`, built from `id` by multiplication. -/
+def sqPeriodModulus : DiffCutModulus (fun z => cutMul z z) :=
+  mulDiffCutModulus idDiffCutModulus idDiffCutModulus
+
+/-- The cubic period integrand `z³` — by iteration, every monomial `z^k` carries a `DiffCutModulus`. -/
+def cubePeriodModulus : DiffCutModulus (fun z => cutMul z (cutMul z z)) :=
+  mulDiffCutModulus idDiffCutModulus sqPeriodModulus
+
+/-- ★★ **The higher-weight period integrands carry an explicit, computable modulus.**  The quadratic
+    (`z²`, weight-4) and cubic (`z³`) period integrands are modulus-continuous, with input moduli
+    `2k` and `3k` (additive through multiplication, from the identity's modulus `k`).  This is the
+    precondition the cut-completion (`AbCutSeq.toCauchy`) consumes: the higher-weight period integrals
+    — blocked only by exact distinct-sample addition (`affine_period_depth0_closed` discussion) — are
+    reachable as ∅-axiom cut limits via the repo's own completion, no new axiom.  The remaining step
+    is the generic "midpoint Riemann sums of a `DiffCutModulus` integrand are Cauchy" theorem (a
+    bounded constructive build), after which `∫ z^{k−2} dz` and the full higher-weight Eichler–Shimura
+    period follow.  ∅-axiom. -/
+theorem period_integrand_modulus_explicit :
+    (∀ k : Nat, sqPeriodModulus.inputModulus k = k + k)
+    ∧ (∀ k : Nat, cubePeriodModulus.inputModulus k = k + (k + k)) :=
+  ⟨fun _ => rfl, fun _ => rfl⟩
 
 end E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodIntegral

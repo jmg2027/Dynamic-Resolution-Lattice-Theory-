@@ -113,6 +113,14 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   elsewhere), not a new axiom — the same constructive-incompleteness face as `no_pi_in_finite_riemann`.
   Constant (`k=0`) exact at all depths; affine (`k=1`) exact at depth 0; the rest is *pointed at
   through completion*.
+  **Completion bridge precondition LANDED** (`MinkowskiPeriodIntegral.period_integrand_modulus_explicit`,
+  PURE): the cut-completion (`AbCutSeq.toCauchy`, the same machinery building `φ`/`e`/`π` as ∅-axiom
+  cut limits) consumes a **modulus of continuity**, and the repo's `DiffCutModulus` calculus supplies
+  one for every monomial period integrand — `z²` (weight-4 `V_2`) has input modulus `2k`, `z³` has
+  `3k`, built from `id`'s modulus `k` through `mulDiffCutModulus`.  So the higher-weight period
+  integrals are reachable as ∅-axiom cut limits — no new axiom, the bridge is *built*.  **Remaining**
+  (bounded constructive build): the generic "midpoint Riemann sums of a `DiffCutModulus` integrand are
+  Cauchy" theorem; then `∫ z^{k−2} dz` and the full higher-weight Eichler–Shimura period follow.
 
 - **residue as a (truncated) spectrum — NEGATIVE (honest).**  The spectrum analogy **breaks**: the
   Steenrod/Massey structure on `K_{3,2}^{(c=2)}` is *vacuous* at the `d = 5` truncation — `Sq¹·Sq¹=0`
