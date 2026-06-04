@@ -45,6 +45,20 @@ import E213.Lib.Math.Cauchy.DepthOverflowDuality
 import E213.Lib.Math.Cauchy.ReentryUnit
 import E213.Lib.Math.Cauchy.DepthClosure
 import E213.Lib.Math.Cauchy.DepthCoordGenerator
+import E213.Lib.Math.Cauchy.DepthAperyCubic
+import E213.Lib.Math.Cauchy.DepthQuadraticGeneric
+import E213.Lib.Math.Cauchy.DepthCubicGeneric
+import E213.Lib.Math.Cauchy.CasoratianStep
+import E213.Lib.Math.Cauchy.CasoratianSigned
+import E213.Lib.Math.Cauchy.CassiniSigned
+import E213.Lib.Math.Cauchy.DepthResidueFloor
+import E213.Lib.Math.Cauchy.DepthSelfReference
+import E213.Lib.Math.Cauchy.PhiResidueGlue
+import E213.Lib.Math.Cauchy.PolynomialDepth
+import E213.Lib.Math.Cauchy.DepthCharacterization
+import E213.Lib.Math.Cauchy.CassiniDepthFloor
+import E213.Lib.Math.Cauchy.OrbitDimension
+import E213.Lib.Math.Cauchy.CFiniteRing
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cauchy`.
 

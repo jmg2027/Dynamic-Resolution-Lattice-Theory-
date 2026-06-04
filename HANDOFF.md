@@ -1,175 +1,46 @@
-# Session Handoff — 2026-06-03 (number-tower founding + closure-move marathon)
+# Session Handoff — 2026-06-03 (∅-axiom determinant via antisymmetrization)
 
 ## Branch
-`claude/concrete-non-fixed-point-witness-vi1IQ` — **merged to `main`** this session (after
-merging `origin/main`'s non-holonomicity thread in; see §6).  Working tree clean.
-Full `cd lean && lake build` clean (1500+ modules); every new theorem ∅-axiom
-(`tools/scan_axioms.py` → `N pure / 0 dirty`, run from **repo root**).
+`claude/goal-g183-CxU4X` — `origin/main` (invert-universal-property + concurrent threads) merged
+in.  Full `cd lean && lake build` clean; every new theorem ∅-axiom (`tools/scan_axioms.py` →
+`N pure / 0 dirty`, run from repo root).
 
----
+## Headline this session: a complete ∅-axiom determinant
 
-## What Was Done This Session
+Built the Leibniz determinant and **all its defining properties** via antisymmetrization — the
+natural home the determinant essay predicted (`theory/essays/determinant_as_quotient_characteristic.md`).
+No `funext`/`propext`/`Quot.sound`/`Classical`/Mathlib.
 
-A marathon that founded the number tower `ℕ → ℤ → ℚ → ℝ` as a chain of Lens bundlings,
-ran a multi-agent generalization audit, resolved every open frontier item, and promoted
-the closed sub-tree.
+- **`Linalg213/Permutation` (33 PURE)** — `LPerm`, `psign` (inversion sign), `swapAt`, the
+  Leibniz determinant `leibDet n M = Σ_σ sign(σ)·Πᵢ M i (σ i)`, the per-term row-swap identity.
+- **`Linalg213/PermClosure` (76 PURE)** — the symmetric-group machinery, ∅-axiom from scratch
+  (core's `List.mem_*`/`length_append`/`map_map`/`range`/`Nodup` are propext/Quot-tainted):
+  - clean `List` substrate (`mem_*`, `length_append'`, `map_map'`, `Nodup := ∀a, cnt a L ≤ 1`).
+  - soundness + completeness (`q ∈ permsOf xs ⟺ LPerm q xs`), `nodup_permsOf` (via a `removeFirst`
+    retraction), the count engine `lperm_of_cnt_eq`, and ★ `perms_swap_closed` (enumeration closed
+    under `swapAt`, via a clean self-defined `iota`).
+  - ★ **alternating**: `leibDet_rowSwap` (adjacent row swap negates), `leibDet_eq_zero_of_rows_eq`
+    / `leibDet_eq_zero_of_two_rows_eq` / `leibDet_rows_eq_ne` (equal rows ⟹ 0, any positions).
+  - ★ **multilinearity**: `leibDet_setRow_add` / `leibDet_setRow_smul` (linear in each row).
+  - ★ **degeneracy**: `leibDet_proportional_rows`, `leibDet_zero_row`.
+- **`Linalg213/FibCassiniDet` (3 PURE)** — `det 2 (Fibonacci Casoratian) = (−1)ⁿ⁺¹` (the unit end).
+- **`Linalg213/Laplace` (4 PURE, started)** — the minor relabeling `unshift` = inverse of
+  `colShift` (cofactor-expansion foundation).
 
-### 1. The number-tower founding (Lean, all PURE) — `Lens/Number/`
-- **`DifferenceLensFounding` (4 PURE)** — `ℤ` = count-Lens on an ordered pair; sign =
-  period-2 swap; `difference_lens_slash_additive` (the count-Lens bundled into a group).
-- **`RatioLensFounding` (5 PURE)** — `ℚ`'s lowest-terms = `det P = NS − NT = 1`
-  (`convergent_lowest_terms_is_det`).  Content is **`Nat`-level**; imports neither `ℤ`
-  nor the difference-Lens.
-- **`CauchyLensFounding` (1 PURE)** — `ℝ` is the Cauchy rung; convergents narrow to one
-  cut; `ℝ` is a fixpoint.
-- **`TowerFounding` (1 PURE)** — capstone `number_tower_is_lens_bundling` chaining all four.
-- **`Founding.lean`** — umbrella collecting the founding sub-tree (for promotion / citation).
+## Open path (in progress) — `research-notes/G185_hadamard_linalg_program.md`
 
-### 2. The closure-move generalization + multi-agent audit (archived `G187`)
-Hypothesis "a number system = a word in a {iterate, invert, complete, double} move-monoid"
-was **adversarially REJECTED** (no shared carrier; `double`/Cayley–Dickson exits the Lens
-codomain; iterate's native object is one iterated `slash`, not a `+→×→^` hyperoperation
-ladder, and its unboundedness IS the residue via `cantor_general`).  What **survived**:
-- **The invert twin**: `ℤ = invert(+)`, `ℚ = invert(×)` — one mechanism, two folds.
-  - **`Nat213/Tower/NatPairToQPos` (19 PURE)** — the reciprocal involution, full
-    multiplicative twin of `ℤ`'s negation: `qSwap_involutive`, `qpair_mul_swap_eq_qOne`
-    (`x·(1/x)=1`), `reciprocal_fixed_iff_unit` (exact twin of `zero_unique_negation_fixed`).
-  - **`Nat213/Tower/PairCompletion` (15 PURE)** — `invert_is_one_move`: a generic
-    `CommCancelSemigroup` pair-completion at `+` (`ℤ`) and `·` (`ℚ_+`); the group identity
-    **emerges as the diagonal, unit-free** (forced: `Nat213` has no additive `0`).  Also
-    `swap_order_eq_NT` (period-2 forced by `NT = 2`).
-- **The shared unit (the honest unification, NOT a monoid)**:
-  - **`SharedUnitAcrossReadings` (1 PURE)** — `the_unit_is_one_across_readings`: the unit
-    `1` is one value across count-difference (`NS−NT`), Möbius/ratio determinant, Cassini
-    oscillation, and the reciprocal law.  *Identity-of-the-unit (downward), not an operator
-    monoid.*
+**Laplace → CH → cfiniteZ_mul** (chosen; toward the general C-finite Hadamard product):
+§1 relabeling ✅ → §2 row-0 cofactor expansion `leibDet (n+1) M = Σⱼ altSign j · M 0 j ·
+leibDet n (minor M j)` (the heaviest: `perms (n+1)` ↔ `⋃ⱼ perms n` reindex; sign via
+`psign_cons`, product via `colShift_unshift`) → §3 any-row expansion → §4 adjugate
+(`M·adj = det·I`; off-diagonal = `leibDet_rows_eq_ne` ✅) → §5 integer Cayley–Hamilton →
+§6 Kronecker `M` → `cfiniteZ_mul`.
 
-### 3. Native order on `Nat213` (reusable) — `Nat213/Order` (8 PURE)
-Lean `Nat` order is propext/Classical/Quot-**dirty** (verified by scratch probe), so order
-was built natively: `lt a b := ∃ c, add a c = b`; `lt_trichotomy`; `lt_mul_self` (strict
-square-monotonicity **purely from distributivity**, no order lemma); `mul_self_inj`
-(`a·a = b·b → a = b`).  Reusable wherever `Nat213` order is needed.
+## Other live threads (earlier this branch)
+- C-finite orbit dimension promoted to `theory/math/analysis/cfinite_orbit_dimension.md`
+  (`Cauchy/OrbitDimension`, `Cauchy/CFiniteRing`).
+- Number-tower founding (`Lens/Number/`, `book/`) merged from main.
 
-### 4. The `book/foundations/` working treatise (준-책) + all OPEN items resolved
-6 files (`README` + 5 chapters) founding the tower and answering: is `ℕ→ℤ→ℚ→ℝ` complete
-(yes — `ℝ` Cauchy fixpoint), one axis (hybrid — one unit, many readings), forced (only at
-its seams).  **All five frontier items resolved** (ch 5.2): #1 ℚ-on-ℤ (honest direction —
-identity-of-the-unit, docstring corrected), #2 exhaustiveness (resolved as *no* — preorder,
-≥2 chains), #3 period-2 (theorem `swap_order_eq_NT`), #4 ℚ obligation (resolved as a
-choice — no exterior dialer), #5 unify axes (`the_unit_is_one_across_readings`).
-
-### 5. Promotion + hygiene
-- Promoted the founding sub-tree per `PROMOTION_CRITERIA` (H1–H4 + S1–S3): umbrella +
-  `theory/lens/number_systems.md` Founding section; `G187` archived.
-- Archived `G186`; **verified book/ main treatise citations**: all 22 cited theorems exist,
-  all 12 modules 0 dirty.
-- Fixed stale `N_U = d^(d²) = 5²⁵` / `seed/RESOLUTION_LIMIT_SPEC.md` (nonexistent) in **two**
-  places (`seed/AXIOM/06_lens_readings.md` §6.7 and `theory/INDEX.md`) → parametric
-  `configCountD d n = d^(d^n)`, no level privileged.
-
-### 6. Merged from `main` (concurrent non-holonomicity session — do not re-derive)
-This branch merged `origin/main` (the `claude/non-holonomicity-rGhug` thread) before going to
-`main`.  Disjoint from this session's `Lens/Number/` work; adjacent PURE material now on `main`:
-- **`Meta/Int213/Order` (34 PURE)** — ∅-axiom `Int` ordering layer (core `Int.le_trans` /
-  `lt_trichotomy` are propext-dirty).  Pairs with this session's `Nat213/Order` — two native
-  order layers now exist (`Int` and `Nat213`); future order work should reuse, not rebuild.
-- **`Cauchy/{PolyDepthMonotone, ThueMorseRingEscape, ThueMorseAperiodic, MorseHedlund,
-  EllipticPeriodicTier, CFiniteHomogRec, DepthMonotoneSynthesis, HomogRecPeriodic, …}`** — the
-  non-holonomicity / holonomicity-hierarchy thread closed end-to-end (polynomial ⊆ C-finite ⊆
-  P-recursive ⊊ non-holonomic; Thue–Morse dense witness `tm_eq_popParity`; discriminant↔hierarchy
-  at the order-2 rung, `comp_disc = p²−4q`).  π non-holonomicity mapped (located, not forced).
-- Notes: `research-notes/G170, G173–G176, G183, G184` (+ `archive/G185`).
-
----
-
-## Current Precision Results (0 free parameters)
-**No physics constants changed this session** (pure math / founding / three-tier hygiene).
-Table unchanged — from `catalogs/physics-constants.md`:
-
-| Observable | DRLT | Error |
-|---|---|---|
-| m_μ/m_e = 206.768 | NS·137/NT | 0.48 ppb |
-| R∞ = 13.605693 eV | Phase 4 H | 4.3 ppb |
-| m_p = 938.27 MeV | NS·Λ_QCD·P | 0.000% |
-| Ω_Λ = 0.685 | (1−1/π)(1+α/d) | 0.0008% |
-| m_H = 125.28 GeV | 1/c · v_H | +0.02% |
-| Cabibbo λ = 5/22 | d/(d²−NS) | atomic |
-| 1/α_em ≈ 137.036 | Phase 1 | ppm |
-
-**DRLT Validation Standard status UNCHANGED** — see Open #1 (still the repo's stated "real
-target"; this session was math/founding, not physics validation).
-
----
-
-## Open Problems (Priority Order)
-
-### 1. DRLT Validation Standard — the repo's stated "real target" (untouched this session)
-`CLAUDE.md`: from `(NS,NT,d)=(3,2,5)`, deliver a **strict ∅-axiom precision theorem AND
-falsifier for the same observable**.  Next concrete step: audit which catalog results
-(`1/α_em`, `m_μ/m_e = NS·137/NT`, `N_gen = C(NS,NT) = 3`, `θ_QCD`, Cabibbo `λ = 5/22`) are
-strict ∅-axiom in Lean vs still Python/numerical.  **Recommended next axis.**
-
-### 2. `book/foundations` promotion to `book/` proper (low effort)
-The 준-책 frontier is closed; it is now a closeable treatise.  Remaining: meet the `book/`
-narrative-promotion bar (it already has a `theory/lens/number_systems.md` + `theory/INDEX`
-pointer).  Mostly a labeling decision (drop "working draft" if desired — user asked for
-준-책, so confirm before finalizing).
-
-### 3. Other closed sub-trees lacking `theory/` chapters
-Scan PURE-closed Lean sub-trees against `theory/PROMOTION_CRITERIA.md` for promotion
-candidates (the founding + disc were done this session).
-
-### 4. π non-holonomicity (classically OPEN) — `research-notes/G170_pi_cf_*`
-Not closable ∅-axiom; FGS asymptotic-obstruction is the credible route.
-
----
-
-## Unresolved from This Session (don't repeat)
-- **Core Nat order is propext-dirty** — `Nat.lt_or_ge`, `Nat.le_antisymm`,
-  `Nat.mul_lt_mul_right`, `Nat.mul_le_mul_left` all pull `propext`/`Classical.choice`/
-  `Quot.sound` (verified by scratch probe, then deleted).  Use `Nat213.Order` (native) or
-  build PURE replacements; do NOT import core Nat order into PURE theorems.
-- **`Nat213.Order` square-injectivity** needed `lt_trichotomy` + strict square mono; built
-  unit-free from distributivity (no Mathlib).  The reciprocal fixed-point iff now closes.
-- **Build cycle**: `Lib/Math/Mobius213OneAsGlue` imports `Lens.Number` aggregator, so a
-  `Lens/Number/` file importing Mobius CANNOT be added to the `Lens.Number` aggregator
-  (`SharedUnitAcrossReadings` is a glob-built leaf, like the founding files).
-- **Layer-import guard**: `Lib/Math` files cannot import `Lens/...` submodules (hook block);
-  put Lens-consuming capstones under `Lens/`.
-- **Move-monoid generalization is stereotype** — do not revive "free monoid on construction
-  functors"; the honest unification is downward to the shared unit (`G187`, archived).
-
-## Next
-Recommend **pivot to Open #1** (the DRLT Validation Standard) — audit α_em / m_μ-m_e /
-falsifiers for strict ∅-axiom status in Lean.  The math/founding thread is mature and
-fully promoted; the physics validation is where the stated standard lives.
-
-## Three-tier state
-- **Promotions this session**: `theory/lens/number_systems.md` (Founding section) ←
-  `Lens/Number/Founding` sub-tree; `G187` + `G186` archived to `research-notes/archive/`.
-- **Promotion candidates**: `book/foundations` → `book/` proper (Open #2); other PURE-closed
-  sub-trees (Open #3).
-- **Active scratchpad**: `research-notes/` top-level (50+ G-notes across many threads — NOT
-  this session's; G186/G187 archived).
-
-## File Map
-```
-NEW Lean (∅-axiom):
-  lean/E213/Lens/Number/Founding.lean                  ← umbrella for the founding sub-tree
-  lean/E213/Lens/Number/Nat213/Order.lean              ← native strict order + mul_self_inj (8 PURE)
-  lean/E213/Lens/Number/Nat213/Tower/PairCompletion.lean ← invert_is_one_move + swap_order_eq_NT (15 PURE)
-  lean/E213/Lens/Number/SharedUnitAcrossReadings.lean  ← the_unit_is_one_across_readings (1 PURE)
-MODIFIED Lean:
-  lean/E213/Lens/Number/Nat213/Tower/NatPairToQPos.lean ← reciprocal involution +iff (19 PURE)
-  lean/E213/Lens/Number/RatioLensFounding.lean          ← docstring corrected (ℚ⊥ℤ, identity-of-unit)
-  lean/E213/Lens/Number/{Nat213,Number}.lean            ← aggregator imports/docs
-NEW docs:
-  book/foundations/{README,01..05}.md                   ← the founding 준-책 (frontier resolved)
-MODIFIED docs:
-  seed/AXIOM/06_lens_readings.md                        ← §6.7 stale-ref/N_U fix
-  theory/{INDEX, lens/INDEX, lens/number_systems}.md    ← promotion + N_U fix + book/foundations pointer
-  STRICT_ZERO_AXIOM.md                                  ← catalog entries for all the above
-ARCHIVED:
-  research-notes/archive/G187_closure_move_generalization.md  ← the closure-move audit
-  research-notes/archive/G186_native_vs_imported_axis.md      ← disc native-vs-imported (→ book/ ch4-6)
-```
+## DRLT Validation Standard
+Still the repo's stated real target (untouched): ppb-ppm precision theorem and/or a strict
+∅-axiom falsifier (`N_gen=3`, `θ_QCD`).
