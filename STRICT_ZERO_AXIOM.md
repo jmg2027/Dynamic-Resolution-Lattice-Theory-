@@ -837,7 +837,9 @@ Follow-on (G123 direction G): general p-adic division, all PURE:
   · `QpSeq.invGeneral` / `QpSeq.divGeneral` (`Padic.Field`) — inverse
     and division for a denominator of arbitrary valuation, via the
     valuation shift; `QpSeq.invGeneral_unit_eq_inv` reduces them to the
-    unit-only `QpSeq.inv` at `v=0`.
+    unit-only `QpSeq.inv` at `v=0`.  Correctness `Zp.div_general_value`:
+    `y · u⁻¹ ≡ p^v` at every truncation (the numerator side of
+    `y · (1/y) ≡ 1` in ℚ_p, the `p^v` matched by the shift `p^(−v)`).
   · `Zp.neg_one_sq_trunc` (`Padic.Arith`) — `(−1)·(−1) ≡ 1` at every
     level (the missing ring identity for `−1`); `Zp.i_5_pow_four_trunc`
     (`Padic.TeichmullerUnit`) — `i₅⁴ ≡ 1` at every level, the concrete

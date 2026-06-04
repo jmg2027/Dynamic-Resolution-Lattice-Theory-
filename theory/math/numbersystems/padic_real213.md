@@ -230,6 +230,17 @@ could be `0`, valuation `∞`), so `v` and the unit witness on `u` are
 inputs — the honest 213-native shape (no decidable ∞-search smuggled
 in).
 
+**Correctness** (`Zp.div_general_value`): `y · u⁻¹ ≡ p^v` at every
+truncation, for `y` of valuation `≥ v` with unit part `u`.  Since
+`1/y = u⁻¹ · p^(−v)`, this is `y · (1/y) ≡ 1` in `ℚ_p` — the numerator
+`p^v` is matched by the shift `p^(−v)`.  The proof is the
+factorisation-exactness engine (`shiftLeft_shiftRight_trunc_of_low_zero`:
+`y = p^v·u` exact) plus two pure shift-bookkeeping lemmas: a power
+factors out of a modulus (`(p^v·Y) % p^(v+m) = p^v·(Y % p^m)`) and a
+higher truncation reduces mod the lower power
+(`x.trunc(b+c) % p^b = x.trunc b`), reducing the unit part to
+`mul_invFull_correct` (`u · u⁻¹ ≡ 1`).
+
 ### Canonical 5-adic embeddings
 
 The 5-adic Real213 gives a canonical embedding `ℕ ↪ ZpSeq 5` for
@@ -311,6 +322,7 @@ Grouped by module.
 | `QpSeq.{add,sub,mul,neg}` | basic arithmetic |
 | `QpSeq.inv`, `QpSeq.div` | Hensel-based inverse and division (unit denominator) |
 | `QpSeq.invGeneral`, `QpSeq.divGeneral` | general inverse/division (any-valuation denominator); `invGeneral_unit_eq_inv` reduces to `inv` at v=0 |
+| `Zp.div_general_value` | general-division correctness: `y · u⁻¹ ≡ p^v` (numerator side of `y·(1/y) ≡ 1` in ℚ_p) |
 | `Zp.shiftLeft_shiftRight_digit_of_low_zero` | factorisation exactness `x = p^v·u` (bottom-v digits zero) |
 | `QpSeq.sqrt` + `sqr_sqrt_num_correct` | sqrt (even-shift only — `√p ∉ ℚ_p`) |
 
