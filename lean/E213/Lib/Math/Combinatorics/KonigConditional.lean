@@ -24,6 +24,22 @@ exterior, not an unbuilt internal step.  The conditional below makes this
 precise — everything *given the oracle* is ∅-axiom; the oracle (`step`,
 `hstep`) is exactly the un-dischargeable hypothesis.
 
+## Relation to the residue's own infinite descent (`Theory/Raw/CoResidue`)
+
+This is *not* the residue's first infinite object — and that sharpens the
+boundary.  `CoResidue` already builds genuine infinite descent **constructively**:
+`CoShape := List Bool → Bool` is this file's `T`; `allBranch := fun _ => true`
+is the infinite complete self-pointing with **no leaf** (`allBranch_no_leaf`),
+and `spineL` is an explicit infinite path — both *given by definition*, escaping
+every finite Raw (`raw_ne_allBranch`).  `InfBelow`'s `∀ n, ∃ depth-n …` shape is
+`MuNuMirror.{ascent_unbounded, depth_cofinal}`; `walk` is the anamorphism `ana`.
+
+So the residue **has** constructive infinite paths (its own escape, `spineL`).
+What König needs is different: for an **arbitrary external** tree, *decide which*
+path is infinite.  The stall is therefore not "no infinite path" — it is the
+**decision about a foreign structure**.  The residue's infinity is internal and
+self-given; only the external `InfBelow`-decision is the import.
+
 Companion "why" / boundary note: `theory/essays/proof_isa/konig_boundary.md`.
 -/
 

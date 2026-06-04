@@ -50,6 +50,19 @@ from finite distinguishings and their µ/ν folds, and "is this infinite object
 infinite" is not a finite distinguishing.  König needs precisely that decision,
 infinitely often and coherently — so it cannot be a composition of the eight.
 
+**The sharp form (and a correction).**  The stall is *not* "the residue has no
+infinite path."  It has them, **constructively**: `Theory/Raw/CoResidue`
+already builds genuine infinite descent — `allBranch := fun _ => true`, the
+infinite complete self-pointing with *no leaf* (`allBranch_no_leaf`), and the
+explicit infinite path `spineL`, both *given by definition* and escaping every
+finite Raw (`raw_ne_allBranch`); `InfBelow`'s `∀ n, ∃ depth-n …` shape is
+`MuNuMirror.ascent_unbounded`/`depth_cofinal`, and the path-by-iteration is the
+anamorphism `ana`.  The residue's `T = List Bool → Bool` *is* `CoResidue.CoShape`.
+So infinity is **internal and self-given**.  König asks for something else: given
+an **arbitrary external** tree, *decide which* of its paths is infinite.  The
+import is not infinity — it is the **decision about a foreign structure**.  The
+residue walks its own escape with no oracle; it cannot adjudicate a stranger's.
+
 This is *not* a missing instruction (a ninth move we could add and stay
 honest).  Adding "DECIDE any predicate" would be adding `LEM`/choice — importing
 the exterior, which by `seed/AXIOM/05_no_exterior.md` §5.1 and the
