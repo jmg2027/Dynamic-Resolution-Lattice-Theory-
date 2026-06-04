@@ -1,4 +1,4 @@
-import E213.Lib.Math.Extras.CauchySchwarz
+import E213.Lib.Math.Tactic.Extras.CauchySchwarz
 import E213.Lib.Math.SignedCut.CD.CDNorm
 import E213.Lib.Math.SignedCut.CD.CDMulRule
 
@@ -26,7 +26,7 @@ witness (sedenion zero divisor).
 
 namespace E213.Lib.Math.SignedCut.Hurwitz.HurwitzNormProduct
 
-open E213.Lib.Math.Extras.CauchySchwarz2D (cs_2d_le)
+open E213.Lib.Math.Tactic.Extras.CauchySchwarz2D (cs_2d_le)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- ★ **Brahmagupta-Fibonacci magnitude bound** (Nat-side):

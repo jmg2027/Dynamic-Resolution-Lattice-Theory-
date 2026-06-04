@@ -1,4 +1,4 @@
-import E213.Lib.Math.Extras.CauchySchwarz
+import E213.Lib.Math.Tactic.Extras.CauchySchwarz
 import E213.Meta.Tactic.NatHelper
 
 /-!
@@ -26,7 +26,7 @@ and `(c, d)` swap.
 
 namespace E213.Lib.Math.SignedCut.Hurwitz.HurwitzExactL1
 
-open E213.Lib.Math.Extras.CauchySchwarz (cs_expand sq_add)
+open E213.Lib.Math.Tactic.Extras.CauchySchwarz (cs_expand sq_add)
 open E213.Tactic.NatHelper (mul_assoc add_mul mul_mul_mul_comm_213)
 
 /-- ★ **Nat-side squared-difference identity**:

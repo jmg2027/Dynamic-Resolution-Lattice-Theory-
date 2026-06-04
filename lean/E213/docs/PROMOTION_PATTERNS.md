@@ -58,7 +58,7 @@ research-notes/hodge/ (6 G-notes + INDEX)
   → research-notes/archive/hodge/
   + theory/math/cohomology/hodge_conjecture.md (new, 253 lines)
   + 12 Lean docstrings updated via bulk sed
-  + lean/E213/Lib/Math/HodgeConjecture/INDEX.md "Companion narrative" added
+  + lean/E213/Lib/Math/Cohomology/HodgeConjecture/INDEX.md "Companion narrative" added
 ```
 
 ### Pitfalls

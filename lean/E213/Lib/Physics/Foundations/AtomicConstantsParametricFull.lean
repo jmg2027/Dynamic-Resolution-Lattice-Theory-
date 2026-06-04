@@ -1,4 +1,4 @@
-import E213.Lib.Math.Extras.CauchySchwarz
+import E213.Lib.Math.Tactic.Extras.CauchySchwarz
 import E213.Lib.Physics.Foundations.AtomicConstantsParametric
 import E213.Lib.Physics.Foundations.AtomicConstantsParametricN3
 
@@ -15,7 +15,7 @@ to give the full ∀ (m, n) parametric uniqueness:
     `constraint_C2b m n = true ↔ (m=3 ∧ n=2) ∨ (m=2 ∧ n=3)`.
 
 The diagonal closure uses AM-GM `2mn ≤ m² + n²` (from
-`Lib/Math/Extras/CauchySchwarz.two_mul_le_sq_add_sq`) plus
+`Lib/Math/Tactic/Extras/CauchySchwarz.two_mul_le_sq_add_sq`) plus
 the Nat-monotonicity bound `m²·n² ≥ 4·(m² + n²)` for m, n ≥ 3.
 
 STRICT ∅-AXIOM (no `omega`, no Mathlib `ring`).
@@ -24,7 +24,7 @@ STRICT ∅-AXIOM (no `omega`, no Mathlib `ring`).
 namespace E213.Lib.Physics.Foundations.AtomicConstantsParametricFull
 
 open E213.Lib.Physics.Foundations.AtomicConstantsUnique
-open E213.Lib.Math.Extras.CauchySchwarz (two_mul_le_sq_add_sq)
+open E213.Lib.Math.Tactic.Extras.CauchySchwarz (two_mul_le_sq_add_sq)
 open E213.Tactic.NatHelper (add_mul mul_assoc)
 
 /-! ## §1 — Symmetry: `constraint_C2b m n = constraint_C2b n m` -/

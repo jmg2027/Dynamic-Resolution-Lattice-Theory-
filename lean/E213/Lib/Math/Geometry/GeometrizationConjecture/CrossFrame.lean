@@ -52,7 +52,7 @@ theorem X1_sym3_cross_frame_capstone :
     ∧ 2 + 2 * 3 = 8
     ∧ (2 : Nat) ^ 8 = 256
     -- Source 3: HC_K32 Hodge closure (Foundation.Complete)
-    ∧ E213.Lib.Math.HodgeConjecture.Foundation.Complete.HC_K32
+    ∧ E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.HC_K32
     -- Source 4: Möbius P mod-5 pentagonal closure (C2Doubling)
     ∧ E213.Lib.Math.C2DoublingDerivation.half_period = 5
     ∧ E213.Lib.Math.C2DoublingDerivation.full_period = 10
@@ -63,7 +63,7 @@ theorem X1_sym3_cross_frame_capstone :
   · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4
   · decide
   · decide
-  · exact (E213.Lib.Math.HodgeConjecture.Foundation.Complete.hodge_conjecture_213_complete).2.1
+  · exact (E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.hodge_conjecture_213_complete).2.1
   · rfl
   · rfl
   · exact E213.Lib.Math.C2DoublingDerivation.c_multiplicity_eq_2

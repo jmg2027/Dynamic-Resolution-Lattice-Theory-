@@ -37,7 +37,7 @@ open E213.Tactic.NatHelper (add_mul mul_assoc)
 /-! ## §1 — Square-of-sum (axiom-free building block) -/
 
 /-- `(x + y) * (x + y) = x*x + 2*(x*y) + y*y`.  Axiom-free analog
-    of `Lib/Math/Extras/CauchySchwarz2D.sq_add_two`, inlined to
+    of `Lib/Math/Tactic/Extras/CauchySchwarz2D.sq_add_two`, inlined to
     avoid the upward dependency. -/
 theorem sq_of_add (x y : Nat) :
     (x + y) * (x + y) = x * x + 2 * (x * y) + y * y := by

@@ -1,6 +1,6 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.EightGeometries
-import E213.Lib.Math.HodgeConjecture.API
-import E213.Lib.Math.HodgeConjecture.Foundation.Complete
+import E213.Lib.Math.Cohomology.HodgeConjecture.API
+import E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete
 
 /-!
 # Structural mapping: HC_K32 + universal-8 + ultimate (steps 21, 23, 24)
@@ -64,10 +64,10 @@ work**.
     Hodge-closed AND algebraic. -/
 theorem K32_eight_classes_hodge_closed :
     -- HC213 bundle exists (combined Hodge conjecture 213-form)
-    E213.Lib.Math.HodgeConjecture.Foundation.Complete.HC_Universal
-    ∧ E213.Lib.Math.HodgeConjecture.Foundation.Complete.HC_K32
-    ∧ E213.Lib.Math.HodgeConjecture.Foundation.Complete.HC_Involution := by
-  exact E213.Lib.Math.HodgeConjecture.Foundation.Complete.hodge_conjecture_213_complete
+    E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.HC_Universal
+    ∧ E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.HC_K32
+    ∧ E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.HC_Involution := by
+  exact E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.hodge_conjecture_213_complete
 
 /-- 8 H¹ classes ↔ 256 cohomology elements (= 2^8 ).
     All Hodge-closed AND edge-algebraic per HC_K32. -/

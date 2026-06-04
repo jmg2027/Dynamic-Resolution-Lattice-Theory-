@@ -1,6 +1,6 @@
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaConvergence
 import E213.Lib.Math.Combinatorics.GeneratingFunction
-import E213.Lib.Math.Information.Bit
+import E213.Lib.Math.Probability.Information.Bit
 
 /-!
 # Fractal Level ζ-spectrum as CoeffSeq (C5 Step 5)
@@ -54,7 +54,7 @@ def laplacian_spec_total : Nat :=
 
 /-! ## §3 — Information.Bit witness for H¹ rank -/
 
-open E213.Lib.Math.Information.Bit (bitsAfterBisections)
+open E213.Lib.Math.Probability.Information.Bit (bitsAfterBisections)
 
 /-! ## §4 — Master C5 Step 5 -/
 

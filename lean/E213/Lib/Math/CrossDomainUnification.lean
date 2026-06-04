@@ -1,6 +1,6 @@
 import E213.Lib.Math.Probability.Foundation.Capstone
-import E213.Lib.Math.Information.Capstone
-import E213.Lib.Math.Logic.Capstone
+import E213.Lib.Math.Probability.Information.Capstone
+import E213.Lib.Math.Combinatorics.Logic.Capstone
 import E213.Lib.Math.Combinatorics.Capstone
 import E213.Lib.Math.Geometry.Topology.Capstone
 import E213.Lib.Math.Multivariable.Capstone
@@ -85,11 +85,11 @@ theorem shared_grade_truncation :
   no per-domain ad hoc machinery. -/
 
 /-- Sample atomic Predicate witness for Logic domain. -/
-def sampleP : E213.Lib.Math.Logic.Predicate.Predicate :=
+def sampleP : E213.Lib.Math.Combinatorics.Logic.Predicate.Predicate :=
   fun _ _ => true
 
 /-- Sample atomic Trajectory for Logic. -/
-def sampleT : E213.Lib.Math.Logic.Proof.Trajectory := []
+def sampleT : E213.Lib.Math.Combinatorics.Logic.Proof.Trajectory := []
 
 /-- Sample atomic Cut (single dimension). -/
 def sampleCut : Nat → Nat → Bool := fun _ _ => true
@@ -140,9 +140,9 @@ theorem cross_domain_unification_master : True := by
   -- unification content is in the existence of the witnesses.
   have _hC := E213.Lib.Math.Combinatorics.Capstone.total_witness
   have _hP := E213.Lib.Math.Probability.Foundation.Capstone.total_witness 4 2
-  have _hI := E213.Lib.Math.Information.Capstone.total_witness 3 3 3 [true]
+  have _hI := E213.Lib.Math.Probability.Information.Capstone.total_witness 3 3 3 [true]
   have _hL :=
-    E213.Lib.Math.Logic.Capstone.total_witness sampleP true 3 3 sampleT
+    E213.Lib.Math.Combinatorics.Logic.Capstone.total_witness sampleP true 3 3 sampleT
   have _hT := E213.Lib.Math.Geometry.Topology.Capstone.total_witness []
   have _hM := E213.Lib.Math.Multivariable.Capstone.total_witness
                 ⟨0, by decide⟩ sampleMC sampleCut sampleCut 0

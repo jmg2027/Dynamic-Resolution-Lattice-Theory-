@@ -9,14 +9,14 @@ import E213.Lib.Math.Choice
 import E213.Lib.Math.Cohomology
 import E213.Lib.Math.Complex
 import E213.Lib.Math.DyadicFSM
-import E213.Lib.Math.Extras
+import E213.Lib.Math.Tactic.Extras
 import E213.Lib.Math.Functional
 import E213.Lib.Math.Geometry.GenerationRule
 import E213.Lib.Math.Geometry.GeometrizationConjecture
 import E213.Lib.Math.GRA
 import E213.Lib.Math.Geometry
 import E213.Lib.Math.Group
-import E213.Lib.Math.HodgeConjecture
+import E213.Lib.Math.Cohomology.HodgeConjecture
 import E213.Lib.Math.Hyper
 import E213.Lib.Math.Irrational
 import E213.Lib.Math.Geometry.LevelTopology
@@ -36,8 +36,8 @@ import E213.Lib.Math.SignedCut
 import E213.Lib.Math.Tactic
 import E213.Lib.Math.PatternCatalog
 import E213.Lib.Math.Probability
-import E213.Lib.Math.Information
-import E213.Lib.Math.Logic
+import E213.Lib.Math.Probability.Information
+import E213.Lib.Math.Combinatorics.Logic
 import E213.Lib.Math.Combinatorics
 import E213.Lib.Math.CrossDomainUnification
 import E213.Lib.Math.DualCollapseCapstone
