@@ -24,6 +24,28 @@ weaker carries out the distinguishing — and nothing may be added
 to it, because everything that is genuinely needed is already
 present in the residue.  Minimality is structural, not stylistic.
 
+## §1.0 Nothing can be exhibited as outside this
+
+The act of distinguishing reaches everything it can reach, and the
+**very attempt to present an exterior — even to conceive
+"non-existence" or "the unpointable" — is itself an act of pointing,
+hence a residue, hence internal.**  There is no exterior to exhibit,
+and no conceptual hiding place either: to conceive the concept is
+already to point at it.  This is not metaphysics added on top; it is
+what "the minimum residue of pointing" *means* — the closure is closed
+under conception itself, including the conception of an outside.
+
+The formalizable core is a proof-core, not a slogan
+(`lean/E213/Lens/NoExteriorClosure.lean`, ∅-axiom): the property by
+which one would name any candidate is itself a `Raw`
+(`naming_is_internal`, via the §9.3 self-encoding), and any candidate
+that distinguishes at all receives the *unique* morphism from `Raw`
+(`distinguishing_is_downstream`, the initiality of §4.2) — downstream,
+not outside.  The fully universal form ("all conceivable things")
+remains a self-reference argument (§5.1), since "all conceivable" is
+not a type; but its escape is self-defeating for the reason above, and
+its formalizable instances are theorems, not assertions.
+
 ---
 
 ## §1.2 The unavoidable recursion of notation
