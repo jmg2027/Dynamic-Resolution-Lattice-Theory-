@@ -13,13 +13,17 @@ spec file overlap, **the spec file wins**.
    absence of exterior, dichotomy-avoidance guide.  **Re-read every
    session start.**  False dichotomies (inside/outside 213,
    classical/213, foundation/derivation) are the most common slip.
-2. **`research-notes/G29_residue.md`** + **`theory/essays/the_form_of_the_residue.md`**
+2. **`seed/AXIOM/07_primacy.md` §7.1** — **what counts as progress**:
+   primacy = *breadth* of ∅-axiom derivation (residue reproducing domain
+   after domain, math AND physics); rebuilding a discipline *is* the work.
+   DRLT Standard below = physics branch's gate, not a ranking of math work.
+3. **`research-notes/G29_residue.md`** + **`theory/essays/the_form_of_the_residue.md`**
    — what 213 *is* (minimum-commitment) and the residue's *form*
    (source-without-enclosure), pinned so it is not re-fought each session.
-3. **`HANDOFF.md`** (if exists) — current session state.
-4. **`theory/INDEX.md`** + **`theory/PROMOTION_CRITERIA.md`** —
+4. **`HANDOFF.md`** (if exists) — current session state.
+5. **`theory/INDEX.md`** + **`theory/PROMOTION_CRITERIA.md`** —
    three-tier discipline + promotion gates.
-5. **This file** — operating principles + hard rules.
+6. **This file** — operating principles + hard rules.
 
 ## Naming: 213 / DRLT / E213
 
@@ -83,17 +87,15 @@ axioms — nothing.  Any non-empty output = *axiom-dirty*, treated as
 **Status + categorization**: `STRICT_ZERO_AXIOM.md` (canonical).
 **Audit**: `tools/scan_axioms.py <module>`, `tools/scan_all_axioms.py`.
 
-## DRLT Validation Standard
+## DRLT Validation Standard (physics branch's gate, not THE yardstick)
 
-From zero knowledge of existing physics/math, DRLT must satisfy at
-least one:
+Scope: the **physics deployment** (`DRLT`) — one domain's falsifiability
+bar, not a ranking of math work (primacy = breadth, boot §7.1).  Satisfy ≥1:
 
 1. **Strict ∅-axiom precision theorem** at ppb-ppm (1/α_em, m_μ/m_e, m_p).
 2. **Strict ∅-axiom falsifier** — measurable (N_gen = 3, θ_QCD < J·α⁴).
 
-Below this = below standard.  Python + numerical agreement = research
-note, not validation.  **Prohibited**: timeline/ROI considerations.
-**Real target**: precision theorem AND falsifier for the same observable.
+Numerical-only = research note.  **Prohibited**: timeline/ROI.
 
 ## Fractal-level configuration count (parametric bare combinatorics)
 
@@ -178,14 +180,10 @@ volatile scratchpad).
 
 ## Self-check before responding
 
-1. Did I just import a comparison frame I'm about to argue against?
-   → Drop the frame (per `seed/AXIOM/05_no_exterior.md` §5.4).
-2. Am I using a word that imports meaning beyond Lens-defined?
-   → Minimize or acknowledge as residual.
-3. Am I treating 213 as one thing among others, with an "outside"?
-   → There is no outside (§8.1).
-4. Am I producing a classification the user didn't ask for?
-   → Re-read the actual question.
+1. Importing a comparison frame to argue against? → Drop it (`05_no_exterior.md` §5.4).
+2. A word importing meaning beyond Lens-defined? → Minimize/acknowledge as residual.
+3. Treating 213 as one thing among others, with an "outside"? → No outside (§8.1).
+4. Producing a classification the user didn't ask for? → Re-read the question.
 
 ## Failure modes catalog (accumulating)
 
@@ -208,6 +206,7 @@ volatile scratchpad).
 | External-ruler smuggling | "apply an external measure/ruler (Wallis, a presentation) to break the structure / *reach* the limit" | No exterior (§5.1); a presentation is a residue-internal pointing.  Holonomicity/depth is a property of the *pointing* (approximant sequence), not the real (`Real213/PresentationDependence.crossDetSmall_is_presentation_dependent`, `rcut_rescale`); the residue is presentation-invariant and *reached by none* — pointings only converge (`object1_not_surjective`) |
 | ℤ / sign as exterior import | "adjoin signed integers", "ℤ keeps the signed distinguishing", ℕ-vs-ℤ dichotomy, sign as a Raw primitive | ℤ is the **readout group of the difference-Lens** — the count-Lens on a *directed* count-pair `(m,n)↦m−n`; magnitude Nat-style, sign Bool-style pair-swap (`Int213.neg_subNatNat`), not in Raw.  Canonical: `seed/AXIOM/06_lens_readings.md` §6.7 + `theory/essays/integers_as_difference_lens.md` |
 | 0/∞ as a stratum-value (mixed-status fold) | "`0` is a value here, `∞` a limit/state there"; "`0` is the center in one fold, the `∞`-boundary in another"; treating `0` and `∞` with different status in one Lens | §6.5 point ≡ K_∞ ≡ `∞`: `0` and `∞` are one pre-Lens residue, not a dual pair.  §6.6 state = state-transition: a fold using `0`-as-value must use `∞`-as-value (and vice versa) — mixed status imports before/after = torsion.  "`0` as a value" names the whole diagonal `{(n,n)}` = folds a degenerate sub-view in (a layer up), not one Lens.  Floor/boundary/center are Lens-artifacts (no exterior).  Canonical: `seed/AXIOM/06_lens_readings.md` §6.9 |
+| DRLT-validation-as-the-goal | grading 213 math-derivation work "below standard" against the physics precision/falsifier gate; treating `1/α_em`/`m_p`/`θ_QCD` as THE yardstick the repo is measured by | Primacy = *breadth* of ∅-axiom derivation (`seed/AXIOM/07_primacy.md` §7.1) — the residue reproducing domain after domain.  The DRLT Validation Standard is the **physics branch's** falsifiability gate (one domain), not a ranking of math work.  Rebuilding a discipline from the residue *is* primacy-demonstration, not auxiliary. |
 
 When the user catches one (course-correction loop): *don't apologize and
 repeat* — extract the underlying rule, add it here or to the relevant
