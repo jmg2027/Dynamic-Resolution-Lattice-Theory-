@@ -59,7 +59,9 @@ generalising the disc-`−3` engine (the `PolyRoot` Lagrange machinery is field-
 - `Integer/GaussianDvd` — divisibility↔norm bridge in `ℤ[i]`.
 - `Integer/GaussianGcd.gcd_bezout` — Euclidean gcd + Bezout in `ℤ[i]` (fuel induction).
 - `Integer/GaussianSplit.split_form` — Pillar II: `p ∣ x²+1 ⟹ p = a²+b²`.
-- `Integer/GaussianTwoSquare.two_square_of_mod4` — ★ the assembled Fermat theorem (axiom-free).
+- `Integer/GaussianTwoSquare` — ★ `two_square_of_mod4` (Fermat's theorem) + the necessity
+  direction (`form4_residue`: `a²+b² ≢ 3 mod 4`) and ★ `two_square_iff`:
+  for an odd prime `p`, `p ≡ 1 (mod 4) ⟺ p = a²+b²` (axiom-free).
 
 ## Open Problems (Priority Order)
 
