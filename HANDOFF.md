@@ -1,6 +1,25 @@
-# Session Handoff — 2026-06-04l (Markov — ★ §34 reverse bridge: the markovNum-injectivity iff is fully closed)
+# Session Handoff — 2026-06-04m (Markov — ★ §34 iff closed + direction (b): continuant/Aigner program opened)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` builds; §34 + iff PURE.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
+
+## ★★★ NEWEST (direction (b) — the cross-node frontier): continuant primitive + sourced program map
+Full-arsenal sweep (4 parallel repo surveys + primary-source web research, `research-notes/G191`).
+- **PRIMARY-SOURCED**: the repo's §34 `markovMaxUnique_iff_markovNum_injective` IS the modern Frobenius
+  statement verbatim — "Frobenius' conjecture = [the rational→Markov map] is injective" (arXiv:2512.04026).
+  Still OPEN 2026.  Aigner's three orderings (Fixed Num/Denom/Sum, LLRS / McShane stable norm) are PROVEN
+  but **necessary-not-sufficient** — they do NOT close `H` even with full modern theory.
+- **Technical core = the continuant** (Frobenius 1913): `m_{p/q} = K(CF-shape of p/q)`.  **Built this round**
+  `Real213/Continuant.lean` (6 PURE): `continuant`/`contPair`, `continuant_cons2` (Euler recurrence, rfl),
+  `one_le_continuant`, `continuant_head_strict_mono`, `continuant_lt_prepend`.  The Aigner core tool,
+  previously only implicit in `mInterval`.
+- **Ordered program E1–E5** (G191 §E): E1 ✅ continuant primitive; E2 continuant = matrix-product entry;
+  E3 path→CF partial quotients (genL/genR vs [[a,1],[1,0]] basis change); E4 Frobenius formula
+  `markovNum p = K(shape p)` (the SUBSTANTIAL bridge); E5 one Aigner ordering = first cross-node ∅-axiom
+  Markov ordering.  Ceiling: E1–E5 lands Aigner monotonicity (real, necessary-not-sufficient), kernel
+  `OrbitRealizabilityH` (the passing pattern) stays orthogonal + open.
+- Cluster/snake/frieze machinery **entirely absent** (survey C) — CF/continuant route is the cheaper one.
+
+## §34 reverse bridge: the markovNum-injectivity iff is fully closed
 
 ## ★★★ NEWEST (§30–§34): the size-reading-injectivity iff, fully closed both directions
 All `∅`-axiom (`#print axioms` clean).  In `Real213/SternBrocotMarkov`:
