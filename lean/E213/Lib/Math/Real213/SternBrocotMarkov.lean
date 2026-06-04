@@ -2453,4 +2453,71 @@ theorem markov_max_unique_of_markovNum_injective (hinj : Function.Injective mark
     exact ⟨e1a.trans (hLR.symm.trans e2a.symm), e1b.trans (hLR.trans e2b.symm)⟩
   · exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
 
+/-! ## §34 — the reverse bridge: Markov uniqueness ⟹ `markovNum` injectivity (closing the iff)
+
+§33 gave `Function.Injective markovNum → ∀ c ≥ 5, MarkovMaxUnique c`.  This section proves the
+**converse** with no new number theory, by routing through the §28 frontier equivalence:
+`MarkovMaxUnique c` gives `WindowRealizedUnique c` (`markovMaxUnique_to_windowRealizedUnique`), which
+forces the two nodes' residues — both *realized* windowed `√(−1)` mod the common `c`
+(`node_window_nat` + `node_realized`) — to coincide, hence equal `markovRes`, hence equal slope, hence
+(`slope_path_inj`) the same path.  Composed with §33 this closes the literal identification
+
+  `Function.Injective markovNum ↔ ∀ c ≥ 5, MarkovMaxUnique c`
+
+— the size-reading-injective formulation and the triple-uniqueness formulation are **one and the same
+open statement**.  Honest scope: this is a *formulation-equivalence* between two statements of the open
+Frobenius conjecture (perimeter), not a proof of either, and it does not touch the cross-node kernel. -/
+
+/-- Every node's Markov number is `≥ 5`: the root is `5` (`mNode [] = mul genL genR`, `.c = 5`) and the
+    size strictly increases at every tree step (`markovNum_lt_extend`). -/
+theorem mNode_ge_5 (p : List Bool) : (5 : Int) ≤ (mNode p).c := by
+  induction p with
+  | nil => show (5 : Int) ≤ (mul genL genR).c
+           decide
+  | cons b t ih => exact le_of_lt (lt_of_le_of_lt ih (markovNum_lt_extend b t))
+
+/-- ★★★★★ **Markov uniqueness ⟹ `markovNum` injectivity** (the converse of §33, no new number theory).
+    If every `c ≥ 5` satisfies `MarkovMaxUnique`, then `markovNum` is injective on paths: two paths of
+    equal Markov number `c` have, via `WindowRealizedUnique` (`markovMaxUnique_to_windowRealizedUnique`),
+    the same windowed residue `markovRes`, hence the same slope, hence (`slope_path_inj`) the same path. -/
+theorem markovNum_injective_of_markovMaxUnique
+    (hmu : ∀ c : Nat, 5 ≤ c → E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique c) :
+    Function.Injective markovNum := by
+  intro p1 p2 hpq
+  have hcZ : (mNode p1).c = (mNode p2).c := hpq
+  have hc2N : (mNode p2).c.toNat = (mNode p1).c.toNat := by rw [hcZ]
+  have hc5 : 5 ≤ (mNode p1).c.toNat := by
+    have h4 : (4 : Int) < (mNode p1).c := lt_of_lt_of_le (by decide : (4 : Int) < 5) (mNode_ge_5 p1)
+    exact int_toNat_lt (by decide : (0 : Int) ≤ 4) h4
+  have hwru : WindowRealizedUnique (mNode p1).c.toNat :=
+    markovMaxUnique_to_windowRealizedUnique (mNode p1).c.toNat hc5
+      (hmu (mNode p1).c.toNat hc5)
+  obtain ⟨hlo1, hhi1, hmod1⟩ := node_window_nat p1
+  obtain ⟨hlo2, hhi2, hmod2⟩ := node_window_nat p2
+  rw [hc2N] at hlo2 hhi2 hmod2
+  obtain ⟨b1, hb1lt, hb1eq⟩ := node_realized p1
+  obtain ⟨b2, hb2lt, hb2eq⟩ := node_realized p2
+  rw [hc2N] at hb2lt hb2eq
+  have hueq : (markovRes p1).toNat = (markovRes p2).toNat :=
+    hwru _ _ hlo1 hlo2 hhi1 hhi2 hmod1 hmod2 ⟨b1, hb1lt, hb1eq⟩ ⟨b2, hb2lt, hb2eq⟩
+  have hrnn1 : (0 : Int) ≤ markovRes p1 := nonneg_of_one_le (markov_window p1).1
+  have hrnn2 : (0 : Int) ≤ markovRes p2 := nonneg_of_one_le (markov_window p2).1
+  have hReq : markovRes p1 = markovRes p2 := by
+    rw [← toNat_of_nonneg hrnn1, ← toNat_of_nonneg hrnn2, hueq]
+  have hslope : slopeEq (mNode p1) (mNode p2) := by
+    show markovRes p1 * (mNode p2).c = markovRes p2 * (mNode p1).c
+    rw [hReq, hcZ]
+  exact slope_path_inj p1 p2 hslope
+
+/-- ★★★★★ **The literal identification**: `markovNum` injectivity ⟺ Markov max-uniqueness at every
+    `c ≥ 5`.  `(→)` is §33 (`markov_max_unique_of_markovNum_injective`), `(←)` is §34
+    (`markovNum_injective_of_markovMaxUnique`).  Both sides are the same open conjecture, in the
+    size-reading-injective and the triple-uniqueness formulations — a formulation-equivalence (perimeter),
+    not a proof of either. -/
+theorem markovMaxUnique_iff_markovNum_injective :
+    Function.Injective markovNum
+      ↔ ∀ c : Nat, 5 ≤ c → E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique c :=
+  ⟨fun hinj c hc5 => markov_max_unique_of_markovNum_injective hinj c hc5,
+   markovNum_injective_of_markovMaxUnique⟩
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
