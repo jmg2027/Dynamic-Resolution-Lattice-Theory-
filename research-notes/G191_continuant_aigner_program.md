@@ -70,8 +70,9 @@ adjacency `sbInterval_adj` + `sbInterval_mediant_coprime`; Vandermonde-2 mediant
 ## E. The honest program for (b), in order
 
   1. ✅ **Continuant primitive + monotonicity** (`Real213/Continuant.lean`) — done, ∅-axiom.
-  2. **Continuant ↔ matrix-product entry**: `K[a₁..aₙ] = (∏[[aᵢ,1],[1,0]]).(1,1)` — connect the new
-     `continuant` to `Mat2` products.  Tractable, ∅-axiom, non-cross-node (a representation lemma).
+  2. ✅ **Continuant ↔ matrix-product entry**: `K[a₁..aₙ] = (∏[[aᵢ,1],[1,0]]).(1,1)`
+     (`contMatProd_eq`, `continuant_eq_contMatProd`, ∅-axiom) — the continuant now lives inside the repo's
+     `Mat2` algebra (the same `mul` carrying `genL`/`genR`/`mInterval`).
   3. **Path → CF partial quotients**: extract the run-length (Christoffel) encoding of `p : List Bool`
      and relate the `genL/genR` product to the `[[aᵢ,1],[1,0]]` product.  Medium; the genL/genR basis is
      not the `[[a,1],[1,0]]` basis, so a conjugation/normalisation is needed.

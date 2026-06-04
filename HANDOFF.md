@@ -2,7 +2,16 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — direction (#4) cohomology δ probe: real space-identification, refuted selection `G195`
+## ★★★ NEWEST — continuant E2 done: continuant = matrix-product entry (the aimed cross-c route's rung 2)
+- **`Real213/Continuant` E2** (PURE): `contMat`/`contMatProd` (∏[[aᵢ,1],[1,0]]), `contMatProd_eq`
+  ((1,1)-entry = K[a₁..aₙ], (2,1)=K[a₂..aₙ], joint induction), `continuant_eq_contMatProd`.  The
+  continuant now lives in the repo's `Mat2` algebra (same `mul` as `genL`/`genR`/`mInterval`).  Used pure
+  `Meta.Int213.zero_mul` (core `Int.zero_mul` carries propext).  G191 program: E1 ✅ E2 ✅.
+- Next rungs: E3 (path `List Bool` → Christoffel run-lengths → CF quotients; genL/genR vs [[a,1],[1,0]]
+  basis change), E4 (Frobenius formula `markovNum p = K(CF-shape of slope p)` — substantial), E5 (one
+  Aigner ordering = first cross-node ∅-axiom Markov ordering, necessary-not-sufficient).
+
+## direction (#4) cohomology δ probe: real space-identification, refuted selection `G195`
 - **Positive (solid)**: windowed √(−1) roots ≅ im(δ⁰) on the prime-vertices — a sign choice s∈{±1}^ω,
   window = global flip = ker δ⁰, so windowed roots = relative-sign cochains.  Clean ∅-axiom-able
   cohomological identification of the root SPACE (local in c, cross-suborbit — the candidate to evade
