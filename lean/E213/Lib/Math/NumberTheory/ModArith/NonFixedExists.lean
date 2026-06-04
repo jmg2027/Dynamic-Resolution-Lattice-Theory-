@@ -81,16 +81,13 @@ theorem firstNonFixed_none (p m : Nat) : ∀ (bound : Nat),
     · rw [if_neg hc] at h
       exact Option.noConfusion h
 
-/-- ★★★ **A non-cube-fixed element exists.**  `p` prime, `p − 1 = 3m` ⟹
-    `∃ a, 1 ≤ a ∧ a < p ∧ aᵐ % p ≠ 1`. -/
-theorem exists_nonfixed (p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
-    (hm : 3 * m = p - 1) : ∃ a : Nat, 1 ≤ a ∧ a < p ∧ a ^ m % p ≠ 1 := by
-  -- m ≥ 1
-  have hp1 : 1 ≤ p - 1 := E213.Tactic.NatHelper.le_sub_of_add_le hp
-  have hm1 : 1 ≤ m := by
-    rcases Nat.eq_zero_or_pos m with h0 | h0
-    · exfalso; rw [h0, Nat.mul_zero] at hm; rw [← hm] at hp1; exact absurd hp1 (by decide)
-    · exact h0
+/-- ★★★ **A non-`m`-fixed element exists (general exponent).**  `p` prime, `1 ≤ m`,
+    `m + 1 ≤ p − 1` (so `Tᵐ − 1` is shorter than the `p−1` residues) ⟹
+    `∃ a, 1 ≤ a ∧ a < p ∧ aᵐ % p ≠ 1`.  By Lagrange's bound: not every residue can be a root
+    of `Tᵐ − 1`, else its constant coefficient `−1 ≡ 0`. -/
+theorem exists_nonfixed_gen (p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hm1 : 1 ≤ m) (hlenpre : m + 1 ≤ p - 1) :
+    ∃ a : Nat, 1 ≤ a ∧ a < p ∧ a ^ m % p ≠ 1 := by
   have hm1eq : (m - 1) + 1 = m := E213.Tactic.NatHelper.sub_add_cancel hm1
   -- search the residues [1, p-1]
   cases hfn : firstNonFixed p m (p - 1) with
@@ -115,22 +112,32 @@ theorem exists_nonfixed (p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1
         rw [heval, ← natCast_pow, ← natCast_sub_one (a ^ m) (one_le_pow' a h1a m)]
         exact nat_dvd_to_int p _ (by rw [Int.natAbs_ofNat]; exact hdvdnat)
       have hdist := intRangeFrom_pairwise p (p - 1) 1 (Nat.sub_le p 1)
-      -- length bound: (m-1)+2 = m+1 ≤ p-1 = 3m
       have hmm : (m - 1) + 2 = m + 1 := by
         rw [show (2 : Nat) = 1 + 1 from rfl, ← Nat.add_assoc, hm1eq]
-      have hle : m + 1 ≤ 3 * m := by
-        have ht : m + 2 * m = 3 * m := by ring_nat
-        have h2m : 1 ≤ 2 * m := Nat.le_trans hm1 (Nat.le_mul_of_pos_left m (by decide))
-        calc m + 1 ≤ m + 2 * m := Nat.add_le_add_left h2m m
-          _ = 3 * m := ht
       have hlen : (pmoSucc (m - 1)).length ≤ (intRangeFrom ((1 : Nat) : Int) (p - 1)).length := by
-        rw [pmoSucc_length, intRangeFrom_length, hmm, ← hm]; exact hle
+        rw [pmoSucc_length, intRangeFrom_length, hmm]; exact hlenpre
       have hvanish := eval_zero p hp hpr (pmoSucc (m - 1)).length (pmoSucc (m - 1))
         (Nat.le_refl _) (intRangeFrom ((1 : Nat) : Int) (p - 1)) hdist hroots hlen 0
       rw [eval_pmoSucc_zero] at hvanish
-      -- (p : Int) ∣ -1 ⟹ p ≤ 1, contradiction
       have hd1 : p ∣ Int.natAbs (-1) := int_dvd_to_nat p (-1) hvanish
       have hple : p ≤ 1 := le_of_dvd_pos p (Int.natAbs (-1)) (by decide) hd1
       exact absurd hple (Nat.not_le.mpr hp)
+
+/-- ★★★ **A non-cube-fixed element exists.**  `p` prime, `p − 1 = 3m` ⟹
+    `∃ a, 1 ≤ a ∧ a < p ∧ aᵐ % p ≠ 1`.  (Specialisation of `exists_nonfixed_gen`.) -/
+theorem exists_nonfixed (p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hm : 3 * m = p - 1) : ∃ a : Nat, 1 ≤ a ∧ a < p ∧ a ^ m % p ≠ 1 := by
+  have hp1 : 1 ≤ p - 1 := E213.Tactic.NatHelper.le_sub_of_add_le hp
+  have hm1 : 1 ≤ m := by
+    rcases Nat.eq_zero_or_pos m with h0 | h0
+    · exfalso; rw [h0, Nat.mul_zero] at hm; rw [← hm] at hp1; exact absurd hp1 (by decide)
+    · exact h0
+  have hlenpre : m + 1 ≤ p - 1 := by
+    rw [← hm]
+    have ht : m + 2 * m = 3 * m := by ring_nat
+    have h2m : 1 ≤ 2 * m := Nat.le_trans hm1 (Nat.le_mul_of_pos_left m (by decide))
+    calc m + 1 ≤ m + 2 * m := Nat.add_le_add_left h2m m
+      _ = 3 * m := ht
+  exact exists_nonfixed_gen p m hp hpr hm1 hlenpre
 
 end E213.Lib.Math.NumberTheory.ModArith.NonFixedExists
