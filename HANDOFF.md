@@ -1,8 +1,32 @@
-# Session Handoff — 2026-06-04f (Markov — ★ UPPER-FOLD PATTERN, four levels + ω=2 existence, §20–§23)
+# Session Handoff — 2026-06-04g (Markov — ★ UPPER-FOLD PATTERN, five levels; full ω=2 structural reduction, §20–§24)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **95 PURE**.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **100 PURE**.
 
-## ★★★ NEW (§23): nontrivial unit-root EXISTENCE — open content closed for ω=2
+## ★★★ NEW (§24): orbit-injectivity — the unit-root group acts FREELY
+The last structural piece for `ω=2`.  A `√(−1)` root `u` is a unit (inverse `c−u`), so multiplication
+by a unit-root is cancellable ⟹ the §21 group acts **freely** on the root set.
+- **`unit_cancel_of_inv`** `(u·s≡1) : a·u≡b·u → a≡b` (multiply by inverse `s`; no subtraction).
+- **`unit_cancel`** `(1<c)(gcd u c=1) : a·u≡b·u → a≡b` (inverse via `modBezout`).
+- **`root_inverse`** `(1<c)(u≤c)(u²+1≡0) : u·(c−u) ≡ 1` (the explicit unit, from `u·(c−u)+(u²+1)=u·c+1`).
+- **`root_orbit_inj`** `e·u≡u → e≡1`;  **`root_orbit_inj_neg`** `e·u≡(c−1)·u → e≡c−1`.
+- **Consequence (with §21–§23)**: `2^ω` unit-roots → `2^ω` *distinct* roots (free action) → window's
+  `⟨−1⟩`-transversal keeps `2^{ω−1}` distinct windowed roots, each a distinct `±`-suborbit.  So the
+  **windowed-root count is settled exactly** (`= 2^{ω−1}`); the ONLY remaining Markov question is
+  realizability (which suborbit carries a triple).  `WindowRealizedUnique` (§18) = "exactly one does."
+
+### The five-level fold (the user's predicted recursion, all ∅-axiom)
+```
+§20  window = σ-transversal                       involution σ(u)=c−u
+§21  σ ∈ SqrtUnity, root set = torsor              the group of involutions
+§22  SqrtUnity = ∏ (per-prime ± folds)             product of folds
+§23  that product is inhabited beyond ±1 (CRT)     the product is non-trivial (ω=2)
+§24  the group acts freely (unit cancellation)     orbits are faithful ⟹ count = 2^{ω−1}
+```
+**Full structural reduction of `ω=2` Markov uniqueness is now ∅-axiom.**  The residual — *which* of the
+`2^{ω−1}` suborbits is Markov-realized — is the genuine open Frobenius content, and it is exactly what
+`WindowRealizedUnique` isolates.  Everything *around* it (root-count, group, freeness, existence) is closed.
+
+## ★★★ (§23): nontrivial unit-root EXISTENCE — open content closed for ω=2
 The CRT *existence* half of the open Markov content, now ∅-axiom.
 - **`nontrivial_unit_root_exists`** `(3≤m)(3≤n)(gcd m n=1) : ∃ e, SqrtUnity (m·n) e ∧ e≠1 ∧ e≠m·n−1`.
   Construction `e = 1 + m·t`, `t ≡ (n−2)·m⁻¹ mod n` (`m⁻¹` from `inverse_of_coprime`/`modBezout`):
