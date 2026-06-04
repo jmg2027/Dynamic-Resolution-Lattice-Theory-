@@ -543,6 +543,13 @@ dynamic (elliptic bounded/periodic, hyperbolic growing).  Golden boost: `golden_
 strictly increasing, so `G` is aperiodic — the hyperbolic infinite order, dynamic shadow of
 `disc = 5 > 0`).  `pow` matrix power; `tr_mul_charComb` trace-linearity over the CH combination.
 
+`E213.Lib.Math.Real213.GoldenAperiodic` — **3 PURE**.  The hyperbolic infinite order made a theorem:
+`golden_trace_mono` (the Lucas trace is monotone above `2` — `2 ≤ tr(Gⁿ) < tr(Gⁿ⁺¹)`, induction on
+the recurrence with the `Int213.Order` inequalities), `golden_trace_gt_two` (`tr(Gⁿ⁺¹) > 2 = tr I`),
+and ★ `golden_aperiodic` (`Gⁿ⁺¹ ≠ I` for every `n` — the trace exceeds `tr I`, so `G` never returns).
+The golden boost has **infinite order**, the dynamic signature of `disc = 5 > 0` (contrast the
+elliptic `S⁴ = I`, `U⁶ = I`); φ's iterator never comes back.
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
