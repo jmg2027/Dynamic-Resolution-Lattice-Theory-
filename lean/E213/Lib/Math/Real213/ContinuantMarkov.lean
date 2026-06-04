@@ -32,7 +32,9 @@ namespace E213.Lib.Math.Real213.ContinuantMarkov
 
 open E213.Lib.Math.Real213.ModularElliptic (Mat2 mul)
 open E213.Lib.Math.Real213.SternBrocotMarkov (genL genR markovNum mInterval mInterval_det
-  det2 det2_mul mInterval_shape markoff_vieta_trace markoff_vieta_trace_R)
+  det2 det2_mul mInterval_shape markoff_vieta_trace markoff_vieta_trace_R
+  sbInterval sbInterval_mediant_coprime)
+open E213.Tactic.NatHelper (gcd213)
 open E213.Lib.Math.Real213.Continuant (contMat contMatProd continuant continuant_eq_contMatProd
   continuant_cons2 contMatProd_b contMatProd_eq contMatProd_append contMatProd_trace_cons
   one_le_continuant)
@@ -215,6 +217,24 @@ theorem contMatProd_chrNode (path : List Bool) : contMatProd (chrNode path) = cN
 theorem markovNum_eq_chrNode_trace (path : List Bool) :
     3 * markovNum path = (contMatProd (chrNode path)).a + (contMatProd (chrNode path)).d := by
   rw [contMatProd_chrNode]; exact markovNum_eq_cohn_trace path
+
+/-! ## The rational labeling: `markovNum` indexed by the reduced Stern-Brocot rational `p/q`
+
+The modern Frobenius statement assembled: the domain `ℚ ∩ [0,1]` is the reduced Stern-Brocot rational
+`markovRat p` (the Farey mediant of the repo's *proper* tree `sbInterval`, coprime by
+`sbInterval_mediant_coprime`); the map is `markovNum`; and "`ℚ → Markov` is injective" is the open
+Frobenius conjecture, i.e. `Function.Injective markovNum` (`markovMaxUnique_iff_markovNum_injective`,
+§34).  So this file + §34 carry the full modern statement, repo-native and ∅-axiom. -/
+
+/-- The reduced rational `p/q` at a path — the Farey mediant of the proper Stern-Brocot tree. -/
+def markovRat (p : List Bool) : Nat × Nat :=
+  ((sbInterval p).1.1 + (sbInterval p).2.1, (sbInterval p).1.2 + (sbInterval p).2.2)
+
+/-- ★★★★ **The rational labeling is reduced**: `gcd(p, q) = 1` (`sbInterval_mediant_coprime`).  So
+    `markovNum` is a map from the reduced rationals — the Frobenius `ℚ → Markov` map, repo-native; its
+    injectivity is the open conjecture (§34). -/
+theorem markovRat_coprime (p : List Bool) : gcd213 (markovRat p).1 (markovRat p).2 = 1 :=
+  sbInterval_mediant_coprime p
 
 /-! ## The Aigner pipeline: continuant monotonicity ⟹ Markov-number ordering
 
