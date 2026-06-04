@@ -85,6 +85,7 @@ import E213.Lib.Math.Real213.Mat2Assoc
 import E213.Lib.Math.Real213.Mat2TraceRecurrence
 import E213.Lib.Math.Real213.GoldenAperiodic
 import E213.Lib.Math.Real213.EllipticTracePeriodic
+import E213.Lib.Math.Real213.UTracePeriodic
 import E213.Lib.Math.Real213.LagrangeExtremes
 import E213.Lib.Math.Real213.PentagonGoldenTrace
 import E213.Lib.Math.Real213.HyperbolicEllipticTrace

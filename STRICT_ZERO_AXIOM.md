@@ -557,6 +557,13 @@ elliptic trace recurrence collapses to `tr(Sⁿ⁺²) = − tr(Sⁿ)` (`S_trace_
 hyperbolic unbounded Lucas growth.  Capstone `elliptic_trace_periodic`.  (Local ∅-axiom `nneg`
 `− −x = x`; `zero_mul` / `one_mulZ` / `Order.zero_sub` collapse the recurrence.)
 
+`E213.Lib.Math.Real213.UTracePeriodic` — **5 PURE**.  The second elliptic generator `U` (`tr 1`,
+`det 1`, `disc = −3`) carries the period-6 trace: `U_trace_recurrence` (`tr(Uⁿ⁺²) = tr(Uⁿ⁺¹) −
+tr(Uⁿ)`) → `U_trace_step3` (`tr(Uⁿ⁺³) = −tr(Uⁿ)`) → `U_trace_period6` (period 6), cycling
+`2,1,−1,−2,−1,1` (`U_trace_seed`).  Capstone `elliptic_orders_four_and_six`: `S` (period 4,
+`|ℤ[i]^×|`) and `U` (period 6, `|ℤ[ω]^×|`) carry the `{4,6}` Gaussian/Eisenstein trace periods, both
+bounded (`disc < 0`), against the hyperbolic unbounded growth.
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
