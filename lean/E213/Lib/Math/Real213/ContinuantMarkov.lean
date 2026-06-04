@@ -247,6 +247,22 @@ theorem cohnTrace_lt_false (bs : List Bool) : cohnTrace bs < cohnTrace (false ::
         (E213.Meta.Int213.Order.lt_of_lt_of_le (by decide) ha))) hb) hc
   exact lt_add_nonneg (pos_sum ha hb hc) hrest
 
+/-- ★★★★★ **Cohn-tree monotonicity**: extending a Cohn word by any nonempty prefix strictly increases
+    its Markov trace — `cohnTrace bs < cohnTrace (pre ++ bs)` for `pre ≠ []`.  The general monotone
+    structure of the Christoffel/Markov tree, by transitivity over `cohnTrace_lt_true/false`. -/
+theorem cohnTrace_lt_append : ∀ (pre : List Bool), pre ≠ [] → ∀ bs, cohnTrace bs < cohnTrace (pre ++ bs)
+  | [], h, _ => absurd rfl h
+  | [b], _, bs => by cases b
+                     · exact cohnTrace_lt_false bs
+                     · exact cohnTrace_lt_true bs
+  | b :: c :: pre', _, bs => by
+      have ih := cohnTrace_lt_append (c :: pre') (fun hh => List.noConfusion hh) bs
+      have step : cohnTrace ((c :: pre') ++ bs) < cohnTrace (b :: ((c :: pre') ++ bs)) := by
+        cases b
+        · exact cohnTrace_lt_false _
+        · exact cohnTrace_lt_true _
+      exact E213.Meta.Int213.Order.lt_trans ih step
+
 /-! ## A named Aigner ordering: Fixed Numerator `p = 1`
 
 The Fixed-Numerator-`1` family is the Christoffel word `AⁿB` (the rationals `1/(n+1)`), whose Markov
