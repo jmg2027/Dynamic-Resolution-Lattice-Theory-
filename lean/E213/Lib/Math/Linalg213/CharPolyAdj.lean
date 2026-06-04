@@ -22,12 +22,13 @@ All ∅-axiom.
 namespace E213.Lib.Math.Linalg213.CharPolyAdj
 
 open E213.Lib.Math.Linalg213.Permutation (sumZ iota)
-open E213.Lib.Math.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_add)
+open E213.Lib.Math.Linalg213.PermClosure
+  (map_eq_of_mem map_map' sumZ_map_add sumZ_map_smul lt_of_mem_iota)
 open E213.Lib.Math.Linalg213.DetN (det altSign colShift det_congr)
 open E213.Lib.Math.Linalg213.Laplace
   (matMul adj minorAt matMul_adj_diag matMul_adj_offdiag sumZ_append map_append')
 open E213.Lib.Math.Linalg213.CayleyHamilton
-  (sumZ_iota_delta_lt sumZ_map_neg sumZ_map_zero sumZ_singleton
+  (sumZ_iota_delta_lt sumZ_map_neg sumZ_map_zero sumZ_singleton sumZ_swap sumZ_map_smul_right
    matMul_assoc matPow matId matMul_id_left matMul_id_right matMul_congr_bd matPow_succ_right)
 open E213.Lib.Math.Linalg213.PolyDet
   (pdet evalMat eval_pdet charMat charPoly eval_charPoly evalMat_charMat degLe_pdet)
@@ -366,5 +367,74 @@ theorem cayley_hamilton (M : Nat → Nat → Int) (n i k : Nat) (hi : i < n + 1)
             rw [show Bm M n (n + 1) j k = 0 from padj_coeff_top_zero M n j k, mul_zero']),
         sumZ_map_zero]
   rw [hzero, Int.neg_zero]
+
+/-! ## §8 — the Cayley–Hamilton recurrence bridge (vector recurrence ⟹ scalar recurrence) -/
+
+/-- A vector sequence `w` evolving by `w(n+1) = M·w(n)` satisfies `w(n+m) = Mᵐ·w(n)`
+    (component-wise, over the index range `< N+1`). -/
+theorem wPow (M : Nat → Nat → Int) (w : Nat → Nat → Int) (N : Nat)
+    (hrec : ∀ n j, j < N + 1 → w (n + 1) j = sumZ ((iota (N + 1)).map (fun k => M j k * w n k))) :
+    ∀ (m n j : Nat), j < N + 1 →
+      w (n + m) j = sumZ ((iota (N + 1)).map (fun k => matPow (N + 1) M m j k * w n k))
+  | 0,     n, j, hj => by
+    show w n j = sumZ ((iota (N + 1)).map (fun k => matId j k * w n k))
+    rw [map_eq_of_mem (fun k => matId j k * w n k) (fun k => if j = k then w n k else 0)
+          (fun k _ => by
+            show (if j = k then (1 : Int) else 0) * w n k = if j = k then w n k else 0
+            by_cases h : j = k
+            · rw [if_pos h, if_pos h]; exact one_mul' (w n k)
+            · rw [if_neg h, if_neg h]; exact E213.Meta.Int213.zero_mul (w n k)),
+        sumZ_iota_delta_lt (fun k => w n k) j (N + 1) hj]
+  | m + 1, n, j, hj => by
+    show w (n + m + 1) j = sumZ ((iota (N + 1)).map (fun l => matPow (N + 1) M (m + 1) j l * w n l))
+    rw [hrec (n + m) j hj,
+        map_eq_of_mem (fun k => M j k * w (n + m) k)
+          (fun k => sumZ ((iota (N + 1)).map (fun l => M j k * (matPow (N + 1) M m k l * w n l))))
+          (fun k hk => by
+            show M j k * w (n + m) k
+               = sumZ ((iota (N + 1)).map (fun l => M j k * (matPow (N + 1) M m k l * w n l)))
+            rw [wPow M w N hrec m n k (lt_of_mem_iota hk), ← sumZ_map_smul]),
+        sumZ_swap (fun k l => M j k * (matPow (N + 1) M m k l * w n l)),
+        map_eq_of_mem
+          (fun l => sumZ ((iota (N + 1)).map (fun k => M j k * (matPow (N + 1) M m k l * w n l))))
+          (fun l => matPow (N + 1) M (m + 1) j l * w n l)
+          (fun l _ => by
+            show sumZ ((iota (N + 1)).map (fun k => M j k * (matPow (N + 1) M m k l * w n l)))
+               = matPow (N + 1) M (m + 1) j l * w n l
+            rw [map_eq_of_mem (fun k => M j k * (matPow (N + 1) M m k l * w n l))
+                  (fun k => M j k * matPow (N + 1) M m k l * w n l)
+                  (fun k _ => (E213.Meta.Int213.mul_assoc _ _ _).symm),
+                ← sumZ_map_smul_right]
+            rfl)]
+
+/-- ★★★ **The Cayley–Hamilton recurrence**: if `w(n+1) = M·w(n)` then every component of `w`
+    satisfies the monic order-`(N+1)` recurrence with the characteristic-polynomial coefficients. -/
+theorem ch_recurrence (M : Nat → Nat → Int) (w : Nat → Nat → Int) (N : Nat)
+    (hrec : ∀ n j, j < N + 1 → w (n + 1) j = sumZ ((iota (N + 1)).map (fun k => M j k * w n k)))
+    (n j : Nat) (hj : j < N + 1) :
+    sumZ ((iota (N + 2)).map (fun m => coeff (charPoly M (N + 1)) m * w (n + m) j)) = 0 := by
+  rw [map_eq_of_mem (fun m => coeff (charPoly M (N + 1)) m * w (n + m) j)
+        (fun m => sumZ ((iota (N + 1)).map
+          (fun k => coeff (charPoly M (N + 1)) m * (matPow (N + 1) M m j k * w n k))))
+        (fun m _ => by
+          show coeff (charPoly M (N + 1)) m * w (n + m) j
+             = sumZ ((iota (N + 1)).map
+                (fun k => coeff (charPoly M (N + 1)) m * (matPow (N + 1) M m j k * w n k)))
+          rw [wPow M w N hrec m n j hj, ← sumZ_map_smul]),
+      sumZ_swap (fun m k => coeff (charPoly M (N + 1)) m * (matPow (N + 1) M m j k * w n k))]
+  rw [map_eq_of_mem
+        (fun k => sumZ ((iota (N + 2)).map
+          (fun m => coeff (charPoly M (N + 1)) m * (matPow (N + 1) M m j k * w n k))))
+        (fun _ => 0)
+        (fun k hk => by
+          show sumZ ((iota (N + 2)).map
+            (fun m => coeff (charPoly M (N + 1)) m * (matPow (N + 1) M m j k * w n k))) = 0
+          rw [map_eq_of_mem
+                (fun m => coeff (charPoly M (N + 1)) m * (matPow (N + 1) M m j k * w n k))
+                (fun m => coeff (charPoly M (N + 1)) m * matPow (N + 1) M m j k * w n k)
+                (fun m _ => (E213.Meta.Int213.mul_assoc _ _ _).symm),
+              ← sumZ_map_smul_right, cayley_hamilton M N j k hj (lt_of_mem_iota hk),
+              E213.Meta.Int213.zero_mul]),
+      sumZ_map_zero]
 
 end E213.Lib.Math.Linalg213.CharPolyAdj
