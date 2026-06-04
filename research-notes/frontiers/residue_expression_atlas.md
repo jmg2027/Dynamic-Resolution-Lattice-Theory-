@@ -125,6 +125,13 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   integrate **exactly** (`∫_0^1 d(z^n) = 1`).  So `∫ z^{k−2} dz` is *not* missing.  The genuinely
   remaining gap for higher-weight Eichler–Shimura is now far narrower: the **complex modular contour
   over `ℍ`** + assembling the period polynomial in `X` with the group relations — *not* integration.
+  **Period-relation generators also present** (`MinkowskiPeriodRelations.weight2_period_is_S_eigenvalue`,
+  PURE): the `(1+S)`/`(1+U+U²)` relations are governed by the `{4,6}` elliptic torsion — `S` order 4
+  (Gaussian unit `i`), `U` order 6 (Eisenstein `ω`) — both in the repo
+  (`UTracePeriodic.elliptic_orders_four_and_six`), and the weight-2 period is exactly `S`'s eigenvalue
+  on the Markov pair (`MarkovModularBridge`).  So the residual for higher-weight is just the **slash
+  action on `V_{k−2}`** (finite ℤ-linear algebra over `S`,`U`) + the complex `ℍ`-contour — neither a
+  purity nor an integration wall.
   (Three successive corrections under "ㄱㄱ": integration is ∅-axiom (CutIntegral); the wall isn't
   k≥2 (it's distinct-sample addition / completion); and the power rule is already done (FTC).  Each
   revealed the framework integrates natively; the residual is the complex contour alone.)

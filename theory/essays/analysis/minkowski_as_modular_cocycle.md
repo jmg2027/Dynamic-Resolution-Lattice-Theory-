@@ -112,12 +112,18 @@ integrands `z²`, `z³` (`square_calc`, `cube_calc`) integrate exactly via FTC
 (`MinkowskiHigherWeightPeriod.higher_weight_period_integrands_integrate`,
 `∫_0^1 d(z^n) = 1`), and the weight-2 period has a dyadic-integral representative
 too (`MinkowskiPeriodIntegral.weight2_period_integral_pure`).  So the real-variable
-integration the higher-weight period needs is *built*.  What genuinely remains is
-the **complex modular contour over `ℍ`** (the path integral in the upper
-half-plane) and the assembly of the period polynomial in `X` with the group
-relations — a far narrower frontier than "integration."  The residue supplies the
-*tree-level, weight-2* cocycle in full; the higher-weight contour is pointed at,
-not yet constructed (`reached_by_none.md`).
+integration the higher-weight period needs is *built*.  And the period relations'
+**generators are present too**: `S` (order 4, the Gaussian unit `i`) and `U`
+(order 6, the Eisenstein unit `ω`) — the `{4,6}` torsion of `PSL(2,ℤ)`
+(`UTracePeriodic.elliptic_orders_four_and_six`) — govern `r|(1+S)=0` and
+`r|(1+U+U²)=0`, and the weight-2 period is exactly `S`'s eigenvalue
+(`MinkowskiPeriodRelations.weight2_period_is_S_eigenvalue`,
+`MarkovModularBridge`).  What genuinely remains is the **slash action on the
+polynomial module `V_{k−2}`** (finite ℤ-linear algebra over these generators) and
+the **complex modular contour over `ℍ`** — a far narrower frontier than
+"integration."  The residue supplies the *tree-level, weight-2* cocycle in full,
+with the `(1+S)` generator carrying its `√(−1)` period; the higher-weight slash
+action and contour are pointed at, not yet constructed (`reached_by_none.md`).
 
 ## Self-check
 
@@ -138,6 +144,8 @@ not yet constructed (`reached_by_none.md`).
 #check @cocycle_defect_general               -- defect = det M · N.c on all of M₂(ℤ)
 #check @minkowski_weight2_period_relation    -- weight-2 period = √(−1) congruence
 #check @golden_is_extremal_weight2_period    -- φ = extremal instance (Lagrange √5)
+#check @weight2_period_is_S_eigenvalue       -- weight-2 period = S-eigenvalue ((1+S) generator)
+#check @higher_weight_period_integrands_integrate  -- z²/z³ integrate exactly via FTC
 ```
 
 All ∅-axiom (`tools/scan_axioms.py` PURE).
