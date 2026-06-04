@@ -64,6 +64,16 @@ infrastructure" as absent.  Now built:
 ⇒ d_M = chartBase − 1 = 4.  First theorem where d_M = 4 routes through
 the derived kernel dimension, not the definitional `selfPointingAxes`.
 
+### "Why only d=4": criticality is forcing (M1), not kernel (M2)
+`KChartLensAbstract.every_dimension_realized` +
+`criticality_is_forcing_not_kernel` (PURE): now that M2 is
+dimension-uniform (δ⁰-kernel = 2 constants for *every* connected K — the
+star K_{d,1}^{(c=1)} realizes every d_M = d), d_M = 4 criticality is
+shown to come purely from M1 forcing, not the kernel.  The "− 1"
+self-pointing mechanism is universal; the "4" is the forced base minus
+that universal 1.  This is the sharp 213 answer to the chapter's opening
+"왜 4차원에서만" question.
+
 ### Why the old enumeration route was blocked (recorded)
 Counting flat cochain indices universally forces core Lean's
 `Nat.div` / `Nat.mod` lemmas to decode `Fin (c·NS·NT)` → `(s,t,m)`;
