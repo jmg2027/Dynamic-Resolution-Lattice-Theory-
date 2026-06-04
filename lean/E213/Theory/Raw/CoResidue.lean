@@ -1196,6 +1196,19 @@ theorem boolSpine_periodic_selfsimilar {f : Nat → Bool} {p : Nat}
 theorem spineL_shift_fixed :
     ∀ q, coRightAt spineL [] q = spineL q := fun _ => rfl
 
+/-- ★★★ **Eventually-constant seeds reach the attractor.**  If `f` is all-`true` from index `N`
+    (`∀ k, f (N + k) = true`), the `N`-times-shifted seed's spine *is* `spineL`:
+    `boolSpine (fun k => f (N + k)) = spineL` pointwise (`boolSpine_congr` + §18's
+    `spineL_eq_boolSpine_true`).  So an eventually-periodic seed reaches a finite-state attractor
+    in finitely many descents — the holonomic / finite-state end of the dynamics; the seeds that
+    *never* reach a periodic attractor are the non-holonomic escapes. -/
+theorem boolSpine_eventually_true_reaches_spineL {f : Nat → Bool} {N : Nat}
+    (h : ∀ k, f (N + k) = true) :
+    ∀ q, boolSpine (fun k => f (N + k)) q = spineL q := by
+  intro q
+  rw [boolSpine_congr (f := fun k => f (N + k)) (g := fun _ => true) h q]
+  exact (spineL_eq_boolSpine_true q).symm
+
 /-- ★★ **The lone symmetry commutes with the shift.**  `coSwap` and the right-descent (shift)
     commute on the bit-stream family — both sides reduce to `Bool.not`-relabelled shifted spine,
     so `coRightAt (coSwap (boolSpine f)) [] = coSwap (coRightAt (boolSpine f) [])` pointwise.

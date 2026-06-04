@@ -18,11 +18,11 @@ observation), not a bisimulation.
 ## Lean source
 
 - Files: `lean/E213/Theory/Raw/MuNuMirror.lean` (7 PURE),
-  `lean/E213/Theory/Raw/CoResidue.lean` (107 PURE, 0 DIRTY); umbrella
+  `lean/E213/Theory/Raw/CoResidue.lean` (108 PURE, 0 DIRTY); umbrella
   `lean/E213/Theory/Raw/API.lean`.
 - Built on `Theory/Raw/Lambek` (µF: `decompose`, `isPart_wf`, `no_infinite_descent`,
   `terminal_iff_atom`) and `Theory/Raw/PrimitiveTower` (`rawTower`).
-- ∅-axiom: 0 DIRTY (CoResidue 107 / MuNuMirror 7 PURE in the dependency-closed scan).
+- ∅-axiom: 0 DIRTY (CoResidue 108 / MuNuMirror 7 PURE in the dependency-closed scan).
 
 ## Narrative
 
