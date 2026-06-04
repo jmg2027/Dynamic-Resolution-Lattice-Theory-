@@ -33,7 +33,9 @@ namespace E213.Lib.Math.Real213.ContinuantMarkov
 open E213.Lib.Math.Real213.ModularElliptic (Mat2 mul)
 open E213.Lib.Math.Real213.SternBrocotMarkov (genL genR markovNum mInterval mInterval_det
   det2 det2_mul mInterval_shape markoff_vieta_trace markoff_vieta_trace_R)
-open E213.Lib.Math.Real213.Continuant (contMat contMatProd continuant continuant_eq_contMatProd)
+open E213.Lib.Math.Real213.Continuant (contMat contMatProd continuant continuant_eq_contMatProd
+  continuant_cons2 contMatProd_b contMatProd_eq contMatProd_append contMatProd_trace_cons
+  one_le_continuant)
 
 /-- **`genL` is the all-`1` continuant word** `[[1,1],[1,0]]² = contMatProd [1,1]` — the square of the
     Fibonacci matrix.  The left generator of the Markov tree is continuant-native (the Fibonacci/φ spine). -/
@@ -161,5 +163,88 @@ theorem markovNum_eq_cohn_trace (path : List Bool) :
   show 3 * (mul (mInterval path).1 (mInterval path).2).c
        = (mul (cInterval path).1 (cInterval path).2).a + (mul (cInterval path).1 (cInterval path).2).d
   rw [(cohn_trace_eq path).2.2, (mInterval_shape path).2.2]
+
+/-! ## The Aigner pipeline: continuant monotonicity ⟹ Markov-number ordering
+
+The Cohn-word Markov number `tr/3` is strictly monotone under prepending a generator (extending the
+Christoffel word) — the continuant-monotonicity → Markov-ordering pipeline, end to end and ∅-axiom.
+Honest scope: this is a cross-word ordering on the Cohn/Christoffel-indexed Markov numbers (the building
+block of the Aigner orderings); the full Fixed-Numerator/Denominator/Sum statements `m_{p/q}` additionally
+need the path ↔ rational `p/q` cutting-sequence indexing. -/
+
+private theorem one_le_ofNat {n : Nat} (h : 1 ≤ n) : (1 : Int) ≤ (n : Int) := by
+  obtain ⟨k, rfl⟩ : ∃ k, n = k + 1 := ⟨n - 1, (Nat.succ_pred_eq_of_pos h).symm⟩
+  have h0 : (0 : Int) ≤ (k : Int) := Int.ofNat_nonneg k
+  have h1 : (0 : Int) + 1 ≤ (k : Int) + 1 := E213.Meta.Int213.Order.add_le_add_right h0 1
+  rwa [E213.Meta.Int213.zero_add] at h1
+
+private theorem lt_add_nonneg {a b : Int} (ha : 0 < a) (hb : 0 ≤ b) : 0 < a + b := by
+  have h : a + 0 ≤ a + b := E213.Meta.Int213.Order.add_le_add_left hb a
+  rw [Int.add_zero] at h
+  exact E213.Meta.Int213.Order.lt_of_lt_of_le ha h
+
+/-- All entries of a Cohn word are `≥ 1` ⟹ its continuant is `≥ 1` (proved directly, no membership). -/
+private theorem one_le_continuant_cohnWord : ∀ bs, 1 ≤ continuant (cohnWord bs)
+  | [] => Nat.le_refl 1
+  | true :: bs => by
+      rw [show cohnWord (true :: bs) = 1 :: 1 :: cohnWord bs from rfl, continuant_cons2]
+      exact Nat.le_trans (one_le_continuant_cohnWord bs) (Nat.le_add_left _ _)
+  | false :: bs => by
+      rw [show cohnWord (false :: bs) = 2 :: 2 :: cohnWord bs from rfl, continuant_cons2]
+      exact Nat.le_trans (one_le_continuant_cohnWord bs) (Nat.le_add_left _ _)
+
+/-- The Cohn-word matrix has positive `(1,1)` and nonneg `(1,2)`, `(2,1)` entries. -/
+private theorem cohn_entries_pos (bs : List Bool) :
+    (1 : Int) ≤ (contMatProd (cohnWord bs)).a ∧ (0 : Int) ≤ (contMatProd (cohnWord bs)).b
+    ∧ (0 : Int) ≤ (contMatProd (cohnWord bs)).c := by
+  refine ⟨?_, ?_, ?_⟩
+  · rw [continuant_eq_contMatProd]; exact one_le_ofNat (one_le_continuant_cohnWord bs)
+  · rw [contMatProd_b]; exact Int.ofNat_nonneg _
+  · rw [(contMatProd_eq (cohnWord bs)).2]; exact Int.ofNat_nonneg _
+
+private theorem pos_sum {M : Mat2} (ha : 1 ≤ M.a) (hb : 0 ≤ M.b) (hc : 0 ≤ M.c) :
+    (0 : Int) < M.a + M.b + M.c := by
+  have h2 : (0 : Int) < M.a := E213.Meta.Int213.Order.lt_of_lt_of_le (by decide) ha
+  exact lt_add_nonneg (lt_add_nonneg h2 hb) hc
+
+/-- Trace growth of left-multiplying by `A = [[2,1],[1,1]]`: `tr(A·M) − tr(M) = M.a + M.b + M.c`. -/
+private theorem cohnA_trace_diff (M : Mat2) :
+    ((mul (contMatProd [1, 1]) M).a + (mul (contMatProd [1, 1]) M).d) - (M.a + M.d)
+      = M.a + M.b + M.c := by
+  show ((2 * M.a + 1 * M.c) + (1 * M.b + 1 * M.d)) - (M.a + M.d) = M.a + M.b + M.c
+  ring_intZ
+
+/-- Trace growth of left-multiplying by `B = [[5,2],[2,1]]`. -/
+private theorem cohnB_trace_diff (M : Mat2) :
+    ((mul (contMatProd [2, 2]) M).a + (mul (contMatProd [2, 2]) M).d) - (M.a + M.d)
+      = (M.a + M.b + M.c) + (3 * M.a + M.b + M.c) := by
+  show ((5 * M.a + 2 * M.c) + (2 * M.b + 1 * M.d)) - (M.a + M.d)
+       = (M.a + M.b + M.c) + (3 * M.a + M.b + M.c)
+  ring_intZ
+
+/-- ★★★★ **Prepending `A` strictly increases the Cohn Markov trace** (positive-matrix trace growth). -/
+theorem cohnTrace_lt_true (bs : List Bool) : cohnTrace bs < cohnTrace (true :: bs) := by
+  obtain ⟨ha, hb, hc⟩ := cohn_entries_pos bs
+  show (contMatProd (cohnWord bs)).a + (contMatProd (cohnWord bs)).d
+       < (contMatProd (1 :: 1 :: cohnWord bs)).a + (contMatProd (1 :: 1 :: cohnWord bs)).d
+  rw [show (1 :: 1 :: cohnWord bs) = [1, 1] ++ cohnWord bs from rfl, contMatProd_append]
+  apply E213.Meta.Int213.Order.lt_of_sub_pos
+  rw [cohnA_trace_diff]
+  exact pos_sum ha hb hc
+
+/-- ★★★★ **Prepending `B` strictly increases the Cohn Markov trace**. -/
+theorem cohnTrace_lt_false (bs : List Bool) : cohnTrace bs < cohnTrace (false :: bs) := by
+  obtain ⟨ha, hb, hc⟩ := cohn_entries_pos bs
+  show (contMatProd (cohnWord bs)).a + (contMatProd (cohnWord bs)).d
+       < (contMatProd (2 :: 2 :: cohnWord bs)).a + (contMatProd (2 :: 2 :: cohnWord bs)).d
+  rw [show (2 :: 2 :: cohnWord bs) = [2, 2] ++ cohnWord bs from rfl, contMatProd_append]
+  apply E213.Meta.Int213.Order.lt_of_sub_pos
+  rw [cohnB_trace_diff]
+  have hrest : (0 : Int) ≤ 3 * (contMatProd (cohnWord bs)).a + (contMatProd (cohnWord bs)).b
+                + (contMatProd (cohnWord bs)).c :=
+    E213.Meta.Int213.add_nonneg (E213.Meta.Int213.add_nonneg
+      (E213.Meta.Int213.mul_nonneg (by decide) (E213.Meta.Int213.Order.le_of_lt
+        (E213.Meta.Int213.Order.lt_of_lt_of_le (by decide) ha))) hb) hc
+  exact lt_add_nonneg (pos_sum ha hb hc) hrest
 
 end E213.Lib.Math.Real213.ContinuantMarkov
