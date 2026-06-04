@@ -68,6 +68,42 @@ theorem lt_of_mul_lt_mul_pos {c a b : Int} (hc : 0 < c) (h : c * a < c * b) : a 
       have hx := sub_pos_of_lt hlt; rwa [zero_sub, show -(a - b) = b - a from by ring_intZ] at hx
     exact lt_of_sub_pos hp
 
+/-- `a.natAbs = 0 ⟹ a = 0`. -/
+theorem natAbs_zero_imp {a : Int} (h : a.natAbs = 0) : a = 0 := by
+  rcases Int.natAbs_eq a with he | he <;> rw [he, h] <;> decide
+
+/-- `0 ≤ -x ⟹ x ≤ 0`. -/
+theorem nonpos_of_neg_nonneg {x : Int} (h : 0 ≤ -x) : x ≤ 0 := by
+  apply le_of_not_lt
+  intro hpos
+  have hc := add_le_add (show (1 : Int) ≤ x from hpos) h
+  rw [Int.add_zero, show x + (-x) = x - x from by ring_intZ, sub_self_zero] at hc
+  exact absurd hc (by decide)
+
+/-- `0 ≤ a ⟹ (↑a.natAbs : ℤ) = a`. -/
+theorem natCast_natAbs_nonneg {a : Int} (h : 0 ≤ a) : (a.natAbs : Int) = a := by
+  rcases Int.natAbs_eq a with he | he
+  · exact he.symm
+  · have hle : (a.natAbs : Int) ≤ 0 := nonpos_of_neg_nonneg (he ▸ h)
+    have hna : a.natAbs = 0 := Nat.le_zero.mp (E213.Meta.Int213.Order.le_of_ofNat_le hle)
+    rw [hna, he, hna]; decide
+
+/-- `(↑a : ℤ) < ↑b ⟹ a < b`. -/
+theorem natCast_lt_imp {a b : Nat} (h : (a : Int) < (b : Int)) : a < b :=
+  E213.Meta.Int213.Order.le_of_ofNat_le (show ((a + 1 : Nat) : Int) ≤ (b : Int) from h)
+
+/-- `a ≠ 0 ⟹ 1 ≤ a.natAbs`. -/
+theorem natAbs_pos_of_ne {a : Int} (h : a ≠ 0) : 1 ≤ a.natAbs :=
+  Nat.pos_of_ne_zero (fun h0 => h (natAbs_zero_imp h0))
+
+/-- `a + b = 0`, `0 ≤ b ⟹ a ≤ 0`. -/
+theorem nonpos_of_add_eq_zero {a b : Int} (hb : 0 ≤ b) (h : a + b = 0) : a ≤ 0 := by
+  apply nonpos_of_neg_nonneg
+  have hba : -a = b := by
+    have e2 : -a + (a + b) = b := by ring_intZ
+    rw [h, Int.add_zero] at e2; exact e2
+  rw [hba]; exact hb
+
 /-- `a·a = 0 ⟹ a = 0`. -/
 theorem sq_eq_zero {a : Int} (h : a * a = 0) : a = 0 := by
   rcases int_sign a with hge | hlt
@@ -282,5 +318,99 @@ theorem halve_step (m' p : Int) (h : isSum4 (2 * m' * p)) : isSum4 (m' * p) := b
   refine ⟨s1, s2, s3, s4, ?_⟩
   apply mul_left_cancel_pos (show (0 : Int) < 2 by decide)
   rw [show 2 * (m' * p) = 2 * m' * p from by ring_intZ, ha]; exact hs
+
+/-! ## §4 — the odd-`m` centred descent -/
+
+open E213.Lib.Math.NumberTheory.ModArith.CenteredDivision (centered_div_int)
+open E213.Lib.Math.NumberTheory.PolyRoot (int_dvd_to_nat)
+open E213.Meta.Int213.PolyIntM (mul_zeroZ)
+open E213.Meta.Int213 (add_nonneg)
+
+/-- ★★★★ **Odd-`m` centred descent.**  `p` prime, `m = 2k+1` (`2 ≤ m < p`), `isSum4 (m·p)` ⟹
+    `∃ r, 1 ≤ r < m ∧ isSum4 (r·p)`.  Centred residues `aᵢ = qᵢm + Aᵢ` give the explicit smaller
+    multiple `r = p − 2Σaᵢqᵢ + mΣqᵢ²` (`descent_core`); the odd strict bound (`rlt`) forces
+    `r < m` (no `r = m` edge), and `r = 0` would give `m ∣ p` (impossible for `2 ≤ m < p` prime). -/
+theorem odd_descent (p : Nat) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (m k : Nat) (hmk : m = 2 * k + 1) (hm2 : 2 ≤ m) (hmlt : m < p)
+    (h : isSum4 ((m : Int) * (p : Int))) :
+    ∃ r : Nat, 1 ≤ r ∧ r < m ∧ isSum4 ((r : Int) * (p : Int)) := by
+  obtain ⟨a1, a2, a3, a4, hsum⟩ := h
+  have h1m : (1 : Int) ≤ (m : Int) := by
+    have := ofNat_le_of_le (show 1 ≤ m from Nat.le_of_lt (Nat.lt_of_lt_of_le (by decide) hm2))
+    rwa [show ((1 : Nat) : Int) = 1 from rfl] at this
+  have hmpos : (0 : Int) < (m : Int) := h1m
+  obtain ⟨q1, A1, hq1, hb1⟩ := centered_div_int a1 (m : Int) hmpos
+  obtain ⟨q2, A2, hq2, hb2⟩ := centered_div_int a2 (m : Int) hmpos
+  obtain ⟨q3, A3, hq3, hb3⟩ := centered_div_int a3 (m : Int) hmpos
+  obtain ⟨q4, A4, hq4, hb4⟩ := centered_div_int a4 (m : Int) hmpos
+  rw [Int.natAbs_ofNat, hmk] at hb1 hb2 hb3 hb4
+  obtain ⟨rI, hrI⟩ : ∃ rI, (p : Int) - 2 * (a1 * q1 + a2 * q2 + a3 * q3 + a4 * q4)
+      + (m : Int) * (q1 * q1 + q2 * q2 + q3 * q3 + q4 * q4) = rI := ⟨_, rfl⟩
+  have hmr : A1 * A1 + A2 * A2 + A3 * A3 + A4 * A4 = (m : Int) * rI := by
+    have hA1 : A1 = a1 - q1 * (m : Int) := by rw [hq1]; ring_intZ
+    have hA2 : A2 = a2 - q2 * (m : Int) := by rw [hq2]; ring_intZ
+    have hA3 : A3 = a3 - q3 * (m : Int) := by rw [hq3]; ring_intZ
+    have hA4 : A4 = a4 - q4 * (m : Int) := by rw [hq4]; ring_intZ
+    rw [hA1, hA2, hA3, hA4, ← hrI]
+    have e : (a1 - q1 * (m : Int)) * (a1 - q1 * (m : Int))
+        + (a2 - q2 * (m : Int)) * (a2 - q2 * (m : Int))
+        + (a3 - q3 * (m : Int)) * (a3 - q3 * (m : Int))
+        + (a4 - q4 * (m : Int)) * (a4 - q4 * (m : Int))
+        = (a1 * a1 + a2 * a2 + a3 * a3 + a4 * a4)
+          - 2 * (m : Int) * (a1 * q1 + a2 * q2 + a3 * q3 + a4 * q4)
+          + (m : Int) * (m : Int) * (q1 * q1 + q2 * q2 + q3 * q3 + q4 * q4) := by ring_intZ
+    rw [e, ← hsum]; ring_intZ
+  obtain ⟨d1, d2, d3, d4, hdc⟩ := descent_core (m : Int) (p : Int) rI a1 a2 a3 a4
+    q1 q2 q3 q4 A1 A2 A3 A4 hmpos hq1 hq2 hq3 hq4 hsum.symm hmr
+  have hmm1 : (2 * (k : Int)) = (m : Int) - 1 := by
+    rw [hmk, show ((2 * k + 1 : Nat) : Int) = 2 * (k : Int) + 1 from rfl]; ring_intZ
+  have hB1 := Asq_bound A1 k hb1; rw [hmm1] at hB1
+  have hB2 := Asq_bound A2 k hb2; rw [hmm1] at hB2
+  have hB3 := Asq_bound A3 k hb3; rw [hmm1] at hB3
+  have hB4 := Asq_bound A4 k hb4; rw [hmm1] at hB4
+  have hrltm : rI < (m : Int) := rlt (m : Int) rI A1 A2 A3 A4 hmpos h1m hB1 hB2 hB3 hB4 hmr
+  have hSnn : 0 ≤ A1 * A1 + A2 * A2 + A3 * A3 + A4 * A4 :=
+    add_nonneg (add_nonneg (add_nonneg (sq_nonneg A1) (sq_nonneg A2)) (sq_nonneg A3)) (sq_nonneg A4)
+  have hmrnn : 0 ≤ (m : Int) * rI := hmr ▸ hSnn
+  have hrnn : 0 ≤ rI := by
+    rcases int_sign rI with hh | hh
+    · exact hh
+    · exfalso
+      have hp : 0 < (m : Int) * (-rI) :=
+        mul_pos hmpos (by have hx := sub_pos_of_lt hh; rwa [zero_sub] at hx)
+      rw [mul_neg, ← zero_sub] at hp
+      exact int_lt_irrefl _ (lt_of_lt_of_le (lt_of_sub_pos hp) hmrnn)
+  have hrne : rI ≠ 0 := by
+    intro hr0
+    have hSum0 : A1 * A1 + A2 * A2 + A3 * A3 + A4 * A4 = 0 := by rw [hmr, hr0]; exact mul_zeroZ _
+    have hA1z : A1 = 0 := sq_eq_zero (le_antisymm
+      (nonpos_of_add_eq_zero (add_nonneg (add_nonneg (sq_nonneg A2) (sq_nonneg A3)) (sq_nonneg A4))
+        (by rw [← hSum0]; ring_intZ)) (sq_nonneg A1))
+    have hA2z : A2 = 0 := sq_eq_zero (le_antisymm
+      (nonpos_of_add_eq_zero (add_nonneg (add_nonneg (sq_nonneg A1) (sq_nonneg A3)) (sq_nonneg A4))
+        (by rw [← hSum0]; ring_intZ)) (sq_nonneg A2))
+    have hA3z : A3 = 0 := sq_eq_zero (le_antisymm
+      (nonpos_of_add_eq_zero (add_nonneg (add_nonneg (sq_nonneg A1) (sq_nonneg A2)) (sq_nonneg A4))
+        (by rw [← hSum0]; ring_intZ)) (sq_nonneg A3))
+    have hA4z : A4 = 0 := sq_eq_zero (le_antisymm
+      (nonpos_of_add_eq_zero (add_nonneg (add_nonneg (sq_nonneg A1) (sq_nonneg A2)) (sq_nonneg A3))
+        (by rw [← hSum0]; ring_intZ)) (sq_nonneg A4))
+    have ha1 : a1 = q1 * (m : Int) := by rw [hq1, hA1z, Int.add_zero]
+    have ha2 : a2 = q2 * (m : Int) := by rw [hq2, hA2z, Int.add_zero]
+    have ha3 : a3 = q3 * (m : Int) := by rw [hq3, hA3z, Int.add_zero]
+    have ha4 : a4 = q4 * (m : Int) := by rw [hq4, hA4z, Int.add_zero]
+    have hpeq : (p : Int) = (m : Int) * (q1 * q1 + q2 * q2 + q3 * q3 + q4 * q4) := by
+      apply mul_left_cancel_pos hmpos
+      rw [hsum, ha1, ha2, ha3, ha4]; ring_intZ
+    have hmdp : m ∣ p := by
+      have := int_dvd_to_nat m (p : Int) ⟨q1 * q1 + q2 * q2 + q3 * q3 + q4 * q4, hpeq⟩
+      rwa [Int.natAbs_ofNat] at this
+    rcases hpr m hmdp with h1 | h1
+    · rw [h1] at hm2; exact absurd hm2 (by decide)
+    · exact absurd (h1 ▸ hmlt) (Nat.lt_irrefl p)
+  refine ⟨rI.natAbs, natAbs_pos_of_ne hrne, ?_, ?_⟩
+  · exact natCast_lt_imp (by rw [natCast_natAbs_nonneg hrnn]; exact hrltm)
+  · rw [natCast_natAbs_nonneg hrnn]
+    exact ⟨d1, d2, d3, d4, by rw [show rI * (p : Int) = (p : Int) * rI from by ring_intZ]; exact hdc⟩
 
 end E213.Lib.Math.NumberTheory.FourSquare
