@@ -1,6 +1,21 @@
 # Frontier — Lagrange's four-square theorem (`∀ n, ∃ a b c d, n = a²+b²+c²+d²`)
 
-**Date**: 2026-06-04.  **Status**: open marathon (seeded).  **Tier**: 1.
+**Date**: 2026-06-04.  **Status**: Pillar I CLOSED (∅-axiom); Pillar II open.  **Tier**: 1.
+
+## Pillar I — DONE (∅-axiom, constructive)
+
+`NumberTheory.FourSquareSeed.four_square_seed` (axiom-free): for an odd prime `p = 2m+1`,
+`∃ x y, x ≤ m ∧ y ≤ m ∧ p ∣ (x²+y²+1)`.  The repo's **first additive pigeonhole** (vs the
+multiplicative Lagrange-root bound), and **constructive** — a bounded 2-D search `findXY` whose
+`none`-branch is refuted by `no_inj_lt` on the map `gval` (`x²%p` / `p−1−y²%p`), so the witness
+is produced, not merely shown non-absent (no `Classical`).  16 PURE theorems incl. `sq_distinct`
+(squares injective on `[0,m]` mod `p`, ℕ-only, dodging the propext-dirty `Int.natAbs` triangle),
+`nat_prime_dvd_mul` (ℕ prime-Euclid via `a%p`, dodging the propext-dirty `Decidable (p∣a)`),
+`gval_inj_or_seed`.
+
+----
+
+(original scoping below)
 
 The next genuinely-new target after the disc-`−3`/`−4`/parametric `ℤ[√−D]` representation arc.
 Unlike those, four-square needs a *different counting principle* (additive pigeonhole, not the
