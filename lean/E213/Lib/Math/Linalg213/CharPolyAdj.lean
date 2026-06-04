@@ -25,7 +25,9 @@ open E213.Lib.Math.Linalg213.Permutation (sumZ iota)
 open E213.Lib.Math.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_add)
 open E213.Lib.Math.Linalg213.DetN (det altSign colShift det_congr)
 open E213.Lib.Math.Linalg213.Laplace (matMul adj minorAt matMul_adj_diag matMul_adj_offdiag)
-open E213.Lib.Math.Linalg213.CayleyHamilton (sumZ_iota_delta_lt)
+open E213.Lib.Math.Linalg213.CayleyHamilton
+  (sumZ_iota_delta_lt sumZ_map_neg matMul_assoc matPow matId matScalar matSumZ
+   matMul_id_right matMul_matSumZ_right matSumZ_cons matMul_negL matMul_scalarL)
 open E213.Lib.Math.Linalg213.PolyDet
   (pdet evalMat eval_pdet charMat charPoly eval_charPoly evalMat_charMat degLe_pdet)
 open E213.Lib.Math.PolyZ
@@ -211,5 +213,45 @@ theorem padj_coeff_top_zero (M : Nat → Nat → Int) (n i j : Nat) :
         (degLe_pdet n (pminorAt j i (charMat M)) (fun _ _ => degLe_charMat M _ _))
         (Nat.lt_succ_self n),
       mul_zero']
+
+/-! ## §6 — the relations as matrix equations (`B_{m-1} − M·B_m = c_m·I`) -/
+
+/-- The adjugate coefficient matrix `B_m(i,j) = coeff (adj(X·I−M)) m`. -/
+def Bm (M : Nat → Nat → Int) (n m : Nat) : Nat → Nat → Int :=
+  fun i j => coeff (padj n (charMat M) i j) m
+
+/-- The characteristic-polynomial coefficient `c_m`. -/
+def cm (M : Nat → Nat → Int) (n m : Nat) : Int := coeff (charPoly M (n + 1)) m
+
+/-- `M·B` written via the signed sum that the CH relations produce. -/
+theorem matMul_eq_neg_sumNeg (n : Nat) (M B : Nat → Nat → Int) (i k : Nat) :
+    matMul (n + 1) M B i k = - sumZ ((iota (n + 1)).map (fun j => (- M i j) * B j k)) := by
+  show sumZ ((iota (n + 1)).map (fun j => M i j * B j k))
+     = - sumZ ((iota (n + 1)).map (fun j => (- M i j) * B j k))
+  rw [← sumZ_map_neg (fun j => (- M i j) * B j k)]
+  apply congrArg sumZ
+  apply map_eq_of_mem
+  intro j _
+  rw [E213.Meta.Int213.neg_mul, Int.neg_neg]
+
+/-- ★★ **CH relation at order 0 (matrix form)**: `M·B₀ = −c₀·I`. -/
+theorem matMul_Bm_zero (M : Nat → Nat → Int) (n i k : Nat) (hi : i < n + 1) (hk : k < n + 1) :
+    matMul (n + 1) M (Bm M n 0) i k = - (if i = k then cm M n 0 else 0) := by
+  rw [matMul_eq_neg_sumNeg]
+  show - sumZ ((iota (n + 1)).map (fun j => (- M i j) * coeff (padj n (charMat M) j k) 0))
+     = - (if i = k then coeff (charPoly M (n + 1)) 0 else 0)
+  rw [cayley_rel_zero M n i k hi hk]
+
+/-- ★★ **CH relation at order `m+1` (matrix form)**: `M·B_{m+1} = Bₘ − c_{m+1}·I`. -/
+theorem matMul_Bm_succ (M : Nat → Nat → Int) (n i k m : Nat) (hi : i < n + 1) (hk : k < n + 1) :
+    matMul (n + 1) M (Bm M n (m + 1)) i k
+      = Bm M n m i k - (if i = k then cm M n (m + 1) else 0) := by
+  rw [matMul_eq_neg_sumNeg]
+  have h := cayley_rel_succ M n i k m hi hk
+  show - sumZ ((iota (n + 1)).map (fun j => (- M i j) * coeff (padj n (charMat M) j k) (m + 1)))
+     = coeff (padj n (charMat M) i k) m
+       - (if i = k then coeff (charPoly M (n + 1)) (m + 1) else 0)
+  rw [Int.sub_eq_add_neg, ← h]
+  ring_intZ
 
 end E213.Lib.Math.Linalg213.CharPolyAdj
