@@ -2,6 +2,7 @@ import E213.Lens.Number.Nat213
 import E213.Lens.Number.Int213
 import E213.Lens.Number.IntFoldForms
 import E213.Lens.Number.FoldDuality
+import E213.Lens.Number.FoldKlein
 
 /-! Spec-as-code entry point for `E213.Lens.Number`.
 
