@@ -126,6 +126,10 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (explicit Teichmüller ω), B (μ_{p−1} root-of-unity + unit decomposition),
   G (general division) now **closed** in `lean`.  The remaining direction H
   is tracked in its own note `G124_padic_drlt_5adic`.
+- `G125_padic_closure_synthesis` — post-closure harvest: the diagonal-limit
+  constructor, `frobenius_lift` as a uniqueness engine, `ZpSeqEquiv` as the
+  funext-free canonical equality (retiring direction C), and the reachable
+  `i₅ = teichmuller(2-lift)`.
 - `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
   (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
   (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic
