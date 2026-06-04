@@ -120,6 +120,11 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `odometer_unit_synthesis` — post-closure synthesis of the residue-unit `+1`
+  dynamics arc: patterns (single-primitive-as-full-dynamics; the ∅-purity
+  pure-`Nat` trap catalog; carry-explicit over modular) + next seeds (promote
+  `add_left_cancel_pure`/`lt_two_pow` to `Meta/Nat`; odometer `ℤ`-action ↔
+  Markov/Stern-Brocot `SL(2,ℤ)`; a decidable carry-depth sub-class).
 - `research_grade_closure_gate` — **meta-frontier**: `∅`-axiom is a
   necessary integrity check, not a sufficient *seriousness* check.
   Candidate "research-grade" closure gates (non-triviality/depth,
