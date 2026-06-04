@@ -18,9 +18,13 @@ namespace E213.Lib.Math.Cauchy.CFiniteHadamard
 open E213.Lib.Math.Linalg213.Permutation (sumZ iota)
 open E213.Lib.Math.Linalg213.Laplace (sumZ_append map_append')
 open E213.Lib.Math.Linalg213.PermClosure (map_map' map_eq_of_mem sumZ_map_smul lt_of_mem_iota)
-open E213.Lib.Math.Linalg213.CayleyHamilton (sumZ_singleton sumZ_map_smul_right sumZ_iota_delta_lt)
-open E213.Lib.Math.Cauchy.CFiniteRing (shiftSum ShiftRecZ)
-open E213.Lib.Math.PolyZ (one_mul')
+open E213.Lib.Math.Linalg213.CayleyHamilton
+  (sumZ_singleton sumZ_map_smul_right sumZ_iota_delta_lt sumZ_map_neg)
+open E213.Lib.Math.Cauchy.CFiniteRing (shiftSum ShiftRecZ cfiniteZ_of_shiftRec)
+open E213.Lib.Math.PolyZ (one_mul' mul_zero' coeff)
+open E213.Lib.Math.Cauchy.OrbitDimension (CFiniteZ cfiniteZ_congr cfiniteZ_zero)
+open E213.Lib.Math.Linalg213.PolyDet (charPoly charPoly_monic)
+open E213.Lib.Math.Linalg213.CharPolyAdj (ch_recurrence)
 
 /-! ## §1 — clean list helpers + the grid-sum decomposition -/
 
@@ -266,5 +270,61 @@ theorem vecRec {p q : Nat} {α β : Nat → Int} {s t : Nat → Int}
       Ms_sum hp ha]
   show s (n + 1 + decA q J) * t (n + 1 + decB q J) = s (n + decA q J + 1) * t (n + decB q J + 1)
   rw [Nat.add_right_comm n 1 (decA q J), Nat.add_right_comm n 1 (decB q J)]
+
+/-! ## §5 — the assembly: the C-finite Hadamard (pointwise) product -/
+
+/-- ★★★ **C-finite is closed under the pointwise (Hadamard) product.**  The last open ring
+    operation: `CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)`.  Via the Kronecker companion + integer
+    Cayley–Hamilton (`vecRec`, `ch_recurrence`, `charPoly_monic`) and `cfiniteZ_of_shiftRec`. -/
+theorem cfiniteZ_mul {s t : Nat → Int} (hs : CFiniteZ s) (ht : CFiniteZ t) :
+    CFiniteZ (fun n => s n * t n) := by
+  obtain ⟨p, α, hp⟩ := E213.Lib.Math.Cauchy.CFiniteRing.shiftRec_of_cfiniteZ hs
+  obtain ⟨q, β, hq⟩ := E213.Lib.Math.Cauchy.CFiniteRing.shiftRec_of_cfiniteZ ht
+  cases p with
+  | zero =>
+    have hs0 : ∀ n, s n = 0 := fun n => by have h := hp n; rw [Nat.add_zero] at h; exact h
+    exact cfiniteZ_congr (fun n => by rw [hs0 n, E213.Meta.Int213.zero_mul]) cfiniteZ_zero
+  | succ p' =>
+    cases q with
+    | zero =>
+      have ht0 : ∀ n, t n = 0 := fun n => by have h := hq n; rw [Nat.add_zero] at h; exact h
+      exact cfiniteZ_congr (fun n => by rw [ht0 n, mul_zero']) cfiniteZ_zero
+    | succ q' =>
+      have hqpos : 0 < q' + 1 := Nat.succ_pos q'
+      have hPQ : 0 < (p' + 1) * (q' + 1) := Nat.mul_pos (Nat.succ_pos p') hqpos
+      obtain ⟨N, hN⟩ : ∃ N, (p' + 1) * (q' + 1) = N + 1 :=
+        ⟨(p' + 1) * (q' + 1) - 1, (E213.Tactic.NatHelper.sub_add_cancel hPQ).symm⟩
+      have hrec : ∀ (n j : Nat), j < N + 1 →
+          Wvec s t (q' + 1) (n + 1) j
+            = sumZ ((iota (N + 1)).map (fun k => Mmat (p' + 1) (q' + 1) α β j k * Wvec s t (q' + 1) n k)) := by
+        intro n j hj
+        rw [← hN] at hj ⊢
+        exact vecRec hp hq hqpos n j hj
+      refine cfiniteZ_of_shiftRec (k := N + 1)
+        (b := fun m => -(coeff (charPoly (Mmat (p' + 1) (q' + 1) α β) (N + 1)) m))
+        (s := fun n => s n * t n) (fun n => ?_)
+      have key := ch_recurrence (Mmat (p' + 1) (q' + 1) α β) (Wvec s t (q' + 1)) N hrec n 0
+        (Nat.succ_pos N)
+      -- peel the top (monic) term:  Σ_{m<N+1} c_m·u(n+m) + u(n+(N+1)) = 0
+      rw [show iota (N + 2) = iota (N + 1) ++ [N + 1] from rfl, map_append', sumZ_append,
+          show ([N + 1] : List Nat).map
+                 (fun m => coeff (charPoly (Mmat (p' + 1) (q' + 1) α β) (N + 1)) m
+                           * Wvec s t (q' + 1) (n + m) 0)
+               = [coeff (charPoly (Mmat (p' + 1) (q' + 1) α β) (N + 1)) (N + 1)
+                  * Wvec s t (q' + 1) (n + (N + 1)) 0] from rfl,
+          sumZ_singleton, charPoly_monic (N + 1) (Mmat (p' + 1) (q' + 1) α β), one_mul'] at key
+      -- key : Σ_{m<N+1} c_m·u(n+m) + u(n+(N+1)) = 0
+      show s (n + (N + 1)) * t (n + (N + 1))
+         = shiftSum (fun m => -(coeff (charPoly (Mmat (p' + 1) (q' + 1) α β) (N + 1)) m))
+             (fun n => s n * t n) (N + 1) n
+      rw [shiftSum_eq_sumZ (fun m => -(coeff (charPoly (Mmat (p' + 1) (q' + 1) α β) (N + 1)) m))
+            (fun n => s n * t n) n (N + 1),
+          map_eq_of_mem
+            (fun m => -(coeff (charPoly (Mmat (p' + 1) (q' + 1) α β) (N + 1)) m) * (s (n + m) * t (n + m)))
+            (fun m => -(coeff (charPoly (Mmat (p' + 1) (q' + 1) α β) (N + 1)) m * (s (n + m) * t (n + m))))
+            (fun m _ => E213.Meta.Int213.neg_mul _ _),
+          sumZ_map_neg]
+      -- goal: u(n+(N+1)) = -Σ_{m<N+1} c_m·u(n+m)
+      exact E213.Lib.Math.Cauchy.CFiniteRing.neg_eq_of_add_eq_zero key
 
 end E213.Lib.Math.Cauchy.CFiniteHadamard
