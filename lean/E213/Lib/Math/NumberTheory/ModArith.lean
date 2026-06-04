@@ -15,6 +15,7 @@ import E213.Lib.Math.NumberTheory.ModArith.UniversalFLT
 import E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
 import E213.Lib.Math.NumberTheory.ModArith.PrimeSquareFactor
 import E213.Lib.Math.NumberTheory.ModArith.EisensteinCubeRoot
+import E213.Lib.Math.NumberTheory.ModArith.CubeFromFLT
 import E213.Lib.Math.NumberTheory.ModArith.FP2Sqrt5
 import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 
@@ -55,4 +56,11 @@ import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
                               x ↦ x^p as a ring endomorphism
     * `FP2SqrtD`            — F_{p²} = F_p[√D]: same construction
                               parametric in D (generalises FP2Sqrt5)
+
+  ## Cube-root existence (Phase 3 of the Eisenstein split converse)
+
+    * `EisensteinCubeRoot`  — `p ∣ z(z²+3z+3)`, `p ∤ z` ⟹ `∃ x, p ∣ x²+x+1`
+    * `CubeFromFLT`         — FLT bridge: a non-cube-fixed element `a^m ≢ 1`
+                              (with `p−1 = 3m`, `a^(p−1) ≡ 1`) yields `∃ x, p ∣ x²+x+1`
+                              via `z = a^m − 1` and `cube_root_of_order3`
 -/
