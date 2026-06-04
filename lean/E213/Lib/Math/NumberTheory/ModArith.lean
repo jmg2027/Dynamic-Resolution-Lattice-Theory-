@@ -7,6 +7,7 @@ import E213.Lib.Math.NumberTheory.ModArith.JoinGCD
 import E213.Lib.Math.NumberTheory.ModArith.LensCRT
 import E213.Lib.Math.NumberTheory.ModArith.PureNatMod3
 import E213.Lib.Math.NumberTheory.ModArith.PureNatMod5
+import E213.Lib.Math.NumberTheory.ModArith.EisensteinFormCharacter
 import E213.Lib.Math.NumberTheory.ModArith.ModBezout
 import E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant
 import E213.Lib.Math.NumberTheory.ModArith.UniversalFLT
@@ -36,6 +37,8 @@ import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 
     * `PureNatMod3`  — pure-Nat mod-3 arithmetic
     * `PureNatMod5`  — pure-Nat mod-5 arithmetic
+    * `EisensteinFormCharacter` — `mod3` ring-hom + the χ₋₃ fingerprint of the disc-`−3`
+      Eisenstein form `a²+ab+b²` (never `≡ 2 mod 3`), the Epstein-zeta / period skeleton
 
   ## Companion identities (Bezout / FLT / F_{p²})
 

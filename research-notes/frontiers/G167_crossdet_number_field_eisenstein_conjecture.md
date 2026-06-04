@@ -240,6 +240,33 @@ pair → elliptic point, the Eisenstein **curve**).  Mingu's "Eisenstein ↦ cur
 bounded torus.  ∅-axiom; no CM/modular-forms edifice imported (only `Mat2` + the existing
 signature forms).
 
+## The Eisenstein period attack (G168 follow-up) — the χ₋₃ fingerprint (`EisensteinFormCharacter`, 11 PURE)
+
+Direct attempt at the open transcendental: pin the Eisenstein period (the `j=0` curve's
+real period, a `Γ(1/3)` value, CM by `ℤ[ω]`) the way `e` is pinned on the 2-axis.
+
+**Reachable, built.**  The period's arithmetic skeleton is the Epstein zeta of the
+Eisenstein form, `Σ' 1/(a²+ab+b²)^s = 6 ζ(s) L(s,χ₋₃)` — the disc-`−3` `L`-function,
+whose mod-3 character `χ₋₃` is *why* the period is a `Γ(1/3)` value (Chowla–Selberg), the
+exact analog of `Σ' 1/(a²+b²)^s = 4 ζ L(·,χ₋₄)` giving `ϖ` a `Γ(1/4)` value.  The part
+reachable by pure ℕ-arithmetic is the **character constraint**: `eisCyc_mod3_ne_two` —
+`a²+ab+b²` is **never `≡ 2 (mod 3)`**, representing only `{0,1}` (the Loeschian numbers
+avoid the non-residue class, the disc-`−3` analog of two-squares avoiding `3 mod 4`).
+`a²+ab+b²` is `formEval (fixForm U)` — the order-6 elliptic CM point's own fixed-point
+form, so the period's governing form is exactly the capstone's elliptic face.  Built on
+the existing `PureNatMod3` infra + `ring_nat`: `mod3` is shown a ring hom (`mod3_add`,
+`mod3_mul`), then the 9 residue pairs `decide`.
+
+**The wall (honest, no-exterior guard).**  The *value* — the real number, the `Γ(1/3)`
+constant — is **not reached from inside** the ℕ/ℤ reflection provers.  Two internal
+handles both hit a wall: (a) the **cubic AGM** computes it, and its geometric-mean step is
+`∛(b·(a²+ab+b²)/3)` — the disc-`−3` form appears, but the **cube root** leaves clean
+ℤ-arithmetic; (b) the analytic value `L(1,χ₋₃) = π/√27` needs the `L`-series limit.
+Neither is ∅-axiom-reachable now.  So the form's *arithmetic* (the character) is pinned;
+the *period value* stays open, exactly as G168 (both branches) recorded.  This is the
+falsifier doing its work: the residue reproduces the disc-`−3` character fingerprint while
+testable, and the transcendental value is honestly marked not-yet-reached.
+
 ## One-line summary
 
 The `W = d`/det-one references are the **real-quadratic (disc > 0, golden, infinite
