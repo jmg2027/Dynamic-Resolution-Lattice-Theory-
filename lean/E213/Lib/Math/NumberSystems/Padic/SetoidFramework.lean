@@ -50,6 +50,34 @@ instance ZpSeqSetoid (p : Nat) : Setoid (ZpSeq p) where
   r := ZpSeqEquiv
   iseqv := ⟨ZpSeqEquiv.refl, ZpSeqEquiv.symm, ZpSeqEquiv.trans⟩
 
+/-! ## §2.5 — Bridge: truncation-agreement IS `ZpSeqEquiv`
+
+`ZpSeqEquiv` is the canonical 213 equality on `ZpSeq` — Lean's raw `=`
+needs funext to inhabit non-trivially and so is a Lens artifact, not a
+213 equality.  Agreement at every truncation is the same relation
+(each truncation level reads finitely many digits), funext-free in both
+directions: `eq_mod_pn_of_trunc_eq` extracts each digit from the
+truncations. -/
+
+/-- **Trunc-agreement ⇒ `ZpSeqEquiv`**: if every truncation agrees, the
+    sequences are `ZpSeqEquiv`-equal.  This is the bridge that promotes
+    a "unique at every `trunc n`" result to the canonical 213 equality
+    — with no funext (each digit comes from `eq_mod_pn_of_trunc_eq`,
+    a Fin equality, not a function equality). -/
+theorem ZpSeqEquiv.of_trunc_all {p : Nat} (hp : 0 < p) {x y : ZpSeq p}
+    (h : ∀ n, x.trunc n = y.trunc n) : ZpSeqEquiv x y :=
+  fun k => ZpSeq.eq_mod_pn_of_trunc_eq hp (k + 1) (h (k + 1)) k (Nat.lt_succ_self k)
+
+/-- **`ZpSeqEquiv` ⇒ trunc-agreement** (the converse). -/
+theorem ZpSeqEquiv.trunc_all {p : Nat} {x y : ZpSeq p}
+    (h : ZpSeqEquiv x y) : ∀ n, x.trunc n = y.trunc n :=
+  fun n => ZpSeq.trunc_eq_of_eq_mod_pn n (fun k _ => h k)
+
+/-- The two are equivalent: `ZpSeqEquiv x y ↔ ∀ n, x.trunc n = y.trunc n`. -/
+theorem ZpSeqEquiv.iff_trunc_all {p : Nat} (hp : 0 < p) {x y : ZpSeq p} :
+    ZpSeqEquiv x y ↔ ∀ n, x.trunc n = y.trunc n :=
+  ⟨ZpSeqEquiv.trunc_all, ZpSeqEquiv.of_trunc_all hp⟩
+
 /-! ## §3 — LensMap: bundled morphism respecting ≈ -/
 
 /-- **LensMap**: a function `α → β` between Setoids that

@@ -312,8 +312,9 @@ Grouped by module.
 | `Zp.teichmuller` | explicit representative `ω(x)`, the diagonal `digits k := (iter x k).digits k` |
 | `Zp.teichmuller_pow_p_trunc` | `ω(x)^p ≡ ω(x)` at every level (Frobenius fix `ω^p = ω`) |
 | `Zp.teichmuller_pow_pred_trunc` | `ω(x)^(p−1) ≡ 1` for units (`(p−1)`-th root of unity) |
-| `Zp.teichmuller_unique` | two Frobenius-fixed lifts agreeing mod `p` agree at every truncation |
-| `Zp.unit_decomp_unique` | the `ω·u` (μ_{p−1} × (1+p·ℤ_p)) split is unique up to `ZpSeqEquiv` |
+| `Zp.teichmuller_unique` / `_equiv` | Frobenius-fixed lifts agreeing mod `p` are `ZpSeqEquiv`-equal (the 213 equality) |
+| `Zp.unit_decomp_unique` / `_equiv` | the `ω·u` (μ_{p−1} × (1+p·ℤ_p)) split is `ZpSeqEquiv`-unique |
+| `ZpSeqEquiv.of_trunc_all` | trunc-agreement ⇒ `ZpSeqEquiv` (funext-free bridge to the 213 equality) |
 | `Zp.teichmullerCofactor_trunc_one` | `(ω(x)⁻¹·x) ≡ 1 (mod p)` (principal-unit cofactor) |
 | `Zp.neg_one_sq_trunc` | `(−1)·(−1) ≡ 1` at every level (the ring identity for `−1`) |
 | `Zp.i_5_pow_four_trunc` | `i₅⁴ ≡ 1` at every level — the 5-adic imaginary unit is a primitive 4-th root of unity, `i₅ ∈ μ₄` |
@@ -486,12 +487,17 @@ not asserted via a counting/existence theorem.  The companion
 cofactor `u(x) := ω(x)⁻¹ · x` is principal, `u ≡ 1 (mod p)`
 (`teichmullerCofactor_trunc_one`), because `ω` and `x` share
 digit 0.  Together these give the canonical split
-`ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)` at every truncation level (the
-`TeichmullerUnit` module), and the split is **unique up to
-`ZpSeqEquiv`** (`unit_decomp_unique`, via `teichmuller_unique`) — the
-iso is well-defined on the residue, not a per-level coincidence.  (A
-*literal* `ZpSeq`-structure uniqueness would need funext / propext; the
-213-native equality here is trunc-agreement, `ZpSeqEquiv`.)
+`ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)` (the `TeichmullerUnit` module), and the
+split is **unique as `ZpSeqEquiv`** (`unit_decomp_unique_equiv`, via
+`teichmuller_unique`) — the iso is well-defined on the residue.
+`ZpSeqEquiv` (digit-pointwise agreement) **is** the 213 equality on
+`ZpSeq`: Lean's raw `=` needs funext to inhabit and so is a Lens
+artifact carrying no 213 content beyond `ZpSeqEquiv`
+(`SetoidFramework`).  The bridge `ZpSeqEquiv.of_trunc_all` promotes the
+per-truncation uniqueness to this equality funext-free (each digit a
+`Fin` equality, not a function equality).  The factorisation is thus
+unique full stop — there is no further "literal equality" to reach;
+that question asks for an equality the Lens does not define.
 
 ## Closing reflection
 
@@ -551,14 +557,6 @@ What the Real213-p-adic campaign produced:
   propext / Quot.sound for `ZpSeq` equality up to trunc) or a
   convolution-style reindexing argument for `mulRaw_comm`.  Either
   would push us outside the strict-∅ guarantee.
-
-- Promote the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` uniqueness from
-  `ZpSeqEquiv` (now closed — `unit_decomp_unique`) to a *literal*
-  `ZpSeq`-structure equality.  That step needs funext / propext, which
-  is exactly the imported residue 213 declines to chase: trunc-agreement
-  (`ZpSeqEquiv`) is the 213-native equality, and the iso is already
-  well-defined there.  Same trunc-vs-`ZpSeq` boundary as the ring-axiom
-  layer.
 
 The concrete root of unity makes the abstract `μ_{p−1}` tangible at
 `p = 5`: the 5-adic imaginary unit `i₅ = √(−1) ∈ ℤ_5` has digit-0 `2`,

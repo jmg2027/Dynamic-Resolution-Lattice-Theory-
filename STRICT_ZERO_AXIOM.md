@@ -831,10 +831,11 @@ representative and the unit-group decomposition, all PURE:
   · `Zp.teichmuller_unique` (`Padic.Teichmuller`) — Teichmüller
     uniqueness: two Frobenius-fixed lifts agreeing mod `p` agree at
     every truncation (engine: `frobenius_lift` + the fix, no Hensel
-    derivative).  `Zp.unit_decomp_unique` (`Padic.TeichmullerUnit`) —
-    the `ω·u` decomposition is unique up to `ZpSeqEquiv` (the 213-native
-    sequence-level equality; a literal `ZpSeq`-structure iso would need
-    funext/propext, an imported residue).
+    derivative).  `Zp.unit_decomp_unique_equiv` (`Padic.TeichmullerUnit`)
+    — the `ω·u` decomposition is unique in the **canonical 213 equality**
+    `ZpSeqEquiv`, via the funext-free bridge `ZpSeqEquiv.of_trunc_all`
+    (`SetoidFramework`).  Raw Lean `=` on `ZpSeq` is a Lens artifact
+    (needs funext); `ZpSeqEquiv` is the equality the residue carries.
 
 Follow-on (G123 direction G): general p-adic division, all PURE:
 

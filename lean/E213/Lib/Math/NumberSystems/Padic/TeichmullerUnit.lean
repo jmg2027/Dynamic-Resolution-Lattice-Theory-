@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberSystems.Padic.Teichmuller
 import E213.Lib.Math.NumberSystems.Padic.Hensel
+import E213.Lib.Math.NumberSystems.Padic.SetoidFramework
 /-!
 # Real213-p-adic — Teichmüller representatives as roots of unity
 
@@ -210,5 +211,49 @@ theorem Zp.unit_decomp_unique (p : Nat) (hp : 1 < p) (x w₁ u₁ w₂ u₂ : Zp
     rw [← hdec₁ n, hdec₂ n, Zp.mul_trunc p hp' w₂ u₂ (n + 1),
         Zp.mul_trunc p hp' w₁ u₂ (n + 1), hw n]
   exact Zp.mul_left_cancel_trunc p hp w₁ u₁ u₂ h_gcd₁ n hstep
+
+/-! ## The uniqueness as the canonical 213 equality (`ZpSeqEquiv`)
+
+`ZpSeqEquiv` (digit-pointwise agreement, `SetoidFramework`) IS the 213
+equality on `ZpSeq` — Lean's raw `=` needs funext to inhabit and is a
+Lens artifact, not a 213 target.  `ZpSeqEquiv.of_trunc_all` promotes the
+trunc-level uniqueness to this canonical equality with no funext (each
+digit is a Fin equality, not a function equality).  So the
+factorisation is unique **full stop** — nothing further to reach. -/
+
+/-- **Teichmüller uniqueness, canonical form**: Frobenius-fixed lifts
+    agreeing mod `p` are `ZpSeqEquiv`-equal (the 213 equality on `ZpSeq`). -/
+theorem Zp.teichmuller_unique_equiv (p : Nat) (hp : 1 < p) (w₁ w₂ : ZpSeq p)
+    (hfix₁ : ∀ m, (Zp.pow p hp w₁ p).trunc m = w₁.trunc m)
+    (hfix₂ : ∀ m, (Zp.pow p hp w₂ p).trunc m = w₂.trunc m)
+    (h_res : w₁.trunc 1 = w₂.trunc 1) :
+    SetoidFramework.ZpSeqEquiv w₁ w₂ :=
+  SetoidFramework.ZpSeqEquiv.of_trunc_all (Nat.lt_of_succ_lt hp)
+    (fun n => match n with
+      | 0 => rfl
+      | m + 1 => Zp.teichmuller_unique p hp w₁ w₂ hfix₁ hfix₂ h_res m)
+
+/-- **Decomposition uniqueness, canonical form**: the `ω·u` split is
+    unique as `ZpSeqEquiv` — `w₁ ≈ w₂` and `u₁ ≈ u₂`.  This is the
+    `μ_{p−1} × (1+p·ℤ_p)` factorisation being well-defined on the
+    residue, stated at the 213 equality, complete with no remainder. -/
+theorem Zp.unit_decomp_unique_equiv (p : Nat) (hp : 1 < p)
+    (x w₁ u₁ w₂ u₂ : ZpSeq p)
+    (h_gcd₁ : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              (w₁.digits 0).val p).1 = 1)
+    (hfix₁ : ∀ m, (Zp.pow p hp w₁ p).trunc m = w₁.trunc m)
+    (hfix₂ : ∀ m, (Zp.pow p hp w₂ p).trunc m = w₂.trunc m)
+    (hu₁ : u₁.trunc 1 = 1) (hu₂ : u₂.trunc 1 = 1)
+    (hdec₁ : ∀ n, x.trunc (n + 1)
+                = (Zp.mul p (Nat.lt_of_succ_lt hp) w₁ u₁).trunc (n + 1))
+    (hdec₂ : ∀ n, x.trunc (n + 1)
+                = (Zp.mul p (Nat.lt_of_succ_lt hp) w₂ u₂).trunc (n + 1)) :
+    SetoidFramework.ZpSeqEquiv w₁ w₂ ∧ SetoidFramework.ZpSeqEquiv u₁ u₂ := by
+  obtain ⟨hw, hu⟩ := Zp.unit_decomp_unique p hp x w₁ u₁ w₂ u₂ h_gcd₁
+    hfix₁ hfix₂ hu₁ hu₂ hdec₁ hdec₂
+  exact ⟨SetoidFramework.ZpSeqEquiv.of_trunc_all (Nat.lt_of_succ_lt hp)
+          (fun n => match n with | 0 => rfl | m + 1 => hw m),
+         SetoidFramework.ZpSeqEquiv.of_trunc_all (Nat.lt_of_succ_lt hp)
+          (fun n => match n with | 0 => rfl | m + 1 => hu m)⟩
 
 end E213.Lib.Math.NumberSystems.Padic

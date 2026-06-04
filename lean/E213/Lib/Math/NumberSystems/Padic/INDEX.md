@@ -3,7 +3,7 @@
 Real213-p-adic construction: ∅-axiom p-adic integers `ℤ_p` (`ZpSeq p`)
 and p-adic numbers `ℚ_p` (`QpSeq`) via carry-propagation FSM.
 
-**Status**: CLOSED — 27 files, ~505 PURE declarations.
+**Status**: CLOSED — 27 files, ~510 PURE declarations.
 All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 
 ## File map
@@ -22,11 +22,11 @@ All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 | `NegInvolutionDigit1.lean` | 4 | 11 | Negation involution at digit 1 |
 | `NegInvolutionFull.lean` | 4 | 5 | Full negation involution |
 | `NegInvolutionPreserve.lean` | 4 | 4 | Negation preservation lemmas |
-| `SetoidFramework.lean` | 4 | 12 | `ZpSeqEquiv` setoid + reflexivity/symmetry/transitivity |
+| `SetoidFramework.lean` | 4 | 15 | `ZpSeqEquiv` setoid (the canonical 213 equality) + `of_trunc_all`/`iff_trunc_all` bridge (trunc-agreement ⇔ `ZpSeqEquiv`, funext-free) |
 | `SetoidAssoc.lean` | 4 | 8 | Ring operation associativity under setoid |
 | `SetoidAlgebra.lean` | 4 | 8 | Algebraic structure under setoid equivalence |
 | `Teichmuller.lean` | 4 | 15 | Frobenius lift, `teichmuller_iter_cauchy`, geometric sum; explicit representative `teichmuller` (`ω(x)`, diagonal limit), Frobenius fix `teichmuller_pow_p_trunc` (`ω^p ≡ ω`); uniqueness `teichmuller_unique` / `teichmuller_eq_of_fixed` (Frobenius-fixed lift is unique up to `ZpSeqEquiv`) |
-| `TeichmullerUnit.lean` | 4 | 8 | `ω(x)` as `(p−1)`-th root of unity (`teichmuller_pow_pred_trunc`); principal-unit decomposition `x = ω·u` (`teichmullerCofactor`, `u ≡ 1 mod p`) + uniqueness `unit_decomp_unique` — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split unique up to `ZpSeqEquiv`; concrete `i₅ ∈ μ₄` (`i_5_pow_four_trunc`) |
+| `TeichmullerUnit.lean` | 4 | 10 | `ω(x)` as `(p−1)`-th root of unity (`teichmuller_pow_pred_trunc`); principal-unit decomposition `x = ω·u` (`teichmullerCofactor`, `u ≡ 1 mod p`) + uniqueness `unit_decomp_unique` — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split unique up to `ZpSeqEquiv`; concrete `i₅ ∈ μ₄` (`i_5_pow_four_trunc`) |
 | `Field.lean` | 5 | 50 | `QpSeq` (ℚ_p): add/sub/mul/neg/inv/div/sqrt; general division `invGeneral`/`divGeneral` (non-unit denominator via valuation shift, reduces to `inv`/`div` at v=0) + correctness `div_general_value` (`y·u⁻¹ ≡ p^v`) |
 | `DRLT.lean` | 6 | 4 | `canonical_5adic_p` (= 5), digit smokes |
 | `DRLTIntegration.lean` | 6 | 6 | 5-adic ↔ configCount: `trunc_25_lt_config2` + bridge bundle |
@@ -42,7 +42,7 @@ All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 
 ```
 Foundation
-   ├── Arith ─── Pow ─── Teichmuller ─── TeichmullerUnit (+ Hensel)
+   ├── Arith ─── Pow ─── Teichmuller ─── TeichmullerUnit (+ Hensel, SetoidFramework)
    │     └── NegInvolution{,Digit1,Full,Preserve}
    │     └── SetoidFramework ─── SetoidAssoc ─── SetoidAlgebra
    ├── Norm ─── Valuation
@@ -68,11 +68,11 @@ All under namespace `E213.Lib.Math.NumberSystems.Padic.*`.
 
   · ~~Teichmüller representative as concrete `ZpSeq`~~ — **closed**
     (`Teichmuller.teichmuller`, diagonal limit)
-  · ~~`ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)`~~ — **closed**
-    (`TeichmullerUnit`: `teichmuller_pow_pred_trunc` + `teichmullerCofactor`;
-    uniqueness up to `ZpSeqEquiv` via `unit_decomp_unique`/`teichmuller_unique`).
-    Only a *literal* `ZpSeq`-structure iso remains (needs funext/propext —
-    an imported residue; `ZpSeqEquiv` is the 213-native equality).
+  · ~~`ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)`~~ — **closed**, incl. uniqueness in
+    the canonical 213 equality `ZpSeqEquiv` (`unit_decomp_unique_equiv`
+    via `teichmuller_unique` + `ZpSeqEquiv.of_trunc_all`).  Raw Lean `=`
+    is a funext-needing Lens artifact, not a 213 target — `ZpSeqEquiv`
+    is the equality; nothing further to reach.
   · ~~General division (non-unit denominator) → `QpSeq`~~ — **closed**
     (`Field.invGeneral`/`divGeneral`; `Arith.shiftRight` + factorisation
     exactness `shiftLeft_shiftRight_digit_of_low_zero`)
