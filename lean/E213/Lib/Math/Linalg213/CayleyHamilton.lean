@@ -213,4 +213,47 @@ def matPow (n : Nat) (M : Nat → Nat → Int) : Nat → (Nat → Nat → Int)
   | 0     => matId
   | k + 1 => matMul n M (matPow n M k)
 
+/-! ## §5 — matrix sums over a list and their linearity -/
+
+/-- The matrix `Σ_{k ∈ L} F k`, summed entrywise. -/
+def matSumZ (F : Nat → (Nat → Nat → Int)) (L : List Nat) : Nat → Nat → Int :=
+  fun i j => sumZ (L.map (fun k => F k i j))
+
+/-- `matSumZ` over a cons peels the head. -/
+theorem matSumZ_cons (F : Nat → (Nat → Nat → Int)) (k : Nat) (L : List Nat) (i j : Nat) :
+    matSumZ F (k :: L) i j = matAdd (F k) (matSumZ F L) i j := rfl
+
+/-- ★ **Right `matMul` distributes over `matSumZ`**: `A·(Σ_k F k) = Σ_k A·(F k)`. -/
+theorem matMul_matSumZ_right (n : Nat) (A : Nat → Nat → Int) (F : Nat → (Nat → Nat → Int))
+    (L : List Nat) (i j : Nat) :
+    matMul n A (matSumZ F L) i j = matSumZ (fun k => matMul n A (F k)) L i j := by
+  show sumZ ((iota n).map (fun p => A i p * sumZ (L.map (fun k => F k p j))))
+     = sumZ (L.map (fun k => sumZ ((iota n).map (fun p => A i p * F k p j))))
+  rw [map_eq_of_mem (fun p => A i p * sumZ (L.map (fun k => F k p j)))
+        (fun p => sumZ (L.map (fun k => A i p * F k p j)))
+        (fun p _ => by
+          show A i p * sumZ (L.map (fun k => F k p j)) = sumZ (L.map (fun k => A i p * F k p j))
+          rw [← sumZ_map_smul]),
+      sumZ_swap (fun p k => A i p * F k p j)]
+
+/-- ★ **Left `matMul` distributes over `matSumZ`**: `(Σ_k F k)·A = Σ_k (F k)·A`. -/
+theorem matMul_matSumZ_left (n : Nat) (A : Nat → Nat → Int) (F : Nat → (Nat → Nat → Int))
+    (L : List Nat) (i j : Nat) :
+    matMul n (matSumZ F L) A i j = matSumZ (fun k => matMul n (F k) A) L i j := by
+  show sumZ ((iota n).map (fun p => sumZ (L.map (fun k => F k i p)) * A p j))
+     = sumZ (L.map (fun k => sumZ ((iota n).map (fun p => F k i p * A p j))))
+  rw [map_eq_of_mem (fun p => sumZ (L.map (fun k => F k i p)) * A p j)
+        (fun p => sumZ (L.map (fun k => F k i p * A p j)))
+        (fun p _ => by
+          show sumZ (L.map (fun k => F k i p)) * A p j = sumZ (L.map (fun k => F k i p * A p j))
+          rw [sumZ_map_smul_right]),
+      sumZ_swap (fun p k => F k i p * A p j)]
+
+/-- `matSumZ` is additive in the summand family. -/
+theorem matSumZ_add (F G : Nat → (Nat → Nat → Int)) (L : List Nat) (i j : Nat) :
+    matSumZ (fun k => matAdd (F k) (G k)) L i j = matAdd (matSumZ F L) (matSumZ G L) i j := by
+  show sumZ (L.map (fun k => F k i j + G k i j))
+     = sumZ (L.map (fun k => F k i j)) + sumZ (L.map (fun k => G k i j))
+  rw [← sumZ_map_add]
+
 end E213.Lib.Math.Linalg213.CayleyHamilton
