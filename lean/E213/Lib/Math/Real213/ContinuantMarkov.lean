@@ -236,6 +236,36 @@ def markovRat (p : List Bool) : Nat × Nat :=
 theorem markovRat_coprime (p : List Bool) : gcd213 (markovRat p).1 (markovRat p).2 = 1 :=
   sbInterval_mediant_coprime p
 
+/-- The Christoffel interval-bound lengths track the Stern-Brocot pair sums (`× 2`). -/
+private theorem chrInterval_length : ∀ p,
+    (chrInterval p).1.length = 2 * ((sbInterval p).1.1 + (sbInterval p).1.2)
+    ∧ (chrInterval p).2.length = 2 * ((sbInterval p).2.1 + (sbInterval p).2.2)
+  | [] => by refine ⟨?_, ?_⟩ <;> decide
+  | true :: t => by
+      obtain ⟨ih1, ih2⟩ := chrInterval_length t
+      refine ⟨ih1, ?_⟩
+      show ((chrInterval t).1 ++ (chrInterval t).2).length
+           = 2 * (((sbInterval t).1.1 + (sbInterval t).2.1)
+                  + ((sbInterval t).1.2 + (sbInterval t).2.2))
+      rw [E213.Tactic.List213.length_append, ih1, ih2]; ring_nat
+  | false :: t => by
+      obtain ⟨ih1, ih2⟩ := chrInterval_length t
+      refine ⟨?_, ih2⟩
+      show ((chrInterval t).1 ++ (chrInterval t).2).length
+           = 2 * (((sbInterval t).1.1 + (sbInterval t).2.1)
+                  + ((sbInterval t).1.2 + (sbInterval t).2.2))
+      rw [E213.Tactic.List213.length_append, ih1, ih2]; ring_nat
+
+/-- ★★★★ **Word ↔ rational link**: the Christoffel word `chrNode p` has length `2·(p+q)` where `p/q =
+    markovRat p`.  The size of the cutting-sequence word equals twice the rational's height. -/
+theorem chrNode_length (p : List Bool) :
+    (chrNode p).length = 2 * ((markovRat p).1 + (markovRat p).2) := by
+  obtain ⟨h1, h2⟩ := chrInterval_length p
+  show ((chrInterval p).1 ++ (chrInterval p).2).length
+       = 2 * (((sbInterval p).1.1 + (sbInterval p).2.1)
+              + ((sbInterval p).1.2 + (sbInterval p).2.2))
+  rw [E213.Tactic.List213.length_append, h1, h2]; ring_nat
+
 /-! ## The Aigner pipeline: continuant monotonicity ⟹ Markov-number ordering
 
 The Cohn-word Markov number `tr/3` is strictly monotone under prepending a generator (extending the
