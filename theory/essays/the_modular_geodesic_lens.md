@@ -82,8 +82,12 @@ the whole cluster.
 ## Open frontier
 
 Two honest edges.  (1) The geodesic *flow* itself — Artin coding as a dynamical system, the actual
-`ℍ/PSL(2,ℤ)` orbit structure, modular forms — is **out of ∅-axiom scope**; what is ∅-axiom is only its
-shadow.  (2) The Markov uniqueness kernel `H` (`markov_uniqueness.md`, the orbit tower §20–§29) is, at
+`ℍ/PSL(2,ℤ)` orbit structure, modular forms — has **no ∅-axiom route yet**; the repo keeps only its
+shadow.  "Out of reach" would be the conventional reflex, not a verified ceiling: the framework's
+record (cut-completeness as a modulus, Button via the discrete tree where the literature recovers
+analytically) is a catalogue of exactly such "needs analysis" verdicts overturned, so this stays an
+open question the framework re-opens rather than concedes.  (2) The Markov uniqueness kernel `H`
+(`markov_uniqueness.md`, the orbit tower §20–§29) is, at
 the frontier, precisely a geodesic **cutting-sequence** statement — the stable-norm / Christoffel
 characterisation of which slopes are monotone.  So the intuition "geodesic is where this lives" lands
 exactly on the open kernel: deciding `H` is computing the geodesic projection, and that computation is

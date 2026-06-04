@@ -53,15 +53,25 @@ In the three-reading frame this says: the **size reading is a monotone function 
 along each Stern-Brocot line**.  That monotonicity, *if* it held strictly, would upgrade
 `slope_path_inj` (slope injective) to `markovNum` injective and close `H`.
 
-Two honest layers of this content:
+Two layers of this content — but NOT a "analytic = import, discrete = native" boundary (that boundary
+is itself the conventional reflex this project exists to test):
 
-1. **The real-analytic stable norm** — the geodesic *length functional* on the torus, the actual
-   `ℍ/PSL(2,ℤ)` flow, Christoffel-word combinatorics as a metric object.  This is **genuine import**,
-   out of `∅`-axiom reach (it needs the metric/flow, not just the tree); consistent with the existing
-   note that Christoffel-word combinatorics is RED for `∅`-axiom.
+1. **The stable norm itself is already native.**  The stable-norm *value* of the primitive class of
+   slope `u/c` is the Markov number — `markovNum p = (mNode p).c`, an integer continuant, present in the
+   repo.  What is conventionally real-analytic is not the value but one *proof method* for its
+   monotonicity (convexity of the stable-norm unit ball on `H¹(torus; ℝ)`).  "The stable norm needs
+   analysis" classifies a *proof method* as a *theorem requirement* — the External-classification
+   reflex, not a verified `∅`-axiom ceiling.  The internal precedent is exactly this tree: the
+   *slope*-monotone recovery (Zhang Lemma 2), framed analytically in the literature, was done `∅`-axiom
+   by discrete slope-separation (`slope_path_inj` + `§6–§8`, one Frobenius determinant identity).  So
+   whether the *size*-monotone analog has a discrete (continuant) proof is **open, not ruled out**;
+   labelling it "import" imports the reflex.  (Where the honesty bites instead: slope-separation is a
+   *local* determinant inequality, while size-monotonicity across slopes is *global* — genuinely harder,
+   no discrete proof known to anyone yet.  "Route unknown, suspect discrete structure" — per the repo's
+   algebraic-priority principle — not "out of reach," and not "almost there.")
 
-2. **The discrete shadow** — the size reading `markovNum p = (mNode p).c` is a **continuant**: an
-   integer entry of a product of the generators `genL = [[2,1],[1,1]]`, `genR = [[3,4],[2,3]]`.  Its
+2. **The discrete shadow is in hand.** — the size reading `markovNum p = (mNode p).c` is a **continuant**:
+   an integer entry of a product of the generators `genL = [[2,1],[1,1]]`, `genR = [[3,4],[2,3]]`.  Its
    monotonicity along a Stern-Brocot coordinate line is an **integer-recurrence** statement on
    continuants — the same arithmetic `slope_path_inj` already runs.  This shadow is `∅`-axiom-shaped.
 
@@ -84,9 +94,12 @@ frontier and a clean test of the size-reading machinery — not a reduction of t
 ## Verdict
 
 The geodesic-Lens viewpoint does not move `H`; it **names its position sharply**: `H` is the
-size-reading's injectivity, the one reading of the three not yet closed, and the classical route to it
-(stable norm) splits into a real-analytic part (genuine import, out of scope) and a discrete-continuant
-shadow (Aigner monotonicity, `∅`-axiom-reachable but weaker than `H`).  The concrete next move, if a
+size-reading's injectivity, the one reading of the three not yet closed.  The classical route to it
+(stable-norm monotonicity) is conventionally proved by real analysis (convexity of the norm ball), but
+the stable-norm *value* is already the native integer `markovNum`, and — by the precedent of
+`slope_path_inj` discretising the analytically-framed Zhang Lemma 2 — whether the monotonicity itself
+admits a discrete/continuant proof is **open, not out of reach**.  Aigner's within-line monotonicity is
+the `∅`-axiom-reachable piece (continuants), classically proven but weaker than `H`.  The concrete next move, if a
 frontier session wants a real brick rather than the conjecture: **formalize continuant monotonicity
 along one Stern-Brocot line** (extend `§7–§8` from slope to size), banked honestly as adjacent-to-frontier,
 not as progress on the kernel.
