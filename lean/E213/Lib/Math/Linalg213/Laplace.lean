@@ -20,11 +20,13 @@ namespace E213.Lib.Math.Linalg213.Laplace
 open E213.Lib.Math.Linalg213.DetN (colShift colShift_lt colShift_ge minor altSign altSign_add)
 open E213.Lib.Math.Linalg213.Permutation
   (prodDiagFrom psign leibTerm leibDet perms iota LPerm ltCount inversions psign_cons
-   ltCount_append sumZ)
+   ltCount_append sumZ map_lperm sumZ_lperm)
 open E213.Lib.Math.Linalg213.PermClosure
   (cnt permsOf_sound permsOf_complete lt_of_mem_iota length_iota Nodup cnt_pos_mem cnt_pos_of_mem
-   cnt_eq_zero_of_not_mem eq_one_of_le_one_of_pos lperm_of_cnt_eq
-   nodup_cons nodup_map nodup_iota mem_map' mem_map_mpr mem_append_left mem_append_right)
+   cnt_eq_zero_of_not_mem eq_one_of_le_one_of_pos lperm_of_cnt_eq cnt_lperm add_left_cancel'
+   nodup_cons nodup_map nodup_iota nodup_permsOf nodup_flatMap
+   mem_map' mem_map_mpr mem_flatMap' mem_flatMap_mpr mem_append_left mem_append_right map_eq_of_mem
+   map_map' nodup_of_lperm nodup_head_not_mem sumZ_map_smul LPerm.length_eq LPerm.mem)
 
 /-! ## §1 — the minor relabeling (`unshift`, inverse of `colShift`) -/
 
@@ -286,5 +288,76 @@ theorem canonical_lperm (n j : Nat) (hj : j ≤ n) :
         rw [← colShift_unshift hvj]
         exact mem_map_mpr (colShift j)
           (mem_iota_of_lt (unshift_lt (Nat.le_of_lt_succ (lt_of_mem_iota hv)) hvj hj))
+
+/-- `LPerm` cons-cancellation. -/
+theorem lperm_cons_inv {α : Type} [DecidableEq α] {x : α} {L1 L2 : List α}
+    (h : LPerm (x :: L1) (x :: L2)) : LPerm L1 L2 := by
+  apply lperm_of_cnt_eq
+  intro w
+  exact add_left_cancel' (if x = w then 1 else 0) (cnt_lperm (a := w) h)
+
+/-- `map (fun x => x) = id` (clean). -/
+theorem map_id' {α : Type} : ∀ (L : List α), L.map (fun x => x) = L
+  | []     => rfl
+  | a :: l => by show a :: l.map (fun x => x) = a :: l; rw [map_id' l]
+
+/-- `List.map f` is injective when `f` is. -/
+theorem map_inj_list {α β : Type} (f : α → β) (hf : ∀ a b, f a = f b → a = b) :
+    ∀ {L1 L2 : List α}, L1.map f = L2.map f → L1 = L2
+  | [],      [],      _ => rfl
+  | [],      _ :: _,  h => by cases h
+  | _ :: _,  [],      h => by cases h
+  | a :: l1, b :: l2, h => by
+    rw [hf a b (List.cons.inj h).1, map_inj_list f hf (List.cons.inj h).2]
+
+/-- ★★ **The head-decomposition reindex**: `perms (n+1)` is the disjoint union over `j ≤ n` of
+    the `j`-headed permutations `j :: rel.map (colShift j)` (`rel ∈ perms n`). -/
+theorem perms_succ_lperm (n : Nat) :
+    LPerm (perms (n + 1))
+      ((iota (n + 1)).flatMap (fun j => (perms n).map (fun rel => j :: rel.map (colShift j)))) := by
+  apply lperm_of_nodup_mem_iff (nodup_permsOf (nodup_iota (n + 1)))
+  · refine nodup_flatMap (fun j => (perms n).map (fun rel => j :: rel.map (colShift j)))
+      (fun q => q.headD 0) (iota (n + 1)) (nodup_iota (n + 1)) ?_ ?_
+    · exact fun j _ => nodup_map (fun r r' he =>
+        map_inj_list (colShift j) (colShift_inj j) (List.cons.inj he).2) (nodup_permsOf (nodup_iota n))
+    · intro j _ q hq
+      rcases mem_map' _ hq with ⟨rel, _, he⟩
+      have he' : j :: rel.map (colShift j) = q := he
+      exact (congrArg (fun l => List.headD l 0) he').symm
+  · intro q
+    constructor
+    · intro hq
+      have hlp : LPerm q (iota (n + 1)) := permsOf_sound (iota (n + 1)) q hq
+      cases q with
+      | nil => exact Nat.noConfusion ((LPerm.length_eq hlp).trans (length_iota (n + 1)))
+      | cons jj tail =>
+        have hjj : jj ∈ iota (n + 1) := LPerm.mem hlp (List.Mem.head _)
+        have hjn : jj ≤ n := Nat.le_of_lt_succ (lt_of_mem_iota hjj)
+        have hnd : Nodup (jj :: tail) := nodup_of_lperm hlp (nodup_iota (n + 1))
+        have hne : ∀ v ∈ tail, v ≠ jj := fun v hv e => nodup_head_not_mem hnd (e ▸ hv)
+        have htc : LPerm tail ((iota n).map (colShift jj)) :=
+          lperm_cons_inv (LPerm.trans hlp (LPerm.symm (canonical_lperm n jj hjn)))
+        have hrel : tail.map (unshift jj) ∈ perms n := by
+          refine permsOf_complete (iota n) _ (LPerm.trans (map_lperm (unshift jj) htc) ?_)
+          rw [map_map',
+              map_eq_of_mem (fun l => unshift jj (colShift jj l)) (fun l => l)
+                (fun l _ => unshift_colShift jj l), map_id']
+          exact LPerm.refl _
+        have htail : (tail.map (unshift jj)).map (colShift jj) = tail := by
+          rw [map_map',
+              map_eq_of_mem (fun v => colShift jj (unshift jj v)) (fun v => v)
+                (fun v hv => colShift_unshift (hne v hv)), map_id']
+        have hmem2 : (jj :: (tail.map (unshift jj)).map (colShift jj))
+            ∈ (perms n).map (fun rel => jj :: rel.map (colShift jj)) :=
+          mem_map_mpr (fun rel => jj :: rel.map (colShift jj)) hrel
+        rw [htail] at hmem2
+        exact mem_flatMap_mpr _ hjj hmem2
+    · intro hq
+      rcases mem_flatMap' _ hq with ⟨j, hj, hqj⟩
+      rcases mem_map' _ hqj with ⟨rel, hrel, he⟩
+      refine permsOf_complete (iota (n + 1)) q ?_
+      rw [← he]
+      exact LPerm.trans (LPerm.cons j (map_lperm (colShift j) (permsOf_sound (iota n) rel hrel)))
+        (canonical_lperm n j (Nat.le_of_lt_succ (lt_of_mem_iota hj)))
 
 end E213.Lib.Math.Linalg213.Laplace
