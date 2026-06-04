@@ -65,11 +65,15 @@ falsifier-roster forcing (`falsifier_roster_forced`, PURE) — the integers
 
 ## Open Problems (Priority Order)
 
-### 1. Markov uniqueness — the orbit-realizability kernel `H`
-The sole open freedom of the Markov arc (structure pinned, realizability
-*selection* open); attack as a forced fixed point, continuant/Aigner program
-ranked next (`Real213/Continuant.lean` tool built).
-Frontier notes: `research-notes/frontiers/markov_lagrange/{G173_markov_uniqueness,G191_continuant_aigner_program,G193_axioms_against_markov_kernel}.md`.
+### 1. Markov uniqueness — the kernel `H` (TERMINAL localization, on main)
+The `markov-uniqueness` branch (merged) has **maximally localized `H`** to one
+irreducible instruction-residue — the uniform cross-word continuant-trace
+`SEPARATE` (`G197`).  Everything around it is ∅-axiom; finite instances are
+`decide`-verified (`MarkovUniquenessRaw`/`ContinuantMarkov`,
+`markovNum_injective_pathsUpTo_4`).  **Pointing at the uniform residue IS Frobenius
+(1913) — not a bounded step**, so this is honestly *not a tractable next theorem*;
+the productive directions are the other open frontiers.  Frontier notes:
+`research-notes/frontiers/markov_lagrange/{G194…G199}.md` (`G197` = the terminal finding).
 
 ### 2. Pure-`Nat` toolkit + left-cancellation dedup — DONE
 `lt_two_pow` and the canonical `add_left_cancel` live in `Meta/Nat/PureNat`; the

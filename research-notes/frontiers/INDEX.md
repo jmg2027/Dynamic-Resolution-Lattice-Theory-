@@ -71,8 +71,26 @@ each Markov number determines a unique triple.
   where the geodesic engine reaches and where it structurally stops.
 - `G193_axioms_against_markov_kernel` — the 213 axiom corpus read against the
   Markov kernel: a standing attack map for `H`.
+- `G194_forced_fixed_point_attack` — the forced-fixed-point attack on `H` (and
+  why it returns to the conjecture's difficulty).
+- `G195_cohomology_selection_probe` — the cohomological δ angle on the kernel: a
+  real space-identification, a refuted selection.
+- `G196_H_compiled_to_the_isa` — `H` compiled to the proof-ISA; the one missing
+  composition named (a cross-word continuant-trace `SEPARATE`).
+- `G197_isa_localization_terminal` — ★ **terminal finding**: the ISA compilation
+  has **maximally localized `H`** to one irreducible instruction-residue (the
+  uniform cross-word continuant-trace `SEPARATE`), everything around it ∅-axiom,
+  finite instances `decide`-verified (`markovNum_injective_pathsUpTo_4`).  Pointing
+  at the uniform residue **is Frobenius (1913) itself — not a bounded step**.
+- `G198_action_options_ABC` — post-localization options (A loop/µ-ν certification
+  via `slashNu_final`, B compilation catalog, C …); each circles back to the full
+  difficulty.
+- `G199_compilation_catalog_lift_archetypes` — the finite→uniform lift archetypes
+  (the compilation-catalog methodology generalised).
 
 Closure record: `theory/math/analysis/{markov_uniqueness,markov_spectrum}.md`.
+**Status of `H`**: maximally localized (terminal, `G197`) — the open residue *is*
+the Frobenius conjecture; the Lean scaffold + finite instances are ∅-axiom.
 
 ## Spiral-axis / modular-tower classification  (`spiral_axis/`)
 
