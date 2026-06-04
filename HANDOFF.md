@@ -14,19 +14,24 @@ faithful).
 Everything closed across §20–§29 is **perimeter**: Button (theorem), residue-map injectivity content
 (`slope_path_inj`), the equivalence chain.  The **irreducible kernel `H` is untouched** — the chain
 being `∅`-axiom means Frobenius is *restated exactly*, NOT proven-closer.
-- **(B) diagnostic answered (LATTER case)**: residue→node is NOT a free reformulation.  `mInterval`
-  (⟹ `mNode`,`markovRes`) is structural recursion on the **path**; `reverse_bridge` consumes the **full
-  ℤ triple** `(a,b,c)` (Vieta `3ab−c`).  `slope_path_inj` is injectivity only, no computable inverse.
-  So "is windowed root `u` realised?" needs inverting residue→path = recovering an integer triple from
-  data given only **mod `c`**.  `u = mNode.d − mNode.c` is the node's mod-`c` shadow; the descent needs
-  the integers the shadow discards.  This `mod c ↔ ℤ` gap is the SHAPE of `H`'s difficulty and a lower
-  bound on the general conjecture.
-- **195025 = 5²·29·269 (ω=3)** direct-recovery is therefore NOT cheap (needs a non-`decide`
-  residue→path enumerator first); as a single ω=3 data point its info value is low.  If pursued, the
-  deliverable must be the general residue→path recovery FUNCTION (reusable: 195025 + decide-wall bypass
-  + the realize-decision object for general `H`), not one `c`.
-- Frontier proper (general `H` = Frobenius): stable-norm / Christoffel monotone-slope characterisation
-  (Lee–Li–Rabideau–Schiffler) — large formalisation, next-session cost call.
+- **(B) diagnostic answered — but the earlier "= H lower bound" gloss was WRONG; corrected here.**
+  Code-solid: `mInterval` (⟹ `mNode`,`markovRes`) is structural recursion on the **path**;
+  `reverse_bridge` consumes the **full ℤ triple** (Vieta `3ab−c`); and `slope_path_inj` proves
+  injectivity **non-constructively** (separation contradiction via `slope_sep` — it does NOT build a
+  path from a slope).  So a residue `u` (= node's mod-`c` shadow `mNode.d−mNode.c`) does not, with the
+  present objects, hand back a triple.  **Two cautions** (the corrected reading): (1) this is an
+  *implementation* fact, not impossibility — injectivity being `∅`-axiom ⟹ the inverse is well-defined
+  on the image, so a `slope→path` descent is **labor** ("recovery-function construction cost",
+  single-`c`), NOT "a lower bound on `H`".  (2) recovery (*find* the triple at max `c`, unique if
+  exists — the §28 side) ≠ `H` (*does* a triple at `c` exist — fixed-`c` existence).  A recovery
+  function reduces `H` to a decidable form (recovered node max `=? c`) ⟹ `decide`-wall bypass, but
+  does **not carry `H`'s difficulty** — that lives in the cross-`c` *passing pattern* (which ℤ lift
+  survives full Vieta descent), = the conjecture, not the `mod c ↔ ℤ` reduction.
+- **Three forks (corrected)**: **(B′)** extract `residue+max→node` recovery fn — medium labor, output =
+  `decide`-wall bypass + decidable reduction of `H` (difficulty NOT carried).  **(C)** the passing
+  pattern = stable-norm / Christoffel (Lee–Li–Rabideau–Schiffler) — real frontier, large.  **(D)**
+  single `ω=3` `195025 = 5²·29·269` — low info, skip candidate.  `(B′)` makes `H` decidable; `(C)`
+  decides it; `(B′)` first cleans `(C)`'s input but does not make `(C)` cheaper.
 
 ## ★★★ orbit tower §20–§27 + promoted to theory/ (earlier this branch)
 

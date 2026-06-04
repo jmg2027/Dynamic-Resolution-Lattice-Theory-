@@ -423,16 +423,31 @@ closed results are all **perimeter**: Button (a genuine theorem), the residue-ma
 output is therefore *"Frobenius restated, exactly, in `∅`-axiom orbit/window form"* — not progress
 toward its proof.
 
-The kernel's cost is visible in the code's asymmetry.  Recovery is closed only as *injectivity*
-(`slope_path_inj`: equal slope `u/c` ⟹ equal path), not as a *function* from a residue to a triple:
-`mInterval` (hence `mNode`, `markovRes`) is structural recursion on the **path**, and `reverse_bridge`
-consumes the **full integer triple** `(a,b,c)` (Vieta descent on `3ab − c`), not the residue.  So
-deciding "is the windowed root `u` realised?" would require inverting residue `↦` path — recovering an
-integer triple from data given only **mod `c`**.  The residue `u = mNode.d − mNode.c` is the node's
-mod-`c` shadow; the Vieta descent needs the actual integers `a,b` the shadow discards.  This `mod c`
-↔ `ℤ` gap *is* the shape of `H`'s difficulty: a non-`decide`, structural realisability decision
-(equivalently, a residue→path recovery) lower-bounds the general conjecture, and is the first brick of
-any frontier attempt — not a corollary of what is already closed.
+A code observation, kept separate from `H`'s difficulty (a distinction worth stating precisely).
+Recovery is closed only as *injectivity* (`slope_path_inj`: equal slope `u/c` ⟹ equal path), and that
+proof is **non-constructive** — given two paths of equal slope it derives `p = q` by a separation
+contradiction (`slope_sep`), it does not *build* a path from a slope.  `mInterval` (hence `mNode`,
+`markovRes`) is structural recursion on the **path**, and `reverse_bridge` consumes the **full integer
+triple** `(a,b,c)` (Vieta descent on `3ab − c`), not the residue.  So a residue `u` (the node's mod-`c`
+shadow `mNode.d − mNode.c`) does not, with the present objects, hand back a triple: the descent needs
+the integers the shadow discards.
+
+Two cautions on what this does **not** say.  (1) It is an *implementation* fact ("no residue→path
+function has been extracted"), not an impossibility: injectivity being `∅`-axiom means the inverse
+correspondence is well-defined on the image, so building a `slope → path` descent is *labor*, not a
+difficulty barrier — call its cost the **recovery-function construction cost** (single-`c`, in the
+already-near-closed recovery regime), never "a lower bound on `H`".  (2) Recovery and `H` are different
+questions: recovery is *find the triple within max `c`* (unique if it exists, the §28 side); `H` is
+*does a triple with max `c` exist* (fixed-`c` existence/realisability).  A recovery function would
+reduce `H` to a decidable form ("does the recovered node have max `= c`?") — bypassing the `decide`
+wall — but it would **not carry `H`'s difficulty**: that lives in the *passing pattern* (which `ℤ`
+lift survives the full Vieta descent, across all `c`), which is the conjecture itself, not the
+`mod c ↔ ℤ` reduction.  So the next-session forks are genuinely three: **(B′)** extract the
+`residue+max → node` recovery function (medium labor; output = `decide`-wall bypass + a decidable
+reduction of `H`, difficulty *not* carried); **(C)** the passing pattern itself
+(stable-norm / Christoffel monotone-slope characterisation — the real frontier, large); **(D)** the
+single `ω = 3` point `195025` (low information, skip candidate).  `(B′)` makes `H` decidable; `(C)`
+decides it; doing `(B′)` first cleans `(C)`'s input but does not make `(C)` cheaper.
 
 ## How to verify
 
