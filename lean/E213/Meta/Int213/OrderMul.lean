@@ -52,4 +52,20 @@ theorem mul_nonpos_of_nonneg_of_nonpos {a b : Int} (ha : 0 ≤ a) (hb : b ≤ 0)
   -- 0 ≤ -(a*b) ⟹ a*b ≤ 0
   exact le_of_sub_nonneg (nonneg_of_le_zero (zero_sub (a * b) ▸ h))
 
+/-! ## §2 — `ℕ → ℤ` cast lemmas (pure replacements for `propext`-dirty core) -/
+
+/-- ★★ **Monotone `ℕ → ℤ` cast** (`Int.ofNat_le` is `propext`-dirty). -/
+theorem ofNat_le_of_le {a b : Nat} (h : a ≤ b) : (a : Int) ≤ (b : Int) := by
+  obtain ⟨k, hk⟩ := Nat.le.dest h
+  have hsub : (b : Int) - (a : Int) = (k : Int) := by
+    rw [← hk, Int.ofNat_add]; ring_intZ
+  refine le_of_sub_nonneg ?_
+  rw [hsub]; exact ⟨k⟩
+
+/-- ★★ **`↑|N| = N` for `N ≥ 0`** (`Int.natAbs_of_nonneg` is `propext`-dirty). -/
+theorem natAbs_cast_of_nonneg {N : Int} (h : 0 ≤ N) : (N.natAbs : Int) = N := by
+  cases N with
+  | ofNat n => rfl
+  | negSucc n => exact absurd h (by intro hc; cases hc)
+
 end E213.Meta.Int213.OrderMul
