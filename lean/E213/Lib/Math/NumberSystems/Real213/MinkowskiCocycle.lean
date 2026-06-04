@@ -28,8 +28,8 @@ namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiCocycle
 
 open E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
   (det2 mInterval mNode markovRes markovNum markovRes_cross markovRes_cross_left mInterval_det
-   markoff_vieta markoff_vieta_R mInterval_shape)
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (mul)
+   markoff_vieta markoff_vieta_R mInterval_shape markovRes_sq markovNum_dvd_res_sq_succ)
+open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 mul)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
 /-- ★★★ **The Minkowski `?` defect is a Markov-valued, unimodular 1-cocycle.**  At every
@@ -93,5 +93,43 @@ theorem minkowski_cocycle_twist (t : List Bool) :
     (markovNum (true :: t) = 3 * (mInterval t).1.c * markovNum t - (mInterval t).2.c)
     ∧ (markovNum (false :: t) = 3 * (mInterval t).2.c * markovNum t - (mInterval t).1.c) :=
   ⟨minkowski_cocycle_twist_L t, minkowski_cocycle_twist_R t⟩
+
+/-! ## Off the tree — the defect on all of `M₂(ℤ)`, and the weight-2 Eichler–Shimura relation
+
+The cocycle was built on the Stern-Brocot tree (positive L/R words).  The defect itself, however, is
+a **universal** bilinear identity on *all* integer `2×2` matrices: `M.a·(MN).c − M.c·(MN).a = det M ·
+N.c`.  So the cocycle extends off the tree to the whole monoid `M₂(ℤ)`, unimodular exactly on
+`SL(2,ℤ)` (`det = 1`).  This is the first honest step of the full-group extension (`markoff_frobenius`
+is its `det = 1` corollary).
+
+The deepest classical bridge is **Eichler–Shimura at weight 2**: the period polynomial degenerates to
+the residue, and the period relation becomes the `√(−1)` congruence `u² ≡ −1 (mod m)` — which is
+already a closed theorem of the repo (`markovNum_dvd_res_sq_succ`).  So the residue-internal,
+tree-restricted weight-2 period relation is built; the higher-weight period integrals / the full
+`H^1(SL(2,ℤ), V_k)` identification need analysis (integration) and stay open. -/
+
+/-- ★★★ **The cocycle defect on all of `M₂(ℤ)`.**  For *any* integer matrices `M, N`,
+    `M.a·(M·N).c − M.c·(M·N).a = det M · N.c` — a universal bilinear identity (no `det = 1`
+    hypothesis).  The `?`-cocycle defect thus extends off the Stern-Brocot tree to the whole matrix
+    monoid, **unimodular exactly on `SL(2,ℤ)`** where it recovers `N.c` (`markoff_frobenius` is the
+    `det = 1` case).  The first honest step toward a full-group 1-cocycle.  ∅-axiom. -/
+theorem cocycle_defect_general (M N : Mat2) :
+    M.a * (mul M N).c - M.c * (mul M N).a = det2 M * N.c := by
+  show M.a * (M.c * N.a + M.d * N.c) - M.c * (M.a * N.a + M.b * N.c)
+     = (M.a * M.d - M.b * M.c) * N.c
+  ring_intZ
+
+/-- ★★★ **The weight-2 Eichler–Shimura period relation, realized.**  At weight 2 the period
+    polynomial degenerates to the residue, and the period relation is exactly the **`√(−1)`
+    congruence**: at every Stern-Brocot node the residue squares to `−1` modulo the Markov number,
+    `m_t ∣ u_t² + 1` (`markovNum_dvd_res_sq_succ`), with the explicit form
+    `u_t² + 1 = (m_t + d − b)·m_t` (`markovRes_sq`).  So the residue *is* the (weight-2) period of the
+    `?`-cocycle.  The higher-weight period integrals / full `H^1(SL(2,ℤ), V_k)` identification need
+    analysis and stay open.  ∅-axiom. -/
+theorem minkowski_weight2_period_relation (path : List Bool) :
+    (markovNum path ∣ markovRes path * markovRes path + 1)
+    ∧ (markovRes path * markovRes path + 1
+        = ((mNode path).c + (mNode path).d - (mNode path).b) * (mNode path).c) :=
+  ⟨markovNum_dvd_res_sq_succ path, markovRes_sq path⟩
 
 end E213.Lib.Math.NumberSystems.Real213.MinkowskiCocycle

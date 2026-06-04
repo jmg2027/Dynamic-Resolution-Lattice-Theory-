@@ -83,10 +83,22 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   transforms by the Markov-equation Vieta jump `m' = 3·m_bound·m_node − m_other` — the `SL(2,ℤ)`
   Cayley–Hamilton action on the module (`markoff_vieta` + `tr = 3·m`).  So the full 1-cocycle datum is
   built on the tree (module = Markov data, generator action = Cayley–Hamilton, defect = neighbour
-  Markov number) — the residue-internal, tree-restricted Eichler–Shimura cocycle.  **Open**: extension
-  to a full
-  `SL(2,ℤ)` 1-cocycle (not just the L/R sub-semigroup) and the period-polynomial /
-  `H^1(SL(2,ℤ), V)` identification — the deepest classical bridge, genuinely open.
+  Markov number) — the residue-internal, tree-restricted Eichler–Shimura cocycle.
+  **Extended off the tree** (`cocycle_defect_general`, PURE): the defect `M.a·(MN).c − M.c·(MN).a =
+  det M · N.c` is a *universal* bilinear identity on all of `M₂(ℤ)`, unimodular exactly on `SL(2,ℤ)`
+  — the first honest step of the full-group extension.
+  **Weight-2 Eichler–Shimura LANDED** (`minkowski_weight2_period_relation`, PURE): at weight 2 the
+  period polynomial degenerates to the residue and the period relation *is* the `√(−1)` congruence
+  `m_t ∣ u_t² + 1` (`markovNum_dvd_res_sq_succ`) — the residue is the weight-2 period of the cocycle.
+  **Golden / Lagrange bridge LANDED** (`MinkowskiGoldenExtremal.golden_is_extremal_weight2_period`,
+  PURE): the golden ratio `φ` (all-`1` CF, worst-approximable, Lagrange floor `√5`) is the **extremal
+  instance** of the weight-2 period relation — the general `m_t ∣ u_t²+1` specialises along the
+  Fibonacci (period-1) spine to `fib(2n+3) ∣ fib(2n+2)²+1`, with anisotropy (`golden_anisotropic`)
+  and the Cassini `W=±1` floor (= the residue unit).  So the Markov/Lagrange minimum is the
+  residue-internal extremal case of the `?`-cocycle, unifying the session's `?` work with the repo's
+  Markov pillar.  **Open**: the *higher-weight* period integrals / full `H^1(SL(2,ℤ), V_k)` (needs
+  analysis — integration — and would break ∅-axiom purity if imported); the full `SL(2,ℤ)` cocycle
+  composition law on non-tree generators; the multifractal Hölder spectrum of `?`.
 
 - **residue as a (truncated) spectrum — NEGATIVE (honest).**  The spectrum analogy **breaks**: the
   Steenrod/Massey structure on `K_{3,2}^{(c=2)}` is *vacuous* at the `d = 5` truncation — `Sq¹·Sq¹=0`
