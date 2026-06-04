@@ -17,10 +17,9 @@ from `Hensel.lean` (`mul_right_cancel_trunc`, built on `invFull`):
   the canonical split `ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)`, here as the
   trunc-level factorisation `(ω⁻¹ · x).trunc 1 = 1`.
 
-This is direction **A→B** of
-`research-notes/frontiers/G123_padic_next_directions.md`.  Bridge
-file: depends on both the Teichmüller construction and the Hensel
-inverse, so it lives apart from the dependency-light `Teichmuller.lean`.
+Bridge file: depends on both the Teichmüller construction and the
+Hensel inverse, so it lives apart from the dependency-light
+`Teichmuller.lean`.  Narrative: `theory/math/numbersystems/padic_real213.md`.
 -/
 
 namespace E213.Lib.Math.NumberSystems.Padic

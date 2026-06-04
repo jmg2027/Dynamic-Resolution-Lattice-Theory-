@@ -531,6 +531,14 @@ What the Real213-p-adic campaign produced:
   or it may be that trunc-level is the 213-native statement and the
   sequence-level uniqueness is an imported residue.
 
+**Open frontier**.  The one live open direction for this sub-tree is
+**DRLT-specific 5-adic content**: whether the 5-adic envelope of
+`N_U = 5²⁵` operates meaningfully for DRLT (a 5-adic obstruction to a
+precision result; physics meaning for `i_5 = √(−1) ∈ ℤ_5`; 5-adic
+L-values for `α_em` / `m_μ/m_e`), or is formal residue only.  This is
+research, not closure — tracked under `research-notes/frontiers/` and
+governed by `seed/RESOLUTION_LIMIT_SPEC.md`.
+
 **Methodology note**.  Most proofs in `Teichmuller.lean` and
 `Hensel.lean` look like a sequence of `rw` over `mul_trunc`,
 `add_trunc`, `mul_pow_succ_mod`, `mul_mod_pure`, etc., with

@@ -32,7 +32,7 @@ Columns:
 
 | # | Date | Type | Topic / target | Situation (what prompted it) | Outcome (path) |
 |---|------|------|----------------|------------------------------|----------------|
-| — | — | — | — | *(first live entry appended next session)* | — |
+| 1 | 2026-06-04 | promotion | p-adic Teichmüller ω + μ_{p−1} + general division (G123 A/B/G) | Three frontier directions closed ∅-axiom in one arc on the same branch (A: explicit `ω(x)` diagonal; B: `ω^(p−1)≡1` + unit split; G: non-unit division via valuation shift).  The Padic chapter already existed (G122) — these extend a closed sub-tree, so promotion = updating the live chapter + catalog, not a new chapter.  Trigger pattern: *closed sub-tree gains new ∅-axiom results → fold into the existing chapter, don't spawn a note.* | `theory/math/numbersystems/padic_real213.md` (chapter extended); `STRICT_ZERO_AXIOM.md` follow-on entries; `lean/.../Padic/INDEX.md` |
 
 ## Reading the log later (pattern analysis)
 

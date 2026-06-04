@@ -122,7 +122,10 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   four open knots (M1)-(M4).  Side-observations feed
   `theory/math/geometrization_conjecture.md` (R1 closed; R1+ open).
 - `G123_padic_next_directions` — post-closure direction memo for the p-adic
-  library (`theory/math/padic_real213.md`).
+  library (`theory/math/numbersystems/padic_real213.md`).  Directions A
+  (explicit Teichmüller ω), B (μ_{p−1} root-of-unity + unit decomposition),
+  G (general division) now **closed** in `lean`; the live open direction is
+  **H** (DRLT-specific 5-adic content).
 - `G178_next_proofline_conjectures` — cross-arc conjecture seed / ranked agenda
   for populating νF (post-FSM).
 - `G182_completed_system_synthesis` — "the frontier (νF) has a form" — an
