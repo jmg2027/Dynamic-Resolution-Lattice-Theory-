@@ -1,6 +1,6 @@
 import E213.Lib.Math.Mobius213.Px.QFibIdentity
 import E213.Lib.Math.Mobius213.Px.FibCassini
-import E213.Lib.Math.NatRing
+import E213.Meta.Nat.NatRing213
 
 /-!
 # Mobius213.Px.ConvergentDet — Farey-neighbour property of P-convergents
@@ -56,7 +56,7 @@ open E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_univers
 open E213.Lib.Math.Mobius213.Px.QFibIdentity (Q00_eq_fib Q01_eq_fib)
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Lib.Math.Mobius213.Px.FibCassini (fib_cassini_shifted)
-open E213.Lib.Math.NatRing (nat_add_mul nat_mul_assoc add_dup_succ)
+open E213.Meta.Nat.NatRing213 (nat_add_mul nat_mul_assoc add_dup_succ)
 
 /-! ## §1 — Convergent cross-determinant = 1 -/
 

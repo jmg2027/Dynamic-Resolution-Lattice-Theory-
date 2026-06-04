@@ -1,4 +1,4 @@
-import E213.Lib.Math.NatRing
+import E213.Meta.Nat.NatRing213
 
 /-!
 # Mobius213.Px.PnFibonacciUniversal — det(P^n) = 1 at every n (PURE)
@@ -38,7 +38,7 @@ All declarations PURE (∅-axiom).
 
 namespace E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal
 
-open E213.Lib.Math.NatRing
+open E213.Meta.Nat.NatRing213
 
 /-! ## §1 — Q sequence: 1-step matrix entries of P^n -/
 

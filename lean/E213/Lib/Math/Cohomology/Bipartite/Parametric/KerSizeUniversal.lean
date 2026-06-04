@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces
-import E213.Lib.Math.NatRing
+import E213.Meta.Nat.NatRing213
 import E213.Meta.Tactic.BoolHelper
 import E213.Meta.Tactic.Fin213
 import E213.Meta.Nat.NatDiv213
@@ -31,7 +31,7 @@ STRICT ∅-AXIOM.
 namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.KerSizeUniversal
 
 open E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces
-open E213.Lib.Math.NatRing (mul_lt_mul_left_pure nat_mul_assoc)
+open E213.Meta.Nat.NatRing213 (mul_lt_mul_left_pure nat_mul_assoc)
 open E213.Tactic.BoolHelper (eq_of_xor_false)
 open E213.Tactic.Fin213 (fin_eq_of_val)
 open E213.Meta.Nat.NatDiv213 (mul_div_cancel_left_pure add_mul_div_left_pure)

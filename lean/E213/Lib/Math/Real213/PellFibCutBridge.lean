@@ -4,7 +4,7 @@ import E213.Lib.Math.Real213.PhiCut
 import E213.Lib.Math.Real213.FibCassiniNat
 import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Meta.Int213
-import E213.Lib.Math.NatRing
+import E213.Meta.Nat.NatRing213
 
 /-!
 # PellFibCutBridge — the Pell convergents ARE the Fibonacci convergents (∀n, PURE)
@@ -36,7 +36,7 @@ namespace E213.Lib.Math.Real213.PellFibCutBridge
 
 open E213.Lib.Math.Mobius213 (P_numerator P_denominator)
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
-open E213.Lib.Math.NatRing (three_mul_eq two_mul_eq)
+open E213.Meta.Nat.NatRing213 (three_mul_eq two_mul_eq)
 open E213.Meta.Int213
 
 /-! ## The shared Nat 3-step identity -/

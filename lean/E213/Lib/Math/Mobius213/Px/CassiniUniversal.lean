@@ -1,5 +1,5 @@
 import E213.Lib.Physics.Simplex.Counts
-import E213.Lib.Math.NatRing
+import E213.Meta.Nat.NatRing213
 import E213.Lib.Math.Mobius213.Px.POrbitClosure
 import E213.Lib.Math.Mobius213.Px.CassiniInduction
 
@@ -45,7 +45,7 @@ All declarations PURE (∅-axiom).
 
 namespace E213.Lib.Math.Mobius213.Px.CassiniUniversal
 
-open E213.Lib.Math.NatRing
+open E213.Meta.Nat.NatRing213
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
 /-! ## §1 — Lnat: Nat-valued Pell-Lucas trace -/
@@ -191,7 +191,7 @@ theorem Lnat_eq_L_at_4 : (Lnat 4 : Int) = L 4 := by decide
 
     This is the universal lift of `CassiniInduction`'s finite
     n = 0..9 catalog.  The proof uses **only PURE Nat ring tools**
-    from `E213.Lib.Math.NatRing`:
+    from `E213.Meta.Nat.NatRing213`:
 
       · `nat_mul_assoc`, `nat_add_mul`     — distributivity
       · `nat_add_right_cancel`             — additive cancellation

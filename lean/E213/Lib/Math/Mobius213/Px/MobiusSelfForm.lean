@@ -3,7 +3,7 @@ import E213.Lib.Math.Mobius213.Px.QFibIdentity
 import E213.Lib.Math.Mobius213.Px.CharPolySelf
 import E213.Lib.Math.Mobius213.Px.ConvergentDet
 import E213.Lib.Math.Mobius213.Px.POrbitClosure
-import E213.Lib.Math.NatRing
+import E213.Meta.Nat.NatRing213
 
 /-!
 # Mobius213.Px.MobiusSelfForm — "모습 자체가 뫼비우스 행렬"
@@ -50,7 +50,7 @@ open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
 open E213.Lib.Physics.Simplex.Counts (NS)
 open E213.Lib.Math.Mobius213.Px.CharPolySelf (p_self_reference_master)
 open E213.Lib.Math.Mobius213.Px.ConvergentDet (convergent_det farey_neighbour_fib det_one_four_readings)
-open E213.Lib.Math.NatRing (mul_eq_one_left mul_eq_one_right)
+open E213.Meta.Nat.NatRing213 (mul_eq_one_left mul_eq_one_right)
 
 /-! ## §1 — Möbius iteration functional equation
 
@@ -217,7 +217,7 @@ theorem p_unique_sl2_trace3 (a b c d : Nat)
   -- hdet : 2 * 1 = b * c + 1, and 2 * 1 = 1 + 1 definitionally.
   have hbc : b * c = 1 := by
     have h : (1 : Nat) + 1 = b * c + 1 := hdet
-    exact (E213.Lib.Math.NatRing.nat_add_right_cancel h).symm
+    exact (E213.Meta.Nat.NatRing213.nat_add_right_cancel h).symm
   exact ⟨rfl, mul_eq_one_left b c hb hc hbc, mul_eq_one_right b c hb hc hbc, rfl⟩
 
 /-- Concrete verification of P-uniqueness. -/

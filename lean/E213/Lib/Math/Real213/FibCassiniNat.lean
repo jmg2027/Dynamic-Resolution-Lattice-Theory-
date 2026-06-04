@@ -2,7 +2,7 @@ import E213.Lib.Math.Mobius213.Px.QFibIdentity
 import E213.Lib.Math.Real213.PhiAsCut
 import E213.Lib.Math.Real213.Mobius213PellInvariant
 import E213.Meta.Nat.PureNat
-import E213.Lib.Math.NatRing
+import E213.Meta.Nat.NatRing213
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Nat.NatDiv213
 
@@ -30,8 +30,8 @@ namespace E213.Lib.Math.Real213.FibCassiniNat
 
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc even_sq)
-open E213.Lib.Math.NatRing (two_mul_eq three_mul_eq nat_add_left_cancel nat_sub_add_cancel nat_mul_assoc nat_add_mul mul_sq sq_le_imp sq_lt_imp)
-open E213.Lib.Math.NatRing renaming nat_mul_lt_mul_right → mul_lt_mul_r, nat_mul_lt_mul_left → mul_lt_mul_l
+open E213.Meta.Nat.NatRing213 (two_mul_eq three_mul_eq nat_add_left_cancel nat_sub_add_cancel nat_mul_assoc nat_add_mul mul_sq sq_le_imp sq_lt_imp)
+open E213.Meta.Nat.NatRing213 renaming nat_mul_lt_mul_right → mul_lt_mul_r, nat_mul_lt_mul_left → mul_lt_mul_l
 open E213.Tactic.NatHelper (lt_of_lt_le lt_of_le_lt)
 open E213.Meta.Nat.NatDiv213 (two_cancel two_cancel_lt)
 
@@ -128,7 +128,7 @@ theorem fib_convergent_below_phi (n : Nat) :
     E213.Lib.Math.Real213.PhiAsCut.phiCut (fib (2 * n + 2)) (fib (2 * n + 1)) = false := by
   have hpk : (2 * fib (2 * n + 2) - fib (2 * n + 1)) + fib (2 * n + 1)
            = 2 * fib (2 * n + 2) :=
-    E213.Lib.Math.NatRing.nat_sub_add_cancel (den_le n)
+    E213.Meta.Nat.NatRing213.nat_sub_add_cancel (den_le n)
   have hform : (2 * fib (2 * n + 2) - fib (2 * n + 1)) * (2 * fib (2 * n + 2) - fib (2 * n + 1)) + 4
              = 5 * (fib (2 * n + 1) * fib (2 * n + 1)) :=
     phiform (fib (2 * n + 2)) (fib (2 * n + 1)) (2 * fib (2 * n + 2) - fib (2 * n + 1))

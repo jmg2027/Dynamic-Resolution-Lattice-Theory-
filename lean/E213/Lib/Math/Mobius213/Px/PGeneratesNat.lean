@@ -3,7 +3,7 @@ import E213.Lib.Math.Mobius213.Px.POrbitClosure
 import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.MulMod213
-import E213.Lib.Math.NatRing
+import E213.Meta.Nat.NatRing213
 
 /-!
 # Mobius213.Px.PGeneratesNat — P generates ALL natural numbers
@@ -69,7 +69,7 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d)
 open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
 open E213.Meta.Nat.AddMod213 (div_add_mod add_mod_gen mod_mod)
 open E213.Tactic.NatHelper (mul_mod_right sub_add_cancel)
-open E213.Lib.Math.NatRing (nat_add_mul)
+open E213.Meta.Nat.NatRing213 (nat_add_mul)
 
 /-! ## §1 — P-generation predicate
 

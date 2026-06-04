@@ -1,5 +1,5 @@
 /-!
-# E213.Lib.Math.NatRing — PURE Nat ring infrastructure
+# E213.Meta.Nat.NatRing213 — PURE Nat ring infrastructure
 
 The Lean 4 core proofs of `Nat.mul_assoc`, `Nat.add_mul`, and
 `Nat.add_right_cancel` leak `propext` (through internal use of
@@ -33,7 +33,7 @@ toolkit here.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.NatRing
+namespace E213.Meta.Nat.NatRing213
 
 /-! ## §1 — PURE multiplication associativity -/
 
@@ -200,4 +200,4 @@ theorem sq_lt_imp (x y : Nat) (h : x * x < y * y) : x < y := by
   | inl hlt => exact hlt
   | inr hge => exact (Nat.not_lt.mpr (Nat.mul_le_mul hge hge) h).elim
 
-end E213.Lib.Math.NatRing
+end E213.Meta.Nat.NatRing213
