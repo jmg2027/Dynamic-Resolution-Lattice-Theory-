@@ -26,19 +26,20 @@ infrastructure the integer Cayley–Hamilton telescoping needs.  No `funext`/`pr
   polynomial; identities about it are proven by evaluation, **reusing the `Int` determinant theory**
   instead of re-deriving cofactor/adjugate over `PolyZ`.
 
-## Open path — the remaining gate (precise plan in `research-notes/G185`, last two § Update blocks)
+## Open path — the remaining gate (precise plan in `research-notes/G185`, last § Update blocks)
 
-The single gate is **polynomial uniqueness** (`eval`-equal ⟹ coefficient-equal), which transports
-the `Int` adjugate identity (holds for every `x` at `A = xI−M`) into the `PolyZ` identity
-`charMat · padj = χ • I`, whose coefficient comparison telescopes to `χ(M)=0`.  Concrete next units:
+★ **The polynomial uniqueness gate is now CLOSED** (`PolyZ`, 26 PURE): `synth` + factor theorem
+`eval_synth`, `roots_bound`, `coeff_zero_of_eval_zero`, ★★ `coeff_unique` (two polynomials agreeing
+at every integer have equal coefficients).  This transports the `Int` adjugate identity
+(`Laplace.matMul_adj_diag/offdiag`, holds ∀`x` at `A = xI−M`) into a `PolyZ` coefficient identity.
 
-1. `synth p r` (synthetic-division quotient) with `eval p x = eval p r + (x−r)·eval (synth p r) x`
-   (Horner induction; mind the trailing-`0` length, use eval-ignores-trailing-zero).
-2. `roots_bound` (`length p ≤ L` + `L` distinct integer roots ⟹ `eval p ≡ 0`), induction on `L`,
-   factoring at one root (ℤ integral domain `Int213.mul_eq_zero`).
-3. `coeff_unique` (`∀x eval p x = eval q x → ∀k coeff p k = coeff q k`) via `roots_bound` on `p−q`.
-4. PolyZ adjugate `padj` + identity `charMat·padj = χ•I` by eval-at-all-`x` + `coeff_unique`.
-5. telescoping `χ(M)=Σ c_k M^k = 0` (consumes §4/§5 ring laws) ⟹ ★★★ integer Cayley–Hamilton.
+**Remaining (steps 4–6; all infrastructure now in place):**
+4. `pmatMul` (PolyZ matrix product) + eval-soundness; `padj` (poly-adjugate of `charMat`) +
+   eval-soundness; the entrywise identity `pmatMul charMat padj = χ • polyId` by eval-at-all-`x`
+   (Int adjugate + `eval_pdet`) + `coeff_unique`.  (New file importing `Laplace`+`PolyDet`+
+   `CayleyHamilton`.)
+5. telescoping `χ(M) = Σ_k c_k M^k = 0` (`B_k := coeff-matrix of padj`, `c_k := coeff χ`; index-shift
+   via §4/§5 matrix-ring laws) ⟹ ★★★ integer Cayley–Hamilton.
 6. §7 Kronecker `M` + first-component extraction ⟹ `cfiniteZ_mul` (`cfiniteZ_of_shiftRec`).
 
 ## Other live threads

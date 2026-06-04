@@ -456,3 +456,31 @@ identity (`Laplace.matMul_adj_diag/offdiag`, holds for every integer `x` at `A =
 
 Banked this session (route-independent, all PURE): the matrix ring (`CayleyHamilton` 25),
 `PolyZ` (16), `PolyDet`/`charPoly` (11).  **Next concrete unit: step 1–3 (polynomial uniqueness).**
+
+## Update — ★ polynomial uniqueness gate CLOSED (PolyZ 26 PURE)
+
+The gate of the whole CH program — `eval`-equal ⟹ coefficient-equal — is **done, ∅-axiom**
+(`PolyZ`, steps 1–3 of the prior plan):
+- `synth p r` (synthetic-division quotient, low-to-high, no trailing zero) + ★ **factor theorem**
+  `eval_synth`: `p(x) = p(r) + (x−r)·(synth p r)(x)` (Horner induction, `ring_intZ`), and
+  `length_synth_cons` (drops exactly one degree).
+- ★ `roots_bound`: a polynomial of length `≤ L` with `L` distinct integer roots is the zero
+  function (induction on `L`; factor at a root; `Int213.mul_eq_zero` integral domain).
+- ★ `coeff_zero_of_eval_zero`: vanishes everywhere ⟹ all coefficients `0` (peel the constant
+  term `a₀ = p(0)`, bridge the `x=0` gap via `roots_bound` at nodes `1,2,…`).  ⚠ `Nat.succ_ne_zero`
+  is propext-dirty — use `Nat.noConfusion`.
+- ★★ `coeff_unique`: two polynomials agreeing at every integer have equal coefficients
+  (`roots_bound` on `p − q`, `coeff_addP`/`coeff_negP`).
+
+This is the lemma that lets the `Int` adjugate identity (`Laplace.matMul_adj_diag/offdiag`, holds
+∀`x` at `A = xI−M`) be transported into the `PolyZ` matrix identity `charMat·padj = χ•I` by
+evaluation, then read coefficient-wise for the telescoping.
+
+**Remaining (steps 4–6, all infrastructure now in place):**
+4. `pmatMul` (PolyZ matrix product) + eval-soundness; `padj` (poly-adjugate of `charMat`, mirrors
+   `Laplace.adj` over `PolyZ`) + eval-soundness; the entrywise identity `pmatMul charMat padj =
+   χ • polyId` by eval-at-all-`x` (Int adjugate + `eval_pdet`/`eval_pmatMul`) + `coeff_unique`.
+   (New file importing `Laplace` + `PolyDet` + `CayleyHamilton`.)
+5. telescoping `χ(M) = Σ_k c_k M^k = 0` (`B_k := coeff-matrix of padj`, `c_k := coeff χ`; the
+   relations from step 4 read at each power; index-shift via §4/§5 matrix-ring laws) ⟹ ★★★ CH.
+6. §7 Kronecker `M` + first-component extraction ⟹ `cfiniteZ_mul`.
