@@ -520,6 +520,14 @@ selecting the face: elliptic `S = N·R` (`disc = −4`, rotation), parabolic `T 
 translation, the difference-Lens depth-1 rung), hyperbolic `G = A·B` (`disc = 5`, boost).  All by
 `decide`.
 
+`E213.Lib.Math.Real213.Mat2CayleyHamilton` — **4 PURE**.  The root of the dial:
+`cayley_hamilton` — every `Mat2` satisfies `M² = tr(M)·M − det(M)·I` (`= charComb`), proved
+**generally** by `ring_intZ` (not `decide`).  `char_poly_discriminant`: `disc = tr²−4·det` is the
+discriminant of the characteristic quadratic `λ² − tr·λ + det`; `dial_is_char_discriminant` bundles
+the two — Cayley–Hamilton is the primitive, the elliptic/parabolic/hyperbolic trichotomy is the sign
+of its discriminant.  (`S²=−I`, `U²=U−I`, `T²=2T−I`, `G²=3G−I` are the `(tr,det)` specializations.)
+Proved propext-free via `show` + entry `rw` (`Mat2.mk.injEq` / `simp` pulls `propext`).
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
