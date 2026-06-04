@@ -1,6 +1,6 @@
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 import E213.Lib.Math.Modulus.Translation
-import E213.Lib.Math.Topology.Continuity
+import E213.Lib.Math.Geometry.Topology.Continuity
 /-!
 # DiffCut differentiation with explicit modulus tracking
 

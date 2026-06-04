@@ -1,4 +1,4 @@
-import E213.Lib.Math.Topology.Continuity
+import E213.Lib.Math.Geometry.Topology.Continuity
 /-!
 # Oracle-based Continuity — eliminating the ε-δ residue from Real213
 
@@ -36,7 +36,7 @@ All declarations PURE.
 
 namespace E213.Lib.Math.Real213.OracleContinuity
 
-open E213.Lib.Math.Topology.Continuity (IsContinuousModulus)
+open E213.Lib.Math.Geometry.Topology.Continuity (IsContinuousModulus)
 
 /-- **Oracle continuity**: a typed promise of input-precision
     thresholds.  The Bool-valued `stabilises` field is the only

@@ -1,6 +1,6 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZOmegaUnits
 import E213.Lib.Math.Geometry.AlgebraicGeometry
-import E213.Lib.Math.Topology.EulerChi
+import E213.Lib.Math.Geometry.Topology.EulerChi
 import E213.Lib.Math.Mobius213OneAsGlue
 
 /-!
@@ -53,7 +53,7 @@ open E213.Lib.Math.CayleyDickson.Integer.ZOmega
   (units6 Zeta6 zeta6_pow_six units_count_eq_NSNT units_count_eq_six
    units_count_eq_d_plus_one units_count_eq_three_factorial)
 open E213.Lib.Math.Geometry.AlgebraicGeometry (dual_fillings_sum_eq_neg_eisenstein)
-open E213.Lib.Math.Topology.EulerChi (chi_delta_4 chi_K_32_c2)
+open E213.Lib.Math.Geometry.Topology.EulerChi (chi_delta_4 chi_K_32_c2)
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
 
 /-! ## §1.  Each reading equals 6 (as a Nat or Int identity) -/

@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Fractal.Level
 import E213.Lib.Math.UniverseChain.Recursion
-import E213.Lib.Math.GenerationRule.TriangleIteration
+import E213.Lib.Math.Geometry.GenerationRule.TriangleIteration
 import E213.Lib.Math.UniverseChain.BipartiteFractal
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Tactic.NatHelper
@@ -18,7 +18,7 @@ Vertex-replication map K₅ → K_{25}: `Fin 5 × Fin 5 → Fin 25`.
 namespace E213.Lib.Math.UniverseChain.FiniteContainsInfinite
 
 open E213.Lib.Math.Cohomology.Fractal.Level (numV)
-open E213.Lib.Math.GenerationRule.TriangleIteration (triIter T)
+open E213.Lib.Math.Geometry.GenerationRule.TriangleIteration (triIter T)
 
 /-- Replicate: K₅ × K₅ → K_{25} via `5*i + j`. -/
 def replicate (i j : Fin 5) : Fin 25 :=

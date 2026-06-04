@@ -1,5 +1,5 @@
 import E213.Lib.Math.Geometry.Rotation
-import E213.Lib.Math.Topology.EulerChi
+import E213.Lib.Math.Geometry.Topology.EulerChi
 import E213.Lib.Math.CayleyDickson.Integer.Hurwitz213
 
 /-!
@@ -95,9 +95,9 @@ theorem algebraic_geometry_supplementary :
     ∧ ((5 : Nat) * 2 = 10 ∧ (10 : Nat) = 5 * 2)
     ∧ ((2 : Nat) = NT)
     -- Δ⁴ vs K_{3,2}^{(c=2)} dual fillings
-    ∧ E213.Lib.Math.Topology.EulerChi.chi_delta_4 = 1
-    ∧ (E213.Lib.Math.Topology.EulerChi.chi_delta_4 = 1
-       ∧ E213.Lib.Math.Topology.EulerChi.chi_K_32_c2 = -7)
+    ∧ E213.Lib.Math.Geometry.Topology.EulerChi.chi_delta_4 = 1
+    ∧ (E213.Lib.Math.Geometry.Topology.EulerChi.chi_delta_4 = 1
+       ∧ E213.Lib.Math.Geometry.Topology.EulerChi.chi_K_32_c2 = -7)
     -- P^3 ≡ I (mod 2)
     ∧ ((13 : Nat) % 2 = 1)
     ∧ ((8 : Nat) % 2 = 0)
@@ -111,9 +111,9 @@ theorem algebraic_geometry_supplementary :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
           ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals first
-    | exact E213.Lib.Math.Topology.EulerChi.chi_delta_4_eq_one
-    | exact ⟨E213.Lib.Math.Topology.EulerChi.chi_delta_4_eq_one,
-             E213.Lib.Math.Topology.EulerChi.chi_K_32_c2_eq⟩
+    | exact E213.Lib.Math.Geometry.Topology.EulerChi.chi_delta_4_eq_one
+    | exact ⟨E213.Lib.Math.Geometry.Topology.EulerChi.chi_delta_4_eq_one,
+             E213.Lib.Math.Geometry.Topology.EulerChi.chi_K_32_c2_eq⟩
     | decide
     | rfl
 

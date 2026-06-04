@@ -1,6 +1,6 @@
 import E213.Lib.Math.Mobius213SignatureAxisCatalog
 import E213.Lib.Math.Cohomology.Bipartite.V32Betti
-import E213.Lib.Math.Topology.EulerChi
+import E213.Lib.Math.Geometry.Topology.EulerChi
 import E213.Lib.Physics.Couplings.SpectrumComplete
 import E213.Theory.SixTheorem
 
@@ -25,7 +25,7 @@ namespace E213.Lib.Math.Mobius213SignatureAxisCatalogPhase2
 open E213.Lib.Math.Cohomology.Bipartite.V32Betti
   (b0_eq_1 b1_eq_8_dim_count b1_eq_NS_sq_minus_1 cochV_count cochE_count
    kerSizeDelta0_eq_2)
-open E213.Lib.Math.Topology.EulerChi
+open E213.Lib.Math.Geometry.Topology.EulerChi
   (chi_delta_4_eq_one chi_reduced_eq_zero chi_S3_eq_zero
    chi_K_32_c2_eq)
 open E213.Lib.Physics.Couplings.SpectrumComplete
@@ -56,17 +56,17 @@ theorem axis_coh_cochE_count_eq_two_twelve : 2 ^ 12 = 4096 := cochE_count
 /-! ## §2 — Topology axes -/
 
 theorem axis_top_chi_delta_4_eq_one :
-    E213.Lib.Math.Topology.EulerChi.chi_delta_4 = 1 := chi_delta_4_eq_one
+    E213.Lib.Math.Geometry.Topology.EulerChi.chi_delta_4 = 1 := chi_delta_4_eq_one
 
 theorem axis_top_chi_reduced_eq_zero :
-    E213.Lib.Math.Topology.EulerChi.chi_reduced_delta_4 = 0 :=
+    E213.Lib.Math.Geometry.Topology.EulerChi.chi_reduced_delta_4 = 0 :=
   chi_reduced_eq_zero
 
 theorem axis_top_chi_S3_eq_zero :
-    E213.Lib.Math.Topology.EulerChi.chi_S3_boundary = 0 := chi_S3_eq_zero
+    E213.Lib.Math.Geometry.Topology.EulerChi.chi_S3_boundary = 0 := chi_S3_eq_zero
 
 theorem axis_top_chi_K32_eq_neg_seven :
-    E213.Lib.Math.Topology.EulerChi.chi_K_32_c2 = -7 := chi_K_32_c2_eq
+    E213.Lib.Math.Geometry.Topology.EulerChi.chi_K_32_c2 = -7 := chi_K_32_c2_eq
 
 /-! ## §3 — Cross-domain (Six-Theorem readings, distinct) -/
 
@@ -132,10 +132,10 @@ theorem signature_axis_master_phase_2 :
     ∧ (2 ^ 5 = 32)
     ∧ (2 ^ 12 = 4096)
     -- Topology (4)
-    ∧ (E213.Lib.Math.Topology.EulerChi.chi_delta_4 = 1)
-    ∧ (E213.Lib.Math.Topology.EulerChi.chi_reduced_delta_4 = 0)
-    ∧ (E213.Lib.Math.Topology.EulerChi.chi_S3_boundary = 0)
-    ∧ (E213.Lib.Math.Topology.EulerChi.chi_K_32_c2 = -7)
+    ∧ (E213.Lib.Math.Geometry.Topology.EulerChi.chi_delta_4 = 1)
+    ∧ (E213.Lib.Math.Geometry.Topology.EulerChi.chi_reduced_delta_4 = 0)
+    ∧ (E213.Lib.Math.Geometry.Topology.EulerChi.chi_S3_boundary = 0)
+    ∧ (E213.Lib.Math.Geometry.Topology.EulerChi.chi_K_32_c2 = -7)
     -- Cross-domain Six (7)
     ∧ (NS * NT = 6)
     ∧ (d + 1 = 6)

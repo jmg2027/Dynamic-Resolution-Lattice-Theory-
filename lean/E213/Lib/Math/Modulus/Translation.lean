@@ -1,4 +1,4 @@
-import E213.Lib.Math.Topology.Continuity
+import E213.Lib.Math.Geometry.Topology.Continuity
 
 /-!
 # ε-δ ↔ Discrete Depth Modulus translation (∅-axiom)
@@ -28,7 +28,7 @@ Atomic content: bridge between the existing
 
 namespace E213.Lib.Math.Modulus.Translation
 
-open E213.Lib.Math.Topology.Continuity (IsContinuousModulus)
+open E213.Lib.Math.Geometry.Topology.Continuity (IsContinuousModulus)
 
 /-- A **discrete-depth modulus**: explicit `Nat → Nat` function
     that, given an output bit-depth `N`, returns an input

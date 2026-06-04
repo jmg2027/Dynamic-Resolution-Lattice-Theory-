@@ -76,6 +76,6 @@ Linear chain.  All under namespace
     V32Betti entry in spin-off marathon table
   · `lean/E213/Lib/Math/Cohomology/Bipartite/V32Betti.lean` —
     K_{3,2}^{(c=2)}-specific predecessor
-  · `lean/E213/Lib/Math/GeometrizationConjecture/KChartLensAbstract.lean` —
+  · `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/KChartLensAbstract.lean` —
     abstract axes-partition structure that this parametric machinery
     grounds at the deployment level

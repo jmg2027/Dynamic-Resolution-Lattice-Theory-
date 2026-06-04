@@ -2,7 +2,7 @@ import E213.Lib.Math.Probability.Foundation.Capstone
 import E213.Lib.Math.Information.Capstone
 import E213.Lib.Math.Logic.Capstone
 import E213.Lib.Math.Combinatorics.Capstone
-import E213.Lib.Math.Topology.Capstone
+import E213.Lib.Math.Geometry.Topology.Capstone
 import E213.Lib.Math.Multivariable.Capstone
 import E213.Lib.Math.Complex.Capstone
 import E213.Lib.Math.Measure.Capstone
@@ -143,7 +143,7 @@ theorem cross_domain_unification_master : True := by
   have _hI := E213.Lib.Math.Information.Capstone.total_witness 3 3 3 [true]
   have _hL :=
     E213.Lib.Math.Logic.Capstone.total_witness sampleP true 3 3 sampleT
-  have _hT := E213.Lib.Math.Topology.Capstone.total_witness []
+  have _hT := E213.Lib.Math.Geometry.Topology.Capstone.total_witness []
   have _hM := E213.Lib.Math.Multivariable.Capstone.total_witness
                 ⟨0, by decide⟩ sampleMC sampleCut sampleCut 0
   have _hCx := E213.Lib.Math.Complex.Capstone.total_witness sampleZ

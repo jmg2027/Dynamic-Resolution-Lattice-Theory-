@@ -1,4 +1,4 @@
-import E213.Lib.Math.GenerationRule.TriangleIteration
+import E213.Lib.Math.Geometry.GenerationRule.TriangleIteration
 import E213.Lib.Math.UniverseChain.PairAxes
 
 /-!
@@ -25,7 +25,7 @@ unique one.  This is the strict reading of Step 3.5.
 
 namespace E213.Lib.Math.UniverseChain.TriangleRecurrence
 
-open E213.Lib.Math.GenerationRule.TriangleIteration
+open E213.Lib.Math.Geometry.GenerationRule.TriangleIteration
   (T triIter triIter_2_0 triIter_2_1 triIter_2_2 triIter_2_3
    triIter_2_4 T_two T_three T_six T_twentyone)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
