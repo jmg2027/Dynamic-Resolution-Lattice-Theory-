@@ -28,6 +28,7 @@ import E213.Lib.Math.Cauchy.EllipticPeriodicTier
 import E213.Lib.Math.Cauchy.DetZeroCollapse
 import E213.Lib.Math.Cauchy.WronskianDepth
 import E213.Lib.Math.Cauchy.GoldenPiFaces
+import E213.Lib.Math.Cauchy.ZeroInfinityHole
 import E213.Lib.Math.Cauchy.QuasiPolyBound
 import E213.Lib.Math.Cauchy.FiniteDepthAlgebra
 import E213.Lib.Math.Cauchy.BinomialTransform

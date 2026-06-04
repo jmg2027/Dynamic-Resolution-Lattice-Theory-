@@ -415,6 +415,18 @@ Cassini is period-2, the classical `F(n+2)F(n)−F(n+1)² = (−1)^{n+1}`), and
 difference-depth — additively maximal).  π is the `det = +1` magnitude (elliptic/rotation) face at
 an irrational angle — the open pole where the periodic floor fails.
 
+`E213.Lib.Math.Cauchy.ZeroInfinityHole` — **5 PURE**.  `0` and `∞` as **one hole, not two dual
+values** — the single point where the reciprocal fold `x ↦ 1/x` returns no value, named twice (`0`
+from inside the values, `∞` through the reciprocal).  `zero_no_reciprocal` (`q · 0 ≠ 1` — `0` is the
+unique non-invertible point, the value-side name of `∞`), `self_reciprocal_iff_unit` (`q·q = 1 ↔ q =
+±1`, via the PURE `Int213.int_sq_le_one` — the reciprocal-fixed core is exactly the units) and its
+contrapositive `non_unit_not_self_reciprocal`, `cas_zero_collapses` (`det = 0` ⟹ the Casoratian
+vanishes from the next step — the hole's value-image is the area crushed to `0`), bundled in
+`zero_is_hole_units_are_core`.  Treating `0` as a value smuggles half of an `∞`-system: a
+reciprocal-closed value-system admitting `0` is forced to admit `1/0`; the founding's `ℚ₊` excludes
+both symmetrically (`qSwap` total, unique fixed point `1`).  Collapse at the hole, conservation on the
+reciprocal-fixed core `±1`.
+
 `E213.Lib.Math.MaxEntropy` — **8 PURE**.  Structurelessness as a **positive intrinsic property**.
 `MaxEntropy s := ¬ ∃ d, polyDepthZ d s` — no finite holonomic certificate generates `s` (the
 *incompressibility* / measure-free reading of maximum entropy; the measure reading would smuggle an
