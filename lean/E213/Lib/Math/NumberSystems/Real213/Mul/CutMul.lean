@@ -23,7 +23,7 @@ bound = (m+1)*(k+1) — sufficient search space.
 namespace E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Cauchy.Archimedean
+open E213.Lib.Math.Analysis.Cauchy.Archimedean
 
 /-- Inner: iterate m2 from 0 to m2Bound, m1 fixed. -/
 def cutMulInner (cx cy : Nat → Nat → Bool) (k m m1 : Nat) : Nat → Bool

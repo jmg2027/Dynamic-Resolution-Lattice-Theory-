@@ -1,4 +1,4 @@
-import E213.Lib.Math.Mobius213
+import E213.Lib.Math.Algebra.Mobius213
 import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 
 /-!
@@ -46,7 +46,7 @@ PURE: all theorems strict ∅-axiom.
 
 namespace E213.Lib.Math.NumberSystems.Real213.PhiCut
 
-open E213.Lib.Math.Mobius213
+open E213.Lib.Math.Algebra.Mobius213
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-! ## §1.  Pell convergents as Cuts

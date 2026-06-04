@@ -23,10 +23,10 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCertifiedBracket
 
-open E213.Lib.Math.Cauchy.Archimedean (orderProj)
-open E213.Lib.Math.Cauchy.MonotonicBounded
+open E213.Lib.Math.Analysis.Cauchy.Archimedean (orderProj)
+open E213.Lib.Math.Analysis.Cauchy.MonotonicBounded
   (orderCauchy_from_true_forever orderCauchy_from_false_witness)
-open E213.Lib.Math.Cauchy.EulerSeq (eulerRawSeq euler_isAbMonotonic euler_isAbPositiveB)
+open E213.Lib.Math.Analysis.Cauchy.EulerSeq (eulerRawSeq euler_isAbMonotonic euler_isAbPositiveB)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCut (eulerCut_at_3 eulerCut_below_8_3)
 open E213.Lens.Instances.AB (abLens)
 

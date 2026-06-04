@@ -436,7 +436,7 @@ Multiplication will leverage:
   · `E213.Meta.Nat.MulMod213.mul_mod_pure` for `(a * b) % p`
 
 Inverse (Hensel phase) will reuse:
-  · `E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout`
+  · `E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant.modInverseFromBezout`
 
 All upstream ingredients are ∅-axiom PURE.
 -/

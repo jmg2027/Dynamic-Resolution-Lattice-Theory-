@@ -1,9 +1,9 @@
-import E213.Lib.Math.Mobius213
+import E213.Lib.Math.Algebra.Mobius213
 import E213.Lib.Math.Mobius213OneAsGlue
 import E213.Lib.Math.Mobius213ModFive
-import E213.Lib.Math.Mobius213.Mobius213K32Bridge
+import E213.Lib.Math.Algebra.Mobius213.Mobius213K32Bridge
 import E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
-import E213.Lib.Math.CayleyDickson.Tower.Mobius213CDBridge
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.Mobius213CDBridge
 import E213.Theory.Atomicity
 import E213.Lib.Physics.Simplex.Counts
 
@@ -39,13 +39,13 @@ namespace E213.Lib.Math.Mobius213SignatureAxisCatalog
 open E213.Lib.Math.Mobius213OneAsGlue
   (mobius_entries_sum_to_d ns_nt_product ns_is_succ_nt ns_minus_nt_is_one
    mobius_det_eq_ns_minus_nt one_is_det off_diagonal_is_two_ones)
-open E213.Lib.Math.Mobius213
+open E213.Lib.Math.Algebra.Mobius213
   (mobius_213_discriminant mobius_213_trace mobius_213_det)
 open E213.Lib.Math.Mobius213ModFive
   (P_pow_5_eq_neg_I_mod_5 P_pow_10_eq_I_mod_5)
 open E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
   (disc_atom_orbit_master)
-open E213.Lib.Math.CayleyDickson.Tower.Mobius213CDBridge
+open E213.Lib.Math.Algebra.CayleyDickson.Tower.Mobius213CDBridge
   (cd_mobius_bridge_master)
 open E213.Theory.Atomicity.Five (Atomic atomic_five atomic_iff_five)
 open E213.Lib.Physics.Simplex.Counts (NS NT d partition_sum)
@@ -117,9 +117,9 @@ theorem axis_nt_pell_unit_value : (-1 : Int) = (NT : Int) - (NS : Int) := by
 /-! ## §4 — Cayley-Dickson tower axes -/
 
 theorem axis_cd_master :
-    E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .C
+    E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .C
       = (5, -1)
-    ∧ E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .D
+    ∧ E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .D
         = (1, 1)
     ∧ (3 : Int)^2 - 4 * 1 = 5
     ∧ (NS + NT : Int) = 5
@@ -128,15 +128,15 @@ theorem axis_cd_master :
   cd_mobius_bridge_master
 
 theorem axis_cd_type_C_first_eq_disc :
-    (E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .C).1
+    (E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .C).1
       = 5 := by decide
 
 theorem axis_cd_type_C_second_eq_pell_unit :
-    (E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .C).2
+    (E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .C).2
       = -1 := by decide
 
 theorem axis_cd_type_D_eq_one_one :
-    E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .D
+    E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab .D
       = (1, 1) := by decide
 
 /-! ## §5 — Config-count axes (bare arithmetic) -/
@@ -192,11 +192,11 @@ theorem signature_axis_master_phase_1 :
     ∧ ((-1 : Int) = (NT : Int) - (NS : Int))
     ∧ (10 = 2 * d)
     -- CD-tower
-    ∧ ((E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab
+    ∧ ((E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab
         .C).1 = 5)
-    ∧ ((E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab
+    ∧ ((E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab
         .C).2 = -1)
-    ∧ (E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab
+    ∧ (E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab
         .D = (1, 1))
     -- Config-count (bare arithmetic)
     ∧ (d * d = 25)

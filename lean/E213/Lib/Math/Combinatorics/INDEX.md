@@ -31,8 +31,8 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
 
   * `Lib/Physics/Simplex/Counts.lean`: `binom` definition + dim
     table.
-  * `Lib/Math/DyadicFSM/Pell/`: Pell hierarchy (already realized).
-  * `Lib/Math/DyadicFSM/Fib/`, `Trib/`: Fibonacci, Tribonacci.
+  * `Lib/Math/NumberTheory/DyadicFSM/Pell/`: Pell hierarchy (already realized).
+  * `Lib/Math/NumberTheory/DyadicFSM/Fib/`, `Trib/`: Fibonacci, Tribonacci.
   * `Lib/Math/Cohomology/Bipartite/`: K_{3,2} structure.
   * `Lib/Physics/AtomicBase/Pairs.lean`: 10-pair partition (3+1+6).
   * `Lib/Math/Cohomology/CutExpFiniteTruncation.lean`: paradigm

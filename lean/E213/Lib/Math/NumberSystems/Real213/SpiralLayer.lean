@@ -1,7 +1,7 @@
 import E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor
-import E213.Lib.Math.Cauchy.DivergenceDepth
-import E213.Lib.Math.Cauchy.DepthPiQuartic
-import E213.Lib.Math.Cauchy.DepthCoordGenerator
+import E213.Lib.Math.Analysis.Cauchy.DivergenceDepth
+import E213.Lib.Math.Analysis.Cauchy.DepthPiQuartic
+import E213.Lib.Math.Analysis.Cauchy.DepthCoordGenerator
 
 /-!
 # SpiralLayer — the divergence-depth layer is an intensional coordinate
@@ -39,10 +39,10 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberSystems.Real213.SpiralLayer
 
 open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor (cfDet cf_det_sq)
-open E213.Lib.Math.Cauchy.DivergenceDepth (ratio depth_three)
-open E213.Lib.Math.Cauchy.DepthPiQuartic (piRatio piRatio_polyDepth)
-open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth)
-open E213.Lib.Math.Cauchy.DepthCoordGenerator (genExp genExp_depth_exact)
+open E213.Lib.Math.Analysis.Cauchy.DivergenceDepth (ratio depth_three)
+open E213.Lib.Math.Analysis.Cauchy.DepthPiQuartic (piRatio piRatio_polyDepth)
+open E213.Lib.Math.Analysis.Cauchy.DepthPRecursive (polyDepth)
+open E213.Lib.Math.Analysis.Cauchy.DepthCoordGenerator (genExp genExp_depth_exact)
 
 /-- ★★★ **The divergence-depth layer is intensional.**  The regular continued fraction
     collapses every real to the depth-1 det-one floor (`W² = 1`, universal); the depths
@@ -62,8 +62,8 @@ theorem depth_is_intensional :
     the spectrum is all of `ℕ`; `{1, 3, 6}` for `{φ, e, π}` is a selection (ratio-degrees
     `{0, 1, 4}`), not a privileged (e.g. triangular) subset. -/
 theorem depth_spectrum_unrestricted (d : Nat) :
-    polyDepth d (genExp d) ∧ ∀ j, j < d → ¬ E213.Lib.Math.Cauchy.DivergenceLadder.isConst
-      (E213.Lib.Math.Cauchy.DepthTower.diffN j (genExp d)) :=
+    polyDepth d (genExp d) ∧ ∀ j, j < d → ¬ E213.Lib.Math.Analysis.Cauchy.DivergenceLadder.isConst
+      (E213.Lib.Math.Analysis.Cauchy.DepthTower.diffN j (genExp d)) :=
   genExp_depth_exact d
 
 end E213.Lib.Math.NumberSystems.Real213.SpiralLayer

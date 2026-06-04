@@ -1,4 +1,4 @@
-import E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal
+import E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal
 import E213.Lib.Math.Mobius213OneAsGlue
 
 /-!
@@ -27,7 +27,7 @@ reflexive and symmetric below).
 
 namespace E213.Lens.Number.RatioLensFounding
 
-open E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_universal)
+open E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_universal)
 open E213.Lib.Math.Mobius213OneAsGlue (ns_minus_nt_is_one)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 

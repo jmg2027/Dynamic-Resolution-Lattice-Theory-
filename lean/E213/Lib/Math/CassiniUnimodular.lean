@@ -1,4 +1,4 @@
-import E213.Lib.Math.Mobius213.Px.CharPolySelf
+import E213.Lib.Math.Algebra.Mobius213.Px.CharPolySelf
 import E213.Meta.Int213.Core
 import E213.Meta.Int213.PolyIntMTactic
 
@@ -35,8 +35,8 @@ All zero-axiom.
 
 namespace E213.Lib.Math.CassiniUnimodular
 
-open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
-open E213.Lib.Math.Mobius213.Px.CharPolySelf (cassini_general L_rec)
+open E213.Lib.Math.Algebra.Mobius213.Px.POrbitClosure (L)
+open E213.Lib.Math.Algebra.Mobius213.Px.CharPolySelf (cassini_general L_rec)
 open E213.Lib.Physics.Simplex.Counts (d NT)
 
 /-- `-(a − b) = b − a`, ∅-axiom via the `Int213` primitives (no core `Int.neg_sub`,

@@ -27,7 +27,7 @@ namespace E213.Lib.Math.NumberSystems.Real213.RefinedCompletabilityEngine
 
 open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall)
 open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
-open E213.Lib.Math.Cauchy.DepthOmegaTower (expTower)
+open E213.Lib.Math.Analysis.Cauchy.DepthOmegaTower (expTower)
 open E213.Lib.Math.NumberSystems.Real213.CompletabilityGrade (completability_grade height_is_omega_coordinate)
 open E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability (completability_is_intensional)
 

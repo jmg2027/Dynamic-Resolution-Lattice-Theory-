@@ -24,7 +24,7 @@ open E213.Lib.Math.Tactic.Extras.SymFin
   (FinPerm idPerm composeFin idPerm_at swap2 fin2_zero fin2_one
    swap2_zero swap2_one swap2_involutive_zero swap2_involutive_one)
 open E213.Lib.Math.Tactic.Extras.InnerCauchy (inner_cs_atomic)
-open E213.Lib.Math.Functional.InnerProduct (innerNum)
+open E213.Lib.Math.Analysis.Functional.InnerProduct (innerNum)
 
 /-- ★ **Cauchy-Schwarz / Hölder witness (Nat-side, ∀ a b)**. -/
 theorem cs_witness (a b : Nat) :
@@ -34,8 +34,8 @@ theorem cs_witness (a b : Nat) :
 /-- ★ **Lp p=1 collapse witness (∀ S, funext-free)**. -/
 theorem lp_one_witness (f : Nat → Nat)
     (s : List E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket.DyadicBracket) :
-    E213.Lib.Math.Measure.Lp.lpNormPow 1 f s
-      = E213.Lib.Math.Measure.LebesgueIntegral.lebesgueStepNum f s :=
+    E213.Lib.Math.Analysis.Measure.Lp.lpNormPow 1 f s
+      = E213.Lib.Math.Analysis.Measure.LebesgueIntegral.lebesgueStepNum f s :=
   lp_one_eq_lebesgue f s
 
 /-- ★ **Sₙ via Fin n witness** — id, swap2, involutive at 0/1. -/
@@ -58,8 +58,8 @@ theorem inner_cs_witness (f g : Nat → Nat) :
 theorem total_witness (a b : Nat) (f g : Nat → Nat)
     (s : List E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket.DyadicBracket) :
     2 * (a * b) ≤ a * a + b * b
-    ∧ E213.Lib.Math.Measure.Lp.lpNormPow 1 f s
-        = E213.Lib.Math.Measure.LebesgueIntegral.lebesgueStepNum f s
+    ∧ E213.Lib.Math.Analysis.Measure.Lp.lpNormPow 1 f s
+        = E213.Lib.Math.Analysis.Measure.LebesgueIntegral.lebesgueStepNum f s
     ∧ swap2 fin2_zero = fin2_one
     ∧ (innerNum 1 f g) * (innerNum 1 f g)
         = innerNum 1 f f * innerNum 1 g g :=

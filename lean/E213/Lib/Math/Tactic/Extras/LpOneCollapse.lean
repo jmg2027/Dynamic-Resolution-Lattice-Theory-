@@ -1,5 +1,5 @@
-import E213.Lib.Math.Measure.Lp
-import E213.Lib.Math.Measure.LebesgueIntegral
+import E213.Lib.Math.Analysis.Measure.Lp
+import E213.Lib.Math.Analysis.Measure.LebesgueIntegral
 
 /-!
 # Lp p=1 collapse (∀ S, funext-free; ∅-axiom)
@@ -18,9 +18,9 @@ namespace E213.Lib.Math.Tactic.Extras.LpOneCollapse
 
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
   (DyadicBracket DyadicBracket.midNum DyadicBracket.lenNum)
-open E213.Lib.Math.Measure.MeasurableSet (DyadicMeasurableSet)
-open E213.Lib.Math.Measure.LebesgueIntegral (lebesgueStepNum)
-open E213.Lib.Math.Measure.Lp (lpNormPow powIntegrand)
+open E213.Lib.Math.Analysis.Measure.MeasurableSet (DyadicMeasurableSet)
+open E213.Lib.Math.Analysis.Measure.LebesgueIntegral (lebesgueStepNum)
+open E213.Lib.Math.Analysis.Measure.Lp (lpNormPow powIntegrand)
 
 /-- ★ `‖f‖_1 = ∫ f dμ` for *every* measurable set `S` (no funext). -/
 theorem lp_one_eq_lebesgue : ∀ (f : Nat → Nat) (s : List DyadicBracket),

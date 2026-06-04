@@ -35,11 +35,11 @@ both pin `NS = 3`), not for free.  All ∅-axiom.
 
 namespace E213.Lens.Number.FoundingDialUnification
 
-open E213.Lib.Math.Cauchy.EllipticPeriodicTier (comp comp_tr comp_det comp_disc parabolic_iff_depth1)
-open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ liftKZ)
+open E213.Lib.Math.Analysis.Cauchy.EllipticPeriodicTier (comp comp_tr comp_det comp_disc parabolic_iff_depth1)
+open E213.Lib.Math.Analysis.Cauchy.NewtonGregory (polyDepthZ liftKZ)
 open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
-open E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11)
+open E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11)
 open E213.Lens.Number.RatioLensFounding (convergent_lowest_terms_is_det)
 open E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
 

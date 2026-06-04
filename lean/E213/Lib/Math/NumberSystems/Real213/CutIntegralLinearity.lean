@@ -24,7 +24,7 @@ open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
 open E213.Lib.Math.NumberSystems.Real213.CutIntegral (cutIntegralOver)
-open E213.Lib.Math.Measure.MeasurableSet
+open E213.Lib.Math.Analysis.Measure.MeasurableSet
   (DyadicMeasurableSet emptySet singleton union)
 
 /-! ## §1 — Structural unfolding identities

@@ -9,7 +9,7 @@ mediant operation (a, b) ⊕ (c, d) = (a+c, b+d).  Equivalent to
 the orbit of the seeds under the L+R monoid action — where
 L = [[1,0],[1,1]] and R = [[1,1],[0,1]] are the standard SL₂(ℤ)
 generators whose composite R·L = [[2,1],[1,1]] is the 213
-Möbius matrix P (`Lib/Math/Mobius213.lean`).
+Möbius matrix P (`Lib/Math/Algebra/Mobius213.lean`).
 
 Every coprime (m, k) ∈ ℕ × ℕ appears (uniquely) in the
 Stern-Brocot tree, so the mediant-closure equality

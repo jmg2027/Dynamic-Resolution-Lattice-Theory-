@@ -21,6 +21,6 @@ characterisation.
 
 ## Companion clusters
 
-  - `Lib/Math/CayleyDickson/Tower/` — CD tower (different topic, both
+  - `Lib/Math/Algebra/CayleyDickson/Tower/` — CD tower (different topic, both
                                        "tower" pattern)
   - `Lib/Math/Geometry/LevelTopology/`       — level topology

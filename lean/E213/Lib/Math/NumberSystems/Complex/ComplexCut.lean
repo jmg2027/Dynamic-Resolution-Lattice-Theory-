@@ -17,7 +17,7 @@ Operations:
   * `i := (0, 1)` — imaginary unit
 
 213-native: ℂ is the *first* Cayley-Dickson level on `Cut`.
-ZI (Gaussian integers) at `Lib/Math/CayleyDickson/ZI.lean` already
+ZI (Gaussian integers) at `Lib/Math/Algebra/CayleyDickson/ZI.lean` already
 formalized — this file connects it to single-variable Analysis 213.
 -/
 

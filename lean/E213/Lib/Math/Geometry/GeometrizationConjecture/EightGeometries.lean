@@ -1,7 +1,7 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Ricci
 import E213.Lib.Math.Geometry.Topology.EulerChi
 import E213.Lib.Math.Geometry.Rotation
-import E213.Lib.Math.Mobius213
+import E213.Lib.Math.Algebra.Mobius213
 
 /-!
 # 8 model geometries via Möbius P (steps 11, 18-22)

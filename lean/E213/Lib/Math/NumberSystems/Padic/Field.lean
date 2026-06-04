@@ -226,7 +226,7 @@ As a `QpSeq`, this is `(Zp.shiftLeft a.shift (invFull a.num), 0)`
 
 /-- Multiplicative inverse on `QpSeq` (requires unit numerator). -/
 def QpSeq.inv (p : Nat) (hp : 1 < p) (a : QpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (a.num.digits 0).val p).1 = 1) : QpSeq p where
   num := Zp.shiftLeft p (Nat.lt_of_succ_lt hp) a.shift
             (Zp.invFull p (Nat.lt_of_succ_lt hp) a.num h_gcd)
@@ -234,13 +234,13 @@ def QpSeq.inv (p : Nat) (hp : 1 < p) (a : QpSeq p)
 
 /-- The shift of `QpSeq.inv` is always 0 (inverse is "integer-shaped"). -/
 theorem QpSeq.inv_shift (p : Nat) (hp : 1 < p) (a : QpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (a.num.digits 0).val p).1 = 1) :
     (QpSeq.inv p hp a h_gcd).shift = 0 := rfl
 
 /-- The numerator unfolding for `QpSeq.inv`. -/
 theorem QpSeq.inv_num (p : Nat) (hp : 1 < p) (a : QpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (a.num.digits 0).val p).1 = 1) :
     (QpSeq.inv p hp a h_gcd).num
       = Zp.shiftLeft p (Nat.lt_of_succ_lt hp) a.shift
@@ -254,13 +254,13 @@ coprime to `p` (so `b⁻¹` exists).
 
 /-- Division on `QpSeq` (requires unit denominator). -/
 def QpSeq.div (p : Nat) (hp : 1 < p) (a b : QpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (b.num.digits 0).val p).1 = 1) : QpSeq p :=
   QpSeq.mul p (Nat.lt_of_succ_lt hp) a (QpSeq.inv p hp b h_gcd)
 
 /-- The shift of `a / b` equals `a.shift` (since `inv` has shift 0). -/
 theorem QpSeq.div_shift (p : Nat) (hp : 1 < p) (a b : QpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (b.num.digits 0).val p).1 = 1) :
     (QpSeq.div p hp a b h_gcd).shift = a.shift := by
   show a.shift + (QpSeq.inv p hp b h_gcd).shift = a.shift
@@ -268,7 +268,7 @@ theorem QpSeq.div_shift (p : Nat) (hp : 1 < p) (a b : QpSeq p)
 
 /-- The numerator of `a / b` is `a.num · b.num⁻¹`. -/
 theorem QpSeq.div_num (p : Nat) (hp : 1 < p) (a b : QpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (b.num.digits 0).val p).1 = 1) :
     (QpSeq.div p hp a b h_gcd).num
       = Zp.mul p (Nat.lt_of_succ_lt hp) a.num (QpSeq.inv p hp b h_gcd).num := rfl

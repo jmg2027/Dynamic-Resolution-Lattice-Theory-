@@ -3,9 +3,9 @@ import E213.Lib.Math.Probability.Information.Capstone
 import E213.Lib.Math.Combinatorics.Logic.Capstone
 import E213.Lib.Math.Combinatorics.Capstone
 import E213.Lib.Math.Geometry.Topology.Capstone
-import E213.Lib.Math.Multivariable.Capstone
+import E213.Lib.Math.Analysis.Multivariable.Capstone
 import E213.Lib.Math.NumberSystems.Complex.Capstone
-import E213.Lib.Math.Measure.Capstone
+import E213.Lib.Math.Analysis.Measure.Capstone
 import E213.Lib.Physics.AlphaEM.GradedDecomposition
 import E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 import E213.Lib.Physics.AlphaEM.CupChannelInventory
@@ -95,7 +95,7 @@ def sampleT : E213.Lib.Math.Combinatorics.Logic.Proof.Trajectory := []
 def sampleCut : Nat → Nat → Bool := fun _ _ => true
 
 /-- Sample MultiCut for Multivariable domain. -/
-def sampleMC : E213.Lib.Math.Multivariable.MultiCut.MultiCut 5 :=
+def sampleMC : E213.Lib.Math.Analysis.Multivariable.MultiCut.MultiCut 5 :=
   fun _ _ _ => true
 
 /-- Sample ComplexCut for Complex domain. -/
@@ -107,7 +107,7 @@ def sampleDB : E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket.DyadicBracket :
   ⟨0, 0, 0, Nat.le_refl 0⟩
 
 /-- Sample DyadicMeasurableSet (= List DyadicBracket). -/
-def sampleMS : E213.Lib.Math.Measure.MeasurableSet.DyadicMeasurableSet := []
+def sampleMS : E213.Lib.Math.Analysis.Measure.MeasurableSet.DyadicMeasurableSet := []
 
 
 /-- ★★★★★ Cross-Domain Unification Master Theorem (C6 step 1).
@@ -144,10 +144,10 @@ theorem cross_domain_unification_master : True := by
   have _hL :=
     E213.Lib.Math.Combinatorics.Logic.Capstone.total_witness sampleP true 3 3 sampleT
   have _hT := E213.Lib.Math.Geometry.Topology.Capstone.total_witness []
-  have _hM := E213.Lib.Math.Multivariable.Capstone.total_witness
+  have _hM := E213.Lib.Math.Analysis.Multivariable.Capstone.total_witness
                 ⟨0, by decide⟩ sampleMC sampleCut sampleCut 0
   have _hCx := E213.Lib.Math.NumberSystems.Complex.Capstone.total_witness sampleZ
-  have _hMs := E213.Lib.Math.Measure.Capstone.total_witness
+  have _hMs := E213.Lib.Math.Analysis.Measure.Capstone.total_witness
                  0 (fun n => n) sampleDB sampleMS sampleMS
   have _h1 :=
     E213.Lib.Physics.AlphaEM.CupChannelInventory.cup_channel_inventory_master

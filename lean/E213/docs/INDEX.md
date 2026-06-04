@@ -33,6 +33,6 @@ here because they are Lean-tree maintenance docs, not exploratory
 research notes.  Citations updated:
 - `lean/E213/ARCHITECTURE.md` §10 R10
 - `lean/E213/Lib/Math.lean` umbrella §Status
-- `lean/E213/Lib/Math/DyadicFSM.lean` §Status
+- `lean/E213/Lib/Math/NumberTheory/DyadicFSM.lean` §Status
 - `lean/E213/Lib/Physics/Basel/Bound.lean` consolidation note
 - `lean/E213/Lib/Physics/Couplings/TripleCoupling.lean` consolidation note

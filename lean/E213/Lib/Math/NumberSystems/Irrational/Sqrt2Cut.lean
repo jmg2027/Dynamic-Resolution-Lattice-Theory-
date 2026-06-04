@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cauchy.Archimedean
+import E213.Lib.Math.Analysis.Cauchy.Archimedean
 import E213.Meta.Nat.NatRing213
 
 /-!
@@ -27,7 +27,7 @@ For m² > 2k²: (m² - 2k²) ≥ 1, so y² ≥ k² → conclusion.
 namespace E213.Lib.Math.NumberSystems.Irrational.Sqrt2Cut
 
 open E213.Theory E213.Lens
-open E213.Lens.Instances.AB E213.Lib.Math.Cauchy.Archimedean
+open E213.Lens.Instances.AB E213.Lib.Math.Analysis.Cauchy.Archimedean
 
 /-- Pell-like condition. -/
 def IsPellSol (x y : Nat) : Prop := x * x = 2 * y * y + 1

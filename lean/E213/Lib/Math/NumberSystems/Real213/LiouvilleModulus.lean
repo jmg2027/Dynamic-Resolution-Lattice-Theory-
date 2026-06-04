@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
-import E213.Lib.Math.Cauchy.DepthLiouvilleCoord
+import E213.Lib.Math.Analysis.Cauchy.DepthLiouvilleCoord
 import E213.Meta.Nat.PureNat
 
 /-!
@@ -44,8 +44,8 @@ namespace E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
 open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
   (CrossDetSmall crossdet_small_total_modulus two_pow_ge_succ)
 open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
-open E213.Lib.Math.Cauchy.DepthLiouvilleCoord (fact fact_pos fact_succ ratioLift_fact)
-open E213.Lib.Math.Cauchy.DepthTower (ratioLift)
+open E213.Lib.Math.Analysis.Cauchy.DepthLiouvilleCoord (fact fact_pos fact_succ ratioLift_fact)
+open E213.Lib.Math.Analysis.Cauchy.DepthTower (ratioLift)
 open E213.Tactic.NatHelper (mul_assoc add_mul add_sub_of_le)
 open E213.Meta.Nat.PureNat (pow_add)
 

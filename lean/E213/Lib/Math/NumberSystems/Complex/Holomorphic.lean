@@ -9,7 +9,7 @@ real and imaginary parts satisfy the Cauchy-Riemann equations:
   `∂u/∂x = ∂v/∂y`,  `∂u/∂y = -∂v/∂x`
 
 In 213-native form: each side is `partialAt` from
-`Lib/Math/Multivariable/PartialDerivative.lean`, applied to the
+`Lib/Math/Analysis/Multivariable/PartialDerivative.lean`, applied to the
 real (`u`) and imaginary (`v`) components of `f`.
 
 This file: skeleton — `IsHolomorphic` predicate, identity is

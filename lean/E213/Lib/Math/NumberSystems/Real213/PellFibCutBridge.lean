@@ -1,5 +1,5 @@
-import E213.Lib.Math.Mobius213
-import E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock
+import E213.Lib.Math.Algebra.Mobius213
+import E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock
 import E213.Lib.Math.NumberSystems.Real213.PhiCut
 import E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
 import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
@@ -34,8 +34,8 @@ limit), retiring the native-Nat twin's "no PURE bridge" caveat.
 
 namespace E213.Lib.Math.NumberSystems.Real213.PellFibCutBridge
 
-open E213.Lib.Math.Mobius213 (P_numerator P_denominator)
-open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Algebra.Mobius213 (P_numerator P_denominator)
+open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Meta.Nat.NatRing213 (three_mul_eq two_mul_eq)
 open E213.Meta.Int213
 

@@ -117,7 +117,7 @@ two readings of `5` — `disc(P)` and `unique atomic Nat` — meet
 at `NS + NT = d` in the 213 signature. -/
 
 /-- The matrix `P = [[2,1],[1,1]]` has discriminant `5` as a Nat
-    identity (Int form in `Lib/Math/Mobius213.lean`). -/
+    identity (Int form in `Lib/Math/Algebra/Mobius213.lean`). -/
 theorem disc_P_eq_five : 3 * 3 = 4 * 1 + 5 := by decide
 
 /-- `5 = NS + NT = d` in 213 signature terms (NS = 3, NT = 2). -/

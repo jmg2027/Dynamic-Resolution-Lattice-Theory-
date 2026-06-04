@@ -1,6 +1,6 @@
 import E213.Meta.Nat.Max213
 import E213.Lib.Math.NumberSystems.Real213.Core.Core
-import E213.Lib.Math.Modulus.HasModulus
+import E213.Lib.Math.Analysis.Modulus.HasModulus
 
 /-!
 # Real213ModulusCombiner: Generic kernel for combining HasModulus
@@ -21,9 +21,9 @@ Per-operation (add, mul, ...) supplies only a ModulusCombiner instance.
 namespace E213.Lib.Math.Analysis.Differentiation.ModulusCombiner
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Modulus.HasModulus
+open E213.Lib.Math.Analysis.Modulus.HasModulus
 open E213.Lens.Instances.AB
-open E213.Lib.Math.Cauchy.Archimedean
+open E213.Lib.Math.Analysis.Cauchy.Archimedean
 open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
 
 /-- **ModulusCombiner**: abstract kernel for sequence combine + Cauchy preservation. -/
@@ -42,9 +42,9 @@ structure ModulusCombiner (combine : Raw → Raw → Raw) where
         = orderProj m k (abLens.view (combine x2 y2))
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Modulus.HasModulus
+open E213.Lib.Math.Analysis.Modulus.HasModulus
 open E213.Lens.Instances.AB
-open E213.Lib.Math.Cauchy.Archimedean
+open E213.Lib.Math.Analysis.Cauchy.Archimedean
 open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
 
 /-- **Generic combine theorem**: ModulusCombiner + two HasModulus → combined HasModulus. -/

@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Real213.FloorReferenceForm
-import E213.Lib.Math.CayleyDickson.Tower.MobiusPIcosian
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.MobiusPIcosian
 
 /-!
 # FiveFloorUnification — the completability floor and the McKay E₈ endpoint are one P
@@ -35,7 +35,7 @@ All zero-axiom.
 namespace E213.Lib.Math.FiveFloorUnification
 
 open E213.Lib.Math.NumberSystems.Real213.FloorReferenceForm (floor_reference_is_indefinite)
-open E213.Lib.Math.CayleyDickson.Tower.MobiusPIcosian (mobius_P_meets_icosian_endpoint)
+open E213.Lib.Math.Algebra.CayleyDickson.Tower.MobiusPIcosian (mobius_P_meets_icosian_endpoint)
 
 /-- ★★★ **The completability floor and the E₈ endpoint are the same `P`.**  Bundles, as
     one ∅-axiom statement, the two independently-developed readings of the atomic
@@ -56,9 +56,9 @@ theorem five_floor_unifies :
       ∧ ((∃ m k : Nat, m * k + k * k < m * m) ∧ (∃ m k : Nat, m * m < m * k + k * k)))
     ∧ (((2 : Int) + 1 = 3) ∧ ((2 : Int) * 1 - 1 * 1 = 1)
         ∧ ((3 : Int) ^ 2 - 4 * 1 = 5)
-        ∧ E213.Lib.Math.DyadicFSM.PellMatrix.pellCoeff 5 (by decide) 10
+        ∧ E213.Lib.Math.NumberTheory.DyadicFSM.PellMatrix.pellCoeff 5 (by decide) 10
             = (⟨0, by decide⟩, ⟨1, by decide⟩)
-        ∧ E213.Lib.Math.DyadicFSM.PellMatrix.pellCoeff 5 (by decide) 5
+        ∧ E213.Lib.Math.NumberTheory.DyadicFSM.PellMatrix.pellCoeff 5 (by decide) 5
             ≠ (⟨0, by decide⟩, ⟨1, by decide⟩)
         ∧ E213.Lib.Physics.Simplex.Counts.NT
             * (E213.Lib.Physics.Simplex.Counts.NS + E213.Lib.Physics.Simplex.Counts.NT)

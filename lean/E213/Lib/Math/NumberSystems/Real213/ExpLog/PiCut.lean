@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cauchy.Wallis
+import E213.Lib.Math.Analysis.Cauchy.Wallis
 import E213.Lib.Math.NumberSystems.Real213.AbCutSeq
 
 /-!
@@ -27,7 +27,7 @@ documented at `AbCutSeq`.  All ∅-axiom.
 
 namespace E213.Lib.Math.NumberSystems.Real213.ExpLog.PiCut
 
-open E213.Lib.Math.Cauchy.WallisSeq
+open E213.Lib.Math.Analysis.Cauchy.WallisSeq
 open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut)
 
@@ -48,7 +48,7 @@ theorem halfPiCut_valid (n : Nat) : ValidCut (halfPiCut n) := piHalfAb.cut_valid
     bounds transfer by `decide`/`rw`. -/
 theorem halfPiCut_eq (n m k : Nat) :
     halfPiCut n m k = decide (wallisNum n * k ≤ wallisDen n * m) := by
-  show E213.Lib.Math.Cauchy.Archimedean.orderProj m k
+  show E213.Lib.Math.Analysis.Cauchy.Archimedean.orderProj m k
         (E213.Lens.Instances.AB.abLens.view (wallisRaw n).val) = _
   rw [wallisRaw_view]; rfl
 

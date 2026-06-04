@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Real213.CompletabilityGrade
-import E213.Lib.Math.Cauchy.DepthCeilingResidue
+import E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue
 
 /-!
 # HeightTowerResidue — the height tower has no top; its diagonal is the residue
@@ -31,8 +31,8 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberSystems.Real213.HeightTowerResidue
 
 open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall)
-open E213.Lib.Math.Cauchy.DepthOmegaTower (expTower)
-open E213.Lib.Math.Cauchy.DepthCeilingResidue (diag diag_not_in_seq ceiling_reference_leaves_residue)
+open E213.Lib.Math.Analysis.Cauchy.DepthOmegaTower (expTower)
+open E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue (diag diag_not_in_seq ceiling_reference_leaves_residue)
 open E213.Lib.Math.NumberSystems.Real213.CompletabilityGrade (height_is_omega_coordinate)
 
 /-- ★★ **The height tower has no top.**  The diagonal of the exponential height tower,

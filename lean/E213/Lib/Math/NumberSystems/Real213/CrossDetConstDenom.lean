@@ -35,7 +35,7 @@ namespace E213.Lib.Math.NumberSystems.Real213.CrossDetConstDenom
 
 open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall crossdet_small_total_modulus)
 open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
-open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (fib_odd_pos fib_lb conv_mono convergent_cross)
 open E213.Tactic.NatHelper (mul_assoc le_of_mul_le_mul_right mul_mul_mul_comm_213)
 

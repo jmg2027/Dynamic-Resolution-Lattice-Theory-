@@ -2,7 +2,7 @@ import E213.Lib.Math.NumberSystems.Real213.MarkovTree
 import E213.Meta.Nat.Gcd213
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.PolyNatMTactic
-import E213.Lib.Math.ModArith.MarkovPrimeFactor
+import E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
 
 /-!
 # MarkovUniqueness — the neighbor congruence `a²+b² ≡ 0 (mod c)` and the uniqueness machinery
@@ -53,7 +53,7 @@ open E213.Meta.Nat.Gcd213 (dvd_sub_213 dvd_add_213)
 open E213.Tactic.NatHelper (gcd213)
 open E213.Meta.Nat.Gcd213
   (gcd213_dvd_left gcd213_dvd_right gcd213_greatest gcd213_comm mul_eq_one_left)
-open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov (golden_min_attained_on_fib)
 
 /-- `c ∣ m → c ∣ k·m`.  ∅-axiom — explicit witness `k·t`. -/
@@ -468,7 +468,7 @@ theorem not_sqrtNegOneTwoRoots_65 : ¬ SqrtNegOneTwoRoots 65 := by
 theorem sqrtNegOneTwoRoots_prime_pow (p k : Nat) (hp3 : 3 ≤ p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) : SqrtNegOneTwoRoots (p ^ (k + 1)) :=
   fun x hx y hy hxr hyr =>
-    E213.Lib.Math.ModArith.MarkovPrimeFactor.two_roots_of_prime_pow p k hp3 hpr x y hx hy hxr hyr
+    E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.two_roots_of_prime_pow p k hp3 hpr x y hx hy hxr hyr
 
 /-! ### The phantom-root filter (sniping the C6 barrier at the first composite)
 
@@ -908,13 +908,13 @@ not just on hand-supplied inverses. -/
     inverse of `b` mod `c`.  No invertibility hypothesis — it comes from `gcd(b,c)=1` (the tree
     invariant) through `inverse_of_coprime`. -/
 theorem markov_reachable_neg_one_qr {a b c : Nat} (hc : 1 < c) (h : MarkovReachable a b c) :
-    c ∣ ((a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2)
-       * (a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) + 1) := by
+    c ∣ ((a * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2)
+       * (a * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2) + 1) := by
   have hcpos : 0 < c := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hc)
-  have hinv : (b * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) % c = 1 := by
-    rw [E213.Lib.Math.ModArith.MarkovPrimeFactor.inverse_of_coprime b c hcpos
+  have hinv : (b * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2) % c = 1 := by
+    rw [E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.inverse_of_coprime b c hcpos
           (markov_reachable_gcd_bc h), Nat.mod_eq_of_lt hc]
-  exact neg_one_qr_of_mod a b c (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2
+  exact neg_one_qr_of_mod a b c (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2
     (markov_reachable_is_triple h) hinv
 
 /-! ## §13 — no prime `≡ 3 (mod 4)` divides a Markov number (the two halves meet)
@@ -932,16 +932,16 @@ inherit the root mod `p` — contradiction.  So **every odd prime factor of a Ma
 theorem markov_reachable_no_3mod4_factor {a b c : Nat} (hc : 1 < c) (h : MarkovReachable a b c)
     (k : Nat)
     (hpg : ∀ m, 0 < m → m < 4 * k + 3 →
-      (E213.Lib.Math.ModArith.ModBezout.modBezout m (4 * k + 3)).1 = 1) :
+      (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m (4 * k + 3)).1 = 1) :
     ¬ ((4 * k + 3) ∣ c) := by
   intro hpc
   have hppos : 0 < 4 * k + 3 := Nat.lt_of_lt_of_le (by decide) (Nat.le_add_left 3 (4 * k))
   -- the √(−1): c ∣ u²+1, with u = a·b⁻¹ mod c
   have hcu := markov_reachable_neg_one_qr hc h
-  generalize hu : a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 = u at hcu
+  generalize hu : a * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2 = u at hcu
   -- p ∣ u²+1
   have hpu : (4 * k + 3) ∣ (u * u + 1) :=
-    E213.Lib.Math.ModArith.MarkovPrimeFactor.dvd_trans_loc (4 * k + 3) c (u * u + 1) hpc hcu
+    E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.dvd_trans_loc (4 * k + 3) c (u * u + 1) hpc hcu
   -- reduce to x = u % p:  p ∣ x²+1, x < p
   have hpmod : (u * u + 1) % (4 * k + 3) = 0 := by
     obtain ⟨t, ht⟩ := hpu; rw [ht]; exact E213.Tactic.NatHelper.mul_mod_right (4 * k + 3) t
@@ -960,9 +960,9 @@ theorem markov_reachable_no_3mod4_factor {a b c : Nat} (hc : 1 < c) (h : MarkovR
   rcases Nat.eq_zero_or_pos (u % (4 * k + 3)) with hx0 | hx0
   · -- x = 0 ⟹ p ∣ 1 ⟹ p ≤ 1, contra p ≥ 3
     rw [hx0] at hpx
-    exact absurd (E213.Lib.Math.ModArith.MarkovPrimeFactor.le_of_dvd_loc (by decide) hpx)
+    exact absurd (E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.le_of_dvd_loc (by decide) hpx)
       (Nat.not_le_of_lt (Nat.lt_of_lt_of_le (by decide) (Nat.le_add_left 3 (4 * k))))
-  · exact E213.Lib.Math.ModArith.MarkovPrimeFactor.no_sqrt_neg_one_4k3 k
+  · exact E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.no_sqrt_neg_one_4k3 k
       (u % (4 * k + 3)) hpg hx0 hxlt hpx
 
 /-! ## §14 — toward the uniqueness certificate framework: the recovery map
@@ -983,22 +983,22 @@ as `a = (u·b) mod c`.  Made general here (the engine a per-`c` certificate runs
     (`u·b ≡ a·(b⁻¹·b) ≡ a`, and `a < c`.)  This is the 2-D→1-D reduction's core: a triple is
     determined by its root and middle entry, so uniqueness at `c` is a finite per-root search. -/
 theorem markov_recovery (a b c : Nat) (hc : 1 < c) (hco : gcd213 b c = 1) (ha : a < c) :
-    a = ((a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) % c * b) % c := by
+    a = ((a * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2) % c * b) % c := by
   have hcpos : 0 < c := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hc)
   -- inverse: b · b' = 1 + c·j
-  have hbinv : (b * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) % c = 1 := by
-    rw [E213.Lib.Math.ModArith.MarkovPrimeFactor.inverse_of_coprime b c hcpos hco,
+  have hbinv : (b * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2) % c = 1 := by
+    rw [E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.inverse_of_coprime b c hcpos hco,
         Nat.mod_eq_of_lt hc]
-  obtain ⟨j, hj⟩ : ∃ j, b * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 = 1 + c * j := by
+  obtain ⟨j, hj⟩ : ∃ j, b * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2 = 1 + c * j := by
     have hdm := E213.Meta.Nat.AddMod213.div_add_mod
-      (b * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) c
+      (b * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2) c
     rw [hbinv] at hdm
     exact ⟨_, hdm.symm.trans (Nat.add_comm _ 1)⟩
   -- ((a·b')%c · b) %c = (a·b'·b)%c = (a·(b·b'))%c = (a·(1+c·j))%c = a%c = a
   rw [← E213.Meta.Nat.MulMod213.mul_mod_left_pure
-        (a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) b c,
-      E213.Tactic.NatHelper.mul_assoc a (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 b,
-      Nat.mul_comm (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 b, hj,
+        (a * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2) b c,
+      E213.Tactic.NatHelper.mul_assoc a (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2 b,
+      Nat.mul_comm (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2 b, hj,
       Nat.mul_add, Nat.mul_one, Nat.mul_comm c j,
       ← E213.Tactic.NatHelper.mul_assoc a j c,
       E213.Tactic.NatHelper.add_mul_mod_self_pure a c (a * j), Nat.mod_eq_of_lt ha]
@@ -1028,12 +1028,12 @@ theorem markov_root_recovery (a b c : Nat) (hc : 1 < c) (ha : a < c)
     (hco : gcd213 b c = 1) (h : markovEq a b c) :
     ∃ u, u < c ∧ (u * u + 1) % c = 0 ∧ a = (u * b) % c := by
   have hcpos : 0 < c := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hc)
-  refine ⟨(a * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) % c, Nat.mod_lt _ hcpos, ?_, ?_⟩
-  · have hmod : (b * (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2) % c = 1 := by
-      rw [E213.Lib.Math.ModArith.MarkovPrimeFactor.inverse_of_coprime b c hcpos hco,
+  refine ⟨(a * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2) % c, Nat.mod_lt _ hcpos, ?_, ?_⟩
+  · have hmod : (b * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2) % c = 1 := by
+      rw [E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.inverse_of_coprime b c hcpos hco,
           Nat.mod_eq_of_lt hc]
     exact mod_root_of_dvd_sq_succ
-      (neg_one_qr_of_mod a b c (E213.Lib.Math.ModArith.ModBezout.modBezout b c).2 h hmod)
+      (neg_one_qr_of_mod a b c (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout b c).2 h hmod)
   · exact markov_recovery a b c hc hco ha
 
 /-! ### General per-`c` uniqueness from a 4-root certificate

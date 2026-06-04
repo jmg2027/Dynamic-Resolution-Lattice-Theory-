@@ -33,7 +33,7 @@ namespace E213.Lib.Math.NumberSystems.Real213.MarkovModularBridge
 open E213.Lib.Math.NumberSystems.Real213.MarkovTree (markovEq)
 open E213.Tactic.NatHelper (gcd213)
 open E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness
-open E213.Lib.Math.ModArith.MarkovPrimeFactor (euclid_of_coprime)
+open E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor (euclid_of_coprime)
 open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (S)
 open E213.Meta.Int213 (zero_mul zero_add)
 

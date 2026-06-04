@@ -1,6 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov
 import E213.Lib.Physics.Simplex.Counts
-import E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock
+import E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock
 
 /-!
 # MarkovTree — the Markov equation `x²+y²+z² = 3xyz`, the Vieta tree, and `3 = NS`
@@ -31,7 +31,7 @@ namespace E213.Lib.Math.NumberSystems.Real213.MarkovTree
 
 open E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov (add_left_cancel_pure)
 open E213.Lib.Physics.Simplex.Counts (NS)
-open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 
 /-- The Markov equation `x² + y² + z² = 3·x·y·z`. -/
 abbrev markovEq (x y z : Nat) : Prop := x * x + y * y + z * z = 3 * x * y * z

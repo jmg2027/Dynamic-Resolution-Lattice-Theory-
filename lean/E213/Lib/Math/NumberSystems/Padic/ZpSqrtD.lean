@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Padic.HenselBridge
-import E213.Lib.Math.ModArith.FP2SqrtD
+import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 /-!
 # ZpSqrtD — quadratic extension `ℤ_p[√D]` parametric in D
 
@@ -33,7 +33,7 @@ All declarations PURE.
 namespace E213.Lib.Math.NumberSystems.Padic.ZpSqrtD
 
 open E213.Lib.Math.NumberSystems.Padic.HenselBridge (fromFp fromFp_digit_zero)
-open E213.Lib.Math.ModArith.FP2SqrtD (FP2)
+open E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD (FP2)
 
 /-! ## §1 — Type and basic operations -/
 

@@ -11,7 +11,7 @@ two convergent chains:
   · seed (1, 0): orbit (1,0), (2,1), (5,3), (13,8), (34,21), ...
 
 These coincide (shifted) with `P_numerator` / `P_denominator`
-from `Lib/Math/Mobius213.lean` — the same Fibonacci-even/odd
+from `Lib/Math/Algebra/Mobius213.lean` — the same Fibonacci-even/odd
 Pell convergents whose ratios approach φ² and 1/φ².  The matrix
 is internal to 213: trace = NS, det = 1, disc = NS+NT = d,
 eigenvalues φ², 1/φ².
@@ -49,7 +49,7 @@ open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
 
 /-- **P-step**: P = [[2,1],[1,1]] acts on (m, k) ↦ (2m+k, m+k).
     Identical to the iteration generating `P_numerator` /
-    `P_denominator` in `Lib/Math/Mobius213.lean`. -/
+    `P_denominator` in `Lib/Math/Algebra/Mobius213.lean`. -/
 def Pstep : Nat × Nat → Nat × Nat
   | (m, k) => (2 * m + k, m + k)
 
@@ -69,7 +69,7 @@ def seedInf : Nat × Nat := (1, 0)
 
 /-- Pseq from seedZero, layers 0–5: (0,1), (1,1), (3,2), (8,5),
     (21,13), (55,34).  The pairs are the Fibonacci-indexed Pell
-    convergents (one-step shifted from `Lib/Math/Mobius213.lean`
+    convergents (one-step shifted from `Lib/Math/Algebra/Mobius213.lean`
     `P_numerator` / `P_denominator`). -/
 theorem Pseq_seedZero_values :
     Pseq seedZero 0 = (0, 1)
@@ -82,7 +82,7 @@ theorem Pseq_seedZero_values :
 
 /-- Pseq from seedInf, layers 0–5: (1,0), (2,1), (5,3), (13,8),
     (34,21), (89,55).  Directly the `P_numerator` /
-    `P_denominator` sequences from `Lib/Math/Mobius213.lean`. -/
+    `P_denominator` sequences from `Lib/Math/Algebra/Mobius213.lean`. -/
 theorem Pseq_seedInf_values :
     Pseq seedInf 0 = (1, 0)
     ∧ Pseq seedInf 1 = (2, 1)

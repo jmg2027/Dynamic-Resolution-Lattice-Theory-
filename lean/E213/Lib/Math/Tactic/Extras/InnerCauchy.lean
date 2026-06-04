@@ -1,5 +1,5 @@
 import E213.Lib.Math.Tactic.Extras.CauchySchwarz
-import E213.Lib.Math.Functional.InnerProduct
+import E213.Lib.Math.Analysis.Functional.InnerProduct
 
 /-!
 # Inner-product Cauchy-Schwarz, atomic 1-cell case (∅-axiom)
@@ -17,7 +17,7 @@ expansion that is the same kind of cosmetic Nat-arithmetic as
 
 namespace E213.Lib.Math.Tactic.Extras.InnerCauchy
 
-open E213.Lib.Math.Functional.InnerProduct (innerNum)
+open E213.Lib.Math.Analysis.Functional.InnerProduct (innerNum)
 
 /-- ★ Atomic `n = 1` Cauchy-Schwarz: square of the inner product
     equals the product of self-inner-products *exactly*. -/

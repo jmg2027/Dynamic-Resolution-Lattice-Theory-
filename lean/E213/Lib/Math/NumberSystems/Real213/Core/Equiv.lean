@@ -21,7 +21,7 @@ multiplication, etc. — separate work.)
 namespace E213.Lib.Math.NumberSystems.Real213.Core.Equiv
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Modulus.HasModulus
+open E213.Lib.Math.Analysis.Modulus.HasModulus
 open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
 
 /-- reflexivity of equiv. -/

@@ -1,8 +1,8 @@
 import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
 import E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
-import E213.Lib.Math.Cauchy.DepthClosure
-import E213.Lib.Math.Cauchy.DepthCoordGenerator
-import E213.Lib.Math.Cauchy.DepthCeilingResidue
+import E213.Lib.Math.Analysis.Cauchy.DepthClosure
+import E213.Lib.Math.Analysis.Cauchy.DepthCoordGenerator
+import E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue
 
 /-!
 # TowerNativeCompleteness — the program, closed
@@ -40,17 +40,17 @@ open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
   (CrossDetSmall denomExp crossW completability_boundary)
 open E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
   (liouNum liouDen liouville_W_eq_denom_coordinate)
-open E213.Lib.Math.Cauchy.DepthLiouvilleCoord (fact)
-open E213.Lib.Math.Cauchy.DepthTower (ratioLift diffN)
-open E213.Lib.Math.Cauchy.DivergenceLadder (isConst)
-open E213.Lib.Math.Cauchy.DepthExponentRecursion (totMono expSeq)
-open E213.Lib.Math.Cauchy.DepthDoubleExp (twoPow)
-open E213.Lib.Math.Cauchy.DepthPRecursive (polyDepth)
-open E213.Lib.Math.Cauchy.DepthClosure
+open E213.Lib.Math.Analysis.Cauchy.DepthLiouvilleCoord (fact)
+open E213.Lib.Math.Analysis.Cauchy.DepthTower (ratioLift diffN)
+open E213.Lib.Math.Analysis.Cauchy.DivergenceLadder (isConst)
+open E213.Lib.Math.Analysis.Cauchy.DepthExponentRecursion (totMono expSeq)
+open E213.Lib.Math.Analysis.Cauchy.DepthDoubleExp (twoPow)
+open E213.Lib.Math.Analysis.Cauchy.DepthPRecursive (polyDepth)
+open E213.Lib.Math.Analysis.Cauchy.DepthClosure
   (FinDiffDepth FinRatioDepth rate_carrying_tower_closure)
-open E213.Lib.Math.Cauchy.DepthCoordGenerator (genExp tower_is_coordinate_system)
-open E213.Lib.Math.Cauchy.DepthOmegaTower (expTower Coord coordLt)
-open E213.Lib.Math.Cauchy.DepthCeilingResidue (ceiling_residue_is_pointing_residue)
+open E213.Lib.Math.Analysis.Cauchy.DepthCoordGenerator (genExp tower_is_coordinate_system)
+open E213.Lib.Math.Analysis.Cauchy.DepthOmegaTower (expTower Coord coordLt)
+open E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue (ceiling_residue_is_pointing_residue)
 open E213.Lens.FlatOntology (Object1)
 open E213.Theory (Raw)
 

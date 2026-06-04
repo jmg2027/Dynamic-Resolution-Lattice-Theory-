@@ -79,7 +79,7 @@ first-component digit-0 level: `σ(fp2d_to_zpsd x).1 = (fp2d_to_zpsd
 /-- ★ Frobenius commutes with the F_p → ℤ_p[√D] embedding at
     first-component digit-0. -/
 theorem fp2d_to_zpsd_frob_first_digit_zero
-    (p : Nat) (hp : 1 < p) (x : E213.Lib.Math.ModArith.FP2SqrtD.FP2) :
+    (p : Nat) (hp : 1 < p) (x : E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD.FP2) :
     ((zpsd_frob p hp (fp2d_to_zpsd p (Nat.lt_of_succ_lt hp) x)).1.digits 0).val
     = ((fp2d_to_zpsd p (Nat.lt_of_succ_lt hp) x).1.digits 0).val := by
   rw [zpsd_frob_first p hp]

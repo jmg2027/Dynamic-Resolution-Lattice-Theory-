@@ -1,5 +1,5 @@
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
-import E213.Lib.Math.Modulus.Translation
+import E213.Lib.Math.Analysis.Modulus.Translation
 import E213.Lib.Math.Geometry.Topology.Continuity
 /-!
 # DiffCut differentiation with explicit modulus tracking
@@ -41,7 +41,7 @@ open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Modulus.Translation (DepthModulus identityDepthModulus)
+open E213.Lib.Math.Analysis.Modulus.Translation (DepthModulus identityDepthModulus)
 
 /-! ## §1 — DiffCut with modulus -/
 

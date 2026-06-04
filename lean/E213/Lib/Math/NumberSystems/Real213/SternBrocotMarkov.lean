@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberSystems.Real213.ModularElliptic
 import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Int213.PolyIntMTactic
 import E213.Meta.Tactic.List213
-import E213.Lib.Math.Linalg213.DetN
+import E213.Lib.Math.Algebra.Linalg213.DetN
 import E213.Meta.Int213.Order
 
 /-!
@@ -1452,19 +1452,19 @@ def matFun (M : Mat2) : Nat → Nat → Int :=
   fun i j => if i = 0 then (if j = 0 then M.a else M.b) else (if j = 0 then M.c else M.d)
 
 /-- ★★★★ **The Markoff-carrier `det2` is the general determinant at `n = 2`.** -/
-theorem det2_eq_detN (M : Mat2) : det2 M = E213.Lib.Math.Linalg213.DetN.det 2 (matFun M) := by
-  rw [E213.Lib.Math.Linalg213.DetN.det_two]; rfl
+theorem det2_eq_detN (M : Mat2) : det2 M = E213.Lib.Math.Algebra.Linalg213.DetN.det 2 (matFun M) := by
+  rw [E213.Lib.Math.Algebra.Linalg213.DetN.det_two]; rfl
 
 /-- Every Markoff node matrix has general determinant `1` (`mNode_det1` via `det2_eq_detN`). -/
 theorem mNode_detN (path : List Bool) :
-    E213.Lib.Math.Linalg213.DetN.det 2 (matFun (mNode path)) = 1 := by
+    E213.Lib.Math.Algebra.Linalg213.DetN.det 2 (matFun (mNode path)) = 1 := by
   rw [← det2_eq_detN]; exact mNode_det1 path
 
 /-- ★★★★ **General-determinant multiplicativity at `n = 2`** (`det(MN)=det M·det N`), the `2×2` case
     that the general `DetN` does not yet prove — contributed back via `det2_mul`. -/
 theorem detN_two_mul (M N : Mat2) :
-    E213.Lib.Math.Linalg213.DetN.det 2 (matFun (mul M N))
-    = E213.Lib.Math.Linalg213.DetN.det 2 (matFun M) * E213.Lib.Math.Linalg213.DetN.det 2 (matFun N) := by
+    E213.Lib.Math.Algebra.Linalg213.DetN.det 2 (matFun (mul M N))
+    = E213.Lib.Math.Algebra.Linalg213.DetN.det 2 (matFun M) * E213.Lib.Math.Algebra.Linalg213.DetN.det 2 (matFun N) := by
   rw [← det2_eq_detN, ← det2_eq_detN, ← det2_eq_detN]; exact det2_mul M N
 
 /-! ## §16 — the mediant is the strict maximum of the node triple
@@ -1833,7 +1833,7 @@ theorem mul_dvd_of_coprime (m n k : Nat) (hn : 1 < n) (hco : gcd213 m n = 1)
     (hm : m ∣ k) (hnk : n ∣ k) : m * n ∣ k := by
   obtain ⟨a, ha⟩ := hm
   have hna : n ∣ a :=
-    E213.Lib.Math.ModArith.MarkovPrimeFactor.euclid_of_coprime m a n hn hco (ha ▸ hnk)
+    E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.euclid_of_coprime m a n hn hco (ha ▸ hnk)
   obtain ⟨b, hb⟩ := hna
   exact ⟨b, by rw [ha, hb]; ring_nat⟩
 
@@ -1928,17 +1928,17 @@ theorem nontrivial_unit_root_exists (m n : Nat) (hm : 3 ≤ m) (hn : 3 ≤ n)
   have hn0 : 0 < n := Nat.lt_of_lt_of_le (by decide) hn
   have hm1 : 1 < m := Nat.lt_of_lt_of_le (by decide) hm
   have hn1 : 1 < n := Nat.lt_of_lt_of_le (by decide) hn
-  have hsinv : (m * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2) % n = 1 := by
-    rw [E213.Lib.Math.ModArith.MarkovPrimeFactor.inverse_of_coprime m n hn0 hco,
+  have hsinv : (m * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m n).2) % n = 1 := by
+    rw [E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.inverse_of_coprime m n hn0 hco,
         Nat.mod_eq_of_lt hn1]
   have htexists : ∃ t, (m * t) % n = n - 2 := by
-    refine ⟨((n - 2) * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2) % n, ?_⟩
+    refine ⟨((n - 2) * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m n).2) % n, ?_⟩
     rw [← E213.Meta.Nat.MulMod213.mul_mod_right_pure m
-          ((n - 2) * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2) n,
-        show m * ((n - 2) * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2)
-           = (n - 2) * (m * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2) from by ring_nat,
+          ((n - 2) * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m n).2) n,
+        show m * ((n - 2) * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m n).2)
+           = (n - 2) * (m * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m n).2) from by ring_nat,
         E213.Meta.Nat.MulMod213.mul_mod_right_pure (n - 2)
-          (m * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2) n,
+          (m * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m n).2) n,
         hsinv, Nat.mul_one]
     exact Nat.mod_eq_of_lt (Nat.sub_lt hn0 (by decide))
   obtain ⟨t, ht⟩ := htexists
@@ -1998,10 +1998,10 @@ theorem unit_cancel_of_inv (c u s a b : Nat) (hs : (u * s) % c = 1)
     from coprimality by `modBezout`.  The general statement that the unit-root group acts freely. -/
 theorem unit_cancel (c u a b : Nat) (hc : 1 < c) (hu : gcd213 u c = 1)
     (h : (a * u) % c = (b * u) % c) : a % c = b % c := by
-  have hs : (u * (E213.Lib.Math.ModArith.ModBezout.modBezout u c).2) % c = 1 := by
-    rw [E213.Lib.Math.ModArith.MarkovPrimeFactor.inverse_of_coprime u c
+  have hs : (u * (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout u c).2) % c = 1 := by
+    rw [E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.inverse_of_coprime u c
           (Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hc)) hu, Nat.mod_eq_of_lt hc]
-  exact unit_cancel_of_inv c u (E213.Lib.Math.ModArith.ModBezout.modBezout u c).2 a b hs h
+  exact unit_cancel_of_inv c u (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout u c).2 a b hs h
 
 /-- **A `√(−1)` root is a unit, with explicit inverse `c−u`**: `u·(c−u) ≡ 1 mod c`.  From the identity
     `u·(c−u) + (u²+1) = u·c + 1`: the first summand `≡` the residue, `u²+1 ≡ 0`, `u·c ≡ 0`. -/

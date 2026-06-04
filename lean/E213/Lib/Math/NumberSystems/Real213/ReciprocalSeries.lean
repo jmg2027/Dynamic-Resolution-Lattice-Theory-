@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Real213.CrossDetEqDenom
-import E213.Lib.Math.Cauchy.DepthLiouvilleCoord
+import E213.Lib.Math.Analysis.Cauchy.DepthLiouvilleCoord
 import E213.Meta.Nat.PolyNat
 import E213.Meta.Tactic.NatHelper
 
@@ -40,7 +40,7 @@ namespace E213.Lib.Math.NumberSystems.Real213.ReciprocalSeries
 
 open E213.Lib.Math.NumberSystems.Real213.CrossDetEqDenom (crossdet_eq_denom_total_modulus)
 open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
-open E213.Lib.Math.Cauchy.DepthLiouvilleCoord (fact fact_succ)
+open E213.Lib.Math.Analysis.Cauchy.DepthLiouvilleCoord (fact fact_succ)
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Tactic.NatHelper
   (mul_assoc add_mul add_sub_cancel_right mul_mul_mul_comm_213 le_of_mul_le_mul_right)

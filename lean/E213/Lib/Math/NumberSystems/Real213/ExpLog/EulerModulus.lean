@@ -1,7 +1,7 @@
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCut
 import E213.Lib.Math.NumberSystems.Real213.HolonomicReal
 import E213.Lib.Math.NumberSystems.Real213.RateModulus
-import E213.Lib.Math.Cauchy.EulerDivergenceForm
+import E213.Lib.Math.Analysis.Cauchy.EulerDivergenceForm
 import E213.Meta.Nat.PolyNat
 
 /-!
@@ -34,10 +34,10 @@ namespace E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerModulus
 
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Tactic.NatHelper (add_mul mul_assoc add_sub_of_le)
-open E213.Lib.Math.Cauchy.EulerSeq (eulerNum eulerDen eulerDen_pos)
+open E213.Lib.Math.Analysis.Cauchy.EulerSeq (eulerNum eulerDen eulerDen_pos)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCut (eulerCut eulerCut_eq)
 open E213.Lib.Math.NumberSystems.Real213.RateModulus (Htel Htel_of_crossdet rate_cut_const)
-open E213.Lib.Math.Cauchy.EulerDivergenceForm (euler_cross_det)
+open E213.Lib.Math.Analysis.Cauchy.EulerDivergenceForm (euler_cross_det)
 
 /-! ## §1 — e's convergents increase -/
 

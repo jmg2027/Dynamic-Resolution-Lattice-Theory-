@@ -11,7 +11,7 @@ We verify with both strong checks:
 -/
 
 open E213.Tactic
-open E213.Lib.Math.CayleyDickson.Integer.ZSqrt
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrt
 
 quad_extension 11
 quad_extension 13

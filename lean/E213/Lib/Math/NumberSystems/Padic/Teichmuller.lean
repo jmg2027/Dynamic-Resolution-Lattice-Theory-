@@ -350,7 +350,7 @@ theorem Zp.frobenius_lift (p : Nat) (hp : 1 < p) (y z : ZpSeq p) (k : Nat)
       `iter x (n + 2) ≡ iter x (n + 1) (mod p^(n + 2))`. -/
 theorem Zp.teichmuller_iter_cauchy (p : Nat) (hp : 1 < p) (x : ZpSeq p)
     (h_prime_gcd : ∀ m, 0 < m → m < p
-                  → (E213.Lib.Math.ModArith.ModBezout.modBezout m p).1 = 1) :
+                  → (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m p).1 = 1) :
     ∀ n, (Zp.teichmuller_iter p hp x (n + 1)).trunc (n + 1)
        = (Zp.teichmuller_iter p hp x n).trunc (n + 1)
   | 0 => by

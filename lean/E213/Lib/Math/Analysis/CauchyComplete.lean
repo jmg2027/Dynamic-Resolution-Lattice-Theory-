@@ -32,7 +32,7 @@ of Bishop completeness is trivial.
 namespace E213.Lib.Math.Analysis.CauchyComplete
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Cauchy.Archimedean
+open E213.Lib.Math.Analysis.Cauchy.Archimedean
 
 /-- **CauchyCutSeq**: Cauchy sequence of cuts with explicit modulus. -/
 structure CauchyCutSeq where

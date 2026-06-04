@@ -229,8 +229,8 @@ theorem max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
 
     The "additive inverse is involutive in `F_p`" identity, in
     canonical-form (r < p) form.  Used in:
-      · `Lib/Math/ModArith/FP2Sqrt5` (private double_neg_mod)
-      · `Lib/Math/ModArith/FP2SqrtD`
+      · `Lib/Math/NumberTheory/ModArith/FP2Sqrt5` (private double_neg_mod)
+      · `Lib/Math/NumberTheory/ModArith/FP2SqrtD`
       · `Lib/Math/NumberSystems/Padic/NegInvolution{,Digit1,Preserve}` (p-adic
         Zp.neg involution at digit-0 and beyond)
 

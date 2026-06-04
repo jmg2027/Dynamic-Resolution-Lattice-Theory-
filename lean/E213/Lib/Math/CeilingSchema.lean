@@ -1,7 +1,7 @@
 import E213.Lens.FlatOntologyClosure
-import E213.Lib.Math.Cauchy.DepthCeilingResidue
-import E213.Lib.Math.Cauchy.ThueMorseRingEscape
-import E213.Lib.Math.Cauchy.DepthMonotoneSynthesis
+import E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue
+import E213.Lib.Math.Analysis.Cauchy.ThueMorseRingEscape
+import E213.Lib.Math.Analysis.Cauchy.DepthMonotoneSynthesis
 
 /-!
 # The ceiling is one phenomenon: non-surjectivity of a finite-stage map
@@ -44,10 +44,10 @@ such a witness is supplied.
 
 namespace E213.Lib.Math.CeilingSchema
 
-open E213.Lib.Math.Cauchy.DepthCeilingResidue (diag diag_not_in_seq)
-open E213.Lib.Math.Cauchy.ThueMorseRingEscape (s2Z)
-open E213.Lib.Math.Cauchy.DepthMonotoneSynthesis (s2Z_not_polynomial)
-open E213.Lib.Math.Cauchy.NewtonGregory (newtonZ)
+open E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue (diag diag_not_in_seq)
+open E213.Lib.Math.Analysis.Cauchy.ThueMorseRingEscape (s2Z)
+open E213.Lib.Math.Analysis.Cauchy.DepthMonotoneSynthesis (s2Z_not_polynomial)
+open E213.Lib.Math.Analysis.Cauchy.NewtonGregory (newtonZ)
 
 /-- **The ceiling schema.**  A target is reached by no stage of an enumeration: `∀ s, gen s ≠
     target`.  This is exactly `target ∉ range gen`. -/

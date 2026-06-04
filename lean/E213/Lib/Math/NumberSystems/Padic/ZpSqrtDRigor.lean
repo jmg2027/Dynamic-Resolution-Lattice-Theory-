@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Padic.ZpSqrtDFrob
-import E213.Lib.Math.ModArith.FP2SqrtD
+import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.MulMod213
 /-!
@@ -25,7 +25,7 @@ namespace E213.Lib.Math.NumberSystems.Padic.ZpSqrtDRigor
 open E213.Lib.Math.NumberSystems.Padic.HenselBridge
   (fromFp fromFp_digit_zero fromFp_digit_above)
 open E213.Lib.Math.NumberSystems.Padic.ZpSqrtD (ZpSqrtD zpsd_add zpsd_mul fp2d_to_zpsd)
-open E213.Lib.Math.ModArith.FP2SqrtD (FP2 fp2dAdd fp2dMul)
+open E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD (FP2 fp2dAdd fp2dMul)
 open E213.Meta.Nat.AddMod213 (add_mod_gen mod_mod)
 open E213.Meta.Nat.MulMod213 (mul_mod_pure)
 

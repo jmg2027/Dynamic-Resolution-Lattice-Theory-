@@ -1,6 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
 import E213.Lib.Math.NumberSystems.Real213.GeometricThreshold
-import E213.Lib.Math.Cauchy.DepthOmegaTower
+import E213.Lib.Math.Analysis.Cauchy.DepthOmegaTower
 import E213.Meta.Nat.PureNat
 import E213.Meta.Nat.PolyNat
 
@@ -40,7 +40,7 @@ open E213.Lib.Math.NumberSystems.Real213.GeometricThreshold (geom_boundary_iff)
 open E213.Meta.Nat.PureNat (pow_add)
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Tactic.NatHelper (add_mul mul_assoc)
-open E213.Lib.Math.Cauchy.DepthOmegaTower (expTower expTower_succ)
+open E213.Lib.Math.Analysis.Cauchy.DepthOmegaTower (expTower expTower_succ)
 
 /-! ## §1 — the `ω`-jump: one exponential height up breaks, regardless of rate -/
 

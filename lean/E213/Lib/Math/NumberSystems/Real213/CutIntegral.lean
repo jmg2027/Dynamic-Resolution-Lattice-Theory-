@@ -1,4 +1,4 @@
-import E213.Lib.Math.Measure.MeasurableSet
+import E213.Lib.Math.Analysis.Measure.MeasurableSet
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
 import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
@@ -7,7 +7,7 @@ import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
 
 Closes the `theory/math/real213.md` open frontier:
 
-> Measure-theoretic extension — `Lib/Math/Measure/` provides
+> Measure-theoretic extension — `Lib/Math/Analysis/Measure/` provides
 > the start; integration over Real213 cuts is open.
 
 This file lifts the existing `riemannSampleSum` (Real213 cut-valued
@@ -37,7 +37,7 @@ open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
-open E213.Lib.Math.Measure.MeasurableSet
+open E213.Lib.Math.Analysis.Measure.MeasurableSet
   (DyadicMeasurableSet emptySet singleton union)
 
 /-! ## §1 — The Real213 integral -/

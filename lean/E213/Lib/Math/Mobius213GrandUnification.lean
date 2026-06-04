@@ -1,10 +1,10 @@
 import E213.Lib.Math.Mobius213CrossDomainMeta
 import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulN
 import E213.Lib.Math.NumberSystems.Real213.NValidCutMul
-import E213.Lib.Math.Mobius213.Mobius213K32Bridge
+import E213.Lib.Math.Algebra.Mobius213.Mobius213K32Bridge
 import E213.Lib.Math.Cohomology.Bipartite.Mobius213K32StateClass
 import E213.Lib.Math.NumberSystems.Real213.Mobius213ContinuedFraction
-import E213.Lib.Math.CayleyDickson.Tower.Mobius213CDBridge
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.Mobius213CDBridge
 
 /-!
 # Mobius213GrandUnification — the ultimate Möbius P master statement
@@ -107,7 +107,7 @@ theorem grand_unification :
        = E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.Pseq
           E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.seedZero 2)
     -- (G) CD-tower Type C asymptote = (disc P, Pell unit)
-    ∧ (E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab
+    ∧ (E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab
         .C = (5, -1))
     -- (H) disc P = 5 as Int identity
     ∧ ((3 : Int)^2 - 4 * 1 = 5)
@@ -132,7 +132,7 @@ theorem grand_unification :
    E213.Lib.Math.NumberSystems.Real213.Mobius213ContinuedFraction.Pseq_seedZero_fst_recurrence,
    by decide,
    by decide,
-   E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote.rank_1_asymptote_eq,
+   E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.rank_1_asymptote_eq,
    by decide,
    E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant.Pseq_cross_pell_invariant,
    ⟨by decide, E213.Theory.Atomicity.Five.atomic_five⟩⟩

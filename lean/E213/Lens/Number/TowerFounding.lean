@@ -29,7 +29,7 @@ namespace E213.Lens.Number.TowerFounding
 open E213.Theory (Raw)
 open E213.Lens.Number.DifferenceLensFounding (diffView difference_lens_slash_additive)
 open E213.Lens.Number.RatioLensFounding (convergent_lowest_terms_is_det)
-open E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11)
+open E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 open E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
 

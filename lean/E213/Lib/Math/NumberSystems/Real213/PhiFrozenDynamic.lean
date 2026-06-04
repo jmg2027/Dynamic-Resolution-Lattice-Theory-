@@ -1,6 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
 import E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
-import E213.Lib.Math.Mobius213.Px.CharPolySelf
+import E213.Lib.Math.Algebra.Mobius213.Px.CharPolySelf
 
 /-!
 # PhiFrozenDynamic — φ frozen = dynamic, identified (the §5.7 synthesis)
@@ -29,8 +29,8 @@ namespace E213.Lib.Math.NumberSystems.Real213.PhiFrozenDynamic
 
 open E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
 open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (fib_cassini_norm convergent_never_frozen)
-open E213.Lib.Math.Mobius213.Px.POrbitClosure (L)
-open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Algebra.Mobius213.Px.POrbitClosure (L)
+open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 
 /-- ★★ **The frozen cut's discriminant is `P`'s characteristic discriminant.**  `phiCut`'s
     defining `5` (the cut `5k² ≤ (2m−k)²`) is exactly `P`'s char-poly discriminant

@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
-import E213.Lib.Math.Cauchy.EulerDivergenceForm
+import E213.Lib.Math.Analysis.Cauchy.EulerDivergenceForm
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerModulus
 import E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
 import E213.Meta.Nat.PolyNat
@@ -65,8 +65,8 @@ theorem crossdet_eq_denom_total_modulus {a d : Nat → Nat}
 
 /-! ## e is a one-line instance -/
 
-open E213.Lib.Math.Cauchy.EulerSeq (eulerNum eulerDen eulerDen_pos)
-open E213.Lib.Math.Cauchy.EulerDivergenceForm (euler_cross_det)
+open E213.Lib.Math.Analysis.Cauchy.EulerSeq (eulerNum eulerDen eulerDen_pos)
+open E213.Lib.Math.Analysis.Cauchy.EulerDivergenceForm (euler_cross_det)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerModulus (euler_hmono euler_hmonoS)
 
 /-- e's total modulus, through `crossdet_eq_denom_total_modulus`: the growth condition

@@ -41,7 +41,7 @@ namespace E213.Lib.Math.Geometry.Topology.ModulusStructure
 open E213.Lib.Math.Geometry.Topology.Continuity (IsContinuousModulus)
 open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
   (IsRicciModulus K32_isRicciModulus K32_isRicciModulus_modulus_eq)
-open E213.Lib.Math.Modulus.Translation (DepthModulus)
+open E213.Lib.Math.Analysis.Modulus.Translation (DepthModulus)
 open E213.Lib.Physics.AlphaEM.FractalLevelZetaModulus (zeta_modulus)
 
 /-! ## Bare modulus structure -/

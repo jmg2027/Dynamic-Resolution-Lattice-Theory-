@@ -17,7 +17,7 @@ This file records the Nat-side recurrence directly on `Pseq`:
      = 3 · (Pseq seedZero (n+1)).i`     for `i ∈ {1, 2}`
 
 This is the Nat form of the Int-side recurrence
-`a(n+2) = 3·a(n+1) − a(n)` from `Lib/Math/Mobius213.lean`'s
+`a(n+2) = 3·a(n+1) − a(n)` from `Lib/Math/Algebra/Mobius213.lean`'s
 `P_numerator.seq_recurrence` / `P_denominator.seq_recurrence`,
 applied directly to Pseq components.  Closes the continued
 fraction ↔ Pseq path connection on the Stern-Brocot orbit side.

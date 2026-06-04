@@ -1,6 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
-import E213.Lib.Math.Cauchy.EulerDivergenceForm
-import E213.Lib.Math.Cauchy.Euler
+import E213.Lib.Math.Analysis.Cauchy.EulerDivergenceForm
+import E213.Lib.Math.Analysis.Cauchy.Euler
 import E213.Meta.Nat.PolyNat
 import E213.Meta.Tactic.NatHelper
 
@@ -36,8 +36,8 @@ namespace E213.Lib.Math.NumberSystems.Real213.PresentationDependence
 
 open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall)
 open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
-open E213.Lib.Math.Cauchy.EulerSeq (eulerNum eulerDen)
-open E213.Lib.Math.Cauchy.EulerDivergenceForm (euler_cross_det)
+open E213.Lib.Math.Analysis.Cauchy.EulerSeq (eulerNum eulerDen)
+open E213.Lib.Math.Analysis.Cauchy.EulerDivergenceForm (euler_cross_det)
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Tactic.NatHelper (add_mul mul_assoc mul_mul_mul_comm_213)
 

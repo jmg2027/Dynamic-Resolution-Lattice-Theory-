@@ -34,7 +34,7 @@ Negation = sign flip.
 namespace E213.Lib.Math.NumberSystems.Real213.Sum.Signed
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Cauchy.Archimedean
+open E213.Lib.Math.Analysis.Cauchy.Archimedean
 open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
 open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
 open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulComm (cutMul_comm)

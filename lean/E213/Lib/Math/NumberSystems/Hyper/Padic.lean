@@ -1,5 +1,5 @@
 import E213.Lens.Instances
-import E213.Lib.Math.Cauchy.ProfiniteSeq
+import E213.Lib.Math.Analysis.Cauchy.ProfiniteSeq
 
 /-!
 # Padic: p-adic ℤ_p as Lens sub-family
@@ -65,7 +65,7 @@ namespace E213.Lib.Math.NumberSystems.Hyper.Padic
 
 open E213.Theory E213.Lens
 open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
-open E213.Lib.Math.Cauchy.ProfiniteSeq
+open E213.Lib.Math.Analysis.Cauchy.ProfiniteSeq
 
 
 /-! ### Power lemmas (based on Lean 4 core) -/

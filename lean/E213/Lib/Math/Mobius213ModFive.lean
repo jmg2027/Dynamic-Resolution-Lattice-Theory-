@@ -1,4 +1,4 @@
-import E213.Lib.Math.Mobius213
+import E213.Lib.Math.Algebra.Mobius213
 import E213.Lib.Physics.Simplex.Counts
 
 /-!

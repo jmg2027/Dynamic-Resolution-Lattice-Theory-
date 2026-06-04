@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cauchy.Euler
+import E213.Lib.Math.Analysis.Cauchy.Euler
 import E213.Lib.Math.NumberSystems.Real213.AbCutSeq
 
 /-!
@@ -28,8 +28,8 @@ All ∅-axiom.
 
 namespace E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCut
 
-open E213.Lib.Math.Cauchy.EulerSeq
-open E213.Lib.Math.Cauchy.EulerSharperPure (euler_sharper_8_3_pure)
+open E213.Lib.Math.Analysis.Cauchy.EulerSeq
+open E213.Lib.Math.Analysis.Cauchy.EulerSharperPure (euler_sharper_8_3_pure)
 open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut)
 
@@ -53,7 +53,7 @@ theorem eulerCut_valid (n : Nat) : ValidCut (eulerCut n) := eAb.cut_valid n
     pair).  Lets `Cauchy/Euler`'s `orderProj` bounds transfer by `decide`/`rw`. -/
 theorem eulerCut_eq (n m k : Nat) :
     eulerCut n m k = decide (eulerNum n * k ≤ eulerDen n * m) := by
-  show E213.Lib.Math.Cauchy.Archimedean.orderProj m k
+  show E213.Lib.Math.Analysis.Cauchy.Archimedean.orderProj m k
         (E213.Lens.Instances.AB.abLens.view (eulerRaw n).val) = _
   rw [eulerRaw_view]; rfl
 

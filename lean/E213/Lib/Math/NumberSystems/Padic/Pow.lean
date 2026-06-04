@@ -1,7 +1,7 @@
 import E213.Lib.Math.NumberSystems.Padic.Foundation
 import E213.Lib.Math.NumberSystems.Padic.Arith
 import E213.Lib.Math.NumberSystems.Padic.Norm
-import E213.Lib.Math.ModArith.UniversalFLT
+import E213.Lib.Math.NumberTheory.ModArith.UniversalFLT
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.MulMod213
@@ -135,7 +135,7 @@ fixes the digit-0 mod p.
 theorem Zp.pow_p_trunc_one (p : Nat) (hp : 1 < p) (x : ZpSeq p)
     (h_prime_gcd : ∀ m, 0 < m
                   → m < p
-                  → (E213.Lib.Math.ModArith.ModBezout.modBezout m p).1 = 1) :
+                  → (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m p).1 = 1) :
     (Zp.pow p hp x p).trunc 1 = x.trunc 1 := by
   have hp' : 0 < p := Nat.lt_of_succ_lt hp
   rw [Zp.pow_trunc p hp x 1 p, Nat.pow_one]
@@ -164,7 +164,7 @@ theorem Zp.pow_p_trunc_one (p : Nat) (hp : 1 < p) (x : ZpSeq p)
     rw [E213.Meta.Nat.MulMod213.mul_mod_left_pure
           ((x.trunc 1)^(p - 1)) (x.trunc 1) p]
     -- Goal: (((x.trunc 1)^(p-1) % p) * x.trunc 1) % p = x.trunc 1
-    rw [E213.Lib.Math.ModArith.UniversalFLT.universal_flt_main
+    rw [E213.Lib.Math.NumberTheory.ModArith.UniversalFLT.universal_flt_main
           (x.trunc 1) p hp h_pos h_lt h_prime_gcd]
     -- Goal: ((1 % p) * x.trunc 1) % p = x.trunc 1
     rw [Nat.mod_eq_of_lt hp, Nat.one_mul]
@@ -177,7 +177,7 @@ theorem Zp.smoke_pow_5_digit_two :
       ⟨fun k => if k = 0 then ⟨2, by decide⟩ else ⟨0, by decide⟩⟩ 5).trunc 1
       = 2 := by
   rw [Zp.pow_p_trunc_one 5 (by decide) _
-        E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_5]
+        E213.Lib.Math.NumberTheory.ModArith.UniversalFLT.prime_gcd_5]
   -- (x.trunc 1) where x.digits 0 = 2.
   rfl
 
@@ -213,7 +213,7 @@ theorem Zp.teichmuller_iter_succ (p : Nat) (hp : 1 < p) (x : ZpSeq p) (n : Nat) 
 theorem Zp.teichmuller_iter_trunc_one (p : Nat) (hp : 1 < p) (x : ZpSeq p)
     (h_prime_gcd : ∀ m, 0 < m
                   → m < p
-                  → (E213.Lib.Math.ModArith.ModBezout.modBezout m p).1 = 1) :
+                  → (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m p).1 = 1) :
     ∀ n, (Zp.teichmuller_iter p hp x n).trunc 1 = x.trunc 1
   | 0 => rfl
   | n + 1 => by
@@ -228,7 +228,7 @@ theorem Zp.smoke_teichmuller_5_iter_3 :
       ⟨fun k => if k = 0 then ⟨2, by decide⟩ else ⟨0, by decide⟩⟩ 3).trunc 1
       = 2 := by
   rw [Zp.teichmuller_iter_trunc_one 5 (by decide) _
-        E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_5]
+        E213.Lib.Math.NumberTheory.ModArith.UniversalFLT.prime_gcd_5]
   rfl
 
 /-- **Fermat at trunc-1**: for `p` prime and `x` with nonzero digit 0,
@@ -242,7 +242,7 @@ theorem Zp.pow_p_minus_one_trunc_one (p : Nat) (hp : 1 < p) (x : ZpSeq p)
     (h_nz : 0 < (x.digits 0).val)
     (h_prime_gcd : ∀ m, 0 < m
                   → m < p
-                  → (E213.Lib.Math.ModArith.ModBezout.modBezout m p).1 = 1) :
+                  → (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m p).1 = 1) :
     (Zp.pow p hp x (p - 1)).trunc 1 = 1 := by
   have hp' : 0 < p := Nat.lt_of_succ_lt hp
   rw [Zp.pow_trunc p hp x 1 (p - 1), Nat.pow_one]
@@ -254,7 +254,7 @@ theorem Zp.pow_p_minus_one_trunc_one (p : Nat) (hp : 1 < p) (x : ZpSeq p)
   rw [h_trunc1]
   -- Goal: ((x.digits 0).val)^(p-1) % p = 1
   have h_lt : (x.digits 0).val < p := (x.digits 0).isLt
-  have := E213.Lib.Math.ModArith.UniversalFLT.universal_flt_main
+  have := E213.Lib.Math.NumberTheory.ModArith.UniversalFLT.universal_flt_main
             (x.digits 0).val p hp h_nz h_lt h_prime_gcd
   -- this : (x.digits 0).val ^ (p - 1) % p = 1 % p
   rw [this, Nat.mod_eq_of_lt hp]
@@ -266,7 +266,7 @@ theorem Zp.smoke_pow_4_eq_one_5 :
       ⟨fun k => if k = 0 then ⟨2, by decide⟩ else ⟨0, by decide⟩⟩ 4).trunc 1
       = 1 := by
   exact Zp.pow_p_minus_one_trunc_one 5 (by decide) _ (by decide)
-    E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_5
+    E213.Lib.Math.NumberTheory.ModArith.UniversalFLT.prime_gcd_5
 
 /-! ## Multiplicative homomorphism
 

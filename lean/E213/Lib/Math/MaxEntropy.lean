@@ -1,5 +1,5 @@
 import E213.Lib.Math.CeilingSchema
-import E213.Lib.Math.Cauchy.GoldenPiFaces
+import E213.Lib.Math.Analysis.Cauchy.GoldenPiFaces
 
 /-!
 # Maximum entropy as a positive intrinsic property
@@ -42,12 +42,12 @@ constructive realizer of that one non-surjection.
 
 namespace E213.Lib.Math.MaxEntropy
 
-open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ newtonZ)
-open E213.Lib.Math.Cauchy.DepthCharacterization (finite_depthZ_iff)
+open E213.Lib.Math.Analysis.Cauchy.NewtonGregory (polyDepthZ newtonZ)
+open E213.Lib.Math.Analysis.Cauchy.DepthCharacterization (finite_depthZ_iff)
 open E213.Lib.Math.CeilingSchema (ReachedByNoStage not_surjective_of_reachedByNoStage)
-open E213.Lib.Math.Cauchy.ThueMorseRingEscape (s2Z s2Z_not_polyDepthZ)
-open E213.Lib.Math.Cauchy.DetZeroCollapse (cas)
-open E213.Lib.Math.Cauchy.GoldenPiFaces (golden_cassini_no_finite_depth)
+open E213.Lib.Math.Analysis.Cauchy.ThueMorseRingEscape (s2Z s2Z_not_polyDepthZ)
+open E213.Lib.Math.Analysis.Cauchy.DetZeroCollapse (cas)
+open E213.Lib.Math.Analysis.Cauchy.GoldenPiFaces (golden_cassini_no_finite_depth)
 
 /-- A sequence carries a **finite holonomic handle** when it has some finite difference-depth —
     equivalently (`finite_depthZ_iff`) it equals a Newton polynomial `newtonZ c d`.  This is the

@@ -1,5 +1,5 @@
-import E213.Lib.Math.Mobius213
-import E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote
+import E213.Lib.Math.Algebra.Mobius213
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote
 import E213.Lib.Physics.Foundations.GoldenRatio
 /-!
 # Three-way φ bridge — Möbius P, algebra tower, Pell-Fib
@@ -27,10 +27,10 @@ All declarations PURE.
 
 namespace E213.Lib.Math.UniverseChain.PhiThreeWayBridge
 
-open E213.Lib.Math.Mobius213
+open E213.Lib.Math.Algebra.Mobius213
   (mobius_213_discriminant mobius_213_trace mobius_213_det
    P_numerator P_denominator P_numerator_values P_denominator_values)
-open E213.Lib.Math.CayleyDickson.Tower.AlgebraTowerAsymptote
+open E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote
   (BaseType asymptote_ab rank_1_asymptote_eq)
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
 

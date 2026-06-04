@@ -1,6 +1,6 @@
 import E213.Lib.Math.NumberSystems.Padic.Arith
 import E213.Lib.Math.NumberSystems.Padic.Norm
-import E213.Lib.Math.ModArith.ModBezoutInvariant
+import E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant
 import E213.Meta.Tactic.NatHelper
 /-!
 # Real213-p-adic Hensel scaffold
@@ -16,7 +16,7 @@ construct `y : ZpSeq p` such that `Zp.mul x y` is digit-by-digit
 the all-one (`ZpSeq.one`) sequence — i.e., `x · y = 1` in ℤ_p.
 
 The base case (digit 0 of y) uses the modular-arithmetic substrate
-from `E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout`.
+from `E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant.modInverseFromBezout`.
 Subsequent digits are determined by the Hensel lift / FSM
 correction at each level.
 
@@ -71,20 +71,20 @@ inverse construction.
 /-- The digit-0 of `x`'s inverse — the modular Bezout witness
     for `(x.digits 0).val` mod `p`. -/
 def Zp.invDigit0 (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     ZpDigit p :=
-  let mi := E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout
+  let mi := E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant.modInverseFromBezout
               (x.digits 0).val p hp h_gcd
   ⟨mi.inv, mi.inv_lt⟩
 
 /-- The digit-0 inverse satisfies the modular identity
     `(x.digits 0).val · invDigit0 ≡ 1 (mod p)`. -/
 theorem Zp.invDigit0_eq (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     ((x.digits 0).val * (Zp.invDigit0 p hp x h_gcd).val) % p = 1 % p :=
-  (E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout
+  (E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant.modInverseFromBezout
     (x.digits 0).val p hp h_gcd).inv_eq
 
 /-! ## Smoke applications -/
@@ -92,11 +92,11 @@ theorem Zp.invDigit0_eq (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 /-- Smoke: for `x : ZpSeq 5` with digit-0 = 2, the inverse digit
     is `3` (since `2 · 3 = 6 ≡ 1 (mod 5)`). -/
 example (digits_rest : Nat → ZpDigit 5)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout 2 5).1 = 1) :
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout 2 5).1 = 1) :
     (Zp.invDigit0 5 (by decide)
       ⟨fun k => if k = 0 then ⟨2, by decide⟩ else digits_rest k⟩
       h_gcd).val = 3 := by
-  show (E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout
+  show (E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant.modInverseFromBezout
           2 5 (by decide) h_gcd).inv = 3
   rfl
 
@@ -110,14 +110,14 @@ At level 1, this template multiplied by `x` truncates to `1 % p`
 /-- The level-1 inverse template: only digit 0 is set (to the
     Bezout inverse); all higher digits are zero. -/
 def Zp.invTemplate (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) : ZpSeq p where
   digits := fun k =>
     if k = 0 then Zp.invDigit0 p hp x h_gcd else ⟨0, hp⟩
 
 /-- Digit-0 of the template equals `invDigit0`. -/
 theorem Zp.invTemplate_digit_zero (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     ((Zp.invTemplate p hp x h_gcd).digits 0).val
       = (Zp.invDigit0 p hp x h_gcd).val := by
@@ -128,7 +128,7 @@ theorem Zp.invTemplate_digit_zero (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 
 /-- Higher digits of the template are zero. -/
 theorem Zp.invTemplate_digit_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (k : Nat) :
     ((Zp.invTemplate p hp x h_gcd).digits (k + 1)).val = 0 := by
   show (if (k + 1 : Nat) = 0 then Zp.invDigit0 p hp x h_gcd
@@ -138,7 +138,7 @@ theorem Zp.invTemplate_digit_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 /-- Level-1 Hensel correctness: `x · invTemplate ≡ 1 (mod p)`.
     The base case of the Hensel-lifted inverse construction. -/
 theorem Zp.mul_invTemplate_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     (Zp.mul p hp x (Zp.invTemplate p hp x h_gcd)).trunc 1 = 1 % p := by
   show (0 : Nat)
@@ -327,7 +327,7 @@ Replace digit `(n + 1)` of `invSeq n` with `d_n` to get `invSeq (n+1)`.
 /-- Approximate inverse sequence at level `n` — has digits 0..n
     correctly set, digits beyond n are 0. -/
 def Zp.invSeq (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) : Nat → ZpSeq p
   | 0 => Zp.invTemplate p hp x h_gcd
   | n + 1 =>
@@ -342,13 +342,13 @@ def Zp.invSeq (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 
 /-- Level-0 of the sequence is the `invTemplate`. -/
 theorem Zp.invSeq_zero (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     Zp.invSeq p hp x h_gcd 0 = Zp.invTemplate p hp x h_gcd := rfl
 
 /-- The new digit at level `n + 1` (definitional). -/
 theorem Zp.invSeq_succ_new_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat) :
     ((Zp.invSeq p hp x h_gcd (n + 1)).digits (n + 1)).val
       = Zp.negMod p
@@ -362,7 +362,7 @@ theorem Zp.invSeq_succ_new_digit (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 
 /-- Digits below `n + 1` are inherited from the previous level. -/
 theorem Zp.invSeq_succ_digit_below (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n j : Nat) (hj : j ≠ n + 1) :
     ((Zp.invSeq p hp x h_gcd (n + 1)).digits j)
       = (Zp.invSeq p hp x h_gcd n).digits j := by
@@ -373,7 +373,7 @@ theorem Zp.invSeq_succ_digit_below (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 
 /-- Above level `n`, digits of `invSeq n` are zero. -/
 theorem Zp.invSeq_digit_above (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     ∀ n k, n < k → ((Zp.invSeq p hp x h_gcd n).digits k).val = 0
   | 0, k, hk => by
@@ -394,7 +394,7 @@ theorem Zp.invSeq_digit_above (p : Nat) (hp : 0 < p) (x : ZpSeq p)
     `invSeq n` to `invSeq (n + 1)` — the new digit only affects
     position `n + 1`, which is outside the trunc bound `k`. -/
 theorem Zp.invSeq_succ_trunc_low (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat) :
     ∀ k, k ≤ n + 1 →
       (Zp.invSeq p hp x h_gcd (n + 1)).trunc k
@@ -418,7 +418,7 @@ theorem Zp.invSeq_succ_trunc_low (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 /-- `(invSeq n).trunc (n + 2) = (invSeq n).trunc (n + 1)` — extending
     the trunc beyond level `n` doesn't add anything (digit `n+1` is 0). -/
 theorem Zp.invSeq_trunc_at_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat) :
     (Zp.invSeq p hp x h_gcd n).trunc (n + 2)
       = (Zp.invSeq p hp x h_gcd n).trunc (n + 1) := by
@@ -431,7 +431,7 @@ theorem Zp.invSeq_trunc_at_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 /-- Digit 0 of `invSeq n` is always `invDigit0` (invariant under
     Hensel lifting, since each step only adds digits at position n+1). -/
 theorem Zp.invSeq_digit_zero (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     ∀ n, ((Zp.invSeq p hp x h_gcd n).digits 0).val
           = (Zp.invDigit0 p hp x h_gcd).val
@@ -445,7 +445,7 @@ theorem Zp.invSeq_digit_zero (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 
 /-- `(invSeq n).trunc 1 = invDigit0` for any level `n`. -/
 theorem Zp.invSeq_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat) :
     (Zp.invSeq p hp x h_gcd n).trunc 1
       = (Zp.invDigit0 p hp x h_gcd).val := by
@@ -456,7 +456,7 @@ theorem Zp.invSeq_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 
 /-- Level-1 Hensel correctness for any approximation: `x · invSeq x n ≡ 1 (mod p)`. -/
 theorem Zp.mul_invSeq_trunc_one (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat) :
     (Zp.mul p hp x (Zp.invSeq p hp x h_gcd n)).trunc 1 = 1 % p := by
   rw [Zp.mul_trunc p hp x (Zp.invSeq p hp x h_gcd n) 1,
@@ -502,7 +502,7 @@ private theorem trunc_succ_mod_p (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 /-- `(invSeq (n+1)).trunc (n + 2) = (invSeq n).trunc (n + 1) +
     new_digit · p^(n+1)` — the extension formula. -/
 theorem Zp.invSeq_succ_trunc_extend (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat) :
     (Zp.invSeq p hp x h_gcd (n + 1)).trunc (n + 2)
       = (Zp.invSeq p hp x h_gcd n).trunc (n + 1)
@@ -519,7 +519,7 @@ theorem Zp.invSeq_succ_trunc_extend (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 /-- The Hensel inductive step: given the IH at level n, the next
     digit chosen by `invSeq` makes `(x · invSeq (n+1)).trunc (n+2) = 1`. -/
 private theorem hensel_step (p : Nat) (hp : 1 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat)
     (ih : (Zp.mul p (Nat.lt_of_succ_lt hp) x
             (Zp.invSeq p (Nat.lt_of_succ_lt hp) x h_gcd n)).trunc (n + 1) = 1) :
@@ -580,7 +580,7 @@ private theorem hensel_step (p : Nat) (hp : 1 < p) (x : ZpSeq p)
     `invSeq n` satisfies `(x · invSeq n).trunc (n + 1) = 1`,
     i.e., `x · invSeq n ≡ 1 (mod p^(n+1))`. -/
 theorem Zp.mul_invSeq_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     ∀ n, (Zp.mul p (Nat.lt_of_succ_lt hp) x
             (Zp.invSeq p (Nat.lt_of_succ_lt hp) x h_gcd n)).trunc (n + 1) = 1
@@ -603,7 +603,7 @@ satisfies `x · invFull ≡ 1`).
 /-- Digit stability: `(invSeq n).digits j = (invSeq j).digits j` for
     `j ≤ n` — higher-level approximations preserve lower digits. -/
 theorem Zp.invSeq_digit_stable (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     ∀ n j, j ≤ n →
       (Zp.invSeq p hp x h_gcd n).digits j
@@ -622,7 +622,7 @@ theorem Zp.invSeq_digit_stable (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 
 /-- The full inverse `ZpSeq p`: extract each "settled" digit. -/
 def Zp.invFull (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) : ZpSeq p where
   digits := fun k => (Zp.invSeq p hp x h_gcd k).digits k
 
@@ -630,7 +630,7 @@ def Zp.invFull (p : Nat) (hp : 0 < p) (x : ZpSeq p)
     invFull's truncation matches the level-n approximation
     (which has all digits 0..n correctly set). -/
 theorem Zp.invFull_trunc_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     ∀ n, (Zp.invFull p hp x h_gcd).trunc (n + 1)
           = (Zp.invSeq p hp x h_gcd n).trunc (n + 1)
@@ -651,7 +651,7 @@ theorem Zp.invFull_trunc_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
 
 /-- **Full Hensel correctness**: `x · invFull ≡ 1 (mod p^(n+1))` for all `n`. -/
 theorem Zp.mul_invFull_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat) :
     (Zp.mul p (Nat.lt_of_succ_lt hp) x
       (Zp.invFull p (Nat.lt_of_succ_lt hp) x h_gcd)).trunc (n + 1) = 1 := by
@@ -665,7 +665,7 @@ theorem Zp.mul_invFull_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
     Proof: both `y` and `z` truncate to `(invFull x).trunc (n+1)`
     (using mul_trunc_comm/assoc + mul_invFull_correct + mul_one_left). -/
 theorem Zp.inv_trunc_unique (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat)
     (hy : (Zp.mul p (Nat.lt_of_succ_lt hp) x y).trunc (n + 1) = 1)
     (hz : (Zp.mul p (Nat.lt_of_succ_lt hp) x z).trunc (n + 1) = 1) :
@@ -718,7 +718,7 @@ theorem Zp.inv_trunc_unique (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
     chain `y.trunc = (inv·(x·y)).trunc = (inv·(x·z)).trunc = z.trunc`
     holds by `mul_trunc_assoc` + `mul_trunc_comm` + `mul_invFull_correct`. -/
 theorem Zp.mul_left_cancel_trunc (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat)
     (h : (Zp.mul p (Nat.lt_of_succ_lt hp) x y).trunc (n + 1)
        = (Zp.mul p (Nat.lt_of_succ_lt hp) x z).trunc (n + 1)) :
@@ -753,7 +753,7 @@ theorem Zp.mul_left_cancel_trunc (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
 /-- **Multiplicative right-cancellation** at trunc level by a unit.
     Symmetric to `mul_left_cancel_trunc` via `mul_trunc_comm`. -/
 theorem Zp.mul_right_cancel_trunc (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat)
     (h : (Zp.mul p (Nat.lt_of_succ_lt hp) y x).trunc (n + 1)
        = (Zp.mul p (Nat.lt_of_succ_lt hp) z x).trunc (n + 1)) :
@@ -767,7 +767,7 @@ theorem Zp.mul_right_cancel_trunc (p : Nat) (hp : 1 < p) (x y z : ZpSeq p)
 /-- **Unit-mul-zero**: if `x` is a unit and `(x · v).trunc (n+1) = 0`,
     then `v.trunc (n+1) = 0`.  Special case of left-cancel with z = 0. -/
 theorem Zp.mul_eq_zero_of_unit_left (p : Nat) (hp : 1 < p) (x v : ZpSeq p)
-    (h_gcd : (E213.Lib.Math.ModArith.ModBezout.modBezout
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) (n : Nat)
     (h : (Zp.mul p (Nat.lt_of_succ_lt hp) x v).trunc (n + 1) = 0) :
     v.trunc (n + 1) = 0 := by

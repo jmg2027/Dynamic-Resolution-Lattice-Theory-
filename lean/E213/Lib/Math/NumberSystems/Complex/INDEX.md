@@ -15,7 +15,7 @@ Blueprint: `blueprints/math/04_complex_213.md` (retired).
 ## 213-native paradigm
 
   * ℂ = first Cayley-Dickson level on `Cut`. ZI (Gaussian integers)
-    in `Lib/Math/CayleyDickson/ZI.lean`; this lifts to `Cut`-valued.
+    in `Lib/Math/Algebra/CayleyDickson/ZI.lean`; this lifts to `Cut`-valued.
   * Holomorphic = Cauchy-Riemann via `partialAt` (Multivariable 213).
   * Power series = finite polynomial by Grade-N nilpotency
     (`Lib/Math/Cohomology/CutExpFiniteTruncation.lean`).

@@ -28,7 +28,7 @@ All declarations PURE.
 
 namespace E213.Lib.Math.NumberSystems.Padic.HenselBridge
 
-open E213.Lib.Math.ModArith.ModBezout (modBezout)
+open E213.Lib.Math.NumberTheory.ModArith.ModBezout (modBezout)
 
 /-! ## §1 — Lift a Nat into a ZpSeq -/
 
@@ -87,7 +87,7 @@ theorem invDigit0_of_fromFp
     (p : Nat) (hp : 0 < p) (x : Nat)
     (h_gcd : (modBezout ((fromFp p hp x).digits 0).val p).1 = 1) :
     (Zp.invDigit0 p hp (fromFp p hp x) h_gcd).val
-      = (E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout
+      = (E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant.modInverseFromBezout
           ((fromFp p hp x).digits 0).val p hp h_gcd).inv := rfl
 
 /-! ## §4 — Modular consistency identity
@@ -124,7 +124,7 @@ theorem hensel_bridge_capstone (p : Nat) (hp : 0 < p) (x : Nat)
     ∧ ((fromFp p hp x).digits 1).val = 0
     -- (c) Hensel inverse matches Bezout
     ∧ (Zp.invDigit0 p hp (fromFp p hp x) h_gcd).val
-        = (E213.Lib.Math.ModArith.ModBezoutInvariant.modInverseFromBezout
+        = (E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant.modInverseFromBezout
             ((fromFp p hp x).digits 0).val p hp h_gcd).inv
     -- (d) Modular inverse identity
     ∧ (((fromFp p hp x).digits 0).val

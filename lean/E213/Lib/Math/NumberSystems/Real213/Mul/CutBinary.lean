@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cauchy.Archimedean
+import E213.Lib.Math.Analysis.Cauchy.Archimedean
 import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
 
 import E213.Lib.Math.NumberSystems.Real213.Core.Core

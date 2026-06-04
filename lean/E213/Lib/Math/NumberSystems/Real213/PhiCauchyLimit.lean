@@ -29,7 +29,7 @@ completion.  All ∅-axiom.
 
 namespace E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
 
-open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (cs_eq_phiCut)
 

@@ -1,5 +1,5 @@
 import E213.Lib.Math.MaxEntropy
-import E213.Lib.Math.Cauchy.ZeroInfinityHole
+import E213.Lib.Math.Analysis.Cauchy.ZeroInfinityHole
 
 /-!
 # The det-spectrum's two poles are the two folds' non-values; the unit is the center
@@ -32,11 +32,11 @@ additive non-value — the founding sign carrying the richness).
 
 namespace E213.Lib.Math.DetSpectrumPoles
 
-open E213.Lib.Math.Cauchy.DetZeroCollapse (cas cas_conserved_unit)
-open E213.Lib.Math.Cauchy.WronskianDepth (cas_unit_depth0 cas_neg_unit_no_finite_depth)
-open E213.Lib.Math.Cauchy.ZeroInfinityHole (cas_zero_collapses)
+open E213.Lib.Math.Analysis.Cauchy.DetZeroCollapse (cas cas_conserved_unit)
+open E213.Lib.Math.Analysis.Cauchy.WronskianDepth (cas_unit_depth0 cas_neg_unit_no_finite_depth)
+open E213.Lib.Math.Analysis.Cauchy.ZeroInfinityHole (cas_zero_collapses)
 open E213.Lib.Math.MaxEntropy (MaxEntropy)
-open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ)
+open E213.Lib.Math.Analysis.Cauchy.NewtonGregory (polyDepthZ)
 
 /-- ★★★★ **Two poles, one center.**  For an order-2 orbit `s` with determinant coefficient `q`:
 

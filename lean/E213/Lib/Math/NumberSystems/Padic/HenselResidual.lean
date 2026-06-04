@@ -24,7 +24,7 @@ All declarations PURE (re-exporting existing PURE results).
 
 namespace E213.Lib.Math.NumberSystems.Padic.HenselResidual
 
-open E213.Lib.Math.ModArith.ModBezout (modBezout)
+open E213.Lib.Math.NumberTheory.ModArith.ModBezout (modBezout)
 
 /-! ## §1 — Surfacing the residual induction -/
 

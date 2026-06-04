@@ -1,7 +1,7 @@
 import E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
 import E213.Lib.Math.NumberSystems.Real213.AbCutSeq
 import E213.Lib.Math.NumberSystems.Real213.PhiAsCut
-import E213.Lib.Math.Cauchy.PellSeq
+import E213.Lib.Math.Analysis.Cauchy.PellSeq
 import E213.Meta.Nat.PureNat
 
 /-!
@@ -34,12 +34,12 @@ All ∅-axiom.
 namespace E213.Lib.Math.NumberSystems.Real213.PhiAbCut
 
 open E213.Theory (Raw)
-open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (fib_cassini_norm fib_odd_pos cs_eq_phiCut)
 open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
-open E213.Lib.Math.Cauchy.PellSeq (abLens_witness)
+open E213.Lib.Math.Analysis.Cauchy.PellSeq (abLens_witness)
 open E213.Lens.Instances.AB (abLens)
-open E213.Lib.Math.Cauchy.MonotonicBounded (IsAbMonotonic IsAbPositiveB)
+open E213.Lib.Math.Analysis.Cauchy.MonotonicBounded (IsAbMonotonic IsAbPositiveB)
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut)
 open E213.Meta.Nat.PureNat (add_mul)
@@ -100,7 +100,7 @@ def phiAb : AbCutSeq := ⟨fibRawSeq, fib_isAbMonotonic, fib_isAbPositiveB⟩
     `decide (fib(2n+2)·k ≤ fib(2n+1)·m)`. -/
 theorem phiAb_cut_eq (n m k : Nat) :
     phiAb.cut n m k = decide (fib (2*n+2) * k ≤ fib (2*n+1) * m) := by
-  show E213.Lib.Math.Cauchy.Archimedean.orderProj m k (abLens.view (fibRawSeq n)) = _
+  show E213.Lib.Math.Analysis.Cauchy.Archimedean.orderProj m k (abLens.view (fibRawSeq n)) = _
   rw [fibRaw_view]; rfl
 
 /-! ## §3 — the contrast: φ completes UNCONDITIONALLY -/

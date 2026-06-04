@@ -124,7 +124,7 @@ theorem golden_first_markov_form :
     ∧ (1 : Nat) * 1 = 1 * 0 + 0 * 0 + 1 :=
   ⟨golden_anisotropic, golden_represents_one⟩
 
-open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 
 /-- ★★★ **The minimum is attained on φ's convergents — the `W = ±1` floor is the form's
     minimum.**  On every Fibonacci convergent pair, the golden form takes value `−1`:

@@ -1,5 +1,5 @@
 import E213.Lens.LensCore
-import E213.Lib.Math.Cauchy.Archimedean
+import E213.Lib.Math.Analysis.Cauchy.Archimedean
 
 /-!
 # AsLensOutput: real = Lens output (User insight)

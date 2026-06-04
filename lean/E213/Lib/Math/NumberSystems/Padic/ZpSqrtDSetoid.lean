@@ -113,7 +113,7 @@ theorem zpsd_frob_respects (p : Nat) (hp : 1 < p) (x y : ZpSqrtD p)
     in this case means equal FP2 inputs) produce equivalent ZpSqrtD
     outputs. -/
 theorem fp2d_to_zpsd_eq_respects
-    (p : Nat) (hp : 0 < p) (x y : E213.Lib.Math.ModArith.FP2SqrtD.FP2)
+    (p : Nat) (hp : 0 < p) (x y : E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD.FP2)
     (h : x = y) :
     ZpSqrtDEquiv (fp2d_to_zpsd p hp x) (fp2d_to_zpsd p hp y) := by
   rw [h]

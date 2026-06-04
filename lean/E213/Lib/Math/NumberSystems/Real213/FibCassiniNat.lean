@@ -1,4 +1,4 @@
-import E213.Lib.Math.Mobius213.Px.QFibIdentity
+import E213.Lib.Math.Algebra.Mobius213.Px.QFibIdentity
 import E213.Lib.Math.NumberSystems.Real213.PhiAsCut
 import E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant
 import E213.Meta.Nat.PureNat
@@ -28,7 +28,7 @@ the repo's PURE replacements `Meta/Nat/PureNat.{add_mul, mul_assoc, even_sq}` an
 
 namespace E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
 
-open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc even_sq)
 open E213.Meta.Nat.NatRing213 (two_mul_eq three_mul_eq nat_add_left_cancel nat_sub_add_cancel nat_mul_assoc nat_add_mul mul_sq sq_le_imp sq_lt_imp)
 open E213.Meta.Nat.NatRing213 renaming nat_mul_lt_mul_right → mul_lt_mul_r, nat_mul_lt_mul_left → mul_lt_mul_l

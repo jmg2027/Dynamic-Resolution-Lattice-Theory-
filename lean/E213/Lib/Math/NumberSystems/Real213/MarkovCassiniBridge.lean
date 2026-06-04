@@ -35,7 +35,7 @@ norm `fib_cassini_norm` (`a² + ab = b² + 1`, `a = fib(2n+1)`, `b = fib(2n+2)`)
 
 namespace E213.Lib.Math.NumberSystems.Real213.MarkovCassiniBridge
 
-open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
+open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (fib_cassini_norm)
 open E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov (add_left_cancel_pure)
 

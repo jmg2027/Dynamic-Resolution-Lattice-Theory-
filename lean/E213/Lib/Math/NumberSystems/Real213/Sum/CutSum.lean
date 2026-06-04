@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cauchy.Archimedean
+import E213.Lib.Math.Analysis.Cauchy.Archimedean
 
 /-!
 # CutSum: cut-level addition
@@ -25,7 +25,7 @@ detail*; the primitive is bounded search.
 namespace E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Cauchy.Archimedean
+open E213.Lib.Math.Analysis.Cauchy.Archimedean
 
 /-- Bounded search: whether there exists m1 ∈ [0, m1Max] such that
     cx m1 (2k) ∧ cy (m1Max - m1) (2k). -/

@@ -27,7 +27,7 @@ rewrites, no `ring`/`omega`/Mathlib).
 namespace E213.Lib.Math.NumberSystems.Real213.PhiNormInvariant
 
 open E213.Meta.Int213
-open E213.Lib.Math.Mobius213 (P_numerator P_denominator pell_unit_at)
+open E213.Lib.Math.Algebra.Mobius213 (P_numerator P_denominator pell_unit_at)
 
 private abbrev N (n : Nat) : Int := P_numerator.seq n
 private abbrev D (n : Nat) : Int := P_denominator.seq n
@@ -121,7 +121,7 @@ theorem norm_eq_pell_unit (n : Nat) :
 theorem phi_norm_eq_neg_one (n : Nat) :
     N n * N n - N n * D n - D n * D n = -1 := by
   rw [norm_eq_pell_unit n]
-  exact E213.Lib.Math.Mobius213.mobius_213_pell_unit_invariant_forall n
+  exact E213.Lib.Math.Algebra.Mobius213.mobius_213_pell_unit_invariant_forall n
 
 /-! ## Coupling, stated on `seq` directly (for downstream Nat bridges)
 

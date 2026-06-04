@@ -1,4 +1,4 @@
-import E213.Lib.Math.Modulus.HasModulus
+import E213.Lib.Math.Analysis.Modulus.HasModulus
 
 /-!
 # Real213: framework-internal Real number type
@@ -29,7 +29,7 @@ Workaround: setoid-style approach or raw subtype.
 namespace E213.Lib.Math.NumberSystems.Real213.Core.Core
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Modulus.HasModulus
+open E213.Lib.Math.Analysis.Modulus.HasModulus
 
 /-- Constructive Cauchy real: sequence + explicit modulus. -/
 structure Real213 where
@@ -41,9 +41,9 @@ structure Real213 where
 def Real213.equiv (r r' : Real213) : Prop :=
   ∀ m k, k ≥ 1 →
     ∃ N, ∀ i, i ≥ N →
-      E213.Lib.Math.Cauchy.Archimedean.orderProj m k
+      E213.Lib.Math.Analysis.Cauchy.Archimedean.orderProj m k
         (E213.Lens.Instances.AB.abLens.view (r.xs i)) =
-      E213.Lib.Math.Cauchy.Archimedean.orderProj m k
+      E213.Lib.Math.Analysis.Cauchy.Archimedean.orderProj m k
         (E213.Lens.Instances.AB.abLens.view (r'.xs i))
 
 end E213.Lib.Math.NumberSystems.Real213.Core.Core

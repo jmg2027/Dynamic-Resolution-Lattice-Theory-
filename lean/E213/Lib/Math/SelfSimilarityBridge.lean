@@ -1,6 +1,6 @@
 import E213.Theory.Raw.API
 import E213.Lib.Math.UniverseChain.Recursion
-import E213.Lib.Math.Mobius213.TowerLInfty
+import E213.Lib.Math.Algebra.Mobius213.TowerLInfty
 import E213.Lib.Math.NumberSystems.Real213.PhiCut
 import E213.Lib.Math.NumberSystems.Real213.PhiConvergence
 import E213.Meta.Nat.PureNat
@@ -93,7 +93,7 @@ Below, the limit-ratio is witnessed PURE by the existing brackets:
 `phi_bracket_via_pell` / `phi_cut_capstone` (the Pell convergent brackets φ
 itself as a Cut). -/
 
-open E213.Lib.Math.Mobius213 (P_numerator)
+open E213.Lib.Math.Algebra.Mobius213 (P_numerator)
 open E213.Lib.Math.NumberSystems.Real213.PhiCut (pellNum pellDen)
 
 /-- **Limit-ratio reading**: the consecutive-term ratio of the P-orbit is
@@ -107,7 +107,7 @@ theorem self_similar_ratio_is_phi :
        ∧ P_numerator.seq 2 ≤ 3 * P_numerator.seq 1)
     ∧ -- Pell convergent brackets φ ∈ [3/2, 5/3] at layer 2
     (3 * pellDen 2 < 2 * pellNum 2 ∧ 3 * pellNum 2 < 5 * pellDen 2) :=
-  ⟨(E213.Lib.Math.Mobius213.TowerLInfty.tower_growth_phi_squared_bracket).1,
+  ⟨(E213.Lib.Math.Algebra.Mobius213.TowerLInfty.tower_growth_phi_squared_bracket).1,
    ⟨(E213.Lib.Math.NumberSystems.Real213.PhiCut.phi_bracket_via_pell).1,
     (E213.Lib.Math.NumberSystems.Real213.PhiCut.phi_bracket_via_pell).2.1⟩⟩
 

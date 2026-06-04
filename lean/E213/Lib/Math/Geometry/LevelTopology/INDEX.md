@@ -22,5 +22,5 @@ Topological structure of the Cayley-Dickson level tower
 ## Companion clusters
 
   - `Lib/Math/Geometry/Topology/`             — base topology primitives
-  - `Lib/Math/CayleyDickson/Tower/`  — level tower machinery
+  - `Lib/Math/Algebra/CayleyDickson/Tower/`  — level tower machinery
   - `Lib/Math/Geometry/OperationTopology/`    — operation-level topology

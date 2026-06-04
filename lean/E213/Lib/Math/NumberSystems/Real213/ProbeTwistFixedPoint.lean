@@ -36,7 +36,7 @@ open E213.Lib.Math.NumberSystems.Real213.PhiAsCut (phiCut)
 open E213.Lib.Math.NumberSystems.Real213.PhiProbeFixed (phi_is_probe_twist_fixed)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCut (eulerCut eulerCut_eq)
 open E213.Lib.Math.NumberSystems.Real213.MobiusProbeTwist (cutThroughP)
-open E213.Lib.Math.Cauchy.EulerSeq (eulerNum eulerDen)
+open E213.Lib.Math.Analysis.Cauchy.EulerSeq (eulerNum eulerDen)
 
 set_option maxRecDepth 4000
 

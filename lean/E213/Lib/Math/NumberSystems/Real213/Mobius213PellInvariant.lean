@@ -22,7 +22,7 @@ Equivalently, viewed across both orbits via `Pseq_seedInf_components`,
 — the cross-product `m · k' - m' · k = -1` of the Pell pair
 `((a, b), (a+b, a))`.
 
-The Int version of this invariant lives in `Lib/Math/Mobius213.lean`
+The Int version of this invariant lives in `Lib/Math/Algebra/Mobius213.lean`
 (`mobius_213_pell_unit_invariant_forall`); this file establishes
 the corresponding Nat-side identity directly on the Pseq orbits,
 without coercion to Int.  All declarations PURE (∅-axiom).

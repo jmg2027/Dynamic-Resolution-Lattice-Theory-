@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cauchy.MonotonicBounded
+import E213.Lib.Math.Analysis.Cauchy.MonotonicBounded
 import E213.Lib.Math.NumberSystems.Real213.Core.ValidCut
 import E213.Lib.Math.Analysis.CauchyCompleteValid
 
@@ -40,8 +40,8 @@ All ∅-axiom.
 namespace E213.Lib.Math.NumberSystems.Real213
 
 open E213.Theory (Raw)
-open E213.Lib.Math.Cauchy.MonotonicBounded
-open E213.Lib.Math.Cauchy.Archimedean (orderProj)
+open E213.Lib.Math.Analysis.Cauchy.MonotonicBounded
+open E213.Lib.Math.Analysis.Cauchy.Archimedean (orderProj)
 open E213.Lens.Instances.AB (abLens)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)

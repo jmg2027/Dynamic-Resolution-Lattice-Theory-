@@ -1,5 +1,5 @@
-import E213.Lib.Math.ModArith.PureNatMod3
-import E213.Lib.Math.ModArith.PureNatMod5
+import E213.Lib.Math.NumberTheory.ModArith.PureNatMod3
+import E213.Lib.Math.NumberTheory.ModArith.PureNatMod5
 import E213.Meta.Nat.PureNat
 import E213.Meta.Tactic.NatHelper
 
@@ -145,7 +145,7 @@ end E213.Lib.Math.NumberSystems.Irrational.Sqrt2Pure
 namespace E213.Lib.Math.NumberSystems.Irrational.Sqrt3Pure
 
 open E213.Meta.Nat.PureNat
-open E213.Lib.Math.ModArith.PureNatMod3
+open E213.Lib.Math.NumberTheory.ModArith.PureNatMod3
 open E213.Lib.Math.NumberSystems.Irrational (DescentBase sqrtN_no_rational_aux_generic)
 
 /-- m^2 = 3*(k*k) → mod3 m = 0. -/
@@ -193,7 +193,7 @@ end E213.Lib.Math.NumberSystems.Irrational.Sqrt3Pure
 namespace E213.Lib.Math.NumberSystems.Irrational.Sqrt5Pure
 
 open E213.Meta.Nat.PureNat
-open E213.Lib.Math.ModArith.PureNatMod5
+open E213.Lib.Math.NumberTheory.ModArith.PureNatMod5
 open E213.Lib.Math.NumberSystems.Irrational (DescentBase sqrtN_no_rational_aux_generic)
 
 /-- m^2 = 5*(k*k) → mod5 m = 0. -/

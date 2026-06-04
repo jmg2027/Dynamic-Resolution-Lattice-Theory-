@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cauchy.HurwitzianCF
+import E213.Lib.Math.Analysis.Cauchy.HurwitzianCF
 import E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov
 
 /-!
@@ -30,7 +30,7 @@ quotients), exactly where they sit at opposite extremes of the *CF-holonomicity*
 
 namespace E213.Lib.Math.NumberSystems.Real213.LagrangeExtremes
 
-open E213.Lib.Math.Cauchy.HurwitzianCF (Periodic QuasiPolyCF periodic_quasipoly)
+open E213.Lib.Math.Analysis.Cauchy.HurwitzianCF (Periodic QuasiPolyCF periodic_quasipoly)
 
 /-! ## φ — the all-`1`s continued fraction, the minimal extreme -/
 
