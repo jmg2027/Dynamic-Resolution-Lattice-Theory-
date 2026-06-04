@@ -1,5 +1,10 @@
 # G181 — the atomic spiral structural adic (variable-base, carry = the residue unit)
 
+> **CLOSED & archived 2026-06-04.**  The identified build target is built ∅-axiom: the binary
+> odometer (`Theory/Raw/Odometer`), the golden/Zeckendorf carry (`Real213/ZeckendorfCarry`), the
+> ℤ-action freeness + profinite value (`Theory/Raw/OdometerValue`).  Canonical narrative:
+> `theory/essays/foundations/the_residue_unit_odometer.md` + `theory/math/algebra/phi_self_similarity.md` §3.7.
+
 **Tier 1 (volatile).**  Design note from a discussion session on the residue framework.
 Companion synthesis: `theory/essays/the_form_of_the_residue.md`, `research-notes/G170`
 (π non-holonomicity), the Markov/Lagrange arc (`theory/math/analysis/markov_spectrum.md`).

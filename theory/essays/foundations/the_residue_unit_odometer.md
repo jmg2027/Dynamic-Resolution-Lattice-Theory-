@@ -143,19 +143,19 @@ witnessed by a term that type-checks with no axioms.
 
 ## Open frontier
 
-  - **The profinite value** — *closed*: `bval_odo` (`Theory/Raw/OdometerValue`) proves
-    `odo = (+1 mod 2ᵏ)` carry-explicitly (`bval k (odo f) + carryOut·2ᵏ = bval k f + 1`), pinning
-    the escape space as `ℤ₂ = lim ℤ/2ᵏ` quantitatively — manual pure `Nat` arithmetic (no `omega`).
-  - **Freeness of the `ℤ`-action** — *closed*: `odo_free` (`odoʲ f = f → j = 0`).  Iterating
-    `bval_odo` gives `∃ c, bval k (odoʲ f) + c·2ᵏ = bval k f + j` (`bval_odoIter`); a period
-    `odoʲ f = f` at `k = j` forces `c·2ʲ = j` with `j < 2ʲ` (`lt_two_pow`), so `c = 0`, `j = 0`.
-    The `+1`, iterated, never returns — the full no-exterior / `tower_no_cycle` at the odometer
-    scale (`ℤ₂` is torsion-free).
-  - **Carry-depth as a real-classification coordinate** — the carry profile is now characterised
-    (`carry_profile`: the carry is the leading run of `1`s, a step function whose depth is the
-    floor distance); what remains open is *deploying* it as a real-classification coordinate
-    (the full run-length profile under iterated `odo`), extending the spiral classification
-    (`spiral_coordinate_classification.md`).
+The three frontiers this essay opened are all addressed:
+
+  - **The profinite value** — *closed*: `bval_odo` proves `odo = (+1 mod 2ᵏ)` carry-explicitly,
+    pinning the escape space as `ℤ₂ = lim ℤ/2ᵏ` quantitatively (pure `Nat`, no `omega`).
+  - **Freeness of the `ℤ`-action** — *closed*: `odo_free` (`odoʲ f = f → j = 0`) — the `+1`,
+    iterated, never returns (`ℤ₂` torsion-free; full no-exterior at the odometer scale).
+  - **Carry-depth** — *characterised + honest ceiling*: `carry_profile` pins the carry as the
+    leading run of `1`s, a step function whose depth is the floor distance.  A fully *decidable*
+    µF/νF classification from the stream is **constructively obstructed** — membership "is `f` the
+    escape?" is `∀ k, f k = true`, and `¬(∀ k, f k = true) ↔ ∃ k, f k = false` is not
+    constructive (it is the `object1_not_surjective` non-decidability at the bit-stream scale, not
+    a gap).  So the carry-depth is the *coordinate*; the classification it indexes is exactly as
+    accessible as the escape itself — no more, by no-exterior.
 
 ## How to verify
 

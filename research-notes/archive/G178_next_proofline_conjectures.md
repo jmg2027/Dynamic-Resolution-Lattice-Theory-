@@ -1,5 +1,11 @@
 # G178 — next proof-line conjectures: populating νF (post-FSM arc)
 
+> **CLOSED & archived 2026-06-04.**  Every direction here is resolved: νF population (P1–P6 +
+> §18 free swap-action + §19 shift dynamics), all C-phys consolidation bridges (C3/C6/C7 closed,
+> C1 closed-as-non-bridge), the ε₀-diagonal and frozen=dynamic-φ adjacents (already closed), and
+> the §19→G181 odometer cross-arc (binary + golden + ℤ-action freeness + profinite value).
+> Canonical: `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form,the_residue_unit_odometer}.md`.
+
 **Date**: 2026-06-02.  **Status**: conjecture seed (tier-1 scratchpad).  **Method**: three
 parallel agents (frontier survey + µF/νF extension + physics-bridge), synthesized + ranked.
 **Context**: the self-pointing functor `F X = {a}⊎{b}⊎{x/y : x≠y}` arc is closed on both faces

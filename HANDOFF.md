@@ -162,8 +162,12 @@ a genuine new bridge; or (b) C3-phys (det-1=ascent-1=glue-1), the safest consoli
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: G182 → `theory/essays/foundations/the_frontier_has_a_form.md`
   (source archived).
-- **Active scratchpad**: `research-notes/frontiers/G178_…` (now records §18/§19 closure + the
-  open C-phys bridges), the rest of `research-notes/frontiers/` board.  Sink rule holds.
+- **Frontier board pruned 2026-06-04**: `G178_next_proofline_conjectures` and
+  `G181_atomic_spiral_adic` are **closed & archived** (content fully promoted to the
+  `foundations/` essay triptych + `phi_self_similarity` §3.7); the odometer essay's three open
+  frontiers (freeness, profinite value, carry-depth) are all addressed.  Remaining genuinely-open
+  frontiers on the board: π non-holonomicity, Markov/Lagrange (`H` kernel), spiral-axis
+  (G169/G171/G185), completability, sequence-depth, and the standalone meta-frontiers.  Sink rule holds.
 
 ## File Map
 ```

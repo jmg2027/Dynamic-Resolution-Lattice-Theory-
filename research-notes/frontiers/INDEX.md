@@ -75,10 +75,12 @@ depth; axis = unit-group order `{2,4,6}`), and its tower extension.
   (SL(2)→PSL→SL(3); e→π→ζ(3)); honest split of proven vs speculative rows.
 - `G185_spiral_axis_deep_research` — the two CM points and the honest unifier
   for `{2,4,6}=2·{1,2,3}` ↔ Cassini sign; ranked conjecture agenda (A5…).
-- `G181_atomic_spiral_adic` — design: the atomic spiral as a variable-base adic
-  (carry = the residue unit).
 
 Closure record: `theory/math/analysis/spiral_coordinate_classification.md`.
+`G181_atomic_spiral_adic` (the variable-base adic / carry = the residue unit) is
+**closed & archived** → `archive/spiral_axis/G181_atomic_spiral_adic.md`; built as
+`Theory/Raw/{Odometer,OdometerValue}` + `Real213/ZeckendorfCarry`, narrated in
+`theory/essays/foundations/the_residue_unit_odometer.md` + `theory/math/algebra/phi_self_similarity.md` §3.7.
 
 ## Real-completeness / intensional completability  (`completability/`)
 
@@ -123,15 +125,10 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `theory/math/geometrization_conjecture.md` (R1 closed; R1+ open).
 - `G123_padic_next_directions` — post-closure direction memo for the p-adic
   library (`theory/math/padic_real213.md`).
-- `G178_next_proofline_conjectures` — cross-arc conjecture seed / ranked agenda
-  for populating νF (post-FSM).  P1–P6 + §18 (`coSwap_boolSpine_free_action`, the
-  swap group's free action on the bit-stream escapes) closed ∅-axiom; remaining
-  all C-phys consolidation bridges resolved (C3/C6/C7 closed, C1 closed-as-non-bridge;
-  ε₀ diagonal + frozen=dynamic-φ adjacents already closed & chaptered).  Genuine open
-  next: the §19 shift ↔ G181 Ostrowski-odometer cross-arc.
-  Closure record: `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form}.md`.
-
-Closure record (promoted off this board):
-`G182_completed_system_synthesis` ("the frontier (νF) has a form") →
-`theory/essays/foundations/the_frontier_has_a_form.md`; source archived at
-`research-notes/archive/G182_completed_system_synthesis.md`.
+Closure records (promoted off this board):
+- `G178_next_proofline_conjectures` (νF population + C-phys bridges + odometer cross-arc) —
+  **closed & archived** → `archive/G178_next_proofline_conjectures.md`; canonical
+  `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form,the_residue_unit_odometer}.md`.
+- `G182_completed_system_synthesis` ("the frontier (νF) has a form") →
+  `theory/essays/foundations/the_frontier_has_a_form.md`; archived at
+  `archive/G182_completed_system_synthesis.md`.
