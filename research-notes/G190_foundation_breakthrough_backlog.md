@@ -107,9 +107,11 @@ Two `∅`-axiom installments, foundation first:
    real Markov objects).  `slope_determines_size` (equal slope ⟹ equal Markov number, via the *real*
    `slope_path_inj`; `markovNum = (mNode).c`, the integer node max) — a genuine theorem about the tree.
    `sizeDeterminesSlope_iff_markovNum_injective` — the converse is exactly `Function.Injective markovNum`.
-   **Honest scope**: this iff is a *light restatement* (immediate from `slope_path_inj`), and
-   `Injective markovNum` is the *path form* — its identification with `MarkovMaxUnique` (via
-   `reverse_bridge`) is **not formalized**, so this is not proven `= H`.
+   **Honest scope**: this iff is a *light restatement* (immediate from `slope_path_inj`).  The link to
+   the actual conjecture is now **half a theorem** (§33, `markov_max_unique_of_markovNum_injective`,
+   PURE): `Function.Injective markovNum → ∀ c ≥ 5, MarkovMaxUnique c`.  So size-injectivity is a proved
+   *sufficient condition* for the conjecture — no longer a bare analogy in this direction.  The converse
+   (`MarkovMaxUnique` ⟹ injective, needing triple→path recovery) would make `= H` literal; not yet done.
 
 5. **Injectivity is not upward-closed — an order analogue, not a Markov theorem**
    (`Lens/Lattice/Injectivity.lean`, `injectivity_not_upward_closed`, PURE).  Injectivity is inherited
@@ -127,14 +129,16 @@ Nothing here proves `H`, bounds it, or explains why it is hard.  What is real: (
 injectivity calculus in the Lens lattice (§D.1, ⑥) — genuine order theory; (ii) the `∅`-axiom theorem
 that residue-native readings are direction-free (§D.3, `DirectionFree`) and its concrete Markov instance
 (`markovGen_noncommutative`); (iii) two real Markov restatements (§D.4, slope→size and the `markovNum`
-injectivity iff, via the real `slope_path_inj`).  What is *not* a theorem, only a named analogy: that
-this abstract calculus *is* about `H`.  Two unformalized joints carry the analogy — `Injective markovNum`
-↔ `MarkovMaxUnique` (needs `reverse_bridge`), and the size reading living in the Raw-`Lens` lattice
-(false: it is provably not a Raw-`Lens`).  So the accurate headline is **"an abstract structure analogous
-to `H`, plus real Markov restatements"** — *not* "`H`'s position in the foundation characterised."  A
-correction in the spirit of the prior rounds: the abstract theorems stand; the claim that they locate or
-explain `H` is demoted to the analogy it is.  Closing either joint as a real theorem would be the move
-that earns the stronger headline.
+injectivity iff, via the real `slope_path_inj`).  One joint is now **half-closed as a theorem**: `Function.Injective markovNum → ∀ c ≥ 5, MarkovMaxUnique c`
+(§33, `markov_max_unique_of_markovNum_injective`, PURE) — so size-injectivity is a proved *sufficient
+condition* for the conjecture, no longer a bare analogy in that direction.  Still only analogy: the
+*converse* (`MarkovMaxUnique` ⟹ injective, the other half of the literal identification), and the
+size reading living in the Raw-`Lens` lattice (false — provably not a Raw-`Lens`, so `⑥`'s order facts
+apply only by analogy).  So the accurate headline is **"an abstract injectivity calculus, plus a proved
+one-directional bridge (size-injective ⟹ conjecture) and real Markov restatements"** — *not* "`H`'s
+position characterised / why-it's-hard explained."  In the spirit of the prior rounds: the abstract
+theorems stand, the forward bridge is now real, and the remaining claim (full `= H`, and the order
+calculus *explaining* `H`) stays demoted to the converse-still-open / analogy it is.
 
 ### Pointers
 - frontier: `research-notes/G189_geodesic_lens_markov_frontier.md`, `§30` of `Real213/SternBrocotMarkov`

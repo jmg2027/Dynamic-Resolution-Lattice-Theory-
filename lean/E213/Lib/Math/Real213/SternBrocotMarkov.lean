@@ -2386,15 +2386,14 @@ The slope/size pair is a *one-directional determination*.  One way is proven: `s
 the integer node max).  The converse — equal Markov number ⟹ equal slope — is exactly `markovNum`
 injectivity (`sizeDeterminesSlope_iff_markovNum_injective`).
 
-Scope, honestly.  `sizeDeterminesSlope_iff_markovNum_injective` is a *light restatement*: given
-`slope_path_inj`, "`markovNum` determines slope" and "`markovNum` is injective" are immediately
-equivalent.  And `Function.Injective markovNum` is the *path form* of the conjecture — its
-identification with `MarkovMaxUnique` (via `reverse_bridge`, paths ↔ triples) is **not formalized here**,
-so this section does not prove "= `H`"; it restates path-level `markovNum` injectivity.  The `Lens`
-injectivity framing (`Lens/Lattice/Injectivity.lean`) is by *analogy*: the size reading is provably
-**not** a Raw-`Lens` (`markovGen_noncommutative` + `Lens.DirectionFree`), so the abstract refinement
-lattice does not literally contain it.  What is `∅`-axiom here is the slope→size determination and its
-restatement; the link to the conjecture is named, not derived. -/
+Scope, honestly.  `sizeDeterminesSlope_iff_markovNum_injective` is a *light restatement* (given
+`slope_path_inj`).  The link to the actual conjecture is now **half a theorem**: §33's
+`markov_max_unique_of_markovNum_injective` proves `Function.Injective markovNum → ∀ c ≥ 5,
+MarkovMaxUnique c` — so size-injectivity is a proved *sufficient* condition for `H`, not a bare analogy.
+The converse (`MarkovMaxUnique` ⟹ injective) — which would make the identification literal — is not yet
+formalized.  Separately, the `Lens`-lattice framing (`Lens/Lattice/Injectivity.lean`) stays an analogy:
+the size reading is provably **not** a Raw-`Lens` (`markovGen_noncommutative` + `Lens.DirectionFree`), so
+the abstract refinement lattice does not literally contain it. -/
 
 /-- **Slope determines size**: equal slope ⟹ equal Markov number.  The finer (residue-native) reading
     determines the coarser one, directly from `slope_path_inj`. -/
@@ -2416,5 +2415,42 @@ theorem sizeDeterminesSlope_iff_markovNum_injective :
     have hpq' : p = q := hinj hpq
     subst hpq'
     rfl
+
+/-! ## §33 — the bridge: `markovNum` injectivity ⟹ Markov uniqueness (closing the analogy, `→`)
+
+`sizeDeterminesSlope_iff_markovNum_injective` (§32) restated the size reading's injectivity as a path
+fact; this section ties it to the actual conjecture.  `markov_max_unique_of_markovNum_injective`:
+`Function.Injective markovNum → ∀ c ≥ 5, MarkovMaxUnique c`.  So the size reading injective is not merely
+*analogous* to `H` — it is a theorem-level **sufficient condition** for the Markov uniqueness conjecture.
+The proof is `markov_max_unique_tree`'s backbone with the residue/window/slope steps replaced by
+`markovNum` injectivity: two ordered triples at `c` are tree nodes (`reverse_bridge`) with the same
+`markovNum = c`, so injectivity forces the same path, hence the same triple.  (The converse —
+`MarkovMaxUnique` ⟹ `markovNum` injective — would complete the literal identification.) -/
+
+/-- ★★★★★ **Size-injectivity ⟹ Markov uniqueness.**  If `markovNum` is injective on paths, then every
+    `MarkovMaxUnique c` (`c ≥ 5`) holds: two ordered triples at `c` are nodes (`reverse_bridge`) of equal
+    `markovNum`, which injectivity collapses to one path and hence one triple. -/
+theorem markov_max_unique_of_markovNum_injective (hinj : Function.Injective markovNum)
+    (c : Nat) (hc5 : 5 ≤ c) : E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique c := by
+  intro a₁ b₁ a₂ b₂ hab1 hb1c hab2 hb2c hm1 hm2
+  have hc2 : 2 ≤ c := Nat.le_trans (by decide) hc5
+  have ha1 : 1 ≤ a₁ := E213.Lib.Math.Real213.MarkovUniqueness.markov_a_pos hc2 hm1
+  have ha2 : 1 ≤ a₂ := E213.Lib.Math.Real213.MarkovUniqueness.markov_a_pos hc2 hm2
+  obtain ⟨p1, hc1, hpair1⟩ := node_data (reverse_bridge a₁ b₁ c hm1 ha1 hab1 hb1c hc5)
+  obtain ⟨p2, hc2', hpair2⟩ := node_data (reverse_bridge a₂ b₂ c hm2 ha2 hab2 hb2c hc5)
+  have hcc : (mNode p1).c = (mNode p2).c := by
+    rw [← toNat_of_nonneg (nonneg_of_one_le (mNode_pos p1).2.2.1),
+        ← toNat_of_nonneg (nonneg_of_one_le (mNode_pos p2).2.2.1), hc1, hc2']
+  have hpeq : p1 = p2 := hinj (show markovNum p1 = markovNum p2 from hcc)
+  subst hpeq
+  rcases hpair1 with ⟨e1a, e1b⟩ | ⟨e1a, e1b⟩ <;> rcases hpair2 with ⟨e2a, e2b⟩ | ⟨e2a, e2b⟩
+  · exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
+  · have hLR : (mInterval p1).1.c.toNat = (mInterval p1).2.c.toNat :=
+      Nat.le_antisymm (e1a ▸ e1b ▸ hab1) (e2b ▸ e2a ▸ hab2)
+    exact ⟨e1a.trans (hLR.trans e2a.symm), e1b.trans (hLR.symm.trans e2b.symm)⟩
+  · have hLR : (mInterval p1).1.c.toNat = (mInterval p1).2.c.toNat :=
+      Nat.le_antisymm (e2a ▸ e2b ▸ hab2) (e1b ▸ e1a ▸ hab1)
+    exact ⟨e1a.trans (hLR.symm.trans e2a.symm), e1b.trans (hLR.trans e2b.symm)⟩
+  · exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
 
 end E213.Lib.Math.Real213.SternBrocotMarkov
