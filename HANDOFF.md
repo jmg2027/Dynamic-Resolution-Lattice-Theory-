@@ -34,7 +34,7 @@ established** and re-homed the Lean into the new architecture
 - **`Lens/DirectionFree`** + **`Lens/Lattice/Injectivity`** — `IsInjectiveLens`
   calculus; `injectivity_not_upward_closed` (the structural reason `H` is
   not forced); direction-freedom forced for residue-native readings.
-- Narrative: `theory/essays/the_modular_geodesic_lens.md`,
+- Narrative: `theory/essays/p_orbit/the_modular_geodesic_lens.md`,
   `theory/math/analysis/markov_uniqueness.md`; G189–G193 frontier notes.
 
 ### 2. Repository re-architecture + process (earlier this session)
@@ -113,7 +113,7 @@ lean/E213/Lib/Math/NumberSystems/Real213/INDEX.md                 ← added Mark
 lean/E213/Lens/DirectionFree.lean                                 ← NEW: direction-freedom for residue-native readings
 lean/E213/Lens/Lattice/Injectivity.lean                           ← NEW: IsInjectiveLens calculus, not upward-closed
 lean/E213/Lens.lean, lean/E213/Lens/Lattice.lean                  ← aggregator imports
-theory/essays/the_modular_geodesic_lens.md                        ← NEW essay
+theory/essays/p_orbit/the_modular_geodesic_lens.md                        ← NEW essay
 theory/essays/INDEX.md                                            ← added modular-geodesic-lens row
 theory/math/analysis/markov_uniqueness.md                         ← upper-fold + iff narrative
 research-notes/G189_geodesic_lens_markov_frontier.md              ← NEW

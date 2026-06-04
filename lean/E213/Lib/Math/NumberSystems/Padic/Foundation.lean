@@ -421,24 +421,4 @@ theorem ZpSeq.smoke_trunc_lt_p3_p5 (x : ZpSeq 5) :
     x.trunc 3 < 125 :=
   ZpSeq.trunc_lt_p_pow (by decide) x 3
 
-/-! ## Phase 2 preview (next file: Arith.lean)
-
-Next-phase content:
-  · `Zp.add p x y : ZpSeq p` with carry-propagation FSM
-  · `Zp.add_trunc` : truncation respects addition mod p^n
-  · `Zp.mul p x y : ZpSeq p` digit-by-digit multiplication
-  · `Zp.neg p x : ZpSeq p`
-
-The carry propagation will reuse:
-  · `E213.Meta.Nat.AddMod213.add_mod_gen` for `(a + b) % p`
-
-Multiplication will leverage:
-  · `E213.Meta.Nat.MulMod213.mul_mod_pure` for `(a * b) % p`
-
-Inverse (Hensel phase) will reuse:
-  · `E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant.modInverseFromBezout`
-
-All upstream ingredients are ∅-axiom PURE.
--/
-
 end E213.Lib.Math.NumberSystems.Padic

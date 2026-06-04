@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 42 essays are grouped into nine thematic sub-directories — distinct
+The 43 essays are grouped into nine thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -37,7 +37,7 @@ others together):
 `p_orbit_closure_master`, `p_orbit_naturalness_boundary`,
 `mobius_self_form_fixed_point`, `every_axis_sees_p`,
 `cut_equality_and_atomicity`, `stern_brocot_as_universal_lattice`,
-`bipartite_tripartite_self_containment`.
+`bipartite_tripartite_self_containment`, `the_modular_geodesic_lens`.
 
 **IV. `synthesis/` — synthesis & the master tower.**
 `synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`.

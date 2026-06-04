@@ -132,7 +132,7 @@ the domain's **coordinate space**:
 
   · Cut: coordinates are `Nat × Nat`; P-mediant orbit covers
     everything modulo `(0, 0)`; canonical equivalence = pointwise
-    cutEq (Phase 2 bridge).
+    cutEq.
   · ZpSeq: coordinates are `Nat`; the natural P-orbit
     (Fibonacci-indexed positions) is strictly thinner than
     `Nat`; pointwise `ZpSeqEquiv` IS the canonical equivalence

@@ -524,7 +524,7 @@ What the Real213-p-adic campaign produced:
   would push us outside the strict-∅ guarantee.
 
 - Lift the multiplicative group decomposition `ℤ_p^× ≃ μ_{p−1} ×
-  (1 + p·ℤ_p)` from the trunc level (now closed —
+  (1 + p·ℤ_p)` from the trunc level (closed at trunc —
   `teichmuller_pow_pred_trunc` + `teichmullerCofactor`) to a
   *sequence-level* isomorphism with uniqueness of the `ω·u` split.
   This meets the same trunc-vs-`ZpSeq` boundary as the ring-axiom
@@ -538,10 +538,10 @@ a primitive root mod 5, so `i₅² ≡ −1` and `i₅⁴ ≡ 1`
 (`Zp.i_5_pow_four_trunc_two`) — `i₅ ∈ μ₄`, a Teichmüller representative,
 not a structure adjoined to `ℤ_5`.
 
-**Open frontier**.  The DRLT-specific 5-adic direction (H) was mapped
-and largely settled.  The `5²⁵ = N_U`-resolution reading is *removed,
-not deferred* (`RERESEARCH_n_u_removal.md` — `configCount 2 = 5^25` is
-bare arithmetic, no privileged level).  The physics readings of `i₅`
+**Open frontier**.  The DRLT-specific 5-adic direction (H) is mostly
+negative.  The `5²⁵ = N_U`-resolution reading is *removed, not deferred*
+(`RERESEARCH_n_u_removal.md` — `configCount 2 = 5^25` is bare
+arithmetic, no privileged level).  The physics readings of `i₅`
 (spinors / CP) and 5-adic L-values for `α_em` / `m_μ/m_e` have **no
 internal handle**: asserting them would be a forcible map onto physics,
 which the operating principles forbid.  Stated plainly per

@@ -5,7 +5,7 @@ import E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
 # The modular-geodesic engine: a Raw-`Lens` whose view is the Stern-Brocot / Farey reading
 
 The `Lens`-level engine behind the modular-geodesic cluster
-(`theory/essays/the_modular_geodesic_lens.md`).  The residue's self-pointing, read by the **mediant**
+(`theory/essays/p_orbit/the_modular_geodesic_lens.md`).  The residue's self-pointing, read by the **mediant**
 Lens, lands on the Stern-Brocot / Farey vertices that the Markov tree, the convergents, and the
 Lagrange/Markov spectrum are all built on.
 

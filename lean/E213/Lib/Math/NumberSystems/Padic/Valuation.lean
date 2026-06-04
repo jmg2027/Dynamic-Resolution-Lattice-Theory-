@@ -1,7 +1,7 @@
 import E213.Lib.Math.NumberSystems.Padic.Arith
 
 /-!
-# Real213-p-adic Valuation (Phase 3)
+# Real213-p-adic Valuation
 
 The p-adic valuation `v_p(x)` is the position of the first non-zero
 digit in the base-p expansion of `x ∈ ℤ_p`.  Equivalently, `v_p(x)`
@@ -15,7 +15,7 @@ valuation restricted to the first `N` digits:
 This avoids the "v_p(0) = ∞" issue: for any finite truncation level,
 the valuation is a well-defined Nat.
 
-## Phase 3 contents
+## Contents
 
   · `vAtAcc x start n` — accumulator-style search from position start
     over the next n positions
@@ -131,9 +131,9 @@ theorem smoke_vAt_zero_p7 :
     vAt (ZpSeq.zero 7 (by decide)) 5 = 5 :=
   vAt_zero (by decide) 5
 
-/-! ## Phase 3 capstone -/
+/-! ## Capstone -/
 
-/-- ★★★★★ **Phase 3: p-adic valuation closed**
+/-- ★★★★★ **p-adic valuation capstone**
 
   Provides bounded p-adic valuation `vAt x N` returning the position
   of the first non-zero digit in the range [0, N), or N if all are
@@ -148,7 +148,7 @@ theorem smoke_vAt_zero_p7 :
 
   The bounded form sidesteps the "v_p(0) = ∞" issue: for any finite
   truncation, the valuation is a Nat. -/
-theorem phase3_valuation_close :
+theorem valuation_capstone :
     -- Zero sequence: vAt = N at p = 5
     vAt (ZpSeq.zero 5 (by decide)) 3 = 3
     ∧ vAt (ZpSeq.zero 5 (by decide)) 10 = 10
