@@ -55,7 +55,7 @@ The library is ∅-axiom throughout: every theorem reports
 | `Hensel.lean` | Inverse: `invDigit0` (Bezout), `invSeq` / `invFull`, `mul_invSeq_correct` / `mul_invFull_correct`, `inv_trunc_unique`, `mul_left_cancel_trunc` / `mul_right_cancel_trunc`.  Sqrt: `SqrtBase`, `sqrtSeq` / `sqrtFull`, `sqr_sqrtSeq_correct` / `sqr_sqrtFull_correct`, `sqr_unique_trunc`, `sqrtFull_eq_of_sqr`.  Concrete: `i_5`, `i_13`, `sqrt_two_7` |
 | `Teichmuller.lean` | `sum_geo_pow` (ZpSeq geometric sum), `frobenius_lift` (`y ≡ z mod p^k → y^p ≡ z^p mod p^(k+1)`, any `p ≥ 1`), `teichmuller_iter_cauchy` (iteration is Cauchy in p-adic metric); the explicit representative `teichmuller` (`ω(x)`, diagonal limit) + `teichmuller_trunc_succ` / `teichmuller_digit_zero` + Frobenius fix `teichmuller_pow_p_trunc` (`ω^p ≡ ω`); Nat-level engine `pow_add_factor` + `geo_sum_mod_zero_at_p` + `frobenius_lift_nat` (binomial-free) |
 | `TeichmullerUnit.lean` | `teichmuller_pow_pred_trunc` (`ω^(p−1) ≡ 1`, `(p−1)`-th root of unity); `teichmullerCofactor` (`ω⁻¹·x`) + `teichmullerCofactor_trunc_one` (`u ≡ 1 mod p`) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split at trunc level (bridges Teichmuller + Hensel) |
-| `Field.lean` | `QpSeq` (num + shift), `QpSeq.{add,sub,mul,neg,ofNat}`, `QpSeq.inv` (Hensel via `invFull` + `shiftLeft`), `QpSeq.div`, `QpSeq.sqrt` (even-shift only — `√p ∉ ℚ_p`) + `sqr_sqrt_num_correct` |
+| `Field.lean` | `QpSeq` (num + shift), `QpSeq.{add,sub,mul,neg,ofNat}`, `QpSeq.inv` (Hensel via `invFull` + `shiftLeft`), `QpSeq.div`; general division `invGeneral` / `divGeneral` (non-unit denominator via valuation shift, `invGeneral_unit_eq_inv` reduction); `QpSeq.sqrt` (even-shift only — `√p ∉ ℚ_p`) + `sqr_sqrt_num_correct` |
 | `DRLT.lean` | `canonical_5adic_p` (= 5) + digit smokes, `canonical_5adic_zero` (canonical 5-adic embeddings) |
 
 ## Narrative
@@ -205,6 +205,31 @@ Multiplication is straightforward (`shift` adds).  Addition
 aligns shifts via `Zp.shiftLeft` (multiplication by `p^k` on
 ZpSeq).  Negation preserves the shift.
 
+**General division** (`invGeneral` / `divGeneral`) drops the
+unit-denominator restriction.  `QpSeq.inv` requires `b.num` to be a
+unit (digit-0 coprime to `p`, valuation 0); a general nonzero `b.num`
+factors as `p^v · u` with `u = Zp.shiftRight v b.num` a unit
+(`v = v_p(b.num)`).  Then
+
+  `1/b = u⁻¹ · p^(b.shift − v)`,
+
+which lands in `ℚ_p` because the shift carries the `p` power.  The
+structural heart is `Zp.shiftRight` and the **factorisation-exactness**
+lemma `shiftLeft_shiftRight_digit_of_low_zero`: when the bottom `v`
+digits of `x` vanish, `shiftLeft v (shiftRight v x) = x` — the split
+`x = p^v · u` is exact, not approximate.  In `QpSeq` coordinates,
+
+  `invGeneral b v = ⟨shiftLeft (b.shift − v) (invFull u), v − b.shift⟩`,
+
+and exactly one of the Nat-truncated differences is nonzero.  At
+`v = 0` this is definitionally `QpSeq.inv` (`invGeneral_unit_eq_inv`),
+so it is a genuine generalisation, not a parallel construction.  The
+valuation `v` is supplied by the caller: the first non-zero digit of
+an *arbitrary* sequence cannot be found by a pure search (`b.num`
+could be `0`, valuation `∞`), so `v` and the unit witness on `u` are
+inputs — the honest 213-native shape (no decidable ∞-search smuggled
+in).
+
 ### Canonical 5-adic embeddings
 
 The 5-adic Real213 gives a canonical embedding `ℕ ↪ ZpSeq 5` for
@@ -282,7 +307,9 @@ Grouped by module.
 | Theorem | Statement |
 |---|---|
 | `QpSeq.{add,sub,mul,neg}` | basic arithmetic |
-| `QpSeq.inv`, `QpSeq.div` | Hensel-based inverse and division |
+| `QpSeq.inv`, `QpSeq.div` | Hensel-based inverse and division (unit denominator) |
+| `QpSeq.invGeneral`, `QpSeq.divGeneral` | general inverse/division (any-valuation denominator); `invGeneral_unit_eq_inv` reduces to `inv` at v=0 |
+| `Zp.shiftLeft_shiftRight_digit_of_low_zero` | factorisation exactness `x = p^v·u` (bottom-v digits zero) |
 | `QpSeq.sqrt` + `sqr_sqrt_num_correct` | sqrt (even-shift only — `√p ∉ ℚ_p`) |
 
 **DRLT**

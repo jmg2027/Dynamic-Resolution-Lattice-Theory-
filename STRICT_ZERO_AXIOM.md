@@ -829,6 +829,16 @@ representative and the unit-group decomposition, all PURE:
     `x = ω·u`, `u ≡ 1 mod p`, i.e. `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` at
     trunc level (`Padic.TeichmullerUnit`).
 
+Follow-on (G123 direction G): general p-adic division, all PURE:
+
+  · `Zp.shiftRight` + `Zp.shiftLeft_shiftRight_digit_of_low_zero`
+    (`Padic.Arith`) — the unit-part extractor and factorisation
+    exactness `x = p^v·u` (bottom-v digits zero).
+  · `QpSeq.invGeneral` / `QpSeq.divGeneral` (`Padic.Field`) — inverse
+    and division for a denominator of arbitrary valuation, via the
+    valuation shift; `QpSeq.invGeneral_unit_eq_inv` reduces them to the
+    unit-only `QpSeq.inv` at `v=0`.
+
 Chapter: `theory/math/numbersystems/padic_real213.md`.
 
 **2026-05-09 (later, marathon batch 1)**: User directive "seal

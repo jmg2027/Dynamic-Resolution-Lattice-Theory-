@@ -26,8 +26,19 @@ difficulty, and a note on 213-native angle.
   the `ω·u` split (same caveat as direction C — sequence-level equality
   may be a non-213-native question).
 
-Next on-path candidates: **G** (general `Zp.div`), then **H** (DRLT
-5-adic content).
+- **G — general division (non-unit denominator): CLOSED.**
+  `Zp.shiftRight` + factorisation exactness
+  `shiftLeft_shiftRight_digit_of_low_zero` (`Padic/Arith.lean`);
+  `QpSeq.invGeneral` / `QpSeq.divGeneral` (`Padic/Field.lean`) drop the
+  unit-denominator restriction by factoring `b.num = p^v·u` and
+  carrying `p^(b.shift−v)` in the QpSeq shift.  `invGeneral_unit_eq_inv`
+  shows it reduces *definitionally* to `QpSeq.inv` at `v=0` — a genuine
+  generalisation.  The valuation `v` is a caller input (pure search for
+  the first non-zero digit of an arbitrary sequence is impossible —
+  `b.num` could be `0`).
+
+Next on-path candidate: **H** (DRLT 5-adic content) — open-ended
+research, the highest DRLT-payback direction.
 
 ## A. Explicit Teichmüller representative `ω(x)`
 

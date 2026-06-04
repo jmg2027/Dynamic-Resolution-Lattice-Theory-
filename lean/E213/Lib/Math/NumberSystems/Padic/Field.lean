@@ -273,6 +273,91 @@ theorem QpSeq.div_num (p : Nat) (hp : 1 < p) (a b : QpSeq p)
     (QpSeq.div p hp a b h_gcd).num
       = Zp.mul p (Nat.lt_of_succ_lt hp) a.num (QpSeq.inv p hp b h_gcd).num := rfl
 
+/-! ## General division on ℚ_p (non-unit denominator)
+
+`QpSeq.inv` / `QpSeq.div` require the denominator's numerator to be a
+**unit** (digit-0 coprime to `p`, valuation 0).  A general nonzero
+`b.num` factors as `p^v · u` with `u` a unit (`v = v_p(b.num)` the
+valuation, `u = shiftRight v b.num`).  Then
+
+  `1/b = 1/(b.num · p^(−b.shift)) = u⁻¹ · p^(b.shift − v)`,
+
+representable in `ℚ_p` because the shift carries the `p^(b.shift − v)`
+factor.  In `QpSeq` coordinates (`num · p^(−shift)`), exactly one of
+the Nat-truncated differences `b.shift − v`, `v − b.shift` is nonzero:
+
+  `invGeneral b v = ⟨shiftLeft (b.shift − v) (invFull u), v − b.shift⟩`.
+
+At `v = 0` (unit numerator) this reduces to `QpSeq.inv`
+(`invGeneral_unit_eq_inv`), so it is a genuine generalisation.  The
+caller supplies the valuation `v` and the unit witness on `u`
+(the first non-zero digit cannot be searched purely on an arbitrary
+sequence — `b.num` could be `0`, valuation `∞`). -/
+
+/-- **General multiplicative inverse** on `QpSeq`: invert a denominator
+    of arbitrary valuation `v`.  `h_gcd` witnesses that the unit part
+    `u = shiftRight v a.num` has digit-0 coprime to `p`. -/
+def QpSeq.invGeneral (p : Nat) (hp : 1 < p) (a : QpSeq p) (v : Nat)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v a.num).digits 0).val p).1 = 1) : QpSeq p where
+  num := Zp.shiftLeft p (Nat.lt_of_succ_lt hp) (a.shift - v)
+            (Zp.invFull p (Nat.lt_of_succ_lt hp) (Zp.shiftRight p v a.num) h_gcd)
+  shift := v - a.shift
+
+/-- Shift of `invGeneral` is `v − a.shift` (Nat-truncated). -/
+theorem QpSeq.invGeneral_shift (p : Nat) (hp : 1 < p) (a : QpSeq p) (v : Nat)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v a.num).digits 0).val p).1 = 1) :
+    (QpSeq.invGeneral p hp a v h_gcd).shift = v - a.shift := rfl
+
+/-- Numerator unfolding for `invGeneral`. -/
+theorem QpSeq.invGeneral_num (p : Nat) (hp : 1 < p) (a : QpSeq p) (v : Nat)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v a.num).digits 0).val p).1 = 1) :
+    (QpSeq.invGeneral p hp a v h_gcd).num
+      = Zp.shiftLeft p (Nat.lt_of_succ_lt hp) (a.shift - v)
+          (Zp.invFull p (Nat.lt_of_succ_lt hp) (Zp.shiftRight p v a.num) h_gcd) := rfl
+
+/-- **Consistency**: at valuation `v = 0` (unit numerator) `invGeneral`
+    equals the unit-only `QpSeq.inv`.  `shiftRight 0` is the identity
+    on digit-0 and `a.shift − 0 = a.shift`, `0 − a.shift = 0`. -/
+theorem QpSeq.invGeneral_unit_eq_inv (p : Nat) (hp : 1 < p) (a : QpSeq p)
+    (h_gcd0 : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p 0 a.num).digits 0).val p).1 = 1)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              (a.num.digits 0).val p).1 = 1) :
+    (QpSeq.invGeneral p hp a 0 h_gcd0).num.digits
+      = (QpSeq.inv p hp a h_gcd).num.digits :=
+  -- `shiftRight 0 a.num ≡ a.num` (since `j + 0 ≡ j`) and `a.shift − 0 ≡ a.shift`;
+  -- the `h_gcd` proofs are proof-irrelevant, so the two terms are definitionally equal.
+  rfl
+
+/-- **General division** `a / b` for arbitrary-valuation denominator:
+    `a · invGeneral b v`. -/
+def QpSeq.divGeneral (p : Nat) (hp : 1 < p) (a b : QpSeq p) (v : Nat)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v b.num).digits 0).val p).1 = 1) : QpSeq p :=
+  QpSeq.mul p (Nat.lt_of_succ_lt hp) a (QpSeq.invGeneral p hp b v h_gcd)
+
+/-- Shift of `divGeneral`: `a.shift + (v − b.shift)`. -/
+theorem QpSeq.divGeneral_shift (p : Nat) (hp : 1 < p) (a b : QpSeq p) (v : Nat)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v b.num).digits 0).val p).1 = 1) :
+    (QpSeq.divGeneral p hp a b v h_gcd).shift = a.shift + (v - b.shift) := rfl
+
+/-- Smoke: invert `p = 5` in `ℚ_5`.  `5 = p^1 · 1` has valuation 1 and
+    unit part `1`, so `1/5 = p^(−1)`: `invGeneral` returns shift `1`
+    and numerator digit-0 `= 1` (the inverse of the unit `1`). -/
+theorem QpSeq.smoke_invGeneral_p_5_shift
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout 1 5).1 = 1) :
+    (QpSeq.invGeneral 5 (by decide)
+      (QpSeq.ofNat 5 (by decide) 5) 1 h_gcd).shift = 1 := rfl
+
+/-- Smoke: the unit part of `5 ∈ ℤ_5` (after dropping valuation 1) has
+    digit-0 `= 1` — confirming `5 = p · 1`. -/
+theorem QpSeq.smoke_shiftRight_5_unit_digit :
+    ((Zp.shiftRight 5 1 (ZpSeq.digits_of_nat 5 (by decide) 5)).digits 0).val = 1 := rfl
+
 /-! ## Square root on ℚ_p
 
 For `a = (num, shift)`, the square root satisfies

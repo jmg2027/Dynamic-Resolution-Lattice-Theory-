@@ -428,6 +428,56 @@ theorem Zp.shiftLeft_trunc_above (p : Nat) (hp : 0 < p) (k : Nat) (x : ZpSeq p) 
             E213.Tactic.NatHelper.mul_left_comm _ _ _
     rw [hstep]
 
+/-! ## Right shift — extracting the unit part
+
+`Zp.shiftRight k x` drops the bottom `k` digits: digit `j` becomes
+`x.digits (j + k)`.  When `k` is the p-adic valuation of `x` (the
+bottom `k` digits are all zero), `shiftRight k x` is the **unit
+part** `u` of the factorisation `x = p^k · u`, and the factorisation
+is *exact*: `shiftLeft k (shiftRight k x) = x` (`shiftLeft_shiftRight_of_low_zero`).
+
+This is the structural engine of general p-adic division: any
+nonzero `x` is `p^(v_p(x)) · unit`, so `1/x = p^(−v_p(x)) · unit⁻¹`
+lands in `ℚ_p` via the shift. -/
+
+/-- Shift `x`'s digits right by `k` positions — drop the bottom `k`. -/
+def Zp.shiftRight (p : Nat) (k : Nat) (x : ZpSeq p) : ZpSeq p where
+  digits := fun j => x.digits (j + k)
+
+/-- Digit unfolding: `(shiftRight k x).digits j = x.digits (j + k)`. -/
+theorem Zp.shiftRight_digit (p : Nat) (k : Nat) (x : ZpSeq p) (j : Nat) :
+    (Zp.shiftRight p k x).digits j = x.digits (j + k) := rfl
+
+/-- Shifting right by 0 is the identity (digit-by-digit). -/
+theorem Zp.shiftRight_zero_digit (p : Nat) (x : ZpSeq p) (j : Nat) :
+    (Zp.shiftRight p 0 x).digits j = x.digits j := by
+  show x.digits (j + 0) = x.digits j
+  rw [Nat.add_zero]
+
+/-- **Factorisation exactness**: if the bottom `k` digits of `x`
+    vanish (`x.digits j = 0` for all `j < k`), then
+    `shiftLeft k (shiftRight k x) = x` digit-by-digit (at `.val`) — i.e.
+    `x = p^k · (shiftRight k x)` exactly.  This is the `x = p^v · u`
+    split used by general division. -/
+theorem Zp.shiftLeft_shiftRight_digit_of_low_zero (p : Nat) (hp : 0 < p)
+    (k : Nat) (x : ZpSeq p)
+    (hlow : ∀ j, j < k → (x.digits j).val = 0) (j : Nat) :
+    ((Zp.shiftLeft p hp k (Zp.shiftRight p k x)).digits j).val = (x.digits j).val := by
+  show (if j < k then (⟨0, hp⟩ : Fin p) else (Zp.shiftRight p k x).digits (j - k)).val
+        = (x.digits j).val
+  cases hjk : decide (j < k) with
+  | true =>
+    have hjk' : j < k := of_decide_eq_true hjk
+    rw [if_pos hjk']
+    -- below threshold: shifted digit is 0, and x.digits j = 0 by hlow.
+    exact (hlow j hjk').symm
+  | false =>
+    have hjk' : ¬ (j < k) := of_decide_eq_false hjk
+    rw [if_neg hjk']
+    -- above threshold: (shiftRight k x).digits (j-k) = x.digits ((j-k)+k) = x.digits j.
+    show (x.digits (j - k + k)).val = (x.digits j).val
+    rw [E213.Tactic.NatHelper.sub_add_cancel (Nat.le_of_not_lt hjk')]
+
 /-! ## Multiplication (digit convolution + carry)
 
 p-adic multiplication is a convolution-with-carry:
