@@ -352,7 +352,6 @@ open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
 `theory/math/geometrization_conjecture.md`
 
 -- ✅ also valid (R1+ extensions, open frontier, Real213-p-adic research and its extensions, side observations)
-`research-notes/frontiers/G121_dim4_self_pointing_axis.md`
 
 -- specific theorems
 `Lib/Math/Geometry/GeometrizationConjecture/Capstone.R1_close_certificate`

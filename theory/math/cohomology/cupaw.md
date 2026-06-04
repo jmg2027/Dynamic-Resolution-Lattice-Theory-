@@ -66,8 +66,7 @@ but the proof must be done **per bidegree**, not uniformly.
 
 ### self-referential lex-cup Leibniz open conjecture — Phase decomposition
 
-Per `research-notes/G86_self_referential_lex_cup_leibniz.md`
-(currently top-level active), the ∀(k, l) general case has the form:
+The ∀(k, l) general case has the form:
 
 ```
 deltaList (k+l) (cupList k l α β) τ

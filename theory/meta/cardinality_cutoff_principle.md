@@ -188,8 +188,7 @@ is the **identification protocol**:
 
 This protocol converts **poetic structural intuitions** into
 **verified asymptotic theorems** while preserving the original
-direction of insight. See `research-notes/archive/G133_cutoff_marathon.md`
-for the exemplar execution.
+direction of insight.
 
 ## §8.5 Other instantiations across the corpus
 

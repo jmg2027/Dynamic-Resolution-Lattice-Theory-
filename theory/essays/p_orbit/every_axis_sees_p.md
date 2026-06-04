@@ -164,8 +164,7 @@ The catalog quantifies this: *55 ways P describes itself*,
 none of which yields data outside `{NS, NT, det}` and their
 derived integers.
 
-`research-notes/archive/algebra_tower/G58_algebra_tower_completion.md`'s
-4-row Cayley-Dickson tower (Types A, B, C, D × per-layer
+The 4-row Cayley-Dickson tower (Types A, B, C, D × per-layer
 indices) provides the structural *lifting* of P: every CD-
 doubled algebra at every layer inherits P-signature data via
 the universal transient law `rat_{n+3} = 14·rat_{n+2} - 56·

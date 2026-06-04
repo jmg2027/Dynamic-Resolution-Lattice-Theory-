@@ -207,8 +207,7 @@ that the scanners surfaced have all been resolved:
     proofs are `by decide` on Nat inequalities (the `decide`
     *is* the proof).
   · The remaining mass-reduction target — fully `(n, k, l)`-
-    general Leibniz lift — folds into the Cup-Leibniz open
- in `research-notes/G86_self_referential_lex_cup_leibniz.md`.
+    general Leibniz lift — folds into the Cup-Leibniz open conjecture.
 
 Theory documentation lands alongside: a Raw-derivation
 three-level taxonomy (`theory/meta/raw_derivation_levels.md`),
@@ -237,5 +236,3 @@ non-sealed DIRTY citations.
 
 - ✅ `theory/meta/scanner_suite.md` (this chapter; scanner suite + findings)
 - ✅ `theory/meta/raw_derivation_levels.md` (Raw-derivation three-level taxonomy)
-- ✅ `research-notes/archive/metascan/G107_action_items_registry.md` (closed 24-item registry)
-- ✅ sub-tree deep dives at `research-notes/archive/metascan/G##_*.md`

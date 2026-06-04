@@ -263,5 +263,3 @@ python3 tools/scan_axioms.py Lib/Math/Algebra/CayleyDickson/Tower
   primary narrative for `E₆E₇E₈` derivation)
 - ✅ `theory/math/cayley_dickson/algebra_tower.md` (sibling: the CD
   algebra tower / 4-row type matrix)
-- ✅ archived journal:
- `research-notes/archive/exceptional_axes/G150_meta_cd_tower_subset.md`

@@ -149,9 +149,7 @@ sub-cells.
 
 `theory/math/cohomology/k_nm_c_classification.md` §"Mediant
 cohomology functor (count level)" hosts the formal
-statements;
-`research-notes/archive/c_counter/G145_c_counter_structural_theory.md`
-§Conjecture 4 records the cohomology-level conjecture.
+statements.
 
 ## Open frontier
 

@@ -188,10 +188,8 @@ of independent gluon channels."*
 
 ## Research-note provenance
 
-**Mixed**: this chapter absorbs the C1 + C5 specific work from
-`research-notes/G35_chiral_cup_ring_catalog.md` §C1 + §C5, but chiral cup ring catalog
-itself **remains active** as a top-level research note covering the
-broader 213-Algebra catalog (17 domains, 6 C-conjectures C1-C6).
+**Mixed**: this chapter absorbs the C1 + C5 specific cup-ring work; the broader 213-Algebra
+catalog (17 domains, 6 C-conjectures C1-C6) is tracked separately.
 
 | Source | What it provides | Status |
 |---|---|---|
@@ -437,9 +435,6 @@ For the α_em derivation itself, prefer this chapter:
 -- ✅ preferred for α_em derivation
 `theory/physics/alpha_em/precision_derivation.md`
 
--- ✅ still valid for broader 213-Algebra catalog
-`research-notes/G35_chiral_cup_ring_catalog.md` (12+5-domain catalog)
-`research-notes/G35_chiral_cup_ring_catalog.md` §<C##> (specific conjecture)
 ```
 
 Existing Lean docstring citations to the relevant section / `§C5` remain valid

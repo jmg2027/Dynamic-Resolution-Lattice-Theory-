@@ -205,12 +205,7 @@ S/T cross-pair count, SU(NS) root count, `d + 1`); a single
 Raw-native derivation `Raw → 6` whose multiple Lens projections
 recover all of these is the open structural target.
 
-## Research-note provenance
-
-`research-notes/G35_chiral_cup_ring_catalog.md` **§C2** — conjecture
-statement + step log (Steps 1-7 closed).  Chiral cup ring catalog itself stays active
-(field-level catalog); this chapter is the per-conjecture closure
-narrative.
+This chapter is the per-conjecture (C2) closure narrative.
 
 The §0.5 promotion-status section of chiral cup ring catalog tracks this chapter as
 the C2 destination.
@@ -236,5 +231,3 @@ python3 tools/scan_axioms.py Lib/Physics/Foundations
 ## Citation guidance
 
 - ✅ `theory/physics/foundations/atomic_constants.md` (closure narrative)
-- ✅ `research-notes/G35_chiral_cup_ring_catalog.md` §C2 (conjecture
-  statement + step log within broader catalog)

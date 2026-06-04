@@ -21,8 +21,6 @@ generic Lean carrier infrastructure**.  The mathematics is
 Raw-derived; the carriers (Nat, Bool, Int, Fin, ...) are not.
 
 ## Source
-
-- **Primary**: `research-notes/archive/metascan/G104_raw_derivation_three_levels.md`
 - **Empirical evidence**: Expr-level callgraph (Expr callgraph BFS), Raw-depth BFS (Raw-depth
   density), namespace-shape + recursor inventory (per-namespace shape + recursor inventory),
   `tools/ast_typesig_scan.py`, `tools/ast_callgraph_scan.py`

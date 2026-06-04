@@ -86,15 +86,13 @@ funext + propext) are catalogued in `STRICT_ZERO_AXIOM.md`
    shared proof shape across c-counter, P-orbit, mediant.
 7. `theory/essays/synthesis_interlock_map.md` — explicit
    correspondence table between the three synthesis essays.
-8. `research-notes/G35_chiral_cup_ring_catalog.md` — open
-   conjectures with per-conjecture status (active scratch).
 
 ## Volatile session state vs. permanent state
 
 `HANDOFF.md` carries per-session boot context and immediate
-open problems (≤100 lines).  Chapter additions and promotion
-events log to `research-notes/INDEX.md` "Promotion log".
-Permanent framework state lives here.
+open problems (≤100 lines).  Chapter additions and promotions are
+recorded in git history; the research cycle is documented in
+`PROCESS.md`.  Permanent framework state lives here.
 
 ## Companion specs
 

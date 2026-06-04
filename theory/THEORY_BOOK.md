@@ -1214,7 +1214,7 @@ Part 0 → I (1, 2, 4, 5) → II (1–3) → III.1 → VI.1–VI.3 (skip
 proofs)
 
 **For Claude session starts** (per CLAUDE.md):
-`seed/AXIOM/05_no_exterior.md` §5 + §8.4 → `research-notes/G29_residue.md`
+`seed/AXIOM/05_no_exterior.md` §5 + §8.4
 → HANDOFF.md → this book's Part 0
 
 **For the (2, 3)-arithmetic capstone**:

@@ -206,8 +206,7 @@ Euclidean algorithm IS the FSM transition.
 - **Real213-p-adic** — the modular-arithmetic substrate
   produced (Bezout, FLT, F_{p²}, Frobenius) is the natural
   foundation for a 213-native p-adic construction.  STARTER at
-  `lean/E213/Lib/Math/NumberSystems/Padic/Foundation.lean`; campaign plan at
- `research-notes/G122_real213_padic_research_direction.md`.
+  `lean/E213/Lib/Math/NumberSystems/Padic/Foundation.lean`.
 - ~~**Higher-order recursions** (Tribonacci, k-bonacci)~~ —
   CLOSED via `KBonacci.lean` (48 PURE) above.  Parametric in `k`,
   depth-5 cascade theorem.

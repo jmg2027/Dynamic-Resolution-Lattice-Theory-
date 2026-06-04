@@ -100,9 +100,7 @@ The reframing connects four distinct readings of "c":
 
 All four readings are the same number for the same structural
 reason — the disjoint-layer factorisation forces the count to
-be the same at every level.  This is the unifying content of
-`research-notes/archive/G145_c_counter_structural_theory.md`
-§Insight 1-2.
+be the same at every level.
 
 ## Stern-Brocot decoupling
 
