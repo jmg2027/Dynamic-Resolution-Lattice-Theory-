@@ -44,11 +44,19 @@ closure made visible.
   indexed** residue descents sharing the **unimodular unit** — the Stern-Brocot `det = 1` IS the
   glue `NS − NT` (`genL_det_is_glue`, `genL = P`), the same unit the odometer carry begins at.
   Honest scope: the shared *value* + shared *index*, not a forced common map.  The **Minkowski `?`
-  skeleton** is now also built (`minkowski_skeleton`): the Stern-Brocot tree (`sbInterval`, Farey
-  `det = 1`) and the dyadic tree (`dyInterval`, children `2·lo`/`2·lo+1` = the binary digits, the
-  odometer's numeration) are one `List Bool` binary tree under two unimodular labellings; the
-  path-identity is the order-iso between the CF and dyadic addresses.  Remaining: the *analytic*
-  singular `?` (the order-completion / limit) — residual, reached by no finite path.
+  is being compiled in layers** (`Real213/OdometerSternBrocotUnit`):
+    - **L1 skeleton** (`minkowski_skeleton`) — the Stern-Brocot tree (`sbInterval`, Farey `det=1`)
+      and the dyadic tree (`dyInterval`, children `2·lo`/`2·lo+1`) are one `List Bool` binary tree
+      under two unimodular labellings; the path-identity is the order-iso between the CF and dyadic
+      addresses.
+    - **L2 value** (`minkowski_compile`) — the dyadic side IS the binary numeration
+      (`dyInterval_value`: `(dyInterval path).1 = binVal path`, the odometer's world); the
+      Stern-Brocot side is the mediant fraction `sbMediant`; `?` is the path-indexed map between
+      them.
+    - **L3 order** (monotonicity of both value readings = `?` order-iso) — the genuine remaining
+      bounded step (uses the SternBrocotMarkov monotonicity engine).
+    - **L4 analytic** — the singular `?` (order-completion / limit) is residual, reached by no
+      finite path (`object1_not_surjective` pattern).
 
 - **Carry-depth: a decidable sub-classification.**  The full µF/νF classification from a stream is
   constructively obstructed (`¬∀↔∃`); but the *eventually-periodic* streams (decidable run

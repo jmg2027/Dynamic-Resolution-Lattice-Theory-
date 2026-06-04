@@ -95,4 +95,51 @@ theorem minkowski_skeleton :
         ∧ dyStep false (lo, d) = (2 * lo + 1, d + 1)) :=
   ⟨fun _ _ => rfl, fun _ _ => rfl, sbInterval_adj, fun _ _ => ⟨rfl, rfl⟩⟩
 
+/-! ### `?` compilation, layer 2 — the value level: the dyadic side IS the binary numeration
+
+The `?`-skeleton (above) is the shared tree.  Compiling one layer down, the *value* the dyadic tree
+labels each path with is a **binary number**: the left endpoint `(dyInterval path).1` is the
+LSB-first binary value of the path (`binVal`, head = low bit, `true ↦ 0`, `false ↦ 1`).  This is the
+odometer's own numeration (the `+1` adding machine lives on exactly these binary values), so the
+dyadic side of `?` *is* the odometer.  The Stern-Brocot side labels the same path with the
+**mediant fraction** `(p+r)/(q+s)` (`sbMediant`).  `?` is the path-indexed map from the mediant
+(continued-fraction) value to the binary value — `minkowski_compile` bundles the two value readings
+of one path. -/
+
+/-- The LSB-first binary value of a path (head = low bit; `true ↦ 0`, `false ↦ 1`). -/
+def binVal : List Bool → Nat
+  | []     => 0
+  | b :: t => (if b then 0 else 1) + 2 * binVal t
+
+/-- ★★ **The dyadic tree's left endpoint is the binary value of the path.**
+    `(dyInterval path).1 = binVal path` — the dyadic side of `?` is a binary numeration. -/
+theorem dyInterval_value : ∀ path : List Bool, (dyInterval path).1 = binVal path
+  | []     => rfl
+  | b :: t => by
+      cases b with
+      | true  => show (2 * (dyInterval t).1) = 0 + 2 * binVal t
+                 rw [dyInterval_value t, Nat.zero_add]
+      | false => show (2 * (dyInterval t).1 + 1) = 1 + 2 * binVal t
+                 rw [dyInterval_value t, Nat.add_comm]
+
+/-- The Stern-Brocot mediant fraction at a path: `(p+r, q+s)` from the interval `((p,q),(r,s))`. -/
+def sbMediant (path : List Bool) : Nat × Nat :=
+  ((sbInterval path).1.1 + (sbInterval path).2.1,
+   (sbInterval path).1.2 + (sbInterval path).2.2)
+
+/-- ★★★ **`?` compilation, layer 2 — the two value readings of one path.**  A `List Bool` path is
+    read two ways: by the Stern-Brocot tree as the **mediant (continued-fraction) fraction**
+    `sbMediant` (a coprime Farey vertex, `det = 1`), and by the dyadic tree as a **binary number**
+    `(dyInterval path).1 = binVal path` (`dyInterval_value`) — the odometer's numeration.  The
+    Minkowski `?` is the path-indexed map between them: `? (sbMediant path) = binVal path / 2^depth`.
+    Compiled here to the value level (the two readings); the order-isomorphism (monotonicity) and
+    the analytic limit are the residual upper layers.  ∅-axiom. -/
+theorem minkowski_compile :
+    (∀ path : List Bool, (dyInterval path).1 = binVal path)
+    ∧ (∀ (b : Bool) (t : List Bool), binVal (b :: t) = (if b then 0 else 1) + 2 * binVal t)
+    ∧ (∀ path : List Bool,
+        sbMediant path = ((sbInterval path).1.1 + (sbInterval path).2.1,
+                          (sbInterval path).1.2 + (sbInterval path).2.2)) :=
+  ⟨dyInterval_value, fun _ _ => rfl, fun _ => rfl⟩
+
 end E213.Lib.Math.NumberSystems.Real213.OdometerSternBrocotUnit
