@@ -123,18 +123,23 @@ A sweep of Real213/Analysis, Cohomology, GRA, and Algebra213, asking *which exis
 right type of tool for comparing the size of two **incomparable** Stern-Brocot nodes*.  Verdict per
 area — candidates, not proofs (the cross-node argument remains unbuilt; no domain hands it over free):
 
-- **Casoratian / C-finite (`Cauchy/`) — the genuine candidate.**  `casoratian_step`, `telescope`
-  (`CasoratianStep`), `second_casoratian` / `hankel3` (`SecondCasoratian`, the order-3 Casorati
-  determinant conserved at SL₃), `CFiniteZ` + orbit dimension (`OrbitDimension`), and the Cassini
-  ladder `cassini_general : L(n)·L(n+2) − L(n+1)² = d` (`Mobius213/Px/CharPolySelf`).  This is the
-  *discrete-Wronskian* apparatus — comparing two solutions of a linear recurrence by a determinant.
-  **Key identification**: the tree's own monotonicity engine `markovRes_cross`
-  (`u_r·m_t − u_t·m_r = m_l`, `§6`) and `markovRes_cross_left` *are* a Casoratian — the Wronskian of the
-  number-sequence `m` and the residue-sequence `u`, both solutions of the order-2 residue recurrence
-  (`markoff_res_vieta`, `tr·· − ··`).  A Stern-Brocot **line** is a fixed transfer-matrix iterated, so
-  `markovNum` along it is `C-finite` (an entry of `M·T^n`); comparing two *incomparable* lines is two
-  different transfer products — exactly what a Casoratian *can express*, and exactly the argument not
-  yet written.
+- **Casoratian / C-finite (`Cauchy/`) — within-recurrence only; NOT a cross-node tool (corrected).**
+  `casoratian_step`, `telescope` (`CasoratianStep`), `second_casoratian` / `hankel3` (`SecondCasoratian`,
+  the order-3 Casorati determinant conserved at SL₃), `CFiniteZ` + orbit dimension (`OrbitDimension`),
+  and the Cassini ladder `cassini_general : L(n)·L(n+2) − L(n+1)² = d` (`Mobius213/Px/CharPolySelf`).
+  This is the *discrete-Wronskian* apparatus.  **Read the actual signatures**: `casoratian_step
+  (c₂ c₁ c₀ a₀ a₁ a₂ b₀ b₁ b₂)(ha : c₂·a₂=c₁·a₁+c₀·a₀)(hb : c₂·b₂=c₁·b₁+c₀·b₀)` compares **two solutions
+  `a, b` of the SAME order-2 recurrence** at consecutive indices `0,1,2`; `second_casoratian (a b c)(s)
+  (hrec : ∀n, s(n+3)=a·s(n+2)+b·s(n+1)+c·s n)` is **one sequence `s`'s** adjacent-window Hankel
+  determinant.  Both are **within-recurrence**: they relate solutions of, or adjacent windows of, *one*
+  fixed recurrence.  And `markovRes_cross` (`u_r·m_t − u_t·m_r = m_l`, `§6`) is a Casoratian in exactly
+  that within-line sense — the Wronskian of `m` and `u` *along one transfer-matrix iterate*.
+  **The over-promise, corrected**: two *incomparable* Stern-Brocot lines are iterates of **different**
+  transfer matrices — they are not two solutions of one common recurrence, so the existing Casoratian
+  apparatus does **not** express their comparison.  A genuine cross-node statement (diverged branches,
+  different max, touching the `mod c ↔ ℤ` kernel) is **unbuilt**, and the within-recurrence Casoratian is
+  likely *not* the tool for it — it is the wrong shape (one recurrence, not two).  Prior phrasing
+  ("exactly what a Casoratian can express") was backwards.
 
 - **Cohomology mediant functor — a parallel, not a transfer.**  `MediantCohomologyFunctor` splits cell
   counts under the mediant by a **Vandermonde-2** law (`binom(a+b,2) = binom a 2 + binom b 2 + a·b`;
@@ -155,19 +160,24 @@ area — candidates, not proofs (the cross-node argument remains unbuilt; no dom
   multiplicativity is conceptually adjacent — but Algebra213's norm is the division-algebra norm, not
   the stable norm on `H¹(torus)`; a structural rhyme, not a direct tool.
 
-**Net.**  The broad survey confirms the earlier verdict precisely: the repo *has* the right *type* of
-instrument for the cross-line wall — the Casoratian/C-finite determinant apparatus — and the tree's
-existing Frobenius identities are already Casoratians.  What no area supplies is the *aiming*: an actual
-determinant comparison between two incomparable transfer products (the constant-sum Aigner line and
-beyond).  That is the one new argument; everything around it is in hand.
+**Net (corrected).**  The broad survey does **not** hand over a ready cross-line instrument.  The
+Casoratian/C-finite apparatus the repo has is *within-recurrence* — two solutions of one recurrence, or
+one sequence's adjacent windows — and the tree's existing Frobenius identities (`markovRes_cross`) are
+Casoratians in that same within-line sense.  The genuine wall is a comparison between **two incomparable
+transfer products** (different recurrences), which the existing Casoratian shape does **not** express.
+So the honest map: the cross-node argument touching the `mod c ↔ ℤ` kernel is **unbuilt**, no surveyed
+domain supplies it, and the discrete-Wronskian machinery is likely the wrong shape for it.  The earlier
+"everything around it is in hand" was an over-promise — what is in hand is the within-line order
+(`§30` descent via `mNode_max`) and the within-line Casoratian; the cross-line tool is *missing*, not
+merely *unaimed*.
 
 ### Pointers
 - engine: `Real213/ModularGeodesicLens` (`mediantLens`, `mediantLens_view_reachable`)
 - slope reading closed: `Real213/SternBrocotMarkov` `slope_path_inj`, `§6–§8` (`markovRes_cross` = the tree Casoratian)
 - size reading: `markovNum`, `§30` (`markovNum_lt_extend`, `markovNum_lt_append`, descent done), open kernel
   `markovMaxUnique_iff_orbitRealizabilityH`, `OrbitRealizabilityH`
-- candidate cross-line tools: `Cauchy/{CasoratianStep, SecondCasoratian, OrbitDimension}`,
-  `Mobius213/Px/CharPolySelf` (`cassini_general`), `Linalg213/FibCassiniDet`
+- within-recurrence Casoratian (NOT cross-node, corrected): `Cauchy/{CasoratianStep, SecondCasoratian,
+  OrbitDimension}`, `Mobius213/Px/CharPolySelf` (`cassini_general`), `Linalg213/FibCassiniDet`
 - structural parallels: `Cohomology/MediantCohomologyFunctor` (Vandermonde-2 mediant), `GRA/` (the
   `(2,3)=P` backbone), `Meta/Algebra213` (`normSq_mul`, the norm rhyme)
 - narrative: `theory/essays/the_modular_geodesic_lens.md`, `theory/math/analysis/markov_uniqueness.md`
