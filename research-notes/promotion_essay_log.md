@@ -32,7 +32,7 @@ Columns:
 
 | # | Date | Type | Topic / target | Situation (what prompted it) | Outcome (path) |
 |---|------|------|----------------|------------------------------|----------------|
-| 1 | 2026-06-04 | essay | The counting bound behind two representation theorems (disc−3 `a²−ab+b²` + disc−4 `a²+b²`) | Two representation iffs closed ∅-axiom in one session by the *same* field-agnostic engine (`RootBound.eval_zero` + `centered_div`); the cross-domain reuse (one Lagrange bound, two exponents/radii) was the synthesis worth naming. `/essay` invoked at session end. | in-conversation |
+| 1 | 2026-06-04 | essay | The counting bound behind two representation theorems (disc−3 `a²−ab+b²` + disc−4 `a²+b²`) | Two representation iffs closed ∅-axiom in one session by the *same* field-agnostic engine (`RootBound.eval_zero` + `centered_div`); the cross-domain reuse (one Lagrange bound, two exponents/radii) was the synthesis worth naming. `/essay` invoked at session end. | theory/essays/synthesis/representation_theorems_one_counting_bound.md |
 
 ## Reading the log later (pattern analysis)
 
