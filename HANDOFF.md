@@ -2,7 +2,15 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — a NAMED Aigner ordering: Fixed-Numerator p=1, via the continuant pipeline (∅-axiom)
+## ★★★ NEWEST — Cohn-tree monotonicity (general): any word extension increases Markov trace (∅-axiom)
+- **`ContinuantMarkov.cohnTrace_lt_append`** (PURE): `pre ≠ [] → cohnTrace bs < cohnTrace (pre ++ bs)` —
+  the general monotone structure of the Christoffel/Markov tree (deeper Cohn words = strictly larger
+  Markov trace), by transitivity over cohnTrace_lt_true/false. Subsumes fixed_numerator_one.
+- Literal rational-labeled Aigner (Fixed-Num/Denom/Sum on m_{p/q}) still needs the path↔p/q Christoffel
+  bijection (the word-mediant chrInterval tree, empirically verified = markovNum); this captures the
+  monotone CORE. Method identical; that bijection is the remaining (larger) infra.
+
+## a NAMED Aigner ordering: Fixed-Numerator p=1, via the continuant pipeline (∅-axiom)
 - **`ContinuantMarkov.fixed_numerator_one`** (PURE): `cohnTrace (anB n) < cohnTrace (anB (n+1))` where
   `anB n := AⁿB` (Christoffel word for 1/(n+1)); the Markov numbers m_{1/(n+1)} = cohnTrace/3 = 2,5,13,34,…
   strictly increase. Proved by the continuant method (A^{n+1}B = A·(AⁿB) prepend ⟹ cohnTrace_lt_true),
