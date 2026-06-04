@@ -11,7 +11,7 @@ Markov number** (its triple set is empty), so its `MarkovMaxUnique` is *vacuousl
 test, not a uniqueness result on a par with `1325`.  For composite `c` the structural reduction is
 complete — root-count (`= 2^{ω−1}`), the unit-root group, its free action, and nontrivial-root
 existence — and recovery is closed by `slope_path_inj`, so the **single** open input is one
-realisability hypothesis `H` (which `±`-suborbit carries a triple; the orbit tower, §20–§27).  Source
+realisability hypothesis `H` (which `±`-suborbit carries a triple; the orbit tower, §20–§28).  Source
 of truth (all ∅-axiom): `lean/E213/Lib/Math/Real213/{MarkovUniqueness, MarkovCassiniBridge,
 MarkovModularBridge, MarkovInjectivity, SternBrocotMarkov}.lean` + `ModArith/MarkovPrimeFactor.lean`.
 
@@ -326,16 +326,21 @@ correct, not a weakening.
 
 For composite `c` the recovery is likewise closed by `slope_path_inj`, so the **sole** open input is
 *root-realisability* — which `±`-suborbit carries a triple (`H`, next section) — not the residue map
-`triple ↦ u`.  And since recovery is closed, on a composite `c` **`H ⟺ uniqueness at `c`` exactly**
-(same residue ⟹ same triple by `slope_path_inj`; distinct windowed residues ⟹ two occurrences), so the
-formalisation has stripped root-count, group structure, and recovery off and isolated the irreducible
-kernel — `H` directly *is* the Frobenius conjecture at `c`.
+`triple ↦ u`.  This is mechanised as an **equivalence**, not just a sufficiency:
+`markovMaxUnique_iff_windowRealizedUnique` proves `MarkovMaxUnique c ↔ WindowRealizedUnique c` (`5 ≤ c`,
+∅-axiom) — `(←)` is the tree recovery, `(→)` cancels the unit middle entry (the residue map is
+injective on realised roots; the crossed case forces `u₂ ≡ c−u₁`, impossible for two windowed roots).
+So the §20–§28 window/orbit reduction is not merely *sufficient* for Markov uniqueness — it **is** it.
+Composing with `windowRealizedUnique_of_orbit`, on a composite `c` the realisability hypothesis `H` is
+therefore *equivalent* to uniqueness at `c`: the formalisation has stripped root-count, group
+structure, and recovery off and isolated the irreducible kernel — `H` directly *is* the Frobenius
+conjecture at `c`, named in the repo's orbit/window language.
 
 ## The upper-fold pattern: the unit-root group and the orbit reduction
 
 The composite case (`ω ≥ 2`) is closed structurally down to a single residual statement by a tower
 of six folds, each the same `±` self-pointing read at a finer resolution
-(`Real213/SternBrocotMarkov`, §20–§27).  The method is uniform: every wall, when templatised, is
+(`Real213/SternBrocotMarkov`, §20–§28).  The method is uniform: every wall, when templatised, is
 again a fold.
 
   * **The window is the `±`-fold transversal** (`window_fold_transversal`, §20).  The roots of
@@ -406,5 +411,5 @@ for m in MarkovUniqueness MarkovCassiniBridge MarkovModularBridge MarkovInjectiv
 done
 ```
 All `pure / 0 dirty` (`MarkovUniqueness` 80, `MarkovCassiniBridge` 4, `MarkovModularBridge` 2,
-`MarkovInjectivity` 9, `SternBrocotMarkov` 105; plus `ModArith/MarkovPrimeFactor` 28).  The orbit
-tower of the upper-fold section is §20–§27 of `SternBrocotMarkov`.
+`MarkovInjectivity` 9, `SternBrocotMarkov` 108; plus `ModArith/MarkovPrimeFactor` 28).  The orbit
+tower of the upper-fold section is §20–§28 of `SternBrocotMarkov`.
