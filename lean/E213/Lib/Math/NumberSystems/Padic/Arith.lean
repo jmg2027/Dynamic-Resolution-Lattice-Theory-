@@ -478,6 +478,24 @@ theorem Zp.shiftLeft_shiftRight_digit_of_low_zero (p : Nat) (hp : 0 < p)
     show (x.digits (j - k + k)).val = (x.digits j).val
     rw [E213.Tactic.NatHelper.sub_add_cancel (Nat.le_of_not_lt hjk')]
 
+/-- **Factorisation exactness at every truncation**: if the bottom `k`
+    digits of `x` vanish, then `shiftLeft k (shiftRight k x)` agrees with
+    `x` at every truncation level — `x = p^k · (shiftRight k x)` is exact,
+    not merely approximate.  The trunc-level form of
+    `shiftLeft_shiftRight_digit_of_low_zero`, directly usable in
+    `ZpSeq → ℤ/p^n` reasoning (e.g. general p-adic division). -/
+theorem Zp.shiftLeft_shiftRight_trunc_of_low_zero (p : Nat) (hp : 0 < p)
+    (k : Nat) (x : ZpSeq p)
+    (hlow : ∀ j, j < k → (x.digits j).val = 0) :
+    ∀ m, (Zp.shiftLeft p hp k (Zp.shiftRight p k x)).trunc m = x.trunc m
+  | 0 => rfl
+  | m + 1 => by
+    show (Zp.shiftLeft p hp k (Zp.shiftRight p k x)).trunc m
+          + ((Zp.shiftLeft p hp k (Zp.shiftRight p k x)).digits m).val * p^m
+        = x.trunc m + (x.digits m).val * p^m
+    rw [Zp.shiftLeft_shiftRight_trunc_of_low_zero p hp k x hlow m,
+        Zp.shiftLeft_shiftRight_digit_of_low_zero p hp k x hlow m]
+
 /-! ## Multiplication (digit convolution + carry)
 
 p-adic multiplication is a convolution-with-carry:
@@ -1537,6 +1555,42 @@ theorem Zp.add_neg_self_trunc (p : Nat) (hp : 1 < p) (x : ZpSeq p) (n : Nat) :
   rw [show (ZpSeq.neg_one p hp').trunc (n + 1) + 1 = p^(n + 1) from
         ZpSeq.trunc_neg_one_succ p hp' (n + 1)]
   exact E213.Meta.Nat.AddMod213.mod_self _
+
+/-- PURE Nat: `t·t % P = 1` when `t + 1 = P` and `1 < P` — the
+    "difference of squares" core of `(−1)² = 1`.  With `t = P − 1`,
+    `t·t = P·(t−1) + 1 ≡ 1` (proved by the `t = s+1` split, no Nat
+    subtraction). -/
+private theorem sq_mod_of_succ (t P : Nat) (hP : t + 1 = P) (h1 : 1 < P) :
+    t * t % P = 1 := by
+  cases t with
+  | zero => rw [← hP] at h1; exact absurd h1 (by decide)
+  | succ s =>
+    have hident : (s + 1) * (s + 1) = P * s + 1 := by
+      rw [← hP, Nat.mul_succ (s + 1) s, Nat.succ_mul s s,
+          Nat.succ_mul (s + 1) s, Nat.succ_mul s s, Nat.add_assoc (s * s + s) s 1]
+    rw [hident, Nat.add_comm (P * s) 1, Nat.mul_comm P s,
+        E213.Tactic.NatHelper.add_mul_mod_self_pure 1 P s]
+    exact Nat.mod_eq_of_lt h1
+
+/-- **`(−1)·(−1) ≡ 1`**: `(neg_one · neg_one).trunc (n+1) = 1`.  The
+    multiplicative identity for `−1`, the general (all-levels) form of
+    the ring fact.  Via `mul_trunc` + `trunc_neg_one_succ`
+    (`neg_one.trunc(n+1) + 1 = p^(n+1)`) + `sq_mod_of_succ`. -/
+theorem Zp.neg_one_sq_trunc (p : Nat) (hp : 1 < p) (n : Nat) :
+    (Zp.mul p (Nat.lt_of_succ_lt hp)
+      (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp))
+      (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp))).trunc (n + 1) = 1 := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  rw [Zp.mul_trunc p hp' _ _ (n + 1)]
+  have hP : (ZpSeq.neg_one p hp').trunc (n + 1) + 1 = p^(n + 1) :=
+    ZpSeq.trunc_neg_one_succ p hp' (n + 1)
+  have hPlt : 1 < p^(n + 1) := by
+    have hle : p^1 ≤ p^(n + 1) :=
+      Nat.pow_le_pow_right (Nat.le_of_lt hp) (Nat.succ_le_succ (Nat.zero_le n))
+    rw [Nat.pow_one] at hle
+    exact Nat.lt_of_lt_of_le hp hle
+  generalize (ZpSeq.neg_one p hp').trunc (n + 1) = t at hP ⊢
+  exact sq_mod_of_succ t (p^(n + 1)) hP hPlt
 
 /-- **Sub-self gives zero**: `a.trunc = b.trunc → (a + (-b)).trunc = 0`. -/
 theorem Zp.sub_eq_zero_of_trunc_eq (p : Nat) (hp : 1 < p) (a b : ZpSeq p) (n : Nat)

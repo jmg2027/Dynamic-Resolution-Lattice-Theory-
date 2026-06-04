@@ -52,7 +52,8 @@ physics**: the concrete 5-adic imaginary unit is a root of unity.
 `i₅`'s digit 0 is `2`, a *primitive* root mod 5 (`2,4,3,1` — order
 4 = p−1).  So `i₅` is a primitive 4-th root of unity:
 - `i₅² ≡ −1` (`Padic/Hensel.i_5_sq_trunc_two`),
-- `i₅⁴ ≡ 1 (mod 25)` (`Padic/TeichmullerUnit.i_5_pow_four_trunc_two`),
+- `i₅⁴ ≡ 1` at every level (`Padic/TeichmullerUnit.i_5_pow_four_trunc`,
+  via the general `Arith.neg_one_sq_trunc`, `(−1)²≡1`),
 
 pinning its order at exactly `4 = p − 1`, i.e. `i₅ ∈ μ₄ ⊂ ℤ_5^×`.  This
 is the `p = 5` instance of `teichmuller_pow_pred_trunc` (the A/B work) made

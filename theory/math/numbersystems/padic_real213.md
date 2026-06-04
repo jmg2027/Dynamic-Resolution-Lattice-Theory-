@@ -302,7 +302,8 @@ Grouped by module.
 | `Zp.teichmuller_pow_p_trunc` | `ω(x)^p ≡ ω(x)` at every level (Frobenius fix `ω^p = ω`) |
 | `Zp.teichmuller_pow_pred_trunc` | `ω(x)^(p−1) ≡ 1` for units (`(p−1)`-th root of unity) |
 | `Zp.teichmullerCofactor_trunc_one` | `(ω(x)⁻¹·x) ≡ 1 (mod p)` (principal-unit cofactor) |
-| `Zp.i_5_pow_four_trunc_two` | `i₅⁴ ≡ 1 (mod 25)` — the 5-adic imaginary unit is a primitive 4-th root of unity, `i₅ ∈ μ₄` |
+| `Zp.neg_one_sq_trunc` | `(−1)·(−1) ≡ 1` at every level (the ring identity for `−1`) |
+| `Zp.i_5_pow_four_trunc` | `i₅⁴ ≡ 1` at every level — the 5-adic imaginary unit is a primitive 4-th root of unity, `i₅ ∈ μ₄` |
 
 **Field** (ℚ_p)
 | Theorem | Statement |
@@ -534,9 +535,9 @@ What the Real213-p-adic campaign produced:
 
 The concrete root of unity makes the abstract `μ_{p−1}` tangible at
 `p = 5`: the 5-adic imaginary unit `i₅ = √(−1) ∈ ℤ_5` has digit-0 `2`,
-a primitive root mod 5, so `i₅² ≡ −1` and `i₅⁴ ≡ 1`
-(`Zp.i_5_pow_four_trunc_two`) — `i₅ ∈ μ₄`, a Teichmüller representative,
-not a structure adjoined to `ℤ_5`.
+a primitive root mod 5, so `i₅² ≡ −1` and `i₅⁴ ≡ 1` at every level
+(`Zp.i_5_pow_four_trunc`, via `neg_one_sq_trunc`) — `i₅ ∈ μ₄`, a
+Teichmüller representative, not a structure adjoined to `ℤ_5`.
 
 **Open frontier**.  The DRLT-specific 5-adic direction (H) is mostly
 negative.  The `5²⁵ = N_U`-resolution reading is *removed, not deferred*

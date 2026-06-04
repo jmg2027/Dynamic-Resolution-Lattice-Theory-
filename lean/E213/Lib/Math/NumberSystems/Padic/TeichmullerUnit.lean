@@ -128,12 +128,33 @@ is a primitive `4`-th root of unity: `i₅² ≡ −1` (`i_5_sq_trunc_two`) and
 made fully explicit — the "imaginary unit" of `ℤ_5` IS a Teichmüller
 representative, not an extra structure adjoined to it. -/
 
-/-- **`i₅⁴ ≡ 1 (mod 25)`**: the 5-adic imaginary unit is a 4th root of
-    unity.  With `i₅² ≡ −1` (`Zp.i_5_sq_trunc_two`) this pins the
-    multiplicative order at exactly `4 = p − 1`, so `i₅ ∈ μ₄ ⊂ ℤ_5^×`. -/
+/-- **`i₅⁴ ≡ 1` at every level**: the 5-adic imaginary unit is a 4th
+    root of unity.  `i₅² ≡ −1` (`sqr_sqrtFull_correct` on `neg_one`),
+    then `(−1)² ≡ 1` (`neg_one_sq_trunc`).  With `i₅² ≡ −1 ≠ 1` this
+    pins the multiplicative order at exactly `4 = p − 1`, so
+    `i₅ ∈ μ₄ ⊂ ℤ_5^×`. -/
+theorem Zp.i_5_pow_four_trunc (n : Nat) :
+    (Zp.mul 5 (by decide)
+      (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5)
+      (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5)).trunc (n + 1) = 1 := by
+  rw [Zp.mul_trunc 5 (by decide)
+        (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5)
+        (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5) (n + 1)]
+  -- i₅² ≡ neg_one at trunc (n+1).
+  rw [show (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5).trunc (n + 1)
+        = (ZpSeq.neg_one 5 (by decide)).trunc (n + 1) from
+      Zp.sqr_sqrtFull_correct 5 (by decide)
+        (ZpSeq.neg_one 5 (by decide)) Zp.sqrtBase_neg_one_5 n]
+  -- (neg_one.trunc · neg_one.trunc) % 5^(n+1) = (neg_one · neg_one).trunc = 1.
+  rw [← Zp.mul_trunc 5 (by decide)
+        (ZpSeq.neg_one 5 (by decide)) (ZpSeq.neg_one 5 (by decide)) (n + 1)]
+  exact Zp.neg_one_sq_trunc 5 (by decide) n
+
+/-- `i₅⁴ ≡ 1 (mod 25)` — the level-2 instance. -/
 theorem Zp.i_5_pow_four_trunc_two :
     (Zp.mul 5 (by decide)
       (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5)
-      (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5)).trunc 2 = 1 := by decide
+      (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5)).trunc 2 = 1 :=
+  Zp.i_5_pow_four_trunc 1
 
 end E213.Lib.Math.NumberSystems.Padic

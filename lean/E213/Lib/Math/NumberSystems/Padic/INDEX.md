@@ -3,7 +3,7 @@
 Real213-p-adic construction: ∅-axiom p-adic integers `ℤ_p` (`ZpSeq p`)
 and p-adic numbers `ℚ_p` (`QpSeq`) via carry-propagation FSM.
 
-**Status**: CLOSED — 27 files, ~492 PURE declarations.
+**Status**: CLOSED — 27 files, ~500 PURE declarations.
 All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 
 ## File map
@@ -11,7 +11,7 @@ All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 | File | Phase | Decls | Content |
 |---|---|---|---|
 | `Foundation.lean` | 1 | 41 | `ZpDigit`, `ZpSeq`, `trunc`, `zero`/`one`/`neg_one`, `eq_mod_pn`, `trunc_lt_p_pow`, `digits_of_nat` |
-| `Arith.lean` | 2 | 104 | `Zp.add`/`mul`/`neg` via carry FSM, ring axioms at trunc (comm/assoc/distrib/add-inverse), `shiftLeft` |
+| `Arith.lean` | 2 | 110 | `Zp.add`/`mul`/`neg` via carry FSM, ring axioms at trunc (comm/assoc/distrib/add-inverse), `neg_one_sq_trunc` (`(−1)²≡1`); `shiftLeft`/`shiftRight` + factorisation exactness `shiftLeft_shiftRight_trunc_of_low_zero` |
 | `Pow.lean` | 2+ | 18 | `Zp.pow`, `pow_trunc`, Fermat at digit 0, `teichmuller_iter` |
 | `Norm.lean` | 3 | 21 | `valAtLeast`/`valEq`, strong ultrametric (`valEq_add_of_lt`, `valEq_mul`, `valEq_neg`) |
 | `Valuation.lean` | 3 | 11 | `vAt` bounded valuation + characterization lemmas |
@@ -26,7 +26,7 @@ All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
 | `SetoidAssoc.lean` | 4 | 8 | Ring operation associativity under setoid |
 | `SetoidAlgebra.lean` | 4 | 8 | Algebraic structure under setoid equivalence |
 | `Teichmuller.lean` | 4 | 13 | Frobenius lift, `teichmuller_iter_cauchy`, geometric sum; explicit representative `teichmuller` (`ω(x)`, diagonal limit), Frobenius fix `teichmuller_pow_p_trunc` (`ω^p ≡ ω`) |
-| `TeichmullerUnit.lean` | 4 | 6 | `ω(x)` as `(p−1)`-th root of unity (`teichmuller_pow_pred_trunc`); principal-unit decomposition `x = ω·u` (`teichmullerCofactor`, `u ≡ 1 mod p`) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split; concrete `i₅ ∈ μ₄` (`i_5_pow_four_trunc_two`) |
+| `TeichmullerUnit.lean` | 4 | 7 | `ω(x)` as `(p−1)`-th root of unity (`teichmuller_pow_pred_trunc`); principal-unit decomposition `x = ω·u` (`teichmullerCofactor`, `u ≡ 1 mod p`) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split; concrete `i₅ ∈ μ₄` (`i_5_pow_four_trunc`) |
 | `Field.lean` | 5 | 48 | `QpSeq` (ℚ_p): add/sub/mul/neg/inv/div/sqrt; general division `invGeneral`/`divGeneral` (non-unit denominator via valuation shift, reduces to `inv`/`div` at v=0) |
 | `DRLT.lean` | 6 | 4 | `canonical_5adic_p` (= 5), digit smokes |
 | `DRLTIntegration.lean` | 6 | 6 | 5-adic ↔ configCount: `trunc_25_lt_config2` + bridge bundle |
