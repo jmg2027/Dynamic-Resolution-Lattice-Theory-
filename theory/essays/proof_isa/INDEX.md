@@ -37,3 +37,15 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     `2^m > 2^n` subset-sums collide (pigeonhole), the dependency is the
     collision's residue.  *Not* a new instruction — confirms COUNT by reusing
     its exact witness (`nodup_length_le_of_subset`) in a linear codomain.
+  · [`parity_invariant_method.md`](parity_invariant_method.md) — the parity /
+    invariant argument (mutilated chessboard; 15-puzzle, conservation laws).
+    Compiles to **READ ∘ SEPARATE**: a conserved colour-count (READ as a fold)
+    separates reachable from unreachable.  *Not* COUNT (conservation→separation,
+    not deficit→existence) and *not* a new instruction — the SEPARATE-side of
+    the eight, where the two COUNT essays sit on the GAP-side.
+
+## Cumulative finding
+
+Three surface-diverse solved methods, **no new instruction forced** — they
+collapse onto the named eight (two onto COUNT/GAP, one onto READ ∘ SEPARATE).
+The collapse itself is the evidence for the instruction set's completeness.
