@@ -390,6 +390,43 @@ diagonal (`diag_reached`, Cantor archetype `∀ f, ¬Surjective f`), the non-hol
 Cantor/cardinality argument; ∅-axiom forces named constructive witnesses (the "engines" are
 realizers, the domains Lens-carvings).
 
+`E213.Lib.Math.Cauchy.DetZeroCollapse` — **6 PURE**.  The determinant spectrum of the order-2
+recurrence read on the Cassini / discrete-Wronskian `cas s n := s n · s(n+2) − s(n+1)²`:
+`geometric_cas_zero` (order-1 ⟹ `cas ≡ 0`, the `det = 0` collapse — the orbit is a geometric ray,
+one ratio value), `cas_step` (Abel–Liouville: `cas s (n+1) = q · cas s n`, so the Wronskian's
+geometric ratio *is* the determinant `q`), `cas_conserved_unit` (`q = 1` ⟹ `cas` conserved) and
+`cas_period2_neg_unit` (`q = −1` ⟹ `cas s (n+2) = cas s n`).  `det` is the quotient-space
+characteristic value: `0` collapse, `±1` unit, `|q| ≥ 2` expansion.
+
+`E213.Lib.Math.Cauchy.WronskianDepth` — **8 PURE**.  The unit's two faces have **opposite
+additive-depth status**: `cas_unit_depth0` (`det = +1` ⟹ the conserved Wronskian is `polyDepthZ 0`,
+additively trivial — the magnitude unit) and `cas_neg_unit_no_finite_depth` (`det = −1` with
+`W₀ ≠ 0` ⟹ the period-2 sign-flipping Wronskian is **not eventually monotone**, so has **no finite
+depth** — additively maximal, the sign unit), bundled in `unit_faces_opposite_depth`.  Support:
+`int_ne_neg_self`, `cas_neg_unit_ne_zero`, `cas_neg_unit_consecutive_ne`,
+`period2_nonconst_not_evMono`.  One multiplicative unit, two opposite additive readings (the §5.2
+`NT = 2` sign carries the additive richness).
+
+`E213.Lib.Math.Cauchy.GoldenPiFaces` — **3 PURE**.  φ and π named as the two unit faces:
+`golden_companion_sign_face` (`comp 1 (-1)`, the Fibonacci companion `x²−x−1`, has `disc = 5 =
+NS+NT` and `det = −1` — φ is the **sign face**), `golden_cassini_period2` (any golden orbit's
+Cassini is period-2, the classical `F(n+2)F(n)−F(n+1)² = (−1)^{n+1}`), and
+`golden_cassini_no_finite_depth` (with nonzero initial Cassini, φ's Cassini has no finite
+difference-depth — additively maximal).  π is the `det = +1` magnitude (elliptic/rotation) face at
+an irrational angle — the open pole where the periodic floor fails.
+
+`E213.Lib.Math.MaxEntropy` — **8 PURE**.  Structurelessness as a **positive intrinsic property**.
+`MaxEntropy s := ¬ ∃ d, polyDepthZ d s` — no finite holonomic certificate generates `s` (the
+*incompressibility* / measure-free reading of maximum entropy; the measure reading would smuggle an
+exterior ruler).  `maxEntropy_reachedByNoStage` / `maxEntropy_not_surjective` (a max-entropy
+sequence forces the universal Newton generator `newtonGen` to be non-surjective — the ceiling's own
+non-surjection, read as a property of `s` not of a tactic).  The proven escapes collected under the
+one predicate: `thueMorse_maxEntropy` (the dense automatic popcount counter) and
+`golden_cassini_maxEntropy` (the `det = −1` sign face), joined in `maxEntropy_two_faces`.  The
+non-holonomic pole is not a blank left open but the *presence* of maximal genericity —
+source-without-enclosure named in information terms; not stipulated (the residue's genericity is the
+theorem `object1_not_surjective`, and a `MaxEntropy` sequence is its constructive realizer).
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and

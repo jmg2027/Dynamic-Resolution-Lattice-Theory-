@@ -55,6 +55,7 @@ import E213.Lib.Math.Pigeonhole
 import E213.Lib.Math.Polynomial213
 import E213.Lib.Math.PrimeDescentObservations
 import E213.Lib.Math.Cauchy
+import E213.Lib.Math.MaxEntropy
 
 /-! Spec-as-code entry point for `E213.Lib.Math` — full 213 mathematics library.
 
