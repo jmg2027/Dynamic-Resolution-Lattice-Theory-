@@ -1,25 +1,29 @@
-# Session Handoff — 2026-06-04m (Markov — ★ §34 iff closed + direction (b): continuant/Aigner program opened)
+# Session Handoff — 2026-06-04n (Markov — ★ direction (b): continuant tool + Raw/Lens boundary + axiom-level attack map)
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST (direction (b) — the cross-node frontier): continuant primitive + sourced program map
-Full-arsenal sweep (4 parallel repo surveys + primary-source web research, `research-notes/G191`).
-- **PRIMARY-SOURCED**: the repo's §34 `markovMaxUnique_iff_markovNum_injective` IS the modern Frobenius
-  statement verbatim — "Frobenius' conjecture = [the rational→Markov map] is injective" (arXiv:2512.04026).
-  Still OPEN 2026.  Aigner's three orderings (Fixed Num/Denom/Sum, LLRS / McShane stable norm) are PROVEN
-  but **necessary-not-sufficient** — they do NOT close `H` even with full modern theory.
-- **Technical core = the continuant** (Frobenius 1913): `m_{p/q} = K(CF-shape of p/q)`.  **Built this round**
-  `Real213/Continuant.lean` (6 PURE): `continuant`/`contPair`, `continuant_cons2` (Euler recurrence, rfl),
-  `one_le_continuant`, `continuant_head_strict_mono`, `continuant_lt_prepend`.  The Aigner core tool,
-  previously only implicit in `mInterval`.
-- **Ordered program E1–E5** (G191 §E): E1 ✅ continuant primitive; E2 continuant = matrix-product entry;
-  E3 path→CF partial quotients (genL/genR vs [[a,1],[1,0]] basis change); E4 Frobenius formula
-  `markovNum p = K(shape p)` (the SUBSTANTIAL bridge); E5 one Aigner ordering = first cross-node ∅-axiom
-  Markov ordering.  Ceiling: E1–E5 lands Aigner monotonicity (real, necessary-not-sufficient), kernel
-  `OrbitRealizabilityH` (the passing pattern) stays orthogonal + open.
-- Cluster/snake/frieze machinery **entirely absent** (survey C) — CF/continuant route is the cheaper one.
+## ★★★ NEWEST — direction (b) explored three ways; standing record `G193`
+- **`G191`** classical: sourced confirmation the §34 iff IS modern Frobenius (map injectivity, open 2026);
+  Aigner orderings (LLRS/McShane) proven but **necessary-not-sufficient**.  Core tool = continuant.
+- **`Real213/Continuant.lean`** (6 PURE): Euler continuant `K[a₁..aₙ]` + monotonicity (`continuant_cons2`
+  Euler recurrence, `one_le_continuant`, `continuant_head_strict_mono`, `continuant_lt_prepend`).  E1 done.
+- **`G192`** Raw/Lens-native: the **geodesic-engine boundary** — slope (`mediantLens`) is THE Raw-Lens,
+  closes the direction-free layer (injective); size (`markovNum`) is NOT a Raw-Lens
+  (`markovGen_noncommutative`), so the engine *structurally stops* at orientation = where `H` lives.
+  Leverage-vs-renaming ledger: all hard 213 constraints fix structure, none selects realization.
+- **`G193`** axiom-level (this note = standing attack map): (A) the recurring `5` is `d`, Markov tree
+  rooted at the φ self-reference fixed point (root `markovNum []=5=d`, coeff `3=NS`, `1325=5²·53`,
+  Fibonacci spine); (D) frontier = three rungs of the §6.7 number cascade (slope=ℚ-Lens, coprime from
+  det P=1); (B) `H` = compatibility of the two §5.2 self-reference forms (Bool-oscillation Cohn `C²≡−I`
+  order-4 ↔ Nat-convergent Vieta descent); (C) attack `H` as a *forced fixed point* (§4.3 shape move).
+  A,D,E solid; B a location; C a steer.  NOT proofs.
+- **Convergent honest verdict** (classical + Raw/Lens + axiom): structure fully pinned, realizability
+  selection is the SOLE open freedom = `H`.  No direction crosses it.
 
-## §34 reverse bridge: the markovNum-injectivity iff is fully closed
+## Ranked next (G193 Part 3): E2 (`continuant = matrix entry`, cheap on-path) → E3/E4/E5 (oriented bridge,
+## E4 substantial); B/C formal (forced-fixed-point, the real shot, high risk); count theorem 2^(ω−1); cohomology δ.
+
+## (earlier) §30–§34: the size-reading-injectivity iff, fully closed both directions
 
 ## ★★★ NEWEST (§30–§34): the size-reading-injectivity iff, fully closed both directions
 All `∅`-axiom (`#print axioms` clean).  In `Real213/SternBrocotMarkov`:
