@@ -247,4 +247,30 @@ theorem cohnTrace_lt_false (bs : List Bool) : cohnTrace bs < cohnTrace (false ::
         (E213.Meta.Int213.Order.lt_of_lt_of_le (by decide) ha))) hb) hc
   exact lt_add_nonneg (pos_sum ha hb hc) hrest
 
+/-! ## A named Aigner ordering: Fixed Numerator `p = 1`
+
+The Fixed-Numerator-`1` family is the Christoffel word `AⁿB` (the rationals `1/(n+1)`), whose Markov
+numbers are `m_{1/(n+1)} = cohnTrace (AⁿB)/3 = 2, 5, 13, 34, …`.  Since `A^{n+1}B = A·(AⁿB)` is a prepend
+of `A`, `cohnTrace_lt_true` gives the strict ordering directly — the first *named* Aigner ordering, proved
+by the continuant pipeline (not the tree's descent). -/
+
+/-- The Christoffel word `AⁿB` (`n` copies of `A=[1,1]`, then one `B=[2,2]`) — the `1/(n+1)` family. -/
+def anB (n : Nat) : List Bool := List.replicate n true ++ [false]
+
+/-- `AⁿB` traces (`= 3·m_{1/(n+1)}`): `B↦6 (m=2)`, `AB↦15 (m=5)`, `AAB↦39 (m=13)`. -/
+theorem anB_examples :
+    cohnTrace (anB 0) = 6 ∧ cohnTrace (anB 1) = 15 ∧ cohnTrace (anB 2) = 39 := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
+/-- ★★★★★ **Aigner Fixed-Numerator (`p = 1`), via continuant trace growth.**  Along the `AⁿB` family
+    (Markov numbers `m_{1/(n+1)}`), `cohnTrace (anB n) = 3·m_{1/(n+1)}` is strictly increasing in `n` — a
+    named Aigner ordering, proved by the continuant pipeline (`cohnTrace_lt_true`), not by the tree's
+    descent.  (General Fixed-Numerator `p` needs the Christoffel word of `p/q`; the method is the same.) -/
+theorem fixed_numerator_one (n : Nat) : cohnTrace (anB n) < cohnTrace (anB (n + 1)) := by
+  show cohnTrace (List.replicate n true ++ [false])
+       < cohnTrace (List.replicate (n + 1) true ++ [false])
+  rw [show List.replicate (n + 1) true ++ [false]
+        = true :: (List.replicate n true ++ [false]) from rfl]
+  exact cohnTrace_lt_true (List.replicate n true ++ [false])
+
 end E213.Lib.Math.Real213.ContinuantMarkov
