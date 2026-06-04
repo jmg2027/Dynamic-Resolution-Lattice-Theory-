@@ -13,6 +13,22 @@
 - Old umbrella `Lib/Math/Real213.lean` deleted (main); new files wired into
   `Lib/Math/NumberSystems/Real213.lean` umbrella.  Deferred scratch: `research-notes/G198_action_options_ABC.md`.
 
+## ✅ Actions B + C done — proof-ISA lift catalog (commit `9a98597`)
+- **B (catalog)**: `lean/E213/Lib/Math/Foundations/ProofISALifts.lean` (∅-axiom) pins **three solved
+  infinite-abstract theorems by their distinct finite→uniform lift archetype**:
+  `lift_diagonal` (Cantor, cost 0) · `lift_loop` (Fermat `a^p≡a`, one induction, `lift_loop_step` =
+  freshman dream) · `lift_orbit` (composite Markov uniqueness, free unit-root action `lift_orbit_freeaction`
+  = `root_orbit_inj`).  All six witnesses `#print axioms … does not depend on any axioms`.
+- **`H` localized**: matches A1/A2 **no**, **A3 ORBIT closest** — same family, realized lift precedent;
+  `H` now lives in **two ISA-compiled forms** (trace-`SEPARATE` form `ContinuantMarkov`, orbit-realizability
+  form `markov_max_unique_of_orbit`'s `H`).
+- **C (method)**: `seed/PROOF_ISA.md` "## The lift catalog" registers cataloguing solved lifts as the
+  cumulative half of the compilation-first workflow.  Narrative: `research-notes/G199`.
+- **NEXT (action A, deferred — `research-notes/G198`)**: probe the **orbit / µ-ν lift of the
+  trace-`SEPARATE`** (the A3 same-family coordinate; `slashNu_final` finite-path certification of a
+  trace-distinctness fixed point).  No solve guarantee — A *is* `H`'s difficulty per `G197`.
+- **Ready to push-and-merge to `main`** (clean checkpoint: build ✓ 306 modules, all ∅-axiom).  Awaiting go.
+
 ## Branch `claude/markov-uniqueness-0R0Ut`.  `NumberSystems/Real213/SternBrocotMarkov` §34 + `…/Continuant` PURE.
 
 ## ★★★ SESSION CERTIFICATION — the whole Markov/continuant arc is strict ∅-axiom
