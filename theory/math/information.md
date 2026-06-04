@@ -10,7 +10,7 @@ Replaces continuous Shannon entropy with **discrete bit-counting**.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Information/` (8 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Probability/Information/` (8 files)
 - **Umbrella**: `Information.lean`
 - **Blueprint**: `blueprints/math/12_information_213.md`
 - **∅-axiom status**: PURE

@@ -166,7 +166,7 @@ the codebase:
   · `theory/math/dyadic_fsm.md`: the dyadic FSM closure traces
     the same `ℤ[√5]` algebraic structure under bit-stream
     reduction.
-  · `lean/E213/Lib/Math/Mobius213.lean`: Möbius `P(x) = (2x+1)/(x+1)`
+  · `lean/E213/Lib/Math/Algebra/Mobius213.lean`: Möbius `P(x) = (2x+1)/(x+1)`
     fixed point lives in `ℤ[√5]`.
 
 Together: the physics base `d = 5` (selected by the three-pillar

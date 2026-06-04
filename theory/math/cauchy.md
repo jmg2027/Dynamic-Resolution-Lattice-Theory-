@@ -12,7 +12,7 @@ existential ε-δ.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Cauchy/` (7 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Analysis/Cauchy/` (7 files)
 - **∅-axiom status**: PURE
 
 | Group | Files |
@@ -57,5 +57,5 @@ corrected position).
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Cauchy
+lake build E213.Lib.Math.Analysis.Cauchy
 ```

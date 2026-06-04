@@ -56,19 +56,19 @@ essence of the 4 clauses.
 
 | Count | File | Notes |
 |------:|------|-------|
-| 8 | `Lib/Math/CayleyDickson/Levels/Cayley.lean` | Octonion R3 (associativity) drops |
+| 8 | `Lib/Math/Algebra/CayleyDickson/Levels/Cayley.lean` | Octonion R3 (associativity) drops |
 | 6 | `Theory/Raw/ParenthesizationDistinct.lean` | Parenthesisations distinct (a|b|slash) |
-| 5 | `Lib/Math/CayleyDickson/Levels/Sedenion.lean` | Sedenion R4 (alternative) drops |
-| 5 | `Lib/Math/CayleyDickson/Tower/CDDouble.lean` | CD doubling property drops |
-| 5 | `Lib/Math/UniverseChain/Residue.lean` | Residue distinguishability (5 atomic levels) |
+| 5 | `Lib/Math/Algebra/CayleyDickson/Levels/Sedenion.lean` | Sedenion R4 (alternative) drops |
+| 5 | `Lib/Math/Algebra/CayleyDickson/Tower/CDDouble.lean` | CD doubling property drops |
+| 5 | `Lib/Math/Foundations/UniverseChain/Residue.lean` | Residue distinguishability (5 atomic levels) |
 | 4 | `Lens/Instances/F9.lean` | Finite-field arithmetic |
 | 3 | `Lens/Instances/Reach.lean` | Reach map failures |
 | 3 | `Lens/Properties/Diagonal.lean` | Diagonal Lens properties |
 | 3 | `Lens/Universal/Witnesses/Nat2.lean` | Nat-2 universal witnesses |
-| 3 | `Lib/Math/CayleyDickson/Levels/SedenionHeavy.lean` | Heavy Sedenion |
-| 3 | `Lib/Math/CayleyDickson/Tower/TowerFixedPoint.lean` | Tower fixed-point structure |
-| 3 | `Lib/Math/Choice/CanonicalTruthChar.lean` | Canonical truth characterisation |
-| 3 | `Lib/Math/DyadicFSM/Signature/SignatureBipartite.lean` | Bipartite signature |
+| 3 | `Lib/Math/Algebra/CayleyDickson/Levels/SedenionHeavy.lean` | Heavy Sedenion |
+| 3 | `Lib/Math/Algebra/CayleyDickson/Tower/TowerFixedPoint.lean` | Tower fixed-point structure |
+| 3 | `Lib/Math/Foundations/Choice/CanonicalTruthChar.lean` | Canonical truth characterisation |
+| 3 | `Lib/Math/NumberTheory/DyadicFSM/Signature/SignatureBipartite.lean` | Bipartite signature |
 
 ### Cayley-Dickson tower as systematic negation factory
 

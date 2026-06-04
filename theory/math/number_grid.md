@@ -16,7 +16,7 @@ no number system is foundational; all are positions in the grid.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/NumberGrid/` (4 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Geometry/NumberGrid/` (4 files)
 - **Capstone**: `NumberGrid/Capstone.lean`
 - **∅-axiom status**: PURE
 
@@ -49,5 +49,5 @@ algebra-tower's asymptotic behaviour (see `algebra_tower.md`).
 
 ```bash
 cd lean
-lake build E213.Lib.Math.NumberGrid
+lake build E213.Lib.Math.Geometry.NumberGrid
 ```

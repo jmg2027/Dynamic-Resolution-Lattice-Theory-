@@ -40,10 +40,10 @@ On the cork side (`theory/math/exotic_4mfd_cork.md`), the same
 four cochains appear as the singleton orbits in the Burnside
 count `sym3OrbitCount = 60`: 4 singletons + 28 size-3 + 28 size-6.
 The signed cork-twist count = 4 + 28 − 28 = +4
-(`lean/E213/Lib/Math/AkbulutCork/SignedOrbits.lean`).
+(`lean/E213/Lib/Math/Geometry/AkbulutCork/SignedOrbits.lean`).
 
 The bridge is proved at
-`lean/E213/Lib/Math/AkbulutCork/CrossFrame.lean`:
+`lean/E213/Lib/Math/Geometry/AkbulutCork/CrossFrame.lean`:
 
 - `cork_count_eq_sym3_fixed_cardinality`: `signedCorkTwistCount
   = (Sym3IrrepDecomp.fixedSize : Int)`

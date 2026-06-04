@@ -21,7 +21,7 @@ tactics provide the 213-native equivalent without `propext` reliance.
   - `HurwitzRing.lean` — Hurwitz-norm tactic
   - `QuadExtension.lean` — quadratic-extension tactic
   - `IntSquare.lean` — Int-square supporting lemmas
-- **Hurwitz layer** (`Lib/Math/SignedCut/Hurwitz/`):
+- **Hurwitz layer** (`Lib/Math/NumberSystems/SignedCut/Hurwitz/`):
   - `HurwitzNormProduct.lean` — norm product
   - `HurwitzExactL1.lean` — L1 exact
   - `HurwitzFailure.lean` — failure modes
@@ -62,5 +62,5 @@ the algebraic side of the tower.
 ```bash
 cd lean
 lake build E213.Lib.Math.Tactic
-lake build E213.Lib.Math.SignedCut.Hurwitz
+lake build E213.Lib.Math.NumberSystems.SignedCut.Hurwitz
 ```

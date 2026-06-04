@@ -11,7 +11,7 @@ real-log capstone, aggregator capstone.
 
 ## Lean source
 
-- `lean/E213/Lib/Math/Extras/` (8 files)
+- `lean/E213/Lib/Math/Tactic/Extras/` (8 files)
 - ∅-axiom PURE
 
 ## Narrative

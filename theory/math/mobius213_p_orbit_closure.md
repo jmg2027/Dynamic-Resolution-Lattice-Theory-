@@ -23,7 +23,7 @@ claim into the deeper P-orbit structure:
    complementing the bipartite K_{NS, NT}.  Bipartite captures
    multiplicative atomic structure `NS · NT`; tripartite
    captures additive structure `NS + NT = d`.
-2. **p-adic Lens family is general** — `Lib/Math/Padic/ZpSeq p`
+2. **p-adic Lens family is general** — `Lib/Math/NumberSystems/Padic/ZpSeq p`
    is parameterised by ANY prime p (smoke tests at p = 7, 11
    exist).  Mod-{7, 11, 13, ...} reductions of P are PURE-Lens
    natural via the p-adic family, not just mod-{2, 3, 5}.
@@ -213,7 +213,7 @@ full p-adic catalog is the **depth → ∞ direct limit**.
 
 ## P(x) symmetry species catalog (parent)
 
-`lean/E213/Lib/Math/Mobius213/Px/` hosts the broader 36-species
+`lean/E213/Lib/Math/Algebra/Mobius213/Px/` hosts the broader 36-species
 catalog of P(x):
 
 | Module | PURE | Theme |
@@ -271,7 +271,7 @@ the P-orbit level, not the atomic level.
 
 ## Lean source
 
-  · Umbrella: `lean/E213/Lib/Math/Mobius213/Px.lean`
+  · Umbrella: `lean/E213/Lib/Math/Algebra/Mobius213/Px.lean`
     (auto-includes Px subdirectory)
   · 23 Px modules + 1 Atomicity orbit-forcing module + 1 NatRing
     toolkit module:
@@ -465,7 +465,7 @@ Möbius matrix).
 
 ### Lean source (G139)
 
-  · `lean/E213/Lib/Math/Mobius213/Px/MobiusSelfForm.lean`
+  · `lean/E213/Lib/Math/Algebra/Mobius213/Px/MobiusSelfForm.lean`
     (~18 declarations, ∅-axiom)
   · Key theorems: `mobius_iteration_master`,
     `p_unique_sl2_trace3`, `self_reconstruction_master`
@@ -488,27 +488,27 @@ Möbius matrix).
 ## How to verify
 
 ```bash
-cd lean && lake build E213.Lib.Math.Mobius213.Px
+cd lean && lake build E213.Lib.Math.Algebra.Mobius213.Px
 python3 tools/scan_axioms.py \
-  E213.Lib.Math.Mobius213.Px.POrbitClosure
+  E213.Lib.Math.Algebra.Mobius213.Px.POrbitClosure
 python3 tools/scan_axioms.py \
-  E213.Lib.Math.Mobius213.Px.TripartiteK213
+  E213.Lib.Math.Algebra.Mobius213.Px.TripartiteK213
 python3 tools/scan_axioms.py \
-  E213.Lib.Math.Mobius213.Px.ModPPeriods
+  E213.Lib.Math.Algebra.Mobius213.Px.ModPPeriods
 ```
 
 ## Cross-reference — p-adic Lens family as mod-p arena
 
 The mod-p period computation `T_p = ord(P mod p)` presupposes a
 structured `mod p` universe.  The ∅-axiom p-adic library
-(`Lib/Math/Padic/`) supplies exactly this: `ZpSeq p` is the
+(`Lib/Math/NumberSystems/Padic/`) supplies exactly this: `ZpSeq p` is the
 infinite digit sequence `ℕ → Fin p` with truncation
 `trunc n < p^n` and a full ring homomorphism at every level.
 
   · **Generality**: `ZpSeq p` is defined for ALL `p ≥ 1`, not just
     atomic primes.  This is what makes periods at `p = 13, 29, 37, …`
     framework-natural — the Lens arena already extends there.
-  · **Bridge file**: `Lib/Math/Padic/ZpSeqMobiusBridge.lean` proves
+  · **Bridge file**: `Lib/Math/NumberSystems/Padic/ZpSeqMobiusBridge.lean` proves
     that Möbius-pair agreement (digit matching at every Stern-Brocot
     reachable index pair) is bidirectionally equivalent to pointwise
     digit equality (`ZpSeqEquiv`).  The Möbius reading of p-adic

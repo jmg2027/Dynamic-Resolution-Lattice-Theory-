@@ -19,7 +19,7 @@ branching on prior digit / sequence positions.
 constant-size aggregate** that captures everything the next step
 needs.
 
-**Witness**: `Lib/Math/Padic/NegInvolutionFull.lean` +
+**Witness**: `Lib/Math/NumberSystems/Padic/NegInvolutionFull.lean` +
 `NegInvolutionPreserve.lean`.
 
   `Zp.neg`의 carry at position k+1 turns out to be
@@ -46,8 +46,8 @@ extra field carrying its proof, so downstream consumers receive
 it implicitly.  Stronger: bundle a **representation witness** that
 collapses the structure into a simpler algebraic class.
 
-**Witness**: `Lib/Math/Real213/ValidCutFramework.lean` (weak) +
-`Lib/Math/Real213/IntValidCut.lean` (strong).
+**Witness**: `Lib/Math/NumberSystems/Real213/ValidCutFramework.lean` (weak) +
+`Lib/Math/NumberSystems/Real213/IntValidCut.lean` (strong).
 
   `IntValidCut := { cut, represents : Nat, is_integer : cutEq cut
   (constCut represents 1) }` carries "represents an integer" as a
@@ -76,7 +76,7 @@ the cleaner the algebra.
 Bundle morphisms as `LensMap α β := { fn, respects : ∀ a b, a ≈ b →
 fn a ≈ fn b }`.
 
-**Witness**: `Lib/Math/Padic/SetoidFramework.lean` +
+**Witness**: `Lib/Math/NumberSystems/Padic/SetoidFramework.lean` +
 `SetoidAlgebra.lean` + `ZpSqrtDSetoid.lean`.
 
   `ZpSeqEquiv x y := ∀ k, x.digits k = y.digits k` (pointwise
@@ -110,7 +110,7 @@ residual level**: `X_n · Y_n = 1 + p^(n+1) · R_n`.  Express the
 n→n+1 step as an exact integer identity on `R_n`, bypassing the
 per-digit carry chain.
 
-**Witness**: `Lib/Math/Padic/HenselResidual.lean` (surfacing
+**Witness**: `Lib/Math/NumberSystems/Padic/HenselResidual.lean` (surfacing
 existing `Padic/Hensel.lean`).
 
   `(Zp.mul x (Zp.invSeq x n)).trunc (n+1) = 1` for every n.
@@ -163,12 +163,12 @@ operations beyond K_{3,2}^{(c=2)} k = 2).
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Padic.NegInvolutionPreserve  # Pattern 1
-lake build E213.Lib.Math.Real213.IntValidCut           # Pattern 2
-lake build E213.Lib.Math.Padic.SetoidFramework         # Pattern 3
-lake build E213.Lib.Math.Padic.HenselResidual          # Pattern 4
+lake build E213.Lib.Math.NumberSystems.Padic.NegInvolutionPreserve  # Pattern 1
+lake build E213.Lib.Math.NumberSystems.Real213.IntValidCut           # Pattern 2
+lake build E213.Lib.Math.NumberSystems.Padic.SetoidFramework         # Pattern 3
+lake build E213.Lib.Math.NumberSystems.Padic.HenselResidual          # Pattern 4
 
-python3 tools/scan_axioms.py E213.Lib.Math.Padic.NegInvolutionPreserve
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Padic.NegInvolutionPreserve
 # ★ 4 PURE / 0 DIRTY — includes zp_neg_neg_digit_at (full involution)
 ```
 

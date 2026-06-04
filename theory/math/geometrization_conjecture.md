@@ -55,10 +55,10 @@ self-pointing structure*, not a geometric coincidence.  M1/M2/M3/M4
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/GeometrizationConjecture/` (15 files, linear dependency chain)
+- **Sub-tree**: `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/` (15 files, linear dependency chain)
 - **Master capstone**: `Capstone.R1_close_certificate` (20-conjunct)
 - **Master capstone alt**: `Capstone.R1_master_capstone` (4-route convergence)
-- **Tree INDEX**: `lean/E213/Lib/Math/GeometrizationConjecture/INDEX.md`
+- **Tree INDEX**: `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/INDEX.md`
 - **∅-axiom status**: 149 PURE / 0 DIRTY (verified at step-25 close)
 
 ### File map (R1 core, 9 files closed)
@@ -92,7 +92,7 @@ Ansatz → M1Routes → ScopeAndDepth → DimSpectrum → Poincare →
 ```
 
 Linear chain.  All under namespace
-`E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz`.
+`E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz`.
 
 ## The narrative
 
@@ -191,7 +191,7 @@ reading — significant cross-frame convergence.
 | `cohomology_depth_filter_K32` | `ScopeAndDepth` | Sym(3) + c=2 binary cover filter |
 
 For full ~149 PURE inventory, see
-`lean/E213/Lib/Math/GeometrizationConjecture/INDEX.md`.
+`lean/E213/Lib/Math/Geometry/GeometrizationConjecture/INDEX.md`.
 
 ## Open frontier
 
@@ -318,8 +318,8 @@ sharing one algebraic spine.  This convergence is the
 
 ```bash
 cd lean
-lake build E213.Lib.Math.GeometrizationConjecture
-python3 tools/scan_axioms.py Lib/Math/GeometrizationConjecture
+lake build E213.Lib.Math.Geometry.GeometrizationConjecture
+python3 tools/scan_axioms.py Lib/Math/Geometry/GeometrizationConjecture
 ```
 
 Expected: build succeeds, all 149+ PURE theorems report "does
@@ -328,8 +328,8 @@ not depend on any axioms", scan reports 0 DIRTY.
 The single citable theorems from elsewhere:
 
 ```lean
-import E213.Lib.Math.GeometrizationConjecture
-open E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
+import E213.Lib.Math.Geometry.GeometrizationConjecture
+open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
 #check @R1_close_certificate          -- 20-conjunct R1 close
 #check @R1_master_capstone            -- 4-route M1 convergence
 #check @X1_sym3_cross_frame_capstone  -- 4-way Sym(3) cross-frame
@@ -355,8 +355,8 @@ open E213.Lib.Math.GeometrizationConjecture.ChartAxisAnsatz
 `research-notes/frontiers/G121_dim4_self_pointing_axis.md`
 
 -- specific theorems
-`Lib/Math/GeometrizationConjecture/Capstone.R1_close_certificate`
-`Lib/Math/GeometrizationConjecture/Capstone.R1_master_capstone`
+`Lib/Math/Geometry/GeometrizationConjecture/Capstone.R1_close_certificate`
+`Lib/Math/Geometry/GeometrizationConjecture/Capstone.R1_master_capstone`
 ```
 
 the chapter stays active per Pattern 3 (mixed-status): chapter handles R1

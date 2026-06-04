@@ -64,5 +64,5 @@ and iterator `P(x) = (2x + 1) / (x + 1)`.  Canonical treatment:
 §3.5.  §5.6 records the dual reading (frozen fixed point +
 dynamic convergence) as the concrete model of self-reference.
 
-Companion: `lean/E213/Lib/Math/Mobius213.lean` (∅-axiom
+Companion: `lean/E213/Lib/Math/Algebra/Mobius213.lean` (∅-axiom
 theorems: discriminant, trace, det, Pell-Fib recurrences).

@@ -52,9 +52,9 @@ structural proof.
 
 ## Lean source
 
-- **Umbrella**: `lean/E213/Lib/Math/CayleyDickson.lean` (imports all
+- **Umbrella**: `lean/E213/Lib/Math/Algebra/CayleyDickson.lean` (imports all
   Tower files)
-- **Sub-tree**: `lean/E213/Lib/Math/CayleyDickson/Tower/` (Phases 15–27)
+- **Sub-tree**: `lean/E213/Lib/Math/Algebra/CayleyDickson/Tower/` (Phases 15–27)
 - **∅-axiom status**: **0 DIRTY** — every master theorem reports
   `#print axioms … → "does not depend on any axioms"`.
 
@@ -254,8 +254,8 @@ square root `ℕ` does not contain.  The exact form is the integer matrix;
 
 ```bash
 cd lean
-lake build E213.Lib.Math.CayleyDickson
-python3 tools/scan_axioms.py Lib/Math/CayleyDickson/Tower
+lake build E213.Lib.Math.Algebra.CayleyDickson
+python3 tools/scan_axioms.py Lib/Math/Algebra/CayleyDickson/Tower
 ```
 
 ## Citation guidance

@@ -66,7 +66,7 @@ binding of the name.
 
 ### Key supporting external dependencies
 
-  · `Lib/Math/ModArith/UniversalFLT.universal_flt_main` —
+  · `Lib/Math/NumberTheory/ModArith/UniversalFLT.universal_flt_main` —
     Fermat's Little Theorem, supplies the `a^(p-1) % p = 1 % p`
     hypothesis to the parametric modular reduction.
   · `Meta/Nat/MulMod213.mul_mod_pure`,

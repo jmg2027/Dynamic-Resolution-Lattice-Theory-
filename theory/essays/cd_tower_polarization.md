@@ -45,7 +45,7 @@ One rung higher (Cayley → Sedenion = `CDDouble` of a **non-associative**
 base) the trace condition no longer lifts and composition fails —
 concretely: `(e₁+e₁₀)·(e₄−e₁₅) = 0` with both factors nonzero, so
 `normSq(u·v) = 0 ≠ 4 = normSq u · normSq v`
-(`Lib/Math/CayleyDickson/Levels/SedenionZeroDivisor.lean`:
+(`Lib/Math/Algebra/CayleyDickson/Levels/SedenionZeroDivisor.lean`:
 `sedenion_has_zero_divisors`, `sedenion_normSq_not_multiplicative`).
 The boundary is not asserted; it is a `decide`-witnessed 16-tuple.
 

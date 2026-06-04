@@ -10,7 +10,7 @@ adoption (per scanner suite rw-cascade adoption gap finding).
 
 ## Lean source
 
-- `lean/E213/Lib/Math/CascadeCalculus/` (2 files)
+- `lean/E213/Lib/Math/Analysis/CascadeCalculus/` (2 files)
 - ∅-axiom PURE
 
 | File | Purpose |

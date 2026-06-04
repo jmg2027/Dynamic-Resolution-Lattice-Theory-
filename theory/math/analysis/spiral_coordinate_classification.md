@@ -1,10 +1,10 @@
 # Spiral-coordinate classification of reals — two orthogonal counts and a residue
 
 **Status**: Closed.  Source of truth (all ∅-axiom):
-`lean/E213/Lib/Math/Real213/{SpiralLayer, SpiralCoordinate}`,
-`lean/E213/Lib/Math/CayleyDickson/Integer/{ZIUnits, GaussianCrossDet, EisensteinCrossDet,
+`lean/E213/Lib/Math/NumberSystems/Real213/{SpiralLayer, SpiralCoordinate}`,
+`lean/E213/Lib/Math/Algebra/CayleyDickson/Integer/{ZIUnits, GaussianCrossDet, EisensteinCrossDet,
 EisensteinCompletion, ZOmegaUnits}`,
-`lean/E213/Lib/Math/Cauchy/{DivergenceLadder, DivergenceDepth, DepthPiQuartic,
+`lean/E213/Lib/Math/Analysis/Cauchy/{DivergenceLadder, DivergenceDepth, DepthPiQuartic,
 DepthCoordGenerator}`.
 
 ## Overview
@@ -39,7 +39,7 @@ together with the top-less depth tower.
 | `Cauchy/DivergenceDepth.lean`, `DepthPiQuartic.lean` | — | e depth 3, π ratio depth 4 (depth 6) |
 | `Cauchy/DepthCoordGenerator.lean` | — | every finite depth realized exactly (`genExp_depth_exact`) |
 
-Builds under the `E213.Lib.Math.Real213` and `E213.Lib.Math.CayleyDickson` umbrellas.
+Builds under the `E213.Lib.Math.NumberSystems.Real213` and `E213.Lib.Math.Algebra.CayleyDickson` umbrellas.
 
 ## Narrative
 
@@ -223,15 +223,15 @@ on, not the periods themselves.
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Real213 E213.Lib.Math.CayleyDickson
+lake build E213.Lib.Math.NumberSystems.Real213 E213.Lib.Math.Algebra.CayleyDickson
 cd ..
 for M in \
-  E213.Lib.Math.Real213.SpiralLayer \
-  E213.Lib.Math.Real213.SpiralCoordinate \
-  E213.Lib.Math.CayleyDickson.Integer.ZIUnits \
-  E213.Lib.Math.CayleyDickson.Integer.GaussianCrossDet \
-  E213.Lib.Math.CayleyDickson.Integer.EisensteinCompletion \
-  E213.Lib.Math.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy ; do
+  E213.Lib.Math.NumberSystems.Real213.SpiralLayer \
+  E213.Lib.Math.NumberSystems.Real213.SpiralCoordinate \
+  E213.Lib.Math.Algebra.CayleyDickson.Integer.ZIUnits \
+  E213.Lib.Math.Algebra.CayleyDickson.Integer.GaussianCrossDet \
+  E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCompletion \
+  E213.Lib.Math.Algebra.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy ; do
     python3 tools/scan_axioms.py $M
 done
 ```

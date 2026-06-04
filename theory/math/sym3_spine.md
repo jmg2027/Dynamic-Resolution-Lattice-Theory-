@@ -94,7 +94,7 @@ same 8-dim H¹ basis, read through the exotic-structure Lens.
 
 ## Lean capstone
 
-`lean/E213/Lib/Math/GeometrizationConjecture/CrossFrame.lean`
+`lean/E213/Lib/Math/Geometry/GeometrizationConjecture/CrossFrame.lean`
 records the 4-way convergence as one citable theorem:
 
 ```

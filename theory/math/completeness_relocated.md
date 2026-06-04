@@ -13,7 +13,7 @@ algebraic number you can pin with a finite decision rule and a
 transcendental you cannot are, definitionally, the same kind of thing.
 
 This chapter records a different arrangement, realised in
-`lean/E213/Lib/Math/Real213/`, in which **completeness is not in the
+`lean/E213/Lib/Math/NumberSystems/Real213/`, in which **completeness is not in the
 definition of a real at all**.  It re-enters only as one operation on
 *sequences* of reals, and there it splits the reals sharply by where the
 constructive cost actually lives.  Every claim below is a Lean fact,
@@ -334,14 +334,14 @@ means, now a theorem.
     as a constructed convergence rate: the general generator
     (`RateModulus.rate_total_modulus`) and the `HolonomicReal` instances (φ, e); the
     rate-carrying/rate-free divide made into a theorem
-  - `lean/E213/Lib/Math/Real213/RateModulus.lean` — `rate_total_modulus` (the general
+  - `lean/E213/Lib/Math/NumberSystems/Real213/RateModulus.lean` — `rate_total_modulus` (the general
     generator), `HolonomicReal.lean` — the bundled type, `ExpLog/EulerModulus.lean` —
     e's total modulus `N=k+2` + `eHolonomicReal`
-  - `lean/E213/Lib/Math/Real213/AbCutSeq.lean` — the shared carrier
-  - `lean/E213/Lib/Math/Real213/PhiAbCut.lean` — algebraic case
-  - `lean/E213/Lib/Math/Real213/ExpLog/{EulerCut,PiCut}.lean` —
+  - `lean/E213/Lib/Math/NumberSystems/Real213/AbCutSeq.lean` — the shared carrier
+  - `lean/E213/Lib/Math/NumberSystems/Real213/PhiAbCut.lean` — algebraic case
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/{EulerCut,PiCut}.lean` —
     transcendental case
-  - `lean/E213/Lib/Math/Real213/PhiAsCut.lean` — φ closed-form cut
+  - `lean/E213/Lib/Math/NumberSystems/Real213/PhiAsCut.lean` — φ closed-form cut
   - `lean/E213/Lib/Math/Analysis/CauchyComplete{,Valid}.lean` — the
     completeness operation and its closure under valid cuts
   - `lean/E213/Lib/Math/Analysis/CompletionTower.lean` — grouping the
@@ -359,7 +359,7 @@ means, now a theorem.
     monoid the tower's moduli compose in
   - `lean/E213/Theory/Raw/Lambek.lean` — `self_similar_floor` (the same
     shape at the Raw scale)
-  - `lean/E213/Lib/Math/Cauchy/MonotonicBounded.lean` §180–194 — the
+  - `lean/E213/Lib/Math/Analysis/Cauchy/MonotonicBounded.lean` §180–194 — the
     deliberate LEM refusal
 
 Companions: `theory/math/real213.md` (the Real213 sub-tree),

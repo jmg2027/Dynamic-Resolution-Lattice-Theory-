@@ -305,7 +305,7 @@ narrative.  Readers can verify but not understand.
 
 ### 5.3 PatternCatalog/Lib/Math/ promotion
 
-  · **Gap**: `lean/E213/Lib/Math/PatternCatalog/` (6 files,
+  · **Gap**: `lean/E213/Lib/Math/Foundations/PatternCatalog/` (6 files,
     ~500 SLOC) has no `theory/math/` chapter.  Violates
     promotion parity.
   · **Action**: write `theory/math/pattern_catalog.md`.
@@ -370,7 +370,7 @@ The next-shot focus should be one of:
     if the gluon-octet ↔ 8-geometries isomorphism is to live in
     Lean rather than only narrative — likely under
     `lean/E213/Lib/Physics/Symmetry/` cross-cited from
-    `lean/E213/Lib/Math/GeometrizationConjecture/`.
+    `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/`.
   · **5.1 cleans ⇒** unlocks safe motion of 1.1's anchor file
     if any Math/Physics import-graph entanglement surfaces
     during the per-layer completeness work.

@@ -21,7 +21,7 @@ Phase 3.2/3.3/4).
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/ModArith/` (13 files)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberTheory/ModArith/` (13 files)
 - **Umbrella**: `ModArith.lean`
 - **∅-axiom status**: PURE (all 13)
 
@@ -101,7 +101,7 @@ universal-prime closure of the Pisano-period theorem for Pell.
 
 ## F_p[√D] universal in D — closed (FP2SqrtD)
 
-`Lib/Math/ModArith/FP2SqrtD.lean` lifts the Phase 3.3 D=5 algebra
+`Lib/Math/NumberTheory/ModArith/FP2SqrtD.lean` lifts the Phase 3.3 D=5 algebra
 to **arbitrary** `D : Nat`.  32 PURE theorems:
 
   · Operations parametric in `(D, p)`: `fp2dAdd, fp2dSub, fp2dMul,
@@ -128,7 +128,7 @@ D=5 specialisation of one general theorem.
 
 ## Hensel bridge — closed (HenselBridge.lean, 8 PURE)
 
-`Lib/Math/Padic/HenselBridge.lean` makes the `F_p ↪ ℤ_p`
+`Lib/Math/NumberSystems/Padic/HenselBridge.lean` makes the `F_p ↪ ℤ_p`
 embedding explicit:
 
   · `fromFp p hp x` lifts a Nat element to a `ZpSeq p` with
@@ -148,7 +148,7 @@ Hensel.
 
 ## Full F_p[√D] → ℤ_p[√D] lift — closed (ZpSqrtD.lean, 12 PURE)
 
-`Lib/Math/Padic/ZpSqrtD.lean` realises `ℤ_p[√D]` parametric in D:
+`Lib/Math/NumberSystems/Padic/ZpSqrtD.lean` realises `ℤ_p[√D]` parametric in D:
 
   `ZpSqrtD p := ZpSeq p × ZpSeq p` represents `a + b·√D`.
 
@@ -167,7 +167,7 @@ Reading: the F_p[√D] machinery lifts componentwise to ℤ_p[√D] via
 `fromFp`; every F_p[√D] identity has a ℤ_p[√D] analog whose
 digit-0 matches.
 
-`Lib/Math/Padic/ZpSqrtDFrob.lean` (8 PURE) adds Frobenius + Norm:
+`Lib/Math/NumberSystems/Padic/ZpSqrtDFrob.lean` (8 PURE) adds Frobenius + Norm:
 
   · `zpsd_frob p hp x := (x.1, Zp.neg p hp x.2)` — Frobenius
     `σ(a + b√D) = a − b√D`.
@@ -184,7 +184,7 @@ additivity, multiplicativity, norm = self·conjugate) all have
 
 ## Rigor — ZpSqrtD ring + embedding (16 PURE)
 
-`Lib/Math/Padic/ZpSqrtDRigor.lean` (8 PURE) establishes the
+`Lib/Math/NumberSystems/Padic/ZpSqrtDRigor.lean` (8 PURE) establishes the
 **embedding is a ring homomorphism at digit-0, modulo p**:
 
   · `zpsd_add_digit_zero_first/second` — digit-0 of zpsd_add =
@@ -198,7 +198,7 @@ additivity, multiplicativity, norm = self·conjugate) all have
     matches the ℤ_p computation.
   · ★★★★★ `zpsd_rigor_capstone` packages all four.
 
-`Lib/Math/Padic/ZpSqrtDRing.lean` (8 PURE) adds ring axioms:
+`Lib/Math/NumberSystems/Padic/ZpSqrtDRing.lean` (8 PURE) adds ring axioms:
 
   · `zpsd_add_comm_digit_zero_first/second` — commutativity of
     zpsd_add at digit-0 (both components).
@@ -219,7 +219,7 @@ facts following from the digit-formula machinery + `Nat.add_comm`
 
 ## Zp.neg involution — trajectory-pw realisation (16 PURE)
 
-`Lib/Math/Padic/NegInvolution.lean` (6 PURE) closes
+`Lib/Math/NumberSystems/Padic/NegInvolution.lean` (6 PURE) closes
 `Zp.neg ∘ Zp.neg = id` **at digit-0**:
 
   · `double_neg_mod_at` — `(p - (p - r) % p) % p = r` for `r < p`.
@@ -229,7 +229,7 @@ facts following from the digit-formula machinery + `Nat.add_comm`
   · `add_right_cancel_pure` — PURE local re-proof of Lean-core's
     propext-leaking `Nat.add_right_cancel`.
 
-`Lib/Math/Padic/NegInvolutionDigit1.lean` (10 PURE) extends to
+`Lib/Math/NumberSystems/Padic/NegInvolutionDigit1.lean` (10 PURE) extends to
 digit-1, tracking the **one-step carry chain**:
 
   · `neg_carry_at_1` — general carry formula `(p - x.digit_0) / p`.
@@ -246,7 +246,7 @@ The trajectory-pw pattern at digit-1 ties the inner carry
 
 ## Full Zp.neg involution via State Accumulator Pattern (9 PURE)
 
-`Lib/Math/Padic/NegInvolutionFull.lean` (5 PURE) + `NegInvolutionPreserve.lean`
+`Lib/Math/NumberSystems/Padic/NegInvolutionFull.lean` (5 PURE) + `NegInvolutionPreserve.lean`
 (4 PURE) close the **full sequence-level involution** `Zp.neg ∘ Zp.neg = id`
 as a pointwise (∀ k) PURE theorem.  The polynomial carry-chain
 blow-up that blocked higher-digit involution collapses to

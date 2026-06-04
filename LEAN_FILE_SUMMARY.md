@@ -11,7 +11,7 @@ To regenerate a markdown summary of any subdirectory:
 ```bash
 tools/lean_summary.py                              # whole tree
 tools/lean_summary.py lean/E213/Lib/Math/Cohomology
-tools/lean_summary.py lean/E213/Lib/Math/Mobius213/Px --decls-only
+tools/lean_summary.py lean/E213/Lib/Math/Algebra/Mobius213/Px --decls-only
 ```
 
 The script reads the Lean files directly and emits one section
@@ -30,8 +30,8 @@ summary regenerates.
   · `lean/E213.lean` — top-level umbrella (5 ring layers)
   · `lean/E213/ARCHITECTURE.md` — ring layer spec
   · `lean/E213/Lib/Math/Cohomology/INDEX.md`,
-    `lean/E213/Lib/Math/Real213/INDEX.md`,
-    `lean/E213/Lib/Math/Mobius213/Px/INDEX.md`,
+    `lean/E213/Lib/Math/NumberSystems/Real213/INDEX.md`,
+    `lean/E213/Lib/Math/Algebra/Mobius213/Px/INDEX.md`,
     `lean/E213/Theory/Atomicity/INDEX.md` — per-cluster INDEX
   · `theory/INDEX.md` — narrative book (chapters mirror Lean
     subtrees)

@@ -9,7 +9,7 @@ indicator) replaces classical LEM.  R1-R5 judgment-game framework.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Logic/` (5 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Combinatorics/Logic/` (5 files)
 - **Umbrella**: `Logic.lean`
 - **Blueprint**: `blueprints/math/14_logic_213.md` (retired)
 - **∅-axiom status**: PURE

@@ -14,7 +14,7 @@ This closes the layered-API classification arc at the
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/AxiomSystems/` (4 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Foundations/AxiomSystems/` (4 files)
 - **∅-axiom status**: PURE
 
 ## Narrative

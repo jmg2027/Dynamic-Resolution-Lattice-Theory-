@@ -11,7 +11,7 @@ operational use; the table IS the group.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Group/` (5 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Algebra/Group/` (5 files)
 - **Umbrella**: `Group.lean`
 - **Blueprint**: `blueprints/math/11_group_213.md` (retired)
 - **∅-axiom status**: PURE
@@ -37,7 +37,7 @@ synthesis machinery that pulls in `Classical` in Lean.
 Used downstream by:
 - `Lib/Physics/Symmetry/Sym3Group.lean` (C3 chain Phase 11)
 - `Lib/Physics/Symmetry/AutKGroup.lean` (C3 chain Phase 12)
-- `Lib/Math/Mobius213/` (Möbius P-matrix order)
+- `Lib/Math/Algebra/Mobius213/` (Möbius P-matrix order)
 
 ## Connection
 

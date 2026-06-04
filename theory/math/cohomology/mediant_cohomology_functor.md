@@ -98,7 +98,7 @@ K_{4, 3} concrete + Stern-Brocot reachability of (4, 3).
     (`binom_n_0`, `binom_n_1`, `binom_succ_2`, `binom_add_2`,
     `add_mul_pure`)
   · Stern-Brocot reachability:
-    `lean/E213/Lib/Math/Real213/Mobius213SternBrocot.lean`
+    `lean/E213/Lib/Math/NumberSystems/Real213/Mobius213SternBrocot.lean`
   · Cell-count check:
     `lean/E213/Lib/Math/Cohomology/Bipartite/V43.lean`
     (K_{4, 3} counts)

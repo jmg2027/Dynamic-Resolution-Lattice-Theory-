@@ -8,7 +8,7 @@ of the lattice the rows fail to reach.
 ## 213-native answer
 
 A matrix is a bundle of row-pointings `M i : Nat → Int`. `det` reads the **distinguishing
-among them** into a single integer (`lean/E213/Lib/Math/Linalg213/DetN.lean`: the first-row
+among them** into a single integer (`lean/E213/Lib/Math/Algebra/Linalg213/DetN.lean`: the first-row
 cofactor expansion `det (n+1) M = Σⱼ (−1)ʲ · M 0 j · det n (minor M j)`, base `det 0 _ = 1`).
 The value answers one question: *do these pointings span their own dimension, and if so with
 what quotient-size?* The reading has named ends.

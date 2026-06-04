@@ -15,7 +15,7 @@ the FSM's accumulated state.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/DyadicFSM/` (101 files)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberTheory/DyadicFSM/` (101 files)
 - **Umbrella**: `DyadicFSM.lean`
 - **∅-axiom status**: PURE
 
@@ -152,7 +152,7 @@ F_{p²}) to Pisano-statements-on-the-FSM.
 
 ## k-bonacci closure — `KBonacci.lean` (48 PURE)
 
-`Lib/Math/DyadicFSM/KBonacci.lean` realises the k-bonacci family
+`Lib/Math/NumberTheory/DyadicFSM/KBonacci.lean` realises the k-bonacci family
 parametric in `k : Nat`:
 
   · Definition `kBonacci k n` via a list-window-state iterator:
@@ -175,7 +175,7 @@ of a single generic family.
 
 ## Continued fractions as FSM — closed (ContinuedFraction.lean, 17 PURE)
 
-`Lib/Math/DyadicFSM/ContinuedFraction.lean` realises the
+`Lib/Math/NumberTheory/DyadicFSM/ContinuedFraction.lean` realises the
 continued-fraction expansion of a positive rational `p/q` as an
 explicit FSM:
 
@@ -206,7 +206,7 @@ Euclidean algorithm IS the FSM transition.
 - **Real213-p-adic** — the modular-arithmetic substrate
   produced (Bezout, FLT, F_{p²}, Frobenius) is the natural
   foundation for a 213-native p-adic construction.  STARTER at
-  `lean/E213/Lib/Math/Padic/Foundation.lean`; campaign plan at
+  `lean/E213/Lib/Math/NumberSystems/Padic/Foundation.lean`; campaign plan at
   `research-notes/G122_real213_padic_research_direction.md`.
 - ~~**Higher-order recursions** (Tribonacci, k-bonacci)~~ —
   CLOSED via `KBonacci.lean` (48 PURE) above.  Parametric in `k`,
@@ -216,7 +216,7 @@ Euclidean algorithm IS the FSM transition.
 
 ## Rigor — k-bonacci recurrence identity (26 PURE)
 
-`Lib/Math/DyadicFSM/KBonacciRecurrence.lean` establishes that
+`Lib/Math/NumberTheory/DyadicFSM/KBonacciRecurrence.lean` establishes that
 `kBonacci k n` satisfies the standard recurrence
 `a_{n+k} = a_{n+k-1} + ... + a_n`:
 
@@ -235,6 +235,6 @@ state definition reproduces the standard k-bonacci recurrence.
 
 ```bash
 cd lean
-lake build E213.Lib.Math.DyadicFSM
-python3 tools/scan_axioms.py Lib/Math/DyadicFSM
+lake build E213.Lib.Math.NumberTheory.DyadicFSM
+python3 tools/scan_axioms.py Lib/Math/NumberTheory/DyadicFSM
 ```

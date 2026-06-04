@@ -3,7 +3,7 @@
 **A Textbook Treatment of the Universal Meta-Structure of 213**
 
 Status: CLOSED (Marathon 16 — GRA Universality, all 6 phases)
-Lean source: `lean/E213/Lib/Math/GRA/` (8 files, ~1400 lines, 0 sorry)
+Lean source: `lean/E213/Lib/Math/Algebra/GRA/` (8 files, ~1400 lines, 0 sorry)
 Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and resolution lattice.
 
 > **Closure note.** The marathon establishes a Lean-verified
@@ -575,7 +575,7 @@ This is GRA's ⊕ and ⊗ incarnated as number systems:
 ### 7.3 Proposed Lean Directory Structure
 
 ```
-lean/E213/Lib/Math/GRA/
+lean/E213/Lib/Math/Algebra/GRA/
 ├── Core.lean              -- GRACat structure, Ob, Hom, composition
 ├── Generators.lean        -- NT=2, NS=3, gcd=1, Frobenius=1
 ├── Depth.lean             -- minDepth, greedy optimality

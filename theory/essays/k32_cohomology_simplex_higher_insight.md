@@ -142,9 +142,9 @@ skeleton-by-skeleton으로 펼쳐진 형태이다.
 - `theory/math/cohomology/k32_higher_cohomology.md` — ω class + Steenrod
 - `theory/math/sym3_spine.md` — G138 Pattern B (4-reading)
 - `lean/E213/Lib/Math/Cohomology/NodupAsClause4.lean` — G138 Pattern D
-- `lean/E213/Lib/Math/Mobius213/Mobius213K32Bridge.lean` — P ↔ K₃,₂²
-- `lean/E213/Lib/Math/Mobius213/Px/PGeneratesNat.lean` — G140
-- `lean/E213/Lib/Math/Mobius213/Px/ConvergentDet.lean` — Farey/Cassini
+- `lean/E213/Lib/Math/Algebra/Mobius213/Mobius213K32Bridge.lean` — P ↔ K₃,₂²
+- `lean/E213/Lib/Math/Algebra/Mobius213/Px/PGeneratesNat.lean` — G140
+- `lean/E213/Lib/Math/Algebra/Mobius213/Px/ConvergentDet.lean` — Farey/Cassini
 - `theory/essays/synthesis_interlock_map.md` — 5-row correspondence
 - `theory/essays/p_orbit_closure_master.md` — 6-phase P-orbit
 - `theory/physics/simplex.md` — Δ⁴ + 3-generation

@@ -98,7 +98,7 @@ of them is a presentation, not a dependency.
 The breadth/additive/multiplicative split is not a reading imposed here — the codebase
 *independently* proves a two-coordinate invariant on the depth side:
 
-> `Lib/Math/Cauchy/DepthTower.lean:12-45`: two lifts — `diff s n = s(n+1) − s n` (the
+> `Lib/Math/Analysis/Cauchy/DepthTower.lean:12-45`: two lifts — `diff s n = s(n+1) − s n` (the
 > **additive** lift, tames polynomial growth, residual degree `d`) and
 > `ratioLift s n = s(n+1) / s n` (the **multiplicative** lift, tames exponential
 > growth, height `h`) — and a **pair invariant `(h, d)`** (`atTowerCoord`): "The full
@@ -152,7 +152,7 @@ staircase; it does not single it out.
 ## 3.6 Open threads
 
 - **OPEN** — the breadth axis (`Lens/`) and the depth axes
-  (`Lib/Math/Cauchy/Depth*`, `(h, d)`) are not unified under one Lens-lattice theorem.
+  (`Lib/Math/Analysis/Cauchy/Depth*`, `(h, d)`) are not unified under one Lens-lattice theorem.
   Whether `(h, d)`-depth and `refines`-breadth are coordinates of one structure or two
   unrelated orders is unsettled.
 - **OPEN** — three "axis" vocabularies coexist without a unifying statement:

@@ -20,8 +20,8 @@ catalog gives them one canonical home.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/PatternCatalog/` (5 files)
-- **Umbrella**: `lean/E213/Lib/Math/PatternCatalog.lean`
+- **Sub-tree**: `lean/E213/Lib/Math/Foundations/PatternCatalog/` (5 files)
+- **Umbrella**: `lean/E213/Lib/Math/Foundations/PatternCatalog.lean`
 - **∅-axiom status**: PURE
 
 ### Files
@@ -54,7 +54,7 @@ axiom + Lens application, and the catalog records what has emerged.
 
 pattern-catalog metaformalization closes the arc by formalizing the catalog as **Lean code** —
 not as documentation but as actual `def`s and `theorem`s that other
-sub-trees instantiate.  `Lib/Math/PatternCatalog/` is the formal
+sub-trees instantiate.  `Lib/Math/Foundations/PatternCatalog/` is the formal
 realization.
 
 The five named patterns are the minimal generating set: every
@@ -64,7 +64,7 @@ Instance, Span}` compositions.
 ### Catalog usage
 
 Other sub-trees cite the catalog rather than reinventing patterns:
-- `Lib/Math/CayleyDickson/` instantiates `Algebra` for CD-doubling
+- `Lib/Math/Algebra/CayleyDickson/` instantiates `Algebra` for CD-doubling
 - `Lib/Physics/AlphaEM/` uses `CrossAxis` for NS × NT decompositions
 - `Lib/Math/Cohomology/` uses `Span` for cup-product spans
 - Marathon domain capstones use `Instance` for the paradigm
@@ -86,7 +86,7 @@ own depth.)
 
 ## ParadigmDomain bridge — closed (ParadigmBridge.lean)
 
-`Lib/Math/PatternCatalog/ParadigmBridge.lean` (15 PURE) makes the
+`Lib/Math/Foundations/PatternCatalog/ParadigmBridge.lean` (15 PURE) makes the
 relationship between the abstract catalog and the applied
 ParadigmDomain explicit:
 
@@ -122,8 +122,8 @@ Pattern catalog is **closed** at the 5-entry level.  Open extensions:
 
 ```bash
 cd lean
-lake build E213.Lib.Math.PatternCatalog
-python3 tools/scan_axioms.py Lib/Math/PatternCatalog
+lake build E213.Lib.Math.Foundations.PatternCatalog
+python3 tools/scan_axioms.py Lib/Math/Foundations/PatternCatalog
 ```
 
 ## Citation guidance

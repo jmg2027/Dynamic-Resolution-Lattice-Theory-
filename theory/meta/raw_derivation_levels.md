@@ -185,8 +185,8 @@ python3 tools/audit_axioms.py
 # (β) — verify substantive content chains
 cd lean
 lake build E213.Lib.Physics.Foundations.AtomicConstants
-lake build E213.Lib.Math.UniverseChain
-lake build E213.Lib.Math.CayleyDickson.Tower
+lake build E213.Lib.Math.Foundations.UniverseChain
+lake build E213.Lib.Math.Algebra.CayleyDickson.Tower
 
 # (γ) — empirical Expr-level reduction measurement
 python3 tools/ast_typesig_scan.py --report-only

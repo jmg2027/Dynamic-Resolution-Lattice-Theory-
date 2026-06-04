@@ -164,11 +164,11 @@ DIRTY.  Build clean.
 
 ## Lean source
 
-  · `lean/E213/Lib/Math/Mobius213/Px/CharPolySelf.lean` (11)
-  · `lean/E213/Lib/Math/Mobius213/Px/POrbitRing.lean` (22)
+  · `lean/E213/Lib/Math/Algebra/Mobius213/Px/CharPolySelf.lean` (11)
+  · `lean/E213/Lib/Math/Algebra/Mobius213/Px/POrbitRing.lean` (22)
   · `lean/E213/Theory/Atomicity/OrbitForcing.lean` (13)
-  · `lean/E213/Lib/Math/Mobius213/Px/PeriodDepthBounds.lean` (21)
-  · `lean/E213/Lib/Math/Mobius213/Px/CrossProductAxes.lean` (17)
+  · `lean/E213/Lib/Math/Algebra/Mobius213/Px/PeriodDepthBounds.lean` (21)
+  · `lean/E213/Lib/Math/Algebra/Mobius213/Px/CrossProductAxes.lean` (17)
   · `lean/E213/Lib/Math/Cohomology/Tripartite/V213ShadowProjection.lean` (8)
 
 ## Cross-references

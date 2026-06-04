@@ -44,7 +44,7 @@ discrete and `decide`-resolved.
 
 ## Lean source
 
-- Umbrella: `lean/E213/Lib/Math/AkbulutCork.lean`
+- Umbrella: `lean/E213/Lib/Math/Geometry/AkbulutCork.lean`
 - Sub-tree (5 files, 86 PURE):
   - `Foundation.lean` (14) — `Cork213` structure; canonical instances
     `K11_cork`, `K31_cork`, `K14_cork`; well-formedness witnesses;

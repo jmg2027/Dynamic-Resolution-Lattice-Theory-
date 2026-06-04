@@ -14,7 +14,7 @@ no Mathlib, no `sorry`, no axioms — the determinant tower below.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Linalg213/`
+- **Sub-tree**: `lean/E213/Lib/Math/Algebra/Linalg213/`
 - **Umbrella**: `Linalg213.lean`
 - **∅-axiom status**: PURE
 

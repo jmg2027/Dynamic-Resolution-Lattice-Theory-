@@ -27,7 +27,7 @@ The current uniqueness story does NOT route through R1–R5:
     real Lean derivations).
 
 ℂ enters downstream as a Lens construction
-(`Lib/Math/CayleyDickson/`), NOT as a consequence of any R1–R5
+(`Lib/Math/Algebra/CayleyDickson/`), NOT as a consequence of any R1–R5
 axiom set.
 
 ### Typeclass rename in `Meta/SelfRecognising.lean`

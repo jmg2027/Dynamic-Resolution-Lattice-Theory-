@@ -5,7 +5,7 @@ sub-tree; instead consolidates the equivalence content distributed
 across `Lens/Algebra/`, `Lens/Lattice/`, `Lens/Compose/`,
 `Lens/Universal/`, `Lens/EqPW.lean`, `Theory/Raw/Congruence.lean`,
 and the Möbius-orbit canonical-form chain in
-`Lib/Math/Real213/Mobius213{Equiv,SternBrocot}.lean`.
+`Lib/Math/NumberSystems/Real213/Mobius213{Equiv,SternBrocot}.lean`.
 
 ## Overview
 
@@ -132,7 +132,7 @@ trichotomy on α).
 This is *representational*, not a quotient type.  Classical
 ℤ-as-quotient `(ℕ × ℕ)/~` requires `Quot.sound`; 213's
 `SignedCut` keeps the pair representation and replaces equality
-with `signedEq` (`Lib/Math/SignedCut/Core/Equivalence.lean`,
+with `signedEq` (`Lib/Math/NumberSystems/SignedCut/Core/Equivalence.lean`,
 `theory/math/signed_cut.md`).  The "class" is the fiber; the
 "quotient" is the image; neither needs Quot.sound to **state**,
 only to **propositionally collapse**.
@@ -184,7 +184,7 @@ Both **PURE**.
 
 Every Lens-kernel on cuts factors through a hierarchy of
 P-orbit projections.  The Möbius matrix `P = [[2, 1], [1, 1]]`
-(`Lib/Math/Mobius213.lean`) — trace `NS = 3`, determinant `1`,
+(`Lib/Math/Algebra/Mobius213.lean`) — trace `NS = 3`, determinant `1`,
 discriminant `d = 5`, eigenvalues `φ², 1/φ²` — generates the
 canonical-form ladder:
 

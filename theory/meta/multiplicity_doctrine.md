@@ -91,7 +91,7 @@ All three are `Nat → Nat` annotated with a positional-control
 property.  The directional convention (monotone / anti-monotone)
 is the only differentiator; the underlying data type is identical.
 The 3-way bridge is recorded in
-`lean/E213/Lib/Math/Topology/ModulusStructure.lean` via
+`lean/E213/Lib/Math/Geometry/Topology/ModulusStructure.lean` via
 `IsModulusStructure` projections.  Chapter:
 `theory/math/modulus_structure.md`.
 

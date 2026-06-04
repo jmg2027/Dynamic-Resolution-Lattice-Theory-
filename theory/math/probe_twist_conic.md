@@ -425,31 +425,31 @@ transcendentals is a separate, higher theory this construction does not reach.
 
 ## Anchors
 
-  - `lean/E213/Lib/Math/Real213/ProbeTwistConic.lean` — `Q_preserved` (the conic)
-  - `lean/E213/Lib/Math/Real213/ProbeTwistDynamics.lean` — `twist_undoes_step` (`f⁻¹`)
-  - `lean/E213/Lib/Math/Real213/PhiProbeFixed.lean` — φ twist-fixed
-  - `lean/E213/Lib/Math/Real213/ProbeTwistFixedPoint.lean` — e not fixed
-  - `lean/E213/Lib/Math/Real213/MobiusProbeTwist.lean` — `P ∈ SL₂(ℤ)`, order-preserving
-  - `lean/E213/Lib/Math/Cauchy/PellSeq.lean` — `pell_invariant` (√2 keeps `x²=2y²+1`)
-  - `lean/E213/Lib/Math/Cauchy/EulerDivergenceForm.lean` — `euler_cross_det_is_factorial`
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistConic.lean` — `Q_preserved` (the conic)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistDynamics.lean` — `twist_undoes_step` (`f⁻¹`)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/PhiProbeFixed.lean` — φ twist-fixed
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistFixedPoint.lean` — e not fixed
+  - `lean/E213/Lib/Math/NumberSystems/Real213/MobiusProbeTwist.lean` — `P ∈ SL₂(ℤ)`, order-preserving
+  - `lean/E213/Lib/Math/Analysis/Cauchy/PellSeq.lean` — `pell_invariant` (√2 keeps `x²=2y²+1`)
+  - `lean/E213/Lib/Math/Analysis/Cauchy/EulerDivergenceForm.lean` — `euler_cross_det_is_factorial`
     (e's divergence form `|W_n| = n!`)
-  - `lean/E213/Lib/Math/Mobius213/Px/ConvergentDet.lean` — φ's `W_n = 1` (Cassini)
-  - `lean/E213/Lib/Math/Cauchy/DivergenceDepth.lean` — the divergence ladder;
+  - `lean/E213/Lib/Math/Algebra/Mobius213/Px/ConvergentDet.lean` — φ's `W_n = 1` (Cassini)
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DivergenceDepth.lean` — the divergence ladder;
     `depth_three` (e bottoms out at depth 3); algebraic depth 1, π depth 6
-  - `lean/E213/Lib/Math/Cauchy/DivergenceLadder.lean` — abstract depth
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DivergenceLadder.lean` — abstract depth
     (`diff`/`liftK`/`reachesFloor`); `e_ratio_floor` (finite), `infinite_depth`
     (Liouville ∞), `const_reaches_floor` (algebraic floor); depth = P-recursive
     rank, **not** the irrationality measure
-  - `lean/E213/Lib/Math/Cauchy/DepthTower.lean` — the ratio axis (= diff on the
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthTower.lean` — the ratio axis (= diff on the
     exponent); `(h,d)` coordinate
-  - `lean/E213/Lib/Math/Cauchy/DepthOrdinal.lean` — `(h,d)` is an ordinal `< ω²`
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthOrdinal.lean` — `(h,d)` is an ordinal `< ω²`
     (`lex_wf`, `no_infinite_descent`)
-  - `lean/E213/Lib/Math/Cauchy/DepthExponentRecursion.lean` — the third axis:
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthExponentRecursion.lean` — the third axis:
     recursion into the exponent (`ratioN_expSeq`, `value_floors_iff_exponent_floors`)
-  - `lean/E213/Lib/Math/Cauchy/DepthDoubleExp.lean` — `ratioN` cannot cross one
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthDoubleExp.lean` — `ratioN` cannot cross one
     exponential layer (`ratioN_dexp`, `dexp_not_const`); each layer a new axis; the
     rank-`×ω` / `ω^ω` / `ε₀`-is-not-the-end reading
-  - `lean/E213/Lib/Math/Cauchy/DepthCeilingResidue.lean` — naming the ceiling-raising
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthCeilingResidue.lean` — naming the ceiling-raising
     is a diagonalisation (`diag_not_in_seq`); it reproduces the foundational residue
     (`ceiling_reference_leaves_residue` = `cantor_general`,
     `ceiling_residue_is_pointing_residue` = `self_covering_closure`); the arc closes

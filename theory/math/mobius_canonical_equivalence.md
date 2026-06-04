@@ -39,9 +39,9 @@ readings sharing one algebraic object.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Real213/` (8 files) +
-  `lean/E213/Lib/Math/SignedCut/Core/` (1 file) +
-  `lean/E213/Lib/Math/Padic/` (1 file) +
+- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Real213/` (8 files) +
+  `lean/E213/Lib/Math/NumberSystems/SignedCut/Core/` (1 file) +
+  `lean/E213/Lib/Math/NumberSystems/Padic/` (1 file) +
   `lean/E213/Lib/Math/Analysis/FluxMVT/` (1 file) +
   top-level meta capstone
 - **Files**:
@@ -120,7 +120,7 @@ Pseq seedInf  n  :  (1,0), (2,1), (5,3), (13,8), (34,21), (89,55), ...
 ```
 
 These coincide (shifted) with `P_numerator` / `P_denominator`
-from `Lib/Math/Mobius213.lean` — Fibonacci-even/odd Pell
+from `Lib/Math/Algebra/Mobius213.lean` — Fibonacci-even/odd Pell
 convergents whose ratios approach `φ²` and `1/φ²`.
 
 **Pure P-iteration is one diagonal per seed.**  P factors as
@@ -220,7 +220,7 @@ ring `ℤ[φ²]` whose units this invariant measures.
 
 The Nat-side identity matches the Int-side
 `mobius_213_pell_unit_invariant_forall` from
-`Lib/Math/Mobius213.lean` without going through coercion.
+`Lib/Math/Algebra/Mobius213.lean` without going through coercion.
 
 ### The atomicity anchor
 
@@ -281,10 +281,10 @@ object encodes:
 - `research-notes/archive/G139_mobius_equivalence_unification.md`
   (the originating conjecture note; archived after closure).
 - Wave 13 cutSumN parametric closure
-  (`Lib/Math/Real213/Sum/CutSumN.lean`,
-  `Lib/Math/Real213/NValidCut.lean`) provided the `cutEq`-side
+  (`Lib/Math/NumberSystems/Real213/Sum/CutSumN.lean`,
+  `Lib/Math/NumberSystems/Real213/NValidCut.lean`) provided the `cutEq`-side
   algebra that this chapter lifts to Stern-Brocot form.
-- `Lib/Math/Mobius213.lean`,
+- `Lib/Math/Algebra/Mobius213.lean`,
   `Lib/Math/Mobius213OneAsGlue.lean`,
   `Lib/Math/Mobius213ModFive.lean` provided the algebraic P
   signature this chapter consumes.
@@ -420,17 +420,17 @@ occurrences, coefficient extraction).  Companion essay:
 ## How to verify
 
 ```bash
-cd lean && lake build E213.Lib.Math.Real213.Mobius213UnificationCapstone
-cd lean && lake build E213.Lib.Math.Real213.Mobius213AtomicityAnchor
-cd lean && lake build E213.Lib.Math.SignedCut.Core.SternBrocotBridge
+cd lean && lake build E213.Lib.Math.NumberSystems.Real213.Mobius213UnificationCapstone
+cd lean && lake build E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
+cd lean && lake build E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge
 
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.Mobius213Equiv
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.Mobius213SternBrocot
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.Mobius213SternBrocotApps
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.Mobius213PellInvariant
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.Mobius213UnificationCapstone
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.Mobius213AtomicityAnchor
-python3 tools/scan_axioms.py E213.Lib.Math.SignedCut.Core.SternBrocotBridge
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocotApps
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213UnificationCapstone
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge
 ```
 
 Each scan reports PURE for every declaration (68 PURE / 0 DIRTY total).

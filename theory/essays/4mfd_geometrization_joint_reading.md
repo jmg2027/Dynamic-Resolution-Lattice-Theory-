@@ -12,14 +12,14 @@ A 213-native closed orientable 3-mfd realisation is a
 attaching cycles as edge-index lists) + `cells3 : List (List Nat)`
 (3-cell attaching boundaries as 2-cell-index lists) — satisfying
 `attachingChi = 0`, i.e., `k − j = 7`
-(`lean/E213/Lib/Math/GeometrizationConjecture/JsjDeep.lean`
+(`lean/E213/Lib/Math/Geometry/GeometrizationConjecture/JsjDeep.lean`
 §FW-2.I).  The K_{3,2}^{(c=2)} substrate has V = 5, E = 12, so
 χ = V − E + k − j = k − j − 7.
 
 A 213-native 4-mfd exotic invariant is `signedCorkTwistCount = +4`,
 the Z/2-graded count of Sym(3)-orbits on H¹(K_{3,2}^{(c=2)}) under
 the M_S01 transposition
-(`lean/E213/Lib/Math/AkbulutCork/SignedOrbits.lean`).
+(`lean/E213/Lib/Math/Geometry/AkbulutCork/SignedOrbits.lean`).
 
 ## Derivation
 
@@ -51,7 +51,7 @@ graph:
   carries `lensTorsionOrder = p`, `lensLinkingNumber = q`.
 
 The joint reading is anchored at the 5-way Sym(3) cross-frame
-capstone (`lean/E213/Lib/Math/AkbulutCork/CrossFrame.lean`):
+capstone (`lean/E213/Lib/Math/Geometry/AkbulutCork/CrossFrame.lean`):
 cork-signed-count +4 = `Sym3IrrepDecomp.fixedSize` = 4
 trivial-irrep cochains = isotropic-geometry count + 1.  The
 composite H¹+H² cork count `+6` = anisotropic-geometry count + 1
@@ -78,7 +78,7 @@ makes the joint reading non-coincidence.  `d_M = d_213 − 1
 unique dimension where both **tree branch** (K_{1,4}^{(c=1)}, cork
 host, b_1 = 0) and **critical branch** (K_{3,2}^{(c=2)}, b_1 = 8)
 coexist.  Cork-of-cork
-(`lean/E213/Lib/Math/AkbulutCork/MultiCork.lean`) lives on the
+(`lean/E213/Lib/Math/Geometry/AkbulutCork/MultiCork.lean`) lives on the
 K_{1,4} ⊂ K_{3,2} embedding; JSJ S/T cut decomposes the K_{3,2}
 side; Heegaard genus is invariant under the (k, j) →
 connected-sum operation.

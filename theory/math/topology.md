@@ -18,8 +18,8 @@ sibling module; its dedicated narrative is
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Topology/` (8 modules)
-- **Umbrella**: `lean/E213/Lib/Math/Topology.lean`
+- **Sub-tree**: `lean/E213/Lib/Math/Geometry/Topology/` (8 modules)
+- **Umbrella**: `lean/E213/Lib/Math/Geometry/Topology.lean`
 - **∅-axiom status**: PURE
 
 ## Narrative
@@ -62,7 +62,7 @@ narrative + cross-frame discussion: `theory/math/modulus_structure.md`.
 - `theory/math/cross_domain_unification.md` (C6) — Topology as a
   paradigm domain instance
 - `theory/math/modulus.md` — `HasModulus` / `StrongModulus` family
-  in `Lib/Math/Modulus/` (separate sub-tree, same underlying
+  in `Lib/Math/Analysis/Modulus/` (separate sub-tree, same underlying
   Skolem-modulus principle)
 - `theory/math/geometrization_conjecture.md` "Open frontier" —
   `IsRicciModulus` source typeclass

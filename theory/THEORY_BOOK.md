@@ -326,7 +326,7 @@ lattice.
 
 ### II.5 Universe-polymorphic version (Phases 19–21, unified)
 
-`lean/E213/Lib/Math/GRA/HasDistinguishing213.lean` —
+`lean/E213/Lib/Math/Algebra/GRA/HasDistinguishing213.lean` —
 `HasDistinguishing213.{u, v} α` is the unified universe-
 polymorphic typeclass: two atoms `a, b : α`, a binary
 `combine : α → α → α`, a `Sort v`-valued equivalence
@@ -443,7 +443,7 @@ property of `K_{3, 2}^{(c=2)}` or its self-cup
 ### III.4 Möbius P
 
 `theory/math/mobius_canonical_equivalence.md` is the canonical
-chapter.  Lean: `lean/E213/Lib/Math/Mobius213/`.
+chapter.  Lean: `lean/E213/Lib/Math/Algebra/Mobius213/`.
 
   · `P = [[2, 1], [1, 1]]` ∈ SL(2, ℤ)
   · det 1, trace 3, eigenvalues `φ²` and `1/φ²`
@@ -542,7 +542,7 @@ without external choice.
 
 ### IV.2 Möbius P and Stern-Brocot
 
-`lean/E213/Lib/Math/Real213/Mobius213{Equiv, SternBrocot,
+`lean/E213/Lib/Math/NumberSystems/Real213/Mobius213{Equiv, SternBrocot,
 PellInvariant}.lean` close the chapter:
 
   · `cutEq ↔ sternBrocotEq ∧ (0, 0)` — equivalence on cuts via
@@ -791,7 +791,7 @@ proliferation / Adelic frontiers (Ch. 8–9).
 
 ### VI.1 The 7 axioms — Phase 1
 
-A `GRAModel` (`lean/E213/Lib/Math/GRA/GRAModel.lean`) has:
+A `GRAModel` (`lean/E213/Lib/Math/Algebra/GRA/GRAModel.lean`) has:
 
   · A1: two coprime generators `gen1 < gen2`
   · A2: `grade(a ⊕ b) = grade(a) + grade(b)`
@@ -806,7 +806,7 @@ Lean-core `Nat.gcd`).
 
 ### VI.2 Common — the shared PURE arithmetic
 
-`lean/E213/Lib/Math/GRA/Common.lean` — `coprime_2_3`,
+`lean/E213/Lib/Math/Algebra/GRA/Common.lean` — `coprime_2_3`,
 `reach_23`, `depth_formula`, `ceil3_le_ceil2` — all PURE, all
 the 5 Readings share these.
 
@@ -825,7 +825,7 @@ the NT hub.
 
 ### VI.4 Translation programme — Phase 6
 
-`lean/E213/Lib/Math/GRA/Translation.lean` —
+`lean/E213/Lib/Math/Algebra/GRA/Translation.lean` —
 `master_translation_from_any` shows any depth-property holds
 in all 5 Readings; `graph_distance_implies_cup_length` etc.
 demonstrate "Langlands-style" translation.  Universal depth
@@ -913,33 +913,33 @@ concretely.
 
 ### VII.1 Peano as Lens composition
 
-`lean/E213/Lib/Math/AxiomSystems/PeanoAsLensComposition.lean`
+`lean/E213/Lib/Math/Foundations/AxiomSystems/PeanoAsLensComposition.lean`
 — Peano arithmetic *is* a Lens composition over Raw.  The
 "successor" axiom is `Raw.slash`-with-`Raw.b` structurally.
 No external Peano postulate needed.
 
 ### VII.2 ZFC extensionality as Lens
 
-`lean/E213/Lib/Math/AxiomSystems/ZFCExtensionalityAsLens.lean`
+`lean/E213/Lib/Math/Foundations/AxiomSystems/ZFCExtensionalityAsLens.lean`
 — ZFC's extensionality reads as a particular Lens kernel on
 Raw.
 
 ### VII.3 Classical analysis completeness as Lens
 
-`lean/E213/Lib/Math/AxiomSystems/ClassicalAnalysisCompletenessAsLens.lean`
+`lean/E213/Lib/Math/Foundations/AxiomSystems/ClassicalAnalysisCompletenessAsLens.lean`
 — LUB property is a Lens kernel; the modulus replaces ε-δ
 (per `theory/math/modulus.md`).
 
 ### VII.4 Cross-theory cohabit
 
-`lean/E213/Lib/Math/AxiomSystems/CrossTheoryCohabit.lean` —
+`lean/E213/Lib/Math/Foundations/AxiomSystems/CrossTheoryCohabit.lean` —
 multiple frameworks cohabit a single Raw via different Lenses.
 No framework is privileged; each reads off the same residue
 through its chart.
 
 ### VII.5 HoTT as a Reading (Phase 12.2 / 22)
 
-`lean/E213/Lib/Math/GRA/HoTT.lean` + `LensIsoCapstone`
+`lean/E213/Lib/Math/Algebra/GRA/HoTT.lean` + `LensIsoCapstone`
 make this explicit.  HoTT's truncation hierarchy is the R₃
 Reading of GRA; combined with Phase 22, HoTT's grade structure
 on Raw is `LensIso` to `gradeLens`.
@@ -1002,7 +1002,7 @@ Sealed-by-design exceptions:
     `theory/lens/dirty_recovery_patterns.md` Pattern P5 and
     `theory/lens/unified_equivalence.md`) — ∅-axiom, no function-`=` of views
 
-Tier 5.1 (omega → kernel-lemma migration) is closed for `Lib/Math/GRA/`
+Tier 5.1 (omega → kernel-lemma migration) is closed for `Lib/Math/Algebra/GRA/`
 (PURE).
 
 ### VIII.3 Scanner suite
@@ -1060,7 +1060,7 @@ consult the trick set in order:
 
 ### VIII.6 Pattern Catalog — atomic games
 
-`lean/E213/Lib/Math/PatternCatalog/*.lean` formalises four
+`lean/E213/Lib/Math/Foundations/PatternCatalog/*.lean` formalises four
 atomic abstraction games:
 
   · **Locality** — proof-shape locality (atomic moves)

@@ -14,7 +14,7 @@ The tower's optimal precision at depth N is `O(log N)`.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/TriangularTower/` (5 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Geometry/TriangularTower/` (5 files)
 - **Capstone**: `TriangularTower.Capstone`
 - **∅-axiom status**: PURE
 
@@ -51,6 +51,6 @@ trajectory is finite at every level*.
 
 ## Companion clusters
 
-- `Lib/Math/AngleStructure/` (angle-structure — `theory/math/angle_structure.md`)
-- `Lib/Math/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)
-- `Lib/Math/GenerationRule/` (generation rule — `theory/math/generation_rule.md`)
+- `Lib/Math/Geometry/AngleStructure/` (angle-structure — `theory/math/angle_structure.md`)
+- `Lib/Math/Geometry/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)
+- `Lib/Math/Geometry/GenerationRule/` (generation rule — `theory/math/generation_rule.md`)

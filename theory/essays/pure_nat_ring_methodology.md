@@ -236,8 +236,8 @@ is a finite extension of the toolkit + a Nat-additive induction.
 ## Lean source
 
   · `lean/E213/Meta/Nat/NatRing213.lean` (19 PURE)
-  · `lean/E213/Lib/Math/Mobius213/Px/CassiniUniversal.lean` (16 PURE)
-  · `lean/E213/Lib/Math/Mobius213/Px/PnFibonacciUniversal.lean` (14 PURE)
+  · `lean/E213/Lib/Math/Algebra/Mobius213/Px/CassiniUniversal.lean` (16 PURE)
+  · `lean/E213/Lib/Math/Algebra/Mobius213/Px/PnFibonacciUniversal.lean` (14 PURE)
 
 ## Cross-references
 

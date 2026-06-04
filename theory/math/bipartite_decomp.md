@@ -15,7 +15,7 @@ d = 5 into a bipartite pair where:
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/BipartiteDecomp/` (4 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Geometry/BipartiteDecomp/` (4 files)
 - **Capstone**: `BipartiteDecomp.Capstone`
 - **∅-axiom status**: PURE
 

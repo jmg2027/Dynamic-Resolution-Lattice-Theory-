@@ -13,7 +13,7 @@ A single arithmetic — additive accumulation of two coprime grades
 reads.  The Readings are not "analogous" or "isomorphic-up-to-
 philosophy"; they are five surface presentations of the same
 syntactic object, the `(2,3)`-GRA model, and the sameness is a
-typeclass instance witness in `lean/E213/Lib/Math/GRA/`.
+typeclass instance witness in `lean/E213/Lib/Math/Algebra/GRA/`.
 
 The "killer app" of this view — translation theorems — follows
 mechanically: any property `P` of the depth function `⌈n/3⌉`
@@ -24,7 +24,7 @@ chase coincidences across domains.
 
 ### §1 The arithmetic
 
-`GRAModel` (`lean/E213/Lib/Math/GRA/GRAModel.lean`) is the
+`GRAModel` (`lean/E213/Lib/Math/Algebra/GRA/GRAModel.lean`) is the
 7-axiom typeclass:
 
 | Axiom | Content |

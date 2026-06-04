@@ -1,7 +1,7 @@
 # The continued-fraction holonomicity hierarchy — Hurwitzian, and the π frontier
 
 **Status**: Framework closed; the top tier's π-membership is the documented open frontier.
-Source of truth (all ∅-axiom): `lean/E213/Lib/Math/Cauchy/HurwitzianCF.lean` (21 PURE / 0
+Source of truth (all ∅-axiom): `lean/E213/Lib/Math/Analysis/Cauchy/HurwitzianCF.lean` (21 PURE / 0
 dirty), on the `polyDepth` divergence-ladder of `Cauchy/DepthPRecursive`.
 
 ## Overview
@@ -244,8 +244,8 @@ p.q., Lagrange) and for e (the transcendental Hurwitzian case, subsuming the lin
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Cauchy.HurwitzianCF
+lake build E213.Lib.Math.Analysis.Cauchy.HurwitzianCF
 cd ..
-python3 tools/scan_axioms.py E213.Lib.Math.Cauchy.HurwitzianCF
+python3 tools/scan_axioms.py E213.Lib.Math.Analysis.Cauchy.HurwitzianCF
 ```
 Reports `21 pure / 0 dirty`.

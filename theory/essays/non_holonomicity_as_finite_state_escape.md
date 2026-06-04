@@ -328,7 +328,7 @@ its golden case (the Fibonacci word) would tie the dense axis to the `φ`/π pen
 
 ## Lean source
 
-`lean/E213/Lib/Math/Cauchy/{ZeroRunNonHolonomic, ZeroRunNonHolonomicWitness,
+`lean/E213/Lib/Math/Analysis/Cauchy/{ZeroRunNonHolonomic, ZeroRunNonHolonomicWitness,
 NonHolonomicWitness, MorseHedlund, ThueMorseAperiodic}` (the escape certificates, the dense
 Morse–Hedlund direction, and the witnesses — including the genuinely-dense Thue–Morse);
 `Cauchy/{PolyDepthMonotone, ThueMorseRingEscape}` + `Meta/Int213/Order` (the finite-depth ⟹

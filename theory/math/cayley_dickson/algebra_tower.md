@@ -65,7 +65,7 @@ The single citable Lean theorem is `algebra_tower_capstone` ∈
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/CayleyDickson/` (50 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Algebra/CayleyDickson/` (50 files)
 - **Tower core**: `CayleyDickson/Tower/` (12 files)
 - **Master capstone**: `Tower/AlgebraTowerCapstone.lean`
 - **∅-axiom status**: structural results PURE (some level-specific
@@ -214,7 +214,7 @@ itself never runs out — **infinite ascent at the mechanism level**.
 
 ### 3. {±1} pointwise meta-fixed point
 
-`Lib/Math/CayleyDickson/Tower/TowerFixedPoint.lean` measures the
+`Lib/Math/Algebra/CayleyDickson/Tower/TowerFixedPoint.lean` measures the
 count of units **not** of order 4 across the tower:
 
 | Type | L3 | L4 | L5 | L6 | non-order-4 count |
@@ -332,7 +332,7 @@ so `CayleyHeavy` is now entirely free of the `hurwitz_ring` brute force.
 
 ### The composition boundary, exhibited
 
-`Lib/Math/CayleyDickson/Levels/SedenionZeroDivisor.lean` makes the
+`Lib/Math/Algebra/CayleyDickson/Levels/SedenionZeroDivisor.lean` makes the
 boundary concrete (the negative companion of the composition theorems):
 `(e₁+e₁₀)·(e₄−e₁₅) = 0` with both factors non-zero, so
 `normSq(u·v) = 0 ≠ 4 = normSq u · normSq v`
@@ -367,7 +367,7 @@ section.  Essay: `theory/essays/cd_tower_polarization.md`.
 
 ## Deeper layers — L7T closed (ZSqrtMinus2TowerDeep.lean)
 
-`Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerDeep.lean` (12 PURE
+`Lib/Math/Algebra/CayleyDickson/Integer/ZSqrtMinus2TowerDeep.lean` (12 PURE
 ∅-axiom) extends the Type-B (ZSqrt[-2]) tower past L6T to **L7T**,
 the next CD-doubling layer:
 
@@ -386,7 +386,7 @@ deliverable.
 
 ## L8T / L9T (Type B deeper) — closed (ZSqrtMinus2TowerDeep, 18 PURE)
 
-`Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerDeep.lean` extends
+`Lib/Math/Algebra/CayleyDickson/Integer/ZSqrtMinus2TowerDeep.lean` extends
 the ZSqrt[-2] tower past L7T to **L8T**: 128 = 2 × 64 units.
 `ZSqrtMinus2TowerDeep.lean` continues to **L9T**: 256 = 2 × 128
 units.  `set_option maxRecDepth {1024, 2048}` for cardinality
@@ -394,7 +394,7 @@ units.  `set_option maxRecDepth {1024, 2048}` for cardinality
 
 ## Type D tower L1 + L2 — closed (HurwitzTower, 22 PURE)
 
-`Lib/Math/CayleyDickson/Integer/HurwitzTower.lean` shows the
+`Lib/Math/Algebra/CayleyDickson/Integer/HurwitzTower.lean` shows the
 CD-doubling machinery applies to Type D (Hurwitz base):
 
   · `HurwitzL2 := Hurwitz × Hurwitz` with mul / conj / normSq /
@@ -446,8 +446,8 @@ Remaining open extensions:
 
 ```bash
 cd lean
-lake build E213.Lib.Math.CayleyDickson
-python3 tools/scan_axioms.py Lib/Math/CayleyDickson
+lake build E213.Lib.Math.Algebra.CayleyDickson
+python3 tools/scan_axioms.py Lib/Math/Algebra/CayleyDickson
 ```
 
 ## Citation guidance

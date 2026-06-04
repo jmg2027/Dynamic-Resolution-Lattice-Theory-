@@ -9,7 +9,7 @@ i.e., L2 of the Cayley-Dickson tower on Real213.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Complex/` (4 files)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Complex/` (4 files)
 - **∅-axiom status**: PURE
 
 ## Narrative

@@ -15,7 +15,7 @@ Includes `CanonicalTruthChar.lean` — the **only** pre-existing
 
 ## Lean source
 
-- `lean/E213/Lib/Math/Choice/` (4 files)
+- `lean/E213/Lib/Math/Foundations/Choice/` (4 files)
 - ∅-axiom PURE except `CanonicalTruthChar` (sealed-by-design with propext)
 
 | File | Purpose |

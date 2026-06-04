@@ -14,7 +14,7 @@ structural; the rest are continuous-extension artifacts.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/AngleStructure/` (5 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Geometry/AngleStructure/` (5 files)
 - **Capstone**: `AngleStructure.Capstone`
 - **∅-axiom status**: PURE
 
@@ -44,5 +44,5 @@ reduces to one of these three readings via the
 
 ## Companion clusters
 
-- `Lib/Math/TriangularTower/` (triangular-tower architecture — `theory/math/triangular_tower.md`)
-- `Lib/Math/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)
+- `Lib/Math/Geometry/TriangularTower/` (triangular-tower architecture — `theory/math/triangular_tower.md`)
+- `Lib/Math/Geometry/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)

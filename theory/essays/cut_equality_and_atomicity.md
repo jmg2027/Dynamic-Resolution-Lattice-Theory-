@@ -42,7 +42,7 @@ decomposition.  `Theory.Atomicity.PairForcing` fixes
 
 **Algebraic side.**  The Möbius matrix has
 `(trace, det, disc) = (3, 1, 5) = (NS, NS−NT, NS+NT)`
-(`Lib/Math/Mobius213.lean` — `mobius_213_trace`,
+(`Lib/Math/Algebra/Mobius213.lean` — `mobius_213_trace`,
 `mobius_213_det`, `mobius_213_discriminant`).  Iterating P on
 `(0, 1)` gives `(0, 1), (1, 1), (3, 2), (8, 5), ...` —
 `Pseq seedZero n` from `Mobius213Equiv.lean`.  At depth 2 the

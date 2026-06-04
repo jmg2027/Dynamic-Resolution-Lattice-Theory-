@@ -221,12 +221,12 @@ require.
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Real213.HyperbolicEllipticTrace \
-           E213.Lib.Math.Real213.PentagonGoldenTrace \
-           E213.Lib.Math.Cauchy.NonHolonomicWitness \
-           E213.Lib.Math.Cauchy.PositiveFloorUnbounded \
-           E213.Lib.Math.Cauchy.EllipticPeriodicTier \
-           E213.Lib.Math.Cauchy.CFiniteHomogRec
+lake build E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace \
+           E213.Lib.Math.NumberSystems.Real213.PentagonGoldenTrace \
+           E213.Lib.Math.Analysis.Cauchy.NonHolonomicWitness \
+           E213.Lib.Math.Analysis.Cauchy.PositiveFloorUnbounded \
+           E213.Lib.Math.Analysis.Cauchy.EllipticPeriodicTier \
+           E213.Lib.Math.Analysis.Cauchy.CFiniteHomogRec
 cd ..
 for m in Real213.HyperbolicEllipticTrace Real213.PentagonGoldenTrace \
          Cauchy.NonHolonomicWitness Cauchy.PositiveFloorUnbounded \

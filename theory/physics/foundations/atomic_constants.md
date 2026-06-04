@@ -77,7 +77,7 @@ Same machinery: `seven_msq_gt_6m_p17 : 6m + 17 < 7m² for m ≥ 3`
 `c2b_diag_false : m, n ≥ 3 → constraint_C2b m n = false` via:
 
 1. **AM-GM**: `2mn ≤ m² + n²` (from
-   `Lib/Math/Extras/CauchySchwarz.two_mul_le_sq_add_sq`).
+   `Lib/Math/Tactic/Extras/CauchySchwarz.two_mul_le_sq_add_sq`).
 2. **Monotonicity bound**: `m²n² ≥ 3(m² + n²)` (from
    `m²n² ≥ 9(m² + n²)/2` at m, n ≥ 3).
 3. **Nat-sub decomposition**: `m²n² + 1 = (m² − 1)(n² − 1) + (m² + n²)`.
@@ -198,7 +198,7 @@ with `Δ⁴` the maximal-non-commitment combinatorial filling
 (`+1`, contractible) and `K_{3,2}^{(c=2)}` the dynamic Möbius
 shadow (`−7`, b₁ = 8 cycles).  Witness:
 `Lib/Math/Geometry/AlgebraicGeometry.lean` and
-`Lib/Math/Topology/EulerChi.lean`.  The integer `6 = NS · NT`
+`Lib/Math/Geometry/Topology/EulerChi.lean`.  The integer `6 = NS · NT`
 appears across multiple structural readings (ZOmega units, α_GUT
 numerator, Pauli-ε non-zero entries, Lorentz generator count, `3!`,
 S/T cross-pair count, SU(NS) root count, `d + 1`); a single

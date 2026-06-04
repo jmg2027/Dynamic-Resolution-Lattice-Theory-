@@ -17,12 +17,12 @@ number tower are the one residue read through the multiplicative and additive fo
 ## Lean source
 
 - Files:
-  - `lean/E213/Lib/Math/Cauchy/ZeroInfinityHole.lean` — `0`/`∞` as one reciprocal hole (5 PURE)
+  - `lean/E213/Lib/Math/Analysis/Cauchy/ZeroInfinityHole.lean` — `0`/`∞` as one reciprocal hole (5 PURE)
   - `lean/E213/Lens/Number/IntFoldForms.lean` — ℤ's two status-symmetric fold forms (13 PURE)
   - `lean/E213/Lens/Number/FoldDuality.lean` — negation/reciprocal mirror on the fixture (13 PURE)
   - `lean/E213/Lens/Number/FoldKlein.lean` — the Klein four-group + fixed-point-free antipode (9 PURE)
-  - `lean/E213/Lib/Math/Real213/FoldReflections.lean` — matrix witness: folds = reflections, `N·R = S` (11 PURE)
-  - `lean/E213/Lib/Math/Real213/EllipticCycleFixtures.lean` — `S` (ℤ₂) and `U` (ℤ₃) as cyclic fixtures (7 PURE)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/FoldReflections.lean` — matrix witness: folds = reflections, `N·R = S` (11 PURE)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/EllipticCycleFixtures.lean` — `S` (ℤ₂) and `U` (ℤ₃) as cyclic fixtures (7 PURE)
   - `lean/E213/Lib/Math/DetSpectrumPoles.lean` — the two poles as the two folds' non-values (1 PURE)
   - `lean/E213/Lib/Math/MaxEntropy.lean` — structurelessness as a positive property (8 PURE)
 - Canon: `seed/AXIOM/06_lens_readings.md` §6.5, §6.6, §6.9.
@@ -167,11 +167,11 @@ CLAUDE.md failure-modes catalog ("0/∞ as a stratum-value (mixed-status fold)")
 ## How to verify
 
 ```bash
-cd lean && lake build E213.Lens.Number E213.Lib.Math.Real213 E213.Lib.Math.MaxEntropy E213.Lib.Math.DetSpectrumPoles
+cd lean && lake build E213.Lens.Number E213.Lib.Math.NumberSystems.Real213 E213.Lib.Math.MaxEntropy E213.Lib.Math.DetSpectrumPoles
 python3 tools/scan_axioms.py E213.Lens.Number.IntFoldForms
 python3 tools/scan_axioms.py E213.Lens.Number.FoldDuality
 python3 tools/scan_axioms.py E213.Lens.Number.FoldKlein
-python3 tools/scan_axioms.py E213.Lib.Math.Cauchy.ZeroInfinityHole
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.FoldReflections
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.EllipticCycleFixtures
+python3 tools/scan_axioms.py E213.Lib.Math.Analysis.Cauchy.ZeroInfinityHole
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.FoldReflections
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.EllipticCycleFixtures
 ```

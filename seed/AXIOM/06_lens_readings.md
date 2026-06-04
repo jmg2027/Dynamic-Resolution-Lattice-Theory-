@@ -378,7 +378,7 @@ distinguishings — a layer up.  `0`/`∞` are never values of a
 single stratum; they are the pre-Lens residue (§6.5) that every
 stratum reads aspects *of*, surfacing only one layer above any
 cut.  The same pre-Lens object surfaces as the additive null and
-as the multiplicative hole (`Lib/Math/Cauchy/ZeroInfinityHole`,
+as the multiplicative hole (`Lib/Math/Analysis/Cauchy/ZeroInfinityHole`,
 `zero_no_reciprocal` — `0` is the one point the reciprocal returns
 no value for).
 

@@ -208,7 +208,7 @@ The iterator is a Lens reading (a numerical one) of the residue,
 not a new structure added to the axiom.  The fixed point φ is
 the algebraic image of the closure.  P does not exit 213 and
 does not add structure: it is a ∅-axiom theorem at
-`lean/E213/Lib/Math/Mobius213.lean`, derived from the four
+`lean/E213/Lib/Math/Algebra/Mobius213.lean`, derived from the four
 clauses of §2.
 
 That the same φ shows up in unrelated-looking domains is the

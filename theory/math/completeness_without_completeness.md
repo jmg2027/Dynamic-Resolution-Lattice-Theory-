@@ -72,7 +72,7 @@ rational. So take that as the definition.
 > **Definition (Real213 cut).** A real is a decision procedure
 > `c : ℕ → ℕ → Bool` with `c m k = ⟦x ≤ m/k⟧`, subject to a monotonicity /
 > coherence condition (`ValidCut`). `RatioCut`, `constCut`, and the rational
-> embedding are special cases. **(L)** (`lean/E213/Lib/Math/Real213/`.)
+> embedding are special cases. **(L)** (`lean/E213/Lib/Math/NumberSystems/Real213/`.)
 
 There is no completion step here, and no equivalence class quotient is *needed* to
 make the object exist: the cut *is* the real. Two cuts denote the same real when
@@ -542,55 +542,55 @@ Every `(L)` claim, by file. Source of truth is `lean/E213/`; when this narrative
 the Lean disagree, the Lean wins.
 
 **Part I — the cut and its modulus**
-  - `lean/E213/Lib/Math/Real213/` — `Real213` cut, `ValidCut`, `RatioCut`, `constCut`
-  - `lean/E213/Lib/Math/Cauchy/MonotonicBounded.lean` — ab-monotonic ⇒ `isOrderCauchy`
+  - `lean/E213/Lib/Math/NumberSystems/Real213/` — `Real213` cut, `ValidCut`, `RatioCut`, `constCut`
+  - `lean/E213/Lib/Math/Analysis/Cauchy/MonotonicBounded.lean` — ab-monotonic ⇒ `isOrderCauchy`
   - `lean/E213/Lib/Math/Analysis/CauchyComplete` — completeness as a constructed theorem
-  - `lean/E213/Lib/Math/Cauchy/PellSeq.lean` — `√2` closed-form (`pell_invariant`)
+  - `lean/E213/Lib/Math/Analysis/Cauchy/PellSeq.lean` — `√2` closed-form (`pell_invariant`)
 
 **Part II — the probe-twist conic**
-  - `lean/E213/Lib/Math/Real213/MobiusProbeTwist.lean` — `P ∈ SL₂(ℤ)`, order-preserving
-  - `lean/E213/Lib/Math/Real213/ProbeTwistConic.lean` — `Q_preserved` (the conic)
-  - `lean/E213/Lib/Math/Real213/ProbeTwistDynamics.lean` — `twist_undoes_step` (`f⁻¹`)
-  - `lean/E213/Lib/Math/Real213/PhiProbeFixed.lean` — `φ` twist-fixed
-  - `lean/E213/Lib/Math/Real213/ProbeTwistFixedPoint.lean` — `e` not fixed
+  - `lean/E213/Lib/Math/NumberSystems/Real213/MobiusProbeTwist.lean` — `P ∈ SL₂(ℤ)`, order-preserving
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistConic.lean` — `Q_preserved` (the conic)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistDynamics.lean` — `twist_undoes_step` (`f⁻¹`)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/PhiProbeFixed.lean` — `φ` twist-fixed
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistFixedPoint.lean` — `e` not fixed
 
 **Part III — cross-determinant and depth**
-  - `lean/E213/Lib/Math/Mobius213/Px/ConvergentDet.lean` — `φ`'s `Wₙ = ±1` (Cassini)
-  - `lean/E213/Lib/Math/Cauchy/EulerDivergenceForm.lean` — `euler_cross_det_is_factorial`
-  - `lean/E213/Lib/Math/Cauchy/DivergenceDepth.lean` — `depth_three` (`e`); `π` depth 6
-  - `lean/E213/Lib/Math/Cauchy/DivergenceLadder.lean` — `diff`, `liftK`, `reachesFloor`,
+  - `lean/E213/Lib/Math/Algebra/Mobius213/Px/ConvergentDet.lean` — `φ`'s `Wₙ = ±1` (Cassini)
+  - `lean/E213/Lib/Math/Analysis/Cauchy/EulerDivergenceForm.lean` — `euler_cross_det_is_factorial`
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DivergenceDepth.lean` — `depth_three` (`e`); `π` depth 6
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DivergenceLadder.lean` — `diff`, `liftK`, `reachesFloor`,
     `e_ratio_floor`, `infinite_depth`, `const_reaches_floor`
-  - `lean/E213/Lib/Math/Cauchy/DepthPRecursive.lean` — depth = P-recursive rank
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthPRecursive.lean` — depth = P-recursive rank
     (structural: `polyDepth_succ_iff`)
-  - `lean/E213/Lib/Math/Cauchy/DepthPRecursiveInstances.lean` — the witnesses:
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthPRecursiveInstances.lean` — the witnesses:
     `newton_polyDepth` (every degree-`d` discrete polynomial has depth `d`, via
     exact Pascal differences; `binomCol_polyDepth` is the single-column case);
     `e_finite_depth_iff_P_recursive` (e: order-1 recurrence + `polyDepth 1`);
     `pi_is_P_recursive` (π's Wallis recurrences + `polyDepth 2` step coefficient)
-  - `lean/E213/Lib/Math/Cauchy/DepthPiQuartic.lean` — `piRatio_polyDepth`: π's full
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthPiQuartic.lean` — `piRatio_polyDepth`: π's full
     degree-4 cross-det ratio has `polyDepth 4` (depth 6 confirmed ∅-axiom)
   - `lean/E213/Meta/Nat/PolyNat.lean` — `poly_id`: ∅-axiom reflection prover for
     `Nat` polynomial identities (the nonlinear-`Nat` `ring` replacement)
 
 **Part IV — the axes and their ordinal hierarchy**
-  - `lean/E213/Lib/Math/Cauchy/DepthTower.lean` — `ratioLift`, `ratio_is_diff_on_exponent`,
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthTower.lean` — `ratioLift`, `ratio_is_diff_on_exponent`,
     `(h,d)` coordinate
-  - `lean/E213/Lib/Math/Cauchy/DepthOrdinal.lean` — `lex_wf`, `no_infinite_descent`
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthOrdinal.lean` — `lex_wf`, `no_infinite_descent`
     (`(h,d)` is an ordinal `< ω²`)
-  - `lean/E213/Lib/Math/Cauchy/DepthExponentRecursion.lean` — `ratioN_expSeq`,
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthExponentRecursion.lean` — `ratioN_expSeq`,
     `value_floors_iff_exponent_floors` (value-height = 1 + exponent-height)
-  - `lean/E213/Lib/Math/Cauchy/DepthDoubleExp.lean` — `ratioN_dexp`, `dexp_not_const`
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthDoubleExp.lean` — `ratioN_dexp`, `dexp_not_const`
     (`ratioN` cannot cross one exponential layer)
-  - `lean/E213/Lib/Math/Cauchy/DepthOmegaTower.lean` — `coord_wf`,
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthOmegaTower.lean` — `coord_wf`,
     `coord_no_infinite_descent`, `coord_layer_dominates` (depth-`r` tower coordinate
     is an ordinal `< ω^r`; the `ω^ω` ladder, each layer ×`ω`); `expTower`,
     `dexp_exponent_floors` (positive companion to `dexp_not_const`)
-  - `lean/E213/Lib/Math/Cauchy/DepthLiouvilleCoord.lean` —
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthLiouvilleCoord.lean` —
     `liouville_exponent_coordinate` (`ratioLift fact = n+1`, one diff floors it;
     `Δ(k!) = k·k!`: `c^{k!}` has no finite `(h,d)` but a finite recursion coordinate)
 
 **Part V — the closure**
-  - `lean/E213/Lib/Math/Cauchy/DepthCeilingResidue.lean` — `diag_not_in_seq`,
+  - `lean/E213/Lib/Math/Analysis/Cauchy/DepthCeilingResidue.lean` — `diag_not_in_seq`,
     `ceiling_reference_leaves_residue` (= `cantor_general`),
     `ceiling_residue_is_pointing_residue` (= `self_covering_closure`)
   - `lean/E213/Lens/FlatOntologyClosure.lean` — `self_covering_closure`,

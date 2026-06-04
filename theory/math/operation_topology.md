@@ -12,7 +12,7 @@ operation is `O(operation_levels · base_topology_complexity)`.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/OperationTopology/` (4 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Geometry/OperationTopology/` (4 files)
 - **Capstone**: `OperationTopology.Capstone`
 - **∅-axiom status**: PURE
 
@@ -39,5 +39,5 @@ The 4 × N table (op rows × topology columns) at level N:
 
 ## Companion clusters
 
-- `Lib/Math/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)
-- `Lib/Math/GenerationRule/` (generation rule — `theory/math/generation_rule.md`)
+- `Lib/Math/Geometry/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)
+- `Lib/Math/Geometry/GenerationRule/` (generation rule — `theory/math/generation_rule.md`)

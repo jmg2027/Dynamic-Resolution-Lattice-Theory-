@@ -40,7 +40,7 @@ The library is ∅-axiom throughout: every theorem reports
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Padic/` (8 files)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Padic/` (8 files)
 - **Umbrella**: `Padic.lean`
 - **∅-axiom status**: 308 PURE / 0 DIRTY
 
@@ -465,7 +465,7 @@ The p-adic family `ZpSeq p` is parametrised by ANY prime `p`, making
 it the natural Lens-arena for mod-p reductions of the Möbius matrix
 `P = [[2,1],[1,1]]`.  This connection is formalised in two layers:
 
-  · **Lean bridge**: `Lib/Math/Padic/ZpSeqMobiusBridge.lean` defines
+  · **Lean bridge**: `Lib/Math/NumberSystems/Padic/ZpSeqMobiusBridge.lean` defines
     `ZpMobiusPairEq` (digit agreement at every Stern-Brocot reachable
     pair) and proves bidirectional equivalence with `ZpSeqEquiv` —
     the canonical p-adic setoid.  This shows the Möbius-pair reading
@@ -489,14 +489,14 @@ for the full mod-p period catalog and the P-orbit closure ring.
 ## How to verify
 
 ```bash
-cd lean && lake build E213.Lib.Math.Padic
-python3 tools/scan_axioms.py E213.Lib.Math.Padic.Foundation \
-                              E213.Lib.Math.Padic.Arith \
-                              E213.Lib.Math.Padic.Pow \
-                              E213.Lib.Math.Padic.Norm \
-                              E213.Lib.Math.Padic.Hensel \
-                              E213.Lib.Math.Padic.Teichmuller \
-                              E213.Lib.Math.Padic.Field \
-                              E213.Lib.Math.Padic.DRLT
+cd lean && lake build E213.Lib.Math.NumberSystems.Padic
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Padic.Foundation \
+                              E213.Lib.Math.NumberSystems.Padic.Arith \
+                              E213.Lib.Math.NumberSystems.Padic.Pow \
+                              E213.Lib.Math.NumberSystems.Padic.Norm \
+                              E213.Lib.Math.NumberSystems.Padic.Hensel \
+                              E213.Lib.Math.NumberSystems.Padic.Teichmuller \
+                              E213.Lib.Math.NumberSystems.Padic.Field \
+                              E213.Lib.Math.NumberSystems.Padic.DRLT
 # Expected: 308 PURE / 0 DIRTY
 ```

@@ -2,7 +2,7 @@
 
 **Status**: Closed for the first two spectrum values and the tree engine; the full spectrum
 is the documented continuation.  Source of truth (all ∅-axiom):
-`lean/E213/Lib/Math/Real213/{GoldenFormMarkov, MarkovTree}` (19 PURE / 0 dirty).
+`lean/E213/Lib/Math/NumberSystems/Real213/{GoldenFormMarkov, MarkovTree}` (19 PURE / 0 dirty).
 
 ## Overview
 
@@ -117,9 +117,9 @@ classical Markov-value formula `√(9m²−4)/m` and "`√5` = Lagrange minimum"
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Real213.GoldenFormMarkov E213.Lib.Math.Real213.MarkovTree
+lake build E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov E213.Lib.Math.NumberSystems.Real213.MarkovTree
 cd ..
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.GoldenFormMarkov
-python3 tools/scan_axioms.py E213.Lib.Math.Real213.MarkovTree
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.MarkovTree
 ```
 Reports `9 pure / 0 dirty` and `10 pure / 0 dirty`.

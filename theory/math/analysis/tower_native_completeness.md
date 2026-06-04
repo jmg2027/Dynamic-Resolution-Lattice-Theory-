@@ -1,10 +1,10 @@
 # Tower-native completeness — completability is a comparison of two growth-axes
 
 **Status**: Closed.  Source of truth (all ∅-axiom):
-`lean/E213/Lib/Math/Real213/{CrossDetOvertake, LiouvilleModulus, TowerNativeCompleteness,
+`lean/E213/Lib/Math/NumberSystems/Real213/{CrossDetOvertake, LiouvilleModulus, TowerNativeCompleteness,
 IntensionalCompletability, ScalingOrbit, FloorReferenceForm}`,
-`lean/E213/Lib/Math/Cauchy/{DepthClosure, DepthCoordGenerator, DepthCeilingResidue}`,
-`lean/E213/Lib/Math/CayleyDickson/Integer/{EisensteinSignature, ParabolicSignature}`,
+`lean/E213/Lib/Math/Analysis/Cauchy/{DepthClosure, DepthCoordGenerator, DepthCeilingResidue}`,
+`lean/E213/Lib/Math/Algebra/CayleyDickson/Integer/{EisensteinSignature, ParabolicSignature}`,
 `lean/E213/Lib/Math/FiveFloorUnification`.
 
 ## Overview
@@ -49,7 +49,7 @@ top-lessness of the tower to the residue of pointing.
 | `Cauchy/DepthCeilingResidue.lean` | — | the tower has no top = the residue of pointing |
 | `Real213/TowerNativeCompleteness.lean` | — | `tower_native_completeness_program`, the five bundled |
 
-Builds under the `E213.Lib.Math.Real213` and `E213.Lib.Math.Cauchy` umbrellas.
+Builds under the `E213.Lib.Math.NumberSystems.Real213` and `E213.Lib.Math.Analysis.Cauchy` umbrellas.
 
 ## Narrative
 
@@ -368,19 +368,19 @@ cd lean
 lake build E213.Lib.Math
 cd ..
 for M in \
-  E213.Lib.Math.Real213.CrossDetOvertake \
-  E213.Lib.Math.Real213.LiouvilleModulus \
-  E213.Lib.Math.Real213.ContinuedFractionFloor \
-  E213.Lib.Math.Real213.ContinuedFractionModulus \
-  E213.Lib.Math.Real213.IntensionalCompletability \
-  E213.Lib.Math.Real213.ScalingOrbit \
-  E213.Lib.Math.Real213.FloorReferenceForm \
-  E213.Lib.Math.Cauchy.DepthClosure \
-  E213.Lib.Math.Cauchy.DepthCoordGenerator \
-  E213.Lib.Math.CayleyDickson.Integer.EisensteinSignature \
-  E213.Lib.Math.CayleyDickson.Integer.ParabolicSignature \
+  E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake \
+  E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus \
+  E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor \
+  E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus \
+  E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability \
+  E213.Lib.Math.NumberSystems.Real213.ScalingOrbit \
+  E213.Lib.Math.NumberSystems.Real213.FloorReferenceForm \
+  E213.Lib.Math.Analysis.Cauchy.DepthClosure \
+  E213.Lib.Math.Analysis.Cauchy.DepthCoordGenerator \
+  E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSignature \
+  E213.Lib.Math.Algebra.CayleyDickson.Integer.ParabolicSignature \
   E213.Lib.Math.FiveFloorUnification \
-  E213.Lib.Math.Real213.TowerNativeCompleteness ; do
+  E213.Lib.Math.NumberSystems.Real213.TowerNativeCompleteness ; do
     python3 tools/scan_axioms.py $M
 done
 ```

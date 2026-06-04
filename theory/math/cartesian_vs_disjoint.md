@@ -14,7 +14,7 @@ not a single "product" that switches behavior by context.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/CartesianVsDisjoint/` (3 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Geometry/CartesianVsDisjoint/` (3 files)
 - **Capstone**: `CartesianVsDisjoint.Capstone`
 - **∅-axiom status**: PURE
 

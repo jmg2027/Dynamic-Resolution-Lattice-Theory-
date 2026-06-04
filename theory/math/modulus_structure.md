@@ -28,7 +28,7 @@ deferring the full categorical functor formulation as Option B).
 
 ## Lean source
 
-- **File**: `lean/E213/Lib/Math/Topology/ModulusStructure.lean`
+- **File**: `lean/E213/Lib/Math/Geometry/Topology/ModulusStructure.lean`
 - **PURE**: 16 / 0 DIRTY
 - **Capstones**:
   - `three_way_modulus_framework` — original 3-way bundle.
@@ -82,7 +82,7 @@ the only computational content.
 
 ## Option B (categorical functor) — closed (ModulusStructureFunctor.lean, 12 PURE)
 
-`Lib/Math/Topology/ModulusStructureFunctor.lean` lifts the Option A
+`Lib/Math/Geometry/Topology/ModulusStructureFunctor.lean` lifts the Option A
 typeclass parallel to a **category-with-functor** formulation:
 
   · `ModHom m₁ m₂` — morphism in the category of modulus
@@ -110,7 +110,7 @@ themselves) requires additional machinery as a follow-up.
 
 ## Full adjunction — closed (ModulusStructureAdjunction.lean, 12 PURE)
 
-`Lib/Math/Topology/ModulusStructureAdjunction.lean` extends the
+`Lib/Math/Geometry/Topology/ModulusStructureAdjunction.lean` extends the
 Option B functor to a full **adjunction** framework:
 
   · `ModAdjunction L R` — structure carrying unit `η_m : m → R(L m)`

@@ -10,7 +10,7 @@ with finite support, evaluation, multiplication via convolution
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Polynomial213/` (3 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Algebra/Polynomial213/` (3 files)
 - **∅-axiom status**: PURE
 
 ## Narrative

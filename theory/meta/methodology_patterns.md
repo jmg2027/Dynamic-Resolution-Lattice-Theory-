@@ -7,7 +7,7 @@ named, reusable reduction or strategy with concrete examples in
 
 Distinct from `theory/math/pattern_catalog/pattern_catalog.md`,
 which catalogues *formalised-in-Lean* proof patterns (the
-`Lib/Math/PatternCatalog/` sub-tree).  This file catalogues
+`Lib/Math/Foundations/PatternCatalog/` sub-tree).  This file catalogues
 methodology — the *human-side* heuristics that guide closure work.
 
 ---

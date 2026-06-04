@@ -7,7 +7,7 @@ free variable, and the operand annihilates it.
 
 ## 213-native answer
 
-`χ_M(M) = 0` (`lean/E213/Lib/Math/Linalg213/CharPolyAdj.cayley_hamilton`):
+`χ_M(M) = 0` (`lean/E213/Lib/Math/Algebra/Linalg213/CharPolyAdj.cayley_hamilton`):
 `Σ_m (coeff χ_M m)·(Mᵐ)_{ik} = 0`.  The characteristic polynomial is `charPoly M N = det N (X·I − M)`
 (`Linalg213/PolyDet.charPoly`, with `eval_charPoly`: it evaluates to `det(x·I − M)` at every
 integer).  So `χ_M` reads, as a polynomial, the quotient-characteristic — per

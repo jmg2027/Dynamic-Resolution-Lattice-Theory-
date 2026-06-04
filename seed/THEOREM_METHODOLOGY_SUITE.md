@@ -331,7 +331,7 @@ The CD tower contributes 21 of the 135 (16 %):
     sedenion non-alternative.
   · `CayleyDickson/Tower/CDDouble.lean`: 5 — doubling-construction
     mismatches.
-  · `Lib/Math/UniverseChain/Residue.lean`: 5 — residue
+  · `Lib/Math/Foundations/UniverseChain/Residue.lean`: 5 — residue
     distinguishes 5 atomic levels.
 
 Each tower level provably *loses* an algebraic property

@@ -198,10 +198,10 @@ Five independent surfaces, one conclusion: the form IS the matrix.
     direction (integers → P)
   · `theory/essays/pure_nat_ring_methodology.md` — how
     `det_pn_universal` was proved PURELY
-  · `lean/E213/Lib/Math/Mobius213/Px/MobiusSelfForm.lean` — source
-  · `lean/E213/Lib/Math/Mobius213/Px/CharPolySelf.lean` — orbit
+  · `lean/E213/Lib/Math/Algebra/Mobius213/Px/MobiusSelfForm.lean` — source
+  · `lean/E213/Lib/Math/Algebra/Mobius213/Px/CharPolySelf.lean` — orbit
     self-reference
-  · `lean/E213/Lib/Math/Mobius213/Px/PnFibonacciUniversal.lean` —
+  · `lean/E213/Lib/Math/Algebra/Mobius213/Px/PnFibonacciUniversal.lean` —
     universal det preservation
   · `research-notes/archive/G139_mobius_self_form.md` — original
     research note (Tier 1 → promoted)

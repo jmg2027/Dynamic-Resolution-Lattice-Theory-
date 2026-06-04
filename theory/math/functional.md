@@ -11,7 +11,7 @@ on couplings).
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Functional/` (5 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Analysis/Functional/` (5 files)
 - **∅-axiom status**: PURE
 
 ## Narrative

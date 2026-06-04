@@ -11,7 +11,7 @@ graded-ring instantiation.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Measure/` (5 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Analysis/Measure/` (5 files)
 - **∅-axiom status**: PURE
 
 ## Narrative

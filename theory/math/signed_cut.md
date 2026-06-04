@@ -22,7 +22,7 @@ SignedCut level + its CD-doubled descendants.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/SignedCut/` (35 files, 6 sub-clusters)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/SignedCut/` (35 files, 6 sub-clusters)
 - **Umbrella**: `SignedCut.lean`
 - **∅-axiom status**: PURE
 
@@ -95,7 +95,7 @@ GenericGeomBridge (abstract geometric bridge interface).
 
 ## Hurwitz dichotomy — closed (HurwitzDichotomy.lean, 26 PURE)
 
-`Lib/Math/SignedCut/Hurwitz/HurwitzDichotomy.lean` quantifies the
+`Lib/Math/NumberSystems/SignedCut/Hurwitz/HurwitzDichotomy.lean` quantifies the
 classical Hurwitz theorem as a parametric Nat-decidable predicate:
 
   `hurwitzAdmissible n := decide (n ≤ 3)`
@@ -120,7 +120,7 @@ correspond to ℝ (n=0), ℂ (n=1), ℍ (n=2), 𝕆 (n=3); level 4
 
 ## Non-associativity quantification — closed (NonAssocQuantification.lean, 19 PURE)
 
-`Lib/Math/SignedCut/Octonion/NonAssocQuantification.lean` quantifies
+`Lib/Math/NumberSystems/SignedCut/Octonion/NonAssocQuantification.lean` quantifies
 the associativity break as a parametric dichotomy, parallel to
 `HurwitzDichotomy`:
 
@@ -164,7 +164,7 @@ ZFC characterisation of `ℝ, ℂ, ℍ, 𝕆`.
 
 ## Rigor — dichotomy ladder strict ordering (14 PURE)
 
-`Lib/Math/SignedCut/DichotomyLadder.lean` consolidates the three
+`Lib/Math/NumberSystems/SignedCut/DichotomyLadder.lean` consolidates the three
 dichotomies into a **strict refinement chain**:
 
   `commut (n ≤ 1) → assoc (n ≤ 2) → norm-mult (n ≤ 3)`
@@ -188,6 +188,6 @@ ladder.
 
 ```bash
 cd lean
-lake build E213.Lib.Math.SignedCut
-python3 tools/scan_axioms.py Lib/Math/SignedCut
+lake build E213.Lib.Math.NumberSystems.SignedCut
+python3 tools/scan_axioms.py Lib/Math/NumberSystems/SignedCut
 ```

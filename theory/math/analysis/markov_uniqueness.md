@@ -12,7 +12,7 @@ test, not a uniqueness result on a par with `1325`.  For composite `c` the struc
 complete — root-count (`= 2^{ω−1}`), the unit-root group, its free action, and nontrivial-root
 existence — and recovery is closed by `slope_path_inj`, so the **single** open input is one
 realisability hypothesis `H` (which `±`-suborbit carries a triple; the orbit tower, §20–§29).  Source
-of truth (all ∅-axiom): `lean/E213/Lib/Math/Real213/{MarkovUniqueness, MarkovCassiniBridge,
+of truth (all ∅-axiom): `lean/E213/Lib/Math/NumberSystems/Real213/{MarkovUniqueness, MarkovCassiniBridge,
 MarkovModularBridge, MarkovInjectivity, SternBrocotMarkov}.lean` + `ModArith/MarkovPrimeFactor.lean`.
 
 ## The conjecture
@@ -453,14 +453,14 @@ decides it; doing `(B′)` first cleans `(C)`'s input but does not make `(C)` ch
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Real213.MarkovUniqueness \
-           E213.Lib.Math.Real213.MarkovCassiniBridge \
-           E213.Lib.Math.Real213.MarkovModularBridge \
-           E213.Lib.Math.Real213.MarkovInjectivity \
-           E213.Lib.Math.Real213.SternBrocotMarkov
+lake build E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness \
+           E213.Lib.Math.NumberSystems.Real213.MarkovCassiniBridge \
+           E213.Lib.Math.NumberSystems.Real213.MarkovModularBridge \
+           E213.Lib.Math.NumberSystems.Real213.MarkovInjectivity \
+           E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
 cd ..
 for m in MarkovUniqueness MarkovCassiniBridge MarkovModularBridge MarkovInjectivity SternBrocotMarkov; do
-  python3 tools/scan_axioms.py E213.Lib.Math.Real213.$m
+  python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.$m
 done
 ```
 All `pure / 0 dirty` (`MarkovUniqueness` 80, `MarkovCassiniBridge` 4, `MarkovModularBridge` 2,

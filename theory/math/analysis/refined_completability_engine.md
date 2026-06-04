@@ -1,6 +1,6 @@
 # Refined completability engine — completability as an intensional ordinal grade
 
-**Status**: Closed.  Source of truth (all ∅-axiom): `lean/E213/Lib/Math/Real213/{CompletabilityGrade,
+**Status**: Closed.  Source of truth (all ∅-axiom): `lean/E213/Lib/Math/NumberSystems/Real213/{CompletabilityGrade,
 IntensionalCompletability, RefinedCompletabilityEngine, HeightTowerResidue}`.
 
 ## Overview
@@ -32,7 +32,7 @@ is the residue.
 | `Real213/RefinedCompletabilityEngine.lean` | 1 / 0 | both axes bundled as one engine |
 | `Real213/HeightTowerResidue.lean` | 2 / 0 | the height tower has no top; its diagonal is the residue |
 
-Builds under the `E213.Lib.Math.Real213` umbrella.
+Builds under the `E213.Lib.Math.NumberSystems.Real213` umbrella.
 
 ## Narrative
 
@@ -122,13 +122,13 @@ the height tower's ceiling is the residue read at the scale of divergence-comple
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Real213
+lake build E213.Lib.Math.NumberSystems.Real213
 cd ..
 for M in \
-  E213.Lib.Math.Real213.CompletabilityGrade \
-  E213.Lib.Math.Real213.IntensionalCompletability \
-  E213.Lib.Math.Real213.RefinedCompletabilityEngine \
-  E213.Lib.Math.Real213.HeightTowerResidue ; do
+  E213.Lib.Math.NumberSystems.Real213.CompletabilityGrade \
+  E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability \
+  E213.Lib.Math.NumberSystems.Real213.RefinedCompletabilityEngine \
+  E213.Lib.Math.NumberSystems.Real213.HeightTowerResidue ; do
     python3 tools/scan_axioms.py $M
 done
 ```

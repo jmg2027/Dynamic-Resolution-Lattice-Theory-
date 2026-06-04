@@ -16,7 +16,7 @@ encodes this as its algebraic invariants
 
   `(trace, det, disc) = (NS, NS−NT, NS+NT) = (3, 1, 5)`
 
-(`Lib/Math/Mobius213.lean` + `Lib/Math/Mobius213OneAsGlue.lean`).
+(`Lib/Math/Algebra/Mobius213.lean` + `Lib/Math/Mobius213OneAsGlue.lean`).
 **Every other framework reading** — cohomological, topological,
 combinatorial, number-theoretic, physics-coupling, information-
 theoretic — projects onto the same set of integers.
@@ -68,7 +68,7 @@ the same data through every formalised subsystem:
     ≡ -I (mod 5)`; `P¹⁰ ≡ I (mod 5)` (pentagonal closure +
     full period); the integer `5` appears as both `disc P`
     and the mod-5 period generator.
-  · `Lib/Math/CayleyDickson/Tower/Mobius213CDBridge.cd_mobius_bridge_master`
+  · `Lib/Math/Algebra/CayleyDickson/Tower/Mobius213CDBridge.cd_mobius_bridge_master`
     — the rank-1 Cayley-Dickson asymptote `(5, −1)` is exactly
     `(disc P, Pell unit)`.
   · `Theory.SixTheorem` — 10 readings of `6 = NS · NT` across
@@ -200,7 +200,7 @@ verified ∅-axiom.
     within-fiber operational content; a sixth pattern
     (CD-Tensor Bundling) for fiber-changing operations is
     formalised in
-    `lean/E213/Lib/Math/Real213/Mobius213CDTensor.lean`:
+    `lean/E213/Lib/Math/NumberSystems/Real213/Mobius213CDTensor.lean`:
     `MobiusTensor N₁ N₂` structure bundling factor pair +
     canonical product, with `fromPair` constructor +
     represents-level and cut-level commutativity +

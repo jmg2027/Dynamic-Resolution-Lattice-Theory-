@@ -12,7 +12,7 @@ K_{3,2}^{(c=2)} substrate.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/GenerationRule/` (4 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Geometry/GenerationRule/` (4 files)
 - **Capstone**: `GenerationRule.Capstone`
 - **∅-axiom status**: PURE
 

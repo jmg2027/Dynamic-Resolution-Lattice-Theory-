@@ -116,7 +116,7 @@ golden ratio φ = (1 + √5) / 2 as the matrix's fixed point.
 So the matrix is not an external encoding choice imposed on the
 clauses.  It is what the clauses look like when written
 algebraically.  The bridge theorem at
-`lean/E213/Lib/Math/Mobius213.lean` is ∅-axiom — the encoding is
+`lean/E213/Lib/Math/Algebra/Mobius213.lean` is ∅-axiom — the encoding is
 derivable, not imposed.  The four clauses remain the minimum-
 commitment statement; the Möbius form is their algebraic
 *consequence*.

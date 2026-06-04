@@ -10,7 +10,7 @@ gradients, Jacobians, the chain rule.  All operations carry
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Multivariable/` (6 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Analysis/Multivariable/` (6 files)
 - **∅-axiom status**: PURE
 
 ## Narrative

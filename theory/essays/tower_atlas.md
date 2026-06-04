@@ -21,7 +21,7 @@ notation (`Mobius213/Px/MobiusSelfForm`; `math/mobius213_p_orbit_closure.md`).
 **Raw self-iteration** is the orbit before any Lens: `slash` raises depth
 by one, the inhabitant count follows `|Sₙ| = 2 + C(|Sₙ₋₁|, 2)`, and every
 tree obeys `depth < leaves` (`Theory/Raw/Levels.Raw.depth_lt_leaves`;
-`Lib/Math/UniverseChain/RawRecurrence.rawCount_recurrence_witness`).  Its
+`Lib/Math/Foundations/UniverseChain/RawRecurrence.rawCount_recurrence_witness`).  Its
 most primitive single thread is named directly — `rawTower n = a/(a/…/b)`,
 the one `slash` arrow iterated from the first distinguishing, with
 `depth = level` and `depth < leaves` at every rung
@@ -47,7 +47,7 @@ single `LensIso` class (`GRA/LensIsoCapstone`; `THEORY_BOOK.md` Part VI).
 **The universe-chain reading** scales by `numV(L) = 5^L`
 (`replicate_image_card : numV 2 = numV 1 · numV 1`); the count at
 fractal level 2 is a bounded Lens output, not a universe constant
-(`Lib/Math/UniverseChain/`).  Its
+(`Lib/Math/Foundations/UniverseChain/`).  Its
 topological shadow is the Betti spectrum of `K_{5^L}`
 (`Cohomology/Fractal/Level.fractal_betti_spectrum`).
 
@@ -129,7 +129,7 @@ refuses (`05_no_exterior.md` §5.4).  The honest map separates them:
     downstream of the 213-math orbit.
 
 A fourth construction makes the boundary explicit in Lean:
-`Lib/Math/LevelTopology/TwoTowersDivergence` proves the 213 tower
+`Lib/Math/Geometry/LevelTopology/TwoTowersDivergence` proves the 213 tower
 **diverges** from the classical Cayley-Dickson tower — 213 carries sign
 as an orthogonal floor where classical CD keeps it internal — so even the
 CD reading is the orbit's, not the textbook construction's.

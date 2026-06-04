@@ -15,7 +15,7 @@ A framework-natural integer invariant for any P-related
 species (mod-p periods of P, Cassini-type identities, Pell
 unit cross-products, ...) is one that:
 
-  · admits a PURE Lens realisation (Lib/Math/Padic/ZpSeq p
+  · admits a PURE Lens realisation (Lib/Math/NumberSystems/Padic/ZpSeq p
     parameterised by any prime); or equivalently
   · belongs to the ring `⟨{L(k) : k ∈ ℕ} ∪ {NT, NS, d}⟩_ℤ`
     (`NaturalnessClosure.lean` + `POrbitClosure.lean`).

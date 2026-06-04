@@ -15,7 +15,7 @@ is the canonical example.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Modulus/` (10 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Analysis/Modulus/` (10 files)
 - **Capstone**: `Modulus/Capstone.lean`
 - **∅-axiom status**: PURE
 
@@ -53,8 +53,8 @@ computable modulus.
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Modulus
-python3 tools/scan_axioms.py Lib/Math/Modulus
+lake build E213.Lib.Math.Analysis.Modulus
+python3 tools/scan_axioms.py Lib/Math/Analysis/Modulus
 ```
 
 ## Citation guidance

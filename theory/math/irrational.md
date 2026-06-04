@@ -13,7 +13,7 @@ output of the Cauchy sequence machinery.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Irrational/` (3 files)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Irrational/` (3 files)
 - **∅-axiom status**: PURE
 
 ## Narrative

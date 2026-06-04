@@ -56,10 +56,10 @@ theorems are realized across `Lens/Number/Nat213/` and
 - **Sub-trees** (4):
   - `Lens/Number/Nat213/` (12 files) — Nat213 type + lens framework
   - `Lens/Number/Nat213/Tower/` (3 files) — orthogonal-axis transitions
-  - `Lib/Math/Mobius213/` (2 files) + `Mobius213.lean`,
+  - `Lib/Math/Algebra/Mobius213/` (2 files) + `Mobius213.lean`,
     `Mobius213ModFive.lean`, `Mobius213OneAsGlue.lean` — Möbius
     matrix encoding
-  - `Lib/Math/UniverseChain/` — atomicity + bipartite fractal
+  - `Lib/Math/Foundations/UniverseChain/` — atomicity + bipartite fractal
     + parametric vertex-count recursion
 - **∅-axiom status**: ~115 PURE theorems across the four sub-trees
 
@@ -111,7 +111,7 @@ Encoding atomicity:
 The "glue" `1 = NS − NT` is the **Lorentz-style boost generator**
 in 213's physics reading.
 
-`Lib/Math/Mobius213.lean` + `Mobius213OneAsGlue.lean` formalize this.
+`Lib/Math/Algebra/Mobius213.lean` + `Mobius213OneAsGlue.lean` formalize this.
 
 ### 4. Lucas seeds (Step 8)
 
@@ -200,10 +200,10 @@ universe-chain dynamics; CRT splits the action cleanly.
 | `algebraic_geometric_core` | `Lib/Math/Geometry/AlgebraicGeometry` | SL(2,F_5) ≅ 2I + K_{3,2} cohomology bundle |
 | `dual_fillings_sum_eq_neg_eisenstein` | `Lib/Math/Geometry/AlgebraicGeometry` | χ(Δ⁴) + χ(K_{3,2}) = −6 |
 | `two_closure_structures` | `Lib/Math/Geometry/AlgebraicGeometry` | mod 5 D_5 ⊕ mod 2 S_3 = lcm 30 |
-| Möbius P signature | `Lib/Math/Mobius213` | trace 3, det 1, eigenvalues φ², 1/φ² |
+| Möbius P signature | `Lib/Math/Algebra/Mobius213` | trace 3, det 1, eigenvalues φ², 1/φ² |
 | Pentagonal closure | `Lens/Number/Nat213/RotationGeometry` | P^10 ≡ I (mod 5) |
 | Lucas seeds | `Lens/Number/Nat213/RotationGeometry` | L_0 = 2, L_1 = 3, L_2 = 5, L_3 = 7 |
-| `numV_def` | `Lib/Math/UniverseChain/Recursion` | `numV L = d^L` (parametric, no privileged level) |
+| `numV_def` | `Lib/Math/Foundations/UniverseChain/Recursion` | `numV L = d^L` (parametric, no privileged level) |
 
 ## Orthogonal-axis tower — ℕᵏ → ℤᵏ⁻¹
 
@@ -302,7 +302,7 @@ correspondence between Raw-side symmetry and ℤ-side sign.
 
 ## Physics deployment — closed (PhysicsDeployment.lean, 12 PURE)
 
-`Lib/Math/UniverseChain/PhysicsDeployment.lean` derives the
+`Lib/Math/Foundations/UniverseChain/PhysicsDeployment.lean` derives the
 DRLT-observable mixing matrices **structurally from chain values**:
 
   · `c_lat_eq_NT`: lattice speed `c = 2 = NT` (Cabibbo input).
@@ -338,7 +338,7 @@ Open extensions:
 
 ## Rigor — physics-deployment numerical bounds (15 PURE)
 
-`Lib/Math/UniverseChain/PhysicsRigor.lean` strengthens the
+`Lib/Math/Foundations/UniverseChain/PhysicsRigor.lean` strengthens the
 `PhysicsDeployment` chapter with Nat-decidable numerical bounds:
 
   · `cabibbo_numerator`, `cabibbo_denominator` — exact
@@ -371,9 +371,9 @@ classical / PDG values.  The atomic discriminant
 
 ```bash
 cd lean
-lake build E213.Lib.Math.UniverseChain
+lake build E213.Lib.Math.Foundations.UniverseChain
 lake build E213.Lens.Number.Nat213
-python3 tools/scan_axioms.py Lib/Math/UniverseChain
+python3 tools/scan_axioms.py Lib/Math/Foundations/UniverseChain
 python3 tools/scan_axioms.py Lens/Number/Nat213
 ```
 

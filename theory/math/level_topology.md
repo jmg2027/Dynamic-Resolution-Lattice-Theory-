@@ -15,7 +15,7 @@ This is the topological-side counterpart to the algebra tower
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/LevelTopology/` (6 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Geometry/LevelTopology/` (6 files)
 - **Capstone**: `LevelTopology.Capstone`
 - **∅-axiom status**: PURE
 
@@ -30,7 +30,7 @@ This is the topological-side counterpart to the algebra tower
 
 ## Narrative
 
-The Cayley-Dickson tower (`Lib/Math/CayleyDickson/Tower/`) grows
+The Cayley-Dickson tower (`Lib/Math/Algebra/CayleyDickson/Tower/`) grows
 algebraic structure at each level.  The **topological** side does
 the same:
 
@@ -56,6 +56,6 @@ topological.
 
 ## Companion clusters
 
-- `Lib/Math/CayleyDickson/Tower/` (algebra tower, `theory/math/cayley_dickson/algebra_tower.md`)
-- `Lib/Math/AngleStructure/` (angle-structure — `theory/math/angle_structure.md`)
-- `Lib/Math/TriangularTower/` (triangular-tower architecture — `theory/math/triangular_tower.md`)
+- `Lib/Math/Algebra/CayleyDickson/Tower/` (algebra tower, `theory/math/cayley_dickson/algebra_tower.md`)
+- `Lib/Math/Geometry/AngleStructure/` (angle-structure — `theory/math/angle_structure.md`)
+- `Lib/Math/Geometry/TriangularTower/` (triangular-tower architecture — `theory/math/triangular_tower.md`)

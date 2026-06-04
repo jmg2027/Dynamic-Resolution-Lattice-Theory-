@@ -12,7 +12,7 @@ Establishes the **upper boundary** of 213's representable numbers.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Hyper/` (3 files)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Hyper/` (3 files)
 - **∅-axiom status**: PURE
 
 ## Narrative
