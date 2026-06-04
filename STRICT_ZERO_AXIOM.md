@@ -679,6 +679,8 @@ the two non-trivial `SelfReferenceThreeOutcomes` readings of one object.
 
 `E213.Lib.Math.Linalg213.DetZeroCol` — **3 PURE / 0 DIRTY**.  ★★ **A zero column ⟹ `det = 0`** (`det_zero_col`) — the column analog of `det_zero_row`, proved *directly from the Leibniz form* (no transpose): every permutation hits the zero column once (`mem_perm_of_lt`, via `LPerm.mem`+`mem_iota_of_lt`), so every diagonal product carries a zero factor (`prodDiagFrom_zero_of_mem`).
 
+`E213.Lib.Math.Linalg213.ProdLperm` — **3 PURE / 0 DIRTY**.  The multiplicative analog of `sumZ`/`sumZ_lperm`, the **foundation for the transpose determinant** `det Mᵀ = det M`.  `prodZ` (product of an `Int` list), ★ `prodZ_lperm` (**a product is invariant under `LPerm`** — reordering the factors, via `Int213.mul_left_comm`, mirroring `sumZ_lperm`), `prodZ_append`.  (Transpose itself then needs: the Leibniz term of `Mᵀ` = that of `M` at the inverse permutation, via the inverse on the list rep + `prodZ_lperm` on the diagonal-product factor list + `psign p = psign p⁻¹` + `perms` closed under inverse.)
+
 `E213.Lib.Math.Cauchy.CasoratianStep` — **5 PURE / 0 DIRTY**.  The discrete-Wronskian
 (Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form, + its telescoping:
 `telescope` — `P(n+1)g(n+1)=Q(n+1)g(n) ⟹ (∏P)·g(n)=(∏Q)·g(0)` (the sign-definite ζ(3)
