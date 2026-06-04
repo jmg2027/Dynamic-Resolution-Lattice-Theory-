@@ -1,10 +1,13 @@
 # The Markov uniqueness conjecture — the neighbor congruence and the `√(−1)` encoding
 
 **Status**: The arithmetic spine of the conjecture is closed ∅-axiom; uniqueness is proven
-unconditionally for every Markov number `≤ 1325`, and the residue-map injectivity is analysed down
-to a single open input (the Farey-monotone recovery).  Source of truth (all ∅-axiom):
-`lean/E213/Lib/Math/Real213/{MarkovUniqueness, MarkovCassiniBridge, MarkovModularBridge,
-MarkovInjectivity}.lean` + `ModArith/MarkovPrimeFactor.lean`.
+unconditionally for every odd prime power (Button's theorem) and for the composite Markov numbers
+`65, 610, 985, 1325`.  For composite `c` the structural reduction is complete: root-count
+(`= 2^{ω−1}`), the unit-root group, its free action, and nontrivial-root existence are all closed, so
+the entire open content is isolated to one realisability hypothesis `H` (the upper-fold orbit tower,
+§20–§26).  The residue-map injectivity is separately analysed down to the Farey-monotone recovery.
+Source of truth (all ∅-axiom): `lean/E213/Lib/Math/Real213/{MarkovUniqueness, MarkovCassiniBridge,
+MarkovModularBridge, MarkovInjectivity, SternBrocotMarkov}.lean` + `ModArith/MarkovPrimeFactor.lean`.
 
 ## The conjecture
 
@@ -289,6 +292,66 @@ repo's `Mobius213SternBrocot` / `ConvergentDet`.  The *general* conjecture's ope
 *root-counting* (Markov-realisability of the `2^{ω−1}` window-roots for composite `c`, `ω ≥ 2`),
 not the injectivity of `triple ↦ u`.
 
+## The upper-fold pattern: the unit-root group and the orbit reduction
+
+The composite case (`ω ≥ 2`) is closed structurally down to a single residual statement by a tower
+of six folds, each the same `±` self-pointing read at a finer resolution
+(`Real213/SternBrocotMarkov`, §20–§26).  The method is uniform: every wall, when templatised, is
+again a fold.
+
+  * **The window is the `±`-fold transversal** (`window_fold_transversal`, §20).  The roots of
+    `x² ≡ −1 (mod c)` carry the involution `σ(u) = c − u` (`neg_root_is_root`: `σ` preserves the
+    root set, `σ² = id`).  The window `0 < u < c/2` (`markov_window`) is a *transversal* of `σ` —
+    it selects exactly one representative of each pair `{u, c−u}` (`window_excludes_partner`: a
+    windowed root's fold-partner is non-windowed, `2(c−u) > c`).  So **Markov uniqueness = fold by
+    `σ` (the window) + the realised fold-point is unique** (`WindowRealizedUnique c`,
+    `markov_max_unique_of_window_realized_unique`).  This is the same fold the repo reads as the
+    unit's two faces (`HyperbolicEllipticTrace`, the `Δ`-sign `φ/π` split), `0/∞` as one reciprocal
+    hole (`ZeroInfinityHole`), and the `±`/Cassini sign (`DetSpectrumPoles`).
+
+  * **The root set is a torsor under the unit-root group** (`sqrtUnity_acts_on_root`, §21).  Define
+    `SqrtUnity c e := e² ≡ 1 (mod c)`.  This is a group under mod-multiplication (`sqrtUnity_mul`)
+    that acts on the `√(−1)` roots (`e² ≡ 1 ∧ r² ≡ −1 ⟹ (e·r)² ≡ −1`).  The `±` involution `σ` is
+    *one* element of it — multiplication by `c − 1`: `neg_one_sqrtUnity` ((c−1)² ≡ 1) together with
+    `neg_one_mul_is_neg` ((c−1)·r ≡ −r) pin `c − 1 = −1` exactly.
+
+  * **The fold is a product of folds** (`sqrtUnity_lift`, §22).  The group is *multiplicative*
+    across coprime factors: a unit-root mod `m` and mod `n` is a unit-root mod `m·n` (engine:
+    `mul_dvd_of_coprime`, the coprime multiplicative lift, via `euclid_of_coprime`).  So at
+    `c = ∏ pᵢ^{aᵢ}` the group contains the product `∏ {±1 mod pᵢ}` — one `±` fold per prime, hence
+    `2^ω` unit-roots.  Made arithmetic at `1325 = 25·53`: the nontrivial unit-root `476` carries
+    the realised root `507` to the phantom `182` (`476·507 ≡ 182`, `phantom_is_unit_root_image_1325`)
+    — both genuine `√(−1)`, one full-group orbit, different `±`-suborbits.
+
+  * **The product is inhabited** (`nontrivial_unit_root_exists`, §23).  For `c = m·n` with
+    `m, n ≥ 3` coprime there is `e ∉ {1, c−1}` with `e² ≡ 1 (mod c)`, built by CRT as `e ≡ 1 mod m`,
+    `e ≡ −1 mod n` (`e = 1 + m·t`, `t ≡ (n−2)·m⁻¹ mod n`, inverse from `inverse_of_coprime`).  So
+    `SqrtUnity c ⊋ {±1}` *unconditionally* at every two-factor composite: the `2^ω` explosion is
+    real, phantoms genuinely exist, and uniqueness there **cannot** come from root-counting.
+
+  * **The group acts freely** (`root_orbit_inj`, §24).  A `√(−1)` root `u` is a unit, with explicit
+    inverse `c − u` (`root_inverse`: `u·(c−u) ≡ 1`, from `u·(c−u) + (u²+1) = u·c + 1`).
+    Multiplication by a unit is cancellable (`unit_cancel_of_inv`), so the group acts freely: the
+    `2^ω` unit-roots give `2^ω` *distinct* roots, the window keeps `2^{ω−1}` distinct windowed roots,
+    one per `±`-suborbit.  The windowed-root count is thereby settled *exactly* (`= 2^{ω−1}`).
+
+  * **The reduction** (`windowRealizedUnique_of_orbit`, §25; `markov_max_unique_of_orbit`, §26).
+    Two distinct windowed roots `u₁ ≠ u₂` are related by a *nontrivial* unit-root
+    (`windowed_distinct_multiplier`: `e·u₁ ≡ u₂` forces `e ∉ {1, c−1}`, else `u₂ = u₁` or
+    `u₂ = c−u₁` non-windowed).  Hence `MarkovMaxUnique c` follows from a single hypothesis `H`: **no
+    nontrivial-unit-root image of a realised windowed root is itself realised.**  The end-to-end
+    closure `markov_max_unique_1325_via_orbit` discharges `H` at `1325` the structural way — the
+    `u₁ = u₂ = 507` case is killed by `root_orbit_inj` (a nontrivial `e` with `e·507 ≡ 507` would
+    force `e ≡ 1`), and `182`'s non-realisability is the phantom datum.
+
+So for composite `c` the picture is exact: root-count `= 2^{ω−1}`, group structure, free action, and
+existence are all `∅`-axiom; **the entire open content is the hypothesis `H`** — *which* of the
+`2^{ω−1}` `±`-suborbits carries a Markov triple.  This sharpens the classical statement: the open
+question is not counting (all `2^{ω−1}` candidates are genuine roots, indistinguishable by congruence)
+but *realisability* — an `∃!`-style statement that the `±`-fold relation between any two windowed roots
+obstructs simultaneous Markov-realisation.  For prime powers `H` is vacuous (`SqrtUnity = {±1}`,
+recovering Button); for `ω ≥ 2` it is the live Frobenius conjecture.
+
 ## How to verify
 
 ```bash
@@ -296,11 +359,13 @@ cd lean
 lake build E213.Lib.Math.Real213.MarkovUniqueness \
            E213.Lib.Math.Real213.MarkovCassiniBridge \
            E213.Lib.Math.Real213.MarkovModularBridge \
-           E213.Lib.Math.Real213.MarkovInjectivity
+           E213.Lib.Math.Real213.MarkovInjectivity \
+           E213.Lib.Math.Real213.SternBrocotMarkov
 cd ..
-for m in MarkovUniqueness MarkovCassiniBridge MarkovModularBridge MarkovInjectivity; do
+for m in MarkovUniqueness MarkovCassiniBridge MarkovModularBridge MarkovInjectivity SternBrocotMarkov; do
   python3 tools/scan_axioms.py E213.Lib.Math.Real213.$m
 done
 ```
 All `pure / 0 dirty` (`MarkovUniqueness` 80, `MarkovCassiniBridge` 4, `MarkovModularBridge` 2,
-`MarkovInjectivity` 9; plus `ModArith/MarkovPrimeFactor` 28).
+`MarkovInjectivity` 9, `SternBrocotMarkov` 105; plus `ModArith/MarkovPrimeFactor` 28).  The orbit
+tower of the upper-fold section is §20–§26 of `SternBrocotMarkov`.

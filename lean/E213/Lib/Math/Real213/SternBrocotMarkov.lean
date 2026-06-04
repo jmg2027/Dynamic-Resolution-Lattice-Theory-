@@ -1695,6 +1695,8 @@ theorem markov_max_unique_1325 :
 
 /-! ## §20 — the upper-fold pattern: the window is the transversal of the `±` involution
 
+  Narrative: `theory/math/analysis/markov_uniqueness.md` "The upper-fold pattern" (§20–§26 here).
+
   The template `markov_max_unique_of_window_realized_unique` is not just a tool for closing numbers —
   it is the **upper-fold pattern** made into a theorem.  The roots of `x²≡−1 mod c` carry the natural
   **`±` involution** `σ(u) = c − u = −u mod c` (`neg_root_is_root`: `σ` preserves the root set,
