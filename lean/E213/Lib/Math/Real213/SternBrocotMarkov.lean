@@ -1881,4 +1881,83 @@ theorem phantom_is_unit_root_image_1325 :
     (476 * 507) % 1325 = 182 ∧ (507 * 507 + 1) % 1325 = 0 ∧ (182 * 182 + 1) % 1325 = 0 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
+/-! ## §23 — nontrivial unit-root existence: the open content closed for `ω = 2`
+
+The CRT *existence* the §21–§22 reading needs.  At `c = m·n` with `m, n ≥ 3` coprime there is an
+`e ∉ {1, c−1}` with `e² ≡ 1 mod c`.  Construction: `e = 1 + m·t` with `t ≡ (n−2)·m⁻¹ mod n`, so
+`e ≡ 1 mod m` and `e ≡ −1 mod n` — the CRT product element `(1, −1) ∈ Z/m × Z/n`, a non-diagonal
+member of the unit-root group, hence `≠ ±1`.  `sqrtUnity_lift` (§22) certifies `e² ≡ 1 mod c`; the
+modular inverse `m⁻¹` comes from `inverse_of_coprime`/`modBezout`.
+
+This closes the *existence* half of the open Markov content at `ω = 2`: phantoms provably exist at
+every two-factor composite — so uniqueness there is **not** free from root-counting, it must come from
+Markov realizability (`WindowRealizedUnique`, §18).  The construction is the CRT product = product of
+the two `±` folds, the §22 mechanism made constructive — the upper-fold pattern, one resolution down. -/
+
+/-- Arithmetic helper: `1 + (n−2) = n−1` for `n ≥ 2`. -/
+theorem aux_1_add_sub2 (n : Nat) (hn : 2 ≤ n) : 1 + (n - 2) = n - 1 := by
+  obtain ⟨k, hk⟩ := Nat.le.dest hn
+  have hk' : n = k + 2 := by rw [← hk]; exact Nat.add_comm 2 k
+  rw [hk']
+  exact Nat.add_comm 1 k
+
+/-- Arithmetic helper: `(m·n − 1) % m = m − 1` for `m, n ≥ 1` (i.e. `m·n − 1 ≡ −1 mod m`). -/
+theorem aux_pred_mul_mod (m n : Nat) (hm0 : 0 < m) (hn0 : 0 < n) : (m * n - 1) % m = m - 1 := by
+  have hm_pred : m - 1 + 1 = m := Nat.succ_pred_eq_of_pos hm0
+  have hn_pred : n - 1 + 1 = n := Nat.succ_pred_eq_of_pos hn0
+  have hkey : m * (n - 1) + (m - 1) + 1 = m * n := by
+    rw [Nat.add_assoc, hm_pred, show m * (n - 1) + m = m * ((n - 1) + 1) from by ring_nat, hn_pred]
+  have hsplit : m * n - 1 = m * (n - 1) + (m - 1) := by
+    rw [← hkey, E213.Tactic.NatHelper.add_sub_cancel_right]
+  rw [hsplit, Nat.add_comm (m * (n - 1)) (m - 1), Nat.mul_comm m (n - 1),
+      E213.Tactic.NatHelper.add_mul_mod_self_pure (m - 1) m (n - 1)]
+  exact Nat.mod_eq_of_lt (Nat.sub_lt hm0 (by decide))
+
+/-- ★★★★★ **Nontrivial unit-root existence (`ω = 2`).**  At `c = m·n`, `m, n ≥ 3` coprime, there is
+    `e ∉ {1, c−1}` with `e² ≡ 1 mod c` — built by CRT as `e ≡ 1 mod m`, `e ≡ −1 mod n`.  So
+    `SqrtUnity c ⊋ {±1}` *unconditionally* at every two-factor composite: the `2^ω`-root explosion is
+    real, phantoms genuinely exist, and Markov uniqueness there cannot come from root-counting alone —
+    it is exactly what `WindowRealizedUnique` (§18) must supply.  Closes the existence half of the open
+    content at `ω = 2`. -/
+theorem nontrivial_unit_root_exists (m n : Nat) (hm : 3 ≤ m) (hn : 3 ≤ n)
+    (hco : gcd213 m n = 1) :
+    ∃ e, SqrtUnity (m * n) e ∧ e ≠ 1 ∧ e ≠ m * n - 1 := by
+  have hm0 : 0 < m := Nat.lt_of_lt_of_le (by decide) hm
+  have hn0 : 0 < n := Nat.lt_of_lt_of_le (by decide) hn
+  have hm1 : 1 < m := Nat.lt_of_lt_of_le (by decide) hm
+  have hn1 : 1 < n := Nat.lt_of_lt_of_le (by decide) hn
+  have hsinv : (m * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2) % n = 1 := by
+    rw [E213.Lib.Math.ModArith.MarkovPrimeFactor.inverse_of_coprime m n hn0 hco,
+        Nat.mod_eq_of_lt hn1]
+  have htexists : ∃ t, (m * t) % n = n - 2 := by
+    refine ⟨((n - 2) * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2) % n, ?_⟩
+    rw [← E213.Meta.Nat.MulMod213.mul_mod_right_pure m
+          ((n - 2) * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2) n,
+        show m * ((n - 2) * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2)
+           = (n - 2) * (m * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2) from by ring_nat,
+        E213.Meta.Nat.MulMod213.mul_mod_right_pure (n - 2)
+          (m * (E213.Lib.Math.ModArith.ModBezout.modBezout m n).2) n,
+        hsinv, Nat.mul_one]
+    exact Nat.mod_eq_of_lt (Nat.sub_lt hn0 (by decide))
+  obtain ⟨t, ht⟩ := htexists
+  have ham : (1 + m * t) % m = 1 := by
+    rw [Nat.mul_comm m t, E213.Tactic.NatHelper.add_mul_mod_self_pure 1 m t]
+    exact Nat.mod_eq_of_lt hm1
+  have han : (1 + m * t) % n = n - 1 := by
+    rw [E213.Meta.Nat.AddMod213.add_mod_gen, ht, Nat.mod_eq_of_lt hn1, aux_1_add_sub2 n hn1]
+    exact Nat.mod_eq_of_lt (Nat.sub_lt hn0 (by decide))
+  have hem : (1 + m * t) * (1 + m * t) % m = 1 := by
+    rw [E213.Meta.Nat.MulMod213.mul_mod_pure, ham, Nat.one_mul]
+    exact Nat.mod_eq_of_lt hm1
+  have hen : (1 + m * t) * (1 + m * t) % n = 1 := by
+    rw [E213.Meta.Nat.MulMod213.mul_mod_pure, han]
+    exact neg_one_sqrtUnity n hn1
+  refine ⟨1 + m * t, sqrtUnity_lift m n (1 + m * t) hm1 hn1 hco hem hen, ?_, ?_⟩
+  · intro he
+    rw [he, Nat.mod_eq_of_lt hn1] at han
+    exact absurd (han.symm ▸ Nat.sub_le_sub_right hn 1 : (2 : Nat) ≤ 1) (by decide)
+  · intro he
+    rw [he, aux_pred_mul_mod m n hm0 hn0] at ham
+    exact absurd (ham ▸ Nat.sub_le_sub_right hm 1 : (2 : Nat) ≤ 1) (by decide)
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
