@@ -16,6 +16,7 @@ import E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
 import E213.Lib.Math.NumberTheory.ModArith.PrimeSquareFactor
 import E213.Lib.Math.NumberTheory.ModArith.EisensteinCubeRoot
 import E213.Lib.Math.NumberTheory.ModArith.CubeFromFLT
+import E213.Lib.Math.NumberTheory.ModArith.NonFixedExists
 import E213.Lib.Math.NumberTheory.ModArith.FP2Sqrt5
 import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 
@@ -63,4 +64,8 @@ import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
     * `CubeFromFLT`         — FLT bridge: a non-cube-fixed element `a^m ≢ 1`
                               (with `p−1 = 3m`, `a^(p−1) ≡ 1`) yields `∃ x, p ∣ x²+x+1`
                               via `z = a^m − 1` and `cube_root_of_order3`
+    * `NonFixedExists`      — Lagrange's bound ⟹ a non-cube-fixed element exists:
+                              `∃ a, 1 ≤ a ∧ a < p ∧ a^m % p ≠ 1` (constructive bounded
+                              search refuted in the `none`-branch by `RootBound.eval_zero`
+                              on `Tᵐ − 1` over the distinct residues `[1, p)`)
 -/
