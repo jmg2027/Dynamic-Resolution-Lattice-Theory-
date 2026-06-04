@@ -675,6 +675,10 @@ the two non-trivial `SelfReferenceThreeOutcomes` readings of one object.
 
 `E213.Lib.Math.Linalg213.DetTriangular` — **8 PURE / 0 DIRTY**.  ★★ **The triangular determinant** `det_lower_triangular`: a lower-triangular matrix (`M i j = 0` for `i < j`) has `det n M = Π_{i<n} Mᵢᵢ` (`prodZ` of the diagonal).  Row-`0` cofactor expansion collapses to the single `M₀₀·det(minor M 0)` term (`cofSum_lowerTri`, since the rest of row `0` is zero), and the `(0,0)`-minor is again lower-triangular with shifted diagonal (`minor0_lowerTri`); induction accumulates the product (front-peel `iota_cons`: `iota (n+1) = 0 :: (iota n).map succ`).  Corollary ★ `det_matId` — **`det matId = 1`** (the identity is lower-triangular with unit diagonal; `prodZ_map_one`).
 
+`E213.Lib.Math.Linalg213.DetScale` — **4 PURE / 0 DIRTY**.  ★★ **The scaling determinant** `det_smul`: `det n (c·M) = cⁿ · det n M` (each of the `n` rows of a Leibniz term contributes one factor `c`; via `prodDiagFrom_smul` (`prodDiagFrom (c·M) = c^{|p|}·prodDiagFrom M`) + `leibTerm_smul` + `sumZ_map_smul`, `perm_length` pinning `|p|=n`).
+
+`E213.Lib.Math.Linalg213.DetZeroCol` — **3 PURE / 0 DIRTY**.  ★★ **A zero column ⟹ `det = 0`** (`det_zero_col`) — the column analog of `det_zero_row`, proved *directly from the Leibniz form* (no transpose): every permutation hits the zero column once (`mem_perm_of_lt`, via `LPerm.mem`+`mem_iota_of_lt`), so every diagonal product carries a zero factor (`prodDiagFrom_zero_of_mem`).
+
 `E213.Lib.Math.Cauchy.CasoratianStep` — **5 PURE / 0 DIRTY**.  The discrete-Wronskian
 (Abel/Liouville) law for a 3-term recurrence in subtraction-free `ℕ` form, + its telescoping:
 `telescope` — `P(n+1)g(n+1)=Q(n+1)g(n) ⟹ (∏P)·g(n)=(∏Q)·g(0)` (the sign-definite ζ(3)
