@@ -362,3 +362,57 @@ alternating (`leibDet_rowSwap`, `leibDet_eq_zero_of_rows_eq`, `leibDet_eq_zero_o
    needs each `p ∈ perms n` to decompose `pre++y::x::l` at `k` with `x≠y` — from nodup `p`; then
    `sumZ_map_neg` + `map_lperm` + `sumZ_lperm` + closure), whence equal rows ⟹ `2·leibDet = 0` ⟹
    `0` (ℤ domain).  Then §6-bridge `leibDet = DetN.det` (Laplace) for char-poly/CH.
+
+## Update — §6 the matrix ring + `PolyZ` (CayleyHamilton 25 PURE, PolyZ 16 PURE)
+
+With the adjugate identity `M·adj M = det M·I` banked (Laplace, 53 PURE), the integer
+Cayley–Hamilton telescoping needs a **matrix ring** + an **integer-polynomial** layer.  Both
+started, ∅-axiom.
+
+**`Linalg213/CayleyHamilton.lean` (25 PURE)** — the matrix ring over `Nat→Nat→Int`:
+- **§1 Fubini** `sumZ_map_zero`, ★ `sumZ_swap` (finite double-sum swap), `sumZ_map_smul_right`.
+- **§2** ★★ `matMul_assoc` (matrix multiplication associative, via Fubini).
+- **§3** `matId`/`matAdd`/`matNeg`/`matZero`/`matScalar`; ★ Kronecker-delta sums
+  `sumZ_iota_delta_ge`/`_lt`; ★ `matMul_id_left`/`_right` (`I·M=M`, `M·I=M` at in-range indices).
+- **§4** ★ distributivity `matMul_addL`/`_addR`, `matMul_scalarL`, `matMul_negL` (+ `sumZ_map_neg`,
+  `neg_zero'`); `matPow` (`M^0=I`, `M^{k+1}=M·M^k`).
+- **§5** `matSumZ` (entrywise matrix sum over a `List Nat`); ★ `matMul_matSumZ_right`/`_left`
+  (matMul distributes over a matrix sum, via Fubini) + `matSumZ_add`.
+
+**`Lib/Math/PolyZ.lean` (16 PURE)** — integer-coefficient polynomials (the `ℕ`-valued
+`Polynomial213` cannot carry the signed `xI−M`):
+- `PolyZ := List Int` (low-to-high), Horner `eval`, `C`/`Xp`/`addP`/`negP`/`scaleP`/`shiftP`/
+  `mulP`/`coeff`.
+- ★ **eval soundness** `eval_C`/`eval_Xp`/`eval_addP`/`eval_scaleP`/`eval_shiftP`/`eval_negP`/
+  ★★`eval_mulP` — each op commutes with evaluation (`PolyZ` is a commutative-ring reflection of
+  `Int`).
+
+### The concretized remaining plan (eval + uniqueness, reusing the Int adjugate)
+
+The key move that AVOIDS re-deriving the cofactor/adjugate theory over `PolyZ`: get the
+characteristic-polynomial coefficients via a **recursive poly-det** but prove the adjugate
+identity over `PolyZ` by **evaluation + uniqueness**, transporting the Int identity
+`matMul (xI−M) (adj (xI−M)) = det(xI−M)·I` (already ∅-axiom, holds for every integer `x`).
+
+1. **poly-det** `pdet : Nat → (Nat→Nat→PolyZ) → PolyZ` (recursive cofactor, ~10 lines) + poly
+   matrix ops; **eval-soundness** `eval (pdet A) x = det (evalMat A x)` and eval over poly-matMul
+   (via `eval_addP`/`eval_mulP`).
+2. **uniqueness** `(∀ x, eval p x = eval q x) → trim p = trim q` (or coeff-wise).  Route:
+   **Vandermonde-via-adjugate** — `V·c = 0` (the eval-at-`0..L-1` vector) with `V` the Vandermonde
+   matrix; `adj V · V = det V · I` (the **Int adjugate identity, reused**) ⟹ `det V · c_k = 0`;
+   `det V ≠ 0` (distinct integer nodes) + `ℤ` integral-domain ⟹ `c_k = 0`.  (Vandermonde
+   `det ≠ 0` = the product-of-differences determinant — a bounded sub-lemma.)  Alternative route:
+   remainder theorem `p(X)=(X−r)q(X)+p(r)` + root-count induction (needs synthetic division on the
+   low-to-high list).
+3. **charMat** `xI−M` as a poly-matrix; `χ := pdet charMat` (monic, integer); `padj := poly-adj`.
+   Adjugate identity over `PolyZ` `charMat · padj = χ • polyId` by eval-at-all-`x` (step 1 +
+   the Int adjugate) + uniqueness (step 2).
+4. **telescoping** read the `PolyZ` identity coefficient-wise: `B_k := coeff-matrix of padj`,
+   `c_k := coeff χ`; relations `−M B_0 = c_0 I`, `B_{k-1}−M B_k = c_k I`, `B_{N-1}=I`; then
+   `χ(M) = Σ c_k M^k = 0` by the index-shift telescoping — consumes §4/§5 matrix-ring laws
+   (`matMul_addL`, `matMul_matSumZ_*`, `matPow`).  ⟹ ★★★ integer Cayley–Hamilton `χ(M)=0`.
+5. **§7 Kronecker `M`** from the two companion recurrences; `V(n+1)=M·V(n)`; apply CH; the first
+   component yields the monic shift recurrence ⟹ `cfiniteZ_of_shiftRec` ⟹ `cfiniteZ_mul`.
+
+The matrix-ring (§1–§5) + `PolyZ` are banked and route-independent; the gate is now step 2
+(polynomial uniqueness) which itself **reuses the Int adjugate identity** (Vandermonde route).
