@@ -117,9 +117,58 @@ discrete structure goes exactly as far as the tree's order relation and no furth
 the cross-line gap needs a new global argument (continuant comparison across incomparable nodes), not a
 repackaging of what is here.
 
+## Cross-domain tool inventory (broad survey — what each area gives the cross-line wall)
+
+A sweep of Real213/Analysis, Cohomology, GRA, and Algebra213, asking *which existing machinery is the
+right type of tool for comparing the size of two **incomparable** Stern-Brocot nodes*.  Verdict per
+area — candidates, not proofs (the cross-node argument remains unbuilt; no domain hands it over free):
+
+- **Casoratian / C-finite (`Cauchy/`) — the genuine candidate.**  `casoratian_step`, `telescope`
+  (`CasoratianStep`), `second_casoratian` / `hankel3` (`SecondCasoratian`, the order-3 Casorati
+  determinant conserved at SL₃), `CFiniteZ` + orbit dimension (`OrbitDimension`), and the Cassini
+  ladder `cassini_general : L(n)·L(n+2) − L(n+1)² = d` (`Mobius213/Px/CharPolySelf`).  This is the
+  *discrete-Wronskian* apparatus — comparing two solutions of a linear recurrence by a determinant.
+  **Key identification**: the tree's own monotonicity engine `markovRes_cross`
+  (`u_r·m_t − u_t·m_r = m_l`, `§6`) and `markovRes_cross_left` *are* a Casoratian — the Wronskian of the
+  number-sequence `m` and the residue-sequence `u`, both solutions of the order-2 residue recurrence
+  (`markoff_res_vieta`, `tr·· − ··`).  A Stern-Brocot **line** is a fixed transfer-matrix iterated, so
+  `markovNum` along it is `C-finite` (an entry of `M·T^n`); comparing two *incomparable* lines is two
+  different transfer products — exactly what a Casoratian *can express*, and exactly the argument not
+  yet written.
+
+- **Cohomology mediant functor — a parallel, not a transfer.**  `MediantCohomologyFunctor` splits cell
+  counts under the mediant by a **Vandermonde-2** law (`binom(a+b,2) = binom a 2 + binom b 2 + a·b`;
+  `edgeCount_mediant` 4-term, `faceCount_mediant_factored` 9-product).  The mediant recursion is the
+  *same* operation, but the invariant is a *count*, not the node *size* — structurally suggestive (the
+  mediant has a determinantal/Vandermonde shadow), not a size-comparison tool.  `CrossProductAxes`
+  (`CrossAddress` = bipartite × tripartite × P-orbit depth) gives a triple *address* but no size order.
+
+- **GRA — the `P`-backbone, no order.**  Graded residue arithmetic on the coprime grades `(NT,NS)=(2,3)`,
+  forced by `det P = 1` (`gradeLens = ⟨2,3,+⟩`, `canonicalGradeMap_universal`, five-Reading
+  universality).  This is *why* the Markov coefficient is `NS = 3` and why the whole cluster is one `P`
+  — the structural context, but GRA carries only the depth `⌈n/3⌉`, no ordering/recurrence for the
+  cross-line comparison.
+
+- **Algebra213 — a norm parallel, a different norm.**  `normSq_mul : N(uv) = N(u)·N(v)` (Hurwitz
+  multiplicativity, generic across the Cayley-Dickson tower).  The Markov number *is* a norm value (the
+  golden/silver forms `m²−mk−k²`, `x²−2y²` are `ℤ[φ]`/`ℤ[√2]` norms, `GoldenFormMarkov`), so norm
+  multiplicativity is conceptually adjacent — but Algebra213's norm is the division-algebra norm, not
+  the stable norm on `H¹(torus)`; a structural rhyme, not a direct tool.
+
+**Net.**  The broad survey confirms the earlier verdict precisely: the repo *has* the right *type* of
+instrument for the cross-line wall — the Casoratian/C-finite determinant apparatus — and the tree's
+existing Frobenius identities are already Casoratians.  What no area supplies is the *aiming*: an actual
+determinant comparison between two incomparable transfer products (the constant-sum Aigner line and
+beyond).  That is the one new argument; everything around it is in hand.
+
 ### Pointers
 - engine: `Real213/ModularGeodesicLens` (`mediantLens`, `mediantLens_view_reachable`)
-- slope reading closed: `Real213/SternBrocotMarkov` `slope_path_inj`, `§6–§8`
-- size reading (open kernel): `markovNum`, `markovMaxUnique_iff_orbitRealizabilityH`, `OrbitRealizabilityH`
+- slope reading closed: `Real213/SternBrocotMarkov` `slope_path_inj`, `§6–§8` (`markovRes_cross` = the tree Casoratian)
+- size reading: `markovNum`, `§30` (`markovNum_lt_extend`, `markovNum_lt_append`, descent done), open kernel
+  `markovMaxUnique_iff_orbitRealizabilityH`, `OrbitRealizabilityH`
+- candidate cross-line tools: `Cauchy/{CasoratianStep, SecondCasoratian, OrbitDimension}`,
+  `Mobius213/Px/CharPolySelf` (`cassini_general`), `Linalg213/FibCassiniDet`
+- structural parallels: `Cohomology/MediantCohomologyFunctor` (Vandermonde-2 mediant), `GRA/` (the
+  `(2,3)=P` backbone), `Meta/Algebra213` (`normSq_mul`, the norm rhyme)
 - narrative: `theory/essays/the_modular_geodesic_lens.md`, `theory/math/analysis/markov_uniqueness.md`
 - prior frontier notes: G167 (geodesic-flow framing, out of scope), G173/G174 (Markov uniqueness)
