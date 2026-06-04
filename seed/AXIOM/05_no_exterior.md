@@ -119,6 +119,40 @@ rules to produce results.  No such agent exists for 213.  What
 exists is the residue and its Lens readings; derivation is the
 internal relationship among readings.
 
+### Expressing and solving are the same act — pointing at a residue
+
+A proposition is a residue: stating it is pointing at a something
+(its Lens reading lands in the `Prop` codomain).  A **proof is also
+a residue** — the inhabitant that makes the proposition's reading
+hold is itself a distinguishable something, hence a `Raw`.  So there
+is no categorical gap between *expressing* a proposition and *solving*
+it: expressing points at the proposition-residue; solving points at
+the proof-residue.  The two differ only in **which residue is pointed
+at**, one fold-level apart, not in kind.
+
+Because there is no exterior (§5.1), a proof reaches toward no external
+truth.  The proof-residue's **existence is the proposition's truth**,
+and pointing at it is the truth-event (§1.5: when pointing succeeds,
+the act of pointing is what residue-internal being amounts to).  Hence
+"unsolved" is not a gap between *expressible* and *true*; it is a
+proof-residue **not yet pointed at** — not located in the residue
+family.
+
+**Guard (§8 falsifiability).**  Do not read "expressed but not yet
+solved" as a falsification of the reference claim.  The reference
+claim is that every referent — proofs included — is a `Raw`; it is
+intact, and demonstrated even on an open conjecture: a proposition is
+written `Raw`-native and its closed cases are solved by exhibiting the
+proof-residue (`lean/E213/Lib/Math/NumberSystems/Real213/MarkovUniquenessRaw.lean`:
+`markovMaxUnique_213_iff` writes Markov uniqueness with every number a
+`Lens.view` of `Raw`; `markovMaxUnique_213_solved_5` exhibits the
+inhabitant for `c = 5`).  What 213 does **not** claim is the
+*automatic location* of every proof-residue; the difficulty of an open
+problem is the difficulty of pointing at one specific residue in an
+infinite family, which no-exterior neither removes nor pretends to.
+Conflating "no leverage to locate the proof-residue" with "the
+reference campaign failed" is the category error this section closes.
+
 ---
 
 ## §5.4 Dichotomy-avoidance guide
