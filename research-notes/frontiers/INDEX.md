@@ -120,7 +120,11 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `archive/completeness/G168_eisenstein_completion.md` (the proven core).
 - `G121_dim4_self_pointing_axis` — the `d_M = d_213 − 1` geometrization ansatz;
   four open knots (M1)-(M4).  Side-observations feed
-  `theory/math/geometrization_conjecture.md` (R1 closed; R1+ open).
+  `theory/math/geometry/geometrization_conjecture.md` (R1 closed; R1+ open).
+- `betti_alpha_one_raw_lens` — synthesis: the "− 1" of `b₁ = NS² − 1 = 1/α₃`
+  read as one Raw self-pointing under three Lenses (kernel constant /
+  `SU(NS)` adjoint trace / self-pointing axis); seeds for the other forced
+  constants and a `c`-dependent higher-`b_k`.
 - `G123_padic_next_directions` — post-closure direction memo for the p-adic
   library (`theory/math/padic_real213.md`).
 - `G178_next_proofline_conjectures` — cross-arc conjecture seed / ranked agenda
