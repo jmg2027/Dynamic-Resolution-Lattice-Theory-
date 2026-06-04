@@ -23,8 +23,8 @@ number tower are the one residue read through the multiplicative and additive fo
   - `lean/E213/Lens/Number/FoldKlein.lean` — the Klein four-group + fixed-point-free antipode (9 PURE)
   - `lean/E213/Lib/Math/NumberSystems/Real213/FoldReflections.lean` — matrix witness: folds = reflections, `N·R = S` (11 PURE)
   - `lean/E213/Lib/Math/NumberSystems/Real213/EllipticCycleFixtures.lean` — `S` (ℤ₂) and `U` (ℤ₃) as cyclic fixtures (7 PURE)
-  - `lean/E213/Lib/Math/DetSpectrumPoles.lean` — the two poles as the two folds' non-values (1 PURE)
-  - `lean/E213/Lib/Math/MaxEntropy.lean` — structurelessness as a positive property (8 PURE)
+  - `lean/E213/Lib/Math/Algebra/DetSpectrumPoles.lean` — the two poles as the two folds' non-values (1 PURE)
+  - `lean/E213/Lib/Math/Probability/MaxEntropy.lean` — structurelessness as a positive property (8 PURE)
 - Canon: `seed/AXIOM/06_lens_readings.md` §6.5, §6.6, §6.9.
 - ∅-axiom status: 0 DIRTY across all files.
 

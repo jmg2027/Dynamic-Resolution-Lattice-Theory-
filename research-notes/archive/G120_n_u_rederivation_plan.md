@@ -572,9 +572,9 @@ Two parallel agents audited all consumers of `N_U`, `5^25`,
 
 **Active Tier-3 chapters with cap-framing**:
 - `theory/math/hyper.md:23-28` — "Beyond N_U, the value is not 213-internal"
-- `theory/math/topology.md:43-44` — "every Set X at resolution N_U has ≤ N_U elements"
-- `theory/math/cross_domain_unification.md:22` — "N_U = 5²⁵ as the resolution cutoff"
-- `theory/math/signed_cut.md:70` — "L26: absent — beyond the resolution limit"
+- `theory/math/geometry/topology.md:43-44` — "every Set X at resolution N_U has ≤ N_U elements"
+- `theory/math/foundations/cross_domain_unification.md:22` — "N_U = 5²⁵ as the resolution cutoff"
+- `theory/math/numbersystems/signed_cut.md:70` — "L26: absent — beyond the resolution limit"
 - `theory/math/number_grid.md` — "At N_U, the grid closes"
 
 **Pre-G120 archive direct violation**:

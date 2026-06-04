@@ -12,7 +12,7 @@ An integral is a Cut-Riemann sum over an explicit dyadic bracket
 chosen resolution and the area is the exact rational sum of the sample
 rectangles.  Refining the bracket sharpens the value at a *computable*
 rate rather than approaching an exterior real — the same modulus-carrying
-stance as the rest of the analysis cluster (`theory/math/modulus.md`).
+stance as the rest of the analysis cluster (`theory/math/analysis/modulus.md`).
 The underlying primitive is `fluxAlong` (in the `FluxMVT/` sibling):
 accumulation along a bracket, with `fluxAlong_const`, `fluxAlong_id`, and
 `fluxAlong_compose` giving the constant, identity, and composite cases.
@@ -67,5 +67,5 @@ two are inverse pointings.
 - `theory/math/analysis/differentiation.md` — the d/dx side; FTC closes the loop
 - `theory/physics/alpha_em/precision_derivation.md` — Wallis / Basel brackets
 - `theory/math/analysis/minimal_root.md` — DyadicSearch sibling
-- `theory/math/modulus.md` — explicit moduli (no ε-δ)
-- `theory/math/real213.md` — Real213 cut carrier
+- `theory/math/analysis/modulus.md` — explicit moduli (no ε-δ)
+- `theory/math/numbersystems/real213.md` — Real213 cut carrier

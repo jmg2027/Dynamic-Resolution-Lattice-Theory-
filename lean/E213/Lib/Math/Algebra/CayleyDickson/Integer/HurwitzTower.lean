@@ -3,7 +3,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.Hurwitz213
 /-!
 # Type D Hurwitz CD-doubling tower — L1 and L2
 
-Closes the `theory/math/cayley_dickson/algebra_tower.md` open
+Closes the `theory/math/algebra/cayley_dickson/algebra_tower.md` open
 frontier "Type D Hurwitz extension: whether a 'Type D tower'
 exists in the same sense as Types A/B/C".
 

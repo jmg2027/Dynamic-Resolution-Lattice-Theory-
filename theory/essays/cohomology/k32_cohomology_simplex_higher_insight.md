@@ -82,7 +82,7 @@ multigraph의 cell count를 산출하며, 두 산출의 증명 형태
 
 ## G138 Pattern B — Sym(3) spine
 
-`theory/math/sym3_spine.md`: 단일 표현론적 분해
+`theory/math/cohomology/sym3_spine.md`: 단일 표현론적 분해
 `8 = 2·trivial ⊕ 3·standard`이 네 개의 독립 장(chapter)에서
 load-bearing 구조로 재현된다:
 
@@ -140,12 +140,12 @@ skeleton-by-skeleton으로 펼쳐진 형태이다.
 ## Cross-references
 
 - `theory/math/cohomology/k32_higher_cohomology.md` — ω class + Steenrod
-- `theory/math/sym3_spine.md` — G138 Pattern B (4-reading)
+- `theory/math/cohomology/sym3_spine.md` — G138 Pattern B (4-reading)
 - `lean/E213/Lib/Math/Cohomology/NodupAsClause4.lean` — G138 Pattern D
 - `lean/E213/Lib/Math/Algebra/Mobius213/Mobius213K32Bridge.lean` — P ↔ K₃,₂²
 - `lean/E213/Lib/Math/Algebra/Mobius213/Px/PGeneratesNat.lean` — G140
 - `lean/E213/Lib/Math/Algebra/Mobius213/Px/ConvergentDet.lean` — Farey/Cassini
-- `theory/essays/synthesis_interlock_map.md` — 5-row correspondence
-- `theory/essays/p_orbit_closure_master.md` — 6-phase P-orbit
+- `theory/essays/synthesis/synthesis_interlock_map.md` — 5-row correspondence
+- `theory/essays/p_orbit/p_orbit_closure_master.md` — 6-phase P-orbit
 - `theory/physics/simplex.md` — Δ⁴ + 3-generation
   LocalSignature self-containment

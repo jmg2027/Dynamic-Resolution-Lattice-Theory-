@@ -343,7 +343,7 @@ arithmetic on Fin elements.
 
   · `theory/math/cohomology/k32_higher_cohomology.md` §K_{3,3} — narrative
   · `lean/E213/Lib/Math/Cohomology/Bipartite/` — full source tree
-  · `theory/math/mobius_canonical_equivalence.md` — Möbius P canonical structure
+  · `theory/math/algebra/mobius_canonical_equivalence.md` — Möbius P canonical structure
 
 ## Status
 

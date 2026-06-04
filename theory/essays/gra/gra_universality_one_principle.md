@@ -120,7 +120,7 @@ event no matter which field's vocabulary names it.
 The (2,3)-GRA structure rhymes with three other 213 facts and is
 not a separate phenomenon:
 
-  · **det(P) = 1** (`theory/math/mobius213_p_orbit_closure.md` —
+  · **det(P) = 1** (`theory/math/algebra/mobius213_p_orbit_closure.md` —
     P = [[2,1],[1,1]]).  Same NS = 3, NT = 2 from the same
     self-form fixed point.
   · **Frobenius = 1 for (2, 3)** (Chicken McNugget specialization):
@@ -149,7 +149,7 @@ five-Reading skeleton would compile and the translation theorems
 would land first.  The depth-level universality is closed; the
 carrier-level universality is the open marathon front.
 
-The narrative chapter `theory/math/gra_book.md` Ch. 7 lists the
+The narrative chapter `theory/math/algebra/gra_book.md` Ch. 7 lists the
 formalization gaps that would close at carrier enrichment; the
 Lean iso witnesses already pin down the depth-level statement, so
 no further omega-on-Nat work is needed to keep the present claim.

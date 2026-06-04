@@ -58,7 +58,7 @@ unit, which only the quotient-characteristic produces.
 `χ_M(M) = 0` is a self-pointing that closes — the operand fed its own characteristic returns to the
 origin.  This is the same fact as: the residue source has no exterior to dial
 (`seed/AXIOM/05_no_exterior.md` §5.1, no exterior dialer); the Möbius self-form fixed point
-`P(φ) = φ` (`theory/essays/mobius_self_form_fixed_point.md`); the trajectory-as-witness
+`P(φ) = φ` (`theory/essays/p_orbit/mobius_self_form_fixed_point.md`); the trajectory-as-witness
 self-covering. A finite operand needs no external
 coefficient to state its law because there is no exterior — the unit is the shared `det = 1`, and
 self-substitution lands on `0`.  The characteristic is the resolution of the operand by itself;

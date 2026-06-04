@@ -36,7 +36,7 @@ L¹-norm-squared ‖c‖² operates on H¹ cochains; for c in the
 Sym(3)-fixed subspace, this is the "trivial-isotypic" component
 of the precision contribution.
 
-On the cork side (`theory/math/exotic_4mfd_cork.md`), the same
+On the cork side (`theory/math/geometry/exotic_4mfd_cork.md`), the same
 four cochains appear as the singleton orbits in the Burnside
 count `sym3OrbitCount = 60`: 4 singletons + 28 size-3 + 28 size-6.
 The signed cork-twist count = 4 + 28 − 28 = +4

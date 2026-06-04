@@ -16,7 +16,7 @@ Universal-Pisano marathon (Phase 3.2/3.3 marathon) extends the chapter with:
 - The quadratic field extension `F_{p²} = F_p[√5]` with Frobenius
 
 These three are the algebraic substrate for the Pell-Fibonacci
-universal-prime closures in `theory/math/dyadic_fsm.md` (universal-Pisano marathon
+universal-prime closures in `theory/math/numbertheory/dyadic_fsm.md` (universal-Pisano marathon
 Phase 3.2/3.3/4).
 
 ## Lean source
@@ -95,7 +95,7 @@ mod `p`.  Key results:
   Pisano-period-prime closures.
 
 The 5 in `F_p[√5]` is forced by `φ = (1 + √5)/2` (golden ratio,
-the Pell-matrix eigenvalue from `theory/math/dyadic_fsm.md`'s
+the Pell-matrix eigenvalue from `theory/math/numbertheory/dyadic_fsm.md`'s
 Pell story).  Phase 3.3 in DyadicFSM lifts this into the
 universal-prime closure of the Pisano-period theorem for Pell.
 
@@ -285,8 +285,8 @@ re-proved locally via direct induction.
 
 ## Connection
 
-- `theory/math/universe_chain.md` — CRT decomposition (mod 5, mod 2)
-- `theory/math/dyadic_fsm.md` — Pell-Fibonacci universal closures
+- `theory/math/foundations/universe_chain.md` — CRT decomposition (mod 5, mod 2)
+- `theory/math/numbertheory/dyadic_fsm.md` — Pell-Fibonacci universal closures
   (Phase 3.2/3.3/4) consume `UniversalFLT` and `FP2Sqrt5`
 - `theory/physics/foundations/atomic_constants.md` — C2 uses
   `Nat.lt` + `Nat.sub` bridges similar to ModArith

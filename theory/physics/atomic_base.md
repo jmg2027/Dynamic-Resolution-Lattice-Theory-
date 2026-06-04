@@ -49,4 +49,4 @@ single-import citation.
 - `theory/physics/foundations/atomic_constants.md` — (NS, NT) = (3, 2) uniqueness
 - `theory/physics/symmetry/c3_chain.md` — Aut(K_{3,2}^{(c=2)}) gauge emergence
 - `theory/physics/alpha_em/precision_derivation.md` — 1/α_em = (NS²−1) + ...
-- `theory/math/universe_chain.md` — atomicity → Möbius
+- `theory/math/foundations/universe_chain.md` — atomicity → Möbius

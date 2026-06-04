@@ -18,7 +18,7 @@ cross-chapter structural recurrences.
 This note replaces (does not supersede) G137 — G137 captured
 post-G134 cut-off-principle patterns; this one catches what surfaces
 when reading the WHOLE corpus, including the post-merge additions
-(`theory/math/modulus_structure.md`, `theory/essays/cut_off_marathon.md`).
+(`theory/math/analysis/modulus_structure.md`, `theory/essays/cut_off_marathon.md`).
 
 ## Six insights
 
@@ -37,7 +37,7 @@ independent contexts:
   · `zeta_modulus` (`AlphaEM/precision_derivation` Step 6) — α_em
     Gram-correction modulus.
 
-`theory/math/modulus_structure.md` Option-A close documents the
+`theory/math/analysis/modulus_structure.md` Option-A close documents the
 3-way typeclass bridge between the first three.  The α_em
 `zeta_modulus` is a fourth instance that has NOT been added to the
 3-way framework yet — it lives in a different sub-tree but carries
@@ -72,7 +72,7 @@ records the 4-way convergence as a single theorem, but the corpus
 does not yet have a single chapter that EXPOSITS the Sym(3) spine
 itself as a central object.
 
-**Action**: write a chapter `theory/math/sym3_spine.md` (Pattern 2
+**Action**: write a chapter `theory/math/cohomology/sym3_spine.md` (Pattern 2
 narrative-from-scratch) collecting the four readings + the
 cross-frame capstone + a "why Sym(3) at d = 5" structural
 explanation.  Bridges cohomology, geometrization, physics, exotic
@@ -152,7 +152,7 @@ realisations rather than picking one canonical form:
   · Derivative: limit vs localDivergence vs IsDifferentiable
   · Cup product: standard `cup` (lex-projection) vs `cupAW`
     (Alexander–Whitney) — both PURE, neither canonical
-  · Modulus: continuity vs Ricci vs Cauchy-bracket (`theory/math/modulus_structure.md`)
+  · Modulus: continuity vs Ricci vs Cauchy-bracket (`theory/math/analysis/modulus_structure.md`)
 
 This is not indecision; it's systematic doctrine.  The corpus
 refuses to pick a canonical form when multiple framework-internal
@@ -165,21 +165,21 @@ the four instances + their pairwise bridges (where bridges exist)
 
 ## Cross-references
 
-- Pattern A: `theory/math/modulus_structure.md`,
+- Pattern A: `theory/math/analysis/modulus_structure.md`,
   `theory/physics/alpha_em/precision_derivation.md` Step 6
 - Pattern B: `theory/math/cohomology/k32_higher_cohomology.md`,
-  `theory/math/geometrization_conjecture.md`,
+  `theory/math/geometry/geometrization_conjecture.md`,
   `theory/physics/alpha_em/precision_derivation.md`,
-  `theory/math/exotic_4mfd_cork.md`
+  `theory/math/geometry/exotic_4mfd_cork.md`
 - Pattern C: `theory/meta/cardinality_cutoff_principle.md`,
-  `theory/math/dyadic_fsm.md`,
+  `theory/math/numbertheory/dyadic_fsm.md`,
   `theory/physics/foundations/atomic_constants.md`,
   `theory/math/cohomology/cup_ladder_graduation.md`
 - Pattern D: `theory/meta/methodology_patterns.md` Pattern #9,
   `AliveDerivation.lean`
 - Pattern E: `theory/meta/methodology_patterns.md` Pattern #8
 - Pattern F: `theory/meta/methodology_patterns.md` Patterns #17 / #20,
-  `theory/math/modulus_structure.md`,
+  `theory/math/analysis/modulus_structure.md`,
   `theory/math/cohomology/cup.md` (lex-vs-AW coexistence)
 
 ## Priority ranking

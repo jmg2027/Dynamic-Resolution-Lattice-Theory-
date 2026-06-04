@@ -51,7 +51,7 @@ matching exactly the kill theorems in
 ## 9-block disjointness as the cross-layer closure
 
 The disjoint-layer factorisation
-(`theory/essays/disjoint_layers_as_direct_sum.md`) has a
+(`theory/essays/cohomology/disjoint_layers_as_direct_sum.md`) has a
 syntactic shadow: edge indices in `K_{3,3}^{(c)}` are `9·m + r`
 with m the layer and r < 9 the in-layer position.  Distinct
 layers give disjoint `[9m, 9m + 9)` blocks.  The Nat.beq lemma
@@ -121,7 +121,7 @@ representative.  Same equation, different reduction depths.
 The same fact appears in four readings.  **Combinatorial**:
 `9·m + r` blocks tile edge indices.  **Categorical**: enriched
 complex direct-sums over c layers
-(`theory/essays/disjoint_layers_as_direct_sum.md`).
+(`theory/essays/cohomology/disjoint_layers_as_direct_sum.md`).
 **Cohomological**: c ψ-functionals span the cup-image
 annihilator (this essay).  **Algebraic**: c independent Massey-4
 witnesses (`psi_layer_rep4_eq_true_c{2..12}`).  All four are

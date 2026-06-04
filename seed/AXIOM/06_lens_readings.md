@@ -270,7 +270,7 @@ pair-swap.  This is realised, not adopted: `Int213` runs on
 `subNatNat m n = m − n` with the pair-arithmetic
 `(a,b)+(c,d)=(a+c,b+d)`, `(a−b)(c−d)=(ac+bd)−(ad+bc)` and the sign
 `−subNatNat m n = subNatNat n m` (`lean/E213/Meta/Int213/Core.lean`;
-essay `theory/essays/integers_as_difference_lens.md`).  The
+essay `theory/essays/analysis/integers_as_difference_lens.md`).  The
 difference operator that needs this group reads the count-Lens
 twice and names the pair — which is why ℤ is the readout group in
 which iterated differencing closes.

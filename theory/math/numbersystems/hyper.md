@@ -28,8 +28,7 @@ happens beyond the chosen evaluation level:
   a level-choice, not a privileged cap; CLAUDE.md "Universe-constant
   framing" failure mode forbids treating any one value as the
   invariant), and dynamic readings (Pell-Fib, Möbius P^n, ...) do
-  not close at the same substrate (per
-  `seed/RESOLUTION_LIMIT_SPEC.md`) — only its bracket-class is
+  not close at the same substrate — only its bracket-class is
   representable
 
 Used downstream as a sanity check: any DRLT observable computation
@@ -37,5 +36,4 @@ producing a value `> N_U` indicates a misconfiguration.
 
 ## Connection
 
-- `seed/RESOLUTION_LIMIT_SPEC.md` — `N_U` definition
-- `theory/math/dyadic_fsm.md` — FSM-based hyper recursion
+- `theory/math/numbertheory/dyadic_fsm.md` — FSM-based hyper recursion

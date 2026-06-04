@@ -174,6 +174,6 @@ python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Padic.NegInvolutionPres
 
 ## Citation guidance
 
-  · `theory/essays/pure_funext_avoidance.md` (essay-side narrative)
+  · `theory/essays/methodology/pure_funext_avoidance.md` (essay-side narrative)
   · This chapter (catalog-side reference)
   · `HANDOFF.md` (current marathon state)

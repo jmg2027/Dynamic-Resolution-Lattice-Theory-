@@ -157,7 +157,7 @@ to additional domains adds more witnesses to the same
 conclusion.
 
 `seed/AXIOM/03_form.md` §3.5 ("the residue's self-pointing
-fixed point") and `seed/AXIOM/07_self_reference.md` §8.5
+fixed point") and `seed/AXIOM/05_no_exterior.md` §5.6
 ("Möbius P as algebraic representation of self-pointing")
 identify P as the framework's canonical self-description.
 The catalog quantifies this: *55 ways P describes itself*,
@@ -195,7 +195,7 @@ verified ∅-axiom.
     enumerates *what P describes*; universal reduction would
     state that *every framework operation factors through
     P + decomposition pattern*.  The five architectural patterns
-    in `theory/essays/pure_funext_avoidance.md` are the
+    in `theory/essays/methodology/pure_funext_avoidance.md` are the
     within-fiber operational content; a sixth pattern
     (CD-Tensor Bundling) for fiber-changing operations is
     formalised in

@@ -6,7 +6,7 @@ import E213.Meta.Int213.Core
 
 The Möbius matrix [[2,1],[1,1]] is the *algebraic representation*
 of the residue's self-pointing fixed point (cf.
-`seed/AXIOM/03_form.md` §3.5, `07_self_reference.md` §8.5).
+`seed/AXIOM/03_form.md` §3.5, `seed/AXIOM/05_no_exterior.md` §5.6).
 The fixed point φ = (1+√5)/2 is the residue read through the
 numerical Lens — not a structure added to the axiom, but a
 consequence (∅-axiom theorem) of the 4 clauses.
@@ -25,8 +25,8 @@ Key relations encoded:
 
 ## Frozen + dynamic dualism
 
-Per `07_self_reference.md` §8.7, P admits two simultaneous Lens
-readings on the same residue:
+Per `seed/AXIOM/05_no_exterior.md` §5.7, P admits two simultaneous
+Lens readings on the same residue:
 
   - **Frozen reading**: φ² is the dominant eigenvalue of
     [[2,1],[1,1]] (algebraic fixed point of P; cf.

@@ -51,6 +51,6 @@ trajectory is finite at every level*.
 
 ## Companion clusters
 
-- `Lib/Math/Geometry/AngleStructure/` (angle-structure — `theory/math/angle_structure.md`)
-- `Lib/Math/Geometry/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)
-- `Lib/Math/Geometry/GenerationRule/` (generation rule — `theory/math/generation_rule.md`)
+- `Lib/Math/Geometry/AngleStructure/` (angle-structure — `theory/math/geometry/angle_structure.md`)
+- `Lib/Math/Geometry/LevelTopology/` (concrete topology per floor — `theory/math/geometry/level_topology.md`)
+- `Lib/Math/Geometry/GenerationRule/` (generation rule — `theory/math/geometry/generation_rule.md`)

@@ -14,7 +14,7 @@ This is the topology side of the closed paradigm domains (C6
 cross-domain unification).  The `IsModulusStructure` typeclass
 bridge (Continuity / Ricci / BracketCauchy) lives here as a
 sibling module; its dedicated narrative is
-`theory/math/modulus_structure.md`.
+`theory/math/analysis/modulus_structure.md`.
 
 ## Lean source
 
@@ -53,16 +53,16 @@ cap" — so compactness holds at every finite level.
 typeclass that unifies three sub-tree-local `Nat → Nat` modulus
 families (`IsContinuousModulus`, `IsRicciModulus`,
 `BracketCauchyModulus`) under one Lean-citable shape.  Full
-narrative + cross-frame discussion: `theory/math/modulus_structure.md`.
+narrative + cross-frame discussion: `theory/math/analysis/modulus_structure.md`.
 
 ### Connection to other chapters
 
-- `theory/math/operation_topology.md` — operations × topology
-- `theory/math/level_topology.md` — per-level topology
-- `theory/math/cross_domain_unification.md` (C6) — Topology as a
+- `theory/math/geometry/operation_topology.md` — operations × topology
+- `theory/math/geometry/level_topology.md` — per-level topology
+- `theory/math/foundations/cross_domain_unification.md` (C6) — Topology as a
   paradigm domain instance
-- `theory/math/modulus.md` — `HasModulus` / `StrongModulus` family
+- `theory/math/analysis/modulus.md` — `HasModulus` / `StrongModulus` family
   in `Lib/Math/Analysis/Modulus/` (separate sub-tree, same underlying
   Skolem-modulus principle)
-- `theory/math/geometrization_conjecture.md` "Open frontier" —
+- `theory/math/geometry/geometrization_conjecture.md` "Open frontier" —
   `IsRicciModulus` source typeclass

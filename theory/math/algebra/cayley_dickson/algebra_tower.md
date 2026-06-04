@@ -12,7 +12,7 @@ past-Moufang layer.
 > its φ-asymptote is P's eigenvalue and its Type C asymptote is conjunct
 > **H** of `Mobius213GrandUnification.grand_unification`.  For the full
 > map (Raw / Möbius / GRA / universe-chain / fractal-cohomology towers
-> as readings of the same object), see `theory/essays/tower_atlas.md`.
+> as readings of the same object), see `theory/essays/synthesis/tower_atlas.md`.
 >
 > **Sibling chapter.**  The *exceptional* rungs of this tower —
 > `E₆ = 2T`, `E₇ = 2O`, `E₈ = 2I` and their quadratic seeds `{√−3, √2,
@@ -56,7 +56,7 @@ The 4-row matrix indexes algebra types by their base ring:
 The `|Z_6| = 6` base of Type C reappears in the Lucas-Pell trace
 sequence as `L(3) = 18 = NS · 6`, linking the algebraic tower's
 Eisenstein unit group to the mod-p period structure of the Möbius
-213 matrix (see `theory/math/mobius213_p_orbit_closure.md`
+213 matrix (see `theory/math/algebra/mobius213_p_orbit_closure.md`
 §"Cross-reference — Cayley-Dickson Type C").  The mod-3 period
 `4 = NT²` directly encodes the Z_6 / Z_2 index.
 
@@ -344,7 +344,7 @@ Flexibility, by contrast, survives every rung (Sedenion is flexible).
 Its ∅-axiom proof over a non-associative base is foundationed in
 `Meta/Algebra213/CDDoubleFlexible.lean` (`FlexAlt213` + `flex_polar` +
 trace/sandwich lemmas) but not yet closed — see the `## Open frontier`
-section.  Essay: `theory/essays/cd_tower_polarization.md`.
+section.  Essay: `theory/essays/algebra/cd_tower_polarization.md`.
 
 ## Key results
 
@@ -452,8 +452,8 @@ python3 tools/scan_axioms.py Lib/Math/Algebra/CayleyDickson
 
 ## Citation guidance
 
-- ✅ `theory/math/cayley_dickson/algebra_tower.md` (primary narrative)
-- ✅ `theory/math/cayley_dickson/exceptional_axes.md` (sibling: the
+- ✅ `theory/math/algebra/cayley_dickson/algebra_tower.md` (primary narrative)
+- ✅ `theory/math/algebra/cayley_dickson/exceptional_axes.md` (sibling: the
   `E₆E₇E₈` exceptional-rung derivation)
 - ✅ archived G-notes for deep dives:
   `research-notes/archive/algebra_tower/G##_*.md`

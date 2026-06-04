@@ -379,6 +379,6 @@ python3 tools/scan_axioms.py Lens/Number/Nat213
 
 ## Citation guidance
 
-- ✅ `theory/math/universe_chain.md` (primary narrative)
+- ✅ `theory/math/foundations/universe_chain.md` (primary narrative)
 - ✅ archived notes for deep dives:
   `research-notes/archive/universe_chain/G##_*.md`

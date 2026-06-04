@@ -63,7 +63,7 @@ conceptual taxonomy (G104).
 | `G110_fluxmvt_deep_dive.md` | FLUX-1 (forward/backward unitBracket pair), FLUX-2 (passthrough class audit), FLUX-3 (∀-degree MVT/FTC research) | FLUX-1 closed (parametric `mvt_cutPow_unitBracket_{forward,backward}_at` exists at `Analysis/FluxMVT/FluxMVTPolynomial.lean`); FLUX-3 is research-grade open |
 | `G111_cohomology_deep_dive.md` | COH-1 (Prop52/53 pattern_eq_at), COH-2 (Hodge Prop 5_k), COH-3 (Leibniz4Mixed) | All three closed (`pattern10_eq_at`, `hodge_involution_pointwise_5`, `leibniz_pointwise_lift` templates exist; per-instance theorems delegate) |
 | `G112_hodge_conjecture_deep_dive.md` | Hodge program deep dive | Absorbed into `theory/math/cohomology/hodge_conjecture.md` |
-| `G113_dyadic_fsm_deep_dive.md` | DyadicFSM sub-tree analysis | Absorbed into `theory/math/dyadic_fsm.md` |
+| `G113_dyadic_fsm_deep_dive.md` | DyadicFSM sub-tree analysis | Absorbed into `theory/math/numbertheory/dyadic_fsm.md` |
 | `G114_cayley_dickson_deep_dive.md` | CD-1 (ring ext), CD-2 (conj_ne_id), CD-3 (Lipschitz assoc_*) | All three declared structurally minimal per G118 — `cases u; cases v; congr` is 2 lines, conj_ne_id per-instance witness is irreducible, assoc_* is `by decide` (no body) |
 | `G115_lib_physics_deep_dive.md` | PHYS-1 (FractalLevelZeta master), PHYS-2 (bracket-containment) | Both declared structurally minimal per G118 — master theorems are `refine ⟨...⟩ <;> decide` on ~10-conjunct (already maximally compact); bracket-containment is `by decide` on Nat inequalities (the `decide` IS the proof) |
 | `G116_pattern_catalog_deep_dive.md` | Pattern-catalog sub-tree analysis | Absorbed into `theory/math/pattern_catalog/pattern_catalog.md` |

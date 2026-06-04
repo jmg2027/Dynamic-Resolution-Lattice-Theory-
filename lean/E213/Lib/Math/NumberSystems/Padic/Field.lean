@@ -2,6 +2,7 @@ import E213.Lib.Math.NumberSystems.Padic.Arith
 import E213.Lib.Math.NumberSystems.Padic.Norm
 import E213.Lib.Math.NumberSystems.Padic.Hensel
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.NatRing213
 /-!
 # Real213-p-adic Field (ℚ_p localization)
 
@@ -272,6 +273,189 @@ theorem QpSeq.div_num (p : Nat) (hp : 1 < p) (a b : QpSeq p)
               (b.num.digits 0).val p).1 = 1) :
     (QpSeq.div p hp a b h_gcd).num
       = Zp.mul p (Nat.lt_of_succ_lt hp) a.num (QpSeq.inv p hp b h_gcd).num := rfl
+
+/-! ## General division on ℚ_p (non-unit denominator)
+
+`QpSeq.inv` / `QpSeq.div` require the denominator's numerator to be a
+**unit** (digit-0 coprime to `p`, valuation 0).  A general nonzero
+`b.num` factors as `p^v · u` with `u` a unit (`v = v_p(b.num)` the
+valuation, `u = shiftRight v b.num`).  Then
+
+  `1/b = 1/(b.num · p^(−b.shift)) = u⁻¹ · p^(b.shift − v)`,
+
+representable in `ℚ_p` because the shift carries the `p^(b.shift − v)`
+factor.  In `QpSeq` coordinates (`num · p^(−shift)`), exactly one of
+the Nat-truncated differences `b.shift − v`, `v − b.shift` is nonzero:
+
+  `invGeneral b v = ⟨shiftLeft (b.shift − v) (invFull u), v − b.shift⟩`.
+
+At `v = 0` (unit numerator) this reduces to `QpSeq.inv`
+(`invGeneral_unit_eq_inv`), so it is a genuine generalisation.  The
+caller supplies the valuation `v` and the unit witness on `u`
+(the first non-zero digit cannot be searched purely on an arbitrary
+sequence — `b.num` could be `0`, valuation `∞`). -/
+
+/-- **General multiplicative inverse** on `QpSeq`: invert a denominator
+    of arbitrary valuation `v`.  `h_gcd` witnesses that the unit part
+    `u = shiftRight v a.num` has digit-0 coprime to `p`. -/
+def QpSeq.invGeneral (p : Nat) (hp : 1 < p) (a : QpSeq p) (v : Nat)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v a.num).digits 0).val p).1 = 1) : QpSeq p where
+  num := Zp.shiftLeft p (Nat.lt_of_succ_lt hp) (a.shift - v)
+            (Zp.invFull p (Nat.lt_of_succ_lt hp) (Zp.shiftRight p v a.num) h_gcd)
+  shift := v - a.shift
+
+/-- Shift of `invGeneral` is `v − a.shift` (Nat-truncated). -/
+theorem QpSeq.invGeneral_shift (p : Nat) (hp : 1 < p) (a : QpSeq p) (v : Nat)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v a.num).digits 0).val p).1 = 1) :
+    (QpSeq.invGeneral p hp a v h_gcd).shift = v - a.shift := rfl
+
+/-- Numerator unfolding for `invGeneral`. -/
+theorem QpSeq.invGeneral_num (p : Nat) (hp : 1 < p) (a : QpSeq p) (v : Nat)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v a.num).digits 0).val p).1 = 1) :
+    (QpSeq.invGeneral p hp a v h_gcd).num
+      = Zp.shiftLeft p (Nat.lt_of_succ_lt hp) (a.shift - v)
+          (Zp.invFull p (Nat.lt_of_succ_lt hp) (Zp.shiftRight p v a.num) h_gcd) := rfl
+
+/-- **Consistency**: at valuation `v = 0` (unit numerator) `invGeneral`
+    equals the unit-only `QpSeq.inv`.  `shiftRight 0` is the identity
+    on digit-0 and `a.shift − 0 = a.shift`, `0 − a.shift = 0`. -/
+theorem QpSeq.invGeneral_unit_eq_inv (p : Nat) (hp : 1 < p) (a : QpSeq p)
+    (h_gcd0 : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p 0 a.num).digits 0).val p).1 = 1)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              (a.num.digits 0).val p).1 = 1) :
+    (QpSeq.invGeneral p hp a 0 h_gcd0).num.digits
+      = (QpSeq.inv p hp a h_gcd).num.digits :=
+  -- `shiftRight 0 a.num ≡ a.num` (since `j + 0 ≡ j`) and `a.shift − 0 ≡ a.shift`;
+  -- the `h_gcd` proofs are proof-irrelevant, so the two terms are definitionally equal.
+  rfl
+
+/-- **General division** `a / b` for arbitrary-valuation denominator:
+    `a · invGeneral b v`. -/
+def QpSeq.divGeneral (p : Nat) (hp : 1 < p) (a b : QpSeq p) (v : Nat)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v b.num).digits 0).val p).1 = 1) : QpSeq p :=
+  QpSeq.mul p (Nat.lt_of_succ_lt hp) a (QpSeq.invGeneral p hp b v h_gcd)
+
+/-- Shift of `divGeneral`: `a.shift + (v − b.shift)`. -/
+theorem QpSeq.divGeneral_shift (p : Nat) (hp : 1 < p) (a b : QpSeq p) (v : Nat)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v b.num).digits 0).val p).1 = 1) :
+    (QpSeq.divGeneral p hp a b v h_gcd).shift = a.shift + (v - b.shift) := rfl
+
+/-- Smoke: invert `p = 5` in `ℚ_5`.  `5 = p^1 · 1` has valuation 1 and
+    unit part `1`, so `1/5 = p^(−1)`: `invGeneral` returns shift `1`
+    and numerator digit-0 `= 1` (the inverse of the unit `1`). -/
+theorem QpSeq.smoke_invGeneral_p_5_shift
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout 1 5).1 = 1) :
+    (QpSeq.invGeneral 5 (by decide)
+      (QpSeq.ofNat 5 (by decide) 5) 1 h_gcd).shift = 1 := rfl
+
+/-- Smoke: the unit part of `5 ∈ ℤ_5` (after dropping valuation 1) has
+    digit-0 `= 1` — confirming `5 = p · 1`. -/
+theorem QpSeq.smoke_shiftRight_5_unit_digit :
+    ((Zp.shiftRight 5 1 (ZpSeq.digits_of_nat 5 (by decide) 5)).digits 0).val = 1 := rfl
+
+/-! ## General-division correctness
+
+`invGeneral (ofZp y) v` represents `u⁻¹ · p^(−v)` (numerator `invFull u`,
+shift `v`), where `u = shiftRight v y` is the unit part of a
+valuation-`≥v` `y`.  The ℚ_p value of `y · (1/y)` is therefore
+`(y · u⁻¹) · p^(−v)`, so correctness is the **numerator identity**
+`y · u⁻¹ ≡ p^v` at every truncation: the `p^v` and the shift `p^(−v)`
+cancel to value `1`.  `div_general_value` proves exactly this.
+
+Two pure helpers do the shift bookkeeping:
+`mul_mod_mul_left_pure` factors a power out of a modulus
+(`(p^v · Y) % p^(v+m) = p^v · (Y % p^m)`) and `trunc_add_mod` says a
+higher truncation reduces to a lower one mod the lower power
+(`x.trunc (b+c) % p^b = x.trunc b`). -/
+
+/-- PURE Nat: `(a · b) % (a · c) = a · (b % c)` (factor a common left
+    multiple out of a modulus).  ∅-axiom replacement for the propext-
+    tainted `Nat.mul_mod_mul_left`. -/
+private theorem mul_mod_mul_left_pure (a b c : Nat) (hc : 0 < c) :
+    (a * b) % (a * c) = a * (b % c) := by
+  have hdm : c * (b / c) + b % c = b := E213.Meta.Nat.AddMod213.div_add_mod b c
+  have key : a * (b % c) + (b / c) * (a * c) = a * b := by
+    rw [Nat.mul_comm (b / c) (a * c), E213.Tactic.NatHelper.mul_assoc a c (b / c),
+        ← Nat.mul_add, Nat.add_comm (b % c) (c * (b / c)), hdm]
+  rw [← key, E213.Tactic.NatHelper.add_mul_mod_self_pure (a * (b % c)) (a * c) (b / c)]
+  cases a with
+  | zero => rw [Nat.zero_mul, Nat.zero_mul]
+  | succ k =>
+    exact Nat.mod_eq_of_lt
+      (E213.Meta.Nat.NatRing213.nat_mul_lt_mul_left (Nat.succ_pos k) (Nat.mod_lt b hc))
+
+/-- A truncation reduces mod a lower power: `x.trunc (b + c) % p^b = x.trunc b`.
+    The higher digits sit at positions `≥ b`, contributing `0` mod `p^b`. -/
+private theorem trunc_add_mod (p : Nat) (hp : 0 < p) (x : ZpSeq p) (b : Nat) :
+    ∀ c, x.trunc (b + c) % p^b = x.trunc b
+  | 0 => by rw [Nat.add_zero]; exact Nat.mod_eq_of_lt (ZpSeq.trunc_lt_p_pow hp x b)
+  | c + 1 => by
+    show (x.trunc (b + c) + (x.digits (b + c)).val * p^(b + c)) % p^b = x.trunc b
+    have hrw : (x.digits (b + c)).val * p^(b + c)
+             = (x.digits (b + c)).val * p^c * p^b := by
+      rw [E213.Meta.Nat.PureNat.pow_add p b c, Nat.mul_comm (p^b) (p^c),
+          ← E213.Tactic.NatHelper.mul_assoc (x.digits (b + c)).val (p^c) (p^b)]
+    rw [hrw, E213.Tactic.NatHelper.add_mul_mod_self_pure
+          (x.trunc (b + c)) (p^b) ((x.digits (b + c)).val * p^c)]
+    exact trunc_add_mod p hp x b c
+
+/-- **General-division correctness** (numerator identity): for `y` of
+    valuation `≥ v` (`hlow`) with unit part `u = shiftRight v y` (`h_gcd`),
+    `y · u⁻¹ ≡ p^v` at every truncation.  Since `1/y = u⁻¹ · p^(−v)`
+    (`invGeneral (ofZp y) v`), this is `y · (1/y) ≡ 1` in `ℚ_p` with the
+    `p^v` matched by the shift `p^(−v)`. -/
+theorem Zp.div_general_value (p : Nat) (hp : 1 < p) (y : ZpSeq p) (v : Nat)
+    (hlow : ∀ j, j < v → (y.digits j).val = 0)
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight p v y).digits 0).val p).1 = 1) (n : Nat) :
+    (Zp.mul p (Nat.lt_of_succ_lt hp) y
+      (Zp.invFull p (Nat.lt_of_succ_lt hp) (Zp.shiftRight p v y) h_gcd)).trunc (v + (n + 1))
+      = (Zp.shiftLeft p (Nat.lt_of_succ_lt hp) v (ZpSeq.one p hp)).trunc (v + (n + 1)) := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  have hinner : ((Zp.shiftRight p v y).trunc (n + 1)
+      * (Zp.invFull p hp' (Zp.shiftRight p v y) h_gcd).trunc (v + (n + 1))) % p^(n + 1) = 1 := by
+    rw [E213.Meta.Nat.MulMod213.mul_mod_right_pure ((Zp.shiftRight p v y).trunc (n + 1))
+          ((Zp.invFull p hp' (Zp.shiftRight p v y) h_gcd).trunc (v + (n + 1))) (p^(n + 1))]
+    rw [show (Zp.invFull p hp' (Zp.shiftRight p v y) h_gcd).trunc (v + (n + 1)) % p^(n + 1)
+          = (Zp.invFull p hp' (Zp.shiftRight p v y) h_gcd).trunc (n + 1) from by
+        rw [Nat.add_comm v (n + 1)]
+        exact trunc_add_mod p hp' (Zp.invFull p hp' (Zp.shiftRight p v y) h_gcd) (n + 1) v]
+    rw [← Zp.mul_trunc p hp' (Zp.shiftRight p v y)
+          (Zp.invFull p hp' (Zp.shiftRight p v y) h_gcd) (n + 1)]
+    exact Zp.mul_invFull_correct p hp (Zp.shiftRight p v y) h_gcd n
+  rw [Zp.shiftLeft_trunc_above p hp' v (ZpSeq.one p hp) (n + 1),
+      ZpSeq.trunc_one_succ p hp n, Nat.mul_one]
+  rw [Zp.mul_trunc p hp' y (Zp.invFull p hp' (Zp.shiftRight p v y) h_gcd) (v + (n + 1))]
+  rw [show y.trunc (v + (n + 1)) = p^v * (Zp.shiftRight p v y).trunc (n + 1) from by
+        rw [← Zp.shiftLeft_shiftRight_trunc_of_low_zero p hp' v y hlow (v + (n + 1))]
+        exact Zp.shiftLeft_trunc_above p hp' v (Zp.shiftRight p v y) (n + 1)]
+  rw [E213.Tactic.NatHelper.mul_assoc (p^v) ((Zp.shiftRight p v y).trunc (n + 1))
+        ((Zp.invFull p hp' (Zp.shiftRight p v y) h_gcd).trunc (v + (n + 1)))]
+  rw [show p^(v + (n + 1)) = p^v * p^(n + 1) from E213.Meta.Nat.PureNat.pow_add p v (n + 1)]
+  rw [mul_mod_mul_left_pure (p^v) _ (p^(n + 1)) (Nat.pos_pow_of_pos (n + 1) hp')]
+  rw [hinner, Nat.mul_one]
+
+/-- Smoke: `5 · (1/5) ≡ 1` in `ℚ_5`.  `y = 5` has valuation 1 and unit
+    part `1`, so `5 · 1⁻¹ ≡ 5¹` (= `shiftLeft 1 one`) — the numerator
+    side of value `1`. -/
+theorem Zp.smoke_div_general_value_5
+    (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              ((Zp.shiftRight 5 1 (ZpSeq.digits_of_nat 5 (by decide) 5)).digits 0).val 5).1 = 1) :
+    (Zp.mul 5 (by decide) (ZpSeq.digits_of_nat 5 (by decide) 5)
+       (Zp.invFull 5 (by decide)
+         (Zp.shiftRight 5 1 (ZpSeq.digits_of_nat 5 (by decide) 5)) h_gcd)).trunc 2
+      = (Zp.shiftLeft 5 (by decide) 1 (ZpSeq.one 5 (by decide))).trunc 2 :=
+  Zp.div_general_value 5 (by decide) (ZpSeq.digits_of_nat 5 (by decide) 5) 1
+    (fun j hj => by
+      cases j with
+      | zero => decide
+      | succ k => exact absurd (Nat.lt_of_succ_lt_succ hj) (Nat.not_lt_zero k)) h_gcd 0
 
 /-! ## Square root on ℚ_p
 

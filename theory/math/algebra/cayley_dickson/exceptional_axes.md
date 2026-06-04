@@ -259,7 +259,7 @@ python3 tools/scan_axioms.py Lib/Math/Algebra/CayleyDickson/Tower
 
 ## Citation guidance
 
-- ✅ `theory/math/cayley_dickson/exceptional_axes.md` (this chapter,
+- ✅ `theory/math/algebra/cayley_dickson/exceptional_axes.md` (this chapter,
   primary narrative for `E₆E₇E₈` derivation)
-- ✅ `theory/math/cayley_dickson/algebra_tower.md` (sibling: the CD
+- ✅ `theory/math/algebra/cayley_dickson/algebra_tower.md` (sibling: the CD
   algebra tower / 4-row type matrix)

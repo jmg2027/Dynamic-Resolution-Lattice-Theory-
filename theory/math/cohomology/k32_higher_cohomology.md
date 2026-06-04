@@ -423,7 +423,7 @@ The c-counter materialises ONE LEVEL DEEPER, in the **enriched
     * `parametric_arbitrary_m_full_kill_capstone` — same bilateral
       kill at any layer `m : Fin c`, not just the bottom (§20,
       closes Direction B via `9·m` cancellation; see
-      `theory/essays/multiplicity_layer_uniformity.md`)
+      `theory/essays/cohomology/multiplicity_layer_uniformity.md`)
     * `c_counter_manifest_at_bottom_c2/3/4/5` — combined Massey
       witness + kill bundles at concrete c ∈ {2, 3, 4, 5}
     * `eta_ab_layer`, `eta_cd_layer` — parametric 4-fold Massey

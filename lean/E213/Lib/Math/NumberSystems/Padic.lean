@@ -4,6 +4,7 @@ import E213.Lib.Math.NumberSystems.Padic.Pow
 import E213.Lib.Math.NumberSystems.Padic.Norm
 import E213.Lib.Math.NumberSystems.Padic.Hensel
 import E213.Lib.Math.NumberSystems.Padic.Teichmuller
+import E213.Lib.Math.NumberSystems.Padic.TeichmullerUnit
 import E213.Lib.Math.NumberSystems.Padic.Field
 import E213.Lib.Math.NumberSystems.Padic.DRLT
 /-!
@@ -28,8 +29,15 @@ Sub-modules:
               cancellation laws; concrete instances `i₅`, `i₁₃`,
               `√2 ∈ ℤ_7`.
   · `Teichmuller` — `frobenius_lift` (`y ≡ z mod p^k → y^p ≡ z^p
-              mod p^(k+1)`, any `p ≥ 1`) and `teichmuller_iter_cauchy`
-              (Cauchy property of `x ↦ x^p` iteration).
+              mod p^(k+1)`, any `p ≥ 1`); `teichmuller_iter_cauchy`
+              (Cauchy property of `x ↦ x^p` iteration); the explicit
+              representative `teichmuller` (`ω(x)`, diagonal limit) with
+              the Frobenius fix `teichmuller_pow_p_trunc` (`ω^p ≡ ω`).
+  · `TeichmullerUnit` — `ω(x)` as a `(p−1)`-th root of unity
+              (`teichmuller_pow_pred_trunc`, `ω^(p−1) ≡ 1`) and the
+              principal-unit decomposition `x = ω(x) · u`
+              (`teichmullerCofactor`, `u ≡ 1 mod p`) — the
+              `ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)` split.
   · `Field` — `QpSeq` (ℚ_p): add, sub, mul, neg, ofNat, inv, div, sqrt.
   · `DRLT` — canonical 5-adic embeddings (`ℕ ↪ ZpSeq 5`).
 

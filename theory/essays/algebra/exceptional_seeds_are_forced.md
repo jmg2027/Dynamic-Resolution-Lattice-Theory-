@@ -11,7 +11,7 @@ quaternion (`trace(g²) = trace(g)² − NT`), and three regimes of it indexed
 by the atomic pair `{NS, NT} = {3, 2}`.  `√2, √5, √−3` are not three
 chosen radicands; they are the `ℝ`-eigenvalues of the three integer
 companion matrices whose traces obey `D`.  See
-`theory/math/cayley_dickson/exceptional_axes.md` (`three_axes_surd_free`,
+`theory/math/algebra/cayley_dickson/exceptional_axes.md` (`three_axes_surd_free`,
 `unit_is_fixed_core`, `two_engines_one_map`).
 
 ## Derivation

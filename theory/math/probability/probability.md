@@ -39,9 +39,9 @@ joint / conditional, independence.
 
 ## Connection
 
-- `theory/math/cross_domain_unification.md` (C6) — Probability as
+- `theory/math/foundations/cross_domain_unification.md` (C6) — Probability as
   paradigm instance
-- `theory/math/measure.md` — cup-product underlies probability
-- `theory/math/information.md` — bit-counting underlies probability
-- `theory/math/dyadic_fsm.md` — dyadic FSM outcomes generate sample
+- `theory/math/analysis/measure.md` — cup-product underlies probability
+- `theory/math/probability/information.md` — bit-counting underlies probability
+- `theory/math/numbertheory/dyadic_fsm.md` — dyadic FSM outcomes generate sample
   spaces

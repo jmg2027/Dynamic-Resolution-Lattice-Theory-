@@ -212,10 +212,10 @@ python3 tools/scan_axioms.py \
     Euler / b_1 family (K_{3, 2}^{(c=2)} parent overview)
   · `theory/math/cohomology/k_nm_c_classification.md` —
     K_{NS, NT}^{(c)} 3-axis classification
-  · `theory/math/mobius213_p_orbit_closure.md` — tripartite
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` — tripartite
     K_{2, 1, 3} atomic-level duality (count side)
-  · `theory/essays/bipartite_tripartite_self_containment.md` —
+  · `theory/essays/p_orbit/bipartite_tripartite_self_containment.md` —
     cross-cutting essay (insight + verdict synthesis)
-  · `theory/essays/every_axis_sees_p.md` — 55 framework axes,
+  · `theory/essays/p_orbit/every_axis_sees_p.md` — 55 framework axes,
     all yielding `{NS, NT, det}` (the every-point recurrence
     pattern at the catalog level)

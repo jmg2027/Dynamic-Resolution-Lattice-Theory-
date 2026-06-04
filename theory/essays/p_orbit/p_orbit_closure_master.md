@@ -173,11 +173,11 @@ DIRTY.  Build clean.
 
 ## Cross-references
 
-  · `theory/math/mobius213_p_orbit_closure.md` — chapter on
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` — chapter on
     P-orbit naturalness boundary
-  · `theory/essays/p_orbit_naturalness_boundary.md` — original
+  · `theory/essays/p_orbit/p_orbit_naturalness_boundary.md` — original
     naturalness boundary essay
-  · `theory/essays/bipartite_tripartite_self_containment.md` —
+  · `theory/essays/p_orbit/bipartite_tripartite_self_containment.md` —
     self-containment thesis
   · `theory/math/cohomology/tripartite_self_containment.md` —
     Direction T closure (cross-frame verdict)

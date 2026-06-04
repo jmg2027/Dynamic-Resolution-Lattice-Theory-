@@ -166,12 +166,12 @@ one step; the framework absorbed the "external" number cleanly.
 
 ## Cross-references
 
-  · `theory/math/mobius213_p_orbit_closure.md` — full
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` — full
     formal chapter (sharpenings 1–3, mod-p catalog, refined
     hierarchy, master claim)
-  · `theory/essays/bipartite_tripartite_self_containment.md` —
+  · `theory/essays/p_orbit/bipartite_tripartite_self_containment.md` —
     K_{3,2}^{(c=2)} as self-contained 213 anchor (Reading B)
-  · `theory/essays/every_axis_sees_p.md` — 55 axes all
+  · `theory/essays/p_orbit/every_axis_sees_p.md` — 55 axes all
     yielding `{NS, NT, det}` (depth-0/1 catalog view)
-  · `theory/essays/stern_brocot_as_universal_lattice.md` —
+  · `theory/essays/p_orbit/stern_brocot_as_universal_lattice.md` —
     Stern-Brocot tree as P-generated sample space

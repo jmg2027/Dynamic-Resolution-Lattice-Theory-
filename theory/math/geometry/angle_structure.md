@@ -44,5 +44,5 @@ reduces to one of these three readings via the
 
 ## Companion clusters
 
-- `Lib/Math/Geometry/TriangularTower/` (triangular-tower architecture — `theory/math/triangular_tower.md`)
-- `Lib/Math/Geometry/LevelTopology/` (concrete topology per floor — `theory/math/level_topology.md`)
+- `Lib/Math/Geometry/TriangularTower/` (triangular-tower architecture — `theory/math/geometry/triangular_tower.md`)
+- `Lib/Math/Geometry/LevelTopology/` (concrete topology per floor — `theory/math/geometry/level_topology.md`)

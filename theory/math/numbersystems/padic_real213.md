@@ -1,12 +1,11 @@
 # Real213-p-adic — 213-native p-adic Numbers
 
-**Status**: Closed (26 files, ~462 PURE).
+**Status**: Closed (27 files, ~484 PURE).
 
 ## Overview
 
 **Real213-p-adic** is a 213-native, ∅-axiom construction of the
-p-adic integers `ℤ_p` and p-adic numbers `ℚ_p`.  The library is
-organised in eight modules:
+p-adic integers `ℤ_p` and p-adic numbers `ℚ_p`.  The core modules:
 
 - **Foundation** — `ZpSeq p` as an infinite digit sequence
   `ℕ → Fin p`, with truncation `trunc : ℕ → ℕ` faithfully
@@ -27,9 +26,14 @@ organised in eight modules:
   `sqr_unique_trunc`) at every trunc level.  Concrete instances:
   `i_5 = √(-1) ∈ ℤ_5`, `i_13 ∈ ℤ_13`, `√2 ∈ ℤ_7`.
 - **Teichmüller** — Frobenius lift `y ≡ z (mod p^k) → y^p ≡ z^p
-  (mod p^(k+1))` (any `p ≥ 1`) and Cauchy convergence of the
-  iteration `x ↦ x^p`.
-- **Field** — ℚ_p as `QpSeq` with add/sub/mul/neg/inv/div/sqrt.
+  (mod p^(k+1))` (any `p ≥ 1`), Cauchy convergence of `x ↦ x^p`, the
+  explicit representative `ω(x)` (diagonal limit) with the Frobenius
+  fix `ω^p ≡ ω`, and Teichmüller uniqueness.
+- **TeichmullerUnit** — `ω(x)` as a `(p−1)`-th root of unity and the
+  `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` decomposition, unique in the canonical
+  213 equality `ZpSeqEquiv`.
+- **Field** — ℚ_p as `QpSeq` with add/sub/mul/neg/inv/div/sqrt, and
+  general division (non-unit denominator) with correctness.
 - **DRLT** — canonical 5-adic embeddings (`ℕ ↪ ZpSeq 5`), e.g. the
   lift of the base prime `5`, with digit smoke-tests.
 
@@ -40,9 +44,9 @@ The library is ∅-axiom throughout: every theorem reports
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Padic/` (8 files)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Padic/` (27 files; core modules below)
 - **Umbrella**: `Padic.lean`
-- **∅-axiom status**: 308 PURE / 0 DIRTY
+- **∅-axiom status**: ~484 PURE / 0 DIRTY
 
 ### Sub-cluster organization
 
@@ -53,8 +57,9 @@ The library is ∅-axiom throughout: every theorem reports
 | `Pow.lean` | `Zp.pow x n` recursive, `pow_trunc` (homomorphism), `pow_add_trunc` / `pow_mul_trunc`, `pow_p_trunc_one` / `pow_p_minus_one_trunc_one` (Fermat at digit 0 / for units, p prime), `teichmuller_iter` (`x ↦ x^p` iteration), `valAtLeast_pow` |
 | `Norm.lean` | `valAtLeast` / `valEq`, full ultrametric: `valAtLeast_add`, `valAtLeast_mul`, `valAtLeast_neg`, `valEq_add_of_lt` (strong: differing valuations), `valEq_mul` (precise mul ultrametric), `valEq_neg` |
 | `Hensel.lean` | Inverse: `invDigit0` (Bezout), `invSeq` / `invFull`, `mul_invSeq_correct` / `mul_invFull_correct`, `inv_trunc_unique`, `mul_left_cancel_trunc` / `mul_right_cancel_trunc`.  Sqrt: `SqrtBase`, `sqrtSeq` / `sqrtFull`, `sqr_sqrtSeq_correct` / `sqr_sqrtFull_correct`, `sqr_unique_trunc`, `sqrtFull_eq_of_sqr`.  Concrete: `i_5`, `i_13`, `sqrt_two_7` |
-| `Teichmuller.lean` | `sum_geo_pow` (ZpSeq geometric sum), `frobenius_lift` (`y ≡ z mod p^k → y^p ≡ z^p mod p^(k+1)`, any `p ≥ 1`), `teichmuller_iter_cauchy` (iteration is Cauchy in p-adic metric); Nat-level engine `pow_add_factor` + `geo_sum_mod_zero_at_p` + `frobenius_lift_nat` (binomial-free) |
-| `Field.lean` | `QpSeq` (num + shift), `QpSeq.{add,sub,mul,neg,ofNat}`, `QpSeq.inv` (Hensel via `invFull` + `shiftLeft`), `QpSeq.div`, `QpSeq.sqrt` (even-shift only — `√p ∉ ℚ_p`) + `sqr_sqrt_num_correct` |
+| `Teichmuller.lean` | `sum_geo_pow` (ZpSeq geometric sum), `frobenius_lift` (`y ≡ z mod p^k → y^p ≡ z^p mod p^(k+1)`, any `p ≥ 1`), `teichmuller_iter_cauchy` (iteration is Cauchy in p-adic metric); the explicit representative `teichmuller` (`ω(x)`, diagonal limit) + `teichmuller_trunc_succ` / `teichmuller_digit_zero` + Frobenius fix `teichmuller_pow_p_trunc` (`ω^p ≡ ω`); Nat-level engine `pow_add_factor` + `geo_sum_mod_zero_at_p` + `frobenius_lift_nat` (binomial-free) |
+| `TeichmullerUnit.lean` | `teichmuller_pow_pred_trunc` (`ω^(p−1) ≡ 1`, `(p−1)`-th root of unity); `teichmullerCofactor` (`ω⁻¹·x`) + `teichmullerCofactor_trunc_one` (`u ≡ 1 mod p`) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split at trunc level (bridges Teichmuller + Hensel) |
+| `Field.lean` | `QpSeq` (num + shift), `QpSeq.{add,sub,mul,neg,ofNat}`, `QpSeq.inv` (Hensel via `invFull` + `shiftLeft`), `QpSeq.div`; general division `invGeneral` / `divGeneral` (non-unit denominator via valuation shift, `invGeneral_unit_eq_inv` reduction); `QpSeq.sqrt` (even-shift only — `√p ∉ ℚ_p`) + `sqr_sqrt_num_correct` |
 | `DRLT.lean` | `canonical_5adic_p` (= 5) + digit smokes, `canonical_5adic_zero` (canonical 5-adic embeddings) |
 
 ## Narrative
@@ -204,6 +209,42 @@ Multiplication is straightforward (`shift` adds).  Addition
 aligns shifts via `Zp.shiftLeft` (multiplication by `p^k` on
 ZpSeq).  Negation preserves the shift.
 
+**General division** (`invGeneral` / `divGeneral`) drops the
+unit-denominator restriction.  `QpSeq.inv` requires `b.num` to be a
+unit (digit-0 coprime to `p`, valuation 0); a general nonzero `b.num`
+factors as `p^v · u` with `u = Zp.shiftRight v b.num` a unit
+(`v = v_p(b.num)`).  Then
+
+  `1/b = u⁻¹ · p^(b.shift − v)`,
+
+which lands in `ℚ_p` because the shift carries the `p` power.  The
+structural heart is `Zp.shiftRight` and the **factorisation-exactness**
+lemma `shiftLeft_shiftRight_digit_of_low_zero`: when the bottom `v`
+digits of `x` vanish, `shiftLeft v (shiftRight v x) = x` — the split
+`x = p^v · u` is exact, not approximate.  In `QpSeq` coordinates,
+
+  `invGeneral b v = ⟨shiftLeft (b.shift − v) (invFull u), v − b.shift⟩`,
+
+and exactly one of the Nat-truncated differences is nonzero.  At
+`v = 0` this is definitionally `QpSeq.inv` (`invGeneral_unit_eq_inv`),
+so it is a genuine generalisation, not a parallel construction.  The
+valuation `v` is supplied by the caller: the first non-zero digit of
+an *arbitrary* sequence cannot be found by a pure search (`b.num`
+could be `0`, valuation `∞`), so `v` and the unit witness on `u` are
+inputs — the honest 213-native shape (no decidable ∞-search smuggled
+in).
+
+**Correctness** (`Zp.div_general_value`): `y · u⁻¹ ≡ p^v` at every
+truncation, for `y` of valuation `≥ v` with unit part `u`.  Since
+`1/y = u⁻¹ · p^(−v)`, this is `y · (1/y) ≡ 1` in `ℚ_p` — the numerator
+`p^v` is matched by the shift `p^(−v)`.  The proof is the
+factorisation-exactness engine (`shiftLeft_shiftRight_trunc_of_low_zero`:
+`y = p^v·u` exact) plus two pure shift-bookkeeping lemmas: a power
+factors out of a modulus (`(p^v·Y) % p^(v+m) = p^v·(Y % p^m)`) and a
+higher truncation reduces mod the lower power
+(`x.trunc(b+c) % p^b = x.trunc b`), reducing the unit part to
+`mul_invFull_correct` (`u · u⁻¹ ≡ 1`).
+
 ### Canonical 5-adic embeddings
 
 The 5-adic Real213 gives a canonical embedding `ℕ ↪ ZpSeq 5` for
@@ -214,8 +255,7 @@ a bare arithmetic value; no fractal level is a resolution limit.
 
 Whether the "infinite" 5-adic structure beyond the resolution
 limit is operationally meaningful in DRLT, or is a formal
-extension only, is itself a research question.  See
-`seed/RESOLUTION_LIMIT_SPEC.md`.
+extension only, is itself a research question.
 
 ## Key results
 
@@ -272,12 +312,24 @@ Grouped by module.
 |---|---|
 | `Zp.frobenius_lift` | `y ≡ z mod p^k, k ≥ 1 → y^p ≡ z^p mod p^(k+1)` (any `p ≥ 1`) |
 | `Zp.teichmuller_iter_cauchy` | `iter x (n+1) ≡ iter x n (mod p^(n+1))` |
+| `Zp.teichmuller` | explicit representative `ω(x)`, the diagonal `digits k := (iter x k).digits k` |
+| `Zp.teichmuller_pow_p_trunc` | `ω(x)^p ≡ ω(x)` at every level (Frobenius fix `ω^p = ω`) |
+| `Zp.teichmuller_pow_pred_trunc` | `ω(x)^(p−1) ≡ 1` for units (`(p−1)`-th root of unity) |
+| `Zp.teichmuller_unique` / `_equiv` | Frobenius-fixed lifts agreeing mod `p` are `ZpSeqEquiv`-equal (the 213 equality) |
+| `Zp.unit_decomp_unique` / `_equiv` | the `ω·u` (μ_{p−1} × (1+p·ℤ_p)) split is `ZpSeqEquiv`-unique |
+| `ZpSeqEquiv.of_trunc_all` | trunc-agreement ⇒ `ZpSeqEquiv` (funext-free bridge to the 213 equality) |
+| `Zp.teichmullerCofactor_trunc_one` | `(ω(x)⁻¹·x) ≡ 1 (mod p)` (principal-unit cofactor) |
+| `Zp.neg_one_sq_trunc` | `(−1)·(−1) ≡ 1` at every level (the ring identity for `−1`) |
+| `Zp.i_5_pow_four_trunc` | `i₅⁴ ≡ 1` at every level — the 5-adic imaginary unit is a primitive 4-th root of unity, `i₅ ∈ μ₄` |
 
 **Field** (ℚ_p)
 | Theorem | Statement |
 |---|---|
 | `QpSeq.{add,sub,mul,neg}` | basic arithmetic |
-| `QpSeq.inv`, `QpSeq.div` | Hensel-based inverse and division |
+| `QpSeq.inv`, `QpSeq.div` | Hensel-based inverse and division (unit denominator) |
+| `QpSeq.invGeneral`, `QpSeq.divGeneral` | general inverse/division (any-valuation denominator); `invGeneral_unit_eq_inv` reduces to `inv` at v=0 |
+| `Zp.div_general_value` | general-division correctness: `y · u⁻¹ ≡ p^v` (numerator side of `y·(1/y) ≡ 1` in ℚ_p) |
+| `Zp.shiftLeft_shiftRight_digit_of_low_zero` | factorisation exactness `x = p^v·u` (bottom-v digits zero) |
 | `QpSeq.sqrt` + `sqr_sqrt_num_correct` | sqrt (even-shift only — `√p ∉ ℚ_p`) |
 
 **DRLT**
@@ -372,6 +424,84 @@ identity.  Primality enters only at the digit-0 step (Fermat) when
 we invoke `pow_p_trunc_one` for the base case of the Cauchy
 induction.
 
+### The explicit representative `ω(x)` — diagonal of the iteration
+
+Cauchy convergence names a *limit*; `Zp.teichmuller` exhibits it
+as a concrete `ZpSeq`.  The construction is the same
+diagonal-extraction template that produced `invFull` / `sqrtFull`
+from their approximation sequences:
+
+  `ω(x).digits k := (teichmuller_iter x k).digits k`.
+
+Each digit `k` is read off the `k`-th iterate, which has settled
+by level `k`.  Where `invFull` needed a separate digit-stability
+lemma, here the Cauchy identity *is* the diagonal trunc-recursion:
+
+  `ω(x).trunc (n+1) = (iter x n).trunc (n+1)`     (`teichmuller_trunc_succ`)
+
+— the step case is exactly `teichmuller_iter_cauchy n`.  This is
+the 213-native form of "the limit reached by none of the
+approximants is the diagonal of the approximant family": no
+completion functor, no inverse-limit existence axiom — the limit
+object is read directly out of the iteration it limits.
+
+`ω(x)` carries the two defining properties of a Teichmüller
+representative:
+
+- **lifts the residue**: `ω(x).digits 0 = x.digits 0`
+  (`teichmuller_digit_zero`) — `ω(x) ≡ x (mod p)`;
+- **Frobenius-fixed**: `(ω(x)^p).trunc n = ω(x).trunc n` for all
+  `n` (`teichmuller_pow_p_trunc`) — `ω^p = ω`, the idempotent that
+  the classical theory takes as the *definition* of `ω`.
+
+The Frobenius fix chains four existing facts at level `n+1`:
+`pow_trunc` rewrites `(ω^p).trunc(n+1)` to `(ω.trunc(n+1))^p % p^(n+1)`;
+`teichmuller_trunc_succ` swaps `ω.trunc(n+1)` for `(iter x n).trunc(n+1)`
+(on *both* sides at once); `pow_trunc` backward and `iter_succ` fold
+the power into `(iter x (n+1)).trunc(n+1)`; `teichmuller_iter_cauchy`
+closes it.
+
+### `ω(x)` as a root of unity, and the unit decomposition
+
+For a **unit** `x` (digit-0 coprime to `p`) the Frobenius fix
+refines multiplicatively.  Writing `p = (p−1) + 1` gives
+`ω^p = ω^(p−1) · ω`; the fix reads `ω^(p−1) · ω ≡ ω = 1 · ω`, and
+cancelling the unit `ω` on the right (the Hensel cancellation
+`mul_right_cancel_trunc`, since `ω.digits 0 = x.digits 0` is a
+unit) leaves
+
+  `ω(x)^(p−1) ≡ 1`     (`teichmuller_pow_pred_trunc`).
+
+The Frobenius fix also **determines** the lift, not just satisfies it.
+`teichmuller_unique`: two Frobenius-fixed sequences agreeing mod `p`
+agree at every truncation — the engine is `frobenius_lift` itself
+(`w₁ ≡ w₂ mod p^k ⇒ w₁ ≡ w₁^p ≡ w₂^p ≡ w₂ mod p^(k+1)`, outer steps the
+fix, middle the lift; no Hensel-derivative bookkeeping).  Hence the
+`ω·u` decomposition is **unique up to `ZpSeqEquiv`** (`unit_decomp_unique`):
+both `ω`-factors reduce to `x mod p` and are Frobenius-fixed, so they
+agree at every level by `teichmuller_unique`; the `u`-factors then agree
+by cancelling the unit `ω`.  This is the deep half of
+`ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` — the iso is well-defined on the residue,
+not a per-level coincidence.
+
+So `ℤ_p` contains the full group `μ_{p−1}` of `(p−1)`-th roots of
+unity, realised **explicitly** as Teichmüller representatives —
+not asserted via a counting/existence theorem.  The companion
+cofactor `u(x) := ω(x)⁻¹ · x` is principal, `u ≡ 1 (mod p)`
+(`teichmullerCofactor_trunc_one`), because `ω` and `x` share
+digit 0.  Together these give the canonical split
+`ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)` (the `TeichmullerUnit` module), and the
+split is **unique as `ZpSeqEquiv`** (`unit_decomp_unique_equiv`, via
+`teichmuller_unique`) — the iso is well-defined on the residue.
+`ZpSeqEquiv` (digit-pointwise agreement) **is** the 213 equality on
+`ZpSeq`: Lean's raw `=` needs funext to inhabit and so is a Lens
+artifact carrying no 213 content beyond `ZpSeqEquiv`
+(`SetoidFramework`).  The bridge `ZpSeqEquiv.of_trunc_all` promotes the
+per-truncation uniqueness to this equality funext-free (each digit a
+`Fin` equality, not a function equality).  The factorisation is thus
+unique full stop — there is no further "literal equality" to reach;
+that question asks for an equality the Lens does not define.
+
 ## Closing reflection
 
 What the Real213-p-adic campaign produced:
@@ -431,17 +561,23 @@ What the Real213-p-adic campaign produced:
   convolution-style reindexing argument for `mulRaw_comm`.  Either
   would push us outside the strict-∅ guarantee.
 
-- Construct the Teichmüller representative `ω(x)` as a concrete
-  `ZpSeq`.  We have Cauchy convergence, but the limit object (the
-  fixed point of the iteration in the inverse limit) requires
-  either a completion construction or explicit digit extraction
-  via diagonal stabilization (analog of `sqrtFull` for the
-  iteration).  This is plausible follow-up work.
+The concrete root of unity makes the abstract `μ_{p−1}` tangible at
+`p = 5`: the 5-adic imaginary unit `i₅ = √(−1) ∈ ℤ_5` has digit-0 `2`,
+a primitive root mod 5, so `i₅² ≡ −1` and `i₅⁴ ≡ 1` at every level
+(`Zp.i_5_pow_four_trunc`, via `neg_one_sq_trunc`) — `i₅ ∈ μ₄`, a
+Teichmüller representative, not a structure adjoined to `ℤ_5`.
 
-- Bridge to representations of the multiplicative group `ℤ_p^×`.
-  We have the building blocks (unit predicate via `modBezout`,
-  Fermat at digit 0, Teichmüller Cauchy) but not the structural
-  isomorphism `ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)`.
+**Open frontier**.  The DRLT-specific 5-adic direction (H) is mostly
+negative.  The `5²⁵ = N_U`-resolution reading is *removed, not deferred*
+(`RERESEARCH_n_u_removal.md` — `configCount 2 = 5^25` is bare
+arithmetic, no privileged level).  The physics readings of `i₅`
+(spinors / CP) and 5-adic L-values for `α_em` / `m_μ/m_e` have **no
+internal handle**: asserting them would be a forcible map onto physics,
+which the operating principles forbid.  Stated plainly per
+`seed/AXIOM/05_no_exterior.md` §5.4: after looking, no internal bridge
+is there — the falsifier doing its work, not a deferral.  Any future H
+must be arithmetic-first (a 5-adic invariant of an object the corpus
+already builds), tracked under `research-notes/frontiers/`.
 
 **Methodology note**.  Most proofs in `Teichmuller.lean` and
 `Hensel.lean` look like a sequence of `rw` over `mul_trunc`,
@@ -483,7 +619,7 @@ it the natural Lens-arena for mod-p reductions of the Möbius matrix
     framework-natural despite their non-atomic factors — the p-adic
     Lens family is already general.
 
-See [`theory/math/mobius213_p_orbit_closure.md`](../algebra/mobius213_p_orbit_closure.md)
+See [`theory/math/algebra/mobius213_p_orbit_closure.md`](../algebra/mobius213_p_orbit_closure.md)
 for the full mod-p period catalog and the P-orbit closure ring.
 
 ## How to verify
@@ -496,7 +632,8 @@ python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Padic.Foundation \
                               E213.Lib.Math.NumberSystems.Padic.Norm \
                               E213.Lib.Math.NumberSystems.Padic.Hensel \
                               E213.Lib.Math.NumberSystems.Padic.Teichmuller \
+                              E213.Lib.Math.NumberSystems.Padic.TeichmullerUnit \
                               E213.Lib.Math.NumberSystems.Padic.Field \
                               E213.Lib.Math.NumberSystems.Padic.DRLT
-# Expected: 308 PURE / 0 DIRTY
+# Expected: 0 DIRTY (all PURE)
 ```

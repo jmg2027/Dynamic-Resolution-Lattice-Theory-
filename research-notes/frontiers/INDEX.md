@@ -126,7 +126,21 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `SU(NS)` adjoint trace / self-pointing axis); seeds for the other forced
   constants and a `c`-dependent higher-`b_k`.
 - `G123_padic_next_directions` — post-closure direction memo for the p-adic
-  library (`theory/math/padic_real213.md`).
+  library (`theory/math/numbersystems/padic_real213.md`).  Directions A
+  (explicit Teichmüller ω), B (μ_{p−1} root-of-unity + unit decomposition),
+  G (general division) now **closed** in `lean`.  The remaining direction H
+  is tracked in its own note `G124_padic_drlt_5adic`.
+- `G125_padic_closure_synthesis` — post-closure harvest: the diagonal-limit
+  constructor, `frobenius_lift` as a uniqueness engine, `ZpSeqEquiv` as the
+  funext-free canonical equality (retiring direction C), and the reachable
+  `i₅ = teichmuller(2-lift)`.
+- `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
+  (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
+  (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic
+  L-values) have **no internal handle** — recorded plainly per §5.4, no
+  forcible map onto physics.  Pure-math spinoff `i₅ ∈ μ₄` (the 5-adic
+  imaginary unit is a 4-th root of unity) CLOSED ∅-axiom and folded into the
+  Teichmüller chapter + essay.
 - `G178_next_proofline_conjectures` — cross-arc conjecture seed / ranked agenda
   for populating νF (post-FSM).
 - `G182_completed_system_synthesis` — "the frontier (νF) has a form" — an

@@ -22,9 +22,9 @@ generating function in this specialization).
 
 Used by:
 - `Lib/Math/Tactic/Ring213` for polynomial identity checking
-- `theory/math/algebra213_meta_theorems.md` for CD ring identities
+- `theory/math/foundations/algebra213_meta_theorems.md` for CD ring identities
 
 ## Connection
 
-- `theory/math/combinatorics.md` — `CoeffSeq` shared
-- `theory/math/algebra213_meta_theorems.md` — polynomial-identity tactics
+- `theory/math/combinatorics/combinatorics.md` — `CoeffSeq` shared
+- `theory/math/foundations/algebra213_meta_theorems.md` — polynomial-identity tactics

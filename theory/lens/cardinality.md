@@ -8,8 +8,7 @@
 Lens views project Raw → observable space.  Cardinality of Raw and
 of Lens-image spaces is the canonical cardinality observable.
 
-Per `seed/RESOLUTION_LIMIT_SPEC.md`: cardinality is a **per-Lens
-output**, not a Raw commitment.
+Cardinality is a **per-Lens output**, not a Raw commitment.
 
 ## Lean source
 
@@ -29,6 +28,5 @@ to ZFC's commitment to "cardinality of a set" as foundational.
 
 ## Connection
 
-- `seed/RESOLUTION_LIMIT_SPEC.md` — N_U as count-Lens output
 - `theory/lens/universal.md` — universal Lens cardinality
 - `theory/lens/properties.md` — cardinality predicates

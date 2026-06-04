@@ -22,8 +22,8 @@ Blueprint: `blueprints/math/11_group_213.md` (retired).
   * **Group action = pointwise computation**: orbits witnessed at
     individual elements via `rfl`.
   * **SU(5) GUT** is *channel counting*: 5 ⊗ 5 = 25 with 24
-    traceless generators.  Bridges to `N_U = d^(d²) = 5²⁵` system
-    invariant (see `seed/RESOLUTION_LIMIT_SPEC.md`).
+    traceless generators.  Bridges to the count `d^(d²) = 5²⁵`
+    (`Lib/Math/Cohomology/Fractal/ConfigCount.lean`).
 
 ## Honest scope
 

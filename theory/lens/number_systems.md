@@ -24,7 +24,7 @@ Different `Raw.fold` choices yield different number systems:
 - **Other Lens.Number** instances: rational, dyadic, ...
 
 `Nat213/` sub-tree is **fully covered** in
-`theory/math/universe_chain.md` — atomicity → Möbius → CRT chapter.
+`theory/math/foundations/universe_chain.md` — atomicity → Möbius → CRT chapter.
 This Lens-side chapter is for the **classification frame**: number
 systems as Lens-layer artifacts, not Theory-layer foundations.
 
@@ -50,6 +50,6 @@ seams — is `book/foundations/`.
 
 - `book/foundations/` — the standalone founding treatise (the three
   questions: complete tower? one axis? forced?)
-- `theory/math/universe_chain.md` — Nat213 sub-tree narrative
+- `theory/math/foundations/universe_chain.md` — Nat213 sub-tree narrative
 - `lean/E213/ARCHITECTURE.md` — catamorphism = Lens artifact
 - `theory/lens/algebra.md` — kernel underlies catamorphism choice

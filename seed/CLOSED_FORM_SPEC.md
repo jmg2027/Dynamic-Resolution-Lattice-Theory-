@@ -226,8 +226,6 @@ an external Bishop API to compare against, which is outside the
 
   · `lean/E213/Lib/Math/NumberSystems/Real213/Core/AsLensOutput.lean` — formal
     carrier.
-  · `seed/RESOLUTION_LIMIT_SPEC.md` — relates `RealAsLensOutput` to
-    the finite-N_U bound (cuts evaluated at `m, k ≤ N_U`).
   · `LESSONS_LEARNED.md` Pattern #17 — framework-internal
     subsumption.
   · `catalogs/cross-domain-identifications.md` — math ↔ physics

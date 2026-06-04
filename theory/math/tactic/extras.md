@@ -32,5 +32,5 @@ single domain sub-tree:
 ## Connection
 
 - `theory/physics/foundations/atomic_constants.md` — uses CauchySchwarz
-- `theory/math/probability.md` — uses Hoeffding
-- `theory/math/group.md` — SymFin instances
+- `theory/math/probability/probability.md` — uses Hoeffding
+- `theory/math/algebra/group.md` — SymFin instances

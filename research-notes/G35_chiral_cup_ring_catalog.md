@@ -47,7 +47,7 @@ Per-conjecture status (refreshed against current closures):
 | C3 (Aut(K) gauge group emergence) | Closed via the 12-phase C3 chain; b₁(K_{3, 2}^{(c=2)}) = NS² − 1 = 8 identified with SU(3) gluon octet | `Physics/Symmetry/C3*` | `theory/physics/symmetry/c3_chain.md` |
 | C4 (Σ-spectral signature theorem) | Closed parametric Σ_g × Σ_h × Σ_k | absorbed in Hodge | `theory/math/cohomology/hodge_conjecture.md` §Pairing |
 | C5 (fractal ζ_K^{(L)} → ζ(2)) | Closed through `zeta_modulus` at L = 1; general-L spectrum open | `Math/Cohomology/Fractal/*` | `theory/math/cohomology/fractal.md` |
-| C6 (cross-domain unification) | Closed for the graded-ring layer; per-domain extensions (CKM full matrix, baryon spectrum) open | `Math/CrossDomainUnification/*` | `theory/math/cross_domain_unification.md` |
+| C6 (cross-domain unification) | Closed for the graded-ring layer; per-domain extensions (CKM full matrix, baryon spectrum) open | `Math/CrossDomainUnification/*` | `theory/math/foundations/cross_domain_unification.md` |
 
 Closure rings now extending C1/C2/C3 jointly:
 

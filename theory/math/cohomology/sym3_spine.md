@@ -54,7 +54,7 @@ extension of the spine to `3·trivial ⊕ 3·standard`.
 
 ### Reading 2 — 8 Thurston geometries
 
-Chapter: `theory/math/geometrization_conjecture.md`, step 24.
+Chapter: `theory/math/geometry/geometrization_conjecture.md`, step 24.
 The 8 Thurston model geometries decompose under the same Sym(3)
 action as
 
@@ -84,7 +84,7 @@ gauge-content Lens.  Lean anchor: `c3_chain_master`.
 
 ### Reading 4 — Akbulut cork twist
 
-Chapter: `theory/math/exotic_4mfd_cork.md`.  The Z/2 cork-twist
+Chapter: `theory/math/geometry/exotic_4mfd_cork.md`.  The Z/2 cork-twist
 involution on `Cork213` matches the M_S01 transposition acting on
 the 8-dim H¹ basis.  The signed orbit count
 `signedCorkTwistCount = +4 = 32 − 28` is exactly the difference of
@@ -124,7 +124,7 @@ The structural origin is the generation rule.  Starting from the
 distinguishing primitive, the first orthogonal-direction count
 forces `NT = 2`; the second orthogonal-direction count, refusing
 self-pairing (Clause 4), forces `NS = 3`
-(`theory/math/generation_rule.md`).  The Sym(3) symmetry is the
+(`theory/math/geometry/generation_rule.md`).  The Sym(3) symmetry is the
 automorphism group of those 3 forced orthogonal directions — it is
 not chosen, it is the action that exists on a 3-element forced set.
 
@@ -152,16 +152,16 @@ one structural object.
   0.007 ppb tier; Readings 2 and 4 open).
 - **Higher-cohomology cork-twist** is the Reading 4 sub-question
   for H² / H³ — explicitly tracked in
-  `theory/math/exotic_4mfd_cork.md` Open Frontier.
+  `theory/math/geometry/exotic_4mfd_cork.md` Open Frontier.
 
 ## Connection
 
 - `theory/math/cohomology/k32_higher_cohomology.md` — Reading 1
-- `theory/math/geometrization_conjecture.md` — Reading 2 + the
+- `theory/math/geometry/geometrization_conjecture.md` — Reading 2 + the
   X-1 capstone home chapter
 - `theory/physics/alpha_em/precision_derivation.md` — Reading 3
-- `theory/math/exotic_4mfd_cork.md` — Reading 4
-- `theory/math/generation_rule.md` — why (NS, NT) = (3, 2) is
+- `theory/math/geometry/exotic_4mfd_cork.md` — Reading 4
+- `theory/math/geometry/generation_rule.md` — why (NS, NT) = (3, 2) is
   forced; the structural origin of Sym(3)
 - `theory/meta/methodology_patterns.md` — Pattern of cross-frame
   count-Lens convergence on a shared algebraic object

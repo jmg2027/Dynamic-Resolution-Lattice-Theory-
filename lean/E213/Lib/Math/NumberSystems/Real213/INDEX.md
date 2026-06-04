@@ -110,7 +110,7 @@
 
 **Markov spectrum + modular-geodesic** (narrative
 `theory/math/analysis/markov_uniqueness.md` +
-`theory/essays/the_modular_geodesic_lens.md`):
+`theory/essays/p_orbit/the_modular_geodesic_lens.md`):
   - `MarkovTree.lean` / `MarkovUniqueness.lean` / `MarkovInjectivity.lean` —
     the Markov-number tree, the uniqueness statement, and the injectivity
     reading (`markovNum` injective ⟺ `MarkovMaxUnique`).

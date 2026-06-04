@@ -26,7 +26,7 @@ self-consistency:
 This file bundles the three witnesses into a single statement.
 None of the three directions stands outside 213; they are three
 internal readings of the same self-consistency residue (cf.
-`07_self_reference.md` §8.1 — no exterior).
+`seed/AXIOM/05_no_exterior.md` §5.1 — no exterior).
 
 ## Why a single statement matters
 

@@ -4,11 +4,41 @@
 modules).  Headline closures: ring axioms at trunc, Hensel inv/sqrt
 existence + uniqueness, full ultrametric, Frobenius lift, Teichmüller
 Cauchy, ℚ_p arithmetic, DRLT 5-adic anchor.  See
-`theory/math/padic_real213.md` for the narrative.
+`theory/math/numbersystems/padic_real213.md` for the narrative.
 
 This note records candidate next directions for follow-up campaigns.
 Each entry includes: statement, dependency chain, estimated
 difficulty, and a note on 213-native angle.
+
+## Status (updated post-A/B campaign)
+
+- **A — Explicit Teichmüller representative `ω(x)`: CLOSED.**
+  `Zp.teichmuller` (diagonal of the iteration `x ↦ x^p`) +
+  `teichmuller_pow_p_trunc` (the Frobenius fix `ω^p ≡ ω`) in
+  `Padic/Teichmuller.lean`.  Simpler than anticipated: the Cauchy
+  lemma `teichmuller_iter_cauchy` IS the diagonal trunc-recursion, so
+  *no separate digit-stability lemma was needed* (unlike `invFull`).
+- **B — `ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)`: CLOSED at trunc level.**
+  `teichmuller_pow_pred_trunc` (`ω^(p−1) ≡ 1`, root of unity) +
+  `teichmullerCofactor` / `teichmullerCofactor_trunc_one`
+  (`u = ω⁻¹·x ≡ 1 mod p`) in `Padic/TeichmullerUnit.lean` (bridges
+  Teichmuller + Hensel).  Remaining open: sequence-level uniqueness of
+  the `ω·u` split (same caveat as direction C — sequence-level equality
+  may be a non-213-native question).
+
+- **G — general division (non-unit denominator): CLOSED.**
+  `Zp.shiftRight` + factorisation exactness
+  `shiftLeft_shiftRight_digit_of_low_zero` (`Padic/Arith.lean`);
+  `QpSeq.invGeneral` / `QpSeq.divGeneral` (`Padic/Field.lean`) drop the
+  unit-denominator restriction by factoring `b.num = p^v·u` and
+  carrying `p^(b.shift−v)` in the QpSeq shift.  `invGeneral_unit_eq_inv`
+  shows it reduces *definitionally* to `QpSeq.inv` at `v=0` — a genuine
+  generalisation.  The valuation `v` is a caller input (pure search for
+  the first non-zero digit of an arbitrary sequence is impossible —
+  `b.num` could be `0`).
+
+Next on-path candidate: **H** (DRLT 5-adic content) — open-ended
+research, the highest DRLT-payback direction.
 
 ## A. Explicit Teichmüller representative `ω(x)`
 
@@ -195,5 +225,5 @@ the new campaign's research-notes, and proceed.  Or pursue something
 unlisted that the prior closure has now unlocked.
 
 Source for the closures referenced: `lean/E213/Lib/Math/Padic/*`,
-chapter `theory/math/padic_real213.md`, catalog entry in
+chapter `theory/math/numbersystems/padic_real213.md`, catalog entry in
 `STRICT_ZERO_AXIOM.md`.
