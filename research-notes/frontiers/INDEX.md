@@ -51,8 +51,15 @@ Closure record (the proven side of this arc):
 ## Markov / Lagrange spectrum  (`markov_lagrange/`)
 
 **Core open problem:** the Markov uniqueness conjecture (Frobenius 1913) —
-each Markov number determines a unique triple.
+each Markov number determines a unique triple.  **Current state (`G204`):** the
+prime-power-neighbour families are ∅-axiom *closed* (`pᵏ`, `2·pᵏ`, and `3c±2`
+a prime power — Zhang's modulus-shift criterion); the residual is the
+class-number core (composite `c` with both `3c±2` composite, smallest `1325`).
 
+- `G204_post_zhang_residual` — **standing record after the prime-power families
+  closed**: the closure table (`markov_prime_pow_unique`, `markov_two_prime_pow_unique`,
+  `markov_max_unique_via_3c_pm2`, `markovMaxUnique_985`) + the sharpened residual
+  (class-number / fundamental-unit core) + the REFRAME tool and its limit.
 - `G173_markov_uniqueness` — the ∅-axiom arithmetic spine (neighbor
   congruence, √(−1) encoding, Button prime-power closure) + the conjecture
   slate reducing composite uniqueness to one realisability hypothesis `H`.
