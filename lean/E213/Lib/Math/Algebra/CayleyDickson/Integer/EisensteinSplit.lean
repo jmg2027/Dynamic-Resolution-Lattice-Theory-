@@ -36,6 +36,11 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDivStep (normSq_pos)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCompletion (ofInt_normSq)
 open E213.Lib.Math.NumberTheory.ModArith.PrimeSquareFactor (eq_p_of_mul_eq_psq)
 open E213.Meta.Int213.OrderMul (natAbs_cast_of_nonneg)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
+  (gcd_bezout ofInt_one_mul mul_ofInt_one)
+open E213.Meta.Algebra213 (CommRing213)
+open E213.Meta.Algebra213.Ring213 (add_mul mul_add mul_assoc)
+open E213.Meta.Algebra213.CommRing213 renaming mul_comm → zmul_comm
 
 /-! ## §1 — `ofInt` is multiplicative -/
 
@@ -69,6 +74,56 @@ theorem not_dvd_unit_im (p : Int) (θ : ZOmega) (hp : ¬ (p ∣ (1 : Int)))
   · rw [h1] at hpim
     obtain ⟨k, hk⟩ := hpim
     exact hp ⟨-k, by rw [E213.Meta.Int213.mul_neg, ← hk, Int.neg_neg]⟩
+
+/-! ## §3b — the unit-Bezout ⟹ `p ∣ conj(x−ω)` engine -/
+
+/-- `a·b·c = a·c·b` over any `CommRing213`. -/
+theorem mul_right_comm213 {α} [CommRing213 α] (a b c : α) : a * b * c = a * c * b := by
+  rw [mul_assoc, zmul_comm b c, ← mul_assoc]
+
+/-- From a **unit Bezout** `ofInt 1 = s·ofInt p + t·(x−ω)` (and `x²+x+1 = p·k`), the prime
+    `ofInt p` divides `conj(x−ω)` (multiply through by `conj(x−ω)`, factor out `ofInt p` using
+    the cyclotomic factorization `(x−ω)·conj(x−ω) = ofInt(x²+x+1) = ofInt p · ofInt k`). -/
+theorem unit_bezout_dvd_conj (p k x : Int) (s t : ZOmega)
+    (hu : ZOmega.ofInt 1 = s * ZOmega.ofInt p + t * (⟨x, -1⟩ : ZOmega))
+    (hk : x * x + x + 1 = p * k) :
+    ∃ c : ZOmega, (⟨x, -1⟩ : ZOmega).conj = ZOmega.ofInt p * c := by
+  refine ⟨s * (⟨x, -1⟩ : ZOmega).conj + t * ZOmega.ofInt k, ?_⟩
+  have e1 : (s * ZOmega.ofInt p) * (⟨x, -1⟩ : ZOmega).conj
+          = ZOmega.ofInt p * (s * (⟨x, -1⟩ : ZOmega).conj) := by
+    rw [zmul_comm s (ZOmega.ofInt p), mul_assoc]
+  have e2 : t * (ZOmega.ofInt p * ZOmega.ofInt k)
+          = ZOmega.ofInt p * (t * ZOmega.ofInt k) := by
+    rw [← mul_assoc, zmul_comm t (ZOmega.ofInt p), mul_assoc]
+  calc (⟨x, -1⟩ : ZOmega).conj
+      = ZOmega.ofInt 1 * (⟨x, -1⟩ : ZOmega).conj := (ofInt_one_mul _).symm
+    _ = (s * ZOmega.ofInt p + t * ⟨x, -1⟩) * (⟨x, -1⟩ : ZOmega).conj := by rw [hu]
+    _ = (s * ZOmega.ofInt p) * (⟨x, -1⟩ : ZOmega).conj
+          + (t * ⟨x, -1⟩) * (⟨x, -1⟩ : ZOmega).conj := by rw [add_mul]
+    _ = (s * ZOmega.ofInt p) * (⟨x, -1⟩ : ZOmega).conj
+          + t * ((⟨x, -1⟩ : ZOmega) * (⟨x, -1⟩ : ZOmega).conj) := by
+        rw [mul_assoc t (⟨x, -1⟩ : ZOmega) (⟨x, -1⟩ : ZOmega).conj]
+    _ = (s * ZOmega.ofInt p) * (⟨x, -1⟩ : ZOmega).conj
+          + t * (ZOmega.ofInt p * ZOmega.ofInt k) := by rw [cyclotomic_factor, hk, ofInt_mul]
+    _ = ZOmega.ofInt p * (s * (⟨x, -1⟩ : ZOmega).conj)
+          + ZOmega.ofInt p * (t * ZOmega.ofInt k) := by rw [e1, e2]
+    _ = ZOmega.ofInt p * (s * (⟨x, -1⟩ : ZOmega).conj + t * ZOmega.ofInt k) := by rw [← mul_add]
+
+/-- The Euclidean gcd `d = s·ofInt p + t·(x−ω)` being a **unit** (`‖d‖²=1`) forces
+    `ofInt p ∣ conj(x−ω)` — scale the Bezout by `conj d` to `ofInt 1 = (s·conj d)·ofInt p +
+    (t·conj d)·(x−ω)`, then `unit_bezout_dvd_conj`. -/
+theorem dvd_conj_of_gcd_unit (p k x : Int) (d s t : ZOmega)
+    (hbez : d = s * ZOmega.ofInt p + t * (⟨x, -1⟩ : ZOmega)) (hdunit : d.normSq = 1)
+    (hk : x * x + x + 1 = p * k) :
+    ∃ c : ZOmega, (⟨x, -1⟩ : ZOmega).conj = ZOmega.ofInt p * c := by
+  have hdc : d * d.conj = ZOmega.ofInt 1 := unit_of_normSq_one d hdunit
+  have hsb : (s * ZOmega.ofInt p + t * (⟨x, -1⟩ : ZOmega)) * d.conj = ZOmega.ofInt 1 := by
+    rw [← hbez]; exact hdc
+  have hbez1 : ZOmega.ofInt 1
+      = (s * d.conj) * ZOmega.ofInt p + (t * d.conj) * (⟨x, -1⟩ : ZOmega) := by
+    rw [← hsb, add_mul, mul_right_comm213 s (ZOmega.ofInt p) d.conj,
+        mul_right_comm213 t (⟨x, -1⟩ : ZOmega) d.conj]
+  exact unit_bezout_dvd_conj p k x (s * d.conj) (t * d.conj) hbez1 hk
 
 /-! ## §4 — a non-unit factorization of `ofInt p` has a norm-`p` factor -/
 
@@ -122,5 +177,40 @@ theorem norm_factor_eq_p (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ m, m ∣ p → m =
   have hnd : d.normSq.natAbs = p :=
     eq_p_of_mul_eq_psq p d.normSq.natAbs e.normSq.natAbs hp2 hpr hndge hnege hpow
   rw [← hndc, hnd]
+
+/-! ## §5 — the split: `p ∣ x²+x+1` ⟹ `p` is a norm in `ℤ[ω]` -/
+
+/-- ★★★★ **The Eisenstein split.**  If `p` is prime and `p ∣ x² + x + 1` (a primitive cube
+    root mod `p`), then `p = ‖d‖²` for some `d ∈ ℤ[ω]` — i.e. `p = a² − ab + b²`.  The
+    Euclidean gcd `d = gcd(ofInt p, x−ω)` is a proper non-unit divisor: it is non-unit (else
+    a unit Bezout would give `p ∣ conj(x−ω)`, impossible), and its cofactor `e` is non-unit
+    (else `p ∣ (x−ω)`, impossible); so `ofInt p = d·e` reducible and `norm_factor_eq_p` gives
+    `‖d‖² = p`.  (`¬ (p:ℤ) ∣ 1` — true for any prime — is taken as a hypothesis.) -/
+theorem split_norm (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ m, m ∣ p → m = 1 ∨ m = p)
+    (hp1 : ¬ ((p : Int) ∣ (1 : Int)))
+    (x : Int) (hx : (p : Int) ∣ (x * x + x + 1)) :
+    ∃ d : ZOmega, d.normSq = (p : Int) := by
+  obtain ⟨k, hk⟩ := hx
+  obtain ⟨d, s, t, hbez, hdP, hdω⟩ :=
+    gcd_bezout (⟨x, -1⟩ : ZOmega).normSq.natAbs (ZOmega.ofInt (p : Int)) (⟨x, -1⟩ : ZOmega)
+      (Nat.le_refl _)
+  obtain ⟨e, he⟩ := hdP
+  refine ⟨d, ?_⟩
+  apply norm_factor_eq_p p hp2 hpr d e he
+  · -- d non-unit
+    intro hdunit
+    obtain ⟨cc, hcc⟩ := dvd_conj_of_gcd_unit p k x d s t hbez hdunit hk
+    exact not_dvd_unit_im (p : Int) (⟨x, -1⟩ : ZOmega).conj hp1 (Or.inl rfl) ⟨cc, hcc⟩
+  · -- e non-unit
+    intro heunit
+    have hec : e * e.conj = ZOmega.ofInt 1 := unit_of_normSq_one e heunit
+    have hd_eq : d = ZOmega.ofInt (p : Int) * e.conj := by
+      calc d = d * ZOmega.ofInt 1 := (mul_ofInt_one d).symm
+        _ = d * (e * e.conj) := by rw [hec]
+        _ = (d * e) * e.conj := by rw [← mul_assoc]
+        _ = ZOmega.ofInt (p : Int) * e.conj := by rw [← he]
+    obtain ⟨m, hm⟩ := hdω
+    apply not_dvd_unit_im (p : Int) (⟨x, -1⟩ : ZOmega) hp1 (Or.inr rfl)
+    exact ⟨e.conj * m, by rw [hm, hd_eq, mul_assoc]⟩
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit

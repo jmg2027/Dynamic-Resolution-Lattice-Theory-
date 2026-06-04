@@ -98,7 +98,13 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
     `Ring213` calc (`rearrange_helper` + `cassini_ring`-style steps), `ofInt`-unit algebra
     hand-proved (`ofInt_one_mul`/`mul_ofInt_one`), `Dvd ZOmega` instance + `zdvd_refl`/`zero`/
     `combo`, `normSq_natAbs_zero`.  **Phase 2c (gcd) complete.**
-  - **Phase 2c-euclid (next)** — Euclid's lemma from `gcd_bezout`: `p ∤ (x−ω)` ⟹
+  - **Phase 2c-euclid (DONE)** — `EisensteinSplit.split_norm` (8 PURE): `p` prime,
+    `p ∣ x²+x+1`, `¬(p:ℤ)∣1` ⟹ `∃ d, ‖d‖² = p` (= `a²−ab+b²`).  The gcd `d = gcd(ofInt p, x−ω)`
+    is a proper non-unit divisor: non-unit (else `unit_bezout_dvd_conj` ⟹ `p∣conj(x−ω)`,
+    impossible by `not_dvd_unit_im`), cofactor non-unit (else `p∣(x−ω)`); so `ofInt p = d·e`
+    reducible, `norm_factor_eq_p` ⟹ `‖d‖²=p`.  **The entire ℤ[ω]-side is ∅-axiom.**
+    Remaining: `¬(p:ℤ)∣1` (trivial for primes, deferred), Phase 3 (the `x`), Phase 4 (assemble).
+  - **(ref) Phase 2c-euclid plan** — Euclid's lemma from `gcd_bezout`: `p ∤ (x−ω)` ⟹
     `gcd(p, x−ω)` is a unit ⟹ Bezout `1 = s·p + t·(x−ω)` ⟹ (multiplying by `conj(x−ω)`,
     using `p ∣ ‖x−ω‖²`) `p ∣ conj(x−ω)` — contradiction (also a non-unit imaginary part), so
     `gcd(p, x−ω)` is a non-unit proper divisor `d` of `p`; then `p = d·e` reducible and
