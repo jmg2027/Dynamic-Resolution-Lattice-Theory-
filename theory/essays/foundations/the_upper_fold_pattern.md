@@ -67,7 +67,7 @@ there is no outside to locate it in.  So every wall is internal self-reference, 
 self-reference correctly abstracted *is* a fold — the residue pointing at itself
 (`theory/essays/the_form_of_the_residue.md`).  The recursion does not bottom out into a non-fold
 base case because no view surjects onto the residue (`object1_not_surjective`,
-`theory/math/completeness_without_completeness.md`): each template is a facet, the residue is outside
+`theory/math/numbersystems/completeness_without_completeness.md`): each template is a facet, the residue is outside
 every facet's image, so refinement *converges* on the residue without ever *reaching* a final
 non-fold.  Proof closes by folding; it does not terminate at an atom.
 

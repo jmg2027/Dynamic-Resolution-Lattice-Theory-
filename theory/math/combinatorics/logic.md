@@ -26,6 +26,6 @@ LEM applies only at the typed-Bool boundary.
 
 ## Connection
 
-- `theory/math/cross_domain_unification.md` (C6) — Logic as paradigm
+- `theory/math/foundations/cross_domain_unification.md` (C6) — Logic as paradigm
   instance
 - `seed/AXIOM/09_lean_correspondence.md` — R1-R5 judgment game canonical

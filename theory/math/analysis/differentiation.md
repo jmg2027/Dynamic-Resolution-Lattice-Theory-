@@ -13,7 +13,7 @@ Differentiation in 213 is **modulus-tracked**: there is no limit and no
 input resolution the difference quotient needs to reach it.  The
 derivative is not the value of a vanishing limit; it is the witness that
 the difference quotient *closes* at a computable rate.  This is the same
-move the rest of the analysis cluster makes (`theory/math/modulus.md`):
+move the rest of the analysis cluster makes (`theory/math/analysis/modulus.md`):
 an existential over ε is replaced by a function that produces the
 resolution, so every statement stays constructive and ∅-axiom.
 
@@ -85,5 +85,5 @@ rates, not an unreachable ideal.
 
 - `theory/math/analysis/integration.md` — the ∫ side; FTC closes the loop
 - `theory/math/analysis/minimal_root.md` — DyadicSearch sibling
-- `theory/math/modulus.md` — explicit moduli (no ε-δ)
-- `theory/math/real213.md` — Real213 cut carrier
+- `theory/math/analysis/modulus.md` — explicit moduli (no ε-δ)
+- `theory/math/numbersystems/real213.md` — Real213 cut carrier

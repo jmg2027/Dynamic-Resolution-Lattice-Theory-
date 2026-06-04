@@ -212,4 +212,4 @@ python3 tools/scan_axioms.py Lib/Math/Foundations/ParadigmDomain
 
 ## Citation guidance
 
-- ✅ `theory/math/cross_domain_unification.md` (closure narrative)
+- ✅ `theory/math/foundations/cross_domain_unification.md` (closure narrative)

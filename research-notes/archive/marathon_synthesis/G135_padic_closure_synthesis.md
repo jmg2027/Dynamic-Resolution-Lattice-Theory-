@@ -2,7 +2,7 @@
 
 **Status**: Synthesis note (Phase 7.6 of `ready-to-merge` skill).
 Written after the G122 Padic library merged into `main`
-(308 PURE / 0 DIRTY / 8 modules; `theory/math/padic_real213.md`).
+(308 PURE / 0 DIRTY / 8 modules; `theory/math/numbersystems/padic_real213.md`).
 
 ## Anchor
 
@@ -21,11 +21,11 @@ Recurrent theme: 213's existential structures carry an explicit
 modulus / level / digit-position parameter as part of the witness,
 not hidden behind `∃`.  Examples:
 
-- `theory/math/cauchy.md`: Cauchy sequence is `{ f : ℕ → ℕ // ∀ N k l,
+- `theory/math/analysis/cauchy.md`: Cauchy sequence is `{ f : ℕ → ℕ // ∀ N k l,
   k ≥ f N → l ≥ f N → |s_k − s_l| < 1/2^N }`.  The convergence
   modulus `f` is *part of the witness* — no Skolemization, no
   hidden choice.
-- `theory/math/padic_real213.md`: every "x is the inverse of y"-style
+- `theory/math/numbersystems/padic_real213.md`: every "x is the inverse of y"-style
   statement is parameterised by trunc level `n`.  We never prove
   "`y ≡ x⁻¹` as `ZpSeq`s"; we prove `∀ n, (x · y).trunc (n+1) = 1`.
   The level `n` IS the modulus, made explicit at every site.
@@ -64,11 +64,11 @@ equivalence class", say "evaluate the n-th approximation at
 position n".
 
 **Possible export to other domains**:
-- `theory/math/cauchy.md` sequence families already carry explicit
+- `theory/math/analysis/cauchy.md` sequence families already carry explicit
   moduli — would the same diagonal-extraction trick provide a
   ∅-axiom completion to ℝ-style limits?  The Euler / Wallis / Pell
   families would be the obvious test cases.
-- `theory/math/dyadic_fsm.md` FSM signatures are sequence-level
+- `theory/math/numbertheory/dyadic_fsm.md` FSM signatures are sequence-level
   objects with explicit-level reads — is there a "diagonal FSM" /
   "stable bit at depth n" extraction analogous to `invFull`?
 
@@ -157,7 +157,7 @@ Once ω(x) is built, the decomposition `x = ω(x) · u` (where u ≡ 1
 mod p) is a one-line corollary using existing inv/mul machinery.
 
 This gives Padic the standard "Witt-style" multiplicative structure.
-Combined with `theory/math/modular_arithmetic.md`'s F_{p²} content,
+Combined with `theory/math/numbertheory/modular_arithmetic.md`'s F_{p²} content,
 the framework has the building blocks for quadratic / cyclotomic
 extensions of ℤ_p — a real frontier toward Galois representations.
 
@@ -195,12 +195,12 @@ vs sequence-level identity** as a 213 stance.
 
 ## Cross-references
 
-- `theory/math/padic_real213.md` — the anchor closure (G122).
-- `theory/math/modular_arithmetic.md` — supplies Bezout +
+- `theory/math/numbersystems/padic_real213.md` — the anchor closure (G122).
+- `theory/math/numbertheory/modular_arithmetic.md` — supplies Bezout +
   Frobenius-on-F_{p²} that Padic builds on (G119 marathon).
-- `theory/math/dyadic_fsm.md` — sister sequence-machinery chapter,
+- `theory/math/numbertheory/dyadic_fsm.md` — sister sequence-machinery chapter,
   candidate for Pattern B export.
-- `theory/math/cauchy.md` — explicit-modulus Cauchy framework;
+- `theory/math/analysis/cauchy.md` — explicit-modulus Cauchy framework;
   Pattern A neighbour, Pattern B candidate.
 - `seed/RESOLUTION_LIMIT_SPEC.md` — formal home of the
   finite-resolution discipline that Pattern A operationalises.

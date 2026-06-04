@@ -38,4 +38,4 @@ producing a value `> N_U` indicates a misconfiguration.
 ## Connection
 
 - `seed/RESOLUTION_LIMIT_SPEC.md` — `N_U` definition
-- `theory/math/dyadic_fsm.md` — FSM-based hyper recursion
+- `theory/math/numbertheory/dyadic_fsm.md` — FSM-based hyper recursion

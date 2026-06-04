@@ -203,7 +203,7 @@ for unconditional Direction C is discharged at every c by
     central chapter hosting the formal closures
   · `theory/math/cohomology/tripartite_self_containment.md` —
     Direction T
-  · `theory/math/mobius213_p_orbit_closure.md` — parallel
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` — parallel
     P-orbit closure programme
   · `theory/essays/c_counter_as_layer_count.md` — the reframing
     "c as layer count" that makes the five-direction closure

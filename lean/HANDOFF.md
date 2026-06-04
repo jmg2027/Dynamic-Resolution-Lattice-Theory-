@@ -19,7 +19,7 @@ A complete `n×n` integer determinant theory and three major applications:
   `fib_casoratian_rank` (rank exactly 2 = orbit dimension).
 
 The C-finite sequences are now a **commutative ring** under `+` and pointwise `·`.  Narrative:
-`theory/math/linalg213.md` + `theory/math/analysis/cfinite_orbit_dimension.md`.
+`theory/math/algebra/linalg213.md` + `theory/math/analysis/cfinite_orbit_dimension.md`.
 
 ## Next directions (rough order)
 

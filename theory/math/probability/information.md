@@ -34,7 +34,7 @@ structurally.
 
 ## Connection
 
-- `theory/math/cross_domain_unification.md` (C6) — Information as
+- `theory/math/foundations/cross_domain_unification.md` (C6) — Information as
   paradigm instance
 - `theory/physics/alpha_em/precision_derivation.md` C5 Step 5 —
   H¹(K) rank 8 = 2³ = 3 bits = 1 octal digit

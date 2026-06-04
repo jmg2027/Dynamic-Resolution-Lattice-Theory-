@@ -2,7 +2,7 @@
 
 > **ARCHIVED — PROGRAM COMPLETE.**  `cfiniteZ_mul` is proven, ∅-axiom
 > (`Cauchy/CFiniteHadamard.cfiniteZ_mul`).  Promoted narrative:
-> `theory/math/linalg213.md` "the integer determinant → Cayley–Hamilton tower" +
+> `theory/math/algebra/linalg213.md` "the integer determinant → Cayley–Hamilton tower" +
 > `theory/math/analysis/cfinite_orbit_dimension.md`.  Kept for the design rationale + the
 > number-tower reframing.
 

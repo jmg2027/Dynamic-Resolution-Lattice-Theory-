@@ -57,5 +57,5 @@ topological.
 ## Companion clusters
 
 - `Lib/Math/Algebra/CayleyDickson/Tower/` (algebra tower, `theory/math/cayley_dickson/algebra_tower.md`)
-- `Lib/Math/Geometry/AngleStructure/` (angle-structure — `theory/math/angle_structure.md`)
-- `Lib/Math/Geometry/TriangularTower/` (triangular-tower architecture — `theory/math/triangular_tower.md`)
+- `Lib/Math/Geometry/AngleStructure/` (angle-structure — `theory/math/geometry/angle_structure.md`)
+- `Lib/Math/Geometry/TriangularTower/` (triangular-tower architecture — `theory/math/geometry/triangular_tower.md`)

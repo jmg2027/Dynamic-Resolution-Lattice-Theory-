@@ -50,7 +50,7 @@ Lucas's theorem: any prime divisor of `F_n^{Fermat}` has the form
 primality test at this scale.
 
 **DRLT contact**: the `d = 2` slice of the N_U family is the
-dyadic-FSM cousin (per `theory/math/dyadic_fsm.md`).  The slice
+dyadic-FSM cousin (per `theory/math/numbertheory/dyadic_fsm.md`).  The slice
 brings centuries of Fermat-number factorisation theory into
 proximity with the bitstream resolution lattice.  Not currently
 used in production but a clear cross-import opportunity.
@@ -483,9 +483,9 @@ Concrete research directions that emerge from these connections:
   · `lean/E213/Lib/Math/Cohomology/Fractal/` — Lean realisation.
   · `lean/E213/Lib/Math/ModArith/UniversalFLT.lean` — FLT
     infrastructure used in the modular reduction proofs.
-  · `theory/math/dyadic_fsm.md` — `d = 2` cousin via the
+  · `theory/math/numbertheory/dyadic_fsm.md` — `d = 2` cousin via the
     dyadic FSM framework.
-  · `theory/math/modular_arithmetic.md` — Bezout / F_{p²} /
+  · `theory/math/numbertheory/modular_arithmetic.md` — Bezout / F_{p²} /
     Frobenius substrate, the upstream of UniversalFLT.
   · `seed/AXIOM/04_uniqueness.md` §4.3 — structural forcing of
     `(NS, NT, d) = (3, 2, 5)`.

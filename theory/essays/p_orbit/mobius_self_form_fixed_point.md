@@ -189,7 +189,7 @@ Five independent surfaces, one conclusion: the form IS the matrix.
 
 ## Cross-references
 
-  · `theory/math/mobius213_p_orbit_closure.md` §"Self-form
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` §"Self-form
     fixed-point (G139)" — chapter integration
   · `theory/essays/every_axis_sees_p.md` — multi-axis convergence
     (the 55-axis catalog is the "many surfaces" version)

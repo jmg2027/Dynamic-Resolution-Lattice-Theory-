@@ -1,6 +1,6 @@
 # research-notes/archive/universe_chain/ — Möbius extension chain (archived)
 
-**Archived 2026-05-22**: promoted to `theory/math/universe_chain.md`.
+**Archived 2026-05-22**: promoted to `theory/math/foundations/universe_chain.md`.
 
 17 chain notes (G65–G81) + navigation index (G82) + closure-form
 notes (G83–G84).  Cover: Nat213 type synthesis → Möbius P encoding →
@@ -38,7 +38,7 @@ unification) provide supporting context.
 
 ## Cross-references
 
-  - **`theory/math/universe_chain.md`** — promoted narrative
+  - **`theory/math/foundations/universe_chain.md`** — promoted narrative
   - `lean/E213/Lib/Math/UniverseChain/MobiusChain.lean` — chain sentinel
   - `theory/math/cayley_dickson/algebra_tower.md` — algebra-side
     appearance of φ (asymptote rate connects here)

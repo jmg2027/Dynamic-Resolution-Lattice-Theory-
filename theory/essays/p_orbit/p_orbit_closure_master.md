@@ -173,7 +173,7 @@ DIRTY.  Build clean.
 
 ## Cross-references
 
-  · `theory/math/mobius213_p_orbit_closure.md` — chapter on
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` — chapter on
     P-orbit naturalness boundary
   · `theory/essays/p_orbit_naturalness_boundary.md` — original
     naturalness boundary essay

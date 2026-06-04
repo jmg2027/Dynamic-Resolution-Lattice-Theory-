@@ -308,7 +308,7 @@ narrative.  Readers can verify but not understand.
   · **Gap**: `lean/E213/Lib/Math/Foundations/PatternCatalog/` (6 files,
     ~500 SLOC) has no `theory/math/` chapter.  Violates
     promotion parity.
-  · **Action**: write `theory/math/pattern_catalog.md`.
+  · **Action**: write `theory/math/foundations/pattern_catalog/pattern_catalog.md`.
 
 ### 5.4 Catalog ↔ Lean verification tool
 

@@ -33,6 +33,6 @@ Each is a **structural output**, not a foundational primitive.
 
 ## Connection
 
-- `theory/math/cauchy.md` — Cauchy/Euler/Wallis/Pell families
-- `theory/math/real213.md` — Real213 cuts as carrier
-- `theory/math/universe_chain.md` — φ as universe-chain fixed point
+- `theory/math/analysis/cauchy.md` — Cauchy/Euler/Wallis/Pell families
+- `theory/math/numbersystems/real213.md` — Real213 cuts as carrier
+- `theory/math/foundations/universe_chain.md` — φ as universe-chain fixed point

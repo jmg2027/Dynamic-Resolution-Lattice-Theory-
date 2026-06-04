@@ -122,7 +122,7 @@ duality.
     categorical reading of the cohomology axis
   · `theory/math/cohomology/k_nm_c_classification.md` —
     chapter hosting Directions A/B/C/E in formal detail
-  · `theory/math/mobius213_p_orbit_closure.md` — chapter
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` — chapter
     hosting Phases 1–6 in formal detail
   · `theory/math/cohomology/tripartite_self_containment.md` —
     Direction T + Phase 6 cross-frame verdict

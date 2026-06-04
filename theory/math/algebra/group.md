@@ -42,5 +42,5 @@ Used downstream by:
 ## Connection
 
 - `theory/physics/symmetry/c3_chain.md` — Sym(3), Aut(K) as Cayley tables
-- `theory/math/universe_chain.md` — Möbius P^n group structure
-- `theory/math/cross_domain_unification.md` (C6) — Group as paradigm instance
+- `theory/math/foundations/universe_chain.md` — Möbius P^n group structure
+- `theory/math/foundations/cross_domain_unification.md` (C6) — Group as paradigm instance

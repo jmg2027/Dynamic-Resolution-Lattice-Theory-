@@ -27,7 +27,7 @@ external parameters, all PURE in Lean.
 | **configCountD d n = d^(d^n)** | Parametric configuration count (`lean/E213/Lib/Math/Cohomology/Fractal/ConfigCount.lean`); a count-Lens readout, **no level privileged** — not a universe constant. |
 | **Cup-ring** | Cochain cup-product structure.  Closure form for K_{3,2}^{(c=2)} observables. |
 | **Cochain n k** | `Fin (binom n k) → Bool` — free ℤ/2-module on k-subset basis of Δⁿ⁻¹. |
-| **Modulus** | Explicit `Nat → Nat` replacing ε-δ existentials.  Per `theory/math/modulus.md`. |
+| **Modulus** | Explicit `Nat → Nat` replacing ε-δ existentials.  Per `theory/math/analysis/modulus.md`. |
 | **∅-axiom (PURE)** | `#print axioms <thm>` returns empty.  No `propext`, no `Classical`, no Mathlib. |
 | **Closure Form** | Every K_{3,2}^{(c=2)} observable = R(NS,NT,d,c)·Π(1+κ·αⁿ).  Per `rust-engine/docs/closure-algorithm.md`. |
 

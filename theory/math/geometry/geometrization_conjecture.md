@@ -110,7 +110,7 @@ Linear chain.  All under namespace
 
 The deepest finding (step 22, user-derived): all 8 model
 geometries arise from **a single algebraic object** — the Möbius
-matrix P [[2,1],[1,1]] (per `theory/math/universe_chain.md`
+matrix P [[2,1],[1,1]] (per `theory/math/foundations/universe_chain.md`
 Step 7) — read through **different Lens applications**:
 
 | Modulus / Lens | Polynomial mod p | Geometric narrative |
@@ -304,7 +304,7 @@ The 8-geometry decomposition (Geometrization) collapses with:
   H¹(K_{3,2}^{(c=2)}) substrate
 - **Hodge conjecture HC_K32** (`theory/math/cohomology/hodge_conjecture.md`):
   same 8-class cohomology
-- **Universe chain Möbius P** (`theory/math/universe_chain.md`):
+- **Universe chain Möbius P** (`theory/math/foundations/universe_chain.md`):
   same generator [[2,1],[1,1]] now read through 7 mod-k Lenses
 - **Algebra tower asymptote φ** (`theory/math/cayley_dickson/algebra_tower.md`):
   same Möbius signature
@@ -349,7 +349,7 @@ open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
 
 ```
 -- ✅ preferred (closed R1 narrative)
-`theory/math/geometrization_conjecture.md`
+`theory/math/geometry/geometrization_conjecture.md`
 
 -- ✅ also valid (R1+ extensions, open frontier, Real213-p-adic research and its extensions, side observations)
 

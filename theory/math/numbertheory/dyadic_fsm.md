@@ -125,7 +125,7 @@ this; `UniversalFLT` (in ModArith) supplies the FLT.
 
 **Inert case (`5` is a non-residue mod `p`).** `φ` no longer
 lives in `F_p`; instead it lives in `F_{p²} = F_p[√5]`
-(see `theory/math/modular_arithmetic.md`).  The Frobenius
+(see `theory/math/numbertheory/modular_arithmetic.md`).  The Frobenius
 `σ : F_{p²} → F_{p²}`, `x ↦ x^p`, swaps `√5 ↦ −√5` in this case,
 so `σ(φ) = ψ` (the conjugate).  The identity
 `φ · σ(φ) = N(φ) = −1` gives `φ^(p+1) = φ · σ(φ) = −1`, hence
@@ -138,17 +138,17 @@ by `pisano_predict` matches the actual Pell period universally
 in `p`.
 
 The key algebraic moves are all in
-`theory/math/modular_arithmetic.md` (UniversalFLT, FP2Sqrt5);
+`theory/math/numbertheory/modular_arithmetic.md` (UniversalFLT, FP2Sqrt5);
 DyadicFSM contributes the bridge from FLT-statements-in-F_p (or
 F_{p²}) to Pisano-statements-on-the-FSM.
 
 ### Connection to other chapters
 
-- `theory/math/universe_chain.md` — Möbius P matrix [[2,1],[1,1]]
+- `theory/math/foundations/universe_chain.md` — Möbius P matrix [[2,1],[1,1]]
   is the Pell-Fib generator; DyadicFSM closes the P^n identities
 - `theory/math/cayley_dickson/algebra_tower.md` — algebra-tower
   asymptote rate uses Pisano periods
-- `theory/math/real213.md` — Real213 brackets use dyadic encodings
+- `theory/math/numbersystems/real213.md` — Real213 brackets use dyadic encodings
 
 ## k-bonacci closure — `KBonacci.lean` (48 PURE)
 

@@ -40,5 +40,5 @@ Lens-derived foundations).
 ## Connection
 
   foundational note) — layered API framework
-- `theory/math/cross_domain_unification.md` (C6) — extends to
+- `theory/math/foundations/cross_domain_unification.md` (C6) — extends to
   marathon-completed paradigm domains

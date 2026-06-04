@@ -26,5 +26,5 @@ couplings.
 
 ## Connection to other chapters
 
-- `theory/math/real213.md` — function space base
-- `theory/math/modulus.md` — explicit moduli
+- `theory/math/numbersystems/real213.md` — function space base
+- `theory/math/analysis/modulus.md` — explicit moduli

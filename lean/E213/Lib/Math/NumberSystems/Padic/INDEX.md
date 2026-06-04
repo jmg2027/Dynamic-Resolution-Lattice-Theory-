@@ -4,7 +4,7 @@ Real213-p-adic construction: ∅-axiom p-adic integers `ℤ_p` (`ZpSeq p`)
 and p-adic numbers `ℚ_p` (`QpSeq`) via carry-propagation FSM.
 
 **Status**: CLOSED — 27 files, ~510 PURE declarations.
-All phases (1–6) complete.  Promoted chapter: `theory/math/padic_real213.md`.
+All phases (1–6) complete.  Promoted chapter: `theory/math/numbersystems/padic_real213.md`.
 
 ## File map
 
@@ -57,9 +57,9 @@ All under namespace `E213.Lib.Math.NumberSystems.Padic.*`.
 
 ## Cross-references
 
-  · Theory chapter: `theory/math/padic_real213.md` (308 PURE as counted
-    for the chapter; 462 total including extensions and bridge)
-  · Möbius bridge: `theory/math/mobius213_p_orbit_closure.md` §"p-adic
+  · Theory chapter: `theory/math/numbersystems/padic_real213.md`
+    (~484 PURE / 0 DIRTY across the full sub-tree)
+  · Möbius bridge: `theory/math/algebra/mobius213_p_orbit_closure.md` §"p-adic
     Lens family as mod-p arena"
   · Lean bridge file: `ZpSeqMobiusBridge.lean` — Möbius-pair agreement ↔
     `ZpSeqEquiv` bidirectional

@@ -120,7 +120,7 @@ refuses (`05_no_exterior.md` §5.4).  The honest map separates them:
     on that shared bounded scale, not as one object.
   - **ℝ-encoding tower** — `TriangularTower/` encodes reals as
     finite-level squashed paths under `NS = 3` absorption
-    (`theory/math/triangular_tower.md`).  It borrows the signature `NS`,
+    (`theory/math/geometry/triangular_tower.md`).  It borrows the signature `NS`,
     but it is a *representation* construction, not the doubling-arrow
     orbit.
   - **Physics hierarchy towers** — `Physics/Mass/HierarchyTowers` stacks

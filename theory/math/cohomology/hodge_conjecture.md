@@ -118,7 +118,7 @@ Source: `hodge_involution_5strata_capstone`.
 **Cross-reference — self-pointing as Eisenstein complement.**
 The involution `⋆⋆ = id` (complement-cochain self-inverse) is the
 cohomological shadow of the **universe-chain Eisenstein discovery**
-at k = 3 (see `theory/math/universe_chain.md` §"Eisenstein discovery
+at k = 3 (see `theory/math/foundations/universe_chain.md` §"Eisenstein discovery
 at k = 3").  There, the diagonal quotient `ℕ³ → ℤ²` maps the three
 unit axes to `{1, ω, ω²}` satisfying `1 + ω + ω² = 0`.  The sum-to-
 zero relation is dual to `⋆⋆ = id`: both express a **self-cancelling

@@ -186,7 +186,7 @@ theory/THEORY_BOOK.md     Single linearised reading path from
                           seed/AXIOM/ to GRA Phase 22's
                           Lens.Unified capstone (math-only,
                           ~1200 lines, 8 parts + appendices).
-theory/math/gra_book.md   GRA textbook (Ch.0–9 + appendices),
+theory/math/algebra/gra_book.md   GRA textbook (Ch.0–9 + appendices),
                           the universal meta-structure of 213.
 theory/<area>/*.md        Per-area narrative chapters (math /
                           physics / lens / meta / essays).

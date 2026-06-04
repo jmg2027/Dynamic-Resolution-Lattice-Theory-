@@ -38,7 +38,7 @@ graded-ring underlying type used in:
 
 ## Connection
 
-- `theory/math/cross_domain_unification.md` (C6) — Combinatorics
+- `theory/math/foundations/cross_domain_unification.md` (C6) — Combinatorics
   as paradigm instance
 - `theory/physics/alpha_em/precision_derivation.md` — `CoeffSeq`
   spectrum bracket

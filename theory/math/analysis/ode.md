@@ -27,6 +27,6 @@ function of the Lipschitz constant + step count.  No existential.
 
 ## Connection to other chapters
 
-- `theory/math/real213.md` — solutions are Real213-valued
-- `theory/math/cauchy.md` — Picard iterates form Cauchy sequences
-- `theory/math/modulus.md` — explicit moduli used here
+- `theory/math/numbersystems/real213.md` — solutions are Real213-valued
+- `theory/math/analysis/cauchy.md` — Picard iterates form Cauchy sequences
+- `theory/math/analysis/modulus.md` — explicit moduli used here

@@ -598,9 +598,9 @@ the Lean disagree, the Lean wins.
   - `lean/E213/Lens/Cardinality/Cantor.lean` — `cantor_general`
 
 **Companion narrative chapters**
-  - `theory/math/completeness_relocated.md` — the modulus forms in detail
-  - `theory/math/probe_twist_conic.md` — the conic / depth / axes development, §0–13
-  - `theory/math/phi_self_similarity.md` — `φ` as a nested-bracket limit
+  - `theory/math/numbersystems/completeness_relocated.md` — the modulus forms in detail
+  - `theory/math/numbersystems/probe_twist_conic.md` — the conic / depth / axes development, §0–13
+  - `theory/math/algebra/phi_self_similarity.md` — `φ` as a nested-bracket limit
 
 ---
 

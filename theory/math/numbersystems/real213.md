@@ -82,10 +82,10 @@ modulus is a computable function of the input's modulus.
 ### Connection to other chapters
 
 - `theory/math/analysis/minimal_root.md` — IVT via Real213 cuts
-- `theory/math/modulus.md` — modulus combinators used here
-- `theory/math/cauchy.md` (separate chapter) — sequence machinery
-- `theory/math/signed_cut.md` (separate chapter) — sign extension
-- `theory/math/completeness_relocated.md` — completeness is a leaf of the
+- `theory/math/analysis/modulus.md` — modulus combinators used here
+- `theory/math/analysis/cauchy.md` (separate chapter) — sequence machinery
+- `theory/math/numbersystems/signed_cut.md` (separate chapter) — sign extension
+- `theory/math/numbersystems/completeness_relocated.md` — completeness is a leaf of the
   import graph, not a root; the algebraic/transcendental split (φ vs e/π)
   as a theorem via `AbCutSeq`
 

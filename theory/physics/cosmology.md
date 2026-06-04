@@ -17,7 +17,7 @@ Includes **F26 falsifier**: `η_B · 10¹⁰ ∈ [5, 7]` (baryon-to-photon ratio
 ## Narrative
 
 Cosmological observables in DRLT derive from the universe-chain
-closure (per `theory/math/universe_chain.md`) — the same atomic
+closure (per `theory/math/foundations/universe_chain.md`) — the same atomic
 substrate that produces the gluon octet at the gauge level
 produces large-scale observables at the cosmological level via
 the family-evaluation count `configCount 2 = 5²⁵` (historically
@@ -32,5 +32,5 @@ Hubble constant, N_eff, dark energy density similarly bracketed.
 
 ## Connection
 
-- `theory/math/universe_chain.md` — atomicity → cosmological scale via N_U
+- `theory/math/foundations/universe_chain.md` — atomicity → cosmological scale via N_U
 - `catalogs/falsifiers.md` — F26 entry

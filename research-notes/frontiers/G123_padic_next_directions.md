@@ -4,7 +4,7 @@
 modules).  Headline closures: ring axioms at trunc, Hensel inv/sqrt
 existence + uniqueness, full ultrametric, Frobenius lift, Teichmüller
 Cauchy, ℚ_p arithmetic, DRLT 5-adic anchor.  See
-`theory/math/padic_real213.md` for the narrative.
+`theory/math/numbersystems/padic_real213.md` for the narrative.
 
 This note records candidate next directions for follow-up campaigns.
 Each entry includes: statement, dependency chain, estimated
@@ -225,5 +225,5 @@ the new campaign's research-notes, and proceed.  Or pursue something
 unlisted that the prior closure has now unlocked.
 
 Source for the closures referenced: `lean/E213/Lib/Math/Padic/*`,
-chapter `theory/math/padic_real213.md`, catalog entry in
+chapter `theory/math/numbersystems/padic_real213.md`, catalog entry in
 `STRICT_ZERO_AXIOM.md`.

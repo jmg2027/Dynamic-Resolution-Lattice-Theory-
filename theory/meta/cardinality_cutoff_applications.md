@@ -133,7 +133,7 @@ Cut-off slices:
   · Restricted depth 2 (`M_{2,r} = 9 765 625`): `n ≥ 20`.
 
 213-internal motivation: Pell connects to the dyadic FSM /
-Pisano period analysis (`theory/math/dyadic_fsm.md`).
+Pisano period analysis (`theory/math/numbertheory/dyadic_fsm.md`).
 
 ### Lucas
 
@@ -521,5 +521,5 @@ the explicit depth-3 witness `2^(3^2) + 3^2`.
     — Direction F (28 PURE).
   · `theory/math/cohomology/aurifeuillean.md` — Aurifeuillean
     cyclotomic context.
-  · `theory/math/dyadic_fsm.md` — Pell ↔ dyadic FSM connection.
+  · `theory/math/numbertheory/dyadic_fsm.md` — Pell ↔ dyadic FSM connection.
   · `catalogs/atomic-integers.md` — Hunter atomic primes.

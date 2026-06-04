@@ -26,5 +26,5 @@ cup-channel decompositions.
 ## Connection
 
 - `theory/math/cohomology/hodge_conjecture.md` — Cochain n k base
-- `theory/math/measure.md` — cup-as-measure
-- `theory/math/information.md` — bit-counting underlies measurement
+- `theory/math/analysis/measure.md` — cup-as-measure
+- `theory/math/probability/information.md` — bit-counting underlies measurement

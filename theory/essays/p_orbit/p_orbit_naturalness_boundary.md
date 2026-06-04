@@ -166,7 +166,7 @@ one step; the framework absorbed the "external" number cleanly.
 
 ## Cross-references
 
-  · `theory/math/mobius213_p_orbit_closure.md` — full
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` — full
     formal chapter (sharpenings 1–3, mod-p catalog, refined
     hierarchy, master claim)
   · `theory/essays/bipartite_tripartite_self_containment.md` —

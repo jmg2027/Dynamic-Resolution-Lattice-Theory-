@@ -120,7 +120,7 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `archive/completeness/G168_eisenstein_completion.md` (the proven core).
 - `G121_dim4_self_pointing_axis` — the `d_M = d_213 − 1` geometrization ansatz;
   four open knots (M1)-(M4).  Side-observations feed
-  `theory/math/geometrization_conjecture.md` (R1 closed; R1+ open).
+  `theory/math/geometry/geometrization_conjecture.md` (R1 closed; R1+ open).
 - `G123_padic_next_directions` — post-closure direction memo for the p-adic
   library (`theory/math/numbersystems/padic_real213.md`).  Directions A
   (explicit Teichmüller ω), B (μ_{p−1} root-of-unity + unit decomposition),

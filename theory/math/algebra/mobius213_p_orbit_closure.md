@@ -516,16 +516,16 @@ infinite digit sequence `ℕ → Fin p` with truncation
     at digit 0 (`pow_p_trunc_one`) closes the loop: `L(k)^(p-1) ≡ 1
     (mod p)` for `gcd(L(k), p) = 1`.
 
-See [`theory/math/padic_real213.md`](../numbersystems/padic_real213.md) for the full
+See [`theory/math/numbersystems/padic_real213.md`](../numbersystems/padic_real213.md) for the full
 p-adic library narrative (308 PURE theorems).
 
 ## Cross-references
 
-  · `theory/math/mobius_canonical_equivalence.md` — P as cut
+  · `theory/math/algebra/mobius_canonical_equivalence.md` — P as cut
     equivalence generator (mediant closure side)
   · `theory/math/cohomology/k_nm_c_classification.md` — the
     bipartite cohomology side (K_{NS,NT}^{(c)} classification)
-  · `theory/math/padic_real213.md` — ∅-axiom p-adic number
+  · `theory/math/numbersystems/padic_real213.md` — ∅-axiom p-adic number
     construction (the Lens-arena for mod-p reductions)
   · `theory/essays/p_orbit_naturalness_boundary.md` — synthesis
     essay on the dynamic = static coincidence at P

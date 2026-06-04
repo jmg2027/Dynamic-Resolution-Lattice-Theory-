@@ -39,7 +39,7 @@ witness; `DyadicBracket` carries an analysis-time finite interval
 sufficient for ε-replacement bookkeeping.  Each is the canonical
 choice for *one* purpose (Lens-output reasoning, structural
 algebra, numerical analysis) and none is the canonical choice
-overall.  Chapter: `theory/math/real213.md`.
+overall.  Chapter: `theory/math/numbersystems/real213.md`.
 
 ### Instance 2 — Derivative forms
 
@@ -93,7 +93,7 @@ is the only differentiator; the underlying data type is identical.
 The 3-way bridge is recorded in
 `lean/E213/Lib/Math/Geometry/Topology/ModulusStructure.lean` via
 `IsModulusStructure` projections.  Chapter:
-`theory/math/modulus_structure.md`.
+`theory/math/analysis/modulus_structure.md`.
 
 ## Why multiplicity
 
@@ -147,9 +147,9 @@ same name.
   subsumption of external (Bishop, classical) constructions
 - `theory/meta/methodology_patterns.md` Pattern #20 — multiplicity
   within the framework (instances above)
-- `theory/math/real213.md` — Instance 1
+- `theory/math/numbersystems/real213.md` — Instance 1
 - `theory/math/analysis/differentiation.md` — Instance 2
 - `theory/math/cohomology/cup.md`, `cupaw.md` — Instance 3
-- `theory/math/modulus_structure.md` — Instance 4
+- `theory/math/analysis/modulus_structure.md` — Instance 4
 - `seed/AXIOM/05_no_exterior.md` §5.1 — no-exterior axiom (the
   doctrine's source)

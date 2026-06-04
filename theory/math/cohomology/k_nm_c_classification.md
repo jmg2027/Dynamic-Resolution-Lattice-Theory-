@@ -790,7 +790,7 @@ python3 tools/scan_axioms.py \
     higher cohomology, Steenrod algebra, cup_i ladder
   · `theory/math/cohomology/bipartite.md` — parent overview
     (V32Betti, parametric Euler / b_1 family)
-  · `theory/math/mobius_canonical_equivalence.md` — Möbius P,
+  · `theory/math/algebra/mobius_canonical_equivalence.md` — Möbius P,
     Stern-Brocot mediant closure, Pseq orbits
   · `theory/essays/c_counter_as_layer_count.md` — synthesis
     essay on the c-counter reframing

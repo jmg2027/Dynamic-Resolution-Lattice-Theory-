@@ -241,7 +241,7 @@ is a finite extension of the toolkit + a Nat-additive induction.
 
 ## Cross-references
 
-  · `theory/math/mobius213_p_orbit_closure.md` — the chapter; the
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` — the chapter; the
     universal closures are listed under "Closure status".
   · `theory/essays/p_orbit_closure_master.md` — 11-phase marathon
     synthesis; this essay closes two of its three remaining

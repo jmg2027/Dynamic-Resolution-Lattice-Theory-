@@ -386,7 +386,7 @@ distinct domains.  Operational form of
 `seed/AXIOM/05_no_exterior.md` §5.1.
 
 The catalog also realises a **6th P-signature reading**
-(extending the 5 readings in `theory/math/universe_chain.md`:
+(extending the 5 readings in `theory/math/foundations/universe_chain.md`:
 algebraic / geometric / topological / dynamical / analytic):
 **syntactic self-description** — the way `P(x) = (2x+1)/(x+1)`
 is *written* itself encodes the (3, 2, 1) signature at every

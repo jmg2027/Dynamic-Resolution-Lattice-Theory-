@@ -1,12 +1,11 @@
 # Real213-p-adic — 213-native p-adic Numbers
 
-**Status**: Closed (26 files, ~462 PURE).
+**Status**: Closed (27 files, ~484 PURE).
 
 ## Overview
 
 **Real213-p-adic** is a 213-native, ∅-axiom construction of the
-p-adic integers `ℤ_p` and p-adic numbers `ℚ_p`.  The library is
-organised in eight modules:
+p-adic integers `ℤ_p` and p-adic numbers `ℚ_p`.  The core modules:
 
 - **Foundation** — `ZpSeq p` as an infinite digit sequence
   `ℕ → Fin p`, with truncation `trunc : ℕ → ℕ` faithfully
@@ -27,9 +26,14 @@ organised in eight modules:
   `sqr_unique_trunc`) at every trunc level.  Concrete instances:
   `i_5 = √(-1) ∈ ℤ_5`, `i_13 ∈ ℤ_13`, `√2 ∈ ℤ_7`.
 - **Teichmüller** — Frobenius lift `y ≡ z (mod p^k) → y^p ≡ z^p
-  (mod p^(k+1))` (any `p ≥ 1`) and Cauchy convergence of the
-  iteration `x ↦ x^p`.
-- **Field** — ℚ_p as `QpSeq` with add/sub/mul/neg/inv/div/sqrt.
+  (mod p^(k+1))` (any `p ≥ 1`), Cauchy convergence of `x ↦ x^p`, the
+  explicit representative `ω(x)` (diagonal limit) with the Frobenius
+  fix `ω^p ≡ ω`, and Teichmüller uniqueness.
+- **TeichmullerUnit** — `ω(x)` as a `(p−1)`-th root of unity and the
+  `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` decomposition, unique in the canonical
+  213 equality `ZpSeqEquiv`.
+- **Field** — ℚ_p as `QpSeq` with add/sub/mul/neg/inv/div/sqrt, and
+  general division (non-unit denominator) with correctness.
 - **DRLT** — canonical 5-adic embeddings (`ℕ ↪ ZpSeq 5`), e.g. the
   lift of the base prime `5`, with digit smoke-tests.
 
@@ -40,9 +44,9 @@ The library is ∅-axiom throughout: every theorem reports
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Padic/` (8 files)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Padic/` (27 files; core modules below)
 - **Umbrella**: `Padic.lean`
-- **∅-axiom status**: 308 PURE / 0 DIRTY
+- **∅-axiom status**: ~484 PURE / 0 DIRTY
 
 ### Sub-cluster organization
 
@@ -617,7 +621,7 @@ it the natural Lens-arena for mod-p reductions of the Möbius matrix
     framework-natural despite their non-atomic factors — the p-adic
     Lens family is already general.
 
-See [`theory/math/mobius213_p_orbit_closure.md`](../algebra/mobius213_p_orbit_closure.md)
+See [`theory/math/algebra/mobius213_p_orbit_closure.md`](../algebra/mobius213_p_orbit_closure.md)
 for the full mod-p period catalog and the P-orbit closure ring.
 
 ## How to verify

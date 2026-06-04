@@ -56,7 +56,7 @@ The 4-row matrix indexes algebra types by their base ring:
 The `|Z_6| = 6` base of Type C reappears in the Lucas-Pell trace
 sequence as `L(3) = 18 = NS · 6`, linking the algebraic tower's
 Eisenstein unit group to the mod-p period structure of the Möbius
-213 matrix (see `theory/math/mobius213_p_orbit_closure.md`
+213 matrix (see `theory/math/algebra/mobius213_p_orbit_closure.md`
 §"Cross-reference — Cayley-Dickson Type C").  The mod-3 period
 `4 = NT²` directly encodes the Z_6 / Z_2 index.
 

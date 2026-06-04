@@ -193,7 +193,7 @@ one Lean theorem.
 
   · `theory/math/cohomology/k_nm_c_classification.md` — chapter
     hosting the formal classification + parametric c-counter
-  · `theory/math/mobius_canonical_equivalence.md` — Möbius P as
+  · `theory/math/algebra/mobius_canonical_equivalence.md` — Möbius P as
     cut equivalence generator; Stern-Brocot mediant closure
   · `theory/essays/c_counter_as_layer_count.md` — orthogonal
     c-axis decoupling from (NS, NT) lattice position

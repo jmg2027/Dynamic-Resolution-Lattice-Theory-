@@ -4,7 +4,7 @@ Möbius matrix P = [[2,1],[1,1]] symmetry species catalog and
 P-orbit closure programme.
 
 **Status**: CLOSED — 29 files, ~470+ PURE declarations.
-Promoted chapter: `theory/math/mobius213_p_orbit_closure.md`.
+Promoted chapter: `theory/math/algebra/mobius213_p_orbit_closure.md`.
 
 ## File map
 
@@ -63,7 +63,7 @@ Three layers:
 
 ## Cross-references
 
-  · Theory chapter: `theory/math/mobius213_p_orbit_closure.md`
+  · Theory chapter: `theory/math/algebra/mobius213_p_orbit_closure.md`
   · Essay: `theory/essays/p_orbit_closure_master.md`
   · Umbrella: `lean/E213/Lib/Math/Algebra/Mobius213/Px.lean`
 

@@ -30,5 +30,5 @@ finite-bracket sums in this representation.
 
 ## Connection to other chapters
 
-- `theory/math/signed_cut.md` — L1 base
+- `theory/math/numbersystems/signed_cut.md` — L1 base
 - `theory/math/cayley_dickson/algebra_tower.md` — L2 of tower
