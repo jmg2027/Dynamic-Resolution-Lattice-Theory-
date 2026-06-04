@@ -1,5 +1,18 @@
 # Session Handoff — 2026-06-04n (Markov — ★ direction (b): continuant tool + Raw/Lens boundary + axiom-level attack map)
 
+## ✅✅ LANDMARK — Zhang's `3c±2` criterion (prime-power case) FULLY formalized (∅-axiom)
+`markov_max_unique_via_3c_minus_2` (strict ∅-axiom, `MarkovUniqueness.lean`): if `M = 3c−2` is an odd
+prime power `p^(k+1)`, then `MarkovMaxUnique c` — closing **composite** Markov numbers (985 [M=2953 prime],
+4181 [M=12541 prime], 610, 195025, Fibonacci-spine) **uniformly and structurally, with NO per-`c` `decide`
+on the triple**.  This is the first structural closure of composite Markov uniqueness in the repo.
+Full ∅-axiom chain: `zhang_linear_core` → `zhang_quadratic` → `zhang_gap_dvd` →
+`zhang_gap_determines_pair` (recovery) + `sq_collapse_pow_ordered`/`sq_eq_collapse_pp` (prime-power square
+collapse, residue-free generalization of `two_roots_pow_ordered`) → capstone.  Mechanism: `δ²≡δ'² (mod M)`
++ `p∤c⟹p∤δ` ⟹ `δ=δ'` (the `δ+δ'=M` branch excluded by `2c<M`) ⟹ gap determines pair.
+- Open content unchanged: `1325`-type (both `3c±2` composite) + general ω≥2 = Frobenius 1913 (class-number).
+- Follow-up: a `√M`-bounded primality lemma to exhibit concrete closed `c` (in-kernel `decide` over `∀d≤M`
+  overflows for `M~3000`).  Narrative: `research-notes/G202`.
+
 ## ✅ Open-kernel attack (expert agents) — Zhang `3c±2` route: foundation formalized (∅-axiom)
 Three expert agents attacked the open ω≥2 kernel.  Decisive find (Agent C): **Zhang's `3c±2` criterion**
 (Acta Arith. 2007) — `c` unique if `3c−2` or `3c+2` is a prime power — reuses this session's

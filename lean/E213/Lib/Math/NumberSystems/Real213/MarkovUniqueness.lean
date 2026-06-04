@@ -534,6 +534,96 @@ theorem markov_max_unique_of_single {c a₀ b₀ : Nat}
   obtain ⟨e2a, e2b⟩ := hpin a₂ b₂ h2 hb2 m2
   exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
 
+/-- ★★★★★ **Zhang's `3c±2` criterion (the `3c−2` prime-power case), ∅-axiom.**  If `M = 3c−2` is an odd
+    prime power `p^(k+1)` (`3 ≤ p`, divisors `1,p`), the Markov triple with maximum `c` is unique — even
+    for **composite** `c` with `≥ 4` roots of `x²≡−1 (mod c)` (e.g. `c = 985`, `M = 2953` prime;
+    `c = 4181`, `M = 12541` prime).  Each max-`c` triple's gap `δ = b−a` has `M ∣ δ²+c²`
+    (`zhang_gap_dvd`), so `δ²≡δ'² (mod M)`; the prime-power square collapse (`sq_eq_collapse_pp`, using
+    `p∤c ⟹ p∤δ`) forces `δ = δ'` (the `δ+δ'=M` branch excluded by `δ ≤ c`, `2c < M`), and the gap
+    determines the pair (`zhang_gap_determines_pair`).  Closes composite Markov numbers uniformly, with no
+    per-`c` `decide`. -/
+theorem markov_max_unique_via_3c_minus_2 (c p k : Nat) (hc5 : 5 ≤ c) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (hM : 3 * c - 2 = p ^ (k + 1)) :
+    MarkovMaxUnique c := by
+  intro a₁ b₁ a₂ b₂ ho1 hb1c ho2 hb2c hm1 hm2
+  have hc1 : 1 ≤ c := Nat.le_trans (by decide) hc5
+  have hp1 : 1 < p := Nat.lt_of_lt_of_le (by decide) hp3
+  have hpM : p ∣ (3 * c - 2) := by rw [hM]; exact ⟨p ^ k, by rw [Nat.pow_succ, Nat.mul_comm]⟩
+  have h2le3c : 2 ≤ 3 * c := Nat.le_trans (by decide) (Nat.le_mul_of_pos_right 3 hc1)
+  have hgap1 : (3 * c - 2) ∣ (b₁ - a₁) * (b₁ - a₁) + c * c := zhang_gap_dvd a₁ b₁ c hm1 ho1 hc1
+  have hgap2 : (3 * c - 2) ∣ (b₂ - a₂) * (b₂ - a₂) + c * c := zhang_gap_dvd a₂ b₂ c hm2 ho2 hc1
+  have hpc_not : ¬ p ∣ c := by
+    intro hpc
+    have hp3c : p ∣ 3 * c := by
+      have := E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.dvd_mul_right_loc p c 3 hpc; rwa [Nat.mul_comm c 3] at this
+    have hp2 : p ∣ 2 := by
+      have hd := dvd_sub_213 (3 * c - 2) (3 * c) p (Nat.sub_le _ _) hpM hp3c
+      rwa [E213.Tactic.NatHelper.sub_sub_self h2le3c] at hd
+    exact absurd (E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.le_of_dvd_loc (by decide) hp2)
+      (Nat.not_le_of_lt (Nat.lt_of_lt_of_le (by decide) hp3))
+  have hpδ : ∀ a b, a ≤ b → markovEq a b c → ¬ p ∣ (b - a) := by
+    intro a b hab hm hpd
+    have hpsq : p ∣ (b - a) * (b - a) := E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.dvd_mul_right_loc p (b - a) (b - a) hpd
+    have hpsum : p ∣ (b - a) * (b - a) + c * c :=
+      E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.dvd_trans_loc p (3 * c - 2) _ hpM (zhang_gap_dvd a b c hm hab hc1)
+    have hpc2 : p ∣ c * c := by
+      have hd := dvd_sub_213 ((b - a) * (b - a)) ((b - a) * (b - a) + c * c) p
+        (Nat.le_add_right _ _) hpsq hpsum
+      rwa [Nat.add_comm, E213.Tactic.NatHelper.add_sub_cancel_right] at hd
+    have hcoc : gcd213 c p = 1 := by
+      rw [gcd213_comm]; exact E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.prime_coprime p c hpr hpc_not
+    exact hpc_not (E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.euclid_of_coprime c c p hp1 hcoc hpc2)
+  have hMc : c < 3 * c - 2 := by
+    have h2c2 : 2 ≤ 2 * c := Nat.le_trans (by decide) (Nat.le_mul_of_pos_right 2 hc1)
+    have e : 3 * c - 2 = c + (2 * c - 2) := by
+      have key : c + (2 * c - 2) + 2 = 3 * c := by
+        rw [Nat.add_assoc, E213.Tactic.NatHelper.sub_add_cancel h2c2]; ring_nat
+      rw [← key, E213.Tactic.NatHelper.add_sub_cancel_right]
+    rw [e]
+    exact Nat.lt_add_of_pos_right
+      (Nat.lt_of_lt_of_le (by decide) (Nat.sub_le_sub_right (Nat.mul_le_mul (Nat.le_refl 2) hc5) 2))
+  have hδ1M : b₁ - a₁ < p ^ (k + 1) := by
+    rw [← hM]; exact Nat.lt_of_le_of_lt (Nat.le_trans (Nat.sub_le b₁ a₁) hb1c) hMc
+  have hδ2M : b₂ - a₂ < p ^ (k + 1) := by
+    rw [← hM]; exact Nat.lt_of_le_of_lt (Nat.le_trans (Nat.sub_le b₂ a₂) hb2c) hMc
+  have modbridge : ∀ A B : Nat, B ≤ A → (3 * c - 2) ∣ (A - B) →
+      A % (3 * c - 2) = B % (3 * c - 2) := by
+    intro A B hBA hdvd
+    obtain ⟨q, hq⟩ := hdvd
+    have hA : A = B + q * (3 * c - 2) := by
+      have hsa := E213.Tactic.NatHelper.sub_add_cancel hBA
+      rw [hq] at hsa
+      rw [← hsa, Nat.mul_comm (3 * c - 2) q, Nat.add_comm]
+    rw [hA]; exact E213.Tactic.NatHelper.add_mul_mod_self_pure B (3 * c - 2) q
+  have hsq : ((b₁ - a₁) * (b₁ - a₁)) % p ^ (k + 1) = ((b₂ - a₂) * (b₂ - a₂)) % p ^ (k + 1) := by
+    rw [← hM]
+    rcases Nat.le_total ((b₂ - a₂) * (b₂ - a₂)) ((b₁ - a₁) * (b₁ - a₁)) with hle | hle
+    · apply modbridge _ _ hle
+      have hd := dvd_sub_213 ((b₂ - a₂) * (b₂ - a₂) + c * c) ((b₁ - a₁) * (b₁ - a₁) + c * c)
+        (3 * c - 2) (Nat.add_le_add_right hle _) hgap2 hgap1
+      rwa [E213.Tactic.NatHelper.add_sub_add_right] at hd
+    · refine (modbridge _ _ hle ?_).symm
+      have hd := dvd_sub_213 ((b₁ - a₁) * (b₁ - a₁) + c * c) ((b₂ - a₂) * (b₂ - a₂) + c * c)
+        (3 * c - 2) (Nat.add_le_add_right hle _) hgap1 hgap2
+      rwa [E213.Tactic.NatHelper.add_sub_add_right] at hd
+  rcases E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.sq_eq_collapse_pp p k
+      (b₁ - a₁) (b₂ - a₂) hp3 hpr hδ1M hδ2M (hpδ a₁ b₁ ho1 hm1) (hpδ a₂ b₂ ho2 hm2) hsq with heq | hsum
+  · exact zhang_gap_determines_pair hm1 hm2 ho1 ho2 hc1 heq
+  · exfalso
+    rw [← hM] at hsum
+    have hsumle : (b₁ - a₁) + (b₂ - a₂) ≤ c + c :=
+      Nat.add_le_add (Nat.le_trans (Nat.sub_le b₁ a₁) hb1c) (Nat.le_trans (Nat.sub_le b₂ a₂) hb2c)
+    have h2cM : c + c < 3 * c - 2 := by
+      have e : 3 * c - 2 = (c + c) + (c - 2) := by
+        have key : (c + c) + (c - 2) + 2 = 3 * c := by
+          rw [Nat.add_assoc, E213.Tactic.NatHelper.sub_add_cancel (Nat.le_trans (by decide) hc5)]
+          ring_nat
+        rw [← key, E213.Tactic.NatHelper.add_sub_cancel_right]
+      rw [e]
+      exact Nat.lt_add_of_pos_right
+        (Nat.lt_of_lt_of_le (by decide) (Nat.sub_le_sub_right hc5 2))
+    exact Nat.lt_irrefl _ (hsum ▸ Nat.lt_of_le_of_lt hsumle h2cM)
+
 /-- `MarkovMaxUnique 5`, via the general reduction + the decidable single-pair check. -/
 theorem markovMaxUnique_5 : MarkovMaxUnique 5 :=
   markov_max_unique_of_single (fun a b hab hb m => markov_max_unique_5 a (Nat.le_trans hab hb) b hb hab m)

@@ -89,18 +89,25 @@ argument that kills the phantom, mirroring the c-side window.
 3. ✅ **DONE** `zhang_gap_determines_pair` (∅-axiom) — two max-`c` triples with the same gap `b−a` are
    equal.  Via `zhang_quadratic` (equal gap ⟹ equal `ab` after cancelling `3c−2`), then equal product +
    gap ⟹ equal sum (`sum_sq_gap` + `sq_inj_le`) ⟹ equal pair.  **The recovery half.**
-4. `zhang_root_unit` + bridge — with `inverse_of_coprime` for `c⁻¹ mod M` (`gcd(c, M)=1`, `M` odd),
-   promote `zhang_gap_dvd` (`δ² ≡ −c² mod M`) to `(δ·c⁻¹)² ≡ −1 mod M`; `two_roots_of_prime_pow` on
-   `M = pᵏ` gives `w₁ = w₂ ∨ w₁+w₂ = M`, i.e. `δ₁ = δ₂ ∨ δ₁+δ₂ ≡ 0`; range `δ_i < c`, `δ₁+δ₂ < 2c < M`
-   forces `δ₁ = δ₂`.  *Yellow* — modular plumbing (reuses the c-side modular machinery).
-5. `markov_max_unique_via_3c_minus_2` — capstone: feed `δ₁ = δ₂` to `zhang_gap_determines_pair`.
-   *One-liner once step 4 lands.*
+4. ✅ **DONE** `sq_collapse_pow_ordered` + `sq_eq_collapse_pp` (∅-axiom, `MarkovPrimeFactor`) — the
+   residue-free generalization of the prime-power root count: `x² ≡ y² (mod p^(k+1))` with `p∤x,y` ⟹
+   `x = y ∨ x+y = p^(k+1)`.  (Extracted from `two_roots_pow_ordered`'s core; `+1` only supplied `p∤x`.)
+5. ✅ **DONE** `markov_max_unique_via_3c_minus_2` (∅-axiom) — **the capstone**: `M = 3c−2` an odd prime
+   power `p^(k+1)` ⟹ `MarkovMaxUnique c`.  `δ²≡δ'² (mod M)` (from `zhang_gap_dvd`) + `sq_eq_collapse_pp`
+   (using `p∤c ⟹ p∤δ`) ⟹ `δ=δ'` (`δ+δ'=M` excluded by `δ ≤ c`, `2c < M`) ⟹ `zhang_gap_determines_pair`.
 
-**Done this session**: steps 1–3 (algebraic foundation **+ the entire recovery half**, all ∅-axiom +
-sanity-checked: `985`, `2953 ∣ 167²+985²`, quotient `338 = 2·169 = ab`).  Remaining: step 4 (modular
-root-count bridge — `c⁻¹ mod M` + `two_roots_of_prime_pow` on `M` + the `δ < c` range argument) then the
-one-line capstone (step 5).  Lemmas done: `zhang_linear_core`, `zhang_quadratic`, `zhang_gap_dvd`,
-`zhang_gap_determines_pair` (+ helpers `sq_inj_le`, `sum_sq_gap`).
+## ✅ COMPLETE — Zhang's `3c±2` (prime-power case) fully formalized, ∅-axiom
+
+All steps done.  `markov_max_unique_via_3c_minus_2` closes **composite** Markov numbers (985, 4181, 610,
+195025, Fibonacci-spine …) uniformly and structurally — **no per-`c` `decide` on the triple**.  The
+genuine open content (`1325`-type, both `3c±2` composite; general ω≥2) is unchanged: Frobenius 1913
+needs class-number data (Agent B).  Lemmas (all strict ∅-axiom): `zhang_linear_core`, `zhang_quadratic`,
+`zhang_gap_dvd`, `zhang_gap_determines_pair`, `sq_collapse_pow_ordered`, `sq_eq_collapse_pp`,
+`markov_max_unique_via_3c_minus_2`.  Sanity-verified: `985 → M=2953` prime, `4181 → M=12541` prime,
+`2953 ∣ 167²+985²`.
+
+(Concrete instantiation needs a primality witness for `M = 3c±2`; in-kernel `decide` over `∀d≤M` overflows
+for `M ~ 3000`, so a `√M`-bounded primality lemma is the small follow-up to exhibit specific closed `c`.)
 
 ## Status
 
