@@ -511,6 +511,15 @@ periodic floor), the boost to the elliptic `S = N·R`'s rotation (`FoldReflectio
 `|trace|` against `2` selects rotation (elliptic, periodic) vs boost (hyperbolic, aperiodic) — the
 same `tr²−4` dial.  All by `decide`.
 
+`E213.Lib.Math.Real213.ParabolicTranslation` — **10 PURE**.  Completes the trichotomy's third face:
+the parabolic translation `T = [[1,1],[0,1]]` (`det = 1`, `trace = 2`, `disc = 0`, `T_parabolic`)
+factors as `Aₚ · Bₚ` (`parabolic_translation_eq`) with `Aₚ = [[1,0],[0,−1]]`, `Bₚ = [[1,1],[0,−1]]`
+both involutive reflections in **parallel** mirrors.  Capstone `sl2_trichotomy_as_two_reflections`:
+the whole `SL(2,ℤ)` order-2 trichotomy is one frame — product of two reflections — with `tr²−4`
+selecting the face: elliptic `S = N·R` (`disc = −4`, rotation), parabolic `T = Aₚ·Bₚ` (`disc = 0`,
+translation, the difference-Lens depth-1 rung), hyperbolic `G = A·B` (`disc = 5`, boost).  All by
+`decide`.
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
