@@ -22,7 +22,8 @@ All ∅-axiom.
 namespace E213.Lib.Math.Linalg213.PolyDet
 
 open E213.Lib.Math.Linalg213.DetN (det cofSum minor colShift altSign det_congr)
-open E213.Lib.Math.PolyZ (PolyZ eval C addP scaleP mulP eval_C eval_addP eval_scaleP eval_mulP)
+open E213.Lib.Math.PolyZ (PolyZ eval C addP scaleP mulP coeff eval_C eval_addP eval_scaleP eval_mulP
+  degLe degLe_nil degLe_addP degLe_scaleP degLe_mulP degLe_mono)
 
 /-- The `(0,j)`-minor of a polynomial matrix (drop row 0, column `j`). -/
 def pminor (A : Nat → Nat → PolyZ) (j : Nat) : Nat → Nat → PolyZ :=
@@ -98,5 +99,36 @@ theorem eval_charPoly (M : Nat → Nat → Int) (N : Nat) (x : Int) :
     eval (charPoly M N) x = det N (fun i j => (if i = j then x else 0) - M i j) := by
   rw [show charPoly M N = pdet N (charMat M) from rfl, eval_pdet N (charMat M) x]
   exact det_congr N (evalMat_charMat M x)
+
+/-! ## §3 — the degree bound: `deg (pdet n A) ≤ n` for degree-`≤1` entries -/
+
+/-- Cofactor-sum step of the degree bound: `deg (pcofSum (pdet n) A c) ≤ n+1`. -/
+theorem degLe_pcofSum (n : Nat) (A : Nat → Nat → PolyZ) (hA : ∀ i j, degLe (A i j) 1)
+    (ih : ∀ (B : Nat → Nat → PolyZ), (∀ i j, degLe (B i j) 1) → degLe (pdet n B) n) :
+    ∀ (c : Nat), degLe (pcofSum (pdet n) A c) (n + 1)
+  | 0     => degLe_nil _
+  | c + 1 => by
+    show degLe (addP (pcofSum (pdet n) A c)
+      (scaleP (altSign c) (mulP (A 0 c) (pdet n (pminor A c))))) (n + 1)
+    apply degLe_addP
+    · exact degLe_pcofSum n A hA ih c
+    · apply degLe_scaleP
+      have hmul : degLe (mulP (A 0 c) (pdet n (pminor A c))) (1 + n) :=
+        degLe_mulP (A 0 c) 1 (pdet n (pminor A c)) n (hA 0 c)
+          (ih (pminor A c) (fun _ _ => hA _ _))
+      rw [Nat.add_comm 1 n] at hmul
+      exact hmul
+
+/-- ★ **Degree bound**: `pdet` of an `n×n` matrix with degree-`≤1` entries has degree `≤ n`. -/
+theorem degLe_pdet : ∀ (n : Nat) (A : Nat → Nat → PolyZ), (∀ i j, degLe (A i j) 1) →
+    degLe (pdet n A) n
+  | 0,     _, _  => by
+    intro m hm
+    cases m with
+    | zero   => exact absurd hm (Nat.lt_irrefl 0)
+    | succ _ => rfl
+  | n + 1, A, hA => by
+    show degLe (pcofSum (pdet n) A (n + 1)) (n + 1)
+    exact degLe_pcofSum n A hA (fun B hB => degLe_pdet n B hB) (n + 1)
 
 end E213.Lib.Math.Linalg213.PolyDet
