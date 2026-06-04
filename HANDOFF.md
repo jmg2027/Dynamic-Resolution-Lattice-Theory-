@@ -84,8 +84,17 @@ bridge remains open.
   (`DepthHeightDiagonal.{height_diagonal_escapes,epsilon_direction}`, chaptered in
   `completeness_without_completeness.md` Part IV §14; native ε₀ object out of ∅-axiom reach, not
   forced) and frozen=dynamic φ (`PhiFrozenDynamic.frozen_eq_dynamic_phi`, §5.7 — **promoted this
-  session** to `phi_self_similarity.md` §3.6).  Cross-arc to the spiral-adic / Ostrowski carry
-  (G181) is the genuine next open, now reachable from §19's shift.
+  session** to `phi_self_similarity.md` §3.6).
+
+### 6. G181 — §19→odometer cross-arc closed (the escape's arithmetic face)
+New `Theory/Raw/Odometer` (11 PURE, wired into `Theory/Raw/API.lean`): the binary (2-adic) `+1`
+adding machine on the §19 bit-streams, read as the µF/νF mirror at the arithmetic scale — the
+carry terminates iff the stream has a floor (a `0`, `carry_dies_iff_has_false`, µF) and runs
+forever on the all-`true` = `spineL`-seed stream (`allTrue_carry_forever`, νF), so the canonical
+escape IS the odometer overflow (`spineL_seed_is_odo_overflow`).  The `+1` = the self-pointing
+act, the carry = the residue unit.  Realises G181's identified build target (binary base).  Fed
+`the_frontier_has_a_form.md` + G181/G178 notes.  **Next on this arc**: the variable-base
+Ostrowski(α) / Zeckendorf carry (the genuine spiral-adic, harder).
 
 ### 3. (carried) Promotion candidates
 PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov

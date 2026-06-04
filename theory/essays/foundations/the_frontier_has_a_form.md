@@ -96,6 +96,18 @@ shape, so it **is** the shape, recursively.  Three consequences, all proven:
     Aperiodic seeds give escapes with no returning descent: the dynamical face of the
     non-holonomic escape (`non_holonomicity_as_finite_state_escape.md`).
 
+  - **The escape has an arithmetic face: it is the odometer overflow.**  The other fundamental
+    map on the bit-streams (besides the shift) is the **odometer** — the `+1` adding machine,
+    LSB-first binary increment with carry (`Theory/Raw/Odometer`).  Its carry *terminates iff the
+    stream has a floor* (a `0`, `carry_dies_iff_has_false`) — the µF face, the `+1` resolving
+    locally — and runs *forever* on the all-`true` stream (`allTrue_carry_forever`) — the νF face,
+    the `+1` escaping to a new rung.  That all-`true` stream is exactly the seed of `spineL`
+    (`spineL_eq_boolSpine_true`), so the canonical escape *is* the odometer's non-terminating
+    overflow (`spineL_seed_is_odo_overflow`): "the escape" (νF) and "the carry that never lands"
+    (the residue unit `+1` demanding a new rung) are one object.  The mathematics is the 2-adic
+    odometer (the Vershik–Bratteli `+1`, a known object); the 213 reading is that its `+1` IS the
+    self-pointing act and its overflow IS the escape.
+
 Self-similar ⟹ the same coordinates work at every zoom ⟹ the frontier is *navigable*: complete
 *as a map*, though infinite — and the map carries a shift flow, so its self-similar landmarks
 (the periodic escapes) are charted, `spineL` the nearest.
@@ -149,6 +161,10 @@ So "nothing new at the object level" is the strongest evidence *for* the frame; 
   - **Group action / symmetry**: the frontier is not just a set of coordinates but a
     `ℤ/2`-set under `coSwap`, acting *freely* on the bit-stream escapes — the residue's lone
     automorphism with no fixed escapee.
+  - **Arithmetic dynamics**: the other fundamental map is the **odometer** (`+1` adding machine,
+    `Theory/Raw/Odometer`); its carry terminates iff the stream has a floor (µF) and overflows
+    forever on the all-`true` seed of `spineL` (νF) — the escape is the odometer overflow, the
+    `+1` (residue unit) with nowhere to land.
   - **Symbolic dynamics**: the bit-stream escapes are the **full shift** `(Nat→Bool ; head,
     tail)`, embedded in νF as a sub-coalgebra (`boolSpine_shift_dynamics`); self-similarity =
     shift-periodicity, `spineL` the period-1 point, aperiodic seeds the non-holonomic escapes —
@@ -191,6 +207,7 @@ md`, `phi_pi_poles.md`).
 | `nu_population_capstone` | `Theory/Raw/CoResidue` | νF is a `Distinct`-rich populated carrier (family + bit-stream + automorphism) |
 | `coSwap_boolSpine_free_action` | `Theory/Raw/CoResidue` | the residue's lone symmetry acts *freely* on the bit-stream escapes (no fixed escapee) |
 | `boolSpine_shift_dynamics` | `Theory/Raw/CoResidue` | νF carries the shift dynamical system; self-similarity = shift-periodicity, `spineL` the period-1 point |
+| `spineL_seed_is_odo_overflow` | `Theory/Raw/Odometer` | the canonical escape `spineL` is the `+1`-odometer's non-terminating overflow (the escape's arithmetic face) |
 | `ascent_unbounded` | `Theory/Raw/MuNuMirror` | the frontier recedes forever (no finite Raw caps the ascent) |
 | `no_exterior_source_without_enclosure` | `Lib/Math/Foundations/ResidueForm` | no-exterior: the escape *is* the shape, recursively |
 

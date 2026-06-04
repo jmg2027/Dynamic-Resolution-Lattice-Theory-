@@ -138,4 +138,15 @@ content is the *reading*, not a new numeration.**
 **Direction**: if anything is to be *built*, the target is the **Ostrowski/Vershik odometer
 as the arithmetic face of the pointing act** (`+1` = the act, carry = spiral lift, profinite
 limit = νF) — connecting `rawTower` / `MuNuMirror` to Ostrowski numeration.  Not a new adic;
-a native reading of the known one.  (Done elsewhere per branch policy.)
+a native reading of the known one.
+
+**STATUS 2026-06-04 — first odometer increment built ∅-axiom.**  `Theory/Raw/Odometer`
+(11 PURE) builds the binary (2-adic) `+1` adding machine on the §19 bit-streams and reads the
+µF/νF mirror at the odometer scale: the carry starts at the residue unit (`carry_zero`),
+*terminates iff the stream has a floor* (a `0`, `carry_dies_iff_has_false` — the µF face) and
+*runs forever* on the all-`true` stream (`allTrue_carry_forever` — the νF face).  The all-`true`
+seed is exactly `spineL` (`CoResidue.spineL_eq_boolSpine_true`), so the canonical νF escape **is**
+the odometer overflow (`spineL_seed_is_odo_overflow`) — the `+1` that never lands.  This realises
+the "Direction" above (binary base; the variable-base Ostrowski(α) / Zeckendorf carry is the next
+step).  Honest scope: the 2-adic odometer is the known object; the content is the residue reading
+(`+1` = act, overflow = escape), per the FINDINGS verdict.

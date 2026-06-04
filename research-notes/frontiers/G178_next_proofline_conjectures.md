@@ -47,7 +47,15 @@ non-holonomicity arc):
   Fed the essay's "the frontier carries dynamics" layer.  **All C-phys consolidation bridges now
   resolved**: C3/C6/C7 closed ∅-axiom, C1 closed-as-non-bridge (see the Consolidation-bridges
   section).  The ε₀-diagonal and frozen=dynamic-φ adjacents were already closed (survey footer).
-  The genuine open next is the §19→G181 shift↔Ostrowski-odometer cross-arc.
+
+**STATUS 2026-06-04 — §19→G181 odometer cross-arc closed** ∅-axiom (`Theory/Raw/Odometer`,
+11 PURE).  The other fundamental map on the §19 bit-streams — the **odometer** (`+1` adding
+machine) — built and read as the µF/νF mirror at the arithmetic scale: carry terminates iff the
+stream has a floor (`carry_dies_iff_has_false`, µF) and runs forever on the all-`true` =
+`spineL`-seed stream (`allTrue_carry_forever`, νF), so the canonical escape IS the odometer
+overflow (`spineL_seed_is_odo_overflow`).  Realises G181's identified build target (binary base;
+variable-base Ostrowski/Zeckendorf carry is the next step).  Fed `the_frontier_has_a_form.md`
+("the escape's arithmetic face") + the G181 note's STATUS.
 
 ## Recommended next proof-line (νF population — all ∅-axiom-feasible)
 
