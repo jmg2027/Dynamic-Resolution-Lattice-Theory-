@@ -47,10 +47,17 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
     `∀ A (N>0), ∃ q r, A = qN + r ∧ 2|r| ≤ N`, built exactly per the scouting below.
   - **Phase 1b-infra (DONE)** — `Meta.Int213.OrderMul` (4 PURE): the pure `Int` multiplicative
     order lemmas the descent's final inequality needs (`mul_le_mul_right_nonneg`,
-    `mul_le_mul_left_nonneg`, `int_sign` trichotomy, `mul_nonpos_of_nonneg_of_nonpos`) — the
-    core versions are `propext`-dirty.  Remaining Phase 1b: the ZOmega assembly
-    `∃ γ, ‖α−βγ‖² < ‖β‖²` using `β·conjβ = ofInt ‖β‖²`, `normSq_mul`, `covering_bound`,
-    `centered_div`, and these order lemmas (sign-trichotomy contradiction `N ≤ ‖ρ‖² ⟹ 2N² ≤ 0`).
+    `mul_le_mul_left_nonneg`, `int_sign` trichotomy, `mul_nonpos_of_nonneg_of_nonpos`).
+  - **Phase 1b-foundation (DONE)** — `Integer.EisensteinDivStep` (3 PURE): the ZOmega-side
+    helpers `normSq_pos` (`β≠0 → 0<‖β‖²`), `mul_conj_self` (`β·conjβ = ofInt‖β‖²`),
+    `normSq_conj` (`‖conju‖²=‖u‖²`).  Note: `ring_intZ` cannot close `expr = 0` directly
+    (reflection normalizer mismatch on `PE.C 0`) — route via `= q*q − q*q` + `sub_self_zero`.
+  - **Phase 1b-assembly (next)** — `zomega_div_step : β≠0 → ∃ γ ρ, α = βγ + ρ ∧ ‖ρ‖² < ‖β‖²`.
+    Path: `centered_div_int` wrapper (β.normSq : Int>0 from `normSq_pos`); `γ = ⟨qre,qim⟩` from
+    `centered_div` on `(α·conjβ).re/.im`; prove `ρ·conjβ = ⟨rre,rim⟩` (ext + ring_intZ, with
+    `mul_conj_self`); `‖ρ‖²·N = eisForm rre rim` (`normSq_mul` + `normSq_conj`); `covering_bound`
+    (needs `4r²≤N²` from `2|r|≤N` via a pure `ofNat_le` cast); then `‖ρ‖² < N` by the
+    `int_sign` contradiction (`N ≤ ‖ρ‖² ⟹ 8N² ≤ 6N² ⟹ 2N² ≤ 0` vs `0 < N²`).
   - **Phase 1a (scouting record)** — centered division `∀ A (N>0), ∃ q r, A = qN + r ∧ 2|r| ≤ N`.
     Toolkit: pure Nat `AddMod213.div_add_mod` + `Nat.mod_lt` (both PURE) for the ordinary
     remainder, then center (subtract `N` when `2·(a%N) > N`).  **Purity caveat**: the core
