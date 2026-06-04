@@ -3,8 +3,9 @@
 How does a strict-PURE codebase (no Mathlib, no propext, no Quot.sound,
 no Classical) prove universal polynomial identities over ℕ or ℤ?  The
 answer that emerged from the P-orbit closure programme is a small
-**213-PURE Nat ring toolkit** (`Lib/Math/NatRing.lean`) plus a
-**Nat-additive reformulation pattern** that sidesteps Int.
+**213-PURE Nat ring toolkit** (`Meta/Nat/NatRing213.lean`, in the
+ring-independent Meta layer) plus a **Nat-additive reformulation
+pattern** that sidesteps Int.
 
 This essay distils the discovery and the pattern, applied first to the
 universal Cassini identity for the Pell-Lucas trace orbit, then to
@@ -63,13 +64,16 @@ theorem nat_sub_add_cancel : ∀ {a b : Nat}, b ≤ a → a - b + b = a
 ```
 
 These verify `#print axioms` empty — they are 213-PURE.  The PURE
-Nat ring toolkit lives at `lean/E213/Lib/Math/NatRing.lean` and
-provides:
+Nat ring toolkit lives at `lean/E213/Meta/Nat/NatRing213.lean` (the
+two most basic identities, `nat_mul_assoc` / `nat_add_mul`, re-export
+the canonical proofs in `Meta/Nat/PureNat`; the rest are derived
+there) and provides:
 
   `nat_mul_assoc, nat_add_mul, nat_add_right_cancel,
    nat_add_left_cancel, nat_sub_add_cancel, nat_add_sub_self_right,
    nat_le_of_add_le_add_right, nat_swap_left_mul,
-   three_mul_eq, two_mul_eq`.
+   three_mul_eq, two_mul_eq` (and the square / strict-monotonicity
+  helpers `mul_sq, sq_le_imp, nat_mul_lt_mul_right`).
 
 Every Nat ring manipulation can be expressed via these primitives
 combined with the PURE-core lemmas (`Nat.add_comm`, `Nat.mul_comm`,
@@ -179,7 +183,7 @@ sequence with bounded subtraction:
        `Nat.add_right_comm`, `Nat.mul_add` (already PURE in core);
      - PURE `nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`,
        `nat_sub_add_cancel`, `nat_le_of_add_le_add_right`
-       (re-derived in `NatRing`);
+       (in `Meta/Nat/{PureNat, NatRing213}`);
      - IH-driven helpers that substitute the inductive hypothesis
        at one targeted position (often via a `rw [show ... from ...]`
        block to position the substitution).
@@ -231,7 +235,7 @@ is a finite extension of the toolkit + a Nat-additive induction.
 
 ## Lean source
 
-  · `lean/E213/Lib/Math/NatRing.lean` (10 PURE)
+  · `lean/E213/Meta/Nat/NatRing213.lean` (19 PURE)
   · `lean/E213/Lib/Math/Mobius213/Px/CassiniUniversal.lean` (16 PURE)
   · `lean/E213/Lib/Math/Mobius213/Px/PnFibonacciUniversal.lean` (14 PURE)
 

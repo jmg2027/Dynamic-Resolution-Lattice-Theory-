@@ -365,9 +365,9 @@ section.  Essay: `theory/essays/cd_tower_polarization.md`.
 | Type E rejection | `Misc/TypeE_Rejection` | 4-row matrix complete |
 | Möbius signature φ fixed point | `Theory/Raw/Mobius` (Pell-Fib bridge) | 213 = [[2,1],[1,1]] |
 
-## Deeper layers — L7T closed (ZSqrtMinus2TowerL7.lean)
+## Deeper layers — L7T closed (ZSqrtMinus2TowerDeep.lean)
 
-`Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL7.lean` (12 PURE
+`Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerDeep.lean` (12 PURE
 ∅-axiom) extends the Type-B (ZSqrt[-2]) tower past L6T to **L7T**,
 the next CD-doubling layer:
 
@@ -384,17 +384,17 @@ predicted by the L6T pattern + CD-doubling sign rule (`(0, u)² =
 exceeds practical heartbeat budget — the structural shell is the
 deliverable.
 
-## L8T / L9T (Type B deeper) — closed (TowerL8 + TowerL9, 18 PURE)
+## L8T / L9T (Type B deeper) — closed (ZSqrtMinus2TowerDeep, 18 PURE)
 
-`Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerL8.lean` extends
+`Lib/Math/CayleyDickson/Integer/ZSqrtMinus2TowerDeep.lean` extends
 the ZSqrt[-2] tower past L7T to **L8T**: 128 = 2 × 64 units.
-`ZSqrtMinus2TowerL9.lean` continues to **L9T**: 256 = 2 × 128
+`ZSqrtMinus2TowerDeep.lean` continues to **L9T**: 256 = 2 × 128
 units.  `set_option maxRecDepth {1024, 2048}` for cardinality
 `decide`.  Full CD-doubling pattern preserved at every step.
 
-## Type D tower L1 + L2 — closed (HurwitzTowerL1 + L2, 22 PURE)
+## Type D tower L1 + L2 — closed (HurwitzTower, 22 PURE)
 
-`Lib/Math/CayleyDickson/Integer/HurwitzTowerL1.lean` shows the
+`Lib/Math/CayleyDickson/Integer/HurwitzTower.lean` shows the
 CD-doubling machinery applies to Type D (Hurwitz base):
 
   · `HurwitzL2 := Hurwitz × Hurwitz` with mul / conj / normSq /
@@ -403,7 +403,7 @@ CD-doubling machinery applies to Type D (Hurwitz base):
     instances).
   · `HurwitzL2_units` enumerated, cardinality 48 = 2 × 24.
   · `hurwitz_tower_L1_capstone` packages cardinality + doubling.
-  · `HurwitzTowerL2.lean` (7 PURE) continues: `HurwitzL3 :=
+  · `HurwitzTower.lean` (7 PURE) continues: `HurwitzL3 :=
     HurwitzL2 × HurwitzL2` with `hl2Add / hl2Neg / hl2Sub`
     componentwise; unit cardinality 96 = 2 × 48.
   · ★★★★ `hurwitz_tower_L2_capstone` packages L2 cardinality +
@@ -416,7 +416,7 @@ The 4-row matrix extends past base for all four types
 
   - **Deeper Type B layers** — L7T (12 PURE) and L8T/L9T (18 PURE)
     above; pattern uniform, higher layers L9+ follow CD-doubling.
-  - **Type D tower** — L1+L2 closed (`HurwitzTowerL1/L2.lean`,
+  - **Type D tower** — L1+L2 closed (`HurwitzTower.lean`,
     22 PURE); CD-doubling works uniformly across all four types, so
     the 4-row matrix extends past base for every type.
 

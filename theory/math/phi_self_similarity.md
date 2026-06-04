@@ -110,7 +110,7 @@ The Pell convergents are the consecutive Fibonacci pair
 `(pellNum n, pellDen n) = (fib(2n+2), fib(2n+1))`.  Their below-φ property is
 proved natively in Nat (every `Int↔Nat` cast pulls `propext`, so the Int norm of
 §3.1 cannot be lifted — the fact is re-proved on `fib` directly), using the
-repo's PURE Nat-polynomial tools (`Meta/Nat/PureNat`, `Lib/Math/NatRing`):
+repo's PURE Nat-polynomial tools (`Meta/Nat/PureNat`, `Meta/Nat/NatRing213`):
 
   - `fib_cassini_norm` — `fib(2n+2)² + 1 = fib(2n+2)·fib(2n+1) + fib(2n+1)²`
     for all n (a Cassini variant; induction over the fib couplings, step reduced

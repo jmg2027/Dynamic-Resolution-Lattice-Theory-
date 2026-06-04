@@ -284,7 +284,7 @@ the P-orbit level, not the atomic level.
     `CassiniInduction`, `PnFibonacci`, `LModP`, `PeriodReciprocity`,
     `CassiniUniversal`, `PnFibonacciUniversal`, `MobiusSelfForm`
     + `Theory/Atomicity/OrbitForcing`
-    + `Lib/Math/NatRing` (PURE ring toolkit).
+    + `Meta/Nat/NatRing213` (PURE ring toolkit).
   · ∅-axiom PURE across all modules
 
 ## Key results
@@ -309,7 +309,7 @@ the P-orbit level, not the atomic level.
 | `pn_fibonacci_master` | `PnFibonacci` | P^n entries = consecutive Fibonacci (n ≤ 5) |
 | `l_mod_p_cycle_closure_master` | `LModP` | L mod p cycle closes at period for 8 primes |
 | `period_reciprocity_master` | `PeriodReciprocity` | T_p \| p±1 via Legendre(5, p) for 23 primes |
-| `nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`, `nat_sub_add_cancel`, `nat_le_of_add_le_add_right` | `Lib/Math/NatRing` | PURE Nat ring toolkit (re-derived ∅-axiom) |
+| `nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`, `nat_sub_add_cancel`, `nat_le_of_add_le_add_right` | `Meta/Nat/NatRing213` | PURE Nat ring toolkit (re-derived ∅-axiom) |
 | `cassini_universal` | `CassiniUniversal` | ∀ n, Lnat n · Lnat(n+2) = Lnat(n+1)² + 5 (PURE Nat-additive) |
 | `det_pn_universal` | `PnFibonacciUniversal` | ∀ n, Q00 n · Q11 n = Q01 n² + 1 (Fibonacci Cassini at even index) |
 | `mobius_iteration_master` | `MobiusSelfForm` | T maps convergent n → n+1 (denom + numer step) |
@@ -369,7 +369,7 @@ the P-orbit level, not the atomic level.
   · **POrbitDepth inductive invariant (CLOSED)**:
     `POrbitDepth.lean` — `AtDepth K n` predicate with weakening;
     explicit depth witnesses 0, 2, 3, 4 for catalogued primes.
-  · **PURE Nat ring toolkit (CLOSED)**: `Lib/Math/NatRing.lean` —
+  · **PURE Nat ring toolkit (CLOSED)**: `Meta/Nat/NatRing213.lean` —
     re-derives the propext-leaking core Nat ring lemmas
     (`nat_mul_assoc`, `nat_add_mul`, `nat_add_right_cancel`,
     `nat_sub_add_cancel`, `nat_le_of_add_le_add_right`, etc.)

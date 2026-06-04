@@ -170,13 +170,16 @@ Reading: the paradigm framework is uniform across the math-physics
 boundary; both sides instantiate the SAME `(d=5, atom, decide)`
 shape — no special physics-side typeclass needed.
 
-### Graded ring ↔ N_U bridge — `GradedRingNUBridge.lean` (16 PURE)
+### Graded ring ↔ configCount bridge — `GradedRingConfigCountBridge.lean` (16 PURE)
 
-`Lib/Math/GradedRingNUBridge.lean` makes the cross-axis statement
-explicit: the **graded-ring** (cup-ring, `(1+x)^d` Pascal-row)
-counts and the **fractal configuration count** `d^(d^n)` family
-(the `N_U` hierarchy) are *both* downstream of the same atomic
-`d = 5`.
+`Lib/Math/GradedRingConfigCountBridge.lean` makes the cross-axis
+statement explicit: the **graded-ring** (cup-ring, `(1+x)^d`
+Pascal-row) counts and the **fractal configuration count**
+`d^(d^n)` family are *both* downstream of the same atomic `d = 5`.
+The configuration count is a parametric family — **no level is
+privileged** (`configCount 2 = 5^25` is one true arithmetic value
+among many, not a universe constant; the earlier "`5²⁵ = N_U`"
+reading is deleted, see `RERESEARCH_n_u_removal.md`).
 
 Numerical witnesses at `d = 5`:
 
@@ -186,15 +189,15 @@ Numerical witnesses at `d = 5`:
 | `paradigm_self_cup_row_sum` | `2^(2d)` | `1024` |
 | `configCount 0` | `d` | `5` |
 | `configCount 1` | `d^d` | `3125` |
-| `configCount 2` (= `N_U`) | `d^(d²)` | `5^25 = 298 023 223 876 953 125` |
+| `configCount 2` | `d^(d²)` | `5^25 = 298 023 223 876 953 125` |
 
 ★★★★★ `graded_ring_nu_bridge_capstone` bundles all five.
 
 **Honest reading**: the two are *not* identified — they count
 different things (subsets vs labellings).  They are
 **simultaneously decidable** functions of `d`, both arising from
-the atomic dimension `d = 5`.  The N_U = `d^(d²)` value is the
-level-2 tensor-power count, not a graded-ring sum; the graded ring
+the atomic dimension `d = 5`.  The level-2 count `configCount 2 =
+d^(d²)` is the tensor-power count, not a graded-ring sum; the graded ring
 fixes the cup-product algebra on Pascal-row 5, the configCount
 family fixes the resolution-hierarchy cardinality.
 

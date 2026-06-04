@@ -22,7 +22,7 @@ to AngleStructure angle-structure).
 
 `AlgebraicGeometry.lean` is a thin bridge layer — most algebraic
 geometry content lives in `Lib/Math/Cohomology/HodgeConjecture/`
-or `Lens/Number/Nat213/AlgebraicGeometry.lean` (universe-chain).
+or `Lib/Math/Geometry/AlgebraicGeometry.lean` (universe-chain).
 
 `Rotation.lean` provides 213-native rotation operations
 (angle = Lens-output structural angle per angle-structure angle_structure

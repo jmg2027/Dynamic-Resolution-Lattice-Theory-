@@ -156,7 +156,7 @@ K_{3,2}^{(c=2)} cohomology connects via `H¹ = ℤ^8` — the same 8
 that is the SU(3) gluon octet (C3 chain, `theory/physics/symmetry/
 c3_chain.md`).
 
-`Lens/Number/Nat213/AlgebraicGeometry.lean` closes the algebraic-
+`Lib/Math/Geometry/AlgebraicGeometry.lean` closes the algebraic-
 geometric core (17 theorems): SL(2, F_5) ≅ 2I, K_{3,2}^{(2)}
 cohomology, dual fillings, CRT structure.
 
@@ -197,9 +197,9 @@ universe-chain dynamics; CRT splits the action cleanly.
 | `Nat213` type | `Lens/Number/Nat213/Core` | NS-spatial + NT-temporal constructor types |
 | `add_emergence` | `Lens/Number/Nat213/Core` | Addition via slash-projection |
 | `Nat213.atomicity` | `Lens/Number/Nat213/AtomicityCorrespondence` | NS=3 ctors, NT=2 ctors |
-| `algebraic_geometric_core` | `Lens/Number/Nat213/AlgebraicGeometry` | SL(2,F_5) ≅ 2I + K_{3,2} cohomology bundle |
-| `dual_fillings_sum_eq_neg_eisenstein` | `Lens/Number/Nat213/AlgebraicGeometry` | χ(Δ⁴) + χ(K_{3,2}) = −6 |
-| `two_closure_structures` | `Lens/Number/Nat213/AlgebraicGeometry` | mod 5 D_5 ⊕ mod 2 S_3 = lcm 30 |
+| `algebraic_geometric_core` | `Lib/Math/Geometry/AlgebraicGeometry` | SL(2,F_5) ≅ 2I + K_{3,2} cohomology bundle |
+| `dual_fillings_sum_eq_neg_eisenstein` | `Lib/Math/Geometry/AlgebraicGeometry` | χ(Δ⁴) + χ(K_{3,2}) = −6 |
+| `two_closure_structures` | `Lib/Math/Geometry/AlgebraicGeometry` | mod 5 D_5 ⊕ mod 2 S_3 = lcm 30 |
 | Möbius P signature | `Lib/Math/Mobius213` | trace 3, det 1, eigenvalues φ², 1/φ² |
 | Pentagonal closure | `Lens/Number/Nat213/RotationGeometry` | P^10 ≡ I (mod 5) |
 | Lucas seeds | `Lens/Number/Nat213/RotationGeometry` | L_0 = 2, L_1 = 3, L_2 = 5, L_3 = 7 |
