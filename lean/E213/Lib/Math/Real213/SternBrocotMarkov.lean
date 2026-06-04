@@ -2032,4 +2032,83 @@ theorem root_orbit_inj_neg (c u e : Nat) (hc : 1 < c) (hu : u ≤ c) (hroot : (u
   have hcancel := unit_cancel_of_inv c u (c - u) e (c - 1) (root_inverse c u hc hu hroot) h
   rwa [Nat.mod_eq_of_lt (Nat.sub_lt hc0 (by decide))] at hcancel
 
+/-! ## §25 — the payoff: `WindowRealizedUnique` reduces to one realizability check per phantom orbit
+
+The §24 free action made operational.  Two *distinct* windowed roots `u₁ ≠ u₂` are related by a
+**nontrivial** unit-root: with `e = u₂·u₁⁻¹ = u₂·(c−u₁)` one has `e·u₁ ≡ u₂` (`root_quotient`, via
+`root_inverse`) and `e ∉ {1, c−1}` (`windowed_distinct_multiplier`, via `root_orbit_inj`-style
+cancellation + `window_excludes_partner`).  So `WindowRealizedUnique c` (§18) holds as soon as **no
+nontrivial-unit-root image of a realized windowed root is itself realized**
+(`windowRealizedUnique_of_orbit`).
+
+This is the full reduction: root-count (`= 2^{ω−1}`, §21–§24) + group structure are closed; the *only*
+remaining content is realizability of a single distinguished `±`-suborbit — the genuine open Frobenius
+conjecture, now isolated as an `∃!`-style realizability statement rather than a counting problem. -/
+
+/-- **`(c−1)·u ≡ c−u mod c`** (the value of multiplication by `−1`): from `(c−1)·u = c·(u−1)+(c−u)`. -/
+theorem neg_one_mul_mod (c u : Nat) (hc : 0 < c) (hu0 : 0 < u) (hu : u ≤ c) :
+    ((c - 1) * u) % c = c - u := by
+  have hc_pred : c - 1 + 1 = c := Nat.succ_pred_eq_of_pos hc
+  have hu_pred : u - 1 + 1 = u := Nat.succ_pred_eq_of_pos hu0
+  have hcu : (c - u) + u = c := E213.Tactic.NatHelper.sub_add_cancel hu
+  have hL : (c - 1) * u + u = c * u := by
+    rw [show (c - 1) * u + u = ((c - 1) + 1) * u from by ring_nat, hc_pred]
+  have hR : c * (u - 1) + (c - u) + u = c * u := by
+    rw [Nat.add_assoc, hcu, show c * (u - 1) + c = c * ((u - 1) + 1) from by ring_nat, hu_pred]
+  have hsplit : (c - 1) * u = c * (u - 1) + (c - u) :=
+    E213.Tactic.NatHelper.add_right_cancel_pure (hL.trans hR.symm)
+  rw [hsplit, Nat.add_comm (c * (u - 1)) (c - u), Nat.mul_comm c (u - 1),
+      E213.Tactic.NatHelper.add_mul_mod_self_pure (c - u) c (u - 1)]
+  exact Nat.mod_eq_of_lt (Nat.sub_lt hc hu0)
+
+/-- ★★★★★ **Distinct windowed roots are related by a nontrivial unit-root.**  If `e·u₁ ≡ u₂` with
+    `u₁, u₂` distinct windowed roots, then `e ∉ {1, c−1}`: `e ≡ 1` would force `u₂ = u₁`; `e ≡ c−1`
+    would force `u₂ = c−u₁`, non-windowed (`window_excludes_partner`).  The §24 free action, applied. -/
+theorem windowed_distinct_multiplier (c u₁ u₂ e : Nat) (hc : 0 < c) (hu1pos : 0 < u₁)
+    (hu1lt : u₁ < c) (hu1w : 2 * u₁ < c) (hu2w : 2 * u₂ < c) (hne : u₁ ≠ u₂)
+    (he : (e * u₁) % c = u₂) : e % c ≠ 1 ∧ e % c ≠ c - 1 := by
+  refine ⟨?_, ?_⟩
+  · intro h1
+    apply hne
+    rw [← he, E213.Meta.Nat.MulMod213.mul_mod_left_pure e u₁ c, h1, Nat.one_mul,
+        Nat.mod_eq_of_lt hu1lt]
+  · intro h2
+    have hu2eq : u₂ = c - u₁ := by
+      rw [← he, E213.Meta.Nat.MulMod213.mul_mod_left_pure e u₁ c, h2,
+          neg_one_mul_mod c u₁ hc hu1pos (Nat.le_of_lt hu1lt)]
+    exact absurd hu2w (Nat.not_lt.mpr (Nat.le_of_lt (hu2eq ▸ window_excludes_partner c u₁ hu1w)))
+
+/-- ★★★★★ **`WindowRealizedUnique` reduces to one realizability check per phantom orbit.**  If no
+    nontrivial-unit-root image (`e ∉ {1,c−1}`, `e·u₁ ≡ u₂`) of a realized windowed root `u₁` is itself
+    realized, then `WindowRealizedUnique c`.  Constructs the multiplier `e = u₂·(c−u₁)` (`root_quotient`
+    + `windowed_distinct_multiplier`).  This is the full structural reduction of `ω`-composite Markov
+    uniqueness to a single realizability question — the genuine open Frobenius content, isolated. -/
+theorem windowRealizedUnique_of_orbit (c : Nat) (hc : 1 < c)
+    (H : ∀ u₁ u₂ e, 0 < u₁ → u₁ < c → 2 * u₁ < c → (u₁ * u₁ + 1) % c = 0 →
+         u₂ < c → 2 * u₂ < c → (u₂ * u₂ + 1) % c = 0 →
+         e % c ≠ 1 → e % c ≠ c - 1 → (e * u₁) % c = u₂ →
+         (∃ b₁, b₁ < c ∧ markovEq ((u₁ * b₁) % c) b₁ c) →
+         ¬ (∃ b₂, b₂ < c ∧ markovEq ((u₂ * b₂) % c) b₂ c)) :
+    WindowRealizedUnique c := by
+  intro u₁ u₂ hu1lt hu2lt hu1w hu2w hr1 hr2 hreal1 hreal2
+  by_cases hne : u₁ = u₂
+  · exact hne
+  · exfalso
+    have hu1pos : 0 < u₁ := by
+      rcases Nat.eq_zero_or_pos u₁ with h0 | hp
+      · exfalso
+        rw [h0, Nat.zero_mul, Nat.zero_add, Nat.mod_eq_of_lt hc] at hr1
+        exact absurd hr1 (by decide)
+      · exact hp
+    have hinv : (u₁ * (c - u₁)) % c = 1 := root_inverse c u₁ hc (Nat.le_of_lt hu1lt) hr1
+    have hkey : (((u₂ * (c - u₁)) % c) * u₁) % c = u₂ := by
+      rw [← E213.Meta.Nat.MulMod213.mul_mod_left_pure (u₂ * (c - u₁)) u₁ c,
+          show (u₂ * (c - u₁)) * u₁ = u₂ * ((c - u₁) * u₁) from by ring_nat,
+          E213.Meta.Nat.MulMod213.mul_mod_right_pure u₂ ((c - u₁) * u₁) c,
+          Nat.mul_comm (c - u₁) u₁, hinv, Nat.mul_one, Nat.mod_eq_of_lt hu2lt]
+    have hmul := windowed_distinct_multiplier c u₁ u₂ ((u₂ * (c - u₁)) % c)
+      (Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hc)) hu1pos hu1lt hu1w hu2w hne hkey
+    exact (H u₁ u₂ ((u₂ * (c - u₁)) % c) hu1pos hu1lt hu1w hr1 hu2lt hu2w hr2
+      hmul.1 hmul.2 hkey hreal1) hreal2
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
