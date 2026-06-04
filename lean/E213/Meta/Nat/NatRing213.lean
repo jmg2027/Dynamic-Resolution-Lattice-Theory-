@@ -1,3 +1,5 @@
+import E213.Meta.Nat.PureNat
+
 /-!
 # E213.Meta.Nat.NatRing213 — PURE Nat ring infrastructure
 
@@ -37,20 +39,17 @@ namespace E213.Meta.Nat.NatRing213
 
 /-! ## §1 — PURE multiplication associativity -/
 
-/-- `a * b * c = a * (b * c)` for Nat — PURE re-derivation by
-    induction on `c`.  Core's `Nat.mul_assoc` leaks `propext`. -/
-theorem nat_mul_assoc : ∀ (a b c : Nat), a * b * c = a * (b * c)
-  | _, _, 0     => by rw [Nat.mul_zero, Nat.mul_zero, Nat.mul_zero]
-  | a, b, c + 1 => by
-      rw [Nat.mul_succ, Nat.mul_succ, Nat.mul_add, nat_mul_assoc a b c]
+/-- `a * b * c = a * (b * c)` for Nat — canonical PURE proof in
+    `PureNat`, re-exported here for the `nat_*` ring toolkit. -/
+theorem nat_mul_assoc (a b c : Nat) : a * b * c = a * (b * c) :=
+  E213.Meta.Nat.PureNat.mul_assoc a b c
 
 /-! ## §2 — PURE additive-multiplicative distribution -/
 
-/-- `(a + b) * c = a * c + b * c` for Nat — PURE derivation via
-    `Nat.mul_comm` (PURE) + `Nat.mul_add` (PURE).  Core's
-    `Nat.add_mul` leaks `propext`. -/
-theorem nat_add_mul (a b c : Nat) : (a + b) * c = a * c + b * c := by
-  rw [Nat.mul_comm (a + b) c, Nat.mul_add, Nat.mul_comm c a, Nat.mul_comm c b]
+/-- `(a + b) * c = a * c + b * c` for Nat — canonical PURE proof in
+    `PureNat`, re-exported here for the `nat_*` ring toolkit. -/
+theorem nat_add_mul (a b c : Nat) : (a + b) * c = a * c + b * c :=
+  E213.Meta.Nat.PureNat.add_mul a b c
 
 /-! ## §3 — PURE Nat additive cancellation -/
 
