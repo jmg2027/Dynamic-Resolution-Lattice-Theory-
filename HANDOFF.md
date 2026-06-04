@@ -1,8 +1,31 @@
-# Session Handoff — 2026-06-04g (Markov — ★ UPPER-FOLD PATTERN, five levels; full ω=2 structural reduction, §20–§24)
+# Session Handoff — 2026-06-04h (Markov — ★ UPPER-FOLD PATTERN, six levels; WindowRealizedUnique reduced, §20–§25)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **100 PURE**.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **103 PURE**.
 
-## ★★★ NEW (§24): orbit-injectivity — the unit-root group acts FREELY
+## ★★★ NEW (§25): the payoff — `WindowRealizedUnique` reduces to one realizability check per orbit
+The §24 free action made operational.  Two distinct windowed roots are related by a *nontrivial*
+unit-root, so `WindowRealizedUnique` reduces to a single realizability question.
+- **`neg_one_mul_mod`** `(0<c)(0<u)(u≤c) : ((c−1)·u)%c = c−u` (value of `·(−1)`; `add_right_cancel_pure`).
+- **`windowed_distinct_multiplier`** : `e·u₁≡u₂ ∧ u₁≠u₂ windowed ⟹ e ∉ {1,c−1}` (`e≡1⟹u₂=u₁`;
+  `e≡c−1⟹u₂=c−u₁`, non-windowed by `window_excludes_partner`).
+- **`windowRealizedUnique_of_orbit`** `(1<c)(H) : WindowRealizedUnique c`, where `H` = "no
+  nontrivial-unit-root image (`e∉{1,c−1}`, `e·u₁≡u₂`) of a realized windowed root is itself realized."
+  Constructs `e = u₂·(c−u₁)` (root_quotient via `root_inverse`) + `windowed_distinct_multiplier`.
+- **Full structural reduction**: root-count (`=2^{ω−1}`, §21–§24) + group structure CLOSED; the only
+  remaining content is realizability of one distinguished `±`-suborbit — the genuine open Frobenius
+  conjecture, now an `∃!`-style realizability statement, NOT a counting problem.
+
+### The six-level fold (the user's predicted recursion, all ∅-axiom)
+```
+§20  window = σ-transversal                       involution σ(u)=c−u
+§21  σ ∈ SqrtUnity, root set = torsor              the group of involutions
+§22  SqrtUnity = ∏ (per-prime ± folds)             product of folds
+§23  that product is inhabited beyond ±1 (CRT)     the product is non-trivial (ω=2)
+§24  the group acts freely (unit cancellation)     orbits faithful ⟹ count = 2^{ω−1}
+§25  realizability reduces to one suborbit          WindowRealizedUnique ⟸ single ∃!-check
+```
+
+## ★★★ (§24): orbit-injectivity — the unit-root group acts FREELY
 The last structural piece for `ω=2`.  A `√(−1)` root `u` is a unit (inverse `c−u`), so multiplication
 by a unit-root is cancellable ⟹ the §21 group acts **freely** on the root set.
 - **`unit_cancel_of_inv`** `(u·s≡1) : a·u≡b·u → a≡b` (multiply by inverse `s`; no subtraction).
