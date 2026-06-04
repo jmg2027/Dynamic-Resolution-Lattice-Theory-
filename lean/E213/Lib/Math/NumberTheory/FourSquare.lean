@@ -14,9 +14,9 @@ The descent route to `∀ n, n = a²+b²+c²+d²`, staying entirely over `ℤ` w
 
   * ★★★ `four_sq_id` — **Euler's four-square identity** (multiplicativity, a ring identity).
   * `isSum4` / `isSum4_mul` — "is a sum of four squares" is closed under multiplication.
-
-(The descent step `m·p = Σ4², 1 < m < p ⟹ ∃ r < m, r·p = Σ4²` and the assembly to all `n`
-build on these — see `research-notes/frontiers/four_square_marathon.md`.)
+  * `descent_rec` — the parity-split descent (`m·p = Σ4², 1 ≤ m < p ⟹ isSum4 p`).
+  * ★★★★★ `nat_isSum4` — **Lagrange's four-square theorem** (`∀ n, isSum4 ↑n`), assembled from
+    the seed multiple, constructive prime factorization, and `isSum4_mul`.
 
 All zero-axiom.
 -/

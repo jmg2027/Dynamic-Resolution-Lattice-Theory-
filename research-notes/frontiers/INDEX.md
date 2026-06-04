@@ -127,3 +127,7 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   for populating νF (post-FSM).
 - `G182_completed_system_synthesis` — "the frontier (νF) has a form" — an
   essay-in-waiting (candidate promotion to `theory/essays/` once reconciled).
+- `four_square_marathon` — **CLOSED** (∅-axiom): Lagrange's four-square
+  theorem `∀ n, isSum4 ↑n` (`lean/E213/Lib/Math/NumberTheory/FourSquare.nat_isSum4`)
+  + the additive-pigeonhole seed (`FourSquareSeed.four_square_seed`).  Pending
+  promotion to `theory/` + archive of the note.
