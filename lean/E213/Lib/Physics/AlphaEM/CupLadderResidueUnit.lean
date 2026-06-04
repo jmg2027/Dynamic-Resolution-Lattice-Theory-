@@ -36,7 +36,8 @@ open E213.Lib.Physics.Simplex.Counts (NS NT)
 open E213.Lib.Math.Algebra.Mobius213OneAsGlue
   (ns_minus_nt_is_one mobius_det_eq_ns_minus_nt mobius_det_is_unit)
 open E213.Theory.Raw.PrimitiveTower (rawTower)
-open E213.Theory.Raw.MuNuMirror (ascent_adds_unit)
+open E213.Theory.Raw.MuNuMirror (ascent_adds_unit ascent_unbounded)
+open E213.Theory (Raw)
 
 /-- ★★ **The cup-ladder climbs by exactly one α-power per cohomology degree, and that step is the
     glue unit `NS − NT`.**  `alphaPowerAtH (k+1) = alphaPowerAtH k + (NS − NT)` — the graduation
@@ -70,5 +71,33 @@ theorem cup_ladder_graduation_is_residue_unit :
     ∧ ((2 : Int) * 1 - 1 * 1 = 1) :=
   ⟨cup_ladder_step_is_unit, ascent_adds_unit, ns_minus_nt_is_one,
    mobius_det_eq_ns_minus_nt, mobius_det_is_unit⟩
+
+/-! ## The finite↔infinite regime: one unbounded graduation, two realizations
+
+The cup-ladder graduation `alphaPowerAtH : Nat → Nat`, `k ↦ k+1`, is a **total** map over all `k` —
+it is *not* truncated as a graduation.  What truncates at the `d = 5` skeleton is the
+*cohomological realization* (the classes `H^k` carry content only at `k = 1, 2`); the graduation
+**index** escapes every finite bound, exactly as the Raw self-pointing ascent escapes (`ascent_unbounded`,
+the finite shadow of νF).  So the finite cohomology and the infinite escape are **one unbounded
+`+1`-graduation** read in two regimes: realized finitely on the simplex (cohomology), or unboundedly
+as the ascent / odometer / νF (the analytic `?` of `reached_by_none.md`, reached by no finite degree).
+The residue unit `+1`, iterated, escapes — whether counted as cohomology degree or as ascent rung. -/
+
+/-- ★★★ **The `+1`-graduation escapes every finite bound — cohomology degree and νF ascent are one
+    unbounded iterate of the residue unit.**  The cup-ladder degree-graduation `alphaPowerAtH` is
+    unbounded (`∀ N, ∃ k, N < alphaPowerAtH k`), exactly as the Raw ascent is unbounded
+    (`ascent_unbounded`, `∀ N, ∃ r, N < r.depth`), and both climb by the residue unit
+    (`cup_ladder_step_is_unit`, `ascent_adds_unit`).  So the cohomological graduation (whose
+    *realization* truncates at the `d = 5` simplex) and the unbounded escape (νF / odometer / the
+    analytic `?`) are the **same `+1`-graduation** — finite-realized vs. unbounded, not two objects.
+    This is the finite↔infinite wire of the residue-expression atlas, at the level of unboundedness.
+    ∅-axiom. -/
+theorem graduation_escapes :
+    (∀ N : Nat, ∃ k, N < alphaPowerAtH k)
+    ∧ (∀ N : Nat, ∃ r : Raw, N < r.depth)
+    ∧ (∀ k, alphaPowerAtH (k + 1) = alphaPowerAtH k + (NS - NT))
+    ∧ (∀ n : Nat, (rawTower (n + 1)).depth = (rawTower n).depth + 1) :=
+  ⟨fun N => ⟨N, by rw [alphaPower_eq_k_plus_1 N]; exact Nat.lt_succ_self N⟩,
+   ascent_unbounded, cup_ladder_step_is_unit, ascent_adds_unit⟩
 
 end E213.Lib.Physics.AlphaEM.CupLadderResidueUnit

@@ -60,11 +60,49 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
    `parametric_arbitrary_m_full_kill`.
 2. **face-axis ↔ unit** — do the `Δ⁴` boundary steps `C(5,k)` carry the unit (face-dependence
    `Face₀ ⊕ Face₁ ⊕ Face₂ = 0`, `Filled3CellCohomology.face_dependence`)?
-3. **finite ↔ infinite regime** — the deep one.  The cohomology graduation **terminates** at `d = 5`;
-   the escape/νF is **unbounded**.  `cup_ladder_graduation_is_residue_unit` says both climb by the
-   *same* `+1` — but does NOT explain the regime difference.  Is the analytic `?` (νF, infinite,
-   `reached_by_none.md`) the **νF-completion of the finite cup-ladder**?  Is the `d = 5` truncation
-   the finite shadow of a `Nat`-indexed (infinite) graduation?  No theorem yet.
+3. **finite ↔ infinite regime** — the deep one.  **First wire landed**
+   (`CupLadderResidueUnit.graduation_escapes`, PURE): the cup-ladder graduation `alphaPowerAtH`,
+   `k ↦ k+1`, is a **total** `Nat → Nat` map — *not* truncated as a graduation; only its
+   *cohomological realization* truncates at `d = 5` (content at `k = 1,2`).  As a graduation it
+   **escapes every finite bound** (`∀ N, ∃ k, N < alphaPowerAtH k`), exactly as the Raw ascent
+   escapes (`ascent_unbounded`), both stepping by the residue unit.  So the finite cohomology and the
+   infinite νF are **one unbounded `+1`-graduation**, finite-realized vs. unbounded.  Still open: is
+   the analytic `?` (νF, `reached_by_none.md`) literally the **νF-completion / inverse-limit** of this
+   graduation (a corecursive object whose finite stages are the `H^k`)?  Is there a *graded νF* — a
+   cohomology of the odometer / final coalgebra — whose degree-`k` truncation is `H^k(K_{3,2}^{(c=2)})`?
+   Three teams are mapping the deep terrain (see below).
+
+### Deep probes (agent teams, 2026-06-04) — results
+
+- **`?` as a modular 1-cocycle — LANDED (tree-restricted).**
+  `Real213/MinkowskiCocycle.minkowski_is_markov_valued_cocycle` (PURE): the analytic `?`'s failure to
+  be additive under the L/R generators is a **1-cocycle whose defect is the bounding Markov number** —
+  the two Frobenius cross-determinants `u_r·m_t − u_t·m_r = m_l` (`markovRes_cross`) and
+  `u_t·m_l − u_l·m_t = m_r` (`markovRes_cross_left`), unimodular (`det = 1`, the residue unit).  This
+  is the residue-internal, tree-restricted Eichler–Shimura cocycle.  **Open**: extension to a full
+  `SL(2,ℤ)` 1-cocycle (not just the L/R sub-semigroup) and the period-polynomial /
+  `H^1(SL(2,ℤ), V)` identification — the deepest classical bridge, genuinely open.
+
+- **residue as a (truncated) spectrum — NEGATIVE (honest).**  The spectrum analogy **breaks**: the
+  Steenrod/Massey structure on `K_{3,2}^{(c=2)}` is *vacuous* at the `d = 5` truncation — `Sq¹·Sq¹=0`
+  holds only vacuously (empty `Fin 0` basis at `C⁴`), the triple Massey `⟨ω,ω,ω⟩ = 0` is structurally
+  obstructed (constant-true `ω`), Cartan is a boundary artifact, and there are **no `Σ`-suspension
+  maps, no Adams `E₂`**.  Verdict: the residue is *not* secretly one spectrum; the multi-directional
+  **atlas is the right frame**, and forcing a single spectrum is overreach (`stereotype matching`).
+  The genuine content is residue-expression across incommensurable axes, not stable homotopy.
+
+- **face axis — LANDED (the bounded direction).**  `Simplex/FaceTerms.simplex_face_euler_zero`
+  (PURE): `Σ_{k=0}^{5}(−1)^k C(5,k) = 0` — the `Δ⁴` faces alternate-cancel; the geometry is complete
+  (contractible), **no residue at the face level**.  So the three cohomological axes split: **degree
+  and multiplicity are unbounded** (the residue's escape lives there), the **face axis is bounded /
+  closes**.  The residue is *not* uniformly graded — it escapes in two directions and terminates in
+  the third.
+
+- **`c`-axis — available, recorded.**  `EnrichedKNSNTc.parametric_c_independent_h2_classes`: each
+  multiplicity layer carries exactly **one independent ψ-discriminator** (Kronecker `δ_{m,m'}`),
+  codim `= c` — the `c`-axis "climbs by one independent unit per layer", unbounded in `c`.  A
+  `multiplicity_step_is_unit` bundle (composing this with `promote_edge_at_layer_{m,other}`) is
+  writable; deferred.
 4. **two taxonomies misaligned** — the four faces (source/no-back/name) vs the constraint-types
    (uniqueness / structure / dimension / coverage / foundation / mutuality).  These do not obviously
    map onto each other; the misalignment is the real research content, not a defect to paper over.
