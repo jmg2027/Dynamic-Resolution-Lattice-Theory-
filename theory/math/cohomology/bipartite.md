@@ -115,19 +115,23 @@ Betti number from ∅-axiom cardinalities counted via
   - `|ker δ⁰| = 2`      (`bcount_const`; kernel ⟺ constant) — `dim ker = 1`,
   - `|im δ⁰| = 2^(V−1)` (`bcount_headFalse`) — `dim im = V − 1`.
 
-The `2^(V−1)` is an **actually-counted image cardinality**, fully
-∅-axiom.  `PathCoboundary.im_pathDelta_card` proves the concrete connected
-list-valued path coboundary `pathDelta l = consecutive XORs` has exactly
-`2^(V−1)` distinct values: the head-`false` colourings map injectively
-(reconstruction, `pathDelta_reconstruct`) and surjectively
-(`pathDelta_complement` + `headFalse_transversal`) onto the image — no
-`funext`, `Fintype`, or `Nat.div`.  Since `dim im δ⁰ = V − dim ker δ⁰ =
-V − 1` is the same for every connected graph on `V` vertices
-(rank–nullity; `dim ker = 1` proven in `isKer_iff_const`), this is
-`|im δ⁰|` for K_{NS,NT}^{(c)} too.  The rank relations are then exact
-∅-axiom arithmetic (`2^(m+1) = 2 · 2^m`, `2^E = 2^(V−1) · 2^{b₁}` with
-`E = (V−1) + b₁`), giving `dim H¹ = b₁ = E − V + 1`.  For the forced
-`K_{3,2}^{(c=2)}` (`betti_one_K32`): `V = 5`, `E = 12`,
+The `2^(V−1)` is an **actually-counted image cardinality of the genuine
+K_{NS,NT} coboundary**, fully ∅-axiom.  The general count
+`PathCoboundary.im_count_inj_complement` (`|im f| = 2^(V−1)` for any
+complement-invariant, head-`false`-injective `f` — rank–nullity
+`2^V/2` realised combinatorially) is instantiated in `KEdgeCochain` at the
+list-valued complete-bipartite coboundary `edgeCochain NS NT σ = [σ[s] ⊕
+σ[NS+t] : s<NS, t<NT]`.  Its two hypotheses are proven directly on lists:
+`edgeCochain_complement` ((¬a)⊕(¬b) = a⊕b) and `edgeCochain_inj_headFalse`
+(equal edge values force `σ ⊕ τ` constant across the adjacency;
+head-`false` pins it to all-`false`).  So `KEdgeCochain.im_edgeCochain_card`
+gives `|im δ⁰_K| = 2^(V−1)` — no `funext`, `Fintype`, `Nat.div`, or cited
+bridge (`im_pathDelta_card` is the path-graph instance; `|im|` is
+`c`-independent, the `c=1` edge set suffices).  The rank relations are
+then exact ∅-axiom arithmetic (`2^(m+1) = 2 · 2^m`,
+`2^E = 2^(V−1) · 2^{b₁}` with `E = (V−1) + b₁`), giving
+`dim H¹ = b₁ = E − V + 1`.  For the forced `K_{3,2}^{(c=2)}`
+(`betti_one_K32`, `im_edgeCochain_K32` = `2^4`): `V = 5`, `E = 12`,
 `b₁ = 8 = NS² − 1 = 1/α₃`.
 
 The same conclusion is also reached through the abstract

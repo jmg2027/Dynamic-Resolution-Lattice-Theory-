@@ -144,10 +144,17 @@ native primitives now route around them:
     `ListCount` (nodup cardinality + `nodup_map_of_inj`), `BoolEnum`
     complement/transversal + `filter_length_eq_bcount`.
 
-    Only-remaining (mechanical, not mathematical): instantiating
-    `im_count_inj_complement` at `K_{NS,NT}`'s own edge-cochain as a
-    `List Bool → β` map — adds no content (both hypotheses already
-    proven), only list-positional-indexing plumbing.
+    FULLY WIRED: `KEdgeCochain.im_edgeCochain_card` (14 PURE)
+    instantiates `im_count_inj_complement` at the genuine list-valued
+    complete-bipartite coboundary `edgeCochain NS NT σ = [σ[s]⊕σ[NS+t]]`,
+    with both hypotheses proven directly on lists
+    (`edgeCochain_complement`; `edgeCochain_inj_headFalse` via the
+    connectivity reconstruction).  So `|im δ⁰_K| = 2^(V−1)` for K_{NS,NT}'s
+    OWN coboundary (`im_edgeCochain_K32` = `2^4`) — no funext / Fintype /
+    Nat.div / cited bridge.  `b₁ = E − V + 1` is now end-to-end ∅-axiom
+    (`|im|` is c-independent; the c=1 edge set suffices for the count, the
+    full E enters only |C¹| = 2^E).  Own pure `rangeL`/`flatMap`/`getD`
+    List toolkit built en route.
 
 ## Open Problems (Priority Order)
 

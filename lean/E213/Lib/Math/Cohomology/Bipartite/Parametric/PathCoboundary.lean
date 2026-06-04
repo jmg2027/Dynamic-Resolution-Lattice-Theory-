@@ -132,7 +132,7 @@ private theorem complement_length (l : List Bool) :
   `im_pathDelta_card` below is the path-graph instance. -/
 theorem im_count_inj_complement {β : Type _} [DecidableEq β] (n : Nat)
     (f : List Bool → β)
-    (hcomp : ∀ l, f (complement l) = f l)
+    (hcomp : ∀ l, l ∈ allBoolLists (n + 1) → f (complement l) = f l)
     (hinj : ∀ σ τ, σ ∈ allBoolLists (n + 1) → τ ∈ allBoolLists (n + 1) →
         headFalse σ = true → headFalse τ = true → f σ = f τ → σ = τ) :
     (((allBoolLists (n + 1)).filter headFalse).map f).Nodup
@@ -165,7 +165,7 @@ theorem im_count_inj_complement {β : Type _} [DecidableEq β] (n : Nat)
         have hcmem : complement σ ∈ allBoolLists (n + 1) := by
           have hl : (complement σ).length = n + 1 := by rw [complement_length, hσl]
           exact hl ▸ mem_allBoolLists (complement σ)
-        rw [(hcomp σ).symm]
+        rw [(hcomp σ hσ).symm]
         exact mem_map_of_mem f (mem_filter_of hcmem hchf)
 
 /-- **`|im pathDelta| = 2^(V−1)`** — the path-graph instance of
@@ -178,7 +178,7 @@ theorem im_pathDelta_card (n : Nat) :
     ∧ (((allBoolLists (n + 1)).filter headFalse).map pathDelta).length = 2 ^ n
     ∧ ∀ σ, σ ∈ allBoolLists (n + 1) →
         pathDelta σ ∈ ((allBoolLists (n + 1)).filter headFalse).map pathDelta :=
-  im_count_inj_complement n pathDelta pathDelta_complement
+  im_count_inj_complement n pathDelta (fun l _ => pathDelta_complement l)
     (fun σ τ hσ hτ hσf hτf hpd =>
       pathDelta_reconstruct
         ((length_of_mem_allBoolLists hσ).trans (length_of_mem_allBoolLists hτ).symm)

@@ -26,11 +26,13 @@ injective on head-`false` colourings has exactly `2^(V−1)` distinct values
 (head-`false` reps map injectively + surjectively onto the image — no
 `funext`, `Fintype`, `Nat.div`).  This is rank–nullity
 `|im| = |C⁰| / |ker| = 2^V / 2` realised combinatorially.  Its two
-hypotheses are the *only* graph input, and both hold for the
-complete-bipartite `δ⁰`: complement-invariance always (a coboundary kills
-constants), and head-`false` injectivity is exactly `ker δ⁰ = constants`
-(`isKer_iff_const`).  `im_pathDelta_card` is the path-graph instance.  The
-two rank relations are then exact ∅-axiom arithmetic:
+hypotheses both hold for the complete-bipartite `δ⁰` and are proven
+directly on the list representation in `KEdgeCochain`
+(`edgeCochain_complement`, `edgeCochain_inj_headFalse`), so
+`KEdgeCochain.im_edgeCochain_card` gives `|im δ⁰_K| = 2^(V−1)` for the
+genuine K_{NS,NT} edge cochain — not a connectivity proxy
+(`im_pathDelta_card` is the path-graph instance).  The two rank relations
+are then exact ∅-axiom arithmetic:
 
   - rank–nullity `|C⁰| = |ker δ⁰| · |im δ⁰|`  ↔  `2^(m+1) = 2 · 2^m`,
   - first iso `|C¹| = |im δ⁰| · |H¹|`         ↔  `2^E = 2^(V−1) · 2^{b₁}`,
