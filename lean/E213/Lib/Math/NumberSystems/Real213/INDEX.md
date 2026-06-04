@@ -121,6 +121,10 @@
     realizability kernel `H` (`OrbitRealizabilityH`).
   - `Continuant.lean` — Euler continuants `K[a₁..aₙ]` + monotonicity (the
     Aigner core tool for the continuant/Markov program).
+  - `ZeckendorfCarry.lean` — the golden (Fibonacci-base) odometer carry
+    `011 → 100` = the Fibonacci recurrence, value-preserving (`golden_adic_carry`);
+    admissibility = Cassini.  The residue's own variable base (Ostrowski(φ)),
+    companion to the binary `Theory/Raw/Odometer`.
   - `ModularGeodesicLens.lean` — ★ the geodesic engine as a Raw-Lens:
     `mediantLens` + `mediantLens_view_reachable` (mediant-Lens view ⊆
     `SternBrocotReachable`, ∅-axiom) — the residue read at `ℍ/PSL(2,ℤ)`.
