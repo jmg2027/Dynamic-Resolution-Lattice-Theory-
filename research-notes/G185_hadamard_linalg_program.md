@@ -304,7 +304,13 @@ alternating (`leibDet_rowSwap`, `leibDet_eq_zero_of_rows_eq`, `leibDet_eq_zero_o
   - ★ `leibTerm_cons_colShift`: `leibTerm M (j :: rel.map (colShift j)) = altSign j · M 0 j ·
     leibTerm (minor M j) rel`.
   - D-foundation `lperm_of_nodup_mem_iff` (Nodup + same-membership ⟹ `LPerm`).
-- **§2 (D) remaining — the reindex** `LPerm (perms (n+1)) ((iota (n+1)).flatMap (fun j =>
+- **§2 COMPLETE (Laplace, 32 PURE)** ✅ — ★★★ `cofactor_row0`: `leibDet (n+1) M = Σ_{j≤n}
+  (−1)ʲ · M 0 j · leibDet n (minor M j)`.  The reindex `perms_succ_lperm` (head-decomposition),
+  per-element `leibTerm_cons_colShift`, and the `sumZ`/`flatMap` assembly all done, ∅-axiom.
+  **Next: §3 any-row expansion → §4 adjugate (`M·adj = det·I`; off-diag = `leibDet_rows_eq_ne` ✅)
+  → §5 integer Cayley–Hamilton → §6 Kronecker `M` → `cfiniteZ_mul`.**
+
+- **(done) §2 (D) — the reindex** `LPerm (perms (n+1)) ((iota (n+1)).flatMap (fun j =>
   (perms n).map (fun rel => j :: rel.map (colShift j))))`, via `lperm_of_nodup_mem_iff`:
   - nodup RHS: `nodup_flatMap` (g = the headDecomp, section = `List.head`/recover `j`; each fiber
     nodup via `nodup_map` of the injective `rel ↦ j :: rel.map (colShift j)` over `perms n`).
