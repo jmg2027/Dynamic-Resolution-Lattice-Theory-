@@ -49,7 +49,20 @@ Lagrange: `Tᵐ−1` (degree `m < p−1`) cannot have all `p−1` nonzero residu
     (`eval` Horner), synthetic-division `quot r` (only `+`,`×`), and ★`factor_eval`:
     `eval f x − eval f r = (x−r)·eval (quot r f) x` over `ℤ`.  So a root `r` peels a factor
     `(X−r)`, and (mod `p`, `p` prime, via Euclid) the other roots are roots of `quot r f`.
-  - **Root bound (next)** — by induction: distinct roots `rs` of `f` ⟹ `rs.length ≤ deg f`.
+  - **Int Euclid (DONE)** — `PolyRoot/IntEuclid` (8 PURE): `int_euclid` (`p` prime,
+    `↑p ∣ a·b`, `↑p ∤ a` ⟹ `↑p ∣ b` over `ℤ`, via `natAbs` → ℕ Euclid; pure `natAbs_mul`
+    replaces the propext-dirty core) + pure `dvd_add'`/`dvd_sub'`/`dvd_mul_left'`.
+  - **Root bound (DONE)** — `PolyRoot/RootBound` (2 PURE): `root_transfer` (a root `s ≠ r` of
+    `f` is a root of `quot r f`) + ★`eval_zero` — **Lagrange's bound, eval-vanishing form**: a
+    poly with more distinct-mod-`p` roots than its length vanishes mod `p` everywhere (fuel
+    induction peeling roots through `quot` + the factor identity).  At `x = 0` this is the
+    constant coefficient, giving the contradiction for `Tᵐ−1` (constant `−1 ≢ 0`).
+    **The mathematical heart of Phase 3-core is ∅-axiom.**
+  - **Remaining glue** — witness extraction `∃ a ∈ [1,p), aᵐ ≢ 1` (the contrapositive of
+    `eval_zero`; needs Lean-core `Decidable` ⟹ one `propext` step, standard-allowed); the
+    `Tᵐ−1` coefficient list `Xpᵐ` (`eval = aᵐ−1`); the `[1,p)` residue list (pairwise distinct
+    mod `p` since `|a−b| < p`); then FLT (`a^(p−1) ≡ 1`, `3m = p−1`) ⟹ `p ∣ (aᵐ)³−1 =
+    z(z²+3z+3)` ⟹ `cube_root_of_order3`.  All mechanical; no further deep obstruction.
     Design caveat: this `quot` keeps the list length (spurious trailing `0`); the induction
     needs an *effective degree* — either redefine `quot` to drop the trailing `0` (3-clause,
     re-prove `factor_eval`) or prove `eval (quot r f) = eval (quot r f).dropLast`.  Then the
