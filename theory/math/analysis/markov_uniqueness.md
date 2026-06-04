@@ -302,15 +302,34 @@ recovery injectivity is supplied not by a local determinant bound but by the tre
 monotonicity** `slope_path_inj` (the path is recovered from the slope `u/c`).  Two ordered triples at
 `c` are both Stern-Brocot nodes (`reverse_bridge`); equal windowed residue ⟹ equal slope ⟹ equal path
 ⟹ equal triple (`markov_max_unique_tree`, lines using `slope_path_inj`).  So `markov_max_unique_tree`
-proves `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c` with **no `SamePairInjective` hypothesis** — the
-recovery is *discharged, not assumed* — and `markov_prime_pow_unique` closes **Button's entire
+proves `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c` with **no `SamePairInjective` hypothesis**.  The
+injectivity *content* — `triple ↦ windowed residue` is injective — is not bypassed but *proved* by
+`slope_path_inj`; what `SamePairInjective` and the size-bound `coprime_cross_eq` route added was a
+weaker packaging of that same fact.  So `markov_prime_pow_unique` closes **Button's entire
 odd-prime-power family ∅-axiom**: the conclusion is `MarkovMaxUnique (p^{k+1})` itself, not merely the
-root-count input (verified `#print axioms … does not depend on any axioms`).  The `SamePairInjective`
-reduction above (`markov_max_unique_of_same_pair_injective`, `MarkovInjectivity`) is the *weaker,
-superseded* formulation — still a valid theorem, but no longer the frontier; the recovery it left as a
-hypothesis is the fact `slope_path_inj` proves.  For composite `c` the recovery is likewise closed by
-`slope_path_inj`, so the **sole** open input is *root-realisability* — which `±`-suborbit carries a
-triple (`H`, next section) — not the residue map `triple ↦ u`.
+root-count input (`#print axioms` on `slope_path_inj` / `markov_max_unique_tree` /
+`markov_prime_pow_unique` all `… does not depend on any axioms`).
+
+**Statement-faithfulness audit.**  `#print axioms` certifies no proof gap, not that the statement says
+what it should — so the hypotheses and conclusion are checked directly.  `markovEq`, `MarkovMaxUnique`
+(`∀ a₁ b₁ a₂ b₂, … markovEq aᵢ bᵢ c → a₁=a₂ ∧ b₁=b₂`), and `SqrtNegOneTwoRoots` are the faithful
+statements (no weak-statement or vacuity trick).  The primality input is `hpr : ∀ e, e ∣ p → e = 1 ∨
+e = p` — **divisor-primality**, the standard `∅`-axiom primality predicate, true of every odd prime
+*definitionally*: **not** the prime-gcd proxy (that lives in the orthogonal 3 mod 4 branch via
+`universal_flt_main`), **not** `Nat.Prime` (no Mathlib), **not** per-witness.  So `markov_prime_pow_unique`
+is a genuine `∀`-statement over odd prime powers, needing no `Nat.Prime → proxy` bridge.  Note it is the
+*uniqueness* (`≤ 1` ordered triple) direction — exactly what the conjecture asks (injectivity of the
+labeling); existence (`≥ 1`, hence `= 1` at the Markov-number prime powers `5, 13, 29, 169, 433, …`) is
+the separate, classical tree-generation fact.  At a prime power that is *not* a Markov number (`7, 11,
+49, …`) `MarkovMaxUnique` holds vacuously (`0` triples) — the universal `≤ 1` covers both, which is
+correct, not a weakening.
+
+For composite `c` the recovery is likewise closed by `slope_path_inj`, so the **sole** open input is
+*root-realisability* — which `±`-suborbit carries a triple (`H`, next section) — not the residue map
+`triple ↦ u`.  And since recovery is closed, on a composite `c` **`H ⟺ uniqueness at `c`` exactly**
+(same residue ⟹ same triple by `slope_path_inj`; distinct windowed residues ⟹ two occurrences), so the
+formalisation has stripped root-count, group structure, and recovery off and isolated the irreducible
+kernel — `H` directly *is* the Frobenius conjecture at `c`.
 
 ## The upper-fold pattern: the unit-root group and the orbit reduction
 

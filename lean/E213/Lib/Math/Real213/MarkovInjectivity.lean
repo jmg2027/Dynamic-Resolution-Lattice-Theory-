@@ -143,12 +143,16 @@ theorem neg_root_is_root (c r : Nat) (hr : r ≤ c) (h : (r * r + 1) % c = 0) :
     recovered residues `u₁,u₂` lie in the same `±`-pair (`u₁=u₂` or `u₁+u₂=c`) coincide.  Classically
     true by the strict monotonicity of `u_t/m_t` along the Farey slope.
 
-    **Superseded as the prime-power gate**: `SternBrocotMarkov.slope_path_inj` discharges this recovery
-    *unconditionally* via the Markoff-matrix tree's global slope monotonicity (path recovered from
-    slope, not bounded by a cross-determinant), so `markov_max_unique_tree` needs only
-    `SqrtNegOneTwoRoots` — and `markov_prime_pow_unique` closes Button's family ∅-axiom with **no**
-    `SamePairInjective` hypothesis.  This definition + `markov_max_unique_of_same_pair_injective` below
-    remain the *weaker* classical reduction (still a valid theorem, kept for the literature mapping). -/
+    **The injectivity content is closed, not bypassed.**  `triple ↦ windowed residue` *is* injective
+    — that is exactly what `SternBrocotMarkov.slope_path_inj` proves (the tree recovers the path, hence
+    the triple, from the slope `u/c`).  What is *superseded* is only the packaging: this
+    `SamePairInjective` predicate and the size-bound route (`coprime_cross_eq` with `|a₁b₂−a₂b₁|<c`,
+    which genuinely dead-ends since the cross-determinant is a neighbour Markov number ≈ `c`).  The
+    *global* slope route reaches the same injectivity the local bound could not.  Consequently
+    `markov_max_unique_tree` needs only `SqrtNegOneTwoRoots` (no `SamePairInjective` hypothesis) and
+    `markov_prime_pow_unique` closes Button's family `∅`-axiom.  This definition +
+    `markov_max_unique_of_same_pair_injective` below remain a valid (weaker, classical) reduction, kept
+    for the literature mapping. -/
 def SamePairInjective (c : Nat) : Prop :=
   ∀ a₁ b₁ a₂ b₂ u₁ u₂ : Nat, a₁ ≤ b₁ → b₁ ≤ c → markovEq a₁ b₁ c →
     a₂ ≤ b₂ → b₂ ≤ c → markovEq a₂ b₂ c →
