@@ -60,6 +60,17 @@ each Markov number determines a unique triple.
   (Stern-Brocot, φ/π extremes, Hurwitz cosines).
 - `G174_markov_newton_synthesis` — idea-level graft of Markov uniqueness onto
   the Newton / Casoratian / FSM frameworks (Myhill–Nerode reading of the crux).
+- `G189_geodesic_lens_markov_frontier` — the geodesic-Lens view: where
+  stable-norm / Christoffel sits relative to the mediant engine.
+- `G190_foundation_breakthrough_backlog` — a map of the Raw/Lens corpus and
+  where the Markov `H` kernel sits in the foundation's breakthrough backlog.
+- `G191_continuant_aigner_program` — the continuant / Aigner program: where
+  modern Markov theory meets the repo, and what it can(not) close (the
+  ranked-next attack on `H`; `Real213/Continuant.lean` tool built).
+- `G192_markov_kernel_raw_lens_native` — the kernel in Raw/Lens-native terms:
+  where the geodesic engine reaches and where it structurally stops.
+- `G193_axioms_against_markov_kernel` — the 213 axiom corpus read against the
+  Markov kernel: a standing attack map for `H`.
 
 Closure record: `theory/math/analysis/{markov_uniqueness,markov_spectrum}.md`.
 

@@ -72,8 +72,9 @@ Unchanged this session (math-frontier work; no physics-constant edits).  Canonic
 
 ### 1. (carried) The orbit-realizability kernel `H` (`OrbitRealizabilityH`)
 The Markov sole open freedom — structure fully pinned, realizability *selection* open.  Attack as
-a forced fixed point (G193 Part C).  Continuant program E2–E5 (Aigner bridge) ranked next on that
-arc (`Real213/Continuant.lean` tool already built).
+a forced fixed point (`frontiers/markov_lagrange/G193…` Part C).  Continuant program E2–E5 (Aigner
+bridge) ranked next on that arc (`frontiers/markov_lagrange/G191…`; `Real213/Continuant.lean` tool
+already built).
 
 ### 2. G178 — consolidation surface COMPLETE
 All C-phys bridges resolved this session: **C3** (`unit_bridges_dynamics_and_readings`), **C6**

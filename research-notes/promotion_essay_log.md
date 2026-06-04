@@ -32,7 +32,10 @@ Columns:
 
 | # | Date | Type | Topic / target | Situation (what prompted it) | Outcome (path) |
 |---|------|------|----------------|------------------------------|----------------|
-| — | — | — | — | *(first live entry appended next session)* | — |
+| 1 | 2026-06-04 | essay | the frontier has a form (νF) | G182 essay-in-waiting; the νF-population arc closed ∅-axiom (§18 free swap-action) on a now-reconciled branch — the "essay-in-waiting" had its anchors proven | `theory/essays/foundations/the_frontier_has_a_form.md` (G182 archived) |
+| 2 | 2026-06-04 | promotion | frozen = dynamic φ (§5.7) | a closed ∅-axiom result (`PhiFrozenDynamic.frozen_eq_dynamic_phi`, 2 PURE) had **no** `theory/` narrative — gap found while pursuing the ε₀/φ adjacents | `theory/math/algebra/phi_self_similarity.md` §3.6 |
+| 3 | 2026-06-04 | essay | the residue unit's odometer | a multi-section Lean sub-tree (`Theory/Raw/Odometer` 41 + `OdometerValue` 18 + `ZeckendorfCarry` 7 = 66 PURE) matured into a coherent new sub-theory (the residue-unit `+1` dynamics) — closed arc needing one narrative home | `theory/essays/foundations/the_residue_unit_odometer.md` |
+| 4 | 2026-06-04 | promotion | G178 + G181 (archive) | both frontier notes fully resolved (νF population + C-phys bridges + odometer/Zeckendorf cross-arc); content promoted to the foundations essay triptych — sink check 0, so the cycle's archive step ran | `archive/G178_…`, `archive/spiral_axis/G181_…` |
 
 ## Reading the log later (pattern analysis)
 
