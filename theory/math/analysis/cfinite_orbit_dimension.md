@@ -183,9 +183,15 @@ it.  `Linalg213.FibCassiniDet` grounds the base size: `det 2` of the Fibonacci C
 Two directions remain, in rough difficulty order.
 
 - **Casoratian rank = orbit dimension** — C-finite iff the Hankel/Casoratian determinants of the
-  shift-orbit eventually vanish, the orbit dimension equalling that rank.  Connects directly to
-  the discrete-Wronskian work of `divergence_depth_characterization.md`
-  (`CasoratianStep`/`CasoratianSigned`); needs a determinant-rank argument.
+  shift-orbit eventually vanish, the orbit dimension equalling that rank.  **The forward direction is
+  done** (`CasoratianRank.casoratian_det_zero`, ∅-axiom): a sequence with a monic order-`k` shift
+  recurrence has its `(k+1)×(k+1)` Casoratian (Hankel) determinant `det [s(n+i+j)] ≡ 0`, because the
+  bottom row is the recurrence combination of the upper rows — a direct application of
+  `Linalg213.RowDependence.det_row_combo_zero` (row dependence ⟹ `det=0`, from the new determinant
+  tower's multilinearity + alternating).  The *converse* (Casoratian rank `k` ⟹ C-finite of order
+  `k`) remains — a Cramer/rank argument extracting the recurrence from the vanishing minors.
+  Connects to the discrete-Wronskian work of `divergence_depth_characterization.md`
+  (`CasoratianStep`/`CasoratianSigned`).
 
 - **Holonomic = `ℚ(n)`-orbit** — the top rung of the ladder, where the recurrence coefficients are
   rational *functions* of `n` rather than constants (the Apéry `ζ(3)` numerators are the model
