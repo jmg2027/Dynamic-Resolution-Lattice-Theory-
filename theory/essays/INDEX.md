@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 51 essays are grouped into nine thematic sub-directories — distinct
+The 56 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -64,6 +64,11 @@ others together):
 **IX. `methodology/` — methodology & PURE-Lean infra.**
 `pure_funext_avoidance`, `pure_nat_ring_methodology`,
 `bool_assoc_failure_meaning`, `reframe_presentation_transport`.
+
+**X. `proof_isa/` — proof as compilation to the residue ISA.**
+`what_is_a_proof` (series synthesis), `probabilistic_method`,
+`linear_algebra_method`, `parity_invariant_method`, `konig_boundary`.
+The "why" of each reproduced technique; the instruction set's interior + edge.
 
 ## Current essays
 

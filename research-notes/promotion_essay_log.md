@@ -59,3 +59,4 @@ Once there are ~10+ rows, look for:
   suggests the promotion gate or the prompt is the bottleneck.
 - Feed findings into `frontiers/research_grade_closure_gate.md` and, if
   stable, into `theory/PROMOTION_CRITERIA.md` / the `process` skill.
+| 9 | 2026-06-04 | essay | What is a proof, in 213? (proof-ISA series synthesis) | Capstone of the proof-ISA compilation series this session: three solved techniques (probabilistic→COUNT, linear-algebra→COUNT, parity→READ∘SEPARATE) collapsed onto the named eight + König stalled at the exterior DECIDE.  A whole-framework re-reading of "proof" as compilation-to-the-residue-ISA, with the interior witnessed by the 1145-PURE corpus and the boundary at the foreign Π⁰₁ decision.  Pattern: *a multi-reproduction series that maps an interior + a boundary → a synthesis essay capping it.* | `theory/essays/proof_isa/what_is_a_proof.md` |

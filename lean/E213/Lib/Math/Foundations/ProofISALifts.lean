@@ -6,11 +6,13 @@ import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.FreshmanDream
 import E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
 import E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness
 import E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+import E213.Lib.Math.Combinatorics.CountExistence
+import E213.Lib.Math.Combinatorics.RamseyLowerBound
 
 /-!
-# The lift catalog — four solved finite→uniform lift archetypes on the proof-ISA
+# The lift catalog — five solved finite→uniform lift archetypes on the proof-ISA
 
-`Lens.ProofISA` names the instruction set; this file is the **compilation catalog** — four
+`Lens.ProofISA` names the instruction set; this file is the **compilation catalog** — five
 *already-solved*, `∅`-axiom, infinite-abstract theorems whose **finite→uniform lifts** are structurally
 distinct.  Each `abbrev` pins a solved theorem; the surrounding text records *how* its lift is achieved —
 a template library for the one open lift, the Markov uniqueness kernel `H`.
@@ -58,6 +60,16 @@ prime-power factor (fails at `1325`, where both `3c±2` are composite; then no p
 fiber, and the residue is the class-number-hard kernel).  REFRAME is the dual of the order-monovariant
 exhaustion (`SternBrocotMarkov §36`, `markovNum_subtree_size_interleaves`): when a reading cannot be
 improved *in place*, transport to a reading where a solved archetype applies.
+
+## Archetype 5 — COUNT / cardinality-doubling (`lift_count`) — the quantitative `GAP`
+`count_existence`: on a finite residue, `Σ|badᵢ| < |codomain|` forces a good element (found by search).
+The lift is **multiplicativity of counting** (`lift_count_factor`, `count_factor`/`matchesC_count`: each
+free distinguishing *doubles* the count, so a local sub-block constraint's count factors `2^free × block`
+over an *arbitrary* position-subset — no permutation lemma needed).  Surfaced by compiling the
+**probabilistic method** (Erdős `R(k,k) > 2^{k/2}`).  **Lift cost: a counting bound** — the per-event
+count plus the union bound; the existence is then a finite search, not a choice.  This is the *quantitative
+face* of `GAP` (`pigeonhole` is its qualitative face); unlike A3 it is not in `H`'s family — it is the
+`GAP`-cardinality complement to A1's `GAP`-diagonal.
 
 ## `H` localized
 `H` is the uniform cross-word continuant-trace `SEPARATE` (`markovNum` injective on all tree paths;
@@ -108,5 +120,13 @@ abbrev lift_reframe_modulus :=
     `x² ≡ y² (mod pᵏ)` with `p∤x,y` ⟹ `x = y ∨ x+y = pᵏ`. -/
 abbrev lift_reframe_collapse :=
   @E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.sq_eq_collapse_pp
+
+/-- **A5 COUNT** — the solved cardinality lift: on a finite residue, `Σ|badᵢ| < |codomain|` forces a
+    good element.  The quantitative `GAP` witness, surfaced by compiling the probabilistic method. -/
+abbrev lift_count := @E213.Lib.Math.Combinatorics.CountExistence.count_existence
+
+/-- **A5 lift mechanism** — multiplicativity of counting: each free distinguishing doubles the count, so
+    a local constraint's count factors over an arbitrary position-subset. -/
+abbrev lift_count_factor := @E213.Lib.Math.Combinatorics.RamseyLowerBound.matchesC_count
 
 end E213.Lib.Math.Foundations.ProofISALifts
