@@ -1647,8 +1647,10 @@ theorem window_realized_unique_of_sqrtNegOne (c : Nat) (h2 : SqrtNegOneTwoRoots 
   The template closes composite `c` where Button's `SqrtNegOneTwoRoots` **fails** (≥ 4 roots).  For
   `ω = 2` (two odd prime factors `≡ 1 mod 4`) there are exactly two windowed roots `{P, Q}`; if `P`
   is phantom (`∀b<c ¬markovEq`), any realized windowed root is `Q`, so `WindowRealizedUnique c` holds.
-  This `window_realized_unique_of_one_phantom` reduces each composite to two `decide`s (windowed-root
-  set + the phantom's non-realization), both `O(c)`-feasible. -/
+  `window_realized_unique_of_one_phantom` reduces each `ω=2` composite to two `O(c)` `decide`s.
+  Feasible for the first composite Markov numbers; `ω≥3` (`195025`, `196418`, `c≈2·10⁵`) and even
+  `4181` exhaust the `decide` kernel — the method holds but needs a non-`decide` root enumerator.
+  (A `List`-of-phantoms generalization is avoided: `List.Mem`'s `decide` is `Quot.sound`-dirty.) -/
 
 /-- ★★★★ **One-phantom reducer**: windowed roots `⊆ {P, Q}` with `P` phantom ⟹ `WindowRealizedUnique`.
     (If `Q` is also phantom the conclusion is vacuous; otherwise `Q` is the unique realized root.) -/
@@ -1663,32 +1665,29 @@ theorem window_realized_unique_of_one_phantom (c P Q : Nat)
     · rfl
 
 set_option maxRecDepth 400000 in
-/-- `MarkovMaxUnique 65` (= 5·13, `SqrtNegOneTwoRoots` **false**): non-Markov, both windowed roots
-    `{8,18}` phantom. -/
+/-- `MarkovMaxUnique 65` (= 5·13, `SqrtNegOneTwoRoots` **false**, non-Markov): windowed `{8,18}`. -/
 theorem markov_max_unique_65 :
     E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 65 :=
   markov_max_unique_of_window_realized_unique 65 (by decide)
     (window_realized_unique_of_one_phantom 65 8 18 (by decide) (by decide))
 
 set_option maxRecDepth 400000 in
-/-- ★★★★★ **`MarkovMaxUnique 610` — composite Markov number** (= 2·5·61, `F₁₅`), beyond Button.
-    Windowed roots `{133, 233}`; `133` phantom, `233` realized by `(1,233,610)`. -/
+/-- ★★★★★ **`MarkovMaxUnique 610`** (= 2·5·61 = F₁₅): windowed `{133,233}`, `233` realized `(1,233,610)`. -/
 theorem markov_max_unique_610 :
     E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 610 :=
   markov_max_unique_of_window_realized_unique 610 (by decide)
     (window_realized_unique_of_one_phantom 610 133 233 (by decide) (by decide))
 
 set_option maxRecDepth 400000 in
-/-- ★★★★★ **`MarkovMaxUnique 985`** (= 5·197), composite Markov number beyond Button.  Windowed
-    roots `{183, 408}`; `183` phantom, `408` realized. -/
+/-- ★★★★★ **`MarkovMaxUnique 985`** (= 5·197): windowed `{183,408}`, `408` realized. -/
 theorem markov_max_unique_985 :
     E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 985 :=
   markov_max_unique_of_window_realized_unique 985 (by decide)
     (window_realized_unique_of_one_phantom 985 183 408 (by decide) (by decide))
 
 set_option maxRecDepth 400000 in
-/-- ★★★★★ **`MarkovMaxUnique 1325`** (= 5²·53), the first composite Markov number with the `2^ω=4`
-    root explosion.  Windowed roots `{182, 507}`; `182` phantom, `507` realized by `(13,34,1325)`. -/
+/-- ★★★★★ **`MarkovMaxUnique 1325`** (= 5²·53), first composite Markov number with the `2^ω=4` root
+    explosion: windowed `{182,507}`, `507` realized `(13,34,1325)`, `182` phantom. -/
 theorem markov_max_unique_1325 :
     E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 1325 :=
   markov_max_unique_of_window_realized_unique 1325 (by decide)
