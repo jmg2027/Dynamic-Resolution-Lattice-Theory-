@@ -139,10 +139,16 @@ theorem neg_root_is_root (c r : Nat) (hr : r ≤ c) (h : (r * r + 1) % c = 0) :
 
 /-! ## §3 — the capstone reduction: uniqueness ⟸ root-count + residue injectivity -/
 
-/-- **Residue-map injectivity up to sign** (Zhang Lemma 2, the open input).  Two ordered Markov
-    triples at `c` whose recovered residues `u₁,u₂` lie in the same `±`-pair (`u₁=u₂` or
-    `u₁+u₂=c`) coincide.  Classically true by the strict monotonicity of `u_t/m_t` along the Farey
-    slope; the **only** ingredient still missing for prime-power uniqueness. -/
+/-- **Residue-map injectivity up to sign** (Zhang Lemma 2).  Two ordered Markov triples at `c` whose
+    recovered residues `u₁,u₂` lie in the same `±`-pair (`u₁=u₂` or `u₁+u₂=c`) coincide.  Classically
+    true by the strict monotonicity of `u_t/m_t` along the Farey slope.
+
+    **Superseded as the prime-power gate**: `SternBrocotMarkov.slope_path_inj` discharges this recovery
+    *unconditionally* via the Markoff-matrix tree's global slope monotonicity (path recovered from
+    slope, not bounded by a cross-determinant), so `markov_max_unique_tree` needs only
+    `SqrtNegOneTwoRoots` — and `markov_prime_pow_unique` closes Button's family ∅-axiom with **no**
+    `SamePairInjective` hypothesis.  This definition + `markov_max_unique_of_same_pair_injective` below
+    remain the *weaker* classical reduction (still a valid theorem, kept for the literature mapping). -/
 def SamePairInjective (c : Nat) : Prop :=
   ∀ a₁ b₁ a₂ b₂ u₁ u₂ : Nat, a₁ ≤ b₁ → b₁ ≤ c → markovEq a₁ b₁ c →
     a₂ ≤ b₂ → b₂ ≤ c → markovEq a₂ b₂ c →
