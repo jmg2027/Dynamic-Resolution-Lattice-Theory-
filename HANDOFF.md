@@ -2,7 +2,16 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — explicit path → Christoffel word: every Markov number = continuant-trace of an explicit word
+## ★★★ NEWEST — rational labeling: markovNum indexed by reduced ℚ (modern Frobenius statement assembled)
+- **`ContinuantMarkov.markovRat`** : reduced Stern-Brocot rational p/q at a path (Farey mediant of the
+  repo's proper tree sbInterval); **`markovRat_coprime`** (PURE): gcd(p,q)=1 (via sbInterval_mediant_coprime).
+- **Modern Frobenius statement now repo-native + ∅-axiom**: domain = reduced rationals (markovRat, coprime),
+  map = markovNum, "ℚ→Markov injective" = open conjecture = Function.Injective markovNum (§34 iff).
+- Literal Aigner Fixed-Num/Denom/Sum (m_{p/q} monotone in p or q): needs the markovRat ↔ chrNode
+  (rational ↔ Christoffel word letter-count) link + continuant monotonicity; the labeling + word bridge +
+  monotone core are all in place — that link is the remaining connective lemma.
+
+## explicit path → Christoffel word: every Markov number = continuant-trace of an explicit word
 - **`ContinuantMarkov.chrInterval`/`chrNode`** (word-level Christoffel tree, mediant=concat, seeds
   A=[1,1] B=[2,2]); `chrNode_examples` ([]↦AB, [true]↦AAB, [false]↦ABB).
 - **`contMatProd_chrNode`** (PURE): the word tree's contMatProd IS the matrix Cohn tree cNode (via
