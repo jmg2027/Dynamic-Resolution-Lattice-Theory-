@@ -300,4 +300,43 @@ theorem bcount_headFalse (n : Nat) :
       show (fun x => headFalse (true :: x)) = (fun _ => false) from rfl,
       bcount_true, bcount_false, allBoolLists_length n, Nat.add_zero]
 
+/-! ### The complement involution — fibers are `{σ, complement σ}` pairs
+
+A coboundary `δ⁰σ` determines `σ` up to a global constant
+(`KernelConstancyUniversal.isKer_iff_const`), so on `V ≥ 1` vertices each
+fiber of `δ⁰` is exactly the pair `{σ, complement σ}` (`σ ⊕ all-true`).
+The complement map is a fixed-point-free involution, and the head-`false`
+colourings pick exactly one element from each pair — so the head-`false`
+count `2^(V−1)` is the number of fibers, i.e. `|im δ⁰|`.  These lemmas
+establish the transversal structure (the fiber↔pair identification itself
+is the cited kernel result). -/
+
+/-- Bitwise complement of a colouring. -/
+def complement (l : List Bool) : List Bool := l.map (· == false)
+
+/-- The complement is an involution. -/
+theorem complement_involutive : ∀ l, complement (complement l) = l
+  | [] => rfl
+  | a :: l => by
+      show ((a == false) == false) :: complement (complement l) = a :: l
+      rw [complement_involutive l]
+      cases a <;> rfl
+
+/-- On a nonempty colouring, the complement is not the colouring itself
+    (it flips the first entry) — the involution is fixed-point-free. -/
+theorem complement_ne_self (a : Bool) (l : List Bool) :
+    complement (a :: l) ≠ a :: l := by
+  intro h
+  -- heads: (a == false) = a, impossible
+  have : (a == false) = a := by injection h
+  cases a <;> exact Bool.noConfusion this
+
+/-- **Head-`false` is a transversal**: of `σ` and `complement σ` exactly
+    one is head-`false` (for a nonempty colouring).  So each
+    `{σ, complement σ}` pair has a unique head-`false` representative. -/
+theorem headFalse_transversal (a : Bool) (l : List Bool) :
+    headFalse (a :: l) = !headFalse (complement (a :: l)) := by
+  show headFalse (a :: l) = !headFalse ((a == false) :: complement l)
+  cases a <;> rfl
+
 end E213.Lib.Math.Combinatorics.BoolEnum

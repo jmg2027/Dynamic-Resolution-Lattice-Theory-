@@ -6,6 +6,7 @@ import E213.Lib.Math.Combinatorics.Simplex5
 import E213.Lib.Math.Combinatorics.Capstone
 import E213.Lib.Math.Combinatorics.GraphConnectivity
 import E213.Lib.Math.Combinatorics.BoolEnum
+import E213.Lib.Math.Combinatorics.ListCount
 
 /-!
 # Combinatorics 213 — umbrella

@@ -116,11 +116,16 @@ Betti number from ∅-axiom cardinalities counted via
   - `|im δ⁰| = 2^(V−1)` (`bcount_headFalse`) — `dim im = V − 1`.
 
 The head-`false` representative count is `|im δ⁰|` via the first
-isomorphism bridge (a coboundary fixes its cochain up to a global
-constant, so each coboundary has a unique head-`false` representative).
-Granting it, the rank relations are exact ∅-axiom arithmetic
-(`2^(m+1) = 2 · 2^m`, `2^E = 2^(V−1) · 2^{b₁}` with `E = (V−1) + b₁`),
-giving `dim H¹ = b₁ = E − V + 1`.  For the forced `K_{3,2}^{(c=2)}`
+isomorphism bridge — whose **combinatorial half is now proven**
+(`im_dim_via_transversal`): `complement` is a fixed-point-free involution
+(`complement_involutive`, `complement_ne_self`) and each pair
+`{σ, complement σ}` has a unique head-`false` member
+(`headFalse_transversal`), so the head-`false` count `2^(V−1)` IS the
+number of pairs.  Only the identification *fiber = pair* is cited — and
+that is exactly the proven kernel result `isKer_iff_const`.  Granting it,
+the rank relations are exact ∅-axiom arithmetic (`2^(m+1) = 2 · 2^m`,
+`2^E = 2^(V−1) · 2^{b₁}` with `E = (V−1) + b₁`), giving
+`dim H¹ = b₁ = E − V + 1`.  For the forced `K_{3,2}^{(c=2)}`
 (`betti_one_K32`): `V = 5`, `E = 12`, `b₁ = 8 = NS² − 1 = 1/α₃`.
 
 The same conclusion is also reached through the abstract

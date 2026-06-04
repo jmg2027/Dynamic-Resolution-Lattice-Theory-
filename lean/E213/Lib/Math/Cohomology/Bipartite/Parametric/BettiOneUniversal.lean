@@ -20,10 +20,15 @@ This file assembles it from ∅-axiom cardinalities counted in
 
 The last identity reads `bcount headFalse` as `|im δ⁰|` through the
 **first isomorphism bridge**: a coboundary `δ⁰σ` determines `σ` up to a
-global constant (`isKer_iff_const`), so each coboundary has a unique
-representative with first vertex coloured `false`, and the head-`false`
-colourings (counted `2^(V−1)`) biject with `im δ⁰`.  Granting that
-bridge, the two rank relations are then exact ∅-axiom arithmetic:
+global constant (`isKer_iff_const`), so each fiber of `δ⁰` is the pair
+`{σ, complement σ}`.  The combinatorial half of that bridge is now
+**proven** (`BoolEnum.complement_involutive`, `complement_ne_self`,
+`headFalse_transversal`): `complement` is a fixed-point-free involution
+and the head-`false` colourings pick exactly one element from each pair,
+so the head-`false` count `2^(V−1)` IS the number of pairs.  Only the
+identification *fiber = pair* is cited — and that is exactly the proven
+kernel result `isKer_iff_const`.  Granting it, the two rank relations are
+exact ∅-axiom arithmetic:
 
   - rank–nullity `|C⁰| = |ker δ⁰| · |im δ⁰|`  ↔  `2^(m+1) = 2 · 2^m`,
   - first iso `|C¹| = |im δ⁰| · |H¹|`         ↔  `2^E = 2^(V−1) · 2^{b₁}`,
@@ -37,7 +42,8 @@ namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.BettiOneUniversal
 
 open E213.Lib.Math.Combinatorics.BoolEnum
   (allBoolLists allBoolLists_length isConst bcount bcount_const headFalse
-   bcount_headFalse)
+   bcount_headFalse complement complement_involutive complement_ne_self
+   headFalse_transversal)
 
 open E213.Tactic.Pow213 (pow_add_two)
 
@@ -87,5 +93,29 @@ theorem betti_one_K32 :
     ∧ (8 : Nat) = 3 * 3 - 1 := by
   have h := betti_one_universal 4 12 8 (by decide)
   exact ⟨h.1, h.2.1, h.2.2.1, h.2.2.2.2, by decide⟩
+
+/-! ## The transversal bridge (combinatorial half, proven) -/
+
+/-- **`|im δ⁰| = 2^(V−1)` — the proven combinatorial content.**
+
+  The head-`false` representatives count `2^(V−1)` (`bcount_headFalse`)
+  and form a transversal of the `complement`-pairs: `complement` is a
+  fixed-point-free involution (`complement_involutive`,
+  `complement_ne_self`) and each pair `{σ, complement σ}` contains exactly
+  one head-`false` colouring (`headFalse_transversal`).  So the head-`false`
+  count is the number of pairs.  By the kernel result
+  (`KernelConstancyUniversal.isKer_iff_const`: `δ⁰σ = δ⁰τ ⟺ σ, τ differ
+  by a constant ⟺ τ ∈ {σ, complement σ}`) the pairs are exactly the
+  fibers of `δ⁰`, so this count is `|im δ⁰| = 2^(V−1)`. -/
+theorem im_dim_via_transversal (n : Nat) :
+    -- representatives count
+    bcount headFalse (allBoolLists (n + 1)) = 2 ^ n
+    -- complement is a fixed-point-free involution
+    ∧ (∀ l, complement (complement l) = l)
+    ∧ (∀ a l, complement (a :: l) ≠ a :: l)
+    -- head-false picks exactly one element of each {σ, complement σ} pair
+    ∧ (∀ a l, headFalse (a :: l) = !headFalse (complement (a :: l))) :=
+  ⟨bcount_headFalse n, complement_involutive, complement_ne_self,
+   headFalse_transversal⟩
 
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.BettiOneUniversal
