@@ -118,9 +118,16 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   cut limits) consumes a **modulus of continuity**, and the repo's `DiffCutModulus` calculus supplies
   one for every monomial period integrand — `z²` (weight-4 `V_2`) has input modulus `2k`, `z³` has
   `3k`, built from `id`'s modulus `k` through `mulDiffCutModulus`.  So the higher-weight period
-  integrals are reachable as ∅-axiom cut limits — no new axiom, the bridge is *built*.  **Remaining**
-  (bounded constructive build): the generic "midpoint Riemann sums of a `DiffCutModulus` integrand are
-  Cauchy" theorem; then `∫ z^{k−2} dz` and the full higher-weight Eichler–Shimura period follow.
+  integrals are reachable as ∅-axiom cut limits — no new axiom, the bridge is *built*.  **Power rule already CLOSED via FTC** (`MinkowskiHigherWeightPeriod.higher_weight_period_integrands_integrate`,
+  PURE): the repo has, besides the dyadic Riemann integral, a **fundamental-theorem / antiderivative**
+  integral on the flux formalism (`Lib/Math/Analysis/Integration/{Antiderivative,IntegralViaAnti,
+  ClassicAnti}`, `FluxMVT`) — the monomial period integrands `z²` (`square_calc`), `z³` (`cube_calc`)
+  integrate **exactly** (`∫_0^1 d(z^n) = 1`).  So `∫ z^{k−2} dz` is *not* missing.  The genuinely
+  remaining gap for higher-weight Eichler–Shimura is now far narrower: the **complex modular contour
+  over `ℍ`** + assembling the period polynomial in `X` with the group relations — *not* integration.
+  (Three successive corrections under "ㄱㄱ": integration is ∅-axiom (CutIntegral); the wall isn't
+  k≥2 (it's distinct-sample addition / completion); and the power rule is already done (FTC).  Each
+  revealed the framework integrates natively; the residual is the complex contour alone.)
 
 - **residue as a (truncated) spectrum — NEGATIVE (honest).**  The spectrum analogy **breaks**: the
   Steenrod/Massey structure on `K_{3,2}^{(c=2)}` is *vacuous* at the `d = 5` truncation — `Sq¹·Sq¹=0`

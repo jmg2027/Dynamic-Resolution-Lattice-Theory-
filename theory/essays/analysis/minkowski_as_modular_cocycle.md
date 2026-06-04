@@ -102,16 +102,22 @@ The cocycle is built **on the Stern-Brocot tree** (the L/R sub-semigroup of
 `SL(2,ℤ)`).  Genuinely open: the full-group cocycle composition law on non-tree
 generators; the **higher-weight** period integrals and the analytic
 `H^1(SL(2,ℤ), V_k)` identification; and the multifractal Hölder spectrum of `?`.
-These obstructions are **constructive, not axiom-cost**: integration itself is
-∅-axiom-native here — the repo builds its own dyadic Riemann integral
-(`Real213/CutIntegral.cutIntegralOver`, `DyadicRiemann`, with linearity,
-additivity, the constant fundamental theorem, and `no_pi_in_finite_riemann`, all
-PURE), and the weight-2 period has an ∅-axiom *analytic* representative alongside
-its algebraic one (`MinkowskiPeriodIntegral.weight2_period_integral_pure`).  What
-is missing is a modular-form contour over `ℍ` and a general power-rule primitive
-`∫ z^{k−2} dz` — a frontier to *build*, not a purity wall.  The residue supplies
-the *tree-level, weight-2* cocycle in full; the higher-weight analytic completion
-is pointed at, not yet constructed (`reached_by_none.md`).
+These obstructions are **constructive, not axiom-cost** — and narrower than first
+thought.  Integration is ∅-axiom-native here: the repo builds its own dyadic
+Riemann integral (`Real213/CutIntegral`, `DyadicRiemann`) *and* a
+fundamental-theorem-of-calculus / antiderivative integral on the flux formalism
+(`Lib/Math/Analysis/Integration/{Antiderivative,IntegralViaAnti,ClassicAnti}`,
+`FluxMVT`).  The **polynomial power rule is already closed**: the period
+integrands `z²`, `z³` (`square_calc`, `cube_calc`) integrate exactly via FTC
+(`MinkowskiHigherWeightPeriod.higher_weight_period_integrands_integrate`,
+`∫_0^1 d(z^n) = 1`), and the weight-2 period has a dyadic-integral representative
+too (`MinkowskiPeriodIntegral.weight2_period_integral_pure`).  So the real-variable
+integration the higher-weight period needs is *built*.  What genuinely remains is
+the **complex modular contour over `ℍ`** (the path integral in the upper
+half-plane) and the assembly of the period polynomial in `X` with the group
+relations — a far narrower frontier than "integration."  The residue supplies the
+*tree-level, weight-2* cocycle in full; the higher-weight contour is pointed at,
+not yet constructed (`reached_by_none.md`).
 
 ## Self-check
 
