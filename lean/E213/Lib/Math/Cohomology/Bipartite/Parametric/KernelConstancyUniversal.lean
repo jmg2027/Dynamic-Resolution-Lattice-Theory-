@@ -113,6 +113,28 @@ theorem const_of_constOnEdges (NS NT : Nat) (hS : 0 < NS) (hT : 0 < NT)
     rw [ha]
     exact (hc ⟨0, hS⟩ ⟨k, hkNT⟩).symm
 
+/-- The same constancy rooted at the **T-side**: every vertex shares the
+    colour of T-vertex `0`.  Together with `const_of_constOnEdges`
+    (S-rooted), this shows the kernel (constant cochain) is not localized
+    to either bipartite side — the choice of which vertex absorbs the
+    self-pointing residue (the "root") is a Lens choice, not forced by
+    the kernel structure. -/
+theorem const_of_constOnEdges_tRoot (NS NT : Nat) (hS : 0 < NS) (hT : 0 < NT)
+    (σ : CochV NS NT) (hc : IsConstOnEdges NS NT σ) :
+    ∀ a : Fin (NS + NT), σ a = σ (tV NS NT ⟨0, hT⟩) :=
+  fun a => (const_of_constOnEdges NS NT hS hT σ hc a).trans (hc ⟨0, hS⟩ ⟨0, hT⟩)
+
+/-- **Absorber-side is gauge-free.**  In any kernel cochain the candidate
+    S-root and T-root carry the same colour, so neither bipartite side is
+    privileged as the self-pointing-residue absorber.  This scopes the
+    "why is the deleted axis on the T-side?" reading: the deletion is the
+    single global constant, and rooting it on the S-side or the T-side are
+    equally valid residue-internal pointings (no exterior selector). -/
+theorem absorber_side_gauge_free (NS NT c : Nat) (hS : 0 < NS) (hT : 0 < NT)
+    (hc : 0 < c) (σ : CochV NS NT) (hk : IsKer NS NT c σ) :
+    σ (sV NS NT ⟨0, hS⟩) = σ (tV NS NT ⟨0, hT⟩) :=
+  (isKer_iff_constOnEdges NS NT c hc σ).mp hk ⟨0, hS⟩ ⟨0, hT⟩
+
 /-! ## Main universal characterisations -/
 
 /-- **Kernel = constants (structural b₀ = 1).**  For every connected

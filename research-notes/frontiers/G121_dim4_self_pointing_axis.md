@@ -1614,3 +1614,19 @@ statements are pointwise (`∀ x, σ x = …`).
     1-dim kernel result says *one* axis is self-pointing; *which*
     of the NT axes, and why the split is T-side not S-side, is the
     open derivation.
+
+  · M3 partial handle (non-physics, this session):
+    `KernelConstancyUniversal.const_of_constOnEdges_tRoot` +
+    `absorber_side_gauge_free` (both PURE) show the kernel is the
+    *global* constant cochain — not localized to S-side or T-side.
+    So "the self-pointing axis sits on the T-side" is a
+    **rooting / Lens choice** (which vertex absorbs the residue),
+    not forced by the kernel: an S-root gives the (NS−1) + NT
+    difference-basis split, a T-root gives the NS + (NT−1) split,
+    both valid residue-internal pointings (no exterior selector,
+    §5.4).  The remaining M3 content — why the physical readout
+    prefers the T-side and which NT axis is "time" — is the
+    physics-interpretation layer the originator deprioritized; the
+    bare mathematics leaves the side a gauge choice.  Guard: do not
+    promote one rooting to "what the residue IS"
+    (view-promoted-to-identity failure mode).
