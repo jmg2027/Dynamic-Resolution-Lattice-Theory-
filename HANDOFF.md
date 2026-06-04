@@ -23,10 +23,16 @@
   (`trace_lt_mediant_left/right`, `mInterval_bound_traces_ne`), product nonzero (`eq_zero_of_mul_eq_zero_pos`).
 - **Pair-class status of `H`** now: comparable = closed (`markovNum_lt_append`); cross-line distance 1 =
   **closed** (this); cross-line distance ≥ 2 = open residue of `H` (size interleaving across the fork).
+- **§36 `markovNum_subtree_size_interleaves`** (∅-axiom): across the root fork the subtrees interleave in
+  size (`13 < 29 < 34`, left/right/left) ⟹ **no order-monovariant separates cross-line pairs past
+  distance 1**.  Answers "new ISA needed?" → **no**: the size mechanism is provably exhausted, so the
+  residue of `H` at distance ≥ 2 is **not size-shaped** — it is the orbit/√(−1) residue
+  (`markov_max_unique_of_orbit`), already the correct ISA archetype (ORBIT).  Open content = uniform-in-`c`
+  number-theoretic realizability = Frobenius 1913 itself.
 - Narrative: `research-notes/G200`.
-- **NEXT (open)**: climb past distance 1 — bounded-distance induction (`k ⟹ k+1`, LOOP archetype) or a
-  value-window monovariant; or a `decide`-survey of distance-2 cross pairs to test if distance 2 already
-  carries the full interleaving.
+- **NEXT (open)**: the only remaining lever is the **orbit-realizability** form — the uniform-in-`c` lift
+  of `markov_max_unique_of_orbit`'s `H` (which √(−1) residues are realised by genuine triples).  Not a
+  size argument, not a new instruction.
 
 ## ✅ Actions B + C done — proof-ISA lift catalog (commit `9a98597`)
 - **B (catalog)**: `lean/E213/Lib/Math/Foundations/ProofISALifts.lean` (∅-axiom) pins **three solved
