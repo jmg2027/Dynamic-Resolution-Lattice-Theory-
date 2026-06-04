@@ -10,6 +10,35 @@ act of pointing as an arithmetic dynamical system) and merged it into the
 re-architected main (which had advanced +50 commits with the p-adic /
 universal-Betti / geometrization work — all preserved through the merge).
 
+## Latest continuation — the residue-expression atlas + the Minkowski `?` modular cocycle
+A broad-research arc (5 agent teams + direct Lean) established that **expressing
+the residue is multi-directional, not one phenomenon**, and built new ∅-axiom
+results.  All PURE, on `main`.
+
+- **`Real213/MinkowskiCocycle`** (6 PURE) — the analytic Minkowski `?` is a
+  **Markov-valued 1-cocycle** on the Stern-Brocot tree: defect = bounding Markov
+  number (`minkowski_is_markov_valued_cocycle`, the Frobenius cross-determinants);
+  twist = SL(2,ℤ) Cayley–Hamilton jump (`minkowski_cocycle_twist`); the defect
+  extends off-tree to all `M₂(ℤ)` as `det M · N.c` (`cocycle_defect_general`); and
+  the **weight-2 Eichler–Shimura period relation = the `√(−1)` congruence**
+  `m∣u²+1` (`minkowski_weight2_period_relation`).
+- **`Real213/MinkowskiGoldenExtremal`** (1 PURE) — `golden_is_extremal_weight2_period`:
+  the golden ratio `φ` (Lagrange floor `√5`) is the **extremal instance** of the
+  weight-2 period relation (Fibonacci spine `fib(2n+3)∣fib(2n+2)²+1`).  Unifies the
+  `?` work with the Markov/Lagrange pillar.
+- **`Lib/Physics/AlphaEM/CupLadderResidueUnit`** (3 PURE) — the cohomology
+  degree-graduation climbs by the residue unit `NS−NT=det P=1`
+  (`cup_ladder_graduation_is_residue_unit`); the graduation is a **total unbounded**
+  `Nat`-map escaping as the νF ascent (`graduation_escapes`) — finite cohomology
+  and infinite escape are one `+1`-graduation, two regimes.
+- **`Simplex/FaceTerms.simplex_face_euler_zero`** (PURE) — `Σ(−1)ᵏC(5,k)=0`: the
+  face axis is the *bounded/closed* direction (degree + multiplicity are unbounded).
+- **Honest negatives**: "residue = a spectrum" is **rejected** (Steenrod/Massey
+  vacuous at the `d=5` truncation); higher-weight periods / full `SL(2,ℤ)` cocycle
+  / multifractal spectrum need analysis and stay open.
+- Frontier: `research-notes/frontiers/residue_expression_atlas.md` (open board);
+  essay scoped: `theory/essays/foundations/reached_by_none.md` (no-back face only).
+
 ## What Was Done This Session
 
 ### 1. The residue unit `+1` as a complete dynamical theory (∅-axiom)
@@ -154,4 +183,10 @@ theory/math/algebra/phi_self_similarity.md                 ← +§3.6 frozen=dyn
 research-notes/frontiers/odometer_unit_synthesis.md        ← NEW: post-closure synthesis + seeds
 research-notes/frontiers/markov_lagrange/G189-G193*.md      ← relocated from top-level
 research-notes/archive/{G178,G182, spiral_axis/G181}*.md   ← archived (closed)
+lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiCocycle.lean      ← NEW: ? as Markov-valued modular cocycle (6 PURE)
+lean/E213/Lib/Math/NumberSystems/Real213/MinkowskiGoldenExtremal.lean ← NEW: φ = extremal weight-2 period instance (1 PURE)
+lean/E213/Lib/Physics/AlphaEM/CupLadderResidueUnit.lean            ← NEW: cohomology graduation = residue unit; finite↔infinite (3 PURE)
+lean/E213/Lib/Physics/Simplex/FaceTerms.lean                       ← +simplex_face_euler_zero (face axis closes)
+theory/essays/foundations/reached_by_none.md                       ← NEW essay: expressing the essential residue (no-back face)
+research-notes/frontiers/residue_expression_atlas.md               ← NEW frontier: multi-directional residue-expression (open board)
 ```
