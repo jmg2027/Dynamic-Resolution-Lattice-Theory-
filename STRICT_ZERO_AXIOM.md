@@ -462,6 +462,16 @@ correct closures.  **One-point** `ℤ̂ = Option Int` with `∞ = −∞`: `negH
 `int_correct_fold_forms`.  `neg_neg_int` / `neg_self_zero` (constructor-matched Int helpers, the
 `int_ne_neg_self` pattern); literal `−0 = 0` closures by `decide`.
 
+`E213.Lens.Number.FoldDuality` — **13 PURE**.  The two founding folds meet on the shared four-point
+fixture `Q4 = {∞, 0, +1, −1}` (the reciprocal-closed core of `ℤ̂`) and are **exact mirror images**:
+negation `negQ` **fixes** the 영무한대 pair `{0, ∞}` (`negQ_fixes_zeroInf`) and **swaps** the units
+`{±1}` (`negQ_swaps_units`); reciprocal `recQ` **swaps** `{0, ∞}` (`recQ_swaps_zeroInf`) and **fixes**
+`{±1}` (`recQ_fixes_units`).  Both involutions (`negQ_involutive`, `recQ_involutive`); fixed-point
+characterizations `negQ_fixed_iff` (`= {0,∞}`) / `recQ_fixed_iff` (`= {±1}`); status-symmetry
+predicates `BothFixed` / `Swapped`; capstone `two_folds_dual_on_pairs`.  Each ℤ/2 fold fixes the
+two-element orbit the other swaps — the additive and multiplicative folds exchange the roles of the
+hole pair and the unit pair (the sharpest "0 is to `+` as 1 is to `×`").  All by `rfl` / `decide`.
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
