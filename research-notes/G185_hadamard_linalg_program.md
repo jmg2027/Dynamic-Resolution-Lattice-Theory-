@@ -644,3 +644,23 @@ induction.  (~80–100 lines.)  Then:
 
 All mathematical content (integer Cayley–Hamilton, monicity, the recurrence bridge) + the grid
 reindex are banked; the remaining is the clean index-bijection + the companion's `VecRec` + assembly.
+
+## ★★★ PROGRAM COMPLETE — cfiniteZ_mul CLOSED (CFiniteHadamard 21 PURE)
+
+`CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)` is **proven, ∅-axiom** (`Cauchy/CFiniteHadamard.cfiniteZ_mul`).
+The last open ring operation of `theory/math/analysis/cfinite_orbit_dimension.md` is closed.
+
+The flat↔grid obstacle was solved with a **fuel-structural `divmod`** (clean `Nat.sub` only;
+`qof`/`rof`/`divmod_spec`/`divmod_unique`/`decA_encode`/`decB_encode`) — no propext/Quot.  The
+Kronecker companion **factors** (`Mmat = Ms·Mt`, s/t shifts independent), so `vecRec` (`w(n+1)=M·w(n)`)
+follows from `sumZ_grid` + the two shift-row sums.  The assembly: `ch_recurrence` at `(0,0)` ⟹
+`Σ_{m≤pq} c_m·(s·t)(n+m)=0`, monic `c_{pq}=1` (`charPoly_monic`) ⟹ `ShiftRecZ` ⟹ `cfiniteZ_of_shiftRec`.
+
+**Full program tally (all ∅-axiom)**: `Permutation` 33 + `PermClosure` 76 + `Laplace` 53 +
+`CayleyHamilton` 27 + `PolyZ` 47 + `PolyDet` 20 + `CharPolyAdj` 31 + `CFiniteHadamard` 21 — the
+complete chain Leibniz determinant → alternating/multilinear → cofactor/adjugate → integer
+Cayley–Hamilton → the Hadamard product, built from scratch with no Mathlib, no `sorry`, no axioms.
+
+**Promotion**: the `Linalg213` determinant + Cayley–Hamilton sub-tree is closed (H1–H4 + S1–S3) and a
+candidate for `theory/` narrative promotion (`theory/PROMOTION_CRITERIA.md`).  `cfiniteZ_mul` closes
+the C-finite ring (`theory/math/analysis/cfinite_orbit_dimension.md` "Open frontier").

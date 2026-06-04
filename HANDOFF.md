@@ -1,78 +1,40 @@
-# Session Handoff — 2026-06-04 (integer Cayley–Hamilton: matrix ring + char poly banked)
+# Session Handoff — 2026-06-04 (★★★ C-finite Hadamard product CLOSED via integer Cayley–Hamilton)
 
 ## Branch
-`claude/goal-g183-CxU4X` (merged to `main` earlier; develop here).  Full `cd lean && lake build`
-clean; every new theorem ∅-axiom (`tools/scan_axioms.py` → `N pure / 0 dirty`, from repo root).
+`claude/goal-g183-CxU4X` (develop here; merged to `main` earlier this branch).  Full
+`cd lean && lake build` clean; every new theorem ∅-axiom (`tools/scan_axioms.py` → `N pure / 0 dirty`).
 
-## Headline this session: the matrix ring + the characteristic polynomial
+## ★★★ Headline: the G185 program is COMPLETE
 
-Continuing **Laplace → CH → cfiniteZ_mul** (`research-notes/G185_hadamard_linalg_program.md`),
-with the adjugate identity `M·adj M = det M·I` (`Laplace`, 53 PURE) already in hand, built the
-infrastructure the integer Cayley–Hamilton telescoping needs.  No `funext`/`propext`/`Quot.sound`/
-`Classical`/Mathlib.
+`CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)` — the C-finite **Hadamard (pointwise) product** — is
+**proven, ∅-axiom** (`Cauchy/CFiniteHadamard.cfiniteZ_mul`), the last open ring operation of the
+C-finite sequences.  Built end-to-end this branch with no Mathlib, no `sorry`, no axioms:
 
-- **`Linalg213/CayleyHamilton` (25 PURE)** — the **matrix ring** over `Nat → Nat → Int`:
-  - §1 Fubini `sumZ_swap`; §2 ★★ `matMul_assoc`.
-  - §3 `matId`/`matAdd`/`matNeg`/`matScalar` + Kronecker-delta sums + `matMul_id_left/right`.
-  - §4 distributivity (`matMul_addL/addR`, `matMul_scalarL/negL`) + `matPow`.
-  - §5 matrix sums `matSumZ` + `matMul_matSumZ_left/right` (matMul distributes over a matrix sum).
-- **`Lib/Math/PolyZ` (16 PURE)** — **integer-coefficient polynomials** (`List Int`, Horner `eval`,
-  `addP`/`negP`/`scaleP`/`shiftP`/`mulP`/`coeff`) with full **eval soundness** (`eval_mulP` etc.);
-  the `ℕ`-valued `Polynomial213` cannot carry the signed `XI−M`.
-- **`Linalg213/PolyDet` (11 PURE)** — the **polynomial determinant** `pdet` + ★★ `eval_pdet`
-  (`eval (pdet n A) x = det n (evalMat A x)` — poly-det evaluated = Int det of the evaluated
-  matrix), and the **characteristic polynomial** `charPoly M N = pdet N (X·I − M)` with ★
-  `eval_charPoly` (`= det N (x·I − M)` for every `x`).  The char poly is now an actual integer
-  polynomial; identities about it are proven by evaluation, **reusing the `Int` determinant theory**
-  instead of re-deriving cofactor/adjugate over `PolyZ`.
+| Module | PURE | Role |
+|---|---|---|
+| `Linalg213/Permutation` | 33 | Leibniz determinant + sign theory |
+| `Linalg213/PermClosure` | 76 | symmetric group, **alternating**, multilinear, degeneracy |
+| `Linalg213/Laplace` | 53 | cofactor expansion + **adjugate identity** `M·adj M = det M·I` |
+| `Linalg213/CayleyHamilton` | 27 | the **matrix ring** (assoc, identity, distributivity, powers, sums) |
+| `Lib/Math/PolyZ` | 47 | integer polynomials + **uniqueness** + degree bound |
+| `Linalg213/PolyDet` | 20 | polynomial determinant, **char poly**, monicity |
+| `Linalg213/CharPolyAdj` | 31 | **integer Cayley–Hamilton** `χ_M(M)=0` + the recurrence bridge |
+| `Cauchy/CFiniteHadamard` | 21 | flat↔grid `divmod`, Kronecker companion, **`cfiniteZ_mul`** |
 
-## Open path — the remaining gate (precise plan in `research-notes/G185`, last § Update blocks)
+### The arc
+adjugate identity `M·adj M = det M·I` → lift to `ℤ[X]` via `coeff_unique` (polynomial uniqueness) →
+coefficient relations + degree bound → **telescoping** ⟹ `χ_M(M)=0` → the **recurrence bridge**
+(`w(n+1)=M·w(n)` ⟹ each component obeys the monic χ_M recurrence) → the **Kronecker companion** for
+the product vector `w(n)_{(a,b)}=s(n+a)t(n+b)` (factored `Mmat=Ms·Mt`; `vecRec`) → `cfiniteZ_mul` via
+`charPoly_monic` + `cfiniteZ_of_shiftRec`.  The flat↔grid bijection was a fresh ∅-axiom
+**fuel-structural `divmod`** (core `Nat./`/`%` are propext/Quot-dirty).
 
-★ **The polynomial uniqueness gate is now CLOSED** (`PolyZ`, 26 PURE): `synth` + factor theorem
-`eval_synth`, `roots_bound`, `coeff_zero_of_eval_zero`, ★★ `coeff_unique` (two polynomials agreeing
-at every integer have equal coefficients).  This transports the `Int` adjugate identity
-(`Laplace.matMul_adj_diag/offdiag`, holds ∀`x` at `A = xI−M`) into a `PolyZ` coefficient identity.
-
-★★★ **Step 4 done** (`Linalg213/CharPolyAdj`, 11 PURE): the **polynomial adjugate identity**
-`(X·I − M)·adj(X·I − M) = χ_M·I` over `ℤ[X]` (`padj_identity`) — lifted from the `Int` adjugate
-identity by `pmatMul`/`padj` eval-soundness + `coeff_unique`.  The conceptual heart of integer
-Cayley–Hamilton is now closed.
-
-★★ **Steps 4–6 done** (`CharPolyAdj` §4–§6 + `PolyZ`/`PolyDet` degree bound): the coefficient
-relations `cayley_rel_zero`/`cayley_rel_succ`, their matrix form ★★ `matMul_Bm_zero` (`M·B₀ = −c₀·I`)
-+ ★★ `matMul_Bm_succ` (`M·B_{m+1} = Bₘ − c_{m+1}·I`), and the degree bound ★ `padj_coeff_top_zero`
-(`B_{n+1}=0`).  `Bm M n m`, `cm M n m` defined.  Everything the telescoping needs is banked.
-
-★★★ **INTEGER CAYLEY–HAMILTON IS PROVEN** (`CharPolyAdj.cayley_hamilton`, ∅-axiom):
-`Σ_{m=0}^{n+1} (coeff χ_M m)·(Mᵐ)_{ik} = 0` — the characteristic polynomial annihilates its own
-integer matrix, `χ_M(M) = 0`, built from scratch (telescoping `telescope` + `tele_step` +
-`matPow_succ_right`; boundary vanishes by `padj_coeff_top_zero`).  The centerpiece of G185 is done.
-
-**Phase D core DONE** (∅-axiom): ★★ `PolyDet.charPoly_monic` (`coeff (charPoly M N) N = 1`) and
-★★★ `CharPolyAdj.ch_recurrence` — **a vector sequence with `w(n+1)=M·w(n)` has every component
-satisfy the monic recurrence `Σ_{m=0}^{N+1} (coeff χ_M m)·w(n+m)_j = 0`** (via `wPow` + `cayley_hamilton`).
-
-**Remaining — the Kronecker assembly** (`cfiniteZ_mul`), now started:
-- **DONE** `Cauchy/CFiniteHadamard` §1: `append_nil'`/`append_assoc'` (clean), `iota_add`, and
-  ★ `sumZ_grid` — `sumZ` over `iota (p*q)` = the double sum over the `p×q` grid (the `VecRec`
-  reindex).  Forward `CFiniteZ → ShiftRecZ` is `CFiniteRing.shiftRec_of_cfiniteZ` (✓ exists).
-- **The crux obstacle**: `ch_recurrence` fixes flat `w, M : Nat → Nat → Int`, so connecting to the
-  2-D product `w(n)_{(a,b)}=s(n+a)t(n+b)` needs the flat↔grid bijection `J ↔ (J/q, J%q)`.  Core
-  `Nat./`/`Nat.%` lemmas are **propext/Quot-dirty** ⟹ build an ∅-axiom bijection from scratch (a
-  **fuel-structural `divmod`** using only clean `Nat.sub`, proven inverse to `(a,b)↦a*q+b`).  Then:
-  the 4-case Kronecker companion `mEntry` + `VecRec` (via `sumZ_grid` + `hp`/`hq` shift recurrences),
-  and the assembly: `ch_recurrence` at `(0,0)` ⟹ `Σ cₘ·u(n+m)=0`, `c_{pq}=1` (`charPoly_monic`) ⟹
-  `ShiftRecZ pq (−c) u` ⟹ `cfiniteZ_of_shiftRec`.  Edge `p=0`/`q=0` ⟹ zero product.
-
-This session banked (all ∅-axiom): `CayleyHamilton` 27 + `PolyZ` 47 + `PolyDet` 20 + `CharPolyAdj`
-31 + `CFiniteHadamard` 2 = **127 PURE** — integer Cayley–Hamilton, monicity, the recurrence bridge,
-and the grid reindex.  The Kronecker `VecRec` (gated on a clean flat↔grid bijection) is the last unit.
-
-## Other live threads
-- C-finite orbit dimension: `theory/math/analysis/cfinite_orbit_dimension.md`
-  (`Cauchy/OrbitDimension`, `Cauchy/CFiniteRing`); `cfiniteZ_add`/`_sub` done, `cfiniteZ_mul` is
-  the open ring operation this program closes.
-- Number-tower founding (`Lens/Number/`, `book/`) on `main`.
+## Next
+- **Promotion**: the `Linalg213` determinant + Cayley–Hamilton sub-tree is closed and a candidate for
+  `theory/` narrative promotion (`theory/PROMOTION_CRITERIA.md`).
+- `cfiniteZ_mul` closes the C-finite ring frontier in
+  `theory/math/analysis/cfinite_orbit_dimension.md` ("Open frontier" → done) — update that narrative.
+- Unlocked: **C-B** (Casoratian rank = orbit dimension) reuses the same determinant theory.
 
 ## DRLT Validation Standard
 Still the repo's stated real target (untouched): ppb-ppm precision theorem and/or a strict
