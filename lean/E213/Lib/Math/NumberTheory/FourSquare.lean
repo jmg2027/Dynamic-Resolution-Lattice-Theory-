@@ -21,9 +21,10 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberTheory.FourSquare
 
-open E213.Meta.Int213.OrderMul (int_sign mul_pos int_lt_irrefl)
+open E213.Meta.Int213.OrderMul (int_sign mul_pos int_lt_irrefl mul_le_mul_left_nonneg)
 open E213.Meta.Int213.Order
-  (le_antisymm le_of_sub_nonneg nonneg_of_le_zero sub_pos_of_lt lt_of_sub_pos zero_sub sub_self_zero)
+  (le_antisymm le_of_sub_nonneg nonneg_of_le_zero sub_pos_of_lt lt_of_sub_pos zero_sub sub_self_zero
+   lt_of_lt_of_le le_of_lt)
 open E213.Meta.Int213 (mul_neg zero_add)
 
 /-! ## §0 — pure `ℤ` positive-multiplication cancellation -/
@@ -52,6 +53,25 @@ theorem mul_left_cancel_pos {c a b : Int} (hc : 0 < c) (h : c * a = c * b) : a =
   have hab : a - b = 0 := eq_zero_of_mul_pos hc h0
   have key : (a - b) + b = 0 + b := by rw [hab]
   rw [show (a - b) + b = a from by ring_intZ, zero_add] at key; exact key
+
+/-- `0 < c`, `c·a < c·b ⟹ a < b` (pure positive-mul `<`-cancellation). -/
+theorem lt_of_mul_lt_mul_pos {c a b : Int} (hc : 0 < c) (h : c * a < c * b) : a < b := by
+  rcases int_sign (a - b) with hge | hlt
+  · exfalso
+    have hba : b ≤ a := le_of_sub_nonneg (nonneg_of_le_zero hge)
+    exact int_lt_irrefl (c * a) (lt_of_lt_of_le h (mul_le_mul_left_nonneg hba c (le_of_lt hc)))
+  · have hp : (0 : Int) < b - a := by
+      have hx := sub_pos_of_lt hlt; rwa [zero_sub, show -(a - b) = b - a from by ring_intZ] at hx
+    exact lt_of_sub_pos hp
+
+/-- `a·a = 0 ⟹ a = 0`. -/
+theorem sq_eq_zero {a : Int} (h : a * a = 0) : a = 0 := by
+  rcases int_sign a with hge | hlt
+  · exact le_antisymm (le_of_not_lt (fun hp => int_lt_irrefl 0 (h ▸ mul_pos hp hp))) hge
+  · exfalso
+    have hp : (0 : Int) < -a := by have hx := sub_pos_of_lt hlt; rwa [zero_sub] at hx
+    have h2 : (0 : Int) < (-a) * (-a) := mul_pos hp hp
+    rw [show (-a) * (-a) = a * a from by ring_intZ, h] at h2; exact int_lt_irrefl 0 h2
 
 /-- ★★★ **Euler's four-square identity.**  The product of two sums of four squares is a sum of
     four squares — the bilinear combination is the quaternion-norm multiplicativity, here a bare
