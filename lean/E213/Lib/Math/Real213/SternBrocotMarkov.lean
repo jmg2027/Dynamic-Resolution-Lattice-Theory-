@@ -2184,4 +2184,100 @@ theorem tree_residue_realized_windowed (p : List Bool) :
         markovEq (((markovRes p).toNat * b) % (mNode p).c.toNat) b (mNode p).c.toNat) :=
   ⟨(node_window_nat p).1, (node_window_nat p).2.1, (node_window_nat p).2.2, node_realized p⟩
 
+/-! ## §28 — the equivalence: `MarkovMaxUnique c ↔ WindowRealizedUnique c`
+
+The frontier, mechanised.  `markov_max_unique_of_window_realized_unique` (§18) gives `(←)`; this
+section adds `(→)` and assembles the iff.  Consequence: since recovery is closed (`slope_path_inj`)
+the window-realized-uniqueness *is* Markov uniqueness — for composite `c` the open content `H`
+(`windowRealizedUnique_of_orbit`) is therefore **exactly** the Frobenius conjecture at `c`, named in
+the repo's orbit/window language.  No `decide`; reuses the §24 unit cancellation and §20 window fold.
+
+`(→)`: two windowed roots `u₁,u₂` realised by triples `(aᵢ,bᵢ,c)` (`aᵢ=(uᵢ·bᵢ)%c`).  After orienting
+each to `a≤b`, `MarkovMaxUnique` forces the unordered pairs equal — either aligned (`a₁=a₂, b₁=b₂`,
+cancel the unit `b` ⟹ `u₁=u₂`) or crossed (`a₁=b₂, b₁=a₂` ⟹ `u₁u₂≡1` ⟹ `u₂≡c−u₁`, impossible for two
+windowed roots by `window_excludes_partner`). -/
+
+/-- First-two-entry symmetry of `markovEq` (`c` stays the maximum). -/
+private theorem markovEq_swap12 (x y z : Nat) (h : markovEq x y z) : markovEq y x z := by
+  show y * y + x * x + z * z = 3 * y * x * z
+  rw [show y * y + x * x + z * z = x * x + y * y + z * z from by ring_nat,
+      show 3 * y * x * z = 3 * x * y * z from by ring_nat]
+  exact h
+
+/-- ★★★★★ **`(→)` of the frontier equivalence**: `MarkovMaxUnique c → WindowRealizedUnique c`.  The
+    residue map `triple ↦ windowed root` is injective on realised roots (cancel the unit middle
+    entry), so uniqueness of triples gives uniqueness of realised windowed roots. -/
+theorem markovMaxUnique_to_windowRealizedUnique (c : Nat) (hc5 : 5 ≤ c)
+    (hmu : E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique c) : WindowRealizedUnique c := by
+  intro u₁ u₂ h1 h2 hw1 hw2 hr1 hr2 hreal1 hreal2
+  obtain ⟨b₁, hb1, hmk1⟩ := hreal1
+  obtain ⟨b₂, hb2, hmk2⟩ := hreal2
+  have hc2 : 2 ≤ c := Nat.le_trans (by decide) hc5
+  have hc1 : 1 < c := hc2
+  have hc0 : 0 < c := Nat.lt_of_lt_of_le (by decide) hc2
+  have ha1lt : (u₁ * b₁) % c < c := Nat.mod_lt _ hc0
+  have ha2lt : (u₂ * b₂) % c < c := Nat.mod_lt _ hc0
+  -- coprimality of the divisors b₁, b₂ (whatever the orientation)
+  have hb1c : gcd213 b₁ c = 1 := by
+    rcases Nat.le_total ((u₁ * b₁) % c) b₁ with h | h
+    · exact (E213.Lib.Math.Real213.MarkovUniqueness.markov_ordered_coprime _ b₁ c hmk1
+        (E213.Lib.Math.Real213.MarkovUniqueness.markov_a_pos hc2 hmk1) h (Nat.le_of_lt hb1)).2.2
+    · exact (E213.Lib.Math.Real213.MarkovUniqueness.markov_ordered_coprime b₁ _ c
+        (markovEq_swap12 _ _ _ hmk1)
+        (E213.Lib.Math.Real213.MarkovUniqueness.markov_a_pos hc2 (markovEq_swap12 _ _ _ hmk1)) h
+        (Nat.le_of_lt ha1lt)).2.1
+  -- MarkovMaxUnique forces the unordered pair {a₁,b₁} = {a₂,b₂}
+  have pairEq : ((u₁ * b₁) % c = (u₂ * b₂) % c ∧ b₁ = b₂)
+              ∨ ((u₁ * b₁) % c = b₂ ∧ b₁ = (u₂ * b₂) % c) := by
+    rcases Nat.le_total ((u₁ * b₁) % c) b₁ with hab1 | hba1 <;>
+    rcases Nat.le_total ((u₂ * b₂) % c) b₂ with hab2 | hba2
+    · exact Or.inl (hmu _ b₁ _ b₂ hab1 (Nat.le_of_lt hb1) hab2 (Nat.le_of_lt hb2) hmk1 hmk2)
+    · exact Or.inr (hmu _ b₁ b₂ _ hab1 (Nat.le_of_lt hb1) hba2 (Nat.le_of_lt ha2lt)
+        hmk1 (markovEq_swap12 _ _ _ hmk2))
+    · exact Or.inr (And.intro (hmu b₁ _ _ b₂ hba1 (Nat.le_of_lt ha1lt) hab2 (Nat.le_of_lt hb2)
+        (markovEq_swap12 _ _ _ hmk1) hmk2).2 (hmu b₁ _ _ b₂ hba1 (Nat.le_of_lt ha1lt) hab2
+        (Nat.le_of_lt hb2) (markovEq_swap12 _ _ _ hmk1) hmk2).1)
+    · exact Or.inl (And.intro (hmu b₁ _ b₂ _ hba1 (Nat.le_of_lt ha1lt) hba2 (Nat.le_of_lt ha2lt)
+        (markovEq_swap12 _ _ _ hmk1) (markovEq_swap12 _ _ _ hmk2)).2 (hmu b₁ _ b₂ _ hba1
+        (Nat.le_of_lt ha1lt) hba2 (Nat.le_of_lt ha2lt) (markovEq_swap12 _ _ _ hmk1)
+        (markovEq_swap12 _ _ _ hmk2)).1)
+  rcases pairEq with ⟨hae, hbe⟩ | ⟨hae, hbe⟩
+  · -- aligned: cancel the unit b₁
+    have hcanc : (u₁ * b₁) % c = (u₂ * b₁) % c := by rw [hae, hbe]
+    have := unit_cancel c b₁ u₁ u₂ hc1 hb1c hcanc
+    rwa [Nat.mod_eq_of_lt h1, Nat.mod_eq_of_lt h2] at this
+  · -- crossed: u₁·u₂ ≡ 1 ⟹ u₂ ≡ c−u₁, impossible for two windowed roots
+    exfalso
+    have key : ((u₂ * u₁) * b₁) % c = (1 * b₁) % c := by
+      rw [show (u₂ * u₁) * b₁ = u₂ * (u₁ * b₁) from by ring_nat,
+          E213.Meta.Nat.MulMod213.mul_mod_right_pure u₂ (u₁ * b₁) c, hae, ← hbe,
+          Nat.one_mul, Nat.mod_eq_of_lt hb1]
+    have hu2u1 : (u₂ * u₁) % c = 1 := by
+      have := unit_cancel c b₁ (u₂ * u₁) 1 hc1 hb1c key
+      rwa [Nat.mod_eq_of_lt hc1] at this
+    have hu1pos : 0 < u₁ := by
+      rcases Nat.eq_zero_or_pos u₁ with h0 | hp
+      · exfalso
+        rw [h0, Nat.zero_mul, Nat.zero_add, Nat.mod_eq_of_lt hc1] at hr1
+        exact absurd hr1 (by decide)
+      · exact hp
+    have hinv : (u₁ * (c - u₁)) % c = 1 := root_inverse c u₁ hc1 (Nat.le_of_lt h1) hr1
+    have hcross : (u₂ * u₁) % c = ((c - u₁) * u₁) % c := by
+      rw [hu2u1, Nat.mul_comm (c - u₁) u₁, hinv]
+    have hu2eq := unit_cancel_of_inv c u₁ (c - u₁) u₂ (c - u₁) hinv hcross
+    rw [Nat.mod_eq_of_lt h2, Nat.mod_eq_of_lt (Nat.sub_lt hc0 hu1pos)] at hu2eq
+    exact Nat.lt_irrefl c
+      (Nat.lt_trans (hu2eq.symm ▸ window_excludes_partner c u₁ hw1) hw2)
+
+/-- ★★★★★ **The frontier equivalence**: `MarkovMaxUnique c ↔ WindowRealizedUnique c` (`5 ≤ c`).  Both
+    directions ∅-axiom: `(→)` cancels the unit middle entry, `(←)` is the tree recovery
+    (`slope_path_inj`).  So the §20–§27 window/orbit reduction is not merely *sufficient* for Markov
+    uniqueness — it is **equivalent** to it.  For composite `c`, with `windowRealizedUnique_of_orbit`,
+    the realisability hypothesis `H` is therefore exactly the Frobenius conjecture at `c`, named in the
+    repo's orbit language. -/
+theorem markovMaxUnique_iff_windowRealizedUnique (c : Nat) (hc5 : 5 ≤ c) :
+    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique c ↔ WindowRealizedUnique c :=
+  ⟨markovMaxUnique_to_windowRealizedUnique c hc5,
+   markov_max_unique_of_window_realized_unique c hc5⟩
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
