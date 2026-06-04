@@ -1644,37 +1644,54 @@ theorem window_realized_unique_of_sqrtNegOne (c : Nat) (h2 : SqrtNegOneTwoRoots 
 
 /-! ## §19 — concrete composite closures (beyond Button), via the template
 
-  The template `markov_max_unique_of_window_realized_unique` closes composite `c` where Button's
-  `SqrtNegOneTwoRoots` **fails** (≥ 4 roots), using the repo's phantom-root data.  `c = 65 = 5·13`
-  (`SqrtNegOneTwoRoots 65` false, `not_sqrtNegOneTwoRoots_65`) is non-Markov so vacuous; `c = 1325 =
-  5²·53` is the **first composite Markov number** with the `2^ω = 4` root explosion — uniqueness now
-  ∅-axiom, the realized windowed root `507` separated from the phantom `182`. -/
+  The template closes composite `c` where Button's `SqrtNegOneTwoRoots` **fails** (≥ 4 roots).  For
+  `ω = 2` (two odd prime factors `≡ 1 mod 4`) there are exactly two windowed roots `{P, Q}`; if `P`
+  is phantom (`∀b<c ¬markovEq`), any realized windowed root is `Q`, so `WindowRealizedUnique c` holds.
+  This `window_realized_unique_of_one_phantom` reduces each composite to two `decide`s (windowed-root
+  set + the phantom's non-realization), both `O(c)`-feasible. -/
 
-/-- `MarkovMaxUnique 65` (composite, `SqrtNegOneTwoRoots` **false**): the template handles it — 65 is
-    not a Markov number so every realize-antecedent is false (`markov_phantom_root_filter`). -/
-theorem markov_max_unique_65 :
-    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 65 := by
-  refine markov_max_unique_of_window_realized_unique 65 (by decide) ?_
-  intro u₁ u₂ _ _ _ _ _ _ hr1 _
-  obtain ⟨b₁, hb1, hmk1⟩ := hr1
-  exact absurd hmk1 (E213.Lib.Math.Real213.MarkovUniqueness.markov_phantom_root_filter.2.2
-    ((u₁ * b₁) % 65) (Nat.le_of_lt (Nat.mod_lt _ (by decide))) b₁ (Nat.le_of_lt hb1))
-
-set_option maxRecDepth 200000 in
-/-- ★★★★★ **`MarkovMaxUnique 1325` — the first composite Markov number, ∅-axiom (beyond Button).**
-    `1325 = 5²·53` has `2^ω = 4` roots of `x²≡−1` (so `SqrtNegOneTwoRoots 1325` fails), windowed
-    `{182, 507}`; `507` is realized by `(13,34,1325)`, `182` is phantom (`markov_composite_separation`).
-    The template separates them: any realized windowed root is `507`, so the triple is unique. -/
-theorem markov_max_unique_1325 :
-    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 1325 := by
-  refine markov_max_unique_of_window_realized_unique 1325 (by decide) ?_
-  have roots : ∀ u, u < 1325 → (u * u + 1) % 1325 = 0 → 2 * u < 1325 → u = 182 ∨ u = 507 := by decide
-  have phantom := E213.Lib.Math.Real213.MarkovUniqueness.markov_composite_separation.2.2.2.1
+/-- ★★★★ **One-phantom reducer**: windowed roots `⊆ {P, Q}` with `P` phantom ⟹ `WindowRealizedUnique`.
+    (If `Q` is also phantom the conclusion is vacuous; otherwise `Q` is the unique realized root.) -/
+theorem window_realized_unique_of_one_phantom (c P Q : Nat)
+    (hroots : ∀ u, u < c → (u * u + 1) % c = 0 → 2 * u < c → u = P ∨ u = Q)
+    (hphantom : ∀ b, b < c → ¬ markovEq ((P * b) % c) b c) : WindowRealizedUnique c := by
   intro u₁ u₂ h1c h2c hh1 hh2 hr1 hr2 hreal1 hreal2
-  rcases roots u₁ h1c hr1 hh1 with rfl | rfl
-  · obtain ⟨b, hb, hmk⟩ := hreal1; exact absurd hmk (phantom b hb)
-  · rcases roots u₂ h2c hr2 hh2 with rfl | rfl
-    · obtain ⟨b, hb, hmk⟩ := hreal2; exact absurd hmk (phantom b hb)
+  rcases hroots u₁ h1c hr1 hh1 with rfl | rfl
+  · obtain ⟨b, hb, hmk⟩ := hreal1; exact absurd hmk (hphantom b hb)
+  · rcases hroots u₂ h2c hr2 hh2 with rfl | rfl
+    · obtain ⟨b, hb, hmk⟩ := hreal2; exact absurd hmk (hphantom b hb)
     · rfl
+
+set_option maxRecDepth 400000 in
+/-- `MarkovMaxUnique 65` (= 5·13, `SqrtNegOneTwoRoots` **false**): non-Markov, both windowed roots
+    `{8,18}` phantom. -/
+theorem markov_max_unique_65 :
+    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 65 :=
+  markov_max_unique_of_window_realized_unique 65 (by decide)
+    (window_realized_unique_of_one_phantom 65 8 18 (by decide) (by decide))
+
+set_option maxRecDepth 400000 in
+/-- ★★★★★ **`MarkovMaxUnique 610` — composite Markov number** (= 2·5·61, `F₁₅`), beyond Button.
+    Windowed roots `{133, 233}`; `133` phantom, `233` realized by `(1,233,610)`. -/
+theorem markov_max_unique_610 :
+    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 610 :=
+  markov_max_unique_of_window_realized_unique 610 (by decide)
+    (window_realized_unique_of_one_phantom 610 133 233 (by decide) (by decide))
+
+set_option maxRecDepth 400000 in
+/-- ★★★★★ **`MarkovMaxUnique 985`** (= 5·197), composite Markov number beyond Button.  Windowed
+    roots `{183, 408}`; `183` phantom, `408` realized. -/
+theorem markov_max_unique_985 :
+    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 985 :=
+  markov_max_unique_of_window_realized_unique 985 (by decide)
+    (window_realized_unique_of_one_phantom 985 183 408 (by decide) (by decide))
+
+set_option maxRecDepth 400000 in
+/-- ★★★★★ **`MarkovMaxUnique 1325`** (= 5²·53), the first composite Markov number with the `2^ω=4`
+    root explosion.  Windowed roots `{182, 507}`; `182` phantom, `507` realized by `(13,34,1325)`. -/
+theorem markov_max_unique_1325 :
+    E213.Lib.Math.Real213.MarkovUniqueness.MarkovMaxUnique 1325 :=
+  markov_max_unique_of_window_realized_unique 1325 (by decide)
+    (window_realized_unique_of_one_phantom 1325 182 507 (by decide) (by decide))
 
 end E213.Lib.Math.Real213.SternBrocotMarkov
