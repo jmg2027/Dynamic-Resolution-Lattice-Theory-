@@ -86,11 +86,10 @@ the shape the eight suggest is the standing question the series tracks
 
 ## Self-check note
 
-Two imports were caught mid-series and are part of the record.  The boundary
-essay first implied "the residue stalls at infinite paths" — corrected against
-`CoResidue`: the residue's infinity is internal; only the foreign `DECIDE` is the
-import.  And the parity colour was re-defined locally before the corpus sweep
-found `Mod213.parity` — deduplicated.  Both are the same discipline this essay
-asserts: a proof reaches a thing you can point at — here, the eight `isa_*`
-abbrevs, the empty `#print axioms` of the interior, and the single stated-unproved
-`InfChildExists` that names the edge.
+One retreat-in-place is part of the record: the boundary reading "the residue
+stalls at infinite paths" imports too much — the residue's infinite descent is
+internal and constructive (`CoResidue.spineL`/`allBranch`), so what stalls is
+only the *foreign* `DECIDE`, not infinity.  That correction is the discipline
+this essay asserts: a proof reaches a thing you can point at — here, the eight
+`isa_*` abbrevs, the empty `#print axioms` of the interior, and the single
+stated-unproved `InfChildExists` that names the edge.

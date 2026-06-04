@@ -98,7 +98,7 @@ sharpened the König boundary) located two anchors, one a reuse and one a kin:
   - **`par` reuses `Mod213.parity`** — the colour is the canonical ∅-axiom
     parity primitive (`E213.Tactic.Mod213.parity`, the smallest
     cohomological-trajectory primitive), not a local copy; the flip `adj_par` is
-    `Mod213.parity_succ`.  (A first draft re-defined it; the sweep deduplicated.)
+    `Mod213.parity_succ`.
   - **the conserved-fold pattern is the repo's δ⁰-colouring machinery** —
     `GraphConnectivity.IsClosed (Adj) (σ) := ∀ u v, Adj u v → σ u = σ v` with
     `closed_const`/`closed_false_or_true` (a colouring constant along a relation

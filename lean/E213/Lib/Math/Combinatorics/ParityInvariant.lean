@@ -25,9 +25,9 @@ objects apart).  So the parity method compiles to **READ ∘ SEPARATE**: a
 landing (the probabilistic + linear-algebra methods both compiled to COUNT;
 this one does not — conservation is the SEPARATE direction, not the GAP one).
 
-Parity is the canonical `mod`-free `Bool` primitive `Mod213.parity` (reused, not
-re-defined), so the local flip is `Mod213.parity_succ` and the file is strict
-∅-axiom (`Int` / `Nat.mod` carry `propext` / `Quot.sound`).
+Parity is the canonical `mod`-free `Bool` primitive `Mod213.parity` (reused), so
+the local flip is `Mod213.parity_succ` and the file is strict ∅-axiom (`Int` /
+`Nat.mod` carry `propext` / `Quot.sound`).
 
 Companion "why": `theory/essays/proof_isa/parity_invariant_method.md`.
 -/

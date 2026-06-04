@@ -16,6 +16,11 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
 | `GraphConnectivity.lean` | abstract graph reachability (`Reach` inductive) → δ⁰-closed colouring is constant on a connected graph (`closed_const`, `closed_false_or_true`, b₀ = 1); instantiated for complete bipartite in `Cohomology/Bipartite/Parametric/KernelConstancyUniversal` | ∅-axiom |
 | `BoolEnum.lean` | finite Bool-cardinality enumeration: `allBoolLists n` (all `2^n` length-`n` Bool lists) + `length = 2^n` + completeness + nodup; (generic `List` mem/nodup/filter/cardinality toolkit now lives in `Meta/Tactic/List213`).  Counting: `bcount` toolkit + `bcount_const` (= 2 constant colourings per nonempty length, the division-free universal count-Lens form of `b₀ = 1`); `bcount_headFalse` (= `2^(V−1)`, canonical coboundary reps) + complement involution / head-`false` transversal | ∅-axiom |
 | `Capstone.lean` | 4 cluster witnesses + total_witness | ∅-axiom |
+| `CountExistence.lean` | **COUNT** = quantitative `GAP`: `union_bound`, `deficit_exists` (deficit ⟹ ∃ good, finite search), `count_existence`, `erdos_schema` (the probabilistic method as one theorem) | ∅-axiom |
+| `RamseyLowerBound.lean` | the per-event count's *why*: `count_factor` (free bits double), `mono_event_count` (`2·2^{E−m}`), `matchesC_count` (arbitrary-subset count) | ∅-axiom |
+| `LinearDependence.lean` | `dimension_bound_is_count` — `m>n` vectors in `𝔽₂^n` dependent via subset-sum collision (= COUNT in a linear codomain); `vsum`/`vxor` | ∅-axiom |
+| `ParityInvariant.lean` | mutilated chessboard: `tiling_balanced` (conserved colour-count = READ ∘ SEPARATE), `corners_same_colour`; `par` = `Mod213.parity` | ∅-axiom |
+| `KonigConditional.lean` | König boundary: `konig_conditional`/`walk` (the LOOP, internal); `InfBelow`/`InfChildExists` (the un-dischargeable `DECIDE` = the exterior) | ∅-axiom (conditional) |
 | `Combinatorics.lean` | umbrella (sibling) | — |
 
 ## Key 213-native results
@@ -43,11 +48,17 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
     on the substrate, exactly like `cutExp` is a *finite Taylor
     sum*.
 
+## proof-ISA reproductions (`theory/essays/proof_isa/`)
+
+The probabilistic method, the linear-algebra / dimension method, the parity /
+invariant method, and König's lemma are compiled down the proof-ISA here — the
+"why" of each lives in `theory/essays/proof_isa/`.  The Ramsey **lower** bound
+`R(k,k) > 2^{k/2}` has its engine built (`CountExistence` + `RamseyLowerBound`);
+the *named* closure is the one open `K_N`-bookkeeping rung
+(`research-notes/frontiers/G200_*`).
+
 ## Out of scope (separate continuation)
 
-  * Ramsey's theorem (would benefit from cohomology bipartite).
   * Generic-degree generating function inverse (cup-Ring inverse,
     same as `CutLog` continuation).
-  * Probabilistic method (would link to Probability 213 +
-    Information 213 entropy).
   * Pell ArithFSM hierarchy expansion (already in DyadicFSM/).
