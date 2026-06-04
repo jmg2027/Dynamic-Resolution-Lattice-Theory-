@@ -192,7 +192,7 @@ built, pending a decision on whether 213 wants the modular-group layer at all.  
 ∅-axiom reach entirely: geodesic flow, modular forms, the `j`-map, the modularity
 theorem, analytic continuation.
 
-## CAPSTONE — the two trichotomies are one (`CrossDetTraceField`, 14 PURE)
+## CAPSTONE — the two trichotomies are one (`CrossDetTraceField`, 17 PURE)
 
 The arc had grown **two parallel trichotomies** that were never joined by a theorem:
 
@@ -219,6 +219,13 @@ form of the monodromy matrix.  This is the literal content of the title "교차�
   - `fixForm T = (0,0,−1)` = degenerate, fixed point at ∞ (disc 0, parabolic, cusp);
   - `fixForm U = (1,1,1)` = the **cyclotomic form** `x²+x+1` (root ω, disc −3, elliptic,
     curve = the `j=0` lattice `ℂ/ℤ[ω]`); `fixForm S = (1,0,1)` = `x²+1` (root i, disc −4).
+
+The form is not merely dimensionally matched: the monodromy is an **automorph** of it.
+`fixForm_automorph` proves `fixForm M (M·v) = det(M) · fixForm M (v)` (∀ `M`, `v`, a
+`ring_intZ` identity), so for `M ∈ SL₂` the reference form is *exactly conserved*
+(`reference_forms_preserved`: `G` holds the golden form, `U` the cyclotomic Eisenstein
+form) — the geodesic's invariant, the form-side shadow of the Cassini cross-determinant
+conservation `crossDet_step` (multiplier `−q`).
 
 `crossdet_number_field_is_trace_field` bundles all three faces + the universal identity;
 `disc_sign_is_line_cusp_curve` reads the elliptic conjecture exactly: `D > 0` (two real

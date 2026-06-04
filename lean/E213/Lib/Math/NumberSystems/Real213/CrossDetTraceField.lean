@@ -91,6 +91,32 @@ theorem fixForm_disc_eq_traceDisc (M : Mat2) :
      = (M.a + M.d) * (M.a + M.d) - 4 * (M.a * M.d - M.b * M.c)
   ring_intZ
 
+/-! ## §2b — the monodromy is an automorph of its fixed-point form -/
+
+/-- Evaluate a binary quadratic form `(A,B,C)` at `(x,y)`: `A·x² + B·xy + C·y²`. -/
+def formEval (Q : Int × Int × Int) (x y : Int) : Int :=
+  Q.1 * (x * x) + Q.2.1 * (x * y) + Q.2.2 * (y * y)
+
+/-- ★★★★ **The monodromy preserves its fixed-point form, up to `det`.**  Acting on a vector
+    by `v ↦ (ax+by, cx+dy)`, the fixed-point form transforms by the determinant:
+
+      `fixForm M (M·v) = det(M) · fixForm M (v)`   (a pure ring identity over `ℤ`).
+
+    So for `M ∈ SL(2,ℤ)` (`det = 1`) the matrix is an **automorph** of its fixed-point form
+    — the reference form is the *conserved quantity* of the modular monodromy, exactly as
+    the cross-determinant `W` is conserved (`crossDet_step`, multiplier `−q`) on the
+    Cassini floor.  The number-field reading is no accident: the geodesic's monodromy holds
+    its own fixed-point form invariant, and that form's discriminant is `tr²−4`. -/
+theorem fixForm_automorph (M : Mat2) (x y : Int) :
+    formEval (fixForm M) (M.a * x + M.b * y) (M.c * x + M.d * y)
+      = (M.a * M.d - M.b * M.c) * formEval (fixForm M) x y := by
+  show M.c * ((M.a * x + M.b * y) * (M.a * x + M.b * y))
+        + (M.d - M.a) * ((M.a * x + M.b * y) * (M.c * x + M.d * y))
+        + (-M.b) * ((M.c * x + M.d * y) * (M.c * x + M.d * y))
+      = (M.a * M.d - M.b * M.c)
+        * (M.c * (x * x) + (M.d - M.a) * (x * y) + (-M.b) * (y * y))
+  ring_intZ
+
 /-! ## §3 — the fixed-point forms recover the reference forms on the three faces -/
 
 /-- `fixForm G = (1,−1,−1)` — the **golden form** `m² − mk − k²` (root `φ`). -/
@@ -165,6 +191,20 @@ theorem crossdet_number_field_is_trace_field :
    ⟨fixForm_T, by decide, by decide⟩,
    ⟨fixForm_U, by decide, by decide⟩,
    fixForm_disc_eq_traceDisc⟩
+
+/-- ★★★ **The golden and Eisenstein reference forms are exactly preserved by their
+    monodromy.**  Since `G, U ∈ SL(2,ℤ)` (`det = 1`), `fixForm_automorph` gives exact
+    invariance: the golden form `m²−mk−k²` is conserved by the hyperbolic boost `G`, and
+    the cyclotomic Eisenstein form `x²+x+1` by the elliptic rotation `U` — each reference
+    form is the conserved quantity of the geodesic it labels. -/
+theorem reference_forms_preserved (x y : Int) :
+    formEval (fixForm G) (G.a * x + G.b * y) (G.c * x + G.d * y)
+        = formEval (fixForm G) x y
+    ∧ formEval (fixForm U) (U.a * x + U.b * y) (U.c * x + U.d * y)
+        = formEval (fixForm U) x y := by
+  refine ⟨?_, ?_⟩
+  · rw [fixForm_automorph G x y, show G.a * G.d - G.b * G.c = 1 from by decide, Int.one_mul]
+  · rw [fixForm_automorph U x y, show U.a * U.d - U.b * U.c = 1 from by decide, Int.one_mul]
 
 /-- ★★★ **The elliptic conjecture, made exact: the sign of `D = tr²−4` is the line/cusp/curve
     dial.**  `traceDisc G > 0` (two real fixed points ⟹ a hyperbolic geodesic ⟹ the
