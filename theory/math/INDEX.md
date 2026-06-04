@@ -43,7 +43,7 @@ under the same thematic super-cluster as its Lean sub-tree.
 
 ### `probability/` — `probability`, `information`.
 
-### `combinatorics/` — `combinatorics`, `logic`, `graph_connectivity`.
+### `combinatorics/` — `combinatorics`, `logic`, `graph_connectivity`, `bool_enumeration`.
 
 ### `tactic/` — `tactic`, `extras` (math-side infra).
 
