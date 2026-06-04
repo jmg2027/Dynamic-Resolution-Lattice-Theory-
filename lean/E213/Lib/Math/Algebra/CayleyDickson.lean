@@ -67,6 +67,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.GaussianSplit
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.GaussianTwoSquare
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrtNegDivStep
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrtNegSplit
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrtNegSharp
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrt
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrt2
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrt2Domain
