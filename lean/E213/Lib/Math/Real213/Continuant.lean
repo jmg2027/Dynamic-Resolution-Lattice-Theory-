@@ -1,5 +1,7 @@
 import E213.Lib.Math.Real213.ModularElliptic
 import E213.Meta.Int213.Core
+import E213.Meta.Int213.PolyIntMTactic
+import E213.Meta.Tactic.List213
 
 /-!
 # Euler continuants `K[a₁,…,aₙ]` and their monotonicity
@@ -128,5 +130,121 @@ theorem contMatProd_eq : ∀ l : List Nat,
 theorem continuant_eq_contMatProd (l : List Nat) :
     (contMatProd l).a = ((continuant l : Nat) : Int) :=
   (contMatProd_eq l).1
+
+/-! ## Reversal symmetry `K[a₁,…,aₙ] = K[aₙ,…,a₁]` via transpose
+
+Each continuant matrix `[[aᵢ,1],[1,0]]` is **symmetric**, so `(∏ M(aᵢ))ᵀ = ∏ M(aₙ₋ᵢ) = contMatProd
+(reverse)`; transpose fixes the `(1,1)`-entry, giving the classical continuant palindrome
+`K[a₁,…,aₙ] = K[aₙ,…,a₁]`.  This unlocks monotonicity in the *last* quotient (hence, with the head case,
+in any position) — the technical core of the Aigner orderings. -/
+
+open E213.Lib.Math.Real213.ModularElliptic (I2)
+
+/-- Transpose of a `Mat2`. -/
+def transp (M : Mat2) : Mat2 := ⟨M.a, M.c, M.b, M.d⟩
+
+/-! Pure (propext-free) list-reversal lemmas (core `List.reverse_cons`/`reverse_append` carry `propext`). -/
+
+private theorem reverseAux_eq {α : Type u} : ∀ (l acc : List α), l.reverseAux acc = l.reverse ++ acc
+  | [], _ => rfl
+  | a :: t, acc => by
+      show t.reverseAux (a :: acc) = (t.reverseAux [a]) ++ acc
+      rw [reverseAux_eq t (a :: acc), reverseAux_eq t [a]]
+      exact (E213.Tactic.List213.append_assoc t.reverse [a] acc).symm
+
+private theorem reverse_cons' {α : Type u} (a : α) (t : List α) :
+    (a :: t).reverse = t.reverse ++ [a] :=
+  reverseAux_eq t [a]
+
+private theorem reverse_append' {α : Type u} :
+    ∀ (s t : List α), (s ++ t).reverse = t.reverse ++ s.reverse
+  | [], t => by
+      show t.reverse = t.reverse ++ ([] : List α)
+      rw [E213.Tactic.List213.append_nil]
+  | a :: s, t =>
+      calc (a :: (s ++ t)).reverse
+          = (s ++ t).reverse ++ [a] := reverse_cons' a (s ++ t)
+        _ = (t.reverse ++ s.reverse) ++ [a] := by rw [reverse_append' s t]
+        _ = t.reverse ++ (s.reverse ++ [a]) :=
+              E213.Tactic.List213.append_assoc t.reverse s.reverse [a]
+        _ = t.reverse ++ (a :: s).reverse := by rw [reverse_cons' a s]
+
+/-- `Mat2` extensionality (propext-free, via `congr`). -/
+theorem mat2_ext {M N : Mat2} (ha : M.a = N.a) (hb : M.b = N.b) (hc : M.c = N.c) (hd : M.d = N.d) :
+    M = N := by cases M; cases N; congr 1 <;> assumption
+
+private theorem one_zero_a (x y : Int) : 1 * x + 0 * y = x := by
+  rw [Int.one_mul, E213.Meta.Int213.zero_mul, Int.add_zero]
+private theorem zero_one_c (x y : Int) : 0 * x + 1 * y = y := by
+  rw [E213.Meta.Int213.zero_mul, Int.one_mul, E213.Meta.Int213.zero_add]
+private theorem a_one_zero (x y : Int) : x * 1 + y * 0 = x := by
+  rw [E213.Meta.Int213.mul_one, Int.mul_zero, Int.add_zero]
+private theorem zero_one_d (x y : Int) : x * 0 + y * 1 = y := by
+  rw [Int.mul_zero, E213.Meta.Int213.mul_one, E213.Meta.Int213.zero_add]
+
+/-- Associativity of `Mat2.mul`. -/
+theorem mul_assoc' (M N P : Mat2) : mul (mul M N) P = mul M (mul N P) :=
+  mat2_ext (by simp only [mul]; ring_intZ) (by simp only [mul]; ring_intZ)
+           (by simp only [mul]; ring_intZ) (by simp only [mul]; ring_intZ)
+
+/-- `I2` is a left identity. -/
+theorem id_mul' (M : Mat2) : mul I2 M = M :=
+  mat2_ext (one_zero_a M.a M.c) (one_zero_a M.b M.d) (zero_one_c M.a M.c) (zero_one_c M.b M.d)
+
+/-- `I2` is a right identity. -/
+theorem mul_id' (M : Mat2) : mul M I2 = M :=
+  mat2_ext (a_one_zero M.a M.b) (zero_one_d M.a M.b) (a_one_zero M.c M.d) (zero_one_d M.c M.d)
+
+/-- Transpose is an anti-homomorphism: `(M·N)ᵀ = Nᵀ·Mᵀ`. -/
+theorem transp_mul (M N : Mat2) : transp (mul M N) = mul (transp N) (transp M) :=
+  mat2_ext (by simp only [mul, transp]; ring_intZ) (by simp only [mul, transp]; ring_intZ)
+           (by simp only [mul, transp]; ring_intZ) (by simp only [mul, transp]; ring_intZ)
+
+/-- Each continuant matrix is symmetric: `[[a,1],[1,0]]ᵀ = [[a,1],[1,0]]`. -/
+theorem transp_contMat (a : Nat) : transp (contMat a) = contMat a := rfl
+
+/-- `contMatProd [a] = [[a,1],[1,0]]`. -/
+theorem contMatProd_singleton (a : Nat) : contMatProd [a] = contMat a := mul_id' (contMat a)
+
+/-- `contMatProd` is a monoid homomorphism over append. -/
+theorem contMatProd_append (l₁ l₂ : List Nat) :
+    contMatProd (l₁ ++ l₂) = mul (contMatProd l₁) (contMatProd l₂) := by
+  induction l₁ with
+  | nil => show contMatProd l₂ = mul I2 (contMatProd l₂); rw [id_mul']
+  | cons a t ih =>
+      show mul (contMat a) (contMatProd (t ++ l₂))
+           = mul (mul (contMat a) (contMatProd t)) (contMatProd l₂)
+      rw [ih, mul_assoc']
+
+/-- **The transpose of `∏[[aᵢ,1],[1,0]]` is the reversed product** — the matrix form of the continuant
+    palindrome. -/
+theorem contMatProd_reverse (l : List Nat) : transp (contMatProd l) = contMatProd l.reverse := by
+  induction l with
+  | nil => rfl
+  | cons a t ih =>
+      rw [reverse_cons']
+      show transp (mul (contMat a) (contMatProd t)) = contMatProd (t.reverse ++ [a])
+      rw [transp_mul, ih, contMatProd_append, transp_contMat, contMatProd_singleton]
+
+/-- ★★★★★ **Continuant reversal symmetry**: `K[a₁,…,aₙ] = K[aₙ,…,a₁]`.  The classical palindrome,
+    via transpose of the symmetric continuant matrices. -/
+theorem continuant_reverse (l : List Nat) : continuant l.reverse = continuant l := by
+  apply Int.ofNat.inj
+  calc ((continuant l.reverse : Nat) : Int)
+      = (contMatProd l.reverse).a := (continuant_eq_contMatProd l.reverse).symm
+    _ = (transp (contMatProd l)).a := by rw [← contMatProd_reverse]
+    _ = (contMatProd l).a := rfl
+    _ = ((continuant l : Nat) : Int) := continuant_eq_contMatProd l
+
+/-- ★★★★ **Strict monotonicity in the last quotient** (via reversal + the head case): increasing the
+    final partial quotient strictly increases the continuant, provided the prefix continuant is positive.
+    With `continuant_head_strict_mono`, the continuant is strictly monotone in *every* position. -/
+theorem continuant_last_strict_mono (l : List Nat) (a a' : Nat)
+    (haa : a < a') (hk : 1 ≤ (contPair l.reverse).1) :
+    continuant (l ++ [a]) < continuant (l ++ [a']) := by
+  rw [← continuant_reverse (l ++ [a]), ← continuant_reverse (l ++ [a']),
+      reverse_append', reverse_append']
+  show continuant (a :: l.reverse) < continuant (a' :: l.reverse)
+  exact continuant_head_strict_mono a a' l.reverse haa hk
 
 end E213.Lib.Math.Real213.Continuant
