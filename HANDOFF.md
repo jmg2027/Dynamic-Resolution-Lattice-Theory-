@@ -38,21 +38,23 @@ at every integer have equal coefficients).  This transports the `Int` adjugate i
 identity by `pmatMul`/`padj` eval-soundness + `coeff_unique`.  The conceptual heart of integer
 Cayley–Hamilton is now closed.
 
-★★ **Step 5 (relation extraction) done** (`CharPolyAdj` §4): `cayley_rel_zero` (`−(M·B₀) = c₀·I`)
-and `cayley_rel_succ` (`Bₘ − M·B_{m+1} = c_{m+1}·I`), where `Bₖ(i,j) := coeff (padj n charMat i j) k`,
-`cₖ := coeff (charPoly M (n+1)) k`.  These are the telescoping inputs.
+★★ **Steps 4–6 done** (`CharPolyAdj` §4–§6 + `PolyZ`/`PolyDet` degree bound): the coefficient
+relations `cayley_rel_zero`/`cayley_rel_succ`, their matrix form ★★ `matMul_Bm_zero` (`M·B₀ = −c₀·I`)
++ ★★ `matMul_Bm_succ` (`M·B_{m+1} = Bₘ − c_{m+1}·I`), and the degree bound ★ `padj_coeff_top_zero`
+(`B_{n+1}=0`).  `Bm M n m`, `cm M n m` defined.  Everything the telescoping needs is banked.
 
-**Remaining (the home stretch):**
-- **Telescoping** ⟹ `χ_M(M) = Σ_{m=0}^{n+1} cₘ Mᵐ = 0`: substitute `c₀ I = −M B₀`, `c_{m+1} I =
-  Bₘ − M B_{m+1}` (and `B_{n+1}=0` ⟹ `c_{n+1} I = Bₙ`); the sum telescopes via the index shift
-  `Σ_{m≥1} Mᵐ B_{m−1} = Σ_{p≥0} M^{p+1} Bₚ`.  Pure `CayleyHamilton` matrix-sum algebra (`matSumZ`,
-  `matPow`, `matMul_addL`, `matMul_matSumZ_*`); recast the relations as matrix equations
-  (`matMul M (B 0) = −(c 0 • I)` via `sumZ_map_neg`) + a `matSumZ` reindex lemma.  ⟹ integer CH.
-- **§7 Kronecker `M`** (tensor of the two companion matrices) + `V(n+1)=M·V(n)` + first-component
-  extraction ⟹ `cfiniteZ_mul` via `cfiniteZ_of_shiftRec`.
+**The ONLY remaining piece — the telescoping induction** (pure `CayleyHamilton` matrix algebra,
+no new math):
+- prove `S(N) i k := Σ_{m=0}^{N} cm m · (matPow M m) i k = − matMul (matPow M (N+1)) (Bm N) i k`
+  by induction on `N` (base: `matMul_Bm_zero` + `matMul_id_*`; step: `matMul_Bm_succ` +
+  `matMul_assoc` + `matPow_succ_right`); at `N = n+1`, `S = χ_M(M)` and boundary `= 0` (`B_{n+1}=0`).
+  ⟹ ★★★ **integer Cayley–Hamilton** `χ_M(M)=0`.
+- helpers to add to `CayleyHamilton`: a **bounded** `matMul_congr` (agreement on `iota` only) +
+  ★ `matPow_succ_right` (`M^N·M = M^{N+1}` pointwise, induction via `matMul_assoc` + bounded congr).
+- then **§7 Kronecker `M`** + first-component extraction ⟹ `cfiniteZ_mul` (`cfiniteZ_of_shiftRec`).
 
-This session banked (all ∅-axiom): `CayleyHamilton` 25 + `PolyZ` 33 + `PolyDet` 11 + `CharPolyAdj`
-15 = **84 PURE**.  Integer Cayley–Hamilton is now reduced to a finite matrix-sum telescoping.
+This session banked (all ∅-axiom): `CayleyHamilton` 25 + `PolyZ` 47 + `PolyDet` 13 + `CharPolyAdj`
+22 = **107 PURE**.  Integer Cayley–Hamilton is reduced to one telescoping induction.
 
 ## Other live threads
 - C-finite orbit dimension: `theory/math/analysis/cfinite_orbit_dimension.md`

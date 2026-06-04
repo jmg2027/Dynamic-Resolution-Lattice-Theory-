@@ -542,3 +542,29 @@ inputs — `Bₖ(i,j) := coeff (padj n charMat i j) k`, `cₖ := coeff (charPoly
 Session tally (all ∅-axiom): `CayleyHamilton` 25 + `PolyZ` 33 + `PolyDet` 11 + `CharPolyAdj` 15 =
 **84 PURE**.  Integer Cayley–Hamilton is now reduced to a finite matrix-sum telescoping over the
 extracted relations (+ a `pdet` degree bound for the top term).
+
+## Update — ★ degree bound + matrix-form relations done (CharPolyAdj 22, PolyDet 13, PolyZ 47)
+
+Steps toward CH closure, all ∅-axiom.  Everything except the final telescoping induction is now banked:
+- **`PolyZ` degree bound** (`degLe p d := ∀ m, d<m → coeff p m = 0`): closures `degLe_addP`/
+  `degLe_scaleP`/`degLe_shiftP`/`degLe_mulP` (+ `IsZeroP` zero-poly absorption for the `mulP` dp=0
+  edge), `coeff_eq_zero_of_degLe`.
+- **`PolyDet.degLe_pdet`**: `pdet` of an `n×n` matrix with degree-`≤1` entries has degree `≤ n`.
+- **`CharPolyAdj` §5**: `degLe_charMat` + ★ `padj_coeff_top_zero` = `B_{n+1} = 0` (the telescoping's
+  vanishing boundary term).
+- **`CharPolyAdj` §6 matrix-form relations**: `matMul_eq_neg_sumNeg`, ★★ `matMul_Bm_zero`
+  (`M·B₀ = −c₀·I`), ★★ `matMul_Bm_succ` (`M·B_{m+1} = Bₘ − c_{m+1}·I`); `Bm`/`cm` defined.
+
+**The ONLY remaining piece — the telescoping induction** (pure `CayleyHamilton` matrix algebra, no
+new math):  prove `S(N) i k := Σ_{m=0}^{N} cm m · (matPow M m) i k = − matMul (matPow M (N+1)) (Bm N) i k`
+by induction on `N` (base: `matMul_Bm_zero` + `matMul_id_*`; step: `matMul_Bm_succ` + `matMul_assoc`
++ `matPow_succ_right`), then at `N = n+1`: `S(n+1) = χ_M(M)_{ik}` and the boundary `= −matMul (M^{n+2})
+(B_{n+1})_{ik} = 0` since `B_{n+1}=0` (`padj_coeff_top_zero`).  ⟹ ★★★ **integer Cayley–Hamilton**
+`χ_M(M) = 0`.  Helpers still to add to `CayleyHamilton`: a **bounded** `matMul_congr` (agreement on
+`iota` only) + ★ `matPow_succ_right` (`M^N · M = M^{N+1}` pointwise, by induction via `matMul_assoc`
++ bounded congr + `matMul_id_*`).
+- then **§7 Kronecker `M`** + first-component extraction ⟹ `cfiniteZ_mul`.
+
+Session tally (all ∅-axiom): `CayleyHamilton` 25 + `PolyZ` 47 + `PolyDet` 13 + `CharPolyAdj` 22 =
+**107 PURE**.  Integer Cayley–Hamilton is reduced to one telescoping induction over the banked
+matrix-form relations + `B_{n+1}=0`.
