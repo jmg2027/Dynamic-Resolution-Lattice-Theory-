@@ -206,10 +206,10 @@ cannot prefer one reading over the other, because the
 preference would require an external time axis that the axiom
 does not provide.
 
-The same point shows up at a different scale in
-`seed/RESOLUTION_LIMIT_SPEC.md`: the parametric
-`configCount : Nat → Nat` family has multiple routes to its
-level-2 value `5²⁵`, and the routes agree because they read the
-same residue.  Cross-route agreement is the operational
+The same point shows up at a different scale in the parametric
+`configCount : Nat → Nat` family
+(`Lib/Math/Cohomology/Fractal/ConfigCount.lean`): it has multiple
+routes to its level-2 value `5²⁵`, and the routes agree because
+they read the same residue.  Cross-route agreement is the operational
 signature of "no exterior" (§5.1), not a coincidence in need of
 explanation.

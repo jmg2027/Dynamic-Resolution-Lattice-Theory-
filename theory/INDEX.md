@@ -106,7 +106,7 @@ See `research-notes/frontiers/INDEX.md` for the open board and
 
 ## Companion specs
 
-Foundational spec corpus alongside `seed/RESOLUTION_LIMIT_SPEC.md`:
+Foundational spec corpus:
 
 - `seed/THEOREM_METHODOLOGY_SUITE.md` — §TH-1 proof-shape fingerprinting (companions `theory/meta/scanner_suite.md` §1), §TH-2 Raw-derivation taxonomy (companions `theory/meta/raw_derivation_levels.md`), §TH-3 falsifier-surface spec, §TH-4 L1 parametric methodology
 - `seed/META_SCAN_ARCHETYPES.md` — 11 reusable scanner archetypes

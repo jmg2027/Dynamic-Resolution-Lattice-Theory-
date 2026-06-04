@@ -18,8 +18,7 @@ The current uniqueness story does NOT route through R1–R5:
     `d = 5`, `(NS, NT) = (3, 2)` structurally — see
     `Theory/Atomicity/Five.lean` and the related Atomicity
     cluster.
-  - **Resolution-limit family readout**
-    (`seed/RESOLUTION_LIMIT_SPEC.md` §2): `configCount 2 = 5²⁵`
+  - **Resolution-limit family readout**: `configCount 2 = 5²⁵`
     as one value of the parametric Lens-output family
     `configCount : Nat → Nat`.  An earlier "4-way convergent
     invariant" framing was retracted (only 2 of 4 readings had
@@ -150,8 +149,7 @@ They were consolidated into the chapter sub-directory
 `seed/INDEX.md` was rewritten as the standalone entry point
 (4-clause axiom + key concepts + falsifiability rule visible
 in one screen).  Authority documents (`ORIGIN.md`,
-`RESOLUTION_LIMIT_SPEC.md`, `NOTATION.md`) remained at `seed/`
-root.
+`NOTATION.md`) remained at `seed/` root.
 
 ## Author & licence
 

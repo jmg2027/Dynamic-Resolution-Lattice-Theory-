@@ -157,7 +157,7 @@ to additional domains adds more witnesses to the same
 conclusion.
 
 `seed/AXIOM/03_form.md` §3.5 ("the residue's self-pointing
-fixed point") and `seed/AXIOM/07_self_reference.md` §8.5
+fixed point") and `seed/AXIOM/05_no_exterior.md` §5.6
 ("Möbius P as algebraic representation of self-pointing")
 identify P as the framework's canonical self-description.
 The catalog quantifies this: *55 ways P describes itself*,

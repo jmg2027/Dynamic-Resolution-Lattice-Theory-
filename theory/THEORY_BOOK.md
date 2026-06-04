@@ -396,7 +396,7 @@ LensCardinality / CardinalityLB).  These are **Lens
 observables**, not Raw-level facts.  Finiteness,
 countability, cardinality lower bounds, Cantor's diagonal —
 each becomes a predicate that holds *of a given Lens* on Raw,
-not of Raw itself.  Per `seed/RESOLUTION_LIMIT_SPEC.md`: no
+not of Raw itself.  No
 quantity is a universe constant; `N_U = 5^25` is the count-
 Lens output at fractal level 2.
 
@@ -622,9 +622,8 @@ resolution `k`.
 for arbitrary prime `p`.  `ZpSeq`, Hensel lifting (existence +
 uniqueness), Teichmüller iteration, ℚ_p, full ultrametric.
 
-5-adic specifically anchors DRLT (the resolution constant
-`N_U = 5^25` is a count-Lens output, per
-`seed/RESOLUTION_LIMIT_SPEC.md`).
+5-adic specifically anchors DRLT (`N_U = 5^25` is a count-Lens
+output, not a universe constant).
 
 ### IV.6 Cauchy, Modulus, FSM
 

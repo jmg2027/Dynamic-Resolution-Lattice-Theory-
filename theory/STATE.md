@@ -96,7 +96,6 @@ recorded in git history; the research cycle is documented in
 
 ## Companion specs
 
-`seed/RESOLUTION_LIMIT_SPEC.md`,
 `seed/THEOREM_METHODOLOGY_SUITE.md`,
 `seed/META_SCAN_ARCHETYPES.md`,
 `seed/CLOSED_FORM_SPEC.md`.

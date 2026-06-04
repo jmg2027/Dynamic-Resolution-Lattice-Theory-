@@ -1105,7 +1105,7 @@ pointwise form.
   - Math.Infinity.Godel: Cantor-style countability/equipotence
     proofs use Iff between cardinality propositions.
   - DyadicTrajectory: Cauchy-limit structural inequality preserved by
-    ∅-axiom regime; documented in `seed/RESOLUTION_LIMIT_SPEC.md` §1.
+    ∅-axiom regime.
   - Bridges: intentional axiom-demonstration cluster.
 
 **This is the canonical 213 axiom standard** (formalized 2026-05-02,

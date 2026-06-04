@@ -255,8 +255,7 @@ a bare arithmetic value; no fractal level is a resolution limit.
 
 Whether the "infinite" 5-adic structure beyond the resolution
 limit is operationally meaningful in DRLT, or is a formal
-extension only, is itself a research question.  See
-`seed/RESOLUTION_LIMIT_SPEC.md`.
+extension only, is itself a research question.
 
 ## Key results
 
@@ -578,8 +577,7 @@ which the operating principles forbid.  Stated plainly per
 `seed/AXIOM/05_no_exterior.md` §5.4: after looking, no internal bridge
 is there — the falsifier doing its work, not a deferral.  Any future H
 must be arithmetic-first (a 5-adic invariant of an object the corpus
-already builds), tracked under `research-notes/frontiers/`, governed by
-`seed/RESOLUTION_LIMIT_SPEC.md`.
+already builds), tracked under `research-notes/frontiers/`.
 
 **Methodology note**.  Most proofs in `Teichmuller.lean` and
 `Hensel.lean` look like a sequence of `rw` over `mul_trunc`,

@@ -4,7 +4,7 @@ import E213.Term.Compare
 /-!
 # Term.Rat — rational arithmetic via cross-multiplication
 
-Per `seed/RESOLUTION_LIMIT_SPEC.md`: 213 uses ℕ + ℚ + finite
+213 uses ℕ + ℚ + finite
 simplex combinatorics (no ÷, no separate ℚ type).  Carries
 numerator/denominator as two Terms, checks equality by
 **cross-multiplication** → stays within ℕ.

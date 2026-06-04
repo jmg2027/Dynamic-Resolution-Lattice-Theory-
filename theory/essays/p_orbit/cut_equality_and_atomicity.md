@@ -107,7 +107,7 @@ The fact that one matrix carries this much structure is not a
 coincidence to admire.  It is what "Möbius P is the algebraic
 representation of the residue's self-pointing fixed point"
 (`seed/AXIOM/03_form.md` §3.5,
-`seed/AXIOM/07_self_reference.md` §8.5) becomes when read at the
+`seed/AXIOM/05_no_exterior.md` §5.6) becomes when read at the
 level of cut equality.  The residue's self-pointing leaves a
 4-tuple `(NS, NT, c, d) = (3, 2, 2, 5)` and a matrix `P` whose
 spectrum is `{φ², 1/φ²}`; "two cuts are equal" reads the same

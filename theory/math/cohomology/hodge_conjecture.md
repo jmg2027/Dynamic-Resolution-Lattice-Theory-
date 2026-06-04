@@ -12,9 +12,9 @@ What is "conjecture" in standard mathematics becomes "en-passant
 lemma" in 213.
 
 This is not a 213-shadow of Hodge.  It *is* Hodge, stripped of
-notational ZFC packaging.  Per the corrected framing
-(`seed/RESOLUTION_LIMIT_SPEC.md` §3): 213 neither rejects nor adopts
-"infinity" — the infinite-vs-finite distinction itself was redundant
+notational ZFC packaging.  Per the corrected framing, 213 neither
+rejects nor adopts "infinity" — the infinite-vs-finite distinction
+itself was redundant
 notational packaging, and the same cohomological content is natively
 expressible as cup-chain identities on finite simplicial / bipartite
 substrate.
