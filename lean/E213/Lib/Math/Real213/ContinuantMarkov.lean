@@ -164,6 +164,58 @@ theorem markovNum_eq_cohn_trace (path : List Bool) :
        = (mul (cInterval path).1 (cInterval path).2).a + (mul (cInterval path).1 (cInterval path).2).d
   rw [(cohn_trace_eq path).2.2, (mInterval_shape path).2.2]
 
+/-! ## The explicit path → Christoffel word
+
+The matrix Cohn tree `cInterval` is the `contMatProd` image of the **word-level** Christoffel tree
+`chrInterval` (mediant = concatenation, seeds `A = [1,1]`, `B = [2,2]`).  So every path carries an
+explicit Christoffel word `chrNode p`, and `3·markovNum p = tr(contMatProd (chrNode p))` — every Markov
+number is the continuant-trace of an explicit Christoffel word (the Frobenius formula, word-level). -/
+
+/-- The Christoffel word Stern-Brocot tree (mediant = concatenation). -/
+def chrInterval : List Bool → (List Nat × List Nat)
+  | [] => ([1, 1], [2, 2])
+  | true :: t => ((chrInterval t).1, (chrInterval t).1 ++ (chrInterval t).2)
+  | false :: t => ((chrInterval t).1 ++ (chrInterval t).2, (chrInterval t).2)
+
+/-- The Christoffel word at a path. -/
+def chrNode (p : List Bool) : List Nat := (chrInterval p).1 ++ (chrInterval p).2
+
+/-- `chrNode` examples: `[] ↦ AB`, `[true] ↦ AAB`, `[false] ↦ ABB`. -/
+theorem chrNode_examples :
+    chrNode [] = [1, 1, 2, 2] ∧ chrNode [true] = [1, 1, 1, 1, 2, 2]
+    ∧ chrNode [false] = [1, 1, 2, 2, 2, 2] := by
+  refine ⟨rfl, rfl, rfl⟩
+
+/-- The word tree's `contMatProd` is the matrix Cohn tree, bound-by-bound. -/
+theorem contMatProd_chrInterval : ∀ path,
+    contMatProd (chrInterval path).1 = (cInterval path).1
+    ∧ contMatProd (chrInterval path).2 = (cInterval path).2
+  | [] => ⟨rfl, rfl⟩
+  | true :: t => by
+      obtain ⟨h1, h2⟩ := contMatProd_chrInterval t
+      refine ⟨h1, ?_⟩
+      show contMatProd ((chrInterval t).1 ++ (chrInterval t).2) = mul (cInterval t).1 (cInterval t).2
+      rw [contMatProd_append, h1, h2]
+  | false :: t => by
+      obtain ⟨h1, h2⟩ := contMatProd_chrInterval t
+      refine ⟨?_, h2⟩
+      show contMatProd ((chrInterval t).1 ++ (chrInterval t).2) = mul (cInterval t).1 (cInterval t).2
+      rw [contMatProd_append, h1, h2]
+
+/-- `contMatProd` of the Christoffel word equals the Cohn matrix node. -/
+theorem contMatProd_chrNode (path : List Bool) : contMatProd (chrNode path) = cNode path := by
+  obtain ⟨h1, h2⟩ := contMatProd_chrInterval path
+  show contMatProd ((chrInterval path).1 ++ (chrInterval path).2)
+       = mul (cInterval path).1 (cInterval path).2
+  rw [contMatProd_append, h1, h2]
+
+/-- ★★★★★ **The explicit path → Christoffel word Frobenius formula**: `3·markovNum p =
+    tr(contMatProd (chrNode p))` — every Markov number is the continuant-trace of an explicit Christoffel
+    word `chrNode p`.  (Composed with `Continuant.contMatProd_trace_cons`, a continuant of the word.) -/
+theorem markovNum_eq_chrNode_trace (path : List Bool) :
+    3 * markovNum path = (contMatProd (chrNode path)).a + (contMatProd (chrNode path)).d := by
+  rw [contMatProd_chrNode]; exact markovNum_eq_cohn_trace path
+
 /-! ## The Aigner pipeline: continuant monotonicity ⟹ Markov-number ordering
 
 The Cohn-word Markov number `tr/3` is strictly monotone under prepending a generator (extending the
