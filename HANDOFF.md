@@ -1,41 +1,39 @@
-# Session Handoff — 2026-06-04 (★★★ C-finite Hadamard product CLOSED via integer Cayley–Hamilton)
+# Session Handoff — 2026-06-04 (determinant tower → Cayley–Hamilton → Hadamard → Casoratian + det properties)
 
-## Branch
-`claude/goal-g183-CxU4X` (develop here; merged to `main` earlier this branch).  Full
-`cd lean && lake build` clean; every new theorem ∅-axiom (`tools/scan_axioms.py` → `N pure / 0 dirty`).
+## Branch / build
+On `main` (merged + pushed).  Full `cd lean && lake build` clean; every new theorem ∅-axiom
+(`tools/scan_axioms.py` → `N pure / 0 dirty`; `#print axioms` → "does not depend on any axioms").
 
-## ★★★ Headline: the G185 program is COMPLETE
+## Delivered this marathon (all ∅-axiom, from scratch — no Mathlib, no `sorry`, no axioms)
 
-`CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)` — the C-finite **Hadamard (pointwise) product** — is
-**proven, ∅-axiom** (`Cauchy/CFiniteHadamard.cfiniteZ_mul`), the last open ring operation of the
-C-finite sequences.  Built end-to-end this branch with no Mathlib, no `sorry`, no axioms:
+A complete `n×n` integer determinant theory + applications + a full elementary-property suite:
 
-| Module | PURE | Role |
-|---|---|---|
-| `Linalg213/Permutation` | 33 | Leibniz determinant + sign theory |
-| `Linalg213/PermClosure` | 76 | symmetric group, **alternating**, multilinear, degeneracy |
-| `Linalg213/Laplace` | 53 | cofactor expansion + **adjugate identity** `M·adj M = det M·I` |
-| `Linalg213/CayleyHamilton` | 27 | the **matrix ring** (assoc, identity, distributivity, powers, sums) |
-| `Lib/Math/PolyZ` | 47 | integer polynomials + **uniqueness** + degree bound |
-| `Linalg213/PolyDet` | 20 | polynomial determinant, **char poly**, monicity |
-| `Linalg213/CharPolyAdj` | 31 | **integer Cayley–Hamilton** `χ_M(M)=0` + the recurrence bridge |
-| `Cauchy/CFiniteHadamard` | 21 | flat↔grid `divmod`, Kronecker companion, **`cfiniteZ_mul`** |
+- **Core tower** `Linalg213/{Permutation,PermClosure,Laplace}` — Leibniz determinant, **alternating**
+  (antisymmetrization), multilinear, cofactor expansion, **adjugate** `M·adj M = det M·I`.
+- **Cayley–Hamilton** `Linalg213/{CayleyHamilton,PolyDet,CharPolyAdj}` + `PolyZ` — ★★★ `χ_M(M)=0`
+  + the recurrence bridge.
+- **Hadamard product** `Cauchy/CFiniteHadamard` — ★★★ `cfiniteZ_mul` (the C-finite ring is closed).
+- **Casoratian rank** `Cauchy/CasoratianRank` (+ `Linalg213/RowDependence`) — ★★ C-finite ⟹ Casoratian
+  rank ≤ orbit dimension, with the **Fibonacci witness** (rank exactly 2).
+- **Elementary determinant properties** (this round):
+  - `RowDependence`: `det_row_combo_zero` (row = combo of others ⟹ 0), `det_addRowMul` (row op invariance).
+  - `DetTriangular`: `det_lower_triangular` (`det = Π Mᵢᵢ`), `det_matId` (`det I = 1`).
+  - `DetScale`: `det_smul` (`det (c·M) = cⁿ·det M`).
+  - `DetZeroCol`: `det_zero_col` (zero column ⟹ 0, column analog via Leibniz — no transpose).
 
-### The arc
-adjugate identity `M·adj M = det M·I` → lift to `ℤ[X]` via `coeff_unique` (polynomial uniqueness) →
-coefficient relations + degree bound → **telescoping** ⟹ `χ_M(M)=0` → the **recurrence bridge**
-(`w(n+1)=M·w(n)` ⟹ each component obeys the monic χ_M recurrence) → the **Kronecker companion** for
-the product vector `w(n)_{(a,b)}=s(n+a)t(n+b)` (factored `Mmat=Ms·Mt`; `vecRec`) → `cfiniteZ_mul` via
-`charPoly_monic` + `cfiniteZ_of_shiftRec`.  The flat↔grid bijection was a fresh ∅-axiom
-**fuel-structural `divmod`** (core `Nat./`/`%` are propext/Quot-dirty).
+Narrative: `theory/math/linalg213.md` + `theory/math/analysis/cfinite_orbit_dimension.md`.
 
-## Next
-- **Promotion**: the `Linalg213` determinant + Cayley–Hamilton sub-tree is closed and a candidate for
-  `theory/` narrative promotion (`theory/PROMOTION_CRITERIA.md`).
-- `cfiniteZ_mul` closes the C-finite ring frontier in
-  `theory/math/analysis/cfinite_orbit_dimension.md` ("Open frontier" → done) — update that narrative.
-- Unlocked: **C-B** (Casoratian rank = orbit dimension) reuses the same determinant theory.
+## Next directions (rough order)
+1. **`det Mᵀ = det M`** (transpose) — the keystone for *column* operations (then Vandermonde,
+   Cramer).  ~150 lines: inverse permutation on the list rep + product-reindex
+   `Π M(pᵢ,i) = Π M(i,(p⁻¹)ᵢ)` + `psign p = psign p⁻¹` + `perms` closed under inverse (count engine).
+   NB: the Casoratian thread does *not* need it (the Hankel matrix is symmetric).
+2. **`det(AB) = det A · det B`** — needs the unique-alternating-multilinear-form characterization.
+3. **Vandermonde** `det[xᵢʲ] = Π_{i<j}(xⱼ−xᵢ)` — via column ops (needs transpose) or "det as a
+   polynomial in the last point with known roots" (reuses `PolyZ`).
+4. **Casoratian converse** — ⚠ over `ℤ` only a `ℚ` statement (Cramer gives rational coefficients).
+5. **Holonomic = `ℚ(n)`-orbit** — the top rung (rational-function coefficients; Apéry ζ(3)).  Large.
 
 ## DRLT Validation Standard
-Still the repo's stated real target (untouched): ppb-ppm precision theorem and/or a strict
-∅-axiom falsifier (`N_gen=3`, `θ_QCD`).
+Still the repo's stated real target (untouched by this math thread): a ppb–ppm precision theorem
+and/or a strict ∅-axiom falsifier (`N_gen=3`, `θ_QCD`).
