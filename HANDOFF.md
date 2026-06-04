@@ -1,8 +1,27 @@
-# Session Handoff — 2026-06-04h (Markov — ★ UPPER-FOLD PATTERN, six levels; WindowRealizedUnique reduced, §20–§25)
+# Session Handoff — 2026-06-04i (Markov — ★ orbit tower §20–§26 + capstone + end-to-end 1325)
 
-## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **103 PURE**.
+## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` **105 PURE**.
 
-## ★★★ NEW (§25): the payoff — `WindowRealizedUnique` reduces to one realizability check per orbit
+## ★★★ NEW (§26 + capstone): `MarkovMaxUnique` from the orbit realizability condition
+- **`markov_max_unique_of_orbit`** `(5≤c)(H) : MarkovMaxUnique c` — the §20–§25 tower in ONE entry
+  point.  `H` = "no nontrivial-unit-root image (`e∉{1,c−1}`, `e·u₁≡u₂`) of a realized windowed root is
+  itself realized."  Composes `windowRealizedUnique_of_orbit` (§25) + §18.  The full ∅-axiom reduction
+  of composite Markov uniqueness to a *single realizability statement* (NOT counting); prime powers ⟹
+  `H` vacuous (Button), `ω≥2` ⟹ the live conjecture.
+- **`markov_max_unique_1325_via_orbit`** : closes `1325 = 25·53` end-to-end THROUGH the tower.
+  Windowed roots `{182,507}` + `182` phantom by `decide`; the new step is the `u₁=u₂=507` case — a
+  nontrivial `e` with `e·507≡507` forces `e≡1` by `root_orbit_inj` (§24 free action), contradicting
+  `e∉{1,c−1}`.  Demonstrates the structural route really closes a composite (not only the §19 reducer).
+
+### The six-level fold + capstone (all ∅-axiom)
+```
+§20 window=σ-transversal  §21 root set=torsor  §22 SqrtUnity=∏folds
+§23 product inhabited (CRT, ω=2)  §24 free action ⟹ count=2^{ω−1}
+§25 WindowRealizedUnique ⟸ one orbit ∃!-check  §26 MarkovMaxUnique ⟸ orbit-H  (+ 1325 end-to-end)
+```
+**Open content = `H` alone** (which `±`-suborbit realizes), now an `∃!`-realizability statement.
+
+## ★★★ (§25): the payoff — `WindowRealizedUnique` reduces to one realizability check per orbit
 The §24 free action made operational.  Two distinct windowed roots are related by a *nontrivial*
 unit-root, so `WindowRealizedUnique` reduces to a single realizability question.
 - **`neg_one_mul_mod`** `(0<c)(0<u)(u≤c) : ((c−1)·u)%c = c−u` (value of `·(−1)`; `add_right_cancel_pure`).
