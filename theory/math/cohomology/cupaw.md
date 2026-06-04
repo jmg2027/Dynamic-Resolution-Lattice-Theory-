@@ -66,8 +66,7 @@ but the proof must be done **per bidegree**, not uniformly.
 
 ### self-referential lex-cup Leibniz open conjecture — Phase decomposition
 
-Per `research-notes/G86_self_referential_lex_cup_leibniz.md`
-(currently top-level active), the ∀(k, l) general case has the form:
+The ∀(k, l) general case has the form:
 
 ```
 deltaList (k+l) (cupList k l α β) τ
@@ -95,9 +94,6 @@ infrastructure is structural pre-work toward closure.
 - `theory/math/cohomology/hodge_conjecture.md` — HodgeConjecture/ uses CupAW machinery for the Hodge index pairings
 - `theory/math/cohomology/cup.md` — strict cup (CupAW's non-Leibniz cousin)
 - `theory/physics/alpha_em/precision_derivation.md` — α_em uses cup-channel inventory built on CupAW
-- `research-notes/G85_cup_delta_lens_mismatch.md` — Why strict cup fails Leibniz; CupAW is the resolution
-- `research-notes/G86_self_referential_lex_cup_leibniz.md` — **OPEN** ∀(k, l) conjecture
-- `research-notes/archive/metascan/G111_cohomology_deep_dive.md` — Tier-2 Cohomology deep dive
 
 ## Open frontier
 

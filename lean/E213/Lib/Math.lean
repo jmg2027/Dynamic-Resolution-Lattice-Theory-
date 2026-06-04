@@ -1,62 +1,64 @@
-import E213.Lib.Math.Real213
+import E213.Lib.Math.NumberSystems.Real213
 import E213.Lib.Math.Analysis
-import E213.Lib.Math.AngleStructure
-import E213.Lib.Math.ArityForcingGeneral
-import E213.Lib.Math.AxiomSystems
-import E213.Lib.Math.BipartiteDecomp
-import E213.Lib.Math.CartesianVsDisjoint
-import E213.Lib.Math.Choice
+import E213.Lib.Math.Geometry.AngleStructure
+import E213.Lib.Math.Foundations.ArityForcingGeneral
+import E213.Lib.Math.Foundations.AxiomSystems
+import E213.Lib.Math.Geometry.BipartiteDecomp
+import E213.Lib.Math.Geometry.CartesianVsDisjoint
+import E213.Lib.Math.Foundations.Choice
 import E213.Lib.Math.Cohomology
-import E213.Lib.Math.Complex
-import E213.Lib.Math.DyadicFSM
-import E213.Lib.Math.Extras
-import E213.Lib.Math.Functional
-import E213.Lib.Math.GenerationRule
-import E213.Lib.Math.GeometrizationConjecture
-import E213.Lib.Math.GRA
+import E213.Lib.Math.NumberSystems.Complex
+import E213.Lib.Math.NumberTheory.DyadicFSM
+import E213.Lib.Math.Tactic.Extras
+import E213.Lib.Math.Analysis.Functional
+import E213.Lib.Math.Geometry.GenerationRule
+import E213.Lib.Math.Geometry.GeometrizationConjecture
+import E213.Lib.Math.Algebra.GRA
 import E213.Lib.Math.Geometry
-import E213.Lib.Math.Group
-import E213.Lib.Math.HodgeConjecture
-import E213.Lib.Math.Hyper
-import E213.Lib.Math.Irrational
-import E213.Lib.Math.LevelTopology
-import E213.Lib.Math.Linalg213
-import E213.Lib.Math.CayleyDickson
-import E213.Lib.Math.CassiniUnimodular
-import E213.Lib.Math.FiveFloorUnification
-import E213.Lib.Math.ResidueForm
-import E213.Lib.Math.Measure
-import E213.Lib.Math.ModArith
-import E213.Lib.Math.Modulus
-import E213.Lib.Math.Multivariable
-import E213.Lib.Math.NumberGrid
-import E213.Lib.Math.ODE
-import E213.Lib.Math.OperationTopology
-import E213.Lib.Math.SignedCut
+import E213.Lib.Math.Algebra.Group
+import E213.Lib.Math.Cohomology.HodgeConjecture
+import E213.Lib.Math.NumberSystems.Hyper
+import E213.Lib.Math.NumberSystems.Irrational
+import E213.Lib.Math.Geometry.LevelTopology
+import E213.Lib.Math.Algebra.Linalg213
+import E213.Lib.Math.Algebra.CayleyDickson
+import E213.Lib.Math.Algebra.CassiniUnimodular
+import E213.Lib.Math.Algebra.FiveFloorUnification
+import E213.Lib.Math.Foundations.ResidueForm
+import E213.Lib.Math.Analysis.Measure
+import E213.Lib.Math.NumberTheory.ModArith
+import E213.Lib.Math.Analysis.Modulus
+import E213.Lib.Math.Analysis.Multivariable
+import E213.Lib.Math.Geometry.NumberGrid
+import E213.Lib.Math.Analysis.ODE
+import E213.Lib.Math.Geometry.OperationTopology
+import E213.Lib.Math.NumberSystems.SignedCut
 import E213.Lib.Math.Tactic
-import E213.Lib.Math.PatternCatalog
+import E213.Lib.Math.Foundations.PatternCatalog
 import E213.Lib.Math.Probability
-import E213.Lib.Math.Information
-import E213.Lib.Math.Logic
+import E213.Lib.Math.Probability.Information
+import E213.Lib.Math.Combinatorics.Logic
 import E213.Lib.Math.Combinatorics
-import E213.Lib.Math.CrossDomainUnification
-import E213.Lib.Math.DualCollapseCapstone
-import E213.Lib.Math.SelfSimilarityBridge
-import E213.Lib.Math.ParadigmDomain
-import E213.Lib.Math.ParadigmDomainGraded
-import E213.Lib.Math.ParadigmDomainGradedRing
-import E213.Lib.Math.ResolutionLimit
-import E213.Lib.Math.Topology
-import E213.Lib.Math.TriangularTower
-import E213.Lib.Math.UniverseChain
+import E213.Lib.Math.Foundations.CrossDomainUnification
+import E213.Lib.Math.Foundations.DualCollapseCapstone
+import E213.Lib.Math.Algebra.SelfSimilarityBridge
+import E213.Lib.Math.Foundations.ParadigmDomain
+import E213.Lib.Math.Foundations.ParadigmDomainGraded
+import E213.Lib.Math.Foundations.ParadigmDomainGradedRing
+import E213.Lib.Math.Foundations.ResolutionLimit
+import E213.Lib.Math.Geometry.Topology
+import E213.Lib.Math.Geometry.TriangularTower
+import E213.Lib.Math.Foundations.UniverseChain
 import E213.Meta.Nat
-import E213.Lib.Math.CascadeCalculus
-import E213.Lib.Math.Pigeonhole
-import E213.Lib.Math.Polynomial213
-import E213.Lib.Math.PrimeDescentObservations
-import E213.Lib.Math.Cauchy
-import E213.Lib.Math.MaxEntropy
-import E213.Lib.Math.DetSpectrumPoles
+import E213.Lib.Math.Analysis.CascadeCalculus
+import E213.Lib.Math.Combinatorics.Pigeonhole
+import E213.Lib.Math.Algebra.PolyZ
+import E213.Lib.Math.Algebra.Polynomial213
+import E213.Lib.Math.NumberTheory.PrimeDescentObservations
+import E213.Lib.Math.NumberTheory.EuclideanDivision
+import E213.Lib.Math.Analysis.Cauchy
+import E213.Lib.Math.Probability.MaxEntropy
+import E213.Lib.Math.Algebra.DetSpectrumPoles
 
 /-! Spec-as-code entry point for `E213.Lib.Math` — full 213 mathematics library.
 
@@ -94,10 +96,9 @@ The directory tree is the spec; this file is the top-level entry.
 
   ### Topical sub-trees
     * `Cohomology`      — K_{NS,NT}^{(c)} cohomology + Hodge programme
-                          (~100 files post Phase C peer-promotion)
+                          (~100 files)
     * `DyadicFSM`       — dyadic / FSM / Pell / Pisano / Trib / Legendre
-                          classification engine (116 files; promoted from
-                          Cohomology/Dyadic in Phase C1)
+                          classification engine (116 files)
     * `GeometrizationConjecture` — 213-Lens reading of
                           Thurston/Perelman Geometrization + d=4
                           exotic-smoothness anomaly (ansatz;

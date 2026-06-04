@@ -261,9 +261,10 @@ The C3 chain closes the **structural** picture.  Open extensions:
    13-18 (current `c3_chain_master` only references Phases 1-12).
    Pure consolidation, no new math.  See HANDOFF Part 2 §B3.
 
-2. **C3 ↔ α_3** — connect the explicit Sym(3) rep to
-   `Lib/Physics/Couplings/AlphaStrong.lean` to derive the strong
-   coupling from the gauge group structure.  See HANDOFF Part 2 §B4.
+2. **C3 ↔ α_3** — connect the explicit Sym(3) rep to the strong
+   coupling `α_3 = NS² − 1 = 8` in
+   `Lib/Physics/Couplings/SpectrumComplete.lean`, deriving it from
+   the gauge group structure.
 
 3. **Full SU(3) lift** — Sym(3) is the Weyl group of SU(3);
    extending to the full continuous group requires the 213-native

@@ -26,8 +26,7 @@ mis-housed in Lib).
 
 ## Namespace
 
-  - Top-level namespace: `E213.Lens.Cardinality` (path-aligned,
-    renamed from legacy `E213.Infinity` 2026-05-13 Session G).
+  - Top-level namespace: `E213.Lens.Cardinality` (path-aligned).
   - Some files still insert helpers into `E213.Theory.Internal.*`
     (e.g. `treeTower` helpers used by Countable/LensCardinality).
     These are Theory-ring Tree-machinery names re-opened for

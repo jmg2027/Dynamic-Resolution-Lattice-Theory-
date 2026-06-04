@@ -48,12 +48,6 @@ For `derive_conjugation_codomain α with_bases b₁ b₂` the namespace
 - `α.mul_comm`, `α.no_zero_div`, `α.conj_conj`, `α.conj_ne_id`,
   `α.conj_mul`
 - `α.conj_b₁`, `α.conj_b₂` — `conj` action on bases
-
-## Naming history
-
-This tactic was previously `derive_r4_codomain` referring to the
-"R4 axiom" in the deprecated R1–R5 judgment-game frame
-(`seed/AXIOM/99_history.md` §9).  Renamed per AXIOM.md §9.1 audit pass.
 -/
 
 namespace E213.Tactic

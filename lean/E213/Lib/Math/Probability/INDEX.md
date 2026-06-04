@@ -22,7 +22,7 @@ Atomic dyadic probability — σ-algebra 없음, σ-additivity 없음.
 - **Probability = atomic rational mass**: `num/den` with `0 < den`,
   `num ≤ den`.  No σ-algebra; no measure-theoretic completion.
 - **bit = dyadic bisection**: Information theory anchor — cf.
-  `Lib/Math/Information/Bit.lean`.
+  `Lib/Math/Probability/Information/Bit.lean`.
 - All Capstones `#print axioms` empty (∅-axiom standard).
 
 Blueprint: `blueprints/math/01_probability_213.md`.

@@ -1,8 +1,6 @@
 # Recursor Inventory
 
-CAT-3 per `research-notes/archive/metascan/G107_action_items_registry.md` §10.2.
-
-Distilled from G105 §2 (`research-notes/G105_namespace_shape_and_full_recursor_inventory.md`).
+Distilled from the recursor meta-scan.
 
 The full inductive-type recursor census across `lean/E213/`:
 **185 distinct inductive types** with recursor invocations,
@@ -82,9 +80,7 @@ Or re-derive from G102's atlas TSV.
 
 ## Cross-references
 
-  · `research-notes/G105_namespace_shape_and_full_recursor_inventory.md`
     §2 — full data + per-type breakdown.
-  · `research-notes/G90_ast_fold_motifs.md` — earlier 5-recursor
     pass (corrected by G105).
   · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2 — α/β/γ context for the
     Lean-stdlib substrate finding.

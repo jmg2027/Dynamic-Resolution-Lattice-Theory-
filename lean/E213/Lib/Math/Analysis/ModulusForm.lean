@@ -1,4 +1,4 @@
-import E213.Lib.Math.Real213.PhiAbCut
+import E213.Lib.Math.NumberSystems.Real213.PhiAbCut
 import E213.Lib.Math.Analysis.ResolutionQuantitative
 
 /-!
@@ -37,7 +37,7 @@ All ∅-axiom.
 namespace E213.Lib.Math.Analysis.ModulusForm
 
 open E213.Lib.Math.Analysis.ModulusMonoid (gradeToModulus madd mzero)
-open E213.Lib.Math.Real213 (AbCutSeq)
+open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
 
 /-! ## §1 — φ's resolving modulus, named -/
 
@@ -50,9 +50,9 @@ def phiModulus : Nat → Nat → Nat := fun _ k => 2 * k
     cut is constant (re-exported from `PhiAbCut.phi_cut_eventually_const`). -/
 theorem phiModulus_resolves (m k i j : Nat)
     (hi : i ≥ phiModulus m k) (hj : j ≥ phiModulus m k) :
-    E213.Lib.Math.Real213.PhiAbCut.phiAb.cut i m k
-    = E213.Lib.Math.Real213.PhiAbCut.phiAb.cut j m k :=
-  E213.Lib.Math.Real213.PhiAbCut.phi_cut_eventually_const m k i j hi hj
+    E213.Lib.Math.NumberSystems.Real213.PhiAbCut.phiAb.cut i m k
+    = E213.Lib.Math.NumberSystems.Real213.PhiAbCut.phiAb.cut j m k :=
+  E213.Lib.Math.NumberSystems.Real213.PhiAbCut.phi_cut_eventually_const m k i j hi hj
 
 /-! ## §2 — φ's modulus is outside the constant-grade class -/
 
@@ -99,8 +99,8 @@ theorem phiModulus_above_mzero (k : Nat) (hk : k ≥ 1) :
     the *form itself* separates reals (φ's linear `2k` ≠ any dyadic grade). -/
 theorem grade_class_is_proper :
     (∀ m k i j, i ≥ phiModulus m k → j ≥ phiModulus m k →
-       E213.Lib.Math.Real213.PhiAbCut.phiAb.cut i m k
-       = E213.Lib.Math.Real213.PhiAbCut.phiAb.cut j m k)
+       E213.Lib.Math.NumberSystems.Real213.PhiAbCut.phiAb.cut i m k
+       = E213.Lib.Math.NumberSystems.Real213.PhiAbCut.phiAb.cut j m k)
     ∧ (∀ E, ∃ m k, gradeToModulus E m k ≠ phiModulus m k) :=
   ⟨phiModulus_resolves, phiModulus_not_constant⟩
 

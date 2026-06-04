@@ -5,7 +5,7 @@ sub-tree; instead consolidates the equivalence content distributed
 across `Lens/Algebra/`, `Lens/Lattice/`, `Lens/Compose/`,
 `Lens/Universal/`, `Lens/EqPW.lean`, `Theory/Raw/Congruence.lean`,
 and the Möbius-orbit canonical-form chain in
-`Lib/Math/Real213/Mobius213{Equiv,SternBrocot}.lean`.
+`Lib/Math/NumberSystems/Real213/Mobius213{Equiv,SternBrocot}.lean`.
 
 ## Overview
 
@@ -132,8 +132,8 @@ trichotomy on α).
 This is *representational*, not a quotient type.  Classical
 ℤ-as-quotient `(ℕ × ℕ)/~` requires `Quot.sound`; 213's
 `SignedCut` keeps the pair representation and replaces equality
-with `signedEq` (`Lib/Math/SignedCut/Core/Equivalence.lean`,
-`theory/math/signed_cut.md`).  The "class" is the fiber; the
+with `signedEq` (`Lib/Math/NumberSystems/SignedCut/Core/Equivalence.lean`,
+`theory/math/numbersystems/signed_cut.md`).  The "class" is the fiber; the
 "quotient" is the image; neither needs Quot.sound to **state**,
 only to **propositionally collapse**.
 
@@ -184,7 +184,7 @@ Both **PURE**.
 
 Every Lens-kernel on cuts factors through a hierarchy of
 P-orbit projections.  The Möbius matrix `P = [[2, 1], [1, 1]]`
-(`Lib/Math/Mobius213.lean`) — trace `NS = 3`, determinant `1`,
+(`Lib/Math/Algebra/Mobius213.lean`) — trace `NS = 3`, determinant `1`,
 discriminant `d = 5`, eigenvalues `φ², 1/φ²` — generates the
 canonical-form ladder:
 
@@ -208,9 +208,7 @@ The reverse direction `mobiusEq → cutEq` requires Stern-Brocot
 coverage (every coprime pair reached as a finite mediant
 composition of `(0, 1)` and `(1, 0)`) plus scale-invariance for
 non-coprime pairs.  Coverage is the standard CS result about the
-Stern-Brocot tree; the Lean closure is open at this writing
-(`research-notes/archive/G139_mobius_equivalence_unification.md`
-Phase 2).
+Stern-Brocot tree; the Lean closure is open at this writing.
 
 **Why this is canonical, not optional**: the conditions for a
 relation to be an equivalence under iteration —
@@ -317,14 +315,13 @@ meaning"), not a statement shape.  See `STRICT_ZERO_AXIOM.md` and
     homomorphism reading)
   · `theory/lens/universal.md` — `universalLens` construction
     (the kernel-realisation direction)
-  · `theory/math/mobius_canonical_equivalence.md` — Möbius
+  · `theory/math/algebra/mobius_canonical_equivalence.md` — Möbius
     P-orbit detail at the mathematics layer
   · `seed/AXIOM/05_no_exterior.md` §5.4 — dichotomy-avoidance
     that frames the unification claim
   · `seed/AXIOM/10_encoding_costs.md` §10.1, §10.4 — encoding
     costs of quotient-vs-representation and the
     cmp-independence metatheorem
-  · `research-notes/archive/G139_mobius_equivalence_unification.md`
     — the source conjecture for the canonical-form ladder
   · `theory/lens/dirty_recovery_patterns.md` — methodology
     chapter: four named patterns for converting DIRTY claims

@@ -58,9 +58,8 @@ self-reference.
 Bool-style is liar-like.  The map `not : Bool → Bool` is its own
 inverse and admits no fixed point: `not(not(x)) = x` and
 `not(x) ≠ x`.  The self-reference loops without grounding —
-oscillation, not convergence.  This is the form recorded in
-`research-notes/archive/30_bool_is_liar_paradox.md` as the Bool
-liar isomorphism: any framework whose self-reference closes only
+oscillation, not convergence.  This is the **Bool liar
+isomorphism**: any framework whose self-reference closes only
 through `Bool`-level negation cannot complete in the way 213's
 residue does.
 
@@ -144,7 +143,7 @@ solved" as a falsification of the reference claim.  The reference
 claim is that every referent — proofs included — is a `Raw`; it is
 intact, and demonstrated even on an open conjecture: a proposition is
 written `Raw`-native and its closed cases are solved by exhibiting the
-proof-residue (`lean/E213/Lib/Math/Real213/MarkovUniquenessRaw.lean`:
+proof-residue (`lean/E213/Lib/Math/NumberSystems/Real213/MarkovUniquenessRaw.lean`:
 `markovMaxUnique_213_iff` writes Markov uniqueness with every number a
 `Lens.view` of `Raw`; `markovMaxUnique_213_solved_5` exhibits the
 inhabitant for `c = 5`).  What 213 does **not** claim is the
@@ -195,6 +194,30 @@ return to this section.
     readings of the same residue.  The separation is the
     imported frame, not a property of the residue.
 
+### The guard on this guide — so it does not become a shield
+
+This list dissolves *false* dichotomies — framings that smuggle an
+exterior.  It is **not** a license to dissolve every apparent limit by
+declaration.  No-exterior is a claim under test (§8 falsifiability), not a
+thought-terminating move, and treating it as one injects the bias that the
+framework is already correct.
+
+  - **Look for the internal handle first.**  An apparent ceiling ("this is
+    the lid / this needs something from outside") is most often an internal
+    object — a finite-stage map missing its target (non-surjection,
+    `Lib/Math/Foundations/CeilingSchema.lean`), a presentation artefact
+    (`rcut_rescale`), a forced fixed point.  Find it before declaring a wall.
+  - **If, after genuinely looking, no internal handle is there, say so
+    plainly.**  The honest "not reached from inside" is the falsifier doing
+    its work — the residue earns its reach by reproducing domain after
+    domain *while testable*, not by being shielded from the test.
+  - Both reflexes fail.  *Pre-emptive import* — declaring the wall before
+    looking inside — skips the internal engine.  *Reflexive suppression* —
+    declaring everything internal to avoid the test — makes no-exterior
+    unfalsifiable.  The stance is **internal-first while keeping "is this
+    really internal?" a live question** — neither collapse the tension into
+    "always import the exterior" nor into "everything closes from inside".
+
 ---
 
 ## §5.5 Self-completion — every pointing is already complete
@@ -242,7 +265,7 @@ The iterator is a Lens reading (a numerical one) of the residue,
 not a new structure added to the axiom.  The fixed point φ is
 the algebraic image of the closure.  P does not exit 213 and
 does not add structure: it is a ∅-axiom theorem at
-`lean/E213/Lib/Math/Mobius213.lean`, derived from the four
+`lean/E213/Lib/Math/Algebra/Mobius213.lean`, derived from the four
 clauses of §2.
 
 That the same φ shows up in unrelated-looking domains is the

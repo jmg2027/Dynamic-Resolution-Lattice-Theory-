@@ -28,7 +28,7 @@ inductive `Nat213` is an *ergonomic parallel* to the lens-derived
 form; it is not itself lens-derived.  The `.Bridge` module witnesses
 the iso to the Method A chain (`.Raw`); `Lens.leaves` then maps both
 to `Nat`.  Long-form discussion + open question on the future of
-this file in `research-notes/2026-05-18_lens_emergence_path.md` §4.2
+this file 
 and §6 question 5.
 -/
 

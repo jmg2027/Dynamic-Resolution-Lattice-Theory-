@@ -42,12 +42,12 @@ All actual proofs are already in the bridge — this file is a thin wrapper.
 namespace E213.Lib.Physics.AtomicBase.Time
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Sum.CutSum
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 open E213.Lib.Math.Analysis.PhysicsBridgeNT2 (nt2_step_count nt2_left_trajectory nt2_atomic_yields_dyadic_at)
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
 
 /-- NT sector = atomic 2-block.  Phase 2 explicitly assigns Lens label

@@ -1,9 +1,9 @@
 import E213.Lib.Math.Analysis.Series.CutSequence
-import E213.Lib.Math.Real213.Mul.CutAlgebraic
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutAlgebraic
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # Real213CutSeries: series convergence framework
 
@@ -18,9 +18,9 @@ SeriesCauchy: explicit modulus form.
 namespace E213.Lib.Math.Analysis.Series.CutSeries
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- **partialSum**: Σ_{i<n} s i, defined recursively. -/
 def partialSum (s : Nat → (Nat → Nat → Bool)) : Nat → (Nat → Nat → Bool)

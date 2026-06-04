@@ -33,9 +33,8 @@ N=2000; Measurement-Lens via CODATA/PDG):
 
 Integer skeletons closed at 0 axiom via `decide`.
 
-Consolidation note: formerly split into TripleCoupling
-(v1) and TripleCouplingV2 (H³ + self-interaction); merged here per
-`lean/E213/docs/CONSOLIDATION_PROTOCOL.md` (Basel/BoundTight pattern).
+Covers the base coupling decomposition together with the H³
+imbalance + α_GUT² self-interaction refinement.
 -/
 
 namespace E213.Lib.Physics.Couplings.TripleCoupling

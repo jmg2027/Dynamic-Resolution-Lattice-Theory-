@@ -3,9 +3,9 @@ import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 
 import E213.Lib.Math.Analysis.CauchyComplete
-import E213.Lib.Math.Real213.Core.CutPoset
-import E213.Lib.Math.Real213.Sum.CutSumTest
-import E213.Lib.Math.Real213.Core.Dyadic
+import E213.Lib.Math.NumberSystems.Real213.Core.CutPoset
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Dyadic
 /-!
 # Real213DyadicTrajectory: concrete bisection trajectories
 
@@ -26,10 +26,10 @@ Closed forms (by induction):
 namespace E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.CutPoset (cutEq cutLe)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq cutLe)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
-open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Dyadic (dyadicCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 
@@ -504,8 +504,7 @@ theorem alwaysTrue_le_alwaysFalse_at_limit :
     at (m=0, k=1): 0+ gives false ("0+ > 0/1"), while constCut 0 1
     gives true ("0 ≤ 0").
 
-    Structural inequality (canonical reading: `seed/RESOLUTION_LIMIT_SPEC.md`
-    §1 "Cauchy: structural inequality preservation"):
+    Structural inequality (Cauchy: structural inequality preservation):
 
     The trajectory object (`Cauchy seq → Cut`) and a putative "exact
     value" object (constant `Cut`) live at different types.  ZFC merges
@@ -544,9 +543,8 @@ def InfinitesimalGap (a b : Nat → Nat → Bool) : Prop :=
     cut) at every infinitesimal-precision query (0, k) for k ≥ 1.
     Formal expression of: "0+ is positive infinitesimal."
 
-    Reading per `seed/RESOLUTION_LIMIT_SPEC.md` §1: this gap is the
-    type distinction between trajectory and exact value, preserved by
-    ∅-axiom regime.  ZFC eliminates it via propext on the equivalence
+    This gap is the type distinction between trajectory and exact
+    value, preserved by the ∅-axiom regime.  ZFC eliminates it via propext on the equivalence
     `0+ ~ 0`; 213 does not have propext, so the gap remains visible
     as a definitional fact at every (0, k≥1) query. -/
 theorem zero_plus_gap_below_zero_exact :

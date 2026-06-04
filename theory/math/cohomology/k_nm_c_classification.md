@@ -107,7 +107,7 @@ codim_enr        = c · (per-layer codim)
 For K_{3,3}^{(c=2)}: per-layer codim = 1, total codim = 2.  For
 c = 3: 3.  General: `codim = c · 1 = c`.
 
-`theory/essays/disjoint_layers_as_direct_sum.md` exposits this
+`theory/essays/cohomology/disjoint_layers_as_direct_sum.md` exposits this
 direct-sum structure as the categorical reason c becomes a
 discriminator-count rather than a depth parameter.
 
@@ -195,7 +195,7 @@ starS_at_edge_idx_same_m :
 ```
 
 by cancelling the common `9·m.val` offset via `nat_decide_add_left_assoc{1,2}`
-(propext-free Nat cancellation in `Infrastructure/NatBeqHelpers.lean`).
+(propext-free Nat cancellation in `Meta/Nat/Beq213.lean`).
 After the offset is gone, the 6/9-edge β case-bash that closed the
 bottom-layer kill closes every layer's kill identically — the same
 proof tactic runs for every `m`.
@@ -204,7 +204,7 @@ The `9·m.val` cancellation is the **proof-level shadow** of the
 edge-disjointness direct-sum decomposition (`disjoint_layers_as_direct_sum.md`):
 every layer is a translate of layer 0 along the offset index, and
 the Nat.beq cancellation absorbs that translate.  See
-`theory/essays/multiplicity_layer_uniformity.md` for the
+`theory/essays/cohomology/multiplicity_layer_uniformity.md` for the
 structural reading.
 
 ### Surface-form caveat for the cancellation
@@ -298,7 +298,7 @@ representative.
 `starS_layer_disjoint` / `incidT_layer_disjoint`: at any layer
 m' ≠ m, the cocycle `starS i m` / `incidT j m` evaluates to
 false on every layer-m' edge.  Proof via 9-block disjointness
-(`nine_block_disjoint_op` in `NatBeqHelpers`): edge indices
+(`nine_block_disjoint_op` in `Beq213`): edge indices
 `9·a + r` for `a` the layer index and `r < 9` the in-layer offset
 form disjoint blocks, so distinct layers give distinct indices.
 
@@ -676,7 +676,7 @@ Stern-Brocot path while cup-product / cochain lift remains open.
       `pell_orbit_stern_brocot_extension_capstone`)
   · Infrastructure: `Cohomology/Infrastructure/BoolXORFold.lean`
     (graph-agnostic `psiNatPos`, `xor_pair_swap`),
-    `Infrastructure/NatBeqHelpers.lean` (Nat.beq + decide
+    `Meta/Nat/Beq213.lean` (Nat.beq + decide
     cancellation — `nat_beq_add_left{,_assoc1,_assoc2}`,
     `nat_add_left_cancel_pure`,
     `nat_decide_add_left{,_assoc1,_assoc2}`)
@@ -711,7 +711,7 @@ Stern-Brocot path while cup-product / cochain lift remains open.
 | `joint_psi_kernel_iff_primary` | same | bidirectional containment: joint ψ-kernel = InPrimary at every c |
 | `parametric_dual_span_unconditional` | same | ★★★ UNCONDITIONAL capstone: c ψ-discriminators SPAN dual at every c |
 | `codim_upper_bound_unconditional` | same | ★★★ UNCONDITIONAL `codim ≤ c` at every Stern-Brocot position |
-| `nine_block_disjoint` / `nine_block_disjoint_op` | `Infrastructure.NatBeqHelpers` | (9·a + r₁) ≠ (9·b + r₂) for a ≠ b, r₁, r₂ < 9 |
+| `nine_block_disjoint` / `nine_block_disjoint_op` | `Meta.Nat.Beq213` | (9·a + r₁) ≠ (9·b + r₂) for a ≠ b, r₁, r₂ < 9 |
 | `K43_all_S_row_deps_bundle` | `V43` | 6 S-row dependence relations at K_{4,3} |
 | `cross_graph_S_row_dependence_pattern` | `CrossGraphPattern` | Same dependence pattern at K_{3,3} + K_{4,3} (NT = 3) |
 | `state_class_NSscaled_pell_capstone` | `Mobius213K33StateClass` | K_{3,3}'s (3,3) on NS-scaled diagonal |
@@ -727,10 +727,8 @@ Stern-Brocot path while cup-product / cochain lift remains open.
 
 ## Research-note provenance
 
-  · `research-notes/archive/G143_c_multiplicity_hierarchy_refined.md`
     — c = 3 verification; (c−1)-codim falsification; Candidate A
     (richer 2-complex) closes positive
-  · `research-notes/archive/G145_c_counter_structural_theory.md` —
     multiplicity-layer interpretation; five structural insights;
     Stern-Brocot sampling thesis
 
@@ -760,8 +758,8 @@ Remaining open structural questions:
   · **Cochain-level mediant functor**: count-level Vandermonde
     closed; lifting to cochain-space + cup-product algebra
     (4 edge + 9 face sub-cells per mediant) is the next layer.
-    See `theory/essays/stern_brocot_as_universal_lattice.md`
-    and `theory/essays/vandermonde_mediant_counts.md`.
+    See `theory/essays/p_orbit/stern_brocot_as_universal_lattice.md`
+    and `theory/essays/cohomology/vandermonde_mediant_counts.md`.
   · **K_{13, 8} extension**: NS = 13 odd ∉ {3, 5}, NT = 8 even
     ∉ {4, 6} — both sides outside current family coverage.
     Closes either via `pairEnum13` + `IsLexFold` proof
@@ -792,12 +790,12 @@ python3 tools/scan_axioms.py \
     higher cohomology, Steenrod algebra, cup_i ladder
   · `theory/math/cohomology/bipartite.md` — parent overview
     (V32Betti, parametric Euler / b_1 family)
-  · `theory/math/mobius_canonical_equivalence.md` — Möbius P,
+  · `theory/math/algebra/mobius_canonical_equivalence.md` — Möbius P,
     Stern-Brocot mediant closure, Pseq orbits
-  · `theory/essays/c_counter_as_layer_count.md` — synthesis
+  · `theory/essays/cohomology/c_counter_as_layer_count.md` — synthesis
     essay on the c-counter reframing
-  · `theory/essays/disjoint_layers_as_direct_sum.md` —
+  · `theory/essays/cohomology/disjoint_layers_as_direct_sum.md` —
     categorical direct-sum reading of the enriched complex
-  · `theory/essays/stern_brocot_as_universal_lattice.md` —
+  · `theory/essays/p_orbit/stern_brocot_as_universal_lattice.md` —
     Stern-Brocot tree as the universal sample space for
     bipartite multigraphs

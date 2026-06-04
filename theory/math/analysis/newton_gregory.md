@@ -1,7 +1,7 @@
 # Newton–Gregory over ℤ — the faithful forward-difference reconstruction
 
 **Status**: Closed.  Source of truth (all ∅-axiom):
-`lean/E213/Lib/Math/Cauchy/NewtonGregory.lean` (41 PURE / 0 dirty), built on the
+`lean/E213/Lib/Math/Analysis/Cauchy/NewtonGregory.lean` (41 PURE / 0 dirty), built on the
 213-native `binom` and the divergence-ladder `diff`/`liftK` of
 `Cauchy/DepthPRecursive`, lifted to `ℤ` via `E213.Meta.Int213.Core`.
 

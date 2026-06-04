@@ -1,12 +1,12 @@
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Meta.Nat.Max213
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Bisection.CutContinuity
-import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Mul.CutPow
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutPow
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 /-!
 # DifferentiableAffine
@@ -24,12 +24,12 @@ f(x) = ax + b or f(x) = x² + ax + b.
 namespace E213.Lib.Math.Analysis.Differentiation.DifferentiableAffine
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Mul.CutPow (cutScale)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutPow (cutScale)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable

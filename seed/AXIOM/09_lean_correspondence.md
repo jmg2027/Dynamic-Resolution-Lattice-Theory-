@@ -107,7 +107,7 @@ For §6:
 
 For §5:
 
-  - `lean/E213/Lib/Math/Mobius213.lean` — §3.5, §5.6, §5.7
+  - `lean/E213/Lib/Math/Algebra/Mobius213.lean` — §3.5, §5.6, §5.7
     realisations of the Möbius matrix `[[2, 1], [1, 1]]`:
     Pell-unit invariants, characteristic polynomial, the
     frozen + dynamic dual reading.

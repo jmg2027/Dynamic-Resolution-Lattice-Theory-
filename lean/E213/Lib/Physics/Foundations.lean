@@ -5,6 +5,7 @@ import E213.Lib.Physics.Foundations.AtomicConstantsParametricFull
 import E213.Lib.Physics.Foundations.AtomicConstantsParametricFullIff
 import E213.Lib.Physics.Foundations.AtomicSuperCatalog
 import E213.Lib.Physics.Foundations.DrltZeroParameters
+import E213.Lib.Physics.Foundations.FalsifierRosterForced
 import E213.Lib.Physics.Foundations.FibonacciAtomic
 import E213.Lib.Physics.Foundations.FibonacciExtended
 import E213.Lib.Physics.Foundations.FiniteResonanceN

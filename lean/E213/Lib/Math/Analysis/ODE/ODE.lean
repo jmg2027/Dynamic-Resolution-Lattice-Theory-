@@ -1,12 +1,12 @@
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Bisection.CutBisection
-import E213.Lib.Math.Real213.Bisection.CutContinuity
-import E213.Lib.Math.Real213.Mul.CutPow
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumOne
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutPow
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumOne
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 /-!
 # 213-native ordinary differential equations — propositional solutions
@@ -38,16 +38,16 @@ capstone bundles dropped.)
 namespace E213.Lib.Math.Analysis.ODELinear
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Mul.CutPow (cutScale)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutPow (cutScale)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances (cutScaleIsDifferentiable)
-open E213.Lib.Math.Real213.Sum.CutSumOne (cutSum_const_zero)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumOne (cutSum_const_zero)
 
 /-- Linear function `y = ax + b` (constant intercept). -/
 def linearWithIntercept (a b : Nat) :
@@ -73,11 +73,11 @@ end E213.Lib.Math.Analysis.ODELinear
 namespace E213.Lib.Math.Analysis.ODECatalog
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Bisection.CutBisection (cutHalf)
-open E213.Lib.Math.Real213.Mul.CutPow (cutScale)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection (cutHalf)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutPow (cutScale)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (idIsDifferentiable constIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
@@ -114,9 +114,9 @@ end E213.Lib.Math.Analysis.ODECatalog
 namespace E213.Lib.Math.Analysis.ODESecondOrder
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable constIsDifferentiable)
 

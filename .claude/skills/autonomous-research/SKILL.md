@@ -110,10 +110,18 @@ is missing, that's a candidate target.
 
 ### Tier-1 vs Tier-3 discipline
 
-New ideas / observations / half-baked thoughts → `research-notes/G##`
-(volatile, G-prefix OK).  Closed narrative → `theory/<mirror>/<chapter>.md`
-(stable, descriptive name).  See `CLAUDE.md` "Three-tier discipline"
-and `theory/PROMOTION_CRITERIA.md`.
+New ideas / observations / half-baked thoughts → `research-notes/` (volatile,
+G-prefix OK).  Closed narrative → `theory/<mirror>/<chapter>.md` (stable,
+descriptive name).  See `CLAUDE.md` "Three-tier discipline" and
+`theory/PROMOTION_CRITERIA.md`.
+
+**Open frontiers go to `frontiers/`.**  Per `PROCESS.md` frontier-recording
+rule, any *open problem / conjecture / deferred direction* you discover or
+leave behind — including the "could try X next" at the end of an iteration —
+is recorded under `research-notes/frontiers/<topic>/` and registered in
+`frontiers/INDEX.md`, not just dropped in a commit message or HANDOFF.  A
+new direction with no obvious topic group starts a standalone note at the
+root of `frontiers/`.
 
 ## Workflow per invocation
 
@@ -123,7 +131,9 @@ and `theory/PROMOTION_CRITERIA.md`.
 2. Tier B — pick 1–3 stale-doc items; fix
 3. Tier C — pick 1–3 theorem candidates; prove + commit
 4. Tier D — if context permits, develop one idea further
-5. Update HANDOFF.md, push to branch
+5. Record any open direction surfaced this iteration in
+   `research-notes/frontiers/` (+ `frontiers/INDEX.md`)
+6. Update HANDOFF.md, push to branch
 ```
 
 ## Branch discipline
@@ -140,8 +150,11 @@ If context is getting tight (you can tell because tool calls are
 recapping or you're losing track of earlier file states):
 
   - **STOP doing new work**.  Commit what's done.
+  - Record the in-progress thread + any open direction as a
+    `research-notes/frontiers/<topic>/` note (register in
+    `frontiers/INDEX.md`) — the durable home for the agenda.
   - Write a thorough HANDOFF.md entry naming exactly which thread
-    was last in progress.
+    was last in progress (cite the frontier note).
   - Push.
   - Reply to the user with a 5-line summary of the iteration.
 

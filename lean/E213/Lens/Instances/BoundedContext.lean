@@ -8,7 +8,7 @@ bounded query window** [0, N] — outside the window doesn't matter.
 
 Concrete realisation:
 
-  - For `cutMulOuter cx cy k m m2Bound n` (E213.Lib.Math.Real213.Mul.CutMul),
+  - For `cutMulOuter cx cy k m m2Bound n` (E213.Lib.Math.NumberSystems.Real213.Mul.CutMul),
     the relevant query window for `(m, k)` evaluation is `n ≤
     (m+1)*(k+1)`.  `cutMulOuter_congr` says: if `cx`, `cy` agree
     pointwise on this window, the outer aggregator gives identical

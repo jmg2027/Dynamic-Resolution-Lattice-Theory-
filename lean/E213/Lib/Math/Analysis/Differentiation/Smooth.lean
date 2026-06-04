@@ -1,15 +1,15 @@
 import E213.Meta.Nat.Max213
-import E213.Lib.Math.Real213.Core.CutFnData
-import E213.Lib.Math.Real213.Core.Dyadic
-import E213.Lib.Math.Real213.Sum.CutSumDetermined
-import E213.Lib.Math.Real213.Mul.CutMulDetermined
+import E213.Lib.Math.NumberSystems.Real213.Core.CutFnData
+import E213.Lib.Math.NumberSystems.Real213.Core.Dyadic
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulDetermined
 
-import E213.Lib.Math.Real213.Bisection.CutBisection
-import E213.Lib.Math.Real213.Bisection.CutContinuity
-import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Mul.CutPow
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutPow
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # Real213IsSmooth: smoothness as resolution-compression filter
 
@@ -50,17 +50,17 @@ modulus + its linearity certificate pointwise.
 
 namespace E213.Lib.Math.Analysis.Differentiation.Smooth
 
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Bisection.CutBisection (cutHalf cutMid)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulOuter)
-open E213.Lib.Math.Real213.Mul.CutPow (cutPow cutScale)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData idLDD constLDD cutScaleLDD cutHalfLDD composeLDD maxRange maxRange_ge ldd_branch_via_maxRange ldd_branch_max_left ldd_branch_max_right)
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
-open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
-open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection (cutHalf cutMid)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul cutMulOuter)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutPow (cutPow cutScale)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSumAux)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.CutFnData (LocallyDeterminedData idLDD constLDD cutScaleLDD cutHalfLDD composeLDD maxRange maxRange_ge ldd_branch_via_maxRange ldd_branch_max_left ldd_branch_max_right)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined (cutSumAux_congr)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 
 /-- **IsSmooth** : differentiability as a constructive filter.
 

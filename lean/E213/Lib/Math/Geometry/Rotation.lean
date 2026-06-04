@@ -1,7 +1,7 @@
 import E213.Lens.Number
-import E213.Lib.Math.Mobius213OneAsGlue
-import E213.Lib.Math.Mobius213
-import E213.Lib.Math.Topology.EulerChi
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213
+import E213.Lib.Math.Geometry.Topology.EulerChi
 
 /-!
 # Lib.Math.Geometry.Rotation — 213-native rotation/spiral
@@ -132,7 +132,7 @@ theorem mobius_p3_plus_inv_eq_seven_p :
 -- ═══ -7 LIVES IN TOPOLOGY: Euler char of K_{3,2}^{(2)} ═══
 
 /-- ★★★ MINUS-7 IS THE EULER CHARACTERISTIC of K_{3,2}^{(2)}!
-    Connects to existing `Lib/Math/Topology/EulerChi.lean`.
+    Connects to existing `Lib/Math/Geometry/Topology/EulerChi.lean`.
 
     χ(K_{3,2}^{(2)}) = V - E = 5 - 12 = -7
 
@@ -140,8 +140,8 @@ theorem mobius_p3_plus_inv_eq_seven_p :
     with 5 vertices = d and 12 edges = NS · NT · 2.  Its Euler
     characteristic is the NEGATIVE 7 user was looking for. -/
 theorem minus_seven_is_k32_euler_char :
-    E213.Lib.Math.Topology.EulerChi.chi_K_32_c2 = -7 :=
-  E213.Lib.Math.Topology.EulerChi.chi_K_32_c2_eq
+    E213.Lib.Math.Geometry.Topology.EulerChi.chi_K_32_c2 = -7 :=
+  E213.Lib.Math.Geometry.Topology.EulerChi.chi_K_32_c2_eq
 
 /-- ★★★★★ TRIPLE-7 SYNTHESIS:
     - +7 (Lucas L_2 = P² + P^(-2) trace)
@@ -153,11 +153,11 @@ theorem minus_seven_is_k32_euler_char :
 theorem triple_seven_synthesis :
     (5 : Int) + 2 = 7 ∧
     (2 : Nat)^3 - 1 = 7 ∧
-    E213.Lib.Math.Topology.EulerChi.chi_K_32_c2 = -7 := by
+    E213.Lib.Math.Geometry.Topology.EulerChi.chi_K_32_c2 = -7 := by
   refine ⟨?_, ?_, ?_⟩
   · decide
   · decide
-  · exact E213.Lib.Math.Topology.EulerChi.chi_K_32_c2_eq
+  · exact E213.Lib.Math.Geometry.Topology.EulerChi.chi_K_32_c2_eq
 
 -- ═══ Lucas L_0 = NT, L_1 = NS — atomicity in Lucas sequence ═══
 

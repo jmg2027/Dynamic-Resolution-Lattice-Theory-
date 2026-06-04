@@ -69,15 +69,7 @@ Meta/    37 files (ring-independent) — Lean 4 bridge.
 | Lib/Physics/| 165| 213-native physics (17 sub-clusters)     | mixed |
 | Meta/      | 37  | Lean 4 bridge (tactics + typeclasses)    | mostly 0 |
 
-Total: 1114 .lean files.
-
-> **Architectural history**: Pre-2026-05-12 layers were named
-> Kernel/Firmware/Hypervisor (OS-metaphor) and there was an
-> orchestration ring `OS/`; both renamings + the OS/ dissolution
-> are in `git log`.  Pre-2026-05-13 `App/` directory was also
-> dissolved (its sole file `App/Simplex.lean` moved to
-> `Lib/Math/Combinatorics/Simplex5.lean`).  Current spec is in
-> `ARCHITECTURE.md`.
+Total: 1114 .lean files.  Layer spec: `ARCHITECTURE.md`.
 
 ## Capstone navigation
 
@@ -98,12 +90,12 @@ Top achievements:
 | "What does DRLT compute?"     | `Lib/Physics/Capstones/PureAtomicObservables.lean` + `CAPSTONE_INDEX.md` |
 | "How does α_em derive?"       | `Lib/Physics/AlphaEM/` chain |
 | "Where is the config count?"   | `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (parametric, no privileged level) |
-| "Why finite N only?"          | `Lib/Math/Real213/Bisection/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` |
+| "Why finite N only?"          | `Lib/Math/NumberSystems/Real213/Bisection/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` |
 | "What are the atomic primitives?" | `Theory/Atomicity/Five.lean` + `Theory/Atomicity/PairForcing.lean` |
 | "How is Term ring 0-axiom?"   | `Term/` 12 files + `tools/kernel_regress.sh` + `STRICT_ZERO_AXIOM.md` |
 | "Cohomology classes?"         | `Lib/Math/Cohomology/` (94 files in 11 sub-clusters) + `rust-engine/docs/cohomology-classes.md` |
 | "Lens framework?"             | `Lens/LensCore.lean` + 9 sub-cluster umbrellas under `Lens/` + `Lens/Universal/Witnesses/` |
-| "Universal-Lens witnesses?"   | `Lens/Universal/Witnesses/` (moved from Meta 2026-05-13) |
+| "Universal-Lens witnesses?"   | `Lens/Universal/Witnesses/` |
 | "Raw-native number types?"    | `Lens/Number/Nat213/{Raw,Core,Chain,Peano,Bridge,ChartGeneral}.lean` + `Lens/Number/Nat213/Tower/{NatPairToInt,NatPairToQPos,NatTripleToZ2}.lean` |
 | "Theoretical architecture?"   | `ARCHITECTURE.md` (this directory) |
 
@@ -150,18 +142,5 @@ Total: 1127 .lean files.
 spec, Lib/Math + Lib/Physics use Lens API only — they don't reach
 into Theory or Term directly.)
 
-Architecture audits (completed):
-  - 4-ring + Meta finalised 2026-05-12 (rename of Kernel→Term,
-    Firmware→Theory, Hypervisor→Lens; OS/ dissolved earlier).
-  - App/ dissolved 2026-05-13 (Simplex.lean → Lib/Math/Combinatorics).
-  - Universal-Lens witnesses moved Meta → Lens 2026-05-13.
-  - NatHelpers moved Lib/Math → Meta/Nat 2026-05-13.
-  - Term/Tactic moved to Meta/Tactic 2026-05-12.
-  - Ring-discipline (Term ⊆ Theory ⊆ Lens ⊆ Lib + Meta any-ring)
-    hook-enforced at edit-time.
-
-## Branch
-
-  - Current: `claude/encapsulate-ring-structure-CLeEG` —
-    Lean 4 native encapsulation pass (private + protected on
-    framework rings).  See `HANDOFF.md`.
+Ring-discipline (Term ⊆ Theory ⊆ Lens ⊆ Lib + Meta any-ring) is
+hook-enforced at edit-time.

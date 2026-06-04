@@ -58,7 +58,7 @@ research-notes/hodge/ (6 G-notes + INDEX)
   → research-notes/archive/hodge/
   + theory/math/cohomology/hodge_conjecture.md (new, 253 lines)
   + 12 Lean docstrings updated via bulk sed
-  + lean/E213/Lib/Math/HodgeConjecture/INDEX.md "Companion narrative" added
+  + lean/E213/Lib/Math/Cohomology/HodgeConjecture/INDEX.md "Companion narrative" added
 ```
 
 ### Pitfalls
@@ -170,13 +170,13 @@ lean/E213/Lib/Physics/Symmetry/ (24 files; INDEX was stale at 6 files!)
 ### Example trace (α_em, commit `a3f2b585`)
 
 ```
-research-notes/G35_chiral_cup_ring_catalog.md (stays active, 17 domains)
+the 213-Algebra catalog (17 domains, stays active)
   + §0.5 Promotion status (new) — tracks C1/C5 (→ chapter), C3 (→ other), C2/C4/C6
 lean/E213/Lib/Physics/AlphaEM/ (23 files)
   → theory/physics/alpha_em/precision_derivation.md (new, 261 lines)
   + Open frontier: C1 Step 5+, C5 Step 7+ (within chapter)
   + AlphaEM/INDEX.md narrative pointer added
-  + G35 citations in Lean docstrings UNCHANGED (still valid)
+  + source-note citations decoupled per PROCESS.md sink rule
 ```
 
 ### Pitfalls

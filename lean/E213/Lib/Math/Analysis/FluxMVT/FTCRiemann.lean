@@ -4,11 +4,11 @@ import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness
 import E213.Lib.Math.Analysis.ClassicCalc.ClassicCalcMid
 import E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Bisection.CutContinuity
-import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Mul.CutMulOne
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableMid
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
@@ -49,9 +49,9 @@ dropped.)
 namespace E213.Lib.Math.Analysis.FluxMVT.FTCRiemann
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
   (riemannSampleSum riemannSampleSum_constCut riemannSampleSum_constCut_at)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)
@@ -87,9 +87,9 @@ end E213.Lib.Math.Analysis.FluxMVT.FTCRiemann
 namespace E213.Lib.Math.Analysis.FTCRiemannSquare
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
@@ -99,7 +99,7 @@ open E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable (IsDifferentiable)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
-open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne (cutMul_one_one_at)
 open E213.Lib.Math.Analysis.FluxMVT.FluxFTCPolynomial.FluxCut
   (fluxAlong_square_unitBracket_pure fluxAlong_square_unitBracket_forward_at)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_pointwise)
@@ -125,8 +125,8 @@ end E213.Lib.Math.Analysis.FTCRiemannSquare
 namespace E213.Lib.Math.Analysis.FTCRiemannMid
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable (idIsDifferentiable)
@@ -146,8 +146,8 @@ end E213.Lib.Math.Analysis.FTCRiemannMid
 namespace E213.Lib.Math.Analysis.FTCRiemannGeneric
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable (IsDifferentiable)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket.DyadicBracket (midCut)

@@ -1,4 +1,5 @@
 import E213.Lib.Physics.Simplex.Counts
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 
 /-!
 # Koide formula — atomic structural identity
@@ -99,5 +100,28 @@ theorem koide_falsifier :
     -- Anchors
     ∧ NS = 3 ∧ NT = 2 := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-! ## Koide's atoms are the determinant's atoms (one forced pair, three readings) -/
+
+/-- ★★★ **Koide's two atoms are the determinant's two atoms.**  Koide's ratio `Q = NT/NS = 2/3`
+    and the Möbius convergent determinant `det P = NS − NT = 1` are two readings of the *same*
+    forced pair `(NS, NT) = (3, 2)`: the **ratio** of the atoms gives Koide's `2/3`
+    (cross-multiplied `NT·3 = NS·2`), their **difference** gives the residue unit
+    `det P = NS − NT = 1` (`mobius_det_eq_ns_minus_nt`, `ns_minus_nt_is_one`), and their
+    **product** `NS·NT = 6` (`ns_nt_product`) is the `K_{3,2}` edge count common to both.  So
+    Koide's `2/3` is not an independent constant — its numerator and denominator are the temporal
+    and spatial vertex counts whose difference is the determinant unit.  One pair, three readings
+    (ratio / difference / product); the same two atoms, no forced map. -/
+theorem koide_atoms_are_det_atoms :
+    (NS = 3 ∧ NT = 2)
+    ∧ (NT * 3 = NS * 2)                                   -- ratio: Koide Q = NT/NS = 2/3
+    ∧ ((2 : Int) * 1 - 1 * 1 = (NS : Int) - (NT : Int))   -- det P = NS − NT (mobius_det_eq_ns_minus_nt)
+    ∧ (NS - NT = 1)                                       -- difference: the residue unit
+    ∧ (NS * NT = 6) :=                                    -- product: K_{3,2} edge count
+  ⟨⟨by decide, by decide⟩,
+   by decide,
+   E213.Lib.Math.Algebra.Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt,
+   E213.Lib.Math.Algebra.Mobius213OneAsGlue.ns_minus_nt_is_one,
+   E213.Lib.Math.Algebra.Mobius213OneAsGlue.ns_nt_product⟩
 
 end E213.Lib.Physics.Foundations.KoideFormula

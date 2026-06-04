@@ -101,4 +101,4 @@ Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
     point) and num_n/den_n → φ (Pell convergence) — same residue
     under two Lens readings.  Pell-unit invariant
     num_n · den_{n+1} − num_{n+1} · den_n = -1 across all
-    convergent layers.  See `lean/E213/Lib/Math/Mobius213.lean`.
+    convergent layers.  See `lean/E213/Lib/Math/Algebra/Mobius213.lean`.

@@ -8,12 +8,10 @@ points where a naïve formulation would call `funext` / `propext` /
 relations stated pointwise.
 
 See also:
-  - `research-notes/archive/universe_chain/G84_closed_form_pattern_unification.md`
-    (探索 note)
   - `lean/E213/Lens/Number/Nat213/*` and
     `lean/E213/Lens/Bool213/*` (Lean implementation, post-Option-C
     layout)
-  - `lean/E213/Lib/Math/Real213/ChainToCut.lean` (bridge)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ChainToCut.lean` (bridge)
 
 ## 3-domain meta-pattern
 
@@ -42,9 +40,7 @@ The Raw-side projection `leavesCountRaw` is absent.  ℕ₊ is the *image* of
 Raw-internal projection.  Conceptually this is the same
 `projection r ∈ image` shape, but the codomain has moved from Raw
 to Nat — the Raw side carries only the chart representative
-(`Raw.numeral`).  See
-`research-notes/2026-05-18_lens_emergence_path.md` for the full
-reasoning.
+(`Raw.numeral`).
 
 ## ChainToCut bridge — ℕ₊ chain ↔ Real213 cut
 
@@ -62,7 +58,7 @@ deleted).
 | `cutMax` (LUB) | `cutLe_cutMax_chainToCut_iff` |
 | `cutMin` (GLB) | `cutLe_cutMin_chainToCut_iff` |
 
-Lean: `lean/E213/Lib/Math/Real213/ChainToCut.lean`.
+Lean: `lean/E213/Lib/Math/NumberSystems/Real213/ChainToCut.lean`.
 
 ## Bridge composition
 
@@ -147,7 +143,7 @@ These need either deeper trick development or a staged Lens-equality refactor:
 The Lens-output function space of 213 contains the reals as a named
 subspace — no Bishop-style piecewise construction needed.  Companion
 to the Real213-Analysis deep-dive reading and
-`Lib/Math/Real213/Core/AsLensOutput.lean` (formal carrier).
+`Lib/Math/NumberSystems/Real213/Core/AsLensOutput.lean` (formal carrier).
 
 ### The doctrinal claim
 
@@ -178,7 +174,7 @@ free**.  Operations are then named, not invented.
 
 ### Operational realisation
 
-`lean/E213/Lib/Math/Real213/Core/AsLensOutput.lean`:
+`lean/E213/Lib/Math/NumberSystems/Real213/Core/AsLensOutput.lean`:
 
 ```lean
 /-- Reals as cuts.  Lens-output realisation — no construction needed,
@@ -228,10 +224,8 @@ an external Bishop API to compare against, which is outside the
 
 ### Companion pointers
 
-  · `lean/E213/Lib/Math/Real213/Core/AsLensOutput.lean` — formal
+  · `lean/E213/Lib/Math/NumberSystems/Real213/Core/AsLensOutput.lean` — formal
     carrier.
-  · `seed/RESOLUTION_LIMIT_SPEC.md` — relates `RealAsLensOutput` to
-    the finite-N_U bound (cuts evaluated at `m, k ≤ N_U`).
   · `LESSONS_LEARNED.md` Pattern #17 — framework-internal
     subsumption.
   · `catalogs/cross-domain-identifications.md` — math ↔ physics

@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Fractal.ConfigCountModular
-import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
+import E213.Lib.Math.NumberTheory.DyadicFSM.Forward.ForwardPeriodicity
 import E213.Meta.Nat.MulMod213
 import E213.Meta.Tactic.NatHelper
 
@@ -34,7 +34,7 @@ namespace E213.Lib.Math.Cohomology.Fractal.EventualPeriodicity
 
 open E213.Lib.Math.Cohomology.Fractal.ConfigCount (configCountD)
 open E213.Lib.Math.Cohomology.Fractal.ConfigCountModular (configCountD_mod_pure)
-open E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
+open E213.Lib.Math.NumberTheory.DyadicFSM.Forward.ForwardPeriodicity
   (pigeonhole_collision collTest_imp_val_eq)
 open E213.Meta.Nat.MulMod213 (mul_mod_left_pure)
 open E213.Tactic.NatHelper (sub_pos_of_lt sub_add_cancel add_sub_of_le

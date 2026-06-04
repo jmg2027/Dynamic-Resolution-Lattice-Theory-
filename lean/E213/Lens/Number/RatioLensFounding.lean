@@ -1,5 +1,5 @@
-import E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 
 /-!
 # RatioLensFounding — `ℚ` is the ratio rung, and its coprimality is `det P = NS − NT = 1`
@@ -27,8 +27,8 @@ reflexive and symmetric below).
 
 namespace E213.Lens.Number.RatioLensFounding
 
-open E213.Lib.Math.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_universal)
-open E213.Lib.Math.Mobius213OneAsGlue (ns_minus_nt_is_one)
+open E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_universal)
+open E213.Lib.Math.Algebra.Mobius213OneAsGlue (ns_minus_nt_is_one)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
 /-- The ratio identity: `p₁/p₂ = q₁/q₂` is cross-multiplication `p₁·q₂ = q₁·p₂`. -/

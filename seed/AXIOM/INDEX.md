@@ -45,9 +45,6 @@ device classification, axiom cross-check) lives at
 
   - `seed/INDEX.md` — standalone entry point.
   - `seed/ORIGIN.md` — DRLT origin narrative.
-  - `seed/RESOLUTION_LIMIT_SPEC.md` — parametric `configCount`
-    family spec.  Wins over any AXIOM/ chapter on resolution-
-    limit topics.
   - `seed/NOTATION.md` — symbol conventions.
   - `seed/CLOSED_FORM_SPEC.md` — closed-form catalogue +
     Bishop subsumption.
@@ -64,5 +61,5 @@ and iterator `P(x) = (2x + 1) / (x + 1)`.  Canonical treatment:
 §3.5.  §5.6 records the dual reading (frozen fixed point +
 dynamic convergence) as the concrete model of self-reference.
 
-Companion: `lean/E213/Lib/Math/Mobius213.lean` (∅-axiom
+Companion: `lean/E213/Lib/Math/Algebra/Mobius213.lean` (∅-axiom
 theorems: discriminant, trace, det, Pell-Fib recurrences).

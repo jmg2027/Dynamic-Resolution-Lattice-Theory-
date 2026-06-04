@@ -1,8 +1,8 @@
-import E213.Lib.Math.Real213.Bisection.CutBisection
-import E213.Lib.Math.Real213.Core.Dyadic
-import E213.Lib.Math.Real213.Core.CutFnData
-import E213.Lib.Math.Real213.Sum.CutSumOne
-import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection
+import E213.Lib.Math.NumberSystems.Real213.Core.Dyadic
+import E213.Lib.Math.NumberSystems.Real213.Core.CutFnData
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumOne
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Tactic.Pow213
 
@@ -54,13 +54,13 @@ grade, etc.) but don't fit `IsResolutionShift`.
 namespace E213.Lib.Math.Analysis.ResolutionShift
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
-open E213.Lib.Math.Real213.Bisection.CutBisection (cutHalf cutMid)
-open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData composeLDD cutHalfLDD)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
-open E213.Lib.Math.Real213.Sum.CutSumOne (cutSum_self_at)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Core.Dyadic (dyadicCut)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection (cutHalf cutMid)
+open E213.Lib.Math.NumberSystems.Real213.Core.CutFnData (LocallyDeterminedData composeLDD cutHalfLDD)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumOne (cutSum_self_at)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
 
 open E213.Tactic.Pow213 renaming one_le_two_pow → one_le_two_pow_local
 

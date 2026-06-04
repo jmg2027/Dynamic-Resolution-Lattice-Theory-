@@ -1,6 +1,6 @@
 import E213.Lens.Number.Nat213.Tower.NatPairToInt
-import E213.Lib.Math.Mobius213OneAsGlue
-import E213.Lib.Math.Cauchy.EllipticPeriodicTier
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
+import E213.Lib.Math.Analysis.Cauchy.EllipticPeriodicTier
 
 /-!
 # The founding invert-move is the elliptic floor of the discriminant dial
@@ -25,8 +25,8 @@ iteration that stays the pure period-2 swap.
 
 namespace E213.Lens.Number.FoundingDynamicBridge
 
-open E213.Lib.Math.Cauchy.EllipticPeriodicTier (comp comp_eq_S comp_det comp_disc)
-open E213.Lib.Math.Real213.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.Analysis.Cauchy.EllipticPeriodicTier (comp comp_eq_S comp_det comp_disc)
+open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
 open E213.Lens.Number.Nat213.Tower.NatPairToInt (npairToInt swap_realizes_negation
   zero_unique_negation_fixed)
 

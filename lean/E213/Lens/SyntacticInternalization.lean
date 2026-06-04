@@ -6,7 +6,7 @@ import E213.Meta.Tactic.List213
 # Lens.SyntacticInternalization — meta-syntax glyphs as Raws (§9.4 prototype)
 
 Per `seed/AXIOM/06_lens_readings.md` §6.4 and
-`research-notes/2026-05-18_lens_emergence_path.md` §2.7.
+
 
   - **L2**: 7-glyph alphabet, each glyph → a distinct Raw; the
     meta-meta-… cascade halts at L2.

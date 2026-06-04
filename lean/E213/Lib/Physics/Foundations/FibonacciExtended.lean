@@ -1,7 +1,7 @@
 import E213.Lib.Physics.Foundations.FibonacciAtomic
 import E213.Lib.Physics.Atomic.Screening
 import E213.Lib.Physics.AlphaEM.Bare
-import E213.Lib.Math.Mobius213
+import E213.Lib.Math.Algebra.Mobius213
 
 /-!
 # Fibonacci extension — F_8, F_9 atomic appearances (0 axioms)
@@ -106,23 +106,23 @@ covering F_1 … F_16.  Cf. §3.4 / §8.7.
     a single Möbius-Fibonacci identity. -/
 theorem mobius_fibonacci_bridge :
     -- Pell-denominator k ↔ Fibonacci 2k+1 (8 layers, odd indices)
-    (E213.Lib.Math.Mobius213.P_denominator.seq 0 = (fib 1 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 1 = (fib 3 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 2 = (fib 5 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 3 = (fib 7 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 4 = (fib 9 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 5 = (fib 11 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 6 = (fib 13 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_denominator.seq 7 = (fib 15 : Int))
+    (E213.Lib.Math.Algebra.Mobius213.P_denominator.seq 0 = (fib 1 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_denominator.seq 1 = (fib 3 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_denominator.seq 2 = (fib 5 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_denominator.seq 3 = (fib 7 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_denominator.seq 4 = (fib 9 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_denominator.seq 5 = (fib 11 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_denominator.seq 6 = (fib 13 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_denominator.seq 7 = (fib 15 : Int))
     -- Pell-numerator k ↔ Fibonacci 2k+2 (8 layers, even indices)
-    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 0 = (fib 2 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 1 = (fib 4 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 2 = (fib 6 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 3 = (fib 8 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 4 = (fib 10 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 5 = (fib 12 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 6 = (fib 14 : Int))
-    ∧ (E213.Lib.Math.Mobius213.P_numerator.seq 7 = (fib 16 : Int)) := by
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_numerator.seq 0 = (fib 2 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_numerator.seq 1 = (fib 4 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_numerator.seq 2 = (fib 6 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_numerator.seq 3 = (fib 8 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_numerator.seq 4 = (fib 10 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_numerator.seq 5 = (fib 12 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_numerator.seq 6 = (fib 14 : Int))
+    ∧ (E213.Lib.Math.Algebra.Mobius213.P_numerator.seq 7 = (fib 16 : Int)) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
           ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 

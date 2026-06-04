@@ -1,9 +1,9 @@
-import E213.Lib.Math.Real213.Mul.CutPow
-import E213.Lib.Math.Real213.Mul.CutInv
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutPow
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutInv
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # Real213CutRiemann: Riemann integration algorithm
 
@@ -23,9 +23,9 @@ Cut-level form of Riemann integration — partition + sum + limit.
 namespace E213.Lib.Math.Analysis.Integration.CutRiemann
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- **Riemann sum at sample points**: Σ_{i=0}^{n-1} f(xs i).
 Finite sum over given sample sequence xs.  Δx scaling is

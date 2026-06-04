@@ -137,6 +137,31 @@ constructive realizers of the one non-surjection.  Honest residue: universal Can
 (`CauchyLensFounding`, a positive convergence) joins only once `∀ i, convergentᵢ ≠ phiCut` is
 supplied.  Floor: one theorem.  Ceiling: one phenomenon — the residue outside every view's image.
 
+## The dial's root — Cayley–Hamilton and the two-reflection trichotomy
+
+The discriminant `disc = tr² − 4·det` is not primitive; it is the discriminant of one identity.
+Every `2×2` matrix satisfies its own characteristic equation, `M² = tr(M)·M − det(M)·I`
+(`Mat2CayleyHamilton.cayley_hamilton`, proved generally by `ring_intZ`), whose scalar shadow is
+`λ² − tr·λ + det = 0` with discriminant exactly `tr² − 4·det`
+(`Mat2CayleyHamilton.char_poly_discriminant`).  So **Cayley–Hamilton is the primitive; the
+elliptic/parabolic/hyperbolic trichotomy is the sign of its discriminant** — the dial is the
+characteristic discriminant.  Each generator's defining relation is the `(tr, det)` specialization:
+`S² = −I` (`0,1`), `U² = U − I` (`1,1`), the parabolic `T² = 2T − I` (`2,1`), the golden boost
+`G² = 3G − I` (`3,1`).
+
+The three `det = 1` faces share one geometric frame: **product of two reflections**
+(`ParabolicTranslation.sl2_trichotomy_as_two_reflections`).  Every `SL(2,ℤ)` element is `A·B` with
+`A, B` involutive reflections (`det = −1`), and `tr² − 4` selects which: elliptic `S = N·R`
+(`disc < 0`, intersecting mirrors → rotation, `FoldReflections`), parabolic `T = Aₚ·Bₚ`
+(`disc = 0`, parallel mirrors → translation, the difference-Lens depth-1 rung), hyperbolic
+`G = A·B` (`disc > 0`, ultraparallel mirrors → boost).  The two elliptic generators then give the
+modular group: `S` (projective order 2, the 영무한대 swap of the folds) and `U` (projective order 3,
+the Eisenstein 3-cycle `∞↦0↦−1↦∞`) realize `PSL(2,ℤ) = ℤ₂ * ℤ₃`
+(`EllipticCycleFixtures.elliptic_generators_are_two_and_three`).  φ lives on the boost
+(`|tr| > 2`); π lives on the rotation (`|tr| < 2`) taken to an irrational angle — where the periodic
+floor fails and the continued fraction goes non-holonomic.  Full narrative:
+`theory/lens/zero_infinity_and_two_folds.md`.
+
 ## Holonomicity is a property of the pointing, not of the real
 
 The continued-fraction holonomicity tiers (`cf_holonomicity_hierarchy.md`) climb from periodic
@@ -196,12 +221,12 @@ require.
 
 ```bash
 cd lean
-lake build E213.Lib.Math.Real213.HyperbolicEllipticTrace \
-           E213.Lib.Math.Real213.PentagonGoldenTrace \
-           E213.Lib.Math.Cauchy.NonHolonomicWitness \
-           E213.Lib.Math.Cauchy.PositiveFloorUnbounded \
-           E213.Lib.Math.Cauchy.EllipticPeriodicTier \
-           E213.Lib.Math.Cauchy.CFiniteHomogRec
+lake build E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace \
+           E213.Lib.Math.NumberSystems.Real213.PentagonGoldenTrace \
+           E213.Lib.Math.Analysis.Cauchy.NonHolonomicWitness \
+           E213.Lib.Math.Analysis.Cauchy.PositiveFloorUnbounded \
+           E213.Lib.Math.Analysis.Cauchy.EllipticPeriodicTier \
+           E213.Lib.Math.Analysis.Cauchy.CFiniteHomogRec
 cd ..
 for m in Real213.HyperbolicEllipticTrace Real213.PentagonGoldenTrace \
          Cauchy.NonHolonomicWitness Cauchy.PositiveFloorUnbounded \

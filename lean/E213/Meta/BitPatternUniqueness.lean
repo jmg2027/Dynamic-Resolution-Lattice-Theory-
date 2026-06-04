@@ -14,12 +14,11 @@ true, since `parity 1 = true` and `parity (2^(k+1)) = false`), and
 the RHS has the shape `2^(a+1) + 2^(b+1)` (parity = false).
 Contradiction by parity.
 
-Migrated 2026-05-XX: the original used `% 2` (Lean's well-founded
-mod) plus `omega`, both of which bring `propext` / `Quot.sound`.
-Now uses 213-native `Mod213.parity` (step-2 cohomological residue)
-+ `Pow213.{pow_dvd_pow_two, le_of_dvd_pos, dvd_sub_two,
-pow_lt_pow_two}` + `Nat213.{add_left_cancel, le_sub_of_add_le,
-sub_one_add_one, add_sub_of_le, add_sub_cancel_right}`.
+To stay strict ∅-axiom (avoiding the `propext` / `Quot.sound` that
+`% 2` + `omega` would import), this uses 213-native `Mod213.parity`
+(step-2 cohomological residue) + `Pow213.{pow_dvd_pow_two,
+le_of_dvd_pos, dvd_sub_two, pow_lt_pow_two}` + `Nat213.{add_left_cancel,
+le_sub_of_add_le, sub_one_add_one, add_sub_of_le, add_sub_cancel_right}`.
 
 All 5 public theorems strict ∅-axiom.
 -/
@@ -86,8 +85,6 @@ private theorem parity_contradiction (d a b : Nat)
   exact Bool.noConfusion (htrue.symm.trans hR)
 
 
-open E213.Tactic.NatHelper (add_left_cancel)
-
 /-- ★★★★★★ Key uniqueness lemma: if `2^m + 2^n = 2^p + 2^q` with
     `m < n` and `p < q`, then `m = p` and `n = q`. -/
 theorem two_pow_sum_inj_lt
@@ -139,9 +136,6 @@ theorem two_pow_sum_inj_lt
       hd ▸ ha ▸ hb ▸ heq'
     exact absurd heq'' (fun h => parity_contradiction _ _ _ h)
 
-
-open E213.Tactic.Pow213
-open E213.Tactic.NatHelper (add_sub_cancel_right)
 
 /-- ★★★★★★ Unordered version: `2^m + 2^n = 2^p + 2^q` with `m ≠ n`
     and `p ≠ q` implies `{m, n} = {p, q}` as unordered pairs. -/

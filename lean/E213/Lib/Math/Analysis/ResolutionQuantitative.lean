@@ -40,8 +40,8 @@ namespace E213.Lib.Math.Analysis.ResolutionQuantitative
 
 open E213.Lib.Math.Analysis.ResolutionShift
 open E213.Lib.Math.Analysis.ModulusMonoid (gradeToModulus madd)
-open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Dyadic (dyadicCut)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-! ## §1 — `2^(a+b) = 2^a · 2^b`, PURE (additive grade ↔ multiplicative scaling) -/
 

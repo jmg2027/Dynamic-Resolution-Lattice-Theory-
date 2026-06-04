@@ -4,10 +4,6 @@
 있고, 각자 무엇을 위한 것이며, 어떻게 import 가 흐르는지.  다른 모든
 문서 (INDEX.md, CLAUDE.md, sub-cluster README 등) 는 이 문서를 따른다.
 
-Last revised: 2026-05-12 — layer spec confirmation (Mingu Jeong).
-Pre-2026-05-12 history (6-ring concentric model) available via
-`git log -- lean/E213/ARCHITECTURE.md`.
-
 ## Philosophical foundations (canonical preamble)
 
 The ring architecture below is a *code-organization convenience*,
@@ -40,7 +36,7 @@ Canonical statements:
     addition to Raw" — `seed/AXIOM/07_primacy.md` §7.
   - "All classical foundations are Lens compositions reading
     the same Raw residue" —
-    `lean/E213/Lib/Math/AxiomSystems/INDEX.md`.
+    `lean/E213/Lib/Math/Foundations/AxiomSystems/INDEX.md`.
 
 When any sub-INDEX uses "substrate", "foundation", "bare-metal",
 "sits between", or similar architectural metaphors, those are to
@@ -83,11 +79,6 @@ Term   ← Raw 구현체 (Tree 등)            │
 > 있음) 혹은 해당 링 안에서 정의된 것들만을 사용할 수 있다.  api 로
 > 위쪽 링으로 올릴 수 있다.」
 
-`App/` — 2026-05-13 Session H 에 정리 완료: 유일 멤버 `App/Simplex.lean`
-(block-pair classification on Fin 5, S_3 × S_2 invariance) 은 math
-combinatorics 라 `Lib/Math/Combinatorics/Simplex5.lean` 로 이동, App/
-디렉토리 + `App.lean` aggregator 삭제.
-
 ## 1. Ring 정의
 
 ### Term/  (Raw 구현체)
@@ -119,9 +110,7 @@ forced shape uniqueness 증명.  **Term API 만 사용**.
   * `Theory/Raw/`       — public Raw API (Core, Slash, Swap,
                            SwapSlash, Fold, Hom, Levels, Rec, Signed,
                            **Endomorphic**, Demo) + API.lean
-                           (re-export shim).  Endomorphic absorbed
-                           the former `Theory/Closed/` content
-                           2026-05-14 (FoldRaw rename 2026-05-15).
+                           (re-export shim).
   * `Theory/Atomicity/` — forced-uniqueness proofs (Five,
                            FiveHelpers, PairForcing,
                            NonDecomposable, ArityForcing,
@@ -130,8 +119,6 @@ forced shape uniqueness 증명.  **Term API 만 사용**.
                            GenericLiftDemo)
   * `Theory/RawCmpIndependence.lean` — axiom-independence of cmp
                            choice (meta-theorem).
-  Theory.Internal/ directory 제거 (2026-05-12 cleanup) — Int213
-  및 Algebra213 family 는 Meta 로 promotion.
 
 **Public API**: `Theory/API.lean` bundles:
   * **TH-A — Raw axiom data**: Raw + 4 clauses + structural primitives
@@ -191,93 +178,65 @@ import E213.Lens.Lattice              -- lattice 정리 필요시
                                 observables (Cantor, Tower,
                                 BoolSpace, Countable, Pair, Godel,
                                 Chain, LensCardinality, CardinalityLB)
-                                — 2026-05-13 통합 (구 Lib/Math/Infinity
-                                + Lens/Algebra/{LensCardinality,
-                                CardinalityLB})
   * `Lens/Characterisation/` — characterisation typeclasses + catalog
   * `Lens/Compose/`          — composition operators
   * `Lens/Instances/`        — 29 concrete Lens instances + Leaves/
-                                sub-cluster (depth-leaf hierarchy,
-                                Leaves 폴드 2026-05-13)
+                                sub-cluster (depth-leaf hierarchy)
   * `Lens/Lattice/`          — refines preorder + lattice (Chain,
                                 Preorder, Join, Meet, Family*,
-                                IndexedJoin) — Refines 폴드 2026-05-13
+                                IndexedJoin)
   * `Lens/Properties/`       — derived predicates + Diagonal (sq
                                 classification, ex-root) +
                                 Characterisation/ + Morphism/ sub-
-                                clusters — 2026-05-13 3 sub-clusters
-                                폴드
+                                clusters
   * `Lens/Universal/`        — Universal flat / quot lens +
                                 `Witnesses/` (Core, Nat2/3/4,
                                 Q213/Q213_3, Padding, TripleCapstone)
-                                — 2026-05-13 Meta/UniversalLens 흡수
   * `Lens/Internal/`         — internal proof infra
 
-(9 sub-clusters 후 — Cardinality (+1), Leaves 폴드 (−1), Refines 폴드
-(−1), Characterisation/Morphism 폴드 (−2), Diagonal 폴드 (root file,
-sub-cluster count 무관): 14→9, `research-notes/archive/audits/LENS_AUDIT.md` §4 의
-13→7 권장 거의 달성 (Axiom Lenses + Internal 별도 유지로 9).)
+(9 sub-clusters: Axiom Lenses + Internal 별도 유지로 9.)
 
 ### Lib/  (Mathematics + Physics content)
 
 **Role**: 213 위에서 구현된 수학/물리 콘텐츠.  **Lens API 만 사용**.
 
 Two bounded contexts:
-  * `Lib/Math/`     — 213-native mathematics (~38 sub-clusters)
-  * `Lib/Physics/`  — 213-native physics (~13 sub-clusters)
+  * `Lib/Math/`     — 213-native mathematics (11 thematic super-clusters)
+  * `Lib/Physics/`  — 213-native physics (~18 sub-clusters)
 
-**Lib/Math/ — major sub-organized clusters** (2026-05-13 sub-org
-pass 후):
-  * `CayleyDickson/{Tower,Integer,Levels,Lipschitz,Misc}` (5 sub-dirs, 50 files)
-  * `Real213/{Core,Sum,Mul,Lattice,Bisection,ExpLog}` (6 sub-dirs, 60 files)
-  * `SignedCut/{Core,CD,Hurwitz,Level,Bridge,Octonion}` (6 sub-dirs, 35 files)
-  * `Probability/{Foundation,Distribution,Inequality,Limit,Bridge}` (5 sub-dirs, 25 files)
-  * `Cohomology/{Examples,Bridge,Cochain,Cup,CupAW,Delta,Fractal,
-                  Hodge,Bipartite,Surfaces,Universal}` (11 sub-dirs)
-  * `DyadicFSM/{Product,Signature,Forward,Tier,ArithFSM,Pell,Fib,
-                Pisano,Trib,FLT,BitFSM}` (11 sub-dirs)
-  * `HodgeConjecture/{Foundation,Structure,Pairing,Refinement,
-                       Bridge,MotivicBridge,Toolkit}` (7 sub-dirs)
-  * `Analysis/{ClassicCalc,Differentiation,DyadicSearch,FluxMVT,
-                Integration,ODE,Series}` (7 sub-dirs)
-  * `GRA/{GRAModel,Common,NumberTheory,Graph,Analysis,Cohomology,
-           HoTT,HigherAlgebra,Translation,Category,Groupoid,Hom,
-           DepthFunctor,Enrichment,CarrierRealization,
-           HasDistinguishing213,LensBridge,LensIsoCapstone,
-           Universality23,Naturality,SectionRetraction,Monoidal}`
-    (22 files) — Graded Residue Arithmetic.  Phases 1–6:
-    7-axiom typeclass + 5 Reading instances + iso capstone +
-    translation programme with universal depth comparison
-    `⌈n/3⌉ ≤ (n+1)/2` valid in all five Readings simultaneously.
-    Phases 7–11: 213-native `Cat` typeclass; `GRACat` /
-    `ReadingCat` with connectedness witness; `Groupoid` typeclass
-    with `ConnectedHub`; `GRAHom` (general morphism, category
-    laws + forgetful from `GRAIso`); depth as constant functor
-    on the (2, 3)-sub-category; `EdgeWalk` enrichment for R₄.
-    Phases 12–15: full enrichment for R₁/R₂/R₃/R₅
-    (Cochain/Operad/Truncation/Resolution); naturality of
-    translation; retract-pair structure (`section`/`forget`
-    identities); monoidal product `product : GRAModel → GRAModel
-    → GRAModel` with `trivial23` as unit.  Chapter:
-    `theory/math/gra_book.md`.
-    **Strict ∅-axiom: 259 PURE / 0 DIRTY**; `ax_coprime` via
-    `gcd213` (PURE) rather than Lean-core `Nat.gcd`; every proof
-    is `rfl` or kernel-level Nat helper — no omega, no simp, no
-    Mathlib.
-  * `Padic/{Foundation,Arith,Pow,Norm,Hensel,Teichmuller,Field,
-            Valuation,DRLT,DRLTIntegration}`
-    (10 files, 308 PURE) — Real213-p-adic library: `ZpSeq` + full
-    ring axioms at trunc + Hensel inverse + sqrt (existence +
-    uniqueness via `mul_invFull_correct` / `sqr_sqrtFull_correct`
-    + `inv_trunc_unique` / `sqr_unique_trunc`) + full ultrametric
-    (additive + multiplicative `valEq_mul`) + `pow` with Fermat's
-    little theorem + Frobenius lift + Teichmüller iteration Cauchy
-    + ℚ_p (`QpSeq.{add,sub,mul,neg,inv,div,sqrt}`) + 5-adic `N_U`
-    DRLT anchor.  Concrete instances: `i_5 = √(-1) ∈ ℤ_5`, `i_13`,
-    `√2 ∈ ℤ_7`.  Chapter: `theory/math/padic_real213.md`.
+**Lib/Math/ — thematic super-cluster hierarchy.**  Every sub-tree lives
+under one of eleven thematic super-clusters; the path **is** the
+namespace (`E213.Lib.Math.<Cluster>.<SubTree>.*`).  Each cluster groups
+the sub-trees of one mathematical area:
 
-각 Lib sub-tree 는 cross-context citation 용 `Bridge.lean` 보유
-(anti-corruption layer pattern).
+  * `NumberSystems/` — `Real213` (the cut reals), `Padic`, `SignedCut`,
+    `Complex`, `Hyper`, `Irrational`.  The number tower.
+  * `Analysis/` — `ClassicCalc, Differentiation, Integration, DyadicSearch,
+    FluxMVT, Series` + `Cauchy, Measure, Multivariable, Functional,
+    Modulus, CascadeCalculus`.  Modulus-tracked (no ε-δ) analysis.
+  * `Algebra/` — `CayleyDickson` (the CD tower), `Linalg213`, `Mobius213`
+    (P-orbit), `Polynomial213`, `Group`, `GRA` (Graded Residue Arithmetic:
+    7-axiom typeclass + 5 Readings + translation programme + monoidal
+    product, 259 PURE).
+  * `Cohomology/` — the K_{NS,NT}^{(c)} cohomology programme
+    (`Cochain, Cup, CupAW, Delta, Fractal, Hodge, Bipartite, Surfaces,
+    Universal, Examples, Bridge`) + `HodgeConjecture` (the HC programme).
+  * `NumberTheory/` — `DyadicFSM` (FSM / Pell / Pisano / Trib / FLT),
+    `ModArith` (Bezout / FLT / F_{p²}).
+  * `Geometry/` — `Geometry, Topology, GeometrizationConjecture,
+    AkbulutCork` + the discrete-substrate geometry sub-trees
+    (`AngleStructure, NumberGrid, GenerationRule, TriangularTower,
+    LevelTopology, OperationTopology, BipartiteDecomp, CartesianVsDisjoint`).
+  * `Foundations/` — `AxiomSystems, PatternCatalog, Choice, UniverseChain`
+    + the cross-domain / paradigm / residue-form anchor files
+    (`CrossDomainUnification, ParadigmDomain*, ResidueForm, ResolutionLimit`, …).
+  * `Probability/` — `Probability`, `Information`.
+  * `Combinatorics/` — `Combinatorics`, `Logic`.
+  * `Tactic/` — `Tactic`, `Extras` (Math-side tactic / misc infra).
+  * `ODE/` — ordinary differential equations (standalone).
+
+Each Lib sub-tree carries a `Bridge.lean` for cross-context citation
+(anti-corruption layer pattern).  `theory/math/` mirrors this hierarchy.
 
 ### Meta/  (Ring 무관 — Lean 4 bridge)
 
@@ -286,34 +245,22 @@ pass 후):
 ring-independence 등 trade-off 존재).
 
 **현재 내용**:
-  * `Meta/Nat/`           — ring-independent Nat 보조정리
-                             (구 Lib/Math/NatHelpers, 8 파일,
-                              promoted 2026-05-13)
+  * `Meta/Nat/`           — ring-independent Nat 보조정리 (8 파일)
   * `Meta/Tactic/`        — meta-level tactics
                              (DeriveConjugationCodomain,
                               VerifyConjugation, NativeGuard,
                               PureGuard)
   * `Meta/Int213/`        — Lean Int 위 ∅-axiom helpers
-                             (promoted from Theory.Internal 2026-05-12)
   * `Meta/Algebra213/`    — Ring213/StarRing213/CDDouble functor
                              typeclass tower
-                             (promoted from Theory.Internal 2026-05-12)
   * **Top-level**: SelfRecognising (codomain typeclass hierarchy),
                    AxiomMinimality{,Capstone}, BitPatternUniqueness,
                    LensInternality
 
-  UniversalLens witnesses (11 파일) 는 2026-05-13 `Lens/Universal/
-  Witnesses/` 로 이동 — Lens-content 가 Meta 에 misshoused 된 상태
-  였음을 LENS_AUDIT §4 가 지적.
-
 **Public API**: `Meta/API.lean` bundles ME-1 SelfRecognising +
-ME-2 AxiomMinimality + ME-3 LensInternality. UniversalLens
-witnesses 는 `Lens/Universal/` 로 이동 후 `Lens.API` (HV6) 가
+ME-2 AxiomMinimality + ME-3 LensInternality.  UniversalLens
+witnesses live under `Lens/Universal/` with `Lens.API` (HV6) as
 public surface.  Tactic 은 separate import (cross-cutting).
-
-> **Pre-2026-05-12 정정**: 이전 ARCHITECTURE 에서 Meta 가 Ring 3
-> (Lens 와 Lib 사이 concentric ring) 으로 분류되어 있었음.  현재
-> spec: Meta 는 ring 무관 — Lib 도, Lens 도, Theory 도 사용 가능.
 
 ## 2. Discipline conventions
 
@@ -347,12 +294,10 @@ Implementation detail 은 `<Ring>/Internal/` 안에.  Ring 외부에서
   * `Term/Internal/Tree*`     — Tree (inductive) + cmp, swap, fold,
                                  depth, leaves, fold_swap_hom,
                                  fold_signed_swap (all Tree-level,
-                                 ∅-axiom).  Moved fully from Theory
-                                 2026-05-15.  Namespace
+                                 ∅-axiom).  Namespace
                                  `E213.Term.Internal` (path-aligned).
   * `Meta/Int213/`, `Meta/Algebra213/` — Int / Ring213 typeclass
-                                 helpers (promoted from Theory.Internal
-                                 2026-05-12; ring-independent so Meta 거주)
+                                 helpers (ring-independent so Meta 거주)
   * `Lens/Internal/Algebra/`  — FreeAudit, FourDistinct,
                                  SwapInvariant, Space
 
@@ -417,8 +362,7 @@ named, grep-discoverable.
 ### Empirical verification of the ring split (G105)
 
 The ring boundaries above are normatively-stated.  G105
-(`research-notes/archive/metascan/G105_namespace_shape_and_full_recursor_inventory.md`;
-deliverable at `catalogs/recursor-inventory.md`)
+(deliverable at `catalogs/recursor-inventory.md`)
 verified them empirically by measuring per-namespace Expr-shape
 densities:
 
@@ -437,7 +381,7 @@ scanner (`tools/ast_shape_scan.py`).
   * `crates/term/`    ↔ `lean/E213/Term/`
   * `crates/theory/`  ↔ `lean/E213/Theory/`
   * `crates/lens/`    ↔ `lean/E213/Lens/`
-  * `crates/app/`     ↔ `lean/E213/Lib/` (App/ tier 2026-05-13 정리 후)
+  * `crates/app/`     ↔ `lean/E213/Lib/`
 
 Rust 는 numerical / search-engine companion ("calculator for when
 Lean takes too long"), re-implementation 이 아님.  모든 Rust 결과는

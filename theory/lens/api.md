@@ -43,7 +43,7 @@ ranking.  None of these rings is "below" or "above" another in any
 213-sense; the ordering is `import`-resolution only.
 
 The layered-API classification layered-API note
-(`research-notes/G12_layered_api_classification.md`, still active)
+
 uses OS-stack analogy terms (Kernel / Firmware / Hypervisor /
 Application).  Those terms are **expedient names for the build
 order**, NOT a claim that Lens "supports" Math/Physics from below.
@@ -57,7 +57,6 @@ from outside.
 
 ## Connection
 
-- `research-notes/G12_layered_api_classification.md` (active)
 - `lean/E213/ARCHITECTURE.md` — ring layer canonical
 - All other `theory/lens/*` chapters
 - Most `theory/math/*` and `theory/physics/*` chapters cite Lens

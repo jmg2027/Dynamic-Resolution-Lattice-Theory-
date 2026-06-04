@@ -229,13 +229,13 @@ theorem max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
 
     The "additive inverse is involutive in `F_p`" identity, in
     canonical-form (r < p) form.  Used in:
-      · `Lib/Math/ModArith/FP2Sqrt5` (private double_neg_mod)
-      · `Lib/Math/ModArith/FP2SqrtD`
-      · `Lib/Math/Padic/NegInvolution{,Digit1,Preserve}` (p-adic
+      · `Lib/Math/NumberTheory/ModArith/FP2Sqrt5` (private double_neg_mod)
+      · `Lib/Math/NumberTheory/ModArith/FP2SqrtD`
+      · `Lib/Math/NumberSystems/Padic/NegInvolution{,Digit1,Preserve}` (p-adic
         Zp.neg involution at digit-0 and beyond)
 
-    Promoted to Meta layer 2026-05; previously local copies in
-    each consumer file. -/
+    Canonical Meta-layer home for the `double_neg_mod` family used
+    by the consumers above. -/
 theorem double_neg_mod_at (p r : Nat) (hp : 0 < p) (hr : r < p) :
     (p - (p - r) % p) % p = r := by
   by_cases h0 : r = 0

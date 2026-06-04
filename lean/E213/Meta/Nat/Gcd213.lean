@@ -1,5 +1,6 @@
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Nat.AddMod213
+import E213.Meta.Nat.PureNat
 
 /-!
 # 213-native `gcd213` divisibility infrastructure (∅-axiom)
@@ -156,16 +157,10 @@ theorem gcd213_dvd_right (a b : Nat) : gcd213 a b ∣ b :=
 
 /-! ## Auxiliary arithmetic for Bezout/antisymmetry -/
 
-/-- `(a * b) * c = a * (b * c)` term-mode (∅-axiom).
-    Lean-core `Nat.mul_assoc` brings `propext`. -/
-theorem mul_assoc_213 : ∀ (a b c : Nat), (a * b) * c = a * (b * c)
-  | _, _, 0 => rfl
-  | a, b, c+1 =>
-    let ih : (a * b) * c = a * (b * c) := mul_assoc_213 a b c
-    let h1 : (a * b) * (c + 1) = (a * b) * c + a * b := Nat.mul_succ (a*b) c
-    let h2 : a * (b * (c + 1)) = a * (b * c + b) := congrArg (a * ·) (Nat.mul_succ b c)
-    let h3 : a * (b * c + b) = a * (b * c) + a * b := Nat.mul_add a (b*c) b
-    h1.trans (ih ▸ (h2.trans h3).symm)
+/-- `(a * b) * c = a * (b * c)` — canonical PURE proof in `PureNat`,
+    re-exported here for the Bezout/antisymmetry helpers below. -/
+theorem mul_assoc_213 (a b c : Nat) : (a * b) * c = a * (b * c) :=
+  E213.Meta.Nat.PureNat.mul_assoc a b c
 
 /-- `c1 ≤ c2 → d * c2 - d * c1 = d * (c2 - c1)`.  ∅-axiom. -/
 theorem mul_sub_213 (d c1 c2 : Nat) (h : c1 ≤ c2) :

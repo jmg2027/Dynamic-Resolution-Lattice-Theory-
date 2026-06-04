@@ -1,0 +1,167 @@
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZI
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZIDomain
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble
+import E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley
+import E213.Lib.Math.Algebra.CayleyDickson.Lipschitz.LipschitzHeavy
+import E213.Lib.Math.Algebra.CayleyDickson.Levels.CayleyHeavy
+import E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion
+import E213.Lib.Math.Algebra.CayleyDickson.Levels.SedenionHeavy
+
+/-!
+# Cayley–Dickson tower — unified structural summary
+
+A single theorem packaging the 4-layer structural drop
+pattern across `ZI → Lipschitz → Cayley → Sedenion`:
+
+| Layer | Axiom that DROPS here |
+|-------|----------------------|
+| 0 (ZI)         | — (baseline: all R-conditions hold) |
+| 1 (Lipschitz)  | R2 (commutativity)           |
+| 2 (Cayley)     | associativity                |
+| 3 (Sedenion)   | R3 (no zero divisors)        |
+
+The "no zero divisor" for layers 1 and 2 is only proved
+pairwise on specific generators (full universal R3 for
+Cayley is Hurwitz's theorem, deferred).  The R2 persistence
+at layer 0 is `ZI.mul_comm`.
+
+All six components below are formally proved.
+-/
+
+namespace E213.Lib.Math.Algebra.CayleyDickson.Tower.CDTower
+
+
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZI.ZI
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZI E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble
+     E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley
+     E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion.Sedenion
+     E213.Lib.Math.Algebra.CayleyDickson.Lipschitz.LipschitzHeavy E213.Lib.Math.Algebra.CayleyDickson.Levels.CayleyHeavy
+
+/-- **CD tower structural drop pattern.**  Each successive
+    Cayley–Dickson doubling strictly loses one structural
+    axiom.  Four formally-verified layers. -/
+theorem CD_tower_drops :
+    -- Layer 0 (ZI): R2 holds universally.
+    (∀ u v : ZI, u * v = v * u)
+    -- Layer 1 (Lipschitz): R2 FAILS.
+    ∧ (∃ u v : Lipschitz, u * v ≠ v * u)
+    -- Layer 2 (Cayley): associativity FAILS.
+    ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))
+    -- Layer 3 (Sedenion): R3 FAILS.
+    ∧ (∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u * v = 0) :=
+  ⟨ZI.mul_comm,
+   Lipschitz.mul_not_commutative,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley.mul_not_associative,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion.R3_fails_on_sedenion⟩
+
+open E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion
+
+/-- **Extended CD tower drop pattern** — adds the
+    alternativity axiom drop at layer 3.  Shows the full
+    structural ladder:
+
+    CDTower.L0: R2 ✓, R3 ✓, assoc ✓, alt ✓ — ZI
+    CDTower.L1: R2 ✗, R3 ✓, assoc ✓, alt ✓ — Lipschitz
+    CDTower.L2: R2 ✗, R3 ✓, assoc ✗, alt ✓ — Cayley
+    L3: R2 ✗, R3 ✗, assoc ✗, alt ✗ — Sedenion
+
+    Each layer drops exactly one axiom class from above. -/
+theorem CD_tower_extended :
+    -- CDTower.L0 is commutative
+    (∀ u v : ZI, u * v = v * u)
+    -- CDTower.L1 is non-commutative
+    ∧ (∃ u v : Lipschitz, u * v ≠ v * u)
+    -- CDTower.L2 is non-associative
+    ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))
+    -- L3 has zero divisors
+    ∧ (∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u * v = 0)
+    -- L3 is non-alternative
+    ∧ (∃ a b : Sedenion, (a * a) * b ≠ a * (a * b)) :=
+  ⟨ZI.mul_comm,
+   Lipschitz.mul_not_commutative,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley.mul_not_associative,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion.R3_fails_on_sedenion,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion.not_alternative⟩
+
+open E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion
+
+/-- **FULL CD tower structural theorem** with composition-
+    algebra status now included via Track A's `hurwitz_ring`
+    tactic.  This single statement packages the entire
+    CD tower's formal behaviour up to Sedenion:
+
+    CDTower.L0 (ZI):        comm ✓ , assoc ✓ , comp-alg ✓ , R3 ✓
+    CDTower.L1 (Lipschitz): comm ✗ , assoc ✓ , comp-alg ✓ , R3 ✓
+    CDTower.L2 (Cayley):    comm ✗ , assoc ✗ , comp-alg ✓ , R3 ✓
+    L3 (Sedenion):  comm ✗ , assoc ✗ , comp-alg ✗ , R3 ✗
+
+    Each "✗" has a concrete counterexample.
+    Each "✓" has a universal Lean proof. -/
+theorem CD_tower_full :
+    (∀ u v : ZI, u * v = v * u)                                -- CDTower.L0 comm
+    ∧ (∀ u v w : ZI, (u * v) * w = u * (v * w))                -- CDTower.L0 assoc
+    ∧ (∀ u v : ZI, ZI.normSq (u * v) = ZI.normSq u * ZI.normSq v) -- CDTower.L0 comp
+    ∧ (∃ u v : Lipschitz, u * v ≠ v * u)                       -- CDTower.L1 NOT comm
+    ∧ (∀ u v w : Lipschitz, (u * v) * w = u * (v * w))         -- CDTower.L1 assoc
+    ∧ (∀ u v : Lipschitz, Lipschitz.normSq (u * v)
+                           = Lipschitz.normSq u * Lipschitz.normSq v) -- CDTower.L1 comp
+    ∧ (∀ u v : Lipschitz, u * v = 0 → u = 0 ∨ v = 0)           -- CDTower.L1 R3
+    ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))            -- CDTower.L2 NOT assoc
+    ∧ (∀ a b : Cayley, (a * a) * b = a * (a * b))              -- CDTower.L2 alt left
+    ∧ (∀ u v : Cayley, E213.Lib.Math.Algebra.CayleyDickson.Levels.CayleyHeavy.normSq (u * v)
+                        = E213.Lib.Math.Algebra.CayleyDickson.Levels.CayleyHeavy.normSq u * E213.Lib.Math.Algebra.CayleyDickson.Levels.CayleyHeavy.normSq v)   -- CDTower.L2 comp
+    ∧ (∀ u v : Cayley, u * v = 0 → u = 0 ∨ v = 0)              -- CDTower.L2 R3
+    ∧ (∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u * v = 0)            -- L3 NOT R3
+    ∧ (∃ a b : Sedenion, (a * a) * b ≠ a * (a * b)) :=         -- L3 NOT alt
+  ⟨ZI.mul_comm, ZI.mul_assoc, ZI.normSq_mul,
+   Lipschitz.mul_not_commutative, E213.Lib.Math.Algebra.CayleyDickson.Lipschitz.LipschitzHeavy.mul_assoc,
+   E213.Lib.Math.Algebra.CayleyDickson.Lipschitz.LipschitzHeavy.normSq_mul, E213.Lib.Math.Algebra.CayleyDickson.Lipschitz.LipschitzHeavy.no_zero_div,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley.mul_not_associative, E213.Lib.Math.Algebra.CayleyDickson.Levels.CayleyHeavy.alt_left,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.CayleyHeavy.normSq_mul, E213.Lib.Math.Algebra.CayleyDickson.Levels.CayleyHeavy.no_zero_div,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion.R3_fails_on_sedenion, E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion.not_alternative⟩
+
+open E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble.Lipschitz E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion
+
+/-- **CD tower — survival of flexibility across the associativity death,
+    and the single proof-technique phase transition.**
+
+    `CD_tower_full` records what *dies* per doubling (comm → assoc → alt).
+    This records the dual fact — what *survives* — and pins the rung at
+    which the *structural proof itself* changes character:
+
+      Lipschitz : associative ✓                 (last associative base)
+      Cayley  = CDDouble Lipschitz : assoc ✗ , flexible ✓
+                  flexibility proved **mul_assoc-driven**
+                  (`cd_flexible` over an associative base, `CDDoubleAlternative`)
+      Sedenion = CDDouble Cayley   : alt   ✗ , flexible ✓
+                  flexibility proved **polarization-driven**
+                  (`FlexAlt213.flex_cross_pair` + the alternating associator,
+                   `CDDoubleFlexible`; base `mul_assoc` is *unavailable*)
+
+    Flexibility is the invariant that bridges the *single* rung
+    (Cayley → Sedenion) where the proof must switch from base
+    associativity to associator polarization.  The base-premise chain
+    `CommStarRing213 ⊃ StarRing213 ⊃ TraceNormed213 (assoc) ⊃
+    FlexAlt213 (alt)` aligns one-notch with the surviving-law chain
+    `comm → assoc → alt → flexible`: each doubling consumes exactly one
+    premise, and exactly one consumption (associativity, at Cayley)
+    forces the proof regime to switch — every layer below and above that
+    rung reuses its regime unchanged. -/
+theorem CD_tower_flexible :
+    -- Lipschitz: the last associative base.
+    (∀ u v w : Lipschitz, (u * v) * w = u * (v * w))
+    -- Cayley = CDDouble Lipschitz: associativity dies …
+    ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))
+    -- … but flexibility is born (mul_assoc-driven proof).
+    ∧ (∀ a b : Cayley, (a * b) * a = a * (b * a))
+    -- Sedenion = CDDouble Cayley: alternativity dies …
+    ∧ (∃ a b : Sedenion, (a * a) * b ≠ a * (a * b))
+    -- … and flexibility SURVIVES (polarization-driven proof, no mul_assoc).
+    ∧ (∀ a b : Sedenion, (a * b) * a = a * (b * a)) :=
+  ⟨E213.Lib.Math.Algebra.CayleyDickson.Lipschitz.LipschitzHeavy.mul_assoc,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley.mul_not_associative,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.CayleyHeavy.flexible,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion.not_alternative,
+   E213.Lib.Math.Algebra.CayleyDickson.Levels.SedenionHeavy.flexible⟩
+
+end E213.Lib.Math.Algebra.CayleyDickson.Tower.CDTower

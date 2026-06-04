@@ -100,8 +100,8 @@ never inflating beyond what 213 uses.
     223 calls / 59 files (-120 cumulative, -35%).
 
 Densest clusters (post-2026-05-12 4-ring rename, current paths):
-  - lean/E213/Lib/Math/Real213/*.lean (cut algebra)
-  - lean/E213/Lib/Math/Pigeonhole.lean (Fin index manipulation)
+  - lean/E213/Lib/Math/NumberSystems/Real213/*.lean (cut algebra)
+  - lean/E213/Lib/Math/Combinatorics/Pigeonhole.lean (Fin index manipulation)
   - lean/E213/Theory/Atomicity/PairForcing.lean (atomicity derivation)
 
 Convert in dependency order: leaf files first, then mid-layer,

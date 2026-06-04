@@ -1,5 +1,8 @@
 import E213.Lens.Number.Nat213
 import E213.Lens.Number.Int213
+import E213.Lens.Number.IntFoldForms
+import E213.Lens.Number.FoldDuality
+import E213.Lens.Number.FoldKlein
 
 /-! Spec-as-code entry point for `E213.Lens.Number`.
 
@@ -30,6 +33,6 @@ import E213.Lens.Number.Int213
     * `Rat213/`    — ℚ via multiplicative quotient (currently
                      prototyped in `Nat213/Tower/NatPairToQPos`).
     * `Real213/`   — ℝ via cuts / Cauchy seqs over Nat213
-                     (currently in `Lib/Math/Real213`; candidate for
+                     (currently in `Lib/Math/NumberSystems/Real213`; candidate for
                      migration once mature).
 -/

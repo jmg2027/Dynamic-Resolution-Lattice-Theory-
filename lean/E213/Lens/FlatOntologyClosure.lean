@@ -7,7 +7,7 @@ import E213.Lens.Cardinality.Cantor
 `FlatOntology` realises every sort (object / type / relation / function / Lens)
 as one primitive: a decidable predicate on `Raw^n`.  It defers the *closure*
 direction — encoding a predicate back as a Raw (`seed/AXIOM/06_lens_readings.md`
-§6.3; `research-notes/G29_residue.md` "자기-덮음").
+§6.3; "자기-덮음").
 
 This file records the *limit* shape of that closure:
 
@@ -26,7 +26,7 @@ full predicate space does not (this file) — and the gap between "definable" an
 "all" is exactly the residue.  So the self-covering "closes exactly up to the
 residue": faithful and round-tripping on what can be pointed at / described, with
 the unpointable surplus being the residue itself.  This is the ∅-axiom statement
-of the session thesis (`research-notes/G152_residue_self_covering.md`): pointing
+of the session thesis: pointing
 is finite; the completed-infinite surplus is a finite *name*, not an inhabitant.
 -/
 

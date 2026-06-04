@@ -1,15 +1,15 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableMid
-import E213.Lib.Math.Real213.Lattice.CutMidSelf
+import E213.Lib.Math.NumberSystems.Real213.Lattice.CutMidSelf
 
 import E213.Lib.Math.Analysis.ClassicCalc.ClassicCalc
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Bisection.CutBisection
-import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumDetermined
-import E213.Lib.Math.Real213.Sum.CutSumTest
-import E213.Lib.Math.Real213.Sum.CutSumZero
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
@@ -29,10 +29,10 @@ calculus-textbook framework to averaged functions.
 namespace E213.Lib.Math.Analysis.ClassicCalc.ClassicCalcMid
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection (cutMid)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.FluxMVT.FluxDivergence.FluxCut (localDivergence)
@@ -42,10 +42,10 @@ open E213.Lib.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiab
 namespace FluxCut.Passthrough_at
 
 open E213.Lib.Math.Analysis.FluxMVT.FluxPassthroughClass.FluxCut (Passthrough_at)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
-open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
-open E213.Lib.Math.Real213.Sum.CutSumZero (cutMid_zero_zero_at)
-open E213.Lib.Math.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSumAux)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined (cutSumAux_congr)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero (cutMid_zero_zero_at)
+open E213.Lib.Math.NumberSystems.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
 
 /-- Midpoint of two passthrough_at's is passthrough_at (PURE).
     Uses `cutSumAux_unitBracket_reduce_at` (FLUX-1 sum template)
@@ -73,15 +73,13 @@ def mid_pass {f g} (pf : Passthrough_at f) (pg : Passthrough_at g) :
 
 end FluxCut.Passthrough_at
 
-/-! ### ClassicCalc (function-eq) namespace removed (2026-05-XX, part 19)
+/-! ### ClassicCalc — strict ∅-axiom `_at` formulation
 
-The function-eq `mid_calc / mid_id_square_calc / mid_square_cube_calc /
-mid_id_square_mvt / mid_square_cube_mvt / mid_capstone` were dropped
-during the cutEq migration (part 19) because their definitions
-inherited funext = Quot.sound from `FluxCut.Passthrough.mid_pass`
-(which uses `rw` on function-eq fields).  The PURE `_at` analogues
-in the `ClassicCalc_at` namespace below provide the same content
-with strict ∅-axiom guarantees.
+The `ClassicCalc_at` namespace below carries the classic-calculus
+content (`mid_*`) in the pointwise `_at` form, which avoids the
+`funext` = Quot.sound that function-equality fields would inherit
+from `FluxCut.Passthrough.mid_pass` — giving strict ∅-axiom
+guarantees.
 
 No downstream consumers existed for the removed identifiers. -/
 

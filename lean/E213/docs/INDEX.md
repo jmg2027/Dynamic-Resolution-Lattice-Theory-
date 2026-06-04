@@ -27,12 +27,10 @@ or (once promoted) the corresponding chapter in `theory/`.
 
 ## Migration note (2026-05-21)
 
-These files lived at `research-notes/CONSOLIDATION_PROTOCOL.md` and
-`research-notes/HIERARCHICAL_PLACEMENT.md` until 2026-05-21.  Moved
-here because they are Lean-tree maintenance docs, not exploratory
+These are Lean-tree maintenance docs, not exploratory
 research notes.  Citations updated:
 - `lean/E213/ARCHITECTURE.md` §10 R10
 - `lean/E213/Lib/Math.lean` umbrella §Status
-- `lean/E213/Lib/Math/DyadicFSM.lean` §Status
+- `lean/E213/Lib/Math/NumberTheory/DyadicFSM.lean` §Status
 - `lean/E213/Lib/Physics/Basel/Bound.lean` consolidation note
 - `lean/E213/Lib/Physics/Couplings/TripleCoupling.lean` consolidation note

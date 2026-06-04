@@ -2,8 +2,8 @@ import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 import E213.Meta.Tactic.Pow213
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Core.Dyadic
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Core.Dyadic
 /-!
 # Real213BracketCauchyModulus — quantitative bracket-length halving
 
@@ -39,8 +39,8 @@ for the dyadic bracket convergence — closing the open problem.
 namespace E213.Lib.Math.Analysis.BracketCauchyModulus
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Core.Dyadic (dyadicCut)
 
 open E213.Tactic.Pow213 renaming one_le_two_pow → one_le_two_pow_pure
 open E213.Tactic.Pow213 (succ_le_two_pow)

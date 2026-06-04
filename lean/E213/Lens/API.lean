@@ -43,7 +43,7 @@ classes (HV1 + HV2 + HV3):
   - `Universal.QuotLens.universalLens`
   - `Properties.CanonicalForm.lens_canonical_universal`
   - `Universal.Witnesses.*` — concrete universal-Lens witnesses
-    at Nat2/3/4, Q213, Q213³ (moved from Meta)
+    at Nat2/3/4, Q213, Q213³
 
 ## Optional (NOT bundled — import individually)
 
@@ -60,12 +60,9 @@ classes (HV1 + HV2 + HV3):
 ## Axiom status
 
 `Lens.view`, `Lens.view_unique`, and the universalLens construction
-are PURE (∅-axiom).  Some lattice and characterisation theorems
-historically inherited the legacy `≤ {propext, Quot.sound}` tier
-from underlying decidability machinery; the strict-∅ refactor has
-since brought the tree to ∅-axiom on the production critical path
-(per `STRICT_ZERO_AXIOM.md` audit).  Module-by-module status is
-recorded inline in each sub-cluster umbrella.
+are PURE (∅-axiom).  The production critical path is ∅-axiom on the
+whole tree (per `STRICT_ZERO_AXIOM.md` audit).  Module-by-module
+status is recorded inline in each sub-cluster umbrella.
 
 ## Tier 1/2 split rationale
 
@@ -74,9 +71,4 @@ imports.  Tier 2 (HV4–HV6) covers the lattice / compose / canonical-
 form algebras — useful but not always needed; importing them
 on-demand via `Lens.{Lattice, Compose, Universal}` keeps the
 common-import surface narrow.
-
-Split executed 2026-05-13 per `research-notes/archive/audits/LENS_AUDIT.md` §5.
-
-See `research-notes/ for the
-rigorous public-API classification.
 -/

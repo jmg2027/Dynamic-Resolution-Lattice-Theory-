@@ -320,7 +320,6 @@ move의 어휘** (cycle, shift, swap, traversal, reparameterisation).
 chain으로 노출.
 
 **근거 — 출처**:
-- `research-notes/G2_trajectory_principle.md` (이 통찰의 종합)
 - `lean/E213/Lens/Number/Nat213.lean` (trajectory 어휘 형식화)
 - `lean/E213/Meta/Tactic/AXIOM_FREE_STATUS.md` (propext-leak catalog)
 
@@ -355,8 +354,7 @@ distinguishing framework가 Raw → α의 Lens로 factor (Initiality).
 **근거 — 출처**:
 - `Theory/Raw/Core.lean` (Raw 정의)
 - `Lens/LensCore.lean` + `Lens/Initiality.lean` (Lens factoring)
-- `Lens/Universal/Witnesses/*` (universality; moved from `Meta/UniversalLens/` 2026-05-13)
-- `research-notes/G3_raw_as_universal_trajectory.md` (G3 종합)
+- `Lens/Universal/Witnesses/*` (universality)
 
 **가드레일**: 213이 어떻게 어떤 분야를 다룰 수 있냐 의문이 들면,
 "그 분야의 distinguishing framework는 어떤 Lens인가?"를 물을 것.

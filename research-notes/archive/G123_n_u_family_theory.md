@@ -80,7 +80,7 @@ would generically require its own fit; the catalogue reuse is a
 |---|---|---|
 | `numV (L : Nat) : Nat := 5^L` | `Cohomology/Fractal/Level.lean` | PURE, decide-checked L=1..4 |
 | `configCount (n : Nat) : Nat := 5^(numV n)` | `Cohomology/Fractal/ConfigCount.lean` | PURE, decide-checked n=0,1,2 |
-| `abbrev N_U : Nat := configCount 2` | `Lib/Math/ResolutionLimit.lean` | PURE, display-name only |
+| `abbrev N_U : Nat := configCount 2` | `Lib/Math/Foundations/ResolutionLimit.lean` | PURE, display-name only |
 | `theorem N_U_eq_configCount_two : N_U = configCount 2 := rfl` | ibid. | PURE bridge |
 | `atomic_iff_five : Atomic n ↔ n = 5` | `Theory/Atomicity/Five.lean` | PURE, structural forcing |
 | `PairForcing`, `NonDecomposable`, `Alive*` | `Theory/Atomicity/` | PURE, supporting chain |

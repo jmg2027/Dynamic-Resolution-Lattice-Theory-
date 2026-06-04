@@ -272,7 +272,7 @@ narrative.  Readers can verify but not understand.
     many Math files still import `E213.Lib.Physics.*` directly
     without going through a Bridge shim.
   · **Progress (2026-05-26)**: added
-    `lean/E213/Lib/Math/SimplexCountsBridge.lean` and migrated
+    `lean/E213/Lib/Math/Foundations/SimplexCountsBridge.lean` and migrated
     three Math files (`ParadigmDomainGraded`,
     `Mobius213/Px/IterationSpecies`,
     `Mobius213/Px/DecompositionCatalog`) to import the Math-side
@@ -305,10 +305,10 @@ narrative.  Readers can verify but not understand.
 
 ### 5.3 PatternCatalog/Lib/Math/ promotion
 
-  · **Gap**: `lean/E213/Lib/Math/PatternCatalog/` (6 files,
+  · **Gap**: `lean/E213/Lib/Math/Foundations/PatternCatalog/` (6 files,
     ~500 SLOC) has no `theory/math/` chapter.  Violates
     promotion parity.
-  · **Action**: write `theory/math/pattern_catalog.md`.
+  · **Action**: write `theory/math/foundations/pattern_catalog/pattern_catalog.md`.
 
 ### 5.4 Catalog ↔ Lean verification tool
 
@@ -349,7 +349,7 @@ The next-shot focus should be one of:
     applied: `theory/math/cohomology/k_nm_c_classification.md`
     overview + key-results + open frontier; STATE.md c-counter
     row.  Follow-on essay update in
-    `theory/essays/c_counter_programme_closure.md` still
+    `theory/essays/cohomology/c_counter_programme_closure.md` still
     pending.
   · **1.2 SATISFIED (closed 2026-05-25)**: atomic forcing chain
     (NS, NT, d, c) = (3, 2, 5, 2) is now fully Lean-formalised
@@ -370,7 +370,7 @@ The next-shot focus should be one of:
     if the gluon-octet ↔ 8-geometries isomorphism is to live in
     Lean rather than only narrative — likely under
     `lean/E213/Lib/Physics/Symmetry/` cross-cited from
-    `lean/E213/Lib/Math/GeometrizationConjecture/`.
+    `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/`.
   · **5.1 cleans ⇒** unlocks safe motion of 1.1's anchor file
     if any Math/Physics import-graph entanglement surfaces
     during the per-layer completeness work.
@@ -399,11 +399,10 @@ scope and should not appear in any item's "Action":
     closures
   · `theory/INDEX.md` — book map
   · `HANDOFF.md` — volatile session state
-  · `research-notes/G35_chiral_cup_ring_catalog.md` — per-
     conjecture catalog (active scratch)
-  · `theory/essays/c_counter_programme_closure.md` — Tier-1
+  · `theory/essays/cohomology/c_counter_programme_closure.md` — Tier-1
     items 1.1–1.3 anchor essay
-  · `theory/essays/p_orbit_closure_master.md` — Tier-2 item
+  · `theory/essays/p_orbit/p_orbit_closure_master.md` — Tier-2 item
     2.3 anchor essay
-  · `theory/essays/synthesis_interlock_map.md` — the c-counter
+  · `theory/essays/synthesis/synthesis_interlock_map.md` — the c-counter
     ↔ P-orbit ↔ layer-multiplication correspondence

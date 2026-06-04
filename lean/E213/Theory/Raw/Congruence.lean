@@ -3,7 +3,7 @@ import E213.Theory.Raw.Core
 /-!
 # Theory.Raw.Congruence — internal equivalence on Raw (Option E core)
 
-Per `research-notes/2026-05-18_lens_emergence_path.md` §2.6 and §5
+
 Option E.  A Raw-internal way to talk about equivalence:
 parameterise over a generator relation `gens : Raw → Raw → Prop`
 and take its equivalence closure.

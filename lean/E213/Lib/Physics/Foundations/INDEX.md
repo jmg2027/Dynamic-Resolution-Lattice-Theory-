@@ -18,6 +18,7 @@ theoretic atomic-integer patterns (Fibonacci, golden ratio, Koide).
   - `AtomicConstantsParametricFull.lean`   — full parametric
   - `AtomicConstantsParametricFullIff.lean`— iff variant
   - `AtomicSuperCatalog.lean`              — every atomic integer in one table
+  - `FalsifierRosterForced.lean`           — the falsifier integers as forced polynomials in (NS,NT,d) (the two forcing iffs ⟹ the roster)
 
 ### Discipline / unification (2)
   - `DrltZeroParameters.lean`           — zero-parameter discipline witness

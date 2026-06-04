@@ -96,9 +96,7 @@ Current session state: `HANDOFF.md`.
 Agent guardrails: `LESSONS_LEARNED.md`.
 
 **Quantitative-architecture entry**:
-  · `research-notes/G101_metascan_synthesis.md` — 6-scanner unified
     view of corpus shape, recursor inventory, citation hubs.
-  · `research-notes/archive/metascan/G107_action_items_registry.md` — open-items
     registry from the meta-scan tree (executor entry).
   · `catalogs/abstraction-candidates.md` — per-item status tracker.
   · `catalogs/falsifier-roster.md` — 135 auto-discovered falsifiers
@@ -188,7 +186,7 @@ theory/THEORY_BOOK.md     Single linearised reading path from
                           seed/AXIOM/ to GRA Phase 22's
                           Lens.Unified capstone (math-only,
                           ~1200 lines, 8 parts + appendices).
-theory/math/gra_book.md   GRA textbook (Ch.0–9 + appendices),
+theory/math/algebra/gra_book.md   GRA textbook (Ch.0–9 + appendices),
                           the universal meta-structure of 213.
 theory/<area>/*.md        Per-area narrative chapters (math /
                           physics / lens / meta / essays).

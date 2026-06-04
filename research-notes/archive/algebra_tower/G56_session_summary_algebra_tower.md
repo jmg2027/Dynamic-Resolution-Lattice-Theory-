@@ -109,7 +109,7 @@ lean/E213/Lib/Math/CayleyDickson/
 lean/E213/Lib/Math/Tactic/
   Ring213.lean                  Recurrence2 + Recurrence3 universal
 
-lean/E213/Lib/Math/Search/
+lean/E213/Lib/Math/Foundations/Search/
   FindStructure.lean            universal search algorithm
   Instances.lean                findCounterexample, findIdempotent
 

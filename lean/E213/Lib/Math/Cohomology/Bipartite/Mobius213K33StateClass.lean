@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Bipartite.V33
-import E213.Lib.Math.Real213.Mobius213Equiv
-import E213.Lib.Math.Real213.Mobius213ContinuedFraction
+import E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
+import E213.Lib.Math.NumberSystems.Real213.Mobius213ContinuedFraction
 
 /-!
 # Mobius213K33StateClass — K_{3,3}^(c=2) vertex cochains under Möbius P
@@ -30,8 +30,8 @@ All declarations PURE (∅-axiom).
 namespace E213.Lib.Math.Cohomology.Bipartite.Mobius213K33StateClass
 
 open E213.Lib.Math.Cohomology.Bipartite.V33 (CochV)
-open E213.Lib.Math.Real213.Mobius213Equiv (Pseq seedZero seedInf Pstep)
-open E213.Lib.Math.Real213.Mobius213ContinuedFraction
+open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv (Pseq seedZero seedInf Pstep)
+open E213.Lib.Math.NumberSystems.Real213.Mobius213ContinuedFraction
   (Pseq_seedZero_fst_recurrence Pseq_seedZero_snd_recurrence)
 
 /-! ## §1 — Special K_{3,3} vertex cochains -/

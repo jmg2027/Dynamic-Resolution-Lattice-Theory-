@@ -67,7 +67,7 @@ IndexedJoin, FamilyMeet, FamilyJoin}`, `Algebra.Corresp`,
 `if_pos`/`if_neg`).
 
 PURE now (the Lens-of-Lens funext surface — retired by the equivalence-unification
-arc, `research-notes/RFC_reading_equivalence_primitive.md`): `Compose.{OnLens,
+arc): `Compose.{OnLens,
 OnLensImage, OnLensImageGeneric, OnLensImageLevel2}`, `Properties.TowerLevel3`,
 `Lib.Math.Cauchy.GenericFamily`.  `HasDistinguishing` is now stated over its
 reading-sameness `same` (`= ` realization at concrete codomains, `eqPW`/`sameLens`

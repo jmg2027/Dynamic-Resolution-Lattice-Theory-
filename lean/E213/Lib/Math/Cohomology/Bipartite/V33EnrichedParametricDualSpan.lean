@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
 import E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold
-import E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
+import E213.Meta.Nat.Beq213
 
 /-!
 # Parametric dual-span at K_{3,3}^{(c)} — Direction C scaffolding
@@ -71,7 +71,7 @@ namespace E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametricDualSpan
 
 open E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
 open E213.Lib.Math.Cohomology.Infrastructure.BoolXORFold
-open E213.Lib.Math.Cohomology.Infrastructure.NatBeqHelpers
+open E213.Meta.Nat.Beq213
 
 /-! ## §1 — ψ_m is F₂-linear over pointwise XOR
 

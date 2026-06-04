@@ -40,12 +40,12 @@ sections containing the 213-native expression.  Examples:
 
 | Concept | Primary targets |
 |---|---|
-| limit | `theory/math/modulus.md` + `theory/math/cauchy.md` + G40 |
-| completeness | `theory/math/real213.md` + G6 §0 |
-| equality | `theory/lens/algebra.md` + `theory/lens/universal.md` + 76 |
-| residue | `research-notes/G29_residue.md` + `theory/math/universe_chain.md` Möbius P |
+| limit | `theory/math/analysis/modulus.md` + `theory/math/analysis/cauchy.md` |
+| completeness | `theory/math/numbersystems/real213.md` |
+| equality | `theory/lens/algebra.md` + `theory/lens/universal.md` |
+| residue | `seed/AXIOM/01_residue.md` + `theory/math/foundations/universe_chain.md` Möbius P |
 | gauge | `theory/physics/symmetry/c3_chain.md` |
-| infinity | G6 §0 corrected position + `seed/RESOLUTION_LIMIT_SPEC.md` |
+| infinity | `seed/RESOLUTION_LIMIT_SPEC.md` |
 
 If no clear chapter exists, the concept may not be promoted yet —
 flag this honestly; do not invent.
@@ -160,6 +160,16 @@ homes:
 
 Forced essays violate "rest is taste" (round-2 agent F finding).
 Don't write chapters that weren't asked for.
+
+## Log the event
+
+When this skill is invoked (the user said "에세이 ㄱ" / "essay", or an
+essay is written), append one row to `research-notes/promotion_essay_log.md`
+(Type = `essay`).  Capture the **situation** that prompted it — a recurring
+question? a cross-domain synthesis? a corrected misconception? — not just
+the topic.  This is the data the originator reviews to pattern-ize essay
+triggers later.  If the essay stays in-conversation (not saved), still log
+it with Outcome = "in-conversation".
 
 ## Failure modes
 

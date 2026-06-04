@@ -30,17 +30,17 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 ## Pisano-CRT framework (number theory)
 
 ### Per-family capstones (post-DyadicFSM promotion from Cohomology)
-- `Lib/Math/DyadicFSM/Pell/Capstone.pell_capstone` — 6-conjunct
+- `Lib/Math/NumberTheory/DyadicFSM/Pell/Capstone.pell_capstone` — 6-conjunct
   Pell capstone (23 primes, 3 sub-tight at p = 29, 47, 89, 101;
   Pell-proper: 8 primes)
-- `Lib/Math/DyadicFSM/Fib/PisanoCapstone.fib_pisano_predict_correct`
+- `Lib/Math/NumberTheory/DyadicFSM/Fib/PisanoCapstone.fib_pisano_predict_correct`
   — Fibonacci variant (8 primes)
-- `Lib/Math/DyadicFSM/Trib/Capstone.tribonacci_capstone` — Tribonacci
+- `Lib/Math/NumberTheory/DyadicFSM/Trib/Capstone.tribonacci_capstone` — Tribonacci
   variant (4 moduli)
-- `Lib/Math/DyadicFSM/Trib/CRTCapstone.trib_crt_capstone`,
-  `Lib/Math/DyadicFSM/Trib/CRT4Capstone.trib_crt_4_capstone`
+- `Lib/Math/NumberTheory/DyadicFSM/Trib/CRTCapstone.trib_crt_capstone`,
+  `Lib/Math/NumberTheory/DyadicFSM/Trib/CRT4Capstone.trib_crt_4_capstone`
   — CRT closures
-- Cross-recurrence: `Lib/Math/DyadicFSM/Fib/PellRelation.fib_predict_eq_two_pell_predict`
+- Cross-recurrence: `Lib/Math/NumberTheory/DyadicFSM/Fib/PellRelation.fib_predict_eq_two_pell_predict`
 
 ## Hodge involution (Open Problem #5)
 - `Lib/Math/Cohomology/Hodge/InvolutionCapstone.hodge_involution_5strata_capstone`
@@ -50,7 +50,6 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 - `Lens/Universal/Witnesses/TripleCapstone.universal_lens_triple_capstone`
 - `Lens/Universal/Witnesses/PaddingCapstone.padding_capstone`
   — abstract padding lemma + 4 instances
-  (moved Meta/UniversalLens → Lens/Universal/Witnesses 2026-05-13)
 
 ## Class C atomic catalog (multi-reading magic integers)
 - `Lib/Physics/Foundations/AtomicSuperCatalog.super_catalog` —
@@ -69,9 +68,9 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 
 ## Real213 precision artifact closures (F6 doc)
 
-- `Lib/Math/Real213/Mul/CutMulConstConst.cutMul_const_const_forward`
-- `Lib/Math/Real213/Sum/CutSumGeneral.cutSum_same_denom_forward`
-- `Lib/Math/Real213/Sum/CutSumGeneral.cutSum_diff_denom_forward`
+- `Lib/Math/NumberSystems/Real213/Mul/CutMulConstConst.cutMul_const_const_forward`
+- `Lib/Math/NumberSystems/Real213/Sum/CutSumGeneral.cutSum_same_denom_forward`
+- `Lib/Math/NumberSystems/Real213/Sum/CutSumGeneral.cutSum_diff_denom_forward`
 - `Lib/Math/Analysis/BracketCauchyModulus.dyadic_bracket_cauchy_modulus`
 
 ## Substrate / metalogic
@@ -194,9 +193,9 @@ New capstones from the 14-agent audit + revision pass:
 
 ### §3.4 + §8.7 Möbius frozen + dynamic (Lib/Math)
 
-  - `Lib/Math/Mobius213.mobius_213_char_poly_at_trace` — φ²,
+  - `Lib/Math/Algebra/Mobius213.mobius_213_char_poly_at_trace` — φ²,
     1/φ² eigenvalues encoded at integer level.
-  - `Lib/Math/Mobius213.mobius_213_pell_unit_invariant_layer{0..4}` —
+  - `Lib/Math/Algebra/Mobius213.mobius_213_pell_unit_invariant_layer{0..4}` —
     `num_n · den_{n+1} − num_{n+1} · den_n = -1` across
     convergent layers, witnessing det = 1 (same algebraic
     content, frozen + dynamic readings).
@@ -207,7 +206,7 @@ New capstones from the 14-agent audit + revision pass:
     positive complement to `raw_minimality_capstone`; records
     the 1 → 2 → 3 → 4 structural forcing.
 
-### §8.8 Universal P^n ↔ Fibonacci (Lib/Math/Mobius213/Px)
+### §8.8 Universal P^n ↔ Fibonacci (Lib/Math/Algebra/Mobius213/Px)
 
   - `Px.PnFibonacciUniversal.det_pn_universal` — det(P^n) = 1 ∀n
     (Fibonacci Cassini at even indices, PURE Nat ring).

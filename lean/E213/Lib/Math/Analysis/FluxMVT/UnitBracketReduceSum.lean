@@ -1,6 +1,6 @@
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumDetermined
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # cutSumAux reduce template — G110 FLUX-1 sum companion
 
@@ -17,9 +17,9 @@ then a short `rw` finishes the proof.
 
 namespace E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum
 
-open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
-open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSumAux)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined (cutSumAux_congr)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- ★ Generic ∅-axiom reduction: rewrite
     `cutSumAux f g k bound bound` to

@@ -1,6 +1,6 @@
 import E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 import E213.Lib.Physics.Symmetry.AutKChiral
-import E213.Lib.Math.Topology.EulerChi
+import E213.Lib.Math.Geometry.Topology.EulerChi
 
 /-!
 # Gluon channel interpretation of `dim H¹(K) = 8`
@@ -50,9 +50,9 @@ theorem eight_fold_QCD_identification :
     NS * NS - 1 = 8
     ∧ E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss.H1_K = 8
     ∧ E213.Lib.Physics.Symmetry.AutKChiral.adj_SU_NS = 8
-    ∧ E213.Lib.Math.Topology.EulerChi.chi_K_32_c2 = -7
+    ∧ E213.Lib.Math.Geometry.Topology.EulerChi.chi_K_32_c2 = -7
     ∧ (1 : Int) - 8 = -7 := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
-  all_goals first | decide | exact E213.Lib.Math.Topology.EulerChi.chi_K_32_c2_eq
+  all_goals first | decide | exact E213.Lib.Math.Geometry.Topology.EulerChi.chi_K_32_c2_eq
 
 end E213.Lib.Physics.Symmetry.GluonChannelInterpretation

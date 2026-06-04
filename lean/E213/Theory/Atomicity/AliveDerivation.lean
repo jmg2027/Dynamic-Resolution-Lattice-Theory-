@@ -4,10 +4,10 @@ import E213.Meta.Tactic.Mod213
 /-!
 # Theory.Atomicity.AliveDerivation — closing the alive gap
 
-The previously-postulated `IsAlive (a, b) := parity a ∧ parity b`
-(in `Atomicity/Alive.lean`) is here **derived** from Clause 4 of
-the 213 axiom (`seed/AXIOM/02_axiom.md` §2.2 #4: no self-pair)
-applied *recursively* at the count-Lens group level.
+`IsAlive (a, b) := parity a ∧ parity b` (stated in
+`Atomicity/Alive.lean`) is here **derived** from Clause 4 of the
+213 axiom (`seed/AXIOM/02_axiom.md` §2.2 #4: no self-pair) applied
+*recursively* at the count-Lens group level.
 
 ## Derivation
 

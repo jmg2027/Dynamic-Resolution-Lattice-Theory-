@@ -160,13 +160,13 @@ the codebase:
     is the dominant eigenvalue of `[[2,1],[1,1]]` with
     characteristic polynomial `λ² − 3λ + 1` (trace `3 = NS`,
     determinant `1`, discriminant `5 = NS + NT`).
-  · `theory/math/modular_arithmetic.md`: Pell-Fibonacci
+  · `theory/math/numbertheory/modular_arithmetic.md`: Pell-Fibonacci
     substrate over `F_{p²}`, the modular reduction of the same
     `ℤ[√d]` extension.
-  · `theory/math/dyadic_fsm.md`: the dyadic FSM closure traces
+  · `theory/math/numbertheory/dyadic_fsm.md`: the dyadic FSM closure traces
     the same `ℤ[√5]` algebraic structure under bit-stream
     reduction.
-  · `lean/E213/Lib/Math/Mobius213.lean`: Möbius `P(x) = (2x+1)/(x+1)`
+  · `lean/E213/Lib/Math/Algebra/Mobius213.lean`: Möbius `P(x) = (2x+1)/(x+1)`
     fixed point lives in `ℤ[√5]`.
 
 Together: the physics base `d = 5` (selected by the three-pillar

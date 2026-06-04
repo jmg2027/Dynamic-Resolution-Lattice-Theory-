@@ -1,0 +1,257 @@
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.UniversalOrderGrowth
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.UniversalOrderGrowthC
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrtMinus2Findings
+
+/-!
+# Meta-CD-tower loop spine
+
+The classical Cayley–Dickson tower (Type A: `ZI → Lipschitz → Cayley →
+Sedenion → …`, dims `2,4,8,16,…`) is one column of a wider family of
+parallel towers (Type A over `ℤ[i]`, Type B over `ℤ[√-2]`, Type C over
+`ℤ[ω]`).  The invariant tracked here is the **±basis-doubling Moufang
+loop** of each cell — the loop `cay_units := lip_units.map cay_left ++
+lip_units.map cay_right` and its analogues, read through the order
+distribution.  (This is the canonical doubled-basis loop, *not* the full
+arithmetic unit group — e.g. the integer octonions have 240 units, while
+the basis loop here has 16; the statements below are about the basis
+loop, which is exactly what the CD doubling generates.)
+
+Three structural facts, all naming-free at the level of *which loop
+appears* (order distribution) and *at what dimension*:
+
+  * **loop class ≠ dimension.**  The same basis loop occurs at different
+    dimensions across columns: `{1,1,14}` (order-4 count 14) is the loop
+    of `Cayley` (Type A, dim 8) and of `L5T` (Type B, dim 16); `{1,1,30}`
+    is the loop of `Sedenion` (Type A, dim 16) and of `L6T` (Type B, dim
+    32).  Type B realises each loop at double the dimension of Type A.
+
+  * **Type A is a sparse section.**  At *equal* dimension the columns
+    carry *different* loops: at dim 8, `Cayley` ({1,1,14}) ≠ `L4T`
+    ({1,1,6}); at dim 16, `Sedenion` ({1,1,30}) ≠ `L5T` ({1,1,14}).  The
+    loop classes realised by Type A are a *proper subset* of those
+    realised by Type B — Type A omits the bottom rung that Type B's
+    `ℤ[√-2]` (units `{±1}`) supplies.  (The further gloss "constant `+1`
+    level offset / `n ↦ n+1`" is a *description* of this single
+    equal-dimension gap; it is not an extra fact, and it depends on the
+    arbitrary level labels — the dimension-indexed statement above is the
+    naming-free content.)
+
+  * **the spine branches.**  Type C (Eisenstein, seed `ℤ[ω]`,
+    `ω²+ω+1=0`) carries 3-torsion (order-3 units) that the dyadic columns
+    (Types A/B) do not, *and* a different order-4 count sequence
+    (`6,18,42` vs dyadic `6,14,30`).  So the loop family is not a single
+    chain but branches by base discriminant (dyadic `Z₂,Z₄,Q₈,…` vs
+    Eisenstein `Z₆,Dic₃,…`).
+
+These reads are bundled as ∅-axiom theorems, assembled from the per-level
+order distributions without re-deciding the expensive carriers.
+-/
+
+namespace E213.Lib.Math.Algebra.CayleyDickson.Tower.MetaTowerLoopSpine
+
+open E213.Lib.Math.Algebra.CayleyDickson.ZSqrtMinus2
+open E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble.Lipschitz
+open E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley
+open E213.Lib.Math.Algebra.CayleyDickson.Levels.Sedenion
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaDouble
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaQuad
+open E213.Lib.Math.Algebra.CayleyDickson.ZSqrtMinus2
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZI
+
+/-- ★ **Meta-CD-tower loop-spine structure.**  Type A's basis-loop
+    classes are a proper, branch-restricted subset of Type B's:
+
+    1. Type B realises Type A's basis loop at double the dimension, on
+       three loop classes: `Lipschitz`(dim4) and `L4T`(dim8) share count
+       6; `Cayley`(dim8) and `L5T`(dim16) share 14; `Sedenion`(dim16) and
+       `L6T`(dim32) share 30.  The same relation across three classes
+       excludes a non-linear (e.g. Fibonacci) re-indexing.
+    2. At *equal* dimension the columns carry *different* loops: dim 8,
+       `Cayley`(14) ≠ `L4T`(6); dim 16, `Sedenion`(30) ≠ `L5T`(14).  So
+       Type A omits the bottom loop rung that Type B supplies.
+    3. The dyadic column (here `Cayley`) has no 3-torsion, while the
+       Eisenstein column (`ZOmegaDouble`) does — the loop family branches
+       by base discriminant. -/
+theorem meta_tower_loop_spine :
+    -- (1) SHIFT alignment over three rungs — same loop, B one doubling above A.
+    (lip_units.countP (fun u => lip_orderOf u = 4)
+       = L4T_units.countP (fun u => L4T_orderOf u = 4))
+    ∧ (cay_units.countP (fun u => cay_orderOf u = 4)
+       = L5T_units.countP (fun u => L5T_orderOf u = 4))
+    ∧ (sed_units.countP (fun u => sed_orderOf u = 4)
+       = L6T_units.countP (fun u => L6T_orderOf u = 4))
+    -- (2) exact +1 offset — equal dimension, different loop (two witnesses).
+    ∧ (cay_units.countP (fun u => cay_orderOf u = 4)
+       ≠ L4T_units.countP (fun u => L4T_orderOf u = 4))
+    ∧ (sed_units.countP (fun u => sed_orderOf u = 4)
+       ≠ L5T_units.countP (fun u => L5T_orderOf u = 4))
+    -- (3) branching — dyadic spine has no 3-torsion, Eisenstein does.
+    ∧ (cay_units.countP (fun u => cay_orderOf u = 3) = 0)
+    ∧ (zod_units.countP (fun u => zod_orderOf u = 3) ≠ 0) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · exact (lip_order_distribution.2.2.1).trans (L4T_order_distribution.2.2.1).symm
+  · exact (cay_order_distribution.2.2.1).trans (L5T_order_distribution.2.2.1).symm
+  · exact (sed_order_distribution.2.2.1).trans (L6T_order_distribution.2.2.1).symm
+  · rw [cay_order_distribution.2.2.1, L4T_order_distribution.2.2.1]; decide
+  · rw [sed_order_distribution.2.2.1, L5T_order_distribution.2.2.1]; decide
+  · decide
+  · decide
+
+/-- ★ **No dyadic ↔ Eisenstein basis-loop isomorphism.**  The order-3
+    count is an isomorphism invariant of a finite loop: any
+    `orderOf`-preserving bijection equalises it.  It vanishes on the
+    dyadic basis loops (`Lipschitz`, `Cayley`) and equals `2` on the
+    Eisenstein ones (`ZOmegaDouble`, `ZOmegaQuad`), so no dyadic basis
+    loop is isomorphic to any Eisenstein one — the two branches share no
+    cell.  This is the named obstruction behind "the loop family branches
+    by base discriminant". -/
+theorem no_cross_branch_loop_iso :
+    (lip_units.countP (fun u => lip_orderOf u = 3) = 0)
+    ∧ (cay_units.countP (fun u => cay_orderOf u = 3) = 0)
+    ∧ (zod_units.countP (fun u => zod_orderOf u = 3) = 2)
+    ∧ (zoq_units.countP (fun u => zoq_orderOf u = 3) = 2) := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+open E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote
+
+/-- ★ **The `ℤ[√5]` asymptote classifies the branch, not the column.**
+    `asymptote_ab` is *constant* on the dyadic branch — `A = B = (2,0)`,
+    blind to the `A ↔ B` within-branch column shift — and *distinct*
+    across the three branch classes `{A,B}`, `{C}`, `{D}`.  So the
+    asymptote is a branch (base-discriminant-class) invariant; it does
+    not see the loop-spine offset between Type A and Type B.
+
+    (The verified classifier is the rank `ω(unitOrder) − 1 + nonAbelian`
+    behind `asymptote_ab`, *not* a base discriminant fed through the
+    Möbius `disc P = 5`; `cd_mobius_bridge_master` ties only the `C`/`D`
+    asymptotes to `P`-invariants, never the dyadic `(2,0)`.) -/
+theorem asymptote_classifies_branch :
+    asymptote_ab .A = asymptote_ab .B
+    ∧ asymptote_ab .A ≠ asymptote_ab .C
+    ∧ asymptote_ab .A ≠ asymptote_ab .D
+    ∧ asymptote_ab .C ≠ asymptote_ab .D := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+set_option maxHeartbeats 4000000 in
+/-- ★ **The Eisenstein branch is denser than the dyadic branch.**  At
+    equal dimension 8, the Eisenstein basis loop (`ZOmegaQuad`) carries
+    more order-4 elements (`18`) than the dyadic one (`Cayley`, `14`) —
+    the extra `cyclotomic` content makes Type C the denser column per
+    dimension.  (At dim 16 the gap widens to `42` vs `30`.) -/
+theorem eisenstein_denser_dim8 :
+    cay_units.countP (fun u => cay_orderOf u = 4)
+      < zoq_units.countP (fun u => zoq_orderOf u = 4) := by
+  rw [cay_order_distribution.2.2.1]; decide
+
+/-! ### The bottom rung Type A omits
+
+`ℤ[√-2] = ZSqrt 2` (Type B's base) has unit group exactly `{±1}` (an
+imaginary quadratic order, discriminant `-8`): a `Z₂` loop with **no**
+order-4 element.  Type A's base `ℤ[i]` is already `Z₄` (units
+`{±1,±i}`, order-4 count 2).  So the dyadic loop spine has a rung
+(`Z₂`, order-4 count 0) below Type A's start, supplied by Type B and
+omitted by Type A — the formal content of "Type A is a section that
+skips the bottom rung". -/
+
+/-- `ℤ[√-2]` unit group `{±1}`. -/
+def z2_one : Z2 := ⟨1, 0⟩
+
+/-- The two units `{1, -1}` of `ℤ[√-2]`. -/
+def z2_base_units : List Z2 := [⟨1, 0⟩, ⟨-1, 0⟩]
+
+/-- Element order on `ℤ[√-2]`, checking the torsion menu `{1,2,3,4,6}`. -/
+def z2_orderOf (u : Z2) : Nat :=
+  if u = z2_one then 1
+  else if u * u = z2_one then 2
+  else if u * u * u = z2_one then 3
+  else if u * u * u * u = z2_one then 4
+  else if u * u * u * u * u * u = z2_one then 6
+  else 0
+
+/-- `ℤ[i]` unit `1`. -/
+def zi_one : ZI := ⟨1, 0⟩
+
+/-- Element order on `ℤ[i]`. -/
+def zi_orderOf (u : ZI) : Nat :=
+  if u = zi_one then 1
+  else if u * u = zi_one then 2
+  else if u * u * u * u = zi_one then 4
+  else 0
+
+/-- ★ **The dyadic spine has a `Z₂` bottom rung that Type A omits.**
+    Type B's base `ℤ[√-2]` is the `Z₂` loop — 2 units, no order-4, no
+    3-torsion — sitting one doubling below Type A's base `ℤ[i]`, which is
+    already `Z₄` (4 units, order-4 count 2).  So the dyadic loop spine
+    extends one rung below Type A; Type A indexes it from the second
+    position. -/
+theorem dyadic_branch_bottom_rung :
+    -- B base ℤ[√-2]: the Z₂ rung (no order-4, no 3-torsion).
+    z2_base_units.length = 2
+    ∧ z2_base_units.countP (fun u => z2_orderOf u = 4) = 0
+    ∧ z2_base_units.countP (fun u => z2_orderOf u = 3) = 0
+    -- A base ℤ[i]: already Z₄ (order-4 count 2) — the Z₂ rung is absent.
+    ∧ ZIUnits.length = 4
+    ∧ ZIUnits.countP (fun u => zi_orderOf u = 4) = 2 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- ★★ **Meta-CD-tower master statement.**  The classical Cayley–Dickson
+    tower is a sparse section of a discriminant-branching basis-loop
+    spine.  One citable conjunction of the five reads:
+
+      * `meta_tower_loop_spine` — loop class ≠ dimension; Type B carries
+        Type A's loop at double the dimension; the spine branches;
+      * `dyadic_branch_bottom_rung` — the `Z₂` rung (`ℤ[√-2]`) below Type
+        A that Type A omits;
+      * `no_cross_branch_loop_iso` — dyadic and Eisenstein never coincide;
+      * `eisenstein_denser_dim8` — the Eisenstein branch is denser;
+      * `asymptote_classifies_branch` — the `ℤ[√5]` asymptote is a branch
+        invariant, blind to the within-branch column shift.
+
+    Together: Type A is the dyadic chain read from its second rung; the
+    completion is a forest branching by base discriminant, not a single
+    chain and not a non-linear (Fibonacci) re-index. -/
+theorem meta_tower_master :
+    (lip_units.countP (fun u => lip_orderOf u = 4)
+       = L4T_units.countP (fun u => L4T_orderOf u = 4)
+     ∧ cay_units.countP (fun u => cay_orderOf u = 4)
+       = L5T_units.countP (fun u => L5T_orderOf u = 4)
+     ∧ sed_units.countP (fun u => sed_orderOf u = 4)
+       = L6T_units.countP (fun u => L6T_orderOf u = 4)
+     ∧ cay_units.countP (fun u => cay_orderOf u = 4)
+       ≠ L4T_units.countP (fun u => L4T_orderOf u = 4)
+     ∧ sed_units.countP (fun u => sed_orderOf u = 4)
+       ≠ L5T_units.countP (fun u => L5T_orderOf u = 4)
+     ∧ cay_units.countP (fun u => cay_orderOf u = 3) = 0
+     ∧ zod_units.countP (fun u => zod_orderOf u = 3) ≠ 0)
+    ∧ (z2_base_units.length = 2
+     ∧ z2_base_units.countP (fun u => z2_orderOf u = 4) = 0
+     ∧ z2_base_units.countP (fun u => z2_orderOf u = 3) = 0
+     ∧ ZIUnits.length = 4
+     ∧ ZIUnits.countP (fun u => zi_orderOf u = 4) = 2)
+    ∧ (lip_units.countP (fun u => lip_orderOf u = 3) = 0
+     ∧ cay_units.countP (fun u => cay_orderOf u = 3) = 0
+     ∧ zod_units.countP (fun u => zod_orderOf u = 3) = 2
+     ∧ zoq_units.countP (fun u => zoq_orderOf u = 3) = 2)
+    ∧ (cay_units.countP (fun u => cay_orderOf u = 4)
+       < zoq_units.countP (fun u => zoq_orderOf u = 4))
+    ∧ (asymptote_ab .A = asymptote_ab .B
+     ∧ asymptote_ab .A ≠ asymptote_ab .C
+     ∧ asymptote_ab .A ≠ asymptote_ab .D
+     ∧ asymptote_ab .C ≠ asymptote_ab .D) :=
+  ⟨meta_tower_loop_spine, dyadic_branch_bottom_rung, no_cross_branch_loop_iso,
+   eisenstein_denser_dim8, asymptote_classifies_branch⟩
+
+/-- ★ **Column density at a fixed dimension is `|μ_seed| / 2`.**  At
+    dimension 8 the three columns carry unit counts `2·8`, `1·8`, `3·8` —
+    densities `c = 2, 1, 3` set by the seed root-of-unity group: `μ₄`
+    (`ℤ[i]`, Type A), `μ₂` (`ℤ[√-2]`, Type B), `μ₆` (`ℤ[ω]`, Type C).  The
+    same loop sequence (dyadic A/B) is thus realised at different
+    densities, and the Eisenstein column is denser still. -/
+theorem seed_density_at_dim8 :
+    cay_units.length = 2 * 8        -- Type A (μ₄): density 2
+    ∧ L4T_units.length = 1 * 8      -- Type B (μ₂): density 1
+    ∧ zoq_units.length = 3 * 8 := by -- Type C (μ₆): density 3
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
+end E213.Lib.Math.Algebra.CayleyDickson.Tower.MetaTowerLoopSpine

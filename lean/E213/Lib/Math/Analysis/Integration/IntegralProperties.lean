@@ -2,10 +2,10 @@ import E213.Lib.Math.Analysis.Integration.Antiderivative
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Lib.Math.Analysis.Integration.IntegralViaAnti
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Bisection.CutBisection
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Core.Dyadic
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Core.Dyadic
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
@@ -25,10 +25,10 @@ These follow structurally from the antiderivative class combinators.
 namespace E213.Lib.Math.Analysis.Integration.IntegralProperties
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
-open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection (cutMid)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Core.Dyadic (dyadicCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable

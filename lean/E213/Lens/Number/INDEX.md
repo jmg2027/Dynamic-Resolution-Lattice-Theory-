@@ -1,10 +1,8 @@
 # `Lens/Number/` — Raw-derived number systems
 
 Each module is a `Raw.fold` catamorphism output reified as a
-number system.  Per ARCHITECTURE.md (2026-05-13): catamorphism +
-data choice = Lens-layer artifact.  Migrated from
-`Theory.Closed.{Nat213, Nat213Bridge, RawCut, NumberingSystem}` +
-`Theory.Nat213.*` + `Theory.Tower.NatPairToQPos` on 2026-05-14.
+number system.  Per ARCHITECTURE.md: catamorphism + data choice =
+Lens-layer artifact.
 
 ## Sub-clusters
 
@@ -27,7 +25,7 @@ data choice = Lens-layer artifact.  Migrated from
   - `Rat213/`    — ℚ via multiplicative quotient (currently in
                    `Nat213/Tower/NatPairToQPos`).
   - `Real213/`   — ℝ via cuts / Cauchy seqs over Nat213
-                   (currently in `Lib/Math/Real213`; candidate for
+                   (currently in `Lib/Math/NumberSystems/Real213`; candidate for
                    migration once mature).
 
 ## Where to add new files

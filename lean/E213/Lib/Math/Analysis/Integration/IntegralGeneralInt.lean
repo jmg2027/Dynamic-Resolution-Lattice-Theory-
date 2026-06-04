@@ -5,8 +5,8 @@ import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.Integration.IntegralIntInterval
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # IntegralGeneralInt
 ★ integration over arbitrary integer interval [a, b] ★
@@ -20,8 +20,8 @@ namespace E213.Lib.Math.Analysis.Integration.IntegralGeneralInt
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- ★ General integer interval bracket [a, b] for a ≤ b. -/
 def intIntervalAB (a b : Nat) (h : a ≤ b) : DyadicBracket where

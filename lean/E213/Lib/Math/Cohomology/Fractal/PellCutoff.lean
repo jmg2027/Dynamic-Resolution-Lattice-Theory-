@@ -12,8 +12,8 @@ external sequence: the Pell numbers `P_n` defined by
 `P_n` grows as `(1 + √2)^n / (2√2)` (Binet form), so `P_n → ∞`.
 
 The Pell sequence is **213-internally motivated** via the dyadic
-FSM / Pisano period analysis (`theory/math/dyadic_fsm.md` and
-`theory/math/modular_arithmetic.md`), making this a natural test
+FSM / Pisano period analysis (`theory/math/numbertheory/dyadic_fsm.md` and
+`theory/math/numbertheory/modular_arithmetic.md`), making this a natural test
 case for cut-off principle reusability beyond Aurifeuillean.
 
 ## Cut-off summary
@@ -25,7 +25,7 @@ case for cut-off principle reusability beyond Aurifeuillean.
 
 ## Cross-references
 
-  · `theory/math/dyadic_fsm.md` — Pell / dyadic FSM connection.
+  · `theory/math/numbertheory/dyadic_fsm.md` — Pell / dyadic FSM connection.
   · `theory/meta/cardinality_cutoff_principle.md` — principle.
   · `AurifeuilleanFullCutoff.lean` — depth-1 cut-off.
   · `AurifeuilleanDepth2Cutoff.lean` — restricted depth-2 cut-off.

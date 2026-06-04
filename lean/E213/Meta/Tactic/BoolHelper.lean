@@ -2,7 +2,7 @@
 # `Meta.Tactic.BoolHelper` — shared `Bool` lemmas (∅-axiom)
 
 213-native helpers for `Bool` that are repeatedly needed across
-`Lib/Math/Real213/`, `Lib/Math/Analysis/`, and downstream cut/sum
+`Lib/Math/NumberSystems/Real213/`, `Lib/Math/Analysis/`, and downstream cut/sum
 machinery.  This module is the canonical source for the shared
 `Bool` lemmas (`bool_eq_iff`, `xor_comm`, `eq_of_xor_false`,
 `and_eq_true_pair`).

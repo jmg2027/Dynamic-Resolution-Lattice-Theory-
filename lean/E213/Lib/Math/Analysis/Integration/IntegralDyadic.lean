@@ -5,8 +5,8 @@ import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.Integration.IntegralGeneralInt
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # IntegralDyadic
 ★★ integration over arbitrary dyadic interval ★★
@@ -28,8 +28,8 @@ namespace E213.Lib.Math.Analysis.Integration.IntegralDyadic
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- ★ Arbitrary dyadic bracket [numA/2^E, numB/2^E]. -/
 def dyadicIntervalAB (numA numB E : Nat) (h : numA ≤ numB) : DyadicBracket where

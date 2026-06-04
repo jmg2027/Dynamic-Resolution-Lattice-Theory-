@@ -12,6 +12,8 @@ import E213.Theory.Raw.PrimitiveTower
 import E213.Theory.Raw.Lambek
 import E213.Theory.Raw.MuNuMirror
 import E213.Theory.Raw.CoResidue
+import E213.Theory.Raw.Odometer
+import E213.Theory.Raw.OdometerValue
 import E213.Theory.Raw.StateMachine
 import E213.Theory.Raw.Congruence
 import E213.Theory.Raw.ParenthesizationDistinct
@@ -51,9 +53,9 @@ get the full public surface in one line.
 
 **Migration history**: an earlier `Theory.Raw.Mobius` (Möbius
 matrix bridge) had a ring violation via `Lib.Math.Tactic.Ring213`;
-it was promoted to `Lib/Math/Mobius213.lean` per `research-notes/archive/audits/THEORY_AUDIT.md`
+it was promoted to `Lib/Math/Algebra/Mobius213.lean` 
 §4 (now complete).  Möbius results are imported directly from
-`Lib/Math/Mobius213` as Lib-ring content.
+`Lib/Math/Algebra/Mobius213` as Lib-ring content.
 
 **Discipline** (per ARCHITECTURE.md): outside the Raw
 sub-cluster (e.g., Lens, Lib, other Theory clusters), code should

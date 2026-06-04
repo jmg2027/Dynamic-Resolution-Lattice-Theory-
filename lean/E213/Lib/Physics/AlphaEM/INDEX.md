@@ -4,8 +4,7 @@
 Δ⁴ topology + fractal level structure.
 
 **Narrative**: `theory/physics/alpha_em/precision_derivation.md`
-(promoted 2026-05-22; covers C1 Steps 1-4 + C5 Steps 1-6 + open
-frontier).
+(covers C1 Steps 1-4 + C5 Steps 1-6 + open frontier).
 
 The cluster is organised around two `research-notes/G35` conjectures:
   - **C1** — pure cup-ring 1/α_em formula (no SO(10), no Dyson)
@@ -70,7 +69,6 @@ header).  Other files may carry decidability dependencies.
   - `Lib/Math/Cohomology/CupAW`                 — Alexander-Whitney cup product
   - `Lib/Physics/Symmetry/`                     — C3 chain (gluon octet from H¹(K))
   - `theory/physics/alpha_em/precision_derivation.md` — narrative
-  - `research-notes/G35_chiral_cup_ring_catalog.md`   — broader 213-Algebra catalog (active scratch)
 
 ## Where to add new α_em-related files
 

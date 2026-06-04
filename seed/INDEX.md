@@ -70,9 +70,7 @@ Fractal/ConfigCount`).  The historical value `N_U = 5²⁵` is
 `configCount 2`, one value of the family — not a privileged
 universe constant.  Two real Lean derivations at level n = 2
 (fractal iteration count + K₂₅ graph coloring); earlier "4-way
-convergence" was reduced to 2-of-4 real per G120 audit.  See
-`RESOLUTION_LIMIT_SPEC.md` §2 (canonical; G120 Round 3 rewrite;
-wins over any AXIOM/ chapter on resolution-limit topics).
+convergence" was reduced to 2-of-4 real per G120 audit.
 
 ---
 
@@ -129,7 +127,6 @@ seed/
 ├── INDEX.md                          ← this file (standalone entry)
 ├── ORIGIN.md                         ← DRLT origin narrative (archival)
 ├── NOTATION.md                       ← symbol conventions
-├── RESOLUTION_LIMIT_SPEC.md          ← cardinality / N_U readout spec
 ├── CLOSED_FORM_SPEC.md               ← 3-domain projection catalogue
 │                                       + Bishop subsumption + bridges
 ├── THEOREM_METHODOLOGY_SUITE.md      ← TH-1 fingerprint + TH-2 Raw-
@@ -187,10 +184,7 @@ seed/
 
 Static-analysis archetypes (11 scanner types + dual-branch process
 model): `seed/META_SCAN_ARCHETYPES.md`.  Pattern catalogue +
-methodology suite: `LESSONS_LEARNED.md` Patterns #1-#20.  Open
-action items + abstraction candidates registry:
-`research-notes/archive/metascan/G107_action_items_registry.md`.  Tier-2/3 corpus
-quantitative profiles: `research-notes/G108`-`G116`.  Tooling
+methodology suite: `LESSONS_LEARNED.md` Patterns #1-#20.  Tooling
 inventory: `tools/*.py` (each scanner accepts `--report-only`
 against cached TSV).
 

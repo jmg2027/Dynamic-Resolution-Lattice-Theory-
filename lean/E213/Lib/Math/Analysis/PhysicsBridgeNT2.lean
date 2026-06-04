@@ -1,8 +1,8 @@
-import E213.Lib.Math.Real213.Core.MinimumProposition
+import E213.Lib.Math.NumberSystems.Real213.Core.MinimumProposition
 
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
-import E213.Lib.Math.Real213.Bisection.CutContinuity
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
@@ -37,8 +37,8 @@ analysis-track theorems re-stated under physics-friendly names.
 namespace E213.Lib.Math.Analysis.PhysicsBridgeNT2
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
   (riemannSampleSum riemannSampleSum_constCut riemannSampleSum_constCut_at)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket

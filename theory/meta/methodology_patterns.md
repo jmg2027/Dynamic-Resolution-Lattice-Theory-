@@ -5,9 +5,9 @@ insights surfaced while closing Lean sub-trees.  Each pattern is a
 named, reusable reduction or strategy with concrete examples in
 `lean/E213/`.
 
-Distinct from `theory/math/pattern_catalog/pattern_catalog.md`,
+Distinct from `theory/math/foundations/pattern_catalog/pattern_catalog.md`,
 which catalogues *formalised-in-Lean* proof patterns (the
-`Lib/Math/PatternCatalog/` sub-tree).  This file catalogues
+`Lib/Math/Foundations/PatternCatalog/` sub-tree).  This file catalogues
 methodology — the *human-side* heuristics that guide closure work.
 
 ---

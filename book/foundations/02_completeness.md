@@ -49,7 +49,7 @@ a *commutative* readout — its codomain is a `CommBinaryCodomain` (the count, t
 difference, the ratio, the completed cut all commute).  Cayley–Dickson doubling
 *leaves* that world at the very first step:
 
-> `Lib/Math/CayleyDickson/Tower/CDDouble.lean:22-30`: *CD doubling **exits** the
+> `Lib/Math/Algebra/CayleyDickson/Tower/CDDouble.lean:22-30`: *CD doubling **exits** the
 > `ConjugationCodomain` typeclass: the result is **non-commutative** … so it cannot
 > serve as a Lens codomain. … `ℂ` is the unique commutative `ConjugationCodomain`
 > endpoint; CD doubling continues into non-commutative territory.*
@@ -129,7 +129,7 @@ malformed dichotomy; the cut *is* the narrowing.
 **Flag (broken pointer).**  §6.7 line 294 cites `seed/RESOLUTION_LIMIT_SPEC.md`, which
 does not exist.  The resolution-ceiling content lives in
 `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (`configCountD d n = d^(d^n)`) and
-`Lib/Math/ResolutionLimit.lean`.  The pointer should be corrected.
+`Lib/Math/Foundations/ResolutionLimit.lean`.  The pointer should be corrected.
 
 ## 2.5 Summary
 

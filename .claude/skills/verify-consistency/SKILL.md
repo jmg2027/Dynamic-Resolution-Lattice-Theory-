@@ -93,9 +93,13 @@ grep -rhoE "seed/[A-Za-z0-9/_]+\.md" --include='*.md' --include='*.lean' . \
   add X.lean", a milestone deliverable, a create-then-delete probe file)
   → not stale; leave.
 
-For closed topics, Lean docstrings should cite `theory/<mirror>`; only
-active scratch cites bare `research-notes/G##`.  Archived notes →
-`research-notes/archive/...` (fix the path, don't delete the citation).
+Sink rule (`PROCESS.md`): permanent tiers (`lean/E213/`, `theory/`,
+`seed/`, `catalogs/`, `books/`, `blueprints/`) cite **no**
+`research-notes/` file.  A Lean docstring or theory chapter pointing at
+`research-notes/G##_*.md` is a leak — repoint at the `theory/<mirror>`
+chapter (closed topic) or the `seed/AXIOM/` anchor (foundational concept).
+`research-notes/` cross-refs *within* `research-notes/` are fine.  Defer
+to the `process` skill for the full decouple sweep.
 
 ---
 
@@ -114,6 +118,12 @@ active scratch cites bare `research-notes/G##`.  Archived notes →
 - `theory/INDEX.md` is canonical for the narrative book.
 - Closed Lean sub-trees lacking a `theory/` chapter → INFO (promotion
   candidate), don't block.
+- **Frontier-recording rule** (`PROCESS.md`): every open frontier lives in
+  `research-notes/frontiers/`.  A `theory/` chapter "Open frontier" section,
+  or a HANDOFF "Open Problems" item, that names an open direction with **no**
+  corresponding `frontiers/<topic>/` note + `frontiers/INDEX.md` entry →
+  WARNING (homeless frontier).  Fix: record it (defer to the `process`
+  skill).
 
 ---
 

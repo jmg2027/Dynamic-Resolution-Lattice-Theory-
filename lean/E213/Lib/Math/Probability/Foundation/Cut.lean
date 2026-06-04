@@ -1,6 +1,6 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
-import E213.Lib.Math.Real213.Sum.CutSumTest
-import E213.Lib.Math.Real213.Core.CutPoset
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.CutPoset
 import E213.Meta.Tactic.NatHelper
 
 /-!
@@ -18,8 +18,8 @@ no Quot.sound.
 
 namespace E213.Lib.Math.Probability.Foundation.Cut
 
-open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 
 /-- Atomic probability mass: rational `num / den` with `0 < den` and

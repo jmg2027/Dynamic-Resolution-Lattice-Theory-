@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Tripartite.V213Betti
 import E213.Lib.Math.Cohomology.Bipartite.V32Betti
-import E213.Lib.Math.Mobius213.Px.TripartiteK213
+import E213.Lib.Math.Algebra.Mobius213.Px.TripartiteK213
 
 /-!
 # Cohomology bridge — K_{3,2}^{(c=2)} ↔ K_{2,1,3}

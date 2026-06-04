@@ -150,7 +150,6 @@ file's docstring:
 | `ch01-ch22`, `ch09 sec 6.1` | `book/chapters/` deleted (per Stage 6 audit) | drop or replace with `lean/E213/` module path if still relevant |
 | `SM_NNN`, `eq NN` | old paper-marker (papers/ deleted) | drop |
 | `PAPER.md`, `PAPER2.md` | superseded by `seed/AXIOM/` (per `06_formalization.md` §7.2) | redirect to `seed/AXIOM/<chapter> §<ref>` |
-| `Finitism is Forced` (heading) | deprecated framing (per `seed/RESOLUTION_LIMIT_SPEC.md`) | redirect to `seed/RESOLUTION_LIMIT_SPEC.md` |
 | `R12Codomain`, `R3Codomain`, `R4Codomain` | renamed 2026-05-05 (`seed/AXIOM/99_history.md` §9.1) | use `CommBinaryCodomain` / `NonVanishingCodomain` / `ConjugationCodomain` |
 | `derive_r4_codomain`, `#verify_r4` | tactic renamed | `derive_conjugation_codomain` / `#verify_conjugation` |
 
@@ -226,7 +225,6 @@ instances) is preserved through other imports.
 
 ## Cross-reference
 
-  - 2026-05-05 audit pass: `research-notes/AUDIT_PASS_2026-05-05_*.md`
   - First leaf execution: commits `396585c` (rename) + `623e377`
     (absorption + deletion).
 

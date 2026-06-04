@@ -502,7 +502,7 @@ same theorems.  Only the possibility of user misuse changes.
 - (short-term) Lens-layer bleed migration — move Raw.depth,
   Raw.leaves, etc. to Lens (§I.4 Recommendation 3).
 - (extension, completed) p-adic ℤ_p sub-tower formalization
-  (`Lib/Math/Hyper/Padic.lean`): leavesModNat sub-family + factorial
+  (`Lib/Math/NumberSystems/Hyper/Padic.lean`): leavesModNat sub-family + factorial
   seq instance.  ZFC reduction scope extended to number-theoretic
   limit territory.
 
@@ -609,8 +609,7 @@ separate module.
 ### Mode of existence
 
 Lean `inductive` is by definition compatible with either
-Platonic or stepwise interpretation.  Companion narrative:
-`research-notes/archive/17_existence_mode_lens.md`.  Current Lean
+Platonic or stepwise interpretation.  Current Lean
 coverage: `lean/E213/Lens/Cardinality/Tower.lean` and
 `lean/E213/Lens/Cardinality/Chain.lean`.
 

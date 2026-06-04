@@ -1,6 +1,6 @@
 # Holonomic modulus — completeness as a constructed convergence rate
 
-**Status**: Closed.  Source of truth: `lean/E213/Lib/Math/Real213/{RateModulus,
+**Status**: Closed.  Source of truth: `lean/E213/Lib/Math/NumberSystems/Real213/{RateModulus,
 HolonomicReal,ExpLog/EulerModulus,ExpLog/EulerCertifiedBracket}`, all ∅-axiom.
 
 A Real213 real is a decision procedure against ℚ; completeness is not constitutive

@@ -7,9 +7,7 @@ import E213.Lib.Physics.Capstones.PureAtomicObservables
 
   Top-level physics-track capstones integrating the per-cluster
   results from `Physics/{AlphaEM, Mass, Hadron, Cosmology, Higgs,
-  Mixing, Nuclear, ...}`.  These were previously hosted under
-  `OS/Physics/Capstones/` (Phase A2 of the M14 refactor moved
-  them home to Physics/).
+  Mixing, Nuclear, ...}`.
 
   ## Files
 

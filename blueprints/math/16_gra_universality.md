@@ -106,7 +106,6 @@ Reading(그래프론)에서 인스턴스를 구성.
 ## 7. Connections
 
 - `theory/math/graded_residue_arithmetic.md` — 이론 문서 (informal)
-- `research-notes/G151_GRA_gap_analysis.md` — gap 분석
 - `lean/E213/Lib/Math/Cohomology/` — R₁ building blocks
 - `lean/E213/Lib/Math/Analysis/` — R₅ building blocks
 - `lean/E213/Lib/Math/Topology/` — R₄ partial

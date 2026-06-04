@@ -706,4 +706,33 @@ theorem cross_step_algebra (a b p q : Int) :
   rw [add_neg_cancel, zero_add]
   rw [add_comm (-(b*p)) (a*q), ← Int.sub_eq_add_neg]
 
+/-! ## Sign / zero kernel -/
+
+/-- A nonzero `x` times `y` is zero ⟹ `y = 0` (`Int` has no zero
+    divisors).  Decidable case split (no `propext` from the
+    `mul_eq_zero` iff). -/
+theorem int_eq_zero_of_mul_left {x y : Int} (hx : x ≠ 0) (h : x * y = 0) : y = 0 := by
+  rcases mul_eq_zero h with hx0 | hy0
+  · exact absurd hx0 hx
+  · exact hy0
+
+/-- A nonzero integer differs from its negation. -/
+theorem int_ne_neg_self {x : Int} (h : x ≠ 0) : x ≠ -x := by
+  match x with
+  | Int.ofNat 0 => exact absurd rfl h
+  | Int.ofNat (k + 1) => intro he; exact Int.noConfusion he
+  | Int.negSucc k => intro he; exact Int.noConfusion he
+
+/-- An integer equal to its own negation is zero. -/
+theorem int_eq_zero_of_eq_neg {x : Int} (h : x = -x) : x = 0 := by
+  have hxx : x + x = 0 := (congrArg (x + ·) h).trans (add_neg_cancel x)
+  cases x with
+  | ofNat m =>
+    rw [show Int.ofNat m + Int.ofNat m = Int.ofNat (m + m) from rfl] at hxx
+    have hm0 : m = 0 := Nat.eq_zero_of_add_eq_zero_right (Int.ofNat.inj hxx)
+    subst hm0; rfl
+  | negSucc m =>
+    rw [show Int.negSucc m + Int.negSucc m = Int.negSucc (m + m + 1) from rfl] at hxx
+    exact Int.noConfusion hxx
+
 end E213.Meta.Int213

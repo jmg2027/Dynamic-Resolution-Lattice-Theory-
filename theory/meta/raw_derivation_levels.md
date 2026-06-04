@@ -21,8 +21,6 @@ generic Lean carrier infrastructure**.  The mathematics is
 Raw-derived; the carriers (Nat, Bool, Int, Fin, ...) are not.
 
 ## Source
-
-- **Primary**: `research-notes/archive/metascan/G104_raw_derivation_three_levels.md`
 - **Empirical evidence**: Expr-level callgraph (Expr callgraph BFS), Raw-depth BFS (Raw-depth
   density), namespace-shape + recursor inventory (per-namespace shape + recursor inventory),
   `tools/ast_typesig_scan.py`, `tools/ast_callgraph_scan.py`
@@ -72,8 +70,8 @@ content work, not by meta-scans on this branch.
 
 See:
 - `theory/physics/foundations/atomic_constants.md` (C2 closure)
-- `theory/math/universe_chain.md` (atomicity → CRT)
-- `theory/math/cayley_dickson/algebra_tower.md` (algebra-tower
+- `theory/math/foundations/universe_chain.md` (atomicity → CRT)
+- `theory/math/algebra/cayley_dickson/algebra_tower.md` (algebra-tower
   asymptote φ matching Möbius signature)
 
 ### (γ) Operational / definitional reduction — FALSE in general
@@ -185,8 +183,8 @@ python3 tools/audit_axioms.py
 # (β) — verify substantive content chains
 cd lean
 lake build E213.Lib.Physics.Foundations.AtomicConstants
-lake build E213.Lib.Math.UniverseChain
-lake build E213.Lib.Math.CayleyDickson.Tower
+lake build E213.Lib.Math.Foundations.UniverseChain
+lake build E213.Lib.Math.Algebra.CayleyDickson.Tower
 
 # (γ) — empirical Expr-level reduction measurement
 python3 tools/ast_typesig_scan.py --report-only

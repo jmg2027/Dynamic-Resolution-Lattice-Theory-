@@ -77,7 +77,7 @@ lean/E213/Lib/Math/CayleyDickson/
 lean/E213/Lib/Math/Tactic/
   Ring213.lean                          — Recurrence2/3 universal
 
-lean/E213/Lib/Math/Search/
+lean/E213/Lib/Math/Foundations/Search/
   FindStructure.lean + Instances.lean   — universal search
 
 rust-engine/crates/app/src/bin/

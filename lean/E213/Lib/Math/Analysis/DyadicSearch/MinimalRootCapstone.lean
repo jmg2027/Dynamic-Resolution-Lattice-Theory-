@@ -37,8 +37,8 @@ open E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLensMonotone
   (IVTRoot.fromConsistentOracleRatio)
 open E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle (ConsistentOracle)
 open E213.Lib.Math.Analysis.DyadicSearch.IVT (IVTHypothesis IVTRoot)
-open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData)
-open E213.Lib.Math.Real213.Core.ValidCut (RatioCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.CutFnData (LocallyDeterminedData)
+open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (RatioCut)
 
 /-! ## §1.  Public-facing IVT root constructor
 

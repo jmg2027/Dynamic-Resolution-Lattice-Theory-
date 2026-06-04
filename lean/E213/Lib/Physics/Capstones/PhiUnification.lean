@@ -1,5 +1,5 @@
-import E213.Lib.Math.Mobius213
-import E213.Lib.Math.Mobius213.TowerLInfty
+import E213.Lib.Math.Algebra.Mobius213
+import E213.Lib.Math.Algebra.Mobius213.TowerLInfty
 import E213.Lib.Physics.Foundations.FibonacciExtended
 import E213.Lib.Physics.Foundations.GoldenRatio
 import E213.Lib.Physics.Mixing.CPViolation
@@ -30,8 +30,8 @@ PURE: all theorems strict ∅-axiom.
 
 namespace E213.Lib.Physics.Capstones.PhiUnification
 
-open E213.Lib.Math.Mobius213
-open E213.Lib.Math.Mobius213.TowerLInfty
+open E213.Lib.Math.Algebra.Mobius213
+open E213.Lib.Math.Algebra.Mobius213.TowerLInfty
 open E213.Lib.Physics.Foundations.GoldenRatio (fib golden_ratio_atomic)
 open E213.Lib.Physics.Foundations.FibonacciExtended (mobius_fibonacci_bridge)
 open E213.Lib.Physics.Mixing.CPViolation (CP_violation_atomic phi_sq_via_fibonacci)

@@ -35,7 +35,7 @@ here (the escape needs only non-surjectivity).  It is a structural shadow richer
 depth one, still not the residue itself (which stays outside every view).  The `≠` uses a
 pointwise difference, so no `funext`.  All zero-axiom.
 
-Narrative: `theory/essays/the_residue_as_primitive.md` (the inversion: Raw = µF, νF = `SlashNu`).
+Narrative: `theory/essays/foundations/the_residue_as_primitive.md` (the inversion: Raw = µF, νF = `SlashNu`).
 -/
 
 namespace E213.Theory.Raw.CoResidue
@@ -1052,5 +1052,193 @@ theorem nu_population_capstone :
    fun _ _ h => boolSpine_inj h,
    coSwap_spineL_distinct,
    spineL_unique⟩
+
+/-! ## §18 — the swap automorphism acts *freely* on the bit-stream escapes (cross-arc §14 ⊗ §15)
+
+The lone Raw automorphism `swap` (§14, `coSwap`) and the `(Nat→Bool)`-indexed escape family
+(§15, `boolSpine`) meet here.  On the **leaf-level** family the intertwining is *exact*:
+`coSwap ∘ boolSpine = boolSpine ∘ (Bool.not ∘ ·)` — flipping the co-tree's leaf labels is
+pointwise negation of the seeding bit-stream.  This is precisely the locus where §14's honest
+caveat reports the *tree-seed* intertwining (`coSwap ∘ spineOf = spineOf ∘ Tree.swap`) **fails**:
+`Tree.swap` reorders a slash's children by `cmp` to stay canonical, while `coSwap` is positional
+— but a single leaf has nothing to reorder, so on the bit-stream family the two coincide.
+
+And the action is **free**: `coSwap` fixes *no* bit-stream escape (`f` and `Bool.not ∘ f` differ
+at every index), so the order-2 swap group moves every one of the `(Nat→Bool)`-many escapes —
+no fixed point on the populated νF.  `spineL` (§12) sits inside this family at `f ≡ true`, so the
+canonical move `coSwap_spineL_distinct` is just one instance.  All ∅-axiom, pointwise. -/
+
+/-- `spineL` is the all-`true` bit-stream spine: the canonical escape (§12) sits inside the §15
+    family at `f ≡ true`, so it is one member of the bit-stream injection. -/
+theorem spineL_eq_boolSpine_true :
+    ∀ q, spineL q = boolSpine (fun _ => true) q
+  | []           => rfl
+  | (true :: _)  => rfl
+  | (false :: q) => spineL_eq_boolSpine_true q
+
+/-- ★★★ **The swap automorphism intertwines with bit-stream seeding (leaf-level, exact).**
+    `coSwap (boolSpine f) = boolSpine (Bool.not ∘ f)` pointwise: flipping the co-tree's leaf
+    labels is exactly pointwise negation of the seeding stream.  Clean precisely where §14's
+    tree-seed intertwining fails — a single leaf has no children to reorder.  By induction on
+    the observation path; no `funext`. -/
+theorem coSwap_boolSpine (f : Nat → Bool) :
+    ∀ q, coSwap (boolSpine f) q = boolSpine (fun n => Bool.not (f n)) q
+  | []           => rfl
+  | (true :: _)  => rfl
+  | (false :: q) => coSwap_boolSpine (fun n => f (n + 1)) q
+
+/-- ★★★ **`coSwap` fixes no bit-stream escape** (the action is *free*).  `Distinct (boolSpine f)
+    (coSwap (boolSpine f))` for every `f`: at the first left leaf (`[true]`) the labels are
+    `f 0` and `Bool.not (f 0)`, always distinct.  So the order-2 swap group moves every one of
+    the `(Nat→Bool)`-many escapes — no fixed point on the populated νF. -/
+theorem coSwap_boolSpine_distinct (f : Nat → Bool) :
+    Distinct (boolSpine f) (coSwap (boolSpine f)) :=
+  ⟨[true], by
+    show some (f 0) ≠ Option.map Bool.not (some (f 0))
+    cases f 0 <;> exact fun e => Bool.noConfusion (Option.some.inj e)⟩
+
+/-- ★★★ **The swap orbit of a bit-stream escape is `{boolSpine f, boolSpine (Bool.not ∘ f)}`.**
+    A two-element free orbit: `coSwap` carries `boolSpine f` to the negated-stream spine
+    (`coSwap_boolSpine`), distinct from it (`coSwap_boolSpine_distinct` transported across the
+    intertwining), and is involutive (`coSwap_involutive`) so the orbit closes at order 2. -/
+theorem boolSpine_swap_orbit (f : Nat → Bool) :
+    (∀ q, coSwap (boolSpine f) q = boolSpine (fun n => Bool.not (f n)) q)
+    ∧ Distinct (boolSpine f) (boolSpine (fun n => Bool.not (f n)))
+    ∧ (∀ q, coSwap (coSwap (boolSpine f)) q = boolSpine f q) :=
+  ⟨coSwap_boolSpine f,
+   by
+     obtain ⟨q, hq⟩ := coSwap_boolSpine_distinct f
+     exact ⟨q, fun e => hq (by rw [coSwap_boolSpine f q]; exact e)⟩,
+   coSwap_involutive (boolSpine f)⟩
+
+/-- ★★★ **§18 capstone — the swap automorphism acts freely on the bit-stream escapes.**
+    The lone Raw automorphism's leaf-level group action on §15's `(Nat→Bool)`-indexed escapes:
+
+    1. exact intertwining `coSwap ∘ boolSpine = boolSpine ∘ (Bool.not ∘ ·)`;
+    2. involution (order 2);
+    3. no fixed point — every escape moves to a `Distinct` one (the action is *free*);
+    4. `spineL` (§12) is the `f ≡ true` member, so `coSwap_spineL_distinct` is one instance.
+
+    The exact, populated form of §14's leaf-level swap content — clean precisely where the
+    tree-seed intertwining fails.  ∅-axiom, pointwise (no `funext`, no `Cardinal`). -/
+theorem coSwap_boolSpine_free_action :
+    (∀ (f : Nat → Bool) q, coSwap (boolSpine f) q = boolSpine (fun n => Bool.not (f n)) q)
+    ∧ (∀ (f : Nat → Bool) q, coSwap (coSwap (boolSpine f)) q = boolSpine f q)
+    ∧ (∀ f : Nat → Bool, Distinct (boolSpine f) (coSwap (boolSpine f)))
+    ∧ (∀ q, spineL q = boolSpine (fun _ => true) q) :=
+  ⟨coSwap_boolSpine,
+   fun f => coSwap_involutive (boolSpine f),
+   coSwap_boolSpine_distinct,
+   spineL_eq_boolSpine_true⟩
+
+/-! ## §19 — the bit-stream escapes carry the shift; `spineL` is its period-1 fixpoint
+
+The §15 family is not a static `(Nat→Bool)`-set; it carries the **shift dynamical system**.
+`boolSpine` is the coalgebra hom from the shift `(Nat→Bool ; head, tail)` into νF: the root
+branches (`boolSpine f [] = none`), the **left** subtree reads the head bit `f 0` (a constant
+leaf — the atom `a` when `f 0`, `b` otherwise), and the **right** subtree is the **shifted**
+spine `boolSpine (tail f)` (`coRightAt (boolSpine f) [] = boolSpine ∘ tail`).  So the Bernoulli
+shift on Cantor space sits inside νF as a sub-coalgebra, faithfully (`boolSpine_inj`:
+`(Nat→Bool)`-many orbits).
+
+Two payoffs.  **Self-similarity is shift-periodicity**: a `p`-periodic seed gives an escape
+unchanged by a full-period descent (`boolSpine_periodic_selfsimilar`), and `spineL`
+(= `boolSpine (fun _ => true)`, §18) is the **period-1** fixed point — the constant shift-fixed
+stream — so `spineL_unique`'s self-similar fixpoint `coRightAt s [] = s` is exactly the `p = 1`
+case (`spineL_shift_fixed`).  **The lone symmetry commutes with the shift**
+(`boolSpine_swap_shift_commute`): νF's `ℤ/2`-action (§18) and its shift dynamics are compatible.
+Aperiodic seeds give escapes with no returning descent — the dynamical face of the non-holonomic
+escape (`theory/essays/analysis/non_holonomicity_as_finite_state_escape.md`).  All ∅-axiom,
+pointwise (no `funext`: stream-equality is read pointwise via `boolSpine_congr`). -/
+
+/-- Pointwise-equal seed streams give pointwise-equal spines — a `funext`-free congruence,
+    needed to read periodicity (where the period-shifted seed equals the seed only pointwise). -/
+theorem boolSpine_congr {f g : Nat → Bool} (h : ∀ n, f n = g n) :
+    ∀ q, boolSpine f q = boolSpine g q
+  | []           => rfl
+  | (true :: _)  => by show some (f 0) = some (g 0); rw [h 0]
+  | (false :: q) => boolSpine_congr (fun n => h (n + 1)) q
+
+/-- **Left descent reads the head bit.**  The root's left subtree of `boolSpine f` is the
+    constant leaf `some (f 0)` — the atom `a` (if `f 0`) or `b` (otherwise). -/
+theorem boolSpine_coLeft (f : Nat → Bool) :
+    ∀ q, coLeftAt (boolSpine f) [] q = some (f 0) := fun _ => rfl
+
+/-- **Right descent is the shift.**  The root's right subtree of `boolSpine f` is the spine of
+    the *shifted* seed: `coRightAt (boolSpine f) [] = boolSpine (fun n => f (n+1))` (= `tail`). -/
+theorem boolSpine_coRight (f : Nat → Bool) :
+    ∀ q, coRightAt (boolSpine f) [] q = boolSpine (fun n => f (n + 1)) q := fun _ => rfl
+
+/-- ★★★ **`boolSpine` is the shift → νF coalgebra hom.**  Bundles: the root branches, the left
+    subtree reads the head bit (`boolSpine_coLeft`), the right subtree is the shift
+    (`boolSpine_coRight`).  So the Bernoulli shift `(Nat→Bool ; head, tail)` embeds in νF as a
+    sub-coalgebra (pointwise; distinct streams give distinct images by `boolSpine_inj`). -/
+theorem boolSpine_shift_coalgebra (f : Nat → Bool) :
+    boolSpine f [] = none
+    ∧ (∀ q, coLeftAt (boolSpine f) [] q = some (f 0))
+    ∧ (∀ q, coRightAt (boolSpine f) [] q = boolSpine (fun n => f (n + 1)) q) :=
+  ⟨rfl, boolSpine_coLeft f, boolSpine_coRight f⟩
+
+/-- ★★★ **Self-similarity is shift-periodicity.**  If the seed `f` is `p`-periodic
+    (`∀ n, f (n + p) = f n`), the escape is unchanged by a full-period descent:
+    `boolSpine (fun n => f (n + p)) = boolSpine f` pointwise (`boolSpine_congr`).  So a
+    `p`-periodic seed gives a period-`p` self-similar escape (the `p`-fold right-descent
+    returns). -/
+theorem boolSpine_periodic_selfsimilar {f : Nat → Bool} {p : Nat}
+    (hper : ∀ n, f (n + p) = f n) :
+    ∀ q, boolSpine (fun n => f (n + p)) q = boolSpine f q :=
+  boolSpine_congr hper
+
+/-- ★★★ **`spineL` is the shift's period-1 fixed point.**  `spineL = boolSpine (fun _ => true)`
+    (§18, a constant shift-fixed stream), so its right-descent returns to itself: `coRightAt
+    spineL [] = spineL` — exactly the self-similar fixpoint that pins `spineL_unique`, now read
+    as the `p = 1` case of `boolSpine_periodic_selfsimilar`. -/
+theorem spineL_shift_fixed :
+    ∀ q, coRightAt spineL [] q = spineL q := fun _ => rfl
+
+/-- ★★★ **Eventually-constant seeds reach the attractor.**  If `f` is all-`true` from index `N`
+    (`∀ k, f (N + k) = true`), the `N`-times-shifted seed's spine *is* `spineL`:
+    `boolSpine (fun k => f (N + k)) = spineL` pointwise (`boolSpine_congr` + §18's
+    `spineL_eq_boolSpine_true`).  So an eventually-periodic seed reaches a finite-state attractor
+    in finitely many descents — the holonomic / finite-state end of the dynamics; the seeds that
+    *never* reach a periodic attractor are the non-holonomic escapes. -/
+theorem boolSpine_eventually_true_reaches_spineL {f : Nat → Bool} {N : Nat}
+    (h : ∀ k, f (N + k) = true) :
+    ∀ q, boolSpine (fun k => f (N + k)) q = spineL q := by
+  intro q
+  rw [boolSpine_congr (f := fun k => f (N + k)) (g := fun _ => true) h q]
+  exact (spineL_eq_boolSpine_true q).symm
+
+/-- ★★ **The lone symmetry commutes with the shift.**  `coSwap` and the right-descent (shift)
+    commute on the bit-stream family — both sides reduce to `Bool.not`-relabelled shifted spine,
+    so `coRightAt (coSwap (boolSpine f)) [] = coSwap (coRightAt (boolSpine f) [])` pointwise.
+    νF's `ℤ/2`-symmetry (§18) and its shift dynamics are compatible. -/
+theorem boolSpine_swap_shift_commute (f : Nat → Bool) :
+    ∀ q, coRightAt (coSwap (boolSpine f)) [] q = coSwap (coRightAt (boolSpine f) []) q :=
+  fun _ => rfl
+
+/-- ★★★ **§19 capstone — νF carries the shift dynamical system on its escapes.**  Bundles the
+    sub-coalgebra structure of the Bernoulli shift inside νF:
+
+    1. `boolSpine` is the shift → νF coalgebra hom (root branches, left = head bit, right =
+       shift);
+    2. it is faithful — distinct streams give `Distinct` images (`(Nat→Bool)`-many shift-orbits);
+    3. the lone symmetry `coSwap` (§18) commutes with the shift;
+    4. `spineL` is the period-1 (shift-fixed) escape.
+
+    So the frontier (νF) carries not just a populated, symmetric *shape* (§17/§18) but the full
+    shift *dynamics* — self-similarity = shift-periodicity.  ∅-axiom, pointwise. -/
+theorem boolSpine_shift_dynamics :
+    (∀ f : Nat → Bool, boolSpine f [] = none
+        ∧ (∀ q, coLeftAt (boolSpine f) [] q = some (f 0))
+        ∧ (∀ q, coRightAt (boolSpine f) [] q = boolSpine (fun n => f (n + 1)) q))
+    ∧ (∀ f g : Nat → Bool, (∃ k, f k ≠ g k) → Distinct (boolSpine f) (boolSpine g))
+    ∧ (∀ (f : Nat → Bool) q,
+        coRightAt (coSwap (boolSpine f)) [] q = coSwap (coRightAt (boolSpine f) []) q)
+    ∧ (∀ q, coRightAt spineL [] q = spineL q) :=
+  ⟨boolSpine_shift_coalgebra,
+   fun _ _ h => boolSpine_inj h,
+   boolSpine_swap_shift_commute,
+   spineL_shift_fixed⟩
 
 end E213.Theory.Raw.CoResidue

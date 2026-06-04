@@ -1,7 +1,7 @@
-import E213.Lib.Math.CayleyDickson.Integer.ZOmegaUnits
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaUnits
 import E213.Lib.Math.Geometry.AlgebraicGeometry
-import E213.Lib.Math.Topology.EulerChi
-import E213.Lib.Math.Mobius213OneAsGlue
+import E213.Lib.Math.Geometry.Topology.EulerChi
+import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 
 /-!
 # Theory.SixTheorem — the 6-theorem: ten readings of 6 = NS · NT
@@ -49,11 +49,11 @@ PURE.
 
 namespace E213.Theory.SixTheorem
 
-open E213.Lib.Math.CayleyDickson.Integer.ZOmega
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega
   (units6 Zeta6 zeta6_pow_six units_count_eq_NSNT units_count_eq_six
    units_count_eq_d_plus_one units_count_eq_three_factorial)
 open E213.Lib.Math.Geometry.AlgebraicGeometry (dual_fillings_sum_eq_neg_eisenstein)
-open E213.Lib.Math.Topology.EulerChi (chi_delta_4 chi_K_32_c2)
+open E213.Lib.Math.Geometry.Topology.EulerChi (chi_delta_4 chi_K_32_c2)
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
 
 /-! ## §1.  Each reading equals 6 (as a Nat or Int identity) -/
@@ -116,7 +116,7 @@ theorem six_theorem :
     ∧ units6.length = ((d - 1) * (d - 2)) / 2
     -- ZOmega cyclic structure
     ∧ Zeta6 * Zeta6 * Zeta6 * Zeta6 * Zeta6 * Zeta6
-        = (⟨1, 0⟩ : E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega)
+        = (⟨1, 0⟩ : E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega)
     -- Dual filling χ-sum = −(unit count)
     ∧ chi_delta_4 + chi_K_32_c2 = -((units6.length : Int)) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
@@ -146,7 +146,7 @@ This closure was completed via the diophantine bound chain:
     (`ZOmegaUnits.lean §6-§7`): the exact-cardinality theorem
 -/
 
-open E213.Lib.Math.CayleyDickson.Integer.ZOmega
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega
   (normSq_one_in_units6 ZOmega_units_exact_six)
 
 /-- ★★★★★★★★★★★ **6-theorem structural closure** — adds the
@@ -160,7 +160,7 @@ theorem six_theorem_structural :
     -- (a) FORWARD: each listed unit is an Eisenstein unit
     (∀ u ∈ units6, u.normSq = 1)
     -- (b) BACKWARD: every Eisenstein unit is in the list
-    ∧ (∀ u : E213.Lib.Math.CayleyDickson.Integer.ZOmega.ZOmega,
+    ∧ (∀ u : E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega,
          u.normSq = 1 → units6.contains u = true)
     -- (c) Count exactly 6
     ∧ units6.length = 6

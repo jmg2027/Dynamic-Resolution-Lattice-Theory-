@@ -1,0 +1,85 @@
+import E213.Theory.Raw.API
+import E213.Lens.LensCore
+import E213.Lens.Properties
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble
+import E213.Prelude
+
+/-!
+# Lipschitz-valued Lens
+
+A Lens with codomain `Lipschitz` (the integer quaternions).
+This is a **non-commutative R4-like Lens**: the involution
+`Lipschitz.conj` is non-trivial, but the combine (quaternion
+multiplication) is not commutative, so R2 fails.
+
+**Purpose**: extends the Lens catalogue beyond commutative
+codomains, connecting the Lens framework to CD tower layer 1.
+-/
+
+namespace E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble.Lipschitz
+
+open E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble
+open E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble.Lipschitz
+
+
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZI
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZI.ZI
+open E213.Theory E213.Lens Lipschitz
+
+/-- Lens with codomain `Lipschitz`.  `a ↦ i`, `b ↦ j`,
+    combine = quaternion multiplication. -/
+def lipLens : Lens Lipschitz where
+  base_a  := Lipschitz.I'
+  base_b  := Lipschitz.J
+  combine := fun u v => u * v
+
+/-- `lipLens.combine` (= quaternion mul) is NOT commutative.
+    Concrete witness: `I' * J = ⟨0, i⟩` vs `J * I' = ⟨0, -i⟩`. -/
+theorem lipLens_combine_not_commutative :
+    ¬ ∀ u v : Lipschitz, lipLens.combine u v = lipLens.combine v u := by
+  intro h
+  have := h I' J
+  rw [show lipLens.combine I' J = I' * J from rfl,
+      show lipLens.combine J I' = J * I' from rfl,
+      I_mul_J, J_mul_I] at this
+  have hr : (⟨0, ZI.I⟩ : Lipschitz).im = (⟨0, ZI.negI⟩ : Lipschitz).im := by
+    rw [this]
+  have hI_eq : ZI.I = ZI.negI := hr
+  -- Avoid `ZI.mk.injEq` (propext-leaking).  Use `congrArg ZI.im`
+  -- to project to the im component directly.
+  have him : ZI.I.im = ZI.negI.im := congrArg ZI.im hI_eq
+  exact absurd him (by decide)
+
+open E213.Theory E213.Lens Lipschitz
+
+-- ═══ Direct view values ═══
+
+example : lipLens.view Raw.a = I'  := rfl
+example : lipLens.view Raw.b = J   := rfl
+
+theorem lipLens_view_slash_ab :
+    lipLens.view (Raw.slash Raw.a Raw.b (by decide))
+      = I' * J := by
+  show Raw.fold I' J (fun u v => u * v)
+         (Raw.slash Raw.a Raw.b (by decide)) = I' * J
+  unfold Raw.fold
+  rfl
+
+/-- `lipLens.view` on the `a/b` term equals `k = I'*J`. -/
+theorem lipLens_view_slash_ab_eq_K :
+    lipLens.view (Raw.slash Raw.a Raw.b (by decide))
+      = ⟨0, ZI.I⟩ := by
+  rw [lipLens_view_slash_ab, I_mul_J]
+
+/-- **lipLens image contains `{i, j, k, ...}`** — three
+    distinct quaternion basis generators. -/
+theorem lipLens_image_has_ijk :
+    lipLens.view Raw.a ≠ lipLens.view Raw.b ∧
+    lipLens.view Raw.a ≠ lipLens.view (Raw.slash Raw.a Raw.b (by decide)) ∧
+    lipLens.view Raw.b ≠ lipLens.view (Raw.slash Raw.a Raw.b (by decide)) := by
+  refine ⟨?_, ?_, ?_⟩
+  · decide
+  · rw [lipLens_view_slash_ab_eq_K]; decide
+  · rw [lipLens_view_slash_ab_eq_K]; decide
+
+end E213.Lib.Math.Algebra.CayleyDickson.Tower.CDDouble.Lipschitz

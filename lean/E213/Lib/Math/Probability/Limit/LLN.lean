@@ -1,4 +1,5 @@
 import E213.Lib.Math.Probability.Foundation.SampleMean
+import E213.Meta.Tactic.List213
 
 /-!
 # Probability — Law of Large Numbers (atomic)
@@ -22,6 +23,7 @@ namespace E213.Lib.Math.Probability.Limit.LLN
 
 open E213.Lib.Math.Probability.Foundation.SampleMean
   (countTrue sampleMeanNum sampleMeanDen length_replicate)
+open E213.Tactic.List213 (length_append)
 
 /-- `countTrue` distributes over append. -/
 theorem countTrue_append : ∀ xs ys : List Bool,
@@ -31,14 +33,6 @@ theorem countTrue_append : ∀ xs ys : List Bool,
     show 1 + countTrue (xs ++ ys) = 1 + countTrue xs + countTrue ys
     rw [countTrue_append xs ys, Nat.add_assoc]
   | false :: xs, ys => countTrue_append xs ys
-
-/-- `List.length` distributes over append (term mode, no propext). -/
-theorem length_append : ∀ xs ys : List Bool,
-    (xs ++ ys).length = xs.length + ys.length
-  | [], ys => (Nat.zero_add ys.length).symm
-  | _ :: xs, ys => by
-    show (xs ++ ys).length + 1 = xs.length + 1 + ys.length
-    rw [length_append xs ys, Nat.add_right_comm]
 
 /-- A *balanced* length-`2n` Boolean sequence: `n` heads then `n` tails. -/
 def balancedHeadsTails (n : Nat) : List Bool :=

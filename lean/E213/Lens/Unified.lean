@@ -26,7 +26,7 @@ for the synthesis chapter.
 All declarations PURE (∅-axiom).  The reverse `slash-cong →
 Lens-kernel` direction (sealed-DIRTY by `STRICT_ZERO_AXIOM.md`
 category (b)) lives in `Lens/Universal/QuotLens.lean`.  The Möbius
-P-orbit canonical form lives in `Lib/Math/Real213/Mobius213Equiv.lean`
+P-orbit canonical form lives in `Lib/Math/NumberSystems/Real213/Mobius213Equiv.lean`
 and `Mobius213SternBrocot.lean`.
 -/
 

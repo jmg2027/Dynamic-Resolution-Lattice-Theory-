@@ -1,9 +1,9 @@
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Mul.CutMulDetermined
-import E213.Lib.Math.Real213.Mul.CutMulOne
-import E213.Lib.Math.Real213.Sum.CutSumTest
-import E213.Lib.Math.Real213.Sum.CutSumZero
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulDetermined
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero
 /-!
 # unitBracket cutMulOuter reduction template — G110 FLUX-1
 
@@ -21,10 +21,10 @@ short `rw [...] ; exact <closer>` finishes the proof.
 
 namespace E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce
 
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMulOuter)
-open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMulOuter)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- ★ Generic ∅-axiom reduction (constCut s 1 targets): rewrite
     `cutMulOuter f g k m ((m+1)*(k+1)) ((m+1)*(k+1))`

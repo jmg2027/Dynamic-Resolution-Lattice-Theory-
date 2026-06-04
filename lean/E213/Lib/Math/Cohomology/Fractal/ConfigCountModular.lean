@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Fractal.ConfigCount
-import E213.Lib.Math.ModArith.UniversalFLT
+import E213.Lib.Math.NumberTheory.ModArith.UniversalFLT
 import E213.Meta.Nat.MulMod213
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.ModPow213
@@ -10,7 +10,7 @@ import E213.Meta.Nat.ModPow213
 For prime `p` coprime to base `d`, the sequence `n ↦ configCountD d n % p`
 is eventually periodic with period dividing the multiplicative
 order of `d` modulo `(p − 1)`.  The general parametric statement
-lives downstream of `Lib/Math/ModArith/UniversalFLT`; here we
+lives downstream of `Lib/Math/NumberTheory/ModArith/UniversalFLT`; here we
 record concrete `decide`-checked instances at the physics-selected
 base `d = 5` and a few small primes.
 
@@ -152,9 +152,9 @@ sequence `n ↦ configCountD 5 n % 7` is governed by
 /-- FLT at `(a, p) = (5, 7)`: `5^6 % 7 = 1 % 7`.  Composed from
     `universal_flt_main` + the precomputed `prime_gcd_7`. -/
 theorem flt_5_7 : (5 ^ 6) % 7 = 1 % 7 :=
-  E213.Lib.Math.ModArith.UniversalFLT.universal_flt_main
+  E213.Lib.Math.NumberTheory.ModArith.UniversalFLT.universal_flt_main
     5 7 (by decide) (by decide) (by decide)
-    E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_7
+    E213.Lib.Math.NumberTheory.ModArith.UniversalFLT.prime_gcd_7
 
 /-- Parametric in `n`: `configCountD 5 n % 7 = 5 ^ ((5^n) % 6) % 7`.
     Specialises `configCountD_mod_pure` at `(d, p) = (5, 7)`. -/
@@ -285,9 +285,9 @@ the parametric reduction holds. -/
 
 /-- FLT at `(a, p) = (5, 11)`: `5^10 % 11 = 1 % 11`. -/
 theorem flt_5_11 : (5 ^ 10) % 11 = 1 % 11 :=
-  E213.Lib.Math.ModArith.UniversalFLT.universal_flt_main
+  E213.Lib.Math.NumberTheory.ModArith.UniversalFLT.universal_flt_main
     5 11 (by decide) (by decide) (by decide)
-    E213.Lib.Math.ModArith.UniversalFLT.prime_gcd_11
+    E213.Lib.Math.NumberTheory.ModArith.UniversalFLT.prime_gcd_11
 
 /-- Parametric in `n`: `configCountD 5 n % 11 = 5 ^ ((5^n) % 10) % 11`. -/
 theorem configCountD_5_mod_11 (n : Nat) :
@@ -301,10 +301,10 @@ multiplicative order of 5 modulo 12 is 2 — same period-2
 structure as `(5, 7)`. -/
 
 /-- Prime-gcd witness at `p = 13`.  Mirrors the per-`m` case
-    analysis in `Lib/Math/ModArith/UniversalFLT.prime_gcd_*`. -/
+    analysis in `Lib/Math/NumberTheory/ModArith/UniversalFLT.prime_gcd_*`. -/
 private theorem prime_gcd_13 :
     ∀ m, 0 < m → m < 13 →
-      (E213.Lib.Math.ModArith.ModBezout.modBezout m 13).1 = 1 := by
+      (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m 13).1 = 1 := by
   intro m hm hmlt
   match m with
   | 0      => exact absurd hm (Nat.lt_irrefl 0)
@@ -324,7 +324,7 @@ private theorem prime_gcd_13 :
 
 /-- FLT at `(a, p) = (5, 13)`: `5^12 % 13 = 1 % 13`. -/
 theorem flt_5_13 : (5 ^ 12) % 13 = 1 % 13 :=
-  E213.Lib.Math.ModArith.UniversalFLT.universal_flt_main
+  E213.Lib.Math.NumberTheory.ModArith.UniversalFLT.universal_flt_main
     5 13 (by decide) (by decide) (by decide) prime_gcd_13
 
 /-- Parametric in `n`: `configCountD 5 n % 13 = 5 ^ ((5^n) % 12) % 13`. -/

@@ -1,6 +1,6 @@
 # Hodge Conjecture in 213
 
-**Status**: Closed in `lean/E213/Lib/Math/HodgeConjecture/`
+**Status**: Closed in `lean/E213/Lib/Math/Cohomology/HodgeConjecture/`
 (67 .lean files, 31 master capstones, all strict ∅-axiom).
 
 ## Overview
@@ -12,9 +12,9 @@ What is "conjecture" in standard mathematics becomes "en-passant
 lemma" in 213.
 
 This is not a 213-shadow of Hodge.  It *is* Hodge, stripped of
-notational ZFC packaging.  Per the corrected framing
-(`seed/RESOLUTION_LIMIT_SPEC.md` §3): 213 neither rejects nor adopts
-"infinity" — the infinite-vs-finite distinction itself was redundant
+notational ZFC packaging.  Per the corrected framing, 213 neither
+rejects nor adopts "infinity" — the infinite-vs-finite distinction
+itself was redundant
 notational packaging, and the same cohomological content is natively
 expressible as cup-chain identities on finite simplicial / bipartite
 substrate.
@@ -27,14 +27,14 @@ theorem hodge_conjecture_213_complete :
 ```
 
 with `#print axioms` reporting **"does not depend on any axioms"**.
-Source: `lean/E213/Lib/Math/HodgeConjecture/Foundation/Complete.lean`.
+Source: `lean/E213/Lib/Math/Cohomology/HodgeConjecture/Foundation/Complete.lean`.
 
 ## Lean source
 
-- **Umbrella**: `lean/E213/Lib/Math/HodgeConjecture.lean`
-- **Single import**: `import E213.Lib.Math.HodgeConjecture.API`
+- **Umbrella**: `lean/E213/Lib/Math/Cohomology/HodgeConjecture.lean`
+- **Single import**: `import E213.Lib.Math.Cohomology.HodgeConjecture.API`
 - **Master capstone**: `Foundation/Complete.lean :: hodge_conjecture_213_complete`
-- **Tree INDEX**: `lean/E213/Lib/Math/HodgeConjecture/INDEX.md` (formal-side navigation)
+- **Tree INDEX**: `lean/E213/Lib/Math/Cohomology/HodgeConjecture/INDEX.md` (formal-side navigation)
 - **File count**: 67 .lean files across 7 sub-clusters (6 + API)
 - **∅-axiom status**: all 31 master capstones PURE
 
@@ -118,7 +118,7 @@ Source: `hodge_involution_5strata_capstone`.
 **Cross-reference — self-pointing as Eisenstein complement.**
 The involution `⋆⋆ = id` (complement-cochain self-inverse) is the
 cohomological shadow of the **universe-chain Eisenstein discovery**
-at k = 3 (see `theory/math/universe_chain.md` §"Eisenstein discovery
+at k = 3 (see `theory/math/foundations/universe_chain.md` §"Eisenstein discovery
 at k = 3").  There, the diagonal quotient `ℕ³ → ℤ²` maps the three
 unit axes to `{1, ω, ω²}` satisfying `1 + ω + ω² = 0`.  The sum-to-
 zero relation is dual to `⋆⋆ = id`: both express a **self-cancelling
@@ -197,7 +197,7 @@ machinery used by physics + CS + arithmetic geometry inherits the
 | `hodge_riemann_T2` | `Pairing/HodgeRiemannT2.lean` | Kähler positivity on T² |
 
 For the full 31-capstone list, see
-`lean/E213/Lib/Math/HodgeConjecture/INDEX.md`.
+`lean/E213/Lib/Math/Cohomology/HodgeConjecture/INDEX.md`.
 
 ## Open frontier
 
@@ -246,9 +246,9 @@ Neither is a Hodge-conjecture gap; both are downstream-of-HC extensions.
 
 ```bash
 cd lean
-lake build E213.Lib.Math.HodgeConjecture                    # build clean
+lake build E213.Lib.Math.Cohomology.HodgeConjecture                    # build clean
 lake env lean --run scripts/print_axioms_hodge.lean         # axiom audit
-python3 tools/scan_axioms.py Lib/Math/HodgeConjecture       # PURE/DIRTY tally
+python3 tools/scan_axioms.py Lib/Math/Cohomology/HodgeConjecture       # PURE/DIRTY tally
 ```
 
 Expected: build succeeds, every capstone reports "does not depend on
@@ -257,8 +257,8 @@ any axioms", scan reports 0 DIRTY in HodgeConjecture/.
 The single citable theorem from elsewhere:
 
 ```lean
-import E213.Lib.Math.HodgeConjecture.API
-open E213.Lib.Math.HodgeConjecture
+import E213.Lib.Math.Cohomology.HodgeConjecture.API
+open E213.Lib.Math.Cohomology.HodgeConjecture
 #check @HC213            -- reducible alias for hodge_conjecture_213_complete
 ```
 

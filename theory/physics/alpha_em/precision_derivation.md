@@ -25,8 +25,7 @@ Current closure:
   (Step 6).
 
 Both conjectures are subsections of the broader 213-Algebra catalog
-(`research-notes/G35_chiral_cup_ring_catalog.md` §C1, §C5 — still
-active scratch for the field-level meta-catalog).
+.
 
 The single citable precision theorem is `invAlphaEm_precision_theorem`
 ∈ `AlphaEM.GramStructuralCapstone` (0.2 ppb, π² as a literal input),
@@ -189,10 +188,8 @@ of independent gluon channels."*
 
 ## Research-note provenance
 
-**Mixed**: this chapter absorbs the C1 + C5 specific work from
-`research-notes/G35_chiral_cup_ring_catalog.md` §C1 + §C5, but chiral cup ring catalog
-itself **remains active** as a top-level research note covering the
-broader 213-Algebra catalog (17 domains, 6 C-conjectures C1-C6).
+**Mixed**: this chapter absorbs the C1 + C5 specific cup-ring work; the broader 213-Algebra
+catalog (17 domains, 6 C-conjectures C1-C6) is tracked separately.
 
 | Source | What it provides | Status |
 |---|---|---|
@@ -201,8 +198,8 @@ broader 213-Algebra catalog (17 domains, 6 C-conjectures C1-C6).
 | `research-notes/G35_*.md` §C5 | Fractal ζ_K convergence conjecture | closed in this chapter (Step 1-6); Step 7+ in §Open frontier |
 | `research-notes/G35_*.md` §C2 | Atomic constants uniqueness | covered by `Lib/Physics/Foundations/AtomicConstants*` |
 | `research-notes/G35_*.md` §C3 | Aut(K) gauge group emergence | covered by `theory/physics/symmetry/c3_chain.md` |
-| `research-notes/G35_*.md` §C4 | Σ-spectral signature theorem | covered by `lean/E213/Lib/Math/HodgeConjecture/Pairing/` |
-| `research-notes/G35_*.md` §C6 | Cross-domain unification | covered by `Lib/Math/CrossDomainUnification.lean` |
+| `research-notes/G35_*.md` §C4 | Σ-spectral signature theorem | covered by `lean/E213/Lib/Math/Cohomology/HodgeConjecture/Pairing/` |
+| `research-notes/G35_*.md` §C6 | Cross-domain unification | covered by `Lib/Math/Foundations/CrossDomainUnification.lean` |
 
 Hodge §C4 results live with the Hodge chapter
 (`theory/math/cohomology/hodge_conjecture.md`).  C3 §C3 results live
@@ -438,9 +435,6 @@ For the α_em derivation itself, prefer this chapter:
 -- ✅ preferred for α_em derivation
 `theory/physics/alpha_em/precision_derivation.md`
 
--- ✅ still valid for broader 213-Algebra catalog
-`research-notes/G35_chiral_cup_ring_catalog.md` (12+5-domain catalog)
-`research-notes/G35_chiral_cup_ring_catalog.md` §<C##>  (specific conjecture)
 ```
 
 Existing Lean docstring citations to the relevant section / `§C5` remain valid

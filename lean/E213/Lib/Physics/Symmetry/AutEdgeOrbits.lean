@@ -1,5 +1,5 @@
 import E213.Lib.Physics.Symmetry.AutEdgeActionGenerators
-import E213.Lib.Math.Logic.Predicate
+import E213.Lib.Math.Combinatorics.Logic.Predicate
 
 /-!
 # Aut Edge Orbit Decomposition (C3 Step 5)

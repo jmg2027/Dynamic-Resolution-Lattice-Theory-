@@ -8,12 +8,15 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
 |---|---|---|
 | `Binomial.lean` | Pascal table, symmetry, row sums, vanishing for k > n | ∅-axiom |
 | `Catalan.lean` | C₀..C₇ table + recursion checks at n=3, 4 | ∅-axiom |
-| `CatalanExtended.lean` | extended Catalan results | ∅-axiom |
 | `Stirling.lean` | S(n, k) recursion + Bell decomposition | ∅-axiom |
 | `GeneratingFunction.lean` | formal power series, convolution, catalanGF | ∅-axiom |
-| `Simplex5.lean` | (3,2) partition + S_3×S_2-invariant weight on Fin 5×Fin 5 (구 App/Simplex.lean, 2026-05-13 이동) | ∅-axiom |
+| `Simplex5.lean` | (3,2) partition + S_3×S_2-invariant weight on Fin 5×Fin 5 | ∅-axiom |
+| `Pigeonhole.lean` | no injection `Fin (N+1) → Fin N` (∅-axiom, core-lemma route avoided) | ∅-axiom |
+| `Logic.lean` | umbrella for the `Logic/` sub-tree | — |
+| `GraphConnectivity.lean` | abstract graph reachability (`Reach` inductive) → δ⁰-closed colouring is constant on a connected graph (`closed_const`, `closed_false_or_true`, b₀ = 1); instantiated for complete bipartite in `Cohomology/Bipartite/Parametric/KernelConstancyUniversal` | ∅-axiom |
+| `BoolEnum.lean` | finite Bool-cardinality enumeration: `allBoolLists n` (all `2^n` length-`n` Bool lists) + `length = 2^n` + completeness + nodup; (generic `List` mem/nodup/filter/cardinality toolkit now lives in `Meta/Tactic/List213`).  Counting: `bcount` toolkit + `bcount_const` (= 2 constant colourings per nonempty length, the division-free universal count-Lens form of `b₀ = 1`); `bcount_headFalse` (= `2^(V−1)`, canonical coboundary reps) + complement involution / head-`false` transversal | ∅-axiom |
 | `Capstone.lean` | 4 cluster witnesses + total_witness | ∅-axiom |
-| `Combinatorics.lean` | umbrella | — |
+| `Combinatorics.lean` | umbrella (sibling) | — |
 
 ## Key 213-native results
 
@@ -31,8 +34,8 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
 
   * `Lib/Physics/Simplex/Counts.lean`: `binom` definition + dim
     table.
-  * `Lib/Math/DyadicFSM/Pell/`: Pell hierarchy (already realized).
-  * `Lib/Math/DyadicFSM/Fib/`, `Trib/`: Fibonacci, Tribonacci.
+  * `Lib/Math/NumberTheory/DyadicFSM/Pell/`: Pell hierarchy (already realized).
+  * `Lib/Math/NumberTheory/DyadicFSM/Fib/`, `Trib/`: Fibonacci, Tribonacci.
   * `Lib/Math/Cohomology/Bipartite/`: K_{3,2} structure.
   * `Lib/Physics/AtomicBase/Pairs.lean`: 10-pair partition (3+1+6).
   * `Lib/Math/Cohomology/CutExpFiniteTruncation.lean`: paradigm

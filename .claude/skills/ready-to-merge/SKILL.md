@@ -199,8 +199,10 @@ If a seed/ doc claims something is "deleted" or "moved", verify with
   - `CAPSTONE_INDEX.md` (root) — every theorem path resolvable
   - `STRICT_ZERO_AXIOM.md` (root) — every theorem path resolvable
   - `theory/**/*.md` — every Lean module / theorem citation resolves;
-    every `research-notes/G##` provenance pointer hits an existing
-    file (now in `research-notes/archive/` for promoted topics)
+    per the `PROCESS.md` sink rule, a `theory/` chapter cites **no**
+    `research-notes/` file (foundational provenance → `seed/AXIOM/`;
+    sibling narrative → `theory/<mirror>`).  A `research-notes/G##`
+    pointer in a chapter is a leak — flag for the `process` skill.
 
 For each broken ref: fix the path or remove the line.
 
@@ -217,25 +219,21 @@ For each closed Lean sub-tree (PURE + categorically closed):
   - If YES → verify the chapter's "Lean source" section file paths
     + theorem names still resolve.
 
-For each `research-notes/G##` cited from Lean docstrings:
-
-  - Is the note still at `research-notes/G##_*.md` (active scratch)
-    or moved to `research-notes/archive/`?
-  - If archived → Lean citation must use the `archive/` path.  If
-    a `theory/<mirror>` chapter exists for the same topic → update
-    the Lean citation to point at the chapter (primary) with optional
-    parenthetical archive reference (deep-dive).
+Sink-rule check (`PROCESS.md`): Lean docstrings — like all permanent
+tiers — cite **no** `research-notes/` file.  A `research-notes/G##`
+citation in a Lean docstring is a leak, not a path to repair:
 
   ```bash
-  # Find Lean citations to research-notes that no longer exist at top level:
-  for ref in $(grep -rhoE "research-notes/G[0-9]+_[A-Za-z0-9_]+\.md" lean/ | sort -u); do
-    [ ! -f "$ref" ] && echo "STALE: $ref"
-  done
+  # Any permanent-tier citation of a research-notes FILE is a leak:
+  grep -rnoE "research-notes/(archive/)?[A-Za-z0-9_/-]*G[0-9]+_[A-Za-z0-9_]+\.md" \
+    lean/ theory/ seed/ catalogs/ books/ blueprints/ 2>/dev/null
   ```
 
-Action: bulk sed for each stale path (`research-notes/G##_*.md` →
-`research-notes/archive/<subdir>/G##_*.md` OR
-`theory/<mirror>/<chapter>.md`).
+Action: repoint each hit at its decoupled home — `theory/<mirror>`
+chapter for a closed topic, `seed/AXIOM/` anchor for a foundational
+concept.  Do **not** rewrite it to an `archive/` path (that is still a
+leak).  Hand the full sweep to the `process` skill rather than folding
+it into the merge audit.
 
 ---
 
@@ -422,9 +420,12 @@ Look for:
 
 ### 7.6.b Write findings as a research note
 
-Capture the synthesis as `research-notes/G###_<topic>_synthesis.md`
-(use the next free `G###` number).  Don't pad — write only what
-you actually noticed.  A useful synthesis note has:
+Capture the synthesis under `research-notes/frontiers/` (the live
+open-board; the top level is anchors-only — see `research-notes/INDEX.md`).
+Place it in the matching topic subdir, or add a standalone
+`frontiers/<topic>_synthesis.md`; register it in `frontiers/INDEX.md`.
+Don't pad — write only what you actually noticed.  A useful synthesis
+note has:
 
   - **Anchor** — one sentence stating what the merge closed.
   - **Patterns** — 2-4 bullets each pointing to a recurring

@@ -27,7 +27,7 @@ external parameters, all PURE in Lean.
 | **configCountD d n = d^(d^n)** | Parametric configuration count (`lean/E213/Lib/Math/Cohomology/Fractal/ConfigCount.lean`); a count-Lens readout, **no level privileged** — not a universe constant. |
 | **Cup-ring** | Cochain cup-product structure.  Closure form for K_{3,2}^{(c=2)} observables. |
 | **Cochain n k** | `Fin (binom n k) → Bool` — free ℤ/2-module on k-subset basis of Δⁿ⁻¹. |
-| **Modulus** | Explicit `Nat → Nat` replacing ε-δ existentials.  Per `theory/math/modulus.md`. |
+| **Modulus** | Explicit `Nat → Nat` replacing ε-δ existentials.  Per `theory/math/analysis/modulus.md`. |
 | **∅-axiom (PURE)** | `#print axioms <thm>` returns empty.  No `propext`, no `Classical`, no Mathlib. |
 | **Closure Form** | Every K_{3,2}^{(c=2)} observable = R(NS,NT,d,c)·Π(1+κ·αⁿ).  Per `rust-engine/docs/closure-algorithm.md`. |
 
@@ -75,15 +75,15 @@ Chapter exists when the Lean sub-tree closed per
     integration, narrative depth, physics deployment,
     architecture)
 
-## Current chapters (~138 total, incl. 27 essays)
+## Current chapters (~171 total, incl. 46 essays)
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
-| `math/`    | 69 | [`math/INDEX.md`](math/INDEX.md) |
+| `math/`    | 87 | [`math/INDEX.md`](math/INDEX.md) |
 | `physics/` | 18 | [`physics/INDEX.md`](physics/INDEX.md) |
-| `lens/`    | 11 | [`lens/INDEX.md`](lens/INDEX.md) |
-| `meta/`    |  6 | [`meta/INDEX.md`](meta/INDEX.md) |
-| `essays/`  | 24 | [`essays/INDEX.md`](essays/INDEX.md) |
+| `lens/`    | 14 | [`lens/INDEX.md`](lens/INDEX.md) |
+| `meta/`    |  7 | [`meta/INDEX.md`](meta/INDEX.md) |
+| `essays/`  | 46 | [`essays/INDEX.md`](essays/INDEX.md) |
 
 Every closed Lean sub-tree has a corresponding `theory/` chapter.
 **Synthesis chapters** — consolidating content distributed across
@@ -94,24 +94,19 @@ mirror chapters; the per-sub-tree INDEX flags them.  See
 
 ## Active research (not promoted)
 
-Top-level `research-notes/` registries:
-
-| Class | Notes | Purpose |
-|---|---|---|
-| Foundational anchors | `G29_residue.md`, `G1-G5`, `G12`, `75`, `76` | Boot-sequence, thesis anchors, semantic atom, ouroboros |
-| Methodology & catalogs | `G35` (algebra catalog) | Cross-session tooling references |
-| Open conjectures | `G85, G87` (cup-Δ observations), `G86` (Cup-Leibniz ∀(k,l)) | Conjecture catalog |
-| Open research directions | `G121` (Geometrization R1+ — chapter active, side-observations open) | Active scratch — chapter handles R1; note hosts the open marathon front |
-| Synthesis / deep-dive | `G108-G116`, `G135-G137` | Tier-2 analytical scans annotating already-promoted chapters |
-| Lens emergence | `2026-05-18_lens_emergence_path.md` | Specification |
-
-Deep-dive synthesis notes annotate already-promoted chapters per the
-`essay` skill protocol — they are analytical scans, not closure
-narratives, so do not become chapters themselves.
+`research-notes/` holds the boot-sequence **anchors** at top level (the
+residue, semantic atom, ouroboros, universal lens, trajectory, chiral/phase,
+sublanguage, layered-API, algebra catalog, lens-emergence) and the **live
+open frontiers** under `research-notes/frontiers/` — grouped by topic
+(π non-holonomicity, Markov/Lagrange, spiral-axis, completability,
+sequence-depth, + standalone geometrization / p-adic / Eisenstein agendas).
+See `research-notes/frontiers/INDEX.md` for the open board and
+`research-notes/INDEX.md` for the cycle.  Closed material lives in
+`research-notes/archive/<topic>/`.
 
 ## Companion specs
 
-Foundational spec corpus alongside `seed/RESOLUTION_LIMIT_SPEC.md`:
+Foundational spec corpus:
 
 - `seed/THEOREM_METHODOLOGY_SUITE.md` — §TH-1 proof-shape fingerprinting (companions `theory/meta/scanner_suite.md` §1), §TH-2 Raw-derivation taxonomy (companions `theory/meta/raw_derivation_levels.md`), §TH-3 falsifier-surface spec, §TH-4 L1 parametric methodology
 - `seed/META_SCAN_ARCHETYPES.md` — 11 reusable scanner archetypes

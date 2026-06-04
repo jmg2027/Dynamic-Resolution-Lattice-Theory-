@@ -39,7 +39,7 @@ The physics lens selects the slice `(d, n) = (5, 2)`:
   · The numerical value
     `configCountD 5 2 = 5^25 = 298 023 223 876 953 125`
     is the slice display-aliased `N_U` in
-    `Lib/Math/ResolutionLimit.lean`.
+    `Lib/Math/Foundations/ResolutionLimit.lean`.
 
 The single canonical citation point is the umbrella
 `Lib/Math/Cohomology/Fractal.lean`, which re-exports the five
@@ -66,7 +66,7 @@ binding of the name.
 
 ### Key supporting external dependencies
 
-  · `Lib/Math/ModArith/UniversalFLT.universal_flt_main` —
+  · `Lib/Math/NumberTheory/ModArith/UniversalFLT.universal_flt_main` —
     Fermat's Little Theorem, supplies the `a^(p-1) % p = 1 % p`
     hypothesis to the parametric modular reduction.
   · `Meta/Nat/MulMod213.mul_mod_pure`,

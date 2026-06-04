@@ -224,7 +224,7 @@ Cohomology (9) deferred clusters remain.
 
 ### 7.4  Padic / ProfiniteSeq full ∅-axiom (RESOLVED 2026-05-06)
 
-`Lib/Math/Hyper/Padic.lean` and the entire upstream chain are now
+`Lib/Math/NumberSystems/Hyper/Padic.lean` and the entire upstream chain are now
 **12/12 PURE** (commit pending).  Verified via `#print axioms`:
 
   * **Padic capstones (5/5)**: `padic_family_cauchy`,

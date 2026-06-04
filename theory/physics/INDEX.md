@@ -25,6 +25,9 @@ Physics chapters.  Mirrors `lean/E213/Lib/Physics/`.
 | [`quantum.md`](quantum.md) | Quantum/ (3 files) |
 | [`basel.md`](basel.md) | Basel/ (2 files) |
 
-All Lib/Physics/ sub-trees covered.
+All Lib/Physics/ sub-trees have a narrative chapter except
+`Certificates/` (1 file, `Checker.lean` — the spec-as-code mirror of
+the Rust certificate verifier; infrastructure with no quantitative
+content, so no standalone chapter; it serves `alpha_em/`).
 
 Promotion criteria: `theory/PROMOTION_CRITERIA.md`.

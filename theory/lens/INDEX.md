@@ -26,11 +26,12 @@ conceptual ranking.
 | [`universal.md`](universal.md)     | `Lens/Universal/`       | 13 (universal Lens anchor) |
 | [`api.md`](api.md)                 | `Lens/API/` + `Lens/Internal/` | (API surface) |
 
-## Synthesis chapters (2)
+## Synthesis chapters (3)
 
 | Chapter | Anchors | Purpose |
 |---|---|---|
-| [`unified_equivalence.md`](unified_equivalence.md) | `Lens/{LensCore, Algebra, Lattice, Compose, Universal, Unified}` + `Lib/Math/Real213/Mobius213{Equiv, SternBrocot}` | Single-concept unification of equivalence / equivalence-class / isomorphism / homomorphism (동치 / 동치류 / 동형 / 준동형) as the Lens-arrow.  Lean anchor: `Lens/Unified.lean` (14 PURE). |
+| [`zero_infinity_and_two_folds.md`](zero_infinity_and_two_folds.md) | `Lens/Number/{IntFoldForms, FoldDuality, FoldKlein}` + `Lib/Math/{Cauchy/ZeroInfinityHole, DetSpectrumPoles, MaxEntropy}` + `seed/AXIOM/06_lens_readings.md` §6.5/§6.6/§6.9 | `0 = ∞` as one pre-Lens residue; ℤ's two status-symmetric fold forms; negation/reciprocal as mirror folds generating a Klein four-group whose antipode is the founding elliptic swap; the same residue resurfacing as the maximum-entropy ceiling.  ∅-axiom across all anchors. |
+| [`unified_equivalence.md`](unified_equivalence.md) | `Lens/{LensCore, Algebra, Lattice, Compose, Universal, Unified}` + `Lib/Math/NumberSystems/Real213/Mobius213{Equiv, SternBrocot}` | Single-concept unification of equivalence / equivalence-class / isomorphism / homomorphism (동치 / 동치류 / 동형 / 준동형) as the Lens-arrow.  Lean anchor: `Lens/Unified.lean` (14 PURE). |
 | [`dirty_recovery_patterns.md`](dirty_recovery_patterns.md) | `Lens/Unified.lean` + `Lens/EqPW.lean` + `Lens/ReadingEquiv.lean` + `STRICT_ZERO_AXIOM.md` | Methodology — five named patterns (P1–P5) for converting DIRTY (propext / Quot.sound) claims into PURE Lens-arrow statements; P5 = the Reading-native `equivR` / `refinesR` for Prop-valued Lenses (pointwise `↔` not view-`=`).  Decision flow and seal-vs-recover criterion — only `propAsDistinguishing` is a genuine seal. |
 
 Promotion criteria: `theory/PROMOTION_CRITERIA.md`.  Closed

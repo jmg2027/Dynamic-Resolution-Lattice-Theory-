@@ -1,7 +1,7 @@
 import E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric
 import E213.Lib.Math.Cohomology.Bipartite.Mobius213K33StateClass
 import E213.Lib.Math.Cohomology.Bipartite.Mobius213K33c3StateClass
-import E213.Lib.Math.Mobius213.Mobius213K33Bridge
+import E213.Lib.Math.Algebra.Mobius213.Mobius213K33Bridge
 
 /-!
 # K_{3,3} unified cross-frame capstone
@@ -33,7 +33,7 @@ open E213.Lib.Math.Cohomology.Bipartite.Mobius213K33StateClass
    state_class_NSscaled_pell_capstone)
 open E213.Lib.Math.Cohomology.Bipartite.Mobius213K33c3StateClass
   (multCount allTrueE multCount_allTrueE)
-open E213.Lib.Math.Mobius213.Mobius213K33Bridge
+open E213.Lib.Math.Algebra.Mobius213.Mobius213K33Bridge
   (k33_total_vertices k33_cross_pairs k33_signature)
 
 /-! ## §1 — K_{3,3} unified master theorem -/
@@ -89,12 +89,12 @@ theorem k33_bottom_layer_unified_master (c : Nat) (hc : 0 < c) :
           (E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric.starS c
             ⟨2, by decide⟩ ⟨0, hc⟩) β) = false))
     -- Vertex Pell-Fibonacci recurrence (n=0 instance)
-    ∧ (3 * (E213.Lib.Math.Real213.Mobius213Equiv.Pseq
-              E213.Lib.Math.Real213.Mobius213Equiv.seedZero 3).1
-        + 3 * (E213.Lib.Math.Real213.Mobius213Equiv.Pseq
-                E213.Lib.Math.Real213.Mobius213Equiv.seedZero 1).1
-       = 3 * (3 * (E213.Lib.Math.Real213.Mobius213Equiv.Pseq
-                    E213.Lib.Math.Real213.Mobius213Equiv.seedZero 2).1)) :=
+    ∧ (3 * (E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.Pseq
+              E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.seedZero 3).1
+        + 3 * (E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.Pseq
+                E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.seedZero 1).1
+       = 3 * (3 * (E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.Pseq
+                    E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.seedZero 2).1)) :=
   ⟨(parametric_bottom_layer_full_kill_capstone c hc).1,
    (state_class_NSscaled_pell_capstone 0).1⟩
 
