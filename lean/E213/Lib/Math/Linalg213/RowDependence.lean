@@ -62,7 +62,7 @@ theorem det_setRow_sumZ (n i : Nat) (hi : i < n) (rows : Nat → Nat → Int) (c
 /-- ★★ **Row dependence ⟹ `det = 0`**: if row `i` is a `ℤ`-combination `Σ_{a<K} c a · M(idx a)`
     of other rows (`idx a ≠ i`, `idx a < n`), the determinant vanishes. -/
 theorem det_row_combo_zero (n i : Nat) (hi : i < n) (K : Nat) (c : Nat → Int) (idx : Nat → Nat)
-    (M : Nat → Nat → Int) (hidx_lt : ∀ a, a < K → idx a < n) (hidx_ne : ∀ a, idx a ≠ i)
+    (M : Nat → Nat → Int) (hidx_lt : ∀ a, a < K → idx a < n) (hidx_ne : ∀ a, a < K → idx a ≠ i)
     (hrow : ∀ b, M i b = sumZ ((iota K).map (fun a => c a * M (idx a) b))) :
     det n M = 0 := by
   rw [det_congr n (fun a b =>
@@ -74,9 +74,10 @@ theorem det_row_combo_zero (n i : Nat) (hi : i < n) (K : Nat) (c : Nat → Int) 
       map_eq_of_mem (fun a => c a * det n (setRow i (M (idx a)) M)) (fun _ => 0)
         (fun a ha => by
           show c a * det n (setRow i (M (idx a)) M) = 0
-          rw [det_rows_eq_ne (setRow i (M (idx a)) M) n i (idx a) (fun h => hidx_ne a h.symm) hi
+          rw [det_rows_eq_ne (setRow i (M (idx a)) M) n i (idx a)
+                (fun h => hidx_ne a (lt_of_mem_iota ha) h.symm) hi
                 (hidx_lt a (lt_of_mem_iota ha))
-                (fun cc => by rw [setRow_at, setRow_off i (M (idx a)) M (hidx_ne a)]),
+                (fun cc => by rw [setRow_at, setRow_off i (M (idx a)) M (hidx_ne a (lt_of_mem_iota ha))]),
               mul_zero']),
       sumZ_map_zero]
 

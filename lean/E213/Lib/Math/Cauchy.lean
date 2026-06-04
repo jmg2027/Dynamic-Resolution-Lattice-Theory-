@@ -61,6 +61,7 @@ import E213.Lib.Math.Cauchy.CassiniDepthFloor
 import E213.Lib.Math.Cauchy.OrbitDimension
 import E213.Lib.Math.Cauchy.CFiniteRing
 import E213.Lib.Math.Cauchy.CFiniteHadamard
+import E213.Lib.Math.Cauchy.CasoratianRank
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cauchy`.
 
