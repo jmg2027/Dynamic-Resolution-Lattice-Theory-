@@ -40,6 +40,24 @@ prime in `ℤ[ω]` ⟹ `p = N(π)`.  Rests on `ℤ[ω]` being norm-Euclidean (he
   - **Phase 4 — assembly (DONE for the ℤ[ω]-side).**  `split_form` (`EisensteinSplit`) closes
     `p ∣ x²+x+1 ⟹ p = a²−ab+b²`; Phase 3 supplies the `x`.
 
+## Phase 3-core sub-marathon (Lagrange's root bound) — started
+
+Goal: `∃ a ∈ [1,p), aᵐ ≢ 1 mod p` (then `cube_root_of_order3` finishes Phase 3).  Reduces to
+Lagrange: `Tᵐ−1` (degree `m < p−1`) cannot have all `p−1` nonzero residues as roots.
+
+  - **Factor theorem (DONE)** — `PolyRoot/FactorTheorem` (3 PURE): polynomials as coeff lists
+    (`eval` Horner), synthetic-division `quot r` (only `+`,`×`), and ★`factor_eval`:
+    `eval f x − eval f r = (x−r)·eval (quot r f) x` over `ℤ`.  So a root `r` peels a factor
+    `(X−r)`, and (mod `p`, `p` prime, via Euclid) the other roots are roots of `quot r f`.
+  - **Root bound (next)** — by induction: distinct roots `rs` of `f` ⟹ `rs.length ≤ deg f`.
+    Design caveat: this `quot` keeps the list length (spurious trailing `0`); the induction
+    needs an *effective degree* — either redefine `quot` to drop the trailing `0` (3-clause,
+    re-prove `factor_eval`) or prove `eval (quot r f) = eval (quot r f).dropLast`.  Then the
+    distinct-roots peel: `s ≠ r mod p`, both roots ⟹ `p ∣ eval (quot r f) s`.
+  - **Existence + FLT connection (next)** — `Tᵐ−1` has leading coeff `1 ≢ 0`, so `≤ m` roots;
+    `p−1 > m` residues ⟹ some `a` with `aᵐ ≢ 1`; `z = aᵐ−1`, `p ∣ (aᵐ)³−1 = z(z²+3z+3)` via
+    `universal_flt_main` ⟹ `cube_root_of_order3`.
+
 ## Status — the ℤ[ω]-side is complete (∅-axiom)
 
 Phases 0–2 and Phase 4 are closed: **45 PURE theorems, 0 dirty** across `OrderMul`,
