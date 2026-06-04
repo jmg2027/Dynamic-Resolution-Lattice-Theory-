@@ -11,7 +11,7 @@ Markov number** (its triple set is empty), so its `MarkovMaxUnique` is *vacuousl
 test, not a uniqueness result on a par with `1325`.  For composite `c` the structural reduction is
 complete — root-count (`= 2^{ω−1}`), the unit-root group, its free action, and nontrivial-root
 existence — and recovery is closed by `slope_path_inj`, so the **single** open input is one
-realisability hypothesis `H` (which `±`-suborbit carries a triple; the orbit tower, §20–§28).  Source
+realisability hypothesis `H` (which `±`-suborbit carries a triple; the orbit tower, §20–§29).  Source
 of truth (all ∅-axiom): `lean/E213/Lib/Math/Real213/{MarkovUniqueness, MarkovCassiniBridge,
 MarkovModularBridge, MarkovInjectivity, SternBrocotMarkov}.lean` + `ModArith/MarkovPrimeFactor.lean`.
 
@@ -326,21 +326,38 @@ correct, not a weakening.
 
 For composite `c` the recovery is likewise closed by `slope_path_inj`, so the **sole** open input is
 *root-realisability* — which `±`-suborbit carries a triple (`H`, next section) — not the residue map
-`triple ↦ u`.  This is mechanised as an **equivalence**, not just a sufficiency:
-`markovMaxUnique_iff_windowRealizedUnique` proves `MarkovMaxUnique c ↔ WindowRealizedUnique c` (`5 ≤ c`,
-∅-axiom) — `(←)` is the tree recovery, `(→)` cancels the unit middle entry (the residue map is
-injective on realised roots; the crossed case forces `u₂ ≡ c−u₁`, impossible for two windowed roots).
-So the §20–§28 window/orbit reduction is not merely *sufficient* for Markov uniqueness — it **is** it.
-Composing with `windowRealizedUnique_of_orbit`, on a composite `c` the realisability hypothesis `H` is
-therefore *equivalent* to uniqueness at `c`: the formalisation has stripped root-count, group
-structure, and recovery off and isolated the irreducible kernel — `H` directly *is* the Frobenius
-conjecture at `c`, named in the repo's orbit/window language.
+`triple ↦ u`.  This is mechanised as a chain of **equivalences**, not sufficiencies (`5 ≤ c`, all
+∅-axiom):
+
+  `MarkovMaxUnique c  ↔  WindowRealizedUnique c  ↔  OrbitRealizabilityH c`
+
+`markovMaxUnique_iff_windowRealizedUnique` is the first `↔` — `(←)` the tree recovery, `(→)` cancels
+the unit middle entry (the residue map is injective on realised roots; the crossed case forces
+`u₂ ≡ c−u₁`, impossible for two windowed roots).  The second `↔`,
+`windowRealizedUnique_iff_orbitRealizabilityH`, pairs `windowRealizedUnique_of_orbit` (`H →`, §25) with
+the converse `orbitRealizabilityH_of_windowRealizedUnique` (`→ H`, via `root_orbit_inj`).  Composed:
+`markovMaxUnique_iff_orbitRealizabilityH : MarkovMaxUnique c ↔ OrbitRealizabilityH c`.  So `H` is not
+merely *sufficient* for Markov uniqueness — it **is** it; "`H` is the Frobenius conjecture at `c`" is a
+theorem.
+
+**Definition-faithfulness + uniformity** (the same lens applied to the reduction itself).
+`WindowRealizedUnique c` (`∀ u₁ u₂ windowed √(−1) roots, both realised ⟹ u₁=u₂`) and
+`OrbitRealizabilityH c` (`no nontrivial-unit-root image of a realised windowed root is realised`) are
+faithful — the "realised" predicate `∃ b<c, markovEq ((u·b)%c) b c` is exactly "`u` is the residue of
+an actual Markov triple at max `c`", with no vacuity or weakening trick.  The equivalences hold
+uniformly for **every** `5 ≤ c` — one statement covering the Button-closed region and the open-composite
+region, which differ *only* in whether `H` is vacuous: at a prime power `SqrtUnity = {±1}` admits no
+nontrivial multiplier `e`, so `H` holds vacuously (`MarkovMaxUnique` follows — Button); at `ω ≥ 2` a
+nontrivial `e` exists (`nontrivial_unit_root_exists`) and `H` is the live conjecture.  The
+formalisation has thereby stripped root-count, group structure, free action, and recovery off and
+isolated the irreducible kernel `H`, named in the repo's orbit/window language and proved equivalent
+to Markov uniqueness.
 
 ## The upper-fold pattern: the unit-root group and the orbit reduction
 
 The composite case (`ω ≥ 2`) is closed structurally down to a single residual statement by a tower
 of six folds, each the same `±` self-pointing read at a finer resolution
-(`Real213/SternBrocotMarkov`, §20–§28).  The method is uniform: every wall, when templatised, is
+(`Real213/SternBrocotMarkov`, §20–§29).  The method is uniform: every wall, when templatised, is
 again a fold.
 
   * **The window is the `±`-fold transversal** (`window_fold_transversal`, §20).  The roots of
@@ -411,5 +428,5 @@ for m in MarkovUniqueness MarkovCassiniBridge MarkovModularBridge MarkovInjectiv
 done
 ```
 All `pure / 0 dirty` (`MarkovUniqueness` 80, `MarkovCassiniBridge` 4, `MarkovModularBridge` 2,
-`MarkovInjectivity` 9, `SternBrocotMarkov` 108; plus `ModArith/MarkovPrimeFactor` 28).  The orbit
-tower of the upper-fold section is §20–§28 of `SternBrocotMarkov`.
+`MarkovInjectivity` 9, `SternBrocotMarkov` 112; plus `ModArith/MarkovPrimeFactor` 28).  The orbit
+tower of the upper-fold section is §20–§29 of `SternBrocotMarkov`.
