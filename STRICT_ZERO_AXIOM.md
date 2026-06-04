@@ -826,8 +826,15 @@ representative and the unit-group decomposition, all PURE:
   · `Zp.teichmuller_pow_pred_trunc` — `ω(x)^(p−1) ≡ 1` for units
     (`(p−1)`-th root of unity); `Zp.teichmullerCofactor` +
     `Zp.teichmullerCofactor_trunc_one` — the principal-unit split
-    `x = ω·u`, `u ≡ 1 mod p`, i.e. `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` at
-    trunc level (`Padic.TeichmullerUnit`).
+    `x = ω·u`, `u ≡ 1 mod p`, i.e. `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)`
+    (`Padic.TeichmullerUnit`).
+  · `Zp.teichmuller_unique` (`Padic.Teichmuller`) — Teichmüller
+    uniqueness: two Frobenius-fixed lifts agreeing mod `p` agree at
+    every truncation (engine: `frobenius_lift` + the fix, no Hensel
+    derivative).  `Zp.unit_decomp_unique` (`Padic.TeichmullerUnit`) —
+    the `ω·u` decomposition is unique up to `ZpSeqEquiv` (the 213-native
+    sequence-level equality; a literal `ZpSeq`-structure iso would need
+    funext/propext, an imported residue).
 
 Follow-on (G123 direction G): general p-adic division, all PURE:
 

@@ -157,4 +157,58 @@ theorem Zp.i_5_pow_four_trunc_two :
       (Zp.mul 5 (by decide) Zp.i_5 Zp.i_5)).trunc 2 = 1 :=
   Zp.i_5_pow_four_trunc 1
 
+/-! ## Uniqueness of the `ω·u` decomposition (sequence level)
+
+The split `x = ω·u` (`ω` Frobenius-fixed, `u ≡ 1 mod p`) is unique not
+just at any fixed truncation but at *every* truncation — the 213-native
+"sequence-level" (`ZpSeqEquiv`) uniqueness.  The `ω` part is pinned by
+`teichmuller_unique` (both factors reduce to `x mod p`, both
+Frobenius-fixed ⇒ equal at every level); the `u` part then follows by
+Hensel cancellation of the unit `ω`.  This is the deep half of
+`ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` — that the iso is well-defined as a map of
+the residue, not merely a per-level coincidence. -/
+
+/-- A Frobenius-fixed factor with a principal cofactor reduces to `x mod p`:
+    `(w·u).trunc 1 = x.trunc 1` and `u ≡ 1 mod p` give `w.trunc 1 = x.trunc 1`. -/
+private theorem factor_residue (p : Nat) (hp : 1 < p) (x w u : ZpSeq p)
+    (hu : u.trunc 1 = 1)
+    (hdec : x.trunc 1 = (Zp.mul p (Nat.lt_of_succ_lt hp) w u).trunc 1) :
+    w.trunc 1 = x.trunc 1 := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  rw [Zp.mul_trunc p hp' w u 1, hu, Nat.mul_one, Nat.pow_one] at hdec
+  rw [Nat.mod_eq_of_lt (by have := ZpSeq.trunc_lt_p_pow hp' w 1
+                           rwa [Nat.pow_one] at this)] at hdec
+  exact hdec.symm
+
+/-- **Decomposition uniqueness**: if `x ≡ w₁·u₁ ≡ w₂·u₂` at every
+    truncation, with `w₁ w₂` Frobenius-fixed, `u₁ u₂ ≡ 1 (mod p)`, and
+    `w₁` a unit, then `w₁ ≡ w₂` and `u₁ ≡ u₂` at every truncation.  The
+    `μ_{p−1} × (1+p·ℤ_p)` factorisation is unique up to `ZpSeqEquiv`. -/
+theorem Zp.unit_decomp_unique (p : Nat) (hp : 1 < p) (x w₁ u₁ w₂ u₂ : ZpSeq p)
+    (h_gcd₁ : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
+              (w₁.digits 0).val p).1 = 1)
+    (hfix₁ : ∀ m, (Zp.pow p hp w₁ p).trunc m = w₁.trunc m)
+    (hfix₂ : ∀ m, (Zp.pow p hp w₂ p).trunc m = w₂.trunc m)
+    (hu₁ : u₁.trunc 1 = 1) (hu₂ : u₂.trunc 1 = 1)
+    (hdec₁ : ∀ n, x.trunc (n + 1)
+                = (Zp.mul p (Nat.lt_of_succ_lt hp) w₁ u₁).trunc (n + 1))
+    (hdec₂ : ∀ n, x.trunc (n + 1)
+                = (Zp.mul p (Nat.lt_of_succ_lt hp) w₂ u₂).trunc (n + 1)) :
+    (∀ n, w₁.trunc (n + 1) = w₂.trunc (n + 1))
+    ∧ (∀ n, u₁.trunc (n + 1) = u₂.trunc (n + 1)) := by
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp
+  -- w₁ ≡ x ≡ w₂ (mod p).
+  have hr₁ : w₁.trunc 1 = x.trunc 1 := factor_residue p hp x w₁ u₁ hu₁ (hdec₁ 0)
+  have hr₂ : w₂.trunc 1 = x.trunc 1 := factor_residue p hp x w₂ u₂ hu₂ (hdec₂ 0)
+  -- ω part: teichmuller uniqueness.
+  have hw : ∀ n, w₁.trunc (n + 1) = w₂.trunc (n + 1) :=
+    Zp.teichmuller_unique p hp w₁ w₂ hfix₁ hfix₂ (hr₁.trans hr₂.symm)
+  refine ⟨hw, fun n => ?_⟩
+  -- u part: (w₁·u₁) ≡ x ≡ (w₂·u₂) ≡ (w₁·u₂), then cancel w₁.
+  have hstep : (Zp.mul p hp' w₁ u₁).trunc (n + 1)
+             = (Zp.mul p hp' w₁ u₂).trunc (n + 1) := by
+    rw [← hdec₁ n, hdec₂ n, Zp.mul_trunc p hp' w₂ u₂ (n + 1),
+        Zp.mul_trunc p hp' w₁ u₂ (n + 1), hw n]
+  exact Zp.mul_left_cancel_trunc p hp w₁ u₁ u₂ h_gcd₁ n hstep
+
 end E213.Lib.Math.NumberSystems.Padic

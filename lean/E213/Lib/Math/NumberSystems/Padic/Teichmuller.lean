@@ -459,4 +459,43 @@ theorem Zp.smoke_teichmuller_5_digit_two :
       ⟨fun k => if k = 0 then ⟨2, by decide⟩ else ⟨0, by decide⟩⟩).digits 0).val
       = 2 := rfl
 
+/-! ## Uniqueness of the Frobenius-fixed lift
+
+The Frobenius fix `ω^p ≡ ω` does not merely *hold* for `teichmuller`; it
+**determines** the lift.  Two Frobenius-fixed sequences agreeing mod `p`
+agree at every truncation — the 213-native "sequence-level" equality
+(`ZpSeqEquiv`).  The engine is the Frobenius lift itself: if
+`w₁ ≡ w₂ (mod p^k)` then `w₁ ≡ w₁^p ≡ w₂^p ≡ w₂ (mod p^(k+1))`, the two
+outer steps by the fix and the middle by `frobenius_lift`.  No Hensel
+derivative bookkeeping is needed — the fix and the lift do it. -/
+
+/-- **Teichmüller uniqueness**: two Frobenius-fixed sequences with the
+    same residue mod `p` agree at every truncation.  (`hfix` =
+    `w^p ≡ w` at every level — what `teichmuller_pow_p_trunc` provides,
+    and what any `(p−1)`-th root of unity satisfies.) -/
+theorem Zp.teichmuller_unique (p : Nat) (hp : 1 < p) (w₁ w₂ : ZpSeq p)
+    (hfix₁ : ∀ m, (Zp.pow p hp w₁ p).trunc m = w₁.trunc m)
+    (hfix₂ : ∀ m, (Zp.pow p hp w₂ p).trunc m = w₂.trunc m)
+    (h_res : w₁.trunc 1 = w₂.trunc 1) :
+    ∀ n, w₁.trunc (n + 1) = w₂.trunc (n + 1)
+  | 0 => h_res
+  | m + 1 => by
+    have ih := Zp.teichmuller_unique p hp w₁ w₂ hfix₁ hfix₂ h_res m
+    have hf := Zp.frobenius_lift p hp w₁ w₂ (m + 1)
+      (Nat.succ_le_succ (Nat.zero_le m)) ih
+    rw [hfix₁ (m + 2), hfix₂ (m + 2)] at hf
+    exact hf
+
+/-- **`teichmuller x` is THE Frobenius-fixed lift**: any Frobenius-fixed
+    `w` with `w ≡ x (mod p)` agrees with `ω(x)` at every truncation. -/
+theorem Zp.teichmuller_eq_of_fixed (p : Nat) (hp : 1 < p) (x w : ZpSeq p)
+    (h_prime_gcd : ∀ m, 0 < m → m < p
+                  → (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m p).1 = 1)
+    (hfix : ∀ m, (Zp.pow p hp w p).trunc m = w.trunc m)
+    (h_res : w.trunc 1 = x.trunc 1) (n : Nat) :
+    w.trunc (n + 1) = (Zp.teichmuller p hp x).trunc (n + 1) :=
+  Zp.teichmuller_unique p hp w (Zp.teichmuller p hp x) hfix
+    (Zp.teichmuller_pow_p_trunc p hp x h_prime_gcd)
+    (h_res.trans (Zp.teichmuller_trunc_one p hp x).symm) n
+
 end E213.Lib.Math.NumberSystems.Padic

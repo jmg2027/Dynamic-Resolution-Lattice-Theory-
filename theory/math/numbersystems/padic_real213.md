@@ -312,6 +312,8 @@ Grouped by module.
 | `Zp.teichmuller` | explicit representative `ω(x)`, the diagonal `digits k := (iter x k).digits k` |
 | `Zp.teichmuller_pow_p_trunc` | `ω(x)^p ≡ ω(x)` at every level (Frobenius fix `ω^p = ω`) |
 | `Zp.teichmuller_pow_pred_trunc` | `ω(x)^(p−1) ≡ 1` for units (`(p−1)`-th root of unity) |
+| `Zp.teichmuller_unique` | two Frobenius-fixed lifts agreeing mod `p` agree at every truncation |
+| `Zp.unit_decomp_unique` | the `ω·u` (μ_{p−1} × (1+p·ℤ_p)) split is unique up to `ZpSeqEquiv` |
 | `Zp.teichmullerCofactor_trunc_one` | `(ω(x)⁻¹·x) ≡ 1 (mod p)` (principal-unit cofactor) |
 | `Zp.neg_one_sq_trunc` | `(−1)·(−1) ≡ 1` at every level (the ring identity for `−1`) |
 | `Zp.i_5_pow_four_trunc` | `i₅⁴ ≡ 1` at every level — the 5-adic imaginary unit is a primitive 4-th root of unity, `i₅ ∈ μ₄` |
@@ -466,6 +468,18 @@ unit) leaves
 
   `ω(x)^(p−1) ≡ 1`     (`teichmuller_pow_pred_trunc`).
 
+The Frobenius fix also **determines** the lift, not just satisfies it.
+`teichmuller_unique`: two Frobenius-fixed sequences agreeing mod `p`
+agree at every truncation — the engine is `frobenius_lift` itself
+(`w₁ ≡ w₂ mod p^k ⇒ w₁ ≡ w₁^p ≡ w₂^p ≡ w₂ mod p^(k+1)`, outer steps the
+fix, middle the lift; no Hensel-derivative bookkeeping).  Hence the
+`ω·u` decomposition is **unique up to `ZpSeqEquiv`** (`unit_decomp_unique`):
+both `ω`-factors reduce to `x mod p` and are Frobenius-fixed, so they
+agree at every level by `teichmuller_unique`; the `u`-factors then agree
+by cancelling the unit `ω`.  This is the deep half of
+`ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` — the iso is well-defined on the residue,
+not a per-level coincidence.
+
 So `ℤ_p` contains the full group `μ_{p−1}` of `(p−1)`-th roots of
 unity, realised **explicitly** as Teichmüller representatives —
 not asserted via a counting/existence theorem.  The companion
@@ -473,9 +487,11 @@ cofactor `u(x) := ω(x)⁻¹ · x` is principal, `u ≡ 1 (mod p)`
 (`teichmullerCofactor_trunc_one`), because `ω` and `x` share
 digit 0.  Together these give the canonical split
 `ℤ_p^× ≃ μ_{p−1} × (1 + p·ℤ_p)` at every truncation level (the
-`TeichmullerUnit` module).  The one piece still open is the
-*sequence-level* uniqueness of the `ω·u` factorisation — the same
-trunc-vs-sequence boundary that the ring-axiom layer meets.
+`TeichmullerUnit` module), and the split is **unique up to
+`ZpSeqEquiv`** (`unit_decomp_unique`, via `teichmuller_unique`) — the
+iso is well-defined on the residue, not a per-level coincidence.  (A
+*literal* `ZpSeq`-structure uniqueness would need funext / propext; the
+213-native equality here is trunc-agreement, `ZpSeqEquiv`.)
 
 ## Closing reflection
 
@@ -536,14 +552,13 @@ What the Real213-p-adic campaign produced:
   convolution-style reindexing argument for `mulRaw_comm`.  Either
   would push us outside the strict-∅ guarantee.
 
-- Lift the multiplicative group decomposition `ℤ_p^× ≃ μ_{p−1} ×
-  (1 + p·ℤ_p)` from the trunc level (closed at trunc —
-  `teichmuller_pow_pred_trunc` + `teichmullerCofactor`) to a
-  *sequence-level* isomorphism with uniqueness of the `ω·u` split.
-  This meets the same trunc-vs-`ZpSeq` boundary as the ring-axiom
-  layer: it may require a quotient construction outside strict-∅,
-  or it may be that trunc-level is the 213-native statement and the
-  sequence-level uniqueness is an imported residue.
+- Promote the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` uniqueness from
+  `ZpSeqEquiv` (now closed — `unit_decomp_unique`) to a *literal*
+  `ZpSeq`-structure equality.  That step needs funext / propext, which
+  is exactly the imported residue 213 declines to chase: trunc-agreement
+  (`ZpSeqEquiv`) is the 213-native equality, and the iso is already
+  well-defined there.  Same trunc-vs-`ZpSeq` boundary as the ring-axiom
+  layer.
 
 The concrete root of unity makes the abstract `μ_{p−1}` tangible at
 `p = 5`: the 5-adic imaginary unit `i₅ = √(−1) ∈ ℤ_5` has digit-0 `2`,
