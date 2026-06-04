@@ -38,10 +38,37 @@ closure made visible.
   preserved, so all consumers — `OdometerValue`, `MarkovTree`, `Padic/SetoidAssoc`, the cohomology
   essays — are unchanged).  One proof, three re-export wrappers; all PURE.
 
-- **Odometer `ℤ`-action ↔ Markov / Stern-Brocot.**  Both the odometer (`ℤ₂` successor) and the
-  Markov/Stern-Brocot tree (`frontiers/markov_lagrange/`) are `SL(2,ℤ)`/numeration structures on
-  the residue.  Does the odometer's `+1` relate to the mediant descent (`ModularGeodesicLens`)?
-  A shared `det = 1` unit runs through both — is there a single dynamical statement?
+- **Odometer `ℤ`-action ↔ Markov / Stern-Brocot — first bridge done.**
+  `Real213/OdometerSternBrocotUnit.odometer_sternbrocot_shared_unit`: both the odometer (dyadic
+  `ℤ₂`) and the Stern-Brocot mediant tree (`SternBrocotMarkov.mInterval`) are **`List Bool`-path-
+  indexed** residue descents sharing the **unimodular unit** — the Stern-Brocot `det = 1` IS the
+  glue `NS − NT` (`genL_det_is_glue`, `genL = P`), the same unit the odometer carry begins at.
+  Honest scope: the shared *value* + shared *index*, not a forced common map.  The **Minkowski `?`
+  is being compiled in layers** (`Real213/OdometerSternBrocotUnit`):
+    - **L1 skeleton** (`minkowski_skeleton`) — the Stern-Brocot tree (`sbInterval`, Farey `det=1`)
+      and the dyadic tree (`dyInterval`, children `2·lo`/`2·lo+1`) are one `List Bool` binary tree
+      under two unimodular labellings; the path-identity is the order-iso between the CF and dyadic
+      addresses.
+    - **L2 value** (`minkowski_compile`) — the dyadic side IS the binary numeration
+      (`dyInterval_value`: `(dyInterval path).1 = binVal path`, the odometer's world); the
+      Stern-Brocot side is the mediant fraction `sbMediant`; `?` is the path-indexed map between
+      them.
+    - **L3 order** (closed, both sides) — both labellings are order-preserving on the L/R step.
+      Dyadic: `binVal (true::t) < binVal (false::t)` (`2k < 2k+1`, `dyadic_local_order`).
+      Stern-Brocot: the mediant cross-multiplication `(2a+c)·(b+2e) < (a+2c)·(2b+e)`
+      (`sb_mediant_step_order` / `sb_mediant_local_order`), gap exactly `3·(bc−ae) = 3` (three times
+      the det-1 unit) — same local order, det-1 mirror of the dyadic `2k<2k+1`.  (Pure: `ring_nat`
+      polynomial identity + the `adj` invariant + `PureNat.add_left_cancel`.)  The *global*
+      monotonicity over all path-pairs is the SternBrocotMarkov §7–§8 slope engine.
+    - **L4 analytic** (expressed, not constructed — `analytic_minkowski_residue`) — the singular `?`
+      (order-completion / limit, value at an irrational) lives on the **stream carrier** `Nat → Bool`
+      (the odometer's νF/`CoResidue` escape), reached by no finite path `List Bool`.  Expressed by the
+      uniform "reached-by-none" triple: approximant µF (`dyInterval_value`) + carrier νF not enumerable
+      (`cantor_general` at `Nat`) + a **named gap-member** (`constTrue_stream_not_finite`: the
+      right-endpoint stream `1`, the exact mirror of `FlatOntologyClosure.residue_witnessed`).
+      Methodology essay: `theory/essays/foundations/reached_by_none.md` — the essential residue is
+      `object1_not_surjective` on different carriers; express it (build µF, name νF, witness the
+      overflow), never construct it (no exterior, §5.1).
 
 - **Carry-depth: a decidable sub-classification.**  The full µF/νF classification from a stream is
   constructively obstructed (`¬∀↔∃`); but the *eventually-periodic* streams (decidable run

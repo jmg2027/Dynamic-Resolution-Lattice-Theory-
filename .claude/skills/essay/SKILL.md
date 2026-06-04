@@ -156,7 +156,17 @@ OR essay introduces a discovery that should be permanent.  Possible
 homes:
 
   - `theory/<area>/<concept>.md` — canonical chapter for the concept
-  - `theory/essays/<topic>.md` — cross-cutting essay (new convention)
+  - `theory/essays/<topic>.md` — cross-cutting essay
+  - `theory/essays/<theme>/<topic>.md` — themed sub-directory (e.g.
+    `synthesis/` for essays that tie multiple arcs together; pick the
+    sub-dir matching the essay's facet — see `theory/essays/INDEX.md`)
+
+When saving, **convert the in-conversation essay to timeless form**:
+drop session/temporal references ("this session", "just closed"),
+keep no `G##` tags or change-vocabulary (hook-enforced in `theory/`),
+keep the open-frontier section, and update the
+`promotion_essay_log.md` Outcome column from `in-conversation` to the
+written path.
 
 Forced essays violate "rest is taste" (round-2 agent F finding).
 Don't write chapters that weren't asked for.

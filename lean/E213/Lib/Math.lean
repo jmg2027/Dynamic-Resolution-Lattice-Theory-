@@ -56,6 +56,13 @@ import E213.Lib.Math.Combinatorics.Pigeonhole
 import E213.Lib.Math.Algebra.PolyZ
 import E213.Lib.Math.Algebra.Polynomial213
 import E213.Lib.Math.NumberTheory.PrimeDescentObservations
+import E213.Lib.Math.NumberTheory.FourSquareSeed
+import E213.Lib.Math.NumberTheory.FourSquare
+import E213.Lib.Math.NumberTheory.PolyRoot.FactorTheorem
+import E213.Lib.Math.NumberTheory.PolyRoot.IntEuclid
+import E213.Lib.Math.NumberTheory.PolyRoot.RootBound
+import E213.Lib.Math.NumberTheory.PolyRoot.CyclotomicPoly
+import E213.Lib.Math.NumberTheory.PolyRoot.ResidueList
 import E213.Lib.Math.NumberTheory.EuclideanDivision
 import E213.Lib.Math.Analysis.Cauchy
 import E213.Lib.Math.Probability.MaxEntropy

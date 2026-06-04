@@ -108,6 +108,27 @@
   - `TowerNativeCompleteness.lean` — ★ `tower_native_completeness_program`, the five
     pieces (boundary, Liouville, closure, generator, residue) bundled.
 
+**SL(2,ℤ) trace trichotomy + the cross-determinant number field**:
+  - `ModularElliptic.lean` — the elliptic generators `S` (order 4, fixes `i`) and `U`
+    (order 6, fixes `ω`) of `SL(2,ℤ)`; orders `{4,6}` = the Gaussian/Eisenstein
+    unit-group orders, `−I` the central Cassini `2`.
+  - `HyperbolicBoost.lean` / `ParabolicTranslation.lean` — the trichotomy as products of
+    two reflections, with `tr²−4` the dial: golden boost `G` (disc `+5`, hyperbolic),
+    translation `T` (disc `0`, parabolic), rotation `S` (disc `−4`, elliptic)
+    (`sl2_trichotomy_as_two_reflections`).
+  - `EllipticTracePeriodic.lean` / `UTracePeriodic.lean` — the elliptic traces are
+    periodic (period 4 for `S`, period 6 for `U`), bounded `|tr| ≤ 2`, against the
+    hyperbolic unbounded growth (`elliptic_orders_four_and_six`).
+  - `CrossDetTraceField.lean` — ★★★★ the capstone: the cross-determinant's **number
+    field is the modular trace field**.  The fixed-point form `fixForm M = (c, d−a, −b)`
+    of the Möbius map has discriminant `tr²−4` identically (`fixForm_disc_eq_traceDisc`,
+    a `ring_intZ` identity ∀ `M`), and on the three faces recovers the signature
+    reference forms on the nose — `fixForm G` = golden (disc `+5`, line),
+    `fixForm U` = cyclotomic `x²+x+1` (root `ω`, disc `−3`, curve), `fixForm T` = the
+    `∞`-cusp form (disc `0`).  The sign of `D = tr²−4` is simultaneously the
+    line/cusp/curve and hyperbolic/parabolic/elliptic dial
+    (`crossdet_number_field_is_trace_field`, `disc_sign_is_line_cusp_curve`).
+
 **Markov spectrum + modular-geodesic** (narrative
 `theory/math/analysis/markov_uniqueness.md` +
 `theory/essays/p_orbit/the_modular_geodesic_lens.md`):
@@ -125,6 +146,10 @@
     `011 → 100` = the Fibonacci recurrence, value-preserving (`golden_adic_carry`);
     admissibility = Cassini.  The residue's own variable base (Ostrowski(φ)),
     companion to the binary `Theory/Raw/Odometer`.
+  - `OdometerSternBrocotUnit.lean` — the odometer (dyadic `Theory/Raw/Odometer`)
+    and the Stern-Brocot mediant tree (`SternBrocotMarkov.mInterval`) share the
+    `List Bool` path index + the unimodular unit (`det genL = NS−NT = 1`); the
+    shared residue unit across the two `List Bool`-indexed descents.
   - `ModularGeodesicLens.lean` — ★ the geodesic engine as a Raw-Lens:
     `mediantLens` + `mediantLens_view_reachable` (mediant-Lens view ⊆
     `SternBrocotReachable`, ∅-axiom) — the residue read at `ℍ/PSL(2,ℤ)`.

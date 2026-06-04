@@ -17,14 +17,15 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 46 essays are grouped into nine thematic sub-directories — distinct
+The 51 essays are grouped into nine thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
 **I. `foundations/` — the residue.**
 `the_form_of_the_residue`, `the_residue_as_primitive`,
 `the_residue_as_state_machine`, `the_upper_fold_pattern`,
-`the_frontier_has_a_form`, `the_residue_unit_odometer`, `the_unit`.
+`the_frontier_has_a_form`, `the_residue_unit_odometer`, `the_unit`,
+`reached_by_none`, `the_breadth_signature`.
 
 **II. `cohomology/` — the c-counter programme.**
 `c_counter_as_layer_count`, `disjoint_layers_as_direct_sum`,
@@ -41,12 +42,13 @@ others together):
 `bipartite_tripartite_self_containment`, `the_modular_geodesic_lens`.
 
 **IV. `synthesis/` — synthesis & the master tower.**
-`synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`.
+`synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`,
+`representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`.
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
 `real_without_completeness`, `integers_as_difference_lens`,
-`the_modular_group_from_two_folds`.
+`the_modular_group_from_two_folds`, `minkowski_as_modular_cocycle`.
 
 **VI. `algebra/` — algebra tower & linear algebra.**
 `cd_tower_polarization`, `exceptional_seeds_are_forced`,
@@ -74,6 +76,9 @@ others together):
 | `the_unit.md` | What is the **unit `1`** in 213?  One *value*, not one operator: the residue's single distinguishing read as ascent-rung / descent-drop / `det P` / glue `NS−NT` / carry / Cassini `W` / reciprocal — byte-identical (`unit_bridges_dynamics_and_readings`, `the_unit_is_one_across_readings`).  The agreement is downward (identity of value); no operator monoid unifies the readings (the `ResidueForm` category error). | `Lens/Number/SharedUnitAcrossReadings` + `Cauchy/ReentryUnit` + `Mobius213OneAsGlue` + `CassiniUnimodular` + `Theory/Raw/{Odometer,MuNuMirror,Lambek}` + `Real213/ZeckendorfCarry` + `the_form_of_the_residue.md` + `the_residue_unit_odometer.md` |
 | `the_residue_unit_odometer.md` | What is the `+1` of 213, **dynamically**?  The residue unit (the act of pointing / glue / det) is an **odometer** on the escape space: the `ℤ₂`-successor homeomorphism — injective (`odo_injective` = `tower_no_cycle`), invertible (`odo_unit_action`, a `ℤ`-action via the predecessor `−1`), reversible where the descent forgets (`descent_forgets_ascent_remembers`), continuous (`odo_homeomorphism`); the canonical escape `spineL` is its overflow; carries in the residue's own golden base (`golden_adic_carry`).  The arithmetic face of no-exterior. | `Theory/Raw/Odometer` (38 PURE) + `Real213/ZeckendorfCarry` (7 PURE) + `Theory/Raw/CoResidue` + `Lens/Number/SharedUnitAcrossReadings` + `the_residue_as_primitive.md` + `the_frontier_has_a_form.md` |
 | `the_frontier_has_a_form.md` | What does 213 do for the **frontier of mathematics**?  The split is not structured-floor vs formless-sea but **µF inductive-complete (crank) vs νF coinductive-complete (map)**: no-exterior forces the escape to *be* the residue shape — self-similar (`spineL_unique`), populated (`nu_population_capstone`), acted on *freely* by the lone symmetry (`coSwap_boolSpine_free_action`).  The frontier is charted, not removed; summits stay open. | `Theory/Raw/CoResidue` (`nu_population_capstone`, `coSwap_boolSpine_free_action`, `spineL_unique`) + `Theory/Raw/{MuNuMirror,Lambek}` + `Lib/Math/Foundations/ResidueForm` + `seed/AXIOM/05_no_exterior.md §5.1` + `the_residue_as_primitive.md` |
+| `minkowski_as_modular_cocycle.md` | Is the analytic Minkowski **`?`** merely a reached-by-none escape, or does it carry a *positive* modular structure?  It is the residue's **Markov-valued 1-cocycle** on the Stern-Brocot tree: defect = bounding Markov number (Frobenius cross-determinant), twist = `SL(2,ℤ)` Cayley–Hamilton/Vieta jump, weight-2 Eichler–Shimura period = the `√(−1)` congruence `m∣u²+1`, and `φ` (Lagrange floor `√5`) = the extremal instance along the Fibonacci spine.  `?`/Markov/Lagrange/golden are one residue cocycle.  Open: full `SL(2,ℤ)` / higher-weight (needs analysis) / multifractal spectrum. | `Real213/{MinkowskiCocycle,MinkowskiGoldenExtremal,SternBrocotMarkov,OdometerSternBrocotUnit}` (`minkowski_is_markov_valued_cocycle`, `minkowski_cocycle_twist`, `cocycle_defect_general`, `minkowski_weight2_period_relation`, `golden_is_extremal_weight2_period`) + `reached_by_none.md` + `markov_spectrum.md` |
+| `the_breadth_signature.md` | **Why does ∅-axiom reach every domain** (number systems, analysis, cohomology, physics, and — this session — a classical modular-forms theorem)?  Because there is *nothing to import*: no exterior (§5.1) means a domain is never assumed by axiom but *read out of the residue under a Lens*; breadth IS primacy (§7.1), the falsifiable per-domain test.  Demonstrated: the period thread reduced higher-weight Eichler–Shimura to a *single analytic atom* (integration, generators `{4,6}`, slash action / weight-4 period `1−X²`, Manin contour all ∅-axiom), each "missing piece" being the residue in another frame. | `seed/AXIOM/{05_no_exterior §5.1, 07_primacy §7.1, 01_residue, 06_lens_readings §6.7}` + `Real213/{MinkowskiPeriodPolynomial,MinkowskiModularSymbol,MinkowskiPeriodRelations,MinkowskiPeriodIntegral}` + `Lens/Number/SharedUnitAcrossReadings` + `reached_by_none.md` |
+| `reached_by_none.md` | How do you **express the essential residue** (the analytic `?`, π, ε₀, the real, the νF escape) — the limit "reached by no finite path" that keeps resisting being written down?  It is one object (`object1_not_surjective`, the self-cover overflow, §5.1) on different carriers; the methodology is **three moves, never a fourth**: build the approximant algebra (µF), name the coalgebra carrier (νF), witness the non-surjection + one named gap-member — *constructing* the residue as finite data does not exist (no exterior).  Instanced for `?`: `analytic_minkowski_residue` (with `constTrue_stream_not_finite`, the right-endpoint stream `1` reached by no finite path). | `Lens/FlatOntologyClosure.{object1_not_surjective,residue_witnessed}` + `Lens/Cardinality/Cantor.cantor_general` + `Theory/Raw/CoResidue.{slashNu_final,spineL_escapes,boolSpine_escapes}` + `Real213/OdometerSternBrocotUnit.{analytic_minkowski_residue,sb_mediant_local_order}` + `Cauchy/{DepthCeilingResidue,DepthHeightDiagonal,DepthSelfReference}` + `seed/AXIOM/05_no_exterior.md §5.1` + `the_form_of_the_residue.md` |
 | `the_residue_as_state_machine.md` | The **FSM / RTL reading**: state = state transition (Lambek iso); coalgebra = next-state logic; finality = determinacy; µF/νF = reachable vs trace semantics; `x≠y` = non-degenerate transition.  Closed arc (`StateMachine`, 20 PURE, §1–§9): + reachability (`BuildsIn`), trace equivalence (`TraceEq = ¬Distinct`, no bisimulation), reducedness/minimality, capstone (reachable+reduced+deterministic), loop-close (`spineL` escapes the minimised machine = source-without-enclosure at FSM scale). | `Theory/Raw/StateMachine` + `Theory/Raw/{Lambek,CoResidue,MuNuMirror,PrimitiveTower}` |
 | `kplus1_alpha_power_graduation.md` | What is `(k+1)` in 213? Why does H^k → α^(k+1)? | `math/cohomology/cup_ladder_graduation.md` + `physics/alpha_em/precision_derivation.md` C1 Step 6 |
 | `steenrod_whitehead_bridge.md` | Why does `cup_1(ω, ω) = δ²(ω)` hold at K_{3,2}^{(c=2)}? | `math/cohomology/k32_higher_cohomology.md` + `lean/E213/Lib/Math/Cohomology/Bipartite/FaceCup1At3Cell.lean` |
@@ -99,6 +104,8 @@ others together):
 | `layer_multiplication_pattern.md` | Why does the same proof shape (invariant + offset + cancellation) appear in cohomology layers, P-orbit depth, AND mediant Vandermonde? | `theory/essays/cohomology/c_counter_as_layer_count.md` + `theory/essays/p_orbit/p_orbit_closure_master.md` + `theory/essays/cohomology/vandermonde_mediant_counts.md` + `Beq213.nat_decide_add_left_assoc{1,2}` + `Combinatorics/Binomial.binom_add_2` + `Px/CharPolySelf.L_recurrence_2` |
 | `synthesis_interlock_map.md` | How do the three synthesis essays (c-counter, P-orbit, layer-multiplication) explicitly correspond row by row? | `theory/essays/cohomology/c_counter_programme_closure.md` + `theory/essays/p_orbit/p_orbit_closure_master.md` + `theory/essays/synthesis/layer_multiplication_pattern.md` |
 | `methodology/reframe_presentation_transport.md` | When a reading fails to SEPARATE (over-counts), how does 213 read the same residue at a resolution where it separates? (Markov uniqueness, Zhang's 3c±2, presentation-transport as a lift) | `Foundations/ProofISALifts` (`lift_reframe`) + `math/analysis/markov_uniqueness.md` + `MarkovUniqueness.markov_max_unique_via_3c_pm2` + `MarkovPrimeFactor.sq_eq_collapse_pp` + CLAUDE.md *External-ruler smuggling* |
+| `representation_theorems_one_counting_bound.md` | Why are `p = a²−ab+b²` (disc −3), `p = a²+b²` (disc −4), and the `ℤ[√−D]` family all one theorem? | `PolyRoot/RootBound.eval_zero` + `NonFixedExists.exists_nonfixed_gen` + `Integer/{EisensteinSplit,GaussianSplit,ZSqrtNegSplit}.split_form` + `Integer/ZSqrtNegSharp.descent_false_at_three` |
+| `four_square_additive_pigeonhole.md` | Why is every `n = a²+b²+c²+d²`, and why does this need a *different* engine than the disc-`−D` representation theorems? | `NumberTheory/FourSquare.{four_sq_id,isSum4_mul,descent_core,odd_descent,halve_step,descent_rec,seed_multiple,exists_prime_factor,prime_isSum4,nat_isSum4}` + `FourSquareSeed.four_square_seed` + `Combinatorics/Pigeonhole.no_inj_lt` |
 | `k32_cohomology_simplex_higher_insight.md` | 213/K₃,₂²/코호몰로지 심플렉스 고차 통찰 — G140 + G138 B/D 프로모션 연결 | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
 | `mobius_self_form_fixed_point.md` | 모습 자체가 뫼비우스 행렬 — P는 왜 자기 설명 함자의 고정점인가? | `Px/MobiusSelfForm` + `Px/CharPolySelf` + `Px/PnFibonacciUniversal` + `math/mobius213_p_orbit_closure.md` |
 | `gra_universality_one_principle.md` | Walk-length, cup-length, truncation, chromatic height, resolution exponent — why are these the same? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/` umbrella + `GRA/Translation.lean` |

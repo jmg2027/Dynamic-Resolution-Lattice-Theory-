@@ -1,7 +1,11 @@
 # G167 — the cross-determinant classification's number-field reading, and the Eisenstein/elliptic conjecture
 
 **Date**: 2026-06-01.  **Status**: conjecture (originator: Mingu Jeong) + repo-grounded
-analysis.  **Tier**: 1 (research scratch — open frontier, not promoted).
+analysis.  **Tier**: 1 (research scratch — open frontier).
+
+**Closed core promoted** → `theory/math/numbertheory/eisenstein_period_arithmetic.md`
+(the number-field = trace-field unification + the Eisenstein-period arithmetic, 38 PURE).
+This note stays for the two open frontiers below (split converse + period value).
 
 ## The seed (Mingu Jeong)
 
@@ -192,6 +196,129 @@ built, pending a decision on whether 213 wants the modular-group layer at all.  
 ∅-axiom reach entirely: geodesic flow, modular forms, the `j`-map, the modularity
 theorem, analytic continuation.
 
+## CAPSTONE — the two trichotomies are one (`CrossDetTraceField`, 20 PURE)
+
+The arc had grown **two parallel trichotomies** that were never joined by a theorem:
+
+  - **number-field side** (`EisensteinSignature`/`ParabolicSignature`): the reference
+    forms golden / parab / eisenstein, disc **+5 / 0 / −3** → line / cusp / curve;
+  - **dynamics side** (`HyperbolicBoost`/`ParabolicTranslation`/`UTracePeriodic`): the
+    `SL₂(ℤ)` matrices `G` / `T` / `U`, `tr²−4` = **+5 / 0 / −3** →
+    hyperbolic / parabolic / elliptic.
+
+The discriminants matched numerically; nothing proved *why*.  The missing structural
+object is the **fixed-point form** of the Möbius map.  `M = [[a,b],[c,d]]` fixes the roots
+of `c·z² + (d−a)·z − b`, i.e. the binary form `fixForm M = (c, d−a, −b)`, whose
+discriminant is, **as a pure ring identity over ℤ**,
+
+> `formDisc (fixForm M) = (d−a)² + 4bc = (a+d)² − 4(ad−bc) = tr² − 4·det = traceDisc M`
+> (`fixForm_disc_eq_traceDisc`, ∀ `M`, by `ring_intZ`).
+
+So the number field `ℚ(√D)` the cross-determinant's reference lives in (`D` = form disc)
+**is** the modular trace field `tr²−4` — because the reference form is the fixed-point
+form of the monodromy matrix.  This is the literal content of the title "교차행렬식의 수체
+읽기".  On the three faces `fixForm` recovers the reference forms on the nose:
+
+  - `fixForm G = (1,−1,−1)` = the **golden form** (root φ, disc +5, hyperbolic, line);
+  - `fixForm T = (0,0,−1)` = degenerate, fixed point at ∞ (disc 0, parabolic, cusp);
+  - `fixForm U = (1,1,1)` = the **cyclotomic form** `x²+x+1` (root ω, disc −3, elliptic,
+    curve = the `j=0` lattice `ℂ/ℤ[ω]`); `fixForm S = (1,0,1)` = `x²+1` (root i, disc −4).
+
+The form is not merely dimensionally matched: the monodromy is an **automorph** of it.
+`fixForm_automorph` proves `fixForm M (M·v) = det(M) · fixForm M (v)` (∀ `M`, `v`, a
+`ring_intZ` identity), so for `M ∈ SL₂` the reference form is *exactly conserved*
+(`reference_forms_preserved`: `G` holds the golden form, `U` the cyclotomic Eisenstein
+form) — the geodesic's invariant, the form-side shadow of the Cassini cross-determinant
+conservation `crossDet_step` (multiplier `−q`).
+
+Each fixed-point form is moreover a **named number-field norm**: `formEval (fixForm G) = `
+golden form `m²−mk−k²` (ℚ(√5)), `formEval (fixForm U) a (−b) = ` Eisenstein norm `a²−ab+b²`
+(ℚ(ω), the cyclotomic `x²+x+1` read at the `−ω` orientation), `formEval (fixForm S) = a²+b²`
+(Gaussian norm, disc −4, `j=1728`).
+
+`crossdet_number_field_is_trace_field` bundles all three faces + the universal identity;
+`disc_sign_is_line_cusp_curve` reads the elliptic conjecture exactly: `D > 0` (two real
+fixed points → geodesic line) / `D = 0` (repeated real → cusp) / `D < 0` (complex-conjugate
+pair → elliptic point, the Eisenstein **curve**).  Mingu's "Eisenstein ↦ curve" *is* the
+`D < 0` face — definite norm ⟺ negative disc ⟺ complex fixed points ⟺ elliptic point ⟺
+bounded torus.  ∅-axiom; no CM/modular-forms edifice imported (only `Mat2` + the existing
+signature forms).
+
+## The Eisenstein period attack (G168 follow-up) — the χ₋₃ fingerprint (`EisensteinFormCharacter`, 11 PURE)
+
+Direct attempt at the open transcendental: pin the Eisenstein period (the `j=0` curve's
+real period, a `Γ(1/3)` value, CM by `ℤ[ω]`) the way `e` is pinned on the 2-axis.
+
+**Reachable, built.**  The period's arithmetic skeleton is the Epstein zeta of the
+Eisenstein form, `Σ' 1/(a²+ab+b²)^s = 6 ζ(s) L(s,χ₋₃)` — the disc-`−3` `L`-function,
+whose mod-3 character `χ₋₃` is *why* the period is a `Γ(1/3)` value (Chowla–Selberg), the
+exact analog of `Σ' 1/(a²+b²)^s = 4 ζ L(·,χ₋₄)` giving `ϖ` a `Γ(1/4)` value.  The part
+reachable by pure ℕ-arithmetic is the **character constraint**: `eisCyc_mod3_ne_two` —
+`a²+ab+b²` is **never `≡ 2 (mod 3)`**, representing only `{0,1}` (the Loeschian numbers
+avoid the non-residue class, the disc-`−3` analog of two-squares avoiding `3 mod 4`).
+`a²+ab+b²` is `formEval (fixForm U)` — the order-6 elliptic CM point's own fixed-point
+form, so the period's governing form is exactly the capstone's elliptic face.  Built on
+the existing `PureNatMod3` infra + `ring_nat`: `mod3` is shown a ring hom (`mod3_add`,
+`mod3_mul`), then the 9 residue pairs `decide`.
+
+**The wall (honest, no-exterior guard).**  The *value* — the real number, the `Γ(1/3)`
+constant — is **not reached from inside** the ℕ/ℤ reflection provers.  Two internal
+handles both hit a wall: (a) the **cubic AGM** computes it, and its geometric-mean step is
+`∛(b·(a²+ab+b²)/3)` — the disc-`−3` form appears, but the **cube root** leaves clean
+ℤ-arithmetic; (b) the analytic value `L(1,χ₋₃) = π/√27` needs the `L`-series limit.
+Neither is ∅-axiom-reachable now.  So the form's *arithmetic* (the character) is pinned;
+the *period value* stays open, exactly as G168 (both branches) recorded.  This is the
+falsifier doing its work: the residue reproduces the disc-`−3` character fingerprint while
+testable, and the transcendental value is honestly marked not-yet-reached.
+
+## The local splitting of the period's L-function (`EisensteinSplitting`, 5 PURE)
+
+Completes the χ₋₃ arithmetic from the *value-representability* side.  The period's Epstein
+zeta `Σ' 1/(a²+ab+b²)^s = 6 ζ L(·,χ₋₃)` has an Euler product whose local factor at `p` is
+the splitting of `p` in `ℤ[ω]`, indexed by `χ₋₃(p) = p mod 3`:
+
+  - **split** `p ≡ 1`: `eisForm 3 1 = 7`, `eisForm 4 1 = 13` — `p = N(π)`, a form value;
+  - **ramified** `p = 3`: `N(1−ω) = 3` and `(1−ω)² = −3ω` (`eisenstein_ramified_three`) —
+    `(3) = (1−ω)²·unit`, the conductor of χ₋₃;
+  - **inert** `p ≡ 2`: `2` not a value (`eisenstein_inert_two`, from the character).
+
+Glued by ★★★ `eisForm_composition` — the disc-`−3` **Brahmagupta–Fibonacci identity**
+`(a²−ab+b²)(c²−cd+d²) = E²−EF+F²`, `E=ac−bd`, `F=ad+bc−bd` (the `ℤ[ω]` multiplication law,
+∅-axiom `ring_intZ`): the Loeschian numbers are a multiplicative monoid — the norm-growth
+multiplicativity governing convergence.
+
+**Wall**: the *split converse* (every `p≡1 mod 3` is a value, not just `7,13,…`) needs
+quadratic reciprocity for `−3` + Euclidean descent in `ℤ[ω]` — the disc-`−3` Fermat
+theorem, out of reflection-prover reach.  Multiplicativity, ramification, and the inert
+obstruction are pinned; the split-existence and the period value stay open.
+
+## The keystone — class number one for disc `−3` (`EisensteinClassNumber`, 1 PURE)
+
+Why is there a *single* Eisenstein form (no genus/class ambiguity), so the period's
+L-function carries one form?  Because **`h(−3) = 1`**: `reduced_disc_neg3_unique` proves the
+only reduced positive-definite form of discriminant `−3` is the principal `x²+xy+y²`.
+Finite inequality argument: a reduced `(a,b,c)` (`|b|≤a≤c`) with `4ac = b²+3` satisfies
+`4a² ≤ 4ac = b²+3 ≤ a²+3`, so `3a² ≤ 3`, `a=1`, then `4c = b²+3`, `|b|≤1` forces `b=±1`,
+`c=1`.  No reciprocity, no descent — ∅-axiom over ℕ (needed a hand-rolled pure
+left-cancellation `le_cancel_add_left`, since `Nat.le_of_add_le_add_left`/`mul_assoc`/`add_mul`
+are propext-dirty; the pure `PureNat` versions + induction replace them).  This is the
+form-class shadow of `ℤ[ω]` being a PID — the structural reason `EisensteinSplitting`'s
+single principal form governs the whole Epstein zeta.
+
+## Toward the split converse — the covering-radius bound (`EisensteinEuclidean`, 1 PURE)
+
+The split converse (`p≡1 mod3 ⟹ p = N(π)`) rests on `ℤ[ω]` being a PID, i.e. norm-Euclidean.
+The geometric heart is the **covering radius**: `covering_bound` proves that with
+`4x²≤N²`, `4y²≤N²` (centered remainders `2|·|≤N`), `8(x²−xy+y²) ≤ 6N²` — covering radius²
+`≤ 3/4 < 1`, so the Euclidean remainder always shrinks the norm.  ∅-axiom via the
+sum-of-nonnegatives identity `6N²−8(x²−xy+y²) = 3(N²−4x²)+3(N²−4y²)+(2x+2y)²`.
+
+**Wall**: this is the load-bearing inequality; the *full* Euclidean algorithm (centered
+integer division → `‖ρ‖²<‖β‖²` → gcd / UFD → the descent) plus the QR input (`−3` a QR mod
+`p` ⟺ `p≡1 mod3`, needing an order-3 element of `(ℤ/p)ˣ`, i.e. the primitive-root theorem)
+is the remaining multi-step work.  The covering radius `<1` — the reason `ℤ[ω]` is Euclidean
+— is pinned; the split-existence and the period value stay open.
+
 ## One-line summary
 
 The `W = d`/det-one references are the **real-quadratic (disc > 0, golden, infinite
@@ -199,4 +326,6 @@ units) → convergent-line** side; the Eisenstein reference is the **imaginary-q
 (disc −3, definite, 6 units) → torus = `j = 0` elliptic-curve-lattice** side.  213
 already carries both (`ProbeTwistConic` vs `ZOmega`); the line-vs-curve dichotomy is the
 sign of the discriminant, and *that* — not the CM/modular machinery — is the ∅-axiom
-heart of the conjecture.
+heart of the conjecture.  The capstone `CrossDetTraceField` proves the form discriminant
+*is* the matrix trace discriminant `tr²−4`, fusing the number-field reading and the
+modular trace reading into one number `D`.
