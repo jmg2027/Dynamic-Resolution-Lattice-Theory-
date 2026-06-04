@@ -526,14 +526,19 @@ inputs — `Bₖ(i,j) := coeff (padj n charMat i j) k`, `cₖ := coeff (charPoly
     `Bₘ − M·B_{m+1} = c_{m+1}·I`); the `δ`-term via `CayleyHamilton.sumZ_iota_delta_lt`.
 
 **Remaining (the home stretch):**
+- **Degree bound `B_{n+1} = 0`** (needed — the telescoping residue is `−M^{n+2}·B_{n+1}`):
+  `coeff (padj n (charMat M) i j) (n+1) = 0`, i.e. `pdet` of an `n×n` matrix with degree-`≤1`
+  entries has length `≤ n+1`.  Sub-lemmas: sharp `length (mulP p q) ≤ length p + length q − 1`
+  (nonempty) + `length (addP …)`/`length (scaleP …)` ⟹ `length (pdet n A) ≤ n+1` when `∀ i j,
+  length (A i j) ≤ 2`; then `coeff p m = 0` for `m ≥ length p`.  (~60–80 lines.)
 - **Telescoping** `χ_M(M) = Σ_{m=0}^{n+1} cₘ Mᵐ = 0`: substitute `c₀ I = −M B₀`, `c_{m+1} I =
-  Bₘ − M B_{m+1}` (and `B_{n+1}=0` ⟹ `c_{n+1} I = Bₙ`); `Σₘ Mᵐ(cₘ I)` telescopes via the index
-  shift `Σ_{m≥1} Mᵐ B_{m−1} = Σ_{p≥0} M^{p+1} Bₚ`.  Pure `CayleyHamilton` matrix-sum algebra
-  (`matSumZ`, `matPow`, `matMul_addL`, `matMul_matSumZ_*`) — needs the relations recast as matrix
-  equations (`matMul M (B 0) = −(c 0 • I)` etc., via `sumZ_map_neg`) + a `matSumZ` reindex lemma.
-  ⟹ ★★★ integer Cayley–Hamilton.
+  Bₘ − M B_{m+1}`; `Σₘ Mᵐ(cₘ I)` telescopes via the index shift `Σ_{m≥1} Mᵐ B_{m−1} = Σ_{p≥0}
+  M^{p+1} Bₚ`, leaving residue `−M^{n+2} B_{n+1} = 0` (degree bound).  Pure `CayleyHamilton`
+  matrix-sum algebra (`matSumZ`, `matPow`, `matMul_addL`, `matMul_matSumZ_*`) — recast the relations
+  as matrix equations (`matMul M (B 0) = −(c 0 • I)` etc., via `sumZ_map_neg`) + a `matSumZ` reindex
+  lemma.  ⟹ ★★★ integer Cayley–Hamilton.
 - **§7 Kronecker `M`** + first-component extraction ⟹ `cfiniteZ_mul`.
 
 Session tally (all ∅-axiom): `CayleyHamilton` 25 + `PolyZ` 33 + `PolyDet` 11 + `CharPolyAdj` 15 =
 **84 PURE**.  Integer Cayley–Hamilton is now reduced to a finite matrix-sum telescoping over the
-extracted relations.
+extracted relations (+ a `pdet` degree bound for the top term).
