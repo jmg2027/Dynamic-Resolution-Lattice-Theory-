@@ -28,10 +28,25 @@ prime in `ℤ[ω]` ⟹ `p = N(π)`.  Rests on `ℤ[ω]` being norm-Euclidean (he
       (round each coordinate of `α·conj β` by `‖β‖²`, then `covering_bound`).
   - **Phase 2 — gcd / divisibility in `ℤ[ω]`.**  Euclidean algorithm (well-founded on
     `‖·‖²`), gcd existence, the "non-prime ⟹ proper norm factor" descent.
-  - **Phase 3 — Pillar I.**  The order-3 element mod `p` for `p ≡ 1 mod 3` (the hard
-    number-theory pillar; may itself be a sub-marathon via the primitive-root theorem).
-  - **Phase 4 — assembly.**  `p ≡ 1 mod 3 ⟹ p ∣ x²+x+1 ⟹ p = N(π) = a²−ab+b²`, closing the
-    split converse, which upgrades `EisensteinSplitting`'s witnesses to the full theorem.
+  - **Phase 3 — Pillar I (the remaining wall).**  `p ≡ 1 mod 3 ⟹ ∃ x, p ∣ x²+x+1`.  An
+    order-3 element of `(ℤ/p)ˣ`, equivalently `−3` a QR mod `p` (`4(x²+x+1) = (2x+1)²+3`).
+    **All non-circular routes reduce to Lagrange's root bound** ("degree-`d` poly over `ℤ/p`
+    has `≤ d` roots"): with FLT (`universal_flt_main`, available), every nonzero `a` has
+    `(aᵐ)³ = a^(p−1) = 1` (`m = (p−1)/3`); if every `aᵐ = 1` then `Tᵐ−1` has all `p−1` nonzero
+    roots, impossible as `m < p−1`, so some `aᵐ ≠ 1` is a primitive cube root.  The power-sum
+    (`Σ aᵐ ≡ 0`) and cubing-map kernel-counting routes circle back to the same bound.
+    Lagrange's bound needs a **polynomial-root library mod `p`** (evaluation, factor theorem,
+    degree induction) — **not in the repo**; a major independent sub-marathon.
+  - **Phase 4 — assembly (DONE for the ℤ[ω]-side).**  `split_form` (`EisensteinSplit`) closes
+    `p ∣ x²+x+1 ⟹ p = a²−ab+b²`; Phase 3 supplies the `x`.
+
+## Status — the ℤ[ω]-side is complete (∅-axiom)
+
+Phases 0–2 and Phase 4 are closed: **45 PURE theorems, 0 dirty** across `OrderMul`,
+`CenteredDivision`, `EisensteinEuclidean`, `EisensteinDivStep`, `EisensteinDvd`,
+`EisensteinGcd`, `EisensteinSplit`, `PrimeSquareFactor`.  `split_form` gives the disc-`−3`
+representation given the primitive-cube-root input.  The single remaining gate is Phase 3
+(Lagrange's root bound), recorded above as a separate sub-marathon.
 
 ## Honest scope
 
