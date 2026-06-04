@@ -1285,4 +1285,124 @@ theorem reverse_bridge (a b c : Nat) (h : markovEq a b c) (ha : 1 ≤ a) (hab : 
     (hbc : b ≤ c) (h5 : 5 ≤ c) : IsNode a b c ∨ IsNode b a c :=
   reverse_of_fuel c a b c (Nat.le_refl c) h ha hab hbc h5
 
+/-! ## §13 — assembly: tree-based Markov uniqueness for `c ≥ 5` with `SqrtNegOneTwoRoots`
+
+  Two ordered triples at `c` ⟹ (reverse bridge) two nodes; each node's residue is a windowed
+  `√(−1)` mod `c` (`markov_window` + `markovNum_dvd_res_sq_succ`, converted ℤ→ℕ); `root_unique`
+  collapses them to one value ⟹ same slope ⟹ (`slope_path_inj`) same node ⟹ same triple. -/
+
+open E213.Lib.Math.Real213.MarkovUniqueness (MarkovMaxUnique SqrtNegOneTwoRoots)
+open E213.Lib.Math.Real213.MarkovInjectivity (root_unique_below_half)
+
+/-- For nonneg `x < y` (ℤ), `x.toNat < y.toNat`.  Via `y = (x+1) + (y−(x+1))` and `toNat_add`. -/
+private theorem int_toNat_lt {x y : Int} (hx : 0 ≤ x) (h : x < y) : x.toNat < y.toNat := by
+  have h1 : (0 : Int) ≤ x + 1 := E213.Meta.Int213.add_nonneg hx (by decide)
+  have h2 : (0 : Int) ≤ y - (x + 1) := nonneg_sub_of_le h
+  have key : y = (x + 1) + (y - (x + 1)) := by ring_intZ
+  rw [key, toNat_add h1 h2, toNat_add hx (by decide : (0 : Int) ≤ 1)]
+  exact Nat.lt_of_lt_of_le (Nat.lt_succ_self _) (Nat.le_add_right _ _)
+
+private theorem nat_dvd_of_ofNat_dvd {a b : Nat} (ha : 1 ≤ a)
+    (h : (Int.ofNat a) ∣ (Int.ofNat b)) : a ∣ b := by
+  obtain ⟨k, hk⟩ := h
+  rcases k with k' | j
+  · exact ⟨k', by have h2 : Int.ofNat b = Int.ofNat (a * k') := hk; exact Int.ofNat.inj h2⟩
+  · exfalso
+    have hk2 : Int.ofNat b = Int.negOfNat (a * (j + 1)) := hk
+    obtain ⟨m, hm⟩ : ∃ m, a * (j + 1) = Nat.succ m :=
+      ⟨a * (j + 1) - 1, (Nat.succ_pred_eq_of_pos (Nat.mul_pos ha (Nat.succ_pos j))).symm⟩
+    rw [hm] at hk2; exact Int.noConfusion hk2
+
+/-- Each tree node's residue, as `Nat`, is a **windowed √(−1)** mod its Markov number:
+    `2·r < m`, `r < m`, and `(r² + 1) % m = 0` (with `r = u_t.toNat`, `m = m_t.toNat`). -/
+private theorem node_window_nat (p : List Bool) :
+    (markovRes p).toNat < (mNode p).c.toNat
+    ∧ 2 * (markovRes p).toNat < (mNode p).c.toNat
+    ∧ ((markovRes p).toNat * (markovRes p).toNat + 1) % (mNode p).c.toNat = 0 := by
+  have hw := markov_window p
+  have hrnn : (0 : Int) ≤ markovRes p := nonneg_of_one_le hw.1
+  have hmnn : (0 : Int) ≤ (mNode p).c := nonneg_of_one_le (markovNum_pos p)
+  have hm1 : 0 < (mNode p).c.toNat :=
+    int_toNat_lt (x := 0) (y := (mNode p).c) (by decide) (markovNum_pos p)
+  have hhi : 2 * (markovRes p).toNat < (mNode p).c.toNat := by
+    have h2r : (0 : Int) ≤ 2 * markovRes p := E213.Meta.Int213.mul_nonneg (by decide) hrnn
+    have hlt := int_toNat_lt h2r hw.2
+    rwa [toNat_mul (by decide) hrnn] at hlt
+  have hlo : (markovRes p).toNat < (mNode p).c.toNat :=
+    Nat.lt_of_le_of_lt (Nat.le_mul_of_pos_left _ (by decide)) hhi
+  refine ⟨hlo, hhi, ?_⟩
+  -- (r²+1) % m = 0 from m ∣ r²+1
+  have hdvd : (mNode p).c ∣ markovRes p * markovRes p + 1 := markovNum_dvd_res_sq_succ p
+  have e1 : Int.ofNat (markovRes p).toNat = markovRes p := toNat_of_nonneg hrnn
+  have heq : Int.ofNat ((markovRes p).toNat * (markovRes p).toNat + 1)
+           = markovRes p * markovRes p + 1 := by
+    show Int.ofNat (markovRes p).toNat * Int.ofNat (markovRes p).toNat + 1 = _
+    rw [e1]
+  have hmof : (mNode p).c = Int.ofNat (mNode p).c.toNat := (toNat_of_nonneg hmnn).symm
+  rw [← heq, hmof] at hdvd
+  obtain ⟨q, hq⟩ := nat_dvd_of_ofNat_dvd hm1 hdvd
+  rw [hq]; exact E213.Tactic.NatHelper.mul_mod_right _ _
+
+/-- Extract a node path from the reverse bridge, with `m_t.toNat = c` and the two smaller entries
+    matching `(a,b)` in one of the two bound-orders. -/
+private theorem node_data {a b c : Nat} (h : IsNode a b c ∨ IsNode b a c) :
+    ∃ p, (mNode p).c.toNat = c ∧
+      ((a = (mInterval p).1.c.toNat ∧ b = (mInterval p).2.c.toNat)
+       ∨ (a = (mInterval p).2.c.toNat ∧ b = (mInterval p).1.c.toNat)) := by
+  rcases h with ⟨p, h1, h2, h3⟩ | ⟨p, h1, h2, h3⟩
+  · exact ⟨p, h3, Or.inl ⟨h1.symm, h2.symm⟩⟩
+  · exact ⟨p, h3, Or.inr ⟨h2.symm, h1.symm⟩⟩
+
+/-- ★★★★★ **Tree-based Markov uniqueness for `c ≥ 5` with the two-roots input.**  `MarkovMaxUnique c`
+    whenever `5 ≤ c` and `SqrtNegOneTwoRoots c`: two ordered triples at `c` are both tree nodes
+    (`reverse_bridge`); each node's residue is the unique windowed `√(−1)` (`node_window_nat` +
+    `root_unique_below_half`), so the residues — hence the slopes (same `c`) — coincide, so the
+    nodes coincide (`slope_path_inj`), so the triples coincide. -/
+theorem markov_max_unique_tree (c : Nat) (hc5 : 5 ≤ c) (h2 : SqrtNegOneTwoRoots c) :
+    MarkovMaxUnique c := by
+  intro a₁ b₁ a₂ b₂ hab1 hb1c hab2 hb2c hm1 hm2
+  have hc2 : 2 ≤ c := Nat.le_trans (by decide) hc5
+  have ha1 : 1 ≤ a₁ := E213.Lib.Math.Real213.MarkovUniqueness.markov_a_pos hc2 hm1
+  have ha2 : 1 ≤ a₂ := E213.Lib.Math.Real213.MarkovUniqueness.markov_a_pos hc2 hm2
+  obtain ⟨p1, hc1, hpair1⟩ := node_data (reverse_bridge a₁ b₁ c hm1 ha1 hab1 hb1c hc5)
+  obtain ⟨p2, hc2', hpair2⟩ := node_data (reverse_bridge a₂ b₂ c hm2 ha2 hab2 hb2c hc5)
+  obtain ⟨hlo1, hhi1, hmod1⟩ := node_window_nat p1
+  obtain ⟨hlo2, hhi2, hmod2⟩ := node_window_nat p2
+  rw [hc1] at hlo1 hhi1 hmod1
+  rw [hc2'] at hlo2 hhi2 hmod2
+  have hr12 : (markovRes p1).toNat = (markovRes p2).toNat :=
+    root_unique_below_half c h2 hlo1 hlo2 hhi1 hhi2 hmod1 hmod2
+  have hrnn1 : (0 : Int) ≤ markovRes p1 := nonneg_of_one_le (markov_window p1).1
+  have hrnn2 : (0 : Int) ≤ markovRes p2 := nonneg_of_one_le (markov_window p2).1
+  have hReq : markovRes p1 = markovRes p2 := by
+    rw [← toNat_of_nonneg hrnn1, ← toNat_of_nonneg hrnn2, hr12]
+  have hcc : (mNode p1).c = (mNode p2).c := by
+    rw [← toNat_of_nonneg (nonneg_of_one_le (mNode_pos p1).2.2.1),
+        ← toNat_of_nonneg (nonneg_of_one_le (mNode_pos p2).2.2.1), hc1, hc2']
+  have hslope : slopeEq (mNode p1) (mNode p2) := by
+    show markovRes p1 * (mNode p2).c = markovRes p2 * (mNode p1).c
+    rw [hReq, hcc]
+  have hpeq : p1 = p2 := slope_path_inj p1 p2 hslope
+  subst hpeq
+  rcases hpair1 with ⟨e1a, e1b⟩ | ⟨e1a, e1b⟩ <;> rcases hpair2 with ⟨e2a, e2b⟩ | ⟨e2a, e2b⟩
+  · exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
+  · have hLR : (mInterval p1).1.c.toNat = (mInterval p1).2.c.toNat :=
+      Nat.le_antisymm (e1a ▸ e1b ▸ hab1) (e2b ▸ e2a ▸ hab2)
+    exact ⟨e1a.trans (hLR.trans e2a.symm), e1b.trans (hLR.symm.trans e2b.symm)⟩
+  · have hLR : (mInterval p1).1.c.toNat = (mInterval p1).2.c.toNat :=
+      Nat.le_antisymm (e2a ▸ e2b ▸ hab2) (e1b ▸ e1a ▸ hab1)
+    exact ⟨e1a.trans (hLR.symm.trans e2a.symm), e1b.trans (hLR.trans e2b.symm)⟩
+  · exact ⟨e1a.trans e2a.symm, e1b.trans e2b.symm⟩
+
+/-- ★★★★★ **Button's prime-power Markov uniqueness (∅-axiom, via the matrix tree).**  For an odd
+    prime power `c = p^(k+1)` with `5 ≤ c`, the ordered Markov triple with maximum `c` is unique.
+    The two-roots input is `sqrtNegOneTwoRoots_prime_pow`; the Farey-monotone recovery is the tree
+    machinery (`reverse_bridge` + `slope_path_inj` + window).  Closes the infinite prime-power family
+    of the Markov uniqueness conjecture. -/
+theorem markov_prime_pow_unique (p k : Nat) (hp3 : 3 ≤ p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h5 : 5 ≤ p ^ (k + 1)) :
+    MarkovMaxUnique (p ^ (k + 1)) :=
+  markov_max_unique_tree (p ^ (k + 1)) h5
+    (E213.Lib.Math.Real213.MarkovUniqueness.sqrtNegOneTwoRoots_prime_pow p k hp3 hpr)
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
