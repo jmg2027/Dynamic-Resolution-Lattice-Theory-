@@ -35,6 +35,8 @@ range via `decide`.
     EulerAndCapstone}.lean` — parametric (NS, NT, c)-family
     cohomology; capstone `parametric_close_capstone` bundles the
     deployment-family invariants
+  - `Parametric/KernelConstancyUniversal.lean` — universal
+    (∀ NS NT c) structural δ⁰-kernel = constant cochains
 - ∅-axiom PURE on production critical path
 
 ## Parametric V32Betti — deployment-family closure
@@ -59,22 +61,48 @@ and bundles the closure as `parametric_close_capstone` — Euler at
 b_1 = 0 at tree deployments, kernel-size compatibility with the
 specialisation.
 
-## Open frontier
+## Universal kernel = constants (structural b_0 = 1)
 
-The fully universal Nat-quantified theorem
+`KernelConstancyUniversal.lean` proves, ∅-axiom, for **every**
+connected deployment (NS ≥ 1, NT ≥ 1, c ≥ 1):
 
 ```
-∀ (NS NT c : Nat), 1 ≤ NS → 1 ≤ NT → 1 ≤ c →
-  kerSizeDelta0Direct NS NT c = 2
+ker δ⁰  =  { the two constant cochains }
 ```
 
-is not yet proved.  It requires a graph-walk connectedness
-induction over arbitrary K_{NS,NT}^{(c)} — `lean/E213/` does not
-yet host a `GraphWalk/` infrastructure of the needed shape.
+— so `dim ker δ⁰ = 1` (b_0 = 1, the graph is connected) and
+`dim im δ⁰ = (NS + NT) − 1` for all (NS, NT, c) at once, not just
+the `decide`-checked range above.
 
-Extending the parametric coverage to chartBase ≥ 6 (current
-explicit `decide`-checks stop at chartBase 5) is the smaller
-extension; the universal Nat-theorem is the larger.
+The coboundary is taken in product-indexed form `delta0Tri`
+(edges as triples `(i, j, m) : Fin NS × Fin NT × Fin c`), which
+indexes the same graph as the flat `Fin (c·NS·NT)` form but needs
+no integer-decode division — so the connectedness argument (every
+S-vertex joins T-vertex 0, every T-vertex joins S-vertex 0, roots
+joined) runs with zero `propext`.  Key theorems:
+
+- `isKer_iff_const` — kernel cochain ⟺ globally constant
+- `isKer_const_false_or_true` — kernel = exactly the 2 constants
+- `isKer_root_determines` — root colour is the single free
+  parameter (`dim ker = 1`)
+- `universal_kernel_close` — the four facts bundled
+
+The flat enumeration form
+`∀ NS NT c, kerSizeDelta0Direct NS NT c = 2` stays `decide`-only at
+the chartBase-≤-5 range: counting flat indices forces core Lean's
+`Nat.div` / `Nat.mod` lemmas, all of which carry `propext`, so the
+quantified-flat statement is axiom-dirty by Lean-core construction
+— a purity artifact, not a mathematical gap, with the structural
+content fully closed above.  The product-form kernel matches the
+flat-form kernel on each concrete deployment (`decide` in
+`Delta0AndConnectedness`).
+
+The chart-axis consumer `forcedKChartLens` /
+`m2_universal_forced_partition`
+(`Geometry/GeometrizationConjecture/KChartLensAbstract.lean`) feeds
+this 1-dimensional kernel into the axes partition, forcing
+`selfPointingAxes = 1` and `chartVisibleAxes = chartBase − 1` for
+arbitrary connected K.
 
 ## Connection
 

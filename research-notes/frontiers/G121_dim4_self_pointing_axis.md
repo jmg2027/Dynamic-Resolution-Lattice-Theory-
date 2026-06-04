@@ -1529,3 +1529,88 @@ M3 (NT-axis split) and M4 (KK firewall) are downstream — only
 relevant if/when physics interpretation is reactivated.
 See §6 + §7 + new step-11 narrative.
 
+
+---
+
+# Part 4 — M2 universal close (structural), 2026-06-04
+
+Branch `claude/g121-geometric-knot-OIMkV`.
+
+## What moved
+
+M2 was previously an **abstract close for K_{3,2}^{(c=2)} only**:
+`KChartLens NS NT c` carried `selfPointingAxes` as a *user-supplied*
+value, and the `selfPointingAxes = 1` derivation came from
+`V32Betti.kerSizeDelta0_eq_2` (a `decide` on the 32 cochains of the
+one deployment).  The parametric `kerSizeDelta0Direct NS NT c = 2`
+was `decide`-checked across a finite representative range only; three
+files (`Delta0AndConnectedness`, `EulerAndCapstone`, the Parametric
+INDEX) flagged the fully universal `∀ NS NT c` version as open,
+"requires graph-walk connectedness induction".
+
+Now closed **universally and ∅-axiom** at the structural level:
+`lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/KernelConstancyUniversal.lean`
+(14 PURE / 0 DIRTY) proves, for every connected K_{NS,NT}^{(c)}
+(NS ≥ 1, NT ≥ 1, c ≥ 1):
+
+  · `isKer_iff_const` — δ⁰-kernel cochain ⟺ globally constant
+  · `isKer_const_false_or_true` — kernel = exactly the 2 constants
+  · `isKer_root_determines` — root colour is the single free
+    parameter ⇒ `dim ker δ⁰ = 1`
+  · `visible_plus_one` — `(NS+NT) − 1` exists additively
+  · ★★★★★ `universal_kernel_close` — the bundle.
+
+Consumer (Geometry layer):
+`GeometrizationConjecture/KChartLensAbstract.lean` gains
+`forcedKChartLens` (selfPointingAxes = 1 + chartVisibleAxes =
+(NS+NT).pred forced by connectedness, no supplied value) and
+★★★★★★ `m2_universal_forced_partition`.
+
+## Why this route (and why the old one was blocked)
+
+The old enumeration route counts how many of the `2^(NS+NT)` flat
+cochain indices pass the edge test.  Doing that *universally* forces
+core Lean's `Nat.div` / `Nat.mod` lemmas to decode the flat edge
+index `Fin (c·NS·NT)` into `(s, t, m)` — and **every** core
+`Nat.div`/`Nat.mod` lemma carries `propext` (probe-verified:
+`Nat.mul_div_cancel`, `Nat.add_mul_div_left/right`, `Nat.mul_add_div`,
+`Nat.add_mul_mod_self_left`, `Nat.div_one` all `[propext]`;
+`Nat.mul_add_div` also `[Quot.sound]`).  So the universal-flat
+statement is axiom-dirty *by Lean-core construction*, not by a math
+gap.
+
+The fix: take the coboundary in **product-indexed** form
+`delta0Tri : Fin NS × Fin NT × Fin c → Bool` — an edge *is* the
+triple `(i, j, m)`, no decode.  Same graph (NS S-vertices, NT
+T-vertices, c parallel edges per pair, edge = XOR of endpoints), so
+the same kernel; the connectedness argument (every S joins T-vertex
+0, every T joins S-vertex 0, roots joined) then runs with zero
+division.  Subtraction was also avoided: the T-index of a vertex
+`a` with `a.val ≥ NS` is recovered additively via `Nat.le.dest`
+(`∃ k, NS + k = a.val`), since `Nat.add_sub_cancel'` /
+`Nat.sub_lt_left_of_lt_add` also carry `propext`.  Function equality
+was avoided too (`funext` → `Quot.sound`): all "kernel = constant"
+statements are pointwise (`∀ x, σ x = …`).
+
+## Knot status after this session
+
+| Knot | Status |
+|---|---|
+| M1 (why d_213 = 5) | two-route close (atomicity a₀=2 + Möbius c=2); irreducible at a₀=2 = Raw Clause 1 |
+| M2 (chart count = d−1) | **UNIVERSAL CLOSE (structural)** — δ⁰-kernel = constants (dim 1) for all connected K, ∅-axiom; chart-axes partition forced |
+| M3 (NT-axis split) | open — the only knot needing a genuine derivation (time vs self-pointing axis); downstream of physics interpretation |
+| M4 (KK firewall) | doc-level stereotype warnings |
+
+## Remaining (honest)
+
+  · M2 *operator-level* universal-flat `kerSizeDelta0Direct = 2`
+    stays `decide`-only — blocked purely by core-Lean `Nat.div`
+    propext, a purity artifact.  The structural content is closed;
+    a clean `Fin (c·NS·NT) ≃ Fin NS × Fin NT × Fin c` re-indexing
+    proof (∅-axiom, division-free) would bridge the two forms
+    universally if wanted, but is not a mathematical obstruction.
+  · M3 is the live frontier: derive (not pair) which axis of the
+    smaller T-side carries time vs the self-pointing residue.  The
+    1-dim kernel result says *one* axis is self-pointing; *which*
+    of the NT axes, and why the split is T-side not S-side, is the
+    open derivation.

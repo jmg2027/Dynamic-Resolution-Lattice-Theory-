@@ -33,7 +33,7 @@ and the dimension-4 exotic-smoothness anomaly.
 | `MetricGeometries.lean` | FW-4 + 8-geo Lie + cross-frame | ~58 | mod-k Möbius P Lens family + F_5 Nil uniqueness + curvature sign / isometry-group dim / Lie group dim per geometry + 6-class Lie partition + center-dim totals + **geometric structure ↔ Lie group consolidation** (`isLieGroupGeometry`, 6 Lie + 2 product = 8 partition, joint isotropic/anisotropic cross-frame) + ★★★★★★★ `FW4_direct_realization_close` + `eight_geo_lie_group_infra_close` + `geometric_structure_lie_group_consolidation` |
 | `CrossFrame.lean` | G123 X-1 + I-1 | ~5 | ★★★★★★ `X1_sym3_cross_frame_capstone` (4-way Sym(3) convergence) + ★★★★★ `sym3_basis_thurston_mapping` (explicit basis ↔ Thurston geometry mapping with +1/-1 reshape arithmetic) |
 | `Exotic4Mfd.lean` | G123 FW-1 substantive + sub-orbit | ~33 | `sym3GaugeInvariant` + ★★★★★★ `exotic_4mfd_scaffold` + per-element fix counts (`fixedSizeS01/S12/S02/Rho = 32, 32, 32, 4`) + Burnside `sym3OrbitCount = 60` + ★★★★★★ `fw1_suborbit_decomposition` `(4, 0, 28, 28)` |
-| `KChartLensAbstract.lean` | G123 M2 abstract + close certificate | ~11 | `KChartLens NS NT c` structure + canonical instances (`K32_chart_lens`, `K31_chart_lens`, `K14_chart_lens`) + ★★★★★ `m2_abstract_close` + ★★★★★★★★★★★ `geometrization_followup_close_certificate` (33-conjunct mega-capstone bundling all 10 follow-up items) |
+| `KChartLensAbstract.lean` | M2 abstract + universal close | ~14 | `KChartLens NS NT c` structure + canonical instances (`K32_chart_lens`, `K31_chart_lens`, `K14_chart_lens`) + ★★★★★ `m2_abstract_close` + **universal M2**: `forcedKChartLens` (connectedness forces `selfPointingAxes = 1`, `chartVisibleAxes = chartBase − 1` for arbitrary connected K via `Parametric.KernelConstancyUniversal`) + ★★★★★★ `m2_universal_forced_partition` + ★★★★★★★★★★★ `geometrization_followup_close_certificate` |
 | `Poincare.lean` (+ I-4) | G123 I-4 | +1 | ★★★★ `poincare_two_layer_trivial_loop` — two-layer reading (b₀ + b₁) via `V32Betti.b0_eq_1` |
 
 ## Supporting infrastructure (outside sub-tree, referenced from above)
@@ -107,6 +107,6 @@ All under namespace `E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAn
 | Knot | Status |
 |---|---|
 | M1 (why $d_{213}=5$) | TWO-ROUTE CLOSE (atomicity + Möbius); universal closure via `sym3_c2_force_K32` (chartBase-free) |
-| M2 (chart count = $d-1$) | ABSTRACT CLOSE via `KChartLens NS NT c` + V32Betti compatibility for K_{3,2}^{(c=2)} |
+| M2 (chart count = $d-1$) | UNIVERSAL CLOSE (structural): `Parametric.KernelConstancyUniversal` proves δ⁰-kernel = constant cochains (dim 1) for every connected K (NS≥1, NT≥1, c≥1), ∅-axiom; `forcedKChartLens` / `m2_universal_forced_partition` force `selfPointingAxes = 1`, `chartVisibleAxes = chartBase − 1` |
 | M3 (NT axis split) | downstream (physics interpretation) |
 | M4 (KK firewall) | doc-level stereotype warnings |
