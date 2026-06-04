@@ -1,124 +1,98 @@
-# Session Handoff — 2026-06-04 (merge: markov-uniqueness → re-architected tree)
+# Session Handoff — 2026-06-04 (G121 M2 universal close)
 
 ## Branch
-`claude/docs-code-org-review-vOYM6` — pushed, clean.
-`cd lean && lake build E213` ✓ (301 modules).  All merged modules
-∅-axiom (141 pure / 0 dirty on the markov + geodesic + lattice files).
-
-This branch carries (1) the repository re-architecture + process work
-done earlier this session and (2) the just-integrated
-`claude/markov-uniqueness-0R0Ut` frontier.
+`claude/g121-geometric-knot-OIMkV` — pushed.
+`cd lean && lake build` ✓ (full package).  New + touched modules
+∅-axiom verified via `tools/scan_axioms.py`.
 
 ## What Was Done This Session
 
-### 1. Integrated `claude/markov-uniqueness-0R0Ut` (23 commits, PURE ✓)
-The incoming branch predated the `Lib/Math` re-architecture, so it
-authored under the old flat `E213.Lib.Math.{Real213,Linalg213,ModArith}`
-namespaces.  Resolution preserved the branch's content/decisions **as
-established** and re-homed the Lean into the new architecture
-(`Real213→NumberSystems.Real213`, `Linalg213→Algebra.Linalg213`,
-`ModArith→NumberTheory.ModArith`):
-- **`Real213/SternBrocotMarkov` §30–§34** — the size-reading ⟷ injectivity
-  iff, **closed both directions**: `markovMaxUnique_iff_markovNum_injective`.
-  §33 forward (`markov_max_unique_of_markovNum_injective`), §34 converse
-  (`markovNum_injective_of_markovMaxUnique`, routed through §28 windowed
-  √(−1) residues — no new number theory).  Orbit kernel
-  `OrbitRealizabilityH` + `markovMaxUnique_iff_orbitRealizabilityH`.
-- **`Real213/Continuant`** (6 PURE) — Euler continuants `K[a₁..aₙ]` +
-  monotonicity (`continuant_cons2`, `one_le_continuant`,
-  `continuant_head_strict_mono`, `continuant_lt_prepend`); the Aigner core
-  tool for the continuant program.
-- **`Real213/ModularGeodesicLens`** — the geodesic engine as a Raw-Lens:
-  `mediantLens` + `mediantLens_view_reachable` (mediant-Lens view ⊆
-  `SternBrocotReachable`, ∅-axiom) — the residue read at `ℍ/PSL(2,ℤ)`.
-- **`Lens/DirectionFree`** + **`Lens/Lattice/Injectivity`** — `IsInjectiveLens`
-  calculus; `injectivity_not_upward_closed` (the structural reason `H` is
-  not forced); direction-freedom forced for residue-native readings.
-- Narrative: `theory/essays/the_modular_geodesic_lens.md`,
-  `theory/math/analysis/markov_uniqueness.md`; G189–G193 frontier notes.
+### G121 knot M2 — universal δ⁰-kernel = constants (structural close)
 
-### 2. Repository re-architecture + process (earlier this session)
-- `Lib/Math` re-clustered into 10 thematic dirs within the rings;
-  `theory/` + `theory/essays/` physically mirrored by path.
-- **PROCESS.md** + `process` skill: the tier-role discipline + the **sink
-  rule** (no permanent tier cites a `research-notes/` file).  `org-audit`
-  skill added.  `.claude` skills/hooks decoupled from pre-rearchitecture
-  paths.
-- research-notes reorganized: top level anchors-only, open work under
-  `research-notes/frontiers/`, `archive/` pruned.
+M2 ("chart-Lens visible count = chartBase − 1") was an **abstract
+close for K_{3,2}^{(c=2)} only**: `KChartLens` carried
+`selfPointingAxes` as a user-supplied value, grounded by a `decide`
+on the single deployment (`V32Betti`).  The fully universal
+`∀ NS NT c` version was flagged open in three files
+("requires graph-walk connectedness induction").
 
-## Current Precision Results (0 free parameters)
-Unchanged this session (org + math-frontier work, no physics-constant
-edits).  Canonical table: `catalogs/physics-constants.md`.  Markov work
-is the **math** branch (Diophantine uniqueness), not a DRLT observable.
+Now closed **universally and ∅-axiom** at the structural level:
+
+- **NEW** `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/KernelConstancyUniversal.lean`
+  (14 PURE / 0 DIRTY).  For every connected K_{NS,NT}^{(c)}
+  (NS ≥ 1, NT ≥ 1, c ≥ 1):
+    · `isKer_iff_const` — δ⁰-kernel cochain ⟺ globally constant
+    · `isKer_const_false_or_true` — kernel = exactly the 2 constants
+    · `isKer_root_determines` — root colour = single free parameter
+      (`dim ker δ⁰ = 1`, b₀ = 1)
+    · `visible_plus_one` — `(NS+NT) − 1` additively
+    · ★★★★★ `universal_kernel_close` — the bundle.
+  Uses a **product-indexed coboundary** `delta0Tri`
+  (edges `Fin NS × Fin NT × Fin c`, no integer-decode division) and
+  additive T-index recovery via `Nat.le.dest`, so the connectedness
+  proof carries zero `propext`.  Pointwise statements throughout
+  (no `funext` → no `Quot.sound`).
+
+- **Consumer** `Geometry/GeometrizationConjecture/KChartLensAbstract.lean`:
+  `forcedKChartLens` (selfPointingAxes = 1, chartVisibleAxes =
+  `(NS+NT).pred`, forced by connectedness — no supplied value) +
+  ★★★★★★ `m2_universal_forced_partition` +
+  `forcedKChartLens_chartVisible_eq_ansatz` (forced value = ansatz
+  `chartVisibleAxes NS NT = (NS+NT)−1`, by `rfl`).
+
+- `Ansatz.selfPointingAxes` docstring updated: the `1` is now the
+  *derived* kernel dimension, not a committed value.
+
+### Why the old enumeration route was blocked (recorded)
+Counting flat cochain indices universally forces core Lean's
+`Nat.div` / `Nat.mod` lemmas to decode `Fin (c·NS·NT)` → `(s,t,m)`;
+**all** of them carry `propext` (probe-verified), and
+`Nat.add_sub_cancel'` / `Nat.sub_lt_left_of_lt_add` likewise.  So the
+universal-flat statement is axiom-dirty by Lean-core construction —
+a purity artifact, not a math gap.  The product-form route avoids it.
+
+## G121 knot status (after this session)
+
+| Knot | Status |
+|---|---|
+| M1 (why d_213 = 5) | two-route close (atomicity a₀=2 + Möbius c=2); irreducible at a₀=2 = Raw Clause 1 |
+| M2 (chart count = d−1) | **UNIVERSAL CLOSE (structural)** — δ⁰-kernel = constants (dim 1) for all connected K, ∅-axiom |
+| M3 (NT-axis split) | **open frontier** — derive *which* T-axis is time vs self-pointing, and why the split is T-side not S-side (the live knot) |
+| M4 (KK firewall) | doc-level stereotype warnings |
+
+The headline `d_M = d_213 − 1` now holds **universally**:
+`chartVisibleAxes = chartBase − 1` for every connected K, the "−1"
+being the universally 1-dimensional self-pointing kernel.
 
 ## Open Problems (Priority Order)
 
-### 1. The orbit-realizability kernel `H` (`OrbitRealizabilityH`)
-The **sole** open freedom.  Structure is fully pinned (slope = ℚ-Lens,
-coprimality from `det P = 1`, tree rooted at the φ self-reference fixed
-point `markovNum [] = 5 = d`); what remains is realizability *selection*.
-Per G192/G193: the geodesic engine structurally stops at orientation —
-slope (`mediantLens`) IS a Raw-Lens, size (`markovNum`) is NOT
-(`markovGen_noncommutative`), and `H` lives exactly at that boundary.
-Suggested: attack `H` as a **forced fixed point** (G193 Part C, §4.3
-shape move) — high risk, the real shot.  `H` = compatibility of the two
-§5.2 self-reference forms (Bool-oscillation Cohn `C²≡−I` order-4 ↔
-Nat-convergent Vieta descent).
-
-### 2. Continuant program E2–E5 (Aigner bridge)
-Ranked next (G193): **E2** `continuant = matrix entry` (cheap, on-path) →
-E3/E4/E5 oriented bridge (E4 substantial).  Tool already built in
-`Continuant.lean`; the orderings (LLRS/McShane) are
-necessary-not-sufficient, so the continuant is the load-bearing piece.
-
-### 3. (carried) promotion candidates
-PURE-closed Lean sub-trees lacking a `theory/` chapter — check
-`theory/PROMOTION_CRITERIA.md`.  The Markov sub-tree now has narrative
-(`theory/math/analysis/markov_uniqueness.md`) but `H` keeps it
-mixed-status (Pattern 3): chapter stays active until `H` resolves.
-
-## Unresolved from This Session
-- `H` not crossed by any of the three directions explored (classical /
-  Raw-Lens / axiom-level).  Honest verdict (G193): structure pinned,
-  realizability selection is the lone open freedom.  Directions A, D, E
-  solid; B is a *location* of `H`, C is a *steer*, neither a proof.
-- The `Real213/INDEX.md` Markov section was added during this merge (the
-  family was previously undocumented in that INDEX); the rest of the
-  INDEX predates several Markov files — a fuller INDEX refresh is a
-  candidate for the next `org-audit` pass.
-
-## Next
-Take **E2** (`continuant = matrix entry`) in `Real213/Continuant.lean` —
-cheapest on-path step toward the oriented bridge — then re-attempt `H`
-as a forced fixed point (G193 Part C) with the continuant entry-form in
-hand.
-
-## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: none new (markov narrative arrived with the
-  merge; chapter stays active per Pattern 3 while `H` is open).
-- **Promotion candidates**: PURE-closed sub-trees without `theory/`
-  chapters (see `theory/PROMOTION_CRITERIA.md`).
-- **Active scratchpad**: `research-notes/G189`–`G193` (markov frontier),
-  `research-notes/frontiers/` open board.  Sink rule holds: no permanent
-  tier cites any of these files.
+1. **M3 (NT-axis split)** — the lone knot needing a genuine
+   derivation.  M2 proves *one* axis is self-pointing (the 1-dim
+   kernel); M3 asks which of the N_T axes is time vs self-pointing
+   and why the donation is T-side (cardinality 2), not S-side.
+   Candidate handles: c=2 binary cover acts on T-side; K_{3,2}
+   bipartite asymmetry.  Note: the originator deprioritized M3 as
+   "downstream of physics interpretation" — confirm before pushing.
+2. **M2 operator-flat bridge (optional)** — a division-free
+   `Fin (c·NS·NT) ≃ Fin NS × Fin NT × Fin c` re-indexing would
+   transport the structural kernel result to the flat
+   `CochSpaces.delta0`, giving the universal-flat statement
+   ∅-axiom.  Not a math obstruction; the structural content is
+   closed.
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberSystems/Real213/SternBrocotMarkov.lean   ← +§30–§34 iff, OrbitRealizabilityH (remapped to new arch)
-lean/E213/Lib/Math/NumberSystems/Real213/Continuant.lean          ← NEW: Euler continuants + monotonicity (remapped)
-lean/E213/Lib/Math/NumberSystems/Real213/ModularGeodesicLens.lean ← NEW: geodesic engine as Raw-Lens (remapped)
-lean/E213/Lib/Math/NumberSystems/Real213.lean                     ← aggregator + Continuant/ModularGeodesicLens imports
-lean/E213/Lib/Math/NumberSystems/Real213/INDEX.md                 ← added Markov + modular-geodesic section
-lean/E213/Lens/DirectionFree.lean                                 ← NEW: direction-freedom for residue-native readings
-lean/E213/Lens/Lattice/Injectivity.lean                           ← NEW: IsInjectiveLens calculus, not upward-closed
-lean/E213/Lens.lean, lean/E213/Lens/Lattice.lean                  ← aggregator imports
-theory/essays/the_modular_geodesic_lens.md                        ← NEW essay
-theory/essays/INDEX.md                                            ← added modular-geodesic-lens row
-theory/math/analysis/markov_uniqueness.md                         ← upper-fold + iff narrative
-research-notes/G189_geodesic_lens_markov_frontier.md              ← NEW
-research-notes/G190_foundation_breakthrough_backlog.md            ← NEW
-research-notes/G191_continuant_aigner_program.md                  ← NEW
-research-notes/G192_markov_kernel_raw_lens_native.md              ← NEW
-research-notes/G193_axioms_against_markov_kernel.md               ← NEW (standing attack map for H)
+lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/KernelConstancyUniversal.lean  ← NEW (14 PURE): universal δ⁰-kernel = constants
+lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/INDEX.md                       ← +KernelConstancyUniversal row + universal-closure section
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/KChartLensAbstract.lean       ← +forcedKChartLens, m2_universal_forced_partition (import KernelConstancyUniversal)
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/Ansatz.lean                   ← selfPointingAxes docstring (derived)
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/INDEX.md                      ← M2 status → UNIVERSAL CLOSE
+theory/math/cohomology/bipartite.md                                               ← universal-kernel narrative section
+research-notes/frontiers/G121_dim4_self_pointing_axis.md                          ← Part 4: M2 universal close
 ```
+
+## Three-tier state
+- **Promotions this session**: none new (M2 narrative lives in the
+  existing `theory/math/cohomology/bipartite.md` chapter).
+- **Active scratchpad**: `research-notes/frontiers/G121_dim4_self_pointing_axis.md`
+  (Part 4 added).  Sink rule holds.

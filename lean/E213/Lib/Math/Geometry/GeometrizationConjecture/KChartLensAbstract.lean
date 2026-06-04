@@ -133,11 +133,12 @@ theorem K32_chart_lens_v32betti_compatible :
     · d=4 tree branch K_{1,4}^{(c=1)}: visible = 4, self = 1
 
   The K_{3,2}^{(c=2)} instance bridges to the V32Betti
-  deployment-level derivation, completing the abstract M2 closure
-  for the forced critical deployment.  Generalizing the
-  V32Betti-style `kerSizeDelta0 = 2^selfPointingAxes` link to
-  arbitrary K_{NS,NT}^{(c)} remains open (requires per-deployment
-  cohomology files). -/
+  deployment-level derivation for the forced critical deployment.
+  The arbitrary-K generalization of the `selfPointingAxes = 1`
+  derivation is the `## Universal M2 close` section below
+  (`m2_universal_forced_partition`), grounded in the universal
+  δ⁰-kernel = constants result of
+  `Parametric.KernelConstancyUniversal`. -/
 theorem m2_abstract_close :
     -- K_{3,2}^{(c=2)} partition
     K32_chart_lens.chartVisibleAxes + K32_chart_lens.selfPointingAxes = 5
