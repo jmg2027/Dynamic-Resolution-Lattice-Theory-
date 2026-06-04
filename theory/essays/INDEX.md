@@ -17,16 +17,15 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 41 essays live flat in this directory (one file per insight; moving
-them would break cross-corpus links).  For navigation they group into
-nine themes — distinct facets, not redundancies (the synthesis essays
-in IV deliberately tie the others together):
+The 41 essays are grouped into nine thematic sub-directories — distinct
+facets, not redundancies (the synthesis essays in IV deliberately tie the
+others together):
 
-**I. The residue (foundations).**
+**I. `foundations/` — the residue.**
 `the_form_of_the_residue`, `the_residue_as_primitive`,
 `the_residue_as_state_machine`, `the_upper_fold_pattern`.
 
-**II. Cohomology & the c-counter programme.**
+**II. `cohomology/` — the c-counter programme.**
 `c_counter_as_layer_count`, `disjoint_layers_as_direct_sum`,
 `multiplicity_layer_uniformity`, `cup_image_dual_span`,
 `per_layer_completeness_constructive_closure`, `c_counter_programme_closure`,
@@ -34,31 +33,31 @@ in IV deliberately tie the others together):
 `vandermonde_mediant_counts`, `k32_cohomology_simplex_higher_insight`,
 `cut_off_marathon`.
 
-**III. P-orbit, Möbius & the atomic signature.**
+**III. `p_orbit/` — P-orbit, Möbius & atomic signature.**
 `p_orbit_closure_master`, `p_orbit_naturalness_boundary`,
 `mobius_self_form_fixed_point`, `every_axis_sees_p`,
 `cut_equality_and_atomicity`, `stern_brocot_as_universal_lattice`,
 `bipartite_tripartite_self_containment`.
 
-**IV. Synthesis & the master tower.**
+**IV. `synthesis/` — synthesis & the master tower.**
 `synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`.
 
-**V. Analysis, depth & number systems.**
+**V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
 `real_without_completeness`, `integers_as_difference_lens`,
 `the_modular_group_from_two_folds`.
 
-**VI. Algebra tower & linear algebra.**
+**VI. `algebra/` — algebra tower & linear algebra.**
 `cd_tower_polarization`, `exceptional_seeds_are_forced`,
 `determinant_as_quotient_characteristic`, `cayley_hamilton_self_characteristic`.
 
-**VII. GRA & higher structure.**
+**VII. `gra/` — GRA & higher structure.**
 `gra_universality_one_principle`, `gra_as_substrate_of_cat_hott`.
 
-**VIII. Topology, geometry & 4-manifolds.**
+**VIII. `topology/` — topology, geometry & 4-manifolds.**
 `4mfd_geometrization_joint_reading`, `cup_ladder_cork_h1_bridge`.
 
-**IX. Methodology & PURE-Lean infrastructure.**
+**IX. `methodology/` — methodology & PURE-Lean infra.**
 `pure_funext_avoidance`, `pure_nat_ring_methodology`,
 `bool_assoc_failure_meaning`.
 
