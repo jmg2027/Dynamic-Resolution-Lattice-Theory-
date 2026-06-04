@@ -104,6 +104,16 @@ this 1-dimensional kernel into the axes partition, forcing
 `selfPointingAxes = 1` and `chartVisibleAxes = chartBase − 1` for
 arbitrary connected K.
 
+The same conclusion is also reached through the abstract
+graph-connectedness induction of
+`theory/math/combinatorics/graph_connectivity.md`
+(`Combinatorics/GraphConnectivity.lean`): the inductive reachability
+predicate `Reach` + `closed_const` give "δ⁰-closed colouring on a
+connected graph is constant" for any adjacency, and the bipartite
+instantiation (`bipAdj_connected`, `isKer_const_via_framework`)
+supplies the only graph-specific fact — that K_{NS,NT}^{(c)} is
+connected.
+
 ## Connection
 
 - `theory/math/cohomology/k32_higher_cohomology.md` — higher-cohomology

@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces
+import E213.Lib.Math.Combinatorics.GraphConnectivity
 
 /-!
 # Universal δ⁰-kernel = constants (b₀ = 1 for every connected K_{NS,NT}^{(c)})
@@ -222,5 +223,73 @@ theorem universal_kernel_close (NS NT c : Nat)
    fun b => constCoch_isKer NS NT c b,
    isKer_const_false_or_true NS NT c hS hT hc,
    visible_plus_one NS NT hS⟩
+
+/-! ## Via the general graph-connectivity framework
+
+The constancy argument above is the complete-bipartite instance of the
+abstract `Combinatorics.GraphConnectivity` reachability induction.
+Recovering it through that framework validates the reusable
+infrastructure on the load-bearing case and isolates the only graph
+fact special to K_{NS,NT}^{(c)}: the graph is connected. -/
+
+open E213.Lib.Math.Combinatorics.GraphConnectivity
+  (Reach IsConnectedFrom IsClosed closed_const closed_false_or_true
+   reach_one reach_two)
+
+/-- Bipartite S–T adjacency on `Fin (NS + NT)`: an edge joins an S-side
+    vertex (index `< NS`) and a T-side vertex (index `≥ NS`), either
+    orientation.  This is the adjacency of K_{NS,NT}^{(c)} (the `c`
+    parallel edges collapse to one adjacency relation). -/
+def bipAdj (NS NT : Nat) (u v : Fin (NS + NT)) : Prop :=
+  (u.val < NS ∧ NS ≤ v.val) ∨ (NS ≤ u.val ∧ v.val < NS)
+
+/-- **K_{NS,NT}^{(c)} is connected** (NS ≥ 1, NT ≥ 1): every vertex is
+    reachable from the root S-vertex `0` — T-vertices in one step, the
+    other S-vertices in two (`S0 → T0 → Sᵢ`). -/
+theorem bipAdj_connected (NS NT : Nat) (hS : 0 < NS) (hT : 0 < NT) :
+    IsConnectedFrom (bipAdj NS NT) (sV NS NT ⟨0, hS⟩) := by
+  intro v
+  rcases Nat.lt_or_ge v.val NS with h | h
+  · -- S-side vertex: root → T-vertex 0 → v
+    refine reach_two (m := tV NS NT ⟨0, hT⟩) ?_ ?_
+    · exact Or.inl ⟨hS, Nat.le_add_right NS 0⟩
+    · exact Or.inr ⟨Nat.le_add_right NS 0, h⟩
+  · -- T-side vertex: root → v directly
+    exact reach_one (Or.inl ⟨hS, h⟩)
+
+/-- The edge-constancy predicate is exactly δ⁰-closedness for the
+    bipartite adjacency. -/
+theorem isConstOnEdges_isClosed (NS NT : Nat) (σ : CochV NS NT)
+    (h : IsConstOnEdges NS NT σ) : IsClosed (bipAdj NS NT) σ := by
+  intro u v huv
+  rcases huv with ⟨hu, hv⟩ | ⟨hu, hv⟩
+  · -- u S-side, v T-side
+    rcases Nat.le.dest hv with ⟨k, hk⟩
+    have hkNT : k < NT := by
+      have : NS + k < NS + NT := by rw [hk]; exact v.isLt
+      exact Nat.lt_of_add_lt_add_left this
+    have hue : u = sV NS NT ⟨u.val, hu⟩ := Fin.eq_of_val_eq rfl
+    have hve : v = tV NS NT ⟨k, hkNT⟩ := Fin.eq_of_val_eq hk.symm
+    rw [hue, hve]; exact h ⟨u.val, hu⟩ ⟨k, hkNT⟩
+  · -- u T-side, v S-side
+    rcases Nat.le.dest hu with ⟨k, hk⟩
+    have hkNT : k < NT := by
+      have : NS + k < NS + NT := by rw [hk]; exact u.isLt
+      exact Nat.lt_of_add_lt_add_left this
+    have hue : u = tV NS NT ⟨k, hkNT⟩ := Fin.eq_of_val_eq hk.symm
+    have hve : v = sV NS NT ⟨v.val, hv⟩ := Fin.eq_of_val_eq rfl
+    rw [hue, hve]; exact (h ⟨v.val, hv⟩ ⟨k, hkNT⟩).symm
+
+/-- **Kernel = constants, re-derived through the general framework.**
+    The δ⁰-kernel of K_{NS,NT}^{(c)} collapses to the global constants
+    by the abstract `closed_const` applied to the bipartite connectivity
+    witness — the same conclusion as `isKer_iff_const`, routed through
+    the reusable graph-connectedness induction. -/
+theorem isKer_const_via_framework (NS NT c : Nat) (hS : 0 < NS)
+    (hT : 0 < NT) (hc : 0 < c) (σ : CochV NS NT) (hk : IsKer NS NT c σ) :
+    ∀ u v, σ u = σ v :=
+  closed_const (bipAdj_connected NS NT hS hT)
+    (isConstOnEdges_isClosed NS NT σ
+      ((isKer_iff_constOnEdges NS NT c hc σ).mp hk))
 
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.KernelConstancyUniversal

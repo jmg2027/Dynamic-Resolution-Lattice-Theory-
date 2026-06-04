@@ -12,6 +12,7 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
 | `Stirling.lean` | S(n, k) recursion + Bell decomposition | ∅-axiom |
 | `GeneratingFunction.lean` | formal power series, convolution, catalanGF | ∅-axiom |
 | `Simplex5.lean` | (3,2) partition + S_3×S_2-invariant weight on Fin 5×Fin 5 (구 App/Simplex.lean, 2026-05-13 이동) | ∅-axiom |
+| `GraphConnectivity.lean` | abstract graph reachability (`Reach` inductive) → δ⁰-closed colouring is constant on a connected graph (`closed_const`, `closed_false_or_true`, b₀ = 1); instantiated for complete bipartite in `Cohomology/Bipartite/Parametric/KernelConstancyUniversal` | ∅-axiom |
 | `Capstone.lean` | 4 cluster witnesses + total_witness | ∅-axiom |
 | `Combinatorics.lean` | umbrella | — |
 
