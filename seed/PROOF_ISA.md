@@ -49,6 +49,26 @@ The Markov marathon was already this, implicitly:
 Making the ISA explicit turns the next attack on `H` from "await a genius insight" into "which
 composition of `GAP ∘ SEPARATE ∘ LOOP` realizes the residue" — systematic, on a shared instruction set.
 
+## Usage — the compilation workflow
+
+Worked walkthrough (the demonstration `lean/E213/Lens/ProofISADemo.lean`, `∅`-axiom):
+
+  1. **State the problem at L3** and name the infinite/abstract object it concerns.
+     *Example*: "the count of a `Raw` is unbounded" — the `ℕ`-infinite, via the count-Lens.
+  2. **Compile to L2** — express the objects as Lens readings (the number tower, §6.7).
+     count = **READ** (`value = Lens.leaves.view`).
+  3. **Compile to L1** — express the *proof* as a composition of ISA instructions.
+     "no largest" = **DISTINGUISH** (form the residue `r / x`) ∘ **READ** (its count grows) — the
+     forcing of a residue larger than anything pointed at is the `DIAGONALIZE` family.
+  4. **Discharge `∅`-axiom** — each instruction is a built witness; the proof is their composition
+     (`value_slash` = READ over DISTINGUISH; `count_unbounded` = the composition).
+
+For an **open** problem the workflow is identical, with step 3 the search: *which composition of
+instructions realizes the proof-residue*.  For Markov `H`: step 2/3 already identify `H` = `GAP` /
+realizability ("which windowed residue is realized"); the remaining search is which `SEPARATE`/`LOOP`
+composition *forces* the realized residue.  The framework supplies the instruction set and the
+compilation target; the search for the composition is the work (`05_no_exterior.md` §5.3).
+
 ## Honest status (so it is a programme, not a shield)
 
 Church–Turing-flavoured.  Each instruction is a **theorem** witness.  "Every proof compiles to these"

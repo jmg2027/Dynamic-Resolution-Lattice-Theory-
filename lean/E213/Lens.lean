@@ -10,6 +10,7 @@ import E213.Lens.Initiality
 import E213.Lens.PredicateSelfEncoding
 import E213.Lens.NoExteriorClosure
 import E213.Lens.ProofISA
+import E213.Lens.ProofISADemo
 import E213.Lens.ResidueReentry
 import E213.Lens.RawTopology
 import E213.Lens.SelfCompletion

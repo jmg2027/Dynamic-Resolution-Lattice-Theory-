@@ -46,6 +46,28 @@ remains a self-reference argument (§5.1), since "all conceivable" is
 not a type; but its escape is self-defeating for the reason above, and
 its formalizable instances are theorems, not assertions.
 
+## §1.0′ The residue is the primitive of proof for the infinite
+
+The closure of §1.0 is not only ontological; it is **operational** — it is *why* this framework does real
+work and not wordplay.  The most primitive proof technique for the infinite and the abstract is
+**diagonalization**, and diagonalization **is the residue**: given everything one can point at (an
+enumeration, a totality), the something distinguishable from *all of them* — the residue — is forced to
+exist, and that forcing *is* the proof.  Cantor, Russell, Gödel, Turing, Tarski are one move: point at the
+totality, exhibit the residue outside it.
+
+This is a theorem, not a slogan.  `Lens/Cardinality/Cantor.lean` `cantor_general` is the diagonal
+argument; `Lens/FlatOntologyClosure.lean` `object1_not_surjective` (`= cantor_raw_bool`) is its `Raw`
+instance, and it names the un-pointable surplus — the predicates outside the image of any `Raw`-indexed
+self-cover — **as the residue**.  So the residue is not merely *what reference leaves behind*; it is the
+*engine* of the deepest proofs about the infinite.
+
+Consequence (the programme): mathematics can be built and *compiled* the way a computing stack is built
+from binary — atoms and distinguishing at the base, the primitive proof-operations (with the diagonal/
+residue at their core) as an instruction set, number towers and structures above, theorems and open
+problems at the top.  Hard problems are then *compiled down* to that shared instruction set, not cracked
+by problem-specific insight.  The instruction set and the methodology are `seed/PROOF_ISA.md` +
+`lean/E213/Lens/ProofISA.lean`.
+
 ---
 
 ## §1.2 The unavoidable recursion of notation
