@@ -159,7 +159,8 @@ theorem axiom_shadow_split :
 
 /-- Axiom-level shadow consistency with deployment-level ansatz:
     the operator-component count at axiom-level matches the
-    `selfPointingAxes` commitment at deployment-level. -/
+    derived `selfPointingAxes` (= dim ker δ⁰ = 1) at
+    deployment-level. -/
 theorem axiom_shadow_consistency :
     axiomOperatorComponents = selfPointingAxes := rfl
 

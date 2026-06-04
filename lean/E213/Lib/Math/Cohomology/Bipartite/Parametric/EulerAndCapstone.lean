@@ -104,10 +104,12 @@ theorem chartVisibleAxes_chartBase5_witnesses :
     · Euler characteristic eulerChar = (NS + NT) − c·NS·NT
     · V32Betti compatibility at (3, 2, 2)
 
-  The fully universal `∀ (NS NT c : Nat), 1 ≤ NS → 1 ≤ NT → 1 ≤ c →
-  kerSizeDelta0 NS NT c = 2` parametric proof remains open frontier
-  (requires graph-connectedness induction infrastructure).  This
-  capstone covers all deployments in the chartBase-≤-5 family. -/
+  The universal `∀ (NS NT c), 1 ≤ NS → 1 ≤ NT → 1 ≤ c → ker δ⁰ =
+  constant cochains (dim 1)` is closed structurally and ∅-axiom in
+  `KernelConstancyUniversal`; this capstone records the flat-form
+  `kerSizeDelta0Direct = 2` enumeration over the chartBase-≤-5 family
+  (the quantified-flat enumeration stays `decide`-only — counting flat
+  indices forces core Lean's propext-carrying `Nat.div`). -/
 theorem parametric_close_capstone :
     -- Parametric Euler at K_{3,2}^{(c=2)}
     eulerChar 3 2 2 = -7
