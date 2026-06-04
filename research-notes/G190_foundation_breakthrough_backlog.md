@@ -91,6 +91,15 @@ Two `∅`-axiom installments, foundation first:
    breaks clause 3).  `H` is hard because its reading is not foldable over the residue — it needs exactly
    the orientation Raw discards.
 
+3. **The principle behind (2), as a theorem** (`Lens/DirectionFree.lean`, PURE) — not just a witness.
+   `combine_sym_on_image_of_homomorphism`: *any* Lens whose view is a slash homomorphism
+   (`view (x/y) = combine (view x) (view y)`) has a `combine` **symmetric on its image**, forced by
+   `Raw.slash_comm` (`x/y = y/x`).  Contrapositive: a non-symmetric combine cannot give a homomorphic
+   Raw-`Lens`.  So "residue-native readings are direction-free" is now a proved foundation theorem
+   (seed target B.3, the clause-3 / count-vs-difference principle), and `markovGen_noncommutative` is
+   its concrete Markov instance: the size combine is non-symmetric, so the size reading provably escapes
+   the residue.
+
 ## Honest verdict
 
 Nothing here proves `H` or closes a frontier — it is a *map*.  Its value: (i) it surfaces a stack of
