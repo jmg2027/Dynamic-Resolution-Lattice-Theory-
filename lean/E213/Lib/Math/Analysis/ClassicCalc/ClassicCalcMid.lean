@@ -1,15 +1,15 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableMid
-import E213.Lib.Math.Real213.Lattice.CutMidSelf
+import E213.Lib.Math.NumberSystems.Real213.Lattice.CutMidSelf
 
 import E213.Lib.Math.Analysis.ClassicCalc.ClassicCalc
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Bisection.CutBisection
-import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumDetermined
-import E213.Lib.Math.Real213.Sum.CutSumTest
-import E213.Lib.Math.Real213.Sum.CutSumZero
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
@@ -29,10 +29,10 @@ calculus-textbook framework to averaged functions.
 namespace E213.Lib.Math.Analysis.ClassicCalc.ClassicCalcMid
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection (cutMid)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.FluxMVT.FluxDivergence.FluxCut (localDivergence)
@@ -42,10 +42,10 @@ open E213.Lib.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiab
 namespace FluxCut.Passthrough_at
 
 open E213.Lib.Math.Analysis.FluxMVT.FluxPassthroughClass.FluxCut (Passthrough_at)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
-open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
-open E213.Lib.Math.Real213.Sum.CutSumZero (cutMid_zero_zero_at)
-open E213.Lib.Math.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSumAux)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined (cutSumAux_congr)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero (cutMid_zero_zero_at)
+open E213.Lib.Math.NumberSystems.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
 
 /-- Midpoint of two passthrough_at's is passthrough_at (PURE).
     Uses `cutSumAux_unitBracket_reduce_at` (FLUX-1 sum template)

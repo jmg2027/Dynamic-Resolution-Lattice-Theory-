@@ -1,5 +1,5 @@
-import E213.Lib.Math.SignedCut.CD.CDMulRule
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.SignedCut.CD.CDMulRule
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 
 /-!
 # Shared (0, 1) Pair Slot — Sign vs Complex (∅-axiom)
@@ -30,8 +30,8 @@ each rule, shown by `decide`-style witness.
 
 namespace E213.Lib.Math.Geometry.AngleStructure.SharedPairSlot
 
-open E213.Lib.Math.SignedCut.CD.CDMulRule (signMul complexMul)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.SignedCut.CD.CDMulRule (signMul complexMul)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- The shared "orthogonal slot" `(0, 1)` — second component
     is `+1`, first is `0`.  This represents:
@@ -44,12 +44,12 @@ def orthSlot : (Nat → Nat → Bool) × (Nat → Nat → Bool) :=
     = (1, 0)` (= positive 1).  Order 2 → 180° interpretation. -/
 theorem orthSlot_signSquare :
     signMul orthSlot.1 orthSlot.2 orthSlot.1 orthSlot.2
-      = (E213.Lib.Math.Real213.Sum.CutSum.cutSum
-          (E213.Lib.Math.Real213.Mul.CutMul.cutMul (constCut 0 1) (constCut 0 1))
-          (E213.Lib.Math.Real213.Mul.CutMul.cutMul (constCut 1 1) (constCut 1 1)),
-         E213.Lib.Math.Real213.Sum.CutSum.cutSum
-          (E213.Lib.Math.Real213.Mul.CutMul.cutMul (constCut 0 1) (constCut 1 1))
-          (E213.Lib.Math.Real213.Mul.CutMul.cutMul (constCut 1 1) (constCut 0 1))) :=
+      = (E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSum
+          (E213.Lib.Math.NumberSystems.Real213.Mul.CutMul.cutMul (constCut 0 1) (constCut 0 1))
+          (E213.Lib.Math.NumberSystems.Real213.Mul.CutMul.cutMul (constCut 1 1) (constCut 1 1)),
+         E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSum
+          (E213.Lib.Math.NumberSystems.Real213.Mul.CutMul.cutMul (constCut 0 1) (constCut 1 1))
+          (E213.Lib.Math.NumberSystems.Real213.Mul.CutMul.cutMul (constCut 1 1) (constCut 0 1))) :=
   rfl
 
 /-- ★ **Complex rule first component**: `(0·0 − 1·1)` lands as
@@ -57,15 +57,15 @@ theorem orthSlot_signSquare :
     flipped to negative pair component, encoded structurally). -/
 theorem orthSlot_complexSquare_re :
     (complexMul orthSlot.1 orthSlot.2 orthSlot.1 orthSlot.2).1
-      = E213.Lib.Math.Real213.Mul.CutMul.cutMul (constCut 0 1)
+      = E213.Lib.Math.NumberSystems.Real213.Mul.CutMul.cutMul (constCut 0 1)
                                               (constCut 0 1) := rfl
 
 /-- ★ **Complex rule cross term**: `0·1 + 1·0 = 0`. -/
 theorem orthSlot_complexSquare_im :
     (complexMul orthSlot.1 orthSlot.2 orthSlot.1 orthSlot.2).2
-      = E213.Lib.Math.Real213.Sum.CutSum.cutSum
-          (E213.Lib.Math.Real213.Mul.CutMul.cutMul (constCut 0 1) (constCut 1 1))
-          (E213.Lib.Math.Real213.Mul.CutMul.cutMul (constCut 1 1) (constCut 0 1))
+      = E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSum
+          (E213.Lib.Math.NumberSystems.Real213.Mul.CutMul.cutMul (constCut 0 1) (constCut 1 1))
+          (E213.Lib.Math.NumberSystems.Real213.Mul.CutMul.cutMul (constCut 1 1) (constCut 0 1))
        := rfl
 
 end E213.Lib.Math.Geometry.AngleStructure.SharedPairSlot

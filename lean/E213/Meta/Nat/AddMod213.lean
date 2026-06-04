@@ -231,7 +231,7 @@ theorem max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
     canonical-form (r < p) form.  Used in:
       · `Lib/Math/ModArith/FP2Sqrt5` (private double_neg_mod)
       · `Lib/Math/ModArith/FP2SqrtD`
-      · `Lib/Math/Padic/NegInvolution{,Digit1,Preserve}` (p-adic
+      · `Lib/Math/NumberSystems/Padic/NegInvolution{,Digit1,Preserve}` (p-adic
         Zp.neg involution at digit-0 and beyond)
 
     Canonical Meta-layer home for the `double_neg_mod` family used

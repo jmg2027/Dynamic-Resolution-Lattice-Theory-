@@ -3,7 +3,7 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Mobius213.Px.ModPPeriods — periods of P mod p across all primes
 
-The framework's p-adic infrastructure (`Lib/Math/Padic/ZpSeq p`)
+The framework's p-adic infrastructure (`Lib/Math/NumberSystems/Padic/ZpSeq p`)
 provides PURE-Lens for *any* prime `p`, not just the atomic
 primes `{2, 3, 5}`.  Witness: `ZpSeq.smoke_zero_7`,
 `ZpSeq.smoke_zero_11` etc. already exist in `Padic/Foundation.lean`.

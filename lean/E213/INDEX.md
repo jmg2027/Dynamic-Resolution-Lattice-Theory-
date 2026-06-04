@@ -90,7 +90,7 @@ Top achievements:
 | "What does DRLT compute?"     | `Lib/Physics/Capstones/PureAtomicObservables.lean` + `CAPSTONE_INDEX.md` |
 | "How does α_em derive?"       | `Lib/Physics/AlphaEM/` chain |
 | "Where is the config count?"   | `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (parametric, no privileged level) |
-| "Why finite N only?"          | `Lib/Math/Real213/Bisection/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` |
+| "Why finite N only?"          | `Lib/Math/NumberSystems/Real213/Bisection/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` |
 | "What are the atomic primitives?" | `Theory/Atomicity/Five.lean` + `Theory/Atomicity/PairForcing.lean` |
 | "How is Term ring 0-axiom?"   | `Term/` 12 files + `tools/kernel_regress.sh` + `STRICT_ZERO_AXIOM.md` |
 | "Cohomology classes?"         | `Lib/Math/Cohomology/` (94 files in 11 sub-clusters) + `rust-engine/docs/cohomology-classes.md` |

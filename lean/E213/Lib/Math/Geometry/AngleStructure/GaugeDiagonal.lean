@@ -1,5 +1,5 @@
-import E213.Lib.Math.SignedCut.Core.Equivalence
-import E213.Lib.Math.SignedCut.Core.Core
+import E213.Lib.Math.NumberSystems.SignedCut.Core.Equivalence
+import E213.Lib.Math.NumberSystems.SignedCut.Core.Core
 
 /-!
 # 45° Gauge Diagonal — Why ZFC sees 180° instead of 90° (∅-axiom)
@@ -29,9 +29,9 @@ vacuum** = no-op transformation.
 
 namespace E213.Lib.Math.Geometry.AngleStructure.GaugeDiagonal
 
-open E213.Lib.Math.SignedCut.Core.Core (SignedCut signedAdd ofPos ofNeg)
-open E213.Lib.Math.SignedCut.Core.Equivalence (signedEqAt)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.SignedCut.Core.Core (SignedCut signedAdd ofPos ofNeg)
+open E213.Lib.Math.NumberSystems.SignedCut.Core.Equivalence (signedEqAt)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- The 45° gauge diagonal direction: `(c, c)` for any `c`. -/
 def gaugeDiagonal (c : Nat → Nat → Bool) : SignedCut := (c, c)

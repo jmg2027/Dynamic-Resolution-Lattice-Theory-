@@ -25,7 +25,7 @@ Lens-layer artifact.
   - `Rat213/`    — ℚ via multiplicative quotient (currently in
                    `Nat213/Tower/NatPairToQPos`).
   - `Real213/`   — ℝ via cuts / Cauchy seqs over Nat213
-                   (currently in `Lib/Math/Real213`; candidate for
+                   (currently in `Lib/Math/NumberSystems/Real213`; candidate for
                    migration once mature).
 
 ## Where to add new files

@@ -34,7 +34,7 @@ Blueprint: `blueprints/math/02_multivariable_213.md` (retired).
 
 ## Connection to existing infrastructure
 
-  * `Lib/Math/Real213/{CutSum, CutSumTest}` — cut arithmetic for
+  * `Lib/Math/NumberSystems/Real213/{CutSum, CutSumTest}` — cut arithmetic for
     multiAdd.
   * `Lib/Math/Analysis/Differentiation/Differentiable.lean` —
     `IsDifferentiable` applies to each `partialAt` slice.

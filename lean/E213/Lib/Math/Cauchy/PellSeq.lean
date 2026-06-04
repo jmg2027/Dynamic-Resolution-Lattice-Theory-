@@ -1,4 +1,4 @@
-import E213.Lib.Math.Irrational.Sqrt2Cut
+import E213.Lib.Math.NumberSystems.Irrational.Sqrt2Cut
 import E213.Lens.Cardinality
 import E213.Meta.Tactic.NatHelper
 
@@ -22,7 +22,7 @@ This captures the Dedekind cut of √2 not abstractly but as a
 
 namespace E213.Lib.Math.Cauchy.PellSeq
 
-open E213.Theory E213.Lens E213.Lens.Instances.AB E213.Lib.Math.Irrational.Sqrt2Cut
+open E213.Theory E213.Lens E213.Lens.Instances.AB E213.Lib.Math.NumberSystems.Irrational.Sqrt2Cut
 
 /-- Pell sequence (fundamental recursion preserving x² - 2y² = 1):
     (x, y) → (3x + 4y, 2x + 3y).

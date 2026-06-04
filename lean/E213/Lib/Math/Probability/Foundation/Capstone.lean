@@ -65,10 +65,10 @@ open E213.Lib.Math.Probability.Distribution.Binomial
 theorem atoms_witness :
     -- (1) unit forward leg
     ProbabilityCut.unit.toFlux.forward
-      = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 1 1
+      = E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest.constCut 1 1
     -- (2) zero forward leg
     ∧ ProbabilityCut.zero.toFlux.forward
-        = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1
+        = E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest.constCut 0 1
     -- (3) uniform on whole unit = 1/1
     ∧ (UnitSubBracket.uniform UnitSubBracket.whole).num = 1
     ∧ (UnitSubBracket.uniform UnitSubBracket.whole).den = 1
@@ -211,7 +211,7 @@ theorem gaussian_witness (N n : Nat) :
 theorem total_witness (N n : Nat) :
     -- ☆ atoms
     ProbabilityCut.unit.toFlux.forward
-      = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 1 1
+      = E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest.constCut 1 1
     ∧ (UnitSubBracket.uniform UnitSubBracket.whole).num = 1
     ∧ pAA.num + pBB.num + pAB.num = pAA.den
     ∧ Bernoulli.fair.success.num + Bernoulli.fair.failure.num
@@ -333,7 +333,7 @@ theorem extended_witness
     ∧ (E213.Lib.Math.Probability.Limit.CLTGeneric.cltModulus_of_varBound 1 0 = 0)
     -- Hoeffding
     ∧ (E213.Lib.Math.Probability.Inequality.Hoeffding.hoeffdingBoundAtDepth negArg 0
-        = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1)
+        = E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest.constCut 0 1)
     -- Reframe: nilpotency
     ∧ (∀ i : Fin (E213.Lib.Physics.Simplex.Counts.binom 5 6),
         E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation.cupPow α 6 i

@@ -2,7 +2,7 @@ import E213.Lib.Math.Mobius213
 import E213.Lib.Math.Mobius213OneAsGlue
 import E213.Lib.Math.Mobius213ModFive
 import E213.Lib.Math.Mobius213.Mobius213K32Bridge
-import E213.Lib.Math.Real213.Mobius213AtomicityAnchor
+import E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
 import E213.Lib.Math.CayleyDickson.Tower.Mobius213CDBridge
 import E213.Theory.Atomicity
 import E213.Lib.Physics.Simplex.Counts
@@ -43,7 +43,7 @@ open E213.Lib.Math.Mobius213
   (mobius_213_discriminant mobius_213_trace mobius_213_det)
 open E213.Lib.Math.Mobius213ModFive
   (P_pow_5_eq_neg_I_mod_5 P_pow_10_eq_I_mod_5)
-open E213.Lib.Math.Real213.Mobius213AtomicityAnchor
+open E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
   (disc_atom_orbit_master)
 open E213.Lib.Math.CayleyDickson.Tower.Mobius213CDBridge
   (cd_mobius_bridge_master)
@@ -153,10 +153,10 @@ theorem axis_atom_six_conjunct :
     NS + NT = 5
     ∧ 3 * 3 = 4 * 1 + 5
     ∧ Atomic (NS + NT)
-    ∧ (E213.Lib.Math.Real213.Mobius213Equiv.Pseq
-        E213.Lib.Math.Real213.Mobius213Equiv.seedInf 2).1 = NS + NT
-    ∧ E213.Lib.Math.Real213.Mobius213SternBrocot.SternBrocotReachable (NS, NT)
-    ∧ E213.Lib.Math.Real213.Mobius213SternBrocot.SternBrocotReachable
+    ∧ (E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.Pseq
+        E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.seedInf 2).1 = NS + NT
+    ∧ E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot.SternBrocotReachable (NS, NT)
+    ∧ E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot.SternBrocotReachable
         (NS + NT, NS) :=
   disc_atom_orbit_master
 

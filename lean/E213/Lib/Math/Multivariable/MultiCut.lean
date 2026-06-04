@@ -1,5 +1,5 @@
-import E213.Lib.Math.Real213.Sum.CutSumTest
-import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
 
 /-!
 # Multivariable — `MultiCut n` (n-dimensional point)
@@ -17,8 +17,8 @@ addition, scaling, etc. all reduce to existing Real213 operations.
 
 namespace E213.Lib.Math.Multivariable.MultiCut
 
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 
 /-- An n-dimensional point: tuple of n cuts. -/
 abbrev MultiCut (n : Nat) := Fin n → (Nat → Nat → Bool)

@@ -2,14 +2,14 @@ import E213.Lib.Math.Analysis.ODE.NewtonFirst
 import E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce
 import E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Mul.CutMulDetermined
-import E213.Lib.Math.Real213.Mul.CutMulOne
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumDetermined
-import E213.Lib.Math.Real213.Sum.CutSumTest
-import E213.Lib.Math.Real213.Sum.CutSumZero
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulDetermined
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 /-!
 # CubeDerivativeAtZero
@@ -24,16 +24,16 @@ cutMul_one_const + cutSum_zero_zero gives propEq.
 namespace E213.Lib.Math.Analysis.Differentiation.CubeDerivativeAtZero
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
   (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable)
-open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_const_at cutMul_const_one_at)
-open E213.Lib.Math.Real213.Sum.CutSumZero (cutMul_zero_zero_at cutSum_zero_zero_at)
-open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne (cutMul_one_const_at cutMul_const_one_at)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero (cutMul_zero_zero_at cutSum_zero_zero_at)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined (cutSumAux_congr)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSumAux)
 
 /-- ★ d/dx [x²] at x = 0 = 0 pointwise (PURE).   FLUX-1 sum template. -/
 theorem squareDerivative_at_zero_at (m k : Nat) :
@@ -75,7 +75,7 @@ theorem cubeDerivative_at_zero_at (m k : Nat) :
         (fun m' _ => by
           show cutMul (constCut 1 1) (cutMul (constCut 0 1) (constCut 0 1)) m' (2*k)
                 = constCut 0 1 m' (2*k)
-          show E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut 1 1)
+          show E213.Lib.Math.NumberSystems.Real213.Mul.CutMul.cutMulOuter (constCut 1 1)
                 (cutMul (constCut 0 1) (constCut 0 1))
                 (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1))
               = constCut 0 1 m' (2*k)
@@ -89,7 +89,7 @@ theorem cubeDerivative_at_zero_at (m k : Nat) :
                 (cutSum (cutMul (constCut 1 1) (constCut 0 1))
                         (cutMul (constCut 0 1) (constCut 1 1))) m' (2*k)
               = constCut 0 1 m' (2*k)
-          show E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut 0 1)
+          show E213.Lib.Math.NumberSystems.Real213.Mul.CutMul.cutMulOuter (constCut 0 1)
                 (cutSum (cutMul (constCut 1 1) (constCut 0 1))
                         (cutMul (constCut 0 1) (constCut 1 1)))
                 (2*k) m' ((m'+1)*((2*k)+1)) ((m'+1)*((2*k)+1))

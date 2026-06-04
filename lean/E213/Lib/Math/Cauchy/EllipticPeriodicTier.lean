@@ -1,4 +1,4 @@
-import E213.Lib.Math.Real213.HyperbolicEllipticTrace
+import E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace
 import E213.Lib.Math.Cauchy.CFiniteHomogRec
 import E213.Lib.Math.Cauchy.NewtonGregory
 import E213.Lib.Math.Cauchy.PolyDepthMonotone
@@ -28,7 +28,7 @@ hierarchy are one structure.
 
 namespace E213.Lib.Math.Cauchy.EllipticPeriodicTier
 
-open E213.Lib.Math.Real213.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
 open E213.Lib.Math.Cauchy.CFiniteHomogRec (order2_homogRec)
 open E213.Lib.Math.Cauchy.ZeroRunNonHolonomic (HomogRec)
 open E213.Lib.Math.Cauchy.NewtonGregory (diffZ liftKZ polyDepthZ)

@@ -30,7 +30,7 @@ Both are "everything collapses to one value", read in the two folds the number t
 
 namespace E213.Lib.Math.Cauchy.DetZeroCollapse
 
-open E213.Lib.Math.Real213.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
 open E213.Lib.Math.Cauchy.EllipticPeriodicTier (comp comp_det)
 
 /-- The Cassini cross-determinant (discrete Wronskian) of the order-2 orbit. -/

@@ -39,7 +39,7 @@ open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
    DyadicBracket.bisectStep)
 open E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLens
   (signedLeftOracle)
-open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData)
+open E213.Lib.Math.NumberSystems.Real213.Core.CutFnData (LocallyDeterminedData)
 open E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLensMonotone
   (BracketSignChange
    bisectStep_signed_left_preserves_sign_change

@@ -1,11 +1,11 @@
 import E213.Lib.Math.Analysis.Differentiation.Smooth
-import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
 
-import E213.Lib.Math.Real213.Bisection.CutContinuity
-import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Mul.CutPow
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutPow
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # Real213IsDifferentiable: differentiation filter
 
@@ -26,12 +26,12 @@ difference-quotient bound theorem is deferred to -3.
 namespace E213.Lib.Math.Analysis.Differentiation.Differentiable
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Mul.CutPow (cutPow)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutPow (cutPow)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.Differentiation.Smooth (IsSmooth addIsSmooth composeIsSmooth constIsSmooth idIsSmooth mulIsSmooth)
 
 /-- **Differentiability filter**: smoothness + explicit derivative. -/

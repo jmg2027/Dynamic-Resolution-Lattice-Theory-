@@ -1,13 +1,13 @@
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
-import E213.Lib.Math.Real213.Sum.CutSumOne
-import E213.Lib.Math.Real213.Sum.CutSumPointwise
-import E213.Lib.Math.Real213.Bisection.CutContinuity
-import E213.Lib.Math.Real213.Mul.ConstCutScale
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumOne
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumPointwise
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
+import E213.Lib.Math.NumberSystems.Real213.Mul.ConstCutScale
 import E213.Meta.Tactic.NatHelper
 
-import E213.Lib.Math.Real213.Core.CutPoset
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.CutPoset
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # Real213DyadicRiemann: dyadic Riemann sample-sum trajectory
 
@@ -43,16 +43,16 @@ The pure sample sum is the natural primitive.
 
 namespace E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
 
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.CutPoset (cutEq)
-open E213.Lib.Math.Real213.Sum.CutSumOne (cutSum_self cutSum_half_general
+open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumOne (cutSum_self cutSum_half_general
   cutSum_int_int cutSum_self_at)
-open E213.Lib.Math.Real213.Sum.CutSumPointwise (cutSum_pointwise_eq)
-open E213.Lib.Math.Real213.Mul.ConstCutScale (constCut_scale)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumPointwise (cutSum_pointwise_eq)
+open E213.Lib.Math.NumberSystems.Real213.Mul.ConstCutScale (constCut_scale)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
 
 /-- **Dyadic Riemann sample sum** at depth `n`: accumulates f(midCut)
     over the 2^n sub-brackets via tree recursion.
@@ -183,7 +183,7 @@ theorem riemannSampleSum_const_normalized_at
     (a b : Nat) (n : Nat) (m k : Nat) :
     constCut (2^n * a) (b * 2^n) m k = constCut a b m k := by
   rw [Nat.mul_comm (2^n) a]
-  exact (E213.Lib.Math.Real213.Mul.ConstCutScale.constCut_scale_at a b (2^n)
+  exact (E213.Lib.Math.NumberSystems.Real213.Mul.ConstCutScale.constCut_scale_at a b (2^n)
     (Nat.pos_pow_of_pos n (Nat.zero_lt_succ 1)) m k).symm
 
 /-- **Riemann sum normalized**, cutEq form (PURE).

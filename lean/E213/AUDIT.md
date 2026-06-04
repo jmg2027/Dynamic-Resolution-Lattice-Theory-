@@ -502,7 +502,7 @@ same theorems.  Only the possibility of user misuse changes.
 - (short-term) Lens-layer bleed migration — move Raw.depth,
   Raw.leaves, etc. to Lens (§I.4 Recommendation 3).
 - (extension, completed) p-adic ℤ_p sub-tower formalization
-  (`Lib/Math/Hyper/Padic.lean`): leavesModNat sub-family + factorial
+  (`Lib/Math/NumberSystems/Hyper/Padic.lean`): leavesModNat sub-family + factorial
   seq instance.  ZFC reduction scope extended to number-theoretic
   limit territory.
 

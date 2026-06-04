@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cauchy.DivergenceLadder
-import E213.Lib.Math.Real213.FibCassiniNat
+import E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
 
 /-!
 # Depth-floor = det 1 (forward direction) — ∅-axiom
@@ -35,9 +35,9 @@ invariant, not merely a value the orbit reaches.  Both directions bundle into
 namespace E213.Lib.Math.Cauchy.DepthFloorDetOne
 
 open E213.Lib.Math.Cauchy.DivergenceLadder (reachesFloor isConst)
-open E213.Lib.Math.Real213.FibCassiniNat (fib_cassini_norm)
+open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (fib_cassini_norm)
 open E213.Lib.Math.Mobius213.Px.FibonacciAtomicLock (fib)
-open E213.Lib.Math.Real213.Mobius213PellInvariant (pellNormStep)
+open E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant (pellNormStep)
 open E213.Tactic.NatHelper (succ_sub)
 
 /-- The **convergent cross-determinant** sequence, as a `Nat → Nat` to

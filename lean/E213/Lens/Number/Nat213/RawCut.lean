@@ -4,7 +4,7 @@ import E213.Lens.Number.Nat213.Raw
 /-!
 # Lens.Number.Nat213.RawCut — Lean-free cut prototype
 
-The existing cut representation in `Lib/Math/Real213/CutPoset.lean`
+The existing cut representation in `Lib/Math/NumberSystems/Real213/CutPoset.lean`
 uses `Nat → Nat → Bool` — i.e. it depends on Lean's `Nat` and
 `Bool`.
 

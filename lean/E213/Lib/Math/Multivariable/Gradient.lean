@@ -18,8 +18,8 @@ namespace E213.Lib.Math.Multivariable.Gradient
 
 open E213.Lib.Math.Multivariable.MultiCut (MultiCut update zero one)
 open E213.Lib.Math.Multivariable.PartialDerivative (partialAt proj)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 
 /-- Gradient: i-th coord = i-th partial slice evaluated at xᵢ. -/
 def gradient {n : Nat} (f : MultiCut n → (Nat → Nat → Bool))

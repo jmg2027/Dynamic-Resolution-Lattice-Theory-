@@ -1,5 +1,5 @@
 import E213.Lib.Math.PatternCatalog.Core
-import E213.Lib.Math.Real213.Mul.CutMulOne
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne
 import E213.Theory.Atomicity
 import E213.Lib.Math.AxiomSystems.CrossTheoryCohabit
 import E213.Lens.Properties
@@ -24,9 +24,9 @@ namespace E213.Lib.Math.PatternCatalog.Instance
 
 open E213.Lib.Math.PatternCatalog
 open E213.Lib.Math.PatternCatalog.Core
-open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne (cutMul_one_one_at)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- Self-instance: `f` and `f_at` are the same function.
     Trivially `agrees`. -/

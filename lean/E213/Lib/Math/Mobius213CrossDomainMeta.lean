@@ -1,8 +1,8 @@
-import E213.Lib.Math.Real213.Mobius213UnificationCapstone
-import E213.Lib.Math.Real213.Mobius213AtomicityAnchor
-import E213.Lib.Math.Real213.Mobius213CutSetoid
-import E213.Lib.Math.SignedCut.Core.SternBrocotBridge
-import E213.Lib.Math.Padic.ZpSeqMobiusBridge
+import E213.Lib.Math.NumberSystems.Real213.Mobius213UnificationCapstone
+import E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
+import E213.Lib.Math.NumberSystems.Real213.Mobius213CutSetoid
+import E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge
+import E213.Lib.Math.NumberSystems.Padic.ZpSeqMobiusBridge
 import E213.Lib.Math.Analysis.FluxMVT.AdjacentSternBrocotBridge
 
 /-!
@@ -52,45 +52,45 @@ namespace E213.Lib.Math.Mobius213CrossDomainMeta
 theorem cross_domain_meta_unification :
     -- (1) cut equality on Nat → Nat → Bool
     (∀ cx cy : Nat → Nat → Bool,
-        E213.Lib.Math.Real213.Core.CutPoset.cutEq cx cy
-          ↔ E213.Lib.Math.Real213.Mobius213SternBrocot.sternBrocotEq cx cy
+        E213.Lib.Math.NumberSystems.Real213.Core.CutPoset.cutEq cx cy
+          ↔ E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot.sternBrocotEq cx cy
             ∧ cx 0 0 = cy 0 0)
     -- (2) ValidCutN N's cut fields (auto (0, 0))
     ∧ (∀ {N : Nat}
-        (vx vy : E213.Lib.Math.Real213.NValidCut.ValidCutN N),
-        E213.Lib.Math.Real213.Core.CutPoset.cutEq vx.cut vy.cut
-          ↔ E213.Lib.Math.Real213.Mobius213SternBrocot.sternBrocotEq
+        (vx vy : E213.Lib.Math.NumberSystems.Real213.NValidCut.ValidCutN N),
+        E213.Lib.Math.NumberSystems.Real213.Core.CutPoset.cutEq vx.cut vy.cut
+          ↔ E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot.sternBrocotEq
               vx.cut vy.cut)
     -- (3) signed cut equivalence (cross-sum cuts)
-    ∧ (∀ s t : E213.Lib.Math.SignedCut.Core.Core.SignedCut,
-        E213.Lib.Math.SignedCut.Core.SternBrocotBridge.signedEq s t
-          ↔ E213.Lib.Math.Real213.Mobius213SternBrocot.sternBrocotEq
-              (E213.Lib.Math.Real213.Sum.CutSum.cutSum
-                (E213.Lib.Math.SignedCut.Core.Core.pos s)
-                (E213.Lib.Math.SignedCut.Core.Core.neg t))
-              (E213.Lib.Math.Real213.Sum.CutSum.cutSum
-                (E213.Lib.Math.SignedCut.Core.Core.pos t)
-                (E213.Lib.Math.SignedCut.Core.Core.neg s))
-            ∧ E213.Lib.Math.Real213.Sum.CutSum.cutSum
-                (E213.Lib.Math.SignedCut.Core.Core.pos s)
-                (E213.Lib.Math.SignedCut.Core.Core.neg t) 0 0
-              = E213.Lib.Math.Real213.Sum.CutSum.cutSum
-                  (E213.Lib.Math.SignedCut.Core.Core.pos t)
-                  (E213.Lib.Math.SignedCut.Core.Core.neg s) 0 0)
+    ∧ (∀ s t : E213.Lib.Math.NumberSystems.SignedCut.Core.Core.SignedCut,
+        E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge.signedEq s t
+          ↔ E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot.sternBrocotEq
+              (E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSum
+                (E213.Lib.Math.NumberSystems.SignedCut.Core.Core.pos s)
+                (E213.Lib.Math.NumberSystems.SignedCut.Core.Core.neg t))
+              (E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSum
+                (E213.Lib.Math.NumberSystems.SignedCut.Core.Core.pos t)
+                (E213.Lib.Math.NumberSystems.SignedCut.Core.Core.neg s))
+            ∧ E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSum
+                (E213.Lib.Math.NumberSystems.SignedCut.Core.Core.pos s)
+                (E213.Lib.Math.NumberSystems.SignedCut.Core.Core.neg t) 0 0
+              = E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSum
+                  (E213.Lib.Math.NumberSystems.SignedCut.Core.Core.pos t)
+                  (E213.Lib.Math.NumberSystems.SignedCut.Core.Core.neg s) 0 0)
     -- (4) ZpSeq pointwise equivalence (via Möbius pair projection)
-    ∧ (∀ {p : Nat} (x y : E213.Lib.Math.Padic.ZpSeq p),
-        E213.Lib.Math.Padic.SetoidFramework.ZpSeqEquiv x y
-          ↔ E213.Lib.Math.Padic.ZpSeqMobiusBridge.ZpMobiusPairEq x y)
+    ∧ (∀ {p : Nat} (x y : E213.Lib.Math.NumberSystems.Padic.ZpSeq p),
+        E213.Lib.Math.NumberSystems.Padic.SetoidFramework.ZpSeqEquiv x y
+          ↔ E213.Lib.Math.NumberSystems.Padic.ZpSeqMobiusBridge.ZpMobiusPairEq x y)
     -- (5) DyadicBracket adjacency ⇒ Stern-Brocot equivalence on walls
     ∧ (∀ {db₀ db₁ : E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket.DyadicBracket},
         E213.Lib.Math.Analysis.FluxMVT.TelescopingConservation.Adjacent
           db₀ db₁
-        → E213.Lib.Math.Real213.Mobius213SternBrocot.sternBrocotEq
+        → E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot.sternBrocotEq
             db₀.rightCut db₁.leftCut) :=
-  ⟨E213.Lib.Math.Real213.Mobius213SternBrocot.cutEq_iff_sternBrocotEq_and_zero,
-   @E213.Lib.Math.Real213.Mobius213SternBrocotApps.validCutN_cutEq_iff_sternBrocotEq,
-   E213.Lib.Math.SignedCut.Core.SternBrocotBridge.signedEq_iff_sternBrocotEq_and_zero,
-   @E213.Lib.Math.Padic.ZpSeqMobiusBridge.ZpSeqEquiv_iff_ZpMobiusPairEq,
+  ⟨E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot.cutEq_iff_sternBrocotEq_and_zero,
+   @E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocotApps.validCutN_cutEq_iff_sternBrocotEq,
+   E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge.signedEq_iff_sternBrocotEq_and_zero,
+   @E213.Lib.Math.NumberSystems.Padic.ZpSeqMobiusBridge.ZpSeqEquiv_iff_ZpMobiusPairEq,
    @E213.Lib.Math.Analysis.FluxMVT.AdjacentSternBrocotBridge.adjacent_walls_sternBrocotEq⟩
 
 /-! ## §2 — Generalisation principle

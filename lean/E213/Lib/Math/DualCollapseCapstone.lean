@@ -1,6 +1,6 @@
 import E213.Theory.Raw.API
 import E213.Lens.FlatOntologyClosure
-import E213.Lib.Math.Real213.ObjectIsReadingScaleInvariant
+import E213.Lib.Math.NumberSystems.Real213.ObjectIsReadingScaleInvariant
 import E213.Lib.Math.Mobius213OneAsGlue
 
 /-!
@@ -63,7 +63,7 @@ theorem every_dual_is_one_shape :
     ∧ -- 3. object/reading: one shape Index→Bool, scale-invariant
     ( (∀ r : Raw,
           (E213.Lens.FlatOntology.Object1 r : Raw → Bool) r = true)
-      ∧ (E213.Lib.Math.Real213.Core.AsLensOutput.RealAsLensOutput
+      ∧ (E213.Lib.Math.NumberSystems.Real213.Core.AsLensOutput.RealAsLensOutput
           = (Nat → Nat → Bool)) )
     ∧ -- 4. difference/identity: the same 1
     ( (2 : Int) * 1 - 1 * 1
@@ -71,7 +71,7 @@ theorem every_dual_is_one_shape :
           - (E213.Lib.Physics.Simplex.Counts.NT : Int) ) :=
   ⟨ E213.Theory.Raw.Lambek.two_closures,
     E213.Lens.FlatOntologyClosure.self_covering_closure,
-    E213.Lib.Math.Real213.ObjectIsReadingScaleInvariant.object_is_reading_scale_invariant,
+    E213.Lib.Math.NumberSystems.Real213.ObjectIsReadingScaleInvariant.object_is_reading_scale_invariant,
     E213.Lib.Math.Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt ⟩
 
 end E213.Lib.Math.DualCollapseCapstone

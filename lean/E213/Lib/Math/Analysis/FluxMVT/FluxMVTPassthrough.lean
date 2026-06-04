@@ -1,13 +1,13 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTPolynomial
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Mul.CutMulDetermined
-import E213.Lib.Math.Real213.Mul.CutMulOne
-import E213.Lib.Math.Real213.Mul.CutPow
-import E213.Lib.Math.Real213.Mul.CutPowConst
-import E213.Lib.Math.Real213.Sum.CutSumTest
-import E213.Lib.Math.Real213.Sum.CutSumZero
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulDetermined
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutPow
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutPowConst
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero
 import E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduce
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
@@ -42,17 +42,17 @@ Per-stage capstones dropped.)
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxMVTPassthrough
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCochain.FluxCut (fluxAlong fluxAlong_id)
 open E213.Lib.Math.Analysis.FluxMVT.FluxDivergence.FluxCut (localDivergence)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
-open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at cutMul_one_const_at)
-open E213.Lib.Math.Real213.Sum.CutSumZero (cutMul_zero_zero_at)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne (cutMul_one_one_at cutMul_one_const_at)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero (cutMul_zero_zero_at)
 
 namespace FluxCut
 
@@ -97,8 +97,8 @@ theorem fluxAlong_passthrough_unit_backward_at
 /-! ### PURE pointwise variants (fluxCutEq form) — strict ∅-axiom -/
 
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_pointwise)
-open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMulOuter)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMulOuter)
 
 /-- Forward field — fully pointwise (PURE).   FLUX-1 template. -/
 theorem mvt_passthrough_unit_forward_at_pure
@@ -164,9 +164,9 @@ end E213.Lib.Math.Analysis.FluxMVT.FluxMVTPassthrough
 namespace E213.Lib.Math.Analysis.FluxMVTClosure
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
@@ -194,10 +194,10 @@ theorem passthrough_compose
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTPassthrough.FluxCut
   (mvt_passthrough_unit_pure)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMulOuter)
-open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
-open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at)
-open E213.Lib.Math.Real213.Sum.CutSumZero (cutMul_zero_zero_at)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMulOuter)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne (cutMul_one_one_at)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero (cutMul_zero_zero_at)
 
 /-- Passthrough closed under cutMul — left, fully pointwise (∅-axiom).
     G110 FLUX-1 template. -/
@@ -249,10 +249,10 @@ end E213.Lib.Math.Analysis.FluxMVTClosure
 namespace E213.Lib.Math.Analysis.FluxMVTApplications
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Mul.CutPow (cutPow)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutPow (cutPow)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
@@ -264,9 +264,9 @@ namespace FluxCut
 
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTPassthrough.FluxCut (mvt_passthrough_unit_pure)
-open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at cutMul_one_const_at)
-open E213.Lib.Math.Real213.Sum.CutSumZero (cutMul_zero_zero_at)
-open E213.Lib.Math.Real213.Mul.CutPowConst (cutPow_one_n_at cutPow_zero_succ_at)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne (cutMul_one_one_at cutMul_one_const_at)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero (cutMul_zero_zero_at)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutPowConst (cutPow_one_n_at cutPow_zero_succ_at)
 
 /-- id MVT via passthrough (fluxCutEq, PURE). -/
 theorem mvt_id_via_passthrough_pure :

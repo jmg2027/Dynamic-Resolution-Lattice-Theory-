@@ -31,7 +31,7 @@ namespace E213.Lib.Math.Cauchy.GoldenPiFaces
 open E213.Lib.Math.Cauchy.DetZeroCollapse (cas cas_period2_neg_unit)
 open E213.Lib.Math.Cauchy.WronskianDepth (cas_neg_unit_no_finite_depth)
 open E213.Lib.Math.Cauchy.EllipticPeriodicTier (comp comp_det comp_disc)
-open E213.Lib.Math.Real213.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
 open E213.Lib.Math.Cauchy.NewtonGregory (polyDepthZ)
 
 /-- ★★ **The golden iterator is the `det = −1` sign face at the golden discriminant `5`.**

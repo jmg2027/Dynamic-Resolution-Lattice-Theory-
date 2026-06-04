@@ -24,7 +24,7 @@ open E213.Lib.Math.Geometry.NumberGrid.HorizontalAxis
 open E213.Lib.Math.Geometry.NumberGrid.TwoDimGrid
   (gridSize grid_size_eq_625 cell_naturals cell_integers
    cell_complex_rational cell_high_grade index_25_readings)
-open E213.Lib.Math.SignedCut.CD.CDTowerLevel (levelDim)
+open E213.Lib.Math.NumberSystems.SignedCut.CD.CDTowerLevel (levelDim)
 
 /-- ★ **FSM grade taxonomy witness** — 0/1/25 grades. -/
 theorem fsm_grades_witness :

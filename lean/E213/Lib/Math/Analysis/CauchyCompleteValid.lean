@@ -1,5 +1,5 @@
 import E213.Lib.Math.Analysis.CauchyComplete
-import E213.Lib.Math.Real213.Core.ValidCut
+import E213.Lib.Math.NumberSystems.Real213.Core.ValidCut
 
 /-!
 # CauchyCompleteValid — the cut space is *closed* under Cauchy limits
@@ -26,7 +26,7 @@ convention.  All ∅-axiom.
 
 namespace E213.Lib.Math.Analysis.CauchyComplete
 
-open E213.Lib.Math.Real213.Core.ValidCut (ValidCut RatioCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut RatioCut)
 
 /-- ★★★ **Completeness (monotone form)**: the Cauchy limit of a sequence of
     `ValidCut`s is a `ValidCut`.  The cut space is closed under Cauchy limits.

@@ -4,7 +4,7 @@ import E213.Lib.Math.Combinatorics.Logic.Capstone
 import E213.Lib.Math.Combinatorics.Capstone
 import E213.Lib.Math.Geometry.Topology.Capstone
 import E213.Lib.Math.Multivariable.Capstone
-import E213.Lib.Math.Complex.Capstone
+import E213.Lib.Math.NumberSystems.Complex.Capstone
 import E213.Lib.Math.Measure.Capstone
 import E213.Lib.Physics.AlphaEM.GradedDecomposition
 import E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
@@ -99,7 +99,7 @@ def sampleMC : E213.Lib.Math.Multivariable.MultiCut.MultiCut 5 :=
   fun _ _ _ => true
 
 /-- Sample ComplexCut for Complex domain. -/
-def sampleZ : E213.Lib.Math.Complex.ComplexCut.ComplexCut :=
+def sampleZ : E213.Lib.Math.NumberSystems.Complex.ComplexCut.ComplexCut :=
   (fun _ _ => true, fun _ _ => false)
 
 /-- Sample DyadicBracket for Measure domain. -/
@@ -146,7 +146,7 @@ theorem cross_domain_unification_master : True := by
   have _hT := E213.Lib.Math.Geometry.Topology.Capstone.total_witness []
   have _hM := E213.Lib.Math.Multivariable.Capstone.total_witness
                 ⟨0, by decide⟩ sampleMC sampleCut sampleCut 0
-  have _hCx := E213.Lib.Math.Complex.Capstone.total_witness sampleZ
+  have _hCx := E213.Lib.Math.NumberSystems.Complex.Capstone.total_witness sampleZ
   have _hMs := E213.Lib.Math.Measure.Capstone.total_witness
                  0 (fun n => n) sampleDB sampleMS sampleMS
   have _h1 :=

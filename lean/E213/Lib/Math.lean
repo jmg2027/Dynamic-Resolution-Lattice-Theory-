@@ -1,4 +1,4 @@
-import E213.Lib.Math.Real213
+import E213.Lib.Math.NumberSystems.Real213
 import E213.Lib.Math.Analysis
 import E213.Lib.Math.Geometry.AngleStructure
 import E213.Lib.Math.ArityForcingGeneral
@@ -7,7 +7,7 @@ import E213.Lib.Math.Geometry.BipartiteDecomp
 import E213.Lib.Math.Geometry.CartesianVsDisjoint
 import E213.Lib.Math.Choice
 import E213.Lib.Math.Cohomology
-import E213.Lib.Math.Complex
+import E213.Lib.Math.NumberSystems.Complex
 import E213.Lib.Math.DyadicFSM
 import E213.Lib.Math.Tactic.Extras
 import E213.Lib.Math.Functional
@@ -17,8 +17,8 @@ import E213.Lib.Math.GRA
 import E213.Lib.Math.Geometry
 import E213.Lib.Math.Group
 import E213.Lib.Math.Cohomology.HodgeConjecture
-import E213.Lib.Math.Hyper
-import E213.Lib.Math.Irrational
+import E213.Lib.Math.NumberSystems.Hyper
+import E213.Lib.Math.NumberSystems.Irrational
 import E213.Lib.Math.Geometry.LevelTopology
 import E213.Lib.Math.Linalg213
 import E213.Lib.Math.CayleyDickson
@@ -32,7 +32,7 @@ import E213.Lib.Math.Multivariable
 import E213.Lib.Math.Geometry.NumberGrid
 import E213.Lib.Math.ODE
 import E213.Lib.Math.Geometry.OperationTopology
-import E213.Lib.Math.SignedCut
+import E213.Lib.Math.NumberSystems.SignedCut
 import E213.Lib.Math.Tactic
 import E213.Lib.Math.PatternCatalog
 import E213.Lib.Math.Probability

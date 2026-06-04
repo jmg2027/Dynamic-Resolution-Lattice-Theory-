@@ -1,8 +1,8 @@
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Bisection.CutBisection
-import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 import E213.Lib.Math.Analysis.Differentiation.Smooth
 /-!
@@ -22,9 +22,9 @@ also differentiable, with derivative = mid(f', g') = (f' + g')/2.
 namespace E213.Lib.Math.Analysis.Differentiation.DifferentiableMid
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection (cutMid)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable

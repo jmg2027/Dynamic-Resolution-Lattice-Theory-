@@ -3,15 +3,15 @@ import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness
 import E213.Lib.Math.Analysis.FluxMVT.UnitBracketReduceSum
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableMid
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Bisection.CutBisection
-import E213.Lib.Math.Real213.Lattice.CutMidSelf
-import E213.Lib.Math.Real213.Mul.CutMul
-import E213.Lib.Math.Real213.Mul.CutMulOne
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumDetermined
-import E213.Lib.Math.Real213.Sum.CutSumOne
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection
+import E213.Lib.Math.NumberSystems.Real213.Lattice.CutMidSelf
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumOne
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 /-!
@@ -34,11 +34,11 @@ Each derivative is `1` at `c = 1/2`, so each function admits a
 namespace E213.Lib.Math.Analysis.FluxMVTMore
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid)
-open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection (cutMid)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
@@ -47,12 +47,12 @@ open E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness
   (HasDyadicMVTWitness_at square_has_dyadic_witness_at)
 open E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
-open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
-open E213.Lib.Math.Real213.Mul.CutMulOne
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSumAux)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne
   (cutMul_one_const_at cutMul_const_one_at)
-open E213.Lib.Math.Real213.Sum.CutSumOne (cutSum_half_half_at)
-open E213.Lib.Math.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
-open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumOne (cutSum_half_half_at)
+open E213.Lib.Math.NumberSystems.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined (cutSumAux_congr)
 
 /-- d/dx [(x + x²)/2] at x = 1/2 = 1 (pointwise, ∅-axiom). -/
 theorem mid_id_square_derivative_at_half_at (m k : Nat) :
@@ -108,9 +108,9 @@ end E213.Lib.Math.Analysis.FluxMVTMore
 namespace E213.Lib.Math.Analysis.FluxMVTNested
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection (cutMid)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
@@ -118,7 +118,7 @@ open E213.Lib.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiab
 open E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness (HasDyadicMVTWitness_at)
 open E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
 open E213.Lib.Math.Analysis.FluxMVTMore (mid_id_square_derivative_at_half_at)
-open E213.Lib.Math.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
+open E213.Lib.Math.NumberSystems.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
 
 /-- d/dx [mid(x, mid(x, x²))] at x = 1/2 = 1 (pointwise PURE). -/
 theorem mid_id_mid_id_square_derivative_at_half_at (m k : Nat) :
@@ -128,10 +128,10 @@ theorem mid_id_mid_id_square_derivative_at_half_at (m k : Nat) :
   show cutMid (constCut 1 1)
               ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
                 ).derivative (constCut 1 2)) m k = constCut 1 1 m k
-  show E213.Lib.Math.Real213.Sum.CutSum.cutSum (constCut 1 1)
+  show E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSum (constCut 1 1)
               ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
                 ).derivative (constCut 1 2)) (2*m) k = constCut 1 1 m k
-  show E213.Lib.Math.Real213.Sum.CutSum.cutSumAux (constCut 1 1)
+  show E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSumAux (constCut 1 1)
               ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
                 ).derivative (constCut 1 2))
               k (2*(2*m)) (2*(2*m)) = constCut 1 1 m k
@@ -164,9 +164,9 @@ end E213.Lib.Math.Analysis.FluxMVTNested
 namespace E213.Lib.Math.Analysis.FluxMVTNested2
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutBisection (cutMid)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
@@ -175,7 +175,7 @@ open E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness (HasDyadicMVTWitness_at)
 open E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 open E213.Lib.Math.Analysis.FluxMVTMore (mid_id_square_derivative_at_half_at)
-open E213.Lib.Math.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
+open E213.Lib.Math.NumberSystems.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
 
 /-- d/dx [mid(mid(x,x²), x²)] at x = 1/2 = 1 (pointwise PURE). -/
 theorem mid_mid_id_square_square_derivative_at_half_at (m k : Nat) :
@@ -187,7 +187,7 @@ theorem mid_mid_id_square_square_derivative_at_half_at (m k : Nat) :
                 ).derivative (constCut 1 2))
               (squareIsDifferentiable.derivative (constCut 1 2)) m k
        = constCut 1 1 m k
-  show E213.Lib.Math.Real213.Sum.CutSum.cutSumAux
+  show E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSumAux
               ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
                 ).derivative (constCut 1 2))
               (squareIsDifferentiable.derivative (constCut 1 2))

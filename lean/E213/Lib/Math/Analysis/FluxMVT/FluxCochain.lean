@@ -1,7 +1,7 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Bisection.CutContinuity
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 /-!
 # FluxCochain
@@ -22,8 +22,8 @@ is the 1-cochain value at that oriented edge:
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxCochain
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 

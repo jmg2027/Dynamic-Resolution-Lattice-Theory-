@@ -1,4 +1,4 @@
-import E213.Lib.Math.SignedCut.CD.CDTowerLevel
+import E213.Lib.Math.NumberSystems.SignedCut.CD.CDTowerLevel
 
 /-!
 # Orthogonal Axis Doubling — The Mechanical 90° Extension (∅-axiom)
@@ -30,7 +30,7 @@ orthogonal at the substrate level.
 
 namespace E213.Lib.Math.Geometry.AngleStructure.OrthogonalDoubling
 
-open E213.Lib.Math.SignedCut.CD.CDTowerLevel (levelDim)
+open E213.Lib.Math.NumberSystems.SignedCut.CD.CDTowerLevel (levelDim)
 
 /-- ★ **Dimension doubling at each level** (= `2^n`). -/
 theorem dim_doubling : ∀ n,

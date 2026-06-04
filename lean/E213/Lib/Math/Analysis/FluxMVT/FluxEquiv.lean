@@ -1,7 +1,7 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
-import E213.Lib.Math.Real213.Core.CutPoset
+import E213.Lib.Math.NumberSystems.Real213.Core.CutPoset
 
-import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
 /-!
 # FluxEquiv
 -1: **Cohomological equivalence** for FluxCut as a Setoid
@@ -26,8 +26,8 @@ This is the Setoid that bridges *propositional* equality to dyadic
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxEquiv
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Core.CutPoset (cutEq cutEq_trans cutEq_refl cutEq_symm)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq cutEq_trans cutEq_refl cutEq_symm)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (add neg)
 

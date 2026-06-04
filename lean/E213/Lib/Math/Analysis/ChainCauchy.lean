@@ -1,4 +1,4 @@
-import E213.Lib.Math.Real213.ChainToCut
+import E213.Lib.Math.NumberSystems.Real213.ChainToCut
 import E213.Lib.Math.Analysis.CauchyProj
 
 /-!
@@ -21,7 +21,7 @@ namespace E213.Lib.Math.Analysis.ChainCauchy
 open E213.Theory
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq constCauchyCutSeq)
 open E213.Lib.Math.Analysis.CauchyProj (cauchyProj)
-open E213.Lib.Math.Real213.ChainToCut (chainToCut)
+open E213.Lib.Math.NumberSystems.Real213.ChainToCut (chainToCut)
 
 /-- Chain → constant Cauchy seq at chain's cut.  Bridge composition:
     `Raw → (Nat → Nat → Bool) → CauchyCutSeq`. -/

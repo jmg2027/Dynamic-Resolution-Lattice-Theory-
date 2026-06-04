@@ -1,8 +1,8 @@
-import E213.Lib.Math.Real213.Mul.CutPow
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutPow
 import E213.Lib.Math.Analysis.Series.CutSeries
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # Real213CutGeomSeries: geometric series + concrete examples
 
@@ -14,9 +14,9 @@ import E213.Lib.Math.Real213.Sum.CutSumTest
 namespace E213.Lib.Math.Analysis.Series.CutGeomSeries
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Mul.CutPow (cutPow)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutPow (cutPow)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Series.CutSeries (partialSum)
 
 /-- (1/2)^i geometric series. -/

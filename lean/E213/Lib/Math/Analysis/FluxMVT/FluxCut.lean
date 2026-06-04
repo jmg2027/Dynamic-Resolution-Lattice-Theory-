@@ -1,9 +1,9 @@
 import E213.Lib.Math.Analysis.Differentiation.PolySumDerivativeModulus
-import E213.Lib.Math.Real213.Sum.CutSumComm
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumComm
 
-import E213.Lib.Math.Real213.Core.Core
-import E213.Lib.Math.Real213.Sum.CutSum
-import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # FluxCut
 -1: **Cohomological flux structure** for 213 dyadic cuts.
@@ -21,11 +21,11 @@ Bishop signed-cut pairing reinterpreted as flux on dyadic tree.
 
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxCut
 
-open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core.Core (Real213)
-open E213.Lib.Math.Real213.Sum.CutSumComm (cutSum_comm)
-open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumComm (cutSum_comm)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- Dyadic cut + cohomological orientation: forward / backward pair. -/
 structure FluxCut where

@@ -1,6 +1,6 @@
 import E213.Lib.Math.Modulus.HasModulus
 import E213.Lib.Math.Cauchy.PellSeq
-import E213.Lib.Math.Irrational.Sqrt2KernelFree
+import E213.Lib.Math.NumberSystems.Irrational.Sqrt2KernelFree
 
 /-!
 # PellHasModulus: HasModulus instance for the Pell sequence
@@ -30,7 +30,7 @@ open E213.Lens.Instances.AB
 open E213.Lib.Math.Cauchy.Archimedean
 open E213.Lib.Math.Modulus.HasModulus
 open E213.Lib.Math.Cauchy.PellSeq
-open E213.Lib.Math.Irrational.Sqrt2KernelFree
+open E213.Lib.Math.NumberSystems.Irrational.Sqrt2KernelFree
 
 /-- Pell sequence as `Nat → Raw`. -/
 def pellRawSeq : Nat → Raw := fun n => (pellRaw n).val
@@ -40,7 +40,7 @@ def pellModulusN (m k : Nat) : Nat :=
   if 2 * k * k < m * m then k else 0
 
 
-open E213.Lib.Math.Irrational.Sqrt2Cut
+open E213.Lib.Math.NumberSystems.Irrational.Sqrt2Cut
 
 /-- Cauchy stability at (m, k) — 3-case analysis. -/
 theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)

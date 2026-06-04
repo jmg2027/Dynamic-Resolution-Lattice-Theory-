@@ -89,12 +89,12 @@ theorem k33_bottom_layer_unified_master (c : Nat) (hc : 0 < c) :
           (E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametric.starS c
             ⟨2, by decide⟩ ⟨0, hc⟩) β) = false))
     -- Vertex Pell-Fibonacci recurrence (n=0 instance)
-    ∧ (3 * (E213.Lib.Math.Real213.Mobius213Equiv.Pseq
-              E213.Lib.Math.Real213.Mobius213Equiv.seedZero 3).1
-        + 3 * (E213.Lib.Math.Real213.Mobius213Equiv.Pseq
-                E213.Lib.Math.Real213.Mobius213Equiv.seedZero 1).1
-       = 3 * (3 * (E213.Lib.Math.Real213.Mobius213Equiv.Pseq
-                    E213.Lib.Math.Real213.Mobius213Equiv.seedZero 2).1)) :=
+    ∧ (3 * (E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.Pseq
+              E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.seedZero 3).1
+        + 3 * (E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.Pseq
+                E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.seedZero 1).1
+       = 3 * (3 * (E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.Pseq
+                    E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv.seedZero 2).1)) :=
   ⟨(parametric_bottom_layer_full_kill_capstone c hc).1,
    (state_class_NSscaled_pell_capstone 0).1⟩
 

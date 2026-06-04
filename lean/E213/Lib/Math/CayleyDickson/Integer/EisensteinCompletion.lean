@@ -1,5 +1,5 @@
 import E213.Lib.Math.CayleyDickson.Integer.EisensteinCrossDet
-import E213.Lib.Math.Real213.ContinuedFractionModulus
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
 
 /-!
 # EisensteinCompletion — the 3-axis continued fraction: floor rotation + completion
@@ -37,8 +37,8 @@ namespace E213.Lib.Math.CayleyDickson.Integer.EisensteinCompletion
 
 open E213.Lib.Math.CayleyDickson.Integer.ZOmega
 open E213.Lib.Math.CayleyDickson.Integer.EisensteinCrossDet
-open E213.Lib.Math.Real213.ContinuedFractionFloor (cfQn cfQn_pos)
-open E213.Lib.Math.Real213.ContinuedFractionModulus (cfPn cfQn_ge_self)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor (cfQn cfQn_pos)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus (cfPn cfQn_ge_self)
 
 /-! ## §1 — the gap scale factors into the integer norm product -/
 
