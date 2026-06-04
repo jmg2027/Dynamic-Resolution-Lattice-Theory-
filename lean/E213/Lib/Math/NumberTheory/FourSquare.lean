@@ -21,11 +21,15 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberTheory.FourSquare
 
-open E213.Meta.Int213.OrderMul (int_sign mul_pos int_lt_irrefl mul_le_mul_left_nonneg)
+open E213.Meta.Int213.OrderMul (int_sign mul_pos int_lt_irrefl mul_le_mul_left_nonneg ofNat_le_of_le)
 open E213.Meta.Int213.Order
   (le_antisymm le_of_sub_nonneg nonneg_of_le_zero sub_pos_of_lt lt_of_sub_pos zero_sub sub_self_zero
-   lt_of_lt_of_le le_of_lt)
+   lt_of_lt_of_le le_of_lt le_trans add_le_add_right add_le_add_left)
 open E213.Meta.Int213 (mul_neg zero_add)
+
+/-- `a ≤ b`, `c ≤ d ⟹ a+c ≤ b+d` (pure). -/
+theorem add_le_add {a b c d : Int} (h1 : a ≤ b) (h2 : c ≤ d) : a + c ≤ b + d :=
+  le_trans (add_le_add_right h1 c) (add_le_add_left h2 b)
 
 /-! ## §0 — pure `ℤ` positive-multiplication cancellation -/
 
@@ -221,6 +225,24 @@ theorem halve4 (a1 a2 a3 a4 : Int) (h : ∃ N, a1 * a1 + a2 * a2 + a3 * a3 + a4 
   · exact conv a1 a3 a2 a4 (by ring_intZ) (combine a1 a3 a2 a4 ⟨x1 - x3, by rw [p1, p3]; ring_intZ⟩ (hh a1 a3 a2 a4 (by ring_intZ)))
   · exact combine a1 a2 a3 a4 ⟨x1 - x2, by rw [p1, p2]; ring_intZ⟩ ⟨N, hN⟩
   · exact combine a1 a2 a3 a4 ⟨x1 - x2, by rw [p1, p2]; ring_intZ⟩ ⟨N, hN⟩
+
+/-- `2|A| ≤ 2k+1` (odd bound) ⟹ `4A² ≤ (2k)²` (strict: avoids the `r=m` edge for odd `m`). -/
+theorem Asq_bound (A : Int) (k : Nat) (hb : 2 * A.natAbs ≤ 2 * k + 1) :
+    4 * (A * A) ≤ (2 * (k : Int)) * (2 * (k : Int)) := by
+  have hak : A.natAbs ≤ k := by
+    rcases Nat.lt_or_ge A.natAbs (k + 1) with h | h
+    · exact Nat.le_of_lt_succ h
+    · exfalso
+      have h2 : 2 * (k + 1) ≤ 2 * A.natAbs := Nat.mul_le_mul_left 2 h
+      rw [show 2 * (k + 1) = (2 * k + 1) + 1 from by ring_nat] at h2
+      exact absurd (Nat.le_trans h2 hb) (Nat.not_succ_le_self _)
+  have hsq : 4 * (A.natAbs * A.natAbs) ≤ 4 * (k * k) :=
+    Nat.mul_le_mul_left 4 (Nat.mul_le_mul hak hak)
+  have e1 : 4 * (A * A) = ((4 * (A.natAbs * A.natAbs) : Nat) : Int) := by
+    rw [← Int.natAbs_mul_self (a := A)]; rfl
+  have e2 : (2 * (k : Int)) * (2 * (k : Int)) = ((4 * (k * k) : Nat) : Int) := by
+    rw [show ((4 * (k * k) : Nat) : Int) = 4 * ((k : Int) * (k : Int)) from rfl]; ring_intZ
+  rw [e1, e2]; exact ofNat_le_of_le hsq
 
 /-- ★★★ **Even-`m` descent (parity-halving).**  `isSum4 (2m'·p) ⟹ isSum4 (m'·p)`. -/
 theorem halve_step (m' p : Int) (h : isSum4 (2 * m' * p)) : isSum4 (m' * p) := by
