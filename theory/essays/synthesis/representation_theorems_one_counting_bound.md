@@ -60,16 +60,18 @@ theorems, one counting bound, the difference a scalar.
 
 ## Open frontier
 
-The descent is exhibited for the two class-number-one discriminants with the smallest covering
-radii. The boundary is explicit: for the rational ring `ℤ[√−d]` the covering radius² is
-`(1+d)/4`, so the norm-Euclidean descent of this form reaches `d ≤ 2` (the `d = 2` case,
-`p = a² + 2b²`, uses the existing `Z2 = ℤ[√−2]` ring, covering radius² `3/4`); `d = 3` needs the
-half-integer ring `ℤ[ω]` whose smaller radius² `1/3` is why disc-`−3` closes at all. The
-remaining norm-Euclidean imaginary quadratic fields (`d = 7, 11`, half-integer rings) and the
+The boundary is explicit and parametric: for the rational ring `ℤ[√−D]` (`ZSqrt D`, norm
+`re² + D·im²`) the covering radius² is `(1+D)/4`, so the norm-Euclidean descent of this form
+reaches exactly `D ≤ 2`. The single parametric proof `ZSqrtNegDivStep.zsqrt_div_step`
+(`1 ≤ D ≤ 2`) and `ZSqrtNegSplit.split_form` carry `D` as a free `ring_intZ` variable; `D = 1`
+recovers the Gaussian split and `D = 2` gives `split_form_two`, the disc-`−8` descent
+`p ∣ x²+2 ⟹ p = a² + 2b²`. `D = 3` falls outside (radius² `1` not `< 1`); disc-`−3` closes only
+because the half-integer ring `ℤ[ω]` has the smaller radius² `1/3`. The remaining
+norm-Euclidean imaginary quadratic fields (`d = 7, 11`, half-integer rings) and the
 non-Euclidean class-number-one fields (`d = 19, 43, 67, 163`, PID but not Euclidean — the descent
-form does not apply) are untouched by this engine. The Pillar-I residue input is also only as
-general as the order argument: `−1` (`p ≡ 1 mod 4`) and `−3` (`p ≡ 1 mod 3`) follow from a single
+form does not apply) are untouched. The Pillar-I residue input is also only as general as the
+order argument: `−1` (`p ≡ 1 mod 4`) and `−3` (`p ≡ 1 mod 3`) follow from a single
 multiplicative-order witness, but `−2` (`p ≡ 1, 3 mod 8`) needs the quadratic character of `2`,
-which the bare non-residue search does not supply — so the `d = 2` arc reaches the conditional
-split `p ∣ x²+2 ⟹ p = a²+2b²` but not the unconditional congruence iff. The transcendental
-companion (the period value, `L(1, χ₋₃)` / `Γ(1/3)`) is separately out of reach.
+which the bare non-residue search does not supply — so the `D = 2` arc has the conditional split
+`split_form_two` (Pillar II), not the unconditional congruence iff (Pillar I open). The
+transcendental companion (the period value, `L(1, χ₋₃)` / `Γ(1/3)`) is separately out of reach.
