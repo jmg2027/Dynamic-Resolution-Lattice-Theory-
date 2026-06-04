@@ -201,58 +201,42 @@ import E213.Lens.Lattice              -- lattice 정리 필요시
 **Role**: 213 위에서 구현된 수학/물리 콘텐츠.  **Lens API 만 사용**.
 
 Two bounded contexts:
-  * `Lib/Math/`     — 213-native mathematics (~38 sub-clusters)
-  * `Lib/Physics/`  — 213-native physics (~13 sub-clusters)
+  * `Lib/Math/`     — 213-native mathematics (11 thematic super-clusters)
+  * `Lib/Physics/`  — 213-native physics (~18 sub-clusters)
 
-**Lib/Math/ — major sub-organized clusters**:
-  * `CayleyDickson/{Tower,Integer,Levels,Lipschitz,Misc}` (5 sub-dirs, 50 files)
-  * `Real213/{Core,Sum,Mul,Lattice,Bisection,ExpLog}` (6 sub-dirs, 60 files)
-  * `SignedCut/{Core,CD,Hurwitz,Level,Bridge,Octonion}` (6 sub-dirs, 35 files)
-  * `Probability/{Foundation,Distribution,Inequality,Limit,Bridge}` (5 sub-dirs, 25 files)
-  * `Cohomology/{Examples,Bridge,Cochain,Cup,CupAW,Delta,Fractal,
-                  Hodge,Bipartite,Surfaces,Universal}` (11 sub-dirs)
-  * `DyadicFSM/{Product,Signature,Forward,Tier,ArithFSM,Pell,Fib,
-                Pisano,Trib,FLT,BitFSM}` (11 sub-dirs)
-  * `HodgeConjecture/{Foundation,Structure,Pairing,Refinement,
-                       Bridge,MotivicBridge,Toolkit}` (7 sub-dirs)
-  * `Analysis/{ClassicCalc,Differentiation,DyadicSearch,FluxMVT,
-                Integration,ODE,Series}` (7 sub-dirs)
-  * `GRA/{GRAModel,Common,NumberTheory,Graph,Analysis,Cohomology,
-           HoTT,HigherAlgebra,Translation,Category,Groupoid,Hom,
-           DepthFunctor,Enrichment,CarrierRealization,
-           HasDistinguishing213,LensBridge,LensIsoCapstone,
-           Universality23,Naturality,SectionRetraction,Monoidal}`
-    (22 files) — Graded Residue Arithmetic.  A 7-axiom typeclass
-    + 5 Reading instances + iso capstone + translation programme
-    with universal depth comparison `⌈n/3⌉ ≤ (n+1)/2` valid in all
-    five Readings simultaneously.  213-native `Cat` typeclass;
-    `GRACat` / `ReadingCat` with connectedness witness; `Groupoid`
-    typeclass with `ConnectedHub`; `GRAHom` (general morphism,
-    category laws + forgetful from `GRAIso`); depth as constant
-    functor on the (2, 3)-sub-category; full enrichment for
-    R₁–R₅ (Cochain/Operad/Truncation/Resolution/EdgeWalk);
-    naturality of translation; retract-pair structure
-    (`section`/`forget` identities); monoidal product
-    `product : GRAModel → GRAModel → GRAModel` with `trivial23` as
-    unit.  Chapter: `theory/math/gra_book.md`.
-    **Strict ∅-axiom: 259 PURE / 0 DIRTY**; `ax_coprime` via
-    `gcd213` (PURE) rather than Lean-core `Nat.gcd`; every proof
-    is `rfl` or kernel-level Nat helper — no omega, no simp, no
-    Mathlib.
-  * `Padic/{Foundation,Arith,Pow,Norm,Hensel,Teichmuller,Field,
-            Valuation,DRLT,DRLTIntegration}`
-    (10 files, 308 PURE) — Real213-p-adic library: `ZpSeq` + full
-    ring axioms at trunc + Hensel inverse + sqrt (existence +
-    uniqueness via `mul_invFull_correct` / `sqr_sqrtFull_correct`
-    + `inv_trunc_unique` / `sqr_unique_trunc`) + full ultrametric
-    (additive + multiplicative `valEq_mul`) + `pow` with Fermat's
-    little theorem + Frobenius lift + Teichmüller iteration Cauchy
-    + ℚ_p (`QpSeq.{add,sub,mul,neg,inv,div,sqrt}`) + 5-adic `N_U`
-    DRLT anchor.  Concrete instances: `i_5 = √(-1) ∈ ℤ_5`, `i_13`,
-    `√2 ∈ ℤ_7`.  Chapter: `theory/math/padic_real213.md`.
+**Lib/Math/ — thematic super-cluster hierarchy.**  Every sub-tree lives
+under one of eleven thematic super-clusters; the path **is** the
+namespace (`E213.Lib.Math.<Cluster>.<SubTree>.*`).  Each cluster groups
+the sub-trees of one mathematical area:
 
-각 Lib sub-tree 는 cross-context citation 용 `Bridge.lean` 보유
-(anti-corruption layer pattern).
+  * `NumberSystems/` — `Real213` (the cut reals), `Padic`, `SignedCut`,
+    `Complex`, `Hyper`, `Irrational`.  The number tower.
+  * `Analysis/` — `ClassicCalc, Differentiation, Integration, DyadicSearch,
+    FluxMVT, Series` + `Cauchy, Measure, Multivariable, Functional,
+    Modulus, CascadeCalculus`.  Modulus-tracked (no ε-δ) analysis.
+  * `Algebra/` — `CayleyDickson` (the CD tower), `Linalg213`, `Mobius213`
+    (P-orbit), `Polynomial213`, `Group`, `GRA` (Graded Residue Arithmetic:
+    7-axiom typeclass + 5 Readings + translation programme + monoidal
+    product, 259 PURE).
+  * `Cohomology/` — the K_{NS,NT}^{(c)} cohomology programme
+    (`Cochain, Cup, CupAW, Delta, Fractal, Hodge, Bipartite, Surfaces,
+    Universal, Examples, Bridge`) + `HodgeConjecture` (the HC programme).
+  * `NumberTheory/` — `DyadicFSM` (FSM / Pell / Pisano / Trib / FLT),
+    `ModArith` (Bezout / FLT / F_{p²}).
+  * `Geometry/` — `Geometry, Topology, GeometrizationConjecture,
+    AkbulutCork` + the discrete-substrate geometry sub-trees
+    (`AngleStructure, NumberGrid, GenerationRule, TriangularTower,
+    LevelTopology, OperationTopology, BipartiteDecomp, CartesianVsDisjoint`).
+  * `Foundations/` — `AxiomSystems, PatternCatalog, Choice, UniverseChain`
+    + the cross-domain / paradigm / residue-form anchor files
+    (`CrossDomainUnification, ParadigmDomain*, ResidueForm, ResolutionLimit`, …).
+  * `Probability/` — `Probability`, `Information`.
+  * `Combinatorics/` — `Combinatorics`, `Logic`.
+  * `Tactic/` — `Tactic`, `Extras` (Math-side tactic / misc infra).
+  * `ODE/` — ordinary differential equations (standalone).
+
+Each Lib sub-tree carries a `Bridge.lean` for cross-context citation
+(anti-corruption layer pattern).  `theory/math/` mirrors this hierarchy.
 
 ### Meta/  (Ring 무관 — Lean 4 bridge)
 
