@@ -1,6 +1,23 @@
 # Marathon — the Eisenstein split converse (`p ≡ 1 mod 3 ⟹ p = a²−ab+b²`)
 
-**Date**: 2026-06-04.  **Status**: open marathon (multi-session).  **Tier**: 1.
+**Date**: 2026-06-04.  **Status**: CLOSED (∅-axiom, end to end).  **Tier**: 1.
+
+## Closure summary
+
+`Integer/EisensteinConverse.eisenstein_split_converse` (PURE): for `p` prime with `p % 3 = 1`,
+`∃ a b : Int, ↑p = a²−ab+b²`.  No `propext`, no `Classical`, no `native_decide`.
+
+Phase 3 (Pillar I, the "lone genuine wall") closed by building the polynomial-root library mod
+`p` from scratch: `PolyRoot/{FactorTheorem, IntEuclid, RootBound, CyclotomicPoly, ResidueList}`
+(Lagrange's bound `eval_zero`), then `ModArith/{EisensteinCubeRoot, CubeFromFLT, NonFixedExists}`.
+The non-cube-fixed element is produced **constructively** by a bounded search (`firstNonFixed`)
+whose `none`-branch is refuted by `eval_zero` on `Tᵐ − 1` over the `p−1` distinct residues —
+so existence is constructive, not classical.  Pillar II is the prior ℤ[ω] `split_form`.
+
+Follow-ons: package with the necessity direction into one iff; promote PolyRoot + the converse
+to `theory/`; generalise to disc-`−4` (Gaussian, `p ≡ 1 mod 4`) and other `h=1` fields.
+
+----
 
 The capstone arc (`theory/math/numbertheory/eisenstein_period_arithmetic.md`) closed the
 *necessary* side of the disc-`−3` representation (the χ₋₃ fingerprint) and the structural
