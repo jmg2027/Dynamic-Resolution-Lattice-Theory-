@@ -115,7 +115,12 @@ the predecessor `−1` (the *borrow* machine, dual to the carry) is the two-side
 (`dec_odo`: `(f+1)−1=f`; `odo_dec`: `(f−1)+1=f`), so the residue unit is **invertible** — it
 generates a `ℤ`-action `(±1)` on the escape space (`odo_unit_action`), the `+1`/`−1` the
 difference-Lens generators.  No-exterior (`tower_no_cycle`) made a group action: never collapsing,
-always undoable.  Fed `the_frontier_has_a_form.md` (rows + clauses) + G181 STATUS.
+always undoable.  **§4 — the reversibility asymmetry** (+6 PURE, Odometer now **36 PURE**):
+descent (shift) is surjective-not-injective (`shift_surjective` + `shift_not_injective` — a
+forgetful quotient, the dropped low bit lost), the ascent unit (odo) is bijective
+(`descent_forgets_ascent_remembers`).  µF grounds irreversibly, νF's unit is a reversible
+`ℤ`-action — reversibility is the operational µF/νF signature.  Fed `the_frontier_has_a_form.md`
+(rows + clauses) + G181 STATUS.
 
 ### 3. (carried) Promotion candidates
 PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov

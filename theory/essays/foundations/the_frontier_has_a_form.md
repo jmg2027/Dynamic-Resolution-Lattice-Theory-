@@ -176,7 +176,10 @@ So "nothing new at the object level" is the strongest evidence *for* the frame; 
   - **Arithmetic dynamics**: the other fundamental map is the **odometer** (`+1` adding machine,
     `Theory/Raw/Odometer`); its carry terminates iff the stream has a floor (µF) and overflows
     forever on the all-`true` seed of `spineL` (νF) — the escape is the odometer overflow, the
-    `+1` (residue unit) with nowhere to land.
+    `+1` (residue unit) with nowhere to land.  The unit is moreover invertible (`±1`, a `ℤ`-action,
+    `odo_unit_action`), and the two faces split by *reversibility*: the descent forgets
+    (surjective-not-injective), the ascent unit remembers (bijective) —
+    `descent_forgets_ascent_remembers`.
   - **Symbolic dynamics**: the bit-stream escapes are the **full shift** `(Nat→Bool ; head,
     tail)`, embedded in νF as a sub-coalgebra (`boolSpine_shift_dynamics`); self-similarity =
     shift-periodicity, `spineL` the period-1 point, aperiodic seeds the non-holonomic escapes —
@@ -222,6 +225,7 @@ md`, `phi_pi_poles.md`).
 | `spineL_seed_is_odo_overflow` | `Theory/Raw/Odometer` | the canonical escape `spineL` is the `+1`-odometer's non-terminating overflow (the escape's arithmetic face) |
 | `successor_dynamics` | `Theory/Raw/Odometer` | the `+1` is injective (never returns) and interlocks with the descent-shift by the adding-machine recursion |
 | `odo_unit_action` | `Theory/Raw/Odometer` | the `+1` is invertible (inverse = the predecessor `−1`/borrow); the residue unit generates a `ℤ`-action on the escapes |
+| `descent_forgets_ascent_remembers` | `Theory/Raw/Odometer` | reversibility asymmetry: the descent-shift is surjective-not-injective (forgetful), the ascent-unit `+1` is bijective (reversible) |
 | `golden_adic_carry` | `Real213/ZeckendorfCarry` | the residue's own base (Fibonacci spiral): the golden/Zeckendorf carry `011→100` = the Fibonacci recurrence, value-preserving |
 | `ascent_unbounded` | `Theory/Raw/MuNuMirror` | the frontier recedes forever (no finite Raw caps the ascent) |
 | `no_exterior_source_without_enclosure` | `Lib/Math/Foundations/ResidueForm` | no-exterior: the escape *is* the shape, recursively |

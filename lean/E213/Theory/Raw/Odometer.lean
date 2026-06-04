@@ -285,4 +285,54 @@ theorem odo_unit_action :
     ∧ (∀ {f g : Nat → Bool}, (∀ n, odo f n = odo g n) → ∀ n, f n = g n) :=
   ⟨dec_odo, odo_dec, odo_injective⟩
 
+/-! ## §4 — the µF/νF reversibility asymmetry: descent forgets, the ascent unit remembers
+
+The two fundamental maps differ sharply in *reversibility*.  The **descent** (shift `σ`) is
+**surjective but not injective** — it is a forgetful quotient: every stream is some stream's tail
+(`shift_surjective`), but distinct streams that agree from position `1` on collapse to the same
+tail (`shift_not_injective`), the dropped least-significant bit being lost.  The **ascent unit**
+(odometer `+1`) is **bijective** (§2 injective + §3 invertible): it loses nothing and is always
+undoable.
+
+So the µF face grounds *irreversibly* (descent discards information, bottoming out at an atom —
+`Lambek.terminal_iff_atom`), while the νF ascent unit escapes *reversibly* (the `+1` is a `ℤ`-action,
+`odo_unit_action`).  Reversibility is the operational signature of the asymmetry: grounding forgets,
+the unit remembers.  All ∅-axiom. -/
+
+/-- Prepend a bit: `cons b f` is `b` at position `0` and `f` shifted up after. -/
+def cons (b : Bool) (f : Nat → Bool) : Nat → Bool
+  | 0     => b
+  | n + 1 => f n
+
+/-- The descent undoes a prepend: `shift (cons b f) = f` (the dropped bit is `b`). -/
+theorem shift_cons (b : Bool) (f : Nat → Bool) (n : Nat) : shift (cons b f) n = f n := rfl
+
+/-- ★★ **The descent is surjective.**  Every stream is some stream's tail: `shift (cons false f) =
+    f`.  The descent reaches everything — it is onto. -/
+theorem shift_surjective (f : Nat → Bool) : ∃ g : Nat → Bool, ∀ n, shift g n = f n :=
+  ⟨cons false f, shift_cons false f⟩
+
+/-- ★★ **The descent is not injective (it forgets).**  Two streams agreeing from position `1` on
+    but differing at position `0` (`cons true c` vs `cons false c`) have the *same* tail under the
+    shift — the dropped least-significant bit is lost.  So the descent is a forgetful quotient,
+    not reversible. -/
+theorem shift_not_injective :
+    ∃ f g : Nat → Bool, (∀ n, shift f n = shift g n) ∧ (∃ m, f m ≠ g m) :=
+  ⟨cons true (fun _ => false), cons false (fun _ => false),
+   fun n => by rw [shift_cons, shift_cons], ⟨0, by decide⟩⟩
+
+/-- ★★★ **The reversibility asymmetry: descent forgets, the ascent unit remembers.**  The descent
+    (shift) is **surjective** (`shift_surjective`) but **not injective** (`shift_not_injective`) —
+    a forgetful quotient, the µF face that grounds by discarding the low bit.  The ascent unit
+    (odometer `+1`) is **bijective** — injective (`odo_injective`) and invertible
+    (`dec_odo`) — the νF face that escapes reversibly, the residue unit's `ℤ`-action losing
+    nothing.  Reversibility distinguishes the two faces: µF grounds irreversibly, νF's unit is a
+    group action.  ∅-axiom. -/
+theorem descent_forgets_ascent_remembers :
+    (∀ f : Nat → Bool, ∃ g, ∀ n, shift g n = f n)
+    ∧ (∃ f g : Nat → Bool, (∀ n, shift f n = shift g n) ∧ (∃ m, f m ≠ g m))
+    ∧ (∀ {f g : Nat → Bool}, (∀ n, odo f n = odo g n) → ∀ n, f n = g n)
+    ∧ (∀ (f : Nat → Bool) n, dec (odo f) n = f n) :=
+  ⟨shift_surjective, shift_not_injective, odo_injective, dec_odo⟩
+
 end E213.Theory.Raw.Odometer

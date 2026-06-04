@@ -156,7 +156,11 @@ with the descent-shift by the adding-machine recursion (`shift_odo`, `carry_shif
 descent.  **§3 the `ℤ`-action** (Odometer §3, +12 PURE, total 31): the predecessor `−1` (the
 *borrow* machine, dual to the carry) is the two-sided inverse of `+1` (`dec_odo`, `odo_dec`), so
 the residue unit is **invertible** — it generates a `ℤ`-action `(±1)` on the escape space
-(`odo_unit_action`), the difference-Lens generators; no-exterior made a group action.
+(`odo_unit_action`), the difference-Lens generators; no-exterior made a group action.  **§4 the
+reversibility asymmetry** (+6 PURE, total 36): descent (shift) is surjective-not-injective
+(forgetful — drops the low bit), ascent unit (odo) is bijective
+(`descent_forgets_ascent_remembers`) — µF grounds irreversibly, νF's unit is a reversible group
+action.
 
 **STATUS 2026-06-04 (cont.) — the variable-base golden/Zeckendorf carry built ∅-axiom.**
 `Real213/ZeckendorfCarry` (7 PURE): the residue's *own* base — the Fibonacci spiral
