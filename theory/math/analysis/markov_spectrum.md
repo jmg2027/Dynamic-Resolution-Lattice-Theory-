@@ -91,8 +91,10 @@ Markov tree descending from `(1,1,2)`.
 These two spines diverge at a **binary fork** (`markov_first_fork`): `(1,2,5)` has two Vieta
 children, `(1,5,13)` (Fibonacci/`√5`, `markov_fork_fibonacci`) and `(2,5,29)` (Pell/`√8`,
 `markov_fork_pell`), each produced by the `markov_vieta` engine.  The Markov tree is the
-Stern-Brocot binary tree on `SL(2,ℤ)` data, its nodes indexing the Markov numbers.  (Whether
-that indexing is injective is the classical **Markov uniqueness conjecture**, open.)
+Stern-Brocot binary tree on `SL(2,ℤ)` data, its nodes indexing the Markov numbers.  Whether
+that indexing is injective is the classical **Markov uniqueness conjecture** (open); its
+∅-axiom arithmetic spine — the neighbor congruence `c ∣ a²+b²` and the `√(−1)` encoding — is
+developed in [`markov_uniqueness.md`](markov_uniqueness.md).
 
 ### Relation to the spiral classification
 
