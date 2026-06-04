@@ -3,7 +3,7 @@
 **Status**: Closed.  Two towers: (1) the original Real213 vector / span / rank / Gram +
 phase-chiral bridge; (2) the **integer determinant → Cayley–Hamilton** tower — a from-scratch
 ∅-axiom `n×n` determinant theory over `ℤ` culminating in `χ_M(M)=0`, which closes the C-finite
-**Hadamard product** (see [`analysis/cfinite_orbit_dimension.md`](analysis/cfinite_orbit_dimension.md)).
+**Hadamard product** (see [`analysis/cfinite_orbit_dimension.md`](../analysis/cfinite_orbit_dimension.md)).
 
 ## Overview
 
@@ -54,7 +54,7 @@ core's are `propext`/`Quot`-tainted.
   (count-equality ⟹ `LPerm`, the cancellation-free master tool).  ⟹ the **alternating** property
   `leibDet_rowSwap` (an adjacent row swap negates) and `leibDet_eq_zero_of_rows_eq` (two equal rows
   ⟹ `0`) — the determinant's defining antisymmetry, the essay's predicted natural home
-  ([`essays/determinant_as_quotient_characteristic.md`](../essays/determinant_as_quotient_characteristic.md)).
+  ([`essays/determinant_as_quotient_characteristic.md`](../../essays/algebra/determinant_as_quotient_characteristic.md)).
   Plus multilinearity (`leibDet_setRow_add`/`_smul`) and degeneracy.
 - **`Laplace`** — the **cofactor (Laplace) expansion** (`cofactor_row0`, then `cofactor_row_i` along
   any row via the row-cycle `cyc`/`det_cyc`), the bridge `leibDet_eq_det` to the recursive

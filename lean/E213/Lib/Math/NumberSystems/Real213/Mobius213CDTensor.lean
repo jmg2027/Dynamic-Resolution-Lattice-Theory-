@@ -4,7 +4,7 @@ import E213.Meta.Tactic.NatHelper
 /-!
 # Mobius213CDTensor — the 5th architectural pattern
 
-Extends the four patterns in `theory/essays/pure_funext_avoidance.md`
+Extends the four patterns in `theory/essays/methodology/pure_funext_avoidance.md`
 (State Accumulator / Bundled Subtype / Setoid Category /
 Residual Induction) with a fifth: **CD-Tensor Bundling**, for
 fiber-changing operations.

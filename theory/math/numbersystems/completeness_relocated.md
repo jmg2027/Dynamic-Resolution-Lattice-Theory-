@@ -330,7 +330,7 @@ means, now a theorem.
 
 ## Anchors
 
-  - [`analysis/holonomic_modulus.md`](analysis/holonomic_modulus.md) — the modulus
+  - [`analysis/holonomic_modulus.md`](../analysis/holonomic_modulus.md) — the modulus
     as a constructed convergence rate: the general generator
     (`RateModulus.rate_total_modulus`) and the `HolonomicReal` instances (φ, e); the
     rate-carrying/rate-free divide made into a theorem

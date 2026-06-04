@@ -18,7 +18,7 @@ In 213-native form, the dichotomy reads:
 where `hurwitzAdmissible n` is a decidable Bool predicate.
 
 This file closes the open frontier "parametric *when does Hurwitz
-fail at level N* theorem" from `theory/math/signed_cut.md`.
+fail at level N* theorem" from `theory/math/numbersystems/signed_cut.md`.
 
 ## Reading
 

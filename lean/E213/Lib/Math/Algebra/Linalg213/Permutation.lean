@@ -8,7 +8,7 @@ The natural home of the determinant's **alternating** property: antisymmetrizati
 row-orderings.  A row swap is a transposition `τ`; in the Leibniz sum
 `det M = Σ_σ sign(σ)·Πᵢ M i (σ i)` it acts by `σ ↦ σ∘τ`, and `sign(σ∘τ) = −sign(σ)` flips
 every term — so coincident row-pointings cancel **structurally**, not by a forced cofactor
-cancellation (see `theory/essays/determinant_as_quotient_characteristic.md`).
+cancellation (see `theory/essays/algebra/determinant_as_quotient_characteristic.md`).
 
 This file builds the reusable substrate: list permutation-equivalence (`LPerm`), the
 invariance of a sum under it (the cornerstone), and the alternating sign read off an

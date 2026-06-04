@@ -5,7 +5,7 @@ import E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity
 /-!
 # Real213 cut integration over DyadicMeasurableSet
 
-Closes the `theory/math/real213.md` open frontier:
+Closes the `theory/math/numbersystems/real213.md` open frontier:
 
 > Measure-theoretic extension — `Lib/Math/Analysis/Measure/` provides
 > the start; integration over Real213 cuts is open.

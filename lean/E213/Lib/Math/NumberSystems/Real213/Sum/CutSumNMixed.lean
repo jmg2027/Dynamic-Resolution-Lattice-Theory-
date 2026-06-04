@@ -26,7 +26,7 @@ right place.  Both sides reduce to `(a·q₁ + c·q₂)·k ≤ N·m`.
 
 ## (3, 2) atomic reading
 
-Per `theory/essays/bool_assoc_failure_meaning.md`, this closes the
+Per `theory/essays/methodology/bool_assoc_failure_meaning.md`, this closes the
 ALGEBRAIC closure of cutSumN over ALL (b₁, b₂) where lcm divides
 some reachable N.  For b ∈ ⟨2, 3⟩^mult (multiplicative monoid of
 {2, 3}), N = lcm(b₁, b₂) is always reachable, giving full algebra.

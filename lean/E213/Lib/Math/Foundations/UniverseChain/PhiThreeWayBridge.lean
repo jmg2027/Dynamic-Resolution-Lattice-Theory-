@@ -4,7 +4,7 @@ import E213.Lib.Physics.Foundations.GoldenRatio
 /-!
 # Three-way φ bridge — Möbius P, algebra tower, Pell-Fib
 
-`theory/math/universe_chain.md` records that the golden ratio φ
+`theory/math/foundations/universe_chain.md` records that the golden ratio φ
 appears across **three structurally independent** parts of 213:
 
   · **Möbius P** = `[[2, 1], [1, 1]]` (universe-chain Step 7).

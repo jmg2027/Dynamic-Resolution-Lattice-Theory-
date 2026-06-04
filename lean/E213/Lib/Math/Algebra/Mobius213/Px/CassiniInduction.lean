@@ -114,7 +114,7 @@ theorem cassini_9 : L 9 * L 11 - (L 10)^2 = (d : Int) := by decide
     `decide`; the universal lift requires Int polynomial manipulation
     (`ring`-tactic-equivalent) which is not available in the
     framework's PURE Lean kernel.  See
-    `theory/essays/p_orbit_closure_master.md` open frontier. -/
+    `theory/essays/p_orbit/p_orbit_closure_master.md` open frontier. -/
 theorem cassini_catalog_master :
     L 0 * L 2 - (L 1)^2 = (d : Int)
     ∧ L 1 * L 3 - (L 2)^2 = (d : Int)

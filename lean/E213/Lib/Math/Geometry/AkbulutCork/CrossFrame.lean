@@ -142,8 +142,8 @@ open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
 
 /-- ★★★★★★★★★★★ **4-manifolds + Geometrization marathon master capstone**
 
-  The two chapters `theory/math/exotic_4mfd_cork.md` and
-  `theory/math/geometrization_conjecture.md` close jointly into a
+  The two chapters `theory/math/geometry/exotic_4mfd_cork.md` and
+  `theory/math/geometry/geometrization_conjecture.md` close jointly into a
   unified 213-native treatment of 4-manifold exotic enumeration
   (via cork-twist) + 3-manifold geometrization (via Sym(3) +
   Möbius P + mod-k Lens family + Ricci modulus).

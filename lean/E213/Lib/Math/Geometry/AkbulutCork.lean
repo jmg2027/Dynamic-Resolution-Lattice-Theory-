@@ -19,5 +19,5 @@ signed orbit count `+4` as the 213-internal exotic-structure
 witness; cork-embedding + cork-uniqueness capstones.
 
 See `AkbulutCork/INDEX.md` for the file-by-file map and
-`theory/math/exotic_4mfd_cork.md` for the narrative.
+`theory/math/geometry/exotic_4mfd_cork.md` for the narrative.
 -/

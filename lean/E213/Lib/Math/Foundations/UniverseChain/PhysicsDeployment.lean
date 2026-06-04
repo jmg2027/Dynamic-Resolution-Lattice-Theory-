@@ -8,7 +8,7 @@ Bridges the **structural** universe-chain steps (atomicity NS=3,
 NT=2, d=5 + Möbius P signature) to **observable** DRLT physics
 quantities (Cabibbo angle, CKM δ_CKM, atomic predictions).
 
-The chain steps (per `theory/math/universe_chain.md`):
+The chain steps (per `theory/math/foundations/universe_chain.md`):
 
   Step 1-5: Atomicity (NS, NT, d) = (3, 2, 5)
   Step 7  : Möbius P = [[2, 1], [1, 1]] — trace = NS, det = 1,

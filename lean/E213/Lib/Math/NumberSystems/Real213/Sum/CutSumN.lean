@@ -9,7 +9,7 @@ import E213.Lib.Math.NumberSystems.Real213.Core.CutPoset
 
 Generalises `cutSum` from hardcoded factor-2 to parametric `N`.
 The original `cutSum` is `cutSumN 2` up to literal/variable
-syntax.  Per `theory/essays/bool_assoc_failure_meaning.md`, the
+syntax.  Per `theory/essays/methodology/bool_assoc_failure_meaning.md`, the
 factor-2 hardcode reads only the NT atom of (NS, NT) = (3, 2)
 and misses NS; `cutSumN N` lifts this so denominators with `b | N`
 close cleanly.

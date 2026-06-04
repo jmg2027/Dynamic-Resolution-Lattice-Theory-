@@ -9,7 +9,7 @@ The number-axis readings — count/difference (`ℤ`), ratio (`ℚ`), the Cassin
 determinant — look like separate constructions, and one is tempted to unify them *upward*,
 as words in an operator algebra ("a monoid of construction moves").  That is the wrong
 direction: the readings live on different codomains, and a forced common map across them is
-the category error `theory/essays/the_form_of_the_residue.md` warns against ("the honest
+the category error `theory/essays/foundations/the_form_of_the_residue.md` warns against ("the honest
 unity is the *shared unit*, not a single map").
 
 This file states the honest unification *downward*: the unit **`1`** is one value across

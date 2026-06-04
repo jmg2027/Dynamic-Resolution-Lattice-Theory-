@@ -188,7 +188,7 @@ theorem in_ring_of_nat : ∀ (n : Nat), InPOrbitRing (n : Int)
     non-negative integer.
 
     *Consequence* (handled at narrative tier, see
-    `theory/essays/p_orbit_closure_master.md`): the full ring
+    `theory/essays/p_orbit/p_orbit_closure_master.md`): the full ring
     coincides with ℤ.  Since membership is trivial, the
     structurally meaningful invariant is **P-orbit depth** — the
     smallest `K` such that the integer is expressible as a

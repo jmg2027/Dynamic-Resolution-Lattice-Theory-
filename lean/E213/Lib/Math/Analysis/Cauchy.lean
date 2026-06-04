@@ -99,7 +99,7 @@ import E213.Lib.Math.Analysis.Cauchy.CasoratianRank
   ## Divergence form, depth, and the resolution-axis tower
 
   The arc from "a real is a cut" to the foundational residue, each
-  link ∅-axiom (narrative: `theory/math/completeness_without_completeness.md`).
+  link ∅-axiom (narrative: `theory/math/numbersystems/completeness_without_completeness.md`).
 
     * `EulerDivergenceForm` — cross-determinant `W_n` (discrete
                              Wronskian): φ `±1`, e `−n!`, π Wallis.

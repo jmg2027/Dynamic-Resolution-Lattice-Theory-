@@ -22,7 +22,7 @@ not this single thread.
 
 Every named tower (Cayley-Dickson, Cantor cardinality, …) is this
 spine with `slash` replaced by a chosen step — i.e. a Lens reading
-sitting above this object (`theory/essays/tower_atlas.md`).
+sitting above this object (`theory/essays/synthesis/tower_atlas.md`).
 -/
 
 namespace E213.Theory.Raw.PrimitiveTower

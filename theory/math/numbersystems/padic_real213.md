@@ -483,7 +483,7 @@ it the natural Lens-arena for mod-p reductions of the Möbius matrix
     framework-natural despite their non-atomic factors — the p-adic
     Lens family is already general.
 
-See [`theory/math/mobius213_p_orbit_closure.md`](mobius213_p_orbit_closure.md)
+See [`theory/math/mobius213_p_orbit_closure.md`](../algebra/mobius213_p_orbit_closure.md)
 for the full mod-p period catalog and the P-orbit closure ring.
 
 ## How to verify

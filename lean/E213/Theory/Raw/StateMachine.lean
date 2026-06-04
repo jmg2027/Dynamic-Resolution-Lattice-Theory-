@@ -27,7 +27,7 @@ objects, read as:
 All carriers are function types, so everything is stated **pointwise** (no `funext`); no
 `simp` / `decide` / `DecidableEq Raw` (which would pull `propext`).  All zero-axiom.
 
-Narrative: `theory/essays/the_residue_as_state_machine.md`.
+Narrative: `theory/essays/foundations/the_residue_as_state_machine.md`.
 -/
 
 namespace E213.Theory.Raw.StateMachine

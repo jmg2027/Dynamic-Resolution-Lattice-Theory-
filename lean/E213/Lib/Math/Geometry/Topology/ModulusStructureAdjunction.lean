@@ -4,7 +4,7 @@ import E213.Lib.Math.Geometry.Topology.ModulusStructureFunctor
 
 Extends `ModulusStructureFunctor.lean` (Option B: ModHom + category
 laws + cross-source morphisms) to the **adjunction** layer per the
-`theory/math/modulus_structure.md` follow-up:
+`theory/math/analysis/modulus_structure.md` follow-up:
 
 > Full adjunction (left / right adjoints between source categories,
 > naturality squares).

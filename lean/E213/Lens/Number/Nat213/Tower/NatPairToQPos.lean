@@ -115,7 +115,7 @@ fixing the multiplicative unit `1`.
 The two foldings are one axis-generator move seen on `+` and on `·`; the
 involution-fixed point is the axis unit in each case — `0` additively, `1`
 multiplicatively — both materialized as the swap-fixed diagonal `{(k, k)}`.  This is
-the pair-level shadow of the shared-unit identity (`theory/essays/tower_atlas.md`'s
+the pair-level shadow of the shared-unit identity (`theory/essays/synthesis/tower_atlas.md`'s
 `grand_unification`): negation and reciprocal are the one period-2 swap read by two
 folds, and they fix the one unit read at `0` and at `1`. -/
 

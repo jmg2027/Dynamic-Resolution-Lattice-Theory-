@@ -3,7 +3,7 @@ import E213.Lib.Math.Foundations.PatternCatalog.ParadigmBridge
 /-!
 # ParadigmDomain — physics-side extension
 
-Closes the `theory/math/cross_domain_unification.md` open frontier:
+Closes the `theory/math/foundations/cross_domain_unification.md` open frontier:
 
 > Extending paradigm to physics-side domains (currently only math).
 

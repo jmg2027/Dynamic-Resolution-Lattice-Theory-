@@ -74,6 +74,6 @@ python3 ../tools/scan_axioms.py E213.Lib.Math.Algebra.Mobius213.Px
 
 ## Cross-references
 
-  · `theory/math/mobius213_p_orbit_closure.md` — chapter
-  · `theory/essays/p_orbit_closure_master.md` — 11-phase essay
+  · `theory/math/algebra/mobius213_p_orbit_closure.md` — chapter
+  · `theory/essays/p_orbit/p_orbit_closure_master.md` — 11-phase essay
 -/

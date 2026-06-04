@@ -4,7 +4,7 @@ import E213.Lib.Math.Geometry.Topology.ModulusStructure
 
 Extends `ModulusStructure.lean` (Option A: bare typeclass + 3-way
 parallel) to a **categorical** formulation.  Per
-`theory/math/modulus_structure.md`:
+`theory/math/analysis/modulus_structure.md`:
 
 > Option B would lift this to a full categorical formulation:
 > define morphisms between the three source structures

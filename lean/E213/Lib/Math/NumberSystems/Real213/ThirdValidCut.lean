@@ -7,7 +7,7 @@ import E213.Lib.Math.NumberSystems.Real213.Core.CutPoset
 
 Parallel to `IntValidCut` (b = 1) and `HalfValidCut` (b = 2),
 this bundles the b = 3 case using the parametric `cutSumN 3`
-(factor-3 search granularity).  Per `theory/essays/bool_assoc_failure_meaning.md`,
+(factor-3 search granularity).  Per `theory/essays/methodology/bool_assoc_failure_meaning.md`,
 b = 3 corresponds to the NS atom of (NS, NT) = (3, 2); the
 original `cutSum` (factor-2 hardcode) only read the NT atom and
 missed NS, blocking b = 3 closure.
@@ -165,7 +165,7 @@ theorem cutSumN_3_2_1_at_1_1 :
     constructors, (c) full associativity on b = 3 class,
     (d) commutativity, (e) smoke at (1/3, 2/3, 1/3).
 
-    Reading: per `theory/essays/bool_assoc_failure_meaning.md`,
+    Reading: per `theory/essays/methodology/bool_assoc_failure_meaning.md`,
     the original `cutSum`'s factor-2 hardcode read only NT and
     missed NS = 3; using the right operation `cutSumN 3` (NS-aware
     factor-3 search) closes the b = 3 algebra exactly as

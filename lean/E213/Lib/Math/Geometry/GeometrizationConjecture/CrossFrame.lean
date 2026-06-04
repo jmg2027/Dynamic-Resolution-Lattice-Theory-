@@ -3,7 +3,7 @@ import E213.Lib.Math.Geometry.GeometrizationConjecture.MetricGeometries
 /-!
 # X-1 cross-frame Sym(3) capstone (4-way convergence)
 
-Chapter context: `theory/math/geometrization_conjecture.md`
+Chapter context: `theory/math/geometry/geometrization_conjecture.md`
 "Open frontier" section.
 
 X-1 records the Sym(3) decomposition of the 8-element substrate

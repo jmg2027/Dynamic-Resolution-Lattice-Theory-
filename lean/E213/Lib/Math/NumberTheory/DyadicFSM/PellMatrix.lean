@@ -28,7 +28,7 @@ For odd primes p > 2, the period of the existing `pellFSMmod p hp`
 
 This is Phase 1 (infrastructure) of FSM-1 (2).  Phase 2 (eigenvalue
 + Galois orbit + per-legendre-case bounds) and Phase 3 (the full
-Pisano theorem for ∀p) are described in `theory/math/dyadic_fsm.md`
+Pisano theorem for ∀p) are described in `theory/math/numbertheory/dyadic_fsm.md`
 (universal-Pisano section).
 
 The current file gives **the structural framework**:

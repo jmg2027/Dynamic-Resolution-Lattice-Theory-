@@ -34,6 +34,6 @@ Sub-modules:
   · `DRLT` — canonical 5-adic embeddings (`ℕ ↪ ZpSeq 5`).
 
 All declarations satisfy `#print axioms … → "does not depend on
-any axioms"` — see `theory/math/padic_real213.md` for the
+any axioms"` — see `theory/math/numbersystems/padic_real213.md` for the
 narrative and `STRICT_ZERO_AXIOM.md` for the PURE catalog entry.
 -/

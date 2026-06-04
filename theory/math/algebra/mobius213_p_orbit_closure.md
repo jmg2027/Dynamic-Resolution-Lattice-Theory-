@@ -519,7 +519,7 @@ infinite digit sequence `ℕ → Fin p` with truncation
     at digit 0 (`pow_p_trunc_one`) closes the loop: `L(k)^(p-1) ≡ 1
     (mod p)` for `gcd(L(k), p) = 1`.
 
-See [`theory/math/padic_real213.md`](padic_real213.md) for the full
+See [`theory/math/padic_real213.md`](../numbersystems/padic_real213.md) for the full
 p-adic library narrative (308 PURE theorems).
 
 ## Cross-references

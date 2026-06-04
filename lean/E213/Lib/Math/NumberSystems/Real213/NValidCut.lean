@@ -7,7 +7,7 @@ import E213.Lib.Math.NumberSystems.Real213.Core.CutPoset
 
 Generalises `IntValidCut` (b=1), `HalfValidCut` (b=2),
 `ThirdValidCut` (b=3) to **any** denominator N.  Per
-`theory/essays/bool_assoc_failure_meaning.md`, every natural
+`theory/essays/methodology/bool_assoc_failure_meaning.md`, every natural
 N ≥ 1 is reachable from (NS, NT) = (3, 2) atoms — additively for
 N ≥ 2 (`Theory/Atomicity/Five.lean atomic_iff_five` for 5, etc.),
 multiplicatively for N ∈ ⟨2, 3⟩^mult.  So `cutSumN N` closure
@@ -179,7 +179,7 @@ theorem eleventh_assoc_1_4_6 :
     (c) full commutativity.
 
     Parametric in N — no per-N proof needed.  Per
-    `theory/essays/bool_assoc_failure_meaning.md`, every N is
+    `theory/essays/methodology/bool_assoc_failure_meaning.md`, every N is
     reachable from (3, 2) atoms (additively for N ≥ 2 via
     Bezout-style decompositions, e.g., 5 = 2+3 per `atomic_iff_five`).
     The framework realisation of "no exterior" — every denominator

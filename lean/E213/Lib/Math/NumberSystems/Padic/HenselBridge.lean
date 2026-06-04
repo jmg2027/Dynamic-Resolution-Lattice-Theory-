@@ -2,7 +2,7 @@ import E213.Lib.Math.NumberSystems.Padic.Hensel
 /-!
 # Hensel bridge — ModArith ℤ/pℤ ↔ Padic ℤ_p
 
-Closes the `theory/math/modular_arithmetic.md` open frontier:
+Closes the `theory/math/numbertheory/modular_arithmetic.md` open frontier:
 
 > Real213-p-adic: extend Bezout / FLT / F_{p²} infrastructure to
 > `ℤ_p` via Hensel lifting.

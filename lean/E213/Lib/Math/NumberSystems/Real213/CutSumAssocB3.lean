@@ -2,7 +2,7 @@ import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumGeneral
 /-!
 # cutSum_assoc at b ≥ 3 — precision-artifact honest closure
 
-The essay `theory/essays/pure_funext_avoidance.md` flagged the
+The essay `theory/essays/methodology/pure_funext_avoidance.md` flagged the
 "missing backward direction" of `cutSum_same_denom_forward` as the
 search-index reorganization frontier.
 

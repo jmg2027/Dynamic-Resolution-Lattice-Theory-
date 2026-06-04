@@ -18,7 +18,7 @@ lifts the existential up to the user-facing FSM run/bits sequences.
 All declarations PURE.
 
 The predictive form `N = pisano_predict p` (via FLT + legendre
-dispatch): see `theory/math/dyadic_fsm.md` (universal-Pisano section).
+dispatch): see `theory/math/numbertheory/dyadic_fsm.md` (universal-Pisano section).
 -/
 
 namespace E213.Lib.Math.NumberTheory.DyadicFSM.PellMatrixPigeonhole

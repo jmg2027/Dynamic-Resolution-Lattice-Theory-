@@ -9,7 +9,7 @@ p-adic integers `ℤ_p` and (later) p-adic numbers `ℚ_p`.  Built on
 top of the `F_p` arithmetic / Bezout / FLT / `F_{p²}` infrastructure
 in `Lib/Math/ModularArithmetic/` without introducing new axioms.
 
-Chapter: `theory/math/padic_real213.md`.
+Chapter: `theory/math/numbersystems/padic_real213.md`.
 
 ## Contents
 

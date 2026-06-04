@@ -18,7 +18,7 @@ and as `a(n+p) = a(n)` past `N`), `lead` is nonzero past `N`, and `R` vanishes o
 Paired with the (classical, **not** ∅-axiom) converse "bounded `HomogRec` ⟹ eventually periodic",
 this pins the bounded picture: `EvPeriodic ⟹ HomogRec` (here) and `EvPeriodic ⟺ AutoRec` (there),
 so the *only* non-elementary step left is exactly the bounded-P-recursive theorem — see the verdict
-essay `theory/essays/non_holonomicity_as_finite_state_escape.md`.
+essay `theory/essays/analysis/non_holonomicity_as_finite_state_escape.md`.
 -/
 
 namespace E213.Lib.Math.Analysis.Cauchy.HomogRecPeriodic
