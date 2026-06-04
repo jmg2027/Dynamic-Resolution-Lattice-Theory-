@@ -226,7 +226,6 @@ instances) is preserved through other imports.
 
 ## Cross-reference
 
-  - 2026-05-05 audit pass: `research-notes/AUDIT_PASS_2026-05-05_*.md`
   - First leaf execution: commits `396585c` (rename) + `623e377`
     (absorption + deletion).
 
