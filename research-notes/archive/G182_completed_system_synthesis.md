@@ -1,5 +1,8 @@
 # G182 — the completed-system synthesis (µF crank / νF map; the frontier has a form)
 
+> **Promoted** to `theory/essays/foundations/the_frontier_has_a_form.md` (canonical).
+> This is the archived source path.
+
 **Tier 1 (volatile) — essay candidate** (promote to `theory/essays/` when this branch
 reconciles with `main`'s essay tree).  Records the through-line of a foundational discussion.
 **Vision: Mingu Jeong.**  This note is the formalization/record, not the source of the

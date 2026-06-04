@@ -22,6 +22,19 @@ two are category errors to record-and-stop (below).  Recommended order: **C1 →
   - P6 `nu_population_capstone` (CoResidue §17) — νF a `Distinct`-rich populated carrier.
   Adversarial-reviewed; essays `the_residue_as_{primitive,state_machine}.md` updated.
 
+**STATUS 2026-06-04 — §18 cross-arc closed** ∅-axiom (CoResidue 94→99 PURE).  The §14 ⊗ §15
+graft (`coSwap` ⊗ `boolSpine`): the lone Raw automorphism acts *freely* on the bit-stream
+escapes —
+  - `spineL_eq_boolSpine_true` — `spineL` is the `f ≡ true` member of the §15 injection.
+  - `coSwap_boolSpine` — exact intertwining `coSwap ∘ boolSpine = boolSpine ∘ (Bool.not ∘ ·)`,
+    clean precisely where §14's tree-seed intertwining fails (a leaf has no children to reorder).
+  - `coSwap_boolSpine_distinct` — `coSwap` fixes *no* bit-stream escape (free action of the
+    order-2 swap group on the `(Nat→Bool)`-many escapes).
+  - `boolSpine_swap_orbit`, `coSwap_boolSpine_free_action` — the 2-element orbit + capstone.
+  Fed the promoted essay `theory/essays/foundations/the_frontier_has_a_form.md` (the populated +
+  *symmetric* frontier).  Remaining open: the consolidation bridges (C-phys) below + adjacent
+  (native ε₀ diagonal G173, frozen=dynamic φ).
+
 ## Recommended next proof-line (νF population — all ∅-axiom-feasible)
 
 ### P1 (≙ agent-C1) — a spine *family*: one escaping behaviour per finite Raw ★ top pick

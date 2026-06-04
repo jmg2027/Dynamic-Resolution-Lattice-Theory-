@@ -1053,4 +1053,82 @@ theorem nu_population_capstone :
    coSwap_spineL_distinct,
    spineL_unique⟩
 
+/-! ## §18 — the swap automorphism acts *freely* on the bit-stream escapes (cross-arc §14 ⊗ §15)
+
+The lone Raw automorphism `swap` (§14, `coSwap`) and the `(Nat→Bool)`-indexed escape family
+(§15, `boolSpine`) meet here.  On the **leaf-level** family the intertwining is *exact*:
+`coSwap ∘ boolSpine = boolSpine ∘ (Bool.not ∘ ·)` — flipping the co-tree's leaf labels is
+pointwise negation of the seeding bit-stream.  This is precisely the locus where §14's honest
+caveat reports the *tree-seed* intertwining (`coSwap ∘ spineOf = spineOf ∘ Tree.swap`) **fails**:
+`Tree.swap` reorders a slash's children by `cmp` to stay canonical, while `coSwap` is positional
+— but a single leaf has nothing to reorder, so on the bit-stream family the two coincide.
+
+And the action is **free**: `coSwap` fixes *no* bit-stream escape (`f` and `Bool.not ∘ f` differ
+at every index), so the order-2 swap group moves every one of the `(Nat→Bool)`-many escapes —
+no fixed point on the populated νF.  `spineL` (§12) sits inside this family at `f ≡ true`, so the
+canonical move `coSwap_spineL_distinct` is just one instance.  All ∅-axiom, pointwise. -/
+
+/-- `spineL` is the all-`true` bit-stream spine: the canonical escape (§12) sits inside the §15
+    family at `f ≡ true`, so it is one member of the bit-stream injection. -/
+theorem spineL_eq_boolSpine_true :
+    ∀ q, spineL q = boolSpine (fun _ => true) q
+  | []           => rfl
+  | (true :: _)  => rfl
+  | (false :: q) => spineL_eq_boolSpine_true q
+
+/-- ★★★ **The swap automorphism intertwines with bit-stream seeding (leaf-level, exact).**
+    `coSwap (boolSpine f) = boolSpine (Bool.not ∘ f)` pointwise: flipping the co-tree's leaf
+    labels is exactly pointwise negation of the seeding stream.  Clean precisely where §14's
+    tree-seed intertwining fails — a single leaf has no children to reorder.  By induction on
+    the observation path; no `funext`. -/
+theorem coSwap_boolSpine (f : Nat → Bool) :
+    ∀ q, coSwap (boolSpine f) q = boolSpine (fun n => Bool.not (f n)) q
+  | []           => rfl
+  | (true :: _)  => rfl
+  | (false :: q) => coSwap_boolSpine (fun n => f (n + 1)) q
+
+/-- ★★★ **`coSwap` fixes no bit-stream escape** (the action is *free*).  `Distinct (boolSpine f)
+    (coSwap (boolSpine f))` for every `f`: at the first left leaf (`[true]`) the labels are
+    `f 0` and `Bool.not (f 0)`, always distinct.  So the order-2 swap group moves every one of
+    the `(Nat→Bool)`-many escapes — no fixed point on the populated νF. -/
+theorem coSwap_boolSpine_distinct (f : Nat → Bool) :
+    Distinct (boolSpine f) (coSwap (boolSpine f)) :=
+  ⟨[true], by
+    show some (f 0) ≠ Option.map Bool.not (some (f 0))
+    cases f 0 <;> exact fun e => Bool.noConfusion (Option.some.inj e)⟩
+
+/-- ★★★ **The swap orbit of a bit-stream escape is `{boolSpine f, boolSpine (Bool.not ∘ f)}`.**
+    A two-element free orbit: `coSwap` carries `boolSpine f` to the negated-stream spine
+    (`coSwap_boolSpine`), distinct from it (`coSwap_boolSpine_distinct` transported across the
+    intertwining), and is involutive (`coSwap_involutive`) so the orbit closes at order 2. -/
+theorem boolSpine_swap_orbit (f : Nat → Bool) :
+    (∀ q, coSwap (boolSpine f) q = boolSpine (fun n => Bool.not (f n)) q)
+    ∧ Distinct (boolSpine f) (boolSpine (fun n => Bool.not (f n)))
+    ∧ (∀ q, coSwap (coSwap (boolSpine f)) q = boolSpine f q) :=
+  ⟨coSwap_boolSpine f,
+   by
+     obtain ⟨q, hq⟩ := coSwap_boolSpine_distinct f
+     exact ⟨q, fun e => hq (by rw [coSwap_boolSpine f q]; exact e)⟩,
+   coSwap_involutive (boolSpine f)⟩
+
+/-- ★★★ **§18 capstone — the swap automorphism acts freely on the bit-stream escapes.**
+    The lone Raw automorphism's leaf-level group action on §15's `(Nat→Bool)`-indexed escapes:
+
+    1. exact intertwining `coSwap ∘ boolSpine = boolSpine ∘ (Bool.not ∘ ·)`;
+    2. involution (order 2);
+    3. no fixed point — every escape moves to a `Distinct` one (the action is *free*);
+    4. `spineL` (§12) is the `f ≡ true` member, so `coSwap_spineL_distinct` is one instance.
+
+    The exact, populated form of §14's leaf-level swap content — clean precisely where the
+    tree-seed intertwining fails.  ∅-axiom, pointwise (no `funext`, no `Cardinal`). -/
+theorem coSwap_boolSpine_free_action :
+    (∀ (f : Nat → Bool) q, coSwap (boolSpine f) q = boolSpine (fun n => Bool.not (f n)) q)
+    ∧ (∀ (f : Nat → Bool) q, coSwap (coSwap (boolSpine f)) q = boolSpine f q)
+    ∧ (∀ f : Nat → Bool, Distinct (boolSpine f) (coSwap (boolSpine f)))
+    ∧ (∀ q, spineL q = boolSpine (fun _ => true) q) :=
+  ⟨coSwap_boolSpine,
+   fun f => coSwap_involutive (boolSpine f),
+   coSwap_boolSpine_distinct,
+   spineL_eq_boolSpine_true⟩
+
 end E213.Theory.Raw.CoResidue

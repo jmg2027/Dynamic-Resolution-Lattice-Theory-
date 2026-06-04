@@ -17,13 +17,14 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 41 essays are grouped into nine thematic sub-directories — distinct
+The 42 essays are grouped into nine thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
 **I. `foundations/` — the residue.**
 `the_form_of_the_residue`, `the_residue_as_primitive`,
-`the_residue_as_state_machine`, `the_upper_fold_pattern`.
+`the_residue_as_state_machine`, `the_upper_fold_pattern`,
+`the_frontier_has_a_form`.
 
 **II. `cohomology/` — the c-counter programme.**
 `c_counter_as_layer_count`, `disjoint_layers_as_direct_sum`,
@@ -69,6 +70,7 @@ others together):
 | `the_modular_geodesic_lens.md` | **Is geodesic-projection 213's "one engine"?** Several objects (CF unit floor `W²=1`, `Δ`-trace split, Stern-Brocot/Farey, Markov spectrum, spiral coordinate) are one `Lens` reading — the residue read at the modular surface `ℍ/PSL(2,ℤ)` (geodesic + cutting sequence).  But the engine is `P`/the residue; geodesic is its modular *facet* (`view promoted to identity` if collapsed), and the open kernel `H` is itself a geodesic cutting-sequence statement.  Engine built in Lean: `ModularGeodesicLens.mediantLens` + `mediantLens_view_reachable` (Raw mediant-Lens view ⊆ `SternBrocotReachable`, ∅-axiom). | `Real213/ModularGeodesicLens` (`mediantLens`, `mediantLens_view_reachable`) + `ContinuedFractionFloor.cf_det_sq` + `HyperbolicEllipticTrace` + `GoldenFormMarkov` + `Mobius213SternBrocot` + `SpiralCoordinate` + `the_form_of_the_residue.md` + `every_axis_sees_p.md` + `object1_not_surjective` + `05_no_exterior.md §5.4` |
 | `the_upper_fold_pattern.md` | **Proof as the same fold read at a finer resolution**: how composite Markov uniqueness (Frobenius 1913) closes through a seven-level tower of folds (window=σ-transversal → unit-root torsor → ∏ folds via CRT → free action → orbit reduction), and why "templatise the wall, the template is again a fold" is forced by no-exterior, not a heuristic. | `theory/math/analysis/markov_uniqueness.md` "The upper-fold pattern" + `Real213/SternBrocotMarkov` §20–§29 + `seed/AXIOM/05_no_exterior.md` §5.1 + `object1_not_surjective` (`math/completeness_without_completeness.md`) + `the_form_of_the_residue.md` |
 | `the_residue_as_primitive.md` | The **inversion**: take the self-pointing act as primitive — Raw = µF, the residue-escape = νF.  How is the exact slash-νF built ∅-axiom, no coinduction? | `Theory/Raw/{MuNuMirror,CoResidue}` (the M-type final coalgebra) + `Theory/Raw/{Lambek,PrimitiveTower}` |
+| `the_frontier_has_a_form.md` | What does 213 do for the **frontier of mathematics**?  The split is not structured-floor vs formless-sea but **µF inductive-complete (crank) vs νF coinductive-complete (map)**: no-exterior forces the escape to *be* the residue shape — self-similar (`spineL_unique`), populated (`nu_population_capstone`), acted on *freely* by the lone symmetry (`coSwap_boolSpine_free_action`).  The frontier is charted, not removed; summits stay open. | `Theory/Raw/CoResidue` (`nu_population_capstone`, `coSwap_boolSpine_free_action`, `spineL_unique`) + `Theory/Raw/{MuNuMirror,Lambek}` + `Lib/Math/Foundations/ResidueForm` + `seed/AXIOM/05_no_exterior.md §5.1` + `the_residue_as_primitive.md` |
 | `the_residue_as_state_machine.md` | The **FSM / RTL reading**: state = state transition (Lambek iso); coalgebra = next-state logic; finality = determinacy; µF/νF = reachable vs trace semantics; `x≠y` = non-degenerate transition.  Closed arc (`StateMachine`, 20 PURE, §1–§9): + reachability (`BuildsIn`), trace equivalence (`TraceEq = ¬Distinct`, no bisimulation), reducedness/minimality, capstone (reachable+reduced+deterministic), loop-close (`spineL` escapes the minimised machine = source-without-enclosure at FSM scale). | `Theory/Raw/StateMachine` + `Theory/Raw/{Lambek,CoResidue,MuNuMirror,PrimitiveTower}` |
 | `kplus1_alpha_power_graduation.md` | What is `(k+1)` in 213? Why does H^k → α^(k+1)? | `math/cohomology/cup_ladder_graduation.md` + `physics/alpha_em/precision_derivation.md` C1 Step 6 |
 | `steenrod_whitehead_bridge.md` | Why does `cup_1(ω, ω) = δ²(ω)` hold at K_{3,2}^{(c=2)}? | `math/cohomology/k32_higher_cohomology.md` + `lean/E213/Lib/Math/Cohomology/Bipartite/FaceCup1At3Cell.lean` |

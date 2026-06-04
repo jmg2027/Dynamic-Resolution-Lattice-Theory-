@@ -18,11 +18,11 @@ observation), not a bisimulation.
 ## Lean source
 
 - Files: `lean/E213/Theory/Raw/MuNuMirror.lean` (7 PURE),
-  `lean/E213/Theory/Raw/CoResidue.lean` (≈43 theorems, 0 DIRTY); umbrella
+  `lean/E213/Theory/Raw/CoResidue.lean` (99 PURE, 0 DIRTY); umbrella
   `lean/E213/Theory/Raw/API.lean`.
 - Built on `Theory/Raw/Lambek` (µF: `decompose`, `isPart_wf`, `no_infinite_descent`,
   `terminal_iff_atom`) and `Theory/Raw/PrimitiveTower` (`rawTower`).
-- ∅-axiom: 0 DIRTY (CoResidue 64 / MuNuMirror 7 PURE in the dependency-closed scan).
+- ∅-axiom: 0 DIRTY (CoResidue 99 / MuNuMirror 7 PURE in the dependency-closed scan).
 
 ## Narrative
 
@@ -109,7 +109,13 @@ positive-`Distinct`, pointwise, ∅-axiom discipline:
     both `SlashNu` constraints, and carries `spineL` to a *distinct* escape (the `b`-spine).
     Honest scope: this is the *label-level* (atomic) content of `swap` (`coSwap_atom_a/b` mirror
     `Raw.swap_a/b`); the full-tree intertwining fails because `Tree.swap` reorders children by
-    `cmp` to stay canonical while `coSwap` is positional.
+    `cmp` to stay canonical while `coSwap` is positional.  On the **bit-stream** family that
+    label-level content is *exact and free* (`coSwap_boolSpine_free_action`): `coSwap (boolSpine
+    f) = boolSpine (Bool.not ∘ f)` pointwise (`coSwap_boolSpine`), and `coSwap` fixes *no*
+    bit-stream escape (`coSwap_boolSpine_distinct` — `f` and `Bool.not ∘ f` differ at every
+    index), so the order-2 swap group acts **without fixed point** on the `(Nat→Bool)`-many
+    escapes; `spineL` is the `f ≡ true` member, so its move is one instance.  Clean precisely
+    where the tree-seed intertwining fails — a single leaf has no children to reorder.
 
   - **`spineL` is unique** (`spineL_unique`).  It is the *unique* co-tree whose root branches,
     whose left subtree is the constant leaf-`a`, and whose right subtree is *itself* (the
@@ -140,6 +146,7 @@ deep spine — the tight converse to the reachability upper bound.)
 | `spine_family_populates_nu` | `Theory/Raw/CoResidue` | one escape per finite Raw (`spineOf` family, `Distinct`-preserving) |
 | `boolSpine_injects_bitstreams` | `Theory/Raw/CoResidue` | `(Nat→Bool) ↪ SlashNu` preserving `Distinct` (honest "uncountable") |
 | `coSwap_nu_endomorphism` | `Theory/Raw/CoResidue` | `swap` acts on νF (leaf-relabel involution; moves `spineL`) |
+| `coSwap_boolSpine_free_action` | `Theory/Raw/CoResidue` | `swap` acts *freely* on the bit-stream escapes (exact intertwining, no fixed escapee) |
 | `spineL_unique` | `Theory/Raw/CoResidue` | `spineL` is the unique left-spine fixpoint (path induction) |
 | `nu_population_capstone` | `Theory/Raw/CoResidue` | νF is a `Distinct`-rich populated carrier (capstone) |
 | `exact_descent` | `Theory/Raw/StateMachine` | every state reaches an atom in *exactly* `depth` unit-steps |

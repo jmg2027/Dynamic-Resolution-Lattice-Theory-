@@ -124,6 +124,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - `G123_padic_next_directions` — post-closure direction memo for the p-adic
   library (`theory/math/padic_real213.md`).
 - `G178_next_proofline_conjectures` — cross-arc conjecture seed / ranked agenda
-  for populating νF (post-FSM).
-- `G182_completed_system_synthesis` — "the frontier (νF) has a form" — an
-  essay-in-waiting (candidate promotion to `theory/essays/` once reconciled).
+  for populating νF (post-FSM).  P1–P6 + §18 (`coSwap_boolSpine_free_action`, the
+  swap group's free action on the bit-stream escapes) closed ∅-axiom; remaining
+  open = the consolidation bridges (C-phys) + adjacent (ε₀ diagonal, φ identity).
+  Closure record: `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form}.md`.
+
+Closure record (promoted off this board):
+`G182_completed_system_synthesis` ("the frontier (νF) has a form") →
+`theory/essays/foundations/the_frontier_has_a_form.md`; source archived at
+`research-notes/archive/G182_completed_system_synthesis.md`.
