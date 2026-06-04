@@ -21,6 +21,7 @@ number tower are the one residue read through the multiplicative and additive fo
   - `lean/E213/Lens/Number/IntFoldForms.lean` — ℤ's two status-symmetric fold forms (13 PURE)
   - `lean/E213/Lens/Number/FoldDuality.lean` — negation/reciprocal mirror on the fixture (13 PURE)
   - `lean/E213/Lens/Number/FoldKlein.lean` — the Klein four-group + fixed-point-free antipode (9 PURE)
+  - `lean/E213/Lib/Math/Real213/FoldReflections.lean` — matrix witness: folds = reflections, `N·R = S` (11 PURE)
   - `lean/E213/Lib/Math/DetSpectrumPoles.lean` — the two poles as the two folds' non-values (1 PURE)
   - `lean/E213/Lib/Math/MaxEntropy.lean` — structurelessness as a positive property (8 PURE)
 - Canon: `seed/AXIOM/06_lens_readings.md` §6.5, §6.6, §6.9.
@@ -92,13 +93,16 @@ non-identity elements are completely classified by which orbit they fix: `negQ` 
 the units, `bothSwap` neither (`klein_fixed_orbit_profile`).
 
 Across frames, `bothSwap` is the negative reciprocal `x ↦ −1/x`: on the fixture `∞ ↦ 0`, `0 ↦ ∞`,
-`+1 ↦ −1`, `−1 ↦ +1`.  That is precisely the Möbius action of `S = [[0, −1], [1, 0]] = comp 0 1 =
-Mat2.S` — the **founding elliptic swap**, the elliptic floor of the discriminant dial
-(`EllipticPeriodicTier.comp_eq_S`, `FoundingDynamicBridge.founding_swap_is_elliptic_floor`, `S² =
-−I`).  So the antipode of the §6.9 Klein group is the static invert-swap of the number-tower
-founding, and its matrix order `4` (`periodic_elliptic_S`) halves to projective order `2` exactly
-because `S² = −I` acts trivially on the projective fixture.  The §6.9 fold structure and the elliptic
-dial are one structure, joined at this swap.
+`+1 ↦ −1`, `−1 ↦ +1`.  That is precisely the action of `S = [[0, −1], [1, 0]] = ModularElliptic.S` —
+the **founding elliptic swap**, the elliptic floor of the discriminant dial.  This is a matrix
+theorem, not only a fixture coincidence (`FoldReflections`): the two folds are the reflections
+`N = [[−1,0],[0,1]]` (negation) and `R = [[0,1],[1,0]]` (reciprocal), both involutions with
+`det = −1`, and `N · R = S` (`negation_recip_eq_swap`) — two reflections compose to the rotation `S`
+(`det = +1`, `two_reflections_compose_to_founding_swap`).  `S` has matrix order `4` with `S² = −I`
+(`S_sq_central`, `ModularElliptic.modular_generator_orders`), halving to projective order `2` exactly
+because `−I` acts trivially on the projective fixture; the folds commute only projectively
+(`recip_negation_eq_neg_swap`: `R · N = −I · S`).  So `{I, N, R, S}` is Klein four modulo the central
+`±I`, and the §6.9 fold structure and the elliptic dial are one structure, joined at this swap.
 
 ### The same residue is the maximum-entropy ceiling
 
@@ -130,6 +134,7 @@ measure-free) rather than as a privation (`MaxEntropy.maxEntropy_not_surjective`
 | `two_folds_dual_on_pairs` | `FoldDuality` | negation fixes `{0,∞}`/swaps `{±1}`; reciprocal the mirror |
 | `klein_four_group` | `FoldKlein` | the two folds generate `ℤ/2 × ℤ/2` |
 | `klein_fixed_orbit_profile` | `FoldKlein` | the three folds classified by fixed orbit (hole / unit / none) |
+| `two_reflections_compose_to_founding_swap` | `FoldReflections` | folds are reflections (`det −1`); `N·R = S` the founding swap (`det +1`); `S² = −I` |
 | `det_spectrum_poles_and_center` | `DetSpectrumPoles` | hole at `q=0`, ceiling at `q=−1`, centre at `q=+1` |
 | `maxEntropy_not_surjective` | `MaxEntropy` | structurelessness as a positive non-surjection |
 

@@ -76,6 +76,7 @@ import E213.Lib.Math.Real213.SpiralRotationInvariant
 import E213.Lib.Math.Real213.GoldenFormMarkov
 import E213.Lib.Math.Real213.MarkovTree
 import E213.Lib.Math.Real213.ModularElliptic
+import E213.Lib.Math.Real213.FoldReflections
 import E213.Lib.Math.Real213.LagrangeExtremes
 import E213.Lib.Math.Real213.PentagonGoldenTrace
 import E213.Lib.Math.Real213.HyperbolicEllipticTrace

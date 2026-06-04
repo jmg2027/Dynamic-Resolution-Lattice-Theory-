@@ -482,6 +482,16 @@ bundles the full `ℤ/2 × ℤ/2` table (each involutive + the three pairwise pr
 multiplicative fold, and their antipode product exhaust the involutive symmetries of the hole/unit
 fixture.  All by `rfl` / `decide`.
 
+`E213.Lib.Math.Real213.FoldReflections` — **11 PURE**.  The matrix witness of `FoldKlein`: the two
+folds are the integer matrices `N = [[−1,0],[0,1]]` (negation) and `R = [[0,1],[1,0]]` (reciprocal),
+both **involutive reflections** (`N_involutive`, `R_involutive`; `N_det = R_det = −1`), and their
+product is the founding elliptic swap `N · R = S` (`negation_recip_eq_swap`, `ModularElliptic.S`,
+`det = +1` — two reflections compose to a rotation).  `S² = −I` (`S_sq_central`) — matrix order `4`
+halving to projective order `2`; the folds commute only projectively (`recip_negation_eq_neg_swap`:
+`R · N = −I · S`, differing by the central Cassini sign).  Capstone
+`two_reflections_compose_to_founding_swap`.  All by `decide`.  Closes the cross-frame link
+`FoldKlein` left narrative.
+
 Also extended this thread (already cataloged elsewhere): `Cauchy.ThueMorseAperiodic` (42 PURE — the
 canonical dense witness, run-length ≤ 2, automatic structure `tm_eq_popParity`, dyadic
 self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction `tmCF`) and
