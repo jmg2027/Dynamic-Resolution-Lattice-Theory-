@@ -9,7 +9,7 @@ demote to `abbrev` (or inline) atop a parametric family
 ## §1 Diagnosis (current state)
 
 - **Three syntactically distinct definitions of `N_U` coexist and agree
-  only by `decide`**: `Lib/Math/ResolutionLimit.lean` (`d^(d*d)`),
+  only by `decide`**: `Lib/Math/Foundations/ResolutionLimit.lean` (`d^(d*d)`),
   `Lib/Math/UniverseChain/Universe.lean` (`5^25` literal), and
   `Lib/Physics/Foundations/NResolutionFromFractal.lean` (`d^numV`).
   Equality is numerical, not structural.
@@ -79,7 +79,7 @@ After execution:
   level L".  Add `def configCount (n : Nat) : Nat := d ^ (numV n)`
   in a canonical home (probably new file
   `Lib/Math/Cohomology/Fractal/ConfigCount.lean` or appended to
-  `Lib/Math/ResolutionLimit.lean`).
+  `Lib/Math/Foundations/ResolutionLimit.lean`).
 - **Effort**: 1 hr.
 - **Depends on**: nothing.
 
@@ -89,7 +89,7 @@ After execution:
   surfaced **5+ independent defs of `5^25`** under different framing
   rhetoric — all must collapse.
 - **Files changed**:
-  - `Lib/Math/ResolutionLimit.lean`: change `def N_U : Nat := d^(d*d)`
+  - `Lib/Math/Foundations/ResolutionLimit.lean`: change `def N_U : Nat := d^(d*d)`
     to `abbrev N_U : Nat := configCount 2`.
   - `Lib/Math/UniverseChain/Universe.lean`: delete `def N_U := 5^25`;
     use `ResolutionLimit.N_U` (the abbrev) or inline `configCount 2`.
@@ -119,7 +119,7 @@ After execution:
 ### Phase 3 — Delete `ResolutionInvariant` record (Critic Option e)
 
 - **Scope**: dismantle the 4-way convergence fiction.
-- **Files changed**: `Lib/Math/ResolutionLimit.lean`.
+- **Files changed**: `Lib/Math/Foundations/ResolutionLimit.lean`.
 - **Decision**:
   - Delete `structure ResolutionInvariant` + `resolutionInvariantWitness`
     entirely.
@@ -128,7 +128,7 @@ After execution:
     - `theorem fractal_iter_two_count : configCount 2 = NResolutionFromFractal.n_resolution_candidate`
     - `theorem coloring_K25_count : configCount 2 = FractalLensCardinality.K25_coloring_count`
   - `tensorDOF` and `injProjSpace`: simply **gone**.  No replacement.
-- **Files changed**: `Lib/Math/ResolutionLimit.lean`,
+- **Files changed**: `Lib/Math/Foundations/ResolutionLimit.lean`,
   `STRICT_ZERO_AXIOM.md` (update categorization).
 - **Success**: no `ResolutionInvariant` in codebase; 2 standalone
   bridging lemmas exist; `lake build` clean.

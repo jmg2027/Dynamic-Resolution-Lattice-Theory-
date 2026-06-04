@@ -35,7 +35,7 @@ The honest reading: the two are not identified, but are
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.GradedRingConfigCountBridge
+namespace E213.Lib.Math.Foundations.GradedRingConfigCountBridge
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Fractal.ConfigCount
@@ -152,4 +152,4 @@ theorem graded_ring_nu_bridge_capstone :
     ∧ configCount 2 = 298023223876953125 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.GradedRingConfigCountBridge
+end E213.Lib.Math.Foundations.GradedRingConfigCountBridge

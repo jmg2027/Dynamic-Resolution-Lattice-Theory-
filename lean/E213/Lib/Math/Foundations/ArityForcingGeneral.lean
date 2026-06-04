@@ -19,7 +19,7 @@ Hilbert-ε.  Here we replace `Exists.choose` by a `Bool`-guard
 `isBase` + a constructive total function `getBase`.
 -/
 
-namespace E213.Lib.Math.ArityForcingGeneral
+namespace E213.Lib.Math.Foundations.ArityForcingGeneral
 /-- Raw with base `Fin N` and relation arity `k` (encoded as functions
     `Fin k → RawNk`). -/
 inductive RawNk (N k : Nat) where
@@ -93,4 +93,4 @@ theorem no_reachable_rel {N k : Nat} (h : N < k)
 -- `(k = 2, N = 2)` is the unique minimal non-degenerate, non-vacuous
 -- choice.
 
-end E213.Lib.Math.ArityForcingGeneral
+end E213.Lib.Math.Foundations.ArityForcingGeneral

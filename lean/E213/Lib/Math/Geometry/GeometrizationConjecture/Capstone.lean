@@ -189,7 +189,7 @@ theorem R1_close_certificate :
         = 2 ^ selfPointingAxes
     -- (3) M1 atomicity + Möbius
     ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 1 = 3
-    ∧ E213.Lib.Math.C2DoublingDerivation.c_multiplicity = 2
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
     -- (4) Geometrization spectrum
     ∧ chartVisibleAxes 3 1 = 3
     ∧ chartVisibleAxes 3 2 = 4
@@ -217,7 +217,7 @@ theorem R1_close_certificate :
   refine ⟨rfl, rfl, ?_, ?_, ?_, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, rfl, rfl, ?_, ?_, ?_, rfl⟩
   · exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1
   · exact E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter_2_1
-  · exact E213.Lib.Math.C2DoublingDerivation.c_multiplicity_eq_2
+  · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
   · decide
   · decide
   · decide

@@ -1,4 +1,4 @@
-import E213.Lib.Math.C2DoublingDerivation
+import E213.Lib.Math.Foundations.C2DoublingDerivation
 
 /-!
 # 213-native metric-geometry types

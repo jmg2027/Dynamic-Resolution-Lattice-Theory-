@@ -1,4 +1,4 @@
-import E213.Lib.Math.CrossDomainUnification
+import E213.Lib.Math.Foundations.CrossDomainUnification
 
 /-!
 # ParadigmDomain typeclass (C6 Step 3)
@@ -23,7 +23,7 @@ that all 11 domains share a common toolkit.
 STRICT ∅-AXIOM (typeclass definition + decide instances).
 -/
 
-namespace E213.Lib.Math.ParadigmDomain
+namespace E213.Lib.Math.Foundations.ParadigmDomain
 
 /-- Abstract paradigm-witness record: each 213-native domain
     provides a truncation grade and a decide-stable atom. -/
@@ -101,4 +101,4 @@ theorem uniform_paradigm_witnesses :
     ∧ shared_truncation_holds = true := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.ParadigmDomain
+end E213.Lib.Math.Foundations.ParadigmDomain

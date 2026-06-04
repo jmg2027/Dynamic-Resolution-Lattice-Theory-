@@ -2,7 +2,7 @@ import E213.Meta.Tactic.NativeGuard
 import E213.Lib.Math.Foundations.PatternCatalog.Instance
 import E213.Lib.Math.Foundations.PatternCatalog.Algebra
 import E213.Lib.Math.Foundations.PatternCatalog.Span
-import E213.Lib.Math.ResolutionLimit
+import E213.Lib.Math.Foundations.ResolutionLimit
 import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 
 /-!
@@ -57,7 +57,7 @@ open E213.Meta.Tactic.NativeGuard
 #guard_native E213.Lib.Math.Foundations.PatternCatalog.Span.finalVerdict
 
 -- Cantor anchor + parametric configuration count
-#guard_native E213.Lib.Math.ResolutionLimit.cantor_inhabitant_absence
+#guard_native E213.Lib.Math.Foundations.ResolutionLimit.cantor_inhabitant_absence
 #guard_native E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCountD
 
 end E213.Meta.Tactic.NativeGuardTest

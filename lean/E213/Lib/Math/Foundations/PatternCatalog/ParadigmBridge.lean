@@ -1,6 +1,6 @@
 import E213.Lib.Math.Foundations.PatternCatalog.Core
 import E213.Lib.Math.Foundations.PatternCatalog.Algebra
-import E213.Lib.Math.ParadigmDomain
+import E213.Lib.Math.Foundations.ParadigmDomain
 /-!
 # Pattern Catalog ↔ ParadigmDomain bridge
 
@@ -33,7 +33,7 @@ namespace E213.Lib.Math.Foundations.PatternCatalog.ParadigmBridge
 
 open E213.Lib.Math.Foundations.PatternCatalog.Core (Aggregate)
 open E213.Lib.Math.Foundations.PatternCatalog.Algebra (OpWord)
-open E213.Lib.Math.ParadigmDomain
+open E213.Lib.Math.Foundations.ParadigmDomain
   (ParadigmWitness
    Combinatorics_paradigm Probability_paradigm Information_paradigm
    Logic_paradigm Topology_paradigm Multivariable_paradigm

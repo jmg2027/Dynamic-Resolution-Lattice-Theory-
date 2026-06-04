@@ -426,5 +426,5 @@ GRA_global = ∏'_p GRA_p  (restricted product)
 - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean` — grade-shift formalization (R₅)
 - `lean/E213/Lib/Math/Topology/ModulusStructure.lean` — 4-source modulus unification
 - `lean/E213/Lib/Math/Real213/Core/ValidCut.lean` — continuum substrate
-- `lean/E213/Lib/Math/ParadigmDomainGradedRing.lean` — Ring213 graded hierarchy
+- `lean/E213/Lib/Math/Foundations/ParadigmDomainGradedRing.lean` — Ring213 graded hierarchy
 - `lean/E213/Lib/Math/CayleyDickson/` — CD Tower (det-loss dual to GRA Tower)

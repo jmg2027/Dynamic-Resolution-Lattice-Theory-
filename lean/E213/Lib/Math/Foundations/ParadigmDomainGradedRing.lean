@@ -1,4 +1,4 @@
-import E213.Lib.Math.ParadigmDomainGraded
+import E213.Lib.Math.Foundations.ParadigmDomainGraded
 import E213.Lib.Math.Combinatorics.GeneratingFunction
 import E213.Lib.Math.Combinatorics.Binomial
 
@@ -27,9 +27,9 @@ same `CoeffSeq` with binomial coefficients of row 5.
 STRICT ∅-AXIOM (decide on Nat).
 -/
 
-namespace E213.Lib.Math.ParadigmDomainGradedRing
+namespace E213.Lib.Math.Foundations.ParadigmDomainGradedRing
 
-open E213.Lib.Math.ParadigmDomainGraded (trunc_op)
+open E213.Lib.Math.Foundations.ParadigmDomainGraded (trunc_op)
 open E213.Lib.Math.Combinatorics.GeneratingFunction (CoeffSeq convolution)
 open E213.Lib.Math.Combinatorics.Binomial (binom_5_row)
 open E213.Lib.Physics.Simplex.Counts (binom)
@@ -114,4 +114,4 @@ theorem paradigm_graded_ring_master :
     ∧ paradigm_cup_sum = 2 ^ 10 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.ParadigmDomainGradedRing
+end E213.Lib.Math.Foundations.ParadigmDomainGradedRing

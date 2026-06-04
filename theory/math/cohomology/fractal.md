@@ -39,7 +39,7 @@ The physics lens selects the slice `(d, n) = (5, 2)`:
   · The numerical value
     `configCountD 5 2 = 5^25 = 298 023 223 876 953 125`
     is the slice display-aliased `N_U` in
-    `Lib/Math/ResolutionLimit.lean`.
+    `Lib/Math/Foundations/ResolutionLimit.lean`.
 
 The single canonical citation point is the umbrella
 `Lib/Math/Cohomology/Fractal.lean`, which re-exports the five

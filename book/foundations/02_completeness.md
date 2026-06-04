@@ -129,7 +129,7 @@ malformed dichotomy; the cut *is* the narrowing.
 **Flag (broken pointer).**  §6.7 line 294 cites `seed/RESOLUTION_LIMIT_SPEC.md`, which
 does not exist.  The resolution-ceiling content lives in
 `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (`configCountD d n = d^(d^n)`) and
-`Lib/Math/ResolutionLimit.lean`.  The pointer should be corrected.
+`Lib/Math/Foundations/ResolutionLimit.lean`.  The pointer should be corrected.
 
 ## 2.5 Summary
 

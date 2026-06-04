@@ -40,7 +40,7 @@ descent/overflow steps in `Cauchy/ReentryUnit`), not a forced common map.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.ResidueForm
+namespace E213.Lib.Math.Foundations.ResidueForm
 
 open E213.Theory (Raw)
 open E213.Lens.SemanticAtom (HasDistinguishing raw_initial)
@@ -84,4 +84,4 @@ theorem no_exterior_source_without_enclosure :
    E213.Lib.Math.Algebra.Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt,
    E213.Theory.Atomicity.Five.atomic_iff_five⟩
 
-end E213.Lib.Math.ResidueForm
+end E213.Lib.Math.Foundations.ResidueForm

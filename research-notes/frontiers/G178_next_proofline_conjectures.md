@@ -127,5 +127,5 @@ preemptively warn against (mirrors the `5²⁵ = N_U` deletion):
 
 Three agents (frontier survey, µF/νF extension, physics bridge), 2026-06-02.  Anchors:
 `Theory/Raw/{CoResidue,MuNuMirror,Lambek,PrimitiveTower,StateMachine,Swap}`,
-`Lib/Math/ResidueForm`, `Theory/Atomicity/Five`, essays `the_residue_as_{primitive,state_machine}`.
+`Lib/Math/Foundations/ResidueForm`, `Theory/Atomicity/Five`, essays `the_residue_as_{primitive,state_machine}`.
 Adjacent still-open (survey): native ε₀ diagonal (G173, hard), frozen=dynamic φ identity (med).

@@ -15,7 +15,7 @@ reduction that pulls `propext` via `simp only`. We define a
 hand-rolled `findIf` with explicit `if` so unfolding stays ∅-axiom.
 -/
 
-namespace E213.Lib.Math.Search
+namespace E213.Lib.Math.Foundations.Search
 
 /-- Hand-rolled find — keeps unfolding ∅-axiom-clean (no `match`/`bif`). -/
 def findIf {α : Type} (p : α → Bool) : List α → Option α
@@ -63,7 +63,7 @@ theorem findStructure_mem {D X : Type}
     findStructure pred cands data = some d → d ∈ cands :=
   findIf_mem (fun d' => pred d' data) cands d
 
-end E213.Lib.Math.Search
+end E213.Lib.Math.Foundations.Search
 
 /-!
 # Instances of `findStructure`
@@ -78,7 +78,7 @@ Instances:
 All ∅-axiom by construction.
 -/
 
-namespace E213.Lib.Math.Search
+namespace E213.Lib.Math.Foundations.Search
 
 open E213.Tactic.BoolHelper (and_eq_true_pair)
 
@@ -109,4 +109,4 @@ theorem findIdempotent_sound {α : Type} [DecidableEq α]
   have ⟨h1, h2⟩ := and_eq_true_pair h12
   exact ⟨of_decide_eq_true h1, of_decide_eq_true h2, of_decide_eq_true h3⟩
 
-end E213.Lib.Math.Search
+end E213.Lib.Math.Foundations.Search

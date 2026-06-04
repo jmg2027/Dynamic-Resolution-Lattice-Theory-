@@ -1,7 +1,7 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Ansatz
 import E213.Lib.Math.Geometry.GenerationRule.TriangleIteration
 import E213.Lib.Math.Cohomology.Examples.TopologyCompare
-import E213.Lib.Math.C2DoublingDerivation
+import E213.Lib.Math.Foundations.C2DoublingDerivation
 
 /-!
 # M1 routes: atomicity + cohomology + Möbius (steps 4, 5, 8)
@@ -187,15 +187,15 @@ because it doesn't depend on cohomology being unique.
 /-- c = 2 derived from Möbius mod-5 period structure via 
     binary-cover ratio.  Independent of cohomology-route. -/
 theorem c2_derived_from_mobius_period :
-    E213.Lib.Math.C2DoublingDerivation.half_period = 5
-    ∧ E213.Lib.Math.C2DoublingDerivation.full_period = 10
-    ∧ E213.Lib.Math.C2DoublingDerivation.c_multiplicity = 2
-    ∧ E213.Lib.Math.C2DoublingDerivation.c_multiplicity
-        = E213.Lib.Math.C2DoublingDerivation.full_period
-          / E213.Lib.Math.C2DoublingDerivation.half_period :=
-  ⟨E213.Lib.Math.C2DoublingDerivation.half_period_eq_d,
-   E213.Lib.Math.C2DoublingDerivation.full_period_eq_2d,
-   E213.Lib.Math.C2DoublingDerivation.c_multiplicity_eq_2,
+    E213.Lib.Math.Foundations.C2DoublingDerivation.half_period = 5
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.full_period = 10
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity
+        = E213.Lib.Math.Foundations.C2DoublingDerivation.full_period
+          / E213.Lib.Math.Foundations.C2DoublingDerivation.half_period :=
+  ⟨E213.Lib.Math.Foundations.C2DoublingDerivation.half_period_eq_d,
+   E213.Lib.Math.Foundations.C2DoublingDerivation.full_period_eq_2d,
+   E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2,
    rfl⟩
 
 /-- ★★★★ **Triple-route uniqueness for K_{3,2}^{(c=2)}**
@@ -218,10 +218,10 @@ theorem triple_route_K32_c2_unique :
     E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 0 = 2
     ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 1 = 3
     -- Route 2: Möbius mod-5 → c = 2
-    ∧ E213.Lib.Math.C2DoublingDerivation.c_multiplicity = 2
-    ∧ E213.Lib.Math.C2DoublingDerivation.c_multiplicity
-        = E213.Lib.Math.C2DoublingDerivation.full_period
-          / E213.Lib.Math.C2DoublingDerivation.half_period
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity
+        = E213.Lib.Math.Foundations.C2DoublingDerivation.full_period
+          / E213.Lib.Math.Foundations.C2DoublingDerivation.half_period
     -- Route 3: cohomology verification (not forcing)
     ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 2 = 8
     -- Combined → K_{3,2}^{(c=2)} unique
@@ -229,7 +229,7 @@ theorem triple_route_K32_c2_unique :
     ∧ chartVisibleAxes 3 2 = 4
     ∧ selfPointingAxes = 1 := by
   refine ⟨rfl, rfl, ?_, rfl, ?_, rfl, rfl, rfl⟩
-  · exact E213.Lib.Math.C2DoublingDerivation.c_multiplicity_eq_2
+  · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
   · decide
 
 

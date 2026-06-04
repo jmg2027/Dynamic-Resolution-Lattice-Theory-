@@ -1,5 +1,5 @@
-import E213.Lib.Math.ParadigmDomain
-import E213.Lib.Math.SimplexCountsBridge
+import E213.Lib.Math.Foundations.ParadigmDomain
+import E213.Lib.Math.Foundations.SimplexCountsBridge
 
 /-!
 # Paradigm Domain Graded Operator (C6 Step 4)
@@ -32,10 +32,10 @@ Plus a **graded sum** identity: the total count
 STRICT ∅-AXIOM (decide on Nat).
 -/
 
-namespace E213.Lib.Math.ParadigmDomainGraded
+namespace E213.Lib.Math.Foundations.ParadigmDomainGraded
 
-open E213.Lib.Math.ParadigmDomain
-open E213.Lib.Math.SimplexCountsBridge (binom)
+open E213.Lib.Math.Foundations.ParadigmDomain
+open E213.Lib.Math.Foundations.SimplexCountsBridge (binom)
 
 /-! ## §1 — The shared truncation operator -/
 
@@ -112,4 +112,4 @@ theorem paradigm_graded_master :
     ∧ Combinatorics_paradigm.truncation_grade = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.ParadigmDomainGraded
+end E213.Lib.Math.Foundations.ParadigmDomainGraded

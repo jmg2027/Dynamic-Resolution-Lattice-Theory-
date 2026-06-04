@@ -1,4 +1,4 @@
-import E213.Lib.Math.ParadigmDomain
+import E213.Lib.Math.Foundations.ParadigmDomain
 import E213.Lib.Math.Foundations.PatternCatalog.ParadigmBridge
 /-!
 # ParadigmDomain — physics-side extension
@@ -27,9 +27,9 @@ boundary.
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.ParadigmDomainPhysics
+namespace E213.Lib.Math.Foundations.ParadigmDomainPhysics
 
-open E213.Lib.Math.ParadigmDomain (ParadigmWitness)
+open E213.Lib.Math.Foundations.ParadigmDomain (ParadigmWitness)
 
 /-! ## §1 — Physics-side paradigm instances -/
 
@@ -122,7 +122,7 @@ Combine the 9 math paradigms (`ParadigmDomain.*_paradigm`) with the
     yield `truncation_grade = 5`. -/
 theorem joint_math_physics_uniform :
     -- Math side (9 paradigms via the `Combinatorics_paradigm` shared value)
-    E213.Lib.Math.ParadigmDomain.Combinatorics_paradigm.truncation_grade = 5
+    E213.Lib.Math.Foundations.ParadigmDomain.Combinatorics_paradigm.truncation_grade = 5
     -- Physics side (6 paradigms)
     ∧ AlphaEM_paradigm.truncation_grade = 5
     ∧ AtomicMass_paradigm.truncation_grade = 5
@@ -131,9 +131,9 @@ theorem joint_math_physics_uniform :
     ∧ Couplings_paradigm.truncation_grade = 5
     ∧ Geometrization_paradigm.truncation_grade = 5
     -- All math paradigms agree
-    ∧ E213.Lib.Math.ParadigmDomain.Probability_paradigm.truncation_grade = 5
-    ∧ E213.Lib.Math.ParadigmDomain.Information_paradigm.truncation_grade = 5
-    ∧ E213.Lib.Math.ParadigmDomain.Cohomology_paradigm.truncation_grade = 5 := by
+    ∧ E213.Lib.Math.Foundations.ParadigmDomain.Probability_paradigm.truncation_grade = 5
+    ∧ E213.Lib.Math.Foundations.ParadigmDomain.Information_paradigm.truncation_grade = 5
+    ∧ E213.Lib.Math.Foundations.ParadigmDomain.Cohomology_paradigm.truncation_grade = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> rfl
 
 /-! ## §5 — Physics paradigm capstone -/
@@ -172,4 +172,4 @@ theorem physics_paradigm_closure_capstone :
   refine ⟨rfl, rfl, ?_, rfl, rfl, rfl⟩
   exact physics_paradigm_grade_at
 
-end E213.Lib.Math.ParadigmDomainPhysics
+end E213.Lib.Math.Foundations.ParadigmDomainPhysics

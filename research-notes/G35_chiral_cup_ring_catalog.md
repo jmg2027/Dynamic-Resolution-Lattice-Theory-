@@ -178,7 +178,7 @@ Each Δⁿ vertex is itself a sub-Δⁿ at lower level.  Recurse
 d times.  Cardinality = d^(d²) = N_U at fixed-point.
 
   Files: `Lib/Math/Cohomology/Fractal/V25.lean`, `AlphaGUT.lean`,
-         `Level.lean`, `Lib/Math/ResolutionLimit.lean`,
+         `Level.lean`, `Lib/Math/Foundations/ResolutionLimit.lean`,
          `Lib/Physics/Foundations/LensCardinalityFractalLevels.lean`,
          `NUniverseFromFractal.lean`, `FractalLensCardinality.lean`
   Status: `configCount 2 = 5²⁵` family readout ∅-axiom closed
@@ -440,7 +440,7 @@ sample, not exhaustive.
   · `configCount 2 = 5²⁵ = 298,023,223,876,953,125` ★∅
     `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (G120 Phase 1);
     historical `N_U` = `abbrev` to this value in
-    `Lib/Math/ResolutionLimit.lean` (G120 Phase 2)
+    `Lib/Math/Foundations/ResolutionLimit.lean` (G120 Phase 2)
   · Two real derivations at level n = 2:
     fractal-iteration count (`NResolutionFromFractal`) +
     K₂₅ coloring count (`FractalLensCardinality`).
@@ -604,7 +604,7 @@ Status: **Steps 1 + 2 + 3 + 4 closed** (commits `94701e1b`,
     Step 4 (n=2), Step 5 (n=3), symmetry, and Step 6 diagonal.
     STRICT ∅-AXIOM (5/5 PURE).  **C2 conjecture fully closed.**
 
-References: `Lib/Math/ResolutionLimit.lean`,
+References: `Lib/Math/Foundations/ResolutionLimit.lean`,
 `AlphaEM/ChannelCohomologyLoss.lean`.
 
 ### §C3.  Aut(K) gauge group emergence
@@ -760,20 +760,20 @@ Status: **Steps 1 + 2 + 3 closed** (commits `f370ba67`, `93b11f18`,
     Logic, Combinatorics, Topology, Multivariable Calculus,
     Complex Analysis, Measure Theory + 3 cup-ring masters) all
     typecheck simultaneously under one ∅-axiom proof body.
-  · Step 3 (`Lib/Math/ParadigmDomain.lean`): ParadigmWitness typeclass
+  · Step 3 (`Lib/Math/Foundations/ParadigmDomain.lean`): ParadigmWitness typeclass
     encoding `truncation_grade : Nat`, `truncation_holds : Prop`,
     `atom_decidable`.  9 domain instances (Combinatorics,
     Probability, Information, Logic, Topology, Multivariable,
     Complex, Measure + ResolutionLimit) all uniform with
     `truncation_grade = 5` (= d).  Uniform-paradigm master ∅-axiom.
-  · Step 4 (`Lib/Math/ParadigmDomainGraded.lean`):
+  · Step 4 (`Lib/Math/Foundations/ParadigmDomainGraded.lean`):
     **explicit shared graded operator**.  Defines
     `trunc_op (g) := if g ≤ 5 then binom 5 g else 0`.
     Sequence (1, 5, 10, 10, 5, 1, 0, 0, ...) is identical
     across all 9 domains; total `Σ_{g=0..5} trunc_op g = 32 = 2⁵`
     (= |2^Δ⁴| Δ⁴ power-set).  Vanishing beyond grade 5 = d
     captured structurally.  STRICT ∅-AXIOM (15/15 PURE).
-  · Step 5 (`Lib/Math/ParadigmDomainGradedRing.lean`):
+  · Step 5 (`Lib/Math/Foundations/ParadigmDomainGradedRing.lean`):
     **graded-ring instantiation**.  Reinterprets `trunc_op` as
     `CoeffSeq` (= `Nat → Nat`) using the Combinatorics marathon's
     `GeneratingFunction` infrastructure (merged from main #44).

@@ -182,7 +182,7 @@ theorem geometrization_followup_close_certificate :
     isotropic_geometry_count + anisotropic_geometry_count = 8
     ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
     ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
-    ∧ E213.Lib.Math.C2DoublingDerivation.c_multiplicity = 2
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
     -- Basis +1 / −1 reshape arithmetic
     ∧ isotropicFromTrivial = trivialRepCount + 1
     ∧ anisotropicFromStandard = 2 * standardRepCount - 1
@@ -214,7 +214,7 @@ theorem geometrization_followup_close_certificate :
     ∧ mobius_P_disc % 7 ≠ 0
     -- chartBase-free universal forcing
     ∧ chartBase 3 2 = 5
-    ∧ E213.Lib.Math.C2DoublingDerivation.half_period = 5
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.half_period = 5
     -- KChartLens abstract instances
     ∧ K32_chart_lens.chartVisibleAxes = 4
     ∧ K32_chart_lens.selfPointingAxes = 1
@@ -227,7 +227,7 @@ theorem geometrization_followup_close_certificate :
           ?_, rfl, ?_, ?_, rfl, ?_, ?_, ?_, rfl, rfl, rfl, rfl, ?_, rfl, rfl⟩
   · decide
   · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4
-  · exact E213.Lib.Math.C2DoublingDerivation.c_multiplicity_eq_2
+  · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
   · decide
   · decide
   · decide

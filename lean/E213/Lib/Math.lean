@@ -1,7 +1,7 @@
 import E213.Lib.Math.NumberSystems.Real213
 import E213.Lib.Math.Analysis
 import E213.Lib.Math.Geometry.AngleStructure
-import E213.Lib.Math.ArityForcingGeneral
+import E213.Lib.Math.Foundations.ArityForcingGeneral
 import E213.Lib.Math.Foundations.AxiomSystems
 import E213.Lib.Math.Geometry.BipartiteDecomp
 import E213.Lib.Math.Geometry.CartesianVsDisjoint
@@ -24,7 +24,7 @@ import E213.Lib.Math.Algebra.Linalg213
 import E213.Lib.Math.Algebra.CayleyDickson
 import E213.Lib.Math.Algebra.CassiniUnimodular
 import E213.Lib.Math.Algebra.FiveFloorUnification
-import E213.Lib.Math.ResidueForm
+import E213.Lib.Math.Foundations.ResidueForm
 import E213.Lib.Math.Analysis.Measure
 import E213.Lib.Math.NumberTheory.ModArith
 import E213.Lib.Math.Analysis.Modulus
@@ -39,13 +39,13 @@ import E213.Lib.Math.Probability
 import E213.Lib.Math.Probability.Information
 import E213.Lib.Math.Combinatorics.Logic
 import E213.Lib.Math.Combinatorics
-import E213.Lib.Math.CrossDomainUnification
-import E213.Lib.Math.DualCollapseCapstone
+import E213.Lib.Math.Foundations.CrossDomainUnification
+import E213.Lib.Math.Foundations.DualCollapseCapstone
 import E213.Lib.Math.Algebra.SelfSimilarityBridge
-import E213.Lib.Math.ParadigmDomain
-import E213.Lib.Math.ParadigmDomainGraded
-import E213.Lib.Math.ParadigmDomainGradedRing
-import E213.Lib.Math.ResolutionLimit
+import E213.Lib.Math.Foundations.ParadigmDomain
+import E213.Lib.Math.Foundations.ParadigmDomainGraded
+import E213.Lib.Math.Foundations.ParadigmDomainGradedRing
+import E213.Lib.Math.Foundations.ResolutionLimit
 import E213.Lib.Math.Geometry.Topology
 import E213.Lib.Math.Geometry.TriangularTower
 import E213.Lib.Math.Foundations.UniverseChain

@@ -42,7 +42,7 @@ escape, until paired with a separate `∀ i, convergentᵢ ≠ phiCut` — so �
 such a witness is supplied.
 -/
 
-namespace E213.Lib.Math.CeilingSchema
+namespace E213.Lib.Math.Foundations.CeilingSchema
 
 open E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue (diag diag_not_in_seq)
 open E213.Lib.Math.Analysis.Cauchy.ThueMorseRingEscape (s2Z)
@@ -90,4 +90,4 @@ theorem ceilings_are_nonsurjectivity :
    not_surjective_of_reachedByNoStage s2Z_poly_reached,
    E213.Lens.FlatOntologyClosure.object1_not_surjective⟩
 
-end E213.Lib.Math.CeilingSchema
+end E213.Lib.Math.Foundations.CeilingSchema

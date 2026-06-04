@@ -136,7 +136,7 @@ converges toward without any row being it.
   3. **Dual-collapse as a uniform statement**: the catalog rows above are
      currently separate files; a single "every framework-internal dual is
      self-dual under the pointing view" statement would be the column made
-     explicit.  **DONE** — `Lib/Math/DualCollapseCapstone.lean` (1 PURE):
+     explicit.  **DONE** — `Lib/Math/Foundations/DualCollapseCapstone.lean` (1 PURE):
      `every_dual_is_one_shape` bundles the four proven instances
      (Lambek `two_closures`; FlatOntologyClosure `self_covering_closure`;
      Real213 `object_is_reading_scale_invariant`; OneAsGlue

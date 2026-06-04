@@ -38,7 +38,7 @@ gap이 0이려면 `2k/b`가 정수여야 한다.  factor-2 doubling은 b = 2의 
 
 **5는 새 atom이 아니라 derived**.  `atomic_iff_five`가 정확히 "5 = (3, 2)에서 유일하게 alive한 atomic decomposition"임을 증명: 5 = 2·1 + 3·1.  d = 5 = NS + NT는 *(3, 2)의 readout*.
 
-`Lib/Math/ResolutionLimit.lean` `N_U_eq_d_pow_dsq`: N_U = 5²⁵ — 5가 (3, 2)에서 forced되므로 자동.
+`Lib/Math/Foundations/ResolutionLimit.lean` `N_U_eq_d_pow_dsq`: N_U = 5²⁵ — 5가 (3, 2)에서 forced되므로 자동.
 
 `Lib/Math/Padic/ZpSqrtD.lean` `ZpSqrtD p`: 임의 prime `p`에서 작동 (p = 5, 7, 11, ...).  framework가 이미 모든 prime을 자기 안에 갖고 있다.
 

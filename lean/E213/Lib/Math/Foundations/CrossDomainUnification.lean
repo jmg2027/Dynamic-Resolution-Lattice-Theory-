@@ -38,7 +38,7 @@ STRICT ∅-AXIOM (each conjunct is a ∅-axiom witness from its
 own domain; the conjunction itself is by `refine` + `exact`).
 -/
 
-namespace E213.Lib.Math.CrossDomainUnification
+namespace E213.Lib.Math.Foundations.CrossDomainUnification
 
 
 /-! ## §1 — Shared grade-truncation identity
@@ -157,4 +157,4 @@ theorem cross_domain_unification_master : True := by
     E213.Lib.Physics.AlphaEM.GradedDecomposition.graded_decomposition_master
   trivial
 
-end E213.Lib.Math.CrossDomainUnification
+end E213.Lib.Math.Foundations.CrossDomainUnification

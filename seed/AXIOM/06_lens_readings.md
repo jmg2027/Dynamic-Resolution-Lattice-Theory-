@@ -294,7 +294,7 @@ limit labels, not framework primitives.  The parametric
 configuration count is `configCountD d n = d^(d^n)`
 (`lean/E213/Lib/Math/Cohomology/Fractal/ConfigCount.lean`), a bare
 combinatorial readout with no level privileged; the infinity
-type-distinctions live in `lean/E213/Lib/Math/ResolutionLimit.lean`.
+type-distinctions live in `lean/E213/Lib/Math/Foundations/ResolutionLimit.lean`.
 This is the operational form of "no exterior dialer" at the
 numerical level: the framework does not invoke transcendentals
 because the Lenses that produce numbers terminate at every finite

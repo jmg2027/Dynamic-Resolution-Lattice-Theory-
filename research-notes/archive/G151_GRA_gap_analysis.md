@@ -350,5 +350,5 @@ Adelic/Von Neumann/Motivic:      ~0%   (추측)
 - `lean/E213/Lib/Math/Analysis/ResolutionShift.lean`
 - `lean/E213/Lib/Math/Topology/ModulusStructureFunctor.lean`
 - `lean/E213/Lib/Math/Topology/ModulusStructureAdjunction.lean`
-- `lean/E213/Lib/Math/ParadigmDomainGradedRing.lean`
+- `lean/E213/Lib/Math/Foundations/ParadigmDomainGradedRing.lean`
 - `lean/E213/Lib/Math/GradedRingNUBridge.lean`

@@ -2,7 +2,7 @@
 
 **Date**: 2026-06-02.  **Status**: foundational synthesis (whole-repo read + 4-agent
 discussion + pro/con debate) + 1 ∅-axiom naming capstone.
-**Source of truth (new)**: `lean/E213/Lib/Math/ResidueForm.lean`
+**Source of truth (new)**: `lean/E213/Lib/Math/Foundations/ResidueForm.lean`
 (`no_exterior_source_without_enclosure`, 1 PURE).
 **Method**: genuine read of the entire non-archived repo (seed/AXIOM ×9, theory/ ×156,
 lean/E213 foundational + Lens + Lib rings, research-notes ×75, catalogs ×13) via five

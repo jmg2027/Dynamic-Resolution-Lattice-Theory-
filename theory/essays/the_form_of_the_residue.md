@@ -18,7 +18,7 @@ self-applying act of pointing, with two directions and a forced name:
 
 "No exterior" (`seed/AXIOM/05_no_exterior.md` §5.1) is exactly this conjunction: there is no
 exterior *source* to supply a reading the act does not already source, and no exterior
-*capture* that encloses the act.  `Lib/Math/ResidueForm.no_exterior_source_without_enclosure`
+*capture* that encloses the act.  `Lib/Math/Foundations/ResidueForm.no_exterior_source_without_enclosure`
 states it as one ∅-axiom theorem — and, like every honest statement about the residue, it
 **names** the form without claiming to capture the residue as an object (its own second
 conjunct is that the residue is outside every view).

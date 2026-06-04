@@ -100,7 +100,7 @@ theorem five_way_sym3_cross_frame_capstone :
     -- 2·trivial + 3·standard = 8 (Source 2 decomp)
     ∧ 2 + 2 * 3 = 8
     -- Möbius P pentagonal closure (Source 4)
-    ∧ E213.Lib.Math.C2DoublingDerivation.half_period = 5
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.half_period = 5
     -- Cork signed count = Sym(3)-fixed (Source 5, ★ new)
     ∧ signedCorkTwistCount = 4
     ∧ signedCorkTwistCount

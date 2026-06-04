@@ -202,7 +202,7 @@ broader 213-Algebra catalog (17 domains, 6 C-conjectures C1-C6).
 | `research-notes/G35_*.md` §C2 | Atomic constants uniqueness | covered by `Lib/Physics/Foundations/AtomicConstants*` |
 | `research-notes/G35_*.md` §C3 | Aut(K) gauge group emergence | covered by `theory/physics/symmetry/c3_chain.md` |
 | `research-notes/G35_*.md` §C4 | Σ-spectral signature theorem | covered by `lean/E213/Lib/Math/HodgeConjecture/Pairing/` |
-| `research-notes/G35_*.md` §C6 | Cross-domain unification | covered by `Lib/Math/CrossDomainUnification.lean` |
+| `research-notes/G35_*.md` §C6 | Cross-domain unification | covered by `Lib/Math/Foundations/CrossDomainUnification.lean` |
 
 Hodge §C4 results live with the Hodge chapter
 (`theory/math/cohomology/hodge_conjecture.md`).  C3 §C3 results live

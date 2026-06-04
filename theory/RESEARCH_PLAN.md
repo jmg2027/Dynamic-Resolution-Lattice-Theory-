@@ -272,7 +272,7 @@ narrative.  Readers can verify but not understand.
     many Math files still import `E213.Lib.Physics.*` directly
     without going through a Bridge shim.
   · **Progress (2026-05-26)**: added
-    `lean/E213/Lib/Math/SimplexCountsBridge.lean` and migrated
+    `lean/E213/Lib/Math/Foundations/SimplexCountsBridge.lean` and migrated
     three Math files (`ParadigmDomainGraded`,
     `Mobius213/Px/IterationSpecies`,
     `Mobius213/Px/DecompositionCatalog`) to import the Math-side

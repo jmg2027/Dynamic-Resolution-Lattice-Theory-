@@ -156,7 +156,7 @@ something) is strictly stronger than `ReachedByNoStage` (pointwise: this map mis
 On re-examination the agent's "five separate engines / separate domains" is a taxonomy of *proof
 tactics*, not of *content*.  At the content level **every escape has the same shape**: `∀ stage,
 gen stage ≠ target` = `target ∉ range gen` = **`gen` is not surjective**.  Formalized ∅-axiom in
-`Lib/Math/CeilingSchema.lean` (5 PURE):
+`Lib/Math/Foundations/CeilingSchema.lean` (5 PURE):
   - `ReachedByNoStage gen target := ∀ s, gen s ≠ target`;
   - `not_surjective_of_reachedByNoStage` — the schema *is* non-surjectivity;
   - instances: `diag_reached` (the universal constructive diagonal — Cantor archetype, `∀ f, ¬

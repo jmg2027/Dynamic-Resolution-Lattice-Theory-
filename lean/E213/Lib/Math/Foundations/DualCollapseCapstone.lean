@@ -27,7 +27,7 @@ every single view's image — so this capstone is convergence evidence, not a cl
 to have captured the residue as one object.
 -/
 
-namespace E213.Lib.Math.DualCollapseCapstone
+namespace E213.Lib.Math.Foundations.DualCollapseCapstone
 
 open E213.Theory (Raw)
 
@@ -74,4 +74,4 @@ theorem every_dual_is_one_shape :
     E213.Lib.Math.NumberSystems.Real213.ObjectIsReadingScaleInvariant.object_is_reading_scale_invariant,
     E213.Lib.Math.Algebra.Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt ⟩
 
-end E213.Lib.Math.DualCollapseCapstone
+end E213.Lib.Math.Foundations.DualCollapseCapstone

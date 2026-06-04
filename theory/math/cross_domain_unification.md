@@ -149,7 +149,7 @@ that all 9 domains use the same graded ring.  Beyond this:
 
 ### Physics-side paradigm closure — `ParadigmDomainPhysics.lean` (14 PURE)
 
-`Lib/Math/ParadigmDomainPhysics.lean` extends the 9-math-paradigm
+`Lib/Math/Foundations/ParadigmDomainPhysics.lean` extends the 9-math-paradigm
 bundle to 6 physics-side instances:
 
   · `AlphaEM_paradigm` — α_em precision-derivation
@@ -172,7 +172,7 @@ shape — no special physics-side typeclass needed.
 
 ### Graded ring ↔ configCount bridge — `GradedRingConfigCountBridge.lean` (16 PURE)
 
-`Lib/Math/GradedRingConfigCountBridge.lean` makes the cross-axis
+`Lib/Math/Foundations/GradedRingConfigCountBridge.lean` makes the cross-axis
 statement explicit: the **graded-ring** (cup-ring, `(1+x)^d`
 Pascal-row) counts and the **fractal configuration count**
 `d^(d^n)` family are *both* downstream of the same atomic `d = 5`.
@@ -205,9 +205,9 @@ family fixes the resolution-hierarchy cardinality.
 
 ```bash
 cd lean
-lake build E213.Lib.Math.ParadigmDomain
-lake build E213.Lib.Math.ParadigmDomainGradedRing
-python3 tools/scan_axioms.py Lib/Math/ParadigmDomain
+lake build E213.Lib.Math.Foundations.ParadigmDomain
+lake build E213.Lib.Math.Foundations.ParadigmDomainGradedRing
+python3 tools/scan_axioms.py Lib/Math/Foundations/ParadigmDomain
 ```
 
 ## Citation guidance

@@ -719,7 +719,7 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      ALL d.  213-Lens cohomology alone is NOT — strength gap
      explicitly recorded.
  14. User says "ㄱㄱ" — **c=2 Möbius-route forcing** added (39
-     PURE total).  Discovered `Lib/Math/C2DoublingDerivation.lean`
+     PURE total).  Discovered `Lib/Math/Foundations/C2DoublingDerivation.lean`
      already derives c=2 from G80 Möbius mod-5 period structure:
        · `half_period = 5` (P^5 ≡ -I mod 5)
        · `full_period = 10` (P^10 ≡ +I mod 5)

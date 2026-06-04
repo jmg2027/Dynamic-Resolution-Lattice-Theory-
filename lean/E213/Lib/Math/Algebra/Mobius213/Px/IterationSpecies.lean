@@ -1,4 +1,4 @@
-import E213.Lib.Math.SimplexCountsBridge
+import E213.Lib.Math.Foundations.SimplexCountsBridge
 import E213.Meta.Int213.Core
 
 /-!
@@ -34,7 +34,7 @@ All declarations PURE (∅-axiom).
 
 namespace E213.Lib.Math.Algebra.Mobius213.Px.IterationSpecies
 
-open E213.Lib.Math.SimplexCountsBridge (NS NT d)
+open E213.Lib.Math.Foundations.SimplexCountsBridge (NS NT d)
 
 /-! ## §1 — det_iteration_invariant -/
 

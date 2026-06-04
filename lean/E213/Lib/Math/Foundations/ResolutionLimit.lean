@@ -20,7 +20,7 @@ there.  No privileged level is selected here.
 ∅-axiom + 213-native verified (PureGuardTest / NativeGuardTest).
 -/
 
-namespace E213.Lib.Math.ResolutionLimit
+namespace E213.Lib.Math.Foundations.ResolutionLimit
 
 /-! ## §1 — Cantor: inhabitant absence
 
@@ -49,4 +49,4 @@ distinct types in ∅-axiom regime.  ZFC merges them via
 abbrev cauchy_structural_inequality :=
   @E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero
 
-end E213.Lib.Math.ResolutionLimit
+end E213.Lib.Math.Foundations.ResolutionLimit

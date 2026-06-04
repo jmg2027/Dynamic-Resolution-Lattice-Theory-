@@ -727,7 +727,7 @@ iteration.
 
 ### V.8 ParadigmDomain — 9-domain unification
 
-`lean/E213/Lib/Math/ParadigmDomain*.lean` — typeclass
+`lean/E213/Lib/Math/Foundations/ParadigmDomain*.lean` — typeclass
 formalising that all 9 classical domains (Combinatorics,
 Probability, Information, Logic, Topology, Multivariable
 Calculus, Complex Analysis, Measure Theory, Cohomology) share

@@ -381,7 +381,7 @@ swap_realizes_negation`) is the **elliptic floor** of the dynamic discriminant d
 the dynamic non-holonomicity dial pinned as one structure (shared floor = unit `1`; shared ceiling =
 the residue).
 
-`E213.Lib.Math.CeilingSchema` — **5 PURE**.  The residue ceiling is **one phenomenon**, not five
+`E213.Lib.Math.Foundations.CeilingSchema` — **5 PURE**.  The residue ceiling is **one phenomenon**, not five
 engines: `ReachedByNoStage gen target := ∀ s, gen s ≠ target`, `not_surjective_of_reachedByNoStage`
 (the schema *is* non-surjectivity), and `ceilings_are_nonsurjectivity` bundling the universal
 diagonal (`diag_reached`, Cantor archetype `∀ f, ¬Surjective f`), the non-holonomicity escape

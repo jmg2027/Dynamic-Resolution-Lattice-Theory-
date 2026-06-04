@@ -392,7 +392,7 @@ theorem strong_combined_uniqueness_with_depth :
     E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 0 = 2
     ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 1 = 3
     -- Möbius-route (step 8)
-    ∧ E213.Lib.Math.C2DoublingDerivation.c_multiplicity = 2
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
     -- Cohomology-depth (this step)
     ∧ passesCohomologyDepthFilter 3 2 2 = true
     ∧ passesCohomologyDepthFilter 5 3 1 = false  -- counterexample fails
@@ -401,7 +401,7 @@ theorem strong_combined_uniqueness_with_depth :
     ∧ chartVisibleAxes 3 2 = 4
     ∧ selfPointingAxes = 1 := by
   refine ⟨rfl, rfl, ?_, ?_, ?_, rfl, rfl, rfl⟩
-  · exact E213.Lib.Math.C2DoublingDerivation.c_multiplicity_eq_2
+  · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
   · decide
   · decide
 

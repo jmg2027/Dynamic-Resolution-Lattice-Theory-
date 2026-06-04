@@ -2,7 +2,7 @@ import E213.Meta.Tactic.PureGuard
 import E213.Lib.Math.Foundations.PatternCatalog.Instance
 import E213.Lib.Math.Foundations.PatternCatalog.Span
 import E213.Lib.Math.Foundations.PatternCatalog.Algebra
-import E213.Lib.Math.ResolutionLimit
+import E213.Lib.Math.Foundations.ResolutionLimit
 import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 
 /-!
@@ -51,7 +51,7 @@ open E213.Meta.Tactic.PureGuard
 #guard_pure E213.Lib.Math.Foundations.PatternCatalog.Span.finalVerdict
 
 -- Cantor / Cauchy ∅-axiom type-distinction anchors + parametric count
-#guard_pure E213.Lib.Math.ResolutionLimit.cantor_inhabitant_absence
+#guard_pure E213.Lib.Math.Foundations.ResolutionLimit.cantor_inhabitant_absence
 #guard_pure E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCountD
 #guard_pure E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCountD_succ
 #guard_pure E213.Lib.Math.Cohomology.Fractal.ConfigCount.configCount_two

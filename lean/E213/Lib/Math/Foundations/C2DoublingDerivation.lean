@@ -49,7 +49,7 @@ different Lens readings of the same structural primitive.
 All theorems below are **PURE** via `decide`.
 -/
 
-namespace E213.Lib.Math.C2DoublingDerivation
+namespace E213.Lib.Math.Foundations.C2DoublingDerivation
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 
@@ -201,4 +201,4 @@ theorem c2_doubling_derivation_capstone :
     ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.C2DoublingDerivation
+end E213.Lib.Math.Foundations.C2DoublingDerivation

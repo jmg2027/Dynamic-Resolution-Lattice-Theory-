@@ -54,9 +54,9 @@ theorem X1_sym3_cross_frame_capstone :
     -- Source 3: HC_K32 Hodge closure (Foundation.Complete)
     ∧ E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.HC_K32
     -- Source 4: Möbius P mod-5 pentagonal closure (C2Doubling)
-    ∧ E213.Lib.Math.C2DoublingDerivation.half_period = 5
-    ∧ E213.Lib.Math.C2DoublingDerivation.full_period = 10
-    ∧ E213.Lib.Math.C2DoublingDerivation.c_multiplicity = 2 := by
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.half_period = 5
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.full_period = 10
+    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2 := by
   refine ⟨rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · decide
   · rfl
@@ -66,7 +66,7 @@ theorem X1_sym3_cross_frame_capstone :
   · exact (E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.hodge_conjecture_213_complete).2.1
   · rfl
   · rfl
-  · exact E213.Lib.Math.C2DoublingDerivation.c_multiplicity_eq_2
+  · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
 
 /-! ## Explicit Sym(3)-irrep basis ↔ Thurston-geometry correspondence
 
