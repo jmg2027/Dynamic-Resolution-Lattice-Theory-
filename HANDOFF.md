@@ -114,15 +114,21 @@ native primitives now route around them:
   `List.length` ⇒ no `Fintype`, structural enumeration ⇒ no division.
 
 ### Cardinality-framework roadmap (the hard track)
-`BoolEnum` is **stage 1**.  The high-value continuation:
-  - **Stage 2** — a pigeonhole counting lemma (`nodup` + ≤ 2 distinct
-    values ⇒ `length ≤ 2`) + constant-list characterisation ⇒
-    **universal `kerCount = 2`** (the count-Lens form of the already-closed
-    structural `KernelConstancyUniversal` result), division-free.
-  - **Stage 3** — `|im δ⁰| = 2^(V−1)` (fiber/coset counting over the
-    enumeration) ⇒ **universal first Betti number** `b₁ = E − V + 1`
-    (the `1/α₃ = NS² − 1` reading made universal).  This is the genuinely
-    new substance the framework unlocks.
+  - **Stage 1 — DONE** (`BoolEnum`): enumeration + `length = 2^n` +
+    completeness + nodup + pure `List` toolkit.
+  - **Stage 2 — DONE** (`BoolEnum` counting): `bcount` toolkit +
+    `bcount_const = 2` — the **division-free universal count-Lens form of
+    `b₀ = 1`** (constant-list count = `|ker δ⁰|`, via
+    `KernelConstancyUniversal.isKer_iff_const`).  Clean induction route
+    (value-fixed predicates under cons), no pigeonhole needed.
+  - **Stage 3 — OPEN** (the genuinely-new payoff): **universal first Betti
+    number** `b₁ = E − V + 1` (= `1/α₃ = NS² − 1` universal).  Needs
+    `|im δ⁰| = 2^(V−1)`.  Route: δ⁰ is injective on root-`false` cochains
+    (from the kernel result), so `|im δ⁰| = |{head = false length-V lists}|
+    = 2^(V−1)`.  The remaining lift is **range-cardinality machinery**
+    (cardinality of an injective-on-a-subset map's image) on top of
+    `BoolEnum` — a further marathon chunk, plus re-encoding δ⁰ on the
+    `List Bool` representation.
 
 ## Open Problems (Priority Order)
 
