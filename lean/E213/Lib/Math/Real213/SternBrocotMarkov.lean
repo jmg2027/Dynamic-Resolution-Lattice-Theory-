@@ -1812,4 +1812,73 @@ theorem sqrtUnity_acts_on_root (c e r : Nat) (he : SqrtUnity c e)
   rw [E213.Meta.Nat.AddMod213.add_mod_gen, hsq,
       ← E213.Meta.Nat.AddMod213.add_mod_gen, hr]
 
+/-! ## §22 — the fold is a product of folds: `SqrtUnity` factors through coprime components
+
+The unit-root group of §21 is *multiplicative* across coprime factors: an `e` that is a unit-root mod
+`m` and mod `n` is a unit-root mod `m·n` (`sqrtUnity_lift`).  So at `c = p₁^{a₁}·…·p_ω^{a_ω}` the group
+`SqrtUnity c` contains the **product** of the per-prime-power groups `{1, c−1 mod pᵢ}` — one `±` fold
+per prime.  That is exactly why `ω` controls the phantom count: `ω` independent `±` folds multiply to
+`2^ω` unit-roots, the window's `⟨−1⟩`-transversal keeps `2^{ω−1}`, and all but one are phantoms.
+
+The engine is `mul_dvd_of_coprime` (the previously-missing reusable primitive: coprime `m,n` dividing
+`k` ⟹ `m·n ∣ k`, via `euclid_of_coprime`).  The concrete witness `phantom_is_unit_root_image_1325`
+closes the loop: the nontrivial unit-root `476` at `1325 = 25·53` carries the realized root `507` to
+the phantom `182` — the §21 torsor action made arithmetic. -/
+
+/-- **Coprime multiplicative lift of divisibility**: `gcd(m,n)=1 ∧ m∣k ∧ n∣k ⟹ m·n ∣ k`.  The
+    missing ∅-axiom primitive behind CRT-style composite reasoning, via `euclid_of_coprime`. -/
+theorem mul_dvd_of_coprime (m n k : Nat) (hn : 1 < n) (hco : gcd213 m n = 1)
+    (hm : m ∣ k) (hnk : n ∣ k) : m * n ∣ k := by
+  obtain ⟨a, ha⟩ := hm
+  have hna : n ∣ a :=
+    E213.Lib.Math.ModArith.MarkovPrimeFactor.euclid_of_coprime m a n hn hco (ha ▸ hnk)
+  obtain ⟨b, hb⟩ := hna
+  exact ⟨b, by rw [ha, hb]; ring_nat⟩
+
+/-- ★★★★★ **The fold is a product of folds** (`SqrtUnity` factors through coprime components): a
+    unit-root mod `m` and mod `n` is a unit-root mod `m·n`.  `e²≡1 mod m ∧ e²≡1 mod n ⟹ e²≡1 mod m·n`.
+    At a composite `c` with `ω` distinct prime factors this gives `SqrtUnity c ⊇ ∏ {±1 mod pᵢ}` — `ω`
+    independent `±` folds, hence `2^ω` unit-roots and (after the window's `⟨−1⟩`-transversal)
+    `2^{ω−1}` windowed reps, all but one phantom. -/
+theorem sqrtUnity_lift (m n e : Nat) (hm : 1 < m) (hn : 1 < n) (hco : gcd213 m n = 1)
+    (hem : (e * e) % m = 1) (hen : (e * e) % n = 1) : SqrtUnity (m * n) e := by
+  have hDm := E213.Meta.Nat.AddMod213.div_add_mod (e * e) m
+  rw [hem] at hDm
+  have hdm : m ∣ (e * e - 1) := by
+    refine ⟨e * e / m, ?_⟩
+    rw [show e * e - 1 = (m * (e * e / m) + 1) - 1 from by rw [hDm],
+        E213.Tactic.NatHelper.add_sub_cancel_right]
+  have hDn := E213.Meta.Nat.AddMod213.div_add_mod (e * e) n
+  rw [hen] at hDn
+  have hdn : n ∣ (e * e - 1) := by
+    refine ⟨e * e / n, ?_⟩
+    rw [show e * e - 1 = (n * (e * e / n) + 1) - 1 from by rw [hDn],
+        E213.Tactic.NatHelper.add_sub_cancel_right]
+  obtain ⟨r, hr⟩ := mul_dvd_of_coprime m n (e * e - 1) hn hco hdm hdn
+  have he1 : 1 ≤ e * e := hDm ▸ Nat.le_add_left 1 _
+  have hee : e * e = 1 + r * (m * n) := by
+    rw [Nat.mul_comm r (m * n), Nat.add_comm, ← hr]
+    exact (E213.Tactic.NatHelper.sub_add_cancel he1).symm
+  show (e * e) % (m * n) = 1
+  rw [hee, E213.Tactic.NatHelper.add_mul_mod_self_pure 1 (m * n) r]
+  exact Nat.mod_eq_of_lt
+    (Nat.lt_of_lt_of_le hn (Nat.le_mul_of_pos_left n (Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hm))))
+
+/-- **A nontrivial unit-root at the composite Markov number `1325 = 25·53`**: `476² ≡ 1 mod 1325` with
+    `476 ∉ {1, 1324}`.  `SqrtUnity 1325 ⊋ {±1}` — the `ω = 2` enlargement made concrete (via CRT:
+    `476 ≡ 1 mod 25`, `476 ≡ −1 mod 53`). -/
+theorem sqrtUnity_1325_nontrivial : SqrtUnity 1325 476 ∧ 476 ≠ 1 ∧ 476 ≠ 1324 :=
+  ⟨show (476 * 476) % 1325 = 1 by decide, by decide, by decide⟩
+
+/-- ★★★★★ **The phantom is the unit-root image of the realized root.**  At `c = 1325` the nontrivial
+    unit-root `476` carries the *realized* root `507` to the *phantom* root `182`:
+    `476·507 ≡ 182 mod 1325`.  Both are `√(−1)` (`507² ≡ 182² ≡ −1`); they share an orbit of the full
+    `SqrtUnity` group but lie in *different* orbits of the `±`-subgroup `⟨c−1⟩` — exactly why the
+    window cannot fold one onto the other and `182` survives as a phantom (§19,
+    `markov_composite_separation`).  Concrete realization of `sqrtUnity_acts_on_root` + the §21–§22
+    reading: the open Markov content is precisely the extra `±`-orbits produced by `ω ≥ 2`. -/
+theorem phantom_is_unit_root_image_1325 :
+    (476 * 507) % 1325 = 182 ∧ (507 * 507 + 1) % 1325 = 0 ∧ (182 * 182 + 1) % 1325 = 0 := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
