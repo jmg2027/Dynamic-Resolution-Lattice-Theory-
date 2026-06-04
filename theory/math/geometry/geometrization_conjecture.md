@@ -101,9 +101,9 @@ behind the uniform "− 1" lives in `Combinatorics/GraphConnectivity`
 
 | File | Target | PURE | Content |
 |---|---|---|---|
-| `Generalization.lean` | Real213-p-adic extensions B | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended |
-| `JsjDeep.lean` | Real213-p-adic extensions A | ~6 | JSJ 3-cell complex Euler-target scaffold |
-| `MetricGeometries.lean` | Real213-p-adic extensions C | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family |
+| `Generalization.lean` | K-deployment generalization (FW-3) | ~7 | K_{NS,NT}^{(c)} chartBase ∈ {4..8} extended |
+| `JsjDeep.lean` | JSJ 3-cell extension (FW-2) | ~6 | JSJ 3-cell complex Euler-target scaffold |
+| `MetricGeometries.lean` | metric geometries (FW-4) | ~7 | E³/H³/H²×ℝ via mod-k Möbius P Lens family |
 
 ### Dependency chain
 
@@ -123,7 +123,7 @@ Linear chain.  All under namespace
 | Pillar | 213-Lens form | Status |
 |---|---|---|
 | **8 geometries** | Möbius P + 3 Lenses (ℝ/ℤ/F_5) ↔ Sym(3) decomp (2·trivial + 3·standard) | ✅ COMPLETE |
-| **JSJ** | bipartite S/T + Filled cells (+JsjDeep χ-targets) | ✓ PARTIAL (Real213-p-adic extensions A partial) |
+| **JSJ** | bipartite S/T + Filled cells (+JsjDeep χ-targets) | ✓ PARTIAL |
 | **Poincaré** | K_{3,1}^{(c=1)} unique tree + S³ = ∂Δ⁴ | ✅ DOUBLY REALIZED |
 | **Generalized Poincaré** | K_{1,k}^{(c=1)} all chartBase | ✅ GENERALIZED |
 | **Ricci flow** | `K32_ricci_modulus` averaging | ✅ PARTIAL CLOSE |
@@ -132,7 +132,7 @@ Linear chain.  All under namespace
 
 The deepest finding (step 22, user-derived): all 8 model
 geometries arise from **a single algebraic object** — the Möbius
-matrix P [[2,1],[1,1]] (per `theory/math/universe_chain.md`
+matrix P [[2,1],[1,1]] (per `theory/math/foundations/universe_chain.md`
 Step 7) — read through **different Lens applications**:
 
 | Modulus / Lens | Polynomial mod p | Geometric narrative |
@@ -326,9 +326,9 @@ The 8-geometry decomposition (Geometrization) collapses with:
   H¹(K_{3,2}^{(c=2)}) substrate
 - **Hodge conjecture HC_K32** (`theory/math/cohomology/hodge_conjecture.md`):
   same 8-class cohomology
-- **Universe chain Möbius P** (`theory/math/universe_chain.md`):
+- **Universe chain Möbius P** (`theory/math/foundations/universe_chain.md`):
   same generator [[2,1],[1,1]] now read through 7 mod-k Lenses
-- **Algebra tower asymptote φ** (`theory/math/cayley_dickson/algebra_tower.md`):
+- **Algebra tower asymptote φ** (`theory/math/algebra/cayley_dickson/algebra_tower.md`):
   same Möbius signature
 
 → **Geometrization 8 geometries + gluon octet + K_{3,2}^{(c=2)}
@@ -371,7 +371,7 @@ open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
 
 ```
 -- ✅ preferred (closed R1 narrative)
-`theory/math/geometrization_conjecture.md`
+`theory/math/geometry/geometrization_conjecture.md`
 
 -- ✅ also valid (R1+ extensions, open frontier, Real213-p-adic research and its extensions, side observations)
 

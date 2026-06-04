@@ -121,6 +121,6 @@ connected.
 - `theory/math/cohomology/cup_ladder_graduation.md` — physics
   application bridge (α_em residual via `(k+1)` graduation)
 - `theory/math/cohomology/hodge_conjecture.md` — HodgeConjecture sub-tree (parent)
-- `theory/math/geometrization_conjecture.md` — KChartLensAbstract +
+- `theory/math/geometry/geometrization_conjecture.md` — KChartLensAbstract +
   K-deployment family enumeration (consumer of
   `parametric_close_capstone`)
