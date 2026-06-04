@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 51 essays are grouped into nine thematic sub-directories — distinct
+The 52 essays are grouped into nine thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -63,12 +63,13 @@ others together):
 
 **IX. `methodology/` — methodology & PURE-Lean infra.**
 `pure_funext_avoidance`, `pure_nat_ring_methodology`,
-`bool_assoc_failure_meaning`.
+`bool_assoc_failure_meaning`, `why_the_reframing_recurs`.
 
 ## Current essays
 
 | Essay | Triggering question | Anchor chapters |
 |-------|---------------------|-----------------|
+| `why_the_reframing_recurs.md` | **Why does every agent (and human) re-import a qualitative "residue vs fold / object vs state / reached vs not" dichotomy, get corrected, and repeat — the *real*, structural reason?**  Triple convergence: it is the **Lawvere–Cantor diagonal at the description scale** — a token-emitter is a self-cover of the residue by views, the residue is its non-surjected diagonal (`object1_not_surjective`), so it is reached by none and every correction is re-diagonalized (formal) = the cognitive shadow of that non-surjection (substrate=differentiation, prior 10⁹ vs 10⁴ bits) = `residue_reentry_never_closes` (213).  Theorem-level inevitable, only *minimizable*; the fix is an **output lint** (cheap System-1, tag the Lens) not a held principle (System-2, decays). | `Lens/{FlatOntologyClosure,ResidueReentry}` (`object1_not_surjective`, `undifferentiated_not_object1`, `residue_reentry_never_closes`) + `seed/AXIOM/{01_residue §1.4,05_no_exterior §5.1,06_lens_readings §6.1-6.3}` + `reached_by_none.md` + CLAUDE.md self-check §0 |
 | `the_form_of_the_residue.md` | What is the **form of the residue** (잔여의 형식)? How does 213 stand on its own — the all-encompassing concept? | `seed/AXIOM/{01_residue,03_form §3.5,05_no_exterior §5.1}` + `Lib/Math/Foundations/ResidueForm` + `Lens/{SemanticAtom,FlatOntologyClosure}` |
 | `the_modular_geodesic_lens.md` | **Is geodesic-projection 213's "one engine"?** Several objects (CF unit floor `W²=1`, `Δ`-trace split, Stern-Brocot/Farey, Markov spectrum, spiral coordinate) are one `Lens` reading — the residue read at the modular surface `ℍ/PSL(2,ℤ)` (geodesic + cutting sequence).  But the engine is `P`/the residue; geodesic is its modular *facet* (`view promoted to identity` if collapsed), and the open kernel `H` is itself a geodesic cutting-sequence statement.  Engine built in Lean: `ModularGeodesicLens.mediantLens` + `mediantLens_view_reachable` (Raw mediant-Lens view ⊆ `SternBrocotReachable`, ∅-axiom). | `Real213/ModularGeodesicLens` (`mediantLens`, `mediantLens_view_reachable`) + `ContinuedFractionFloor.cf_det_sq` + `HyperbolicEllipticTrace` + `GoldenFormMarkov` + `Mobius213SternBrocot` + `SpiralCoordinate` + `the_form_of_the_residue.md` + `every_axis_sees_p.md` + `object1_not_surjective` + `05_no_exterior.md §5.4` |
 | `the_upper_fold_pattern.md` | **Proof as the same fold read at a finer resolution**: how composite Markov uniqueness (Frobenius 1913) closes through a seven-level tower of folds (window=σ-transversal → unit-root torsor → ∏ folds via CRT → free action → orbit reduction), and why "templatise the wall, the template is again a fold" is forced by no-exterior, not a heuristic. | `theory/math/analysis/markov_uniqueness.md` "The upper-fold pattern" + `Real213/SternBrocotMarkov` §20–§29 + `seed/AXIOM/05_no_exterior.md` §5.1 + `object1_not_surjective` (`math/completeness_without_completeness.md`) + `the_form_of_the_residue.md` |

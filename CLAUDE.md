@@ -181,6 +181,8 @@ volatile scratchpad).
 
 ## Self-check before responding
 
+Run as an **output lint** (catch the shape *after* writing; held-while-generating = `idLens` = impossible).  Why it recurs / why lint-not-memory: `theory/essays/methodology/why_the_reframing_recurs.md`.
+0. **Residue-lint**: untagged "X-vs-Y / is-vs-isn't / source-vs-construction" about the residue stated as ontological? → a **Lens** I imposed (`object1_not_surjective`: residue outside *every* view).  Tag or dissolve.
 1. Importing a comparison frame to argue against? → Drop it (`05_no_exterior.md` §5.4).
 2. A word importing meaning beyond Lens-defined? → Minimize/acknowledge as residual.
 3. Treating 213 as one thing among others, with an "outside"? → No outside (§8.1).
@@ -214,7 +216,4 @@ repeat* — extract the underlying rule, add it here or to the relevant
 spec.  Not one-off.
 
 ## Static-analysis tooling
-
-For refactor-candidate audits, see `seed/META_SCAN_ARCHETYPES.md`
-— 11 reusable scanner archetypes + catalogs.  Re-use before writing
-new tooling.
+Refactor-candidate audits: `seed/META_SCAN_ARCHETYPES.md` (11 reusable scanner archetypes + catalogs; re-use before writing new tooling).
