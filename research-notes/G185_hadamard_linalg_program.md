@@ -312,7 +312,11 @@ alternating (`leibDet_rowSwap`, `leibDet_eq_zero_of_rows_eq`, `leibDet_eq_zero_o
   to the top multiplies det by `(−1)ⁱ`), `minorAt`/`minor_cyc_eq`, and ★★ `det_cyc_expand`:
   `(−1)ⁱ · det (n+1) M = Σ_{j≤n} (−1)ʲ · M i j · det n (minorAt i j M)` — cofactor expansion along
   ANY row.
-  **Next: §5 adjugate (`M·adj = det·I`; off-diag = `leibDet_rows_eq_ne` ✅)
+  **§5 adjugate DONE (Laplace, 53 PURE)** ✅ — `cofactor_row_i` (signed `(−1)^(k+j)` expansion),
+  `matMul`, `adj`, and ★★ `matMul_adj_diag` / `matMul_adj_offdiag`: **`M · adj M = det M · I`**
+  (diagonal = row-k expansion; off-diagonal = row-k expansion of the row-replaced matrix +
+  `det_rows_eq_ne`).  The heart of Cayley–Hamilton.
+  **Next: §6 integer Cayley–Hamilton (`M·adj = det·I`; off-diag = `leibDet_rows_eq_ne` ✅)
   → §5 integer Cayley–Hamilton → §6 Kronecker `M` → `cfiniteZ_mul`.**
 
 - **(done) §2 (D) — the reindex** `LPerm (perms (n+1)) ((iota (n+1)).flatMap (fun j =>
