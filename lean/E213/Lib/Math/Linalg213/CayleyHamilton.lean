@@ -40,4 +40,37 @@ theorem sumZ_swap {α β : Type} (g : α → β → Int) : ∀ (L1 : List α) (L
     intro k _
     rfl
 
+/-- Right scalar pulls out of `sumZ`. -/
+theorem sumZ_map_smul_right {α : Type} (c : Int) (f : α → Int) : ∀ (L : List α),
+    sumZ (L.map f) * c = sumZ (L.map (fun x => f x * c))
+  | []     => by show (0 : Int) * c = 0; rw [E213.Meta.Int213.zero_mul]
+  | a :: l => by
+    show (f a + sumZ (l.map f)) * c = f a * c + sumZ (l.map (fun x => f x * c))
+    rw [E213.Meta.Int213.add_mul, sumZ_map_smul_right c f l]
+
+/-! ## §2 — matrix multiplication is associative -/
+
+/-- ★★ **`matMul` is associative** (pointwise). -/
+theorem matMul_assoc (n : Nat) (M N P : Nat → Nat → Int) (i l : Nat) :
+    matMul n M (matMul n N P) i l = matMul n (matMul n M N) P i l := by
+  show sumZ ((iota n).map (fun j => M i j * matMul n N P j l))
+     = sumZ ((iota n).map (fun k => matMul n M N i k * P k l))
+  rw [map_eq_of_mem (fun j => M i j * matMul n N P j l)
+        (fun j => sumZ ((iota n).map (fun k => M i j * (N j k * P k l))))
+        (fun j _ => by
+          show M i j * sumZ ((iota n).map (fun k => N j k * P k l))
+             = sumZ ((iota n).map (fun k => M i j * (N j k * P k l)))
+          rw [← sumZ_map_smul]),
+      sumZ_swap (fun j k => M i j * (N j k * P k l)),
+      map_eq_of_mem (fun k => sumZ ((iota n).map (fun j => M i j * (N j k * P k l))))
+        (fun k => matMul n M N i k * P k l)
+        (fun k _ => by
+          show sumZ ((iota n).map (fun j => M i j * (N j k * P k l)))
+             = sumZ ((iota n).map (fun j => M i j * N j k)) * P k l
+          rw [sumZ_map_smul_right]
+          apply congrArg sumZ
+          apply map_eq_of_mem
+          intro j _
+          rw [E213.Meta.Int213.mul_assoc])]
+
 end E213.Lib.Math.Linalg213.CayleyHamilton
