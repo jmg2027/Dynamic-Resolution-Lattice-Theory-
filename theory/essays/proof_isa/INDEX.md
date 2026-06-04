@@ -25,6 +25,12 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
 
 ## Essays
 
+  · [`what_is_a_proof.md`](what_is_a_proof.md) — **synthesis (series cap)**: a
+    proof, in 213, is a composition of the residue's instruction set discharging
+    a claim to ∅-axiom.  Reads the whole series — interior (the eight, witnessed
+    by the 1145-PURE corpus) + boundary (the foreign `DECIDE`) — as one account
+    of "proof".
+
   · [`probabilistic_method.md`](probabilistic_method.md) — Erdős (1947)
     `R(k,k) > 2^{k/2}`.  Surfaces **COUNT** (the quantitative `GAP` witness:
     deficit ⟹ existence) — the primitive the repo already used across ≈25 Lean files as
