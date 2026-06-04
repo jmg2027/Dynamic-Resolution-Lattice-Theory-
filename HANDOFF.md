@@ -2,7 +2,16 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — E4 Cohn/Frobenius trace identity BUILT: markovNumber = tr/3 as a continuant (∅-axiom)
+## ★★★ NEWEST — continuant-native Cohn Markov generator + the bridge subtlety pinned (∅-axiom)
+- **`ContinuantMarkov`**: `cohnWord`/`cohnTrace` (true↦A=[1,1], false↦B=[2,2]; trace=tr/3, continuant-
+  expressible); `cohnTrace_markov_examples` (A,B,AB,AAB,ABB ↦ 1,2,5,13,29 — the continuant-native generator
+  produces the Markov numbers); `naive_bridge_fails` (machine-checked: 3·markovNum p = cohnTrace
+  (true::p++[false]) holds for single-run paths but FAILS at [true,false]/433 — so the path→word
+  correspondence is the genuine run-length/Christoffel cutting-sequence map, NOT a naive wrap).
+- **Status**: continuant-native Markov generator exists ∅-axiom; the remaining bridge to repo's markovNum
+  is the run-length cutting-sequence bijection (research-level; naive wrap ruled out by counterexample).
+
+## E4 Cohn/Frobenius trace identity BUILT: markovNumber = tr/3 as a continuant (∅-axiom)
 - **`Real213/Continuant`** trace block (all PURE): `contMatProd_b` ((1,2)-entry = reversed cont-prev via
   transpose), `contMatProd_d_cons` ((2,2)-entry = middle continuant), `contMatProd_trace_cons`
   (tr(∏[[aᵢ,1],[1,0]]) = K[a₁..aₙ] + K[a₂..aₙ₋₁] = full + middle), `cohn_trace_examples`
