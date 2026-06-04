@@ -2111,4 +2111,33 @@ theorem windowRealizedUnique_of_orbit (c : Nat) (hc : 1 < c)
     exact (H u₁ u₂ ((u₂ * (c - u₁)) % c) hu1pos hu1lt hu1w hr1 hu2lt hu2w hr2
       hmul.1 hmul.2 hkey hreal1) hreal2
 
+/-! ## §26 — capstone: `MarkovMaxUnique` from the orbit realizability condition
+
+The whole §20–§25 tower in one entry point.  `MarkovMaxUnique c` holds as soon as **no
+nontrivial-unit-root image of a realized windowed root is itself realized** — the single residual
+question after the structural reduction.  Everything else (root-count `= 2^{ω−1}`, the unit-root group,
+its free action, the window `±`-transversal) is closed `∅`-axiom.
+
+The remaining hypothesis `H` is exactly the open Frobenius content, now in its sharpest form: it is NOT
+a counting statement but a *realizability* one — at a composite max `c`, the `2^{ω−1}` candidate
+windowed residues are all genuine `√(−1)` roots (so root-counting cannot separate them), and Markov
+uniqueness is precisely the assertion that the `±`-fold relation between any two of them obstructs
+simultaneous realization.  For prime powers `H` is vacuous (`SqrtUnity = {±1}`, no nontrivial image),
+recovering Button; for `ω ≥ 2` it is the live conjecture. -/
+
+/-- ★★★★★ **Capstone — `MarkovMaxUnique` from one orbit realizability check.**  Composes
+    `windowRealizedUnique_of_orbit` (§25) with `markov_max_unique_of_window_realized_unique` (§18).
+    `H` = "no nontrivial-unit-root image (`e ∉ {1,c−1}`, `e·u₁ ≡ u₂`) of a realized windowed root `u₁`
+    is itself realized."  This is the full ∅-axiom reduction of composite Markov uniqueness to a single
+    realizability statement — the genuine open content, isolated. -/
+theorem markov_max_unique_of_orbit (c : Nat) (hc5 : 5 ≤ c)
+    (H : ∀ u₁ u₂ e, 0 < u₁ → u₁ < c → 2 * u₁ < c → (u₁ * u₁ + 1) % c = 0 →
+         u₂ < c → 2 * u₂ < c → (u₂ * u₂ + 1) % c = 0 →
+         e % c ≠ 1 → e % c ≠ c - 1 → (e * u₁) % c = u₂ →
+         (∃ b₁, b₁ < c ∧ markovEq ((u₁ * b₁) % c) b₁ c) →
+         ¬ (∃ b₂, b₂ < c ∧ markovEq ((u₂ * b₂) % c) b₂ c)) :
+    MarkovMaxUnique c :=
+  markov_max_unique_of_window_realized_unique c hc5
+    (windowRealizedUnique_of_orbit c (Nat.lt_of_lt_of_le (by decide) hc5) H)
+
 end E213.Lib.Math.Real213.SternBrocotMarkov
