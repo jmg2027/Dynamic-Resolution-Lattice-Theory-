@@ -16,7 +16,7 @@ namespace E213.Meta.Int213.OrderMul
 open E213.Meta.Int213 (mul_nonneg sub_mul mul_neg mul_comm mul_one)
 open E213.Meta.Int213.Order
   (le_of_sub_nonneg sub_nonneg_of_le le_zero_of_nonneg nonneg_of_le_zero
-   lt_of_sub_one_nonneg zero_sub ofNat_succ_sub_one le_of_lt lt_of_lt_of_le)
+   lt_of_sub_one_nonneg zero_sub ofNat_succ_sub_one le_of_lt lt_of_lt_of_le lt_of_le_of_lt)
 
 /-- ★★ **Right-multiplication is monotone for a nonnegative factor.** -/
 theorem mul_le_mul_right_nonneg {a b : Int} (hab : a ≤ b) (c : Int) (hc : 0 ≤ c) :
@@ -86,5 +86,16 @@ theorem int_lt_irrefl (a : Int) : ¬ (a < a) := by
   have hnn : (a - (a + 1)).NonNeg := h
   rw [show a - (a + 1) = -1 from by ring_intZ] at hnn
   cases hnn
+
+/-- ★★ **`natAbs` is strictly monotone on nonnegatives**: `0 ≤ a`, `a < b` ⟹
+    `a.natAbs < b.natAbs` — the fuel-decrease for the `ℤ[ω]` Euclidean recursion. -/
+theorem natAbs_lt_of_lt {a b : Int} (ha : 0 ≤ a) (hab : a < b) : a.natAbs < b.natAbs := by
+  have hb : 0 ≤ b := le_of_lt (lt_of_le_of_lt ha hab)
+  rcases Nat.lt_or_ge a.natAbs b.natAbs with h | h
+  · exact h
+  · exfalso
+    have h1 : (b.natAbs : Int) ≤ (a.natAbs : Int) := ofNat_le_of_le h
+    rw [natAbs_cast_of_nonneg ha, natAbs_cast_of_nonneg hb] at h1
+    exact int_lt_irrefl a (lt_of_lt_of_le hab h1)
 
 end E213.Meta.Int213.OrderMul

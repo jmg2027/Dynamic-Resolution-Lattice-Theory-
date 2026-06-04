@@ -87,6 +87,11 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
   - **Phase 2c-gcd-dvd (DONE)** — `EisensteinGcd` (2 PURE): `Dvd ZOmega` instance + the
     closure lemmas `zdvd_add` and ★`zdvd_combo` (`d∣β → d∣ρ → α=βγ+ρ → d∣α`, the Euclidean-step
     transfer carrying a common divisor up the recursion).
+  - **Phase 2c-gcd-helpers (DONE)** — `Int213.OrderMul.natAbs_lt_of_lt` (`0≤a`, `a<b` ⟹
+    `a.natAbs < b.natAbs`, the fuel-decrease, PURE).  Confirmed available + ∅-axiom: ZOmega
+    `ofInt_one_mul`/`mul_ofInt_one` (hand-proved rw chains, tested), Ring213
+    `add_zero`/`zero_mul`/`mul_zero` apply to ZOmega, `ofInt 0 = (0:ZOmega)` by rfl,
+    `normSq_eq_zero_iff` for `‖β‖².natAbs=0 ⟹ β=0`.
   - **Phase 2c-gcd-main (next, substantial)** — `gcd_bezout` by **fuel-induction** on
     `‖β‖².natAbs` (avoids constructive-function refactor + Classical): `∀ n α β,
     ‖β‖².natAbs ≤ n → ∃ d s t, d = s·α + t·β ∧ d∣α ∧ d∣β`.  Base `β=0`: `d=α` (`s=ofInt 1,
@@ -95,6 +100,11 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
     base (ZOmega has no Lean `One` instance — use `ofInt 1`), the `0≤x<y ⟹ x.natAbs<y.natAbs`
     fuel-decrease (pure), and `normSq.natAbs=0 ⟹ β=0`.  Then Euclid's lemma + the reducibility
     `p = d·e`, closing with `PrimeSquareFactor.eq_p_of_mul_eq_psq` ⟹ `‖d‖² = p`.
+    **Snag**: the 5-var Bezout identity `s·β+t·ρ = t·(βγ+ρ)+(s−tγ)·β` is NOT closeable by
+    `ring_intZ` (`application type mismatch` — the reflection prover can't see through ZOmega
+    `.re`/`.im` projections on an expression that large).  Prove it by a manual
+    `Ring213`/`CommRing213` calc à la `EisensteinCrossDet.cassini_ring` (`mul_add`, `sub_mul`,
+    `mul_assoc`, `mul_comm`, then the `cancel_lemma` add/neg pattern).
     Path: `centered_div_int` wrapper (β.normSq : Int>0 from `normSq_pos`); `γ = ⟨qre,qim⟩` from
     `centered_div` on `(α·conjβ).re/.im`; prove `ρ·conjβ = ⟨rre,rim⟩` (ext + ring_intZ, with
     `mul_conj_self`); `‖ρ‖²·N = eisForm rre rim` (`normSq_mul` + `normSq_conj`); `covering_bound`
