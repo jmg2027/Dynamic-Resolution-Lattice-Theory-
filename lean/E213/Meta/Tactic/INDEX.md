@@ -4,9 +4,6 @@
 covers one *trajectory-vocabulary domain*.  All theorems verified
 ∅-axiom (no `propext`, no `Quot.sound`).
 
- and
-`G3_raw_as_universal_trajectory.md` for the unifying frame.
-
 ## Files (production)
 
 | File | Topic | Theorems | Layer |

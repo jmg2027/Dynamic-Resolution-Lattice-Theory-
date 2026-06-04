@@ -23,8 +23,6 @@ Modular by topic — each file has *one* coherent concern:
                        parity (mod 2), mod3, mod6, CRT pairing
                        (mod6 ↔ (parity, mod3) = Eisenstein-6th-roots
                        phase walk).  **11 theorems**.
- ,
-                       `G3_raw_as_universal_trajectory.md`.
   - `Fin213.lean`   — `Fin` helpers (`absurd0`).
   - **`Pow213.lean`** — power-of-2 + divisibility helpers
                         (∅-axiom replacements for
