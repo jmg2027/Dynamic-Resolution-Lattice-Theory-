@@ -36,7 +36,7 @@ it discriminates no vertex.  That this residue is exactly
 Companion narrative: `theory/math/cohomology/bipartite.md`.
 -/
 
-namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.KernelConstancyUniversal
+namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal
 
 open E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces (CochV)
 
@@ -296,4 +296,4 @@ theorem isKer_const_via_framework (NS NT c : Nat) (hS : 0 < NS)
     (isConstOnEdges_isClosed NS NT σ
       ((isKer_iff_constOnEdges NS NT c hc σ).mp hk))
 
-end E213.Lib.Math.Cohomology.Bipartite.Parametric.KernelConstancyUniversal
+end E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal

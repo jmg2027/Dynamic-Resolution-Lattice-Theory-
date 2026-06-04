@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.Bipartite.Parametric.PathCoboundary
+import E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.PathCoboundary
 
 /-!
 # K_{NS,NT} edge cochain — `|im δ⁰_K| = 2^(V−1)` wired to the actual coboundary
@@ -24,14 +24,14 @@ No `funext`, `Fintype`, or `Nat.div`.
 Companion: `theory/math/cohomology/bipartite.md`.
 -/
 
-namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.KEdgeCochain
+namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KEdgeCochain
 
 open E213.Lib.Math.Combinatorics.BoolEnum
   (allBoolLists complement headFalse length_of_mem_allBoolLists mem_allBoolLists)
 open E213.Tactic.List213
   (mem_append_left mem_append_right mem_append_iff mem_map_of_mem exists_of_mem_map
    mem_flatMap_intro mem_flatMap_elim getD_map_ib map_congr map_eq_comp list_ext_getD getD_ge)
-open E213.Lib.Math.Cohomology.Bipartite.Parametric.PathCoboundary (im_count_inj_complement)
+open E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.PathCoboundary (im_count_inj_complement)
 
 /-! ## Index enumeration
 
@@ -197,4 +197,4 @@ theorem im_edgeCochain_K32 :
     (((allBoolLists 5).filter headFalse).map (edgeCochain 3 2)).length = 2 ^ 4 :=
   (im_edgeCochain_card 3 2 4 (by decide) (by decide) (by decide)).2.1
 
-end E213.Lib.Math.Cohomology.Bipartite.Parametric.KEdgeCochain
+end E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KEdgeCochain

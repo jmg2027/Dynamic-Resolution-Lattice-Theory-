@@ -1,5 +1,5 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Exotic4Mfd
-import E213.Lib.Math.Cohomology.Bipartite.Parametric.KernelConstancyUniversal
+import E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal
 
 /-!
 # Abstract chart-Lens type for K-deployments (M2 abstract closure)
@@ -26,7 +26,7 @@ through chart-Lens output" per `seed/AXIOM/05_no_exterior.md` §5.1
 into a Lean-formalizable shape, parameterized over (NS, NT, c).
 
 The `selfPointingAxes = 1` value is grounded universally by
-`Parametric.KernelConstancyUniversal`: for every connected
+`Parametric.Betti.KernelConstancyUniversal`: for every connected
 K_{NS,NT}^{(c)} (NS ≥ 1, NT ≥ 1, c ≥ 1) the δ⁰-kernel is exactly
 the two constant cochains, so `dim ker δ⁰ = 1` and
 `dim im δ⁰ = (NS + NT) − 1`.  The `## Universal M2 close` section
@@ -138,7 +138,7 @@ theorem K32_chart_lens_v32betti_compatible :
   derivation is the `## Universal M2 close` section below
   (`m2_universal_forced_partition`), grounded in the universal
   δ⁰-kernel = constants result of
-  `Parametric.KernelConstancyUniversal`. -/
+  `Parametric.Betti.KernelConstancyUniversal`. -/
 theorem m2_abstract_close :
     -- K_{3,2}^{(c=2)} partition
     K32_chart_lens.chartVisibleAxes + K32_chart_lens.selfPointingAxes = 5
@@ -258,12 +258,12 @@ theorem geometrization_followup_close_certificate :
 
 The K_{3,2}^{(c=2)}-specific `selfPointingAxes = 1` (from V32Betti)
 generalizes to *every* connected K_{NS,NT}^{(c)} via
-`Parametric.KernelConstancyUniversal`: the δ⁰-kernel is exactly the
+`Parametric.Betti.KernelConstancyUniversal`: the δ⁰-kernel is exactly the
 two constant cochains, so the self-pointing residue is 1-dimensional
 and the chart-visible part is `chartBase − 1`, with no per-deployment
 cohomology file and no user-supplied value. -/
 
-open E213.Lib.Math.Cohomology.Bipartite.Parametric.KernelConstancyUniversal
+open E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal
   (IsKer constCoch isKer_const_false_or_true isKer_root_determines
    constCoch_isKer)
 
@@ -331,9 +331,9 @@ theorem m2_universal_forced_partition (NS NT c : Nat)
     ∧ IsKer NS NT c (constCoch NS NT true)
     -- root colour is the single free parameter (dim ker = 1)
     ∧ (∀ σ τ, IsKer NS NT c σ → IsKer NS NT c τ →
-        σ (E213.Lib.Math.Cohomology.Bipartite.Parametric.KernelConstancyUniversal.sV
+        σ (E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal.sV
             NS NT ⟨0, hS⟩)
-          = τ (E213.Lib.Math.Cohomology.Bipartite.Parametric.KernelConstancyUniversal.sV
+          = τ (E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal.sV
             NS NT ⟨0, hS⟩)
         → ∀ x, σ x = τ x) :=
   ⟨rfl,

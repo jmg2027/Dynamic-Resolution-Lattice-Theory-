@@ -34,7 +34,7 @@ complete-bipartite deployment too.  `BettiOneUniversal` then turns it into
 Companion: `theory/math/cohomology/bipartite.md`.
 -/
 
-namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.PathCoboundary
+namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.PathCoboundary
 
 open E213.Lib.Math.Combinatorics.BoolEnum
   (allBoolLists headFalse complement bcount bcount_headFalse headFalse_transversal
@@ -185,4 +185,4 @@ theorem im_pathDelta_card (n : Nat) :
         hpd
         ((head?_of_headFalse hσf).trans (head?_of_headFalse hτf).symm))
 
-end E213.Lib.Math.Cohomology.Bipartite.Parametric.PathCoboundary
+end E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.PathCoboundary

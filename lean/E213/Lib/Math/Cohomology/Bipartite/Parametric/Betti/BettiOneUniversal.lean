@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.Bipartite.Parametric.KernelConstancyUniversal
+import E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal
 import E213.Lib.Math.Combinatorics.BoolEnum
 import E213.Meta.Tactic.Pow213
 
@@ -42,7 +42,7 @@ with `E = (V−1) + b₁`, i.e. `b₁ = E − V + 1`.
 Companion: `theory/math/cohomology/bipartite.md`.
 -/
 
-namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.BettiOneUniversal
+namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.BettiOneUniversal
 
 open E213.Lib.Math.Combinatorics.BoolEnum
   (allBoolLists allBoolLists_length isConst bcount bcount_const headFalse
@@ -122,4 +122,4 @@ theorem im_dim_via_transversal (n : Nat) :
   ⟨bcount_headFalse n, complement_involutive, complement_ne_self,
    headFalse_transversal⟩
 
-end E213.Lib.Math.Cohomology.Bipartite.Parametric.BettiOneUniversal
+end E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.BettiOneUniversal
