@@ -32,6 +32,14 @@ being `∅`-axiom means Frobenius is *restated exactly*, NOT proven-closer.
   pattern = stable-norm / Christoffel (Lee–Li–Rabideau–Schiffler) — real frontier, large.  **(D)**
   single `ω=3` `195025 = 5²·29·269` — low info, skip candidate.  `(B′)` makes `H` decidable; `(C)`
   decides it; `(B′)` first cleans `(C)`'s input but does not make `(C)` cheaper.
+- **(B′) termination — checked, NOT a cost.**  `reverse_of_fuel` (§12, line 1247) descends with measure
+  = the **descending max** (`c → b → …`; `hbc_strict : b < c`, `hbf : b ≤ fuel`), `fuel = c`; the
+  measure reads only the current max, never the starting `a,b` — so it is **robust to the `(u,c)` input
+  change** (code fact).  `(B′)`'s new *lift* half `(u,c) → triple` is a `b < c` bounded search (phantom
+  ⟹ exhaustion ⟹ "blocked" decided in `≤ c` steps — design claim, trivially finite).  So `(B′)`'s cost
+  is **construction labor** (lift + wiring + reuse of §28 recovery-injectivity), NOT a termination
+  proof; `(B′)` would be a clean decidable recovery.  (Layer note: "measure = max, input-independent"
+  is read from code; "lift is `c`-bounded" is a design claim about the not-yet-written `(B′)`.)
 
 ## ★★★ orbit tower §20–§27 + promoted to theory/ (earlier this branch)
 
