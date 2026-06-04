@@ -5,7 +5,7 @@ V32 / V32Betti cohomology infrastructure (b_0 / b_1 / Euler) and the
 K_{3,3}^{(c)}-specific V33EnrichedParametric enriched-2-complex
 infrastructure (codim ≥ c via per-layer ψ-functionals).
 
-**Status**: 11 files, ~201 PURE.  Direction A **CLOSED** at three
+**Status**: 13 files, ~221 PURE.  Direction A **CLOSED** at three
 levels; universal δ⁰-kernel = constants closed structurally in
 `KernelConstancyUniversal.lean`:
 
@@ -57,13 +57,14 @@ the δ⁰-kernel is exactly the two constant cochains, so `dim ker δ⁰ = 1`
 (b_0 = 1) and `dim im δ⁰ = (NS + NT) − 1`.  It uses the product-indexed
 coboundary `delta0Tri` to sidestep the flat-index `Nat.div` decode.
 
-The flat-enumeration form `∀ (NS NT c), kerSizeDelta0Direct NS NT c = 2`
-stays `decide`-only over the representative range: counting flat indices
-pulls core Lean's `Nat.div` / `Nat.mod` lemmas, all of which carry
-`propext` — an axiom-purity artifact of Lean core, not a mathematical
-gap.  The product-form and flat-form kernels agree on each concrete
-deployment (`decide` in `Delta0AndConnectedness.K32_matches_V32Betti`
-and the representative-range theorems).
+The **flat-operator** form is `KerSizeUniversal.ker_iff_constant`:
+`(∀ e, CochSpaces.delta0 σ e = false) ↔ (∀ i j, σ i = σ j)` for the
+canonical flat coboundary, ∅-axiom — its integer edge-decode uses the
+repo's pure division library `Meta.Nat.NatDiv213` (the propext-free
+replacements for core `Nat.div` / `Nat.mod`).  So the flat universal is
+proven directly; `KernelConstancyUniversal` is the division-free
+product-indexed companion carrying the count-form lemmas and the
+graph-connectedness instantiation.
 
 ## Dependency chain
 

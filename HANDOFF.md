@@ -75,12 +75,15 @@ that universal 1.  This is the sharp 213 answer to the chapter's opening
 "왜 4차원에서만" question.
 
 ### Why the old enumeration route was blocked (recorded)
-Counting flat cochain indices universally forces core Lean's
-`Nat.div` / `Nat.mod` lemmas to decode `Fin (c·NS·NT)` → `(s,t,m)`;
-**all** of them carry `propext` (probe-verified), and
-`Nat.add_sub_cancel'` / `Nat.sub_lt_left_of_lt_add` likewise.  So the
-universal-flat statement is axiom-dirty by Lean-core construction —
-a purity artifact, not a math gap.  The product-form route avoids it.
+Counting flat cochain indices decodes `Fin (c·NS·NT)` → `(s,t,m)` via
+`Nat.div`/`Nat.mod`; **core's** lemmas all carry `propext`, BUT the repo
+ships `Meta.Nat.NatDiv213`, ∅-axiom replacements (`mul_div_cancel_left_pure`
+etc.).  Using them, `KerSizeUniversal.ker_iff_constant` proves the
+universal kernel = constants on the **flat** `CochSpaces.delta0` directly
+(it was an unimported orphan — now wired into the Bipartite aggregator).
+The product-form `KernelConstancyUniversal` is the division-free companion
+(it carries the count-form lemmas + GraphConnectivity instantiation), not
+a workaround for an obstruction.
 
 ## G121 knot status (after this session)
 
@@ -165,12 +168,10 @@ native primitives now route around them:
    Candidate handles: c=2 binary cover acts on T-side; K_{3,2}
    bipartite asymmetry.  Note: the originator deprioritized M3 as
    "downstream of physics interpretation" — confirm before pushing.
-2. **M2 operator-flat bridge (optional)** — a division-free
-   `Fin (c·NS·NT) ≃ Fin NS × Fin NT × Fin c` re-indexing would
-   transport the structural kernel result to the flat
-   `CochSpaces.delta0`, giving the universal-flat statement
-   ∅-axiom.  Not a math obstruction; the structural content is
-   closed.
+2. **M2 operator-flat — already done** (found during org-audit):
+   `KerSizeUniversal.ker_iff_constant` proves the universal kernel =
+   constants on the flat `CochSpaces.delta0` ∅-axiom via `NatDiv213`.
+   No remaining flat-operator gap.
 
 ## File Map
 ```

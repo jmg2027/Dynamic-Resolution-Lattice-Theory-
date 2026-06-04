@@ -87,15 +87,16 @@ joined) runs with zero `propext`.  Key theorems:
   parameter (`dim ker = 1`)
 - `universal_kernel_close` — the four facts bundled
 
-The flat enumeration form
-`∀ NS NT c, kerSizeDelta0Direct NS NT c = 2` stays `decide`-only at
-the chartBase-≤-5 range: counting flat indices forces core Lean's
-`Nat.div` / `Nat.mod` lemmas, all of which carry `propext`, so the
-quantified-flat statement is axiom-dirty by Lean-core construction
-— a purity artifact, not a mathematical gap, with the structural
-content fully closed above.  The product-form kernel matches the
-flat-form kernel on each concrete deployment (`decide` in
-`Delta0AndConnectedness`).
+The **flat-operator** form of the same result is
+`KerSizeUniversal.ker_iff_constant`:
+`(∀ e, CochSpaces.delta0 σ e = false) ↔ (∀ i j, σ i = σ j)` for the
+canonical flat coboundary (edges `Fin (c·NS·NT)`), ∅-axiom — its
+integer edge-decode uses the repo's pure division library
+`Meta.Nat.NatDiv213`, the propext-free replacements for core `Nat.div` /
+`Nat.mod`.  So the universal kernel = constants holds on the flat
+operator directly; the product-indexed `KernelConstancyUniversal` is the
+division-free companion that carries the count-form lemmas and the
+graph-connectedness instantiation.
 
 The chart-axis consumer `forcedKChartLens` /
 `m2_universal_forced_partition`

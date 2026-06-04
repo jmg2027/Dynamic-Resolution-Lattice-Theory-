@@ -1,23 +1,22 @@
 /-!
 # 213-native Euclidean division (∅-axiom)
 
-Core Lean's `Nat.div` / `Nat.mod` are defined by well-founded recursion,
-and **every** core lemma about them carries `propext` (and some
-`Quot.sound`).  Any 213 development that reasons about `/` or `%` through
-those lemmas inherits the taint, so division-based combinatorics cannot
-stay strict ∅-axiom while leaning on core division.
+Core Lean's `Nat.div` / `Nat.mod` lemmas carry `propext` (and some
+`Quot.sound`).  The repo's ∅-axiom replacement for the **operator** facts
+(`a*b/a = b`, `(a + b*c)/c = …`, mod variants) is
+`Meta.Nat.NatDiv213` — use it whenever a `/` or `%` lemma is needed in
+strict ∅-axiom code.
 
-This file gives the division primitive built the other way — by *upward*
-induction, using only `Nat` addition / multiplication / order lemmas that
-are themselves ∅-axiom:
+This file is the **relational** complement: it characterises Euclidean
+division as a relation, by *upward* induction, using only ∅-axiom `Nat`
+addition / multiplication / order lemmas:
 
   - `exists_quot_rem` — for `d > 0`, every `n` has a quotient/remainder
     `n = d·q + r` with `r < d`;
   - `quot_rem_unique` — that `(q, r)` is unique.
 
-Together they characterise Euclidean division as a relation, ∅-axiom,
-without ever unfolding core `Nat.div`.  Downstream code that needs a
-division fact can take it from here instead of from `Nat.div_*`.
+This `IsQuotRem` relation is convenient where the spec, not the `/`
+operator, is what downstream code consumes.
 
 Companion: `theory/math/numbertheory/euclidean_division.md`.
 -/

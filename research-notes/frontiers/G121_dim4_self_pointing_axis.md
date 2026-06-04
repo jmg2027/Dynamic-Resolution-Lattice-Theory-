@@ -1603,12 +1603,16 @@ statements are pointwise (`∀ x, σ x = …`).
 
 ## Remaining (honest)
 
-  · M2 *operator-level* universal-flat `kerSizeDelta0Direct = 2`
-    stays `decide`-only — blocked purely by core-Lean `Nat.div`
-    propext, a purity artifact.  The structural content is closed;
-    a clean `Fin (c·NS·NT) ≃ Fin NS × Fin NT × Fin c` re-indexing
-    proof (∅-axiom, division-free) would bridge the two forms
-    universally if wanted, but is not a mathematical obstruction.
+  · M2 *operator-level* universal-flat — **already done** (surfaced in
+    org-audit, repo-first miss): `KerSizeUniversal.ker_iff_constant`
+    proves `(∀ e, CochSpaces.delta0 σ e = false) ↔ (∀ i j, σ i = σ j)`
+    on the canonical flat coboundary, ∅-axiom, via the repo's pure
+    division library `Meta.Nat.NatDiv213`.  Earlier notes calling the
+    flat form "decide-only / propext-blocked / Lean-core artifact" were
+    wrong: core `Nat.div` carries propext, but `NatDiv213` provides the
+    pure replacements, so the flat universal is achievable and achieved.
+    `KernelConstancyUniversal` (product index) is a division-free
+    companion, not a workaround.
   · M3 is the live frontier: derive (not pair) which axis of the
     smaller T-side carries time vs the self-pointing residue.  The
     1-dim kernel result says *one* axis is self-pointing; *which*

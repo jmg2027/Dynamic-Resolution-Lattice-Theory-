@@ -4,18 +4,18 @@
 
 ## Why a native version
 
-Core Lean defines `Nat.div` / `Nat.mod` by well-founded recursion, and
-**every** core lemma about them carries `propext` (several also
-`Quot.sound`) — probe-verified across `Nat.mul_div_cancel`,
-`Nat.add_mul_div_left/right`, `Nat.mul_add_div`,
-`Nat.add_mul_mod_self_left`, `Nat.div_one`, and the subtraction lemmas
-`Nat.sub_add_cancel`, `Nat.add_sub_cancel'`.  Any strict-∅-axiom 213
-development that reasons about `/` or `%` through those lemmas loses its
-purity.
+Core Lean's `Nat.div` / `Nat.mod` lemmas carry `propext` (several also
+`Quot.sound`).  The repo's ∅-axiom replacement for the **operator** facts
+(`a*b/a = b`, `(a + b·c)/c = …`, mod variants) is
+`lean/E213/Meta/Nat/NatDiv213.lean` — strict-∅-axiom code that needs a `/`
+or `%` lemma uses it (e.g. `KerSizeUniversal` decodes the flat edge index
+`Fin (c·NS·NT)` with it to prove the universal δ⁰-kernel = constants on
+the canonical flat coboundary).
 
-So division-based combinatorics in 213 takes the division facts from a
-native primitive built the other way — by **upward** induction, using
-only ∅-axiom `Nat` addition / multiplication / order lemmas.
+This Euclidean-division file is the **relational** complement: it
+characterises division as the relation `IsQuotRem d n q r` (existence +
+uniqueness), built by **upward** induction from ∅-axiom `Nat`
+arithmetic — convenient where the spec, not the `/` operator, is consumed.
 
 ## Content
 

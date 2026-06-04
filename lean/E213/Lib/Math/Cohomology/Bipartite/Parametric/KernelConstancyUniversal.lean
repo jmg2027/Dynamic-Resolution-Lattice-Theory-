@@ -9,18 +9,22 @@ For any complete bipartite multigraph `K_{NS,NT}^{(c)}` with `NS ≥ 1`,
 constant cochains.  Hence `dim ker δ⁰ = 1 = b₀` (the graph is connected)
 and `dim im δ⁰ = (NS + NT) − 1`.
 
-The coboundary is taken in **product-indexed** form
-(`delta0Tri`, indexed by `Fin NS × Fin NT × Fin c`).  This indexes the
-same graph as the flat `Fin (c·NS·NT)` form of `CochSpaces.delta0` —
-`NS` S-vertices, `NT` T-vertices, `c` parallel edges per S-T pair, edge
-value = XOR of endpoint colours — under the re-indexing
-`Fin (c·NS·NT) ≃ Fin NS × Fin NT × Fin c`.  The product form carries an
-edge as a triple `(i, j, m)` with no integer-decode division, so the
-connectedness argument runs with zero `propext` import; `CochSpaces.
-delta0`'s flat indices would require core Lean's `Nat.div` / `Nat.mod`
-lemmas, all of which carry `propext`.  The two forms have the same kernel
-on each concrete deployment (`decide`-checked in
-`Delta0AndConnectedness`).
+The flat-operator form of this result already exists:
+`KerSizeUniversal.ker_iff_constant` proves
+`(∀ e, CochSpaces.delta0 σ e = false) ↔ (∀ i j, σ i = σ j)` for the
+canonical flat coboundary `CochSpaces.delta0` (edges `Fin (c·NS·NT)`),
+∅-axiom — its integer edge-decode uses the repo's pure division library
+`Meta.Nat.NatDiv213` (`mul_div_cancel_left_pure`, `add_mul_div_left_pure`,
+…), the propext-free replacements for core `Nat.div` / `Nat.mod`.
+
+This file gives the **product-indexed** companion: the coboundary
+`delta0Tri` indexed by `Fin NS × Fin NT × Fin c` (an edge is a triple
+`(i, j, m)`, no integer decode at all).  It indexes the same graph as
+`CochSpaces.delta0` under `Fin (c·NS·NT) ≃ Fin NS × Fin NT × Fin c`, and
+its purpose here is the **count-form** lemmas and the
+`Combinatorics.GraphConnectivity` instantiation that the chart-axis
+consumers (`forcedKChartLens`, the b₀ count) build on; it does not rely
+on division.
 
 213-Lens reading: a vertex cochain is a chart-Lens output; the kernel
 (constant cochains) is the chart-Lens-invisible self-pointing residue —
