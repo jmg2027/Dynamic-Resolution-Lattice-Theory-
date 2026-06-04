@@ -46,9 +46,16 @@ unit (`ascent_adds_unit`), the descent unit (`part_depth_succ_le`), the glue `NS
 the Möbius `det P = 1` are the *same* `1` — the dynamics↔algebra bridge the `ResidueForm`
 narrative asserted (now cited from it).  Complements the two pre-existing single-scale bundles
 (`ReentryUnit.reentry_unit_across_scales` = Raw-dynamics; `the_unit_is_one_across_readings` =
-number-axes).  G178's remaining consolidation bridges: C1-phys (`N_gen` via the atom's solver),
-C7-phys (Koide 2/3), C6-phys (falsifier-roster uniqueness super-theorem — highest
-Validation-Standard value).
+number-axes).
+
+### 4. G178 — C6-phys falsifier-roster super-theorem closed
+`Lib/Physics/Foundations/FalsifierRosterForced.falsifier_roster_forced` (1 PURE): binds the two
+forcing iffs (`atomic_iff_five` → d=5; `pair_forcing` → (NT,NS)=(2,3)) to the headline falsifier
+integers as polynomials in the *forced* triple (F1 5, F2 3, F8 22, F22/F26 6, F26 10, F24 192,
+F15/F19 12, F21 Koide 3·NT=2·NS).  The load-bearing content is the *forcing* (integers follow
+from the unique triple, not fits).  Wired into `Lib/Physics/Foundations.lean`; recorded in
+`catalogs/falsifiers.md`.  G178's remaining consolidation bridges: C1-phys (`N_gen` via the
+atom's solver), C7-phys (Koide `2/3`) — both internal, lower novelty.
 
 ## Current Precision Results (0 free parameters)
 Unchanged this session (math-frontier work; no physics-constant edits).  Canonical:
@@ -64,8 +71,7 @@ arc (`Real213/Continuant.lean` tool already built).
 ### 2. G178 remaining — consolidation bridges + adjacent
 - **Consolidation bridges (C-phys)** in `research-notes/frontiers/G178_next_proofline_conjectures.md`:
   C3-phys (det-1 = ascent-1 = glue-1, safest), C1-phys (`N_gen` via the atom's own solver),
-  C7-phys (Koide 2/3), C6-phys (falsifier-roster uniqueness super-theorem).  Internal, lower
-  novelty, but C6-phys has Validation-Standard value.
+  C7-phys (Koide 2/3).  Internal, lower novelty.  (C3-phys + C6-phys closed this session.)
 - **Adjacent — both closed** (survey label was stale): ε₀ diagonal
   (`DepthHeightDiagonal.{height_diagonal_escapes,epsilon_direction}`, chaptered in
   `completeness_without_completeness.md` Part IV §14; native ε₀ object out of ∅-axiom reach, not

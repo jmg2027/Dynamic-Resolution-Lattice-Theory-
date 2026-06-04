@@ -44,7 +44,7 @@ non-holonomicity arc):
   - `spineL_shift_fixed` — `spineL` the period-1 (shift-fixed) escape (= `spineL_unique`'s p=1).
   - `boolSpine_swap_shift_commute` — the lone symmetry commutes with the shift.
   - `boolSpine_shift_dynamics` — capstone: νF carries the full shift as a faithful sub-coalgebra.
-  Fed the essay's "the frontier carries dynamics" layer.  Remaining open: the C1/C6/C7-phys
+  Fed the essay's "the frontier carries dynamics" layer.  Remaining open: the C1/C7-phys
   consolidation bridges below (C3-phys closed; the ε₀-diagonal and frozen=dynamic-φ adjacents
   were already closed — see the survey footer).
 
@@ -124,10 +124,13 @@ Tractability: med.  Do P1/P2 first; the branch-distinctness bookkeeping mirrors
 - **C7-phys (Koide `2/3 = NT/NS`)** — connect `koide_falsifier` (F21) to `Mobius213OneAsGlue`
   so Koide's `2/3` and the det atoms are the *same two atoms*.  Clean internal link; honest
   only as a *forced reading*, which F21 already frames correctly.
-- **C6-phys (falsifier-roster uniqueness super-theorem)** — every falsifier integer (F1 `5`,
-  F2 `3`, F8 `22`, F22 `6`, F26 `10`, F24 `192`) is a polynomial in `(NS,NT,d)`, the unique
-  triple forced by `atomic_iff_five`+`pair_iff_two`.  High Validation-Standard value (one
-  ∅-axiom theorem covering the surface) but capstone-inflation labor.
+- **C6-phys (falsifier-roster uniqueness super-theorem)** — ✅ **CLOSED 2026-06-04** ∅-axiom:
+  `Lib/Physics/Foundations/FalsifierRosterForced.falsifier_roster_forced` (1 PURE) binds the two
+  forcing iffs (`atomic_iff_five` → d=5; `pair_forcing` → (NT,NS)=(2,3)) to the headline
+  falsifier integers as polynomials in the forced triple (F1 5=d, F2 3=binom NS NT, F8 22=d²−NS,
+  F22/F26 6=NS·NT, F26 10=d·NT, F24 192=(NS²−1)(d²−1), F15/F19 12=2·NS·NT, F21 Koide 3·NT=2·NS).
+  The load-bearing content is the *forcing* (integers follow from the unique triple, not fits),
+  recorded in `catalogs/falsifiers.md`.
 
 ## Non-bridges — record and STOP re-fighting (per the failure-mode discipline)
 
