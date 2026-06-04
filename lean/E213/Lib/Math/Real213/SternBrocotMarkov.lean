@@ -2359,4 +2359,24 @@ theorem markovNum_lt_append : ∀ (q p : List Bool), q ≠ [] → (mNode p).c < 
         (markovNum_lt_append (c :: q') p (fun h => List.noConfusion h))
         (markovNum_lt_extend b ((c :: q') ++ p))
 
+/-! ## §31 — the size reading is not residue-native: the Markov combine is non-commutative
+
+The Farey/slope reading folds the *direction-free* residue: its combine is the mediant, which is
+commutative (`ModularGeodesicLens.mediant_sym`), so it is a genuine Raw-`Lens` — Raw's `a/b = b/a`
+(direction-freedom, the third axiom clause) is respected.  The Markov **size** reading does not: its
+combine is the matrix product of the generators, and `genL · genR ≠ genR · genL`.  A non-commutative
+combine cannot be a Raw-fold (`Raw.fold_slash` requires `combine u v = combine v u`), so the size
+reading is **not** a residue-`Lens` — it lives on the *oriented* `List Bool` tree (the free monoid on
+two letters), one structural level above the direction-free residue.
+
+This is the foundation-level root of the slope/size asymmetry: the slope reading is residue-native
+(foldable, its injectivity `slope_path_inj` provable), while size injectivity (the kernel `H`) requires
+exactly the orientation the residue discards — a difference-style reading (orientation-breaking), not a
+count-style one. -/
+
+/-- **The Markov generators do not commute**: `genL · genR ≠ genR · genL`.  Hence the size reading's
+    combine is non-commutative, so the Markov size is not a Raw-`Lens` (the residue's `a/b = b/a` forces
+    a commutative combine) — it is a free-monoid reading on the oriented tree. -/
+theorem markovGen_noncommutative : mul genL genR ≠ mul genR genL := by decide
+
 end E213.Lib.Math.Real213.SternBrocotMarkov

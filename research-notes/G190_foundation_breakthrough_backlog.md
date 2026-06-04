@@ -66,6 +66,31 @@ the seed's open injectivity-hierarchy / no-incomparability metatheorem** — the
 case where one reading is provably injective, whether the other is.  Closing `H` would be one data
 point for (B.1)–(B.2); a general `IsInjectiveLens` calculus would be the metatheorem above it.
 
+## D. Landed this round — the foundation made concrete (in the right order)
+
+Two `∅`-axiom installments, foundation first:
+
+1. **The `IsInjectiveLens` calculus** (`Lens/Lattice/Injectivity.lean`, 6 PURE) — the metatheorem
+   skeleton above `H`, the `∅`-axiom core of seed target (B.1).  `IsInjectiveLens L := Injective L.view`;
+   `isInjectiveLens_iff_refines_idLens` (injective = refines the bottom `idLens`); `isInjectiveLens_idLens`
+   (the identity is injective); **`isInjectiveLens_of_refines`** (monotone *down* the order — refining an
+   injective Lens is injective); **`isInjectiveLens_prodLens_left`** (the meet inherits injectivity from
+   a factor); `not_isInjectiveLens_constLens` (the top is maximally lossy).  So injectivity is a
+   *downward-closed* sub-order of the refinement lattice, with `idLens` its least element — the formal
+   home of "which readings are injective."
+
+2. **Why the size reading is not residue-native** (`SternBrocotMarkov` §31, `markovGen_noncommutative`,
+   PURE) — reaching the fundamental.  The Farey/slope combine (mediant) is *commutative* (`mediant_sym`),
+   so the slope reading is a genuine Raw-`Lens`, honouring Raw's `a/b = b/a` (axiom clause 3).  The Markov
+   *size* combine is the matrix product, and **`genL · genR ≠ genR · genL`** — non-commutative, hence not
+   a `Raw.fold` (`fold_slash` needs symmetry).  So the size reading is **not** a residue-`Lens`: it lives
+   on the *oriented* `List Bool` tree (the free monoid on two letters), one structural level above the
+   direction-free residue.  This is the foundation-level root of the slope/size asymmetry, and it places
+   the split in the seed's own §6.7 terms: **slope = count-style** (direction-free, residue-native, its
+   injectivity provable), **size = difference-style** (orientation-breaking, the difference-Lens that
+   breaks clause 3).  `H` is hard because its reading is not foldable over the residue — it needs exactly
+   the orientation Raw discards.
+
 ## Honest verdict
 
 Nothing here proves `H` or closes a frontier — it is a *map*.  Its value: (i) it surfaces a stack of
