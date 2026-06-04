@@ -38,17 +38,21 @@ at every integer have equal coefficients).  This transports the `Int` adjugate i
 identity by `pmatMul`/`padj` eval-soundness + `coeff_unique`.  The conceptual heart of integer
 Cayley–Hamilton is now closed.
 
-**Remaining (steps 5–6; coefficient bookkeeping + companion construction):**
-5. **Telescoping** ⟹ `χ(M) = Σ_k c_k M^k = 0`: read `padj_identity` coefficient-wise — need
-   `coeff_psumZ` + `coeff_mulP` (convolution) + `charMat M i j = [−M_ij, δ_ij]`, giving the matrix
-   relations `B_{k−1} − M B_k = c_k I` (`B_k(i,j) := coeff (padj … i j) k`, `c_k := coeff χ k`),
-   then index-shift telescoping with the §4/§5 `CayleyHamilton` ring laws (`matMul_addL`,
-   `matMul_matSumZ_*`, `matPow`).  ⟹ integer Cayley–Hamilton.
-6. **§7 Kronecker `M`** (tensor of the two companion matrices) + `V(n+1)=M·V(n)` + first-component
-   extraction ⟹ `cfiniteZ_mul` via `cfiniteZ_of_shiftRec`.
+★★ **Step 5 (relation extraction) done** (`CharPolyAdj` §4): `cayley_rel_zero` (`−(M·B₀) = c₀·I`)
+and `cayley_rel_succ` (`Bₘ − M·B_{m+1} = c_{m+1}·I`), where `Bₖ(i,j) := coeff (padj n charMat i j) k`,
+`cₖ := coeff (charPoly M (n+1)) k`.  These are the telescoping inputs.
 
-This session banked (all ∅-axiom): matrix ring (`CayleyHamilton` 25) + `PolyZ` 26 + `PolyDet` 11
-+ `CharPolyAdj` 11 = **73 PURE**.
+**Remaining (the home stretch):**
+- **Telescoping** ⟹ `χ_M(M) = Σ_{m=0}^{n+1} cₘ Mᵐ = 0`: substitute `c₀ I = −M B₀`, `c_{m+1} I =
+  Bₘ − M B_{m+1}` (and `B_{n+1}=0` ⟹ `c_{n+1} I = Bₙ`); the sum telescopes via the index shift
+  `Σ_{m≥1} Mᵐ B_{m−1} = Σ_{p≥0} M^{p+1} Bₚ`.  Pure `CayleyHamilton` matrix-sum algebra (`matSumZ`,
+  `matPow`, `matMul_addL`, `matMul_matSumZ_*`); recast the relations as matrix equations
+  (`matMul M (B 0) = −(c 0 • I)` via `sumZ_map_neg`) + a `matSumZ` reindex lemma.  ⟹ integer CH.
+- **§7 Kronecker `M`** (tensor of the two companion matrices) + `V(n+1)=M·V(n)` + first-component
+  extraction ⟹ `cfiniteZ_mul` via `cfiniteZ_of_shiftRec`.
+
+This session banked (all ∅-axiom): `CayleyHamilton` 25 + `PolyZ` 33 + `PolyDet` 11 + `CharPolyAdj`
+15 = **84 PURE**.  Integer Cayley–Hamilton is now reduced to a finite matrix-sum telescoping.
 
 ## Other live threads
 - C-finite orbit dimension: `theory/math/analysis/cfinite_orbit_dimension.md`

@@ -512,3 +512,28 @@ Banked this session (all ∅-axiom): matrix ring (`CayleyHamilton` 25) + `PolyZ`
 uniqueness gate) + `PolyDet`/`charPoly` 11 + `CharPolyAdj` 11 = **73 PURE**.  The conceptual heart
 (uniqueness + polynomial adjugate identity) is done; steps 5–6 are coefficient bookkeeping + the
 companion-matrix construction.
+
+## Update — ★★ Cayley–Hamilton coefficient relations extracted (CharPolyAdj 15 PURE; PolyZ 33)
+
+Step 5 (first half) done, ∅-axiom.  `padj_identity` read coefficient-wise gives the telescoping
+inputs — `Bₖ(i,j) := coeff (padj n charMat i j) k`, `cₖ := coeff (charPoly M (n+1)) k`:
+- `PolyZ`: coefficient convolution for degree-`≤1` factors (`coeff_mulP_single`/`_pair_zero`/
+  `_pair_succ`, with `coeff_scaleP`/`coeff_shiftP_*`/`coeff_nil`).
+- `CharPolyAdj`: `coeff_pmatMul` (coeff of a `PolyZ` matrix product = `Int` sum of entry-product
+  coeffs), `coeff_charScalarId`, and the two relations:
+  - ★★ `cayley_rel_zero`: `Σⱼ (−Mᵢⱼ)·B₀(j,k) = c₀·δᵢₖ`  (i.e. `−(M·B₀) = c₀·I`).
+  - ★★ `cayley_rel_succ`: `Σⱼ (−Mᵢⱼ)·B_{m+1}(j,k) + Bₘ(i,k) = c_{m+1}·δᵢₖ`  (i.e.
+    `Bₘ − M·B_{m+1} = c_{m+1}·I`); the `δ`-term via `CayleyHamilton.sumZ_iota_delta_lt`.
+
+**Remaining (the home stretch):**
+- **Telescoping** `χ_M(M) = Σ_{m=0}^{n+1} cₘ Mᵐ = 0`: substitute `c₀ I = −M B₀`, `c_{m+1} I =
+  Bₘ − M B_{m+1}` (and `B_{n+1}=0` ⟹ `c_{n+1} I = Bₙ`); `Σₘ Mᵐ(cₘ I)` telescopes via the index
+  shift `Σ_{m≥1} Mᵐ B_{m−1} = Σ_{p≥0} M^{p+1} Bₚ`.  Pure `CayleyHamilton` matrix-sum algebra
+  (`matSumZ`, `matPow`, `matMul_addL`, `matMul_matSumZ_*`) — needs the relations recast as matrix
+  equations (`matMul M (B 0) = −(c 0 • I)` etc., via `sumZ_map_neg`) + a `matSumZ` reindex lemma.
+  ⟹ ★★★ integer Cayley–Hamilton.
+- **§7 Kronecker `M`** + first-component extraction ⟹ `cfiniteZ_mul`.
+
+Session tally (all ∅-axiom): `CayleyHamilton` 25 + `PolyZ` 33 + `PolyDet` 11 + `CharPolyAdj` 15 =
+**84 PURE**.  Integer Cayley–Hamilton is now reduced to a finite matrix-sum telescoping over the
+extracted relations.
