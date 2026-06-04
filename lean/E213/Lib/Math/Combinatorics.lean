@@ -6,6 +6,12 @@ import E213.Lib.Math.Combinatorics.Simplex5
 import E213.Lib.Math.Combinatorics.Capstone
 import E213.Lib.Math.Combinatorics.GraphConnectivity
 import E213.Lib.Math.Combinatorics.BoolEnum
+import E213.Lib.Math.Combinatorics.Pigeonhole
+import E213.Lib.Math.Combinatorics.CountExistence
+import E213.Lib.Math.Combinatorics.RamseyLowerBound
+import E213.Lib.Math.Combinatorics.LinearDependence
+import E213.Lib.Math.Combinatorics.ParityInvariant
+import E213.Lib.Math.Combinatorics.KonigConditional
 
 /-!
 # Combinatorics 213 — umbrella
@@ -13,6 +19,8 @@ import E213.Lib.Math.Combinatorics.BoolEnum
 Atomic counting on the 213 substrate.  Builds on existing
 `Lib/Physics/Simplex/Counts.lean` (binom), `Lib/Math/NumberTheory/DyadicFSM/`
 (Pell, Pisano), and `Lib/Physics/AtomicBase/Pairs.lean` (K_{3,2}).
-This umbrella adds: Catalan, Stirling, Bell, and formal generating
-functions — closing the blueprint's "generating function" gap.
+Adds: Catalan, Stirling, Bell, formal generating functions; the `Pigeonhole`
+primitive; and the proof-ISA reproductions — `CountExistence` /
+`RamseyLowerBound` (COUNT), `LinearDependence` (dimension = COUNT),
+`ParityInvariant` (READ ∘ SEPARATE), `KonigConditional` (the boundary).
 -/

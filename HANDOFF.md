@@ -1,114 +1,147 @@
-# Session Handoff — 2026-06-04
+# Session Handoff — 2026-06-04 (proof-ISA compilation series)
 
 ## Branch
-`claude/eisenstein-elliptic-conjecture-Vvzcx` — pushed, ahead by 4 commits (this marathon).
-`cd lean && rm -rf .lake/build && lake build` ✓ (full fresh build clean).  Kernel regress
-45/45 0-axiom.  All new modules strict ∅-axiom (`does not depend on any axioms`).
+`claude/novel-math-discoveries-fMR2z` — pushed; **merged to `main`** at session
+end (the closing marathon step).  Working tree clean.  Full `lake build` (all
+targets) **clean**; `tools/layer_audit.py` 0 violations; purity gate green (0
+sorry / 0 axiom / 0 native_decide / 0 Classical; the session's 7 new theorems
+all `#print axioms`-empty).  Ready-to-merge audit verdict: **READY**.
+
+> Unverified-signature hook: every commit's author is `Claude
+> <noreply@anthropic.com>` (correct); the "Unverified" badge is the missing
+> GPG/SSH signature, which this environment cannot produce — `amend`/`rebase`
+> will NOT fix it and must not be run (would rewrite the merged main history).
 
 ## What Was Done This Session
 
-This branch closed a sequence of classical representation theorems ∅-axiom, capped by Lagrange's
-four-square theorem, then ran a full merge-readiness marathon (`/process /essay /org-audit
-/purity-check /ready-to-merge /handoff`) and merged `origin/main` in.
+The session began by answering "is there genuinely-new math here?" (4 rounds of
+literature deep-research → verdict: the repo is, by design, mostly ∅-axiom
+**re-statement**; honest novelty is thin — `K_{m,n}^{(c)}` cup-codim and the
+Eisenstein cross-det were the only defensible candidates, both later down-graded
+on arXiv comparison).  That re-framed the work around the repo's *actual* thesis
+(`seed/PROOF_ISA.md`, merged from main): **mathematics as compilation from the
+residue instruction set** — open problems are *compiled* to a shared ISA, not
+cracked.  The rest of the session executed that programme.
 
-**Merged from main this pass** (separate arc, promoted to permanent tiers — see
-`research-notes/frontiers/INDEX.md` + `theory/essays/`): the residue-expression atlas + the
-Minkowski-`?` modular cocycle (`theory/essays/analysis/minkowski_as_modular_cocycle.md`), the
-breadth-signature thesis (`theory/essays/foundations/the_breadth_signature.md`), the Markov-`H`
-ISA-localization terminal finding (`frontiers/markov_lagrange/G197…`), and the p-adic
-Teichmüller G123 A/B/G closure (`theory/math/numbersystems/padic_real213.md`).
+### 1. The COUNT instruction (probabilistic method) — PURE ✓
+Compiled Erdős (1947) `R(k,k) > 2^{k/2}`.  Its move (`#bad < #total ⟹ ∃ good`)
+is **not** one of the eight named instructions — it is the **quantitative `GAP`
+witness**, the primitive the repo already used (≈25 Lean files) as `pigeonhole`
+without naming.  Registered as a **GAP sub-mode** (not a 9th instruction).
+- `Lib/Math/Combinatorics/CountExistence.lean` — `union_bound`, `deficit_exists`
+  (constructive finite-search extraction — why the method is ∅-axiom at all),
+  `count_existence` (the instruction), `erdos_schema` (the method as one thm).
+- `Lib/Math/Combinatorics/RamseyLowerBound.lean` — the per-event count's *why*:
+  `count_factor` (each free distinguishing **doubles** the count → existence-
+  counting factors because distinguishings multiply), `mono_event_count`
+  (`2·2^{E−m}` derived), `matchesC_count` (arbitrary-subset count; **observed**:
+  permutation-invariance is unnecessary, the `Option Bool` per-position model
+  handles scattered subsets directly).
+- Registered: `seed/PROOF_ISA.md` (GAP sub-mode), `ProofISALifts.lean`
+  Archetype 4 (`lift_count`, `lift_count_factor`).
 
-### 1. Lagrange's four-square theorem — CLOSED + PROMOTED (∅-axiom)
-`NumberTheory/FourSquare.nat_isSum4 : ∀ n, isSum4 ↑n` is axiom-free — the first repo result
-reached by neither the multiplicative counting-bound nor the commutative CD machinery (35 PURE /
-0 dirty).  An **additive** pigeonhole seed + an **all-`n`** Euler descent over `ℤ`:
-- `FourSquareSeed.four_square_seed` (Pillar I, constructive): odd prime `p = 2m+1` ⟹
-  `∃ x y ≤ m, p ∣ x²+y²+1`, via `Pigeonhole.no_inj_lt` on a sum-collision (`gval`); witness from
-  a bounded 2-D search refuted in its `none`-branch.  Dodges two propext traps (`a%p` instead of
-  `Decidable (p∣a)`; ℕ-only to avoid the `Int.natAbs` triangle).
-- `FourSquare`: `four_sq_id` (Euler's identity), `isSum4_mul`, `descent_core`; the **parity-split
-  descent** — `halve_step` (even `m` halves) + `odd_descent` (odd `m` strict `r<m`, killing the
-  `r=m` mod-8 crux) + `descent_rec` (fuel recursion); `seed_multiple` (`k·p = x²+y²+1²+0²`,
-  `1≤k<p`); `dvd_dec`/`searchDiv`/`exists_prime_factor` (constructive least-divisor prime
-  factorization); `prime_isSum4`; `nat_isSum4`.  Two more propext leaks caught (`Nat.dvd_refl`,
-  `Nat.succ_ne_zero`) → `⟨1,(mul_one _).symm⟩` and `Nat.noConfusion`.
-- Promoted: `theory/essays/synthesis/four_square_additive_pigeonhole.md` (the two-engine
-  contrast); frontier note archived to `research-notes/archive/four_square/`.
+### 2. The linear-algebra (dimension) method = COUNT in a linear codomain — PURE ✓
+`Lib/Math/Combinatorics/LinearDependence.lean` — `dimension_bound_is_count`:
+`m>n` vectors in `𝔽₂^n` are dependent because their `2^m` subset-sums collide in
+the `2^n`-value space (**pigeonhole = COUNT**); the dependency is the collision's
+residue.  Reuses the *exact* COUNT witness `List213.nodup_length_le_of_subset`.
+(`vsum`/`vxor` hand-rolled; `vxor_len_eq` avoids `List.length_zipWith`'s propext.)
 
-### 2. Earlier on this branch (closed ∅-axiom, carried into the merge)
-- **Eisenstein split-converse iff** — `EisensteinConverse.eisenstein_iff`: prime `p ≠ 3`,
-  `p ≡ 1 (mod 3) ⟺ ∃ a b, ↑p = a²−ab+b²`.  Pillar I (Lagrange root bound mod `p` via `PolyRoot`)
-  + ℤ[ω] norm-Euclidean descent.  Promoted: `theory/math/numbertheory/eisenstein_period_arithmetic.md`.
-- **Gaussian two-square iff** — `GaussianTwoSquare.two_square_iff`: odd prime, `p ≡ 1 (mod 4) ⟺
-  p = a²+b²`.
-- **Parametric ℤ[√−D]** — `ZSqrtNegSplit.split_form` (`1≤D≤2`, `p∣x²+D ⟹ p = a²+D·b²`); the
-  `D=2` (disc-`−8`) conditional split.
-- **Sharpness (negative result)** — `ZSqrtNegSharp.descent_false_at_three`: the descent bound
-  `D≤2` is optimal (`2 ∣ 1²+3` yet `2 ≠ a²+3b²`).
-- Synthesis essay: `theory/essays/synthesis/representation_theorems_one_counting_bound.md`.
+### 3. The parity / invariant method = READ ∘ SEPARATE — PURE ✓
+`Lib/Math/Combinatorics/ParityInvariant.lean` — mutilated chessboard.
+`tiling_balanced` (every domino-tiling balances the two colours — a conserved
+`READ`/catamorphism), `corners_same_colour` (the obstruction = `SEPARATE`).
+**Not** COUNT (conservation→separation, not deficit→existence), **not** a new
+instruction.  `par` reuses canonical `Mod213.parity` (`adj_par` = `parity_succ`).
 
-### 3. Marathon hygiene (this pass)
-- **process**: decoupled the FourSquare docstring from its frontier note (sink rule: 0 violations).
-- **org-audit**: refreshed `theory/INDEX` + `theory/essays/INDEX` counts (essays 41→44, math
-  87→88, ~176 total); narrative + stale-ref clean.
-- **ODE build fix**: `Analysis/ODE.lean` had imports after the docstring (Lean-invalid, masked by
-  olean cache) — hoisted them; `E213.Lib.Math` aggregator now builds.
-- **ready-to-merge synthesis**: `research-notes/frontiers/sums_of_squares_engines.md`.
+### 4. König's lemma — the boundary marker (where ∅ stalls) — conditional PURE ✓
+`Lib/Math/Combinatorics/KonigConditional.lean` — the first reproduction that
+**stalls**.  Compiles to `LOOP ∘ ⟦DECIDE InfBelow⟧`: the path-construction is
+internal (`konig_conditional`, `walk`+`walk_inf`, PURE); the stall is the oracle
+= deciding `InfBelow` (`Π⁰₁`, an `LLPO`/`WKL` import).  `InfChildExists` stated,
+**left unproved** (proving it as a Bool-choice IS the exterior).  Sharpened by the
+corpus sweep: the residue *has* constructive infinite descent
+(`CoResidue.spineL`/`allBranch`, given by definition); König's stall is the
+decision about a *foreign* tree, not infinity itself.
+
+### 5. The why-archive + corpus grounding + dedup sweep + closing marathon
+- New `theory/essays/proof_isa/` (INDEX + 5 essays incl. the synthesis cap
+  `what_is_a_proof.md` = "a proof is a composition of the eight discharging a
+  claim to ∅-axiom") — the "why" of each reproduction at the residue level.
+- Closing marathon (`/process → /essay → /org-audit → /purity-check →
+  /ready-to-merge → /handoff → merge`): process clean; the 5 proof-ISA Lean
+  files wired into the `Combinatorics` umbrella + INDEX (were orphans); essay
+  counts 46→51; full build + purity + layer-audit all green; merged to main.
+- Grounded the "constructive interior is complete" claim in the real corpus
+  (`STRICT_ZERO_AXIOM.md`: **1145 PURE / 0 real DIRTY**; number systems / a
+  real-analysis course / algebra-cohomology-number-theory).
+- **Corpus cross-ref sweep** (the König discipline applied to all essays):
+  deduped `parNat → Mod213.parity`; corrected the `72×` pigeonhole figure to the
+  verifiable ≈25 Lean files; cited the abstract pigeonhole primitives; connected
+  the parity "conserved READ" to `GraphConnectivity.IsClosed`/`closed_const`
+  (honestly — the domino 2-colouring is the bipartite *dual* of the same-on-edge
+  δ⁰-kernel, not a literal instance).  **Lesson logged: search the corpus before
+  building — it dedups and sharpens.**
 
 ## Current Precision Results (0 free parameters)
-Unchanged this session (math-frontier work only; no physics-constant edits).  Canonical table:
-`catalogs/physics-constants.md`.
+**Unchanged this session** — this was math-frontier / methodology work
+(the proof-ISA compilation series), not a physics-constant edit.  Canonical
+table: `catalogs/physics-constants.md` (`1/α_em` 0.09 ppb, `m_μ/m_e` 0.48 ppb,
+`m_p` 0.000%, etc.).
 
 ## Open Problems (Priority Order)
 
-### 1. Disc-`−8` congruence iff
-`ZSqrtNegSplit.split_form_two` gives `p ∣ x²+2 ⟹ p = a²+2b²`; the missing forward half is which
-primes have `−2` a QR (`p ≡ 1,3 mod 8`), i.e. the quadratic character of `2` — the one input the
-multiplicative engine still lacks.  Frontier: `research-notes/frontiers/sums_of_squares_engines.md`.
+### 1. Named `R(k,k) > 2^{k/2}` closure — pure `K_N` bookkeeping (no new "why")
+All engine pieces built ∅-axiom (`erdos_schema` + `mono_event_count` +
+`matchesC_count`).  Remaining: a `K_N` edge↔position indexing + `k`-subset
+enumeration giving `t = C(N,k)` events, each `= matchesC(some false on S) ∨
+matchesC(some true on S)` (count `2·2^{E−|S|}`), then feed
+`t·c < 2^E ⟺ 2·C(N,k) < 2^{C(k,2)}` into `erdos_schema`.
+Frontier note: `research-notes/frontiers/G200_probabilistic_method_count_compilation.md`.
 
-### 2. Three-square theorem (`n = a²+b²+c²` iff `n ≠ 4ᵏ(8m+7)`)
-Outside both representation engines: three squares is not multiplicative, so the prime reduction
-does not apply.  Hard / possibly out-of-reach ∅-axiom (classical proof needs Dirichlet + ternary
-genus theory).  Frontier: `research-notes/frontiers/sums_of_squares_engines.md`.
-
-### 3. Promotion backlog
-Gaussian / ℤ[√−D] / PolyRoot PURE-closed sub-trees still lack `theory/` chapters.  Frontier:
-`research-notes/frontiers/research_grade_closure_gate.md` (gate discussion); promote per
-`theory/PROMOTION_CRITERIA.md`.
-
-### 4. (carried) Markov uniqueness, π non-holonomicity, spiral-axis, completability
-See `research-notes/frontiers/INDEX.md` for the full open board.
+### 2. (carried) Markov uniqueness kernel `H` — the orbit-realizability residue
+Frobenius 1913.  ISA-localized to one named residue (uniform cross-word
+continuant-trace `SEPARATE`); closest lift archetype = **ORBIT** (A3, same
+family).  Frobenius continuant formula proved ∅-axiom (`markovNum_eq_cohn_trace`).
+Frontier notes: `research-notes/frontiers/markov_lagrange/{G191,G192,G193,G197}*`.
 
 ## Unresolved from This Session
-None attempted-and-failed.  One informational backlog surfaced by `ready-to-merge`: **121
-repo-wide namespace mismatches** (`tools/sync_namespaces.py`, e.g. `Lens/Cardinality/Godel`) —
-pre-existing drift, not from this branch (its files are namespace-clean).  Deserves a dedicated
-`sync_namespaces --apply` commit chain, not a merge-audit fold-in.
+- The König stall (`InfChildExists`) is **deliberately** unproved — it is the
+  exterior boundary, not a gap to close ∅-axiom.  Do **not** attempt to prove it
+  (that would import `LLPO`/`WKL`).
+- No technique reproduced this session forced a **new** instruction; the eight
+  held (3 closed onto COUNT / READ∘SEPARATE, 1 stalled).  Whether a genuinely
+  ISA-extending technique exists is open — candidates would be other
+  non-constructive methods (compactness done; Banach–Tarski/AC, ultrafilters).
 
 ## Next
-- Disc-`−8` congruence iff: derive the quadratic character of `2` ∅-axiom (Pillar-I residue
-  input), then close `p ≡ 1,3 (mod 8) ⟺ p = a²+2b²`.
-- Or: clear the namespace-drift backlog (`sync_namespaces --apply`) as its own commit chain.
-- Or: promote the Gaussian / ℤ[√−D] / PolyRoot closed sub-trees to `theory/`.
+Either (a) close the named `R(k,k)` `K_N` bookkeeping (Open #1 — mechanical,
+build on `erdos_schema`), or (b) compile another solved technique to keep
+mapping the ISA (a method that might force a new instruction, or another
+boundary-stall).  The why-archive `theory/essays/proof_isa/INDEX.md` is the
+running ledger.
 
-## Three-tier state
-- **Promotions this session**: `theory/essays/synthesis/four_square_additive_pigeonhole.md` ←
-  `research-notes/frontiers/four_square_marathon.md` (now `archive/four_square/`).
-- **Promotion candidates**: Gaussian (`GaussianTwoSquare`), ℤ[√−D] (`ZSqrtNegSplit/Sharp`),
-  PolyRoot (`RootBound`/`IntEuclid`/…) — PURE-closed, no `theory/` chapter yet.
-- **Active scratchpad**: `research-notes/frontiers/` open board (see its `INDEX.md`).
+## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
+- **Promotions this session**: `theory/essays/proof_isa/{INDEX,what_is_a_proof,
+  probabilistic_method,linear_algebra_method,parity_invariant_method,konig_boundary}.md`
+  — the why-archive (Tier 3), mirroring the Tier-2 Lean in `Lib/Math/Combinatorics/`.
+- **Promotion candidates**: none pending (the proof-ISA Lean + essays are paired).
+- **Active scratchpad**: `research-notes/frontiers/G200_*` (proof-ISA series,
+  one open rung); carried Markov-`H` frontier notes.
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberTheory/FourSquare.lean        ← +§5-§7: descent_rec, seed_multiple,
-                                                          exists_prime_factor, prime_isSum4,
-                                                          nat_isSum4 (35 PURE / 0 dirty)
-lean/E213/Lib/Math/Analysis/ODE.lean                   ← imports hoisted above docstring (build fix)
-theory/essays/synthesis/four_square_additive_pigeonhole.md  ← NEW essay (four-square promotion)
-theory/essays/INDEX.md                                 ← +2 synthesis rows, count 41→44
-theory/INDEX.md                                        ← counts essays 44 / math 88 / ~176
-research-notes/frontiers/sums_of_squares_engines.md    ← NEW synthesis seed
-research-notes/frontiers/INDEX.md                      ← four-square closure record + new seed
-research-notes/archive/four_square/four_square_marathon.md  ← archived (was in frontiers/)
-research-notes/promotion_essay_log.md                  ← +1 promotion+essay row
+NEW Lean (all PURE, in Lib/Math/Combinatorics/):
+  CountExistence.lean      ← COUNT instruction: union_bound, deficit_exists, count_existence, erdos_schema
+  RamseyLowerBound.lean    ← per-event "why": count_factor, mono_event_count, matchesC_count
+  LinearDependence.lean    ← dimension_bound_is_count (= COUNT in 𝔽₂ codomain)
+  ParityInvariant.lean     ← tiling_balanced, corners_same_colour (= READ ∘ SEPARATE); par=Mod213.parity
+  KonigConditional.lean    ← konig_conditional, walk, walk_inf (the LOOP); InfBelow/InfChildExists (the stall)
+NEW theory (why-archive):
+  theory/essays/proof_isa/INDEX.md + {probabilistic,linear_algebra,parity_invariant}_method.md + konig_boundary.md
+MODIFIED:
+  seed/PROOF_ISA.md                          ← COUNT registered as GAP sub-mode
+  lean/E213/Lib/Math/Foundations/ProofISALifts.lean ← Archetype 4 (lift_count, lift_count_factor)
+  research-notes/frontiers/INDEX.md          ← proof-ISA series + G200 registered
+  research-notes/frontiers/G200_probabilistic_method_count_compilation.md ← the COUNT frontier note
 ```

@@ -206,3 +206,23 @@ Closure records (promoted off this board):
 - `G182_completed_system_synthesis` ("the frontier (νF) has a form") →
   `theory/essays/foundations/the_frontier_has_a_form.md`; archived at
   `archive/G182_completed_system_synthesis.md`.
+
+## proof-ISA compilation series  (`G200_*`)
+
+**The experiment:** reproduce *solved* hard techniques by compiling them down the
+proof-ISA (`seed/PROOF_ISA.md`), to map the instruction set's interior and edge.
+Mostly **closed** — the "why" archive is promoted to
+`theory/essays/proof_isa/` (5 files: INDEX + probabilistic, linear-algebra,
+parity, könig).  Cumulative finding: three surface-diverse methods collapse onto
+the named eight (probabilistic + linear-algebra → COUNT; parity → READ ∘
+SEPARATE), no new instruction forced; König **stalls** exactly at the
+non-constructive `DECIDE` (the exterior).  COUNT registered as the quantitative
+`GAP` sub-mode (`seed/PROOF_ISA.md`) + lift Archetype 4 (`ProofISALifts.lean`).
+
+- `G200_probabilistic_method_count_compilation` — the COUNT discovery + the
+  compilation verdict + the concrete lift status.
+
+**Open rung (only):** the *named* `R(k,k) > 2^{k/2}` closure — pure `K_N`
+bookkeeping (edge↔position indexing + `k`-subset enumeration giving `t=C(N,k)`,
+then `erdos_schema`), **no new "why"**.  All engine pieces built ∅-axiom
+(`CountExistence`, `RamseyLowerBound.{count_factor,mono_event_count,matchesC_count}`).
