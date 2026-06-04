@@ -1,11 +1,11 @@
 # Session Handoff — 2026-06-04 (proof-ISA compilation series)
 
 ## Branch
-`claude/novel-math-discoveries-fMR2z` — **not pushed**, ahead of
-`origin/claude/novel-math-discoveries-fMR2z` by **58 commits** (47 from the
-`origin/main` fast-forward merge at the session start + 11 this session).
-Working tree clean.  Each new module build-verified clean + **PURE**
-(`#print axioms` empty) individually; `lake build E213` (root) clean.
+`claude/novel-math-discoveries-fMR2z` — pushed; **merged to `main`** at session
+end (the closing marathon step).  Working tree clean.  Full `lake build` (all
+targets) **clean**; `tools/layer_audit.py` 0 violations; purity gate green (0
+sorry / 0 axiom / 0 native_decide / 0 Classical; the session's 7 new theorems
+all `#print axioms`-empty).  Ready-to-merge audit verdict: **READY**.
 
 > Unverified-signature hook: every commit's author is `Claude
 > <noreply@anthropic.com>` (correct); the "Unverified" badge is the missing
@@ -64,9 +64,14 @@ corpus sweep: the residue *has* constructive infinite descent
 (`CoResidue.spineL`/`allBranch`, given by definition); König's stall is the
 decision about a *foreign* tree, not infinity itself.
 
-### 5. The why-archive + corpus grounding + dedup sweep
-- New `theory/essays/proof_isa/` (INDEX + 4 essays) — the "why" of each
-  reproduction at the residue level.
+### 5. The why-archive + corpus grounding + dedup sweep + closing marathon
+- New `theory/essays/proof_isa/` (INDEX + 5 essays incl. the synthesis cap
+  `what_is_a_proof.md` = "a proof is a composition of the eight discharging a
+  claim to ∅-axiom") — the "why" of each reproduction at the residue level.
+- Closing marathon (`/process → /essay → /org-audit → /purity-check →
+  /ready-to-merge → /handoff → merge`): process clean; the 5 proof-ISA Lean
+  files wired into the `Combinatorics` umbrella + INDEX (were orphans); essay
+  counts 46→51; full build + purity + layer-audit all green; merged to main.
 - Grounded the "constructive interior is complete" claim in the real corpus
   (`STRICT_ZERO_AXIOM.md`: **1145 PURE / 0 real DIRTY**; number systems / a
   real-analysis course / algebra-cohomology-number-theory).
@@ -117,9 +122,9 @@ boundary-stall).  The why-archive `theory/essays/proof_isa/INDEX.md` is the
 running ledger.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: `theory/essays/proof_isa/{INDEX,probabilistic_method,
-  linear_algebra_method,parity_invariant_method,konig_boundary}.md` — the why-archive
-  (Tier 3), mirroring the Tier-2 Lean in `Lib/Math/Combinatorics/`.
+- **Promotions this session**: `theory/essays/proof_isa/{INDEX,what_is_a_proof,
+  probabilistic_method,linear_algebra_method,parity_invariant_method,konig_boundary}.md`
+  — the why-archive (Tier 3), mirroring the Tier-2 Lean in `Lib/Math/Combinatorics/`.
 - **Promotion candidates**: none pending (the proof-ISA Lean + essays are paired).
 - **Active scratchpad**: `research-notes/frontiers/G200_*` (proof-ISA series,
   one open rung); carried Markov-`H` frontier notes.
