@@ -81,6 +81,7 @@ import E213.Lib.Math.Real213.ModularElliptic
 import E213.Lib.Math.Real213.MarkovModularBridge
 import E213.Lib.Math.Real213.MarkovInjectivity
 import E213.Lib.Math.Real213.SternBrocotMarkov
+import E213.Lib.Math.Real213.MarkovUniquenessRaw
 import E213.Lib.Math.Real213.Continuant
 import E213.Lib.Math.Real213.ContinuantMarkov
 import E213.Lib.Math.Real213.ModularGeodesicLens
