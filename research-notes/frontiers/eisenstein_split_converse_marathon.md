@@ -92,7 +92,18 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
     `ofInt_one_mul`/`mul_ofInt_one` (hand-proved rw chains, tested), Ring213
     `add_zero`/`zero_mul`/`mul_zero` apply to ZOmega, `ofInt 0 = (0:ZOmega)` by rfl,
     `normSq_eq_zero_iff` for `‖β‖².natAbs=0 ⟹ β=0`.
-  - **Phase 2c-gcd-main (next, substantial)** — `gcd_bezout` by **fuel-induction** on
+  - **Phase 2c-gcd-main (DONE)** — `EisensteinGcd.gcd_bezout` (10 PURE): the `ℤ[ω]`
+    Euclidean gcd + Bezout, `∀ n α β, ‖β‖².natAbs ≤ n → ∃ d s t, d = s·α + t·β ∧ d∣α ∧ d∣β`,
+    by fuel-induction.  Snag resolved exactly as predicted: `bezout_rearrange` via a manual
+    `Ring213` calc (`rearrange_helper` + `cassini_ring`-style steps), `ofInt`-unit algebra
+    hand-proved (`ofInt_one_mul`/`mul_ofInt_one`), `Dvd ZOmega` instance + `zdvd_refl`/`zero`/
+    `combo`, `normSq_natAbs_zero`.  **Phase 2c (gcd) complete.**
+  - **Phase 2c-euclid (next)** — Euclid's lemma from `gcd_bezout`: `p ∤ (x−ω)` ⟹
+    `gcd(p, x−ω)` is a unit ⟹ Bezout `1 = s·p + t·(x−ω)` ⟹ (multiplying by `conj(x−ω)`,
+    using `p ∣ ‖x−ω‖²`) `p ∣ conj(x−ω)` — contradiction (also a non-unit imaginary part), so
+    `gcd(p, x−ω)` is a non-unit proper divisor `d` of `p`; then `p = d·e` reducible and
+    `eq_p_of_mul_eq_psq` ⟹ `‖d‖² = p`.  (Earlier fuel-induction plan retained below for ref.)
+  - **(ref) Phase 2c-gcd-main plan** — `gcd_bezout` by **fuel-induction** on
     `‖β‖².natAbs` (avoids constructive-function refactor + Classical): `∀ n α β,
     ‖β‖².natAbs ≤ n → ∃ d s t, d = s·α + t·β ∧ d∣α ∧ d∣β`.  Base `β=0`: `d=α` (`s=ofInt 1,
     t=ofInt 0`).  Step: `zomega_div_step α β → α=βγ+ρ, ‖ρ‖²<‖β‖²`; recurse on `(β,ρ)`; `d∣α`
