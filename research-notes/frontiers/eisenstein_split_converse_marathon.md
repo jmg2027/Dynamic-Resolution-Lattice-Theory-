@@ -65,7 +65,14 @@ The transcendental period value remains separately out of reach (cubic AGM / `L(
     γ·ofInt N` via `mul_conj_self` + a `sub_mul`/`mul_comm`/`mul_assoc` chain.  The math is
     settled: `‖ρ‖²·N = rre²−rre·rim+rim²`, then `covering_bound` ⇒ `8‖ρ‖²N ≤ 6N²`, then the
     `int_sign` contradiction (`N ≤ ‖ρ‖² ⇒ 8N² ≤ 6N²` vs `0 < 2N²` by `mul_pos`/`int_lt_irrefl`).
-  - **Phase 1b-assembly (next)** — `zomega_div_step : β≠0 → ∃ γ ρ, α = βγ + ρ ∧ ‖ρ‖² < ‖β‖²`.
+  - **Phase 1b-assembly (DONE)** — `EisensteinDivStep.zomega_div_step` (6 PURE):
+    `β≠0 → ∃ γ ρ, α = βγ + ρ ∧ ‖ρ‖² < ‖β‖²`.  **Phase 1 complete: `ℤ[ω]` is norm-Euclidean,
+    ∅-axiom.**  Glue snag resolved: `rho_conj_eq` proved by explicit `show` with the
+    sub/neg-unfolded components (`u−v = u+−v`) + `ring_intZ`; the final inequality extracted
+    as `div_step_ineq` (no `set` — that tactic is Mathlib-only); `ring_intZ` leading-`0`
+    limitation (`0−(P−N)`) routed through `zero_sub` + `-(P−N)=N−P`.
+  - **Phase 2 (next)** — gcd / divisibility in `ℤ[ω]` from the Euclidean step (well-founded
+    on `‖·‖²`), then the "non-prime ⟹ proper norm factor" descent.
     Path: `centered_div_int` wrapper (β.normSq : Int>0 from `normSq_pos`); `γ = ⟨qre,qim⟩` from
     `centered_div` on `(α·conjβ).re/.im`; prove `ρ·conjβ = ⟨rre,rim⟩` (ext + ring_intZ, with
     `mul_conj_self`); `‖ρ‖²·N = eisForm rre rim` (`normSq_mul` + `normSq_conj`); `covering_bound`
