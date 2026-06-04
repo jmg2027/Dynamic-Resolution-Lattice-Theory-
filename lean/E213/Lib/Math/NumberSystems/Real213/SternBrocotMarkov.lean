@@ -2557,4 +2557,200 @@ theorem markovMaxUnique_iff_markovNum_injective :
   ⟨fun hinj c hc5 => markov_max_unique_of_markovNum_injective hinj c hc5,
    markovNum_injective_of_markovMaxUnique⟩
 
+/-! ## §35 — the immediate-children separation: the distance-1 cross-line SEPARATE, uniform
+
+§34 reduced Markov uniqueness to `markovNum` injectivity (`markovMaxUnique_iff_markovNum_injective`).
+The descent (comparable-path) case is settled — `markovNum` strictly increases from any node to any
+descendant (`markovNum_lt_append`).  The open kernel is the *cross-line* case: two paths neither a suffix
+of the other.  This section closes that case at **distance 1** — the two immediate children of *every*
+node carry distinct Markov numbers — uniformly, by a trace monovariant.
+
+Mechanism.  With `(L, R) = mInterval p`, the children are `mNode (true :: p) = L²R` and
+`mNode (false :: p) = L R²`; the Vieta trace recurrences (`markoff_vieta_trace(_R)`) give the exact
+factorisation `tr(L²R) − tr(L R²) = (tr L − tr R)·(tr(LR) + 1)`.  The mediant trace strictly dominates
+both bound traces (`trace_lt_mediant_left/right`, from positivity alone), so at every node the two bounds
+have distinct trace (`mInterval_bound_traces_ne`) while `tr(LR) + 1 > 0`; the product is nonzero, so the
+children's traces — hence (`mNode_shape`, `tr = 3·markovNum`) their Markov numbers — differ.
+
+This is the base rung of the kernel and the first place the monovariant lift bites: distance-1 cross-line
+is *forced*, uniformly over the whole tree.  The kernel's open content begins only at cross-line distance
+`≥ 2`, where deep descendants of the two subtrees can interleave in size (the monovariant
+`markovNum_lt_append` is intra-line only). -/
+
+/-- `0 < a → 0 < b → 0 < a·b` (defeq `1 ≤ a → 1 ≤ b → 1 ≤ a·b`). -/
+private theorem mul_pos_int {a b : Int} (ha : 0 < a) (hb : 0 < b) : 0 < a * b :=
+  one_le_mul ha hb
+
+/-- No zero divisors against a positive factor: `d·k = 0 → 0 < k → d = 0` (by `Int`-constructor cases). -/
+private theorem eq_zero_of_mul_eq_zero_pos : ∀ {d k : Int}, d * k = 0 → 0 < k → d = 0
+  | .ofNat 0, _, _, _ => rfl
+  | .ofNat (n + 1), k, h, hk => by
+      have hp : 0 < Int.ofNat (n + 1) * k := mul_pos_int (ofNat_succ_pos n) hk
+      rw [h] at hp; exact absurd hp (by decide)
+  | .negSucc n, k, h, hk => by
+      have hp : 0 < Int.ofNat (n + 1) * k := mul_pos_int (ofNat_succ_pos n) hk
+      have e1 : Int.ofNat (n + 1) = -(Int.negSucc n) := rfl
+      rw [e1, E213.Meta.Int213.neg_mul, h] at hp
+      exact absurd hp (by decide)
+
+/-- `a − a = 0` (`Int`); `ring_intZ`'s normaliser does not reduce a cancellation to the literal `0`. -/
+private theorem sub_self_int (a : Int) : a - a = 0 := by
+  rw [Int.sub_eq_add_neg]; exact E213.Meta.Int213.add_neg_cancel a
+
+/-- `a < b → a ≠ b` (`Int`). -/
+private theorem ne_of_lt_int {a b : Int} (h : a < b) : a ≠ b := by
+  intro e
+  have hp : 0 < b - a := pos_sub_of_lt h
+  rw [e] at hp
+  rw [sub_self_int b] at hp
+  exact absurd hp (by decide)
+
+/-- The mediant trace strictly dominates the **left** bound's trace, from positivity:
+    `tr(L) < tr(LR)`.  (`tr(LR) − tr(L) = L.a(R.a−1) + L.d(R.d−1) + L.b·R.c + L.c·R.b ≥ 1`.) -/
+theorem trace_lt_mediant_left {L R : Mat2} (hL : posMat L) (hR : posMat R) :
+    L.a + L.d < (mul L R).a + (mul L R).d := by
+  apply lt_of_pos_sub
+  have e : ((mul L R).a + (mul L R).d) - (L.a + L.d)
+         = L.a * (R.a - 1) + L.d * (R.d - 1) + (L.b * R.c + L.c * R.b) := by
+    show ((L.a * R.a + L.b * R.c) + (L.c * R.b + L.d * R.d)) - (L.a + L.d) = _
+    ring_intZ
+  rw [e]
+  have hXY : 0 ≤ L.a * (R.a - 1) + L.d * (R.d - 1) :=
+    E213.Meta.Int213.add_nonneg
+      (E213.Meta.Int213.mul_nonneg (nonneg_of_one_le hL.1) (nonneg_sub_of_le hR.1))
+      (E213.Meta.Int213.mul_nonneg (nonneg_of_one_le hL.2.2.2) (nonneg_sub_of_le hR.2.2.2))
+  have hZ : 1 ≤ L.b * R.c + L.c * R.b :=
+    one_le_add_nonneg (one_le_mul hL.2.1 hR.2.2.1)
+      (nonneg_of_one_le (one_le_mul hL.2.2.1 hR.2.1))
+  have hcomm : L.a * (R.a - 1) + L.d * (R.d - 1) + (L.b * R.c + L.c * R.b)
+             = (L.b * R.c + L.c * R.b) + (L.a * (R.a - 1) + L.d * (R.d - 1)) := by ring_intZ
+  rw [hcomm]
+  exact one_le_add_nonneg hZ hXY
+
+/-- The mediant trace strictly dominates the **right** bound's trace: `tr(R) < tr(LR)`. -/
+theorem trace_lt_mediant_right {L R : Mat2} (hL : posMat L) (hR : posMat R) :
+    R.a + R.d < (mul L R).a + (mul L R).d := by
+  apply lt_of_pos_sub
+  have e : ((mul L R).a + (mul L R).d) - (R.a + R.d)
+         = R.a * (L.a - 1) + R.d * (L.d - 1) + (L.b * R.c + L.c * R.b) := by
+    show ((L.a * R.a + L.b * R.c) + (L.c * R.b + L.d * R.d)) - (R.a + R.d) = _
+    ring_intZ
+  rw [e]
+  have hXY : 0 ≤ R.a * (L.a - 1) + R.d * (L.d - 1) :=
+    E213.Meta.Int213.add_nonneg
+      (E213.Meta.Int213.mul_nonneg (nonneg_of_one_le hR.1) (nonneg_sub_of_le hL.1))
+      (E213.Meta.Int213.mul_nonneg (nonneg_of_one_le hR.2.2.2) (nonneg_sub_of_le hL.2.2.2))
+  have hZ : 1 ≤ L.b * R.c + L.c * R.b :=
+    one_le_add_nonneg (one_le_mul hL.2.1 hR.2.2.1)
+      (nonneg_of_one_le (one_le_mul hL.2.2.1 hR.2.1))
+  have hcomm : R.a * (L.a - 1) + R.d * (L.d - 1) + (L.b * R.c + L.c * R.b)
+             = (L.b * R.c + L.c * R.b) + (R.a * (L.a - 1) + R.d * (L.d - 1)) := by ring_intZ
+  rw [hcomm]
+  exact one_le_add_nonneg hZ hXY
+
+/-- **At every node the two interval bounds have distinct trace** — one bound is always the mediant of
+    the previous interval, whose trace strictly dominates (`trace_lt_mediant_*`); the root bounds have
+    traces `3 ≠ 6`. -/
+theorem mInterval_bound_traces_ne (p : List Bool) :
+    (mInterval p).1.a + (mInterval p).1.d ≠ (mInterval p).2.a + (mInterval p).2.d := by
+  cases p with
+  | nil => decide
+  | cons b t =>
+      cases b with
+      | false =>
+          -- false :: t : bounds = (mul (mInterval t).1 (mInterval t).2, (mInterval t).2)
+          show (mul (mInterval t).1 (mInterval t).2).a + (mul (mInterval t).1 (mInterval t).2).d
+             ≠ (mInterval t).2.a + (mInterval t).2.d
+          exact (ne_of_lt_int
+            (trace_lt_mediant_right (mInterval_pos t).1 (mInterval_pos t).2)).symm
+      | true =>
+          -- true :: t : bounds = ((mInterval t).1, mul (mInterval t).1 (mInterval t).2)
+          show (mInterval t).1.a + (mInterval t).1.d
+             ≠ (mul (mInterval t).1 (mInterval t).2).a + (mul (mInterval t).1 (mInterval t).2).d
+          exact ne_of_lt_int
+            (trace_lt_mediant_left (mInterval_pos t).1 (mInterval_pos t).2)
+
+private theorem mNode_true_cons (p : List Bool) :
+    mNode (true :: p) = mul (mInterval p).1 (mul (mInterval p).1 (mInterval p).2) := rfl
+
+private theorem mNode_false_cons (p : List Bool) :
+    mNode (false :: p) = mul (mul (mInterval p).1 (mInterval p).2) (mInterval p).2 := rfl
+
+/-- ★★★★★ **The immediate children of every node carry distinct Markov numbers** —
+    `markovNum (true :: p) ≠ markovNum (false :: p)`, uniformly.  The distance-1 cross-line SEPARATE,
+    forced by the trace monovariant: their trace difference factors as
+    `(tr L − tr R)·(tr(LR) + 1)`, with `tr L ≠ tr R` (`mInterval_bound_traces_ne`) and `tr(LR) + 1 > 0`,
+    so the traces — hence (`mNode_shape`) the Markov numbers — differ. -/
+theorem markovNum_children_ne (p : List Bool) :
+    markovNum (true :: p) ≠ markovNum (false :: p) := by
+  intro hEq
+  -- traces of the two children, via the Vieta recurrences
+  have htrue : (mNode (true :: p)).a + (mNode (true :: p)).d
+             = ((mInterval p).1.a + (mInterval p).1.d)
+                 * ((mul (mInterval p).1 (mInterval p).2).a
+                    + (mul (mInterval p).1 (mInterval p).2).d)
+               - ((mInterval p).2.a + (mInterval p).2.d) := by
+    rw [mNode_true_cons]; exact markoff_vieta_trace _ _ (mInterval_det p).1
+  have hfalse : (mNode (false :: p)).a + (mNode (false :: p)).d
+             = ((mInterval p).2.a + (mInterval p).2.d)
+                 * ((mul (mInterval p).1 (mInterval p).2).a
+                    + (mul (mInterval p).1 (mInterval p).2).d)
+               - ((mInterval p).1.a + (mInterval p).1.d) := by
+    rw [mNode_false_cons]; exact markoff_vieta_trace_R _ _ (mInterval_det p).2
+  -- equal Markov numbers ⟹ equal traces (tr = 3·markovNum)
+  have htreq : (mNode (true :: p)).a + (mNode (true :: p)).d
+             = (mNode (false :: p)).a + (mNode (false :: p)).d := by
+    rw [mNode_shape, mNode_shape]
+    show 3 * markovNum (true :: p) = 3 * markovNum (false :: p)
+    rw [hEq]
+  -- factor the trace difference: (trL − trR)·(trLR + 1) = 0
+  have hzero : ((mInterval p).1.a + (mInterval p).1.d - ((mInterval p).2.a + (mInterval p).2.d))
+                 * (((mul (mInterval p).1 (mInterval p).2).a
+                      + (mul (mInterval p).1 (mInterval p).2).d) + 1) = 0 := by
+    have hd : ((mInterval p).1.a + (mInterval p).1.d)
+                 * ((mul (mInterval p).1 (mInterval p).2).a
+                    + (mul (mInterval p).1 (mInterval p).2).d)
+               - ((mInterval p).2.a + (mInterval p).2.d)
+             = ((mInterval p).2.a + (mInterval p).2.d)
+                 * ((mul (mInterval p).1 (mInterval p).2).a
+                    + (mul (mInterval p).1 (mInterval p).2).d)
+               - ((mInterval p).1.a + (mInterval p).1.d) := by
+      rw [← htrue, ← hfalse]; exact htreq
+    -- move everything to one side
+    have e : ((mInterval p).1.a + (mInterval p).1.d - ((mInterval p).2.a + (mInterval p).2.d))
+                 * (((mul (mInterval p).1 (mInterval p).2).a
+                      + (mul (mInterval p).1 (mInterval p).2).d) + 1)
+           = (((mInterval p).1.a + (mInterval p).1.d)
+                 * ((mul (mInterval p).1 (mInterval p).2).a
+                    + (mul (mInterval p).1 (mInterval p).2).d)
+               - ((mInterval p).2.a + (mInterval p).2.d))
+             - (((mInterval p).2.a + (mInterval p).2.d)
+                 * ((mul (mInterval p).1 (mInterval p).2).a
+                    + (mul (mInterval p).1 (mInterval p).2).d)
+               - ((mInterval p).1.a + (mInterval p).1.d)) := by ring_intZ
+    rw [e, hd]; exact sub_self_int _
+  -- tr(LR) + 1 > 0
+  have hK : 0 < ((mul (mInterval p).1 (mInterval p).2).a
+                  + (mul (mInterval p).1 (mInterval p).2).d) + 1 := by
+    have hp := posMat_mul (mInterval_pos p).1 (mInterval_pos p).2
+    have h0 : 0 ≤ (mul (mInterval p).1 (mInterval p).2).a
+                  + (mul (mInterval p).1 (mInterval p).2).d :=
+      E213.Meta.Int213.add_nonneg (nonneg_of_one_le hp.1) (nonneg_of_one_le hp.2.2.2)
+    show Int.NonNeg ((((mul (mInterval p).1 (mInterval p).2).a
+                        + (mul (mInterval p).1 (mInterval p).2).d) + 1) - (0 + 1))
+    have e : (((mul (mInterval p).1 (mInterval p).2).a
+                + (mul (mInterval p).1 (mInterval p).2).d) + 1) - (0 + 1)
+           = (mul (mInterval p).1 (mInterval p).2).a
+              + (mul (mInterval p).1 (mInterval p).2).d := by ring_intZ
+    rw [e]; exact nonneg_of_zero_le h0
+  -- so trL − trR = 0, i.e. trL = trR, contradicting bound-trace distinctness
+  have hsub : (mInterval p).1.a + (mInterval p).1.d - ((mInterval p).2.a + (mInterval p).2.d) = 0 :=
+    eq_zero_of_mul_eq_zero_pos hzero hK
+  have htreq' : (mInterval p).1.a + (mInterval p).1.d = (mInterval p).2.a + (mInterval p).2.d := by
+    have e : (mInterval p).1.a + (mInterval p).1.d
+           = ((mInterval p).1.a + (mInterval p).1.d - ((mInterval p).2.a + (mInterval p).2.d))
+             + ((mInterval p).2.a + (mInterval p).2.d) := by ring_intZ
+    rw [e, hsub, E213.Meta.Int213.zero_add]
+  exact mInterval_bound_traces_ne p htreq'
+
 end E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
