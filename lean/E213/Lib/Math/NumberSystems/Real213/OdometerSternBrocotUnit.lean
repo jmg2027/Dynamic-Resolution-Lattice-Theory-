@@ -1,6 +1,8 @@
 import E213.Theory.Raw.API
 import E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
 import E213.Lib.Physics.Simplex.Counts
+import E213.Meta.Nat.PureNat
+import E213.Lens.Cardinality
 
 /-!
 # OdometerSternBrocotUnit — the odometer and the Stern-Brocot tree share the unimodular unit
@@ -27,6 +29,8 @@ open E213.Theory.Raw.Odometer (carry carry_zero odo dec dec_odo)
 open E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
   (det2 genL mInterval mInterval_det sbStep sbInterval adj sbInterval_adj)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
+open E213.Meta.Nat.PureNat (add_left_cancel)
+open E213.Lens.Cardinality (cantor_general)
 
 /-- The Stern-Brocot left generator is the Möbius matrix `P = [[2,1],[1,1]]`; its determinant is the
     count-difference glue `NS − NT = 1` — the Stern-Brocot tree descends by the residue unit. -/
@@ -162,5 +166,106 @@ theorem dyadic_local_order (t : List Bool) : binVal (true :: t) < binVal (false 
   show 0 + 2 * binVal t < 1 + 2 * binVal t
   rw [Nat.zero_add, Nat.add_comm 1 (2 * binVal t)]
   exact Nat.lt_succ_self _
+
+/-- ★★ **The Stern-Brocot side of `?` is order-preserving (local).**  At an adjacent node `iv`
+    (`b·c = a·e + 1`, `adj`), the `true` (left) child's mediant fraction `(2a+c)/(2b+e)` is strictly
+    below the `false` (right) child's `(a+2c)/(b+2e)`, in cross-multiplied form
+    `(2a+c)·(b+2e) < (a+2c)·(2b+e)`.  The gap is exactly `3·(b·c − a·e) = 3` (three times the det-1
+    residue unit) — the Farey/continued-fraction mirror of the dyadic `2k < 2k+1`
+    (`dyadic_local_order`).  ∅-axiom (`ring_nat` + the det-1 invariant + pure left-cancellation). -/
+theorem sb_mediant_step_order (iv : (Nat × Nat) × (Nat × Nat)) (h : adj iv) :
+    ((sbStep true iv).1.1 + (sbStep true iv).2.1)
+        * ((sbStep false iv).1.2 + (sbStep false iv).2.2)
+      < ((sbStep false iv).1.1 + (sbStep false iv).2.1)
+        * ((sbStep true iv).1.2 + (sbStep true iv).2.2) := by
+  obtain ⟨⟨a, b⟩, ⟨c, e⟩⟩ := iv
+  have h' : b * c = a * e + 1 := h
+  show (a + (a + c)) * ((b + e) + e) < ((a + c) + c) * (b + (b + e))
+  -- Pure polynomial identity (`3·a·e` and `3·b·c` book-keep the cross-multiplication):
+  have key : 3 * (a * e) + ((a + c) + c) * (b + (b + e))
+           = 3 * (b * c) + (a + (a + c)) * ((b + e) + e) := by ring_nat
+  rw [h'] at key
+  -- the det-1 invariant turns the `3·b·c` into a clean `+3` gap:
+  have key3 : ((a + c) + c) * (b + (b + e)) = (a + (a + c)) * ((b + e) + e) + 3 :=
+    add_left_cancel
+      (show 3 * (a * e) + ((a + c) + c) * (b + (b + e))
+          = 3 * (a * e) + ((a + (a + c)) * ((b + e) + e) + 3) by rw [key]; ring_nat)
+  rw [key3]
+  exact Nat.lt_add_of_pos_right (by decide)
+
+/-- ★★ **The Stern-Brocot mediant order at a path** — the corollary of `sb_mediant_step_order` on the
+    mediant fractions `sbMediant`: the `true`-child mediant is strictly below the `false`-child
+    mediant (cross-multiplied), the same local order the dyadic side carries (`dyadic_local_order`).
+    So both labellings of the `?`-skeleton respect the L/R order — the order-isomorphism content of
+    the combinatorial Minkowski `?`, now closed on *both* sides. -/
+theorem sb_mediant_local_order (t : List Bool) :
+    (sbMediant (true :: t)).1 * (sbMediant (false :: t)).2
+      < (sbMediant (false :: t)).1 * (sbMediant (true :: t)).2 :=
+  sb_mediant_step_order (sbInterval t) (sbInterval_adj t)
+
+/-! ### `?` compilation, layer 4 — the analytic singular `?` as a νF escape (reached by no path)
+
+L1-L3 compile the **combinatorial** `?`: one `List Bool` tree, two unimodular labellings, both
+order-preserving.  The **analytic** singular `?` — the order-completion, the value at an *irrational*
+argument — is the residue: it lives not on any finite path `List Bool` (µF, the approximant algebra)
+but on the **stream carrier** `Nat → Bool` (νF, the odometer's `CoResidue` escape space, one bit per
+refinement depth).  This is the recurring "essential residue / reached-by-none" — and it is
+expressed here exactly as the framework expresses *every* such residue
+(`Lens/FlatOntologyClosure.object1_not_surjective`): the approximant structure is built, the carrier
+is named, the non-surjection is witnessed — the residue is **pointed at, never constructed** (no
+exterior, `seed/AXIOM/05_no_exterior.md` §5.1).  See `theory/essays/foundations/reached_by_none.md`. -/
+
+/-- The `n`-th bit of a finite path (`false` past the end) — a finite path read as a depth-indexed
+    bit query, the µF approximant's view of the νF stream carrier. -/
+def bitAt : List Bool → Nat → Bool
+  | [],     _     => false
+  | b :: _, 0     => b
+  | _ :: t, n + 1 => bitAt t n
+
+/-- A finite path, embedded into the stream carrier `Nat → Bool` by reading its bits and continuing
+    with the canonical escape `false` (the eventually-`false` streams = the dyadic-rational
+    `?`-arguments). -/
+def pathStream (path : List Bool) : Nat → Bool := fun n => bitAt path n
+
+/-- Past its own length a finite path reads `false`: `bitAt l l.length = false` (the truncation has
+    no bit there — the escape continuation). -/
+theorem bitAt_length : ∀ l : List Bool, bitAt l l.length = false
+  | []     => rfl
+  | _ :: t => bitAt_length t
+
+/-- ★★ **The right-endpoint stream `1` is reached by no finite path.**  The constant-`true` stream
+    `fun _ => true` (the point `1`, the `∞`-escape / right Farey endpoint) is not `pathStream path`
+    for any finite `path`: at depth `path.length` the finite path reads `false` (`bitAt_length`) but
+    the stream reads `true`.  The named residue inhabitant on the odometer's νF carrier — the exact
+    mirror of `FlatOntologyClosure.residue_witnessed` (where the constant-`true` *predicate* names the
+    Cantor gap; here the constant-`true` *stream* names the analytic `?` gap). -/
+theorem constTrue_stream_not_finite (path : List Bool) :
+    pathStream path ≠ fun _ => true := by
+  intro hcontra
+  have hp : bitAt path path.length = true := congrFun hcontra path.length
+  rw [bitAt_length] at hp
+  exact Bool.noConfusion hp
+
+/-- ★★★ **The analytic Minkowski `?` is a νF escape — the essential residue, expressed.**  Three
+    framework-native moves, the uniform shape of "reached by no finite path":
+
+      1. **approximant structure (µF)** — every finite path is a dyadic truncation
+         (`dyInterval_value`: `(dyInterval path).1 = binVal path`); the combinatorial `?` is closed
+         (`minkowski_skeleton`, `minkowski_compile`, `dyadic_local_order` + `sb_mediant_local_order`);
+      2. **carrier (νF)** — the analytic values live in the stream space `Nat → Bool`, which **no
+         enumeration of approximants exhausts** (`cantor_general` at `Nat`: no `Nat → (Nat → Bool)` is
+         surjective);
+      3. **named witness** — a concrete inhabitant of the gap, the right-endpoint stream `1`, reached
+         by no finite path (`constTrue_stream_not_finite`).
+
+    The residue is thus *expressed* — as the carrier plus the non-surjection plus a named gap-member —
+    not *constructed* (it has no finite-path preimage; no exterior builds it, §5.1).  Same shape as
+    `object1_not_surjective` / Cantor's `diag` / the ε₀ height-diagonal / π non-holonomicity: one
+    object, instantiated here on the odometer's own stream carrier.  ∅-axiom. -/
+theorem analytic_minkowski_residue :
+    (∀ path : List Bool, (dyInterval path).1 = binVal path)
+    ∧ (¬ ∃ enum : Nat → (Nat → Bool), Function.Surjective enum)
+    ∧ (∀ path : List Bool, pathStream path ≠ fun _ => true) :=
+  ⟨dyInterval_value, cantor_general, constTrue_stream_not_finite⟩
 
 end E213.Lib.Math.NumberSystems.Real213.OdometerSternBrocotUnit

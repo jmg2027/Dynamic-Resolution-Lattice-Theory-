@@ -7,10 +7,17 @@ import E213.Lib.Math.NumberTheory.ModArith.JoinGCD
 import E213.Lib.Math.NumberTheory.ModArith.LensCRT
 import E213.Lib.Math.NumberTheory.ModArith.PureNatMod3
 import E213.Lib.Math.NumberTheory.ModArith.PureNatMod5
+import E213.Lib.Math.NumberTheory.ModArith.EisensteinFormCharacter
+import E213.Lib.Math.NumberTheory.ModArith.CenteredDivision
 import E213.Lib.Math.NumberTheory.ModArith.ModBezout
 import E213.Lib.Math.NumberTheory.ModArith.ModBezoutInvariant
 import E213.Lib.Math.NumberTheory.ModArith.UniversalFLT
 import E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
+import E213.Lib.Math.NumberTheory.ModArith.PrimeSquareFactor
+import E213.Lib.Math.NumberTheory.ModArith.EisensteinCubeRoot
+import E213.Lib.Math.NumberTheory.ModArith.CubeFromFLT
+import E213.Lib.Math.NumberTheory.ModArith.NonFixedExists
+import E213.Lib.Math.NumberTheory.ModArith.QRNegOne
 import E213.Lib.Math.NumberTheory.ModArith.FP2Sqrt5
 import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 
@@ -36,6 +43,8 @@ import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 
     * `PureNatMod3`  — pure-Nat mod-3 arithmetic
     * `PureNatMod5`  — pure-Nat mod-5 arithmetic
+    * `EisensteinFormCharacter` — `mod3` ring-hom + the χ₋₃ fingerprint of the disc-`−3`
+      Eisenstein form `a²+ab+b²` (never `≡ 2 mod 3`), the Epstein-zeta / period skeleton
 
   ## Companion identities (Bezout / FLT / F_{p²})
 
@@ -49,4 +58,19 @@ import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
                               x ↦ x^p as a ring endomorphism
     * `FP2SqrtD`            — F_{p²} = F_p[√D]: same construction
                               parametric in D (generalises FP2Sqrt5)
+
+  ## Cube-root existence (Phase 3 of the Eisenstein split converse)
+
+    * `EisensteinCubeRoot`  — `p ∣ z(z²+3z+3)`, `p ∤ z` ⟹ `∃ x, p ∣ x²+x+1`
+    * `CubeFromFLT`         — FLT bridge: a non-cube-fixed element `a^m ≢ 1`
+                              (with `p−1 = 3m`, `a^(p−1) ≡ 1`) yields `∃ x, p ∣ x²+x+1`
+                              via `z = a^m − 1` and `cube_root_of_order3`
+    * `NonFixedExists`      — Lagrange's bound ⟹ a non-`m`-fixed element exists:
+                              `∃ a, 1 ≤ a ∧ a < p ∧ a^m % p ≠ 1` (constructive bounded
+                              search refuted in the `none`-branch by `RootBound.eval_zero`
+                              on `Tᵐ − 1` over the distinct residues `[1, p)`;
+                              `exists_nonfixed_gen` is exponent-generic)
+    * `QRNegOne`            — `−1` is a QR mod a prime `p ≡ 1 (mod 4)`: `∃ x, p ∣ x²+1`
+                              (Gaussian / disc-`−4` Pillar I; non-residue from
+                              `exists_nonfixed_gen` at exponent `(p−1)/2`, then FLT + Euclid)
 -/

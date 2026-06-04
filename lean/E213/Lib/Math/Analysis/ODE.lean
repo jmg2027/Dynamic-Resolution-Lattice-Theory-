@@ -1,6 +1,11 @@
 import E213.Lib.Math.Analysis.ODE.NewtonFirst
 import E213.Lib.Math.Analysis.ODE.NewtonSecond
 import E213.Lib.Math.Analysis.ODE.ODE
+import E213.Lib.Math.Analysis.ODE.PicardIterate
+import E213.Lib.Math.Analysis.ODE.LinearODE
+import E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+import E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
+import E213.Lib.Math.Analysis.ODE.Capstone
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Analysis.ODE`.
 
@@ -14,9 +19,9 @@ import E213.Lib.Math.Analysis.ODE.ODE
     * `NewtonSecond`  — Newton's second law as a 2nd-order ODE
                         (linear-with-intercept derivative
                         pointwise version)
+    * `PicardIterate` — Picard iteration on Real213 cuts
+    * `LinearODE`     — linear ODE solution machinery
+    * `HeatEqDiscrete` — discrete heat equation
+    * `WaveEqDiscrete` — discrete wave equation
+    * `Capstone`      — ODE capstone results
 -/
-import E213.Lib.Math.Analysis.ODE.PicardIterate
-import E213.Lib.Math.Analysis.ODE.LinearODE
-import E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
-import E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
-import E213.Lib.Math.Analysis.ODE.Capstone

@@ -114,4 +114,15 @@ theorem five_terms_simplicial_origin :
     ∧ (b_1 = 8) ∧ (four_cycles_count = 3)
     ∧ (tetrahedra_per_vertex = 4) := by decide
 
+/-- ★★ **The 4-simplex closes — the face axis is the *bounded* direction of the residue-expression
+    atlas.**  The alternating face count of `Δ⁴` vanishes:
+    `Σ_{k=0}^{5} (−1)^k C(5,k) = 1 − 5 + 10 − 10 + 5 − 1 = 0 = (1−1)^5`.  Unlike the degree axis
+    (`CupLadderResidueUnit.graduation_escapes`, unbounded) and the multiplicity axis (`c`-counter,
+    unbounded in `c`), the simplex faces **alternate-cancel exactly** — the `d = 5` geometry is
+    complete (contractible), with no residue at the face level.  The residue's unboundedness lives in
+    the graded / escape directions, not in the finite simplex: the face axis is where the multi-
+    directional expression *terminates*.  ∅-axiom. -/
+theorem simplex_face_euler_zero :
+    (binom d 0 : Int) - binom d 1 + binom d 2 - binom d 3 + binom d 4 - binom d 5 = 0 := by decide
+
 end E213.Lib.Physics.Simplex.FaceTerms

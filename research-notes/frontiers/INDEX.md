@@ -138,6 +138,17 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `residue_expression_atlas` — **the residue is expressed multi-directionally**, not by one
+  mechanism (Cantor diagonal).  Cross-repo survey of the expression modes (non-surjection /
+  fixed-point / forcing / graded cohomology) + the Minkowski-`?`-as-modular-cocycle arc.  Open
+  side: the `c`-axis / face-axis unit wires; the finite(`d=5`)↔infinite(νF) regime synthesis; and
+  (period sub-thread) the single irreducible **analytic atom** — the period value of a modular form
+  over one unimodular symbol (integration, the period-relation generators, the slash action /
+  weight-4 period polynomial `1−X²`, and the Manin contour decomposition all now ∅-axiom).  Closure
+  records: `theory/essays/analysis/minkowski_as_modular_cocycle.md`,
+  `theory/essays/foundations/reached_by_none.md`, and `Real213/{MinkowskiCocycle,MinkowskiGoldenExtremal,
+  MinkowskiPeriodIntegral,MinkowskiHigherWeightPeriod,MinkowskiPeriodRelations,MinkowskiPeriodPolynomial,
+  MinkowskiModularSymbol}` + `CupLadderResidueUnit`.
 - `odometer_unit_synthesis` — post-closure synthesis of the residue-unit `+1`
   dynamics arc: patterns (single-primitive-as-full-dynamics; the ∅-purity
   pure-`Nat` trap catalog; carry-explicit over modular) + next seeds (promote
@@ -177,8 +188,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   forcible map onto physics.  Pure-math spinoff `i₅ ∈ μ₄` (the 5-adic
   imaginary unit is a 4-th root of unity) CLOSED ∅-axiom and folded into the
   Teichmüller chapter + essay.
+- `sums_of_squares_engines` — synthesis seed after four-square closure: the
+  two representation engines (multiplicative root-bound vs. additive
+  pigeonhole), and the next number-theory seeds (disc-`−8` congruence iff via
+  the quadratic character of `2`; the three-square theorem as a hard
+  out-of-both-engines frontier).
 
 Closure records (promoted off this board):
+- Lagrange's four-square theorem — **closed & promoted**:
+  `∀ n, isSum4 ↑n` (`lean/E213/Lib/Math/NumberTheory/FourSquare.nat_isSum4`) +
+  the additive-pigeonhole seed (`FourSquareSeed.four_square_seed`) → canonical
+  `theory/essays/synthesis/four_square_additive_pigeonhole.md`; archived at
+  `archive/four_square/four_square_marathon.md`.
 - `G178_next_proofline_conjectures` (νF population + C-phys bridges + odometer cross-arc) —
   **closed & archived** → `archive/G178_next_proofline_conjectures.md`; canonical
   `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form,the_residue_unit_odometer}.md`.
