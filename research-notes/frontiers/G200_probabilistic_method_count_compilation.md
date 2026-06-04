@@ -72,16 +72,33 @@ the probabilistic method as a single ∅-axiom theorem; Erdős' Ramsey bound is 
 instance `n = C(N,2)`, `t = C(N,k)`, `c = 2·2^{n−C(k,2)}`,
 hypothesis `2·C(N,k) < 2^{C(k,2)}`.
 
-## Open next rung (the concrete-instance lift)
+## The concrete lift — DONE for the per-event count (the "why")
 
-`erdos_schema` is the reusable instruction; what remains to make the *named*
-Erdős theorem fully concrete is the per-event count
-`bcount (monochromatic-on-S) (allBoolLists C(N,2)) = 2·2^{C(N,2)−C(k,2)}` and
-the subset enumeration `t = C(N,k)`.  These are finite counting lemmas (number
-of Bool lists constant on a fixed sub-position-set) — additive, ∅-axiom, but a
-multi-step build.  This is exactly a **finite→uniform lift** of the
-`COUNT` instruction; logging it in the `ProofISALifts` catalog is the
-cumulative half of the workflow.
+`Lib/Math/Combinatorics/RamseyLowerBound.lean` (∅-axiom) builds the *reason*
+the per-event count is `2·2^{E−m}`, which is the whole content of "why the
+probabilistic method counts what it counts":
+
+  - ★ **`count_factor`** — `bcount (fun l => p (l.drop r)) (allBoolLists (r+m))
+    = 2^r · bcount p (allBoolLists m)`.  A predicate blind to the `r` prepended
+    bits counts `2^r ·` (its count on the suffix).  **The why:** each free edge
+    is one distinguishing, and a distinguishing *doubles* the residue — so
+    existence-counting **factors** because independent distinguishings
+    multiply.  This is COUNT's multiplicativity, the residue-level reason.
+  - ★ **`mono_event_count`** — `bcount (fun l => isConst (l.drop r))
+    (allBoolLists (r+(m+1))) = 2^(r+1)`.  Per-event `= 2^r · 2`: `count_factor`
+    (free edges) × `BoolEnum.bcount_const` (the `2` shared colours).  Exactly
+    Erdős' `2·2^{E−C(k,2)}`, `E = r + C(k,2)`, derived not asserted.
+
+Both `#print axioms → "does not depend on any axioms"`.
+
+**Remaining mechanical rung** (no new "why", just bookkeeping): an arbitrary
+`k`-subset `S` reduces to the suffix case by relabelling edge positions (a
+count-invariant permutation of the `Bool` list), and the event enumeration
+gives `t = C(N,k)`; feeding `c = 2^(C(k,2))` ... wait `c = 2·2^{E−C(k,2)}` and
+`t = C(N,k)` into `erdos_schema` with `t·c < 2^E ⟺ 2·C(N,k) < 2^{C(k,2)}`
+closes the *named* `R(k,k) > 2^{k/2}`.  Logging the
+`count_factor`/`mono_event_count` lift in `ProofISALifts` is the cumulative
+half of the workflow.
 
 ## Reading
 
