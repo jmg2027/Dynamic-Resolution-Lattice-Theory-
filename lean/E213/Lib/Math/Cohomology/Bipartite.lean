@@ -3,6 +3,7 @@ import E213.Lib.Math.Cohomology.Bipartite.V32
 import E213.Lib.Math.Cohomology.Bipartite.V32Betti
 import E213.Lib.Math.Cohomology.Bipartite.V32LocalSignature
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.BettiOneUniversal
+import E213.Lib.Math.Cohomology.Bipartite.Parametric.PathCoboundary
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.Bipartite`.
 

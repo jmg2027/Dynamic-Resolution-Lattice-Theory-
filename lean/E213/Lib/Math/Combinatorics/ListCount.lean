@@ -152,4 +152,20 @@ theorem nodup_length_eq_of_mem_iff [DecidableEq α] {l₁ l₂ : List α}
     (nodup_length_le_of_subset h₁ (fun x hx => (hmem x).mp hx))
     (nodup_length_le_of_subset h₂ (fun x hx => (hmem x).mpr hx))
 
+/-- A map injective on a `Nodup` list produces a `Nodup` image. -/
+theorem nodup_map_of_inj {β : Type _} {f : α → β} :
+    ∀ {l : List α}, (∀ a, a ∈ l → ∀ b, b ∈ l → f a = f b → a = b) →
+      l.Nodup → (l.map f).Nodup
+  | [], _, _ => List.Pairwise.nil
+  | a :: t, hinj, h => by
+      cases h with
+      | cons hat ht =>
+          refine List.Pairwise.cons ?_
+            (nodup_map_of_inj
+              (fun x hx y hy => hinj x (List.Mem.tail _ hx) y (List.Mem.tail _ hy)) ht)
+          intro y hy
+          rcases BoolEnum.exists_of_mem_map hy with ⟨b, hb, rfl⟩
+          intro hcontra
+          exact hat b hb (hinj a (List.Mem.head _) b (List.Mem.tail _ hb) hcontra)
+
 end E213.Lib.Math.Combinatorics.ListCount

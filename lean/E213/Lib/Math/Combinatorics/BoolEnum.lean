@@ -199,6 +199,23 @@ theorem bcount_map (p : List Bool → Bool) (f : List Bool → List Bool) :
             = (bif p (f a) then 1 else 0) + bcount (fun x => p (f x)) rest
       rw [bcount_map p f rest]
 
+/-- `bcount p L` is the length of `L.filter p`. -/
+theorem filter_length_eq_bcount (p : List Bool → Bool) :
+    ∀ (L : List (List Bool)), (L.filter p).length = bcount p L
+  | [] => rfl
+  | a :: rest => by
+      cases h : p a with
+      | true =>
+          rw [List.filter_cons_of_pos h, List.length_cons,
+              filter_length_eq_bcount p rest]
+          show bcount p rest + 1 = (bif p a then 1 else 0) + bcount p rest
+          rw [h]; exact Nat.add_comm _ _
+      | false =>
+          rw [List.filter_cons_of_neg (by rw [h]; exact Bool.noConfusion),
+              filter_length_eq_bcount p rest]
+          show bcount p rest = (bif p a then 1 else 0) + bcount p rest
+          rw [h]; exact (Nat.zero_add _).symm
+
 /-- `bcount` respects pointwise-equal predicates. -/
 theorem bcount_congr {p q : List Bool → Bool} (h : ∀ x, p x = q x) :
     ∀ (L : List (List Bool)), bcount p L = bcount q L

@@ -129,17 +129,17 @@ native primitives now route around them:
     (`Pow213.pow_add_two`).  `betti_one_K32`: `b₁ = 8 = NS² − 1` for the
     forced deployment.
 
-    Caveat now mostly closed: the **counts, rank arithmetic, AND the
-    combinatorial half of the first-iso bridge are proven**
-    (`im_dim_via_transversal` + `ListCount` nodup-cardinality toolkit +
-    `BoolEnum` complement involution / `headFalse_transversal`): the
-    head-`false` reps count `2^(V−1)` and form a transversal of the
-    `{σ, complement σ}` pairs.  The only cited step is *fiber = pair*,
-    which is the proven kernel result `isKer_iff_const` combined with
-    δ⁰-linearity; the residual is that δ⁰-linearity is not separately
-    formalised on the `List Bool` representation (delta0Tri is on
-    `Fin → Bool`).  Reusable: `ListCount` (nodup cardinality equality),
-    `BoolEnum` complement/transversal.
+    Caveat CLOSED: `|im δ⁰| = 2^(V−1)` is now an actually-counted image
+    cardinality, fully ∅-axiom.  `PathCoboundary.im_pathDelta_card`
+    (4 PURE) proves the concrete connected list-valued path coboundary
+    `pathDelta` (consecutive XORs) has exactly `2^(V−1)` distinct values:
+    head-`false` reps map injectively (`pathDelta_reconstruct`) +
+    surjectively (`pathDelta_complement` + `headFalse_transversal`) onto
+    the image — no `funext`/`Fintype`/`Nat.div`.  `dim im δ⁰ = V−1` is
+    connectivity-invariant (rank–nullity, `dim ker = 1` proven), so this
+    is `|im δ⁰|` for K_{NS,NT}^{(c)} too.  Reusable infra built en route:
+    `ListCount` (nodup cardinality equality + `nodup_map_of_inj`),
+    `BoolEnum` complement/transversal + `filter_length_eq_bcount`.
 
 ## Open Problems (Priority Order)
 

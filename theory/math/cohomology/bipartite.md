@@ -115,18 +115,20 @@ Betti number from ∅-axiom cardinalities counted via
   - `|ker δ⁰| = 2`      (`bcount_const`; kernel ⟺ constant) — `dim ker = 1`,
   - `|im δ⁰| = 2^(V−1)` (`bcount_headFalse`) — `dim im = V − 1`.
 
-The head-`false` representative count is `|im δ⁰|` via the first
-isomorphism bridge — whose **combinatorial half is now proven**
-(`im_dim_via_transversal`): `complement` is a fixed-point-free involution
-(`complement_involutive`, `complement_ne_self`) and each pair
-`{σ, complement σ}` has a unique head-`false` member
-(`headFalse_transversal`), so the head-`false` count `2^(V−1)` IS the
-number of pairs.  Only the identification *fiber = pair* is cited — and
-that is exactly the proven kernel result `isKer_iff_const`.  Granting it,
-the rank relations are exact ∅-axiom arithmetic (`2^(m+1) = 2 · 2^m`,
-`2^E = 2^(V−1) · 2^{b₁}` with `E = (V−1) + b₁`), giving
-`dim H¹ = b₁ = E − V + 1`.  For the forced `K_{3,2}^{(c=2)}`
-(`betti_one_K32`): `V = 5`, `E = 12`, `b₁ = 8 = NS² − 1 = 1/α₃`.
+The `2^(V−1)` is an **actually-counted image cardinality**, fully
+∅-axiom.  `PathCoboundary.im_pathDelta_card` proves the concrete connected
+list-valued path coboundary `pathDelta l = consecutive XORs` has exactly
+`2^(V−1)` distinct values: the head-`false` colourings map injectively
+(reconstruction, `pathDelta_reconstruct`) and surjectively
+(`pathDelta_complement` + `headFalse_transversal`) onto the image — no
+`funext`, `Fintype`, or `Nat.div`.  Since `dim im δ⁰ = V − dim ker δ⁰ =
+V − 1` is the same for every connected graph on `V` vertices
+(rank–nullity; `dim ker = 1` proven in `isKer_iff_const`), this is
+`|im δ⁰|` for K_{NS,NT}^{(c)} too.  The rank relations are then exact
+∅-axiom arithmetic (`2^(m+1) = 2 · 2^m`, `2^E = 2^(V−1) · 2^{b₁}` with
+`E = (V−1) + b₁`), giving `dim H¹ = b₁ = E − V + 1`.  For the forced
+`K_{3,2}^{(c=2)}` (`betti_one_K32`): `V = 5`, `E = 12`,
+`b₁ = 8 = NS² − 1 = 1/α₃`.
 
 The same conclusion is also reached through the abstract
 graph-connectedness induction of

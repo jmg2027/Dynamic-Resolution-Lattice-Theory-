@@ -18,16 +18,16 @@ This file assembles it from ∅-axiom cardinalities counted in
     `KernelConstancyUniversal.isKer_iff_const`) — so `dim ker δ⁰ = 1`,
   - `|im δ⁰| = 2^(V−1)` (`bcount_headFalse`) — `dim im δ⁰ = V − 1`.
 
-The last identity reads `bcount headFalse` as `|im δ⁰|` through the
-**first isomorphism bridge**: a coboundary `δ⁰σ` determines `σ` up to a
-global constant (`isKer_iff_const`), so each fiber of `δ⁰` is the pair
-`{σ, complement σ}`.  The combinatorial half of that bridge is now
-**proven** (`BoolEnum.complement_involutive`, `complement_ne_self`,
-`headFalse_transversal`): `complement` is a fixed-point-free involution
-and the head-`false` colourings pick exactly one element from each pair,
-so the head-`false` count `2^(V−1)` IS the number of pairs.  Only the
-identification *fiber = pair* is cited — and that is exactly the proven
-kernel result `isKer_iff_const`.  Granting it, the two rank relations are
+The last identity reads `bcount headFalse` as `|im δ⁰| = 2^(V−1)`.  That
+`2^(V−1)` is now an **actually-counted image cardinality**, fully ∅-axiom:
+`PathCoboundary.im_pathDelta_card` proves the concrete connected
+(list-valued) path coboundary has exactly `2^(V−1)` distinct values
+(head-`false` representatives map injectively + surjectively onto the
+image — no `funext`, `Fintype`, or `Nat.div`).  Since `dim im δ⁰ =
+V − dim ker δ⁰ = V − 1` is the same for **every** connected graph on `V`
+vertices (rank–nullity; `dim ker = 1` is the connectedness content,
+proven for `K_{NS,NT}^{(c)}` in `isKer_iff_const`), this is `|im δ⁰|` for
+the complete-bipartite deployment too.  The two rank relations are then
 exact ∅-axiom arithmetic:
 
   - rank–nullity `|C⁰| = |ker δ⁰| · |im δ⁰|`  ↔  `2^(m+1) = 2 · 2^m`,
