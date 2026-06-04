@@ -134,7 +134,7 @@ truncation arithmetic.  The recurrence at that level is
 | Pattern | 213 anchor | What it concretizes |
 |---|---|---|
 | State Accumulator | `seed/AXIOM/05_no_exterior.md` §5 self-pointing | Self-pointing affects next step only through *current* state |
-| Bundled Subtype | `seed/AXIOM/05_no_exterior.md` §8.4 dichotomy avoidance | Invariant lives *inside* structure, not as external dichotomy |
+| Bundled Subtype | `seed/AXIOM/05_no_exterior.md` §5.4 dichotomy avoidance | Invariant lives *inside* structure, not as external dichotomy |
 | Setoid Category | `Lens/SemanticAtom.lean` | Internal-relation equality, no external judge |
 | Residual Induction | `seed/AXIOM/01_residue.md` | Trajectory-as-witness at the *truncation* level, not raw history |
 

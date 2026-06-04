@@ -160,6 +160,30 @@ return to this section.
     readings of the same residue.  The separation is the
     imported frame, not a property of the residue.
 
+### The guard on this guide — so it does not become a shield
+
+This list dissolves *false* dichotomies — framings that smuggle an
+exterior.  It is **not** a license to dissolve every apparent limit by
+declaration.  No-exterior is a claim under test (§8 falsifiability), not a
+thought-terminating move, and treating it as one injects the bias that the
+framework is already correct.
+
+  - **Look for the internal handle first.**  An apparent ceiling ("this is
+    the lid / this needs something from outside") is most often an internal
+    object — a finite-stage map missing its target (non-surjection,
+    `Lib/Math/Foundations/CeilingSchema.lean`), a presentation artefact
+    (`rcut_rescale`), a forced fixed point.  Find it before declaring a wall.
+  - **If, after genuinely looking, no internal handle is there, say so
+    plainly.**  The honest "not reached from inside" is the falsifier doing
+    its work — the residue earns its reach by reproducing domain after
+    domain *while testable*, not by being shielded from the test.
+  - Both reflexes fail.  *Pre-emptive import* — declaring the wall before
+    looking inside — skips the internal engine.  *Reflexive suppression* —
+    declaring everything internal to avoid the test — makes no-exterior
+    unfalsifiable.  The stance is **internal-first while keeping "is this
+    really internal?" a live question** — neither collapse the tension into
+    "always import the exterior" nor into "everything closes from inside".
+
 ---
 
 ## §5.5 Self-completion — every pointing is already complete

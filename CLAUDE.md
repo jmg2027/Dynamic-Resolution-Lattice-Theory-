@@ -9,10 +9,10 @@ spec file overlap, **the spec file wins**.
 
 ## Boot sequence (read in this order)
 
-1. **`seed/AXIOM/05_no_exterior.md` §5 + §8.4** — self-reference,
-   absence of exterior, dichotomy-avoidance guide.  **Re-read every
-   session start.**  False dichotomies (inside/outside 213,
-   classical/213, foundation/derivation) are the most common slip.
+1. **`seed/AXIOM/05_no_exterior.md` §5 + §5.4** — self-reference, absence
+   of exterior, dichotomy-avoidance guide.  **Re-read every session start.**
+   Its guard: no-exterior is a claim *under test*, not a shield —
+   internal-first, but say so plainly when no internal handle is found.
 2. **`seed/AXIOM/07_primacy.md` §7.1** — **what counts as progress**:
    primacy = *breadth* of ∅-axiom derivation (residue reproducing domain
    after domain, math AND physics); rebuilding a discipline *is* the work.
