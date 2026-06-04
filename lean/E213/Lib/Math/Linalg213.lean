@@ -4,6 +4,9 @@ import E213.Lib.Math.Linalg213.Chiral
 import E213.Lib.Math.Linalg213.DetN
 import E213.Lib.Math.Linalg213.FibCassiniDet
 import E213.Lib.Math.Linalg213.Laplace
+import E213.Lib.Math.Linalg213.PolyDet
+import E213.Lib.Math.Linalg213.CharPolyAdj
+import E213.Lib.Math.Linalg213.CayleyHamilton
 import E213.Lib.Math.Linalg213.PhaseChiralBridge
 import E213.Lib.Math.Linalg213.Gap
 import E213.Lib.Math.Linalg213.Gram
