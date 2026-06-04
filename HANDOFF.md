@@ -31,20 +31,29 @@ The disc-`−3` Fermat representation `p ∣ x²+x+1 ⟹ p = a²−ab+b²` — *
 - `Integer/EisensteinSplit` (9) — Euclid's lemma + `split_norm`/`split_form`: the disc-`−3`
   representation, given `∃ x, p ∣ x²+x+1` and `¬(p:ℤ)∣1`.
 
+### 4. Phase 3 + full assembly — the split converse is CLOSED (∅-axiom)
+`p ≡ 1 (mod 3) ⟹ ∃ a b : Int, ↑p = a² − ab + b²`, end to end, no `propext`/Classical/
+`native_decide`.  Pillar I (the primitive-cube-root input) built bottom-up:
+- `PolyRoot/FactorTheorem` (3) — polynomials as coeff lists, synthetic division, `factor_eval`.
+- `PolyRoot/IntEuclid` (8) — `int_euclid` (Euclid's lemma over ℤ via natAbs).
+- `PolyRoot/RootBound` (2) — ★`eval_zero`: **Lagrange's root bound** (eval-vanishing form).
+- `PolyRoot/CyclotomicPoly` (7) — the polynomials `Xᵐ` and `Tᵐ − 1` (constant coeff `−1`).
+- `PolyRoot/ResidueList` (7) — the nonzero residues `[1, p)` as a distinct-mod-`p` root list.
+- `ModArith/EisensteinCubeRoot` (1) — `p ∣ z(z²+3z+3), p∤z ⟹ ∃ x, p∣x²+x+1`.
+- `ModArith/CubeFromFLT` (6) — FLT bridge: a non-cube-fixed `aᵐ` ⟹ `∃ x, p∣x²+x+1`.
+- `ModArith/NonFixedExists` (7) — ★`exists_nonfixed`: a non-cube-fixed element exists,
+  produced by a **constructive bounded search** refuted in its `none`-branch by `eval_zero`.
+- `Integer/EisensteinConverse` (4) — ★`eisenstein_split_converse`, assembling both pillars
+  (FLT primality bridged from divisor-dichotomy via `prime_coprime`/`modBezout_gcd_one`).
+
 ## Open Problems (Priority Order)
 
-### 1. Phase 3 of the split-converse marathon (the one remaining gate)
-`p ≡ 1 mod 3 ⟹ ∃ x, p ∣ x²+x+1` — the primitive-cube-root input.  Reduces (non-circularly)
-to **Lagrange's root bound** ("degree-`d` poly over `ℤ/p` has ≤ d roots") + FLT (have FLT,
-`UniversalFLT.universal_flt_main`).  Needs a polynomial-root library mod `p` (evaluation,
-factor theorem, degree induction) not in the repo — a major independent sub-marathon.  Plan +
-exact argument in `research-notes/frontiers/eisenstein_split_converse_marathon.md`.
+### 1. `¬ (p:ℤ) ∣ 1` for primes — RESOLVED inside `eisenstein_split_converse`
+Now discharged purely via `int_dvd_to_nat` + `le_of_dvd_pos` (`(p:ℤ)∣1 ⟹ p ≤ 1`), no longer a
+loose hypothesis at the converse's top level.  (`split_form` still carries it as a parameter;
+the converse supplies it.)
 
-### 2. `¬ (p:ℤ) ∣ 1` for primes (trivial, deferred)
-A pure proof was blocked by `ring_intZ`'s constant-folding limit (`1 + −1 ≠ C 0`); currently a
-hypothesis of `split_form`.  Reachable via a pure `Int.natAbs_mul` (4-sign-case build).
-
-### 3. (carried) the orbit-realizability kernel `H`, continuant program E2–E5 — see prior notes.
+### 2. (carried) the orbit-realizability kernel `H`, continuant program E2–E5 — see prior notes.
 
 ## Current Precision Results (0 free parameters)
 Unchanged this session (math-frontier work, no physics-constant edits).  Canonical table:
@@ -58,6 +67,13 @@ Unchanged this session (math-frontier work, no physics-constant edits).  Canonic
   `research-notes/frontiers/G167_crossdet_number_field_eisenstein_conjecture.md`.
 
 ## Next
-Phase 3 (Lagrange's root bound mod `p`) is the single classical input gating the full split
+The split converse is fully closed.  Natural follow-ons: (a) the *necessity* direction packaged
+with the converse into one iff (`p ≡ 1 mod 3 ⟺ p = a²−ab+b²`, the χ₋₃ fingerprint already gives
+`≢ 2`); (b) promote the closed PolyRoot + Eisenstein-converse sub-tree to `theory/` per
+`PROMOTION_CRITERIA`; (c) generalise Lagrange's bound + the cyclotomic existence pattern to the
+disc-`−4` (Gaussian, `p ≡ 1 mod 4`) and other class-number-one imaginary quadratic fields.
+
+## (archived) Phase 3 plan
+Phase 3 (Lagrange's root bound mod `p`) was the single classical input gating the full split
 converse.  It is a self-contained sub-marathon (polynomial-root theory over `ℤ/p`); start from
 the FLT foothold and the exact reduction recorded in the marathon note.
