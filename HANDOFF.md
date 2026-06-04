@@ -82,14 +82,25 @@ three former duplicate proofs (`Beq213.nat_add_left_cancel_pure`,
 delegate to it as one-line wrappers (signatures preserved, consumers unchanged).
 One proof, three re-exports; all PURE.
 
-### 3. Odometer `ℤ`-action ↔ Markov / Stern-Brocot (`SL(2,ℤ)`) — first bridge DONE
-`Real213/OdometerSternBrocotUnit.odometer_sternbrocot_shared_unit` (2 PURE): the dyadic odometer
-and the Stern-Brocot mediant tree are both `List Bool`-path-indexed residue descents sharing the
-unimodular unit (`det genL = NS−NT = 1`, `genL = P`); and `minkowski_skeleton` builds the
-**Minkowski `?` skeleton** — the Stern-Brocot (Farey `det=1`) and dyadic (binary `2·lo`/`2·lo+1`)
-trees are one `List Bool` tree under two unimodular labellings, the path-identity their order-iso.
-Honest scope: the combinatorial `?`; the analytic singular `?` (the order-completion) is residual.
-Frontier note: `research-notes/frontiers/odometer_unit_synthesis.md`.
+### 3. Odometer `ℤ`-action ↔ Markov / Stern-Brocot (`SL(2,ℤ)`) — Minkowski `?` compiled L1–L4
+`Real213/OdometerSternBrocotUnit` (17 PURE): the dyadic odometer and the Stern-Brocot mediant tree
+are both `List Bool`-path-indexed residue descents sharing the unimodular unit
+(`odometer_sternbrocot_shared_unit`, `det genL = NS−NT = 1`, `genL = P`).  The **Minkowski `?` is now
+compiled L1–L4**:
+- **L1 skeleton** (`minkowski_skeleton`) — one `List Bool` tree, two unimodular labellings.
+- **L2 value** (`minkowski_compile`) — dyadic side = binary numeration (`dyInterval_value`), SB side =
+  mediant fraction (`sbMediant`).
+- **L3 order — CLOSED both sides**: dyadic `dyadic_local_order` (`2k<2k+1`) **and** Stern-Brocot
+  `sb_mediant_step_order`/`sb_mediant_local_order` (cross-mult `(2a+c)(b+2e) < (a+2c)(2b+e)`, gap
+  `3·(bc−ae)=3` = three det-1 units).  Pure via `ring_nat` + `adj` + `PureNat.add_left_cancel`.
+- **L4 analytic — EXPRESSED** (`analytic_minkowski_residue`): the singular `?` (value at an
+  irrational) lives on the stream carrier `Nat → Bool` (νF), reached by no finite `List Bool`; the
+  uniform "reached-by-none" triple (µF approximant + νF carrier non-enumerable via `cantor_general` +
+  named gap-member `constTrue_stream_not_finite` = the right-endpoint stream `1`).
+Frontier note: `research-notes/frontiers/odometer_unit_synthesis.md`.  Methodology essay (NEW):
+`theory/essays/foundations/reached_by_none.md` — the essential residue is `object1_not_surjective` on
+different carriers; **express** it (build µF, name νF, witness the overflow + one gap-member), never
+**construct** it (no exterior §5.1).  Essays now **47**.
 
 ### 4. (carried) Other open frontiers
 π non-holonomicity (`frontiers/pi_nonholonomicity/`), spiral-axis
