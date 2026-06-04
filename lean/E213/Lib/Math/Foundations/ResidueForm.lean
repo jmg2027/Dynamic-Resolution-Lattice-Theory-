@@ -35,7 +35,9 @@ directions plus the unit-name; the residue itself stays outside every view (the 
 conjunct).  No single operator unifies the directions (they live on different codomains: `α`,
 `Raw → Bool`, `Int`); the honest unity is the *shared unit* `1` (proven byte-identical across
 det/glue/unit elsewhere — `catalogs/cross-domain-identifications` CDI-9 — and across the
-descent/overflow steps in `Cauchy/ReentryUnit`), not a forced common map.
+descent/overflow steps in `Cauchy/ReentryUnit`), not a forced common map.  The bridge that the
+*dynamics* unit (ascent `+1` / descent `+1`) is the *same* `1` as the det/glue unit is witnessed
+in one theorem: `Lens/Number/SharedUnitAcrossReadings.unit_bridges_dynamics_and_readings`.
 
 All zero-axiom.
 -/

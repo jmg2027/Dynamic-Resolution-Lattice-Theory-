@@ -147,6 +147,19 @@ the framework.
 
   phase3_falsifiers : 19-conjunct, 0 axioms (Lean verified)
 
+## Forced-roster super-theorem (the integers are not fits)
+
+  `Lib/Physics/Foundations/FalsifierRosterForced.falsifier_roster_forced`
+  (1 PURE) — one theorem binding the two forcing `iff`s
+  (`atomic_iff_five` → `d = 5`; `pair_forcing` → `(NT, NS) = (2, 3)`) to the
+  headline falsifier integers as polynomials in the *forced* triple
+  `(NS, NT, d) = (3, 2, 5)`:
+  F1 `d = 5`, F2 `binom NS NT = 3`, F8 `d² − NS = 22`, F22/F26 `NS·NT = 6`,
+  F26 `d·NT = 10`, F24 `(NS²−1)(d²−1) = 192`, F15/F19 `2·NS·NT = 12`,
+  F21 `3·NT = 2·NS` (Koide `NT/NS = 2/3`).  The point is the *forcing*: the
+  triple is the unique atomic one, so each integer is a consequence, not a
+  free dial — measure any outside its bracket and the triple is refuted.
+
 ## ★ 213 Kernel axiom-free closure (KH marathon)
 
 The following falsifiers are formalized with *literally* 0 Lean axioms

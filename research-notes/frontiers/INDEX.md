@@ -60,6 +60,17 @@ each Markov number determines a unique triple.
   (Stern-Brocot, φ/π extremes, Hurwitz cosines).
 - `G174_markov_newton_synthesis` — idea-level graft of Markov uniqueness onto
   the Newton / Casoratian / FSM frameworks (Myhill–Nerode reading of the crux).
+- `G189_geodesic_lens_markov_frontier` — the geodesic-Lens view: where
+  stable-norm / Christoffel sits relative to the mediant engine.
+- `G190_foundation_breakthrough_backlog` — a map of the Raw/Lens corpus and
+  where the Markov `H` kernel sits in the foundation's breakthrough backlog.
+- `G191_continuant_aigner_program` — the continuant / Aigner program: where
+  modern Markov theory meets the repo, and what it can(not) close (the
+  ranked-next attack on `H`; `Real213/Continuant.lean` tool built).
+- `G192_markov_kernel_raw_lens_native` — the kernel in Raw/Lens-native terms:
+  where the geodesic engine reaches and where it structurally stops.
+- `G193_axioms_against_markov_kernel` — the 213 axiom corpus read against the
+  Markov kernel: a standing attack map for `H`.
 
 Closure record: `theory/math/analysis/{markov_uniqueness,markov_spectrum}.md`.
 
@@ -75,10 +86,12 @@ depth; axis = unit-group order `{2,4,6}`), and its tower extension.
   (SL(2)→PSL→SL(3); e→π→ζ(3)); honest split of proven vs speculative rows.
 - `G185_spiral_axis_deep_research` — the two CM points and the honest unifier
   for `{2,4,6}=2·{1,2,3}` ↔ Cassini sign; ranked conjecture agenda (A5…).
-- `G181_atomic_spiral_adic` — design: the atomic spiral as a variable-base adic
-  (carry = the residue unit).
 
 Closure record: `theory/math/analysis/spiral_coordinate_classification.md`.
+`G181_atomic_spiral_adic` (the variable-base adic / carry = the residue unit) is
+**closed & archived** → `archive/spiral_axis/G181_atomic_spiral_adic.md`; built as
+`Theory/Raw/{Odometer,OdometerValue}` + `Real213/ZeckendorfCarry`, narrated in
+`theory/essays/foundations/the_residue_unit_odometer.md` + `theory/math/algebra/phi_self_similarity.md` §3.7.
 
 ## Real-completeness / intensional completability  (`completability/`)
 
@@ -107,6 +120,11 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `odometer_unit_synthesis` — post-closure synthesis of the residue-unit `+1`
+  dynamics arc: patterns (single-primitive-as-full-dynamics; the ∅-purity
+  pure-`Nat` trap catalog; carry-explicit over modular) + next seeds (promote
+  `add_left_cancel_pure`/`lt_two_pow` to `Meta/Nat`; odometer `ℤ`-action ↔
+  Markov/Stern-Brocot `SL(2,ℤ)`; a decidable carry-depth sub-class).
 - `research_grade_closure_gate` — **meta-frontier**: `∅`-axiom is a
   necessary integrity check, not a sufficient *seriousness* check.
   Candidate "research-grade" closure gates (non-triviality/depth,
@@ -141,7 +159,11 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   forcible map onto physics.  Pure-math spinoff `i₅ ∈ μ₄` (the 5-adic
   imaginary unit is a 4-th root of unity) CLOSED ∅-axiom and folded into the
   Teichmüller chapter + essay.
-- `G178_next_proofline_conjectures` — cross-arc conjecture seed / ranked agenda
-  for populating νF (post-FSM).
-- `G182_completed_system_synthesis` — "the frontier (νF) has a form" — an
-  essay-in-waiting (candidate promotion to `theory/essays/` once reconciled).
+
+Closure records (promoted off this board):
+- `G178_next_proofline_conjectures` (νF population + C-phys bridges + odometer cross-arc) —
+  **closed & archived** → `archive/G178_next_proofline_conjectures.md`; canonical
+  `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form,the_residue_unit_odometer}.md`.
+- `G182_completed_system_synthesis` ("the frontier (νF) has a form") →
+  `theory/essays/foundations/the_frontier_has_a_form.md`; archived at
+  `archive/G182_completed_system_synthesis.md`.

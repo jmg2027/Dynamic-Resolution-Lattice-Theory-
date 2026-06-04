@@ -1,136 +1,182 @@
-# Session Handoff — 2026-06-04 (G123 p-adic follow-up: A/B/G closed, H mapped)
+# Session Handoff — 2026-06-04 (νF population: swap free-action + shift dynamics; G182 promoted)
 
 ## Branch
-`claude/p-adic-library-direction-Tp3EK` — pushed, clean.
-`cd lean && lake build E213` ✓ (301 modules).  All touched Padic modules
-∅-axiom PURE (0 dirty).  Sink rule: 0 violations.
-
-This branch carries the **G123 p-adic follow-up campaign**: the
-post-closure directions of the (already-promoted, G122) Padic library —
-A (explicit Teichmüller representative), B (μ_{p−1} root-of-unity + unit
-decomposition), G (general division), plus H (DRLT 5-adic) mapped, an
-essay, a promotion-cycle pass, and an org-audit.
+`claude/math-frontier-research-6Bw68` — pushed, clean.
+`cd lean && lake build E213` ✓ (301 modules).  `Theory/Raw/CoResidue` **108 PURE / 0 DIRTY**.
 
 ## What Was Done This Session
 
-### 1. G123 direction A — explicit Teichmüller representative `ω(x)`
-`Padic/Teichmuller.lean` (+6 PURE).  `Zp.teichmuller` = the diagonal of
-the iteration `x ↦ x^p` (`digits k := (iter x k).digits k`).  No separate
-digit-stability lemma needed — `teichmuller_iter_cauchy` IS the diagonal
-trunc-recursion (`teichmuller_trunc_succ`).  `teichmuller_digit_zero`
-(ω ≡ x mod p) + Frobenius fix `teichmuller_pow_p_trunc` (ω^p ≡ ω).
+Goal: **G178** (νF-population cross-arc conjecture seed) + **G182** ("the frontier has a form",
+essay-in-waiting).  Both advanced; G182 promoted.
 
-### 2. G123 direction B — `ω(x)` as a `(p−1)`-th root of unity
-`Padic/TeichmullerUnit.lean` (+7 PURE; bridges Teichmuller + Hensel).
-`teichmuller_pow_pred_trunc` (ω^(p−1) ≡ 1 for units, via Frobenius fix +
-Hensel `mul_right_cancel_trunc`); `teichmullerCofactor` + `_trunc_one`
-(u = ω⁻¹·x ≡ 1 mod p) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split at trunc.
-Concrete: `i_5_pow_four_trunc` (i₅⁴ ≡ 1 at every level → `i₅ ∈ μ₄`).
+### 1. G178 — νF population, two new cross-arc sections (CoResidue 94→108 PURE)
 
-### 3. G123 direction G — general division (non-unit denominator) + correctness
-`Padic/Arith.lean`: `Zp.shiftRight` + factorisation exactness
-`shiftLeft_shiftRight_digit_of_low_zero` (digit) +
-`shiftLeft_shiftRight_trunc_of_low_zero` (every truncation: x = p^v·u
-exact).  `Padic/Field.lean`: `QpSeq.invGeneral` / `divGeneral` (denominator
-of arbitrary valuation v via the shift); `invGeneral_unit_eq_inv` reduces
-*definitionally* to `QpSeq.inv` at v=0.  **Correctness**
-`Zp.div_general_value`: `y · u⁻¹ ≡ p^v` at every truncation (= `y·(1/y) ≡ 1`
-in ℚ_p, the shift p^(−v) matching), via two pure shift-bookkeeping
-helpers (`mul_mod_mul_left_pure` factor-out, `trunc_add_mod`) — no QpSeq
-setoid needed.
+**§18 — the swap automorphism acts *freely* on the bit-stream escapes** (cross-arc §14 ⊗ §15):
+- `coSwap_boolSpine` — exact intertwining `coSwap ∘ boolSpine = boolSpine ∘ (Bool.not ∘ ·)`,
+  clean precisely where §14's *tree-seed* intertwining fails (a leaf has no children to reorder).
+- `coSwap_boolSpine_distinct` — `coSwap` fixes *no* bit-stream escape (free ℤ/2-action on the
+  `(Nat→Bool)`-many escapes).
+- `spineL_eq_boolSpine_true`, `boolSpine_swap_orbit`, `coSwap_boolSpine_free_action` (capstone).
 
-### 4. The missing ring fact — `(−1)·(−1) ≡ 1`
-`Padic/Arith.neg_one_sq_trunc` (all levels).  The library had **no**
-neg-mul machinery; proved by difference-of-squares
-(`t·t = P·(t−1)+1`, `t+1 = p^(n+1)`) through an `s+1` split that avoids
-propext-dirty Nat subtraction.  This upgraded `i₅⁴ ≡ 1` from a
-computational trunc-2 `decide` to a general theorem.
+**§19 — the bit-stream escapes carry the shift dynamical system** (cross-arc §12 ⊗ §15 ⊗ §18 ⊗
+non-holonomicity):
+- `boolSpine_congr` — pointwise stream-eq → pointwise spine-eq (funext-free; reads periodicity).
+- `boolSpine_coLeft` / `boolSpine_coRight` — left descent = head bit, right descent = the shift.
+- `boolSpine_shift_coalgebra` — `boolSpine` is the shift `(Nat→Bool; head,tail)` → νF coalgebra hom.
+- `boolSpine_periodic_selfsimilar` — self-similarity = shift-periodicity.
+- `spineL_shift_fixed` — `spineL` the period-1 (shift-fixed) escape (= `spineL_unique`'s p=1 case).
+- `boolSpine_eventually_true_reaches_spineL` — eventually-constant seeds reach the attractor in
+  finitely many descents (holonomic / finite-state end; aperiodic seeds = non-holonomic escapes).
+- `boolSpine_swap_shift_commute`, `boolSpine_shift_dynamics` (capstone).
 
-### 5. H (DRLT 5-adic) — terrain mapped, NOT forced
-`research-notes/frontiers/G124_padic_drlt_5adic.md`.  H1 (5²⁵-resolution
-obstruction): **settled-as-removed** (`RERESEARCH_n_u_removal.md` — the
-N_U chain is deleted, not deferred).  H2 (i₅ spinors/CP) + H3 (5-adic
-L-values): **no internal handle** — no i₅↔physics edge anywhere; asserting
-one would be a forcible map onto physics (forbidden).  Recorded plainly
-per `05_no_exterior.md` §5.4.  The pure-math handle that looking DID turn
-up — `i₅ ∈ μ₄` — is closed (above).
+### 2. G182 — "the frontier has a form" promoted to an essay
+- New `theory/essays/foundations/the_frontier_has_a_form.md`: µF inductive-complete (crank) vs
+  νF coinductive-complete (map); no-exterior forces the escape to *be* the residue shape —
+  self-similar (`spineL_unique`), populated (`nu_population_capstone`), acted on *freely* by the
+  lone symmetry (`coSwap_boolSpine_free_action`), and carrying the **shift dynamics**
+  (`boolSpine_shift_dynamics`).  Lands on a syntactic object; honest boundary (summits open).
+- Source `G182` archived → `research-notes/archive/G182_completed_system_synthesis.md`.
+- `theory/essays/INDEX.md` (foundations group + Current-essays row, 41→42), and
+  `the_residue_as_primitive.md` (the §18/§19 rows + count 94→108) updated.
+- Sink rule verified clean (no `theory/` → `research-notes/` citation).
 
-### 6. Promotion cycle + essay + org-audit
-- **Promotion** (`process` skill): A/B/G fold into the already-promoted
-  G122 chapter `theory/math/numbersystems/padic_real213.md` (extended,
-  not a new chapter).  `promotion_essay_log.md` rows 1–2.  Decoupled a
-  G123 cite I had introduced in `TeichmullerUnit.lean`.
-- **Essay**: `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`
-  — ω(x) as the forced fixed point of Frobenius, reached as the diagonal
-  of its own approximants (cross-frame: P(φ)=φ, §5.2 Nat-style closure,
-  `object1_not_surjective`).
-- **org-audit**: stripped stale "Phase N" process-narration from the
-  Padic tree (Foundation preview block, Valuation labels +
-  `phase3_valuation_close` → `valuation_capstone`, ZpSeqMobiusBridge);
-  sorted the top-level essay orphan `the_modular_geodesic_lens.md` into
-  `theory/essays/p_orbit/` (7 path refs updated); essays INDEX 43 grouped.
+### 3. G178 — C3-phys consolidation bridge closed (the shared unit `1`)
+`Lens/Number/SharedUnitAcrossReadings.unit_bridges_dynamics_and_readings` (PURE): the ascent
+unit (`ascent_adds_unit`), the descent unit (`part_depth_succ_le`), the glue `NS−NT = 1`, and
+the Möbius `det P = 1` are the *same* `1` — the dynamics↔algebra bridge the `ResidueForm`
+narrative asserted (now cited from it).  Complements the two pre-existing single-scale bundles
+(`ReentryUnit.reentry_unit_across_scales` = Raw-dynamics; `the_unit_is_one_across_readings` =
+number-axes).
+
+### 4. G178 — C6-phys falsifier-roster super-theorem closed
+`Lib/Physics/Foundations/FalsifierRosterForced.falsifier_roster_forced` (1 PURE): binds the two
+forcing iffs (`atomic_iff_five` → d=5; `pair_forcing` → (NT,NS)=(2,3)) to the headline falsifier
+integers as polynomials in the *forced* triple (F1 5, F2 3, F8 22, F22/F26 6, F26 10, F24 192,
+F15/F19 12, F21 Koide 3·NT=2·NS).  The load-bearing content is the *forcing* (integers follow
+from the unique triple, not fits).  Wired into `Lib/Physics/Foundations.lean`; recorded in
+`catalogs/falsifiers.md`.
+
+### 5. G178 — C7-phys closed, C1-phys closed-as-non-bridge (consolidation surface complete)
+`KoideFormula.koide_atoms_are_det_atoms` (PURE): Koide's two atoms ARE the determinant's — the
+forced pair `(NS,NT)=(3,2)` read three ways: ratio `NT·3=NS·2` (Koide `2/3`), difference
+`det P = NS−NT = 1` (residue unit), product `NS·NT = 6` (`K_{3,2}` edge count).  C1-phys
+(`N_gen`) declined as a structural bridge: the forced numeric (`binom NS NT = 3`) is in C6-phys;
+forcing it *into* the `2a+3b=5` solver is the recorded "different 3" non-bridge.  **All C-phys
+consolidation bridges now resolved** (C3/C6/C7 closed, C1 closed-as-non-bridge).
 
 ## Current Precision Results (0 free parameters)
-Unchanged this session — all work is the **math** branch (p-adic number
-theory).  No DRLT physics-constant edits.  Canonical table:
-`catalogs/physics-constants.md`.  H confirmed the 5²⁵-resolution reading
-stays removed; no physics observable touched.
+Unchanged this session (math-frontier work; no physics-constant edits).  Canonical:
+`catalogs/physics-constants.md`.
 
 ## Open Problems (Priority Order)
 
-### 1. Sequence-level uniqueness of the `ω·u` factorisation — CLOSED
-`Zp.teichmuller_unique` (Frobenius-fixed lift unique, via `frobenius_lift`
-+ the fix) + `Zp.unit_decomp_unique`, then stated in the **canonical 213
-equality** `ZpSeqEquiv` (`teichmuller_unique_equiv`,
-`unit_decomp_unique_equiv`) via the funext-free bridge
-`ZpSeqEquiv.of_trunc_all` (`SetoidFramework`).  Complete — there is no
-"literal `ZpSeq` equality" beyond this: raw Lean `=` needs funext and is
-a Lens artifact, not a 213 target.  `ZpSeqEquiv` is the equality the
-residue carries.
+### 1. (carried) The orbit-realizability kernel `H` (`OrbitRealizabilityH`)
+The Markov sole open freedom — structure fully pinned, realizability *selection* open.  Attack as
+a forced fixed point (`frontiers/markov_lagrange/G193…` Part C).  Continuant program E2–E5 (Aigner
+bridge) ranked next on that arc (`frontiers/markov_lagrange/G191…`; `Real213/Continuant.lean` tool
+already built).
 
-### 2. General-division correctness — CLOSED (numerator level)
-`Zp.div_general_value` proves `y · u⁻¹ ≡ p^v` (= `y·(1/y) ≡ 1` in ℚ_p).
-What remains optional: a `QpSeq` value-equivalence (cross-multiplication
-setoid) to state it as `QpSeq.equiv (b · 1/b) one` for *general* b
-(not just `ofZp y`) — cosmetic packaging; the substance is done.
+### 2. G178 — consolidation surface COMPLETE
+All C-phys bridges resolved this session: **C3** (`unit_bridges_dynamics_and_readings`), **C6**
+(`falsifier_roster_forced`), **C7** (`koide_atoms_are_det_atoms`) closed ∅-axiom; **C1** closed-as-
+non-bridge (forced numeric in C6; solver-identification is the recorded "different 3").  No C-phys
+bridge remains open.
+- **Adjacent — both closed** (survey label was stale): ε₀ diagonal
+  (`DepthHeightDiagonal.{height_diagonal_escapes,epsilon_direction}`, chaptered in
+  `completeness_without_completeness.md` Part IV §14; native ε₀ object out of ∅-axiom reach, not
+  forced) and frozen=dynamic φ (`PhiFrozenDynamic.frozen_eq_dynamic_phi`, §5.7 — **promoted this
+  session** to `phi_self_similarity.md` §3.6).
 
-### 3. (carried) H — DRLT 5-adic, arithmetic-first only
-Any future H must avoid the deleted count-vs-truncation category error
-and the forcible-map trap: ask whether a 5-adic *arithmetic* invariant of
-an object the corpus already builds is non-trivial, and only then read it
-toward an observable.  Open until an unforced arithmetic handle appears.
-Tracked in `frontiers/G124_padic_drlt_5adic.md`.
+### 6. G181 — §19→odometer cross-arc closed (the escape's arithmetic face)
+New `Theory/Raw/Odometer` (11 PURE, wired into `Theory/Raw/API.lean`): the binary (2-adic) `+1`
+adding machine on the §19 bit-streams, read as the µF/νF mirror at the arithmetic scale — the
+carry terminates iff the stream has a floor (a `0`, `carry_dies_iff_has_false`, µF) and runs
+forever on the all-`true` = `spineL`-seed stream (`allTrue_carry_forever`, νF), so the canonical
+escape IS the odometer overflow (`spineL_seed_is_odo_overflow`).  The `+1` = the self-pointing
+act, the carry = the residue unit.  Realises G181's identified build target (binary base).
+
+### 7. G181 — the variable-base golden/Zeckendorf carry (the residue's own base)
+New `Real213/ZeckendorfCarry` (7 PURE, wired into `Real213.lean`): the Fibonacci-base adic carry
+`011 → 100` = the Fibonacci recurrence (`zeck_carry_weight`: `fib(i+2)+fib(i+3)=fib(i+4)`, the
+`+1` lifting one spiral rung, ground `1+2=3`), as a **value-preserving** digit-list rewrite
+(`fibValFrom_carry`); admissibility (no consecutive `1`s) = Cassini (`fib_cassini_norm`);
+`golden_adic_carry` bundles it.  This is Ostrowski(φ) = Zeckendorf, the residue's own spiral
+base.  Promoted to `phi_self_similarity.md` §3.7.  **Note**: core `Nat.add_mul`/`Nat.mul_assoc`
+and `omega` are propext/Quot-tainted — used `Meta.Nat.PureNat.add_mul` and manual `Nat` lemmas
+for ∅-purity (the §19/odometer/Zeckendorf arc is now closed on both binary and golden bases).
+
+### 8. New structure — the residue's successor dynamics (`Theory/Raw/Odometer` §2, +8 PURE)
+The genuinely-new pioneering piece: the two fundamental bit-stream maps (descent-shift = µF,
+ascent-unit-odometer = νF) interlock, and the `+1` is the residue's **injective** successor.
+`odo_injective` (the `+1` never sends two streams to one — odometer-scale `tower_no_cycle` /
+no-exterior on the unit); `shift_odo` (the descent–increment skew = the adding-machine recursion,
+`shift (odo f) = odo (shift f)` gated by the low bit); `carry_shift` (the carry splits one bit at
+a time); `successor_dynamics` bundles it.  **§3 — the `ℤ`-action** (+12 PURE, Odometer now **31 PURE**):
+the predecessor `−1` (the *borrow* machine, dual to the carry) is the two-sided inverse of `+1`
+(`dec_odo`: `(f+1)−1=f`; `odo_dec`: `(f−1)+1=f`), so the residue unit is **invertible** — it
+generates a `ℤ`-action `(±1)` on the escape space (`odo_unit_action`), the `+1`/`−1` the
+difference-Lens generators.  No-exterior (`tower_no_cycle`) made a group action: never collapsing,
+always undoable.  **§4 — the reversibility asymmetry** (+6 PURE, Odometer now **36 PURE**):
+descent (shift) is surjective-not-injective (`shift_surjective` + `shift_not_injective` — a
+forgetful quotient, the dropped low bit lost), the ascent unit (odo) is bijective
+(`descent_forgets_ascent_remembers`).  µF grounds irreversibly, νF's unit is a reversible
+`ℤ`-action — reversibility is the operational µF/νF signature.  **§5 — the `ℤ₂`-successor
+homeomorphism** (+2 PURE, Odometer now **38 PURE**): `odo_prefix_determined` (continuity — output
+bit `n` determined by input prefix `[0,n]`) + `odo_homeomorphism` (bijective + continuous = the
+residue's `+1` is the `ℤ₂`-successor as a topological-group automorphism; the escape space carries
+the `2`-adic integer structure).
+
+**§6 — the carry profile** (+3 PURE, Odometer now **41 PURE**): `carry_eq_true_iff` (the carry is
+exactly the leading run of `1`s — `carry f n = true ↔ ∀ m<n, f m = true`), `carry_monotone` (once
+dead stays dead), `carry_profile` (capstone): the carry is `true` on `[0,R)` where `R` = the floor
+distance (the first `0`), `false` after — the carry-depth as a 213-native invariant.
+
+**Promoted** the closed arc to a dedicated essay
+`theory/essays/foundations/the_residue_unit_odometer.md` ("the arithmetic face of the `+1`") — the
+third residue-triptych companion (coalgebra face = `the_residue_as_primitive`; the form =
+`the_frontier_has_a_form`; arithmetic face = this).  `essays/INDEX` updated (42→43).  Open frontier
+recorded in the essay: ℤ-action freeness, the profinite value-mod-`2ᵏ`, carry-depth classification.
+
+### 9. New — the profinite value: `odo = +1 mod 2ᵏ` (`Theory/Raw/OdometerValue`, 11 PURE)
+Closes the essay's profinite-value frontier: `bval k f` reads the first `k` bits as a number
+(LSB-first), and `bval_odo` proves `bval k (odo f) + carryVal k f = bval k f + 1` — the odometer is
+the arithmetic successor on every finite truncation, `odo = (+1 mod 2ᵏ)` carry-explicit (no
+division), pinning the escape space as `ℤ₂ = lim ℤ/2ᵏ` quantitatively.  Wired into
+`Theory/Raw/API.lean`.  **Full ℤ-action freeness CLOSED** (`odo_free`, `OdometerValue` now 18 PURE):
+iterating `bval_odo` (`bval_odoIter`: `∃ c, bval k (odoʲ f) + c·2ᵏ = bval k f + j`), a period
+`odoʲ f = f` at `k = j` forces `c·2ʲ = j` with `j < 2ʲ` (`lt_two_pow`), so `j = 0` — the `+1`,
+iterated, never returns (`ℤ₂` torsion-free; full no-exterior at the odometer scale).  All three
+user frontiers now addressed: **(a) freeness CLOSED, (b) profinite value CLOSED, (c) carry-depth
+characterised** (`carry_profile`; full real-classification deployment remains).  Arithmetic pure
+`Nat` (`add_left_cancel_pure` replaces propext-tainted `Nat.add_left_cancel`).  Essay updated.
+
+### 3. (carried) Promotion candidates
+PURE-closed sub-trees lacking a `theory/` chapter — `theory/PROMOTION_CRITERIA.md`.  Markov
+chapter stays active (Pattern 3) while `H` is open.
 
 ## Next
-A/B/G + correctness + Teichmüller/decomposition uniqueness (in the
-canonical `ZpSeqEquiv`) are all done ∅-axiom.  No genuine p-adic target
-remains — what's left (literal Lean `=` on `ZpSeq`) is not a 213 equality
-but a funext-needing Lens artifact.  The closable p-adic arc is complete;
-recommend stepping off the tree.
+Either (a) the §19→G181 cross-arc (the shift on νF = the Ostrowski/spiral-adic odometer carry),
+a genuine new bridge; or (b) C3-phys (det-1=ascent-1=glue-1), the safest consolidation; or
+(c) return to the Markov `H` kernel via continuant E2.  The νF arc (`CoResidue`) is now large
+(108 PURE) — prefer a *different* structural axis over more CoResidue micro-sections (rule 9).
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: A/B/G folded into the existing Padic
-  chapter (log row 1); essay written (log row 2).  No new chapter (closed
-  sub-tree extension, not a fresh closure).
-- **Active scratchpad**: `frontiers/G123_padic_next_directions.md`
-  (A/B/G marked closed), `frontiers/G124_padic_drlt_5adic.md` (H terrain
-  map — the live open note).  Sink rule holds: no permanent tier cites
-  either.
+- **Promotions this session**: G182 → `theory/essays/foundations/the_frontier_has_a_form.md`
+  (source archived).
+- **Frontier board pruned 2026-06-04**: `G178_next_proofline_conjectures` and
+  `G181_atomic_spiral_adic` are **closed & archived** (content fully promoted to the
+  `foundations/` essay triptych + `phi_self_similarity` §3.7); the odometer essay's three open
+  frontiers (freeness, profinite value, carry-depth) are all addressed.  Remaining genuinely-open
+  frontiers on the board: π non-holonomicity, Markov/Lagrange (`H` kernel), spiral-axis
+  (G169/G171/G185), completability, sequence-depth, and the standalone meta-frontiers.  Sink rule holds.
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberSystems/Padic/Teichmuller.lean        ← +ω(x) diagonal, Frobenius fix
-lean/E213/Lib/Math/NumberSystems/Padic/TeichmullerUnit.lean    ← NEW: μ_{p−1}, unit split, i₅∈μ₄
-lean/E213/Lib/Math/NumberSystems/Padic/Arith.lean              ← +shiftRight, factorisation exactness, neg_one_sq_trunc
-lean/E213/Lib/Math/NumberSystems/Padic/Field.lean              ← +invGeneral/divGeneral (general division)
-lean/E213/Lib/Math/NumberSystems/Padic/Foundation.lean         ← org-audit: removed Phase-2 preview block
-lean/E213/Lib/Math/NumberSystems/Padic/Valuation.lean          ← org-audit: Phase labels → current-state
-lean/E213/Lib/Math/NumberSystems/Padic/INDEX.md                ← counts + new rows + open-frontier
-theory/math/numbersystems/padic_real213.md                     ← chapter extended (A/B/G/H narrative + key results)
-theory/essays/algebra/teichmuller_as_forced_fixed_point.md     ← NEW essay
-theory/essays/p_orbit/the_modular_geodesic_lens.md             ← MOVED from essays/ top level (orphan sort)
-research-notes/frontiers/G123_padic_next_directions.md         ← A/B/G marked closed
-research-notes/frontiers/G124_padic_drlt_5adic.md              ← NEW: H terrain map
-research-notes/promotion_essay_log.md                          ← rows 1 (promotion) + 2 (essay)
-STRICT_ZERO_AXIOM.md                                           ← G123 A/B/G + (−1)²≡1 + i₅∈μ₄ follow-on
+lean/E213/Theory/Raw/CoResidue.lean                              ← +§18 (swap free action) +§19 (shift dynamics), 94→108 PURE
+theory/essays/foundations/the_frontier_has_a_form.md             ← NEW essay (G182 promoted)
+theory/essays/foundations/the_residue_as_primitive.md            ← +§18/§19 rows + bullets, counts 94→108
+theory/essays/INDEX.md                                           ← foundations group + Current-essays row (41→42)
+research-notes/archive/G182_completed_system_synthesis.md        ← archived (was frontiers/), promoted-to pointer
+research-notes/frontiers/G178_next_proofline_conjectures.md      ← +§18/§19 STATUS; remaining open = C-phys + adjacent
+research-notes/frontiers/INDEX.md                                ← G182 closure record; G178 §18/§19 note
 ```
