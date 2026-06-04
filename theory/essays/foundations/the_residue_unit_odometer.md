@@ -99,6 +99,7 @@ the residue's own spiral base.
 | `odo_unit_action` | `Theory/Raw/Odometer` | the `+1` is invertible (`−1` = borrow); the unit generates a `ℤ`-action |
 | `descent_forgets_ascent_remembers` | `Theory/Raw/Odometer` | descent surjective-not-injective (forgets), ascent unit bijective (reversible) |
 | `odo_homeomorphism` | `Theory/Raw/Odometer` | the `+1` is the `ℤ₂`-successor homeomorphism (bijective + continuous) |
+| `carry_profile` | `Theory/Raw/Odometer` | the carry is the leading run of `1`s (`carry_eq_true_iff`) and a step function (`carry_monotone`) — its depth = the floor distance |
 | `golden_adic_carry` | `Real213/ZeckendorfCarry` | the golden/Zeckendorf carry `011→100` = Fibonacci recurrence, value-preserving; admissibility = Cassini |
 
 ## Honest scope (what this is and is not)
@@ -126,8 +127,10 @@ witnessed by a term that type-checks with no axioms.
   - **The profinite value** — `odo` as `+1 mod 2ᵏ` on the first `k` bits (the explicit
     `ℤ₂ = lim ℤ/2ᵏ` tower); requires a finite-prefix value map and `Nat` mod arithmetic
     (propext-free, so manual — core `Nat.add_mul`/`omega` are axiom-tainted here).
-  - **Carry-depth as a real-classification coordinate** — the run-length profile under the
-    odometer as a 213-native invariant, extending the spiral classification
+  - **Carry-depth as a real-classification coordinate** — the carry profile is now characterised
+    (`carry_profile`: the carry is the leading run of `1`s, a step function whose depth is the
+    floor distance); what remains open is *deploying* it as a real-classification coordinate
+    (the full run-length profile under iterated `odo`), extending the spiral classification
     (`spiral_coordinate_classification.md`).
 
 ## How to verify

@@ -125,6 +125,11 @@ bit `n` determined by input prefix `[0,n]`) + `odo_homeomorphism` (bijective + c
 residue's `+1` is the `ℤ₂`-successor as a topological-group automorphism; the escape space carries
 the `2`-adic integer structure).
 
+**§6 — the carry profile** (+3 PURE, Odometer now **41 PURE**): `carry_eq_true_iff` (the carry is
+exactly the leading run of `1`s — `carry f n = true ↔ ∀ m<n, f m = true`), `carry_monotone` (once
+dead stays dead), `carry_profile` (capstone): the carry is `true` on `[0,R)` where `R` = the floor
+distance (the first `0`), `false` after — the carry-depth as a 213-native invariant.
+
 **Promoted** the closed arc to a dedicated essay
 `theory/essays/foundations/the_residue_unit_odometer.md` ("the arithmetic face of the `+1`") — the
 third residue-triptych companion (coalgebra face = `the_residue_as_primitive`; the form =

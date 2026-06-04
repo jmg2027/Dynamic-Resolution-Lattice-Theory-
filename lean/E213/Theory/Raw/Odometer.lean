@@ -365,4 +365,61 @@ theorem odo_homeomorphism :
     ∧ (∀ {f g : Nat → Bool} (n : Nat), (∀ m, m ≤ n → f m = g m) → odo f n = odo g n) :=
   ⟨dec_odo, odo_dec, fun {_ _} n h => odo_prefix_determined n h⟩
 
+/-! ## §6 — the carry profile: the carry is exactly the leading run of `1`s (the floor distance)
+
+The carry has a precise shape: `carry f n = true` *iff* every bit below `n` is `1`
+(`carry_eq_true_iff`) — the carry survives to position `n` exactly along the **leading run of
+`1`s**.  And once the carry dies it stays dead (`carry_monotone`: a `false` carry forces `false`
+ever after).  So the carry is `true` on an initial segment `[0, R)` and `false` thereafter, where
+`R` is the **leading-run length** = the position of the first `0` = the *floor distance* (how deep
+the µF floor sits).  The escape (all-`true`) has `R = ∞` (carry true everywhere); a stream with a
+floor has finite `R`.  This is the carry-depth as a 213-native invariant — the `+1`'s reach is the
+distance to the floor.  All ∅-axiom. -/
+
+/-- ★★★ **The carry is the leading run of `1`s.**  `carry f n = true ↔ ∀ m < n, f m = true`: the
+    `+1`'s carry survives to position `n` exactly when every lower bit is `1` — the carry *is* the
+    leading run, its length the distance to the first `0` (the µF floor). -/
+theorem carry_eq_true_iff (f : Nat → Bool) :
+    ∀ n, carry f n = true ↔ ∀ m, m < n → f m = true
+  | 0     => by
+      constructor
+      · intro _ m hm; exact absurd hm (Nat.not_lt_zero m)
+      · intro _; exact carry_zero f
+  | n + 1 => by
+      constructor
+      · intro hand
+        rw [carry_succ] at hand
+        have hc : carry f n = true := by
+          cases hcn : carry f n with
+          | true  => rfl
+          | false => rw [hcn, Bool.false_and] at hand; exact Bool.noConfusion hand
+        have hfn : f n = true := by
+          cases hf : f n with
+          | true  => rfl
+          | false => rw [hf, Bool.and_false] at hand; exact Bool.noConfusion hand
+        intro m hm
+        rcases Nat.lt_or_eq_of_le (Nat.lt_succ_iff.mp hm) with h | h
+        · exact (carry_eq_true_iff f n).mp hc m h
+        · exact h ▸ hfn
+      · intro h
+        have hc : carry f n = true :=
+          (carry_eq_true_iff f n).mpr (fun m hm => h m (Nat.lt_succ_of_lt hm))
+        rw [carry_succ, hc, h n (Nat.lt_succ_self n), Bool.true_and]
+
+/-- ★★ **The carry, once dead, stays dead.**  `carry f n = false → carry f (n+1) = false`: a `0`
+    absorbs the carry permanently.  So the carry is a step: `true` on `[0, R)`, `false` after. -/
+theorem carry_monotone (f : Nat → Bool) (n : Nat) (h : carry f n = false) :
+    carry f (n + 1) = false := by
+  rw [carry_succ, h, Bool.false_and]
+
+/-- ★★★ **The carry profile (the floor-distance invariant).**  The `+1`'s carry is exactly the
+    leading run of `1`s (`carry_eq_true_iff`) and is a step function (`carry_monotone`, once dead
+    stays dead) — so it is `true` on an initial segment whose length is the distance to the first
+    `0` (the µF floor), `false` beyond.  The carry-depth: the `+1`'s reach equals the floor
+    distance; the escape (no floor) has the carry reaching everywhere. -/
+theorem carry_profile (f : Nat → Bool) :
+    (∀ n, carry f n = true ↔ ∀ m, m < n → f m = true)
+    ∧ (∀ n, carry f n = false → carry f (n + 1) = false) :=
+  ⟨carry_eq_true_iff f, carry_monotone f⟩
+
 end E213.Theory.Raw.Odometer
