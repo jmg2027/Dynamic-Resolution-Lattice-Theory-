@@ -2,7 +2,16 @@
 
 ## Branch `claude/markov-uniqueness-0R0Ut` — pushed, clean.  `Real213/SternBrocotMarkov` §34 + `Real213/Continuant` PURE.
 
-## ★★★ NEWEST — Cohn-tree monotonicity (general): any word extension increases Markov trace (∅-axiom)
+## ★★★ NEWEST — explicit path → Christoffel word: every Markov number = continuant-trace of an explicit word
+- **`ContinuantMarkov.chrInterval`/`chrNode`** (word-level Christoffel tree, mediant=concat, seeds
+  A=[1,1] B=[2,2]); `chrNode_examples` ([]↦AB, [true]↦AAB, [false]↦ABB).
+- **`contMatProd_chrNode`** (PURE): the word tree's contMatProd IS the matrix Cohn tree cNode (via
+  contMatProd_append). **`markovNum_eq_chrNode_trace`** (PURE): `3·markovNum p = tr(contMatProd(chrNode p))`
+  — the EXPLICIT path → Christoffel-word Frobenius formula (cutting-sequence map made concrete).
+- Remaining for literal rational-labeled Aigner: the p/q labeling of chrNode (Christoffel letter-counts
+  ↔ rational); the word→markovNum bridge is now explicit.
+
+## Cohn-tree monotonicity (general): any word extension increases Markov trace (∅-axiom)
 - **`ContinuantMarkov.cohnTrace_lt_append`** (PURE): `pre ≠ [] → cohnTrace bs < cohnTrace (pre ++ bs)` —
   the general monotone structure of the Christoffel/Markov tree (deeper Cohn words = strictly larger
   Markov trace), by transitivity over cohnTrace_lt_true/false. Subsumes fixed_numerator_one.
