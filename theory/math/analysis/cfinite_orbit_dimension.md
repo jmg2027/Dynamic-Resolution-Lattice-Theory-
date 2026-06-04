@@ -1,11 +1,12 @@
 # C-finite and the orbit-dimension ladder — above the polynomials
 
 **Status**: The `+`-ring, the orbit-recurrence ⟺ annihilator characterization, the
-**orbit dimension = recurrence order** equivalence, and the Hadamard product with an
-**explicit-spectrum factor** (`cⁿ·s` and `(Σ aᵢcᵢⁿ)·t`) are closed; the *general* Hadamard
-product (both factors non-split, e.g. `fib·fib`) is the documented open frontier.  Source of
-truth (all ∅-axiom): `lean/E213/Lib/Math/Cauchy/OrbitDimension.lean` (32 PURE) and
-`lean/E213/Lib/Math/Cauchy/CFiniteRing.lean` (82 PURE).
+**orbit dimension = recurrence order** equivalence, and the **Hadamard (pointwise) product**
+`s·t` (the full ring — closed via integer Cayley–Hamilton) are all closed.  So the **C-finite
+sequences are a commutative ring** under `+` and pointwise `·`.  Source of truth (all ∅-axiom):
+`lean/E213/Lib/Math/Cauchy/OrbitDimension.lean` (32 PURE), `CFiniteRing.lean` (82 PURE), and
+`CFiniteHadamard.lean` (21 PURE, the Hadamard product), on the `Linalg213` determinant +
+Cayley–Hamilton tower.
 
 ## Overview
 
@@ -55,6 +56,7 @@ polynomials, and the algebraic structure carried on it — a commutative ring un
 | `cfiniteZ_iff_shiftRec` | `CFiniteRing` | **C-finite ⟺ has a monic shift recurrence** — orbit dimension = recurrence order |
 | `cfiniteZ_geomScale` | `CFiniteRing` | `cⁿ · s` is C-finite for every C-finite `s` (Hadamard, geometric factor) |
 | `cfiniteZ_geomCombo_mul` | `CFiniteRing` | `(Σ aᵢcᵢⁿ) · t` is C-finite (Hadamard, explicit-spectrum factor) |
+| ★★★ `cfiniteZ_mul` | `CFiniteHadamard` | **`s·t` is C-finite for any C-finite `s,t`** (the full Hadamard product, via integer Cayley–Hamilton) — the C-finite sequences are a commutative ring |
 
 ## Narrative
 
@@ -144,35 +146,41 @@ and its inverse `Δⁿ = (E−I)ⁿ` — is the binomial transform of
 [`newton_gregory.md`](newton_gregory.md); here the change of basis is carried *operator-side* by
 `ePow`/`dPow` (convolutions of `[1,1]`/`[-1,1]`), with no binomial sums.
 
+## The Hadamard product (closed) — integer Cayley–Hamilton
+
+**The general pointwise product `s·t` is C-finite** (`CFiniteHadamard.cfiniteZ_mul`, ∅-axiom),
+for any C-finite `s, t` — including both-non-split factors with irrational spectra (`fib·fib`).
+This was the last ring operation; the C-finite sequences are now a full commutative ring.
+
+The corners came first and remain the cheap routes when a factor splits: `cfiniteZ_geomScale`
+(`cⁿ · s` for every C-finite `s` — a geometric weight rescales the shift coefficients,
+`(cⁿs)(n+k) = Σ aᵢ c^{k−i} (cⁿs)(n+i)`) and `cfiniteZ_geomCombo_mul` (`(Σ aᵢ cᵢⁿ) · t`, the
+multiplicative root-pairing one geometric at a time).
+
+The **general** construction realizes the tensor of the two shift recurrences.  If `s` satisfies a
+monic order-`p` shift recurrence and `t` order-`q`, the `pq` products `w(n)_{(a,b)} = s(n+a)·t(n+b)`
+are closed under the shift, `w(n+1) = M·w(n)` for a fixed `pq×pq` integer **Kronecker companion** `M`
+(`CFiniteHadamard.vecRec`; `M` factors as `Ms·Mt` since the `s`- and `t`-shifts are independent).
+The characteristic roots multiply pairwise, and the monic-over-`ℤ` annihilator that `CFiniteZ`
+strictly requires is the characteristic polynomial `χ_M = det(X·I − M)` — which the
+**determinant-free** routes (finite-orbit linear dependence; the power-sum twin of `conv`,
+`pₗ(αβ)=pₗ(α)pₗ(β)` with Newton's identities) cannot reach (they give only *non-monic* relations, the
+power-sum `÷k` integrality being "the determinant in disguise").  So the proof goes through the full
+`n×n` determinant: a ∅-axiom **integer Cayley–Hamilton** `χ_M(M) = 0`
+(`Linalg213.CharPolyAdj.cayley_hamilton`), built on the Leibniz determinant
+(`Linalg213.Permutation`/`PermClosure` — alternating via antisymmetrization), cofactor expansion and
+the adjugate identity `M·adj M = det M·I` (`Linalg213.Laplace`), lifted to `ℤ[X]` by polynomial
+uniqueness (`PolyZ.coeff_unique`).  The **recurrence bridge** `CharPolyAdj.ch_recurrence` then turns
+`χ_M(M)=0` into the monic order-`pq` recurrence on the first component `w_{(0,0)} = s·t`, with the
+leading coefficient `1` from monicity (`PolyDet.charPoly_monic`), and `cfiniteZ_of_shiftRec` closes
+it.  `Linalg213.FibCassiniDet` grounds the base size: `det 2` of the Fibonacci Casoratian
+`[[fibₙ, fibₙ₊₁], [fibₙ₊₁, fibₙ₊₂]]` is exactly the orbit's conserved unit `(−1)ⁿ⁺¹` (= `det Qⁿ`).
+`FiniteDepthAlgebra.polyDepthZ_mul` (see [`newton_gregory.md`](newton_gregory.md)) is the finite-
+*depth* analogue via the discrete Leibniz rule.
+
 ## Open frontier
 
-Three directions remain, in rough difficulty order.
-
-- **The Hadamard (pointwise) product `s·t`** — the remaining ring operation, closed at its corners.
-  A **geometric factor** is fully handled: `cfiniteZ_geomScale` proves `cⁿ · s` is C-finite for
-  *every* C-finite `s` (same recurrence order — a geometric weight rescales the shift coefficients,
-  `(cⁿs)(n+k) = Σ aᵢ c^{k−i} (cⁿs)(n+i)`, worked through `cfiniteZ_iff_shiftRec` since `E` is
-  multiplicative on the geometric factor), generalizing `cfiniteZ_geom_mul` (`cⁿ·dⁿ = (cd)ⁿ`) to
-  `cⁿ · (n²)`, `cⁿ · fib`, etc.  More generally an **explicit-spectrum factor** is handled:
-  `cfiniteZ_geomCombo_mul` proves `(Σ aᵢ cᵢⁿ) · t` is C-finite for every C-finite `t` (the
-  multiplicative root-pairing realized one geometric at a time), covering `(2·3ⁿ − 5·2ⁿ)·fib`,
-  `(3ⁿ+5ⁿ)·n²`, etc.  The **general** product `s · t` (both factors non-split, e.g. `fib·fib` —
-  irrational spectra) is the open part: the characteristic roots multiply pairwise (a tensor of
-  recurrences, degree `k·m`), whose annihilator is the resultant of the two characteristic
-  polynomials.  Reaching this annihilator *monic over `ℤ`* — which `CFiniteZ` strictly requires —
-  provably needs the characteristic polynomial `det(zI − M)`, i.e. an `n×n` determinant: the
-  determinant-free routes (finite-orbit linear dependence; the multiplicative-power-sum twin of
-  `conv`, `pₗ(αβ)=pₗ(α)pₗ(β)` with Newton's identities) deliver only a *non-monic* `ℤ`-relation, the
-  power-sum route's `÷k` integrality being "the determinant in disguise".  `FiniteDepthAlgebra.
-  polyDepthZ_mul` (see [`newton_gregory.md`](newton_gregory.md)) is the finite-*depth* analogue via
-  the discrete Leibniz rule; the full C-finite version needs the Hadamard/resultant construction.
-  The general `n×n` determinant for this is under construction in `Linalg213.DetN` (cofactor
-  expansion over `ℤ`; first-row multilinearity and the column-skip commutation
-  `colShift a ∘ colShift c = colShift (c+1) ∘ colShift a` — the geometric core of the alternating
-  property — are in place).  `Linalg213.FibCassiniDet` already grounds it: `det 2` of the Fibonacci
-  Casoratian `[[fibₙ, fibₙ₊₁], [fibₙ₊₁, fibₙ₊₂]]` is exactly the orbit's conserved unit `(−1)ⁿ⁺¹`,
-  so the determinant program's base size returns the same unimodular `det Qⁿ = ±1` as the
-  conserved-unit section above.
+Two directions remain, in rough difficulty order.
 
 - **Casoratian rank = orbit dimension** — C-finite iff the Hankel/Casoratian determinants of the
   shift-orbit eventually vanish, the orbit dimension equalling that rank.  Connects directly to
