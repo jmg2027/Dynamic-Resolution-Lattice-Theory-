@@ -26,9 +26,10 @@ open E213.Tactic.List213
   (nodup_map_of_inj nodup_append nodup_length_le_of_subset mem_filter_of
    length_filter_lt_of_mem length_map exists_of_mem_map mem_map_of_mem)
 open E213.Tactic.NatHelper
-  (add_right_cancel_pure le_sub_of_add_le sub_add_cancel add_sub_cancel_right sub_le_sub_left)
+  (add_right_cancel_pure le_sub_of_add_le sub_add_cancel add_sub_cancel_right sub_le_sub_left
+   mul_sub sub_sub_self)
 open E213.Lib.Math.NumberTheory.FourSquareSeed (nat_prime_dvd_mul)
-open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero add_mod_gen)
+open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero add_mod_gen mod_self)
 open E213.Meta.Nat.Gcd213 (mod_eq_dvd_sub)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 
@@ -157,5 +158,88 @@ theorem fold_mem (a p m x : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 �
     refine ⟨le_sub_of_add_le (by rw [Nat.add_comm]; exact hrlt), ?_⟩
     calc p - (a * x) % p ≤ p - (m + 1) := sub_le_sub_left p hrgt
       _ = m := hsub
+
+/-! ## §4 — the fold is injective on `[1, m]` -/
+
+/-- `fold` in the low branch (goal-side `if`, so propext-clean). -/
+private theorem fold_lo (a p m x : Nat) (h : (a * x) % p ≤ m) : fold a p m x = (a * x) % p := by
+  rw [fold_eq, if_pos h]
+
+/-- `fold` in the high branch. -/
+private theorem fold_hi (a p m x : Nat) (h : ¬ (a * x) % p ≤ m) :
+    fold a p m x = p - (a * x) % p := by rw [fold_eq, if_neg h]
+
+/-- Cancellation: `a·x ≡ a·y (mod p)` with `y ≤ x < p` and `p ∤ a` ⟹ `x = y`. -/
+private theorem res_cancel (a p x y : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hnpa : ¬ p ∣ a) (hxp : x < p) (hyx : y ≤ x) (heq : (a * x) % p = (a * y) % p) : x = y := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
+  have hle : a * y ≤ a * x := Nat.mul_le_mul_left a hyx
+  have hdvd : p ∣ (a * x - a * y) := mod_eq_dvd_sub (a * x) (a * y) p hppos hle heq
+  rw [(mul_sub a x y).symm] at hdvd
+  have hdxy : p ∣ (x - y) :=
+    (nat_prime_dvd_mul p hp hpr a (x - y) hdvd).elim (fun h => absurd h hnpa) id
+  have hxylt : x - y < p := Nat.lt_of_le_of_lt (Nat.sub_le x y) hxp
+  have hxy0 : x - y = 0 := by
+    rcases Nat.eq_zero_or_pos (x - y) with h0 | hpos
+    · exact h0
+    · exact absurd (Nat.lt_of_le_of_lt (le_of_dvd_pos p (x - y) hpos hdxy) hxylt) (Nat.lt_irrefl p)
+  exact Nat.le_antisymm (Nat.le_of_sub_eq_zero hxy0) hyx
+
+/-- Impossibility: `a·x mod p + a·y mod p = p` with `0 < x+y < p`, `p ∤ a`. -/
+private theorem sum_imposs (a p x y : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hnpa : ¬ p ∣ a) (hxy1 : 1 ≤ x + y) (hxylt : x + y < p)
+    (heq : (a * x) % p + (a * y) % p = p) : False := by
+  have hmod : (a * x + a * y) % p = 0 := by rw [add_mod_gen (a * x) (a * y) p, heq, mod_self]
+  have hdvd : p ∣ (a * x + a * y) := dvd_of_mod_eq_zero hmod
+  rw [(Nat.mul_add a x y).symm] at hdvd
+  have hdxy : p ∣ (x + y) :=
+    (nat_prime_dvd_mul p hp hpr a (x + y) hdvd).elim (fun h => absurd h hnpa) id
+  exact absurd (Nat.lt_of_le_of_lt (le_of_dvd_pos p (x + y) hxy1 hdxy) hxylt) (Nat.lt_irrefl p)
+
+/-- ★ **The fold is injective on the half-system.** -/
+theorem fold_inj (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) :
+    ∀ x, x ∈ seg m → ∀ y, y ∈ seg m → fold a p m x = fold a p m y → x = y := by
+  intro x hx y hy hfe
+  obtain ⟨hx1, hxm⟩ := mem_seg.mp hx
+  obtain ⟨hy1, hym⟩ := mem_seg.mp hy
+  have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
+  have hmp : m < p := m_lt_p p m hp h2m
+  have hxp : x < p := Nat.lt_of_le_of_lt hxm hmp
+  have hyp : y < p := Nat.lt_of_le_of_lt hym hmp
+  have hnpa : ¬ p ∣ a := not_dvd_unit p a ha1 halt
+  have hrxlt : (a * x) % p < p := Nat.mod_lt _ hppos
+  have hrylt : (a * y) % p < p := Nat.mod_lt _ hppos
+  have hsum1 : 1 ≤ x + y := Nat.le_trans hx1 (Nat.le_add_right x y)
+  have hsumlt : x + y < p := by
+    have hle2 : x + y ≤ 2 * m := by
+      calc x + y ≤ m + m := Nat.add_le_add hxm hym
+        _ = 2 * m := (Nat.two_mul m).symm
+    rw [p_eq p m hp h2m]; exact Nat.lt_succ_of_le hle2
+  rcases Nat.lt_or_ge ((a * x) % p) (m + 1) with hcx | hcx <;>
+    rcases Nat.lt_or_ge ((a * y) % p) (m + 1) with hcy | hcy
+  · rw [fold_lo a p m x (Nat.le_of_lt_succ hcx), fold_lo a p m y (Nat.le_of_lt_succ hcy)] at hfe
+    rcases Nat.lt_or_ge x y with hlt | hge
+    · exact (res_cancel a p y x hp hpr hnpa hyp (Nat.le_of_lt hlt) hfe.symm).symm
+    · exact res_cancel a p x y hp hpr hnpa hxp hge hfe
+  · have hncy : ¬ (a * y) % p ≤ m := fun h => Nat.not_succ_le_self m (Nat.le_trans hcy h)
+    rw [fold_lo a p m x (Nat.le_of_lt_succ hcx), fold_hi a p m y hncy] at hfe
+    have hsum : (a * x) % p + (a * y) % p = p := by rw [hfe, sub_add_cancel (Nat.le_of_lt hrylt)]
+    exact (sum_imposs a p x y hp hpr hnpa hsum1 hsumlt hsum).elim
+  · have hncx : ¬ (a * x) % p ≤ m := fun h => Nat.not_succ_le_self m (Nat.le_trans hcx h)
+    rw [fold_hi a p m x hncx, fold_lo a p m y (Nat.le_of_lt_succ hcy)] at hfe
+    have hsum : (a * x) % p + (a * y) % p = p := by
+      rw [← hfe, Nat.add_comm, sub_add_cancel (Nat.le_of_lt hrxlt)]
+    exact (sum_imposs a p x y hp hpr hnpa hsum1 hsumlt hsum).elim
+  · have hncx : ¬ (a * x) % p ≤ m := fun h => Nat.not_succ_le_self m (Nat.le_trans hcx h)
+    have hncy : ¬ (a * y) % p ≤ m := fun h => Nat.not_succ_le_self m (Nat.le_trans hcy h)
+    rw [fold_hi a p m x hncx, fold_hi a p m y hncy] at hfe
+    have heqr : (a * x) % p = (a * y) % p := by
+      have hx' : p - (p - (a * x) % p) = (a * x) % p := sub_sub_self (Nat.le_of_lt hrxlt)
+      have hy' : p - (p - (a * y) % p) = (a * y) % p := sub_sub_self (Nat.le_of_lt hrylt)
+      rw [← hx', ← hy', hfe]
+    rcases Nat.lt_or_ge x y with hlt | hge
+    · exact (res_cancel a p y x hp hpr hnpa hyp (Nat.le_of_lt hlt) heqr.symm).symm
+    · exact res_cancel a p x y hp hpr hnpa hxp hge heqr
 
 end E213.Lib.Math.NumberTheory.ModArith.GaussLemma
