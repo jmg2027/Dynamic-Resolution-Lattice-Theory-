@@ -1,83 +1,107 @@
-# Session Handoff — 2026-06-05 (★★★ Sperner + Ramsey named bounds proven ∅-axiom)
+# Session Handoff — 2026-06-05 (proof-ISA COUNT series: both named bounds proven ∅-axiom)
 
 ## Branch
-`claude/another-challenge-compile-DJWI4` — commits pushed ahead of `origin`.
-`cd lean && lake build E213` ✓ clean.  Combinatorics scan: `Sperner` 47/47,
-`Permutations` 21/21, `SpernerChains` 49/49 — **all PURE / 0 DIRTY**.
+`claude/another-challenge-compile-DJWI4` — pushed, ahead of `origin/main`.
+`cd lean && lake build E213` ✓ clean.  All new modules strict ∅-axiom
+(`tools/scan_axioms.py`): Sperner 47/47, SpernerChains 49/49, Permutations 21/21,
+RamseyNamedBound 13/13 — **130 declarations, 0 DIRTY**.
 
-## What was done this session
+## What Was Done This Session
 
-Compiled **Sperner's theorem** (1928 — the largest antichain in the Boolean
-lattice `2^[n]` has size `C(n,⌊n/2⌋)`) down the proof-ISA (`seed/PROOF_ISA.md`),
-into the **double-counting / dual-union-bound** face of the `COUNT` instruction
-— the mirror of the probabilistic-method union bound (G200).  New file
-`lean/E213/Lib/Math/Combinatorics/Sperner.lean`, **all strict ∅-axiom**:
+Compiled two hard problems down the proof-ISA (`seed/PROOF_ISA.md`) to the two
+faces of the `COUNT` instruction, **closing the entire COUNT series**.
 
-### Closed, general (∅-axiom)
-- **`layer_size`** — `#{A ⊆ [n] : |A| = k} = binom n k`.  The count-Lens READ;
-  the count recursion *is* Pascal's recursion.
-- **`eq_of_subseteq_card_eq`** — equal-size distinct sets are incomparable
-  (SEPARATE; the inclusion order splits a layer to its diagonal).
-- **`lower_bound`** — the middle layer is an antichain of size `binom n ⌊n/2⌋`
-  (tight existence half).
-- **Binomial unimodality** — `binom_le_binom_mid : binom n k ≤ binom n ⌊n/2⌋`,
-  via the absorption identity `absorb : (k+1)·C(n,k+1) = (n−k)·C(n,k)` +
-  `binom_mono_up/down` + `binom_climb_up/down` (descends from `⌊n/2⌋` with the
-  weak `n ≤ 2k+1` condition — *no symmetry lemma needed*).  Structural `half`
-  (= ⌊n/2⌋) avoids the propext-tainted `Nat.div` lemmas.
-- **`uniform_antichain_le`** — Sperner for single-size antichains, fully general.
-- **`lym_double_count`** — the LYM inequality engine = the dual union bound:
-  `sumOver_swap` (Fubini on a 0/1 incidence matrix) + each chain meeting the
-  antichain ≤ once ⟹ `Σ chains-through(A) ≤ #chains`.
-- **`sperner_numbers`** — `C(n,⌊n/2⌋) = 1,2,3,6,10,20` for `n=1..6`.
+### 1. Sperner's theorem (1928) — fully proven ∅-axiom
+`SpernerChains.sperner_theorem`: the largest antichain of `2^[n]` has size exactly
+`C(n,⌊n/2⌋)`.  Sperner is `COUNT`'s **double-counting / LYM** face (the *dual* of
+the union bound).
+- `Sperner.lean` (47/47): `layer_size` (layer = binomial, the READ),
+  `eq_of_subseteq_card_eq` (SEPARATE), `lower_bound` (tight existence),
+  `binom_le_binom_mid` (unimodality via the absorption identity `absorb`),
+  `lym_double_count`/`sumOver_swap` (the engine = Fubini on a 0/1 matrix),
+  `binom_mul_fact`/`fact_mul_ge_mid` (arithmetic), `sperner_upper_bound`
+  (abstract reduction: any chain model ⟹ the bound).
+- `SpernerChains.lean` (49/49): the geometric chain model — chains =
+  `perms (idxList n)`, `inc` = prefix-set; `chain_cap` (`hcap`, nesting) +
+  `chain_low` (`hlow`, the `{σ++τ}` injection of `k!(n−k)!` chains).
 
-### Purity-engineering notes (for the next propext hunt)
-`==` on `Nat` is `instBEqOfDecidableEq` (won't reduce on `succ`, propext-risky)
-→ used `Nat.beq` directly.  propext-carriers swapped for clean equivalents:
-`Nat.add_mul`→`Binomial.add_mul_pure`; `Nat.add_sub_cancel'`→`NatHelper.add_sub_of_le`;
-`Nat.le_sub_of_add_le`→`NatHelper.le_sub_of_add_le`; `Nat.sub_le_of_le_add`→
-`Nat.sub_le_sub_right`+`add_sub_cancel_right`; `Nat.div_add_mod`→ structural
-`half`.  `omega213` only proves `≤`/`<` goals (not equalities) — do arithmetic
-equalities by hand.  `funext` pulls `Quot.sound` — use `bcount_congr`/`sumOver_congr`.
+### 2. The `perms` enumeration — general permutation infrastructure (new to the repo)
+`Permutations.lean` (21/21): `perms_length : (perms l).length = l!`,
+`mem_perms_iff` (= exactly the rearrangements, via `insert_comm`), `perms_nodup`,
+`perms_append_mem` (orderings concatenate).  The repo previously had only `LPerm`
+*equivalence*; this is the `n!`-cardinality enumeration, reusable for the Leibniz
+determinant.
 
-## Open Problems (priority order)
+### 3. Erdős' `R(k,k) > N` named bound — fully proven ∅-axiom
+`RamseyNamedBound.lean` (13/13): `ramsey_lower` — `2·C(N,k) < 2^{C(k,2)}` ⟹ a
+2-colouring of `K_N`'s edges with no monochromatic `k`-clique.  The `K_N` edge
+model instantiating `erdos_schema`; crux `pairsCount_eq` (#internal edges of `S`
+= `C(|S|,2)`, via the Pascal step `binom_succ_2`).  Subset count reused from
+Sperner (`kLayer_card = C(N,k)`).  This is `COUNT`'s **union-bound** face.
 
-### 1. ★★★ Sperner's theorem — CLOSED ∅-axiom (named bound, unconditional)
-`SpernerChains.sperner` / `sperner_theorem` (49/49 PURE): the largest antichain
-of `2^[n]` has size exactly `C(n,⌊n/2⌋)`.  Done this session end-to-end: the full
-`perms` characterisation (`perms_length = n!`, `mem_perms_iff`, `perms_nodup`,
-`perms_append_mem` — `Permutations.lean` 21/21), the arithmetic (`binom_mul_fact`,
-`fact_mul_ge_mid` — `Sperner.lean` 47/47), the abstract LYM→Sperner reduction
-(`sperner_upper_bound`), and the geometric chain model discharging both
-hypotheses — `chain_cap` (`hcap`, prefix-set nesting) + `chain_low` (`hlow`, the
-`{σ++τ}` injection of `k!(n−k)!` chains).  Reusable spinoff: `perms` is now the
-general permutation-enumeration infrastructure the repo lacked.
+### 4. Marathon (process / essay / org-audit / purity / ready-to-merge)
+- process: 0 sink violations; G200/G205 archived to `archive/proof_isa/`, frontier
+  board collapsed to a closure record, promotion logged.
+- essay: `theory/essays/proof_isa/counting_as_cardinality.md` — "what is counting,
+  in 213?" (the COUNT-arc synthesis).
+- org-audit: refreshed 3 stale "honest rung" docstrings (now closed in
+  SpernerChains); INDEX counts (essays 56→60); CAPSTONE_INDEX entry.
+- purity: 0 sorry/Classical/Mathlib/native_decide; all 130 decls strict ∅-axiom.
+- ready-to-merge: 0 layer violations, working tree clean; Phase-7.6 synthesis note
+  written.  Verdict READY.
 
-### 1b. ★★ Ramsey named bound — CLOSED ∅-axiom
-`RamseyNamedBound.ramsey_lower` (13/13 PURE): `2·C(N,k) < 2^{C(k,2)}` ⟹ a
-2-colouring of K_N with no monochromatic k-clique (`R(k,k) > N`).  The K_N edge
-model over `erdos_schema`; crux `pairsCount_eq` (#internal edges = C(|S|,2) via
-`binom_succ_2`).  Subset count reused from Sperner (`kLayer_card`).  **The entire
-proof-ISA COUNT series is now closed.**
+## Current Precision Results
+Unchanged this session (pure combinatorics; no physics observable touched).
+Physics constants table: `catalogs/physics-constants.md`.
+
+## Open Problems (Priority Order)
+The COUNT series is **closed** — no open rungs.  The next seeds (all recorded in
+`research-notes/frontiers/count_substrate_synthesis.md`, registered in
+`frontiers/INDEX.md`):
+### 1. A clean strict-order/pow `Meta/Nat` suite
+`Nat.mul_lt_mul_right` carries **Classical.choice**, `Nat.pow_add`/`Nat.succ_sub`
+carry propext — re-proven ad-hoc per file (`mul_lt_mul_right_clean`,
+`pow_add_clean`, `succ_sub_clean`).  Canonicalise + dedup into `Meta/Nat`.
+### 2. More LYM-shaped named bounds on the same substrate
+Dilworth/Mirsky (chain/antichain duality), Bollobás' set-pair inequality, the
+explicit fractional LYM `Σ 1/C(n,|A|) ≤ 1` — all reuse `lym_double_count` +
+`perms`/`kLayer`.
+### 3. Leibniz determinant over `perms`
+`Linalg213/Permutation` uses `LPerm` equivalence + inversion-sign but no
+enumeration; `perms` + `mem_perms_iff` + `perms_nodup` now supply the index set
+for `det = Σ_{σ∈perms} sign(σ)·Π M i σ(i)`.
+
+## Unresolved from This Session
+None — both targets (Sperner, named Ramsey) closed end-to-end.  Note for the next
+propext/Classical hunt: core `Nat.mul_lt_mul_right` pulls `Classical.choice`,
+`Nat.{mul_assoc,mul_left_comm,add_mul,div_add_mod,succ_sub,pow_add}` and
+`List.length_map` pull propext — use NatHelper / `Binomial.add_mul_pure` /
+`List213` / structural `half`; `==` on `Nat` is `instBEqOfDecidableEq` (use
+`Nat.beq`); `funext` pulls `Quot.sound` (use `*_congr`).
 
 ## Next
-- Both named COUNT bounds (Sperner + Ramsey) closed; the proof-ISA COUNT series
-  is complete.  Next: a different domain (primacy = breadth).
+Merge to `main`.  Then: the `Meta/Nat` clean-arithmetic suite (Open Problem 1, the
+recurring tax), or a different domain (primacy = breadth).
 
 ## Three-tier state
-- **Promotion this session**: `theory/essays/proof_isa/sperner_double_counting.md`
-  (the "why" — Sperner as the union bound's dual; the number as READ ∘
-  unimodality; the honest rung).
-- **Active scratchpad**: `research-notes/frontiers/G205_sperner_double_count_compilation.md`.
+- **Promotions this session**: `theory/essays/proof_isa/{sperner_double_counting,
+  counting_as_cardinality}.md`; G200/G205 source notes archived to
+  `research-notes/archive/proof_isa/`.
+- **Promotion candidates**: none outstanding for this arc (essays cover it).
+- **Active scratchpad**: `research-notes/frontiers/count_substrate_synthesis.md`
+  (the post-closure seeds).
 
 ## File Map
 ```
-lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← LYM engine + arithmetic + reduction (47/47 PURE)
-lean/E213/Lib/Math/Combinatorics/Permutations.lean   ← full perms characterisation (21/21 PURE)
-lean/E213/Lib/Math/Combinatorics/SpernerChains.lean  ← chain model + sperner_theorem (49/49 PURE)
-lean/E213/Lib/Math/Combinatorics/RamseyNamedBound.lean ← K_N edge model + ramsey_lower (13/13 PURE)
-lean/E213/Lib/Math/Combinatorics.lean                ← umbrella (all registered)
-theory/essays/proof_isa/sperner_double_counting.md   ← the "why" essay (rung discharged)
-STRICT_ZERO_AXIOM.md                                 ← Sperner CLOSED addition (2026-06-05)
-research-notes/frontiers/G205_*.md                   ← CLOSED frontier record
+lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← LYM engine + arithmetic + reduction (47/47)
+lean/E213/Lib/Math/Combinatorics/Permutations.lean   ← full perms characterisation (21/21)
+lean/E213/Lib/Math/Combinatorics/SpernerChains.lean  ← chain model + sperner_theorem (49/49)
+lean/E213/Lib/Math/Combinatorics/RamseyNamedBound.lean ← K_N edge model + ramsey_lower (13/13)
+lean/E213/Lib/Math/Combinatorics.lean / INDEX.md     ← umbrella + module table (all registered)
+theory/essays/proof_isa/sperner_double_counting.md   ← Sperner = dual union bound (the "why")
+theory/essays/proof_isa/counting_as_cardinality.md   ← COUNT-arc synthesis essay
+theory/essays/proof_isa/probabilistic_method.md      ← Ramsey named bound closed (updated)
+research-notes/archive/proof_isa/G200,G205*.md        ← archived (series closed)
+research-notes/frontiers/count_substrate_synthesis.md ← post-closure seeds
+STRICT_ZERO_AXIOM.md / CAPSTONE_INDEX.md             ← closures registered
 ```
