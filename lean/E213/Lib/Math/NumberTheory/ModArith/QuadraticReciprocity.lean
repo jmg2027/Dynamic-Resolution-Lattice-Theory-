@@ -16,15 +16,16 @@ Plan: `research-notes/frontiers/quadratic_reciprocity.md`.
 
 namespace E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
 
-open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg fold fold_perm fold_lo fold_hi sgFn sgFn_lo sgFn_hi)
+open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg mem_seg fold fold_perm fold_lo fold_hi sgFn sgFn_lo sgFn_hi)
 open E213.Lib.Math.NumberTheory.ModArith.SecondSupplement (countNeg gauss_mu)
-open E213.Lib.Math.Algebra.Linalg213.Permutation (sumZ sumZ_lperm map_lperm)
+open E213.Lib.Math.Algebra.Linalg213.Permutation (sumZ sumZ_lperm map_lperm iota)
+open E213.Lib.Math.Algebra.Linalg213.Laplace (sumZ_append map_append')
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_map')
 open E213.Lib.Math.Algebra.Linalg213.SumLinear (sumZ_map_add sumZ_map_sub sumZ_map_const_mul)
 open E213.Lib.Math.NumberTheory.PolyRoot (natCast_add)
 open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_mul)
 open E213.Lib.Math.NumberTheory.ModArith.EulerConverse (natCast_sub)
-open E213.Meta.Nat.AddMod213 (div_add_mod dvd_of_mod_eq_zero add_mod_left_pure zero_mod)
+open E213.Meta.Nat.AddMod213 (div_add_mod dvd_of_mod_eq_zero add_mod_left_pure zero_mod le_div_iff_mul_le)
 open E213.Meta.Nat.NatDiv213 (div_lt_of_lt_mul)
 open E213.Tactic.List213 (map_congr)
 open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat nat_dvd_to_int dvd_sub')
@@ -233,5 +234,72 @@ theorem floor_bound (m n x : Nat) (hx : x ≤ m) : (2 * n + 1) * x / (2 * m + 1)
   have hexp : (2 * m + 1) * (n + 1) = (2 * n + 1) * m + (m + n + 1) := by ring_nat
   rw [hexp]
   exact Nat.lt_add_of_pos_right (Nat.succ_pos (m + n))
+
+/-! ## Step 3 — the Eisenstein rectangle lattice double-count -/
+
+/-- `seg (n+1) = seg n ++ [n+1]` (since `iota (n+1) = iota n ++ [n]` definitionally). -/
+private theorem seg_succ (n : Nat) : seg (n + 1) = seg n ++ [n + 1] := by
+  show (iota (n + 1)).map (· + 1) = (iota n).map (· + 1) ++ [n + 1]
+  rw [show iota (n + 1) = iota n ++ [n] from rfl, map_append']
+  rfl
+
+/-- `Σ_{y∈[1,n]} 1 = n` (over `ℤ`). -/
+private theorem count_all : ∀ (n : Nat), sumZ ((seg n).map (fun _ => (1 : Int))) = (n : Int)
+  | 0 => rfl
+  | n + 1 => by
+    rw [seg_succ, map_append', sumZ_append, count_all n]
+    show (n : Int) + ((1 : Int) + 0) = ((n + 1 : Nat) : Int)
+    rw [natCast_add, show ((1 : Nat) : Int) = (1 : Int) from rfl]
+    ring_intZ
+
+/-- `Σ_{y∈[1,n]} [y ≤ K] = K` when `K ≤ n` (over `ℤ`).  Induction on `n`; the boundary `K = n+1`
+    uses `count_all` (every `y ∈ [1,n]` satisfies `y ≤ n < K`).  Avoids `Nat.min` (propext-dirty). -/
+private theorem count_le_eq (K : Nat) : ∀ (n : Nat), K ≤ n →
+    sumZ ((seg n).map (fun y => if y ≤ K then (1 : Int) else 0)) = (K : Int)
+  | 0 => fun h => by rw [Nat.le_antisymm h (Nat.zero_le K)]; rfl
+  | n + 1 => fun h => by
+    rw [seg_succ, map_append', sumZ_append]
+    rcases Nat.lt_or_ge K (n + 1) with hlt | hge
+    · have hKn : K ≤ n := Nat.le_of_lt_succ hlt
+      have hnle : ¬ (n + 1 ≤ K) := fun hc => Nat.not_succ_le_self n (Nat.le_trans hc hKn)
+      rw [count_le_eq K n hKn]
+      show (K : Int) + ((if n + 1 ≤ K then (1 : Int) else 0) + 0) = (K : Int)
+      rw [if_neg hnle]; ring_intZ
+    · have hKeq : K = n + 1 := Nat.le_antisymm h hge
+      rw [show (seg n).map (fun y => if y ≤ K then (1 : Int) else 0)
+            = (seg n).map (fun _ => (1 : Int)) from
+          map_congr (fun y hy => by
+            rw [if_pos (Nat.le_trans (mem_seg.mp hy).2 (by rw [hKeq]; exact Nat.le_succ n))]),
+          count_all n]
+      have hyes : n + 1 ≤ K := Nat.le_of_eq hKeq.symm
+      show (n : Int) + ((if n + 1 ≤ K then (1 : Int) else 0) + 0) = (K : Int)
+      rw [if_pos hyes, hKeq, natCast_add, show ((1 : Nat) : Int) = (1 : Int) from rfl]
+      ring_intZ
+
+/-- Per-column predicate swap: `p·y < q·x ⟺ y ≤ ⌊q·x/p⌋` (when `p ∤ q·x`, so `p·y = q·x` is ruled
+    out, collapsing `<` to `≤`).  Indicator form. -/
+private theorem elem_col (p q x y : Nat) (hp : 0 < p) (hndvd : ¬ p ∣ q * x) :
+    (if p * y < q * x then (1 : Int) else 0) = (if y ≤ q * x / p then (1 : Int) else 0) := by
+  rcases Nat.lt_or_ge (p * y) (q * x) with hlt | hge
+  · have hyle : y ≤ q * x / p :=
+      (le_div_iff_mul_le hp y (q * x)).mpr (by rw [Nat.mul_comm y p]; exact Nat.le_of_lt hlt)
+    rw [if_pos hlt, if_pos hyle]
+  · have hLneg : ¬ p * y < q * x := fun h => Nat.lt_irrefl _ (Nat.lt_of_lt_of_le h hge)
+    have hRneg : ¬ y ≤ q * x / p := fun hyle => by
+      have h1 : y * p ≤ q * x := (le_div_iff_mul_le hp y (q * x)).mp hyle
+      have h2 : p * y ≤ q * x := by rw [Nat.mul_comm p y]; exact h1
+      exact hndvd ⟨y, Nat.le_antisymm hge h2⟩
+    rw [if_neg hLneg, if_neg hRneg]
+
+/-- ★ **Per-column lattice count.**  For `0 < p`, `p ∤ q·x`, `⌊q·x/p⌋ ≤ n`, the number of
+    `y ∈ [1,n]` with `p·y < q·x` is exactly `⌊q·x/p⌋` (over `ℤ`).  `elem_col` + `count_le_eq`. -/
+private theorem colCount_eq_floor (p q x n : Nat) (hp : 0 < p) (hndvd : ¬ p ∣ q * x)
+    (hbnd : q * x / p ≤ n) :
+    sumZ ((seg n).map (fun y => if p * y < q * x then (1 : Int) else 0))
+      = ((q * x / p : Nat) : Int) := by
+  rw [show (seg n).map (fun y => if p * y < q * x then (1 : Int) else 0)
+        = (seg n).map (fun y => if y ≤ q * x / p then (1 : Int) else 0) from
+      map_congr (fun y _ => elem_col p q x y hp hndvd)]
+  exact count_le_eq (q * x / p) n hbnd
 
 end E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
