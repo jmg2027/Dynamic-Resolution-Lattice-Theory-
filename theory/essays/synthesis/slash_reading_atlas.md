@@ -89,11 +89,14 @@ distinguishing already is them.
 
 ## Open frontier
 
-The atlas's structural spine is `∅`-axiom (the simplex, the metallic threshold,
-the bipartite adjacency), but its breadth is not exhausted: sweeping the de Rham
+The atlas's structural spine is `∅`-axiom: the simplex
+(`AngleStructure/SimplexOrthogonality`), the threshold
+(`Px/MetallicThreshold`), the bipartite adjacency (`BipartiteDecomp/K32Adjacency`),
+and the generator question — which other `SL(2,ℤ)` generators carry `213` numbers
+— answered by the metallic tower `N_k = [[k,1],[1,0]]` (`det = −1` for every `k`,
+the golden generator the minimal rung with `disc = d = 5`, and `N_1² = P`:
+`Px/MetallicGeneratorTower`).  One breadth edge stays open: sweeping the de Rham
 parameter in `x + (y−x)·w` gives a continuous family of self-similar curves
-(Lévy, Koch, Cesàro, Takagi) whose distinguished members and fractal dimensions
-have no `∅`-axiom shadow yet, and the metallic tower beyond `φ` (silver `1+√2`,
-…) is read through fixed points whose `Real213` closure is open.  Which further
-`SL(2,ℤ)` generators are `213`-distinguished remains a counting question without
-a verdict.
+(Lévy, Cesàro–Koch, …) whose fractal dimensions — similarity via the Moran
+relation `|w|^d + |1−w|^d = 1`, Hausdorff below it under overlap — have no
+`Real213` shadow.

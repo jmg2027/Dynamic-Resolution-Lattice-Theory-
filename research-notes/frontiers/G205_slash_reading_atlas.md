@@ -89,8 +89,12 @@ not a new theorem.
   `uncentered_orthonormal` (independence ∀ n), `cos_dim_strict_mono` (|cos|→0),
   `simplex_orthogonality_master`.  Sibling of `OrthogonalDoubling` in the
   angle-structure programme.
-- **(K4)** Which other `SL(2,ℤ)` generators / de Rham parameters `w` yield
-  213-relevant numbers?
+- **(K4) — half CLOSED.**  The `SL(2,ℤ)`-generator question is answered ∅-axiom
+  (build + `scan_axioms` PURE, 14/0): the metallic tower `N_k=[[k,1],[1,0]]`,
+  `det=−1 ∀k`, golden the minimal `disc=d=5` rung, `N_1²=P`
+  (`Px/MetallicGeneratorTower.lean`).  The de Rham `w`-family is explored
+  (`derham_family.py`) but its fractal *dimensions* (Moran / Hausdorff) have no
+  `Real213` ∅-axiom shadow — the remaining open edge.
 
 ## §4 Promotion
 
@@ -98,5 +102,8 @@ not a new theorem.
 `BipartiteDecomp/K32Adjacency.lean`), and **K3** (dimension-Lens orthogonality,
 `AngleStructure/SimplexOrthogonality.lean`) are now **closed** ∅-axiom — all
 source-of-truth (mediant cell already had `SternBrocotMarkov` / `Mobius213/Px`).
-Remaining open: **K4** (other `SL(2,ℤ)` generators / de Rham parameters `w`).
-The atlas's structural spine is now Lean-verified; what remains is breadth.
+**K4**'s `SL(2,ℤ)`-generator half is closed (`Px/MetallicGeneratorTower.lean`);
+its only remaining open is the de Rham fractal *dimension* (needs `Real213`
+Hausdorff/Moran machinery, not yet built).  The atlas's structural spine —
+K1, K2, K3, and the K4 generator tower — is Lean-verified; what remains is the
+fractal-dimension edge alone.

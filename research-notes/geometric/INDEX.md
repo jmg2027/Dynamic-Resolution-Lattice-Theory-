@@ -37,6 +37,7 @@ setting is a reading of the slash:
 | `simplex_intermediate.py` | shape of the regular `n`-simplex vs `n` | regular `n`-simplex | orthonormal corners + measure-zero body | `arccos(±1/n)→90°`, `r/R = 1/n`, `V→0` | no-exterior = the partition-of-unity / sum constraint; concentration of measure |
 | `mediant_constants.py` | **algebraic** (mediant / Möbius `P`) | Stern–Brocot tree | every rational once (dim 1, structured) | `P=[[2,1],[1,1]]`, `trace 3 = N_S`, `det 1 = glue`, `disc 5 = N_S+N_T`, `φ²,1/φ²` | §3.5 Möbius form; `K_{3,2}^{(c=2)} = (3,2,5,2)`; `SternBrocotMarkov` |
 | `constant_threshold.py` | the knob `a` from collapse to `P` (`M_a=[[a,1],[1,1]]`) | Möbius spine | `x*(a)` (quadratic irrational) | `det=a−1`; blind at `a=1` (det 0); `3,5,φ` at `a=2` | **C1 test**: blind ⟺ `det=0`; constants ⟺ forced `a=2` (§3.2 = §3.5) |
+| `derham_family.py` | directed off-segment, swept (`x+(y−x)w`) | de Rham curves (Lévy, Cesàro–Koch, …) | self-similar fractals | similarity dim (Moran `\|w\|^d+\|1−w\|^d=1`) | **K4 breadth**: many shapes from one `w`; dimensions = the non-∅-axiom edge |
 
 ## The meta-thesis (the research spine)
 
@@ -57,11 +58,12 @@ onto §3.2 / §3.5.
 
 ## Roadmap — unexplored readings (the "lots more shapes")
 
-- **Sweep the de Rham parameter `w`** in `x+(y−x)w`: the whole fractal family
-  (Lévy, Koch, Cesàro, Takagi) as one continuous dial — which `w` are
-  213-distinguished?
-- **Other Möbius / `SL(2,ℤ)` generators** beyond `P`: which matrices yield
-  213-relevant numbers (other quadratic irrationals, other `(N_S,N_T)`)?
+- ~~**Sweep the de Rham parameter `w`**~~ — explored (`derham_family.py`): the
+  fractal family (Lévy, Cesàro–Koch, …) as one continuous dial.  Still open: the
+  fractal *dimensions* (Moran / Hausdorff) have no ∅-axiom shadow.
+- ~~**Other Möbius / `SL(2,ℤ)` generators** beyond `P`~~ — **CLOSED** ∅-axiom:
+  the metallic generator tower `N_k=[[k,1],[1,0]]` (`det=−1 ∀k`, golden the
+  `disc=d=5` minimal rung, `N_1²=P`) in `Px/MetallicGeneratorTower.lean`.
 - **The midpoint ↔ mediant interpolation**: denominator `2` ↔ `q+s`.
   Continuously switch the Möbius structure on and off; locate the threshold
   where the constants appear (tests the meta-thesis directly).
