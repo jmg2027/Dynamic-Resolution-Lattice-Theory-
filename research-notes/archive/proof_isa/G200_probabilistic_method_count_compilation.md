@@ -140,3 +140,15 @@ framework, which is the experiment's actual yield.
   - carrier: `lean/E213/Lib/Math/Combinatorics/BoolEnum.lean`
   - this build: `lean/E213/Lib/Math/Combinatorics/CountExistence.lean`
   - lift catalog: `lean/E213/Lib/Math/Foundations/ProofISALifts.lean`
+
+
+## ★ Named bound CLOSED (`R(k,k) > N`)
+
+`E213.Lib.Math.Combinatorics.RamseyNamedBound.ramsey_lower` (13/13 PURE): the
+`K_N` edge model instantiating `erdos_schema`.  `pairsCount_eq` (#internal edges
+of `S` = `C(cardB S, 2)`, via the Pascal step `binom_succ_2`), `monoEvent_count`
+(per-event `≤ 2·2^{C(N,2)−C(k,2)}`, via `matchesC_count`), then
+`t = C(N,k)` = `Sperner.kLayer_card`, `c = 2·2^{C(N,2)−C(k,2)}`, `n = C(N,2)`
+into `erdos_schema` — hypothesis `2·C(N,k) < 2^{C(k,2)}`, conclusion a 2-colouring
+with no monochromatic `K_k`.  Both proof-ISA COUNT named bounds (Ramsey + Sperner)
+are now ∅-axiom.  Promoted: `theory/essays/proof_isa/probabilistic_method.md`.

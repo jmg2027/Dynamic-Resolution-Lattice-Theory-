@@ -34,12 +34,17 @@ at the *averaging-fixed-point* structural level.
 Ricci-flow ↔ chart-Lens averaging requires:
   · ε-Lens infrastructure (continuous chart variation)
   · "averaging" semantics at the chart-transition level
-  · monotonicity functional analogous to Perelman's
-    $\mathcal{F}$ / $\mathcal{W}$
 
-None of these exist in `lean/E213/`.  Recording §R as narrative
-seed only; structural formalization deferred to future ε-Lens
-infrastructure work.
+The **monotonicity functional** analogous to Perelman's
+$\mathcal{F}$ / $\mathcal{W}$ is no longer absent: the abstract
+flow-shape — a self-map with a `Nat`-monovariant that strictly
+descends off fixed points, converging to a normal form — is the
+A6 FLOW lift archetype, `MonovariantFlow.flow_reaches`
+(`Lib/Math/Foundations/MonovariantFlow.lean`, ∅-axiom), with the
+Euclidean GCD flow as its canonical normal-form instance.  The
+*metric-tensor-specific* ε-Lens averaging remains open; the
+structural functional does not.  Recording §R as narrative seed
+for the chart-Lens specialization.
 -/
 
 /-- §R narrative-seed theorem: the Sym(3)-fixed subspace of
@@ -72,7 +77,7 @@ theorem ricci_narrative_sym3_invariant :
   | JSJ          | bipartite S/T + Filled      | PARTIAL (steps 11+15)  |
   | Poincaré     | K_{3,1}^{(c=1)} tree at d=3 | PARTIAL CLOSE (12-13)  |
   | Generalized P| K_{1,k}^{(c=1)} all d       | GENERALIZED (step 15)  |
-  | Ricci flow   | Sym(3)-fixed dim 2          | NARRATIVE ⚠ (step 16)  |
+  | Ricci flow   | Sym(3)-fixed dim 2          | NARRATIVE ⚠ (step 16); flow CLOSED via A6 (`RicciFlow.lean`) |
 
   Open infrastructure (recorded in §F):
     · 8-geo ↔ Sym(3) decomp structural mapping

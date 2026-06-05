@@ -4,6 +4,10 @@ import E213.Lib.Math.Geometry.GeometrizationConjecture.ScopeAndDepth
 import E213.Lib.Math.Geometry.GeometrizationConjecture.DimSpectrum
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Poincare
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Ricci
+import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow
+import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow
+import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciHomogeneous
+import E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci
 import E213.Lib.Math.Geometry.GeometrizationConjecture.EightGeometries
 import E213.Lib.Math.Geometry.GeometrizationConjecture.StructuralMapping
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Capstone
@@ -33,7 +37,14 @@ import E213.Lib.Math.Geometry.GeometrizationConjecture.KChartLensAbstract
     · `ScopeAndDepth.lean`    — Steps 7, 9, 10 (cohomology depth filter)
     · `DimSpectrum.lean`      — Steps 6, 14 (chartBase ∈ {3..7} + Sym(3) capable)
     · `Poincare.lean`         — Steps 12, 13, 15 (Poincaré + Generalized + Filled)
-    · `Ricci.lean`            — Steps 16, 17 (Ricci modulus)
+    · `Ricci.lean`            — Steps 16, 17 (Ricci modulus, static)
+    · `RicciFlow.lean`        — Ricci pillar (chart-Lens model) via A6 FLOW
+                                (cell-filling coherentization → normal form, ∅-axiom)
+    · `RicciSphereFlow.lean`  — round Sⁿ SMOOTH-metric Ricci flow → finite
+                                extinction via A6 FLOW (the homogeneous/ODE case;
+                                rate = genuine Ric=(n−1)g; n=3 Poincaré seed).
+                                General-metric 𝓦-monotonicity core stays OPEN —
+                                `research-notes/frontiers/ricci_flow_smooth_core.md`
     · `EightGeometries.lean`  — Steps 11, 18-22 (8 model geometries via Möbius P)
     · `StructuralMapping.lean`— Steps 21, 23, 24 (HC_K32 + universal-8 + ultimate)
     · `Capstone.lean`         — Step 25 (d=4 info richness + master + close certificate)

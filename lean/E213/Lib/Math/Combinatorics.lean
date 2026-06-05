@@ -9,6 +9,10 @@ import E213.Lib.Math.Combinatorics.BoolEnum
 import E213.Lib.Math.Combinatorics.Pigeonhole
 import E213.Lib.Math.Combinatorics.CountExistence
 import E213.Lib.Math.Combinatorics.RamseyLowerBound
+import E213.Lib.Math.Combinatorics.RamseyNamedBound
+import E213.Lib.Math.Combinatorics.Sperner
+import E213.Lib.Math.Combinatorics.SpernerChains
+import E213.Lib.Math.Combinatorics.Permutations
 import E213.Lib.Math.Combinatorics.LinearDependence
 import E213.Lib.Math.Combinatorics.ParityInvariant
 import E213.Lib.Math.Combinatorics.KonigConditional
@@ -21,6 +25,7 @@ Atomic counting on the 213 substrate.  Builds on existing
 (Pell, Pisano), and `Lib/Physics/AtomicBase/Pairs.lean` (K_{3,2}).
 Adds: Catalan, Stirling, Bell, formal generating functions; the `Pigeonhole`
 primitive; and the proof-ISA reproductions — `CountExistence` /
-`RamseyLowerBound` (COUNT), `LinearDependence` (dimension = COUNT),
+`RamseyLowerBound` (COUNT, union bound), `Sperner` (COUNT, the dual —
+double-counting / LYM), `LinearDependence` (dimension = COUNT),
 `ParityInvariant` (READ ∘ SEPARATE), `KonigConditional` (the boundary).
 -/

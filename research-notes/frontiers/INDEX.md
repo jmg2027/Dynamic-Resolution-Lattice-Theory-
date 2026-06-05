@@ -145,6 +145,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `count_substrate_synthesis` — post-closure synthesis of the COUNT arc (both
+  named bounds proven): patterns (dual COUNT faces share one residue + the
+  subset count `C(N,k)`; "engine + honest rung" closes once the enumeration infra
+  exists; the `nodup`-`flatMap`-disjoint-fibre counting idiom; the propext/Classical
+  tax on core arithmetic) + seeds (a clean strict-order/pow `Meta/Nat` suite;
+  more LYM-shaped named bounds — Dilworth, Bollobás; Leibniz determinant over
+  `perms`).
+
 - `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
   residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at
   the description scale (`why_the_reframing_recurs.md` essay + CLAUDE.md Residue-lint).  *Open*: the
@@ -232,22 +240,47 @@ Closure records (promoted off this board):
   `theory/essays/foundations/the_frontier_has_a_form.md`; archived at
   `archive/G182_completed_system_synthesis.md`.
 
-## proof-ISA compilation series  (`G200_*`)
+## proof-ISA compilation series  (`G200_*`)  — ★ CLOSED & archived
 
-**The experiment:** reproduce *solved* hard techniques by compiling them down the
-proof-ISA (`seed/PROOF_ISA.md`), to map the instruction set's interior and edge.
-Mostly **closed** — the "why" archive is promoted to
-`theory/essays/proof_isa/` (5 files: INDEX + probabilistic, linear-algebra,
-parity, könig).  Cumulative finding: three surface-diverse methods collapse onto
-the named eight (probabilistic + linear-algebra → COUNT; parity → READ ∘
-SEPARATE), no new instruction forced; König **stalls** exactly at the
-non-constructive `DECIDE` (the exterior).  COUNT registered as the quantitative
-`GAP` sub-mode (`seed/PROOF_ISA.md`) + lift Archetype 4 (`ProofISALifts.lean`).
+The experiment (reproduce *solved* hard techniques by compiling them down the
+proof-ISA, `seed/PROOF_ISA.md`) is **complete**.  Both named COUNT bounds are
+proven ∅-axiom — `R(k,k) > N` (`Lib/Math/Combinatorics/RamseyNamedBound.ramsey_lower`)
+and Sperner (`SpernerChains.sperner_theorem`) — with no new instruction forced
+(COUNT's union-bound face and its double-counting dual).  König alone stalls, at
+the non-constructive `DECIDE`.  The "why" archive is promoted to
+`theory/essays/proof_isa/` (probabilistic, linear-algebra, parity, sperner,
+könig, + the `what_is_a_proof` synthesis).  Source notes archived to
+`research-notes/archive/proof_isa/` (`G200`, `G205`).
 
-- `G200_probabilistic_method_count_compilation` — the COUNT discovery + the
-  compilation verdict + the concrete lift status.
+The catalog has since grown to **seven** lift archetypes (`ProofISALifts.lean`):
+A6 FLOW + A7 POSITIVITY added (the cross-domain-conquest marathon), each driving
+real ∅-axiom conquests.
 
-**Open rung (only):** the *named* `R(k,k) > 2^{k/2}` closure — pure `K_N`
-bookkeeping (edge↔position indexing + `k`-subset enumeration giving `t=C(N,k)`,
-then `erdos_schema`), **no new "why"**.  All engine pieces built ∅-axiom
-(`CountExistence`, `RamseyLowerBound.{count_factor,mono_event_count,matchesC_count}`).
+## A6 FLOW core / Ricci flow  (`a6_ricci_core/`, `ricci_flow_smooth_core.md`)
+
+- `ricci_flow_smooth_core` — the smooth-metric general Ricci-flow core
+  (Perelman `𝓕/𝓦`-monotonicity, surgery): the wall (Riemannian geometry + PDE,
+  Mathlib-forbidden).  *Closed sub-steps*: round-sphere finite extinction,
+  Einstein trichotomy, gradient-flow descent identity + completeness-LOOP.
+- `a6_ricci_core/discrete_ricci_flow_ladder` — the 213-native route to actually
+  closing A6's conquest: **discrete (Forman/Ollivier) Ricci flow** (combinatorial
+  curvature, no smooth manifold).  Rung 1 done (`DiscreteRicci.formanEdge`,
+  curvature↔topology); next: weighted Forman + flow step + convergence via
+  `flow_reaches`.
+
+## Transcendental functions  (`transcendentals/`)
+
+- `transcendentals/transcendental_functions_ladder` — convergent `exp/sin/cos/sqrt`
+  as `Real213` functions with derivative rules (current: `exp` partial sum +
+  stubs).  Rungs T1 exp-modulus → T2 sin/cos series → T3 derivative rules →
+  T4 smooth sqrt → T5 identities.  One of the two hard blocks split off A6's
+  smooth core; ordinary constructive analysis, in-reach ∅-axiom.
+
+## PDE a-priori estimates  (`pde_estimates/`)
+
+- `pde_estimates/discrete_pde_estimates_ladder` — the analytic engine behind
+  Perelman monotonicity.  Goal = the **continuous** estimate, built 213-native as
+  "discrete-uniform-in-mesh + modulus → `Real213` limit" (the conquest needs
+  continuous, not discrete-graph).  Rungs P1 maximum principle → P2 oscillation
+  decay → P3 energy/Dirichlet → P4 Li–Yau → P5 Shi.  P1–P3 reachable; P4–P5 the
+  real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.

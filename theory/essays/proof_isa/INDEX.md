@@ -36,7 +36,8 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     deficit ⟹ existence) — the primitive the repo already used across ≈25 Lean files as
     `pigeonhole` without naming.  Why counting forces existence:
     `count` is a residue-internal reading and the residue's cardinality is
-    **multiplicative in its distinguishings**.
+    **multiplicative in its distinguishings**.  The *named* `R(k,k) > N` is now
+    **closed** ∅-axiom (`RamseyNamedBound.ramsey_lower`).
   · [`linear_algebra_method.md`](linear_algebra_method.md) — the dimension bound
     (`m > n` vectors in `𝔽₂^n` are dependent; engine of Borsuk's disproof,
     Frankl–Wilson, cap-set).  Compiles to **COUNT through the subset-sum Lens**:
@@ -50,6 +51,28 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     not deficit→existence) and *not* a new instruction — the SEPARATE-side of
     the eight, where the two COUNT essays sit on the GAP-side.
 
+  · [`sperner_double_counting.md`](sperner_double_counting.md) — Sperner (1928):
+    the largest antichain in `2^[n]` has size `C(n,⌊n/2⌋)`.  Compiles to the
+    **double-counting** face of **COUNT** — the *dual* of the union bound: one
+    0/1 incidence matrix (subsets × maximal chains) read by rows vs columns
+    (`sumOver_swap`), each chain meeting the antichain ≤ once (`SEPARATE`).
+    *Not* a new instruction — `pigeonhole`/union-bound is *deficit ⟹ existence*,
+    LYM is *per-column cap ⟹ row-sum bound*, the same `GAP`-by-cardinality
+    mirrored.  The Sperner *number* is a separate move: READ (layer = binomial)
+    ∘ unimodality (`binom_le_binom_mid`).  The named bound is **closed**
+    unconditionally (`SpernerChains.sperner_theorem`): the chain model's two
+    counts are built ∅-axiom over the full `perms` characterisation
+    (`perms_length = n!`, `mem_perms_iff`, `perms_nodup`).
+
+  · [`counting_as_cardinality.md`](counting_as_cardinality.md) — **what is counting,
+    in 213?**  Synthesis of the COUNT arc: a cardinality is the count-Lens reading
+    of a *finite residue* (`List.length`, no `Fintype`).  Binomials read layers
+    (`layer_size`, count recursion = Pascal), factorials count orderings
+    (`perms_length`), and COUNT's two faces — union bound (Ramsey) and double count
+    (Sperner) — are one incidence matrix read by rows vs columns (`sumOver_swap`).
+    Deepest frame: the quantitative `GAP` (deficit) and the qualitative one
+    (Cantor's diagonal) are one move at two resolutions.
+
   · [`konig_boundary.md`](konig_boundary.md) — König's lemma (infinite tree ⟹
     infinite path).  The first reproduction that **stalls**: compiles to
     **LOOP ∘ ⟦DECIDE InfBelow⟧**, the path-construction internal (∅-axiom
@@ -59,8 +82,9 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
 
 ## Cumulative finding
 
-Four surface-diverse solved techniques.  **Three close ∅-axiom** with no new
-instruction forced — they collapse onto the named eight (two onto COUNT/GAP, one
+Five surface-diverse solved techniques.  **Four close ∅-axiom** with no new
+instruction forced — they collapse onto the named eight (three onto COUNT/GAP —
+the union bound, the dimension method, and Sperner's *dual* double count — one
 onto READ ∘ SEPARATE), evidence the set is complete *for constructive proofs*.
 **One stalls** (König) — and the stall is located exactly: a decision for a
 non-recursive predicate, which is the exterior by definition, not a ninth move.

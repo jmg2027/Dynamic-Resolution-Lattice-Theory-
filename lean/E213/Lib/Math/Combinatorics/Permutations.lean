@@ -1,0 +1,447 @@
+import E213.Meta.Tactic.List213
+
+/-!
+# Permutation enumeration with factorial cardinality (∅-axiom)
+
+The shared infrastructure the *named* proof-ISA bounds need
+(`research-notes/frontiers/`): an explicit enumeration of all orderings of a
+list, with its cardinality `= n!`.  `LPerm` (permutation *equivalence*,
+`Algebra/Linalg213/Permutation.lean`) names the relation; this names the
+enumeration carrying `length = n!` — the count Sperner's chain side needs
+(`#maximal chains of 2^[n] = n!`) and the same factorial the Leibniz
+determinant sums over.
+
+  · `insertEverywhere a l` — the `|l|+1` ways to drop `a` into `l`;
+  · `perms l` — all orderings of `l`, by inserting each head everywhere;
+  · ★ `perms_length : (perms l).length = fact l.length` — the `n!` count.
+
+Mathlib-free: a private `flatMap213` (core `List.flatMap` carries `propext`) and
+the `Meta.Tactic.List213` length/membership toolkit.  All ∅-axiom.
+-/
+
+namespace E213.Lib.Math.Combinatorics.Permutations
+
+open E213.Tactic.List213
+  (length_append length_map mem_append_iff exists_of_mem_map
+   mem_append_left mem_append_right mem_map_of_mem nodup_append nodup_map_of_inj)
+
+/-! ## §1 — factorial -/
+
+/-- `n!`. -/
+def fact : Nat → Nat
+  | 0 => 1
+  | n + 1 => (n + 1) * fact n
+
+/-! ## §2 — concat-map (propext-free `flatMap`) -/
+
+/-- `flatMap` without the core `propext` dependency. -/
+def flatMap213 {α β : Type _} (f : α → List β) : List α → List β
+  | [] => []
+  | a :: l => f a ++ flatMap213 f l
+
+/-- Membership in a `flatMap213` exposes the witness it came from. -/
+theorem mem_flatMap213 {α β : Type _} {f : α → List β} {q : β} :
+    ∀ {l : List α}, q ∈ flatMap213 f l → ∃ a, a ∈ l ∧ q ∈ f a
+  | [], h => nomatch h
+  | a :: l, h => by
+      rcases mem_append_iff (l₁ := f a) (l₂ := flatMap213 f l) h with h1 | h2
+      · exact ⟨a, List.Mem.head _, h1⟩
+      · obtain ⟨a', ha', hq'⟩ := mem_flatMap213 h2
+        exact ⟨a', List.Mem.tail _ ha', hq'⟩
+
+/-- If every fibre `f x` (for `x ∈ L`) has the same length `c`, the total is
+    `c · |L|` — the cardinality of a constant-fibre `flatMap`. -/
+theorem length_flatMap213_const {α β : Type _} (f : α → List β) (c : Nat) :
+    ∀ {L : List α}, (∀ x, x ∈ L → (f x).length = c) → (flatMap213 f L).length = c * L.length
+  | [], _ => (Nat.mul_zero c).symm
+  | a :: l, h => by
+      show (f a ++ flatMap213 f l).length = c * (l.length + 1)
+      rw [length_append, h a (List.Mem.head _),
+          length_flatMap213_const f c (fun x hx => h x (List.Mem.tail _ hx)),
+          Nat.mul_add, Nat.mul_one]
+      exact Nat.add_comm c (c * l.length)
+
+/-! ## §3 — insertion and the enumeration -/
+
+/-- All `|l| + 1` ways to insert `a` into `l`. -/
+def insertEverywhere {α : Type _} (a : α) : List α → List (List α)
+  | [] => [[a]]
+  | b :: l => (a :: b :: l) :: (insertEverywhere a l).map (b :: ·)
+
+/-- Inserting `a` produces exactly `|l| + 1` lists. -/
+theorem insertEverywhere_length {α : Type _} (a : α) :
+    ∀ l : List α, (insertEverywhere a l).length = l.length + 1
+  | [] => rfl
+  | b :: l => by
+      show ((a :: b :: l) :: (insertEverywhere a l).map (b :: ·)).length = (b :: l).length + 1
+      rw [List.length_cons, length_map, insertEverywhere_length a l, List.length_cons]
+
+/-- Every insertion lengthens its input by one. -/
+theorem mem_insertEverywhere_length {α : Type _} (a : α) :
+    ∀ (l q : List α), q ∈ insertEverywhere a l → q.length = l.length + 1
+  | [], q, h => by
+      cases h with
+      | head => rfl
+      | tail _ h' => nomatch h'
+  | b :: l, q, h => by
+      cases h with
+      | head => rfl
+      | tail _ h' =>
+          obtain ⟨q', hq', rfl⟩ := exists_of_mem_map h'
+          have hlen := mem_insertEverywhere_length a l q' hq'
+          show (b :: q').length = (b :: l).length + 1
+          rw [List.length_cons, List.length_cons, hlen]
+
+/-- All orderings of `l`: insert each head into every ordering of the tail. -/
+def perms {α : Type _} : List α → List (List α)
+  | [] => [[]]
+  | a :: l => flatMap213 (insertEverywhere a) (perms l)
+
+/-- Every ordering has the original length. -/
+theorem perms_length_const {α : Type _} :
+    ∀ (l p : List α), p ∈ perms l → p.length = l.length
+  | [], p, h => by
+      cases h with
+      | head => rfl
+      | tail _ h' => nomatch h'
+  | a :: l, p, h => by
+      obtain ⟨q, hq, hpq⟩ := mem_flatMap213 h
+      have hql : q.length = l.length := perms_length_const l q hq
+      have hpl : p.length = q.length + 1 := mem_insertEverywhere_length a q p hpq
+      rw [hpl, hql]
+      exact (List.length_cons a l).symm
+
+/-- ★ **The `n!` count.**  `perms` enumerates exactly `|l|!` orderings.  Each
+    head inserted everywhere multiplies the tail's `(|l|)!` orderings by the
+    `|l|+1` insertion slots — the factorial recursion, on the nose. -/
+theorem perms_length {α : Type _} : ∀ (l : List α), (perms l).length = fact l.length
+  | [] => rfl
+  | a :: l => by
+      show (flatMap213 (insertEverywhere a) (perms l)).length = fact (l.length + 1)
+      have hc : ∀ p, p ∈ perms l → (insertEverywhere a p).length = l.length + 1 := by
+        intro p hp
+        rw [insertEverywhere_length a p, perms_length_const l p hp]
+      rw [length_flatMap213_const (insertEverywhere a) (l.length + 1) hc, perms_length l]
+      show (l.length + 1) * fact l.length = fact (l.length + 1)
+      rfl
+
+/-! ## §4 — correctness: `perms` enumerates exactly the permutations
+
+`LPerm` (the same four-constructor relation as `Algebra/Linalg213/Permutation`,
+restated here to keep the combinatorics layer self-contained) is list
+rearrangement.  `perms_sound` shows every enumerated ordering *is* a
+rearrangement; with `perms_length = n!` this pins `perms` as `n!` genuine
+permutations. -/
+
+/-- List rearrangement: the four-constructor permutation relation. -/
+inductive LPerm {α : Type _} : List α → List α → Prop
+  | nil : LPerm [] []
+  | cons (a : α) {l₁ l₂ : List α} : LPerm l₁ l₂ → LPerm (a :: l₁) (a :: l₂)
+  | swap (a b : α) (l : List α) : LPerm (b :: a :: l) (a :: b :: l)
+  | trans {l₁ l₂ l₃ : List α} : LPerm l₁ l₂ → LPerm l₂ l₃ → LPerm l₁ l₃
+
+namespace LPerm
+
+theorem refl {α : Type _} : ∀ (l : List α), LPerm l l
+  | [] => nil
+  | a :: l => cons a (refl l)
+
+theorem symm {α : Type _} {l₁ l₂ : List α} (h : LPerm l₁ l₂) : LPerm l₂ l₁ := by
+  induction h with
+  | nil => exact nil
+  | cons a _ ih => exact cons a ih
+  | swap a b l => exact swap b a l
+  | trans _ _ ih₁ ih₂ => exact trans ih₂ ih₁
+
+end LPerm
+
+/-- Inserting `a` anywhere into `l` yields a rearrangement of `a :: l`. -/
+theorem mem_insertEverywhere_perm {α : Type _} (a : α) :
+    ∀ (l q : List α), q ∈ insertEverywhere a l → LPerm q (a :: l)
+  | [], q, h => by
+      cases h with
+      | head => exact LPerm.refl [a]
+      | tail _ h' => nomatch h'
+  | b :: l, q, h => by
+      cases h with
+      | head => exact LPerm.refl (a :: b :: l)
+      | tail _ h' =>
+          obtain ⟨q', hq', rfl⟩ := exists_of_mem_map h'
+          exact LPerm.trans (LPerm.cons b (mem_insertEverywhere_perm a l q' hq'))
+                  (LPerm.swap a b l)
+
+/-- ★ **Soundness.**  Every ordering `perms` enumerates is a rearrangement of the
+    input.  With `perms_length` this fixes `perms l` as `|l|!` genuine
+    permutations of `l`. -/
+theorem perms_sound {α : Type _} : ∀ (l p : List α), p ∈ perms l → LPerm p l
+  | [], p, h => by
+      cases h with
+      | head => exact LPerm.nil
+      | tail _ h' => nomatch h'
+  | a :: l, p, h => by
+      obtain ⟨q, hq, hpq⟩ := mem_flatMap213 h
+      exact LPerm.trans (mem_insertEverywhere_perm a q p hpq)
+              (LPerm.cons a (perms_sound l q hq))
+
+/-! ## §5 — self-membership and concatenation
+
+The structural facts the prefix-set count rests on: the input is its own
+ordering (`self_mem_perms`), and orderings *concatenate* — an ordering of `A`
+followed by an ordering of `B` is an ordering of `A ++ B` (`perms_append_mem`).
+The second is the engine of the `k!·(n−k)!` count: the chains through a
+size-`k` set `A` are the `k!` orderings of `A`'s points followed by the
+`(n−k)!` orderings of the rest. -/
+
+/-- Membership into a `flatMap213` from a witness. -/
+theorem mem_flatMap213_of {α β : Type _} {f : α → List β} {q : β} :
+    ∀ {l : List α} {a : α}, a ∈ l → q ∈ f a → q ∈ flatMap213 f l
+  | a' :: l, a, h, hq => by
+      cases h with
+      | head => exact mem_append_left (l₂ := flatMap213 f l) hq
+      | tail _ h' => exact mem_append_right (f a') (mem_flatMap213_of h' hq)
+
+/-- The input list is its own ordering — the head of every `insertEverywhere`. -/
+theorem self_mem_insertEverywhere {α : Type _} (a : α) :
+    ∀ l : List α, (a :: l) ∈ insertEverywhere a l
+  | [] => List.Mem.head _
+  | _ :: _ => List.Mem.head _
+
+/-- `l ∈ perms l` — the identity ordering is enumerated. -/
+theorem self_mem_perms {α : Type _} : ∀ l : List α, l ∈ perms l
+  | [] => List.Mem.head _
+  | a :: l => mem_flatMap213_of (self_mem_perms l) (self_mem_insertEverywhere a l)
+
+/-- Inserting `a` into `σ'`, then appending `τ`, is an insertion of `a` into
+    `σ' ++ τ` (in the `σ'` region). -/
+theorem mem_insertEverywhere_append {α : Type _} (a : α) (τ : List α) :
+    ∀ (σ' σ : List α), σ ∈ insertEverywhere a σ' → (σ ++ τ) ∈ insertEverywhere a (σ' ++ τ)
+  | [], σ, h => by
+      cases h with
+      | head => exact self_mem_insertEverywhere a τ
+      | tail _ h' => nomatch h'
+  | c :: σ'', σ, h => by
+      cases h with
+      | head => exact List.Mem.head _
+      | tail _ h' =>
+          obtain ⟨σr, hσr, rfl⟩ := exists_of_mem_map h'
+          exact List.Mem.tail _
+            (mem_map_of_mem (c :: ·) (mem_insertEverywhere_append a τ σ'' σr hσr))
+
+/-- ★ **Orderings concatenate.**  An ordering `σ` of `A` followed by an ordering
+    `τ` of `B` is an ordering of `A ++ B`.  The combinatorial core of the
+    chains-through-`A` count `k!·(n−k)!`. -/
+theorem perms_append_mem {α : Type _} :
+    ∀ (A B σ τ : List α), σ ∈ perms A → τ ∈ perms B → (σ ++ τ) ∈ perms (A ++ B)
+  | [], _, σ, _, hσ, hτ => by
+      cases hσ with
+      | head => exact hτ
+      | tail _ h' => nomatch h'
+  | a :: A', B, σ, τ, hσ, hτ => by
+      obtain ⟨σ', hσ', hσσ'⟩ := mem_flatMap213 hσ
+      exact mem_flatMap213_of (perms_append_mem A' B σ' τ hσ' hτ)
+              (mem_insertEverywhere_append a τ σ' σ hσσ')
+
+/-! ## §6 — completeness: `perms` is exactly the permutations
+
+The converse of `perms_sound`: every rearrangement of `l` is enumerated.  The
+one structural lemma is `insert_comm` — inserting `a` then `b` reorders to
+inserting `b` then `a` — which discharges the `swap` case of `perms_respects`
+(`perms` has the same members on `LPerm`-equal inputs).  With `self_mem_perms`,
+completeness follows, giving `mem_perms_iff : p ∈ perms l ↔ LPerm p l`. -/
+
+/-- **Insertion commutes.**  Inserting `a` into `r` (→ `q`) then `b` into `q`
+    (→ `p`) is reachable by inserting `b` into `r` (→ `s`) then `a` into `s`. -/
+theorem insert_comm {α : Type _} (a b : α) :
+    ∀ (r q p : List α), q ∈ insertEverywhere a r → p ∈ insertEverywhere b q →
+      ∃ s, s ∈ insertEverywhere b r ∧ p ∈ insertEverywhere a s
+  | [], q, p, hq, hp => by
+      cases hq with
+      | tail _ h' => nomatch h'
+      | head =>
+          refine ⟨[b], List.Mem.head _, ?_⟩
+          cases hp with
+          | head => exact List.Mem.tail _ (List.Mem.head _)
+          | tail _ hp' =>
+              cases hp' with
+              | head => exact List.Mem.head _
+              | tail _ h'' => nomatch h''
+  | c :: r', q, p, hq, hp => by
+      cases hq with
+      | head =>
+          cases hp with
+          | head =>
+              exact ⟨b :: c :: r', List.Mem.head _,
+                List.Mem.tail _ (mem_map_of_mem (b :: ·) (List.Mem.head _))⟩
+          | tail _ hpm =>
+              obtain ⟨p'', hp''mem, rfl⟩ := exists_of_mem_map hpm
+              exact ⟨p'', hp''mem, self_mem_insertEverywhere a p''⟩
+      | tail _ hqm =>
+          obtain ⟨q', hq'mem, rfl⟩ := exists_of_mem_map hqm
+          cases hp with
+          | head =>
+              exact ⟨b :: c :: r', List.Mem.head _,
+                List.Mem.tail _ (mem_map_of_mem (b :: ·)
+                  (List.Mem.tail _ (mem_map_of_mem (c :: ·) hq'mem)))⟩
+          | tail _ hpm =>
+              obtain ⟨p''', hp'''mem, rfl⟩ := exists_of_mem_map hpm
+              obtain ⟨s', hs', hps'⟩ := insert_comm a b r' q' p''' hq'mem hp'''mem
+              exact ⟨c :: s', List.Mem.tail _ (mem_map_of_mem (c :: ·) hs'),
+                List.Mem.tail _ (mem_map_of_mem (c :: ·) hps')⟩
+
+/-- `perms` has the same members on `LPerm`-equal inputs. -/
+theorem perms_respects {α : Type _} {l l' : List α} (h : LPerm l l') :
+    ∀ p, p ∈ perms l → p ∈ perms l' := by
+  induction h with
+  | nil => intro p hp; exact hp
+  | cons a _ ih =>
+      intro p hp
+      obtain ⟨q, hq, hpq⟩ := mem_flatMap213 hp
+      exact mem_flatMap213_of (ih q hq) hpq
+  | swap a b m =>
+      intro p hp
+      obtain ⟨q, hq, hpq⟩ := mem_flatMap213 hp
+      obtain ⟨r, hr, hqr⟩ := mem_flatMap213 hq
+      obtain ⟨s, hs, hps⟩ := insert_comm a b r q p hqr hpq
+      exact mem_flatMap213_of (mem_flatMap213_of hr hs) hps
+  | trans _ _ ih₁ ih₂ => intro p hp; exact ih₂ p (ih₁ p hp)
+
+/-- ★ **Completeness.**  Every rearrangement of `l` is enumerated by `perms l`. -/
+theorem perms_complete {α : Type _} {l p : List α} (h : LPerm l p) : p ∈ perms l :=
+  perms_respects (LPerm.symm h) p (self_mem_perms p)
+
+/-- ★ **`perms` is exactly the permutations.**  `p ∈ perms l ↔ p` is a
+    rearrangement of `l` — the canonical characterisation, completing
+    `perms_length = |l|!` to "`|l|!` distinct genuine permutations". -/
+theorem mem_perms_iff {α : Type _} {l p : List α} : p ∈ perms l ↔ LPerm p l :=
+  ⟨perms_sound l p, fun h => perms_complete (LPerm.symm h)⟩
+
+/-! ## §7 — `perms` has no duplicates
+
+For a duplicate-free input, `perms l` lists each ordering exactly once.  The
+mechanism: distinct tail-orderings insert `a` into disjoint families (recover
+`p` from any insertion by erasing the unique `a`), and each insertion family is
+itself duplicate-free.  Needed so a `lcount` lower bound follows from a nodup
+sub-family (`nodup_length_le_of_subset`). -/
+
+/-- `LPerm` preserves membership. -/
+theorem mem_of_lperm {α : Type _} {l₁ l₂ : List α} (h : LPerm l₁ l₂) :
+    ∀ {x : α}, x ∈ l₁ → x ∈ l₂ := by
+  induction h with
+  | nil => intro x hx; exact hx
+  | cons a _ ih =>
+      intro x hx
+      cases hx with
+      | head => exact List.Mem.head _
+      | tail _ h' => exact List.Mem.tail _ (ih h')
+  | swap a b l =>
+      intro x hx
+      cases hx with
+      | head => exact List.Mem.tail _ (List.Mem.head _)
+      | tail _ h' =>
+          cases h' with
+          | head => exact List.Mem.head _
+          | tail _ h'' => exact List.Mem.tail _ (List.Mem.tail _ h'')
+  | trans _ _ ih₁ ih₂ => intro x hx; exact ih₂ (ih₁ hx)
+
+/-- `LPerm` preserves `Nodup`. -/
+theorem nodup_of_lperm {α : Type _} {l₁ l₂ : List α} (h : LPerm l₁ l₂) :
+    l₁.Nodup → l₂.Nodup := by
+  induction h with
+  | nil => intro h; exact h
+  | cons a hsub ih =>
+      intro hnd
+      cases hnd with
+      | cons hh ht =>
+          refine List.Pairwise.cons (fun y hy => ?_) (ih ht)
+          exact hh y (mem_of_lperm (LPerm.symm hsub) hy)
+  | swap a b l =>
+      intro hnd
+      cases hnd with
+      | cons hba htl =>
+          cases htl with
+          | cons hal hl =>
+              refine List.Pairwise.cons (fun y hy => ?_) (List.Pairwise.cons (fun y hy => ?_) hl)
+              · cases hy with
+                | head => exact fun h => hba a (List.Mem.head _) h.symm
+                | tail _ h' => exact hal y h'
+              · exact hba y (List.Mem.tail _ hy)
+  | trans _ _ ih₁ ih₂ => intro hnd; exact ih₂ (ih₁ hnd)
+
+/-- Each insertion family is duplicate-free (for `a ∉ p`, nodup `p`). -/
+theorem insertEverywhere_nodup {α : Type _} (a : α) :
+    ∀ (p : List α), a ∉ p → p.Nodup → (insertEverywhere a p).Nodup
+  | [], _, _ => List.Pairwise.cons (by intro y hy; nomatch hy) List.Pairwise.nil
+  | b :: l, hbl, hnd => by
+      have hab : a ≠ b := fun h => hbl (h ▸ List.Mem.head _)
+      have hal : a ∉ l := fun h => hbl (List.Mem.tail _ h)
+      have hl_nd : l.Nodup := by cases hnd with | cons _ ht => exact ht
+      refine List.Pairwise.cons (fun y hy => ?_) ?_
+      · obtain ⟨y', _, rfl⟩ := exists_of_mem_map hy
+        intro heq; exact hab (by injection heq)
+      · exact nodup_map_of_inj (fun u _ v _ huv => by injection huv)
+                (insertEverywhere_nodup a l hal hl_nd)
+
+/-- `flatMap213` of pairwise-disjoint duplicate-free fibres over a nodup base
+    is duplicate-free. -/
+theorem nodup_flatMap213 {α β : Type _} {f : α → List β} :
+    ∀ {L : List α}, L.Nodup → (∀ x, x ∈ L → (f x).Nodup) →
+      (∀ x y, x ∈ L → y ∈ L → x ≠ y → ∀ z, z ∈ f x → z ∈ f y → False) →
+      (flatMap213 f L).Nodup
+  | [], _, _, _ => List.Pairwise.nil
+  | a :: L, hnd, hfib, hdisj => by
+      have haL : a ∉ L := by cases hnd with | cons hh _ => exact fun hm => (hh a hm) rfl
+      have hnd' : L.Nodup := by cases hnd with | cons _ ht => exact ht
+      refine nodup_append (hfib a (List.Mem.head _)) ?_ ?_
+      · exact nodup_flatMap213 hnd' (fun x hx => hfib x (List.Mem.tail _ hx))
+              (fun x y hx hy => hdisj x y (List.Mem.tail _ hx) (List.Mem.tail _ hy))
+      · intro z hz hzf
+        obtain ⟨y, hyL, hzy⟩ := mem_flatMap213 hzf
+        exact hdisj a y (List.Mem.head _) (List.Mem.tail _ hyL)
+                (fun h => haL (h ▸ hyL)) z hz hzy
+
+/-- Erase the first occurrence of `a`. -/
+def eraseFirst {α : Type _} [DecidableEq α] (a : α) : List α → List α
+  | [] => []
+  | x :: xs => if x = a then xs else x :: eraseFirst a xs
+
+/-- Erasing the inserted `a` recovers `p` (when `a ∉ p`) — the inverse that
+    makes distinct tail-orderings insert into **disjoint** families. -/
+theorem eraseFirst_insertEverywhere {α : Type _} [DecidableEq α] (a : α) :
+    ∀ (p : List α), a ∉ p → ∀ c, c ∈ insertEverywhere a p → eraseFirst a c = p
+  | [], _, c, hc => by
+      cases hc with
+      | head => show (if a = a then [] else _) = []; rw [if_pos rfl]
+      | tail _ h' => nomatch h'
+  | b :: l, hbl, c, hc => by
+      have hab : a ≠ b := fun h => hbl (h ▸ List.Mem.head _)
+      have hal : a ∉ l := fun h => hbl (List.Mem.tail _ h)
+      cases hc with
+      | head =>
+          show (if a = a then b :: l else _) = b :: l
+          rw [if_pos rfl]
+      | tail _ h' =>
+          obtain ⟨c', hc', rfl⟩ := exists_of_mem_map h'
+          show (if b = a then c' else b :: eraseFirst a c') = b :: l
+          rw [if_neg (fun h => hab h.symm), eraseFirst_insertEverywhere a l hal c' hc']
+
+/-- ★ **`perms` has no duplicates** (for a duplicate-free input): `perms l`
+    lists each of the `|l|!` orderings exactly once.  Completes
+    `mem_perms_iff` + `perms_length` to "`perms l` is the nodup list of all
+    `|l|!` permutations". -/
+theorem perms_nodup {α : Type _} [DecidableEq α] :
+    ∀ (l : List α), l.Nodup → (perms l).Nodup
+  | [], _ => List.Pairwise.cons (by intro y hy; nomatch hy) List.Pairwise.nil
+  | a :: l, hnd => by
+      have haL : a ∉ l := by cases hnd with | cons hh _ => exact fun hm => (hh a hm) rfl
+      have hl_nd : l.Nodup := by cases hnd with | cons _ ht => exact ht
+      have hap : ∀ p, p ∈ perms l → a ∉ p := fun p hp hmem =>
+        haL (mem_of_lperm (perms_sound l p hp) hmem)
+      have hpnd : ∀ p, p ∈ perms l → p.Nodup := fun p hp =>
+        nodup_of_lperm (LPerm.symm (perms_sound l p hp)) hl_nd
+      refine nodup_flatMap213 (perms_nodup l hl_nd)
+        (fun p hp => insertEverywhere_nodup a p (hap p hp) (hpnd p hp)) ?_
+      intro p p' hp hp' hpp' z hz hz'
+      exact hpp' ((eraseFirst_insertEverywhere a p (hap p hp) z hz).symm.trans
+                   (eraseFirst_insertEverywhere a p' (hap p' hp') z hz'))
+
+end E213.Lib.Math.Combinatorics.Permutations
