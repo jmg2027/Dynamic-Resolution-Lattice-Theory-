@@ -3,7 +3,7 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (16)
+## Files (17)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
@@ -11,6 +11,9 @@ Plus geometric series identity and Cauchy convergence proofs.
   - `CutExpModulus.lean`        — `exp` Taylor convergence modulus (ratio-test
                                   core: geometric majorant `Mⁿ/n!`, term decay
                                   `≤ term(2M)·2^{−j}`, terms antitone).  Marathon T1.
+  - `CutExpConvergents.lean`    — exp(m) rational convergents + cross-determinant
+                                  (algebraic route; generalizes e to all integer
+                                  args; clean RateModulus rate is m=1-special).  T1.
   - `CutTrigModulus.lean`       — `sin`/`cos` Taylor convergence modulus by
                                   comparison to `exp` (odd/even index sampling:
                                   geometric decay + antitone).  Marathon T2.

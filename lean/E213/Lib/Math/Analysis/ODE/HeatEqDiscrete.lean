@@ -202,6 +202,18 @@ theorem lazyHeatStep_four_min_le (n : Nat) (u : Nat → Nat) (A x : Nat)
   rw [e]
   exact Nat.add_le_add (Nat.add_le_add (h _) (Nat.mul_le_mul_left 2 (h x))) (h _)
 
+/-- ★ **Stencil relation**: the lazy step is the non-lazy step plus twice the self-weight,
+    `lazyHeatStepNum = heatStepNum + 2·u_x`.  This is exactly why the lazy stencil has a
+    spectral gap: adding `2u_x` shifts the symbol from `cos θ` (range `[−1,1]`, the `−1`
+    checkerboard eigenmode) to `1 + cos θ` (range `[0,2]`, normalized `(1+cos θ)/2 ∈ [0,1]`,
+    `< 1` off the constant mode).  The `−1` eigenvalue the non-lazy step carries is removed
+    by the self-weight. -/
+theorem lazy_eq_nonlazy_plus_self (n : Nat) (u : Nat → Nat) (x : Nat) :
+    lazyHeatStepNum n u x = heatStepNum n u x + 2 * u x := by
+  show u (leftNbr n x) + 2 * u x + u (rightNbr n x)
+      = u (leftNbr n x) + u (rightNbr n x) + 2 * u x
+  ring_nat
+
 /-! ### Concrete witness: lazy decays the checkerboard, non-lazy does not -/
 
 /-- The checkerboard initial field `0,1,0,1,…` (the worst case for smoothing). -/

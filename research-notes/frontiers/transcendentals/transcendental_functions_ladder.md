@@ -35,6 +35,13 @@ T1. **exp convergence modulus** — ⚙️ **ratio-test core DONE** (`ExpLog/Cut
     this lifts the term decay to the partial-sum Cauchy property as a `Real213` point.
     Also proven: `expTerm_antitone` (terms non-increasing past `2M`) — the
     alternating-series-test input T2 needs.
+    ⚙️ **Algebraic route** (`ExpLog/CutExpConvergents.lean`, 5 PURE): exp(m) rational
+    convergents for *every* integer arg — `expNum m`, `exp_cross_det` (cross-det
+    `m^{n+1}·n!`, generalizes `euler_cross_det`), `exp_convergents_mono`.  **Honest
+    finding**: the clean `RateModulus` rate `N(m,k)=k+2` is **m=1-special** (e); the rate
+    certificate `i(i+1)m^{i+1}+i ≤ (i+1)²` fails for m≥2 at i=1 (`exp_two_rate_fails_at_one`),
+    so general exp(m)'s modulus is the analytic `2m`-threshold majorant above — the two
+    routes are complementary.
 T2. **sin / cos convergent series** — ⚙️ **convergence modulus DONE by comparison**
     (`ExpLog/CutTrigModulus.lean`, 4 PURE + `expTerm_le_of_ge` in CutExpModulus): the
     `sin`/`cos` term magnitudes are the `exp` terms at odd/even indices, so they inherit

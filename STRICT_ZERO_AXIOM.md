@@ -416,6 +416,22 @@ alternating-series-test input for the `sin`/`cos` series, T2).  Rung **T1** of t
 (`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`); next: package the rate
 into a `CauchyCutSeq` over `expPartialSum` (T1→T2 bridge) then `sin`/`cos` series (T2).
 
+### Marathon T1 (algebraic route) — exp(m) convergents + cross-determinant; e's clean modulus is m=1-special (2026-06-05)
+
+`E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpConvergents` — **5 PURE / 0 DIRTY**.  Generalizes the
+`EulerModulus` convergent arithmetic from e (= exp 1) to **exp(m) for every integer argument**: `expNum m`
+(`A_{n+1} = (n+1)A_n + m^{n+1}` over `eulerDen = n!`), `expNum_one` (`expNum 1 = eulerNum`, exp(1)=e),
+`exp_cross_det` (`expNum m (n+1)·D_n = expNum m n·D_{n+1} + m^{n+1}·D_n` — cross-determinant `m^{n+1}·n!`,
+generalizing `euler_cross_det`'s `n!`), `exp_convergents_mono` (strictly increasing for `m ≥ 1`).
+**Honest finding**: feeding this into `RateModulus.Htel_of_crossdet` reduces the rate certificate to
+`i(i+1)m^{i+1}+i ≤ (i+1)²`, which holds for all `i ≥ 1` only at `m = 1` (why **e** gets the clean
+`N(m,k)=k+2`) and **fails for m≥2 already at i=1** (`exp_two_rate_fails_at_one`: `9 > 4`; contrast
+`exp_one_rate_holds_at_one`: `3 ≤ 4`).  So the clean `RateModulus` modulus is e-special; general exp(m)'s
+modulus comes from the **analytic** geometric majorant (`CutExpModulus`, threshold `2m`).  The algebraic
+and analytic routes to exp's convergence are complementary.  Also `HeatEqDiscrete.lazy_eq_nonlazy_plus_self`
+(`lazyHeatStepNum = heatStepNum + 2u_x` — the self-weight that moves the stencil symbol `cos θ → 1+cos θ`,
+removing the `−1` checkerboard eigenmode; the structural reason for the spectral gap).
+
 ### Marathon T2 — sin/cos Taylor convergence modulus by comparison to exp (2026-06-05)
 
 `E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus` — **4 PURE / 0 DIRTY** (+ `expTerm_le_of_ge`
