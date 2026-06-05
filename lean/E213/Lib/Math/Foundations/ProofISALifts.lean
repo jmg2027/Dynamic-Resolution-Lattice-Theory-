@@ -179,7 +179,7 @@ abbrev lift_flow_geometrization :=
 /-- **A6 conquest (genuine smooth case)** — round Sⁿ *smooth-metric* Ricci flow → finite extinction,
     the homogeneous case where the PDE collapses to the linear ODE `dρ/dt = −2(n−1)` and the descent rate
     is the real curvature `Ric=(n−1)g` (`n=3` = Poincaré seed).  The general-metric `𝓦`-monotonicity core
-    stays OPEN (`research-notes/frontiers/ricci_flow_smooth_core.md`) — A6 locates it as the `descent`
+    stays OPEN — A6 locates it as the `descent`
     discharge without crossing it. -/
 abbrev lift_flow_sphere :=
   @E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow.round_S3_ricci_extinction

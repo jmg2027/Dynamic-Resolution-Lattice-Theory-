@@ -10,8 +10,8 @@ wraparound) and the sign `sgFn 2 p m x = if 2x ≤ m then 1 else −1` depends o
   `2` is a QR mod `p`  ⟺  `∏ₓ (if 2x ≤ m then 1 else −1) = 1`   (`two_qr_iff`).
 
 `prodZ_sign_eq` evaluates a `±1`-product as `(−1)^(#negatives)`.  The remaining step (the count
-`#{x : 2x > m} = m − ⌊m/2⌋`, its parity, and `p ≡ ±1 mod 8`) is recorded in
-`research-notes/frontiers/second_supplement.md`.
+`#{x : 2x > m} = m − ⌊m/2⌋`, its parity, and `p ≡ ±1 mod 8`) is discharged below in
+`second_supplement`.
 
 All zero-axiom.
 -/

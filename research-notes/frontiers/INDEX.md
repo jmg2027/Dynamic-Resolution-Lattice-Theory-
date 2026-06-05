@@ -215,10 +215,11 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   pigeonhole), and the next number-theory seeds (disc-`−8` congruence iff via
   the quadratic character of `2`; the three-square theorem as a hard
   out-of-both-engines frontier).
-- `quadratic_reciprocity` — the **next landmark**.  All prerequisites closed ∅-axiom
-  (Euler, both supplements, Legendre multiplicativity, Gauss's lemma + its μ-form `gauss_mu`).
-  Remaining: the **Eisenstein lattice-point count** (`μ ≡ Σ⌊a·x/p⌋ mod 2`, then the rectangle
-  double-count `Σ⌊qx/p⌋ + Σ⌊px/q⌋ = ((p-1)/2)((q-1)/2)`).  Multi-session build; plan in the note.
+- `quadratic_reciprocity` — **CLOSED** strict ∅-axiom (`ModArith/QuadraticReciprocity.lean`,
+  11 PURE).  `quadratic_reciprocity`: for distinct odd primes `p,q` (`m=(p−1)/2,n=(q−1)/2`),
+  `(q QR mod p ↔ p QR mod q) ↔ (m·n) even`.  The complete Eisenstein route: `floor_qr` (Eisenstein's
+  lemma `QR(a) ⟺ Σ⌊a·x/p⌋ even`, `p∤a`) ∘ `floor_sum_rectangle` (`Σ⌊qx/p⌋ + Σ⌊py/q⌋ = m·n`) ∘
+  `parity_sum_iff`.  Promotion-eligible → `theory/math/numbertheory/`.
 - `second_supplement` — **CLOSED** (`2` QR ⟺ `p ≡ ±1 mod 8`, `SecondSupplement.lean`, 8 PURE incl
   `gauss_mu`).
 - `euler_criterion_converse` — Euler's criterion **CLOSED** strict ∅-axiom (full iff

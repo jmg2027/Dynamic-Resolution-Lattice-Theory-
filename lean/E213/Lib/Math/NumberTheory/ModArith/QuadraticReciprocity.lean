@@ -6,14 +6,16 @@ import E213.Meta.Nat.MulMod213
 import E213.Lib.Math.NumberTheory.ModArith.CenteredDivision
 
 /-!
-# QuadraticReciprocity — Eisenstein lattice-point route (in progress)
+# QuadraticReciprocity — Eisenstein lattice-point route (CLOSED)
 
-Building on `gauss_mu` (`QR(a) ⟺ μ even`, `μ = #{x∈[1,m] : a·x mod p > m}`) toward
-`(p/q)(q/p) = (−1)^(((p−1)/2)((q−1)/2))`.
+The law of quadratic reciprocity (`quadratic_reciprocity`), strict ∅-axiom.  Building on `gauss_mu`
+(`QR(a) ⟺ μ even`), the route is: `floor_qr` (Eisenstein's lemma `QR(a) ⟺ Σₓ ⌊a·x/p⌋ even`, for
+odd `a` coprime to the odd prime `p`) ∘ `floor_sum_rectangle` (the lattice double-count
+`Σ⌊qx/p⌋ + Σ⌊py/q⌋ = m·n`) ∘ `parity_sum_iff`, yielding for distinct odd primes `p, q`
+(`m=(p−1)/2, n=(q−1)/2`): `(q QR mod p ↔ p QR mod q) ↔ (m·n) even`.
 
 `floor_mod_split` is the summed division identity `Σ a·x = p·Σ⌊a·x/p⌋ + Σ(a·x mod p)` over the
 half-system `[1..m]` (the first analytic step of Eisenstein's `μ ≡ Σ⌊a·x/p⌋ (mod 2)`).
-Plan: `research-notes/frontiers/quadratic_reciprocity.md`.
 -/
 
 namespace E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity

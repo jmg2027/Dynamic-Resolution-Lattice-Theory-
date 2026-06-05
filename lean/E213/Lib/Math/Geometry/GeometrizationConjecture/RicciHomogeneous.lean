@@ -27,7 +27,7 @@ sign sets shrink/steady/expand."
 
 The homogeneous / ODE case (as in `RicciSphereFlow`): the rate `r ∝ |λ|` is the
 geometric *input* (the Einstein constant), not derived; smooth-metric general
-Ricci flow stays the open core (`research-notes/frontiers/ricci_flow_smooth_core.md`).
+Ricci flow stays the open core.
 What is proven is the exact qualitative trichotomy the sign of `λ` forces on the
 size ODE — sub-steps 2 (other homogeneous flows) and 4 (Einstein fixed points).
 -/

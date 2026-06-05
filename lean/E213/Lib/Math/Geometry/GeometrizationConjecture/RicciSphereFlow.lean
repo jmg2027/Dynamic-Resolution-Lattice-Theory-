@@ -34,8 +34,7 @@ holds, which here is trivial), non-collapsing, neck-pinch singularity analysis,
 and surgery — requires Riemannian geometry + PDE theory absent from this repo
 (Mathlib-forbidden) and is genuinely Fields-level.  The curvature value
 `Ric(round Sⁿ) = (n−1)g` is an **input** here (encoded in `ricciRate`), not
-derived.  The open core is recorded at
-`research-notes/frontiers/ricci_flow_smooth_core.md`.
+derived.  The smooth-metric general Ricci flow remains the open core.
 -/
 
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow

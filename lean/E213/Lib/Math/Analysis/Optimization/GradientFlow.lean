@@ -49,8 +49,7 @@ well-founded `ℕ`-descent of A6.  So:
 
 The descent identity below is the part of Perelman's monotonicity that is
 *structural* (forced by the gradient + inner product); the geometric core
-(`∇𝓕 = −(Ric+Hess f)`, surgery) remains the open frontier
-(`research-notes/frontiers/ricci_flow_smooth_core.md`).  Working over `ℤ`
+(`∇𝓕 = −(Ric+Hess f)`, surgery) remains the open frontier.  Working over `ℤ`
 scalars keeps the descent identity a pure ring fact; strict (geometric) descent
 needs a contractive rational `τ`, the asymptotic case above.
 -/
