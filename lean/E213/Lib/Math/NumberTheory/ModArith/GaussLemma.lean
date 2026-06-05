@@ -177,11 +177,11 @@ theorem fold_mem (a p m x : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 �
 /-! ## §4 — the fold is injective on `[1, m]` -/
 
 /-- `fold` in the low branch (goal-side `if`, so propext-clean). -/
-private theorem fold_lo (a p m x : Nat) (h : (a * x) % p ≤ m) : fold a p m x = (a * x) % p := by
+theorem fold_lo (a p m x : Nat) (h : (a * x) % p ≤ m) : fold a p m x = (a * x) % p := by
   rw [fold_eq, if_pos h]
 
 /-- `fold` in the high branch. -/
-private theorem fold_hi (a p m x : Nat) (h : ¬ (a * x) % p ≤ m) :
+theorem fold_hi (a p m x : Nat) (h : ¬ (a * x) % p ≤ m) :
     fold a p m x = p - (a * x) % p := by rw [fold_eq, if_neg h]
 
 /-- Cancellation: `a·x ≡ a·y (mod p)` with `y ≤ x < p` and `p ∤ a` ⟹ `x = y`. -/
