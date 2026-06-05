@@ -1,114 +1,66 @@
-# Session Handoff — 2026-06-05 (proof-ISA marathon: cross-domain conquests → ∅-axiom)
+# Session Handoff — 2026-06-05 (transcendentals T1/T2 + PDE P1/P2 marathon)
 
 ## Branch
-`claude/cross-domain-math-problems-afA0g` — all work pushed.  `cd lean && lake build` clean on the
-touched closures (Analysis, GeometrizationConjecture, Foundations.ProofISALifts).  Running as an
-**autonomous multi-session marathon** (invoke `autonomous-research` each session to continue).
+`claude/transcendentals-pde-marathon-93F1Y` — all work pushed.  `cd lean && lake build` clean on the
+touched modules (`ExpLog.CutExpModulus`, `ExpLog.CutTrigModulus`, `Analysis.ODE.HeatEqDiscrete` +
+downstream `Analysis.ODE`, `Analysis.ODE.Capstone`).  Autonomous marathon — invoke `autonomous-research`
+each session to continue.
 
 ## The arc
-Compile history's cross-domain conquests onto the **proof-ISA** (`seed/PROOF_ISA.md`,
-`lean/E213/Lens/ProofISA.lean`) and *drive real ∅-axiom proofs* with each lift archetype — not catalog
-entries, actual conquests.  Seed compilation: `research-notes/G205_cross_domain_conquests_compilation.md`.
+Two genuinely-hard blocks were split off the A6 Ricci core (`ricci_flow_smooth_core.md`) into standalone
+ladders; this session drove their first rungs, **all strict ∅-axiom** (`#print axioms` empty):
+- **Transcendentals** (`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`)
+- **Discrete PDE estimates** (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`)
 
-## What was done this session (each strict ∅-axiom, `#print axioms` empty)
+## What was done this session (21 new PURE theorems)
 
-1. **A6 FLOW** archetype — `Foundations/MonovariantFlow.lean` (`flow_reaches`: self-map + Nat-monovariant
-   strictly descending off fixed points → normal form; constructive, no Classical).  Instance: Euclidean
-   GCD flow → `(0, gcd)`.
-2. **A6 drives the Geometrization Ricci pillar** (OPEN → closed) — `GeometrizationConjecture/RicciFlow.lean`
-   (`ricci_pillar_K32_flow_close`): K_{3,2} cell-filling coherentization as a convergent flow.
-3. **Round-sphere smooth Ricci flow → finite extinction** — `GeometrizationConjecture/RicciSphereFlow.lean`
-   (`round_S3_ricci_extinction`): the homogeneous ODE case, rate = real `Ric=(n−1)g`.
-4. **Gradient-flow monotonicity, ISA-compiled** — `Analysis/Optimization/GradientFlow.lean`
-   (`gradient_descent_identity`: `F(x−τ∇F) = F(x) − τ(1−τ)‖∇F‖²`, the descent FORCED by the gradient/IP
-   structure).  Surfaced: gradient flow is **not** A6 (geometric/asymptotic) — it compiles to
-   descent-identity + **completeness-LOOP**.
-5. **Completeness-LOOP** — `Analysis/Optimization/CompletenessLoop.lean` (modulus level) +
-   `RealCauchyWitness.lean` (full Real213 `CauchyCutSeq` with proven modulus + limit pinned at `0` by
-   order-squeeze, honest open/closed boundary noted).
-6. **Einstein trichotomy** (homogeneous Ricci flow) — `GeometrizationConjecture/RicciHomogeneous.lean`
-   (`einstein_trichotomy`): sign of `λ` → `λ>0` finite extinction (A6) / `λ=0` stationary (flat torus) /
-   `λ<0` divergence (not A6).  Frontier sub-steps 2 + 4.
-7. **A7 POSITIVITY** archetype — `Foundations/Positivity.lean` (`positivity_of_sq`: gap = square ⟹ bound;
-   `cauchy_schwarz_2d` via the Lagrange identity).  Proof-ISA catalog now **seven** archetypes.
-8. **A7 reach extension** — same `Positivity.lean` (now **11 PURE**): `positivity_of_sq3`, `amgm_2`
-   (`4ab ≤ (a+b)²`), `lagrange_3d` + `cauchy_schwarz_3d` (inequality family, all "gap = sum of squares");
-   **rigidity face** = positive-definiteness `positive_definite_2`/`_3` (`Σvᵢ²=0 ⟹ v=0`) +
-   `dist_sq_zero_imp_eq` (squared distance separates points → POSITIVITY drives `SEPARATE`).
+### T1 — exp Taylor convergence modulus (ratio-test core) — `ExpLog/CutExpModulus.lean` (NEW, 6 PURE)
+The convergence-modulus follow-up `CutExpSeries` deferred ("ratio-test argument not yet done").  Worked at
+the term-magnitude level `Mᵏ/k!` (`M` bounds `|x|`), no cut comparison:
+- `pow_half_step` → `expTerm_ratio_half` — each Taylor term ≤ **half** the previous once `2M ≤ k+1`
+  (cross-multiplied `2·M^{k+1}·k! ≤ Mᵏ·(k+1)!`).
+- `expTerm_geom_majorant` — `2ʲ·M^{N+j}·N! ≤ Mᴺ·(N+j)!` for `2M ≤ N+1` (geometric tail ratio `1/2`).
+- `expTail_geom_decay` — base `N=2M`: tail decays as `term(2M)·2^{−j}`, dyadic modulus `j ↦ 2ʲ`.
+- `expTerm_le_of_ge` (gap-antitone) + `expTerm_antitone` — terms non-increasing past `2M`.
 
-## Proof-ISA catalog state (`Foundations/ProofISALifts.lean`, `seed/PROOF_ISA.md`)
-A1 DIAGONAL · A2 LOOP · A3 ORBIT · A4 REFRAME · A5 COUNT · **A6 FLOW** · **A7 POSITIVITY**.
+### T2 — sin/cos convergence modulus by comparison — `ExpLog/CutTrigModulus.lean` (NEW, 4 PURE)
+`sin`/`cos` term magnitudes ARE `exp` terms at odd/even indices, so they inherit the engine:
+`cosTerm_geom_decay`/`sinTerm_geom_decay` (decay `term(m)/2^{2k}`) + `cosTerm_antitone`/`sinTerm_antitone`
+(alternating-series-test hypothesis).
 
-## A6 — ON HOLD (closure deferred until the two prerequisite marathons land)
-**A6 FLOW's conquest core (general Ricci flow) is ON HOLD.**  Its closure is gated on the two hard
-blocks now split into standalone marathons — **transcendental functions** and **(continuous-via-limit)
-PDE a-priori estimates**.  Do not attempt to "close A6" until those deliver; resume A6 (smooth 2D-conformal
-+ continuous estimates) only after.  Archetype + easy cases stay closed; the discrete Forman ladder
-(`a6_ricci_core/`) is a *parallel* theory (a different theorem), not the A6 conquest route.
+### P1 — discrete heat maximum principle — `Analysis/ODE/HeatEqDiscrete.lean` (extended, 4 PURE)
+`heatStep_le_two_max`/`heatStep_two_min_le` (no hot/cold spots), `heatStep_range` (sup-norm contraction),
+`heatStep_osc_bound` (oscillation non-increasing).  **Iterated to all time** (`heatField`, `heatIter`):
+`heatIter_le`/`heatIter_ge`/`heatIter_range` — data in `[A,B]` ⟹ `t`-step field in `[2ᵗA,2ᵗB]` (averaged in
+`[A,B]`) for every `t`, i.e. `‖u(t)‖∞ ≤ ‖u(0)‖∞`.  Uniform in mesh ⟹ `Real213`-limit ready.
 
-## A6 background (the marathons feeding it, when resumed)
-A6's *archetype* + *easy cases* (round sphere, Einstein trichotomy, gradient skeleton) are closed, but
-A6's **conquest core = general Ricci flow** is not.  Smooth-metric Perelman is walled (Riemannian geom +
-PDE, Mathlib-forbidden).  **The 213-native route now in progress: discrete (Forman/Ollivier) Ricci flow**
-(combinatorial curvature, no smooth manifold) — `research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`.
-  - Rung 1 ✅ `GeometrizationConjecture/DiscreteRicci.lean` (6 PURE): `formanEdge`, `K_{NS,NT}` curvature
-    `4−NS−NT`, sign↔topology (`K_{3,2}` `−1` ↔ `b₁=8`; `K_{1,1}` `+2` ↔ tree).
-  - **Rung 2 (NEXT)**: weighted Forman + a discrete Ricci-flow step `w ↦ w − F·w`.
-  - **Rung 3**: drive the discrete flow to its normalized (constant-curvature) fixed point via
-    `flow_reaches` — the discrete analogue of Perelman monotonicity, the real A6-core target.
-
-## Two converging routes to A6's core (both ∅-axiom; smooth route is NOT walled)
-A diff-geo infra audit corrected the earlier "smooth = walled" overclaim.  The repo HAS 1st-order
-derivatives + chain/product rules, `partialAt`/gradient/divergence, `MultiCut`, `cutDiv`, `det` over ℤ.
-Genuinely hard = transcendentals (sin/cos/sqrt) + general-`n` PDE estimates.  **Sidestep: 2D conformal.**
-- **Smooth 2D-conformal ladder** (`ricci_flow_smooth_core.md`, "Smooth 2D-conformal ladder"):
-  `ds²=λ(dx²+dy²)`, rational `λ` ⟹ Gauss `K = (|∇λ|²−λΔλ)/(2λ³)` (no sqrt/exp), and `Ric=K·g` in 2D so
-  `∂_tλ=−2Kλ` is genuine smooth Ricci flow.  Rungs S1 polynomial 2nd-deriv → S2 Laplacian → S3 `gaussK`
-  (flat check) → S4 nonflat → S5 2D conformal flow.  **All present-or-buildable.**
-- **Discrete Forman/Ollivier ladder** (`a6_ricci_core/discrete_ricci_flow_ladder.md`): rung 1 done
-  (`DiscreteRicci`), next weighted Forman + flow step + convergence via `flow_reaches`.
-- **Genuine wall**: general-`n` + transcendental-metric Perelman `𝓦`-monotonicity (PDE a-priori
-  estimates).  Not climbed directly; both ladders above are the routes.
-
-## Two hard blocks split off as STANDALONE marathons (any session can pick up)
-The genuinely-hard pieces are now self-contained marathons with rung ladders — a future
-`autonomous-research` session reads the note, proves the next rung ∅-axiom, commits, advances:
-- **Transcendental functions** (`frontiers/transcendentals/transcendental_functions_ladder.md`):
-  convergent `exp/sin/cos/sqrt` + derivative rules.  Rungs T1 exp-modulus (close the `CutExpSeries`
-  follow-up) → T2 sin/cos series → T3 derivative rules → T4 smooth `sqrt` (via `DyadicSearch/IVT`) →
-  T5 identities.  Ordinary constructive analysis, in-reach ∅-axiom; **start T1**.
-- **Discrete PDE a-priori estimates** (`frontiers/pde_estimates/discrete_pde_estimates_ladder.md`):
-  the analytic engine for Ricci-flow convergence.  Rungs P1 discrete maximum principle (on
-  `ODE/HeatEqDiscrete`) → P2 oscillation decay → P3 energy/Dirichlet decay → P4 discrete Li–Yau →
-  P5 discrete Shi.  P1–P3 reachable; **start P1**.  Feeds `a6_ricci_core/` rung 3.
-- **Berger-sphere pinching** — anisotropic 2-variable homogeneous ODE (remaining non-trivial homogeneous
-  case), still open.
-- **Full pointwise `cutEq`** for the Real213 limit (boundary quotient via valid-cut equality) — deferred.
+### P2 — obstruction found + lazy-step fix — same file (7 PURE)
+**Honest finding**: strict *oscillation* decay is **false** for the non-lazy stencil `(½,0,½)` — the
+checkerboard `0,1,0,1` maps to `2·checkerboard` (eigenvalue `−1`, no spectral gap).  The genuine smoothing
+operator is the **lazy** step `lazyHeatStepNum = u_{x−1}+2u_x+u_{x+1}` `(¼,½,¼)`: `lazyHeatStep_const`,
+`lazyHeatStep_le_four_max`/`_four_min_le` (maximum principle), and the concrete witness
+`lazy_checker_collapses` (length-4 checkerboard → constant in one lazy step, osc `1→0`) vs
+`nonlazy_checker_hot`/`_cold`.
 
 ## Next targets (priority order)
-1. **Continue the G205 conquest table** down the ISA: each row = compile a conquest + let an archetype
-   drive its ∅-axiom proof.  Reachable next: REFRAME[LOOP] template instances, or a COUNT/ORBIT conquest.
-   (Sum-of-squares multiplicativity is ALREADY closed — `CayleyDickson/Misc/QuadIdentities.int_quad_diophantus`
-   = Brahmagupta–Fibonacci, `GaussianTwoSquare.two_square_of_mod4` = Fermat, `FourSquare` = Lagrange;
-   do NOT rebuild.)
-2. **Berger-sphere pinching** (frontier sub-step) — a 2-var monovariant flow; needs the anisotropic Ricci
-   ODE coefficients as honest input (otherwise it's a generic gap→0 A6 instance — avoid overclaiming).
-3. **general-n Lagrange / Cauchy–Schwarz** (needs Finset/List sums) — heavier; 2-D + 3-D atoms done.
-4. Tier-A hygiene: periodic `lake build E213.Lib.Math E213.Lib.Physics` sanity; layer audit.
+1. **T1→T2 bridge**: package the proven exp term-decay rate into a `CauchyCutSeq` over the cut-level
+   `expPartialSum` (reuse `eulerCauchySeq`/`RealCauchyWitness`/`CompletenessLoop` idiom) — lifts the rate to
+   a genuine `Real213` point.  Then the **signed** `sinCut`/`cosCut` series replacing the
+   `Real213/Core/Functions.lean` stubs (their alternating partial sums bracket the limit via the antitone
+   magnitudes already proven).
+2. **P2 general**: oscillation contraction *rate* for the lazy step at general `n` / general field (the
+   spectral-gap estimate, not just the n=4 checkerboard witness), then the `Real213` limit → continuous
+   smoothing.  **P3** energy/Dirichlet decay `E(u)=Σ(u_{i+1}−u_i)²`.
+3. **T3** derivative rules (`d/dx exp = exp`, termwise via `cutPowFnIsDifferentiable`); **T4** `sqrt`.
+4. Both ladders feed the A6 Ricci core (`a6_ricci_core/`), still ON HOLD until they deliver.
 
-## File map (this session's additions)
+## File map (this session)
 ```
-lean/E213/Lib/Math/Foundations/MonovariantFlow.lean      ← A6 archetype (flow_reaches)
-lean/E213/Lib/Math/Foundations/Positivity.lean           ← A7 archetype + Cauchy–Schwarz
-lean/E213/Lib/Math/Foundations/ProofISALifts.lean        ← 7-archetype catalog (A6/A7 added)
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/RicciFlow.lean       ← Ricci pillar via A6
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/RicciSphereFlow.lean ← round-sphere extinction
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/RicciHomogeneous.lean← Einstein trichotomy
-lean/E213/Lib/Math/Analysis/Optimization/GradientFlow.lean      ← descent identity ①
-lean/E213/Lib/Math/Analysis/Optimization/CompletenessLoop.lean  ← completeness-LOOP ② (modulus)
-lean/E213/Lib/Math/Analysis/Optimization/RealCauchyWitness.lean ← ② full Real213 Cauchy object
-seed/PROOF_ISA.md                                        ← seven archetypes
-research-notes/G205_cross_domain_conquests_compilation.md← the conquest→ISA compilation (seed)
-research-notes/frontiers/ricci_flow_smooth_core.md       ← the open core + sub-steps
-STRICT_ZERO_AXIOM.md                                     ← all the above logged
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/CutExpModulus.lean   ← T1 (NEW, 6 PURE)
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/CutTrigModulus.lean  ← T2 (NEW, 4 PURE)
+lean/E213/Lib/Math/Analysis/ODE/HeatEqDiscrete.lean                  ← P1+P2 (extended, +11 PURE)
+research-notes/frontiers/transcendentals/transcendental_functions_ladder.md  ← T1/T2 marked
+research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md      ← P1/P2 marked + obstruction
+STRICT_ZERO_AXIOM.md                                                 ← all logged
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/INDEX.md             ← +2 files (count 16)
 ```
