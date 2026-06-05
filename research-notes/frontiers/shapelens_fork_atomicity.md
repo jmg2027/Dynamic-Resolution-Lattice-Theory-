@@ -43,13 +43,36 @@ This would be a route to atomicity parallel to `Theory/Atomicity/PairForcing`
 the structure stops being 1-D / flattenable / linearly orderable — where it gains
 an irreducible dimensionality with no lower-dimensional ambient frame.
 
+## Deep-research verdict (2026-06-05, `shapelens_functor.md`)
+
+The "are they the same forcing in two readings?" question below is now answered:
+**no.**  The arithmetic forcing (`Five`/`PairForcing`/`ArityForcing`) fixes
+`(N_S,N_T)=(2,3)` from coprimality + parity + unique-alive-decomposition count,
+then *derives* `5 = 2+3`; it never mentions graphs, planarity, or posets.  The
+shapeLens fork fixes `5` *directly* as a structural threshold (first width-≥2
+antichain / first non-planar `K_n`, skipping `K_4`) **without referencing
+`(2,3)`**.  They share no premise — two **independent** routes that **coincide on
+the value 5**.  A *proof* that the fork-characterization implies the arithmetic
+atomic shape would be a genuine new theorem, not a re-reading; claiming "same
+forcing" is unsupported.
+
+Quantitative additions: the canonical orbit grows doubly-exponentially,
+`n_{k+1} = C(n_k+1,2) − C(n_{k−1},2)`, `n_k ~ 2·c^(2^k)` with `c ≈ 1.24602083`;
+the skip of `K_4` is **forced** (reaching 4 needs a desynchronised one-at-a-time
+path = a different Lens).  Genus: `γ(K_n)` jumps `0→1` at exactly `n=5`
+(Ringel–Youngs `⌈(n−3)(n−4)/12⌉`).
+
 ## Open
 
 - Make "single-ℕ cycle" / "growth axis" precise as a property of the confluent
   generation (the configuration lattice of `ConfigLatticeCount`); show the fork
-  (first antichain of width ≥2) is at the `3→5` step.
-- Derive `d = 5` from "first non-linear / non-planar / K_4-skipping step" and
-  compare to the `PairForcing` derivation — are they the same forcing in two
-  readings?
+  (first antichain of width ≥2) is at the `3→5` step.  **No Lean witness yet** —
+  the fork antichain is the conjecture's central object and is not formalized
+  (only the count `I(V,s)` is).  This is "Target B" of `shapelens_functor.md`
+  (medium effort: a small decidable antichain/poset layer + `decide` over the
+  first cycles, proving `maxAntichainWidth(P(V,1))=1`, `…(P(V,2))≥2`).
+- Bridge the two routes: derive the arithmetic atomic shape *from* the
+  fork-characterization (or vice versa).  This is the genuine open theorem — they
+  are known to be independent and to agree on 5, not known to imply each other.
 - Whether the skip of `K_4` (the canonical process never visits the planar
   tetrahedron) is the crux, and whether other `(N_S,N_T)` would skip differently.

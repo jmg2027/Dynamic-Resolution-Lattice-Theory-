@@ -33,6 +33,16 @@ same fact, made topological.
   cannot be flattened", then `K_5` non-planar would be a topological restatement of
   no-exterior (§5.1): the atomic structure has no lower-dimensional ambient frame.
 
+## Deep-research confirmation (2026-06-05, `shapelens_functor.md`)
+
+The Ringel–Youngs genus formula `γ(K_n) = ⌈(n−3)(n−4)/12⌉` makes the complete
+half exact-at-the-value: `γ(K_n)` is `0` for `n ≤ 4` and jumps to `1` at exactly
+`n = 5` (then `0` again only nowhere — it is monotone past 5).  For the bipartite
+half, `γ(K_{m,2}) ≡ 0` for **all** `m` (every `K_{m,2}` is planar), so `N_T = 2`
+is confirmed the *exact* ceiling: `K_{3,2}` planar, `K_{3,3}` (genus 1) the first
+non-planar — the equality is genuine, not a small-number collision.  The grading
+above stands: `N_T = 2` exact, `d = 5 =` ceiling `+1` partly coincidental.
+
 ## The open question
 
 Is there a derivation `213-atomicity ⟹ non-embeddability in genus 0` (or

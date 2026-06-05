@@ -277,6 +277,15 @@ A goal-directed deep-research pass (four research agents + synthesis) produced:
   renormalization multiplier; Bombieri–Taylor mechanism.
 - `seed_connections.md` — eight checked connections between the atlas and the
   `seed/AXIOM` docs (the readings re-derive the seed; primacy-as-breadth).
+- `shapelens_functor.md` — **the `shapeLens` functor itself** (3-agent pass on
+  the genus, not the readings): it is the **free-complete-graph reflector**
+  `C : Grph → Cmpl` (idempotent monad); orbit doubly-exp `n_{k+1}=C(n_k+1,2)−
+  C(n_{k−1},2)`, `n_k ~ 2·c^(2^k)`, `c≈1.24602083`, `K_4` skip forced; `γ(K_n)`
+  jumps `0→1` at `5`, `γ(K_{m,2})≡0` (so `N_T=2` exact); it **is** a 213 `Lens`
+  (`Raw.fold` into `FlatOntology.Relation`); the single-ℕ fork is **independent**
+  of `PairForcing` (agrees on 5, shares no premise — "same forcing" unsupported);
+  recommended ∅-axiom target = name the genus + reflector idempotence
+  (`Lens/ShapeLens.lean`, light), not the categorical adjunction (heavy).
 
 ## Caution (self-check #0)
 

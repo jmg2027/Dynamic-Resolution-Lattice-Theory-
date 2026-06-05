@@ -57,6 +57,31 @@ cells, then deep-researched with an agent team.  Live board: frontier **G205**
   (Hurwitz/equidistribution/quasicrystal); each reading = its renormalization
   multiplier (φ,ρ algebraic; δ transcendental); Bombieri–Taylor mechanism.
 
+### `shapeLens` functor deep-research pass (3-agent team) — `research-notes/geometric/shapelens_functor.md`
+Mingu Jeong asked for deep research on the **`shapeLens` / functor itself** (the
+genus, not the individual readings).  Three agents (RA-A category, RA-B
+sequences/genus, RA-C 213-native) synthesised:
+- **Identity**: the `shapeLens` complete reading = the **free-complete-graph
+  reflector** `C : Grph → Cmpl` (`G ↦ K_{|V|}`), an **idempotent monad**; its
+  free-functor iterate is the `K_n ↦ K_{n+1}` orbit.  Idempotence = the
+  categorical shadow of the algebraic/no-glue end (`mu_nu_coincidence.md`).
+- **Growth**: `n_{k+1}=C(n_k+1,2)−C(n_{k−1},2)`, doubly-exp `n_k ~ 2·c^(2^k)`,
+  `c≈1.24602083`; **skip of `K_4` is forced**; `γ(K_n)` jumps `0→1` at exactly
+  `5`, `γ(K_{m,2})≡0` ⟹ `N_T=2` **exact** bipartite ceiling (`d=5` ceiling+1
+  partly coincidental).  `L(K_n)=J(n,2)` Johnson = the adjacency the reflector
+  erases.
+- **213-native**: the `shapeLens` **is** a 213 `Lens` — `Raw.fold` into
+  `FlatOntology.Relation = Raw→Raw→Bool` (codomain already named); honestly two
+  stacked readings (slash→ternary incidence, incidence→complete saturation).
+  **Verdict**: the single-ℕ fork and `PairForcing` are **independent** (agree on
+  5, share no premise — "same forcing" unsupported; bridging them = a real open
+  theorem).  Fork antichain has **no Lean witness yet**.
+- **Recommended ∅-axiom target**: `Lens/ShapeLens.lean` — name the genus
+  (`universalMorphism Relation`) + reflector idempotence (light, non-redundant);
+  **not** the categorical adjunction (heavy, Mathlib-shaped, low value).  Frontiers
+  `shapelens_fork_atomicity.md` + `kuratowski_atomicity.md` updated with the
+  verdict.
+
 ## Open frontiers (recorded in G205 §5)
 1. Mechanize the μF≅νF biconditional (Mathlib-free compact-element notion), or build
    a contractive νF (e.g. `Real213` cut = betweenness νF; prove `ι` non-surjective
@@ -70,8 +95,17 @@ cells, then deep-researched with an agent team.  Live board: frontier **G205**
 4. de Rham `w`-family fractal *dimensions* (needs `Real213` Hausdorff/Moran).
 
 ## Next session
-Tier-C: the general parametric `cfgIdeals V s` (the closed form, not just the
-`s=0,1,2` cases), or a contractive-νF construction.  The exploratory Python atlas
+Top candidate (deep-research "Target A", light + non-redundant): a new cell
+`lean/E213/Lens/ShapeLens.lean` that **names the `shapeLens` genus** as the
+flat-ontology fold (`universalMorphism Relation`, point=object / line=relation)
+and proves **reflector idempotence** (`saturate (saturate g) = saturate g` over a
+finite decidable carrier) + bridge `decide` lemmas to the three species
+(`SimplexSelfForm.edgesK`, `K32Adjacency.adj`, `ConfigLatticeCount.cfgIdeals`).
+This is the genus none of the species cells states.  Do **not** build the
+categorical adjunction (heavy, Mathlib-shaped).
+Other options: the fork antichain (`Target B`, medium — first ∅-axiom witness of
+"single-ℕ ends at 5"); the general parametric `cfgIdeals V s` closed form; or a
+contractive-νF construction.  The exploratory Python atlas
 (`research-notes/geometric/*.py`, 4 batches of readings) is tier-1; the spine
 (K1–K4 + the new cells) is Lean-verified.
 
