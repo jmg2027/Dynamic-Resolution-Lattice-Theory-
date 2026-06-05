@@ -219,7 +219,11 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   11 PURE).  `quadratic_reciprocity`: for distinct odd primes `p,q` (`m=(p−1)/2,n=(q−1)/2`),
   `(q QR mod p ↔ p QR mod q) ↔ (m·n) even`.  The complete Eisenstein route: `floor_qr` (Eisenstein's
   lemma `QR(a) ⟺ Σ⌊a·x/p⌋ even`, `p∤a`) ∘ `floor_sum_rectangle` (`Σ⌊qx/p⌋ + Σ⌊py/q⌋ = m·n`) ∘
-  `parity_sum_iff`.  Promotion-eligible → `theory/math/numbertheory/`.
+  `parity_sum_iff`.  Promoted → `theory/math/numbertheory/quadratic_reciprocity.md`.
+- `reciprocity_count_lens_synthesis` — cross-chapter synthesis after the QR closure: a classical
+  sign is the parity bit of a named count; finite Fubini (`sumZ_swap`) appears twice unrecognised
+  as one; "no point on the boundary" = `object1_not_surjective`.  Seeds: cubic/biquadratic
+  reciprocity over `ℤ[ω]/ℤ[i]`, Zolotarev unification, a shared Int-parity home.
 - `second_supplement` — **CLOSED** (`2` QR ⟺ `p ≡ ±1 mod 8`, `SecondSupplement.lean`, 8 PURE incl
   `gauss_mu`).
 - `euler_criterion_converse` — Euler's criterion **CLOSED** strict ∅-axiom (full iff
