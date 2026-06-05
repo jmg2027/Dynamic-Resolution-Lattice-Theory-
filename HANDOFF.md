@@ -35,6 +35,15 @@ Generalizes `EulerModulus`'s e-convergent arithmetic to **exp(m) at every intege
 — the rate certificate `i(i+1)m^{i+1}+i ≤ (i+1)²` fails for `m≥2` at `i=1` (`exp_two_rate_fails_at_one`).
 General exp(m)'s modulus is the analytic `2m`-threshold majorant (`CutExpModulus`); the two routes are
 complementary.  (+ `HeatEqDiscrete.lazy_eq_nonlazy_plus_self`: `lazy = non-lazy + 2u_x`, the spectral-gap reason.)
+**Routes unified** (`exp_increment_eq_taylor`, `exp_increment_geom_decay`, `eulerDen_eq_factorial`): the
+convergent increment `e_{i+1}−e_i` IS the next Taylor term `m^{i+1}/(i+1)!`, so the gaps inherit the
+analytic `2m`-threshold geometric decay — exp(m)'s Cauchy rate, analytically sourced.
+
+### T3 — formal derivative rules (coefficient level) — `CutExpModulus` + `CutTrigModulus` (3 PURE)
+`exp_deriv_coeff_fixed` (`d/dx exp = exp`, fixed point), `sin_deriv_coeff` (`d/dx sin = cos`),
+`cos_deriv_coeff` (`d/dx cos = −sin`) — all from the one factorial shift `(n+1)·n! = (n+1)!` (exp =
+fixed point, sin↔cos = 2-cycle; cos sign-flip in the Int213 difference-Lens).  Cut-level termwise
+`d/dx expPartialSum N = expPartialSum (N−1)` (via `IsDifferentiable` instances) remains.
 
 ### P1 — discrete heat maximum principle — `Analysis/ODE/HeatEqDiscrete.lean` (extended, 4 PURE)
 `heatStep_le_two_max`/`heatStep_two_min_le` (no hot/cold spots), `heatStep_range` (sup-norm contraction),

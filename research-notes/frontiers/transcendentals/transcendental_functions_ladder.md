@@ -56,9 +56,13 @@ T2. **sin / cos convergent series** — ⚙️ **convergence modulus DONE by com
     *signed* cut-level series `sinCut x N = Σ(−1)ᵏ x^{2k+1}/(2k+1)!`, `cosCut` even-power
     (replacing the `Core/Functions.lean` stubs); their alternating partial sums bracket
     the limit *because* of the antitone magnitudes proven here.
-T3. **derivative rules** — `d/dx exp = exp`, `d/dx sin = cos`, `d/dx cos = −sin`
-    via *termwise* differentiation of the series (the power-series ↔ derivative
-    bridge, building on `cutPowFnIsDifferentiable`).
+T3. **derivative rules** — ⚙️ **coefficient level DONE** (`exp_deriv_coeff_fixed` in
+    CutExpModulus; `sin_deriv_coeff`/`cos_deriv_coeff` in CutTrigModulus, 3 PURE):
+    `d/dx exp = exp` (fixed point), `d/dx sin = cos`, `d/dx cos = −sin` — all from the one
+    factorial shift `(n+1)·n! = (n+1)!` (exp = fixed point, sin↔cos = 2-cycle; the cos
+    sign-flip lives in the Int213 difference-Lens).  **Remaining**: the cut-level termwise
+    statement `d/dx expPartialSum N = expPartialSum (N−1)` via the `IsDifferentiable`
+    add/mul/`cutPow` instances (`cutPowFnIsDifferentiable`).
 T4. **sqrt as a smooth function** — `sqrtCut a` via bisection / Newton on `x²−a`
     (`DyadicSearch/IVT` / `MinimalRootLens`), with convergence modulus,
     `(sqrtCut a)² = a` (up to `cutEq`), and `d/dx sqrt = 1/(2 sqrt)`.

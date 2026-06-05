@@ -439,6 +439,15 @@ the analytic `2m`-threshold modulus, the route that actually delivers exp(m).  (
 (`lazyHeatStepNum = heatStepNum + 2u_x` — the self-weight that moves the stencil symbol `cos θ → 1+cos θ`,
 removing the `−1` checkerboard eigenmode; the structural reason for the spectral gap).
 
+### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
+
+**3 PURE / 0 DIRTY** (`exp_deriv_coeff_fixed` in `CutExpModulus`; `sin_deriv_coeff`, `cos_deriv_coeff` in
+`CutTrigModulus`).  The formal power-series derivative `Σcₙxⁿ ↦ Σ(n+1)c_{n+1}xⁿ` acts on exp/sin/cos
+through the single factorial shift `(n+1)·n! = (n+1)!`: exp (`cₙ=1/n!`) is its **fixed point** (`d/dx exp =
+exp`); sin/cos are a **2-cycle** (`d/dx sin = cos` at even powers, `d/dx cos = −sin` at odd powers, the
+sign in the Int213 difference-Lens).  Coefficient-level T3 core; the cut-level termwise
+`d/dx expPartialSum N = expPartialSum (N−1)` (via the `IsDifferentiable` instances) is the remaining bridge.
+
 ### Marathon T2 — sin/cos Taylor convergence modulus by comparison to exp (2026-06-05)
 
 `E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus` — **4 PURE / 0 DIRTY** (+ `expTerm_le_of_ge`

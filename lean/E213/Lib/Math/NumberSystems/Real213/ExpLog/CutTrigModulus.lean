@@ -27,7 +27,7 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus
 
-open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial)
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_succ)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpModulus
   (expTerm_geom_majorant expTerm_le_of_ge)
 
@@ -72,5 +72,27 @@ theorem sinTerm_antitone (M m k : Nat) (hM : 2 * M ≤ 2 * m + 2) :
   have h := expTerm_le_of_ge M (2 * m + 1) hM (2 * k)
   have e : 2 * m + 1 + 2 * k = 2 * (m + k) + 1 := by ring_nat
   rw [e] at h; exact h
+
+/-! ## §3 — formal derivative shifts: `d/dx sin = cos`, `d/dx cos = −sin` (coefficient level, T3)
+
+The same factorial recurrence that gives exp its fixed-point under `d/dx`
+(`CutExpModulus.exp_deriv_coeff_fixed`) makes `sin`/`cos` a **2-cycle**: differentiating
+shifts the factorial index by one and maps the odd/even power families into each other.
+exp, sin, cos all "self-reproduce" under the formal derivative for one reason — the shared
+factorial shift `(n+1)·n! = (n+1)!`. -/
+
+/-- ★ **`d/dx sin = cos`** (coefficient level).  sin's term at odd power `2k+1` has
+    coefficient `(−1)ᵏ/(2k+1)!`; its formal derivative `(2k+1)·(−1)ᵏ/(2k+1)! = (−1)ᵏ/(2k)!`
+    is exactly cos's term at even power `2k`.  Magnitude identity `(2k+1)·(2k)! = (2k+1)!`. -/
+theorem sin_deriv_coeff (k : Nat) : (2 * k + 1) * factorial (2 * k) = factorial (2 * k + 1) :=
+  (factorial_succ (2 * k)).symm
+
+/-- ★ **`d/dx cos = −sin`** (coefficient level).  cos's term at even power `2k+2`
+    differentiates to sin's term at odd power `2k+1` with a sign flip `(−1)ᵏ⁺¹ = −(−1)ᵏ`
+    (the `−sin`).  Magnitude identity `(2k+2)·(2k+1)! = (2k+2)!`; the sign lives in the
+    Int213 difference-Lens (`seed/AXIOM/06_lens_readings.md` §6.7), outside this Nat core. -/
+theorem cos_deriv_coeff (k : Nat) :
+    (2 * k + 2) * factorial (2 * k + 1) = factorial (2 * k + 2) :=
+  (factorial_succ (2 * k + 1)).symm
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus

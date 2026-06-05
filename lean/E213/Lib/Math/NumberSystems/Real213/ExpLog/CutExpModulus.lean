@@ -139,4 +139,15 @@ theorem expTail_geom_decay (M : Nat) :
        ≤ M ^ (2 * M) * factorial (2 * M + j) :=
   expTerm_geom_majorant M (2 * M) (Nat.le_succ (2 * M))
 
+/-! ## §4 — formal derivative: exp is the fixed point of `d/dx` (coefficient level, T3) -/
+
+/-- ★ **exp is fixed under the formal derivative** (coefficient level).  The formal
+    power-series derivative sends `Σ cₙxⁿ ↦ Σ (n+1)·c_{n+1}·xⁿ`; for exp `cₙ = 1/n!` the
+    derivative coefficient is `(n+1)·c_{n+1} = (n+1)/(n+1)! = 1/n! = cₙ`.  Cross-multiplied,
+    the fixed-point identity is `(n+1)·n! = (n+1)!` — **`d/dx exp = exp`** at the coefficient
+    level.  (The cut-level termwise statement `d/dx expPartialSum N = expPartialSum (N−1)`,
+    through the `IsDifferentiable` add/mul/`cutPow` instances, is the remaining T3 bridge.) -/
+theorem exp_deriv_coeff_fixed (n : Nat) : (n + 1) * factorial n = factorial (n + 1) :=
+  (factorial_succ n).symm
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpModulus
