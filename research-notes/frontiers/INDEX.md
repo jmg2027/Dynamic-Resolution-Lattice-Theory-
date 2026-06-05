@@ -247,3 +247,7 @@ different invariants.  Worked atlas + scripts: `research-notes/geometric/`
   Möbius form `P=[[2,1],[1,1]]` (surface `3,2,5,φ`) vs blind (symmetric averaging).
   Conjecture C1 (faithful ⟺ `det=1` glue preserved); nearest ∅-axiom target is
   `prim-distinct ⟺ linear independence` + the `arccos(−1/n)→90°` climb (K3).
+
+## Kuratowski / planarity vs atomicity  (`kuratowski_atomicity.md`)
+
+Does the 213 atomic signature sit on the 2-D planarity boundary by structure? `K_{m,n}` planar ⟺ `min≤2=N_T` (exact); `K_n` planar ⟺ `n≤4`, so `d=5` is the first non-planar (ceiling+1).  Both Kuratowski forbidden graphs (`K_5`, `K_{3,3}`) are 213 structures.  Speculative link to no-exterior (atomicity ⟺ non-flattenable).  Open: is there a derivation, or small-number coincidence with one exact hit?
