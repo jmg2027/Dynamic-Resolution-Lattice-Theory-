@@ -336,6 +336,12 @@ private theorem sgFn_lo (a p m x : Nat) (h : (a * x) % p ≤ m) : sgFn a p m x =
 private theorem sgFn_hi (a p m x : Nat) (h : ¬ (a * x) % p ≤ m) : sgFn a p m x = -1 := by
   show (if (a * x) % p ≤ m then (1 : Int) else -1) = -1; rw [if_neg h]
 
+/-- The least-residue sign is `±1`. -/
+theorem sgFn_pm (a p m x : Nat) : sgFn a p m x = 1 ∨ sgFn a p m x = -1 := by
+  rcases Nat.lt_or_ge ((a * x) % p) (m + 1) with hc | hc
+  · exact Or.inl (sgFn_lo a p m x (Nat.le_of_lt_succ hc))
+  · exact Or.inr (sgFn_hi a p m x (fun h => Nat.not_succ_le_self m (Nat.le_trans hc h)))
+
 /-- ★★★★ **Gauss's lemma (core identity).**  `↑aᵐ ≡ ∏ₓ sign(a·x) (mod p)`, the sign product over
     the half-system `[1..m]`.  Via the residue/signed-fold congruences (`prodZ_congr_map`), the
     factoring `P_ax = ↑aᵐ·M`, `P_sf = P_sg·P_f`, `P_f = M` (`fold_perm`), and cancellation of the

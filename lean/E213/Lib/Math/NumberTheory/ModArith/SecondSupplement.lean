@@ -18,7 +18,8 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
 
-open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg mem_seg sgFn gauss_qr)
+open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg mem_seg sgFn sgFn_pm gauss_qr)
+open E213.Tactic.List213 (exists_of_mem_map)
 open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ prodZ_append)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (map_append')
 open E213.Lib.Math.Algebra.Linalg213.Permutation (iota)
@@ -207,5 +208,17 @@ theorem second_supplement (p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d =
   · decide
   · decide
   · exact absurd (Nat.lt_of_le_of_lt (Nat.le_add_left 4 r') hr4) (Nat.lt_irrefl 4)
+
+/-- ★★★★ **Gauss's lemma (μ-count form).**  `a` is a QR mod `p` ⟺ `μ` is even, where
+    `μ = #{x ∈ [1,m] : (a·x) mod p > m}` (`= countNeg` of the sign list).  `gauss_qr` + `prodZ_sign_eq`
+    (`∏signs = (−1)^μ`) + `neg_one_pow_iff`.  The recognizable Gauss-lemma statement; the engine for
+    quadratic reciprocity. -/
+theorem gauss_mu (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) :
+    (∃ z : Nat, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = a) ↔ countNeg ((seg m).map (sgFn a p m)) % 2 = 0 := by
+  refine (gauss_qr a p m hp hpr h2m hm1 ha1 halt).trans ?_
+  rw [prodZ_sign_eq ((seg m).map (sgFn a p m)) (fun z hz => by
+    obtain ⟨x, _, hxz⟩ := exists_of_mem_map hz; rw [← hxz]; exact sgFn_pm a p m x)]
+  exact neg_one_pow_iff (countNeg ((seg m).map (sgFn a p m)))
 
 end E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
