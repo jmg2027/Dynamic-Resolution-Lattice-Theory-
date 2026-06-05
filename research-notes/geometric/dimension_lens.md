@@ -79,10 +79,28 @@ commits to no size / dimension).  The dimension-Lens is one *facet*; it is not
 (simplex corners) are reached by no betweenness — the same not-surjective
 structure, one layer down.
 
-## Open frontier
+## Open frontier — and it needs no trig, no missing reals
 
-Can the equivalence **prim-distinctness ⟺ linear independence**, and the
-monotone angle climb `arccos(−1/n) → 90°` as the resolution-indexed approach to
-independence, be stated as ∅-axiom Lean theorems?  This would promote the
-dimension-Lens from this note to a `Lens/` sub-tree.  Recorded as an open
-frontier; see `research-notes/frontiers/` if pursued.
+Earlier this note called the `arccos(−1/n)→90°` climb hard ("trig / reals with
+zero Mathlib").  That was wrong twice, and both are the algebraic-priority
+lesson: **don't label a result blocked by missing classical infra before
+reframing it 213-natively.**
+
+- **No trig.**  The angle is a red herring.  `cos = −1/n` is the *exact rational
+  inner product* of the centered simplex vertices: for `u_i = e_i − centroid`,
+  `⟨u_i,u_j⟩ = δ_ij − 1/(n+1)`, so the normalized off-diagonal is exactly
+  `−1/n`.  "Orthogonality in the limit" = the rational sequence `−1/n → 0`.
+- **No missing reals.**  `Real213` (Cut-based, with Cauchy convergence) already
+  exists; the `−1/n → 0` limit is the "widths → 0" flavour already carried by
+  `Real213.PhiConvergence`, `GeometricThreshold`, and the `SternBrocotMarkov`
+  `Int` positivity lemmas.
+
+So the well-posed ∅-axiom target is a **rational-Gram + rational-limit**
+statement (counting / linear algebra, not analysis):
+  1. `prim-distinct ⟺ linear independence`: the `n+1` vertices `e_i` have
+     Gram `= I` (det 1) ⟺ distinct — and the centered family carries the single
+     partition-of-unity dependence `Σ u_i = 0`.
+  2. the normalized off-diagonal `−1/n` strictly increases to `0` (approach to
+     orthogonality), a rational limit of exactly the available kind.
+
+This is a clean next target on `Real213`, not a blocker.  Not yet formalized.

@@ -88,8 +88,12 @@ onto §3.2 / §3.5.
   `Mobius213K33Bridge.k33_NS_minus_NT_eq_zero`; the `(2,3,5)` lock
   `Px.FibonacciAtomicLock.fibonacci_atomic_lock_master`.  The geometric C1
   exploration *re-derived* this; its only addition is the one-dial narrative.
-- **Still open**: `prim-distinct ⟺ linear independence` + the `arccos(−1/n)→90°`
-  climb (`dimension_lens.md`) — the hard part is trig / reals with zero Mathlib.
+- **Still open** (but native, not blocked): `prim-distinct ⟺ linear
+  independence` + the approach to orthogonality.  No trig — `cos = −1/n` is the
+  exact rational inner product of the centered vertices; the target is a
+  rational-Gram + rational limit `−1/n → 0` on the existing `Real213`
+  (Cut-based, Cauchy; `PhiConvergence`, `GeometricThreshold`).  See
+  `dimension_lens.md`.
 - The atlas stays tier-1; closed cells already live in `theory/`.  Frontier
   registered in `research-notes/frontiers/G205`.
 

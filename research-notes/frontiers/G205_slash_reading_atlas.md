@@ -68,9 +68,13 @@ not a new theorem.
   state (3) / transition (2) per §6.2, bipartite embedding; connect to the
   closure form `R(N_S,N_T,d,c)·Π(1+κᵢαᵢ^{nᵢ})`.
 - **(K3)** The Möbius / constants half is **closed** (see §2 status, cites).
-  Still open: `prim-distinct ⟺ linear independence` + the monotone
-  `arccos(−1/n) → 90°` climb as ∅-axiom theorems — the genuinely hard part is
-  trig / reals with zero Mathlib (→ `Lens/` sub-tree; `geometric/dimension_lens.md`).
+  Still open: `prim-distinct ⟺ linear independence` + the approach to
+  orthogonality.  **Not trig, not blocked by reals** (correction): `cos = −1/n`
+  is the exact rational inner product of the centered vertices
+  (`⟨u_i,u_j⟩ = δ_ij − 1/(n+1)`), so the target is a rational-Gram + rational
+  limit `−1/n → 0` on the existing `Real213` (Cut-based, Cauchy; cf.
+  `PhiConvergence`, `GeometricThreshold`) — counting / linear algebra, a clean
+  next target.  See `geometric/dimension_lens.md`.
 - **(K4)** Which other `SL(2,ℤ)` generators / de Rham parameters `w` yield
   213-relevant numbers?
 
