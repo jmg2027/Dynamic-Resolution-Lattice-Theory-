@@ -13,13 +13,18 @@ false slots.  This is the ordering analogue of `SpernerChains.chain_low`.
 
 namespace E213.Lib.Math.Combinatorics.BollobasCount
 
-open E213.Lib.Math.Combinatorics.Sperner (cardB beq_self)
+open E213.Lib.Math.Combinatorics.Sperner
+  (cardB beq_self lcount cardEq kLayer kLayer_card kLayer_nodup)
 open E213.Lib.Math.Combinatorics.SpernerChains
-  (cardB_le_length lperm_cons_append elemNat elemNat_eq_true_of_mem mem_of_elemNat
-   truePos idxList truePos_length truePos_nodup mem_truePos)
+  (cardB_le_length lperm_cons_append elemNat elemNat_eq_true_of_mem elemNat_eq_false_of_not_mem
+   mem_of_elemNat truePos idxList truePos_length truePos_nodup mem_truePos
+   idxList_length idxList_nodup append_inj_left append_left_cancel lcount_ge_nodup_subset)
 open E213.Lib.Math.Combinatorics.BollobasSetPair
-  (before before_x before_y before_rec favours listAll)
-open E213.Tactic.List213 (mem_append_left mem_append_right)
+  (before before_x before_y before_rec favours listAll favourCountTarget)
+open E213.Lib.Math.Combinatorics.BoolEnum (length_of_mem_allBoolLists)
+open E213.Tactic.List213
+  (mem_append_left mem_append_right mem_append_iff mem_filter mem_filter_of
+   exists_of_mem_map mem_map_of_mem nodup_map_of_inj length_map length_append)
 open E213.Lib.Math.Combinatorics.Permutations
 
 /-! ## §1 — `weave` and its permutation property -/
@@ -506,4 +511,81 @@ theorem filter_nq_weave (q : Nat → Bool) :
   | true :: _, [], _, ht, _, _, _ => absurd ht succ_ne_zero_pure
   | false :: m, xs, [], ht, hl, _, _ => absurd (weave_false_nil ht hl) (fun h => h)
 
+/-! ## §6 — the woven family and its count
+
+`wovenFam A B n` enumerates the favouring orderings as `weave mask (σA ++ σB) σR`
+over all masks (`kLayer n (a+b)`) and orderings of the `A`-, `B`-, `R`-positions.
+Its length is `favourCountTarget`, it is duplicate-free (via the recovery lemmas),
+and it lands in the favouring set — giving the lower bound. -/
+
+theorem mask_cardB {n k : Nat} {mask : List Bool} (h : mask ∈ kLayer n k) : cardB mask = k :=
+  Nat.eq_of_beq_eq_true (mem_filter h).2
+
+theorem mask_length {n k : Nat} {mask : List Bool} (h : mask ∈ kLayer n k) : mask.length = n :=
+  length_of_mem_allBoolLists (mem_filter h).1
+
+/-- The favouring-ordering family. -/
+def wovenFam (A B : List Bool) (n : Nat) : List (List Nat) :=
+  flatMap213 (fun mask =>
+    flatMap213 (fun σA =>
+      flatMap213 (fun σB =>
+        List.map (fun σR => weave mask (σA ++ σB) σR) (perms (restPos A B (idxList n))))
+        (perms (truePos B (idxList n))))
+      (perms (truePos A (idxList n))))
+    (kLayer n (cardB A + cardB B))
+
+section
+variable {A B : List Bool} {n : Nat}
+
+private theorem hApos_len (hAn : A.length = n) :
+    (truePos A (idxList n)).length = cardB A :=
+  truePos_length A (idxList n) (by rw [hAn, idxList_length])
+
+private theorem hBpos_len (hBn : B.length = n) :
+    (truePos B (idxList n)).length = cardB B :=
+  truePos_length B (idxList n) (by rw [hBn, idxList_length])
+
+private theorem hRcard_n (hAn : A.length = n) (hBn : B.length = n) (hd : disjointVec A B = true) :
+    (restPos A B (idxList n)).length + (cardB A + cardB B) = n := by
+  have := restPos_card A B (idxList n) (by rw [hAn, idxList_length]) (by rw [hBn, idxList_length]) hd
+  rwa [idxList_length] at this
+
+/-- Count + class hypotheses for a woven element (feeds `map_q_weave` etc.). -/
+theorem woven_count (hAn : A.length = n) (hBn : B.length = n) (hd : disjointVec A B = true)
+    {mask : List Bool} (hmask : mask ∈ kLayer n (cardB A + cardB B))
+    {σA σB σR : List Nat}
+    (hσA : σA ∈ perms (truePos A (idxList n))) (hσB : σB ∈ perms (truePos B (idxList n)))
+    (hσR : σR ∈ perms (restPos A B (idxList n))) :
+    cardB mask = (σA ++ σB).length ∧ mask.length = (σA ++ σB).length + σR.length := by
+  have hsAlen : σA.length = cardB A := by rw [perms_length_const _ σA hσA, hApos_len hAn]
+  have hsBlen : σB.length = cardB B := by rw [perms_length_const _ σB hσB, hBpos_len hBn]
+  have hsRlen : σR.length = (restPos A B (idxList n)).length := perms_length_const _ σR hσR
+  have hABlen : (σA ++ σB).length = cardB A + cardB B := by rw [length_append, hsAlen, hsBlen]
+  refine ⟨?_, ?_⟩
+  · rw [mask_cardB hmask, hABlen]
+  · rw [mask_length hmask, hABlen, hsRlen,
+        Nat.add_comm (cardB A + cardB B) (restPos A B (idxList n)).length, hRcard_n hAn hBn hd]
+
+/-- A `σA ++ σB` element is an `A∪B`-position (`q = true`). -/
+theorem woven_q_true {σA σB : List Nat}
+    (hσA : σA ∈ perms (truePos A (idxList n))) (hσB : σB ∈ perms (truePos B (idxList n)))
+    {w : Nat} (hw : w ∈ σA ++ σB) :
+    elemNat w (truePos A (idxList n) ++ truePos B (idxList n)) = true := by
+  rcases mem_append_iff hw with hwA | hwB
+  · exact elemNat_eq_true_of_mem (mem_append_left (mem_of_lperm (perms_sound _ σA hσA) hwA))
+  · exact elemNat_eq_true_of_mem
+      (mem_append_right _ (mem_of_lperm (perms_sound _ σB hσB) hwB))
+
+/-- A `σR` element is not an `A∪B`-position (`q = false`). -/
+theorem woven_q_false (hd : disjointVec A B = true) (hAn : A.length = n)
+    {σR : List Nat} (hσR : σR ∈ perms (restPos A B (idxList n)))
+    {w : Nat} (hw : w ∈ σR) :
+    elemNat w (truePos A (idxList n) ++ truePos B (idxList n)) = false := by
+  have hwR : w ∈ restPos A B (idxList n) := mem_of_lperm (perms_sound _ σR hσR) hw
+  refine elemNat_eq_false_of_not_mem (fun hmem => ?_)
+  rcases mem_append_iff hmem with hwA | hwB
+  · exact restPos_not_truePos_A A B (idxList n) (idxList_nodup n) hwR hwA
+  · exact restPos_not_truePos_B A B (idxList n) (idxList_nodup n) hwR hwB
+
+end
 end E213.Lib.Math.Combinatorics.BollobasCount
