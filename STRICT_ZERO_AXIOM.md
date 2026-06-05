@@ -254,6 +254,18 @@ prime).  Supporting `∅`-axiom chain: `zhang_linear_core`, `zhang_quadratic(_su
 prime-power factor where `SEPARATE` fires) is the `REFRAME` lift archetype (`Foundations.ProofISALifts`,
 `lift_reframe`).  `#print axioms` clean on all.
 
+### A6 FLOW — monovariant normal-form lift archetype (2026-06-05)
+
+`E213.Lib.Math.Foundations.MonovariantFlow` — **12 PURE / 0 DIRTY**.  The sixth proof-ISA lift
+archetype, the well-founded sibling of A2 LOOP: a self-map `f` with a `Nat`-monovariant that strictly
+descends off fixed points converges to a normal form (`flow_reaches`; the descent disjunction is
+`Prop`-data so the split is constructive — no decidable equality, no `Classical`).  Canonical instance:
+the **Euclidean GCD flow** `(a,b) ↦ (b%a,a)` converging to `(0, gcd a b)` (`euclid_flow_normal_form`),
+the gcd the invariant the descent preserves (`gcd213_rec`).  The discrete realization of the Ricci-flow
+shape `GeometrizationConjecture/Ricci.lean` recorded as open (monovariant in place of Perelman's
+entropy).  Pinned in `Foundations.ProofISALifts` as `lift_flow` / `lift_flow_gcd`; registered in
+`seed/PROOF_ISA.md`.  `#print axioms` clean on all 12.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

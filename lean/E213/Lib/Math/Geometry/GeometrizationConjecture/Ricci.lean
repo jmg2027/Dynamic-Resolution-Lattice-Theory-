@@ -34,12 +34,17 @@ at the *averaging-fixed-point* structural level.
 Ricci-flow ↔ chart-Lens averaging requires:
   · ε-Lens infrastructure (continuous chart variation)
   · "averaging" semantics at the chart-transition level
-  · monotonicity functional analogous to Perelman's
-    $\mathcal{F}$ / $\mathcal{W}$
 
-None of these exist in `lean/E213/`.  Recording §R as narrative
-seed only; structural formalization deferred to future ε-Lens
-infrastructure work.
+The **monotonicity functional** analogous to Perelman's
+$\mathcal{F}$ / $\mathcal{W}$ is no longer absent: the abstract
+flow-shape — a self-map with a `Nat`-monovariant that strictly
+descends off fixed points, converging to a normal form — is the
+A6 FLOW lift archetype, `MonovariantFlow.flow_reaches`
+(`Lib/Math/Foundations/MonovariantFlow.lean`, ∅-axiom), with the
+Euclidean GCD flow as its canonical normal-form instance.  The
+*metric-tensor-specific* ε-Lens averaging remains open; the
+structural functional does not.  Recording §R as narrative seed
+for the chart-Lens specialization.
 -/
 
 /-- §R narrative-seed theorem: the Sym(3)-fixed subspace of

@@ -52,7 +52,7 @@ fires. `?` = the inner lift is **not** one of the five (candidate gap).
 | S1 | Fermat's Last Theorem | Diophantine → modular/Galois | `REFRAME[LOOP]` | A2 (Taylor–Wiles patching = inductive lift of mod-p to p-adic modularity) |
 | S2 | Weil conjectures (RH/𝔽_q) | point-counts → étale cohomology | `REFRAME[ READ ] + POSITIVITY?` | A4 + **?** (weights/positivity) |
 | S3 | Fundamental Lemma | orbital integrals → Hitchin geometry | `REFRAME[ORBIT]` | A3 (a symmetry of the fibration forces the identity) |
-| S4 | Poincaré / Geometrization | topology → Ricci-flow PDE | `REFRAME[ FLOW? ]` | **?** (monovariant-driven normal form) |
+| S4 | Poincaré / Geometrization | topology → Ricci-flow PDE | `REFRAME[ FLOW ]` | **A6** ✅ (monovariant-driven normal form — closed this session) |
 | A1 | Prime Number Theorem | prime-counting → ζ(s) on ℂ | `REFRAME[LOOP]` | A2 (Euler product = FOLD; contour/Tauberian limit) |
 | A2 | Monstrous Moonshine | finite group ↔ modular ↔ CFT | `REFRAME[LOOP]` | A2 (replicability recursions of the Monster Lie algebra) |
 | A3 | Sphere packing 8 / 24 | discrete geometry → modular forms | `REFRAME[COUNT]` | A5 (Cohn–Elkies LP deficit; magic fn = exact dual certificate) |
@@ -76,7 +76,15 @@ out — they cluster on **one missing idea**.
 
 ## The find: two candidate archetypes the conquests demand
 
-### Candidate A6 — FLOW / monovariant normal-form (from S4 Poincaré)
+> **UPDATE (this session): A6 FLOW is now CLOSED (∅-axiom).** The candidate
+> below was witnessed: `MonovariantFlow.flow_reaches` (abstract archetype) +
+> `euclid_flow_normal_form` (Euclidean GCD flow instance), pinned in
+> `ProofISALifts.lean` as `lift_flow` / `lift_flow_gcd`, registered in
+> `seed/PROOF_ISA.md` as the sixth archetype. The catalog is now **six**
+> archetypes. POSITIVITY (A7 candidate) remains open. Details below recorded
+> as the probe's rationale.
+
+### Candidate A6 — FLOW / monovariant normal-form (from S4 Poincaré) — ✅ CLOSED
 
 Ricci flow with surgery does not compile to A2 LOOP. A2 LOOP is *finite*
 per-step induction certifying a fixed point (`slashNu_final`, the µ/ν
@@ -183,11 +191,11 @@ arsenal:
 
 ## Next
 
-1. **FLOW witness probe** — discrete monovariant-convergence theorem
-   (well-founded self-map + strict monovariant ⇒ unique normal form),
-   ∅-axiom, from the trace-monovariant / discrete-Picard material.
+1. ~~**FLOW witness probe**~~ — ✅ **DONE this session**: `flow_reaches` +
+   `euclid_flow_normal_form` (`Lib/Math/Foundations/MonovariantFlow.lean`,
+   ∅-axiom), promoted to `ProofISALifts.lean` (A6) and `seed/PROOF_ISA.md`.
 2. **POSITIVITY witness probe** — nonneg-valued FOLD forces a bound on a
-   finite residue (`Functional/` norms).
+   finite residue (`Functional/` norms). The next reachable ISA-extension.
 3. If S3's ORBIT-after-transport reading suggests a foreign symmetric
    presentation of the Markov residue, record it in
    `research-notes/frontiers/markov_lagrange/`.

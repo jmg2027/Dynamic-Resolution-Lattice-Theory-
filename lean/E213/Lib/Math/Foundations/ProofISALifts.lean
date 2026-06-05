@@ -8,11 +8,12 @@ import E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness
 import E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
 import E213.Lib.Math.Combinatorics.CountExistence
 import E213.Lib.Math.Combinatorics.RamseyLowerBound
+import E213.Lib.Math.Foundations.MonovariantFlow
 
 /-!
-# The lift catalog — five solved finite→uniform lift archetypes on the proof-ISA
+# The lift catalog — six solved finite→uniform lift archetypes on the proof-ISA
 
-`Lens.ProofISA` names the instruction set; this file is the **compilation catalog** — five
+`Lens.ProofISA` names the instruction set; this file is the **compilation catalog** — six
 *already-solved*, `∅`-axiom, infinite-abstract theorems whose **finite→uniform lifts** are structurally
 distinct.  Each `abbrev` pins a solved theorem; the surrounding text records *how* its lift is achieved —
 a template library for the one open lift, the Markov uniqueness kernel `H`.
@@ -71,6 +72,24 @@ count plus the union bound; the existence is then a finite search, not a choice.
 face* of `GAP` (`pigeonhole` is its qualitative face); unlike A3 it is not in `H`'s family — it is the
 `GAP`-cardinality complement to A1's `GAP`-diagonal.
 
+## Archetype 6 — FLOW / monovariant normal-form (`lift_flow`) — the well-founded `LOOP`
+The continuous/well-founded sibling of A2.  A2 lifts a finite per-step *recurrence* by forward
+induction; FLOW lifts a per-step *strict descent of a monovariant* to a **normal form** by well-founded
+descent.  A self-map `f` on presentations carries a `Nat`-monovariant `μ` that strictly decreases off
+fixed points (`μ (f x) < μ x ∨ f x = x`, the disjunction `Prop`-data so the split is constructive — no
+decidable equality on the carrier, no `Classical`); iterating `f` reaches a fixed point (`flow_reaches`).
+The canonical instance is the **Euclidean GCD flow** `(a,b) ↦ (b % a, a)` with monovariant `Prod.fst`:
+the gcd is the *invariant* the step preserves (`gcd213_rec`), and the normal form converged to is
+`(0, gcd a b)` — the gcd **is** the canonical form reached by the descent
+(`euclid_flow_normal_form`).  **Lift cost: a monovariant that strictly descends off fixed points.**
+
+This is the discrete realization of the geometric-flow shape `GeometrizationConjecture/Ricci.lean`
+records as open (*"monotonicity functional analogous to Perelman's 𝓕/𝓦 … none exist in `lean/E213/`"*):
+Ricci flow drives any metric to a canonical geometry, certified by a monotone entropy; `flow_reaches` is
+that shape with the entropy a `Nat`-monovariant.  FLOW is the *other* completion of in-place monovariant
+exhaustion that REFRAME (A4) is the dual of: when the monovariant exhausts, it drives the object to its
+normal form; when it cannot improve in place, REFRAME transports to a presentation where it can.
+
 ## `H` localized
 `H` is the uniform cross-word continuant-trace `SEPARATE` (`markovNum` injective on all tree paths;
 `ContinuantMarkov.markovNum_injective_pathsUpTo_4` is its finite instance).  It matches **A1 no** (paths
@@ -128,5 +147,14 @@ abbrev lift_count := @E213.Lib.Math.Combinatorics.CountExistence.count_existence
 /-- **A5 lift mechanism** — multiplicativity of counting: each free distinguishing doubles the count, so
     a local constraint's count factors over an arbitrary position-subset. -/
 abbrev lift_count_factor := @E213.Lib.Math.Combinatorics.RamseyLowerBound.matchesC_count
+
+/-- **A6 FLOW** — the well-founded sibling of A2 LOOP: a self-map with a `Nat`-monovariant that strictly
+    descends off fixed points converges to a normal form.  The discrete realization of the Ricci-flow
+    shape (monovariant in place of Perelman's entropy). -/
+abbrev lift_flow := @E213.Lib.Math.Foundations.MonovariantFlow.flow_reaches
+
+/-- **A6 instance** — the Euclidean GCD flow: `(a,b) ↦ (b % a, a)` converges to `(0, gcd a b)`; the gcd
+    is the canonical normal form reached by the monovariant descent. -/
+abbrev lift_flow_gcd := @E213.Lib.Math.Foundations.MonovariantFlow.euclid_flow_normal_form
 
 end E213.Lib.Math.Foundations.ProofISALifts

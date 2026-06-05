@@ -92,7 +92,7 @@ instruction (e.g. `SEPARATE`) holds on every finite sample, and pointing at the 
 open content.  So the standing method is not only "compile this one problem" but **catalogue the lifts of
 problems already solved** — each solved lift is a reusable template, and a problem missing the *same* lift
 as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/ProofISALifts.lean`, all
-`∅`-axiom) records five structurally distinct archetypes:
+`∅`-axiom) records six structurally distinct archetypes:
 
   - **DIAGONAL / direct** (`lift_diagonal`, Cantor) — the `DIAGONALIZE` instruction self-supplies the
     uniform witness; **lift cost zero**.
@@ -110,6 +110,13 @@ as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/P
     on a finite residue, `Σ|badᵢ| < |codomain|` forces a good element; the lift is multiplicativity of
     counting (each free distinguishing doubles the count); **cost: a counting bound**.  The quantitative
     face of `GAP` (`pigeonhole` is its qualitative face).
+  - **FLOW / monovariant normal-form** (`lift_flow`, `flow_reaches`; instance `lift_flow_gcd`, the
+    Euclidean GCD flow) — the well-founded sibling of LOOP: a self-map with a `Nat`-monovariant that
+    strictly descends off fixed points converges to a normal form (`(a,b) ↦ (b%a,a)` reaches
+    `(0, gcd a b)`, the gcd the invariant the descent preserves); **cost: a monovariant strictly
+    descending off fixed points**.  The discrete realization of the Ricci-flow shape
+    (`GeometrizationConjecture/Ricci.lean`'s open functional, monovariant in place of Perelman's
+    entropy) and the other completion of in-place monovariant exhaustion REFRAME is the dual of.
 
 Markov `H` matches none cleanly — closest is **ORBIT**, which is *in `H`'s own family* (the same
 free-unit-root action already lifts a finite root-window to uniform composite uniqueness, leaving a per-`c`
