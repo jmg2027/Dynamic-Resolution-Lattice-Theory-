@@ -90,8 +90,11 @@ a chain, every vector covered).  **Only (c) the count remains**:
 `|scd n| = C(n,⌊n/2⌋)` via the symmetric-level invariant (`SymChain n C :=
 C.map cardB = range' k (n−2k+1)`) — each chain has exactly one `⌊n/2⌋`-element ⟹
 bijection `scd n ↔ kLayer n ⌊n/2⌋` (surjective via `scd_cover`, injective via
-partition disjointness, still to prove).  Then `dilworth_lower` + this ⟹
-min chain cover `= C(n,⌊n/2⌋)` = max antichain.  Full plan in the frontier note.
+partition disjointness, still to prove).  Infra ready: `scd_nonempty` (chains
+nonempty), `scd_sorted`, `false_mem_extendC`/`true_mem`.  Then `dilworth_lower`
++ this ⟹ min chain cover `= C(n,⌊n/2⌋)` = max antichain.  Full plan in the
+frontier note (the symmetric invariant + disjointness is the crux — best with
+fresh context).
 ### 2. Leibniz determinant over `perms` (bridge `LPerm` ↔ `perms`).
 ### (CLOSED) Bollobás `bollobas_uniform` (36/36 PURE); Mirsky `mirsky_boolean`
 (`ChainAntichain`, 15/15 PURE) — both unconditional ∅-axiom.
