@@ -16,16 +16,16 @@ Plan: `research-notes/frontiers/quadratic_reciprocity.md`.
 namespace E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
 
 open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg fold fold_perm fold_lo fold_hi sgFn sgFn_lo sgFn_hi)
-open E213.Lib.Math.NumberTheory.ModArith.SecondSupplement (countNeg)
+open E213.Lib.Math.NumberTheory.ModArith.SecondSupplement (countNeg gauss_mu)
 open E213.Lib.Math.Algebra.Linalg213.Permutation (sumZ sumZ_lperm map_lperm)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_map')
 open E213.Lib.Math.Algebra.Linalg213.SumLinear (sumZ_map_add sumZ_map_sub sumZ_map_const_mul)
 open E213.Lib.Math.NumberTheory.PolyRoot (natCast_add)
 open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_mul)
 open E213.Lib.Math.NumberTheory.ModArith.EulerConverse (natCast_sub)
-open E213.Meta.Nat.AddMod213 (div_add_mod)
+open E213.Meta.Nat.AddMod213 (div_add_mod dvd_of_mod_eq_zero add_mod_left_pure zero_mod)
 open E213.Tactic.List213 (map_congr)
-open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat)
+open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat nat_dvd_to_int dvd_sub')
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Meta.Int213.Order (sub_self_zero)
 open E213.Meta.Int213.PolyIntM (mul_zeroZ)
@@ -174,5 +174,51 @@ theorem imu_eq_countNeg (a p m : Nat) :
     sumZ ((seg m).map (fun x => if (a * x) % p ≤ m then (0 : Int) else 1))
       = ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int) :=
   ind_sum_countNeg a p m (seg m)
+
+/-- `(2·k) % 2 = 0` (pure: `add_mod_left_pure` induction). -/
+private theorem two_mul_mod (k : Nat) : (2 * k) % 2 = 0 := by
+  induction k with
+  | zero => exact zero_mod 2
+  | succ k ih =>
+    rw [Nat.mul_succ, Nat.add_comm, add_mod_left_pure 2 (2 * k)]; exact ih
+
+/-- `2 ∣ n → n % 2 = 0` (pure). -/
+private theorem two_dvd_to_mod (n : Nat) (h : 2 ∣ n) : n % 2 = 0 := by
+  obtain ⟨k, hk⟩ := h; rw [hk]; exact two_mul_mod k
+
+/-- ★ **The Eisenstein bridge (divisibility form).**  For an odd unit `a` and odd prime `p`,
+    `a` is a quadratic residue mod `p` iff the floor sum `Σₓ∈[1,m] ⌊a·x/p⌋` is even.
+    Assembles `gauss_mu` (QR ⟺ μ even), `imu_eq_countNeg` (Imu = ↑μ), and `floor_mu_even`
+    (`2 ∣ (Sfloor + Imu)`), with the `2∣·` ↔ `·%2=0` casts. -/
+theorem floor_qr (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) (haodd : a % 2 = 1)
+    (hp2 : 2 < p) :
+    (∃ z : Nat, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = a)
+      ↔ (2 : Int) ∣ sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int))) := by
+  have hsum : (2 : Int) ∣ (sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int)))
+      + ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int)) := by
+    rw [← imu_eq_countNeg a p m]; exact floor_mu_even a p m hp hpr h2m ha1 halt haodd hp2
+  have hmid : countNeg ((seg m).map (sgFn a p m)) % 2 = 0
+      ↔ (2 : Int) ∣ sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int))) := by
+    constructor
+    · intro hcn
+      have hd : (2 : Int) ∣ ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int) :=
+        nat_dvd_to_int 2 _ (by rw [Int.natAbs_ofNat]; exact dvd_of_mod_eq_zero hcn)
+      have hsub := dvd_sub' hsum hd
+      have heq : sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int)))
+          + ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int)
+          - ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int)
+          = sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int))) := by ring_intZ
+      rwa [heq] at hsub
+    · intro hsf
+      have hd : (2 : Int) ∣ ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int) := by
+        have hsub := dvd_sub' hsum hsf
+        have heq : sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int)))
+            + ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int)
+            - sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int)))
+            = ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int) := by ring_intZ
+        rwa [heq] at hsub
+      exact two_dvd_to_mod _ (by have := int_dvd_to_nat 2 _ hd; rwa [Int.natAbs_ofNat] at this)
+  exact (gauss_mu a p m hp hpr h2m hm1 ha1 halt).trans hmid
 
 end E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
