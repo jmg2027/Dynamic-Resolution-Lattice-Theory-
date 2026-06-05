@@ -18,6 +18,7 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
 | `Capstone.lean` | 4 cluster witnesses + total_witness | ∅-axiom |
 | `CountExistence.lean` | **COUNT** = quantitative `GAP`: `union_bound`, `deficit_exists` (deficit ⟹ ∃ good, finite search), `count_existence`, `erdos_schema` (the probabilistic method as one theorem) | ∅-axiom |
 | `RamseyLowerBound.lean` | the per-event count's *why*: `count_factor` (free bits double), `mono_event_count` (`2·2^{E−m}`), `matchesC_count` (arbitrary-subset count) | ∅-axiom |
+| `Sperner.lean` | Sperner's theorem compiled to **COUNT**'s double-counting face (LYM = dual union bound).  `layer_size` (layer = binomial, the READ), `eq_of_subseteq_card_eq` (SEPARATE), `lower_bound` (tight), `binom_le_binom_mid` (unimodality via `absorb`), `uniform_antichain_le` (single-layer Sperner, general), `lym_double_count`/`sumOver_swap` (the engine).  Named bound's chain-count = honest rung | ∅-axiom |
 | `LinearDependence.lean` | `dimension_bound_is_count` — `m>n` vectors in `𝔽₂^n` dependent via subset-sum collision (= COUNT in a linear codomain); `vsum`/`vxor` | ∅-axiom |
 | `ParityInvariant.lean` | mutilated chessboard: `tiling_balanced` (conserved colour-count = READ ∘ SEPARATE), `corners_same_colour`; `par` = `Mod213.parity` | ∅-axiom |
 | `KonigConditional.lean` | König boundary: `konig_conditional`/`walk` (the LOOP, internal); `InfBelow`/`InfChildExists` (the un-dischargeable `DECIDE` = the exterior) | ∅-axiom (conditional) |
@@ -51,11 +52,14 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
 ## proof-ISA reproductions (`theory/essays/proof_isa/`)
 
 The probabilistic method, the linear-algebra / dimension method, the parity /
-invariant method, and König's lemma are compiled down the proof-ISA here — the
-"why" of each lives in `theory/essays/proof_isa/`.  The Ramsey **lower** bound
-`R(k,k) > 2^{k/2}` has its engine built (`CountExistence` + `RamseyLowerBound`);
-the *named* closure is the one open `K_N`-bookkeeping rung
-(`research-notes/frontiers/G200_*`).
+invariant method, Sperner's theorem, and König's lemma are compiled down the
+proof-ISA here — the "why" of each lives in `theory/essays/proof_isa/`.  Two of
+them sit on `COUNT`'s two faces: the Ramsey **lower** bound `R(k,k) > 2^{k/2}`
+is the *union bound* (`CountExistence` + `RamseyLowerBound`); **Sperner**'s upper
+bound is its *dual*, the double count / LYM (`Sperner.lean`).  Each has its
+engine built ∅-axiom with the *named* closure a permutation-count bookkeeping
+rung (Ramsey: `t = C(N,k)`; Sperner: `n!` and `k!(n−k)!`) —
+`research-notes/frontiers/`.
 
 ## Out of scope (separate continuation)
 

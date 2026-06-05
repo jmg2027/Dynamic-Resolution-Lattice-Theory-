@@ -50,6 +50,17 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     not deficit→existence) and *not* a new instruction — the SEPARATE-side of
     the eight, where the two COUNT essays sit on the GAP-side.
 
+  · [`sperner_double_counting.md`](sperner_double_counting.md) — Sperner (1928):
+    the largest antichain in `2^[n]` has size `C(n,⌊n/2⌋)`.  Compiles to the
+    **double-counting** face of **COUNT** — the *dual* of the union bound: one
+    0/1 incidence matrix (subsets × maximal chains) read by rows vs columns
+    (`sumOver_swap`), each chain meeting the antichain ≤ once (`SEPARATE`).
+    *Not* a new instruction — `pigeonhole`/union-bound is *deficit ⟹ existence*,
+    LYM is *per-column cap ⟹ row-sum bound*, the same `GAP`-by-cardinality
+    mirrored.  The Sperner *number* is a separate move: READ (layer = binomial)
+    ∘ unimodality (`binom_le_binom_mid`).  Open rung: the permutation
+    chain-counts (`n!`, `k!(n−k)!`), mirroring Ramsey's named-bound rung.
+
   · [`konig_boundary.md`](konig_boundary.md) — König's lemma (infinite tree ⟹
     infinite path).  The first reproduction that **stalls**: compiles to
     **LOOP ∘ ⟦DECIDE InfBelow⟧**, the path-construction internal (∅-axiom
@@ -59,8 +70,9 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
 
 ## Cumulative finding
 
-Four surface-diverse solved techniques.  **Three close ∅-axiom** with no new
-instruction forced — they collapse onto the named eight (two onto COUNT/GAP, one
+Five surface-diverse solved techniques.  **Four close ∅-axiom** with no new
+instruction forced — they collapse onto the named eight (three onto COUNT/GAP —
+the union bound, the dimension method, and Sperner's *dual* double count — one
 onto READ ∘ SEPARATE), evidence the set is complete *for constructive proofs*.
 **One stalls** (König) — and the stall is located exactly: a decision for a
 non-recursive predicate, which is the exterior by definition, not a ninth move.

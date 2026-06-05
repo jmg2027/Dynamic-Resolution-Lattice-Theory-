@@ -239,6 +239,21 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Sperner's theorem compiled to COUNT's double-counting face (2026-06-05)
+
+`E213.Lib.Math.Combinatorics.Sperner` — **39/39 PURE / 0 DIRTY** (`tools/scan_axioms.py`).
+Sperner (1928): the largest antichain in the Boolean lattice `2^[n]` has size `C(n,⌊n/2⌋)`, compiled down
+the proof-ISA to the **double-counting / dual-union-bound** face of `COUNT` (the mirror of the Ramsey
+union bound).  General `∅`-axiom closures: `layer_size` (the `k`-layer has `binom n k` subsets — the READ,
+count recursion = Pascal), `eq_of_subseteq_card_eq` (equal-size distinct sets incomparable — SEPARATE),
+`lower_bound` (the middle layer is an antichain of size `binom n ⌊n/2⌋` — tight), the binomial-unimodality
+chain (`absorb` the absorption identity `(k+1)C(n,k+1)=(n−k)C(n,k)`, `binom_mono_up/down`, `binom_climb_*`,
+`binom_le_binom_mid`), `uniform_antichain_le` (single-layer Sperner, general), and the LYM engine
+(`sumOver_swap` = Fubini on a 0/1 incidence matrix, `lym_double_count` = per-column cap ⟹ row-sum bound).
+Structural `half` (= ⌊n/2⌋) avoids the propext-tainted `Nat.div` lemmas; `add_mul_pure` / NatHelper
+sub-lemmas keep `absorb` clean.  Open rung (honest, mirrors Ramsey's named bound): the permutation
+chain-counts `n!` and `k!(n−k)!`.  Essay: `theory/essays/proof_isa/sperner_double_counting.md`.
+
 ### Markov composite uniqueness: prime-power-neighbour families addition (2026-06-04)
 
 `E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness` + `…SternBrocotMarkov` +
