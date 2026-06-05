@@ -131,4 +131,39 @@ private theorem cnt2_at_m (m : Nat) : cnt2 m m = m - m / 2 := by
   have hpast := cnt2_past m (m - m / 2)
   rw [heq] at hpast; exact hpast
 
+/-! ## §5 — `(−1)^n = 1 ⟺ n even`, and the supplement -/
+
+private theorem neg_one_pow_two (k : Nat) : (-1 : Int) ^ (2 * k) = 1 := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    rw [Nat.mul_succ, show 2 * k + 2 = (2 * k + 1) + 1 from rfl, Int.pow_succ, Int.pow_succ, ih]
+    decide
+
+private theorem neg_one_pow_iff (n : Nat) : (-1 : Int) ^ n = 1 ↔ n % 2 = 0 := by
+  rcases Nat.eq_zero_or_pos (n % 2) with h0 | hpos
+  · refine ⟨fun _ => h0, fun _ => ?_⟩
+    obtain ⟨k, hk⟩ : ∃ k, n = 2 * k :=
+      ⟨n / 2, by have h := div_add_mod n 2; rw [h0, Nat.add_zero] at h; exact h.symm⟩
+    rw [hk]; exact neg_one_pow_two k
+  · have h1 : n % 2 = 1 := Nat.le_antisymm (Nat.le_of_lt_succ (Nat.mod_lt n (by decide))) hpos
+    obtain ⟨k, hk⟩ : ∃ k, n = 2 * k + 1 :=
+      ⟨n / 2, by have h := div_add_mod n 2; rw [h1] at h; exact h.symm⟩
+    constructor
+    · intro hpow
+      exfalso
+      rw [hk, Int.pow_succ, neg_one_pow_two, Int.one_mul] at hpow
+      exact absurd hpow (by decide)
+    · intro h; rw [h1] at h; exact absurd h (by decide)
+
+/-- ★★★★★ **The quadratic character of `2` (`m`-form).**  `2` is a QR mod `p` ⟺ `m − ⌊m/2⌋` is even
+    (`m = (p−1)/2`).  `two_qr_iff` ∘ `prodZ_seg_sign` (= `(−1)^(cnt2)`) ∘ `cnt2_at_m`
+    (`= m − m/2`) ∘ `neg_one_pow_iff`. -/
+theorem second_supplement_m (p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (hp2 : 2 < p) :
+    (∃ z : Nat, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = 2) ↔ (m - m / 2) % 2 = 0 := by
+  refine (two_qr_iff p m hp hpr h2m hm1 hp2).trans ?_
+  rw [prodZ_seg_sign m m, cnt2_at_m]
+  exact neg_one_pow_iff (m - m / 2)
+
 end E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
