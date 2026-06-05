@@ -78,9 +78,15 @@ scorer is a known instance, `0/4 ≠ eliminated` (minimizable-not-eliminable hol
 3. **Reframing-lint** — scale the pilot (N per arm, error bars) + vary battery difficulty to locate where
    re-framing re-emerges (the empirical signature of minimizable-not-eliminable).
 
-## Next
-- Closest reachable: Gauss's lemma / the quadratic character of `2` (Open 2), both directly on
-  `euler_criterion`.  Or promote first (Open 1).  Or open a different domain (primacy = breadth).
+## Next (autonomous marathon — `autonomous-research` skill)
+- **Quadratic reciprocity** is the next landmark; all prerequisites are closed ∅-axiom and `gauss_mu`
+  (Gauss's lemma μ-form) is the engine.  Remaining = the Eisenstein lattice-point count
+  (`μ ≡ Σ⌊a·x/p⌋ mod 2` + the rectangle double-count).  Full plan:
+  `research-notes/frontiers/quadratic_reciprocity.md`.  Multi-session build (≈ Gauss-lemma marathon).
+- Or: promote the closed QR theory (`EulerCriterion`…`SecondSupplement`) to `theory/math/numbertheory/`
+  (PROMOTION_CRITERIA-eligible: PURE + categorically closed).
+- This session built the **complete elementary quadratic-residue theory ∅-axiom**: Euler's criterion
+  (full iff), first supplement, Legendre multiplicativity, Gauss's lemma (+ μ-form), second supplement.
 
 ## File Map
 ```
