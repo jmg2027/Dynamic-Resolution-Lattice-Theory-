@@ -277,4 +277,29 @@ theorem div_le_div_right_pos (c : Nat) (hc : 0 < c) {x y : Nat} (h : x ≤ y) :
     exact Nat.lt_irrefl c (Nat.lt_of_le_of_lt hcle hmod_lt)
   · exact hge
 
+/-- `y ≤ a / p ↔ y * p ≤ a` (`0 < p`).  ∅-axiom replacement for Lean-core
+    `Nat.le_div_iff_mul_le` (propext).  Forward: `y·p ≤ (a/p)·p ≤ a`
+    (`div_mul_le_self`); backward by contradiction (`a < (a/p+1)·p ≤ y·p`,
+    using `div_add_mod` + `Nat.mod_lt`). -/
+theorem le_div_iff_mul_le {p : Nat} (hp : 0 < p) (y a : Nat) :
+    y ≤ a / p ↔ y * p ≤ a := by
+  constructor
+  · intro h
+    exact Nat.le_trans (Nat.mul_le_mul_right p h)
+      (E213.Meta.Nat.NatDiv213.div_mul_le_self a p)
+  · intro h
+    rcases Nat.lt_or_ge (a / p) y with hlt | hge
+    · exfalso
+      have hmod : a % p < p := Nat.mod_lt a hp
+      have hdm : p * (a / p) + a % p = a := div_add_mod a p
+      have key : p * (a / p) + a % p < p * (a / p) + p :=
+        Nat.add_lt_add_left hmod (p * (a / p))
+      rw [hdm] at key
+      have hge_form : (a / p + 1) * p = p * (a / p) + p := by
+        rw [Nat.succ_mul, Nat.mul_comm (a / p) p]
+      have hlt2 : a < (a / p + 1) * p := by rw [hge_form]; exact key
+      have hle2 : (a / p + 1) * p ≤ y * p := Nat.mul_le_mul_right p hlt
+      exact Nat.lt_irrefl a (Nat.lt_of_lt_of_le (Nat.lt_of_lt_of_le hlt2 hle2) h)
+    · exact hge
+
 end E213.Meta.Nat.AddMod213
