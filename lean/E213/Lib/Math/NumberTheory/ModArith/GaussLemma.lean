@@ -242,4 +242,26 @@ theorem fold_inj (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ 
     · exact (res_cancel a p y x hp hpr hnpa hyp (Nat.le_of_lt hlt) heqr.symm).symm
     · exact res_cancel a p x y hp hpr hnpa hxp hge heqr
 
+/-! ## §5 — the fold is a permutation of `[1, m]` -/
+
+/-- ★★ **The fold permutes the half-system.**  `[fold a p m x : x ∈ [1..m]]` is an `LPerm` of
+    `[1..m]`: it is `Nodup` (injective, `fold_inj`) and lands in `[1..m]` (`fold_mem`), hence by
+    cardinality (`mem_of_card_le`) hits every element. -/
+theorem fold_perm (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) :
+    LPerm ((seg m).map (fold a p m)) (seg m) := by
+  have hsub : ∀ q, q ∈ (seg m).map (fold a p m) → q ∈ seg m := by
+    intro q hq
+    obtain ⟨x, hx, hxq⟩ := exists_of_mem_map hq
+    obtain ⟨hx1, hxm⟩ := mem_seg.mp hx
+    rw [← hxq]
+    exact mem_seg.mpr (fold_mem a p m x hp hpr h2m ha1 halt hx1 hxm)
+  have hfnd : ((seg m).map (fold a p m)).Nodup :=
+    nodup_map_of_inj (fold_inj a p m hp hpr h2m ha1 halt) (seg_listNodup m)
+  have hlenEq : ((seg m).map (fold a p m)).length = (seg m).length := length_map (seg m) (fold a p m)
+  have hmem : ∀ q, q ∈ (seg m).map (fold a p m) ↔ q ∈ seg m := fun q =>
+    ⟨hsub q, mem_of_card_le hfnd hsub (Nat.le_of_eq hlenEq.symm) q⟩
+  exact lperm_of_nodup_mem_iff (cntNodup_of_listNodup hfnd)
+    (cntNodup_of_listNodup (seg_listNodup m)) hmem
+
 end E213.Lib.Math.NumberTheory.ModArith.GaussLemma
