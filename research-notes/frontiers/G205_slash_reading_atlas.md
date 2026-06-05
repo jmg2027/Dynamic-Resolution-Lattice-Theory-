@@ -69,9 +69,16 @@ not a new theorem.
   `lean/E213/Lib/Math/Algebra/Mobius213/Px/MetallicThreshold.lean`
   (`detMa_eq`, `detMa_collapse`, `golden_signature`, `metallic_discriminants`,
   `metallic_threshold_master`).
-- **(K2)** `K_{3,2}^{(c=2)}` from the construction: split distinguishing into
-  state (3) / transition (2) per §6.2, bipartite embedding; connect to the
-  closure form `R(N_S,N_T,d,c)·Π(1+κᵢαᵢ^{nᵢ})`.
+- **(K2) — CLOSED** ∅-axiom (build + `scan_axioms` PURE, 17/0).  The §6.2 graph
+  the simplex erased: `K_{3,2}^{(c=2)}` adjacency from the state (3) / transition
+  (2) split — bipartite (no within-kind edges), complete across, 12 edges,
+  S-degree 4, T-degree 6, handshake 24, and the complete-`K_5`-minus-within
+  identity recovering the 6 cross pairs.
+  `lean/E213/Lib/Math/Geometry/BipartiteDecomp/K32Adjacency.lean`
+  (`no_state_state`, `no_transition_transition`, `cross_complete`, `edge_count`,
+  `state_degree`, `transition_degree`, `handshake`, `simplex_minus_within`,
+  `k32_adjacency_master`).  (The numerical P-bridge was already in
+  `Mobius213K32Bridge`; this adds the adjacency/degree structure.)
 - **(K3) — CLOSED** ∅-axiom (build + `scan_axioms` PURE, 11/0).  Both halves
   done: the Möbius / constants half (§2 cites) and the dimension-Lens half —
   `prim-distinct ⟺ linear independence` + approach to orthogonality — now in
@@ -87,10 +94,9 @@ not a new theorem.
 
 ## §4 Promotion
 
-Mediant cell has Lean support (`SternBrocotMarkov`, `Mobius213/Px`).  **K1**
-(C1 threshold, `Px/MetallicThreshold.lean`) and **K3** (dimension-Lens
-orthogonality, `AngleStructure/SimplexOrthogonality.lean`) are now **closed**
-∅-axiom — both are source-of-truth.  Remaining open: **K2** (`K_{3,2}` bipartite
-construction — but the numerical bridge already exists, `Mobius213K32Bridge`;
-the genuinely-new piece would be the §6.2 state/transition graph) and **K4**
-(other `SL(2,ℤ)` generators).  Atlas stays tier-1 until further cells close.
+**K1** (C1 threshold, `Px/MetallicThreshold.lean`), **K2** (§6.2 bipartite graph,
+`BipartiteDecomp/K32Adjacency.lean`), and **K3** (dimension-Lens orthogonality,
+`AngleStructure/SimplexOrthogonality.lean`) are now **closed** ∅-axiom — all
+source-of-truth (mediant cell already had `SternBrocotMarkov` / `Mobius213/Px`).
+Remaining open: **K4** (other `SL(2,ℤ)` generators / de Rham parameters `w`).
+The atlas's structural spine is now Lean-verified; what remains is breadth.

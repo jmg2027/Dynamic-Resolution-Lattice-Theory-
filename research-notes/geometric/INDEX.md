@@ -67,9 +67,11 @@ onto §3.2 / §3.5.
   where the constants appear (tests the meta-thesis directly).
 - **Directed mediant** (signed Stern–Brocot): the difference-Lens ℤ-completion
   on the tree.
-- **`K_{3,2}^{(c=2)}` directly**: split the distinguishing into state (3) /
-  transition (2) per §6.2 and embed bipartitely — the asymmetry the regular
-  simplex erased; connect to the closure form `R(N_S,N_T,d,c)·Π(1+κᵢαᵢ^{nᵢ})`.
+- ~~**`K_{3,2}^{(c=2)}` directly**: split the distinguishing into state (3) /
+  transition (2) per §6.2 and embed bipartitely~~ — **CLOSED** ∅-axiom:
+  `BipartiteDecomp/K32Adjacency.lean` (the bipartite adjacency / degree structure
+  the regular simplex erased; 17 PURE).  Still open: connect to the full closure
+  form `R(N_S,N_T,d,c)·Π(1+κᵢαᵢ^{nᵢ})`.
 - **Higher `Rawⁿ` readings** (flat ontology §6.3): the relation of `n`-tuples,
   not just pairs → higher simplicial / hypergraph shapes.
 - **Spectral readouts**: adjacency / Laplacian spectrum of the growth graph —
