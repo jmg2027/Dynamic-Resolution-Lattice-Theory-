@@ -26,6 +26,7 @@ open E213.Tactic.List213
   (mem_append_left mem_append_right mem_append_iff mem_filter mem_filter_of
    exists_of_mem_map mem_map_of_mem nodup_map_of_inj length_map length_append)
 open E213.Lib.Math.Combinatorics.Permutations
+open E213.Tactic.NatHelper (add_sub_cancel_right)
 open E213.Tactic.NatHelper renaming mul_assoc → nmul_assoc, mul_left_comm → nmul_left_comm
 open E213.Lib.Physics.Simplex.Counts (binom)
 
@@ -595,7 +596,7 @@ theorem wovenFam_length (hAn : A.length = n) (hBn : B.length = n) (hd : disjoint
   have hRlen : (restPos A B (idxList n)).length = n - (cardB A + cardB B) := by
     calc (restPos A B (idxList n)).length
         = (restPos A B (idxList n)).length + (cardB A + cardB B) - (cardB A + cardB B) := by
-          rw [Nat.add_sub_cancel]
+          rw [add_sub_cancel_right]
       _ = n - (cardB A + cardB B) := by rw [hRcard_n hAn hBn hd]
   have e2 : ∀ (mask : List Bool) (σA : List Nat),
       (flatMap213 (fun σB => List.map (fun σR => weave mask (σA ++ σB) σR)
