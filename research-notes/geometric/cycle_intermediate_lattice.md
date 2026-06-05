@@ -33,6 +33,22 @@ user's precise description rediscovers *why* the theory is a lattice theory.
   paths through the infinite branching, of cardinality `2^ℵ₀`: the "cardinal"
   intuition is correct there.
 
+  *Sharpened (the "no global cycle" objection, `no_global_cycle.py`):* there is
+  **no canonical global cycle number at all.**  Claiming "the synchronous cycle is
+  ℕ" smuggles an external synchronization barrier.  From cycle 2 the independent
+  axes (d, e) cannot be bundled into one global step canonically (which side is
+  "cycle 2"?), and processing one axis creates new lines mid-cycle, so the cycle
+  has no intrinsic boundary.  What is schedule-invariant (by confluence) is the
+  **configuration lattice** — the causal partial order.  A "global cycle = n"
+  numbering is a *foliation* of that lattice into levels = a global simultaneity,
+  which needs an external clock the axiom does not provide (§5.1 no exterior, §6.2
+  no external time).  It is precisely relativity: the causal poset is invariant,
+  the simultaneity slicing is frame-dependent.  The only schedule-invariant
+  grading is the operation-count rank — and each rank is an **antichain**, not a
+  state, so even it gives levels, not cycles.  So conjecture 1 is *more* than
+  right: the intrinsic index is the partial order (lattice) itself; every total
+  order (ℕ *or* an ordinal) is an imposed foliation.
+
 - **Conj. 3 (no clean termination for cycle > 1) — TRUE in the lattice/ordinal
   sense.**  A cycle completes at the *top* of its order-ideal sublattice, which is
   the **join (supremum) of all its parallel operations** — not a single last step.
