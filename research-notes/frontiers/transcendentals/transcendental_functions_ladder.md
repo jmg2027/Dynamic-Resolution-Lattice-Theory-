@@ -69,6 +69,10 @@ T4. **sqrt as a smooth function** — `sqrtCut a` via bisection / Newton on `x²
     ⚙️ **discrete foundation done** (`NumberTheory/IntSqrt.lean`, PURE): `isqrt n = ⌊√n⌋`
     with the bracket `isqrt n · isqrt n ≤ n < (isqrt n + 1)²` (`isqrt_bracket`).  The real
     `sqrtCut` is the `Real213` limit of `isqrt` on dyadic rescalings (`isqrt (a·4ᵏ)/2ᵏ`).
+    ⚙️ **dyadic √ convergence certificate done** (`IntSqrt` §5, 2 PURE): `dyadicSqrtSeq a k =
+    isqrt(a·4ᵏ)` with `dyadicSqrtSeq_bracket` (brackets `√a` to width `1/2ᵏ`) +
+    `dyadicSqrtSeq_step` (`2·s_k ≤ s_{k+1} ≤ 2·s_k+1`, Cauchy modulus `1/2ᵏ`).  **Remaining**:
+    cut-level `sqrtCut` as the `Real213` `CauchyCutSeq` of `s_k/2ᵏ` + `(sqrtCut a)²=a` + `d/dx sqrt`.
 T5. **functional equations / identities** — `sin²+cos² = 1`, `exp(a+b) =
     exp a · exp b` (Cauchy-product of the series); the engine certificates that
     make the transcendentals usable downstream.
