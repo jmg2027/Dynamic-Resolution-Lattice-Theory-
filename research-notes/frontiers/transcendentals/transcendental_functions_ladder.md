@@ -69,6 +69,13 @@ T4. **sqrt as a smooth function** — `sqrtCut a` via bisection / Newton on `x²
 T5. **functional equations / identities** — `sin²+cos² = 1`, `exp(a+b) =
     exp a · exp b` (Cauchy-product of the series); the engine certificates that
     make the transcendentals usable downstream.
+    ⚙️ **`choose`↔factorial bridge done** (`NumberTheory/DyadicFSM/FLT/ChooseFactorial.lean`,
+    1 PURE): `choose (k+j) k · (k!·j!) = (k+j)!` (division-free `C(n,k)=n!/(k!(n−k)!)`), proven
+    from the absorption identity `choose_succ_mul` by induction.  This is the bridge `exp(a+b)`
+    needs: cross-multiplying the Cauchy convolution `Σ (aʲ/j!)(bᵏ/k!)` by `n!` turns it into
+    `Σ C(n,j) aʲ bⁿ⁻ʲ = (a+b)ⁿ` (binomial theorem, `binom_theorem_b_eq_one` already PURE) via
+    exactly `C(n,j)·j!·(n−j)!=n!`.  **Remaining**: the general 2-var binomial `(a+b)ⁿ = Σ C(n,k)aᵏbⁿ⁻ᵏ`
+    (the b=1 case is done; the `bⁿ⁻ᵏ` induction is the work) + the cut-level series convolution.
 
 ## Downstream unblocked
 

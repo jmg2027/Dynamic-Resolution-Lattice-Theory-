@@ -498,6 +498,18 @@ leaks of core `Int.ofNat_*` / `Nat.add_sub_cancel_left` / `sub_eq_zero` were sid
 
 ### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
+### Marathon T5 (enabling) — `choose`↔factorial bridge (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial` — **1 PURE / 0 DIRTY**.  `choose_mul_factorials`:
+`C(k+j, k) · (k!·j!) = (k+j)!` — the division-free `C(n,k) = n!/(k!(n−k)!)` (parametrized by `n=k+j` to
+dodge `Nat`-subtraction).  Proven from the absorption identity `choose_succ_mul`
+(`(k+1)·C(n+1,k+1)=(n+1)·C(n,k)`) by induction on `k`: multiply the goal by `k+1`, rewrite the head via
+`choose_succ_mul` + `(k+1)!=(k+1)·k!`, apply IH, cancel `k+1` (`Nat.eq_of_mul_eq_mul_left`, pure).  This is the
+bridge the **exp functional equation** `exp(a+b)=exp(a)exp(b)` needs: cross-multiplying the Cauchy convolution
+`Σ(aʲ/j!)(bᵏ/k!)` by `n!` gives `Σ C(n,j)aʲbⁿ⁻ʲ = (a+b)ⁿ` (binomial theorem) via exactly `C(n,j)·j!·(n−j)!=n!`.
+Connects the combinatorial `choose` (Pascal) to the analytic `factorial`; reusable across combinatorics /
+probability.  Purity: needed NatHelper's pure `mul_assoc` (Lean-core `Nat.mul_assoc` leaks `propext`).
+
 ### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
 
 **3 PURE / 0 DIRTY** (`exp_deriv_coeff_fixed` in `CutExpModulus`; `sin_deriv_coeff`, `cos_deriv_coeff` in
