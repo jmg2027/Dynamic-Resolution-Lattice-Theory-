@@ -44,10 +44,16 @@ exposed patterns worth harvesting.
   `mul_lt_mul_right` / `pow_add` / `succ_sub` / strict-mono — would dedup the
   privates scattered across `Sperner`, `RamseyNamedBound`, and likely elsewhere.
 
-- **More COUNT-family named bounds on the same substrate.**  The LYM engine +
-  `binom_mul_fact` give the explicit fractional form `Σ_{A∈F} 1/C(n,|A|) ≤ 1` for
-  free; Dilworth/Mirsky (chain/antichain duality) and Bollobás' set-pair
-  inequality are LYM-shaped and reuse `perms`/`kLayer`.
+- **More COUNT-family named bounds on the same substrate.**  ✓ **The explicit
+  LYM inequality `Σ_{A∈F} 1/C(n,|A|) ≤ 1` is now closed** —
+  `LymInequality.lym_antichain` (division-free form `Σ |A|!(n−|A|)! ≤ n!`),
+  with `lym_tight_layer` (sharpness) and `sperner_via_lym` (LYM ⟹ Sperner); it
+  was the existing `lym_double_count` engine stopped one line before Sperner's
+  `min`-collapse.  Still open and LYM-shaped on the same substrate:
+  Dilworth/Mirsky (chain/antichain duality) and Bollobás' set-pair inequality
+  (orderings with "all of `A` before all of `B`", disjoint by cross-intersection;
+  the exact count `#E_i·(a+b)! = n!·a!·b!` is the remaining infra) — both reuse
+  `perms`/`kLayer`.
 
 - **Leibniz determinant over `perms`.**  `Linalg213/Permutation` uses `LPerm`
   *equivalence* + inversion-sign but no enumeration; `perms` + `mem_perms_iff` +

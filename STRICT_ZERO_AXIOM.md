@@ -287,6 +287,18 @@ via `matchesC_count`), and `ramsey_lower`: `2·C(N,k) < 2^{C(k,2)}` ⟹ a 2-colo
 `Sperner.kLayer_card`.  **Both named proof-ISA COUNT bounds — Sperner and Ramsey — are now
 closed**, completing the series (`theory/essays/proof_isa/`).
 
+★ **The LYM inequality — the per-term refinement Sperner discards** —
+`E213.Lib.Math.Combinatorics.LymInequality` (**5/5 PURE**): `lym_inequality`
+(engine form over any chain model), ★★ `lym_antichain` (named, unconditional:
+`Σ_{A∈F} |A|!·(n−|A|)! ≤ n!`, the division-free form of the Bollobás–LYM
+inequality `Σ 1/C(n,|A|) ≤ 1` via `binom_mul_fact`), `lym_tight_layer`
+(sharpness — a full layer saturates at `= n!`, so the layers are exactly the
+extremal antichains), and `sperner_via_lym` (LYM ⟹ Sperner: apply the discarded
+`min` `fact_mul_ge_mid`, then cancel).  Reuses `Sperner.lym_double_count` +
+`SpernerChains.{chains_length,chain_cap,chain_low}` — the named inequality is the
+existing engine stopped one line before Sperner's collapse, strictly stronger
+than the number it implies.  Essay: `theory/essays/proof_isa/lym_inequality.md`.
+
 ### Markov composite uniqueness: prime-power-neighbour families addition (2026-06-04)
 
 `E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness` + `…SternBrocotMarkov` +

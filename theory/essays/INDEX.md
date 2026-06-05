@@ -69,9 +69,11 @@ others together):
 **X. `proof_isa/` — proof as compilation to the residue ISA.**
 `what_is_a_proof` (series synthesis), `counting_as_cardinality` (the COUNT-arc
 synthesis), `probabilistic_method`, `sperner_double_counting`,
+`lym_inequality` (the per-term refinement Sperner discards; `Σ 1/C(n,|A|) ≤ 1`),
 `linear_algebra_method`, `parity_invariant_method`, `konig_boundary`.
 The "why" of each reproduced technique; the instruction set's interior + edge.
-Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom.
+Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom; LYM is the
+sharp inequality Sperner is the corollary of.
 
 ## Current essays
 

@@ -64,6 +64,18 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     counts are built ∅-axiom over the full `perms` characterisation
     (`perms_length = n!`, `mem_perms_iff`, `perms_nodup`).
 
+  · [`lym_inequality.md`](lym_inequality.md) — the **LYM / Bollobás–LYM
+    inequality** `Σ_{A∈F} 1/C(n,|A|) ≤ 1` (division-free integer form
+    `Σ |A|!(n−|A|)! ≤ n!`).  *Not* a new instruction — it is
+    `sperner_double_counting`'s engine `lym_double_count` **stopped one line
+    before the `min`**: Sperner replaces each summand by the middle term
+    (`fact_mul_ge_mid`) and reads off the number; LYM is the inequality above
+    that collapse, strictly stronger.  `sperner_via_lym` derives Sperner *from*
+    LYM (apply `min`, then cancel), and `lym_tight_layer` proves the bound sharp
+    — a full layer saturates it (`= n!`), so the layers are exactly the extremal
+    antichains.  The lesson: a theorem and its famous corollary differ by which
+    line of one compilation you read.
+
   · [`counting_as_cardinality.md`](counting_as_cardinality.md) — **what is counting,
     in 213?**  Synthesis of the COUNT arc: a cardinality is the count-Lens reading
     of a *finite residue* (`List.length`, no `Fintype`).  Binomials read layers
