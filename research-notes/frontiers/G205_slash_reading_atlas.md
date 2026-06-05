@@ -40,6 +40,26 @@ somethings" of §3.5), glue fixed: `M_a=[[a,1],[1,1]]`, `det = a-1`.
 So C1 holds in refined form (blind ⟺ `det=0`; the specific 213 constants ⟺ the
 forced `a=2`).  The loop closes back onto §3.2 / §3.5.
 
+**Status — already closed ∅-axiom in Lean (repo-first; build + `scan_axioms`
+verified PURE).**  The geometric C1 exploration independently re-derived the
+closed `Mobius213/Px` sub-tree (29 files, promoted to
+`theory/math/algebra/mobius213_p_orbit_closure.md`):
+
+- general det in terms of the knob — `Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt`
+  (`det = N_S − N_T`); `a=2` glue — `one_is_det`, `mobius_det_is_unit`,
+  `Px.CassiniUniversal.cassini_universal` (`det = 1 ∀n`).
+- the collapse end (`det = 0`, `N_S = N_T`) — `Mobius213K33Bridge.k33_NS_minus_NT_eq_zero`.
+- the lock onto the non-degenerate `(2,3,5)` (vs the degenerate `(1,1,2)` =
+  the `a=1` end) — `Px.FibonacciAtomicLock.fibonacci_atomic_lock_master`,
+  `atomic_signature_eq_fibonacci`.
+- char poly `x² − det·x − det` (the knob as a parameter) —
+  `Px.OpenSpeciesClosure`.
+
+What the geometric exploration *adds* is only narrative: the continuous knob `a`
+presenting collapse (`a=1`) and golden (`a=2`) as the two ends of **one dial**
+(betweenness ↔ mediant).  That is a synthesis for the atlas / a future essay,
+not a new theorem.
+
 ## §3 Open knots
 
 - **(K1)** The midpoint ↔ mediant interpolation (denominator `2` ↔ `q+s`):
@@ -47,9 +67,10 @@ forced `a=2`).  The loop closes back onto §3.2 / §3.5.
 - **(K2)** `K_{3,2}^{(c=2)}` from the construction: split distinguishing into
   state (3) / transition (2) per §6.2, bipartite embedding; connect to the
   closure form `R(N_S,N_T,d,c)·Π(1+κᵢαᵢ^{nᵢ})`.
-- **(K3)** `prim-distinct ⟺ linear independence` + the monotone
-  `arccos(−1/n) → 90°` climb as ∅-axiom Lean theorems (→ `Lens/` sub-tree;
-  see `geometric/dimension_lens.md`).
+- **(K3)** The Möbius / constants half is **closed** (see §2 status, cites).
+  Still open: `prim-distinct ⟺ linear independence` + the monotone
+  `arccos(−1/n) → 90°` climb as ∅-axiom theorems — the genuinely hard part is
+  trig / reals with zero Mathlib (→ `Lens/` sub-tree; `geometric/dimension_lens.md`).
 - **(K4)** Which other `SL(2,ℤ)` generators / de Rham parameters `w` yield
   213-relevant numbers?
 

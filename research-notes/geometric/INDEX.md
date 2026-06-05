@@ -79,12 +79,19 @@ onto §3.2 / §3.5.
 
 ## Promotion path
 
-- The mediant / Stern–Brocot cell already has Lean support (`SternBrocotMarkov`).
-- `prim-distinct ⟺ linear independence` + the monotone `arccos(−1/n)→90°` climb
-  → candidate `lean/E213/Lens/` sub-tree (see `dimension_lens.md`).
-- The atlas stays tier-1 until individual cells close (∅-axiom); closed cells
-  promote to `theory/` per `theory/PROMOTION_CRITERIA.md`.  Frontier registered
-  in `research-notes/frontiers/`.
+- The **mediant / Möbius / constants cell is already closed** ∅-axiom in Lean
+  (repo-first finding; build + `scan_axioms` verified PURE): the `Mobius213/Px`
+  sub-tree (29 files), promoted to
+  `theory/math/algebra/mobius213_p_orbit_closure.md`.  Key cites — det glue
+  `Mobius213OneAsGlue.{one_is_det, mobius_det_eq_ns_minus_nt, mobius_det_is_unit}`,
+  `Px.CassiniUniversal.cassini_universal` (det=1 ∀n); the `det=0` collapse end
+  `Mobius213K33Bridge.k33_NS_minus_NT_eq_zero`; the `(2,3,5)` lock
+  `Px.FibonacciAtomicLock.fibonacci_atomic_lock_master`.  The geometric C1
+  exploration *re-derived* this; its only addition is the one-dial narrative.
+- **Still open**: `prim-distinct ⟺ linear independence` + the `arccos(−1/n)→90°`
+  climb (`dimension_lens.md`) — the hard part is trig / reals with zero Mathlib.
+- The atlas stays tier-1; closed cells already live in `theory/`.  Frontier
+  registered in `research-notes/frontiers/G205`.
 
 ## Caution (self-check #0)
 
