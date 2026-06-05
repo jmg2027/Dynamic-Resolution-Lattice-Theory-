@@ -1,90 +1,78 @@
-# Session Handoff — 2026-06-04 (Markov composite uniqueness: prime-power-neighbour families)
+# Session Handoff — 2026-06-05 (the slash-reading atlas + deep-research pass)
 
 ## Branch
-`claude/markov-uniqueness-0R0Ut` — 3 commits ahead of `origin` (the process/essay/org-audit marathon
-commits); the math commits are pushed.  `cd lean && lake build E213` ✓ clean.  About to push + merge to
-`main`.
+`claude/geometric-object-relations-yoaI2` — pushed.  `cd lean && lake build
+E213.Lib.Math.Geometry.AngleStructure E213.Lib.Math.Geometry.BipartiteDecomp
+E213.Lib.Math.Algebra.Mobius213.Px` ✓ clean (only unrelated `Cauchy/Archimedean`
+unused-variable warnings).
 
-## What was done this session
+## What this session did
 
-### 1. New infinite composite-uniqueness families closed (all strict ∅-axiom)
-`MarkovMaxUnique c` (the Markov uniqueness conjecture at a fixed max `c`) is now closed unconditionally for
-two families beyond Button's odd prime powers:
+Originating prompt (Mingu Jeong): "object = the relation of two distinct objects,
+recurse."  This grew into the **slash-reading atlas** — the slash read through
+different folds out of `Raw` (`§4.2`) yields a family of structures — worked
+geometrically (Python, `research-notes/geometric/`), then closed as ∅-axiom Lean
+cells, then deep-researched with an agent team.  Live board: frontier **G205**
+(`research-notes/frontiers/G205_slash_reading_atlas.md`); atlas index
+`research-notes/geometric/INDEX.md`.
 
-- **Even `2·pᵏ`** — `SternBrocotMarkov.markov_two_prime_pow_unique`, via CRT recombination of the root
-  count (`MarkovPrimeFactor.two_roots_of_two_prime_pow`: `x²≡−1 mod 2·pᵏ` has ≤ 2 roots, the factor 2
-  split off by CRT).  Covers even Markov numbers `34 = 2·17`, `194 = 2·97`, …
-- **Zhang's `3c±2` criterion** — `MarkovUniqueness.markov_max_unique_via_3c_pm2`: if `3c−2` **or** `3c+2`
-  is an odd prime power, `c` is unique.  Mechanism: the discriminant `9c²−4 = (3c−2)(3c+2)` is read mod the
-  prime-power factor, collapsing the c-side `≥ 4`-root reading to `≤ 2` (`MarkovPrimeFactor.sq_eq_collapse_pp`).
-  `3c−2` reframes through the **gap** `b−a`, `3c+2` through the **sum** `a+b`.
-  Concrete: **`markovMaxUnique_985`** — first composite Markov number (`985 = 5·197`, 4 roots) closed
-  **structurally, no `decide` on the triple** (`3·985−2 = 2953` prime; `√2953`-bounded primality via
-  `prime_of_no_small_factor`).
+### New ∅-axiom Lean cells (all PURE, build + scan verified)
+- `Lib/Math/Geometry/AngleStructure/SimplexOrthogonality.lean` (11) — dimension-Lens
+  limit: regular n-simplex `cos = −1/n` (rational-Gram, no trig), partition-of-unity
+  dependence, uncentred independence ∀n.
+- `Lib/Math/Geometry/AngleStructure/SimplexSelfForm.lean` (6) — **static = dynamic
+  (μF≅νF)** for the complete-graph reading: `edgesK(m+1)=edgesK m + m` by `rfl`.
+- `Lib/Math/Algebra/Mobius213/Px/MetallicThreshold.lean` (11) — C1 test: `M_a`,
+  `det=a−1`, collapse at `a=1`, golden `(3,1,5)` at the forced `a=2`.
+- `Lib/Math/Algebra/Mobius213/Px/MetallicGeneratorTower.lean` (14) — metallic
+  `SL(2,ℤ)` tower `N_k=[[k,1],[1,0]]`, `det=−1 ∀k`, golden the `disc=d=5` min rung,
+  `N_1²=P`.
+- `Lib/Math/Geometry/BipartiteDecomp/K32Adjacency.lean` (17) — §6.2 bipartite
+  `K_{3,2}^{(c=2)}` adjacency the simplex erased.
+- `Lib/Math/Geometry/BipartiteDecomp/ConfigLatticeCount.lean` (8) — **NEW result**:
+  the configuration-lattice order-ideal count `cfgIdeals V s =
+  Σ_k C(s,k)2^{Vk}2^{C(k,2)}`; `cycle1=5, cycle2=145,
+  cycle3=72 304 608 555 084 001` (cycle-3 was unknown before), `cfgIdeals_zero`.
 
-Supporting ∅-axiom chain (in `MarkovUniqueness` / `MarkovPrimeFactor`): `zhang_linear_core`,
-`zhang_quadratic(_sum)`, `zhang_gap_dvd` / `zhang_sum_dvd`, `zhang_gap_determines_pair` /
-`markov_sum_determines_pair`, `markov_sum_le_max` (`a+b ≤ c`), `sq_collapse_pow_ordered`.
+### Essays (theory/essays/synthesis/, timeless)
+- `slash_reading_atlas.md` — the readings as facets; constants at the forced `a=2`.
+- `readings_re_derive_the_seed.md` — every reading lands on an axiom fact
+  (primacy-as-breadth).
 
-### 2. The kernel localized + the REFRAME archetype
-- `SternBrocotMarkov.markovNum_children_ne` — distance-1 cross-line `SEPARATE` (every node's two children
-  have distinct Markov numbers), uniformly, by a trace monovariant.
-- `markovNum_subtree_size_interleaves` — the order-monovariant is exhausted past distance 1 (sizes
-  interleave across the fork), so the residue is not size-shaped.
-- **REFRAME** = fourth proof-ISA lift archetype (`Foundations/ProofISALifts.lift_reframe`): factor a shared
-  invariant, read through the prime-power factor where `SEPARATE` fires.  CRT (`2·pᵏ`) and the modulus shift
-  (`3c±2`) are one move at two layers.  Essay: `theory/essays/methodology/reframe_presentation_transport`.
+### Deep-research pass (4-agent team) — capstone `research-notes/geometric/DEEP_RESEARCH_REPORT.md`
+- **μF≅νF** (`mu_nu_coincidence.md`): static=dynamic ⟺ the reading is *algebraic*
+  (compact-exhausted ⟺ ω-chain converges at ω ⟺ Cauchy-complete in Barr's depth
+  ultrametric); gap = Cantor diagonal (`object1_not_surjective`), `2^ℵ₀`; dividing
+  line = glue (free axis ⟹ coincide, contractive ⟹ gap).
+- **Configuration lattice** (`configuration_lattice.md`): the cycle is a
+  conflict-free Winskel event structure / Mazurkiewicz trace monoid; Newman ⟹
+  confluent, Birkhoff ⟹ distributive; the count closed form (above); covariance =
+  schedule-invariance (event structure, **not** a causal set); this IS the DRLT
+  lattice.
+- **Constants dictionary** (`constants_dictionary.md`): binary slash ⟹ minimal
+  quadratic Pisot `φ` (ρ cubic/global); three φ-frames = one `GL(2,ℤ)` datum
+  (Hurwitz/equidistribution/quasicrystal); each reading = its renormalization
+  multiplier (φ,ρ algebraic; δ transcendental); Bombieri–Taylor mechanism.
 
-### 3. Marathon (process / essay / org-audit / purity / ready-to-merge)
-- process: sink-rule 0 violations; post-Zhang frontier recorded (`G204`).
-- essay + promotion: REFRAME methodology essay; `theory/math/analysis/markov_uniqueness.md` status updated
-  with the closed families.
-- org-audit: STRICT_ZERO_AXIOM gained the composite-uniqueness families addition; narrative clean, no orphans.
-- purity-check: 0 sorry / axiom / native_decide / Classical; headline capstones strict ∅-axiom.
-- ready-to-merge: layer violations 0; kernel pure 45/45; verdict READY.
+## Open frontiers (recorded in G205 §5)
+1. Mechanize the μF≅νF biconditional (Mathlib-free compact-element notion), or build
+   a contractive νF (e.g. `Real213` cut = betweenness νF; prove `ι` non-surjective
+   dense mono).
+2. Build the event-structure / trace layer over `Raw`; parametric `cfgIdeals`
+   theorem (`cfgIdeals_zero` done; `cfgIdeals V 1 = 2^V+1` attempted, stuck on the
+   `0+V` propext-risk, deferred to a NatHelper `zero_add`/`mul_one` proof); link to
+   `Lens/Lattice`.
+3. Lagrange-spectrum link (`k²+4` already in `MetallicGeneratorTower`); ρ as an
+   explicit cubic-Pisot object (Padovan companion).
+4. de Rham `w`-family fractal *dimensions* (needs `Real213` Hausdorff/Moran).
 
-## Open Problems (priority order)
+## Next session
+Tier-C: the parametric `cfgIdeals` family (a propext-free `cfgIdeals V 1 = 2^V+1`),
+or a contractive-νF construction.  The exploratory Python atlas
+(`research-notes/geometric/*.py`, 4 batches of readings) is tier-1; the spine
+(K1–K4 + the new cells) is Lean-verified.
 
-### 1. The genuine Frobenius core — composite `c` with both `3c±2` composite
-Smallest `c = 1325 = 5²·53` (`3c−2 = 29·137`, `3c+2 = 41·97`).  No modulus-shift presentation collapses
-the fiber, and no order-monovariant separates the roots (`§36`).  The realized/phantom discriminator is the
-**class-number / fundamental-unit content** of the order of discriminant `9c²−4` — genuinely non-elementary
-(established this branch).  Frontier note: `research-notes/frontiers/markov_lagrange/G204_post_zhang_residual.md`.
-
-### 2. Extend REFRAME (the reachable next probe)
-Is there a *different* carried invariant (not `9c²−4`) for `c` whose factorisation has a prime-power piece
-where `9c²−4` does not, or an *iterated* reframe through a deeper Vieta ancestor?  Conditional; speculative.
-Frontier note: `research-notes/frontiers/markov_lagrange/G204_post_zhang_residual.md` (Live directions §1).
-
-## Unresolved from this session
-- Full Frobenius uniqueness is **not** solved (it is the 110-year-open conjecture; the class-number core is
-  out of elementary reach — this is established, not a gap to retry).
-- No concrete `c` exhibited where `3c+2` is prime but `3c−2` composite (the `3c+2` half is proven generally;
-  a demo instance wasn't searched — `markovMaxUnique_985` already demos the `3c−2` half).
-
-## Next
-- Push the 3 marathon commits + **merge to `main`** (the marathon's final step).
-- Then: REFRAME-extension probe (Open Problem 2), or move to a different domain (primacy = breadth).
-
-## Three-tier state
-- **Promotions this session**: `theory/math/analysis/markov_uniqueness.md` (status updated, closed families)
-  + `theory/essays/methodology/reframe_presentation_transport.md` (new essay).
-- **Promotion candidates**: the closed Markov families are now reflected in the chapter; no further
-  promotion outstanding for this arc.
-- **Active scratchpad**: `research-notes/G196`–`G203` (top-level) record the arc (ISA localization →
-  families → Zhang → REFRAME); the open frontier lives in `frontiers/markov_lagrange/G204`.
-
-## File Map
-```
-lean/E213/Lib/Math/NumberSystems/Real213/MarkovUniqueness.lean   ← Zhang 3c±2 (both halves + unified),
-                                                                   sum/gap helpers, markovMaxUnique_985
-lean/E213/Lib/Math/NumberSystems/Real213/SternBrocotMarkov.lean  ← markov_two_prime_pow_unique, §35/§36
-lean/E213/Lib/Math/NumberTheory/ModArith/MarkovPrimeFactor.lean  ← two_roots_of_two_prime_pow,
-                                                                   sq_eq_collapse_pp, prime_of_no_small_factor
-lean/E213/Lib/Math/Foundations/ProofISALifts.lean                ← REFRAME archetype (lift_reframe*)
-theory/essays/methodology/reframe_presentation_transport.md      ← REFRAME methodology essay
-theory/math/analysis/markov_uniqueness.md                        ← status updated (closed families)
-research-notes/frontiers/markov_lagrange/G204_post_zhang_residual.md ← open frontier (class-number core)
-research-notes/G196–G203_*.md                                    ← the arc's working notes
-STRICT_ZERO_AXIOM.md                                             ← composite-uniqueness families addition
-```
+## Repo-first reminders
+μF/νF already PURE in `Theory/Raw/{MuNuMirror,Lambek,Fold,CoResidue (slashNu_final)}`,
+`Lens/{Initiality,Lattice}`; ordinal meter `Cauchy/{DepthOrdinal,DepthOmegaTower}`;
+`ConfigCount` d^(d^n).  Don't rebuild these.
