@@ -3,13 +3,16 @@
 G42 angle-structure programme: shared-pair slot, rotation order,
 gauge diagonal, orthogonal doubling.
 
-## Files (5)
+## Files (6)
 
-  - `SharedPairSlot.lean`     — shared-pair slot algebra
-  - `RotationOrder.lean`      — rotation-order computation
-  - `GaugeDiagonal.lean`      — gauge-diagonal structure
-  - `OrthogonalDoubling.lean` — orthogonal-doubling step
-  - `G42Capstone.lean`        — G42 capstone (angle programme master)
+  - `SharedPairSlot.lean`       — shared-pair slot algebra
+  - `RotationOrder.lean`        — rotation-order computation
+  - `GaugeDiagonal.lean`        — gauge-diagonal structure
+  - `OrthogonalDoubling.lean`   — orthogonal-doubling step (CD tower, +1 axis/level)
+  - `SimplexOrthogonality.lean` — dimension-Lens limit: regular n-simplex `cos = −1/n`
+                                  (rational-Gram, no trig), partition-of-unity
+                                  dependence, uncentred independence ∀ n
+  - `G42Capstone.lean`          — G42 capstone (angle programme master)
 
 ## Where to add new files
 

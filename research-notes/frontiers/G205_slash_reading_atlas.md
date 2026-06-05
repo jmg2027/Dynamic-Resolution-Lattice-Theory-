@@ -67,18 +67,23 @@ not a new theorem.
 - **(K2)** `K_{3,2}^{(c=2)}` from the construction: split distinguishing into
   state (3) / transition (2) per §6.2, bipartite embedding; connect to the
   closure form `R(N_S,N_T,d,c)·Π(1+κᵢαᵢ^{nᵢ})`.
-- **(K3)** The Möbius / constants half is **closed** (see §2 status, cites).
-  Still open: `prim-distinct ⟺ linear independence` + the approach to
-  orthogonality.  **Not trig, not blocked by reals** (correction): `cos = −1/n`
-  is the exact rational inner product of the centered vertices
-  (`⟨u_i,u_j⟩ = δ_ij − 1/(n+1)`), so the target is a rational-Gram + rational
-  limit `−1/n → 0` on the existing `Real213` (Cut-based, Cauchy; cf.
-  `PhiConvergence`, `GeometricThreshold`) — counting / linear algebra, a clean
-  next target.  See `geometric/dimension_lens.md`.
+- **(K3) — CLOSED** ∅-axiom (build + `scan_axioms` PURE, 11/0).  Both halves
+  done: the Möbius / constants half (§2 cites) and the dimension-Lens half —
+  `prim-distinct ⟺ linear independence` + approach to orthogonality — now in
+  `lean/E213/Lib/Math/Geometry/AngleStructure/SimplexOrthogonality.lean`.  No
+  trig, no new reals: `cos = −1/n` is the exact rational inner product of the
+  centred vertices, cleared to `Nat` (sign separate).  Cites:
+  `cos_mag_is_inv_n` (|cos|=1/n), `partition_dependence` (Σu_i=0),
+  `uncentered_orthonormal` (independence ∀ n), `cos_dim_strict_mono` (|cos|→0),
+  `simplex_orthogonality_master`.  Sibling of `OrthogonalDoubling` in the
+  angle-structure programme.
 - **(K4)** Which other `SL(2,ℤ)` generators / de Rham parameters `w` yield
   213-relevant numbers?
 
 ## §4 Promotion
 
-Mediant cell already has Lean support (`SternBrocotMarkov`).  Closing (K3) is
-the nearest ∅-axiom target.  Atlas stays tier-1 until cells close.
+Mediant cell has Lean support (`SternBrocotMarkov`, `Mobius213/Px`).  **(K3) is
+now closed** ∅-axiom (`AngleStructure/SimplexOrthogonality.lean`) — the
+dimension-Lens half of the atlas is source-of-truth.  Remaining open: **K1**
+(midpoint↔mediant threshold) and **K2** (`K_{3,2}` bipartite construction) —
+the nearest next targets.  Atlas stays tier-1 until further cells close.

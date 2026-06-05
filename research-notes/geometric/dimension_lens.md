@@ -103,4 +103,17 @@ statement (counting / linear algebra, not analysis):
   2. the normalized off-diagonal `−1/n` strictly increases to `0` (approach to
      orthogonality), a rational limit of exactly the available kind.
 
-This is a clean next target on `Real213`, not a blocker.  Not yet formalized.
+**Closed ∅-axiom** (build + `scan_axioms` PURE, 11/0):
+`lean/E213/Lib/Math/Geometry/AngleStructure/SimplexOrthogonality.lean`, sibling
+to `OrthogonalDoubling` in the angle-structure programme.  The cosine is carried
+rational-free by clearing the `(n+1)` denominator (magnitudes over `Nat`, sign
+separate):
+  · `cos_mag_is_inv_n` — `|cos| = 1/n` (cross-multiplied `(n+1)·n = (n+1)·n`).
+  · `partition_dependence` — `Σ u_i = 0` (`diag = n·|off|`): centred rank `= n`.
+  · `uncentered_orthonormal` — Gram `= I`, det 1: prim-distinct ⟹ independent ∀ n.
+  · `cos_dim_strict_mono` — the cosine denominator `= n` strictly grows ⟹ `|cos|→0`.
+  · `cross_negative_at_two` — the centred cross product is negative (the obtuse,
+    no-exterior anti-correlation).
+  · `simplex_orthogonality_master` — the four-conjunct capstone.
+
+This promotes the dimension-Lens half of the result from note to source-of-truth.
