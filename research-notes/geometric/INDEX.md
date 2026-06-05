@@ -23,10 +23,15 @@ stratify by `μF ≅ νF` (algebraic ⟺ static=dynamic) vs the Cantor-gap
 > `dimension_lens.md`; the mediant species → Stern–Brocot/`P`).  The atlas
 > enumerates `shapeLens` species; `Raw` (below) is what they all read.
 
-A future formal `shapeLens : ...` would be the geometric-realization fold out of
-`Raw` (no such Lean object yet; the cells `SimplexOrthogonality`,
-`MetallicThreshold`, `K32Adjacency`, `ConfigLatticeCount` are species-level
-results).
+The genus is now a **named ∅-axiom Lean object**:
+`Lib/Math/Geometry/ShapeLens.lean` (20 PURE) — `shapeLens : Lens
+FlatOntology.Relation` (a `Raw.fold` into the §6.3 relation codomain), the
+complete-graph **reflector** `saturate` with `saturate_idem` (idempotent monad)
+and `saturate_complete` (the complete adjacency is its fixed point), and bridges
+exhibiting the species as its readings (`genus_edges_eq_edgesK`,
+`k32_subgraph_of_complete`, `genus_config_count_atomic`).  The species cells
+`SimplexOrthogonality`, `MetallicThreshold`, `K32Adjacency`, `ConfigLatticeCount`
+are now explicitly readings *of* this genus.
 
 ## The Raw itself (what every reading is a reading *of*)
 

@@ -186,9 +186,16 @@ central object — the fork antichain — currently has **no Lean witness at all
 ## 4.  What to formalize (RA-C, ranked by value / effort)
 
 **Target A — `shapeLens` as a flat-ontology fold + reflector fixed point
-(RECOMMENDED; light; non-redundant).**
-File `lean/E213/Lens/ShapeLens.lean` (beside `FlatOntology.lean` — it is a §6.3
-reading, not a Geometry species).  (1) Exhibit the genus as
+(RECOMMENDED; light; non-redundant). — DONE (2026-06-05, 20 PURE).**
+Implemented as `lean/E213/Lib/Math/Geometry/ShapeLens.lean` (placed under
+`Lib/Math/Geometry/` as the genus *parent* of the species rather than under
+`Lens/`, to keep the Lib-on-Lens dependency direction; it still imports the core
+`Lens.FlatOntology`/`Lens.LensCore` for the codomain + `Lens`).  `shapeLens :
+Lens FlatOntology.Relation` (`shapeLens_is_fold` = the "it is a Lens" fact);
+reflector `saturate` with `saturate_idem` (idempotent monad) + `saturate_complete`
+(complete adjacency = fixed point), pointwise to avoid funext; bridges
+`genus_edges_eq_edgesK`, `k32_subgraph_of_complete`, `genus_minus_split`,
+`genus_config_count_atomic`.  Original sketch:  (1) Exhibit the genus as
 `universalMorphism (Relation)` reading the slash as "every distinct pair adjacent"
 (reuse `SemanticAtom`); (2) **reflector idempotence** `saturate (saturate g) =
 saturate g` over a finite decidable vertex carrier — the *content* of "C is a

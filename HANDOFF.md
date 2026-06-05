@@ -94,18 +94,24 @@ sequences/genus, RA-C 213-native) synthesised:
    explicit cubic-Pisot object (Padovan companion).
 4. de Rham `w`-family fractal *dimensions* (needs `Real213` Hausdorff/Moran).
 
+### `shapeLens` genus cell (deep-research "Target A") — DONE, ∅-axiom (20 PURE)
+`Lib/Math/Geometry/ShapeLens.lean` (build + scan PURE, 20/0).  **Names the genus**
+`shapeLens : Lens FlatOntology.Relation` (a `Raw.fold` into the §6.3 relation
+codomain — `shapeLens_is_fold`, the "it is a Lens" fact); the complete-graph
+**reflector** `saturate` with **`saturate_idem`** (idempotent monad `T²≅T`) and
+**`saturate_complete`** (complete adjacency = its fixed point), both stated
+pointwise to avoid funext; `completeAdj_complete`/`_irrefl`; and genus→species
+bridges (`genus_edges_eq_edgesK` = `edgesK 5`, `k32_subgraph_of_complete`,
+`genus_minus_split` 10−4=6, `genus_config_count_atomic` = `cfgIdeals 5 7`).
+Placed under `Lib/Math/Geometry/` (genus parent of the species; Lib-on-Lens
+layering) not `Lens/` (would invert the dependency).  Did **not** build the
+categorical adjunction (heavy, Mathlib-shaped, per RA-C).
+
 ## Next session
-Top candidate (deep-research "Target A", light + non-redundant): a new cell
-`lean/E213/Lens/ShapeLens.lean` that **names the `shapeLens` genus** as the
-flat-ontology fold (`universalMorphism Relation`, point=object / line=relation)
-and proves **reflector idempotence** (`saturate (saturate g) = saturate g` over a
-finite decidable carrier) + bridge `decide` lemmas to the three species
-(`SimplexSelfForm.edgesK`, `K32Adjacency.adj`, `ConfigLatticeCount.cfgIdeals`).
-This is the genus none of the species cells states.  Do **not** build the
-categorical adjunction (heavy, Mathlib-shaped).
-Other options: the fork antichain (`Target B`, medium — first ∅-axiom witness of
-"single-ℕ ends at 5"); the general parametric `cfgIdeals V s` closed form; or a
-contractive-νF construction.  The exploratory Python atlas
+Top candidate (deep-research "Target B", medium): the fork antichain over the
+config poset — `maxAntichainWidth(P(V,1))=1`, `…(P(V,2))≥2` (first ∅-axiom witness
+of "single-ℕ ends at 5"); or the general parametric `cfgIdeals V s` closed form;
+or a contractive-νF construction.  The exploratory Python atlas
 (`research-notes/geometric/*.py`, 4 batches of readings) is tier-1; the spine
 (K1–K4 + the new cells) is Lean-verified.
 
