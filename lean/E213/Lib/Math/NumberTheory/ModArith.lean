@@ -22,6 +22,7 @@ import E213.Lib.Math.NumberTheory.ModArith.EulerCriterion
 import E213.Lib.Math.NumberTheory.ModArith.EulerConverse
 import E213.Lib.Math.NumberTheory.ModArith.EulerFirstSupplement
 import E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative
+import E213.Lib.Math.NumberTheory.ModArith.GaussLemma
 import E213.Lib.Math.NumberTheory.ModArith.FP2Sqrt5
 import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 

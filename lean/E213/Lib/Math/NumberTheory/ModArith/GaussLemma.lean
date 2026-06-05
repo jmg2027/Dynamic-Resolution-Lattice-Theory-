@@ -38,7 +38,10 @@ open E213.Meta.Nat.Gcd213 (mod_eq_dvd_sub)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ prodZ_lperm)
 open E213.Lib.Math.Algebra.Linalg213.ProdCongr (prodZ_congr_map prodZ_map_mul prodZ_map_const_mul)
-open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat dvd_sub')
+open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat nat_dvd_to_int dvd_sub')
+open E213.Lib.Math.NumberTheory.ModArith.CubeFromFLT
+  (dvd_sub_one_of_mod_one mod_one_of_dvd_sub_one one_le_pow')
+open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_sub_one)
 open E213.Lib.Math.NumberTheory.ModArith.EulerConverse (natCast_sub euler_criterion)
 open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_mul natCast_pow)
 open E213.Meta.Int213.PolyIntM (mul_zeroZ)
@@ -416,5 +419,52 @@ theorem gauss_core (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 �
   rw [hfac] at hC
   exact int_euclid p hp hpr (prodZ ((seg m).map castFn))
     ((((a ^ m : Nat)) : Int) - prodZ ((seg m).map (sgFn a p m))) hC hnM
+
+/-- ★★★★★ **Gauss's lemma.**  For a prime `p`, `2m = p − 1`, unit `1 ≤ a < p`:  `a` is a quadratic
+    residue mod `p` **iff** the least-residue sign product `∏ₓ sgFn(a·x) = 1` (= `(−1)^μ`, `μ` =
+    `#{x ∈ [1,m] : (a·x) mod p > m}`).  Euler's criterion (`QR ⟺ aᵐ ≡ 1`) composed with the core
+    identity `aᵐ ≡ ∏signs` (`gauss_core`), the `±1`-valuedness (`prodZ_pm`), and `p ∤ 2`. -/
+theorem gauss_qr (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) :
+    (∃ z : Nat, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = a) ↔ prodZ ((seg m).map (sgFn a p m)) = 1 := by
+  have hcore := gauss_core a p m hp hpr h2m ha1 halt
+  have hpm := prodZ_pm ((seg m).map (sgFn a p m)) (fun z hz => by
+    obtain ⟨x, _, hxz⟩ := exists_of_mem_map hz
+    rw [← hxz]
+    rcases Nat.lt_or_ge ((a * x) % p) (m + 1) with hc | hc
+    · exact Or.inl (sgFn_lo a p m x (Nat.le_of_lt_succ hc))
+    · exact Or.inr (sgFn_hi a p m x (fun h => Nat.not_succ_le_self m (Nat.le_trans hc h))))
+  have hp3 : 3 ≤ p := by
+    have h2 : 2 ≤ 2 * m := by have := Nat.mul_le_mul_left 2 hm1; rwa [Nat.mul_one] at this
+    rw [p_eq p m hp h2m]; exact Nat.succ_le_succ h2
+  have ham1 : 1 ≤ a ^ m := one_le_pow' a ha1 m
+  have hbridge : a ^ m % p = 1 ↔ prodZ ((seg m).map (sgFn a p m)) = 1 := by
+    constructor
+    · intro hpow
+      have hd1 : (p : Int) ∣ (((a ^ m : Nat)) : Int) - 1 := by
+        have hn : p ∣ (a ^ m - 1) := dvd_sub_one_of_mod_one p (a ^ m) hpow
+        have hh := nat_dvd_to_int p (((a ^ m - 1 : Nat)) : Int) (by rw [Int.natAbs_ofNat]; exact hn)
+        rwa [natCast_sub_one (a ^ m) ham1] at hh
+      have hdps : (p : Int) ∣ (prodZ ((seg m).map (sgFn a p m)) - 1) := by
+        have h := dvd_sub' hd1 hcore
+        have he : (((a ^ m : Nat)) : Int) - 1 - ((((a ^ m : Nat)) : Int)
+              - prodZ ((seg m).map (sgFn a p m)))
+            = prodZ ((seg m).map (sgFn a p m)) - 1 := by ring_intZ
+        rwa [he] at h
+      rcases hpm with h1 | h1
+      · exact h1
+      · exfalso
+        rw [h1] at hdps
+        have h2d : p ∣ ((-1 : Int) - 1).natAbs := int_dvd_to_nat p ((-1 : Int) - 1) hdps
+        rw [show ((-1 : Int) - 1).natAbs = 2 from by decide] at h2d
+        exact absurd (le_of_dvd_pos p 2 (by decide) h2d) (Nat.not_le.mpr hp3)
+    · intro hps
+      rw [hps] at hcore
+      have hn : p ∣ (a ^ m - 1) := by
+        have hh := int_dvd_to_nat p ((((a ^ m : Nat)) : Int) - 1) hcore
+        rwa [show ((((a ^ m : Nat)) : Int) - 1).natAbs = a ^ m - 1 from by
+          rw [← natCast_sub_one (a ^ m) ham1, Int.natAbs_ofNat]] at hh
+      exact mod_one_of_dvd_sub_one p (a ^ m) hp ham1 hn
+  exact (qr_iff_pow_one p m a hp hpr h2m hm1 ha1 halt).trans hbridge
 
 end E213.Lib.Math.NumberTheory.ModArith.GaussLemma
