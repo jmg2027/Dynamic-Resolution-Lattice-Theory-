@@ -29,10 +29,11 @@ cells, then deep-researched with an agent team.  Live board: frontier **G205**
   `N_1²=P`.
 - `Lib/Math/Geometry/BipartiteDecomp/K32Adjacency.lean` (17) — §6.2 bipartite
   `K_{3,2}^{(c=2)}` adjacency the simplex erased.
-- `Lib/Math/Geometry/BipartiteDecomp/ConfigLatticeCount.lean` (8) — **NEW result**:
+- `Lib/Math/Geometry/BipartiteDecomp/ConfigLatticeCount.lean` (9) — **NEW result**:
   the configuration-lattice order-ideal count `cfgIdeals V s =
   Σ_k C(s,k)2^{Vk}2^{C(k,2)}`; `cycle1=5, cycle2=145,
-  cycle3=72 304 608 555 084 001` (cycle-3 was unknown before), `cfgIdeals_zero`.
+  cycle3=72 304 608 555 084 001` (cycle-3 was unknown before), plus the parametric
+  `cfgIdeals_zero (=1)` and `cfgIdeals_one (= 2^V+1)`.
 
 ### Essays (theory/essays/synthesis/, timeless)
 - `slash_reading_atlas.md` — the readings as facets; constants at the forced `a=2`.
@@ -59,16 +60,16 @@ cells, then deep-researched with an agent team.  Live board: frontier **G205**
    a contractive νF (e.g. `Real213` cut = betweenness νF; prove `ι` non-surjective
    dense mono).
 2. Build the event-structure / trace layer over `Raw`; parametric `cfgIdeals`
-   theorem (`cfgIdeals_zero` done; `cfgIdeals V 1 = 2^V+1` attempted, stuck on the
-   `0+V` propext-risk, deferred to a NatHelper `zero_add`/`mul_one` proof); link to
-   `Lens/Lattice`.
+   theorems (`cfgIdeals_zero (=1)` and `cfgIdeals_one (=2^V+1)` closed PURE via the
+   verified-PURE Nat lemmas `mul_one`/`one_mul`/`zero_add`; the general
+   `cfgIdeals V s` is next); link to `Lens/Lattice`.
 3. Lagrange-spectrum link (`k²+4` already in `MetallicGeneratorTower`); ρ as an
    explicit cubic-Pisot object (Padovan companion).
 4. de Rham `w`-family fractal *dimensions* (needs `Real213` Hausdorff/Moran).
 
 ## Next session
-Tier-C: the parametric `cfgIdeals` family (the general parametric `cfgIdeals V s`,
-or a contractive-νF construction.  The exploratory Python atlas
+Tier-C: the general parametric `cfgIdeals V s` (the closed form, not just the
+`s=0,1` cases), or a contractive-νF construction.  The exploratory Python atlas
 (`research-notes/geometric/*.py`, 4 batches of readings) is tier-1; the spine
 (K1–K4 + the new cells) is Lean-verified.
 
