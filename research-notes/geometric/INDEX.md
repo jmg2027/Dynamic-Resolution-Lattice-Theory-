@@ -78,6 +78,22 @@ single function: it conjugates the *mediant* reading (which surfaces the
 constants) to the *betweenness* reading (which does not), so the singular,
 nowhere-smooth gap between them *is* the gap between the two atlas cells.
 
+### Batch 3 (`more_lens_readings_3.py`)
+
+| slash read as | combining map | limit | intermediate shape | 213 link |
+|---|---|---|---|---|
+| **tangent-circle relation** | Descartes companion of three tangent circles | Apollonian gasket (dim ≈ 1.3057) | generation `n` | the most literal "relation of two → a third" |
+| **tunable nonlinear map** | `x ↦ r·x(1−x)`, sweep `r` | period-doubling attractor → chaos | finite-`r` bifurcation | a *constant pops out* — Feigenbaum `δ ≈ 4.669` governs the cascade the way `φ` governs the mediant reading |
+| **five-fold inflation** | pentagon → 6 pentagons (ratio `1/(1+φ)`) | pentaflake | depth-`n` | a **fourth** `φ`-frame (2-D, 5-fold) |
+| **paper-folding** | turn sequence `s → s·1·rev(¬s)` | Heighway dragon (dim 2) | `n` folds | an L-system reading |
+| **Calkin–Wilf recurrence** | `(a,b) → (a,a+b), (a+b,b)` | every rational once | depth-`n` tree | the *other* enumeration of ℚ — sibling of the Stern–Brocot/mediant reading |
+| **random midpoint** | midpoint `+` noise | fractional Brownian motion | resolution-`n` | the **stochastic** reading of betweenness — a different *kind* of Lens |
+
+A third kind of "constant from a reading": `φ` is the mediant reading's
+eigenvalue, `δ ≈ 4.669` (Feigenbaum) is the period-doubling reading's — each
+Lens carries its own invariant, and the meta-thesis (which readings surface
+which constants) is the through-line of the whole atlas.
+
 ## The meta-thesis (the research spine)
 
 **Which readings surface the structural constants `(3,2,5,P,φ)` and which are
