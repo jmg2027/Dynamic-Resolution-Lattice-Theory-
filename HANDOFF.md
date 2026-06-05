@@ -79,10 +79,14 @@ scorer is a known instance, `0/4 ≠ eliminated` (minimizable-not-eliminable hol
    re-framing re-emerges (the empirical signature of minimizable-not-eliminable).
 
 ## Next (autonomous marathon — `autonomous-research` skill)
-- **Quadratic reciprocity** is the next landmark; all prerequisites are closed ∅-axiom and `gauss_mu`
-  (Gauss's lemma μ-form) is the engine.  Remaining = the Eisenstein lattice-point count
-  (`μ ≡ Σ⌊a·x/p⌋ mod 2` + the rectangle double-count).  Full plan:
-  `research-notes/frontiers/quadratic_reciprocity.md`.  Multi-session build (≈ Gauss-lemma marathon).
+- **Quadratic reciprocity** — IN PROGRESS (multi-session).  Built this iteration (all PURE, committed):
+  `Linalg213/SumLinear.lean` (`sumZ_map_add`/`_sub`/`_const_mul`), and in
+  `ModArith/QuadraticReciprocity.lean`: `floor_mod_split` (`Σ↑(a·x) = ↑p·Σ↑(a·x/p) + Σ↑(a·x%p)`),
+  `fold_sum` (`Σ↑(fold x) = Σ↑x`).  **Last thread:** the Eisenstein μ-bridge step 1 — next is
+  `residue_fold_even` (`2 ∣ (Sr − Sfold − ↑p·Imu)`, the per-element `2·(…)` crux) → the mod-2 chain
+  → `Sfloor ≡ μ (mod 2)`.  **Exact chain in `research-notes/frontiers/quadratic_reciprocity.md`**
+  ("Step 1 remaining").  Then step 3 (the rectangle lattice double-count).  TODO: make `fold_lo`/
+  `fold_hi` public in `GaussLemma.lean` (the per-element cases need them).
 - Or: promote the closed QR theory (`EulerCriterion`…`SecondSupplement`) to `theory/math/numbertheory/`
   (PROMOTION_CRITERIA-eligible: PURE + categorically closed).
 - This session built the **complete elementary quadratic-residue theory ∅-axiom**: Euler's criterion

@@ -11,6 +11,31 @@
 
 `gauss_mu` is the engine.  The remaining work is the **Eisenstein lattice-point count**.
 
+## Progress (committed, `ModArith/QuadraticReciprocity.lean` + `Linalg213/SumLinear.lean`)
+
+- `SumLinear` (3 PURE): `sumZ_map_add`, `sumZ_map_sub`, `sumZ_map_const_mul` (additive analog of
+  `ProdCongr`).
+- `floor_mod_split` (1 PURE): `Σₓ ↑(a·x) = ↑p·Σₓ↑(a·x/p) + Σₓ↑(a·x mod p)` over `[1..m]`.
+- `fold_sum` (2 PURE): `Σₓ ↑(fold a p m x) = Σₓ ↑x` (fold_perm + sumZ_lperm).
+
+## Step 1 remaining — the exact mod-2 chain (next pickup)
+
+Abbreviations (`sumZ` over `(seg m).map (·)`): `Sa = Σ↑(a·x)`, `Sfloor = Σ↑(a·x/p)`, `Sr = Σ↑(a·x%p)`,
+`Sfold = Σ↑(fold x)`, `Sseg = Σ↑x`, `Imu = Σ (if (a·x)%p ≤ m then 0 else 1)` (the μ-indicator sum).
+
+1. `Sa = ↑a · Sseg`  (`sumZ_map_const_mul` on `↑(a·x) = ↑a·↑x`) — `Sa_eq`.
+2. **`residue_fold_even` (the crux):** `2 ∣ (Sr − Sfold − ↑p·Imu)`.  Via `sumZ_map_sub`/`const_mul`,
+   reduce to the per-element identity (cases on `(a·x)%p ≤ m`, use `fold_lo`/`fold_hi` — make them
+   **public** in GaussLemma): `(↑(a·x%p) − ↑(fold x)) − ↑p·ind = 2·(if … then 0 else ↑(a·x%p) − ↑p)`
+   (low → 0; high → `2↑r − ↑p − ↑p = 2(↑r − ↑p)`).  Then `= 2·Σ(…)` so `2 ∣ …`.  Watch `*0` (avoid
+   `ring_intZ`; use `mul_zeroZ`/`sub_self_zero`).
+3. Combine: `↑a·Sseg = ↑p·Sfloor + Sr` (`floor_mod_split` + step 1) and `Sfold = Sseg` (`fold_sum`) and
+   step 2 ⟹ `2 ∣ ((↑a−1)·Sseg − ↑p·(Sfloor − ... ))`; with **`a` odd** (`2 ∣ ↑a−1`) and **`p` odd**
+   (`2 ∤ ↑p`, `int_euclid`) ⟹ `2 ∣ (Sfloor + Imu)`, i.e. `Sfloor ≡ Imu (mod 2)`.
+4. `Imu = ↑(countNeg ((seg m).map (sgFn a p m)))` (the indicator sum = the μ-count) and
+   `Sfloor = ↑(natural floor sum)` ⟹ `(floor sum) ≡ μ (mod 2)`.  With `gauss_mu`: `(a/p) = (−1)^(floor sum)`
+   for odd `a` — `legendre_eisenstein`.
+
 ## The Eisenstein route to `(p/q)(q/p) = (−1)^(((p−1)/2)((q−1)/2))`
 
 For an **odd** unit `a` and odd prime `p` (`m = (p−1)/2`):
