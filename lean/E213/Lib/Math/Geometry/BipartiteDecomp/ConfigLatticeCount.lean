@@ -59,4 +59,8 @@ theorem config_lattice_count_master :
     ∧ cfgIdeals 3 2 = 145
     ∧ cfgIdeals 5 7 = 72304608555084001 := by decide
 
+/-- ★ Empty cycle (`s = 0`): exactly one configuration (the empty graph), for
+    every `V` — a parametric `∅`-axiom identity (the lattice bottom). -/
+theorem cfgIdeals_zero (V : Nat) : cfgIdeals V 0 = 1 := rfl
+
 end E213.Lib.Math.Geometry.BipartiteDecomp.ConfigLatticeCount
