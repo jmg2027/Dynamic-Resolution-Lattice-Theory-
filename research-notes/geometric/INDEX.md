@@ -235,6 +235,27 @@ onto §3.2 / §3.5.
 - The atlas stays tier-1; closed cells already live in `theory/`.  Frontier
   registered in `research-notes/frontiers/G205`.
 
+## Deep-research notes & synthesis (agent-team pass)
+
+A goal-directed deep-research pass (four research agents + synthesis) produced:
+
+- `SESSION_ANALYSIS.md` — the session's central thesis, formal landscape, agenda.
+- `DEEP_RESEARCH_REPORT.md` — the capstone unifying the four threads.
+- `mu_nu_coincidence.md` — **static = dynamic ⟺ the reading is algebraic**
+  (compact-exhausted ⟺ ω-chain converges at ω ⟺ Cauchy-complete in Barr's depth
+  ultrametric); the gap is the Cantor diagonal (`object1_not_surjective`).
+- `configuration_lattice.md` — the cycle is a conflict-free Winskel event
+  structure / Mazurkiewicz trace monoid; Newman + Birkhoff ⟹ finite distributive
+  lattice; the **order-ideal count** `I(V,s) = Σ_k C(s,k)2^{Vk}2^{C(k,2)}`
+  (`5, 145, 72 304 608 555 084 001`), now ∅-axiom in
+  `BipartiteDecomp/ConfigLatticeCount.lean` (concrete + parametric `s=0..3`);
+  covariance = schedule-invariance (event structure, **not** a causal set).
+- `constants_dictionary.md` — binary slash ⟹ minimal quadratic Pisot `φ` (ρ the
+  cubic/global); three φ-frames = one `GL(2,ℤ)` datum; each reading = its
+  renormalization multiplier; Bombieri–Taylor mechanism.
+- `seed_connections.md` — eight checked connections between the atlas and the
+  `seed/AXIOM` docs (the readings re-derive the seed; primacy-as-breadth).
+
 ## Caution (self-check #0)
 
 Shapes, dimensions, constants are **Lens outputs**, not Raw commitments
