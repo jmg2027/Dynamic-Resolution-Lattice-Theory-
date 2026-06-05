@@ -39,7 +39,14 @@ entries, actual conquests.  Seed compilation: `research-notes/G205_cross_domain_
 ## Proof-ISA catalog state (`Foundations/ProofISALifts.lean`, `seed/PROOF_ISA.md`)
 A1 DIAGONAL · A2 LOOP · A3 ORBIT · A4 REFRAME · A5 COUNT · **A6 FLOW** · **A7 POSITIVITY**.
 
-## A6 IS NOT FULLY CLOSED — its conquest core is the active marathon
+## A6 — ON HOLD (closure deferred until the two prerequisite marathons land)
+**A6 FLOW's conquest core (general Ricci flow) is ON HOLD.**  Its closure is gated on the two hard
+blocks now split into standalone marathons — **transcendental functions** and **(continuous-via-limit)
+PDE a-priori estimates**.  Do not attempt to "close A6" until those deliver; resume A6 (smooth 2D-conformal
++ continuous estimates) only after.  Archetype + easy cases stay closed; the discrete Forman ladder
+(`a6_ricci_core/`) is a *parallel* theory (a different theorem), not the A6 conquest route.
+
+## A6 background (the marathons feeding it, when resumed)
 A6's *archetype* + *easy cases* (round sphere, Einstein trichotomy, gradient skeleton) are closed, but
 A6's **conquest core = general Ricci flow** is not.  Smooth-metric Perelman is walled (Riemannian geom +
 PDE, Mathlib-forbidden).  **The 213-native route now in progress: discrete (Forman/Ollivier) Ricci flow**

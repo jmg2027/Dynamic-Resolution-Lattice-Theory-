@@ -264,7 +264,8 @@ then `erdos_schema`), **no new "why"**.  All engine pieces built ∅-axiom
 ## PDE a-priori estimates  (`pde_estimates/`)
 
 - `pde_estimates/discrete_pde_estimates_ladder` — the analytic engine behind
-  Perelman monotonicity, 213-native = discrete estimates on grids/graphs.
-  Rungs P1 discrete maximum principle → P2 oscillation decay → P3 energy/Dirichlet
-  decay → P4 discrete Li–Yau → P5 discrete Shi.  Feeds discrete Ricci-flow
-  convergence (`a6_ricci_core/` rung 3).  P1–P3 reachable; P4–P5 the real depth.
+  Perelman monotonicity.  Goal = the **continuous** estimate, built 213-native as
+  "discrete-uniform-in-mesh + modulus → `Real213` limit" (the conquest needs
+  continuous, not discrete-graph).  Rungs P1 maximum principle → P2 oscillation
+  decay → P3 energy/Dirichlet → P4 Li–Yau → P5 Shi.  P1–P3 reachable; P4–P5 the
+  real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.
