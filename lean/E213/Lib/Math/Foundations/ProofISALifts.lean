@@ -9,13 +9,14 @@ import E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
 import E213.Lib.Math.Combinatorics.CountExistence
 import E213.Lib.Math.Combinatorics.RamseyLowerBound
 import E213.Lib.Math.Foundations.MonovariantFlow
+import E213.Lib.Math.Foundations.Positivity
 import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow
 import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow
 
 /-!
-# The lift catalog — six solved finite→uniform lift archetypes on the proof-ISA
+# The lift catalog — seven solved finite→uniform lift archetypes on the proof-ISA
 
-`Lens.ProofISA` names the instruction set; this file is the **compilation catalog** — six
+`Lens.ProofISA` names the instruction set; this file is the **compilation catalog** — seven
 *already-solved*, `∅`-axiom, infinite-abstract theorems whose **finite→uniform lifts** are structurally
 distinct.  Each `abbrev` pins a solved theorem; the surrounding text records *how* its lift is achieved —
 a template library for the one open lift, the Markov uniqueness kernel `H`.
@@ -91,6 +92,15 @@ Ricci flow drives any metric to a canonical geometry, certified by a monotone en
 that shape with the entropy a `Nat`-monovariant.  FLOW is the *other* completion of in-place monovariant
 exhaustion that REFRAME (A4) is the dual of: when the monovariant exhausts, it drives the object to its
 normal form; when it cannot improve in place, REFRAME transports to a presentation where it can.
+
+## Archetype 7 — POSITIVITY / nonnegative-fold (`lift_positivity`) — the structural twin of A5
+A5 COUNT is the *cardinality* face of `GAP` (a deficit forces existence); POSITIVITY is its **square/norm**
+face: a bound is forced because its **gap is a square** (an intrinsically nonnegative `READ`), read off the
+*sign* of a fold rather than counted (`positivity_of_sq`: `gap = s² ⟹ 0 ≤ gap`).  Drives **Cauchy–Schwarz**
+(`cauchy_schwarz_2d`): the gap `⟨u,u⟩⟨v,v⟩ − ⟨u,v⟩²` *is* the square `(u₀v₁−u₁v₀)²` (the Lagrange identity),
+so the inequality is forced with no analysis.  The classical shadow: Weil RH weights (hard-Lefschetz
+positivity), Kazhdan–Lusztig positivity (IH stalk dimension `≥ 0`), Mordell heights (Northcott).
+**Lift cost: an algebraic identity exhibiting the gap as a sum of squares.**
 
 ## `H` localized
 `H` is the uniform cross-word continuant-trace `SEPARATE` (`markovNum` injective on all tree paths;
@@ -173,5 +183,13 @@ abbrev lift_flow_geometrization :=
     discharge without crossing it. -/
 abbrev lift_flow_sphere :=
   @E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow.round_S3_ricci_extinction
+
+/-- **A7 POSITIVITY** — a bound forced because its gap is a square (a nonnegative fold):
+    `gap = s² ⟹ 0 ≤ gap`.  The square/norm twin of A5 COUNT. -/
+abbrev lift_positivity := @E213.Lib.Math.Foundations.Positivity.positivity_of_sq
+
+/-- **A7 conquest** — Cauchy–Schwarz (2-D, ℤ): `⟨u,v⟩² ≤ ⟨u,u⟩⟨v,v⟩`, the gap being the square
+    `(u₀v₁ − u₁v₀)²` (Lagrange identity). -/
+abbrev lift_positivity_cs := @E213.Lib.Math.Foundations.Positivity.cauchy_schwarz_2d
 
 end E213.Lib.Math.Foundations.ProofISALifts

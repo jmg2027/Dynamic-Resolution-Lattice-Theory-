@@ -92,7 +92,7 @@ instruction (e.g. `SEPARATE`) holds on every finite sample, and pointing at the 
 open content.  So the standing method is not only "compile this one problem" but **catalogue the lifts of
 problems already solved** — each solved lift is a reusable template, and a problem missing the *same* lift
 as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/ProofISALifts.lean`, all
-`∅`-axiom) records six structurally distinct archetypes:
+`∅`-axiom) records seven structurally distinct archetypes:
 
   - **DIAGONAL / direct** (`lift_diagonal`, Cantor) — the `DIAGONALIZE` instruction self-supplies the
     uniform witness; **lift cost zero**.
@@ -121,6 +121,11 @@ as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/P
     pillar — the `K_{3,2}` cell-filling coherentization compiled to `flow_reaches`, converging to the
     canonical normal form (`GeometrizationConjecture.RicciFlow.ricci_pillar_K32_flow_close`,
     `lift_flow_geometrization`); upgrades that pillar from OPEN to closed.
+  - **POSITIVITY / nonnegative-fold** (`lift_positivity`, `positivity_of_sq`) — the square/norm twin of
+    `COUNT`: a bound is forced because its **gap is a square** (`gap = s² ⟹ 0 ≤ gap`), read off the sign of
+    a fold, not counted.  Drives **Cauchy–Schwarz** (`lift_positivity_cs`, the gap `= (u₀v₁−u₁v₀)²` via the
+    Lagrange identity).  **Cost: an identity exhibiting the gap as a sum of squares.**  Classical shadow:
+    Weil RH weights, Kazhdan–Lusztig positivity, Mordell heights.
 
 Markov `H` matches none cleanly — closest is **ORBIT**, which is *in `H`'s own family* (the same
 free-unit-root action already lifts a finite root-window to uniform composite uniqueness, leaving a per-`c`
