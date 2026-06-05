@@ -10,6 +10,7 @@ import E213.Lib.Math.Combinatorics.CountExistence
 import E213.Lib.Math.Combinatorics.RamseyLowerBound
 import E213.Lib.Math.Foundations.MonovariantFlow
 import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow
+import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow
 
 /-!
 # The lift catalog — six solved finite→uniform lift archetypes on the proof-ISA
@@ -164,5 +165,13 @@ abbrev lift_flow_gcd := @E213.Lib.Math.Foundations.MonovariantFlow.euclid_flow_n
     `flow_reaches` — the proof-ISA methodology end-to-end, not a fresh problem-specific argument. -/
 abbrev lift_flow_geometrization :=
   @E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow.ricci_pillar_K32_flow_close
+
+/-- **A6 conquest (genuine smooth case)** — round Sⁿ *smooth-metric* Ricci flow → finite extinction,
+    the homogeneous case where the PDE collapses to the linear ODE `dρ/dt = −2(n−1)` and the descent rate
+    is the real curvature `Ric=(n−1)g` (`n=3` = Poincaré seed).  The general-metric `𝓦`-monotonicity core
+    stays OPEN (`research-notes/frontiers/ricci_flow_smooth_core.md`) — A6 locates it as the `descent`
+    discharge without crossing it. -/
+abbrev lift_flow_sphere :=
+  @E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow.round_S3_ricci_extinction
 
 end E213.Lib.Math.Foundations.ProofISALifts

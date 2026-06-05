@@ -277,6 +277,18 @@ fillable 4-cycles) is exhibited as a convergent monovariant flow — `coherentiz
 Geometrization Ricci pillar from OPEN (`Poincare.lean` capstone table) to **CLOSED via A6 FLOW** in the
 repo's 213-native chart-Lens model.  Pinned in `ProofISALifts` as `lift_flow_geometrization`.
 
+### A6 FLOW drives smooth-metric round-sphere Ricci flow → finite extinction (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow` — **9 PURE / 0 DIRTY**.  The genuinely
+*smooth-metric* simplest case: on the round `n`-sphere the Ricci-flow PDE collapses to the linear ODE
+`dρ/dt = −2(n−1)` on the squared radius (`Ric(round Sⁿ)=(n−1)g` + scale-invariance), so the discrete Euler
+step `ρ ↦ ρ − 2(n−1)` is *exact* and compiles onto A6 FLOW.  `round_S3_ricci_extinction` (`n=3`,
+rate `4`): the 3-sphere shrinks to a round point in finite time — the seed of Perelman's finite-extinction
+theorem.  `sphere_flow_converges` / `sphere_reaches_extinction` (general rate), `round_sphere_extinction`
+(`n≥2`).  Pinned as `lift_flow_sphere`.  **Honest scope**: the homogeneous/ODE case, *not* the core; the
+general-metric `𝓕/𝓦`-monotonicity (Riemannian-geometry + PDE, Mathlib-forbidden) stays OPEN —
+`research-notes/frontiers/ricci_flow_smooth_core.md`.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

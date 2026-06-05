@@ -300,7 +300,7 @@ theorem geometrization_spectrum_with_corrected_euler :
   | **8 model geometries** | Lie-group enumeration | $H^1(K_{3,2}^{(c=2)})$ rank 8 + Sym(3) split | NARRATIVE ⚠ |
   | **JSJ decomposition** | Incompressible torus cut | Bipartite S/T canonical split | NARRATIVE ⚠ |
   | **Poincaré conjecture** | $π_1 = 1 ⟹ S^3$ unique | K_{3,1}^{(c=1)} tree unique at chartBase 4 | PARTIAL CLOSE ✓ |
-  | **Ricci flow** | $∂_t g = -2 Ric$ | cell-filling coherentization flow → canonical normal form | **CLOSED via A6 FLOW** (`RicciFlow.lean`) |
+  | **Ricci flow** | $∂_t g = -2 Ric$ | (i) chart-Lens cell-filling flow → normal form; (ii) round Sⁿ smooth flow → finite extinction | **A6 FLOW** (`RicciFlow.lean` + `RicciSphereFlow.lean`); general-metric 𝓦-monotonicity core OPEN (frontier) |
 
   The Poincaré pillar is the strongest 213-Lens close at the
   Geometrization layer — K_{3,1}^{(c=1)} (star graph) is the
@@ -312,10 +312,16 @@ theorem geometrization_spectrum_with_corrected_euler :
   with explicit stereotype-matching warnings: arithmetic
   parallels exist but structural identification is forbidden.
 
-  Ricci-flow pillar closed via the A6 FLOW lift archetype: the
-  cell-filling coherentization is a convergent monovariant flow
-  reaching a canonical normal form (`RicciFlow.lean`,
-  `ricci_pillar_K32_flow_close`, ∅-axiom).
+  Ricci-flow pillar, via the A6 FLOW lift archetype, at two honest
+  levels: (i) the chart-Lens cell-filling coherentization is a
+  convergent monovariant flow reaching a canonical normal form
+  (`RicciFlow.lean`, `ricci_pillar_K32_flow_close`); (ii) the
+  genuinely smooth-metric round Sⁿ flow reaches finite extinction
+  (`RicciSphereFlow.lean`, `round_S3_ricci_extinction`, rate the
+  real `Ric=(n−1)g`).  Both ∅-axiom.  The general-metric core —
+  Perelman's `𝓕/𝓦`-entropy monotonicity, non-collapsing, surgery —
+  needs Riemannian-geometry + PDE infrastructure absent here and
+  stays OPEN: `research-notes/frontiers/ricci_flow_smooth_core.md`.
 -/
 theorem geometrization_correspondence_capstone :
     -- Pillar P (Poincaré): K_{3,1}^{(c=1)} unique tree at d_M = 3
