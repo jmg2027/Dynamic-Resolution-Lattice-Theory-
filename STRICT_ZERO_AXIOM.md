@@ -374,6 +374,17 @@ shape at lattice scale).  `pick_rectangle`: `2I + B − 2 = 2A` for `[0,w]×[0,h
 theorem assembles by additivity.  Triangle/general (diagonal boundary count `gcd(w,h)−1`) are the open
 rungs: `research-notes/frontiers/pick_theorem/pick_general_ladder.md`.
 
+### Cross-domain identities as ℤ ring identities — Heron, Euler 4-square, Sophie Germain (2026-06-05)
+
+`E213.Lib.Math.Algebra.CrossDomainIdentities` — **3 PURE / 0 DIRTY**.  Famous cross-domain facts whose
+content collapses to a pure `ℤ` ring identity (`ring_intZ`, an EQUIV/identity-certificate):
+- `heron` — Heron's formula (geometry↔algebra): `(a+b+c)(−a+b+c)(a−b+c)(a+b−c) = 2a²b²+2b²c²+2c²a²−a⁴−b⁴−c⁴`
+  (= `16·Area²`; triangle area from sides alone).
+- `euler_four_square` — Euler's four-square identity (number theory↔quaternion norm): product of two
+  sums of four squares is a sum of four squares (the engine of Lagrange four-square).
+- `sophie_germain` — `a⁴ + 4b⁴ = (a²+2b²−2ab)(a²+2b²+2ab)` (Aurifeuillian factorization).
+`ring_intZ` reifies `+ * - neg` (not `^`), so powers are explicit products.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

@@ -23,6 +23,7 @@ import E213.Lib.Math.Geometry.LevelTopology
 import E213.Lib.Math.Algebra.Linalg213
 import E213.Lib.Math.Algebra.CayleyDickson
 import E213.Lib.Math.Algebra.CassiniUnimodular
+import E213.Lib.Math.Algebra.CrossDomainIdentities
 import E213.Lib.Math.Algebra.FiveFloorUnification
 import E213.Lib.Math.Foundations.ResidueForm
 import E213.Lib.Math.Analysis.Measure

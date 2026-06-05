@@ -91,8 +91,17 @@ discrete-count ↔ continuous-area bridge (a two-readings-agree / GRA-universali
 `ring_intZ`.  Triangle/general = frontier `pick_theorem/pick_general_ladder.md` (next K1: diagonal count
 `gcd(w,h)−1`, reuses `gcd213`).
 
+## Cross-domain identity batch (this session): Heron / Euler 4-square / Sophie Germain
+`Algebra/CrossDomainIdentities.lean` (3 PURE): famous cross-domain facts that ARE pure `ℤ` ring
+identities (`ring_intZ`) — Heron (sides→area), Euler four-square (ℍ norm multiplicativity), Sophie Germain
+(factorization).  Pattern: a cross-domain conquest whose content collapses to a `ring_intZ` identity lands
+∅-axiom in one line.  Productive vein — keep mining (Cayley–Menger/tetrahedron volume, Descartes circle
+relation, more norm-form multiplicativities).
+
 ## Next targets (priority order)
-1. **Pick K1** — the `gcd(w,h)−1` diagonal lattice-point count, then K2 right-triangle Pick.
+1. **More `ring_intZ` cross-domain identities** — Cayley–Menger (Heron→tetrahedron, geometry↔determinant),
+   Brahmagupta (cyclic-quadrilateral area), Lagrange-type norm identities.  Fast, clean, ∅-axiom.
+2. **Pick K1** — the `gcd(w,h)−1` diagonal lattice-point count, then K2 right-triangle Pick.
 2. **Continue the G205 conquest table** down the ISA: each row = compile a conquest + let an archetype
    drive its ∅-axiom proof.  Reachable next: REFRAME[LOOP] template instances, or a COUNT/ORBIT conquest.
    (Sum-of-squares multiplicativity is ALREADY closed — `CayleyDickson/Misc/QuadIdentities.int_quad_diophantus`
