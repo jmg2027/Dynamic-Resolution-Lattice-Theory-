@@ -314,10 +314,20 @@ so the sign product is `m`-only (`two_qr_iff`); `prodZ_seg_sign` evaluates it as
 `m = 4q+r` bridge (`(m−m/2)%2` and `p%8 = 1+2(m%4)` both functions of `m%4`, `decide`).  Both
 supplements to quadratic reciprocity are now ∅-axiom.
 
-### Quadratic reciprocity — STEP 1 (Eisenstein's lemma, divisibility form), strict ∅-axiom (2026-06-05)
+### Quadratic reciprocity — STEPS 1 + 3 (Eisenstein's lemma + rectangle count), strict ∅-axiom (2026-06-05)
 
-`E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity` (**8 PURE**).  The Eisenstein
-lattice-point route, step 1 closed: ★ `floor_qr` — for an odd unit `1 ≤ a < p` and odd prime `p`,
+`E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity` (**9 PURE**) +
+`Linalg213/SumLinear` (`sumZ_map_zero`, `sumZ_swap` finite Fubini) + `AddMod213.le_div_iff_mul_le`.
+
+★★ **Step 3** `floor_sum_rectangle` — the analytic heart: for `p=2m+1, q=2n+1`, `p∤q·x` (`x∈[1,m]`),
+`q∤p·y` (`y∈[1,n]`), `Σ_{x∈[1,m]} ⌊q·x/p⌋ + Σ_{y∈[1,n]} ⌊p·y/q⌋ = m·n` (over ℤ).  Lattice-point
+count of `[1,m]×[1,n]` either side of the diagonal `q·x=p·y` (none ON it, `p∤q·x`).  Per-column
+count `colCount_eq_floor` (`#{y : p·y<q·x} = ⌊q·x/p⌋`, via `le_div_iff_mul_le` + `count_le_eq`),
+cross term swapped by `sumZ_swap` (Fubini), `elem_tri` trichotomy `[py<qx]+[qx<py]=1` collapsing the
+grid to `Σ_x Σ_y 1 = m·n`.  (Step 4, the QR-symbol form, awaits generalizing the Gauss stack from
+`a<p` to `p∤a` — `floor_sum_rectangle` is independent and done.)
+
+**Step 1** ★ `floor_qr` — for an odd unit `1 ≤ a < p` and odd prime `p`,
 `a` is a QR mod `p` ⟺ the floor sum `Σₓ∈[1,m] ⌊a·x/p⌋` is even (`(2:Int) ∣ Σ↑⌊a·x/p⌋`).  Chain:
 `floor_mod_split` (`Σ↑(a·x) = ↑p·Σ↑⌊a·x/p⌋ + Σ↑(a·x%p)`) + `Sa_eq` + `fold_sum`
 (`Σ↑(fold x) = Σ↑x`, `fold_perm`) + `residue_fold_even` (the per-element `2·(…)` crux,

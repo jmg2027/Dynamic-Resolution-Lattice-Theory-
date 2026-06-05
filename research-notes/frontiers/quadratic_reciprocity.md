@@ -96,7 +96,45 @@ For an **odd** unit `a` and odd prime `p` (`m = (p−1)/2`):
 - `sumZ_append`, `map_append'` (`…Linalg213.Laplace`), `seg`/`mem_seg`/`seg_length` (`GaussLemma`).
   `iota (n+1) = iota n ++ [n]` is **definitional** (`from rfl`), so `seg (n+1) = seg n ++ [n+1]`.
 
-### Step-3 lemma sequence (build-ready, over `ℤ` reusing `sumZ`)
+### Step 3 — CLOSED (committed)
+`floor_sum_rectangle` (PURE): for `p=2m+1, q=2n+1`, `p∤q·x` (`x∈[1,m]`), `q∤p·y` (`y∈[1,n]`),
+`Σ_{x∈[1,m]} ⌊q·x/p⌋ + Σ_{y∈[1,n]} ⌊p·y/q⌋ = m·n` (over ℤ).  **This is the analytic heart of
+reciprocity** (Eisenstein form).  Built from the full step-3 sequence below, all PURE:
+`seg_succ`, `count_all`, `count_le_eq`, `elem_col`, `colCount_eq_floor`, `elem_tri`, plus generic
+`Linalg213/SumLinear.{sumZ_map_zero, sumZ_swap}` (finite Fubini) and
+`AddMod213.le_div_iff_mul_le`.
+
+### Step 4 — the QR-symbol form needs the Gauss-stack generalization
+The symbol statement `(p/q)·(q/p) = (−1)^(m·n)` reads, via `floor_qr`,
+`(QR_p(q) ⟺ Σ⌊qx/p⌋ even)` and `(QR_q(p) ⟺ Σ⌊py/q⌋ even)`; with `floor_sum_rectangle`
+(`Σ⌊qx/p⌋ + Σ⌊py/q⌋ = mn`) the two parities sum to `mn`'s parity — immediate.  **But both uses of
+`floor_qr` need residue = the OTHER prime** (`q` mod `p`, `p` mod `q`), each requiring `a < modulus`
+— `q < p` AND `p < q` is impossible.  So the symbol form is **blocked** on generalizing the Gauss
+stack from `a < p` to `1 ≤ a ∧ p ∤ a` (residue side `z² ≡ a (mod p)` instead of `z²%p = a`):
+`fold_perm` (needs only `p ∤ a`, currently `a<p`) → `gauss_core` → `gauss_qr` → `gauss_mu` →
+`floor_mu_even`/`floor_qr`.  `floor_sum_rectangle` itself is **independent** of this — it's done.
+Once `floor_qr` is generalized, `quadratic_reciprocity` is a short parity assembly.
+
+**Precise generalization recipe (verified by inspection of GaussLemma):**
+- In `GaussLemma`, `halt : a < p` is used **only** via `not_dvd_unit p a ha1 halt : ¬ p ∣ a`
+  (lines 160, 225).  So replace the hypothesis `halt : a < p` with `hnpa : ¬ p ∣ a` throughout
+  `fold_mem`, `fold_inj`, `fold_perm`, `gauss_core`, `gauss_qr` — the bodies just drop the
+  `not_dvd_unit` call and use `hnpa` directly.  (`res_cancel` needs `x < p`, about `x∈[1,m]`, not
+  `a` — unaffected: `m < p` via `m_lt_p`.)
+- **Residue side must change** `z² % p = a` → `z² % p = a % p` (i.e. `z² ≡ a (mod p)`), since for
+  `a ≥ p` the old form is vacuously false.  This also touches Euler `qr_iff_pow_one`
+  (`EulerCriterion`/`EulerConverse`) — the Euler criterion itself holds for `a` coprime to `p`
+  with the `≡` residue side; re-thread `1 ≤ a < p` → `1 ≤ a ∧ ¬p∣a` + `z²≡a` there too.
+- Then `gauss_mu`, `floor_mu_even`, `floor_qr` re-thread mechanically (they already only pass `halt`
+  down).  `floor_qr` generalized: `(∃z, 1≤z ∧ z<p ∧ z²%p = a%p) ↔ 2 ∣ Σ⌊a·x/p⌋` for `1≤a`, `p∤a`,
+  `a` odd, `p` odd prime.
+- **Assembly** `quadratic_reciprocity`: apply generalized `floor_qr` at `(p, q)` and `(q, p)`
+  (residues `q`, `p` — coprime since `p≠q` primes), combine the two parities with
+  `floor_sum_rectangle` (`Σ⌊qx/p⌋ + Σ⌊py/q⌋ = mn`) ⟹ `(QR_p(q) ⟺ QR_q(p)) ⟺ mn even`.  Discharge
+  the `floor_sum_rectangle` side-conditions `p∤q·x`, `q∤p·y` from primality (`p∤q`, `p∤x` for
+  `x∈[1,m]` since `x<p`).
+
+### (historical) Step-3 lemma sequence (build-ready, over `ℤ` reusing `sumZ`)
 Work with **Int indicators** `(if P then (1:Int) else 0)` so `sumZ`/`sumZ_map_add` give the Fubini
 swap for free (avoids a separate Nat list-sum + `Nat.min` whose lemmas `min_eq_right`/`min_zero`
 pull propext).

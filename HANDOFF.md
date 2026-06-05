@@ -35,6 +35,29 @@ constraint"): **(1) generalize the Gauss stack to coprimality `p ∤ a`** (recom
 `sgFn`/`fold_perm` only need `a` a unit), or **(2) reduce `q ↦ q%p` with correction
 `Σ⌊qx/p⌋ = (q/p)·Σx + Σ⌊(q%p)x/p⌋`**.
 
+## Addendum 2 (same session) — STEP 3 CLOSED (rectangle double-count)
+
+★★ **`floor_sum_rectangle`** (PURE) — the analytic heart of reciprocity:
+for `p=2m+1, q=2n+1`, `p∤q·x` (`x∈[1,m]`), `q∤p·y` (`y∈[1,n]`),
+`Σ_{x∈[1,m]} ⌊q·x/p⌋ + Σ_{y∈[1,n]} ⌊p·y/q⌋ = m·n` over ℤ.  Lattice-point count of `[1,m]×[1,n]`
+either side of the diagonal `q·x=p·y` (none ON it).  Supporting PURE lemmas, all committed:
+- `QuadraticReciprocity`: `seg_succ`, `count_all`, `count_le_eq`, `elem_col`, `colCount_eq_floor`
+  (`#{y∈[1,n] : p·y<q·x} = ⌊q·x/p⌋`), `elem_tri` (trichotomy `[py<qx]+[qx<py]=1`).
+- `Linalg213/SumLinear`: `sumZ_map_zero`, **`sumZ_swap`** (finite Fubini, `Σₓ Σᵧ = Σᵧ Σₓ`).
+- `AddMod213.le_div_iff_mul_le`.
+
+**QuadraticReciprocity.lean now 9 PURE public theorems.**  Steps 1 + 3 of the Eisenstein route are
+closed.
+
+### Step 4 (the remaining gateway) — generalize the Gauss stack `a<p` → `p∤a`
+The symbol form `(p/q)(q/p)=(−1)^(mn)` needs `floor_qr` at residue = the *other* prime, so the
+`a<p` constraint must be relaxed.  **Precise recipe in `frontiers/quadratic_reciprocity.md` §"Step 4"**:
+`halt:a<p` in `GaussLemma` is used *only* via `not_dvd_unit → ¬p∣a`, so swap `halt` for `hnpa:¬p∣a`
+through `fold_mem/fold_inj/fold_perm/gauss_core/gauss_qr`; change residue side `z²%p=a → z²%p=a%p`
+(also in Euler `qr_iff_pow_one`); re-thread `gauss_mu/floor_mu_even/floor_qr`; then assemble
+`quadratic_reciprocity` (short parity argument with `floor_sum_rectangle`).  `floor_sum_rectangle`
+is independent and already done.
+
 ## Addendum (later same session) — step-3 foundation
 
 - **`AddMod213.le_div_iff_mul_le`** (PURE, committed `f7402fc35`): `y ≤ a/p ↔ y·p ≤ a` (`0<p`).
