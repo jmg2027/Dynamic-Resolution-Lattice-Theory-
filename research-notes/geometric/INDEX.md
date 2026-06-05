@@ -39,6 +39,26 @@ setting is a reading of the slash:
 | `constant_threshold.py` | the knob `a` from collapse to `P` (`M_a=[[a,1],[1,1]]`) | Möbius spine | `x*(a)` (quadratic irrational) | `det=a−1`; blind at `a=1` (det 0); `3,5,φ` at `a=2` | **C1 test**: blind ⟺ `det=0`; constants ⟺ forced `a=2` (§3.2 = §3.5) |
 | `derham_family.py` | directed off-segment, swept (`x+(y−x)w`) | de Rham curves (Lévy, Cesàro–Koch, …) | self-similar fractals | similarity dim (Moran `\|w\|^d+\|1−w\|^d=1`) | **K4 breadth**: many shapes from one `w`; dimensions = the non-∅-axiom edge |
 
+## Further readings (exploratory catalog)
+
+More combining maps, each a Lens with its own limit + intermediate stage
+(`more_lens_readings.py`).  Tier-1 exploratory — a reading promotes only when a
+discrete cell closes ∅-axiom.
+
+| slash read as | combining map | limit | intermediate shape | 213 link |
+|---|---|---|---|---|
+| **power-mean between** | `M_p(x,y)=((x^p+y^p)/2)^{1/p}` | warped segment | skewed dyadic lattice | the "between" is a *family*; arithmetic (`p=1`) is the symmetric member, geometric/harmonic the skewed ones |
+| **XOR / Nim** | `x ⊕ y` (bitwise) | Sierpinski gasket (dim `log3/log2≈1.585`) | `n`-bit table (Pascal mod 2) | the binary / carryless reading; discrete self-similar |
+| **mediant (Ford)** | `(p+r)/(q+s)` | Ford circle packing (all ℚ) | denominator `≤ Q` | the mediant's circle-packing face; tangency ⟺ mediant neighbours (§3.5 `P`) |
+| **modular** | `(x+y) mod n` | the `n`-gon `ℤ_n` → circle | partial `n`-cycle | a **finite / periodic** limit (not continuum/fractal); ties to mod-`p` periods (`Px/ModPPeriods`) |
+| **golden rotation** | rotate by the golden angle | equidistribution (sunflower) | first `N` points | `φ` = the most uniform rotation — `φ` returns from §3.5 as the equidistribution optimum |
+| **concatenation** | word `x·y` | Cantor set (dim `log2/log3≈0.631`) | `2^n` intervals | the syntactic reading (§6.4 internalisation); the slash read as word-formation |
+
+Two structural observations: (i) the limit is not always a continuum or a
+fractal — the modular reading's limit is **finite/periodic**, a third kind; (ii)
+`φ` reappears here as the *equidistribution* optimum (golden rotation), the same
+`φ` that §3.5 reads as the residue's algebraic measure — one number, two frames.
+
 ## The meta-thesis (the research spine)
 
 **Which readings surface the structural constants `(3,2,5,P,φ)` and which are
