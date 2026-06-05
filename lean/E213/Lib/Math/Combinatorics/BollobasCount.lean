@@ -20,7 +20,8 @@ open E213.Lib.Math.Combinatorics.SpernerChains
    mem_of_elemNat truePos idxList truePos_length truePos_nodup mem_truePos
    idxList_length idxList_nodup append_inj_left append_left_cancel lcount_ge_nodup_subset)
 open E213.Lib.Math.Combinatorics.BollobasSetPair
-  (before before_x before_y before_rec favours listAll favourCountTarget)
+  (before before_x before_y before_rec favours listAll favourCountTarget
+   bollobas_of_count PairDisjoint CrossIntersecting)
 open E213.Lib.Math.Combinatorics.BoolEnum (length_of_mem_allBoolLists)
 open E213.Tactic.List213
   (mem_append_left mem_append_right mem_append_iff mem_filter mem_filter_of
@@ -694,5 +695,57 @@ theorem wovenFam_nodup (hAn : A.length = n) (hBn : B.length = n) (hd : disjointV
     have m2 := (woven_recover hAn hBn hd hmask2 hσA2 hσB2 hσR2).1
     exact hne (by rw [← m1, ← m2, ← hzeq1, ← hzeq2])
 
+/-- ★ Every woven ordering is a favouring permutation of `[n]`. -/
+theorem wovenFam_subset (hAn : A.length = n) (hBn : B.length = n) (hd : disjointVec A B = true) :
+    ∀ z, z ∈ wovenFam A B n → z ∈ perms (idxList n) ∧ favours n z A B = true := by
+  intro z hz
+  obtain ⟨mask, hmask, hz'⟩ := mem_flatMap213 hz
+  obtain ⟨σA, σB, σR, hσA, hσB, hσR, hzeq⟩ := wovenFam_extract hz'
+  have hAps : A.length = (idxList n).length := by rw [hAn, idxList_length]
+  have hBps : B.length = (idxList n).length := by rw [hBn, idxList_length]
+  obtain ⟨c1, c2⟩ := woven_count hAn hBn hd hmask hσA hσB hσR
+  refine ⟨?_, ?_⟩
+  · -- z ∈ perms (idxList n)
+    have hweave : LPerm z ((σA ++ σB) ++ σR) := by
+      rw [hzeq]; exact weave_perm mask (σA ++ σB) σR c1 c2
+    have hmemp : (σA ++ σB) ++ σR
+        ∈ perms ((truePos A (idxList n) ++ truePos B (idxList n)) ++ restPos A B (idxList n)) :=
+      perms_append_mem _ _ (σA ++ σB) σR (perms_append_mem _ _ σA σB hσA hσB) hσR
+    have hpart := partition_perm A B (idxList n) hAps hBps hd
+    exact mem_perms_iff.mpr
+      (LPerm.trans hweave (LPerm.trans (perms_sound _ _ hmemp) (LPerm.symm hpart)))
+  · -- favours
+    rw [hzeq]
+    exact weave_favours A B mask σA σB σR (restPos A B (idxList n)) hσA hσB hσR
+      (fun w hwA hwB => truePos_disjoint A B (idxList n) hd (idxList_nodup n) hwA hwB)
+      (fun w hwA hwR => restPos_not_truePos_A A B (idxList n) (idxList_nodup n) hwR hwA)
+      (fun w hwB hwR => restPos_not_truePos_B A B (idxList n) (idxList_nodup n) hwR hwB)
+      c1 c2
+
+/-- ★★ **The favour-count lower bound** — the lone rung of `bollobas_of_count`,
+    discharged: at least `favourCountTarget` orderings favour `(A,B)`. -/
+theorem favourCount_lower (hAn : A.length = n) (hBn : B.length = n) (hd : disjointVec A B = true) :
+    favourCountTarget n (cardB A) (cardB B)
+      ≤ lcount (fun c => favours n c A B) (perms (idxList n)) := by
+  rw [← wovenFam_length hAn hBn hd]
+  exact lcount_ge_nodup_subset (wovenFam_nodup hAn hBn hd) (wovenFam_subset hAn hBn hd)
+
 end
+
+/-- ★★★ **Bollobás' set-pair inequality (uniform), unconditional ∅-axiom.**  A
+    cross-intersecting family of set-pairs over `[n]` with `|A_i| = a`, `|B_i| = b`
+    (aligned-disjoint vectors) has `|F| ≤ C(a+b, a)` — independent of `n`.  The
+    favour-count rung is now discharged (`favourCount_lower`). -/
+theorem bollobas_uniform {n a b : Nat} {F : List (List Bool × List Bool)}
+    (hcross : CrossIntersecting n F) (hnd : F.Nodup) (hab : a + b ≤ n)
+    (hlen1 : ∀ p, p ∈ F → p.1.length = n) (hlen2 : ∀ p, p ∈ F → p.2.length = n)
+    (hcA : ∀ p, p ∈ F → cardB p.1 = a) (hcB : ∀ p, p ∈ F → cardB p.2 = b)
+    (hdvec : ∀ p, p ∈ F → disjointVec p.1 p.2 = true) :
+    F.length ≤ binom (a + b) a := by
+  have hdisj : PairDisjoint n F := fun p hp z hzA hzB =>
+    truePos_disjoint p.1 p.2 (idxList n) (hdvec p hp) (idxList_nodup n) hzA hzB
+  refine bollobas_of_count hdisj hcross hnd hab (fun p hp => ?_)
+  have h := favourCount_lower (hlen1 p hp) (hlen2 p hp) (hdvec p hp)
+  rwa [hcA p hp, hcB p hp] at h
+
 end E213.Lib.Math.Combinatorics.BollobasCount
