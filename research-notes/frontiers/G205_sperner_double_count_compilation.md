@@ -51,11 +51,22 @@ Then `Σ_{A∈F} |A|!(n−|A|)! ≤ n!`, and via `binom n k · k!·(n−k)! = n!
 factorial identity, also unbuilt) the LYM fractional form `Σ 1/C(n,|A|) ≤ 1`,
 hence `|F| ≤ C(n,⌊n/2⌋)`.
 
-Status of the rung: the `n!` half is now **built** —
-`Lib/Math/Combinatorics/Permutations.lean` `perms_length : (perms l).length =
-fact l.length` (10/10 PURE), the enumeration the repo previously lacked (it had
-only `LPerm` *equivalence*, `Linalg213/Permutation.lean`).  This is the count of
-maximal chains.  Remaining for the *named* Sperner upper bound:
+Status of the rung: the permutation toolkit is now **built** —
+`Lib/Math/Combinatorics/Permutations.lean` (all PURE): `perms_length :
+(perms l).length = fact l.length` (the `n!` chain count), `perms_sound`
+(`perms ⊆` rearrangements, via the local `LPerm`), `self_mem_perms`
+(`l ∈ perms l`), and ★ `perms_append_mem` (orderings **concatenate**:
+`σ ∈ perms A → τ ∈ perms B → σ++τ ∈ perms (A++B)`) — the engine of the
+`k!·(n−k)!` count.  Remaining for the *named* Sperner upper bound:
+
+  - **`perms` completeness / respects-`LPerm`** (`LPerm l l' → perms l, perms l'
+    same members`) — needed to transport the `A`-grouped concatenations into the
+    *fixed* chain list `perms (idxList n)`.  The one hard lemma is the swap case
+    = "insertion commutes" (`insert_comm`); cons-cancellation is *not* needed
+    once `self_mem`+`perms_append_mem` are in hand.
+  - the **prefix-set count** `#{p ∈ perms : the size-k prefix-set of p = A} =
+    k!·(n−k)!` (an injection `perms(A-pts) × perms(rest) ↪ chains-through-A`,
+    counted by `perms_length`; only the `≥` direction is needed for the bound);
 
   - the **prefix-set count** `#{p ∈ perms : the size-k prefix-set of p = A} =
     k!·(n−k)!` (a refinement of `perms_length` — split each ordering into its
