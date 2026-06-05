@@ -229,7 +229,7 @@ def IsAntichain (L : List (List Bool)) : Prop :=
 /-- The size-`k` layer of the Boolean lattice `2^[n]`. -/
 def kLayer (n k : Nat) : List (List Bool) := (allBoolLists n).filter (cardEq k)
 
-open E213.Tactic.List213 (mem_filter mem_filter_of nodup_filter)
+open E213.Tactic.List213 (mem_filter mem_filter_of nodup_filter nodup_length_le_of_subset)
 
 /-- `|kLayer n k| = binom n k`. -/
 theorem kLayer_card (n k : Nat) : (kLayer n k).length = binom n k := by
@@ -371,5 +371,148 @@ theorem binom_le_binom_mid (n k : Nat) : binom n k ≤ binom n (half n) := by
   · have hsplit : k + (half n - k) = half n := add_sub_of_le hk
     have hu := binom_climb_up n (half n - k) k (by rw [hsplit]; exact hle)
     rw [hsplit] at hu; exact hu
+
+/-! ## §6 — Sperner for uniform (single-size) antichains
+
+The easy half of the upper bound: an antichain *within one layer* cannot beat
+that layer, hence cannot beat the middle layer.  This is fully general
+(∅-axiom): the genuine content of Sperner is the **cross-layer** bound (§7),
+that even mixing sizes cannot beat the single best layer. -/
+
+/-- `Nat.beq k k = true` (propext-free; core `Nat.beq_refl` carries propext). -/
+theorem beq_self : ∀ k, Nat.beq k k = true
+  | 0 => rfl
+  | k + 1 => beq_self k
+
+/-- ★ **Uniform Sperner.**  Any duplicate-free family of size-`k` subsets of
+    `[n]` has at most `binom n ⌊n/2⌋` members.  (A single-layer antichain is
+    bounded by its layer, and no layer beats the middle — §5.) -/
+theorem uniform_antichain_le {n k : Nat} {L : List (List Bool)}
+    (hnd : L.Nodup) (hlen : ∀ A, A ∈ L → A.length = n) (hk : ∀ A, A ∈ L → cardB A = k) :
+    L.length ≤ binom n (half n) := by
+  have hsub : ∀ A, A ∈ L → A ∈ kLayer n k := by
+    intro A hA
+    refine mem_filter_of ?_ ?_
+    · have hm := mem_allBoolLists A
+      rwa [hlen A hA] at hm
+    · show Nat.beq (cardB A) k = true
+      rw [hk A hA]; exact beq_self k
+  have hbound := nodup_length_le_of_subset hnd hsub
+  rw [kLayer_card] at hbound
+  exact Nat.le_trans hbound (binom_le_binom_mid n k)
+
+/-! ## §7 — the LYM double-counting engine (the cross-layer upper bound)
+
+The heart of Sperner's *upper* bound is the **LYM (Lubell–Yamamoto–Meshalkin)
+inequality**, compiled here to the **double-counting / dual-union-bound** face
+of the `COUNT` instruction (`seed/PROOF_ISA.md`).  Where the union bound (Erdős,
+`CountExistence.union_bound`) says *bad events cover few colourings, so a good
+one is left over*, its dual says: if a family of **chains** each meets the
+antichain at most once, then summing "chains through `A`" over the antichain
+cannot exceed the chain total.  Both are one move — Fubini on a 0/1 incidence
+matrix, read once by rows and once by columns.
+
+The engine is abstract and ∅-axiom.  Instantiating it to the *named* Sperner
+bound needs the chain model's two counts — `#chains = n!` and
+`#chains through A = |A|!·(n−|A|)!` — the permutation arithmetic that, exactly
+as Erdős' named Ramsey bound left a `K_N`-bookkeeping rung over its built engine
+(`RamseyLowerBound`), is the one honest rung here. -/
+
+/-- Generic `Bool`-predicate count (propext-free; core `List.countP` carries it). -/
+def lcount {β : Type _} (p : β → Bool) : List β → Nat
+  | [] => 0
+  | a :: l => (bif p a then 1 else 0) + lcount p l
+
+/-- Sum of `f` over a list. -/
+def sumOver {β : Type _} (f : β → Nat) : List β → Nat
+  | [] => 0
+  | a :: l => f a + sumOver f l
+
+theorem sumOver_zero {β : Type _} : ∀ (L : List β), sumOver (fun _ => 0) L = 0
+  | [] => rfl
+  | _ :: l => by show 0 + sumOver (fun _ => (0 : Nat)) l = 0; rw [Nat.zero_add, sumOver_zero l]
+
+theorem sumOver_const_one {β : Type _} : ∀ (L : List β), sumOver (fun _ => 1) L = L.length
+  | [] => rfl
+  | _ :: l => by
+      show 1 + sumOver (fun _ => 1) l = l.length + 1
+      rw [sumOver_const_one l, Nat.add_comm]
+
+theorem sumOver_add {β : Type _} (f g : β → Nat) :
+    ∀ (L : List β), sumOver (fun x => f x + g x) L = sumOver f L + sumOver g L
+  | [] => rfl
+  | a :: l => by
+      show (f a + g a) + sumOver (fun x => f x + g x) l = (f a + sumOver f l) + (g a + sumOver g l)
+      rw [sumOver_add f g l, Nat.add_add_add_comm]
+
+theorem sumOver_le {β : Type _} {f g : β → Nat} :
+    ∀ {L : List β}, (∀ x, x ∈ L → f x ≤ g x) → sumOver f L ≤ sumOver g L
+  | [], _ => Nat.le_refl 0
+  | a :: l, h => by
+      show f a + sumOver f l ≤ g a + sumOver g l
+      exact Nat.add_le_add (h a (List.Mem.head _))
+              (sumOver_le (fun x hx => h x (List.Mem.tail _ hx)))
+
+theorem sumOver_congr {β : Type _} {f g : β → Nat} :
+    ∀ {L : List β}, (∀ x, x ∈ L → f x = g x) → sumOver f L = sumOver g L
+  | [], _ => rfl
+  | a :: l, h => by
+      show f a + sumOver f l = g a + sumOver g l
+      rw [h a (List.Mem.head _), sumOver_congr (fun x hx => h x (List.Mem.tail _ hx))]
+
+/-- `lcount` is `sumOver` of the `0/1` indicator — the bridge between the
+    user-facing count and the double-sum engine. -/
+theorem lcount_eq_sumOver {β : Type _} (p : β → Bool) :
+    ∀ (L : List β), lcount p L = sumOver (fun a => bif p a then 1 else 0) L
+  | [] => rfl
+  | a :: l => by
+      show (bif p a then 1 else 0) + lcount p l
+            = (bif p a then 1 else 0) + sumOver (fun a => bif p a then 1 else 0) l
+      rw [lcount_eq_sumOver p l]
+
+/-- ★ **Fubini / double-count swap.**  A `0/1` (or any) incidence matrix summed
+    by rows equals it summed by columns — the engine of every double count. -/
+theorem sumOver_swap {α γ : Type _} (g : α → γ → Nat) :
+    ∀ (F : List α) (C : List γ),
+      sumOver (fun A => sumOver (fun c => g A c) C) F
+        = sumOver (fun c => sumOver (fun A => g A c) F) C
+  | [], C => (sumOver_zero C).symm
+  | A :: F, C => by
+      show sumOver (fun c => g A c) C + sumOver (fun A' => sumOver (fun c => g A' c) C) F
+            = sumOver (fun c => g A c + sumOver (fun A' => g A' c) F) C
+      rw [sumOver_swap g F C, sumOver_add (fun c => g A c) (fun c => sumOver (fun A' => g A' c) F) C]
+
+/-- ★ **The LYM inequality (engine form).**  If each chain `c ∈ chains` is
+    incident (`inc · c`) to at most one antichain member, then the total of
+    "chains through `A`" over the antichain `F` is at most `#chains`.  This is
+    the dual of the union bound: the double count, read by columns, is bounded
+    by `1` per chain. -/
+theorem lym_double_count {α γ : Type _}
+    (F : List α) (chains : List γ) (inc : α → γ → Bool)
+    (h : ∀ c, c ∈ chains → lcount (fun A => inc A c) F ≤ 1) :
+    sumOver (fun A => lcount (inc A) chains) F ≤ chains.length := by
+  have e1 : sumOver (fun A => lcount (inc A) chains) F
+      = sumOver (fun A => sumOver (fun c => bif inc A c then 1 else 0) chains) F :=
+    sumOver_congr (fun A _ => lcount_eq_sumOver (inc A) chains)
+  have key := sumOver_swap (fun A c => bif inc A c then 1 else 0) F chains
+  rw [e1, key]
+  have h' : ∀ c, c ∈ chains → sumOver (fun A => bif inc A c then 1 else 0) F ≤ 1 :=
+    fun c hc => (lcount_eq_sumOver (fun A => inc A c) F) ▸ h c hc
+  have hb : sumOver (fun c => sumOver (fun A => bif inc A c then 1 else 0) F) chains
+      ≤ sumOver (fun _ => 1) chains := sumOver_le h'
+  rwa [sumOver_const_one] at hb
+
+/-! ## §8 — the named Sperner numbers (confirmation)
+
+The Sperner number `C(n,⌊n/2⌋)` for small `n` is `1, 2, 3, 6, 10, 20, …`.  Each
+is *realised* by the middle layer (`lower_bound`) and *bounds* every uniform
+antichain (`uniform_antichain_le`); unimodality (`binom_le_binom_mid`) makes it
+the largest layer. -/
+
+/-- `C(n,⌊n/2⌋)` for `n = 1..6`. -/
+theorem sperner_numbers :
+    binom 1 (half 1) = 1 ∧ binom 2 (half 2) = 2 ∧ binom 3 (half 3) = 3
+    ∧ binom 4 (half 4) = 6 ∧ binom 5 (half 5) = 10 ∧ binom 6 (half 6) = 20 :=
+  ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
 
 end E213.Lib.Math.Combinatorics.Sperner
