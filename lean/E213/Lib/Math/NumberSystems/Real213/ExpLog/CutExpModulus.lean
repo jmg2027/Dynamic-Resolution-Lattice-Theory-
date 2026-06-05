@@ -97,6 +97,17 @@ theorem expTerm_geom_majorant (M N : Nat) (hM : 2 * M ≤ N + 1) :
         _ = 2 ^ j * M ^ (N + j) * factorial N * (N + j + 1) := by ring_nat
     exact Nat.le_trans hB hA
 
+/-- **Gap antitone**: the exp term at *any* later index is ≤ the term at the base `N`
+    (cross-multiplied `M^{N+j}·N! ≤ Mᴺ·(N+j)!`).  Drops the geometric factor `2ʲ` from
+    `expTerm_geom_majorant` — the bound any sub-sequence (`sin`/`cos` at odd/even indices,
+    T2) inherits. -/
+theorem expTerm_le_of_ge (M N : Nat) (hM : 2 * M ≤ N + 1) (j : Nat) :
+    M ^ (N + j) * factorial N ≤ M ^ N * factorial (N + j) := by
+  have h1 : M ^ (N + j) * factorial N ≤ 2 ^ j * (M ^ (N + j) * factorial N) :=
+    Nat.le_mul_of_pos_left _ (Nat.pos_pow_of_pos j (by decide))
+  have h2 : 2 ^ j * (M ^ (N + j) * factorial N) = 2 ^ j * M ^ (N + j) * factorial N := by ring_nat
+  exact Nat.le_trans h1 (h2 ▸ expTerm_geom_majorant M N hM j)
+
 /-- ★ **Terms are non-increasing past the threshold** (the alternating-series-test
     input).  For `2M ≤ k+1`, `term(k+1) ≤ term(k)` (cross-multiplied
     `M^{k+1}·k! ≤ Mᵏ·(k+1)!`) — immediate from `expTerm_ratio_half` since `a ≤ 2a`.

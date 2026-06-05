@@ -35,9 +35,15 @@ T1. **exp convergence modulus** — ⚙️ **ratio-test core DONE** (`ExpLog/Cut
     this lifts the term decay to the partial-sum Cauchy property as a `Real213` point.
     Also proven: `expTerm_antitone` (terms non-increasing past `2M`) — the
     alternating-series-test input T2 needs.
-T2. **sin / cos convergent series** — replace the stubs: `sinCut x N =
-    Σ (−1)ᵏ x^{2k+1}/(2k+1)!`, `cosCut` even-power; convergence modulus
-    (alternating + factorial), same engine as T1.
+T2. **sin / cos convergent series** — ⚙️ **convergence modulus DONE by comparison**
+    (`ExpLog/CutTrigModulus.lean`, 4 PURE + `expTerm_le_of_ge` in CutExpModulus): the
+    `sin`/`cos` term magnitudes are the `exp` terms at odd/even indices, so they inherit
+    `exp`'s engine — `cosTerm_geom_decay` / `sinTerm_geom_decay` (geometric majorant,
+    decay `term(m)/2^{2k}`) + `cosTerm_antitone` / `sinTerm_antitone` (non-increasing
+    past the threshold — the alternating-series-test hypothesis).  **Remaining**: the
+    *signed* cut-level series `sinCut x N = Σ(−1)ᵏ x^{2k+1}/(2k+1)!`, `cosCut` even-power
+    (replacing the `Core/Functions.lean` stubs); their alternating partial sums bracket
+    the limit *because* of the antitone magnitudes proven here.
 T3. **derivative rules** — `d/dx exp = exp`, `d/dx sin = cos`, `d/dx cos = −sin`
     via *termwise* differentiation of the series (the power-series ↔ derivative
     bridge, building on `cutPowFnIsDifferentiable`).

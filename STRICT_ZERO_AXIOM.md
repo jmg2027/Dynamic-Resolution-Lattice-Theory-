@@ -416,6 +416,17 @@ alternating-series-test input for the `sin`/`cos` series, T2).  Rung **T1** of t
 (`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`); next: package the rate
 into a `CauchyCutSeq` over `expPartialSum` (T1→T2 bridge) then `sin`/`cos` series (T2).
 
+### Marathon T2 — sin/cos Taylor convergence modulus by comparison to exp (2026-06-05)
+
+`E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus` — **4 PURE / 0 DIRTY** (+ `expTerm_le_of_ge`
+gap-antitone added to `CutExpModulus`).  The `sin`/`cos` Taylor term magnitudes *are* the `exp` terms at
+odd/even indices (`cos` term `k` = `exp` term `2k`, `sin` term `k` = `exp` term `2k+1`), so the whole
+`CutExpModulus` engine transfers by comparison: `cosTerm_geom_decay`/`sinTerm_geom_decay` (geometric
+majorant at the even/odd sub-sequence, decay `term(m)/2^{2k}`) + `cosTerm_antitone`/`sinTerm_antitone`
+(terms non-increasing past the threshold — the alternating-series-test hypothesis the signed `sinCut`/`cosCut`
+bracketing will use).  Rung **T2** of the transcendentals marathon (term-magnitude convergence rate);
+remaining: the signed cut-level series replacing the `Core/Functions.lean` stubs.
+
 ### Marathon P1 — discrete heat maximum principle (2026-06-05)
 
 `E213.Lib.Math.Analysis.ODE.HeatEqDiscrete` (extended) — **4 new PURE / 0 DIRTY**.  The discrete heat step

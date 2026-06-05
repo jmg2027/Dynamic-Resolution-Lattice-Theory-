@@ -54,6 +54,17 @@ P1. **Maximum principle** — ⚙️ **discrete step DONE** (`Analysis/ODE/HeatE
     pattern: uniform-discrete-with-modulus → `Real213` statement).
 P2. **Oscillation decay** — `osc u = max u − min u` is a monovariant; uniform
     rate → continuous smoothing (the "no local collapsing" seed).
+    ⚠️ **Obstruction found (honest)**: *strict* oscillation decay is **false** for the
+    current non-lazy step `heatStepNum = u_{x−1}+u_{x+1}` (no self-weight).  On an
+    even-length periodic grid the **checkerboard** mode `u = 0,1,0,1,…` maps under one
+    step to `2,0,2,0,… = 2·(checkerboard)` — the doubled field is the *same* mode, so the
+    averaged oscillation is **preserved**, not decayed.  This is the eigenvalue `cos π = −1`
+    of the stencil `(½,0,½)` (`|λ| = 1`, no spectral gap).  **Fix**: use the *lazy* step
+    `(¼,½,¼)`, i.e. `lazyHeatStepNum = u_{x−1} + 2u_x + u_{x+1}` (numerator of `4·u_new`),
+    whose eigenvalues `(1+cos θ)/2 ∈ [0,1]` give a genuine gap (`λ < 1` off the constant
+    mode).  P2 should be developed on the lazy step.  The P1 maximum principle already
+    proven holds for *both* stencils (convex combinations); only the strict *decay* needs
+    the lazy weight.
 P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (discrete
     Bochner / gradient estimate); the limit = continuous energy decay, rate a
     `‖∇u‖²` (ties to gradient-flow descent identity ①).
