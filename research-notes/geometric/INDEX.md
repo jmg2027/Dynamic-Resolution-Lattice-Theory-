@@ -43,6 +43,15 @@ slash's arity), max degree and hub count both `≈ √(2N)`, a bimodal
 degree distribution (a `√(2N)` hub cluster + `→100%` degree-2 leaves), and the
 oldest nodes `a, b` as the maximal hubs (older residue is pointed at more).
 
+*But the connection criterion is itself a Lens* (`connection_criterion.py`).
+The slash is a symmetric *ternary* incidence `{a, b, a/b}`; the analysis above
+used one criterion — "child → its two operands" (parent-edges) — which reduces
+the ternary event to two binary edges and imposes a child/parent (operator/object,
+§6.2) direction the axiom lacks.  The same skeleton under other criteria (the
+2-simplex `a—b—a/b`; operand-pairing `a—b`; or the minimal **hypergraph**, each
+slash one 3-vertex hyperedge) is a different graph.  So even "the graph" is a
+sub-Lens, not the Raw — one more layer between any drawing and the residue.
+
 ## The generating space (the dials)
 
 The construction "every relation of two objects is itself an object, recurse"

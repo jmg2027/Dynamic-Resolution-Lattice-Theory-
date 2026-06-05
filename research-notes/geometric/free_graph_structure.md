@@ -56,6 +56,22 @@ are properties of the *graph* (a predicate on `Raw²`, §6.3 flat ontology), i.e
 of the free-graph **Lens** — the layout-invariant content of one reading, still
 not the Raw as-such (`object1_not_surjective`).
 
+## The connection criterion is itself a Lens (a caveat on all of the above)
+
+Every law above is for **one** edge criterion: "child → its two operands"
+(`connection_criterion.py` panel A).  But the slash `a/b` is a *symmetric
+ternary* incidence — one event tying `a`, `b`, and the residue `a/b`
+(`a/b = b/a`, §3.3; operator = object, §6.2).  The parent-edge criterion reduces
+that to two binary edges and imposes a child/parent (operator/object) direction
+the axiom does not have.  Other criteria give other graphs from the *same*
+skeleton: the full 2-simplex `a—b—a/b` (`|E| = 3(N−2)`), operand-pairing `a—b`
+only, or — the minimal honest one — the **hypergraph**, each slash a single
+3-vertex hyperedge `{a, b, a/b}`, with no reduction and no direction.  So
+"free-graph Lens" overstates it: it was the *parent-edge* Lens, and the `√(2N)`
+degree law, the bimodal distribution, `|E| = 2(N−2)` etc. are properties of that
+choice, not of the Raw.  The adjacency criterion is a sub-Lens — one more layer
+between any drawing and the residue.
+
 ## Open frontier
 
 The out-degree-2 regularity (`|E| = 2(N−2)`) and the spawner-block identity
