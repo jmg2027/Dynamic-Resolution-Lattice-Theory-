@@ -1,4 +1,5 @@
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.PolyNatMTactic
 
 /-!
 # Differential Equations 213 — Discrete heat equation (1D)
@@ -105,5 +106,59 @@ theorem heatStep_osc_bound (n : Nat) (u : Nat → Nat) (A B x : Nat)
   · have h2 : 2 * B - heatStepNum n u x ≤ 2 * B - 2 * A :=
       E213.Tactic.NatHelper.sub_le_sub_left (2 * B) hA
     rw [hdist] at h2; exact h2
+
+/-! ## Maximum principle for the whole evolution (iterated heat flow)
+
+The single-step bound iterates: applying the heat field-update `t` times keeps the
+(numerator-tracked) field inside `[2ᵗ·A, 2ᵗ·B]` whenever the data is in `[A, B]` — i.e.
+the *averaged* field stays in `[A, B]` for **all** time.  This is the discrete maximum
+principle for the evolution `u(·, t)`, not just one step: `‖u(t)‖∞ ≤ ‖u(0)‖∞` along the
+discrete heat semigroup.  Clean `Nat` induction on `t`; uniform in the grid length `n`. -/
+
+/-- One full-grid heat field-update: apply `heatStepNum` at every site. -/
+def heatField (n : Nat) (u : Nat → Nat) : Nat → Nat := fun x => heatStepNum n u x
+
+/-- `t`-fold heat evolution (numerator-tracked: each step doubles, so after `t` steps the
+    true field is `heatIter / 2ᵗ`). -/
+def heatIter (n : Nat) : Nat → (Nat → Nat) → (Nat → Nat)
+  | 0,     u => u
+  | t + 1, u => heatField n (heatIter n t u)
+
+/-- ★★★ **Maximum principle, all time (upper).**  If the data satisfies `u ≤ B` on the
+    grid, then after `t` heat steps `heatIter n t u x ≤ 2ᵗ·B` at every site — the averaged
+    field never exceeds the initial maximum `B`.  Induction on `t` via `heatStep_le_two_max`. -/
+theorem heatIter_le (n B : Nat) :
+    ∀ (t : Nat) (u : Nat → Nat), (∀ y, u y ≤ B) → ∀ x, heatIter n t u x ≤ 2 ^ t * B
+  | 0,     u, h, x => by show u x ≤ 2 ^ 0 * B; rw [Nat.pow_zero, Nat.one_mul]; exact h x
+  | t + 1, u, h, x => by
+      show heatStepNum n (heatIter n t u) x ≤ 2 ^ (t + 1) * B
+      have ih : ∀ y, heatIter n t u y ≤ 2 ^ t * B := fun y => heatIter_le n B t u h y
+      calc heatStepNum n (heatIter n t u) x
+          ≤ 2 * (2 ^ t * B) := heatStep_le_two_max n (heatIter n t u) (2 ^ t * B) x ih
+        _ = 2 ^ (t + 1) * B := by rw [Nat.pow_succ]; ring_nat
+
+/-- ★★★ **Maximum principle, all time (lower).**  If `A ≤ u` on the grid, then
+    `2ᵗ·A ≤ heatIter n t u x` for every `t`, `x` — the averaged field never falls below
+    the initial minimum `A`. -/
+theorem heatIter_ge (n A : Nat) :
+    ∀ (t : Nat) (u : Nat → Nat), (∀ y, A ≤ u y) → ∀ x, 2 ^ t * A ≤ heatIter n t u x
+  | 0,     u, h, x => by show 2 ^ 0 * A ≤ u x; rw [Nat.pow_zero, Nat.one_mul]; exact h x
+  | t + 1, u, h, x => by
+      show 2 ^ (t + 1) * A ≤ heatStepNum n (heatIter n t u) x
+      have ih : ∀ y, 2 ^ t * A ≤ heatIter n t u y := fun y => heatIter_ge n A t u h y
+      calc 2 ^ (t + 1) * A
+          = 2 * (2 ^ t * A) := by rw [Nat.pow_succ]; ring_nat
+        _ ≤ heatStepNum n (heatIter n t u) x :=
+            heatStep_two_min_le n (heatIter n t u) (2 ^ t * A) x ih
+
+/-- ★★★★ **Discrete maximum principle for the heat evolution.**  Data in `[A, B]` ⟹ the
+    `t`-step field stays in `[2ᵗ·A, 2ᵗ·B]` (averaged field in `[A, B]`) for *all* `t`.
+    The sup-norm is non-increasing along the discrete heat semigroup — the combinatorial
+    seed of the parabolic maximum principle, uniform in the mesh, hence `Real213`-limit
+    ready (the continuous maximum principle, next P1 sub-rung). -/
+theorem heatIter_range (n A B : Nat) (t : Nat) (u : Nat → Nat)
+    (hlo : ∀ y, A ≤ u y) (hhi : ∀ y, u y ≤ B) (x : Nat) :
+    2 ^ t * A ≤ heatIter n t u x ∧ heatIter n t u x ≤ 2 ^ t * B :=
+  ⟨heatIter_ge n A t u hlo x, heatIter_le n B t u hhi x⟩
 
 end E213.Lib.Math.Analysis.ODE.HeatEqDiscrete

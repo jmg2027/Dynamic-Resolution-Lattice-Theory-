@@ -45,7 +45,10 @@ P1. **Maximum principle** — ⚙️ **discrete step DONE** (`Analysis/ODE/HeatE
     4 new PURE): the heat step is a neighbour average, so `u ≤ B` ⟹ `heatStepNum ≤ 2B`
     (`heatStep_le_two_max`, no hot spots), `A ≤ u` ⟹ `2A ≤ heatStepNum`
     (`heatStep_two_min_le`, no cold spots), range `[A,B]` preserved (`heatStep_range`,
-    sup-norm contraction), oscillation non-increasing (`heatStep_osc_bound`).  All uniform
+    sup-norm contraction), oscillation non-increasing (`heatStep_osc_bound`).  **Iterated
+    to all time** (`heatIter`): data in `[A,B]` ⟹ the `t`-step field stays in `[2ᵗA, 2ᵗB]`
+    (averaged in `[A,B]`) for every `t` (`heatIter_le/_ge/_range`) — the maximum principle
+    for the whole evolution, `‖u(t)‖∞ ≤ ‖u(0)‖∞`.  All uniform
     in the grid length `n` (the mesh).  **Remaining**: the `Real213` limit step — pass the
     uniform-in-`h` discrete bound to the continuous maximum principle (the `CompletenessLoop`
     pattern: uniform-discrete-with-modulus → `Real213` statement).

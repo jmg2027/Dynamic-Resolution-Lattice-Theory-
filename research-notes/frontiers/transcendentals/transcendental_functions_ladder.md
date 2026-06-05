@@ -25,7 +25,7 @@ next rung, proves it ∅-axiom, commits, advances the ladder.
 ## Ladder (each rung ∅-axiom; `#print axioms` empty)
 
 T1. **exp convergence modulus** — ⚙️ **ratio-test core DONE** (`ExpLog/CutExpModulus.lean`,
-    4 PURE): the geometric majorant `Mⁿ/n!` is proven at the term-magnitude level —
+    5 PURE): the geometric majorant `Mⁿ/n!` is proven at the term-magnitude level —
     `pow_half_step` → `expTerm_ratio_half` (each Taylor term ≤ half the previous once
     `2M ≤ k+1`, cross-multiplied) → `expTerm_geom_majorant` (`2ʲ·M^{N+j}·N! ≤ Mᴺ·(N+j)!`)
     → `expTail_geom_decay` (tail `≤ term(2M)·2^{−j}`, dyadic modulus `j ↦ 2ʲ`).  The
@@ -33,6 +33,8 @@ T1. **exp convergence modulus** — ⚙️ **ratio-test core DONE** (`ExpLog/Cut
     the rate into a `CauchyCutSeq` over the cut-level `expPartialSum` (reuse the
     `CompletenessLoop` / `RealCauchyWitness` / `eulerCauchySeq` idiom + `CauchyCutSeq`) —
     this lifts the term decay to the partial-sum Cauchy property as a `Real213` point.
+    Also proven: `expTerm_antitone` (terms non-increasing past `2M`) — the
+    alternating-series-test input T2 needs.
 T2. **sin / cos convergent series** — replace the stubs: `sinCut x N =
     Σ (−1)ᵏ x^{2k+1}/(2k+1)!`, `cosCut` even-power; convergence modulus
     (alternating + factorial), same engine as T1.

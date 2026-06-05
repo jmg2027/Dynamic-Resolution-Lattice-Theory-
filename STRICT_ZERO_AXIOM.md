@@ -411,7 +411,8 @@ argument not yet done").  Worked at the term-magnitude level `Mᵏ/k!` (numerato
 `expTerm_ratio_half` (cross-multiplied `2·M^{k+1}·k! ≤ Mᵏ·(k+1)!` — the `(k+1)`-th Taylor term is ≤ half
 the `k`-th) → `expTerm_geom_majorant` (`2ʲ·M^{N+j}·N! ≤ Mᴺ·(N+j)!` for `2M ≤ N+1`, the geometric tail
 ratio `1/2`) → `expTail_geom_decay` (base `N = 2M`: the tail decays as `term(2M)·2^{−j}` with explicit
-dyadic modulus `j ↦ 2ʲ`).  Rung **T1** of the transcendentals marathon
+dyadic modulus `j ↦ 2ʲ`).  Plus `expTerm_antitone` (terms non-increasing past `2M` — the
+alternating-series-test input for the `sin`/`cos` series, T2).  Rung **T1** of the transcendentals marathon
 (`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`); next: package the rate
 into a `CauchyCutSeq` over `expPartialSum` (T1→T2 bridge) then `sin`/`cos` series (T2).
 
@@ -423,8 +424,11 @@ discrete maximum principle, seed of all parabolic a-priori estimates.  In the nu
 `heatStepNum = 2·u_new = u_left + u_right`: `heatStep_le_two_max` (`u ≤ B` ⟹ `heatStepNum ≤ 2B`, no hot
 spots), `heatStep_two_min_le` (`A ≤ u` ⟹ `2A ≤ heatStepNum`, no cold spots), `heatStep_range` (the doubled
 value stays in `[2A,2B]` — sup-norm contraction), `heatStep_osc_bound` (the oscillation `max−min` does not
-grow — the monovariant feeding P2).  All uniform in the grid length `n` (hence in the mesh) — the
-uniformity that lets the `Real213` limit promote it to the continuous maximum principle.  Rung **P1** of
+grow — the monovariant feeding P2).  **Iterated to all time** (`heatField`, `heatIter`): `heatIter_le` /
+`heatIter_ge` / `heatIter_range` — data in `[A,B]` ⟹ the `t`-step field stays in `[2ᵗ·A, 2ᵗ·B]` (averaged
+field in `[A,B]`) for *every* `t`, the discrete maximum principle for the whole heat evolution
+(`‖u(t)‖∞ ≤ ‖u(0)‖∞`).  All uniform in the grid length `n` (hence in the mesh) — the uniformity that lets
+the `Real213` limit promote it to the continuous maximum principle.  Rung **P1** of
 the discrete-PDE-estimates marathon
 (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`); next: oscillation decay rate
 (P2) + the `Real213` limit step.

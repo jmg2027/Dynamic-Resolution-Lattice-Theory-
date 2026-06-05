@@ -97,6 +97,20 @@ theorem expTerm_geom_majorant (M N : Nat) (hM : 2 * M ≤ N + 1) :
         _ = 2 ^ j * M ^ (N + j) * factorial N * (N + j + 1) := by ring_nat
     exact Nat.le_trans hB hA
 
+/-- ★ **Terms are non-increasing past the threshold** (the alternating-series-test
+    input).  For `2M ≤ k+1`, `term(k+1) ≤ term(k)` (cross-multiplied
+    `M^{k+1}·k! ≤ Mᵏ·(k+1)!`) — immediate from `expTerm_ratio_half` since `a ≤ 2a`.
+    This is exactly the hypothesis the alternating series test for `sin`/`cos` (T2) needs:
+    once the Taylor terms decrease monotonically the alternating partial sums bracket the
+    limit. -/
+theorem expTerm_antitone (M k : Nat) (h : 2 * M ≤ k + 1) :
+    M ^ (k + 1) * factorial k ≤ M ^ k * factorial (k + 1) := by
+  have hle : M ^ (k + 1) * factorial k ≤ 2 * M ^ (k + 1) * factorial k :=
+    calc M ^ (k + 1) * factorial k
+        ≤ 2 * (M ^ (k + 1) * factorial k) := Nat.le_mul_of_pos_left _ (by decide)
+      _ = 2 * M ^ (k + 1) * factorial k := by ring_nat
+  exact Nat.le_trans hle (expTerm_ratio_half M k h)
+
 /-! ## §3 — the tail vanishes: term magnitudes → 0 with a dyadic modulus -/
 
 /-- ★★★ **The Taylor tail decays geometrically from the threshold `2M`.**  Taking the
