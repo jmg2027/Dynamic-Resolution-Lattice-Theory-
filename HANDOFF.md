@@ -83,14 +83,16 @@ Physics constants table: `catalogs/physics-constants.md`.
 ## Open Problems (Priority Order)
 From `research-notes/frontiers/count_substrate_synthesis.md` (registered in
 `frontiers/INDEX.md`):
-### 1. Dilworth UPPER bound on `2^[n]` — the SCD (lower bound DONE).
-`dilworth_lower` is closed (chain cover ≥ `C(n,⌊n/2⌋)`).  The **chain-property
-infrastructure is built** (`ChainAntichain` §5): `sorted_isChain` (subseteqB-
-Pairwise ⟹ IsChain), `subseteqB_refl`/`_false_true`/`_cons_same`, `pairwise_rel`.
-Remaining for the `C(n,⌊n/2⌋)`-chain cover (de Bruijn–Tengbergen–Kruyswijk SCD):
-the `scd`/`extendC`/`raiseC` construction, Pairwise-preservation (obligation a,
-infra ready), partition (b), and the symmetric-level-invariant count (c, the
-crux).  Full spec in `research-notes/frontiers/count_substrate_synthesis.md`.
+### 1. Dilworth UPPER bound on `2^[n]` — the SCD (lower + obligation (a) DONE).
+`dilworth_lower` closed; the **SCD construction + chain property is CLOSED**
+(`ChainAntichain` §5–6): `scd`/`extendC`/`raiseC`, `extendC_sorted`/`raiseC_sorted`,
+`scd_sorted`, ★★ `scd_isChain` (every `scd n` member is a chain).  **Remaining**:
+(b) **partition** — every length-`n` vector in exactly one `scd n` chain (needs
+mem-characterizations of `extendC`/`raiseC`: `v∈C ⟹ false::v ∈ extendC C`,
+`true::(last C) ∈ extendC C`, `v∈C, v≠last ⟹ true::v ∈ raiseC C`); (c) the
+**symmetric-level-invariant count** `= C(n,⌊n/2⌋)` (the crux: each chain's `cardB`
+values are a contiguous `{k,…,n−k}` ⟹ one `⌊n/2⌋`-element ⟹ bijection
+chains↔middle-layer).  Full spec in the frontier note.
 ### 2. Leibniz determinant over `perms` (bridge `LPerm` ↔ `perms`).
 ### (CLOSED) Bollobás `bollobas_uniform` (36/36 PURE); Mirsky `mirsky_boolean`
 (`ChainAntichain`, 15/15 PURE) — both unconditional ∅-axiom.
