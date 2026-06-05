@@ -385,6 +385,16 @@ content collapses to a pure `ℤ` ring identity (`ring_intZ`, an EQUIV/identity-
 - `sophie_germain` — `a⁴ + 4b⁴ = (a²+2b²−2ab)(a²+2b²+2ab)` (Aurifeuillian factorization).
 `ring_intZ` reifies `+ * - neg` (not `^`), so powers are explicit products.
 
+### Combinatorial game theory: the subtraction game S={1,2} (2026-06-05)
+
+`E213.Lib.Math.Combinatorics.SubtractionGame` — **7 PURE / 0 DIRTY**.  A different domain (Sprague–Grundy
+games), proved by **backward induction on the game tree**, not an algebraic identity.  `gLoss n` (the
+player to move from `n` loses) by backward induction `gLoss (n+2) = !gLoss(n+1) && !gLoss n`; `consec` (no
+two consecutive P-positions); `period` (the game value is **3-periodic** — Sprague–Grundy periodicity, via
+the 4-case Bool analysis + `consec`); `subtraction_game_characterization`: P-positions are exactly the
+multiples of 3 (`gLoss(3q)=true`, `gLoss(3q+1)=gLoss(3q+2)=false`, each by induction via `period`).
+Cross-domain: game value ↔ modular arithmetic; no `ring_intZ`, genuine game-tree induction.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

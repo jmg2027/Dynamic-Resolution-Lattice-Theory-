@@ -12,6 +12,7 @@ import E213.Lib.Math.Combinatorics.RamseyLowerBound
 import E213.Lib.Math.Combinatorics.LinearDependence
 import E213.Lib.Math.Combinatorics.ParityInvariant
 import E213.Lib.Math.Combinatorics.KonigConditional
+import E213.Lib.Math.Combinatorics.SubtractionGame
 
 /-!
 # Combinatorics 213 — umbrella

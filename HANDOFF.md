@@ -98,6 +98,13 @@ identities (`ring_intZ`) — Heron (sides→area), Euler four-square (ℍ norm m
 ∅-axiom in one line.  Productive vein — keep mining (Cayley–Menger/tetrahedron volume, Descartes circle
 relation, more norm-form multiplicativities).
 
+## Game theory (new domain, NOT ring_intZ): subtraction game S={1,2}
+`Combinatorics/SubtractionGame.lean` (7 PURE): Sprague–Grundy — P-positions of the `{1,2}` subtraction
+game are exactly the multiples of 3 (`subtraction_game_characterization`), via backward induction +
+3-periodicity (`period`), genuine game-tree structure (not an algebraic identity).  Next game-theory
+targets: general Nim (Bouton, XOR of heaps; needs `Nat.xor` + the highest-bit winning move), or Grundy
+values / mex.
+
 ## Next targets (priority order)
 1. **More `ring_intZ` cross-domain identities** — Cayley–Menger (Heron→tetrahedron, geometry↔determinant),
    Brahmagupta (cyclic-quadrilateral area), Lagrange-type norm identities.  Fast, clean, ∅-axiom.
