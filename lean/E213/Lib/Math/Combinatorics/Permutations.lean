@@ -241,4 +241,78 @@ theorem perms_append_mem {α : Type _} :
       exact mem_flatMap213_of (perms_append_mem A' B σ' τ hσ' hτ)
               (mem_insertEverywhere_append a τ σ' σ hσσ')
 
+/-! ## §6 — completeness: `perms` is exactly the permutations
+
+The converse of `perms_sound`: every rearrangement of `l` is enumerated.  The
+one structural lemma is `insert_comm` — inserting `a` then `b` reorders to
+inserting `b` then `a` — which discharges the `swap` case of `perms_respects`
+(`perms` has the same members on `LPerm`-equal inputs).  With `self_mem_perms`,
+completeness follows, giving `mem_perms_iff : p ∈ perms l ↔ LPerm p l`. -/
+
+/-- **Insertion commutes.**  Inserting `a` into `r` (→ `q`) then `b` into `q`
+    (→ `p`) is reachable by inserting `b` into `r` (→ `s`) then `a` into `s`. -/
+theorem insert_comm {α : Type _} (a b : α) :
+    ∀ (r q p : List α), q ∈ insertEverywhere a r → p ∈ insertEverywhere b q →
+      ∃ s, s ∈ insertEverywhere b r ∧ p ∈ insertEverywhere a s
+  | [], q, p, hq, hp => by
+      cases hq with
+      | tail _ h' => nomatch h'
+      | head =>
+          refine ⟨[b], List.Mem.head _, ?_⟩
+          cases hp with
+          | head => exact List.Mem.tail _ (List.Mem.head _)
+          | tail _ hp' =>
+              cases hp' with
+              | head => exact List.Mem.head _
+              | tail _ h'' => nomatch h''
+  | c :: r', q, p, hq, hp => by
+      cases hq with
+      | head =>
+          cases hp with
+          | head =>
+              exact ⟨b :: c :: r', List.Mem.head _,
+                List.Mem.tail _ (mem_map_of_mem (b :: ·) (List.Mem.head _))⟩
+          | tail _ hpm =>
+              obtain ⟨p'', hp''mem, rfl⟩ := exists_of_mem_map hpm
+              exact ⟨p'', hp''mem, self_mem_insertEverywhere a p''⟩
+      | tail _ hqm =>
+          obtain ⟨q', hq'mem, rfl⟩ := exists_of_mem_map hqm
+          cases hp with
+          | head =>
+              exact ⟨b :: c :: r', List.Mem.head _,
+                List.Mem.tail _ (mem_map_of_mem (b :: ·)
+                  (List.Mem.tail _ (mem_map_of_mem (c :: ·) hq'mem)))⟩
+          | tail _ hpm =>
+              obtain ⟨p''', hp'''mem, rfl⟩ := exists_of_mem_map hpm
+              obtain ⟨s', hs', hps'⟩ := insert_comm a b r' q' p''' hq'mem hp'''mem
+              exact ⟨c :: s', List.Mem.tail _ (mem_map_of_mem (c :: ·) hs'),
+                List.Mem.tail _ (mem_map_of_mem (c :: ·) hps')⟩
+
+/-- `perms` has the same members on `LPerm`-equal inputs. -/
+theorem perms_respects {α : Type _} {l l' : List α} (h : LPerm l l') :
+    ∀ p, p ∈ perms l → p ∈ perms l' := by
+  induction h with
+  | nil => intro p hp; exact hp
+  | cons a _ ih =>
+      intro p hp
+      obtain ⟨q, hq, hpq⟩ := mem_flatMap213 hp
+      exact mem_flatMap213_of (ih q hq) hpq
+  | swap a b m =>
+      intro p hp
+      obtain ⟨q, hq, hpq⟩ := mem_flatMap213 hp
+      obtain ⟨r, hr, hqr⟩ := mem_flatMap213 hq
+      obtain ⟨s, hs, hps⟩ := insert_comm a b r q p hqr hpq
+      exact mem_flatMap213_of (mem_flatMap213_of hr hs) hps
+  | trans _ _ ih₁ ih₂ => intro p hp; exact ih₂ p (ih₁ p hp)
+
+/-- ★ **Completeness.**  Every rearrangement of `l` is enumerated by `perms l`. -/
+theorem perms_complete {α : Type _} {l p : List α} (h : LPerm l p) : p ∈ perms l :=
+  perms_respects (LPerm.symm h) p (self_mem_perms p)
+
+/-- ★ **`perms` is exactly the permutations.**  `p ∈ perms l ↔ p` is a
+    rearrangement of `l` — the canonical characterisation, completing
+    `perms_length = |l|!` to "`|l|!` distinct genuine permutations". -/
+theorem mem_perms_iff {α : Type _} {l p : List α} : p ∈ perms l ↔ LPerm p l :=
+  ⟨perms_sound l p, fun h => perms_complete (LPerm.symm h)⟩
+
 end E213.Lib.Math.Combinatorics.Permutations
