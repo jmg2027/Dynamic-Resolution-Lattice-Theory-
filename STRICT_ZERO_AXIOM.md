@@ -341,7 +341,7 @@ ODE) remains open.
 
 ### A7 POSITIVITY archetype + Cauchy–Schwarz (2026-06-05)
 
-`E213.Lib.Math.Foundations.Positivity` — **7 PURE / 0 DIRTY**.  The seventh proof-ISA lift archetype, the
+`E213.Lib.Math.Foundations.Positivity` — **11 PURE / 0 DIRTY**.  The seventh proof-ISA lift archetype, the
 square/norm twin of A5 COUNT: a bound forced because its **gap is a square** (`positivity_of_sq`:
 `gap = s² ⟹ 0 ≤ gap`, via `int_sq_nonneg`).  Drives **Cauchy–Schwarz** (2-D, ℤ) — `cauchy_schwarz_2d`:
 `⟨u,v⟩² ≤ ⟨u,u⟩⟨v,v⟩` because the gap `= (u₀v₁−u₁v₀)²` (the Lagrange identity `lagrange_2d`, discharged by
@@ -349,7 +349,10 @@ square/norm twin of A5 COUNT: a bound forced because its **gap is a square** (`p
 registered in `seed/PROOF_ISA.md` (catalog now seven archetypes).  Classical shadow: Weil RH weights,
 Kazhdan–Lusztig positivity, Mordell heights.  Reach: same archetype drives **AM–GM** (`amgm_2`:
 `4ab ≤ (a+b)²`, gap `(a−b)²`) and **3-D Cauchy–Schwarz** (`cauchy_schwarz_3d` via `lagrange_3d` +
-`positivity_of_sq3`, gap a sum of three squares).
+`positivity_of_sq3`, gap a sum of three squares).  Rigidity face = positive-definiteness:
+`positive_definite_2`/`positive_definite_3` (`Σ vᵢ² = 0 ⟹ v = 0`, via `add_eq_zero_of_nonneg` +
+`mul_eq_zero`) and `dist_sq_zero_imp_eq` (the squared distance separates points — POSITIVITY drives
+`SEPARATE`).
 
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 

@@ -31,9 +31,10 @@ entries, actual conquests.  Seed compilation: `research-notes/G205_cross_domain_
    `λ<0` divergence (not A6).  Frontier sub-steps 2 + 4.
 7. **A7 POSITIVITY** archetype — `Foundations/Positivity.lean` (`positivity_of_sq`: gap = square ⟹ bound;
    `cauchy_schwarz_2d` via the Lagrange identity).  Proof-ISA catalog now **seven** archetypes.
-8. **A7 reach extension** — same `Positivity.lean` (now 7 PURE): `positivity_of_sq3`, `amgm_2`
-   (`4ab ≤ (a+b)²`), `lagrange_3d` + `cauchy_schwarz_3d` — POSITIVITY drives a family of classical
-   inequalities, all "gap = sum of squares."
+8. **A7 reach extension** — same `Positivity.lean` (now **11 PURE**): `positivity_of_sq3`, `amgm_2`
+   (`4ab ≤ (a+b)²`), `lagrange_3d` + `cauchy_schwarz_3d` (inequality family, all "gap = sum of squares");
+   **rigidity face** = positive-definiteness `positive_definite_2`/`_3` (`Σvᵢ²=0 ⟹ v=0`) +
+   `dist_sq_zero_imp_eq` (squared distance separates points → POSITIVITY drives `SEPARATE`).
 
 ## Proof-ISA catalog state (`Foundations/ProofISALifts.lean`, `seed/PROOF_ISA.md`)
 A1 DIAGONAL · A2 LOOP · A3 ORBIT · A4 REFRAME · A5 COUNT · **A6 FLOW** · **A7 POSITIVITY**.

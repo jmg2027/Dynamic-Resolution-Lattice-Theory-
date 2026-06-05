@@ -126,4 +126,13 @@ theorem positive_definite_3 (a b c : Int) (h : a * a + b * b + c * c = 0) :
   let hab := positive_definite_2 a b hpair.1
   ⟨hab.1, hab.2, sq_eq_zero hpair.2⟩
 
+/-- ★★★★★ **POSITIVITY drives SEPARATE**: the squared distance
+    `(a−c)² + (b−d)²` separates points — it is `0` only when the points coincide.
+    Positive-definiteness is exactly point-separation (the `SEPARATE` primitive)
+    of the Euclidean form. -/
+theorem dist_sq_zero_imp_eq (a b c d : Int)
+    (h : (a - c) * (a - c) + (b - d) * (b - d) = 0) : a = c ∧ b = d :=
+  let hpd := positive_definite_2 (a - c) (b - d) h
+  ⟨Order.eq_of_sub_eq_zero hpd.1, Order.eq_of_sub_eq_zero hpd.2⟩
+
 end E213.Lib.Math.Foundations.Positivity
