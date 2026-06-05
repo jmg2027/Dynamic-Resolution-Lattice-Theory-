@@ -26,6 +26,8 @@ open E213.Tactic.List213
   (mem_append_left mem_append_right mem_append_iff mem_filter mem_filter_of
    exists_of_mem_map mem_map_of_mem nodup_map_of_inj length_map length_append)
 open E213.Lib.Math.Combinatorics.Permutations
+open E213.Tactic.NatHelper renaming mul_assoc → nmul_assoc, mul_left_comm → nmul_left_comm
+open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §1 — `weave` and its permutation property -/
 
@@ -586,6 +588,43 @@ theorem woven_q_false (hd : disjointVec A B = true) (hAn : A.length = n)
   rcases mem_append_iff hmem with hwA | hwB
   · exact restPos_not_truePos_A A B (idxList n) (idxList_nodup n) hwR hwA
   · exact restPos_not_truePos_B A B (idxList n) (idxList_nodup n) hwR hwB
+
+/-- ★ `|wovenFam| = favourCountTarget` — the count. -/
+theorem wovenFam_length (hAn : A.length = n) (hBn : B.length = n) (hd : disjointVec A B = true) :
+    (wovenFam A B n).length = favourCountTarget n (cardB A) (cardB B) := by
+  have hRlen : (restPos A B (idxList n)).length = n - (cardB A + cardB B) := by
+    calc (restPos A B (idxList n)).length
+        = (restPos A B (idxList n)).length + (cardB A + cardB B) - (cardB A + cardB B) := by
+          rw [Nat.add_sub_cancel]
+      _ = n - (cardB A + cardB B) := by rw [hRcard_n hAn hBn hd]
+  have e2 : ∀ (mask : List Bool) (σA : List Nat),
+      (flatMap213 (fun σB => List.map (fun σR => weave mask (σA ++ σB) σR)
+          (perms (restPos A B (idxList n)))) (perms (truePos B (idxList n)))).length
+        = fact (restPos A B (idxList n)).length * fact (truePos B (idxList n)).length := by
+    intro mask σA
+    rw [length_flatMap213_const _ (fact (restPos A B (idxList n)).length)
+          (fun σB _ => by rw [length_map, perms_length]), perms_length]
+  have e1 : ∀ (mask : List Bool),
+      (flatMap213 (fun σA => flatMap213 (fun σB => List.map (fun σR => weave mask (σA ++ σB) σR)
+          (perms (restPos A B (idxList n)))) (perms (truePos B (idxList n))))
+          (perms (truePos A (idxList n)))).length
+        = fact (restPos A B (idxList n)).length * fact (truePos B (idxList n)).length
+            * fact (truePos A (idxList n)).length := by
+    intro mask
+    rw [length_flatMap213_const _ _ (fun σA _ => e2 mask σA), perms_length]
+  rw [wovenFam, length_flatMap213_const _ _ (fun mask _ => e1 mask), kLayer_card,
+      hApos_len hAn, hBpos_len hBn, hRlen]
+  -- AC: ((fr·fb)·fa)·C = C·(fa·fb·fr) = favourCountTarget
+  show (fact (n - (cardB A + cardB B)) * fact (cardB B) * fact (cardB A))
+        * binom n (cardB A + cardB B)
+      = binom n (cardB A + cardB B)
+        * (fact (cardB A) * fact (cardB B) * fact (n - (cardB A + cardB B)))
+  rw [Nat.mul_comm (fact (n - (cardB A + cardB B)) * fact (cardB B) * fact (cardB A))
+        (binom n (cardB A + cardB B))]
+  congr 1
+  rw [Nat.mul_comm (fact (n - (cardB A + cardB B)) * fact (cardB B)) (fact (cardB A)),
+      Nat.mul_comm (fact (n - (cardB A + cardB B))) (fact (cardB B)),
+      nmul_assoc (fact (cardB A)) (fact (cardB B)) (fact (n - (cardB A + cardB B)))]
 
 end
 end E213.Lib.Math.Combinatorics.BollobasCount
