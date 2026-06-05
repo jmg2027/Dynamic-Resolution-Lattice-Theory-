@@ -124,28 +124,27 @@ R(k,k) > N
   ∘ DISTINGUISH      (the colouring space = a fold of edge-distinguishings)
 ```
 
-## Open rung (bookkeeping, no new "why")
+## The named bound, closed
 
-`erdos_schema` + `mono_event_count` give the *named* bound once two
-count-symmetry facts are supplied, neither carrying new "why":
+`erdos_schema` + the `K_N` edge model give the *named* `R(k,k) > N`
+unconditionally (`RamseyNamedBound.ramsey_lower`, ∅-axiom):
 
-  1. ~~an arbitrary `k`-subset `S` reduces to the suffix block by relabelling
-     edge positions (permutation-invariance of `bcount`)~~ — **done**, and the
-     attempt yielded an observation: permutation-invariance is *not* needed.
-     Modelling the constraint per-position as `Option Bool` (`some` fixes,
-     `none` free), the count factors *directly* over an arbitrary interleaving
-     (`matchesC_count : bcount (matchesC c) (allBoolLists c.length)
-     = 2 ^ countNone c`, ∅-axiom).  Each `none` doubles, each `some` fixes;
-     coordinate order never enters — which is *why* permutation-invariance holds
-     without being invoked.  An arbitrary `S`'s "monochromatic" event is then
-     `matchesC (all-`some false` on S) ∨ matchesC (all-`some true` on S)`,
-     disjoint, count `2·2^{E−|S|}`.
-  2. the event list has length `C(N,k)` — the remaining piece: a `K_N` edge
-     model + `k`-subset enumeration, then feed `t = C(N,k)`,
-     `c = 2·2^{E−C(k,2)}`, `E = C(N,2)` into `erdos_schema`, where
-     `t·c < 2^E` is `2·C(N,k) < 2^{C(k,2)}`.
+  1. the per-event count is the `Option Bool` constraint count — permutation
+     invariance is *not* needed.  Each `none` doubles, each `some` fixes
+     (`matchesC_count : bcount (matchesC c) (allBoolLists c.length) = 2^countNone c`),
+     so an arbitrary subset's "monochromatic" event
+     `matchesC (all-some-false on S) ∨ matchesC (all-some-true on S)` has count
+     `2·2^{E−C(k,2)}` — once the count of internal edges of `S` is `C(|S|,2)`
+     (`pairsCount_eq`, the Pascal step `binom_succ_2`: each new vertex pairs with
+     all earlier ones).
+  2. the event list has length `C(N,k)` — the `k`-subsets, enumerated as
+     `Sperner.kLayer N k` with `kLayer_card = C(N,k)` (the same subset count that
+     reads a layer of the Boolean lattice in the Sperner compilation).
 
-Tracked in `research-notes/frontiers/G200_*`.
+Feeding `t = C(N,k)`, `c = 2·2^{E−C(k,2)}`, `E = C(N,2)` into `erdos_schema`, its
+hypothesis `t·c < 2^E` is `2·C(N,k) < 2^{C(k,2)}`, and the conclusion is a
+2-colouring of `K_N` with no monochromatic `K_k` — `R(k,k) > N`.  Witness:
+`lean/E213/Lib/Math/Combinatorics/RamseyNamedBound.lean`, 13/13 PURE.
 
 ## Witnesses
 

@@ -36,7 +36,8 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     deficit ⟹ existence) — the primitive the repo already used across ≈25 Lean files as
     `pigeonhole` without naming.  Why counting forces existence:
     `count` is a residue-internal reading and the residue's cardinality is
-    **multiplicative in its distinguishings**.
+    **multiplicative in its distinguishings**.  The *named* `R(k,k) > N` is now
+    **closed** ∅-axiom (`RamseyNamedBound.ramsey_lower`).
   · [`linear_algebra_method.md`](linear_algebra_method.md) — the dimension bound
     (`m > n` vectors in `𝔽₂^n` are dependent; engine of Borsuk's disproof,
     Frankl–Wilson, cap-set).  Compiles to **COUNT through the subset-sum Lens**:

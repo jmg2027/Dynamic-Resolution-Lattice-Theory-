@@ -1,4 +1,4 @@
-# Session Handoff — 2026-06-05 (★★★ Sperner's theorem proven ∅-axiom)
+# Session Handoff — 2026-06-05 (★★★ Sperner + Ramsey named bounds proven ∅-axiom)
 
 ## Branch
 `claude/another-challenge-compile-DJWI4` — commits pushed ahead of `origin`.
@@ -53,13 +53,16 @@ hypotheses — `chain_cap` (`hcap`, prefix-set nesting) + `chain_low` (`hlow`, t
 `{σ++τ}` injection of `k!(n−k)!` chains).  Reusable spinoff: `perms` is now the
 general permutation-enumeration infrastructure the repo lacked.
 
-### 1b. Ramsey named bound (the one remaining proof-ISA rung)
-The subset-count is already `Sperner.layer_size` (`= C(N,k)`); remaining is the
-`K_N` edge↔position indexing into `erdos_schema`.
+### 1b. ★★ Ramsey named bound — CLOSED ∅-axiom
+`RamseyNamedBound.ramsey_lower` (13/13 PURE): `2·C(N,k) < 2^{C(k,2)}` ⟹ a
+2-colouring of K_N with no monochromatic k-clique (`R(k,k) > N`).  The K_N edge
+model over `erdos_schema`; crux `pairsCount_eq` (#internal edges = C(|S|,2) via
+`binom_succ_2`).  Subset count reused from Sperner (`kLayer_card`).  **The entire
+proof-ISA COUNT series is now closed.**
 
 ## Next
-- Sperner is closed.  Next: the Ramsey `K_N` edge model (1b) to close the last
-  proof-ISA named rung, or move to a different domain (primacy = breadth).
+- Both named COUNT bounds (Sperner + Ramsey) closed; the proof-ISA COUNT series
+  is complete.  Next: a different domain (primacy = breadth).
 
 ## Three-tier state
 - **Promotion this session**: `theory/essays/proof_isa/sperner_double_counting.md`
@@ -72,7 +75,8 @@ The subset-count is already `Sperner.layer_size` (`= C(N,k)`); remaining is the
 lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← LYM engine + arithmetic + reduction (47/47 PURE)
 lean/E213/Lib/Math/Combinatorics/Permutations.lean   ← full perms characterisation (21/21 PURE)
 lean/E213/Lib/Math/Combinatorics/SpernerChains.lean  ← chain model + sperner_theorem (49/49 PURE)
-lean/E213/Lib/Math/Combinatorics.lean                ← umbrella (all three registered)
+lean/E213/Lib/Math/Combinatorics/RamseyNamedBound.lean ← K_N edge model + ramsey_lower (13/13 PURE)
+lean/E213/Lib/Math/Combinatorics.lean                ← umbrella (all registered)
 theory/essays/proof_isa/sperner_double_counting.md   ← the "why" essay (rung discharged)
 STRICT_ZERO_AXIOM.md                                 ← Sperner CLOSED addition (2026-06-05)
 research-notes/frontiers/G205_*.md                   ← CLOSED frontier record

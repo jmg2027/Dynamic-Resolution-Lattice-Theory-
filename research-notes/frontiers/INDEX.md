@@ -242,10 +242,9 @@ non-constructive `DECIDE` (the exterior).  COUNT registered as the quantitative
   (`perms_length = n!`, `mem_perms_iff`, `perms_nodup`) + the chain model.
   Promoted: `theory/essays/proof_isa/sperner_double_counting.md`.
 
-**Open rung (only one left):** the *named* `R(k,k) > 2^{k/2}` — edge↔position
-indexing + `k`-subset enumeration `t=C(N,k)` into `erdos_schema`
-(`CountExistence`, `RamseyLowerBound`).  Its subset count is now in hand
-(`Sperner.layer_size = C(N,k)`); the remaining step is the `K_N` edge model.
-Sperner's named bound is **closed** (`SpernerChains.sperner_theorem`), and the
-`perms` enumeration it built (`Permutations.perms_length = n!`) is the
-general permutation infrastructure the repo previously lacked.
+**★ Series CLOSED — no open rungs.**  Both named COUNT bounds are proven
+∅-axiom: `R(k,k) > N` (`RamseyNamedBound.ramsey_lower` — the `K_N` edge model
+over `erdos_schema`) and Sperner (`SpernerChains.sperner_theorem`).  Spinoffs:
+the full `perms` enumeration (`Permutations.perms_length = n!`, the general
+permutation infrastructure the repo lacked) and the shared subset count
+`Sperner.layer_size = C(N,k)`.

@@ -278,6 +278,15 @@ equals `A`) discharges both hypotheses — `chain_cap` (`hcap`: prefix-sets nest
 largest antichain of `2^[n]` has size exactly `C(n,⌊n/2⌋)` (upper bound + tight
 `Sperner.lower_bound`).  Essay: `theory/essays/proof_isa/sperner_double_counting.md`.
 
+★★ **The named Ramsey bound is CLOSED** — `E213.Lib.Math.Combinatorics.RamseyNamedBound`
+(**13/13 PURE**): the `K_N` edge model instantiating `erdos_schema`.  `pairsCount_eq`
+(#edges inside `S` = `C(cardB S, 2)`, via the Pascal step `binom_succ_2`),
+`monoEvent_count` (each monochromatic event holds on `≤ 2·2^{C(N,2)−C(k,2)}` colourings,
+via `matchesC_count`), and `ramsey_lower`: `2·C(N,k) < 2^{C(k,2)}` ⟹ a 2-colouring of
+`K_N` with no monochromatic `k`-clique (`R(k,k) > N`), with `t = C(N,k)` the subset count
+`Sperner.kLayer_card`.  **Both named proof-ISA COUNT bounds — Sperner and Ramsey — are now
+closed**, completing the series (`theory/essays/proof_isa/`).
+
 ### Markov composite uniqueness: prime-power-neighbour families addition (2026-06-04)
 
 `E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness` + `…SternBrocotMarkov` +
