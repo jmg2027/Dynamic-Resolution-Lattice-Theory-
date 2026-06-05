@@ -1,4 +1,4 @@
-# Session Handoff — 2026-06-05 (Sperner's theorem compiled to the proof-ISA)
+# Session Handoff — 2026-06-05 (★★★ Sperner's theorem proven ∅-axiom)
 
 ## Branch
 `claude/another-challenge-compile-DJWI4` — commits pushed ahead of `origin`.
@@ -42,25 +42,19 @@ equalities by hand.  `funext` pulls `Quot.sound` — use `bcount_congr`/`sumOver
 
 ## Open Problems (priority order)
 
-### 1. Sperner named bound — reduced to ONE geometric model (everything else done)
-`sperner_upper_bound` (∅-axiom) reduces the named bound to two hypotheses on a
-chain model: `hcap` (≤1 antichain member per chain) and `hlow` (≥ `k!·(n−k)!`
-chains through each size-`k` member), given `|chains| = n!`.  All machinery is
-**built ∅-axiom**: the full `perms` characterization (`perms_length = n!`,
-`mem_perms_iff`, `perms_append_mem` — `Permutations.lean` 21/21 PURE), the
-arithmetic (`binom_mul_fact`, `fact_mul_ge_mid`, `binom_pos` — `Sperner.lean`),
-and the LYM→Sperner wiring.  Remaining = the **geometric model only**:
-- `perms_nodup` (`l.Nodup → (perms l).Nodup`) — for the `lcount` lower bound;
-- the positions↔Bool prefix-set bridge `inc A c := prefixVec n c |A| == A`,
-  `chains = perms (idxList n)`;
-- `hlow` via the `truePos ++ falsePos` injection (`perms_append_mem` +
-  `perms_respects`), counted by `perms_length`;
-- `hcap` via prefix-set nesting (`take` monotone ⟹ comparable ⟹ ¬antichain).
-Then instantiate `sperner_upper_bound`.  Frontier:
-`research-notes/frontiers/G205_sperner_double_count_compilation.md`.
+### 1. ★★★ Sperner's theorem — CLOSED ∅-axiom (named bound, unconditional)
+`SpernerChains.sperner` / `sperner_theorem` (49/49 PURE): the largest antichain
+of `2^[n]` has size exactly `C(n,⌊n/2⌋)`.  Done this session end-to-end: the full
+`perms` characterisation (`perms_length = n!`, `mem_perms_iff`, `perms_nodup`,
+`perms_append_mem` — `Permutations.lean` 21/21), the arithmetic (`binom_mul_fact`,
+`fact_mul_ge_mid` — `Sperner.lean` 47/47), the abstract LYM→Sperner reduction
+(`sperner_upper_bound`), and the geometric chain model discharging both
+hypotheses — `chain_cap` (`hcap`, prefix-set nesting) + `chain_low` (`hlow`, the
+`{σ++τ}` injection of `k!(n−k)!` chains).  Reusable spinoff: `perms` is now the
+general permutation-enumeration infrastructure the repo lacked.
 
-### 1b. Ramsey named bound (independent)
-The subset-count is already `Sperner.layer_size` (`= C(n,k)`); remaining is the
+### 1b. Ramsey named bound (the one remaining proof-ISA rung)
+The subset-count is already `Sperner.layer_size` (`= C(N,k)`); remaining is the
 `K_N` edge↔position indexing into `erdos_schema`.
 
 ### 2. The factorial identity `binom n k · (k!·(n−k)!) = n!`

@@ -235,23 +235,17 @@ non-constructive `DECIDE` (the exterior).  COUNT registered as the quantitative
 
 - `G200_probabilistic_method_count_compilation` — the COUNT discovery + the
   compilation verdict + the concrete lift status.
-- `G205_sperner_double_count_compilation` — **Sperner (1928)** compiled to
-  `COUNT`'s **double-counting** face (the *dual* of G200's union bound): one 0/1
-  incidence matrix read by rows vs columns (`sumOver_swap` / `lym_double_count`),
-  no new instruction.  Number = READ ∘ unimodality.  General `∅`-axiom core
-  closed (`Sperner.lean`, 39/39 PURE); shared open rung with Ramsey = a
-  permutation enumeration `allPerms n` (`length = n!`) + the `k!(n−k)!`
-  prefix-set count — building it closes *both* named bounds.
+- `G205_sperner_double_count_compilation` — **★ CLOSED**: **Sperner (1928)**
+  compiled to `COUNT`'s **double-counting** face (the *dual* of G200's union
+  bound), no new instruction.  Named bound proven **unconditionally** ∅-axiom
+  (`SpernerChains.sperner_theorem`): the full `perms` characterisation
+  (`perms_length = n!`, `mem_perms_iff`, `perms_nodup`) + the chain model.
+  Promoted: `theory/essays/proof_isa/sperner_double_counting.md`.
 
-**Open rungs (two named bounds, one shared gap):** both are pure bookkeeping,
-**no new "why"**, with engines built ∅-axiom —
-
-  - the *named* `R(k,k) > 2^{k/2}` (edge↔position indexing + `k`-subset
-    enumeration `t=C(N,k)`, then `erdos_schema`;
-    `CountExistence`, `RamseyLowerBound.{count_factor,mono_event_count,matchesC_count}`);
-  - the *named* Sperner upper bound (the chain-counts `n!`, `k!(n−k)!` into
-    `lym_double_count`; `Sperner.lean`).
-
-The shared gap is a **permutation enumeration** `allPerms n` with `length = n!`
-(the repo has `LPerm` equivalence but no `n!`-length enumeration) plus the
-`k!(n−k)!` prefix-set count — building it closes both.
+**Open rung (only one left):** the *named* `R(k,k) > 2^{k/2}` — edge↔position
+indexing + `k`-subset enumeration `t=C(N,k)` into `erdos_schema`
+(`CountExistence`, `RamseyLowerBound`).  Its subset count is now in hand
+(`Sperner.layer_size = C(N,k)`); the remaining step is the `K_N` edge model.
+Sperner's named bound is **closed** (`SpernerChains.sperner_theorem`), and the
+`perms` enumeration it built (`Permutations.perms_length = n!`) is the
+general permutation infrastructure the repo previously lacked.

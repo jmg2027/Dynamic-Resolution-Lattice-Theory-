@@ -58,8 +58,10 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     *Not* a new instruction — `pigeonhole`/union-bound is *deficit ⟹ existence*,
     LYM is *per-column cap ⟹ row-sum bound*, the same `GAP`-by-cardinality
     mirrored.  The Sperner *number* is a separate move: READ (layer = binomial)
-    ∘ unimodality (`binom_le_binom_mid`).  Open rung: the permutation
-    chain-counts (`n!`, `k!(n−k)!`), mirroring Ramsey's named-bound rung.
+    ∘ unimodality (`binom_le_binom_mid`).  The named bound is **closed**
+    unconditionally (`SpernerChains.sperner_theorem`): the chain model's two
+    counts are built ∅-axiom over the full `perms` characterisation
+    (`perms_length = n!`, `mem_perms_iff`, `perms_nodup`).
 
   · [`konig_boundary.md`](konig_boundary.md) — König's lemma (infinite tree ⟹
     infinite path).  The first reproduction that **stalls**: compiles to

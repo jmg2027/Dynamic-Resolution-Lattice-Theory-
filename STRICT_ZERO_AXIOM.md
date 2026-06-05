@@ -262,13 +262,21 @@ enumeration the repo previously lacked (it had only `LPerm` equivalence):
 permutations, via `insert_comm`), `self_mem_perms`, and `perms_append_mem`
 (orderings concatenate).  Reusable for the Leibniz determinant sum.
 
-The LYM→Sperner reduction is then **complete and ∅-axiom** (`Sperner` extended
-to 47/47 PURE): `binom_mul_fact` (`C(n,k)·k!·(n−k)! = n!`, from `absorb`),
-`fact_mul_ge_mid` (`k!·(n−k)!` minimised at the middle), and `sperner_upper_bound`
-— *any* chain model with `|chains| = n!`, ≤ 1 antichain member per chain, and
-≥ `k!·(n−k)!` chains through each size-`k` member yields `|F| ≤ C(n,⌊n/2⌋)`.
-Remaining rung (the geometric model only): `perms_nodup` + the positions↔Bool
-prefix-set bridge discharging the two hypotheses.
+The LYM→Sperner reduction is then **complete and ∅-axiom** (`Sperner` 47/47 PURE):
+`binom_mul_fact` (`C(n,k)·k!·(n−k)! = n!`, from `absorb`), `fact_mul_ge_mid`
+(`k!·(n−k)!` minimised at the middle), and `sperner_upper_bound` (any chain model
+with `|chains| = n!`, ≤ 1 member per chain, ≥ `k!·(n−k)!` chains per size-`k`
+member ⟹ `|F| ≤ C(n,⌊n/2⌋)`).
+
+★★★ **The named bound is CLOSED unconditionally** —
+`E213.Lib.Math.Combinatorics.SpernerChains` (**49/49 PURE**): the geometric chain
+model (chains = `perms (idxList n)`, `inc A c` = the size-`|A|` prefix-set of `c`
+equals `A`) discharges both hypotheses — `chain_cap` (`hcap`: prefix-sets nest, so
+≤ 1 member per chain) and `chain_low` (`hlow`: the duplicate-free family
+`{σ++τ}` of `k!·(n−k)!` chains through `A`, via `perms_append_mem` + `inc_concat`).
+`sperner` / `sperner_theorem`: **Sperner's theorem (1928) fully proven ∅-axiom** —
+largest antichain of `2^[n]` has size exactly `C(n,⌊n/2⌋)` (upper bound + tight
+`Sperner.lower_bound`).  Essay: `theory/essays/proof_isa/sperner_double_counting.md`.
 
 ### Markov composite uniqueness: prime-power-neighbour families addition (2026-06-04)
 

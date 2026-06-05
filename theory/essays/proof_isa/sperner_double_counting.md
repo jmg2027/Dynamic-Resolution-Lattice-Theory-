@@ -95,28 +95,41 @@ other face — `pigeonhole`/union-bound is *deficit ⟹ existence*; LYM is
   ∘ READ ∘ unimodality(the layers are binomials, middle largest ; layer_size, binom_le_binom_mid)
 ```
 
-## Open rung (bookkeeping, no new "why")
+## The named bound, closed (the rung discharged)
 
-The engine is general; the *named* bound needs the chain model's two counts,
-both pure arithmetic with no new residue-level reason:
+The engine is general; the *named* bound needs the chain model's two counts —
+and both are now built ∅-axiom, so Sperner's named upper bound holds
+**unconditionally** (`SpernerChains.sperner`, `sperner_theorem`):
 
-  1. `#chains = n!` — the maximal chains are the orderings of `[n]`;
-  2. `#chains through a size-k set A = k!·(n−k)!` — order `A` internally
-     (`k!`), order the rest (`(n−k)!`).
+  1. `#chains = n!` — the maximal chains are the orderings of `[n]`
+     (`Permutations.perms_length`, the enumeration the repo previously lacked);
+  2. `#chains through a size-k set A ≥ k!·(n−k)!` — the family
+     `{σ ++ τ : σ ∈ perms(truePos A), τ ∈ perms(falsePos A)}` is duplicate-free
+     (`perms_nodup` + append-injectivity), each member incident to `A`
+     (`inc_concat`: its size-`k` prefix-set *is* `A`) and a genuine chain
+     (`perms_append_mem` + `perms_respects`), counted `k!·(n−k)!` by
+     `perms_length`.
 
 Feeding these into `lym_double_count` gives `Σ_{A∈F} |A|!(n−|A|)! ≤ n!`, hence
-(via `binom n k · k!·(n−k)! = n!`) the LYM fractional form and Sperner.  This
-permutation arithmetic is the one rung — exactly as Erdős' named Ramsey bound
-left a `K_N`-bookkeeping rung over its built engine (`RamseyLowerBound`); the
-repo has `LPerm` (permutation equivalence) but not yet a permutation enumeration
-with `length = n!`.  Tracked in `research-notes/frontiers/`.
+(via `binom_mul_fact : C(n,k)·k!·(n−k)! = n!`) `|F| ≤ C(n,⌊n/2⌋)`.  Closing this
+required completing `perms` to its full characterisation — `perms_length = n!`,
+`mem_perms_iff` (exactly the permutations), and `perms_nodup` — reusable
+infrastructure (the Leibniz determinant sums over the same `n!`).  The same
+`perms`/subset toolkit leaves Erdős' named Ramsey bound a single edge-indexing
+step (its subset count is `Sperner.layer_size`).
 
 ## Witnesses
 
   - `lean/E213/Lib/Math/Combinatorics/Sperner.lean` — `layer_size`,
     `eq_of_subseteq_card_eq`, `kLayer_isAntichain`, `lower_bound`, `absorb`,
     `binom_le_binom_mid`, `uniform_antichain_le`, `sumOver_swap`,
-    `lym_double_count`, `sperner_numbers`.  39/39 PURE.
+    `lym_double_count`, `binom_mul_fact`, `fact_mul_ge_mid`,
+    `sperner_upper_bound`.  47/47 PURE.
+  - `lean/E213/Lib/Math/Combinatorics/Permutations.lean` — `perms_length`
+    (`= n!`), `mem_perms_iff`, `perms_nodup`, `perms_append_mem`.  21/21 PURE.
+  - `lean/E213/Lib/Math/Combinatorics/SpernerChains.lean` — the chain model:
+    `inc_concat`, `chain_cap` (`hcap`), `chain_low` (`hlow`), and ★★★
+    `sperner` / `sperner_theorem` (the named bound, unconditional).  49/49 PURE.
   - the dual it mirrors: `Lib/Math/Combinatorics/{CountExistence,RamseyLowerBound}.lean`
     (the union bound) + `probabilistic_method.md`.
   - residue carrier: `Lib/Math/Combinatorics/BoolEnum.lean` (`allBoolLists`).

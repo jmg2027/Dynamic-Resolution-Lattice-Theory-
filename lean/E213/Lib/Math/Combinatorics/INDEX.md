@@ -19,7 +19,8 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
 | `CountExistence.lean` | **COUNT** = quantitative `GAP`: `union_bound`, `deficit_exists` (deficit ⟹ ∃ good, finite search), `count_existence`, `erdos_schema` (the probabilistic method as one theorem) | ∅-axiom |
 | `RamseyLowerBound.lean` | the per-event count's *why*: `count_factor` (free bits double), `mono_event_count` (`2·2^{E−m}`), `matchesC_count` (arbitrary-subset count) | ∅-axiom |
 | `Permutations.lean` | permutation enumeration: `perms`, ★ `perms_length` (`= fact l.length`, the `n!` count), `mem_perms_iff` (`p ∈ perms l ↔ LPerm p l` — exactly the permutations, via `insert_comm`), `self_mem_perms`, `perms_append_mem` (orderings concatenate).  The chain-count infra for the named Sperner bound; reusable for the Leibniz determinant sum | ∅-axiom |
-| `Sperner.lean` | Sperner's theorem compiled to **COUNT**'s double-counting face (LYM = dual union bound).  `layer_size` (layer = binomial, the READ), `eq_of_subseteq_card_eq` (SEPARATE), `lower_bound` (tight), `binom_le_binom_mid` (unimodality via `absorb`), `uniform_antichain_le` (single-layer Sperner, general), `lym_double_count`/`sumOver_swap` (the engine), `binom_mul_fact`/`fact_mul_ge_mid` (the arithmetic), ★ `sperner_upper_bound` (the complete reduction: any chain model ⟹ `\|F\| ≤ C(n,⌊n/2⌋)`).  Geometric model = honest rung | ∅-axiom |
+| `Sperner.lean` | Sperner's theorem compiled to **COUNT**'s double-counting face (LYM = dual union bound).  `layer_size` (layer = binomial, the READ), `eq_of_subseteq_card_eq` (SEPARATE), `lower_bound` (tight), `binom_le_binom_mid` (unimodality via `absorb`), `uniform_antichain_le` (single-layer Sperner, general), `lym_double_count`/`sumOver_swap` (the engine), `binom_mul_fact`/`fact_mul_ge_mid` (the arithmetic), ★ `sperner_upper_bound` (the abstract reduction: any chain model ⟹ `\|F\| ≤ C(n,⌊n/2⌋)`) | ∅-axiom |
+| `SpernerChains.lean` | the geometric chain model discharging both `sperner_upper_bound` hypotheses (chains = `perms (idxList n)`, `inc` = prefix-set): `chain_cap` (`hcap`, nesting), `chain_low` (`hlow`, the `k!(n−k)!` injection via `perms_append_mem`/`inc_concat`), ★★★ `sperner` / `sperner_theorem` — **Sperner's theorem proven unconditionally** | ∅-axiom |
 | `LinearDependence.lean` | `dimension_bound_is_count` — `m>n` vectors in `𝔽₂^n` dependent via subset-sum collision (= COUNT in a linear codomain); `vsum`/`vxor` | ∅-axiom |
 | `ParityInvariant.lean` | mutilated chessboard: `tiling_balanced` (conserved colour-count = READ ∘ SEPARATE), `corners_same_colour`; `par` = `Mod213.parity` | ∅-axiom |
 | `KonigConditional.lean` | König boundary: `konig_conditional`/`walk` (the LOOP, internal); `InfBelow`/`InfChildExists` (the un-dischargeable `DECIDE` = the exterior) | ∅-axiom (conditional) |
@@ -57,9 +58,11 @@ invariant method, Sperner's theorem, and König's lemma are compiled down the
 proof-ISA here — the "why" of each lives in `theory/essays/proof_isa/`.  Two of
 them sit on `COUNT`'s two faces: the Ramsey **lower** bound `R(k,k) > 2^{k/2}`
 is the *union bound* (`CountExistence` + `RamseyLowerBound`); **Sperner**'s upper
-bound is its *dual*, the double count / LYM (`Sperner.lean`).  Each has its
-engine built ∅-axiom with the *named* closure a permutation-count bookkeeping
-rung (Ramsey: `t = C(N,k)`; Sperner: `n!` and `k!(n−k)!`) —
+bound is its *dual*, the double count / LYM (`Sperner.lean` engine +
+`SpernerChains.lean` chain model).  Sperner's named bound is **closed
+unconditionally** (`SpernerChains.sperner_theorem`), over the full `perms`
+characterisation (`Permutations.lean`).  Ramsey's named bound remains a single
+edge-indexing step (its subset count is `Sperner.layer_size = C(N,k)`) —
 `research-notes/frontiers/`.
 
 ## Out of scope (separate continuation)

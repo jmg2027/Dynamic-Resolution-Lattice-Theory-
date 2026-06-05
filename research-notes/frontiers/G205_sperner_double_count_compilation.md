@@ -50,32 +50,15 @@ the chain model's two arithmetic counts:
 Then `Σ_{A∈F} |A|!(n−|A|)! ≤ n!`, and via `binom_mul_fact : binom n k · k!·(n−k)! = n!` the LYM fractional form `Σ 1/C(n,|A|) ≤ 1`,
 hence `|F| ≤ C(n,⌊n/2⌋)`.
 
-Status: the permutation toolkit, the arithmetic, and the **complete LYM→Sperner
-reduction** are now **built ∅-axiom** (`Permutations.lean` 21/21 PURE,
-`Sperner.lean` 47/47 PURE).
-
-`Permutations.lean`: `perms_length = fact l.length` (the `n!` chain count),
-`mem_perms_iff : p ∈ perms l ↔ LPerm p l` (exactly the permutations — soundness +
-completeness via `insert_comm`), `self_mem_perms`, `perms_append_mem` (orderings
-concatenate).
-
-`Sperner.lean` arithmetic + reduction: `binom_mul_fact` (`C(n,k)·k!·(n−k)! = n!`,
-from `absorb`), `fact_mul_ge_mid` (`k!·(n−k)!` minimised at the middle),
-`binom_pos`/`fact_pos`, and ★ `sperner_upper_bound` — **any** chain model with
-`|chains| = n!`, ≤ 1 antichain member per chain (`hcap`), and ≥ `k!·(n−k)!` chains
-through each size-`k` member (`hlow`) gives `|F| ≤ C(n,⌊n/2⌋)`.  The whole
-compilation is verified; only the **geometric model** remains, to discharge the
-two hypotheses:
-
-  - **`perms_nodup`** (`l.Nodup → (perms l).Nodup`) — so a `lcount` lower bound
-    follows from a nodup sub-family (`nodup_length_le_of_subset`);
-  - the **positions↔Bool prefix-set bridge**: `inc A c := prefixVec n c |A| == A`,
-    `chains = perms (idxList n)` (so `hchains` = `perms_length`);
-  - **`hlow`**: `truePos A`-orderings ++ `falsePos A`-orderings inject into
-    chains-through-`A` (`perms_append_mem` + `perms_respects` transport to the
-    fixed list), counted `k!·(n−k)!` by `perms_length`;
-  - **`hcap`**: prefix-sets of a fixed chain are nested (`take` monotone), so two
-    incident members are comparable — contradicting the antichain.
+**STATUS — CLOSED ∅-axiom (named bound fully proven).**  The whole compilation
+is built: the full `perms` characterisation (`perms_length = n!`, `mem_perms_iff`,
+`perms_nodup`, `perms_append_mem` — `Permutations.lean`, 21/21 PURE), the arithmetic
+(`binom_mul_fact`, `fact_mul_ge_mid` — `Sperner.lean`, 47/47 PURE), and the geometric
+chain model (`SpernerChains.lean`, 49/49 PURE): `inc` = prefix-set, `chain_cap`
+(`hcap`), `chain_low` (`hlow`, the `k!(n−k)!` injection), and ★★★ `sperner` /
+`sperner_theorem` — Sperner's theorem (1928) proven unconditionally, the largest
+antichain of `2^[n]` has size exactly `C(n,⌊n/2⌋)`.  Promoted:
+`theory/essays/proof_isa/sperner_double_counting.md`.
 
 For Ramsey's named bound the subset-count side is *already* in hand:
 `Sperner.layer_size` counts the `k`-subsets (`= C(n,k)`); what remains there is
