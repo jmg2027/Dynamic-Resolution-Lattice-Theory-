@@ -510,7 +510,7 @@ rescalings.  Purity: NatHelper's pure `le_of_add_le_add_left` (Lean-core `Nat.le
 `propext`).  Extended (4 more PURE): `le_isqrt_of_sq_le` (`k²≤n ⟹ k≤isqrt n`, the defining largest-property),
 `isqrt_mono`, `isqrt_perfect` (`isqrt(k·k)=k`), and ★ `isqrt_four_mul` — the **dyadic refinement**
 `2·isqrt n ≤ isqrt(4n) ≤ 2·isqrt n + 1` (doubling resolution adds ≤1 unit error), the convergence-rate
-certificate making `isqrt(a·4ᵏ)/2ᵏ → √a` Cauchy.
+certificate making `isqrt(a·4ᵏ)/2ᵏ → √a` Cauchy.  §5 packages this as the **dyadic √ sequence** `dyadicSqrtSeq a k = isqrt(a·4ᵏ)`: `dyadicSqrtSeq_bracket` (`(s_k)²≤a·4ᵏ<(s_k+1)²`, brackets `√a` to width `1/2ᵏ`) + `dyadicSqrtSeq_step` (`2·s_k ≤ s_{k+1} ≤ 2·s_k+1`, the Cauchy modulus `1/2ᵏ`) — the rational-level convergence certificate for `√a` (cut-level `sqrtCut` packaging remains).
 
 ### Marathon T5 CORE — general two-variable binomial theorem (2026-06-05)
 

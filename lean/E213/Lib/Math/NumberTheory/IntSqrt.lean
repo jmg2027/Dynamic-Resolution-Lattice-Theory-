@@ -151,4 +151,37 @@ theorem isqrt_four_mul (n : Nat) :
         exact Nat.lt_of_lt_of_le hstep hb'
       exact absurd (Nat.lt_of_lt_of_le h4n (Nat.le_trans hsq (isqrt_sq_le (4 * n)))) (Nat.lt_irrefl _)
 
+/-! ## §5 — the dyadic √ sequence (rational-level convergence certificate)
+
+`dyadicSqrtSeq a k = isqrt(a·4ᵏ)`; the rational `dyadicSqrtSeq a k / 2ᵏ` is the `k`-bit dyadic
+approximation of `√a`.  Two facts package it as a Cauchy-with-modulus sequence converging to `√a`:
+
+  * **bracket** `(s_k)² ≤ a·4ᵏ < (s_k+1)²` (`dyadicSqrtSeq_bracket`) — dividing by `4ᵏ`:
+    `(s_k/2ᵏ)² ≤ a < ((s_k+1)/2ᵏ)²`, so `s_k/2ᵏ` brackets `√a` with width `1/2ᵏ`;
+  * **adjacent step** `2·s_k ≤ s_{k+1} ≤ 2·s_k + 1` (`dyadicSqrtSeq_step`, from `isqrt_four_mul`) —
+    `s_{k+1}/2^{k+1} − s_k/2ᵏ ∈ [0, 1/2^{k+1})`, the Cauchy modulus `1/2ᵏ`.
+
+The `Real213` `sqrtCut a` is the limit of this sequence (cut-level packaging is the remaining T4 step). -/
+
+/-- The `k`-bit dyadic √ approximant numerator: `isqrt(a·4ᵏ)` (value `≈ 2ᵏ·√a`). -/
+def dyadicSqrtSeq (a k : Nat) : Nat := isqrt (a * 4 ^ k)
+
+/-- ★★ **Bracket**: `(s_k)² ≤ a·4ᵏ < (s_k+1)²` — `s_k/2ᵏ` brackets `√a` to width `1/2ᵏ`. -/
+theorem dyadicSqrtSeq_bracket (a k : Nat) :
+    dyadicSqrtSeq a k * dyadicSqrtSeq a k ≤ a * 4 ^ k
+    ∧ a * 4 ^ k < (dyadicSqrtSeq a k + 1) * (dyadicSqrtSeq a k + 1) :=
+  isqrt_bracket (a * 4 ^ k)
+
+/-- ★★★ **Adjacent step (Cauchy modulus)**: `2·s_k ≤ s_{k+1} ≤ 2·s_k + 1`.  Refining the
+    resolution one bit (`k ↦ k+1`) at most appends one low bit: `|s_{k+1}/2^{k+1} − s_k/2ᵏ| < 1/2ᵏ`,
+    so the dyadic √ sequence is Cauchy.  Direct from `isqrt_four_mul` at `a·4ᵏ`. -/
+theorem dyadicSqrtSeq_step (a k : Nat) :
+    2 * dyadicSqrtSeq a k ≤ dyadicSqrtSeq a (k + 1)
+    ∧ dyadicSqrtSeq a (k + 1) ≤ 2 * dyadicSqrtSeq a k + 1 := by
+  have h4 : a * 4 ^ (k + 1) = 4 * (a * 4 ^ k) := by rw [Nat.pow_succ]; ring_nat
+  show 2 * isqrt (a * 4 ^ k) ≤ isqrt (a * 4 ^ (k + 1))
+      ∧ isqrt (a * 4 ^ (k + 1)) ≤ 2 * isqrt (a * 4 ^ k) + 1
+  rw [h4]
+  exact isqrt_four_mul (a * 4 ^ k)
+
 end E213.Lib.Math.NumberTheory.IntSqrt
