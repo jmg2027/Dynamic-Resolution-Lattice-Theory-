@@ -314,6 +314,20 @@ so the sign product is `m`-only (`two_qr_iff`); `prodZ_seg_sign` evaluates it as
 `m = 4q+r` bridge (`(m−m/2)%2` and `p%8 = 1+2(m%4)` both functions of `m%4`, `decide`).  Both
 supplements to quadratic reciprocity are now ∅-axiom.
 
+### Quadratic reciprocity — STEP 1 (Eisenstein's lemma, divisibility form), strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity` (**8 PURE**).  The Eisenstein
+lattice-point route, step 1 closed: ★ `floor_qr` — for an odd unit `1 ≤ a < p` and odd prime `p`,
+`a` is a QR mod `p` ⟺ the floor sum `Σₓ∈[1,m] ⌊a·x/p⌋` is even (`(2:Int) ∣ Σ↑⌊a·x/p⌋`).  Chain:
+`floor_mod_split` (`Σ↑(a·x) = ↑p·Σ↑⌊a·x/p⌋ + Σ↑(a·x%p)`) + `Sa_eq` + `fold_sum`
+(`Σ↑(fold x) = Σ↑x`, `fold_perm`) + `residue_fold_even` (the per-element `2·(…)` crux,
+`2 ∣ (Sr − Sfold − ↑p·Imu)`) ⟹ `floor_mu_even` (`2 ∣ (Sfloor + Imu)`, `a` odd + `int_euclid`);
+`imu_eq_countNeg` (`Imu = ↑μ`, μ = `countNeg ((seg m).map (sgFn a p m))`); then `gauss_mu`
+(QR ⟺ μ even) composed via `Iff.trans`.  `floor_bound` (`⌊q·x/p⌋ ≤ n` for `x ≤ m`) prepares the
+step-3 rectangle count.  Propext-avoidance: `two_prime` pure (no `decide`-on-`∣`),
+`Iff.trans` not `rw`-on-iff.  Steps 3 (rectangle double-count) + 4 (assembly) open —
+`research-notes/frontiers/quadratic_reciprocity.md`.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

@@ -17,8 +17,38 @@
   `ProdCongr`).
 - `floor_mod_split` (1 PURE): `Σₓ ↑(a·x) = ↑p·Σₓ↑(a·x/p) + Σₓ↑(a·x mod p)` over `[1..m]`.
 - `fold_sum` (2 PURE): `Σₓ ↑(fold a p m x) = Σₓ ↑x` (fold_perm + sumZ_lperm).
+- `Sa_eq` (PURE): `Σ↑(a·x) = ↑a·Σ↑x`.
+- `residue_fold_even` (PURE): the Eisenstein crux `2 ∣ (Sr − Sfold − ↑p·Imu)` (per-element `2·(…)`).
+- `floor_mu_even` (PURE): for odd unit `a` and odd prime `p`, `2 ∣ (Sfloor + Imu)` — the floor sum
+  ≡ μ (mod 2) in indicator form.  (`two_prime` rewritten pure: avoids `decide`-on-`∣`, which
+  pulls `propext` via `decidable_of_iff`.)
+- `imu_eq_countNeg` (PURE): `Imu = ↑(countNeg ((seg m).map (sgFn a p m)))` — the μ-indicator sum is
+  the μ-count.  (Un-privated `sgFn_lo`/`sgFn_hi` in `GaussLemma`.)
+- ★ **`floor_qr` (PURE) — STEP 1 COMPLETE.**  `(∃z, z²≡a) ↔ (2:Int) ∣ Σₓ∈[1,m] ↑⌊a·x/p⌋`, for an
+  **odd unit `1 ≤ a < p`** and odd prime `p`.  I.e. `a` is a QR mod `p` ⟺ the floor sum is even.
+  Composes `gauss_mu` + `imu_eq_countNeg` + `floor_mu_even` via `Iff.trans` (NOT `rw`-on-iff —
+  that leaks propext) and the `2∣·ℤ ↔ ·%2=0` casts.  This is Eisenstein's lemma in divisibility
+  form.
+- `floor_bound` (PURE) — step-3 prereq: `p=2m+1, q=2n+1, x≤m ⟹ ⌊q·x/p⌋ ≤ n` (via
+  `(2m+1)(n+1) = (2n+1)·m + (m+n+1)`, `ring_nat` + `div_lt_of_lt_mul`).
 
-## Step 1 remaining — the exact mod-2 chain (next pickup)
+## ⚠ Step-4 assembly constraint (`a < p`) — IMPORTANT design note
+
+`floor_qr`/`gauss_mu`/`gauss_qr` all require **`a < p`** (`halt`).  Reciprocity applies the
+Eisenstein lemma at **`a = q`**, the *other* prime, which may exceed `p`.  Two routes:
+
+1. **Generalize the Gauss stack to coprimality** (`1 ≤ a ∧ p ∤ a`) instead of `a < p`.  `sgFn`
+   depends only on `(a·x)%p` (= `a mod p`), and `fold_perm` needs only that `a` is a unit (`p ∤ a`);
+   the residue side `z²≡a` becomes `z² ≡ a (mod p)`.  Invasive (touches `gauss_core`, `fold_*`).
+2. **Reduce `q ↦ q%p` with a correction term.**  `⌊q·x/p⌋ = (q/p)·x + ⌊(q%p)·x/p⌋` (from
+   `q = p·(q/p) + q%p`), so `Σ⌊q·x/p⌋ = (q/p)·Σx + Σ⌊(q%p)·x/p⌋`.  `floor_qr` at `a = q%p` gives the
+   parity of `Σ⌊(q%p)x/p⌋`; the rectangle count (step 3) uses the **actual** `Σ⌊qx/p⌋`.  Need the
+   parity of the correction `(q/p)·Σx` (`Σx = m(m+1)/2`).  Less invasive but adds bookkeeping.
+
+Recommended: **route 1** (generalize to `p ∤ a`) — cleaner final statement, and the rectangle
+count then directly uses `floor_qr`-generalized at `a = q`.
+
+## (DONE) Step 1 — the exact mod-2 chain
 
 Abbreviations (`sumZ` over `(seg m).map (·)`): `Sa = Σ↑(a·x)`, `Sfloor = Σ↑(a·x/p)`, `Sr = Σ↑(a·x%p)`,
 `Sfold = Σ↑(fold x)`, `Sseg = Σ↑x`, `Imu = Σ (if (a·x)%p ≤ m then 0 else 1)` (the μ-indicator sum).
