@@ -233,3 +233,17 @@ non-constructive `DECIDE` (the exterior).  COUNT registered as the quantitative
 bookkeeping (edge↔position indexing + `k`-subset enumeration giving `t=C(N,k)`,
 then `erdos_schema`), **no new "why"**.  All engine pieces built ∅-axiom
 (`CountExistence`, `RamseyLowerBound.{count_factor,mono_event_count,matchesC_count}`).
+
+## the slash-reading atlas  (`G205_*`)
+
+**The experiment:** render Mingu Jeong's "object IS the relation of two
+distinct objects" (the slash) geometrically, varying the *reading* (directedness,
+quotient amount, combining map, growth rule, readout) — the geometric face of
+`06_lens_readings.md` §6.  Each setting gives a different shape and surfaces
+different invariants.  Worked atlas + scripts: `research-notes/geometric/`
+(`INDEX.md` is the live board).
+
+- `G205_slash_reading_atlas` — core question: which readings are faithful to the
+  Möbius form `P=[[2,1],[1,1]]` (surface `3,2,5,φ`) vs blind (symmetric averaging).
+  Conjecture C1 (faithful ⟺ `det=1` glue preserved); nearest ∅-axiom target is
+  `prim-distinct ⟺ linear independence` + the `arccos(−1/n)→90°` climb (K3).
