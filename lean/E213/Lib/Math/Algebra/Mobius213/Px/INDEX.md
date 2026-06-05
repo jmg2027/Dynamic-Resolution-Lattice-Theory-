@@ -3,7 +3,7 @@
 Möbius matrix P = [[2,1],[1,1]] symmetry species catalog and
 P-orbit closure programme.
 
-**Status**: CLOSED — 29 files, ~470+ PURE declarations.
+**Status**: CLOSED — 30 files, ~480+ PURE declarations.
 Promoted chapter: `theory/math/algebra/mobius213_p_orbit_closure.md`.
 
 ## File map
@@ -38,6 +38,7 @@ Promoted chapter: `theory/math/algebra/mobius213_p_orbit_closure.md`.
 | `ConvergentDet.lean` | universal | ~12 | Farey-neighbour property from det=1 |
 | `PGeneratesNat.lean` | universal | ~40 | P generates ALL of ℕ≥1 (Chicken McNugget + exact characterization) |
 | `MobiusSelfForm.lean` | universal | ~18 | G139: Möbius self-form (iteration + uniqueness + self-reconstruction) |
+| `MetallicThreshold.lean` | universal | 11 | One-knob family `M_a`: det = a−1; collapse (det 0) at a=1, golden (det 1, trace 3, disc 5) at a=2, metallic tower beyond (G205 C1 test) |
 
 ## Organisation
 

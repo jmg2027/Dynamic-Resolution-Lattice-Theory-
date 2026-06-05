@@ -79,10 +79,13 @@ onto §3.2 / §3.5.
 
 ## Promotion path
 
-- The **mediant / Möbius / constants cell is already closed** ∅-axiom in Lean
+- The **mediant / Möbius / constants cell is closed** ∅-axiom in Lean
   (repo-first finding; build + `scan_axioms` verified PURE): the `Mobius213/Px`
-  sub-tree (29 files), promoted to
-  `theory/math/algebra/mobius213_p_orbit_closure.md`.  Key cites — det glue
+  sub-tree (30 files), promoted to
+  `theory/math/algebra/mobius213_p_orbit_closure.md`.  The **C1 threshold** (this
+  session) is now a theorem there: `Px/MetallicThreshold.lean` — det = a−1,
+  collapse (det 0) at `a=1`, golden (det 1, trace 3, disc 5) at the forced
+  `a=2`, metallic tower beyond (`metallic_threshold_master`).  Key cites — det glue
   `Mobius213OneAsGlue.{one_is_det, mobius_det_eq_ns_minus_nt, mobius_det_is_unit}`,
   `Px.CassiniUniversal.cassini_universal` (det=1 ∀n); the `det=0` collapse end
   `Mobius213K33Bridge.k33_NS_minus_NT_eq_zero`; the `(2,3,5)` lock

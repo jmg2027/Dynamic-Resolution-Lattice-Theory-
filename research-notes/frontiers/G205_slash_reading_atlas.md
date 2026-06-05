@@ -62,8 +62,13 @@ not a new theorem.
 
 ## §3 Open knots
 
-- **(K1)** The midpoint ↔ mediant interpolation (denominator `2` ↔ `q+s`):
-  locate the threshold where `P` appears — a direct test of C1.
+- **(K1) — CLOSED** ∅-axiom (build + `scan_axioms` PURE, 11/0).  The C1 test as
+  a theorem: the one-knob family `M_a=[[a,1],[1,1]]`, `det = a−1`, collapse
+  (`det 0`) at `a=1`, golden 213 constants (`det 1, trace 3, disc 5`) at the
+  forced `a=2`, metallic tower beyond.
+  `lean/E213/Lib/Math/Algebra/Mobius213/Px/MetallicThreshold.lean`
+  (`detMa_eq`, `detMa_collapse`, `golden_signature`, `metallic_discriminants`,
+  `metallic_threshold_master`).
 - **(K2)** `K_{3,2}^{(c=2)}` from the construction: split distinguishing into
   state (3) / transition (2) per §6.2, bipartite embedding; connect to the
   closure form `R(N_S,N_T,d,c)·Π(1+κᵢαᵢ^{nᵢ})`.
@@ -82,8 +87,10 @@ not a new theorem.
 
 ## §4 Promotion
 
-Mediant cell has Lean support (`SternBrocotMarkov`, `Mobius213/Px`).  **(K3) is
-now closed** ∅-axiom (`AngleStructure/SimplexOrthogonality.lean`) — the
-dimension-Lens half of the atlas is source-of-truth.  Remaining open: **K1**
-(midpoint↔mediant threshold) and **K2** (`K_{3,2}` bipartite construction) —
-the nearest next targets.  Atlas stays tier-1 until further cells close.
+Mediant cell has Lean support (`SternBrocotMarkov`, `Mobius213/Px`).  **K1**
+(C1 threshold, `Px/MetallicThreshold.lean`) and **K3** (dimension-Lens
+orthogonality, `AngleStructure/SimplexOrthogonality.lean`) are now **closed**
+∅-axiom — both are source-of-truth.  Remaining open: **K2** (`K_{3,2}` bipartite
+construction — but the numerical bridge already exists, `Mobius213K32Bridge`;
+the genuinely-new piece would be the §6.2 state/transition graph) and **K4**
+(other `SL(2,ℤ)` generators).  Atlas stays tier-1 until further cells close.

@@ -33,6 +33,7 @@ import E213.Lib.Math.Algebra.Mobius213.Px.PeriodReciprocity
 import E213.Lib.Math.Algebra.Mobius213.Px.ConvergentDet
 import E213.Lib.Math.Algebra.Mobius213.Px.PGeneratesNat
 import E213.Lib.Math.Algebra.Mobius213.Px.MobiusSelfForm
+import E213.Lib.Math.Algebra.Mobius213.Px.MetallicThreshold
 
 /-!
 # `E213.Lib.Math.Algebra.Mobius213.Px` — umbrella
