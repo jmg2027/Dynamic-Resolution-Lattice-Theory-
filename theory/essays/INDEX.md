@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 59 essays are grouped into ten thematic sub-directories — distinct
+The 60 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -44,7 +44,7 @@ others together):
 **IV. `synthesis/` — synthesis & the master tower.**
 `synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`,
 `representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
-`slash_reading_atlas`.
+`slash_reading_atlas`, `readings_re_derive_the_seed`.
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
