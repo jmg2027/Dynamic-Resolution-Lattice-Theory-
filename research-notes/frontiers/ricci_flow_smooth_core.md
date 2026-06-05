@@ -51,22 +51,37 @@ hypothesis for arbitrary metrics** (not the trivial homogeneous case):
   sphere the monovariant and its descent are trivial; for general metrics
   *finding `𝓦` and proving its descent IS the conquest*.
 
-## Reachable sub-steps (if pursued)
+## Reachable sub-steps
 
-Ranked by tractability, each a genuine fragment that does *not* require the full
-PDE machinery:
+1. **Gradient-flow ⇒ monotone (algebraic skeleton)** — ✅ **DONE**
+   (`Lib/Math/Analysis/Optimization/GradientFlow.lean`, 9 PURE / 0 DIRTY).
+   On an abstract `ℤ`-inner-product space, gradient descent `x' = x − τ∇F(x)`
+   on `F(x)=⟪x,x⟫` satisfies the **descent identity**
+   `F(x − τ∇F) = F(x) − τ(1−τ)‖∇F‖²` (`gradient_descent_identity`), from *only*
+   inner-product symmetry + scalar-homogeneity + `ring_intZ`; hence
+   `gradient_descent_monotone` (`0 ≤ τ ≤ 1`).  This formalizes the *form* of
+   Perelman's monotonicity — "the functional is a monovariant **because** the
+   flow is its gradient flow, descending at rate `‖∇F‖²`" — the discrete
+   `0`-axiom translation of `d/dt F = −‖∇F‖²`.  Modulo the unreachable-here
+   geometric premise that Ricci flow *is* the gradient flow of `𝓕`
+   (`∇𝓕 = −(Ric+Hess f)`, the PDE work).
 
-1. **Gradient-flow ⇒ monotone (algebraic skeleton).**  In a finite-dimensional
-   inner-product space (over `Q213`/`Real213`), gradient descent
-   `x' = x − τ∇F(x)` on a quadratic `F` decreases `F` (`F(x') ≤ F(x)`, strict
-   off critical points).  This formalizes the *form* of Perelman's monotonicity
-   — "the functional is a monovariant because the flow is its gradient flow" —
-   modulo the (unreachable-here) geometric premise that Ricci flow *is* that
-   gradient flow.  ∅-axiom-feasible; the most informative next step.
+   **ISA insight surfaced**: gradient flow does **not** compile to A6 FLOW.
+   A6 (well-founded `ℕ`-descent) gives *finite* termination — that is the round
+   sphere (linear `ρ`, finite extinction).  Gradient flow on `F=⟪x,x⟫` with
+   contractive `τ∈(0,1)` decreases `F` *geometrically* (`F(x')=(1−2τ)²F(x)`),
+   converging **asymptotically** — the **monotone + bounded-below ⟹ convergent**
+   instruction (completeness, `MonotonicBounded`/`CauchyComplete`), not
+   well-founded descent.  So `𝓕/𝓦`-monotonicity = [descent-identity (done)] +
+   [completeness-LOOP convergence], two instructions, neither A6.
 2. **Other homogeneous flows as ODEs.**  Ricci flow on flat tori (`Ric=0`,
    fixed point), or pinching on Berger spheres / Bianchi classes — each a
    finite-dim ODE compiling onto A6 FLOW, like the round sphere.
-3. **Normalized flow fixed points = Einstein metrics** at the algebraic level
+3. **Completeness-LOOP convergence** of the geometric `F`-sequence: hook the
+   monotone bounded-below `F(xₖ)` into `Analysis/.../MonotonicBounded` +
+   `CauchyComplete` to witness asymptotic convergence (the second instruction
+   above), over `Real213`/dyadic with `τ = 1/2` or `1/4`.
+4. **Normalized flow fixed points = Einstein metrics** at the algebraic level
    (the `Sym(3)`-fixed subspace already in `Ricci.lean` as the averaging-
    invariant analog).
 

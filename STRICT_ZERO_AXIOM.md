@@ -289,6 +289,19 @@ theorem.  `sphere_flow_converges` / `sphere_reaches_extinction` (general rate), 
 general-metric `𝓕/𝓦`-monotonicity (Riemannian-geometry + PDE, Mathlib-forbidden) stays OPEN —
 `research-notes/frontiers/ricci_flow_smooth_core.md`.
 
+### Gradient-flow monotonicity compiled to the ISA (2026-06-05)
+
+`E213.Lib.Math.Analysis.Optimization.GradientFlow` — **9 PURE / 0 DIRTY**.  The structural reason
+Perelman's `𝓕/𝓦` is a monovariant, standard proof translated to `0`-axiom.  On an abstract `ℤ`-inner-
+product space (`IPSpace`), gradient descent `x ↦ x − τ∇F` on `F(x)=⟪x,x⟫` (∇F=2x) satisfies the
+**descent identity** `gradient_descent_identity`: `F(x−τ∇F) = F(x) − τ(1−τ)·‖∇F‖²` — from *only*
+`ip_comm` + `ip_smul_left` + `ring_intZ` (∅-axiom ℤ ring tactic).  Hence `gradient_descent_monotone`
+(`0 ≤ τ ≤ 1`, via `mul_nonneg` + `ip_nonneg`).  The discrete `0`-axiom form of `d/dt F = −‖∇F‖²`: the
+monovariant's descent is *forced by* the gradient structure (the A6 `descent` hypothesis **derived**, not
+assumed).  **ISA insight**: gradient flow is *not* A6 — its `F` decreases geometrically (`(1−2τ)²`),
+converging asymptotically, so it compiles to **monotone + bounded-below ⟹ convergent** (completeness),
+not well-founded `ℕ`-descent.  Frontier sub-step 1 closed (`ricci_flow_smooth_core.md`).
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to
