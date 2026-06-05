@@ -6,6 +6,24 @@ gives different geometric objects, and different structural invariants surface.
 This is the geometric face of `06_lens_readings.md` §6 "Lens readings of the same
 residue".  Started from Mingu Jeong's "object IS two distinct objects" sketch.*
 
+## The Raw itself (what every reading is a reading *of*)
+
+`raw_itself.py`.  Every shape in this atlas is a *Lens reading* — a combining map
+that places the relation-objects.  Underneath them all is the same object: the
+**Raw**, the residue family `a, b, a/b, a/(a/b), …` (`02_axiom.md` §2.2), the
+inductive `Tree | a | b | slash` (`Theory/Raw/Slash.lean`) — the bare
+combinatorial skeleton of distinguishings, which is exactly the first sketch's
+unfolding `a, b → c → d, e → f..q`.  The invariant across every panel of the
+atlas is *which node is the slash of which*; what changes is only the embedding.
+
+The honest paradox the figure carries: Raw commits to no geometry (§2.5), so any
+*placement* of its nodes is already a Lens.  The Raw as-such is the residue
+**reached by no reading** (`FlatOntologyClosure.object1_not_surjective`,
+`theory/essays/foundations/reached_by_none.md`); the drawings are charts of it
+(§6.2), not it.  Drawing the "bare" tree is itself the free-graph Lens — named,
+not escaped.  This is why the atlas has no privileged cell: there is no reading
+that *is* the Raw, only readings that point at it.
+
 ## The generating space (the dials)
 
 The construction "every relation of two objects is itself an object, recurse"
@@ -93,6 +111,22 @@ A third kind of "constant from a reading": `φ` is the mediant reading's
 eigenvalue, `δ ≈ 4.669` (Feigenbaum) is the period-doubling reading's — each
 Lens carries its own invariant, and the meta-thesis (which readings surface
 which constants) is the through-line of the whole atlas.
+
+### Batch 4 (`more_lens_readings_4.py`)
+
+| slash read as | combining map | limit | intermediate shape | 213 link |
+|---|---|---|---|---|
+| **IFS of affine maps** | four contractions (chaos game) | Barnsley fern | finite point cloud | the relation read as a *system* of contractions |
+| **Newton step** | `z ↦ z − p/p'` (`z³−1`) | basins of the three roots | finite-iteration | the relation read as root-finding (algebraic dynamics) |
+| **2-D removal** | drop the `(1,1)` sub-square | Sierpinski carpet (dim `log8/log3≈1.893`) | `3^k` grid | the 2-D companion of the mod/XOR Sierpinski family |
+| **branching square** | square → two on its apex | Pythagoras tree | depth-`n` | the relation read as binary branching |
+| **cubic recurrence** | `x³ = x+1` | plastic number `ρ≈1.3247` (Padovan spiral) | Padovan ratios | `φ`'s **cubic** sibling — the next minimal Pisot number (`φ` from `x²=x+1`, `ρ` from `x³=x+1`) |
+| **three-fold inflation** | insert a bump | Koch snowflake (dim `log4/log3≈1.262`) | `n`-th iterate | the closed de Rham member |
+
+The plastic number `ρ` extends the session's `φ` one step: `φ` and `ρ` are the
+two smallest Pisot numbers, the quadratic and cubic minimal solutions of
+`xⁿ = x+1` — the metallic/Möbius reading's `φ` has a cubic sibling, and the
+"constant from a reading" dictionary deepens.
 
 ## The meta-thesis (the research spine)
 
