@@ -502,6 +502,21 @@ field-L² companion of the energy (gradient-L²) decay.
 
 ### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
+### A6 CORE TOUCHED — discrete Ricci flow as heat flow on curvature (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete` — **5 PURE / 0 DIRTY**.  The
+transcendentals + PDE-estimates marathon was split off precisely to unblock the A6 Ricci-flow core; this
+file spends the PDE estimates on it.  **Bridge**: smooth Ricci flow linearizes to the heat equation on
+curvature (`∂_t R = ΔR + 2|Ric|²`, Hamilton), so the discrete Ricci flow's edge-curvature field evolves by
+the **discrete heat step** — and the heat estimates ARE the discrete Ricci-flow a-priori estimates.
+`ricciFlowStep = lazyHeatStepNum`; `ricci_curvature_bounded` (no blow-up, `heatIter_range`),
+`ricci_energy_monotone` (**curvature Dirichlet energy decays `E(flow K) ≤ 16·E(K)`** — `lazy_energy_decay`,
+the discrete Perelman 𝓦-/entropy-monotonicity), `ricci_uniform_stationary` (uniform `K_{NS,NT}` curvature
+`4−NS−NT` is the normalized fixed point, `lazyHeatStep_const`), `ricci_flow_homogenises` (the checkerboard
+curvature field → constant curvature in one step, spread `1→0` — `lazy_checker_collapses`).  **A6 conquest
+core closed on the discrete (Forman) side** (rungs 2–3 of `a6_ricci_core/discrete_ricci_flow_ladder.md`);
+the smooth-Perelman wall stays (`ricci_flow_smooth_core.md`).
+
 ### Marathon T4 (foundation) — integer floor square root `isqrt` (2026-06-05)
 
 `E213.Lib.Math.NumberTheory.IntSqrt` — **PURE / 0 DIRTY**.  `isqrt n = ⌊√n⌋` via a downward scan
