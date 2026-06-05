@@ -358,4 +358,138 @@ theorem sorted_isChain {L : List (List Bool)}
   · show (subseteqB A B || subseteqB B A) = true
     rw [hsub]; cases subseteqB A B <;> rfl
 
+/-! ## §6 — the symmetric chain decomposition (construction + chain property)
+
+The de Bruijn–Tengbergen–Kruyswijk recursion (new bit at the front): each chain
+`C` of `2^[n]` yields `extendC C` (the chain with the new element absent, then
+present at the top — one level higher) and `raiseC C` (the new element present,
+top dropped — one level lower).  Both are chains; here we build the construction
+and prove the chain property (`scd_isChain`).  The partition + the
+symmetric-level count `= C(n,⌊n/2⌋)` remain (frontier). -/
+
+/-- Extend a chain upward with the new element. -/
+def extendC : List (List Bool) → List (List Bool)
+  | [] => []
+  | [v] => [false :: v, true :: v]
+  | v :: rest => (false :: v) :: extendC rest
+
+/-- Raise a chain (new element present, top dropped). -/
+def raiseC : List (List Bool) → List (List Bool)
+  | [] => []
+  | [_] => []
+  | v :: rest => (true :: v) :: raiseC rest
+
+/-- `Sorted` = `subseteqB`-`Pairwise`. -/
+abbrev Sorted (L : List (List Bool)) : Prop :=
+  List.Pairwise (fun A B => subseteqB A B = true) L
+
+/-- `v ⊆` everything below ⟹ `false :: v ⊆` everything in `extendC`. -/
+theorem extendC_head (v : List Bool) : ∀ (rest : List (List Bool)),
+    (∀ w, w ∈ rest → subseteqB v w = true) →
+    ∀ x, x ∈ extendC rest → subseteqB (false :: v) x = true
+  | [], _, _, hx => nomatch hx
+  | [w], h, x, hx => by
+      have hvw : subseteqB v w = true := h w (List.Mem.head _)
+      cases hx with
+      | head => show subseteqB (false :: v) (false :: w) = true; rw [subseteqB_cons_same]; exact hvw
+      | tail _ hx' => cases hx' with
+        | head =>
+            show (impl false true && subseteqB v w) = true
+            rw [show impl false true = true from rfl, Bool.true_and]; exact hvw
+        | tail _ h'' => nomatch h''
+  | w :: w2 :: rest', h, x, hx => by
+      cases hx with
+      | head =>
+          show subseteqB (false :: v) (false :: w) = true
+          rw [subseteqB_cons_same]; exact h w (List.Mem.head _)
+      | tail _ hx' =>
+          exact extendC_head v (w2 :: rest') (fun w' hw' => h w' (List.Mem.tail _ hw')) x hx'
+
+/-- `v ⊆` everything below ⟹ `true :: v ⊆` everything in `raiseC`. -/
+theorem raiseC_head (v : List Bool) : ∀ (rest : List (List Bool)),
+    (∀ w, w ∈ rest → subseteqB v w = true) →
+    ∀ x, x ∈ raiseC rest → subseteqB (true :: v) x = true
+  | [], _, _, hx => nomatch hx
+  | [_], _, _, hx => nomatch hx
+  | w :: w2 :: rest', h, x, hx => by
+      cases hx with
+      | head =>
+          show subseteqB (true :: v) (true :: w) = true
+          rw [subseteqB_cons_same]; exact h w (List.Mem.head _)
+      | tail _ hx' =>
+          exact raiseC_head v (w2 :: rest') (fun w' hw' => h w' (List.Mem.tail _ hw')) x hx'
+
+theorem extendC_sorted : ∀ (C : List (List Bool)), Sorted C → Sorted (extendC C)
+  | [], _ => List.Pairwise.nil
+  | [v], _ =>
+      List.Pairwise.cons
+        (fun x hx => by cases hx with
+          | head => exact subseteqB_false_true v
+          | tail _ h => nomatch h)
+        (List.Pairwise.cons (fun _ h => nomatch h) List.Pairwise.nil)
+  | v :: w :: rest, hs => by
+      cases hs with
+      | cons hhead htail =>
+          exact List.Pairwise.cons
+            (extendC_head v (w :: rest) hhead)
+            (extendC_sorted (w :: rest) htail)
+
+theorem raiseC_sorted : ∀ (C : List (List Bool)), Sorted C → Sorted (raiseC C)
+  | [], _ => List.Pairwise.nil
+  | [_], _ => List.Pairwise.nil
+  | v :: w :: rest, hs => by
+      cases hs with
+      | cons hhead htail =>
+          exact List.Pairwise.cons
+            (raiseC_head v (w :: rest) hhead)
+            (raiseC_sorted (w :: rest) htail)
+
+/-- One step of the SCD recursion on a chain `C`. -/
+def scdStep (C : List (List Bool)) : List (List (List Bool)) :=
+  match raiseC C with
+  | [] => [extendC C]
+  | _ => [extendC C, raiseC C]
+
+theorem mem_scdStep {C D : List (List Bool)} (h : C ∈ scdStep D) :
+    C = extendC D ∨ C = raiseC D := by
+  unfold scdStep at h
+  cases hr : raiseC D with
+  | nil =>
+      rw [hr] at h
+      cases h with
+      | head => exact Or.inl rfl
+      | tail _ h' => nomatch h'
+  | cons a as =>
+      rw [hr] at h
+      cases h with
+      | head => exact Or.inl rfl
+      | tail _ h' => cases h' with
+        | head => exact Or.inr rfl
+        | tail _ h'' => nomatch h''
+
+open E213.Lib.Math.Combinatorics.Permutations (flatMap213 mem_flatMap213)
+
+/-- The symmetric chain decomposition of `2^[n]`. -/
+def scd : Nat → List (List (List Bool))
+  | 0 => [[[]]]
+  | n + 1 => flatMap213 scdStep (scd n)
+
+/-- Every chain produced by the SCD is `Sorted`. -/
+theorem scd_sorted : ∀ (n : Nat) (C : List (List Bool)), C ∈ scd n → Sorted C
+  | 0, C, h => by
+      cases h with
+      | head => exact List.Pairwise.cons (fun _ h => nomatch h) List.Pairwise.nil
+      | tail _ h' => nomatch h'
+  | n + 1, C, h => by
+      obtain ⟨D, hD, hCD⟩ := mem_flatMap213 h
+      rcases mem_scdStep hCD with rfl | rfl
+      · exact extendC_sorted D (scd_sorted n D hD)
+      · exact raiseC_sorted D (scd_sorted n D hD)
+
+/-- ★★ **The SCD chains are chains.**  Every member of `scd n` is a chain of
+    `2^[n]` (via `sorted_isChain`).  The chain-property half of the Dilworth
+    upper bound; the partition + the count `= C(n,⌊n/2⌋)` remain (frontier). -/
+theorem scd_isChain (n : Nat) (C : List (List Bool)) (h : C ∈ scd n) : IsChain C :=
+  sorted_isChain (scd_sorted n C h)
+
 end E213.Lib.Math.Combinatorics.ChainAntichain
