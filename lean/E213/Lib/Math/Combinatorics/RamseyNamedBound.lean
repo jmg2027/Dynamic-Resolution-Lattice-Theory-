@@ -1,5 +1,7 @@
 import E213.Lib.Math.Combinatorics.Sperner
 import E213.Lib.Math.Combinatorics.RamseyLowerBound
+import E213.Meta.Nat.NatRing213
+import E213.Meta.Tactic.Pow213
 
 /-!
 # Erdős' Ramsey lower bound `R(k,k) > N`, named (∅-axiom)
@@ -157,22 +159,12 @@ theorem binom_mono_fst (m k : Nat) : ∀ {N : Nat}, k ≤ N → binom k m ≤ bi
   | refl => exact Nat.le_refl _
   | step _ ih => exact Nat.le_trans ih (E213.Lib.Math.Combinatorics.Binomial.binom_le_binom_succ _ _)
 
-/-! ## §3 — the named bound -/
+/-! ## §3 — the named bound
 
-/-- Propext-free `m < n → m·k < n·k` for `k > 0`. -/
-private theorem mul_lt_mul_right_clean {m n k : Nat} (hk : 0 < k) (h : m < n) :
-    m * k < n * k := by
-  have h1 : (m + 1) * k ≤ n * k := Nat.mul_le_mul_right k h
-  have h2 : m * k < (m + 1) * k := by
-    rw [E213.Lib.Math.Combinatorics.Binomial.add_mul_pure, Nat.one_mul]
-    exact Nat.lt_add_of_pos_right hk
-  exact Nat.lt_of_lt_of_le h2 h1
-
-/-- Propext-free `a^(m+n) = a^m · a^n`. -/
-private theorem pow_add_clean (a m : Nat) : ∀ n, a ^ (m + n) = a ^ m * a ^ n
-  | 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
-  | n + 1 => by
-      rw [Nat.add_succ, Nat.pow_succ, pow_add_clean a m n, nmul_assoc, ← Nat.pow_succ]
+The propext-free strict-monotonicity and `2`-power-additivity used below are the
+repo's existing clean Nat infrastructure (`Meta/Nat/NatRing213`,
+`Meta/Tactic/Pow213`) — core `Nat.mul_lt_mul_right` / `Nat.pow_add` carry
+`Classical.choice` / `propext`. -/
 
 /-- ★★ **Erdős' Ramsey lower bound `R(k,k) > N`.**  If `2·C(N,k) < 2^{C(k,2)}`,
     there is a 2-colouring of the `C(N,2)` edges of `K_N` with **no monochromatic
@@ -202,9 +194,9 @@ theorem ramsey_lower (N k : Nat) (hkN : k ≤ N) (h : 2 * binom N k < 2 ^ binom 
           = (2 * binom N k) * 2 ^ (binom N 2 - binom k 2) := by
             rw [nmul_left_comm (binom N k) 2 (2 ^ (binom N 2 - binom k 2)), nmul_assoc]
       _ < 2 ^ binom k 2 * 2 ^ (binom N 2 - binom k 2) :=
-            mul_lt_mul_right_clean hppos h
+            E213.Meta.Nat.NatRing213.nat_mul_lt_mul_right hppos h
       _ = 2 ^ binom N 2 := by
-            rw [← pow_add_clean, add_sub_of_le hPE]
+            rw [← E213.Tactic.Pow213.pow_add_two, add_sub_of_le hPE]
   obtain ⟨l, hlmem, hall⟩ :=
     erdos_schema ((kLayer N k).map monoEvent) (binom N 2)
       (2 * 2 ^ (binom N 2 - binom k 2)) hc hlt
