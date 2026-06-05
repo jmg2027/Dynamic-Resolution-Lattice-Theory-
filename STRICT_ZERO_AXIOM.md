@@ -439,6 +439,20 @@ the analytic `2m`-threshold modulus, the route that actually delivers exp(m).  (
 (`lazyHeatStepNum = heatStepNum + 2u_x` — the self-weight that moves the stencil symbol `cos θ → 1+cos θ`,
 removing the `−1` checkerboard eigenmode; the structural reason for the spectral gap).
 
+### Marathon P3 infra — finite-grid sum + discrete mass conservation (2026-06-05)
+
+`E213.Lib.Math.Analysis.ODE.HeatEqConservation` — **8 PURE / 0 DIRTY**.  Builds the reusable finite-grid
+sum `gridSum n f = Σ_{x<n} f x` (`gridSum_congr`, `gridSum_add`, `gridSum_two_mul`) with **cyclic-shift
+invariance**: `gridSum_rightNbr` / `gridSum_leftNbr` — the neighbour maps `leftNbr`/`rightNbr` are the two
+full-cycle rotations of `{0,…,n−1}`, so re-summing along them returns the same total (via
+`gridSum_head_shift` moving the wrapped head term, + `leftNbr_rightNbr`: `leftNbr ∘ rightNbr = id` on the
+grid).  First consumer: **mass conservation** — `heatStep_mass_conservation` (`Σ heatStepNum = 2·Σu`),
+`lazyHeatStep_mass_conservation` (`Σ lazyHeatStepNum = 4·Σu`): the heat step redistributes mass without
+creating/destroying it (averaged total invariant), the discrete conservation law companion to the maximum
+principle.  Purity note: required NatHelper's pure `add_sub_cancel_right` / `add_self_mod_pure` (Lean-core
+`Nat.add_sub_cancel` and `Nat.add_mod_right` leak `propext`) and a `gridSum_congr`-based scalar lemma
+(avoiding `funext`/`Quot.sound`).  `gridSum` now unblocks the Dirichlet energy (P3 proper).
+
 ### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
 
 **3 PURE / 0 DIRTY** (`exp_deriv_coeff_fixed` in `CutExpModulus`; `sin_deriv_coeff`, `cos_deriv_coeff` in

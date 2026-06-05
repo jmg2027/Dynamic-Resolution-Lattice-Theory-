@@ -81,9 +81,13 @@ P2. **Oscillation decay** — `osc u = max u − min u` is a monovariant; unifor
     contraction rate + the `Real213` limit.
 
   Infra still needed for P3 (energy/Dirichlet `E(u)=Σ(u_{i+1}−u_i)²`): a **finite-grid sum**
-  `gridSum n f = Σ_{x<n} f x` with cyclic-shift invariance `Σ f(rightNbr n x) = Σ f x` — no
-  such sum infra in the repo yet (`List213` has list lemmas, no sum).  Building it unblocks
-  mass conservation (`Σ heatStep = 2Σu`) and energy decay.
+  `gridSum n f = Σ_{x<n} f x` with cyclic-shift invariance `Σ f(rightNbr n x) = Σ f x` — ⚙️
+  **DONE** (`HeatEqConservation.lean`, 8 PURE): `gridSum` + `gridSum_congr`/`gridSum_add`/
+  `gridSum_two_mul`, `gridSum_rightNbr`/`gridSum_leftNbr` (the two full-cycle rotations preserve
+  the sum, via `gridSum_head_shift` + `leftNbr_rightNbr` inverse).  First consumer:
+  **mass conservation** `heatStep_mass_conservation` (`Σ heatStepNum = 2Σu`) /
+  `lazyHeatStep_mass_conservation` (`Σ lazyHeatStepNum = 4Σu`) — the discrete conservation law,
+  companion of the maximum principle.  `gridSum` now unblocks the Dirichlet energy (P3 proper).
 P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (discrete
     Bochner / gradient estimate); the limit = continuous energy decay, rate a
     `‖∇u‖²` (ties to gradient-flow descent identity ①).
