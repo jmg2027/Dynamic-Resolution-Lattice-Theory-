@@ -21,7 +21,7 @@ open E213.Lib.Math.NumberTheory.ModArith.SecondSupplement (countNeg gauss_mu)
 open E213.Lib.Math.Algebra.Linalg213.Permutation (sumZ sumZ_lperm map_lperm iota)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (sumZ_append map_append')
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_map')
-open E213.Lib.Math.Algebra.Linalg213.SumLinear (sumZ_map_add sumZ_map_sub sumZ_map_const_mul)
+open E213.Lib.Math.Algebra.Linalg213.SumLinear (sumZ_map_add sumZ_map_sub sumZ_map_const_mul sumZ_swap)
 open E213.Lib.Math.NumberTheory.PolyRoot (natCast_add)
 open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_mul)
 open E213.Lib.Math.NumberTheory.ModArith.EulerConverse (natCast_sub)
@@ -301,5 +301,68 @@ private theorem colCount_eq_floor (p q x n : Nat) (hp : 0 < p) (hndvd : ¬ p ∣
         = (seg n).map (fun y => if y ≤ q * x / p then (1 : Int) else 0) from
       map_congr (fun y _ => elem_col p q x y hp hndvd)]
   exact count_le_eq (q * x / p) n hbnd
+
+/-- Trichotomy at a lattice point: exactly one of `p·y < q·x`, `q·x < p·y` holds (no equality, since
+    `q·x = p·y ⟹ p ∣ q·x`), so the two indicators sum to `1`. -/
+private theorem elem_tri (p q x y : Nat) (hndvd : ¬ p ∣ q * x) :
+    (if p * y < q * x then (1 : Int) else 0) + (if q * x < p * y then (1 : Int) else 0) = 1 := by
+  rcases Nat.lt_or_ge (p * y) (q * x) with hlt | hge
+  · have hn2 : ¬ q * x < p * y := fun h => Nat.lt_irrefl _ (Nat.lt_trans hlt h)
+    rw [if_pos hlt, if_neg hn2]; ring_intZ
+  · have hne : q * x ≠ p * y := fun he => hndvd ⟨y, he⟩
+    have hqxlt : q * x < p * y := Nat.lt_of_le_of_ne hge hne
+    have hn1 : ¬ p * y < q * x := fun h => Nat.lt_irrefl _ (Nat.lt_trans h hqxlt)
+    rw [if_neg hn1, if_pos hqxlt]; ring_intZ
+
+/-- ★★ **Eisenstein rectangle double-count.**  For `p = 2m+1`, `q = 2n+1` with `p ∤ q·x`
+    (`x ∈ [1,m]`) and `q ∤ p·y` (`y ∈ [1,n]`):
+    `Σ_{x∈[1,m]} ⌊q·x/p⌋ + Σ_{y∈[1,n]} ⌊p·y/q⌋ = m·n` (over `ℤ`).  Both sums count lattice points
+    of `[1,m]×[1,n]` on either side of the diagonal `q·x = p·y` (no point ON it).  Columns/rows via
+    `colCount_eq_floor`; the cross term swaps by `sumZ_swap` (Fubini); `elem_tri` collapses the grid
+    to `Σ_x Σ_y 1 = m·n`. -/
+theorem floor_sum_rectangle (m n p q : Nat) (hp : 0 < p) (hq : 0 < q)
+    (hpf : p = 2 * m + 1) (hqf : q = 2 * n + 1)
+    (hcol : ∀ x, x ∈ seg m → ¬ p ∣ q * x)
+    (hrow : ∀ y, y ∈ seg n → ¬ q ∣ p * y) :
+    sumZ ((seg m).map (fun x => ((q * x / p : Nat) : Int)))
+      + sumZ ((seg n).map (fun y => ((p * y / q : Nat) : Int)))
+      = ((m * n : Nat) : Int) := by
+  have hColBnd : ∀ x, x ∈ seg m → q * x / p ≤ n := fun x hx => by
+    rw [hpf, hqf]; exact floor_bound m n x (mem_seg.mp hx).2
+  have hRowBnd : ∀ y, y ∈ seg n → p * y / q ≤ m := fun y hy => by
+    rw [hpf, hqf]; exact floor_bound n m y (mem_seg.mp hy).2
+  have hCol : sumZ ((seg m).map (fun x => ((q * x / p : Nat) : Int)))
+      = sumZ ((seg m).map (fun x =>
+          sumZ ((seg n).map (fun y => if p * y < q * x then (1 : Int) else 0)))) :=
+    congrArg sumZ (map_congr (fun x hx =>
+      (colCount_eq_floor p q x n hp (hcol x hx) (hColBnd x hx)).symm))
+  have hRow : sumZ ((seg n).map (fun y => ((p * y / q : Nat) : Int)))
+      = sumZ ((seg n).map (fun y =>
+          sumZ ((seg m).map (fun x => if q * x < p * y then (1 : Int) else 0)))) :=
+    congrArg sumZ (map_congr (fun y hy =>
+      (colCount_eq_floor q p y m hq (hrow y hy) (hRowBnd y hy)).symm))
+  rw [hCol, hRow, sumZ_swap (fun y x => if q * x < p * y then (1 : Int) else 0) (seg n) (seg m),
+      ← sumZ_map_add
+        (fun x => sumZ ((seg n).map (fun y => if p * y < q * x then (1 : Int) else 0)))
+        (fun x => sumZ ((seg n).map (fun y => if q * x < p * y then (1 : Int) else 0))) (seg m)]
+  have hInner : ∀ x, x ∈ seg m →
+      sumZ ((seg n).map (fun y => if p * y < q * x then (1 : Int) else 0))
+        + sumZ ((seg n).map (fun y => if q * x < p * y then (1 : Int) else 0)) = (n : Int) := by
+    intro x hx
+    rw [← sumZ_map_add (fun y => if p * y < q * x then (1 : Int) else 0)
+          (fun y => if q * x < p * y then (1 : Int) else 0) (seg n),
+        show (seg n).map (fun y =>
+              (if p * y < q * x then (1 : Int) else 0) + (if q * x < p * y then (1 : Int) else 0))
+            = (seg n).map (fun _ => (1 : Int)) from
+          map_congr (fun y _ => elem_tri p q x y (hcol x hx)),
+        count_all n]
+  rw [show (seg m).map (fun x =>
+          sumZ ((seg n).map (fun y => if p * y < q * x then (1 : Int) else 0))
+            + sumZ ((seg n).map (fun y => if q * x < p * y then (1 : Int) else 0)))
+        = (seg m).map (fun _ => (n : Int)) from map_congr hInner,
+      show (seg m).map (fun _ => (n : Int)) = (seg m).map (fun _ => (n : Int) * 1) from
+        map_congr (fun x _ => (E213.Meta.Int213.mul_one (n : Int)).symm),
+      sumZ_map_const_mul (n : Int) (fun _ => (1 : Int)) (seg m), count_all m, natCast_mul]
+  ring_intZ
 
 end E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
