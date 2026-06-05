@@ -98,12 +98,14 @@ identities (`ring_intZ`) — Heron (sides→area), Euler four-square (ℍ norm m
 ∅-axiom in one line.  Productive vein — keep mining (Cayley–Menger/tetrahedron volume, Descartes circle
 relation, more norm-form multiplicativities).
 
-## Game theory (new domain, NOT ring_intZ): subtraction game S={1,2}
-`Combinatorics/SubtractionGame.lean` (7 PURE): Sprague–Grundy — P-positions of the `{1,2}` subtraction
-game are exactly the multiples of 3 (`subtraction_game_characterization`), via backward induction +
-3-periodicity (`period`), genuine game-tree structure (not an algebraic identity).  Next game-theory
-targets: general Nim (Bouton, XOR of heaps; needs `Nat.xor` + the highest-bit winning move), or Grundy
-values / mex.
+## Game theory (new domain, NOT ring_intZ): subtraction game + two-heap Nim
+- `Combinatorics/SubtractionGame.lean` (7 PURE): Sprague–Grundy — P-positions of `S={1,2}` are exactly the
+  multiples of 3 (`subtraction_game_characterization`), via backward induction + 3-periodicity (`period`).
+- `Combinatorics/NimTwoHeap.lean` (5 PURE): Bouton `n=2` — P-positions = balanced `a=b` (mirroring), via
+  the P/N criterion (closed + progress), no game recursion, no XOR.
+- **General Bouton** (P ⟺ nim-sum XOR `=0`) = frontier `nim_bouton/general_bouton_ladder.md`: core
+  `Nat.xor` lemmas are `propext`/`Quot.sound`-dirty → needs a pure ∅-axiom XOR theory first (rung N1:
+  `xor_eq_zero_iff`), then N2 closed / N3 highest-bit progress / N4 Bouton.
 
 ## Next targets (priority order)
 1. **More `ring_intZ` cross-domain identities** — Cayley–Menger (Heron→tetrahedron, geometry↔determinant),

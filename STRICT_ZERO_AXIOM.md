@@ -395,6 +395,17 @@ the 4-case Bool analysis + `consec`); `subtraction_game_characterization`: P-pos
 multiples of 3 (`gLoss(3q)=true`, `gLoss(3q+1)=gLoss(3q+2)=false`, each by induction via `period`).
 Cross-domain: game value ↔ modular arithmetic; no `ring_intZ`, genuine game-tree induction.
 
+### Two-heap Nim — the mirroring strategy (2026-06-05)
+
+`E213.Lib.Math.Combinatorics.NimTwoHeap` — **5 PURE / 0 DIRTY**.  Bouton (1901), `n=2`: the P-positions of
+two-heap Nim are exactly the **balanced** `a=b` (mirroring strategy).  Certified by the standard P/N
+criterion **without** a game-tree recursion: `nim2_closed_left`/`_right` (every move off a balanced
+position unbalances it) + `nim2_progress` (from any unbalanced position, reduce the larger heap to the
+smaller → balanced), bundled `nim_two_heap_P_positions`.  No `Nat.xor` (the `n=2` case of nim-sum `=0`).
+General Bouton (arbitrary heaps, P ⟺ nim-sum XOR `=0`) is the frontier — core `Nat.xor` is
+`propext`/`Quot.sound`-dirty, needs a pure XOR theory + highest-bit move
+(`research-notes/frontiers/nim_bouton/general_bouton_ladder.md`).
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

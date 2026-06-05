@@ -277,3 +277,12 @@ then `erdos_schema`), **no new "why"**.  All engine pieces built ∅-axiom
   (`Geometry/PickTheorem.pick_rectangle`, the rectangle atom, pure `ring_intZ`).
   Rungs K1 diagonal count `gcd(w,h)−1` → K2 right-triangle → K3 additivity →
   K4 general polygon.  Next: K1.
+
+## Nim / Bouton — combinatorial game theory  (`nim_bouton/`)
+
+- `nim_bouton/general_bouton_ladder` — Bouton (1901): P-position ⟺ nim-sum
+  (XOR) `= 0`.  Closed: subtraction game `S={1,2}` (P = 3ℤ) and two-heap Nim
+  (P = balanced `a=b`, mirroring).  Obstruction: core `Nat.xor` lemmas are
+  `propext`/`Quot.sound`-dirty → need a pure ∅-axiom XOR theory first.  Rungs
+  N1 pure nim-sum (`xor_eq_zero_iff`) → N2 closed → N3 progress (highest bit) →
+  N4 Bouton.
