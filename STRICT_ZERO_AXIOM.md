@@ -302,6 +302,18 @@ assumed).  **ISA insight**: gradient flow is *not* A6 — its `F` decreases geom
 converging asymptotically, so it compiles to **monotone + bounded-below ⟹ convergent** (completeness),
 not well-founded `ℕ`-descent.  Frontier sub-step 1 closed (`ricci_flow_smooth_core.md`).
 
+### Completeness-LOOP: asymptotic convergence of the gradient value (2026-06-05)
+
+`E213.Lib.Math.Analysis.Optimization.CompletenessLoop` — **6 PURE / 0 DIRTY**.  The *second* instruction
+gradient-flow monotonicity compiles to (the first being the descent identity).  The geometric value
+`vₖ = F(xₖ) = N₀/2ᵏ` (contraction `r ≤ 1/2`) is monotone decreasing (`value_decreasing`), **strictly
+positive at every finite step** (`value_pos` — never finitely reaches the infimum `0`, the non-A6
+feature), yet **converges to `0` with explicit modulus** `K(n)=N₀·2ⁿ` (`value_below`: `k ≥ N₀·2ⁿ ⟹
+N₀·2ⁿ < 2ᵏ`, via the hand-rolled `lt_two_pow_self`).  Bundled in `completeness_loop`.  The **monotone +
+bounded-below ⟹ convergent** instruction (repo `Nat→Nat` modulus idiom) — distinct from A6's finite
+well-founded descent.  So `𝓕/𝓦`-monotonicity = [descent-identity (`GradientFlow`)] + [completeness-LOOP
+(here)], two instructions, neither A6.  Frontier sub-step 3 closed.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

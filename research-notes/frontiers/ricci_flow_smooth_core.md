@@ -77,10 +77,18 @@ hypothesis for arbitrary metrics** (not the trivial homogeneous case):
 2. **Other homogeneous flows as ODEs.**  Ricci flow on flat tori (`Ric=0`,
    fixed point), or pinching on Berger spheres / Bianchi classes — each a
    finite-dim ODE compiling onto A6 FLOW, like the round sphere.
-3. **Completeness-LOOP convergence** of the geometric `F`-sequence: hook the
-   monotone bounded-below `F(xₖ)` into `Analysis/.../MonotonicBounded` +
-   `CauchyComplete` to witness asymptotic convergence (the second instruction
-   above), over `Real213`/dyadic with `τ = 1/2` or `1/4`.
+3. **Completeness-LOOP convergence** of the geometric `F`-sequence — ✅ **DONE**
+   (`Lib/Math/Analysis/Optimization/CompletenessLoop.lean`, 6 PURE / 0 DIRTY).
+   The gradient value `vₖ = F(xₖ) = N₀/2ᵏ` (contraction `r ≤ 1/2`) is monotone
+   decreasing (`value_decreasing`), **strictly positive at every finite step**
+   (`value_pos` — never finitely reaches the infimum `0`, the non-A6 feature),
+   yet **converges to `0` with explicit modulus** `K(n) = N₀·2ⁿ`
+   (`value_below`: `k ≥ N₀·2ⁿ ⟹ N₀·2ⁿ < 2ᵏ`, i.e. `vₖ < 1/2ⁿ`).  Bundled in
+   `completeness_loop`.  This is the **monotone + bounded-below ⟹ convergent**
+   instruction in the repo's `Nat→Nat` modulus idiom — the second of the two
+   instructions `𝓕/𝓦`-monotonicity compiles to, distinct from A6's finite
+   descent.  (A full `CauchyCutSeq`/`Real213` construction is the heavier
+   completion; the asymptotic content is witnessed.)
 4. **Normalized flow fixed points = Einstein metrics** at the algebraic level
    (the `Sym(3)`-fixed subspace already in `Ricci.lean` as the averaging-
    invariant analog).
