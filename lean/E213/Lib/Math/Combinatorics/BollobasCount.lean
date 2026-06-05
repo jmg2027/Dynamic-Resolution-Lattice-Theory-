@@ -412,4 +412,98 @@ theorem partition_perm : ∀ (A B : List Bool) (ps : List Nat),
   | [], _ :: _, [], _, hlb, _ => nomatch hlb
   | _ :: _, [], _ :: _, _, hlb, _ => nomatch hlb
 
+/-! ## §5 — filter/map recovery: `weave` is injective in its three inputs
+
+Reading the woven list back recovers the mask (`map q`), the interleaved
+content `xs` (`filter q`) and the rest `ys` (`filter ¬q`), where `q` separates
+the two element-classes (the `A∪B`-positions from the `R`-positions).  These give
+injectivity of `weave`, the engine of the count's `Nodup`. -/
+
+private theorem hl_succ {m : List Bool} {xs ys : List Nat}
+    (hl : (m.length + 1) = (xs.length + 1) + ys.length) :
+    m.length = xs.length + ys.length := by
+  rw [succ_add_pure xs.length ys.length] at hl; exact Nat.succ.inj hl
+
+private theorem weave_false_nil {m : List Bool} {xs : List Nat}
+    (ht : cardB (false :: m) = xs.length) (hl : (false :: m).length = xs.length + ([] : List Nat).length) :
+    False := by
+  have hl' : m.length + 1 = xs.length := hl
+  have ht' : cardB m = xs.length := ht
+  have hle : cardB m ≤ m.length := cardB_le_length m
+  rw [ht', ← hl'] at hle; exact Nat.not_succ_le_self _ hle
+
+/-- `map q (weave m xs ys) = m` — recover the mask. -/
+theorem map_q_weave (q : Nat → Bool) :
+    ∀ (m : List Bool) (xs ys : List Nat), cardB m = xs.length → m.length = xs.length + ys.length →
+      (∀ z, z ∈ xs → q z = true) → (∀ z, z ∈ ys → q z = false) →
+      List.map q (weave m xs ys) = m
+  | [], _, _, _, _, _, _ => rfl
+  | true :: m, x :: xs, ys, ht, hl, hqx, hqy => by
+      show q x :: List.map q (weave m xs ys) = true :: m
+      rw [hqx x (List.Mem.head _),
+          map_q_weave q m xs ys (Nat.succ.inj ht) (hl_succ hl)
+            (fun z hz => hqx z (List.Mem.tail _ hz)) hqy]
+  | false :: m, xs, y :: ys, ht, hl, hqx, hqy => by
+      show q y :: List.map q (weave m xs ys) = false :: m
+      rw [hqy y (List.Mem.head _),
+          map_q_weave q m xs ys ht (Nat.succ.inj hl) hqx
+            (fun z hz => hqy z (List.Mem.tail _ hz))]
+  | true :: _, [], _, ht, _, _, _ => absurd ht succ_ne_zero_pure
+  | false :: m, xs, [], ht, hl, _, _ => absurd (weave_false_nil ht hl) (fun h => h)
+
+/-- `filter q (weave m xs ys) = xs` — recover the interleaved content. -/
+theorem filter_q_weave (q : Nat → Bool) :
+    ∀ (m : List Bool) (xs ys : List Nat), cardB m = xs.length → m.length = xs.length + ys.length →
+      (∀ z, z ∈ xs → q z = true) → (∀ z, z ∈ ys → q z = false) →
+      List.filter q (weave m xs ys) = xs
+  | [], xs, ys, ht, _, _, _ => by
+      have hxs : xs = [] := by
+        cases xs with
+        | nil => rfl
+        | cons a xs' => exact absurd ht.symm succ_ne_zero_pure
+      rw [hxs]; rfl
+  | true :: m, x :: xs, ys, ht, hl, hqx, hqy => by
+      rw [show weave (true :: m) (x :: xs) ys = x :: weave m xs ys from rfl,
+          List.filter_cons_of_pos (hqx x (List.Mem.head _)),
+          filter_q_weave q m xs ys (Nat.succ.inj ht) (hl_succ hl)
+            (fun z hz => hqx z (List.Mem.tail _ hz)) hqy]
+  | false :: m, xs, y :: ys, ht, hl, hqx, hqy => by
+      rw [show weave (false :: m) xs (y :: ys) = y :: weave m xs ys from rfl,
+          List.filter_cons_of_neg (by rw [hqy y (List.Mem.head _)]; exact Bool.noConfusion),
+          filter_q_weave q m xs ys ht (Nat.succ.inj hl) hqx
+            (fun z hz => hqy z (List.Mem.tail _ hz))]
+  | true :: _, [], _, ht, _, _, _ => absurd ht succ_ne_zero_pure
+  | false :: m, xs, [], ht, hl, _, _ => absurd (weave_false_nil ht hl) (fun h => h)
+
+/-- `filter (¬q) (weave m xs ys) = ys` — recover the rest. -/
+theorem filter_nq_weave (q : Nat → Bool) :
+    ∀ (m : List Bool) (xs ys : List Nat), cardB m = xs.length → m.length = xs.length + ys.length →
+      (∀ z, z ∈ xs → q z = true) → (∀ z, z ∈ ys → q z = false) →
+      List.filter (fun z => !q z) (weave m xs ys) = ys
+  | [], xs, ys, ht, hl, _, _ => by
+      have hxs : xs = [] := by
+        cases xs with
+        | nil => rfl
+        | cons a xs' => exact absurd ht.symm succ_ne_zero_pure
+      have hys : ys = [] := by
+        cases ys with
+        | nil => rfl
+        | cons b ys' => subst hxs; exact absurd hl (succ_ne_zero_pure ∘ Eq.symm)
+      rw [hxs, hys]; rfl
+  | true :: m, x :: xs, ys, ht, hl, hqx, hqy => by
+      rw [show weave (true :: m) (x :: xs) ys = x :: weave m xs ys from rfl,
+          List.filter_cons_of_neg (by rw [hqx x (List.Mem.head _)]; exact Bool.noConfusion),
+          filter_nq_weave q m xs ys (Nat.succ.inj ht) (hl_succ hl)
+            (fun z hz => hqx z (List.Mem.tail _ hz)) hqy]
+  | false :: m, xs, y :: ys, ht, hl, hqx, hqy => by
+      have hqyh : q y = false := hqy y (List.Mem.head _)
+      show List.filter (fun z => !q z) (y :: weave m xs ys) = y :: ys
+      rw [List.filter_cons_of_pos (a := y) (l := weave m xs ys)
+            (show (fun z => !q z) y = true from (congrArg (fun b => !b) hqyh).trans rfl)]
+      show y :: List.filter (fun z => !q z) (weave m xs ys) = y :: ys
+      rw [filter_nq_weave q m xs ys ht (Nat.succ.inj hl) hqx
+            (fun z hz => hqy z (List.Mem.tail _ hz))]
+  | true :: _, [], _, ht, _, _, _ => absurd ht succ_ne_zero_pure
+  | false :: m, xs, [], ht, hl, _, _ => absurd (weave_false_nil ht hl) (fun h => h)
+
 end E213.Lib.Math.Combinatorics.BollobasCount
