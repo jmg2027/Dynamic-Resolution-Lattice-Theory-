@@ -1,94 +1,73 @@
-# Session Handoff — 2026-06-05 (transcendentals T1/T2 + PDE P1/P2 marathon)
+# Session Handoff — 2026-06-05 (transcendentals T1–T3/T5 + PDE P1–P3 marathon)
 
 ## Branch
-`claude/transcendentals-pde-marathon-93F1Y` — all work pushed.  `cd lean && lake build` clean on the
-touched modules (`ExpLog.CutExpModulus`, `ExpLog.CutTrigModulus`, `Analysis.ODE.HeatEqDiscrete` +
-downstream `Analysis.ODE`, `Analysis.ODE.Capstone`).  Autonomous marathon — invoke `autonomous-research`
-each session to continue.
+`claude/transcendentals-pde-marathon-93F1Y` — all work pushed.  `cd lean && lake build` clean on every
+touched module + `Analysis.ODE` aggregator.  Autonomous marathon (invoke `autonomous-research` to continue).
 
 ## The arc
-Two genuinely-hard blocks were split off the A6 Ricci core (`ricci_flow_smooth_core.md`) into standalone
-ladders; this session drove their first rungs, **all strict ∅-axiom** (`#print axioms` empty):
-- **Transcendentals** (`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`)
-- **Discrete PDE estimates** (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`)
+Two genuinely-hard blocks split off the A6 Ricci core into standalone ladders; this marathon drove them far,
+**all strict ∅-axiom** (`#print axioms` empty on every theorem below).  Then a `choose`↔factorial bridge
+opened the exp functional-equation / combinatorics front (T5).
 
-## What was done this session (21 new PURE theorems)
+## State by rung
 
-### T1 — exp Taylor convergence modulus (ratio-test core) — `ExpLog/CutExpModulus.lean` (NEW, 6 PURE)
-The convergence-modulus follow-up `CutExpSeries` deferred ("ratio-test argument not yet done").  Worked at
-the term-magnitude level `Mᵏ/k!` (`M` bounds `|x|`), no cut comparison:
-- `pow_half_step` → `expTerm_ratio_half` — each Taylor term ≤ **half** the previous once `2M ≤ k+1`
-  (cross-multiplied `2·M^{k+1}·k! ≤ Mᵏ·(k+1)!`).
-- `expTerm_geom_majorant` — `2ʲ·M^{N+j}·N! ≤ Mᴺ·(N+j)!` for `2M ≤ N+1` (geometric tail ratio `1/2`).
-- `expTail_geom_decay` — base `N=2M`: tail decays as `term(2M)·2^{−j}`, dyadic modulus `j ↦ 2ʲ`.
-- `expTerm_le_of_ge` (gap-antitone) + `expTerm_antitone` — terms non-increasing past `2M`.
+### Transcendentals (`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`)
+- **T1 ✅** exp Taylor convergence modulus (ratio-test core) — `ExpLog/CutExpModulus.lean`: geometric
+  majorant `Mⁿ/n!`, term decay `≤ term(2M)·2^{−j}`, antitone.  + `ExpLog/CutExpConvergents.lean`: exp(m)
+  rational convergents, `exp_cross_det`, route-unification (`exp_increment_eq_taylor`,
+  `exp_increment_geom_decay`).  **Honest finding**: e's clean `N=k+2` modulus is m=1-special.
+- **T2 ✅** sin/cos convergence by comparison — `ExpLog/CutTrigModulus.lean` (geom decay + antitone).
+- **T3 ✅** formal derivative rules (coefficient level): `exp_deriv_coeff_fixed`, `sin_deriv_coeff`,
+  `cos_deriv_coeff` — all from one factorial shift `(n+1)·n! = (n+1)!`.
+- **T5 (partial)** `choose`↔factorial bridge `choose_mul_factorials` (`C(k+j,k)·k!·j! = (k+j)!`),
+  `choose_symm`, `pascal_row_sum` (`Σ C(n,k)=2ⁿ`), `choose_le_two_pow` (`C(n,k)≤2ⁿ`) — in
+  `NumberTheory/DyadicFSM/FLT/{ChooseFactorial,BinomialTheorem}.lean`.  b=1 binomial `(a+1)ⁿ=ΣC(n,k)aᵏ`
+  already PURE (`binom_theorem_b_eq_one`).
+- **T4** sqrt — NOT started (rich `Analysis/DyadicSearch/IVT`+`RootCertificate`+`MinimalRootLens` infra
+  exists; `Sqrt2Cut` is Pell-only).
 
-### T2 — sin/cos convergence modulus by comparison — `ExpLog/CutTrigModulus.lean` (NEW, 4 PURE)
-`sin`/`cos` term magnitudes ARE `exp` terms at odd/even indices, so they inherit the engine:
-`cosTerm_geom_decay`/`sinTerm_geom_decay` (decay `term(m)/2^{2k}`) + `cosTerm_antitone`/`sinTerm_antitone`
-(alternating-series-test hypothesis).
+### PDE estimates (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`)
+- **P1 ✅** maximum principle — `Analysis/ODE/HeatEqDiscrete.lean`: per-step/iterated/strong-strict +
+  comparison principle (`heatStep_mono`, the max principle re-derived as comparison vs a constant).
+- **P2 ✅** the non-lazy `(½,0,½)` step does NOT decay oscillation (checkerboard `−1` eigenmode);
+  the lazy `(¼,½,¼)` `lazyHeatStepNum` is the smoothing operator (witness `lazy_checker_collapses`).
+- **P3 ✅ (capstone)** — `HeatEqConservation.lean` (gridSum infra + mass conservation + Dirichlet pairing +
+  signed energy `dirichletEnergy` + Green identity `E+2corr=2Σu²`), `HeatEqEnergyL2.lean` (L²-Jensen +
+  local dissipation), `HeatEqEnergyDecay.lean` (**`lazy_energy_decay`: `E(lazy u) ≤ 16·E(u)`**, the
+  energy-method conclusion — `Nat`↔ℤ bridge `sqDistNat_cast` + `Int213.Order.le_of_ofNat_le` + shift inv).
+- **P4/P5** Li–Yau / Shi — NOT started (the "real analytic depth", may stall).
 
-### T1 algebraic route — exp(m) convergents + cross-determinant — `ExpLog/CutExpConvergents.lean` (NEW, 5 PURE)
-Generalizes `EulerModulus`'s e-convergent arithmetic to **exp(m) at every integer arg**: `expNum m`
-(`A_{n+1}=(n+1)A_n+m^{n+1}`), `expNum_one` (=`eulerNum`), `exp_cross_det` (cross-det `m^{n+1}·n!`),
-`exp_convergents_mono`.  **Honest finding**: the clean `RateModulus` modulus `N(m,k)=k+2` is **m=1-special**
-— the rate certificate `i(i+1)m^{i+1}+i ≤ (i+1)²` fails for `m≥2` at `i=1` (`exp_two_rate_fails_at_one`).
-General exp(m)'s modulus is the analytic `2m`-threshold majorant (`CutExpModulus`); the two routes are
-complementary.  (+ `HeatEqDiscrete.lazy_eq_nonlazy_plus_self`: `lazy = non-lazy + 2u_x`, the spectral-gap reason.)
-**Routes unified** (`exp_increment_eq_taylor`, `exp_increment_geom_decay`, `eulerDen_eq_factorial`): the
-convergent increment `e_{i+1}−e_i` IS the next Taylor term `m^{i+1}/(i+1)!`, so the gaps inherit the
-analytic `2m`-threshold geometric decay — exp(m)'s Cauchy rate, analytically sourced.
+## Reusable infra built
+`gridSum` (`HeatEqConservation`): `gridSum_congr/_add/_mul_left/_two_mul/_le`, cyclic-shift invariance
+(`gridSum_rightNbr/_leftNbr` via `leftNbr_rightNbr`), `sqDistNat` + `sqDistNat_cast`.  `sumTo_term_le`.
 
-### T3 — formal derivative rules (coefficient level) — `CutExpModulus` + `CutTrigModulus` (3 PURE)
-`exp_deriv_coeff_fixed` (`d/dx exp = exp`, fixed point), `sin_deriv_coeff` (`d/dx sin = cos`),
-`cos_deriv_coeff` (`d/dx cos = −sin`) — all from the one factorial shift `(n+1)·n! = (n+1)!` (exp =
-fixed point, sin↔cos = 2-cycle; cos sign-flip in the Int213 difference-Lens).  Cut-level termwise
-`d/dx expPartialSum N = expPartialSum (N−1)` (via `IsDifferentiable` instances) remains.
+## ∅-axiom hazards discovered (use the pure replacements)
+Core leaks `propext`: `Nat.mul_assoc`, `Nat.add_sub_cancel`/`add_sub_cancel_left`, `Nat.sub_eq_zero_of_le`,
+`Nat.add_mod_right`, `Int.ofNat_le`(.mp), `Int.ofNat_sub`, `Nat.sub_ne_zero_of_lt`, `Nat.sub_pos_of_lt`.
+`funext`/`ac_rfl`/`simp`-AC/`omega` leak `propext`/`Quot.sound`.  Pure substitutes: NatHelper
+`mul_assoc`/`add_sub_cancel_right`/`add_sub_add_left`/`sub_one_add_one`, AddMod213 `mod_self`,
+`Int213.Order.le_of_ofNat_le`/`ofNat_sub_ofNat`+`subNatNat_of_le`, `Nat.zero_sub`, term-mode `Int.ofNat`
+casts (explicit-`Int.ofNat`-typed `have`s dodge the `Nat.cast` rw-mismatch), `ring_nat`/`ring_intZ`
+(but prune literal `0*0` zero-coefficient terms first — the normalizer doesn't drop them).
 
-### P1 — discrete heat maximum principle — `Analysis/ODE/HeatEqDiscrete.lean` (extended, 4 PURE)
-`heatStep_le_two_max`/`heatStep_two_min_le` (no hot/cold spots), `heatStep_range` (sup-norm contraction),
-`heatStep_osc_bound` (oscillation non-increasing).  **Iterated to all time** (`heatField`, `heatIter`):
-`heatIter_le`/`heatIter_ge`/`heatIter_range` — data in `[A,B]` ⟹ `t`-step field in `[2ᵗA,2ᵗB]` (averaged in
-`[A,B]`) for every `t`, i.e. `‖u(t)‖∞ ≤ ‖u(0)‖∞`.  Uniform in mesh ⟹ `Real213`-limit ready.
+## Next targets
+1. **T5 general 2-var binomial** `(a+b)ⁿ = Σ_{k≤n} C(n,k) aᵏ bⁿ⁻ᵏ` — the remaining T5 core.  Proof sketch
+   (mirror the b=1 `binomSum_step`): define `binomSum2 a b n = sumTo (n+1) (fun k => choose n k * a^k * b^(n-k))`;
+   prove `binomSum2_step : (a+b)*binomSum2 a b n = binomSum2 a b (n+1)`, then induct.  Step = show
+   `binomSum2 a b (n+1) = A + B` where `A = a*binomSum2 = sumTo(n+1)(C n k · a^{k+1} · b^{n-k})`,
+   `B = b*binomSum2 = sumTo(n+1)(C n k · a^k · b^{n-k+1})`.  Both reduce to
+   `b^{n+1} + A + thirdterm` (`thirdterm = sumTo(n+1)(C n (k+1) · a^{k+1} · b^{n-k})`): RHS via
+   `sumTo_split_first` (k=0 → b^{n+1}) + Pascal `choose_succ_succ` + `sumTo_add_func`; `B` via
+   `sumTo_split_first` + boundary `choose_eq_zero_of_lt n (n+1)` (drops the last term).  b-exponent
+   congruences (`sumTo_congr`): `n+1-(k+1)=n-k` (`Nat.succ_sub_succ`, pure), `n-(k+1)+1=n-k` for k<n
+   (`NatHelper.sub_one_add_one` + a *pure* `n-k≠0` from `NatHelper.sub_pos_of_lt`).  **Heavy** (propext
+   whack-a-mole on the Nat-sub steps) but fully mapped.  Then exp(a+b)=exp(a)exp(b) at coeff level follows
+   via `choose_mul_factorials`.
+2. **T4 sqrt** via the existing `DyadicSearch/IVT`/`RootCertificate` infra (bisection + convergence modulus,
+   `(sqrtCut a)² = a` up to `cutEq`, `d/dx sqrt`).
+3. **Cut-level packaging**: exp/sin/cos as genuine `CauchyCutSeq` points (the T1→T2 rate is done; the
+   stabilization needs a generalized-margin RateModulus — *not* a shifted one, the margin is e-tied).
+4. **P4 Li–Yau** (may stall — the real analytic depth).
 
-### P2 — obstruction found + lazy-step fix — same file (7 PURE)
-**Honest finding**: strict *oscillation* decay is **false** for the non-lazy stencil `(½,0,½)` — the
-checkerboard `0,1,0,1` maps to `2·checkerboard` (eigenvalue `−1`, no spectral gap).  The genuine smoothing
-operator is the **lazy** step `lazyHeatStepNum = u_{x−1}+2u_x+u_{x+1}` `(¼,½,¼)`: `lazyHeatStep_const`,
-`lazyHeatStep_le_four_max`/`_four_min_le` (maximum principle), and the concrete witness
-`lazy_checker_collapses` (length-4 checkerboard → constant in one lazy step, osc `1→0`) vs
-`nonlazy_checker_hot`/`_cold`.  **Strong (strict) maximum principle** (`heatStep_strict_at_max`,
-`lazyHeatStep_strict_at_max`): a max site with a strictly-below neighbour drops *strictly* — for *both*
-stencils; the non-lazy max then *relocates* (`[0,1,0,1]→[2,0,2,0]`), so local strict drop ≠ global decay
-(the lazy self-weight pins the extremum).  **Comparison principle** (`heatStep_mono`, `lazyHeatStep_mono`,
-`heatIter_mono`): order-preservation `u ≤ v ⟹ heatStep u ≤ heatStep v` (and for all time) — the parabolic
-estimate the max principle is a special case of (`heatStep_le_two_max_via_comparison`).
-
-## Next targets (priority order)
-1. **T1→T2 bridge**: package the proven exp term-decay rate into a `CauchyCutSeq` over the cut-level
-   `expPartialSum` (reuse `eulerCauchySeq`/`RealCauchyWitness`/`CompletenessLoop` idiom) — lifts the rate to
-   a genuine `Real213` point.  The bridge is **done at the rate level**: `CutExpConvergents` proves the
-   convergent increment = Taylor term (`exp_increment_eq_taylor`) and that the gaps decay geometrically
-   past `2m` (`exp_increment_geom_decay`).  Remaining = the cut-level stabilization: define
-   `cs i = constCut (expNum m i) (eulerDen i)` and prove `CauchyCutSeq.cauchy` from the gap decay (the
-   delicate `decide`-cut bookkeeping, RateModulus-style but with the m-dependent rate).  NOTE: a *shifted*
-   `RateModulus` is **not** the path — its margin `1/(i·d_i)` is e-tied (bounds `~1/(i·i!)`, not exp(m)'s
-   `~m^{i+1}/(i+1)!` at any threshold).  The algebraic capstone would need a *generalized-margin* RateModulus
-   (rate `m^{i+1}/(i+1)!`).  Then the **signed** `sinCut`/`cosCut` series replacing the
-   `Real213/Core/Functions.lean` stubs (alternating partial sums bracket via the antitone magnitudes).
-2. **P2 general**: oscillation contraction *rate* for the lazy step at general `n` / general field (the
-   spectral-gap estimate, not just the n=4 checkerboard witness), then the `Real213` limit → continuous
-   smoothing.  **P3** energy/Dirichlet decay `E(u)=Σ(u_{i+1}−u_i)²`.
-3. **T3** derivative rules (`d/dx exp = exp`, termwise via `cutPowFnIsDifferentiable`); **T4** `sqrt`.
-4. Both ladders feed the A6 Ricci core (`a6_ricci_core/`), still ON HOLD until they deliver.
-
-## File map (this session)
-```
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/CutExpModulus.lean   ← T1 (NEW, 6 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/CutTrigModulus.lean  ← T2 (NEW, 4 PURE)
-lean/E213/Lib/Math/Analysis/ODE/HeatEqDiscrete.lean                  ← P1+P2 (extended, +11 PURE)
-research-notes/frontiers/transcendentals/transcendental_functions_ladder.md  ← T1/T2 marked
-research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md      ← P1/P2 marked + obstruction
-STRICT_ZERO_AXIOM.md                                                 ← all logged
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/INDEX.md             ← +2 files (count 16)
-```
+## Tally
+12 files, ~68 PURE theorems.  T1–T3 + P1–P3 (capstone) complete; T5 substantially advanced.
