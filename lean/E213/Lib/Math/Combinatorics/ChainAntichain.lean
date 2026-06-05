@@ -23,13 +23,15 @@ namespace E213.Lib.Math.Combinatorics.ChainAntichain
 
 open E213.Lib.Math.Combinatorics.Sperner
   (cardB subseteqB comparable impl eq_of_subseteq_card_eq IsAntichain beq_self cardEq
-   kLayer kLayer_isAntichain)
+   kLayer kLayer_isAntichain half kLayer_card kLayer_nodup)
 open E213.Lib.Math.Combinatorics.SpernerChains
-  (idxList idxList_length idxList_nodup mem_idxList_lt cardB_le_length)
+  (idxList idxList_length idxList_nodup mem_idxList_lt cardB_le_length
+   beqBoolList beqBoolList_refl eq_of_beqBoolList)
 open E213.Lib.Math.Combinatorics.BoolEnum (mem_allBoolLists)
+open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Tactic.List213
   (mem_append_left mem_append_right exists_of_mem_map mem_map_of_mem nodup_map_of_inj
-   nodup_length_le_of_subset length_map mem_filter_of)
+   nodup_length_le_of_subset length_map mem_filter_of mem_filter)
 
 /-- Every `k < m` is a position of `idxList m = [0, …, m−1]` (converse of
     `SpernerChains.mem_idxList_lt`). -/
@@ -211,5 +213,89 @@ theorem mirsky_boolean (n : Nat) :
   ⟨⟨canonChain n, canonChain_max n⟩,
    fun L hch hnd hlen => chain_length_le L hch hnd hlen,
    fun A hn => ⟨mem_own_layer hn, kLayer_isAntichain n (cardB A)⟩⟩
+
+/-! ## §4 — Dilworth's bound on `2^[n]` (the chain-cover dual)
+
+Dilworth: the minimum number of **chains** to cover a poset equals the maximum
+antichain.  For `2^[n]` both are `C(n, ⌊n/2⌋)` (Sperner).  The **lower bound** —
+any chain cover needs `≥ C(n,⌊n/2⌋)` chains — is the clean dual of Mirsky's
+lower bound: the middle layer is an antichain of that size, a chain holds ≤ 1 of
+its members (`chain_card_inj`), so distinct middle members need distinct chains.
+The matching **upper bound** (a `C(n,⌊n/2⌋)`-chain cover exists) is the de
+Bruijn–Tengbergen–Kruyswijk *symmetric chain decomposition* — recorded as the
+open rung.  -/
+
+/-- `Bool` membership of a vector in a chain (decidable, propext-free). -/
+def memBL (A : List Bool) : List (List Bool) → Bool
+  | [] => false
+  | v :: rest => beqBoolList A v || memBL A rest
+
+theorem memBL_of_mem {A : List Bool} : ∀ {C : List (List Bool)}, A ∈ C → memBL A C = true
+  | v :: rest, h => by
+      cases h with
+      | head =>
+          show (beqBoolList A A || memBL A rest) = true
+          rw [beqBoolList_refl A, Bool.true_or]
+      | tail _ h' =>
+          show (beqBoolList A v || memBL A rest) = true
+          rw [memBL_of_mem h']; cases beqBoolList A v <;> rfl
+
+theorem mem_of_memBL {A : List Bool} : ∀ {C : List (List Bool)}, memBL A C = true → A ∈ C
+  | v :: rest, h => by
+      cases hb : beqBoolList A v with
+      | true => rw [eq_of_beqBoolList A v hb]; exact List.Mem.head _
+      | false =>
+          have h' : memBL A rest = true := by
+            have : (beqBoolList A v || memBL A rest) = true := h
+            rw [hb, Bool.false_or] at this; exact this
+          exact List.Mem.tail _ (mem_of_memBL h')
+
+/-- The first chain of the cover that contains `A` (`[]` if none). -/
+def findChain (A : List Bool) : List (List (List Bool)) → List (List Bool)
+  | [] => []
+  | C :: rest => bif memBL A C then C else findChain A rest
+
+theorem findChain_spec (A : List Bool) : ∀ (chains : List (List (List Bool))),
+    (∃ C, C ∈ chains ∧ A ∈ C) → findChain A chains ∈ chains ∧ A ∈ findChain A chains
+  | [], ⟨C, hC, _⟩ => absurd hC (List.not_mem_nil C)
+  | D :: rest, ⟨C, hC, hAC⟩ => by
+      show (bif memBL A D then D else findChain A rest) ∈ D :: rest
+          ∧ A ∈ (bif memBL A D then D else findChain A rest)
+      cases hm : memBL A D with
+      | true => exact ⟨List.Mem.head _, mem_of_memBL hm⟩
+      | false =>
+          have hCrest : C ∈ rest := by
+            cases hC with
+            | head => rw [memBL_of_mem hAC] at hm; exact Bool.noConfusion hm
+            | tail _ h => exact h
+          obtain ⟨h1, h2⟩ := findChain_spec A rest ⟨C, hCrest, hAC⟩
+          exact ⟨List.Mem.tail _ h1, h2⟩
+
+/-- ★★ **Dilworth's lower bound on `2^[n]`.**  Any cover of the middle layer by
+    chains needs at least `C(n, ⌊n/2⌋)` chains — so the minimum chain cover of
+    `2^[n]` is `≥ C(n, ⌊n/2⌋)` = the maximum antichain (Sperner).  The dual of
+    Mirsky's lower bound. -/
+theorem dilworth_lower {n : Nat} (chains : List (List (List Bool)))
+    (hch : ∀ C, C ∈ chains → IsChain C)
+    (hcov : ∀ A, A ∈ kLayer n (half n) → ∃ C, C ∈ chains ∧ A ∈ C) :
+    binom n (half n) ≤ chains.length := by
+  have hcard : ∀ A, A ∈ kLayer n (half n) → cardB A = half n :=
+    fun A hA => Nat.eq_of_beq_eq_true (mem_filter hA).2
+  have hinj : ∀ A, A ∈ kLayer n (half n) → ∀ B, B ∈ kLayer n (half n) →
+      findChain A chains = findChain B chains → A = B := by
+    intro A hA B hB heq
+    obtain ⟨_, hACA⟩ := findChain_spec A chains (hcov A hA)
+    obtain ⟨hCB, hBCB⟩ := findChain_spec B chains (hcov B hB)
+    rw [heq] at hACA
+    exact chain_card_inj ((hch _ hCB) A hACA B hBCB) ((hcard A hA).trans (hcard B hB).symm)
+  have hmapnd : ((kLayer n (half n)).map (fun A => findChain A chains)).Nodup :=
+    nodup_map_of_inj hinj (kLayer_nodup n (half n))
+  have hsub : ∀ x, x ∈ (kLayer n (half n)).map (fun A => findChain A chains) → x ∈ chains := by
+    intro x hx
+    obtain ⟨A, hA, rfl⟩ := exists_of_mem_map hx
+    exact (findChain_spec A chains (hcov A hA)).1
+  have hle := nodup_length_le_of_subset hmapnd hsub
+  rw [length_map, kLayer_card] at hle
+  exact hle
 
 end E213.Lib.Math.Combinatorics.ChainAntichain
