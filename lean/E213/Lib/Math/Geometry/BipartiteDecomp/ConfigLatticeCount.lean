@@ -95,4 +95,44 @@ theorem cfgSum_pos (V s j : Nat) : 0 < cfgSum V s j := by
     Proved by structural induction on the recursive sum (no `List`/`propext`). -/
 theorem cfgIdeals_pos (V s : Nat) : 0 < cfgIdeals V s := cfgSum_pos V s s
 
+/-- `binom n k = 0` when `n < k` (above the diagonal). -/
+theorem binom_eq_zero_of_lt : ∀ (n k : Nat), n < k → binom n k = 0
+  | 0,     0,     h => absurd h (by decide)
+  | 0,     _ + 1, _ => rfl
+  | _ + 1, 0,     h => absurd h (Nat.not_lt_zero _)
+  | n + 1, k + 1, h => by
+      show binom n k + binom n (k + 1) = 0
+      rw [binom_eq_zero_of_lt n k (Nat.lt_of_succ_lt_succ h),
+          binom_eq_zero_of_lt n (k + 1) (Nat.lt_succ_of_lt (Nat.lt_of_succ_lt_succ h))]
+
+/-- `binom n n = 1` (the diagonal). -/
+theorem binom_self : ∀ n, binom n n = 1
+  | 0     => rfl
+  | n + 1 => by
+      show binom n n + binom n (n + 1) = 1
+      rw [binom_self n, binom_eq_zero_of_lt n (n + 1) (Nat.lt_succ_self n)]
+
+/-- The top (`k = s`) summand: `cfgTerm V s s = 2^{V·s} · 2^{C(s,2)}` (binom = 1). -/
+theorem cfgTerm_self (V s : Nat) :
+    cfgTerm V s s = 2 ^ (V * s) * 2 ^ (s * (s - 1) / 2) := by
+  show binom s s * 2 ^ (V * s) * 2 ^ (s * (s - 1) / 2)
+        = 2 ^ (V * s) * 2 ^ (s * (s - 1) / 2)
+  rw [binom_self, Nat.one_mul]
+
+/-- The full sum dominates its top summand. -/
+theorem cfgTerm_le_cfgSum (V s : Nat) : cfgTerm V s s ≤ cfgSum V s s := by
+  cases s with
+  | zero   => exact Nat.le_refl _
+  | succ m => exact Nat.le_add_left _ _
+
+/-- ★★ **Dominant lower bound** (∀ V s): `2^{V·s} ≤ cfgIdeals V s` — the top
+    `k=s` term `2^{V·s}·2^{C(s,2)}` already exceeds `2^{V·s}`, so the
+    configuration count is at least the hyper-exponential `2^{V·s}`.  Uses the
+    PURE `binom_self`. -/
+theorem cfgIdeals_dominant (V s : Nat) : 2 ^ (V * s) ≤ cfgIdeals V s := by
+  have hb : 2 ^ (V * s) ≤ cfgTerm V s s := by
+    rw [cfgTerm_self]
+    exact Nat.le_mul_of_pos_right _ (Nat.pos_pow_of_pos _ (by decide))
+  exact Nat.le_trans hb (cfgTerm_le_cfgSum V s)
+
 end E213.Lib.Math.Geometry.BipartiteDecomp.ConfigLatticeCount
