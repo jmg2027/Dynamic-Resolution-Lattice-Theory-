@@ -574,7 +574,65 @@ theorem lym_double_count {α γ : Type _}
       ≤ sumOver (fun _ => 1) chains := sumOver_le h'
   rwa [sumOver_const_one] at hb
 
-/-! ## §8 — the named Sperner numbers (confirmation)
+/-- `Σ_{x∈L} c = c · |L|`. -/
+theorem sumOver_const {β : Type _} (c : Nat) :
+    ∀ (L : List β), sumOver (fun _ => c) L = c * L.length
+  | [] => (Nat.mul_zero c).symm
+  | a :: l => by
+      show c + sumOver (fun _ => c) l = c * (l.length + 1)
+      rw [sumOver_const c l, Nat.mul_add, Nat.mul_one]
+      exact Nat.add_comm c (c * l.length)
+
+/-! ## §8 — the LYM → Sperner reduction (the complete wiring)
+
+Given *any* chain model — a list `chains` with `|chains| = n!`, an incidence
+`inc`, the antichain property as "≤ 1 member per chain", and the chain count
+"≥ `k!·(n−k)!` chains through a size-`k` member" — the LYM engine plus the
+factorial arithmetic yield Sperner's bound.  This is the whole compilation,
+abstract and ∅-axiom; the geometric model (maximal chains = orderings of `[n]`,
+`inc` = prefix-set, the two hypotheses) is the remaining rung, built on
+`Permutations` (`perms_length = n!`, `perms_append_mem`, `mem_perms_iff`). -/
+
+/-- The counting heart: under the chain-model hypotheses,
+    `|F| · (⌊n/2⌋)!·(⌈n/2⌉)! ≤ n!`. -/
+theorem sperner_count_bound {γ : Type _} (n : Nat)
+    (F : List (List Bool)) (chains : List γ) (inc : List Bool → γ → Bool)
+    (hchains : chains.length = fact n)
+    (hlen : ∀ A, A ∈ F → cardB A ≤ n)
+    (hcap : ∀ c, c ∈ chains → lcount (fun A => inc A c) F ≤ 1)
+    (hlow : ∀ A, A ∈ F → fact (cardB A) * fact (n - cardB A) ≤ lcount (inc A) chains) :
+    F.length * (fact (half n) * fact (n - half n)) ≤ fact n := by
+  have hlym := lym_double_count F chains inc hcap
+  rw [hchains] at hlym
+  calc F.length * (fact (half n) * fact (n - half n))
+      = (fact (half n) * fact (n - half n)) * F.length := Nat.mul_comm _ _
+    _ = sumOver (fun _ => fact (half n) * fact (n - half n)) F :=
+        (sumOver_const _ F).symm
+    _ ≤ sumOver (fun A => fact (cardB A) * fact (n - cardB A)) F :=
+        sumOver_le (fun A hA => fact_mul_ge_mid (hlen A hA))
+    _ ≤ sumOver (fun A => lcount (inc A) chains) F :=
+        sumOver_le (fun A hA => hlow A hA)
+    _ ≤ fact n := hlym
+
+/-- ★ **Sperner's theorem (named upper bound), modulo the chain model.**  Any
+    antichain `F` of `2^[n]` satisfying the chain-model hypotheses has
+    `|F| ≤ C(n, ⌊n/2⌋)`.  Cancelling the positive `(⌊n/2⌋)!·(⌈n/2⌉)!` from the
+    count bound against `binom_mul_fact` (`C(n,⌊n/2⌋)·(⌊n/2⌋)!·(⌈n/2⌉)! = n!`). -/
+theorem sperner_upper_bound {γ : Type _} (n : Nat)
+    (F : List (List Bool)) (chains : List γ) (inc : List Bool → γ → Bool)
+    (hchains : chains.length = fact n)
+    (hlen : ∀ A, A ∈ F → cardB A ≤ n)
+    (hcap : ∀ c, c ∈ chains → lcount (fun A => inc A c) F ≤ 1)
+    (hlow : ∀ A, A ∈ F → fact (cardB A) * fact (n - cardB A) ≤ lcount (inc A) chains) :
+    F.length ≤ binom n (half n) := by
+  have hb := sperner_count_bound n F chains inc hchains hlen hcap hlow
+  have hfn := binom_mul_fact n (half n) (half_le_self n)
+  rw [← hfn, Nat.mul_comm F.length (fact (half n) * fact (n - half n)),
+      Nat.mul_comm (binom n (half n)) (fact (half n) * fact (n - half n))] at hb
+  exact Nat.le_of_mul_le_mul_left hb
+    (Nat.mul_pos (fact_pos (half n)) (fact_pos (n - half n)))
+
+/-! ## §9 — the named Sperner numbers (confirmation)
 
 The Sperner number `C(n,⌊n/2⌋)` for small `n` is `1, 2, 3, 6, 10, 20, …`.  Each
 is *realised* by the middle layer (`lower_bound`) and *bounds* every uniform
