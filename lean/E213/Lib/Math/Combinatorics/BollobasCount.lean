@@ -16,7 +16,7 @@ namespace E213.Lib.Math.Combinatorics.BollobasCount
 open E213.Lib.Math.Combinatorics.Sperner (cardB beq_self)
 open E213.Lib.Math.Combinatorics.SpernerChains
   (cardB_le_length lperm_cons_append elemNat elemNat_eq_true_of_mem mem_of_elemNat
-   truePos idxList)
+   truePos idxList truePos_length truePos_nodup mem_truePos)
 open E213.Lib.Math.Combinatorics.BollobasSetPair
   (before before_x before_y before_rec favours listAll)
 open E213.Tactic.List213 (mem_append_left mem_append_right)
@@ -221,5 +221,195 @@ theorem weave_favours {n : Nat} (A B : List Bool) (mask : List Bool)
   have hxR : x ∉ σR := fun hz => hAR x hx (inR' x hz)
   have hyR : y ∉ σR := fun hz => hBR y hy (inR' y hz)
   exact weave_preserves_before mask (σA ++ σB) σR x y hc1 hc2 hbase hxR hyR
+
+/-! ## §4 — the position partition `Apos ++ Bpos ++ Rpos ~ idxList n`
+
+For disjoint bit-vectors `A, B`, the `A`-positions, `B`-positions and the rest
+`R` (`restPos`, the both-false positions) partition `idxList n`.  This supplies
+both the disjointness hypotheses of `weave_favours` and the permutation needed
+to land the woven ordering in `perms (idxList n)`. -/
+
+/-- `A, B` never both `true` at aligned positions. -/
+def disjointVec : List Bool → List Bool → Bool
+  | a :: A, b :: B => bif a && b then false else disjointVec A B
+  | [], [] => true
+  | _, _ => false
+
+/-- The both-`false` positions of the aligned pair `(A, B)`. -/
+def restPos : List Bool → List Bool → List Nat → List Nat
+  | a :: A, b :: B, p :: ps => bif a then restPos A B ps else bif b then restPos A B ps else p :: restPos A B ps
+  | _, _, _ => []
+
+/-- LPerm respects appending a fixed suffix on the left operand. -/
+theorem lperm_append_left {α : Type _} {A A' : List α} (h : LPerm A A') (Z : List α) :
+    LPerm (A ++ Z) (A' ++ Z) := by
+  induction h with
+  | nil => exact LPerm.refl Z
+  | cons a _ ih => exact LPerm.cons a ih
+  | swap a b l => exact LPerm.swap a b (l ++ Z)
+  | trans _ _ ih₁ ih₂ => exact LPerm.trans ih₁ ih₂
+
+private theorem nodup_head {α : Type _} {p : α} {ps : List α}
+    (hnd : (p :: ps).Nodup) : p ∉ ps ∧ ps.Nodup := by
+  cases hnd with | cons hh ht => exact ⟨fun hm => hh p hm rfl, ht⟩
+
+/-- `restPos` is a sublist of the position list. -/
+theorem mem_restPos {z : Nat} : ∀ (A B : List Bool) (ps : List Nat),
+    z ∈ restPos A B ps → z ∈ ps
+  | a :: A, b :: B, p :: ps, h => by
+      cases a with
+      | true => exact List.Mem.tail _ (mem_restPos A B ps h)
+      | false => cases b with
+        | true => exact List.Mem.tail _ (mem_restPos A B ps h)
+        | false => cases h with
+          | head => exact List.Mem.head _
+          | tail _ h' => exact List.Mem.tail _ (mem_restPos A B ps h')
+  | [], _, _, h => nomatch h
+  | _ :: _, [], _, h => nomatch h
+  | _ :: _, _ :: _, [], h => nomatch h
+
+/-- `restPos` avoids the `A`-positions (both-false vs `A`-true). -/
+theorem restPos_not_truePos_A {z : Nat} : ∀ (A B : List Bool) (ps : List Nat),
+    ps.Nodup → z ∈ restPos A B ps → z ∈ truePos A ps → False
+  | a :: A, b :: B, p :: ps, hnd, hr, ht => by
+      obtain ⟨hpps, hnd'⟩ := nodup_head hnd
+      cases a with
+      | true => cases ht with
+        | head => exact hpps (mem_restPos A B ps hr)
+        | tail _ ht' => exact restPos_not_truePos_A A B ps hnd' hr ht'
+      | false => cases b with
+        | true => exact restPos_not_truePos_A A B ps hnd' hr ht
+        | false => cases hr with
+          | head => exact hpps (mem_truePos A ps ht)
+          | tail _ hr' => exact restPos_not_truePos_A A B ps hnd' hr' ht
+  | [], _, _, _, hr, _ => nomatch hr
+  | _ :: _, [], _, _, hr, _ => nomatch hr
+  | _ :: _, _ :: _, [], _, hr, _ => nomatch hr
+
+/-- `restPos` avoids the `B`-positions. -/
+theorem restPos_not_truePos_B {z : Nat} : ∀ (A B : List Bool) (ps : List Nat),
+    ps.Nodup → z ∈ restPos A B ps → z ∈ truePos B ps → False
+  | a :: A, b :: B, p :: ps, hnd, hr, ht => by
+      obtain ⟨hpps, hnd'⟩ := nodup_head hnd
+      cases a with
+      | true => cases b with
+        | true => cases ht with
+          | head => exact hpps (mem_restPos A B ps hr)
+          | tail _ ht' => exact restPos_not_truePos_B A B ps hnd' hr ht'
+        | false => exact restPos_not_truePos_B A B ps hnd' hr ht
+      | false => cases b with
+        | true => cases ht with
+          | head => exact hpps (mem_restPos A B ps hr)
+          | tail _ ht' => exact restPos_not_truePos_B A B ps hnd' hr ht'
+        | false => cases hr with
+          | head => exact hpps (mem_truePos B ps ht)
+          | tail _ hr' => exact restPos_not_truePos_B A B ps hnd' hr' ht
+  | [], _, _, _, hr, _ => nomatch hr
+  | _ :: _, [], _, _, hr, _ => nomatch hr
+  | _ :: _, _ :: _, [], _, hr, _ => nomatch hr
+
+/-- `truePos A [] = []` (empty position list). -/
+theorem truePos_nil_eq : ∀ (A : List Bool), truePos A [] = []
+  | [] => rfl
+  | true :: _ => rfl
+  | false :: _ => rfl
+
+/-- Disjoint vectors have disjoint position-sets: `Apos ∩ Bpos = ∅`. -/
+theorem truePos_disjoint {z : Nat} : ∀ (A B : List Bool) (ps : List Nat),
+    disjointVec A B = true → ps.Nodup → z ∈ truePos A ps → z ∈ truePos B ps → False := by
+  intro A B ps
+  induction ps generalizing A B with
+  | nil => intro _ _ ha _; rw [truePos_nil_eq] at ha; nomatch ha
+  | cons p ps ih =>
+      intro hd hnd ha hb
+      cases A with
+      | nil => nomatch ha
+      | cons a A => cases B with
+        | nil => nomatch hb
+        | cons b B =>
+            obtain ⟨hpps, hnd'⟩ := nodup_head hnd
+            cases a with
+            | true => cases b with
+              | true => exact Bool.noConfusion hd
+              | false => cases ha with
+                | head => exact hpps (mem_truePos B ps hb)
+                | tail _ ha' => exact ih A B hd hnd' ha' hb
+            | false => cases b with
+              | true => cases hb with
+                | head => exact hpps (mem_truePos A ps ha)
+                | tail _ hb' => exact ih A B hd hnd' ha hb'
+              | false => exact ih A B hd hnd' ha hb
+
+/-- `restPos` is duplicate-free (a sublist of the nodup `ps`). -/
+theorem restPos_nodup : ∀ (A B : List Bool) (ps : List Nat),
+    ps.Nodup → (restPos A B ps).Nodup
+  | a :: A, b :: B, p :: ps, hnd => by
+      obtain ⟨hpps, hnd'⟩ := nodup_head hnd
+      cases a with
+      | true => exact restPos_nodup A B ps hnd'
+      | false => cases b with
+        | true => exact restPos_nodup A B ps hnd'
+        | false =>
+            refine List.Pairwise.cons (fun y hy he => hpps ?_) (restPos_nodup A B ps hnd')
+            rw [he]; exact mem_restPos A B ps hy
+  | [], _, _, _ => List.Pairwise.nil
+  | _ :: _, [], _, _ => List.Pairwise.nil
+  | _ :: _, _ :: _, [], _ => List.Pairwise.nil
+
+/-- The partition is exhaustive: `|Rpos| + (|A| + |B|) = n` (additive form). -/
+theorem restPos_card : ∀ (A B : List Bool) (ps : List Nat),
+    A.length = ps.length → B.length = ps.length → disjointVec A B = true →
+    (restPos A B ps).length + (cardB A + cardB B) = ps.length
+  | a :: A, b :: B, p :: ps, hla, hlb, hd => by
+      have ih := restPos_card A B ps (Nat.succ.inj hla) (Nat.succ.inj hlb)
+      cases a with
+      | true => cases b with
+        | true => exact Bool.noConfusion hd
+        | false =>
+            show (restPos A B ps).length + ((cardB A + 1) + cardB B) = ps.length + 1
+            rw [succ_add_pure (cardB A) (cardB B)]
+            show ((restPos A B ps).length + (cardB A + cardB B)) + 1 = ps.length + 1
+            rw [ih hd]
+      | false => cases b with
+        | true =>
+            show ((restPos A B ps).length + (cardB A + cardB B)) + 1 = ps.length + 1
+            rw [ih hd]
+        | false =>
+            show ((restPos A B ps).length + 1) + (cardB A + cardB B) = ps.length + 1
+            rw [succ_add_pure (restPos A B ps).length (cardB A + cardB B), ih hd]
+  | [], [], [], _, _, _ => rfl
+  | [], _, _ :: _, hla, _, _ => nomatch hla
+  | _ :: _, _, [], hla, _, _ => nomatch hla
+  | [], _ :: _, [], _, hlb, _ => nomatch hlb
+  | _ :: _, [], _ :: _, _, hlb, _ => nomatch hlb
+
+/-- ★ **The position partition.**  For disjoint aligned `A, B`, the positions
+    split as `Apos ++ Bpos ++ Rpos ~ ps`. -/
+theorem partition_perm : ∀ (A B : List Bool) (ps : List Nat),
+    A.length = ps.length → B.length = ps.length → disjointVec A B = true →
+    LPerm ps ((truePos A ps ++ truePos B ps) ++ restPos A B ps)
+  | a :: A, b :: B, p :: ps, hla, hlb, hd => by
+      have ih := partition_perm A B ps (Nat.succ.inj hla) (Nat.succ.inj hlb)
+      cases a with
+      | true => cases b with
+        | true => exact Bool.noConfusion hd
+        | false =>
+            show LPerm (p :: ps) (((p :: truePos A ps) ++ truePos B ps) ++ restPos A B ps)
+            exact LPerm.cons p (ih hd)
+      | false => cases b with
+        | true =>
+            show LPerm (p :: ps) ((truePos A ps ++ (p :: truePos B ps)) ++ restPos A B ps)
+            refine LPerm.trans (LPerm.cons p (ih hd)) ?_
+            exact lperm_append_left
+              (lperm_cons_append p (truePos A ps) (truePos B ps)) (restPos A B ps)
+        | false =>
+            show LPerm (p :: ps) ((truePos A ps ++ truePos B ps) ++ (p :: restPos A B ps))
+            exact LPerm.trans (LPerm.cons p (ih hd))
+              (lperm_cons_append p (truePos A ps ++ truePos B ps) (restPos A B ps))
+  | [], [], [], _, _, _ => LPerm.nil
+  | [], _, _ :: _, hla, _, _ => nomatch hla
+  | _ :: _, _, [], hla, _, _ => nomatch hla
+  | [], _ :: _, [], _, hlb, _ => nomatch hlb
+  | _ :: _, [], _ :: _, _, hlb, _ => nomatch hlb
 
 end E213.Lib.Math.Combinatorics.BollobasCount
