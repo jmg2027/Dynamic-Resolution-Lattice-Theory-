@@ -94,9 +94,13 @@ exposed patterns worth harvesting.
     `raiseC [v₀,…,v_L] = [true::v₀,…,true::v_{L−1}]` (length `L`, empty if `L=0`).
   - `scd 0 = [[[]]]`; `scd (n+1) = (scd n).flatMap (fun C => extendC C :: (if
     raiseC C = [] then [] else [raiseC C]))`.
-  Proof obligations: (a) **chain** — each produced list is `subseteqB`-increasing
-  ⟹ `IsChain` (needs `subseteqB_refl` + `subseteqB_trans` + `subseteqB (b::v)
-  (b::w) = subseteqB v w` + `subseteqB (false::v)(true::v) = true`); (b)
+  Proof obligations: (a) **chain** — ✓ *infrastructure built* (`ChainAntichain`
+  §5): `sorted_isChain` (a `subseteqB`-`Pairwise` list is a chain — no transitivity
+  needed, via `pairwise_rel`), `subseteqB_refl`, `subseteqB_false_true`,
+  `subseteqB_cons_same`.  Remaining for (a): prove each `scd`-produced list is
+  `subseteqB`-`Pairwise` (preservation through `extendC`/`raiseC` — `map (b::·)`
+  and `++[top]` preserve `Pairwise subseteqB`, using `subseteqB_cons_same` +
+  `subseteqB_false_true`); (b)
   **partition** — every length-`(n+1)` vector `b::v` sits in exactly one chain
   (`v` in a unique chain of `scd n`; `false::v` ↦ its `extendC`, `true::v` ↦
   `extendC` top if `v` is `C`'s top else `raiseC`); (c) **count** `= C(n,⌊n/2⌋)`

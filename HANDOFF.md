@@ -84,12 +84,13 @@ Physics constants table: `catalogs/physics-constants.md`.
 From `research-notes/frontiers/count_substrate_synthesis.md` (registered in
 `frontiers/INDEX.md`):
 ### 1. Dilworth UPPER bound on `2^[n]` — the SCD (lower bound DONE).
-`dilworth_lower` is closed (chain cover ≥ `C(n,⌊n/2⌋)`).  Remaining: a
-`C(n,⌊n/2⌋)`-chain cover EXISTS — the de Bruijn–Tengbergen–Kruyswijk symmetric
-chain decomposition.  Full construction + proof obligations (chain / partition /
-the symmetric-level-invariant count) are spec'd in
-`research-notes/frontiers/count_substrate_synthesis.md`.  ~400 lines; the
-symmetric invariant is the crux.
+`dilworth_lower` is closed (chain cover ≥ `C(n,⌊n/2⌋)`).  The **chain-property
+infrastructure is built** (`ChainAntichain` §5): `sorted_isChain` (subseteqB-
+Pairwise ⟹ IsChain), `subseteqB_refl`/`_false_true`/`_cons_same`, `pairwise_rel`.
+Remaining for the `C(n,⌊n/2⌋)`-chain cover (de Bruijn–Tengbergen–Kruyswijk SCD):
+the `scd`/`extendC`/`raiseC` construction, Pairwise-preservation (obligation a,
+infra ready), partition (b), and the symmetric-level-invariant count (c, the
+crux).  Full spec in `research-notes/frontiers/count_substrate_synthesis.md`.
 ### 2. Leibniz determinant over `perms` (bridge `LPerm` ↔ `perms`).
 ### (CLOSED) Bollobás `bollobas_uniform` (36/36 PURE); Mirsky `mirsky_boolean`
 (`ChainAntichain`, 15/15 PURE) — both unconditional ∅-axiom.
