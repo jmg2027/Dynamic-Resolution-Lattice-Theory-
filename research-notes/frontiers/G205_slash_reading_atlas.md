@@ -150,7 +150,9 @@ results need `List.range`/`foldr` induction (`List213`); a concrete tractable re
   generalize `k`, case `k = k'+1`).  Both PURE by `Nat` induction (no propext).
 - **`Hmono (f L a) : a ≤ List.foldr (fun k acc => acc + f k) a L`** — induction on
   `L` (each step `acc + f k ≥ acc`).  PURE.
-- **`cfgIdeals_pos (V s) : 0 < cfgIdeals V s`** — `List.range_succ`
+- **`cfgIdeals_pos (V s) : 0 < cfgIdeals V s` — CLOSED** ∅-axiom (recursive
+  `cfgSum` redefinition; List route abandoned since `range_succ`/`foldr_append`
+  are propext-dirty).  Original (now-moot) List recipe: `List.range_succ`
   (`range (s+1) = range s ++ [s]`) + `List.foldr_append` reduce
   `cfgIdeals V s` to `List.foldr g (0 + f s) (range s)`; by `Hmono`,
   `0 + f s ≤ cfgIdeals V s`; and `f s = binom s s * 2^(V*s) * 2^(s*(s-1)/2)
