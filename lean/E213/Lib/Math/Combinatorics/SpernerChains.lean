@@ -190,4 +190,77 @@ theorem chain_cap {n : Nat} (F : List (List Bool)) (hF : IsAntichain F) (hnd : F
   | isTrue h => exact h
   | isFalse h => exact Bool.noConfusion ((hF A hA B hB h) ▸ hcomp)
 
+/-! ## §4 — `hlow`: the `k!·(n−k)!` chain count
+
+The chains through `A` are the orderings of `A`'s true-positions followed by the
+orderings of its false-positions.  This section builds that split. -/
+
+/-- Move `a` across a prefix: `a :: (X ++ Y) ~ X ++ a :: Y`. -/
+theorem lperm_cons_append {α : Type _} (a : α) :
+    ∀ (X Y : List α), LPerm (a :: (X ++ Y)) (X ++ a :: Y)
+  | [], _ => LPerm.refl _
+  | x :: X', Y =>
+      LPerm.trans (LPerm.swap x a (X' ++ Y)) (LPerm.cons x (lperm_cons_append a X' Y))
+
+/-- The positions where `A` is `true` (read off the parallel list `ps`). -/
+def truePos : List Bool → List Nat → List Nat
+  | true :: A, p :: ps => p :: truePos A ps
+  | false :: A, p :: ps => truePos A ps
+  | _, _ => []
+
+/-- The positions where `A` is `false`. -/
+def falsePos : List Bool → List Nat → List Nat
+  | false :: A, p :: ps => p :: falsePos A ps
+  | true :: A, p :: ps => falsePos A ps
+  | _, _ => []
+
+/-- `truePos ++ falsePos` re-permutes the position list. -/
+theorem truePos_falsePos_perm :
+    ∀ (A : List Bool) (ps : List Nat), A.length = ps.length →
+      LPerm ps (truePos A ps ++ falsePos A ps)
+  | [], [], _ => LPerm.nil
+  | true :: A, p :: ps, hlen =>
+      LPerm.cons p (truePos_falsePos_perm A ps (Nat.succ.inj hlen))
+  | false :: A, p :: ps, hlen =>
+      LPerm.trans (LPerm.cons p (truePos_falsePos_perm A ps (Nat.succ.inj hlen)))
+        (lperm_cons_append p (truePos A ps) (falsePos A ps))
+  | [], _ :: _, hlen => Nat.noConfusion hlen
+  | _ :: _, [], hlen => Nat.noConfusion hlen
+
+/-- `|truePos A ps| = |A|` (the count of `true`s). -/
+theorem truePos_length :
+    ∀ (A : List Bool) (ps : List Nat), A.length = ps.length → (truePos A ps).length = cardB A
+  | [], [], _ => rfl
+  | true :: A, p :: ps, hlen => by
+      show (p :: truePos A ps).length = cardB A + 1
+      rw [List.length_cons, truePos_length A ps (Nat.succ.inj hlen)]
+  | false :: A, p :: ps, hlen => truePos_length A ps (Nat.succ.inj hlen)
+  | [], _ :: _, hlen => Nat.noConfusion hlen
+  | _ :: _, [], hlen => Nat.noConfusion hlen
+
+/-- Propext-free `(n+1) − m = (n − m) + 1` for `m ≤ n`. -/
+private theorem succ_sub_clean : ∀ {m n : Nat}, m ≤ n → (n + 1) - m = (n - m) + 1
+  | 0, n, _ => by rw [Nat.sub_zero, Nat.sub_zero]
+  | m + 1, n, h => by
+      cases n with
+      | zero => exact absurd h (Nat.not_succ_le_zero m)
+      | succ n' =>
+          rw [Nat.succ_sub_succ_eq_sub, Nat.succ_sub_succ_eq_sub]
+          exact succ_sub_clean (Nat.le_of_succ_le_succ h)
+
+/-- `|falsePos A ps| = |A| − cardB A` (the count of `false`s). -/
+theorem falsePos_length :
+    ∀ (A : List Bool) (ps : List Nat), A.length = ps.length →
+      (falsePos A ps).length = A.length - cardB A
+  | [], [], _ => rfl
+  | true :: A, p :: ps, hlen => by
+      show (falsePos A ps).length = (A.length + 1) - (cardB A + 1)
+      rw [Nat.succ_sub_succ_eq_sub, falsePos_length A ps (Nat.succ.inj hlen)]
+  | false :: A, p :: ps, hlen => by
+      show (p :: falsePos A ps).length = (A.length + 1) - cardB A
+      rw [List.length_cons, falsePos_length A ps (Nat.succ.inj hlen),
+          succ_sub_clean (cardB_le_length A)]
+  | [], _ :: _, hlen => Nat.noConfusion hlen
+  | _ :: _, [], hlen => Nat.noConfusion hlen
+
 end E213.Lib.Math.Combinatorics.SpernerChains
