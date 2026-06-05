@@ -17,7 +17,9 @@ namespace E213.Lib.Math.Combinatorics.SpernerChains
 open E213.Lib.Math.Combinatorics.Sperner
 open E213.Lib.Math.Combinatorics.Permutations
 open E213.Lib.Physics.Simplex.Counts (binom)
-open E213.Tactic.List213 (length_append)
+open E213.Tactic.List213
+  (length_append mem_append_iff nodup_append mem_map_of_mem exists_of_mem_map
+   nodup_map_of_inj)
 
 /-! ## §1 — the model -/
 
@@ -262,5 +264,151 @@ theorem falsePos_length :
           succ_sub_clean (cardB_le_length A)]
   | [], _ :: _, hlen => Nat.noConfusion hlen
   | _ :: _, [], hlen => Nat.noConfusion hlen
+
+/-! ### Recovery: the prefix-set of a built chain is `A` -/
+
+private theorem beq_false_of_ne {p i : Nat} (h : p ≠ i) : Nat.beq p i = false := by
+  cases hb : Nat.beq p i with
+  | false => rfl
+  | true => exact absurd (Nat.eq_of_beq_eq_true hb) h
+
+theorem lmap_congr {α β : Type _} {f g : α → β} :
+    ∀ {L : List α}, (∀ x, x ∈ L → f x = g x) → L.map f = L.map g
+  | [], _ => rfl
+  | a :: l, h => by
+      show f a :: l.map f = g a :: l.map g
+      rw [h a (List.Mem.head _), lmap_congr (fun x hx => h x (List.Mem.tail _ hx))]
+
+/-- The first `|σ|` entries of `σ ++ τ` are exactly `σ`. -/
+theorem elemTake_append_eq_elemNat (i : Nat) :
+    ∀ (σ τ : List Nat) (k : Nat), σ.length = k → elemTake i (σ ++ τ) k = elemNat i σ
+  | [], τ, k, hk => by
+      cases k with
+      | zero => exact (elemTake_zero i ([] ++ τ)).trans rfl
+      | succ _ => exact Nat.noConfusion hk
+  | x :: σ', τ, k, hk => by
+      cases k with
+      | zero => exact Nat.noConfusion hk
+      | succ k' =>
+          show (Nat.beq x i || elemTake i (σ' ++ τ) k') = (Nat.beq x i || elemNat i σ')
+          rw [elemTake_append_eq_elemNat i σ' τ k' (Nat.succ.inj hk)]
+
+theorem mem_of_elemNat {i : Nat} : ∀ {l : List Nat}, elemNat i l = true → i ∈ l
+  | [], h => Bool.noConfusion h
+  | x :: xs, h => by
+      have h2 : (Nat.beq x i || elemNat i xs) = true := h
+      cases hbx : Nat.beq x i with
+      | true => rw [Nat.eq_of_beq_eq_true hbx]; exact List.Mem.head _
+      | false => rw [hbx] at h2; exact List.Mem.tail _ (mem_of_elemNat h2)
+
+theorem elemNat_eq_true_of_mem {i : Nat} : ∀ {l : List Nat}, i ∈ l → elemNat i l = true
+  | x :: xs, h => by
+      cases h with
+      | head =>
+          show (Nat.beq _ _ || elemNat _ xs) = true
+          rw [beq_self _, Bool.true_or]
+      | tail _ h' =>
+          show (Nat.beq x i || elemNat i xs) = true
+          rw [elemNat_eq_true_of_mem h']; cases Nat.beq x i <;> rfl
+
+theorem elemNat_eq_false_of_not_mem {i : Nat} : ∀ {l : List Nat}, i ∉ l → elemNat i l = false
+  | [], _ => rfl
+  | x :: xs, h => by
+      show (Nat.beq x i || elemNat i xs) = false
+      have hxi : Nat.beq x i = false :=
+        beq_false_of_ne (fun he => h (by rw [he]; exact List.Mem.head _))
+      rw [hxi, elemNat_eq_false_of_not_mem (fun hm => h (List.Mem.tail _ hm)), Bool.false_or]
+
+theorem elemNat_eq_of_lperm {i : Nat} {l l' : List Nat} (h : LPerm l l') :
+    elemNat i l = elemNat i l' := by
+  cases hl : elemNat i l with
+  | true => rw [elemNat_eq_true_of_mem (mem_of_lperm h (mem_of_elemNat hl))]
+  | false =>
+      cases hl' : elemNat i l' with
+      | false => rfl
+      | true =>
+          have hc : elemNat i l = true :=
+            elemNat_eq_true_of_mem (mem_of_lperm (LPerm.symm h) (mem_of_elemNat hl'))
+          rw [hl] at hc; exact Bool.noConfusion hc
+
+theorem elemNat_cons_ne {i p : Nat} (h : Nat.beq p i = false) (L : List Nat) :
+    elemNat i (p :: L) = elemNat i L := by
+  show (Nat.beq p i || elemNat i L) = elemNat i L
+  rw [h, Bool.false_or]
+
+theorem mem_truePos {i : Nat} : ∀ (A : List Bool) (ps : List Nat), i ∈ truePos A ps → i ∈ ps
+  | [], _, h => nomatch h
+  | true :: _, [], h => nomatch h
+  | false :: _, [], h => nomatch h
+  | true :: _, _ :: ps, h => by
+      cases h with
+      | head => exact List.Mem.head _
+      | tail _ h' => exact List.Mem.tail _ (mem_truePos _ ps h')
+  | false :: _, _ :: ps, h => List.Mem.tail _ (mem_truePos _ ps h)
+
+/-- ★ Recovery: reading "is this index a true-position" over the index list
+    returns `A`. -/
+theorem recoverA :
+    ∀ (A : List Bool) (ps : List Nat), ps.Nodup → A.length = ps.length →
+      ps.map (fun i => elemNat i (truePos A ps)) = A
+  | [], [], _, _ => rfl
+  | true :: A, p :: ps, hnd, hlen => by
+      have hpps : p ∉ ps := by cases hnd with | cons hh _ => exact fun hm => (hh p hm) rfl
+      have hnd' : ps.Nodup := by cases hnd with | cons _ ht => exact ht
+      show (elemNat p (p :: truePos A ps))
+            :: ps.map (fun i => elemNat i (p :: truePos A ps)) = true :: A
+      have hhead : elemNat p (p :: truePos A ps) = true :=
+        elemNat_eq_true_of_mem (List.Mem.head _)
+      have htail : ps.map (fun i => elemNat i (p :: truePos A ps)) = A :=
+        (lmap_congr (fun i hi => elemNat_cons_ne
+            (beq_false_of_ne (fun he => hpps (by rw [he]; exact hi))) (truePos A ps))).trans
+          (recoverA A ps hnd' (Nat.succ.inj hlen))
+      rw [hhead, htail]
+  | false :: A, p :: ps, hnd, hlen => by
+      have hpps : p ∉ ps := by cases hnd with | cons hh _ => exact fun hm => (hh p hm) rfl
+      have hnd' : ps.Nodup := by cases hnd with | cons _ ht => exact ht
+      show (elemNat p (truePos A ps))
+            :: ps.map (fun i => elemNat i (truePos A ps)) = false :: A
+      have hhead : elemNat p (truePos A ps) = false :=
+        elemNat_eq_false_of_not_mem (fun hm => hpps (mem_truePos A ps hm))
+      rw [hhead, recoverA A ps hnd' (Nat.succ.inj hlen)]
+  | [], _ :: _, _, hlen => Nat.noConfusion hlen
+  | _ :: _, [], _, hlen => Nat.noConfusion hlen
+
+theorem mem_idxList_lt : ∀ {n i : Nat}, i ∈ idxList n → i < n
+  | 0, _, h => nomatch h
+  | n + 1, i, h => by
+      rcases mem_append_iff (l₁ := idxList n) (l₂ := [n]) h with h1 | h2
+      · exact Nat.lt_succ_of_lt (mem_idxList_lt h1)
+      · cases h2 with
+        | head => exact Nat.lt_succ_self n
+        | tail _ h' => nomatch h'
+
+theorem idxList_nodup : ∀ n, (idxList n).Nodup
+  | 0 => List.Pairwise.nil
+  | n + 1 => by
+      refine nodup_append (idxList_nodup n)
+        (List.Pairwise.cons (by intro y hy; nomatch hy) List.Pairwise.nil) ?_
+      intro a ha hn
+      cases hn with
+      | head => exact Nat.lt_irrefl n (mem_idxList_lt ha)
+      | tail _ h' => nomatch h'
+
+/-- ★ A built chain `σ ++ τ` (with `σ` ordering the true-positions of `A`) is
+    incident to `A`. -/
+theorem inc_concat {n : Nat} (A : List Bool) (hAn : A.length = n)
+    (σ τ : List Nat) (hσ : σ ∈ perms (truePos A (idxList n))) :
+    inc n A (σ ++ τ) = true := by
+  have hps : A.length = (idxList n).length := by rw [hAn, idxList_length]
+  have hσlen : σ.length = cardB A := by
+    rw [perms_length_const (truePos A (idxList n)) σ hσ, truePos_length A (idxList n) hps]
+  show beqBoolList (prefixVec n (σ ++ τ) (cardB A)) A = true
+  have key : prefixVec n (σ ++ τ) (cardB A) = A := by
+    show (idxList n).map (fun i => elemTake i (σ ++ τ) (cardB A)) = A
+    rw [lmap_congr (fun i _ => elemTake_append_eq_elemNat i σ τ (cardB A) hσlen),
+        lmap_congr (fun i _ => elemNat_eq_of_lperm
+          (perms_sound (truePos A (idxList n)) σ hσ))]
+    exact recoverA A (idxList n) (idxList_nodup n) hps
+  rw [key]; exact beqBoolList_refl A
 
 end E213.Lib.Math.Combinatorics.SpernerChains
