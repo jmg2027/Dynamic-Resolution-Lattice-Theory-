@@ -1,20 +1,30 @@
-# Session Handoff — 2026-06-05 (LYM + Bollobás FULLY CLOSED + Mirsky opened, COUNT substrate)
+# Session Handoff — 2026-06-05 (SCD symmetric-level invariant CLOSED; only disjointness rung left)
 
 ## Branch
 `claude/substrate-synthesis-count-zq9K0` — pushed.
-`cd lean && lake build E213.Lib.Math.Combinatorics` ✓ clean (42/42).  New modules,
+`cd lean && lake build E213.Lib.Math.Combinatorics` ✓ clean.  New modules,
 all strict ∅-axiom (`tools/scan_axioms.py`): **LymInequality 5/5**,
-**BollobasSetPair 21/21**, **BollobasCount 36/36**, **ChainAntichain 5/5**, 0 DIRTY.
+**BollobasSetPair 21/21**, **BollobasCount 36/36**, **ChainAntichain 60/60**, 0 DIRTY.
 
-## Headline
-- **Bollobás' set-pair inequality is FULLY PROVEN ∅-axiom** — `bollobas_uniform`:
-  `|F| ≤ C(a+b,a)`, `n`-independent, unconditional.  The favour-count rung was
-  discharged end-to-end (`BollobasCount`: `weave` interleave, the position
-  partition, filter/map recovery, `wovenFam` length+nodup+subset,
-  `favourCount_lower`).
-- **Mirsky's theorem on `2^[n]` FULLY CLOSED** — `ChainAntichain`: the dual of
-  Sperner.  `chain_length_le` (height ≤ `n+1`) + `canonChain_max` (achieved) +
-  `mirsky_boolean` (longest chain = `n+1` = #layers = min antichain partition).
+## Headline (this session)
+- **SCD symmetric-level invariant CLOSED** (`ChainAntichain` §9–11) — the crux of
+  the Dilworth upper bound.  ★★ `scd_sym`: every chain of `scd n` has `cardB` run
+  `[k,…,k+|C|−1]` with `2k+|C| = n+1` (centred, level `k` to `n−k`), via
+  `extendC_sym`/`raiseC_sym` + length helpers + `raise_sum_arith`.
+- **The middle layer meets every chain, exactly once** — `sym_span` (the run
+  straddles `⌊n/2⌋`), `scd_has_middle` (∃ a `⌊n/2⌋`-element), `scd_middle_unique`
+  (exactly one, via `chain_card_inj`).
+- **Dilworth lower bound realised by the SCD** — `scd_lower`: `scd n` is a chain
+  cover, so `C(n,⌊n/2⌋) ≤ |scd n|` (`dilworth_lower`).
+- **Only `|scd n| ≤ C(n,⌊n/2⌋)` remains** = SCD partition-disjointness (two routes
+  in the frontier; route B = length-doubling `|flat n| = 2^n` + same-set ⟹ nodup
+  is the clean one to try first).
+
+## Earlier headline
+- **Bollobás' set-pair inequality FULLY PROVEN ∅-axiom** — `bollobas_uniform`:
+  `|F| ≤ C(a+b,a)`, `n`-independent, unconditional (`BollobasCount`).
+- **Mirsky's theorem on `2^[n]` FULLY CLOSED** — `ChainAntichain`: `mirsky_boolean`
+  (longest chain = `n+1` = #layers = min antichain partition).
 
 ## What Was Done This Session (count_substrate_synthesis.md seeds)
 
@@ -83,22 +93,19 @@ Physics constants table: `catalogs/physics-constants.md`.
 ## Open Problems (Priority Order)
 From `research-notes/frontiers/count_substrate_synthesis.md` (registered in
 `frontiers/INDEX.md`):
-### 1. Dilworth UPPER bound on `2^[n]` — the SCD ((a) chain + (b) cover DONE).
-`dilworth_lower` closed; **SCD chain property + cover CLOSED** (`ChainAntichain`
-§5–7): `scd`/`extendC`/`raiseC`, `scd_isChain`, ★★ `scd_chain_cover` (every member
-a chain, every vector covered).  **Only (c) the count remains**:
-`|scd n| = C(n,⌊n/2⌋)` via the symmetric-level invariant (`SymChain n C :=
-C.map cardB = range' k (n−2k+1)`) — each chain has exactly one `⌊n/2⌋`-element ⟹
-bijection `scd n ↔ kLayer n ⌊n/2⌋` (surjective via `scd_cover`, injective via
-partition disjointness, still to prove).  Infra ready: `scd_nonempty` (chains
-nonempty), `scd_sorted`, `false_mem_extendC`/`true_mem`, and the **cardB-run
-characterizations** (`ChainAntichain` §9: `consec`, `extendC_sym`, `raiseC_sym`).
-Next: `extendC_length`/`raiseC_length`/`consec_length` + `SymChain` + `scd_sym`
-(invariant preservation; the raiseC sum arithmetic `2(k+1)+(|C|−1)=(n+1)+1` is the
-fiddly bit), then exactly-one-middle + the bijection.  Then `dilworth_lower`
-+ this ⟹ min chain cover `= C(n,⌊n/2⌋)` = max antichain.  Full plan in the
-frontier note (the symmetric invariant + disjointness is the crux — best with
-fresh context).
+### 1. Dilworth UPPER bound on `2^[n]` — the SCD ((a) chain + (b) cover + (c) invariant DONE; only disjointness left).
+`dilworth_lower` closed; **chain + cover CLOSED** (`scd_isChain`, `scd_chain_cover`).
+**Symmetric-level invariant CLOSED** (`ChainAntichain` §9–11): ★★ `scd_sym` (every
+chain's `cardB` run is `[k,…,k+|C|−1]`, `2k+|C|=n+1`) via `extendC_sym`/`raiseC_sym`
++ `consec_length`/`extendC_length`/`raiseC_length` + `raise_sum_arith`.  Straddle
+CLOSED: `sym_span` (`k ≤ ⌊n/2⌋`, `k+⌊n/2⌋ ≤ n`), `mem_consec`, `scd_has_middle`,
+`scd_middle_unique`.  Lower bound realised: `scd_lower` (`C(n,⌊n/2⌋) ≤ |scd n|`).
+**Only `|scd n| ≤ C(n,⌊n/2⌋)` remains** = SCD partition-disjointness → `chain ↦
+middle` injective into `kLayer n ⌊n/2⌋`.  Two routes in the frontier; **route B**
+(length-doubling `flat n := (scd n).flatMap id`, `|flat (n+1)| = 2|flat n|` ⟹
+`|flat n| = 2^n`; same underlying set as `allBoolLists n` + equal length ⟹ nodup;
+then `Σ_C #middle = |scd n| = |kLayer|`) is the clean one to try first.  Then
+`dilworth_lower` + this ⟹ min chain cover `= C(n,⌊n/2⌋)` = max antichain.
 ### 2. Leibniz determinant over `perms` (bridge `LPerm` ↔ `perms`).
 ### (CLOSED) Bollobás `bollobas_uniform` (36/36 PURE); Mirsky `mirsky_boolean`
 (`ChainAntichain`, 15/15 PURE) — both unconditional ∅-axiom.

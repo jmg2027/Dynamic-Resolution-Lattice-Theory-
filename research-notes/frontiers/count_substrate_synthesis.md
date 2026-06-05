@@ -102,25 +102,33 @@ exposed patterns worth harvesting.
   (b) **cover** — ✓✓ **CLOSED** (`ChainAntichain` §7): `false_mem_extendC`,
   `true_mem`, `extendC_mem_scdStep`/`raiseC_mem_scdStep`, ★★ `scd_cover` (every
   length-`n` vector in some `scd n` chain) and `scd_chain_cover`.
-  (c) **count** `= C(n,⌊n/2⌋)` — *the only remaining piece*.  ✓ *run
-  characterizations built* (`ChainAntichain` §9): `consec k m` (the run
-  `[k,…,k+m−1]`), `extendC_sym` (extends the `cardB` run by one at the top),
-  `raiseC_sym` (shifts the run up by one, drops the bottom).  Remaining: the
-  **symmetric-level invariant** `SymChain n C := ∃ k, C.map cardB = consec k |C|
-  ∧ 2k+|C| = n+1` (need `extendC_length`/`raiseC_length`/`consec_length` helpers +
-  `scd_sym` preservation, the Nat arithmetic `2(k+1)+(|C|−1) = (n+1)+1` for raiseC),
-  then exactly-one-middle (`⌊n/2⌋ ∈ [k,n−k]` from `2k ≤ n` + `chain_card_inj`) and
-  the bijection.  Old `range'` plan superseded by `consec`.  [legacy below kept for
-  the bijection sketch:] `SymChain n C := C.map cardB = range' k (n−2k+1)`
-  for some `k ≤ n/2` (cardB values exactly the contiguous `{k,…,n−k}`).
-  Preservation: `extendC` keeps `false::` cardB and adds `(n−k)+1` at top
-  (`k..n+1−k`); `raiseC` shifts `+1` and drops the top (`k+1..(n+1)−(k+1)`).  Then
-  each chain has **exactly one** `⌊n/2⌋`-element (`⌊n/2⌋ ∈ [k,n−k]` + `chain_card_inj`
-  for ≤1).  Also need **partition disjointness** (a vector in ≤1 chain — for
-  injectivity of `chain ↦ middle`).  Bijection `scd n ↔ kLayer n ⌊n/2⌋` (surjective
-  via `scd_cover`, injective via disjointness) ⟹ `|scd n| = C(n,⌊n/2⌋)`.  Then
-  `dilworth_lower` + this ⟹ **min chain cover `= C(n,⌊n/2⌋)` = max antichain**.
-  ~150–200 lines; the symmetric invariant + disjointness is the crux.
+  (c) **count** `= C(n,⌊n/2⌋)` — *the last rung*.  ✓✓ **symmetric-level invariant
+  CLOSED** (`ChainAntichain` §9–11): `consec k m` (the run `[k,…,k+m−1]`),
+  `extendC_sym`/`raiseC_sym` (run shifts), length helpers
+  (`consec_length`/`extendC_length`/`raiseC_length`), the `raiseC` span arithmetic
+  (`raise_sum_arith`), and ★★ `scd_sym` — every chain of `scd n` satisfies
+  `SymChain n C := ∃ k, C.map cardB = consec k |C| ∧ 2k+|C| = n+1`.  ✓✓ **straddle
+  CLOSED**: `sym_span` (`k ≤ ⌊n/2⌋` and `k+⌊n/2⌋ ≤ n` from `2k+|C|=n+1`),
+  `mem_consec`, ★ `scd_has_middle` (every chain has a `⌊n/2⌋`-element) + ★
+  `scd_middle_unique` (exactly one, via `chain_card_inj`).  ✓✓ **lower bound
+  realised**: `scd_lower` — `scd n` is a chain cover so `C(n,⌊n/2⌋) ≤ |scd n|`
+  (`dilworth_lower`).
+  **Only `|scd n| ≤ C(n,⌊n/2⌋)` remains** = SCD **partition-disjointness**
+  (`chain ↦ middle element` injective into `kLayer n ⌊n/2⌋`).  Two candidate
+  routes:
+  - **(A) pairwise disjointness** — `C₁,C₂ ∈ scd n` sharing a vector ⟹ `C₁=C₂`,
+    by induction on the `bit :: tail` structure (strip the new bit; `false::`/`true::`
+    collisions force equal parents → IH).  Then `chain ↦ middle` is injective
+    (shared middle ⟹ same chain) ⟹ `|scd n| ≤ |kLayer| = C(n,⌊n/2⌋)`.
+  - **(B) length-doubling + set-equality** — `flat n := (scd n).flatMap id`;
+    `|flat (n+1)| = 2|flat n|` (extendC adds 1, raiseC drops 1: `2|C|` per parent),
+    so `|flat n| = 2^n`.  `flat n` and `allBoolLists n` have the same underlying set
+    (cover ⊇ + length-`n` ⊆) and equal length `2^n`; with `allBoolLists` nodup ⟹
+    `flat n` nodup (same-set-same-length).  Then `(flat n).filter middle` has length
+    `Σ_C #middle = |scd n|` (one per chain) `= |kLayer| = C(n,⌊n/2⌋)`.
+  Then `dilworth_lower` + this ⟹ **min chain cover `= C(n,⌊n/2⌋)` = max antichain**.
+  Disjointness (~80–150 lines) is the crux; route (B)'s length-doubling is a clean
+  inductive lemma worth trying first.
 
 - **Leibniz determinant over `perms`.**  `Linalg213/Permutation` uses `LPerm`
   *equivalence* + inversion-sign but no enumeration; `perms` + `mem_perms_iff` +
