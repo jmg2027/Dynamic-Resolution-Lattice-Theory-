@@ -640,4 +640,80 @@ theorem raiseC_sym : ∀ (v w : List Bool) (rest : List (List Bool)) (k : Nat),
           = consec (k + 1) ((x :: rest').length + 1)
       rw [raiseC_sym w x rest' (k + 1) htail, hk]; rfl
 
+/-! ## §10 — the symmetric-level invariant `SymChain` and its preservation
+
+`SymChain n C` packages the run characterization with the symmetric span: the
+`cardB` values are the contiguous run `[k, …, k + |C| − 1]` *and* `2k + |C| = n + 1`
+(so the run is centred — it runs from level `k` to level `n − k`).  This is the
+de Bruijn–Tengbergen–Kruyswijk invariant; `scd_sym` proves every chain in
+`scd n` satisfies it.  It yields "each chain meets the middle layer `⌊n/2⌋`
+exactly once", hence the count `|scd n| = C(n, ⌊n/2⌋)`. -/
+
+/-- `(consec k m).length = m`. -/
+theorem consec_length : ∀ (k m : Nat), (consec k m).length = m
+  | _, 0 => rfl
+  | k, m + 1 => by
+      show (consec (k + 1) m).length + 1 = m + 1
+      rw [consec_length (k + 1) m]
+
+/-- `extendC` adds one chain element. -/
+theorem extendC_length : ∀ (C : List (List Bool)), C ≠ [] →
+    (extendC C).length = C.length + 1
+  | [], h => absurd rfl h
+  | [_], _ => rfl
+  | v :: w :: rest, _ => by
+      show (extendC (w :: rest)).length + 1 = (w :: rest).length + 1 + 1
+      rw [extendC_length (w :: rest) (fun h => List.noConfusion h)]
+
+/-- `raiseC` drops the top chain element. -/
+theorem raiseC_length : ∀ (v w : List Bool) (rest : List (List Bool)),
+    (raiseC (v :: w :: rest)).length = (w :: rest).length
+  | _, _, [] => rfl
+  | _, w, x :: rest' => by
+      show (raiseC (w :: x :: rest')).length + 1 = (x :: rest').length + 1
+      rw [raiseC_length w x rest']
+
+/-- The `raiseC` span arithmetic: `2k + (L+1) = n+1 ⟹ 2(k+1) + L = (n+1)+1`. -/
+private theorem raise_sum_arith {k L n : Nat} (h : 2 * k + (L + 1) = n + 1) :
+    2 * (k + 1) + L = n + 1 + 1 := by
+  have h' : 2 * k + L + 1 = n + 1 := by rw [Nat.add_assoc]; exact h
+  calc 2 * (k + 1) + L = 2 * k + L + 2 := by
+            rw [Nat.mul_succ, Nat.add_right_comm (2 * k) 2 L]
+    _ = (2 * k + L + 1) + 1 := rfl
+    _ = (n + 1) + 1 := by rw [h']
+
+/-- ★ **The symmetric-level invariant.**  `C`'s `cardB` values are the contiguous
+    centred run `{k, …, n − k}`: `C.map cardB = [k, …, k + |C| − 1]` and
+    `2k + |C| = n + 1`. -/
+def SymChain (n : Nat) (C : List (List Bool)) : Prop :=
+  ∃ k, C.map cardB = consec k C.length ∧ 2 * k + C.length = n + 1
+
+/-- ★★ **`scd` preserves the symmetric-level invariant** — every chain of `scd n`
+    runs symmetrically from some level `k` to `n − k` (length `n − 2k + 1`). -/
+theorem scd_sym : ∀ (n : Nat) (C : List (List Bool)), C ∈ scd n → SymChain n C
+  | 0, _, h => by
+      cases h with
+      | head => exact ⟨0, rfl, rfl⟩
+      | tail _ h' => nomatch h'
+  | n + 1, _, h => by
+      obtain ⟨D, hD, hCD⟩ := mem_flatMap213 h
+      obtain ⟨k, hmap, hsum⟩ := scd_sym n D hD
+      have hDne : D ≠ [] := scd_nonempty n D hD
+      rcases mem_scdStep hCD with rfl | rfl
+      · -- C = extendC D
+        refine ⟨k, ?_, ?_⟩
+        · rw [extendC_sym D k hDne hmap, extendC_length D hDne]
+        · rw [extendC_length D hDne, ← Nat.add_assoc, hsum]
+      · -- C = raiseC D — `raiseC D ≠ []` forces `D = v :: w :: rest`
+        cases D with
+        | nil => exact absurd rfl hDne
+        | cons v ds =>
+            cases ds with
+            | nil => exact absurd rfl (scd_nonempty (n + 1) (raiseC [v]) h)
+            | cons w rest =>
+                refine ⟨k + 1, ?_, ?_⟩
+                · rw [raiseC_sym v w rest k hmap, raiseC_length v w rest]
+                · rw [raiseC_length v w rest]
+                  exact raise_sum_arith (L := (w :: rest).length) hsum
+
 end E213.Lib.Math.Combinatorics.ChainAntichain
