@@ -76,13 +76,23 @@ out — they cluster on **one missing idea**.
 
 ## The find: two candidate archetypes the conquests demand
 
-> **UPDATE (this session): A6 FLOW is now CLOSED (∅-axiom).** The candidate
-> below was witnessed: `MonovariantFlow.flow_reaches` (abstract archetype) +
-> `euclid_flow_normal_form` (Euclidean GCD flow instance), pinned in
-> `ProofISALifts.lean` as `lift_flow` / `lift_flow_gcd`, registered in
-> `seed/PROOF_ISA.md` as the sixth archetype. The catalog is now **six**
-> archetypes. POSITIVITY (A7 candidate) remains open. Details below recorded
-> as the probe's rationale.
+> **UPDATE (this session): A6 FLOW is now CLOSED (∅-axiom), and DRIVES the
+> actual conquest.** Witnessed at two levels:
+> 1. **Archetype + toy instance**: `MonovariantFlow.flow_reaches` (abstract) +
+>    `euclid_flow_normal_form` (Euclidean GCD flow), `lift_flow`/`lift_flow_gcd`.
+> 2. **Conquest demonstration** (the proof-ISA point — archetype *driving a real
+>    proof*, not a catalog entry): the **Geometrization Ricci pillar**. The
+>    K_{3,2} cell-filling coherentization (`Filled.lean`, `b_1 = 8−k`) compiled
+>    to `flow_reaches` and converging to the canonical normal form
+>    (`RicciFlow.ricci_pillar_K32_flow_close`, `lift_flow_geometrization`).
+>    Upgrades that pillar from **OPEN → CLOSED via A6 FLOW**
+>    (`Poincare.lean` / `Ricci.lean` capstone tables).
+>
+> The catalog is now **six** archetypes. POSITIVITY (A7) remains the next gap.
+> Details below recorded as the probe's rationale. **Marathon framing
+> (corrected):** a phase is not "catalog an archetype" but "compile a conquest
+> down the ISA and let the archetype *drive its complete ∅-axiom proof*" — A6
+> is finished only because the geometrization pillar is now actually closed by it.
 
 ### Candidate A6 — FLOW / monovariant normal-form (from S4 Poincaré) — ✅ CLOSED
 

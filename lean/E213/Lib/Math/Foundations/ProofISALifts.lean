@@ -9,6 +9,7 @@ import E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
 import E213.Lib.Math.Combinatorics.CountExistence
 import E213.Lib.Math.Combinatorics.RamseyLowerBound
 import E213.Lib.Math.Foundations.MonovariantFlow
+import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow
 
 /-!
 # The lift catalog — six solved finite→uniform lift archetypes on the proof-ISA
@@ -156,5 +157,12 @@ abbrev lift_flow := @E213.Lib.Math.Foundations.MonovariantFlow.flow_reaches
 /-- **A6 instance** — the Euclidean GCD flow: `(a,b) ↦ (b % a, a)` converges to `(0, gcd a b)`; the gcd
     is the canonical normal form reached by the monovariant descent. -/
 abbrev lift_flow_gcd := @E213.Lib.Math.Foundations.MonovariantFlow.euclid_flow_normal_form
+
+/-- **A6 conquest demonstration** — the FLOW archetype *driving a complete proof of an actual conquest*:
+    the Geometrization Ricci pillar.  The K_{3,2}^{(c=2)} cell-filling coherentization is a convergent
+    monovariant flow reaching the canonical normal form (all 3 cells filled, `b_1 = 5`), compiled down to
+    `flow_reaches` — the proof-ISA methodology end-to-end, not a fresh problem-specific argument. -/
+abbrev lift_flow_geometrization :=
+  @E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow.ricci_pillar_K32_flow_close
 
 end E213.Lib.Math.Foundations.ProofISALifts

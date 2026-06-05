@@ -77,7 +77,7 @@ theorem ricci_narrative_sym3_invariant :
   | JSJ          | bipartite S/T + Filled      | PARTIAL (steps 11+15)  |
   | Poincaré     | K_{3,1}^{(c=1)} tree at d=3 | PARTIAL CLOSE (12-13)  |
   | Generalized P| K_{1,k}^{(c=1)} all d       | GENERALIZED (step 15)  |
-  | Ricci flow   | Sym(3)-fixed dim 2          | NARRATIVE ⚠ (step 16)  |
+  | Ricci flow   | Sym(3)-fixed dim 2          | NARRATIVE ⚠ (step 16); flow CLOSED via A6 (`RicciFlow.lean`) |
 
   Open infrastructure (recorded in §F):
     · 8-geo ↔ Sym(3) decomp structural mapping

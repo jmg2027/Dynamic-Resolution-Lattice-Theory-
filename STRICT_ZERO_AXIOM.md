@@ -266,6 +266,17 @@ shape `GeometrizationConjecture/Ricci.lean` recorded as open (monovariant in pla
 entropy).  Pinned in `Foundations.ProofISALifts` as `lift_flow` / `lift_flow_gcd`; registered in
 `seed/PROOF_ISA.md`.  `#print axioms` clean on all 12.
 
+### A6 FLOW drives the Geometrization Ricci pillar to a complete proof (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow` — **8 PURE / 0 DIRTY**.  The proof-ISA
+methodology end-to-end: the Ricci-flow conquest *compiled down to* A6 FLOW and the archetype *driving the
+complete proof*.  The K_{3,2}^{(c=2)} cell-filling coherentization (`Filled.lean`: `b_1 = 8 - k`, 3
+fillable 4-cycles) is exhibited as a convergent monovariant flow — `coherentization_flow_converges`
+(∀ C, via `flow_reaches`), `coherentization_normal_form` (reaches `k = C` in `C` steps),
+`ricci_pillar_K32_flow_close` (canonical normal form: all 3 cells filled, `b_1 = 5`).  Upgrades the
+Geometrization Ricci pillar from OPEN (`Poincare.lean` capstone table) to **CLOSED via A6 FLOW** in the
+repo's 213-native chart-Lens model.  Pinned in `ProofISALifts` as `lift_flow_geometrization`.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

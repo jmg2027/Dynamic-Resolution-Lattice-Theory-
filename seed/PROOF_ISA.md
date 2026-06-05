@@ -117,6 +117,10 @@ as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/P
     descending off fixed points**.  The discrete realization of the Ricci-flow shape
     (`GeometrizationConjecture/Ricci.lean`'s open functional, monovariant in place of Perelman's
     entropy) and the other completion of in-place monovariant exhaustion REFRAME is the dual of.
+    **Conquest demonstration** (the ISA driving a real proof, not a toy): the Geometrization Ricci
+    pillar — the `K_{3,2}` cell-filling coherentization compiled to `flow_reaches`, converging to the
+    canonical normal form (`GeometrizationConjecture.RicciFlow.ricci_pillar_K32_flow_close`,
+    `lift_flow_geometrization`); upgrades that pillar from OPEN to closed.
 
 Markov `H` matches none cleanly — closest is **ORBIT**, which is *in `H`'s own family* (the same
 free-unit-root action already lifts a finite root-window to uniform composite uniqueness, leaving a per-`c`
