@@ -65,4 +65,39 @@ theorem cauchy_schwarz_2d (a0 a1 b0 b1 : Int) :
     positivity_of_sq _ _ hgap
   exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero hpos)
 
+/-- **A7 POSITIVITY (sum-of-three-squares form)**: a bound forced because its gap
+    is a sum of three squares. -/
+theorem positivity_of_sq3 (gap s t u : Int) (h : gap = s * s + t * t + u * u) :
+    0 ≤ gap := by
+  rw [h]
+  exact add_nonneg (add_nonneg (int_sq_nonneg s) (int_sq_nonneg t)) (int_sq_nonneg u)
+
+/-- ★★★★★ **AM–GM (2-variable, ℤ) via POSITIVITY**: `4ab ≤ (a+b)²`, forced
+    because the gap is the square `(a−b)²`. -/
+theorem amgm_2 (a b : Int) : 4 * (a * b) ≤ (a + b) * (a + b) := by
+  have hgap : (a + b) * (a + b) - 4 * (a * b) = (a - b) * (a - b) := by ring_intZ
+  have hpos : 0 ≤ (a + b) * (a + b) - 4 * (a * b) := positivity_of_sq _ _ hgap
+  exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero hpos)
+
+/-- **Lagrange identity (3-D)**: the Cauchy–Schwarz gap is a sum of three
+    squares. -/
+theorem lagrange_3d (a0 a1 a2 b0 b1 b2 : Int) :
+    (a0 * a0 + a1 * a1 + a2 * a2) * (b0 * b0 + b1 * b1 + b2 * b2)
+      - (a0 * b0 + a1 * b1 + a2 * b2) * (a0 * b0 + a1 * b1 + a2 * b2)
+    = (a0 * b1 - a1 * b0) * (a0 * b1 - a1 * b0)
+      + (a0 * b2 - a2 * b0) * (a0 * b2 - a2 * b0)
+      + (a1 * b2 - a2 * b1) * (a1 * b2 - a2 * b1) := by
+  ring_intZ
+
+/-- ★★★★★★ **Cauchy–Schwarz (3-D, ℤ) via POSITIVITY**: `⟨u,v⟩² ≤ ⟨u,u⟩⟨v,v⟩`,
+    forced because the gap is the sum of three squares (the 3-D Lagrange
+    identity). -/
+theorem cauchy_schwarz_3d (a0 a1 a2 b0 b1 b2 : Int) :
+    (a0 * b0 + a1 * b1 + a2 * b2) * (a0 * b0 + a1 * b1 + a2 * b2)
+    ≤ (a0 * a0 + a1 * a1 + a2 * a2) * (b0 * b0 + b1 * b1 + b2 * b2) := by
+  have hpos : 0 ≤ (a0 * a0 + a1 * a1 + a2 * a2) * (b0 * b0 + b1 * b1 + b2 * b2)
+                    - (a0 * b0 + a1 * b1 + a2 * b2) * (a0 * b0 + a1 * b1 + a2 * b2) :=
+    positivity_of_sq3 _ _ _ _ (lagrange_3d a0 a1 a2 b0 b1 b2)
+  exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero hpos)
+
 end E213.Lib.Math.Foundations.Positivity
