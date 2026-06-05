@@ -1,6 +1,7 @@
 import E213.Lib.Math.NumberTheory.ModArith.GaussLemma
 import E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
 import E213.Lib.Math.Algebra.Linalg213.SumLinear
+import E213.Meta.Nat.PolyNatMTactic
 
 /-!
 # QuadraticReciprocity — Eisenstein lattice-point route (in progress)
@@ -24,6 +25,7 @@ open E213.Lib.Math.NumberTheory.PolyRoot (natCast_add)
 open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_mul)
 open E213.Lib.Math.NumberTheory.ModArith.EulerConverse (natCast_sub)
 open E213.Meta.Nat.AddMod213 (div_add_mod dvd_of_mod_eq_zero add_mod_left_pure zero_mod)
+open E213.Meta.Nat.NatDiv213 (div_lt_of_lt_mul)
 open E213.Tactic.List213 (map_congr)
 open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat nat_dvd_to_int dvd_sub')
 open E213.Tactic.Pow213 (le_of_dvd_pos)
@@ -220,5 +222,16 @@ theorem floor_qr (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ 
         rwa [heq] at hsub
       exact two_dvd_to_mod _ (by have := int_dvd_to_nat 2 _ hd; rwa [Int.natAbs_ofNat] at this)
   exact (gauss_mu a p m hp hpr h2m hm1 ha1 halt).trans hmid
+
+/-- **Floor bound for the rectangle count (step 3 prerequisite).**  With `p = 2m+1`, `q = 2n+1`
+    and `1 ≤ x ≤ m`, `⌊q·x/p⌋ ≤ n` — so each column's floor count stays within `[1..n]`.  Key:
+    `q·x ≤ q·m < p·(n+1)` since `(2m+1)(n+1) = (2n+1)·m + (m+n+1)`. -/
+theorem floor_bound (m n x : Nat) (hx : x ≤ m) : (2 * n + 1) * x / (2 * m + 1) ≤ n := by
+  apply Nat.le_of_lt_succ
+  apply div_lt_of_lt_mul
+  apply Nat.lt_of_le_of_lt (Nat.mul_le_mul (Nat.le_refl (2 * n + 1)) hx)
+  have hexp : (2 * m + 1) * (n + 1) = (2 * n + 1) * m + (m + n + 1) := by ring_nat
+  rw [hexp]
+  exact Nat.lt_add_of_pos_right (Nat.succ_pos (m + n))
 
 end E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
