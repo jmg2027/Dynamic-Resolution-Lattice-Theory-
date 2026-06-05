@@ -4,6 +4,7 @@ import E213.Lib.Math.NumberTheory.ModArith.CubeFromFLT
 import E213.Lib.Math.NumberTheory.ModArith.ModBezout
 import E213.Lib.Math.NumberTheory.FourSquareSeed
 import E213.Meta.Nat.Gcd213
+import E213.Meta.Nat.ModPow213
 import E213.Meta.Tactic.Pow213
 
 /-!
@@ -32,8 +33,9 @@ open E213.Lib.Math.NumberTheory.ModArith.CubeFromFLT
   (dvd_sub_one_of_mod_one pow_add_pure one_le_pow')
 open E213.Lib.Math.NumberTheory.ModArith.UniversalFLT (universal_flt_main)
 open E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
-  (prime_coprime modBezout_gcd_one)
+  (prime_coprime modBezout_gcd_one pow_mul_loc)
 open E213.Lib.Math.NumberTheory.FourSquareSeed (nat_prime_dvd_mul)
+open E213.Meta.Nat.ModPow213 (pow_mod_base)
 open E213.Meta.Nat.Gcd213 (gcd213_comm)
 open E213.Tactic.NatHelper (gcd213 add_sub_cancel_right sub_add_cancel)
 open E213.Lib.Math.NumberTheory.ModArith.ModBezout (modBezout)
@@ -81,5 +83,18 @@ theorem euler_dichotomy (p m a : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d =
   rcases nat_prime_dvd_mul p hp hpr (Y - 1) ((Y - 1) + 2) hdvdfact with hd | hd
   · left; rw [hYdef]; exact hd
   · right; rw [hYdef, ← hval]; exact hd
+
+/-- ★★★★ **Euler's criterion — the residue direction.**  If `a` is a quadratic residue mod `p`
+    (`x² ≡ a` for some unit `1 ≤ x < p`), then `aᵐ ≡ 1 (mod p)` (the `+1` branch of the
+    dichotomy): `aᵐ ≡ (x²)ᵐ = x^(2m) = x^(p−1) ≡ 1` by Fermat's little theorem. -/
+theorem euler_qr_pow_one (p m a : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hpm : 2 * m = p - 1) (x : Nat) (hx1 : 1 ≤ x) (hxlt : x < p) (hx2 : x ^ 2 % p = a) :
+    p ∣ (a ^ m - 1) := by
+  have hpg := prime_gcd p hpr
+  have hflt : a ^ m % p = 1 := by
+    rw [← hx2, ← pow_mod_base (x ^ 2) p m, ← pow_mul_loc x 2 m, hpm]
+    have h := universal_flt_main x p hp hx1 hxlt hpg
+    rwa [Nat.mod_eq_of_lt hp] at h
+  exact dvd_sub_one_of_mod_one p (a ^ m) hflt
 
 end E213.Lib.Math.NumberTheory.ModArith.EulerCriterion
