@@ -18,7 +18,10 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
 
 open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg mem_seg sgFn gauss_qr)
-open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ)
+open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ prodZ_append)
+open E213.Lib.Math.Algebra.Linalg213.Laplace (map_append')
+open E213.Lib.Math.Algebra.Linalg213.Permutation (iota)
+open E213.Meta.Int213 (mul_one)
 
 /-! ## §1 — a `±1`-product is `(−1)^(#negatives)` -/
 
@@ -64,5 +67,31 @@ theorem two_qr_iff (p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ 
     rw [Nat.mod_eq_of_lt h2xp]
   rw [← hmap]
   exact gauss_qr 2 p m hp hpr h2m hm1 (by decide) hp2
+
+/-! ## §3 — evaluating the sign product (the `−1`-count over `[1..k]`) -/
+
+/-- `#{x ∈ [1, k] : 2x > m}` (the `−1`s), recursion on `k` with `m` fixed. -/
+def cnt2 (m : Nat) : Nat → Nat
+  | 0 => 0
+  | k + 1 => cnt2 m k + (if 2 * (k + 1) ≤ m then 0 else 1)
+
+/-- `∏ₓ∈[1,k] (if 2x ≤ m then 1 else −1) = (−1)^(cnt2 m k)`, by induction on `k` (`seg` appends
+    at the end, `m` fixed — so this telescopes). -/
+theorem prodZ_seg_sign (m : Nat) : ∀ k,
+    prodZ ((seg k).map (fun x => if 2 * x ≤ m then (1 : Int) else -1)) = (-1 : Int) ^ cnt2 m k
+  | 0 => rfl
+  | k + 1 => by
+    have hseg : seg (k + 1) = seg k ++ [k + 1] := by
+      show (iota (k + 1)).map (· + 1) = (iota k).map (· + 1) ++ [k + 1]
+      rw [show iota (k + 1) = iota k ++ [k] from rfl, map_append',
+          show ([k] : List Nat).map (· + 1) = [k + 1] from rfl]
+    rw [hseg, map_append', prodZ_append, prodZ_seg_sign m k]
+    show (-1 : Int) ^ cnt2 m k * ((if 2 * (k + 1) ≤ m then (1 : Int) else -1) * 1)
+       = (-1 : Int) ^ (cnt2 m k + (if 2 * (k + 1) ≤ m then 0 else 1))
+    rcases Nat.lt_or_ge (2 * (k + 1)) (m + 1) with hc | hc
+    · have hle : 2 * (k + 1) ≤ m := Nat.le_of_lt_succ hc
+      rw [if_pos hle, if_pos hle, Nat.add_zero, mul_one, mul_one]
+    · have hnle : ¬ 2 * (k + 1) ≤ m := fun h => Nat.not_succ_le_self m (Nat.le_trans hc h)
+      rw [if_neg hnle, if_neg hnle, Int.pow_succ, mul_one]
 
 end E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
