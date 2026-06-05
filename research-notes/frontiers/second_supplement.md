@@ -1,4 +1,16 @@
-# Quadratic character of 2 (second supplement) — reduced to a finite count
+# Quadratic character of 2 — CLOSED (m-form); p≡±1 mod 8 reformulation remaining
+
+**2026-06-05: `second_supplement_m` closed** (`SecondSupplement.lean`, 6 PURE): `2` is a QR mod `p`
+⟺ `(m − ⌊m/2⌋)` is even (`m = (p−1)/2`).  Chain: `two_qr_iff` (no-wraparound + `gauss_qr`) →
+`prodZ_seg_sign` (`∏ = (−1)^cnt2`) → `cnt2_at_m` (`cnt2 m m = m − m/2`) → `neg_one_pow_iff`.
+This is the full mathematical content.  **Remaining (cosmetic):** `(m − m/2) % 2 = 0 ⟺ p%8 ∈ {1,7}`
+— both sides reduce to `m%4 ∈ {0,3}` via `m = 4q+r` + `add_mul_mod_self_pure` + `decide` on `r`
+(the `p%8 = 1 + 2*(m%4)` half is straightforward; the `(m−m/2)%2 ↔ m%4` half needs
+`(4q+r)/2 = 2q + r/2`, pure via `add_mul_div`).  ~40 lines, pure busywork.
+
+---
+
+# (original) reduced-to-a-finite-count plan
 
 **Status (2026-06-05).**  Reduced strict ∅-axiom to an `m`-only computation
 (`lean/E213/Lib/Math/NumberTheory/ModArith/SecondSupplement.lean`, 3 PURE):

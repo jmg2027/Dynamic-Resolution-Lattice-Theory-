@@ -46,12 +46,13 @@ split.  Built clean first try.
 `gauss_qr` (Euler `qr_iff_pow_one` + `prodZ_pm` + `p∤2`).  The combinatorial core (`fold_perm`) and the
 final assembly are both done.  Gateway to the second supplement + quadratic reciprocity.
 
-### 5. Second supplement (quadratic character of 2) — reduced to a finite count
-`lean/E213/Lib/Math/NumberTheory/ModArith/SecondSupplement.lean` (**3 PURE**).  `two_qr_iff`: `2` is a
-QR mod `p` ⟺ `∏ₓ∈[1,m] (if 2x ≤ m then 1 else −1) = 1` (no wraparound: `2x ≤ p−1 < p`, `gauss_qr`).
-`prodZ_sign_eq`: `±1`-product `= (−1)^(countNeg)`.  Remaining: `countNeg = m − m/2`, parity ↔ `m%4`,
-`m%4 ↔ p%8` ⟹ `2 QR ⟺ p ≡ ±1 mod 8`.  Plan: `research-notes/frontiers/second_supplement.md`
-(decouple the threshold with a fixed-`m` counter `k`; ~100 lines, elementary).
+### 5. Second supplement (quadratic character of 2) — CLOSED (m-form)
+`lean/E213/Lib/Math/NumberTheory/ModArith/SecondSupplement.lean` (**6 PURE**).  ★ `second_supplement_m`:
+`2` is a QR mod `p` ⟺ `(m − ⌊m/2⌋)` is even (`m = (p−1)/2`).  Chain: `two_qr_iff` (no-wraparound:
+`2x ≤ p−1 < p`, so `sgFn 2 = (if 2x ≤ m …)`; `gauss_qr`) → `prodZ_seg_sign` (`∏ = (−1)^cnt2`, `k`-induction
+with the threshold decoupled) → `cnt2_at_m` (`cnt2 m m = m − m/2`) → `neg_one_pow_iff`.  This is the full
+mathematical content of the second supplement.  Cosmetic `p ≡ ±1 mod 8` reformulation (`(m−m/2)%2 ↔ m%4
+↔ p%8`, ~40 lines pure busywork): `research-notes/frontiers/second_supplement.md`.
 
 ### 6. The downstream — frontier
 `research-notes/frontiers/euler_criterion_converse.md`: the remaining open work — the quadratic
