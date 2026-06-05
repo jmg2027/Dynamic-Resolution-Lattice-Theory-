@@ -251,3 +251,7 @@ different invariants.  Worked atlas + scripts: `research-notes/geometric/`
 ## Kuratowski / planarity vs atomicity  (`kuratowski_atomicity.md`)
 
 Does the 213 atomic signature sit on the 2-D planarity boundary by structure? `K_{m,n}` planar ⟺ `min≤2=N_T` (exact); `K_n` planar ⟺ `n≤4`, so `d=5` is the first non-planar (ceiling+1).  Both Kuratowski forbidden graphs (`K_5`, `K_{3,3}`) are 213 structures.  Speculative link to no-exterior (atomicity ⟺ non-flattenable).  Open: is there a derivation, or small-number coincidence with one exact hit?
+
+## shapeLens single-ℕ fork = d (`shapelens_fork_atomicity.md`)
+
+The point/line generation Lens: a single natural-number cycle exists only to the `3→5` fork (one growth axis → two); the canonical counts `2,3,5,12,68` SKIP 4.  That `+2` fork is simultaneously where single-ℕ counting ends, planarity ends (planar `K_4` leapt → non-planar `K_5`), dimension is born, and `d=5`.  Conjecture: an independent shapeLens-internal route to atomicity, parallel to `PairForcing` (§4.3).
