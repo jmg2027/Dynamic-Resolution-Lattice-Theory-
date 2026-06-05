@@ -22,6 +22,8 @@ open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ prodZ_append)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (map_append')
 open E213.Lib.Math.Algebra.Linalg213.Permutation (iota)
 open E213.Meta.Int213 (mul_one)
+open E213.Meta.Nat.AddMod213 (div_add_mod)
+open E213.Tactic.NatHelper (add_sub_of_le add_mul_mod_self_pure)
 
 /-! ## §1 — a `±1`-product is `(−1)^(#negatives)` -/
 
@@ -93,5 +95,40 @@ theorem prodZ_seg_sign (m : Nat) : ∀ k,
       rw [if_pos hle, if_pos hle, Nat.add_zero, mul_one, mul_one]
     · have hnle : ¬ 2 * (k + 1) ≤ m := fun h => Nat.not_succ_le_self m (Nat.le_trans hc h)
       rw [if_neg hnle, if_neg hnle, Int.pow_succ, mul_one]
+
+/-! ## §4 — `cnt2 m m = m − m/2` -/
+
+/-- Below the threshold (`k ≤ m/2`) there are no `−1`s. -/
+private theorem cnt2_zero_le (m : Nat) : ∀ k, k ≤ m / 2 → cnt2 m k = 0
+  | 0, _ => rfl
+  | k + 1, hk => by
+    show cnt2 m k + (if 2 * (k + 1) ≤ m then 0 else 1) = 0
+    have hk' : k ≤ m / 2 := Nat.le_of_succ_le hk
+    have h2le : 2 * (k + 1) ≤ m :=
+      Nat.le_trans (Nat.mul_le_mul_left 2 hk) (Nat.le.intro (div_add_mod m 2))
+    rw [cnt2_zero_le m k hk', if_pos h2le, Nat.add_zero]
+
+/-- Past the threshold, the count increases by `1` each step. -/
+private theorem cnt2_past (m : Nat) : ∀ k, cnt2 m (m / 2 + k) = k
+  | 0 => by rw [Nat.add_zero]; exact cnt2_zero_le m (m / 2) (Nat.le_refl _)
+  | k + 1 => by
+    show cnt2 m (m / 2 + k) + (if 2 * ((m / 2 + k) + 1) ≤ m then 0 else 1) = k + 1
+    have hgt : ¬ 2 * ((m / 2 + k) + 1) ≤ m := by
+      have hm : m = 2 * (m / 2) + m % 2 := (div_add_mod m 2).symm
+      have hlt : m < 2 * ((m / 2 + k) + 1) := by
+        rw [show 2 * ((m / 2 + k) + 1) = 2 * (m / 2) + 2 * (k + 1) from by ring_nat]
+        calc m = 2 * (m / 2) + m % 2 := hm
+          _ < 2 * (m / 2) + 2 * (k + 1) := Nat.add_lt_add_left
+                (Nat.lt_of_lt_of_le (Nat.mod_lt m (by decide))
+                  (Nat.le_mul_of_pos_right 2 (Nat.succ_pos k))) (2 * (m / 2))
+      exact fun hle => absurd (Nat.lt_of_lt_of_le hlt hle) (Nat.lt_irrefl m)
+    rw [cnt2_past m k, if_neg hgt]
+
+private theorem cnt2_at_m (m : Nat) : cnt2 m m = m - m / 2 := by
+  have hle : m / 2 ≤ m :=
+    Nat.le_trans (Nat.le.intro (Nat.two_mul (m / 2)).symm) (Nat.le.intro (div_add_mod m 2))
+  have heq : m / 2 + (m - m / 2) = m := add_sub_of_le hle
+  have hpast := cnt2_past m (m - m / 2)
+  rw [heq] at hpast; exact hpast
 
 end E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
