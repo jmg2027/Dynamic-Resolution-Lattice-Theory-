@@ -1,12 +1,21 @@
-# Session Handoff — 2026-06-05 (LYM inequality + Bollobás set-pair, on the COUNT substrate)
+# Session Handoff — 2026-06-05 (LYM + Bollobás FULLY CLOSED + Mirsky opened, COUNT substrate)
 
 ## Branch
 `claude/substrate-synthesis-count-zq9K0` — pushed.
-`cd lean && lake build E213.Lib.Math.Combinatorics` ✓ clean.  Two new modules
-strict ∅-axiom (`tools/scan_axioms.py`): **LymInequality 5/5 PURE**,
-**BollobasSetPair 18/18 PURE**, 0 DIRTY.
+`cd lean && lake build E213.Lib.Math.Combinatorics` ✓ clean (42/42).  New modules,
+all strict ∅-axiom (`tools/scan_axioms.py`): **LymInequality 5/5**,
+**BollobasSetPair 21/21**, **BollobasCount 36/36**, **ChainAntichain 5/5**, 0 DIRTY.
 
-## What Was Done This Session (two seeds of count_substrate_synthesis.md)
+## Headline
+- **Bollobás' set-pair inequality is FULLY PROVEN ∅-axiom** — `bollobas_uniform`:
+  `|F| ≤ C(a+b,a)`, `n`-independent, unconditional.  The favour-count rung was
+  discharged end-to-end (`BollobasCount`: `weave` interleave, the position
+  partition, filter/map recovery, `wovenFam` length+nodup+subset,
+  `favourCount_lower`).
+- **Dilworth/Mirsky topic opened** — `ChainAntichain`: the Boolean lattice's
+  height `chain_length_le` (every nodup chain ≤ `n+1`), the dual of Sperner.
+
+## What Was Done This Session (count_substrate_synthesis.md seeds)
 
 ### Part B — Bollobás' set-pair inequality (`BollobasSetPair.lean`, 18/18 PURE)
 The next LYM-shaped named bound: `m ≤ C(a+b,a)` (n-independent) for a
@@ -92,8 +101,9 @@ unconditionally), then merge to `main`; or a different domain (primacy = breadth
 
 ## File Map
 ```
-lean/E213/Lib/Math/Combinatorics/BollobasCount.lean   ← favour-count injection: weave, weave_perm, weave_favours (9/9 PURE; enumeration remains)  [NEW]
-lean/E213/Lib/Math/Combinatorics/BollobasSetPair.lean ← Bollobás: before_antisymm, bollobas_cap, bollobas_sum, bollobas, favourCount_mul, bollobas_of_count (21/21 PURE)
+lean/E213/Lib/Math/Combinatorics/ChainAntichain.lean  ← Mirsky: chain_card_inj, chain_length_le (height ≤ n+1), chain_layer_cap (5/5 PURE)  [NEW]
+lean/E213/Lib/Math/Combinatorics/BollobasCount.lean   ← favour-count injection — CLOSES Bollobás: weave, partition, recovery, wovenFam, favourCount_lower, bollobas_uniform (36/36 PURE)  [NEW]
+lean/E213/Lib/Math/Combinatorics/BollobasSetPair.lean ← Bollobás engine: before_antisymm, bollobas_cap, bollobas_sum, bollobas, favourCount_mul, bollobas_of_count (21/21 PURE)
 lean/E213/Lib/Math/Combinatorics/LymInequality.lean  ← LYM named inequality (5/5 PURE)  [NEW]
 lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← lym_double_count engine + binom_mul_fact + fact_mul_ge_mid
 lean/E213/Lib/Math/Combinatorics/SpernerChains.lean  ← chain model (chains_length, chain_cap, chain_low, truePos, idxList, perms)
