@@ -12,8 +12,9 @@ all strict ∅-axiom (`tools/scan_axioms.py`): **LymInequality 5/5**,
   discharged end-to-end (`BollobasCount`: `weave` interleave, the position
   partition, filter/map recovery, `wovenFam` length+nodup+subset,
   `favourCount_lower`).
-- **Dilworth/Mirsky topic opened** — `ChainAntichain`: the Boolean lattice's
-  height `chain_length_le` (every nodup chain ≤ `n+1`), the dual of Sperner.
+- **Mirsky's theorem on `2^[n]` FULLY CLOSED** — `ChainAntichain`: the dual of
+  Sperner.  `chain_length_le` (height ≤ `n+1`) + `canonChain_max` (achieved) +
+  `mirsky_boolean` (longest chain = `n+1` = #layers = min antichain partition).
 
 ## What Was Done This Session (count_substrate_synthesis.md seeds)
 
@@ -82,11 +83,14 @@ Physics constants table: `catalogs/physics-constants.md`.
 ## Open Problems (Priority Order)
 From `research-notes/frontiers/count_substrate_synthesis.md` (registered in
 `frontiers/INDEX.md`):
-### 1. More LYM-shaped named bounds: Dilworth/Mirsky (chain/antichain duality).
-The next COUNT-family target on the Sperner/LYM substrate.
+### 1. Dilworth's theorem on `2^[n]` (the chain-cover dual of Mirsky).
+Min #chains to cover = max antichain = `C(n,⌊n/2⌋)`.  Needs the de Bruijn–
+Tengbergen–Kruyswijk **symmetric chain decomposition** of `2^[n]` (harder than
+Mirsky — a constructive chain partition).  Substrate: `ChainAntichain.IsChain`,
+`Sperner.{kLayer,binom_le_binom_mid}`.
 ### 2. Leibniz determinant over `perms` (bridge `LPerm` ↔ `perms`).
-### (CLOSED) Bollobás set-pair inequality — `bollobas_uniform` (`BollobasCount`,
-36/36 PURE): `|F| ≤ C(a+b,a)`, `n`-independent, unconditional ∅-axiom.
+### (CLOSED) Bollobás `bollobas_uniform` (36/36 PURE); Mirsky `mirsky_boolean`
+(`ChainAntichain`, 15/15 PURE) — both unconditional ∅-axiom.
 ### 2. A clean strict-order/pow `Meta/Nat` suite
 `Nat.mul_lt_mul_right` carries **Classical.choice**; `Nat.pow_add`/`Nat.succ_sub`
 carry propext — re-proven ad-hoc per file.  Canonicalise into `Meta/Nat`.

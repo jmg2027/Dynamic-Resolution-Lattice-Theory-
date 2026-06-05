@@ -321,7 +321,18 @@ injection.  `weave` (mask-guided interleave) + order preservation
 `wovenFam_length = favourCountTarget`, `wovenFam_nodup`, `wovenFam_subset`,
 `favourCount_lower` (the rung), and ★★★ `bollobas_uniform` — `|F| ≤ C(a+b,a)`,
 `n`-independent, **unconditional ∅-axiom**.  **Bollobás' set-pair inequality is
-fully proven.**  Reuses `lym_double_count`, `binom_mul_fact`,
+fully proven.**
+
+★ **Mirsky's theorem on the Boolean lattice — the dual of Sperner** —
+`E213.Lib.Math.Combinatorics.ChainAntichain` (**15/15 PURE**): `chain_card_inj`
+(the chain SEPARATE — comparable equal-size members coincide), `chain_length_le`
+(height ≤ `n+1`, the size map injects a chain into `idxList(n+1)`), `canonChain`
++ `canonChain_max` (the height is achieved — `∅⊂{0}⊂…⊂[n]` is a nodup chain of
+exactly `n+1`), and ★★ `mirsky_boolean` — longest chain = `n+1` = #layers (the
+`n+1` size-layers are the minimum antichain partition, each
+`Sperner.kLayer_isAntichain`).
+
+Bollobás reuses `lym_double_count`, `binom_mul_fact`,
 `SpernerChains.{truePos,idxList,perms,lcount_le_one_of}` — Bollobás is LYM's
 compilation with the incidence swapped (subsets×chains → pairs×orderings) and
 the antichain cap swapped for the cross-intersection cap.  Essay:
