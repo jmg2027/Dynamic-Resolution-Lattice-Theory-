@@ -498,6 +498,17 @@ leaks of core `Int.ofNat_*` / `Nat.add_sub_cancel_left` / `sub_eq_zero` were sid
 
 ### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
+### Marathon T4 (foundation) — integer floor square root `isqrt` (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.IntSqrt` — **PURE / 0 DIRTY**.  `isqrt n = ⌊√n⌋` via a downward scan
+(`isqrtAux`), with the correctness **bracket** `isqrt_bracket`: `isqrt n · isqrt n ≤ n < (isqrt n + 1)²`
+(so `isqrt n` is the largest `k` with `k² ≤ n`).  Lower bound `isqrtAux_sq_le` (only `k` with `k²≤n` is
+ever returned) + maximality `isqrtAux_max` (every candidate above the result, up to the scan start, fails);
+the upper bound dispatches `n<2` by `decide` and `n≥2` via `isqrt n < n` (else `n²≤n` ⟹ `n≤1`).  The
+discrete foundation of the real `sqrt` (marathon T4): `Real213` `sqrt` is the limit of `isqrt` on dyadic
+rescalings.  Purity: NatHelper's pure `le_of_add_le_add_left` (Lean-core `Nat.le_of_add_le_add_right` leaks
+`propext`).
+
 ### Marathon T5 CORE — general two-variable binomial theorem (2026-06-05)
 
 `E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTwoVar` — **2 PURE / 0 DIRTY** (+ helpers).

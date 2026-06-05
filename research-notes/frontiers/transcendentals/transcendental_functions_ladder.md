@@ -66,6 +66,9 @@ T3. **derivative rules** — ⚙️ **coefficient level DONE** (`exp_deriv_coeff
 T4. **sqrt as a smooth function** — `sqrtCut a` via bisection / Newton on `x²−a`
     (`DyadicSearch/IVT` / `MinimalRootLens`), with convergence modulus,
     `(sqrtCut a)² = a` (up to `cutEq`), and `d/dx sqrt = 1/(2 sqrt)`.
+    ⚙️ **discrete foundation done** (`NumberTheory/IntSqrt.lean`, PURE): `isqrt n = ⌊√n⌋`
+    with the bracket `isqrt n · isqrt n ≤ n < (isqrt n + 1)²` (`isqrt_bracket`).  The real
+    `sqrtCut` is the `Real213` limit of `isqrt` on dyadic rescalings (`isqrt (a·4ᵏ)/2ᵏ`).
 T5. **functional equations / identities** — `sin²+cos² = 1`, `exp(a+b) =
     exp a · exp b` (Cauchy-product of the series); the engine certificates that
     make the transcendentals usable downstream.
