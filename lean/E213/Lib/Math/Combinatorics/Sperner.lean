@@ -1,5 +1,6 @@
 import E213.Lib.Math.Combinatorics.BoolEnum
 import E213.Lib.Math.Combinatorics.Binomial
+import E213.Lib.Math.Combinatorics.Permutations
 import E213.Meta.Tactic.NatHelper
 
 /-!
@@ -47,7 +48,9 @@ namespace E213.Lib.Math.Combinatorics.Sperner
 
 open E213.Lib.Math.Combinatorics.BoolEnum
 open E213.Lib.Physics.Simplex.Counts (binom)
-open E213.Tactic.NatHelper (add_sub_of_le le_sub_of_add_le add_sub_cancel_right)
+open E213.Lib.Math.Combinatorics.Permutations (fact)
+open E213.Tactic.NatHelper (add_sub_of_le le_sub_of_add_le add_sub_cancel_right sub_add_cancel)
+open E213.Tactic.NatHelper renaming mul_assoc → nmul_assoc, mul_left_comm → nmul_left_comm
 
 /-! ## §1 — the model: subsets of `[n]` as length-`n` `Bool` lists
 
@@ -371,6 +374,42 @@ theorem binom_le_binom_mid (n k : Nat) : binom n k ≤ binom n (half n) := by
   · have hsplit : k + (half n - k) = half n := add_sub_of_le hk
     have hu := binom_climb_up n (half n - k) k (by rw [hsplit]; exact hle)
     rw [hsplit] at hu; exact hu
+
+/-- AC helper: `a·(b·c·d) = a·b·(c·d)`. -/
+private theorem m4 (a b c d : Nat) : a * (b * c * d) = a * b * (c * d) := by
+  rw [nmul_assoc a b (c * d), nmul_assoc b c d]
+
+/-- AC helper: `M·C·(Fk·Fd) = C·(Fk·(M·Fd))`. -/
+private theorem m4b (M C Fk Fd : Nat) : M * C * (Fk * Fd) = C * (Fk * (M * Fd)) := by
+  rw [Nat.mul_comm M C, nmul_assoc C M (Fk * Fd), nmul_left_comm M Fk Fd]
+
+/-- ★ **The factorial form of the binomial** — `C(n,k) · k!·(n−k)! = n!` for
+    `k ≤ n`.  The bridge from the chain count (`k!·(n−k)!` chains through a
+    size-`k` set) to the binomial: it converts the LYM sum into the Sperner
+    bound.  Proved from the absorption identity (`absorb`), inducting on `k`. -/
+theorem binom_mul_fact :
+    ∀ (n k : Nat), k ≤ n → binom n k * (fact k * fact (n - k)) = fact n
+  | n, 0, _ => by
+      rw [Binomial.binom_n_0, Nat.sub_zero, Nat.one_mul]
+      show fact 0 * fact n = fact n
+      rw [show fact 0 = 1 from rfl, Nat.one_mul]
+  | n, k + 1, hk => by
+      have hkn : k ≤ n := Nat.le_of_succ_le hk
+      have ih := binom_mul_fact n k hkn
+      have hfk : fact (k + 1) = (k + 1) * fact k := rfl
+      have h1 : 1 ≤ n - k := le_sub_of_add_le (by rw [Nat.add_comm]; exact hk)
+      have hsub : n - k = (n - (k + 1)) + 1 := by
+        rw [Nat.sub_succ]; exact (sub_add_cancel h1).symm
+      have hfnk : fact (n - k) = (n - k) * fact (n - (k + 1)) := by rw [hsub]; rfl
+      have hab := absorb n k   -- (k+1) * binom n (k+1) = (n-k) * binom n k
+      calc binom n (k + 1) * (fact (k + 1) * fact (n - (k + 1)))
+          = binom n (k + 1) * (k + 1) * (fact k * fact (n - (k + 1))) := by
+              rw [hfk]; exact m4 _ _ _ _
+        _ = (n - k) * binom n k * (fact k * fact (n - (k + 1))) := by
+              rw [Nat.mul_comm (binom n (k + 1)) (k + 1), hab]
+        _ = binom n k * (fact k * fact (n - k)) := by
+              rw [hfnk]; exact m4b _ _ _ _
+        _ = fact n := ih
 
 /-! ## §6 — Sperner for uniform (single-size) antichains
 
