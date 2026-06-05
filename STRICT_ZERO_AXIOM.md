@@ -254,6 +254,13 @@ Structural `half` (= ⌊n/2⌋) avoids the propext-tainted `Nat.div` lemmas; `ad
 sub-lemmas keep `absorb` clean.  Open rung (honest, mirrors Ramsey's named bound): the permutation
 chain-counts `n!` and `k!(n−k)!`.  Essay: `theory/essays/proof_isa/sperner_double_counting.md`.
 
+`E213.Lib.Math.Combinatorics.Permutations` — **10/10 PURE** — builds the `n!`
+half of that rung: `perms` (the orderings enumeration, via `insertEverywhere` +
+a propext-free `flatMap213`) with `perms_length : (perms l).length = fact
+l.length`.  The enumeration the repo previously lacked (it had only `LPerm`
+equivalence) — the count of maximal chains, reusable for the Leibniz
+determinant sum.
+
 ### Markov composite uniqueness: prime-power-neighbour families addition (2026-06-04)
 
 `E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness` + `…SternBrocotMarkov` +

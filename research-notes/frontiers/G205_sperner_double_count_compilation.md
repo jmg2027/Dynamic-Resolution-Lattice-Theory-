@@ -51,12 +51,24 @@ Then `Σ_{A∈F} |A|!(n−|A|)! ≤ n!`, and via `binom n k · k!·(n−k)! = n!
 factorial identity, also unbuilt) the LYM fractional form `Σ 1/C(n,|A|) ≤ 1`,
 hence `|F| ≤ C(n,⌊n/2⌋)`.
 
-Status of the rung: the repo has `LPerm` (permutation *equivalence*,
-`Linalg213/Permutation.lean`) but **no permutation enumeration with
-`length = n!`** — exactly the gap that also leaves Ramsey's named bound a rung
-(G200: `t = C(N,k)` enumeration).  Building `allPerms n` (length `n!`) + the
-prefix-set count `k!(n−k)!` would close *both* named bounds.  This is the
-reachable next probe in the series; it is pure `Nat`/list bookkeeping, no new
-residue-level reason.
+Status of the rung: the `n!` half is now **built** —
+`Lib/Math/Combinatorics/Permutations.lean` `perms_length : (perms l).length =
+fact l.length` (10/10 PURE), the enumeration the repo previously lacked (it had
+only `LPerm` *equivalence*, `Linalg213/Permutation.lean`).  This is the count of
+maximal chains.  Remaining for the *named* Sperner upper bound:
+
+  - the **prefix-set count** `#{p ∈ perms : the size-k prefix-set of p = A} =
+    k!·(n−k)!` (a refinement of `perms_length` — split each ordering into its
+    first `k` and last `n−k`);
+  - the **incidence model** `inc A c` (A is the size-`|A|` prefix-set of chain
+    `c`) + the antichain ⟹ ≤1-per-chain hypothesis feeding `lym_double_count`;
+  - the factorial identity `binom n k · (k!·(n−k)!) = n!`.
+
+For Ramsey's named bound the subset-count side is *already* in hand:
+`Sperner.layer_size` counts the `k`-subsets (`= C(n,k)`); what remains there is
+the `K_N` edge↔position indexing into `erdos_schema`.  So the two named bounds
+no longer share a single missing object — `perms`/`n!` is the Sperner-side
+foundation, now built; each closure is a finite application-specific assembly on
+top, pure `Nat`/list bookkeeping with no new residue-level reason.
 
 Essay (the "why", promoted): `theory/essays/proof_isa/sperner_double_counting.md`.

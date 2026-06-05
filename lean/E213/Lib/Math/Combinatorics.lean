@@ -10,6 +10,7 @@ import E213.Lib.Math.Combinatorics.Pigeonhole
 import E213.Lib.Math.Combinatorics.CountExistence
 import E213.Lib.Math.Combinatorics.RamseyLowerBound
 import E213.Lib.Math.Combinatorics.Sperner
+import E213.Lib.Math.Combinatorics.Permutations
 import E213.Lib.Math.Combinatorics.LinearDependence
 import E213.Lib.Math.Combinatorics.ParityInvariant
 import E213.Lib.Math.Combinatorics.KonigConditional
