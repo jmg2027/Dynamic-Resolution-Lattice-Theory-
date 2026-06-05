@@ -95,9 +95,14 @@ hypothesis for arbitrary metrics** (not the trivial homogeneous case):
    `CauchyCutSeq` (`Analysis/CauchyComplete`) with explicit proven modulus
    `N m k = k` (`gradientValueCauchy`) — an actual element of the Real213
    completion.  The limit is `0` on the interior (`m ≥ 1`,
-   `gradientValueCauchy_limit_interior`); a full pointwise `cutEq` to
-   `constCut 0 1` is *not* available (the limit is the *open* `0`, the standard
-   open/closed Dedekind-cut boundary artifact) and is honestly not claimed.
+   `gradientValueCauchy_limit_interior`).  Pointwise `cutEq` to `constCut 0 1`
+   fails at the boundary `m=0` (open/closed Dedekind artifact) and is not
+   claimed; instead the limit is pinned at the real `0` by the genuine
+   **order-squeeze** — `0 ≤ limit` (`limit_nonneg`) and `limit ≤ 1/2ⁿ` for every
+   `n` (`limit_below_dyadic`), bundled in `gradient_value_converges_to_zero`;
+   Archimedeanness forces the unique such real to be `0`.  Instruction ② is thus
+   fully realized in Real213 — the gradient monovariant reaches its infimum `0`
+   as a genuine point of the completed line, asymptotically.
 4. **Normalized flow fixed points = Einstein metrics** at the algebraic level
    (the `Sym(3)`-fixed subspace already in `Ricci.lean` as the averaging-
    invariant analog).

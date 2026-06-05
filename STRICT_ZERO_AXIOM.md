@@ -322,8 +322,11 @@ realized as an actual element of the Real213 completion: the value cut sequence 
 (`gradientValueCauchy`) — the `cauchy` field discharged by stability past index `k` (`csConst`/`cs_true`,
 using `lt_two_pow_self`).  Limit is `0` on the interior `m ≥ 1` (`gradientValueCauchy_limit_interior`).
 Honest boundary: `cutEq` is *pointwise* and the diagonal limit differs from `constCut 0 1` only at `m = 0`
-(the open/closed Dedekind artifact — the limit is the *open* `0`); a full `cutEq` is **not** claimed.  This
-completes ② (completeness-LOOP) from modulus-level (`CompletenessLoop`) to a bona-fide Real213 Cauchy real.
+(the open/closed Dedekind artifact — the limit is the *open* `0`); a full `cutEq` is **not** claimed.
+Instead the limit is pinned at the real `0` by **order-squeeze** — `limit_nonneg` (`0 ≤ limit`) +
+`limit_below_dyadic` (`limit ≤ 1/2ⁿ`, ∀ n), bundled `gradient_value_converges_to_zero`; Archimedeanness
+forces the unique such real to be `0`.  This completes ② (completeness-LOOP) from modulus-level
+(`CompletenessLoop`) to a bona-fide Real213 Cauchy real reaching its infimum `0`.
 
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 

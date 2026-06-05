@@ -1,6 +1,8 @@
 import E213.Lib.Math.Analysis.CauchyComplete
 import E213.Lib.Math.Analysis.Optimization.CompletenessLoop
 import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
+import E213.Lib.Math.NumberSystems.Real213.Core.CutPoset
+import E213.Lib.Math.NumberSystems.Real213.Core.Dyadic
 
 /-!
 # Full Real213 Cauchy witness for the gradient value sequence (∅-axiom)
@@ -42,6 +44,8 @@ namespace E213.Lib.Math.Analysis.Optimization.RealCauchyWitness
 
 open E213.Lib.Math.Analysis.CauchyComplete
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutLe)
+open E213.Lib.Math.NumberSystems.Real213.Core.Dyadic (dyadicCut)
 open E213.Lib.Math.Analysis.Optimization.CompletenessLoop (lt_two_pow_self)
 
 /-- For exponent `e ≥ k` and an interior test-point `m'+1`, the value cut
@@ -87,5 +91,43 @@ theorem gradientValueCauchy_limit_interior (m k : Nat) (hm : 1 ≤ m) :
   cases m with
   | zero => exact absurd hm (by decide)
   | succ m' => exact cs_true k m' k (Nat.le_refl k)
+
+/-! ## The limit is `0`, by order-squeeze (avoiding the boundary `cutEq`)
+
+Rather than the pointwise `cutEq` (which fails at the boundary, see above), pin
+the limit at the real `0` by the genuine order characterization: `0 ≤ limit` and
+`limit ≤ 1/2ⁿ` for **every** `n`.  By the Archimedean property the only such real
+is `0` — so the gradient value converges, in Real213, exactly to its infimum. -/
+
+/-- `0 ≤ limit`: the closed zero cut lies below the limit (trivially — the zero
+    cut reads `true` everywhere). -/
+theorem limit_nonneg : cutLe (constCut 0 1) gradientValueCauchy.limit := by
+  intro m k _
+  show decide (0 * k ≤ 1 * m) = true
+  apply decide_eq_true
+  rw [Nat.zero_mul]
+  exact Nat.zero_le _
+
+/-- `limit ≤ 1/2ⁿ` for every `n`: the limit is below every positive dyadic.
+    Interior (`m ≥ 1`): the limit reads `true`.  Boundary (`m = 0`): the limit
+    and `1/2ⁿ` both read `decide(1·k ≤ 0)`, so the implication is immediate. -/
+theorem limit_below_dyadic (n : Nat) :
+    cutLe gradientValueCauchy.limit (dyadicCut 1 n) := by
+  intro m k h
+  cases m with
+  | zero => exact h
+  | succ m' =>
+      show gradientValueCauchy.limit (m' + 1) k = true
+      exact cs_true k m' k (Nat.le_refl k)
+
+/-- ★★★★★★ **The gradient value converges to `0` in Real213** (order form):
+    its Cauchy limit is `≥ 0` and `≤ 1/2ⁿ` for every `n` — squeezed to the real
+    `0` by Archimedeanness.  The completeness-LOOP fully realized: the gradient
+    monovariant reaches its infimum as a genuine point of the completed line,
+    asymptotically (never at a finite step, `CompletenessLoop.value_pos`). -/
+theorem gradient_value_converges_to_zero :
+    cutLe (constCut 0 1) gradientValueCauchy.limit
+    ∧ (∀ n, cutLe gradientValueCauchy.limit (dyadicCut 1 n)) :=
+  ⟨limit_nonneg, limit_below_dyadic⟩
 
 end E213.Lib.Math.Analysis.Optimization.RealCauchyWitness
