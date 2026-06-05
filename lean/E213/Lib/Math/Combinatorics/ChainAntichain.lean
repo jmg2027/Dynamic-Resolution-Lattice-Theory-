@@ -22,13 +22,14 @@ can have fewer than the longest chain — the Mirsky equality for `2^[n]`.
 namespace E213.Lib.Math.Combinatorics.ChainAntichain
 
 open E213.Lib.Math.Combinatorics.Sperner
-  (cardB subseteqB comparable eq_of_subseteq_card_eq IsAntichain
+  (cardB subseteqB comparable impl eq_of_subseteq_card_eq IsAntichain beq_self cardEq
    kLayer kLayer_isAntichain)
 open E213.Lib.Math.Combinatorics.SpernerChains
-  (idxList idxList_length mem_idxList_lt cardB_le_length)
+  (idxList idxList_length idxList_nodup mem_idxList_lt cardB_le_length)
+open E213.Lib.Math.Combinatorics.BoolEnum (mem_allBoolLists)
 open E213.Tactic.List213
-  (mem_append_left mem_append_right exists_of_mem_map nodup_map_of_inj
-   nodup_length_le_of_subset length_map)
+  (mem_append_left mem_append_right exists_of_mem_map mem_map_of_mem nodup_map_of_inj
+   nodup_length_le_of_subset length_map mem_filter_of)
 
 /-- Every `k < m` is a position of `idxList m = [0, …, m−1]` (converse of
     `SpernerChains.mem_idxList_lt`). -/
@@ -91,5 +92,124 @@ theorem chain_layer_cap {L : List (List Bool)} (hch : IsChain L)
     {A B : List Bool} (hA : A ∈ L) (hB : B ∈ L)
     (hcA : cardB A = cardB B) : A = B :=
   chain_card_inj (hch A hA B hB) hcA
+
+/-! ## §2 — the maximum chain: the height is exactly `n + 1`
+
+The canonical chain `∅ ⊂ {0} ⊂ … ⊂ [n]`: `initSeg k n` = the first `k` positions
+`true`.  It is a chain (nested prefixes), duplicate-free (distinct sizes), and has
+`n + 1` members — matching `chain_length_le`, so the Boolean lattice's height is
+**exactly** `n + 1`. -/
+
+/-- `initSeg k n` = `k` `true`s then `(n − k)` `false`s (length `n`). -/
+def initSeg : Nat → Nat → List Bool
+  | 0, 0 => []
+  | 0, n + 1 => false :: initSeg 0 n
+  | k + 1, 0 => []
+  | k + 1, n + 1 => true :: initSeg k n
+
+theorem initSeg_length : ∀ (k n : Nat), (initSeg k n).length = n
+  | 0, 0 => rfl
+  | 0, n + 1 => by show (initSeg 0 n).length + 1 = n + 1; rw [initSeg_length 0 n]
+  | k + 1, 0 => rfl
+  | k + 1, n + 1 => by show (initSeg k n).length + 1 = n + 1; rw [initSeg_length k n]
+
+theorem initSeg_zero_card : ∀ n, cardB (initSeg 0 n) = 0
+  | 0 => rfl
+  | n + 1 => by show cardB (initSeg 0 n) = 0; exact initSeg_zero_card n
+
+theorem initSeg_card : ∀ (k n : Nat), k ≤ n → cardB (initSeg k n) = k
+  | 0, n, _ => initSeg_zero_card n
+  | k + 1, 0, h => absurd h (Nat.not_succ_le_zero k)
+  | k + 1, n + 1, h => by
+      show cardB (initSeg k n) + 1 = k + 1
+      rw [initSeg_card k n (Nat.le_of_succ_le_succ h)]
+
+/-- The prefixes nest: `j ≤ k ≤ n → initSeg j n ⊆ initSeg k n`. -/
+theorem initSeg_mono : ∀ (n j k : Nat), j ≤ k → k ≤ n →
+    subseteqB (initSeg j n) (initSeg k n) = true
+  | 0, j, k, hjk, hkn => by
+      have hk0 : k = 0 := Nat.le_antisymm hkn (Nat.zero_le k)
+      have hj0 : j = 0 := Nat.le_antisymm (hk0 ▸ hjk) (Nat.zero_le j)
+      rw [hj0, hk0]; rfl
+  | n + 1, j, k, hjk, hkn => by
+      cases j with
+      | zero => cases k with
+        | zero =>
+            show (impl false false && subseteqB (initSeg 0 n) (initSeg 0 n)) = true
+            rw [show impl false false = true from rfl, Bool.true_and]
+            exact initSeg_mono n 0 0 (Nat.le_refl 0) (Nat.zero_le n)
+        | succ k' =>
+            show (impl false true && subseteqB (initSeg 0 n) (initSeg k' n)) = true
+            rw [show impl false true = true from rfl, Bool.true_and]
+            exact initSeg_mono n 0 k' (Nat.zero_le k') (Nat.le_of_succ_le_succ hkn)
+      | succ j' => cases k with
+        | zero => exact absurd hjk (Nat.not_succ_le_zero j')
+        | succ k' =>
+            show (impl true true && subseteqB (initSeg j' n) (initSeg k' n)) = true
+            rw [show impl true true = true from rfl, Bool.true_and]
+            exact initSeg_mono n j' k' (Nat.le_of_succ_le_succ hjk) (Nat.le_of_succ_le_succ hkn)
+
+/-- Comparability of two prefixes (either nests in the other). -/
+theorem initSeg_comparable (n j k : Nat) (hj : j ≤ n) (hk : k ≤ n) :
+    comparable (initSeg j n) (initSeg k n) = true := by
+  rcases Nat.le_total j k with hjk | hkj
+  · show (subseteqB (initSeg j n) (initSeg k n) || subseteqB (initSeg k n) (initSeg j n)) = true
+    rw [initSeg_mono n j k hjk hk]; rfl
+  · show (subseteqB (initSeg j n) (initSeg k n) || subseteqB (initSeg k n) (initSeg j n)) = true
+    rw [initSeg_mono n k j hkj hj]; cases subseteqB (initSeg j n) (initSeg k n) <;> rfl
+
+/-- The canonical maximum chain `[initSeg 0 n, …, initSeg n n]`. -/
+def canonChain (n : Nat) : List (List Bool) := (idxList (n + 1)).map (fun k => initSeg k n)
+
+/-- ★ **The height is achieved.**  The canonical chain is a duplicate-free chain
+    of `2^[n]` with exactly `n + 1` members — so (with `chain_length_le`) the
+    Boolean lattice's height is **exactly** `n + 1`. -/
+theorem canonChain_max (n : Nat) :
+    IsChain (canonChain n) ∧ (canonChain n).Nodup
+      ∧ (∀ A, A ∈ canonChain n → A.length = n) ∧ (canonChain n).length = n + 1 := by
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · intro A hA B hB
+    obtain ⟨j, hj, rfl⟩ := exists_of_mem_map hA
+    obtain ⟨k, hk, rfl⟩ := exists_of_mem_map hB
+    exact initSeg_comparable n j k
+      (Nat.le_of_lt_succ (mem_idxList_lt hj)) (Nat.le_of_lt_succ (mem_idxList_lt hk))
+  · refine nodup_map_of_inj (fun j hj k hk heq => ?_) (idxList_nodup (n + 1))
+    have hjn : j ≤ n := Nat.le_of_lt_succ (mem_idxList_lt hj)
+    have hkn : k ≤ n := Nat.le_of_lt_succ (mem_idxList_lt hk)
+    have hc := congrArg cardB heq
+    rw [initSeg_card j n hjn, initSeg_card k n hkn] at hc
+    exact hc
+  · intro A hA
+    obtain ⟨k, _, rfl⟩ := exists_of_mem_map hA
+    exact initSeg_length k n
+  · show ((idxList (n + 1)).map (fun k => initSeg k n)).length = n + 1
+    rw [length_map, idxList_length]
+
+/-! ## §3 — Mirsky for `2^[n]`
+
+The longest chain has `n + 1` elements (`canonChain_max` + `chain_length_le`), and
+the `n + 1` layers are the matching antichain partition: every length-`n` vector
+lies in its size-layer `kLayer n (cardB A)` (`Sperner.kLayer_isAntichain`), and a
+chain meets each layer ≤ once (`chain_layer_cap`).  So the minimum antichain
+partition equals the longest chain — Mirsky's theorem on the Boolean lattice. -/
+
+/-- Every length-`n` vector lies in its size-layer (the layers cover `2^[n]`). -/
+theorem mem_own_layer {A : List Bool} {n : Nat} (hn : A.length = n) :
+    A ∈ kLayer n (cardB A) := by
+  refine mem_filter_of ?_ ?_
+  · have := mem_allBoolLists A; rwa [hn] at this
+  · show Nat.beq (cardB A) (cardB A) = true; exact beq_self _
+
+/-- ★★ **Mirsky's theorem on the Boolean lattice.**  (1) the longest chain has
+    exactly `n + 1` members; (2) every chain is bounded by `n + 1`; (3) the
+    `n + 1` size-layers are antichains covering `2^[n]` — the matching minimum
+    antichain partition.  Longest chain = `n + 1` = #layers. -/
+theorem mirsky_boolean (n : Nat) :
+    (∃ L, IsChain L ∧ L.Nodup ∧ (∀ A, A ∈ L → A.length = n) ∧ L.length = n + 1)
+    ∧ (∀ L, IsChain L → L.Nodup → (∀ A, A ∈ L → A.length = n) → L.length ≤ n + 1)
+    ∧ (∀ A, A.length = n → A ∈ kLayer n (cardB A) ∧ IsAntichain (kLayer n (cardB A))) :=
+  ⟨⟨canonChain n, canonChain_max n⟩,
+   fun L hch hnd hlen => chain_length_le L hch hnd hlen,
+   fun A hn => ⟨mem_own_layer hn, kLayer_isAntichain n (cardB A)⟩⟩
 
 end E213.Lib.Math.Combinatorics.ChainAntichain

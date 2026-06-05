@@ -76,8 +76,12 @@ exposed patterns worth harvesting.
   `favourCount_lower` discharges the rung; ★★★ `bollobas_uniform` —
   `|F| ≤ C(a+b,a)`, `n`-independent, **unconditional ∅-axiom**.
 
-  Still open and LYM-shaped on the same substrate: Dilworth/Mirsky
-  (chain/antichain duality).
+  ✓✓ **Mirsky on `2^[n]` is CLOSED** — `ChainAntichain` (15/15 PURE): the dual of
+  Sperner.  `chain_card_inj` (chain SEPARATE), `chain_length_le` (height ≤ `n+1`),
+  `canonChain_max` (height achieved — the `∅⊂…⊂[n]` chain has exactly `n+1`),
+  and ★★ `mirsky_boolean` — longest chain = `n+1` = #layers (the size-layers are
+  the minimum antichain partition).  Still open: **Dilworth** (the chain-cover
+  dual — needs the symmetric chain decomposition of `2^[n]`).
 
 - **Leibniz determinant over `perms`.**  `Linalg213/Permutation` uses `LPerm`
   *equivalence* + inversion-sign but no enumeration; `perms` + `mem_perms_iff` +
