@@ -507,7 +507,10 @@ ever returned) + maximality `isqrtAux_max` (every candidate above the result, up
 the upper bound dispatches `n<2` by `decide` and `n≥2` via `isqrt n < n` (else `n²≤n` ⟹ `n≤1`).  The
 discrete foundation of the real `sqrt` (marathon T4): `Real213` `sqrt` is the limit of `isqrt` on dyadic
 rescalings.  Purity: NatHelper's pure `le_of_add_le_add_left` (Lean-core `Nat.le_of_add_le_add_right` leaks
-`propext`).
+`propext`).  Extended (4 more PURE): `le_isqrt_of_sq_le` (`k²≤n ⟹ k≤isqrt n`, the defining largest-property),
+`isqrt_mono`, `isqrt_perfect` (`isqrt(k·k)=k`), and ★ `isqrt_four_mul` — the **dyadic refinement**
+`2·isqrt n ≤ isqrt(4n) ≤ 2·isqrt n + 1` (doubling resolution adds ≤1 unit error), the convergence-rate
+certificate making `isqrt(a·4ᵏ)/2ᵏ → √a` Cauchy.
 
 ### Marathon T5 CORE — general two-variable binomial theorem (2026-06-05)
 

@@ -1,4 +1,5 @@
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.PolyNatMTactic
 
 /-!
 # Integer (floor) square root `isqrt` (∅-axiom)
@@ -92,5 +93,62 @@ theorem isqrt_bracket (n : Nat) :
         have : n ≤ 0 := E213.Tactic.NatHelper.le_of_add_le_add_left hnn
         exact absurd (Nat.le_trans hbig this) (by decide)
     exact isqrtAux_max n n (isqrt n + 1) (Nat.lt_succ_self _) hlt
+
+/-! ## §4 — characterisation, monotonicity, perfect squares, dyadic refinement -/
+
+/-- ★★ **Defining property**: `k² ≤ n ⟹ k ≤ isqrt n` (`isqrt n` is the *largest* such `k`). -/
+theorem le_isqrt_of_sq_le (k n : Nat) (h : k * k ≤ n) : k ≤ isqrt n := by
+  rcases Nat.lt_or_ge (isqrt n) k with hc | hge
+  · exfalso
+    have hsq : (isqrt n + 1) * (isqrt n + 1) ≤ k * k :=
+      Nat.mul_le_mul (Nat.succ_le_of_lt hc) (Nat.succ_le_of_lt hc)
+    exact absurd (Nat.lt_of_lt_of_le (isqrt_bracket n).2 (Nat.le_trans hsq h)) (Nat.lt_irrefl n)
+  · exact hge
+
+/-- ★ **Monotonicity**: `m ≤ n ⟹ isqrt m ≤ isqrt n`. -/
+theorem isqrt_mono {m n : Nat} (h : m ≤ n) : isqrt m ≤ isqrt n :=
+  le_isqrt_of_sq_le (isqrt m) n (Nat.le_trans (isqrt_sq_le m) h)
+
+/-- ★ **Perfect square**: `isqrt (k·k) = k`. -/
+theorem isqrt_perfect (k : Nat) : isqrt (k * k) = k := by
+  have hle : k ≤ isqrt (k * k) := le_isqrt_of_sq_le k (k * k) (Nat.le_refl _)
+  have hge : isqrt (k * k) ≤ k := by
+    rcases Nat.lt_or_ge (isqrt (k * k)) (k + 1) with h | h
+    · exact Nat.le_of_lt_succ h
+    · exfalso
+      have hsq : (k + 1) * (k + 1) ≤ isqrt (k * k) * isqrt (k * k) := Nat.mul_le_mul h h
+      have hkk : k * k < (k + 1) * (k + 1) := by
+        have e : (k + 1) * (k + 1) = k * k + (2 * k + 1) := by ring_nat
+        rw [e]; exact Nat.lt_add_of_pos_right (Nat.zero_lt_succ _)
+      exact absurd (Nat.lt_of_lt_of_le hkk (Nat.le_trans hsq (isqrt_sq_le (k * k)))) (Nat.lt_irrefl _)
+  exact Nat.le_antisymm hge hle
+
+/-- ★★★ **Dyadic refinement**: `2·isqrt n ≤ isqrt (4n) ≤ 2·isqrt n + 1`.  Doubling the
+    resolution (`n ↦ 4n`, i.e. `√n ↦ 2√n`) adds at most one unit of error — the convergence-rate
+    certificate making the dyadic sequence `isqrt(a·4ᵏ)/2ᵏ → √a` Cauchy. -/
+theorem isqrt_four_mul (n : Nat) :
+    2 * isqrt n ≤ isqrt (4 * n) ∧ isqrt (4 * n) ≤ 2 * isqrt n + 1 := by
+  refine ⟨?_, ?_⟩
+  · -- lower: (2·isqrt n)² = 4·(isqrt n)² ≤ 4n
+    refine le_isqrt_of_sq_le (2 * isqrt n) (4 * n) ?_
+    have e : (2 * isqrt n) * (2 * isqrt n) = 4 * (isqrt n * isqrt n) := by ring_nat
+    rw [e]; exact Nat.mul_le_mul_left 4 (isqrt_sq_le n)
+  · -- upper: else (2·isqrt n+2)² ≤ (isqrt 4n)² ≤ 4n < 4(isqrt n+1)² = (2·isqrt n+2)²
+    rcases Nat.lt_or_ge (isqrt (4 * n)) (2 * isqrt n + 2) with h | h
+    · exact Nat.le_of_lt_succ h
+    · exfalso
+      have hsq : (2 * isqrt n + 2) * (2 * isqrt n + 2) ≤ isqrt (4 * n) * isqrt (4 * n) :=
+        Nat.mul_le_mul h h
+      have h4n : 4 * n < (2 * isqrt n + 2) * (2 * isqrt n + 2) := by
+        have hb : n < (isqrt n + 1) * (isqrt n + 1) := (isqrt_bracket n).2
+        have e : (2 * isqrt n + 2) * (2 * isqrt n + 2) = 4 * ((isqrt n + 1) * (isqrt n + 1)) := by
+          ring_nat
+        rw [e]
+        have hb' : 4 * (n + 1) ≤ 4 * ((isqrt n + 1) * (isqrt n + 1)) := Nat.mul_le_mul_left 4 hb
+        have hstep : 4 * n < 4 * (n + 1) := by
+          have e2 : 4 * (n + 1) = 4 * n + 4 := by ring_nat
+          rw [e2]; exact Nat.lt_add_of_pos_right (by decide)
+        exact Nat.lt_of_lt_of_le hstep hb'
+      exact absurd (Nat.lt_of_lt_of_le h4n (Nat.le_trans hsq (isqrt_sq_le (4 * n)))) (Nat.lt_irrefl _)
 
 end E213.Lib.Math.NumberTheory.IntSqrt
