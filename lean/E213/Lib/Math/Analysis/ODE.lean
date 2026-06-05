@@ -5,6 +5,7 @@ import E213.Lib.Math.Analysis.ODE.PicardIterate
 import E213.Lib.Math.Analysis.ODE.LinearODE
 import E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
 import E213.Lib.Math.Analysis.ODE.HeatEqConservation
+import E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2
 import E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
 import E213.Lib.Math.Analysis.ODE.Capstone
 
@@ -26,7 +27,9 @@ import E213.Lib.Math.Analysis.ODE.Capstone
                          (per-step + iterated + strict), comparison
                          principle, lazy stencil + spectral gap
     * `HeatEqConservation` — finite-grid sum `gridSum` + mass
-                         conservation (`Σ heatStep = 2Σu`)
+                         conservation (`Σ heatStep = 2Σu`) + Dirichlet pairing
+    * `HeatEqEnergyL2` — pointwise L²-Jensen (convexity) bounds via the
+                         POSITIVITY archetype (`(a+b)² ≤ 2(a²+b²)`)
     * `WaveEqDiscrete` — discrete wave equation
     * `Capstone`      — ODE capstone results
 -/

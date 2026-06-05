@@ -461,6 +461,20 @@ additive form).  The discrete integration-by-parts / Green identity underlying e
 products (no `Nat`-subtraction).  The signed Dirichlet energy `E(u) = Σ(u_{i+1}−u_i)²` proper needs the
 Int213 difference-Lens (P3's next step).
 
+### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
+
+`E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2` — **2 PURE / 0 DIRTY**.  The heat step is a convex average, so
+by convexity of the square it cannot increase the L² norm pointwise: `heatStep_l2_jensen`
+(`(a+b)² ≤ 2(a²+b²)`, gap the single square `(a−b)²`) and `lazyHeatStep_l2_jensen`
+(`(a+2b+c)² ≤ 4(a²+2b²+c²)`, gap `(a−2b+c)²+2(a−c)²`).  Worked over ℤ via the **POSITIVITY archetype**
+(`Foundations/Positivity`): `ring_intZ` for the SOS gap identity + `positivity_of_sq`/`positivity_of_sq3` —
+the `amgm_2` pattern reused.  The pointwise L²-dissipation seed, energy-method companion of the L∞ maximum
+principle.  **Honest tooling finding** (recorded in the ladder note): the *summed* signed Green identity is
+blocked because (a) the sign-correct `Nat` `|a−b|²` lifts to `2(a−b)²` over ℤ (so the binomial is a
+truncation fact, case-split only), and (b) the residual asymmetric degree-2 identity is not closed by
+`ring_nat`/`ring_intZ` (their normalizers don't sort monomials), while `ac_rfl`/`simp`/`omega` leak axioms —
+unblock = a stronger ∅-axiom multivariate ring-normalizer.
+
 ### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
 
 **3 PURE / 0 DIRTY** (`exp_deriv_coeff_fixed` in `CutExpModulus`; `sin_deriv_coeff`, `cos_deriv_coeff` in

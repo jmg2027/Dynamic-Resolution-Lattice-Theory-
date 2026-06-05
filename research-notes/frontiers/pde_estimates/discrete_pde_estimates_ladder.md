@@ -95,10 +95,20 @@ P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (dis
     `gridSum_mul_shift_symm` (edge correlation is shift-symmetric), and the **Dirichlet
     pairing** `heatStep_dirichlet_pairing` (`⟨u, heatStep u⟩ = 2·corr`) /
     `lazyHeatStep_dirichlet_pairing` (`⟨u, lazy u⟩ = 2Σu² + 2corr = 4Σu² − E(u)` in
-    `Nat`-clean additive form).  Pure products, no `Nat`-subtraction.  **Remaining**: the
-    signed energy `E(u) = Σ(u_{i+1}−u_i)²` itself needs the **Int213 difference-Lens** (the
-    squared difference is sign-aware); then `E(lazy u) ≤ 16·E(u)` (decay) follows from the
-    pairing + Cauchy–Schwarz.
+    `Nat`-clean additive form).  Pure products, no `Nat`-subtraction.
+    ⚙️ **pointwise L²-Jensen done** (`HeatEqEnergyL2.lean`, 2 PURE, over ℤ via the POSITIVITY
+    archetype): `heatStep_l2_jensen` (`(a+b)² ≤ 2(a²+b²)`, gap `(a−b)²`) /
+    `lazyHeatStep_l2_jensen` (`(a+2b+c)² ≤ 4(a²+2b²+c²)`, gap `(a−2b+c)²+2(a−c)²`) — the heat
+    step's square-convexity, energy-method companion of the L∞ maximum principle.
+    ⚠️ **Tooling blocker found** for the *summed* signed energy `E(u)=Σ(u_{i+1}−u_i)²` + Green
+    identity `E+2corr=2Σu²`: the only sign-correct `|a−b|²` in `Nat` (`(a−b)²+(b−a)²`) lifts to
+    `2(a−b)²` over ℤ (wrong), so the binomial is a genuine `Nat`-truncation fact provable only by
+    case split; and the residual *asymmetric* degree-2 identity is **not discharged by
+    `ring_nat`/`ring_intZ`** — their `poly_idM` normalizers don't sort monomials, closing only
+    order-compatible identities (`lagrange_2d`, `amgm_2`), not `d²+2(b+d)b=(b+d)²+b²`.  The AC
+    fallbacks (`ac_rfl`, `simp` AC, `omega`) all leak `propext`/`Quot.sound`.  **Unblock = a
+    stronger ∅-axiom multivariate ring-normalizer (canonical monomial sort)**, or a manual AC
+    grind.  Then `E(lazy u) ≤ 16·E(u)` (decay) follows from the L²-Jensen + summation by parts.
 P4. **Li–Yau / differential-Harnack** — gradient bound `|∇u|²/u` along the flow
     (the real depth; discrete-Harnack → continuous limit).
 P5. **Shi-type estimate** — curvature-derivative bound along the *Ricci* flow;
