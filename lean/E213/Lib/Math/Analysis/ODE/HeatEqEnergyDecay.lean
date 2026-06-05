@@ -26,7 +26,7 @@ square bound is the POSITIVITY archetype over ℤ.  All zero-axiom.
 namespace E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay
 
 open E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
-open E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2 (lazy_energy_pointwise)
+open E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2 (lazy_energy_pointwise lazyHeatStep_l2_jensen)
 open E213.Meta.Int213
 
 /-! ## §1 — the `Nat`↔ℤ square cast -/
@@ -168,6 +168,70 @@ theorem lazy_energy_decay (n : Nat) (u : Nat → Nat) :
         (fun x => 2 * sqDistNat (u (rightNbr n x)) (u x)),
       gridSum_two_mul n (fun x => sqDistNat (u (rightNbr n x)) (u x)),
       energy_shift_left n u, energy_shift_right n u]
+  ring_nat
+
+/-! ## §4 — L² norm contraction (companion to energy decay) -/
+
+/-- Pointwise L²-Jensen in `Nat`: `(a+2b+c)² ≤ 4(a²+2b²+c²)` (no subtraction — cast of
+    `lazyHeatStep_l2_jensen`). -/
+theorem lazy_l2_pointwise_nat (a b c : Nat) :
+    (a + 2 * b + c) * (a + 2 * b + c) ≤ 4 * (a * a + 2 * (b * b) + c * c) := by
+  have c2 : (Int.ofNat 2 : Int) = 2 := rfl
+  have c4 : (Int.ofNat 4 : Int) = 4 := rfl
+  have eA : Int.ofNat (a + 2 * b + c) = Int.ofNat a + 2 * Int.ofNat b + Int.ofNat c := by
+    have t1 : Int.ofNat (a + 2 * b + c) = Int.ofNat (a + 2 * b) + Int.ofNat c :=
+      Int.ofNat_add (a + 2 * b) c
+    have t2 : Int.ofNat (a + 2 * b) = Int.ofNat a + Int.ofNat (2 * b) := Int.ofNat_add a (2 * b)
+    have t3 : Int.ofNat (2 * b) = Int.ofNat 2 * Int.ofNat b := Int.ofNat_mul 2 b
+    rw [t1, t2, t3, c2]
+  have hL : Int.ofNat ((a + 2 * b + c) * (a + 2 * b + c))
+      = (Int.ofNat a + 2 * Int.ofNat b + Int.ofNat c)
+        * (Int.ofNat a + 2 * Int.ofNat b + Int.ofNat c) := by
+    have hm : Int.ofNat ((a + 2 * b + c) * (a + 2 * b + c))
+        = Int.ofNat (a + 2 * b + c) * Int.ofNat (a + 2 * b + c) :=
+      Int.ofNat_mul (a + 2 * b + c) (a + 2 * b + c)
+    rw [hm, eA]
+  have hR : Int.ofNat (4 * (a * a + 2 * (b * b) + c * c))
+      = 4 * (Int.ofNat a * Int.ofNat a + 2 * (Int.ofNat b * Int.ofNat b)
+            + Int.ofNat c * Int.ofNat c) := by
+    have u1 : Int.ofNat (4 * (a * a + 2 * (b * b) + c * c))
+        = Int.ofNat 4 * Int.ofNat (a * a + 2 * (b * b) + c * c) :=
+      Int.ofNat_mul 4 _
+    have u2 : Int.ofNat (a * a + 2 * (b * b) + c * c)
+        = Int.ofNat (a * a + 2 * (b * b)) + Int.ofNat (c * c) :=
+      Int.ofNat_add (a * a + 2 * (b * b)) (c * c)
+    have u3 : Int.ofNat (a * a + 2 * (b * b))
+        = Int.ofNat (a * a) + Int.ofNat (2 * (b * b)) := Int.ofNat_add (a * a) (2 * (b * b))
+    have u4 : Int.ofNat (2 * (b * b)) = Int.ofNat 2 * Int.ofNat (b * b) := Int.ofNat_mul 2 (b * b)
+    have u5 : Int.ofNat (a * a) = Int.ofNat a * Int.ofNat a := Int.ofNat_mul a a
+    have u6 : Int.ofNat (b * b) = Int.ofNat b * Int.ofNat b := Int.ofNat_mul b b
+    have u7 : Int.ofNat (c * c) = Int.ofNat c * Int.ofNat c := Int.ofNat_mul c c
+    rw [u1, c4, u2, u3, u4, c2, u5, u6, u7]
+  have key := lazyHeatStep_l2_jensen (Int.ofNat a) (Int.ofNat b) (Int.ofNat c)
+  rw [← hL, ← hR] at key
+  exact Order.le_of_ofNat_le key
+
+/-- ★★★★ **L² norm contraction**: `Σ_x (lazyStep u)² ≤ 16·Σ_x u²` — the lazy heat step does not
+    increase the (averaged) L² norm of the field (`16 = 4²` is the stencil normalization).  The
+    L²-stability companion of the energy decay; pure-product version (no gradient/`Nat`-subtraction). -/
+theorem lazy_l2_norm_bound (n : Nat) (u : Nat → Nat) :
+    gridSum n (fun x => lazyHeatStepNum n u x * lazyHeatStepNum n u x)
+      ≤ 16 * gridSum n (fun x => u x * u x) := by
+  have hbound :
+      gridSum n (fun x => lazyHeatStepNum n u x * lazyHeatStepNum n u x)
+      ≤ gridSum n (fun x => 4 * (u (leftNbr n x) * u (leftNbr n x)
+            + 2 * (u x * u x) + u (rightNbr n x) * u (rightNbr n x))) := by
+    apply gridSum_le
+    intro x _
+    exact lazy_l2_pointwise_nat (u (leftNbr n x)) (u x) (u (rightNbr n x))
+  refine Nat.le_trans hbound (Nat.le_of_eq ?_)
+  rw [gridSum_mul_left n 4 (fun x => u (leftNbr n x) * u (leftNbr n x)
+        + 2 * (u x * u x) + u (rightNbr n x) * u (rightNbr n x)),
+      gridSum_add n (fun x => u (leftNbr n x) * u (leftNbr n x) + 2 * (u x * u x))
+        (fun x => u (rightNbr n x) * u (rightNbr n x)),
+      gridSum_add n (fun x => u (leftNbr n x) * u (leftNbr n x)) (fun x => 2 * (u x * u x)),
+      gridSum_two_mul n (fun x => u x * u x),
+      gridSum_leftNbr n (fun y => u y * u y), gridSum_rightNbr n (fun y => u y * u y)]
   ring_nat
 
 end E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay

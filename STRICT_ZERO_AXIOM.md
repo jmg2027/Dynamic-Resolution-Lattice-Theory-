@@ -494,7 +494,11 @@ stencil normalization).  Assembled from: `sqDistNat_cast` (the `Nat`↔ℤ squar
 (`gridSum_rightNbr` turns each shifted edge-gradient energy back into `E(u)`).  All ∅-axiom — the `propext`
 leaks of core `Int.ofNat_*` / `Nat.add_sub_cancel_left` / `sub_eq_zero` were sidestepped with term-mode casts
 (explicit `Int.ofNat` typing dodges the `Nat.cast` `rw`-mismatch) + NatHelper pure sub-lemmas + `Nat.zero_sub`.
-**Marathon PDE rungs P1–P3 now complete.**
+**Marathon PDE rungs P1–P3 now complete.**  Companion **L² norm contraction** (same file §4, 2 more PURE):
+`lazy_l2_norm_bound` — `Σ_x (lazyStep u)² ≤ 16·Σ_x u²` (the lazy step does not increase the averaged L²
+norm of the *field*), via the pure-`Nat` `lazy_l2_pointwise_nat` (`(a+2b+c)² ≤ 4(a²+2b²+c²)`, cast of
+`lazyHeatStep_l2_jensen`) + shift invariance.  No gradient/`Nat`-subtraction, so it is the simpler
+field-L² companion of the energy (gradient-L²) decay.
 
 ### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
