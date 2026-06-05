@@ -3,6 +3,7 @@ import E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
 import E213.Lib.Math.Algebra.Linalg213.SumLinear
 import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Nat.MulMod213
+import E213.Lib.Math.NumberTheory.ModArith.CenteredDivision
 
 /-!
 # QuadraticReciprocity — Eisenstein lattice-point route (in progress)
@@ -29,6 +30,9 @@ open E213.Lib.Math.NumberTheory.ModArith.EulerConverse (natCast_sub)
 open E213.Meta.Nat.AddMod213 (div_add_mod dvd_of_mod_eq_zero add_mod_left_pure zero_mod le_div_iff_mul_le)
 open E213.Meta.Nat.NatDiv213 (div_lt_of_lt_mul)
 open E213.Meta.Nat.MulMod213 (mul_mod_left_pure)
+open E213.Lib.Math.NumberTheory.ModArith.CenteredDivision (centered_div_int)
+open E213.Lib.Math.NumberTheory.FourSquareSeed (nat_prime_dvd_mul)
+open E213.Meta.Nat.AddMod213 (mod_two_zero_or_one)
 open E213.Tactic.List213 (map_congr)
 open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat nat_dvd_to_int dvd_sub')
 open E213.Tactic.Pow213 (le_of_dvd_pos)
@@ -385,5 +389,114 @@ theorem floor_sum_rectangle (m n p q : Nat) (hp : 0 < p) (hq : 0 < q)
         map_congr (fun x _ => (E213.Meta.Int213.mul_one (n : Int)).symm),
       sumZ_map_const_mul (n : Int) (fun _ => (1 : Int)) (seg m), count_all m, natCast_mul]
   ring_intZ
+
+/-! ## Step 4 — assembly into the law of quadratic reciprocity -/
+
+/-- Every integer is even or odd (witness form, via `centered_div_int`). -/
+private theorem int_even_or_odd (a : Int) : (∃ k, a = 2 * k) ∨ (∃ k, a = 2 * k + 1) := by
+  obtain ⟨q, r, hd, hr⟩ := centered_div_int a 2 (by decide)
+  rw [show (2 : Int).natAbs = 2 from rfl] at hr
+  have hle : r.natAbs ≤ 1 := by
+    rcases Nat.lt_or_ge r.natAbs 2 with h | h
+    · exact Nat.le_of_lt_succ h
+    · exact absurd (Nat.le_trans (Nat.mul_le_mul_left 2 h) hr) (by decide)
+  rcases E213.Tactic.NatHelper.cases_lt_two (Nat.lt_succ_of_le hle) with h0 | h1
+  · left; refine ⟨q, ?_⟩
+    have hr0 : r = 0 := by rcases Int.natAbs_eq r with he | he <;> rw [he, h0] <;> decide
+    rw [hd, hr0, Int.add_zero]; ring_intZ
+  · rcases Int.natAbs_eq r with he | he
+    · right; exact ⟨q, by rw [hd, he, h1, show ((1 : Nat) : Int) = 1 from rfl]; ring_intZ⟩
+    · right; exact ⟨q - 1, by rw [hd, he, h1, show ((1 : Nat) : Int) = 1 from rfl]; ring_intZ⟩
+
+/-- `2·w ≠ 1` over `ℤ`. -/
+private theorem two_mul_ne_one (w : Int) : 2 * w ≠ 1 := fun h => by
+  have h2 : 2 ∣ (1 : Int).natAbs := int_dvd_to_nat 2 1 ⟨w, h.symm⟩
+  rw [Int.natAbs_one] at h2
+  exact absurd (le_of_dvd_pos 2 1 (by decide) h2) (by decide)
+
+/-- `↑N = 2·W ⟹ N` even. -/
+private theorem even_cast (N : Nat) (W : Int) (h : (N : Int) = 2 * W) : N % 2 = 0 :=
+  two_dvd_to_mod N (by have := int_dvd_to_nat 2 (N : Int) ⟨W, h⟩; rwa [Int.natAbs_ofNat] at this)
+
+/-- `↑N = 2·W + 1 ⟹ N` odd. -/
+private theorem odd_cast (N : Nat) (W : Int) (h : (N : Int) = 2 * W + 1) : N % 2 = 1 := by
+  have hni : ¬ (2 : Int) ∣ (N : Int) := fun ⟨c, hc⟩ =>
+    two_mul_ne_one (c - W) (by
+      rw [show (2 : Int) * (c - W) = 2 * c - 2 * W from by ring_intZ, ← hc, h]; ring_intZ)
+  have hnn : ¬ 2 ∣ N := fun hd => hni (nat_dvd_to_int 2 (N : Int) (by rw [Int.natAbs_ofNat]; exact hd))
+  rcases mod_two_zero_or_one N with h0 | h1
+  · exact absurd (dvd_of_mod_eq_zero h0) hnn
+  · exact h1
+
+/-- Parity of a sum: with `S + T = ↑N`, the indicators `2∣S`, `2∣T` agree iff `N` is even. -/
+private theorem parity_sum_iff (S T : Int) (N : Nat) (h : S + T = (N : Int)) :
+    ((2 : Int) ∣ S ↔ (2 : Int) ∣ T) ↔ N % 2 = 0 := by
+  rcases int_even_or_odd S with ⟨sk, hs⟩ | ⟨sk, hs⟩ <;>
+    rcases int_even_or_odd T with ⟨tk, ht⟩ | ⟨tk, ht⟩
+  · exact ⟨fun _ => even_cast N (sk + tk) (by rw [← h, hs, ht]; ring_intZ),
+      fun _ => ⟨fun _ => ⟨tk, ht⟩, fun _ => ⟨sk, hs⟩⟩⟩
+  · have hNodd : N % 2 = 1 := odd_cast N (sk + tk) (by rw [← h, hs, ht]; ring_intZ)
+    have hTnot : ¬ (2 : Int) ∣ T := fun ⟨c, hc⟩ =>
+      two_mul_ne_one (c - tk) (by
+        rw [show (2 : Int) * (c - tk) = 2 * c - 2 * tk from by ring_intZ, ← hc, ht]; ring_intZ)
+    exact ⟨fun hiff => absurd (hiff.mp ⟨sk, hs⟩) hTnot,
+      fun hN0 => absurd (hN0.symm.trans hNodd) (by decide)⟩
+  · have hNodd : N % 2 = 1 := odd_cast N (sk + tk) (by rw [← h, hs, ht]; ring_intZ)
+    have hSnot : ¬ (2 : Int) ∣ S := fun ⟨c, hc⟩ =>
+      two_mul_ne_one (c - sk) (by
+        rw [show (2 : Int) * (c - sk) = 2 * c - 2 * sk from by ring_intZ, ← hc, hs]; ring_intZ)
+    exact ⟨fun hiff => absurd (hiff.mpr ⟨tk, ht⟩) hSnot,
+      fun hN0 => absurd (hN0.symm.trans hNodd) (by decide)⟩
+  · have hNeven : N % 2 = 0 := even_cast N (sk + tk + 1) (by rw [← h, hs, ht]; ring_intZ)
+    have hSnot : ¬ (2 : Int) ∣ S := fun ⟨c, hc⟩ =>
+      two_mul_ne_one (c - sk) (by
+        rw [show (2 : Int) * (c - sk) = 2 * c - 2 * sk from by ring_intZ, ← hc, hs]; ring_intZ)
+    have hTnot : ¬ (2 : Int) ∣ T := fun ⟨c, hc⟩ =>
+      two_mul_ne_one (c - tk) (by
+        rw [show (2 : Int) * (c - tk) = 2 * c - 2 * tk from by ring_intZ, ← hc, ht]; ring_intZ)
+    exact ⟨fun _ => hNeven, fun _ => ⟨fun hS => absurd hS hSnot, fun hT => absurd hT hTnot⟩⟩
+
+/-- `p` prime, `x ∈ [1,m]`, `m < p` ⟹ `p ∤ x`. -/
+private theorem not_dvd_seg (p m x : Nat) (hmp : m < p) (hx : x ∈ seg m) : ¬ p ∣ x := by
+  obtain ⟨hx1, hxm⟩ := mem_seg.mp hx
+  exact fun hpx => Nat.lt_irrefl x
+    (Nat.lt_of_lt_of_le (Nat.lt_of_le_of_lt hxm hmp) (le_of_dvd_pos p x hx1 hpx))
+
+/-- ★★★★★ **The law of quadratic reciprocity.**  For distinct odd primes `p, q` with
+    `m = (p−1)/2`, `n = (q−1)/2`: `q` is a quadratic residue mod `p` iff `p` is a quadratic residue
+    mod `q` — agreeing exactly when `m·n` is even (i.e. unless both `p ≡ q ≡ 3 mod 4`).  Eisenstein
+    form.  Assembles the generalized `floor_qr` (at residues `q`, `p`) with `floor_sum_rectangle`
+    (`Σ⌊qx/p⌋ + Σ⌊py/q⌋ = m·n`) via `parity_sum_iff`. -/
+theorem quadratic_reciprocity (p q m n : Nat)
+    (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p) (hp2 : 2 < p) (hpm : 2 * m = p - 1)
+    (hm1 : 1 ≤ m) (hpodd : p % 2 = 1)
+    (hq : 1 < q) (hqr : ∀ d, d ∣ q → d = 1 ∨ d = q) (hq2 : 2 < q) (hqn : 2 * n = q - 1)
+    (hn1 : 1 ≤ n) (hqodd : q % 2 = 1) (hpqne : p ≠ q) :
+    ((∃ z : Nat, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = q % p)
+        ↔ (∃ z : Nat, 1 ≤ z ∧ z < q ∧ z ^ 2 % q = p % q))
+      ↔ (m * n) % 2 = 0 := by
+  have hppos : 0 < p := Nat.lt_trans Nat.zero_lt_one hp
+  have hqpos : 0 < q := Nat.lt_trans Nat.zero_lt_one hq
+  have hpf : p = 2 * m + 1 := by rw [hpm]; exact (Nat.succ_pred_eq_of_pos hppos).symm
+  have hqf : q = 2 * n + 1 := by rw [hqn]; exact (Nat.succ_pred_eq_of_pos hqpos).symm
+  have hmp : m < p := by
+    rw [hpf]
+    exact Nat.lt_succ_of_le (Nat.le_trans (Nat.le_add_left m m) (Nat.le_of_eq (Nat.two_mul m).symm))
+  have hnq : n < q := by
+    rw [hqf]
+    exact Nat.lt_succ_of_le (Nat.le_trans (Nat.le_add_left n n) (Nat.le_of_eq (Nat.two_mul n).symm))
+  have hnpq : ¬ p ∣ q := fun hd =>
+    (hqr p hd).elim (fun h => absurd h (Nat.ne_of_gt hp)) (fun h => hpqne h)
+  have hnqp : ¬ q ∣ p := fun hd =>
+    (hpr q hd).elim (fun h => absurd h (Nat.ne_of_gt hq)) (fun h => hpqne h.symm)
+  have hA := floor_qr q p m hp hpr hpm hm1 hnpq hqodd hp2
+  have hB := floor_qr p q n hq hqr hqn hn1 hnqp hpodd hq2
+  have hcol : ∀ x, x ∈ seg m → ¬ p ∣ q * x := fun x hx hd =>
+    (nat_prime_dvd_mul p hp hpr q x hd).elim hnpq (not_dvd_seg p m x hmp hx)
+  have hrow : ∀ y, y ∈ seg n → ¬ q ∣ p * y := fun y hy hd =>
+    (nat_prime_dvd_mul q hq hqr p y hd).elim hnqp (not_dvd_seg q n y hnq hy)
+  have hRect := floor_sum_rectangle m n p q hppos hqpos hpf hqf hcol hrow
+  refine Iff.trans ?_ (parity_sum_iff _ _ (m * n) hRect)
+  exact ⟨fun hxy => hA.symm.trans (hxy.trans hB), fun hst => hA.trans (hst.trans hB.symm)⟩
 
 end E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
