@@ -314,9 +314,21 @@ so the sign product is `m`-only (`two_qr_iff`); `prodZ_seg_sign` evaluates it as
 `m = 4q+r` bridge (`(m−m/2)%2` and `p%8 = 1+2(m%4)` both functions of `m%4`, `decide`).  Both
 supplements to quadratic reciprocity are now ∅-axiom.
 
+### ★★★★★ Quadratic reciprocity — FULLY CLOSED, strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity` (**11 PURE**).  ★ `quadratic_reciprocity`:
+for distinct odd primes `p, q` (`m=(p−1)/2, n=(q−1)/2`), `(q QR mod p ↔ p QR mod q) ↔ (m·n) even`
+(Eisenstein form — the two residue conditions agree unless both `p ≡ q ≡ 3 mod 4`).  Assembly: the
+Gauss stack generalized `a<p → p∤a` (`gauss_mu_gen`, `floor_qr` with residue `z² ≡ a mod p`) applied
+at residues `q` and `p`, combined with `floor_sum_rectangle` (`Σ⌊qx/p⌋+Σ⌊py/q⌋ = m·n`) via
+`parity_sum_iff` (parity of `S+T=↑(mn)` decides whether `2∣S ↔ 2∣T`).  Int parity from
+`int_even_or_odd`/`two_mul_ne_one` (propext-avoidance: `le_of_dvd_pos`).  The complete elementary
+route (Euler criterion → Gauss's lemma → μ-bridge → Eisenstein rectangle count → reciprocity) is
+∅-axiom.
+
 ### Quadratic reciprocity — STEPS 1 + 3 (Eisenstein's lemma + rectangle count), strict ∅-axiom (2026-06-05)
 
-`E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity` (**9 PURE**) +
+`E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity` (**11 PURE**) +
 `Linalg213/SumLinear` (`sumZ_map_zero`, `sumZ_swap` finite Fubini) + `AddMod213.le_div_iff_mul_le`.
 
 ★★ **Step 3** `floor_sum_rectangle` — the analytic heart: for `p=2m+1, q=2n+1`, `p∤q·x` (`x∈[1,m]`),

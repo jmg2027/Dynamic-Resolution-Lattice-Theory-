@@ -1,4 +1,17 @@
-# Quadratic reciprocity — frontier (the engine is built)
+# Quadratic reciprocity — ✅ CLOSED (strict ∅-axiom, 2026-06-05)
+
+**`quadratic_reciprocity` is PROVEN** (`ModArith/QuadraticReciprocity.lean`, PURE).  For distinct
+odd primes `p, q` (`m=(p−1)/2, n=(q−1)/2`):
+`(q QR mod p ↔ p QR mod q) ↔ (m·n) even`.  The complete Eisenstein route is ∅-axiom:
+Euler → Gauss → μ-bridge (`floor_qr`) → rectangle count (`floor_sum_rectangle`) → assembly
+(`parity_sum_iff`).  This note is retained for the build history; **promote to
+`theory/math/numbertheory/quadratic_reciprocity.md`** (PROMOTION_CRITERIA-eligible) and archive.
+
+The Gauss stack was generalized `a<p → p∤a` (residue side `z²≡a mod p`) so the bridge applies at
+`a = q` (the other prime).  Final assembly: `floor_qr` at `(p,q)` and `(q,p)` + `floor_sum_rectangle`
++ `parity_sum_iff` (parity of `S+T=↑(mn)` decides whether `2∣S ↔ 2∣T`).
+
+---
 
 **Status (2026-06-05).**  All the elementary prerequisites are closed strict ∅-axiom:
 

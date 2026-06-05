@@ -35,6 +35,30 @@ constraint"): **(1) generalize the Gauss stack to coprimality `p ∤ a`** (recom
 `sgFn`/`fold_perm` only need `a` a unit), or **(2) reduce `q ↦ q%p` with correction
 `Σ⌊qx/p⌋ = (q/p)·Σx + Σ⌊(q%p)x/p⌋`**.
 
+## ★★★★★ Addendum 3 (same session) — QUADRATIC RECIPROCITY FULLY CLOSED
+
+**`quadratic_reciprocity`** (PURE) — for distinct odd primes `p, q` (`m=(p−1)/2, n=(q−1)/2`):
+`(q QR mod p ↔ p QR mod q) ↔ (m·n) even`.  The complete Eisenstein route is now ∅-axiom.
+
+Step-4 assembly delivered this iteration:
+- **Generalized the Gauss stack `a<p → p∤a`** (in place): `GaussLemma.{fold_mem,fold_inj,fold_perm,
+  gauss_core}` now take `hnpa:¬p∣a` (gauss_qr unchanged externally — derives it via `not_dvd_unit`,
+  so `second_supplement`/`legendre_mul` untouched); `QR.{fold_sum,floor_mu_even}` re-threaded.
+- **`gauss_mu_gen`** (NEW): `(∃z, z²≡a mod p) ⟺ μ even` for `p∤a` — reduces to `gauss_mu` at `a%p`
+  (`sgFn` depends only on `(a·x) mod p`, `mul_mod_left_pure`; `map_congr` not `funext` to stay
+  Quot.sound-free).
+- **`floor_qr` GENERALIZED**: residue side `z²%p = a%p`, hypothesis `p∤a`.
+- **`parity_sum_iff`** + `int_even_or_odd`/`two_mul_ne_one`/`even_cast`/`odd_cast`/`not_dvd_seg`:
+  the Int↔Nat parity bridge.  Propext-avoidance: `le_of_dvd_pos` (not `Nat.le_of_dvd`), `map_congr`.
+- **Assembly**: `floor_qr` at `(p,q)` and `(q,p)` + `floor_sum_rectangle` + `parity_sum_iff`.
+
+`QuadraticReciprocity.lean`: **11/11 PURE**.  Full `E213.Lib.Math` builds clean.
+
+**Next:** promote the closed QR theory (`EulerCriterion`…`QuadraticReciprocity`) to
+`theory/math/numbertheory/` (PROMOTION_CRITERIA-eligible) + archive the frontier note.  Optional:
+relocate the cloned `int_even_or_odd`/`two_mul_ne_one` (currently private in QR) to a shared home
+with FourSquare's copies (org pass).
+
 ## Addendum 2 (same session) — STEP 3 CLOSED (rectangle double-count)
 
 ★★ **`floor_sum_rectangle`** (PURE) — the analytic heart of reciprocity:
