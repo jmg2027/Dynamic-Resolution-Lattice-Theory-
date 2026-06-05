@@ -280,7 +280,16 @@ division enters) and a unit `1 ≤ a < p`:
 (`a = p−1`): `−1` a QR ⟺ `(p−1)ᵐ ≡ 1`, and `(p−1)ᵐ ≡ (−1)ᵐ` is `1` iff `m` even
 (`neg_one_sq_mod`/`neg_one_odd_pow_mod`), and `2m = p−1` makes `m` even ⟺ `p ≡ 1 mod 4`
 (`neg_one_pow_dvd_iff_even`, `even_iff_pmod4`, pure `mod_two_cases`).  The full iff (`QRNegOne` had only
-the `p≡1mod4 ⟹ QR` direction).  Next downstream: quadratic character of `2`, Gauss's lemma, Zolotarev.
+the `p≡1mod4 ⟹ QR` direction).
+
+### Legendre character multiplicativity (`(ab/p) = (a/p)(b/p)`), strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative` (**5 PURE**).  `legendre_mul`:
+for prime `p`, `2m = p−1`, units `a, b < p`, `a·b` is a QR ⟺ (`a` is a QR ⟺ `b` is a QR) — the
+Legendre character is a homomorphism, no symbol definition needed.  Via `qr_iff_pow_one`
+(`QR(c) ⟺ cᵐ ≡ 1`) + `pow_m_mod_cases` (`cᵐ % p ∈ {1, p−1}`) + `(ab)ᵐ ≡ aᵐ·bᵐ` (`mul_pow_loc`),
+a 2×2 case split (`iff_of_true`/`iff_of_false`, `negone_sq_mod_p`).  Next downstream: quadratic
+character of `2`, Gauss's lemma, Zolotarev.
 
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 

@@ -31,7 +31,13 @@ Sub-tree is **promotion-eligible** (closed + categorical) → `theory/math/numbe
 the one direction; this is the full iff.)  Supporting: `negone_even_pow`, `neg_one_pow_dvd_iff_even`,
 `even_iff_pmod4`, pure `mod_two_cases`.
 
-### 3. The downstream — frontier
+### 3. Legendre character multiplicativity — CLOSED (strict ∅-axiom)
+`lean/E213/Lib/Math/NumberTheory/ModArith/LegendreMultiplicative.lean` (**5 PURE**).  `legendre_mul`:
+`QR(a·b) ⟺ (QR(a) ⟺ QR(b))` for units `a, b` — `(ab/p) = (a/p)(b/p)` without a symbol def.  Via
+`qr_iff_pow_one` (`QR(c) ⟺ cᵐ≡1`) + `pow_m_mod_cases` (`cᵐ%p ∈ {1,p−1}`) + `mul_pow_loc`, a 2×2 case
+split.  Built clean first try.
+
+### 4. The downstream — frontier
 `research-notes/frontiers/euler_criterion_converse.md`: the remaining open work — the quadratic
 character of `2` (second supplement, `p ≡ ±1 mod 8`), Gauss's lemma `(a/p) = (−1)^μ`, and Zolotarev
 `(a/p) = sign(mul-by-a)` (the `psign` sign side already PURE; the product/permutation infra

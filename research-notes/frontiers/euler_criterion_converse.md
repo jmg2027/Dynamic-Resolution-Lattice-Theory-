@@ -17,6 +17,9 @@ replacing the residue range.  This sub-tree is **promotion-eligible** (closed + 
 
 - **First supplement** `−1` QR ⟺ `p ≡ 1 (mod 4)` — **CLOSED** (`EulerFirstSupplement.neg_one_qr_iff`,
   4 PURE): `euler_criterion` at `a = p−1` + parity of `(−1)ᵐ`.
+- **Legendre multiplicativity** `QR(ab) ⟺ (QR(a) ⟺ QR(b))` — **CLOSED**
+  (`LegendreMultiplicative.legendre_mul`, 5 PURE): `qr_iff_pow_one` + `cᵐ ≡ ±1` + `(ab)ᵐ ≡ aᵐbᵐ`,
+  2×2 sign cases.  The Legendre character is a homomorphism.
 
 ## Open downstream (each builds directly on `euler_criterion`)
 
