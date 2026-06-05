@@ -2,6 +2,9 @@ import E213.Lib.Math.Algebra.Linalg213.Laplace
 import E213.Lib.Math.Algebra.Linalg213.ProdCongr
 import E213.Meta.Tactic.List213
 import E213.Lib.Math.NumberTheory.FourSquareSeed
+import E213.Lib.Math.NumberTheory.ModArith.EulerConverse
+import E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative
+import E213.Lib.Math.NumberTheory.ModArith.NonFixedExists
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.Gcd213
 import E213.Meta.Tactic.Pow213
@@ -29,9 +32,15 @@ open E213.Tactic.NatHelper
   (add_right_cancel_pure le_sub_of_add_le sub_add_cancel add_sub_cancel_right sub_le_sub_left
    mul_sub sub_sub_self)
 open E213.Lib.Math.NumberTheory.FourSquareSeed (nat_prime_dvd_mul)
-open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero add_mod_gen mod_self)
+open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero add_mod_gen mod_self div_add_mod)
 open E213.Meta.Nat.Gcd213 (mod_eq_dvd_sub)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
+open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ prodZ_lperm)
+open E213.Lib.Math.Algebra.Linalg213.ProdCongr (prodZ_congr_map prodZ_map_mul prodZ_map_const_mul)
+open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat)
+open E213.Lib.Math.NumberTheory.ModArith.EulerConverse (natCast_sub euler_criterion)
+open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_mul natCast_pow)
+open E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative (qr_iff_pow_one)
 
 /-! ## §1 — bridges and the pigeonhole -/
 
@@ -263,5 +272,45 @@ theorem fold_perm (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨
     ⟨hsub q, mem_of_card_le hfnd hsub (Nat.le_of_eq hlenEq.symm) q⟩
   exact lperm_of_nodup_mem_iff (cntNodup_of_listNodup hfnd)
     (cntNodup_of_listNodup (seg_listNodup m)) hmem
+
+/-! ## §6 — Layer 3 helpers (casts, prime ∤ product, product of `±1`) -/
+
+/-- `p ∣ (↑n − ↑(n % p))` over `ℤ` (the residue is congruent to `n`). -/
+private theorem int_dvd_cast_sub_mod (p n : Nat) :
+    (p : Int) ∣ (((n : Nat) : Int) - (((n % p : Nat)) : Int)) := by
+  have hle : n % p ≤ n := Nat.mod_le n p
+  have hkey : n - n % p = p * (n / p) := Nat.sub_eq_of_eq_add (div_add_mod n p).symm
+  rw [← natCast_sub n (n % p) hle, hkey, natCast_mul]
+  exact ⟨(n / p : Nat), rfl⟩
+
+/-- A prime `p` does not divide a `prodZ` of units (`int_euclid` induction). -/
+private theorem not_dvd_prodZ (p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p) :
+    ∀ (L : List Int), (∀ z, z ∈ L → ¬ (p : Int) ∣ z) → ¬ (p : Int) ∣ prodZ L
+  | [], _ => by
+    show ¬ (p : Int) ∣ (1 : Int)
+    intro h
+    have h1 : p ∣ (1 : Int).natAbs := int_dvd_to_nat p 1 h
+    rw [Int.natAbs_one] at h1
+    exact absurd (le_of_dvd_pos p 1 (by decide) h1) (Nat.not_le.mpr hp)
+  | x :: xs, hne => by
+    show ¬ (p : Int) ∣ (x * prodZ xs)
+    intro h
+    have hnx : ¬ (p : Int) ∣ x := hne x (List.Mem.head xs)
+    have hnp : ¬ (p : Int) ∣ prodZ xs :=
+      not_dvd_prodZ p hp hpr xs (fun z hz => hne z (List.Mem.tail x hz))
+    exact hnp (int_euclid p hp hpr x (prodZ xs) h hnx)
+
+/-- A `prodZ` of `±1`s is `±1`. -/
+private theorem prodZ_pm : ∀ (L : List Int), (∀ z, z ∈ L → z = 1 ∨ z = -1) →
+    prodZ L = 1 ∨ prodZ L = -1
+  | [], _ => Or.inl rfl
+  | x :: xs, hpm => by
+    have hrec := prodZ_pm xs (fun z hz => hpm z (List.Mem.tail x hz))
+    show x * prodZ xs = 1 ∨ x * prodZ xs = -1
+    rcases hpm x (List.Mem.head xs) with hx | hx <;> rcases hrec with hq | hq <;> rw [hx, hq]
+    · exact Or.inl (by ring_intZ)
+    · exact Or.inr (by ring_intZ)
+    · exact Or.inr (by ring_intZ)
+    · exact Or.inl (by ring_intZ)
 
 end E213.Lib.Math.NumberTheory.ModArith.GaussLemma
