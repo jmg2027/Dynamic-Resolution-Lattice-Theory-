@@ -19,7 +19,7 @@ open E213.Lib.Math.Combinatorics.Permutations
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Tactic.List213
   (length_append mem_append_iff nodup_append mem_map_of_mem exists_of_mem_map
-   nodup_map_of_inj)
+   nodup_map_of_inj mem_filter_of nodup_length_le_of_subset)
 
 /-! ## §1 — the model -/
 
@@ -410,5 +410,130 @@ theorem inc_concat {n : Nat} (A : List Bool) (hAn : A.length = n)
           (perms_sound (truePos A (idxList n)) σ hσ))]
     exact recoverA A (idxList n) (idxList_nodup n) hps
   rw [key]; exact beqBoolList_refl A
+
+/-! ### The injection count and `hlow` -/
+
+theorem append_left_cancel {α : Type _} :
+    ∀ (σ : List α) {τ τ' : List α}, σ ++ τ = σ ++ τ' → τ = τ'
+  | [], _, _, h => h
+  | _ :: σ', _, _, h => by injection h with _ h'; exact append_left_cancel σ' h'
+
+theorem append_inj_left {α : Type _} :
+    ∀ (σ σ' : List α) {τ τ' : List α}, σ.length = σ'.length → σ ++ τ = σ' ++ τ' → σ = σ'
+  | [], [], _, _, _, _ => rfl
+  | x :: σ', y :: σ'', _, _, hlen, h => by
+      injection h with hxy h'
+      rw [hxy, append_inj_left σ' σ'' (Nat.succ.inj hlen) h']
+  | [], _ :: _, _, _, hlen, _ => Nat.noConfusion hlen
+  | _ :: _, [], _, _, hlen, _ => Nat.noConfusion hlen
+
+theorem mem_falsePos {i : Nat} : ∀ (A : List Bool) (ps : List Nat), i ∈ falsePos A ps → i ∈ ps
+  | [], _, h => nomatch h
+  | true :: _, [], h => nomatch h
+  | false :: _, [], h => nomatch h
+  | false :: _, _ :: ps, h => by
+      cases h with
+      | head => exact List.Mem.head _
+      | tail _ h' => exact List.Mem.tail _ (mem_falsePos _ ps h')
+  | true :: _, _ :: ps, h => List.Mem.tail _ (mem_falsePos _ ps h)
+
+theorem truePos_nodup :
+    ∀ (A : List Bool) (ps : List Nat), ps.Nodup → (truePos A ps).Nodup
+  | [], _, _ => List.Pairwise.nil
+  | true :: _, [], _ => List.Pairwise.nil
+  | false :: _, [], _ => List.Pairwise.nil
+  | true :: A, p :: ps, hnd => by
+      have hpps : p ∉ ps := by cases hnd with | cons hh _ => exact fun hm => (hh p hm) rfl
+      have hnd' : ps.Nodup := by cases hnd with | cons _ ht => exact ht
+      exact List.Pairwise.cons
+        (fun y hy he => hpps (by rw [he]; exact mem_truePos A ps hy))
+        (truePos_nodup A ps hnd')
+  | false :: A, _ :: ps, hnd =>
+      truePos_nodup A ps (by cases hnd with | cons _ ht => exact ht)
+
+theorem falsePos_nodup :
+    ∀ (A : List Bool) (ps : List Nat), ps.Nodup → (falsePos A ps).Nodup
+  | [], _, _ => List.Pairwise.nil
+  | true :: _, [], _ => List.Pairwise.nil
+  | false :: _, [], _ => List.Pairwise.nil
+  | false :: A, p :: ps, hnd => by
+      have hpps : p ∉ ps := by cases hnd with | cons hh _ => exact fun hm => (hh p hm) rfl
+      have hnd' : ps.Nodup := by cases hnd with | cons _ ht => exact ht
+      exact List.Pairwise.cons
+        (fun y hy he => hpps (by rw [he]; exact mem_falsePos A ps hy))
+        (falsePos_nodup A ps hnd')
+  | true :: A, _ :: ps, hnd =>
+      falsePos_nodup A ps (by cases hnd with | cons _ ht => exact ht)
+
+theorem lcount_eq_filter_length {β : Type _} (p : β → Bool) :
+    ∀ (L : List β), (L.filter p).length = lcount p L
+  | [] => rfl
+  | a :: rest => by
+      cases h : p a with
+      | true =>
+          rw [List.filter_cons_of_pos h, List.length_cons, lcount_eq_filter_length p rest]
+          show lcount p rest + 1 = (bif p a then 1 else 0) + lcount p rest
+          rw [h]; exact Nat.add_comm _ _
+      | false =>
+          rw [List.filter_cons_of_neg (by rw [h]; exact Bool.noConfusion),
+              lcount_eq_filter_length p rest]
+          show lcount p rest = (bif p a then 1 else 0) + lcount p rest
+          rw [h]; exact (Nat.zero_add _).symm
+
+theorem lcount_ge_nodup_subset {β : Type _} [DecidableEq β] {p : β → Bool} {S L : List β}
+    (hSnd : S.Nodup) (hsub : ∀ x, x ∈ S → x ∈ L ∧ p x = true) : S.length ≤ lcount p L := by
+  rw [← lcount_eq_filter_length]
+  exact nodup_length_le_of_subset hSnd (fun x hx => mem_filter_of (hsub x hx).1 (hsub x hx).2)
+
+/-- ★ **`hlow`**: at least `|A|!·(n−|A|)!` chains pass through `A`. -/
+theorem chain_low {n : Nat} (A : List Bool) (hAn : A.length = n) :
+    fact (cardB A) * fact (n - cardB A) ≤ lcount (inc n A) (perms (idxList n)) := by
+  have hps : A.length = (idxList n).length := by rw [hAn, idxList_length]
+  have hTnd : (truePos A (idxList n)).Nodup := truePos_nodup A (idxList n) (idxList_nodup n)
+  have hFnd : (falsePos A (idxList n)).Nodup := falsePos_nodup A (idxList n) (idxList_nodup n)
+  -- the injected family of chains through A
+  have hSnd : (flatMap213
+      (fun σ => (perms (falsePos A (idxList n))).map (fun τ => σ ++ τ))
+      (perms (truePos A (idxList n)))).Nodup := by
+    refine nodup_flatMap213 (perms_nodup _ hTnd) (fun σ _ => ?_) (fun σ σ' hσ hσ' hne z hz hz' => ?_)
+    · exact nodup_map_of_inj (fun τ _ τ' _ h => append_left_cancel σ h) (perms_nodup _ hFnd)
+    · obtain ⟨τ, _, hzτ⟩ := exists_of_mem_map hz
+      obtain ⟨τ', _, hzτ'⟩ := exists_of_mem_map hz'
+      have hlen_eq : σ.length = σ'.length := by
+        rw [perms_length_const _ σ hσ, perms_length_const _ σ' hσ']
+      exact hne (append_inj_left σ σ' hlen_eq (hzτ.trans hzτ'.symm))
+  have hsub : ∀ x, x ∈ flatMap213
+      (fun σ => (perms (falsePos A (idxList n))).map (fun τ => σ ++ τ))
+      (perms (truePos A (idxList n))) →
+      x ∈ perms (idxList n) ∧ inc n A x = true := by
+    intro x hx
+    obtain ⟨σ, hσ, hxσ⟩ := mem_flatMap213 hx
+    obtain ⟨τ, hτ, hxτ⟩ := exists_of_mem_map hxσ
+    refine ⟨?_, ?_⟩
+    · rw [← hxτ]
+      exact perms_respects (LPerm.symm (truePos_falsePos_perm A (idxList n) hps)) _
+              (perms_append_mem _ _ σ τ hσ hτ)
+    · rw [← hxτ]; exact inc_concat A hAn σ τ hσ
+  have hSlen := lcount_ge_nodup_subset hSnd hsub
+  rw [length_flatMap213_const _ (perms (falsePos A (idxList n))).length
+        (fun σ _ => E213.Tactic.List213.length_map _ _),
+      perms_length, perms_length,
+      truePos_length A (idxList n) hps, falsePos_length A (idxList n) hps, hAn] at hSlen
+  rw [Nat.mul_comm]
+  exact hSlen
+
+/-! ## §5 — Sperner's theorem (named upper bound), unconditional -/
+
+/-- ★★ **Sperner's theorem.**  Any antichain of the Boolean lattice `2^[n]` (a
+    duplicate-free family of length-`n` `Bool` vectors, no two comparable) has
+    at most `C(n, ⌊n/2⌋)` members.  The named upper bound, ∅-axiom — the chain
+    model discharges both `sperner_upper_bound` hypotheses. -/
+theorem sperner {n : Nat} (F : List (List Bool)) (hF : IsAntichain F) (hnd : F.Nodup)
+    (hlen : ∀ A, A ∈ F → A.length = n) : F.length ≤ binom n (half n) :=
+  sperner_upper_bound n F (perms (idxList n)) (inc n)
+    (chains_length n)
+    (fun A hA => Nat.le_trans (cardB_le_length A) (Nat.le_of_eq (hlen A hA)))
+    (chain_cap F hF hnd)
+    (fun A hA => chain_low A (hlen A hA))
 
 end E213.Lib.Math.Combinatorics.SpernerChains
