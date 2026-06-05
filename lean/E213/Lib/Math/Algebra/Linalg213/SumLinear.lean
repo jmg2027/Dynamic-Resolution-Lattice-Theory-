@@ -27,6 +27,15 @@ theorem sumZ_map_add {α : Type} (g h : α → Int) :
        = (g x + sumZ (xs.map g)) + (h x + sumZ (xs.map h))
     rw [sumZ_map_add g h xs]; ring_intZ
 
+/-- `Σₓ (g x − h x) = (Σₓ g x) − (Σₓ h x)`. -/
+theorem sumZ_map_sub {α : Type} (g h : α → Int) :
+    ∀ (L : List α), sumZ (L.map (fun x => g x - h x)) = sumZ (L.map g) - sumZ (L.map h)
+  | [] => rfl
+  | x :: xs => by
+    show (g x - h x) + sumZ (xs.map (fun y => g y - h y))
+       = (g x + sumZ (xs.map g)) - (h x + sumZ (xs.map h))
+    rw [sumZ_map_sub g h xs]; ring_intZ
+
 /-- `Σₓ (c · g x) = c · Σₓ g x`. -/
 theorem sumZ_map_const_mul {α : Type} (c : Int) (g : α → Int) :
     ∀ (L : List α), sumZ (L.map (fun x => c * g x)) = c * sumZ (L.map g)
