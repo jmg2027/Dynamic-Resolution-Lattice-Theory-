@@ -221,30 +221,14 @@ Closure records (promoted off this board):
   `theory/essays/foundations/the_frontier_has_a_form.md`; archived at
   `archive/G182_completed_system_synthesis.md`.
 
-## proof-ISA compilation series  (`G200_*`)
+## proof-ISA compilation series  (`G200_*`)  — ★ CLOSED & archived
 
-**The experiment:** reproduce *solved* hard techniques by compiling them down the
-proof-ISA (`seed/PROOF_ISA.md`), to map the instruction set's interior and edge.
-Mostly **closed** — the "why" archive is promoted to
-`theory/essays/proof_isa/` (5 files: INDEX + probabilistic, linear-algebra,
-parity, könig).  Cumulative finding: three surface-diverse methods collapse onto
-the named eight (probabilistic + linear-algebra → COUNT; parity → READ ∘
-SEPARATE), no new instruction forced; König **stalls** exactly at the
-non-constructive `DECIDE` (the exterior).  COUNT registered as the quantitative
-`GAP` sub-mode (`seed/PROOF_ISA.md`) + lift Archetype 4 (`ProofISALifts.lean`).
-
-- `G200_probabilistic_method_count_compilation` — the COUNT discovery + the
-  compilation verdict + the concrete lift status.
-- `G205_sperner_double_count_compilation` — **★ CLOSED**: **Sperner (1928)**
-  compiled to `COUNT`'s **double-counting** face (the *dual* of G200's union
-  bound), no new instruction.  Named bound proven **unconditionally** ∅-axiom
-  (`SpernerChains.sperner_theorem`): the full `perms` characterisation
-  (`perms_length = n!`, `mem_perms_iff`, `perms_nodup`) + the chain model.
-  Promoted: `theory/essays/proof_isa/sperner_double_counting.md`.
-
-**★ Series CLOSED — no open rungs.**  Both named COUNT bounds are proven
-∅-axiom: `R(k,k) > N` (`RamseyNamedBound.ramsey_lower` — the `K_N` edge model
-over `erdos_schema`) and Sperner (`SpernerChains.sperner_theorem`).  Spinoffs:
-the full `perms` enumeration (`Permutations.perms_length = n!`, the general
-permutation infrastructure the repo lacked) and the shared subset count
-`Sperner.layer_size = C(N,k)`.
+The experiment (reproduce *solved* hard techniques by compiling them down the
+proof-ISA, `seed/PROOF_ISA.md`) is **complete**.  Both named COUNT bounds are
+proven ∅-axiom — `R(k,k) > N` (`Lib/Math/Combinatorics/RamseyNamedBound.ramsey_lower`)
+and Sperner (`SpernerChains.sperner_theorem`) — with no new instruction forced
+(COUNT's union-bound face and its double-counting dual).  König alone stalls, at
+the non-constructive `DECIDE`.  The "why" archive is promoted to
+`theory/essays/proof_isa/` (probabilistic, linear-algebra, parity, sperner,
+könig, + the `what_is_a_proof` synthesis).  Source notes archived to
+`research-notes/archive/proof_isa/` (`G200`, `G205`).
