@@ -300,7 +300,7 @@ existing engine stopped one line before Sperner's collapse, strictly stronger
 than the number it implies.  Essay: `theory/essays/proof_isa/lym_inequality.md`.
 
 ★ **Bollobás' set-pair inequality — the same engine, a new incidence** —
-`E213.Lib.Math.Combinatorics.BollobasSetPair` (**18/18 PURE**): the COUNT
+`E213.Lib.Math.Combinatorics.BollobasSetPair` (**21/21 PURE**): the COUNT
 double-count on the *favour*-incidence (pairs × orderings).  New content:
 `before` + `before_antisymm` (ordering antisymmetry, no `Nodup`),
 `favours`/`favours_before`, and ★ `bollobas_cap` — cross-intersection
@@ -308,8 +308,13 @@ double-count on the *favour*-incidence (pairs × orderings).  New content:
 ≤ 1 pair (the column cap, *the content of Bollobás*).  ★ `bollobas_sum` (the
 engine = `lym_double_count` on favours, unconditional) and ★★ `bollobas` (the
 named bound `|F| ≤ C(a+b,a)`, `n`-independent, modulo the favour-count
-`V·(a+b)! = n!·a!·b!` — the honest open rung, the ordering-count analogue of
-`SpernerChains.chain_low`).  Reuses `lym_double_count`, `binom_mul_fact`,
+`V·(a+b)! = n!·a!·b!`).  The rung's **arithmetic is discharged**:
+`favourCountTarget = C(n,a+b)·a!·b!·(n−a−b)!`, `favourCount_mul` (the identity
+`favourCountTarget·(a+b)! = n!·a!·b!` from `binom_mul_fact`), and
+`bollobas_of_count` — `|F| ≤ C(a+b,a)` from the *single* clean geometric
+inequality `favourCountTarget ≤ #{favouring}` (the lone remaining rung, the
+ordering-count analogue of `SpernerChains.chain_low`).  Reuses `lym_double_count`,
+`binom_mul_fact`,
 `SpernerChains.{truePos,idxList,perms,lcount_le_one_of}` — Bollobás is LYM's
 compilation with the incidence swapped (subsets×chains → pairs×orderings) and
 the antichain cap swapped for the cross-intersection cap.  Essay:

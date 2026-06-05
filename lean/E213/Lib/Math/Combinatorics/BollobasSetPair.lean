@@ -285,4 +285,49 @@ theorem bollobas {n a b V : Nat} {F : List (List Bool × List Bool)}
     exact step
   exact Nat.le_of_mul_le_mul_left step2 hpos
 
+/-! ## §5 — the favour-count target: the rung's arithmetic, discharged
+
+The remaining rung of `bollobas` is the geometric favour-count `V`.  Its *value*
+is forced: `V = C(n,a+b)·a!·b!·(n−a−b)!` (choose the `a+b` slots hosting `A∪B`,
+order `A` into the first `a` and `B` into the next `b`, order the rest).  This
+section proves that value satisfies `bollobas`'s arithmetic hypothesis
+`V·(a+b)! = n!·a!·b!` (`favourCount_mul`), so the rung collapses to a *single
+clean geometric inequality* — `bollobas_of_count` below.  What remains for a
+future session is purely the injection `favourCountTarget ≤ #{favouring}` (the
+ordering analogue of `SpernerChains.chain_low`), with no arithmetic bookkeeping
+left to do. -/
+
+/-- The forced favour-count value: `C(n,a+b)·a!·b!·(n−a−b)!` = the number of
+    orderings of `[n]` with all of `A` before all of `B` (`|A|=a`, `|B|=b`). -/
+def favourCountTarget (n a b : Nat) : Nat :=
+  binom n (a + b) * (fact a * fact b * fact (n - (a + b)))
+
+/-- ★ **The rung's arithmetic.**  The forced favour-count satisfies `bollobas`'s
+    cancellation hypothesis: `favourCountTarget · (a+b)! = n!·a!·b!`.  Proven from
+    `binom_mul_fact` (`C(n,a+b)·(a+b)!·(n−a−b)! = n!`) by rearrangement. -/
+theorem favourCount_mul {n a b : Nat} (hab : a + b ≤ n) :
+    favourCountTarget n a b * fact (a + b) = fact n * (fact a * fact b) := by
+  show binom n (a + b) * (fact a * fact b * fact (n - (a + b))) * fact (a + b)
+      = fact n * (fact a * fact b)
+  have hac : (fact a * fact b * fact (n - (a + b))) * fact (a + b)
+      = (fact (a + b) * fact (n - (a + b))) * (fact a * fact b) := by
+    rw [nmul_assoc (fact a * fact b) (fact (n - (a + b))) (fact (a + b)),
+        Nat.mul_comm (fact (n - (a + b))) (fact (a + b)),
+        Nat.mul_comm (fact a * fact b) (fact (a + b) * fact (n - (a + b)))]
+  rw [nmul_assoc (binom n (a + b)) (fact a * fact b * fact (n - (a + b))) (fact (a + b)),
+      hac, ← nmul_assoc (binom n (a + b)) (fact (a + b) * fact (n - (a + b))) (fact a * fact b),
+      binom_mul_fact n (a + b) hab]
+
+/-- ★★ **Bollobás, modulo only the geometric favour-count.**  With the arithmetic
+    discharged (`favourCount_mul`), the named bound `|F| ≤ C(a+b,a)` follows from
+    the *single* clean inequality `C(n,a+b)·a!·b!·(n−a−b)! ≤ #{orderings favouring
+    the pair}` — the lone remaining rung (the `chain_low` analogue). -/
+theorem bollobas_of_count {n a b : Nat} {F : List (List Bool × List Bool)}
+    (hdisj : PairDisjoint n F) (hcross : CrossIntersecting n F) (hnd : F.Nodup)
+    (hab : a + b ≤ n)
+    (hcount : ∀ p, p ∈ F →
+        favourCountTarget n a b ≤ lcount (fun c => favours n c p.1 p.2) (perms (idxList n))) :
+    F.length ≤ binom (a + b) a :=
+  bollobas hdisj hcross hnd (favourCount_mul hab) hcount
+
 end E213.Lib.Math.Combinatorics.BollobasSetPair

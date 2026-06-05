@@ -58,12 +58,16 @@ exposed patterns worth harvesting.
   favour-incidence) are done; the named bound `bollobas` holds **modulo the
   favour-count rung** `V·(a+b)! = n!·a!·b!`.
 
-  **Open rung — the favour-count** `#{π : all A before all B} =
-  C(n,a+b)·a!·b!·(n−a−b)!` (i.e. `V·(a+b)! = n!·a!·b!`).  The ordering-count
-  analogue of `SpernerChains.chain_low`: build a duplicate-free injected family
-  of orderings favouring `(A,B)` — choose the `a+b` positions hosting `A∪B`
-  (`C(n,a+b)`), order `A` into the first `a` of them and `B` into the next `b`
-  (`a!·b!`), order the rest (`(n−a−b)!`) — counted via `perms`/`perms_append_mem`.
+  **Open rung — the favour-count injection.**  Arithmetic now **discharged**
+  (`favourCount_mul`, `bollobas_of_count`): `favourCountTarget = C(n,a+b)·a!·b!·
+  (n−a−b)!` satisfies `·(a+b)! = n!·a!·b!`, so the rung collapses to the *single*
+  geometric inequality `favourCountTarget ≤ #{orderings favouring (A,B)}`.  The
+  injection (ordering-count analogue of `SpernerChains.chain_low`): a favouring
+  ordering is `weave mask (σ_A ++ σ_B) σ_R` — interleave an ordering of `A` then
+  `B` into the `mask`-true slots (`mask ∈ kLayer n (a+b)`, `C(n,a+b)` of them),
+  the rest `R` into the false slots.  Needs `weave` + order-preservation (favours)
+  + filter-recovery (injectivity) + the 4-level count.  Substantial (~300 lines);
+  a dedicated session.
 
   Still open and LYM-shaped on the same substrate: Dilworth/Mirsky
   (chain/antichain duality).
