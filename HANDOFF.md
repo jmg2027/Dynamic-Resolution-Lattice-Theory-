@@ -19,10 +19,12 @@ opened the exp functional-equation / combinatorics front (T5).
 - **T2 ✅** sin/cos convergence by comparison — `ExpLog/CutTrigModulus.lean` (geom decay + antitone).
 - **T3 ✅** formal derivative rules (coefficient level): `exp_deriv_coeff_fixed`, `sin_deriv_coeff`,
   `cos_deriv_coeff` — all from one factorial shift `(n+1)·n! = (n+1)!`.
-- **T5 (partial)** `choose`↔factorial bridge `choose_mul_factorials` (`C(k+j,k)·k!·j! = (k+j)!`),
-  `choose_symm`, `pascal_row_sum` (`Σ C(n,k)=2ⁿ`), `choose_le_two_pow` (`C(n,k)≤2ⁿ`) — in
-  `NumberTheory/DyadicFSM/FLT/{ChooseFactorial,BinomialTheorem}.lean`.  b=1 + general 2-var binomial `(a+b)ⁿ=ΣC(n,k)aᵏbⁿ⁻ᵏ` (`binom2_theorem`, BinomialTwoVar.lean)
-  already PURE (`binom_theorem_b_eq_one`).
+- **T5 (core done)** general binomial `binom2_theorem` (`(a+b)ⁿ = Σ C(n,k)aᵏbⁿ⁻ᵏ`, `BinomialTwoVar.lean`);
+  `choose`↔factorial bridge `choose_mul_factorials` (`C(k+j,k)·k!·j! = (k+j)!`), `choose_symm`,
+  `pascal_row_sum` (`Σ C(n,k)=2ⁿ`), `choose_le_two_pow` (`C(n,k)≤2ⁿ`) — in
+  `NumberTheory/DyadicFSM/FLT/{ChooseFactorial,BinomialTheorem}.lean`.  **Remaining**: the cut-level
+  series Cauchy convolution `(Σaʲ/j!)(Σbᵏ/k!)=Σ(a+b)ⁿ/n!` (combine `binom2_theorem` +
+  `choose_mul_factorials` at the `Real213` level), and `sin²+cos²=1`.
 - **T4** sqrt — NOT started (rich `Analysis/DyadicSearch/IVT`+`RootCertificate`+`MinimalRootLens` infra
   exists; `Sqrt2Cut` is Pell-only).
 
@@ -51,18 +53,9 @@ casts (explicit-`Int.ofNat`-typed `have`s dodge the `Nat.cast` rw-mismatch), `ri
 (but prune literal `0*0` zero-coefficient terms first — the normalizer doesn't drop them).
 
 ## Next targets
-1. **T5 general 2-var binomial** `(a+b)ⁿ = Σ_{k≤n} C(n,k) aᵏ bⁿ⁻ᵏ` — the remaining T5 core.  Proof sketch
-   (mirror the b=1 `binomSum_step`): define `binomSum2 a b n = sumTo (n+1) (fun k => choose n k * a^k * b^(n-k))`;
-   prove `binomSum2_step : (a+b)*binomSum2 a b n = binomSum2 a b (n+1)`, then induct.  Step = show
-   `binomSum2 a b (n+1) = A + B` where `A = a*binomSum2 = sumTo(n+1)(C n k · a^{k+1} · b^{n-k})`,
-   `B = b*binomSum2 = sumTo(n+1)(C n k · a^k · b^{n-k+1})`.  Both reduce to
-   `b^{n+1} + A + thirdterm` (`thirdterm = sumTo(n+1)(C n (k+1) · a^{k+1} · b^{n-k})`): RHS via
-   `sumTo_split_first` (k=0 → b^{n+1}) + Pascal `choose_succ_succ` + `sumTo_add_func`; `B` via
-   `sumTo_split_first` + boundary `choose_eq_zero_of_lt n (n+1)` (drops the last term).  b-exponent
-   congruences (`sumTo_congr`): `n+1-(k+1)=n-k` (`Nat.succ_sub_succ`, pure), `n-(k+1)+1=n-k` for k<n
-   (`NatHelper.sub_one_add_one` + a *pure* `n-k≠0` from `NatHelper.sub_pos_of_lt`).  **Heavy** (propext
-   whack-a-mole on the Nat-sub steps) but fully mapped.  Then exp(a+b)=exp(a)exp(b) at coeff level follows
-   via `choose_mul_factorials`.
+1. **exp(a+b)=exp(a)exp(b) at the series level** — now reachable: combine `binom2_theorem` +
+   `choose_mul_factorials` (the cut-level Taylor Cauchy convolution `(Σaʲ/j!)(Σbᵏ/k!)=Σ(a+b)ⁿ/n!`).
+   Also `sin²+cos²=1`.
 2. **T4 sqrt** via the existing `DyadicSearch/IVT`/`RootCertificate` infra (bisection + convergence modulus,
    `(sqrtCut a)² = a` up to `cutEq`, `d/dx sqrt`).
 3. **Cut-level packaging**: exp/sin/cos as genuine `CauchyCutSeq` points (the T1→T2 rate is done; the
