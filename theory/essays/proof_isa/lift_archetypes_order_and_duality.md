@@ -5,6 +5,26 @@ lift-cost** and pair up by **duality**, over a single root.  This is the interna
 structure of the lift axis of the proof-ISA (companion to the lift/EQUIV split in
 `lifts_versus_fold_equalities.md`).
 
+**Formalized — read this first.**  Most of what follows was once asserted prose; a
+referee correctly flagged that the "order" had no defined relation and the
+"dualities" no involution.  `Foundations/ArchetypeOrder.lean` now pins the
+*structural* claims as `∅`-axiom theorems on a defined cost model
+(`liftCost : Archetype → ℕ`):
+- the duality is an actual **involution** `dual` with `dual_involutive`
+  (`dual ∘ dual = id`), `dual_swaps_loop_flow`, `dual_swaps_count_positivity`,
+  and `diagonal_self_dual` (`dual diagonal = diagonal`) — so "DIAGONAL self-dual"
+  and the dual pairs are *theorems*, not metaphors;
+- `dual_cost` (`liftCost ∘ dual = liftCost`) — the involution is height-preserving;
+- **correction**: the relation `le := liftCost a ≤ liftCost b` is a **preorder, not
+  a partial order** (`le_not_antisymm`: `loop`/`flow` are `≤` each other yet
+  distinct).  The genuine *partial* order lives on the cost classes (the quotient),
+  where each dual pair collapses.  The diagram below is therefore the Hasse diagram
+  of the *quotient*.
+Honest residue: the cost values (and the `dual` map) are *assigned by hand* — a
+model of the catalog, not a derivation of costs from the proofs.  So the *shape*
+(involution, bottom/top, equicost pairs, preorder-not-poset) is theorem-backed;
+the *specific costs* remain a modelling choice.
+
 ## The root: DIAGONAL is ⊥
 
 DIAGONAL (`lift_diagonal` = `cantor_general` / `object1_not_surjective`) has

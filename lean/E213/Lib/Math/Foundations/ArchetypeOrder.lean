@@ -84,4 +84,47 @@ theorem archetype_order_structure :
   ⟨diagonal_bottom, reframe_top, loop_flow_equicost, count_positivity_equicost,
    loop_lt_orbit, by decide⟩
 
+/-! ## The duality is an actual involution (not an analogy)
+
+A referee noted that "LOOP ⟷ FLOW duality" and "DIAGONAL self-dual" were
+asserted, not pinned to any involution.  Here is the involution. -/
+
+/-- The **duality involution**: swaps each dual pair, fixes the root, the
+    quotient (ORBIT), and the meta-transport (REFRAME). -/
+def dual : Archetype → Archetype
+  | diagonal => diagonal
+  | loop => flow
+  | flow => loop
+  | count => positivity
+  | positivity => count
+  | orbit => orbit
+  | reframe => reframe
+
+/-- `dual` is an **involution** — `dual ∘ dual = id`. -/
+theorem dual_involutive (a : Archetype) : dual (dual a) = a := by cases a <;> rfl
+
+/-- **DIAGONAL is self-dual** — now a theorem, not a metaphor: it is a fixed
+    point of the duality involution. -/
+theorem diagonal_self_dual : dual diagonal = diagonal := rfl
+
+/-- **LOOP ⟷ FLOW** is a genuine swap of the involution. -/
+theorem dual_swaps_loop_flow : dual loop = flow ∧ dual flow = loop := ⟨rfl, rfl⟩
+
+/-- **COUNT ⟷ POSITIVITY** is a genuine swap of the involution. -/
+theorem dual_swaps_count_positivity :
+    dual count = positivity ∧ dual positivity = count := ⟨rfl, rfl⟩
+
+/-- The duality **preserves lift cost** — dual partners sit at equal height, so
+    `dual` is a height-preserving automorphism of the cost model. -/
+theorem dual_cost (a : Archetype) : liftCost (dual a) = liftCost a := by
+  cases a <;> rfl
+
+/-- **`le` is a preorder, NOT a partial order** (the essay's "partial order" was
+    imprecise): its symmetric part fails antisymmetry exactly on the dual pairs —
+    `loop` and `flow` are `≤` each other yet distinct.  The genuine partial order
+    lives on the *cost classes* (the quotient), where each dual pair collapses to
+    one height. -/
+theorem le_not_antisymm : le loop flow ∧ le flow loop ∧ loop ≠ flow :=
+  ⟨Nat.le_refl 1, Nat.le_refl 1, by decide⟩
+
 end E213.Lib.Math.Foundations.ArchetypeOrder

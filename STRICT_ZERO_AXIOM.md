@@ -404,6 +404,19 @@ above** by `B` reaches a normal form, proved by reflecting to `MonovariantFlow.f
 build-up/settle-down) duality from `lift_archetypes_order_and_duality.md`.  Hand-rolled pure
 `sub_lt_sub_left_pure` (`Nat.sub_lt_sub_left` carries `propext`).
 
+### Archetype order + duality model — narrative made theorem (2026-06-05)
+
+`E213.Lib.Math.Foundations.ArchetypeOrder` — **17 PURE / 0 DIRTY**.  The asserted Hasse diagram of the
+seven lift archetypes, turned into a theorem-backed *model* (answering an adversarial review that found
+"no order is defined").  `Archetype` (inductive, 7 ctors) + `liftCost : Archetype → ℕ` (a definition
+reading the catalog's costs) + `le := liftCost ≤`; proven `le_refl`/`le_trans`, `diagonal_bottom`,
+`reframe_top`, `loop/count` equicost.  The **duality is an actual involution** `dual` (`dual_involutive`
+= `dual∘dual=id`; `dual_swaps_loop_flow`, `dual_swaps_count_positivity`; `diagonal_self_dual` — so
+"DIAGONAL self-dual" is now a theorem; `dual_cost` = height-preserving).  **Correction proved**:
+`le_not_antisymm` — `le` is a *preorder, not a partial order* (dual pairs are equicost-but-distinct); the
+poset lives on the cost quotient.  Honest residue: costs and `dual` are hand-assigned (a model), so the
+*shape* is theorem-backed, the *specific costs* a modelling choice.
+
 ### EQUIV catalog — fold-equalities as the proof-ISA identity axis (2026-06-05)
 
 `E213.Lib.Math.Foundations.FoldEquality` — **3 PURE / 0 DIRTY**.  The companion to `ProofISALifts` on the

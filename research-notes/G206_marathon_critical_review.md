@@ -181,6 +181,12 @@ codomain + a proven `PartialOrder`, and dualities as actual involutions.
 
 ## Development — keep (genuine), ranked
 
+0. **DONE**: `ArchetypeOrder` extended (17 PURE) — the duality is now an actual
+   **involution** (`dual`, `dual_involutive`, `diagonal_self_dual`,
+   `dual_swaps_*`, `dual_cost`), answering "dualities as involutions / DIAGONAL
+   self-dual is poetry".  Also *corrected* the essay's "partial order" →
+   **preorder** (`le_not_antisymm`: dual pairs are equicost-but-distinct; the
+   poset is on the cost quotient).  Residue: costs/`dual` hand-assigned (a model).
 1. Make a meta-claim a *full* theorem: extend `ArchetypeOrder` to a real
    `PartialOrder` instance, or define `Compiles` for a restricted proof class.
 2. A frontier rung with real analysis content — transcendentals **T1** (exp
