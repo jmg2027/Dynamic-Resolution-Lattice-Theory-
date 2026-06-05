@@ -52,6 +52,20 @@ the ternary event to two binary edges and imposes a child/parent (operator/objec
 slash one 3-vertex hyperedge) is a different graph.  So even "the graph" is a
 sub-Lens, not the Raw — one more layer between any drawing and the residue.
 
+## The generating rule → the complete graph → the simplex
+
+`complete_graph_rule.py`, `complete_graph_rule.md`.  The cleanest statement of the
+generative cycle — *each line becomes a point (the slash), each new point joins
+every point it is not already connected to* — produces, at every stage, the
+**complete graph `K_n`** (computed exactly: `|E| = C(n,2)`).  Point counts
+`2, 3, 5, 12, 68, 2280, 2 598 062, …` (recursion `n_{k+1} = n_k + [C(n_k,2) −
+C(n_{k−1},2)]`, doubly exponential).  `K_n` is the 1-skeleton of the
+`(n−1)`-simplex, so the limit is `Δ^∞` — this rule is the *generative engine* of
+the free / dimension-Lens cell (`AngleStructure/SimplexOrthogonality.lean`):
+"line→point" is the slash, "connect to all" is the free reading.  It is the
+**maximal** end of the connection-criterion dial (hypergraph → parent-edges
+(`|E|=2(N−2)`) → complete graph (`|E|=C(N,2)`)).
+
 ## The generating space (the dials)
 
 The construction "every relation of two objects is itself an object, recurse"
