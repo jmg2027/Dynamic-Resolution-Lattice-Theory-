@@ -57,7 +57,10 @@ checkerboard `0,1,0,1` maps to `2·checkerboard` (eigenvalue `−1`, no spectral
 operator is the **lazy** step `lazyHeatStepNum = u_{x−1}+2u_x+u_{x+1}` `(¼,½,¼)`: `lazyHeatStep_const`,
 `lazyHeatStep_le_four_max`/`_four_min_le` (maximum principle), and the concrete witness
 `lazy_checker_collapses` (length-4 checkerboard → constant in one lazy step, osc `1→0`) vs
-`nonlazy_checker_hot`/`_cold`.
+`nonlazy_checker_hot`/`_cold`.  **Strong (strict) maximum principle** (`heatStep_strict_at_max`,
+`lazyHeatStep_strict_at_max`): a max site with a strictly-below neighbour drops *strictly* — for *both*
+stencils; the non-lazy max then *relocates* (`[0,1,0,1]→[2,0,2,0]`), so local strict drop ≠ global decay
+(the lazy self-weight pins the extremum).
 
 ## Next targets (priority order)
 1. **T1→T2 bridge**: package the proven exp term-decay rate into a `CauchyCutSeq` over the cut-level

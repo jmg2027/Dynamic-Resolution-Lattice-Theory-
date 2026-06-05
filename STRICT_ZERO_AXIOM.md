@@ -479,8 +479,14 @@ non-lazy stencil `(½,0,½)` — the checkerboard mode `0,1,0,1` maps to `2,0,2,
 (stencil `(¼,½,¼)`): `lazyHeatStep_const` (`= 4c`), `lazyHeatStep_le_four_max`/`_four_min_le` (its maximum
 principle), and the concrete spectral-gap witness `lazy_checker_collapses` (length-4 checkerboard `→`
 constant in one lazy step, osc `1→0`) vs `nonlazy_checker_hot`/`_cold` (non-lazy preserves it).  The
-`−1`-eigenmode the non-lazy step preserves is annihilated by the self-weight.  Rung **P1** of
-the discrete-PDE-estimates marathon
+`−1`-eigenmode the non-lazy step preserves is annihilated by the self-weight.
+
+**Strong (strict) maximum principle** (same file, 2 more PURE): `heatStep_strict_at_max` /
+`lazyHeatStep_strict_at_max` — a max site with a strictly-below neighbour drops *strictly* (`< 2B` resp.
+`< 4B`): heat cannot sustain a strict interior extremum (the strong maximum principle's discrete seed).
+Honest nuance: holds for *both* stencils, yet the non-lazy step still fails global oscillation decay because
+the max **relocates** (`[0,1,0,1]→[2,0,2,0]`) — local strict drop ≠ global spectral gap; the lazy
+self-weight pins the extremum.  Rung **P1** of the discrete-PDE-estimates marathon
 (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`); next: oscillation decay rate
 (P2) + the `Real213` limit step.
 

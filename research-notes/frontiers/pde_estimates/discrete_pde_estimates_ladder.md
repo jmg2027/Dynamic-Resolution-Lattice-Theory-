@@ -68,8 +68,13 @@ P2. **Oscillation decay** — `osc u = max u − min u` is a monovariant; unifor
     u_{x−1}+2u_x+u_{x+1}`, its maximum principle (`lazyHeatStep_le_four_max`/`_four_min_le`),
     and the concrete spectral-gap witness `lazy_checker_collapses` (the length-4
     checkerboard `→` constant in one lazy step, osc `1→0`) vs `nonlazy_checker_hot`/`_cold`
-    (the non-lazy step preserves it).  **Remaining**: the general (any `n`, any field)
-    oscillation contraction rate + the `Real213` limit.
+    (the non-lazy step preserves it).  ⚙️ **strong (strict) maximum principle**
+    (`heatStep_strict_at_max`, `lazyHeatStep_strict_at_max`): a max site with a
+    strictly-below neighbour drops *strictly* — heat cannot sustain a strict interior
+    extremum.  Holds for **both** stencils; the honest gap is that the non-lazy max
+    *relocates* (`[0,1,0,1]→[2,0,2,0]`) so local strict ≠ global decay — the lazy
+    self-weight pins the extremum (`lazy_eq_nonlazy_plus_self`).  **Remaining**: the
+    general (any `n`, any field) oscillation contraction rate + the `Real213` limit.
 P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (discrete
     Bochner / gradient estimate); the limit = continuous energy decay, rate a
     `‖∇u‖²` (ties to gradient-flow descent identity ①).

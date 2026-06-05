@@ -214,6 +214,68 @@ theorem lazy_eq_nonlazy_plus_self (n : Nat) (u : Nat → Nat) (x : Nat) :
       = u (leftNbr n x) + u (rightNbr n x) + 2 * u x
   ring_nat
 
+/-! ### Strong (strict) maximum principle — heat strictly smooths interior extrema
+
+If a site attains the field max `B` but has a neighbour strictly below `B`, the heat step
+sends it **strictly** below `2B` (resp. `4B` for the lazy stencil): heat cannot sustain a
+strict interior maximum.  This is the *strong* maximum principle's discrete seed.
+
+⚠️ **Local strict ≠ global oscillation decay.**  The strict drop holds at the max *site* for
+*both* stencils — yet the non-lazy step still fails to decay oscillation (the checkerboard,
+above), because the max **relocates**: `[0,1,0,1] → [2,0,2,0]` drops the old max site (`1→0`)
+but creates a new max at the even sites.  The lazy self-weight (`lazy_eq_nonlazy_plus_self`)
+is what *pins* the extremum in place so the strict drop is not undone — the difference between
+a strong maximum principle (local, both stencils) and a spectral gap (global, lazy only). -/
+
+/-- ★★ **Strong maximum principle (non-lazy).**  A max site with a strictly-below neighbour
+    drops strictly: `heatStepNum < 2B`. -/
+theorem heatStep_strict_at_max (n : Nat) (u : Nat → Nat) (B x : Nat)
+    (h : ∀ y, u y ≤ B)
+    (hstrict : u (leftNbr n x) < B ∨ u (rightNbr n x) < B) :
+    heatStepNum n u x < 2 * B := by
+  show u (leftNbr n x) + u (rightNbr n x) < 2 * B
+  rw [Nat.two_mul]
+  cases hstrict with
+  | inl hl =>
+      have s1 : u (leftNbr n x) + u (rightNbr n x) < B + u (rightNbr n x) :=
+        Nat.add_lt_add_right hl (u (rightNbr n x))
+      have s2 : B + u (rightNbr n x) ≤ B + B := Nat.add_le_add_left (h (rightNbr n x)) B
+      exact Nat.lt_of_lt_of_le s1 s2
+  | inr hr =>
+      have s1 : u (leftNbr n x) + u (rightNbr n x) ≤ B + u (rightNbr n x) :=
+        Nat.add_le_add_right (h (leftNbr n x)) (u (rightNbr n x))
+      have s2 : B + u (rightNbr n x) < B + B := Nat.add_lt_add_left hr B
+      exact Nat.lt_of_le_of_lt s1 s2
+
+/-- ★★★ **Strong maximum principle (lazy).**  Same strict drop for the smoothing stencil:
+    `lazyHeatStepNum < 4B`. -/
+theorem lazyHeatStep_strict_at_max (n : Nat) (u : Nat → Nat) (B x : Nat)
+    (h : ∀ y, u y ≤ B)
+    (hstrict : u (leftNbr n x) < B ∨ u (rightNbr n x) < B) :
+    lazyHeatStepNum n u x < 4 * B := by
+  show u (leftNbr n x) + 2 * u x + u (rightNbr n x) < 4 * B
+  have e : 4 * B = B + 2 * B + B := by ring_nat
+  rw [e]
+  have hmid : 2 * u x ≤ 2 * B := Nat.mul_le_mul_left 2 (h x)
+  cases hstrict with
+  | inl hl =>
+      have a1 : u (leftNbr n x) + 2 * u x < B + 2 * u x :=
+        Nat.add_lt_add_right hl (2 * u x)
+      have a2 : B + 2 * u x ≤ B + 2 * B := Nat.add_le_add_left hmid B
+      have h1 : u (leftNbr n x) + 2 * u x < B + 2 * B := Nat.lt_of_lt_of_le a1 a2
+      have b1 : u (leftNbr n x) + 2 * u x + u (rightNbr n x) < B + 2 * B + u (rightNbr n x) :=
+        Nat.add_lt_add_right h1 (u (rightNbr n x))
+      have b2 : B + 2 * B + u (rightNbr n x) ≤ B + 2 * B + B :=
+        Nat.add_le_add_left (h (rightNbr n x)) (B + 2 * B)
+      exact Nat.lt_of_lt_of_le b1 b2
+  | inr hr =>
+      have h1 : u (leftNbr n x) + 2 * u x ≤ B + 2 * B := Nat.add_le_add (h (leftNbr n x)) hmid
+      have b1 : u (leftNbr n x) + 2 * u x + u (rightNbr n x) ≤ B + 2 * B + u (rightNbr n x) :=
+        Nat.add_le_add_right h1 (u (rightNbr n x))
+      have b2 : B + 2 * B + u (rightNbr n x) < B + 2 * B + B :=
+        Nat.add_lt_add_left hr (B + 2 * B)
+      exact Nat.lt_of_le_of_lt b1 b2
+
 /-! ### Concrete witness: lazy decays the checkerboard, non-lazy does not -/
 
 /-- The checkerboard initial field `0,1,0,1,…` (the worst case for smoothing). -/
