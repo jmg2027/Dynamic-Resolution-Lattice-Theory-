@@ -477,7 +477,12 @@ by convexity of the square it cannot increase the L² norm pointwise: `heatStep_
 (`Foundations/Positivity`): `ring_intZ` for the SOS gap identity + `positivity_of_sq`/`positivity_of_sq3` —
 the `amgm_2` pattern reused.  The pointwise L²-dissipation seed, energy-method companion of the L∞ maximum
 principle.  (The *summed* signed Green identity it complements is now also done — see `HeatEqConservation`
-§5 above; the only `ring_nat` subtlety was un-pruned `0*0` zero-coefficient terms.)
+§5 above; the only `ring_nat` subtlety was un-pruned `0*0` zero-coefficient terms.)  **Energy-decay heart**
+(same file, +1 PURE): `lazy_energy_pointwise` — the local energy dissipation `(s+r−q−p)² ≤
+4·((q−p)²+2(r−q)²+(s−r)²)` over ℤ, from `grad(lazy u) = lazy(grad u)` (the lazy-step edge difference is the
+lazy stencil on the three edge gradients) + Jensen.  Its grid-sum (`gridSum_le` added to `HeatEqConservation`)
+gives `E(lazy u) ≤ 16·E(u)`, gated only on a ∅-axiom `Nat↔Int` square-cast/≤ bridge (core `Int.ofNat_le`/
+`ofNat_sub` leak `propext`).
 
 ### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
 

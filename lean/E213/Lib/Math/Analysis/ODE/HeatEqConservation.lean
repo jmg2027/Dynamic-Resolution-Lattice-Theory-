@@ -53,6 +53,16 @@ theorem gridSum_add (n : Nat) (f g : Nat → Nat) :
         = (gridSum m f + f m) + (gridSum m g + g m)
     rw [ih]; ring_nat
 
+/-- **Monotonicity**: pointwise `f ≤ g` on the grid ⟹ `Σ f ≤ Σ g`. -/
+theorem gridSum_le (n : Nat) (f g : Nat → Nat) (h : ∀ x, x < n → f x ≤ g x) :
+    gridSum n f ≤ gridSum n g := by
+  induction n with
+  | zero => exact Nat.le_refl 0
+  | succ m ih =>
+    rw [gridSum_succ, gridSum_succ]
+    exact Nat.add_le_add (ih (fun x hx => h x (Nat.lt_succ_of_lt hx)))
+      (h m (Nat.lt_succ_self m))
+
 /-- **Scalar**: `Σ (2·f) = 2·Σ f`. -/
 theorem gridSum_two_mul (n : Nat) (f : Nat → Nat) :
     gridSum n (fun x => 2 * f x) = 2 * gridSum n f := by

@@ -47,4 +47,28 @@ theorem lazyHeatStep_l2_jensen (a b c : Int) :
     ring_intZ
   exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero (positivity_of_sq3 _ _ _ _ hgap))
 
+/-! ## Local energy dissipation — `grad(lazy u) = lazy(grad u)` + Jensen
+
+The heat step commutes with the discrete gradient (constant-coefficient stencil): on four
+consecutive grid values `p,q,r,s`, the lazy-step difference `lazyStep(next) − lazyStep(here) =
+(s+r) − (q+p)` equals the **lazy stencil applied to the three edge gradients**
+`(q−p) + 2(r−q) + (s−r)`.  Jensen (`lazyHeatStep_l2_jensen`) then bounds its square — the pointwise
+energy-dissipation inequality whose grid-sum gives `E(lazy u) ≤ 16·E(u)` (shift-invariance turns
+each shifted gradient-energy back into `E(u)`; the `Nat`-summation cast is the remaining P3 step). -/
+
+/-- ★★★ **Local energy dissipation (over ℤ).**  For four consecutive grid values `p,q,r,s`,
+
+      `(s+r−q−p)² ≤ 4·((q−p)² + 2(r−q)² + (s−r)²)`.
+
+    The left side is `|lazyStep(next)−lazyStep(here)|²` (an edge of the stepped field); the right
+    is `4×` the lazy-weighted sum of the three contributing **gradient** energies.  Direct from
+    `lazyHeatStep_l2_jensen` at the gradients `(q−p, r−q, s−r)` (whose lazy combination is exactly
+    `s+r−q−p`, by `ring_intZ`).  Summed over the periodic grid this yields `E(lazy u) ≤ 16·E(u)`. -/
+theorem lazy_energy_pointwise (p q r s : Int) :
+    (s + r - q - p) * (s + r - q - p)
+      ≤ 4 * ((q - p) * (q - p) + 2 * ((r - q) * (r - q)) + (s - r) * (s - r)) := by
+  have key := lazyHeatStep_l2_jensen (q - p) (r - q) (s - r)
+  have hid : (q - p) + 2 * (r - q) + (s - r) = s + r - q - p := by ring_intZ
+  rw [hid] at key; exact key
+
 end E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2

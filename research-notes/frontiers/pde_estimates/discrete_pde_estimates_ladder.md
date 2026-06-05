@@ -106,8 +106,17 @@ P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (dis
     📝 **`ring_nat` note** (the earlier "blocker" diagnosed precisely): `ring_nat`/`ring_intZ`
     close asymmetric multivar identities fine — the only failure mode is an un-pruned
     **zero-coefficient monomial** (a literal `0*0` term, here from the truncated `(b−a)²`); kill
-    it with `Nat.zero_mul`/`Nat.add_zero` first and the normalizer succeeds.  **Remaining**: the
-    energy *decay* `E(lazy u) ≤ 16·E(u)` (Green identity + L²-Jensen + summation by parts).
+    it with `Nat.zero_mul`/`Nat.add_zero` first and the normalizer succeeds.
+    ⚙️ **energy-decay heart done** (`HeatEqEnergyL2.lazy_energy_pointwise`, 1 PURE + `gridSum_le`):
+    the **local energy dissipation** over ℤ — for four consecutive grid values `p,q,r,s`,
+    `(s+r−q−p)² ≤ 4·((q−p)²+2(r−q)²+(s−r)²)`.  Key structural fact: the heat step commutes with
+    the gradient (`grad(lazy u) = lazy(grad u)`), so the lazy-step edge difference `s+r−q−p` is the
+    lazy stencil on the three edge gradients `(q−p)+2(r−q)+(s−r)`; Jensen then bounds its square.
+    **Remaining (single blocker)**: the full grid-summed `E(lazy u) ≤ 16·E(u)` = `gridSum_le` +
+    this pointwise bound + `gridSum_add` + shift-reindex (Σ of each gradient-energy = `E(u)`) — all
+    clean `Nat` *except* the pointwise step needs the cast `↑(sqDistNat a b) = (↑a−↑b)²` + a `Nat↔Int`
+    `≤` transfer, both of which hit `propext`-leaking core lemmas (`Int.ofNat_le`, `Int.ofNat_sub`);
+    a ∅-axiom bridge from the `Int213` `subNatNat`/`NonNeg` primitives is the remaining build.
 P4. **Li–Yau / differential-Harnack** — gradient bound `|∇u|²/u` along the flow
     (the real depth; discrete-Harnack → continuous limit).
 P5. **Shi-type estimate** — curvature-derivative bound along the *Ricci* flow;
