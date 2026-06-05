@@ -99,16 +99,20 @@ exposed patterns worth harvesting.
   `extendC_sorted`/`raiseC_sorted` (constructors preserve `subseteqB`-`Pairwise`,
   via `extendC_head`/`raiseC_head` + `subseteqB_cons_same`/`subseteqB_false_true`),
   `scd_sorted`, and ★★ `scd_isChain` — every member of `scd n` is a chain.
-  (b)
-  **partition** — every length-`(n+1)` vector `b::v` sits in exactly one chain
-  (`v` in a unique chain of `scd n`; `false::v` ↦ its `extendC`, `true::v` ↦
-  `extendC` top if `v` is `C`'s top else `raiseC`); (c) **count** `= C(n,⌊n/2⌋)`
-  via the **symmetric-level invariant** — each chain's `cardB` values are exactly
-  a contiguous `{k,…,n−k}`, so it has exactly one `⌊n/2⌋`-element; the bijection
-  `chain ↦ its middle element` (partition + ≤1 middle via `chain_card_inj`) gives
-  `#chains = |kLayer n ⌊n/2⌋| = C(n,⌊n/2⌋)`.  Then `dilworth_lower` +
-  this upper bound ⟹ **min chain cover `= C(n,⌊n/2⌋)` = max antichain**.
-  ~400 lines; the symmetric invariant (c) is the crux.  Dedicated session.
+  (b) **cover** — ✓✓ **CLOSED** (`ChainAntichain` §7): `false_mem_extendC`,
+  `true_mem`, `extendC_mem_scdStep`/`raiseC_mem_scdStep`, ★★ `scd_cover` (every
+  length-`n` vector in some `scd n` chain) and `scd_chain_cover`.
+  (c) **count** `= C(n,⌊n/2⌋)` — *the only remaining piece*.  Plan: the
+  **symmetric-level invariant** `SymChain n C := C.map cardB = range' k (n−2k+1)`
+  for some `k ≤ n/2` (cardB values exactly the contiguous `{k,…,n−k}`).
+  Preservation: `extendC` keeps `false::` cardB and adds `(n−k)+1` at top
+  (`k..n+1−k`); `raiseC` shifts `+1` and drops the top (`k+1..(n+1)−(k+1)`).  Then
+  each chain has **exactly one** `⌊n/2⌋`-element (`⌊n/2⌋ ∈ [k,n−k]` + `chain_card_inj`
+  for ≤1).  Also need **partition disjointness** (a vector in ≤1 chain — for
+  injectivity of `chain ↦ middle`).  Bijection `scd n ↔ kLayer n ⌊n/2⌋` (surjective
+  via `scd_cover`, injective via disjointness) ⟹ `|scd n| = C(n,⌊n/2⌋)`.  Then
+  `dilworth_lower` + this ⟹ **min chain cover `= C(n,⌊n/2⌋)` = max antichain**.
+  ~150–200 lines; the symmetric invariant + disjointness is the crux.
 
 - **Leibniz determinant over `perms`.**  `Linalg213/Permutation` uses `LPerm`
   *equivalence* + inversion-sign but no enumeration; `perms` + `mem_perms_iff` +

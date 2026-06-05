@@ -83,16 +83,15 @@ Physics constants table: `catalogs/physics-constants.md`.
 ## Open Problems (Priority Order)
 From `research-notes/frontiers/count_substrate_synthesis.md` (registered in
 `frontiers/INDEX.md`):
-### 1. Dilworth UPPER bound on `2^[n]` — the SCD (lower + obligation (a) DONE).
-`dilworth_lower` closed; the **SCD construction + chain property is CLOSED**
-(`ChainAntichain` §5–6): `scd`/`extendC`/`raiseC`, `extendC_sorted`/`raiseC_sorted`,
-`scd_sorted`, ★★ `scd_isChain` (every `scd n` member is a chain).  **Remaining**:
-(b) **partition** — every length-`n` vector in exactly one `scd n` chain (needs
-mem-characterizations of `extendC`/`raiseC`: `v∈C ⟹ false::v ∈ extendC C`,
-`true::(last C) ∈ extendC C`, `v∈C, v≠last ⟹ true::v ∈ raiseC C`); (c) the
-**symmetric-level-invariant count** `= C(n,⌊n/2⌋)` (the crux: each chain's `cardB`
-values are a contiguous `{k,…,n−k}` ⟹ one `⌊n/2⌋`-element ⟹ bijection
-chains↔middle-layer).  Full spec in the frontier note.
+### 1. Dilworth UPPER bound on `2^[n]` — the SCD ((a) chain + (b) cover DONE).
+`dilworth_lower` closed; **SCD chain property + cover CLOSED** (`ChainAntichain`
+§5–7): `scd`/`extendC`/`raiseC`, `scd_isChain`, ★★ `scd_chain_cover` (every member
+a chain, every vector covered).  **Only (c) the count remains**:
+`|scd n| = C(n,⌊n/2⌋)` via the symmetric-level invariant (`SymChain n C :=
+C.map cardB = range' k (n−2k+1)`) — each chain has exactly one `⌊n/2⌋`-element ⟹
+bijection `scd n ↔ kLayer n ⌊n/2⌋` (surjective via `scd_cover`, injective via
+partition disjointness, still to prove).  Then `dilworth_lower` + this ⟹
+min chain cover `= C(n,⌊n/2⌋)` = max antichain.  Full plan in the frontier note.
 ### 2. Leibniz determinant over `perms` (bridge `LPerm` ↔ `perms`).
 ### (CLOSED) Bollobás `bollobas_uniform` (36/36 PURE); Mirsky `mirsky_boolean`
 (`ChainAntichain`, 15/15 PURE) — both unconditional ∅-axiom.
