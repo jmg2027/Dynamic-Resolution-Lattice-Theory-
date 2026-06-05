@@ -22,7 +22,8 @@ the `Meta.Tactic.List213` length/membership toolkit.  All ∅-axiom.
 namespace E213.Lib.Math.Combinatorics.Permutations
 
 open E213.Tactic.List213
-  (length_append length_map mem_append_iff exists_of_mem_map)
+  (length_append length_map mem_append_iff exists_of_mem_map
+   mem_append_left mem_append_right mem_map_of_mem)
 
 /-! ## §1 — factorial -/
 
@@ -181,5 +182,63 @@ theorem perms_sound {α : Type _} : ∀ (l p : List α), p ∈ perms l → LPerm
       obtain ⟨q, hq, hpq⟩ := mem_flatMap213 h
       exact LPerm.trans (mem_insertEverywhere_perm a q p hpq)
               (LPerm.cons a (perms_sound l q hq))
+
+/-! ## §5 — self-membership and concatenation
+
+The structural facts the prefix-set count rests on: the input is its own
+ordering (`self_mem_perms`), and orderings *concatenate* — an ordering of `A`
+followed by an ordering of `B` is an ordering of `A ++ B` (`perms_append_mem`).
+The second is the engine of the `k!·(n−k)!` count: the chains through a
+size-`k` set `A` are the `k!` orderings of `A`'s points followed by the
+`(n−k)!` orderings of the rest. -/
+
+/-- Membership into a `flatMap213` from a witness. -/
+theorem mem_flatMap213_of {α β : Type _} {f : α → List β} {q : β} :
+    ∀ {l : List α} {a : α}, a ∈ l → q ∈ f a → q ∈ flatMap213 f l
+  | a' :: l, a, h, hq => by
+      cases h with
+      | head => exact mem_append_left (l₂ := flatMap213 f l) hq
+      | tail _ h' => exact mem_append_right (f a') (mem_flatMap213_of h' hq)
+
+/-- The input list is its own ordering — the head of every `insertEverywhere`. -/
+theorem self_mem_insertEverywhere {α : Type _} (a : α) :
+    ∀ l : List α, (a :: l) ∈ insertEverywhere a l
+  | [] => List.Mem.head _
+  | _ :: _ => List.Mem.head _
+
+/-- `l ∈ perms l` — the identity ordering is enumerated. -/
+theorem self_mem_perms {α : Type _} : ∀ l : List α, l ∈ perms l
+  | [] => List.Mem.head _
+  | a :: l => mem_flatMap213_of (self_mem_perms l) (self_mem_insertEverywhere a l)
+
+/-- Inserting `a` into `σ'`, then appending `τ`, is an insertion of `a` into
+    `σ' ++ τ` (in the `σ'` region). -/
+theorem mem_insertEverywhere_append {α : Type _} (a : α) (τ : List α) :
+    ∀ (σ' σ : List α), σ ∈ insertEverywhere a σ' → (σ ++ τ) ∈ insertEverywhere a (σ' ++ τ)
+  | [], σ, h => by
+      cases h with
+      | head => exact self_mem_insertEverywhere a τ
+      | tail _ h' => nomatch h'
+  | c :: σ'', σ, h => by
+      cases h with
+      | head => exact List.Mem.head _
+      | tail _ h' =>
+          obtain ⟨σr, hσr, rfl⟩ := exists_of_mem_map h'
+          exact List.Mem.tail _
+            (mem_map_of_mem (c :: ·) (mem_insertEverywhere_append a τ σ'' σr hσr))
+
+/-- ★ **Orderings concatenate.**  An ordering `σ` of `A` followed by an ordering
+    `τ` of `B` is an ordering of `A ++ B`.  The combinatorial core of the
+    chains-through-`A` count `k!·(n−k)!`. -/
+theorem perms_append_mem {α : Type _} :
+    ∀ (A B σ τ : List α), σ ∈ perms A → τ ∈ perms B → (σ ++ τ) ∈ perms (A ++ B)
+  | [], _, σ, _, hσ, hτ => by
+      cases hσ with
+      | head => exact hτ
+      | tail _ h' => nomatch h'
+  | a :: A', B, σ, τ, hσ, hτ => by
+      obtain ⟨σ', hσ', hσσ'⟩ := mem_flatMap213 hσ
+      exact mem_flatMap213_of (perms_append_mem A' B σ' τ hσ' hτ)
+              (mem_insertEverywhere_append a τ σ' σ hσσ')
 
 end E213.Lib.Math.Combinatorics.Permutations
