@@ -1,7 +1,7 @@
 import E213.Lib.Math.Combinatorics.Sperner
 
 /-!
-# Sperner's theorem — the geometric chain model (discharging the rung)
+# Sperner's theorem — the geometric chain model (the named bound, unconditional)
 
 Instantiates `Sperner.sperner_upper_bound` with the concrete chain model:
 maximal chains of `2^[n]` are the orderings of the positions `[0..n−1]`

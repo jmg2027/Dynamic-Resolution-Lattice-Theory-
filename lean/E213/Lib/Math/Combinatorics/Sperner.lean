@@ -24,10 +24,12 @@ bound* are two different ISA moves, and separating them is the content:
     each maximal chain meets the antichain at most once, so summing
     "chains through `A`" over the antichain cannot exceed the chain total.
 
-This file closes everything except the *named* general upper bound's chain
-arithmetic (the permutation counts `|A|!·(n−|A|)!` and `n!`), which — exactly
-as Erdős' named Ramsey bound left a `K_N`-bookkeeping rung over a built engine
-(`RamseyLowerBound`) — is the one honest rung over the LYM engine here.
+This file builds the LYM engine, the binomial/factorial arithmetic, and the
+abstract reduction (`sperner_upper_bound`): any chain model with the right two
+counts yields the bound.  The geometric chain model discharging those counts —
+maximal chains as orderings of `[n]`, `inc` = prefix-set — lives in
+`SpernerChains`, where `sperner` / `sperner_theorem` prove the named bound
+unconditionally.
 
 ## What is closed (general, ∅-axiom)
 
@@ -484,11 +486,10 @@ antichain at most once, then summing "chains through `A`" over the antichain
 cannot exceed the chain total.  Both are one move — Fubini on a 0/1 incidence
 matrix, read once by rows and once by columns.
 
-The engine is abstract and ∅-axiom.  Instantiating it to the *named* Sperner
-bound needs the chain model's two counts — `#chains = n!` and
-`#chains through A = |A|!·(n−|A|)!` — the permutation arithmetic that, exactly
-as Erdős' named Ramsey bound left a `K_N`-bookkeeping rung over its built engine
-(`RamseyLowerBound`), is the one honest rung here. -/
+The engine is abstract and ∅-axiom.  The *named* Sperner bound instantiates it
+with the chain model's two counts — `#chains = n!` and
+`#chains through A = |A|!·(n−|A|)!` — built in `SpernerChains` over the `perms`
+enumeration. -/
 
 /-- Generic `Bool`-predicate count (propext-free; core `List.countP` carries it). -/
 def lcount {β : Type _} (p : β → Bool) : List β → Nat
@@ -590,8 +591,8 @@ Given *any* chain model — a list `chains` with `|chains| = n!`, an incidence
 "≥ `k!·(n−k)!` chains through a size-`k` member" — the LYM engine plus the
 factorial arithmetic yield Sperner's bound.  This is the whole compilation,
 abstract and ∅-axiom; the geometric model (maximal chains = orderings of `[n]`,
-`inc` = prefix-set, the two hypotheses) is the remaining rung, built on
-`Permutations` (`perms_length = n!`, `perms_append_mem`, `mem_perms_iff`). -/
+`inc` = prefix-set, discharging the two hypotheses) lives in `SpernerChains`,
+built on `Permutations` (`perms_length = n!`, `perms_append_mem`, `mem_perms_iff`). -/
 
 /-- The counting heart: under the chain-model hypotheses,
     `|F| · (⌊n/2⌋)!·(⌈n/2⌉)! ≤ n!`. -/
