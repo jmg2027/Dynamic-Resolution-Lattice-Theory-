@@ -139,3 +139,25 @@ count was unknown before this pass.
 contractive νF; (2) the event-structure/trace layer over Raw + parametric
 `cfgIdeals` theorem + link to `Lens/Lattice`; (3) the Lagrange-spectrum link
 (`k²+4` already in `MetallicGeneratorTower`) + ρ as a cubic-Pisot object.
+
+## §6 Concrete next target: general `cfgIdeals` theorems (recipe for next session)
+
+The parametric family `cfgIdeals_zero..three` (s=0..3) is closed PURE.  The general
+results need `List.range`/`foldr` induction (`List213`); a concrete tractable recipe:
+
+- **`binom_self (n) : binom n n = 1`** — induction on `n`; succ step uses
+  `binom_eq_zero_of_lt (n k) : n < k → binom n k = 0` (induction on `n`,
+  generalize `k`, case `k = k'+1`).  Both PURE by `Nat` induction (no propext).
+- **`Hmono (f L a) : a ≤ List.foldr (fun k acc => acc + f k) a L`** — induction on
+  `L` (each step `acc + f k ≥ acc`).  PURE.
+- **`cfgIdeals_pos (V s) : 0 < cfgIdeals V s`** — `List.range_succ`
+  (`range (s+1) = range s ++ [s]`) + `List.foldr_append` reduce
+  `cfgIdeals V s` to `List.foldr g (0 + f s) (range s)`; by `Hmono`,
+  `0 + f s ≤ cfgIdeals V s`; and `f s = binom s s * 2^(V*s) * 2^(s*(s-1)/2)
+  = 1 * 2^(V*s) * 2^(…) ≥ 1` via `binom_self` + `Nat.one_le_two_pow`/`one_le_pow`.
+- Then **`cfgIdeals_dominant (V s) : 2 ^ (V*s) ≤ cfgIdeals V s`** falls out the same
+  way (`f s ≥ 2^(V*s)`), the lower bound matching the dominant term.
+
+Verify each with `#print axioms`; the only risk is locating the PURE `List`/`Nat`
+core lemmas (`range_succ`, `foldr_append`, `one_le_pow`) — confirm with a scratch
+`#print axioms` as was done for `Nat.{zero_add,mul_one,one_mul}` (all PURE here).
