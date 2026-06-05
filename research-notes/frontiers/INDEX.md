@@ -240,3 +240,15 @@ non-constructive `DECIDE` (the exterior).  COUNT registered as the quantitative
 bookkeeping (edge↔position indexing + `k`-subset enumeration giving `t=C(N,k)`,
 then `erdos_schema`), **no new "why"**.  All engine pieces built ∅-axiom
 (`CountExistence`, `RamseyLowerBound.{count_factor,mono_event_count,matchesC_count}`).
+
+## A6 FLOW core / Ricci flow  (`a6_ricci_core/`, `ricci_flow_smooth_core.md`)
+
+- `ricci_flow_smooth_core` — the smooth-metric general Ricci-flow core
+  (Perelman `𝓕/𝓦`-monotonicity, surgery): the wall (Riemannian geometry + PDE,
+  Mathlib-forbidden).  *Closed sub-steps*: round-sphere finite extinction,
+  Einstein trichotomy, gradient-flow descent identity + completeness-LOOP.
+- `a6_ricci_core/discrete_ricci_flow_ladder` — the 213-native route to actually
+  closing A6's conquest: **discrete (Forman/Ollivier) Ricci flow** (combinatorial
+  curvature, no smooth manifold).  Rung 1 done (`DiscreteRicci.formanEdge`,
+  curvature↔topology); next: weighted Forman + flow step + convergence via
+  `flow_reaches`.

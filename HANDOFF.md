@@ -39,10 +39,20 @@ entries, actual conquests.  Seed compilation: `research-notes/G205_cross_domain_
 ## Proof-ISA catalog state (`Foundations/ProofISALifts.lean`, `seed/PROOF_ISA.md`)
 A1 DIAGONAL · A2 LOOP · A3 ORBIT · A4 REFRAME · A5 COUNT · **A6 FLOW** · **A7 POSITIVITY**.
 
-## Open frontiers (recorded in `research-notes/frontiers/ricci_flow_smooth_core.md`)
-- **The core (still OPEN, the wall)**: general-metric smooth Ricci flow — Perelman's `𝓕/𝓦`-monotonicity
-  proof (`∇𝓕 = −(Ric+Hess f)`), non-collapsing, surgery.  Needs Riemannian geometry + PDE (Mathlib-
-  forbidden).  A6 locates it precisely as the `descent`-hypothesis discharge for general metrics.
+## A6 IS NOT FULLY CLOSED — its conquest core is the active marathon
+A6's *archetype* + *easy cases* (round sphere, Einstein trichotomy, gradient skeleton) are closed, but
+A6's **conquest core = general Ricci flow** is not.  Smooth-metric Perelman is walled (Riemannian geom +
+PDE, Mathlib-forbidden).  **The 213-native route now in progress: discrete (Forman/Ollivier) Ricci flow**
+(combinatorial curvature, no smooth manifold) — `research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`.
+  - Rung 1 ✅ `GeometrizationConjecture/DiscreteRicci.lean` (6 PURE): `formanEdge`, `K_{NS,NT}` curvature
+    `4−NS−NT`, sign↔topology (`K_{3,2}` `−1` ↔ `b₁=8`; `K_{1,1}` `+2` ↔ tree).
+  - **Rung 2 (NEXT)**: weighted Forman + a discrete Ricci-flow step `w ↦ w − F·w`.
+  - **Rung 3**: drive the discrete flow to its normalized (constant-curvature) fixed point via
+    `flow_reaches` — the discrete analogue of Perelman monotonicity, the real A6-core target.
+
+## Open frontiers (recorded in `research-notes/frontiers/`)
+- **Smooth core (the wall)**: general-metric Ricci flow — Perelman `𝓕/𝓦`-monotonicity, surgery
+  (`ricci_flow_smooth_core.md`).  Not climbed directly; the discrete ladder is the route.
 - **Berger-sphere pinching** — anisotropic 2-variable homogeneous ODE (remaining non-trivial homogeneous
   case), still open.
 - **Full pointwise `cutEq`** for the Real213 limit (boundary quotient via valid-cut equality) — deferred.

@@ -354,6 +354,17 @@ Kazhdan–Lusztig positivity, Mordell heights.  Reach: same archetype drives **A
 `mul_eq_zero`) and `dist_sq_zero_imp_eq` (the squared distance separates points — POSITIVITY drives
 `SEPARATE`).
 
+### Discrete (Forman) Ricci curvature — the 213-native route to the A6 core (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci` — **6 PURE / 0 DIRTY**.  A6's smooth-metric
+conquest core is walled (Riemannian geometry + PDE); the 213-native route is **combinatorial** Ricci
+curvature (Forman/Ollivier), no smooth manifold.  `formanEdge du dv = 4 − du − dv` (triangle-free
+unweighted edge); complete-bipartite `K_{NS,NT}` uniform value `4 − NS − NT` (`forman_bipartite`).  Sign ↔
+topology (`discrete_curvature_topology`): `K_{1,1}` `+2` / `K_{1,3}` `0` / `K_{3,2}` `−1` ↔ `b₁` 0/0/8 —
+the trivial-loop ↔ rich-loop split the Poincaré pillar reads off `b₁`, here off curvature.  Rung 1 of the
+A6-core marathon (`research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`); next: weighted
+Forman + a discrete Ricci-flow step driven to its normalized fixed point via `flow_reaches`.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

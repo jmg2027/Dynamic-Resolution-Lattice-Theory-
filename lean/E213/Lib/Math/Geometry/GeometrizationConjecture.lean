@@ -7,6 +7,7 @@ import E213.Lib.Math.Geometry.GeometrizationConjecture.Ricci
 import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow
 import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow
 import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciHomogeneous
+import E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci
 import E213.Lib.Math.Geometry.GeometrizationConjecture.EightGeometries
 import E213.Lib.Math.Geometry.GeometrizationConjecture.StructuralMapping
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Capstone
