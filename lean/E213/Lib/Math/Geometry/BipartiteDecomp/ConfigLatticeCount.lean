@@ -63,4 +63,11 @@ theorem config_lattice_count_master :
     every `V` — a parametric `∅`-axiom identity (the lattice bottom). -/
 theorem cfgIdeals_zero (V : Nat) : cfgIdeals V 0 = 1 := rfl
 
+/-- ★ One growth axis (`s = 1`, parametric in `V`): `I(V,1) = 2^V + 1` — the
+    cycle-1 lattice for `V` pre-existing vertices (matches `cycle1` at `V = 2`).
+    Proved `∅`-axiom via the PURE `Nat` lemmas (no `propext`). -/
+theorem cfgIdeals_one (V : Nat) : cfgIdeals V 1 = 2 ^ V + 1 := by
+  show (0 + 1 * 2 ^ (V * 1) * 1) + 1 = 2 ^ V + 1
+  rw [Nat.mul_one V, Nat.one_mul, Nat.mul_one, Nat.zero_add]
+
 end E213.Lib.Math.Geometry.BipartiteDecomp.ConfigLatticeCount
