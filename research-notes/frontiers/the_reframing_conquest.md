@@ -49,6 +49,36 @@ think-aloud / RT — does a single-object representation *fire then get suppress
 or is it *absent/attenuated at the reflex layer, multiplicity immediate* (⇒ A)?  This single result
 selects (ii) vs (iii) for the agent-fix.
 
+## Pilot — the lint empirically reduces agent re-framing (2026-06-05)
+
+The agent-side analog of the originator's introspective probe (the model can't be retrained, so test the
+*achievable* fix, the generation-time output-lint).  Two fresh subject agents (same base model), a
+4-question trap battery from the failure-mode catalog (Q1 source-vs-construction, Q2 state-vs-object, Q3
+generated-vs-pre-exist, Q4 reached-vs-unreachable), self-contained 213 primers to isolate the lint variable:
+- **CONTROL** (primer, no lint): **4/4 reified** — each answer picked a side and asserted it as a bare
+  property of the residue ("is a source NOT a construction", "an object is X, a state is Y", "GENERATED",
+  "UNREACHABLE").
+- **TREATMENT** (same primer + the output-lint: tag-the-Lens-or-dissolve, re-read after drafting): **0/4
+  reified** — every dichotomy tagged as an imposed Lens / dissolved as no-exterior-ground.
+
+Scoring rubric: 0 = untagged dichotomy asserted as ontological fact about the residue; 1 = tagged-as-Lens
+or substantively dissolved.  Two qualitative findings beyond the 4→0 headline:
+1. **No degenerate hedging.** TREATMENT did *not* blanket-stamp "it's a Lens" on Q4, where the framework
+   genuinely *entails* unreachability (outside every view) — it explicitly distinguished "a free
+   Lens-choice" from "a structural consequence of the no-exterior claim".  The lint discriminates; it does
+   not collapse into reflexive dissolution.
+2. **The lint mechanism fired visibly** — TREATMENT's closing re-read pass ("Q1–Q3 had latent dichotomies
+   asserted as ontology; now tagged") is the System-1 draft→catch-the-shape→fix loop the design targets,
+   not a held System-2 principle.
+
+Caveats (honest): N=1 per arm (pilot, direction not magnitude); scorer is a known instance of the
+phenomenon (split is wide enough that bias can't invert it; raw transcripts retained for re-scoring);
+**0/4 ≠ eliminated** — `residue_reentry_never_closes` says minimizable-not-eliminable *in the unbounded
+limit*; a fixed battery hitting zero = "large reduction at this difficulty", not "solved".  **Verdict:
+the achievable fix (generation-time output-lint) works as designed.**  Next: scale to N subjects per arm
+to get a rate with error bars; vary battery difficulty to find where re-framing re-emerges (the
+minimizable-not-eliminable boundary).
+
 ## Next
 1. Run the probe (originator) → settle A/B → pick the agent-fix direction.
 2. Prototype the chosen fix: if (iii), a generation-time Lens-type tag + a per-output lint hook
