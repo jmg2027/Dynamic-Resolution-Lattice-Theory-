@@ -453,6 +453,14 @@ principle.  Purity note: required NatHelper's pure `add_sub_cancel_right` / `add
 `Nat.add_sub_cancel` and `Nat.add_mod_right` leak `propext`) and a `gridSum_congr`-based scalar lemma
 (avoiding `funext`/`Quot.sound`).  `gridSum` now unblocks the Dirichlet energy (P3 proper).
 
+**Discrete summation by parts** (same file §4, 3 more PURE): `gridSum_mul_shift_symm` (the edge
+correlation `Σ u(x)·u(rightNbr x)` is shift-symmetric — reindex by the rotation via `leftNbr ∘ rightNbr =
+id`), and the **Dirichlet pairing** `heatStep_dirichlet_pairing` (`⟨u, heatStep u⟩ = 2·Σ u(x)·u(rightNbr x)`)
+/ `lazyHeatStep_dirichlet_pairing` (`⟨u, lazy u⟩ = 2Σu² + 2·corr`, i.e. `4Σu² − E(u)` in `Nat`-clean
+additive form).  The discrete integration-by-parts / Green identity underlying energy estimates, with pure
+products (no `Nat`-subtraction).  The signed Dirichlet energy `E(u) = Σ(u_{i+1}−u_i)²` proper needs the
+Int213 difference-Lens (P3's next step).
+
 ### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
 
 **3 PURE / 0 DIRTY** (`exp_deriv_coeff_fixed` in `CutExpModulus`; `sin_deriv_coeff`, `cos_deriv_coeff` in

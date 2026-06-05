@@ -91,6 +91,14 @@ P2. **Oscillation decay** — `osc u = max u − min u` is a monovariant; unifor
 P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (discrete
     Bochner / gradient estimate); the limit = continuous energy decay, rate a
     `‖∇u‖²` (ties to gradient-flow descent identity ①).
+    ⚙️ **summation by parts done** (`HeatEqConservation` §4, 3 PURE):
+    `gridSum_mul_shift_symm` (edge correlation is shift-symmetric), and the **Dirichlet
+    pairing** `heatStep_dirichlet_pairing` (`⟨u, heatStep u⟩ = 2·corr`) /
+    `lazyHeatStep_dirichlet_pairing` (`⟨u, lazy u⟩ = 2Σu² + 2corr = 4Σu² − E(u)` in
+    `Nat`-clean additive form).  Pure products, no `Nat`-subtraction.  **Remaining**: the
+    signed energy `E(u) = Σ(u_{i+1}−u_i)²` itself needs the **Int213 difference-Lens** (the
+    squared difference is sign-aware); then `E(lazy u) ≤ 16·E(u)` (decay) follows from the
+    pairing + Cauchy–Schwarz.
 P4. **Li–Yau / differential-Harnack** — gradient bound `|∇u|²/u` along the flow
     (the real depth; discrete-Harnack → continuous limit).
 P5. **Shi-type estimate** — curvature-derivative bound along the *Ricci* flow;

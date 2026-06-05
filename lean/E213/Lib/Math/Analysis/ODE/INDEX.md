@@ -9,7 +9,7 @@ Blueprint: `blueprints/math/06_ode_pde_213.md` (retired).
 | `PicardIterate.lean` | discrete Picard `y_{n+1} = y_n + f(y_n)`; const + exp closed-form | ∅-axiom |
 | `LinearODE.lean` | `y' = a` → `y0 + n·a`; `y' = y` Euler-step → `y0 · 2^n` | ∅-axiom |
 | `HeatEqDiscrete.lean` | 1D periodic heat eq; maximum principle (per-step/iterated/strong-strict), comparison principle, lazy `(¼,½,¼)` stencil + checkerboard spectral-gap witness | ∅-axiom |
-| `HeatEqConservation.lean` | finite-grid sum `gridSum` + cyclic-shift invariance; mass conservation `Σ heatStep = 2Σu`, `Σ lazyHeatStep = 4Σu` | ∅-axiom |
+| `HeatEqConservation.lean` | finite-grid sum `gridSum` + cyclic-shift invariance; mass conservation `Σ heatStep = 2Σu`, `Σ lazyHeatStep = 4Σu`; summation-by-parts Dirichlet pairing `⟨u, A u⟩` | ∅-axiom |
 | `WaveEqDiscrete.lean` | 1D periodic leapfrog wave; rest field + zero field preserved | ∅-axiom |
 | `Capstone.lean` | 5 cluster witnesses + `total_witness` | ∅-axiom |
 | `ODE.lean` | umbrella | — |

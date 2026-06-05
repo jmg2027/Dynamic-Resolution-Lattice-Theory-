@@ -143,4 +143,54 @@ theorem lazyHeatStep_mass_conservation (n : Nat) (u : Nat → Nat) :
       gridSum_leftNbr n u, gridSum_rightNbr n u, gridSum_two_mul n u]
   ring_nat
 
+/-! ## §4 — discrete summation by parts (the Dirichlet pairing)
+
+The pairing `⟨u, A u⟩ = Σ_x u(x)·(A u)(x)` for the heat operator `A`, computed via cyclic-shift
+invariance — the discrete integration-by-parts / Green identity that underlies all energy
+estimates.  Pure products, so no `Nat`-subtraction (the obstacle to writing `Σ(u_{x+1}−u_x)²`
+directly; the signed Dirichlet energy proper needs the Int213 difference-Lens, P3's next step). -/
+
+/-- The edge correlation is shift-symmetric: `Σ u(x)·u(leftNbr n x) = Σ u(x)·u(rightNbr n x)`.
+    Reindex by the rotation (`gridSum_rightNbr`) using `leftNbr ∘ rightNbr = id`. -/
+theorem gridSum_mul_shift_symm (n : Nat) (u : Nat → Nat) :
+    gridSum n (fun x => u x * u (leftNbr n x))
+      = gridSum n (fun x => u x * u (rightNbr n x)) := by
+  have h := gridSum_rightNbr n (fun y => u y * u (leftNbr n y))
+  have h2 : gridSum n (fun x => u (rightNbr n x) * u (leftNbr n (rightNbr n x)))
+          = gridSum n (fun x => u x * u (rightNbr n x)) := by
+    apply gridSum_congr; intro x hx
+    rw [leftNbr_rightNbr n x hx, Nat.mul_comm]
+  exact (h.symm).trans h2
+
+/-- ★★★ **Dirichlet pairing (non-lazy).**  `Σ u·heatStepNum u = 2·Σ u(x)·u(rightNbr x)` — the
+    pairing `⟨u, A u⟩` of the field with its heat image equals twice the edge correlation, the
+    discrete summation-by-parts identity. -/
+theorem heatStep_dirichlet_pairing (n : Nat) (u : Nat → Nat) :
+    gridSum n (fun x => u x * heatStepNum n u x)
+      = 2 * gridSum n (fun x => u x * u (rightNbr n x)) := by
+  rw [gridSum_congr n (fun x => u x * heatStepNum n u x)
+        (fun x => u x * u (leftNbr n x) + u x * u (rightNbr n x))
+        (fun x _ => Nat.mul_add (u x) (u (leftNbr n x)) (u (rightNbr n x))),
+      gridSum_add n (fun x => u x * u (leftNbr n x)) (fun x => u x * u (rightNbr n x)),
+      gridSum_mul_shift_symm n u, Nat.two_mul]
+
+/-- ★★★ **Dirichlet pairing (lazy).**  `Σ u·lazyHeatStepNum u = 2·Σ u² + 2·Σ u(x)·u(rightNbr x)`.
+    Since (over ℤ) the Dirichlet energy is `E(u) = 2Σu² − 2·corr`, this reads
+    `⟨u, lazy u⟩ = 4Σu² − E(u)` — the energy identity in `Nat`-clean additive form. -/
+theorem lazyHeatStep_dirichlet_pairing (n : Nat) (u : Nat → Nat) :
+    gridSum n (fun x => u x * lazyHeatStepNum n u x)
+      = 2 * gridSum n (fun x => u x * u x)
+        + 2 * gridSum n (fun x => u x * u (rightNbr n x)) := by
+  rw [gridSum_congr n (fun x => u x * lazyHeatStepNum n u x)
+        (fun x => u x * u (leftNbr n x) + 2 * (u x * u x) + u x * u (rightNbr n x))
+        (fun x _ => by
+          show u x * (u (leftNbr n x) + 2 * u x + u (rightNbr n x))
+              = u x * u (leftNbr n x) + 2 * (u x * u x) + u x * u (rightNbr n x)
+          rw [Nat.mul_add, Nat.mul_add, E213.Tactic.NatHelper.mul_left_comm (u x) 2 (u x)]),
+      gridSum_add n (fun x => u x * u (leftNbr n x) + 2 * (u x * u x))
+        (fun x => u x * u (rightNbr n x)),
+      gridSum_add n (fun x => u x * u (leftNbr n x)) (fun x => 2 * (u x * u x)),
+      gridSum_mul_shift_symm n u, gridSum_two_mul n (fun x => u x * u x)]
+  ring_nat
+
 end E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
