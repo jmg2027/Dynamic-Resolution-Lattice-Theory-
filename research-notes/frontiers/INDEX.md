@@ -145,6 +145,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
+  residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at
+  the description scale (`why_the_reframing_recurs.md` essay + CLAUDE.md Residue-lint).  *Open*: the
+  agent-fix, gated on an A/B question about the originator's cognition (different default percept →
+  architectural reverse-polarity fix, vs. fast self-lint → meta-monitor + prior fix) — decidable only
+  by a fresh instrumented introspective/RT probe, not from text.
+
 - `residue_expression_atlas` — **the residue is expressed multi-directionally**, not by one
   mechanism (Cantor diagonal).  Cross-repo survey of the expression modes (non-surjection /
   fixed-point / forcing / graded cohomology) + the Minkowski-`?`-as-modular-cocycle arc.  Open
