@@ -33,7 +33,7 @@ cells, then deep-researched with an agent team.  Live board: frontier **G205**
   the configuration-lattice order-ideal count `cfgIdeals V s =
   Σ_k C(s,k)2^{Vk}2^{C(k,2)}`; `cycle1=5, cycle2=145,
   cycle3=72 304 608 555 084 001` (cycle-3 was unknown before), plus the parametric
-  `cfgIdeals_zero (=1)` and `cfgIdeals_one (= 2^V+1)`.
+  `cfgIdeals_zero (=1)`, `cfgIdeals_one (= 2^V+1)`, `cfgIdeals_two (= 2^{2V}·2+2·2^V+1)`.
 
 ### Essays (theory/essays/synthesis/, timeless)
 - `slash_reading_atlas.md` — the readings as facets; constants at the forced `a=2`.

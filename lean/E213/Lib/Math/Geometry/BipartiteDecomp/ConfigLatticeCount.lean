@@ -70,4 +70,13 @@ theorem cfgIdeals_one (V : Nat) : cfgIdeals V 1 = 2 ^ V + 1 := by
   show (0 + 1 * 2 ^ (V * 1) * 1) + 1 = 2 ^ V + 1
   rw [Nat.mul_one V, Nat.one_mul, Nat.mul_one, Nat.zero_add]
 
+/-- ★ Two growth axes (`s = 2`, parametric in `V`): `I(V,2) = 2^{2V}·2 +
+    2·2^V + 1` (cross-term `C(2,2)=1` doubles the top piece).  Matches
+    `cycle2` (= 145) at `V = 3`.  PURE. -/
+theorem cfgIdeals_two (V : Nat) :
+    cfgIdeals V 2 = 2 ^ (V * 2) * 2 + 2 * 2 ^ (V * 1) + 1 := by
+  show ((0 + 1 * 2 ^ (V * 2) * 2) + 2 * 2 ^ (V * 1) * 1) + 1
+        = 2 ^ (V * 2) * 2 + 2 * 2 ^ (V * 1) + 1
+  rw [Nat.zero_add, Nat.one_mul, Nat.mul_one]
+
 end E213.Lib.Math.Geometry.BipartiteDecomp.ConfigLatticeCount
