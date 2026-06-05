@@ -536,4 +536,14 @@ theorem sperner {n : Nat} (F : List (List Bool)) (hF : IsAntichain F) (hnd : F.N
     (chain_cap F hF hnd)
     (fun A hA => chain_low A (hlen A hA))
 
+/-- ★★★ **Sperner's theorem (both halves).**  The largest antichain of the
+    Boolean lattice `2^[n]` has size exactly `C(n, ⌊n/2⌋)`: every antichain is
+    bounded by it (`sperner`), and the middle layer achieves it
+    (`Sperner.lower_bound`).  Both directions ∅-axiom. -/
+theorem sperner_theorem (n : Nat) :
+    (∀ (F : List (List Bool)), IsAntichain F → F.Nodup →
+        (∀ A, A ∈ F → A.length = n) → F.length ≤ binom n (half n))
+    ∧ (∃ L, IsAntichain L ∧ L.Nodup ∧ L.length = binom n (half n)) :=
+  ⟨fun F hF hnd hlen => sperner F hF hnd hlen, Sperner.lower_bound n⟩
+
 end E213.Lib.Math.Combinatorics.SpernerChains
