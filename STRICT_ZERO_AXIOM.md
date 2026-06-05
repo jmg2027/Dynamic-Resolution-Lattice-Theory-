@@ -305,6 +305,15 @@ least-residue sign product `∏ₓ sgFn(a·x) = 1` (= `(−1)^μ`).  Built acros
 
 `#print axioms` clean on all.  The gateway to the second supplement and quadratic reciprocity.
 
+### Second supplement (`2` QR ⟺ `p ≡ ±1 mod 8`), strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.SecondSupplement` (**7 PURE**).  `second_supplement`: `2` is a QR
+mod a prime `p` iff `p ≡ ±1 (mod 8)`.  Via `gauss_qr` at `a = 2` — `2x ≤ 2m = p−1 < p` (no wraparound),
+so the sign product is `m`-only (`two_qr_iff`); `prodZ_seg_sign` evaluates it as `(−1)^(cnt2 m k)`
+(`k`-induction, threshold decoupled); `cnt2_at_m` (`cnt2 m m = m − m/2`); `neg_one_pow_iff`; then the
+`m = 4q+r` bridge (`(m−m/2)%2` and `p%8 = 1+2(m%4)` both functions of `m%4`, `decide`).  Both
+supplements to quadratic reciprocity are now ∅-axiom.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

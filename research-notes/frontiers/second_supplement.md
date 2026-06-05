@@ -1,12 +1,12 @@
-# Quadratic character of 2 — CLOSED (m-form); p≡±1 mod 8 reformulation remaining
+# Quadratic character of 2 — FULLY CLOSED (p ≡ ±1 mod 8)
 
 **2026-06-05: `second_supplement_m` closed** (`SecondSupplement.lean`, 6 PURE): `2` is a QR mod `p`
 ⟺ `(m − ⌊m/2⌋)` is even (`m = (p−1)/2`).  Chain: `two_qr_iff` (no-wraparound + `gauss_qr`) →
 `prodZ_seg_sign` (`∏ = (−1)^cnt2`) → `cnt2_at_m` (`cnt2 m m = m − m/2`) → `neg_one_pow_iff`.
-This is the full mathematical content.  **Remaining (cosmetic):** `(m − m/2) % 2 = 0 ⟺ p%8 ∈ {1,7}`
-— both sides reduce to `m%4 ∈ {0,3}` via `m = 4q+r` + `add_mul_mod_self_pure` + `decide` on `r`
-(the `p%8 = 1 + 2*(m%4)` half is straightforward; the `(m−m/2)%2 ↔ m%4` half needs
-`(4q+r)/2 = 2q + r/2`, pure via `add_mul_div`).  ~40 lines, pure busywork.
+**`second_supplement` closed** (7 PURE): `2` is a QR mod `p` ⟺ `p ≡ ±1 (mod 8)`.  The `m = 4q+r`
+bridge used pure div (`add_mul_div_left_pure`, `div_le_self_pos`, NatDiv213) and `obtain ⟨q,r⟩` to
+avoid `m`-pollution under `rw`; both sides reduce to `m%4 ∈ {0,3}`, closed by `decide`.
+Downstream: **quadratic reciprocity** (Eisenstein lattice-point count, or the Gauss-lemma μ-sum).
 
 ---
 
