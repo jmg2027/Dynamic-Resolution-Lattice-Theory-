@@ -19,6 +19,7 @@ import E213.Lib.Math.Analysis.PhysicsBridgeNT2
 import E213.Lib.Math.Analysis.ResolutionShift
 import E213.Lib.Math.Analysis.Optimization.GradientFlow
 import E213.Lib.Math.Analysis.Optimization.CompletenessLoop
+import E213.Lib.Math.Analysis.Optimization.RealCauchyWitness
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Analysis`.
 

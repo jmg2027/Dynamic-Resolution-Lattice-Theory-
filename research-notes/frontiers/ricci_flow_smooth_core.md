@@ -87,8 +87,17 @@ hypothesis for arbitrary metrics** (not the trivial homogeneous case):
    `completeness_loop`.  This is the **monotone + bounded-below ⟹ convergent**
    instruction in the repo's `Nat→Nat` modulus idiom — the second of the two
    instructions `𝓕/𝓦`-monotonicity compiles to, distinct from A6's finite
-   descent.  (A full `CauchyCutSeq`/`Real213` construction is the heavier
-   completion; the asymptotic content is witnessed.)
+   descent.
+
+   **Full Real213 Cauchy object** — ✅ **DONE**
+   (`Lib/Math/Analysis/Optimization/RealCauchyWitness.lean`, 4 PURE / 0 DIRTY):
+   the value cut sequence `vᵢ = constCut 1 (2ⁱ) = 1/2ⁱ` is a genuine
+   `CauchyCutSeq` (`Analysis/CauchyComplete`) with explicit proven modulus
+   `N m k = k` (`gradientValueCauchy`) — an actual element of the Real213
+   completion.  The limit is `0` on the interior (`m ≥ 1`,
+   `gradientValueCauchy_limit_interior`); a full pointwise `cutEq` to
+   `constCut 0 1` is *not* available (the limit is the *open* `0`, the standard
+   open/closed Dedekind-cut boundary artifact) and is honestly not claimed.
 4. **Normalized flow fixed points = Einstein metrics** at the algebraic level
    (the `Sym(3)`-fixed subspace already in `Ricci.lean` as the averaging-
    invariant analog).

@@ -314,6 +314,17 @@ bounded-below ⟹ convergent** instruction (repo `Nat→Nat` modulus idiom) — 
 well-founded descent.  So `𝓕/𝓦`-monotonicity = [descent-identity (`GradientFlow`)] + [completeness-LOOP
 (here)], two instructions, neither A6.  Frontier sub-step 3 closed.
 
+### Full Real213 Cauchy object for the gradient value (2026-06-05)
+
+`E213.Lib.Math.Analysis.Optimization.RealCauchyWitness` — **4 PURE / 0 DIRTY**.  The completeness-LOOP
+realized as an actual element of the Real213 completion: the value cut sequence `vᵢ = constCut 1 (2ⁱ) =
+1/2ⁱ` is a genuine `CauchyCutSeq` (`Analysis/CauchyComplete`) with explicit **proven modulus** `N m k = k`
+(`gradientValueCauchy`) — the `cauchy` field discharged by stability past index `k` (`csConst`/`cs_true`,
+using `lt_two_pow_self`).  Limit is `0` on the interior `m ≥ 1` (`gradientValueCauchy_limit_interior`).
+Honest boundary: `cutEq` is *pointwise* and the diagonal limit differs from `constCut 0 1` only at `m = 0`
+(the open/closed Dedekind artifact — the limit is the *open* `0`); a full `cutEq` is **not** claimed.  This
+completes ② (completeness-LOOP) from modulus-level (`CompletenessLoop`) to a bona-fide Real213 Cauchy real.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to
