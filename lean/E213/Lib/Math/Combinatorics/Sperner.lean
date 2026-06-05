@@ -1,5 +1,6 @@
 import E213.Lib.Math.Combinatorics.BoolEnum
 import E213.Lib.Math.Combinatorics.Binomial
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # Sperner's theorem, compiled down the proof-ISA (∅-axiom)
@@ -46,6 +47,7 @@ namespace E213.Lib.Math.Combinatorics.Sperner
 
 open E213.Lib.Math.Combinatorics.BoolEnum
 open E213.Lib.Physics.Simplex.Counts (binom)
+open E213.Tactic.NatHelper (add_sub_of_le le_sub_of_add_le add_sub_cancel_right)
 
 /-! ## §1 — the model: subsets of `[n]` as length-`n` `Bool` lists
 
@@ -105,6 +107,33 @@ theorem layer_size : ∀ (n k : Nat),
           -- `binom (n+1) (k+1) = binom n k + binom n (k+1)`
           show binom n (k + 1) + binom n k = binom n k + binom n (k + 1)
           exact Nat.add_comm _ _
+
+/-- `half n = ⌊n/2⌋`, defined structurally so its spec lemmas are propext-free
+    (core `Nat.div_add_mod` carries `propext`).  Verifiably `half n = ⌊n/2⌋`
+    (`example : half 7 = 3 := rfl`). -/
+def half : Nat → Nat
+  | 0 => 0
+  | 1 => 0
+  | n + 2 => half n + 1
+
+/-- `2·⌊n/2⌋ ≤ n`. -/
+theorem half_le : ∀ n, 2 * half n ≤ n
+  | 0 => Nat.le_refl 0
+  | 1 => Nat.zero_le 1
+  | n + 2 => by
+      show 2 * (half n + 1) ≤ n + 2
+      rw [Nat.mul_add, Nat.mul_one]
+      exact Nat.add_le_add_right (half_le n) 2
+
+/-- `n ≤ 2·⌊n/2⌋ + 1`. -/
+theorem le_half : ∀ n, n ≤ 2 * half n + 1
+  | 0 => Nat.zero_le _
+  | 1 => Nat.le_refl _
+  | n + 2 => by
+      show n + 2 ≤ 2 * (half n + 1) + 1
+      rw [Nat.mul_add, Nat.mul_one]
+      have h := Nat.add_le_add_right (le_half n) 2
+      rwa [Nat.add_right_comm (2 * half n) 1 2] at h
 
 /-! ## §3 — the inclusion order and the SEPARATE lemma
 
@@ -221,8 +250,126 @@ theorem kLayer_isAntichain (n k : Nat) : IsAntichain (kLayer n k) := by
     size `binom n ⌊n/2⌋` — the middle layer.  So Sperner's bound is achieved;
     the content of the theorem is the matching *upper* bound. -/
 theorem lower_bound (n : Nat) :
-    ∃ L, IsAntichain L ∧ L.Nodup ∧ L.length = binom n (n / 2) :=
-  ⟨kLayer n (n / 2), kLayer_isAntichain n (n / 2),
-   kLayer_nodup n (n / 2), kLayer_card n (n / 2)⟩
+    ∃ L, IsAntichain L ∧ L.Nodup ∧ L.length = binom n (half n) :=
+  ⟨kLayer n (half n), kLayer_isAntichain n (half n),
+   kLayer_nodup n (half n), kLayer_card n (half n)⟩
+
+/-! ## §5 — binomial unimodality: the middle layer is the largest
+
+*Why* the Sperner number is `binom n ⌊n/2⌋` rather than any other layer: the
+binomial row is **unimodal**, peaking at the middle.  The engine is the
+absorption identity `(k+1)·C(n,k+1) = (n−k)·C(n,k)` — the Pascal recursion's
+multiplicative shadow — which makes the ratio cross `1` exactly at `k = n/2`. -/
+
+/-- Above the diagonal the binomial vanishes: `n < k → C(n,k) = 0`. -/
+theorem binom_zero_of_lt : ∀ (n k : Nat), n < k → binom n k = 0
+  | _, 0, h => absurd h (Nat.not_lt_zero _)
+  | 0, _ + 1, _ => rfl
+  | n + 1, k + 1, h => by
+      have hn : n < k := Nat.lt_of_succ_lt_succ h
+      show binom n k + binom n (k + 1) = 0
+      rw [binom_zero_of_lt n k hn, binom_zero_of_lt n (k + 1) (Nat.lt_succ_of_lt hn)]
+
+/-- On the diagonal `C(n,n) = 1`. -/
+theorem binom_n_n : ∀ n, binom n n = 1
+  | 0 => rfl
+  | n + 1 => by
+      show binom n n + binom n (n + 1) = 1
+      rw [binom_n_n n, binom_zero_of_lt n (n + 1) (Nat.lt_succ_self n)]
+
+/-- ★ **The absorption identity** `(k+1)·C(n,k+1) = (n−k)·C(n,k)` — the
+    multiplicative form of Pascal's recursion.  Holds for all `n, k` (the
+    `Nat`-truncated `n − k` makes the degenerate `k ≥ n` cases vanish). -/
+theorem absorb : ∀ (n k : Nat), (k + 1) * binom n (k + 1) = (n - k) * binom n k
+  | 0, k => by
+      rw [show binom 0 (k + 1) = 0 from rfl, Nat.mul_zero, Nat.zero_sub, Nat.zero_mul]
+  | n + 1, k => by
+      cases k with
+      | zero =>
+          rw [Nat.zero_add, Nat.one_mul, Binomial.binom_n_1, Nat.sub_zero,
+              Binomial.binom_n_0, Nat.mul_one]
+      | succ j =>
+          have hIHj := absorb n j
+          have hIHj1 := absorb n (j + 1)
+          have hp2 : binom (n + 1) (j + 1 + 1) = binom n (j + 1) + binom n (j + 1 + 1) := rfl
+          have hp1 : binom (n + 1) (j + 1) = binom n j + binom n (j + 1) := rfl
+          rw [hp2, hp1, Nat.succ_sub_succ, Nat.mul_add, Nat.mul_add, hIHj1, ← hIHj,
+              ← Binomial.add_mul_pure, ← Binomial.add_mul_pure]
+          rcases Nat.lt_or_ge n (j + 1) with hnj | hjn
+          · rw [binom_zero_of_lt n (j + 1) hnj, Nat.mul_zero, Nat.mul_zero]
+          · have hj : j ≤ n := Nat.le_of_succ_le hjn
+            have hc : (j + 1 + 1) + (n - (j + 1)) = (j + 1) + (n - j) := by
+              rw [Nat.add_right_comm (j + 1) 1 (n - (j + 1)), add_sub_of_le hjn,
+                  Nat.add_right_comm j 1 (n - j), add_sub_of_le hj]
+            rw [hc]
+
+/-- **Monotone up to the middle.**  `2k+1 ≤ n → C(n,k) ≤ C(n,k+1)`: below the
+    middle the ratio `(n−k)/(k+1) ≥ 1`, so the binomial increases. -/
+theorem binom_mono_up {n k : Nat} (h : 2 * k + 1 ≤ n) :
+    binom n k ≤ binom n (k + 1) := by
+  have hab := absorb n k
+  have hadd : (k + 1) + k ≤ n := by
+    have he : (k + 1) + k = 2 * k + 1 := by rw [Nat.add_right_comm k 1 k, Nat.two_mul]
+    rw [he]; exact h
+  have hge : k + 1 ≤ n - k := le_sub_of_add_le hadd
+  have hstep : (k + 1) * binom n k ≤ (n - k) * binom n k :=
+    Nat.mul_le_mul_right (binom n k) hge
+  rw [← hab] at hstep
+  exact Nat.le_of_mul_le_mul_left hstep (Nat.succ_pos k)
+
+/-- **Monotone past the middle.**  `n ≤ 2k+1 → C(n,k+1) ≤ C(n,k)`: at and beyond
+    the middle the ratio `(n−k)/(k+1) ≤ 1`, so the binomial decreases. -/
+theorem binom_mono_down {n k : Nat} (h : n ≤ 2 * k + 1) :
+    binom n (k + 1) ≤ binom n k := by
+  have hab := absorb n k
+  have hle : n - k ≤ k + 1 := by
+    have he : (k + 1) + k = 2 * k + 1 := by rw [Nat.add_right_comm k 1 k, Nat.two_mul]
+    have h1 : n ≤ (k + 1) + k := by rw [he]; exact h
+    have h2 : n - k ≤ ((k + 1) + k) - k := Nat.sub_le_sub_right h1 k
+    rwa [add_sub_cancel_right] at h2
+  have hstep : (n - k) * binom n k ≤ (k + 1) * binom n k :=
+    Nat.mul_le_mul_right (binom n k) hle
+  rw [← hab] at hstep
+  exact Nat.le_of_mul_le_mul_left hstep (Nat.succ_pos k)
+
+/-- Climb up to the middle: `C(n,a) ≤ C(n,a+d)` while `2(a+d) ≤ n`. -/
+theorem binom_climb_up (n : Nat) :
+    ∀ (d a : Nat), 2 * (a + d) ≤ n → binom n a ≤ binom n (a + d)
+  | 0, a, _ => Nat.le_of_eq (by rw [Nat.add_zero])
+  | d + 1, a, h => by
+      have hassoc : a + (d + 1) = (a + d) + 1 := (Nat.add_assoc a d 1).symm
+      rw [hassoc] at h ⊢
+      have hexp : 2 * ((a + d) + 1) = 2 * (a + d) + 2 := by rw [Nat.mul_add, Nat.mul_one]
+      have h2 : 2 * (a + d) + 2 ≤ n := hexp ▸ h
+      have hb : 2 * (a + d) ≤ n := Nat.le_trans (Nat.le_add_right _ 2) h2
+      have hs : 2 * (a + d) + 1 ≤ n := Nat.le_trans (Nat.le_succ (2 * (a + d) + 1)) h2
+      exact Nat.le_trans (binom_climb_up n d a hb) (binom_mono_up hs)
+
+/-- Climb down from the middle: `C(n,a+d) ≤ C(n,a)` while `n ≤ 2a+1`. -/
+theorem binom_climb_down (n : Nat) :
+    ∀ (d a : Nat), n ≤ 2 * a + 1 → binom n (a + d) ≤ binom n a
+  | 0, a, _ => Nat.le_of_eq (by rw [Nat.add_zero])
+  | d + 1, a, h => by
+      have hassoc : a + (d + 1) = (a + d) + 1 := (Nat.add_assoc a d 1).symm
+      rw [hassoc]
+      have hmono : n ≤ 2 * (a + d) + 1 :=
+        Nat.le_trans h (Nat.succ_le_succ (Nat.mul_le_mul_left 2 (Nat.le_add_right a d)))
+      exact Nat.le_trans (binom_mono_down hmono) (binom_climb_down n d a h)
+
+/-- ★ **Binomial unimodality** — the middle layer is the largest:
+    `C(n,k) ≤ C(n, ⌊n/2⌋)` for every `k`.  *This is why the Sperner number is
+    `C(n,⌊n/2⌋)`*: among the `n+1` layers, the middle one is the biggest. -/
+theorem binom_le_binom_mid (n k : Nat) : binom n k ≤ binom n (half n) := by
+  have hle : 2 * half n ≤ n := half_le n
+  have hge1 : n ≤ 2 * half n + 1 := le_half n
+  rcases Nat.lt_or_ge (half n) k with hk | hk
+  · rcases Nat.lt_or_ge n k with hkn | hkn
+    · rw [binom_zero_of_lt n k hkn]; exact Nat.zero_le _
+    · have hsplit : (half n) + (k - half n) = k := add_sub_of_le (Nat.le_of_lt hk)
+      have hd := binom_climb_down n (k - half n) (half n) hge1
+      rw [hsplit] at hd; exact hd
+  · have hsplit : k + (half n - k) = half n := add_sub_of_le hk
+    have hu := binom_climb_up n (half n - k) k (by rw [hsplit]; exact hle)
+    rw [hsplit] at hu; exact hu
 
 end E213.Lib.Math.Combinatorics.Sperner
