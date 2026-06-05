@@ -364,39 +364,31 @@ supplements to quadratic reciprocity are now ∅-axiom.
 
 ### ★★★★★ Quadratic reciprocity — FULLY CLOSED, strict ∅-axiom (2026-06-05)
 
-`E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity` (**11 PURE**).  ★ `quadratic_reciprocity`:
-for distinct odd primes `p, q` (`m=(p−1)/2, n=(q−1)/2`), `(q QR mod p ↔ p QR mod q) ↔ (m·n) even`
-(Eisenstein form — the two residue conditions agree unless both `p ≡ q ≡ 3 mod 4`).  Assembly: the
-Gauss stack generalized `a<p → p∤a` (`gauss_mu_gen`, `floor_qr` with residue `z² ≡ a mod p`) applied
-at residues `q` and `p`, combined with `floor_sum_rectangle` (`Σ⌊qx/p⌋+Σ⌊py/q⌋ = m·n`) via
-`parity_sum_iff` (parity of `S+T=↑(mn)` decides whether `2∣S ↔ 2∣T`).  Int parity from
-`int_even_or_odd`/`two_mul_ne_one` (propext-avoidance: `le_of_dvd_pos`).  The complete elementary
-route (Euler criterion → Gauss's lemma → μ-bridge → Eisenstein rectangle count → reciprocity) is
-∅-axiom.
-
-### Quadratic reciprocity — STEPS 1 + 3 (Eisenstein's lemma + rectangle count), strict ∅-axiom (2026-06-05)
-
 `E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity` (**11 PURE**) +
 `Linalg213/SumLinear` (`sumZ_map_zero`, `sumZ_swap` finite Fubini) + `AddMod213.le_div_iff_mul_le`.
+★ `quadratic_reciprocity`: for distinct odd primes `p, q` (`m=(p−1)/2, n=(q−1)/2`),
+`(q QR mod p ↔ p QR mod q) ↔ (m·n) even` (Eisenstein form — the two residue conditions agree unless
+both `p ≡ q ≡ 3 mod 4`).  The complete elementary route is ∅-axiom:
 
-★★ **Step 3** `floor_sum_rectangle` — the analytic heart: for `p=2m+1, q=2n+1`, `p∤q·x` (`x∈[1,m]`),
-`q∤p·y` (`y∈[1,n]`), `Σ_{x∈[1,m]} ⌊q·x/p⌋ + Σ_{y∈[1,n]} ⌊p·y/q⌋ = m·n` (over ℤ).  Lattice-point
-count of `[1,m]×[1,n]` either side of the diagonal `q·x=p·y` (none ON it, `p∤q·x`).  Per-column
-count `colCount_eq_floor` (`#{y : p·y<q·x} = ⌊q·x/p⌋`, via `le_div_iff_mul_le` + `count_le_eq`),
-cross term swapped by `sumZ_swap` (Fubini), `elem_tri` trichotomy `[py<qx]+[qx<py]=1` collapsing the
-grid to `Σ_x Σ_y 1 = m·n`.  (Step 4, the QR-symbol form, awaits generalizing the Gauss stack from
-`a<p` to `p∤a` — `floor_sum_rectangle` is independent and done.)
+- **Eisenstein's lemma** `floor_qr` — for an odd `a` coprime to the odd prime `p`, `a` is a QR mod `p`
+  (`z² ≡ a mod p`) ⟺ the floor sum `Σₓ∈[1,m] ⌊a·x/p⌋` is even.  Chain: `floor_mod_split`
+  (`Σ↑(a·x) = ↑p·Σ↑⌊a·x/p⌋ + Σ↑(a·x%p)`) + `Sa_eq` + `fold_sum` (`Σ↑(fold x) = Σ↑x`, `fold_perm`) +
+  `residue_fold_even` (per-element `2·(…)`) ⟹ `floor_mu_even` (`2 ∣ (Sfloor + Imu)`, `a` odd +
+  `int_euclid`); `imu_eq_countNeg` (`Imu = ↑μ`, μ = `countNeg ((seg m).map (sgFn a p m))`); `gauss_mu_gen`
+  (QR ⟺ μ even, the Gauss stack generalized `a<p → p∤a` by reducing to `gauss_mu` at `a%p`).
+- **Rectangle double-count** `floor_sum_rectangle` — for `p=2m+1, q=2n+1`, `p∤q·x`, `q∤p·y`:
+  `Σ⌊q·x/p⌋ + Σ⌊p·y/q⌋ = m·n` (the lattice-point count of `[1,m]×[1,n]` either side of the diagonal
+  `q·x=p·y`, none ON it since `p∤q·x`).  Per-column count `colCount_eq_floor`
+  (`#{y : p·y<q·x} = ⌊q·x/p⌋`, via `le_div_iff_mul_le` + `count_le_eq`); cross term swapped by
+  `sumZ_swap` (Fubini); `elem_tri` trichotomy `[py<qx]+[qx<py]=1` collapses the grid to `m·n`.
+  `floor_bound` (`⌊q·x/p⌋ ≤ n` for `x ≤ m`) keeps each column in range.
+- **Assembly** — `floor_qr` at residues `q` and `p` + `floor_sum_rectangle` via `parity_sum_iff`
+  (parity of `S+T=↑(mn)` decides whether `2∣S ↔ 2∣T`); Int parity from
+  `int_even_or_odd`/`two_mul_ne_one`.
 
-**Step 1** ★ `floor_qr` — for an odd unit `1 ≤ a < p` and odd prime `p`,
-`a` is a QR mod `p` ⟺ the floor sum `Σₓ∈[1,m] ⌊a·x/p⌋` is even (`(2:Int) ∣ Σ↑⌊a·x/p⌋`).  Chain:
-`floor_mod_split` (`Σ↑(a·x) = ↑p·Σ↑⌊a·x/p⌋ + Σ↑(a·x%p)`) + `Sa_eq` + `fold_sum`
-(`Σ↑(fold x) = Σ↑x`, `fold_perm`) + `residue_fold_even` (the per-element `2·(…)` crux,
-`2 ∣ (Sr − Sfold − ↑p·Imu)`) ⟹ `floor_mu_even` (`2 ∣ (Sfloor + Imu)`, `a` odd + `int_euclid`);
-`imu_eq_countNeg` (`Imu = ↑μ`, μ = `countNeg ((seg m).map (sgFn a p m))`); then `gauss_mu`
-(QR ⟺ μ even) composed via `Iff.trans`.  `floor_bound` (`⌊q·x/p⌋ ≤ n` for `x ≤ m`) prepares the
-step-3 rectangle count.  Propext-avoidance: `two_prime` pure (no `decide`-on-`∣`),
-`Iff.trans` not `rw`-on-iff.  Steps 3 (rectangle double-count) + 4 (assembly) are now closed — see
-the fully-closed reciprocity entry above.
+Propext-avoidance throughout: `two_prime` pure (no `decide`-on-`∣`), `Iff.trans` not `rw`-on-iff,
+`map_congr` not `funext`, `le_of_dvd_pos` not `Nat.le_of_dvd`.  Narrative: `theory/math/numbertheory/quadratic_reciprocity.md`.
+
 ### A6 FLOW — monovariant normal-form lift archetype (2026-06-05)
 
 `E213.Lib.Math.Foundations.MonovariantFlow` — **12 PURE / 0 DIRTY**.  The sixth proof-ISA lift
