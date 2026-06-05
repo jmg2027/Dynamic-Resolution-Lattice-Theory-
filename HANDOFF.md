@@ -67,7 +67,7 @@ cells, then deep-researched with an agent team.  Live board: frontier **G205**
 4. de Rham `w`-family fractal *dimensions* (needs `Real213` Hausdorff/Moran).
 
 ## Next session
-Tier-C: the parametric `cfgIdeals` family (a propext-free `cfgIdeals V 1 = 2^V+1`),
+Tier-C: the parametric `cfgIdeals` family (the general parametric `cfgIdeals V s`,
 or a contractive-νF construction.  The exploratory Python atlas
 (`research-notes/geometric/*.py`, 4 batches of readings) is tier-1; the spine
 (K1–K4 + the new cells) is Lean-verified.
