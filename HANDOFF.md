@@ -85,8 +85,15 @@ The genuinely-hard pieces are now self-contained marathons with rung ladders —
   case), still open.
 - **Full pointwise `cutEq`** for the Real213 limit (boundary quotient via valid-cut equality) — deferred.
 
+## Fresh cross-domain conquest this session: Pick's theorem (rectangle atom)
+`Geometry/PickTheorem.lean` (4 PURE): `pick_rectangle` — `2I + B − 2 = 2A` for lattice rectangles, the
+discrete-count ↔ continuous-area bridge (a two-readings-agree / GRA-universality-shaped identity), pure
+`ring_intZ`.  Triangle/general = frontier `pick_theorem/pick_general_ladder.md` (next K1: diagonal count
+`gcd(w,h)−1`, reuses `gcd213`).
+
 ## Next targets (priority order)
-1. **Continue the G205 conquest table** down the ISA: each row = compile a conquest + let an archetype
+1. **Pick K1** — the `gcd(w,h)−1` diagonal lattice-point count, then K2 right-triangle Pick.
+2. **Continue the G205 conquest table** down the ISA: each row = compile a conquest + let an archetype
    drive its ∅-axiom proof.  Reachable next: REFRAME[LOOP] template instances, or a COUNT/ORBIT conquest.
    (Sum-of-squares multiplicativity is ALREADY closed — `CayleyDickson/Misc/QuadIdentities.int_quad_diophantus`
    = Brahmagupta–Fibonacci, `GaussianTwoSquare.two_square_of_mod4` = Fermat, `FourSquare` = Lagrange;

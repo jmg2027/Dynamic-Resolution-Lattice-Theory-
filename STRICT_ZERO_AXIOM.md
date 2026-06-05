@@ -365,6 +365,15 @@ the trivial-loop ↔ rich-loop split the Poincaré pillar reads off `b₁`, here
 A6-core marathon (`research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`); next: weighted
 Forman + a discrete Ricci-flow step driven to its normalized fixed point via `flow_reaches`.
 
+### Pick's theorem — lattice-count ↔ area bridge, rectangle atom (2026-06-05)
+
+`E213.Lib.Math.Geometry.PickTheorem` — **4 PURE / 0 DIRTY**.  A fresh cross-domain conquest: Pick (1899),
+the **discrete lattice-count ↔ continuous area** bridge (a two-readings-agree identity, GRA-universality
+shape at lattice scale).  `pick_rectangle`: `2I + B − 2 = 2A` for `[0,w]×[0,h]` (`I=(w−1)(h−1)`,
+`B=2w+2h`, `2A=2wh`) — a pure `ℤ` ring identity (`ring_intZ`), the rectangle atom from which the general
+theorem assembles by additivity.  Triangle/general (diagonal boundary count `gcd(w,h)−1`) are the open
+rungs: `research-notes/frontiers/pick_theorem/pick_general_ladder.md`.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

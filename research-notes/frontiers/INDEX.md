@@ -269,3 +269,11 @@ then `erdos_schema`), **no new "why"**.  All engine pieces built ∅-axiom
   continuous, not discrete-graph).  Rungs P1 maximum principle → P2 oscillation
   decay → P3 energy/Dirichlet → P4 Li–Yau → P5 Shi.  P1–P3 reachable; P4–P5 the
   real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.
+
+## Pick's theorem — lattice-count ↔ area  (`pick_theorem/`)
+
+- `pick_theorem/pick_general_ladder` — Pick (1899), the discrete-count ↔
+  continuous-area bridge (a two-readings-agree identity).  Rung 0 closed
+  (`Geometry/PickTheorem.pick_rectangle`, the rectangle atom, pure `ring_intZ`).
+  Rungs K1 diagonal count `gcd(w,h)−1` → K2 right-triangle → K3 additivity →
+  K4 general polygon.  Next: K1.
