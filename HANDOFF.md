@@ -95,6 +95,11 @@ The genuinely-hard pieces are now self-contained marathons with rung ladders —
   `heronFE` instances (companion to `ProofISALifts` on the identity axis).
 - **`mex = GAP`**: `SubtractionGame.{mexPair,grundy,grundy_values}` (10 PURE) — Sprague–Grundy value =
   the nimber a game compiles to via iterated GAP (mex = least uncovered).
+- **Lift partial-order + dualities** (essay `lift_archetypes_order_and_duality.md`): the 7 lifts form a
+  partial order with dual pairs — DIAGONAL=⊥ (self-dual residue); LOOP⟷FLOW (µ/ν); COUNT⟷POSITIVITY (two
+  GAP faces); ORBIT = LOOP-mod-free-action; REFRAME = meta-transport.  Pointer added to `seed/PROOF_ISA.md`.
+  Possible next meta: a Lean witness of one duality (e.g. LOOP/FLOW as least/greatest fixed point of one
+  measure), or EQUIV-difficulty = bridge-cost as a theorem.
 
 ## Fresh cross-domain conquest this session: Pick's theorem (rectangle atom)
 `Geometry/PickTheorem.lean` (4 PURE): `pick_rectangle` — `2I + B − 2 = 2A` for lattice rectangles, the

@@ -66,6 +66,15 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     orthogonal — the cost of *constructing the second fold* (trivial for Pick,
     century-hard for Weil/Langlands).  Bonus: `mex` (Sprague–Grundy) *is* `GAP`.
 
+  · [`lift_archetypes_order_and_duality.md`](lift_archetypes_order_and_duality.md)
+    — **structural**: the seven lift archetypes form a *partial order* with
+    *dual pairs*.  Root **DIAGONAL = ⊥** (the residue, self-dual); two mirror
+    pairs **LOOP ⟷ FLOW** (µ/ν, forward/backward fixed point) and **COUNT ⟷
+    POSITIVITY** (cardinality/square faces of one GAP); **ORBIT** = LOOP modulo a
+    free action (above the pairs); **REFRAME** = the higher-order transport
+    wrapping any base archetype.  "Which archetype?" becomes "where in the
+    lattice?".
+
 ## Cumulative finding
 
 Four surface-diverse solved techniques.  **Three close ∅-axiom** with no new

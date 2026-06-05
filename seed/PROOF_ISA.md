@@ -133,6 +133,15 @@ realizability residue).  The catalog is the instrument that says so: the directi
 orbit / µ-ν lift of the trace-`SEPARATE`, the one archetype with a realized same-family precedent.
 Compiling each new solved theorem into the catalog is the cumulative half of the workflow.
 
+**Two structural facts about the catalog** (`theory/essays/proof_isa/`).  (i) The ISA has *two orthogonal
+axes*: these seven are **lifts** (finite→uniform); a second category, **fold-equalities** (EQUIV: two Lens
+readings coincide — Pick, Heron; `Foundations/FoldEquality.lean`), has zero lift content (`ring_intZ`
+closes it) and its difficulty is the orthogonal cost of constructing the second fold
+(`lifts_versus_fold_equalities.md`).  (ii) The seven lifts form a *partial order with dual pairs*: root
+**DIAGONAL = ⊥** (the residue, self-dual); mirror pairs **LOOP ⟷ FLOW** (µ/ν) and **COUNT ⟷ POSITIVITY**
+(the two faces of `GAP`); **ORBIT** = LOOP-modulo-a-free-action; **REFRAME** = the meta-transport wrapping
+any base archetype (`lift_archetypes_order_and_duality.md`).
+
 ## Honest status (so it is a programme, not a shield)
 
 Church–Turing-flavoured.  Each instruction is a **theorem** witness.  "Every proof compiles to these"
