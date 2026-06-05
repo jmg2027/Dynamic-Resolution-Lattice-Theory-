@@ -78,7 +78,7 @@ theorem fill_descent (C : Nat) :
       right
       exact if_neg (fun hlt => absurd (Nat.lt_of_lt_of_le hlt h) (Nat.lt_irrefl k))
 
-/-- ★★★★★ **A6 FLOW fires on the coherentization flow, uniformly in `C`.**
+/-- **A6 FLOW fires on the coherentization flow, uniformly in `C`.**
 
     For *every* fillable-cycle count `C`, the flow converges to a normal form.
     This `∀ C` statement is the genuine A6 lift — not decidable, supplied by
@@ -111,7 +111,7 @@ theorem fillStep_fixed_at_C (C : Nat) : fillStep C C = C := by
   show (if C < C then C + 1 else C) = C
   rw [if_neg (Nat.lt_irrefl C)]
 
-/-- ★★★★★ **The canonical normal form, identified.**  The flow from the
+/-- **The canonical normal form, identified.**  The flow from the
     unfilled graph reaches the all-cells-filled state `k = C` in `C` steps,
     and it is a fixed point — the unique maximally-coherentized normal form. -/
 theorem coherentization_normal_form (C : Nat) :
@@ -124,7 +124,7 @@ theorem coherentization_normal_form (C : Nat) :
   show fillStep C (iter (fillStep C) C 0) = iter (fillStep C) C 0
   rw [hC]; exact fillStep_fixed_at_C C
 
-/-- ★★★★★★ **Ricci pillar — COMPLETE via A6 FLOW (K_{3,2}^{(c=2)}).**
+/-- **Ricci pillar — COMPLETE via A6 FLOW (K_{3,2}^{(c=2)}).**
 
     The `K_{3,2}^{(c=2)}` coherentization flow (`C = 3` fillable 4-cycles,
     initial graph `b_1 = 8`) converges, via the A6 FLOW archetype, to the

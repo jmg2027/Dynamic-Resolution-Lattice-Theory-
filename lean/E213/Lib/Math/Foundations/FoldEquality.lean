@@ -30,14 +30,14 @@ structure FoldEquality (X : Type) (α : Type) where
   /-- the two readings coincide -/
   agree : ∀ x, fold1 x = fold2 x
 
-/-- ★★★★★ **Pick as a fold-equality**: the lattice-point-count reading and the
+/-- **Pick as a fold-equality**: the lattice-point-count reading and the
     area reading of a rectangle `(w,h)` are one and the same fold. -/
 def pick : FoldEquality (Int × Int) Int where
   fold1 := fun p => pickValue ((p.1 - 1) * (p.2 - 1)) (2 * p.1 + 2 * p.2)
   fold2 := fun p => 2 * (p.1 * p.2)
   agree := fun p => pick_rectangle p.1 p.2
 
-/-- ★★★★★ **Heron as a fold-equality**: the side-product reading and the
+/-- **Heron as a fold-equality**: the side-product reading and the
     `16·Area²` reading of a triangle `(a,b,c)` are one fold. -/
 def heronFE : FoldEquality (Int × Int × Int) Int where
   fold1 := fun p =>

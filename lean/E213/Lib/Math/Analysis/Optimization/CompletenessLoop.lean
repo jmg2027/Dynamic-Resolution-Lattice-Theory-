@@ -73,7 +73,7 @@ theorem lt_two_pow_self : ∀ k, k < 2 ^ k
 theorem value_below (N0 n k : Nat) (hk : N0 * 2 ^ n ≤ k) : N0 * 2 ^ n < 2 ^ k :=
   Nat.lt_of_le_of_lt hk (lt_two_pow_self k)
 
-/-- ★★★★★ **The completeness-LOOP instruction**: the gradient value sequence
+/-- **The completeness-LOOP instruction**: the gradient value sequence
     `vₖ = N₀/2ᵏ` is monotone decreasing, strictly positive at every finite step
     (never finitely reaching its infimum `0`), yet converges to `0` with the
     explicit modulus `K(n) = N₀·2ⁿ`.  Monotone + bounded-below ⟹ convergent —

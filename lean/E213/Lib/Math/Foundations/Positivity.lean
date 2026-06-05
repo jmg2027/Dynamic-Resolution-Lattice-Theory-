@@ -38,7 +38,7 @@ namespace E213.Lib.Math.Foundations.Positivity
 
 open E213.Meta.Int213
 
-/-- ★★★★★ **A7 POSITIVITY archetype.**  If a bound's gap equals a square (a
+/-- **A7 POSITIVITY archetype.**  If a bound's gap equals a square (a
     nonnegative fold), the bound is forced.  `gap = s² ⟹ 0 ≤ gap`. -/
 theorem positivity_of_sq (gap s : Int) (h : gap = s * s) : 0 ≤ gap := by
   rw [h]; exact int_sq_nonneg s
@@ -50,7 +50,7 @@ theorem lagrange_2d (a0 a1 b0 b1 : Int) :
     = (a0 * b1 - a1 * b0) * (a0 * b1 - a1 * b0) := by
   ring_intZ
 
-/-- ★★★★★★ **Cauchy–Schwarz (2-D, ℤ) via POSITIVITY.**
+/-- **Cauchy–Schwarz (2-D, ℤ) via POSITIVITY.**
     `⟨u,v⟩² ≤ ⟨u,u⟩·⟨v,v⟩` — forced because the gap is the square
     `(u₀v₁ − u₁v₀)² ≥ 0`.  The POSITIVITY archetype driving an actual
     inner-product conquest, no analysis used. -/
@@ -72,7 +72,7 @@ theorem positivity_of_sq3 (gap s t u : Int) (h : gap = s * s + t * t + u * u) :
   rw [h]
   exact add_nonneg (add_nonneg (int_sq_nonneg s) (int_sq_nonneg t)) (int_sq_nonneg u)
 
-/-- ★★★★★ **AM–GM (2-variable, ℤ) via POSITIVITY**: `4ab ≤ (a+b)²`, forced
+/-- **AM–GM (2-variable, ℤ) via POSITIVITY**: `4ab ≤ (a+b)²`, forced
     because the gap is the square `(a−b)²`. -/
 theorem amgm_2 (a b : Int) : 4 * (a * b) ≤ (a + b) * (a + b) := by
   have hgap : (a + b) * (a + b) - 4 * (a * b) = (a - b) * (a - b) := by ring_intZ
@@ -89,7 +89,7 @@ theorem lagrange_3d (a0 a1 a2 b0 b1 b2 : Int) :
       + (a1 * b2 - a2 * b1) * (a1 * b2 - a2 * b1) := by
   ring_intZ
 
-/-- ★★★★★★ **Cauchy–Schwarz (3-D, ℤ) via POSITIVITY**: `⟨u,v⟩² ≤ ⟨u,u⟩⟨v,v⟩`,
+/-- **Cauchy–Schwarz (3-D, ℤ) via POSITIVITY**: `⟨u,v⟩² ≤ ⟨u,u⟩⟨v,v⟩`,
     forced because the gap is the sum of three squares (the 3-D Lagrange
     identity). -/
 theorem cauchy_schwarz_3d (a0 a1 a2 b0 b1 b2 : Int) :
@@ -111,14 +111,14 @@ positive-*definiteness* of the coordinate form `⟨v,v⟩ = Σ vᵢ²` (the cond
 theorem sq_eq_zero {a : Int} (h : a * a = 0) : a = 0 :=
   (mul_eq_zero h).elim id id
 
-/-- ★★★★★ **POSITIVITY rigidity (2-D)** = positive-definiteness: `a²+b² = 0`
+/-- **POSITIVITY rigidity (2-D)** = positive-definiteness: `a²+b² = 0`
     forces `a = b = 0`. -/
 theorem positive_definite_2 (a b : Int) (h : a * a + b * b = 0) :
     a = 0 ∧ b = 0 :=
   let hpair := add_eq_zero_of_nonneg (int_sq_nonneg a) (int_sq_nonneg b) h
   ⟨sq_eq_zero hpair.1, sq_eq_zero hpair.2⟩
 
-/-- ★★★★★ **POSITIVITY rigidity (3-D)**: `a²+b²+c² = 0` forces `a = b = c = 0`. -/
+/-- **POSITIVITY rigidity (3-D)**: `a²+b²+c² = 0` forces `a = b = c = 0`. -/
 theorem positive_definite_3 (a b c : Int) (h : a * a + b * b + c * c = 0) :
     a = 0 ∧ b = 0 ∧ c = 0 :=
   let hpair := add_eq_zero_of_nonneg
@@ -126,7 +126,7 @@ theorem positive_definite_3 (a b c : Int) (h : a * a + b * b + c * c = 0) :
   let hab := positive_definite_2 a b hpair.1
   ⟨hab.1, hab.2, sq_eq_zero hpair.2⟩
 
-/-- ★★★★★ **POSITIVITY drives SEPARATE**: the squared distance
+/-- **POSITIVITY drives SEPARATE**: the squared distance
     `(a−c)² + (b−d)²` separates points — it is `0` only when the points coincide.
     Positive-definiteness is exactly point-separation (the `SEPARATE` primitive)
     of the Euclidean form. -/

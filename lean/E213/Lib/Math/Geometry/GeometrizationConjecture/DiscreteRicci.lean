@@ -51,7 +51,7 @@ theorem forman_K13 : formanEdge 1 3 = 0 := by decide
 /-- `K_{3,2}` (`b₁ = 8`, richly cyclic): `F = −1 < 0`, negatively curved. -/
 theorem forman_K32 : formanEdge 2 3 = -1 := by decide
 
-/-- ★★★★★ **Discrete curvature ↔ topology** (Forman / Gauss–Bonnet flavour):
+/-- **Discrete curvature ↔ topology** (Forman / Gauss–Bonnet flavour):
     the tree `K_{1,1}` is positively curved (`b₁ = 0`) while the cyclic
     `K_{3,2}` is negatively curved (`b₁ = 8`).  The trivial-loop ↔ rich-loop
     split the Poincaré pillar reads off `b₁`, here read off curvature. -/

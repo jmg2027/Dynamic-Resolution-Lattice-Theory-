@@ -35,7 +35,7 @@ open E213.Meta.Int213
 /-- Pick's functional with the denominator cleared: `2·A = 2·I + B − 2`. -/
 def pickValue (I B : Int) : Int := 2 * I + B - 2
 
-/-- ★★★★★ **Pick's theorem for a lattice rectangle** (the count ↔ area atom):
+/-- **Pick's theorem for a lattice rectangle** (the count ↔ area atom):
     with interior `I = (w−1)(h−1)` and boundary `B = 2w + 2h`, Pick's value
     equals twice the area `2wh`.  A pure `ℤ` ring identity — the discrete counts
     fold to the geometric area. -/

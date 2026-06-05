@@ -62,7 +62,7 @@ theorem step_descent (r : Nat) (hr : 0 < r) :
   | inl h => right; rw [h]; exact Nat.zero_sub r
   | inr h => left; exact Nat.sub_lt h hr
 
-/-- ★★★★★ **A6 FLOW fires: the round-sphere flow converges to a normal form**
+/-- **A6 FLOW fires: the round-sphere flow converges to a normal form**
     for any positive curvature rate and any initial radius. -/
 theorem sphere_flow_converges (r : Nat) (hr : 0 < r) (ρ₀ : Nat) :
     ∃ k, IsNormalForm (step r) (iter (step r) k ρ₀) :=
@@ -79,7 +79,7 @@ theorem fixed_imp_zero (r : Nat) (hr : 0 < r) :
       rw [h] at hlt
       exact absurd hlt (Nat.lt_irrefl ρ)
 
-/-- ★★★★★ **Finite extinction.**  The round-sphere Ricci flow reaches
+/-- **Finite extinction.**  The round-sphere Ricci flow reaches
     `ρ = 0` (the sphere shrinks to a round point) in finitely many steps —
     driven by the A6 FLOW archetype, normal form identified as extinction. -/
 theorem sphere_reaches_extinction (r : Nat) (hr : 0 < r) (ρ₀ : Nat) :
@@ -96,13 +96,13 @@ theorem ricciRate_pos : ∀ n, 2 ≤ n → 0 < ricciRate n
       rw [Nat.mul_succ]
       exact Nat.zero_lt_succ _
 
-/-- ★★★★★★ **Round Sⁿ Ricci flow extinguishes in finite time (n ≥ 2).**
+/-- **Round Sⁿ Ricci flow extinguishes in finite time (n ≥ 2).**
     The squared radius reaches `0`: the round sphere shrinks to a point. -/
 theorem round_sphere_extinction (n : Nat) (hn : 2 ≤ n) (ρ₀ : Nat) :
     ∃ k, iter (step (ricciRate n)) k ρ₀ = 0 :=
   sphere_reaches_extinction (ricciRate n) (ricciRate_pos n hn) ρ₀
 
-/-- ★★★★★★ **Round S³ Ricci flow finite extinction (the Poincaré case).**
+/-- **Round S³ Ricci flow finite extinction (the Poincaré case).**
     `Ric(round S³) = 2g`, so `dρ/dt = −4`; the 3-sphere shrinks to a round
     point in finite time — the `n = 3` seed of Perelman's finite-extinction
     theorem.  Driven by A6 FLOW. -/

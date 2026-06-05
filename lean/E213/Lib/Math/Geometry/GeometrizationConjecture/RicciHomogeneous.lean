@@ -81,7 +81,7 @@ theorem hyperbolic_diverges (r ρ : Nat) (hr : 0 < r) (B : Nat) :
 
 /-! ## The trichotomy -/
 
-/-- ★★★★★★ **The Einstein trichotomy of homogeneous Ricci flow.**  The sign of
+/-- **The Einstein trichotomy of homogeneous Ricci flow.**  The sign of
     the Einstein constant `λ` (encoded in the rate `r`) determines the flow:
     `λ = 0` stationary, `λ > 0` finite extinction (A6), `λ < 0` divergence
     (no fixed point, not A6). -/

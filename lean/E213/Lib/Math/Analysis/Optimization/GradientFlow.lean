@@ -120,7 +120,7 @@ theorem normSq_gradF (x : S.V) : S.ip (gradF S x) (gradF S x) = 4 * F S x := by
   rw [F_smul]
   ring_intZ
 
-/-- ★★★★★ **The gradient-descent descent identity** (the ISA payload).
+/-- **The gradient-descent descent identity** (the ISA payload).
 
     `F(x − τ∇F) = F(x) − τ(1−τ)·‖∇F(x)‖²` — the per-step change of the
     monovariant `F` is exactly the (scaled) squared gradient norm, *forced* by
@@ -132,7 +132,7 @@ theorem gradient_descent_identity (τ : Int) (x : S.V) :
   rw [gradStep_eq, F_smul, normSq_gradF]
   ring_intZ
 
-/-- ★★★★★ **Monotonicity**: for a contractive-range step `0 ≤ τ ≤ 1`, `F` does
+/-- **Monotonicity**: for a contractive-range step `0 ≤ τ ≤ 1`, `F` does
     not increase — the descent deficit `τ(1−τ)‖∇F‖²` is `≥ 0` (product of
     nonnegatives + inner-product positivity).  This is the A6 `descent`
     hypothesis, here *derived* from the gradient structure rather than assumed. -/

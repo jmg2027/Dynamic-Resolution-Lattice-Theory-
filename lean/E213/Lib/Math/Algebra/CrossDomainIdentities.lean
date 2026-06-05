@@ -17,7 +17,7 @@ namespace E213.Lib.Math.Algebra.CrossDomainIdentities
 
 open E213.Meta.Int213
 
-/-- ★★★★★ **Heron's formula** (geometry ↔ algebra): `16·Area²` of a triangle with
+/-- **Heron's formula** (geometry ↔ algebra): `16·Area²` of a triangle with
     sides `a,b,c` is determined by the sides alone, two ways —
     `(a+b+c)(−a+b+c)(a−b+c)(a+b−c) = 2a²b² + 2b²c² + 2c²a² − a⁴ − b⁴ − c⁴`. -/
 theorem heron (a b c : Int) :
@@ -26,7 +26,7 @@ theorem heron (a b c : Int) :
       - (a * a) * (a * a) - (b * b) * (b * b) - (c * c) * (c * c) := by
   ring_intZ
 
-/-- ★★★★★ **Euler's four-square identity** (number theory ↔ quaternion norm):
+/-- **Euler's four-square identity** (number theory ↔ quaternion norm):
     the product of two sums of four squares is a sum of four squares — `|z|²|w|² =
     |z·w|²` for quaternions.  The engine of Lagrange's four-square theorem. -/
 theorem euler_four_square (a1 a2 a3 a4 b1 b2 b3 b4 : Int) :
@@ -42,7 +42,7 @@ theorem euler_four_square (a1 a2 a3 a4 b1 b2 b3 b4 : Int) :
         * (a1 * b4 + a2 * b3 - a3 * b2 + a4 * b1) := by
   ring_intZ
 
-/-- ★★★★★ **Sophie Germain's identity** (algebra → number-theoretic
+/-- **Sophie Germain's identity** (algebra → number-theoretic
     factorization): `a⁴ + 4b⁴ = (a² + 2b² − 2ab)(a² + 2b² + 2ab)` — shows
     `a⁴ + 4b⁴` is composite for `b ≥ 1, a > b` (an Aurifeuillian factorization). -/
 theorem sophie_germain (a b : Int) :
