@@ -102,8 +102,16 @@ exposed patterns worth harvesting.
   (b) **cover** — ✓✓ **CLOSED** (`ChainAntichain` §7): `false_mem_extendC`,
   `true_mem`, `extendC_mem_scdStep`/`raiseC_mem_scdStep`, ★★ `scd_cover` (every
   length-`n` vector in some `scd n` chain) and `scd_chain_cover`.
-  (c) **count** `= C(n,⌊n/2⌋)` — *the only remaining piece*.  Plan: the
-  **symmetric-level invariant** `SymChain n C := C.map cardB = range' k (n−2k+1)`
+  (c) **count** `= C(n,⌊n/2⌋)` — *the only remaining piece*.  ✓ *run
+  characterizations built* (`ChainAntichain` §9): `consec k m` (the run
+  `[k,…,k+m−1]`), `extendC_sym` (extends the `cardB` run by one at the top),
+  `raiseC_sym` (shifts the run up by one, drops the bottom).  Remaining: the
+  **symmetric-level invariant** `SymChain n C := ∃ k, C.map cardB = consec k |C|
+  ∧ 2k+|C| = n+1` (need `extendC_length`/`raiseC_length`/`consec_length` helpers +
+  `scd_sym` preservation, the Nat arithmetic `2(k+1)+(|C|−1) = (n+1)+1` for raiseC),
+  then exactly-one-middle (`⌊n/2⌋ ∈ [k,n−k]` from `2k ≤ n` + `chain_card_inj`) and
+  the bijection.  Old `range'` plan superseded by `consec`.  [legacy below kept for
+  the bijection sketch:] `SymChain n C := C.map cardB = range' k (n−2k+1)`
   for some `k ≤ n/2` (cardB values exactly the contiguous `{k,…,n−k}`).
   Preservation: `extendC` keeps `false::` cardB and adds `(n−k)+1` at top
   (`k..n+1−k`); `raiseC` shifts `+1` and drops the top (`k+1..(n+1)−(k+1)`).  Then

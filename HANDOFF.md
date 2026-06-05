@@ -91,7 +91,11 @@ a chain, every vector covered).  **Only (c) the count remains**:
 C.map cardB = range' k (n−2k+1)`) — each chain has exactly one `⌊n/2⌋`-element ⟹
 bijection `scd n ↔ kLayer n ⌊n/2⌋` (surjective via `scd_cover`, injective via
 partition disjointness, still to prove).  Infra ready: `scd_nonempty` (chains
-nonempty), `scd_sorted`, `false_mem_extendC`/`true_mem`.  Then `dilworth_lower`
+nonempty), `scd_sorted`, `false_mem_extendC`/`true_mem`, and the **cardB-run
+characterizations** (`ChainAntichain` §9: `consec`, `extendC_sym`, `raiseC_sym`).
+Next: `extendC_length`/`raiseC_length`/`consec_length` + `SymChain` + `scd_sym`
+(invariant preservation; the raiseC sum arithmetic `2(k+1)+(|C|−1)=(n+1)+1` is the
+fiddly bit), then exactly-one-middle + the bijection.  Then `dilworth_lower`
 + this ⟹ min chain cover `= C(n,⌊n/2⌋)` = max antichain.  Full plan in the
 frontier note (the symmetric invariant + disjointness is the crux — best with
 fresh context).
