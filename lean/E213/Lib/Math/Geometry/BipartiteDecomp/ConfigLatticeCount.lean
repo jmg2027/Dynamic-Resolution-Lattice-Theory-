@@ -135,4 +135,23 @@ theorem cfgIdeals_dominant (V s : Nat) : 2 ^ (V * s) ≤ cfgIdeals V s := by
     exact Nat.le_mul_of_pos_right _ (Nat.pos_pow_of_pos _ (by decide))
   exact Nat.le_trans hb (cfgTerm_le_cfgSum V s)
 
+/-- Each summand is monotone in `V` (`2^{V·k} ≤ 2^{(V+1)·k}`). -/
+theorem cfgTerm_mono_V (V s k : Nat) : cfgTerm V s k ≤ cfgTerm (V + 1) s k := by
+  show binom s k * 2 ^ (V * k) * 2 ^ (k * (k - 1) / 2)
+        ≤ binom s k * 2 ^ ((V + 1) * k) * 2 ^ (k * (k - 1) / 2)
+  have hexp : 2 ^ (V * k) ≤ 2 ^ ((V + 1) * k) :=
+    Nat.pow_le_pow_right (by decide) (Nat.mul_le_mul_right k (Nat.le_succ V))
+  exact Nat.mul_le_mul (Nat.mul_le_mul (Nat.le_refl _) hexp) (Nat.le_refl _)
+
+/-- The partial sum is monotone in `V`. -/
+theorem cfgSum_mono_V (V s j : Nat) : cfgSum V s j ≤ cfgSum (V + 1) s j := by
+  induction j with
+  | zero => exact cfgTerm_mono_V V s 0
+  | succ k ih => exact Nat.add_le_add ih (cfgTerm_mono_V V s (k + 1))
+
+/-- ★★ **Monotone in `V`** (∀ V s): more pre-existing vertices → at least as many
+    intermediate configurations.  `cfgIdeals V s ≤ cfgIdeals (V+1) s`. -/
+theorem cfgIdeals_mono_V (V s : Nat) : cfgIdeals V s ≤ cfgIdeals (V + 1) s :=
+  cfgSum_mono_V V s s
+
 end E213.Lib.Math.Geometry.BipartiteDecomp.ConfigLatticeCount
