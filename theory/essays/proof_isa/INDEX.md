@@ -64,6 +64,15 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     counts are built ∅-axiom over the full `perms` characterisation
     (`perms_length = n!`, `mem_perms_iff`, `perms_nodup`).
 
+  · [`counting_as_cardinality.md`](counting_as_cardinality.md) — **what is counting,
+    in 213?**  Synthesis of the COUNT arc: a cardinality is the count-Lens reading
+    of a *finite residue* (`List.length`, no `Fintype`).  Binomials read layers
+    (`layer_size`, count recursion = Pascal), factorials count orderings
+    (`perms_length`), and COUNT's two faces — union bound (Ramsey) and double count
+    (Sperner) — are one incidence matrix read by rows vs columns (`sumOver_swap`).
+    Deepest frame: the quantitative `GAP` (deficit) and the qualitative one
+    (Cantor's diagonal) are one move at two resolutions.
+
   · [`konig_boundary.md`](konig_boundary.md) — König's lemma (infinite tree ⟹
     infinite path).  The first reproduction that **stalls**: compiles to
     **LOOP ∘ ⟦DECIDE InfBelow⟧**, the path-construction internal (∅-axiom
