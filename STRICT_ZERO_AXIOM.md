@@ -313,8 +313,13 @@ named bound `|F| ≤ C(a+b,a)`, `n`-independent, modulo the favour-count
 `favourCountTarget·(a+b)! = n!·a!·b!` from `binom_mul_fact`), and
 `bollobas_of_count` — `|F| ≤ C(a+b,a)` from the *single* clean geometric
 inequality `favourCountTarget ≤ #{favouring}` (the lone remaining rung, the
-ordering-count analogue of `SpernerChains.chain_low`).  Reuses `lym_double_count`,
-`binom_mul_fact`,
+ordering-count analogue of `SpernerChains.chain_low`).  The geometric heart of
+that rung is built — `E213.Lib.Math.Combinatorics.BollobasCount` (**9/9 PURE**):
+`weave` (mask-guided interleave) + `weave_perm`, `before_append_mem` +
+`weave_preserves_before` (order preservation), and `weave_favours` — the woven
+ordering `weave mask (σA++σB) σR` *favours* `(A,B)` (the construction lands in
+the favouring set); what remains is the enumeration (injectivity + 4-level
+count).  Reuses `lym_double_count`, `binom_mul_fact`,
 `SpernerChains.{truePos,idxList,perms,lcount_le_one_of}` — Bollobás is LYM's
 compilation with the incidence swapped (subsets×chains → pairs×orderings) and
 the antichain cap swapped for the cross-intersection cap.  Essay:

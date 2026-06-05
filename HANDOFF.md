@@ -73,13 +73,15 @@ Physics constants table: `catalogs/physics-constants.md`.
 ## Open Problems (Priority Order)
 From `research-notes/frontiers/count_substrate_synthesis.md` (registered in
 `frontiers/INDEX.md`):
-### 1. Discharge the Bollobás favour-count rung (closes `bollobas` unconditionally)
-The one remaining count: `#{π : all A before all B} = C(n,a+b)·a!·b!·(n−a−b)!`,
-i.e. `V·(a+b)! = n!·a!·b!`.  Ordering-count analogue of `SpernerChains.chain_low`:
-inject orderings favouring `(A,B)` — choose the `a+b` positions hosting `A∪B`
-(`C(n,a+b)`), order `A` into the first `a`, `B` into the next `b` (`a!·b!`),
-order the rest (`(n−a−b)!`), via `perms`/`perms_append_mem`.  Feeds `bollobas`'s
-`hV`+`hcount` to make `m ≤ C(a+b,a)` unconditional.
+### 1. Finish the Bollobás favour-count enumeration (closes `bollobas` unconditionally)
+The rung's **arithmetic is discharged** (`favourCount_mul`, `bollobas_of_count`:
+the rung is now the *single* inequality `favourCountTarget ≤ #{favouring}`) and
+its **geometric heart is built** (`BollobasCount`, 9/9 PURE: `weave_favours` —
+the woven ordering favours `(A,B)`).  **Remaining = enumeration only**: `weave`
+injectivity via filter-recovery (`filter (∈A∪B) (weave …) = σA++σB`,
+`map (∈A∪B) (weave …) = mask`) + the 4-level count (`mask ∈ kLayer n (a+b)` ×
+`perms` of the A/B/R positions) `= favourCountTarget`, then
+`lcount_ge_nodup_subset`.  ~150 lines of bookkeeping.
 ### 2. More LYM-shaped named bounds: Dilworth/Mirsky (chain/antichain duality).
 ### 2. A clean strict-order/pow `Meta/Nat` suite
 `Nat.mul_lt_mul_right` carries **Classical.choice**; `Nat.pow_add`/`Nat.succ_sub`
@@ -95,7 +97,8 @@ unconditionally), then merge to `main`; or a different domain (primacy = breadth
 
 ## File Map
 ```
-lean/E213/Lib/Math/Combinatorics/BollobasSetPair.lean ← Bollobás: before_antisymm, bollobas_cap, bollobas_sum, bollobas (18/18 PURE)  [NEW]
+lean/E213/Lib/Math/Combinatorics/BollobasCount.lean   ← favour-count injection: weave, weave_perm, weave_favours (9/9 PURE; enumeration remains)  [NEW]
+lean/E213/Lib/Math/Combinatorics/BollobasSetPair.lean ← Bollobás: before_antisymm, bollobas_cap, bollobas_sum, bollobas, favourCount_mul, bollobas_of_count (21/21 PURE)
 lean/E213/Lib/Math/Combinatorics/LymInequality.lean  ← LYM named inequality (5/5 PURE)  [NEW]
 lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← lym_double_count engine + binom_mul_fact + fact_mul_ge_mid
 lean/E213/Lib/Math/Combinatorics/SpernerChains.lean  ← chain model (chains_length, chain_cap, chain_low, truePos, idxList, perms)
