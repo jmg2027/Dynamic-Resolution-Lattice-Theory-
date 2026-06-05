@@ -79,4 +79,13 @@ theorem cfgIdeals_two (V : Nat) :
         = 2 ^ (V * 2) * 2 + 2 * 2 ^ (V * 1) + 1
   rw [Nat.zero_add, Nat.one_mul, Nat.mul_one]
 
+/-- ★ Three growth axes (`s = 3`, parametric in `V`): `I(V,3) = 2^{3V}·8 +
+    3·2^{2V}·2 + 3·2^V + 1` (the `k=3` cross-term carries `2^{C(3,2)} = 2^3 = 8`).
+    PURE. -/
+theorem cfgIdeals_three (V : Nat) :
+    cfgIdeals V 3 = 2 ^ (V * 3) * 8 + 3 * 2 ^ (V * 2) * 2 + 3 * 2 ^ (V * 1) + 1 := by
+  show ((((0 + 1 * 2 ^ (V * 3) * 8) + 3 * 2 ^ (V * 2) * 2) + 3 * 2 ^ (V * 1) * 1) + 1)
+        = 2 ^ (V * 3) * 8 + 3 * 2 ^ (V * 2) * 2 + 3 * 2 ^ (V * 1) + 1
+  rw [Nat.zero_add, Nat.one_mul, Nat.mul_one]
+
 end E213.Lib.Math.Geometry.BipartiteDecomp.ConfigLatticeCount
