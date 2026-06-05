@@ -48,6 +48,7 @@ import E213.Lib.Math.Foundations.ParadigmDomainGraded
 import E213.Lib.Math.Foundations.ParadigmDomainGradedRing
 import E213.Lib.Math.Foundations.ResolutionLimit
 import E213.Lib.Math.Foundations.ProofISALifts
+import E213.Lib.Math.Foundations.FoldEquality
 import E213.Lib.Math.Geometry.Topology
 import E213.Lib.Math.Geometry.TriangularTower
 import E213.Lib.Math.Foundations.UniverseChain

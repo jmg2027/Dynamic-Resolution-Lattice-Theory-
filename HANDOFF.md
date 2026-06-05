@@ -85,6 +85,17 @@ The genuinely-hard pieces are now self-contained marathons with rung ladders —
   case), still open.
 - **Full pointwise `cutEq`** for the Real213 limit (boundary quotient via valid-cut equality) — deferred.
 
+## proof-ISA META result (the session's most interesting): two orthogonal axes
+- **Essay** `theory/essays/proof_isa/lifts_versus_fold_equalities.md`: the ISA has TWO axes — **lifts**
+  (the 7 catalog archetypes, finite→uniform) and **fold-equalities (EQUIV)** (two Lens readings coincide).
+  EQUIV has zero lift content (so `ring_intZ`/`decide` closes it instantly); its difficulty is the
+  orthogonal cost of constructing the 2nd fold (trivial Pick → century-hard Weil/Langlands = GRA-univ).
+  Resolves "is EQUIV an 8th archetype?": no — a different *category*, not a lift.
+- **Lean** `Foundations/FoldEquality.lean` (3 PURE): the EQUIV catalog — `FoldEquality` struct + `pick`,
+  `heronFE` instances (companion to `ProofISALifts` on the identity axis).
+- **`mex = GAP`**: `SubtractionGame.{mexPair,grundy,grundy_values}` (10 PURE) — Sprague–Grundy value =
+  the nimber a game compiles to via iterated GAP (mex = least uncovered).
+
 ## Fresh cross-domain conquest this session: Pick's theorem (rectangle atom)
 `Geometry/PickTheorem.lean` (4 PURE): `pick_rectangle` — `2I + B − 2 = 2A` for lattice rectangles, the
 discrete-count ↔ continuous-area bridge (a two-readings-agree / GRA-universality-shaped identity), pure

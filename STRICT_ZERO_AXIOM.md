@@ -395,6 +395,15 @@ the 4-case Bool analysis + `consec`); `subtraction_game_characterization`: P-pos
 multiples of 3 (`gLoss(3q)=true`, `gLoss(3q+1)=gLoss(3q+2)=false`, each by induction via `period`).
 Cross-domain: game value ↔ modular arithmetic; no `ring_intZ`, genuine game-tree induction.
 
+### EQUIV catalog — fold-equalities as the proof-ISA identity axis (2026-06-05)
+
+`E213.Lib.Math.Foundations.FoldEquality` — **3 PURE / 0 DIRTY**.  The companion to `ProofISALifts` on the
+*identity* axis: a `FoldEquality X α` bundles two folds `X → α` + a pointwise agreement witness (not
+`funext` — avoids `Quot.sound`).  Instances `pick` (lattice-count fold = area fold) and `heronFE`
+(side-product fold = `16·Area²` fold) pin the recent EQUIV conquests as genuine fold-equalities;
+`equiv_catalog` bundles them.  Concretizes the lift-vs-EQUIV essay: EQUIV is a real category of ISA
+content, its difficulty the (here trivial) cost of constructing the second fold.
+
 ### Sprague–Grundy value of the subtraction game + the proof-ISA lift/EQUIV split (2026-06-05)
 
 `SubtractionGame.lean` extended (**10 PURE / 0 DIRTY**): `mexPair` (mex of a 2-option set) + `grundy` (the

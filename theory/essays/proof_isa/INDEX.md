@@ -61,7 +61,7 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     **structural**: the ISA has two orthogonal axes, not one list.  The seven
     catalog archetypes are **lifts** (finite → uniform); a second category,
     **fold-equalities** (EQUIV: two Lens readings of one residue coincide —
-    Pick, Heron, Cauchy–Schwarz; the GRA-universality shape), has *zero* lift
+    Pick, Heron, the Lagrange identity; the GRA-universality shape), has *zero* lift
     content, so `ring_intZ`/`decide` closes it instantly.  EQUIV's difficulty is
     orthogonal — the cost of *constructing the second fold* (trivial for Pick,
     century-hard for Weil/Langlands).  Bonus: `mex` (Sprague–Grundy) *is* `GAP`.

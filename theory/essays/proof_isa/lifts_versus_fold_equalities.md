@@ -19,8 +19,10 @@ Lenses, two folds `Raw → α` — give the *same* value.  Examples in the repo:
   fold.
 - **Heron** (`Algebra.CrossDomainIdentities`): the side-product fold equals the
   `16·Area²` fold.
-- **Euler four-square / Cauchy–Schwarz** (`CrossDomainIdentities`, `Positivity`):
-  one bilinear reading equals another.
+- **Euler four-square / the Lagrange identity** (`CrossDomainIdentities`,
+  `Positivity.lagrange_2d`): one bilinear reading equals another.  (Cauchy–Schwarz
+  itself is the *inequality* `⟨u,v⟩² ≤ ⟨u,u⟩⟨v,v⟩` — that is POSITIVITY, a bound;
+  its underlying *identity* `⟨u,u⟩⟨v,v⟩ − ⟨u,v⟩² = (gap)²` is the fold-equality.)
 
 These are equalities of two readings, with no "finite sample → uniform" content.
 That is exactly why `ring_intZ` (or `decide`) closes them *instantly* — and why
