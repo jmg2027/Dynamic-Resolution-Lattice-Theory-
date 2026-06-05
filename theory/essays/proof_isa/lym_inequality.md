@@ -128,12 +128,18 @@ antichain cap (`≤ 1 chain member`) swapped for the cross-intersection cap
 (`≤ 1 favoured pair`). The `SEPARATE` instruction is doing the same job in both;
 the `n`-independence is just the favour-count's `n!` cancelling the chain total.
 
-**The honest rung.** The favour-count `#{π : all A before all B} =
+**The favour-count, discharged.** The favour-count `#{π : all A before all B} =
 C(n,a+b)·a!·b!·(n−a−b)!` (the analogue of `chain_low`'s `k!·(n−k)!`) is the one
-geometric count not yet discharged — `bollobas` takes it as a hypothesis, exactly
-as `sperner_upper_bound` once took its chain counts before `SpernerChains` closed
-them. The *content* of Bollobás — the cross-intersection column cap — is closed
-∅-axiom here; the count is recorded as the open rung.
+geometric count the bound rests on. It is now built ∅-axiom (`BollobasCount`):
+the favouring orderings are enumerated as `weave mask (σ_A++σ_B) σ_R` —
+interleave an ordering of `A`'s positions then `B`'s into the `mask`-true slots,
+the rest into the false slots — and reading the woven list back recovers the
+mask (`map`), the content (`filter`) and the rest (`filter ¬`), so the family is
+duplicate-free; its length is `favourCountTarget` and it sits inside the
+favouring set (the position partition `Apos ++ Bpos ++ Rpos ~ [n]` places it in
+`perms`). Hence `bollobas_uniform`: `|F| ≤ C(a+b,a)`, `n`-independent,
+**unconditional**. Bollobás is fully ∅-axiom — `chain_low`'s ordering analogue
+closed.
 
 ## Witnesses
 
@@ -154,5 +160,8 @@ them. The *content* of Bollobás — the cross-intersection column cap — is cl
     `lean/E213/Lib/Math/Combinatorics/BollobasSetPair.lean` — `before_antisymm`,
     `bollobas_cap` (the cross-intersection column cap, the new content),
     `bollobas_sum` (engine = `lym_double_count` on favours), `bollobas` (named
-    bound modulo the favour-count rung).  18/18 PURE.
+    bound modulo the favour-count rung); `BollobasCount.lean` —
+    `weave`/`weave_favours`, the position partition, `weave` filter/map recovery,
+    `wovenFam_length`/`_nodup`/`_subset`, `favourCount_lower` (the rung) and
+    `bollobas_uniform` (the unconditional bound).  18/18 + 36/36 PURE.
   - instruction set: `seed/PROOF_ISA.md`, `lean/E213/Lens/ProofISA.lean`.

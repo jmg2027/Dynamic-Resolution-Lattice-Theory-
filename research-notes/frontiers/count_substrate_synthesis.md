@@ -67,15 +67,14 @@ exposed patterns worth harvesting.
   `B` into the `mask`-true slots (`mask ∈ kLayer n (a+b)`, `C(n,a+b)` of them),
   the rest `R` into the false slots.
 
-  ✓ **The geometric heart is built** — `BollobasCount` (9/9 PURE): `weave` +
-  `weave_perm` (it rearranges `xs++ys`), `before_append_mem` +
-  `weave_preserves_before` (order preservation), and ★ `weave_favours` — the
-  woven ordering **favours** `(A,B)` (the construction lands in the favouring
-  set).  **Remaining**: the *enumeration* only — `weave` injectivity (via
-  filter-recovery: `filter (∈A∪B) (weave …) = σ_A++σ_B`, `map (∈A∪B) (weave …) =
-  mask`) + the 4-level count `= favourCountTarget`, then `lcount_ge_nodup_subset`
-  ⟹ `favourCountTarget ≤ #{favouring}`, closing `bollobas_of_count`.  ~150 lines
-  of bookkeeping; a dedicated session.
+  ✓✓ **Bollobás is fully CLOSED** — `BollobasCount` (36/36 PURE).  Enumeration
+  done: the position partition (`partition_perm`, `restPos`/`disjointVec` +
+  disjointness lemmas), the `weave` filter/map recovery (`map_q_weave`/
+  `filter_q_weave`/`filter_nq_weave`), `wovenFam` with its length
+  (`wovenFam_length = favourCountTarget`), nodup (4-level via recovery) and
+  subset (`wovenFam_subset` — every woven ordering is a favouring permutation).
+  `favourCount_lower` discharges the rung; ★★★ `bollobas_uniform` —
+  `|F| ≤ C(a+b,a)`, `n`-independent, **unconditional ∅-axiom**.
 
   Still open and LYM-shaped on the same substrate: Dilworth/Mirsky
   (chain/antichain duality).

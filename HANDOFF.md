@@ -73,16 +73,11 @@ Physics constants table: `catalogs/physics-constants.md`.
 ## Open Problems (Priority Order)
 From `research-notes/frontiers/count_substrate_synthesis.md` (registered in
 `frontiers/INDEX.md`):
-### 1. Finish the Bollobás favour-count enumeration (closes `bollobas` unconditionally)
-The rung's **arithmetic is discharged** (`favourCount_mul`, `bollobas_of_count`:
-the rung is now the *single* inequality `favourCountTarget ≤ #{favouring}`) and
-its **geometric heart is built** (`BollobasCount`, 9/9 PURE: `weave_favours` —
-the woven ordering favours `(A,B)`).  **Remaining = enumeration only**: `weave`
-injectivity via filter-recovery (`filter (∈A∪B) (weave …) = σA++σB`,
-`map (∈A∪B) (weave …) = mask`) + the 4-level count (`mask ∈ kLayer n (a+b)` ×
-`perms` of the A/B/R positions) `= favourCountTarget`, then
-`lcount_ge_nodup_subset`.  ~150 lines of bookkeeping.
-### 2. More LYM-shaped named bounds: Dilworth/Mirsky (chain/antichain duality).
+### 1. More LYM-shaped named bounds: Dilworth/Mirsky (chain/antichain duality).
+The next COUNT-family target on the Sperner/LYM substrate.
+### 2. Leibniz determinant over `perms` (bridge `LPerm` ↔ `perms`).
+### (CLOSED) Bollobás set-pair inequality — `bollobas_uniform` (`BollobasCount`,
+36/36 PURE): `|F| ≤ C(a+b,a)`, `n`-independent, unconditional ∅-axiom.
 ### 2. A clean strict-order/pow `Meta/Nat` suite
 `Nat.mul_lt_mul_right` carries **Classical.choice**; `Nat.pow_add`/`Nat.succ_sub`
 carry propext — re-proven ad-hoc per file.  Canonicalise into `Meta/Nat`.

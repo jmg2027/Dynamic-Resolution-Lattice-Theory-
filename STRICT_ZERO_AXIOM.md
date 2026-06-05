@@ -312,14 +312,16 @@ named bound `|F| ≤ C(a+b,a)`, `n`-independent, modulo the favour-count
 `favourCountTarget = C(n,a+b)·a!·b!·(n−a−b)!`, `favourCount_mul` (the identity
 `favourCountTarget·(a+b)! = n!·a!·b!` from `binom_mul_fact`), and
 `bollobas_of_count` — `|F| ≤ C(a+b,a)` from the *single* clean geometric
-inequality `favourCountTarget ≤ #{favouring}` (the lone remaining rung, the
-ordering-count analogue of `SpernerChains.chain_low`).  The geometric heart of
-that rung is built — `E213.Lib.Math.Combinatorics.BollobasCount` (**9/9 PURE**):
-`weave` (mask-guided interleave) + `weave_perm`, `before_append_mem` +
-`weave_preserves_before` (order preservation), and `weave_favours` — the woven
-ordering `weave mask (σA++σB) σR` *favours* `(A,B)` (the construction lands in
-the favouring set); what remains is the enumeration (injectivity + 4-level
-count).  Reuses `lym_double_count`, `binom_mul_fact`,
+inequality `favourCountTarget ≤ #{favouring}`.  That rung is now **CLOSED** —
+`E213.Lib.Math.Combinatorics.BollobasCount` (**36/36 PURE**): the favour-count
+injection.  `weave` (mask-guided interleave) + order preservation
+(`weave_favours`), the position partition (`partition_perm`,
+`restPos`/`disjointVec`), `weave` filter/map recovery
+(`map_q_weave`/`filter_q_weave`/`filter_nq_weave`), `wovenFam` with
+`wovenFam_length = favourCountTarget`, `wovenFam_nodup`, `wovenFam_subset`,
+`favourCount_lower` (the rung), and ★★★ `bollobas_uniform` — `|F| ≤ C(a+b,a)`,
+`n`-independent, **unconditional ∅-axiom**.  **Bollobás' set-pair inequality is
+fully proven.**  Reuses `lym_double_count`, `binom_mul_fact`,
 `SpernerChains.{truePos,idxList,perms,lcount_le_one_of}` — Bollobás is LYM's
 compilation with the incidence swapped (subsets×chains → pairs×orderings) and
 the antichain cap swapped for the cross-intersection cap.  Essay:

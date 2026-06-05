@@ -78,7 +78,8 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     inequality** `m ≤ C(a+b,a)` (`BollobasSetPair`, 18/18 PURE): the *same*
     `lym_double_count` engine on a new incidence (pairs × orderings), the only
     new content the cross-intersection column cap (`before_antisymm`,
-    `bollobas_cap`); the named bound holds modulo one ordering-count rung.
+    `bollobas_cap`); the favour-count is discharged (`BollobasCount`, 36/36 PURE),
+    so `bollobas_uniform` — `|F| ≤ C(a+b,a)`, `n`-independent — holds unconditionally.
 
   · [`counting_as_cardinality.md`](counting_as_cardinality.md) — **what is counting,
     in 213?**  Synthesis of the COUNT arc: a cardinality is the count-Lens reading
