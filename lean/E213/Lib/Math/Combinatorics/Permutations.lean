@@ -23,7 +23,7 @@ namespace E213.Lib.Math.Combinatorics.Permutations
 
 open E213.Tactic.List213
   (length_append length_map mem_append_iff exists_of_mem_map
-   mem_append_left mem_append_right mem_map_of_mem)
+   mem_append_left mem_append_right mem_map_of_mem nodup_append nodup_map_of_inj)
 
 /-! ## §1 — factorial -/
 
@@ -314,5 +314,134 @@ theorem perms_complete {α : Type _} {l p : List α} (h : LPerm l p) : p ∈ per
     `perms_length = |l|!` to "`|l|!` distinct genuine permutations". -/
 theorem mem_perms_iff {α : Type _} {l p : List α} : p ∈ perms l ↔ LPerm p l :=
   ⟨perms_sound l p, fun h => perms_complete (LPerm.symm h)⟩
+
+/-! ## §7 — `perms` has no duplicates
+
+For a duplicate-free input, `perms l` lists each ordering exactly once.  The
+mechanism: distinct tail-orderings insert `a` into disjoint families (recover
+`p` from any insertion by erasing the unique `a`), and each insertion family is
+itself duplicate-free.  Needed so a `lcount` lower bound follows from a nodup
+sub-family (`nodup_length_le_of_subset`). -/
+
+/-- `LPerm` preserves membership. -/
+theorem mem_of_lperm {α : Type _} {l₁ l₂ : List α} (h : LPerm l₁ l₂) :
+    ∀ {x : α}, x ∈ l₁ → x ∈ l₂ := by
+  induction h with
+  | nil => intro x hx; exact hx
+  | cons a _ ih =>
+      intro x hx
+      cases hx with
+      | head => exact List.Mem.head _
+      | tail _ h' => exact List.Mem.tail _ (ih h')
+  | swap a b l =>
+      intro x hx
+      cases hx with
+      | head => exact List.Mem.tail _ (List.Mem.head _)
+      | tail _ h' =>
+          cases h' with
+          | head => exact List.Mem.head _
+          | tail _ h'' => exact List.Mem.tail _ (List.Mem.tail _ h'')
+  | trans _ _ ih₁ ih₂ => intro x hx; exact ih₂ (ih₁ hx)
+
+/-- `LPerm` preserves `Nodup`. -/
+theorem nodup_of_lperm {α : Type _} {l₁ l₂ : List α} (h : LPerm l₁ l₂) :
+    l₁.Nodup → l₂.Nodup := by
+  induction h with
+  | nil => intro h; exact h
+  | cons a hsub ih =>
+      intro hnd
+      cases hnd with
+      | cons hh ht =>
+          refine List.Pairwise.cons (fun y hy => ?_) (ih ht)
+          exact hh y (mem_of_lperm (LPerm.symm hsub) hy)
+  | swap a b l =>
+      intro hnd
+      cases hnd with
+      | cons hba htl =>
+          cases htl with
+          | cons hal hl =>
+              refine List.Pairwise.cons (fun y hy => ?_) (List.Pairwise.cons (fun y hy => ?_) hl)
+              · cases hy with
+                | head => exact fun h => hba a (List.Mem.head _) h.symm
+                | tail _ h' => exact hal y h'
+              · exact hba y (List.Mem.tail _ hy)
+  | trans _ _ ih₁ ih₂ => intro hnd; exact ih₂ (ih₁ hnd)
+
+/-- Each insertion family is duplicate-free (for `a ∉ p`, nodup `p`). -/
+theorem insertEverywhere_nodup {α : Type _} (a : α) :
+    ∀ (p : List α), a ∉ p → p.Nodup → (insertEverywhere a p).Nodup
+  | [], _, _ => List.Pairwise.cons (by intro y hy; nomatch hy) List.Pairwise.nil
+  | b :: l, hbl, hnd => by
+      have hab : a ≠ b := fun h => hbl (h ▸ List.Mem.head _)
+      have hal : a ∉ l := fun h => hbl (List.Mem.tail _ h)
+      have hl_nd : l.Nodup := by cases hnd with | cons _ ht => exact ht
+      refine List.Pairwise.cons (fun y hy => ?_) ?_
+      · obtain ⟨y', _, rfl⟩ := exists_of_mem_map hy
+        intro heq; exact hab (by injection heq)
+      · exact nodup_map_of_inj (fun u _ v _ huv => by injection huv)
+                (insertEverywhere_nodup a l hal hl_nd)
+
+/-- `flatMap213` of pairwise-disjoint duplicate-free fibres over a nodup base
+    is duplicate-free. -/
+theorem nodup_flatMap213 {α β : Type _} {f : α → List β} :
+    ∀ {L : List α}, L.Nodup → (∀ x, x ∈ L → (f x).Nodup) →
+      (∀ x y, x ∈ L → y ∈ L → x ≠ y → ∀ z, z ∈ f x → z ∈ f y → False) →
+      (flatMap213 f L).Nodup
+  | [], _, _, _ => List.Pairwise.nil
+  | a :: L, hnd, hfib, hdisj => by
+      have haL : a ∉ L := by cases hnd with | cons hh _ => exact fun hm => (hh a hm) rfl
+      have hnd' : L.Nodup := by cases hnd with | cons _ ht => exact ht
+      refine nodup_append (hfib a (List.Mem.head _)) ?_ ?_
+      · exact nodup_flatMap213 hnd' (fun x hx => hfib x (List.Mem.tail _ hx))
+              (fun x y hx hy => hdisj x y (List.Mem.tail _ hx) (List.Mem.tail _ hy))
+      · intro z hz hzf
+        obtain ⟨y, hyL, hzy⟩ := mem_flatMap213 hzf
+        exact hdisj a y (List.Mem.head _) (List.Mem.tail _ hyL)
+                (fun h => haL (h ▸ hyL)) z hz hzy
+
+/-- Erase the first occurrence of `a`. -/
+def eraseFirst {α : Type _} [DecidableEq α] (a : α) : List α → List α
+  | [] => []
+  | x :: xs => if x = a then xs else x :: eraseFirst a xs
+
+/-- Erasing the inserted `a` recovers `p` (when `a ∉ p`) — the inverse that
+    makes distinct tail-orderings insert into **disjoint** families. -/
+theorem eraseFirst_insertEverywhere {α : Type _} [DecidableEq α] (a : α) :
+    ∀ (p : List α), a ∉ p → ∀ c, c ∈ insertEverywhere a p → eraseFirst a c = p
+  | [], _, c, hc => by
+      cases hc with
+      | head => show (if a = a then [] else _) = []; rw [if_pos rfl]
+      | tail _ h' => nomatch h'
+  | b :: l, hbl, c, hc => by
+      have hab : a ≠ b := fun h => hbl (h ▸ List.Mem.head _)
+      have hal : a ∉ l := fun h => hbl (List.Mem.tail _ h)
+      cases hc with
+      | head =>
+          show (if a = a then b :: l else _) = b :: l
+          rw [if_pos rfl]
+      | tail _ h' =>
+          obtain ⟨c', hc', rfl⟩ := exists_of_mem_map h'
+          show (if b = a then c' else b :: eraseFirst a c') = b :: l
+          rw [if_neg (fun h => hab h.symm), eraseFirst_insertEverywhere a l hal c' hc']
+
+/-- ★ **`perms` has no duplicates** (for a duplicate-free input): `perms l`
+    lists each of the `|l|!` orderings exactly once.  Completes
+    `mem_perms_iff` + `perms_length` to "`perms l` is the nodup list of all
+    `|l|!` permutations". -/
+theorem perms_nodup {α : Type _} [DecidableEq α] :
+    ∀ (l : List α), l.Nodup → (perms l).Nodup
+  | [], _ => List.Pairwise.cons (by intro y hy; nomatch hy) List.Pairwise.nil
+  | a :: l, hnd => by
+      have haL : a ∉ l := by cases hnd with | cons hh _ => exact fun hm => (hh a hm) rfl
+      have hl_nd : l.Nodup := by cases hnd with | cons _ ht => exact ht
+      have hap : ∀ p, p ∈ perms l → a ∉ p := fun p hp hmem =>
+        haL (mem_of_lperm (perms_sound l p hp) hmem)
+      have hpnd : ∀ p, p ∈ perms l → p.Nodup := fun p hp =>
+        nodup_of_lperm (LPerm.symm (perms_sound l p hp)) hl_nd
+      refine nodup_flatMap213 (perms_nodup l hl_nd)
+        (fun p hp => insertEverywhere_nodup a p (hap p hp) (hpnd p hp)) ?_
+      intro p p' hp hp' hpp' z hz hz'
+      exact hpp' ((eraseFirst_insertEverywhere a p (hap p hp) z hz).symm.trans
+                   (eraseFirst_insertEverywhere a p' (hap p' hp') z hz'))
 
 end E213.Lib.Math.Combinatorics.Permutations
