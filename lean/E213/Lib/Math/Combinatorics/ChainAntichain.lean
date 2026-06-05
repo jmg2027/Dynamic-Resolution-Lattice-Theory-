@@ -298,4 +298,64 @@ theorem dilworth_lower {n : Nat} (chains : List (List (List Bool)))
   rw [length_map, kLayer_card] at hle
   exact hle
 
+/-! ## §5 — chain-property infrastructure for the SCD
+
+Toward the Dilworth upper bound (the symmetric chain decomposition): a list whose
+members are pairwise `subseteqB`-ordered is a chain (`sorted_isChain`).  The SCD's
+recursive constructors prepend a bit and append a top element; the `subseteqB`
+facts below (`subseteqB_refl`, `subseteqB_false_true`) feed the preservation of
+the sorted property. -/
+
+/-- Subset reflexivity: `A ⊆ A`. -/
+theorem subseteqB_refl : ∀ (A : List Bool), subseteqB A A = true
+  | [] => rfl
+  | a :: as => by
+      show (impl a a && subseteqB as as) = true
+      rw [subseteqB_refl as]; cases a <;> rfl
+
+/-- `comparable A A = true`. -/
+theorem comparable_refl (A : List Bool) : comparable A A = true := by
+  show (subseteqB A A || subseteqB A A) = true
+  rw [subseteqB_refl A]; rfl
+
+/-- Adding the new element only at the top: `false :: v ⊆ true :: v`. -/
+theorem subseteqB_false_true (v : List Bool) : subseteqB (false :: v) (true :: v) = true := by
+  show (impl false true && subseteqB v v) = true
+  rw [subseteqB_refl v]; rfl
+
+/-- Prepending the same bit preserves `⊆`: `subseteqB (b::v) (b::w) = subseteqB v w`. -/
+theorem subseteqB_cons_same (b : Bool) (v w : List Bool) :
+    subseteqB (b :: v) (b :: w) = subseteqB v w := by
+  show (impl b b && subseteqB v w) = subseteqB v w
+  cases b <;> rfl
+
+/-- A `Pairwise`-related list relates any two members in *some* order (the list's
+    order witnesses it — no transitivity needed). -/
+theorem pairwise_rel {α : Type _} {R : α → α → Prop} :
+    ∀ {L : List α}, List.Pairwise R L →
+      ∀ A, A ∈ L → ∀ B, B ∈ L → A = B ∨ R A B ∨ R B A
+  | x :: xs, hp, A, hA, B, hB => by
+      cases hp with
+      | cons hx hxs =>
+          cases hA with
+          | head => cases hB with
+            | head => exact Or.inl rfl
+            | tail _ hB' => exact Or.inr (Or.inl (hx B hB'))
+          | tail _ hA' => cases hB with
+            | head => exact Or.inr (Or.inr (hx A hA'))
+            | tail _ hB' => exact pairwise_rel hxs A hA' B hB'
+
+/-- ★ **Sorted ⟹ chain.**  A `subseteqB`-`Pairwise` list is a chain (any two
+    members are comparable).  The bridge from the SCD's sorted constructors to
+    `IsChain`. -/
+theorem sorted_isChain {L : List (List Bool)}
+    (h : List.Pairwise (fun A B => subseteqB A B = true) L) : IsChain L := by
+  intro A hA B hB
+  rcases pairwise_rel h A hA B hB with hab | hsub | hsub
+  · rw [hab]; exact comparable_refl B
+  · show (subseteqB A B || subseteqB B A) = true
+    rw [hsub]; rfl
+  · show (subseteqB A B || subseteqB B A) = true
+    rw [hsub]; cases subseteqB A B <;> rfl
+
 end E213.Lib.Math.Combinatorics.ChainAntichain
