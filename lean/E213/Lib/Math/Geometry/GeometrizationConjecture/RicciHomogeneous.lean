@@ -81,10 +81,13 @@ theorem hyperbolic_diverges (r ρ : Nat) (hr : 0 < r) (B : Nat) :
 
 /-! ## The trichotomy -/
 
-/-- **The Einstein trichotomy of homogeneous Ricci flow.**  The sign of
-    the Einstein constant `λ` (encoded in the rate `r`) determines the flow:
-    `λ = 0` stationary, `λ > 0` finite extinction (A6), `λ < 0` divergence
-    (no fixed point, not A6). -/
+/-- **Three one-line `ℕ` facts: `ρ−0` fixes, `ρ−r→0`, `ρ+r→∞`** — read as the
+    sign-of-`λ` trichotomy of homogeneous Einstein flow (`λ=0` stationary, `λ>0`
+    finite extinction, `λ<0` divergence).  The geometric reading (Einstein
+    constant, Ricci tensor) is interpretation; the theorem bundles
+    `flat_torus_stationary`, `sphere_reaches_extinction`, `hyperbolic_diverges` —
+    `ℕ` subtract-zero / subtract-positive-to-`0` / add-positive.  No metric, no
+    Ricci tensor; the rate is assumed, not derived. -/
 theorem einstein_trichotomy (ρ : Nat) :
     -- λ = 0 (Ricci-flat / flat torus): stationary
     (step 0 ρ = ρ)

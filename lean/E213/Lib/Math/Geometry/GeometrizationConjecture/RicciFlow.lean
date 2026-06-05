@@ -124,17 +124,17 @@ theorem coherentization_normal_form (C : Nat) :
   show fillStep C (iter (fillStep C) C 0) = iter (fillStep C) C 0
   rw [hC]; exact fillStep_fixed_at_C C
 
-/-- **Ricci pillar — COMPLETE via A6 FLOW (K_{3,2}^{(c=2)}).**
+/-- **A `ℕ`-counter `0→1→2→3` reaches its cap, via A6 FLOW** — the chart-Lens
+    cell-filling toy, NOT smooth Ricci flow and NOT the Geometrization Ricci
+    pillar.
 
-    The `K_{3,2}^{(c=2)}` coherentization flow (`C = 3` fillable 4-cycles,
-    initial graph `b_1 = 8`) converges, via the A6 FLOW archetype, to the
-    canonical maximally-coherentized normal form: all 3 cells filled, the
-    chart-Lens analog of the constant-curvature geometry.  The canonical
-    invariant read off the normal form is `b_1 = 8 − 3 = 5`
-    (`Filled.phase_D_partial`).
-
-    Upgrades the Ricci pillar from OPEN (`Ricci.lean` capstone table) /
-    static-modulus to a convergent monovariant flow with a *proven* descent. -/
+    Concretely: the counter `fillStep 3` (increment until `3`) reaches its fixed
+    point `3` by `flow_reaches`, and `8 − 3 = 5`.  The narrative reading — `K_{3,2}`
+    cell-filling as a "coherentization flow" to a "constant-curvature analog",
+    `b_1 : 8→5` — is interpretation in the surrounding text; the theorem proves
+    only the counting flow + the arithmetic.  No metric, no curvature, no PDE.
+    The genuine smooth-metric Ricci core is the open frontier
+    (`research-notes/frontiers/ricci_flow_smooth_core.md`). -/
 theorem ricci_pillar_K32_flow_close :
     -- A6 FLOW archetype fires: convergence to a normal form
     (∃ n, IsNormalForm (fillStep 3) (iter (fillStep 3) n 0))

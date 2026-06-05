@@ -50,10 +50,10 @@ theorem lagrange_2d (a0 a1 b0 b1 : Int) :
     = (a0 * b1 - a1 * b0) * (a0 * b1 - a1 * b0) := by
   ring_intZ
 
-/-- **Cauchy–Schwarz (2-D, ℤ) via POSITIVITY.**
-    `⟨u,v⟩² ≤ ⟨u,u⟩·⟨v,v⟩` — forced because the gap is the square
-    `(u₀v₁ − u₁v₀)² ≥ 0`.  The POSITIVITY archetype driving an actual
-    inner-product conquest, no analysis used. -/
+/-- **Cauchy–Schwarz in 2-D over ℤ** (the standard one-line "the gap is a square"
+    proof): `⟨u,v⟩² ≤ ⟨u,u⟩·⟨v,v⟩`, because the gap is `(u₀v₁ − u₁v₀)² ≥ 0`
+    (the 2-D Lagrange identity).  Elementary; the general (`n`-D, real
+    inner-product) Cauchy–Schwarz is not in scope here. -/
 theorem cauchy_schwarz_2d (a0 a1 b0 b1 : Int) :
     (a0 * b0 + a1 * b1) * (a0 * b0 + a1 * b1)
     ≤ (a0 * a0 + a1 * a1) * (b0 * b0 + b1 * b1) := by

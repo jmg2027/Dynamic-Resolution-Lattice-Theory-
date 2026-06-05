@@ -102,10 +102,13 @@ theorem round_sphere_extinction (n : Nat) (hn : 2 ≤ n) (ρ₀ : Nat) :
     ∃ k, iter (step (ricciRate n)) k ρ₀ = 0 :=
   sphere_reaches_extinction (ricciRate n) (ricciRate_pos n hn) ρ₀
 
-/-- **Round S³ Ricci flow finite extinction (the Poincaré case).**
-    `Ric(round S³) = 2g`, so `dρ/dt = −4`; the 3-sphere shrinks to a round
-    point in finite time — the `n = 3` seed of Perelman's finite-extinction
-    theorem.  Driven by A6 FLOW. -/
+/-- **`ρ ↦ ρ − 4` on `ℕ` reaches `0`** — the round-`S³` size ODE, discretized.
+    The geometric input `Ric(round S³) = 2g` (giving rate `2(n−1) = 4`) is
+    *assumed*, hardcoded as `ricciRate 3 = 4`, not derived; the theorem proves only
+    that subtracting `4` repeatedly reaches `0` (finite extinction of the squared
+    radius).  This is the trivial homogeneous case and the `n=3` *seed* of
+    Perelman's finite-extinction theorem — not that theorem, which is for general
+    metrics. -/
 theorem round_S3_ricci_extinction (ρ₀ : Nat) :
     ricciRate 3 = 4 ∧ ∃ k, iter (step (ricciRate 3)) k ρ₀ = 0 :=
   ⟨by decide, sphere_reaches_extinction (ricciRate 3) (by decide) ρ₀⟩
