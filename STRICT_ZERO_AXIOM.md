@@ -509,6 +509,8 @@ bridge the **exp functional equation** `exp(a+b)=exp(a)exp(b)` needs: cross-mult
 `Σ(aʲ/j!)(bᵏ/k!)` by `n!` gives `Σ C(n,j)aʲbⁿ⁻ʲ = (a+b)ⁿ` (binomial theorem) via exactly `C(n,j)·j!·(n−j)!=n!`.
 Connects the combinatorial `choose` (Pascal) to the analytic `factorial`; reusable across combinatorics /
 probability.  Purity: needed NatHelper's pure `mul_assoc` (Lean-core `Nat.mul_assoc` leaks `propext`).
+Two clean corollaries: `choose_symm` (`C(k+j,k)=C(k+j,j)`, cancelling the common `k!·j!` from two bridge
+instances) and `pascal_row_sum` (`Σ_{k=0}^n C(n,k) = 2ⁿ`, the binomial theorem at `a=1` — in `BinomialTheorem`).
 
 ### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
 

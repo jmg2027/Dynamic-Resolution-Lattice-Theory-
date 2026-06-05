@@ -260,4 +260,12 @@ theorem binom_theorem_b_eq_one (a : Nat) :
     show (a + 1)^n * (a + 1) = binomSum a (n + 1)
     rw [binom_theorem_b_eq_one a n, Nat.mul_comm, binomSum_step]
 
+/-- ★★★ **Pascal row sum**: `Σ_{k=0}^{n} C(n, k) = 2ⁿ`.  The binomial theorem at `a = 1`
+    (`(1+1)ⁿ = Σ C(n,k)·1ᵏ`), with `1ᵏ = 1`. -/
+theorem pascal_row_sum (n : Nat) : sumTo (n + 1) (fun k => choose n k) = 2 ^ n := by
+  rw [show (2 : Nat) = 1 + 1 from rfl, binom_theorem_b_eq_one 1 n]
+  show sumTo (n + 1) (fun k => choose n k) = sumTo (n + 1) (fun k => choose n k * 1 ^ k)
+  exact sumTo_congr (n + 1) (fun k => choose n k) (fun k => choose n k * 1 ^ k)
+    (fun k _ => by show choose n k = choose n k * 1 ^ k; rw [Nat.one_pow, Nat.mul_one])
+
 end E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem

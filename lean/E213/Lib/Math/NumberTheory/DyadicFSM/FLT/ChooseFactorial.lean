@@ -26,7 +26,7 @@ namespace E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial
 
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial
   (choose choose_zero_right choose_succ_mul)
-open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_succ)
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_succ factorial_pos)
 
 /-- ★★★ **`choose` ↔ factorial bridge**: `C(k+j, k) · (k! · j!) = (k+j)!`.
 
@@ -59,5 +59,16 @@ theorem choose_mul_factorials :
     rw [key, ih,
         ← E213.Tactic.NatHelper.mul_assoc (k + 1) (k + j + 1) (factorial (k + j)),
         Nat.mul_comm (k + 1) (k + j + 1)]
+
+/-- ★★ **`choose` symmetry**: `C(k+j, k) = C(k+j, j)`.  Both equal `(k+j)!/(k!·j!)`; cancel the
+    common positive factor `k!·j!` from the two instances of the bridge. -/
+theorem choose_symm (k j : Nat) : choose (k + j) k = choose (k + j) j := by
+  have h1 := choose_mul_factorials k j
+  have h2 := choose_mul_factorials j k
+  rw [Nat.add_comm j k, Nat.mul_comm (factorial j) (factorial k)] at h2
+  have heq : choose (k + j) k * (factorial k * factorial j)
+           = choose (k + j) j * (factorial k * factorial j) := h1.trans h2.symm
+  exact Nat.eq_of_mul_eq_mul_right
+    (Nat.mul_pos (factorial_pos k) (factorial_pos j)) heq
 
 end E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial
