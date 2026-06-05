@@ -28,6 +28,14 @@ the term-magnitude level `Mᵏ/k!` (`M` bounds `|x|`), no cut comparison:
 `cosTerm_geom_decay`/`sinTerm_geom_decay` (decay `term(m)/2^{2k}`) + `cosTerm_antitone`/`sinTerm_antitone`
 (alternating-series-test hypothesis).
 
+### T1 algebraic route — exp(m) convergents + cross-determinant — `ExpLog/CutExpConvergents.lean` (NEW, 5 PURE)
+Generalizes `EulerModulus`'s e-convergent arithmetic to **exp(m) at every integer arg**: `expNum m`
+(`A_{n+1}=(n+1)A_n+m^{n+1}`), `expNum_one` (=`eulerNum`), `exp_cross_det` (cross-det `m^{n+1}·n!`),
+`exp_convergents_mono`.  **Honest finding**: the clean `RateModulus` modulus `N(m,k)=k+2` is **m=1-special**
+— the rate certificate `i(i+1)m^{i+1}+i ≤ (i+1)²` fails for `m≥2` at `i=1` (`exp_two_rate_fails_at_one`).
+General exp(m)'s modulus is the analytic `2m`-threshold majorant (`CutExpModulus`); the two routes are
+complementary.  (+ `HeatEqDiscrete.lazy_eq_nonlazy_plus_self`: `lazy = non-lazy + 2u_x`, the spectral-gap reason.)
+
 ### P1 — discrete heat maximum principle — `Analysis/ODE/HeatEqDiscrete.lean` (extended, 4 PURE)
 `heatStep_le_two_max`/`heatStep_two_min_le` (no hot/cold spots), `heatStep_range` (sup-norm contraction),
 `heatStep_osc_bound` (oscillation non-increasing).  **Iterated to all time** (`heatField`, `heatIter`):
@@ -45,9 +53,11 @@ operator is the **lazy** step `lazyHeatStepNum = u_{x−1}+2u_x+u_{x+1}` `(¼,½
 ## Next targets (priority order)
 1. **T1→T2 bridge**: package the proven exp term-decay rate into a `CauchyCutSeq` over the cut-level
    `expPartialSum` (reuse `eulerCauchySeq`/`RealCauchyWitness`/`CompletenessLoop` idiom) — lifts the rate to
-   a genuine `Real213` point.  Then the **signed** `sinCut`/`cosCut` series replacing the
-   `Real213/Core/Functions.lean` stubs (their alternating partial sums bracket the limit via the antitone
-   magnitudes already proven).
+   a genuine `Real213` point.  Note: for general `m` use the **analytic** `CutExpModulus` `2m`-threshold
+   (the `RateModulus` algebraic route is e-only, see `CutExpConvergents` honest finding).  A *shifted*
+   `RateModulus` generator (Htel from `i ≥ 2m` instead of `i ≥ 1`) would give exp(m) a constructed total
+   modulus algebraically — a reachable next rung.  Then the **signed** `sinCut`/`cosCut` series replacing
+   the `Real213/Core/Functions.lean` stubs (alternating partial sums bracket via the antitone magnitudes).
 2. **P2 general**: oscillation contraction *rate* for the lazy step at general `n` / general field (the
    spectral-gap estimate, not just the n=4 checkerboard witness), then the `Real213` limit → continuous
    smoothing.  **P3** energy/Dirichlet decay `E(u)=Σ(u_{i+1}−u_i)²`.
