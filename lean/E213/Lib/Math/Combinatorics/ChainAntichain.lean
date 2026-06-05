@@ -23,11 +23,11 @@ namespace E213.Lib.Math.Combinatorics.ChainAntichain
 
 open E213.Lib.Math.Combinatorics.Sperner
   (cardB subseteqB comparable impl eq_of_subseteq_card_eq IsAntichain beq_self cardEq
-   kLayer kLayer_isAntichain half kLayer_card kLayer_nodup)
+   kLayer kLayer_isAntichain half half_le le_half kLayer_card kLayer_nodup cardEq)
 open E213.Lib.Math.Combinatorics.SpernerChains
   (idxList idxList_length idxList_nodup mem_idxList_lt cardB_le_length
    beqBoolList beqBoolList_refl eq_of_beqBoolList)
-open E213.Lib.Math.Combinatorics.BoolEnum (mem_allBoolLists)
+open E213.Lib.Math.Combinatorics.BoolEnum (mem_allBoolLists length_of_mem_allBoolLists)
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Tactic.List213
   (mem_append_left mem_append_right exists_of_mem_map mem_map_of_mem nodup_map_of_inj
@@ -715,5 +715,81 @@ theorem scd_sym : ∀ (n : Nat) (C : List (List Bool)), C ∈ scd n → SymChain
                 · rw [raiseC_sym v w rest k hmap, raiseC_length v w rest]
                 · rw [raiseC_length v w rest]
                   exact raise_sum_arith (L := (w :: rest).length) hsum
+
+/-! ## §11 — the middle layer meets every chain (toward the count `C(n,⌊n/2⌋)`)
+
+The Dilworth **lower** bound is now free: `scd n` is a chain cover (§7), so
+`dilworth_lower` gives `C(n,⌊n/2⌋) ≤ |scd n|` (`scd_lower`).  For the matching
+**upper** bound we read off the symmetric-level invariant (§10): the run
+`[k, …, n−k]` straddles `⌊n/2⌋` (`sym_span`), so every chain contains a
+`⌊n/2⌋`-element (`scd_has_middle`) and — being a chain — exactly one
+(`scd_middle_unique`).  The injection `chain ↦ middle element` then needs only the
+SCD partition-disjointness (the last frontier rung) to give `|scd n| = C(n,⌊n/2⌋)`. -/
+
+/-- `x ∈ [k, …, k+m−1]` whenever `k ≤ x < k + m`. -/
+theorem mem_consec : ∀ (k m x : Nat), k ≤ x → x < k + m → x ∈ consec k m
+  | k, 0, x, h1, h2 => by rw [Nat.add_zero] at h2; exact absurd h1 (Nat.not_le.2 h2)
+  | k, m + 1, x, h1, h2 => by
+      show x ∈ k :: consec (k + 1) m
+      rcases Nat.eq_or_lt_of_le h1 with heq | hlt
+      · rw [← heq]; exact List.Mem.head _
+      · have h1' : k + 1 ≤ x := hlt
+        have e : (k + 1) + m = k + (m + 1) := by rw [Nat.succ_add, Nat.add_succ]
+        have h2' : x < (k + 1) + m := by rw [e]; exact h2
+        exact List.Mem.tail _ (mem_consec (k + 1) m x h1' h2')
+
+/-- ★ **The symmetric span.**  A chain with `2k + m = n+1` (`m = |C| ≥ 1`) runs
+    from level `k ≤ ⌊n/2⌋` up to level `n − k`, so it straddles the middle. -/
+theorem sym_span {n k m : Nat} (h : 2 * k + m = n + 1) (hm : 1 ≤ m) :
+    k ≤ half n ∧ k + half n ≤ n := by
+  have h2k : 2 * k ≤ n := by
+    have hstep : 2 * k + 1 ≤ n + 1 := h ▸ Nat.add_le_add_left hm (2 * k)
+    exact Nat.le_of_succ_le_succ hstep
+  have hk : k ≤ half n := by
+    rcases Nat.lt_or_ge (half n) k with hlt | hge
+    · have hmul : 2 * (half n + 1) ≤ 2 * k := Nat.mul_le_mul_left 2 hlt
+      rw [Nat.mul_succ] at hmul
+      have hbad : 2 * half n + 2 ≤ 2 * half n + 1 :=
+        Nat.le_trans (Nat.le_trans hmul h2k) (le_half n)
+      exact (Nat.not_succ_le_self (2 * half n + 1) hbad).elim
+    · exact hge
+  refine ⟨hk, ?_⟩
+  have hadd : k + half n ≤ half n + half n := Nat.add_le_add_right hk (half n)
+  rw [← Nat.two_mul] at hadd
+  exact Nat.le_trans hadd (half_le n)
+
+/-- **Dilworth's lower bound, realised by the SCD.**  `scd n` is a chain cover, so
+    `C(n,⌊n/2⌋) ≤ |scd n|` — the SCD attains the Dilworth bound from below. -/
+theorem scd_lower (n : Nat) : binom n (half n) ≤ (scd n).length :=
+  dilworth_lower (scd n) (scd_isChain n)
+    (fun A hA => scd_cover n A (length_of_mem_allBoolLists (mem_filter hA).1))
+
+/-- ★ **Every SCD chain contains a `⌊n/2⌋`-element.**  The symmetric run straddles
+    the middle layer (`sym_span` + `mem_consec`). -/
+theorem scd_has_middle {n : Nat} {C : List (List Bool)} (hC : C ∈ scd n) :
+    ∃ A, A ∈ C ∧ cardB A = half n := by
+  obtain ⟨k, hmap, hsum⟩ := scd_sym n C hC
+  have hne : C ≠ [] := scd_nonempty n C hC
+  have hm : 1 ≤ C.length := by
+    cases C with
+    | nil => exact absurd rfl hne
+    | cons _ _ => exact Nat.succ_le_succ (Nat.zero_le _)
+  obtain ⟨hk, hkhalf⟩ := sym_span hsum hm
+  have e2 : k + (k + C.length) = n + 1 := by rw [← Nat.add_assoc, ← Nat.two_mul]; exact hsum
+  have hlt : half n < k + C.length := by
+    have hstep : k + half n + 1 ≤ n + 1 := Nat.succ_le_succ hkhalf
+    rw [← e2, Nat.add_assoc] at hstep
+    exact E213.Tactic.NatHelper.le_of_add_le_add_left hstep
+  have hmem : half n ∈ consec k C.length := mem_consec k C.length (half n) hk hlt
+  rw [← hmap] at hmem
+  obtain ⟨A, hA, hcard⟩ := exists_of_mem_map hmem
+  exact ⟨A, hA, hcard⟩
+
+/-- ★ **At most one `⌊n/2⌋`-element per chain.**  A chain's members have distinct
+    sizes (`chain_card_inj`), so the `⌊n/2⌋`-element is unique. -/
+theorem scd_middle_unique {n : Nat} {C : List (List Bool)} (hC : C ∈ scd n)
+    {A B : List Bool} (hA : A ∈ C) (hB : B ∈ C)
+    (hcA : cardB A = half n) (hcB : cardB B = half n) : A = B :=
+  chain_card_inj (scd_isChain n C hC A hA B hB) (hcA.trans hcB.symm)
 
 end E213.Lib.Math.Combinatorics.ChainAntichain
