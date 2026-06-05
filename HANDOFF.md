@@ -62,6 +62,18 @@ Genuinely hard = transcendentals (sin/cos/sqrt) + general-`n` PDE estimates.  **
   (`DiscreteRicci`), next weighted Forman + flow step + convergence via `flow_reaches`.
 - **Genuine wall**: general-`n` + transcendental-metric Perelman `𝓦`-monotonicity (PDE a-priori
   estimates).  Not climbed directly; both ladders above are the routes.
+
+## Two hard blocks split off as STANDALONE marathons (any session can pick up)
+The genuinely-hard pieces are now self-contained marathons with rung ladders — a future
+`autonomous-research` session reads the note, proves the next rung ∅-axiom, commits, advances:
+- **Transcendental functions** (`frontiers/transcendentals/transcendental_functions_ladder.md`):
+  convergent `exp/sin/cos/sqrt` + derivative rules.  Rungs T1 exp-modulus (close the `CutExpSeries`
+  follow-up) → T2 sin/cos series → T3 derivative rules → T4 smooth `sqrt` (via `DyadicSearch/IVT`) →
+  T5 identities.  Ordinary constructive analysis, in-reach ∅-axiom; **start T1**.
+- **Discrete PDE a-priori estimates** (`frontiers/pde_estimates/discrete_pde_estimates_ladder.md`):
+  the analytic engine for Ricci-flow convergence.  Rungs P1 discrete maximum principle (on
+  `ODE/HeatEqDiscrete`) → P2 oscillation decay → P3 energy/Dirichlet decay → P4 discrete Li–Yau →
+  P5 discrete Shi.  P1–P3 reachable; **start P1**.  Feeds `a6_ricci_core/` rung 3.
 - **Berger-sphere pinching** — anisotropic 2-variable homogeneous ODE (remaining non-trivial homogeneous
   case), still open.
 - **Full pointwise `cutEq`** for the Real213 limit (boundary quotient via valid-cut equality) — deferred.

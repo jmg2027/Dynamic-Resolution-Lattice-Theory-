@@ -252,3 +252,19 @@ then `erdos_schema`), **no new "why"**.  All engine pieces built ∅-axiom
   curvature, no smooth manifold).  Rung 1 done (`DiscreteRicci.formanEdge`,
   curvature↔topology); next: weighted Forman + flow step + convergence via
   `flow_reaches`.
+
+## Transcendental functions  (`transcendentals/`)
+
+- `transcendentals/transcendental_functions_ladder` — convergent `exp/sin/cos/sqrt`
+  as `Real213` functions with derivative rules (current: `exp` partial sum +
+  stubs).  Rungs T1 exp-modulus → T2 sin/cos series → T3 derivative rules →
+  T4 smooth sqrt → T5 identities.  One of the two hard blocks split off A6's
+  smooth core; ordinary constructive analysis, in-reach ∅-axiom.
+
+## PDE a-priori estimates  (`pde_estimates/`)
+
+- `pde_estimates/discrete_pde_estimates_ladder` — the analytic engine behind
+  Perelman monotonicity, 213-native = discrete estimates on grids/graphs.
+  Rungs P1 discrete maximum principle → P2 oscillation decay → P3 energy/Dirichlet
+  decay → P4 discrete Li–Yau → P5 discrete Shi.  Feeds discrete Ricci-flow
+  convergence (`a6_ricci_core/` rung 3).  P1–P3 reachable; P4–P5 the real depth.
