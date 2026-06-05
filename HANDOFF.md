@@ -50,9 +50,18 @@ PDE, Mathlib-forbidden).  **The 213-native route now in progress: discrete (Form
   - **Rung 3**: drive the discrete flow to its normalized (constant-curvature) fixed point via
     `flow_reaches` — the discrete analogue of Perelman monotonicity, the real A6-core target.
 
-## Open frontiers (recorded in `research-notes/frontiers/`)
-- **Smooth core (the wall)**: general-metric Ricci flow — Perelman `𝓕/𝓦`-monotonicity, surgery
-  (`ricci_flow_smooth_core.md`).  Not climbed directly; the discrete ladder is the route.
+## Two converging routes to A6's core (both ∅-axiom; smooth route is NOT walled)
+A diff-geo infra audit corrected the earlier "smooth = walled" overclaim.  The repo HAS 1st-order
+derivatives + chain/product rules, `partialAt`/gradient/divergence, `MultiCut`, `cutDiv`, `det` over ℤ.
+Genuinely hard = transcendentals (sin/cos/sqrt) + general-`n` PDE estimates.  **Sidestep: 2D conformal.**
+- **Smooth 2D-conformal ladder** (`ricci_flow_smooth_core.md`, "Smooth 2D-conformal ladder"):
+  `ds²=λ(dx²+dy²)`, rational `λ` ⟹ Gauss `K = (|∇λ|²−λΔλ)/(2λ³)` (no sqrt/exp), and `Ric=K·g` in 2D so
+  `∂_tλ=−2Kλ` is genuine smooth Ricci flow.  Rungs S1 polynomial 2nd-deriv → S2 Laplacian → S3 `gaussK`
+  (flat check) → S4 nonflat → S5 2D conformal flow.  **All present-or-buildable.**
+- **Discrete Forman/Ollivier ladder** (`a6_ricci_core/discrete_ricci_flow_ladder.md`): rung 1 done
+  (`DiscreteRicci`), next weighted Forman + flow step + convergence via `flow_reaches`.
+- **Genuine wall**: general-`n` + transcendental-metric Perelman `𝓦`-monotonicity (PDE a-priori
+  estimates).  Not climbed directly; both ladders above are the routes.
 - **Berger-sphere pinching** — anisotropic 2-variable homogeneous ODE (remaining non-trivial homogeneous
   case), still open.
 - **Full pointwise `cutEq`** for the Real213 limit (boundary quotient via valid-cut equality) — deferred.

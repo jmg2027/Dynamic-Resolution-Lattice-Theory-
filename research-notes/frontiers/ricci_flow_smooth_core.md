@@ -37,19 +37,40 @@ hypothesis for arbitrary metrics** (not the trivial homogeneous case):
    and bound the number of surgeries in finite time, then prove finite
    extinction (simply-connected) or geometric decomposition.
 
-## Why ∅-axiom-unreachable here
+## What is actually reachable vs genuinely hard (corrected)
 
-- Requires **Riemannian geometry** (smooth manifolds, metric/connection/
-  curvature tensors), **tensor calculus**, and **PDE existence + a priori
-  estimates** (Shi estimates, maximum principles, compactness) — none present in
-  `lean/E213/`, and **Mathlib is forbidden** (hidden axioms).
-- Even the *statement* of `𝓕`-monotonicity needs integration on manifolds and
-  the conjugate heat equation; the *proof* is Fields-level analysis.
-- The proof-ISA position is honest about this (`seed/PROOF_ISA.md`,
-  *Honest status*): the ISA supplies the compilation target (FLOW: find a
-  monovariant; prove it descends), it does **not** auto-solve.  For the round
-  sphere the monovariant and its descent are trivial; for general metrics
-  *finding `𝓦` and proving its descent IS the conquest*.
+An earlier draft called the smooth route flatly "walled."  That was too strong.
+A differential-geometry-infra audit (213-native calculus) found **substantial
+machinery already present**, and the genuinely-hard part is narrower than "all of
+Riemannian geometry + PDE":
+
+**Present (∅-axiom):** 1st-order derivative + sum/product/**chain** rules
+(`Differentiation/`), polynomial derivatives `d/dx xⁿ`, partial derivatives
+`partialAt` + gradient + divergence (`Multivariable/`), `MultiCut = Fin n → cut`,
+`cutDiv` (division), `det` over ℤ (`Linalg213/DetN`).
+
+**Buildable from those (no new primitive idea):** iterated/2nd derivatives of
+**polynomials/rationals** (the derivative of a polynomial is a polynomial, again
+differentiable — the audit's "linear only" is an un-assembled instance, not a
+wall), Laplacian `Δ = Σ ∂ᵢ²`, a metric-field type (matrix of cuts over
+coordinates), Christoffel/Riemann/Ricci as index sums.
+
+**Genuinely hard (the real wall):** convergent **transcendentals** with
+derivative rules — `sin/cos` are stubs, `sqrt`/`exp` only partial; and general-`n`
+tensor calculus + the PDE a-priori estimates (Shi/maximum-principle/compactness)
+behind Perelman's `𝓦`-monotonicity *for arbitrary metrics*.
+
+**The decisive sidestep — 2D conformal metrics.**  Take `ds² = λ·(dx²+dy²)`
+(`λ` a positive **rational** function of the coordinates).  Then Gauss curvature
+is a *rational* expression — **no sqrt, no log, no exp**:
+
+  `K = (|∇λ|² − λ·Δλ) / (2·λ³)`.
+
+In 2D `Ric = K·g`, so Ricci flow is `∂_t λ = −2K·λ`, an honest PDE on a single
+rational field.  Every ingredient is present or buildable (partials, products,
+`cutDiv`, polynomial 2nd derivatives, Laplacian).  **2D conformal smooth Ricci
+curvature/flow is reachable ∅-axiom** — the wall is general-`n` + transcendental
+metrics, not "smooth differential geometry" wholesale.
 
 ## Reachable sub-steps
 
@@ -115,9 +136,30 @@ hypothesis for arbitrary metrics** (not the trivial homogeneous case):
    (the `Sym(3)`-fixed subspace already in `Ricci.lean` as the averaging-
    invariant analog).
 
+## Smooth 2D-conformal ladder (the reachable smooth route)
+
+Each rung `∅`-axiom, sidestepping transcendentals (rational `λ` only):
+
+S1. **Polynomial 2nd derivative** — assemble `IsDifferentiable` of a polynomial's
+    derivative (rebut "linear only"); `d²/dx²(xⁿ)`.
+S2. **Laplacian** `Δf = ∂₀²f + ∂₁²f` on `MultiCut 2` from `partialAt`.
+S3. **Conformal Gauss curvature** `gaussK λ = (|∇λ|² − λ·Δλ)/(2λ³)` as a cut
+    expression (uses `cutDiv`); verify `K = 0` for `λ` constant (flat).
+S4. **A nonflat check** — a rational `λ` with `K ≠ 0` computed (e.g. the
+    stereographic round-sphere factor `λ = 4/(1+x²+y²)²` → `K = 1`), if the
+    division boundary behaves; else a polynomial `λ` with a clean `K`.
+S5. **2D conformal Ricci flow** `∂_t λ = −2K·λ` (since `Ric = K·g` in 2D) — a
+    genuine smooth flow on one rational field, then a monovariant for it.
+
+This is genuine *smooth* (not discrete) Ricci geometry, `∅`-axiom, in 2D.
+
 ## Verdict
 
-The round-sphere extinction is the honest *floor*; the `𝓕/𝓦`-monotonicity for
-general metrics is the *core* and the wall.  A6 FLOW correctly *locates* the
-core (it is the `descent`-hypothesis discharge) without crossing it.  Do not
-narrate the core as "closed."
+The round-sphere extinction is the honest *floor*.  General-`n` + transcendental-
+metric `𝓕/𝓦`-monotonicity remains the *core* wall (PDE a-priori estimates).
+But the smooth route is **not** wholesale walled: **2D conformal Ricci
+curvature/flow is reachable** with present + buildable infra (rational `K`
+formula, no sqrt/exp).  Two converging routes to A6's core now stand: the
+**discrete** Forman/Ollivier ladder (`a6_ricci_core/`) and the **smooth 2D
+conformal** ladder above.  Do not narrate the general core as "closed"; do
+pursue both ladders.
