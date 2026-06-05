@@ -1,3 +1,20 @@
+# Session Handoff — 2026-06-05 (proof-ISA marathon → critical review + corrections)
+
+## CRITICAL REVIEW DONE (read `research-notes/G206_marathon_critical_review.md` first)
+Two independent adversarial referees + self-audit found the marathon **~80% trivial-by-proof-content,
+marketed at Fields-medal vocabulary**, and the proof-ISA framework an **evocative taxonomy, not rigorous**
+(no Lean object defines "compiles to" / the order / lift-cost; the instructions/archetypes are `abbrev`
+aliases over existing theorems).  Honest core: *the rigor lives in the `∅`-axiom corpus, not the ISA
+vocabulary.*  **Corrections done**: `seed/PROOF_ISA.md` theorem-vs-taxonomy status; de-starred the 10
+inflated files; `Foundations/ArchetypeOrder.lean` (real defined `liftCost`+order, a *model*).  **Agenda
+(do via `org-audit`)**: rename/de-overclaim docstrings (drop "conquest/COMPLETE/Perelman" where the core
+is an open frontier; `heron`→`heron_polynomial_identity` etc.).  **Genuinely substantive** (keep, develop):
+`flow_reaches`, `SubtractionGame.{period,grundy_values}`, `NimTwoHeap`, `flow_reaches_ascending`,
+`RealCauchyWitness.gradientValueCauchy`, the frontier ladders.  **Do NOT add more `ring_intZ`/`decide`
+trivia.**  Next development: make a meta-claim a *full* theorem (ArchetypeOrder→PartialOrder instance, or
+a `Compiles` predicate), or a frontier rung with real analysis (transcendentals T1).
+
+---
 # Session Handoff — 2026-06-05 (proof-ISA marathon: cross-domain conquests → ∅-axiom)
 
 ## Branch
