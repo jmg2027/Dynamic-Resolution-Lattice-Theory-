@@ -42,13 +42,17 @@ equalities by hand.  `funext` pulls `Quot.sound` — use `bcount_congr`/`sumOver
 
 ## Open Problems (priority order)
 
-### 1. The shared named-bound rung — a permutation enumeration `allPerms n`
-Both the named Sperner upper bound (chain-counts `n!`, `k!(n−k)!`) and the named
-Ramsey `R(k,k) > 2^{k/2}` (event count `t = C(N,k)`) reduce to **one** missing
-piece: a permutation enumeration `allPerms n` with `length = n!` (the repo has
-`LPerm` *equivalence*, `Linalg213/Permutation.lean`, but no `n!`-length
-enumeration), plus the `k!(n−k)!` prefix-set count.  Building it closes *both*
-named bounds.  Pure `Nat`/list bookkeeping, no new "why".  Frontier:
+### 1. The named-bound rung — `n!` half now BUILT; finish the assemblies
+`Lib/Math/Combinatorics/Permutations.lean` `perms_length : (perms l).length =
+fact l.length` (10/10 PURE) builds the chain-count `n!` (the enumeration the repo
+lacked — it had only `LPerm` equivalence).  Remaining, per named bound:
+- **Sperner** named upper bound: the prefix-set count `#{p : size-k prefix = A}
+  = k!·(n−k)!` (a refinement of `perms_length`), the incidence model `inc A c`,
+  the antichain ⟹ ≤1-per-chain hypothesis into `lym_double_count`, and the
+  identity `binom n k · k!·(n−k)! = n!`.
+- **Ramsey** named bound: the subset-count is already `Sperner.layer_size`
+  (`= C(n,k)`); remaining is the `K_N` edge↔position indexing into `erdos_schema`.
+Each is a finite application-specific assembly, no new "why".  Frontier:
 `research-notes/frontiers/G205_sperner_double_count_compilation.md`.
 
 ### 2. The factorial identity `binom n k · (k!·(n−k)!) = n!`
@@ -68,6 +72,7 @@ n!`) to the LYM fractional form.  Unbuilt; reachable.
 ## File Map
 ```
 lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← the compilation (39/39 PURE)
+lean/E213/Lib/Math/Combinatorics/Permutations.lean   ← n! enumeration (10/10 PURE)
 lean/E213/Lib/Math/Combinatorics.lean                ← umbrella (Sperner registered)
 lean/E213/Lib/Math/Combinatorics/INDEX.md            ← module + proof-ISA entries
 theory/essays/proof_isa/sperner_double_counting.md   ← the "why" essay
