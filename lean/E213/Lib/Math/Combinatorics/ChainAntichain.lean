@@ -595,4 +595,49 @@ theorem scd_nonempty : ∀ (n : Nat) (C : List (List Bool)), C ∈ scd n → C �
       obtain ⟨D, hD, hCD⟩ := mem_flatMap213 h
       exact scdStep_ne_nil (scd_nonempty n D hD) hCD
 
+/-! ## §9 — the symmetric-level invariant (toward the count)
+
+A chain's `cardB` values form a consecutive run `[k, k+1, …]` (`consec`); the
+constructors shift it (`extendC` extends the run by one at the top; `raiseC`
+drops the bottom and shifts up by one).  This tracks the level-span needed for
+"each chain has exactly one `⌊n/2⌋`-element" — the count `|scd n| = C(n,⌊n/2⌋)`. -/
+
+/-- The consecutive run `[k, k+1, …, k+m−1]`. -/
+def consec : Nat → Nat → List Nat
+  | _, 0 => []
+  | k, m + 1 => k :: consec (k + 1) m
+
+/-- `extendC` extends the `cardB` run by one at the top. -/
+theorem extendC_sym : ∀ (C : List (List Bool)) (k : Nat),
+    C ≠ [] → C.map cardB = consec k C.length →
+    (extendC C).map cardB = consec k (C.length + 1)
+  | [], _, h, _ => absurd rfl h
+  | [v], k, _, hc => by
+      have hk : cardB v = k := (List.cons.inj hc).1
+      show [cardB v, cardB v + 1] = consec k 2
+      rw [hk]; rfl
+  | v :: w :: rest, k, _, hc => by
+      have hk : cardB v = k := (List.cons.inj hc).1
+      have htail : (w :: rest).map cardB = consec (k + 1) (w :: rest).length :=
+        (List.cons.inj hc).2
+      show cardB v :: (extendC (w :: rest)).map cardB
+          = consec k ((w :: rest).length + 1 + 1)
+      rw [extendC_sym (w :: rest) (k + 1) (fun hc => List.noConfusion hc) htail, hk]; rfl
+
+/-- `raiseC` shifts the `cardB` run up by one and drops the bottom. -/
+theorem raiseC_sym : ∀ (v w : List Bool) (rest : List (List Bool)) (k : Nat),
+    (v :: w :: rest).map cardB = consec k (v :: w :: rest).length →
+    (raiseC (v :: w :: rest)).map cardB = consec (k + 1) (w :: rest).length
+  | v, w, [], k, hc => by
+      have hk : cardB v = k := (List.cons.inj hc).1
+      show [cardB v + 1] = consec (k + 1) 1
+      rw [hk]; rfl
+  | v, w, x :: rest', k, hc => by
+      have hk : cardB v = k := (List.cons.inj hc).1
+      have htail : (w :: x :: rest').map cardB = consec (k + 1) (w :: x :: rest').length :=
+        (List.cons.inj hc).2
+      show (cardB v + 1) :: (raiseC (w :: x :: rest')).map cardB
+          = consec (k + 1) ((x :: rest').length + 1)
+      rw [raiseC_sym w x rest' (k + 1) htail, hk]; rfl
+
 end E213.Lib.Math.Combinatorics.ChainAntichain
