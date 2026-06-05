@@ -42,6 +42,18 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
   — CRT closures
 - Cross-recurrence: `Lib/Math/NumberTheory/DyadicFSM/Fib/PellRelation.fib_predict_eq_two_pell_predict`
 
+## proof-ISA COUNT closures (combinatorics)
+
+The two named bounds of the COUNT instruction — union bound and its
+double-counting dual — both proven ∅-axiom.
+
+- `Lib/Math/Combinatorics/SpernerChains.sperner_theorem` — Sperner (1928):
+  largest antichain of `2^[n]` = `C(n,⌊n/2⌋)` (upper bound + tight existence)
+- `Lib/Math/Combinatorics/RamseyNamedBound.ramsey_lower` — Erdős' `R(k,k) > N`:
+  `2·C(N,k) < 2^{C(k,2)}` ⟹ a 2-colouring of `K_N` with no monochromatic clique
+- `Lib/Math/Combinatorics/Permutations.perms_length` — `(perms l).length = l!`
+  (the full permutation enumeration: `mem_perms_iff` + `perms_nodup`)
+
 ## Hodge involution (Open Problem #5)
 - `Lib/Math/Cohomology/Hodge/InvolutionCapstone.hodge_involution_5strata_capstone`
   — Δ⁴ all 5 strata

@@ -145,6 +145,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `count_substrate_synthesis` — post-closure synthesis of the COUNT arc (both
+  named bounds proven): patterns (dual COUNT faces share one residue + the
+  subset count `C(N,k)`; "engine + honest rung" closes once the enumeration infra
+  exists; the `nodup`-`flatMap`-disjoint-fibre counting idiom; the propext/Classical
+  tax on core arithmetic) + seeds (a clean strict-order/pow `Meta/Nat` suite;
+  more LYM-shaped named bounds — Dilworth, Bollobás; Leibniz determinant over
+  `perms`).
+
 - `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
   residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at
   the description scale (`why_the_reframing_recurs.md` essay + CLAUDE.md Residue-lint).  *Open*: the
