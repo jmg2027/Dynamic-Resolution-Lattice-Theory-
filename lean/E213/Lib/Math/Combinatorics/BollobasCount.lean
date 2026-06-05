@@ -571,9 +571,10 @@ theorem woven_count (hAn : A.length = n) (hBn : B.length = n) (hd : disjointVec 
 
 /-- A `σA ++ σB` element is an `A∪B`-position (`q = true`). -/
 theorem woven_q_true {σA σB : List Nat}
-    (hσA : σA ∈ perms (truePos A (idxList n))) (hσB : σB ∈ perms (truePos B (idxList n)))
-    {w : Nat} (hw : w ∈ σA ++ σB) :
-    elemNat w (truePos A (idxList n) ++ truePos B (idxList n)) = true := by
+    (hσA : σA ∈ perms (truePos A (idxList n))) (hσB : σB ∈ perms (truePos B (idxList n))) :
+    ∀ w, w ∈ σA ++ σB →
+      elemNat w (truePos A (idxList n) ++ truePos B (idxList n)) = true := by
+  intro w hw
   rcases mem_append_iff hw with hwA | hwB
   · exact elemNat_eq_true_of_mem (mem_append_left (mem_of_lperm (perms_sound _ σA hσA) hwA))
   · exact elemNat_eq_true_of_mem
@@ -581,9 +582,10 @@ theorem woven_q_true {σA σB : List Nat}
 
 /-- A `σR` element is not an `A∪B`-position (`q = false`). -/
 theorem woven_q_false (hd : disjointVec A B = true) (hAn : A.length = n)
-    {σR : List Nat} (hσR : σR ∈ perms (restPos A B (idxList n)))
-    {w : Nat} (hw : w ∈ σR) :
-    elemNat w (truePos A (idxList n) ++ truePos B (idxList n)) = false := by
+    {σR : List Nat} (hσR : σR ∈ perms (restPos A B (idxList n))) :
+    ∀ w, w ∈ σR →
+      elemNat w (truePos A (idxList n) ++ truePos B (idxList n)) = false := by
+  intro w hw
   have hwR : w ∈ restPos A B (idxList n) := mem_of_lperm (perms_sound _ σR hσR) hw
   refine elemNat_eq_false_of_not_mem (fun hmem => ?_)
   rcases mem_append_iff hmem with hwA | hwB
@@ -626,6 +628,71 @@ theorem wovenFam_length (hAn : A.length = n) (hBn : B.length = n) (hd : disjoint
   rw [Nat.mul_comm (fact (n - (cardB A + cardB B)) * fact (cardB B)) (fact (cardB A)),
       Nat.mul_comm (fact (n - (cardB A + cardB B))) (fact (cardB B)),
       nmul_assoc (fact (cardB A)) (fact (cardB B)) (fact (n - (cardB A + cardB B)))]
+
+/-- Recover the mask / content / rest from a woven ordering. -/
+theorem woven_recover (hAn : A.length = n) (hBn : B.length = n) (hd : disjointVec A B = true)
+    {mask : List Bool} (hmask : mask ∈ kLayer n (cardB A + cardB B))
+    {σA σB σR : List Nat}
+    (hσA : σA ∈ perms (truePos A (idxList n))) (hσB : σB ∈ perms (truePos B (idxList n)))
+    (hσR : σR ∈ perms (restPos A B (idxList n))) :
+    List.map (fun w => elemNat w (truePos A (idxList n) ++ truePos B (idxList n)))
+        (weave mask (σA ++ σB) σR) = mask
+    ∧ List.filter (fun w => elemNat w (truePos A (idxList n) ++ truePos B (idxList n)))
+        (weave mask (σA ++ σB) σR) = σA ++ σB
+    ∧ List.filter (fun z => !elemNat z (truePos A (idxList n) ++ truePos B (idxList n)))
+        (weave mask (σA ++ σB) σR) = σR := by
+  obtain ⟨c1, c2⟩ := woven_count hAn hBn hd hmask hσA hσB hσR
+  exact ⟨map_q_weave _ mask (σA ++ σB) σR c1 c2 (woven_q_true hσA hσB) (woven_q_false hd hAn hσR),
+         filter_q_weave _ mask (σA ++ σB) σR c1 c2 (woven_q_true hσA hσB) (woven_q_false hd hAn hσR),
+         filter_nq_weave _ mask (σA ++ σB) σR c1 c2 (woven_q_true hσA hσB) (woven_q_false hd hAn hσR)⟩
+
+/-- Unpack a woven-family member (for a fixed mask). -/
+theorem wovenFam_extract {mask : List Bool} {z : List Nat}
+    (h : z ∈ flatMap213 (fun σA => flatMap213 (fun σB =>
+            List.map (fun σR => weave mask (σA ++ σB) σR) (perms (restPos A B (idxList n))))
+            (perms (truePos B (idxList n)))) (perms (truePos A (idxList n)))) :
+    ∃ σA σB σR, σA ∈ perms (truePos A (idxList n)) ∧ σB ∈ perms (truePos B (idxList n)) ∧
+      σR ∈ perms (restPos A B (idxList n)) ∧ z = weave mask (σA ++ σB) σR := by
+  obtain ⟨σA, hσA, h1⟩ := mem_flatMap213 h
+  obtain ⟨σB, hσB, h2⟩ := mem_flatMap213 h1
+  obtain ⟨σR, hσR, h3⟩ := exists_of_mem_map h2
+  exact ⟨σA, σB, σR, hσA, hσB, hσR, h3.symm⟩
+
+/-- ★ `wovenFam` is duplicate-free. -/
+theorem wovenFam_nodup (hAn : A.length = n) (hBn : B.length = n) (hd : disjointVec A B = true) :
+    (wovenFam A B n).Nodup := by
+  have hAnd := truePos_nodup A (idxList n) (idxList_nodup n)
+  have hBnd := truePos_nodup B (idxList n) (idxList_nodup n)
+  have hRnd := restPos_nodup A B (idxList n) (idxList_nodup n)
+  refine nodup_flatMap213 (kLayer_nodup n (cardB A + cardB B)) (fun mask hmask => ?_) ?_
+  · refine nodup_flatMap213 (perms_nodup _ hAnd) (fun σA hσA => ?_) ?_
+    · refine nodup_flatMap213 (perms_nodup _ hBnd) (fun σB hσB => ?_) ?_
+      · refine nodup_map_of_inj (fun σR1 hσR1 σR2 hσR2 heq => ?_) (perms_nodup _ hRnd)
+        have r1 := (woven_recover hAn hBn hd hmask hσA hσB hσR1).2.2
+        have r2 := (woven_recover hAn hBn hd hmask hσA hσB hσR2).2.2
+        rw [← r1, ← r2, heq]
+      · intro σB1 σB2 hσB1 hσB2 hne z hz1 hz2
+        obtain ⟨σR1, hσR1, hzeq1⟩ := exists_of_mem_map hz1
+        obtain ⟨σR2, hσR2, hzeq2⟩ := exists_of_mem_map hz2
+        have fq1 := (woven_recover hAn hBn hd hmask hσA hσB1 hσR1).2.1
+        have fq2 := (woven_recover hAn hBn hd hmask hσA hσB2 hσR2).2.1
+        exact hne (append_left_cancel σA (by rw [← fq1, ← fq2, hzeq1, hzeq2]))
+    · intro σA1 σA2 hσA1 hσA2 hne z hz1 hz2
+      obtain ⟨σB1, hσB1, hz1'⟩ := mem_flatMap213 hz1
+      obtain ⟨σR1, hσR1, hzeq1⟩ := exists_of_mem_map hz1'
+      obtain ⟨σB2, hσB2, hz2'⟩ := mem_flatMap213 hz2
+      obtain ⟨σR2, hσR2, hzeq2⟩ := exists_of_mem_map hz2'
+      have fq1 := (woven_recover hAn hBn hd hmask hσA1 hσB1 hσR1).2.1
+      have fq2 := (woven_recover hAn hBn hd hmask hσA2 hσB2 hσR2).2.1
+      have hlen : σA1.length = σA2.length := by
+        rw [perms_length_const _ σA1 hσA1, perms_length_const _ σA2 hσA2]
+      exact hne (append_inj_left σA1 σA2 hlen (by rw [← fq1, ← fq2, hzeq1, hzeq2]))
+  · intro mask1 mask2 hmask1 hmask2 hne z hz1 hz2
+    obtain ⟨σA1, σB1, σR1, hσA1, hσB1, hσR1, hzeq1⟩ := wovenFam_extract hz1
+    obtain ⟨σA2, σB2, σR2, hσA2, hσB2, hσR2, hzeq2⟩ := wovenFam_extract hz2
+    have m1 := (woven_recover hAn hBn hd hmask1 hσA1 hσB1 hσR1).1
+    have m2 := (woven_recover hAn hBn hd hmask2 hσA2 hσB2 hσR2).1
+    exact hne (by rw [← m1, ← m2, ← hzeq1, ← hzeq2])
 
 end
 end E213.Lib.Math.Combinatorics.BollobasCount
