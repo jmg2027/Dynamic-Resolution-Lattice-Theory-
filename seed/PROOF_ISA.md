@@ -109,7 +109,20 @@ as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/P
   - **COUNT / cardinality-doubling** (`lift_count`, the probabilistic method / Erdős `R(k,k) > 2^{k/2}`) —
     on a finite residue, `Σ|badᵢ| < |codomain|` forces a good element; the lift is multiplicativity of
     counting (each free distinguishing doubles the count); **cost: a counting bound**.  The quantitative
-    face of `GAP` (`pigeonhole` is its qualitative face).
+    face of `GAP` (`pigeonhole` is its qualitative face).  **Both named bounds of this face are
+    ∅-axiom**: the union bound `R(k,k) > N` (`RamseyNamedBound.ramsey_lower`) and its **double-counting
+    dual** — Sperner's `C(n,⌊n/2⌋)` (`SpernerChains.sperner_theorem`), the LYM inequality, *the same 0/1
+    incidence matrix read by columns instead of rows* (`Sperner.sumOver_swap` = Fubini).
+
+**The named-bound lift is a finite-enumeration bridge, and the enumeration is shared.**  An abstract
+counting/existence engine (`erdos_schema`, `lym_double_count`) leaves its *named* instantiation as an
+"honest rung"; that rung is always a finite enumeration with a known cardinality, and the enumeration is
+**reusable infrastructure, not per-problem** — building it closes several named bounds at once.  Concretely
+the permutation enumeration `Permutations.perms_length = n!` (orderings, the chain count Sperner needed —
+the repo had only `LPerm` *equivalence* before) and the subset count `Sperner.layer_size = C(N,k)` are
+*shared by both COUNT faces* (Ramsey's monochromatic-event count = a Boolean-lattice layer size).  So the
+practical rule for an open "engine + honest rung": find or build the reusable enumeration, not a
+problem-specific trick.
 
 Markov `H` matches none cleanly — closest is **ORBIT**, which is *in `H`'s own family* (the same
 free-unit-root action already lifts a finite root-window to uniform composite uniqueness, leaving a per-`c`
