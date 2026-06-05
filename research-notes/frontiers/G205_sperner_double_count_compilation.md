@@ -36,8 +36,8 @@ distinct sets incomparable).
 
 `layer_size`, `eq_of_subseteq_card_eq`, `lower_bound` (tight existence),
 `binom_le_binom_mid` (unimodality), `uniform_antichain_le` (single-layer
-Sperner — fully general), `sumOver_swap` + `lym_double_count` (the engine).
-39/39 PURE.
+Sperner — fully general), `sumOver_swap` + `lym_double_count` (the engine), plus
+the arithmetic + reduction below.  47/47 PURE.
 
 ## Open rung (bookkeeping, no new "why") — the permutation chain-counts
 
@@ -47,39 +47,38 @@ the chain model's two arithmetic counts:
   1. `#maximal chains = n!` (orderings of `[n]`);
   2. `#chains through a size-`k`-set = k!·(n−k)!`.
 
-Then `Σ_{A∈F} |A|!(n−|A|)! ≤ n!`, and via `binom n k · k!·(n−k)! = n!` (a clean
-factorial identity, also unbuilt) the LYM fractional form `Σ 1/C(n,|A|) ≤ 1`,
+Then `Σ_{A∈F} |A|!(n−|A|)! ≤ n!`, and via `binom_mul_fact : binom n k · k!·(n−k)! = n!` the LYM fractional form `Σ 1/C(n,|A|) ≤ 1`,
 hence `|F| ≤ C(n,⌊n/2⌋)`.
 
-Status of the rung: the permutation toolkit is now **built** —
-`Lib/Math/Combinatorics/Permutations.lean` (all PURE): `perms_length :
-(perms l).length = fact l.length` (the `n!` chain count), `perms_sound`
-(`perms ⊆` rearrangements, via the local `LPerm`), `self_mem_perms`
-(`l ∈ perms l`), and ★ `perms_append_mem` (orderings **concatenate**:
-`σ ∈ perms A → τ ∈ perms B → σ++τ ∈ perms (A++B)`) — the engine of the
-`k!·(n−k)!` count.  Remaining for the *named* Sperner upper bound:
+Status: the permutation toolkit, the arithmetic, and the **complete LYM→Sperner
+reduction** are now **built ∅-axiom** (`Permutations.lean` 21/21 PURE,
+`Sperner.lean` 47/47 PURE).
 
-  - **`perms` completeness / respects-`LPerm`** (`LPerm l l' → perms l, perms l'
-    same members`) — needed to transport the `A`-grouped concatenations into the
-    *fixed* chain list `perms (idxList n)`.  The one hard lemma is the swap case
-    = "insertion commutes" (`insert_comm`); cons-cancellation is *not* needed
-    once `self_mem`+`perms_append_mem` are in hand.
-  - the **prefix-set count** `#{p ∈ perms : the size-k prefix-set of p = A} =
-    k!·(n−k)!` (an injection `perms(A-pts) × perms(rest) ↪ chains-through-A`,
-    counted by `perms_length`; only the `≥` direction is needed for the bound);
+`Permutations.lean`: `perms_length = fact l.length` (the `n!` chain count),
+`mem_perms_iff : p ∈ perms l ↔ LPerm p l` (exactly the permutations — soundness +
+completeness via `insert_comm`), `self_mem_perms`, `perms_append_mem` (orderings
+concatenate).
 
-  - the **prefix-set count** `#{p ∈ perms : the size-k prefix-set of p = A} =
-    k!·(n−k)!` (a refinement of `perms_length` — split each ordering into its
-    first `k` and last `n−k`);
-  - the **incidence model** `inc A c` (A is the size-`|A|` prefix-set of chain
-    `c`) + the antichain ⟹ ≤1-per-chain hypothesis feeding `lym_double_count`;
-  - the factorial identity `binom n k · (k!·(n−k)!) = n!`.
+`Sperner.lean` arithmetic + reduction: `binom_mul_fact` (`C(n,k)·k!·(n−k)! = n!`,
+from `absorb`), `fact_mul_ge_mid` (`k!·(n−k)!` minimised at the middle),
+`binom_pos`/`fact_pos`, and ★ `sperner_upper_bound` — **any** chain model with
+`|chains| = n!`, ≤ 1 antichain member per chain (`hcap`), and ≥ `k!·(n−k)!` chains
+through each size-`k` member (`hlow`) gives `|F| ≤ C(n,⌊n/2⌋)`.  The whole
+compilation is verified; only the **geometric model** remains, to discharge the
+two hypotheses:
+
+  - **`perms_nodup`** (`l.Nodup → (perms l).Nodup`) — so a `lcount` lower bound
+    follows from a nodup sub-family (`nodup_length_le_of_subset`);
+  - the **positions↔Bool prefix-set bridge**: `inc A c := prefixVec n c |A| == A`,
+    `chains = perms (idxList n)` (so `hchains` = `perms_length`);
+  - **`hlow`**: `truePos A`-orderings ++ `falsePos A`-orderings inject into
+    chains-through-`A` (`perms_append_mem` + `perms_respects` transport to the
+    fixed list), counted `k!·(n−k)!` by `perms_length`;
+  - **`hcap`**: prefix-sets of a fixed chain are nested (`take` monotone), so two
+    incident members are comparable — contradicting the antichain.
 
 For Ramsey's named bound the subset-count side is *already* in hand:
 `Sperner.layer_size` counts the `k`-subsets (`= C(n,k)`); what remains there is
-the `K_N` edge↔position indexing into `erdos_schema`.  So the two named bounds
-no longer share a single missing object — `perms`/`n!` is the Sperner-side
-foundation, now built; each closure is a finite application-specific assembly on
-top, pure `Nat`/list bookkeeping with no new residue-level reason.
+the `K_N` edge↔position indexing into `erdos_schema`.
 
 Essay (the "why", promoted): `theory/essays/proof_isa/sperner_double_counting.md`.

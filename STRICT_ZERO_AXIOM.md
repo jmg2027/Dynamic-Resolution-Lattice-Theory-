@@ -254,12 +254,21 @@ Structural `half` (= ⌊n/2⌋) avoids the propext-tainted `Nat.div` lemmas; `ad
 sub-lemmas keep `absorb` clean.  Open rung (honest, mirrors Ramsey's named bound): the permutation
 chain-counts `n!` and `k!(n−k)!`.  Essay: `theory/essays/proof_isa/sperner_double_counting.md`.
 
-`E213.Lib.Math.Combinatorics.Permutations` — **10/10 PURE** — builds the `n!`
-half of that rung: `perms` (the orderings enumeration, via `insertEverywhere` +
-a propext-free `flatMap213`) with `perms_length : (perms l).length = fact
-l.length`.  The enumeration the repo previously lacked (it had only `LPerm`
-equivalence) — the count of maximal chains, reusable for the Leibniz
-determinant sum.
+`E213.Lib.Math.Combinatorics.Permutations` — **21/21 PURE** — the permutation
+enumeration the repo previously lacked (it had only `LPerm` equivalence):
+`perms` (via `insertEverywhere` + a propext-free `flatMap213`), `perms_length :
+(perms l).length = fact l.length` (the `n!` chain count), `perms_sound` +
+`perms_complete` + `mem_perms_iff` (`p ∈ perms l ↔ LPerm p l` — exactly the
+permutations, via `insert_comm`), `self_mem_perms`, and `perms_append_mem`
+(orderings concatenate).  Reusable for the Leibniz determinant sum.
+
+The LYM→Sperner reduction is then **complete and ∅-axiom** (`Sperner` extended
+to 47/47 PURE): `binom_mul_fact` (`C(n,k)·k!·(n−k)! = n!`, from `absorb`),
+`fact_mul_ge_mid` (`k!·(n−k)!` minimised at the middle), and `sperner_upper_bound`
+— *any* chain model with `|chains| = n!`, ≤ 1 antichain member per chain, and
+≥ `k!·(n−k)!` chains through each size-`k` member yields `|F| ≤ C(n,⌊n/2⌋)`.
+Remaining rung (the geometric model only): `perms_nodup` + the positions↔Bool
+prefix-set bridge discharging the two hypotheses.
 
 ### Markov composite uniqueness: prime-power-neighbour families addition (2026-06-04)
 

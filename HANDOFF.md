@@ -42,18 +42,26 @@ equalities by hand.  `funext` pulls `Quot.sound` — use `bcount_congr`/`sumOver
 
 ## Open Problems (priority order)
 
-### 1. The named-bound rung — `n!` half now BUILT; finish the assemblies
-`Lib/Math/Combinatorics/Permutations.lean` `perms_length : (perms l).length =
-fact l.length` (10/10 PURE) builds the chain-count `n!` (the enumeration the repo
-lacked — it had only `LPerm` equivalence).  Remaining, per named bound:
-- **Sperner** named upper bound: the prefix-set count `#{p : size-k prefix = A}
-  = k!·(n−k)!` (a refinement of `perms_length`), the incidence model `inc A c`,
-  the antichain ⟹ ≤1-per-chain hypothesis into `lym_double_count`, and the
-  identity `binom n k · k!·(n−k)! = n!`.
-- **Ramsey** named bound: the subset-count is already `Sperner.layer_size`
-  (`= C(n,k)`); remaining is the `K_N` edge↔position indexing into `erdos_schema`.
-Each is a finite application-specific assembly, no new "why".  Frontier:
+### 1. Sperner named bound — reduced to ONE geometric model (everything else done)
+`sperner_upper_bound` (∅-axiom) reduces the named bound to two hypotheses on a
+chain model: `hcap` (≤1 antichain member per chain) and `hlow` (≥ `k!·(n−k)!`
+chains through each size-`k` member), given `|chains| = n!`.  All machinery is
+**built ∅-axiom**: the full `perms` characterization (`perms_length = n!`,
+`mem_perms_iff`, `perms_append_mem` — `Permutations.lean` 21/21 PURE), the
+arithmetic (`binom_mul_fact`, `fact_mul_ge_mid`, `binom_pos` — `Sperner.lean`),
+and the LYM→Sperner wiring.  Remaining = the **geometric model only**:
+- `perms_nodup` (`l.Nodup → (perms l).Nodup`) — for the `lcount` lower bound;
+- the positions↔Bool prefix-set bridge `inc A c := prefixVec n c |A| == A`,
+  `chains = perms (idxList n)`;
+- `hlow` via the `truePos ++ falsePos` injection (`perms_append_mem` +
+  `perms_respects`), counted by `perms_length`;
+- `hcap` via prefix-set nesting (`take` monotone ⟹ comparable ⟹ ¬antichain).
+Then instantiate `sperner_upper_bound`.  Frontier:
 `research-notes/frontiers/G205_sperner_double_count_compilation.md`.
+
+### 1b. Ramsey named bound (independent)
+The subset-count is already `Sperner.layer_size` (`= C(n,k)`); remaining is the
+`K_N` edge↔position indexing into `erdos_schema`.
 
 ### 2. The factorial identity `binom n k · (k!·(n−k)!) = n!`
 Clean ∅-axiom induction; the bridge from `lym_double_count` (`Σ |A|!(n−|A|)! ≤
