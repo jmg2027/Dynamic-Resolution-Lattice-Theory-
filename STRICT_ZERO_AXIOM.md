@@ -395,6 +395,18 @@ the 4-case Bool analysis + `consec`); `subtraction_game_characterization`: P-pos
 multiples of 3 (`gLoss(3q)=true`, `gLoss(3q+1)=gLoss(3q+2)=false`, each by induction via `period`).
 Cross-domain: game value ↔ modular arithmetic; no `ring_intZ`, genuine game-tree induction.
 
+### Sprague–Grundy value of the subtraction game + the proof-ISA lift/EQUIV split (2026-06-05)
+
+`SubtractionGame.lean` extended (**10 PURE / 0 DIRTY**): `mexPair` (mex of a 2-option set) + `grundy` (the
+nimber the game compiles to) + `grundy_values` (`grundy(3q,3q+1,3q+2) = 0,1,2`, each step one `mex` on the
+previous two nimbers).  Proof-ISA reading: **`mex` *is* the `GAP` instruction** read by "least"; Sprague–
+Grundy = "every impartial game compiles to a nimber via iterated GAP."  Essay
+`theory/essays/proof_isa/lifts_versus_fold_equalities.md`: the ISA has **two orthogonal axes** — the seven
+catalog archetypes are **lifts** (finite→uniform), and a second category **EQUIV** (fold-equality: two Lens
+readings coincide — Pick/Heron/Cauchy–Schwarz) has zero lift content (hence `ring_intZ` closes it), its
+difficulty being the orthogonal cost of constructing the 2nd fold (trivial→century-hard).  Resolves the
+"is EQUIV an 8th archetype" question: it is a different *category*, not a lift archetype (= GRA-universality).
+
 ### Two-heap Nim — the mirroring strategy (2026-06-05)
 
 `E213.Lib.Math.Combinatorics.NimTwoHeap` — **5 PURE / 0 DIRTY**.  Bouton (1901), `n=2`: the P-positions of

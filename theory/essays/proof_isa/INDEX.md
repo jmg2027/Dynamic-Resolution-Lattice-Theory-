@@ -57,6 +57,15 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     the residue-external `DECIDE` (`LLPO`/`WKL`).  Not a missing instruction: the
     missing move *is* the exterior.  Marks the boundary.
 
+  · [`lifts_versus_fold_equalities.md`](lifts_versus_fold_equalities.md) —
+    **structural**: the ISA has two orthogonal axes, not one list.  The seven
+    catalog archetypes are **lifts** (finite → uniform); a second category,
+    **fold-equalities** (EQUIV: two Lens readings of one residue coincide —
+    Pick, Heron, Cauchy–Schwarz; the GRA-universality shape), has *zero* lift
+    content, so `ring_intZ`/`decide` closes it instantly.  EQUIV's difficulty is
+    orthogonal — the cost of *constructing the second fold* (trivial for Pick,
+    century-hard for Weil/Langlands).  Bonus: `mex` (Sprague–Grundy) *is* `GAP`.
+
 ## Cumulative finding
 
 Four surface-diverse solved techniques.  **Three close ∅-axiom** with no new

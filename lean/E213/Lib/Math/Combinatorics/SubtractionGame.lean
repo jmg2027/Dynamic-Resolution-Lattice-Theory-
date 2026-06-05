@@ -78,4 +78,50 @@ theorem subtraction_game_characterization (q : Nat) :
     ∧ gLoss (3 * q + 2) = false :=
   ⟨gLoss_three_mul q, gLoss_three_mul_add_one q, gLoss_three_mul_add_two q⟩
 
+/-! ## The Sprague–Grundy value — mex *is* the `GAP` instruction
+
+The win/loss split above refines to the full **Grundy value** (the *nimber* the
+game compiles to): `grundy n = mex {grundy of each option}`, where `mex` (minimal
+excludant) is the least natural the option-set does **not** contain.  `mex` is
+exactly the proof-ISA `GAP` instruction read by "least": the un-covered surplus
+of a finite reading, pointed at by its smallest witness.  Sprague–Grundy theory
+is then "every impartial game **compiles** to a nimber via iterated `GAP`," and
+two games with equal Grundy value are interchangeable — a `READ`/`COMPILE`
+universality, the game-theoretic face of the ISA. -/
+
+/-- `mex` of a two-element option set `{a, b}`: the least `k ∈ {0,1,2}` with
+    `k ≠ a` and `k ≠ b` (two options cannot block all of `0,1,2`).  This is the
+    `GAP` instruction at finite scale — the least value the reading misses. -/
+def mexPair (a b : Nat) : Nat :=
+  if a ≠ 0 ∧ b ≠ 0 then 0
+  else if a ≠ 1 ∧ b ≠ 1 then 1
+  else 2
+
+/-- The **Grundy value** (nimber) of the `S={1,2}` subtraction game: the mex of
+    the options' Grundy values.  `grundy n = 0` ⟺ P-position. -/
+def grundy : Nat → Nat
+  | 0 => 0
+  | 1 => 1
+  | (n + 2) => mexPair (grundy (n + 1)) (grundy n)
+
+/-- ★★★★★★ **Sprague–Grundy value of the subtraction game**: the game compiles
+    to the nimber `n mod 3` — `grundy (3q) = 0`, `grundy (3q+1) = 1`,
+    `grundy (3q+2) = 2`.  Each step is one `mex` (= `GAP`) on the previous two
+    concrete nimbers.  (Grundy `= 0` recovers the P-positions above.) -/
+theorem grundy_values : ∀ q,
+    grundy (3 * q) = 0 ∧ grundy (3 * q + 1) = 1 ∧ grundy (3 * q + 2) = 2
+  | 0 => by decide
+  | (q + 1) => by
+      obtain ⟨h0, h1, h2⟩ := grundy_values q
+      refine ⟨?_, ?_, ?_⟩
+      · show mexPair (grundy (3 * q + 2)) (grundy (3 * q + 1)) = 0
+        rw [h2, h1]; decide
+      · show mexPair (mexPair (grundy (3 * q + 2)) (grundy (3 * q + 1)))
+                     (grundy (3 * q + 2)) = 1
+        rw [h2, h1]; decide
+      · show mexPair (mexPair (mexPair (grundy (3 * q + 2)) (grundy (3 * q + 1)))
+                             (grundy (3 * q + 2)))
+                     (mexPair (grundy (3 * q + 2)) (grundy (3 * q + 1))) = 2
+        rw [h2, h1]; decide
+
 end E213.Lib.Math.Combinatorics.SubtractionGame
