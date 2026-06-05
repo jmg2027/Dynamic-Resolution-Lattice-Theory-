@@ -1,4 +1,13 @@
-# Gauss's lemma — Layer 3 (final assembly) plan
+# Gauss's lemma — CLOSED (strict ∅-axiom)
+
+**2026-06-05: Gauss's lemma is closed** — `GaussLemma.gauss_qr` (QR(a) ⟺ ∏signs=1) + `gauss_core`
+(↑aᵐ ≡ ∏signs), 15 PURE + `ProdCongr` 3 PURE.  The plan below was executed in full.
+Downstream now open: the **quadratic character of 2** (second supplement, p≡±1 mod 8) and
+**quadratic reciprocity**.
+
+---
+
+# (original) Layer 3 plan
 
 **Status (2026-06-05).**  Layers 1–2 closed strict ∅-axiom and committed:
 

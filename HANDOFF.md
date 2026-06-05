@@ -37,13 +37,14 @@ the one direction; this is the full iff.)  Supporting: `negone_even_pow`, `neg_o
 `qr_iff_pow_one` (`QR(c) ⟺ cᵐ≡1`) + `pow_m_mod_cases` (`cᵐ%p ∈ {1,p−1}`) + `mul_pow_loc`, a 2×2 case
 split.  Built clean first try.
 
-### 4. Gauss's lemma — Layers 1–2 closed (strict ∅-axiom; Layer 3 remaining)
-`lean/E213/Lib/Math/Algebra/Linalg213/ProdCongr.lean` (**3 PURE**: `prodZ_congr_map`, `prodZ_map_mul`,
-`prodZ_map_const_mul`) + `…/ModArith/GaussLemma.lean` (**12 PURE**): the half-system `seg m = [1..m]`,
-the `List.Nodup→cnt-Nodup` bridge, the pigeonhole `mem_of_card_le`, the `fold`, `fold_mem`,
-`fold_inj`, and ★ `fold_perm` (`LPerm ((seg m).map (fold a p m)) (seg m)`) — the hard combinatorial
-core.  **Layer 3** (the product/congruence assembly → `↑a^m ≡ ∏signs ≡ (−1)^μ`, then QR ⟺ μ even via
-Euler) is fully specified in `research-notes/frontiers/gauss_lemma_layer3.md`.
+### 4. Gauss's lemma — CLOSED (strict ∅-axiom)
+`lean/E213/Lib/Math/Algebra/Linalg213/ProdCongr.lean` (**3 PURE**) + `…/ModArith/GaussLemma.lean`
+(**15 PURE**).  ★ `gauss_qr`: `a` is a QR mod `p` ⟺ the least-residue sign product
+`∏ₓ sgFn(a·x) = 1` (= `(−1)^μ`).  Built across 3 layers: `ProdCongr` (prodZ congruence/factoring);
+`fold`/`fold_mem`/`fold_inj`/★`fold_perm` (the fold permutes `[1..m]`) + pigeonhole + Nodup bridge;
+`gauss_core` (`↑aᵐ ≡ ∏signs` via the product-congruence assembly + `int_euclid` cancel of `M = m!`) +
+`gauss_qr` (Euler `qr_iff_pow_one` + `prodZ_pm` + `p∤2`).  The combinatorial core (`fold_perm`) and the
+final assembly are both done.  Gateway to the second supplement + quadratic reciprocity.
 
 ### 5. The downstream — frontier
 `research-notes/frontiers/euler_criterion_converse.md`: the remaining open work — the quadratic

@@ -288,8 +288,22 @@ the `p≡1mod4 ⟹ QR` direction).
 for prime `p`, `2m = p−1`, units `a, b < p`, `a·b` is a QR ⟺ (`a` is a QR ⟺ `b` is a QR) — the
 Legendre character is a homomorphism, no symbol definition needed.  Via `qr_iff_pow_one`
 (`QR(c) ⟺ cᵐ ≡ 1`) + `pow_m_mod_cases` (`cᵐ % p ∈ {1, p−1}`) + `(ab)ᵐ ≡ aᵐ·bᵐ` (`mul_pow_loc`),
-a 2×2 case split (`iff_of_true`/`iff_of_false`, `negone_sq_mod_p`).  Next downstream: quadratic
-character of `2`, Gauss's lemma, Zolotarev.
+a 2×2 case split (`iff_of_true`/`iff_of_false`, `negone_sq_mod_p`).
+
+### Gauss's lemma (`QR(a) ⟺ ∏signs = 1`), strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.Algebra.Linalg213.ProdCongr` (**3 PURE**) + `E213.Lib.Math.NumberTheory.ModArith.GaussLemma`
+(**15 PURE**).  For a prime `p`, `2m = p−1`, unit `1 ≤ a < p`: `a` is a quadratic residue **iff** the
+least-residue sign product `∏ₓ sgFn(a·x) = 1` (= `(−1)^μ`).  Built across three layers:
+- **Layer 1** (`ProdCongr`): `prodZ_congr_map`, `prodZ_map_mul`, `prodZ_map_const_mul`.
+- **Layer 2** (`GaussLemma` §1-5): the half-system `seg m = [1..m]`, the `List.Nodup→cnt-Nodup` bridge
+  (`cntNodup_of_listNodup`), the pigeonhole (`mem_of_card_le`), the `fold`, `fold_mem`, `fold_inj`,
+  and ★ `fold_perm` (`LPerm ((seg m).map (fold a p m)) (seg m)`) — the combinatorial core.
+- **Layer 3** (`GaussLemma` §6-7): `int_dvd_cast_sub_mod`, `not_dvd_prodZ` (prime ∤ product of units),
+  `prodZ_pm` (∏ of ±1 is ±1); ★ `gauss_core` (`↑aᵐ ≡ ∏signs`, the product-congruence assembly +
+  `int_euclid` cancellation of the coprime `M = m!`); ★ `gauss_qr` (with Euler `qr_iff_pow_one` + `p∤2`).
+
+`#print axioms` clean on all.  The gateway to the second supplement and quadratic reciprocity.
 
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
