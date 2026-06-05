@@ -36,6 +36,13 @@ graph is content the slash supports, §6.3 flat ontology: a relation is a
 predicate on `Raw²`), not the Raw as-such.  The most neutral Lens still falls
 short of the residue — the cleanest demonstration of `object1_not_surjective`.
 
+*Precise structure* (`free_graph_analysis.py`, `free_graph_structure.md`): the
+graph has a closed form (block `X` occupies nodes `[2+(X−1)X/2, 1+X(X+1)/2]`,
+parents `(X, c−(2+(X−1)X/2))`), with `|E| = 2(N−2)` (out-degree exactly 2 — the
+slash's arity), max degree and hub count both `≈ √(2N)`, a bimodal
+degree distribution (a `√(2N)` hub cluster + `→100%` degree-2 leaves), and the
+oldest nodes `a, b` as the maximal hubs (older residue is pointed at more).
+
 ## The generating space (the dials)
 
 The construction "every relation of two objects is itself an object, recurse"
