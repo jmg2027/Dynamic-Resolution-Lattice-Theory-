@@ -411,6 +411,39 @@ theorem binom_mul_fact :
               rw [hfnk]; exact m4b _ _ _ _
         _ = fact n := ih
 
+/-- `0 < n!`. -/
+theorem fact_pos : ∀ n, 0 < fact n
+  | 0 => Nat.zero_lt_one
+  | n + 1 => by
+      show 0 < (n + 1) * fact n
+      exact Nat.mul_pos (Nat.succ_pos n) (fact_pos n)
+
+/-- `⌊n/2⌋ ≤ n`. -/
+theorem half_le_self (n : Nat) : half n ≤ n := by
+  have h : half n ≤ 2 * half n := by rw [Nat.two_mul]; exact Nat.le_add_right _ _
+  exact Nat.le_trans h (half_le n)
+
+/-- The binomial is positive below the diagonal: `k ≤ n → 0 < C(n,k)`. -/
+theorem binom_pos {n k : Nat} (h : k ≤ n) : 0 < binom n k := by
+  have hmf := binom_mul_fact n k h
+  rcases Nat.eq_zero_or_pos (binom n k) with h0 | hp
+  · rw [h0, Nat.zero_mul] at hmf
+    exact absurd hmf (Nat.ne_of_lt (fact_pos n))
+  · exact hp
+
+/-- ★ **Factorial unimodality** (dual of `binom_le_binom_mid`): the product
+    `k!·(n−k)!` is **minimised** at the middle.  This is the per-term bound that
+    turns the LYM sum into `|F| ≤ C(n,⌊n/2⌋)`. -/
+theorem fact_mul_ge_mid {n k : Nat} (h : k ≤ n) :
+    fact (half n) * fact (n - half n) ≤ fact k * fact (n - k) := by
+  have hk := binom_mul_fact n k h
+  have hmid := binom_mul_fact n (half n) (half_le_self n)
+  have step : binom n (half n) * (fact (half n) * fact (n - half n))
+              ≤ binom n (half n) * (fact k * fact (n - k)) := by
+    rw [hmid, ← hk]
+    exact Nat.mul_le_mul_right _ (binom_le_binom_mid n k)
+  exact Nat.le_of_mul_le_mul_left step (binom_pos (half_le_self n))
+
 /-! ## §6 — Sperner for uniform (single-size) antichains
 
 The easy half of the upper bound: an antichain *within one layer* cannot beat
