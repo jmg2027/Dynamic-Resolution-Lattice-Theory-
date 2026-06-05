@@ -51,10 +51,13 @@ theorem forman_K13 : formanEdge 1 3 = 0 := by decide
 /-- `K_{3,2}` (`b₁ = 8`, richly cyclic): `F = −1 < 0`, negatively curved. -/
 theorem forman_K32 : formanEdge 2 3 = -1 := by decide
 
-/-- **Discrete curvature ↔ topology** (Forman / Gauss–Bonnet flavour):
-    the tree `K_{1,1}` is positively curved (`b₁ = 0`) while the cyclic
-    `K_{3,2}` is negatively curved (`b₁ = 8`).  The trivial-loop ↔ rich-loop
-    split the Poincaré pillar reads off `b₁`, here read off curvature. -/
+/-- **Two evaluated Forman curvatures with their signs** (`decide`): the tree
+    `K_{1,1}` has `F = +2 > 0`, the cyclic `K_{3,2}` has `F = −1 < 0`.  The
+    suggested `curvature ↔ b₁` correspondence (positive ↔ `b₁=0`, negative ↔
+    `b₁>0`, a discrete Gauss–Bonnet) is the *motivation* in the surrounding text;
+    it is NOT proved here — this theorem only computes `formanEdge` at two points
+    and reads off the sign.  A genuine link to `b₁` (a discrete Gauss–Bonnet sum)
+    is open. -/
 theorem discrete_curvature_topology :
     formanEdge 1 1 = 2 ∧ (0 : Int) < formanEdge 1 1
     ∧ formanEdge 2 3 = -1 ∧ formanEdge 2 3 < 0 := by decide

@@ -35,10 +35,14 @@ open E213.Meta.Int213
 /-- Pick's functional with the denominator cleared: `2·A = 2·I + B − 2`. -/
 def pickValue (I B : Int) : Int := 2 * I + B - 2
 
-/-- **Pick's theorem for a lattice rectangle** (the count ↔ area atom):
-    with interior `I = (w−1)(h−1)` and boundary `B = 2w + 2h`, Pick's value
-    equals twice the area `2wh`.  A pure `ℤ` ring identity — the discrete counts
-    fold to the geometric area. -/
+/-- **Pick's relation for a rectangle** — NOT Pick's theorem.  This is a one-line
+    `ring_intZ` cancellation: *given* the (separately known) point counts of a
+    lattice rectangle `I = (w−1)(h−1)`, `B = 2w + 2h`, the linear combination
+    `2I + B − 2` equals `2wh`.  The content of Pick's theorem proper — that
+    `I + B/2 − 1` equals the area for an *arbitrary* simple lattice polygon, via
+    triangulation + the elementary-triangle base case + the diagonal count
+    `gcd(w,h)−1` — is the open frontier (`research-notes/frontiers/pick_theorem/`),
+    not this. -/
 theorem pick_rectangle (w h : Int) :
     pickValue ((w - 1) * (h - 1)) (2 * w + 2 * h) = 2 * (w * h) := by
   unfold pickValue

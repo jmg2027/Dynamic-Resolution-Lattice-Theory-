@@ -21,7 +21,14 @@ open E213.Lib.Math.Geometry.PickTheorem (pickValue pick_rectangle)
 open E213.Lib.Math.Algebra.CrossDomainIdentities (heron)
 
 /-- An **EQUIV** datum: two folds `X → α` of one input that agree everywhere.
-    The identity-axis analogue of a lift archetype. -/
+    The identity-axis analogue of a lift archetype.
+
+    Honest caveat: in the instances below `fold1`/`fold2` are the two *sides* of an
+    already-proved identity and `agree` *is* that identity — so this structure
+    **catalogs** EQUIV (packages an equality as "two readings of one input"); it
+    does not *discover* an independent agreement of two separately-motivated
+    computations.  The genuine cross-domain difficulty (constructing the second
+    fold) is, for Pick/Heron, the already-built `ℤ` algebra. -/
 structure FoldEquality (X : Type) (α : Type) where
   /-- one reading -/
   fold1 : X → α

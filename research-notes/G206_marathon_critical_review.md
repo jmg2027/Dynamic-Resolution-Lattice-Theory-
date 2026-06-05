@@ -165,18 +165,19 @@ codomain + a proven `PartialOrder`, and dualities as actual involutions.
 
 ## Corrections — AGENDA (mechanical sweep, do fresh via `org-audit`)
 
-1. **De-star**: cut `★` by 2–4 on every `ring_intZ`/`decide`/bundler theorem in
-   `CrossDomainIdentities`, `PickTheorem`, `Positivity`, `DiscreteRicci`,
-   `RicciFlow`, `RicciSphereFlow`, `RicciHomogeneous`, `FoldEquality`,
-   `GradientFlow`, `CompletenessLoop`.  Reserve `★★★★+` for the ~9 substantive.
-2. **Rename / de-overclaim docstrings**: drop "conquest"/"COMPLETE"/"Perelman"/
-   "Poincaré"/"Einstein" headline language where the geometric core is an open
-   frontier; state what is actually proven (a polynomial identity; a `ℕ` counting
-   flow; a school inequality).  Keep theorem *names* that are cited elsewhere
-   (`ricci_pillar_K32_flow_close` is in `ProofISALifts`/`STRICT_ZERO`); soften the
-   docstring instead of renaming, or do a cited-rename carefully.
-3. **`FoldEquality`**: docstring should concede it repackages an identity's two
-   sides (not a discovered agreement).
+1. **De-star** — ✅ DONE (3+ star runs stripped from the 10 inflated files).
+2. **Rename / de-overclaim docstrings** — ✅ PARTLY DONE: the worst-named trivia
+   now state precisely what is / is *not* proved — `heron`/`euler_four_square`/
+   `sophie_germain` (polynomial identities, not the named theorems; Lagrange's
+   theorem / compositeness explicitly *not* proved), `pick_rectangle` ("NOT Pick's
+   theorem", a rectangle cancellation), `discrete_curvature_topology` (two
+   evaluated curvatures, the `b₁` link only motivation), `FoldEquality` (catalogs,
+   does not discover).  STILL TODO: the Ricci capstones
+   (`ricci_pillar_K32_flow_close`, `round_S3_ricci_extinction`, `einstein_trichotomy`)
+   and `Positivity`'s Cauchy–Schwarz/AM–GM headline wording (drop
+   "conquest"/"COMPLETE"/Perelman; the theorem names are cited elsewhere, so soften
+   docstrings rather than rename).
+3. **`FoldEquality`** — ✅ DONE (caveat added).
 4. Optionally trim Ricci docstrings (volume).
 
 ## Development — keep (genuine), ranked
