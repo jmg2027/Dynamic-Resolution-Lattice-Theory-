@@ -458,8 +458,15 @@ correlation `Σ u(x)·u(rightNbr x)` is shift-symmetric — reindex by the rotat
 id`), and the **Dirichlet pairing** `heatStep_dirichlet_pairing` (`⟨u, heatStep u⟩ = 2·Σ u(x)·u(rightNbr x)`)
 / `lazyHeatStep_dirichlet_pairing` (`⟨u, lazy u⟩ = 2Σu² + 2·corr`, i.e. `4Σu² − E(u)` in `Nat`-clean
 additive form).  The discrete integration-by-parts / Green identity underlying energy estimates, with pure
-products (no `Nat`-subtraction).  The signed Dirichlet energy `E(u) = Σ(u_{i+1}−u_i)²` proper needs the
-Int213 difference-Lens (P3's next step).
+products (no `Nat`-subtraction).
+
+**Signed Dirichlet energy + Green identity** (same file §5, 2 more PURE): `sqDistNat a b = |a−b|²`
+(sign-correct: `(a−b)²+(b−a)²`, one term truncated to 0 in `Nat`), `dirichletEnergy n u =
+Σ_x |u(rightNbr x)−u(x)|²`, and `dirichletEnergy_green` (`E(u)+2·corr = 2·Σu²` — over ℤ, `E(u) = ⟨u,−Δu⟩`,
+the Dirichlet form *is* the energy).  Note (correcting an earlier over-pessimistic "ring normalizer blocked"
+claim): `ring_nat` closes the asymmetric binomial fine — its *only* failure was an un-pruned
+zero-coefficient monomial (a literal `0*0` from the truncated `(b−a)²`); removing it with
+`Nat.zero_mul`/`Nat.add_zero` first lets the normalizer succeed.
 
 ### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
@@ -469,11 +476,8 @@ by convexity of the square it cannot increase the L² norm pointwise: `heatStep_
 (`(a+2b+c)² ≤ 4(a²+2b²+c²)`, gap `(a−2b+c)²+2(a−c)²`).  Worked over ℤ via the **POSITIVITY archetype**
 (`Foundations/Positivity`): `ring_intZ` for the SOS gap identity + `positivity_of_sq`/`positivity_of_sq3` —
 the `amgm_2` pattern reused.  The pointwise L²-dissipation seed, energy-method companion of the L∞ maximum
-principle.  **Honest tooling finding** (recorded in the ladder note): the *summed* signed Green identity is
-blocked because (a) the sign-correct `Nat` `|a−b|²` lifts to `2(a−b)²` over ℤ (so the binomial is a
-truncation fact, case-split only), and (b) the residual asymmetric degree-2 identity is not closed by
-`ring_nat`/`ring_intZ` (their normalizers don't sort monomials), while `ac_rfl`/`simp`/`omega` leak axioms —
-unblock = a stronger ∅-axiom multivariate ring-normalizer.
+principle.  (The *summed* signed Green identity it complements is now also done — see `HeatEqConservation`
+§5 above; the only `ring_nat` subtlety was un-pruned `0*0` zero-coefficient terms.)
 
 ### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
 

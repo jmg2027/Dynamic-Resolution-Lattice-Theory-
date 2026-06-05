@@ -193,4 +193,63 @@ theorem lazyHeatStep_dirichlet_pairing (n : Nat) (u : Nat → Nat) :
       gridSum_mul_shift_symm n u, gridSum_two_mul n (fun x => u x * u x)]
   ring_nat
 
+/-! ## §5 — the signed Dirichlet energy and the discrete Green identity
+
+`E(u) = Σ_x |u(rightNbr x) − u(x)|²` is sign-aware: `sqDistNat a b` is the true `(a−b)²`
+(exactly one of `a−b`, `b−a` is nonzero, so the sum of their squares is `|a−b|²`, dodging the
+`Nat`-subtraction truncation of a bare `(a−b)*(a−b)`).  The **Green identity** `E(u) + 2·corr =
+2·Σu²` — `E(u) = ⟨u, −Δu⟩` over ℤ — is the foundational energy identity: the Dirichlet form *is*
+the energy.  (The `sqDistNat` binomial is a genuine `Nat`-truncation fact, proven by case split;
+`ring_nat` closes each sub-free case once the `0*0` term is pruned.) -/
+
+/-- Sign-correct squared difference `|a−b|²` in `Nat`. -/
+def sqDistNat (a b : Nat) : Nat := (a - b) * (a - b) + (b - a) * (b - a)
+
+/-- ★★ **Binomial expansion (sign-correct)**: `|a−b|² + 2ab = a² + b²`. -/
+theorem sqDistNat_add_two_mul (a b : Nat) :
+    sqDistNat a b + 2 * (a * b) = a * a + b * b := by
+  unfold sqDistNat
+  rcases Nat.le_total b a with h | h
+  · obtain ⟨d, rfl⟩ := Nat.le.dest h
+    have h1 : b + d - b = d := by
+      rw [Nat.add_comm b d]; exact E213.Tactic.NatHelper.add_sub_cancel_right d b
+    have h2 : b - (b + d) = 0 := by
+      have e := E213.Tactic.NatHelper.add_sub_add_left b 0 d
+      rw [Nat.add_zero, Nat.zero_sub] at e; exact e
+    rw [h1, h2, Nat.zero_mul, Nat.add_zero]; ring_nat
+  · obtain ⟨d, rfl⟩ := Nat.le.dest h
+    have h1 : a + d - a = d := by
+      rw [Nat.add_comm a d]; exact E213.Tactic.NatHelper.add_sub_cancel_right d a
+    have h2 : a - (a + d) = 0 := by
+      have e := E213.Tactic.NatHelper.add_sub_add_left a 0 d
+      rw [Nat.add_zero, Nat.zero_sub] at e; exact e
+    rw [h1, h2, Nat.zero_mul, Nat.zero_add]; ring_nat
+
+/-- The discrete Dirichlet energy `E(u) = Σ_x |u(rightNbr x) − u(x)|²`. -/
+def dirichletEnergy (n : Nat) (u : Nat → Nat) : Nat :=
+  gridSum n (fun x => sqDistNat (u (rightNbr n x)) (u x))
+
+/-- ★★★ **Discrete Green identity** (additive, `Nat`-clean): `E(u) + 2·corr = 2·Σu²`, where
+    `corr = Σ u(x)·u(rightNbr x)`.  Over ℤ this reads `E(u) = 2Σu² − 2·corr = ⟨u, −Δu⟩` — the
+    Dirichlet form *is* the energy.  The foundational identity behind energy decay. -/
+theorem dirichletEnergy_green (n : Nat) (u : Nat → Nat) :
+    dirichletEnergy n u + 2 * gridSum n (fun x => u x * u (rightNbr n x))
+      = 2 * gridSum n (fun x => u x * u x) := by
+  have key : dirichletEnergy n u + gridSum n (fun x => 2 * (u (rightNbr n x) * u x))
+      = gridSum n (fun x => u (rightNbr n x) * u (rightNbr n x))
+        + gridSum n (fun x => u x * u x) := by
+    unfold dirichletEnergy
+    rw [← gridSum_add n (fun x => sqDistNat (u (rightNbr n x)) (u x))
+            (fun x => 2 * (u (rightNbr n x) * u x)),
+        ← gridSum_add n (fun x => u (rightNbr n x) * u (rightNbr n x)) (fun x => u x * u x)]
+    apply gridSum_congr; intro x _
+    exact sqDistNat_add_two_mul (u (rightNbr n x)) (u x)
+  rw [gridSum_two_mul n (fun x => u (rightNbr n x) * u x),
+      gridSum_rightNbr n (fun y => u y * u y)] at key
+  have hcomm : gridSum n (fun x => u (rightNbr n x) * u x)
+             = gridSum n (fun x => u x * u (rightNbr n x)) := by
+    apply gridSum_congr; intro x _; exact Nat.mul_comm _ _
+  rw [hcomm] at key
+  rw [key, ← Nat.two_mul]
+
 end E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
