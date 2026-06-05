@@ -161,4 +161,65 @@ theorem heatIter_range (n A B : Nat) (t : Nat) (u : Nat → Nat)
     2 ^ t * A ≤ heatIter n t u x ∧ heatIter n t u x ≤ 2 ^ t * B :=
   ⟨heatIter_ge n A t u hlo x, heatIter_le n B t u hhi x⟩
 
+/-! ## Lazy heat step — the self-weighted stencil that decays oscillation (P2)
+
+The non-lazy step `heatStepNum = u_{x−1}+u_{x+1}` (stencil `(½,0,½)`) preserves the
+**checkerboard** mode `0,1,0,1,…`: it maps to `2,0,2,0,… = 2·(checkerboard)`, so the
+averaged oscillation does *not* decay (eigenvalue `cos π = −1`, no spectral gap).  The
+genuine smoothing operator is the **lazy** step `(¼,½,¼)`:
+
+  `lazyHeatStepNum = u_{x−1} + 2·u_x + u_{x+1}`  (numerator of `4·u(x,t+1)`),
+
+whose eigenvalues `(1+cos θ)/2 ∈ [0,1]` give a real gap — it *kills* the checkerboard.
+The P1 maximum principle holds for both (convex combinations); only the strict *decay*
+(rung P2) needs the self-weight.  Recorded in
+`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`, P2. -/
+
+/-- Lazy heat step `(¼,½,¼)` — numerator of `4·u(x,t+1) = u_{x−1} + 2u_x + u_{x+1}`. -/
+def lazyHeatStepNum (n : Nat) (u : Nat → Nat) (x : Nat) : Nat :=
+  u (leftNbr n x) + 2 * u x + u (rightNbr n x)
+
+/-- ★ Constant field is preserved by the lazy step (numerator `4c`). -/
+theorem lazyHeatStep_const (n c x : Nat) :
+    lazyHeatStepNum n (constInit c) x = 4 * c := by
+  show c + 2 * c + c = 4 * c
+  rw [Nat.two_mul]; ring_nat
+
+/-- ★★ **Lazy maximum principle (upper).**  `u ≤ B` ⟹ `lazyHeatStepNum ≤ 4B`
+    (averaged value `≤ B`): the lazy stencil is also a contraction on the sup-norm. -/
+theorem lazyHeatStep_le_four_max (n : Nat) (u : Nat → Nat) (B x : Nat)
+    (h : ∀ y, u y ≤ B) : lazyHeatStepNum n u x ≤ 4 * B := by
+  show u (leftNbr n x) + 2 * u x + u (rightNbr n x) ≤ 4 * B
+  have e : 4 * B = B + 2 * B + B := by ring_nat
+  rw [e]
+  exact Nat.add_le_add (Nat.add_le_add (h _) (Nat.mul_le_mul_left 2 (h x))) (h _)
+
+/-- ★★ **Lazy maximum principle (lower).**  `A ≤ u` ⟹ `4A ≤ lazyHeatStepNum`. -/
+theorem lazyHeatStep_four_min_le (n : Nat) (u : Nat → Nat) (A x : Nat)
+    (h : ∀ y, A ≤ u y) : 4 * A ≤ lazyHeatStepNum n u x := by
+  show 4 * A ≤ u (leftNbr n x) + 2 * u x + u (rightNbr n x)
+  have e : 4 * A = A + 2 * A + A := by ring_nat
+  rw [e]
+  exact Nat.add_le_add (Nat.add_le_add (h _) (Nat.mul_le_mul_left 2 (h x))) (h _)
+
+/-! ### Concrete witness: lazy decays the checkerboard, non-lazy does not -/
+
+/-- The checkerboard initial field `0,1,0,1,…` (the worst case for smoothing). -/
+def checker : Nat → Nat := fun x => x % 2
+
+/-- **Non-lazy preserves the checkerboard** — the hot site stays hot (`= 2 = 2·1`)… -/
+theorem nonlazy_checker_hot : heatStepNum 4 checker 0 = 2 := rfl
+
+/-- …and the cold site stays cold (`= 0`): the doubled field is again `2·(checkerboard)`,
+    oscillation `2·1` *unchanged* relative to the doubling — no decay. -/
+theorem nonlazy_checker_cold : heatStepNum 4 checker 1 = 0 := rfl
+
+/-- ★★★ **The lazy step collapses the checkerboard to a constant.**  On the length-4
+    grid every site maps to `2 = 4·½`: the post-step field is uniform, oscillation
+    `1 → 0` in a single step.  The concrete spectral-gap witness: the self-weight `(¼,½,¼)`
+    annihilates the `−1` eigenmode the non-lazy step preserves — the discrete smoothing
+    (P2) the maximum principle alone cannot deliver. -/
+theorem lazy_checker_collapses (x : Nat) (h : x < 4) : lazyHeatStepNum 4 checker x = 2 := by
+  rcases E213.Tactic.NatHelper.cases_lt_four h with rfl | rfl | rfl | rfl <;> rfl
+
 end E213.Lib.Math.Analysis.ODE.HeatEqDiscrete

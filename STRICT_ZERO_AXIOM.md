@@ -439,7 +439,15 @@ grow — the monovariant feeding P2).  **Iterated to all time** (`heatField`, `h
 `heatIter_ge` / `heatIter_range` — data in `[A,B]` ⟹ the `t`-step field stays in `[2ᵗ·A, 2ᵗ·B]` (averaged
 field in `[A,B]`) for *every* `t`, the discrete maximum principle for the whole heat evolution
 (`‖u(t)‖∞ ≤ ‖u(0)‖∞`).  All uniform in the grid length `n` (hence in the mesh) — the uniformity that lets
-the `Real213` limit promote it to the continuous maximum principle.  Rung **P1** of
+the `Real213` limit promote it to the continuous maximum principle.
+
+**P2 obstruction + lazy-step fix** (same file, 6 more PURE): strict *oscillation* decay is **false** for the
+non-lazy stencil `(½,0,½)` — the checkerboard mode `0,1,0,1` maps to `2,0,2,0 = 2·checkerboard` (eigenvalue
+`cos π = −1`, no gap).  The genuine smoothing operator is the **lazy** step `lazyHeatStepNum = u_{x−1}+2u_x+u_{x+1}`
+(stencil `(¼,½,¼)`): `lazyHeatStep_const` (`= 4c`), `lazyHeatStep_le_four_max`/`_four_min_le` (its maximum
+principle), and the concrete spectral-gap witness `lazy_checker_collapses` (length-4 checkerboard `→`
+constant in one lazy step, osc `1→0`) vs `nonlazy_checker_hot`/`_cold` (non-lazy preserves it).  The
+`−1`-eigenmode the non-lazy step preserves is annihilated by the self-weight.  Rung **P1** of
 the discrete-PDE-estimates marathon
 (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`); next: oscillation decay rate
 (P2) + the `Real213` limit step.

@@ -62,9 +62,14 @@ P2. **Oscillation decay** — `osc u = max u − min u` is a monovariant; unifor
     of the stencil `(½,0,½)` (`|λ| = 1`, no spectral gap).  **Fix**: use the *lazy* step
     `(¼,½,¼)`, i.e. `lazyHeatStepNum = u_{x−1} + 2u_x + u_{x+1}` (numerator of `4·u_new`),
     whose eigenvalues `(1+cos θ)/2 ∈ [0,1]` give a genuine gap (`λ < 1` off the constant
-    mode).  P2 should be developed on the lazy step.  The P1 maximum principle already
-    proven holds for *both* stencils (convex combinations); only the strict *decay* needs
-    the lazy weight.
+    mode).  The P1 maximum principle already proven holds for *both* stencils (convex
+    combinations); only the strict *decay* needs the lazy weight.
+    ⚙️ **lazy step implemented** (`HeatEqDiscrete.lean`, 6 PURE): `lazyHeatStepNum =
+    u_{x−1}+2u_x+u_{x+1}`, its maximum principle (`lazyHeatStep_le_four_max`/`_four_min_le`),
+    and the concrete spectral-gap witness `lazy_checker_collapses` (the length-4
+    checkerboard `→` constant in one lazy step, osc `1→0`) vs `nonlazy_checker_hot`/`_cold`
+    (the non-lazy step preserves it).  **Remaining**: the general (any `n`, any field)
+    oscillation contraction rate + the `Real213` limit.
 P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (discrete
     Bochner / gradient estimate); the limit = continuous energy decay, rate a
     `‖∇u‖²` (ties to gradient-flow descent identity ①).
