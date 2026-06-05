@@ -46,7 +46,14 @@ split.  Built clean first try.
 `gauss_qr` (Euler `qr_iff_pow_one` + `prodZ_pm` + `p∤2`).  The combinatorial core (`fold_perm`) and the
 final assembly are both done.  Gateway to the second supplement + quadratic reciprocity.
 
-### 5. The downstream — frontier
+### 5. Second supplement (quadratic character of 2) — reduced to a finite count
+`lean/E213/Lib/Math/NumberTheory/ModArith/SecondSupplement.lean` (**3 PURE**).  `two_qr_iff`: `2` is a
+QR mod `p` ⟺ `∏ₓ∈[1,m] (if 2x ≤ m then 1 else −1) = 1` (no wraparound: `2x ≤ p−1 < p`, `gauss_qr`).
+`prodZ_sign_eq`: `±1`-product `= (−1)^(countNeg)`.  Remaining: `countNeg = m − m/2`, parity ↔ `m%4`,
+`m%4 ↔ p%8` ⟹ `2 QR ⟺ p ≡ ±1 mod 8`.  Plan: `research-notes/frontiers/second_supplement.md`
+(decouple the threshold with a fixed-`m` counter `k`; ~100 lines, elementary).
+
+### 6. The downstream — frontier
 `research-notes/frontiers/euler_criterion_converse.md`: the remaining open work — the quadratic
 character of `2` (second supplement, `p ≡ ±1 mod 8`), Gauss's lemma `(a/p) = (−1)^μ`, and Zolotarev
 `(a/p) = sign(mul-by-a)` (the `psign` sign side already PURE; the product/permutation infra
