@@ -30,6 +30,13 @@ recurrence forward; FLOW descends a measure backward.  The repo's own µ/ν mirr
 (`Raw` initial algebra vs `slashNu` final coalgebra) is exactly this axis.
 Incomparable in cost (each costs one well-founded pass), genuinely mirror.
 
+This duality is now a **theorem** (`Foundations/FlowDuality.flow_reaches_ascending`,
+∅-axiom): a measure that strictly *ascends* off fixed points and is *bounded
+above* by `B` reaches a normal form — proved by reflecting to
+`MonovariantFlow.flow_reaches` (descent) through `μ ↦ B − μ`.  Ascent-under-a-cap
+*is* descent of the mirror; LOOP (build up to a cap) and FLOW (settle down) are
+one well-founded principle, witnessed by the order-reversal.
+
 ## Dual pair 2 — COUNT ⟷ POSITIVITY  (the two quantitative faces of GAP)
 
 Both are GAP read by a **nonnegative-valued Lens** — a quantity that cannot go

@@ -395,6 +395,15 @@ the 4-case Bool analysis + `consec`); `subtraction_game_characterization`: P-pos
 multiples of 3 (`gLoss(3q)=true`, `gLoss(3q+1)=gLoss(3q+2)=false`, each by induction via `period`).
 Cross-domain: game value ↔ modular arithmetic; no `ring_intZ`, genuine game-tree induction.
 
+### LOOP ⟷ FLOW duality, witnessed (µ/ν by order-reversal) (2026-06-05)
+
+`E213.Lib.Math.Foundations.FlowDuality` — **1 PURE / 0 DIRTY**.  The lift-archetype duality made a theorem:
+`flow_reaches_ascending` — a `Nat`-measure that strictly **ascends** off fixed points and is **bounded
+above** by `B` reaches a normal form, proved by reflecting to `MonovariantFlow.flow_reaches` (descent) via
+`μ ↦ B − μ` (ascent-under-a-cap = descent of the mirror).  Witnesses the **LOOP ⟷ FLOW** (µ/ν,
+build-up/settle-down) duality from `lift_archetypes_order_and_duality.md`.  Hand-rolled pure
+`sub_lt_sub_left_pure` (`Nat.sub_lt_sub_left` carries `propext`).
+
 ### EQUIV catalog — fold-equalities as the proof-ISA identity axis (2026-06-05)
 
 `E213.Lib.Math.Foundations.FoldEquality` — **3 PURE / 0 DIRTY**.  The companion to `ProofISALifts` on the
