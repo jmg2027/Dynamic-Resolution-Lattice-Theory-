@@ -124,4 +124,62 @@ theorem perms_length {α : Type _} : ∀ (l : List α), (perms l).length = fact 
       show (l.length + 1) * fact l.length = fact (l.length + 1)
       rfl
 
+/-! ## §4 — correctness: `perms` enumerates exactly the permutations
+
+`LPerm` (the same four-constructor relation as `Algebra/Linalg213/Permutation`,
+restated here to keep the combinatorics layer self-contained) is list
+rearrangement.  `perms_sound` shows every enumerated ordering *is* a
+rearrangement; with `perms_length = n!` this pins `perms` as `n!` genuine
+permutations. -/
+
+/-- List rearrangement: the four-constructor permutation relation. -/
+inductive LPerm {α : Type _} : List α → List α → Prop
+  | nil : LPerm [] []
+  | cons (a : α) {l₁ l₂ : List α} : LPerm l₁ l₂ → LPerm (a :: l₁) (a :: l₂)
+  | swap (a b : α) (l : List α) : LPerm (b :: a :: l) (a :: b :: l)
+  | trans {l₁ l₂ l₃ : List α} : LPerm l₁ l₂ → LPerm l₂ l₃ → LPerm l₁ l₃
+
+namespace LPerm
+
+theorem refl {α : Type _} : ∀ (l : List α), LPerm l l
+  | [] => nil
+  | a :: l => cons a (refl l)
+
+theorem symm {α : Type _} {l₁ l₂ : List α} (h : LPerm l₁ l₂) : LPerm l₂ l₁ := by
+  induction h with
+  | nil => exact nil
+  | cons a _ ih => exact cons a ih
+  | swap a b l => exact swap b a l
+  | trans _ _ ih₁ ih₂ => exact trans ih₂ ih₁
+
+end LPerm
+
+/-- Inserting `a` anywhere into `l` yields a rearrangement of `a :: l`. -/
+theorem mem_insertEverywhere_perm {α : Type _} (a : α) :
+    ∀ (l q : List α), q ∈ insertEverywhere a l → LPerm q (a :: l)
+  | [], q, h => by
+      cases h with
+      | head => exact LPerm.refl [a]
+      | tail _ h' => nomatch h'
+  | b :: l, q, h => by
+      cases h with
+      | head => exact LPerm.refl (a :: b :: l)
+      | tail _ h' =>
+          obtain ⟨q', hq', rfl⟩ := exists_of_mem_map h'
+          exact LPerm.trans (LPerm.cons b (mem_insertEverywhere_perm a l q' hq'))
+                  (LPerm.swap a b l)
+
+/-- ★ **Soundness.**  Every ordering `perms` enumerates is a rearrangement of the
+    input.  With `perms_length` this fixes `perms l` as `|l|!` genuine
+    permutations of `l`. -/
+theorem perms_sound {α : Type _} : ∀ (l p : List α), p ∈ perms l → LPerm p l
+  | [], p, h => by
+      cases h with
+      | head => exact LPerm.nil
+      | tail _ h' => nomatch h'
+  | a :: l, p, h => by
+      obtain ⟨q, hq, hpq⟩ := mem_flatMap213 h
+      exact LPerm.trans (mem_insertEverywhere_perm a q p hpq)
+              (LPerm.cons a (perms_sound l q hq))
+
 end E213.Lib.Math.Combinatorics.Permutations
