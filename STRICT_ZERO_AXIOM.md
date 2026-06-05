@@ -254,15 +254,25 @@ prime).  Supporting `∅`-axiom chain: `zhang_linear_core`, `zhang_quadratic(_su
 prime-power factor where `SEPARATE` fires) is the `REFRAME` lift archetype (`Foundations.ProofISALifts`,
 `lift_reframe`).  `#print axioms` clean on all.
 
-### Euler's criterion — the `±1` dichotomy + residue direction (2026-06-05)
+### Euler's criterion — full iff (`aᵐ ≡ 1 ⟺ QR`), strict ∅-axiom (2026-06-05)
 
-`E213.Lib.Math.NumberTheory.ModArith.EulerCriterion` — **2 PURE / 0 DIRTY**.  For a prime `p` with
-`2m = p−1` (odd-prime witness, carried as a hypothesis so no division enters) and a unit `1 ≤ a < p`:
-`euler_dichotomy` (`p ∣ (aᵐ − 1) ∨ p ∣ (aᵐ + 1)`, i.e. `aᵐ ≡ ±1` — `Y = aᵐ`, `Y² = a^(p−1) ≡ 1` by
-FLT, factor `(Y−1)(Y+1)`, disjunctive Euclid `nat_prime_dvd_mul`) and `euler_qr_pow_one`
-(`a ≡ x²` ⟹ `p ∣ (aᵐ − 1)`, the residue lands on `+1`, via `pow_mod_base` + `pow_mul_loc` + FLT).
-The converse (`aᵐ ≡ 1 ⟹ QR`, a squares-list saturation of `RootBound.eval_zero`) is the open frontier
-`research-notes/frontiers/euler_criterion_converse.md`.  `#print axioms` clean on both.
+`E213.Lib.Math.NumberTheory.ModArith.EulerCriterion` (**2 PURE**) + `…ModArith.EulerConverse`
+(**14 PURE**).  For a prime `p` with `2m = p−1` (odd-prime witness, carried as a hypothesis so no
+division enters) and a unit `1 ≤ a < p`:
+- `euler_dichotomy` — `p ∣ (aᵐ − 1) ∨ p ∣ (aᵐ + 1)` (`aᵐ ≡ ±1`): `Y = aᵐ`, `Y² = a^(p−1) ≡ 1`
+  (FLT), factor `(Y−1)(Y+1)`, disjunctive Euclid `nat_prime_dvd_mul`.
+- `euler_qr_pow_one` — `a ≡ x²` ⟹ `p ∣ (aᵐ − 1)` (residue lands on `+1`), `pow_mod_base` +
+  `pow_mul_loc` + FLT.
+- `euler_converse` — `p ∣ (aᵐ − 1)` ⟹ `∃ x, x² ≡ a`: **squares-list saturation** of
+  `RootBound.eval_zero` (the `m` squares `[1²..m²]` are `m` distinct roots of `Xᵐ−1`; a non-square
+  root would give `m+1` distinct roots of a length-`(m+1)` polynomial, forcing const `−1 ≡ 0`).
+  Supporting: `sqFrom` window (+ `_length`/`mem_`), `sq_diff_not_dvd` (Euclid-on-two-factors
+  distinctness), `sqFrom_pairwise`, `sqFrom_roots`, `firstSqrt` search, and the cast bridges
+  `natCast_sub` / `mod_eq_of_dvd_sub` / `dvd_int_sub_to_mod_eq`.
+- ★ `euler_criterion` — the **full iff** `aᵐ ≡ 1 (mod p) ⟺ a` is a quadratic residue.
+
+`#print axioms` clean on all 16.  Unlocks: the quadratic character of `2` (second supplement),
+Gauss's lemma, Zolotarev (`psign` machinery already PURE).
 
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 

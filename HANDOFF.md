@@ -1,33 +1,34 @@
-# Session Handoff — 2026-06-05 (Euler's criterion: two halves closed + reframing-lint pilot)
+# Session Handoff — 2026-06-05 (Euler's criterion CLOSED + reframing-lint pilot)
 
 ## Branch
 `claude/math-frontier-research-6Bw68` — `cd lean && lake build E213.Lib.Math.NumberTheory.ModArith` ✓
-clean; both new theorems `#print axioms`-clean (PURE).
+clean; all 16 new theorems `#print axioms`-clean (PURE).
 
 ## What was done this session
 
-### 1. Euler's criterion — two halves closed (strict ∅-axiom)
-New file `lean/E213/Lib/Math/NumberTheory/ModArith/EulerCriterion.lean` (**2 PURE**), wired into the
-`ModArith` umbrella:
+### 1. Euler's criterion — CLOSED, full iff (strict ∅-axiom)
+`lean/E213/Lib/Math/NumberTheory/ModArith/EulerCriterion.lean` (**2 PURE**) +
+`…/ModArith/EulerConverse.lean` (**14 PURE**), both wired into the `ModArith` umbrella.  For a prime
+`p`, `2m = p−1` (odd-prime witness, carried as a hypothesis so no division enters), unit `1 ≤ a < p`:
 
-- `euler_dichotomy` — prime `p`, `2m = p−1`, unit `1 ≤ a < p` ⟹ `p ∣ (aᵐ − 1) ∨ p ∣ (aᵐ + 1)`
-  (i.e. `aᵐ ≡ ±1`).  `Y = aᵐ`, `Y² = a^(p−1) ≡ 1` (FLT `universal_flt_main`), factor
-  `Y²−1 = (Y−1)(Y+1)`, disjunctive Euclid `nat_prime_dvd_mul` (FourSquareSeed).  The exponent is a
-  hypothesis `2m = p−1` (the odd-prime witness) — no division, mirroring `exists_nonfixed`'s `3m = p−1`.
-- `euler_qr_pow_one` — `a ≡ x²` (unit `x`) ⟹ `p ∣ (aᵐ − 1)` (residue lands on `+1`):
-  `aᵐ ≡ (x²)ᵐ = x^(2m) = x^(p−1) ≡ 1` via `pow_mod_base` + `pow_mul_loc` + FLT.
+- `euler_dichotomy` — `p ∣ (aᵐ − 1) ∨ p ∣ (aᵐ + 1)` (`aᵐ ≡ ±1`).  `Y = aᵐ`, `Y² = a^(p−1) ≡ 1`
+  (FLT), factor `(Y−1)(Y+1)`, disjunctive Euclid `nat_prime_dvd_mul`.
+- `euler_qr_pow_one` — `a ≡ x²` ⟹ `aᵐ ≡ 1` (residue → `+1`), `pow_mod_base` + `pow_mul_loc` + FLT.
+- `euler_converse` — `aᵐ ≡ 1` ⟹ `∃ x, x² ≡ a`.  **Squares-list saturation** of `RootBound.eval_zero`:
+  the `m` squares `[1²..m²]` (`sqFrom`) are `m` distinct roots of `Xᵐ−1` (distinct via `sq_diff_not_dvd`:
+  `i²−j² = (i−j)(i+j)`, both factors in `(0,p)`, Euclid); a non-square root would give `m+1` distinct
+  roots of a length-`(m+1)` poly → const `−1 ≡ 0` → contradiction.  Verbatim the `NonFixedExists`
+  saturation with the squares window for the residue range.  New cast bridges: `natCast_sub`,
+  `mod_eq_of_dvd_sub`, `dvd_int_sub_to_mod_eq`.
+- ★ `euler_criterion` — the **full iff** `aᵐ ≡ 1 (mod p) ⟺ a` is a quadratic residue.
 
-Together: **residues land on `+1`; every unit is `±1`.**  Foundational brick under Gauss's lemma / the
-quadratic character of `2` / Zolotarev (all currently absent from the repo).
+Sub-tree is **promotion-eligible** (closed + categorical) → `theory/math/numbertheory/euler_criterion.md`.
 
-### 2. The converse — recorded as a precise frontier
-`research-notes/frontiers/euler_criterion_converse.md` — the landmark `aᵐ ≡ 1 ⟺ QR` reduces to a
-**squares-list saturation** of `RootBound.eval_zero`: the `m` squares `[i² : i∈1..m]` are `m` distinct
-roots of `Xᵐ−1`; a non-residue root would give `m+1` distinct roots of a length-`(m+1)` polynomial →
-`eval_zero` forces const `−1 ≡ 0` → contradiction.  Verbatim the `NonFixedExists.exists_nonfixed_gen`
-`none`-branch with `S` swapped for the residue range.  **One genuinely new lemma** (`sqList_pairwise`:
-`i²−j² = (i−j)(i+j)`, both factors `< p`, Euclid — not the small-abs bound `intRangeFrom_pairwise` uses);
-everything else is a transcription.
+### 2. The downstream — frontier
+`research-notes/frontiers/euler_criterion_converse.md` (repurposed): the now-open work building on
+`euler_criterion` — the quadratic character of `2` (second supplement, `p ≡ ±1 mod 8`), Gauss's lemma
+`(a/p) = (−1)^μ`, and Zolotarev `(a/p) = sign(mul-by-a)` (the `psign` sign side is already PURE in
+`Algebra/Linalg213/Permutation.lean`).
 
 ### 3. Re-framing-lint pilot (agent-side empirical test)
 `research-notes/frontiers/the_reframing_conquest.md` updated with the pilot: a CONTROL (no lint) vs
@@ -38,29 +39,29 @@ scorer is a known instance, `0/4 ≠ eliminated` (minimizable-not-eliminable hol
 
 ## Open Problems (priority order)
 
-1. **Euler converse** — `research-notes/frontiers/euler_criterion_converse.md`.  Reachable; the only
-   non-mechanical step is `sqList_pairwise`.  Closing it gives full Euler `aᵐ ≡ 1 ⟺ QR`.
-2. **Then, downstream of Euler** (breadth): quadratic character of `2` (`2` QR ⟺ `p ≡ ±1 mod 8`, the
-   second supplement — flagged in `sums_of_squares_engines.md`); Gauss's lemma `(a/p) = (−1)^μ`;
-   **Zolotarev** `(a/p) = sign(mul-by-a permutation)` — the `psign` machinery
-   (`Algebra/Linalg213/Permutation.lean`, `psign_swap_prefix` PURE) is the sign side, Euler the
-   number-theory side.
+1. **Promote Euler** — the closed sub-tree → `theory/math/numbertheory/euler_criterion.md`, then archive
+   the frontier note (PROMOTION_CRITERIA H1–H4 + S1–S3).
+2. **Downstream of Euler** (breadth): quadratic character of `2` (`2` QR ⟺ `p ≡ ±1 mod 8`, the second
+   supplement — flagged in `sums_of_squares_engines.md`); Gauss's lemma `(a/p) = (−1)^μ`; **Zolotarev**
+   `(a/p) = sign(mul-by-a permutation)` — the `psign` machinery (`Algebra/Linalg213/Permutation.lean`,
+   `psign_swap_prefix` PURE) is the sign side, Euler the number-theory side.  Details:
+   `research-notes/frontiers/euler_criterion_converse.md`.
 3. **Reframing-lint** — scale the pilot (N per arm, error bars) + vary battery difficulty to locate where
    re-framing re-emerges (the empirical signature of minimizable-not-eliminable).
 
 ## Next
-- Closest reachable: the Euler converse (Open 1) → full criterion → second supplement.
-- Or open a different domain (primacy = breadth).
+- Closest reachable: Gauss's lemma / the quadratic character of `2` (Open 2), both directly on
+  `euler_criterion`.  Or promote first (Open 1).  Or open a different domain (primacy = breadth).
 
 ## File Map
 ```
 lean/E213/Lib/Math/NumberTheory/ModArith/EulerCriterion.lean   ← euler_dichotomy, euler_qr_pow_one (2 PURE)
-lean/E213/Lib/Math/NumberTheory/ModArith.lean                  ← umbrella import added
-lean/E213/Lib/Math/NumberTheory/ModArith/NonFixedExists.lean   ← the saturation template (converse)
+lean/E213/Lib/Math/NumberTheory/ModArith/EulerConverse.lean    ← euler_converse, euler_criterion (14 PURE)
+lean/E213/Lib/Math/NumberTheory/ModArith.lean                  ← umbrella imports added
+lean/E213/Lib/Math/NumberTheory/ModArith/NonFixedExists.lean   ← the saturation template
 lean/E213/Lib/Math/NumberTheory/PolyRoot/RootBound.lean        ← eval_zero (Lagrange bound)
-lean/E213/Lib/Math/NumberTheory/PolyRoot/ResidueList.lean      ← intRangeFrom / pmoSucc / pairwise pattern
 lean/E213/Lib/Math/Algebra/Linalg213/Permutation.lean          ← psign (Zolotarev sign side, PURE)
-research-notes/frontiers/euler_criterion_converse.md           ← the open converse + full proof plan
+research-notes/frontiers/euler_criterion_converse.md           ← Euler closed; the open downstream
 research-notes/frontiers/the_reframing_conquest.md             ← reframing-lint pilot recorded
-STRICT_ZERO_AXIOM.md                                           ← Euler 2-PURE section added
+STRICT_ZERO_AXIOM.md                                           ← Euler 16-PURE section
 ```
