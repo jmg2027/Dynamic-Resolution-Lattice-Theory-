@@ -52,6 +52,18 @@ COUNT is "the un-covered surplus, *counted*"; POSITIVITY is "the gap, read as a
 *square*."  One residue (GAP), two nonneg readings.  (Hence `pigeonhole` and
 `sq_nonneg` are siblings, not unrelated tricks.)
 
+**But this pairing is weaker than LOOP ⟷ FLOW** — an honest asymmetry between the
+two dual pairs.  LOOP/FLOW is a *strict* duality: a literal order-reversal
+`μ ↦ B − μ` turns one into the other, so they are the *same theorem*
+(`flow_reaches_ascending`, witnessed above).  COUNT/POSITIVITY has no such
+reduction: their *logical shapes* differ — COUNT is "a comparison `Σ < capacity`
+forces a witness to **exist**" (contrapositive / pigeonhole), POSITIVITY is "an
+algebraic form `gap = s²` forces an **inequality** directly".  Both read GAP
+through a nonneg Lens, but neither reduces to the other; the pairing is a
+*two-faces analogy*, not an order-reversal.  So the lift order has (at least) two
+*grades* of duality — strict (LOOP/FLOW) and facial (COUNT/POSITIVITY) — which is
+itself a fact about the catalog, not a defect of it.
+
 ## ORBIT — the quotient
 
 ORBIT (`lift_orbit`, composite Markov uniqueness) collapses a finite window by a
