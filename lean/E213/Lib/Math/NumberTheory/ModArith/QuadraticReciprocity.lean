@@ -14,8 +14,9 @@ Plan: `research-notes/frontiers/quadratic_reciprocity.md`.
 
 namespace E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
 
-open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg)
-open E213.Lib.Math.Algebra.Linalg213.Permutation (sumZ)
+open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg fold fold_perm)
+open E213.Lib.Math.Algebra.Linalg213.Permutation (sumZ sumZ_lperm map_lperm)
+open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_map')
 open E213.Lib.Math.Algebra.Linalg213.SumLinear (sumZ_map_add sumZ_map_const_mul)
 open E213.Lib.Math.NumberTheory.PolyRoot (natCast_add)
 open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_mul)
@@ -38,5 +39,16 @@ theorem floor_mod_split (a p m : Nat) :
       sumZ_map_add (fun x => (p : Int) * ((a * x / p : Nat) : Int))
         (fun x => ((a * x % p : Nat) : Int)) (seg m),
       sumZ_map_const_mul (p : Int) (fun x => ((a * x / p : Nat) : Int)) (seg m)]
+
+/-- ★ **The fold-value sum equals the half-system sum.**  `Σₓ ↑(fold a p m x) = Σₓ ↑x` over `[1..m]`,
+    since `fold` permutes `[1..m]` (`fold_perm`). -/
+theorem fold_sum (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) :
+    sumZ ((seg m).map (fun x => ((fold a p m x : Nat) : Int)))
+      = sumZ ((seg m).map (fun x => ((x : Nat) : Int))) := by
+  rw [show (seg m).map (fun x => ((fold a p m x : Nat) : Int))
+        = ((seg m).map (fold a p m)).map (fun n : Nat => (n : Int)) from
+      (map_map' (fold a p m) (fun n : Nat => (n : Int)) (seg m)).symm]
+  exact sumZ_lperm (map_lperm (fun n : Nat => (n : Int)) (fold_perm a p m hp hpr h2m ha1 halt))
 
 end E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
