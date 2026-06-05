@@ -87,16 +87,49 @@ For an **odd** unit `a` and odd prime `p` (`m = (p−1)/2`):
    (`quadratic_reciprocity`).
 
 ## New infrastructure needed
-- Pure `Nat` floor-division sums: `Σ_{x=1}^{m} f x` over `seg`/`iota` (reuse `sumZ`/list folds);
-  `⌊a·x/p⌋ = (a·x)/p` (Nat div, pure — `div_add_mod`).
-- `mu_eq_floor_sum` (step 1) — the analytic bridge using `fold_perm` + parity of `Σ`.
-- `floor_sum_rectangle` (step 3) — the lattice double-count; the one genuinely new combinatorial lemma.
-- A `legendre` symbol def (Int-valued `±1`) tying `gauss_mu`/`gauss_core` together, so the final
-  statement reads `(p/q)*(q/p) = ±1` cleanly.
 
-Estimated: a multi-file, multi-session build (comparable to the Gauss-lemma marathon).  Watch the
-usual propext-dirty core (`Nat.*` div/sub/mod — use `NatDiv213`/`AddMod213`/`NatHelper` pure
-replacements; verify each private helper with `#print axioms` since the scanner skips privates).
+### Foundations IN PLACE (committed)
+- `AddMod213.le_div_iff_mul_le {p} (hp : 0<p) (y a) : y ≤ a/p ↔ y*p ≤ a` (PURE) — the
+  divisor-side of the per-column count.  (Lean-core `Nat.le_div_iff_mul_le` and `Nat.div_add_mod`
+  both pull propext; this is the pure replacement, in `AddMod213` to dodge the NatDiv213 cycle.)
+- `floor_bound (m n x) (x≤m) : (2n+1)·x/(2m+1) ≤ n` (PURE, in QuadraticReciprocity).
+- `sumZ_append`, `map_append'` (`…Linalg213.Laplace`), `seg`/`mem_seg`/`seg_length` (`GaussLemma`).
+  `iota (n+1) = iota n ++ [n]` is **definitional** (`from rfl`), so `seg (n+1) = seg n ++ [n+1]`.
+
+### Step-3 lemma sequence (build-ready, over `ℤ` reusing `sumZ`)
+Work with **Int indicators** `(if P then (1:Int) else 0)` so `sumZ`/`sumZ_map_add` give the Fubini
+swap for free (avoids a separate Nat list-sum + `Nat.min` whose lemmas `min_eq_right`/`min_zero`
+pull propext).
+1. `seg_succ (n) : seg (n+1) = seg n ++ [n+1]` — `rw [seg, seg, show iota (n+1)=iota n++[n] from rfl,
+   map_append']`.
+2. `count_all (n) : sumZ ((seg n).map (fun _ => (1:Int))) = ↑n` — induction + `seg_succ` +
+   `sumZ_append`.  (Watch `sumZ [1] = 1+0` defeq; finish with an explicit `Int` `add_zero`/`show`.)
+3. `count_le_eq (K n) (h : K ≤ n) : sumZ ((seg n).map (fun y => if y ≤ K then (1:Int) else 0)) = ↑K`
+   — induction on `n`; at `n+1`, split `K ≤ n+1` into `K ≤ n` (IH; the new term `if n+1≤K` is `0`)
+   vs `K = n+1` (all of `seg n` satisfy `y ≤ n < K` → `map_congr` to `count_all n = ↑n`, new term
+   `1`).  **Avoids `Nat.min`** (whose lemmas are propext-dirty).
+4. `colCount_eq_floor (p q x n) (hp : 0<p) (hndvd : ¬ p ∣ q*x) (hbnd : q*x/p ≤ n) :
+   sumZ ((seg n).map (fun y => if p*y < q*x then (1:Int) else 0)) = ↑(q*x/p)` — rewrite the predicate
+   `p*y < q*x ⟺ y ≤ q*x/p` (via `le_div_iff_mul_le` + `mul_comm`; the `<`-vs-`≤` gap is closed by
+   `hndvd`: `p*y = q*x ⟹ p ∣ q*x`), then `count_le_eq` with `hbnd`.
+5. `floor_sum_rectangle (m n) (hp prime, hq prime, p∤q) : Σ_{x∈seg m} ⌊q·x/p⌋ + Σ_{y∈seg n} ⌊p·y/q⌋
+   = m·n` (`p=2m+1, q=2n+1`).  Both Σ as Int via `colCount_eq_floor`; the cross term equals one
+   nested `sumZ` two ways (Fubini = `sumZ_map_add` induction), and `[qx>py]+[qx<py]=1` (trichotomy,
+   no `=` by `p∤qx`) collapses the grid to `count_all`²-style `m·n`.  The one genuinely new lemma.
+
+### Step 4 — STILL BLOCKED on the `a < p` constraint (see §"Step-4 assembly constraint" above)
+`floor_qr` needs `a < p`; reciprocity wants `a = q`.  **Resolve first** (recommended: generalize the
+Gauss stack `gauss_core`/`gauss_qr`/`gauss_mu`/`floor_qr` from `a < p` to `1 ≤ a ∧ p ∤ a`).  Until
+then step 3's `floor_sum_rectangle` is provable but does not yet assemble into
+`quadratic_reciprocity`.
+
+### Misc
+- A `legendre` symbol def (Int-valued `±1`) would let the final statement read `(p/q)*(q/p) = ±1`
+  cleanly — optional sugar over `floor_qr`.
+
+Estimated: still a multi-session build.  Watch the usual propext-dirty core (`Nat.*` div/sub/mod —
+use `NatDiv213`/`AddMod213`/`NatHelper` pure replacements; verify each private helper with
+`#print axioms` since the scanner skips privates).
 
 ## Cross-references
 `lean/E213/Lib/Math/NumberTheory/ModArith/{GaussLemma,SecondSupplement,LegendreMultiplicative,

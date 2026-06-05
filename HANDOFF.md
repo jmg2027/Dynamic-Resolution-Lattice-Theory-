@@ -35,6 +35,18 @@ constraint"): **(1) generalize the Gauss stack to coprimality `p ∤ a`** (recom
 `sgFn`/`fold_perm` only need `a` a unit), or **(2) reduce `q ↦ q%p` with correction
 `Σ⌊qx/p⌋ = (q/p)·Σx + Σ⌊(q%p)x/p⌋`**.
 
+## Addendum (later same session) — step-3 foundation
+
+- **`AddMod213.le_div_iff_mul_le`** (PURE, committed `f7402fc35`): `y ≤ a/p ↔ y·p ≤ a` (`0<p`).
+  Pure replacement for `Nat.le_div_iff_mul_le` (propext, as is `Nat.div_add_mod`).  Placed in
+  `AddMod213` (not `NatDiv213`) to use the pure `div_add_mod` without the `NatDiv213` import cycle.
+  This is the divisor side of the Eisenstein per-column count `#{y : p·y < q·x} = ⌊q·x/p⌋`.
+- Scoped the rest of **step 3** (the rectangle double-count) into a build-ready lemma sequence —
+  `seg_succ → count_all → count_le_eq → colCount_eq_floor → floor_sum_rectangle` — over `ℤ`/`sumZ`
+  (Fubini = `sumZ_map_add`; avoids `Nat.min`, whose `min_eq_right`/`min_zero` are propext-dirty).
+  Full recipe in `research-notes/frontiers/quadratic_reciprocity.md` §"Step-3 lemma sequence".
+- **Step 4 still blocked** on the `a < p` constraint (generalize the Gauss stack to `p ∤ a` first).
+
 ## Next (autonomous marathon)
 
 Per `research-notes/frontiers/quadratic_reciprocity.md`:
