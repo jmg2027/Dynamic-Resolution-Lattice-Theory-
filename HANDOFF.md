@@ -69,7 +69,7 @@ cells, then deep-researched with an agent team.  Live board: frontier **G205**
 
 ## Next session
 Tier-C: the general parametric `cfgIdeals V s` (the closed form, not just the
-`s=0,1` cases), or a contractive-νF construction.  The exploratory Python atlas
+`s=0,1,2` cases), or a contractive-νF construction.  The exploratory Python atlas
 (`research-notes/geometric/*.py`, 4 batches of readings) is tier-1; the spine
 (K1–K4 + the new cells) is Lean-verified.
 
