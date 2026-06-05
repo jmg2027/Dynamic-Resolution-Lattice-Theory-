@@ -23,7 +23,8 @@ namespace E213.Lib.Math.NumberTheory.ModArith.GaussLemma
 
 open E213.Lib.Math.Algebra.Linalg213.Permutation (iota LPerm map_lperm)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure
-  (cnt Nodup cnt_eq_zero_of_not_mem cnt_pos_mem cnt_pos_of_mem lt_of_mem_iota length_iota)
+  (cnt Nodup cnt_eq_zero_of_not_mem cnt_pos_mem cnt_pos_of_mem lt_of_mem_iota length_iota map_map')
+open E213.Meta.Int213 (mul_one)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (lperm_of_nodup_mem_iff mem_iota_of_lt)
 open E213.Tactic.List213
   (nodup_map_of_inj nodup_append nodup_length_le_of_subset mem_filter_of
@@ -37,9 +38,11 @@ open E213.Meta.Nat.Gcd213 (mod_eq_dvd_sub)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ prodZ_lperm)
 open E213.Lib.Math.Algebra.Linalg213.ProdCongr (prodZ_congr_map prodZ_map_mul prodZ_map_const_mul)
-open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat)
+open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat dvd_sub')
 open E213.Lib.Math.NumberTheory.ModArith.EulerConverse (natCast_sub euler_criterion)
 open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_mul natCast_pow)
+open E213.Meta.Int213.PolyIntM (mul_zeroZ)
+open E213.Meta.Int213.Order (sub_self_zero)
 open E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative (qr_iff_pow_one)
 
 /-! ## §1 — bridges and the pigeonhole -/
@@ -279,7 +282,10 @@ theorem fold_perm (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨
 private theorem int_dvd_cast_sub_mod (p n : Nat) :
     (p : Int) ∣ (((n : Nat) : Int) - (((n % p : Nat)) : Int)) := by
   have hle : n % p ≤ n := Nat.mod_le n p
-  have hkey : n - n % p = p * (n / p) := Nat.sub_eq_of_eq_add (div_add_mod n p).symm
+  have hkey : n - n % p = p * (n / p) := by
+    have h : p * (n / p) + n % p = n := div_add_mod n p
+    have h2 : (p * (n / p) + n % p) - n % p = p * (n / p) := add_sub_cancel_right (p * (n / p)) (n % p)
+    rw [h] at h2; exact h2
   rw [← natCast_sub n (n % p) hle, hkey, natCast_mul]
   exact ⟨(n / p : Nat), rfl⟩
 
@@ -312,5 +318,103 @@ private theorem prodZ_pm : ∀ (L : List Int), (∀ z, z ∈ L → z = 1 ∨ z =
     · exact Or.inr (by ring_intZ)
     · exact Or.inr (by ring_intZ)
     · exact Or.inl (by ring_intZ)
+
+/-! ## §7 — Gauss's lemma -/
+
+/-- Cast function (for the fold-value product). -/
+private def castFn (n : Nat) : Int := (n : Int)
+
+/-- The least-residue sign of `a·x`: `+1` if `(a·x) % p ≤ m`, else `−1`. -/
+def sgFn (a p m x : Nat) : Int := if (a * x) % p ≤ m then (1 : Int) else -1
+
+private theorem sgFn_lo (a p m x : Nat) (h : (a * x) % p ≤ m) : sgFn a p m x = 1 := by
+  show (if (a * x) % p ≤ m then (1 : Int) else -1) = 1; rw [if_pos h]
+
+private theorem sgFn_hi (a p m x : Nat) (h : ¬ (a * x) % p ≤ m) : sgFn a p m x = -1 := by
+  show (if (a * x) % p ≤ m then (1 : Int) else -1) = -1; rw [if_neg h]
+
+/-- ★★★★ **Gauss's lemma (core identity).**  `↑aᵐ ≡ ∏ₓ sign(a·x) (mod p)`, the sign product over
+    the half-system `[1..m]`.  Via the residue/signed-fold congruences (`prodZ_congr_map`), the
+    factoring `P_ax = ↑aᵐ·M`, `P_sf = P_sg·P_f`, `P_f = M` (`fold_perm`), and cancellation of the
+    coprime `M = m!` (`not_dvd_prodZ` + `int_euclid`). -/
+theorem gauss_core (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) :
+    (p : Int) ∣ (((a ^ m : Nat)) : Int) - prodZ ((seg m).map (sgFn a p m)) := by
+  have hmp : m < p := m_lt_p p m hp h2m
+  -- congruence  ↑((a·x)%p) ≡ ↑a·↑x
+  have hA : (p : Int) ∣ (prodZ ((seg m).map (fun x => (((a * x) % p : Nat) : Int)))
+      - prodZ ((seg m).map (fun x => (a : Int) * castFn x))) :=
+    prodZ_congr_map p _ _ (seg m) (fun x _ => by
+      show (p : Int) ∣ ((((a * x) % p : Nat) : Int) - (a : Int) * castFn x)
+      rw [show (a : Int) * castFn x = ((a * x : Nat) : Int) from (natCast_mul a x).symm]
+      obtain ⟨c, hc⟩ := int_dvd_cast_sub_mod p (a * x)
+      exact ⟨-c, by
+        rw [show (((a * x) % p : Nat) : Int) - ((a * x : Nat) : Int)
+              = -(((a * x : Nat) : Int) - ((a * x) % p : Nat)) from by ring_intZ, hc]
+        ring_intZ⟩)
+  -- congruence  ↑((a·x)%p) ≡ sign · ↑(fold)
+  have hB : (p : Int) ∣ (prodZ ((seg m).map (fun x => (((a * x) % p : Nat) : Int)))
+      - prodZ ((seg m).map (fun x => sgFn a p m x * castFn (fold a p m x)))) :=
+    prodZ_congr_map p _ _ (seg m) (fun x _ => by
+      show (p : Int) ∣ ((((a * x) % p : Nat) : Int) - sgFn a p m x * castFn (fold a p m x))
+      rcases Nat.lt_or_ge ((a * x) % p) (m + 1) with hc | hc
+      · have hle : (a * x) % p ≤ m := Nat.le_of_lt_succ hc
+        rw [sgFn_lo a p m x hle,
+            show fold a p m x = (a * x) % p from fold_lo a p m x hle]
+        have hz : (((a * x) % p : Nat) : Int) - 1 * castFn ((a * x) % p) = 0 := by
+          rw [show castFn ((a * x) % p) = (((a * x) % p : Nat) : Int) from rfl, Int.one_mul,
+              sub_self_zero]
+        rw [hz]; exact ⟨0, (mul_zeroZ (p : Int)).symm⟩
+      · have hnle : ¬ (a * x) % p ≤ m := fun h => Nat.not_succ_le_self m (Nat.le_trans hc h)
+        have hrlt : (a * x) % p < p := Nat.mod_lt _ (Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp))
+        rw [sgFn_hi a p m x hnle,
+            show fold a p m x = p - (a * x) % p from fold_hi a p m x hnle]
+        have hpv : (((a * x) % p : Nat) : Int) - (-1) * castFn (p - (a * x) % p) = (p : Int) := by
+          rw [show castFn (p - (a * x) % p) = ((p - (a * x) % p : Nat) : Int) from rfl,
+              natCast_sub p ((a * x) % p) (Nat.le_of_lt hrlt)]
+          ring_intZ
+        rw [hpv]; exact ⟨1, (mul_one (p : Int)).symm⟩)
+  -- combine + factor + cancel
+  have hC : (p : Int) ∣ (prodZ ((seg m).map (fun x => (a : Int) * castFn x))
+      - prodZ ((seg m).map (fun x => sgFn a p m x * castFn (fold a p m x)))) := by
+    have h := dvd_sub' hB hA
+    have he : (prodZ ((seg m).map (fun x => (((a * x) % p : Nat) : Int)))
+          - prodZ ((seg m).map (fun x => sgFn a p m x * castFn (fold a p m x))))
+        - (prodZ ((seg m).map (fun x => (((a * x) % p : Nat) : Int)))
+          - prodZ ((seg m).map (fun x => (a : Int) * castFn x)))
+        = prodZ ((seg m).map (fun x => (a : Int) * castFn x))
+          - prodZ ((seg m).map (fun x => sgFn a p m x * castFn (fold a p m x))) := by ring_intZ
+    rwa [he] at h
+  -- P_ax = ↑a^m · M
+  have hD : prodZ ((seg m).map (fun x => (a : Int) * castFn x))
+      = (a : Int) ^ m * prodZ ((seg m).map castFn) := by
+    rw [prodZ_map_const_mul (a : Int) castFn (seg m), seg_length]
+  -- P_sf = P_sg · P_f
+  have hE : prodZ ((seg m).map (fun x => sgFn a p m x * castFn (fold a p m x)))
+      = prodZ ((seg m).map (sgFn a p m)) * prodZ ((seg m).map (fun x => castFn (fold a p m x))) :=
+    prodZ_map_mul (sgFn a p m) (fun x => castFn (fold a p m x)) (seg m)
+  -- P_f = M
+  have hF : prodZ ((seg m).map (fun x => castFn (fold a p m x))) = prodZ ((seg m).map castFn) := by
+    rw [show (seg m).map (fun x => castFn (fold a p m x))
+          = ((seg m).map (fold a p m)).map castFn from
+        (map_map' (fold a p m) castFn (seg m)).symm]
+    exact prodZ_lperm (map_lperm castFn (fold_perm a p m hp hpr h2m ha1 halt))
+  -- ¬ p ∣ M
+  have hnM : ¬ (p : Int) ∣ prodZ ((seg m).map castFn) :=
+    not_dvd_prodZ p hp hpr ((seg m).map castFn) (fun z hz => by
+      obtain ⟨x, hx, hxz⟩ := exists_of_mem_map hz
+      obtain ⟨hx1, hxm⟩ := mem_seg.mp hx
+      rw [← hxz, show castFn x = (x : Int) from rfl]
+      intro hd
+      have hpx : p ∣ x := by have := int_dvd_to_nat p (x : Int) hd; rwa [Int.natAbs_ofNat] at this
+      exact not_dvd_unit p x hx1 (Nat.lt_of_le_of_lt hxm hmp) hpx)
+  -- assemble:  p ∣ M·(↑a^m − P_sg),  cancel M
+  have hfac : prodZ ((seg m).map (fun x => (a : Int) * castFn x))
+        - prodZ ((seg m).map (fun x => sgFn a p m x * castFn (fold a p m x)))
+      = prodZ ((seg m).map castFn) * ((((a ^ m : Nat)) : Int) - prodZ ((seg m).map (sgFn a p m))) := by
+    rw [hD, hE, hF, natCast_pow a m]; ring_intZ
+  rw [hfac] at hC
+  exact int_euclid p hp hpr (prodZ ((seg m).map castFn))
+    ((((a ^ m : Nat)) : Int) - prodZ ((seg m).map (sgFn a p m))) hC hnM
 
 end E213.Lib.Math.NumberTheory.ModArith.GaussLemma
