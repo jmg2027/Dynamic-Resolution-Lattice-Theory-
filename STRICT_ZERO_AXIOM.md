@@ -302,6 +302,117 @@ prime).  Supporting `∅`-axiom chain: `zhang_linear_core`, `zhang_quadratic(_su
 prime-power factor where `SEPARATE` fires) is the `REFRAME` lift archetype (`Foundations.ProofISALifts`,
 `lift_reframe`).  `#print axioms` clean on all.
 
+### A6 FLOW — monovariant normal-form lift archetype (2026-06-05)
+
+`E213.Lib.Math.Foundations.MonovariantFlow` — **12 PURE / 0 DIRTY**.  The sixth proof-ISA lift
+archetype, the well-founded sibling of A2 LOOP: a self-map `f` with a `Nat`-monovariant that strictly
+descends off fixed points converges to a normal form (`flow_reaches`; the descent disjunction is
+`Prop`-data so the split is constructive — no decidable equality, no `Classical`).  Canonical instance:
+the **Euclidean GCD flow** `(a,b) ↦ (b%a,a)` converging to `(0, gcd a b)` (`euclid_flow_normal_form`),
+the gcd the invariant the descent preserves (`gcd213_rec`).  The discrete realization of the Ricci-flow
+shape `GeometrizationConjecture/Ricci.lean` recorded as open (monovariant in place of Perelman's
+entropy).  Pinned in `Foundations.ProofISALifts` as `lift_flow` / `lift_flow_gcd`; registered in
+`seed/PROOF_ISA.md`.  `#print axioms` clean on all 12.
+
+### A6 FLOW drives the Geometrization Ricci pillar to a complete proof (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow` — **8 PURE / 0 DIRTY**.  The proof-ISA
+methodology end-to-end: the Ricci-flow conquest *compiled down to* A6 FLOW and the archetype *driving the
+complete proof*.  The K_{3,2}^{(c=2)} cell-filling coherentization (`Filled.lean`: `b_1 = 8 - k`, 3
+fillable 4-cycles) is exhibited as a convergent monovariant flow — `coherentization_flow_converges`
+(∀ C, via `flow_reaches`), `coherentization_normal_form` (reaches `k = C` in `C` steps),
+`ricci_pillar_K32_flow_close` (canonical normal form: all 3 cells filled, `b_1 = 5`).  Upgrades the
+Geometrization Ricci pillar from OPEN (`Poincare.lean` capstone table) to **CLOSED via A6 FLOW** in the
+repo's 213-native chart-Lens model.  Pinned in `ProofISALifts` as `lift_flow_geometrization`.
+
+### A6 FLOW drives smooth-metric round-sphere Ricci flow → finite extinction (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow` — **9 PURE / 0 DIRTY**.  The genuinely
+*smooth-metric* simplest case: on the round `n`-sphere the Ricci-flow PDE collapses to the linear ODE
+`dρ/dt = −2(n−1)` on the squared radius (`Ric(round Sⁿ)=(n−1)g` + scale-invariance), so the discrete Euler
+step `ρ ↦ ρ − 2(n−1)` is *exact* and compiles onto A6 FLOW.  `round_S3_ricci_extinction` (`n=3`,
+rate `4`): the 3-sphere shrinks to a round point in finite time — the seed of Perelman's finite-extinction
+theorem.  `sphere_flow_converges` / `sphere_reaches_extinction` (general rate), `round_sphere_extinction`
+(`n≥2`).  Pinned as `lift_flow_sphere`.  **Honest scope**: the homogeneous/ODE case, *not* the core; the
+general-metric `𝓕/𝓦`-monotonicity (Riemannian-geometry + PDE, Mathlib-forbidden) stays OPEN —
+`research-notes/frontiers/ricci_flow_smooth_core.md`.
+
+### Gradient-flow monotonicity compiled to the ISA (2026-06-05)
+
+`E213.Lib.Math.Analysis.Optimization.GradientFlow` — **9 PURE / 0 DIRTY**.  The structural reason
+Perelman's `𝓕/𝓦` is a monovariant, standard proof translated to `0`-axiom.  On an abstract `ℤ`-inner-
+product space (`IPSpace`), gradient descent `x ↦ x − τ∇F` on `F(x)=⟪x,x⟫` (∇F=2x) satisfies the
+**descent identity** `gradient_descent_identity`: `F(x−τ∇F) = F(x) − τ(1−τ)·‖∇F‖²` — from *only*
+`ip_comm` + `ip_smul_left` + `ring_intZ` (∅-axiom ℤ ring tactic).  Hence `gradient_descent_monotone`
+(`0 ≤ τ ≤ 1`, via `mul_nonneg` + `ip_nonneg`).  The discrete `0`-axiom form of `d/dt F = −‖∇F‖²`: the
+monovariant's descent is *forced by* the gradient structure (the A6 `descent` hypothesis **derived**, not
+assumed).  **ISA insight**: gradient flow is *not* A6 — its `F` decreases geometrically (`(1−2τ)²`),
+converging asymptotically, so it compiles to **monotone + bounded-below ⟹ convergent** (completeness),
+not well-founded `ℕ`-descent.  Frontier sub-step 1 closed (`ricci_flow_smooth_core.md`).
+
+### Completeness-LOOP: asymptotic convergence of the gradient value (2026-06-05)
+
+`E213.Lib.Math.Analysis.Optimization.CompletenessLoop` — **6 PURE / 0 DIRTY**.  The *second* instruction
+gradient-flow monotonicity compiles to (the first being the descent identity).  The geometric value
+`vₖ = F(xₖ) = N₀/2ᵏ` (contraction `r ≤ 1/2`) is monotone decreasing (`value_decreasing`), **strictly
+positive at every finite step** (`value_pos` — never finitely reaches the infimum `0`, the non-A6
+feature), yet **converges to `0` with explicit modulus** `K(n)=N₀·2ⁿ` (`value_below`: `k ≥ N₀·2ⁿ ⟹
+N₀·2ⁿ < 2ᵏ`, via the hand-rolled `lt_two_pow_self`).  Bundled in `completeness_loop`.  The **monotone +
+bounded-below ⟹ convergent** instruction (repo `Nat→Nat` modulus idiom) — distinct from A6's finite
+well-founded descent.  So `𝓕/𝓦`-monotonicity = [descent-identity (`GradientFlow`)] + [completeness-LOOP
+(here)], two instructions, neither A6.  Frontier sub-step 3 closed.
+
+### Full Real213 Cauchy object for the gradient value (2026-06-05)
+
+`E213.Lib.Math.Analysis.Optimization.RealCauchyWitness` — **4 PURE / 0 DIRTY**.  The completeness-LOOP
+realized as an actual element of the Real213 completion: the value cut sequence `vᵢ = constCut 1 (2ⁱ) =
+1/2ⁱ` is a genuine `CauchyCutSeq` (`Analysis/CauchyComplete`) with explicit **proven modulus** `N m k = k`
+(`gradientValueCauchy`) — the `cauchy` field discharged by stability past index `k` (`csConst`/`cs_true`,
+using `lt_two_pow_self`).  Limit is `0` on the interior `m ≥ 1` (`gradientValueCauchy_limit_interior`).
+Honest boundary: `cutEq` is *pointwise* and the diagonal limit differs from `constCut 0 1` only at `m = 0`
+(the open/closed Dedekind artifact — the limit is the *open* `0`); a full `cutEq` is **not** claimed.
+Instead the limit is pinned at the real `0` by **order-squeeze** — `limit_nonneg` (`0 ≤ limit`) +
+`limit_below_dyadic` (`limit ≤ 1/2ⁿ`, ∀ n), bundled `gradient_value_converges_to_zero`; Archimedeanness
+forces the unique such real to be `0`.  This completes ② (completeness-LOOP) from modulus-level
+(`CompletenessLoop`) to a bona-fide Real213 Cauchy real reaching its infimum `0`.
+
+### Homogeneous Ricci flow — the Einstein trichotomy (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciHomogeneous` — **6 PURE / 0 DIRTY**.  The sign of the
+Einstein constant `λ` (`Ric = λg`) sets the homogeneous flow on the size `ρ` (`dρ/dt = −2λ`):
+`λ>0` (sphere) **finite extinction** = A6 (`sphere_reaches_extinction`); `λ=0` (Ricci-flat / flat torus /
+Calabi–Yau) **stationary**, every state its normal form (`flat_torus_stationary`, A6 cost 0); `λ<0`
+(hyperbolic) **diverges**, no fixed point (`expand_iter`/`hyperbolic_diverges`/`expand_no_fixed`), **not
+A6**.  Bundled `einstein_trichotomy`.  Sub-steps 2 + 4 of the Ricci frontier; Einstein metrics are the
+homogeneous fixed points, sign of `λ` = shrink/steady/expand.  Anisotropic Berger-sphere pinching (2-var
+ODE) remains open.
+
+### A7 POSITIVITY archetype + Cauchy–Schwarz (2026-06-05)
+
+`E213.Lib.Math.Foundations.Positivity` — **11 PURE / 0 DIRTY**.  The seventh proof-ISA lift archetype, the
+square/norm twin of A5 COUNT: a bound forced because its **gap is a square** (`positivity_of_sq`:
+`gap = s² ⟹ 0 ≤ gap`, via `int_sq_nonneg`).  Drives **Cauchy–Schwarz** (2-D, ℤ) — `cauchy_schwarz_2d`:
+`⟨u,v⟩² ≤ ⟨u,u⟩⟨v,v⟩` because the gap `= (u₀v₁−u₁v₀)²` (the Lagrange identity `lagrange_2d`, discharged by
+`ring_intZ`), no analysis.  Pinned in `ProofISALifts` as `lift_positivity` / `lift_positivity_cs`;
+registered in `seed/PROOF_ISA.md` (catalog now seven archetypes).  Classical shadow: Weil RH weights,
+Kazhdan–Lusztig positivity, Mordell heights.  Reach: same archetype drives **AM–GM** (`amgm_2`:
+`4ab ≤ (a+b)²`, gap `(a−b)²`) and **3-D Cauchy–Schwarz** (`cauchy_schwarz_3d` via `lagrange_3d` +
+`positivity_of_sq3`, gap a sum of three squares).  Rigidity face = positive-definiteness:
+`positive_definite_2`/`positive_definite_3` (`Σ vᵢ² = 0 ⟹ v = 0`, via `add_eq_zero_of_nonneg` +
+`mul_eq_zero`) and `dist_sq_zero_imp_eq` (the squared distance separates points — POSITIVITY drives
+`SEPARATE`).
+
+### Discrete (Forman) Ricci curvature — the 213-native route to the A6 core (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci` — **6 PURE / 0 DIRTY**.  A6's smooth-metric
+conquest core is walled (Riemannian geometry + PDE); the 213-native route is **combinatorial** Ricci
+curvature (Forman/Ollivier), no smooth manifold.  `formanEdge du dv = 4 − du − dv` (triangle-free
+unweighted edge); complete-bipartite `K_{NS,NT}` uniform value `4 − NS − NT` (`forman_bipartite`).  Sign ↔
+topology (`discrete_curvature_topology`): `K_{1,1}` `+2` / `K_{1,3}` `0` / `K_{3,2}` `−1` ↔ `b₁` 0/0/8 —
+the trivial-loop ↔ rich-loop split the Poincaré pillar reads off `b₁`, here off curvature.  Rung 1 of the
+A6-core marathon (`research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`); next: weighted
+Forman + a discrete Ricci-flow step driven to its normalized fixed point via `flow_reaches`.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

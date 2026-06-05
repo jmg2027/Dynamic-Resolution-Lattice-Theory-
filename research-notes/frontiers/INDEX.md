@@ -240,3 +240,36 @@ the non-constructive `DECIDE`.  The "why" archive is promoted to
 `theory/essays/proof_isa/` (probabilistic, linear-algebra, parity, sperner,
 könig, + the `what_is_a_proof` synthesis).  Source notes archived to
 `research-notes/archive/proof_isa/` (`G200`, `G205`).
+
+The catalog has since grown to **seven** lift archetypes (`ProofISALifts.lean`):
+A6 FLOW + A7 POSITIVITY added (the cross-domain-conquest marathon), each driving
+real ∅-axiom conquests.
+
+## A6 FLOW core / Ricci flow  (`a6_ricci_core/`, `ricci_flow_smooth_core.md`)
+
+- `ricci_flow_smooth_core` — the smooth-metric general Ricci-flow core
+  (Perelman `𝓕/𝓦`-monotonicity, surgery): the wall (Riemannian geometry + PDE,
+  Mathlib-forbidden).  *Closed sub-steps*: round-sphere finite extinction,
+  Einstein trichotomy, gradient-flow descent identity + completeness-LOOP.
+- `a6_ricci_core/discrete_ricci_flow_ladder` — the 213-native route to actually
+  closing A6's conquest: **discrete (Forman/Ollivier) Ricci flow** (combinatorial
+  curvature, no smooth manifold).  Rung 1 done (`DiscreteRicci.formanEdge`,
+  curvature↔topology); next: weighted Forman + flow step + convergence via
+  `flow_reaches`.
+
+## Transcendental functions  (`transcendentals/`)
+
+- `transcendentals/transcendental_functions_ladder` — convergent `exp/sin/cos/sqrt`
+  as `Real213` functions with derivative rules (current: `exp` partial sum +
+  stubs).  Rungs T1 exp-modulus → T2 sin/cos series → T3 derivative rules →
+  T4 smooth sqrt → T5 identities.  One of the two hard blocks split off A6's
+  smooth core; ordinary constructive analysis, in-reach ∅-axiom.
+
+## PDE a-priori estimates  (`pde_estimates/`)
+
+- `pde_estimates/discrete_pde_estimates_ladder` — the analytic engine behind
+  Perelman monotonicity.  Goal = the **continuous** estimate, built 213-native as
+  "discrete-uniform-in-mesh + modulus → `Real213` limit" (the conquest needs
+  continuous, not discrete-graph).  Rungs P1 maximum principle → P2 oscillation
+  decay → P3 energy/Dirichlet → P4 Li–Yau → P5 Shi.  P1–P3 reachable; P4–P5 the
+  real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.

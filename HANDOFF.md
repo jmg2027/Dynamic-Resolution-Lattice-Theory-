@@ -1,107 +1,114 @@
-# Session Handoff — 2026-06-05 (proof-ISA COUNT series: both named bounds proven ∅-axiom)
+# Session Handoff — 2026-06-05 (proof-ISA marathon: cross-domain conquests → ∅-axiom)
 
 ## Branch
-`claude/another-challenge-compile-DJWI4` — pushed, ahead of `origin/main`.
-`cd lean && lake build E213` ✓ clean.  All new modules strict ∅-axiom
-(`tools/scan_axioms.py`): Sperner 47/47, SpernerChains 49/49, Permutations 21/21,
-RamseyNamedBound 13/13 — **130 declarations, 0 DIRTY**.
+`claude/cross-domain-math-problems-afA0g` — all work pushed.  `cd lean && lake build` clean on the
+touched closures (Analysis, GeometrizationConjecture, Foundations.ProofISALifts).  Running as an
+**autonomous multi-session marathon** (invoke `autonomous-research` each session to continue).
 
-## What Was Done This Session
+## The arc
+Compile history's cross-domain conquests onto the **proof-ISA** (`seed/PROOF_ISA.md`,
+`lean/E213/Lens/ProofISA.lean`) and *drive real ∅-axiom proofs* with each lift archetype — not catalog
+entries, actual conquests.  Seed compilation: `research-notes/G205_cross_domain_conquests_compilation.md`.
 
-Compiled two hard problems down the proof-ISA (`seed/PROOF_ISA.md`) to the two
-faces of the `COUNT` instruction, **closing the entire COUNT series**.
+## What was done this session (each strict ∅-axiom, `#print axioms` empty)
 
-### 1. Sperner's theorem (1928) — fully proven ∅-axiom
-`SpernerChains.sperner_theorem`: the largest antichain of `2^[n]` has size exactly
-`C(n,⌊n/2⌋)`.  Sperner is `COUNT`'s **double-counting / LYM** face (the *dual* of
-the union bound).
-- `Sperner.lean` (47/47): `layer_size` (layer = binomial, the READ),
-  `eq_of_subseteq_card_eq` (SEPARATE), `lower_bound` (tight existence),
-  `binom_le_binom_mid` (unimodality via the absorption identity `absorb`),
-  `lym_double_count`/`sumOver_swap` (the engine = Fubini on a 0/1 matrix),
-  `binom_mul_fact`/`fact_mul_ge_mid` (arithmetic), `sperner_upper_bound`
-  (abstract reduction: any chain model ⟹ the bound).
-- `SpernerChains.lean` (49/49): the geometric chain model — chains =
-  `perms (idxList n)`, `inc` = prefix-set; `chain_cap` (`hcap`, nesting) +
-  `chain_low` (`hlow`, the `{σ++τ}` injection of `k!(n−k)!` chains).
+1. **A6 FLOW** archetype — `Foundations/MonovariantFlow.lean` (`flow_reaches`: self-map + Nat-monovariant
+   strictly descending off fixed points → normal form; constructive, no Classical).  Instance: Euclidean
+   GCD flow → `(0, gcd)`.
+2. **A6 drives the Geometrization Ricci pillar** (OPEN → closed) — `GeometrizationConjecture/RicciFlow.lean`
+   (`ricci_pillar_K32_flow_close`): K_{3,2} cell-filling coherentization as a convergent flow.
+3. **Round-sphere smooth Ricci flow → finite extinction** — `GeometrizationConjecture/RicciSphereFlow.lean`
+   (`round_S3_ricci_extinction`): the homogeneous ODE case, rate = real `Ric=(n−1)g`.
+4. **Gradient-flow monotonicity, ISA-compiled** — `Analysis/Optimization/GradientFlow.lean`
+   (`gradient_descent_identity`: `F(x−τ∇F) = F(x) − τ(1−τ)‖∇F‖²`, the descent FORCED by the gradient/IP
+   structure).  Surfaced: gradient flow is **not** A6 (geometric/asymptotic) — it compiles to
+   descent-identity + **completeness-LOOP**.
+5. **Completeness-LOOP** — `Analysis/Optimization/CompletenessLoop.lean` (modulus level) +
+   `RealCauchyWitness.lean` (full Real213 `CauchyCutSeq` with proven modulus + limit pinned at `0` by
+   order-squeeze, honest open/closed boundary noted).
+6. **Einstein trichotomy** (homogeneous Ricci flow) — `GeometrizationConjecture/RicciHomogeneous.lean`
+   (`einstein_trichotomy`): sign of `λ` → `λ>0` finite extinction (A6) / `λ=0` stationary (flat torus) /
+   `λ<0` divergence (not A6).  Frontier sub-steps 2 + 4.
+7. **A7 POSITIVITY** archetype — `Foundations/Positivity.lean` (`positivity_of_sq`: gap = square ⟹ bound;
+   `cauchy_schwarz_2d` via the Lagrange identity).  Proof-ISA catalog now **seven** archetypes.
+8. **A7 reach extension** — same `Positivity.lean` (now **11 PURE**): `positivity_of_sq3`, `amgm_2`
+   (`4ab ≤ (a+b)²`), `lagrange_3d` + `cauchy_schwarz_3d` (inequality family, all "gap = sum of squares");
+   **rigidity face** = positive-definiteness `positive_definite_2`/`_3` (`Σvᵢ²=0 ⟹ v=0`) +
+   `dist_sq_zero_imp_eq` (squared distance separates points → POSITIVITY drives `SEPARATE`).
 
-### 2. The `perms` enumeration — general permutation infrastructure (new to the repo)
-`Permutations.lean` (21/21): `perms_length : (perms l).length = l!`,
-`mem_perms_iff` (= exactly the rearrangements, via `insert_comm`), `perms_nodup`,
-`perms_append_mem` (orderings concatenate).  The repo previously had only `LPerm`
-*equivalence*; this is the `n!`-cardinality enumeration, reusable for the Leibniz
-determinant.
+## Proof-ISA catalog state (`Foundations/ProofISALifts.lean`, `seed/PROOF_ISA.md`)
+A1 DIAGONAL · A2 LOOP · A3 ORBIT · A4 REFRAME · A5 COUNT · **A6 FLOW** · **A7 POSITIVITY**.
 
-### 3. Erdős' `R(k,k) > N` named bound — fully proven ∅-axiom
-`RamseyNamedBound.lean` (13/13): `ramsey_lower` — `2·C(N,k) < 2^{C(k,2)}` ⟹ a
-2-colouring of `K_N`'s edges with no monochromatic `k`-clique.  The `K_N` edge
-model instantiating `erdos_schema`; crux `pairsCount_eq` (#internal edges of `S`
-= `C(|S|,2)`, via the Pascal step `binom_succ_2`).  Subset count reused from
-Sperner (`kLayer_card = C(N,k)`).  This is `COUNT`'s **union-bound** face.
+## A6 — ON HOLD (closure deferred until the two prerequisite marathons land)
+**A6 FLOW's conquest core (general Ricci flow) is ON HOLD.**  Its closure is gated on the two hard
+blocks now split into standalone marathons — **transcendental functions** and **(continuous-via-limit)
+PDE a-priori estimates**.  Do not attempt to "close A6" until those deliver; resume A6 (smooth 2D-conformal
++ continuous estimates) only after.  Archetype + easy cases stay closed; the discrete Forman ladder
+(`a6_ricci_core/`) is a *parallel* theory (a different theorem), not the A6 conquest route.
 
-### 4. Marathon (process / essay / org-audit / purity / ready-to-merge)
-- process: 0 sink violations; G200/G205 archived to `archive/proof_isa/`, frontier
-  board collapsed to a closure record, promotion logged.
-- essay: `theory/essays/proof_isa/counting_as_cardinality.md` — "what is counting,
-  in 213?" (the COUNT-arc synthesis).
-- org-audit: refreshed 3 stale "honest rung" docstrings (now closed in
-  SpernerChains); INDEX counts (essays 56→60); CAPSTONE_INDEX entry.
-- purity: 0 sorry/Classical/Mathlib/native_decide; all 130 decls strict ∅-axiom.
-- ready-to-merge: 0 layer violations, working tree clean; Phase-7.6 synthesis note
-  written.  Verdict READY.
+## A6 background (the marathons feeding it, when resumed)
+A6's *archetype* + *easy cases* (round sphere, Einstein trichotomy, gradient skeleton) are closed, but
+A6's **conquest core = general Ricci flow** is not.  Smooth-metric Perelman is walled (Riemannian geom +
+PDE, Mathlib-forbidden).  **The 213-native route now in progress: discrete (Forman/Ollivier) Ricci flow**
+(combinatorial curvature, no smooth manifold) — `research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`.
+  - Rung 1 ✅ `GeometrizationConjecture/DiscreteRicci.lean` (6 PURE): `formanEdge`, `K_{NS,NT}` curvature
+    `4−NS−NT`, sign↔topology (`K_{3,2}` `−1` ↔ `b₁=8`; `K_{1,1}` `+2` ↔ tree).
+  - **Rung 2 (NEXT)**: weighted Forman + a discrete Ricci-flow step `w ↦ w − F·w`.
+  - **Rung 3**: drive the discrete flow to its normalized (constant-curvature) fixed point via
+    `flow_reaches` — the discrete analogue of Perelman monotonicity, the real A6-core target.
 
-## Current Precision Results
-Unchanged this session (pure combinatorics; no physics observable touched).
-Physics constants table: `catalogs/physics-constants.md`.
+## Two converging routes to A6's core (both ∅-axiom; smooth route is NOT walled)
+A diff-geo infra audit corrected the earlier "smooth = walled" overclaim.  The repo HAS 1st-order
+derivatives + chain/product rules, `partialAt`/gradient/divergence, `MultiCut`, `cutDiv`, `det` over ℤ.
+Genuinely hard = transcendentals (sin/cos/sqrt) + general-`n` PDE estimates.  **Sidestep: 2D conformal.**
+- **Smooth 2D-conformal ladder** (`ricci_flow_smooth_core.md`, "Smooth 2D-conformal ladder"):
+  `ds²=λ(dx²+dy²)`, rational `λ` ⟹ Gauss `K = (|∇λ|²−λΔλ)/(2λ³)` (no sqrt/exp), and `Ric=K·g` in 2D so
+  `∂_tλ=−2Kλ` is genuine smooth Ricci flow.  Rungs S1 polynomial 2nd-deriv → S2 Laplacian → S3 `gaussK`
+  (flat check) → S4 nonflat → S5 2D conformal flow.  **All present-or-buildable.**
+- **Discrete Forman/Ollivier ladder** (`a6_ricci_core/discrete_ricci_flow_ladder.md`): rung 1 done
+  (`DiscreteRicci`), next weighted Forman + flow step + convergence via `flow_reaches`.
+- **Genuine wall**: general-`n` + transcendental-metric Perelman `𝓦`-monotonicity (PDE a-priori
+  estimates).  Not climbed directly; both ladders above are the routes.
 
-## Open Problems (Priority Order)
-The COUNT series is **closed** — no open rungs.  The next seeds (all recorded in
-`research-notes/frontiers/count_substrate_synthesis.md`, registered in
-`frontiers/INDEX.md`):
-### 1. A clean strict-order/pow `Meta/Nat` suite
-`Nat.mul_lt_mul_right` carries **Classical.choice**, `Nat.pow_add`/`Nat.succ_sub`
-carry propext — re-proven ad-hoc per file (`mul_lt_mul_right_clean`,
-`pow_add_clean`, `succ_sub_clean`).  Canonicalise + dedup into `Meta/Nat`.
-### 2. More LYM-shaped named bounds on the same substrate
-Dilworth/Mirsky (chain/antichain duality), Bollobás' set-pair inequality, the
-explicit fractional LYM `Σ 1/C(n,|A|) ≤ 1` — all reuse `lym_double_count` +
-`perms`/`kLayer`.
-### 3. Leibniz determinant over `perms`
-`Linalg213/Permutation` uses `LPerm` equivalence + inversion-sign but no
-enumeration; `perms` + `mem_perms_iff` + `perms_nodup` now supply the index set
-for `det = Σ_{σ∈perms} sign(σ)·Π M i σ(i)`.
+## Two hard blocks split off as STANDALONE marathons (any session can pick up)
+The genuinely-hard pieces are now self-contained marathons with rung ladders — a future
+`autonomous-research` session reads the note, proves the next rung ∅-axiom, commits, advances:
+- **Transcendental functions** (`frontiers/transcendentals/transcendental_functions_ladder.md`):
+  convergent `exp/sin/cos/sqrt` + derivative rules.  Rungs T1 exp-modulus (close the `CutExpSeries`
+  follow-up) → T2 sin/cos series → T3 derivative rules → T4 smooth `sqrt` (via `DyadicSearch/IVT`) →
+  T5 identities.  Ordinary constructive analysis, in-reach ∅-axiom; **start T1**.
+- **Discrete PDE a-priori estimates** (`frontiers/pde_estimates/discrete_pde_estimates_ladder.md`):
+  the analytic engine for Ricci-flow convergence.  Rungs P1 discrete maximum principle (on
+  `ODE/HeatEqDiscrete`) → P2 oscillation decay → P3 energy/Dirichlet decay → P4 discrete Li–Yau →
+  P5 discrete Shi.  P1–P3 reachable; **start P1**.  Feeds `a6_ricci_core/` rung 3.
+- **Berger-sphere pinching** — anisotropic 2-variable homogeneous ODE (remaining non-trivial homogeneous
+  case), still open.
+- **Full pointwise `cutEq`** for the Real213 limit (boundary quotient via valid-cut equality) — deferred.
 
-## Unresolved from This Session
-None — both targets (Sperner, named Ramsey) closed end-to-end.  Note for the next
-propext/Classical hunt: core `Nat.mul_lt_mul_right` pulls `Classical.choice`,
-`Nat.{mul_assoc,mul_left_comm,add_mul,div_add_mod,succ_sub,pow_add}` and
-`List.length_map` pull propext — use NatHelper / `Binomial.add_mul_pure` /
-`List213` / structural `half`; `==` on `Nat` is `instBEqOfDecidableEq` (use
-`Nat.beq`); `funext` pulls `Quot.sound` (use `*_congr`).
+## Next targets (priority order)
+1. **Continue the G205 conquest table** down the ISA: each row = compile a conquest + let an archetype
+   drive its ∅-axiom proof.  Reachable next: REFRAME[LOOP] template instances, or a COUNT/ORBIT conquest.
+   (Sum-of-squares multiplicativity is ALREADY closed — `CayleyDickson/Misc/QuadIdentities.int_quad_diophantus`
+   = Brahmagupta–Fibonacci, `GaussianTwoSquare.two_square_of_mod4` = Fermat, `FourSquare` = Lagrange;
+   do NOT rebuild.)
+2. **Berger-sphere pinching** (frontier sub-step) — a 2-var monovariant flow; needs the anisotropic Ricci
+   ODE coefficients as honest input (otherwise it's a generic gap→0 A6 instance — avoid overclaiming).
+3. **general-n Lagrange / Cauchy–Schwarz** (needs Finset/List sums) — heavier; 2-D + 3-D atoms done.
+4. Tier-A hygiene: periodic `lake build E213.Lib.Math E213.Lib.Physics` sanity; layer audit.
 
-## Next
-Merge to `main`.  Then: the `Meta/Nat` clean-arithmetic suite (Open Problem 1, the
-recurring tax), or a different domain (primacy = breadth).
-
-## Three-tier state
-- **Promotions this session**: `theory/essays/proof_isa/{sperner_double_counting,
-  counting_as_cardinality}.md`; G200/G205 source notes archived to
-  `research-notes/archive/proof_isa/`.
-- **Promotion candidates**: none outstanding for this arc (essays cover it).
-- **Active scratchpad**: `research-notes/frontiers/count_substrate_synthesis.md`
-  (the post-closure seeds).
-
-## File Map
+## File map (this session's additions)
 ```
-lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← LYM engine + arithmetic + reduction (47/47)
-lean/E213/Lib/Math/Combinatorics/Permutations.lean   ← full perms characterisation (21/21)
-lean/E213/Lib/Math/Combinatorics/SpernerChains.lean  ← chain model + sperner_theorem (49/49)
-lean/E213/Lib/Math/Combinatorics/RamseyNamedBound.lean ← K_N edge model + ramsey_lower (13/13)
-lean/E213/Lib/Math/Combinatorics.lean / INDEX.md     ← umbrella + module table (all registered)
-theory/essays/proof_isa/sperner_double_counting.md   ← Sperner = dual union bound (the "why")
-theory/essays/proof_isa/counting_as_cardinality.md   ← COUNT-arc synthesis essay
-theory/essays/proof_isa/probabilistic_method.md      ← Ramsey named bound closed (updated)
-research-notes/archive/proof_isa/G200,G205*.md        ← archived (series closed)
-research-notes/frontiers/count_substrate_synthesis.md ← post-closure seeds
-STRICT_ZERO_AXIOM.md / CAPSTONE_INDEX.md             ← closures registered
+lean/E213/Lib/Math/Foundations/MonovariantFlow.lean      ← A6 archetype (flow_reaches)
+lean/E213/Lib/Math/Foundations/Positivity.lean           ← A7 archetype + Cauchy–Schwarz
+lean/E213/Lib/Math/Foundations/ProofISALifts.lean        ← 7-archetype catalog (A6/A7 added)
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/RicciFlow.lean       ← Ricci pillar via A6
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/RicciSphereFlow.lean ← round-sphere extinction
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/RicciHomogeneous.lean← Einstein trichotomy
+lean/E213/Lib/Math/Analysis/Optimization/GradientFlow.lean      ← descent identity ①
+lean/E213/Lib/Math/Analysis/Optimization/CompletenessLoop.lean  ← completeness-LOOP ② (modulus)
+lean/E213/Lib/Math/Analysis/Optimization/RealCauchyWitness.lean ← ② full Real213 Cauchy object
+seed/PROOF_ISA.md                                        ← seven archetypes
+research-notes/G205_cross_domain_conquests_compilation.md← the conquest→ISA compilation (seed)
+research-notes/frontiers/ricci_flow_smooth_core.md       ← the open core + sub-steps
+STRICT_ZERO_AXIOM.md                                     ← all the above logged
 ```
