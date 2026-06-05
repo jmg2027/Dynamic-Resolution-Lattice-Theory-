@@ -21,7 +21,7 @@ opened the exp functional-equation / combinatorics front (T5).
   `cos_deriv_coeff` — all from one factorial shift `(n+1)·n! = (n+1)!`.
 - **T5 (partial)** `choose`↔factorial bridge `choose_mul_factorials` (`C(k+j,k)·k!·j! = (k+j)!`),
   `choose_symm`, `pascal_row_sum` (`Σ C(n,k)=2ⁿ`), `choose_le_two_pow` (`C(n,k)≤2ⁿ`) — in
-  `NumberTheory/DyadicFSM/FLT/{ChooseFactorial,BinomialTheorem}.lean`.  b=1 binomial `(a+1)ⁿ=ΣC(n,k)aᵏ`
+  `NumberTheory/DyadicFSM/FLT/{ChooseFactorial,BinomialTheorem}.lean`.  b=1 + general 2-var binomial `(a+b)ⁿ=ΣC(n,k)aᵏbⁿ⁻ᵏ` (`binom2_theorem`, BinomialTwoVar.lean)
   already PURE (`binom_theorem_b_eq_one`).
 - **T4** sqrt — NOT started (rich `Analysis/DyadicSearch/IVT`+`RootCertificate`+`MinimalRootLens` infra
   exists; `Sqrt2Cut` is Pell-only).
@@ -70,4 +70,4 @@ casts (explicit-`Int.ofNat`-typed `have`s dodge the `Nat.cast` rw-mismatch), `ri
 4. **P4 Li–Yau** (may stall — the real analytic depth).
 
 ## Tally
-12 files, ~68 PURE theorems.  T1–T3 + P1–P3 (capstone) complete; T5 substantially advanced.
+13 files, ~70 PURE theorems.  T1–T3 + P1–P3 (capstone) complete; T5 substantially advanced.

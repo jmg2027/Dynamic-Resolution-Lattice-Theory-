@@ -73,9 +73,12 @@ T5. **functional equations / identities** — `sin²+cos² = 1`, `exp(a+b) =
     1 PURE): `choose (k+j) k · (k!·j!) = (k+j)!` (division-free `C(n,k)=n!/(k!(n−k)!)`), proven
     from the absorption identity `choose_succ_mul` by induction.  This is the bridge `exp(a+b)`
     needs: cross-multiplying the Cauchy convolution `Σ (aʲ/j!)(bᵏ/k!)` by `n!` turns it into
-    `Σ C(n,j) aʲ bⁿ⁻ʲ = (a+b)ⁿ` (binomial theorem, `binom_theorem_b_eq_one` already PURE) via
-    exactly `C(n,j)·j!·(n−j)!=n!`.  **Remaining**: the general 2-var binomial `(a+b)ⁿ = Σ C(n,k)aᵏbⁿ⁻ᵏ`
-    (the b=1 case is done; the `bⁿ⁻ᵏ` induction is the work) + the cut-level series convolution.
+    `Σ C(n,j) aʲ bⁿ⁻ʲ = (a+b)ⁿ` (binomial theorem) via exactly `C(n,j)·j!·(n−j)!=n!`.
+    ⚙️ **general 2-var binomial DONE** (`BinomialTwoVar.lean`, 2 PURE): `binom2_theorem`
+    (`(a+b)ⁿ = Σ_{k≤n} C(n,k)aᵏbⁿ⁻ᵏ`) via `binomSum2_step` (common-form reduction, Pascal +
+    `sumTo` helpers + `b`-exponent congruences).  **Remaining**: the cut-level series Cauchy
+    convolution `(Σaʲ/j!)(Σbᵏ/k!) = Σ(a+b)ⁿ/n!` (combine `binom2_theorem` + `choose_mul_factorials`
+    at the `Real213` series level) + `sin²+cos²=1`.
 
 ## Downstream unblocked
 

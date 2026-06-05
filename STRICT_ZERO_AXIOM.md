@@ -498,6 +498,20 @@ leaks of core `Int.ofNat_*` / `Nat.add_sub_cancel_left` / `sub_eq_zero` were sid
 
 ### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
+### Marathon T5 CORE — general two-variable binomial theorem (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTwoVar` — **2 PURE / 0 DIRTY** (+ helpers).
+`binom2_theorem`: **`(a+b)ⁿ = Σ_{k=0}^{n} C(n,k)·aᵏ·bⁿ⁻ᵏ`** — the b=1 case (`binom_theorem_b_eq_one`)
+extended to general `b`.  Proven via `binomSum2_step` (`(a+b)·binomSum2 a b n = binomSum2 a b (n+1)`):
+both `(a+b)·binomSum2` and `binomSum2 (n+1)` reduce to the common form `bⁿ⁺¹ + A + thirdterm` via
+`sumTo_split_first` + Pascal `choose_succ_succ` + `sumTo_add_func` + `ring_nat`, with the `b`-exponent
+congruences `n+1−(k+1)=n−k` (`Nat.succ_sub_succ`) and `n−(k+1)+1=n−k` for `k<n` (`bexp_shift`, from
+NatHelper `sub_one_add_one`+`sub_pos_of_lt`); the boundary term `C(n,n+1)=0` drops the tail.  Purity needed
+explicit-typed `have`s for `Nat.pow_succ`/`Nat.succ_sub_succ` (the `rw` patterns are `Nat.succ`-shaped, the
+goals `_+1`-shaped) + `show` beta-reduction of the `sumTo_congr` lambdas.  This is the **exp functional
+equation** `exp(a+b)=exp(a)exp(b)` engine: cross-multiplying the Cauchy convolution `Σ(aʲ/j!)(bᵏ/k!)` by `n!`
+gives exactly this (via `choose_mul_factorials`).
+
 ### Marathon T5 (enabling) — `choose`↔factorial bridge (2026-06-05)
 
 `E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial` — **1 PURE / 0 DIRTY**.  `choose_mul_factorials`:
