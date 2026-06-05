@@ -562,4 +562,37 @@ theorem scd_chain_cover (n : Nat) :
     (∀ C, C ∈ scd n → IsChain C) ∧ (∀ A, A.length = n → ∃ C, C ∈ scd n ∧ A ∈ C) :=
   ⟨scd_isChain n, scd_cover n⟩
 
+/-! ## §8 — nonemptiness (infra for the count) -/
+
+theorem extendC_ne_nil : ∀ (C : List (List Bool)), C ≠ [] → extendC C ≠ []
+  | [], h => absurd rfl h
+  | [_], _ => fun hc => List.noConfusion hc
+  | _ :: _ :: _, _ => fun hc => List.noConfusion hc
+
+theorem scdStep_ne_nil {C D : List (List Bool)} (hD : D ≠ []) (h : C ∈ scdStep D) : C ≠ [] := by
+  unfold scdStep at h
+  cases hr : raiseC D with
+  | nil =>
+      rw [hr] at h
+      cases h with
+      | head => exact extendC_ne_nil D hD
+      | tail _ h' => nomatch h'
+  | cons a as =>
+      rw [hr] at h
+      cases h with
+      | head => exact extendC_ne_nil D hD
+      | tail _ h' => cases h' with
+        | head => exact fun hc => List.noConfusion hc
+        | tail _ h'' => nomatch h''
+
+/-- Every chain produced by the SCD is nonempty. -/
+theorem scd_nonempty : ∀ (n : Nat) (C : List (List Bool)), C ∈ scd n → C ≠ []
+  | 0, _, h => by
+      cases h with
+      | head => exact fun hc => List.noConfusion hc
+      | tail _ h' => nomatch h'
+  | n + 1, _, h => by
+      obtain ⟨D, hD, hCD⟩ := mem_flatMap213 h
+      exact scdStep_ne_nil (scd_nonempty n D hD) hCD
+
 end E213.Lib.Math.Combinatorics.ChainAntichain
