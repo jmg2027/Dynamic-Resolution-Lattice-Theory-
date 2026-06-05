@@ -511,6 +511,8 @@ Connects the combinatorial `choose` (Pascal) to the analytic `factorial`; reusab
 probability.  Purity: needed NatHelper's pure `mul_assoc` (Lean-core `Nat.mul_assoc` leaks `propext`).
 Two clean corollaries: `choose_symm` (`C(k+j,k)=C(k+j,j)`, cancelling the common `k!·j!` from two bridge
 instances) and `pascal_row_sum` (`Σ_{k=0}^n C(n,k) = 2ⁿ`, the binomial theorem at `a=1` — in `BinomialTheorem`).
+Plus `choose_le_two_pow` (`C(n,k) ≤ 2ⁿ`, each binomial ≤ the row sum, via `sumTo_term_le`) — the standard
+coefficient bound (Chernoff/probability).
 
 ### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
 

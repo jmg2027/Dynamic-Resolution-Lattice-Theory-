@@ -268,4 +268,22 @@ theorem pascal_row_sum (n : Nat) : sumTo (n + 1) (fun k => choose n k) = 2 ^ n :
   exact sumTo_congr (n + 1) (fun k => choose n k) (fun k => choose n k * 1 ^ k)
     (fun k _ => by show choose n k = choose n k * 1 ^ k; rw [Nat.one_pow, Nat.mul_one])
 
+/-- A single term is `≤` the whole sum (all terms `Nat`-nonneg). -/
+theorem sumTo_term_le : ∀ (m : Nat) (f : Nat → Nat) (k : Nat), k < m → f k ≤ sumTo m f
+  | 0, _, _, h => absurd h (Nat.not_lt_zero _)
+  | m + 1, f, k, h => by
+    rw [sumTo_succ]
+    rcases Nat.lt_or_eq_of_le (Nat.le_of_lt_succ h) with hlt | heq
+    · exact Nat.le_trans (sumTo_term_le m f k hlt) (Nat.le_add_right _ _)
+    · subst heq; exact Nat.le_add_left _ _
+
+/-- ★★ **Binomial bound**: `C(n, k) ≤ 2ⁿ` — each binomial coefficient is at most the
+    Pascal row sum.  (For `k ≤ n` it is one term of `Σ C(n,j) = 2ⁿ`; for `k > n` it is `0`.) -/
+theorem choose_le_two_pow (n k : Nat) : choose n k ≤ 2 ^ n := by
+  rcases Nat.lt_or_ge k (n + 1) with h | h
+  · rw [← pascal_row_sum n]
+    exact sumTo_term_le (n + 1) (fun j => choose n j) k h
+  · rw [E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial.choose_eq_zero_of_lt n k h]
+    exact Nat.zero_le _
+
 end E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem
