@@ -1,4 +1,5 @@
 import E213.Lib.Math.NumberTheory.ModArith.GaussLemma
+import E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
 import E213.Lib.Math.Algebra.Linalg213.SumLinear
 
 /-!
@@ -14,7 +15,8 @@ Plan: `research-notes/frontiers/quadratic_reciprocity.md`.
 
 namespace E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
 
-open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg fold fold_perm fold_lo fold_hi)
+open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg fold fold_perm fold_lo fold_hi sgFn sgFn_lo sgFn_hi)
+open E213.Lib.Math.NumberTheory.ModArith.SecondSupplement (countNeg)
 open E213.Lib.Math.Algebra.Linalg213.Permutation (sumZ sumZ_lperm map_lperm)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_map')
 open E213.Lib.Math.Algebra.Linalg213.SumLinear (sumZ_map_add sumZ_map_sub sumZ_map_const_mul)
@@ -143,5 +145,34 @@ theorem floor_mu_even (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1
     · exact absurd h (by decide)
     · exact absurd h (Nat.ne_of_lt hp2)
   exact int_euclid 2 (by decide) two_prime (p : Int) (Sfloor + Imu) ⟨_, key⟩ hnp2
+
+/-- The μ-indicator sum equals the μ-count (cast).  Per-element: `(if (a·x)%p ≤ m then 0 else 1)`
+    is `1` exactly when `sgFn a p m x = −1`; `countNeg` counts the `−1`s. -/
+private theorem ind_sum_countNeg (a p m : Nat) : ∀ (L : List Nat),
+    sumZ (L.map (fun x => if (a * x) % p ≤ m then (0 : Int) else 1))
+      = ((countNeg (L.map (sgFn a p m)) : Nat) : Int)
+  | [] => rfl
+  | x :: xs => by
+    show (if (a * x) % p ≤ m then (0 : Int) else 1)
+          + sumZ (xs.map (fun y => if (a * y) % p ≤ m then (0 : Int) else 1))
+       = ((countNeg (xs.map (sgFn a p m)) + (if sgFn a p m x = -1 then 1 else 0) : Nat) : Int)
+    rw [ind_sum_countNeg a p m xs]
+    rcases Nat.lt_or_ge ((a * x) % p) (m + 1) with hc | hc
+    · have hle : (a * x) % p ≤ m := Nat.le_of_lt_succ hc
+      rw [if_pos hle, sgFn_lo a p m x hle,
+          show (if (1 : Int) = -1 then (1 : Nat) else 0) = 0 from by decide, Nat.add_zero,
+          E213.Meta.Int213.zero_add]
+    · have hnle : ¬ (a * x) % p ≤ m := fun h => Nat.not_succ_le_self m (Nat.le_trans hc h)
+      rw [if_neg hnle, sgFn_hi a p m x hnle,
+          show (if (-1 : Int) = -1 then (1 : Nat) else 0) = 1 from by decide,
+          natCast_add, show ((1 : Nat) : Int) = 1 from rfl]
+      ring_intZ
+
+/-- ★ **The μ-indicator sum equals the μ-count** (over `[1..m]`, cast to `ℤ`):
+    `Σₓ (if (a·x)%p ≤ m then 0 else 1) = ↑(countNeg ((seg m).map (sgFn a p m)))`. -/
+theorem imu_eq_countNeg (a p m : Nat) :
+    sumZ ((seg m).map (fun x => if (a * x) % p ≤ m then (0 : Int) else 1))
+      = ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int) :=
+  ind_sum_countNeg a p m (seg m)
 
 end E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity

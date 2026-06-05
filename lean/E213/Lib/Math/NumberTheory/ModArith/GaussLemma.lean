@@ -330,10 +330,10 @@ private def castFn (n : Nat) : Int := (n : Int)
 /-- The least-residue sign of `a·x`: `+1` if `(a·x) % p ≤ m`, else `−1`. -/
 def sgFn (a p m x : Nat) : Int := if (a * x) % p ≤ m then (1 : Int) else -1
 
-private theorem sgFn_lo (a p m x : Nat) (h : (a * x) % p ≤ m) : sgFn a p m x = 1 := by
+theorem sgFn_lo (a p m x : Nat) (h : (a * x) % p ≤ m) : sgFn a p m x = 1 := by
   show (if (a * x) % p ≤ m then (1 : Int) else -1) = 1; rw [if_pos h]
 
-private theorem sgFn_hi (a p m x : Nat) (h : ¬ (a * x) % p ≤ m) : sgFn a p m x = -1 := by
+theorem sgFn_hi (a p m x : Nat) (h : ¬ (a * x) % p ≤ m) : sgFn a p m x = -1 := by
   show (if (a * x) % p ≤ m then (1 : Int) else -1) = -1; rw [if_neg h]
 
 /-- The least-residue sign is `±1`. -/
