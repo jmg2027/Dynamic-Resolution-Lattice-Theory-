@@ -24,6 +24,18 @@ The honest paradox the figure carries: Raw commits to no geometry (§2.5), so an
 not escaped.  This is why the atlas has no privileged cell: there is no reading
 that *is* the Raw, only readings that point at it.
 
+**Looking inside the free-graph Lens** (`free_graph_lens.py`).  It is the
+*minimal* reading: it imposes only adjacency (which pairs are connected), no
+metric.  The figure shows the same Raw graph under two force-directed layouts —
+different shapes, identical topology, so the drawn shape is the layout (the
+Lens), not the Raw.  What *is* layout-invariant is the birth-ordered **adjacency
+matrix**: each node bonds to its two earlier parents, a strictly lower-triangular,
+two-per-row pattern — the slash recursion made matrix.  That matrix, not any
+shape, is what the free-graph Lens actually reads; and even it is a reading (the
+graph is content the slash supports, §6.3 flat ontology: a relation is a
+predicate on `Raw²`), not the Raw as-such.  The most neutral Lens still falls
+short of the residue — the cleanest demonstration of `object1_not_surjective`.
+
 ## The generating space (the dials)
 
 The construction "every relation of two objects is itself an object, recurse"
