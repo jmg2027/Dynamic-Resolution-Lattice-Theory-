@@ -467,7 +467,7 @@ theorem mem_scdStep {C D : List (List Bool)} (h : C ∈ scdStep D) :
         | head => exact Or.inr rfl
         | tail _ h'' => nomatch h''
 
-open E213.Lib.Math.Combinatorics.Permutations (flatMap213 mem_flatMap213)
+open E213.Lib.Math.Combinatorics.Permutations (flatMap213 mem_flatMap213 mem_flatMap213_of)
 
 /-- The symmetric chain decomposition of `2^[n]`. -/
 def scd : Nat → List (List (List Bool))
@@ -491,5 +491,75 @@ theorem scd_sorted : ∀ (n : Nat) (C : List (List Bool)), C ∈ scd n → Sorte
     upper bound; the partition + the count `= C(n,⌊n/2⌋)` remain (frontier). -/
 theorem scd_isChain (n : Nat) (C : List (List Bool)) (h : C ∈ scd n) : IsChain C :=
   sorted_isChain (scd_sorted n C h)
+
+/-! ## §7 — the SCD covers `2^[n]` (obligation b: the cover) -/
+
+/-- `v ∈ C ⟹ false :: v ∈ extendC C` (the new element absent). -/
+theorem false_mem_extendC (v : List Bool) : ∀ (C : List (List Bool)),
+    v ∈ C → false :: v ∈ extendC C
+  | [], h => nomatch h
+  | [_], h => by
+      cases h with
+      | head => exact List.Mem.head _
+      | tail _ h' => nomatch h'
+  | _ :: w2 :: rest, h => by
+      cases h with
+      | head => exact List.Mem.head _
+      | tail _ h' => exact List.Mem.tail _ (false_mem_extendC v (w2 :: rest) h')
+
+/-- `v ∈ C ⟹ true :: v` is in `extendC C` (if `v` is the top) or `raiseC C`. -/
+theorem true_mem (v : List Bool) : ∀ (C : List (List Bool)),
+    v ∈ C → true :: v ∈ extendC C ∨ true :: v ∈ raiseC C
+  | [], h => nomatch h
+  | [_], h => by
+      cases h with
+      | head => exact Or.inl (List.Mem.tail _ (List.Mem.head _))
+      | tail _ h' => nomatch h'
+  | _ :: w2 :: rest, h => by
+      cases h with
+      | head => exact Or.inr (List.Mem.head _)
+      | tail _ h' =>
+          rcases true_mem v (w2 :: rest) h' with hh | hh
+          · exact Or.inl (List.Mem.tail _ hh)
+          · exact Or.inr (List.Mem.tail _ hh)
+
+theorem extendC_mem_scdStep (C : List (List Bool)) : extendC C ∈ scdStep C := by
+  unfold scdStep; cases raiseC C with
+  | nil => exact List.Mem.head _
+  | cons _ _ => exact List.Mem.head _
+
+theorem raiseC_mem_scdStep {C : List (List Bool)} {x : List Bool}
+    (hx : x ∈ raiseC C) : raiseC C ∈ scdStep C := by
+  unfold scdStep; cases hr : raiseC C with
+  | nil => rw [hr] at hx; nomatch hx
+  | cons a as => exact List.Mem.tail _ (List.Mem.head _)
+
+/-- ★★ **The SCD covers `2^[n]`.**  Every length-`n` vector lies in some chain of
+    `scd n` — so (with `scd_isChain`) `scd n` is a chain cover of `2^[n]`. -/
+theorem scd_cover : ∀ (n : Nat) (A : List Bool), A.length = n → ∃ C, C ∈ scd n ∧ A ∈ C
+  | 0, A, hA => by
+      cases A with
+      | nil => exact ⟨[[]], List.Mem.head _, List.Mem.head _⟩
+      | cons b v => nomatch hA
+  | n + 1, A, hA => by
+      cases A with
+      | nil => nomatch hA
+      | cons b v =>
+          obtain ⟨C, hC, hvC⟩ := scd_cover n v (Nat.succ.inj hA)
+          cases b with
+          | false =>
+              exact ⟨extendC C, mem_flatMap213_of hC (extendC_mem_scdStep C),
+                     false_mem_extendC v C hvC⟩
+          | true =>
+              rcases true_mem v C hvC with h | h
+              · exact ⟨extendC C, mem_flatMap213_of hC (extendC_mem_scdStep C), h⟩
+              · exact ⟨raiseC C, mem_flatMap213_of hC (raiseC_mem_scdStep h), h⟩
+
+/-- ★★ **`scd n` is a chain cover of `2^[n]`** — every member a chain, every
+    vector covered.  The Dilworth upper bound needs only `|scd n| = C(n,⌊n/2⌋)`
+    (the symmetric-level count) on top of this. -/
+theorem scd_chain_cover (n : Nat) :
+    (∀ C, C ∈ scd n → IsChain C) ∧ (∀ A, A.length = n → ∃ C, C ∈ scd n ∧ A ∈ C) :=
+  ⟨scd_isChain n, scd_cover n⟩
 
 end E213.Lib.Math.Combinatorics.ChainAntichain
