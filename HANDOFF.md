@@ -2,8 +2,8 @@
 
 ## Branch
 `claude/another-challenge-compile-DJWI4` — commits pushed ahead of `origin`.
-`cd lean && lake build E213` ✓ clean (307/307).  `tools/scan_axioms.py
-E213.Lib.Math.Combinatorics.Sperner` → **39/39 PURE / 0 DIRTY**.
+`cd lean && lake build E213` ✓ clean.  Combinatorics scan: `Sperner` 47/47,
+`Permutations` 21/21, `SpernerChains` 49/49 — **all PURE / 0 DIRTY**.
 
 ## What was done this session
 
@@ -57,13 +57,9 @@ general permutation-enumeration infrastructure the repo lacked.
 The subset-count is already `Sperner.layer_size` (`= C(N,k)`); remaining is the
 `K_N` edge↔position indexing into `erdos_schema`.
 
-### 2. The factorial identity `binom n k · (k!·(n−k)!) = n!`
-Clean ∅-axiom induction; the bridge from `lym_double_count` (`Σ |A|!(n−|A|)! ≤
-n!`) to the LYM fractional form.  Unbuilt; reachable.
-
 ## Next
-- Push commits.  Then: build `allPerms n` (Open Problem 1) to close both named
-  bounds, or move to a different domain (primacy = breadth).
+- Sperner is closed.  Next: the Ramsey `K_N` edge model (1b) to close the last
+  proof-ISA named rung, or move to a different domain (primacy = breadth).
 
 ## Three-tier state
 - **Promotion this session**: `theory/essays/proof_isa/sperner_double_counting.md`
@@ -73,13 +69,11 @@ n!`) to the LYM fractional form.  Unbuilt; reachable.
 
 ## File Map
 ```
-lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← the compilation (39/39 PURE)
-lean/E213/Lib/Math/Combinatorics/Permutations.lean   ← n! enumeration (10/10 PURE)
-lean/E213/Lib/Math/Combinatorics.lean                ← umbrella (Sperner registered)
-lean/E213/Lib/Math/Combinatorics/INDEX.md            ← module + proof-ISA entries
-theory/essays/proof_isa/sperner_double_counting.md   ← the "why" essay
-theory/essays/proof_isa/INDEX.md                     ← series now 5 techniques (4 close)
-research-notes/frontiers/G205_*.md                   ← the shared permutation-enum rung
-research-notes/frontiers/INDEX.md                    ← two named rungs, one shared gap
-STRICT_ZERO_AXIOM.md                                 ← Sperner 39/39 PURE addition (2026-06-05)
+lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← LYM engine + arithmetic + reduction (47/47 PURE)
+lean/E213/Lib/Math/Combinatorics/Permutations.lean   ← full perms characterisation (21/21 PURE)
+lean/E213/Lib/Math/Combinatorics/SpernerChains.lean  ← chain model + sperner_theorem (49/49 PURE)
+lean/E213/Lib/Math/Combinatorics.lean                ← umbrella (all three registered)
+theory/essays/proof_isa/sperner_double_counting.md   ← the "why" essay (rung discharged)
+STRICT_ZERO_AXIOM.md                                 ← Sperner CLOSED addition (2026-06-05)
+research-notes/frontiers/G205_*.md                   ← CLOSED frontier record
 ```
