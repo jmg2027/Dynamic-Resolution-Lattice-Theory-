@@ -157,8 +157,8 @@ results need `List.range`/`foldr` induction (`List213`); a concrete tractable re
   `cfgIdeals V s` to `List.foldr g (0 + f s) (range s)`; by `Hmono`,
   `0 + f s ≤ cfgIdeals V s`; and `f s = binom s s * 2^(V*s) * 2^(s*(s-1)/2)
   = 1 * 2^(V*s) * 2^(…) ≥ 1` via `binom_self` + `Nat.one_le_two_pow`/`one_le_pow`.
-- Then **`cfgIdeals_dominant (V s) : 2 ^ (V*s) ≤ cfgIdeals V s`** falls out the same
-  way (`f s ≥ 2^(V*s)`), the lower bound matching the dominant term.
+- **`cfgIdeals_dominant (V s) : 2^(V*s) ≤ cfgIdeals V s` — CLOSED** ∅-axiom (via
+  `binom_self` + `cfgTerm_le_cfgSum`); the dominant-term lower bound.
 
 Verify each with `#print axioms`; the only risk is locating the PURE `List`/`Nat`
 core lemmas (`range_succ`, `foldr_append`, `one_le_pow`) — confirm with a scratch
