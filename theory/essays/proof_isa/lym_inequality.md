@@ -95,6 +95,46 @@ report with one rounding applied. The proof-ISA claim survives the test: the
 move is `COUNT`, the named inequality and its named corollary differ by a single
 `min`, and which theorem you have is which line of the compilation you read.
 
+## The same engine, a different incidence: Bollobás' set-pair inequality
+
+LYM and Sperner read one incidence matrix (subsets × chains). The double-count
+*engine* `lym_double_count` is blind to what the rows and columns are — it only
+needs "≤ 1 per column" and "count the rows". Point it at a different incidence
+and a different named theorem falls out with **no new engine**: Bollobás' set-pair
+inequality (1965).
+
+Given pairs `(A_i, B_i)` of subsets of `[n]` with `A_i ∩ B_i = ∅` and
+`A_i ∩ B_j ≠ ∅` for `i ≠ j` (cross-intersecting), uniform `|A_i|=a`, `|B_i|=b`:
+`m ≤ C(a+b, a)` — strikingly **independent of `n`**. The incidence is: rows are
+the pairs, columns are the *orderings* `π` of `[n]`, the entry is "`π` favours
+pair `i`" = every element of `A_i` precedes every element of `B_i`. Then
+
+  - **the column cap** — each ordering favours **≤ 1** pair — is the only new
+    content, and it is exactly an *antisymmetry of the ordering*: if `π` favoured
+    both `i` and `j`, pick `x ∈ A_i ∩ B_j` and `y ∈ A_j ∩ B_i`; favouring `i`
+    puts `x` (in `A_i`) before `y` (in `B_i`), favouring `j` puts `y` (in `A_j`)
+    before `x` (in `B_j`), so `x` before `y` *and* `y` before `x`, forcing
+    `x = y`, whence `x ∈ A_i ∩ B_i = ∅` — contradiction
+    (`before_antisymm`, `bollobas_cap`);
+  - **the row count** is `Σ_i #{π favouring i} ≤ n!` — `lym_double_count`,
+    verbatim (`bollobas_sum`);
+  - **the cancel** divides by the per-pair favour-count `n!·a!·b!/(a+b)!` and
+    reads off `m ≤ (a+b)!/(a!·b!) = C(a+b,a)` via the same `binom_mul_fact`
+    (`bollobas`).
+
+So Bollobás is *the same compilation as LYM* — `double-COUNT ∘ SEPARATE` — with
+the chains-vs-subsets incidence swapped for orderings-vs-pairs, and the
+antichain cap (`≤ 1 chain member`) swapped for the cross-intersection cap
+(`≤ 1 favoured pair`). The `SEPARATE` instruction is doing the same job in both;
+the `n`-independence is just the favour-count's `n!` cancelling the chain total.
+
+**The honest rung.** The favour-count `#{π : all A before all B} =
+C(n,a+b)·a!·b!·(n−a−b)!` (the analogue of `chain_low`'s `k!·(n−k)!`) is the one
+geometric count not yet discharged — `bollobas` takes it as a hypothesis, exactly
+as `sperner_upper_bound` once took its chain counts before `SpernerChains` closed
+them. The *content* of Bollobás — the cross-intersection column cap — is closed
+∅-axiom here; the count is recorded as the open rung.
+
 ## Witnesses
 
   - `lean/E213/Lib/Math/Combinatorics/LymInequality.lean` — `lym_inequality`
@@ -110,4 +150,9 @@ move is `COUNT`, the named inequality and its named corollary differ by a single
     `chain_cap` (≤ 1 per chain), `chain_low` (≥ `|A|!(n−|A|)!` per member).
   - the corollary it refines: `sperner_double_counting.md`,
     `SpernerChains.sperner` / `sperner_theorem`.
+  - the same engine on a new incidence:
+    `lean/E213/Lib/Math/Combinatorics/BollobasSetPair.lean` — `before_antisymm`,
+    `bollobas_cap` (the cross-intersection column cap, the new content),
+    `bollobas_sum` (engine = `lym_double_count` on favours), `bollobas` (named
+    bound modulo the favour-count rung).  18/18 PURE.
   - instruction set: `seed/PROOF_ISA.md`, `lean/E213/Lens/ProofISA.lean`.

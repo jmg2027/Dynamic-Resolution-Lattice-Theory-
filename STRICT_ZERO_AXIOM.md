@@ -299,6 +299,22 @@ extremal antichains), and `sperner_via_lym` (LYM ⟹ Sperner: apply the discarde
 existing engine stopped one line before Sperner's collapse, strictly stronger
 than the number it implies.  Essay: `theory/essays/proof_isa/lym_inequality.md`.
 
+★ **Bollobás' set-pair inequality — the same engine, a new incidence** —
+`E213.Lib.Math.Combinatorics.BollobasSetPair` (**18/18 PURE**): the COUNT
+double-count on the *favour*-incidence (pairs × orderings).  New content:
+`before` + `before_antisymm` (ordering antisymmetry, no `Nodup`),
+`favours`/`favours_before`, and ★ `bollobas_cap` — cross-intersection
+(`A_i∩B_j ≠ ∅`) + per-pair disjointness (`A_i∩B_i = ∅`) ⟹ each ordering favours
+≤ 1 pair (the column cap, *the content of Bollobás*).  ★ `bollobas_sum` (the
+engine = `lym_double_count` on favours, unconditional) and ★★ `bollobas` (the
+named bound `|F| ≤ C(a+b,a)`, `n`-independent, modulo the favour-count
+`V·(a+b)! = n!·a!·b!` — the honest open rung, the ordering-count analogue of
+`SpernerChains.chain_low`).  Reuses `lym_double_count`, `binom_mul_fact`,
+`SpernerChains.{truePos,idxList,perms,lcount_le_one_of}` — Bollobás is LYM's
+compilation with the incidence swapped (subsets×chains → pairs×orderings) and
+the antichain cap swapped for the cross-intersection cap.  Essay:
+`theory/essays/proof_isa/lym_inequality.md` (Bollobás section).
+
 ### Markov composite uniqueness: prime-power-neighbour families addition (2026-06-04)
 
 `E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness` + `…SternBrocotMarkov` +

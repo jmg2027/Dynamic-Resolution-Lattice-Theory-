@@ -49,11 +49,24 @@ exposed patterns worth harvesting.
   `LymInequality.lym_antichain` (division-free form `Σ |A|!(n−|A|)! ≤ n!`),
   with `lym_tight_layer` (sharpness) and `sperner_via_lym` (LYM ⟹ Sperner); it
   was the existing `lym_double_count` engine stopped one line before Sperner's
-  `min`-collapse.  Still open and LYM-shaped on the same substrate:
-  Dilworth/Mirsky (chain/antichain duality) and Bollobás' set-pair inequality
-  (orderings with "all of `A` before all of `B`", disjoint by cross-intersection;
-  the exact count `#E_i·(a+b)! = n!·a!·b!` is the remaining infra) — both reuse
-  `perms`/`kLayer`.
+  `min`-collapse.
+
+  ✓ **Bollobás' set-pair inequality `m ≤ C(a+b,a)` — the heart is closed** —
+  `BollobasSetPair` (18/18 PURE).  The new content (the column cap: cross-
+  intersection + per-pair disjointness ⟹ each ordering favours ≤ 1 pair, via
+  `before_antisymm`) and the engine (`bollobas_sum` = `lym_double_count` on the
+  favour-incidence) are done; the named bound `bollobas` holds **modulo the
+  favour-count rung** `V·(a+b)! = n!·a!·b!`.
+
+  **Open rung — the favour-count** `#{π : all A before all B} =
+  C(n,a+b)·a!·b!·(n−a−b)!` (i.e. `V·(a+b)! = n!·a!·b!`).  The ordering-count
+  analogue of `SpernerChains.chain_low`: build a duplicate-free injected family
+  of orderings favouring `(A,B)` — choose the `a+b` positions hosting `A∪B`
+  (`C(n,a+b)`), order `A` into the first `a` of them and `B` into the next `b`
+  (`a!·b!`), order the rest (`(n−a−b)!`) — counted via `perms`/`perms_append_mem`.
+
+  Still open and LYM-shaped on the same substrate: Dilworth/Mirsky
+  (chain/antichain duality).
 
 - **Leibniz determinant over `perms`.**  `Linalg213/Permutation` uses `LPerm`
   *equivalence* + inversion-sign but no enumeration; `perms` + `mem_perms_iff` +

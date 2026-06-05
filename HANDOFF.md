@@ -1,11 +1,32 @@
-# Session Handoff — 2026-06-05 (LYM inequality: the per-term refinement Sperner discards)
+# Session Handoff — 2026-06-05 (LYM inequality + Bollobás set-pair, on the COUNT substrate)
 
 ## Branch
 `claude/substrate-synthesis-count-zq9K0` — pushed.
-`cd lean && lake build E213.Lib.Math.Combinatorics` ✓ clean.  New module strict
-∅-axiom (`tools/scan_axioms.py`): **LymInequality 5/5 PURE, 0 DIRTY**.
+`cd lean && lake build E213.Lib.Math.Combinatorics` ✓ clean.  Two new modules
+strict ∅-axiom (`tools/scan_axioms.py`): **LymInequality 5/5 PURE**,
+**BollobasSetPair 18/18 PURE**, 0 DIRTY.
 
-## What Was Done This Session
+## What Was Done This Session (two seeds of count_substrate_synthesis.md)
+
+### Part B — Bollobás' set-pair inequality (`BollobasSetPair.lean`, 18/18 PURE)
+The next LYM-shaped named bound: `m ≤ C(a+b,a)` (n-independent) for a
+cross-intersecting, per-pair-disjoint family of set pairs.  Same `COUNT`
+double-count engine as LYM, a *different incidence* (pairs × orderings, entry =
+"ordering favours the pair = all A before all B").
+- **New content (the heart)**: `before` (ordering relation) + `before_antisymm`
+  (antisymmetry, no `Nodup`), `favours`/`favours_before`, and ★ `bollobas_cap`
+  — cross-intersection ⟹ each ordering favours ≤ 1 pair (the column cap; the
+  contradiction is `before c x y` ∧ `before c y x` ⟹ `x = y ∈ A_i∩B_i = ∅`).
+- ★ `bollobas_sum` — the engine, unconditional: `Σ_i #{favouring i} ≤ n!`
+  (= `lym_double_count` on the favour-incidence, verbatim).
+- ★★ `bollobas` — the named bound `|F| ≤ C(a+b,a)`, **modulo the favour-count**
+  `V·(a+b)! = n!·a!·b!` (the honest open rung — the ordering-count analogue of
+  `chain_low`; recorded in the frontier).  Cancellation via `binom_mul_fact`.
+Bollobás = LYM's compilation with the incidence swapped and the antichain cap
+swapped for the cross-intersection cap — no new engine.  The Bollobás section
+was added to `theory/essays/proof_isa/lym_inequality.md`.
+
+### Part A — the LYM inequality (`LymInequality.lean`, 5/5 PURE)
 
 Harvested the first seed of `research-notes/frontiers/count_substrate_synthesis.md`
 ("explicit fractional LYM `Σ 1/C(n,|A|) ≤ 1` for free"): stated and closed the
@@ -52,11 +73,14 @@ Physics constants table: `catalogs/physics-constants.md`.
 ## Open Problems (Priority Order)
 From `research-notes/frontiers/count_substrate_synthesis.md` (registered in
 `frontiers/INDEX.md`):
-### 1. More LYM-shaped named bounds on the same substrate
-**Dilworth/Mirsky** (chain/antichain duality) and **Bollobás' set-pair
-inequality** remain open.  Bollobás: orderings with "all of `A` before all of
-`B`", events disjoint by cross-intersection (`A_i∩B_j ≠ ∅`); the remaining infra
-is the exact ordering count `#E_i·(a+b)! = n!·a!·b!`.  Both reuse `perms`/`kLayer`.
+### 1. Discharge the Bollobás favour-count rung (closes `bollobas` unconditionally)
+The one remaining count: `#{π : all A before all B} = C(n,a+b)·a!·b!·(n−a−b)!`,
+i.e. `V·(a+b)! = n!·a!·b!`.  Ordering-count analogue of `SpernerChains.chain_low`:
+inject orderings favouring `(A,B)` — choose the `a+b` positions hosting `A∪B`
+(`C(n,a+b)`), order `A` into the first `a`, `B` into the next `b` (`a!·b!`),
+order the rest (`(n−a−b)!`), via `perms`/`perms_append_mem`.  Feeds `bollobas`'s
+`hV`+`hcount` to make `m ≤ C(a+b,a)` unconditional.
+### 2. More LYM-shaped named bounds: Dilworth/Mirsky (chain/antichain duality).
 ### 2. A clean strict-order/pow `Meta/Nat` suite
 `Nat.mul_lt_mul_right` carries **Classical.choice**; `Nat.pow_add`/`Nat.succ_sub`
 carry propext — re-proven ad-hoc per file.  Canonicalise into `Meta/Nat`.
@@ -66,17 +90,18 @@ enumeration; `perms` + `mem_perms_iff` + `perms_nodup` supply the index set for
 `det = Σ_{σ∈perms} sign(σ)·Π M i σ(i)`.
 
 ## Next
-Merge to `main`, or continue the COUNT substrate (Bollobás set-pair, the natural
-next LYM-shaped named bound), or a different domain (primacy = breadth).
+Discharge the Bollobás favour-count rung (Open Problem 1 — closes `bollobas`
+unconditionally), then merge to `main`; or a different domain (primacy = breadth).
 
 ## File Map
 ```
+lean/E213/Lib/Math/Combinatorics/BollobasSetPair.lean ← Bollobás: before_antisymm, bollobas_cap, bollobas_sum, bollobas (18/18 PURE)  [NEW]
 lean/E213/Lib/Math/Combinatorics/LymInequality.lean  ← LYM named inequality (5/5 PURE)  [NEW]
-lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← lym_double_count engine + fact_mul_ge_mid (the discarded min)
-lean/E213/Lib/Math/Combinatorics/SpernerChains.lean  ← chain model (chains_length, chain_cap, chain_low)
-lean/E213/Lib/Math/Combinatorics.lean / INDEX.md     ← umbrella + module table (LymInequality registered)
-theory/essays/proof_isa/lym_inequality.md            ← LYM = Sperner's engine stopped before the min  [NEW]
+lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← lym_double_count engine + binom_mul_fact + fact_mul_ge_mid
+lean/E213/Lib/Math/Combinatorics/SpernerChains.lean  ← chain model (chains_length, chain_cap, chain_low, truePos, idxList, perms)
+lean/E213/Lib/Math/Combinatorics.lean / INDEX.md     ← umbrella + module table (both new modules registered)
+theory/essays/proof_isa/lym_inequality.md            ← LYM (Sperner's engine before the min) + Bollobás section  [NEW]
 theory/essays/{INDEX,proof_isa/INDEX}.md             ← essay entries
-research-notes/frontiers/count_substrate_synthesis.md ← fractional-LYM seed marked closed
-STRICT_ZERO_AXIOM.md                                  ← 5/5 PURE closure registered
+research-notes/frontiers/count_substrate_synthesis.md ← fractional-LYM closed; Bollobás heart closed, count rung recorded
+STRICT_ZERO_AXIOM.md                                  ← 5/5 + 18/18 PURE closures registered
 ```

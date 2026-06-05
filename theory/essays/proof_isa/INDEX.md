@@ -74,7 +74,11 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     LYM (apply `min`, then cancel), and `lym_tight_layer` proves the bound sharp
     — a full layer saturates it (`= n!`), so the layers are exactly the extremal
     antichains.  The lesson: a theorem and its famous corollary differ by which
-    line of one compilation you read.
+    line of one compilation you read.  Closes with **Bollobás' set-pair
+    inequality** `m ≤ C(a+b,a)` (`BollobasSetPair`, 18/18 PURE): the *same*
+    `lym_double_count` engine on a new incidence (pairs × orderings), the only
+    new content the cross-intersection column cap (`before_antisymm`,
+    `bollobas_cap`); the named bound holds modulo one ordering-count rung.
 
   · [`counting_as_cardinality.md`](counting_as_cardinality.md) — **what is counting,
     in 213?**  Synthesis of the COUNT arc: a cardinality is the count-Lens reading
