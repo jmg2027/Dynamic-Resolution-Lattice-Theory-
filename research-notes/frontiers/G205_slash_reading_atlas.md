@@ -107,3 +107,35 @@ its only remaining open is the de Rham fractal *dimension* (needs `Real213`
 Hausdorff/Moran machinery, not yet built).  The atlas's structural spine —
 K1, K2, K3, and the K4 generator tower — is Lean-verified; what remains is the
 fractal-dimension edge alone.
+
+## §5 Deep-research pass (agent-team, goal-directed)
+
+A four-agent deep-research pass (category/domain theory, order/concurrency theory,
+number theory/dynamics, repo-first) produced three rigorous characterizations +
+one new ∅-axiom theorem.  Capstone: `research-notes/geometric/DEEP_RESEARCH_REPORT.md`.
+
+- **μF ≅ νF coincidence** (`mu_nu_coincidence.md`): static = dynamic **iff the
+  reading is algebraic** (every νF element a directed sup of compact elements ⟺
+  ω-chain converges at ω ⟺ Cauchy-complete in Barr's depth ultrametric); the gap is
+  the Cantor diagonal (`object1_not_surjective`), `2^ℵ₀`.  Dividing line = glue
+  (free axis ⟹ coincide; contractive ⟹ gap).
+- **Configuration lattice** (`configuration_lattice.md`): the cycle is a
+  conflict-free Winskel event structure / Mazurkiewicz trace monoid; confluent
+  (Newman), distributive (Birkhoff); **new closed form**
+  `I(V,s)=Σ_k C(s,k)2^{Vk}2^{C(k,2)}` = `5,145,72 304 608 555 084 001,…`; covariance
+  = schedule-invariance (event structure, **not** a causal set); this IS the DRLT
+  lattice.
+- **Constants dictionary** (`constants_dictionary.md`): binary slash ⟹ minimal
+  quadratic Pisot `φ` (ρ the cubic/global-minimal Pisot); the three φ-frames are
+  one `GL(2,ℤ)` datum (Hurwitz ⟺ equidistribution ⟺ quasicrystal); each reading
+  carries its renormalization multiplier (φ,ρ algebraic; δ transcendental);
+  Bombieri–Taylor is the Pisot⟹quasicrystal mechanism.
+
+**New ∅-axiom theorem:** `BipartiteDecomp/ConfigLatticeCount.lean` (7 PURE) —
+`cfgIdeals` with `cycle1=5, cycle2=145, cycle3=72 304 608 555 084 001`; the cycle-3
+count was unknown before this pass.
+
+**Next targets (ranked):** (1) mechanize the μF≅νF biconditional / build a
+contractive νF; (2) the event-structure/trace layer over Raw + parametric
+`cfgIdeals` theorem + link to `Lens/Lattice`; (3) the Lagrange-spectrum link
+(`k²+4` already in `MetallicGeneratorTower`) + ρ as a cubic-Pisot object.
