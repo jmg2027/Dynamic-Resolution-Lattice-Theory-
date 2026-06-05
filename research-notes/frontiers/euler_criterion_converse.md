@@ -13,6 +13,11 @@ Euclid); the rest transcribed `NonFixedExists.exists_nonfixed_gen` with the squa
 replacing the residue range.  This sub-tree is **promotion-eligible** (closed + categorical) — write
 `theory/math/numbertheory/euler_criterion.md` and archive this note.
 
+## Downstream — closed so far
+
+- **First supplement** `−1` QR ⟺ `p ≡ 1 (mod 4)` — **CLOSED** (`EulerFirstSupplement.neg_one_qr_iff`,
+  4 PURE): `euler_criterion` at `a = p−1` + parity of `(−1)ᵐ`.
+
 ## Open downstream (each builds directly on `euler_criterion`)
 
 1. **Quadratic character of `2`** (the second supplement): `2` is a QR mod `p` ⟺ `p ≡ ±1 (mod 8)`.

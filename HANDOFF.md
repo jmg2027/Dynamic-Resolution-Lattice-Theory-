@@ -24,11 +24,18 @@ clean; all 16 new theorems `#print axioms`-clean (PURE).
 
 Sub-tree is **promotion-eligible** (closed + categorical) → `theory/math/numbertheory/euler_criterion.md`.
 
-### 2. The downstream — frontier
-`research-notes/frontiers/euler_criterion_converse.md` (repurposed): the now-open work building on
-`euler_criterion` — the quadratic character of `2` (second supplement, `p ≡ ±1 mod 8`), Gauss's lemma
-`(a/p) = (−1)^μ`, and Zolotarev `(a/p) = sign(mul-by-a)` (the `psign` sign side is already PURE in
-`Algebra/Linalg213/Permutation.lean`).
+### 2. First supplement to quadratic reciprocity — CLOSED (strict ∅-axiom)
+`lean/E213/Lib/Math/NumberTheory/ModArith/EulerFirstSupplement.lean` (**4 PURE**).  `neg_one_qr_iff`:
+`(∃ x, x² ≡ p−1) ⟺ p ≡ 1 (mod 4)` — `euler_criterion` at `a = p−1` + parity of `(−1)ᵐ`
+(`neg_one_sq_mod`/`neg_one_odd_pow_mod`) + `2m = p−1 ⟹ (m even ⟺ p≡1 mod 4)`.  (`QRNegOne` had only
+the one direction; this is the full iff.)  Supporting: `negone_even_pow`, `neg_one_pow_dvd_iff_even`,
+`even_iff_pmod4`, pure `mod_two_cases`.
+
+### 3. The downstream — frontier
+`research-notes/frontiers/euler_criterion_converse.md`: the remaining open work — the quadratic
+character of `2` (second supplement, `p ≡ ±1 mod 8`), Gauss's lemma `(a/p) = (−1)^μ`, and Zolotarev
+`(a/p) = sign(mul-by-a)` (the `psign` sign side already PURE; the product/permutation infra
+`ProdLperm.prodZ_lperm` + `Laplace.lperm_of_nodup_mem_iff` exists for the Gauss/Zolotarev product).
 
 ### 3. Re-framing-lint pilot (agent-side empirical test)
 `research-notes/frontiers/the_reframing_conquest.md` updated with the pilot: a CONTROL (no lint) vs

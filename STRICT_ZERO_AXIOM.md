@@ -271,8 +271,16 @@ division enters) and a unit `1 ≤ a < p`:
   `natCast_sub` / `mod_eq_of_dvd_sub` / `dvd_int_sub_to_mod_eq`.
 - ★ `euler_criterion` — the **full iff** `aᵐ ≡ 1 (mod p) ⟺ a` is a quadratic residue.
 
-`#print axioms` clean on all 16.  Unlocks: the quadratic character of `2` (second supplement),
-Gauss's lemma, Zolotarev (`psign` machinery already PURE).
+`#print axioms` clean on all 16.
+
+### First supplement to quadratic reciprocity (`−1` QR ⟺ `p ≡ 1 mod 4`), strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.EulerFirstSupplement` (**4 PURE**).  `neg_one_qr_iff`:
+`(∃ x, x² ≡ p−1 (mod p)) ⟺ p ≡ 1 (mod 4)`, for prime `p`, `2m = p−1`.  Corollary of `euler_criterion`
+(`a = p−1`): `−1` a QR ⟺ `(p−1)ᵐ ≡ 1`, and `(p−1)ᵐ ≡ (−1)ᵐ` is `1` iff `m` even
+(`neg_one_sq_mod`/`neg_one_odd_pow_mod`), and `2m = p−1` makes `m` even ⟺ `p ≡ 1 mod 4`
+(`neg_one_pow_dvd_iff_even`, `even_iff_pmod4`, pure `mod_two_cases`).  The full iff (`QRNegOne` had only
+the `p≡1mod4 ⟹ QR` direction).  Next downstream: quadratic character of `2`, Gauss's lemma, Zolotarev.
 
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
