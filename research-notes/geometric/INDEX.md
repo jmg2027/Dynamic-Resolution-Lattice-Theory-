@@ -6,6 +6,28 @@ gives different geometric objects, and different structural invariants surface.
 This is the geometric face of `06_lens_readings.md` §6 "Lens readings of the same
 residue".  Started from Mingu Jeong's "object IS two distinct objects" sketch.*
 
+## Naming — the `shapeLens` (Mingu Jeong)
+
+The reading this atlas is *about* — read the slash geometrically: **a point per
+object, a line per relation** — is named the **`shapeLens`**.  Precisely it is not
+a single reading but a **genus**: the deep-research pass showed (i) the *combining
+map* (midpoint / mediant / free axis / off-segment `w` / …) is a dial selecting a
+**species**, (ii) even the *connection criterion* (parent-edges / 2-simplex /
+hypergraph) is a sub-Lens (`connection_criterion.py`), and (iii) the species
+stratify by `μF ≅ νF` (algebraic ⟺ static=dynamic) vs the Cantor-gap
+(`mu_nu_coincidence.md`).  So:
+
+> **`shapeLens`** = the genus "geometrize the slash as incidence (point=object,
+> line=relation)"; a *species* = `shapeLens` + a fixed combining-map / connection
+> criterion (e.g. the **dimension-Lens** = the free/orthogonal species,
+> `dimension_lens.md`; the mediant species → Stern–Brocot/`P`).  The atlas
+> enumerates `shapeLens` species; `Raw` (below) is what they all read.
+
+A future formal `shapeLens : ...` would be the geometric-realization fold out of
+`Raw` (no such Lean object yet; the cells `SimplexOrthogonality`,
+`MetallicThreshold`, `K32Adjacency`, `ConfigLatticeCount` are species-level
+results).
+
 ## The Raw itself (what every reading is a reading *of*)
 
 `raw_itself.py`.  Every shape in this atlas is a *Lens reading* — a combining map

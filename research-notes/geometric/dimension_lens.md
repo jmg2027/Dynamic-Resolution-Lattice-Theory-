@@ -2,7 +2,9 @@
 
 *Tier 1 (research-notes).  Synthesis tying the geometric series in this
 directory to the axiom layer.  Canonical sources win on any overlap:
-`seed/AXIOM/02_axiom.md`, `03_form.md`, `06_lens_readings.md`.*
+`seed/AXIOM/02_axiom.md`, `03_form.md`, `06_lens_readings.md`.  The dimension-Lens
+is the **free / orthogonal species of the `shapeLens`** (the geometric-realization
+genus; see `INDEX.md` "Naming").*
 
 ## The claim under test
 
