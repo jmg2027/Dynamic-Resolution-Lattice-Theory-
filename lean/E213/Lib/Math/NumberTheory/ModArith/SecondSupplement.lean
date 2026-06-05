@@ -1,4 +1,5 @@
 import E213.Lib.Math.NumberTheory.ModArith.GaussLemma
+import E213.Meta.Nat.NatDiv213
 
 /-!
 # SecondSupplement — toward the quadratic character of `2`
@@ -24,6 +25,8 @@ open E213.Lib.Math.Algebra.Linalg213.Permutation (iota)
 open E213.Meta.Int213 (mul_one)
 open E213.Meta.Nat.AddMod213 (div_add_mod)
 open E213.Tactic.NatHelper (add_sub_of_le add_mul_mod_self_pure)
+open E213.Tactic.NatHelper (sub_add_cancel add_sub_cancel_right)
+open E213.Meta.Nat.NatDiv213 (add_mul_div_left_pure div_le_self_pos)
 
 /-! ## §1 — a `±1`-product is `(−1)^(#negatives)` -/
 
@@ -165,5 +168,44 @@ theorem second_supplement_m (p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d
   refine (two_qr_iff p m hp hpr h2m hm1 hp2).trans ?_
   rw [prodZ_seg_sign m m, cnt2_at_m]
   exact neg_one_pow_iff (m - m / 2)
+
+/-- ★★★★★ **Second supplement to quadratic reciprocity.**  `2` is a QR mod a prime `p`
+    **iff** `p ≡ ±1 (mod 8)`.  `second_supplement_m` (`2 QR ⟺ (m − m/2) even`) bridged through
+    `m = 4q+r`: both `(m − m/2) % 2` and `p % 8 = 1 + 2(m%4)` are functions of `m % 4 ∈ {0,1,2,3}`. -/
+theorem second_supplement (p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (hp2 : 2 < p) :
+    (∃ z : Nat, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = 2) ↔ p % 8 = 1 ∨ p % 8 = 7 := by
+  refine (second_supplement_m p m hp hpr h2m hm1 hp2).trans ?_
+  have hp1 : p = 1 + 2 * m := by
+    have h := add_sub_of_le (Nat.le_of_lt hp); rw [← h2m] at h; exact h.symm
+  rw [hp1]
+  obtain ⟨q, r, hr4, hmd⟩ : ∃ q r, r < 4 ∧ m = 4 * q + r :=
+    ⟨m / 4, m % 4, Nat.mod_lt m (by decide), (div_add_mod m 4).symm⟩
+  rw [hmd]
+  have hdiv : (4 * q + r) / 2 = 2 * q + r / 2 := by
+    rw [show 4 * q + r = r + 2 * (2 * q) from by ring_nat, add_mul_div_left_pure r 2 (2 * q) (by decide)]
+    ring_nat
+  have hrle : r / 2 ≤ r := div_le_self_pos r 2 (by decide)
+  have hsub : (4 * q + r) - (2 * q + r / 2) = 2 * q + (r - r / 2) := by
+    have hadd : (2 * q + (r - r / 2)) + (2 * q + r / 2) = 4 * q + r := by
+      rw [show (2 * q + (r - r / 2)) + (2 * q + r / 2)
+            = 4 * q + ((r - r / 2) + r / 2) from by ring_nat, sub_add_cancel hrle]
+    rw [← hadd, add_sub_cancel_right]
+  have hmod2 : (2 * q + (r - r / 2)) % 2 = (r - r / 2) % 2 := by
+    rw [Nat.add_comm (2 * q) (r - r / 2),
+        show (r - r / 2) + 2 * q = (r - r / 2) + q * 2 from by ring_nat, add_mul_mod_self_pure]
+  have hp8 : (1 + 2 * (4 * q + r)) % 8 = 1 + 2 * r := by
+    rw [show 1 + 2 * (4 * q + r) = (1 + 2 * r) + q * 8 from by ring_nat, add_mul_mod_self_pure]
+    exact Nat.mod_eq_of_lt (by
+      have hle3 : r ≤ 3 := Nat.le_of_lt_succ hr4
+      calc 1 + 2 * r ≤ 1 + 2 * 3 := Nat.add_le_add_left (Nat.mul_le_mul_left 2 hle3) 1
+        _ < 8 := by decide)
+  rw [hdiv, hsub, hmod2, hp8]
+  rcases r with _ | _ | _ | _ | r'
+  · decide
+  · decide
+  · decide
+  · decide
+  · exact absurd (Nat.lt_of_le_of_lt (Nat.le_add_left 4 r') hr4) (Nat.lt_irrefl 4)
 
 end E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
