@@ -2,6 +2,7 @@ import E213.Lib.Math.NumberTheory.ModArith.GaussLemma
 import E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
 import E213.Lib.Math.Algebra.Linalg213.SumLinear
 import E213.Meta.Nat.PolyNatMTactic
+import E213.Meta.Nat.MulMod213
 
 /-!
 # QuadraticReciprocity — Eisenstein lattice-point route (in progress)
@@ -27,6 +28,7 @@ open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_mul)
 open E213.Lib.Math.NumberTheory.ModArith.EulerConverse (natCast_sub)
 open E213.Meta.Nat.AddMod213 (div_add_mod dvd_of_mod_eq_zero add_mod_left_pure zero_mod le_div_iff_mul_le)
 open E213.Meta.Nat.NatDiv213 (div_lt_of_lt_mul)
+open E213.Meta.Nat.MulMod213 (mul_mod_left_pure)
 open E213.Tactic.List213 (map_congr)
 open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat nat_dvd_to_int dvd_sub')
 open E213.Tactic.Pow213 (le_of_dvd_pos)
@@ -53,13 +55,13 @@ theorem floor_mod_split (a p m : Nat) :
 /-- ★ **The fold-value sum equals the half-system sum.**  `Σₓ ↑(fold a p m x) = Σₓ ↑x` over `[1..m]`,
     since `fold` permutes `[1..m]` (`fold_perm`). -/
 theorem fold_sum (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
-    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) :
+    (h2m : 2 * m = p - 1) (hnpa : ¬ p ∣ a) :
     sumZ ((seg m).map (fun x => ((fold a p m x : Nat) : Int)))
       = sumZ ((seg m).map (fun x => ((x : Nat) : Int))) := by
   rw [show (seg m).map (fun x => ((fold a p m x : Nat) : Int))
         = ((seg m).map (fold a p m)).map (fun n : Nat => (n : Int)) from
       (map_map' (fold a p m) (fun n : Nat => (n : Int)) (seg m)).symm]
-  exact sumZ_lperm (map_lperm (fun n : Nat => (n : Int)) (fold_perm a p m hp hpr h2m ha1 halt))
+  exact sumZ_lperm (map_lperm (fun n : Nat => (n : Int)) (fold_perm a p m hp hpr h2m hnpa))
 
 /-- Per-element evenness: `(↑(a·x%p) − ↑(fold x)) − ↑p·ind = 2·(if r≤m then 0 else ↑(a·x%p) − ↑p)`.
     Low branch `0`; high branch `↑r − (↑p − ↑r) − ↑p = 2(↑r − ↑p)`. -/
@@ -118,13 +120,13 @@ private theorem two_prime : ∀ d, d ∣ 2 → d = 1 ∨ d = 2 := fun d hd => by
     `2 ∣ (Σ⌊a·x/p⌋ + Σ ind)` (the floor sum ≡ μ mod 2).  Combines `floor_mod_split`, `Sa_eq`,
     `fold_sum`, `residue_fold_even`, the oddness of `a` (`↑a−1 = 2↑(a/2)`), and `int_euclid` (`p` odd). -/
 theorem floor_mu_even (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
-    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) (haodd : a % 2 = 1) (hp2 : 2 < p) :
+    (h2m : 2 * m = p - 1) (hnpa : ¬ p ∣ a) (haodd : a % 2 = 1) (hp2 : 2 < p) :
     (2 : Int) ∣ (sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int)))
         + sumZ ((seg m).map (fun x => if (a * x) % p ≤ m then (0 : Int) else 1))) := by
   have hsplit := floor_mod_split a p m
   rw [Sa_eq a m] at hsplit
   obtain ⟨k, hk⟩ := residue_fold_even a p m hp
-  have hfold := fold_sum a p m hp hpr h2m ha1 halt
+  have hfold := fold_sum a p m hp hpr h2m hnpa
   have hcast0 : (a : Int) = 2 * ((a / 2 : Nat) : Int) + 1 := by
     have hae : a = 2 * (a / 2) + 1 := by
       have h := div_add_mod a 2; rw [haodd] at h; exact h.symm
@@ -189,18 +191,37 @@ private theorem two_mul_mod (k : Nat) : (2 * k) % 2 = 0 := by
 private theorem two_dvd_to_mod (n : Nat) (h : 2 ∣ n) : n % 2 = 0 := by
   obtain ⟨k, hk⟩ := h; rw [hk]; exact two_mul_mod k
 
-/-- ★ **The Eisenstein bridge (divisibility form).**  For an odd unit `a` and odd prime `p`,
-    `a` is a quadratic residue mod `p` iff the floor sum `Σₓ∈[1,m] ⌊a·x/p⌋` is even.
-    Assembles `gauss_mu` (QR ⟺ μ even), `imu_eq_countNeg` (Imu = ↑μ), and `floor_mu_even`
+/-- **Generalized Gauss μ-criterion** (coprime, residue `z² ≡ a (mod p)`).  For `p ∤ a`,
+    `a` is a QR mod `p` (`∃z, z²%p = a%p`) ⟺ `μ` even.  Reduces to `gauss_mu` at `a % p` since
+    `sgFn` depends only on `(a·x) mod p` (`mul_mod_left_pure`).  Lets reciprocity apply the bridge at
+    `a = q` (the other prime, possibly `> p`). -/
+theorem gauss_mu_gen (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (hnpa : ¬ p ∣ a) :
+    (∃ z : Nat, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = a % p)
+      ↔ countNeg ((seg m).map (sgFn a p m)) % 2 = 0 := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
+  have h1 : 1 ≤ a % p := Nat.pos_of_ne_zero (fun h0 => hnpa (dvd_of_mod_eq_zero h0))
+  have hmodlt : a % p < p := Nat.mod_lt a hppos
+  have hsgeq : ∀ x, sgFn a p m x = sgFn (a % p) p m x := fun x => by
+    show (if (a * x) % p ≤ m then (1 : Int) else -1)
+       = (if ((a % p) * x) % p ≤ m then (1 : Int) else -1)
+    rw [mul_mod_left_pure a x p]
+  rw [show (seg m).map (sgFn a p m) = (seg m).map (sgFn (a % p) p m) from
+        map_congr (fun x _ => hsgeq x)]
+  exact gauss_mu (a % p) p m hp hpr h2m hm1 h1 hmodlt
+
+/-- ★ **The Eisenstein bridge (divisibility form).**  For an odd `a` coprime to an odd prime `p`,
+    `a` is a quadratic residue mod `p` (`z² ≡ a mod p`) iff the floor sum `Σₓ∈[1,m] ⌊a·x/p⌋` is even.
+    Assembles `gauss_mu_gen` (QR ⟺ μ even), `imu_eq_countNeg` (Imu = ↑μ), and `floor_mu_even`
     (`2 ∣ (Sfloor + Imu)`), with the `2∣·` ↔ `·%2=0` casts. -/
 theorem floor_qr (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
-    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) (haodd : a % 2 = 1)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (hnpa : ¬ p ∣ a) (haodd : a % 2 = 1)
     (hp2 : 2 < p) :
-    (∃ z : Nat, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = a)
+    (∃ z : Nat, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = a % p)
       ↔ (2 : Int) ∣ sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int))) := by
   have hsum : (2 : Int) ∣ (sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int)))
       + ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int)) := by
-    rw [← imu_eq_countNeg a p m]; exact floor_mu_even a p m hp hpr h2m ha1 halt haodd hp2
+    rw [← imu_eq_countNeg a p m]; exact floor_mu_even a p m hp hpr h2m hnpa haodd hp2
   have hmid : countNeg ((seg m).map (sgFn a p m)) % 2 = 0
       ↔ (2 : Int) ∣ sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int))) := by
     constructor
@@ -222,7 +243,7 @@ theorem floor_qr (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ 
             = ((countNeg ((seg m).map (sgFn a p m)) : Nat) : Int) := by ring_intZ
         rwa [heq] at hsub
       exact two_dvd_to_mod _ (by have := int_dvd_to_nat 2 _ hd; rwa [Int.natAbs_ofNat] at this)
-  exact (gauss_mu a p m hp hpr h2m hm1 ha1 halt).trans hmid
+  exact (gauss_mu_gen a p m hp hpr h2m hm1 hnpa).trans hmid
 
 /-- **Floor bound for the rectangle count (step 3 prerequisite).**  With `p = 2m+1`, `q = 2n+1`
     and `1 ≤ x ≤ m`, `⌊q·x/p⌋ ≤ n` — so each column's floor count stays within `[1..n]`.  Key:

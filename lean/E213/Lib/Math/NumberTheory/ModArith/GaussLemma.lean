@@ -152,12 +152,11 @@ private theorem res_pos (a p x : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d =
 
 /-- ★ **The fold lands in `[1, m]`.** -/
 theorem fold_mem (a p m x : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
-    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) (hx1 : 1 ≤ x) (hxm : x ≤ m) :
+    (h2m : 2 * m = p - 1) (hnpa : ¬ p ∣ a) (hx1 : 1 ≤ x) (hxm : x ≤ m) :
     1 ≤ fold a p m x ∧ fold a p m x ≤ m := by
   have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
   have hmp : m < p := m_lt_p p m hp h2m
   have hxp : x < p := Nat.lt_of_le_of_lt hxm hmp
-  have hnpa : ¬ p ∣ a := not_dvd_unit p a ha1 halt
   have hnpx : ¬ p ∣ x := not_dvd_unit p x hx1 hxp
   have hr1 : 1 ≤ (a * x) % p := res_pos a p x hp hpr hnpa hnpx
   have hrlt : (a * x) % p < p := Nat.mod_lt _ hppos
@@ -213,7 +212,7 @@ private theorem sum_imposs (a p x y : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p �
 
 /-- ★ **The fold is injective on the half-system.** -/
 theorem fold_inj (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
-    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) :
+    (h2m : 2 * m = p - 1) (hnpa : ¬ p ∣ a) :
     ∀ x, x ∈ seg m → ∀ y, y ∈ seg m → fold a p m x = fold a p m y → x = y := by
   intro x hx y hy hfe
   obtain ⟨hx1, hxm⟩ := mem_seg.mp hx
@@ -222,7 +221,6 @@ theorem fold_inj (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ 
   have hmp : m < p := m_lt_p p m hp h2m
   have hxp : x < p := Nat.lt_of_le_of_lt hxm hmp
   have hyp : y < p := Nat.lt_of_le_of_lt hym hmp
-  have hnpa : ¬ p ∣ a := not_dvd_unit p a ha1 halt
   have hrxlt : (a * x) % p < p := Nat.mod_lt _ hppos
   have hrylt : (a * y) % p < p := Nat.mod_lt _ hppos
   have hsum1 : 1 ≤ x + y := Nat.le_trans hx1 (Nat.le_add_right x y)
@@ -263,16 +261,16 @@ theorem fold_inj (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ 
     `[1..m]`: it is `Nodup` (injective, `fold_inj`) and lands in `[1..m]` (`fold_mem`), hence by
     cardinality (`mem_of_card_le`) hits every element. -/
 theorem fold_perm (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
-    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) :
+    (h2m : 2 * m = p - 1) (hnpa : ¬ p ∣ a) :
     LPerm ((seg m).map (fold a p m)) (seg m) := by
   have hsub : ∀ q, q ∈ (seg m).map (fold a p m) → q ∈ seg m := by
     intro q hq
     obtain ⟨x, hx, hxq⟩ := exists_of_mem_map hq
     obtain ⟨hx1, hxm⟩ := mem_seg.mp hx
     rw [← hxq]
-    exact mem_seg.mpr (fold_mem a p m x hp hpr h2m ha1 halt hx1 hxm)
+    exact mem_seg.mpr (fold_mem a p m x hp hpr h2m hnpa hx1 hxm)
   have hfnd : ((seg m).map (fold a p m)).Nodup :=
-    nodup_map_of_inj (fold_inj a p m hp hpr h2m ha1 halt) (seg_listNodup m)
+    nodup_map_of_inj (fold_inj a p m hp hpr h2m hnpa) (seg_listNodup m)
   have hlenEq : ((seg m).map (fold a p m)).length = (seg m).length := length_map (seg m) (fold a p m)
   have hmem : ∀ q, q ∈ (seg m).map (fold a p m) ↔ q ∈ seg m := fun q =>
     ⟨hsub q, mem_of_card_le hfnd hsub (Nat.le_of_eq hlenEq.symm) q⟩
@@ -347,7 +345,7 @@ theorem sgFn_pm (a p m x : Nat) : sgFn a p m x = 1 ∨ sgFn a p m x = -1 := by
     factoring `P_ax = ↑aᵐ·M`, `P_sf = P_sg·P_f`, `P_f = M` (`fold_perm`), and cancellation of the
     coprime `M = m!` (`not_dvd_prodZ` + `int_euclid`). -/
 theorem gauss_core (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
-    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) :
+    (h2m : 2 * m = p - 1) (hnpa : ¬ p ∣ a) :
     (p : Int) ∣ (((a ^ m : Nat)) : Int) - prodZ ((seg m).map (sgFn a p m)) := by
   have hmp : m < p := m_lt_p p m hp h2m
   -- congruence  ↑((a·x)%p) ≡ ↑a·↑x
@@ -407,7 +405,7 @@ theorem gauss_core (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 �
     rw [show (seg m).map (fun x => castFn (fold a p m x))
           = ((seg m).map (fold a p m)).map castFn from
         (map_map' (fold a p m) castFn (seg m)).symm]
-    exact prodZ_lperm (map_lperm castFn (fold_perm a p m hp hpr h2m ha1 halt))
+    exact prodZ_lperm (map_lperm castFn (fold_perm a p m hp hpr h2m hnpa))
   -- ¬ p ∣ M
   have hnM : ¬ (p : Int) ∣ prodZ ((seg m).map castFn) :=
     not_dvd_prodZ p hp hpr ((seg m).map castFn) (fun z hz => by
@@ -433,7 +431,7 @@ theorem gauss_core (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 �
 theorem gauss_qr (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
     (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) :
     (∃ z : Nat, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = a) ↔ prodZ ((seg m).map (sgFn a p m)) = 1 := by
-  have hcore := gauss_core a p m hp hpr h2m ha1 halt
+  have hcore := gauss_core a p m hp hpr h2m (not_dvd_unit p a ha1 halt)
   have hpm := prodZ_pm ((seg m).map (sgFn a p m)) (fun z hz => by
     obtain ⟨x, _, hxz⟩ := exists_of_mem_map hz
     rw [← hxz]
