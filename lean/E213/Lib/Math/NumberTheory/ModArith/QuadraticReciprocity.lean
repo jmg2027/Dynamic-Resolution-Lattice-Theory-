@@ -23,6 +23,8 @@ open E213.Lib.Math.NumberTheory.ModArith.NonFixedExists (natCast_mul)
 open E213.Lib.Math.NumberTheory.ModArith.EulerConverse (natCast_sub)
 open E213.Meta.Nat.AddMod213 (div_add_mod)
 open E213.Tactic.List213 (map_congr)
+open E213.Lib.Math.NumberTheory.PolyRoot (int_euclid int_dvd_to_nat)
+open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Meta.Int213.Order (sub_self_zero)
 open E213.Meta.Int213.PolyIntM (mul_zeroZ)
 
@@ -85,5 +87,61 @@ theorem residue_fold_even (a p m : Nat) (hp : 1 < p) :
       ← sumZ_map_const_mul 2
         (fun x => if (a * x) % p ≤ m then (0 : Int) else (((a * x % p : Nat) : Int) - (p : Int))) (seg m)]
   exact congrArg sumZ (map_congr (fun x _ => elem_two a p m x hp))
+
+/-- `Σ ↑(a·x) = ↑a · Σ ↑x` over `[1..m]`. -/
+theorem Sa_eq (a m : Nat) :
+    sumZ ((seg m).map (fun x => ((a * x : Nat) : Int)))
+      = (a : Int) * sumZ ((seg m).map (fun x => ((x : Nat) : Int))) := by
+  rw [show (seg m).map (fun x => ((a * x : Nat) : Int))
+        = (seg m).map (fun x => (a : Int) * ((x : Nat) : Int)) from
+      map_congr (fun x _ => natCast_mul a x),
+      sumZ_map_const_mul (a : Int) (fun x => ((x : Nat) : Int)) (seg m)]
+
+/-- `2` is prime (divisor dichotomy).  Pure: `d ∣ 2 ⟹ d ≤ 2 ⟹ d < 3`, case-split (`cases_lt_three`),
+    and `0 ∤ 2` via `0 · c = 0 ≠ 2`. -/
+private theorem two_prime : ∀ d, d ∣ 2 → d = 1 ∨ d = 2 := fun d hd => by
+  have hle : d ≤ 2 := le_of_dvd_pos d 2 (Nat.zero_lt_succ 1) hd
+  rcases E213.Tactic.NatHelper.cases_lt_three (Nat.lt_succ_of_le hle) with h0 | h1 | h2
+  · subst h0
+    obtain ⟨c, hc⟩ := hd
+    rw [Nat.zero_mul] at hc
+    exact Nat.noConfusion hc
+  · exact Or.inl h1
+  · exact Or.inr h2
+
+/-- ★ **Eisenstein parity bridge.**  For an odd unit `a` and odd prime `p`:
+    `2 ∣ (Σ⌊a·x/p⌋ + Σ ind)` (the floor sum ≡ μ mod 2).  Combines `floor_mod_split`, `Sa_eq`,
+    `fold_sum`, `residue_fold_even`, the oddness of `a` (`↑a−1 = 2↑(a/2)`), and `int_euclid` (`p` odd). -/
+theorem floor_mu_even (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (ha1 : 1 ≤ a) (halt : a < p) (haodd : a % 2 = 1) (hp2 : 2 < p) :
+    (2 : Int) ∣ (sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int)))
+        + sumZ ((seg m).map (fun x => if (a * x) % p ≤ m then (0 : Int) else 1))) := by
+  have hsplit := floor_mod_split a p m
+  rw [Sa_eq a m] at hsplit
+  obtain ⟨k, hk⟩ := residue_fold_even a p m hp
+  have hfold := fold_sum a p m hp hpr h2m ha1 halt
+  have hcast0 : (a : Int) = 2 * ((a / 2 : Nat) : Int) + 1 := by
+    have hae : a = 2 * (a / 2) + 1 := by
+      have h := div_add_mod a 2; rw [haodd] at h; exact h.symm
+    generalize hb : a / 2 = b at hae ⊢
+    rw [hae, natCast_add, natCast_mul, show ((2 : Nat) : Int) = 2 from rfl,
+        show ((1 : Nat) : Int) = 1 from rfl]
+  generalize hSf : sumZ ((seg m).map (fun x => ((a * x / p : Nat) : Int))) = Sfloor at hsplit ⊢
+  generalize hIm : sumZ ((seg m).map (fun x => if (a * x) % p ≤ m then (0 : Int) else 1)) = Imu at hk ⊢
+  generalize hSs : sumZ ((seg m).map (fun x => ((x : Nat) : Int))) = Sseg at hsplit hfold
+  generalize hSr : sumZ ((seg m).map (fun x => ((a * x % p : Nat) : Int))) = Sr at hsplit hk
+  generalize hSfo : sumZ ((seg m).map (fun x => ((fold a p m x : Nat) : Int))) = Sfold at hk hfold
+  -- hsplit : ↑a*Sseg = ↑p*Sfloor + Sr ; hk : Sr - Sfold - ↑p*Imu = 2*k ; hfold : Sfold = Sseg
+  have e1 : (p : Int) * Sfloor = (a : Int) * Sseg - Sr := by rw [hsplit]; ring_intZ
+  have e2 : (p : Int) * Imu = Sr - Sfold - 2 * k := by rw [← hk]; ring_intZ
+  have key : (p : Int) * (Sfloor + Imu) = 2 * (((a / 2 : Nat) : Int) * Sseg - k) := by
+    have hdist : (p : Int) * (Sfloor + Imu) = (p : Int) * Sfloor + (p : Int) * Imu := by ring_intZ
+    rw [hdist, e1, e2, hfold, hcast0]; ring_intZ
+  have hnp2 : ¬ (2 : Int) ∣ (p : Int) := fun hd => by
+    have h2p : 2 ∣ p := by have := int_dvd_to_nat 2 (p : Int) hd; rwa [Int.natAbs_ofNat] at this
+    rcases hpr 2 h2p with h | h
+    · exact absurd h (by decide)
+    · exact absurd h (Nat.ne_of_lt hp2)
+  exact int_euclid 2 (by decide) two_prime (p : Int) (Sfloor + Imu) ⟨_, key⟩ hnp2
 
 end E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
