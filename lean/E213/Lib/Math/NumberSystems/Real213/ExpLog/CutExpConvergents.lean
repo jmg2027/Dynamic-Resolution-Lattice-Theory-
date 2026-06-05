@@ -1,4 +1,5 @@
 import E213.Lib.Math.Analysis.Cauchy.Euler
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpModulus
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!
@@ -105,5 +106,45 @@ theorem exp_two_rate_fails_at_one :
 theorem exp_one_rate_holds_at_one :
     1 * (1 + 1) * (1 ^ (1 + 1) * eulerDen 1) + 1 * eulerDen 1
       ≤ (1 + 1) * eulerDen (1 + 1) := by decide
+
+/-! ## The two routes unified — convergent increment = Taylor term
+
+The algebraic convergents (this file) and the analytic Taylor series (`CutExpModulus`)
+are the *same* object: the partial-sum increment `e_{i+1} − e_i` is exactly the next
+Taylor term `m^{i+1}/(i+1)!`.  Hence the convergent gaps inherit the analytic geometric
+majorant — the convergents are Cauchy with the `2m`-threshold modulus, the route that
+actually delivers exp(m)'s total modulus (the `RateModulus` margin being e-special, above). -/
+
+/-- The convergent denominators are the Taylor denominators: `eulerDen n = n!`
+    (`CutFactorial.factorial`).  Bridges the algebraic and analytic factorials. -/
+theorem eulerDen_eq_factorial (n : Nat) :
+    eulerDen n = E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial.factorial n := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    show (k + 1) * eulerDen k
+      = (k + 1) * E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial.factorial k
+    rw [ih]
+
+/-- ★★ **Convergent increment = Taylor term.**  `e_{i+1} − e_i = m^{i+1}/(i+1)!`: over the
+    common denominator `eulerDen (i+1) = (i+1)!`, the increment numerator is exactly
+    `m^{i+1}` — the numerator of the `(i+1)`-th Taylor term.  `expNum m (i+1) − (i+1)·expNum m i
+    = m^{i+1}`, i.e. the partial-sum step adds precisely the next Taylor term.  The identity
+    welding the algebraic convergents to the analytic series. -/
+theorem exp_increment_eq_taylor (m i : Nat) :
+    expNum m (i + 1) = (i + 1) * expNum m i + m ^ (i + 1) := expNum_succ m i
+
+/-- ★★★ **Convergent gaps decay geometrically past `2m`** (the Cauchy rate, analytically
+    sourced).  The Taylor terms `m^l/l!` — which ARE the convergent increments — satisfy
+    `2ʲ·m^{2m+j}·(2m)! ≤ m^{2m}·(2m+j)!` (`CutExpModulus.expTail_geom_decay`, here over the
+    convergent denominators `eulerDen`).  So the convergent increments are squeezed below any
+    dyadic past `2m`: the convergents `expNum m i / eulerDen i` form a Cauchy sequence with the
+    explicit `2m`-threshold modulus — exp(m) is a constructive real via the analytic rate,
+    *not* the e-special `RateModulus` margin. -/
+theorem exp_increment_geom_decay (m j : Nat) :
+    2 ^ j * m ^ (2 * m + j) * eulerDen (2 * m)
+      ≤ m ^ (2 * m) * eulerDen (2 * m + j) := by
+  rw [eulerDen_eq_factorial, eulerDen_eq_factorial]
+  exact E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpModulus.expTail_geom_decay m j
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpConvergents

@@ -41,7 +41,12 @@ T1. **exp convergence modulus** — ⚙️ **ratio-test core DONE** (`ExpLog/Cut
     finding**: the clean `RateModulus` rate `N(m,k)=k+2` is **m=1-special** (e); the rate
     certificate `i(i+1)m^{i+1}+i ≤ (i+1)²` fails for m≥2 at i=1 (`exp_two_rate_fails_at_one`),
     so general exp(m)'s modulus is the analytic `2m`-threshold majorant above — the two
-    routes are complementary.
+    routes are complementary.  **Routes unified**: `exp_increment_eq_taylor` (the convergent
+    increment `e_{i+1}−e_i = m^{i+1}/(i+1)!` IS the next Taylor term) + `exp_increment_geom_decay`
+    (so convergent gaps inherit the `2m`-threshold geometric decay).  The RateModulus margin
+    `1/(i·d_i)` is e-tied (bounds `~1/(i·i!)`, not exp(m)'s `~m^{i+1}/(i+1)!` at any threshold) —
+    the analytic route is the only one for m≥2; a *generalized*-margin RateModulus (rate
+    `m^{i+1}/(i+1)!` not `1/(i·i!)`) would be the algebraic capstone (open).
 T2. **sin / cos convergent series** — ⚙️ **convergence modulus DONE by comparison**
     (`ExpLog/CutTrigModulus.lean`, 4 PURE + `expTerm_le_of_ge` in CutExpModulus): the
     `sin`/`cos` term magnitudes are the `exp` terms at odd/even indices, so they inherit

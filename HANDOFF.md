@@ -53,11 +53,15 @@ operator is the **lazy** step `lazyHeatStepNum = u_{x−1}+2u_x+u_{x+1}` `(¼,½
 ## Next targets (priority order)
 1. **T1→T2 bridge**: package the proven exp term-decay rate into a `CauchyCutSeq` over the cut-level
    `expPartialSum` (reuse `eulerCauchySeq`/`RealCauchyWitness`/`CompletenessLoop` idiom) — lifts the rate to
-   a genuine `Real213` point.  Note: for general `m` use the **analytic** `CutExpModulus` `2m`-threshold
-   (the `RateModulus` algebraic route is e-only, see `CutExpConvergents` honest finding).  A *shifted*
-   `RateModulus` generator (Htel from `i ≥ 2m` instead of `i ≥ 1`) would give exp(m) a constructed total
-   modulus algebraically — a reachable next rung.  Then the **signed** `sinCut`/`cosCut` series replacing
-   the `Real213/Core/Functions.lean` stubs (alternating partial sums bracket via the antitone magnitudes).
+   a genuine `Real213` point.  The bridge is **done at the rate level**: `CutExpConvergents` proves the
+   convergent increment = Taylor term (`exp_increment_eq_taylor`) and that the gaps decay geometrically
+   past `2m` (`exp_increment_geom_decay`).  Remaining = the cut-level stabilization: define
+   `cs i = constCut (expNum m i) (eulerDen i)` and prove `CauchyCutSeq.cauchy` from the gap decay (the
+   delicate `decide`-cut bookkeeping, RateModulus-style but with the m-dependent rate).  NOTE: a *shifted*
+   `RateModulus` is **not** the path — its margin `1/(i·d_i)` is e-tied (bounds `~1/(i·i!)`, not exp(m)'s
+   `~m^{i+1}/(i+1)!` at any threshold).  The algebraic capstone would need a *generalized-margin* RateModulus
+   (rate `m^{i+1}/(i+1)!`).  Then the **signed** `sinCut`/`cosCut` series replacing the
+   `Real213/Core/Functions.lean` stubs (alternating partial sums bracket via the antitone magnitudes).
 2. **P2 general**: oscillation contraction *rate* for the lazy step at general `n` / general field (the
    spectral-gap estimate, not just the n=4 checkerboard witness), then the `Real213` limit → continuous
    smoothing.  **P3** energy/Dirichlet decay `E(u)=Σ(u_{i+1}−u_i)²`.

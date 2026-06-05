@@ -428,7 +428,14 @@ generalizing `euler_cross_det`'s `n!`), `exp_convergents_mono` (strictly increas
 `N(m,k)=k+2`) and **fails for m≥2 already at i=1** (`exp_two_rate_fails_at_one`: `9 > 4`; contrast
 `exp_one_rate_holds_at_one`: `3 ≤ 4`).  So the clean `RateModulus` modulus is e-special; general exp(m)'s
 modulus comes from the **analytic** geometric majorant (`CutExpModulus`, threshold `2m`).  The algebraic
-and analytic routes to exp's convergence are complementary.  Also `HeatEqDiscrete.lazy_eq_nonlazy_plus_self`
+and analytic routes to exp's convergence are complementary.  **Routes unified** (same file): the convergent
+increment IS the Taylor term — `eulerDen_eq_factorial` (`eulerDen n = n!`), `exp_increment_eq_taylor`
+(`e_{i+1}−e_i = m^{i+1}/(i+1)!`, the partial-sum step adds exactly the next Taylor term), and
+`exp_increment_geom_decay` (the convergent gaps decay geometrically past `2m` via
+`CutExpModulus.expTail_geom_decay`, over the convergent denominators) — so the convergents are Cauchy with
+the analytic `2m`-threshold modulus, the route that actually delivers exp(m).  (Note: the RateModulus margin
+`1/(i·d_i)` is structurally e-tied — it bounds e's tail `~1/(i·i!)` but not exp(m)'s `~m^{i+1}/(i+1)!` at
+*any* threshold; the analytic route is the only one for `m ≥ 2`.)  Also `HeatEqDiscrete.lazy_eq_nonlazy_plus_self`
 (`lazyHeatStepNum = heatStepNum + 2u_x` — the self-weight that moves the stencil symbol `cos θ → 1+cos θ`,
 removing the `−1` checkerboard eigenmode; the structural reason for the spectral gap).
 
