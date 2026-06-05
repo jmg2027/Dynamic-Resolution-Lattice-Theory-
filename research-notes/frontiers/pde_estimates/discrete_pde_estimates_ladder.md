@@ -112,11 +112,14 @@ P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (dis
     `(s+r−q−p)² ≤ 4·((q−p)²+2(r−q)²+(s−r)²)`.  Key structural fact: the heat step commutes with
     the gradient (`grad(lazy u) = lazy(grad u)`), so the lazy-step edge difference `s+r−q−p` is the
     lazy stencil on the three edge gradients `(q−p)+2(r−q)+(s−r)`; Jensen then bounds its square.
-    **Remaining (single blocker)**: the full grid-summed `E(lazy u) ≤ 16·E(u)` = `gridSum_le` +
-    this pointwise bound + `gridSum_add` + shift-reindex (Σ of each gradient-energy = `E(u)`) — all
-    clean `Nat` *except* the pointwise step needs the cast `↑(sqDistNat a b) = (↑a−↑b)²` + a `Nat↔Int`
-    `≤` transfer, both of which hit `propext`-leaking core lemmas (`Int.ofNat_le`, `Int.ofNat_sub`);
-    a ∅-axiom bridge from the `Int213` `subNatNat`/`NonNeg` primitives is the remaining build.
+    ✅ **DONE — energy decay `E(lazy u) ≤ 16·E(u)`** (`HeatEqEnergyDecay.lean`, 3 PURE): the lazy
+    heat step does not increase the (averaged) Dirichlet energy — the L²-method conclusion, the
+    analytic engine behind smoothing / convergence to equilibrium.  Assembled from `gridSum_le` +
+    `lazy_energy_pointwise_nat` (the ℤ pointwise dissipation cast to `Nat`) + `gridSum_add`/`_mul_left`
+    + shift-reindex (each gradient-energy sum = `E(u)`).  The `Nat`↔ℤ bridge `sqDistNat_cast`
+    (`↑(sqDistNat a b) = (↑a−↑b)²`) + `Int213.Order.le_of_ofNat_le` are all ∅-axiom (the `propext`-leak
+    of core `Int.ofNat_*`/`Nat.add_sub_cancel_left`/`sub_eq_zero` was sidestepped via term-mode casts +
+    NatHelper pure sub-lemmas + `Nat.zero_sub`).  **Rungs P1–P3 of the marathon now complete.**
 P4. **Li–Yau / differential-Harnack** — gradient bound `|∇u|²/u` along the flow
     (the real depth; discrete-Harnack → continuous limit).
 P5. **Shi-type estimate** — curvature-derivative bound along the *Ricci* flow;

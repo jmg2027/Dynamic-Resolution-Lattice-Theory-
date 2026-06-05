@@ -6,6 +6,7 @@ import E213.Lib.Math.Analysis.ODE.LinearODE
 import E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
 import E213.Lib.Math.Analysis.ODE.HeatEqConservation
 import E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2
+import E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay
 import E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
 import E213.Lib.Math.Analysis.ODE.Capstone
 
@@ -30,6 +31,8 @@ import E213.Lib.Math.Analysis.ODE.Capstone
                          conservation (`Σ heatStep = 2Σu`) + Dirichlet pairing
     * `HeatEqEnergyL2` — pointwise L²-Jensen (convexity) bounds via the
                          POSITIVITY archetype (`(a+b)² ≤ 2(a²+b²)`)
+    * `HeatEqEnergyDecay` — Dirichlet energy decay `E(lazy u) ≤ 16·E(u)`
+                         (the P3 capstone; `Nat`↔ℤ bridge + shift invariance)
     * `WaveEqDiscrete` — discrete wave equation
     * `Capstone`      — ODE capstone results
 -/

@@ -481,8 +481,22 @@ principle.  (The *summed* signed Green identity it complements is now also done 
 (same file, +1 PURE): `lazy_energy_pointwise` — the local energy dissipation `(s+r−q−p)² ≤
 4·((q−p)²+2(r−q)²+(s−r)²)` over ℤ, from `grad(lazy u) = lazy(grad u)` (the lazy-step edge difference is the
 lazy stencil on the three edge gradients) + Jensen.  Its grid-sum (`gridSum_le` added to `HeatEqConservation`)
-gives `E(lazy u) ≤ 16·E(u)`, gated only on a ∅-axiom `Nat↔Int` square-cast/≤ bridge (core `Int.ofNat_le`/
-`ofNat_sub` leak `propext`).
+gives `E(lazy u) ≤ 16·E(u)`.
+
+### Marathon P3 CAPSTONE — Dirichlet energy decay `E(lazy u) ≤ 16·E(u)` (2026-06-05)
+
+`E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay` — **3 PURE / 0 DIRTY**.  The lazy heat step does **not increase
+the (averaged) Dirichlet energy** — the L²-method conclusion, the analytic engine behind discrete smoothing /
+convergence to equilibrium.  `lazy_energy_decay`: `E(lazyHeatStepNum u) ≤ 16·E(u)` (the `16 = 4²` is the
+stencil normalization).  Assembled from: `sqDistNat_cast` (the `Nat`↔ℤ square bridge `↑(sqDistNat a b) =
+(↑a−↑b)²`), `lazy_energy_pointwise_nat` (the ℤ pointwise dissipation `(s+r−q−p)² ≤ 4(…)` cast to `Nat` via
+`Int213.Order.le_of_ofNat_le`), `gridSum_le`/`gridSum_mul_left`/`gridSum_add`, and cyclic-shift invariance
+(`gridSum_rightNbr` turns each shifted edge-gradient energy back into `E(u)`).  All ∅-axiom — the `propext`
+leaks of core `Int.ofNat_*` / `Nat.add_sub_cancel_left` / `sub_eq_zero` were sidestepped with term-mode casts
+(explicit `Int.ofNat` typing dodges the `Nat.cast` `rw`-mismatch) + NatHelper pure sub-lemmas + `Nat.zero_sub`.
+**Marathon PDE rungs P1–P3 now complete.**
+
+### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
 ### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
 

@@ -63,12 +63,16 @@ theorem gridSum_le (n : Nat) (f g : Nat → Nat) (h : ∀ x, x < n → f x ≤ g
     exact Nat.add_le_add (ih (fun x hx => h x (Nat.lt_succ_of_lt hx)))
       (h m (Nat.lt_succ_self m))
 
+/-- **Scalar (left)**: `Σ (c·f) = c·Σ f`. -/
+theorem gridSum_mul_left (n c : Nat) (f : Nat → Nat) :
+    gridSum n (fun x => c * f x) = c * gridSum n f := by
+  induction n with
+  | zero => exact (Nat.mul_zero c).symm
+  | succ m ih => rw [gridSum_succ, gridSum_succ, ih, Nat.mul_add]
+
 /-- **Scalar**: `Σ (2·f) = 2·Σ f`. -/
 theorem gridSum_two_mul (n : Nat) (f : Nat → Nat) :
-    gridSum n (fun x => 2 * f x) = 2 * gridSum n f := by
-  rw [gridSum_congr n (fun x => 2 * f x) (fun x => f x + f x)
-        (fun x _ => Nat.two_mul (f x)),
-      gridSum_add n f f, Nat.two_mul]
+    gridSum n (fun x => 2 * f x) = 2 * gridSum n f := gridSum_mul_left n 2 f
 
 /-! ## §2 — cyclic-shift invariance -/
 
