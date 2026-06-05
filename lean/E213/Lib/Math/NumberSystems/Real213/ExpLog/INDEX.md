@@ -3,11 +3,14 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (13)
+## Files (15)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
   - `CutExpODE.lean`            — `exp` ODE characterisation
+  - `CutExpModulus.lean`        — `exp` Taylor convergence modulus (ratio-test
+                                  core: geometric majorant `Mⁿ/n!`, term decay
+                                  `≤ term(2M)·2^{−j}`).  Marathon T1.
   - `CutFactorial.lean`         — factorial coefficient
   - `EulerCut.lean`             — e (= exp 1, Σ1/k!) at the `ValidCut` level: an
                                   `Real213/AbCutSeq` instance + e's localization

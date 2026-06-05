@@ -24,10 +24,15 @@ next rung, proves it ∅-axiom, commits, advances the ladder.
 
 ## Ladder (each rung ∅-axiom; `#print axioms` empty)
 
-T1. **exp convergence modulus** — close the `CutExpSeries` follow-up: `cutExp x N`
-    is Cauchy in `N` with an explicit `Nat→Nat` modulus (geometric majorant
-    `Mⁿ/n!`; bound the tail `Σ_{k≥N} xᵏ/k!`).  Reuse the `CompletenessLoop` /
-    `RealCauchyWitness` modulus idiom + `CauchyCutSeq`.
+T1. **exp convergence modulus** — ⚙️ **ratio-test core DONE** (`ExpLog/CutExpModulus.lean`,
+    4 PURE): the geometric majorant `Mⁿ/n!` is proven at the term-magnitude level —
+    `pow_half_step` → `expTerm_ratio_half` (each Taylor term ≤ half the previous once
+    `2M ≤ k+1`, cross-multiplied) → `expTerm_geom_majorant` (`2ʲ·M^{N+j}·N! ≤ Mᴺ·(N+j)!`)
+    → `expTail_geom_decay` (tail `≤ term(2M)·2^{−j}`, dyadic modulus `j ↦ 2ʲ`).  The
+    *rate* (the hard analytic content) is closed.  **Remaining (T1→T2 bridge)**: package
+    the rate into a `CauchyCutSeq` over the cut-level `expPartialSum` (reuse the
+    `CompletenessLoop` / `RealCauchyWitness` / `eulerCauchySeq` idiom + `CauchyCutSeq`) —
+    this lifts the term decay to the partial-sum Cauchy property as a `Real213` point.
 T2. **sin / cos convergent series** — replace the stubs: `sinCut x N =
     Σ (−1)ᵏ x^{2k+1}/(2k+1)!`, `cosCut` even-power; convergence modulus
     (alternating + factorial), same engine as T1.

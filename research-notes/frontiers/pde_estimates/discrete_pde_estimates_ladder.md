@@ -41,8 +41,14 @@ remaining wall for full Perelman.  The 2D-conformal route
 
 ## Ladder (each rung: discrete-uniform-in-`h` + modulus → `Real213` limit; ∅-axiom)
 
-P1. **Maximum principle** — discrete: heat step does not raise max / lower min on
-    the grid; uniform in mesh; the limit = the continuous maximum principle.
+P1. **Maximum principle** — ⚙️ **discrete step DONE** (`Analysis/ODE/HeatEqDiscrete.lean`,
+    4 new PURE): the heat step is a neighbour average, so `u ≤ B` ⟹ `heatStepNum ≤ 2B`
+    (`heatStep_le_two_max`, no hot spots), `A ≤ u` ⟹ `2A ≤ heatStepNum`
+    (`heatStep_two_min_le`, no cold spots), range `[A,B]` preserved (`heatStep_range`,
+    sup-norm contraction), oscillation non-increasing (`heatStep_osc_bound`).  All uniform
+    in the grid length `n` (the mesh).  **Remaining**: the `Real213` limit step — pass the
+    uniform-in-`h` discrete bound to the continuous maximum principle (the `CompletenessLoop`
+    pattern: uniform-discrete-with-modulus → `Real213` statement).
 P2. **Oscillation decay** — `osc u = max u − min u` is a monovariant; uniform
     rate → continuous smoothing (the "no local collapsing" seed).
 P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (discrete

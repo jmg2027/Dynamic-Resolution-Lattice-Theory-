@@ -402,6 +402,33 @@ Kazhdan–Lusztig positivity, Mordell heights.  Reach: same archetype drives **A
 `mul_eq_zero`) and `dist_sq_zero_imp_eq` (the squared distance separates points — POSITIVITY drives
 `SEPARATE`).
 
+### Marathon T1 — exp Taylor convergence modulus (ratio-test core) (2026-06-05)
+
+`E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpModulus` — **4 PURE / 0 DIRTY**.  Closes the
+convergence-modulus follow-up `CutExpSeries` deferred (the geometric majorant `Mⁿ/n!`, "ratio-test
+argument not yet done").  Worked at the term-magnitude level `Mᵏ/k!` (numerator `Mᵏ`, denominator `k!`,
+`M` bounds `|x|`), no cut comparison: `pow_half_step` (`2·M^{k+1} ≤ Mᵏ·(k+1)` once `2M ≤ k+1`) →
+`expTerm_ratio_half` (cross-multiplied `2·M^{k+1}·k! ≤ Mᵏ·(k+1)!` — the `(k+1)`-th Taylor term is ≤ half
+the `k`-th) → `expTerm_geom_majorant` (`2ʲ·M^{N+j}·N! ≤ Mᴺ·(N+j)!` for `2M ≤ N+1`, the geometric tail
+ratio `1/2`) → `expTail_geom_decay` (base `N = 2M`: the tail decays as `term(2M)·2^{−j}` with explicit
+dyadic modulus `j ↦ 2ʲ`).  Rung **T1** of the transcendentals marathon
+(`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`); next: package the rate
+into a `CauchyCutSeq` over `expPartialSum` (T1→T2 bridge) then `sin`/`cos` series (T2).
+
+### Marathon P1 — discrete heat maximum principle (2026-06-05)
+
+`E213.Lib.Math.Analysis.ODE.HeatEqDiscrete` (extended) — **4 new PURE / 0 DIRTY**.  The discrete heat step
+is an average of two neighbours, so it neither rises above the field max nor falls below the min — the
+discrete maximum principle, seed of all parabolic a-priori estimates.  In the numerator convention
+`heatStepNum = 2·u_new = u_left + u_right`: `heatStep_le_two_max` (`u ≤ B` ⟹ `heatStepNum ≤ 2B`, no hot
+spots), `heatStep_two_min_le` (`A ≤ u` ⟹ `2A ≤ heatStepNum`, no cold spots), `heatStep_range` (the doubled
+value stays in `[2A,2B]` — sup-norm contraction), `heatStep_osc_bound` (the oscillation `max−min` does not
+grow — the monovariant feeding P2).  All uniform in the grid length `n` (hence in the mesh) — the
+uniformity that lets the `Real213` limit promote it to the continuous maximum principle.  Rung **P1** of
+the discrete-PDE-estimates marathon
+(`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`); next: oscillation decay rate
+(P2) + the `Real213` limit step.
+
 ### Discrete (Forman) Ricci curvature — the 213-native route to the A6 core (2026-06-05)
 
 `E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci` — **6 PURE / 0 DIRTY**.  A6's smooth-metric
