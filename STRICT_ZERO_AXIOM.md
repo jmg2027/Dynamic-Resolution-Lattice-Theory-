@@ -328,6 +328,17 @@ Instead the limit is pinned at the real `0` by **order-squeeze** — `limit_nonn
 forces the unique such real to be `0`.  This completes ② (completeness-LOOP) from modulus-level
 (`CompletenessLoop`) to a bona-fide Real213 Cauchy real reaching its infimum `0`.
 
+### Homogeneous Ricci flow — the Einstein trichotomy (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciHomogeneous` — **6 PURE / 0 DIRTY**.  The sign of the
+Einstein constant `λ` (`Ric = λg`) sets the homogeneous flow on the size `ρ` (`dρ/dt = −2λ`):
+`λ>0` (sphere) **finite extinction** = A6 (`sphere_reaches_extinction`); `λ=0` (Ricci-flat / flat torus /
+Calabi–Yau) **stationary**, every state its normal form (`flat_torus_stationary`, A6 cost 0); `λ<0`
+(hyperbolic) **diverges**, no fixed point (`expand_iter`/`hyperbolic_diverges`/`expand_no_fixed`), **not
+A6**.  Bundled `einstein_trichotomy`.  Sub-steps 2 + 4 of the Ricci frontier; Einstein metrics are the
+homogeneous fixed points, sign of `λ` = shrink/steady/expand.  Anisotropic Berger-sphere pinching (2-var
+ODE) remains open.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

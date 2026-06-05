@@ -74,9 +74,17 @@ hypothesis for arbitrary metrics** (not the trivial homogeneous case):
    instruction (completeness, `MonotonicBounded`/`CauchyComplete`), not
    well-founded descent.  So `𝓕/𝓦`-monotonicity = [descent-identity (done)] +
    [completeness-LOOP convergence], two instructions, neither A6.
-2. **Other homogeneous flows as ODEs.**  Ricci flow on flat tori (`Ric=0`,
-   fixed point), or pinching on Berger spheres / Bianchi classes — each a
-   finite-dim ODE compiling onto A6 FLOW, like the round sphere.
+2. **Other homogeneous flows as ODEs** — ✅ **DONE (Einstein trichotomy)**
+   (`GeometrizationConjecture/RicciHomogeneous.lean`, 6 PURE / 0 DIRTY).  The
+   sign of the Einstein constant `λ` (`Ric = λ·g`) sets the whole flow on the
+   size `ρ` (`dρ/dt = −2λ`): `λ>0` (sphere) finite extinction **A6**
+   (`sphere_reaches_extinction`); `λ=0` (Ricci-flat / **flat torus** /
+   Calabi–Yau) **stationary**, every state its normal form
+   (`flat_torus_stationary`), A6 cost 0; `λ<0` (hyperbolic) **diverges**, no
+   fixed point (`hyperbolic_diverges` + `expand_no_fixed`), **not A6**.  Bundled
+   `einstein_trichotomy`.  (Anisotropic Berger-sphere pinching — a 2-variable
+   ODE with off-diagonal curvature — is the remaining non-trivial homogeneous
+   case, still open.)
 3. **Completeness-LOOP convergence** of the geometric `F`-sequence — ✅ **DONE**
    (`Lib/Math/Analysis/Optimization/CompletenessLoop.lean`, 6 PURE / 0 DIRTY).
    The gradient value `vₖ = F(xₖ) = N₀/2ᵏ` (contraction `r ≤ 1/2`) is monotone
