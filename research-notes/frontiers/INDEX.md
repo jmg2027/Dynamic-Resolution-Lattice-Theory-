@@ -207,6 +207,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   pigeonhole), and the next number-theory seeds (disc-`−8` congruence iff via
   the quadratic character of `2`; the three-square theorem as a hard
   out-of-both-engines frontier).
+- `euler_criterion_converse` — Euler's criterion: the `±1` dichotomy
+  (`euler_dichotomy`) and the residue direction (`euler_qr_pow_one`) closed strict
+  ∅-axiom (`ModArith/EulerCriterion.lean`); the converse (`aᵐ ≡ 1 ⟹ QR`) reduces to a
+  squares-list saturation of `RootBound.eval_zero` (one new Euclid-on-two-factors
+  pairwise lemma).  Unlocks the quadratic character of `2`, Gauss's lemma, and Zolotarev
+  (`psign` machinery already PURE).
 
 Closure records (promoted off this board):
 - Lagrange's four-square theorem — **closed & promoted**:

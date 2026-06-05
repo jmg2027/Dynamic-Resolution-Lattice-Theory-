@@ -254,6 +254,16 @@ prime).  Supporting `∅`-axiom chain: `zhang_linear_core`, `zhang_quadratic(_su
 prime-power factor where `SEPARATE` fires) is the `REFRAME` lift archetype (`Foundations.ProofISALifts`,
 `lift_reframe`).  `#print axioms` clean on all.
 
+### Euler's criterion — the `±1` dichotomy + residue direction (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.EulerCriterion` — **2 PURE / 0 DIRTY**.  For a prime `p` with
+`2m = p−1` (odd-prime witness, carried as a hypothesis so no division enters) and a unit `1 ≤ a < p`:
+`euler_dichotomy` (`p ∣ (aᵐ − 1) ∨ p ∣ (aᵐ + 1)`, i.e. `aᵐ ≡ ±1` — `Y = aᵐ`, `Y² = a^(p−1) ≡ 1` by
+FLT, factor `(Y−1)(Y+1)`, disjunctive Euclid `nat_prime_dvd_mul`) and `euler_qr_pow_one`
+(`a ≡ x²` ⟹ `p ∣ (aᵐ − 1)`, the residue lands on `+1`, via `pow_mod_base` + `pow_mul_loc` + FLT).
+The converse (`aᵐ ≡ 1 ⟹ QR`, a squares-list saturation of `RootBound.eval_zero`) is the open frontier
+`research-notes/frontiers/euler_criterion_converse.md`.  `#print axioms` clean on both.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to
