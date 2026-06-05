@@ -31,6 +31,9 @@ entries, actual conquests.  Seed compilation: `research-notes/G205_cross_domain_
    `λ<0` divergence (not A6).  Frontier sub-steps 2 + 4.
 7. **A7 POSITIVITY** archetype — `Foundations/Positivity.lean` (`positivity_of_sq`: gap = square ⟹ bound;
    `cauchy_schwarz_2d` via the Lagrange identity).  Proof-ISA catalog now **seven** archetypes.
+8. **A7 reach extension** — same `Positivity.lean` (now 7 PURE): `positivity_of_sq3`, `amgm_2`
+   (`4ab ≤ (a+b)²`), `lagrange_3d` + `cauchy_schwarz_3d` — POSITIVITY drives a family of classical
+   inequalities, all "gap = sum of squares."
 
 ## Proof-ISA catalog state (`Foundations/ProofISALifts.lean`, `seed/PROOF_ISA.md`)
 A1 DIAGONAL · A2 LOOP · A3 ORBIT · A4 REFRAME · A5 COUNT · **A6 FLOW** · **A7 POSITIVITY**.
@@ -45,10 +48,13 @@ A1 DIAGONAL · A2 LOOP · A3 ORBIT · A4 REFRAME · A5 COUNT · **A6 FLOW** · *
 
 ## Next targets (priority order)
 1. **Continue the G205 conquest table** down the ISA: each row = compile a conquest + let an archetype
-   drive its ∅-axiom proof.  Reachable next: REFRAME[LOOP] template instances, or another POSITIVITY
-   conquest (e.g. AM–GM / discriminant bounds, all sum-of-squares).
-2. **Berger-sphere pinching** (frontier sub-step) — a 2-var monovariant flow.
-3. **n-D Lagrange / Cauchy–Schwarz** generalizing `Positivity.cauchy_schwarz_2d`.
+   drive its ∅-axiom proof.  Reachable next: REFRAME[LOOP] template instances, or a COUNT/ORBIT conquest.
+   (Sum-of-squares multiplicativity is ALREADY closed — `CayleyDickson/Misc/QuadIdentities.int_quad_diophantus`
+   = Brahmagupta–Fibonacci, `GaussianTwoSquare.two_square_of_mod4` = Fermat, `FourSquare` = Lagrange;
+   do NOT rebuild.)
+2. **Berger-sphere pinching** (frontier sub-step) — a 2-var monovariant flow; needs the anisotropic Ricci
+   ODE coefficients as honest input (otherwise it's a generic gap→0 A6 instance — avoid overclaiming).
+3. **general-n Lagrange / Cauchy–Schwarz** (needs Finset/List sums) — heavier; 2-D + 3-D atoms done.
 4. Tier-A hygiene: periodic `lake build E213.Lib.Math E213.Lib.Physics` sanity; layer audit.
 
 ## File map (this session's additions)
