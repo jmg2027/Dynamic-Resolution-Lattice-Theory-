@@ -88,7 +88,9 @@ out — they cluster on **one missing idea**.
 >    Upgrades that pillar from **OPEN → CLOSED via A6 FLOW**
 >    (`Poincare.lean` / `Ricci.lean` capstone tables).
 >
-> The catalog is now **six** archetypes. POSITIVITY (A7) remains the next gap.
+> The catalog is now **seven** archetypes — A7 POSITIVITY closed too
+> (`Foundations/Positivity.lean`: `positivity_of_sq` + `cauchy_schwarz_2d`, the
+> gap-is-a-square archetype driving Cauchy–Schwarz via the Lagrange identity).
 > Details below recorded as the probe's rationale. **Marathon framing
 > (corrected):** a phase is not "catalog an archetype" but "compile a conquest
 > down the ISA and let the archetype *drive its complete ∅-axiom proof*" — A6
@@ -123,7 +125,7 @@ unique fixed point) — plausibly already latent in the ODE/heat-flow
 work (`Lib/Math/ODE/`, discrete Picard iteration) or the Sturm/Markov
 trace monovariants. **Probe before claiming a sixth archetype.**
 
-### Candidate A7 — POSITIVITY / structural-nonnegativity (from S2, A7, B1)
+### Candidate A7 — POSITIVITY / structural-nonnegativity (from S2, A7, B1) — ✅ CLOSED
 
 Three conquests force an inequality **not** by a counting deficit (A5
 COUNT) but because the quantity *is* the READ of an intrinsically
