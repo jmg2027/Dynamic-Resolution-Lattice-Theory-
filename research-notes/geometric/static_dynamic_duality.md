@@ -59,9 +59,22 @@ static and dynamic faces look identical and it is the easy one to study.
 - `μF ≅ νF` (Lambek, `MuNuMirror`) ⇒ the coincidence for the simplex reading;
   `μF ≠ νF` ⇒ the residue gap for the generic reading.
 
+## Closed ∅-axiom (the arithmetic face)
+
+The complete-graph reading's coincidence is ∅-axiom (build + `scan_axioms` PURE,
+6/0): `lean/E213/Lib/Math/Geometry/AngleStructure/SimplexSelfForm.lean`.  The
+completed-S edge count and the constructive step are the *same recursion* —
+`edgesK (m+1) = edgesK m + m` holds by **`rfl`** (`complete_step`): each new vertex
+joins all earlier (dynamic), which is exactly the completed `C(m,2)` count
+(static).  `edges_at_stages` gives `C(m,2)` at the rule's stages, `rule_sequence`
+the point sequence `2,3,5,12,68`.  So "static = dynamic" for this reading is a
+definitional equality — the cleanest possible witness of the `μF ≅ νF`
+coincidence (the categorical version remains `Theory/Raw/MuNuMirror`).
+
 ## Open frontier
 
-For which readings does `μF ≅ νF` hold (static = dynamic)?  The simplex /
-complete-graph reading does; betweenness does not.  Characterizing the coincidence
-class — the readings whose constructive and completed faces agree — is the same
-question as which readings have no residue gap, and is open.
+For which readings does `μF ≅ νF` hold in general?  The complete-graph reading
+does (now ∅-axiom); betweenness does not (`object1_not_surjective`).
+Characterizing the coincidence class — the readings whose constructive and
+completed faces agree — is the same question as which readings have no residue
+gap, and the general characterization is open.
