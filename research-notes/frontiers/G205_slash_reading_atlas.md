@@ -24,9 +24,21 @@ Observed (`research-notes/geometric/`): arithmetic-mean betweenness → segment 
 Takagi, no constants; free orthogonal reading → `Δ^∞`, dimension but no `P`;
 **mediant (Möbius) reading → Stern–Brocot, `P` and `3,2,5,φ` directly.**
 
-**Conjecture (C1).** A combining map surfaces `P` iff it preserves the
-off-diagonal glue (`det = 1`, the `SL(2,ℤ)` / non-symmetric structure);
-det-collapsing symmetric averaging is blind.
+**Conjecture (C1), refined by the `M_a` test (`constant_threshold.py`).**
+Generalize `P` by one knob — the top-left entry `a` (the count-Lens "two
+somethings" of §3.5), glue fixed: `M_a=[[a,1],[1,1]]`, `det = a-1`.
+
+- **Blind ⟺ `det = 0` ⟺ `a = 1`**: `M_1 ≡ 1`, rank-1 collapse — the
+  averaging / midpoint degenerate end (the "continuum → point").  This is why
+  the earlier midpoint renderings surfaced nothing: they were the `a→1` collapse.
+- `det ≠ 0`: a quadratic-irrational fixed point (structured; metallic ratios at
+  integer `a` — silver `1+√2` at `a=3`).
+- **The 213 values `3,5,φ` sit exactly at `a = 2`** — simultaneously the forced
+  count-Lens minimum ("two + binary", §3.2) and the unimodular glue (`det=1`,
+  §3.5).  The constants are not tuned: "two somethings" *is* the golden point.
+
+So C1 holds in refined form (blind ⟺ `det=0`; the specific 213 constants ⟺ the
+forced `a=2`).  The loop closes back onto §3.2 / §3.5.
 
 ## §3 Open knots
 
