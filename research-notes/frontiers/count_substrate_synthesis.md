@@ -80,8 +80,32 @@ exposed patterns worth harvesting.
   Sperner.  `chain_card_inj` (chain SEPARATE), `chain_length_le` (height ≤ `n+1`),
   `canonChain_max` (height achieved — the `∅⊂…⊂[n]` chain has exactly `n+1`),
   and ★★ `mirsky_boolean` — longest chain = `n+1` = #layers (the size-layers are
-  the minimum antichain partition).  Still open: **Dilworth** (the chain-cover
-  dual — needs the symmetric chain decomposition of `2^[n]`).
+  the minimum antichain partition).
+
+  **Dilworth on `2^[n]` — lower bound CLOSED, upper bound (SCD) open**
+  (`ChainAntichain`).  ✓ `dilworth_lower`: any chain cover needs ≥ `C(n,⌊n/2⌋)`
+  chains (the dual of Mirsky's lower bound, via `memBL`/`findChain` — a
+  choice-free injective assignment of middle-layer elements to chains).
+
+  **Open rung — the SCD upper bound** (a `C(n,⌊n/2⌋)`-chain cover exists,
+  de Bruijn–Tengbergen–Kruyswijk).  Construction (new bit at the *front*,
+  chains bottom-to-top):
+  - `extendC [v₀,…,v_L] = [false::v₀,…,false::v_L, true::v_L]` (length `L+2`);
+    `raiseC [v₀,…,v_L] = [true::v₀,…,true::v_{L−1}]` (length `L`, empty if `L=0`).
+  - `scd 0 = [[[]]]`; `scd (n+1) = (scd n).flatMap (fun C => extendC C :: (if
+    raiseC C = [] then [] else [raiseC C]))`.
+  Proof obligations: (a) **chain** — each produced list is `subseteqB`-increasing
+  ⟹ `IsChain` (needs `subseteqB_refl` + `subseteqB_trans` + `subseteqB (b::v)
+  (b::w) = subseteqB v w` + `subseteqB (false::v)(true::v) = true`); (b)
+  **partition** — every length-`(n+1)` vector `b::v` sits in exactly one chain
+  (`v` in a unique chain of `scd n`; `false::v` ↦ its `extendC`, `true::v` ↦
+  `extendC` top if `v` is `C`'s top else `raiseC`); (c) **count** `= C(n,⌊n/2⌋)`
+  via the **symmetric-level invariant** — each chain's `cardB` values are exactly
+  a contiguous `{k,…,n−k}`, so it has exactly one `⌊n/2⌋`-element; the bijection
+  `chain ↦ its middle element` (partition + ≤1 middle via `chain_card_inj`) gives
+  `#chains = |kLayer n ⌊n/2⌋| = C(n,⌊n/2⌋)`.  Then `dilworth_lower` +
+  this upper bound ⟹ **min chain cover `= C(n,⌊n/2⌋)` = max antichain**.
+  ~400 lines; the symmetric invariant (c) is the crux.  Dedicated session.
 
 - **Leibniz determinant over `perms`.**  `Linalg213/Permutation` uses `LPerm`
   *equivalence* + inversion-sign but no enumeration; `perms` + `mem_perms_iff` +

@@ -330,7 +330,11 @@ fully proven.**
 + `canonChain_max` (the height is achieved — `∅⊂{0}⊂…⊂[n]` is a nodup chain of
 exactly `n+1`), and ★★ `mirsky_boolean` — longest chain = `n+1` = #layers (the
 `n+1` size-layers are the minimum antichain partition, each
-`Sperner.kLayer_isAntichain`).
+`Sperner.kLayer_isAntichain`).  **Dilworth lower bound** also closed —
+`dilworth_lower` (any chain cover of `2^[n]` needs ≥ `C(n,⌊n/2⌋)` chains = the
+max antichain; the chain-cover dual, via the choice-free `memBL`/`findChain`
+injective assignment).  The matching Dilworth upper bound (the symmetric chain
+decomposition) is the recorded open rung.
 
 Bollobás reuses `lym_double_count`, `binom_mul_fact`,
 `SpernerChains.{truePos,idxList,perms,lcount_le_one_of}` — Bollobás is LYM's

@@ -83,11 +83,13 @@ Physics constants table: `catalogs/physics-constants.md`.
 ## Open Problems (Priority Order)
 From `research-notes/frontiers/count_substrate_synthesis.md` (registered in
 `frontiers/INDEX.md`):
-### 1. Dilworth's theorem on `2^[n]` (the chain-cover dual of Mirsky).
-Min #chains to cover = max antichain = `C(n,⌊n/2⌋)`.  Needs the de Bruijn–
-Tengbergen–Kruyswijk **symmetric chain decomposition** of `2^[n]` (harder than
-Mirsky — a constructive chain partition).  Substrate: `ChainAntichain.IsChain`,
-`Sperner.{kLayer,binom_le_binom_mid}`.
+### 1. Dilworth UPPER bound on `2^[n]` — the SCD (lower bound DONE).
+`dilworth_lower` is closed (chain cover ≥ `C(n,⌊n/2⌋)`).  Remaining: a
+`C(n,⌊n/2⌋)`-chain cover EXISTS — the de Bruijn–Tengbergen–Kruyswijk symmetric
+chain decomposition.  Full construction + proof obligations (chain / partition /
+the symmetric-level-invariant count) are spec'd in
+`research-notes/frontiers/count_substrate_synthesis.md`.  ~400 lines; the
+symmetric invariant is the crux.
 ### 2. Leibniz determinant over `perms` (bridge `LPerm` ↔ `perms`).
 ### (CLOSED) Bollobás `bollobas_uniform` (36/36 PURE); Mirsky `mirsky_boolean`
 (`ChainAntichain`, 15/15 PURE) — both unconditional ∅-axiom.
