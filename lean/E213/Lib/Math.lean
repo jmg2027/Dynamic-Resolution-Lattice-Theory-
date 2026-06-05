@@ -50,6 +50,7 @@ import E213.Lib.Math.Foundations.ResolutionLimit
 import E213.Lib.Math.Foundations.ProofISALifts
 import E213.Lib.Math.Foundations.FoldEquality
 import E213.Lib.Math.Foundations.FlowDuality
+import E213.Lib.Math.Foundations.ArchetypeOrder
 import E213.Lib.Math.Geometry.Topology
 import E213.Lib.Math.Geometry.TriangularTower
 import E213.Lib.Math.Foundations.UniverseChain

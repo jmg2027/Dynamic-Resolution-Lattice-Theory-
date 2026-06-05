@@ -133,14 +133,27 @@ realizability residue).  The catalog is the instrument that says so: the directi
 orbit / µ-ν lift of the trace-`SEPARATE`, the one archetype with a realized same-family precedent.
 Compiling each new solved theorem into the catalog is the cumulative half of the workflow.
 
-**Two structural facts about the catalog** (`theory/essays/proof_isa/`).  (i) The ISA has *two orthogonal
-axes*: these seven are **lifts** (finite→uniform); a second category, **fold-equalities** (EQUIV: two Lens
-readings coincide — Pick, Heron; `Foundations/FoldEquality.lean`), has zero lift content (`ring_intZ`
-closes it) and its difficulty is the orthogonal cost of constructing the second fold
-(`lifts_versus_fold_equalities.md`).  (ii) The seven lifts form a *partial order with dual pairs*: root
-**DIAGONAL = ⊥** (the residue, self-dual); mirror pairs **LOOP ⟷ FLOW** (µ/ν) and **COUNT ⟷ POSITIVITY**
-(the two faces of `GAP`); **ORBIT** = LOOP-modulo-a-free-action; **REFRAME** = the meta-transport wrapping
-any base archetype (`lift_archetypes_order_and_duality.md`).
+**What is theorem vs taxonomy (honest status).**  Two independent adversarial reviews (recorded
+`research-notes/G206_marathon_critical_review.md`) found, correctly, that *the rigor lives in the
+`∅`-axiom corpus, not in the ISA vocabulary*: strip the instruction/archetype names and every Lean
+theorem survives; the "framework" layer is, formally, a set of `abbrev` aliases over pre-existing
+theorems plus organizing essays.  So state plainly:
+
+  · The **instruction and lift witnesses are real `∅`-axiom theorems** (`cantor_general`, `flt_primary`,
+    `count_existence`, `flow_reaches`, …).  These stand on their own.
+  · "**Compiles to the instruction set**" is a **thesis with annotations**, not a definition — there is
+    no Lean datatype of proofs and no `Compiles` predicate (see *Honest status* below).  The demo
+    (`ProofISADemo.lean`) is a real proof with labelling comments, not a mechanical reduction.
+  · The **lift/EQUIV split** (`lifts_versus_fold_equalities.md`) and the **dual pairs / order**
+    (`lift_archetypes_order_and_duality.md`) are an **organizing taxonomy**, mostly narrative.  Two
+    pieces are theorem-backed: `FlowDuality.flow_reaches_ascending` (the LOOP/FLOW order-reversal — a
+    small reduction, not a deep µ/ν duality) and `Foundations/ArchetypeOrder.lean` (a *model* where
+    `liftCost : Archetype → ℕ` is defined and the bottom/top/equicost structure is proven — but the costs
+    are assigned by hand, a model of the catalog, not a derivation).  "mex = GAP", "DIAGONAL self-dual"
+    are analogies, not lemmas.
+
+The discipline (forcing every technique into one `∅`-axiom corpus, the axiom-checker as the arbiter) is
+the genuine content; the ISA naming is a convenience over it, to be read as taxonomy, not proof.
 
 ## Honest status (so it is a programme, not a shield)
 
