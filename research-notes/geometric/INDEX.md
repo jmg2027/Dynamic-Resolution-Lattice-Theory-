@@ -59,6 +59,25 @@ fractal — the modular reading's limit is **finite/periodic**, a third kind; (i
 `φ` reappears here as the *equidistribution* optimum (golden rotation), the same
 `φ` that §3.5 reads as the residue's algebraic measure — one number, two frames.
 
+### Batch 2 (`more_lens_readings_2.py`)
+
+| slash read as | combining map | limit | intermediate shape | 213 link |
+|---|---|---|---|---|
+| **mediant ↔ midpoint glued** | Minkowski `?(x)` | the singular `?` function | continued-fraction truncation | sends the Stern–Brocot order to the dyadic order — the *mediant* reading and the *betweenness* reading fused into one map |
+| **pairing** | Hilbert curve | space-filling (dim 2) | order-`n` curve | the slash read as a coordinate pairing |
+| **Pascal mod `p`** | `C(i,j) mod p` | mod-`p` Sierpinski (dim `log(p(p+1)/2)/log p`) | `p^k`-row table | the XOR reading (`p=2`) is one member of a prime-indexed family |
+| **golden substitution** | `1→10, 0→1` (cut-and-project) | Fibonacci word / quasicrystal | `n`-th iterate | `φ` as **aperiodic order** — a third `φ`-frame |
+| **mediant on ℍ** | mediant acting on the hyperbolic plane | Farey / modular tessellation | depth-`n` ideal triangles | the mediant (§3.5 `P`, `SL(2,ℤ)`) read as hyperbolic geometry |
+| **complex squaring** | `z ↦ z²+c` | Julia set | escape-time iterate | the relation read as a complex map |
+
+Cross-frame: `φ` now stands in **three** frames — the residue's algebraic
+measure (§3.5, eigenvalue of `P`), the most uniform rotation (golden
+equidistribution, batch 1 E), and aperiodic order (the Fibonacci/quasicrystal
+reading, batch 2 D).  And Minkowski `?(x)` is the session's own thesis as a
+single function: it conjugates the *mediant* reading (which surfaces the
+constants) to the *betweenness* reading (which does not), so the singular,
+nowhere-smooth gap between them *is* the gap between the two atlas cells.
+
 ## The meta-thesis (the research spine)
 
 **Which readings surface the structural constants `(3,2,5,P,φ)` and which are
