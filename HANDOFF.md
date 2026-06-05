@@ -29,11 +29,13 @@ cells, then deep-researched with an agent team.  Live board: frontier **G205**
   `N_1²=P`.
 - `Lib/Math/Geometry/BipartiteDecomp/K32Adjacency.lean` (17) — §6.2 bipartite
   `K_{3,2}^{(c=2)}` adjacency the simplex erased.
-- `Lib/Math/Geometry/BipartiteDecomp/ConfigLatticeCount.lean` (9) — **NEW result**:
-  the configuration-lattice order-ideal count `cfgIdeals V s =
-  Σ_k C(s,k)2^{Vk}2^{C(k,2)}`; `cycle1=5, cycle2=145,
-  cycle3=72 304 608 555 084 001` (cycle-3 was unknown before), plus the parametric
-  `cfgIdeals_zero (=1)`, `cfgIdeals_one (= 2^V+1)`, `cfgIdeals_two`, `cfgIdeals_three` (parametric family s=0..3).
+- `Lib/Math/Geometry/BipartiteDecomp/ConfigLatticeCount.lean` (21) — **NEW result**:
+  the order-ideal count `cfgIdeals V s = Σ_k C(s,k)2^{Vk}2^{C(k,2)}` (recursive
+  `cfgSum` def, since `List.range`/`foldr` peeling is propext-dirty for variable
+  `s`); concrete `cycle1=5, cycle2=145, cycle3=72 304 608 555 084 001`; parametric
+  `cfgIdeals_zero/one`; and the **general** `cfgIdeals_pos : 0 < cfgIdeals V s` and
+  `cfgIdeals_dominant : 2^{V·s} ≤ cfgIdeals V s` (+ reusable `binom_self`,
+  `binom_eq_zero_of_lt`).
 
 ### Essays (theory/essays/synthesis/, timeless)
 - `slash_reading_atlas.md` — the readings as facets; constants at the forced `a=2`.
