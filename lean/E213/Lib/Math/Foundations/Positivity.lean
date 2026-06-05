@@ -100,4 +100,30 @@ theorem cauchy_schwarz_3d (a0 a1 a2 b0 b1 b2 : Int) :
     positivity_of_sq3 _ _ _ _ (lagrange_3d a0 a1 a2 b0 b1 b2)
   exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero hpos)
 
+/-! ## POSITIVITY's rigidity face — a vanishing nonnegative fold forces vanishing
+
+The same nonnegativity that forces a *bound* (above) forces, at the extreme
+`= 0`, **rigidity**: a sum of squares is `0` only when every term is.  This is
+positive-*definiteness* of the coordinate form `⟨v,v⟩ = Σ vᵢ²` (the condition
+`⟨v,v⟩ = 0 ⟹ v = 0`), proven for the concrete form. -/
+
+/-- `a² = 0 ⟹ a = 0`. -/
+theorem sq_eq_zero {a : Int} (h : a * a = 0) : a = 0 :=
+  (mul_eq_zero h).elim id id
+
+/-- ★★★★★ **POSITIVITY rigidity (2-D)** = positive-definiteness: `a²+b² = 0`
+    forces `a = b = 0`. -/
+theorem positive_definite_2 (a b : Int) (h : a * a + b * b = 0) :
+    a = 0 ∧ b = 0 :=
+  let hpair := add_eq_zero_of_nonneg (int_sq_nonneg a) (int_sq_nonneg b) h
+  ⟨sq_eq_zero hpair.1, sq_eq_zero hpair.2⟩
+
+/-- ★★★★★ **POSITIVITY rigidity (3-D)**: `a²+b²+c² = 0` forces `a = b = c = 0`. -/
+theorem positive_definite_3 (a b c : Int) (h : a * a + b * b + c * c = 0) :
+    a = 0 ∧ b = 0 ∧ c = 0 :=
+  let hpair := add_eq_zero_of_nonneg
+    (add_nonneg (int_sq_nonneg a) (int_sq_nonneg b)) (int_sq_nonneg c) h
+  let hab := positive_definite_2 a b hpair.1
+  ⟨hab.1, hab.2, sq_eq_zero hpair.2⟩
+
 end E213.Lib.Math.Foundations.Positivity
