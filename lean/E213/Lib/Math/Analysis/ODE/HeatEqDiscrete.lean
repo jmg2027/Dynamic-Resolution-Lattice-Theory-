@@ -161,6 +161,40 @@ theorem heatIter_range (n A B : Nat) (t : Nat) (u : Nat → Nat)
     2 ^ t * A ≤ heatIter n t u x ∧ heatIter n t u x ≤ 2 ^ t * B :=
   ⟨heatIter_ge n A t u hlo x, heatIter_le n B t u hhi x⟩
 
+/-! ## Comparison principle (order preservation) — the unifying parabolic estimate
+
+The heat step is **monotone in the initial data**: `u ≤ v` pointwise ⟹ `heatStep u ≤
+heatStep v` pointwise (and the same after any number of steps).  This is the comparison
+principle — order-preservation of the discrete heat semigroup, the parabolic estimate the
+maximum principle is a *special case* of (compare against a constant field).  Pure `Nat`,
+no grid sums; holds for both stencils. -/
+
+/-- ★★ **Comparison principle (non-lazy).**  `u ≤ v` everywhere ⟹ `heatStepNum u ≤ heatStepNum v`.
+    (The lazy version `lazyHeatStep_mono` is with the lazy stencil, below.) -/
+theorem heatStep_mono (n : Nat) (u v : Nat → Nat) (x : Nat)
+    (h : ∀ y, u y ≤ v y) : heatStepNum n u x ≤ heatStepNum n v x :=
+  Nat.add_le_add (h (leftNbr n x)) (h (rightNbr n x))
+
+/-- ★★★ **Comparison principle for the whole evolution.**  Order is preserved under any
+    number of heat steps: `u ≤ v` ⟹ `heatIter n t u ≤ heatIter n t v` for every `t`. -/
+theorem heatIter_mono (n : Nat) :
+    ∀ (t : Nat) (u v : Nat → Nat), (∀ y, u y ≤ v y) →
+      ∀ x, heatIter n t u x ≤ heatIter n t v x
+  | 0,     u, v, h, x => h x
+  | t + 1, u, v, h, x => by
+      show heatStepNum n (heatIter n t u) x ≤ heatStepNum n (heatIter n t v) x
+      exact heatStep_mono n (heatIter n t u) (heatIter n t v) x
+        (fun y => heatIter_mono n t u v h y)
+
+/-- ★ **The maximum principle is comparison against a constant.**  `heatStep_le_two_max`
+    re-derived as `heatStep_mono` versus the constant field `B` (plus `heatStep_const`):
+    the two P1 estimates are one principle. -/
+theorem heatStep_le_two_max_via_comparison (n : Nat) (u : Nat → Nat) (B x : Nat)
+    (h : ∀ y, u y ≤ B) : heatStepNum n u x ≤ 2 * B := by
+  have hc : heatStepNum n u x ≤ heatStepNum n (constInit B) x :=
+    heatStep_mono n u (constInit B) x h
+  rwa [heatStep_const_eq_two_c] at hc
+
 /-! ## Lazy heat step — the self-weighted stencil that decays oscillation (P2)
 
 The non-lazy step `heatStepNum = u_{x−1}+u_{x+1}` (stencil `(½,0,½)`) preserves the
@@ -201,6 +235,14 @@ theorem lazyHeatStep_four_min_le (n : Nat) (u : Nat → Nat) (A x : Nat)
   have e : 4 * A = A + 2 * A + A := by ring_nat
   rw [e]
   exact Nat.add_le_add (Nat.add_le_add (h _) (Nat.mul_le_mul_left 2 (h x))) (h _)
+
+/-- ★★ **Comparison principle (lazy).**  `u ≤ v` everywhere ⟹ `lazyHeatStepNum u ≤
+    lazyHeatStepNum v` — order-preservation for the smoothing stencil too. -/
+theorem lazyHeatStep_mono (n : Nat) (u v : Nat → Nat) (x : Nat)
+    (h : ∀ y, u y ≤ v y) : lazyHeatStepNum n u x ≤ lazyHeatStepNum n v x :=
+  Nat.add_le_add
+    (Nat.add_le_add (h (leftNbr n x)) (Nat.mul_le_mul_left 2 (h x)))
+    (h (rightNbr n x))
 
 /-- ★ **Stencil relation**: the lazy step is the non-lazy step plus twice the self-weight,
     `lazyHeatStepNum = heatStepNum + 2·u_x`.  This is exactly why the lazy stencil has a

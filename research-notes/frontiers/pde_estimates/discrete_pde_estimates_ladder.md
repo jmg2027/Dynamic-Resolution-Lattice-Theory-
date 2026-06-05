@@ -73,8 +73,17 @@ P2. **Oscillation decay** — `osc u = max u − min u` is a monovariant; unifor
     strictly-below neighbour drops *strictly* — heat cannot sustain a strict interior
     extremum.  Holds for **both** stencils; the honest gap is that the non-lazy max
     *relocates* (`[0,1,0,1]→[2,0,2,0]`) so local strict ≠ global decay — the lazy
-    self-weight pins the extremum (`lazy_eq_nonlazy_plus_self`).  **Remaining**: the
-    general (any `n`, any field) oscillation contraction rate + the `Real213` limit.
+    self-weight pins the extremum (`lazy_eq_nonlazy_plus_self`).
+    ⚙️ **comparison principle** (`heatStep_mono`, `lazyHeatStep_mono`, `heatIter_mono`):
+    order-preservation `u ≤ v ⟹ heatStep u ≤ heatStep v` (and for all time) — the parabolic
+    estimate the max principle is a special case of (`heatStep_le_two_max_via_comparison` =
+    comparison vs a constant).  **Remaining**: the general (any `n`, any field) oscillation
+    contraction rate + the `Real213` limit.
+
+  Infra still needed for P3 (energy/Dirichlet `E(u)=Σ(u_{i+1}−u_i)²`): a **finite-grid sum**
+  `gridSum n f = Σ_{x<n} f x` with cyclic-shift invariance `Σ f(rightNbr n x) = Σ f x` — no
+  such sum infra in the repo yet (`List213` has list lemmas, no sum).  Building it unblocks
+  mass conservation (`Σ heatStep = 2Σu`) and energy decay.
 P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (discrete
     Bochner / gradient estimate); the limit = continuous energy decay, rate a
     `‖∇u‖²` (ties to gradient-flow descent identity ①).

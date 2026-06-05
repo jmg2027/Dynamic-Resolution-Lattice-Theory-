@@ -60,7 +60,9 @@ operator is the **lazy** step `lazyHeatStepNum = u_{x−1}+2u_x+u_{x+1}` `(¼,½
 `nonlazy_checker_hot`/`_cold`.  **Strong (strict) maximum principle** (`heatStep_strict_at_max`,
 `lazyHeatStep_strict_at_max`): a max site with a strictly-below neighbour drops *strictly* — for *both*
 stencils; the non-lazy max then *relocates* (`[0,1,0,1]→[2,0,2,0]`), so local strict drop ≠ global decay
-(the lazy self-weight pins the extremum).
+(the lazy self-weight pins the extremum).  **Comparison principle** (`heatStep_mono`, `lazyHeatStep_mono`,
+`heatIter_mono`): order-preservation `u ≤ v ⟹ heatStep u ≤ heatStep v` (and for all time) — the parabolic
+estimate the max principle is a special case of (`heatStep_le_two_max_via_comparison`).
 
 ## Next targets (priority order)
 1. **T1→T2 bridge**: package the proven exp term-decay rate into a `CauchyCutSeq` over the cut-level

@@ -486,7 +486,12 @@ constant in one lazy step, osc `1→0`) vs `nonlazy_checker_hot`/`_cold` (non-la
 `< 4B`): heat cannot sustain a strict interior extremum (the strong maximum principle's discrete seed).
 Honest nuance: holds for *both* stencils, yet the non-lazy step still fails global oscillation decay because
 the max **relocates** (`[0,1,0,1]→[2,0,2,0]`) — local strict drop ≠ global spectral gap; the lazy
-self-weight pins the extremum.  Rung **P1** of the discrete-PDE-estimates marathon
+self-weight pins the extremum.
+
+**Comparison principle** (same file, 4 more PURE): `heatStep_mono` / `lazyHeatStep_mono` (order-preservation
+`u ≤ v ⟹ heatStep u ≤ heatStep v`, both stencils), `heatIter_mono` (preserved for all time), and
+`heatStep_le_two_max_via_comparison` (the maximum principle re-derived as comparison against a constant
+field — the two P1 estimates are one principle).  Rung **P1** of the discrete-PDE-estimates marathon
 (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`); next: oscillation decay rate
 (P2) + the `Real213` limit step.
 
