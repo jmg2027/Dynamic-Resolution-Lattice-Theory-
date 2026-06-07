@@ -38,8 +38,11 @@ opened the exp functional-equation / combinatorics front (T5).
   `NumberTheory/DyadicFSM/FLT/{ChooseFactorial,BinomialTheorem}.lean`.  **Remaining**: the cut-level
   series Cauchy convolution `(Σaʲ/j!)(Σbᵏ/k!)=Σ(a+b)ⁿ/n!` (combine `binom2_theorem` +
   `choose_mul_factorials` at the `Real213` level), and `sin²+cos²=1`.
-- **T4** sqrt — NOT started (rich `Analysis/DyadicSearch/IVT`+`RootCertificate`+`MinimalRootLens` infra
-  exists; `Sqrt2Cut` is Pell-only).
+- **T4 (foundation done)** integer floor √ `isqrt` (`NumberTheory/IntSqrt.lean`): `isqrt_bracket`
+  (`isqrt n·isqrt n ≤ n < (isqrt n+1)²`), `isqrt_perfect`/`isqrt_mono`/`le_isqrt_of_sq_le`, `isqrt_four_mul`
+  (dyadic refinement `2·isqrt n ≤ isqrt(4n) ≤ 2·isqrt n+1`), and the **dyadic √ convergence certificate**
+  `dyadicSqrtSeq`/`_bracket`/`_step` (`s_k/2ᵏ → √a` Cauchy, modulus `1/2ᵏ`).  **Remaining**: cut-level
+  `sqrtCut` as the `Real213` `CauchyCutSeq` of `s_k/2ᵏ` + `(sqrtCut a)²=a` + `d/dx sqrt`.
 
 ### PDE estimates (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`)
 - **P1 ✅** maximum principle — `Analysis/ODE/HeatEqDiscrete.lean`: per-step/iterated/strong-strict +
@@ -69,8 +72,8 @@ casts (explicit-`Int.ofNat`-typed `have`s dodge the `Nat.cast` rw-mismatch), `ri
 1. **exp(a+b)=exp(a)exp(b) at the series level** — now reachable: combine `binom2_theorem` +
    `choose_mul_factorials` (the cut-level Taylor Cauchy convolution `(Σaʲ/j!)(Σbᵏ/k!)=Σ(a+b)ⁿ/n!`).
    Also `sin²+cos²=1`.
-2. **T4 sqrt** via the existing `DyadicSearch/IVT`/`RootCertificate` infra (bisection + convergence modulus,
-   `(sqrtCut a)² = a` up to `cutEq`, `d/dx sqrt`).
+2. **T4 cut-level `sqrtCut`** — the `Real213` `CauchyCutSeq` of `dyadicSqrtSeq a k / 2ᵏ` (the rate is
+   certified by `dyadicSqrtSeq_step`) + `(sqrtCut a)²=a` up to `cutEq` + `d/dx sqrt`.
 3. **Cut-level packaging**: exp/sin/cos as genuine `CauchyCutSeq` points (the T1→T2 rate is done; the
    stabilization needs a generalized-margin RateModulus — *not* a shifted one, the margin is e-tied).
 4. **P4 Li–Yau** (may stall — the real analytic depth).
