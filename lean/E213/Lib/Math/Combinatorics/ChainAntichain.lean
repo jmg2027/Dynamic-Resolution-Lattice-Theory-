@@ -27,7 +27,9 @@ open E213.Lib.Math.Combinatorics.Sperner
 open E213.Lib.Math.Combinatorics.SpernerChains
   (idxList idxList_length idxList_nodup mem_idxList_lt cardB_le_length
    beqBoolList beqBoolList_refl eq_of_beqBoolList)
-open E213.Lib.Math.Combinatorics.BoolEnum (mem_allBoolLists length_of_mem_allBoolLists)
+open E213.Lib.Math.Combinatorics.BoolEnum
+  (allBoolLists mem_allBoolLists length_of_mem_allBoolLists allBoolLists_length
+   nodup_allBoolLists)
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Tactic.List213
   (mem_append_left mem_append_right exists_of_mem_map mem_map_of_mem nodup_map_of_inj
@@ -1129,5 +1131,29 @@ theorem sperner_via_scd {n : Nat} (F : List (List Bool)) (hF : IsAntichain F)
   have hle := nodup_length_le_of_subset hmapnd hsub
   rw [length_map, scd_card] at hle
   exact hle
+
+/-! ## §15 — the SCD partitions all of `2^[n]` (total `2^n` subsets) -/
+
+/-- The flattened SCD lists every length-`n` vector exactly once (it is a partition:
+    nodup via `scd_nodup`/`scd_chain_nodup`/`scd_disjoint`). -/
+theorem scd_flat_nodup (n : Nat) : (flatMap213 (fun C => C) (scd n)).Nodup :=
+  nodup_flatMap213 (scd_nodup n) (fun _ hC => scd_chain_nodup hC)
+    (fun _ _ h1 h2 hne z hz1 hz2 => scd_disjoint h1 h2 hne z hz1 hz2)
+
+/-- ★★ **The SCD partitions `2^[n]`: its chains hold all `2^n` subsets.**  Together
+    with `scd_card` (`C(n,⌊n/2⌋)` chains) this fully describes the partition. -/
+theorem scd_flat_length (n : Nat) : (flatMap213 (fun C => C) (scd n)).length = 2 ^ n := by
+  have hsub : ∀ A, A ∈ flatMap213 (fun C => C) (scd n) → A ∈ allBoolLists n := by
+    intro A hA
+    obtain ⟨C, hC, hAC⟩ := mem_flatMap213 hA
+    rw [← scd_vec_length n C hC A hAC]; exact mem_allBoolLists A
+  have hsup : ∀ A, A ∈ allBoolLists n → A ∈ flatMap213 (fun C => C) (scd n) := by
+    intro A hA
+    obtain ⟨C, hC, hAC⟩ := scd_cover n A (length_of_mem_allBoolLists hA)
+    exact mem_flatMap213_of hC hAC
+  have h1 := nodup_length_le_of_subset (scd_flat_nodup n) hsub
+  have h2 := nodup_length_le_of_subset (nodup_allBoolLists n) hsup
+  rw [allBoolLists_length] at h1 h2
+  exact Nat.le_antisymm h1 h2
 
 end E213.Lib.Math.Combinatorics.ChainAntichain
