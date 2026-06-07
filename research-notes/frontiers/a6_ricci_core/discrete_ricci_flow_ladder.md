@@ -60,7 +60,10 @@ combinatorial formula).
    are `triMu0`/`triMu1`), `triF_lipschitz` (the `triF` potential is `1`-Lipschitz), and
    `triangle_ollivier_optimal` (`dualValue = transportCost = 1`, plan meets potential) — pins the scaled
    `W₁ = 1`, hence Ollivier `κ = 1 − ½ = ½ > 0`: **the triangle is positively curved**, a concrete
-   value, not just the bracket.
+   value, not just the bracket.  Upgraded to a **genuine optimum**: `ollivier_plan_optimal` (general —
+   `dualValue` depends only on marginals, so a plan meeting any `1`-Lipschitz dual is cost-optimal among
+   all plans with its marginals) + `triangle_plan_optimal` (`triPi`'s cost `1 ≤` cost of *every* valid
+   coupling of `m₀,m₁`).
 
 ## Honest boundary
 

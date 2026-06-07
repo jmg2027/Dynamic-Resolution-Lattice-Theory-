@@ -171,6 +171,28 @@ theorem ollivier_bracket (n : Nat) (d : Nat → Nat → Int) (f : Nat → Int) (
         = transportCost n d pi - dualValue n f pi from by ring_intZ]
   exact Order.sub_nonneg_of_le hdc
 
+/-- ★★★★ **Optimality certificate for a transport plan.**  `dualValue` depends only on the marginals,
+    so if a plan `π` meets a `1`-Lipschitz potential (`dualValue f π = transportCost d π`), then `π` is
+    cost-optimal among **all** plans `π'` sharing its marginals: `transportCost d π ≤ transportCost d π'`.
+    Hence `W₁ = transportCost d π` exactly, pinning Ollivier `κ = 1 − transportCost d π` — the general
+    form of the triangle worked example below.  Proof: same-marginals ⟹ same `dualValue`, then
+    `kantorovich_weak_duality` bounds `π'`'s cost below by that common dual value. -/
+theorem ollivier_plan_optimal (n : Nat) (d : Nat → Nat → Int) (f : Nat → Int)
+    (pi pi' : Nat → Nat → Int)
+    (hpi' : ∀ x y, x < n → y < n → 0 ≤ pi' x y)
+    (hlip : ∀ x y, f x - f y ≤ d x y)
+    (hrow : ∀ x, x < n → rowMarg n pi x = rowMarg n pi' x)
+    (hcol : ∀ y, y < n → colMarg n pi y = colMarg n pi' y)
+    (hmeet : dualValue n f pi = transportCost n d pi) :
+    transportCost n d pi ≤ transportCost n d pi' := by
+  have hr : gridSumZ n (fun x => f x * rowMarg n pi x) = gridSumZ n (fun x => f x * rowMarg n pi' x) :=
+    gridSumZ_congr n _ _ (fun x hx => by rw [hrow x hx])
+  have hc : gridSumZ n (fun y => f y * colMarg n pi y) = gridSumZ n (fun y => f y * colMarg n pi' y) :=
+    gridSumZ_congr n _ _ (fun y hy => by rw [hcol y hy])
+  have hdv : dualValue n f pi = dualValue n f pi' := by unfold dualValue; rw [hr, hc]
+  rw [← hmeet, hdv]
+  exact kantorovich_weak_duality n d f pi' hpi' hlip
+
 /-! ## §4 — worked example: the triangle `K₃` has positive Ollivier curvature
 
 The edge `(0,1)` of the triangle `C₃` (index set `{0,1,2}`, all distinct vertices at distance `1`).
@@ -227,5 +249,19 @@ theorem triangle_ollivier_optimal :
     dualValue 3 triF triPi = transportCost 3 triD triPi
     ∧ transportCost 3 triD triPi = 1 := by
   refine ⟨by decide, by decide⟩
+
+/-- ★★★★★ **`triPi` is the optimal plan** (not merely *a* plan meeting the dual): its cost `1` is
+    `≤` the cost of **every** valid coupling `π'` of `m₀`, `m₁`.  Hence `W₁(m₀,m₁) = 1` (scaled), so
+    Ollivier `κ = 1 − ½ = ½ > 0` rigorously — a genuine optimum, via `ollivier_plan_optimal` with the
+    `triF` certificate.  This is the full concrete Ollivier-curvature computation on the triangle. -/
+theorem triangle_plan_optimal (pi' : Nat → Nat → Int)
+    (hpi' : ∀ x y, x < 3 → y < 3 → 0 ≤ pi' x y)
+    (hrow : ∀ x, x < 3 → rowMarg 3 pi' x = triMu0 x)
+    (hcol : ∀ y, y < 3 → colMarg 3 pi' y = triMu1 y) :
+    transportCost 3 triD triPi ≤ transportCost 3 triD pi' := by
+  refine ollivier_plan_optimal 3 triD triF triPi pi' hpi' triF_lipschitz
+    (fun x hx => ?_) (fun y hy => ?_) triangle_ollivier_optimal.1
+  · rw [triangle_coupling.1 x hx, hrow x hx]
+  · rw [triangle_coupling.2 y hy, hcol y hy]
 
 end E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci

@@ -515,7 +515,11 @@ potential meet.  **Concrete `κ` now exhibited** — the triangle `C₃` worked 
 `triMu1`/`triF`): `triangle_coupling` (plan marginals match), `triF_lipschitz` (`triF` is `1`-Lipschitz, all
 branches by `decide` + `Order.sub_self_zero` on the diagonal), `triangle_ollivier_optimal`
 (`dualValue = transportCost = 1`, plan meets potential) ⟹ scaled `W₁ = 1`, Ollivier `κ = 1 − ½ = ½ > 0`:
-the triangle is positively curved (a concrete value, not just the bracket).  Purity: Int213 `Order`/`OrderMul`
+the triangle is positively curved (a concrete value, not just the bracket).  **`ollivier_plan_optimal`**
+(general optimality certificate: `dualValue` depends only on marginals, so a plan meeting a `1`-Lipschitz
+dual is cost-optimal among all plans sharing its marginals) + **`triangle_plan_optimal`** (`triPi`'s cost
+`1 ≤` cost of *every* valid coupling) make `W₁ = 1` a genuine optimum, not just a matched pair.  Purity:
+Int213 `Order`/`OrderMul`
 pure inequalities (core `Int.add_le_add`/`mul_le_mul_of_nonneg_right`/`sub_le_sub_left`/`Int.sub_self` all leak
 `propext`).
 
