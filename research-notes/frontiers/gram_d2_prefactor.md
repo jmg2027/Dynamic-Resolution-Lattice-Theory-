@@ -44,12 +44,35 @@ they are facets of one structural quantity `d²` (equivalence-pluralism
 discipline). The open question narrows: **not** "which value", but "which
 *mechanism* links the self-energy to `d²`".
 
-## What would close it
+## Mechanism — IDENTIFIED (2026-06-07)
 
-A cohomological/trace theorem deriving the self-energy prefactor as `d²`
-(disambiguating the three readings) from the cup-ring structure of
-H*(Δ⁴) — i.e. promoting `CupRingTrace` from a test to a forcing
-derivation. Then `correction = α²/d²` is fully atomic, and the Gram
+`GramD2Mechanism.lean` (PURE) identifies the mechanism by connecting two
+**independent math-side structures** that both yield `d²` for a
+**degree-2 (2-point)** object on the `d = 5` state space:
+
+1. **2-point operator-space dimension** — a self-energy is a 2-point
+   function in `V ⊗ V ≅ End V`; `tensorDim d d = d²`
+   (`Lib/Math/Algebra/Linalg213/Gap/TensorProduct`, `5⊗5=25` = K_{3,2}
+   channel count).
+2. **2-fold cup-graduation denominator** — the self-pairing `k=1` cup term
+   carries denominator `d^(k+1) = d²`
+   (`RefinedCupLadderDerivation.cup_graduation_denom`).
+
+These **coincide** (`mechanisms_converge`): a degree-2 object normalizes by
+`d²`, read two independent ways that agree. Combined with the forced
+numerator `α²` (self-energy is `O(α²)`), this grounds `correction = α²/d²`
+in degree-2 structure — not a posit.
+
+**Remaining premise** (the now-narrow open part): the identification of the
+Gram self-energy *with* the degree-2 / 2-point cup object — the natural
+reading of a self-energy, but not yet a separate forcing theorem.
+
+## What would fully close it
+
+A theorem identifying the Gram self-energy functional *as* the `k=1`
+self-pairing cup term (promoting `CupRingTrace`/`SelfPairingTrace` from a
+bottom-up test to a forcing derivation that the self-energy IS the 2-fold
+cup self-pairing). Then `correction = α²/d²` is fully atomic and the Gram
 `modeling-form` DoF closes entirely.
 
 A second, smaller sub-item (separate): replace the observed-α on the RHS

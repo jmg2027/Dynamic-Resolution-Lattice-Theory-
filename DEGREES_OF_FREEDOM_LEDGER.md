@@ -163,15 +163,17 @@ single ansatz `correction = α²/d²` (with `X = y+k`, `d² = 25`). The
 the correction form — it reduces to one sub-question: **why `α²/d²`?**
 
 - `α²` — structurally expected (self-energy is `O(α²)`).
-- `/d²` — the genuine open residual. The `25 = d²` prefactor's three
-  candidate readings (block-pair total / Gram-matrix DOF / α_GUT factor)
-  are now proven to **coincide at `d²`** (`GramD2Readings`,
-  `three_readings_coincide`) — so the *value* is over-determined, not a
-  choice. What stays open is only the **mechanism** linking the self-energy
-  to `d²`: `CupRingTrace.lean` is a bottom-up *test*, not a derivation (its
-  own header), and the cohomological forcing of the prefactor is the repo's
-  acknowledged Step-4+ open item. Stated plainly per §5.4 — the cup-ring
-  trace does *not* currently force the mechanism. Frontier:
+- `/d²` — the *value* is over-determined (`GramD2Readings`,
+  `three_readings_coincide`: block-pair / Gram-DOF / α_GUT all `= d²`), and
+  the **mechanism is now identified** (`GramD2Mechanism`): a self-energy is
+  a degree-2 (2-point) object, and a degree-2 object on the `d = 5` state
+  space normalizes by `d²` — equal to *both* the 2-point operator-space
+  dimension `tensorDim d d` *and* the 2-fold cup-graduation denominator
+  `cup_graduation_denom 1`, which coincide (`mechanisms_converge`). With the
+  forced numerator `α²` (self-energy is `O(α²)`), this grounds `α²/d²` in
+  degree-2 structure. **Remaining (narrow)**: a forcing theorem identifying
+  the Gram self-energy *as* the `k=1` self-pairing cup term (promote
+  `CupRingTrace`/`SelfPairingTrace` from test to derivation). Frontier:
   `research-notes/frontiers/gram_d2_prefactor.md`.
 
 ---
