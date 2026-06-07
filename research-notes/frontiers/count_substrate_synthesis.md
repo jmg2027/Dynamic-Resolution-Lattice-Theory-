@@ -147,6 +147,11 @@ exposed patterns worth harvesting.
   meets each symmetric chain ≤ once, so injects into `scd n`).  One residue, the
   same COUNT face read three ways.
 
+  **The SCD partition is fully characterised**: ★★ `scd_card` (`C(n,⌊n/2⌋)` chains)
+  + ★★ `scd_flat_length` (the flattened chains list every subset once — total `2^n`,
+  via `scd_flat_nodup` + cover + length-`n` ⟹ set-equal to `allBoolLists n`).  So the
+  symmetric chains partition `2^[n]` into `C(n,⌊n/2⌋)` chains holding all `2^n` subsets.
+
 - **Leibniz determinant over `perms`.**  `Linalg213/Permutation` uses `LPerm`
   *equivalence* + inversion-sign but no enumeration; `perms` + `mem_perms_iff` +
   `perms_nodup` now supply the index set for an explicit
