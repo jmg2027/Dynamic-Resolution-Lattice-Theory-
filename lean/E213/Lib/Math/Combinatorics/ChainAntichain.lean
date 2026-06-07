@@ -468,7 +468,7 @@ theorem mem_scdStep {C D : List (List Bool)} (h : C ∈ scdStep D) :
         | tail _ h'' => nomatch h''
 
 open E213.Lib.Math.Combinatorics.Permutations
-  (flatMap213 mem_flatMap213 mem_flatMap213_of nodup_flatMap213)
+  (flatMap213 mem_flatMap213 mem_flatMap213_of nodup_flatMap213 length_flatMap213_const)
 
 /-- The symmetric chain decomposition of `2^[n]`. -/
 def scd : Nat → List (List (List Bool))
@@ -983,5 +983,122 @@ theorem scd_nodup : ∀ (n : Nat), (scd n).Nodup
           rcases hzu1 with h | h <;> rcases hzu2 with h' | h' <;>
             exact (List.cons.inj (h.symm.trans h')).2
         exact hne (scd_same n D1 D2 hD1 hD2 u1 hu1 (by rw [hueq]; exact hu2))
+
+/-! ## §14 — the count `|scd n| = C(n,⌊n/2⌋)` (Dilworth upper bound CLOSED)
+
+The middle-layer trace `flatMap C ↦ C.filter (cardB = ⌊n/2⌋)` collects, for each
+chain, its unique `⌊n/2⌋`-element.  Its length is `|scd n|` (one per chain,
+`length_flatMap213_const … 1`); it is nodup (partition: `scd_nodup` + per-chain
+filter nodup + `scd_disjoint`) and equal as a set to the middle layer (cover +
+length-`n`).  Two nodup lists with the same underlying set have equal length, so
+`|scd n| = |kLayer n ⌊n/2⌋| = C(n,⌊n/2⌋)`. -/
+
+/-- Every vector of an `scd n` chain has length `n`. -/
+theorem scd_vec_length : ∀ (n : Nat) (C : List (List Bool)), C ∈ scd n →
+    ∀ A, A ∈ C → A.length = n
+  | 0, _, h, _, hA => by
+      cases h with
+      | head => cases hA with
+        | head => rfl
+        | tail _ h' => nomatch h'
+      | tail _ h' => nomatch h'
+  | n + 1, _, h, A, hA => by
+      obtain ⟨P, hP, hCP⟩ := mem_flatMap213 h
+      obtain ⟨u, hu, hAu⟩ := child_tail_mem hCP hA
+      have hlen : u.length = n := scd_vec_length n P hP u hu
+      rcases hAu with hAu | hAu <;> · rw [hAu]; show u.length + 1 = n + 1; rw [hlen]
+
+/-- Filter preserves nodup (propext-free). -/
+theorem nodup_filter {α : Type _} (p : α → Bool) :
+    ∀ {l : List α}, l.Nodup → (l.filter p).Nodup
+  | [], _ => List.Pairwise.nil
+  | a :: l, h => by
+      have hnil : a ∉ l := by cases h with | cons hh _ => exact fun hm => hh a hm rfl
+      have htl : l.Nodup := by cases h with | cons _ ht => exact ht
+      cases hpa : p a with
+      | true =>
+          rw [List.filter_cons_of_pos hpa]
+          refine List.Pairwise.cons ?_ (nodup_filter p htl)
+          intro b hb heq
+          exact hnil (heq.symm ▸ (mem_filter hb).1)
+      | false =>
+          rw [List.filter_cons_of_neg (by rw [hpa]; exact fun h => Bool.noConfusion h)]
+          exact nodup_filter p htl
+
+/-- ★ **Each chain's middle filter has exactly one element.**  `scd_has_middle`
+    (nonempty) + `scd_middle_unique` (all equal) + chain nodup. -/
+theorem filter_len_one {n : Nat} {C : List (List Bool)} (hC : C ∈ scd n) :
+    (C.filter (cardEq (half n))).length = 1 := by
+  obtain ⟨A0, hA0C, hA0⟩ := scd_has_middle hC
+  have hA0f : A0 ∈ C.filter (cardEq (half n)) :=
+    mem_filter_of hA0C (by show Nat.beq (cardB A0) (half n) = true; rw [hA0]; exact beq_self _)
+  cases hf : C.filter (cardEq (half n)) with
+  | nil => rw [hf] at hA0f; nomatch hA0f
+  | cons x xs =>
+      cases xs with
+      | nil => rfl
+      | cons y ys =>
+          exfalso
+          have hxf : x ∈ C.filter (cardEq (half n)) := by rw [hf]; exact List.Mem.head _
+          have hyf : y ∈ C.filter (cardEq (half n)) := by
+            rw [hf]; exact List.Mem.tail _ (List.Mem.head _)
+          have hxy : x = y :=
+            scd_middle_unique hC (mem_filter hxf).1 (mem_filter hyf).1
+              (Nat.eq_of_beq_eq_true (mem_filter hxf).2) (Nat.eq_of_beq_eq_true (mem_filter hyf).2)
+          have hfnd : (C.filter (cardEq (half n))).Nodup := nodup_filter _ (scd_chain_nodup hC)
+          rw [hf] at hfnd
+          cases hfnd with
+          | cons hh _ => exact hh y (List.Mem.head _) hxy
+
+/-- The middle-layer trace of the SCD has length `|scd n|` (one per chain). -/
+theorem midFlat_length (n : Nat) :
+    (flatMap213 (fun C => C.filter (cardEq (half n))) (scd n)).length = (scd n).length := by
+  rw [length_flatMap213_const (fun C => C.filter (cardEq (half n))) 1
+        (fun _ hC => filter_len_one hC), Nat.one_mul]
+
+/-- The trace is nodup (the SCD partition: distinct chains, disjoint, filters nodup). -/
+theorem midFlat_nodup (n : Nat) :
+    (flatMap213 (fun C => C.filter (cardEq (half n))) (scd n)).Nodup := by
+  refine nodup_flatMap213 (scd_nodup n) (fun _ hC => nodup_filter _ (scd_chain_nodup hC)) ?_
+  intro C1 C2 hC1 hC2 hne z hz1 hz2
+  exact scd_disjoint hC1 hC2 hne z (mem_filter hz1).1 (mem_filter hz2).1
+
+/-- The trace lands in the middle layer. -/
+theorem midFlat_sub (n : Nat) : ∀ A,
+    A ∈ flatMap213 (fun C => C.filter (cardEq (half n))) (scd n) → A ∈ kLayer n (half n) := by
+  intro A hA
+  obtain ⟨C, hC, hAC⟩ := mem_flatMap213 hA
+  refine mem_filter_of ?_ (mem_filter hAC).2
+  rw [← scd_vec_length n C hC A (mem_filter hAC).1]; exact mem_allBoolLists A
+
+/-- Every middle-layer vector occurs in the trace (cover). -/
+theorem kLayer_sub_midFlat (n : Nat) : ∀ A,
+    A ∈ kLayer n (half n) → A ∈ flatMap213 (fun C => C.filter (cardEq (half n))) (scd n) := by
+  intro A hA
+  obtain ⟨C, hC, hAC⟩ := scd_cover n A (length_of_mem_allBoolLists (mem_filter hA).1)
+  exact mem_flatMap213_of hC (mem_filter_of hAC (mem_filter hA).2)
+
+/-- ★★★ **The SCD count: `|scd n| = C(n, ⌊n/2⌋)`** — the Dilworth upper bound.
+    The minimum chain cover of `2^[n]` has exactly `C(n,⌊n/2⌋)` chains. -/
+theorem scd_card (n : Nat) : (scd n).length = binom n (half n) := by
+  have h1 := nodup_length_le_of_subset (midFlat_nodup n) (midFlat_sub n)
+  have h2 := nodup_length_le_of_subset (kLayer_nodup n (half n)) (kLayer_sub_midFlat n)
+  rw [midFlat_length n, kLayer_card] at h1
+  rw [midFlat_length n, kLayer_card] at h2
+  exact Nat.le_antisymm h1 h2
+
+/-- ★★★ **Dilworth's theorem on `2^[n]`.**  `scd n` is a chain cover of exactly
+    `C(n,⌊n/2⌋)` chains (`scd_card` + `scd_chain_cover`), and every chain cover of
+    the middle layer needs `≥ C(n,⌊n/2⌋)` (`dilworth_lower`).  So the minimum chain
+    cover `= C(n,⌊n/2⌋) =` the maximum antichain (Sperner) — the chain-cover dual of
+    Mirsky. -/
+theorem dilworth_boolean (n : Nat) :
+    (scd n).length = binom n (half n)
+    ∧ (∀ C, C ∈ scd n → IsChain C)
+    ∧ (∀ A, A.length = n → ∃ C, C ∈ scd n ∧ A ∈ C)
+    ∧ (∀ (chains : List (List (List Bool))), (∀ C, C ∈ chains → IsChain C) →
+        (∀ A, A ∈ kLayer n (half n) → ∃ C, C ∈ chains ∧ A ∈ C) →
+        binom n (half n) ≤ chains.length) :=
+  ⟨scd_card n, scd_isChain n, scd_cover n, fun chains => dilworth_lower chains⟩
 
 end E213.Lib.Math.Combinatorics.ChainAntichain
