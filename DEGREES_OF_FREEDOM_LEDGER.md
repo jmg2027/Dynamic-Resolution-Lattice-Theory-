@@ -92,6 +92,30 @@ So the Layer-1 `assignment` DoF is no longer "6 unconstrained maps" — it
 is exactly **the NT↔c attribution**, a single degeneracy between two
 atoms that share the value 2. Capstone: `assignment_arithmetic_boundary`.
 
+**Update 2 — the NT↔c attribution, now CLOSED**
+(`Lib/Physics/AlphaEM/AssignmentForcing.lean`, all PURE):
+
+The residual is resolved by the **edge-count structure** the leading term
+physically is (not by arithmetic, which cannot — the values coincide):
+
+- The leading `60·ζ(2)` is `edges(K_{3,2}^{(c=2)})·d`, and
+  `edges = k32_edges NS NT c = c·NS·NT` (`edge_reading_is_edges`).
+- The three readings `c·NS·NT`, `NS·NT²`, `NS·c²` **coincide only at the
+  DRLT point** (`readings_coincide_at_drlt`) and **diverge off it**
+  (`readings_diverge_off_drlt`: at `c=3` they are `18 ≠ 12 ≠ 27`). Only
+  `c·NS·NT` tracks the actual edge count — so the edge-count Lens selects
+  it **uniquely**; the degeneracy is an arithmetic accident of `NT = c`.
+- `c` and `NT` act on the edge count by **different operations**: a
+  multiplicity-step adds `NS·NT`, a T-vertex-step adds `c·NS`
+  (`nt_step`, `increments_distinguish_c_from_nt`: `15 ≠ 6` at `NT ≠ c`).
+- The two `2`'s are forced by **independent theorems** — `c=2` (arity,
+  `CombinatorialArity`), `NT=2` (pair count, `PairForcing`) — same value,
+  distinct role (`c_and_nt_equal_value_distinct_role`).
+
+Capstone: `nt_c_degeneracy_resolved`. **The Layer-1 `assignment` row is
+no longer a researcher DoF** — the cohomology's edge-count structure
+forces `c·NS·NT`, and the NT↔c coincidence is structurally broken.
+
 ---
 
 ## Layer 2 — the transcendental / coupling inputs
@@ -175,33 +199,34 @@ the open work.
 | Layer | forced | derived | assignment | modeling-form | fitted? |
 |---|---:|---:|---:|---:|---:|
 | 0 atoms | 5 | — | — | — | — |
-| 1 skeleton | — | 6 (values, **uniqueness proven**) | 1 (**NT↔c only**) | — | — |
+| 1 skeleton | — | 6 (values, **uniqueness proven**) | **0 (NT↔c closed)** | — | — |
 | 2 inputs | — | 2 | — | — | — |
 | 3 Gram | — | 1 | — | 2 | — |
 | v2 refinements | — | — | — | — | 2 |
 
-**Verdict.** The foundation (Layer 0) and all *values* (Layers 1–3) are
-forced or derived — no free real parameter exists anywhere, and the
-coefficient values are now proven *uniquely* represented
-(`AssignmentUniqueness`). The genuine residual researcher-DoF is exactly
-three things, and they are now named and (for the first) sharpened:
-**(a)** the skeleton assignment — reduced to the single `NT↔c` attribution
-(both = 2), to be closed by the cohomology's `c`-multiplicity reading;
-**(b)** the Gram cubic's form + truncation order; **(c)** the two v2
-refinement terms. That is the honest state — far stronger than
-"numerology," and not yet "0 DoF."
+**Verdict.** The foundation (Layer 0), all *values* (Layers 1–3), AND the
+skeleton layer-assignment are now forced or derived — no free real
+parameter, values proven *uniquely* represented (`AssignmentUniqueness`),
+and the last assignment freedom (NT↔c) structurally closed by the
+edge-count Lens (`AssignmentForcing`). The genuine residual researcher-DoF
+is now exactly **two** things: **(a)** the Gram cubic's form + truncation
+order (`modeling-form`); **(b)** the two v2 refinement terms (`fitted?`) —
+plus the separately-tracked **Jarlskog `J` input** for θ_QCD
+(`PRE_REGISTRATION.md` P2). The α_em *leading* derivation now stands at
+zero researcher-DoF through the base skeleton; that is materially stronger
+than the prior state and well past "numerology."
 
 ---
 
 ## Next actions (close `assignment`/`modeling-form`/`fitted?` → `forced`)
 
-1. **Assignment uniqueness — PARTIALLY CLOSED.** Value-uniqueness is
-   proven (`AssignmentUniqueness.leading_coeffs_unique`): each
-   coefficient is the unique box-monomial. The residual is now isolated
-   to the single `NT↔c` degeneracy (`assignment_arithmetic_boundary`).
-   *Remaining*: derive the `c`-multiplicity attribution from the
-   cohomology (`c3_chain`'s `60/30 = c`) as a forcing theorem — this is
-   a physics derivation, not a `decide`, and is the honest next target.
+1. **Assignment uniqueness — CLOSED.** Value-uniqueness proven
+   (`AssignmentUniqueness.leading_coeffs_unique`) AND the NT↔c attribution
+   resolved structurally via the edge-count Lens
+   (`AssignmentForcing.nt_c_degeneracy_resolved`): only `c·NS·NT` is the
+   edge count, the substitution readings diverge off the DRLT point, and
+   `c`/`NT` are distinct operations on the edge count. No residual
+   assignment DoF remains in the leading skeleton.
 2. **Derive the cubic.** Show `d²y³+1 = d²Xy²` is the forced
    self-consistency relation (e.g. from the cup-ring trace), not a
    chosen shape.
