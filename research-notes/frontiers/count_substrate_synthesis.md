@@ -141,6 +141,12 @@ exposed patterns worth harvesting.
   (`dilworth_boolean`).  This closes the COUNT-substrate extremal-combinatorics
   frontier (LYM, Bollobás, Sperner, Mirsky, Dilworth all ∅-axiom).
 
+  **Sperner now has three ∅-axiom proofs** on this substrate: the LYM double count
+  (`SpernerChains.sperner`), `sperner_via_lym` (the named inequality + the `min`
+  step), and ★★ `sperner_via_scd` (Dilworth's partition ⟹ Sperner — an antichain
+  meets each symmetric chain ≤ once, so injects into `scd n`).  One residue, the
+  same COUNT face read three ways.
+
 - **Leibniz determinant over `perms`.**  `Linalg213/Permutation` uses `LPerm`
   *equivalence* + inversion-sign but no enumeration; `perms` + `mem_perms_iff` +
   `perms_nodup` now supply the index set for an explicit
