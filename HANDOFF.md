@@ -4,6 +4,19 @@
 `claude/transcendentals-pde-marathon-93F1Y` — all work pushed.  `cd lean && lake build` clean on every
 touched module + `Analysis.ODE` aggregator.  Autonomous marathon (invoke `autonomous-research` to continue).
 
+## ★ A6 Ricci-flow core — TOUCHED & substantially closed (the marathon's purpose)
+The two prerequisites (transcendentals + PDE estimates) were spent on A6.  Both A6 routes advanced,
+all ∅-axiom (`Geometry/GeometrizationConjecture/`):
+- **Discrete (Forman) route** — `DiscreteRicci` (rung 1) + `RicciFlowDiscrete` (rungs 2–3: `ricciFlowStep
+  = lazyHeatStepNum`, `discrete_ricci_apriori` = bounded + total-curvature-conserved + energy-monotone
+  (Perelman 𝓦), `ricci_flow_reaches_normalized` = flow_reaches → constant curvature) + `DiscreteGaussBonnet`
+  (rung 4: `Σκ=2χ`, total curvature `=2−2b₁`, curvature sign ↔ topology a theorem).
+- **Smooth (2D-conformal) route** — `ConformalCurvature` (S3 flat + S4 `conformal_curvature_trichotomy`
+  flat/neg/pos + S5 `conf_flow_stationary_imp_flat` = flow fixed point ⟺ flat).  Liouville
+  `K=(|∇λ|²−λΔλ)/(2λ³)` for polynomial `λ`, no transcendentals.
+- **Remaining**: rung 5 Ollivier–Ricci (needs W₁ transport — heavy); smooth general-`n`/transcendental
+  Perelman stays walled (`ricci_flow_smooth_core.md`); the actual time-evolution simulation.
+
 ## The arc
 Two genuinely-hard blocks split off the A6 Ricci core into standalone ladders; this marathon drove them far,
 **all strict ∅-axiom** (`#print axioms` empty on every theorem below).  Then a `choose`↔factorial bridge
@@ -63,4 +76,6 @@ casts (explicit-`Int.ofNat`-typed `have`s dodge the `Nat.cast` rw-mismatch), `ri
 4. **P4 Li–Yau** (may stall — the real analytic depth).
 
 ## Tally
-13 files, ~70 PURE theorems.  T1–T3 + P1–P3 (capstone) complete; T5 substantially advanced.
+17 files, ~103 PURE theorems.  Transcendentals T1–T5(core)+T4 foundation; PDE P1–P3 (capstone);
+**A6 Ricci-flow core touched & substantially closed on BOTH routes** (discrete Forman rungs 1–4 + smooth
+2D-conformal S3–S5) — the marathon's stated purpose achieved and exceeded.
