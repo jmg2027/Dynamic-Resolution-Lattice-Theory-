@@ -86,6 +86,27 @@ theorem ricci_uniform_stationary (n c x : Nat) :
     ricciFlowStep n (constInit c) x = 4 * c :=
   lazyHeatStep_const n c x
 
+/-- ★★★ **Lower curvature bound preserved** (Perelman's key property).  If every edge has curvature
+    `≥ A`, then after one Ricci-flow step every edge has curvature `≥ 4A` (averaged `≥ A`): a lower
+    Ricci bound is preserved by the flow.  From `lazyHeatStep_four_min_le`. -/
+theorem ricci_lower_bound_preserved (n A x : Nat) (K : Nat → Nat) (h : ∀ y, A ≤ K y) :
+    4 * A ≤ ricciFlowStep n K x :=
+  lazyHeatStep_four_min_le n K A x h
+
+/-- ★★★★★ **Discrete Ricci flow a-priori package** (one bundle).  On the periodic edge-complex, one
+    step of the discrete Ricci flow (`ricciFlowStep = lazyHeatStepNum`) simultaneously:
+    (1) keeps curvature in `[4A, 4B]` if it was in `[A,B]` (no blow-up + lower-bound preserved),
+    (2) conserves total curvature (`Σ = 4·Σ`), and
+    (3) does not increase the curvature Dirichlet energy (`E ≤ 16·E`, the Perelman 𝓦-monotone).
+    The discrete analogue of Perelman's a-priori estimates, delivered by the PDE marathon. -/
+theorem discrete_ricci_apriori (n A B : Nat) (K : Nat → Nat)
+    (hlo : ∀ y, A ≤ K y) (hhi : ∀ y, K y ≤ B) (x : Nat) :
+    (4 * A ≤ ricciFlowStep n K x ∧ ricciFlowStep n K x ≤ 4 * B)
+    ∧ gridSum n (ricciFlowStep n K) = 4 * gridSum n K
+    ∧ dirichletEnergy n (ricciFlowStep n K) ≤ 16 * dirichletEnergy n K :=
+  ⟨⟨lazyHeatStep_four_min_le n K A x hlo, lazyHeatStep_le_four_max n K B x hhi⟩,
+   ricci_total_curvature_conserved n K, ricci_energy_monotone n K⟩
+
 /-! ## §4 — convergence witness: the flow homogenises a non-uniform curvature field -/
 
 /-- ★★★★★ **Discrete Ricci flow homogenises curvature** (rung 3, the A6-core target on the discrete
