@@ -31,7 +31,7 @@ open E213.Lib.Math.Combinatorics.BoolEnum (mem_allBoolLists length_of_mem_allBoo
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Tactic.List213
   (mem_append_left mem_append_right exists_of_mem_map mem_map_of_mem nodup_map_of_inj
-   nodup_length_le_of_subset length_map mem_filter_of mem_filter)
+   nodup_length_le_of_subset length_map mem_filter_of mem_filter nodup_append mem_append_iff)
 
 /-- Every `k < m` is a position of `idxList m = [0, …, m−1]` (converse of
     `SpernerChains.mem_idxList_lt`). -/
@@ -467,7 +467,8 @@ theorem mem_scdStep {C D : List (List Bool)} (h : C ∈ scdStep D) :
         | head => exact Or.inr rfl
         | tail _ h'' => nomatch h''
 
-open E213.Lib.Math.Combinatorics.Permutations (flatMap213 mem_flatMap213 mem_flatMap213_of)
+open E213.Lib.Math.Combinatorics.Permutations
+  (flatMap213 mem_flatMap213 mem_flatMap213_of nodup_flatMap213)
 
 /-- The symmetric chain decomposition of `2^[n]`. -/
 def scd : Nat → List (List (List Bool))
@@ -791,5 +792,47 @@ theorem scd_middle_unique {n : Nat} {C : List (List Bool)} (hC : C ∈ scd n)
     {A B : List Bool} (hA : A ∈ C) (hB : B ∈ C)
     (hcA : cardB A = half n) (hcB : cardB B = half n) : A = B :=
   chain_card_inj (scd_isChain n C hC A hA B hB) (hcA.trans hcB.symm)
+
+/-! ## §12 — nodup infrastructure (chains have no repeats)
+
+The `cardB` run `consec k m` is strictly increasing, hence duplicate-free
+(`consec_nodup`); a chain's `cardB` map being nodup forces the chain itself nodup
+(`nodup_of_nodup_map`), so every SCD chain is duplicate-free (`scd_chain_nodup`). -/
+
+/-- Every member of the run `[k,…,k+m−1]` is `≥ k`. -/
+theorem mem_consec_lb : ∀ (k m x : Nat), x ∈ consec k m → k ≤ x
+  | _, 0, _, h => nomatch h
+  | k, m + 1, x, h => by
+      cases h with
+      | head => exact Nat.le_refl k
+      | tail _ h' => exact Nat.le_of_succ_le (mem_consec_lb (k + 1) m x h')
+
+/-- The consecutive run is duplicate-free. -/
+theorem consec_nodup : ∀ (k m : Nat), (consec k m).Nodup
+  | _, 0 => List.Pairwise.nil
+  | k, m + 1 => by
+      show (k :: consec (k + 1) m).Nodup
+      refine List.Pairwise.cons ?_ (consec_nodup (k + 1) m)
+      intro b hb heq
+      rw [← heq] at hb
+      exact Nat.not_succ_le_self k (mem_consec_lb (k + 1) m k hb)
+
+/-- A nodup image forces a nodup source. -/
+theorem nodup_of_nodup_map {α β : Type _} (g : α → β) :
+    ∀ {C : List α}, (C.map g).Nodup → C.Nodup
+  | [], _ => List.Pairwise.nil
+  | a :: l, h => by
+      cases h with
+      | cons hh ht =>
+          refine List.Pairwise.cons ?_ (nodup_of_nodup_map g ht)
+          intro b hb heq
+          exact hh (g b) (mem_map_of_mem g hb) (congrArg g heq)
+
+/-- ★ **Every SCD chain is duplicate-free.**  Its `cardB` values are the strictly
+    increasing run `consec k |C|`, which has no repeats. -/
+theorem scd_chain_nodup {n : Nat} {C : List (List Bool)} (hC : C ∈ scd n) : C.Nodup := by
+  obtain ⟨k, hmap, _⟩ := scd_sym n C hC
+  refine nodup_of_nodup_map cardB ?_
+  rw [hmap]; exact consec_nodup k C.length
 
 end E213.Lib.Math.Combinatorics.ChainAntichain
