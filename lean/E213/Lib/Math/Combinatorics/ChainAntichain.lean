@@ -899,4 +899,89 @@ theorem extendC_raiseC_disjoint : ∀ (D : List (List Bool)), D.Nodup →
               · exact hwni (by rw [(List.cons.inj hA).2]; exact hv)
           | tail _ hr' => exact extendC_raiseC_disjoint (w2 :: rest) hwnd z he' hr'
 
+/-- Every vector of a child chain has its tail in the parent. -/
+theorem child_tail_mem {P D : List (List Bool)} (hD : D ∈ scdStep P) {v : List Bool}
+    (hv : v ∈ D) : ∃ u, u ∈ P ∧ (v = false :: u ∨ v = true :: u) := by
+  rcases mem_scdStep hD with rfl | rfl
+  · exact mem_extendC P v hv
+  · obtain ⟨u, hu, hvu⟩ := mem_raiseC P v hv
+    exact ⟨u, hu, Or.inr hvu⟩
+
+/-- ★★ **The SCD chains partition `2^[n]`.**  A vector shared by two chains of
+    `scd n` forces the chains to coincide (positive form of disjointness): the
+    shared tail lies in both parents (`child_tail_mem`), which are equal by
+    induction; within one parent `extendC`/`raiseC` are disjoint. -/
+theorem scd_same : ∀ (n : Nat) (C1 C2 : List (List Bool)),
+    C1 ∈ scd n → C2 ∈ scd n → ∀ v, v ∈ C1 → v ∈ C2 → C1 = C2
+  | 0, _, _, h1, h2, _, _, _ => by
+      cases h1 with
+      | head => cases h2 with
+        | head => rfl
+        | tail _ h => nomatch h
+      | tail _ h => nomatch h
+  | n + 1, C1, C2, h1, h2, v, hvC1, hvC2 => by
+      obtain ⟨P1, hP1, hD1⟩ := mem_flatMap213 h1
+      obtain ⟨P2, hP2, hD2⟩ := mem_flatMap213 h2
+      obtain ⟨u1, hu1, hv1⟩ := child_tail_mem hD1 hvC1
+      obtain ⟨u2, hu2, hv2⟩ := child_tail_mem hD2 hvC2
+      have hueq : u1 = u2 := by
+        rcases hv1 with h | h <;> rcases hv2 with h' | h' <;>
+          exact (List.cons.inj (h.symm.trans h')).2
+      have hPeq : P1 = P2 :=
+        scd_same n P1 P2 hP1 hP2 u1 hu1 (by rw [hueq]; exact hu2)
+      rw [hPeq] at hD1
+      rcases mem_scdStep hD1 with rfl | rfl <;> rcases mem_scdStep hD2 with rfl | rfl
+      · rfl
+      · exact (extendC_raiseC_disjoint P2 (scd_chain_nodup hP2) v hvC1 hvC2).elim
+      · exact (extendC_raiseC_disjoint P2 (scd_chain_nodup hP2) v hvC2 hvC1).elim
+      · rfl
+
+/-- Disjointness in `≠` form (for `nodup_flatMap213`). -/
+theorem scd_disjoint {n : Nat} {C1 C2 : List (List Bool)}
+    (h1 : C1 ∈ scd n) (h2 : C2 ∈ scd n) (hne : C1 ≠ C2)
+    (z : List Bool) (hz1 : z ∈ C1) (hz2 : z ∈ C2) : False :=
+  hne (scd_same n C1 C2 h1 h2 z hz1 hz2)
+
+/-- The two children of one parent are distinct lists (different head bit). -/
+theorem extendC_ne_raiseC : ∀ (D : List (List Bool)), raiseC D ≠ [] → extendC D ≠ raiseC D
+  | [], h => absurd rfl h
+  | [_], h => absurd rfl h
+  | d1 :: d2 :: drest, _ => by
+      intro heq
+      rw [show extendC (d1 :: d2 :: drest) = (false :: d1) :: extendC (d2 :: drest) from rfl,
+          show raiseC (d1 :: d2 :: drest) = (true :: d1) :: raiseC (d2 :: drest) from rfl] at heq
+      exact Bool.noConfusion (List.cons.inj (List.cons.inj heq).1).1
+
+/-- ★★ **`scd n` has no repeated chain.**  Distinct parents yield disjoint sets of
+    children (a shared child's vectors force equal parents, `scd_same`); within a
+    parent the two children differ (`extendC_ne_raiseC`). -/
+theorem scd_nodup : ∀ (n : Nat), (scd n).Nodup
+  | 0 => List.Pairwise.cons (fun _ h => nomatch h) List.Pairwise.nil
+  | n + 1 => by
+      refine nodup_flatMap213 (scd_nodup n) ?_ ?_
+      · intro D _
+        unfold scdStep
+        cases hr : raiseC D with
+        | nil => exact List.Pairwise.cons (fun _ h => nomatch h) List.Pairwise.nil
+        | cons a as =>
+            refine List.Pairwise.cons ?_
+              (List.Pairwise.cons (fun _ h => nomatch h) List.Pairwise.nil)
+            intro c hc
+            cases hc with
+            | head =>
+                exact hr ▸ extendC_ne_raiseC D (by rw [hr]; exact fun h => List.noConfusion h)
+            | tail _ h => nomatch h
+      · intro D1 D2 hD1 hD2 hne C hCD1 hCD2
+        have hCne : C ≠ [] := scdStep_ne_nil (scd_nonempty n D1 hD1) hCD1
+        obtain ⟨z, hz⟩ : ∃ z, z ∈ C := by
+          cases C with
+          | nil => exact absurd rfl hCne
+          | cons c cs => exact ⟨c, List.Mem.head _⟩
+        obtain ⟨u1, hu1, hzu1⟩ := child_tail_mem hCD1 hz
+        obtain ⟨u2, hu2, hzu2⟩ := child_tail_mem hCD2 hz
+        have hueq : u1 = u2 := by
+          rcases hzu1 with h | h <;> rcases hzu2 with h' | h' <;>
+            exact (List.cons.inj (h.symm.trans h')).2
+        exact hne (scd_same n D1 D2 hD1 hD2 u1 hu1 (by rw [hueq]; exact hu2))
+
 end E213.Lib.Math.Combinatorics.ChainAntichain
