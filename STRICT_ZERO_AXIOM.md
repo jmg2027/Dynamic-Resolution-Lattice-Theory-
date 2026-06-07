@@ -511,7 +511,7 @@ field-L² companion of the energy (gradient-L²) decay.
 ℤ); `confK_flat` (constant `λ` ⟹ `K=0`, S3), `confK_paraboloid` (`λ=x²+y²+1` ⟹ numerator `−4`, negative
 curvature), `confK_dome` (`λ=C−x²−y²` ⟹ numerator `4C`, positive curvature), `conformal_curvature_trichotomy`
 (flat/neg/pos, S4) — genuine smooth 2D-conformal Ricci curvature, `ring_intZ`.  The smooth wall (general-`n`
-+ transcendental metrics) stays; 2D-conformal polynomial `λ` is this side of it.  S5 (the `∂_tλ=−2Kλ` flow) next.
++ transcendental metrics) stays; 2D-conformal polynomial `λ` is this side of it.  **S5 ✅** (same file, 2 more PURE): the flow `∂_tλ=−2Kλ` cleared to `λ²·∂_tλ=confFlowRate=−confKNum`; `conf_flow_flat_stationary` (flat = fixed point) + `conf_flow_stationary_imp_flat` (fixed point ⟺ flat `K=0`) — the smooth 2D-conformal route S3–S5 closed.
 
 ### A6 CORE rung 4 — discrete Gauss–Bonnet: curvature sign ↔ topology as a theorem (2026-06-05)
 

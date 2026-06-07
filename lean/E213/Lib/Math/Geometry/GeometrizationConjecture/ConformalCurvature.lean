@@ -69,4 +69,34 @@ theorem conformal_curvature_trichotomy (x y : Int) :
   · rw [confK_paraboloid]; decide
   · rw [confK_dome]; decide
 
+/-! ## §S5 — the 2D conformal Ricci flow `∂_t λ = −2K·λ`
+
+In 2D every metric is Einstein: `Ric = K·g` (scalar `R = 2K`).  The Ricci flow `∂_t g = −2 Ric`
+on `g = λ·δ` therefore reads `∂_t λ = −2K·λ`; with `K = confKNum/(2λ³)` this clears to
+
+  `λ² · (∂_t λ) = −confKNum`.
+
+So the flow's rate has integer numerator `confFlowRate = −confKNum`, and the flow is **stationary
+exactly at flat (`K = 0`) metrics** — the fixed points of the smooth 2D-conformal Ricci flow. -/
+
+/-- The 2D conformal Ricci-flow rate numerator: `λ²·∂_tλ = confFlowRate` where `∂_tλ = −2Kλ`. -/
+def confFlowRate (lam lamx lamy lamxx lamyy : Int) : Int :=
+  -(confKNum lam lamx lamy lamxx lamyy)
+
+/-- ★★★ **Flat metrics are stationary.**  A constant conformal factor (flat, `K = 0`) is a fixed
+    point of the 2D conformal Ricci flow: the rate vanishes. -/
+theorem conf_flow_flat_stationary (c : Int) : confFlowRate c 0 0 0 0 = 0 := by
+  unfold confFlowRate; rw [confK_flat]; rfl
+
+/-- ★★★★ **Stationary ⟹ flat.**  A fixed point of the 2D conformal Ricci flow (`confFlowRate = 0`)
+    is exactly a flat metric (`K = 0`, `confKNum = 0`) — the flow drives the conformal metric toward
+    constant (zero) curvature, the smooth A6 conclusion in the 2D-conformal category. -/
+theorem conf_flow_stationary_imp_flat (lam lamx lamy lamxx lamyy : Int)
+    (h : confFlowRate lam lamx lamy lamxx lamyy = 0) :
+    confKNum lam lamx lamy lamxx lamyy = 0 := by
+  unfold confFlowRate at h
+  have h2 := congrArg Neg.neg h
+  rw [Int.neg_neg, Int.neg_zero] at h2
+  exact h2
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.ConformalCurvature

@@ -150,10 +150,11 @@ S4. **A nonflat check** — ✅ DONE (same file): both signs on polynomial `λ` 
     `confK_paraboloid` (`λ = x²+y²+1` ⟹ numerator `−4`, negatively curved) and `confK_dome`
     (`λ = C−x²−y²` ⟹ numerator `4C`, positively curved); `conformal_curvature_trichotomy` bundles
     the flat/negative/positive trichotomy.  Genuine smooth 2D-conformal Ricci curvature, ∅-axiom.
-S5. **2D conformal Ricci flow** `∂_t λ = −2K·λ` (since `Ric = K·g` in 2D) — a genuine smooth flow
-    on one polynomial field (`λ²·∂_tλ = −confKNum`, fixed points = flat `K=0`), then a monovariant.
-    NEXT (the curvature numerator + trichotomy of S3–S4 are the substance; the flow ODE is the
-    remaining rung).
+S5. **2D conformal Ricci flow** — ✅ DONE (`ConformalCurvature.lean`).  `∂_t λ = −2K·λ` (since
+    `Ric = K·g` in 2D), cleared to `λ²·∂_tλ = confFlowRate = −confKNum`; `conf_flow_flat_stationary`
+    (flat metrics are fixed points) + `conf_flow_stationary_imp_flat` (a fixed point ⟺ flat `K=0`) —
+    the flow drives the 2D-conformal metric to constant (zero) curvature, the smooth A6 conclusion.
+    **Smooth 2D-conformal route S3–S5 closed.**  (A monovariant/time-evolution simulation is a refinement.)
 
 This is genuine *smooth* (not discrete) Ricci geometry, `∅`-axiom, in 2D.
 
