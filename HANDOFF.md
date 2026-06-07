@@ -14,8 +14,15 @@ all ∅-axiom (`Geometry/GeometrizationConjecture/`):
 - **Smooth (2D-conformal) route** — `ConformalCurvature` (S3 flat + S4 `conformal_curvature_trichotomy`
   flat/neg/pos + S5 `conf_flow_stationary_imp_flat` = flow fixed point ⟺ flat).  Liouville
   `K=(|∇λ|²−λΔλ)/(2λ³)` for polynomial `λ`, no transcendentals.
-- **Remaining**: rung 5 Ollivier–Ricci (needs W₁ transport — heavy); smooth general-`n`/transcendental
-  Perelman stays walled (`ricci_flow_smooth_core.md`); the actual time-evolution simulation.
+- **Rung 5 Ollivier–Ricci — ✅ DONE & richly closed** (`Geometry/GeometrizationConjecture/OllivierRicci.lean`,
+  all ∅-axiom): optimal-transport engine `kantorovich_weak_duality` + `ollivier_bracket`; **general
+  optimality certificate** `ollivier_plan_optimal` (dualValue depends only on marginals ⟹ a plan meeting any
+  1-Lipschitz dual is cost-optimal among all plans with its marginals, pinning W₁); and the **full Ollivier
+  sign trichotomy** as concrete worked examples with rigorous optimality: triangle `κ=½>0` (clustered,
+  `triangle_*`), square C₄ `κ=0` (flat, `c4_*`), double-star `κ=−2/3<0` (tree, `ds_*`) — the transport
+  mirror of the Forman / Gauss–Bonnet sign↔topology results.
+- **Remaining**: smooth general-`n`/transcendental Perelman stays walled (`ricci_flow_smooth_core.md`);
+  the actual time-evolution simulation; Bochner/CD(K,N) Bakry–Émery refinement.
 
 ## The arc
 Two genuinely-hard blocks split off the A6 Ricci core into standalone ladders; this marathon drove them far,
@@ -79,6 +86,8 @@ casts (explicit-`Int.ofNat`-typed `have`s dodge the `Nat.cast` rw-mismatch), `ri
 4. **P4 Li–Yau** (may stall — the real analytic depth).
 
 ## Tally
-17 files, ~103 PURE theorems.  Transcendentals T1–T5(core)+T4 foundation; PDE P1–P3 (capstone);
-**A6 Ricci-flow core touched & substantially closed on BOTH routes** (discrete Forman rungs 1–4 + smooth
-2D-conformal S3–S5) — the marathon's stated purpose achieved and exceeded.
+~18 files, ~135 PURE theorems.  Transcendentals T1–T5(core)+T4 foundation; PDE P1–P3 (capstone);
+**A6 Ricci-flow core touched & closed on BOTH routes** — discrete Forman/Ollivier **rungs 1–5 all DONE**
+(Forman rung 1, flow a-priori + Perelman-𝓦 energy decay rungs 2–3, Gauss–Bonnet rung 4, **Ollivier rung 5
+with full +/0/− sign trichotomy + general optimality certificate**) + smooth 2D-conformal S3–S5 — the
+marathon's stated purpose achieved and exceeded.
