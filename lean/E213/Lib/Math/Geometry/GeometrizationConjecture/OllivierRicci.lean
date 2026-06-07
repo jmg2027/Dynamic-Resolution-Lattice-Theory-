@@ -171,4 +171,61 @@ theorem ollivier_bracket (n : Nat) (d : Nat → Nat → Int) (f : Nat → Int) (
         = transportCost n d pi - dualValue n f pi from by ring_intZ]
   exact Order.sub_nonneg_of_le hdc
 
+/-! ## §4 — worked example: the triangle `K₃` has positive Ollivier curvature
+
+The edge `(0,1)` of the triangle `C₃` (index set `{0,1,2}`, all distinct vertices at distance `1`).
+The one-step walk measures (uniform on neighbours, integer-scaled to total mass `2`) are
+`m₀ = (0,1,1)` (neighbours `{1,2}` of `0`) and `m₁ = (1,0,1)` (neighbours `{0,2}` of `1`).  An
+optimal transport plan `triPi` (move the unit at vertex `1` to vertex `0`, keep the unit at `2`) has
+cost `1`; the `1`-Lipschitz potential `triF` (`f 1 = 1`, else `0`) has dual value `1`.  They **meet**
+(`dualValue = transportCost = 1`), so by `kantorovich_weak_duality` this is optimal: the scaled
+`W₁(m₀,m₁) = 1`, i.e. probability `W₁ = ½`, so Ollivier `κ = 1 − ½ = ½ > 0` — the triangle is
+positively curved (matching its Forman `+` sign, `DiscreteRicci`). -/
+
+open E213.Tactic.NatHelper (cases_lt_three)
+
+/-- Graph distance on the triangle `C₃`: `0` on the diagonal, `1` off it. -/
+def triD : Nat → Nat → Int := fun i j => if i = j then 0 else 1
+
+/-- The optimal transport plan: `1↦0` and `2↦2`. -/
+def triPi : Nat → Nat → Int :=
+  fun x y => if x = 1 ∧ y = 0 then 1 else if x = 2 ∧ y = 2 then 1 else 0
+
+/-- Walk measure at vertex `0` (uniform on `{1,2}`, scaled): `(0,1,1)`. -/
+def triMu0 : Nat → Int := fun i => if i = 1 then 1 else if i = 2 then 1 else 0
+
+/-- Walk measure at vertex `1` (uniform on `{0,2}`, scaled): `(1,0,1)`. -/
+def triMu1 : Nat → Int := fun i => if i = 0 then 1 else if i = 2 then 1 else 0
+
+/-- The Kantorovich dual potential: `f 1 = 1`, else `0`. -/
+def triF : Nat → Int := fun i => if i = 1 then 1 else 0
+
+/-- `triPi` is a valid coupling of `m₀` and `m₁` (its marginals are `triMu0`, `triMu1`). -/
+theorem triangle_coupling :
+    (∀ x, x < 3 → rowMarg 3 triPi x = triMu0 x)
+    ∧ (∀ y, y < 3 → colMarg 3 triPi y = triMu1 y) := by
+  refine ⟨fun x hx => ?_, fun y hy => ?_⟩
+  · rcases cases_lt_three hx with rfl | rfl | rfl <;> decide
+  · rcases cases_lt_three hy with rfl | rfl | rfl <;> decide
+
+/-- `triF` is `1`-Lipschitz w.r.t. the triangle distance: `f i − f j ≤ d i j` for all `i,j`. -/
+theorem triF_lipschitz (i j : Nat) : triF i - triF j ≤ triD i j := by
+  unfold triF triD
+  by_cases hij : i = j
+  · subst hij; rw [if_pos rfl, Order.sub_self_zero]; exact Order.le_refl 0
+  · rw [if_neg hij]
+    by_cases hi : i = 1 <;> by_cases hj : j = 1
+    · exact absurd (hi.trans hj.symm) hij
+    · rw [if_pos hi, if_neg hj]; decide
+    · rw [if_neg hi, if_pos hj]; decide
+    · rw [if_neg hi, if_neg hj]; decide
+
+/-- ★★★★★ **The triangle's optimal transport meets the dual** (`dualValue = transportCost = 1`).
+    With `triangle_coupling` (valid plan) and `triF_lipschitz` (valid potential), this pins the scaled
+    `W₁(m₀,m₁) = 1` — Ollivier `κ = 1 − ½ = ½ > 0`, the triangle is positively curved. -/
+theorem triangle_ollivier_optimal :
+    dualValue 3 triF triPi = transportCost 3 triD triPi
+    ∧ transportCost 3 triD triPi = 1 := by
+  refine ⟨by decide, by decide⟩
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci

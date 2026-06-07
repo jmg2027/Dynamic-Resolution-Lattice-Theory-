@@ -51,12 +51,16 @@ combinatorial formula).
    (`totalCurv_eq`) — positive ⟺ `b₁=0` (tree), negative ⟺ `b₁≥1` (cyclic).  `curvature_sign_topology`:
    `K_{1,1}` `+2` (`b₁=0`) vs `K_{3,2}` `−2` (`b₁=2`) — **curvature sign ↔ topology now a theorem,
    not a table** (derived by `ring_intZ`).  (Bochner/CD(K,N) Bakry–Émery is a further refinement.)
-5. **Ollivier–Ricci** — ⚙️ **core DONE** (`GeometrizationConjecture/OllivierRicci.lean`, ∅-axiom):
+5. **Ollivier–Ricci** — ✅ **DONE** (`GeometrizationConjecture/OllivierRicci.lean`, ∅-axiom):
    the optimal-transport engine.  `gridSumZ` (Int grid sum) + `gridSumZ_fubini` (sum-swap) →
    **`kantorovich_weak_duality`** (`Σ f·μ − Σ f·ν ≤ Σ Σ d·π` for any coupling `π≥0` and `1`-Lipschitz
    `f` — the `W₁`-dual ≤ `W₁`-primal direction), and `ollivier_bracket` (`1−transportCost ≤ 1−dualValue`,
-   the curvature lower/upper bracket that pins `κ` when a plan and a potential meet).  This is the
-   Wasserstein/coupling core the rung needed; concrete `κ` values on specific graphs are a follow-up.
+   the curvature lower/upper bracket that pins `κ` when a plan and a potential meet).  **Concrete `κ`
+   now exhibited**: the triangle `C₃` worked example — `triangle_coupling` (the `triPi` plan's marginals
+   are `triMu0`/`triMu1`), `triF_lipschitz` (the `triF` potential is `1`-Lipschitz), and
+   `triangle_ollivier_optimal` (`dualValue = transportCost = 1`, plan meets potential) — pins the scaled
+   `W₁ = 1`, hence Ollivier `κ = 1 − ½ = ½ > 0`: **the triangle is positively curved**, a concrete
+   value, not just the bracket.
 
 ## Honest boundary
 
@@ -68,7 +72,7 @@ Ricci flow to its normalized fixed point" — not "A6 solves Poincaré."
 ## Next action
 
 **Rungs 1–5 all ✅ DONE** (discrete Forman flow + a-priori package + Gauss–Bonnet + Ollivier
-transport core).  The discrete A6 core is closed.  Remaining refinements: concrete Ollivier `κ`
-values on specific graphs (exhibit matching coupling + dual), Bochner/CD(K,N) Bakry–Émery, and the
-smooth route's general-`n` (walled).  The smooth 2D-conformal route (S3–S5) is separately closed
-(`ConformalCurvature.lean`, `ricci_flow_smooth_core.md`).
+transport core + concrete triangle `κ=½`).  The discrete A6 core is closed.  Remaining refinements:
+more concrete Ollivier `κ` values on further graphs (`K_{3,2}`, cycles `Cₙ`), Bochner/CD(K,N)
+Bakry–Émery, and the smooth route's general-`n` (walled).  The smooth 2D-conformal route (S3–S5) is
+separately closed (`ConformalCurvature.lean`, `ricci_flow_smooth_core.md`).
