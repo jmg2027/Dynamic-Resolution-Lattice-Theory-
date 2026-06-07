@@ -264,4 +264,103 @@ theorem triangle_plan_optimal (pi' : Nat → Nat → Int)
   · rw [triangle_coupling.1 x hx, hrow x hx]
   · rw [triangle_coupling.2 y hy, hcol y hy]
 
+/-! ## §5 — worked example: the 4-cycle `C₄` is **flat** (`κ = 0`)
+
+The edge `(0,1)` of the square `C₄` (`0–1–2–3–0`, no triangles).  Neighbours of `0` are `{1,3}`, of
+`1` are `{0,2}`, so the scaled walk measures are `m₀ = (0,1,0,1)`, `m₁ = (1,0,1,0)`.  The plan `c4Pi`
+(`1↦0`, `3↦2`) has cost `2`, and the `1`-Lipschitz potential `c4F` (`f 1 = f 3 = 1`, else `0`) has dual
+value `2` — they **meet**, so scaled `W₁ = 2`, probability `W₁ = 1`, Ollivier `κ = 1 − 1 = 0`: the
+square is **flat**.  Contrast the triangle (`κ = ½ > 0`): Ollivier curvature tracks local clustering
+(triangles ⟹ positive), the optimal-transport analogue of the Forman / Gauss–Bonnet sign↔topology
+results (`DiscreteRicci`, `DiscreteGaussBonnet`). -/
+
+open E213.Tactic.NatHelper (cases_lt_four)
+
+/-- Generic Int helper: `a ≤ c` and `0 ≤ b` ⟹ `a − b ≤ c`. -/
+theorem sub_le_of_le_of_nonneg {a b c : Int} (ha : a ≤ c) (hb : (0 : Int) ≤ b) : a - b ≤ c :=
+  Order.le_trans
+    (show a - b ≤ a from by
+      apply Order.le_of_sub_nonneg
+      rw [show a - (a - b) = b from by ring_intZ]
+      exact Order.nonneg_of_le_zero hb)
+    ha
+
+/-- Graph distance on the square `C₄`: `0` diagonal, `2` on opposite pairs `{0,2},{1,3}`, else `1`. -/
+def c4D : Nat → Nat → Int := fun i j =>
+  if i = j then 0
+  else if (i = 0 ∧ j = 2) ∨ (i = 2 ∧ j = 0) ∨ (i = 1 ∧ j = 3) ∨ (i = 3 ∧ j = 1) then 2 else 1
+
+/-- The optimal transport plan on `C₄`: `1↦0` and `3↦2`. -/
+def c4Pi : Nat → Nat → Int :=
+  fun x y => if x = 1 ∧ y = 0 then 1 else if x = 3 ∧ y = 2 then 1 else 0
+
+/-- Walk measure at vertex `0` (uniform on neighbours `{1,3}`, scaled): `(0,1,0,1)`. -/
+def c4Mu0 : Nat → Int := fun i => if i = 1 then 1 else if i = 3 then 1 else 0
+
+/-- Walk measure at vertex `1` (uniform on neighbours `{0,2}`, scaled): `(1,0,1,0)`. -/
+def c4Mu1 : Nat → Int := fun i => if i = 0 then 1 else if i = 2 then 1 else 0
+
+/-- The Kantorovich dual potential: `f 1 = f 3 = 1`, else `0`. -/
+def c4F : Nat → Int := fun i => if i = 1 then 1 else if i = 3 then 1 else 0
+
+/-- `c4F i ≤ 1` for every `i` (it takes values in `{0,1}`). -/
+theorem c4F_le_one (i : Nat) : c4F i ≤ 1 := by
+  unfold c4F
+  by_cases h1 : i = 1
+  · rw [if_pos h1]; exact Order.le_refl 1
+  · rw [if_neg h1]
+    by_cases h3 : i = 3
+    · rw [if_pos h3]; exact Order.le_refl 1
+    · rw [if_neg h3]; decide
+
+/-- `0 ≤ c4F j` for every `j`. -/
+theorem c4F_nonneg (j : Nat) : (0 : Int) ≤ c4F j := by
+  unfold c4F
+  by_cases h1 : j = 1
+  · rw [if_pos h1]; decide
+  · rw [if_neg h1]
+    by_cases h3 : j = 3
+    · rw [if_pos h3]; decide
+    · rw [if_neg h3]; exact Order.le_refl 0
+
+/-- `c4F` is `1`-Lipschitz w.r.t. the square distance: off-diagonal `d ≥ 1` while `f i − f j ≤ 1`. -/
+theorem c4F_lipschitz (i j : Nat) : c4F i - c4F j ≤ c4D i j := by
+  by_cases hij : i = j
+  · subst hij; rw [Order.sub_self_zero]
+    show (0 : Int) ≤ c4D i i
+    unfold c4D; rw [if_pos rfl]; exact Order.le_refl 0
+  · have hd : (1 : Int) ≤ c4D i j := by
+      unfold c4D; rw [if_neg hij]
+      by_cases hopp : (i = 0 ∧ j = 2) ∨ (i = 2 ∧ j = 0) ∨ (i = 1 ∧ j = 3) ∨ (i = 3 ∧ j = 1)
+      · rw [if_pos hopp]; decide
+      · rw [if_neg hopp]; exact Order.le_refl 1
+    exact Order.le_trans (sub_le_of_le_of_nonneg (c4F_le_one i) (c4F_nonneg j)) hd
+
+/-- `c4Pi` is a valid coupling of `m₀` and `m₁` (its marginals are `c4Mu0`, `c4Mu1`). -/
+theorem c4_coupling :
+    (∀ x, x < 4 → rowMarg 4 c4Pi x = c4Mu0 x)
+    ∧ (∀ y, y < 4 → colMarg 4 c4Pi y = c4Mu1 y) := by
+  refine ⟨fun x hx => ?_, fun y hy => ?_⟩
+  · rcases cases_lt_four hx with rfl | rfl | rfl | rfl <;> decide
+  · rcases cases_lt_four hy with rfl | rfl | rfl | rfl <;> decide
+
+/-- ★★★★★ **The square's transport meets the dual at `2`** (`dualValue = transportCost = 2`).  Scaled
+    `W₁ = 2`, probability `W₁ = 1`, Ollivier `κ = 1 − 1 = 0`: the square `C₄` is flat. -/
+theorem c4_ollivier_flat :
+    dualValue 4 c4F c4Pi = transportCost 4 c4D c4Pi
+    ∧ transportCost 4 c4D c4Pi = 2 := by
+  refine ⟨by decide, by decide⟩
+
+/-- ★★★★★ **`c4Pi` is the optimal plan**: its cost `2 ≤` cost of **every** valid coupling of `m₀,m₁`,
+    so `W₁ = 2` (scaled) is a genuine optimum and Ollivier `κ = 0` rigorously — the square is flat. -/
+theorem c4_plan_optimal (pi' : Nat → Nat → Int)
+    (hpi' : ∀ x y, x < 4 → y < 4 → 0 ≤ pi' x y)
+    (hrow : ∀ x, x < 4 → rowMarg 4 pi' x = c4Mu0 x)
+    (hcol : ∀ y, y < 4 → colMarg 4 pi' y = c4Mu1 y) :
+    transportCost 4 c4D c4Pi ≤ transportCost 4 c4D pi' := by
+  refine ollivier_plan_optimal 4 c4D c4F c4Pi pi' hpi' c4F_lipschitz
+    (fun x hx => ?_) (fun y hy => ?_) c4_ollivier_flat.1
+  · rw [c4_coupling.1 x hx, hrow x hx]
+  · rw [c4_coupling.2 y hy, hcol y hy]
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci

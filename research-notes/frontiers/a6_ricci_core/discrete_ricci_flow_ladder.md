@@ -63,7 +63,10 @@ combinatorial formula).
    value, not just the bracket.  Upgraded to a **genuine optimum**: `ollivier_plan_optimal` (general —
    `dualValue` depends only on marginals, so a plan meeting any `1`-Lipschitz dual is cost-optimal among
    all plans with its marginals) + `triangle_plan_optimal` (`triPi`'s cost `1 ≤` cost of *every* valid
-   coupling of `m₀,m₁`).
+   coupling of `m₀,m₁`).  **Sign contrast now a theorem pair**: the square `C₄` worked example
+   (`c4D`/`c4Pi`/`c4F` + `c4_coupling`/`c4_ollivier_flat`/`c4_plan_optimal`) gives Ollivier `κ = 0`
+   (flat, no triangles), against the triangle's `κ = ½ > 0` (clustered) — Ollivier curvature tracks local
+   clustering, the optimal-transport analogue of the Forman / Gauss–Bonnet sign↔topology results.
 
 ## Honest boundary
 

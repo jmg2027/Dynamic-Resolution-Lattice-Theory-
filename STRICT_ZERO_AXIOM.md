@@ -518,7 +518,11 @@ branches by `decide` + `Order.sub_self_zero` on the diagonal), `triangle_ollivie
 the triangle is positively curved (a concrete value, not just the bracket).  **`ollivier_plan_optimal`**
 (general optimality certificate: `dualValue` depends only on marginals, so a plan meeting a `1`-Lipschitz
 dual is cost-optimal among all plans sharing its marginals) + **`triangle_plan_optimal`** (`triPi`'s cost
-`1 ≤` cost of *every* valid coupling) make `W₁ = 1` a genuine optimum, not just a matched pair.  Purity:
+`1 ≤` cost of *every* valid coupling) make `W₁ = 1` a genuine optimum, not just a matched pair.  **Sign
+contrast**: the square `C₄` worked example (`c4D`/`c4Pi`/`c4F` + `c4_coupling`/`c4_ollivier_flat`/
+`c4_plan_optimal`, with helpers `c4F_le_one`/`c4F_nonneg`/`c4F_lipschitz`/`sub_le_of_le_of_nonneg`) gives
+Ollivier `κ = 0` (flat, no triangles) against the triangle's `κ = ½ > 0` (clustered) — Ollivier curvature
+tracks local clustering, the transport analogue of the Forman / Gauss–Bonnet sign↔topology results.  Purity:
 Int213 `Order`/`OrderMul`
 pure inequalities (core `Int.add_le_add`/`mul_le_mul_of_nonneg_right`/`sub_le_sub_left`/`Int.sub_self` all leak
 `propext`).
