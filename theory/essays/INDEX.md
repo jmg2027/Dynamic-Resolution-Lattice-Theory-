@@ -43,7 +43,9 @@ others together):
 
 **IV. `synthesis/` — synthesis & the master tower.**
 `synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`,
-`representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`.
+`representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
+`duality_as_one_transpose` (a duality = `sumOver_swap` on one 0/1 incidence +
+a SEPARATE cap per axis; min-cover = max-anti is the transpose).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
