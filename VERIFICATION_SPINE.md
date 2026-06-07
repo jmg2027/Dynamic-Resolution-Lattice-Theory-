@@ -203,11 +203,16 @@ residual choices are not yet themselves forced theorems:
    the self-consistency cubic `25y³ + 1 = 25Xy²` is a modeling input.
 
 Closing these — a per-coefficient ledger tagging each as
-`forced / conventional / fitted`, then converting `conventional`/`fitted`
-entries into forcing proofs or a pre-registered prediction — is the
-highest-leverage next step for the **physics branch's** falsifiability
-gate. It does not touch §2, and it does not touch the math branch, whose
-primacy rests on breadth (`07_primacy.md` §7.1), not on this number.
+`forced / derived / assignment / modeling-form / fitted`, then converting
+the residual entries into forcing proofs or a pre-registered prediction —
+is the highest-leverage next step for the **physics branch's**
+falsifiability gate. It does not touch §2, and it does not touch the math
+branch, whose primacy rests on breadth (`07_primacy.md` §7.1), not on
+this number.
+
+**That ledger now exists: `DEGREES_OF_FREEDOM_LEDGER.md`** — every choice
+in the `1/α_em` derivation enumerated and tagged, with the residual DoF
+narrowed to exactly three named items.
 
 ---
 
