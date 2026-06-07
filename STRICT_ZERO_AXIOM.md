@@ -502,6 +502,19 @@ field-L² companion of the energy (gradient-L²) decay.
 
 ### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
+### A6 CORE rung 5 — Ollivier–Ricci: Kantorovich weak duality (the transport engine) (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci` — **PURE / 0 DIRTY**.  The last discrete
+curvature rung: Ollivier–Ricci `κ(x,y)=1−W₁(m_x,m_y)/d(x,y)`, whose heart is optimal transport.  Built the
+integer grid sum `gridSumZ` (+ `_add`/`_sub`/`_mul_left`/`_le`/`_congr`/**`_fubini`** sum-swap) and proved
+**`kantorovich_weak_duality`**: for any transport plan `π ≥ 0` and `1`-Lipschitz potential `f`,
+`Σ_x f·μ − Σ_y f·ν ≤ Σ_x Σ_y d·π` (the `W₁`-dual ≤ `W₁`-primal direction) — proof: marginals + Fubini reduce
+both sides to `Σ_x Σ_y (f x − f y)·π x y ≤ Σ_x Σ_y d x y·π x y` (termwise via `mul_le_mul_right_nonneg`).
+`ollivier_bracket`: `1−transportCost ≤ 1−dualValue`, the curvature bracket that pins `κ` when a plan and a
+potential meet.  The Wasserstein/coupling core for rung 5; concrete `κ` on specific graphs is a follow-up.
+Purity: Int213 `Order`/`OrderMul` pure inequalities (core `Int.add_le_add`/`mul_le_mul_of_nonneg_right`/
+`sub_le_sub_left` all leak `propext`).
+
 ### A6 CORE — smooth 2D-conformal Gauss curvature (the smooth route) (2026-06-05)
 
 `E213.Lib.Math.Geometry.GeometrizationConjecture.ConformalCurvature` — **4 PURE / 0 DIRTY**.  Opens A6's

@@ -51,8 +51,12 @@ combinatorial formula).
    (`totalCurv_eq`) — positive ⟺ `b₁=0` (tree), negative ⟺ `b₁≥1` (cyclic).  `curvature_sign_topology`:
    `K_{1,1}` `+2` (`b₁=0`) vs `K_{3,2}` `−2` (`b₁=2`) — **curvature sign ↔ topology now a theorem,
    not a table** (derived by `ring_intZ`).  (Bochner/CD(K,N) Bakry–Émery is a further refinement.)
-5. **Ollivier–Ricci** (optimal-transport curvature) — heavier; needs a coupling
-   / W₁ distance on the finite graph metric.  Later rung.
+5. **Ollivier–Ricci** — ⚙️ **core DONE** (`GeometrizationConjecture/OllivierRicci.lean`, ∅-axiom):
+   the optimal-transport engine.  `gridSumZ` (Int grid sum) + `gridSumZ_fubini` (sum-swap) →
+   **`kantorovich_weak_duality`** (`Σ f·μ − Σ f·ν ≤ Σ Σ d·π` for any coupling `π≥0` and `1`-Lipschitz
+   `f` — the `W₁`-dual ≤ `W₁`-primal direction), and `ollivier_bracket` (`1−transportCost ≤ 1−dualValue`,
+   the curvature lower/upper bracket that pins `κ` when a plan and a potential meet).  This is the
+   Wasserstein/coupling core the rung needed; concrete `κ` values on specific graphs are a follow-up.
 
 ## Honest boundary
 
@@ -63,5 +67,8 @@ Ricci flow to its normalized fixed point" — not "A6 solves Poincaré."
 
 ## Next action
 
-Rung 2: weighted Forman + flow step in `DiscreteRicci.lean`, then rung 3
-(convergence via `flow_reaches`).
+**Rungs 1–5 all ✅ DONE** (discrete Forman flow + a-priori package + Gauss–Bonnet + Ollivier
+transport core).  The discrete A6 core is closed.  Remaining refinements: concrete Ollivier `κ`
+values on specific graphs (exhibit matching coupling + dual), Bochner/CD(K,N) Bakry–Émery, and the
+smooth route's general-`n` (walled).  The smooth 2D-conformal route (S3–S5) is separately closed
+(`ConformalCurvature.lean`, `ricci_flow_smooth_core.md`).
