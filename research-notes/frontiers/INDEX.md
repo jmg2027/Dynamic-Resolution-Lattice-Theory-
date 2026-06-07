@@ -215,6 +215,22 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   pigeonhole), and the next number-theory seeds (disc-`−8` congruence iff via
   the quadratic character of `2`; the three-square theorem as a hard
   out-of-both-engines frontier).
+- `quadratic_reciprocity` — **CLOSED** strict ∅-axiom (`ModArith/QuadraticReciprocity.lean`,
+  11 PURE).  `quadratic_reciprocity`: for distinct odd primes `p,q` (`m=(p−1)/2,n=(q−1)/2`),
+  `(q QR mod p ↔ p QR mod q) ↔ (m·n) even`.  The complete Eisenstein route: `floor_qr` (Eisenstein's
+  lemma `QR(a) ⟺ Σ⌊a·x/p⌋ even`, `p∤a`) ∘ `floor_sum_rectangle` (`Σ⌊qx/p⌋ + Σ⌊py/q⌋ = m·n`) ∘
+  `parity_sum_iff`.  Promoted → `theory/math/numbertheory/quadratic_reciprocity.md`.
+- `reciprocity_count_lens_synthesis` — cross-chapter synthesis after the QR closure: a classical
+  sign is the parity bit of a named count; finite Fubini (`sumZ_swap`) appears twice unrecognised
+  as one; "no point on the boundary" = `object1_not_surjective`.  Seeds: cubic/biquadratic
+  reciprocity over `ℤ[ω]/ℤ[i]`, Zolotarev unification, a shared Int-parity home.
+- `second_supplement` — **CLOSED** (`2` QR ⟺ `p ≡ ±1 mod 8`, `SecondSupplement.lean`, 8 PURE incl
+  `gauss_mu`).
+- `euler_criterion_converse` — Euler's criterion **CLOSED** strict ∅-axiom (full iff
+  `aᵐ ≡ 1 ⟺ QR`, `ModArith/{EulerCriterion,EulerConverse}.lean`, 16 PURE; the converse =
+  squares-list saturation of `RootBound.eval_zero`).  The note now tracks the **open
+  downstream**: the quadratic character of `2` (second supplement), Gauss's lemma, and
+  Zolotarev (`psign` sign side already PURE).  Promotion-eligible → `theory/math/numbertheory/`.
 
 Closure records (promoted off this board):
 - Lagrange's four-square theorem — **closed & promoted**:
@@ -240,3 +256,36 @@ the non-constructive `DECIDE`.  The "why" archive is promoted to
 `theory/essays/proof_isa/` (probabilistic, linear-algebra, parity, sperner,
 könig, + the `what_is_a_proof` synthesis).  Source notes archived to
 `research-notes/archive/proof_isa/` (`G200`, `G205`).
+
+The catalog has since grown to **seven** lift archetypes (`ProofISALifts.lean`):
+A6 FLOW + A7 POSITIVITY added (the cross-domain-conquest marathon), each driving
+real ∅-axiom conquests.
+
+## A6 FLOW core / Ricci flow  (`a6_ricci_core/`, `ricci_flow_smooth_core.md`)
+
+- `ricci_flow_smooth_core` — the smooth-metric general Ricci-flow core
+  (Perelman `𝓕/𝓦`-monotonicity, surgery): the wall (Riemannian geometry + PDE,
+  Mathlib-forbidden).  *Closed sub-steps*: round-sphere finite extinction,
+  Einstein trichotomy, gradient-flow descent identity + completeness-LOOP.
+- `a6_ricci_core/discrete_ricci_flow_ladder` — the 213-native route to actually
+  closing A6's conquest: **discrete (Forman/Ollivier) Ricci flow** (combinatorial
+  curvature, no smooth manifold).  Rung 1 done (`DiscreteRicci.formanEdge`,
+  curvature↔topology); next: weighted Forman + flow step + convergence via
+  `flow_reaches`.
+
+## Transcendental functions  (`transcendentals/`)
+
+- `transcendentals/transcendental_functions_ladder` — convergent `exp/sin/cos/sqrt`
+  as `Real213` functions with derivative rules (current: `exp` partial sum +
+  stubs).  Rungs T1 exp-modulus → T2 sin/cos series → T3 derivative rules →
+  T4 smooth sqrt → T5 identities.  One of the two hard blocks split off A6's
+  smooth core; ordinary constructive analysis, in-reach ∅-axiom.
+
+## PDE a-priori estimates  (`pde_estimates/`)
+
+- `pde_estimates/discrete_pde_estimates_ladder` — the analytic engine behind
+  Perelman monotonicity.  Goal = the **continuous** estimate, built 213-native as
+  "discrete-uniform-in-mesh + modulus → `Real213` limit" (the conquest needs
+  continuous, not discrete-graph).  Rungs P1 maximum principle → P2 oscillation
+  decay → P3 energy/Dirichlet → P4 Li–Yau → P5 Shi.  P1–P3 reachable; P4–P5 the
+  real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.

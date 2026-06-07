@@ -360,6 +360,203 @@ prime).  Supporting `∅`-axiom chain: `zhang_linear_core`, `zhang_quadratic(_su
 prime-power factor where `SEPARATE` fires) is the `REFRAME` lift archetype (`Foundations.ProofISALifts`,
 `lift_reframe`).  `#print axioms` clean on all.
 
+### Euler's criterion — full iff (`aᵐ ≡ 1 ⟺ QR`), strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.EulerCriterion` (**2 PURE**) + `…ModArith.EulerConverse`
+(**14 PURE**).  For a prime `p` with `2m = p−1` (odd-prime witness, carried as a hypothesis so no
+division enters) and a unit `1 ≤ a < p`:
+- `euler_dichotomy` — `p ∣ (aᵐ − 1) ∨ p ∣ (aᵐ + 1)` (`aᵐ ≡ ±1`): `Y = aᵐ`, `Y² = a^(p−1) ≡ 1`
+  (FLT), factor `(Y−1)(Y+1)`, disjunctive Euclid `nat_prime_dvd_mul`.
+- `euler_qr_pow_one` — `a ≡ x²` ⟹ `p ∣ (aᵐ − 1)` (residue lands on `+1`), `pow_mod_base` +
+  `pow_mul_loc` + FLT.
+- `euler_converse` — `p ∣ (aᵐ − 1)` ⟹ `∃ x, x² ≡ a`: **squares-list saturation** of
+  `RootBound.eval_zero` (the `m` squares `[1²..m²]` are `m` distinct roots of `Xᵐ−1`; a non-square
+  root would give `m+1` distinct roots of a length-`(m+1)` polynomial, forcing const `−1 ≡ 0`).
+  Supporting: `sqFrom` window (+ `_length`/`mem_`), `sq_diff_not_dvd` (Euclid-on-two-factors
+  distinctness), `sqFrom_pairwise`, `sqFrom_roots`, `firstSqrt` search, and the cast bridges
+  `natCast_sub` / `mod_eq_of_dvd_sub` / `dvd_int_sub_to_mod_eq`.
+- ★ `euler_criterion` — the **full iff** `aᵐ ≡ 1 (mod p) ⟺ a` is a quadratic residue.
+
+`#print axioms` clean on all 16.
+
+### First supplement to quadratic reciprocity (`−1` QR ⟺ `p ≡ 1 mod 4`), strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.EulerFirstSupplement` (**4 PURE**).  `neg_one_qr_iff`:
+`(∃ x, x² ≡ p−1 (mod p)) ⟺ p ≡ 1 (mod 4)`, for prime `p`, `2m = p−1`.  Corollary of `euler_criterion`
+(`a = p−1`): `−1` a QR ⟺ `(p−1)ᵐ ≡ 1`, and `(p−1)ᵐ ≡ (−1)ᵐ` is `1` iff `m` even
+(`neg_one_sq_mod`/`neg_one_odd_pow_mod`), and `2m = p−1` makes `m` even ⟺ `p ≡ 1 mod 4`
+(`neg_one_pow_dvd_iff_even`, `even_iff_pmod4`, pure `mod_two_cases`).  The full iff (`QRNegOne` had only
+the `p≡1mod4 ⟹ QR` direction).
+
+### Legendre character multiplicativity (`(ab/p) = (a/p)(b/p)`), strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative` (**5 PURE**).  `legendre_mul`:
+for prime `p`, `2m = p−1`, units `a, b < p`, `a·b` is a QR ⟺ (`a` is a QR ⟺ `b` is a QR) — the
+Legendre character is a homomorphism, no symbol definition needed.  Via `qr_iff_pow_one`
+(`QR(c) ⟺ cᵐ ≡ 1`) + `pow_m_mod_cases` (`cᵐ % p ∈ {1, p−1}`) + `(ab)ᵐ ≡ aᵐ·bᵐ` (`mul_pow_loc`),
+a 2×2 case split (`iff_of_true`/`iff_of_false`, `negone_sq_mod_p`).
+
+### Gauss's lemma (`QR(a) ⟺ ∏signs = 1`), strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.Algebra.Linalg213.ProdCongr` (**3 PURE**) + `E213.Lib.Math.NumberTheory.ModArith.GaussLemma`
+(**15 PURE**).  For a prime `p`, `2m = p−1`, unit `1 ≤ a < p`: `a` is a quadratic residue **iff** the
+least-residue sign product `∏ₓ sgFn(a·x) = 1` (= `(−1)^μ`).  Built across three layers:
+- **Layer 1** (`ProdCongr`): `prodZ_congr_map`, `prodZ_map_mul`, `prodZ_map_const_mul`.
+- **Layer 2** (`GaussLemma` §1-5): the half-system `seg m = [1..m]`, the `List.Nodup→cnt-Nodup` bridge
+  (`cntNodup_of_listNodup`), the pigeonhole (`mem_of_card_le`), the `fold`, `fold_mem`, `fold_inj`,
+  and ★ `fold_perm` (`LPerm ((seg m).map (fold a p m)) (seg m)`) — the combinatorial core.
+- **Layer 3** (`GaussLemma` §6-7): `int_dvd_cast_sub_mod`, `not_dvd_prodZ` (prime ∤ product of units),
+  `prodZ_pm` (∏ of ±1 is ±1); ★ `gauss_core` (`↑aᵐ ≡ ∏signs`, the product-congruence assembly +
+  `int_euclid` cancellation of the coprime `M = m!`); ★ `gauss_qr` (with Euler `qr_iff_pow_one` + `p∤2`).
+
+`#print axioms` clean on all.  The gateway to the second supplement and quadratic reciprocity.
+
+### Second supplement (`2` QR ⟺ `p ≡ ±1 mod 8`), strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.SecondSupplement` (**7 PURE**).  `second_supplement`: `2` is a QR
+mod a prime `p` iff `p ≡ ±1 (mod 8)`.  Via `gauss_qr` at `a = 2` — `2x ≤ 2m = p−1 < p` (no wraparound),
+so the sign product is `m`-only (`two_qr_iff`); `prodZ_seg_sign` evaluates it as `(−1)^(cnt2 m k)`
+(`k`-induction, threshold decoupled); `cnt2_at_m` (`cnt2 m m = m − m/2`); `neg_one_pow_iff`; then the
+`m = 4q+r` bridge (`(m−m/2)%2` and `p%8 = 1+2(m%4)` both functions of `m%4`, `decide`).  Both
+supplements to quadratic reciprocity are now ∅-axiom.
+
+### ★★★★★ Quadratic reciprocity — FULLY CLOSED, strict ∅-axiom (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity` (**11 PURE**) +
+`Linalg213/SumLinear` (`sumZ_map_zero`, `sumZ_swap` finite Fubini) + `AddMod213.le_div_iff_mul_le`.
+★ `quadratic_reciprocity`: for distinct odd primes `p, q` (`m=(p−1)/2, n=(q−1)/2`),
+`(q QR mod p ↔ p QR mod q) ↔ (m·n) even` (Eisenstein form — the two residue conditions agree unless
+both `p ≡ q ≡ 3 mod 4`).  The complete elementary route is ∅-axiom:
+
+- **Eisenstein's lemma** `floor_qr` — for an odd `a` coprime to the odd prime `p`, `a` is a QR mod `p`
+  (`z² ≡ a mod p`) ⟺ the floor sum `Σₓ∈[1,m] ⌊a·x/p⌋` is even.  Chain: `floor_mod_split`
+  (`Σ↑(a·x) = ↑p·Σ↑⌊a·x/p⌋ + Σ↑(a·x%p)`) + `Sa_eq` + `fold_sum` (`Σ↑(fold x) = Σ↑x`, `fold_perm`) +
+  `residue_fold_even` (per-element `2·(…)`) ⟹ `floor_mu_even` (`2 ∣ (Sfloor + Imu)`, `a` odd +
+  `int_euclid`); `imu_eq_countNeg` (`Imu = ↑μ`, μ = `countNeg ((seg m).map (sgFn a p m))`); `gauss_mu_gen`
+  (QR ⟺ μ even, the Gauss stack generalized `a<p → p∤a` by reducing to `gauss_mu` at `a%p`).
+- **Rectangle double-count** `floor_sum_rectangle` — for `p=2m+1, q=2n+1`, `p∤q·x`, `q∤p·y`:
+  `Σ⌊q·x/p⌋ + Σ⌊p·y/q⌋ = m·n` (the lattice-point count of `[1,m]×[1,n]` either side of the diagonal
+  `q·x=p·y`, none ON it since `p∤q·x`).  Per-column count `colCount_eq_floor`
+  (`#{y : p·y<q·x} = ⌊q·x/p⌋`, via `le_div_iff_mul_le` + `count_le_eq`); cross term swapped by
+  `sumZ_swap` (Fubini); `elem_tri` trichotomy `[py<qx]+[qx<py]=1` collapses the grid to `m·n`.
+  `floor_bound` (`⌊q·x/p⌋ ≤ n` for `x ≤ m`) keeps each column in range.
+- **Assembly** — `floor_qr` at residues `q` and `p` + `floor_sum_rectangle` via `parity_sum_iff`
+  (parity of `S+T=↑(mn)` decides whether `2∣S ↔ 2∣T`); Int parity from
+  `int_even_or_odd`/`two_mul_ne_one`.
+
+Propext-avoidance throughout: `two_prime` pure (no `decide`-on-`∣`), `Iff.trans` not `rw`-on-iff,
+`map_congr` not `funext`, `le_of_dvd_pos` not `Nat.le_of_dvd`.  Narrative: `theory/math/numbertheory/quadratic_reciprocity.md`.
+
+### A6 FLOW — monovariant normal-form lift archetype (2026-06-05)
+
+`E213.Lib.Math.Foundations.MonovariantFlow` — **12 PURE / 0 DIRTY**.  The sixth proof-ISA lift
+archetype, the well-founded sibling of A2 LOOP: a self-map `f` with a `Nat`-monovariant that strictly
+descends off fixed points converges to a normal form (`flow_reaches`; the descent disjunction is
+`Prop`-data so the split is constructive — no decidable equality, no `Classical`).  Canonical instance:
+the **Euclidean GCD flow** `(a,b) ↦ (b%a,a)` converging to `(0, gcd a b)` (`euclid_flow_normal_form`),
+the gcd the invariant the descent preserves (`gcd213_rec`).  The discrete realization of the Ricci-flow
+shape `GeometrizationConjecture/Ricci.lean` recorded as open (monovariant in place of Perelman's
+entropy).  Pinned in `Foundations.ProofISALifts` as `lift_flow` / `lift_flow_gcd`; registered in
+`seed/PROOF_ISA.md`.  `#print axioms` clean on all 12.
+
+### A6 FLOW drives the Geometrization Ricci pillar to a complete proof (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow` — **8 PURE / 0 DIRTY**.  The proof-ISA
+methodology end-to-end: the Ricci-flow conquest *compiled down to* A6 FLOW and the archetype *driving the
+complete proof*.  The K_{3,2}^{(c=2)} cell-filling coherentization (`Filled.lean`: `b_1 = 8 - k`, 3
+fillable 4-cycles) is exhibited as a convergent monovariant flow — `coherentization_flow_converges`
+(∀ C, via `flow_reaches`), `coherentization_normal_form` (reaches `k = C` in `C` steps),
+`ricci_pillar_K32_flow_close` (canonical normal form: all 3 cells filled, `b_1 = 5`).  Upgrades the
+Geometrization Ricci pillar from OPEN (`Poincare.lean` capstone table) to **CLOSED via A6 FLOW** in the
+repo's 213-native chart-Lens model.  Pinned in `ProofISALifts` as `lift_flow_geometrization`.
+
+### A6 FLOW drives smooth-metric round-sphere Ricci flow → finite extinction (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow` — **9 PURE / 0 DIRTY**.  The genuinely
+*smooth-metric* simplest case: on the round `n`-sphere the Ricci-flow PDE collapses to the linear ODE
+`dρ/dt = −2(n−1)` on the squared radius (`Ric(round Sⁿ)=(n−1)g` + scale-invariance), so the discrete Euler
+step `ρ ↦ ρ − 2(n−1)` is *exact* and compiles onto A6 FLOW.  `round_S3_ricci_extinction` (`n=3`,
+rate `4`): the 3-sphere shrinks to a round point in finite time — the seed of Perelman's finite-extinction
+theorem.  `sphere_flow_converges` / `sphere_reaches_extinction` (general rate), `round_sphere_extinction`
+(`n≥2`).  Pinned as `lift_flow_sphere`.  **Honest scope**: the homogeneous/ODE case, *not* the core; the
+general-metric `𝓕/𝓦`-monotonicity (Riemannian-geometry + PDE, Mathlib-forbidden) stays OPEN.
+
+### Gradient-flow monotonicity compiled to the ISA (2026-06-05)
+
+`E213.Lib.Math.Analysis.Optimization.GradientFlow` — **9 PURE / 0 DIRTY**.  The structural reason
+Perelman's `𝓕/𝓦` is a monovariant, standard proof translated to `0`-axiom.  On an abstract `ℤ`-inner-
+product space (`IPSpace`), gradient descent `x ↦ x − τ∇F` on `F(x)=⟪x,x⟫` (∇F=2x) satisfies the
+**descent identity** `gradient_descent_identity`: `F(x−τ∇F) = F(x) − τ(1−τ)·‖∇F‖²` — from *only*
+`ip_comm` + `ip_smul_left` + `ring_intZ` (∅-axiom ℤ ring tactic).  Hence `gradient_descent_monotone`
+(`0 ≤ τ ≤ 1`, via `mul_nonneg` + `ip_nonneg`).  The discrete `0`-axiom form of `d/dt F = −‖∇F‖²`: the
+monovariant's descent is *forced by* the gradient structure (the A6 `descent` hypothesis **derived**, not
+assumed).  **ISA insight**: gradient flow is *not* A6 — its `F` decreases geometrically (`(1−2τ)²`),
+converging asymptotically, so it compiles to **monotone + bounded-below ⟹ convergent** (completeness),
+not well-founded `ℕ`-descent.  Frontier sub-step 1 closed (`ricci_flow_smooth_core.md`).
+
+### Completeness-LOOP: asymptotic convergence of the gradient value (2026-06-05)
+
+`E213.Lib.Math.Analysis.Optimization.CompletenessLoop` — **6 PURE / 0 DIRTY**.  The *second* instruction
+gradient-flow monotonicity compiles to (the first being the descent identity).  The geometric value
+`vₖ = F(xₖ) = N₀/2ᵏ` (contraction `r ≤ 1/2`) is monotone decreasing (`value_decreasing`), **strictly
+positive at every finite step** (`value_pos` — never finitely reaches the infimum `0`, the non-A6
+feature), yet **converges to `0` with explicit modulus** `K(n)=N₀·2ⁿ` (`value_below`: `k ≥ N₀·2ⁿ ⟹
+N₀·2ⁿ < 2ᵏ`, via the hand-rolled `lt_two_pow_self`).  Bundled in `completeness_loop`.  The **monotone +
+bounded-below ⟹ convergent** instruction (repo `Nat→Nat` modulus idiom) — distinct from A6's finite
+well-founded descent.  So `𝓕/𝓦`-monotonicity = [descent-identity (`GradientFlow`)] + [completeness-LOOP
+(here)], two instructions, neither A6.  Frontier sub-step 3 closed.
+
+### Full Real213 Cauchy object for the gradient value (2026-06-05)
+
+`E213.Lib.Math.Analysis.Optimization.RealCauchyWitness` — **4 PURE / 0 DIRTY**.  The completeness-LOOP
+realized as an actual element of the Real213 completion: the value cut sequence `vᵢ = constCut 1 (2ⁱ) =
+1/2ⁱ` is a genuine `CauchyCutSeq` (`Analysis/CauchyComplete`) with explicit **proven modulus** `N m k = k`
+(`gradientValueCauchy`) — the `cauchy` field discharged by stability past index `k` (`csConst`/`cs_true`,
+using `lt_two_pow_self`).  Limit is `0` on the interior `m ≥ 1` (`gradientValueCauchy_limit_interior`).
+Honest boundary: `cutEq` is *pointwise* and the diagonal limit differs from `constCut 0 1` only at `m = 0`
+(the open/closed Dedekind artifact — the limit is the *open* `0`); a full `cutEq` is **not** claimed.
+Instead the limit is pinned at the real `0` by **order-squeeze** — `limit_nonneg` (`0 ≤ limit`) +
+`limit_below_dyadic` (`limit ≤ 1/2ⁿ`, ∀ n), bundled `gradient_value_converges_to_zero`; Archimedeanness
+forces the unique such real to be `0`.  This completes ② (completeness-LOOP) from modulus-level
+(`CompletenessLoop`) to a bona-fide Real213 Cauchy real reaching its infimum `0`.
+
+### Homogeneous Ricci flow — the Einstein trichotomy (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciHomogeneous` — **6 PURE / 0 DIRTY**.  The sign of the
+Einstein constant `λ` (`Ric = λg`) sets the homogeneous flow on the size `ρ` (`dρ/dt = −2λ`):
+`λ>0` (sphere) **finite extinction** = A6 (`sphere_reaches_extinction`); `λ=0` (Ricci-flat / flat torus /
+Calabi–Yau) **stationary**, every state its normal form (`flat_torus_stationary`, A6 cost 0); `λ<0`
+(hyperbolic) **diverges**, no fixed point (`expand_iter`/`hyperbolic_diverges`/`expand_no_fixed`), **not
+A6**.  Bundled `einstein_trichotomy`.  Sub-steps 2 + 4 of the Ricci frontier; Einstein metrics are the
+homogeneous fixed points, sign of `λ` = shrink/steady/expand.  Anisotropic Berger-sphere pinching (2-var
+ODE) remains open.
+
+### A7 POSITIVITY archetype + Cauchy–Schwarz (2026-06-05)
+
+`E213.Lib.Math.Foundations.Positivity` — **11 PURE / 0 DIRTY**.  The seventh proof-ISA lift archetype, the
+square/norm twin of A5 COUNT: a bound forced because its **gap is a square** (`positivity_of_sq`:
+`gap = s² ⟹ 0 ≤ gap`, via `int_sq_nonneg`).  Drives **Cauchy–Schwarz** (2-D, ℤ) — `cauchy_schwarz_2d`:
+`⟨u,v⟩² ≤ ⟨u,u⟩⟨v,v⟩` because the gap `= (u₀v₁−u₁v₀)²` (the Lagrange identity `lagrange_2d`, discharged by
+`ring_intZ`), no analysis.  Pinned in `ProofISALifts` as `lift_positivity` / `lift_positivity_cs`;
+registered in `seed/PROOF_ISA.md` (catalog now seven archetypes).  Classical shadow: Weil RH weights,
+Kazhdan–Lusztig positivity, Mordell heights.  Reach: same archetype drives **AM–GM** (`amgm_2`:
+`4ab ≤ (a+b)²`, gap `(a−b)²`) and **3-D Cauchy–Schwarz** (`cauchy_schwarz_3d` via `lagrange_3d` +
+`positivity_of_sq3`, gap a sum of three squares).  Rigidity face = positive-definiteness:
+`positive_definite_2`/`positive_definite_3` (`Σ vᵢ² = 0 ⟹ v = 0`, via `add_eq_zero_of_nonneg` +
+`mul_eq_zero`) and `dist_sq_zero_imp_eq` (the squared distance separates points — POSITIVITY drives
+`SEPARATE`).
+
+### Discrete (Forman) Ricci curvature — the 213-native route to the A6 core (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci` — **6 PURE / 0 DIRTY**.  A6's smooth-metric
+conquest core is walled (Riemannian geometry + PDE); the 213-native route is **combinatorial** Ricci
+curvature (Forman/Ollivier), no smooth manifold.  `formanEdge du dv = 4 − du − dv` (triangle-free
+unweighted edge); complete-bipartite `K_{NS,NT}` uniform value `4 − NS − NT` (`forman_bipartite`).  Sign ↔
+topology (`discrete_curvature_topology`): `K_{1,1}` `+2` / `K_{1,3}` `0` / `K_{3,2}` `−1` ↔ `b₁` 0/0/8 —
+the trivial-loop ↔ rich-loop split the Poincaré pillar reads off `b₁`, here off curvature.  Rung 1 of the
+A6-core marathon; next: weighted
+Forman + a discrete Ricci-flow step driven to its normalized fixed point via `flow_reaches`.
+
 ### Cross-determinant number field = trace field + Eisenstein period arithmetic (2026-06-04)
 
 The cross-determinant's number-field reading, promoted to

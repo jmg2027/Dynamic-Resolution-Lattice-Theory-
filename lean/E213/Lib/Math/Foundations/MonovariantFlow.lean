@@ -1,0 +1,153 @@
+import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.Gcd213
+
+/-!
+# A6 FLOW — monovariant-driven convergence to a normal form (∅-axiom)
+
+The sixth finite→uniform lift archetype on the proof-ISA, the **continuous /
+well-founded sibling of A2 LOOP**.
+
+A2 LOOP (`flt_primary`, `slashNu_final`) lifts a *finite per-step recurrence*
+to a uniform statement by **forward induction**: the per-step relation closes a
+recurrence, induction iterates it.  FLOW lifts a *per-step strict descent of a
+monovariant* to a **normal form** by **well-founded descent**: a self-map `f`
+on presentations carries a `Nat`-valued monovariant `μ` that strictly decreases
+off fixed points, so iterating `f` reaches a fixed point (a normal / canonical
+form) in finitely many steps.
+
+This is the discrete realization of the geometric-flow shape that
+`Lib/Math/Geometry/GeometrizationConjecture/Ricci.lean` records as the open
+piece: *"monotonicity functional analogous to Perelman's 𝓕 / 𝓦 … none of these
+exist in `lean/E213/`."*  Ricci flow `∂_t g = −2R` drives an arbitrary metric to
+a canonical (constant-curvature) geometry, its convergence certified by a
+monotone entropy; here `flow_reaches` is exactly that shape with the entropy
+replaced by a `Nat`-monovariant — `∅`-axiom, with no metric tensor.
+
+The canonical instance is the **Euclidean GCD flow**: `(a,b) ↦ (b % a, a)` with
+monovariant `Prod.fst`; the gcd is the invariant the flow preserves, and the
+normal form it converges to is `(0, gcd a b)` — the gcd *is* the canonical form
+reached by the descent.  Reuses the `Gcd213` monovariant infrastructure
+(`gcd213_rec`, the Euclidean step).
+
+## ISA reading
+
+FLOW = `LOOP` whose termination is a **monovariant**, not a finite recurrence.
+It is the *other* completion of in-place monovariant exhaustion that REFRAME
+(A4) is the dual of (`reframe_presentation_transport.md`): when the monovariant
+*exhausts*, it drives the object to its normal form; when it *cannot* be improved
+in place, REFRAME transports to a presentation where it can.
+
+**Lift cost: a monovariant that strictly descends off fixed points.**
+-/
+
+namespace E213.Lib.Math.Foundations.MonovariantFlow
+
+open E213.Tactic.NatHelper (gcd213)
+open E213.Meta.Nat.Gcd213 (gcd213_rec)
+
+/-- Iterate a self-map from the front: `iter f (n+1) x = iter f n (f x)`
+    (definitional). -/
+def iter {X : Type _} (f : X → X) : Nat → X → X
+  | 0,   x => x
+  | n+1, x => iter f n (f x)
+
+/-- `x` is a **normal form** of the flow `f`: a fixed point, `f x = x`. -/
+def IsNormalForm {X : Type _} (f : X → X) (x : X) : Prop := f x = x
+
+/-- Fuel-bounded descent.  The disjunction `μ (f x) < μ x ∨ f x = x` is taken as
+    `Prop`-data so the case split is **constructive** (`Or`-elimination, no
+    decidable equality on `X`, no `Classical`). -/
+theorem flow_reaches_fueled {X : Type _} (f : X → X) (μ : X → Nat)
+    (descent : ∀ x, μ (f x) < μ x ∨ f x = x) :
+    ∀ (fuel : Nat) (x : X), μ x ≤ fuel → ∃ n, IsNormalForm f (iter f n x)
+  | 0, x, h => by
+      cases descent x with
+      | inr hfix => exact ⟨0, hfix⟩
+      | inl hlt  => exact absurd (Nat.lt_of_lt_of_le hlt h) (Nat.not_lt_zero _)
+  | k+1, x, h => by
+      cases descent x with
+      | inr hfix => exact ⟨0, hfix⟩
+      | inl hlt  =>
+          have hk : μ (f x) ≤ k := Nat.lt_succ_iff.mp (Nat.lt_of_lt_of_le hlt h)
+          obtain ⟨n, hn⟩ := flow_reaches_fueled f μ descent k (f x) hk
+          exact ⟨n + 1, hn⟩
+
+/-- ★★★★★ **A6 FLOW archetype** — a self-map with a `Nat`-monovariant that
+    strictly descends off fixed points converges to a normal form.
+
+    The finite per-step descent (`descent`) lifts to the uniform existence of a
+    reached fixed point.  This is the proof-ISA witness for the FLOW lift, the
+    well-founded sibling of A2 LOOP. -/
+theorem flow_reaches {X : Type _} (f : X → X) (μ : X → Nat)
+    (descent : ∀ x, μ (f x) < μ x ∨ f x = x) (x : X) :
+    ∃ n, IsNormalForm f (iter f n x) :=
+  flow_reaches_fueled f μ descent (μ x) x (Nat.le_refl _)
+
+/-! ## Instance: the Euclidean GCD flow (the canonical normal-form flow) -/
+
+/-- The Euclidean flow on pairs: `(a, b) ↦ (b % a, a)`, with the first
+    coordinate `0` as the absorbing normal form. -/
+def euclidStep : Nat × Nat → Nat × Nat
+  | (0,   b) => (0, b)
+  | (a+1, b) => (b % (a+1), a+1)
+
+/-- The monovariant `Prod.fst` strictly descends off fixed points: each
+    Euclidean step shrinks the first coordinate, except at `(0, b)` which is
+    fixed. -/
+theorem euclid_descent :
+    ∀ p : Nat × Nat, (euclidStep p).1 < p.1 ∨ euclidStep p = p
+  | (0,   _) => Or.inr rfl
+  | (a+1, b) => Or.inl (Nat.mod_lt b (Nat.zero_lt_succ a))
+
+/-- The Euclidean flow reaches a normal form from any start (the A6 archetype
+    fired). -/
+theorem euclid_flow_reaches (a b : Nat) :
+    ∃ n, IsNormalForm euclidStep (iter euclidStep n (a, b)) :=
+  flow_reaches euclidStep (fun p => p.1) euclid_descent (a, b)
+
+/-- `gcd213 0 b = b` — the gcd at a normal-form pair reads off the second
+    coordinate.  ∅-axiom (`rfl`: `gcdFuel (_+1) 0 b = b`). -/
+theorem gcd213_zero_left (b : Nat) : gcd213 0 b = b := rfl
+
+/-- The gcd is the **invariant** the Euclidean step preserves
+    (`gcd213_rec` per step). -/
+theorem euclid_invariant :
+    ∀ p : Nat × Nat,
+      gcd213 (euclidStep p).1 (euclidStep p).2 = gcd213 p.1 p.2
+  | (0,   _) => rfl
+  | (a+1, b) => (gcd213_rec (a+1) b (Nat.zero_lt_succ a)).symm
+
+/-- The invariant is preserved along the whole flow. -/
+theorem euclid_invariant_iter :
+    ∀ (n : Nat) (p : Nat × Nat),
+      gcd213 (iter euclidStep n p).1 (iter euclidStep n p).2 = gcd213 p.1 p.2
+  | 0,   _ => rfl
+  | n+1, p => (euclid_invariant_iter n (euclidStep p)).trans (euclid_invariant p)
+
+/-- A normal form of the Euclidean flow has first coordinate `0`. -/
+theorem normal_fst_zero : ∀ p : Nat × Nat, euclidStep p = p → p.1 = 0
+  | (0,   _), _ => rfl
+  | (a+1, b), h => by
+      have hlt : b % (a+1) < a+1 := Nat.mod_lt b (Nat.zero_lt_succ a)
+      have h1 : b % (a+1) = a+1 := congrArg Prod.fst h
+      rw [h1] at hlt
+      exact absurd hlt (Nat.lt_irrefl _)
+
+/-- ★★★★★★ **The GCD is the normal form of the Euclidean flow.**
+
+    From any `(a, b)`, the monovariant flow converges to `(0, gcd213 a b)`:
+    the first coordinate hits the absorbing `0`, and the gcd-invariant forces
+    the second coordinate to be `gcd213 a b`.  The canonical-form-reached-by-
+    descent statement — the discrete A6 FLOW analog of "Ricci flow drives any
+    metric to its canonical geometry." -/
+theorem euclid_flow_normal_form (a b : Nat) :
+    ∃ n, (iter euclidStep n (a, b)).1 = 0
+       ∧ (iter euclidStep n (a, b)).2 = gcd213 a b := by
+  obtain ⟨n, hn⟩ := euclid_flow_reaches a b
+  have hfst : (iter euclidStep n (a, b)).1 = 0 := normal_fst_zero _ hn
+  have hinv : gcd213 (iter euclidStep n (a, b)).1 (iter euclidStep n (a, b)).2
+                = gcd213 a b := euclid_invariant_iter n (a, b)
+  rw [hfst, gcd213_zero_left] at hinv
+  exact ⟨n, hfst, hinv⟩
+
+end E213.Lib.Math.Foundations.MonovariantFlow

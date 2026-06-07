@@ -1,10 +1,11 @@
 # Session Handoff — 2026-06-05 (Dilworth on 2^[n] FULLY CLOSED — COUNT-substrate frontier complete)
 
 ## Branch
-`claude/substrate-synthesis-count-zq9K0` — pushed.
+`claude/substrate-synthesis-count-zq9K0` — pushed; `origin/main` merged in
+(quadratic reciprocity + Ricci/PDE work from main now present).
 `cd lean && lake build E213.Lib.Math.Combinatorics` ✓ clean (42/42).  New modules,
 all strict ∅-axiom (`tools/scan_axioms.py`): **LymInequality 5/5**,
-**BollobasSetPair 21/21**, **BollobasCount 36/36**, **ChainAntichain 81/81**, 0 DIRTY.
+**BollobasSetPair 21/21**, **BollobasCount 36/36**, **ChainAntichain 84/84**, 0 DIRTY.
 
 ## Headline (this session)
 - **Dilworth's theorem on `2^[n]` FULLY CLOSED** (`ChainAntichain`) — ★★★
