@@ -521,7 +521,7 @@ the **discrete heat step** — and the heat estimates ARE the discrete Ricci-flo
 `ricciFlowStep = lazyHeatStepNum`; `ricci_curvature_bounded` (no blow-up, `heatIter_range`),
 `ricci_energy_monotone` (**curvature Dirichlet energy decays `E(flow K) ≤ 16·E(K)`** — `lazy_energy_decay`,
 the discrete Perelman 𝓦-/entropy-monotonicity), `ricci_uniform_stationary` (uniform `K_{NS,NT}` curvature
-`4−NS−NT` is the normalized fixed point, `lazyHeatStep_const`), `ricci_flow_homogenises` (the checkerboard
+`4−NS−NT` is the normalized fixed point, `lazyHeatStep_const`), `ricci_total_curvature_conserved` (Σ curvature conserved, `4·Σ` — the normalised flow's volume/total-scalar preservation, from mass conservation), `ricci_flow_homogenises` (the checkerboard
 curvature field → constant curvature in one step, spread `1→0` — `lazy_checker_collapses`).  **A6 conquest
 core closed on the discrete (Forman) side** (rungs 2–3 of `a6_ricci_core/discrete_ricci_flow_ladder.md`);
 the smooth-Perelman wall stays (`ricci_flow_smooth_core.md`).  Convergence is also a genuine **A6 FLOW (`flow_reaches`)** instance: `ricci_flow_reaches_normalized` — the curvature-spread monovariant `spreadFlow` strictly descends (by 2/step) to the normalised state `spread ≤ 1` (`spreadFlow_fixed_le_one`), realising rung 3's "drive the flow to constant curvature via A6 FLOW on a curvature-spread monovariant" (3 more PURE).

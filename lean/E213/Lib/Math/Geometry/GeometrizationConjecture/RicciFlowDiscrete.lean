@@ -67,6 +67,14 @@ theorem ricci_energy_monotone (n : Nat) (K : Nat → Nat) :
     dirichletEnergy n (ricciFlowStep n K) ≤ 16 * dirichletEnergy n K :=
   E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay.lazy_energy_decay n K
 
+/-- ★★★ **Total curvature conserved.**  `Σ_x ricciFlowStep K = 4·Σ_x K` — the discrete Ricci flow
+    redistributes curvature without creating or destroying it (the *averaged* total curvature is
+    invariant).  The volume / total-scalar preserving property of the *normalised* Ricci flow, here a
+    `Nat` identity.  Direct from mass conservation (`lazyHeatStep_mass_conservation`). -/
+theorem ricci_total_curvature_conserved (n : Nat) (K : Nat → Nat) :
+    gridSum n (ricciFlowStep n K) = 4 * gridSum n K :=
+  lazyHeatStep_mass_conservation n K
+
 /-! ## §3 — fixed point: uniform (constant-curvature) complex is stationary -/
 
 /-- ★★★ **Uniform curvature is stationary.**  A complex whose every edge carries the same Forman
