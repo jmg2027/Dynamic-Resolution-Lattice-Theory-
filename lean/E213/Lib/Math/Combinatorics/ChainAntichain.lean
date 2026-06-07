@@ -1101,4 +1101,33 @@ theorem dilworth_boolean (n : Nat) :
         binom n (half n) ≤ chains.length) :=
   ⟨scd_card n, scd_isChain n, scd_cover n, fun chains => dilworth_lower chains⟩
 
+/-- ★★ **Sperner's theorem from the SCD** (the classical symmetric-chain proof).
+    An antichain meets each chain of a partition at most once, so it injects into
+    `scd n`; hence `|F| ≤ |scd n| = C(n,⌊n/2⌋)`.  This re-derives Sperner from
+    Dilworth's partition — a second route to `SpernerChains.sperner` (which goes via
+    the LYM double count). -/
+theorem sperner_via_scd {n : Nat} (F : List (List Bool)) (hF : IsAntichain F)
+    (hnd : F.Nodup) (hlen : ∀ A, A ∈ F → A.length = n) : F.length ≤ binom n (half n) := by
+  have hcov : ∀ A, A ∈ F → ∃ C, C ∈ scd n ∧ A ∈ C := fun A hA => scd_cover n A (hlen A hA)
+  have hinj : ∀ A, A ∈ F → ∀ B, B ∈ F →
+      findChain A (scd n) = findChain B (scd n) → A = B := by
+    intro A hA B hB heq
+    obtain ⟨_, hACA⟩ := findChain_spec A (scd n) (hcov A hA)
+    obtain ⟨hCB, hBCB⟩ := findChain_spec B (scd n) (hcov B hB)
+    rw [heq] at hACA
+    have hcomp : comparable A B = true := scd_isChain n _ hCB A hACA B hBCB
+    cases hb : beqBoolList A B with
+    | true => exact eq_of_beqBoolList A B hb
+    | false =>
+        have hAB : A ≠ B := fun h => by rw [h, beqBoolList_refl] at hb; exact Bool.noConfusion hb
+        exact absurd hcomp (by rw [hF A hA B hB hAB]; exact fun hc => Bool.noConfusion hc)
+  have hmapnd : (F.map (fun A => findChain A (scd n))).Nodup := nodup_map_of_inj hinj hnd
+  have hsub : ∀ x, x ∈ F.map (fun A => findChain A (scd n)) → x ∈ scd n := by
+    intro x hx
+    obtain ⟨A, hA, rfl⟩ := exists_of_mem_map hx
+    exact (findChain_spec A (scd n) (hcov A hA)).1
+  have hle := nodup_length_le_of_subset hmapnd hsub
+  rw [length_map, scd_card] at hle
+  exact hle
+
 end E213.Lib.Math.Combinatorics.ChainAntichain
