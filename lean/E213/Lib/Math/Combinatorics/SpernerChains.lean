@@ -1,4 +1,5 @@
 import E213.Lib.Math.Combinatorics.Sperner
+import E213.Meta.Nat.NatRing213
 
 /-!
 # Sperner's theorem — the geometric chain model (the named bound, unconditional)
@@ -240,16 +241,6 @@ theorem truePos_length :
   | [], _ :: _, hlen => Nat.noConfusion hlen
   | _ :: _, [], hlen => Nat.noConfusion hlen
 
-/-- Propext-free `(n+1) − m = (n − m) + 1` for `m ≤ n`. -/
-private theorem succ_sub_clean : ∀ {m n : Nat}, m ≤ n → (n + 1) - m = (n - m) + 1
-  | 0, n, _ => by rw [Nat.sub_zero, Nat.sub_zero]
-  | m + 1, n, h => by
-      cases n with
-      | zero => exact absurd h (Nat.not_succ_le_zero m)
-      | succ n' =>
-          rw [Nat.succ_sub_succ_eq_sub, Nat.succ_sub_succ_eq_sub]
-          exact succ_sub_clean (Nat.le_of_succ_le_succ h)
-
 /-- `|falsePos A ps| = |A| − cardB A` (the count of `false`s). -/
 theorem falsePos_length :
     ∀ (A : List Bool) (ps : List Nat), A.length = ps.length →
@@ -261,7 +252,7 @@ theorem falsePos_length :
   | false :: A, p :: ps, hlen => by
       show (p :: falsePos A ps).length = (A.length + 1) - cardB A
       rw [List.length_cons, falsePos_length A ps (Nat.succ.inj hlen),
-          succ_sub_clean (cardB_le_length A)]
+          E213.Meta.Nat.NatRing213.nat_succ_sub (cardB_le_length A)]
   | [], _ :: _, hlen => Nat.noConfusion hlen
   | _ :: _, [], hlen => Nat.noConfusion hlen
 

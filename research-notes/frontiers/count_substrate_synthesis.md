@@ -38,11 +38,15 @@ exposed patterns worth harvesting.
 
 ## New questions
 
-- **A clean strict-order + pow Meta suite.**  `Nat.mul_lt_mul_right`
-  (Classical.choice!), `Nat.pow_add`, `Nat.succ_sub` are re-proven ad-hoc per
-  file.  A small `Meta/Nat` campaign — canonical propext-free
-  `mul_lt_mul_right` / `pow_add` / `succ_sub` / strict-mono — would dedup the
-  privates scattered across `Sperner`, `RamseyNamedBound`, and likely elsewhere.
+- ✓ **A clean strict-order + pow Meta suite — CLOSED.**  The canonical
+  propext-free forms are now all in `Meta/Nat`: `mul_lt_mul_right` =
+  `NatRing213.nat_mul_lt_mul_right` (also `_left` + `mul_lt_mul_left_pure`),
+  `pow_add` = `PureNat.pow_add` (general base), `succ_sub` =
+  ★ `NatRing213.nat_succ_sub` (new — `(n+1)−m = (n−m)+1` for `m ≤ n`), and
+  strict-mono = the `nat_mul_lt_mul_*` pair.  The scattered private
+  `SpernerChains.succ_sub_clean` is dropped in favour of `nat_succ_sub`.  Core
+  `Nat.mul_lt_mul_right` carries `propext`+`Classical.choice`+`Quot.sound`;
+  `Nat.pow_add`/`Nat.succ_sub` carry `propext` — all displaced.
 
 - **More COUNT-family named bounds on the same substrate.**  ✓ **The explicit
   LYM inequality `Σ_{A∈F} 1/C(n,|A|) ≤ 1` is now closed** —
@@ -153,11 +157,20 @@ exposed patterns worth harvesting.
   via `scd_flat_nodup` + cover + length-`n` ⟹ set-equal to `allBoolLists n`).  So the
   symmetric chains partition `2^[n]` into `C(n,⌊n/2⌋)` chains holding all `2^n` subsets.
 
-- **Leibniz determinant over `perms`.**  `Linalg213/Permutation` uses `LPerm`
-  *equivalence* + inversion-sign but no enumeration; `perms` + `mem_perms_iff` +
-  `perms_nodup` now supply the index set for an explicit
-  `det = Σ_{σ ∈ perms} sign(σ)·Π M i σ(i)` — a bridge between the two permutation
-  developments.
+- ✓✓✓ **Leibniz determinant over `perms` — FULLY CLOSED.**  `Linalg213` carries
+  the complete determinant from scratch, ∅-axiom: `Permutation.leibDet n M =
+  Σ_{σ ∈ perms n} sign(σ)·Πᵢ M i (σ i)`, with `PermClosure` (enumeration
+  sound/complete/nodup, ★ `perms_swap_closed`, ★ `leibDet_rowSwap` alternating,
+  equal-rows ⟹ 0, multilinearity, degeneracy corollaries) and `Laplace`
+  (cofactor expansion ★ `cofactor_row0`/`cofactor_row_i`, ★ `leibDet_eq_det`
+  bridge to the recursive `DetN.det`, adjugate `M·adj M = det·I`).
+  ★★ **The bridge between the two permutation developments is now explicit**
+  (`PermBridge`): `permsOf xs = Combinatorics.Permutations.perms xs` (same list,
+  flatMap213 vs core flatMap), transporting the count `perms_length = fact` to
+  the determinant — `perms_card : (perms n).length = fact n` and
+  `leibDet_card` (**the determinant is a sum of exactly `n!` signed diagonal
+  products**).  Downstream: `CayleyHamilton` (integer `χ_M(M)=0`) +
+  `CharPolyAdj` (polynomial adjugate over `ℤ[X]`).
 
 ## Cross-references
 
