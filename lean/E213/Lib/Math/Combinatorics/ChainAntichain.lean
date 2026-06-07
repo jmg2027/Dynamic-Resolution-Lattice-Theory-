@@ -224,8 +224,7 @@ any chain cover needs `≥ C(n,⌊n/2⌋)` chains — is the clean dual of Mirsk
 lower bound: the middle layer is an antichain of that size, a chain holds ≤ 1 of
 its members (`chain_card_inj`), so distinct middle members need distinct chains.
 The matching **upper bound** (a `C(n,⌊n/2⌋)`-chain cover exists) is the de
-Bruijn–Tengbergen–Kruyswijk *symmetric chain decomposition* — recorded as the
-open rung.  -/
+Bruijn–Tengbergen–Kruyswijk *symmetric chain decomposition* (`scd`, §6–15).  -/
 
 /-- `Bool` membership of a vector in a chain (decidable, propext-free). -/
 def memBL (A : List Bool) : List (List Bool) → Bool
@@ -366,8 +365,8 @@ The de Bruijn–Tengbergen–Kruyswijk recursion (new bit at the front): each ch
 `C` of `2^[n]` yields `extendC C` (the chain with the new element absent, then
 present at the top — one level higher) and `raiseC C` (the new element present,
 top dropped — one level lower).  Both are chains; here we build the construction
-and prove the chain property (`scd_isChain`).  The partition + the
-symmetric-level count `= C(n,⌊n/2⌋)` remain (frontier). -/
+and prove the chain property (`scd_isChain`); the partition (§13) and the
+symmetric-level count `= C(n,⌊n/2⌋)` (§14) follow. -/
 
 /-- Extend a chain upward with the new element. -/
 def extendC : List (List Bool) → List (List Bool)
@@ -491,7 +490,7 @@ theorem scd_sorted : ∀ (n : Nat) (C : List (List Bool)), C ∈ scd n → Sorte
 
 /-- ★★ **The SCD chains are chains.**  Every member of `scd n` is a chain of
     `2^[n]` (via `sorted_isChain`).  The chain-property half of the Dilworth
-    upper bound; the partition + the count `= C(n,⌊n/2⌋)` remain (frontier). -/
+    upper bound; the partition (§13) and the count `= C(n,⌊n/2⌋)` (§14) follow. -/
 theorem scd_isChain (n : Nat) (C : List (List Bool)) (h : C ∈ scd n) : IsChain C :=
   sorted_isChain (scd_sorted n C h)
 
@@ -726,8 +725,8 @@ The Dilworth **lower** bound is now free: `scd n` is a chain cover (§7), so
 **upper** bound we read off the symmetric-level invariant (§10): the run
 `[k, …, n−k]` straddles `⌊n/2⌋` (`sym_span`), so every chain contains a
 `⌊n/2⌋`-element (`scd_has_middle`) and — being a chain — exactly one
-(`scd_middle_unique`).  The injection `chain ↦ middle element` then needs only the
-SCD partition-disjointness (the last frontier rung) to give `|scd n| = C(n,⌊n/2⌋)`. -/
+(`scd_middle_unique`).  With the SCD partition-disjointness (§13) the injection
+`chain ↦ middle element` gives `|scd n| = C(n,⌊n/2⌋)` (`scd_card`, §14). -/
 
 /-- `x ∈ [k, …, k+m−1]` whenever `k ≤ x < k + m`. -/
 theorem mem_consec : ∀ (k m x : Nat), k ≤ x → x < k + m → x ∈ consec k m
