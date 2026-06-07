@@ -835,4 +835,68 @@ theorem scd_chain_nodup {n : Nat} {C : List (List Bool)} (hC : C ∈ scd n) : C.
   refine nodup_of_nodup_map cardB ?_
   rw [hmap]; exact consec_nodup k C.length
 
+/-! ## §13 — the SCD is a partition (disjoint chains, no repeats)
+
+Every vector in a child chain has its tail in the parent (`mem_extendC`/
+`mem_raiseC`), so a vector shared by two chains of `scd (n+1)` forces the parents
+to share a vector — and the parents coincide by induction (`scd_same`).  Within one
+parent, `extendC D` and `raiseC D` are disjoint (`extendC_raiseC_disjoint`).  Hence
+`scd n` is a partition: chains pairwise disjoint (`scd_disjoint`) and distinct
+(`scd_nodup`). -/
+
+/-- Every vector of `extendC D` is `b :: v` for some `v ∈ D`. -/
+theorem mem_extendC : ∀ (D : List (List Bool)) (A : List Bool),
+    A ∈ extendC D → ∃ v, v ∈ D ∧ (A = false :: v ∨ A = true :: v)
+  | [], _, h => nomatch h
+  | [w], _, h => by
+      cases h with
+      | head => exact ⟨w, List.Mem.head _, Or.inl rfl⟩
+      | tail _ h' => cases h' with
+        | head => exact ⟨w, List.Mem.head _, Or.inr rfl⟩
+        | tail _ h'' => nomatch h''
+  | _ :: w2 :: rest, _, h => by
+      cases h with
+      | head => exact ⟨_, List.Mem.head _, Or.inl rfl⟩
+      | tail _ h' =>
+          obtain ⟨v, hv, hA⟩ := mem_extendC (w2 :: rest) _ h'
+          exact ⟨v, List.Mem.tail _ hv, hA⟩
+
+/-- Every vector of `raiseC D` is `true :: v` for some `v ∈ D`. -/
+theorem mem_raiseC : ∀ (D : List (List Bool)) (A : List Bool),
+    A ∈ raiseC D → ∃ v, v ∈ D ∧ A = true :: v
+  | [], _, h => nomatch h
+  | [_], _, h => nomatch h
+  | _ :: w2 :: rest, _, h => by
+      cases h with
+      | head => exact ⟨_, List.Mem.head _, rfl⟩
+      | tail _ h' =>
+          obtain ⟨v, hv, hA⟩ := mem_raiseC (w2 :: rest) _ h'
+          exact ⟨v, List.Mem.tail _ hv, hA⟩
+
+/-- Within one parent, `extendC D` and `raiseC D` are disjoint (`D` nodup): the
+    only `true ::` member of `extendC D` is its top, which `raiseC D` drops. -/
+theorem extendC_raiseC_disjoint : ∀ (D : List (List Bool)), D.Nodup →
+    ∀ z, z ∈ extendC D → z ∈ raiseC D → False
+  | [], _, _, _, hr => nomatch hr
+  | [_], _, _, _, hr => nomatch hr
+  | w :: w2 :: rest, hnd, z, he, hr => by
+      have hwnd : (w2 :: rest).Nodup := by cases hnd with | cons _ ht => exact ht
+      have hwni : w ∉ (w2 :: rest) := by cases hnd with | cons hh _ => exact fun hm => hh w hm rfl
+      cases he with
+      | head =>
+          -- z = false :: w
+          cases hr with
+          | tail _ hr' =>
+              obtain ⟨v, _, hA⟩ := mem_raiseC (w2 :: rest) _ hr'
+              exact Bool.noConfusion (List.cons.inj hA).1
+      | tail _ he' =>
+          cases hr with
+          | head =>
+              -- z = true :: w, in extendC (w2 :: rest)
+              obtain ⟨v, hv, hA⟩ := mem_extendC (w2 :: rest) _ he'
+              rcases hA with hA | hA
+              · exact Bool.noConfusion (List.cons.inj hA).1
+              · exact hwni (by rw [(List.cons.inj hA).2]; exact hv)
+          | tail _ hr' => exact extendC_raiseC_disjoint (w2 :: rest) hwnd z he' hr'
+
 end E213.Lib.Math.Combinatorics.ChainAntichain
