@@ -10,6 +10,7 @@ import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciHomogeneous
 import E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci
 import E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussBonnet
 import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete
+import E213.Lib.Math.Geometry.GeometrizationConjecture.ConformalCurvature
 import E213.Lib.Math.Geometry.GeometrizationConjecture.EightGeometries
 import E213.Lib.Math.Geometry.GeometrizationConjecture.StructuralMapping
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Capstone

@@ -502,6 +502,17 @@ field-L² companion of the energy (gradient-L²) decay.
 
 ### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
+### A6 CORE — smooth 2D-conformal Gauss curvature (the smooth route) (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.ConformalCurvature` — **4 PURE / 0 DIRTY**.  Opens A6's
+**smooth** route (distinct from the closed discrete Forman route) via the 2D-conformal sidestep
+(`ricci_flow_smooth_core.md`): for `ds²=λ(dx²+dy²)` with polynomial `λ`, the Liouville Gauss curvature
+`K=(|∇λ|²−λΔλ)/(2λ³)` is rational — no transcendentals.  `confKNum = |∇λ|²−λΔλ` (curvature numerator over
+ℤ); `confK_flat` (constant `λ` ⟹ `K=0`, S3), `confK_paraboloid` (`λ=x²+y²+1` ⟹ numerator `−4`, negative
+curvature), `confK_dome` (`λ=C−x²−y²` ⟹ numerator `4C`, positive curvature), `conformal_curvature_trichotomy`
+(flat/neg/pos, S4) — genuine smooth 2D-conformal Ricci curvature, `ring_intZ`.  The smooth wall (general-`n`
++ transcendental metrics) stays; 2D-conformal polynomial `λ` is this side of it.  S5 (the `∂_tλ=−2Kλ` flow) next.
+
 ### A6 CORE rung 4 — discrete Gauss–Bonnet: curvature sign ↔ topology as a theorem (2026-06-05)
 
 `E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussBonnet` — **4 PURE / 0 DIRTY**.  Makes rung

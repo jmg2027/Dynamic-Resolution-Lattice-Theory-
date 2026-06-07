@@ -143,13 +143,17 @@ Each rung `∅`-axiom, sidestepping transcendentals (rational `λ` only):
 S1. **Polynomial 2nd derivative** — assemble `IsDifferentiable` of a polynomial's
     derivative (rebut "linear only"); `d²/dx²(xⁿ)`.
 S2. **Laplacian** `Δf = ∂₀²f + ∂₁²f` on `MultiCut 2` from `partialAt`.
-S3. **Conformal Gauss curvature** `gaussK λ = (|∇λ|² − λ·Δλ)/(2λ³)` as a cut
-    expression (uses `cutDiv`); verify `K = 0` for `λ` constant (flat).
-S4. **A nonflat check** — a rational `λ` with `K ≠ 0` computed (e.g. the
-    stereographic round-sphere factor `λ = 4/(1+x²+y²)²` → `K = 1`), if the
-    division boundary behaves; else a polynomial `λ` with a clean `K`.
-S5. **2D conformal Ricci flow** `∂_t λ = −2K·λ` (since `Ric = K·g` in 2D) — a
-    genuine smooth flow on one rational field, then a monovariant for it.
+S3. **Conformal Gauss curvature** — ✅ DONE (`GeometrizationConjecture/ConformalCurvature.lean`,
+    over ℤ via the curvature numerator `confKNum = |∇λ|² − λΔλ`, `K = confKNum/(2λ³)`):
+    `confK_flat` (constant `λ` ⟹ `K = 0`, the flat metric).
+S4. **A nonflat check** — ✅ DONE (same file): both signs on polynomial `λ` —
+    `confK_paraboloid` (`λ = x²+y²+1` ⟹ numerator `−4`, negatively curved) and `confK_dome`
+    (`λ = C−x²−y²` ⟹ numerator `4C`, positively curved); `conformal_curvature_trichotomy` bundles
+    the flat/negative/positive trichotomy.  Genuine smooth 2D-conformal Ricci curvature, ∅-axiom.
+S5. **2D conformal Ricci flow** `∂_t λ = −2K·λ` (since `Ric = K·g` in 2D) — a genuine smooth flow
+    on one polynomial field (`λ²·∂_tλ = −confKNum`, fixed points = flat `K=0`), then a monovariant.
+    NEXT (the curvature numerator + trichotomy of S3–S4 are the substance; the flow ODE is the
+    remaining rung).
 
 This is genuine *smooth* (not discrete) Ricci geometry, `∅`-axiom, in 2D.
 
