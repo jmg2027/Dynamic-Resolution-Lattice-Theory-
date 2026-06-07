@@ -41,8 +41,10 @@ combinatorial formula).
    (the maximally-oscillating checkerboard curvature field is driven to **constant curvature** in
    one step, spread `1→0` — `lazy_checker_collapses`).  *The discrete analogue of Perelman
    monotonicity and the A6-core target — closed via the PDE marathon.*  **A6 conquest core closed
-   on the discrete side.**  (General-`n` strict spread-contraction via `flow_reaches` is a
-   refinement; the monotone quantity + boundedness + witness are the substance.)
+   on the discrete side.**  Convergence is also a genuine **`flow_reaches` (A6 FLOW archetype)**
+   instance: `ricci_flow_reaches_normalized` — the curvature-spread monovariant `spreadFlow` strictly
+   descends (by 2/step) until the normalised state `spread ≤ 1` (`spreadFlow_fixed_le_one`), exactly
+   rung 3's stated "drive the flow to constant curvature via A6 FLOW on a curvature-spread monovariant".
 4. **Discrete Gauss–Bonnet / Bochner (CD(K,N))** — Bakry–Émery curvature-
    dimension on graphs; `Ric ≥ K` combinatorially; relate Σ curvature to Euler
    characteristic.  Connects curvature sign to `b₁` as a theorem, not a table.

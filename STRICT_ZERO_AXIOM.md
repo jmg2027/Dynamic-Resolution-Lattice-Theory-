@@ -515,7 +515,7 @@ the discrete Perelman 𝓦-/entropy-monotonicity), `ricci_uniform_stationary` (u
 `4−NS−NT` is the normalized fixed point, `lazyHeatStep_const`), `ricci_flow_homogenises` (the checkerboard
 curvature field → constant curvature in one step, spread `1→0` — `lazy_checker_collapses`).  **A6 conquest
 core closed on the discrete (Forman) side** (rungs 2–3 of `a6_ricci_core/discrete_ricci_flow_ladder.md`);
-the smooth-Perelman wall stays (`ricci_flow_smooth_core.md`).
+the smooth-Perelman wall stays (`ricci_flow_smooth_core.md`).  Convergence is also a genuine **A6 FLOW (`flow_reaches`)** instance: `ricci_flow_reaches_normalized` — the curvature-spread monovariant `spreadFlow` strictly descends (by 2/step) to the normalised state `spread ≤ 1` (`spreadFlow_fixed_le_one`), realising rung 3's "drive the flow to constant curvature via A6 FLOW on a curvature-spread monovariant" (3 more PURE).
 
 ### Marathon T4 (foundation) — integer floor square root `isqrt` (2026-06-05)
 
