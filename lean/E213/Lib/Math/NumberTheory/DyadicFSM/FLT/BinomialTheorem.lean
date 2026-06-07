@@ -286,4 +286,19 @@ theorem choose_le_two_pow (n k : Nat) : choose n k ≤ 2 ^ n := by
   · rw [E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial.choose_eq_zero_of_lt n k h]
     exact Nat.zero_le _
 
+/-- ★★★ **Hockey-stick identity**: `Σ_{j=0}^{m} C(r+j, r) = C(r+m+1, r+1)` — the diagonal sum of
+    Pascal's triangle.  Induction on `m` via Pascal (`choose_succ_succ`). -/
+theorem hockey_stick (r : Nat) :
+    ∀ m, sumTo (m + 1) (fun j => choose (r + j) r) = choose (r + m + 1) (r + 1)
+  | 0 => by
+    show (0 : Nat) + choose r r = choose (r + 1) (r + 1)
+    rw [Nat.zero_add, choose_self, choose_self]
+  | m + 1 => by
+    show sumTo (m + 1) (fun j => choose (r + j) r) + choose (r + (m + 1)) r
+        = choose (r + (m + 1) + 1) (r + 1)
+    rw [hockey_stick r m]
+    show choose (r + m + 1) (r + 1) + choose (r + m + 1) r
+        = choose ((r + m + 1) + 1) (r + 1)
+    rw [choose_succ_succ (r + m + 1) r, Nat.add_comm]
+
 end E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem
