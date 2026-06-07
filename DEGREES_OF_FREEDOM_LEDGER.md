@@ -163,12 +163,15 @@ single ansatz `correction = α²/d²` (with `X = y+k`, `d² = 25`). The
 the correction form — it reduces to one sub-question: **why `α²/d²`?**
 
 - `α²` — structurally expected (self-energy is `O(α²)`).
-- `/d²` — the genuine open residual. The `25 = d²` prefactor has three
+- `/d²` — the genuine open residual. The `25 = d²` prefactor's three
   candidate readings (block-pair total / Gram-matrix DOF / α_GUT factor)
-  but **no forcing theorem**; `CupRingTrace.lean` is a bottom-up *test*,
-  not a derivation (its own header), and the cohomological forcing of the
-  prefactor is the repo's acknowledged Step-4+ open item. Stated plainly
-  per §5.4 — the cup-ring trace does *not* currently force it. Frontier:
+  are now proven to **coincide at `d²`** (`GramD2Readings`,
+  `three_readings_coincide`) — so the *value* is over-determined, not a
+  choice. What stays open is only the **mechanism** linking the self-energy
+  to `d²`: `CupRingTrace.lean` is a bottom-up *test*, not a derivation (its
+  own header), and the cohomological forcing of the prefactor is the repo's
+  acknowledged Step-4+ open item. Stated plainly per §5.4 — the cup-ring
+  trace does *not* currently force the mechanism. Frontier:
   `research-notes/frontiers/gram_d2_prefactor.md`.
 
 ---

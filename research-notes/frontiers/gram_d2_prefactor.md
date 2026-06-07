@@ -33,6 +33,17 @@ header, a **bottom-up test** (functionals defined first, result observed
 second), not a forcing derivation. So the cup-ring trace does **not**
 currently force the prefactor.
 
+## Progress — the *value* is over-determined (2026-06-07)
+
+`GramD2Readings.lean` (PURE) consolidates the three candidate readings:
+`fullDimSquared`, `gramMatrixEntries`, and `inv_alpha_GUT_factor` all equal
+`d² = 25` (`three_readings_coincide`, `all_readings_are_d_squared`), with
+the block-pair reading given content via `d² = d + 2·C(d,2)` (`25 = 5+2·10`,
+`blockpair_decomposition`). So the three are **not competing choices** —
+they are facets of one structural quantity `d²` (equivalence-pluralism
+discipline). The open question narrows: **not** "which value", but "which
+*mechanism* links the self-energy to `d²`".
+
 ## What would close it
 
 A cohomological/trace theorem deriving the self-energy prefactor as `d²`
