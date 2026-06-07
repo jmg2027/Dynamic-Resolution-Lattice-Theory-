@@ -16,6 +16,7 @@ import E213.Lib.Physics.AlphaEM.GradedFormulaPrecision
 import E213.Lib.Physics.AlphaEM.GramSelfConsistency
 import E213.Lib.Physics.AlphaEM.GramHigherOrder
 import E213.Lib.Physics.AlphaEM.GramStructuralCapstone
+import E213.Lib.Physics.AlphaEM.AssignmentUniqueness
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaCoeffSeq
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaModulus
 import E213.Lib.Physics.AlphaEM.LaplacianSpectrum

@@ -71,6 +71,27 @@ The residual DoF is the **assignment map**: that the ζ(2)-layer is
 single largest open item, and §"Mitigation" below is why it is far
 narrower than "six free parameters."
 
+**Update — the assignment row, sharpened to its exact residual**
+(`Lib/Physics/AlphaEM/AssignmentUniqueness.lean`, all PURE):
+
+- *Value uniqueness — now proven.* Each leading coefficient is the
+  **unique** monomial `3^a·2^p·5^e` in a bounded box
+  (`repr_60_unique`, `repr_30_unique`, `repr_25_unique`,
+  `repr_45_unique` = 1 representation each). The values are not
+  arbitrary integers; arithmetic forces the prime-exponent vector.
+- *The exact remaining freedom — now named and proven.* Because
+  `NT = c = 2` (`nt_eq_c`), the power of `2` in a coefficient cannot
+  be attributed to `NT` vs `c` by arithmetic: there are exactly **3**
+  splits of each `2²` (`two_power_splits_three`), and `60` equals
+  `NS·NT·c·d`, `NS·NT²·d`, and `NS·c²·d` alike (`sixty_split_not_forced`).
+  Selecting the `c`-multiplicity reading (`60/30 = c`, what distinguishes
+  α_em from α_2) is the **cohomology's** job (`c3_chain`), not
+  arithmetic's.
+
+So the Layer-1 `assignment` DoF is no longer "6 unconstrained maps" — it
+is exactly **the NT↔c attribution**, a single degeneracy between two
+atoms that share the value 2. Capstone: `assignment_arithmetic_boundary`.
+
 ---
 
 ## Layer 2 — the transcendental / coupling inputs
@@ -153,26 +174,33 @@ the open work.
 | Layer | forced | derived | assignment | modeling-form | fitted? |
 |---|---:|---:|---:|---:|---:|
 | 0 atoms | 5 | — | — | — | — |
-| 1 skeleton | — | 6 (values) | 6 (maps) | — | — |
+| 1 skeleton | — | 6 (values, **uniqueness proven**) | 1 (**NT↔c only**) | — | — |
 | 2 inputs | — | 2 | — | — | — |
 | 3 Gram | — | 1 | — | 2 | — |
 | v2 refinements | — | — | — | — | 2 |
 
 **Verdict.** The foundation (Layer 0) and all *values* (Layers 1–3) are
-forced or derived — no free real parameter exists anywhere. The genuine
-residual researcher-DoF is exactly three things, and they are now named:
-**(a)** the skeleton's layer-assignment map, **(b)** the Gram cubic's
-form + truncation order, **(c)** the two v2 refinement terms. That is the
-honest state — far stronger than "numerology," and not yet "0 DoF."
+forced or derived — no free real parameter exists anywhere, and the
+coefficient values are now proven *uniquely* represented
+(`AssignmentUniqueness`). The genuine residual researcher-DoF is exactly
+three things, and they are now named and (for the first) sharpened:
+**(a)** the skeleton assignment — reduced to the single `NT↔c` attribution
+(both = 2), to be closed by the cohomology's `c`-multiplicity reading;
+**(b)** the Gram cubic's form + truncation order; **(c)** the two v2
+refinement terms. That is the honest state — far stronger than
+"numerology," and not yet "0 DoF."
 
 ---
 
 ## Next actions (close `assignment`/`modeling-form`/`fitted?` → `forced`)
 
-1. **Assignment uniqueness theorem.** Prove that among products of
-   `(NS,NT,c,d)`, the triple-coupling constraint admits *only* the
-   given layer assignment (an enumeration + `decide` is plausible —
-   the space is finite). This converts 6 `assignment` rows to `forced`.
+1. **Assignment uniqueness — PARTIALLY CLOSED.** Value-uniqueness is
+   proven (`AssignmentUniqueness.leading_coeffs_unique`): each
+   coefficient is the unique box-monomial. The residual is now isolated
+   to the single `NT↔c` degeneracy (`assignment_arithmetic_boundary`).
+   *Remaining*: derive the `c`-multiplicity attribution from the
+   cohomology (`c3_chain`'s `60/30 = c`) as a forcing theorem — this is
+   a physics derivation, not a `decide`, and is the honest next target.
 2. **Derive the cubic.** Show `d²y³+1 = d²Xy²` is the forced
    self-consistency relation (e.g. from the cup-ring trace), not a
    chosen shape.
