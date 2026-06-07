@@ -70,10 +70,12 @@ others together):
 `what_is_a_proof` (series synthesis), `counting_as_cardinality` (the COUNT-arc
 synthesis), `probabilistic_method`, `sperner_double_counting`,
 `lym_inequality` (the per-term refinement Sperner discards; `Σ 1/C(n,|A|) ≤ 1`),
+`chain_antichain_duality` (Mirsky + Dilworth — Sperner's dual; the SCD partition),
 `linear_algebra_method`, `parity_invariant_method`, `konig_boundary`.
 The "why" of each reproduced technique; the instruction set's interior + edge.
 Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom; LYM is the
-sharp inequality Sperner is the corollary of.
+sharp inequality Sperner is the corollary of; Mirsky/Dilworth are the chain-side
+dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 
 ## Current essays
 

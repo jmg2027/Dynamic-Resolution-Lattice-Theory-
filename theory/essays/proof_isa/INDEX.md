@@ -81,6 +81,24 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     `bollobas_cap`); the favour-count is discharged (`BollobasCount`, 36/36 PURE),
     so `bollobas_uniform` — `|F| ≤ C(a+b,a)`, `n`-independent — holds unconditionally.
 
+  · [`chain_antichain_duality.md`](chain_antichain_duality.md) — **Mirsky and
+    Dilworth on `2^[n]`**, the *dual* of Sperner: read the lattice through chains
+    and the bounds become partitions.  *Not* a new instruction — the antichain
+    **SEPARATE** read on the dual relation (`chain_card_inj`: comparability forces
+    a size gap) gives Mirsky (longest chain `= n+1 =` min antichain partition,
+    `mirsky_boolean`); **COUNT** in its injection face (the choice-free
+    `findChain`) gives Dilworth's lower bound (`dilworth_lower`).  The matching
+    upper bound is the de Bruijn–Tengbergen–Kruyswijk symmetric chain
+    decomposition (`scd`), a COUNT object whose count *is* its partition: the
+    symmetric-level invariant `scd_sym` forces one `⌊n/2⌋`-element per chain, and
+    the SCD partition (`scd_same`/`scd_nodup` — proven **without** constructor
+    injectivity, which fails for `raiseC`; collisions die by IH disjointness)
+    makes the middle-layer trace nodup, so `|scd n| = C(n,⌊n/2⌋)` (`scd_card`) and
+    min chain cover `=` max antichain (`dilworth_boolean`).  Closes a loop:
+    Sperner's number is reached three ways on one substrate — the double count,
+    the named LYM inequality, and the partition (`sperner_via_scd`).  All ∅-axiom
+    (`ChainAntichain`, 84/84 PURE).
+
   · [`counting_as_cardinality.md`](counting_as_cardinality.md) — **what is counting,
     in 213?**  Synthesis of the COUNT arc: a cardinality is the count-Lens reading
     of a *finite residue* (`List.length`, no `Fintype`).  Binomials read layers

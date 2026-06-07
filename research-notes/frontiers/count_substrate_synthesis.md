@@ -83,6 +83,7 @@ exposed patterns worth harvesting.
   the minimum antichain partition).
 
   ✓✓✓ **Dilworth on `2^[n]` is FULLY CLOSED** (`ChainAntichain`, ∅-axiom).
+  Narrative promoted to `theory/essays/proof_isa/chain_antichain_duality.md`.
   ★★★ `dilworth_boolean`: `scd n` is a chain cover of *exactly* `C(n,⌊n/2⌋)`
   chains (`scd_card`) and every chain cover needs `≥ C(n,⌊n/2⌋)` (`dilworth_lower`)
   — so **min chain cover `= C(n,⌊n/2⌋)` = max antichain** (Sperner), the chain-cover
