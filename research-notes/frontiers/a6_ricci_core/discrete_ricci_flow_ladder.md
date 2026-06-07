@@ -45,9 +45,12 @@ combinatorial formula).
    instance: `ricci_flow_reaches_normalized` — the curvature-spread monovariant `spreadFlow` strictly
    descends (by 2/step) until the normalised state `spread ≤ 1` (`spreadFlow_fixed_le_one`), exactly
    rung 3's stated "drive the flow to constant curvature via A6 FLOW on a curvature-spread monovariant".
-4. **Discrete Gauss–Bonnet / Bochner (CD(K,N))** — Bakry–Émery curvature-
-   dimension on graphs; `Ric ≥ K` combinatorially; relate Σ curvature to Euler
-   characteristic.  Connects curvature sign to `b₁` as a theorem, not a table.
+4. **Discrete Gauss–Bonnet** — ✅ DONE (`GeometrizationConjecture/DiscreteGaussBonnet.lean`,
+   4 PURE).  Vertex curvature `κ(v)=2−deg(v)`; **`Σ_v κ(v) = 2·χ`** (`gauss_bonnet_Kmn`, `χ=V−E`),
+   `χ = 1 − b₁` (`euler_eq_one_sub_b1`, cyclomatic `b₁=E−V+1`), hence **total curvature `= 2 − 2·b₁`**
+   (`totalCurv_eq`) — positive ⟺ `b₁=0` (tree), negative ⟺ `b₁≥1` (cyclic).  `curvature_sign_topology`:
+   `K_{1,1}` `+2` (`b₁=0`) vs `K_{3,2}` `−2` (`b₁=2`) — **curvature sign ↔ topology now a theorem,
+   not a table** (derived by `ring_intZ`).  (Bochner/CD(K,N) Bakry–Émery is a further refinement.)
 5. **Ollivier–Ricci** (optimal-transport curvature) — heavier; needs a coupling
    / W₁ distance on the finite graph metric.  Later rung.
 

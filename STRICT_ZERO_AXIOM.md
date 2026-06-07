@@ -502,6 +502,15 @@ field-L² companion of the energy (gradient-L²) decay.
 
 ### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
+### A6 CORE rung 4 — discrete Gauss–Bonnet: curvature sign ↔ topology as a theorem (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussBonnet` — **4 PURE / 0 DIRTY**.  Makes rung
+1's curvature↔`b₁` table a **theorem**: vertex curvature `κ(v)=2−deg(v)`, `gauss_bonnet_Kmn`
+(**`Σ_v κ(v)=2·χ`**, `χ=V−E` for `K_{m,n}`), `euler_eq_one_sub_b1` (`χ=1−b₁`, cyclomatic `b₁=E−V+1`),
+`totalCurv_eq` (**total curvature `=2−2·b₁`** — positive ⟺ tree `b₁=0`, negative ⟺ cyclic `b₁≥1`), and
+`curvature_sign_topology` (`K_{1,1}` `+2`/`b₁=0` vs `K_{3,2}` `−2`/`b₁=2`).  Derived by `ring_intZ`, not
+tabulated.  A6 discrete core rung 4 (`a6_ricci_core/discrete_ricci_flow_ladder.md`).
+
 ### A6 CORE TOUCHED — discrete Ricci flow as heat flow on curvature (2026-06-05)
 
 `E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete` — **5 PURE / 0 DIRTY**.  The
