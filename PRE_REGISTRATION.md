@@ -52,18 +52,37 @@ near-term experiment whose result DRLT cannot retro-adjust.
 
 ---
 
-## P2 — θ_QCD is nonzero at ≈ 2.86 × 10⁻¹¹ (the contrarian prediction)
+## P2 — θ_QCD is nonzero at ≈ 2.86 × 10⁻¹¹ (semi-derived, hidden input flagged)
 
 | | |
 |---|---|
 | **DRLT claim** | `θ_QCD = J·α_GUT⁴ ≈ 2.86×10⁻¹¹`, bracket `[2.51, 3.00]×10⁻¹¹` |
-| **Lean anchor (PURE)** | `Couplings.ThetaQCD.theta_QCD_precision_bracket` (`286 ∈ [251,300]·10⁻¹³`), `drlt_below_bound`, `theta_QCD_pattern` |
+| **Lean anchor** | `Couplings.ThetaQCD.theta_QCD_precision_bracket` (`286 ∈ [251,300]·10⁻¹³`, PURE), `drlt_below_bound`, `theta_QCD_pattern`, `alpha_pow_eq_4` |
 | **Experiment / date** | Next-generation neutron-EDM, **~2027–2030** |
 | **Falsifier** | nEDM constrains θ_QCD **outside [2.51, 3.00]×10⁻¹¹** (incl. consistent-with-zero below 2.5×10⁻¹¹) → DRLT discarded |
-| **Why it carries risk** | This is **contrarian**: the mainstream resolution of strong-CP (Peccei–Quinn / axion) drives θ_QCD → 0. DRLT instead pins a *specific small nonzero value*. The two pictures diverge exactly in the next-gen nEDM window — a sharp, distinctive, falsifiable disagreement. |
+| **Why it carries risk** | **Contrarian**: the mainstream strong-CP resolution (Peccei–Quinn / axion) drives θ_QCD → 0. DRLT instead asserts a *specific small nonzero value*. The two diverge in the next-gen nEDM window. |
 
-The most scientifically valuable row: a prediction that *differs from the
-field's default expectation* and is testable on a definite timeline.
+> ⚠️ **Honesty flag — hidden input (found by self-audit, not yet closed).**
+> The PURE theorems here prove **only the arithmetic** (that the number
+> `286` lies in `[251,300]` and below the nEDM bound) — *not* that `286`
+> is derived from the atoms. The value factors as `θ_QCD = J·α_GUT⁴`:
+> - **Derived**: the exponent `4 = d−1` (`alpha_pow_eq_4`, PURE) and
+>   `α_GUT = 6/(25π²)` (`AlphaGUT`).
+> - **NOT derived**: the **Jarlskog prefactor** `J ≈ 3×10⁻⁵`. The repo
+>   proves only its λ-power *structure* (`CPViolation.J_lambda_dependence`:
+>   λ = 5/22, λ⁶ skeleton) and candidly notes in-code "Hmm not the right
+>   magnitude." The numeric `J` carries **measured CKM input**, and
+>   `theta_QCD_num := 286` is hardcoded.
+>
+> So P2 is, honestly, a **cross-prediction**: "given the (measured)
+> Jarlskog `J` and the derived `α_GUT`, θ_QCD = `J·α_GUT⁴`." That is a
+> legitimate and still-falsifiable relation between observables — but it
+> is **not** `θ_QCD` from `(NS,NT,c,d)` alone. To promote P2 to a clean
+> forward prediction, **derive `J`'s magnitude** (not just its λ-power
+> structure) from the atoms. Until then, P2 is registered *with this
+> caveat attached* — registering it as "fully PURE-pinned" would be the
+> exact dishonest move this whole register exists to prevent
+> (`seed/AXIOM/05_no_exterior.md` §5.4 guard).
 
 ---
 
@@ -93,11 +112,15 @@ field's default expectation* and is testable on a definite timeline.
 
 ## Near-term scorecard (the ones that matter by 2030)
 
-| Pred | Quantity | DRLT (PURE-pinned) | Decides | When | Risk |
-|---|---|---|---|---|---|
-| **P1** | ν ordering | normal, m₃/m₂≈5.71 | JUNO | ~2030 | binary coin-flip |
-| **P2** | θ_QCD | 2.86×10⁻¹¹ | nEDM | ~2027–30 | contrarian vs axion→0 |
-| **P3** | sin²θ₂₃ | 1/2 (maximal) | DUNE/HK | ~2030+ | octant tension live |
+| Pred | Quantity | DRLT value | Derivation status | Decides | When | Risk |
+|---|---|---|---|---|---|---|
+| **P1** | ν ordering | normal, m₃/m₂≈5.71 | structural | JUNO | ~2030 | binary coin-flip |
+| **P2** | θ_QCD | 2.86×10⁻¹¹ | ⚠ semi-derived (J input) | nEDM | ~2027–30 | contrarian vs axion→0 |
+| **P3** | sin²θ₂₃ | 1/2 (maximal) | structural | DUNE/HK | ~2030+ | octant tension live |
+
+P1 and P3 are structural (atomic-pinned). **P2 carries the flagged
+Jarlskog input** (above) and is registered as a cross-prediction until
+`J` is derived.
 
 If all three land, DRLT has made **three correct forward calls** on
 independent experiments — qualitatively different evidence from any
