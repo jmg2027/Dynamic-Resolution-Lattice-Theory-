@@ -145,6 +145,20 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `gram_d2_prefactor` — **the α_em Gram self-energy `/d²` prefactor**.
+  *Closed this session*: the cubic `25y³+1=25Xy²` is the correction ansatz
+  `α²/d²` re-expressed (not a free form); the prefactor *value* is
+  over-determined (three readings coincide at `d²`); the *mechanism* is
+  identified — a degree-2 (2-point) object on the d=5 state space normalizes
+  by `d²`, grounded in two convergent math structures (2-point operator-space
+  dim `tensorDim d d` + 2-fold cup-graduation `cup_graduation_denom 1`).
+  *Open*: (a) the remaining premise — a forcing theorem identifying the Gram
+  self-energy *as* the `k=1` self-pairing cup term (promote
+  `CupRingTrace`/`SelfPairingTrace` test → derivation); (b) derive the
+  cup-graduation rule "each cup factor carries 1/d" from cup-ring axioms
+  (currently a structural assertion). Anchors:
+  `Lib/Physics/AlphaEM/{GramCubicReduction,GramD2Readings,GramD2Mechanism}`.
+
 - `count_substrate_synthesis` — post-closure synthesis of the COUNT arc (both
   named bounds proven): patterns (dual COUNT faces share one residue + the
   subset count `C(N,k)`; "engine + honest rung" closes once the enumeration infra
