@@ -153,6 +153,24 @@ Newton-1: y₁ = X − 1/(25X²),  correction = 1/(25X²) → 2130 at e9
 self-consistency cubic and the Newton truncation order. The 27×10⁻⁹
 residual to CODATA is openly the next-order tail.
 
+**Update — the cubic form is NOT an independent choice**
+(`Lib/Physics/AlphaEM/GramCubicReduction.lean`, PURE):
+
+`cubic_is_correction_ansatz` proves `25·y²·(y+k) = 25·y²·y + 25·y²·k`, so
+the cubic `25·y³+1 = 25·X·y²` is the **algebraic re-expression** of the
+single ansatz `correction = α²/d²` (with `X = y+k`, `d² = 25`). The
+`modeling-form` "cubic" row therefore carries no freedom beyond fixing
+the correction form — it reduces to one sub-question: **why `α²/d²`?**
+
+- `α²` — structurally expected (self-energy is `O(α²)`).
+- `/d²` — the genuine open residual. The `25 = d²` prefactor has three
+  candidate readings (block-pair total / Gram-matrix DOF / α_GUT factor)
+  but **no forcing theorem**; `CupRingTrace.lean` is a bottom-up *test*,
+  not a derivation (its own header), and the cohomological forcing of the
+  prefactor is the repo's acknowledged Step-4+ open item. Stated plainly
+  per §5.4 — the cup-ring trace does *not* currently force it. Frontier:
+  `research-notes/frontiers/gram_d2_prefactor.md`.
+
 ---
 
 ## Honesty flags — `fitted?` rows
@@ -201,20 +219,24 @@ the open work.
 | 0 atoms | 5 | — | — | — | — |
 | 1 skeleton | — | 6 (values, **uniqueness proven**) | **0 (NT↔c closed)** | — | — |
 | 2 inputs | — | 2 | — | — | — |
-| 3 Gram | — | 1 | — | 2 | — |
+| 3 Gram | — | 1 | — | 2 (cubic→**reduced to d² prefactor**; + truncation) | — |
 | v2 refinements | — | — | — | — | 2 |
 
 **Verdict.** The foundation (Layer 0), all *values* (Layers 1–3), AND the
 skeleton layer-assignment are now forced or derived — no free real
 parameter, values proven *uniquely* represented (`AssignmentUniqueness`),
-and the last assignment freedom (NT↔c) structurally closed by the
-edge-count Lens (`AssignmentForcing`). The genuine residual researcher-DoF
-is now exactly **two** things: **(a)** the Gram cubic's form + truncation
-order (`modeling-form`); **(b)** the two v2 refinement terms (`fitted?`) —
+the last assignment freedom (NT↔c) structurally closed by the edge-count
+Lens (`AssignmentForcing`), and the Gram cubic *form* shown to be the
+correction ansatz re-expressed (`GramCubicReduction`), not a free choice.
+The genuine residual researcher-DoF is now precisely: **(a)** the `/d²`
+self-energy prefactor (the cubic's last open input — three candidate
+readings, no forcing theorem yet; frontier note opened); **(b)** the
+Newton truncation order; **(c)** the two v2 refinement terms (`fitted?`) —
 plus the separately-tracked **Jarlskog `J` input** for θ_QCD
-(`PRE_REGISTRATION.md` P2). The α_em *leading* derivation now stands at
-zero researcher-DoF through the base skeleton; that is materially stronger
-than the prior state and well past "numerology."
+(`PRE_REGISTRATION.md` P2). The α_em *leading* derivation stands at zero
+researcher-DoF through the base skeleton; the Gram layer's only remaining
+input is now the single `/d²` prefactor. Materially stronger than the
+prior state, and the open edges are named, not hidden.
 
 ---
 
