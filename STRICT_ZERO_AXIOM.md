@@ -324,17 +324,20 @@ injection.  `weave` (mask-guided interleave) + order preservation
 fully proven.**
 
 ★ **Mirsky's theorem on the Boolean lattice — the dual of Sperner** —
-`E213.Lib.Math.Combinatorics.ChainAntichain` (**15/15 PURE**): `chain_card_inj`
-(the chain SEPARATE — comparable equal-size members coincide), `chain_length_le`
-(height ≤ `n+1`, the size map injects a chain into `idxList(n+1)`), `canonChain`
-+ `canonChain_max` (the height is achieved — `∅⊂{0}⊂…⊂[n]` is a nodup chain of
-exactly `n+1`), and ★★ `mirsky_boolean` — longest chain = `n+1` = #layers (the
-`n+1` size-layers are the minimum antichain partition, each
-`Sperner.kLayer_isAntichain`).  **Dilworth lower bound** also closed —
-`dilworth_lower` (any chain cover of `2^[n]` needs ≥ `C(n,⌊n/2⌋)` chains = the
-max antichain; the chain-cover dual, via the choice-free `memBL`/`findChain`
-injective assignment).  The matching Dilworth upper bound (the symmetric chain
-decomposition) is the recorded open rung.
+`E213.Lib.Math.Combinatorics.ChainAntichain` (**81/81 PURE**): **Mirsky + Dilworth
+on `2^[n]`, both fully closed.**  *Mirsky*: `chain_card_inj` (the chain SEPARATE),
+`chain_length_le` (height ≤ `n+1`), `canonChain` + `canonChain_max` (achieved), and
+★★ `mirsky_boolean` — longest chain = `n+1` = #layers = minimum antichain partition.
+*Dilworth*: `dilworth_lower` (any chain cover ≥ `C(n,⌊n/2⌋)`, via the choice-free
+`memBL`/`findChain` assignment); the de Bruijn–Tengbergen–Kruyswijk SCD (`scd`,
+`extendC`/`raiseC`) with chain + cover (`scd_isChain`, `scd_chain_cover`); the
+symmetric-level invariant (★★ `scd_sym`: `cardB` run `[k,…,n−k]`, `2k+|C|=n+1`),
+`sym_span` + `scd_has_middle`/`scd_middle_unique` (each chain meets `⌊n/2⌋` once);
+the SCD partition (★★ `scd_same`/`scd_disjoint`/`scd_nodup`, via tail-membership
+`mem_extendC`/`mem_raiseC` + `extendC_raiseC_disjoint`; no constructor injectivity
+needed); and the count (★★★ `scd_card`: `|scd n| = C(n,⌊n/2⌋)` via the nodup
+middle-layer trace) ⟹ ★★★ `dilworth_boolean` — **min chain cover `= C(n,⌊n/2⌋) =`
+max antichain** (Sperner), the chain-cover dual of Mirsky.
 
 Bollobás reuses `lym_double_count`, `binom_mul_fact`,
 `SpernerChains.{truePos,idxList,perms,lcount_le_one_of}` — Bollobás is LYM's

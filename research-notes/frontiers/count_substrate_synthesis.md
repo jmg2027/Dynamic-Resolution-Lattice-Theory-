@@ -82,12 +82,29 @@ exposed patterns worth harvesting.
   and ★★ `mirsky_boolean` — longest chain = `n+1` = #layers (the size-layers are
   the minimum antichain partition).
 
-  **Dilworth on `2^[n]` — lower bound CLOSED, upper bound (SCD) open**
-  (`ChainAntichain`).  ✓ `dilworth_lower`: any chain cover needs ≥ `C(n,⌊n/2⌋)`
-  chains (the dual of Mirsky's lower bound, via `memBL`/`findChain` — a
-  choice-free injective assignment of middle-layer elements to chains).
+  ✓✓✓ **Dilworth on `2^[n]` is FULLY CLOSED** (`ChainAntichain`, ∅-axiom).
+  ★★★ `dilworth_boolean`: `scd n` is a chain cover of *exactly* `C(n,⌊n/2⌋)`
+  chains (`scd_card`) and every chain cover needs `≥ C(n,⌊n/2⌋)` (`dilworth_lower`)
+  — so **min chain cover `= C(n,⌊n/2⌋)` = max antichain** (Sperner), the chain-cover
+  dual of Mirsky.  ✓ `dilworth_lower`: any chain cover ≥ `C(n,⌊n/2⌋)` (via
+  `memBL`/`findChain` — choice-free injective assignment).  ★★★ `scd_card`:
+  `|scd n| = C(n,⌊n/2⌋)` via the middle-layer trace
+  `flatMap (C ↦ C.filter (cardB=⌊n/2⌋))` — length `= |scd n|` (one per chain,
+  `filter_len_one` + `length_flatMap213_const`), nodup (the SCD partition), set-equal
+  to `kLayer n ⌊n/2⌋` (cover + length-`n`) ⟹ equal length.
 
-  **Open rung — the SCD upper bound** (a `C(n,⌊n/2⌋)`-chain cover exists,
+  **The SCD partition (the crux, CLOSED).**  ★★ `scd_same` (a vector shared by two
+  chains forces them equal — induction: shared tail in both parents, parents equal by
+  IH; within a parent `extendC`/`raiseC` disjoint via `extendC_raiseC_disjoint`),
+  `scd_disjoint` (the `≠` form), ★★ `scd_nodup` (no repeated chain — distinct parents
+  yield disjoint children via `scd_same`, `extendC_ne_raiseC` within a parent).  Infra:
+  `mem_extendC`/`mem_raiseC`/`child_tail_mem` (tail-membership), `scd_chain_nodup`
+  (each chain nodup, from `consec_nodup` + `nodup_of_nodup_map`), `scd_vec_length`
+  (chain vectors have length `n`), `nodup_filter` (propext-free).
+  No `extendC`/`raiseC` injectivity was needed — collisions are killed by IH
+  disjointness.
+
+  **[historical — the SCD construction]** (a `C(n,⌊n/2⌋)`-chain cover,
   de Bruijn–Tengbergen–Kruyswijk).  Construction (new bit at the *front*,
   chains bottom-to-top):
   - `extendC [v₀,…,v_L] = [false::v₀,…,false::v_L, true::v_L]` (length `L+2`);
@@ -113,22 +130,16 @@ exposed patterns worth harvesting.
   `scd_middle_unique` (exactly one, via `chain_card_inj`).  ✓✓ **lower bound
   realised**: `scd_lower` — `scd n` is a chain cover so `C(n,⌊n/2⌋) ≤ |scd n|`
   (`dilworth_lower`).
-  **Only `|scd n| ≤ C(n,⌊n/2⌋)` remains** = SCD **partition-disjointness**
-  (`chain ↦ middle element` injective into `kLayer n ⌊n/2⌋`).  Two candidate
-  routes:
-  - **(A) pairwise disjointness** — `C₁,C₂ ∈ scd n` sharing a vector ⟹ `C₁=C₂`,
-    by induction on the `bit :: tail` structure (strip the new bit; `false::`/`true::`
-    collisions force equal parents → IH).  Then `chain ↦ middle` is injective
-    (shared middle ⟹ same chain) ⟹ `|scd n| ≤ |kLayer| = C(n,⌊n/2⌋)`.
-  - **(B) length-doubling + set-equality** — `flat n := (scd n).flatMap id`;
-    `|flat (n+1)| = 2|flat n|` (extendC adds 1, raiseC drops 1: `2|C|` per parent),
-    so `|flat n| = 2^n`.  `flat n` and `allBoolLists n` have the same underlying set
-    (cover ⊇ + length-`n` ⊆) and equal length `2^n`; with `allBoolLists` nodup ⟹
-    `flat n` nodup (same-set-same-length).  Then `(flat n).filter middle` has length
-    `Σ_C #middle = |scd n|` (one per chain) `= |kLayer| = C(n,⌊n/2⌋)`.
-  Then `dilworth_lower` + this ⟹ **min chain cover `= C(n,⌊n/2⌋)` = max antichain**.
-  Disjointness (~80–150 lines) is the crux; route (B)'s length-doubling is a clean
-  inductive lemma worth trying first.
+  `scd_card` realised route (A)'s structure positively: the middle-layer trace is
+  nodup *because* the chains partition (`scd_disjoint`), and the count drops out of
+  `length_flatMap213_const` (constant fiber length 1) — no separate length-doubling
+  or `same-set-same-length` lemma was needed.
+
+  **Mirsky + Dilworth together** now give the full chain/antichain duality on the
+  Boolean lattice ∅-axiom: longest chain `= n+1 =` min antichain partition
+  (`mirsky_boolean`), and min chain cover `= C(n,⌊n/2⌋) =` max antichain
+  (`dilworth_boolean`).  This closes the COUNT-substrate extremal-combinatorics
+  frontier (LYM, Bollobás, Sperner, Mirsky, Dilworth all ∅-axiom).
 
 - **Leibniz determinant over `perms`.**  `Linalg213/Permutation` uses `LPerm`
   *equivalence* + inversion-sign but no enumeration; `perms` + `mem_perms_iff` +
