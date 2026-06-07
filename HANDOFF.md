@@ -1,132 +1,100 @@
-# Session Handoff — 2026-06-05 (Dilworth on 2^[n] FULLY CLOSED — COUNT-substrate frontier complete)
+# Session Handoff — 2026-06-07
 
 ## Branch
 `claude/substrate-synthesis-count-zq9K0` — pushed; `origin/main` merged in
-(quadratic reciprocity + Ricci/PDE work from main now present).
-`cd lean && lake build E213.Lib.Math.Combinatorics` ✓ clean (42/42).  New modules,
-all strict ∅-axiom (`tools/scan_axioms.py`): **LymInequality 5/5**,
-**BollobasSetPair 21/21**, **BollobasCount 36/36**, **ChainAntichain 84/84**, 0 DIRTY.
+(quadratic reciprocity + Ricci/PDE work present).  About to merge to `main`.
+`cd lean && lake build` ✓ clean (full tree); `tools/layer_audit.py` 0 violations;
+`tools/kernel_regress.sh` 45/45 0-axiom.  Pre-merge audit: **READY TO MERGE**.
 
-## Headline (this session)
-- **Dilworth's theorem on `2^[n]` FULLY CLOSED** (`ChainAntichain`) — ★★★
-  `dilworth_boolean`: `scd n` is a chain cover of *exactly* `C(n,⌊n/2⌋)` chains
-  AND every chain cover needs `≥ C(n,⌊n/2⌋)`, so **min chain cover = `C(n,⌊n/2⌋)`
-  = max antichain** (Sperner) — the chain-cover dual of Mirsky.
-- **`scd_card`: `|scd n| = C(n,⌊n/2⌋)`** — via the middle-layer trace
-  `flatMap (C ↦ C.filter (cardB=⌊n/2⌋))`: length `= |scd n|` (one per chain,
-  `filter_len_one` + `length_flatMap213_const`), nodup (the SCD partition), set-equal
-  to `kLayer n ⌊n/2⌋` (cover + length-`n`) ⟹ equal length.
-- **The SCD is a partition** — ★★ `scd_same` (shared vector ⟹ same chain), `scd_disjoint`,
-  ★★ `scd_nodup` (no repeated chain).  No `extendC`/`raiseC` injectivity needed —
-  collisions die by IH disjointness.  Infra: `mem_extendC`/`mem_raiseC`/`child_tail_mem`,
-  `extendC_raiseC_disjoint`, `scd_chain_nodup` (`consec_nodup` + `nodup_of_nodup_map`),
-  `scd_vec_length`, `nodup_filter` (propext-free).
-- **(earlier this session) symmetric-level invariant** — `scd_sym` (centred `cardB`
-  run `2k+|C|=n+1`), `sym_span`, `scd_has_middle`, `scd_middle_unique`, `scd_lower`.
+## What Was Done This Session
 
-## Earlier headline
-- **Bollobás' set-pair inequality FULLY PROVEN ∅-axiom** — `bollobas_uniform`:
-  `|F| ≤ C(a+b,a)`, `n`-independent, unconditional (`BollobasCount`).
-- **Mirsky's theorem on `2^[n]` FULLY CLOSED** — `ChainAntichain`: `mirsky_boolean`
-  (longest chain = `n+1` = #layers = min antichain partition).
+### 1. Chain/antichain duality on `2^[n]` — Mirsky + Dilworth FULLY CLOSED (`ChainAntichain`, 84/84 PURE)
+The de Bruijn–Tengbergen–Kruyswijk symmetric chain decomposition, end-to-end ∅-axiom:
+- **`scd_sym`** — the symmetric-level invariant: every chain's `cardB` values form
+  the centred run `[k,…,n−k]` with `2k+|C|=n+1` (`extendC_sym`/`raiseC_sym` + length
+  helpers + `raise_sum_arith`).
+- **`sym_span`/`scd_has_middle`/`scd_middle_unique`** — each chain meets the middle
+  layer `⌊n/2⌋` exactly once.
+- **`scd_same`/`scd_disjoint`/`scd_nodup`** — the SCD is a partition (shared vector ⟹
+  same chain).  Key insight: **no `extendC`/`raiseC` injectivity needed** — `raiseC`
+  is not injective; collisions die by IH disjointness.  Infra: `mem_extendC`/
+  `mem_raiseC`/`child_tail_mem`, `extendC_raiseC_disjoint`, `scd_chain_nodup`
+  (`consec_nodup` + `nodup_of_nodup_map`), `scd_vec_length`, `nodup_filter` (propext-free).
+- **`scd_card`** — `|scd n| = C(n,⌊n/2⌋)` via the nodup middle-layer trace.
+- **`dilworth_boolean`** — min chain cover `= C(n,⌊n/2⌋) =` max antichain (Sperner).
+- **`sperner_via_scd`** — Sperner from the partition (a third ∅-axiom proof, after the
+  LYM double count and `sperner_via_lym`).
+- **`scd_flat_length`** — the SCD partitions all of `2^[n]`: `C(n,⌊n/2⌋)` chains hold
+  every one of the `2^n` subsets.
 
-## What Was Done This Session (count_substrate_synthesis.md seeds)
+### 2. Promotion + essays (three-tier discipline)
+- `theory/essays/proof_isa/chain_antichain_duality.md` — the "why" of Mirsky/Dilworth
+  as Sperner's dual (SEPARATE on the dual relation + COUNT; the SCD as a COUNT object
+  whose count is its partition).
+- `theory/essays/synthesis/duality_as_one_transpose.md` — "What is duality, in 213?":
+  one SEPARATE instruction read on a relation and its swap; the duality theorem is
+  `sumOver_swap` on one 0/1 incidence with a per-axis SEPARATE cap.
 
-### Part B — Bollobás' set-pair inequality (`BollobasSetPair.lean`, 18/18 PURE)
-The next LYM-shaped named bound: `m ≤ C(a+b,a)` (n-independent) for a
-cross-intersecting, per-pair-disjoint family of set pairs.  Same `COUNT`
-double-count engine as LYM, a *different incidence* (pairs × orderings, entry =
-"ordering favours the pair = all A before all B").
-- **New content (the heart)**: `before` (ordering relation) + `before_antisymm`
-  (antisymmetry, no `Nodup`), `favours`/`favours_before`, and ★ `bollobas_cap`
-  — cross-intersection ⟹ each ordering favours ≤ 1 pair (the column cap; the
-  contradiction is `before c x y` ∧ `before c y x` ⟹ `x = y ∈ A_i∩B_i = ∅`).
-- ★ `bollobas_sum` — the engine, unconditional: `Σ_i #{favouring i} ≤ n!`
-  (= `lym_double_count` on the favour-incidence, verbatim).
-- ★★ `bollobas` — the named bound `|F| ≤ C(a+b,a)`, **modulo the favour-count**
-  `V·(a+b)! = n!·a!·b!` (the honest open rung — the ordering-count analogue of
-  `chain_low`; recorded in the frontier).  Cancellation via `binom_mul_fact`.
-Bollobás = LYM's compilation with the incidence swapped and the antichain cap
-swapped for the cross-intersection cap — no new engine.  The Bollobás section
-was added to `theory/essays/proof_isa/lym_inequality.md`.
+### 3. Merge marathon hygiene
+- Merged `origin/main` (quadratic reciprocity, Ricci/PDE).
+- `/process` — sink rule 1→0 (BollobasSetPair docstring decoupled), frontier updated,
+  promotion log row 13.
+- `/org-audit` — current-state docstrings (dropped stale "frontier/remain" tails),
+  essay count 58→63.
+- `/purity-check` — sorry/axiom/native_decide/Classical/Mathlib all 0; QR 11/11 PURE.
+- `/ready-to-merge` — all phases green, verdict READY.
 
-### Part A — the LYM inequality (`LymInequality.lean`, 5/5 PURE)
-
-Harvested the first seed of `research-notes/frontiers/count_substrate_synthesis.md`
-("explicit fractional LYM `Σ 1/C(n,|A|) ≤ 1` for free"): stated and closed the
-**LYM (Lubell–Yamamoto–Meshalkin / Bollobás–LYM) inequality** as its own named
-theorem — the per-term refinement the Sperner development discarded.
-
-### `LymInequality.lean` (5/5 PURE) — new module
-The existing Sperner closure ran *through* `Sperner.lym_double_count` but
-immediately collapsed each summand to its minimum (`fact_mul_ge_mid`) before
-reading off `|F| ≤ C(n,⌊n/2⌋)`.  LYM is that engine **stopped one line earlier**:
-- `lym_inequality` — engine form: over any chain model (`#chains = n!`, ≤ 1
-  member per chain `hcap`, ≥ `|A|!(n−|A|)!` chains per member `hlow`),
-  `Σ_{A∈F} |A|!·(n−|A|)! ≤ n!`.  ~3 lines from `lym_double_count` + `sumOver_le`.
-- ★★ `lym_antichain` — named, unconditional: every antichain of `2^[n]` satisfies
-  `Σ_{A∈F} |A|!·(n−|A|)! ≤ n!`.  This is `Σ 1/C(n,|A|) ≤ 1` cleared of
-  denominators (`binom_mul_fact`: `C(n,k)·k!·(n−k)! = n!`).  Instantiates the
-  engine over the `SpernerChains` model (`chains_length`, `chain_cap`, `chain_low`).
-- `lym_tight_layer` — **sharpness / equality case**: a full layer `kLayer n k`
-  (`k ≤ n`) saturates LYM at `= n!` (every term `k!·(n−k)!`, `C(n,k)` of them).
-  So the layers are exactly the extremal antichains.
-- `sperner_via_lym` — **LYM ⟹ Sperner**: re-derives `|F| ≤ C(n,⌊n/2⌋)` *from* the
-  named inequality (apply the discarded `min`, then cancel), making "Sperner ⊂
-  LYM" a fact in the Lean.
-- `lym_tight_examples` — saturation at `(n,k) = (3,1)` and `(4,2)`.
-
-No new counting infrastructure was needed — the engine (`lym_double_count`,
-`sumOver_swap`), the arithmetic (`binom_mul_fact`, `fact_mul_ge_mid`), and the
-chain model (`chain_cap`, `chain_low`) all pre-existed.  The content is *where
-the compilation stops*: a theorem and its famous corollary differ by one `min`.
-
-### Marathon (essay / INDEX / catalog)
-- essay: `theory/essays/proof_isa/lym_inequality.md` — "the per-term refinement
-  Sperner throws away"; the compiled form shows LYM and Sperner share every
-  instruction but the last (`min`).
-- INDEX: `Combinatorics/INDEX.md` (LymInequality row), `theory/essays/INDEX.md`
-  + `theory/essays/proof_isa/INDEX.md` (essay entries), `STRICT_ZERO_AXIOM.md`
-  (5/5 PURE entry), `Combinatorics.lean` umbrella import.
-- frontier: `count_substrate_synthesis.md` — fractional-LYM seed marked ✓ closed.
-
-## Current Precision Results
-Unchanged this session (pure combinatorics; no physics observable touched).
-Physics constants table: `catalogs/physics-constants.md`.
+## Current Precision Results (0 free parameters)
+Unchanged this session (pure combinatorics / number theory; no physics observable
+touched).  Physics constants table: `catalogs/physics-constants.md`.
 
 ## Open Problems (Priority Order)
-From `research-notes/frontiers/count_substrate_synthesis.md` (registered in
-`frontiers/INDEX.md`):
-### (CLOSED) Dilworth on `2^[n]` — the SCD, FULLY closed (`ChainAntichain`, 81/81 PURE).
-★★★ `dilworth_boolean` / `scd_card` (`|scd n| = C(n,⌊n/2⌋)`); chain + cover
-(`scd_isChain`, `scd_chain_cover`); symmetric-level invariant (`scd_sym`, `sym_span`,
-`scd_has_middle`/`scd_middle_unique`); the SCD partition (`scd_same`, `scd_disjoint`,
-`scd_nodup`); `dilworth_lower`.  Min chain cover `= C(n,⌊n/2⌋) =` max antichain.
-### (CLOSED) Bollobás `bollobas_uniform` (36/36 PURE); Mirsky `mirsky_boolean`
-(`ChainAntichain`) — both unconditional ∅-axiom.
-### 1. A clean strict-order/pow `Meta/Nat` suite
+### 1. Leibniz determinant over `perms`
+`Linalg213/Permutation` has `LPerm` equivalence + inversion-sign but no enumeration;
+`perms` + `mem_perms_iff` + `perms_nodup` supply the index set for
+`det = Σ_{σ∈perms} sign(σ)·Π M i σ(i)` — a bridge between the two permutation
+developments.  Frontier note: `research-notes/frontiers/count_substrate_synthesis.md`.
+
+### 2. A clean strict-order/pow `Meta/Nat` suite
 `Nat.mul_lt_mul_right` carries **Classical.choice**; `Nat.pow_add`/`Nat.succ_sub`
-carry propext — re-proven ad-hoc per file.  Canonicalise into `Meta/Nat`.
-### 3. Leibniz determinant over `perms`
-`Linalg213/Permutation` has `LPerm` equivalence + inversion-sign but no
-enumeration; `perms` + `mem_perms_iff` + `perms_nodup` supply the index set for
-`det = Σ_{σ∈perms} sign(σ)·Π M i σ(i)`.
+carry propext — re-proven ad-hoc per file.  Canonicalise propext-free
+`mul_lt_mul_right`/`pow_add`/`succ_sub`/strict-mono into `Meta/Nat`.
+Frontier note: `research-notes/frontiers/count_substrate_synthesis.md`.
+
+### 3. Abstract the COUNT duality meta-theorem
+"Every finite duality = `sumOver_swap` on a 0/1 incidence + a SEPARATE cap per axis"
+is witnessed (Sperner, Mirsky, Dilworth, LYM, Bollobás) but not abstracted into one
+Lean theorem quantifying over incidences and caps.
+Frontier note: `research-notes/frontiers/count_substrate_synthesis.md`.
+
+## Unresolved from This Session
+None — every started unit closed ∅-axiom and was committed.  The Dilworth upper
+bound, flagged in earlier handoffs as "best with fresh context / ~100+ line
+disjointness", was fully closed (the `scd_same` positive-disjointness induction
+sidestepped the `raiseC`-injectivity dead end).
 
 ## Next
-Discharge the Bollobás favour-count rung (Open Problem 1 — closes `bollobas`
-unconditionally), then merge to `main`; or a different domain (primacy = breadth).
+Pick up Open Problem #1 (Leibniz determinant over `perms`) or #2 (`Meta/Nat`
+strict-order suite); or harvest a new domain (primacy = breadth).
+
+## Three-tier state
+- **Promotions this session**: `theory/essays/proof_isa/chain_antichain_duality.md`
+  ← the closed `ChainAntichain` Mirsky/Dilworth sub-tree (logged: promotion_essay_log
+  row 13).  `theory/essays/synthesis/duality_as_one_transpose.md` (essay, row 14).
+- **Promotion candidates**: none outstanding for the COUNT arc (LYM/Bollobás/Sperner/
+  Mirsky/Dilworth all have theory narrative).
+- **Active scratchpad**: `research-notes/frontiers/count_substrate_synthesis.md`
+  (kept active — open seeds above).
 
 ## File Map
 ```
-lean/E213/Lib/Math/Combinatorics/ChainAntichain.lean  ← Mirsky: chain_card_inj, chain_length_le (height ≤ n+1), chain_layer_cap (5/5 PURE)  [NEW]
-lean/E213/Lib/Math/Combinatorics/BollobasCount.lean   ← favour-count injection — CLOSES Bollobás: weave, partition, recovery, wovenFam, favourCount_lower, bollobas_uniform (36/36 PURE)  [NEW]
-lean/E213/Lib/Math/Combinatorics/BollobasSetPair.lean ← Bollobás engine: before_antisymm, bollobas_cap, bollobas_sum, bollobas, favourCount_mul, bollobas_of_count (21/21 PURE)
-lean/E213/Lib/Math/Combinatorics/LymInequality.lean  ← LYM named inequality (5/5 PURE)  [NEW]
-lean/E213/Lib/Math/Combinatorics/Sperner.lean        ← lym_double_count engine + binom_mul_fact + fact_mul_ge_mid
-lean/E213/Lib/Math/Combinatorics/SpernerChains.lean  ← chain model (chains_length, chain_cap, chain_low, truePos, idxList, perms)
-lean/E213/Lib/Math/Combinatorics.lean / INDEX.md     ← umbrella + module table (both new modules registered)
-theory/essays/proof_isa/lym_inequality.md            ← LYM (Sperner's engine before the min) + Bollobás section  [NEW]
-theory/essays/{INDEX,proof_isa/INDEX}.md             ← essay entries
-research-notes/frontiers/count_substrate_synthesis.md ← fractional-LYM closed; Bollobás heart closed, count rung recorded
-STRICT_ZERO_AXIOM.md                                  ← 5/5 + 18/18 PURE closures registered
+lean/E213/Lib/Math/Combinatorics/ChainAntichain.lean  ← Mirsky + Dilworth + SCD, 84/84 PURE (this session: §9–15 — scd_sym, partition, scd_card, dilworth_boolean, sperner_via_scd, scd_flat_length)
+lean/E213/Lib/Math/Combinatorics/BollobasSetPair.lean ← docstring decoupled from research-notes (favour-count discharged in BollobasCount)
+theory/essays/proof_isa/chain_antichain_duality.md    ← NEW: Mirsky/Dilworth narrative (the dual of Sperner)
+theory/essays/synthesis/duality_as_one_transpose.md   ← NEW: "What is duality, in 213?"
+theory/essays/{INDEX, proof_isa/INDEX}.md             ← essay entries + count 63
+lean/E213/Lib/Math/Combinatorics/INDEX.md             ← ChainAntichain row updated (Dilworth closed)
+STRICT_ZERO_AXIOM.md                                  ← ChainAntichain 84/84 PURE entry
+research-notes/frontiers/{INDEX,count_substrate_synthesis}.md ← COUNT arc closed + open seeds
+research-notes/promotion_essay_log.md                 ← rows 13 (promotion), 14 (essay)
 ```
