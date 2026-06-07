@@ -363,4 +363,127 @@ theorem c4_plan_optimal (pi' : Nat → Nat → Int)
   · rw [c4_coupling.1 x hx, hrow x hx]
   · rw [c4_coupling.2 y hy, hcol y hy]
 
+/-! ## §6 — worked example: the double-star is **negatively curved** (`κ < 0`)
+
+The center edge `(0,1)` of the double-star `D` (center vertices `0,1`; leaves `{2,3}` of `0`, leaves
+`{4,5}` of `1`).  Each centre has degree `3`, so the scaled walk measures are `m₀ = (·, neighbours of 0
+`{1,2,3}`)`, `m₁ = (·, neighbours of 1 `{0,4,5}`)`, each unit mass `1` on three vertices.  No matter the
+plan, two of `m₀`'s three units must cross to the far star (`distance 1` and `3`), forcing transport cost
+`5`.  The matching `1`-Lipschitz potential `dsF` (`f = 0,−1,1,1,−2,−2` on `0..5`) also reaches dual value
+`5`; they **meet**, so scaled `W₁ = 5`, probability `W₁ = 5/3`, Ollivier `κ = 1 − 5/3 = −2/3 < 0`: the
+double-star is **negatively curved** (a tree, like hyperbolic space).  Together with the triangle
+(`κ = ½ > 0`) and square (`κ = 0`) this is the full Ollivier sign **trichotomy**, matching Forman /
+Gauss–Bonnet (`DiscreteRicci`, `DiscreteGaussBonnet`): `+` clustered, `0` flat, `−` tree. -/
+
+open E213.Tactic.NatHelper (cases_lt_six)
+
+/-- Generic Int helper: `a ≤ c` and `d ≤ b` ⟹ `a − b ≤ c − d` (monotone subtraction). -/
+theorem sub_le_sub_bounds {a b c d : Int} (ha : a ≤ c) (hb : d ≤ b) : a - b ≤ c - d := by
+  apply Order.le_of_sub_nonneg
+  rw [show (c - d) - (a - b) = (c - a) + (b - d) from by ring_intZ]
+  exact Order.nonneg_of_le_zero
+    (add_nonneg (Order.le_zero_of_nonneg (Order.sub_nonneg_of_le ha))
+                (Order.le_zero_of_nonneg (Order.sub_nonneg_of_le hb)))
+
+/-- Graph distance on the double-star (centres `0,1`; leaves `{2,3}` of `0`, `{4,5}` of `1`).  `0`
+    diagonal; `1` on the `5` edges; `2` on the `2`-paths; `3` on the cross-star leaf pairs.  Guarded by
+    `i,j < 6` so out-of-range indices default to `3` (≥ any potential spread). -/
+def dsD (i j : Nat) : Int :=
+  if i = j then 0
+  else if i < 6 ∧ j < 6 then
+    (if (i = 0 ∧ j = 1) ∨ (i = 1 ∧ j = 0) ∨ (i = 0 ∧ j = 2) ∨ (i = 2 ∧ j = 0)
+        ∨ (i = 0 ∧ j = 3) ∨ (i = 3 ∧ j = 0) ∨ (i = 1 ∧ j = 4) ∨ (i = 4 ∧ j = 1)
+        ∨ (i = 1 ∧ j = 5) ∨ (i = 5 ∧ j = 1) then 1
+     else if (i = 0 ∧ j = 4) ∨ (i = 4 ∧ j = 0) ∨ (i = 0 ∧ j = 5) ∨ (i = 5 ∧ j = 0)
+        ∨ (i = 1 ∧ j = 2) ∨ (i = 2 ∧ j = 1) ∨ (i = 1 ∧ j = 3) ∨ (i = 3 ∧ j = 1)
+        ∨ (i = 2 ∧ j = 3) ∨ (i = 3 ∧ j = 2) ∨ (i = 4 ∧ j = 5) ∨ (i = 5 ∧ j = 4) then 2
+     else 3)
+  else 3
+
+/-- The optimal transport plan on the double-star: `1↦4`, `2↦0`, `3↦5` (cost `1+1+3 = 5`). -/
+def dsPi : Nat → Nat → Int :=
+  fun x y => if x = 1 ∧ y = 4 then 1 else if x = 2 ∧ y = 0 then 1
+             else if x = 3 ∧ y = 5 then 1 else 0
+
+/-- Walk measure at centre `0` (uniform on neighbours `{1,2,3}`, scaled). -/
+def dsMu0 : Nat → Int := fun i => if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else 0
+
+/-- Walk measure at centre `1` (uniform on neighbours `{0,4,5}`, scaled). -/
+def dsMu1 : Nat → Int := fun i => if i = 0 then 1 else if i = 4 then 1 else if i = 5 then 1 else 0
+
+/-- The Kantorovich dual potential: `f = (0,−1,1,1,−2,−2)` on `0..5`, else `0`. -/
+def dsF : Nat → Int :=
+  fun i => if i = 2 ∨ i = 3 then 1 else if i = 1 then -1 else if i = 4 ∨ i = 5 then -2 else 0
+
+/-- `dsF i ≤ 1` for every `i`. -/
+theorem dsF_le_one (i : Nat) : dsF i ≤ 1 := by
+  unfold dsF
+  by_cases h23 : i = 2 ∨ i = 3
+  · rw [if_pos h23]; exact Order.le_refl 1
+  · rw [if_neg h23]
+    by_cases h1 : i = 1
+    · rw [if_pos h1]; decide
+    · rw [if_neg h1]
+      by_cases h45 : i = 4 ∨ i = 5
+      · rw [if_pos h45]; decide
+      · rw [if_neg h45]; decide
+
+/-- `-2 ≤ dsF i` for every `i`. -/
+theorem dsF_ge_negtwo (i : Nat) : (-2 : Int) ≤ dsF i := by
+  unfold dsF
+  by_cases h23 : i = 2 ∨ i = 3
+  · rw [if_pos h23]; decide
+  · rw [if_neg h23]
+    by_cases h1 : i = 1
+    · rw [if_pos h1]; decide
+    · rw [if_neg h1]
+      by_cases h45 : i = 4 ∨ i = 5
+      · rw [if_pos h45]; exact Order.le_refl (-2)
+      · rw [if_neg h45]; decide
+
+/-- `dsF` is `1`-Lipschitz w.r.t. the double-star distance.  On the six graph vertices each of the `36`
+    pairs is checked directly; for out-of-range indices the distance defaults to `3 ≥ 1 − (−2)`, the full
+    `dsF` spread. -/
+theorem dsF_lipschitz (i j : Nat) : dsF i - dsF j ≤ dsD i j := by
+  by_cases hij : i = j
+  · subst hij; rw [Order.sub_self_zero]
+    show (0 : Int) ≤ dsD i i
+    unfold dsD; rw [if_pos rfl]; exact Order.le_refl 0
+  · by_cases hb : i < 6 ∧ j < 6
+    · obtain ⟨hi, hj⟩ := hb
+      rcases cases_lt_six hi with rfl | rfl | rfl | rfl | rfl | rfl <;>
+        rcases cases_lt_six hj with rfl | rfl | rfl | rfl | rfl | rfl <;>
+          first | exact absurd rfl hij | decide
+    · have hd : dsD i j = 3 := by unfold dsD; rw [if_neg hij, if_neg hb]
+      rw [hd]
+      exact Order.le_trans (sub_le_sub_bounds (dsF_le_one i) (dsF_ge_negtwo j)) (by decide)
+
+/-- `dsPi` is a valid coupling of `m₀` and `m₁` (its marginals are `dsMu0`, `dsMu1`). -/
+theorem ds_coupling :
+    (∀ x, x < 6 → rowMarg 6 dsPi x = dsMu0 x)
+    ∧ (∀ y, y < 6 → colMarg 6 dsPi y = dsMu1 y) := by
+  refine ⟨fun x hx => ?_, fun y hy => ?_⟩
+  · rcases cases_lt_six hx with rfl | rfl | rfl | rfl | rfl | rfl <;> decide
+  · rcases cases_lt_six hy with rfl | rfl | rfl | rfl | rfl | rfl <;> decide
+
+/-- ★★★★★ **The double-star's transport meets the dual at `5`** (`dualValue = transportCost = 5`).
+    Scaled `W₁ = 5`, probability `W₁ = 5/3`, Ollivier `κ = 1 − 5/3 = −2/3 < 0`: negatively curved. -/
+theorem ds_ollivier_negative :
+    dualValue 6 dsF dsPi = transportCost 6 dsD dsPi
+    ∧ transportCost 6 dsD dsPi = 5 := by
+  refine ⟨by decide, by decide⟩
+
+/-- ★★★★★ **`dsPi` is the optimal plan**: its cost `5 ≤` cost of **every** valid coupling of `m₀,m₁`,
+    so `W₁ = 5` (scaled) is a genuine optimum and Ollivier `κ = −2/3 < 0` rigorously — the double-star is
+    negatively curved, completing the Ollivier `+ / 0 / −` trichotomy. -/
+theorem ds_plan_optimal (pi' : Nat → Nat → Int)
+    (hpi' : ∀ x y, x < 6 → y < 6 → 0 ≤ pi' x y)
+    (hrow : ∀ x, x < 6 → rowMarg 6 pi' x = dsMu0 x)
+    (hcol : ∀ y, y < 6 → colMarg 6 pi' y = dsMu1 y) :
+    transportCost 6 dsD dsPi ≤ transportCost 6 dsD pi' := by
+  refine ollivier_plan_optimal 6 dsD dsF dsPi pi' hpi' dsF_lipschitz
+    (fun x hx => ?_) (fun y hy => ?_) ds_ollivier_negative.1
+  · rw [ds_coupling.1 x hx, hrow x hx]
+  · rw [ds_coupling.2 y hy, hcol y hy]
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci

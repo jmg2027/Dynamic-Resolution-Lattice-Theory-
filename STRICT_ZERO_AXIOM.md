@@ -522,7 +522,11 @@ dual is cost-optimal among all plans sharing its marginals) + **`triangle_plan_o
 contrast**: the square `C₄` worked example (`c4D`/`c4Pi`/`c4F` + `c4_coupling`/`c4_ollivier_flat`/
 `c4_plan_optimal`, with helpers `c4F_le_one`/`c4F_nonneg`/`c4F_lipschitz`/`sub_le_of_le_of_nonneg`) gives
 Ollivier `κ = 0` (flat, no triangles) against the triangle's `κ = ½ > 0` (clustered) — Ollivier curvature
-tracks local clustering, the transport analogue of the Forman / Gauss–Bonnet sign↔topology results.  Purity:
+tracks local clustering, the transport analogue of the Forman / Gauss–Bonnet sign↔topology results.  **Full
+sign trichotomy**: the double-star (`dsD`/`dsPi`/`dsF` + `ds_coupling`/`ds_ollivier_negative`/`ds_plan_optimal`,
+helpers `dsF_le_one`/`dsF_ge_negtwo`/`dsF_lipschitz`/`sub_le_sub_bounds`) gives Ollivier `κ = 1 − 5/3 = −2/3 < 0`
+(a tree, like hyperbolic space).  So `+` (triangle) / `0` (square) / `−` (double-star) are all ∅-axiom theorems
+— the complete Ollivier mirror of the Forman / Gauss–Bonnet sign↔topology trichotomy.  Purity:
 Int213 `Order`/`OrderMul`
 pure inequalities (core `Int.add_le_add`/`mul_le_mul_of_nonneg_right`/`sub_le_sub_left`/`Int.sub_self` all leak
 `propext`).

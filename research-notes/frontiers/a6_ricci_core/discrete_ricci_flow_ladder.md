@@ -66,7 +66,11 @@ combinatorial formula).
    coupling of `m₀,m₁`).  **Sign contrast now a theorem pair**: the square `C₄` worked example
    (`c4D`/`c4Pi`/`c4F` + `c4_coupling`/`c4_ollivier_flat`/`c4_plan_optimal`) gives Ollivier `κ = 0`
    (flat, no triangles), against the triangle's `κ = ½ > 0` (clustered) — Ollivier curvature tracks local
-   clustering, the optimal-transport analogue of the Forman / Gauss–Bonnet sign↔topology results.
+   clustering, the optimal-transport analogue of the Forman / Gauss–Bonnet sign↔topology results.  **Full
+   sign trichotomy now closed**: the double-star (`dsD`/`dsPi`/`dsF` + `ds_coupling`/`ds_ollivier_negative`/
+   `ds_plan_optimal`, helper `sub_le_sub_bounds`) gives Ollivier `κ = 1 − 5/3 = −2/3 < 0` (a tree, like
+   hyperbolic space) — so `+` (triangle, clustered) / `0` (square, flat) / `−` (double-star, tree) are all
+   ∅-axiom theorems, the complete Ollivier mirror of the Forman / Gauss–Bonnet sign↔topology trichotomy.
 
 ## Honest boundary
 
