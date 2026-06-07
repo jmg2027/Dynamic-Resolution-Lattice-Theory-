@@ -211,6 +211,9 @@ refinement terms. That is the honest state — far stronger than
    *currently-unmeasured* observable with a tight bracket and a DOI
    timestamp — the move that converts the whole program from
    retrodiction to prediction (the spine's other open lever).
+   **Done: `PRE_REGISTRATION.md`** selects the three near-term forward
+   predictions (ν ordering / JUNO, θ_QCD / nEDM, sin²θ₂₃ / DUNE-HK),
+   each PURE-pinned and could-go-either-way, by ~2030.
 
 ## See also
 
