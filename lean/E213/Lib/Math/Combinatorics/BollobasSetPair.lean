@@ -46,11 +46,11 @@ column cap (`bollobas_cap`).
     count `V·(a+b)! = n!·a!·b!` as a hypothesis (the honest open rung — the
     geometric ordering count, not yet discharged), `m ≤ C(a+b,a)`.
 
-**Open rung (recorded).**  The favour-count `#{π : all A before all B} =
-C(n,a+b)·a!·b!·(n−a−b)!`, i.e. `V·(a+b)! = n!·a!·b!`, is the remaining geometric
-count — the analogue of `SpernerChains.chain_low`, to be discharged by a future
-session (`research-notes/frontiers/count_substrate_synthesis.md`).  The
-**column cap — the content of Bollobás — is closed here.**
+**The favour-count** `#{π : all A before all B} = C(n,a+b)·a!·b!·(n−a−b)!`, i.e.
+`V·(a+b)! = n!·a!·b!` (the analogue of `SpernerChains.chain_low`), is discharged in
+`BollobasCount` (`favourCount_lower`), so `bollobas_uniform` — `m ≤ C(a+b,a)`,
+`n`-independent — holds unconditionally.  The **column cap — the content of
+Bollobás — is the new heart, closed here.**
 
 Companion essay: `theory/essays/proof_isa/lym_inequality.md` (Bollobás section).
 -/
