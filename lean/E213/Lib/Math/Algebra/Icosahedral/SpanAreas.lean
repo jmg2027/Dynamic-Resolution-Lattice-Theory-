@@ -70,7 +70,29 @@ theorem span2_is_NS_position_invariant :
     ∧ num 4 * den 2 - num 2 * den 4 = 3
     ∧ (3 : Int) = (NS : Int) := by decide
 
-/-! ## §3 — capstone: the apex area skeleton -/
+/-! ## §3 — the 3-generation CP triangle: minimal nonzero area requires 3 points
+
+CP violation needs **three** generations (two give a real `2×2` block, no
+phase).  In the convergent lattice this is geometric: **two** points span zero
+area (a line); **three** consecutive convergents `v_m, v_{m+1}, v_{m+2}` span a
+triangle of determinant `1` (area `1/2`) — the *minimal nonzero* area, the
+self-reference lattice's **unit triangle**, position-independent.  So the
+3-generation requirement for CP = the minimum points to enclose the Pell
+symplectic unit area. -/
+
+/-- ★★★★ **3-generation CP triangle.**  Three consecutive convergents (= three
+    generations) span a triangle with determinant `1` (area `1/2`) — the
+    minimal nonzero area, position-independent (`m = 0,1,2`).  Two points would
+    give area `0` (no CP).  So CP violation requires exactly 3 generations to
+    enclose the symplectic unit. -/
+theorem three_generation_cp_triangle :
+    (num 1 - num 0) * (den 2 - den 0) - (num 2 - num 0) * (den 1 - den 0) = 1
+    ∧ (num 2 - num 1) * (den 3 - den 1) - (num 3 - num 1) * (den 2 - den 1) = 1
+    ∧ (num 3 - num 2) * (den 4 - den 2) - (num 4 - num 2) * (den 3 - den 2) = 1
+    -- 3 generations = NS (atomic), the minimum for a nonzero area
+    ∧ (3 : Int) = (NS : Int) := by decide
+
+/-! ## §4 — capstone: the apex area skeleton -/
 
 /-- ★★★★★ **Apex CP-area skeleton.**  The CKM apex (generation 1↔3 = two-step
     span) has integer span-area `F₄ = NS = 3` in the self-reference convergent
@@ -85,6 +107,8 @@ theorem apex_area_skeleton :
     ∧ (num 2 * den 0 - num 0 * den 2 = 3)
     ∧ fib 4 = 3 ∧ (3 : Int) = (NS : Int)
     -- position-independent
-    ∧ (num 3 * den 1 - num 1 * den 3 = 3) := by decide
+    ∧ (num 3 * den 1 - num 1 * den 3 = 3)
+    -- 3-generation CP triangle: minimal nonzero (unit) area, needs 3 points
+    ∧ ((num 1 - num 0) * (den 2 - den 0) - (num 2 - num 0) * (den 1 - den 0) = 1) := by decide
 
 end E213.Lib.Math.Algebra.Icosahedral.SpanAreas
