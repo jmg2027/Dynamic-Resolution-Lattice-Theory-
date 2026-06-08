@@ -28,6 +28,7 @@ arithmetic and physics couplings.
   - `CayleyHamilton.lean` — matrix ring + integer Cayley–Hamilton `χ_M(M)=0`
   - `CharPolyAdj.lean` / `PolyDet.lean` — polynomial adjugate identity over `ℤ[X]`
   - `DetTriangular.lean` / `DetScale.lean` / `DetZeroCol.lean` — determinant corollaries
+  - `DetRowOps.lean`      — elementary row operations (`rowᵢ += t·rowⱼ` preserves `det`)
   - `ProdLperm.lean` / `ProdCongr.lean` / `SumLinear.lean` / `RowDependence.lean` — det infra
   - `FibCassiniDet.lean` — Cassini/Fibonacci determinant witness
 

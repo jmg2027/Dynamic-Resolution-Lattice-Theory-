@@ -18,6 +18,7 @@ import E213.Lib.Math.Algebra.Linalg213.RowDependence
 import E213.Lib.Math.Algebra.Linalg213.DetTriangular
 import E213.Lib.Math.Algebra.Linalg213.DetScale
 import E213.Lib.Math.Algebra.Linalg213.DetZeroCol
+import E213.Lib.Math.Algebra.Linalg213.DetRowOps
 import E213.Lib.Math.Algebra.Linalg213.PermClosure
 import E213.Lib.Math.Algebra.Linalg213.PermBridge
 import E213.Lib.Math.Algebra.Linalg213.Rank

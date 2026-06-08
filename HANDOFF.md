@@ -70,9 +70,17 @@ the dual of `det_lower_triangular`, via **last-row** cofactor expansion
 (`cofExpand_lastRow` over `Laplace.cofactor_row_i`).  5 new lemmas, all PURE
 (`DetTriangular` now 13/13).
 
+### 3c. ✓ **Elementary row operations** — CLOSED (this session)
+`DetRowOps.det_addRowMul` — adding a multiple of one row to a distinct row
+(`rowᵢ ← rowᵢ + t·rowⱼ`, `i ≠ j`) leaves `det` unchanged (the Gaussian-elimination
+workhorse).  No new sign theory — pure consequence of the already-proven
+multilinearity (`det_setRow_add`/`det_setRow_smul`) + equal-rows-vanish
+(`det_rows_eq_ne`).  `DetRowOps` 4/4 PURE.
+
 ## File Map
 ```
 lean/E213/Lib/Math/Algebra/Linalg213/DetTriangular.lean  ← + det_upper_triangular (last-row), 13/13 PURE
+lean/E213/Lib/Math/Algebra/Linalg213/DetRowOps.lean      ← NEW: rowᵢ += t·rowⱼ preserves det, 4/4 PURE
 lean/E213/Meta/Nat/NatRing213.lean                       ← + nat_succ_sub (§5)
 lean/E213/Lib/Math/Combinatorics/SpernerChains.lean      ← succ_sub_clean → nat_succ_sub
 lean/E213/Lib/Math/Algebra/Linalg213/PermBridge.lean     ← NEW: the two-perms bridge, 7/7 PURE
