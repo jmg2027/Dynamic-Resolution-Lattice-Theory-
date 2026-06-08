@@ -104,19 +104,25 @@ the strategy:
   - ✓ §4 **both split cases + the enumeration** (`DetMul` 11/11 PURE): ★ `leibDet_rowPerm_zero`
     (non-injective `f` — two equal rows ⟹ `leibDet (rowPerm f B) = 0`), `tuples`/`funcs n`
     (all functions `[n]→[n]` as length-`n` lists with entries `< n`).
-  - **Remaining — the product-of-sums distributivity + assembly** (the genuine last piece):
-    1. **distributivity** `prodDiagFrom (matMul n A B) 0 σ = sumZ ((funcs n).map (fun f =>
-       prodChoice A B 0 σ f))` where `prodChoice A B start (a::ps) (j::fs) = A start j · B j a ·
-       prodChoice A B (start+1) ps fs` — by induction on `σ`, the inductive step a bilinear
-       distribution (`sumZ_mul` + `sumZ_flatMap` over the `tuples` recursion).  Watch the
-       `start`-index alignment.
-    2. **factor** `prodChoice A B 0 σ f = prodDiagFrom A 0 f · prodDiagFrom (rowPerm f B) 0 σ`.
-    3. **sum-swap** (`CayleyHamilton.sumZ_swap`): `leibDet(AB) = Σ_σ psign σ Σ_f … = Σ_f prodA(f)·
-       leibDet(rowPerm f B)`.
-    4. **partition** `funcs n = perms n ⊎ (non-injective)`: non-inj ⟹ 0 (`leibDet_rowPerm_zero`,
-       via pigeonhole "injective length-`n` entries-`<n` ⟹ perm"); perm part ⟹ `leibDet A·leibDet B`
-       (`leibDet_rowPerm`).  Est. ~150 lines; both *sign* cases (the hard parts) are done — what
-       remains is bookkeeping (distributivity, sum-swap, the `funcs`↔`perms` partition).
+  - ✓✓ §5–7 **the entire combinatorial expansion** (`DetMul` 20/20 PURE, the novel content):
+    `prodChoice` + ★ `prodDiag_matMul_expand` (the product-of-sums distributivity, Phase A);
+    `pB`/`prodChoice_eq`/`drop_cons`/`prodDiag_rowPerm_eq_pB`/★ `prodChoice_split` (factoring
+    `prodChoice = (∏A)·(∏B)`, Phase B); `tuples_length` + ★★★ `leibDet_matMul_expand`
+    (`leibDet (A·B) = Σ_{f∈funcs} prodDiagFrom A 0 f · leibDet (rowPerm f B)`, via `sumZ_swap`,
+    Phase C).
+  - **Remaining — Phase D: the `funcs`↔`perms` partition + final assembly** (~150 lines, *no
+    novel content* — standard finite combinatorics):
+    1. `sumZ_eq_filter` (`g x = 0` off `p` ⟹ `sumZ (L.map g) = sumZ ((L.filter p).map g)`);
+    2. `mem_tuples` (length-`n`, entries-`<n` list ⟹ `∈ funcs n`) ⟹ `perms n ⊆ funcs n`;
+    3. **pigeonhole** (`GaussLemma.mem_of_card_le` style, re-prove locally to avoid the cross-
+       import): `f ∈ funcs n`, `f ∉ perms n` ⟹ non-injective ⟹ `leibDet (rowPerm f B) = 0`
+       (`leibDet_rowPerm_zero`).  Needs bridging `List.Nodup`(Pairwise) ↔ cnt-`Nodup`;
+    4. `(funcs n).filter (·∈perms n)` is `LPerm` to `perms n` (needs `tuples` nodup) ⟹
+       `leibDet (A·B) = sumZ ((perms n).map (fun f => prodDiagFrom A 0 f · leibDet (rowPerm f B)))`
+       `= sumZ ((perms n).map (fun f => leibTerm A f · leibDet B))` (`leibDet_rowPerm`)
+       `= leibDet A · leibDet B` (`sumZ_map_smul_right`); then `det(M·N)` via `leibDet_eq_det`.
+    Both *sign* cases (`leibDet_rowPerm`, `leibDet_rowPerm_zero`) and the whole expansion are done;
+    only the partition bookkeeping remains.
 
 ### 3b. ✓ The **upper-triangular** determinant — CLOSED (this session)
 `DetTriangular.det_upper_triangular` — `M i j = 0` for `j < i` ⟹ `det = Π Mᵢᵢ`,
