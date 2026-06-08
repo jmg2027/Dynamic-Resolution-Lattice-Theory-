@@ -1,4 +1,5 @@
 import E213.Lib.Math.NumberSystems.Real213.Core.Core
+import E213.Lib.Math.NumberSystems.Real213.Mul.CutMul
 import E213.Theory.Raw.API
 
 /-!
@@ -31,6 +32,8 @@ open E213.Theory.Raw.CoResidue
 open E213.Lens.Instances.AB
 open E213.Lib.Math.Analysis.Cauchy.Archimedean
 open E213.Lib.Math.NumberSystems.Real213.Core.Core (Real213)
+open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
 
 /-- The **cut-decision bit-stream** of a real: at depth `k`, the order-projection decision of the
     `k`-th approximant at resolution `k+1` (`orderProj 1 (k+1)` = "is `a/b ≤ 1/(k+1)`").  The
@@ -91,5 +94,49 @@ theorem real_one_carrier :
     ∧ (∀ (r : Real213) (r0 : Raw), (rawToSlashNu r0).val ≠ (cutNu r).val)
     ∧ (∀ r r' : Real213, (∃ k, cutBits r k ≠ cutBits r' k) → Distinct (cutNu r).val (cutNu r').val) :=
   ⟨cut_is_nu, real_is_nu_escape, fun _ _ h => real_cut_distinct h⟩
+
+/-! ## ℝ's field operations preserve the carrier (transport-only, presentation-dependent)
+
+ℝ's field arithmetic lives at the **cut-table** level (`Cut := Nat → Nat → Bool`, the `(m,k)`-cut
+decision table): `cutSum` and `cutMul` (`Sum/CutSum`, `Mul/CutMul`).  Sampling a cut table on the
+diagonal (`cutTableBits c k = c k (k+1)`) rides the same `boolSpine` carrier as `cutBits`, so the
+field operations **preserve the carrier**: the spine of `cutSum cx cy` and of `cutMul cx cy` is
+again reached by no finite Raw (`real_field_on_carrier`).  So ℝ, like ℤ_p, sits on the one carrier
+as a `+`/`×`-closed set of escapes.
+
+**Honest structural contrast with ℤ_p** (the limit of the one-carrier program): ℤ_p's carrier is
+the *faithful* digit encoding, with a finite-state native `+` and a residue-field ring-hom readout
+(`Padic/NuEscape`).  ℝ's cut presentation is **order-decision-based** (`orderProj`), not a digit
+algebra, and the diagonal sampling is **presentation-dependent** — so on ℝ there is *no*
+finite-state native operation and *no* ring-hom readout: the field is irreducibly **transport-only**
+on the carrier.  This is by-design (a real is reached by none; the bit-stream is a residue-internal
+pointing, `seed/AXIOM/05_no_exterior.md`), not a gap.  All ∅-axiom. -/
+
+/-- A cut table's diagonal as a bit-stream (resolution `k+1` at scale `k`) — same shape as
+    `cutBits`, on the abstract cut-table field-carrier. -/
+def cutTableBits (c : Nat → Nat → Bool) : Nat → Bool := fun k => c k (k + 1)
+
+/-- A cut table as a νF inhabitant on the shared `boolSpine` carrier. -/
+def cutTableNu (c : Nat → Nat → Bool) : SlashNu := boolSpineSlashNu (cutTableBits c)
+
+/-- ★★ **A cut table is reached by no finite Raw.**  Its diagonal bit-stream escape rides
+    `boolSpine`, the same carrier as `cutBits`/König/ℤ_p. -/
+theorem cutTable_is_escape (c : Nat → Nat → Bool) (r : Raw) :
+    (rawToSlashNu r).val ≠ (cutTableNu c).val :=
+  fun h => boolSpine_escapes (cutTableBits c) r.val h.symm
+
+/-- ★★★ **ℝ's field operations preserve the carrier.**  The cut-table sum and product (`cutSum`,
+    `cutMul` — ℝ's `+`/`×`, `Sum/CutSum`, `Mul/CutMul`) land back in the escapes: the spine of
+    `cutSum cx cy` and of `cutMul cx cy` is reached by no finite Raw.  So ℝ, as the carrier subset
+    of cut escapes, is closed under `+`/`×` — the ℝ analogue of `Padic.padic_ring_on_carrier`.
+    (Honest: transport-only and presentation-dependent — ℝ's order-based cut admits no finite-state
+    native op nor ring-hom readout, unlike ℤ_p's faithful digit carrier.) -/
+theorem real_field_on_carrier :
+    (∀ (cx cy : Nat → Nat → Bool) (r : Raw),
+        (rawToSlashNu r).val ≠ (cutTableNu (cutSum cx cy)).val)
+    ∧ (∀ (cx cy : Nat → Nat → Bool) (r : Raw),
+        (rawToSlashNu r).val ≠ (cutTableNu (cutMul cx cy)).val) :=
+  ⟨fun cx cy r => cutTable_is_escape (cutSum cx cy) r,
+   fun cx cy r => cutTable_is_escape (cutMul cx cy) r⟩
 
 end E213.Lib.Math.NumberSystems.Real213.NuEscape

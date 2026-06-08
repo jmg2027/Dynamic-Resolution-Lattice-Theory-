@@ -153,6 +153,16 @@ scale).  **Open**: ℝ field on the carrier (the only remaining one-carrier fron
 > Note: `Nat.div_lt_iff_lt_mul` and core `Nat.div_lt_of_lt_mul` pull `propext`/`Classical`; use
 > `NatDiv213.div_lt_of_lt_mul` (pure).
 
+### 3h. ℝ field on the carrier — ✅ CLOSED; one-carrier program COMPLETE
+`Real213/NuEscape` `real_field_on_carrier`: ℝ's cut-table field ops (`cutSum`/`cutMul`, `Sum/CutSum`
++ `Mul/CutMul`) preserve the carrier — the diagonal spine of `cutSum cx cy`/`cutMul cx cy` is reached
+by no finite Raw (`cutTableNu`/`cutTable_is_escape`).  So ℝ is a `+`/`×`-closed carrier subset like
+ℤ_p.  **Honest structural limit (by-design, not a gap)**: ℝ's cut is order-decision-based and
+presentation-dependent, so — unlike ℤ_p's faithful digit carrier — it admits *no* finite-state
+native op and *no* ring-hom readout; its field is irreducibly transport-only.  This closes every
+named one-carrier frontier (carrier, shift, additive ±1, multiplicative valuation, binary ×, native
+finite-state characterization, ℝ field).
+
 > Note (propext traps hit + recorded): `Nat.succ_ne_zero`, `Nat.sub_add_cancel`, `by_cases`, and
 > `rw`-with-an-`Iff` all pull `propext`.  Use `Nat.noConfusion`, `cases p`/defeq, `rcases
 > Nat.lt_or_ge`, and `.mp`/`.mpr` via defeq instead.

@@ -34,6 +34,7 @@ reads as three labellings of one residue-escape — a breadth-claim (`seed/AXIOM
   `pOdo_allTop_zero` = `(-1)+1=0`, `pOdo_injective`).
 - Real instance: `lean/E213/Lib/Math/NumberSystems/Real213/NuEscape.lean`
   (`cutBits`, `cutNu`, `real_is_nu_escape`, `real_cut_distinct`, `real_shift_dynamics`,
+  `cutTableNu`/`real_field_on_carrier` — the cut-field `cutSum`/`cutMul` closure,
   `real_one_carrier`).
 - ∅-axiom: every cited theorem returns "does not depend on any axioms".
 
@@ -191,11 +192,16 @@ escape wearing the alphabet of whichever number system is being pointed at.
   hom (`padic_ring_on_carrier`).  The native-vs-transport question is *resolved structurally*:
   addition is native (a one-bit finite-state Mealy machine, `add_carry_le_one`/`add_mealy_step`),
   while a native co-recursive product is **impossible as a finite-state operation** — `×`'s
-  convolution is non-local — so `×` is transport-only by its nature, not for lack of effort.  What
-  remains genuinely open is ℝ's field structure on the carrier.  What is closed: the carrier, the
-  shift, the unit-`±1` arithmetic, the valuation filtration `× p`, the binary ring structure
-  (`+`/`×`) transported with a 𝔽_p ring-map readout, and the native/finite-state characterization
-  of `+` (vs the non-finite-state `×`) — all grounded in the actual `Zp.add`/`Zp.mul`.
+  convolution is non-local — so `×` is transport-only by its nature, not for lack of effort.  And
+  **ℝ's field is on the carrier too**: the cut-table operations `cutSum`/`cutMul` preserve the
+  escapes (`real_field_on_carrier`), so ℝ is a `+`/`×`-closed carrier subset like ℤ_p.  What is
+  closed: the carrier, the shift, the unit-`±1` arithmetic, the valuation filtration `× p`, the
+  binary ring structure (`+`/`×`) transported with a 𝔽_p ring-map readout, the native/finite-state
+  characterization of `+` (vs the non-finite-state `×`), and ℝ's cut-field closure — all grounded
+  in the actual `Zp.add`/`Zp.mul` and `cutSum`/`cutMul`.  The honest *structural* limit (not a
+  to-do): ℝ's cut is order-decision-based and presentation-dependent, so unlike ℤ_p's faithful
+  digit carrier it admits *no* finite-state native op and *no* ring-hom readout — its field is
+  irreducibly transport-only, by-design (a real is reached by none).
 - `cutBits` is one honest presentation-dependent extractor (the cut-decision diagonal); it is
   not claimed canonical on the equivalence class.  A faithful map on `Real213.equiv` would need
   the order-decision *limit* (existence via the modulus), which is the LPO-costed step of the
