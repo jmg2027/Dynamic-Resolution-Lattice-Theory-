@@ -65,6 +65,11 @@ the CKM CP phase's `C₄` — one ring `ℤ[i]`, read as the continued-fraction 
 `μ=−i` (`gaussian_floor_rotation`) and as the Hodge `⋆` on `H*(Δ⁴)`; the CP phase sits at
 the `i`-point, disc `−4`, selected over the order-6 Eisenstein rung; same-object claim, the
 floor-rotation↔`⋆` morphism flagged open).
+`the_apex_modulus_as_self_reference_contraction` (the CKM apex modulus `R_u = (NS−√d)/2 =
+1/φ²` is the contracting eigenvalue of the axiom-encoding matrix `M=[[2,1],[1,1]]`,
+`trace=NS, det=1, disc=NS²−4=d`; the square is the de-signing `det Q=−1 → det Q²=+1` (a
+modulus is sign-free); `disc=d` SELECTS `(3,2)`; the golden structure is the radius, not the
+angle (`arccos(1/φ²)` is non-golden); the `det=1`↔base-normalization arrow flagged open).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
