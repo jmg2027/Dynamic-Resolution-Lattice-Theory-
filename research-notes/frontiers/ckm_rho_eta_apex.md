@@ -211,6 +211,29 @@ The next real step: build the `A₅`-triplet assignment of the quark generations
 and read off the mixing apex — comparing against the established `SU(5)×A₅`
 model. That would convert the bridge into a derivation.
 
+## Flavour-layer marathon — A₅ rep data + golden-mixing template built (2026-06-08)
+
+Continued the marathon into the `A₅` flavour-symmetry layer
+(`Icosahedral/A5Reps.lean`, `GoldenMixing.lean`, +9 PURE; tree now 23/0):
+
+- **A₅ rep data** (`A5Reps`): irrep dims `Σdim²=60`; Clebsch–Gordan dims —
+  notably **`5⊗5 = 25 = d²`** decomposing as `1⊕3⊕3'⊕4⊕4⊕5⊕5`, i.e. DRLT's
+  channel count `25` is an `A₅` Clebsch sum. The triplet character
+  orthonormality `χ²(5A)+χ²(5B) = φ²+1/φ² = NS = trace M` — the `A₅` flavour
+  orthonormality and the self-reference trace are **one** golden invariant.
+- **Golden-mixing template** (`GoldenMixing`): the established `A₅` lepton
+  result `cot θ₁₂ = φ ⇒ sin²θ₁₂ = 1/(φ²+1) ≈ 0.276` (Fibonacci-bracketed
+  `8/29 < · < 5/18`), `tan²θ₁₂ = 1/φ²` — the **same `1/φ²`** as the apex
+  candidate, here arising as the eigenvector overlap of the order-5 generator
+  `M`. So the *mechanism* "order-5 generator → golden mixing angle" is pinned.
+
+**Net.** The `A₅` infrastructure (reps, Clebsch, character, mixing template)
+now exists PURE. The open premise is sharpened to its final form: the lepton
+solar-angle template `sin²θ₁₂ = 1/(φ²+1)` is the established `φ→angle`
+mechanism; the **quark CKM CP-apex** `R_u = 1/φ²` is the analogous construction
+*in the quark sector with the CP phase* — the same `1/φ²` appears as `tan²θ₁₂`,
+but mapping it to the apex needs the quark `A₅` assignment + CP, still open.
+
 ## Tested and NOT closed — the law-of-sines route (honest, fishing-risk flagged)
 
 Attempt: if all three triangle angles are atomic, law-of-sines forces `R_u`.
