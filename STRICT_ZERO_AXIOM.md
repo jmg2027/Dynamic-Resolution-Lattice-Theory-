@@ -546,6 +546,292 @@ Kazhdan–Lusztig positivity, Mordell heights.  Reach: same archetype drives **A
 `mul_eq_zero`) and `dist_sq_zero_imp_eq` (the squared distance separates points — POSITIVITY drives
 `SEPARATE`).
 
+### Marathon T1 — exp Taylor convergence modulus (ratio-test core) (2026-06-05)
+
+`E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpModulus` — **4 PURE / 0 DIRTY**.  Closes the
+convergence-modulus follow-up `CutExpSeries` deferred (the geometric majorant `Mⁿ/n!`, "ratio-test
+argument not yet done").  Worked at the term-magnitude level `Mᵏ/k!` (numerator `Mᵏ`, denominator `k!`,
+`M` bounds `|x|`), no cut comparison: `pow_half_step` (`2·M^{k+1} ≤ Mᵏ·(k+1)` once `2M ≤ k+1`) →
+`expTerm_ratio_half` (cross-multiplied `2·M^{k+1}·k! ≤ Mᵏ·(k+1)!` — the `(k+1)`-th Taylor term is ≤ half
+the `k`-th) → `expTerm_geom_majorant` (`2ʲ·M^{N+j}·N! ≤ Mᴺ·(N+j)!` for `2M ≤ N+1`, the geometric tail
+ratio `1/2`) → `expTail_geom_decay` (base `N = 2M`: the tail decays as `term(2M)·2^{−j}` with explicit
+dyadic modulus `j ↦ 2ʲ`).  Plus `expTerm_antitone` (terms non-increasing past `2M` — the
+alternating-series-test input for the `sin`/`cos` series, T2).  Rung **T1** of the transcendentals marathon;
+next: package the rate into a `CauchyCutSeq` over `expPartialSum` (T1→T2 bridge) then `sin`/`cos` series (T2).
+
+### Marathon T1 (algebraic route) — exp(m) convergents + cross-determinant; e's clean modulus is m=1-special (2026-06-05)
+
+`E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpConvergents` — **5 PURE / 0 DIRTY**.  Generalizes the
+`EulerModulus` convergent arithmetic from e (= exp 1) to **exp(m) for every integer argument**: `expNum m`
+(`A_{n+1} = (n+1)A_n + m^{n+1}` over `eulerDen = n!`), `expNum_one` (`expNum 1 = eulerNum`, exp(1)=e),
+`exp_cross_det` (`expNum m (n+1)·D_n = expNum m n·D_{n+1} + m^{n+1}·D_n` — cross-determinant `m^{n+1}·n!`,
+generalizing `euler_cross_det`'s `n!`), `exp_convergents_mono` (strictly increasing for `m ≥ 1`).
+**Honest finding**: feeding this into `RateModulus.Htel_of_crossdet` reduces the rate certificate to
+`i(i+1)m^{i+1}+i ≤ (i+1)²`, which holds for all `i ≥ 1` only at `m = 1` (why **e** gets the clean
+`N(m,k)=k+2`) and **fails for m≥2 already at i=1** (`exp_two_rate_fails_at_one`: `9 > 4`; contrast
+`exp_one_rate_holds_at_one`: `3 ≤ 4`).  So the clean `RateModulus` modulus is e-special; general exp(m)'s
+modulus comes from the **analytic** geometric majorant (`CutExpModulus`, threshold `2m`).  The algebraic
+and analytic routes to exp's convergence are complementary.  **Routes unified** (same file): the convergent
+increment IS the Taylor term — `eulerDen_eq_factorial` (`eulerDen n = n!`), `exp_increment_eq_taylor`
+(`e_{i+1}−e_i = m^{i+1}/(i+1)!`, the partial-sum step adds exactly the next Taylor term), and
+`exp_increment_geom_decay` (the convergent gaps decay geometrically past `2m` via
+`CutExpModulus.expTail_geom_decay`, over the convergent denominators) — so the convergents are Cauchy with
+the analytic `2m`-threshold modulus, the route that actually delivers exp(m).  (Note: the RateModulus margin
+`1/(i·d_i)` is structurally e-tied — it bounds e's tail `~1/(i·i!)` but not exp(m)'s `~m^{i+1}/(i+1)!` at
+*any* threshold; the analytic route is the only one for `m ≥ 2`.)  Also `HeatEqDiscrete.lazy_eq_nonlazy_plus_self`
+(`lazyHeatStepNum = heatStepNum + 2u_x` — the self-weight that moves the stencil symbol `cos θ → 1+cos θ`,
+removing the `−1` checkerboard eigenmode; the structural reason for the spectral gap).
+
+### Marathon P3 infra — finite-grid sum + discrete mass conservation (2026-06-05)
+
+`E213.Lib.Math.Analysis.ODE.HeatEq.Conservation` — **8 PURE / 0 DIRTY**.  Builds the reusable finite-grid
+sum `gridSum n f = Σ_{x<n} f x` (`gridSum_congr`, `gridSum_add`, `gridSum_two_mul`) with **cyclic-shift
+invariance**: `gridSum_rightNbr` / `gridSum_leftNbr` — the neighbour maps `leftNbr`/`rightNbr` are the two
+full-cycle rotations of `{0,…,n−1}`, so re-summing along them returns the same total (via
+`gridSum_head_shift` moving the wrapped head term, + `leftNbr_rightNbr`: `leftNbr ∘ rightNbr = id` on the
+grid).  First consumer: **mass conservation** — `heatStep_mass_conservation` (`Σ heatStepNum = 2·Σu`),
+`lazyHeatStep_mass_conservation` (`Σ lazyHeatStepNum = 4·Σu`): the heat step redistributes mass without
+creating/destroying it (averaged total invariant), the discrete conservation law companion to the maximum
+principle.  Purity note: required NatHelper's pure `add_sub_cancel_right` / `add_self_mod_pure` (Lean-core
+`Nat.add_sub_cancel` and `Nat.add_mod_right` leak `propext`) and a `gridSum_congr`-based scalar lemma
+(avoiding `funext`/`Quot.sound`).  `gridSum` now unblocks the Dirichlet energy (P3 proper).
+
+**Discrete summation by parts** (same file §4, 3 more PURE): `gridSum_mul_shift_symm` (the edge
+correlation `Σ u(x)·u(rightNbr x)` is shift-symmetric — reindex by the rotation via `leftNbr ∘ rightNbr =
+id`), and the **Dirichlet pairing** `heatStep_dirichlet_pairing` (`⟨u, heatStep u⟩ = 2·Σ u(x)·u(rightNbr x)`)
+/ `lazyHeatStep_dirichlet_pairing` (`⟨u, lazy u⟩ = 2Σu² + 2·corr`, i.e. `4Σu² − E(u)` in `Nat`-clean
+additive form).  The discrete integration-by-parts / Green identity underlying energy estimates, with pure
+products (no `Nat`-subtraction).
+
+**Signed Dirichlet energy + Green identity** (same file §5, 2 more PURE): `sqDistNat a b = |a−b|²`
+(sign-correct: `(a−b)²+(b−a)²`, one term truncated to 0 in `Nat`), `dirichletEnergy n u =
+Σ_x |u(rightNbr x)−u(x)|²`, and `dirichletEnergy_green` (`E(u)+2·corr = 2·Σu²` — over ℤ, `E(u) = ⟨u,−Δu⟩`,
+the Dirichlet form *is* the energy).  Note (correcting an earlier over-pessimistic "ring normalizer blocked"
+claim): `ring_nat` closes the asymmetric binomial fine — its *only* failure was an un-pruned
+zero-coefficient monomial (a literal `0*0` from the truncated `(b−a)²`); removing it with
+`Nat.zero_mul`/`Nat.add_zero` first lets the normalizer succeed.
+
+### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
+
+`E213.Lib.Math.Analysis.ODE.HeatEq.EnergyL2` — **2 PURE / 0 DIRTY**.  The heat step is a convex average, so
+by convexity of the square it cannot increase the L² norm pointwise: `heatStep_l2_jensen`
+(`(a+b)² ≤ 2(a²+b²)`, gap the single square `(a−b)²`) and `lazyHeatStep_l2_jensen`
+(`(a+2b+c)² ≤ 4(a²+2b²+c²)`, gap `(a−2b+c)²+2(a−c)²`).  Worked over ℤ via the **POSITIVITY archetype**
+(`Foundations/Positivity`): `ring_intZ` for the SOS gap identity + `positivity_of_sq`/`positivity_of_sq3` —
+the `amgm_2` pattern reused.  The pointwise L²-dissipation seed, energy-method companion of the L∞ maximum
+principle.  (The *summed* signed Green identity it complements is now also done — see `HeatEqConservation`
+§5 above; the only `ring_nat` subtlety was un-pruned `0*0` zero-coefficient terms.)  **Energy-decay heart**
+(same file, +1 PURE): `lazy_energy_pointwise` — the local energy dissipation `(s+r−q−p)² ≤
+4·((q−p)²+2(r−q)²+(s−r)²)` over ℤ, from `grad(lazy u) = lazy(grad u)` (the lazy-step edge difference is the
+lazy stencil on the three edge gradients) + Jensen.  Its grid-sum (`gridSum_le` added to `HeatEqConservation`)
+gives `E(lazy u) ≤ 16·E(u)`.
+
+### Marathon P3 CAPSTONE — Dirichlet energy decay `E(lazy u) ≤ 16·E(u)` (2026-06-05)
+
+`E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay` — **3 PURE / 0 DIRTY**.  The lazy heat step does **not increase
+the (averaged) Dirichlet energy** — the L²-method conclusion, the analytic engine behind discrete smoothing /
+convergence to equilibrium.  `lazy_energy_decay`: `E(lazyHeatStepNum u) ≤ 16·E(u)` (the `16 = 4²` is the
+stencil normalization).  Assembled from: `sqDistNat_cast` (the `Nat`↔ℤ square bridge `↑(sqDistNat a b) =
+(↑a−↑b)²`), `lazy_energy_pointwise_nat` (the ℤ pointwise dissipation `(s+r−q−p)² ≤ 4(…)` cast to `Nat` via
+`Int213.Order.le_of_ofNat_le`), `gridSum_le`/`gridSum_mul_left`/`gridSum_add`, and cyclic-shift invariance
+(`gridSum_rightNbr` turns each shifted edge-gradient energy back into `E(u)`).  All ∅-axiom — the `propext`
+leaks of core `Int.ofNat_*` / `Nat.add_sub_cancel_left` / `sub_eq_zero` were sidestepped with term-mode casts
+(explicit `Int.ofNat` typing dodges the `Nat.cast` `rw`-mismatch) + NatHelper pure sub-lemmas + `Nat.zero_sub`.
+**Marathon PDE rungs P1–P3 now complete.**  Companion **L² norm contraction** (same file §4, 2 more PURE):
+`lazy_l2_norm_bound` — `Σ_x (lazyStep u)² ≤ 16·Σ_x u²` (the lazy step does not increase the averaged L²
+norm of the *field*), via the pure-`Nat` `lazy_l2_pointwise_nat` (`(a+2b+c)² ≤ 4(a²+2b²+c²)`, cast of
+`lazyHeatStep_l2_jensen`) + shift invariance.  No gradient/`Nat`-subtraction, so it is the simpler
+field-L² companion of the energy (gradient-L²) decay.
+
+### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
+
+### A6 CORE rung 5 — Ollivier–Ricci: Kantorovich weak duality + concrete triangle κ=½ (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci` — **PURE / 0 DIRTY**.  The last discrete
+curvature rung: Ollivier–Ricci `κ(x,y)=1−W₁(m_x,m_y)/d(x,y)`, whose heart is optimal transport.  Built the
+integer grid sum `gridSumZ` (+ `_add`/`_sub`/`_mul_left`/`_le`/`_congr`/**`_fubini`** sum-swap) and proved
+**`kantorovich_weak_duality`**: for any transport plan `π ≥ 0` and `1`-Lipschitz potential `f`,
+`Σ_x f·μ − Σ_y f·ν ≤ Σ_x Σ_y d·π` (the `W₁`-dual ≤ `W₁`-primal direction) — proof: marginals + Fubini reduce
+both sides to `Σ_x Σ_y (f x − f y)·π x y ≤ Σ_x Σ_y d x y·π x y` (termwise via `mul_le_mul_right_nonneg`).
+`ollivier_bracket`: `1−transportCost ≤ 1−dualValue`, the curvature bracket that pins `κ` when a plan and a
+potential meet.  **Concrete `κ` now exhibited** — the triangle `C₃` worked example (`triD`/`triPi`/`triMu0`/
+`triMu1`/`triF`): `triangle_coupling` (plan marginals match), `triF_lipschitz` (`triF` is `1`-Lipschitz, all
+branches by `decide` + `Order.sub_self_zero` on the diagonal), `triangle_ollivier_optimal`
+(`dualValue = transportCost = 1`, plan meets potential) ⟹ scaled `W₁ = 1`, Ollivier `κ = 1 − ½ = ½ > 0`:
+the triangle is positively curved (a concrete value, not just the bracket).  **`ollivier_plan_optimal`**
+(general optimality certificate: `dualValue` depends only on marginals, so a plan meeting a `1`-Lipschitz
+dual is cost-optimal among all plans sharing its marginals) + **`triangle_plan_optimal`** (`triPi`'s cost
+`1 ≤` cost of *every* valid coupling) make `W₁ = 1` a genuine optimum, not just a matched pair.  **Sign
+contrast**: the square `C₄` worked example (`c4D`/`c4Pi`/`c4F` + `c4_coupling`/`c4_ollivier_flat`/
+`c4_plan_optimal`, with helpers `c4F_le_one`/`c4F_nonneg`/`c4F_lipschitz`/`sub_le_of_le_of_nonneg`) gives
+Ollivier `κ = 0` (flat, no triangles) against the triangle's `κ = ½ > 0` (clustered) — Ollivier curvature
+tracks local clustering, the transport analogue of the Forman / Gauss–Bonnet sign↔topology results.  **Full
+sign trichotomy**: the double-star (`dsD`/`dsPi`/`dsF` + `ds_coupling`/`ds_ollivier_negative`/`ds_plan_optimal`,
+helpers `dsF_le_one`/`dsF_ge_negtwo`/`dsF_lipschitz`/`sub_le_sub_bounds`) gives Ollivier `κ = 1 − 5/3 = −2/3 < 0`
+(a tree, like hyperbolic space).  So `+` (triangle) / `0` (square) / `−` (double-star) are all ∅-axiom theorems
+— the complete Ollivier mirror of the Forman / Gauss–Bonnet sign↔topology trichotomy.  Purity:
+Int213 `Order`/`OrderMul`
+pure inequalities (core `Int.add_le_add`/`mul_le_mul_of_nonneg_right`/`sub_le_sub_left`/`Int.sub_self` all leak
+`propext`).
+
+### A6 CORE rung 6 — Bakry–Émery curvature-dimension `CD(K,N)` + discrete Bochner (2026-06-08)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery` — **6 PURE / 0 DIRTY**.  The **fourth** curvature
+frame: Bakry–Émery curvature via the carré-du-champ iteration `Γ₂ = ½LΓ − Γ(f,Lf)` of the graph Laplacian,
+scaled to `ℤ` (`gammaL`/`gamma2L`, `gammaTri`/`gamma2Tri`).  **Discrete Bochner identity** — `bochner_line`:
+`4Γ₂(f)(x) = (Lf(x−1))² + 2(Lf(x))² + (Lf(x+1))²` (the flat `Ric = 0` Bochner `½Δ|∇f|² = |Hess f|² + Ric(∇f,∇f)`,
+only squares) ⟹ `cd_0_2_line` (the line/large cycle is `CD(0,2)`, curvature `0`) + `gamma2_line_nonneg`.
+`bochner_triangle`: `4Γ₂ = 5·(2Γ) + 2(f₁−f₂)²` (i.e. `Γ₂ = (5/2)Γ + ½(f₁−f₂)²`) ⟹ `cd_triangle` (the triangle
+`C₃ = K₃` is `CD(5/2,∞)`, the complete-graph value `(n+2)/2`) + `gammaTri_nonneg`.  `CD(K,N)` is the synthetic
+(Lott–Sturm–Villani) meaning of `Ric ≥ K, dim ≤ N` — so this is the dimension-independent handle for the
+general-`n` Ricci **lower bound** even while the smooth `n`-tensor flow stays walled.  Sign agreement: flat line
+`K=0` / triangle `K=5/2>0` — same as Forman/Gauss–Bonnet/Ollivier.  Proofs `ring_intZ` (Bochner identities) +
+`int_sq_nonneg`/`add_nonneg`/`Order` (the SOS bounds), stencil-parametrised à la `ConformalCurvature` (no index
+arithmetic).
+
+### A6 CORE rung 7 — time-evolution: all-time fixed-point stability (2026-06-08)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete` (§6, +1 PURE).  `lazyRicciFlow` (the
+smoothing `(¼,½,¼)` step iterated) + **`ricci_flow_fixed_point_stable`**: `lazyRicciFlow n t (constInit c) x =
+4ᵗ·c` for *every* `t` — constant curvature is a genuine all-time fixed point (averaged curvature `= c`,
+unchanged across all time), the discrete "round/Einstein metric stays round under Ricci flow for all time",
+complementing rung 3's `flow_reaches` *to* the fixed point.  Induction on `t` via `lazyHeatStep_const` at the
+three stencil sites + `Nat.pow_succ`/`ring_nat`.
+
+### A6 CORE — smooth 2D-conformal Gauss curvature (the smooth route) (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.ConformalCurvature` — **4 PURE / 0 DIRTY**.  Opens A6's
+**smooth** route (distinct from the closed discrete Forman route) via the 2D-conformal sidestep
+(`ricci_flow_smooth_core.md`): for `ds²=λ(dx²+dy²)` with polynomial `λ`, the Liouville Gauss curvature
+`K=(|∇λ|²−λΔλ)/(2λ³)` is rational — no transcendentals.  `confKNum = |∇λ|²−λΔλ` (curvature numerator over
+ℤ); `confK_flat` (constant `λ` ⟹ `K=0`, S3), `confK_paraboloid` (`λ=x²+y²+1` ⟹ numerator `−4`, negative
+curvature), `confK_dome` (`λ=C−x²−y²` ⟹ numerator `4C`, positive curvature), `conformal_curvature_trichotomy`
+(flat/neg/pos, S4) — genuine smooth 2D-conformal Ricci curvature, `ring_intZ`.  The smooth wall (general-`n`
++ transcendental metrics) stays; 2D-conformal polynomial `λ` is this side of it.  **S5 ✅** (same file, 2 more PURE): the flow `∂_tλ=−2Kλ` cleared to `λ²·∂_tλ=confFlowRate=−confKNum`; `conf_flow_flat_stationary` (flat = fixed point) + `conf_flow_stationary_imp_flat` (fixed point ⟺ flat `K=0`) — the smooth 2D-conformal route S3–S5 closed.
+
+### A6 CORE rung 4 — discrete Gauss–Bonnet: curvature sign ↔ topology as a theorem (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussBonnet` — **4 PURE / 0 DIRTY**.  Makes rung
+1's curvature↔`b₁` table a **theorem**: vertex curvature `κ(v)=2−deg(v)`, `gauss_bonnet_Kmn`
+(**`Σ_v κ(v)=2·χ`**, `χ=V−E` for `K_{m,n}`), `euler_eq_one_sub_b1` (`χ=1−b₁`, cyclomatic `b₁=E−V+1`),
+`totalCurv_eq` (**total curvature `=2−2·b₁`** — positive ⟺ tree `b₁=0`, negative ⟺ cyclic `b₁≥1`), and
+`curvature_sign_topology` (`K_{1,1}` `+2`/`b₁=0` vs `K_{3,2}` `−2`/`b₁=2`).  Derived by `ring_intZ`, not
+tabulated.  A6 discrete core rung 4 (`a6_ricci_core/discrete_ricci_flow_ladder.md`).
+
+### A6 CORE TOUCHED — discrete Ricci flow as heat flow on curvature (2026-06-05)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete` — **5 PURE / 0 DIRTY**.  The
+transcendentals + PDE-estimates marathon was split off precisely to unblock the A6 Ricci-flow core; this
+file spends the PDE estimates on it.  **Bridge**: smooth Ricci flow linearizes to the heat equation on
+curvature (`∂_t R = ΔR + 2|Ric|²`, Hamilton), so the discrete Ricci flow's edge-curvature field evolves by
+the **discrete heat step** — and the heat estimates ARE the discrete Ricci-flow a-priori estimates.
+`ricciFlowStep = lazyHeatStepNum`; `ricci_curvature_bounded` (no blow-up, `heatIter_range`),
+`ricci_energy_monotone` (**curvature Dirichlet energy decays `E(flow K) ≤ 16·E(K)`** — `lazy_energy_decay`,
+the discrete Perelman 𝓦-/entropy-monotonicity), `ricci_uniform_stationary` (uniform `K_{NS,NT}` curvature
+`4−NS−NT` is the normalized fixed point, `lazyHeatStep_const`), `ricci_total_curvature_conserved` (Σ curvature conserved, `4·Σ` — the normalised flow's volume/total-scalar preservation, from mass conservation), `ricci_flow_homogenises` (the checkerboard
+curvature field → constant curvature in one step, spread `1→0` — `lazy_checker_collapses`).  **A6 conquest
+core closed on the discrete (Forman) side** (rungs 2–3 of `a6_ricci_core/discrete_ricci_flow_ladder.md`);
+the smooth-Perelman wall stays (`ricci_flow_smooth_core.md`).  Bundled as `discrete_ricci_apriori` (one step: curvature stays in `[4A,4B]` incl. **lower-bound preserved** `ricci_lower_bound_preserved` (Perelman's key property), total curvature conserved, energy non-increasing) — the discrete analogue of Perelman's a-priori estimates.  Convergence is also a genuine **A6 FLOW (`flow_reaches`)** instance: `ricci_flow_reaches_normalized` — the curvature-spread monovariant `spreadFlow` strictly descends (by 2/step) to the normalised state `spread ≤ 1` (`spreadFlow_fixed_le_one`), realising rung 3's "drive the flow to constant curvature via A6 FLOW on a curvature-spread monovariant" (3 more PURE).
+
+### Marathon T4 (foundation) — integer floor square root `isqrt` (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.IntSqrt` — **PURE / 0 DIRTY**.  `isqrt n = ⌊√n⌋` via a downward scan
+(`isqrtAux`), with the correctness **bracket** `isqrt_bracket`: `isqrt n · isqrt n ≤ n < (isqrt n + 1)²`
+(so `isqrt n` is the largest `k` with `k² ≤ n`).  Lower bound `isqrtAux_sq_le` (only `k` with `k²≤n` is
+ever returned) + maximality `isqrtAux_max` (every candidate above the result, up to the scan start, fails);
+the upper bound dispatches `n<2` by `decide` and `n≥2` via `isqrt n < n` (else `n²≤n` ⟹ `n≤1`).  The
+discrete foundation of the real `sqrt` (marathon T4): `Real213` `sqrt` is the limit of `isqrt` on dyadic
+rescalings.  Purity: NatHelper's pure `le_of_add_le_add_left` (Lean-core `Nat.le_of_add_le_add_right` leaks
+`propext`).  Extended (4 more PURE): `le_isqrt_of_sq_le` (`k²≤n ⟹ k≤isqrt n`, the defining largest-property),
+`isqrt_mono`, `isqrt_perfect` (`isqrt(k·k)=k`), and ★ `isqrt_four_mul` — the **dyadic refinement**
+`2·isqrt n ≤ isqrt(4n) ≤ 2·isqrt n + 1` (doubling resolution adds ≤1 unit error), the convergence-rate
+certificate making `isqrt(a·4ᵏ)/2ᵏ → √a` Cauchy.  §5 packages this as the **dyadic √ sequence** `dyadicSqrtSeq a k = isqrt(a·4ᵏ)`: `dyadicSqrtSeq_bracket` (`(s_k)²≤a·4ᵏ<(s_k+1)²`, brackets `√a` to width `1/2ᵏ`) + `dyadicSqrtSeq_step` (`2·s_k ≤ s_{k+1} ≤ 2·s_k+1`, the Cauchy modulus `1/2ᵏ`) — the rational-level convergence certificate for `√a` (cut-level `sqrtCut` packaging remains).
+
+### Marathon T5 CORE — general two-variable binomial theorem (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTwoVar` — **2 PURE / 0 DIRTY** (+ helpers).
+`binom2_theorem`: **`(a+b)ⁿ = Σ_{k=0}^{n} C(n,k)·aᵏ·bⁿ⁻ᵏ`** — the b=1 case (`binom_theorem_b_eq_one`)
+extended to general `b`.  Proven via `binomSum2_step` (`(a+b)·binomSum2 a b n = binomSum2 a b (n+1)`):
+both `(a+b)·binomSum2` and `binomSum2 (n+1)` reduce to the common form `bⁿ⁺¹ + A + thirdterm` via
+`sumTo_split_first` + Pascal `choose_succ_succ` + `sumTo_add_func` + `ring_nat`, with the `b`-exponent
+congruences `n+1−(k+1)=n−k` (`Nat.succ_sub_succ`) and `n−(k+1)+1=n−k` for `k<n` (`bexp_shift`, from
+NatHelper `sub_one_add_one`+`sub_pos_of_lt`); the boundary term `C(n,n+1)=0` drops the tail.  Purity needed
+explicit-typed `have`s for `Nat.pow_succ`/`Nat.succ_sub_succ` (the `rw` patterns are `Nat.succ`-shaped, the
+goals `_+1`-shaped) + `show` beta-reduction of the `sumTo_congr` lambdas.  This is the **exp functional
+equation** `exp(a+b)=exp(a)exp(b)` engine: cross-multiplying the Cauchy convolution `Σ(aʲ/j!)(bᵏ/k!)` by `n!`
+gives exactly this (via `choose_mul_factorials`).
+
+### Marathon T5 (enabling) — `choose`↔factorial bridge (2026-06-05)
+
+`E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial` — **1 PURE / 0 DIRTY**.  `choose_mul_factorials`:
+`C(k+j, k) · (k!·j!) = (k+j)!` — the division-free `C(n,k) = n!/(k!(n−k)!)` (parametrized by `n=k+j` to
+dodge `Nat`-subtraction).  Proven from the absorption identity `choose_succ_mul`
+(`(k+1)·C(n+1,k+1)=(n+1)·C(n,k)`) by induction on `k`: multiply the goal by `k+1`, rewrite the head via
+`choose_succ_mul` + `(k+1)!=(k+1)·k!`, apply IH, cancel `k+1` (`Nat.eq_of_mul_eq_mul_left`, pure).  This is the
+bridge the **exp functional equation** `exp(a+b)=exp(a)exp(b)` needs: cross-multiplying the Cauchy convolution
+`Σ(aʲ/j!)(bᵏ/k!)` by `n!` gives `Σ C(n,j)aʲbⁿ⁻ʲ = (a+b)ⁿ` (binomial theorem) via exactly `C(n,j)·j!·(n−j)!=n!`.
+Connects the combinatorial `choose` (Pascal) to the analytic `factorial`; reusable across combinatorics /
+probability.  Purity: needed NatHelper's pure `mul_assoc` (Lean-core `Nat.mul_assoc` leaks `propext`).
+Two clean corollaries: `choose_symm` (`C(k+j,k)=C(k+j,j)`, cancelling the common `k!·j!` from two bridge
+instances) and `pascal_row_sum` (`Σ_{k=0}^n C(n,k) = 2ⁿ`, the binomial theorem at `a=1` — in `BinomialTheorem`).
+Plus `choose_le_two_pow` (`C(n,k) ≤ 2ⁿ`, each binomial ≤ the row sum, via `sumTo_term_le`) — the standard
+coefficient bound (Chernoff/probability).  `hockey_stick` (`Σ_{j=0}^{m} C(r+j,r) = C(r+m+1,r+1)`, the Pascal-diagonal sum, by induction via Pascal).
+
+### Marathon T3 — formal derivative rules (coefficient level): exp/sin/cos self-reproduce via one factorial shift (2026-06-05)
+
+**3 PURE / 0 DIRTY** (`exp_deriv_coeff_fixed` in `CutExpModulus`; `sin_deriv_coeff`, `cos_deriv_coeff` in
+`CutTrigModulus`).  The formal power-series derivative `Σcₙxⁿ ↦ Σ(n+1)c_{n+1}xⁿ` acts on exp/sin/cos
+through the single factorial shift `(n+1)·n! = (n+1)!`: exp (`cₙ=1/n!`) is its **fixed point** (`d/dx exp =
+exp`); sin/cos are a **2-cycle** (`d/dx sin = cos` at even powers, `d/dx cos = −sin` at odd powers, the
+sign in the Int213 difference-Lens).  Coefficient-level T3 core; the cut-level termwise
+`d/dx expPartialSum N = expPartialSum (N−1)` (via the `IsDifferentiable` instances) is the remaining bridge.
+
+### Marathon T2 — sin/cos Taylor convergence modulus by comparison to exp (2026-06-05)
+
+`E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus` — **4 PURE / 0 DIRTY** (+ `expTerm_le_of_ge`
+gap-antitone added to `CutExpModulus`).  The `sin`/`cos` Taylor term magnitudes *are* the `exp` terms at
+odd/even indices (`cos` term `k` = `exp` term `2k`, `sin` term `k` = `exp` term `2k+1`), so the whole
+`CutExpModulus` engine transfers by comparison: `cosTerm_geom_decay`/`sinTerm_geom_decay` (geometric
+majorant at the even/odd sub-sequence, decay `term(m)/2^{2k}`) + `cosTerm_antitone`/`sinTerm_antitone`
+(terms non-increasing past the threshold — the alternating-series-test hypothesis the signed `sinCut`/`cosCut`
+bracketing will use).  Rung **T2** of the transcendentals marathon (term-magnitude convergence rate);
+remaining: the signed cut-level series replacing the `Core/Functions.lean` stubs.
+
+### Marathon P1 — discrete heat maximum principle (2026-06-05)
+
+`E213.Lib.Math.Analysis.ODE.HeatEq.Discrete` (extended) — **4 new PURE / 0 DIRTY**.  The discrete heat step
+is an average of two neighbours, so it neither rises above the field max nor falls below the min — the
+discrete maximum principle, seed of all parabolic a-priori estimates.  In the numerator convention
+`heatStepNum = 2·u_new = u_left + u_right`: `heatStep_le_two_max` (`u ≤ B` ⟹ `heatStepNum ≤ 2B`, no hot
+spots), `heatStep_two_min_le` (`A ≤ u` ⟹ `2A ≤ heatStepNum`, no cold spots), `heatStep_range` (the doubled
+value stays in `[2A,2B]` — sup-norm contraction), `heatStep_osc_bound` (the oscillation `max−min` does not
+grow — the monovariant feeding P2).  **Iterated to all time** (`heatField`, `heatIter`): `heatIter_le` /
+`heatIter_ge` / `heatIter_range` — data in `[A,B]` ⟹ the `t`-step field stays in `[2ᵗ·A, 2ᵗ·B]` (averaged
+field in `[A,B]`) for *every* `t`, the discrete maximum principle for the whole heat evolution
+(`‖u(t)‖∞ ≤ ‖u(0)‖∞`).  All uniform in the grid length `n` (hence in the mesh) — the uniformity that lets
+the `Real213` limit promote it to the continuous maximum principle.
+
+**P2 obstruction + lazy-step fix** (same file, 6 more PURE): strict *oscillation* decay is **false** for the
+non-lazy stencil `(½,0,½)` — the checkerboard mode `0,1,0,1` maps to `2,0,2,0 = 2·checkerboard` (eigenvalue
+`cos π = −1`, no gap).  The genuine smoothing operator is the **lazy** step `lazyHeatStepNum = u_{x−1}+2u_x+u_{x+1}`
+(stencil `(¼,½,¼)`): `lazyHeatStep_const` (`= 4c`), `lazyHeatStep_le_four_max`/`_four_min_le` (its maximum
+principle), and the concrete spectral-gap witness `lazy_checker_collapses` (length-4 checkerboard `→`
+constant in one lazy step, osc `1→0`) vs `nonlazy_checker_hot`/`_cold` (non-lazy preserves it).  The
+`−1`-eigenmode the non-lazy step preserves is annihilated by the self-weight.
+
+**Strong (strict) maximum principle** (same file, 2 more PURE): `heatStep_strict_at_max` /
+`lazyHeatStep_strict_at_max` — a max site with a strictly-below neighbour drops *strictly* (`< 2B` resp.
+`< 4B`): heat cannot sustain a strict interior extremum (the strong maximum principle's discrete seed).
+Honest nuance: holds for *both* stencils, yet the non-lazy step still fails global oscillation decay because
+the max **relocates** (`[0,1,0,1]→[2,0,2,0]`) — local strict drop ≠ global spectral gap; the lazy
+self-weight pins the extremum.
+
+**Comparison principle** (same file, 4 more PURE): `heatStep_mono` / `lazyHeatStep_mono` (order-preservation
+`u ≤ v ⟹ heatStep u ≤ heatStep v`, both stencils), `heatIter_mono` (preserved for all time), and
+`heatStep_le_two_max_via_comparison` (the maximum principle re-derived as comparison against a constant
+field — the two P1 estimates are one principle).  Rung **P1** of the discrete-PDE-estimates marathon;
+next: oscillation decay rate (P2) + the `Real213` limit step.
+
 ### Discrete (Forman) Ricci curvature — the 213-native route to the A6 core (2026-06-05)
 
 `E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci` — **6 PURE / 0 DIRTY**.  A6's smooth-metric

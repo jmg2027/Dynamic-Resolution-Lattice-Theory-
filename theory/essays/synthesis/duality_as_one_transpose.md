@@ -79,7 +79,6 @@ complement.
 The statement "every finite duality = `sumOver_swap` on a 0/1 incidence + a
 SEPARATE cap per axis" is *witnessed* (Sperner, Mirsky, Dilworth, LYM, Bollobás
 all instantiate it) but not *abstracted* into a single Lean theorem quantifying
-over incidences and caps — recorded in
-`research-notes/frontiers/count_substrate_synthesis.md`. Absent that abstraction,
+over incidences and caps. Absent that abstraction,
 "duality is one transpose" is a derived pattern across the witnesses, not a
 proven meta-theorem.

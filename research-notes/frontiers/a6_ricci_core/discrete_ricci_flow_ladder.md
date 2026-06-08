@@ -28,18 +28,66 @@ combinatorial formula).
    (`GeometrizationConjecture/DiscreteRicci.lean`, 6 PURE): `formanEdge du dv =
    4 − du − dv`; `K_{NS,NT}` uniform value `4 − NS − NT`; sign ↔ topology
    (`K_{1,1}` `+2`, `K_{1,3}` `0`, `K_{3,2}` `−1` ↔ `b₁` 0/0/8).
-2. **Weighted Forman + a discrete Ricci-flow step** — NEXT.  Edge weights
-   `w : edge → ℕ`/`ℤ`; flow step `w ↦ w − F·w` (or normalized).  Prove a
-   per-step effect on a curvature monovariant.
-3. **Monotonicity / convergence of discrete flow** — drive the flow to a
-   constant-curvature (normalized) state via A6 FLOW (`flow_reaches`) on a
-   curvature-spread monovariant.  *This is the discrete analogue of Perelman
-   monotonicity and the real A6-core target.*
-4. **Discrete Gauss–Bonnet / Bochner (CD(K,N))** — Bakry–Émery curvature-
-   dimension on graphs; `Ric ≥ K` combinatorially; relate Σ curvature to Euler
-   characteristic.  Connects curvature sign to `b₁` as a theorem, not a table.
-5. **Ollivier–Ricci** (optimal-transport curvature) — heavier; needs a coupling
-   / W₁ distance on the finite graph metric.  Later rung.
+2. **Discrete Ricci-flow step + a-priori estimates** — ✅ DONE
+   (`GeometrizationConjecture/RicciFlowDiscrete.lean`, 5 PURE).  The bridge: smooth Ricci flow
+   *linearizes to the heat equation on curvature* (`∂_t R = ΔR + 2|Ric|²`, Hamilton), so the
+   curvature evolves by the **discrete heat step** — and the PDE-marathon heat estimates ARE the
+   discrete Ricci-flow a-priori estimates.  `ricciFlowStep = lazyHeatStepNum` on the edge-curvature
+   field; `ricci_curvature_bounded` (no blow-up, from `heatIter_range`), `ricci_uniform_stationary`
+   (uniform `K_{NS,NT}` curvature is the normalized fixed point, `lazyHeatStep_const`).
+3. **Monotonicity / convergence of discrete flow** — ✅ DONE (same file).
+   `ricci_energy_monotone` (**curvature Dirichlet energy decays `E(flow K) ≤ 16·E(K)`** —
+   `lazy_energy_decay`, the discrete Perelman 𝓦-/entropy-monotonicity) + `ricci_flow_homogenises`
+   (the maximally-oscillating checkerboard curvature field is driven to **constant curvature** in
+   one step, spread `1→0` — `lazy_checker_collapses`).  *The discrete analogue of Perelman
+   monotonicity and the A6-core target — closed via the PDE marathon.*  **A6 conquest core closed
+   on the discrete side.**  Convergence is also a genuine **`flow_reaches` (A6 FLOW archetype)**
+   instance: `ricci_flow_reaches_normalized` — the curvature-spread monovariant `spreadFlow` strictly
+   descends (by 2/step) until the normalised state `spread ≤ 1` (`spreadFlow_fixed_le_one`), exactly
+   rung 3's stated "drive the flow to constant curvature via A6 FLOW on a curvature-spread monovariant".
+4. **Discrete Gauss–Bonnet** — ✅ DONE (`GeometrizationConjecture/DiscreteGaussBonnet.lean`,
+   4 PURE).  Vertex curvature `κ(v)=2−deg(v)`; **`Σ_v κ(v) = 2·χ`** (`gauss_bonnet_Kmn`, `χ=V−E`),
+   `χ = 1 − b₁` (`euler_eq_one_sub_b1`, cyclomatic `b₁=E−V+1`), hence **total curvature `= 2 − 2·b₁`**
+   (`totalCurv_eq`) — positive ⟺ `b₁=0` (tree), negative ⟺ `b₁≥1` (cyclic).  `curvature_sign_topology`:
+   `K_{1,1}` `+2` (`b₁=0`) vs `K_{3,2}` `−2` (`b₁=2`) — **curvature sign ↔ topology now a theorem,
+   not a table** (derived by `ring_intZ`).  (Bochner/CD(K,N) Bakry–Émery is a further refinement.)
+5. **Ollivier–Ricci** — ✅ **DONE** (`GeometrizationConjecture/OllivierRicci.lean`, ∅-axiom):
+   the optimal-transport engine.  `gridSumZ` (Int grid sum) + `gridSumZ_fubini` (sum-swap) →
+   **`kantorovich_weak_duality`** (`Σ f·μ − Σ f·ν ≤ Σ Σ d·π` for any coupling `π≥0` and `1`-Lipschitz
+   `f` — the `W₁`-dual ≤ `W₁`-primal direction), and `ollivier_bracket` (`1−transportCost ≤ 1−dualValue`,
+   the curvature lower/upper bracket that pins `κ` when a plan and a potential meet).  **Concrete `κ`
+   now exhibited**: the triangle `C₃` worked example — `triangle_coupling` (the `triPi` plan's marginals
+   are `triMu0`/`triMu1`), `triF_lipschitz` (the `triF` potential is `1`-Lipschitz), and
+   `triangle_ollivier_optimal` (`dualValue = transportCost = 1`, plan meets potential) — pins the scaled
+   `W₁ = 1`, hence Ollivier `κ = 1 − ½ = ½ > 0`: **the triangle is positively curved**, a concrete
+   value, not just the bracket.  Upgraded to a **genuine optimum**: `ollivier_plan_optimal` (general —
+   `dualValue` depends only on marginals, so a plan meeting any `1`-Lipschitz dual is cost-optimal among
+   all plans with its marginals) + `triangle_plan_optimal` (`triPi`'s cost `1 ≤` cost of *every* valid
+   coupling of `m₀,m₁`).  **Sign contrast now a theorem pair**: the square `C₄` worked example
+   (`c4D`/`c4Pi`/`c4F` + `c4_coupling`/`c4_ollivier_flat`/`c4_plan_optimal`) gives Ollivier `κ = 0`
+   (flat, no triangles), against the triangle's `κ = ½ > 0` (clustered) — Ollivier curvature tracks local
+   clustering, the optimal-transport analogue of the Forman / Gauss–Bonnet sign↔topology results.  **Full
+   sign trichotomy now closed**: the double-star (`dsD`/`dsPi`/`dsF` + `ds_coupling`/`ds_ollivier_negative`/
+   `ds_plan_optimal`, helper `sub_le_sub_bounds`) gives Ollivier `κ = 1 − 5/3 = −2/3 < 0` (a tree, like
+   hyperbolic space) — so `+` (triangle, clustered) / `0` (square, flat) / `−` (double-star, tree) are all
+   ∅-axiom theorems, the complete Ollivier mirror of the Forman / Gauss–Bonnet sign↔topology trichotomy.
+6. **Bakry–Émery curvature-dimension `CD(K,N)`** — ✅ **DONE** (`GeometrizationConjecture/BakryEmery.lean`,
+   6 PURE): the **fourth** curvature frame, via the discrete Bochner formula.  Carré du champ `Γ` + its
+   iterate `Γ₂` of the graph Laplacian, scaled to `ℤ` (`gammaL`/`gamma2L`, `gammaTri`/`gamma2Tri`).
+   **Discrete Bochner identity** `bochner_line` (`4Γ₂ = (Lf(x−1))² + 2(Lf(x))² + (Lf(x+1))²` — the flat
+   `Ric = 0` Bochner, `½Δ|∇f|² = |Hess f|² + Ric(∇f,∇f)` with only squares) ⟹ `cd_0_2_line` (the
+   line/large cycle is `CD(0,2)`, curvature `0`) + `gamma2_line_nonneg`.  `bochner_triangle`
+   (`4Γ₂ = 5·(2Γ) + 2(f₁−f₂)²`, i.e. `Γ₂ = (5/2)Γ + ½(f₁−f₂)²`) ⟹ `cd_triangle` (the triangle `C₃ = K₃` is
+   `CD(5/2,∞)`, the complete-graph value `(n+2)/2`).  This is the *dimension-independent* curvature frame
+   (`CD(K,N)` = synthetic `Ric ≥ K, dim ≤ N`, Lott–Sturm–Villani), so it is the 213-native handle for the
+   general-`n` Ricci **lower bound** even while the smooth `n`-tensor flow stays walled
+   (`ricci_flow_smooth_core.md`).  Sign agreement: flat line `K=0` / triangle `K=5/2>0` — same pattern as
+   Forman, Gauss–Bonnet, Ollivier.
+7. **Time-evolution: all-time fixed-point stability** — ✅ **DONE** (`RicciFlowDiscrete.lean` §6):
+   `lazyRicciFlow` (the smoothing step iterated) + `ricci_flow_fixed_point_stable`
+   (`lazyRicciFlow n t (constInit c) x = 4ᵗ·c` for *every* `t` — constant curvature is a genuine all-time
+   fixed point, the discrete "round/Einstein metric stays round under Ricci flow for all time", complementing
+   rung 3's `flow_reaches` *to* the fixed point).
 
 ## Honest boundary
 
@@ -50,5 +98,12 @@ Ricci flow to its normalized fixed point" — not "A6 solves Poincaré."
 
 ## Next action
 
-Rung 2: weighted Forman + flow step in `DiscreteRicci.lean`, then rung 3
-(convergence via `flow_reaches`).
+**Rungs 1–7 all ✅ DONE** (Forman flow + a-priori package + Gauss–Bonnet + Ollivier transport core with
+full `+/0/−` trichotomy + Bakry–Émery `CD(K,N)` Bochner identity + all-time fixed-point stability).  The
+discrete A6 core is closed across **four** curvature frames (Forman, Gauss–Bonnet, Ollivier, Bakry–Émery),
+all sign-agreeing.  Remaining refinements: the complete graph `K_m` Bakry–Émery for general `m`
+(`CD((m+2)/2,∞)` — a `gridSum`-over-neighbours generalization of `bochner_triangle`); the discrete Lin–Yau
+optimal `K`; more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
+flow* and the transcendental Perelman `𝓦`-entropy (`ricci_flow_smooth_core.md`) — but the general-`n` Ricci
+**lower bound** is now reachable synthetically via `CD(K,N)` (rung 6).  The smooth 2D-conformal route
+(S3–S5) is separately closed (`ConformalCurvature.lean`).
