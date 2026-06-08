@@ -139,11 +139,22 @@ finite-depth algebra (Hadamard product, Casoratian rank, holonomic `ℚ(n)`-orbi
   at the sequence scale.
 - `G188_multiplicative_conv_design` — `mconv` (multiplicative twin of `conv`):
   the power-sum/Newton route, with an honest ∅-axiom feasibility verdict.
+- `multiplicative_carry_residue` — the digit-scale mirror: p-adic `×` is native corecursive
+  (`mul_corecursive`) but not finite-state (`mulRaw_unbounded`/`mulCarry_unbounded`, dual of
+  `add_carry_le_one`); the unbounded carry IS a νF inhabitant (`carry_is_nu_escape`) — core closed,
+  only the Lens-reading refinement soft-open.
 
 Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite_orbit_dimension}.md`.
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `one_carrier_crossdomain` — **the one-carrier branch ↔ merged main** (p-ary-spine marathon).
+  (1) "Unit result, non-finite-state generation" at two scales: `(-1)²=1` with unbounded carry
+  (`mulCarry_unbounded`/`carry_is_nu_escape`, branch) = Casoratian `q=−1` with no finite holonomic
+  depth (`cas_neg_unit_no_finite_depth`/`DetSpectrumPoles`, main) — finite-state is of the *pointing*,
+  not the value, on ring-op and sequence scales.  (2) Multiplication's unit/non-unit split IS the
+  finite-state/escape split: `× unit` = a finite permutation with a sign (Zolotarev `mulPermMod`,
+  main) vs `× p` = the valuation escape (`mulBase_eq_mul_pElem`, branch).  Open bridges noted.
 - `casoratian_axis_cp_crossdomain` — **the Casoratian / spiral-axis branch ↔ main's CKM
   CP-phase arc** (merge marathon).  Proven shared object: the order-4 spiral-axis point
   `4=|ℤ[i]^×|` IS the CKM CP-phase's `C₄` — the *same* ring `ℤ[i]`, read as a floor rotation

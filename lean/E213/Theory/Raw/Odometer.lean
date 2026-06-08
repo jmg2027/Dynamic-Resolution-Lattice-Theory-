@@ -422,4 +422,273 @@ theorem carry_profile (f : Nat → Bool) :
     ∧ (∀ n, carry f n = false → carry f (n + 1) = false) :=
   ⟨carry_eq_true_iff f, carry_monotone f⟩
 
+/-! ## §7 — the carry is alphabet-independent: the generic adding-machine carry
+
+The odometer's µF/νF content (§1) lives entirely in the **carry recursion** `c (n+1) = c n &&
+g n` — a Bool "carry-passing" predicate `g` conjoined down the chain.  Nothing in §1 used that
+`g` was the bit-stream `f`; abstracting it gives `runCarry g`, of which the binary carry is the
+`g = f` instance (`carry_eq_runCarry`), and the p-ary (p-adic) carry will be the "digit is the
+top digit" instance (§8).  So the adding-machine's terminate-with-floor / escape-without
+dichotomy is one fact, read on any alphabet's carry-pass predicate.  All ∅-axiom. -/
+
+/-- The generic adding-machine carry: starts at the unit `true`, survives a step only when the
+    carry-pass predicate `g` holds. -/
+def runCarry (g : Nat → Bool) : Nat → Bool
+  | 0     => true
+  | n + 1 => runCarry g n && g n
+
+theorem runCarry_zero (g : Nat → Bool) : runCarry g 0 = true := rfl
+theorem runCarry_succ (g : Nat → Bool) (n : Nat) :
+    runCarry g (n + 1) = (runCarry g n && g n) := rfl
+
+/-- The binary odometer carry is the `g = f` instance of the generic carry. -/
+theorem carry_eq_runCarry (f : Nat → Bool) : ∀ n, carry f n = runCarry f n
+  | 0     => rfl
+  | n + 1 => by rw [carry_succ, runCarry_succ, carry_eq_runCarry f n]
+
+/-- ★★ **A dead generic carry exposes a floor** (no carry-pass somewhere below). -/
+theorem has_false_of_runCarry_false (g : Nat → Bool) :
+    ∀ N, runCarry g N = false → ∃ k, g k = false
+  | 0     => fun h => by rw [runCarry_zero] at h; exact Bool.noConfusion h
+  | N + 1 => fun h => by
+      rw [runCarry_succ] at h
+      cases hgn : g N with
+      | false => exact ⟨N, hgn⟩
+      | true  =>
+          rw [hgn, Bool.and_true] at h
+          exact has_false_of_runCarry_false g N h
+
+/-- ★★ **The generic carry runs forever when carry-pass always holds.** -/
+theorem runCarry_forever (g : Nat → Bool) (h : ∀ n, g n = true) :
+    ∀ n, runCarry g n = true
+  | 0     => runCarry_zero g
+  | n + 1 => by rw [runCarry_succ, runCarry_forever g h n, Bool.true_and, h n]
+
+/-- ★★★ **The generic carry terminates iff there is a floor** (a position where carry-pass
+    fails).  The alphabet-independent µF/νF dichotomy at the adding-machine scale. -/
+theorem runCarry_dies_iff (g : Nat → Bool) :
+    (∃ N, runCarry g N = false) ↔ (∃ k, g k = false) := by
+  constructor
+  · rintro ⟨N, hN⟩; exact has_false_of_runCarry_false g N hN
+  · rintro ⟨k, hk⟩; exact ⟨k + 1, by rw [runCarry_succ, hk, Bool.and_false]⟩
+
+/-- ★★ **The generic carry, once dead, stays dead.** -/
+theorem runCarry_monotone (g : Nat → Bool) (n : Nat) (h : runCarry g n = false) :
+    runCarry g (n + 1) = false := by rw [runCarry_succ, h, Bool.false_and]
+
+/-- ★★ **The generic carry is the leading run of carry-passes.** -/
+theorem runCarry_eq_true_iff (g : Nat → Bool) :
+    ∀ n, runCarry g n = true ↔ ∀ m, m < n → g m = true
+  | 0     => by
+      constructor
+      · intro _ m hm; exact absurd hm (Nat.not_lt_zero m)
+      · intro _; exact runCarry_zero g
+  | n + 1 => by
+      constructor
+      · intro hand
+        rw [runCarry_succ] at hand
+        have hc : runCarry g n = true := by
+          cases hcn : runCarry g n with
+          | true  => rfl
+          | false => rw [hcn, Bool.false_and] at hand; exact Bool.noConfusion hand
+        have hgn : g n = true := by
+          cases hg : g n with
+          | true  => rfl
+          | false => rw [hg, Bool.and_false] at hand; exact Bool.noConfusion hand
+        intro m hm
+        rcases Nat.lt_or_eq_of_le (Nat.lt_succ_iff.mp hm) with h | h
+        · exact (runCarry_eq_true_iff g n).mp hc m h
+        · exact h ▸ hgn
+      · intro h
+        have hc : runCarry g n = true :=
+          (runCarry_eq_true_iff g n).mpr (fun m hm => h m (Nat.lt_succ_of_lt hm))
+        rw [runCarry_succ, hc, h n (Nat.lt_succ_self n), Bool.true_and]
+
+/-- ★★ **The generic carry depends only on the carry-passes below.** -/
+theorem runCarry_congr {g h : Nat → Bool} :
+    ∀ n, (∀ m, m < n → g m = h m) → runCarry g n = runCarry h n
+  | 0     => fun _ => by rw [runCarry_zero, runCarry_zero]
+  | n + 1 => fun hyp => by
+      rw [runCarry_succ, runCarry_succ,
+          runCarry_congr n (fun m hm => hyp m (Nat.lt_succ_of_lt hm)),
+          hyp n (Nat.lt_succ_self n)]
+
+/-! ## §8 — the p-ary odometer: ℤ_p's `+1` is the residue unit on the one carrier
+
+The binary odometer (§1–§6) is the 2-adic `+1`; this section lifts it to the **p-adic** `+1` on
+digit streams `Nat → Fin p`, so the one-carrier claim (`the_one_carrier.md`) becomes *algebraic*,
+not only dynamical.  The carry-pass predicate is "the digit is the **top** digit `p-1`" (`topPass`
+— adding `1` to `p-1` overflows, exactly as adding `1` to the bit `1` did); the carry is the
+generic `runCarry` of it (§7), so the **µF/νF mirror transfers for free**: the `+1` terminates
+iff some digit is below the top (`pcarry_dies_iff_has_floor` — a floor to absorb the carry), and
+the **all-top** stream — which is the p-adic `-1` (`ZpSeq.neg_one` is all `p-1`) — has the carry
+running forever (`allTop_pcarry_forever`), wrapping `…(p-1)(p-1)… + 1` to `…000…`
+(`pOdo_allTop_zero`: `(-1) + 1 = 0`).  And the `+1` is **injective** (`pOdo_injective` — the
+successor never collides), the no-exterior signature at the p-adic scale.  So ℤ_p's successor is
+the residue unit acting on `gspine`-over-`Fin p`.  All ∅-axiom (Fin/Nat via `dite` + `Nat.ble`;
+no `funext`). -/
+
+/-- The p-ary carry-pass predicate: `true` iff the digit `d` is the **top** digit `p-1` (so
+    `d.val + 1 = p` overflows).  `Nat.ble p (d.val + 1)` = `p ≤ d.val + 1`, which for `d.val < p`
+    means `d.val + 1 = p`. -/
+def topPass (p : Nat) (d : Fin p) : Bool := Nat.ble p (d.val + 1)
+
+/-- `topPass` is true exactly at the top digit. -/
+theorem topPass_true_iff {p : Nat} (d : Fin p) : topPass p d = true ↔ d.val + 1 = p := by
+  constructor
+  · intro h
+    exact Nat.le_antisymm d.isLt (Nat.le_of_ble_eq_true h)
+  · intro h
+    exact Nat.ble_eq_true_of_le (Nat.le_of_eq h.symm)
+
+/-- `topPass` is false exactly below the top (a floor digit). -/
+theorem topPass_false_iff {p : Nat} (d : Fin p) : topPass p d = false ↔ d.val + 1 < p := by
+  constructor
+  · intro h
+    have hnle : ¬ p ≤ d.val + 1 := fun hle => by
+      rw [topPass, Nat.ble_eq_true_of_le hle] at h; exact Bool.noConfusion h
+    exact Nat.lt_of_not_le hnle
+  · intro h
+    cases hb : topPass p d with
+    | false => rfl
+    | true  =>
+        have := (topPass_true_iff d).mp hb
+        exact absurd this (Nat.ne_of_lt h)
+
+/-- The p-adic carry: the generic carry (§7) of the top-digit predicate. -/
+def pCarry {p : Nat} (d : Nat → Fin p) : Nat → Bool := runCarry (fun n => topPass p (d n))
+
+/-- The carry starts at the residue unit `1`. -/
+theorem pCarry_zero {p : Nat} (d : Nat → Fin p) : pCarry d 0 = true := rfl
+
+/-- ★★★ **The p-adic `+1` terminates iff there is a floor digit.**  `(∃ N, pCarry d N = false) ↔
+    (∃ k, (d k).val + 1 < p)`: the carry resolves in finitely many steps exactly when some digit
+    is below the top (a non-`(p-1)` digit to absorb the carry).  The µF/νF dichotomy of §1
+    transferred to the p-adic odometer via `runCarry_dies_iff` (§7) — terminate-with-floor vs
+    escape-without, on the residue's p-ary digit tree. -/
+theorem pcarry_dies_iff_has_floor {p : Nat} (d : Nat → Fin p) :
+    (∃ N, pCarry d N = false) ↔ (∃ k, (d k).val + 1 < p) := by
+  constructor
+  · intro h
+    obtain ⟨k, hk⟩ := (runCarry_dies_iff (fun n => topPass p (d n))).mp h
+    exact ⟨k, (topPass_false_iff (d k)).mp hk⟩
+  · rintro ⟨k, hk⟩
+    exact (runCarry_dies_iff (fun n => topPass p (d n))).mpr
+      ⟨k, (topPass_false_iff (d k)).mpr hk⟩
+
+/-- ★★ **The carry runs forever on the all-top (`p-1`) stream.**  If every digit is the top
+    (`∀ n, (d n).val + 1 = p`), the `+1` never resolves: `pCarry d n = true` for all `n` — the νF
+    face.  The all-top stream is the p-adic `-1` (`ZpSeq.neg_one`). -/
+theorem allTop_pcarry_forever {p : Nat} (d : Nat → Fin p) (h : ∀ n, (d n).val + 1 = p) :
+    ∀ n, pCarry d n = true :=
+  runCarry_forever (fun n => topPass p (d n)) (fun n => (topPass_true_iff (d n)).mpr (h n))
+
+/-- The single-digit p-ary successor: `d + 1` wrapping `p-1 ↦ 0` (the odometer digit update). -/
+def pSucc {p : Nat} (hp : 0 < p) (d : Fin p) : Fin p :=
+  if h : d.val + 1 < p then ⟨d.val + 1, h⟩ else ⟨0, hp⟩
+
+/-- Below the top, the successor just increments. -/
+theorem pSucc_lt {p : Nat} (hp : 0 < p) (d : Fin p) (h : d.val + 1 < p) :
+    pSucc hp d = ⟨d.val + 1, h⟩ := dif_pos h
+
+/-- At the top, the successor wraps to `0`. -/
+theorem pSucc_top {p : Nat} (hp : 0 < p) (d : Fin p) (h : d.val + 1 = p) :
+    pSucc hp d = ⟨0, hp⟩ :=
+  dif_neg (fun hlt => absurd h (Nat.ne_of_lt hlt))
+
+/-- The p-adic odometer `+1`: add the carry bit to each digit (wrapping at the top). -/
+def pOdo {p : Nat} (hp : 0 < p) (d : Nat → Fin p) : Nat → Fin p :=
+  fun n => cond (pCarry d n) (pSucc hp (d n)) (d n)
+
+/-- ★★★ **The all-top stream incremented wraps to all-zero** (`(-1) + 1 = 0` in ℤ_p).  Since the
+    carry never dies on the all-top stream (`allTop_pcarry_forever`), every digit is the top
+    digit incremented, which wraps to `0` (`pSucc_top`).  So `…(p-1)(p-1)… + 1 = …000…` — the
+    p-adic `-1` plus the residue unit is `0`, the overflow with nowhere to land. -/
+theorem pOdo_allTop_zero {p : Nat} (hp : 0 < p) (d : Nat → Fin p)
+    (h : ∀ n, (d n).val + 1 = p) :
+    ∀ n, pOdo hp d n = ⟨0, hp⟩ := by
+  intro n
+  show cond (pCarry d n) (pSucc hp (d n)) (d n) = ⟨0, hp⟩
+  rw [allTop_pcarry_forever d h n]
+  show pSucc hp (d n) = ⟨0, hp⟩
+  exact pSucc_top hp (d n) (h n)
+
+/-- ★★ **The single-digit successor is injective.**  `pSucc hp d = pSucc hp e → d = e`: below the
+    top it increments (injective), at the top it wraps to `0` only from the unique top digit
+    `p-1`, so no two digits collide. -/
+theorem pSucc_injective {p : Nat} (hp : 0 < p) {d e : Fin p} (h : pSucc hp d = pSucc hp e) :
+    d = e := by
+  rcases Nat.lt_or_ge (d.val + 1) p with hd | hd <;>
+    rcases Nat.lt_or_ge (e.val + 1) p with he | he
+  · have h' : (⟨d.val + 1, hd⟩ : Fin p) = ⟨e.val + 1, he⟩ :=
+      (pSucc_lt hp d hd).symm.trans (h.trans (pSucc_lt hp e he))
+    exact Fin.ext (Nat.succ.inj (congrArg Fin.val h'))
+  · have h' : (⟨d.val + 1, hd⟩ : Fin p) = ⟨0, hp⟩ :=
+      (pSucc_lt hp d hd).symm.trans (h.trans (pSucc_top hp e (Nat.le_antisymm e.isLt he)))
+    exact Nat.noConfusion (congrArg Fin.val h')
+  · have h' : (⟨0, hp⟩ : Fin p) = ⟨e.val + 1, he⟩ :=
+      (pSucc_top hp d (Nat.le_antisymm d.isLt hd)).symm.trans (h.trans (pSucc_lt hp e he))
+    exact Nat.noConfusion (congrArg Fin.val h')
+  · have hdt : d.val + 1 = p := Nat.le_antisymm d.isLt hd
+    have het : e.val + 1 = p := Nat.le_antisymm e.isLt he
+    exact Fin.ext (Nat.succ.inj (hdt.trans het.symm))
+
+/-- The p-adic carry depends only on the digits below (lifted `runCarry_congr`). -/
+theorem pcarry_congr {p : Nat} {d e : Nat → Fin p} (n : Nat)
+    (h : ∀ m, m < n → d m = e m) : pCarry d n = pCarry e n :=
+  runCarry_congr n (fun m hm => by rw [h m hm])
+
+/-- ★★★ **The p-adic successor is injective.**  `pOdo hp d = pOdo hp e` (pointwise) ⟹ `d = e`:
+    the `+1` adding machine never sends two distinct digit streams to one.  By induction on the
+    digit position — the carry is fixed by the lower digits (`pcarry_congr`), and equal carries
+    plus equal outputs force equal digits (`pSucc_injective` on the carry-`true` digits, direct on
+    carry-`false`).  The p-adic-scale `tower_no_cycle` / no-exterior: the act of adding the unit
+    never returns. -/
+theorem pOdo_injective {p : Nat} (hp : 0 < p) {d e : Nat → Fin p}
+    (h : ∀ n, pOdo hp d n = pOdo hp e n) : ∀ n, d n = e n := by
+  have agree : ∀ n, ∀ m, m < n → d m = e m := by
+    intro n
+    induction n with
+    | zero => intro m hm; exact absurd hm (Nat.not_lt_zero m)
+    | succ n ih =>
+        intro m hm
+        rcases Nat.lt_or_eq_of_le (Nat.lt_succ_iff.mp hm) with hlt | heq
+        · exact ih m hlt
+        · subst heq
+          have hc : pCarry d m = pCarry e m := pcarry_congr m ih
+          have he : pOdo hp d m = pOdo hp e m := h m
+          show d m = e m
+          unfold pOdo at he
+          rw [hc] at he
+          cases hcm : pCarry e m with
+          | true  => rw [hcm] at he; exact pSucc_injective hp he
+          | false => rw [hcm] at he; exact he
+  intro n
+  exact agree (n + 1) n (Nat.lt_succ_self n)
+
+/-- ★★★ **The p-ary odometer is the residue unit on the one carrier (capstone).**  ℤ_p's `+1`,
+    lifted to digit streams `Nat → Fin p`:
+
+    1. the carry starts at the unit (`pCarry_zero`);
+    2. it terminates iff there is a floor digit (`pcarry_dies_iff_has_floor` — the µF face) and
+       runs forever on the all-top stream (`allTop_pcarry_forever` — the νF face, the p-adic `-1`);
+    3. `(-1) + 1 = 0`: the all-top stream wraps to all-zero (`pOdo_allTop_zero`);
+    4. the `+1` is injective (`pOdo_injective` — never collides, no-exterior).
+
+    The same adding-machine structure as the binary §1–§2, transferred via the alphabet-
+    independent carry (§7).  So the one νF carrier (`the_one_carrier.md`) carries not only the
+    shift dynamics (CoResidue §21) but ℤ_p's *arithmetic* successor — the claim is algebraic, not
+    only dynamical.  ∅-axiom. -/
+theorem pary_odometer_residue_unit {p : Nat} (hp : 0 < p) (d : Nat → Fin p) :
+    pCarry d 0 = true
+    ∧ ((∃ N, pCarry d N = false) ↔ (∃ k, (d k).val + 1 < p))
+    ∧ ((∀ n, (d n).val + 1 = p) → ∀ n, pCarry d n = true)
+    ∧ ((∀ n, (d n).val + 1 = p) → ∀ n, pOdo hp d n = ⟨0, hp⟩)
+    ∧ (∀ {e : Nat → Fin p}, (∀ n, pOdo hp d n = pOdo hp e n) → ∀ n, d n = e n) :=
+  ⟨pCarry_zero d,
+   pcarry_dies_iff_has_floor d,
+   allTop_pcarry_forever d,
+   pOdo_allTop_zero hp d,
+   fun {_} he => pOdo_injective hp he⟩
+
 end E213.Theory.Raw.Odometer
