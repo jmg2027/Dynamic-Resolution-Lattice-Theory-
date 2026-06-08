@@ -411,6 +411,80 @@ theorem padic_additive_one_carrier {p : Nat} (hp1 : 1 < p) :
             (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1)) (ZpSeq.one p hp1)).digits k).val = 0) :=
   ⟨padic_succ_negOne_eq_zero p (Nat.lt_of_succ_lt hp1), add_negOne_one_zero hp1⟩
 
+/-! ### General `p` — binary `×` on the carrier: ×-closed escapes + the residue ring hom
+
+Full `Zp.mul` (digit convolution with carry) already exists; on the carrier it gives two
+structural facts.  **(A)** The escapes are **closed under `×` and `+`**: the spine of `x·y` (and
+`x+y`) is again reached by no finite Raw — ℤ_p as a carrier subset is a sub-ring of escapes.
+**(B)** The residue-field readout `residue : ℤ_p ↠ 𝔽_p` (the lowest digit) is a **ring
+homomorphism**: `residue(x·y) = residue x · residue y` and `residue(x+y) = residue x + residue y`
+in 𝔽_p, with `0 ↦ 0`, `1 ↦ 1`.  The key computation is carry-free: at position `0` neither sum
+nor product carries, so the digit-0 of `x·y` is `(x₀·y₀) mod p` (`residue_mul`) — the actual
+`Zp.mul` seen on the carrier's 𝔽_p readout.  ∅-axiom. -/
+
+/-- 𝔽_p addition (the residue field's `+`). -/
+def finAdd {p : Nat} (hp : 0 < p) (a b : Fin p) : Fin p := ⟨(a.val + b.val) % p, Nat.mod_lt _ hp⟩
+/-- 𝔽_p multiplication (the residue field's `×`). -/
+def finMul {p : Nat} (hp : 0 < p) (a b : Fin p) : Fin p := ⟨(a.val * b.val) % p, Nat.mod_lt _ hp⟩
+
+/-- ★★ **The residue readout is additive.**  `residue(x+y) = residue x + residue y` in 𝔽_p:
+    position `0` does not carry, so the digit-0 of `x+y` is `(x₀+y₀) mod p`. -/
+theorem residue_add {p : Nat} (hp : 0 < p) (x y : ZpSeq p) :
+    residue (Zp.add p hp x y) = finAdd hp (residue x) (residue y) := by
+  apply Fin.ext
+  show ((Zp.add p hp x y).digits 0).val = ((x.digits 0).val + (y.digits 0).val) % p
+  rw [Zp.add_digit_val, Zp.carry_zero, Nat.add_zero]
+
+/-- ★★★ **The residue readout is multiplicative.**  `residue(x·y) = residue x · residue y` in
+    𝔽_p: position `0` of `Zp.mul` does not carry, so the digit-0 of `x·y` is `(x₀·y₀) mod p` — the
+    full ring multiplication `Zp.mul`, read on the carrier's residue field. -/
+theorem residue_mul {p : Nat} (hp : 0 < p) (x y : ZpSeq p) :
+    residue (Zp.mul p hp x y) = finMul hp (residue x) (residue y) := by
+  apply Fin.ext
+  show ((Zp.mul p hp x y).digits 0).val = ((x.digits 0).val * (y.digits 0).val) % p
+  rw [Zp.mul_digit_val, Zp.mulCarry_zero, Nat.add_zero]
+  show ((0 : Nat) + (x.digits 0).val * (y.digits (0 - 0)).val) % p
+        = ((x.digits 0).val * (y.digits 0).val) % p
+  rw [Nat.zero_add]
+
+/-- ★★★ **The residue field readout is a ring homomorphism `ℤ_p ↠ 𝔽_p`.**  The lowest-digit
+    reduction respects `+` (`residue_add`), `×` (`residue_mul`), `0`, and `1` — the carrier's
+    𝔽_p readout is the genuine residue-field ring map of the existing `Zp.add`/`Zp.mul`. -/
+theorem residue_ring_hom {p : Nat} (hp : 0 < p) (hp1 : 1 < p) :
+    (∀ x y : ZpSeq p, residue (Zp.add p hp x y) = finAdd hp (residue x) (residue y))
+    ∧ (∀ x y : ZpSeq p, residue (Zp.mul p hp x y) = finMul hp (residue x) (residue y))
+    ∧ residue (ZpSeq.zero p hp) = (⟨0, hp⟩ : Fin p)
+    ∧ residue (ZpSeq.one p hp1) = (⟨1, hp1⟩ : Fin p) :=
+  ⟨residue_add hp, residue_mul hp, rfl, rfl⟩
+
+/-- ★★★ **The carrier escapes are a sub-ring (closed under `×` and `+`), with a residue ring
+    hom (capstone).**  For every `p ≥ 2`:
+
+    1. the spine of `x·y` is reached by no finite Raw (escapes ×-closed);
+    2. the spine of `x+y` is reached by no finite Raw (escapes +-closed);
+    3. the residue readout is multiplicative (`residue_mul`) and additive (`residue_add`).
+
+    So ℤ_p, as the carrier subset of escapes, is closed under the existing ring's `+`/`×`, and the
+    carrier's 𝔽_p readout is a ring hom — the binary `×` of `Zp.mul` lives on the one carrier
+    (`gspine`-over-`Fin p`), not only the `× p` generator. -/
+theorem padic_ring_on_carrier {p : Nat} (hp2 : 2 ≤ p) :
+    (∀ (x y : ZpSeq p) (r : Raw),
+        gToShape (finA p hp2) (finB p hp2) r.val
+          ≠ (padicNu (Zp.mul p (Nat.le_of_succ_le hp2) x y)).val)
+    ∧ (∀ (x y : ZpSeq p) (r : Raw),
+        gToShape (finA p hp2) (finB p hp2) r.val
+          ≠ (padicNu (Zp.add p (Nat.le_of_succ_le hp2) x y)).val)
+    ∧ (∀ x y : ZpSeq p,
+        residue (Zp.mul p (Nat.le_of_succ_le hp2) x y)
+          = finMul (Nat.le_of_succ_le hp2) (residue x) (residue y))
+    ∧ (∀ x y : ZpSeq p,
+        residue (Zp.add p (Nat.le_of_succ_le hp2) x y)
+          = finAdd (Nat.le_of_succ_le hp2) (residue x) (residue y)) :=
+  ⟨fun x y r => padic_is_nu_escape hp2 (Zp.mul p (Nat.le_of_succ_le hp2) x y) r,
+   fun x y r => padic_is_nu_escape hp2 (Zp.add p (Nat.le_of_succ_le hp2) x y) r,
+   fun x y => residue_mul (Nat.le_of_succ_le hp2) x y,
+   fun x y => residue_add (Nat.le_of_succ_le hp2) x y⟩
+
 /-! ### General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
 
 Beyond the reached-by-none escape, the *not-enumerable* fact holds for every `p ≥ 2` natively:

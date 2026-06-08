@@ -135,6 +135,15 @@ grounded in the existing ring.  **Open**: `×` as a binary op on `gspine`; ℝ f
 > Note: `Nat.div_self` and `Nat.add_div_right` pull `propext`; use `NatDiv213.mul_div_self_pure`
 > (`1*p/p=1` ⟹ `p/p=1`) for `p/p=1`.
 
+### 3f. Binary `×` on the carrier — ✅ CLOSED (this session)
+`Padic/NuEscape` `padic_ring_on_carrier`: the carrier escapes are closed under `×` and `+` (spine
+of `x·y`/`x+y` reached by no finite Raw), and the residue-field readout `residue : ℤ_p ↠ 𝔽_p` is a
+**ring hom** — `residue_mul` (`residue(x·y) = x₀·y₀ mod p`, carry-free at position 0), `residue_add`,
+`residue_ring_hom` (respects `+`,`×`,`0`,`1`).  So the binary `×` of the real `Zp.mul` lives on the
+one carrier (transport), with a genuine 𝔽_p ring-map.  **Open**: a *native coalgebraic* product
+directly on `gspine` co-trees (convolution-with-carry on the spine, not digit-stream transport);
+ℝ field on the carrier.
+
 > Note (propext traps hit + recorded): `Nat.succ_ne_zero`, `Nat.sub_add_cancel`, `by_cases`, and
 > `rw`-with-an-`Iff` all pull `propext`.  Use `Nat.noConfusion`, `cases p`/defeq, `rcases
 > Nat.lt_or_ge`, and `.mp`/`.mpr` via defeq instead.

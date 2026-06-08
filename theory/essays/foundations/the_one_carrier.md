@@ -146,6 +146,12 @@ equals `mulBase` (`mulBase_eq_mul_pElem`), because multiplication by `p` *carrie
 (`mulCarry_pElem` — each convolution term is one digit `< p`) and so collapses to the shift.  The
 carrier's multiplicative generator is the actual ring operation, not a stand-in.
 
+The **binary** product is on the carrier too: the escapes are closed under `×` and `+` (the spine
+of `x·y` is again reached by no finite Raw, `padic_ring_on_carrier`), and the residue-field readout
+`residue : ℤ_p ↠ 𝔽_p` is a **ring homomorphism** (`residue_ring_hom`) — `residue(x·y) = residue x ·
+residue y` in 𝔽_p, because position `0` of `Zp.mul` carries nothing (`residue_mul`).  So ℤ_p, as
+the carrier subset of escapes, is a sub-ring with a genuine 𝔽_p ring-map readout.
+
 ### Cross-frame
 
 The "one carrier" reading is the number-system instance of three already-pinned 213 facts.
@@ -169,10 +175,14 @@ escape wearing the alphabet of whichever number system is being pointed at.
   injective) **and** the multiplicative valuation generator `× p` (`mulBase`,
   `padic_valuation_one_carrier`: the `pℤ_p` filtration, residue field 𝔽_p, `÷p` = the carrier
   shift), and `mulBase` is the genuine ring `Zp.mul`-by-`p` (`mulBase_eq_mul_pElem`: multiplication
-  by `p` carries nothing, so it collapses to the shift).  What remains open is `×` as a **binary**
-  operation on `gspine` (the general product `x·y`, not only the `× p` generator) and ℝ's field
-  structure on the carrier.  What is closed: the carrier, the shift, the unit-`±1` arithmetic, and
-  the multiplicative valuation filtration `× p` — grounded in the actual `Zp.mul`.
+  by `p` carries nothing, so it collapses to the shift).  The **binary** product `x·y` is on the
+  carrier as the *transport* of `Zp.mul`: escapes are `×`/`+`-closed and the 𝔽_p readout is a ring
+  hom (`padic_ring_on_carrier`).  What remains open is a *native coalgebraic* product directly on
+  `gspine` co-trees (a convolution-with-carry on the spine representation, not via digit-stream
+  transport), and ℝ's field structure on the carrier.  What is closed: the carrier, the shift, the
+  unit-`±1` arithmetic, the multiplicative valuation filtration `× p`, and the binary ring
+  structure (`+`/`×`) transported with a genuine 𝔽_p ring-map readout — all grounded in the actual
+  `Zp.add`/`Zp.mul`.
 - `cutBits` is one honest presentation-dependent extractor (the cut-decision diagonal); it is
   not claimed canonical on the equivalence class.  A faithful map on `Real213.equiv` would need
   the order-decision *limit* (existence via the modulus), which is the LPO-costed step of the
