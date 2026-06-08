@@ -1,9 +1,34 @@
-# Session Handoff — 2026-06-07 (b)
+# Session Handoff — 2026-06-08
 
 ## Branch
 `claude/leibniz-determinant-perms-5zT6T` — pushed.
-`cd lean && lake build` ✓ clean (full tree); `tools/layer_audit.py` 0 violations.
-All new theorems ∅-axiom PURE.
+`cd lean && lake build` ✓ clean (full tree); all new theorems ∅-axiom PURE.
+
+## What Was Done This Session (2026-06-08) — the DETERMINANT chapter CLOSED
+
+The two sign-theory capstones are now both ∅-axiom PURE from scratch:
+
+- ★★★ **`DetTranspose.det_transpose`** — `det n Mᵀ = det n M` (16/16 PURE).
+- ★★★ **`DetMul.det_matMul`** — `det n (A·B) = det n A · det n B` (**39/39 PURE**, NEW).
+
+`DetMul` completes the Cauchy–Binet route on the `PermSign.psign_mul` keystone:
+the diagonal product of `A·B` distributes into a sum over the `n^n` index
+functions `funcs n` (`prodDiag_matMul_expand` + `sumZ_swap` ⟹ `leibDet_matMul_expand`);
+the **permutation** functions assemble to `leibDet A · leibDet B`
+(`leibDet_rowPerm` + `psign_mul`, in `leibDet_perms_assembly`); the
+**non-permutation** functions vanish by a *constructive* pigeonhole
+(`firstDup` scans for a repeated value via the **pure `cnt`-decision** — the
+default `Decidable (a ∈ l)` instance carries `propext`/`Quot.sound`, so it is
+avoided everywhere; `nodup_imp_perm` + `term_zero_of_nonperm`).  The
+funcs↔perms partition (`funcs_filter_perms_lperm`, again a `cnt`-based predicate)
+glues the two halves.
+
+Catalog (`STRICT_ZERO_AXIOM.md`) + `Linalg213/INDEX.md` updated.
+
+---
+
+## Prior session (2026-06-07 b)
+`tools/layer_audit.py` 0 violations.
 
 ## What Was Done This Session
 

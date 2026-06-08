@@ -29,11 +29,17 @@ open E213.Lib.Math.Algebra.Linalg213.DetTranspose
    zipDiag prodDiagFrom_eq_prodZ zipDiag_getD zipDiag_length list_self_map_getD)
 open E213.Lib.Math.Algebra.Linalg213.PermSign (psign_mul altSign_self)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_smul leibDet_rows_eq_ne)
-open E213.Lib.Math.Algebra.Linalg213.CayleyHamilton (sumZ_map_smul_right add_zero' sumZ_swap)
+open E213.Lib.Math.Algebra.Linalg213.CayleyHamilton (sumZ_map_smul_right add_zero' mul_zero' sumZ_swap)
+open E213.Lib.Math.Algebra.Linalg213.PermClosure
+  (eq_one_of_le_one_of_pos nodup_tail nodup_head_not_mem)
+open E213.Lib.Math.Algebra.Linalg213.PermGroup (length_iota)
+open E213.Lib.Math.Algebra.Linalg213.DetN (det)
+open E213.Tactic.List213 (mem_filter mem_filter_of length_filter_lt_of_mem nodup_length_le_of_subset)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure
   (mem_flatMap' mem_flatMap_mpr nodup_cons nodup_map nodup_flatMap cnt cnt_pos_mem cnt_pos_of_mem
    cnt_eq_zero_of_not_mem lperm_of_cnt_eq cnt_lperm)
-open E213.Lib.Math.Algebra.Linalg213.Laplace (matMul map_flatMap sumZ_flatMap sumZ_append)
+open E213.Lib.Math.Algebra.Linalg213.Laplace
+  (matMul map_flatMap sumZ_flatMap sumZ_append leibDet_eq_det)
 open E213.Tactic.List213 (list_ext_getD getD_ge getD_map_ib length_map)
 
 /-- Position-injectivity hypothesis for `idxOf_getD_self`, from `perms`-membership. -/
@@ -413,5 +419,153 @@ theorem nodup_funcs (n : Nat) : Nodup (funcs n) := by
         rcases mem_map' _ hq with ⟨g, _, he⟩
         exact (congrArg (fun l => l.headD 0) he).symm
   exact key (iota n) (nodup_iota n) n
+
+/-! ## §9b — pigeonhole: a non-permutation function repeats a value -/
+
+/-- Membership exposes a `getD` index. -/
+theorem mem_getD : ∀ (l : List Nat) (v : Nat), v ∈ l → ∃ k, k < l.length ∧ l.getD k 0 = v
+  | a :: l, v, h => by
+    cases h with
+    | head      => exact ⟨0, Nat.succ_pos _, rfl⟩
+    | tail _ h' => rcases mem_getD l v h' with ⟨k, hk, he⟩; exact ⟨k + 1, Nat.succ_lt_succ hk, he⟩
+
+/-- The first repeated value of a list (scans head-vs-tail via the **pure** `cnt`
+    decision — `Nat.decEq`, no `Decidable (a ∈ l)` instance). -/
+def firstDup : List Nat → Option Nat
+  | []     => none
+  | a :: l => if cnt a l = 0 then firstDup l else some a
+
+/-- A `firstDup` hit exposes two distinct positions holding the repeated value. -/
+theorem firstDup_some : ∀ (f : List Nat) (v : Nat), firstDup f = some v →
+    ∃ i j, i < j ∧ j < f.length ∧ f.getD i 0 = v ∧ f.getD j 0 = v
+  | a :: l, v, h => by
+    by_cases ha : cnt a l = 0
+    · rw [show firstDup (a :: l) = (if cnt a l = 0 then firstDup l else some a) from rfl,
+          if_pos ha] at h
+      rcases firstDup_some l v h with ⟨i, j, hij, hj, hi', hj'⟩
+      exact ⟨i + 1, j + 1, Nat.succ_lt_succ hij, Nat.succ_lt_succ hj, hi', hj'⟩
+    · rw [show firstDup (a :: l) = (if cnt a l = 0 then firstDup l else some a) from rfl,
+          if_neg ha] at h
+      have hav : a = v := Option.some.inj h
+      have hmem : a ∈ l := cnt_pos_mem (by
+        cases hc : cnt a l with
+        | zero => exact absurd hc ha
+        | succ k => exact Nat.succ_pos k)
+      rcases mem_getD l a hmem with ⟨k, hk, he⟩
+      exact ⟨0, k + 1, Nat.succ_pos _, Nat.succ_lt_succ hk, hav, he.trans hav⟩
+
+/-- No `firstDup` ⟹ the list is `List.Nodup`. -/
+theorem firstDup_none : ∀ (f : List Nat), firstDup f = none → f.Nodup
+  | [],     _ => List.Pairwise.nil
+  | a :: l, h => by
+    rw [show firstDup (a :: l) = (if cnt a l = 0 then firstDup l else some a) from rfl] at h
+    by_cases ha : cnt a l = 0
+    · rw [if_pos ha] at h
+      have hnm : a ∉ l := fun hm => Nat.lt_irrefl 0 (ha ▸ cnt_pos_of_mem hm)
+      exact List.Pairwise.cons (fun a' ha' e => hnm (by rw [e]; exact ha')) (firstDup_none l h)
+    · rw [if_neg ha] at h; exact Option.noConfusion h
+
+/-- cnt-`Nodup` ⟹ `List.Nodup`; and the converse. -/
+theorem listNodup_of_cntNodup : ∀ {L : List Nat}, Nodup L → L.Nodup
+  | [],     _ => List.Pairwise.nil
+  | _ :: _, h => List.Pairwise.cons
+      (fun _ ha' heq => nodup_head_not_mem h (by rw [heq]; exact ha'))
+      (listNodup_of_cntNodup (nodup_tail h))
+
+theorem cntNodup_of_listNodup : ∀ {L : List Nat}, L.Nodup → Nodup L
+  | [],     _ => fun _ => Nat.zero_le _
+  | a :: _, h => by
+    cases h with
+    | cons hal ht => exact nodup_cons (fun hm => (hal a hm) rfl) (cntNodup_of_listNodup ht)
+
+/-- **Pigeonhole**: a `List.Nodup` list `L1 ⊆ L2` with `|L2| ≤ |L1|` contains all of `L2`. -/
+theorem mem_of_card_le {L1 L2 : List Nat} (h1 : L1.Nodup) (hsub : ∀ x, x ∈ L1 → x ∈ L2)
+    (hlen : L2.length ≤ L1.length) : ∀ v, v ∈ L2 → v ∈ L1 := by
+  intro v hv
+  cases Nat.eq_zero_or_pos (cnt v L1) with
+  | inr hpos => exact cnt_pos_mem hpos
+  | inl hzero =>
+    exfalso
+    have hvL1 : v ∉ L1 := fun hm => Nat.lt_irrefl 0 (hzero ▸ cnt_pos_of_mem hm)
+    have hsub' : ∀ x, x ∈ L1 → x ∈ L2.filter (fun a => if a = v then false else true) :=
+      fun x hx => mem_filter_of (hsub x hx) (if_neg (fun (e : x = v) => hvL1 (e ▸ hx)))
+    exact Nat.lt_irrefl L1.length (Nat.lt_of_le_of_lt (nodup_length_le_of_subset h1 hsub')
+      (Nat.lt_of_lt_of_le (length_filter_lt_of_mem hv (if_pos rfl)) hlen))
+
+/-- ★ **Nodup ⟹ permutation**: a nodup function `f ∈ funcs n` is a permutation (surjective by
+    pigeonhole). -/
+theorem nodup_imp_perm (n : Nat) (f : List Nat) (hf : f ∈ funcs n) (hfnd : Nodup f) :
+    f ∈ perms n := by
+  have hlen : f.length = n := tuples_length (iota n) n f hf
+  have hent : ∀ x, x ∈ f → x < n := fun x hx => lt_of_mem_iota (tuples_entries (iota n) n f hf x hx)
+  have hsurj : ∀ v, v ∈ iota n → v ∈ f :=
+    mem_of_card_le (listNodup_of_cntNodup hfnd) (fun x hx => mem_iota_of_lt (hent x hx))
+      (Nat.le_of_eq (by rw [length_iota, hlen]))
+  refine permsOf_complete (iota n) f (lperm_of_cnt_eq f (iota n) (fun a => ?_))
+  by_cases ha : a < n
+  · rw [eq_one_of_le_one_of_pos (hfnd a) (cnt_pos_of_mem (hsurj a (mem_iota_of_lt ha))),
+        eq_one_of_le_one_of_pos (nodup_iota n a) (cnt_pos_of_mem (mem_iota_of_lt ha))]
+  · rw [cnt_eq_zero_of_not_mem (fun hm => ha (hent a hm)),
+        cnt_eq_zero_of_not_mem (fun hm => ha (lt_of_mem_iota hm))]
+
+/-! ## §9c — the partition and the multiplicative determinant -/
+
+/-- A non-permutation function repeats a value (`firstDup`), so its row-permuted determinant
+    vanishes. -/
+theorem term_zero_of_nonperm (A B : Nat → Nat → Int) (n : Nat) (f : List Nat) (hf : f ∈ funcs n)
+    (hnp : f ∉ perms n) : prodDiagFrom A 0 f * leibDet n (rowPerm f B) = 0 := by
+  have hlen : f.length = n := tuples_length (iota n) n f hf
+  cases hfd : firstDup f with
+  | some v =>
+    rcases firstDup_some f v hfd with ⟨i, j, hij, hj, hi', hj'⟩
+    rw [leibDet_rowPerm_zero n f B (Nat.ne_of_lt hij) (Nat.lt_trans hij (hlen ▸ hj)) (hlen ▸ hj)
+          (hi'.trans hj'.symm), mul_zero']
+  | none =>
+    exact absurd (nodup_imp_perm n f hf (cntNodup_of_listNodup (firstDup_none f hfd))) hnp
+
+/-- `cnt` under a `filter`. -/
+theorem cnt_filter_le {α : Type} [DecidableEq α] (p : α → Bool) (v : α) :
+    ∀ (L : List α), cnt v (L.filter p) ≤ cnt v L
+  | []     => Nat.le_refl 0
+  | a :: l => by
+    cases hp : p a with
+    | true =>
+      rw [List.filter_cons_of_pos hp]
+      show (if a = v then 1 else 0) + cnt v (l.filter p) ≤ (if a = v then 1 else 0) + cnt v l
+      exact Nat.add_le_add_left (cnt_filter_le p v l) _
+    | false =>
+      rw [List.filter_cons_of_neg (by rw [hp]; exact Bool.noConfusion)]
+      exact Nat.le_trans (cnt_filter_le p v l) (Nat.le_add_left _ _)
+
+/-- `(funcs n).filter (·∈perms n)` is `LPerm` to `perms n`. -/
+theorem funcs_filter_perms_lperm (n : Nat) :
+    LPerm ((funcs n).filter (fun (f : List Nat) => decide (0 < cnt f (perms n)))) (perms n) := by
+  apply lperm_of_nodup_mem_iff
+  · exact fun v => Nat.le_trans
+      (cnt_filter_le (fun (f : List Nat) => decide (0 < cnt f (perms n))) v (funcs n))
+      (nodup_funcs n v)
+  · exact nodup_permsOf (nodup_iota n)
+  · intro q
+    constructor
+    · intro hq; exact cnt_pos_mem (of_decide_eq_true (mem_filter hq).2)
+    · intro hq
+      exact mem_filter_of (perms_subset_funcs n q hq) (decide_eq_true (cnt_pos_of_mem hq))
+
+/-- ★★★ **The Leibniz determinant is multiplicative**: `leibDet (A·B) = leibDet A · leibDet B`. -/
+theorem leibDet_matMul (A B : Nat → Nat → Int) (n : Nat) :
+    leibDet n (matMul n A B) = leibDet n A * leibDet n B := by
+  rw [leibDet_matMul_expand A B n,
+      sumZ_eq_filter (fun (f : List Nat) => decide (0 < cnt f (perms n)))
+        (fun f => prodDiagFrom A 0 f * leibDet n (rowPerm f B)) (funcs n)
+        (fun f hf hd => term_zero_of_nonperm A B n f hf
+          (fun hm => of_decide_eq_false hd (cnt_pos_of_mem hm))),
+      sumZ_lperm (map_lperm (fun f => prodDiagFrom A 0 f * leibDet n (rowPerm f B))
+        (funcs_filter_perms_lperm n)),
+      leibDet_perms_assembly A B n]
+
+/-- ★★★ **The multiplicative determinant**: `det n (A·B) = det n A · det n B`. -/
+theorem det_matMul (A B : Nat → Nat → Int) (n : Nat) :
+    det n (matMul n A B) = det n A * det n B := by
+  rw [← leibDet_eq_det n (matMul n A B), ← leibDet_eq_det n A, ← leibDet_eq_det n B, leibDet_matMul]
 
 end E213.Lib.Math.Algebra.Linalg213.DetMul

@@ -27,7 +27,7 @@ arithmetic and physics couplings.
   - `PermClosure.lean`    — enumeration sound/complete/nodup; alternating + multilinear
   - `Laplace.lean`        — cofactor expansion, `leibDet_eq_det`, adjugate `M·adj M = det·I`
   - `DetTranspose.lean`   — ★★★ `det Mᵀ = det M` (psign_inv + invPerm involution + product-reindex)
-  - `DetMul.lean`         — toward `det(M·N) = det M·det N`: perm-group closure + row-permutation det
+  - `DetMul.lean`         — ★★★ `det(M·N) = det M·det N`: perm-group closure + row-permutation det + Cauchy–Binet expansion + constructive pigeonhole
   - `PermBridge.lean`     — the two `perms` enumerations coincide; `leibDet` is a sum of `n!` terms
   - `CayleyHamilton.lean` — matrix ring + integer Cayley–Hamilton `χ_M(M)=0`
   - `CharPolyAdj.lean` / `PolyDet.lean` — polynomial adjugate identity over `ℤ[X]`
