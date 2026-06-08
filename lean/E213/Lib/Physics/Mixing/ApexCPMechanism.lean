@@ -52,11 +52,16 @@ element `M⁵ = −1`.
 
 Derived internally: the apex *modulus* `= r` (frozen contraction), the phase's
 `π` (`= M⁵` central involution), and the **CP-existence mechanism**
-(`η ≠ 0 ⟺ M⁵ = −1`).  The residual gap shrinks to the frozen↔dynamic
-**coupling** `δ = π·R_u` (phase `= π ×` modulus) — both *ingredients* are now
-internal (`r`, `π`), but the specific coupling form is the single-parameter
-ansatz, not yet separately forced.  Transcendental relations (`sin`, `e^{iπr}`)
-are documented, not PURE-Nat; the integer skeleton below is PURE.
+(`η ≠ 0 ⟺ M⁵ = −1`).  The residual is the **coupling** `δ = π·R_u` — but note it
+*follows* from the form `z = r·(−1)^r` (`arg((−1)^r) = πr`), so the real
+question is why the apex is **single-parameter** (exponent `= modulus`).  That is
+the `§5.1` **no-exterior / 0-parameter** principle: the apex phase carries no
+independent dialer, so it *must* be a function of the one internal number `r`
+and the only phase constant `π = arg(M⁵)`; `δ = π·r` is the minimal linear
+realization.  So the coupling is **0-parameter-forced**, not arbitrary; the soft
+residual is only the minimality of the linear form `f(r) = π·r`.
+Transcendental relations (`sin`, `e^{iπr}`) are documented, not PURE-Nat; the
+integer skeleton below is PURE.
 -/
 
 namespace E213.Lib.Physics.Mixing.ApexCPMechanism

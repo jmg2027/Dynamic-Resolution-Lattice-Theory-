@@ -157,15 +157,31 @@ This gives the CP-area its integer core but does **not** yet close the coupling:
 the physical `η̄ ≈ 0.356` is `F₄ = NS` dressed by the λ-hierarchy and the
 φ-contraction, and that dressing is not derived.
 
-## What remains — the frozen↔dynamic coupling `δ = π·R_u`
+## What remains — the coupling `δ = π·R_u`, reframed as 0-parameter-forced
 
-The single residual: the **coupling form** `δ = π·R_u` (phase `= π ×` modulus),
-i.e. *why the contraction rate `r` also sets the phase fraction* `δ/π = r`. Both
-*ingredients* are now internal (`r = 1/φ²` frozen, `π = M⁵` dynamic) and the
-**CP-existence mechanism is derived**; what is not yet separately forced is that
-the two Lens readings couple as `phase = π·(modulus)` rather than another
-function. This is a far smaller gap than the original "why is the apex a
-self-reference eigenvalue at all".
+The single residual is the **coupling** `δ = π·R_u`. Note first it is *not* an
+extra identity to bolt on: it **follows from the apex form** `z = r·(−1)^r`
+(since `arg((−1)^r) = πr`, `|z| = r`). So the real question is *why the
+exponent equals the modulus* (both `r`) — i.e. why the apex is the
+**single-parameter** object `z = r·(−1)^r`.
+
+**This is the `§5.1` no-exterior (0-parameter) principle applied to the apex
+phase.** There is no exterior dialer, so the apex phase carries **no independent
+degree of freedom** — it *must* be a function of the single internal number `r`
+(the frozen contraction) and the only phase-bearing constant available, the
+central involution's `π = arg(M⁵) = arg(−1)`. The minimal such realization,
+linear in `r` with the central coefficient `π`, is `δ = π·r`. So the coupling is
+**0-parameter-forced** (consistent with DRLT's whole no-free-parameter ethos),
+not an arbitrary choice; both *ingredients* are internal (`r` frozen, `π = M⁵`
+dynamic) and the **CP-existence mechanism is derived** (`η ≠ 0 ⟺ M⁵ = −1`).
+
+**Honest residual.** What is *not* proven is the **minimality/uniqueness of the
+linear form** `f(r) = π·r` (vs `π·r·(const)`, or higher order). The coefficient
+being exactly `π` (one central half-turn, not `2π`) and the form being linear
+are natural but not theorems. So the gap has shrunk from "why is the apex a
+self-reference eigenvalue" (original) → "the phase is 0-parameter-forced to
+`f(r)`; is the minimal linear `π·r` the forced form?" — a soft, well-isolated
+residual, with the structure, mechanism, and 0-parameter status all internal.
 
 ## (superseded) What remains — one physical identification
 
