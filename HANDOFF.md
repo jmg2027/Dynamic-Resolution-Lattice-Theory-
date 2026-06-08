@@ -97,6 +97,19 @@ share one carrier.  All ∅-axiom.
 the *same* `SlashNu` carrier as König / 2-adic / p-adic; `real_cut_distinct` faithful on cut
 bits.  So König / ℤ_p / ℝ all sit on one νF carrier.
 
+### 3b. Arithmetic odometer lift — ✅ CLOSED (this session)
+`Odometer.lean` §7 `runCarry` (the alphabet-independent adding-machine carry; binary carry is the
+`g=f` instance) + §8 the **p-ary odometer** `pOdo` on `Nat→Fin p`: `pcarry_dies_iff_has_floor`
+(µF/νF mirror), `pOdo_allTop_zero` (`(-1)+1=0`), `pOdo_injective` (no collision).  `Padic/NuEscape`
+capstone `padic_arithmetic_one_carrier`: ℤ_p's `-1` (= `ZpSeq.neg_one`, all digits `p-1`) is the
+all-top stream whose `+1`-carry never lands and wraps to `0` — so the one-carrier claim is
+*algebraic* (the residue unit `+1`), not only dynamical.  **Open**: lifting `×` (digit convolution
+with carry) — the full ℤ_p ring / ℝ field on the generic carrier.  Essay updated.
+
+> Note (propext traps hit + recorded): `Nat.succ_ne_zero`, `Nat.sub_add_cancel`, `by_cases`, and
+> `rw`-with-an-`Iff` all pull `propext`.  Use `Nat.noConfusion`, `cases p`/defeq, `rcases
+> Nat.lt_or_ge`, and `.mp`/`.mpr` via defeq instead.
+
 ### 4. More concept deep-dives (the systematic pass)
 limit/completion, quotient/equivalence-class, actual-vs-potential infinity.  Each → its 213
 reading.  Seeds in `naming_abstract_concepts.md`.

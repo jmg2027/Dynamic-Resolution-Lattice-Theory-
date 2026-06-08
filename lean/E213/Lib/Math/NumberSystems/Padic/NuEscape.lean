@@ -27,6 +27,7 @@ carrier via `Real213/NuEscape.lean`.
 namespace E213.Lib.Math.NumberSystems.Padic
 
 open E213.Theory.Raw.CoResidue
+open E213.Theory.Raw.Odometer (pOdo pCarry allTop_pcarry_forever pOdo_allTop_zero)
 open E213.Theory (Raw)
 
 /-- A 2-adic integer's digit stream as a `Nat → Bool` bit-stream (`Fin 2 ≃ Bool`,
@@ -99,6 +100,52 @@ theorem padic_shift_dynamics {p : Nat} (x : ZpSeq p) :
     ∧ (∀ q, gCoLeftAt (padicNu x).val [] q = some (x.digits 0))
     ∧ (∀ q, gCoRightAt (padicNu x).val [] q = gspine (fun n => x.digits (n + 1)) q) :=
   gspine_shift_coalgebra x.digits
+
+/-! ### General `p` — the arithmetic odometer: ℤ_p's `+1` and `-1` on the one carrier
+
+The p-ary spine carries not only the digit-shift (`padic_shift_dynamics`) but ℤ_p's *arithmetic*
+successor — the p-ary odometer (`Theory/Raw/Odometer` §8).  `ZpSeq.neg_one` (all digits `p-1`) is
+the all-top stream: its `+1`-carry runs forever (`allTop_pcarry_forever`) and wraps to `0`
+(`pOdo_allTop_zero`), i.e. `(-1) + 1 = 0`; and it seeds the canonical p-ary escape, reached by no
+finite Raw.  So the one-carrier claim is *algebraic*: ℤ_p's residue-unit `+1` acts on
+`gspine`-over-`Fin p`, with `-1` the canonical escape. -/
+
+/-- The p-adic `-1` (`ZpSeq.neg_one`, all digits `p-1`) is the all-top digit stream. -/
+theorem negOne_all_top (p : Nat) (hp : 0 < p) :
+    ∀ n, ((ZpSeq.neg_one p hp).digits n).val + 1 = p := by
+  intro n
+  show (p - 1) + 1 = p
+  cases p with
+  | zero   => exact absurd hp (Nat.not_lt_zero 0)
+  | succ k => rfl
+
+/-- ★★★ **In ℤ_p, `(-1) + 1 = 0` is the odometer overflow.**  The p-adic `-1`'s digit stream is
+    all-top (`negOne_all_top`), so the residue-unit `+1` (`pOdo`) never resolves and wraps every
+    digit to `0` (`pOdo_allTop_zero`): `pOdo (neg_one) = zero` as digit streams — the arithmetic
+    overflow with nowhere to land. -/
+theorem padic_succ_negOne_eq_zero (p : Nat) (hp : 0 < p) :
+    ∀ n, pOdo hp (ZpSeq.neg_one p hp).digits n = (ZpSeq.zero p hp).digits n :=
+  fun n => pOdo_allTop_zero hp _ (negOne_all_top p hp) n
+
+/-- ★★★ **The arithmetic one-carrier (capstone).**  ℤ_p's residue unit `+1` lives on the one νF
+    carrier:
+
+    1. on the p-adic `-1` (all-top stream) the `+1`-carry runs forever (`allTop_pcarry_forever`)
+       — the canonical escape, the `+1` demanding a new rung;
+    2. `(-1) + 1 = 0`: it wraps to `zero` (`padic_succ_negOne_eq_zero`);
+    3. and `-1` is reached by no finite Raw on the p-ary spine (`padic_is_nu_escape`).
+
+    So the one-carrier claim (`the_one_carrier.md`) is *algebraic*, not only dynamical: ℤ_p's
+    successor is the residue unit on `gspine`-over-`Fin p`, the p-adic `-1` its canonical escape.
+    ∅-axiom. -/
+theorem padic_arithmetic_one_carrier (p : Nat) (hp : 0 < p) (hp2 : 2 ≤ p) :
+    (∀ n, pCarry (ZpSeq.neg_one p hp).digits n = true)
+    ∧ (∀ n, pOdo hp (ZpSeq.neg_one p hp).digits n = (ZpSeq.zero p hp).digits n)
+    ∧ (∀ r : Raw,
+        gToShape (finA p hp2) (finB p hp2) r.val ≠ (padicNu (ZpSeq.neg_one p hp)).val) :=
+  ⟨allTop_pcarry_forever _ (negOne_all_top p hp),
+   padic_succ_negOne_eq_zero p hp,
+   fun r => padic_is_nu_escape hp2 (ZpSeq.neg_one p hp) r⟩
 
 /-! ### General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
 

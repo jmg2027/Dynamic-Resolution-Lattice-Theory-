@@ -44,7 +44,10 @@ leaves, fold, swap).  Public surface exposed via `API.lean`.
                         vs trace; `the_residue_as_state_machine.md`)
   - `Odometer.lean`   — the residue unit's `+1` adding machine on the
                         bit-stream escapes: carry/escape, injective + invertible
-                        (`ℤ`-action), reversibility asymmetry, `ℤ₂`-homeomorphism
+                        (`ℤ`-action), reversibility asymmetry, `ℤ₂`-homeomorphism;
+                        §7 the alphabet-independent carry (`runCarry`), §8 the
+                        **p-ary odometer** (`pOdo`, ℤ_p's `+1`: `(-1)+1=0`,
+                        injective — the arithmetic one-carrier, `Padic/NuEscape`)
   - `OdometerValue.lean` — the profinite value (`bval`): `odo = +1 mod 2ᵏ`
                         (`bval_odo`) + `ℤ`-action freeness (`odo_free`); narr.
                         `theory/essays/foundations/the_residue_unit_odometer.md`

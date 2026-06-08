@@ -25,7 +25,10 @@ reads as three labellings of one residue-escape — a breadth-claim (`seed/AXIOM
   (`konig_infinity_no_finite_raw`).
 - p-adic instance: `lean/E213/Lib/Math/NumberSystems/Padic/NuEscape.lean`
   (`padicNu`, `padic_is_nu_escape`, `padic_distinct`, `padic_shift_dynamics`; the `Fin 2 ≃ Bool`
-  case `twoAdic_is_nu_escape`).
+  case `twoAdic_is_nu_escape`; the arithmetic capstone `padic_arithmetic_one_carrier`).
+- arithmetic (the residue unit `+1`): `lean/E213/Theory/Raw/Odometer.lean` §7–§8
+  (`runCarry` the alphabet-independent carry; `pOdo`/`pCarry` the p-ary odometer,
+  `pOdo_allTop_zero` = `(-1)+1=0`, `pOdo_injective`).
 - Real instance: `lean/E213/Lib/Math/NumberSystems/Real213/NuEscape.lean`
   (`cutBits`, `cutNu`, `real_is_nu_escape`, `real_cut_distinct`, `real_shift_dynamics`,
   `real_one_carrier`).
@@ -101,6 +104,27 @@ period-1 (shift-fixed) point — it ties back to `the_residue_unit_odometer.md`,
 residue's `+1` is the `ℤ₂`-odometer whose overflow *is* `spineL`.  The number systems share one
 carrier *and* one shift; `gspine_shift_dynamics` is the capstone.
 
+### One carrier is one *arithmetic* (the odometer `+1`)
+
+The shift is the *forgetful* half of the dynamics (drop a digit); its reversible partner is the
+**odometer** — the residue unit `+1` with carry (`the_residue_unit_odometer.md`).  That `+1` lifts
+to the generic carrier too (`Theory/Raw/Odometer` §7–§8): the carry's terminate-with-floor /
+escape-without content is *alphabet-independent* (`runCarry`, of which the binary carry is the
+`g = f` instance), and on `Fin p` it is the p-adic `+1` (`pOdo`).  Three facts make the
+one-carrier claim **algebraic**, not only dynamical:
+
+- the p-adic `-1` is `ZpSeq.neg_one` = the **all-top** digit stream (`negOne_all_top`), on which
+  the `+1`-carry runs forever (`allTop_pcarry_forever`) — the canonical escape read
+  arithmetically, the `+1` demanding a new rung (`MuNuMirror.ascent_unbounded`);
+- `(-1) + 1 = 0`: the all-top stream wraps to `zero` (`padic_succ_negOne_eq_zero` /
+  `pOdo_allTop_zero`) — the overflow with nowhere to land;
+- the `+1` is **injective** (`pOdo_injective`) — the successor never collides, no-exterior at the
+  p-adic scale (`tower_no_cycle`).
+
+So ℤ_p's successor *is* the residue unit acting on `gspine`-over-`Fin p`, and the p-adic `-1` is
+its canonical escape (`padic_arithmetic_one_carrier`).  The carrier hosts not just the *shape* and
+the *shift* of the number systems but the residue unit's *arithmetic*.
+
 ### Cross-frame
 
 The "one carrier" reading is the number-system instance of three already-pinned 213 facts.
@@ -120,12 +144,12 @@ escape wearing the alphabet of whichever number system is being pointed at.
 
 ## Honest scope
 
-- The unification is at the level of the *carrier and its shift*, not of the number systems'
-  *arithmetic*.  `ℤ_p`'s ring structure and `ℝ`'s field structure are not claimed to descend
-  from `gspine`; what is shared is the reached-by-none escape and the Bernoulli shift on the
-  leaf-streams.  Whether the +1-with-carry odometer (`Theory/Raw/Odometer`,
-  `the_residue_unit_odometer.md`) lifts to an *arithmetic* on the generic carrier — making the
-  one-carrier claim an algebraic and not only a dynamical one — is the open frontier.
+- The shared *arithmetic* is the residue unit `+1` (the odometer, `Theory/Raw/Odometer` §8) and
+  its inverse `-1` — the additive successor structure, with `(-1) + 1 = 0` and injectivity.  The
+  *full* ring of ℤ_p (multiplication, the `× p` valuation shift) and the field of ℝ are **not**
+  claimed to descend from `gspine`; lifting `×` (digit convolution with carry) to the generic
+  carrier is the remaining open frontier.  What is closed: the carrier, the shift, and the
+  unit-`+1` arithmetic.
 - `cutBits` is one honest presentation-dependent extractor (the cut-decision diagonal); it is
   not claimed canonical on the equivalence class.  A faithful map on `Real213.equiv` would need
   the order-decision *limit* (existence via the modulus), which is the LPO-costed step of the
