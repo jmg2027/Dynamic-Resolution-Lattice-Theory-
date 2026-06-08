@@ -88,7 +88,7 @@ Narrative: `theory/math/numbersystems/completeness_without_completeness.md`.
                                       order-`(K+1)` recurrence the `(K+1)×(K+1)` Hankel
                                       (Casoratian) determinant multiplies by the companion
                                       determinant `altSign K · a 0` each step
-                                      (`casoratian_step`, `casoratian_closed`).  Structural —
+                                      (`casoratian_det_step`, `casoratian_det_closed`).  Structural —
                                       `H(n+1) = C·H(n)` (`det_matMul`) + `det_companion`,
                                       no expansion; subsumes order 2/3/4 (the order-4 rung
                                       `ring_intZ` could not reach)

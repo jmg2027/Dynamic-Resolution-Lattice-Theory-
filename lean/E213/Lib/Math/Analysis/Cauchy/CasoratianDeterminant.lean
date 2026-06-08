@@ -16,7 +16,7 @@ kernel's reach).  The structural statement holds at all orders and needs no expa
 > **Hankel (Casoratian) determinant** `Hₖ(n) = det[s(n+i+j)]_{i,j<k}` multiplies by the
 > **companion determinant** at every step:
 >
-> `Hₖ(n+1) = altSign(k−1) · a 0 · Hₖ(n)`   (`casoratian_step`).
+> `Hₖ(n+1) = altSign(k−1) · a 0 · Hₖ(n)`   (`casoratian_det_step`).
 
 The proof is the one structural fact behind every rung: the shifted Hankel matrix is the
 companion matrix times the original, `H(n+1) = C · H(n)` (the recurrence read as a single linear
@@ -199,7 +199,7 @@ theorem hankel_shift_eq_matMul (s : Nat → Int) (a : Nat → Int) (k n : Nat)
 
     The structural closure of the determinantal depth ladder — `det_step` (order 2) and
     `second_casoratian` (order 3) are the `K = 1, 2` cases, no expansion needed. -/
-theorem casoratian_step (s : Nat → Int) (a : Nat → Int) (K n : Nat)
+theorem casoratian_det_step (s : Nat → Int) (a : Nat → Int) (K n : Nat)
     (hrec : ∀ m, s (m + (K + 1)) = sumZ ((iota (K + 1)).map (fun l => a l * s (m + l)))) :
     casoratian s (K + 1) (n + 1) = altSign K * a 0 * casoratian s (K + 1) n := by
   show det (K + 1) (hankelMat s (n + 1)) = altSign K * a 0 * det (K + 1) (hankelMat s n)
@@ -214,12 +214,12 @@ def qpow (q : Int) : Nat → Int
   | n + 1 => q * qpow q n
 
 /-- ★★★ **Closed form of the Casoratian along the offset.** -/
-theorem casoratian_closed (s : Nat → Int) (a : Nat → Int) (K : Nat)
+theorem casoratian_det_closed (s : Nat → Int) (a : Nat → Int) (K : Nat)
     (hrec : ∀ m, s (m + (K + 1)) = sumZ ((iota (K + 1)).map (fun l => a l * s (m + l)))) :
     ∀ n, casoratian s (K + 1) n = qpow (altSign K * a 0) n * casoratian s (K + 1) 0
   | 0     => by show casoratian s (K + 1) 0 = 1 * casoratian s (K + 1) 0; rw [Int.one_mul]
   | n + 1 => by
-      rw [casoratian_step s a K n hrec, casoratian_closed s a K hrec n]
+      rw [casoratian_det_step s a K n hrec, casoratian_det_closed s a K hrec n]
       exact (mul_assoc (altSign K * a 0) (qpow (altSign K * a 0) n)
               (casoratian s (K + 1) 0)).symm
 
@@ -236,7 +236,7 @@ exceeds the kernel) — here a one-line instance. -/
 theorem second_order_multiplier (s a : Nat → Int) (n : Nat)
     (hrec : ∀ m, s (m + 2) = sumZ ((iota 2).map (fun l => a l * s (m + l)))) :
     casoratian s 2 (n + 1) = -(a 0) * casoratian s 2 n := by
-  rw [casoratian_step s a 1 n hrec]
+  rw [casoratian_det_step s a 1 n hrec]
   show -(1 : Int) * a 0 * casoratian s 2 n = -(a 0) * casoratian s 2 n
   rw [neg_mul, Int.one_mul]
 
@@ -244,7 +244,7 @@ theorem second_order_multiplier (s a : Nat → Int) (n : Nat)
 theorem third_order_multiplier (s a : Nat → Int) (n : Nat)
     (hrec : ∀ m, s (m + 3) = sumZ ((iota 3).map (fun l => a l * s (m + l)))) :
     casoratian s 3 (n + 1) = a 0 * casoratian s 3 n := by
-  rw [casoratian_step s a 2 n hrec]
+  rw [casoratian_det_step s a 2 n hrec]
   show -(-(1 : Int)) * a 0 * casoratian s 3 n = a 0 * casoratian s 3 n
   rw [Int.neg_neg, Int.one_mul]
 
@@ -254,7 +254,7 @@ theorem third_order_multiplier (s a : Nat → Int) (n : Nat)
 theorem fourth_order_multiplier (s a : Nat → Int) (n : Nat)
     (hrec : ∀ m, s (m + 4) = sumZ ((iota 4).map (fun l => a l * s (m + l)))) :
     casoratian s 4 (n + 1) = -(a 0) * casoratian s 4 n := by
-  rw [casoratian_step s a 3 n hrec]
+  rw [casoratian_det_step s a 3 n hrec]
   show -(-(-(1 : Int))) * a 0 * casoratian s 4 n = -(a 0) * casoratian s 4 n
   rw [Int.neg_neg, neg_mul, Int.one_mul]
 

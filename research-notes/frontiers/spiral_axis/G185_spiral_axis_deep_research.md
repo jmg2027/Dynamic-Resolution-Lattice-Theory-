@@ -60,7 +60,7 @@ ring homomorphism (NOT glyph-reuse):
     (`golden_trace_recurrence`).  The modular↔Cassini bridge is a theorem.
   - **A3** ✓ **CLOSED — and generalised past `k=4`.**  The determinantal ladder closed at **all**
     orders in one structural theorem (not just the requested order-4 `hankel4`):
-    `Analysis/Cauchy/CasoratianDeterminant.casoratian_step` — for any constant-coefficient
+    `Analysis/Cauchy/CasoratianDeterminant.casoratian_det_step` — for any constant-coefficient
     order-`(K+1)` recurrence the `(K+1)×(K+1)` Hankel/Casoratian determinant multiplies by the
     companion determinant `altSign K · a 0` each step.  Proof = `H(n+1) = C·H(n)`
     (`hankel_shift_eq_matMul`) + `DetMul.det_matMul` + `det_companion` (no `ring_intZ` expansion —

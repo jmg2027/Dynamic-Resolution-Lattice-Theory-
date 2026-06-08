@@ -144,6 +144,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `casoratian_axis_cp_crossdomain` — **the Casoratian / spiral-axis branch ↔ main's CKM
+  CP-phase arc** (merge marathon).  Proven shared object: the order-4 spiral-axis point
+  `4=|ℤ[i]^×|` IS the CKM CP-phase's `C₄` — the *same* ring `ℤ[i]`, read as a floor rotation
+  (axis) and as the Hodge `⋆` (CP); the CP phase sits at the `i`-point (disc `−4`) of the axis.
+  Plus: the companion-determinant sign `altSign(k−1)` is the `psign` of the shift cycle (a fourth
+  instance of main's "permutation under three readouts"); `det_matMul` is the shared engine.
+  Buildable: `det_companion ↔ psign(cyclicShift)` (Lean), and a synthesis essay tying
+  `cp_phase` ↔ `spiral_coordinate_classification` through `ℤ[i]^×=C₄`.
 - `cp_crossdomain_insights` — **CP-phase cohomology ↔ main's sign/QR/cyclotomic
   campaigns** (merge marathon). Four candidate bridges where the two branches
   share one object: (1) the inversion sign is one object — `det(permMatrix)=psign`
