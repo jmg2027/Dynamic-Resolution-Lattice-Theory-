@@ -24,7 +24,7 @@ open E213.Lib.Math.Algebra.Linalg213.Permutation
 open E213.Lib.Math.Algebra.Linalg213.DetN (altSign altSign_add)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (ltCount_lperm)
 open E213.Lib.Math.Algebra.Linalg213.PermSign (ltCount_zero_of_all_ge altSign_self)
-open E213.Tactic.NatHelper (sub_le_sub_left sub_sub_self le_sub_of_add_le sub_add_cancel)
+open E213.Tactic.NatHelper (sub_le_sub_left sub_sub_self le_sub_of_add_le sub_add_cancel add_sub_cancel_right)
 open E213.Tactic.List213 (exists_of_mem_map)
 open E213.Meta.Int213 (mul_one mul_comm mul_assoc)
 
@@ -263,5 +263,65 @@ theorem altSign_crossInv_map_psub (p : Nat) :
                + crossInv F' (F'.map (fun w => p - w))) := by ring_nat
       rw [hrw, altSign_add, altSign_add, altSign_double, Int.one_mul,
           altSign_crossInv_map_psub p F' hF', ← altSign_add]
+
+/-! ## §5 — `getD` of append / reversal (propext-free list plumbing) -/
+
+/-- `length` of an append (own proof; `List.length_append` pulls `propext`). -/
+theorem length_append_pure {α : Type _} : ∀ (A B : List α), (A ++ B).length = A.length + B.length
+  | [],      B => by show B.length = 0 + B.length; rw [Nat.zero_add]
+  | _ :: A', B => by show (A' ++ B).length + 1 = (A'.length + 1) + B.length;
+                      rw [length_append_pure A' B]; ring_nat
+
+theorem getD_append_left {α : Type _} (d : α) :
+    ∀ (A B : List α) (i : Nat), i < A.length → (A ++ B).getD i d = A.getD i d
+  | [],      _, i,     h => absurd h (Nat.not_lt_zero i)
+  | _ :: _,  _, 0,     _ => rfl
+  | _ :: A', B, i + 1, h => getD_append_left d A' B i (Nat.lt_of_succ_lt_succ h)
+
+theorem getD_append_right {α : Type _} (d : α) :
+    ∀ (A B : List α) (j : Nat), (A ++ B).getD (A.length + j) d = B.getD j d
+  | [],      B, j => by show B.getD (0 + j) d = B.getD j d; rw [Nat.zero_add]
+  | a :: A', B, j => by
+      show (a :: (A' ++ B)).getD (A'.length + 1 + j) d = B.getD j d
+      rw [Nat.add_right_comm]
+      show (A' ++ B).getD (A'.length + j) d = B.getD j d
+      exact getD_append_right d A' B j
+
+theorem revL_length : ∀ (L : List Nat), (revL L).length = L.length
+  | []     => rfl
+  | a :: t => by
+      show (revL t ++ [a]).length = t.length + 1
+      rw [length_append_pure, revL_length t]; rfl
+
+/-- `n − 1 − j = n − j − 1` (propext-free; `Nat.sub_sub` pulls `propext`). -/
+private theorem sub_one_sub : ∀ (n j : Nat), n - 1 - j = n - j - 1
+  | _, 0     => by rw [Nat.sub_zero, Nat.sub_zero]
+  | n, j + 1 => by show (n - 1 - j) - 1 = (n - j - 1) - 1; rw [sub_one_sub n j]
+
+/-- Reversal reads positions back-to-front: `(revL L).getD j = L.getD (|L|−1−j)`. -/
+theorem revL_getD : ∀ (L : List Nat) (j : Nat), j < L.length →
+    (revL L).getD j 0 = L.getD (L.length - 1 - j) 0
+  | [],     j, h => absurd h (Nat.not_lt_zero j)
+  | a :: t, j, h => by
+      have hlen : (revL t).length = t.length := revL_length t
+      have hidx : (a :: t).length - 1 - j = t.length - j := by
+        show t.length + 1 - 1 - j = t.length - j; rw [add_sub_cancel_right]
+      rcases Nat.lt_or_ge j t.length with hj | hj
+      · have hpos : 1 ≤ t.length - j :=
+          le_sub_of_add_le (by rw [Nat.add_comm]; exact Nat.succ_le_of_lt hj)
+        have hsucc : t.length - j = (t.length - 1 - j) + 1 := by
+          rw [sub_one_sub, sub_add_cancel hpos]
+        show (revL t ++ [a]).getD j 0 = (a :: t).getD ((a :: t).length - 1 - j) 0
+        rw [getD_append_left 0 (revL t) [a] j (hlen ▸ hj), revL_getD t j hj, hidx, hsucc]
+        rfl
+      · have hje : j = t.length := Nat.le_antisymm (Nat.le_of_lt_succ h) hj
+        subst hje
+        show (revL t ++ [a]).getD t.length 0 = (a :: t).getD ((a :: t).length - 1 - t.length) 0
+        have hL : (revL t ++ [a]).getD t.length 0 = a := by
+          have hh := getD_append_right 0 (revL t) [a] 0
+          rw [hlen, Nat.add_zero] at hh; exact hh
+        have hR : (a :: t).getD ((a :: t).length - 1 - t.length) 0 = a := by
+          rw [hidx, Nat.sub_self]; rfl
+        rw [hL, hR]
 
 end E213.Lib.Math.Algebra.Linalg213.InversionsAppend
