@@ -118,7 +118,16 @@ convergents `2/5, 5/13, 13/34`): the *same* `(num,den)` serves as both
 
 /-- The apex's phase-over-π and modulus are the **same** golden number
     `1/φ²` (shared Fibonacci convergents).  Hence `δ = π·R_u`: one parameter
-    `r = 1/φ²` fixes both, `apex = r·e^{iπr}`. -/
+    `r = 1/φ²` fixes both, `apex = r·e^{iπr}`.
+
+    **§5.7 reading**: this shared-convergent equality `δ/π = R_u` *is* the
+    frozen=dynamic identity at the apex — the FROZEN reading (contraction `R_u`)
+    and the DYNAMIC reading (phase-fraction `δ/π`) are the **same** 213-native
+    rational at every convergent depth.  The apex is the self-reference point
+    where "how far contracted" equals "how far turned (in half-turns)".  So the
+    coupling is PURE at the rational level; only the transcendental coefficient
+    `π = arg(M⁵)` itself is non-Nat.  (Cf. `ApexCPMechanism`,
+    `seed/AXIOM/05_no_exterior.md` §5.7.) -/
 theorem phase_over_pi_eq_modulus :
     -- δ/π and R_u share the convergent F₃/F₅ = 2/5
     (fib 3, fib 5) = (2, 5)

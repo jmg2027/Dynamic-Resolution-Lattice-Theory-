@@ -183,6 +183,29 @@ self-reference eigenvalue" (original) → "the phase is 0-parameter-forced to
 `f(r)`; is the minimal linear `π·r` the forced form?" — a soft, well-isolated
 residual, with the structure, mechanism, and 0-parameter status all internal.
 
+### Three convergent framings of the coupling (synthesis)
+
+The coupling `δ = π·R_u` is read three ways, all 213-native, all consistent:
+
+1. **Form-consequence.** `δ = π·R_u` *follows* from the apex form `z = r·(−1)^r`
+   (`arg((−1)^r) = πr`); the question is the single-parameter form (exponent =
+   modulus).
+2. **§5.1 no-exterior.** The apex phase has no independent dialer, so it must be
+   `f(R_u, π=arg M⁵)`; `δ = π·R_u` is the minimal linear realization
+   (0-parameter-forced).
+3. **§5.7 frozen=dynamic.** `δ/π = R_u` *is* the frozen=dynamic identity at the
+   apex: the FROZEN contraction `R_u` and the DYNAMIC phase-fraction `δ/π` are
+   the **same** 213-native rational at every Fibonacci-convergent depth —
+   **already PURE** (`JarlskogApex.phase_over_pi_eq_modulus`: both share
+   `2/5, 5/13, …`). The apex is the self-reference point where "how far
+   contracted" = "how far turned". Only the transcendental coefficient `π`
+   itself is non-Nat.
+
+So the *rational-level* coupling is a PURE theorem (framing 3); the residual is
+solely the transcendental `π`-coefficient / the continuum form-minimality
+(framings 1–2). The apex derivation is internal end-to-end except for this
+transcendental tail.
+
 ## (superseded) What remains — one physical identification
 
 The *value* `1/φ²` is now fully atomic-grounded (contracting self-reference
