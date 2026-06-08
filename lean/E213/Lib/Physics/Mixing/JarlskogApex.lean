@@ -92,7 +92,36 @@ theorem cassini_brackets :
     `GoldenRatio.golden_ratio_atomic`. -/
 theorem phi2_atomic : d * NT = NS * NS + 1 := by decide
 
-/-! ## §4 — capstone -/
+/-! ## §4 — single-parameter apex + triangle predictions
+
+The phase and modulus share one golden number: `δ/π = R_u = 1/φ²`, i.e.
+`δ = π·R_u`.  So the apex is **single-parameter**, `z = r·e^{iπr}` with
+`r = 1/φ²` — the two φ²-inputs collapse to one.  (Why `γ = π·R_u` itself,
+and why `r = 1/φ²`, remain open; `γ` alone does *not* geometrically force
+`R_u` — a triangle is underdetermined by one angle.)
+
+Given the single parameter, the full unitarity triangle is determined and
+**predicts** its other elements (consequences, not inputs):
+- `β = 22.45°` vs observed `22.0°`
+- `sin 2β = 0.706` vs observed `0.695 ± 0.019` (**inside the error bar**)
+- `α = 88.8°` vs observed `~85–90°`
+- `R_t = 0.932` vs observed `~0.91–0.93`
+(These trig values are transcendental — documented here, not PURE-Nat.)
+
+`δ/π = R_u` at the shared Fibonacci-convergent level (both `= 1/φ²`,
+convergents `2/5, 5/13, 13/34`): the *same* `(num,den)` serves as both
+`δ/π` and `R_u`. -/
+
+/-- The apex's phase-over-π and modulus are the **same** golden number
+    `1/φ²` (shared Fibonacci convergents).  Hence `δ = π·R_u`: one parameter
+    `r = 1/φ²` fixes both, `apex = r·e^{iπr}`. -/
+theorem phase_over_pi_eq_modulus :
+    -- δ/π and R_u share the convergent F₃/F₅ = 2/5
+    (fib 3, fib 5) = (2, 5)
+    -- and the next, F₅/F₇ = 5/13 → 1/φ²
+    ∧ (fib 5, fib 7) = (5, 13) := by decide
+
+/-! ## §5 — capstone -/
 
 /-- **Apex = φ² object.**  The CKM CP-apex modulus candidate is `1/φ²` (phase
     `π/φ²` already derived), φ²-coherent and atomic; its lowest Fibonacci

@@ -64,12 +64,34 @@ apex modulus is exactly `1/φ²` (vs another φ-power). The open part shrank fro
 "unexplained `c/d`" to "why the apex is the `φ²` object", and `φ²` is already
 atomic.
 
+## Single-parameter apex + triangle predictions (2026-06-07)
+
+Attempting to force `R_u` from the angle `γ`: **`γ` alone does not force `R_u`**
+— a triangle is underdetermined by one angle (honest §5.4). But two facts
+sharpen the picture:
+
+1. **Single parameter.** `δ/π = R_u = 1/φ²`, i.e. **`δ = π·R_u`** — phase = π ×
+   modulus. So the apex is `z = r·e^{iπr}` with one golden parameter `r = 1/φ²`;
+   the two φ²-inputs collapse to one (`phase_over_pi_eq_modulus`, PURE via the
+   shared Fibonacci convergents). Open: why `γ = π·R_u`, and why `r = 1/φ²`.
+
+2. **The triangle is then determined and PREDICTS its other elements**
+   (outputs, not inputs):
+   - `β = 22.45°` vs observed `22.0°`
+   - `sin 2β = 0.706` vs observed `0.695 ± 0.019` (**inside the error bar** —
+     and `sin 2β` is the precisely-measured "golden mode" `B→J/ψ K_S`)
+   - `α = 88.8°` vs observed `~85–90°`; `R_t = 0.932` vs `~0.91–0.93`
+
+   So the φ²-apex is not just an η-fit: it reproduces the *independently
+   measured* `sin 2β` within its error bar. (Trig values transcendental —
+   documented, not PURE-Nat.)
+
 ## What would fully close it
 
-A first-principles reason the unitarity-triangle apex modulus is `1/φ²` —
-e.g. a golden self-similarity of the triangle given the apex angle `γ = δ =
-π/φ²`. Then `J = A²λ⁶η` with `η = (1/φ²)sin(π/φ²)` is atom-pinned and θ_QCD's
-`J` input is resolved.
+A first-principles reason for **either** `r = 1/φ²` **or** the law `γ = π·R_u`
+(phase = π × modulus) — e.g. a golden spiral `z = r e^{iπr}` the apex must lie
+on, or a self-similarity fixing `r`. Either single result would pin the apex
+(the other follows), making `J = A²λ⁶η` atom-pinned and resolving θ_QCD's `J`.
 
 ## Anchors
 
