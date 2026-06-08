@@ -100,27 +100,24 @@ The committed-to multi-session build of `(ℤ/p)*` cyclic ⟹ Zolotarev nontrivi
   `segInt 1 (p−1)`, each a root by `pow_maxOrd_eq_one`); ★★★★ `exists_primitive_root`
   (`∃ g, 1 ≤ g ≤ p−1 ∧ ordModP g p = p−1`).  **Primitive-root existence CLOSED.**
 
-**Brick remaining (the final combinatorial assembly):**
-- **brick 6 — `(p−1)`-cycle ⟹ full Zolotarev** (~200 lines).  Two parts:
-  - **(a) the nontriviality sign** `psign (mulPerm g p) = −1` for a primitive root `g`.
-    `mulPerm g` (`σ(k)=g·k mod p`) is conjugate to the **cyclic shift** on `{1,…,p−1}` via the
-    discrete-log list `τ = [g⁰%p, g¹%p, …, g^{p−2}%p]` (`mulPerm g ≈ τ ∘ shift ∘ τ⁻¹`, so
-    `psign(mulPerm g) = psign(shift)` by `PermSign.psign_mul` + `psign_inv`); the cyclic shift
-    `[1,2,…,p−2,0]` has `p−2` inversions ⟹ `psign = (−1)^{p−2} = −1` (`p` odd).  (Or: directly
-    show `mulPerm g` is one `(p−1)`-cycle and add a "sign of an `n`-cycle = `(−1)^{n−1}`" lemma to
-    the `psign` framework.)
-  - **(b) extend to all residues**: `φ(a) := psign(mulPerm a)` is a hom killing squares
-    (`Zolotarev.psign_mulPerm_hom`/`_qr`), and `φ(g) = −1` ⟹ `φ = Legendre`; for a non-residue
-    `a = g^k` (`k` odd), `φ(a) = φ(g)^k = −1 = (a/p)` (via `mulPerm_comp` iterated + the
-    discrete-log/QR characterisation `a` QR ⟺ `k` even).  ⟹ **`psign(mulPerm a) = (a/p)`** for
-    all units — the **Zolotarev converse** ⟹ the full Zolotarev/Legendre iff.
-- **brick 5 — `RootBound` gluing**: every unit satisfies `x^{maxOrd} ≡ 1`, so `X^{maxOrd}−1`
-  (as `List Int`) has `p−1` distinct roots; `RootBound.eval_zero` ⟹ `f ≡ 0` everywhere ⟹
-  `f(0) = −1 ≡ 0`, contra ⟹ `p−1 ≤ maxOrd`; with `maxOrd ∣ p−1` ⟹ `maxOrd = p−1` ⟹
-  `∃ g, ordModP g p = p−1` (primitive root).
-- **brick 6 — cycle**: `mulPerm g` is a single `(p−1)`-cycle (powers of `g` exhaust the
-  nonzero residues), `psign = (−1)^{p−2} = −1`; `g` a non-residue ⟹ the **nontriviality
-  witness**, and with `Zolotarev.psign_mulPerm_hom`/`_qr` ⟹ full `psign(mulPerm a) = (a/p)`.
+- **brick 6 — DONE** `ZolotarevConverse.lean` (4 PURE) — **the converse reduction**.
+  `qr_dec` (QR membership decidable via bounded `firstSqrt`); `mul_neg_one_int` (pure
+  `x·(−1)=−x`); ★★★ `nonqr_psign_neg` — given **one** non-residue `a₀` with
+  `psign(mulPerm a₀)=−1`, every non-residue `a` is odd (`a·a₀` is a residue by `legendre_mul`,
+  even by `psign_mulPerm_qr_pred`, so `psign(mulPerm a)·(−1)=1` by `psign_mulPerm_hom`); ★★★★★
+  `zolotarev_iff` — full `psign(mulPerm a p)=1 ⟺ a` QR, modulo the single odd witness.
+
+**Brick remaining (the final combinatorial witness):**
+- **brick 7 — the odd-cycle witness** `psign (mulPerm g p) = −1` for a primitive root `g`
+  (~200 lines).  `mulPerm g` (`σ(k)=g·k mod p`) is conjugate to the **cyclic shift** on
+  `{1,…,p−1}` via the discrete-log list `τ = [g⁰%p, g¹%p, …, g^{p−2}%p]`
+  (`mulPerm g ≈ τ ∘ shift ∘ τ⁻¹`, so `psign(mulPerm g) = psign(shift)` by `PermSign.psign_mul`
+  + `psign_inv`); the cyclic shift `[1,2,…,p−2,0]` has `p−2` inversions ⟹
+  `psign = (−1)^{p−2} = −1` (`p` odd).  (Or: directly show `mulPerm g` is one `(p−1)`-cycle and
+  add a "sign of an `n`-cycle = `(−1)^{n−1}`" lemma to the `psign` framework.)  `g` from
+  `PrimitiveRoot.exists_primitive_root`; a primitive root is a non-residue (`ordModP g = p−1`
+  even ⟹ `g` not a square).  Feeds `zolotarev_iff` ⟹ the full Zolotarev/Legendre identity for
+  all units.
 
 ## Next (other threads)
 - Residue-unit decidable carry-depth (assess `Theory/Raw/Odometer`); `Zp.diagLimit` abstraction.
