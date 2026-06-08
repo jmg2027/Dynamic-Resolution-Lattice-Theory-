@@ -83,13 +83,21 @@ only phase constant `π=arg(M⁵)`; `δ=π·r` is the minimal linear realization
 coupling is **0-parameter-FORCED**, not arbitrary — consistent with the
 no-free-parameter ethos.
 
-## Endpoint — apex is internal end-to-end modulo the transcendental `π`
+## Endpoint — apex is 213-internal END-TO-END (π included)
 The coupling synthesis (`5d`+) closed the conceptual gap: the **rational-level
 coupling `δ/π = R_u` is ALREADY PURE** (`phase_over_pi_eq_modulus` = the §5.7
-frozen=dynamic identity, shared Fibonacci convergents `2/5, 5/13, …`). So every
-piece of the apex is a PURE 213 theorem **except the transcendental coefficient
-`π = arg(M⁵)`** — which is not 213-native (Nat) to begin with; no theory derives
-`π` from integers. This is the *expected boundary*, not a flaw.
+frozen=dynamic identity, shared Fibonacci convergents `2/5, 5/13, …`).
+
+**Correction (originator caught it): `π` is NOT outside 213.** An earlier note
+called `π` "the Nat boundary / transcendental tail outside 213" — an overclaim.
+`213` builds `π` as a `Real213` cut (`PiCut` = Wallis `AbCutSeq`, `π∈(14/5,4)`,
+∅-axiom). So `δ = π/φ²` is a product of **two 213-internal cuts**, and the apex
+is internal *including* `π` (`Mixing/ApexPiInternal.lean`, 4 PURE:
+`δ ∈ (112/105, 20/13) ∋ 176/147`). The phase's central `−1 = M⁵` is the **`2I`
+icosian central quaternion** over `ℤ[φ]` (`MobiusPIcosian`: `SL(2,𝔽₅) ≅ 2I`,
+`E₈`). Rule added to CLAUDE.md ("Transcendental-as-exterior"). So the apex is
+213-internal end-to-end; the *only* residual is continuum form-minimality of
+`f(r)=π·r`, not any escape from 213.
 
 Three consistent framings of the coupling (all internal): (1) form-consequence
 of `z=r·(−1)^r`; (2) §5.1 no-exterior 0-parameter; (3) §5.7 frozen=dynamic

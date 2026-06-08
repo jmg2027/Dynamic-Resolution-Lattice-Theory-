@@ -60,8 +60,13 @@ independent dialer, so it *must* be a function of the one internal number `r`
 and the only phase constant `π = arg(M⁵)`; `δ = π·r` is the minimal linear
 realization.  So the coupling is **0-parameter-forced**, not arbitrary; the soft
 residual is only the minimality of the linear form `f(r) = π·r`.
-Transcendental relations (`sin`, `e^{iπr}`) are documented, not PURE-Nat; the
-integer skeleton below is PURE.
+
+**`π` is 213-internal** (correcting an earlier overclaim that it was "the Nat
+boundary, outside 213"): `213` builds `π` as a `Real213` cut (`PiCut`, a Wallis
+`AbCutSeq`, `π ∈ (14/5,4)`, ∅-axiom), so `δ = π·R_u` is a product of two
+`Real213` cuts and the apex is internal *including* `π` (`ApexPiInternal`).  The
+`sin`/`e^{iπr}` relations are irrational-valued (as every interesting real is),
+not exterior; the integer skeleton below is PURE-Nat.
 -/
 
 namespace E213.Lib.Physics.Mixing.ApexCPMechanism

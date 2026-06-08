@@ -16,6 +16,13 @@ intermediate power directly.
 
 ## Why this matters (the bridge)
 
+**Repo cross-reference**: `Algebra/CayleyDickson/Tower/MobiusPIcosian.lean`
+already proves `P mod 5` has order exactly `10` in `SL(2,𝔽₅) ≅ 2I` (the binary
+icosahedral group, `E₈` McKay rung, icosian units over `ℤ[φ]`) via the
+`pellCoeff` Cayley–Hamilton detector.  This file is complementary: it computes
+the **explicit `𝔽₅`-matrix orbit** and reads off the **`PSL`/`A₅` order-5**
+(the rotation group, `2I/{±1}`), used by the flavour layer here.
+
 `PSL(2,5) ≅ A₅ ≅` the **icosahedral rotation group** (Groupprops; standard).
 An order-5 element of `A₅` is a **5-fold rotation axis** of the icosahedron —
 the conjugacy class `C₅` whose character, in the standard 3-dim irrep, is the

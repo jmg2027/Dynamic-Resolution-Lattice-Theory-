@@ -202,9 +202,19 @@ The coupling `δ = π·R_u` is read three ways, all 213-native, all consistent:
    itself is non-Nat.
 
 So the *rational-level* coupling is a PURE theorem (framing 3); the residual is
-solely the transcendental `π`-coefficient / the continuum form-minimality
-(framings 1–2). The apex derivation is internal end-to-end except for this
-transcendental tail.
+solely the continuum form-minimality (framings 1–2).
+
+**Correction (`π` is 213-internal).** An earlier note here called the `π`
+coefficient "the transcendental tail outside 213 / the Nat boundary" — that was
+an **overclaim**. `213` constructs `π` as a `Real213` cut (`PiCut`, a Wallis
+`AbCutSeq`, `π ∈ (14/5,4)`, ∅-axiom), so `δ = π/φ²` is a product of **two
+213-internal cuts** (`π` and `1/φ²`) — the apex is internal *including* `π`
+(`ApexPiInternal.lean`: `δ ∈ (112/105, 20/13) ∋ 176/147`, PURE). Moreover the
+phase's central `−1 = M⁵` is the **binary-icosahedral `2I` central quaternion**
+over `ℤ[φ]` (`MobiusPIcosian`: `SL(2,𝔽₅) ≅ 2I`, the `E₈` icosian endpoint), so
+the `π` is the icosian rotation structure's, golden-native. The apex derivation
+is 213-internal **end-to-end**; the only residual is the continuum form-
+minimality of `f(r) = π·r`, not any escape from 213.
 
 ## (superseded) What remains — one physical identification
 
