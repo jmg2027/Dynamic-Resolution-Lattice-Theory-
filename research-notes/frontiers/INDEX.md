@@ -183,12 +183,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   event naming a **generation rule** (fold/coalgebra), never the completed
   totality; the abstract/infinite content is the νF escape; the classical
   "complete/decide" step is one single ∞-decision (capture), refused or carried
-  as input.  *Closed instance:* König νF bridge (`KonigConditional`, 5 PURE — the
-  infinity is a νF escape, no finite Raw).  *Read-through:* ℝ/ℚ_p/König are one
-  shape (dyadic / p-ary / general branching); ε-δ existential = first-nonzero-digit
-  search = which-child-infinite = the same ∞-decision.  *Next:* sibling theorems
-  `real_is_nu_escape` / `padic_is_nu_escape`, then the systematic concept-by-concept
-  pass (the deep-research target).
+  as input.  *Closed instances:* König νF bridge (`KonigConditional`, 5 PURE) +
+  2-adic νF escape (`Padic/NuEscape`, 4 PURE — ℤ₂ = König binary-tree branch, no
+  finite Raw).  *Read-through:* ℝ/ℚ_p/König are one shape (dyadic / p-ary / general
+  branching); ε-δ existential = first-nonzero-digit search = which-child-infinite =
+  the same ∞-decision.  *Concept pass:* `concept_compactness.md` — compactness of
+  dyadic `[0,1]` = König's binary lemma = the same `InfChildExists` import (theorem
+  seed `FiniteSubcoverOracle ↔ InfChildExists`).  *Next:* general-`p` νF escape, ℝ
+  one-carrier, more concept deep-dives (limit/completion, quotient, powerset).
 
 - `research_grade_closure_gate` — **meta-frontier**: `∅`-axiom is a
   necessary integrity check, not a sufficient *seriousness* check.

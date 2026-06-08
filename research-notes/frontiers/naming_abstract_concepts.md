@@ -78,9 +78,13 @@ Run each standard abstract-concept naming through: *which Lens? which fold-level
 - **ℝ, ℚ_p** — the two bridges below; write `real_is_nu_escape`, `padic_is_nu_escape`.
 - **"the limit" / "the completion"** — the diagonal-of-the-approximants (`reached_by_none.md`
   three-move method); naming the limit = naming νF + its anamorphism, not a point.
-- **"compactness" / König / WKL** — the ∞-decision as `InfChildExists`; the reverse-math
-  calibration angle (what axiom-cost each theorem carries; `STRICT_ZERO_AXIOM.md` as a
-  calibration table in disguise).
+- **"compactness" / König / WKL** — **deep-dive done** (`concept_compactness.md`):
+  compactness of the dyadic interval = König's binary lemma = the *same* `InfChildExists`
+  import (not a new wall, the König wall on the space side); "compact" in 213 = (νF
+  refinement rule) + (explicit total-boundedness modulus).  Theorem seed:
+  `FiniteSubcoverOracle ↔ InfChildExists` ∅-axiom (reverse-math `WKL ⟺ Heine–Borel` on the
+  νF carrier).  The reverse-math calibration angle (`STRICT_ZERO_AXIOM.md` as an axiom-cost
+  ledger) starts here.
 - **"cardinality (countable/uncountable)"** — the branching-rule reading above; the honest
   injection-not-Cardinal form.
 - **"quotient / equivalence class"** — the Lens-arrow (`theory/lens/unified_equivalence.md`);
