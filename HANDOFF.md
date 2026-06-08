@@ -83,6 +83,21 @@ only phase constant `π=arg(M⁵)`; `δ=π·r` is the minimal linear realization
 coupling is **0-parameter-FORCED**, not arbitrary — consistent with the
 no-free-parameter ethos.
 
+## ★ Question-1 result (agent team) — `δ` is NOT an A₅ quantity (rigorous negative)
+Attacked "derive `δ` from A₅ 3-rep mass matrices" with an agent team (A₅+gCP
+literature + explicit 3-rep computation). Decisive **negative**
+(`Icosahedral/A5RealityNoCP.lean`, 4 PURE):
+- A₅ 3-rep is **REAL** (Frobenius–Schur `+1`, golden cancels `12(1−φ)+12φ=12`;
+  `A₅⊂SO(3)`). Real rep ⇒ real CKM ⇒ **`J=0`, no CP** from A₅ alone (verified:
+  `U_GR` real). gCP quantizes `δ∈{0,90,180,270}°`, **never golden** (Turner
+  1506.06898 Table 1; Di Iura 1503.04140). `π/φ²=68.75°` not predicted, not a
+  clean icosahedral angle, mediocre fit (obs `γ≈65.7°`).
+- **So `δ=π/φ²` is a posit, NOT an A₅ consequence.** In A₅, `φ` is the (real)
+  mixing ANGLE; `δ` is the (complex) PHASE — group-theoretically distinct. The
+  apex splits: **modulus `R_u=1/φ²` grounded** (real golden eigenvalue), **phase
+  `δ` posited** (needs a complex mechanism beyond A₅; the `−1=M⁵↦e^{iπ}`
+  complexification is itself a posit). The A₅/golden route to `δ` is **CLOSED**.
+
 ## Endpoint — accurate honest state (after self-correction)
 **PROVEN (PURE, 213-internal):** `R_u=1/φ²` grounded (contracting eigenvalue,
 `R_u<1`-forced over other golden powers); `M ∈ A₅/2I` (icosian, E₈, order-5);

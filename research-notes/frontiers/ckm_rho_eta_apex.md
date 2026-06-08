@@ -224,15 +224,43 @@ routes are now *proven* dead (not just flagged): the coupling is the **§5.7
 coincidence** (two readings of one residue both `= 1/φ²`), not a trajectory.
 
 **Honest net (after self-correction).** What is PROVEN: `R_u = 1/φ²` grounded
-(contracting eigenvalue); `M ∈ A₅/2I`; CP-existence `⟺ M⁵=−1`; the spiral-
-trajectory reading RULED OUT; `π` 213-internal; all *ingredients* internal. What
-is **still posited** (not derived): `δ = π/φ²` itself (= the single-parameter
-coincidence `δ/π = R_u`). The §5.7 reading is suggestive but *does not force* it
-(per-step rates differ). So the residual is **not** merely "continuum form-
-minimality" — it is the **posit `δ = π·R_u`** itself, now sharply isolated: a
-genuine single open ansatz, with the wrong pictures (spiral, `π/5`, `2π/5`)
-proven dead and all ingredients internal. Closing it needs a real derivation of
-the dynamic phase `δ` (not assuming `δ/π = R_u`).
+(contracting eigenvalue); `M ∈ A₅/2I`; the spiral-trajectory reading RULED OUT;
+`π` 213-internal; all *ingredients* internal. What is **posited**: `δ = π/φ²`.
+
+## ★ RIGOROUS RESULT — `δ` is NOT an A₅ quantity (2026-06-08)
+
+Attacking "derive `δ` from the A₅ 3-rep mass structure" (agent team: A₅+gCP
+literature + explicit 3-rep computation) gave a decisive **negative**
+(`Icosahedral/A5RealityNoCP.lean`, 4 PURE):
+
+- **The A₅ 3-rep is a REAL representation** (Frobenius–Schur indicator `+1`;
+  `A₅ ⊂ SO(3)` is *the* icosahedral rotation group). The golden ratio **cancels**
+  in the FS indicator: `12·(1−φ) + 12·φ = 12` (integer), `FS·60 = 3+45+0+12 = 60`.
+- A real rep ⟹ A₅-invariant mass matrices are real-symmetric ⟹ real CKM ⟹
+  **Jarlskog `J = 0`** — *no CP* from A₅ alone (verified: the golden mixing
+  matrix `U_GR` is real, `J(U_GR) = 0`).
+- With generalized CP (gCP), the Dirac phase **quantizes** to
+  `δ_CP ∈ {0°, 90°, 180°, 270°}` (trivial or maximal) — **never golden**
+  (Di Iura–Hagedorn–Meloni 1503.04140; Turner 1506.06898, Table 1). `π/φ²=68.75°`
+  and `2π/5=72°` are **not** predicted phases; `68.75°` is not a clean
+  icosahedral angle either (nearest: `arccos(1/√5)=63.4°`), and is a mediocre
+  fit (observed `γ≈65.7°`).
+
+**So `δ = π/φ²` is NOT derivable from A₅ — and A₅ actively gives a different
+answer** (real / CP-conserving, or maximal `90°` with gCP). In A₅, `φ` is a
+**(real) mixing-angle** quantity (`tan θ₁₂ = 1/φ`), and the CP phase `δ` is a
+**(complex) phase**, group-theoretically *distinct*. DRLT's `δ = π/φ²` conflates
+the two. The apex therefore splits honestly:
+
+| part | status |
+|---|---|
+| **modulus `R_u = 1/φ²`** | grounded — the real golden eigenvalue of `M` (a mixing-magnitude quantity, exactly where A₅'s `φ` lives) |
+| **phase `δ = π/φ²`** | **posit** — NOT an A₅ consequence; needs a genuinely complex mechanism (the self-reference complexification `−1=M⁵ ↦ e^{iπ}`, itself a posit), distinct from the real A₅ flavour mixing |
+
+So the open premise is now precisely located: it is **only** the *phase* `δ`,
+and the A₅/golden route to it is **closed** (A₅ gives no golden phase). Closing
+`δ` needs a complex mechanism beyond A₅ flavour symmetry; the wrong routes
+(A₅-golden, spiral, `π/5`, `2π/5`) are all now proven/argued dead.
 
 **Correction (`π` is 213-internal).** An earlier note here called the `π`
 coefficient "the transcendental tail outside 213 / the Nat boundary" — that was

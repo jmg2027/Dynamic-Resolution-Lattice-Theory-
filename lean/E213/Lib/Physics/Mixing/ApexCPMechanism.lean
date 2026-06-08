@@ -42,11 +42,17 @@ is `−1` (not `+1`):
 - if `M⁵ = −I`:  `(−1)^r = e^{iπr}` is non-real, `η = r·sin(πr) ≠ 0` — **CP violates**.
 
 `M⁵ ≡ −I (mod 5)` is a **proven 213 theorem** (`OrderFive.order_exactly_five_in_psl`).
-So **CP violation in the quark sector follows, internally, from the self-reference
-map's half-period being the central involution `−1`** — a structural reason, not
-a fit.  "Why is CP-depth the self-reference contraction rate?" — because the apex
-*is* that contraction rate `r`, complexified by the dynamic Lens's central
-element `M⁵ = −1`.
+So the apex carries a phase `π` **if** the real `−1 = M⁵` is read as `e^{iπ}` —
+i.e. *if* the real self-reference structure is **complexified**.
+
+**Caveat (the complexification is itself a posit; `Icosahedral.A5RealityNoCP`).**
+The A₅/`M` structure is **real** (`A₅ ⊂ SO(3)`, FS indicator `+1`), so A₅ flavour
+mixing is **CP-conserving** (`J = 0`) — the CP phase does *not* come from the
+real A₅ mixing.  Reading `−1 = M⁵` as `e^{iπ}` (the source of the apex phase) is
+a **complexification choice**, not forced by the real `M`.  So "CP `⟺ M⁵=−1`" is
+the statement *if the structure is complexified this way, then* `η ≠ 0`; the
+complexification (hence `δ` itself) is the posit.  What is genuinely derived is
+the *magnitude/angle* side (`R_u = 1/φ²`, real golden eigenvalue), not the phase.
 
 ## Honest scope (`§5.4`)
 
