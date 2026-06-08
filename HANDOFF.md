@@ -121,8 +121,15 @@ native `InfB` (via `existsLevel`) equals the König file's ∃-form
 (Needed pure `append_nil_pure`/`append_assoc_pure` — core `List.append_nil`/`append_assoc`
 pull `propext` in this kernel.)  GA also gained `lpo_iff_wlpo_and_mp` (LPO ⟺ WLPO ∧ MP).
 **Open follow-ups (not blocking):**
-- (LPO ⟹ LLPO now DONE — LLPO.lean, 8 PURE; the "+2 literal" worry was a false alarm — defeq holds, the real blocker was `!` precedence); tighten the König-selection cost itself to LLPO; reconcile the ledger with
-  `STRICT_ZERO_AXIOM.md`; the external Lawvere reduction of the omniscience family.
+- *Done:* LPO ⟹ LLPO (`LLPO.lean`); the two-ledger reconciliation with
+  `STRICT_ZERO_AXIOM.md` (object-level omniscience cost = the hypothesis form of the
+  meta-level kernel-axiom cost) — written up in `books/math/reverse-math-213.md`; the
+  external Lawvere placement (diagonal family = Lawvere; omniscience family = a *separate*
+  Brouwerian hierarchy, NOT a Lawvere instance — the over-read to avoid) — also in the book.
+- *Remaining (headline):* tighten the König-selection cost LPO → LLPO.  NOT a corollary of
+  `lpo_imp_llpo` (wrong direction); needs a fresh selection-from-LLPO proof via the
+  **monotone turn-off encoding** (sketch in the book's Open section) — a bounded ~100-line
+  proof.  Plus: the fan theorem / bar induction as residue-native principles.
 This is the legibility bridge to recognized mathematical logic.  Frontier:
 `blueprints/math/17_reverse_math_213.md`, `naming_abstract_concepts.md`.
 

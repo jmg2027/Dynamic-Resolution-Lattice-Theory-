@@ -86,23 +86,56 @@ explicit `cases`, structural recursion, and hand-rolled pure lemmas
 `propext`) — parenthesizing the left `!`-expression, `(!(!b)) = b`, fixes it.  With those,
 `LPO ⟹ LLPO` closes ∅-axiom (`LLPO.lean`).
 
-## Connections
+## The two ledgers — object-level vs meta-level axiom cost
 
-- `theory/essays/foundations/the_one_diagonal.md` — the one obstruction (Lawvere /
-  Yanofsky) the free-interior base instantiates.
-- `Lib/Math/Combinatorics/KonigConditional.lean` — the König νF bridge + the
-  compactness ↔ König calibration the ledger formalizes.
-- `Lib/Math/NumberSystems/Padic/NuEscape.lean` — the p-adic / 2-adic escapes (reached-by-none
-  on the digit tree).
+The repo already keeps an axiom-cost ledger at the **meta level**: `STRICT_ZERO_AXIOM.md`
+records, per theorem, which *kernel* axioms it pulls (`propext`, `Quot.sound`,
+`Classical.choice`).  This marathon's ledger is the **object-level** twin: per math theorem,
+which *omniscience principle* it costs (none / LPO / LLPO).  The two are one phenomenon read
+at two scales, and the correspondence is exact:
+
+> **Hypothesizing an omniscience principle at the object level is what keeps a theorem ∅
+> at the meta level.**  If you tried to *prove* "decide this `Π⁰₁` predicate" inside Lean
+> rather than take `LPO` as a hypothesis, you would reach for `Classical`/`decide`/`omega`
+> — pulling `propext`/`Quot.sound` (`STRICT_ZERO_AXIOM` DIRT).  By carrying the omniscience
+> principle as an explicit `Prop` argument, the cost is made **visible as a hypothesis**
+> instead of **hidden as a kernel axiom**, and every theorem here stays PURE.
+
+So the meta-level leaks catalogued this session — `omega` (`propext` + `Quot.sound`),
+`Nat.succ_ne_zero`, `List.append_nil`/`append_assoc`, `if`/`split`, `decide`-on-a-`Prop` —
+are precisely the points where an object-level omniscience cost would have leaked into the
+kernel had it not been hypothesized or hand-rolled away.  The omniscience ledger is
+`STRICT_ZERO_AXIOM.md` with the cost moved from the axiom line to the hypothesis line.
+
+## Connections — and the external placement (Lawvere vs omniscience)
+
+- `theory/essays/foundations/the_one_diagonal.md` — the one obstruction the free-interior
+  base instantiates.  **External placement (honest):** the *diagonal* family
+  (Cantor / Gödel / Russell / Tarski / Turing) is provably **one Lawvere fixed-point
+  instance** (cartesian-closed self-reference).  The *omniscience* family (LPO / LLPO / WKL /
+  fan) is **not** a Lawvere instance — it is the separate constructive-omniscience /
+  Brouwerian-degree hierarchy (Bishop, Ishihara), about *deciding infinitary predicates*,
+  not self-reference.  213 unifies them as the single *freeze-the-transition (capture)*
+  move; the **external** mathematics keeps them in two distinct hierarchies, meeting only at
+  realizability models.  Claiming "LLPO/WKL is a Lawvere instance" is the over-read to avoid.
+- `Lib/Math/Combinatorics/KonigConditional.lean` — the König νF bridge + the compactness ↔
+  König calibration the ledger formalizes.
+- `Lib/Math/NumberSystems/Padic/NuEscape.lean` — the p-adic / 2-adic escapes.
 - Topology 213 (`Heine-Borel`), Logic / Proof Theory 213 (field 14) — neighbours.
 
 ## Open
 
-- *(Done: `existsLevel` ↔ the ∃-form `KonigConditional.InfBelow` — `infB_iff_infBelow`,
-  `KonigBridge.lean`; `LevelAntitone` from a downward-closed `T` — `levelAntitone_of_downwardClosed`.)*
-- Tighten the König-selection cost from LPO to LLPO (LLPO suffices; LPO is the upper bound
-  used).
-- The external reduction of the omniscience family (LLPO / WKL / fan) to a literal Lawvere
-  fixed-point instance (the diagonal family is done).
+- **Tighten the König-selection cost from LPO to LLPO** — the headline remaining piece, and
+  *not* a corollary of `lpo_imp_llpo` (that runs LPO ⟹ LLPO, the wrong direction).  The
+  current `lpo_infChildExistsN` proof uses LPO to *decide* the left child (a `Π⁰₁`
+  decision), which LLPO cannot do.  A genuine LLPO proof needs the **monotone turn-off
+  encoding**: from antitone `existsLevel s0`/`existsLevel s1` with `∀n (e0 n ∨ e1 n)`, build
+  `g(2n) = "fa = !e0 first-true at n"`, `g(2n+1) = "fb first-true at n"`; `fa,fb` are
+  monotone and never-both-true (else `e0,e1` both fail at `max`, contradicting the cover),
+  so `g` is at-most-one-true and `lpo`/`LLPO`'s even-or-odd split yields `InfB s0 ∨ InfB s1`.
+  A bounded but real (~100-line) proof; scoped for a focused pass.
 - The fan theorem and bar induction as residue-native principles.
-- Reconcile the ledger with `STRICT_ZERO_AXIOM.md` as the corpus-wide axiom-cost table.
+- *(Done: `existsLevel` ↔ `KonigConditional.InfBelow` — `infB_iff_infBelow`; `LevelAntitone`
+  from a downward-closed `T` — `levelAntitone_of_downwardClosed`; LPO ⟹ LLPO — `lpo_imp_llpo`;
+  the two-ledger reconciliation with `STRICT_ZERO_AXIOM.md` — above; the external Lawvere
+  placement — above.)*

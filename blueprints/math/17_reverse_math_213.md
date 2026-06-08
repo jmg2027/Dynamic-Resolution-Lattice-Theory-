@@ -69,9 +69,15 @@ the ledger records the rest.
 
 ## Unsolved problems
 
-- The external reduction of the omniscience family (LLPO/WKL/fan) to a literal Lawvere
-  fixed-point instance (the diagonal family is done; omniscience is a cousin).
+- **Tighten the König-selection cost LPO → LLPO** (headline): a fresh selection-from-LLPO
+  proof via the monotone turn-off encoding (NOT via `lpo_imp_llpo`, wrong direction); sketch
+  in `books/math/reverse-math-213.md` Open section.
 - Global `WKL ⟺ Heine–Borel` (the local step is done; the global finite-subcover argument
   over the residue's compactness carrier is open).
 - The fan theorem and bar induction as residue-native principles.
 - A one-carrier (p-ary spine in `CoResidue`) unification of the escapes.
+
+*Resolved this campaign:* the external Lawvere placement (diagonal family = Lawvere;
+omniscience family = a separate Brouwerian hierarchy, not a Lawvere instance) and the
+two-ledger reconciliation with `STRICT_ZERO_AXIOM.md` (object-level omniscience cost =
+hypothesis form of meta-level kernel-axiom cost) — both written up in the book.
