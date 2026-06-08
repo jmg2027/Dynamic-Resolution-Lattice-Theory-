@@ -199,10 +199,20 @@ level** (`lean/E213/Lib/Math/Algebra/Icosahedral/`, 14 thms PURE):
 
 **What this changes for the open premise.** "Why is the CP-apex modulus a
 self-reference eigenvalue" now has a concrete *structural home*: the
-self-reference map is literally an `A₅` rotation, and `A₅` golden-ratio flavour
-symmetry (`SU(5)×A₅`, arXiv:1410.2057, 1312.0215) is established physics that
-reproduces quark mixing + the CP phase from this same `φ`. DRLT already has the
-`SU(5)` side (`d=5`, `5⊗5=25`); it now has the `A₅` side *as the same matrix*.
+self-reference map is literally an `A₅` rotation. **Honest scope correction
+(2026-06-08, deep-research):** the established `A₅`/`SU(5)×A₅` flavour models
+(arXiv:1410.2057, 1312.0215) do **not** golden-*predict* the quark CKM apex —
+at leading order their CKM is `≈ identity + Cabibbo`, and the apex/CP phase is
+obtained by **numerical fit** of subleading terms (a trivial-identity CKM is the
+generic leading-order result of *any* discrete flavour group once residual
+symmetries coincide). So `A₅` supplies the *group-theoretic home* of `φ`, but
+**no existing flavour model derives `R_u = 1/φ²`** — DRLT's golden apex is novel
+relative to the entire flavour-model literature (priority-strengthening, not
+priority-borrowing). The nearest *established* prediction is the **nearly-right
+unitarity triangle** (`α ≈ 89–90°`, `δ ≈ 1.188 ± 0.016 rad`) from discrete
+symmetry + a `π/2` mass-matrix phase (arXiv:1805.07773, 1103.5930); DRLT's
+`δ = π/φ² = 1.200 rad` is concordant with it at **0.75σ**, and `α = 88.8°` is
+near (not exactly) `90°`.
 
 **Still open (honest, §5.4).** This is a *bridge*, not a closure: it shows `M`
 is an A₅ element carrying `φ`, but does **not yet derive** the apex *value*
@@ -263,6 +273,8 @@ not another % match.
 ## Anchors
 
 - `lean/E213/Lib/Physics/Mixing/JarlskogApex.lean` — apex = φ² object, self-ref eigenvalue; §5.5 `apex_modulus_subunit_forced` (1/φ² forced by R_u<1)
+- `lean/E213/Lib/Physics/Mixing/A5QuarkApex.lean` — two-origin CKM: Cabibbo 5/22 rational (not golden) vs apex 1/φ² golden; honest "A₅ models fit not predict" + right-UT concordance
+- `lean/E213/Lib/Math/Algebra/Icosahedral/` — M is an order-5 A₅ element; golden character ↔ eigenvalue bridge; A₅ rep data + golden-mixing template (INDEX.md)
 - `lean/E213/Lib/Math/Algebra/Mobius213.lean` — the §5.6 self-reference matrix, eigenvalues φ²,1/φ²
 - `lean/E213/Lib/Physics/Mixing/CPViolation.lean` — J structure + magnitude-gap note
 - `lean/E213/Lib/Physics/Mixing/CKMHierarchy.lean` — λ, A = φ/c, s₂₃, s₁₃
