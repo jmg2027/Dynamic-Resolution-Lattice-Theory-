@@ -39,7 +39,7 @@ namespace E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
 
 open E213.Meta.Int213
 open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
-  gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_const
+  gridSumZ_succ gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_const
   gridSumZ_nonneg)
 
 /-! ## §1 — the two-shell Γ-calculus at an `A`-vertex (centred coordinates) -/
@@ -195,5 +195,63 @@ theorem kab_cd_wide (na nb : Nat) (x y : Nat → Int)
       (int_sq_nonneg _)
     rwa [zero_mul] at h
   exact Order.nonneg_of_le_zero (add_nonneg hX (kabShellGap_nonneg na nb x y))
+
+/-! ## §5 — the narrow regime `b ≤ 2a−2` via discrete Cauchy–Schwarz -/
+
+/-- ★★★★ **Discrete Cauchy–Schwarz** (power-mean): `(Σ a)² ≤ n·Σ a²`.  By induction; the
+    step gap is `[n·Σ a² − (Σa)²]` (the inductive hypothesis) plus `Σ_j (a_j − aₙ)²`, a sum
+    of squares (`kab_inner`).  Reusable. -/
+theorem cauchy_schwarz_gridZ (n : Nat) (a : Nat → Int) :
+    gridSumZ n a * gridSumZ n a ≤ (n : Int) * gridSumZ n (fun i => a i * a i) := by
+  induction n with
+  | zero => exact Order.le_refl _
+  | succ m ih =>
+    rw [gridSumZ_succ, gridSumZ_succ]
+    apply Order.le_of_sub_nonneg
+    have e : (((m + 1 : Nat)) : Int) * (gridSumZ m (fun i => a i * a i) + a m * a m)
+            - (gridSumZ m a + a m) * (gridSumZ m a + a m)
+          = ((m : Int) * gridSumZ m (fun i => a i * a i) - gridSumZ m a * gridSumZ m a)
+            + gridSumZ m (fun i => (a i - a m) * (a i - a m)) := by
+      have hcast : (((m + 1 : Nat)) : Int) = (m : Int) + 1 := rfl
+      rw [hcast, kab_inner m a a m]; ring_intZ
+    rw [e]
+    exact Order.nonneg_of_le_zero (add_nonneg
+      (Order.le_zero_of_nonneg (Order.sub_nonneg_of_le ih))
+      (gridSumZ_nonneg m _ (fun _ _ => int_sq_nonneg _)))
+
+/-- ★★★★★ **`K_{a,b}` is `CD((b−a+4)/2, ∞)` at an `A`-vertex when `b ≤ 2a−2`** (`b`-scaled:
+    `b·gamma2 ≥ b(b−a+4)·gammaC`, `b−a+4 = nb−na+3`).  In this "narrow" regime the
+    `X²`-coefficient `2b−4a+4 ≤ 0`; the difference `b·gamma2 − b(b−a+4)·gammaC` rearranges
+    to `(4a−2b)·(b·gammaC − X²) + shellGap`, a product of two non-negatives (the discrete
+    Cauchy–Schwarz `X² ≤ b·gammaC` gives `b·gammaC − X² ≥ 0`) plus the shell SOS.  Includes
+    the DRLT core `K_{3,2}` (`a=3, b=2`: `CD(3/2, ∞)`).  Together with `kab_cd_wide` the
+    `A`-vertex curvature is `min(3a−b, b−a+4)/2`. -/
+theorem kab_cd_narrow (na nb : Nat) (x y : Nat → Int)
+    (hnar : (nb : Int) ≤ 2 * (na : Int)) :
+    (nb : Int) * ((nb : Int) - (na : Int) + 3) * kabGammaC nb x
+      ≤ (nb : Int) * kabGamma2C na nb x y := by
+  have hCS : kabLapC nb x * kabLapC nb x ≤ (nb : Int) * kabGammaC nb x :=
+    cauchy_schwarz_gridZ nb x
+  have hc : (0 : Int) ≤ 4 * (na : Int) - 2 * (nb : Int) := by
+    have h := OrderMul.mul_le_mul_left_nonneg hnar 2 (by decide)
+    rw [show (2 : Int) * (2 * (na : Int)) = 4 * (na : Int) from by ring_intZ] at h
+    exact Order.le_zero_of_nonneg (Order.sub_nonneg_of_le h)
+  have hprod : (0 : Int) ≤ (4 * (na : Int) - 2 * (nb : Int))
+      * ((nb : Int) * kabGammaC nb x - kabLapC nb x * kabLapC nb x) := by
+    have h2 : (0 : Int) ≤ (nb : Int) * kabGammaC nb x - kabLapC nb x * kabLapC nb x :=
+      Order.le_zero_of_nonneg (Order.sub_nonneg_of_le hCS)
+    have h := OrderMul.mul_le_mul_right_nonneg hc
+      ((nb : Int) * kabGammaC nb x - kabLapC nb x * kabLapC nb x) h2
+    rwa [zero_mul] at h
+  rw [kab_shell_sos]
+  apply Order.le_of_sub_nonneg
+  rw [show (nb : Int) * (3 * (na : Int) + 3 - (nb : Int)) * kabGammaC nb x
+        + (2 * (nb : Int) - 4 * (na : Int)) * (kabLapC nb x * kabLapC nb x)
+        + kabShellGap na nb x y
+        - (nb : Int) * ((nb : Int) - (na : Int) + 3) * kabGammaC nb x
+        = (4 * (na : Int) - 2 * (nb : Int))
+            * ((nb : Int) * kabGammaC nb x - kabLapC nb x * kabLapC nb x)
+          + kabShellGap na nb x y from by ring_intZ]
+  exact Order.nonneg_of_le_zero (add_nonneg hprod (kabShellGap_nonneg na nb x y))
 
 end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite

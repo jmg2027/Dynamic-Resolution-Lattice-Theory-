@@ -156,9 +156,21 @@ unlike general `K_{a,b}`): `bochner_star_leaf` (`gamma2Leaf = (4−k)·gammaW + 
 (`(5−b)/2 > (3−b)/2`; `b=4`: centre `−½`, leaf `+½`) — vertex-type-dependent curvature, the hallmark of
 the non-vertex-transitive bipartite graph (`K_m` and the cycle are vertex-transitive, one curvature).
 
-**Still open**: general `K_{a,b}` (`a ≥ 2`) needs a **second-shell** (`a−1` other `A`-vertices)
-optimization (`Lf(w) − Lf(v)` is not proportional to `(w − v)`; the `Γ₂` minimum over the second shell is
-at `u_i = W/b`, a `−(a−1)(2W−bc)²/b` term — division by `b`), heavier than the star.
+**General bipartite `K_{a,b}` (`a ≥ 2`)** — ✅ **DONE** (`BakryEmeryBipartite.lean`, PURE, the DRLT
+`K_{3,2}` core).  Curvature at an `A`-vertex, in **centred coordinates** (`x_j = w_j−c` the `B`-values,
+`y_i = u_i−c` the `na = a−1` other-`A` values; translation-invariance kills `c`).  Four phases:
+  · **Phase 1** `kab_bochner` — the two-shell Bochner closed form `gamma2 = (3a−b)·gammaC + 2X² + b·Q_y −
+    4XY` (`kab_inner`/`kab_pieceA`/`kab_pieceB` handle the genuine second shell: centre → `b` `B`-neighbours
+    → their `a−1` other-`A` neighbours);
+  · **Phase 2** `kab_shell_sos` — completing the square over the **free second shell** (clearing the `1/b`):
+    `b·gamma2 = b(3a−b)·gammaC + (2b−4a+4)·X² + Σ_i(b·y_i − 2X)²`, last term a manifest SOS;
+  · **Phase 3a** `kab_cd_wide` (`b ≥ 2a−2`): `2b−4a+4 ≥ 0` ⟹ `CD((3a−b)/2,∞)` with **no** Cauchy–Schwarz;
+  · **Phase 3b** `kab_cd_narrow` (`b ≤ 2a−2`, incl. `K_{3,2}`): the negative `X²`-coefficient needs the
+    **discrete Cauchy–Schwarz** `X² ≤ b·gammaC` (`cauchy_schwarz_gridZ`, proven by induction with `kab_inner`
+    as the SOS gap) ⟹ `CD((b−a+4)/2,∞)`.
+The `A`-vertex curvature is `min(3a−b, b−a+4)/2`; `K_{3,2}` (`a=3,b=2`) is `CD(3/2,∞)`.  Reduces to the
+star (`BakryEmery` §4) at `na=0`.  A **`B`-vertex** is the *same* theorems with `(na,nb) ↦ (b−1, a)`
+(curvature `min(3b−a, a−b+4)/2`) — no extra work, the `(na,nb)` parametrization is the per-vertex view.
 
 Remaining refinements: general bipartite `K_{a,b}` (`a ≥ 2`, the DRLT `K_{3,2}` core, two-shell); the
 discrete Lin–Yau optimal `K` for the cycle; more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
