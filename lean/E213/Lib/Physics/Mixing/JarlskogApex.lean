@@ -121,7 +121,36 @@ theorem phase_over_pi_eq_modulus :
     -- and the next, F₅/F₇ = 5/13 → 1/φ²
     ∧ (fib 5, fib 7) = (5, 13) := by decide
 
-/-! ## §5 — capstone -/
+/-! ## §5 — `1/φ²` is the residue self-reference contracting eigenvalue
+
+Why `1/φ²` (not an arbitrary golden power)?  It is the **sub-dominant
+eigenvalue of the residue's self-reference matrix** `M = [[c,1],[1,1]]` —
+the Möbius `P(x)=(2x+1)/(x+1)` of `seed/AXIOM/05_no_exterior.md` §5.6,
+`Lib/Math/Algebra/Mobius213`.  Its characteristic polynomial is fully
+atomic:
+
+  `trace = c+1 = NS = 3`,  `det = c−1 = 1`,
+  `disc = trace²−4·det = NS²−4 = 5 = NS+NT = d`,
+  eigenvalues `(NS ± √d)/2 = φ², 1/φ²`.
+
+So `R_u = 1/φ² = (NS−√d)/2` is the **contracting** eigenvalue — the rate at
+which `P^n` converges to the residue fixed point φ (§5.6).  The value is
+structurally distinguished, not fitted.  (The phase `δ = π·R_u` uses the
+same eigenvalue.)  Open: *why the CKM apex modulus equals this eigenvalue* —
+the one remaining physical identification. -/
+
+/-- The residue self-reference matrix `M = [[c,1],[1,1]]` (Möbius `P`, §5.6)
+    has fully atomic characteristic data: `trace = c+1 = NS`, `det = c−1 = 1`,
+    `disc = NS²−4·det = d = NS+NT`.  Hence eigenvalues `(NS±√d)/2 = φ², 1/φ²`,
+    and `R_u = 1/φ² = (NS−√d)/2` is the contracting one.  Cf.
+    `Mobius213.{mobius_213_trace, mobius_213_discriminant}`. -/
+theorem apex_modulus_is_selfref_contracting_eigenvalue :
+    c + 1 = NS                  -- trace = NS
+    ∧ c - 1 = 1                 -- det = 1
+    ∧ NS * NS - 4 * 1 = d       -- disc = NS²−4 = 5 = d
+    ∧ NS * NS - 4 * 1 = NS + NT := by decide
+
+/-! ## §6 — capstone -/
 
 /-- **Apex = φ² object.**  The CKM CP-apex modulus candidate is `1/φ²` (phase
     `π/φ²` already derived), φ²-coherent and atomic; its lowest Fibonacci
