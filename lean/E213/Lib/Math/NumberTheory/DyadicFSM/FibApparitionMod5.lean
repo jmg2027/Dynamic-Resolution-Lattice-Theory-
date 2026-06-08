@@ -137,8 +137,7 @@ Fibonacci mod `25 = 5²`.  The Pisano period of `25` is `100 = 4·5²`, and
 the zeros sit exactly at the multiples of `25` — i.e. `25 ∣ F_n ⟺ 25 ∣
 n`, the `ν₅(·) ≥ 2` reading.  Proved the same way (period reduction +
 finite decide), one prime power up.  (The full all-powers law
-`ν₅(F_n) = ν₅(n)` is the open lifting-the-exponent rung — see
-`research-notes/frontiers/G124_padic_drlt_5adic.md`.) -/
+`ν₅(F_n) = ν₅(n)` is `FibZValuation.fibN_val_law`.) -/
 
 /-- Fibonacci-style FSM mod 25 (`init = (F₀, F₁) = (0, 1)`). -/
 def fibFSMmod25 : ArithFSM2 25 where

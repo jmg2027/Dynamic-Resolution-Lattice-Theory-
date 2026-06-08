@@ -6,8 +6,7 @@ import E213.Lib.Math.Algebra.Linalg213.FibCassiniDet
 
 Algebraic identities for `fibZ : Nat → Int` (the C-finite orbit-dimension-2
 witness, `Analysis/Cauchy/OrbitDimension`), built ∅-axiom over `ring_intZ`,
-on the path to `ν₅(F_n) = ν₅(n)` (the open lifting-the-exponent rung of
-`research-notes/frontiers/G124_padic_drlt_5adic.md`).
+on the path to `ν₅(F_n) = ν₅(n)` (`FibZValuation.fibN_val_law`).
 
 The chain is:
 
