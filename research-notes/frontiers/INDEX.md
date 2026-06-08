@@ -159,6 +159,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (currently a structural assertion). Anchors:
   `Lib/Physics/AlphaEM/{GramCubicReduction,GramD2Readings,GramD2Mechanism}`.
 
+- `headline_precision_scope` — **what the Lean proves vs the README precision
+  column**, headline by headline (extends the α_em DoF ledger). First finding:
+  `m_μ/m_e` README "0.49 ppb" is PURE-proven only to the *leading integer
+  bracket* (205); the ppb match is docstring numerics (leading α_em ppm bracket
+  × Dyson tail `P` × δ's), inheriting α_em's DoF. Fair, not deception (atomic
+  building blocks + recurrence argument real; gap = headline overstatement).
+  Next: m_p (1.56 ppm), R_∞ (4.3 ppb), Koide.
+
 - `ckm_rho_eta_apex` — **the CKM Wolfenstein apex `(ρ,η)` / Jarlskog
   magnitude**. Found auditing whether θ_QCD's `J` is derivable: J's
   *structure* is atomic (λ=5/22, A=φ/c, δ=π/φ²) but its *magnitude* is
