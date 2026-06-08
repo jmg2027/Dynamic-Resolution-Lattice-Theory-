@@ -83,17 +83,30 @@ only phase constant `π=arg(M⁵)`; `δ=π·r` is the minimal linear realization
 coupling is **0-parameter-FORCED**, not arbitrary — consistent with the
 no-free-parameter ethos.
 
-## The one remaining (soft) residual
-Only the **minimality/uniqueness of the linear form** `f(r)=π·r` (coefficient
-exactly `π`, linear vs higher-order). The apex structure, the CP-existence
-mechanism (`η≠0 ⟺ M⁵=−1`), the phase's two internal sources, the CP-area
-integer skeleton, and the 0-parameter status of the coupling are **all
-internal**. This is no longer a "one unexplained identification" — it is a soft,
-well-isolated form-minimality question.
-- Do NOT re-fish atomic angles (`π/5=36°`, `2π/5=72°` both already excluded).
-- A genuine attack would PROVE the linear form is forced (e.g. a 213 reason the
-  phase-function is degree-1 in `r` with central-half-turn coefficient), or
-  derive the apex *value* from explicit A₅ 3-rep mass matrices (larger target).
+## Endpoint — apex is internal end-to-end modulo the transcendental `π`
+The coupling synthesis (`5d`+) closed the conceptual gap: the **rational-level
+coupling `δ/π = R_u` is ALREADY PURE** (`phase_over_pi_eq_modulus` = the §5.7
+frozen=dynamic identity, shared Fibonacci convergents `2/5, 5/13, …`). So every
+piece of the apex is a PURE 213 theorem **except the transcendental coefficient
+`π = arg(M⁵)`** — which is not 213-native (Nat) to begin with; no theory derives
+`π` from integers. This is the *expected boundary*, not a flaw.
+
+Three consistent framings of the coupling (all internal): (1) form-consequence
+of `z=r·(−1)^r`; (2) §5.1 no-exterior 0-parameter; (3) §5.7 frozen=dynamic
+(PURE at rational level). The apex derivation is **honestly complete to its
+213-native limit**.
+
+Soft residuals only (do NOT re-fish — `π/5=36°`, `2π/5=72°` excluded):
+- the transcendental `π`-coefficient (a Nat-boundary, not a derivation gap);
+- continuum form-minimality of `f(r)=π·r`.
+
+### Genuinely new targets (next session, not apex-fishing)
+1. **Apex *value* from explicit A₅ 3-rep mass matrices** — the larger
+   derivation (transcendental/symbolic; verify, then seek the PURE skeleton).
+2. **Promote the closed `Icosahedral/` math to `theory/`** — once the tree
+   stops growing (three-tier discipline; the *math* is closed, the apex
+   *application* has the transcendental tail above).
+3. Other open frontiers (`gram_d2_prefactor` needs ℚ-normalised cup infra).
 
 ## Files this session
 ```
