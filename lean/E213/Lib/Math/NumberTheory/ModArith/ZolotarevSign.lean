@@ -29,7 +29,8 @@ subgroup.
 non-residue ⟹ odd-permutation direction — equivalently that the sign character is
 nontrivial.  Without a primitive root this is the Gauss-`μ` parity bridge
 `psign σ_a = (−1)^μ` (the `σ_a = (block lift) ∘ (μ within-pair flips)` decomposition through
-the half-system `[1,m]` already built in `GaussLemma`).
+the half-system `[1,m]` already built in `GaussLemma`).  See the "Open frontier" of
+`theory/essays/synthesis/the_permutation_under_three_readouts.md`.
 
 All ∅-axiom.
 -/

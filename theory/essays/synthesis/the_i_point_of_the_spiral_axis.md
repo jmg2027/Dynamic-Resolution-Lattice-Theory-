@@ -34,6 +34,13 @@ acting on a cross-determinant, `gaussian_floor_rotation`); the CP arc reads it a
 discriminant `−4`.  The two CM points that index the axis — `−4` (`i`) and `−3` (`ω`) — are the
 choice; the CP phase selects `−4`, the Gaussian rung, not the Eisenstein (order-6) one.
 
+That selection is itself a theorem (`Cohomology/Hodge/EisensteinNoComplexStructure`).  The order-6
+rung's companion is `Ω = [[0,−1],[1,−1]]` (the companion of `x²+x+1`), and `Ω² = −Ω − I ≠ −I` while
+`Ω³ = I` — so the Eisenstein rung, though a genuine order-6 unit ring (`ℤ[Ω] ≅ ℤ[ω]`,
+`omegaToStar_mul`), is **not** a complex structure.  A polarized Hodge structure requires `⋆² = −1`,
+which holds at order 4 (`J² = −I`) and fails at order 6 (`Ω² ≠ −I`).  So `hodge_selects_disc_neg_four`
+makes the choice forced: the Hodge `⋆` *can only* be the Gaussian rung, disc `−4`.
+
 ## Dual function
 
 Classically the Gaussian units are a small cyclic group of number theory and the CKM phase is a free
@@ -53,17 +60,23 @@ selects `ℤ[i]` over `ℤ[ω]`.
 Four resolutions of the single order-4 unit `i` — arithmetic (units), dynamical (rotation),
 cohomological (Hodge `⋆`), and field-theoretic (cyclotomic `C₄`).
 
+## The morphism
+
+The bridge "floor rotation = Hodge `⋆`" is an explicit ring morphism `φ : ℤ[i] → ℤ[J]`,
+`φ⟨a,b⟩ = aI + bJ = [[a,−b],[b,a]]`, **injective** and **multiplicative** — `φ(u·v) = φu·φv`, the
+Gaussian product IS the `2×2` matrix product
+(`Cohomology/Hodge/GaussianHodgeBridge.gaussianToStar_mul`, `gaussianToStar_inj`). It carries
+`i ↦ J` and the floor generator `−i ↦ ⋆³ = −J`, so pushing the `ℤ[i]`-convergent cross-determinant
+through `φ` turns one **floor step** (`W ↦ −i·W`, `gaussian_cross_step`) into one **Hodge step**
+(`φW ↦ ⋆³·φW`): `crossDet_image_rotates`. The two `C₄`-actions are intertwined by an embedding, not
+merely matched in order — the capstone `gaussian_floor_is_hodge_star` bundles multiplicativity,
+`i↦J`, `−i↦⋆³`, the intertwining, and injectivity. The shared object `ℤ[i]^× = C₄` is a Lean
+morphism, not a glyph coincidence: a shared `i`/`−1` symbol would not suffice, but the explicit
+injective multiplicative `φ` intertwining the two `C₄`-actions does.
+
 ## Open frontier
 
-The bridge "floor rotation = Hodge `⋆`" is a **shared-object** identification — both actions are
-`ℤ[i]^× = C₄` — not yet a Lean morphism between the two `C₄`-actions (a `gaussian_floor_rotation ↔
-SignedStarC4` map, or the `det_companion`-sign `↔ psign`-of-shift bridge that would put the axis
-rotation and the Hodge orientation on one inversion-sign readout).  And the CP value `90°` is forced
-while the explicit generation-Yukawa construction stays open (the `cp_phase` chapter's frontier).  The
-identification is the same-object claim; the morphism is the buildable next step.
-
-## Self-check note
-
-The claim is that the floor rotation and the Hodge `⋆` are the *same object* (`ℤ[i]^× = C₄`), not
-that one *is* the other by a proven map — stated as a shared-object identification, with the morphism
-flagged open, to avoid the glyph-reuse trap (a shared `i`/`−1` symbol is not yet a morphism).
+The CP value `90°` is forced while the explicit generation-Yukawa construction stays open (the
+`cp_phase` chapter's frontier). The sibling `det_companion`-sign ↔ `psign`-of-shift identification —
+putting the axis rotation and the Hodge orientation on one inversion-sign readout — lives in
+`Cauchy/CasoratianPermSign` (`companion_det_is_perm_sign`).

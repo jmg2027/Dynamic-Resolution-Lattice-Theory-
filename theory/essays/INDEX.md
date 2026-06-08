@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 74 essays are grouped into ten thematic sub-directories — distinct
+The 75 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -65,6 +65,11 @@ the CKM CP phase's `C₄` — one ring `ℤ[i]`, read as the continued-fraction 
 `μ=−i` (`gaussian_floor_rotation`) and as the Hodge `⋆` on `H*(Δ⁴)`; the CP phase sits at
 the `i`-point, disc `−4`, selected over the order-6 Eisenstein rung; same-object claim, the
 floor-rotation↔`⋆` morphism flagged open).
+`the_apex_modulus_as_self_reference_contraction` (the CKM apex modulus `R_u = (NS−√d)/2 =
+1/φ²` is the contracting eigenvalue of the axiom-encoding matrix `M=[[2,1],[1,1]]`,
+`trace=NS, det=1, disc=NS²−4=d`; the square is the de-signing `det Q=−1 → det Q²=+1` (a
+modulus is sign-free); `disc=d` SELECTS `(3,2)`; the golden structure is the radius, not the
+angle (`arccos(1/φ²)` is non-golden); the `det=1`↔base-normalization arrow flagged open).
 `finite_state_is_of_the_pointing` (finite-state-ness is a predicate on the *pointing*, not the
 value: `(-1)²=1` with an unbounded `×`-carry (`mulCarry_unbounded`/`carry_is_nu_escape`) = the
 Casoratian `q=−1` with no finite holonomic depth (`cas_neg_unit_no_finite_depth`); one

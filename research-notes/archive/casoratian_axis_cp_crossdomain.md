@@ -20,7 +20,15 @@ Gaussian rung, not the Eisenstein (`ω`, order 6) one.  The two CM points of G18
 `−3`) are the same two that index the axis; the CP phase selects `−4`.
 
 This is the strongest link: a single object (`ℤ[i]^×=C₄`) proven on both sides, one branch reading
-(floor rotation) and one main reading (Hodge `⋆`).  Candidate for a synthesis essay.
+(floor rotation) and one main reading (Hodge `⋆`).
+
+**Morphism built** (`Cohomology/Hodge/GaussianHodgeBridge.lean`): the identification is now an
+explicit injective ring morphism `φ : ℤ[i] → ℤ[J]`, `φ⟨a,b⟩ = [[a,−b],[b,a]]`, proven multiplicative
+(`gaussianToStar_mul` — the Gaussian product IS the matrix product) and injective (`gaussianToStar_inj`).
+It maps `i↦J`, the floor generator `−i↦⋆³=−J`, and intertwines the dynamics: pushing the cross-determinant
+through `φ`, one floor step `W↦−i·W` becomes one Hodge step `φW↦⋆³·φW` (`crossDet_image_rotates`).
+Capstone `gaussian_floor_is_hodge_star`.  Essay `the_i_point_of_the_spiral_axis.md` updated (morphism
+closed).
 
 ## 2. The companion-determinant sign `altSign(k−1)` IS a permutation sign (PROVEN ↔ thematic)
 
@@ -33,9 +41,15 @@ essay shows one permutation read three ways: `psign` (sign) = `det(permMatrix)` 
 inversion-sign readout: the Casoratian multiplier carries the `psign` of the shift cycle.
 
 Proven on the branch side: `det_companion` yields `(−1)^{k−1}·a₀`.  The identification with
-`psign((0 1 … k−1))` is immediate (a `k`-cycle has sign `(−1)^{k−1}`) but is stated here as a
-reading, not yet a Lean bridge `det_companion ↔ psign`.  Buildable: relate `altSign(k−1)` to
-`PermSign.psign` of the cyclic-shift permutation list.
+`psign((0 1 … k−1))` is immediate (a `k`-cycle has sign `(−1)^{k−1}`).
+
+**Bridge built** (`Linalg213/CyclicShiftSign.lean` + `Cauchy/CasoratianPermSign.lean`): the
+`(m+1)`-cycle `(0 1 … m)` in one-line notation is `cycShift m = [1,…,m,0]`, with
+`inversions = m` (the trailing `0` below all of `1…m`), hence `cycShift_psign : psign(cycShift m) =
+altSign m`.  It is certified a genuine permutation of `[0,…,m]` (`cycShift_perm_iota`, via a rotation
+`LPerm`).  The capstone `companion_det_is_perm_sign : det(companion a (m+1)) = psign(cycShift m)·a 0`
+puts the Casoratian depth multiplier on the **same inversion-sign readout** as `det(permMatrix)` /
+Legendre / Zolotarev — the **fourth** instance of "permutation under three readouts".
 
 ## 3. `det(AB)=det A·det B` is the shared engine (TOOL-LEVEL)
 
@@ -57,9 +71,13 @@ the proven `ℤ[i]` identification of link 1, not by symbol.  Recorded to *avoid
 
 ## Buildable next (ranked)
 
-1. **`det_companion ↔ psign(cyclic shift)`** (link 2): a Lean bridge `altSign(k−1) =
-   PermSign.psign (cyclicShift k)`, putting the Casoratian multiplier sign on the same
-   inversion-sign readout as `det(permMatrix)`/Legendre/Zolotarev.  Med, genuine.
-2. **Synthesis essay for link 1**: "the CKM CP phase sits at the `i`-point of the spiral axis" —
-   ties `theory/physics/cp_phase.md` to `theory/math/analysis/spiral_coordinate_classification.md`
-   through the one object `ℤ[i]^×=C₄` (floor rotation = Hodge `⋆`).  Essay, not Lean.
+No open buildable bridges from this note remain; both links closed (below).  Next directions live
+in `theory/physics/cp_phase.md` (generation-Yukawa construction) and `spiral_axis/` /
+`pi_nonholonomicity/`.
+
+### Closed
+- **Link 1 morphism** (`GaussianHodgeBridge.lean`) — `φ:ℤ[i]→ℤ[J]` injective multiplicative hom,
+  floor rotation = Hodge `⋆`.  Essay `the_i_point_of_the_spiral_axis.md` updated.
+- **Link 2 sign bridge** (`Linalg213/CyclicShiftSign.lean` + `Cauchy/CasoratianPermSign.lean`) —
+  `psign(cycShift m) = altSign m`, `det(companion a (m+1)) = psign(cycShift m)·a 0`; the Casoratian
+  multiplier sign IS the cyclic-shift permutation sign (fourth readout).

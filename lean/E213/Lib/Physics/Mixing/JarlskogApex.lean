@@ -147,11 +147,16 @@ atomic:
   `disc = trace²−4·det = NS²−4 = 5 = NS+NT = d`,
   eigenvalues `(NS ± √d)/2 = φ², 1/φ²`.
 
-So `R_u = 1/φ² = (NS−√d)/2` is the **contracting** eigenvalue — the rate at
-which `P^n` converges to the residue fixed point φ (§5.6).  The value is
-structurally distinguished, not fitted.  (The phase `δ = π·R_u` uses the
-same eigenvalue.)  Open: *why the CKM apex modulus equals this eigenvalue* —
-the one remaining physical identification. -/
+So `R_u = 1/φ² = (NS−√d)/2` is the **contracting** eigenvalue `λ₋` of the
+reciprocal pair `λ₊·λ₋ = det = 1` (`λ₊ = φ²`).  (Note: this is the *eigenvalue*,
+not the Möbius convergence rate — the multiplier of `P` at the fixed point `φ`
+is `P′(φ) = 1/(φ+1)² = 1/φ⁴ = λ₋/λ₊`, the eigenvalue *ratio*, a distinct
+quantity.)  The primitive form is `(NS−√d)/2`, built from the atomic counts
+`NS = 3`, `d = NS+NT = 5`; "1/φ²" is the derived golden reading.  The value is
+structurally distinguished, not fitted.  Open: *why the CKM apex modulus equals
+this eigenvalue* — the one remaining physical identification; the candidate arrow
+is `det = 1` (reciprocal pair `λ₊λ₋=1`) ↔ unitarity-triangle base-normalization
+(one leg ≡ 1 carries `λ₊`, so the apex carries `λ₋`). -/
 
 /-- The residue self-reference matrix `M = [[c,1],[1,1]]` (Möbius `P`, §5.6)
     has fully atomic characteristic data: `trace = c+1 = NS`, `det = c−1 = 1`,

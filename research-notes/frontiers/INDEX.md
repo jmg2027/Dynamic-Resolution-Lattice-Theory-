@@ -148,6 +148,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `selfref_matrix_crossdomain` — **the self-reference matrix `M=[[2,1],[1,1]]` as the common
+  root** (apex ↔ Casoratian ↔ axis).  Five connections: (1) the CKM factorises by discriminant —
+  modulus on `ℚ(√5)` (+5, golden eigenvalue), phase on `ℚ(i)` (−4, Hodge `⋆`); (2) `det=1`
+  unimodularity is the one shared engine (apex reciprocity ↔ `det(AB)=det A·det B` ↔ CKM unitarity
+  ↔ Legendre); (3) "modulus = de-signed square" is the same Bool/difference-Lens as the Casoratian/
+  Cassini sign; (4) `M` is the companion matrix of `x²−3x+1`, so the fourth-readout companion-sign
+  machinery applies to the apex itself; (5) `H*(Δ⁴)` shared by `1/α_em` and the CP phase.  Buildable:
+  unimodularity note, companion-cycle reading of the apex, the two eigen-fields of `d=5`.  (The
+  `casoratian_axis_cp_crossdomain` note both links closed — `GaussianHodgeBridge` morphism +
+  `CasoratianPermSign` sign-bridge — and is archived.)
 - `one_carrier_crossdomain` — **the one-carrier branch ↔ merged main** (p-ary-spine marathon).
   (1) "Unit result, non-finite-state generation" at two scales: `(-1)²=1` with unbounded carry
   (`mulCarry_unbounded`/`carry_is_nu_escape`, branch) = Casoratian `q=−1` with no finite holonomic
@@ -155,14 +165,6 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   not the value, on ring-op and sequence scales.  (2) Multiplication's unit/non-unit split IS the
   finite-state/escape split: `× unit` = a finite permutation with a sign (Zolotarev `mulPermMod`,
   main) vs `× p` = the valuation escape (`mulBase_eq_mul_pElem`, branch).  Open bridges noted.
-- `casoratian_axis_cp_crossdomain` — **the Casoratian / spiral-axis branch ↔ main's CKM
-  CP-phase arc** (merge marathon).  Proven shared object: the order-4 spiral-axis point
-  `4=|ℤ[i]^×|` IS the CKM CP-phase's `C₄` — the *same* ring `ℤ[i]`, read as a floor rotation
-  (axis) and as the Hodge `⋆` (CP); the CP phase sits at the `i`-point (disc `−4`) of the axis.
-  Plus: the companion-determinant sign `altSign(k−1)` is the `psign` of the shift cycle (a fourth
-  instance of main's "permutation under three readouts"); `det_matMul` is the shared engine.
-  Buildable: `det_companion ↔ psign(cyclicShift)` (Lean), and a synthesis essay tying
-  `cp_phase` ↔ `spiral_coordinate_classification` through `ℤ[i]^×=C₄`.
 - `fibonacci_golden_prime_crossdomain` — **the Fibonacci 5-adic branch ↔ main's CKM
   CP-phase / Legendre arc**.  The prime `5` is the shared hinge: main takes the *value*
   `φ ∈ ℚ(√5)` (golden modulus `R_u=1/φ²`), the branch the *5-adic valuation* of the Fibonacci
@@ -210,7 +212,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   over-predicted ×2.66 (`J_DRLT=8.18×10⁻⁵` vs observed `3.08×10⁻⁵`) — the
   missing piece is the un-derived apex `(ρ,η)` (`s₁₃=Aλ³` omits
   `√(ρ²+η²)≈0.39`). A `CPViolation.lean` comment had masked this with an
-  arithmetic error ("within 10%"); corrected. Open: derive `(ρ,η)`/`η`.
+  arithmetic error ("within 10%"); corrected.  **Multi-agent deep-dive (2026-06-08)**:
+  the apex modulus `R_u=(NS−√d)/2=1/φ²` is the self-reference matrix's contracting
+  eigenvalue; findings #2 (`disc=d` is *selection*, `FibonacciAtomicLock.
+  disc_eq_atomic_sum_selects_shape`) and #4 (modulus = *de-signed square*,
+  `apex_modulus_is_designed_square`) now ∅-axiom; item (a) (exact `ℤ[i]` CKM unitarity)
+  closed (`Mixing/CKMExactUnitarity`).  **Open**: the `det=1`↔base-normalization arrow
+  (apex modulus = `λ₋` of the CKM-from-`M` map); golden in the *radius* not the angle.
   Consumer: θ_QCD (`PRE_REGISTRATION.md` P2).
   **Update (2026-06-08)**: apex modulus `1/φ²` grounded as the self-reference
   Möbius contracting eigenvalue, and `1/φ²`-over-`φ²` now *forced* by `R_u<1`
