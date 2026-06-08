@@ -51,7 +51,8 @@ is not generic: it is a **polarized Hodge morphism**, and the Weil operator
 `J` of a polarized Hodge structure satisfies three conditions a generic
 texture fails — `J² = −I`, `Jᵀ Q J = Q` (isometry of the polarization), and
 `h = Q·J = I ≻ 0` (Hodge–Riemann positivity) (`Hodge/HodgeRiemannJ`:
-`Q = (0,1,−1,0)`, `hodge_riemann_positivity_signed`; assembled in
+`Q = (0,1,−1,0)`, `hodge_riemann_positive`, `polarization_forces_maximal_cp`;
+assembled as `hodge_riemann_positivity_signed` in
 `Cohomology/HodgeConjecture/Pairing/HodgeRiemann`).  Under those three the
 coupling's phase **must** be the Weil `J`, whose argument is `90°`.  The
 positivity `h = I`, `det h = 1` is the same antisymmetric inversion sign the
