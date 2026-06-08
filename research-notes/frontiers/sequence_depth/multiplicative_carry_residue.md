@@ -1,6 +1,24 @@
 # Frontier — the multiplicative carry as a νF inhabitant (the residue of ×)
 
-Status: **open** (the closed part is in `lean/E213/Lib/Math/NumberSystems/Padic/NuEscape.lean`).
+Status: **core CLOSED** (`lean/E213/Lib/Math/NumberSystems/Padic/NuEscape.lean`); only the
+Lens-reading refinement (item 3) remains soft-open.
+
+## The frontier question — answered YES
+
+*Is the multiplicative carry itself a νF inhabitant?*  **Yes.**  `gspine` is generic over the leaf
+alphabet (CoResidue §20), so the carry stream `mulCarry : Nat → Nat` is `gspine (mulCarry …) :
+GCoShape Nat` — a consistent, anti-reflexive co-tree reached by no finite Raw (`carry_is_nu_escape`,
+`gspine_escapes` at `L = Nat`).  And it is a *genuine* (unbounded) escape:
+
+- `neg_one_sq_eq_one` — `(-1)² = 1`: the **result** is the trivial µF element `1`.
+- `mulCarry_unbounded` — the carry is unbounded, the exact dual of `add_carry_le_one` (carry `≤ 1`).
+- `mul_carry_nu_residue` — capstone: result `= 1`, carry is a νF escape, carry unbounded.
+
+So **finite-state-ness is a property of the pointing (the carry), not the number (the result `1`)**:
+the same real `1` is reached, while the multiplication-carry escapes the finite the way `spineL`
+does — the ring-operation image of `Real213/PresentationDependence` ("holonomicity is a property of
+the pointing, not the real").  The supporting helper `AddMod213.div_le_div_right_pure` (pure
+monotone div) was added to `Meta/Nat`.
 
 ## What is closed
 
@@ -19,25 +37,23 @@ So the earlier "× is non-native by design" was wrong: `×` is native (corecursi
 state* fails.  The unbounded carry is the **multiplicative residue** — the part of `×` that escapes
 every finite-state machine.
 
-## The open frontier
+## Closed (was the open frontier)
 
-The multiplicative residue is currently characterized *negatively* (`mulRaw_unbounded`: no constant
-bounds the carry).  The conjecture: the carry stream itself is a **νF inhabitant** — reached by no
-finite Raw — exactly as `spineL` is, with `Zp.mulCarry`'s linear growth the arithmetic image of the
-odometer overflow `allTrue_carry_forever` / `odo_allTrue` (`Theory/Raw/Odometer`).
+1. ✅ `mulCarry (-1)(-1)` unbounded — `mulCarry_unbounded` (the carry itself, not just `mulRaw`),
+   the dual of `add_carry_le_one`.
+2. ✅ The carry stream `gspine (mulCarry …) : GCoShape Nat` is reached by no finite Raw —
+   `carry_is_nu_escape` (`gspine_escapes` at `L = Nat`): "the multiplicative residue is a νF escape"
+   is now a *theorem*, the ring-operation image of `spineL_escapes` / `object1_not_surjective`.
 
-Concretely, candidate theorems:
-1. `mulCarry (-1)(-1)` is monotone-and-unbounded with an explicit lower bound (e.g. `≥ c·k`),
-   tightening `mulRaw_unbounded` from "the convolution" to "the carry" itself.  (The
-   `PositiveFloorUnbounded.positive_linear_exact` engine — positive constant difference ⟹ exact
-   linear formula — is the likely tool, since `mulRaw(k+1)−mulRaw(k) = (p-1)²`.)
-2. The carry stream `fun k => Zp.mulCarry p x y k`, spined via `boolSpine`/`gspine`, is reached by
-   no finite Raw — making "the multiplicative residue is a νF escape" a *theorem*, the ring-operation
-   image of `spineL_escapes` / `object1_not_surjective`.
+## Still soft-open
+
 3. The Lens reading: addition's carry is the difference-Lens **unit** (§6.7, the ±1 odometer);
    multiplication's carry is a **higher** count-Lens reading whose value itself escapes finite state.
-   Name the shared invariant precisely (the carry — one object, read at two depths: unit vs residue),
-   not a bare `+`/`×` analogy.
+   The shared invariant (the carry — one object, read at two depths: unit vs residue) is *named* in
+   `mul_carry_nu_residue` and `the_one_carrier.md`; a Lens-level theorem (the carry as an explicit
+   §6.7 readout) would close it fully.  An explicit linear lower bound `mulCarry ≥ c·k` (via
+   `PositiveFloorUnbounded.positive_linear_exact`) would also sharpen item 1's witness from
+   "unbounded" to "exactly linear".
 
 ## Cross-links
 

@@ -166,14 +166,21 @@ keeps each digit a *finite* computation (productive); it breaks only **bounded s
 The real split is **finite-state vs not**.  Addition is finite-state: `Zp.add`'s carry is always a
 single **bit** (`add_carry_le_one`: each digit pair sums to `< 2p`), a one-bit Mealy machine
 (`add_mealy_step`) whose carry bit *is* the odometer unit (`the_residue_unit_odometer.md`).
-Multiplication is **not** finite-state, and this is now a *theorem*, not a verdict: the convolution
-`mulRaw (-1)(-1) k = (k+1)·(p-1)²` grows without bound (`mulRaw_negOne_negOne`, `mulRaw_unbounded`),
-the exact dual of `add_carry_le_one`.  So `×`'s **unbounded carry is the multiplicative residue** —
-the part of the operation that escapes every finite-state machine, the `spineL_escapes` /
-`object1_not_surjective` escape (`non_holonomicity_as_finite_state_escape.md`) read at the
-ring-operation scale, with the Hadamard/convolution irreducibility (`G188_multiplicative_conv_design`)
-its sequence-scale mirror.  One carry, read at two depths: the **unit** for `+`, the **residue** for
-`×`.  Neither is forbidden; both are corecursive; only `+` is finite-state.
+Multiplication is **not** finite-state, and this is now a *theorem*, not a verdict: the carry
+`mulCarry (-1)(-1)` is unbounded (`mulCarry_unbounded`, via `mulRaw_negOne_negOne` `= (k+1)(p-1)²`),
+the exact dual of `add_carry_le_one`.  And the **carry is literally a νF inhabitant**: `gspine` is
+generic over the alphabet, so `gspine (mulCarry …) : GCoShape Nat` is reached by no finite Raw
+(`carry_is_nu_escape`) — the multiplicative residue lives on the carrier exactly as `spineL` does.
+
+The decisive point: `(-1)² = 1` (`neg_one_sq_eq_one`) — the **result** is the trivial µF element
+`1`, yet the **carry** computing it is an unbounded νF escape.  So finite-state-ness is a property of
+the **pointing** (the carry, the act of multiplying), not of the **number** (the product is `1`) —
+the ring-operation image of "holonomicity is a property of the pointing, not the real"
+(`Real213/PresentationDependence`).  `mul_carry_nu_residue` bundles it.  One carry, read at two
+depths: the **unit** for `+` (the odometer), the **residue** for `×`.  Neither is forbidden; both
+are corecursive; only `+` is finite-state; the multiplicative residue is the carry escaping into νF.
+(The Hadamard/convolution irreducibility, `G188_multiplicative_conv_design`, is its sequence-scale
+mirror.)
 
 ### Cross-frame
 

@@ -179,6 +179,19 @@ the mul-carry itself a νF inhabitant?).  Propext traps avoided: `Nat.add_sub_ad
 `Nat.succ_sub_succ`; core `div_add_mod` → `AddMod213.div_add_mod`; base cases via
 `(Nat.add_zero _).symm`.
 
+### 3j. The multiplicative carry IS a νF inhabitant — frontier CLOSED (this session)
+Answered the frontier YES (`Padic/NuEscape`):
+- `neg_one_sq_eq_one` — `(-1)² = 1`: the RESULT is the trivial µF element (via existing
+  `Zp.neg_one_sq_trunc` + `trunc_succ_inj`).
+- `carry_is_nu_escape` — `gspine (mulCarry …) : GCoShape Nat` reached by no finite Raw (`gspine`
+  generic over the alphabet, CoResidue §20).  The carry IS a νF inhabitant.
+- `mulCarry_unbounded` — the carry itself unbounded (dual of `add_carry_le_one`), needing the new
+  pure helper `AddMod213.div_le_div_right_pure` (core `Nat.div_le_div_right` doesn't exist here).
+- `mul_carry_nu_residue` — capstone: result=1 ∧ carry νF escape ∧ carry unbounded.  **Finite-state
+  is a property of the pointing (the carry), not the number (the result 1)** — the ring-op image of
+  `Real213/PresentationDependence`.  Soft-open: a Lens-level (§6.7) readout of the carry; an exact
+  linear `mulCarry ≥ c·k` bound.  Found via a 6-agent research arc (2 rounds).
+
 > Note (propext traps hit + recorded): `Nat.succ_ne_zero`, `Nat.sub_add_cancel`, `by_cases`, and
 > `rw`-with-an-`Iff` all pull `propext`.  Use `Nat.noConfusion`, `cases p`/defeq, `rcases
 > Nat.lt_or_ge`, and `.mp`/`.mpr` via defeq instead.

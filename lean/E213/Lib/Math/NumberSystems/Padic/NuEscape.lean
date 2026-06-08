@@ -731,6 +731,63 @@ theorem carry_is_nu_escape {p : Nat} (x y : ZpSeq p) (r : Raw) :
     gToShape (0 : Nat) (1 : Nat) r.val ≠ (carryNu x y).val :=
   fun h => gspine_escapes (0 : Nat) (1 : Nat) (mulCarryStream x y) r.val h.symm
 
+/-- The carry into position `k+1` dominates `rawₖ / p` (the carry only accumulates). -/
+theorem mulCarry_ge_mulRaw_div {p : Nat} (hp : 0 < p) (x y : ZpSeq p) (k : Nat) :
+    Zp.mulRaw p x y k / p ≤ Zp.mulCarry p x y (k + 1) := by
+  rw [Zp.mulCarry_succ]
+  exact E213.Meta.Nat.AddMod213.div_le_div_right_pure hp (Nat.le_add_right _ _)
+
+/-- ★★★ **The multiplicative carry itself is unbounded** (`p ≥ 2`) — the genuine dual of
+    `add_carry_le_one` (carry `≤ 1`), now about `mulCarry` (the *state*), not just `mulRaw`.  At
+    `k = (C+1)·p`, `mulRaw (-1)(-1) k ≥ (C+1)·p` (`mulRaw_negOne_negOne` + `(p-1)² ≥ 1`), so the
+    carry into `k+1` is `≥ ((C+1)·p)/p = C+1 > C`.  So the multiplication transducer's state grows
+    without bound — `×` is computed by no finite-state machine. -/
+theorem mulCarry_unbounded {p : Nat} (hp2 : 2 ≤ p) (C : Nat) :
+    ∃ k, C < Zp.mulCarry p (ZpSeq.neg_one p (Nat.le_of_succ_le hp2))
+                          (ZpSeq.neg_one p (Nat.le_of_succ_le hp2)) k := by
+  have hp : 0 < p := Nat.le_of_succ_le hp2
+  refine ⟨(C + 1) * p + 1, ?_⟩
+  have hpm1 : 0 < p - 1 := Nat.sub_le_sub_right hp2 1
+  have hpos : 0 < (p - 1) * (p - 1) := Nat.mul_pos hpm1 hpm1
+  have hge_Cp : (C + 1) * p
+        ≤ Zp.mulRaw p (ZpSeq.neg_one p hp) (ZpSeq.neg_one p hp) ((C + 1) * p) := by
+    rw [mulRaw_negOne_negOne hp ((C + 1) * p)]
+    exact Nat.le_trans (Nat.le_succ ((C + 1) * p))
+      (Nat.le_mul_of_pos_right ((C + 1) * p + 1) hpos)
+  have hdiv1 : (C + 1) * p / p
+        ≤ Zp.mulRaw p (ZpSeq.neg_one p hp) (ZpSeq.neg_one p hp) ((C + 1) * p) / p :=
+    E213.Meta.Nat.AddMod213.div_le_div_right_pure hp hge_Cp
+  rw [E213.Meta.Nat.NatDiv213.mul_div_self_pure (C + 1) p hp] at hdiv1
+  exact Nat.lt_of_lt_of_le (Nat.lt_succ_self C)
+    (Nat.le_trans hdiv1 (mulCarry_ge_mulRaw_div hp _ _ ((C + 1) * p)))
+
+/-- ★★★ **The multiplicative carry is the residue of the *pointing* (frontier capstone).**  For
+    `p ≥ 2`, with `x = y = -1` (`ZpSeq.neg_one`):
+
+    1. the **result** is the trivial µF element `1` — `(-1)² = 1` (`neg_one_sq_eq_one`);
+    2. the **carry** is a νF inhabitant reached by no finite Raw (`carry_is_nu_escape`, `gspine`
+       over `L = Nat`);
+    3. and that carry is **unbounded** (`mulCarry_unbounded`), a genuine escape (not eventually
+       constant), the exact dual of `add_carry_le_one`.
+
+    So finite-state-ness is a property of the **pointing** (the carry / the act of multiplying), not
+    of the **number** (the product is `1`): the same real `1` is reached, while the multiplication-
+    carry escapes the finite the way `spineL` does.  The multiplicative residue is the carry — the
+    ring-operation image of "holonomicity is a property of the pointing, not the real"
+    (`Real213/PresentationDependence`).  ∅-axiom. -/
+theorem mul_carry_nu_residue {p : Nat} (hp1 : 1 < p) :
+    (∀ k, (Zp.mul p (Nat.lt_of_succ_lt hp1)
+            (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1))
+            (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1))).digits k = (ZpSeq.one p hp1).digits k)
+    ∧ (∀ r : Raw, gToShape (0 : Nat) (1 : Nat) r.val
+          ≠ (carryNu (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1))
+                     (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1))).val)
+    ∧ (∀ C, ∃ k, C < Zp.mulCarry p (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1))
+                                    (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1)) k) :=
+  ⟨neg_one_sq_eq_one p hp1,
+   fun r => carry_is_nu_escape _ _ r,
+   fun C => mulCarry_unbounded hp1 C⟩
+
 /-! ### General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
 
 Beyond the reached-by-none escape, the *not-enumerable* fact holds for every `p ≥ 2` natively:
