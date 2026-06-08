@@ -53,14 +53,16 @@ Also: `ring_intZ` fails when one side normalizes to the bare zero polynomial
 blocks need a leading `dsimp only` to beta-reduce.
 
 ## Open Frontiers (priority order)
-1. **Bipartite `K_{a,b}` Bakry–Émery / Ollivier** — the DRLT-core direction
-   (`K_{3,2}` is the central lattice).  `K_{a,b}` is **triangle-free** (so the
-   simple Forman `4−NS−NT` already applies, `forman_bipartite`) and the
-   Bakry–Émery / Ollivier values should *agree* (no Forman-vs-rest divergence,
-   unlike clustered graphs).  Harder than `K_m`: a **two-shell** derivation
-   (centre `v∈A` → its `b` neighbours in `B` → their `a−1` other `A`-neighbours),
-   `Lf(w)−Lf(v)` is **not** proportional to `(w−v)` (asymmetric `a,b`), so the
-   `gamma2C` closed form involves both shells.  Frontier:
+1. **General bipartite `K_{a,b}` (`a ≥ 2`) Bakry–Émery** — the DRLT-core direction
+   (`K_{3,2}` is the central lattice).  The `a = 1` **star `K_{1,b}`** is now
+   ✅ DONE (`BakryEmery.lean` §4: `bochner_star`/`cd_star` = `CD((3−b)/2,∞)`,
+   negative for `b ≥ 4`).  The remaining `a ≥ 2` case is the harder **two-shell**
+   derivation (centre `v∈A` → its `b` neighbours in `B` → their `a−1` other
+   `A`-neighbours): `Lf(w)−Lf(v)` is **not** proportional to `(w−v)`, and the
+   `CD` bound requires *minimizing* `Γ₂` over the (free) second shell — the optimum
+   is at `u_i = W/b`, giving a `−(a−1)(2W−bc)²/b` term (division by `b`), so the
+   closed form is messier than the clean star SOS.  `K_{a,b}` is triangle-free, so
+   no Forman-vs-rest divergence.  Frontier:
    `research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`.
 2. **Cycle `C_n` Ollivier** (flat, `κ=0` for `n ≥ 5`) — parametric companion of
    the line/large-cycle `CD(0,2)`.  Needs a cycle distance `min(|i−j|, n−|i−j|)`
