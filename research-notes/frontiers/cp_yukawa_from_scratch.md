@@ -178,3 +178,17 @@ positivity (`HodgeRiemannJ` + `HodgeRiemann`), the generation index `Λ²(ℝ³)
 (`BigradedYukawa`), and the principle (cohomological ⟹ 90°).  What remains is
 purely *assembly* (wiring the signed cup + `J` + generation index into one
 `Y_d(i,j)` functional), not a missing primitive.
+
+## ★ (a) Cup evaluation DONE — cohomology gives phase+index, angles separate (2026-06-08)
+
+`Mixing/CohomologicalYukawaEval.lean` (3 PURE).  Computing the signed cup–Hodge
+pairing explicitly: it is **diagonal** `⟨e_i,⋆e_j⟩ = δ_{ij}` (`h=I`) on both the
+`n=4` (CP-`J`) and `n=5` (SU(5)) `Λ¹`.  So the cohomological Yukawa supplies the
+**diagonal** — the generation/sector **index** + the CP **phase** (`J=i`, `90°`) —
+and **no off-diagonal mixing**.  The CKM **angles** are the separate DRLT atomic
+rationals (`λ=5/22`, `A=φ/2`).  So the full CKM **factorises**:
+`(DRLT angles) × (cohomological phase J=i)`, verified unitary at `δ=90°` by the
+rust `ckm_cp_phase`.  This also fully explains the generic-texture negative: a
+generic texture mixes the phase into the angles, but the *cohomological* coupling
+keeps them factorised (diagonal pairing), so the phase is the clean `J=i=90°`.
+Item (a) closed; (b) the ~1.5σ fit under agent investigation.
