@@ -34,13 +34,27 @@ So the open synthesis is **one permutation, three readouts**:
 
 The frontier note `reciprocity_as_count_lens` already flagged "Zolotarev
 unification (`psign` sign side ↔ `gauss_qr` count side, one permutation two
-readouts)".  `det_permMatrix` now makes the **sign side fully concrete as a
-determinant** — the Legendre symbol is literally `det` of the permutation matrix
-of `×a mod p`.  Concrete next target: define `mulPermMod a p : List Nat` (the
-value-list of `×a`), show it ∈ `perms (p−1)` on units, and prove
-`psign (mulPermMod a p) = (a/p)` by pairing the inversion count with Gauss's
-`μ` (number of "wrapped" residues) — Zolotarev's classical bridge, 213-native.
-That edge closes the triangle: `det (permMatrix (mulPermMod a p)) = (a/p)`.
+readouts)".  `det_permMatrix` makes the **sign side concrete as a determinant** —
+the Legendre symbol is literally `det` of the permutation matrix of `×a mod p`.
+
+**Closed ∅-axiom (`ModArith/ZolotarevSign.lean`, 7 PURE):** the structural backbone.
+`mulPermMod a p = (iota p).map (·*a %p)` is the value-list of `σ_a : x ↦ a·x mod p`;
+`mulPermMod_mem_perms` (it is a permutation for units), `mulPermMod_comp`
+(`σ_a ∘ σ_b = σ_{ab}`), and `psign_mulPermMod` (`psign σ_{ab} = psign σ_a · psign σ_b`
+— the sign **character homomorphism**).  One direction of Zolotarev is closed:
+`psign_mulPermMod_qr` — **quadratic residues map to even permutations**
+(`QR(a) ⟹ psign σ_a = 1`, since `σ_a = σ_z ∘ σ_z`).  Via `gauss_qr`
+(`QR(a) ⟺ ∏ sgFn = 1 = (a/p)`) this is the residue side: the sign character agrees
+with the Legendre symbol on the quadratic-residue subgroup.
+
+**Residual (the converse / full identity):** `psign σ_a = (a/p)` for *every* unit
+needs the non-residue ⟹ odd-permutation direction (the character is *nontrivial*).
+Two routes, both needing infrastructure the repo lacks: (a) a **primitive root** `g`
+(then `σ_g` is a single `(p−1)`-cycle of sign `−1`, and the index-2 kernel argument
+closes it); (b) the **Gauss-`μ` parity bridge** `psign σ_a = (−1)^μ` via the
+`σ_a = (block lift) ∘ (μ within-pair flips)` decomposition through the half-system
+`[1,m]` (the `fold`/`sgFn` machinery already in `GaussLemma`).  Closing either gives
+the triangle `det (permMatrix (mulPermMod a p)) = (a/p)`.
 
 ## 2. Teichmüller ω ↔ the quadratic character (p-adic lift of Euler's criterion)
 
