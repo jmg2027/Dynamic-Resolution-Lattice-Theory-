@@ -485,6 +485,82 @@ theorem padic_ring_on_carrier {p : Nat} (hp2 : 2 ≤ p) :
    fun x y => residue_mul (Nat.le_of_succ_le hp2) x y,
    fun x y => residue_add (Nat.le_of_succ_le hp2) x y⟩
 
+/-! ### General `p` — addition is native (finite-state); multiplication is transport-only
+
+The deepest carrier question: which ring operations are *native* to the spine — definable as a
+**finite-state** transduction on the co-tree (each output digit from a bounded carry state) —
+versus only available by *transport* of the digit-stream operation?
+
+**Addition is native.**  `Zp.add`'s carry is always a single **bit** (`∈ {0,1}`,
+`add_carry_le_one`): each digit pair sums to `< 2p`, so the carry never exceeds `1`.  So addition
+is a one-bit-state Mealy machine on the carrier (`add_mealy_step`: output digit + next carry from
+the two input digits + the one-bit carry) — and that carry bit *is* the odometer bit
+(`Theory/Raw/Odometer`; the `+1` case `add_negOne_one_carry`).  **Multiplication is not**: the
+convolution at position `k` reads *all* lower digits (`Zp.mulRaw`/`mulCarry` accumulate
+unboundedly), so it has no finite-state form — only the transport `padic_ring_on_carrier`.  This is
+the holonomic / non-holonomic distinction at the ring-operation scale.  ∅-axiom. -/
+
+/-- `(p-1) + (p-1) + 1 < 2p` (the two-digit-plus-carry bound). -/
+private theorem two_sub_bound (p : Nat) (hp : 0 < p) : (p - 1) + (p - 1) + 1 < 2 * p := by
+  cases p with
+  | zero   => exact absurd hp (Nat.not_lt_zero 0)
+  | succ k =>
+      show k + k + 1 < 2 * (k + 1)
+      rw [Nat.mul_succ, Nat.two_mul]
+      exact Nat.lt_succ_of_le (Nat.le_refl _)
+
+/-- ★★★ **Addition's carry is a single bit.**  `Zp.carry p x y k ≤ 1` for all `k`: each digit
+    pair sums to `< 2p` (`two_sub_bound`), so the carry into the next position is `< 2`.  Addition
+    is a **finite-state** (one-bit-carry) operation on the carrier — unlike multiplication, whose
+    `mulCarry` accumulates unboundedly. -/
+theorem add_carry_le_one {p : Nat} (hp : 0 < p) (x y : ZpSeq p) :
+    ∀ k, Zp.carry p x y k ≤ 1
+  | 0     => Nat.zero_le 1
+  | k + 1 => by
+      rw [Zp.carry_succ]
+      have hx : (x.digits k).val ≤ p - 1 := Nat.le_sub_one_of_lt (x.digits k).isLt
+      have hy : (y.digits k).val ≤ p - 1 := Nat.le_sub_one_of_lt (y.digits k).isLt
+      have hsum : (x.digits k).val + (y.digits k).val + Zp.carry p x y k
+                    ≤ (p - 1) + (p - 1) + 1 :=
+        Nat.add_le_add (Nat.add_le_add hx hy) (add_carry_le_one hp x y k)
+      have h : (x.digits k).val + (y.digits k).val + Zp.carry p x y k < 2 * p :=
+        Nat.lt_of_le_of_lt hsum (two_sub_bound p hp)
+      exact Nat.lt_succ_iff.mp
+        (E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul (by rw [Nat.mul_comm]; exact h))
+
+/-- ★★★ **Addition is a one-bit-state Mealy machine on the carrier.**  At each position the output
+    digit and the next carry are a function of the two input digits and the current carry, which is
+    a single **bit** (`add_carry_le_one`).  So `Zp.add` is a finite-state transduction native to
+    the co-tree carrier — the genuine sense in which `+` (unlike `×`) lives *on* `gspine`. -/
+theorem add_mealy_step {p : Nat} (hp : 0 < p) (x y : ZpSeq p) (k : Nat) :
+    ((Zp.add p hp x y).digits k).val
+        = ((x.digits k).val + (y.digits k).val + Zp.carry p x y k) % p
+    ∧ Zp.carry p x y (k + 1)
+        = ((x.digits k).val + (y.digits k).val + Zp.carry p x y k) / p
+    ∧ Zp.carry p x y k ≤ 1 :=
+  ⟨Zp.add_digit_val p hp x y k, Zp.carry_succ p x y k, add_carry_le_one hp x y k⟩
+
+/-- ★★★ **Native addition vs transport-only multiplication (capstone).**  On the one carrier:
+
+    1. **addition is native** — a one-bit-state Mealy machine: the carry is always `∈ {0,1}`
+       (`add_carry_le_one`), so each output digit comes from a bounded state (`add_mealy_step`);
+    2. the carry bit is the **odometer** bit (the `+1` instance is `add_negOne_one_carry`, the
+       residue-unit successor of `Theory/Raw/Odometer`);
+    3. **multiplication is transport-only** — `Zp.mul`'s position-0 carry is `0` (`Zp.mulCarry`
+       is carry-free only at the residue, `residue_mul`), but the convolution reads all lower
+       digits, so there is no bounded-state form; `×` lives on the carrier by transport
+       (`padic_ring_on_carrier`), not as a native finite-state operation.
+
+    The holonomic / non-holonomic split at the ring-operation scale: `+` is finite-state, `×` is
+    not.  ∅-axiom. -/
+theorem padic_native_addition {p : Nat} (hp : 0 < p) :
+    (∀ (x y : ZpSeq p) (k : Nat), Zp.carry p x y k ≤ 1)
+    ∧ (∀ (x y : ZpSeq p) (k : Nat),
+        ((Zp.add p hp x y).digits k).val
+          = ((x.digits k).val + (y.digits k).val + Zp.carry p x y k) % p) :=
+  ⟨fun x y k => add_carry_le_one hp x y k,
+   fun x y k => Zp.add_digit_val p hp x y k⟩
+
 /-! ### General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
 
 Beyond the reached-by-none escape, the *not-enumerable* fact holds for every `p ≥ 2` natively:

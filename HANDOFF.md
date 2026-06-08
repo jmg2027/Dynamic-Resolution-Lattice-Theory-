@@ -140,9 +140,18 @@ grounded in the existing ring.  **Open**: `×` as a binary op on `gspine`; ℝ f
 of `x·y`/`x+y` reached by no finite Raw), and the residue-field readout `residue : ℤ_p ↠ 𝔽_p` is a
 **ring hom** — `residue_mul` (`residue(x·y) = x₀·y₀ mod p`, carry-free at position 0), `residue_add`,
 `residue_ring_hom` (respects `+`,`×`,`0`,`1`).  So the binary `×` of the real `Zp.mul` lives on the
-one carrier (transport), with a genuine 𝔽_p ring-map.  **Open**: a *native coalgebraic* product
-directly on `gspine` co-trees (convolution-with-carry on the spine, not digit-stream transport);
-ℝ field on the carrier.
+one carrier (transport), with a genuine 𝔽_p ring-map.
+
+### 3g. Native addition (finite-state) vs transport-only × — ✅ CLOSED (this session)
+`Padic/NuEscape` `padic_native_addition`: **addition is native** — `Zp.add`'s carry is always a
+single bit (`add_carry_le_one`: digit pairs sum `< 2p`), a one-bit-state Mealy machine
+(`add_mealy_step`); the carry bit = the odometer bit.  **Multiplication is not finite-state** (the
+convolution reads all lower digits, `mulCarry` unbounded) — so `×` is transport-only *by nature*,
+resolving the "native product" frontier structurally (holonomic/non-holonomic at the ring-op
+scale).  **Open**: ℝ field on the carrier (the only remaining one-carrier frontier).
+
+> Note: `Nat.div_lt_iff_lt_mul` and core `Nat.div_lt_of_lt_mul` pull `propext`/`Classical`; use
+> `NatDiv213.div_lt_of_lt_mul` (pure).
 
 > Note (propext traps hit + recorded): `Nat.succ_ne_zero`, `Nat.sub_add_cancel`, `by_cases`, and
 > `rw`-with-an-`Iff` all pull `propext`.  Use `Nat.noConfusion`, `cases p`/defeq, `rcases

@@ -152,6 +152,17 @@ of `x·y` is again reached by no finite Raw, `padic_ring_on_carrier`), and the r
 residue y` in 𝔽_p, because position `0` of `Zp.mul` carries nothing (`residue_mul`).  So ℤ_p, as
 the carrier subset of escapes, is a sub-ring with a genuine 𝔽_p ring-map readout.
 
+But `+` and `×` sit on the carrier *differently*, and this is the sharpest structural fact.
+**Addition is native** — a one-bit-state Mealy machine on the co-tree: `Zp.add`'s carry is always a
+single **bit** (`add_carry_le_one`: each digit pair sums to `< 2p`), so each output digit comes
+from a bounded state (`add_mealy_step`), and that carry bit *is* the odometer bit
+(`the_residue_unit_odometer.md`).  **Multiplication is not native** — the convolution at position
+`k` reads *all* lower digits, so `Zp.mul`'s carry accumulates unboundedly; there is no
+finite-state form, and `×` lives on the carrier only by *transport*.  This is the holonomic /
+non-holonomic split (`non_holonomicity_as_finite_state_escape.md`) read at the ring-operation
+scale: the residue-unit operations (`+1`, `+`) are finite-state and native; the genuinely
+non-local one (`×`) is not.
+
 ### Cross-frame
 
 The "one carrier" reading is the number-system instance of three already-pinned 213 facts.
@@ -177,12 +188,14 @@ escape wearing the alphabet of whichever number system is being pointed at.
   shift), and `mulBase` is the genuine ring `Zp.mul`-by-`p` (`mulBase_eq_mul_pElem`: multiplication
   by `p` carries nothing, so it collapses to the shift).  The **binary** product `x·y` is on the
   carrier as the *transport* of `Zp.mul`: escapes are `×`/`+`-closed and the 𝔽_p readout is a ring
-  hom (`padic_ring_on_carrier`).  What remains open is a *native coalgebraic* product directly on
-  `gspine` co-trees (a convolution-with-carry on the spine representation, not via digit-stream
-  transport), and ℝ's field structure on the carrier.  What is closed: the carrier, the shift, the
-  unit-`±1` arithmetic, the multiplicative valuation filtration `× p`, and the binary ring
-  structure (`+`/`×`) transported with a genuine 𝔽_p ring-map readout — all grounded in the actual
-  `Zp.add`/`Zp.mul`.
+  hom (`padic_ring_on_carrier`).  The native-vs-transport question is *resolved structurally*:
+  addition is native (a one-bit finite-state Mealy machine, `add_carry_le_one`/`add_mealy_step`),
+  while a native co-recursive product is **impossible as a finite-state operation** — `×`'s
+  convolution is non-local — so `×` is transport-only by its nature, not for lack of effort.  What
+  remains genuinely open is ℝ's field structure on the carrier.  What is closed: the carrier, the
+  shift, the unit-`±1` arithmetic, the valuation filtration `× p`, the binary ring structure
+  (`+`/`×`) transported with a 𝔽_p ring-map readout, and the native/finite-state characterization
+  of `+` (vs the non-finite-state `×`) — all grounded in the actual `Zp.add`/`Zp.mul`.
 - `cutBits` is one honest presentation-dependent extractor (the cut-decision diagonal); it is
   not claimed canonical on the equivalence class.  A faithful map on `Real213.equiv` would need
   the order-decision *limit* (existence via the modulus), which is the LPO-costed step of the
