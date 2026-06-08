@@ -82,19 +82,28 @@ The committed-to multi-session build of `(ℤ/p)*` cyclic ⟹ Zolotarev nontrivi
 - **brick 4b-i** `Meta/Nat/Valuation.lean` (15) — the `q`-adic valuation `vp q n` (largest `k`
   with `qᵏ∣n`): `pow_vp_dvd`, `vp_ge`, `vp_not_dvd_succ` (exactness), `le_vp_iff`.  (Core `Nat`
   dvd/mod API is propext-tainted — decides on `n%qᵏ=0` + pure dvd helpers throughout.)
+- **brick 4b-ii** `QPart.lean` (6) — `qpart q n := q^(vp q n)`; `qpart_dvd`, `qpart_pos`,
+  `gcd_eq_of_dvd` (`b∣a ⟹ gcd a b = b`), `q_not_dvd_quot` (`q∤(n/qpart)`),
+  `gcd_qpow_qfree` (`gcd(qᵉ,B)=1` for `q` prime, `q∤B`).
+- **brick 4b-iii** `ValuationAlg.lean` (5) — `vp_mul` (`vp q(a·b)=vp q a+vp q b`); ★★★
+  `exists_prime_vp_gt` (`α∤d ⟹ ∃ prime q, vp q α > vp q d`, via `gcd_div_coprime` ⟹
+  `vp(d/g)=0`).  Plus `vp_eq_of`/`vp_eq_zero`/`one_le_vp`.  *(`OrderPow.not_dvd_pow` exposed
+  this session for 4b-iv.)*
 
 **Bricks remaining:**
-- **brick 4b-ii — `q`-part properties** (~120 lines): `qpart q n := q^(vp q n)`; `qpart ∣ n`
-  (`pow_vp_dvd`); `q ∤ (n/qpart)` (else `q^(vp+1)∣n`, contra `vp_not_dvd_succ`); and
-  `gcd(q^e, B) = 1` when `q ∤ B`, `q` prime (`B`'s divisors of `q^e` are `q`-powers via
-  `dvd_prime_pow_cases` + `q∤B` ⟹ `gcd = 1`).
-- **brick 4b-iii — prime + valuation comparison** (~80 lines): `α ∤ d ⟹ α/gcd(α,d) > 1 ⟹
-  ∃ prime q ∣ (α/gcd) ⟹ v_q(α) > v_q(d)` (since `v_q(gcd)=min=v_q(d)<v_q(α)`; or directly
-  `q ∣ α/gcd` ⟹ `q^{v_q(d)+1} ∣ α` while `∤ d`).
-- **brick 4b-iv — the contradiction** (~80 lines): with `A = q^{v_q α}` (`∣α`),
-  `B = d/q^{v_q d}` (`∣d`, `q`-free, `gcd(A,B)=1`): `a^(α/A)` has order `A` (brick 2),
-  `g^(d/B)` order `B`, product order `A·B = q^{e−f}·d > d` (brick 3) — contradicts `maxOrd_ge`.
-  ⟹ **`every_ord_dvd_maxOrd`**; then `maxOrd = p−1` via brick 5.
+- **brick 4b-iv — the contradiction ⟹ `every_ord_dvd_maxOrd`** (~150 lines, the assembly).
+  All pieces are now PURE; the work is gluing them through the base-representative (`%p`):
+  - *tweak*: extend `exists_prime_vp_gt`'s conclusion to also return `1 < q` (its `q` comes from
+    `exists_prime_factor` which has it; needed since the primality predicate alone allows `q=1`).
+  - *helper* `ord_pow_eq_of_dvd`: for a unit `a`, `A ∣ ord a` ⟹ `ordModP (a^(ord a / A)) p = A`
+    (`ord_pow` + `gcd_eq_of_dvd` (`gcd(α,α/A)=α/A`) + `α/(α/A)=A`).
+  - *main*: `by_contra` `¬ ord a ∣ maxOrd`; `d = maxOrd` achieved by `g` (`maxOrd_achieved`);
+    `exists_prime_vp_gt` gives prime `q`, `e=vp q α > f=vp q d`.  Set `A = qpart q α` (`∣α`,
+    order-`A` witness `x=(a^(α/A))%p`, via helper + `ord_mod_eq`; unit by `not_dvd_pow`),
+    `B = d/qpart q d` (order-`B` witness `y=(g^(qpart q d))%p`).  `gcd(A,B)=1`
+    (`gcd_qpow_qfree`, `q∤B` by `q_not_dvd_quot`).  `ord_mul_coprime x y` ⟹ `ord((x·y)%p)=A·B`.
+    `A·B = qᵉ·(d/qᶠ) ≥ q·d > d` (since `e≥f+1`, `qᶠ·(d/qᶠ)=d`).  But `(x·y)%p ∈ [1,p−1]` so
+    `ord ≤ maxOrd = d` (`maxOrd_ge`) — contradiction.
 - **brick 5** RootBound gluing (`X^{maxOrd}−1` (as `List Int`) has `p−1` roots ⟹ `eval_zero` ⟹
   `f≡0` ⟹ `f(0)=−1≡0`, contra ⟹ `p−1 ≤ maxOrd`; with `maxOrd ∣ p−1` ⟹ `= p−1` ⟹ primitive root).
 - **brick 6** `(p−1)`-cycle of `mulPerm g` ⟹ nontriviality ⟹ full Zolotarev.

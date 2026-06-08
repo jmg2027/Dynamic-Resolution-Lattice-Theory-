@@ -46,7 +46,7 @@ theorem ord_mod_eq (a p : Nat) : ordModP a p = ordModP (a % p) p := by
 /-! ## §2 — the order of a power -/
 
 /-- `p ∤ aᵏ` for a prime `p` with `p ∤ a` (so `aᵏ % p` is a unit). -/
-private theorem not_dvd_pow (a p k : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+theorem not_dvd_pow (a p k : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
     (hna : ¬ p ∣ a) : ¬ p ∣ a ^ k := by
   induction k with
   | zero =>
