@@ -82,20 +82,25 @@ the strategy:
   (`σ∘swapAt k τ = swapAt k (σ∘τ)`), `psign_swapAt` (adjacent swap negates `psign`),
   `swapAt_mem_perms` (`perms` closed under swap).
 
-**Next — `psign_mul` via the bubble-sort engine** (induction on `inversions τ`):
-the step is in hand (`composeList_swapAt` + `psign_swapAt`: `psign(σ∘(swapAt p τ)) =
-−psign(σ∘τ)` and `psign(swapAt p τ) = −psign τ`, so the product `psign(σ∘τ)·psign τ`
-is swap-invariant).  Remaining engine pieces (all clean, none built yet):
-  1. `inversions τ = 0 ⟹ τ = iota n` (sorted ⟹ iota: `inv=0 ⟹` strictly increasing
-     `⟹` `τ.getD i 0 = i`);
-  2. adjacent-descent existence (`inversions τ ≠ 0 ⟹ ∃ p, τ_{p+1} < τ_p`);
-  3. directed inversion-decrease (`τ_{p+1} < τ_p ⟹ inversions(swapAt p τ) + 1 = inversions τ`
-     — the directed form of `Permutation`'s head `key` computation);
-  4. fuel-induction (`∀ fuel, inversions τ ≤ fuel → …`, structural, no well-founded)
-     assembling `psign_mul`.
-Then `psign_inv` (`psign(invPerm σ) = psign σ`) is a one-liner (`psign σ·psign σ⁻¹ =
-psign(iota n) = 1` in {±1}) and `det Mᵀ = det M` follows (reindex `perms` by
-`invPerm` + `prodZ_lperm`).  Alt route to `psign_mul`: Vandermonde over `PolyZ`.
+- ★★★ `PermSign.psign_mul` (`psign(σ∘τ) = psign σ·psign τ`) — **CLOSED, ∅-axiom PURE**.
+  The keystone.  Built the full bubble-sort engine: `inv_prefix_swap` (directed
+  inversion-decrease), `descent_of_inv_pos` (descent existence), `Q_swap` (the
+  swap-invariant `psign(σ∘τ)·psign τ`), `sorted_perm_eq_iota` (base), `perms_inj`
+  (position-injectivity via `cnt_ge_two`), and the structural fuel-induction
+  `psign_mul_aux` (no well-founded recursion).  (`Nat.succ_ne_zero`'s `propext` was
+  sidestepped with `Nat.noConfusion` to keep it PURE.)
+
+**Next — `det Mᵀ = det M`** (now unblocked):
+  1. `psign_inv` (`psign(invPerm σ) = psign σ`) — a one-liner from `psign_mul`:
+     `psign σ · psign(invPerm σ) = psign(composeList σ (invPerm σ)) = psign(iota n) = 1`
+     in {±1} (needs `invPerm σ ∈ perms n` + `composeList_invPerm_right`'s hypothesis
+     `∀ j<|σ|, j∈σ`, both from `σ ∈ perms n`).
+  2. `det Mᵀ = det M`: reindex the Leibniz sum `perms n` by `invPerm` (a bijection of
+     `perms n`, via `composeList_invPerm_left/right`), apply `psign_inv`, and reindex the
+     product (`ProdLperm.prodZ_lperm`).  Needs `perms` closed under `invPerm` up to `LPerm`
+     (analogue of `perms_swap_closed`) + the transpose product-reindex `∏ M(σ i,i) = ∏ M(i,σ⁻¹ i)`.
+  3. `det(M·N) = det M·det N` then via Track A (alternating-form uniqueness + `det_swapRows`),
+     or directly via the Leibniz expansion now that `psign_mul` exists.
 
 ### 3b. ✓ The **upper-triangular** determinant — CLOSED (this session)
 `DetTriangular.det_upper_triangular` — `M i j = 0` for `j < i` ⟹ `det = Π Mᵢᵢ`,
@@ -118,7 +123,7 @@ no new sign theory — pure consequences of the already-proven multilinearity
 lean/E213/Lib/Math/Algebra/Linalg213/DetTriangular.lean  ← + det_upper_triangular (last-row), 13/13 PURE
 lean/E213/Lib/Math/Algebra/Linalg213/DetRowOps.lean      ← NEW: row ops (add-multiple preserves, swap negates) det, 11/11 PURE
 lean/E213/Lib/Math/Algebra/Linalg213/PermGroup.lean      ← NEW: symmetric group on value-lists (composeList, identity, assoc, two-sided invPerm), 19/19 PURE
-lean/E213/Lib/Math/Algebra/Linalg213/PermSign.lean       ← NEW: position-swap action (composeList_swapAt, psign_swapAt, swapAt_mem_perms), 4/4 PURE; toward psign_mul
+lean/E213/Lib/Math/Algebra/Linalg213/PermSign.lean       ← NEW: ★★★ psign_mul (sign-multiplicativity) via bubble-sort, 30/30 PURE
 lean/E213/Meta/Nat/NatRing213.lean                       ← + nat_succ_sub (§5)
 lean/E213/Lib/Math/Combinatorics/SpernerChains.lean      ← succ_sub_clean → nat_succ_sub
 lean/E213/Lib/Math/Algebra/Linalg213/PermBridge.lean     ← NEW: the two-perms bridge, 7/7 PURE

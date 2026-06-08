@@ -23,7 +23,10 @@ open E213.Lib.Math.Algebra.Linalg213.PermGroup (composeList map_append')
 open E213.Lib.Math.Algebra.Linalg213.PermClosure
   (permsOf_sound permsOf_complete lperm_of_cnt_eq cnt_lperm add_left_cancel'
    nodup_iota lt_of_mem_iota perm_length)
-open E213.Lib.Math.Algebra.Linalg213.PermGroup (iota_cons)
+open E213.Lib.Math.Algebra.Linalg213.PermGroup
+  (iota_cons getD_mem composeList_iota_right)
+open E213.Lib.Math.Algebra.Linalg213.PermClosure (mem_append_right)
+open E213.Lib.Math.Algebra.Linalg213.DetN (altSign)
 open E213.Meta.Int213 (mul_neg neg_mul)
 
 /-! ## §1 — composition commutes with an adjacent position-swap -/
@@ -227,5 +230,117 @@ theorem sorted_iota : ∀ n, Sorted (iota n)
 theorem sorted_perm_eq_iota (n : Nat) (τ : List Nat) (hs : Sorted τ) (hτ : τ ∈ perms n) :
     τ = iota n :=
   sorted_lperm_eq τ (iota n) hs (sorted_iota n) (permsOf_sound (iota n) τ hτ)
+
+/-! ## §7 — permutation injectivity + `altSign` square -/
+
+/-- Entries of a permutation of `iota n` are `< n`. -/
+theorem perms_entry_lt {n : Nat} {τ : List Nat} (hτ : τ ∈ perms n) {i : Nat} (hi : i < n) :
+    τ.getD i 0 < n :=
+  lt_of_mem_iota (PermClosure.LPerm.mem (permsOf_sound (iota n) τ hτ)
+    (getD_mem τ i (Nat.lt_of_lt_of_le hi (Nat.le_of_eq (perm_length hτ).symm))))
+
+/-- Two distinct positions holding the same value give an occurrence count `≥ 2`. -/
+theorem cnt_ge_two (v : Nat) : ∀ (σ : List Nat) (i j : Nat), i < j → j < σ.length →
+    σ.getD i 0 = v → σ.getD j 0 = v → 2 ≤ PermClosure.cnt v σ := by
+  intro σ
+  induction σ with
+  | nil => intro i j _ hj _ _; exact absurd hj (Nat.not_lt_zero j)
+  | cons b l ih =>
+    intro i j hij hj hi hj'
+    cases j with
+    | zero => exact absurd hij (Nat.not_lt_zero i)
+    | succ j' =>
+      have hj'l : j' < l.length := Nat.lt_of_succ_lt_succ hj
+      have hjv : l.getD j' 0 = v := hj'
+      show 2 ≤ (if b = v then 1 else 0) + PermClosure.cnt v l
+      cases i with
+      | zero =>
+        rw [if_pos (show b = v from hi)]
+        exact Nat.add_le_add_left (PermClosure.cnt_pos_of_mem (hjv ▸ getD_mem l j' hj'l)) 1
+      | succ i' =>
+        exact Nat.le_trans
+          (ih i' j' (Nat.lt_of_succ_lt_succ hij) hj'l (show l.getD i' 0 = v from hi) hjv)
+          (Nat.le_add_left _ _)
+
+/-- ★ **A permutation of `iota n` is position-injective**. -/
+theorem perms_inj {n : Nat} {σ : List Nat} (hσ : σ ∈ perms n) {i j : Nat} (hi : i < n) (hj : j < n)
+    (he : σ.getD i 0 = σ.getD j 0) : i = j := by
+  have hnd : PermClosure.Nodup σ :=
+    PermClosure.nodup_of_lperm (permsOf_sound (iota n) σ hσ) (nodup_iota n)
+  have hlen : σ.length = n := perm_length hσ
+  rcases Nat.lt_trichotomy i j with h | h | h
+  · exact absurd (cnt_ge_two (σ.getD j 0) σ i j h
+      (Nat.lt_of_lt_of_le hj (Nat.le_of_eq hlen.symm)) he rfl)
+      (Nat.not_le.mpr (Nat.lt_succ_of_le (hnd (σ.getD j 0))))
+  · exact h
+  · exact absurd (cnt_ge_two (σ.getD i 0) σ j i h
+      (Nat.lt_of_lt_of_le hi (Nat.le_of_eq hlen.symm)) he.symm rfl)
+      (Nat.not_le.mpr (Nat.lt_succ_of_le (hnd (σ.getD i 0))))
+
+/-- `altSign k · altSign k = 1`. -/
+theorem altSign_self : ∀ k, altSign k * altSign k = 1
+  | 0     => rfl
+  | k + 1 => by
+    show (-(altSign k)) * (-(altSign k)) = 1
+    rw [neg_mul, mul_neg, Int.neg_neg, altSign_self k]
+
+/-! ## §8 — sign-multiplicativity `psign(σ∘τ) = psign σ · psign τ` -/
+
+/-- A list with no inversions is sorted. -/
+theorem inv_zero_imp_sorted (τ : List Nat) (h : inversions τ = 0) : Sorted τ := by
+  rcases sorted_or_descent τ with hs | ⟨pre, y, x, l, he, hxy⟩
+  · exact hs
+  · subst he
+    rw [inv_prefix_swap pre y x l hxy] at h
+    exact Nat.noConfusion h
+
+/-- Base case: at `inversions τ = 0` (so `τ = iota n`), `psign(σ∘τ)·psign τ = psign σ`. -/
+theorem psign_mul_base (n : Nat) (σ τ : List Nat) (hσ : σ ∈ perms n) (hτ : τ ∈ perms n)
+    (hz : inversions τ = 0) : psign (composeList σ τ) * psign τ = psign σ := by
+  have hiota : τ = iota n := sorted_perm_eq_iota n τ (inv_zero_imp_sorted τ hz) hτ
+  subst hiota
+  rw [composeList_iota_right n σ (perm_length hσ),
+      show psign (iota n) = 1 from by
+        show altSign (inversions (iota n)) = 1
+        rw [sorted_imp_inv_zero (iota n) (sorted_iota n)]; rfl,
+      E213.Meta.Int213.mul_one]
+
+/-- Fuel-bounded sign-multiplicativity (induction on `inversions τ ≤ fuel`). -/
+theorem psign_mul_aux : ∀ (fuel n : Nat) (σ τ : List Nat), σ ∈ perms n → τ ∈ perms n →
+    inversions τ ≤ fuel → psign (composeList σ τ) * psign τ = psign σ
+  | 0,        n, σ, τ, hσ, hτ, hf =>
+    psign_mul_base n σ τ hσ hτ (Nat.le_antisymm hf (Nat.zero_le _))
+  | fuel + 1, n, σ, τ, hσ, hτ, hf => by
+    by_cases hz : inversions τ = 0
+    · exact psign_mul_base n σ τ hσ hτ hz
+    · obtain ⟨pre, y, x, l, he, hxy⟩ := descent_of_inv_pos τ hz
+      subst he
+      have hxn : x < n := lt_of_mem_iota (PermClosure.LPerm.mem
+        (permsOf_sound (iota n) _ hτ) (mem_append_right pre (List.Mem.tail _ (List.Mem.head _))))
+      have hyn : y < n := lt_of_mem_iota (PermClosure.LPerm.mem
+        (permsOf_sound (iota n) _ hτ) (mem_append_right pre (List.Mem.head _)))
+      have hne : σ.getD x 0 ≠ σ.getD y 0 :=
+        fun heq => Nat.ne_of_lt hxy (perms_inj hσ hxn hyn heq)
+      have hτ' : (pre ++ x :: y :: l) ∈ perms n := by
+        have hm := swapAt_mem_perms n pre.length (pre ++ y :: x :: l) hτ
+        rwa [swapAt_prefix pre y x l] at hm
+      have hf' : inversions (pre ++ x :: y :: l) ≤ fuel := by
+        rw [inv_prefix_swap pre y x l hxy] at hf
+        exact Nat.le_of_succ_le_succ hf
+      rw [Q_swap σ pre y x l (Nat.ne_of_lt hxy) hne]
+      exact psign_mul_aux fuel n σ (pre ++ x :: y :: l) hσ hτ' hf'
+
+/-- ★★★ **Sign-multiplicativity**: `psign (σ ∘ τ) = psign σ · psign τ` (the keystone for the
+    transpose determinant), proved by the bubble-sort reduction of `τ` to `iota n`, with the
+    swap-invariant `psign(σ∘τ)·psign τ` (`Q_swap`) conserved at each adjacent transposition. -/
+theorem psign_mul (n : Nat) (σ τ : List Nat) (hσ : σ ∈ perms n) (hτ : τ ∈ perms n) :
+    psign (composeList σ τ) = psign σ * psign τ := by
+  have h := psign_mul_aux (inversions τ) n σ τ hσ hτ (Nat.le_refl _)
+  have hsq : psign τ * psign τ = 1 := altSign_self (inversions τ)
+  calc psign (composeList σ τ)
+      = psign (composeList σ τ) * (psign τ * psign τ) := by
+        rw [hsq, E213.Meta.Int213.mul_one]
+    _ = (psign (composeList σ τ) * psign τ) * psign τ := by rw [E213.Meta.Int213.mul_assoc]
+    _ = psign σ * psign τ := by rw [h]
 
 end E213.Lib.Math.Algebra.Linalg213.PermSign
