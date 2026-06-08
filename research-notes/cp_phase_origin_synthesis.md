@@ -119,14 +119,36 @@ The CP `i` (`⋆²=−1`, `C₄`) is the **Hodge star on the `(d−1)=4`-dimensi
   (`⋆²=+1` collapsed); the CP `i` needs the **signed `ℤ`-Hodge star** (named-
   unbuilt). A counting bridge already exists (CDI-2: `b₁(K₅)≡δ_CP≡SU(5) adj=24`).
 
-### The convergence (group theory + number theory + cohomology)
+### ★ The signed Hodge star is BUILT and proven `= ℤ[i]` (`Hodge/SignedStarC4.lean`, 10 PURE)
+The named-unbuilt frontier (signed `ℤ`-Hodge star) is now **constructed** on the
+grade-`1`↔`3` pair of the `4`-dim `Δ⁴`, as the matrix `J = [[0,−1],[1,0]]` (the
+`(−1)^{1·3}=−1` sign):
+- **`J² = −I`** (the `⋆²=−1` the repo's ℤ/2 star collapses), `J⁴ = I`,
+  `⟨J⟩ ≅ C₄` (order `4 = NT²`, `90°`).
+- **`ℤ[J] ≅ ℤ[i]`** (`J ↔ i`): `(aI+bJ)(cI+dJ) = (ac−bd)I+(ad+bc)J` (Gaussian
+  product); `det(elt a b) = a²+b² = N(a+bi)`. Witnessed `i²=−1`, `(1+i)²=2i`,
+  `(2+3i)(1+4i)=−10+11i`.
+- The **norm-`d` Gaussian prime** appears: `N(2+i)=5=d` (`5=(2+i)(2−i)`, the
+  `CyclotomicFive` bridge), `N(1+i)=2=NT`.
+
+**So the cohomological complex structure `⋆` IS the algebraic CP `i`** — proven,
+not conjectured. The three legs are now **one proven object** `C₄ = ⟨J⟩ = ℤ[i]^×`:
+the signed Hodge `⋆` on `H*(Δ⁴)` (cohomology, = the `1/α_em` complex), the `μ₄`
+of `ℚ(i)` linked to `ℚ(ζ₅)` by `5=(2+i)(2−i)` (number theory), and the CD `ℤ[i]^×`
+(algebra).
+
+### The convergence (group + number theory + cohomology, on the prime `d=5`)
 All three legs give **golden modulus + `C₄`/`90°` phase** from the single
 `d = NS+NT = 5`: the eigenvalue `1/φ²` of `M` (group), the cyclotomic tower
-`ℚ(ζ₅)` (number theory), and the Hodge structure on `H*(Δ⁴)` (cohomology — and
-the same object as `α_em`). The remaining frontier is **one** construction seen
-three ways: the **explicit complex structure on the `d=5` / 3-generation space**
-(the signed `ℤ`-Hodge `⋆` at `n=4` = the `ℤ[i]` mass-structure = the `μ₄` in
-`ℚ(i)` linked by `5=(2+i)(2−i)`).
+`ℚ(ζ₅)` (number theory), and the (now-built signed) Hodge structure on `H*(Δ⁴)`
+(cohomology — the same object as `α_em`).
+
+**Remaining frontier** (narrowed): the signed `⋆` is built on **one** `(Λ¹,Λ³)`
+grade-pair (a `2`-D model), not the full `Δ⁴` cochain complex with all signs; and
+it is not yet **wired to the 3 generations** (the proof that the surviving KM
+phase *is* this `J`). Two concrete next steps: (i) lift `J` to the full signed
+`ℤ`-cochain Hodge star on `H*(Δ⁴)`; (ii) show the `5̄⊕10` generation Yukawa
+carries `J` so the rephasing-invariant phase is `arg J = 90°`.
 
 ## Lean / files
 - `Mixing/CPPhaseCount.lean` (6 PURE) — CP existence+uniqueness from `N_gen=3`.
