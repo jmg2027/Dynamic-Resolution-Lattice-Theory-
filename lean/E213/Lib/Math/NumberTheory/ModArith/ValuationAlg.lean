@@ -84,7 +84,7 @@ theorem vp_mul (q a b : Nat) (hq : 2 ≤ q) (hpr : ∀ d, d ∣ q → d = 1 ∨ 
     coprime to `d/gcd` (`gcd_div_coprime`), so `vp(d/g) = 0`; `vp(α) = vp(g) + vp(α/g) ≥ vp(g)+1`
     and `vp(d) = vp(g) + 0`. -/
 theorem exists_prime_vp_gt (α d : Nat) (hα : 0 < α) (hd : 0 < d) (hnd : ¬ α ∣ d) :
-    ∃ q, (∀ e, e ∣ q → e = 1 ∨ e = q) ∧ vp q α > vp q d := by
+    ∃ q, 1 < q ∧ (∀ e, e ∣ q → e = 1 ∨ e = q) ∧ vp q α > vp q d := by
   obtain ⟨g, hgdef⟩ : ∃ g, gcd213 α d = g := ⟨_, rfl⟩
   have hgpos : 0 < g := hgdef ▸ gcd_pos α d hα
   have hgα : g ∣ α := hgdef ▸ gcd213_dvd_left α d
@@ -119,7 +119,7 @@ theorem exists_prime_vp_gt (α d : Nat) (hα : 0 < α) (hd : 0 < d) (hnd : ¬ α
     have hqg : q ∣ gcd213 Ag Dg := gcd213_greatest Ag Dg q hqAg hqd
     rw [hcop] at hqg
     exact absurd (le_of_dvd_pos q 1 (by decide) hqg) (Nat.not_le.mpr hq1)
-  refine ⟨q, hqpr, ?_⟩
+  refine ⟨q, hq1, hqpr, ?_⟩
   -- vp q α = vp q g + vp q Ag ≥ vp q g + 1;  vp q d = vp q g + 0
   have hvα : vp q α = vp q g + vp q Ag := by rw [← hgAg]; exact vp_mul q g Ag hq2 hqpr hgpos hAgpos
   have hvd : vp q d = vp q g + vp q Dg := by rw [← hgDg]; exact vp_mul q g Dg hq2 hqpr hgpos hDgpos
