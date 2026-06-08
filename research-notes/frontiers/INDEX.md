@@ -127,7 +127,7 @@ presentation/real split, and when a rate-free presentation (π) completes.
 - `G149_analysis_continuum_space_insights` — the analysis/continuum/space
   insight map feeding the completability and GRA programmes.
 
-Closure record: `theory/math/{completeness_relocated,completeness_without_completeness}.md`
+Closure record: `theory/math/numbersystems/{completeness_relocated,completeness_without_completeness}.md`
 + `theory/math/analysis/{holonomic_modulus,tower_native_completeness,refined_completability_engine}.md`.
 
 ## Sequence depth / multiplicative machinery  (`sequence_depth/`)
@@ -245,13 +245,11 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   permutation two readouts); fold `sumZ_swap` (Int) + the COUNT Nat double-sum into one `Meta`
   finite-Fubini.  ✓ *Done:* `int_even_or_odd` deduplicated into `CenteredDivision`
   (FourSquare / QuadraticReciprocity now thin re-exports); the `two_mul_ne_one` clones remain.
-- `second_supplement` — **CLOSED** (`2` QR ⟺ `p ≡ ±1 mod 8`, `SecondSupplement.lean`, 8 PURE incl
-  `gauss_mu`).
-- `euler_criterion_converse` — Euler's criterion **CLOSED** strict ∅-axiom (full iff
-  `aᵐ ≡ 1 ⟺ QR`, `ModArith/{EulerCriterion,EulerConverse}.lean`, 16 PURE; the converse =
-  squares-list saturation of `RootBound.eval_zero`).  The note now tracks the **open
-  downstream**: the quadratic character of `2` (second supplement), Gauss's lemma, and
-  Zolotarev (`psign` sign side already PURE).  Promotion-eligible → `theory/math/numbertheory/`.
+- **Legendre-symbol package** — CLOSED ∅-axiom (54 PURE): Euler's criterion (`qr_iff_pow_one`,
+  full iff `euler_criterion`), multiplicativity (`legendre_mul`), both supplements
+  (`neg_one_qr_iff`, `second_supplement`), Gauss's lemma (`gauss_qr`/`gauss_mu`).  **Promoted** →
+  `theory/math/numbertheory/legendre_symbol.md` (the QR chapter's base package).  *Open seed:*
+  Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side, one permutation two readouts).
 
 Closure records (promoted off this board):
 - Lagrange's four-square theorem — **closed & promoted**:
