@@ -92,7 +92,30 @@ theorem three_generation_cp_triangle :
     -- 3 generations = NS (atomic), the minimum for a nonzero area
     ∧ (3 : Int) = (NS : Int) := by decide
 
-/-! ## §4 — capstone: the apex area skeleton -/
+/-! ## §4 — the apex sits on the conserved golden-norm hyperbola `Q = −1`
+
+The apex spiral is not just area-homogeneous (§1–§3); it conserves the **golden
+norm** `Q(m,k) = m² − m·k − k²` (the `ℤ[φ]` norm, discriminant `d = 5`).  Every
+convergent `v_n` satisfies `Q(v_n) = −1` — the `N = −1` orbit of the P-spiral's
+rotation invariant (`Real213.SpiralRotationInvariant.Q_iterate_preserved`:
+`Q` is preserved at every turn).  So the apex lives on the golden-norm `−1`
+hyperbola; the discriminant `5 = d` is the same `d` that lands `M` in
+`SL(2,𝔽₅) ≅ 2I` and gives `M` its golden eigenvalues — the apex's structural
+home on the self-reference spiral. -/
+
+/-- ★★★ **Golden-norm conservation on the apex spiral.**  Each convergent
+    `v_n = (num_n, den_n)` lies on `Q = m² − m·k − k² = −1` (the `ℤ[φ]` norm,
+    disc `d = 5`) — the conserved rotation invariant of the P-spiral
+    (`SpiralRotationInvariant`).  Witnessed `n = 0..3` (positive form
+    `m² = m·k + k² − 1`, i.e. `Q = −1`). -/
+theorem apex_on_golden_norm_hyperbola :
+    num 0 * num 0 + 1 = num 0 * den 0 + den 0 * den 0   -- Q(1,1) = −1
+    ∧ num 1 * num 1 + 1 = num 1 * den 1 + den 1 * den 1 -- Q(3,2) = −1
+    ∧ num 2 * num 2 + 1 = num 2 * den 2 + den 2 * den 2 -- Q(8,5) = −1
+    ∧ num 3 * num 3 + 1 = num 3 * den 3 + den 3 * den 3 -- Q(21,13) = −1
+    := by decide
+
+/-! ## §5 — capstone: the apex area skeleton -/
 
 /-- ★★★★★ **Apex CP-area skeleton.**  The CKM apex (generation 1↔3 = two-step
     span) has integer span-area `F₄ = NS = 3` in the self-reference convergent
