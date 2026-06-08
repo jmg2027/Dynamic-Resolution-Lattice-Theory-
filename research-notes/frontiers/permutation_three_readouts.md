@@ -27,10 +27,15 @@ So the open synthesis is **one permutation, three readouts**:
 ```
    inversions (psign)  ──[PermMatrixDet, proven]──  det(permMatrix)
             │                                              │
-            └──────── Zolotarev (OPEN edge) ───────────────┘
+            └──── Zolotarev (CLOSED p≡3 mod 4) ────────────┘
                               │
                     Legendre (a/p)  ──[main: gauss_qr / euler_criterion, proven]
 ```
+
+**The triangle is now a theorem for `p ≡ 3 (mod 4)`**
+(`ModArith/ZolotarevConverse.det_permMatrix_mulPermMod_pmod4_three`):
+`det (permMatrix (mulPermMod a p)) = 1 ⟺ a` is a QR.  All three readouts
+(`psign` = `det` = `(a/p)`) coincide.  Residual edge: `p ≡ 1 mod 4` (see below).
 
 The frontier note `reciprocity_as_count_lens` already flagged "Zolotarev
 unification (`psign` sign side ↔ `gauss_qr` count side, one permutation two
@@ -65,6 +70,37 @@ index-2 kernel argument closes it); (b) the **Gauss-`μ` parity bridge**
 `psign σ_a = (−1)^μ` via the `σ_a = (block lift) ∘ (μ within-pair flips)` decomposition
 through the half-system `[1,m]` (the `fold`/`sgFn` machinery already in `GaussLemma`).
 Closing either gives the triangle `det (permMatrix (mulPermMod a p)) = (a/p)` for all `p`.
+
+### μ-bridge blueprint (concrete construction — no longer "infrastructure the repo lacks")
+
+The bridge `psign σ_a = ∏ₓ sgFn(a·x) = (−1)^μ` factors `σ_a = composeList B S`
+(`psign_mul` then telescopes), where **both factors are explicit value-lists** (no `f⁻¹`):
+
+- **`S` (source flips), `psign S = (−1)^μ`.**  `S(0)=0`; for `y∈[1,p−1]` let
+  `z = if y ≤ m then y else p−y` (the half-rep); `S(y) = if sgFn a p m z = −1 then p−y else y`.
+  `S` is `μ` *disjoint* transpositions `{x, p−x}` (one per `x∈[1,m]` with `ε(x)=−1`), so
+  `psign S = (−1)^μ`.  Needs: sign of a product of disjoint transpositions (build `S` as a
+  `composeList` chain of single transpositions, `psign_mul` + sign of one transposition `= −1`).
+
+- **`B` (block/orientation-preserving), `psign B = 1`.**  `B(0)=0`, `B(x)=f(x)` for `x∈[1,m]`,
+  `B(p−x)=p−f(x)` for `x∈[1,m]`, where `f = fold a p m` is the half-system permutation
+  (`GaussLemma.fold_perm`).  As a value-list, `B = [0] ++ g ++ [p−f(m), …, p−f(1)]` with
+  `g = [f(1),…,f(m)]`.  **The gem:** `inversions B = 2·inversions g`, hence
+  `psign B = altSign(2·inv g) = 1` (no abstract "sign-squared" needed).  Proof of the count:
+  the leading `0` and every cross-pair (first half ⊂ `[1,m]` < second half ⊂ `[m+1,p−1]`, and
+  positionally before) contribute `0`; the second half `[p−f(m),…,p−f(1)] = map (p−·) (reverse g)`
+  has `inversions = inversions g` (order-reversing `p−·` ∘ position-reversing `reverse` cancel,
+  pair-by-pair: `(k,l) k<l` inv ⟺ `f(m+1−k) < f(m+1−l)` ⟺ the pair `(m+1−l, m+1−k)` is an
+  inversion of `g`).
+
+- **Composition identity** `composeList B S = mulPermMod a p` by `getD` cases
+  (`i=0`, `i∈[1,m]`, `i∈[m+1,p−1]`) against the `fold`/`sgFn` definitions.
+
+Remaining helpers to build (reusable): `inversions_append` (with cross-term
+`crossInv L M = Σ_{x∈L} ltCount x M`), `inversions (map (p−·) (reverse L)) = inversions L`
+for distinct `L ⊂ [1,m]`, and `psign` of a single non-adjacent transposition `= −1`.
+With the bridge, `gauss_qr` gives `psign σ_a = (a/p)` for **every** prime — subsuming the
+`p≡3 mod 4` result and closing the triangle universally.
 
 ## 2. Teichmüller ω ↔ the quadratic character (p-adic lift of Euler's criterion)
 

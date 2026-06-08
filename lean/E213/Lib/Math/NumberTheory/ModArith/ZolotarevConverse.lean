@@ -1,6 +1,7 @@
 import E213.Lib.Math.NumberTheory.ModArith.ZolotarevSign
 import E213.Lib.Math.NumberTheory.ModArith.EulerFirstSupplement
 import E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative
+import E213.Lib.Math.Algebra.Linalg213.PermMatrixDet
 
 /-!
 # ZolotarevConverse — the sign character is the Legendre symbol on the `−1` axis
@@ -40,7 +41,10 @@ open E213.Lib.Math.Algebra.Linalg213.DetN (altSign altSign_add)
 open E213.Lib.Math.Algebra.Linalg213.PermSign (altSign_self ltCount_zero_of_all_ge)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (ltCount_all)
 open E213.Lib.Math.NumberTheory.ModArith.ZolotarevSign
-  (mulPermMod mulPermMod_length mulPermMod_getD psign_mulPermMod psign_mulPermMod_qr)
+  (mulPermMod mulPermMod_length mulPermMod_getD psign_mulPermMod psign_mulPermMod_qr
+   mulPermMod_mem_perms)
+open E213.Lib.Math.Algebra.Linalg213.DetN (det)
+open E213.Lib.Math.Algebra.Linalg213.PermMatrixDet (permMatrix det_permMatrix)
 open E213.Tactic.List213 (list_ext_getD getD_ge)
 open E213.Meta.Nat.MulMod213 (mul_mod_left_pure)
 open E213.Tactic.NatHelper (add_mul_mod_self_pure add_sub_of_le add_sub_cancel_right sub_add_cancel)
@@ -317,5 +321,20 @@ theorem zolotarev_pmod4_three (p m a : Nat) (hp : 1 < p)
       exact absurd (h1 ▸ hpm1) (by decide)
     rw [psign_mulPermMod_nonresidue p m a hp hpr h2m hm1 ha1 halt hp4 hnqr] at hps
     exact absurd hps (by decide)
+
+/-! ## §7 — the determinant reading (one permutation, three readouts) -/
+
+/-- ★★★★ **Zolotarev as a determinant** (`p ≡ 3 mod 4`).  The Legendre symbol is the
+    determinant of the permutation matrix of `σ_a = (×a mod p)`:
+    `det (permMatrix σ_a) = 1 ⟺ a` is a quadratic residue.  Closes the "one permutation,
+    three readouts" triangle (inversions / determinant / Legendre) for half the primes. -/
+theorem det_permMatrix_mulPermMod_pmod4_three (p m a : Nat) (hp : 1 < p)
+    (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p) (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m)
+    (ha1 : 1 ≤ a) (halt : a < p) (hp4 : p % 4 = 3) :
+    det p (permMatrix (mulPermMod a p)) = 1 ↔ (∃ z, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = a) := by
+  have hnpa : ¬ p ∣ a := fun h =>
+    absurd (le_of_dvd_pos p a (Nat.lt_of_lt_of_le Nat.zero_lt_one ha1) h) (Nat.not_le.mpr halt)
+  rw [det_permMatrix p (mulPermMod a p) (mulPermMod_mem_perms a p hp hpr hnpa)]
+  exact zolotarev_pmod4_three p m a hp hpr h2m hm1 ha1 halt hp4
 
 end E213.Lib.Math.NumberTheory.ModArith.ZolotarevConverse
