@@ -45,6 +45,10 @@ under the same thematic super-cluster as its Lean sub-tree.
 
 ### `combinatorics/` — `combinatorics`, `logic`, `graph_connectivity`, `bool_enumeration`.
 
+### `logic/` — reverse mathematics / omniscience ledger
+`reverse_math_213` (the `Lib/Math/Logic/` mirror — LPO/WLPO/MP/LLPO, the König
+selection cost, `WKL ⟺ Heine–Borel`, the object-level axiom-cost ledger).
+
 ### `tactic/` — `tactic`, `extras` (math-side infra).
 
 ## Promotion

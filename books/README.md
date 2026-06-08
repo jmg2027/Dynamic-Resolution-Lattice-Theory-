@@ -16,6 +16,7 @@ deductively-ordered master guide, see `guide/` at the repository root.
 
 ### math/
   - analysis213.md  undergraduate year-1 calculus 100% complete
+  - reverse-math-213.md  reverse mathematics / omniscience ledger (field 17)
 
 ### physics/
   - periodic-table.md  periodic table 213 version
