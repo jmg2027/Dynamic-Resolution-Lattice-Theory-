@@ -46,12 +46,16 @@ unbounded νF *carry*).  The **unit** (`+` carry = the odometer bit, `add_carry_
   (core closed); helper `AddMod213.div_le_div_right_pure` (pure monotone div, core lacks it).
 
 ## Forward plan (multi-agent analysis, prioritized)
-- **The schema frontier — ✅ DONE this turn.**  `CoResidue` §22 `escape_by_invariant`: the abstract
-  invariant-separation non-surjection, of which `gspine_escapes` (hence the number- and
-  operation-carry escapes, `gspine_escapes_via_schema`) is one instance.  Honest limit: Cantor
-  (`object1_not_surjective`) is the *diagonal-flip* sibling, not an instance — the two non-surjection
-  flavors are genuinely distinct, so no single term subsumes both (which is itself the residue of the
-  unification act).  Essay + frontier note updated.
+- **The schema frontier — ✅ RESOLVED (multi-agent dialectic).**  `CoResidue` §22
+  `escape_by_invariant`: the abstract invariant-separation non-surjection, of which `gspine_escapes`
+  (number- and operation-carry escapes, `gspine_escapes_via_schema`) is one instance.  **Cantor too**
+  factors through it: `Lens.Cardinality.cantor_as_invariant` (∅-axiom), single cover-dependent
+  separator `P_f φ := ∃ x, φ x = f x x`.  This **refuted** my earlier "Cantor is a sibling, not an
+  instance / no single P" (committed in ae99493) — corrected across §22 docstring, essay, frontier
+  note.  The genuine distinction is the **separator's self-reference**: cover-independent/intrinsic
+  (`hasFloorPath`, *named*) vs cover-dependent/self-referential (`P_f`, *reached-by-none*).  Skeptic's
+  residual: the schema unifies the final step; the diagonal *construction* of `P_f` is the
+  cover-dependent content it consumes.  A genuine insight from continuous agent debate.
 - **A — RE-SCOPED (was top pick; agent over-claimed).**  `cut_decision_not_finite_state` as stated
   does NOT capture not-finite-state: `cutBits r N` reads only `r.xs N` (a memoryless transducer
   satisfies it), and for a fixed positive real `1/(N+1)→0` makes `cutBits r` *eventually constant*.

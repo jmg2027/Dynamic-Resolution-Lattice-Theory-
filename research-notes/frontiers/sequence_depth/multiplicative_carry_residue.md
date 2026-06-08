@@ -46,16 +46,23 @@ every finite-state machine.
    is now a *theorem*, the ring-operation image of `spineL_escapes` / `object1_not_surjective`.
 
 3. ✅ **The "one schema" question** (is there a single ∅-axiom term with `gspine_escapes` /
-   `carry_is_nu_escape` / `object1_not_surjective` as instances-by-parameter?) — **answered, with
-   an honest limit.**  `CoResidue.escape_by_invariant` (§22) is the schema: an inhabitant lacking a
-   property `P` that every cover-image has is in the image of none.  The number- and operation-carry
-   escapes are *literally* this schema (`gspine_escapes_via_schema`, cover `gToShape a b`, `P` =
-   "all-`false` path hits a leaf"), at alphabets `Fin p` / `Nat`.  **Cantor (`object1_not_surjective`)
-   is the *sibling*, not an instance** — it is the diagonal-flip flavor (escapee differs pointwise,
-   no single `P`).  So scale-invariance is a theorem across the invariant-escapes and a *twinning*
-   with the diagonal-flip; a single term subsuming *both* flavors does not exist (the two
-   non-surjection flavors are genuinely distinct) — which is itself the honest residue of the
-   unification act.
+   `carry_is_nu_escape` / `object1_not_surjective` as instances?) — **answered YES, via a
+   multi-agent dialectic** (Unifier vs Skeptic, 1 round + moderated synthesis).
+   `CoResidue.escape_by_invariant` (§22) is the schema: an inhabitant lacking a property `P` that
+   every cover-image has is in the image of none.  The number- and operation-carry escapes are
+   *literally* this schema (`gspine_escapes_via_schema`).  **Cantor too factors through it** —
+   `Lens.Cardinality.cantor_as_invariant` (machine-checked ∅-axiom), with the single
+   **cover-dependent** separator `P_f φ := ∃ x, φ x = f x x`.  An earlier "Cantor is a sibling,
+   not an instance / no single `P`" reading was **refuted** by this factoring.
+
+   The genuine distinction is *not* two schemas but the **separator's self-reference**:
+   *cover-independent* / intrinsic `P` (`hasFloorPath`, never mentions the cover — the residue as
+   **named**) vs *cover-dependent* / self-referential `P_f` (whose escapee is forced by the cover's
+   own diagonal — the residue as **reached-by-none**).  Self-reference is exactly what turns a
+   *named* escape into a *reached-by-none* one; the non-surjection schema is shared.  The Skeptic's
+   honest residual: `escape_by_invariant` unifies the *final non-membership step*; the diagonal
+   *construction* of the self-referential `P_f` + flip escapee is the cover-dependent content it
+   consumes as hypotheses — that construction is where the two registers genuinely diverge.
 
 ## Still soft-open
 

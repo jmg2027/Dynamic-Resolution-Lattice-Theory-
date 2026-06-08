@@ -1471,12 +1471,15 @@ finite cover has** and the **escapee lacks**.  `escape_by_invariant` abstracts i
 in the image of none.  This is the scale-invariant content of "the residue is reached by no finite
 stage" — one non-surjection, instantiated by the choice of cover and separating invariant.
 
-Honest delimitation: this is the **invariant-separation** flavor of non-surjection.  Cantor's
-diagonal (`Lens.FlatOntologyClosure.object1_not_surjective`, the *description*-scale escape) is the
-**diagonal-flip** flavor — the escapee differs from each image *pointwise*, with no single
-separating `P` — so it is the *sibling*, not an instance, of this schema.  Scale-invariance holds
-across the invariant-escapes (number, operation-carry); the description scale is its twin, not its
-instance.  All ∅-axiom. -/
+Cantor too: the diagonal non-surjection (`Lens.Cardinality.cantor_general`,
+`object1_not_surjective`) **is also an instance** — `Lens.Cardinality.cantor_as_invariant` derives
+it from `escape_by_invariant` with the single **cover-dependent** (self-referential) separator
+`P_f φ := ∃ x, φ x = f x x`.  So there is *one* schema, not two.  The genuine distinction is the
+**separator's self-reference**: the spine escapes use a *cover-independent* / intrinsic `P`
+(`hasFloorPath`, never mentions the cover — the residue as *named*), Cantor a *cover-dependent* /
+self-referential `P` whose escapee is forced by the cover's own diagonal (the residue as
+*reached-by-none*).  Self-reference is what turns "named" into "reached-by-none"; the schema is
+shared.  All ∅-axiom. -/
 
 /-- ★★★ **Invariant-separation non-surjection.**  If the escapee `d` lacks a property `P` that
     every image `c a` of a cover `c : A → B` has, then `d = c a` for no `a` — `d` is reached by no
