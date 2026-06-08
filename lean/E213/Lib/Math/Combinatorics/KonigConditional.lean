@@ -1,3 +1,5 @@
+import E213.Theory.Raw.API
+
 /-!
 # König's lemma — where ∅ stalls (the boundary marker, ∅-axiom conditional)
 
@@ -94,5 +96,57 @@ def InfBelow (T : List Bool → Bool) (s : List Bool) : Prop :=
     (Its `∨` is decided by deciding `InfBelow`, which is `Π⁰₁`.) -/
 def InfChildExists (T : List Bool → Bool) : Prop :=
   ∀ s, InfBelow T s → InfBelow T (s ++ [false]) ∨ InfBelow T (s ++ [true])
+
+/-! ## König's infinity, located in the residue (the νF bridge)
+
+The narrative above states `T = CoShape` and `walk = ana`; this section makes the
+identification *theorems*.  The infinite branch König's lemma decides about is a
+**νF inhabitant** (`SlashNu`) — the residue's own escape — and is reached by **no
+finite Raw**.  So "which Raw chunk is the König infinity?" has a proved answer:
+*none* — the infinity is the escape (reached by no finite Raw), never a finite Raw.
+This is the code form of "∞ must be walked (kept a transition), never frozen into
+a finite value": the branch is held as the bit-stream the oracle generates, and
+its completion is a νF escape, not a finite object. -/
+
+open E213.Theory.Raw.CoResidue
+open E213.Theory (Raw)
+
+/-- The bit-stream of the König branch: the bit the oracle picks at each stage. -/
+def konigBranch (step : Oracle) : Nat → Bool := fun k => step (walk step k)
+
+/-- ★ **König's infinite branch IS a residue escape.**  The branch's bit-stream
+    packages as an exact slash-νF co-tree (`SlashNu`) — the residue's own escape
+    family (`CoResidue.boolSpineSlashNu`).  The infinite branch is not foreign to
+    the residue; it is one of the residue's own infinite self-pointings. -/
+def konigBranchNu (step : Oracle) : SlashNu := boolSpineSlashNu (konigBranch step)
+
+/-- The König branch is a genuine slash-νF co-tree: consistent and anti-reflexive. -/
+theorem konig_branch_is_nu (step : Oracle) :
+    Consistent (konigBranchNu step).val ∧ AntiRefl (konigBranchNu step).val :=
+  (konigBranchNu step).property
+
+/-- ★ **The König infinity is reached by no finite Raw.**  The branch-escape
+    differs (as a labelled co-tree) from every finite Raw's embedding
+    (`rawToSlashNu`), by `boolSpine_escapes`.  This is the proved answer to "which
+    Raw chunk is the infinity": none — it is the escape, no finite Raw. -/
+theorem konig_infinity_no_finite_raw (step : Oracle) (r : Raw) :
+    (rawToSlashNu r).val ≠ (konigBranchNu step).val :=
+  fun h => boolSpine_escapes (konigBranch step) r.val h.symm
+
+/-- ★★ **The König infinity, located in the residue (capstone).**  Given the König
+    hypotheses (an oracle keeping the walk infinite-below, an infinite root), the
+    infinite branch is a νF inhabitant that (a) lies in the tree `T` at every
+    finite stage and (b) is reached by no finite Raw.  So the object König's
+    `DECIDE` must adjudicate is the residue's escape (νF) — never a finite Raw,
+    never a frozen value.  The stall is a decision *about* this escape, not a
+    failure to *have* it. -/
+theorem konig_infinity_is_nu_escape
+    (T : List Bool → Bool) (step : Oracle) (Inf : List Bool → Prop)
+    (hInfMem : ∀ s, Inf s → T s = true)
+    (hstep : ∀ s, Inf s → Inf (s ++ [step s])) (root : Inf []) :
+    (∀ k, T (walk step k) = true)
+    ∧ (∀ r : Raw, (rawToSlashNu r).val ≠ (konigBranchNu step).val) :=
+  ⟨fun k => hInfMem _ (walk_inf step Inf hstep root k),
+   fun r => konig_infinity_no_finite_raw step r⟩
 
 end E213.Lib.Math.Combinatorics.KonigConditional
