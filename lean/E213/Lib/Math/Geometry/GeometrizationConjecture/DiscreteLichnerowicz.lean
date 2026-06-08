@@ -80,4 +80,35 @@ theorem km_rayleigh (m : Nat) (f : Nat → Int) :
       = (m : Int) * (-(gridSumZ m (fun x => f x * kmLapG m f x))) := by
   rw [km_lap_sq_sum, km_f_lap_sum]; ring_intZ
 
+/-- ★★★★★ **The `K_m` Laplacian spectrum is `{0, m}`.**  For a graph-Laplacian
+    eigenfunction `−Lf = λ·f` (i.e. `Lf = −λ·f`), the Rayleigh identity `km_rayleigh`
+    forces
+
+      `λ² · Σf² = m · λ · Σf²`,
+
+    so on the non-constant space (`Σf² > 0`) the eigenvalue satisfies `λ² = m·λ`, hence
+    `λ ∈ {0, m}` — the complete graph has algebraic connectivity exactly `m` (the unique
+    non-zero Laplacian eigenvalue), with multiplicity `m−1`.  This is Lichnerowicz made
+    exact: the pointwise `CD((m+2)/2)` lower bound is realized by the genuine gap
+    `λ = m ≥ (m+2)/2`. -/
+theorem km_eigenvalue (m : Nat) (f : Nat → Int) (lam : Int)
+    (heig : ∀ x, x < m → kmLapG m f x = -lam * f x) :
+    lam * lam * gridSumZ m (fun x => f x * f x)
+      = (m : Int) * lam * gridSumZ m (fun x => f x * f x) := by
+  have hL : gridSumZ m (fun x => kmLapG m f x * kmLapG m f x)
+          = lam * lam * gridSumZ m (fun x => f x * f x) := by
+    rw [show gridSumZ m (fun x => kmLapG m f x * kmLapG m f x)
+          = gridSumZ m (fun x => lam * lam * (f x * f x)) from
+        gridSumZ_congr m _ _ (fun x hx => by rw [heig x hx]; ring_intZ),
+        gridSumZ_mul_left]
+  have hR : gridSumZ m (fun x => f x * kmLapG m f x)
+          = -lam * gridSumZ m (fun x => f x * f x) := by
+    rw [show gridSumZ m (fun x => f x * kmLapG m f x)
+          = gridSumZ m (fun x => -lam * (f x * f x)) from
+        gridSumZ_congr m _ _ (fun x hx => by rw [heig x hx]; ring_intZ),
+        gridSumZ_mul_left]
+  have hr := km_rayleigh m f
+  rw [hL, hR] at hr
+  rw [hr]; ring_intZ
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteLichnerowicz
