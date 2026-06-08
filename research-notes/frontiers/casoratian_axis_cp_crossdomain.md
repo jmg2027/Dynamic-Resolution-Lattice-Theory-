@@ -20,7 +20,15 @@ Gaussian rung, not the Eisenstein (`ω`, order 6) one.  The two CM points of G18
 `−3`) are the same two that index the axis; the CP phase selects `−4`.
 
 This is the strongest link: a single object (`ℤ[i]^×=C₄`) proven on both sides, one branch reading
-(floor rotation) and one main reading (Hodge `⋆`).  Candidate for a synthesis essay.
+(floor rotation) and one main reading (Hodge `⋆`).
+
+**Morphism built** (`Cohomology/Hodge/GaussianHodgeBridge.lean`): the identification is now an
+explicit injective ring morphism `φ : ℤ[i] → ℤ[J]`, `φ⟨a,b⟩ = [[a,−b],[b,a]]`, proven multiplicative
+(`gaussianToStar_mul` — the Gaussian product IS the matrix product) and injective (`gaussianToStar_inj`).
+It maps `i↦J`, the floor generator `−i↦⋆³=−J`, and intertwines the dynamics: pushing the cross-determinant
+through `φ`, one floor step `W↦−i·W` becomes one Hodge step `φW↦⋆³·φW` (`crossDet_image_rotates`).
+Capstone `gaussian_floor_is_hodge_star`.  Essay `the_i_point_of_the_spiral_axis.md` updated (morphism
+closed).
 
 ## 2. The companion-determinant sign `altSign(k−1)` IS a permutation sign (PROVEN ↔ thematic)
 
@@ -60,6 +68,7 @@ the proven `ℤ[i]` identification of link 1, not by symbol.  Recorded to *avoid
 1. **`det_companion ↔ psign(cyclic shift)`** (link 2): a Lean bridge `altSign(k−1) =
    PermSign.psign (cyclicShift k)`, putting the Casoratian multiplier sign on the same
    inversion-sign readout as `det(permMatrix)`/Legendre/Zolotarev.  Med, genuine.
-2. **Synthesis essay for link 1**: "the CKM CP phase sits at the `i`-point of the spiral axis" —
-   ties `theory/physics/cp_phase.md` to `theory/math/analysis/spiral_coordinate_classification.md`
-   through the one object `ℤ[i]^×=C₄` (floor rotation = Hodge `⋆`).  Essay, not Lean.
+
+### Closed
+- **Link 1 morphism** (`GaussianHodgeBridge.lean`) — `φ:ℤ[i]→ℤ[J]` injective multiplicative hom,
+  floor rotation = Hodge `⋆`.  Essay `the_i_point_of_the_spiral_axis.md` updated.

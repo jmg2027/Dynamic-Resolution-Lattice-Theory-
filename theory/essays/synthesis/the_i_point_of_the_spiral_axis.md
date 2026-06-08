@@ -53,17 +53,29 @@ selects `ℤ[i]` over `ℤ[ω]`.
 Four resolutions of the single order-4 unit `i` — arithmetic (units), dynamical (rotation),
 cohomological (Hodge `⋆`), and field-theoretic (cyclotomic `C₄`).
 
+## The morphism (closed)
+
+The bridge "floor rotation = Hodge `⋆`" is no longer only a shared-object identification: the
+explicit ring morphism `φ : ℤ[i] → ℤ[J]`, `φ⟨a,b⟩ = aI + bJ = [[a,−b],[b,a]]`, is built and
+proven **injective** and **multiplicative** — `φ(u·v) = φu·φv`, the Gaussian product IS the `2×2`
+matrix product (`Cohomology/Hodge/GaussianHodgeBridge.gaussianToStar_mul`, `gaussianToStar_inj`).
+It carries `i ↦ J` and the floor generator `−i ↦ ⋆³ = −J`, so pushing the `ℤ[i]`-convergent
+cross-determinant through `φ` turns one **floor step** (`W ↦ −i·W`, `gaussian_cross_step`) into one
+**Hodge step** (`φW ↦ ⋆³·φW`): `crossDet_image_rotates`.  The two `C₄`-actions are intertwined by an
+embedding, not merely matched in order — the capstone `gaussian_floor_is_hodge_star` bundles
+multiplicativity, `i↦J`, `−i↦⋆³`, the intertwining, and injectivity.  The shared object `ℤ[i]^× = C₄`
+is now a Lean morphism.
+
 ## Open frontier
 
-The bridge "floor rotation = Hodge `⋆`" is a **shared-object** identification — both actions are
-`ℤ[i]^× = C₄` — not yet a Lean morphism between the two `C₄`-actions (a `gaussian_floor_rotation ↔
-SignedStarC4` map, or the `det_companion`-sign `↔ psign`-of-shift bridge that would put the axis
-rotation and the Hodge orientation on one inversion-sign readout).  And the CP value `90°` is forced
-while the explicit generation-Yukawa construction stays open (the `cp_phase` chapter's frontier).  The
-identification is the same-object claim; the morphism is the buildable next step.
+The CP value `90°` is forced while the explicit generation-Yukawa construction stays open (the
+`cp_phase` chapter's frontier).  The remaining sibling bridge is the `det_companion`-sign `↔
+psign`-of-shift identification, which would put the axis rotation and the Hodge orientation on one
+inversion-sign readout (`research-notes/frontiers/casoratian_axis_cp_crossdomain.md` link 2).
 
 ## Self-check note
 
-The claim is that the floor rotation and the Hodge `⋆` are the *same object* (`ℤ[i]^× = C₄`), not
-that one *is* the other by a proven map — stated as a shared-object identification, with the morphism
-flagged open, to avoid the glyph-reuse trap (a shared `i`/`−1` symbol is not yet a morphism).
+The claim that the floor rotation and the Hodge `⋆` are the *same object* (`ℤ[i]^× = C₄`) is now
+backed by a *proven map* — the injective multiplicative `φ` intertwining the two `C₄`-actions — so the
+glyph-reuse trap (a shared `i`/`−1` symbol passed off as a morphism) is discharged: the morphism is
+explicit, not asserted from the symbol.
