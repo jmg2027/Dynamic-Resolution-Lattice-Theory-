@@ -1,6 +1,7 @@
 import E213.Lib.Math.Algebra.Linalg213.InversionsAppend
 import E213.Lib.Math.NumberTheory.ModArith.ZolotarevSign
 import E213.Lib.Math.NumberTheory.ModArith.GaussLemma
+import E213.Lib.Math.Algebra.Linalg213.PermMatrixDet
 
 /-!
 # ZolotarevMuBridge — `psign σ_a = (a/p)` for every prime (the μ-bridge)
@@ -16,17 +17,23 @@ All ∅-axiom.
 
 namespace E213.Lib.Math.NumberTheory.ModArith.ZolotarevMuBridge
 
-open E213.Lib.Math.Algebra.Linalg213.Permutation (psign inversions ltCount iota)
-open E213.Lib.Math.Algebra.Linalg213.DetN (altSign)
+open E213.Lib.Math.Algebra.Linalg213.Permutation (psign inversions ltCount iota map_lperm LPerm)
+open E213.Lib.Math.Algebra.Linalg213.DetN (altSign altSign_add det)
 open E213.Lib.Math.Algebra.Linalg213.PermGroup (getD_iota)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (length_iota)
+open E213.Lib.Math.Algebra.Linalg213.PermMatrixDet (permMatrix det_permMatrix)
+open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ)
 open E213.Lib.Math.Algebra.Linalg213.InversionsAppend
   (revL crossInv diagCount revL_getD revL_length getD_append_left getD_append_right
-   length_append_pure psign_blockForm altSign_crossInv_map_psub sub_one_sub)
-open E213.Lib.Math.NumberTheory.ModArith.ZolotarevSign (mulPermMod mulPermMod_getD mulPermMod_length)
-open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg seg_length)
+   length_append_pure psign_blockForm altSign_crossInv_map_psub sub_one_sub
+   crossInv_lperm_right revL_lperm)
+open E213.Lib.Math.NumberTheory.ModArith.ZolotarevSign
+  (mulPermMod mulPermMod_getD mulPermMod_length mulPermMod_mem_perms)
+open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg seg_length sgFn gauss_qr)
+open E213.Tactic.List213 (exists_of_mem_map)
 open E213.Tactic.List213 (list_ext_getD getD_ge getD_map_ib length_map)
-open E213.Tactic.NatHelper (add_sub_of_le sub_add_cancel add_sub_cancel_right le_sub_of_add_le)
+open E213.Tactic.NatHelper
+  (add_sub_of_le sub_add_cancel add_sub_cancel_right le_sub_of_add_le sub_le_sub_left)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Lib.Math.NumberTheory.FourSquareSeed (nat_prime_dvd_mul)
 open E213.Meta.Nat.AddMod213 (add_mod_gen mod_self dvd_of_mod_eq_zero zero_mod)
@@ -142,5 +149,99 @@ theorem mulPermMod_block (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d 
           getD_ge 0 (show (0 :: (fhList a p m ++ (revL (fhList a p m)).map (fun w => p - w))).length ≤ i from by
             show (fhList a p m ++ (revL (fhList a p m)).map (fun w => p - w)).length + 1 ≤ i
             rw [length_append_pure, fhList_length, hshlen, ← hpval]; exact hi)]
+
+/-! ## §3 — the bridge `psign σ_a = altSign (diagCount p fh)` -/
+
+theorem fhList_le (a p m : Nat) (hp : 0 < p) : ∀ y ∈ fhList a p m, y ≤ p := by
+  intro y hy
+  obtain ⟨x, _, hyx⟩ := exists_of_mem_map hy
+  rw [← hyx]; exact Nat.le_of_lt (Nat.mod_lt _ hp)
+
+/-- ★★★ **The bridge:** `psign σ_a = altSign (diagCount p fh)` (`fh = σ_a`'s first half).
+    `psign_blockForm` reduces `psign σ_a` to the cross count; `altSign_crossInv_map_psub`
+    (after `crossInv_lperm_right` drops the reversal) collapses it to the diagonal. -/
+theorem psign_mulPermMod_eq_diag (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hnpa : ¬ p ∣ a) (h2m : 2 * m = p - 1) :
+    psign (mulPermMod a p) = altSign (diagCount p (fhList a p m)) := by
+  have hppos : 0 < p := Nat.lt_trans Nat.zero_lt_one hp
+  have hle := fhList_le a p m hppos
+  rw [mulPermMod_block a p m hp hpr hnpa h2m, psign_blockForm p (fhList a p m) hle,
+      crossInv_lperm_right (fhList a p m)
+        (map_lperm (fun w => p - w) (LPerm.symm (revL_lperm (fhList a p m))))]
+  exact altSign_crossInv_map_psub p (fhList a p m) hle
+
+/-! ## §4 — the diagonal count is Gauss's `μ`: `altSign (diagCount p fh) = ∏ sgFn` -/
+
+/-- `p − y < y ↔ m < y` for `p = 2m+1`, `y ≤ p` (the upper-half test). -/
+theorem pm_lt (p m y : Nat) (hpm : p = 2 * m + 1) (hy : y ≤ p) : (p - y < y) ↔ (m < y) := by
+  constructor
+  · intro h
+    rcases Nat.lt_or_ge m y with hmy | hmy
+    · exact hmy
+    · exfalso
+      have h1 : p - m ≤ p - y := sub_le_sub_left p hmy
+      have h2 : p - m = m + 1 := by rw [hpm, show 2 * m + 1 = (m + 1) + m from by ring_nat, add_sub_cancel_right]
+      have h1' : m + 1 ≤ p - y := by rw [h2] at h1; exact h1
+      have hle : y ≤ p - y := Nat.le_trans hmy (Nat.le_trans (Nat.le_succ m) h1')
+      exact absurd h (Nat.not_lt.mpr hle)
+  · intro h
+    have h1 : p - y ≤ p - (m + 1) := sub_le_sub_left p h
+    have h2 : p - (m + 1) = m := by rw [hpm, show 2 * m + 1 = m + (m + 1) from by ring_nat, add_sub_cancel_right]
+    have h1' : p - y ≤ m := by rw [h2] at h1; exact h1
+    exact Nat.lt_of_le_of_lt h1' h
+
+/-- `altSign` of the upper-half indicator is the Gauss sign. -/
+theorem sgn_helper (p m y : Nat) (hpm : p = 2 * m + 1) (hy : y < p) :
+    altSign (if p - y < y then 1 else 0) = (if y ≤ m then 1 else -1) := by
+  rcases Nat.lt_or_ge m y with hym | hym
+  · rw [if_pos ((pm_lt p m y hpm (Nat.le_of_lt hy)).mpr hym), if_neg (Nat.not_le.mpr hym)]; rfl
+  · rw [if_neg (fun h => absurd ((pm_lt p m y hpm (Nat.le_of_lt hy)).mp h) (Nat.not_lt.mpr hym)),
+        if_pos hym]; rfl
+
+theorem altSign_diag_eq_prodSgn (a p m : Nat) (hpm : p = 2 * m + 1) (hp : 0 < p) :
+    ∀ (L : List Nat), altSign (diagCount p (L.map (fun x => (a * x) % p)))
+      = prodZ (L.map (sgFn a p m))
+  | []     => rfl
+  | x :: t => by
+      show altSign ((if p - (a * x) % p < (a * x) % p then 1 else 0)
+            + diagCount p (t.map (fun x => (a * x) % p)))
+         = sgFn a p m x * prodZ (t.map (sgFn a p m))
+      have hsgn : altSign (if p - (a * x) % p < (a * x) % p then 1 else 0) = sgFn a p m x :=
+        sgn_helper p m ((a * x) % p) hpm (Nat.mod_lt _ hp)
+      rw [altSign_add, altSign_diag_eq_prodSgn a p m hpm hp t, hsgn]
+
+/-! ## §5 — full Zolotarev: `psign σ_a = (a/p)` for every prime -/
+
+theorem psign_mulPermMod_eq_prodSgn (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hnpa : ¬ p ∣ a) (h2m : 2 * m = p - 1) :
+    psign (mulPermMod a p) = prodZ ((seg m).map (sgFn a p m)) := by
+  have hppos : 0 < p := Nat.lt_trans Nat.zero_lt_one hp
+  have hpm : p = 2 * m + 1 := by rw [h2m, sub_add_cancel (Nat.le_of_lt hp)]
+  rw [psign_mulPermMod_eq_diag a p m hp hpr hnpa h2m]
+  show altSign (diagCount p ((seg m).map (fun x => (a * x) % p))) = prodZ ((seg m).map (sgFn a p m))
+  exact altSign_diag_eq_prodSgn a p m hpm hppos (seg m)
+
+/-- ★★★★★ **Zolotarev's lemma (full converse, every prime).**  `psign σ_a = (a/p)`:
+    `psign (mulPermMod a p) = 1 ⟺ a` is a quadratic residue mod `p`.  The sign character of the
+    multiply-by-`a` permutation is the Legendre symbol — closing the converse for **all** odd
+    primes (subsuming `ZolotarevConverse.zolotarev_pmod4_three`). -/
+theorem zolotarev_mu (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) :
+    psign (mulPermMod a p) = 1 ↔ (∃ z, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = a) := by
+  have hnpa : ¬ p ∣ a := fun h =>
+    absurd (le_of_dvd_pos p a (Nat.lt_of_lt_of_le Nat.zero_lt_one ha1) h) (Nat.not_le.mpr halt)
+  rw [psign_mulPermMod_eq_prodSgn a p m hp hpr hnpa h2m]
+  exact (gauss_qr a p m hp hpr h2m hm1 ha1 halt).symm
+
+/-- ★★★★★ **Zolotarev as a determinant (every prime).**  `det (permMatrix σ_a) = (a/p)`:
+    `det = 1 ⟺ a` is a QR — closing the "one permutation, three readouts" triangle
+    (inversions / determinant / Legendre) **universally**. -/
+theorem det_permMatrix_mulPermMod (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) :
+    det p (permMatrix (mulPermMod a p)) = 1 ↔ (∃ z, 1 ≤ z ∧ z < p ∧ z ^ 2 % p = a) := by
+  have hnpa : ¬ p ∣ a := fun h =>
+    absurd (le_of_dvd_pos p a (Nat.lt_of_lt_of_le Nat.zero_lt_one ha1) h) (Nat.not_le.mpr halt)
+  rw [det_permMatrix p (mulPermMod a p) (mulPermMod_mem_perms a p hp hpr hnpa)]
+  exact zolotarev_mu a p m hp hpr h2m hm1 ha1 halt
 
 end E213.Lib.Math.NumberTheory.ModArith.ZolotarevMuBridge

@@ -27,15 +27,15 @@ So the open synthesis is **one permutation, three readouts**:
 ```
    inversions (psign)  ──[PermMatrixDet, proven]──  det(permMatrix)
             │                                              │
-            └──── Zolotarev (CLOSED p≡3 mod 4) ────────────┘
+            └──────── Zolotarev (CLOSED, all p) ───────────┘
                               │
                     Legendre (a/p)  ──[main: gauss_qr / euler_criterion, proven]
 ```
 
-**The triangle is now a theorem for `p ≡ 3 (mod 4)`**
-(`ModArith/ZolotarevConverse.det_permMatrix_mulPermMod_pmod4_three`):
-`det (permMatrix (mulPermMod a p)) = 1 ⟺ a` is a QR.  All three readouts
-(`psign` = `det` = `(a/p)`) coincide.  Residual edge: `p ≡ 1 mod 4` (see below).
+**The triangle is now a theorem for EVERY odd prime**
+(`ModArith/ZolotarevMuBridge.det_permMatrix_mulPermMod` and `.zolotarev_mu`):
+`det (permMatrix (mulPermMod a p)) = psign σ_a = 1 ⟺ a` is a QR.  All three readouts
+(`psign` = `det` = `(a/p)`) coincide universally.  ✅ **CLOSED** — see below for the proof.
 
 The frontier note `reciprocity_as_count_lens` already flagged "Zolotarev
 unification (`psign` sign side ↔ `gauss_qr` count side, one permutation two
@@ -93,17 +93,19 @@ hard.  A cleaner route **eliminates `S` entirely**: `σ_a` is *itself* in block 
 So `psign σ_a = altSign (diagCount p fh)`, `fh = (seg m).map (fun x => (a·x)%p)`, and the
 diagonal `diagCount p fh = #{x∈fh : p−x<x} = #{x∈fh : x>m} = μ`.
 
-**Remaining — mechanical ModArith integration only (no new infrastructure):**
-1. *Decomposition* `mulPermMod a p = 0 :: (fh ++ (revL fh).map (p−·))` — `list_ext_getD` over
-   `i = 0 / [1,m] / [m+1,2m]` using `getD_append_left/right` + `revL_getD` + `seg` `getD`
-   (`= j+1`) + the negation identity `(a(p−x))%p = p − (a·x)%p` (generalise
-   `ZolotarevConverse.negmul_mod`).
-2. *Bridge* `psign σ_a = altSign (diagCount p fh)` via `psign_blockForm` + `altSign_crossInv_map_psub`
-   (`fh ≤ p` since residues `< p`).
-3. *Gauss connection* `altSign (diagCount p fh) = prodZ ((seg m).map (sgFn a p m))` (both
-   `(−1)^μ`: `diagCount`-over-map = sum of `[¬(σ_a x ≤ m)]`, and `altSign(count of −1s) = ∏ ±1`),
-   then `gauss_qr` (`∏ sgFn = 1 ⟺ QR`) ⟹ `psign σ_a = (a/p)` for **every** prime — subsuming
-   `p≡3 mod 4` and closing the `det = psign = (a/p)` triangle universally.
+**✅ CLOSED** (`ModArith/ZolotarevMuBridge.lean`, 14 PURE) — the integration, exactly as planned:
+1. `mulPermMod_block` (`neg_mul_mod` + `list_ext_getD` over `i = 0 / [1,m] / [m+1,2m]`):
+   `mulPermMod a p = 0 :: (fhList a p m ++ (revL fhList).map (p−·))`.
+2. `psign_mulPermMod_eq_diag`: `psign σ_a = altSign (diagCount p fh)` (`psign_blockForm` +
+   `crossInv_lperm_right` + `altSign_crossInv_map_psub`).
+3. `altSign_diag_eq_prodSgn` (via `pm_lt`/`sgn_helper`: `p−y<y ↔ m<y`):
+   `altSign (diagCount p fh) = prodZ ((seg m).map (sgFn a p m))`.
+4. `zolotarev_mu` = `psign_mulPermMod_eq_prodSgn` ∘ `gauss_qr`:
+   **`psign σ_a = 1 ⟺ a` is a QR, for every odd prime** — the full converse.
+5. `det_permMatrix_mulPermMod` (∘ `det_permMatrix`): the determinant reading, universal.
+
+No primitive root needed; the symmetric-cross-count parity (off-diagonal pairs cancel mod 2,
+diagonal `= μ`) carries the whole converse.
 
 ## 2. Teichmüller ω ↔ the quadratic character (p-adic lift of Euler's criterion)
 
