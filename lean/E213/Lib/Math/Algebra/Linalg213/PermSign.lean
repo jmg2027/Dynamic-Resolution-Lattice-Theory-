@@ -94,4 +94,61 @@ theorem composeList_append (σ L M : List Nat) :
     composeList σ (L ++ M) = composeList σ L ++ composeList σ M :=
   map_append' (fun t => σ.getD t 0) L M
 
+/-! ## §4 — adjacent-sortedness and descent existence -/
+
+/-- Adjacent-sortedness (`a ≤ b` for every adjacent pair). -/
+def Sorted : List Nat → Prop
+  | []          => True
+  | [_]         => True
+  | a :: b :: t => a ≤ b ∧ Sorted (b :: t)
+
+/-- A sorted list's head is `≤` every later entry. -/
+theorem sorted_head_le : ∀ (a : Nat) (t : List Nat), Sorted (a :: t) → ∀ v, v ∈ t → a ≤ v
+  | _, [],     _, v, hv => nomatch hv
+  | a, b :: t, h, v, hv => by
+    obtain ⟨hab, hbt⟩ := h
+    cases hv with
+    | head      => exact hab
+    | tail _ hv' => exact Nat.le_trans hab (sorted_head_le b t hbt v hv')
+
+/-- `ltCount a t = 0` when `a ≤` every entry of `t`. -/
+theorem ltCount_zero_of_all_ge (a : Nat) : ∀ (t : List Nat), (∀ v, v ∈ t → a ≤ v) → ltCount a t = 0
+  | [],     _ => rfl
+  | b :: t, h => by
+    show (if b < a then 1 else 0) + ltCount a t = 0
+    rw [if_neg (Nat.not_lt.mpr (h b (List.Mem.head _))), Nat.zero_add]
+    exact ltCount_zero_of_all_ge a t (fun v hv => h v (List.Mem.tail _ hv))
+
+/-- A sorted list has no inversions. -/
+theorem sorted_imp_inv_zero : ∀ (τ : List Nat), Sorted τ → inversions τ = 0
+  | [],          _ => rfl
+  | [_],         _ => rfl
+  | a :: b :: t, h => by
+    obtain ⟨hab, hbt⟩ := h
+    show ltCount a (b :: t) + inversions (b :: t) = 0
+    rw [sorted_imp_inv_zero (b :: t) hbt, Nat.add_zero,
+        ltCount_zero_of_all_ge a (b :: t) (fun v hv => by
+          cases hv with
+          | head      => exact hab
+          | tail _ hv' => exact Nat.le_trans hab (sorted_head_le b t hbt v hv'))]
+
+/-- ★ **Sorted-or-descent**: every list is adjacent-sorted or has an out-of-order adjacent pair. -/
+theorem sorted_or_descent : ∀ (τ : List Nat),
+    Sorted τ ∨ ∃ pre y x l, τ = pre ++ y :: x :: l ∧ x < y
+  | []          => Or.inl trivial
+  | [_]         => Or.inl trivial
+  | a :: b :: t => by
+    rcases sorted_or_descent (b :: t) with hs | ⟨pre, y, x, l, he, hxy⟩
+    · rcases Nat.lt_or_ge b a with hba | hab
+      · exact Or.inr ⟨[], a, b, t, rfl, hba⟩
+      · exact Or.inl ⟨hab, hs⟩
+    · exact Or.inr ⟨a :: pre, y, x, l, congrArg (a :: ·) he, hxy⟩
+
+/-- ★ **Descent existence**: a list with an inversion has an out-of-order adjacent pair. -/
+theorem descent_of_inv_pos (τ : List Nat) (h : inversions τ ≠ 0) :
+    ∃ pre y x l, τ = pre ++ y :: x :: l ∧ x < y := by
+  rcases sorted_or_descent τ with hs | hd
+  · exact absurd (sorted_imp_inv_zero τ hs) h
+  · exact hd
+
 end E213.Lib.Math.Algebra.Linalg213.PermSign
