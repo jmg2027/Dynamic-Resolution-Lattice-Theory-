@@ -89,6 +89,22 @@ combinatorial formula).
    fixed point, the discrete "round/Einstein metric stays round under Ricci flow for all time", complementing
    rung 3's `flow_reaches` *to* the fixed point).
 
+## New direction — curvature → spectrum (Lichnerowicz)
+
+**Opened** (`DiscreteLichnerowicz.lean`, PURE).  The pointwise `CD(K,∞)` summed over
+vertices + integration-by-parts (`Σ Γ₂ = Σ(Lf)²`, `Σ Γ = −Σ f·Lf = E`) gives the
+Lichnerowicz spectral gap `λ₁ ≥ K` (eigenvalue `λ` of the graph Laplacian).  First
+concrete rung: the complete graph `K_m`, where the integrated Bochner is the **exact
+identity** `km_rayleigh : Σ_x (Lf x)² = m·E(f)` (all `f`, via `km_lap_sq_sum` +
+`km_f_lap_sum`) — the Rayleigh quotient is identically `m`, so `K_m`'s Laplacian
+`L = J − m·I` has spectrum `{0, m}` (algebraic connectivity `m`).  With
+`cd_complete_graph` (`CD((m+2)/2)`) this realizes Lichnerowicz: gap `m ≥ (m+2)/2`.
+**Reachable next**: the general integration-by-parts identities (`Σ Γ₂ = Σ(Lf)²`,
+`Σ Γ = E`) for an arbitrary finite graph (cyclic-sum invariance, as in
+`HeatEq.Conservation`), then the abstract Lichnerowicz `λ ≥ K` (needs an Int
+multiplicative-cancellation lemma — currently absent from `Int213.OrderMul`); the star
+/ `K_{a,b}` spectral gaps via the same integration.
+
 ## Honest boundary
 
 This closes A6's core **in the discrete (Forman/Ollivier) theory** — a genuine
