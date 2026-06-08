@@ -70,7 +70,7 @@ one sign↔topology fact).
 **IX. `methodology/` — methodology & PURE-Lean infra.**
 `pure_funext_avoidance`, `pure_nat_ring_methodology`,
 `bool_assoc_failure_meaning`, `reframe_presentation_transport`,
-`why_the_reframing_recurs`.
+`why_the_reframing_recurs`, `the_omniscience_ledger`.
 
 **X. `proof_isa/` — proof as compilation to the residue ISA.**
 `what_is_a_proof` (series synthesis), `counting_as_cardinality` (the COUNT-arc
