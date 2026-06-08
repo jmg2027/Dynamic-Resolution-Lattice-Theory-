@@ -224,9 +224,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - **p-adic closure harvest** — Teichmüller `ω(x)` + uniqueness + `μ_{p−1}×(1+pℤ_p)` decomposition
   + general division CLOSED ∅-axiom; chapter `theory/math/numbersystems/padic_real213.md` + essay
   `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seeds:* a `Zp.diagLimit`
-  abstraction (shared by `invFull`/`sqrtFull`/`teichmuller`); the concrete `i₅ = teichmuller(2-lift)`
-  theorem (via `teichmuller_unique`); generalise the lift+fixed-point uniqueness engine to `sqrt`
-  (`unique_of_lift_fixed`).  ✓ *Done:* the sequence-level **additive abelian group**
+  abstraction (shared by `invFull`/`sqrtFull`/`teichmuller`); generalise the lift+fixed-point
+  uniqueness engine to `sqrt` (`unique_of_lift_fixed`).  ✓ **`i₅ = teichmuller(2-lift)` CLOSED**
+  (`TeichmullerI5.i5_eq_teichmuller`, 5 PURE): `i₅⁴ ≡ 1` (`i_5_pow_four_trunc`) ⟹ Frobenius-fixed
+  `i₅⁵ ≡ i₅` (clean from `Zp.pow_trunc`: everything in `ℤ/5ᵐ`) ⟹ `teichmuller_eq_of_fixed` — the
+  5-adic imaginary unit IS the canonical `μ₄` Teichmüller representative of its residue, not an
+  adjoined structure.  ✓ *Done:* the sequence-level **additive abelian group**
   (`SetoidAssoc.zp_add_setoid_group_capstone`) **and now the multiplicative `ZpSeqEquiv`
   identities** (`SetoidMul`, 11 PURE — `zp_mul_{comm,assoc,one,add}_equiv` + the
   `zp_setoid_comm_ring_capstone`: `ZpSeq / ZpSeqEquiv` is a **commutative ring**).  The note's

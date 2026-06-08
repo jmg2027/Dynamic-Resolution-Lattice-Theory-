@@ -9,6 +9,7 @@ import E213.Lib.Math.NumberSystems.Padic.Field
 import E213.Lib.Math.NumberSystems.Padic.DRLT
 import E213.Lib.Math.NumberSystems.Padic.NuEscape
 import E213.Lib.Math.NumberSystems.Padic.SetoidMul
+import E213.Lib.Math.NumberSystems.Padic.TeichmullerI5
 /-!
 # Real213-p-adic — umbrella import
 
