@@ -27,7 +27,8 @@ reads as three labellings of one residue-escape — a breadth-claim (`seed/AXIOM
   (`padicNu`, `padic_is_nu_escape`, `padic_distinct`, `padic_shift_dynamics`; the `Fin 2 ≃ Bool`
   case `twoAdic_is_nu_escape`; the arithmetic capstone `padic_arithmetic_one_carrier`; the
   multiplicative valuation `mulBase`/`residue`/`padic_valuation_one_carrier`, against
-  `Padic/Norm.lean`'s `Zp.valAtLeast`).
+  `Padic/Norm.lean`'s `Zp.valAtLeast`; the ring identity `mulBase_eq_mul_pElem` /
+  `mulCarry_pElem`, against `Padic/Arith.lean`'s `Zp.mul`).
 - arithmetic (the residue unit `+1`): `lean/E213/Theory/Raw/Odometer.lean` §7–§8
   (`runCarry` the alphabet-independent carry; `pOdo`/`pCarry` the p-ary odometer,
   `pOdo_allTop_zero` = `(-1)+1=0`, `pOdo_injective`).
@@ -137,6 +138,12 @@ The lowest-digit readout is the residue field 𝔽_p (`residue`, surjective; `×
 unit `1` is outside the image, so `p` is not a unit).  So the carrier carries ℤ_p's valuation
 *filtration* — the multiplicative norm structure — as well as the additive odometer.
 
+And `mulBase` is not merely *shaped* like `× p` — it **is** the genuine ring multiplication: the
+existing `Zp.mul` (digit convolution with carry, `Padic/Arith.lean`) applied to the element `p`
+equals `mulBase` (`mulBase_eq_mul_pElem`), because multiplication by `p` *carries nothing*
+(`mulCarry_pElem` — each convolution term is one digit `< p`) and so collapses to the shift.  The
+carrier's multiplicative generator is the actual ring operation, not a stand-in.
+
 ### Cross-frame
 
 The "one carrier" reading is the number-system instance of three already-pinned 213 facts.
@@ -159,11 +166,11 @@ escape wearing the alphabet of whichever number system is being pointed at.
 - The shared *arithmetic* is the additive odometer `±1` (`Theory/Raw/Odometer` §8; `(-1)+1=0`,
   injective) **and** the multiplicative valuation generator `× p` (`mulBase`,
   `padic_valuation_one_carrier`: the `pℤ_p` filtration, residue field 𝔽_p, `÷p` = the carrier
-  shift).  What remains open is the **full** digit-convolution multiplication: `Zp.mul` exists
-  (`Padic/Arith.lean`) but is not yet *identified* with `mulBase` on the `× p` case, nor lifted to
-  a binary operation on `gspine` — and ℝ's field structure on the carrier is untouched.  What is
-  closed: the carrier, the shift, the unit-`±1` arithmetic, and the multiplicative valuation
-  filtration (`× p`).
+  shift), and `mulBase` is the genuine ring `Zp.mul`-by-`p` (`mulBase_eq_mul_pElem`: multiplication
+  by `p` carries nothing, so it collapses to the shift).  What remains open is `×` as a **binary**
+  operation on `gspine` (the general product `x·y`, not only the `× p` generator) and ℝ's field
+  structure on the carrier.  What is closed: the carrier, the shift, the unit-`±1` arithmetic, and
+  the multiplicative valuation filtration `× p` — grounded in the actual `Zp.mul`.
 - `cutBits` is one honest presentation-dependent extractor (the cut-decision diagonal); it is
   not claimed canonical on the equivalence class.  A faithful map on `Real213.equiv` would need
   the order-decision *limit* (existence via the modulus), which is the LPO-costed step of the

@@ -111,8 +111,17 @@ prepend-`0` digit) is the valuation operator — `p·x ∈ pℤ_p`, `v_p(p·x)=1
 (`mulBase_valAtLeast_succ`, against the existing `Norm.Zp.valAtLeast`), injective, residue field
 𝔽_p (`residue`, surjective; `1 ∉ pℤ_p`), and **`÷p` = the carrier shift** (`mulBase_coRight`,
 CoResidue §21).  So the carrier carries ℤ_p's valuation *filtration* (the multiplicative norm
-skeleton).  **Open**: identifying `mulBase` with the existing full `Zp.mul`-by-`p` (digit
-convolution, `Arith.lean`) and lifting `×` as a binary op on `gspine`; ℝ's field on the carrier.
+skeleton).
+
+### 3d. `mulBase` IS the ring `× p` — ✅ CLOSED (this session)
+`Padic/NuEscape` `mulBase_eq_mul_pElem`: the existing full `Zp.mul` (digit convolution + carry,
+`Arith.lean`) applied to the element `p` (`pElem`, digit 1 at position 1) equals `mulBase`
+pointwise — because **multiplication by `p` carries nothing** (`mulCarry_pElem = 0`: each
+convolution term is one digit `< p`), collapsing to the shift.  So the carrier's `× p` is the
+genuine ring operation, not a stand-in.  **Open**: `×` as a *binary* op on `gspine` (general
+`x·y`); ℝ's field on the carrier.
+
+> Note: `Nat.zero_mod` also pulls `propext` (use `Nat.mod_eq_of_lt hp` for `0 % p = 0`).
 
 > Note (propext traps hit + recorded): `Nat.succ_ne_zero`, `Nat.sub_add_cancel`, `by_cases`, and
 > `rw`-with-an-`Iff` all pull `propext`.  Use `Nat.noConfusion`, `cases p`/defeq, `rcases

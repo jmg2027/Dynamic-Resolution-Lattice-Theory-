@@ -260,6 +260,74 @@ theorem padic_valuation_one_carrier {p : Nat} (hp : 0 < p) (hp1 : 1 < p) :
    mulBase_ne_one hp hp1,
    mulBase_coRight hp⟩
 
+/-! ### General `p` — `mulBase` IS multiplication by the element `p` (the full ring identity)
+
+`mulBase` is not merely shaped like `× p`: it **is** the existing ring multiplication `Zp.mul`
+(`Arith.lean`) by the p-adic element `p` (digit `1` at position `1`, `p = 1·p¹`).  The key fact:
+multiplication by `p` **carries nothing** — each convolution term `(pElem.digits i)·(x.digits …)`
+is `0` except `i = 1`, where it is a single digit `< p` — so `mulCarry = 0` throughout and the
+product collapses to the digit shift.  This closes the follow-up of `padic_valuation_one_carrier`:
+the carrier's valuation generator is the genuine ring `× p`.  ∅-axiom. -/
+
+/-- The p-adic element `p` itself: digit `1` at position `1`, `0` elsewhere (`p = 1·p¹`). -/
+def pElem {p : Nat} (hp0 : 0 < p) (hp1 : 1 < p) : ZpSeq p :=
+  ⟨fun k => match k with
+    | 0     => ⟨0, hp0⟩
+    | 1     => ⟨1, hp1⟩
+    | _ + 2 => ⟨0, hp0⟩⟩
+
+/-- The convolution `mulRawSum` against `pElem` collapses to the single `i = 1` term: for any
+    `upper ≥ 2`, `Σ_{i<upper} (pElem.digits i)·(x.digits (k-i)) = x.digits (k-1)`. -/
+theorem mulRawSum_pElem {p : Nat} (hp0 : 0 < p) (hp1 : 1 < p) (x : ZpSeq p) (k : Nat) :
+    ∀ m, Zp.mulRawSum p (pElem hp0 hp1) x k (m + 2) = (x.digits (k - 1)).val
+  | 0 => by
+      show (0 + 0 * (x.digits (k - 0)).val) + 1 * (x.digits (k - 1)).val = (x.digits (k - 1)).val
+      rw [Nat.zero_mul, Nat.add_zero, Nat.zero_add, Nat.one_mul]
+  | m + 1 => by
+      show Zp.mulRawSum p (pElem hp0 hp1) x k (m + 2)
+            + 0 * (x.digits (k - (m + 2))).val = (x.digits (k - 1)).val
+      rw [mulRawSum_pElem hp0 hp1 x k m, Nat.zero_mul, Nat.add_zero]
+
+/-- `p · x` has raw digit `0` at position `0`. -/
+theorem mulRaw_pElem_zero {p : Nat} (hp0 : 0 < p) (hp1 : 1 < p) (x : ZpSeq p) :
+    Zp.mulRaw p (pElem hp0 hp1) x 0 = 0 := by
+  show (0 : Nat) + 0 * (x.digits 0).val = 0
+  rw [Nat.zero_mul, Nat.add_zero]
+
+/-- `p · x` has raw digit `x.digits j` at position `j+1` (the shift). -/
+theorem mulRaw_pElem_succ {p : Nat} (hp0 : 0 < p) (hp1 : 1 < p) (x : ZpSeq p) (j : Nat) :
+    Zp.mulRaw p (pElem hp0 hp1) x (j + 1) = (x.digits j).val :=
+  mulRawSum_pElem hp0 hp1 x (j + 1) j
+
+/-- ★★ **Multiplication by `p` carries nothing.**  `mulCarry (pElem) x = 0` everywhere: each raw
+    convolution digit is a single digit `< p`, so the carry never accumulates. -/
+theorem mulCarry_pElem {p : Nat} (hp0 : 0 < p) (hp1 : 1 < p) (x : ZpSeq p) :
+    ∀ k, Zp.mulCarry p (pElem hp0 hp1) x k = 0
+  | 0     => rfl
+  | k + 1 => by
+      rw [Zp.mulCarry_succ, mulCarry_pElem hp0 hp1 x k, Nat.add_zero]
+      cases k with
+      | zero   => rw [mulRaw_pElem_zero hp0 hp1 x]; exact Nat.div_eq_of_lt hp0
+      | succ j => rw [mulRaw_pElem_succ hp0 hp1 x j]; exact Nat.div_eq_of_lt (x.digits j).isLt
+
+/-- ★★★ **`mulBase` is the genuine ring `× p`.**  `Zp.mul (pElem) x = mulBase x` (pointwise): the
+    existing p-adic multiplication by the element `p` equals the valuation/shift operator, because
+    multiplication by `p` carries nothing (`mulCarry_pElem`) and its raw digits are the shift
+    (`mulRaw_pElem_zero`/`_succ`).  So `padic_valuation_one_carrier`'s `× p` is the actual ring
+    multiplication — the multiplicative valuation on the carrier is grounded in `Zp.mul`. -/
+theorem mulBase_eq_mul_pElem {p : Nat} (hp0 : 0 < p) (hp1 : 1 < p) (x : ZpSeq p) :
+    ∀ k, (Zp.mul p hp0 (pElem hp0 hp1) x).digits k = (mulBase hp0 x).digits k := by
+  intro k
+  apply Fin.ext
+  rw [Zp.mul_digit_val, mulCarry_pElem hp0 hp1 x, Nat.add_zero]
+  cases k with
+  | zero   =>
+      rw [mulRaw_pElem_zero hp0 hp1 x]
+      exact Nat.mod_eq_of_lt hp0
+  | succ j =>
+      rw [mulRaw_pElem_succ hp0 hp1 x j]
+      exact Nat.mod_eq_of_lt (x.digits j).isLt
+
 /-! ### General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
 
 Beyond the reached-by-none escape, the *not-enumerable* fact holds for every `p ≥ 2` natively:
