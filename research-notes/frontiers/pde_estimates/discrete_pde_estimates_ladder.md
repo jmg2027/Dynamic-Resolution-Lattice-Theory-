@@ -31,7 +31,7 @@ remaining wall for full Perelman.  The 2D-conformal route
 
 ## Current state (repo-first)
 
-- **Discrete heat / wave**: `Analysis/ODE/HeatEqDiscrete.lean` (`heatStepNum`,
+- **Discrete heat / wave**: `Analysis/ODE/HeatEq/Discrete.lean` (`heatStepNum`,
   periodic-grid averaging), `WaveEqDiscrete`.  `heatStep_const` only; **no
   maximum principle / oscillation decay yet**.
 - **Limit engine**: `Real213` completion + `Analysis/CauchyComplete`,
@@ -41,7 +41,7 @@ remaining wall for full Perelman.  The 2D-conformal route
 
 ## Ladder (each rung: discrete-uniform-in-`h` + modulus → `Real213` limit; ∅-axiom)
 
-P1. **Maximum principle** — ⚙️ **discrete step DONE** (`Analysis/ODE/HeatEqDiscrete.lean`,
+P1. **Maximum principle** — ⚙️ **discrete step DONE** (`Analysis/ODE/HeatEq/Discrete.lean`,
     4 new PURE): the heat step is a neighbour average, so `u ≤ B` ⟹ `heatStepNum ≤ 2B`
     (`heatStep_le_two_max`, no hot spots), `A ≤ u` ⟹ `2A ≤ heatStepNum`
     (`heatStep_two_min_le`, no cold spots), range `[A,B]` preserved (`heatStep_range`,
@@ -64,7 +64,7 @@ P2. **Oscillation decay** — `osc u = max u − min u` is a monovariant; unifor
     whose eigenvalues `(1+cos θ)/2 ∈ [0,1]` give a genuine gap (`λ < 1` off the constant
     mode).  The P1 maximum principle already proven holds for *both* stencils (convex
     combinations); only the strict *decay* needs the lazy weight.
-    ⚙️ **lazy step implemented** (`HeatEqDiscrete.lean`, 6 PURE): `lazyHeatStepNum =
+    ⚙️ **lazy step implemented** (`HeatEq/Discrete.lean`, 6 PURE): `lazyHeatStepNum =
     u_{x−1}+2u_x+u_{x+1}`, its maximum principle (`lazyHeatStep_le_four_max`/`_four_min_le`),
     and the concrete spectral-gap witness `lazy_checker_collapses` (the length-4
     checkerboard `→` constant in one lazy step, osc `1→0`) vs `nonlazy_checker_hot`/`_cold`
@@ -82,7 +82,7 @@ P2. **Oscillation decay** — `osc u = max u − min u` is a monovariant; unifor
 
   Infra still needed for P3 (energy/Dirichlet `E(u)=Σ(u_{i+1}−u_i)²`): a **finite-grid sum**
   `gridSum n f = Σ_{x<n} f x` with cyclic-shift invariance `Σ f(rightNbr n x) = Σ f x` — ⚙️
-  **DONE** (`HeatEqConservation.lean`, 8 PURE): `gridSum` + `gridSum_congr`/`gridSum_add`/
+  **DONE** (`HeatEq/Conservation.lean`, 8 PURE): `gridSum` + `gridSum_congr`/`gridSum_add`/
   `gridSum_two_mul`, `gridSum_rightNbr`/`gridSum_leftNbr` (the two full-cycle rotations preserve
   the sum, via `gridSum_head_shift` + `leftNbr_rightNbr` inverse).  First consumer:
   **mass conservation** `heatStep_mass_conservation` (`Σ heatStepNum = 2Σu`) /
@@ -91,28 +91,28 @@ P2. **Oscillation decay** — `osc u = max u − min u` is a monovariant; unifor
 P3. **Energy / Dirichlet decay** — `E(u) = Σ(u_{i+1}−u_i)²` decreases (discrete
     Bochner / gradient estimate); the limit = continuous energy decay, rate a
     `‖∇u‖²` (ties to gradient-flow descent identity ①).
-    ⚙️ **summation by parts done** (`HeatEqConservation` §4, 3 PURE):
+    ⚙️ **summation by parts done** (`HeatEq.Conservation` §4, 3 PURE):
     `gridSum_mul_shift_symm` (edge correlation is shift-symmetric), and the **Dirichlet
     pairing** `heatStep_dirichlet_pairing` (`⟨u, heatStep u⟩ = 2·corr`) /
     `lazyHeatStep_dirichlet_pairing` (`⟨u, lazy u⟩ = 2Σu² + 2corr = 4Σu² − E(u)` in
     `Nat`-clean additive form).  Pure products, no `Nat`-subtraction.
-    ⚙️ **signed Dirichlet energy + Green identity DONE** (`HeatEqConservation` §5, 2 PURE):
+    ⚙️ **signed Dirichlet energy + Green identity DONE** (`HeatEq.Conservation` §5, 2 PURE):
     `sqDistNat a b = |a−b|²` (sign-correct, `(a−b)²+(b−a)²` with one term truncated to 0),
     `dirichletEnergy n u = Σ |u(rightNbr x)−u(x)|²`, and `dirichletEnergy_green`
     (`E(u)+2·corr = 2·Σu²`, i.e. `E(u) = ⟨u,−Δu⟩` over ℤ — the Dirichlet form *is* the energy).
-    ⚙️ **pointwise L²-Jensen done** (`HeatEqEnergyL2.lean`, 2 PURE, over ℤ via the POSITIVITY
+    ⚙️ **pointwise L²-Jensen done** (`HeatEq/EnergyL2.lean`, 2 PURE, over ℤ via the POSITIVITY
     archetype): `heatStep_l2_jensen` (`(a+b)² ≤ 2(a²+b²)`, gap `(a−b)²`) /
     `lazyHeatStep_l2_jensen` (`(a+2b+c)² ≤ 4(a²+2b²+c²)`, gap `(a−2b+c)²+2(a−c)²`).
     📝 **`ring_nat` note** (the earlier "blocker" diagnosed precisely): `ring_nat`/`ring_intZ`
     close asymmetric multivar identities fine — the only failure mode is an un-pruned
     **zero-coefficient monomial** (a literal `0*0` term, here from the truncated `(b−a)²`); kill
     it with `Nat.zero_mul`/`Nat.add_zero` first and the normalizer succeeds.
-    ⚙️ **energy-decay heart done** (`HeatEqEnergyL2.lazy_energy_pointwise`, 1 PURE + `gridSum_le`):
+    ⚙️ **energy-decay heart done** (`HeatEq.EnergyL2.lazy_energy_pointwise`, 1 PURE + `gridSum_le`):
     the **local energy dissipation** over ℤ — for four consecutive grid values `p,q,r,s`,
     `(s+r−q−p)² ≤ 4·((q−p)²+2(r−q)²+(s−r)²)`.  Key structural fact: the heat step commutes with
     the gradient (`grad(lazy u) = lazy(grad u)`), so the lazy-step edge difference `s+r−q−p` is the
     lazy stencil on the three edge gradients `(q−p)+2(r−q)+(s−r)`; Jensen then bounds its square.
-    ✅ **DONE — energy decay `E(lazy u) ≤ 16·E(u)`** (`HeatEqEnergyDecay.lean`, 3 PURE): the lazy
+    ✅ **DONE — energy decay `E(lazy u) ≤ 16·E(u)`** (`HeatEq/EnergyDecay.lean`, 3 PURE): the lazy
     heat step does not increase the (averaged) Dirichlet energy — the L²-method conclusion, the
     analytic engine behind smoothing / convergence to equilibrium.  Assembled from `gridSum_le` +
     `lazy_energy_pointwise_nat` (the ℤ pointwise dissipation cast to `Nat`) + `gridSum_add`/`_mul_left`
@@ -132,5 +132,5 @@ P1–P3 (discrete + limit) are genuinely reachable ∅-axiom.  P4–P5 are the r
 analytic depth and may stall — record where.  The discrete graph estimates
 (`a6_ricci_core/`) are a *parallel* theory (Forman/Ollivier), not the conquest;
 *this* ladder, with the limit step, targets the **continuous** estimate the
-conquest needs.  Start at **P1** (discrete maximum principle on `HeatEqDiscrete`,
+conquest needs.  Start at **P1** (discrete maximum principle on `HeatEq.Discrete`,
 then its uniform-in-`h` + `Real213` limit).

@@ -36,6 +36,20 @@ and the dimension-4 exotic-smoothness anomaly.
 | `KChartLensAbstract.lean` | M2 abstract + universal close + d_M=4 synthesis | ~20 | `KChartLens NS NT c` structure + canonical instances (`K32_chart_lens`, `K31_chart_lens`, `K14_chart_lens`) + ★★★★★ `m2_abstract_close` + **universal M2**: `forcedKChartLens` (connectedness forces `selfPointingAxes = 1`, `chartVisibleAxes = chartBase − 1` for arbitrary connected K via `Parametric.Betti.KernelConstancyUniversal`) + ★★★★★★ `m2_universal_forced_partition` + ★★★★★★★ `dM_four_via_M1_forced_and_M2_universal_kernel` (M1 forced chartBase 5 ∘ M2 derived 1-dim kernel → d_M = 4) + `every_dimension_realized` + ★★★★★★★ `criticality_is_forcing_not_kernel` (d_M=4 criticality = M1 forcing, M2 kernel is dimension-uniform) + ★★★★★★★★★★★ `geometrization_followup_close_certificate` |
 | `Poincare.lean` (+ I-4) | G123 I-4 | +1 | ★★★★ `poincare_two_layer_trivial_loop` — two-layer reading (b₀ + b₁) via `V32Betti.b0_eq_1` |
 
+### A6 discrete Ricci core (discrete Forman/Ollivier + smooth 2D-conformal route)
+
+The 213-native A6 Ricci-flow core: combinatorial curvature needing no smooth
+manifold (Forman / Ollivier) plus the smooth 2D-conformal sidestep.  Narrative:
+`theory/essays/synthesis/curvature_as_lens_readout.md`.
+
+| File | Rung | PURE | Content |
+|---|---|---|---|
+| `DiscreteRicci.lean` | 1 | 5 | Forman edge curvature `4 − du − dv`; `K_{NS,NT}` uniform value; sign ↔ `b₁` (`forman_K11/K13/K32`, `discrete_curvature_topology`) |
+| `RicciFlowDiscrete.lean` | 2-3 | 11 | `ricciFlowStep = lazyHeatStepNum`; a-priori bundle (bounded, total-curvature-conserved, energy-monotone = Perelman 𝓦); `ricci_flow_reaches_normalized` (flow_reaches → constant curvature) |
+| `DiscreteGaussBonnet.lean` | 4 | 4 | Vertex curvature `2 − deg`; `Σκ = 2χ` (`gauss_bonnet_Kmn`); total `= 2 − 2b₁`; `curvature_sign_topology` |
+| `OllivierRicci.lean` | 5 | 29 | Optimal-transport engine (`gridSumZ` + `kantorovich_weak_duality` + `ollivier_plan_optimal`); full sign trichotomy: triangle `κ=½` / square `κ=0` / double-star `κ=−2/3` |
+| `ConformalCurvature.lean` | S3-S5 | 6 | Smooth 2D-conformal Liouville `K=(\|∇λ\|²−λΔλ)/(2λ³)` for polynomial `λ`; `conformal_curvature_trichotomy`; flow fixed point ⟺ flat |
+
 ## Supporting infrastructure (outside sub-tree, referenced from above)
 
 | File | Purpose | PURE |

@@ -1,6 +1,6 @@
 import E213.Lib.Math.Analysis.ODE.PicardIterate
 import E213.Lib.Math.Analysis.ODE.LinearODE
-import E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+import E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
 import E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
 
 /-!
@@ -20,7 +20,7 @@ open E213.Lib.Math.Analysis.ODE.PicardIterate
 open E213.Lib.Math.Analysis.ODE.LinearODE
   (linearGrowth geometricGrowth linearODE_eq_picard
    geometricODE_eq_picard geometricGrowth_three)
-open E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+open E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
   (heatStepNum constInit heatStep_const_eq_two_c)
 open E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
   (waveStepNum constField wave_const_rest wave_zero_rest)

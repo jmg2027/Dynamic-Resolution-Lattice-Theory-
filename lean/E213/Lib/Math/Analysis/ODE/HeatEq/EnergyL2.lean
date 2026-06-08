@@ -1,4 +1,4 @@
-import E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+import E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
 import E213.Lib.Math.Foundations.Positivity
 
 /-!
@@ -23,7 +23,7 @@ summation is P3's remaining analytic step (the signed Dirichlet form, blocked on
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2
+namespace E213.Lib.Math.Analysis.ODE.HeatEq.EnergyL2
 
 open E213.Meta.Int213
 open E213.Lib.Math.Foundations.Positivity (positivity_of_sq positivity_of_sq3)
@@ -71,4 +71,4 @@ theorem lazy_energy_pointwise (p q r s : Int) :
   have hid : (q - p) + 2 * (r - q) + (s - r) = s + r - q - p := by ring_intZ
   rw [hid] at key; exact key
 
-end E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2
+end E213.Lib.Math.Analysis.ODE.HeatEq.EnergyL2

@@ -17,7 +17,7 @@ Atomic content:
   * Constant initial condition is fixed (heat equilibrium).
 -/
 
-namespace E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+namespace E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
 
 /-- Periodic neighbour: `(x + 1) mod n`. -/
 def rightNbr (n x : Nat) : Nat := (x + 1) % n
@@ -335,4 +335,4 @@ theorem nonlazy_checker_cold : heatStepNum 4 checker 1 = 0 := rfl
 theorem lazy_checker_collapses (x : Nat) (h : x < 4) : lazyHeatStepNum 4 checker x = 2 := by
   rcases E213.Tactic.NatHelper.cases_lt_four h with rfl | rfl | rfl | rfl <;> rfl
 
-end E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+end E213.Lib.Math.Analysis.ODE.HeatEq.Discrete

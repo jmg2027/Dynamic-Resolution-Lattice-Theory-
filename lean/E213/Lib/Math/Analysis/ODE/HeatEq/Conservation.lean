@@ -1,4 +1,4 @@
-import E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+import E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.PolyNatMTactic
 
@@ -22,7 +22,7 @@ re-summing `u` along them returns the same total (`gridSum_rightNbr`, `gridSum_l
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+namespace E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
 
 /-! ## §1 — the finite-grid sum -/
 
@@ -266,4 +266,4 @@ theorem dirichletEnergy_green (n : Nat) (u : Nat → Nat) :
   rw [hcomm] at key
   rw [key, ← Nat.two_mul]
 
-end E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+end E213.Lib.Math.Analysis.ODE.HeatEq.Discrete

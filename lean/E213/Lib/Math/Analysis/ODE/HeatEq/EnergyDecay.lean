@@ -1,5 +1,5 @@
-import E213.Lib.Math.Analysis.ODE.HeatEqConservation
-import E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2
+import E213.Lib.Math.Analysis.ODE.HeatEq.Conservation
+import E213.Lib.Math.Analysis.ODE.HeatEq.EnergyL2
 import E213.Meta.Int213
 import E213.Meta.Int213.PolyIntMTactic
 import E213.Meta.Nat.PolyNatMTactic
@@ -23,10 +23,10 @@ The `Nat`↔ℤ bridge is `∅`-axiom (`sqDistNat_cast` + `Int213.Order.le_of_of
 square bound is the POSITIVITY archetype over ℤ.  All zero-axiom.
 -/
 
-namespace E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay
+namespace E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay
 
-open E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
-open E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2 (lazy_energy_pointwise lazyHeatStep_l2_jensen)
+open E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
+open E213.Lib.Math.Analysis.ODE.HeatEq.EnergyL2 (lazy_energy_pointwise lazyHeatStep_l2_jensen)
 open E213.Meta.Int213
 
 /-! ## §1 — the `Nat`↔ℤ square cast -/
@@ -234,4 +234,4 @@ theorem lazy_l2_norm_bound (n : Nat) (u : Nat → Nat) :
       gridSum_leftNbr n (fun y => u y * u y), gridSum_rightNbr n (fun y => u y * u y)]
   ring_nat
 
-end E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay
+end E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay

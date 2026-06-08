@@ -1,5 +1,5 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci
-import E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay
+import E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay
 import E213.Lib.Math.Foundations.MonovariantFlow
 
 /-!
@@ -34,7 +34,7 @@ All zero-axiom.
 
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete
 
-open E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
+open E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
 
 /-- **Discrete Ricci flow step** on the edge-curvature field `K : grid → ℕ`: the curvature
     diffuses by the lazy heat stencil `(¼,½,¼)` (the leading term of `∂_t R = ΔR + …`).  Numerator
@@ -64,7 +64,7 @@ theorem ricci_curvature_bounded (n A B t : Nat) (K : Nat → Nat)
     monotone quantity, here `∅`-axiom.  Direct from `lazy_energy_decay`. -/
 theorem ricci_energy_monotone (n : Nat) (K : Nat → Nat) :
     dirichletEnergy n (ricciFlowStep n K) ≤ 16 * dirichletEnergy n K :=
-  E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay.lazy_energy_decay n K
+  E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay.lazy_energy_decay n K
 
 /-- ★★★ **Total curvature conserved.**  `Σ_x ricciFlowStep K = 4·Σ_x K` — the discrete Ricci flow
     redistributes curvature without creating or destroying it (the *averaged* total curvature is

@@ -3,10 +3,10 @@ import E213.Lib.Math.Analysis.ODE.NewtonSecond
 import E213.Lib.Math.Analysis.ODE.ODE
 import E213.Lib.Math.Analysis.ODE.PicardIterate
 import E213.Lib.Math.Analysis.ODE.LinearODE
-import E213.Lib.Math.Analysis.ODE.HeatEqDiscrete
-import E213.Lib.Math.Analysis.ODE.HeatEqConservation
-import E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2
-import E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay
+import E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
+import E213.Lib.Math.Analysis.ODE.HeatEq.Conservation
+import E213.Lib.Math.Analysis.ODE.HeatEq.EnergyL2
+import E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay
 import E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
 import E213.Lib.Math.Analysis.ODE.Capstone
 
@@ -24,15 +24,15 @@ import E213.Lib.Math.Analysis.ODE.Capstone
                         pointwise version)
     * `PicardIterate` — Picard iteration on Real213 cuts
     * `LinearODE`     — linear ODE solution machinery
-    * `HeatEqDiscrete` — discrete heat equation: maximum principle
-                         (per-step + iterated + strict), comparison
-                         principle, lazy stencil + spectral gap
-    * `HeatEqConservation` — finite-grid sum `gridSum` + mass
-                         conservation (`Σ heatStep = 2Σu`) + Dirichlet pairing
-    * `HeatEqEnergyL2` — pointwise L²-Jensen (convexity) bounds via the
-                         POSITIVITY archetype (`(a+b)² ≤ 2(a²+b²)`)
-    * `HeatEqEnergyDecay` — Dirichlet energy decay `E(lazy u) ≤ 16·E(u)`
-                         (the P3 capstone; `Nat`↔ℤ bridge + shift invariance)
+    * `HeatEq/` — discrete heat equation sub-cluster:
+        - `Discrete`     — maximum principle (per-step + iterated + strict),
+                           comparison principle, lazy stencil + spectral gap
+        - `Conservation` — finite-grid sum `gridSum` + mass conservation
+                           (`Σ heatStep = 2Σu`) + Dirichlet pairing
+        - `EnergyL2`     — pointwise L²-Jensen (convexity) bounds via the
+                           POSITIVITY archetype (`(a+b)² ≤ 2(a²+b²)`)
+        - `EnergyDecay`  — Dirichlet energy decay `E(lazy u) ≤ 16·E(u)`
+                           (the P3 capstone; `Nat`↔ℤ bridge + shift invariance)
     * `WaveEqDiscrete` — discrete wave equation
     * `Capstone`      — ODE capstone results
 -/

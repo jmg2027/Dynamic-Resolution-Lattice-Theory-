@@ -584,7 +584,7 @@ removing the `−1` checkerboard eigenmode; the structural reason for the spectr
 
 ### Marathon P3 infra — finite-grid sum + discrete mass conservation (2026-06-05)
 
-`E213.Lib.Math.Analysis.ODE.HeatEqConservation` — **8 PURE / 0 DIRTY**.  Builds the reusable finite-grid
+`E213.Lib.Math.Analysis.ODE.HeatEq.Conservation` — **8 PURE / 0 DIRTY**.  Builds the reusable finite-grid
 sum `gridSum n f = Σ_{x<n} f x` (`gridSum_congr`, `gridSum_add`, `gridSum_two_mul`) with **cyclic-shift
 invariance**: `gridSum_rightNbr` / `gridSum_leftNbr` — the neighbour maps `leftNbr`/`rightNbr` are the two
 full-cycle rotations of `{0,…,n−1}`, so re-summing along them returns the same total (via
@@ -613,7 +613,7 @@ zero-coefficient monomial (a literal `0*0` from the truncated `(b−a)²`); remo
 
 ### Marathon P3 — pointwise L²-Jensen (convexity) bounds via POSITIVITY (2026-06-05)
 
-`E213.Lib.Math.Analysis.ODE.HeatEqEnergyL2` — **2 PURE / 0 DIRTY**.  The heat step is a convex average, so
+`E213.Lib.Math.Analysis.ODE.HeatEq.EnergyL2` — **2 PURE / 0 DIRTY**.  The heat step is a convex average, so
 by convexity of the square it cannot increase the L² norm pointwise: `heatStep_l2_jensen`
 (`(a+b)² ≤ 2(a²+b²)`, gap the single square `(a−b)²`) and `lazyHeatStep_l2_jensen`
 (`(a+2b+c)² ≤ 4(a²+2b²+c²)`, gap `(a−2b+c)²+2(a−c)²`).  Worked over ℤ via the **POSITIVITY archetype**
@@ -628,7 +628,7 @@ gives `E(lazy u) ≤ 16·E(u)`.
 
 ### Marathon P3 CAPSTONE — Dirichlet energy decay `E(lazy u) ≤ 16·E(u)` (2026-06-05)
 
-`E213.Lib.Math.Analysis.ODE.HeatEqEnergyDecay` — **3 PURE / 0 DIRTY**.  The lazy heat step does **not increase
+`E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay` — **3 PURE / 0 DIRTY**.  The lazy heat step does **not increase
 the (averaged) Dirichlet energy** — the L²-method conclusion, the analytic engine behind discrete smoothing /
 convergence to equilibrium.  `lazy_energy_decay`: `E(lazyHeatStepNum u) ≤ 16·E(u)` (the `16 = 4²` is the
 stencil normalization).  Assembled from: `sqDistNat_cast` (the `Nat`↔ℤ square bridge `↑(sqDistNat a b) =
@@ -775,7 +775,7 @@ remaining: the signed cut-level series replacing the `Core/Functions.lean` stubs
 
 ### Marathon P1 — discrete heat maximum principle (2026-06-05)
 
-`E213.Lib.Math.Analysis.ODE.HeatEqDiscrete` (extended) — **4 new PURE / 0 DIRTY**.  The discrete heat step
+`E213.Lib.Math.Analysis.ODE.HeatEq.Discrete` (extended) — **4 new PURE / 0 DIRTY**.  The discrete heat step
 is an average of two neighbours, so it neither rises above the field max nor falls below the min — the
 discrete maximum principle, seed of all parabolic a-priori estimates.  In the numerator convention
 `heatStepNum = 2·u_new = u_left + u_right`: `heatStep_le_two_max` (`u ≤ B` ⟹ `heatStepNum ≤ 2B`, no hot
