@@ -102,15 +102,83 @@ converges to the residue fixed point φ). The value is structurally
 distinguished, not fitted — the connection to §5.6 is the shared atomic
 characteristic polynomial `x²−NS·x+1`, `disc = d`, not "φ appears in both".
 
+## Sub-freedom REMOVED — `1/φ²` (not another golden power) is forced by `R_u < 1` (2026-06-08)
+
+`JarlskogApex.apex_modulus_subunit_forced` (PURE). A residual worry was "why
+this golden power `1/φ²`, not `φ`, `φ³`, …?". That sub-freedom is now closed:
+the self-reference matrix `M = [[c,1],[1,1]]` has **exactly two** eigenvalues,
+a **reciprocal pair** (`λ₊·λ₋ = det = 1`, `λ₊+λ₋ = NS`): `φ²` and `1/φ²`.
+There are no other golden powers in `spec M`. The apex modulus `R_u` is a
+unitarity-triangle side-ratio with the base normalised to 1, so `R_u < 1`
+(observed ≈ 0.38). Of the reciprocal pair, **exactly one is `< 1`** — the
+contracting `1/φ²`. Witnessed PURE by the Fibonacci convergents: `1/φ²`'s
+(`2/5, 5/13, 13/34`) are sub-unit (`num < den`); `φ²`'s (`8/3, 21/8, 55/21`)
+are super-unit (`> 2·den`). So *given the apex is a self-reference eigenvalue*,
+`R_u < 1` forces `R_u = 1/φ²` uniquely. The open question collapses from
+"which golden power" to the **single binary** physical premise below.
+
 ## What remains — one physical identification
 
 The *value* `1/φ²` is now fully atomic-grounded (contracting self-reference
-eigenvalue). The single remaining open premise: **why the CKM CP-apex modulus
-equals this eigenvalue** — why CP-violation depth = the residue's
+eigenvalue) **and** the golden-power sub-freedom is forced away (above). The
+single remaining open premise: **why the CKM CP-apex modulus is a
+self-reference eigenvalue at all** — why CP-violation depth = the residue's
 self-reference contraction rate. One clean structural identification (not a
 fitted number); it would pin the apex (`γ = π·R_u` is the other face of the
 single-parameter apex `z = r·e^{iπr}`), making `J = A²λ⁶η` atom-pinned and
 resolving θ_QCD's `J`.
+
+### Sharpened mechanism to pursue (concrete, not yet derived)
+
+The cleanest *structural* form of the open premise — the next real step (not
+another % match): the three quark generations are three layers of the `M`-
+iteration (Mobius213 shows layers 0–8 = even/odd Fibonacci = the convergent
+trajectory). The apex `R_u = |V_ud V_ub|/|V_cd V_cb| ≈ |V_ub|/(λ|V_cb|)`
+compares the gen-1→3 reach to the gen-2→3 reach — a **one-generation-step**
+difference. If each generation step contracts the inter-layer reach by the
+self-reference eigenvalue, then after stripping the Wolfenstein λ-hierarchy the
+residual 1→3-vs-2→3 shape factor is **one** contraction step = `1/φ²`. This is
+a testable mechanism (pin "generation = M-layer" and the apex follows), not yet
+a theorem — the honest concrete target replacing the law-of-sines fishing route.
+
+## Honest numerical status against CURRENT fits (2026-06-08)
+
+Re-checked against current PDG/CKMfitter (deep-research sweep). The φ²-apex is
+strong on the **imaginary side**, weaker on the **real side**:
+- `R_u = 1/φ² = 0.382` vs `√(ρ̄²+η̄²) ≈ 0.384–0.394` — **0.5–3%** (was 0.17%
+  vs the older central value; current global ρ̄ is higher, widening this).
+- `η̄ = 0.356` vs `0.348–0.357` — **good** (≤2.3%).
+- `ρ̄ = (1/φ²)cos(π/φ²) = 0.138` vs `≈ 0.14–0.16` — **weaker** (up to ~13% vs
+  the higher current global ρ̄≈0.16; fine vs older ρ̄≈0.141).
+- `sin 2β = 0.706` vs CKMfitter `0.684 ± 0.022` — **~0.6–1.0σ high**, NOT
+  "inside the error bar" as previously logged (corrected here and in
+  `JarlskogApex.lean` §4). Consistent but systematically on the high side
+  (γ = π/φ² = 68.75° is likewise ~1σ above the global γ ≈ 65–66°).
+
+Net: the apex *modulus/η̄* match survives at the few-% level; the *phase-side*
+predictions (γ, sin2β) run ~1σ high. This is a real, honest tension to carry,
+not a closed precision result.
+
+## External anchor + novelty (deep-research, 2026-06-08)
+
+- **Golden-ratio flavour mixing is an established, peer-reviewed line — for
+  LEPTONS.** `cot θ₁₂ = φ` / `cos θ₁₂ = φ/2` from **A₅ (icosahedral) flavour
+  symmetry** (Feruglio–Paris arXiv:0705.4559; JHEP 03(2011)101;
+  arXiv:0812.1057, 1110.1688). A golden **Cabibbo** angle also exists
+  (`θ_C = π/4 − θ₁₂ = 13.3°`, quark-lepton complementarity) — consistent with
+  DRLT's `λ = 5/22` (θ_C = 13.1°). So DRLT's golden approach sits inside a
+  live (heterodox but respectable) research area, not in isolation.
+- **No precedent for a golden CP-apex.** Multiple targeted searches found
+  **nothing** connecting the golden ratio to `δ_CP` or the unitarity-triangle
+  apex modulus (the golden-mixing literature is solar-angle / Cabibbo only;
+  CP-phase work is *geometric* but not golden). So DRLT's `δ = π/φ²` +
+  `R_u = 1/φ²` are **novel** — strong pre-registration priority value (deposit
+  externally per `PRE_REGISTRATION.md`).
+- **Research lead.** A₅/icosahedral is *the* known origin of golden mixing, and
+  φ lives in A₅'s geometry. Open question worth a session: does the residue
+  self-reference map `M = [[c,1],[1,1]]` (§5.6) connect to A₅ — i.e. is DRLT's
+  φ² the *same* φ that A₅ flavour symmetry produces, via a shared icosahedral
+  structure? That would bridge the DRLT mechanism to established flavour physics.
 
 ## Tested and NOT closed — the law-of-sines route (honest, fishing-risk flagged)
 
@@ -140,7 +208,7 @@ not another % match.
 
 ## Anchors
 
-- `lean/E213/Lib/Physics/Mixing/JarlskogApex.lean` — apex = φ² object, self-ref eigenvalue
+- `lean/E213/Lib/Physics/Mixing/JarlskogApex.lean` — apex = φ² object, self-ref eigenvalue; §5.5 `apex_modulus_subunit_forced` (1/φ² forced by R_u<1)
 - `lean/E213/Lib/Math/Algebra/Mobius213.lean` — the §5.6 self-reference matrix, eigenvalues φ²,1/φ²
 - `lean/E213/Lib/Physics/Mixing/CPViolation.lean` — J structure + magnitude-gap note
 - `lean/E213/Lib/Physics/Mixing/CKMHierarchy.lean` — λ, A = φ/c, s₂₃, s₁₃

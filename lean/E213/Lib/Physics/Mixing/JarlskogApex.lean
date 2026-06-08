@@ -103,9 +103,13 @@ and why `r = 1/φ²`, remain open; `γ` alone does *not* geometrically force
 Given the single parameter, the full unitarity triangle is determined and
 **predicts** its other elements (consequences, not inputs):
 - `β = 22.45°` vs observed `22.0°`
-- `sin 2β = 0.706` vs observed `0.695 ± 0.019` (**inside the error bar**)
+- `sin 2β = 0.706` vs observed `0.684 ± 0.022` (CKMfitter) / `0.695 ± 0.019` —
+  **~0.6–1.0σ high** (consistent, but on the high side, not centred; `sin 2β`
+  is the precisely-measured "golden mode" `B→J/ψ K_S`)
 - `α = 88.8°` vs observed `~85–90°`
 - `R_t = 0.932` vs observed `~0.91–0.93`
+- `ρ̄ = (1/φ²)cos(π/φ²) = 0.138` vs observed `≈ 0.14–0.16` (η̄ side is the
+  strong match at 2.3%; ρ̄ is weaker against the higher current global ρ̄)
 (These trig values are transcendental — documented here, not PURE-Nat.)
 
 `δ/π = R_u` at the shared Fibonacci-convergent level (both `= 1/φ²`,
@@ -149,6 +153,46 @@ theorem apex_modulus_is_selfref_contracting_eigenvalue :
     ∧ c - 1 = 1                 -- det = 1
     ∧ NS * NS - 4 * 1 = d       -- disc = NS²−4 = 5 = d
     ∧ NS * NS - 4 * 1 = NS + NT := by decide
+
+/-! ## §5.5 — which eigenvalue: `1/φ²` (not `φ²`) is FORCED by `R_u < 1`
+
+§5 grounds the *value* `1/φ²` as a self-reference eigenvalue, but a residual
+sub-freedom remained in the frontier: "why this golden power, not `φ`, `φ³`,
+…?".  This section removes that sub-freedom.
+
+The self-reference matrix `M = [[c,1],[1,1]]` has **exactly two** eigenvalues,
+a **reciprocal pair** (`λ₊·λ₋ = det = 1`, `λ₊+λ₋ = trace = NS`): the
+expanding `λ₊ = φ²` and the contracting `λ₋ = 1/φ²`.  There are no other
+golden powers in `spec M` — the question is binary, not "which power".
+
+The CKM apex modulus `R_u = √(ρ̄²+η̄²)` is a *side ratio* of the unitarity
+triangle whose base (`V_cd V_cb*`) is normalised to 1; the apex is interior,
+so **`R_u < 1`** (observed `R_u ≈ 0.38`).  Of the reciprocal pair, exactly one
+member is `< 1` — the contracting `λ₋ = 1/φ²`.  Hence, *given* the apex is a
+self-reference eigenvalue (the one remaining physical premise, §5.4), the
+constraint `R_u < 1` **forces** `R_u = 1/φ²` uniquely; `φ² > 1` is excluded.
+
+Witnessed PURE via the Fibonacci convergents (num/den) of each root:
+- `1/φ²` convergents `F₃/F₅, F₅/F₇, F₇/F₉ = 2/5, 5/13, 13/34` — all **sub-unit**
+  (`num < den`), so `1/φ² < 1`.
+- `φ²` convergents `F₄/F₄?`… are the reciprocals `F₆/F₄, F₈/F₆, F₁₀/F₈
+  = 8/3, 21/8, 55/21` — all **super-unit**, in fact `> 2·den` (`φ² > 2`).
+- Reciprocal-pair / det-1 witness: Cassini `F₃·F₅ = F₄²+1` (the `λ₊λ₋ = 1`
+  that pairs the two convergent families). -/
+
+/-- **`R_u = 1/φ²` is forced by `R_u < 1`.**  The two self-reference
+    eigenvalues are a reciprocal pair (`det = 1`); their Fibonacci convergents
+    split sharply — `1/φ²`'s are sub-unit (`num < den`), `φ²`'s are super-unit
+    (`> 2·den`).  So among `spec M = {φ², 1/φ²}` the constraint `R_u < 1`
+    selects `1/φ²` uniquely.  This converts "which golden power" into the
+    binary "which of the two eigenvalues", resolved by `R_u < 1`.  PURE. -/
+theorem apex_modulus_subunit_forced :
+    -- 1/φ² convergents F₃/F₅, F₅/F₇, F₇/F₉ are sub-unit (num < den) ⇒ 1/φ² < 1
+    (fib 3 < fib 5 ∧ fib 5 < fib 7 ∧ fib 7 < fib 9)
+    -- φ² convergents F₆/F₄, F₈/F₆, F₁₀/F₈ are super-unit (> 2·den) ⇒ φ² > 2 > 1
+    ∧ (2 * fib 4 < fib 6 ∧ 2 * fib 6 < fib 8 ∧ 2 * fib 8 < fib 10)
+    -- reciprocal pair (det = 1): Cassini F₃·F₅ = F₄² + 1 couples the two families
+    ∧ fib 3 * fib 5 = fib 4 * fib 4 + 1 := by decide
 
 /-! ## §6 — capstone -/
 

@@ -104,6 +104,49 @@ irrelevant (cleaner, and consistent with the `tensorDim` grounding); reading
 not yet a theorem (reframe/hypothesis, not formalized — premature
 formalization would be fudge).
 
+## Genuine negative result — the `1/d`-per-cup-factor rule is NOT derivable from the current cup infrastructure (2026-06-08)
+
+Tried to promote `cup_graduation_denom k := d^(k+1)`
+(`RefinedCupLadderDerivation` §1) from a *definition* to a derivation. It does
+not close with what exists, and here is precisely why (so a future session
+doesn't re-attempt the dead end):
+
+- The existing cup product `cup 5 a b : Cochain 5 a → Cochain 5 b →
+  Cochain 5 (a+b)` (`Cohomology/Cup/Core`) is **Bool / F₂-valued**. It carries
+  **no `1/d` normalisation** — the `d^(k+1)` denominator is *added* by the
+  `cup_graduation_denom` definition, not produced by the cup operation.
+- `CupRingTrace.lean` confirms this by its own results: the elementary
+  cup-ring functionals on `H*(Δ⁴; F₂)` give small integers (`F₁=F₂=4`,
+  `F₃=80`, `F₄=240`, `F₅=120`) — none carries a `1/d` grading; the file's own
+  gap analysis says the `1/d` spectral structure "isn't a small Δ⁴ count".
+- Therefore deriving "each cup factor carries `1/d`" requires a **ℚ-coefficient
+  *normalised* cup product** (cochains weighted by `1/d` per layer, à la a
+  normalised bar/AW coproduct) — infrastructure that **does not exist** in the
+  repo. Building it is the real multi-session task; asserting the rule from the
+  Bool cup would be a posit dressed as a theorem (declined, §5.4 / CLAUDE.md
+  "premature formalization = fudge").
+
+So the `/d²` mechanism stands on its **solid leg** — `tensorDim d d = d²` =
+`dim End V`, the 2-point operator-space dimension (real math, no cup
+normalisation needed). The cup-graduation leg is a *consistency check*, not an
+independent derivation, until a normalised cup product exists. The two legs
+"converging" (`mechanisms_converge`) is genuine but one leg is definitional.
+
+## External anchor (deep-research, 2026-06-08)
+
+- **No standard-QFT precedent for normalising a self-energy by `d² = dim End V`
+  / the square of the state-space dimension.** A two-point self-energy is
+  standardly `Σ(p)` via Schwinger–Dyson `G⁻¹ = C⁻¹ − Σ`, with no `1/d²` factor.
+- The superficially-similar **`1/N²` of matrix/tensor models is the *genus*
+  (topological) expansion** — `1/N²` per handle (arXiv:2207.05520,
+  hep-lat/9305007), a *different mechanism* from "normalise by `dim End V`".
+  So the resemblance is coincidental in origin.
+- Consequence: the `α²/d²` form has **no external grounding to borrow**; the
+  "open, mechanism-identified-but-not-forced" verdict is the externally honest
+  one. The solid content is internal: `dim End V = d²` is a real, DRLT-native
+  fact; the *physical identification* of the Gram self-energy with that
+  operator space is the (genuinely interpretive) open premise.
+
 ## What would fully close it
 
 A theorem identifying the Gram self-energy functional *as* the `k=1`
