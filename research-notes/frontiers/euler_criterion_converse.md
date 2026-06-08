@@ -21,22 +21,26 @@ replacing the residue range.  This sub-tree is **promotion-eligible** (closed + 
   (`LegendreMultiplicative.legendre_mul`, 5 PURE): `qr_iff_pow_one` + `cᵐ ≡ ±1` + `(ab)ᵐ ≡ aᵐbᵐ`,
   2×2 sign cases.  The Legendre character is a homomorphism.
 
-## Open downstream (each builds directly on `euler_criterion`)
+## Downstream — now closed
 
-1. **Quadratic character of `2`** (the second supplement): `2` is a QR mod `p` ⟺ `p ≡ ±1 (mod 8)`.
-   Classical proof = Gauss's lemma count for `a = 2` (`μ = #{x ∈ 1..(p−1)/2 : 2x > p/2}`, a floor
-   formula whose parity gives `±1`).  Flagged in `sums_of_squares_engines.md`.  Needs Gauss's lemma
-   first (item 2), or a direct `(2)^((p−1)/2)`-evaluation via a telescoping product.
-2. **Gauss's lemma** `(a/p) = (−1)^μ`, `μ = #{x ∈ 1..(p−1)/2 : (a·x mod p) > p/2}`.  Bridges Euler's
-   `aᵐ ≡ ±1` to a **counting** readout — the `least-absolute-residue` sign count.  The `±1` is exactly
-   `euler_dichotomy`; the new content is the `μ`-count = the sign of the half-system permutation.
-3. **Zolotarev** `(a/p) = sign(x ↦ a·x mod p)`.  The **sign side is already PURE**
-   (`Algebra/Linalg213/Permutation.lean`: `psign`, `psign_swap_prefix`, the inversion-count sign);
-   the number-theoretic side routes through Euler (`a` a QR ⟺ `aᵐ ≡ 1` ⟺ the mul-permutation is even).
-   The missing piece is `sign(mul-by-a permutation) = aᵐ`-valued — i.e. tie `psign` of the explicit
-   value-list `[a·0, a·1, …, a·(p−1) mod p]` to the Legendre symbol.  Needs: (a) the mul-map is a
+1. **Quadratic character of `2`** (the second supplement): `2` is a QR mod `p` ⟺ `p ≡ ±1 (mod 8)`
+   — **CLOSED** (`SecondSupplement.second_supplement`, via the Gauss-lemma `μ`-count for `a = 2`).
+   And the disc-`−8` representation iff (`ZSqrtNegTwoSquare.disc_neg_eight_iff`) is built on it.
+2. **Gauss's lemma** `(a/p) = (−1)^μ`, `μ = #{x ∈ 1..(p−1)/2 : (a·x mod p) > p/2}` — **CLOSED**
+   (`GaussLemma.gauss_qr`/`gauss_core`, the half-system `fold_perm` + sign product `gauss_core`).
+
+## Open downstream
+
+3. **Zolotarev** `(a/p) = sign(x ↦ a·x mod p)`.  The **matrix/sign side is now fully PURE**:
+   `PermMatrixDet.det_permMatrix` (`det (permMatrix σ) = psign σ`) closed this arc, and `psign`
+   itself was already PURE.  The remaining gap is the *number-theoretic* identification
+   `psign [a·0, a·1, …, a·(p−1) mod p] = (a/p)` — tying the sign of the explicit
+   multiplication-by-`a` value-list to the Legendre symbol.  Needs: (a) the mul-map is a
    permutation of the residues (injectivity via the modular inverse + the `List213` `Nodup`
-   cardinality toolkit), (b) its `psign` = `(a/p)` (cycle-structure or Gauss-lemma bridge).
+   cardinality toolkit), (b) its `psign` = `(a/p)` (cycle-structure or, more directly, a
+   Gauss-lemma bridge — `gauss_core`'s sign product is the same `μ`-parity that Zolotarev's
+   transposition count must reproduce).  This bridge (Zolotarev = Gauss) is the genuinely hard
+   residual; both endpoints are closed, the equivalence of the two sign-readouts is not.
 
 ## Cross-references
 `lean/E213/Lib/Math/NumberTheory/ModArith/{EulerCriterion,EulerConverse}.lean`,
