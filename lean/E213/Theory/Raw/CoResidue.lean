@@ -1241,4 +1241,159 @@ theorem boolSpine_shift_dynamics :
    boolSpine_swap_shift_commute,
    spineL_shift_fixed⟩
 
+/-! ## §20 — the label-generic spine: one carrier for every alphabet (the p-ary νF)
+
+`boolSpine` (§15) is the *binary*-leaf spine — the carrier König's binary tree and the 2-adic
+integer (`Fin 2 ≃ Bool`) ride.  A general p-adic integer is a branch of the **p-ary** tree:
+its digit stream is `Nat → Fin p`, not `Nat → Bool`.  Rather than a new carrier per `p`, this
+section abstracts the spine over an **arbitrary leaf alphabet** `L`: `gspine (f : Nat → L)`
+lives in `GCoShape L := List Bool → Option L` (the *branch* structure stays binary — the König
+carrier — only the leaf labels become `L`).  `boolSpine` is the `L = Bool` instance
+(`boolSpine_eq_gspine`) and the finite-Raw embedding `lToShape` is `gToShape true false`
+(`lToShape_eq_gToShape`); the p-ary spine is the `L = Fin p` instance.  So **all `p` share one
+carrier**: the same binary König spine, leaf-labelled by the alphabet.  All ∅-axiom, the
+finite-path proofs of §15 lifted verbatim — no funext, no Cardinal, no coinduction. -/
+
+/-- A leaf-labelled co-tree over an arbitrary alphabet `L`: binary branch structure, `L`-leaves
+    (`none` = branch, `some c` = leaf with label `c`).  `LCoShape = GCoShape Bool`. -/
+def GCoShape (L : Type) : Type := List Bool → Option L
+
+/-- The left subtree of a generic co-tree at a branch path. -/
+def gCoLeftAt {L : Type} (s : GCoShape L) (p : List Bool) : GCoShape L := fun q => s (p ++ true :: q)
+
+/-- The right subtree of a generic co-tree at a branch path. -/
+def gCoRightAt {L : Type} (s : GCoShape L) (p : List Bool) : GCoShape L := fun q => s (p ++ false :: q)
+
+/-- Positive inequality of generic co-trees: a differing observation path (§8, label-agnostic). -/
+def GDistinct {L : Type} (s t : GCoShape L) : Prop := ∃ q : List Bool, s q ≠ t q
+
+/-- Consistency over `L`: a leaf absorbs (the label repeats below it). -/
+def GConsistent {L : Type} (s : GCoShape L) : Prop :=
+  ∀ p c, s p = some c → ∀ d, s (p ++ [d]) = some c
+
+/-- Anti-reflexivity over `L`: at every branch the two subtrees are `GDistinct`. -/
+def GAntiRefl {L : Type} (s : GCoShape L) : Prop :=
+  ∀ p, s p = none → GDistinct (gCoLeftAt s p) (gCoRightAt s p)
+
+/-- The label-stream spine over `L`: at the depth-`k` left leaf put the label `f k`; the right
+    branch continues the spine on the shifted stream.  (`boolSpine` is `L = Bool`.) -/
+def gspine {L : Type} (f : Nat → L) : GCoShape L
+  | []           => none
+  | (true :: _)  => some (f 0)
+  | (false :: q) => gspine (fun n => f (n + 1)) q
+
+/-- The label-stream spine is `none` (a branch) all along the all-false path. -/
+theorem gspine_replicate_none {L : Type} (f : Nat → L) :
+    ∀ k, gspine f (List.replicate k false) = none
+  | 0     => rfl
+  | k + 1 => gspine_replicate_none (fun n => f (n + 1)) k
+
+/-- The depth-`k` left leaf of `gspine f` carries the label `f k`. -/
+theorem gspine_leaf {L : Type} (f : Nat → L) :
+    ∀ k, gspine f (List.replicate k false ++ [true]) = some (f k)
+  | 0     => rfl
+  | k + 1 => gspine_leaf (fun n => f (n + 1)) k
+
+/-- The label-stream spine is consistent: its leaf labels absorb. -/
+theorem gspine_consistent {L : Type} (f : Nat → L) : GConsistent (gspine f)
+  | [],           _, hb, _ => Option.noConfusion hb
+  | (true :: _),  _, hb, _ => hb
+  | (false :: q), c, hb, d => gspine_consistent (fun n => f (n + 1)) q c hb d
+
+/-- ★★ **The label-stream spine is anti-reflexive** (every `f`).  At each branch the left child
+    is a leaf (`some (f k)`) and the right child continues the spine (`none` on its all-false
+    path) — distinct; a `true`-branch is a leaf (vacuous); a `false`-branch recurses on the
+    shifted stream.  So `gspine f ∈ GSlashNu L` for every `f`. -/
+theorem gspine_antiRefl {L : Type} (f : Nat → L) : GAntiRefl (gspine f)
+  | [],           _  => ⟨[], fun e => Option.noConfusion e⟩
+  | (true :: _),  hp => Option.noConfusion hp
+  | (false :: q), hp => gspine_antiRefl (fun n => f (n + 1)) q hp
+
+/-- ★★★ **Pointwise-distinct streams give distinct spines** (over any `L`).  Given a witnessing
+    index `∃ k, f k ≠ g k`, the spines differ at the depth-`k` left leaf — injectivity of
+    `gspine` in the ∅-axiom-faithful form (pointwise difference, no `funext`). -/
+theorem gspine_inj {L : Type} {f g : Nat → L} (h : ∃ k, f k ≠ g k) :
+    GDistinct (gspine f) (gspine g) := by
+  obtain ⟨k, hk⟩ := h
+  refine ⟨List.replicate k false ++ [true], ?_⟩
+  rw [gspine_leaf f k, gspine_leaf g k]
+  exact fun e => hk (Option.some.inj e)
+
+/-- The finite-Raw embedding over `L`, parameterised by the two atom labels `a` (atom `a`) and
+    `b` (atom `b`): atoms carry their label, a slash is a branch with children.  (`lToShape =
+    gToShape true false`, `lToShape_eq_gToShape`.) -/
+def gToShape {L : Type} (a b : L) : Tree → GCoShape L
+  | Tree.a,         _            => some a
+  | Tree.b,         _            => some b
+  | Tree.slash _ _, []           => none
+  | Tree.slash x _, (true :: p)  => gToShape a b x p
+  | Tree.slash _ y, (false :: p) => gToShape a b y p
+
+/-- Every finite tree's all-false (right-spine) path bottoms out at a leaf, over any `L`. -/
+theorem gToShape_rightspine_leaf {L : Type} (a b : L) :
+    ∀ t : Tree, ∃ k c, gToShape a b t (List.replicate k false) = some c
+  | Tree.a         => ⟨0, a, rfl⟩
+  | Tree.b         => ⟨0, b, rfl⟩
+  | Tree.slash _ y =>
+      let ⟨k, c, hk⟩ := gToShape_rightspine_leaf a b y
+      ⟨k + 1, c, hk⟩
+
+/-- ★★ **The label-stream spine escapes every finite Raw, over any `L`.**  `gspine f ≠ gToShape
+    a b s`: the spine is a branch (`none`) all along the all-false path
+    (`gspine_replicate_none`), but every finite tree bottoms out there
+    (`gToShape_rightspine_leaf`).  The general-alphabet "reached by no finite Raw". -/
+theorem gspine_escapes {L : Type} (a b : L) (f : Nat → L) (s : Tree) :
+    gspine f ≠ gToShape a b s := by
+  intro h
+  obtain ⟨k, c, hk⟩ := gToShape_rightspine_leaf a b s
+  have e : gspine f (List.replicate k false) = some c := by rw [h]; exact hk
+  rw [gspine_replicate_none f k] at e
+  exact Option.noConfusion e
+
+/-- The generic νF carrier over `L`: consistent + anti-reflexive co-trees.  `SlashNu = GSlashNu
+    Bool`. -/
+def GSlashNu (L : Type) : Type := { s : GCoShape L // GConsistent s ∧ GAntiRefl s }
+
+/-- The label-stream spine as a generic νF inhabitant. -/
+def gspineSlashNu {L : Type} (f : Nat → L) : GSlashNu L :=
+  ⟨gspine f, gspine_consistent f, gspine_antiRefl f⟩
+
+/-- **`boolSpine` is the `L = Bool` instance of `gspine`** (pointwise): the binary spine is the
+    `Bool`-alphabet case of the generic one — the §15 carrier is `GCoShape Bool`. -/
+theorem boolSpine_eq_gspine (f : Nat → Bool) : ∀ q, boolSpine f q = gspine f q
+  | []           => rfl
+  | (true :: _)  => rfl
+  | (false :: q) => boolSpine_eq_gspine (fun n => f (n + 1)) q
+
+/-- **The finite-Raw embedding `lToShape` is `gToShape true false`** (pointwise): the §6 binary
+    embedding is the `Bool`-alphabet case (atom `a ↦ true`, atom `b ↦ false`). -/
+theorem lToShape_eq_gToShape : ∀ (t : Tree) (q : List Bool),
+    lToShape t q = gToShape true false t q
+  | Tree.a,         _            => rfl
+  | Tree.b,         _            => rfl
+  | Tree.slash _ _, []           => rfl
+  | Tree.slash x _, (true :: p)  => lToShape_eq_gToShape x p
+  | Tree.slash _ y, (false :: p) => lToShape_eq_gToShape y p
+
+/-- ★★★ **One carrier for every alphabet: the generic spine injects the streams and escapes.**
+    Bundles §20: for any leaf alphabet `L` (with two atom labels `a b : L`),
+
+    1. every label-stream gives a generic-νF inhabitant (consistent + anti-reflexive);
+    2. each escapes every finite Raw's `gToShape a b` embedding (reached by none);
+    3. pointwise-distinct streams give `GDistinct` spines (faithful);
+    4. the §15 binary spine is the `L = Bool` instance (`boolSpine_eq_gspine`), so König / the
+       2-adic / the p-adic / ℝ all ride **the same carrier** — the binary König spine,
+       leaf-labelled by the alphabet.
+
+    All ∅-axiom, pointwise (no `funext`, no `Cardinal`, no coinduction). -/
+theorem gspine_one_carrier {L : Type} (a b : L) :
+    (∀ f : Nat → L, GConsistent (gspine f) ∧ GAntiRefl (gspine f))
+    ∧ (∀ (f : Nat → L) (s : Tree), gspine f ≠ gToShape a b s)
+    ∧ (∀ f g : Nat → L, (∃ k, f k ≠ g k) → GDistinct (gspine f) (gspine g))
+    ∧ (∀ (f : Nat → Bool) q, boolSpine f q = gspine f q) :=
+  ⟨fun f => ⟨gspine_consistent f, gspine_antiRefl f⟩,
+   fun f s => gspine_escapes a b f s,
+   fun _ _ h => gspine_inj h,
+   boolSpine_eq_gspine⟩
+
 end E213.Theory.Raw.CoResidue
