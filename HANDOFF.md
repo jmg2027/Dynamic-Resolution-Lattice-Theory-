@@ -90,17 +90,24 @@ the strategy:
   `psign_mul_aux` (no well-founded recursion).  (`Nat.succ_ne_zero`'s `propext` was
   sidestepped with `Nat.noConfusion` to keep it PURE.)
 
-**Next — `det Mᵀ = det M`** (now unblocked):
-  1. `psign_inv` (`psign(invPerm σ) = psign σ`) — a one-liner from `psign_mul`:
-     `psign σ · psign(invPerm σ) = psign(composeList σ (invPerm σ)) = psign(iota n) = 1`
-     in {±1} (needs `invPerm σ ∈ perms n` + `composeList_invPerm_right`'s hypothesis
-     `∀ j<|σ|, j∈σ`, both from `σ ∈ perms n`).
-  2. `det Mᵀ = det M`: reindex the Leibniz sum `perms n` by `invPerm` (a bijection of
-     `perms n`, via `composeList_invPerm_left/right`), apply `psign_inv`, and reindex the
-     product (`ProdLperm.prodZ_lperm`).  Needs `perms` closed under `invPerm` up to `LPerm`
-     (analogue of `perms_swap_closed`) + the transpose product-reindex `∏ M(σ i,i) = ∏ M(i,σ⁻¹ i)`.
-  3. `det(M·N) = det M·det N` then via Track A (alternating-form uniqueness + `det_swapRows`),
-     or directly via the Leibniz expansion now that `psign_mul` exists.
+- ✓ `DetTranspose.psign_inv` (`psign(invPerm σ) = psign σ`) — **CLOSED, PURE** (marathon Phase 1).
+  Also `invPerm_mem_perms` (the inverse of a permutation is a permutation) + `psign_iota`.
+
+**Next — marathon Phase 2: `det Mᵀ = det M`** (in `DetTranspose.lean`):
+  1. **perms closed under `invPerm`**: `LPerm ((perms n).map invPerm) (perms n)` — analogue of
+     `PermClosure.perms_swap_closed`.  Easiest via `invPerm` being an involution on `perms n`
+     (`invPerm (invPerm σ) = σ`, from two-sided-inverse uniqueness) + `cnt_map_inv` +
+     `cnt_eq_of_iff_mem`, OR via `lperm_of_nodup_mem_iff`.
+  2. **the product-reindex** (the crux): `prodDiagFrom Mᵀ 0 σ = prodDiagFrom M 0 (invPerm σ)` for
+     `σ ∈ perms n`.  The factor lists `{Mᵀ k σ_k} = {M σ_k k}` and `{M j (invPerm σ)_j}` are the
+     same multiset (pair `(σ_k,k) ↦ (j, idxOf j σ)` with `j=σ_k`, using `idxOf(σ_k)σ = k` for nodup
+     σ).  Build via `ProdLperm.prodZ` + `prodZ_lperm` on `LPerm`-equal factor lists.
+  3. **assembly**: `leibDet n Mᵀ = sumZ((perms n).map (leibTerm Mᵀ))`; rewrite each term
+     `leibTerm Mᵀ σ = psign σ · prodDiagFrom Mᵀ 0 σ = psign(invPerm σ)·prodDiagFrom M 0 (invPerm σ)
+     = leibTerm M (invPerm σ)` (psign_inv + step 2); then `sumZ_lperm` on `map_lperm invPerm`
+     (step 1) reindexes to `leibDet n M`.  Then `det Mᵀ = det M` via `leibDet_eq_det`.
+  3'. `det(M·N) = det M·det N`: now that `psign_mul` exists, either the direct Leibniz expansion
+      or Track A (alternating-form uniqueness + `det_swapRows`).
 
 ### 3b. ✓ The **upper-triangular** determinant — CLOSED (this session)
 `DetTriangular.det_upper_triangular` — `M i j = 0` for `j < i` ⟹ `det = Π Mᵢᵢ`,
@@ -124,6 +131,7 @@ lean/E213/Lib/Math/Algebra/Linalg213/DetTriangular.lean  ← + det_upper_triangu
 lean/E213/Lib/Math/Algebra/Linalg213/DetRowOps.lean      ← NEW: row ops (add-multiple preserves, swap negates) det, 11/11 PURE
 lean/E213/Lib/Math/Algebra/Linalg213/PermGroup.lean      ← NEW: symmetric group on value-lists (composeList, identity, assoc, two-sided invPerm), 19/19 PURE
 lean/E213/Lib/Math/Algebra/Linalg213/PermSign.lean       ← NEW: ★★★ psign_mul (sign-multiplicativity) via bubble-sort, 30/30 PURE
+lean/E213/Lib/Math/Algebra/Linalg213/DetTranspose.lean   ← NEW: marathon Phase 1 — psign_inv + invPerm_mem_perms, 5/5 PURE
 lean/E213/Meta/Nat/NatRing213.lean                       ← + nat_succ_sub (§5)
 lean/E213/Lib/Math/Combinatorics/SpernerChains.lean      ← succ_sub_clean → nat_succ_sub
 lean/E213/Lib/Math/Algebra/Linalg213/PermBridge.lean     ← NEW: the two-perms bridge, 7/7 PURE
