@@ -182,6 +182,16 @@ Verification:
 Quot.sound, Classical.choice contributes to the truth value.
 This is the formal proof of the vision ("213 = floor, Lean = syntactic host").
 
+
+### F27: CKM CP phase — right unitarity triangle (α = 90°)
+  CP phase = arg(i) = 90° (C₄ = ℤ[i]^×, the NT=2 doubling), forced by
+  C₄ + CP-existence (Niven: golden δ=π/φ² impossible). ⇒ unitarity-triangle
+  angle α = 90° (right triangle); with golden modulus R_u=1/φ², cos γ = 1/φ²
+  ⇒ β = 22.46° (obs 22.5°), γ = 67.54° (obs 65.1°), α = 90° (obs 92.4°±1.4°).
+  Future UTfit/CKMfitter α firmly inconsistent with 90° → discard.
+  (theory/physics/cp_phase.md; Mixing/CPPhaseC4Forcing, ApexRightTriangle, PURE.
+  Fit ~1.5σ — candidate-level; the advance is principled-ness, not precision.)
+
 ## Measurement timeline
 
   2025-2030: JUNO (F3), nEDM (F4), DUNE (F7)
