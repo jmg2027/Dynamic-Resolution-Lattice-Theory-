@@ -1,5 +1,6 @@
 import E213.Lib.Math.Algebra.Linalg213.Laplace
 import E213.Lib.Math.Algebra.Linalg213.PermSign
+import E213.Lib.Math.Algebra.Linalg213.ProdLperm
 
 /-!
 # Linalg213 — the transpose determinant `det Mᵀ = det M`
@@ -12,7 +13,9 @@ equals `σ`'s — ★ `psign_inv` (`psign (σ⁻¹) = psign σ`), a one-liner fr
 
 namespace E213.Lib.Math.Algebra.Linalg213.DetTranspose
 
-open E213.Lib.Math.Algebra.Linalg213.Permutation (psign iota perms LPerm)
+open E213.Lib.Math.Algebra.Linalg213.Permutation
+  (psign iota perms LPerm prodDiagFrom leibTerm leibDet sumZ map_lperm sumZ_lperm)
+open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ prodZ_lperm)
 open E213.Lib.Math.Algebra.Linalg213.PermGroup
   (composeList invPerm invPerm_getD invPerm_length idxOf idxOf_getD idxOf_lt idxOf_getD_self
    composeList_invPerm_right)
@@ -20,11 +23,14 @@ open E213.Lib.Math.Algebra.Linalg213.PermSign
   (perms_inj perms_entry_lt psign_mul altSign_self sorted_imp_inv_zero sorted_iota)
 open E213.Lib.Math.Algebra.Linalg213.DetN (altSign)
 open E213.Lib.Math.Algebra.Linalg213.Permutation (inversions)
-open E213.Tactic.List213 (list_ext_getD getD_ge)
+open E213.Tactic.List213 (list_ext_getD getD_ge getD_map_ib length_map)
+open E213.Lib.Math.Algebra.Linalg213.PermGroup (getD_iota length_iota composeList_getD composeList_length)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure
   (Nodup nodup_iota nodup_cons nodup_tail nodup_head_not_mem nodup_permsOf mem_map' mem_map_mpr
    permsOf_sound permsOf_complete perm_length lt_of_mem_iota)
-open E213.Lib.Math.Algebra.Linalg213.Laplace (lperm_of_nodup_mem_iff mem_iota_of_lt)
+open E213.Lib.Math.Algebra.Linalg213.Laplace (lperm_of_nodup_mem_iff mem_iota_of_lt leibDet_eq_det)
+open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_eq_of_mem map_map')
+open E213.Lib.Math.Algebra.Linalg213.DetN (det)
 
 /-! ## §1 — `invPerm σ` is a permutation -/
 
@@ -133,5 +139,106 @@ theorem perms_closed_invPerm (n : Nat) : LPerm ((perms n).map invPerm) (perms n)
     · intro hq
       rw [← invPerm_invol n q hq]
       exact mem_map_mpr invPerm (invPerm_mem_perms n q hq)
+
+/-! ## §4 — the product-reindex `∏ Mᵀ(k,σₖ) = ∏ M(j,σ⁻¹ⱼ)` -/
+
+/-- The transpose matrix `Mᵀ i j = M j i`. -/
+def transpose (M : Nat → Nat → Int) : Nat → Nat → Int := fun i j => M j i
+
+/-- The diagonal-product factor list (`prodDiagFrom` as a `prodZ`). -/
+def zipDiag (M : Nat → Nat → Int) : Nat → List Nat → List Int
+  | _, []      => []
+  | i, a :: ps => M i a :: zipDiag M (i + 1) ps
+
+theorem prodDiagFrom_eq_prodZ (M : Nat → Nat → Int) : ∀ (i : Nat) (p : List Nat),
+    prodDiagFrom M i p = prodZ (zipDiag M i p)
+  | _, []      => rfl
+  | i, a :: ps => by
+    show M i a * prodDiagFrom M (i + 1) ps = M i a * prodZ (zipDiag M (i + 1) ps)
+    rw [prodDiagFrom_eq_prodZ M (i + 1) ps]
+
+theorem zipDiag_length (M : Nat → Nat → Int) : ∀ (i : Nat) (p : List Nat),
+    (zipDiag M i p).length = p.length
+  | _, []      => rfl
+  | i, a :: ps => by
+    show (zipDiag M (i + 1) ps).length + 1 = ps.length + 1
+    rw [zipDiag_length M (i + 1) ps]
+
+theorem zipDiag_getD (M : Nat → Nat → Int) : ∀ (i : Nat) (p : List Nat) (k : Nat), k < p.length →
+    (zipDiag M i p).getD k 0 = M (i + k) (p.getD k 0)
+  | i, a :: _,  0,     _ => by show M i a = M (i + 0) a; rw [Nat.add_zero]
+  | i, a :: ps, k + 1, h => by
+    show (zipDiag M (i + 1) ps).getD k 0 = M (i + (k + 1)) (ps.getD k 0)
+    rw [zipDiag_getD M (i + 1) ps k (Nat.lt_of_succ_lt_succ h)]
+    show M (i + 1 + k) (ps.getD k 0) = M (i + (k + 1)) (ps.getD k 0)
+    rw [Nat.add_assoc, Nat.add_comm 1 k]
+
+/-- A list equals the map of its own `getD` over the index range. -/
+theorem list_self_map_getD (L : List Int) : L = (iota L.length).map (fun i => L.getD i 0) := by
+  refine list_ext_getD 0 (by rw [length_map, length_iota]) (fun i => ?_)
+  by_cases hi : i < L.length
+  · rw [getD_map_ib (fun i => L.getD i 0) 0 0 (iota L.length) i (by rw [length_iota]; exact hi),
+        getD_iota L.length i hi]
+  · rw [getD_ge 0 (Nat.not_lt.mp hi),
+        getD_ge 0 (l := (iota L.length).map (fun i => L.getD i 0))
+          (by rw [length_map, length_iota]; exact Nat.not_lt.mp hi)]
+
+/-- ★★★ **The transpose product-reindex**: `∏ᵢ Mᵀ(i,σᵢ) = ∏ⱼ M(j,σ⁻¹ⱼ)` for `σ ∈ perms n`.
+    Both are `prodZ` of the same multiset of factors `{M (σₖ) k}`, reordered by the permutation `σ`
+    (`composeList second σ`, which is `LPerm`-equal to `second` by `map_lperm`). -/
+theorem prodDiag_transpose_eq (M : Nat → Nat → Int) (n : Nat) (σ : List Nat) (hσ : σ ∈ perms n) :
+    prodDiagFrom (transpose M) 0 σ = prodDiagFrom M 0 (invPerm σ) := by
+  have hlen : σ.length = n := perm_length hσ
+  have hseclen : (zipDiag M 0 (invPerm σ)).length = n := by
+    rw [zipDiag_length, invPerm_length, hlen]
+  -- the transpose factor list = the M factor list reordered by σ
+  have hkey : zipDiag (transpose M) 0 σ
+      = σ.map (fun v => (zipDiag M 0 (invPerm σ)).getD v 0) := by
+    refine list_ext_getD 0
+      ((zipDiag_length (transpose M) 0 σ).trans (length_map σ _).symm) (fun k => ?_)
+    by_cases hk : k < σ.length
+    · have hsk : σ.getD k 0 < n := perms_entry_lt hσ (hlen ▸ hk)
+      rw [zipDiag_getD (transpose M) 0 σ k hk,
+          getD_map_ib (fun v => (zipDiag M 0 (invPerm σ)).getD v 0) 0 0 σ k hk,
+          zipDiag_getD M 0 (invPerm σ) (σ.getD k 0) (by rw [invPerm_length]; exact hlen ▸ hsk),
+          invPerm_getD σ (σ.getD k 0) (hlen ▸ hsk),
+          idxOf_getD_self σ (inj_of_perms hσ) k hk]
+      show M (σ.getD k 0) (0 + k) = M (0 + σ.getD k 0) k
+      rw [Nat.zero_add, Nat.zero_add]
+    · rw [getD_ge 0 (l := zipDiag (transpose M) 0 σ)
+            (by rw [zipDiag_length]; exact Nat.not_lt.mp hk),
+          getD_ge 0 (l := σ.map (fun v => (zipDiag M 0 (invPerm σ)).getD v 0))
+            (by rw [length_map]; exact Nat.not_lt.mp hk)]
+  -- the reindexed factor list is LPerm to the original (reorder by the permutation σ)
+  have hlp : LPerm (σ.map (fun v => (zipDiag M 0 (invPerm σ)).getD v 0)) (zipDiag M 0 (invPerm σ)) := by
+    have hrec : (iota n).map (fun v => (zipDiag M 0 (invPerm σ)).getD v 0)
+        = zipDiag M 0 (invPerm σ) := (hseclen ▸ list_self_map_getD (zipDiag M 0 (invPerm σ))).symm
+    have hml := map_lperm (fun v => (zipDiag M 0 (invPerm σ)).getD v 0) (permsOf_sound (iota n) σ hσ)
+    rwa [hrec] at hml
+  rw [prodDiagFrom_eq_prodZ (transpose M) 0 σ, hkey, prodDiagFrom_eq_prodZ M 0 (invPerm σ)]
+  exact prodZ_lperm hlp
+
+/-! ## §5 — the transpose determinant -/
+
+/-- The Leibniz determinant is transpose-invariant: `leibDet n Mᵀ = leibDet n M`.  Each term
+    reindexes by `invPerm` — `leibTerm Mᵀ σ = psign σ · ∏ Mᵀ(i,σ i) = psign(σ⁻¹)·∏ M(i,σ⁻¹ i)
+    = leibTerm M σ⁻¹` (`prodDiag_transpose_eq` + `psign_inv`) — and `perms` is closed under
+    `invPerm` (`perms_closed_invPerm`), so the sum is unchanged. -/
+theorem leibDet_transpose (n : Nat) (M : Nat → Nat → Int) :
+    leibDet n (transpose M) = leibDet n M := by
+  show sumZ ((perms n).map (leibTerm (transpose M))) = sumZ ((perms n).map (leibTerm M))
+  rw [map_eq_of_mem (leibTerm (transpose M)) (fun σ => leibTerm M (invPerm σ))
+        (fun σ hσ => by
+          show psign σ * prodDiagFrom (transpose M) 0 σ
+             = psign (invPerm σ) * prodDiagFrom M 0 (invPerm σ)
+          rw [prodDiag_transpose_eq M n σ hσ, psign_inv n σ hσ]),
+      ← map_map' invPerm (leibTerm M) (perms n)]
+  exact sumZ_lperm (map_lperm (leibTerm M) (perms_closed_invPerm n))
+
+/-- ★★★ **The transpose determinant**: `det n Mᵀ = det n M`.  The classical Leibniz proof —
+    reindex the permutation sum by the inverse (`perms_closed_invPerm`), `psign(σ⁻¹) = psign σ`
+    (`psign_inv`), and the product-reindex (`prodDiag_transpose_eq`) — entirely ∅-axiom. -/
+theorem det_transpose (n : Nat) (M : Nat → Nat → Int) : det n (transpose M) = det n M := by
+  rw [← leibDet_eq_det n (transpose M), ← leibDet_eq_det n M, leibDet_transpose]
 
 end E213.Lib.Math.Algebra.Linalg213.DetTranspose

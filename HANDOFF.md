@@ -90,24 +90,22 @@ the strategy:
   `psign_mul_aux` (no well-founded recursion).  (`Nat.succ_ne_zero`'s `propext` was
   sidestepped with `Nat.noConfusion` to keep it PURE.)
 
-- ✓ `DetTranspose.psign_inv` (`psign(invPerm σ) = psign σ`) — **CLOSED, PURE** (marathon Phase 1).
-  Also `invPerm_mem_perms` (the inverse of a permutation is a permutation) + `psign_iota`.
+- ✓✓✓ `DetTranspose.det_transpose` (`det n Mᵀ = det n M`) — **CLOSED, ∅-axiom PURE** (marathon
+  Phases 1–2).  The full classical Leibniz proof from scratch: `psign_inv` (sign of inverse,
+  Phase 1) + `invPerm_invol`/`perms_closed_invPerm` (the sum-reindex, Phase 2a) +
+  `prodDiag_transpose_eq` (the product-reindex `∏ Mᵀ(i,σᵢ) = ∏ M(j,σ⁻¹ⱼ)` via `prodZ_lperm`,
+  Phase 2b) + `leibDet_transpose`/`det_transpose` (assembly via `leibDet_eq_det`, Phase 2c).
+  `DetTranspose` 16/16 PURE.
 
-**Next — marathon Phase 2: `det Mᵀ = det M`** (in `DetTranspose.lean`):
-  1. **perms closed under `invPerm`**: `LPerm ((perms n).map invPerm) (perms n)` — analogue of
-     `PermClosure.perms_swap_closed`.  Easiest via `invPerm` being an involution on `perms n`
-     (`invPerm (invPerm σ) = σ`, from two-sided-inverse uniqueness) + `cnt_map_inv` +
-     `cnt_eq_of_iff_mem`, OR via `lperm_of_nodup_mem_iff`.
-  2. **the product-reindex** (the crux): `prodDiagFrom Mᵀ 0 σ = prodDiagFrom M 0 (invPerm σ)` for
-     `σ ∈ perms n`.  The factor lists `{Mᵀ k σ_k} = {M σ_k k}` and `{M j (invPerm σ)_j}` are the
-     same multiset (pair `(σ_k,k) ↦ (j, idxOf j σ)` with `j=σ_k`, using `idxOf(σ_k)σ = k` for nodup
-     σ).  Build via `ProdLperm.prodZ` + `prodZ_lperm` on `LPerm`-equal factor lists.
-  3. **assembly**: `leibDet n Mᵀ = sumZ((perms n).map (leibTerm Mᵀ))`; rewrite each term
-     `leibTerm Mᵀ σ = psign σ · prodDiagFrom Mᵀ 0 σ = psign(invPerm σ)·prodDiagFrom M 0 (invPerm σ)
-     = leibTerm M (invPerm σ)` (psign_inv + step 2); then `sumZ_lperm` on `map_lperm invPerm`
-     (step 1) reindexes to `leibDet n M`.  Then `det Mᵀ = det M` via `leibDet_eq_det`.
-  3'. `det(M·N) = det M·det N`: now that `psign_mul` exists, either the direct Leibniz expansion
-      or Track A (alternating-form uniqueness + `det_swapRows`).
+**Next — `det(M·N) = det M·det N`** (the last big determinant capstone; now unblocked by
+`psign_mul`):
+  - **Route A (recommended)**: alternating-form uniqueness + `det_swapRows` (reaches "permute rows
+    by σ scales det by `psign σ`" via swap-induction, *without* the full Leibniz expansion).
+  - **Route B**: the direct Leibniz expansion — `det(AB) = Σ_p ∏ A(i,pᵢ)·det(B∘p)`, non-injective
+    `p` vanish (equal rows), permutation part recombines via `psign_mul`.  Needs a sum over
+    functions `[n]→[n]` (new enumeration) + the row-permutation determinant
+    `leibDet (rowPerm σ B) = psign σ · leibDet B` (now reachable: reindex the Leibniz sum by
+    `composeList`-with-σ + `psign_mul`, analogous to `det_transpose`).
 
 ### 3b. ✓ The **upper-triangular** determinant — CLOSED (this session)
 `DetTriangular.det_upper_triangular` — `M i j = 0` for `j < i` ⟹ `det = Π Mᵢᵢ`,
@@ -131,7 +129,7 @@ lean/E213/Lib/Math/Algebra/Linalg213/DetTriangular.lean  ← + det_upper_triangu
 lean/E213/Lib/Math/Algebra/Linalg213/DetRowOps.lean      ← NEW: row ops (add-multiple preserves, swap negates) det, 11/11 PURE
 lean/E213/Lib/Math/Algebra/Linalg213/PermGroup.lean      ← NEW: symmetric group on value-lists (composeList, identity, assoc, two-sided invPerm), 19/19 PURE
 lean/E213/Lib/Math/Algebra/Linalg213/PermSign.lean       ← NEW: ★★★ psign_mul (sign-multiplicativity) via bubble-sort, 30/30 PURE
-lean/E213/Lib/Math/Algebra/Linalg213/DetTranspose.lean   ← NEW: marathon Phase 1 — psign_inv + invPerm_mem_perms, 5/5 PURE
+lean/E213/Lib/Math/Algebra/Linalg213/DetTranspose.lean   ← NEW: ★★★ det Mᵀ = det M (transpose determinant), 16/16 PURE
 lean/E213/Meta/Nat/NatRing213.lean                       ← + nat_succ_sub (§5)
 lean/E213/Lib/Math/Combinatorics/SpernerChains.lean      ← succ_sub_clean → nat_succ_sub
 lean/E213/Lib/Math/Algebra/Linalg213/PermBridge.lean     ← NEW: the two-perms bridge, 7/7 PURE

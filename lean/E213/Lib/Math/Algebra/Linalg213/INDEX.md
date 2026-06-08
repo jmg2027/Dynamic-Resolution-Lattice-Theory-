@@ -26,7 +26,7 @@ arithmetic and physics couplings.
   - `PermSign.lean`       — ★ sign-multiplicativity `psign(σ∘τ) = psign σ·psign τ` (bubble-sort)
   - `PermClosure.lean`    — enumeration sound/complete/nodup; alternating + multilinear
   - `Laplace.lean`        — cofactor expansion, `leibDet_eq_det`, adjugate `M·adj M = det·I`
-  - `DetTranspose.lean`   — `psign_inv`, toward `det Mᵀ = det M` (uses `PermSign.psign_mul`)
+  - `DetTranspose.lean`   — ★★★ `det Mᵀ = det M` (psign_inv + invPerm involution + product-reindex)
   - `PermBridge.lean`     — the two `perms` enumerations coincide; `leibDet` is a sum of `n!` terms
   - `CayleyHamilton.lean` — matrix ring + integer Cayley–Hamilton `χ_M(M)=0`
   - `CharPolyAdj.lean` / `PolyDet.lean` — polynomial adjugate identity over `ℤ[X]`
