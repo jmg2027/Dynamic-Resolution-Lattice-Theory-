@@ -117,7 +117,40 @@ are super-unit (`> 2·den`). So *given the apex is a self-reference eigenvalue*,
 `R_u < 1` forces `R_u = 1/φ²` uniquely. The open question collapses from
 "which golden power" to the **single binary** physical premise below.
 
-## What remains — one physical identification
+## RESOLVED (internally) — the CP-existence mechanism (2026-06-08)
+
+`lean/E213/Lib/Physics/Mixing/ApexCPMechanism.lean` (4 PURE). A **213-internal**
+derivation of the apex (no external flavour model), via the §5.7 frozen/dynamic
+dualism of the self-reference map `M`:
+
+  **`z = r·(−1)^r = r·e^{iπr}`,  `r = 1/φ²`,  `(−1) = M⁵`.**
+
+- **Modulus** `R_u = r = 1/φ²` = the *frozen* (ℝ/hyperbolic) contraction
+  eigenvalue — a real number, no phase.
+- **Phase's `π`** = the *dynamic* (finite/A₅) reading's **half-period central
+  involution** `M⁵ ≡ −I = e^{iπ}` (proven, `OrderFive`).
+- **CP violation `η = r·sin(πr) ≠ 0` ⟺ `M⁵ = −1` (not `+1`)** — the falsifiable
+  core. If `M⁵ = +I`, then `(+1)^r = 1`, the apex is **real**, `η = 0`, **no CP
+  violation**. Because `M⁵ = −I` (a *proven* 213 theorem), CP violates. This is
+  a *structural* reason, internal to 213.
+
+This **answers the open premise** "why is CP-depth the self-reference
+contraction rate": the apex *is* that contraction rate `r`, complexified by the
+dynamic Lens's central element `M⁵ = −1`. The phase `δ = π/φ²` (previously only
+*posited* in `CPViolation` as the number `176/147`, not derived) now has its
+`π` grounded internally (`= M⁵`) and its `1/φ²` as the frozen contraction.
+
+## What remains — the frozen↔dynamic coupling `δ = π·R_u`
+
+The single residual: the **coupling form** `δ = π·R_u` (phase `= π ×` modulus),
+i.e. *why the contraction rate `r` also sets the phase fraction* `δ/π = r`. Both
+*ingredients* are now internal (`r = 1/φ²` frozen, `π = M⁵` dynamic) and the
+**CP-existence mechanism is derived**; what is not yet separately forced is that
+the two Lens readings couple as `phase = π·(modulus)` rather than another
+function. This is a far smaller gap than the original "why is the apex a
+self-reference eigenvalue at all".
+
+## (superseded) What remains — one physical identification
 
 The *value* `1/φ²` is now fully atomic-grounded (contracting self-reference
 eigenvalue) **and** the golden-power sub-freedom is forced away (above). The
@@ -273,6 +306,7 @@ not another % match.
 ## Anchors
 
 - `lean/E213/Lib/Physics/Mixing/JarlskogApex.lean` — apex = φ² object, self-ref eigenvalue; §5.5 `apex_modulus_subunit_forced` (1/φ² forced by R_u<1)
+- `lean/E213/Lib/Physics/Mixing/ApexCPMechanism.lean` — **internal apex derivation**: `z=r·(−1)^r`, CP ⟺ `M⁵=−1`; frozen modulus + dynamic central involution
 - `lean/E213/Lib/Physics/Mixing/A5QuarkApex.lean` — two-origin CKM: Cabibbo 5/22 rational (not golden) vs apex 1/φ² golden; honest "A₅ models fit not predict" + right-UT concordance
 - `lean/E213/Lib/Math/Algebra/Icosahedral/` — M is an order-5 A₅ element; golden character ↔ eigenvalue bridge; A₅ rep data + golden-mixing template (INDEX.md)
 - `lean/E213/Lib/Math/Algebra/Mobius213.lean` — the §5.6 self-reference matrix, eigenvalues φ²,1/φ²
