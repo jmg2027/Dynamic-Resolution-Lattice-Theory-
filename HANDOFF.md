@@ -83,7 +83,24 @@ only phase constant `π=arg(M⁵)`; `δ=π·r` is the minimal linear realization
 coupling is **0-parameter-FORCED**, not arbitrary — consistent with the
 no-free-parameter ethos.
 
-## Endpoint — apex is 213-internal END-TO-END (π included)
+## Endpoint — accurate honest state (after self-correction)
+**PROVEN (PURE, 213-internal):** `R_u=1/φ²` grounded (contracting eigenvalue,
+`R_u<1`-forced over other golden powers); `M ∈ A₅/2I` (icosian, E₈, order-5);
+golden bridge `φ²=χ+1`; **CP-existence `⟺ M⁵=−1`**; CP-phase origin (3-rep `ζ` +
+2-cover `−1`, NT); CP-area skeleton (apex span `=NS`, 3-gen triangle); apex on
+golden-norm `Q=−1` (disc `d=5`, the P-spiral invariant); `π` **213-internal**
+(`PiCut`); **spiral-trajectory reading RULED OUT** (`coupling_not_uniform_spiral`).
+
+**STILL POSITED (not derived):** `δ = π/φ²` itself (= the single-parameter
+coincidence `δ/π = R_u`). Self-corrected overstatement: §5.7 frozen=dynamic does
+**not** force the coincidence — per-step rates differ (frozen `1/φ²`/step,
+dynamic `1/5`/step). `phase_over_pi_eq_modulus` is just Fibonacci arithmetic;
+`CPViolation` posits `δ≈176/147`, does not derive it. So the residual is the
+**posit `δ`**, sharply isolated: closing it needs a *real derivation of the
+dynamic phase* (not assuming `δ/π=R_u`); wrong pictures (spiral, `π/5`, `2π/5`)
+proven dead.
+
+## (superseded) Endpoint — apex is 213-internal END-TO-END (π included)
 The coupling synthesis (`5d`+) closed the conceptual gap: the **rational-level
 coupling `δ/π = R_u` is ALREADY PURE** (`phase_over_pi_eq_modulus` = the §5.7
 frozen=dynamic identity, shared Fibonacci convergents `2/5, 5/13, …`).
