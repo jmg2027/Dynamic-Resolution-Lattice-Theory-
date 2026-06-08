@@ -164,8 +164,8 @@ the filled `Pairing/HodgeRiemann` stub).  The assembled `Y_d = Λ²(ℝ³) ⊗
 scaled by `D=1105` so every entry is a Gaussian integer — is proven *exactly*
 unitary (`M·M†=D²·I`, `ckm_unitary`), pure-imaginary at the apex (`M_ub=−425·i`,
 `δ=90°`, `ckm_apex_pure_imaginary`), and maximally CP-violating (Jarlskog `≠0`,
-`ckm_cp_maximal`).  Float-free, PURE — the rust `ckm_cp_phase` is now mirrored by a
-kernel-checked theorem.  Remaining: the `~1.5σ` fit — now assessed **CONSISTENT** (not a tension): `R_u=1/φ²` is essentially exact (`0.382` vs `0.3825±0.011`), `α=90°` is `~0–1.7σ`, and the `ρ̄/α` residual is covered by the standard `O(λ²)` Wolfenstein correction (`λ²=25/484`, no free parameter), **not** RGE (`dα/dt=0` exact). `ApexFitConsistency`.  `α = 90°` (right unitarity
+`ckm_cp_maximal`).  Float-free, PURE — the rust `ckm_cp_phase` is mirrored by a
+kernel-checked theorem.  Remaining: the `~1.5σ` fit — assessed **CONSISTENT** (not a tension): `R_u=1/φ²` is essentially exact (`0.382` vs `0.3825±0.011`), `α=90°` is `~0–1.7σ`, and the `ρ̄/α` residual is covered by the standard `O(λ²)` Wolfenstein correction (`λ²=25/484`, no free parameter), **not** RGE (`dα/dt=0` exact). `ApexFitConsistency`.  `α = 90°` (right unitarity
 triangle) is **falsifiable** against future UTfit/CKMfitter values (catalog
 falsifier F27).  Active record: the `ckm_rho_eta_apex` frontier.
 
