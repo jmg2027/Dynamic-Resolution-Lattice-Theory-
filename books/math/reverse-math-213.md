@@ -53,6 +53,8 @@ plus extracting a witness).
   `or_split`, `or_intro_left/right`, `ne_true_imp_false`, `lpo_exists_false` (11 PURE).
 - **GC** `DiagonalBase.lean` — `cantor_stream_not_enumerable` (the cost-0 base, 4 PURE).
 - **GD** `Capstone.lean` — `reverse_math_ledger` (1 PURE).
+- **GB-cont3** `KonigBridge.lean` — `infB_iff_infBelow` (native `InfB` = the ∃-form
+  `KonigConditional.InfBelow`); pure `append_nil_pure`/`append_assoc_pure` (5 PURE).
 
 ## How the König thread arithmetized
 
@@ -85,9 +87,8 @@ kernel.  Replacements used throughout: `Bool.noConfusion`, `Nat.noConfusion`, ex
 
 ## Open
 
-- Bridge the native `existsLevel` to the ∃-form `KonigConditional.InfBelow` (so the
-  calibration speaks the König file's own predicate).  *(Deriving `LevelAntitone` from a
-  downward-closed `T` is done — `levelAntitone_of_downwardClosed`.)*
+- *(Done: `existsLevel` ↔ the ∃-form `KonigConditional.InfBelow` — `infB_iff_infBelow`,
+  `KonigBridge.lean`; `LevelAntitone` from a downward-closed `T` — `levelAntitone_of_downwardClosed`.)*
 - Tighten the König-selection cost from LPO to LLPO (LLPO suffices; LPO is the upper bound
   used).
 - The external reduction of the omniscience family (LLPO / WKL / fan) to a literal Lawvere

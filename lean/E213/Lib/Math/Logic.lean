@@ -3,6 +3,7 @@ import E213.Lib.Math.Logic.Pi01Decision
 import E213.Lib.Math.Logic.ChildSelection
 import E213.Lib.Math.Logic.DiagonalBase
 import E213.Lib.Math.Logic.Capstone
+import E213.Lib.Math.Logic.KonigBridge
 
 /-!
 # Reverse Mathematics 213 — umbrella (`Lib/Math/Logic`)
