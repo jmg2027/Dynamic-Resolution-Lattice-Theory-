@@ -156,3 +156,25 @@ the CP `i`.  **Remaining (narrowed)**: the explicit signed-`ℤ` cup-product
 computation on this bigraded structure (the signed cup + the `Q(a,Jb)` pairing,
 mechanical) — the STRUCTURE (index + J + polarization) is in place, and the
 principle (cohomological ⟹ 90°) applies.
+
+## ★ Signed-ℤ cup BUILT — the common α_em + CP infrastructure (2026-06-08)
+
+The last mechanical piece is done.  `Cohomology/Cup/SignedCup.lean` (11 PURE)
+supplies the **signed-`ℤ` cup product** (the genuine wedge), restoring the
+orientation sign the Bool/ℤ-2 cup collapses:
+- **wedge sign** `mergeSign(S,T) = (−1)^{inv(S,T)}` (disjoint), `inv = #{(s,t):
+  s∈S,t∈T,s>t}`;
+- **antisymmetry** `e_i∧e_j = −(e_j∧e_i)`, `e_i∧e_i = 0` (`cup1_antisymmetric`);
+- **HR positivity (non-vacuous)**: the signed Hodge pairing
+  `h(i,j)=⟨e_i,⋆e_j⟩ = starSign j · mergeSign[i](compⱼ) = I` (`diag(+1,+1,+1,+1)`,
+  positive definite, `hodge_pairing_is_identity`).
+
+This is the *same* signed cup both gaps named: the α_em cup-ring's "ℤ-signed
+pairings" (`CupRingTrace`) and the CP Hodge–Riemann positivity (`Pairing/
+HodgeRiemann`, whose ℤ/2 stub is now also filled, `hodge_riemann_positivity_-
+signed`).  So the bigraded cohomological Yukawa has *all* its pieces: the signed
+cup (`SignedCup`), the signed Hodge `J` (`SignedStarC4`/`Full`), the polarization
+positivity (`HodgeRiemannJ` + `HodgeRiemann`), the generation index `Λ²(ℝ³)`
+(`BigradedYukawa`), and the principle (cohomological ⟹ 90°).  What remains is
+purely *assembly* (wiring the signed cup + `J` + generation index into one
+`Y_d(i,j)` functional), not a missing primitive.
