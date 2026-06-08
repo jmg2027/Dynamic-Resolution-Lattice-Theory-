@@ -96,7 +96,10 @@ Narrative: `theory/math/numbersystems/completeness_without_completeness.md`.
                                       `det(companion a (m+1)) = psign(cycShift m)·a 0`
                                       (`companion_det_is_perm_sign`), the cyclic shift
                                       `(0 1 … m)` certified a permutation
-                                      (`Linalg213/CyclicShiftSign`).  Fourth instance of
+                                      (`Linalg213/CyclicShiftSign`); and *literally* a
+                                      permutation-matrix determinant —
+                                      `det(companion a (m+1)) = det(permMatrix(cycShift m))·a 0`
+                                      (`companion_det_eq_permMatrix_det`).  Fourth instance of
                                       "permutation under three readouts"
                                       (`det(permMatrix)`=`psign`=Legendre/Zolotarev)
 

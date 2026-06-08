@@ -103,6 +103,13 @@ trailing `0` sits below all of `1…m` and the block itself is sorted
 
 > `det (companion a (m+1)) = psign (cycShift m) · a 0`  (`CasoratianPermSign.companion_det_is_perm_sign`).
 
+And the *middle* readout applies literally: `cycShift m` is a genuine permutation, so its
+permutation matrix has determinant `det (permMatrix (cycShift m)) = altSign m`
+(`det_permMatrix_cycShift`, routing through `det_permMatrix`), and hence
+`det (companion a (m+1)) = det (permMatrix (cycShift m)) · a 0`
+(`companion_det_eq_permMatrix_det`) — the recurrence determinant and the permutation-matrix
+determinant coincide on the shift cycle.
+
 The depth multiplier of the determinantal ladder is the sign of the shift cycle — the *same*
 antisymmetric readout as `det(permMatrix)`, the Legendre symbol, and Euler's power. One
 permutation object, now read a fourth way: arithmetic depth (`a^((p−1)/2)`), counting
