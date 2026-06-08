@@ -47,6 +47,13 @@ determinant capstones — `DetTranspose.det_transpose` (`det Mᵀ = det M`) and
   finite-pigeonhole argument; an infra-relocation pass (org-audit Phase 6) should lift
   them out.
 
+- **Transport `mem_perms_iff`/`perms_nodup` across `PermBridge`.** `permsOf_eq` makes the
+  two permutation enumerations the *same list*, but the `Combinatorics` `LPerm`/`Nodup`
+  (Pairwise) and the `PermClosure` `LPerm`/`Nodup` (cnt) are still distinct relations, so
+  each side re-derives sound/complete/nodup. A relation-level bridge would let the
+  determinant side reuse the Combinatorics characterisations directly. Low priority — both
+  sides are complete; pure dedup.
+
 ## Cross-references
 
 `lean/E213/Lib/Math/Algebra/Linalg213/{PermSign,PermGroup,DetTranspose,DetMul,Laplace}.lean`;

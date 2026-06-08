@@ -3,8 +3,10 @@
 ## Branch
 `claude/leibniz-determinant-perms-5zT6T` — `origin/main` merged in (Ollivier–Ricci
 trichotomy, transcendentals/PDE ladders, chain/antichain duality, quadratic
-reciprocity all present alongside the determinant work).
-`cd lean && lake build` ✓ clean (full tree); all new theorems ∅-axiom PURE.
+reciprocity all present alongside the determinant work).  **READY TO MERGE** into
+`main`: `rm -rf .lake/build && lake build` ✓ clean (forced fresh), `layer_audit`
+0 violations, `kernel_regress` 45/45 0-axiom, 0 sorry/axiom/native_decide/Mathlib,
+the determinant stack 137 theorems 0 dirty.
 
 ## What Was Done This Session (2026-06-08) — the DETERMINANT chapter CLOSED
 
@@ -29,10 +31,14 @@ glues the two halves.
 Supporting determinant work this campaign (all PURE): `PermGroup` (19, symmetric
 group on value-lists), `PermSign` (30, `psign_mul` via bubble-sort), `PermBridge`
 (7, the two-perms bridge + `leibDet_card` = sum of `n!` terms), `DetTriangular`
-(13, upper+lower), `DetRowOps` (11, row ops + general swap), `Meta/Nat`
+(15, upper+lower), `DetRowOps` (11, row ops + general swap), `Meta/Nat`
 `nat_succ_sub`.
 
-Catalog (`STRICT_ZERO_AXIOM.md`) + `Linalg213/INDEX.md` updated.
+Catalog (`STRICT_ZERO_AXIOM.md`) + `Linalg213/INDEX.md` updated.  Narrative:
+`theory/essays/algebra/permutation_sign_as_homomorphism.md` (the sign as the
+homomorphism both capstones descend from) written, settling the live fork in the
+companion `determinant_as_quotient_characteristic.md`.  Synthesis seeds in
+`research-notes/frontiers/determinant_closure_synthesis.md`.
 
 ## Current Precision Results (0 free parameters)
 Unchanged — all work this campaign was pure mathematics (linear algebra,
@@ -68,22 +74,44 @@ Frontier: `research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`
 `permsOf_eq` makes the two enumerations the same list, but the Combinatorics
 `LPerm`/`Nodup` (Pairwise) and `PermClosure` `LPerm`/`Nodup` (cnt) are still
 distinct relations.  Low priority — both sides complete; pure dedup.
+Frontier note: `research-notes/frontiers/determinant_closure_synthesis.md`.
 
 ## Three-tier state
-- **Promotion candidates**: the **determinant chapter is now closed** (transpose +
-  multiplicative + triangular + row-ops, all PURE) — a narrative promotion to
-  `theory/<mirror>` is now eligible (next session).  The transcendentals + PDE
-  ladders remain open (T4/T5, P4); narrative deferred until they close.
+- **Promotions this session**: `theory/essays/algebra/permutation_sign_as_homomorphism.md`
+  ← the closed sign theory (essay-side narrative for the determinant capstones);
+  essay log row 16.
+- **Promotion candidates**: a path-mirror chapter `theory/math/algebra/linalg213.md`
+  fully covering the determinant stack could supplement the three algebra essays
+  (sign / quotient-characteristic / Cayley–Hamilton); not blocking.  Transcendentals
+  + PDE ladders remain open (T4/T5, P4); narrative deferred until they close.
 - **Active scratchpad**: `research-notes/frontiers/{a6_ricci_core,transcendentals,
-  pde_estimates}/`; `count_substrate_synthesis.md` (Leibniz-determinant seed —
-  now realised, can be archived once the determinant narrative is promoted).
+  pde_estimates}/`; `determinant_closure_synthesis.md` (next-campaign seeds).
 
 ## Next
-Promote the closed determinant sub-tree to `theory/` (per `PROMOTION_CRITERIA.md`),
-or pick up Open Problem #2 (exp(a+b) series convolution — the most reachable
-remaining transcendentals rung), or harvest a new domain (primacy = breadth).
+Pick up the determinant-closure seeds (`det(permMatrix σ) = psign σ`; general column
+Laplace expansion as a `det_transpose` corollary; relocate the constructive
+pigeonhole to `Meta`) — see `research-notes/frontiers/determinant_closure_synthesis.md`;
+or Open Problem #2 (exp(a+b) series convolution, the most reachable transcendentals
+rung); or harvest a new domain (primacy = breadth).
 
 ## Notes for next session
 - `STRICT_ZERO_AXIOM.md` PermClosure entry count predates its §11–13
   (multilinearity/degeneracy) — a re-count is owed.
 - `Real213/ExpLog/` (17-file flat dir) flagged for a clustering pass (org-audit).
+
+## File Map (this session)
+```
+lean/E213/Lib/Math/Algebra/Linalg213/DetMul.lean         ← det(A·B)=det A·det B completed, 39/39 PURE (cnt-pigeonhole; cnt_filter_le generalized)
+lean/E213/Lib/Math/Algebra/Linalg213/DetTranspose.lean   ← header → current-state prose
+lean/E213/Lib/Math/Algebra/Linalg213/PermClosure.lean    ← header → current-state prose
+lean/E213/Lib/Math/Algebra/Linalg213/Permutation.lean    ← §5 doc → current-state ref
+lean/E213/Lib/Math/Algebra/Linalg213/INDEX.md            ← DetMul line: det(M·N) done
+STRICT_ZERO_AXIOM.md                                     ← DetMul entry 8→39 PURE (full det_matMul writeup)
+theory/essays/algebra/permutation_sign_as_homomorphism.md ← NEW essay (the sign homomorphism)
+theory/essays/algebra/determinant_as_quotient_characteristic.md ← open-fork settled
+theory/essays/INDEX.md                                   ← essay 64→65 + new row
+research-notes/frontiers/determinant_closure_synthesis.md ← NEW synthesis note (patterns + seeds)
+research-notes/frontiers/count_substrate_synthesis.md    ← Leibniz-determinant seed CLOSED
+research-notes/frontiers/INDEX.md                        ← determinant seed closure + new note registered
+research-notes/promotion_essay_log.md                    ← row 16 (sign-homomorphism essay)
+```
