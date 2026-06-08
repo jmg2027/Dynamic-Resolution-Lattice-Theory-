@@ -110,7 +110,7 @@ the tree **downward-closed** (the standard König hypothesis).
 — the Bool-stream carrier is not enumerable (Cantor diagonal), the **cost-0 base**.
 **Phase GD DONE** (`Lib/Math/Logic/Capstone.lean`, 1 PURE): `reverse_math_ledger` bundles
 the spine (free interior + LPO⟹WLPO/MP + LPO-Π⁰₁-decision + LPO-König-selection) into one
-∅-axiom witness.  **Marathon field 17 = CORE CLOSED** (61 PURE total; book
+∅-axiom witness.  **Marathon field 17 = CORE CLOSED** (66 PURE total; book
 `books/math/reverse-math-213.md`; INDEX updated).  GB-cont2 added
 (`ChildSelection.lean`, +5 PURE): `levelAntitone_of_downwardClosed` (via `existsLevel_pred`)
 + `lpo_infChildExists_downwardClosed` — König selection now holds for an **actual
@@ -187,7 +187,8 @@ lean/E213/Lib/Math/Logic/KonigBridge.lean               ← GB-cont3: existsLeve
 lean/E213/Lib/Math/Logic/LLPO.lean                      ← GA-cont: LPO ⟹ LLPO via parity (8 PURE)
 lean/E213/Lib/Math/Logic/Interleave.lean                ← GB-cont4-infra: div/mod-free even/odd interleave + ftrue (6 PURE)
 lean/E213/Lib/Math/Logic/LLPOSelection.lean             ← GB-cont4: llpo_infChildExistsN — König selection from LLPO (12 PURE)
-lean/E213/Lib/Math/Logic.lean                           ← Logic umbrella (9 phase files)
+lean/E213/Lib/Math/Logic/WKLHeineBorel.lean             ← GB-cont5: global WKL ⟺ HB (∅-axiom half, 5 PURE)
+lean/E213/Lib/Math/Logic.lean                           ← Logic umbrella (10 phase files)
 books/math/reverse-math-213.md                          ← marathon book (field 17, CORE CLOSED)
 lean/E213/Lib/Math.lean                                 ← imports Logic umbrella (in-tree)
 ```

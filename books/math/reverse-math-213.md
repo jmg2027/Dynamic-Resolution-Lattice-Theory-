@@ -61,6 +61,9 @@ parity decides which half vanishes; `LLPO.lean`, via a native Bool `parity`).
 - **GB-cont4** `Interleave.lean` (6 PURE) + `LLPOSelection.lean` (12 PURE) —
   `llpo_infChildExistsN`: König child selection from **LLPO** (the tight cost), via the
   monotone turn-off encoding (`interleave`, `ftrue`, `ftrue_unique`, `not_both`).
+- **GB-cont5** `WKLHeineBorel.lean` (5 PURE) — the global `WKL ⟺ Heine–Borel`, ∅-axiom
+  half: `infPath_imp_infB` (a path ⟹ unbounded) and `bounded_imp_not_infPath` (bounded ⟹
+  no path).  The WKL-strength half (unbounded ⟹ path) is *not* ∅-axiom — see below.
 
 ## How the König thread arithmetized
 
@@ -134,6 +137,13 @@ kernel had it not been hypothesized or hand-rolled away.  The omniscience ledger
   at-most-one-true via `ftrue_unique` (monotone ⟹ one rising edge, Nat trichotomy) +
   `not_both` (monotone + disjoint ⟹ not both rise); LLPO's even/odd split + `ftrue_all_false`
   gives `InfB s0 ∨ InfB s1`.  This was *not* a corollary of `lpo_imp_llpo` — a fresh proof.)*
+- Global `WKL ⟺ Heine–Borel`, **WKL-strength half** (unbounded ⟹ infinite path, and ¬path ⟹
+  bounded): *not ∅-axiom* — where WKL is **strictly stronger than LLPO**.  Local child
+  selection is LLPO (`llpo_infChildExistsN`); iterating it into a *global* path needs
+  **dependent choice** (turn the per-node selection disjunctions into a `step` oracle).
+  Engine `KonigConditional.konig_conditional` (PURE) takes the oracle; building it is the
+  gap.  The ∅-axiom *half* — path ⟹ unbounded, bounded ⟹ no path — is done
+  (`WKLHeineBorel.lean`).
 - The fan theorem and bar induction as residue-native principles.
 - *(Done: `existsLevel` ↔ `KonigConditional.InfBelow` — `infB_iff_infBelow`; `LevelAntitone`
   from a downward-closed `T` — `levelAntitone_of_downwardClosed`; LPO ⟹ LLPO — `lpo_imp_llpo`;

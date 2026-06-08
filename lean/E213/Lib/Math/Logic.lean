@@ -7,6 +7,7 @@ import E213.Lib.Math.Logic.KonigBridge
 import E213.Lib.Math.Logic.LLPO
 import E213.Lib.Math.Logic.Interleave
 import E213.Lib.Math.Logic.LLPOSelection
+import E213.Lib.Math.Logic.WKLHeineBorel
 
 /-!
 # Reverse Mathematics 213 — umbrella (`Lib/Math/Logic`)
