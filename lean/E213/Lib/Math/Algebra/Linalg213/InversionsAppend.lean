@@ -24,7 +24,7 @@ open E213.Lib.Math.Algebra.Linalg213.Permutation
 open E213.Lib.Math.Algebra.Linalg213.DetN (altSign altSign_add)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (ltCount_lperm)
 open E213.Lib.Math.Algebra.Linalg213.PermSign (ltCount_zero_of_all_ge altSign_self)
-open E213.Tactic.NatHelper (sub_le_sub_left sub_sub_self le_sub_of_add_le)
+open E213.Tactic.NatHelper (sub_le_sub_left sub_sub_self le_sub_of_add_le sub_add_cancel)
 open E213.Tactic.List213 (exists_of_mem_map)
 open E213.Meta.Int213 (mul_one mul_comm mul_assoc)
 
@@ -179,5 +179,89 @@ theorem psign_blockLift (g : List Nat) (p m : Nat) (hpm : 2 * m + 1 ≤ p) (hg :
       (fun y hy => Nat.le_trans (hg x hx) (Nat.le_trans (Nat.le_succ m) (hsh_ge y hy))))
   rw [psign_blockForm p g (fun x hx => Nat.le_trans (hg x hx) hmp), hcross]
   rfl
+
+/-! ## §4 — symmetric cross-count parity: `psign σ_a` is `(−1)^μ` -/
+
+/-- `p − w < a ↔ p < a + w` for `w ≤ p`. -/
+private theorem sub_lt_iff_lt_add' {p w a : Nat} (h : w ≤ p) : (p - w < a) ↔ (p < a + w) := by
+  constructor
+  · intro hlt
+    have h2 : (p - w) + w < a + w := Nat.add_lt_add_right hlt w
+    rwa [sub_add_cancel h] at h2
+  · intro hlt
+    have h2 : (p - w) + w < a + w := by rw [sub_add_cancel h]; exact hlt
+    exact Nat.lt_of_add_lt_add_right h2
+
+/-- The cross relation `p − w < a` is symmetric in `(a, w)` for `a, w ≤ p`. -/
+theorem psub_lt_symm {p w a : Nat} (hw : w ≤ p) (ha : a ≤ p) : (p - w < a) ↔ (p - a < w) := by
+  constructor
+  · intro h; exact (sub_lt_iff_lt_add' ha).mpr (by rw [Nat.add_comm]; exact (sub_lt_iff_lt_add' hw).mp h)
+  · intro h; exact (sub_lt_iff_lt_add' hw).mpr (by rw [Nat.add_comm]; exact (sub_lt_iff_lt_add' ha).mp h)
+
+/-- `colLt c L = #{x ∈ L : c < x}` (the "column" count against a fixed lower value `c`). -/
+def colLt (c : Nat) : List Nat → Nat
+  | []     => 0
+  | x :: t => (if c < x then 1 else 0) + colLt c t
+
+/-- `diagCount p L = #{x ∈ L : p − x < x}` (the diagonal of the symmetric cross relation). -/
+def diagCount (p : Nat) : List Nat → Nat
+  | []     => 0
+  | x :: t => (if p - x < x then 1 else 0) + diagCount p t
+
+/-- `altSign` of a doubled count is trivial. -/
+theorem altSign_double (k : Nat) : altSign (k + k) = 1 := by rw [altSign_add]; exact altSign_self k
+
+/-- Peel a head from the *second* argument of `crossInv`. -/
+theorem crossInv_cons_right (c : Nat) :
+    ∀ (L M : List Nat), crossInv L (c :: M) = colLt c L + crossInv L M
+  | [],     _ => rfl
+  | a :: t, M => by
+      show ltCount a (c :: M) + crossInv t (c :: M) = colLt c (a :: t) + crossInv (a :: t) M
+      rw [crossInv_cons_right c t M]
+      show ((if c < a then 1 else 0) + ltCount a M) + (colLt c t + crossInv t M)
+         = ((if c < a then 1 else 0) + colLt c t) + (ltCount a M + crossInv t M)
+      ring_nat
+
+/-- Symmetry rewrite: `colLt (p−b) F = ltCount b (F.map (p−·))` for `b ≤ p`, `F ≤ p`. -/
+theorem colLt_eq_ltCount_map (p b : Nat) (hb : b ≤ p) :
+    ∀ (F : List Nat), (∀ w ∈ F, w ≤ p) → colLt (p - b) F = ltCount b (F.map (fun w => p - w))
+  | [],      _  => rfl
+  | w :: F', hw => by
+      have hwp : w ≤ p := hw w (List.Mem.head F')
+      have hF' : ∀ z ∈ F', z ≤ p := fun z hz => hw z (List.Mem.tail w hz)
+      show (if p - b < w then 1 else 0) + colLt (p - b) F'
+         = (if p - w < b then 1 else 0) + ltCount b (F'.map (fun w => p - w))
+      rw [colLt_eq_ltCount_map p b hb F' hF']
+      rcases Nat.lt_or_ge (p - b) w with hlt | hge
+      · rw [if_pos hlt, if_pos ((psub_lt_symm hb hwp).mp hlt)]
+      · rw [if_neg (Nat.not_lt.mpr hge),
+            if_neg (fun h => absurd ((psub_lt_symm hb hwp).mpr h) (Nat.not_lt.mpr hge))]
+
+/-- ★★★★ **Symmetric cross-count parity.**  `altSign (crossInv F (F.map (p − ·))) =
+    altSign (diagCount p F)` for `F` with entries `≤ p`.  The cross count
+    `crossInv F (F.map(p−·)) = #{(x,w)∈F² : x+w>p}` is symmetric, so off-diagonal pairs come in
+    twos (`altSign_double`) and only the diagonal `#{x : p−x<x}` survives mod 2.  Applied to
+    `σ_a`'s first half, the diagonal is exactly Gauss's `μ`. -/
+theorem altSign_crossInv_map_psub (p : Nat) :
+    ∀ (F : List Nat), (∀ x ∈ F, x ≤ p) →
+      altSign (crossInv F (F.map (fun w => p - w))) = altSign (diagCount p F)
+  | [],      _  => rfl
+  | b :: F', hb => by
+      have hbp : b ≤ p := hb b (List.Mem.head F')
+      have hF' : ∀ z ∈ F', z ≤ p := fun z hz => hb z (List.Mem.tail b hz)
+      show altSign (crossInv (b :: F') ((p - b) :: F'.map (fun w => p - w)))
+         = altSign (diagCount p (b :: F'))
+      rw [crossInv_cons_right (p - b) (b :: F') (F'.map (fun w => p - w))]
+      show altSign (((if p - b < b then 1 else 0) + colLt (p - b) F')
+            + (ltCount b (F'.map (fun w => p - w)) + crossInv F' (F'.map (fun w => p - w))))
+         = altSign ((if p - b < b then 1 else 0) + diagCount p F')
+      rw [colLt_eq_ltCount_map p b hbp F' hF']
+      have hrw : ((if p - b < b then 1 else 0) + ltCount b (F'.map (fun w => p - w)))
+            + (ltCount b (F'.map (fun w => p - w)) + crossInv F' (F'.map (fun w => p - w)))
+          = (if p - b < b then 1 else 0)
+            + ((ltCount b (F'.map (fun w => p - w)) + ltCount b (F'.map (fun w => p - w)))
+               + crossInv F' (F'.map (fun w => p - w))) := by ring_nat
+      rw [hrw, altSign_add, altSign_add, altSign_double, Int.one_mul,
+          altSign_crossInv_map_psub p F' hF', ← altSign_add]
 
 end E213.Lib.Math.Algebra.Linalg213.InversionsAppend
