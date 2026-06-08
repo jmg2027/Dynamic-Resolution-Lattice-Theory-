@@ -75,15 +75,18 @@ antisymmetry of the wedge, and the count-Lens sign on the quotient are one struc
 
 ## Open frontier
 
-The unit end is built (`fibCas_det_eq_unit`); the collapse end's *clean* construction is open.
-The general both-non-split Hadamard product (`fib·fib`, irrational spectra) still needs the
-monic resultant `= det(zI − M)`, gated by the alternating property — and whether that property
-is dropped most naturally through the Leibniz antisymmetrization (a permutation + parity build,
-where it falls out by `sign(σ∘τ) = −sign σ`) or finished through the cofactor involution
-(`colShift_comm` is its per-term input; a nested-sum sign-reversing-involution `⟹ 0` lemma
-remains) is the live implementation fork. The intuition fixes *what* `det = 0` is — the
-collapse pole of the quotient-characteristic, the same object as the monic unit at the other
-pole — and thereby that antisymmetrization, not forced cancellation, is its home.
+The unit end is built (`fibCas_det_eq_unit`); the collapse end's clean construction is now
+settled through the Leibniz antisymmetrization. The sign homomorphism
+`psign(σ∘τ) = psign σ·psign τ` (`Linalg213/PermSign.psign_mul`, the bubble-sort build) makes
+the alternating property structural — equal rows ⟹ `det = 0` is `psign_mul` read at the
+row-swap fixed point — and from it both `det Mᵀ = det M` (`DetTranspose.det_transpose`) and
+`det(A·B) = det A·det B` (`DetMul.det_matMul`) descend ∅-axiom (see
+`permutation_sign_as_homomorphism.md`). The remaining open work is downstream: the general
+both-non-split Hadamard product (`fib·fib`, irrational spectra) still needs the monic resultant
+`= det(zI − M)`, but its expansion-time antisymmetry is now a corollary of the sign theory
+rather than a missing lemma. The intuition fixes *what* `det = 0` is — the collapse pole of the
+quotient-characteristic, the same object as the monic unit at the other pole — and
+antisymmetrization, not forced cancellation, is its home.
 
 ## Self-check note
 
