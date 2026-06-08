@@ -90,23 +90,24 @@ The committed-to multi-session build of `(ℤ/p)*` cyclic ⟹ Zolotarev nontrivi
   `vp(d/g)=0`).  Plus `vp_eq_of`/`vp_eq_zero`/`one_le_vp`.  *(`OrderPow.not_dvd_pow` exposed
   this session for 4b-iv.)*
 
-**Bricks remaining:**
-- **brick 4b-iv — the contradiction ⟹ `every_ord_dvd_maxOrd`** (~150 lines, the assembly).
-  All pieces are now PURE; the work is gluing them through the base-representative (`%p`):
-  - *tweak*: extend `exists_prime_vp_gt`'s conclusion to also return `1 < q` (its `q` comes from
-    `exists_prime_factor` which has it; needed since the primality predicate alone allows `q=1`).
-  - *helper* `ord_pow_eq_of_dvd`: for a unit `a`, `A ∣ ord a` ⟹ `ordModP (a^(ord a / A)) p = A`
-    (`ord_pow` + `gcd_eq_of_dvd` (`gcd(α,α/A)=α/A`) + `α/(α/A)=A`).
-  - *main*: `by_contra` `¬ ord a ∣ maxOrd`; `d = maxOrd` achieved by `g` (`maxOrd_achieved`);
-    `exists_prime_vp_gt` gives prime `q`, `e=vp q α > f=vp q d`.  Set `A = qpart q α` (`∣α`,
-    order-`A` witness `x=(a^(α/A))%p`, via helper + `ord_mod_eq`; unit by `not_dvd_pow`),
-    `B = d/qpart q d` (order-`B` witness `y=(g^(qpart q d))%p`).  `gcd(A,B)=1`
-    (`gcd_qpow_qfree`, `q∤B` by `q_not_dvd_quot`).  `ord_mul_coprime x y` ⟹ `ord((x·y)%p)=A·B`.
-    `A·B = qᵉ·(d/qᶠ) ≥ q·d > d` (since `e≥f+1`, `qᶠ·(d/qᶠ)=d`).  But `(x·y)%p ∈ [1,p−1]` so
-    `ord ≤ maxOrd = d` (`maxOrd_ge`) — contradiction.
-- **brick 5** RootBound gluing (`X^{maxOrd}−1` (as `List Int`) has `p−1` roots ⟹ `eval_zero` ⟹
-  `f≡0` ⟹ `f(0)=−1≡0`, contra ⟹ `p−1 ≤ maxOrd`; with `maxOrd ∣ p−1` ⟹ `= p−1` ⟹ primitive root).
-- **brick 6** `(p−1)`-cycle of `mulPerm g` ⟹ nontriviality ⟹ full Zolotarev.
+- **brick 4b-iv** `EveryOrdDvdMax.lean` (3) — ★★★★ `every_ord_dvd_maxOrd` (THE EXPONENT
+  ARGUMENT, the crux): for a unit `a`, `ordModP a p ∣ maxOrd p`.  Pure proof-by-contradiction
+  via the decidable `maxOrd % ord = 0` (no Classical `by_contra`).  **The exponent argument /
+  every-order-divides-maxOrd is now CLOSED — the hardest part of the marathon is done.**
+
+**Bricks remaining (the "mechanical" finish):**
+- **brick 5 — primitive-root existence** (`∃ g, ordModP g p = p−1`).  Every unit `x` has
+  `ord x ∣ maxOrd` (4b-iv), so `x^maxOrd ≡ 1`, i.e. `p ∣ x^maxOrd − 1`.  Encode `X^maxOrd − 1`
+  as a `List Int` (`[−1, 0,…,0, 1]`, length `maxOrd+1`) with `eval f x = x^maxOrd − 1`; the
+  `p−1` units `{1,…,p−1}` are pairwise-distinct roots; `RootBound.eval_zero` ⟹ if `p−1 ≥
+  maxOrd+1` then `f ≡ 0` everywhere ⟹ `f(0) = −1 ≡ 0`, contra ⟹ `p−1 ≤ maxOrd`.  With
+  `maxOrd_le_pred` ⟹ `maxOrd = p−1`; `maxOrd_achieved`'s `g` is then a **primitive root**.
+  ~120 lines (the polynomial encoding + the distinct-units list + `eval_zero`).
+- **brick 6 — `(p−1)`-cycle ⟹ full Zolotarev**.  `mulPerm g` (g a primitive root) is a single
+  `(p−1)`-cycle (its powers exhaust the nonzero residues), `psign = (−1)^{p−2} = −1`; `g` is a
+  non-residue (order `p−1` even, not a square).  That `psign(mulPerm g) = −1` is the
+  **nontriviality witness**; with `Zolotarev.psign_mulPerm_hom`/`_qr` ⟹ full
+  `psign(mulPerm a) = (a/p)` ⟹ the **Zolotarev converse** ⟹ the Zolotarev/Legendre iff.
 - **brick 5 — `RootBound` gluing**: every unit satisfies `x^{maxOrd} ≡ 1`, so `X^{maxOrd}−1`
   (as `List Int`) has `p−1` distinct roots; `RootBound.eval_zero` ⟹ `f ≡ 0` everywhere ⟹
   `f(0) = −1 ≡ 0`, contra ⟹ `p−1 ≤ maxOrd`; with `maxOrd ∣ p−1` ⟹ `maxOrd = p−1` ⟹
