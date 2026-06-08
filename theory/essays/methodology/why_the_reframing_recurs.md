@@ -69,11 +69,14 @@ of the *pointing*, not the pointed; and naming the whole hierarchy escapes it
 
 The classical reading — "you keep forgetting / it's a communication problem / write
 it down better" — is the redundant packaging.  Stripped: it is **not** memory or
-phrasing.  "Frame-free description" is ill-typed (Yoneda), and "the corrected
-frame" is re-diagonalized (Lawvere); no amount of writing escapes a theorem.  The
-sharper 213 reading: the recurrence is the residue **being itself** — source
-without enclosure — *at the description scale*.  The correction loop is not a bug
-on top of the framework; it is `residue_reentry_never_closes` observed.
+phrasing.  "Frame-free description" is ill-typed (Yoneda), and no finite catalog of
+frames is closed under its own diagonal (Lawvere).  Precisely (and only this much):
+the *non-closure* — that no catalog of framings ever finishes — is
+`residue_reentry_never_closes`, a theorem.  Whether any *particular* re-framing
+occurs is contingent (an error the gate catches; see Falsifiability discipline).
+Do not read the second as the first — that slide ("this loop *is* the diagonal
+enacting itself") is the unfold-test failing: it pins to no theorem and forbids no
+observation, so it is fog, not the sharper reading.
 
 ## Falsifiability discipline — what the thesis forbids, and what it does not
 
