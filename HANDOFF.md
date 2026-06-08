@@ -1,9 +1,15 @@
-# Session Handoff — 2026-06-08 (G124 5-adic: Fibonacci 5-adic valuation marathon)
+# Session Handoff — 2026-06-08 (G124 5-adic: Fibonacci 5-adic valuation — CLOSED)
 
 ## Branch
-`claude/g124-5adic-drlt-HcdhH` — based at `origin/main` (98add99).  Five
-commits this session (aa8181d → 8eecbf8), all pushed.  `lake build
-E213.Lib.Math` clean; the two new modules are `33 pure / 0 dirty`.
+`claude/g124-5adic-drlt-HcdhH` — based at `origin/main` (98add99).  All
+commits pushed.  `lake build E213.Lib.Math` clean; the three new modules
+are all `∅-axiom` (FibApparitionMod5 20 PURE, FibZIdentities 13 PURE,
+FibZValuation 8 public PURE incl. all private helpers).
+
+## Headline — the open rung is CLOSED
+**`FibZValuation.fibN_val_law : ∀ n k, 5ᵏ ∣ F_n ⟺ 5ᵏ ∣ n`** — the
+all-orders 5-adic valuation law `ν₅(F_n) = ν₅(n)` at the ramified prime
+`5`, ∅-axiom.  Lifting-the-exponent done end to end.
 
 ## What Was Done This Session
 
@@ -51,21 +57,21 @@ from `Analysis/Cauchy/OrbitDimension`, with `ring_intZ`).  Wired into
 
 ## Open Problems (Priority Order)
 
-### 1. Finish `ν₅(F_n) = ν₅(n)` — the all-orders LTE law
-Frontier: `research-notes/frontiers/G124_padic_drlt_5adic.md` (LTE
-section).  The algebraic heart (quintupling) is closed; three
-valuation-bookkeeping rungs remain:
-1. **`5 ∤ C_m`** — `C_m ≡ 1 mod 5`.  Needs a pure `¬((5:Int)∣1)` (core
-   Int-dvd `decide` leaks propext; route: `Int.natAbs_dvd_natAbs` +
-   Nat `le_of_dvd_loc`, or `IntEuclid.dvd_sub'`).
-2. **rank over `fibZ`** — `5 ∣ fibZ n ⟺ 5 ∣ (n:Int)` (bridge the FSM
-   `five_dvd_fib_iff` to `fibZ`, or re-prove period-20 on `fibZ`).
-3. **lift + induction** — `ν₅(F_{5m})=ν₅(F_m)+1` from (1)+factored
-   quintupling + Euclid for prime 5 (`PolyRoot/IntEuclid.int_euclid`,
-   `FourSquareSeed.nat_prime_dvd_mul`); then strong induction on `ν₅(n)`
-   ⟹ `∀n k, 5ᵏ ∣ F_n ⟺ 5ᵏ ∣ n`.
+### 1. Promotion (housekeeping)
+The 5-adic / ramified-prime cluster is closed in Lean.  When ready,
+promote to `theory/math/numbersystems/` (narrative for the rank of
+apparition + `ν₅(F_n)=ν₅(n)`) per `theory/PROMOTION_CRITERIA.md`, then
+archive the frontier note.
 
-### 2. Prior G124 frontiers (unchanged)
+### 2. Optional extensions (not required)
+- The same machinery generalises to any prime `p` with its rank of
+  apparition (the FSM gives the period; the quintupling generalises to
+  a `p`-tupling identity).  Only `p = 5` (the ramified golden prime) is
+  done.
+- `ν₅` as an explicit valuation *function* (vs the divisibility form)
+  if a downstream use wants it.
+
+### 3. Prior G124 frontiers (unchanged)
 `i₅ ∈ μ₄` closed; H2/H3 no internal handle (recorded plainly).
 
 ## Current Precision Results (0 free parameters)
@@ -78,12 +84,13 @@ lean/E213/Lib/Math/NumberTheory/DyadicFSM/FibApparitionMod5.lean  ← rank α(5)
 lean/E213/Lib/Math/NumberTheory/DyadicFSM/LucasFSMmod5.lean       ← + forward-ref to the proof
 lean/E213/Lib/Math/NumberTheory/DyadicFSM/INDEX.md, DyadicFSM.lean ← + FibApparitionMod5
 lean/E213/Lib/Math/NumberTheory/FibZIdentities.lean               ← NEW: addition formula → quintupling (13 PURE)
-lean/E213/Lib/Math.lean                                           ← + FibZIdentities import
-research-notes/frontiers/G124_padic_drlt_5adic.md                ← second handle + LTE plan (3 open rungs)
+lean/E213/Lib/Math/NumberTheory/FibZValuation.lean               ← NEW: ν₅(F_n)=ν₅(n), the all-orders law (PURE)
+lean/E213/Lib/Math.lean                                           ← + FibZIdentities + FibZValuation imports
+research-notes/frontiers/G124_padic_drlt_5adic.md                ← second handle + the all-orders law (CLOSED)
 ```
 
 ## Three-tier state
-- **Tier-2 (Lean)**: both new modules PURE-verified.
+- **Tier-2 (Lean)**: all three new modules PURE-verified.
 - **Promotion candidates**: none yet — the cluster is mid-marathon (LTE
   open).  Promote to `theory/math/numbersystems/` once `ν₅(F_n)=ν₅(n)`
   closes.
