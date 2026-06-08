@@ -218,12 +218,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   is tracked in its own note `G124_padic_drlt_5adic`.
 - **p-adic closure harvest** — Teichmüller `ω(x)` + uniqueness + `μ_{p−1}×(1+pℤ_p)` decomposition
   + general division CLOSED ∅-axiom; chapter `theory/math/numbersystems/padic_real213.md` + essay
-  `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seeds:* a `Zp.diagLimit`
-  abstraction (shared by `invFull`/`sqrtFull`/`teichmuller`); the concrete `i₅ = teichmuller(2-lift)`
-  theorem (via `teichmuller_unique`); generalise the lift+fixed-point uniqueness engine to `sqrt`
-  (`unique_of_lift_fixed`).  ✓ *Done:* the sequence-level **additive abelian group**
-  (`SetoidAssoc.zp_add_setoid_group_capstone` — assoc/comm/zero + `x+(−x)≈0` via
-  `of_trunc_all`); the **multiplicative** `ZpSeqEquiv` identities (mul comm/assoc/distrib) remain.
+  `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seeds:* the concrete
+  `i₅ = teichmuller(2-lift)` theorem (via `teichmuller_unique`); generalise the
+  lift+fixed-point uniqueness engine to `sqrt` (`unique_of_lift_fixed`).  ✓ *Done:* the
+  sequence-level **additive abelian group** (`SetoidAssoc.zp_add_setoid_group_capstone`); the
+  **multiplicative** `ZpSeqEquiv` identities (`SetoidMul` — mul comm/assoc/one/distrib +
+  `zp_setoid_commRing_capstone`); the shared **`Zp.diagLimit`** abstraction
+  (`Foundation.diagLimit` + `diagLimit_trunc_succ` — the single diagonal-limit proof now
+  factored out of `invFull`/`sqrtFull`/`teichmuller`, all three rewired to it).
 - `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
   (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
   (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic
