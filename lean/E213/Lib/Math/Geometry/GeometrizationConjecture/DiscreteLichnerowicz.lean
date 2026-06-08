@@ -111,4 +111,36 @@ theorem km_eigenvalue (m : Nat) (f : Nat → Int) (lam : Int)
   rw [hL, hR] at hr
   rw [hr]; ring_intZ
 
+/-! ## §2 — the abstract Lichnerowicz mechanism -/
+
+/-- `a·c ≤ b·c` and `0 < c` ⟹ `a ≤ b` (positive multiplicative cancellation).  A general
+    `Int` fact absent from `Int213.OrderMul` — a Meta-layer candidate, kept local here to
+    avoid a full rebuild.  Proof: if `b < a` then `(a−b)·c > 0`, so `b·c < a·c`,
+    contradicting the hypothesis. -/
+theorem le_of_mul_le_mul_right_pos {a b c : Int} (h : a * c ≤ b * c) (hc : 0 < c) : a ≤ b := by
+  apply Order.le_of_sub_nonneg
+  apply Order.nonneg_of_le_zero
+  rcases Order.pos_zero_or_neg (b - a) with hpos | hzero | hneg
+  · exact Order.le_of_lt hpos
+  · rw [hzero]; exact Order.le_refl 0
+  · exfalso
+    have ha_b : (0 : Int) < a - b := by
+      rw [show a - b = -(b - a) from by ring_intZ]; exact Order.neg_pos_of_neg hneg
+    have hlt : b * c < a * c := by
+      apply Order.lt_of_sub_pos
+      rw [show a * c - b * c = (a - b) * c from by ring_intZ]
+      exact OrderMul.mul_pos ha_b hc
+    exact Order.not_le_of_lt hlt h
+
+/-- ★★★★★ **Abstract Lichnerowicz**: from the integrated curvature-dimension bound on a
+    Laplacian eigenfunction (`Lf = −λf`, eigenvalue `λ > 0`, `N = Σf² > 0`) — which reads
+    `K·(λN) ≤ λ·(λN)` once `Σ(Lf)² = λ²N` and `E(f) = λN` are substituted into
+    `Σ(Lf)² ≥ K·E` — the eigenvalue dominates the curvature: `K ≤ λ`.  This is the general
+    mechanism; for `K_m` the integration is the *exact* `km_eigenvalue` (`λ = m`), and the
+    bridge `Σ Γ₂ = Σ(Lf)²`, `Σ Γ = E` for an arbitrary finite graph is the remaining input
+    (recorded in `a6_ricci_core`). -/
+theorem lichnerowicz_abstract {K lam N : Int} (hN : 0 < N) (hlam : 0 < lam)
+    (hCD : K * (lam * N) ≤ lam * (lam * N)) : K ≤ lam :=
+  le_of_mul_le_mul_right_pos hCD (OrderMul.mul_pos hlam hN)
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteLichnerowicz

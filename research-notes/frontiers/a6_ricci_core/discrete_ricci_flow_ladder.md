@@ -99,11 +99,15 @@ identity** `km_rayleigh : Σ_x (Lf x)² = m·E(f)` (all `f`, via `km_lap_sq_sum`
 `km_f_lap_sum`) — the Rayleigh quotient is identically `m`, so `K_m`'s Laplacian
 `L = J − m·I` has spectrum `{0, m}` (algebraic connectivity `m`).  With
 `cd_complete_graph` (`CD((m+2)/2)`) this realizes Lichnerowicz: gap `m ≥ (m+2)/2`.
+The **abstract Lichnerowicz mechanism** is now also closed: `lichnerowicz_abstract`
+(`K·(λN) ≤ λ·(λN)`, `λ,N > 0` ⟹ `K ≤ λ`) via the positive multiplicative cancellation
+`le_of_mul_le_mul_right_pos` (a general `Int` fact absent from `Int213.OrderMul` — a
+Meta-layer relocation candidate, kept local for now).  `km_eigenvalue` shows the `K_m`
+spectrum is exactly `{0, m}`.
 **Reachable next**: the general integration-by-parts identities (`Σ Γ₂ = Σ(Lf)²`,
 `Σ Γ = E`) for an arbitrary finite graph (cyclic-sum invariance, as in
-`HeatEq.Conservation`), then the abstract Lichnerowicz `λ ≥ K` (needs an Int
-multiplicative-cancellation lemma — currently absent from `Int213.OrderMul`); the star
-/ `K_{a,b}` spectral gaps via the same integration.
+`HeatEq.Conservation`) — the one remaining input to feed `lichnerowicz_abstract` for
+non-complete graphs; the star / `K_{a,b}` spectral gaps via the same integration.
 
 ## Honest boundary
 
