@@ -90,6 +90,27 @@ docstring fix):
   match — flagged as approximation-stacking / fishing risk; do NOT re-fish.
   Frontier: `research-notes/frontiers/ckm_rho_eta_apex.md`.
 
+### 6. Headline audit + honest README/catalog rewrite
+Applied the DoF-ledger lens to the README headline table (5 results).
+`research-notes/frontiers/headline_precision_scope.md`:
+- **Koide `Q = NT/NS = 2/3`** — genuinely clean, 0 param, no scale ✓.
+- **α_em** — ppb precision *is* a PURE theorem (`invAlphaEm_precision_theorem`,
+  137.035999111 vs CODATA, 0.2 ppb); residual = assembly DoF (ledger, mostly
+  closed).
+- **m_μ/m_e** — PURE proves only the leading integer bracket (205); the 0.49 ppb
+  is docstring (Dyson `P` + δ's), inherits α_em.
+- **m_p** — PURE proves 0.1% bracket; `Λ_QCD≈308 MeV` is docstring-only (no atomic
+  derivation located) → input scale. Real content = ratio `m_p/Λ_QCD = NS·P`.
+- **IE(H)** — PURE proves ~0.1% bracket; uses CODATA `m_e` (textbook `m_eα²/2`).
+  Most overstated row (4.3 ppb claimed).
+- **Synthesis**: DRLT genuinely predicts dimensionless *ratios*; absolutes need
+  input scales (any theory does). Not fraud — atomic building blocks + honest
+  in-file tags real; gap was the README table overstating docstring/scale
+  precisions as PURE-proven parameter-free.
+- **Fixed**: `README.md` headline table rewritten honestly (A. parameter-free
+  ratios + exact combinatorics | B. absolutes needing a scale, with "what Lean
+  proves" per row); `catalogs/physics-constants.md` header caveat added.
+
 ## Current Precision Results (0 free parameters)
 No physics-constant *values* changed this session — this was a DoF *audit* of
 the standing `1/α_em` result. Standing table in `catalogs/physics-constants.md`;
@@ -183,4 +204,19 @@ lean/E213/Lib/Physics/Mixing/CPViolation.lean           ← docstring: honest J 
 lean/E213/Lib/Physics/Mixing.lean                       ← umbrella: + JarlskogApex
 research-notes/frontiers/gram_d2_prefactor.md           ← open: /d² mechanism + "not Gram" reframe
 research-notes/frontiers/ckm_rho_eta_apex.md            ← open: apex identification (do not re-fish)
+research-notes/frontiers/headline_precision_scope.md    ← headline audit (PURE scope vs README precision)
+README.md                                               ← headline table rewritten honestly (A ratios / B absolutes)
+catalogs/physics-constants.md                           ← header caveat (precision tags = central-value)
 ```
+
+## Highest-value next actions (vision)
+1. **Deposit `PRE_REGISTRATION.md` P1/P3 externally** (arXiv/Zenodo DOI) — the
+   one unforgeable-priority action, outside the repo. (P2/θ_QCD is candidate-
+   level pending the CKM-apex identification.)
+2. **Finish the headline audit** — same lens on the remaining catalog rows
+   (η_B, m_t/m_c, M_Pl/v_H, magic numbers) for full README/catalog honesty.
+3. **CKM apex** — the one structural identification (`ckm_rho_eta_apex.md`):
+   why CP-apex modulus = the §5.6 self-reference contracting eigenvalue `1/φ²`.
+   Do NOT re-fish atomic-angle % matches.
+4. **Gram `/d²`** — the one premise (`gram_d2_prefactor.md`): identify the Gram
+   self-energy as the `k=1` self-pairing cup term.
