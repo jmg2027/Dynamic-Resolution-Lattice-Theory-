@@ -34,6 +34,13 @@ acting on a cross-determinant, `gaussian_floor_rotation`); the CP arc reads it a
 discriminant `−4`.  The two CM points that index the axis — `−4` (`i`) and `−3` (`ω`) — are the
 choice; the CP phase selects `−4`, the Gaussian rung, not the Eisenstein (order-6) one.
 
+That selection is itself a theorem (`Cohomology/Hodge/EisensteinNoComplexStructure`).  The order-6
+rung's companion is `Ω = [[0,−1],[1,−1]]` (the companion of `x²+x+1`), and `Ω² = −Ω − I ≠ −I` while
+`Ω³ = I` — so the Eisenstein rung, though a genuine order-6 unit ring (`ℤ[Ω] ≅ ℤ[ω]`,
+`omegaToStar_mul`), is **not** a complex structure.  A polarized Hodge structure requires `⋆² = −1`,
+which holds at order 4 (`J² = −I`) and fails at order 6 (`Ω² ≠ −I`).  So `hodge_selects_disc_neg_four`
+makes the choice forced: the Hodge `⋆` *can only* be the Gaussian rung, disc `−4`.
+
 ## Dual function
 
 Classically the Gaussian units are a small cyclic group of number theory and the CKM phase is a free

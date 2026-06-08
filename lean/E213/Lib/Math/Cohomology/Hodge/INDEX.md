@@ -3,7 +3,7 @@
 Hodge star operator + ⋆⋆ = id involution structural propositions
 on the 213 cohomology complex.
 
-## Files (10)
+## Files (11)
 
 ### Hodge / Delta core
   - `Star.lean`              — Hodge `⋆` operator (cochain level)
@@ -39,6 +39,12 @@ on the 213 cohomology complex.
                                  `GaussianCrossDet`) IS the Hodge `⋆`,
                                  one `C₄=ℤ[i]^×`.  `crossDet_image_rotates`,
                                  `gaussian_floor_is_hodge_star`.
+  - `EisensteinNoComplexStructure.lean`
+                               — the order-6 axis rung is NOT a complex
+                                 structure: `Ω=[[0,−1],[1,−1]]`, `Ω²=−Ω−I≠−I`,
+                                 `Ω³=I`; `ℤ[Ω]≅ℤ[ω]` (`omegaToStar_mul`).  Since
+                                 `⋆²=−1` fails at order 6, the Hodge `⋆` selects
+                                 disc `−4` over `−3` (`hodge_selects_disc_neg_four`).
 
 ## Where to add new evidence
 
