@@ -47,9 +47,10 @@ the ledger records the rest.
   (`Lib/Math/Logic/Pi01Decision.lean`): `lpo_decides_pi01` (LPO decides every `Π⁰₁`) +
   `existsLevel` + `lpo_decides_infiniteBelow` — *deciding* infinite-below costs **LPO**.
   *GB-cont DONE* (`Lib/Math/Logic/ChildSelection.lean`): `lpo_infChildExistsN` — LPO +
-  tree-monotonicity (`LevelAntitone`) ⟹ child selection (native `existsLevel`/`InfB`).
-  Remaining: bridge `existsLevel` ↔ the ∃-form `KonigConditional.InfBelow`, and derive
-  `LevelAntitone` from a downward-closed `T`.
+  tree-monotonicity (`LevelAntitone`) ⟹ child selection; `levelAntitone_of_downwardClosed`
+  (+`existsLevel_pred`) discharges monotonicity from a downward-closed tree, giving
+  `lpo_infChildExists_downwardClosed` (selection for an actual Bool tree).  Remaining:
+  bridge `existsLevel` ↔ the ∃-form `KonigConditional.InfBelow`.
 - **Phase GC — the free interior as the base.**  Catalogue the diagonal/non-surjection
   family (`object1_not_surjective`, Cantor) as the no-omniscience base (the `RCA₀`-analogue),
   and the reached-by-none escapes as its companions.

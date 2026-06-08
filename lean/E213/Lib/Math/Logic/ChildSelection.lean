@@ -69,4 +69,56 @@ theorem lpo_infChildExistsN (hlpo : LPO) (T : List Bool → Bool) (hmono : Level
               (fun hb => hb)
           hmono (s ++ [true]) n (n0 + n) (Nat.le_add_left n n0) e1M)))
 
+/-! ## GB-cont2 — `LevelAntitone` from a downward-closed tree
+
+`lpo_infChildExistsN` takes monotonicity as a hypothesis.  Here it is *derived* from the
+natural König condition: the tree is **downward-closed** — a node's immediate parent is a
+node (`hdc`).  Then a deep node implies its shallower prefixes, i.e. `existsLevel` is
+antitone, so König child selection holds for any actual downward-closed Bool tree. -/
+
+/-- `a = true ⟹ (a || b) = true`. -/
+theorem or_intro_left (a b : Bool) (h : a = true) : (a || b) = true := by
+  cases a
+  · exact Bool.noConfusion h
+  · rfl
+
+/-- `b = true ⟹ (a || b) = true`. -/
+theorem or_intro_right (a b : Bool) (h : b = true) : (a || b) = true := by
+  cases a
+  · exact h
+  · rfl
+
+/-- **One step down.**  In a downward-closed tree, a node at depth `n+1` below `s` implies a
+    node at depth `n` (drop the last bit).  By induction on `n`, descending into children. -/
+theorem existsLevel_pred (T : List Bool → Bool)
+    (hdc : ∀ u b, T (u ++ [b]) = true → T u = true) :
+    ∀ n s, existsLevel T s (n + 1) = true → existsLevel T s n = true := by
+  intro n
+  induction n with
+  | zero =>
+    intro s h
+    exact (or_split _ _ h).elim (fun hb => hdc s false hb) (fun hb => hdc s true hb)
+  | succ n ih =>
+    intro s h
+    exact (or_split _ _ h).elim
+      (fun hb => or_intro_left _ _ (ih (s ++ [false]) hb))
+      (fun hb => or_intro_right _ _ (ih (s ++ [true]) hb))
+
+/-- ★ **A downward-closed tree is level-antitone.**  By induction on the `≤` derivation,
+    using `existsLevel_pred` at each step. -/
+theorem levelAntitone_of_downwardClosed (T : List Bool → Bool)
+    (hdc : ∀ u b, T (u ++ [b]) = true → T u = true) : LevelAntitone T := by
+  intro s' m n hmn
+  induction hmn with
+  | refl => exact id
+  | step _ ih => exact fun hn => ih (existsLevel_pred T hdc _ s' hn)
+
+/-- ★★ **König child selection for an actual downward-closed tree.**  `LPO` + downward-closure
+    ⟹ an infinite-below node has an infinite-below child — the monotonicity hypothesis of
+    `lpo_infChildExistsN` discharged from the natural tree condition. -/
+theorem lpo_infChildExists_downwardClosed (hlpo : LPO) (T : List Bool → Bool)
+    (hdc : ∀ u b, T (u ++ [b]) = true → T u = true) (s : List Bool) (hs : InfB T s) :
+    InfB T (s ++ [false]) ∨ InfB T (s ++ [true]) :=
+  lpo_infChildExistsN hlpo T (levelAntitone_of_downwardClosed T hdc) s hs
+
 end E213.Lib.Math.Logic

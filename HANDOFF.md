@@ -110,11 +110,13 @@ the tree **downward-closed** (the standard König hypothesis).
 — the Bool-stream carrier is not enumerable (Cantor diagonal), the **cost-0 base**.
 **Phase GD DONE** (`Lib/Math/Logic/Capstone.lean`, 1 PURE): `reverse_math_ledger` bundles
 the spine (free interior + LPO⟹WLPO/MP + LPO-Π⁰₁-decision + LPO-König-selection) into one
-∅-axiom witness.  **Marathon field 17 = CORE CLOSED** (22 PURE total; book
-`books/math/reverse-math-213.md`; INDEX updated).  **Open follow-ups (not blocking):**
-- bridge native `existsLevel` ↔ ∃-form `KonigConditional.InfBelow`; derive `LevelAntitone`
-  from a downward-closed `T`; tighten König-selection cost LPO → LLPO; reconcile the ledger
-  with `STRICT_ZERO_AXIOM.md`.
+∅-axiom witness.  **Marathon field 17 = CORE CLOSED** (27 PURE total; book
+`books/math/reverse-math-213.md`; INDEX updated).  GB-cont2 added
+(`ChildSelection.lean`, +5 PURE): `levelAntitone_of_downwardClosed` (via `existsLevel_pred`)
++ `lpo_infChildExists_downwardClosed` — König selection now holds for an **actual
+downward-closed Bool tree** (monotonicity discharged).  **Open follow-ups (not blocking):**
+- bridge native `existsLevel` ↔ ∃-form `KonigConditional.InfBelow`; tighten König-selection
+  cost LPO → LLPO; reconcile the ledger with `STRICT_ZERO_AXIOM.md`.
 - **GC** — catalogue the diagonal/non-surjection family (`object1_not_surjective`, Cantor)
   as the no-omniscience base (the `RCA₀`-analogue) + the reached-by-none escapes.
 - **GD** — the ledger capstone: a (theorem → omniscience cost) table over the residue

@@ -45,7 +45,10 @@ The structural implications hold ∅-axiom: `lpo_imp_wlpo`, `lpo_imp_mp`.
 - **GB** `Pi01Decision.lean` — `lpo_decides_pi01`; `existsLevel` (level-existence Bool
   recursion); `lpo_decides_infiniteBelow` (5 PURE).
 - **GB-cont** `ChildSelection.lean` — `lpo_infChildExistsN` (LPO + tree-monotonicity ⟹
-  child selection); helpers `or_split`, `ne_true_imp_false`, `lpo_exists_false` (6 PURE).
+  child selection); `levelAntitone_of_downwardClosed` (`existsLevel_pred` one-step-down by
+  induction) discharges monotonicity from a downward-closed tree, giving
+  `lpo_infChildExists_downwardClosed` (König selection for an actual Bool tree); helpers
+  `or_split`, `or_intro_left/right`, `ne_true_imp_false`, `lpo_exists_false` (11 PURE).
 - **GC** `DiagonalBase.lean` — `cantor_stream_not_enumerable` (the cost-0 base, 4 PURE).
 - **GD** `Capstone.lean` — `reverse_math_ledger` (1 PURE).
 
@@ -80,9 +83,9 @@ kernel.  Replacements used throughout: `Bool.noConfusion`, `Nat.noConfusion`, ex
 
 ## Open
 
-- Bridge the native `existsLevel` to the ∃-form `KonigConditional.InfBelow`, and derive
-  `LevelAntitone` from a downward-closed `T` (so the calibration speaks the König file's
-  own predicate).
+- Bridge the native `existsLevel` to the ∃-form `KonigConditional.InfBelow` (so the
+  calibration speaks the König file's own predicate).  *(Deriving `LevelAntitone` from a
+  downward-closed `T` is done — `levelAntitone_of_downwardClosed`.)*
 - Tighten the König-selection cost from LPO to LLPO (LLPO suffices; LPO is the upper bound
   used).
 - The external reduction of the omniscience family (LLPO / WKL / fan) to a literal Lawvere
