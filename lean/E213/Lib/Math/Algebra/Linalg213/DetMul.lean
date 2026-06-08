@@ -247,4 +247,51 @@ theorem prodDiag_matMul_expand (A B : Nat → Nat → Int) (m : Nat) :
            (fun f' => A start v * B v a * prodChoice A B (start + 1) ps f'))
     rw [sumZ_map_smul (A start v * B v a) (prodChoice A B (start + 1) ps)]
 
+/-! ## §6 — factoring `prodChoice = (∏ A) · (∏ B)` -/
+
+/-- The `B`-product of a choice `f` against `σ`: `pB B σ f = ∏ₖ B fₖ σₖ`. -/
+def pB (B : Nat → Nat → Int) : List Nat → List Nat → Int
+  | [],      _       => 1
+  | a :: ps, j :: fs => B j a * pB B ps fs
+  | _ :: _,  []      => 1
+
+/-- `prodChoice` factors as `(∏ A start..) · (∏ B)`. -/
+theorem prodChoice_eq (A B : Nat → Nat → Int) :
+    ∀ (start : Nat) (σ f : List Nat), σ.length = f.length →
+      prodChoice A B start σ f = prodDiagFrom A start f * pB B σ f
+  | _,     [],      [],      _ => by show (1 : Int) = 1 * 1; rw [E213.Meta.Int213.mul_one]
+  | start, a :: ps, j :: fs, h => by
+    show A start j * B j a * prodChoice A B (start + 1) ps fs
+       = (A start j * prodDiagFrom A (start + 1) fs) * (B j a * pB B ps fs)
+    rw [prodChoice_eq A B (start + 1) ps fs (Nat.succ.inj h)]; ring_intZ
+  | _,     [],      _ :: _,  h => Nat.noConfusion h
+  | _,     _ :: _,  [],      h => Nat.noConfusion h
+
+/-- `drop` peels the head off: `f.drop start = f[start] :: f.drop (start+1)` (in range). -/
+theorem drop_cons : ∀ (f : List Nat) (start : Nat), start < f.length →
+    f.drop start = f.getD start 0 :: f.drop (start + 1)
+  | _ :: _, 0,     _ => rfl
+  | a :: l, k + 1, h => drop_cons l k (Nat.lt_of_succ_lt_succ h)
+  | [],     _,     h => absurd h (Nat.not_lt_zero _)
+
+/-- The `B`-product is the diagonal product of the row-permuted matrix. -/
+theorem prodDiag_rowPerm_eq_pB (f : List Nat) (B : Nat → Nat → Int) :
+    ∀ (start : Nat) (σ : List Nat), start + σ.length = f.length →
+      prodDiagFrom (rowPerm f B) start σ = pB B σ (f.drop start)
+  | _,     [],      _ => rfl
+  | start, a :: ps, h => by
+    have hstart : start < f.length := h ▸ Nat.lt_add_of_pos_right (Nat.succ_pos _)
+    rw [drop_cons f start hstart]
+    show B (f.getD start 0) a * prodDiagFrom (rowPerm f B) (start + 1) ps
+       = B (f.getD start 0) a * pB B ps (f.drop (start + 1))
+    rw [prodDiag_rowPerm_eq_pB f B (start + 1) ps
+          (by rw [Nat.add_assoc, Nat.add_comm 1 ps.length]; exact h)]
+
+/-- ★★ **`prodChoice` splits**: `prodChoice A B 0 σ f = prodDiagFrom A 0 f · prodDiagFrom (rowPerm f B) 0 σ`. -/
+theorem prodChoice_split (A B : Nat → Nat → Int) (f σ : List Nat) (h : σ.length = f.length) :
+    prodChoice A B 0 σ f = prodDiagFrom A 0 f * prodDiagFrom (rowPerm f B) 0 σ := by
+  have hpb : prodDiagFrom (rowPerm f B) 0 σ = pB B σ f :=
+    prodDiag_rowPerm_eq_pB f B 0 σ (by rw [Nat.zero_add]; exact h)
+  rw [prodChoice_eq A B 0 σ f h, hpb]
+
 end E213.Lib.Math.Algebra.Linalg213.DetMul
