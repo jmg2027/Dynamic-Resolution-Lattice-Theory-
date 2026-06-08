@@ -8,6 +8,7 @@ import E213.Lib.Physics.Mixing.ApexPiInternal
 import E213.Lib.Physics.Mixing.ApexRightTriangle
 import E213.Lib.Physics.Mixing.CPPhaseC4Forcing
 import E213.Lib.Physics.Mixing.CPHodgeStructure
+import E213.Lib.Physics.Mixing.CPGenerationWiring
 import E213.Lib.Physics.Mixing.A5QuarkApex
 import E213.Lib.Physics.Mixing.CabibboAngle
 import E213.Lib.Physics.Mixing.NeutrinoMixing

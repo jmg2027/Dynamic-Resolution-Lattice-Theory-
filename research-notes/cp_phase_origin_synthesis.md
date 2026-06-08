@@ -143,12 +143,21 @@ All three legs give **golden modulus + `C₄`/`90°` phase** from the single
 `ℚ(ζ₅)` (number theory), and the (now-built signed) Hodge structure on `H*(Δ⁴)`
 (cohomology — the same object as `α_em`).
 
-**Remaining frontier** (narrowed): the signed `⋆` is built on **one** `(Λ¹,Λ³)`
-grade-pair (a `2`-D model), not the full `Δ⁴` cochain complex with all signs; and
-it is not yet **wired to the 3 generations** (the proof that the surviving KM
-phase *is* this `J`). Two concrete next steps: (i) lift `J` to the full signed
-`ℤ`-cochain Hodge star on `H*(Δ⁴)`; (ii) show the `5̄⊕10` generation Yukawa
-carries `J` so the rephasing-invariant phase is `arg J = 90°`.
+### ★ Generation wiring done (`Mixing/CPGenerationWiring.lean`, 5 PURE)
+The `J` is now **wired to the fermions**: the generation `5̄⊕10 = Λ⁴⊕Λ²(ℂ⁵)`
+carries *two* Hodge structures — **charge conjugation `C`** (the `n=5` Hodge
+complement `Λᵏ↔Λ⁵⁻ᵏ`: `5↔5̄`, `10↔10̄`, `⋆²=+1` = the repo's `Counts.hodge_1`
+"CPT") and the **CP phase `i=J`** (`n=4` signed star, `⋆²=−1`, `90°`). The phase
+**localizes to the down/`5̄` sector**: the up-Yukawa `10·10` is the symmetric
+`5̄_s` (`dim 55`) ⟹ `M_u` symmetric ⟹ **real** ⟹ no up phase; the down-Yukawa
+`10·5̄` (`dim 50`) is general ⟹ **complex** ⟹ carries `J`. So `CP = C × i`, with
+`i` the down-sector complex structure (`arg J = 90°`).
+
+**Remaining frontier** (narrowed once more): a fully quantitative derivation that
+the surviving KM phase is *exactly* `90°` from an explicit `10·5̄` mass matrix
+carrying `J` (the structural wiring + up/down asymmetry are done; the explicit
+rephasing-invariant computation is the last step); and lifting `J` to the full
+signed `ℤ`-cochain `Δ⁴` complex (a `2`-D grade-pair model is built).
 
 ## Lean / files
 - `Mixing/CPPhaseCount.lean` (6 PURE) — CP existence+uniqueness from `N_gen=3`.
