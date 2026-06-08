@@ -140,6 +140,23 @@ dynamic Lens's central element `M⁵ = −1`. The phase `δ = π/φ²` (previous
 *posited* in `CPViolation` as the number `176/147`, not derived) now has its
 `π` grounded internally (`= M⁵`) and its `1/φ²` as the frozen contraction.
 
+## Progress on the coupling route — the CP-area integer skeleton (2026-06-08)
+
+`lean/E213/Lib/Math/Algebra/Icosahedral/SpanAreas.lean` (6 PURE). On the flagged
+Pell-area ↔ CP route: the signed area spanned by two convergents `k` steps apart
+is `det(v_m, v_{m+k}) = −F_{2k}`, position-independent (homogeneity from
+`det M = 1`). The CKM apex is the **gen 1↔3 = two-step (k=2)** span, so its
+integer span-area is `F₄ = NS = 3` — the **213-integer skeleton of the
+unitarity-triangle CP-area `η̄/2`** (the conserved-area core of CP violation).
+The adjacent (`k=1`) area is the Pell symplectic unit `−1` — the *same* `−1` as
+the central `M⁵ = −1`, the two faces of `det M = 1`: the per-step symplectic
+orientation and the half-period phase flip. CP needs both (nonzero area ×
+nonzero phase).
+
+This gives the CP-area its integer core but does **not** yet close the coupling:
+the physical `η̄ ≈ 0.356` is `F₄ = NS` dressed by the λ-hierarchy and the
+φ-contraction, and that dressing is not derived.
+
 ## What remains — the frozen↔dynamic coupling `δ = π·R_u`
 
 The single residual: the **coupling form** `δ = π·R_u` (phase `= π ×` modulus),
