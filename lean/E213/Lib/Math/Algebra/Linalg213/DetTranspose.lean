@@ -5,10 +5,18 @@ import E213.Lib.Math.Algebra.Linalg213.ProdLperm
 /-!
 # Linalg213 — the transpose determinant `det Mᵀ = det M`
 
-The payoff of sign-multiplicativity (`PermSign.psign_mul`).  **Phase 1** (this file, so far): the
-permutation **inverse** `invPerm σ` is again a permutation (`invPerm_mem_perms`), and its sign
-equals `σ`'s — ★ `psign_inv` (`psign (σ⁻¹) = psign σ`), a one-liner from `psign_mul`:
-`psign σ · psign σ⁻¹ = psign (σ ∘ σ⁻¹) = psign (iota n) = 1` in `{±1}`.  All ∅-axiom.
+The classical Leibniz proof that the determinant is transpose-invariant, the payoff of
+sign-multiplicativity (`PermSign.psign_mul`), ∅-axiom from scratch.
+
+§1 — the permutation **inverse** `invPerm σ` is again a permutation (`invPerm_mem_perms`).
+§2 — its sign equals `σ`'s: ★ `psign_inv` (`psign (σ⁻¹) = psign σ`), a one-liner from `psign_mul`
+(`psign σ · psign σ⁻¹ = psign (σ ∘ σ⁻¹) = psign (iota n) = 1` in `{±1}`).
+§3 — `invPerm` is an involution, so `perms n` is its own image under it (`perms_closed_invPerm`,
+the sum-reindex).
+§4 — the product-reindex `∏ᵢ Mᵀ(i,σᵢ) = ∏ⱼ M(j,σ⁻¹ⱼ)` (`prodDiag_transpose_eq`, the two factor
+lists are one multiset reordered by `σ`).
+§5 — assembling these: each `leibTerm Mᵀ σ = leibTerm M σ⁻¹`, so the Leibniz sum is its own
+inverse-reindex — ★★★ `det_transpose` (`det Mᵀ = det M`, via `Laplace.leibDet_eq_det`).
 -/
 
 namespace E213.Lib.Math.Algebra.Linalg213.DetTranspose

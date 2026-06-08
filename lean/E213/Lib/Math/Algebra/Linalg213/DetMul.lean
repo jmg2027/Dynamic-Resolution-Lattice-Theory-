@@ -4,11 +4,19 @@ import E213.Lib.Math.Algebra.Linalg213.CayleyHamilton
 /-!
 # Linalg213 — the multiplicative determinant `det (M·N) = det M · det N`
 
-The last big determinant capstone, on the `psign_mul` keystone.  This file builds it in phases:
-**§1** the symmetric-group closure `composeList α β ∈ perms n` (composition of permutations is a
-permutation) and the right-translation bijection of `perms n`; **§2** the **row-permutation
-determinant** `leibDet (rowPerm σ B) = psign σ · leibDet B`; (later) the function-sum expansion and
-the assembly.  All ∅-axiom.
+The multiplicative determinant, on the `psign_mul` keystone, ∅-axiom from scratch via the
+Cauchy–Binet route.
+
+§1–§2 — the symmetric-group closure `composeList α β ∈ perms n` (composition of permutations is a
+permutation) and the right-translation bijection of `perms n`.
+§3 — the **row-permutation determinant** `leibDet (rowPerm σ B) = psign σ · leibDet B`.
+§4 — `leibDet_rowPerm_zero` (equal rows ⟹ `leibDet = 0`) and the `n^n` index functions `funcs n`.
+§5–§7 — the diagonal product of `A·B` distributes over `funcs n`: ★★★ `leibDet_matMul_expand`
+(`leibDet (A·B) = Σ_{f∈funcs n} prodDiagFrom A 0 f · leibDet (rowPerm f B)`, via `sumZ_swap`).
+§8 — the **permutation** functions assemble to `leibDet A · leibDet B` (`leibDet_perms_assembly`).
+§9 — the **non-permutation** functions vanish (a constructive `cnt`-pigeonhole: `firstDup`,
+`nodup_imp_perm`, `term_zero_of_nonperm`), and the funcs↔perms partition
+(`funcs_filter_perms_lperm`) glues the halves into ★★★ `leibDet_matMul` ⟹ ★★★ `det_matMul`.
 -/
 
 namespace E213.Lib.Math.Algebra.Linalg213.DetMul
