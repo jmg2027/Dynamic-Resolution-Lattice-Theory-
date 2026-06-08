@@ -145,8 +145,20 @@ mutually-adjacent neighbours).  `bochner_star` (`gamma2Star = (3 − b)·gammaC 
 flat, `b ≥ 4` **negative** (`star_negatively_curved`: `3 − b < 0`) — a hub/tree is negatively curved,
 matching the double-star Ollivier `κ = −2/3 < 0` (`OllivierRicci` §6) and *opposite* the clique `K_m`
 (`CD((m+2)/2,∞) > 0`): adding leaf–leaf edges (star → clique) flips curvature sign, the clustering `Γ₂`
-measures.  **Still open**: general `K_{a,b}` (`a ≥ 2`) needs a **second-shell** (`a−1` other `A`-vertices)
-optimization (`Lf(w) − Lf(v)` is not proportional to `(w − v)`), heavier than the star.
+measures.
+
+**Star `K_{1,b}` curvature at a LEAF** — ✅ **DONE** (`BakryEmery.lean` §5, PURE).  The bipartite
+**vertex-type asymmetry**: curvature differs by vertex type (a leaf vs the centre).  A leaf's sole
+neighbour is the centre, whose `Γ` sums over all `b` leaves, so the leaf's `Γ₂` sees the other `k=b−1`
+leaves (`o_i`) — yet the curvature-dimension minimization closes as a **perfect-square sum** (no division,
+unlike general `K_{a,b}`): `bochner_star_leaf` (`gamma2Leaf = (4−k)·gammaW + Σ_i((o_i−c)+(w−c))²`) ⟹
+`cd_star_leaf` (`CD((4−k)/2,∞) = CD((5−b)/2,∞)`).  A **leaf is less negatively curved than the centre**
+(`(5−b)/2 > (3−b)/2`; `b=4`: centre `−½`, leaf `+½`) — vertex-type-dependent curvature, the hallmark of
+the non-vertex-transitive bipartite graph (`K_m` and the cycle are vertex-transitive, one curvature).
+
+**Still open**: general `K_{a,b}` (`a ≥ 2`) needs a **second-shell** (`a−1` other `A`-vertices)
+optimization (`Lf(w) − Lf(v)` is not proportional to `(w − v)`; the `Γ₂` minimum over the second shell is
+at `u_i = W/b`, a `−(a−1)(2W−bc)²/b` term — division by `b`), heavier than the star.
 
 Remaining refinements: general bipartite `K_{a,b}` (`a ≥ 2`, the DRLT `K_{3,2}` core, two-shell); the
 discrete Lin–Yau optimal `K` for the cycle; more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor

@@ -414,4 +414,79 @@ theorem star_negatively_curved (k : Nat) (hk : 4 ≤ k) : (3 : Int) - (k : Int) 
   rw [show (0 : Int) - (3 - (k : Int)) = (k : Int) - 3 from by ring_intZ]
   exact Order.sub_pos_of_lt h3k
 
+/-! ## §5 — the star `K_{1,b}` curvature *at a leaf*: `CD((5−b)/2, ∞)`
+
+The bipartite asymmetry: `K_{1,b}` curvature depends on the **vertex type**.  §4 was
+the centre; here is a **leaf**.  Model: the leaf (value `w`), the centre (value `c`),
+and the `k = b−1` **other** leaves (`o : Nat → Int`).  A leaf's sole neighbour is the
+centre, whose own carré du champ sums over **all** `b` leaves — so the leaf's `Γ₂`
+sees the other leaves (`o_i`).  Yet the curvature-dimension minimization over the free
+other-leaf values closes as a **perfect-square sum** (no division, unlike general
+`K_{a,b}`):
+
+  `gamma2Leaf = (4 − k)·gammaW + Σ_i ((o_i − c) + (w − c))²`,  `k = b−1`.
+
+So a leaf is `CD((4−k)/2, ∞) = CD((5−b)/2, ∞)`.  Compared with the centre's
+`(3−b)/2` (§4), a **leaf is less negatively curved** (`(5−b)/2 > (3−b)/2`) — e.g.
+`b = 4`: centre `−½`, leaf `+½`.  Vertex-type-dependent curvature is the hallmark of
+the non-vertex-transitive bipartite graph (the complete graph `K_m` and the cycle are
+vertex-transitive, one curvature). -/
+
+/-- Carré du champ (scaled `2Γ`) at the leaf: `(c − w)²` (its one edge to the centre). -/
+def leafGammaW (c w : Int) : Int := (c - w) * (c - w)
+
+/-- Laplacian at the centre (its neighbours are the leaf `w` and the `k` other leaves). -/
+def leafLapCtr (k : Nat) (o : Nat → Int) (c w : Int) : Int :=
+  (w - c) + gridSumZ k (fun i => o i - c)
+
+/-- Carré du champ (scaled `2Γ`) at the centre. -/
+def leafGammaCtr (k : Nat) (o : Nat → Int) (c w : Int) : Int :=
+  (w - c) * (w - c) + gridSumZ k (fun i => (o i - c) * (o i - c))
+
+/-- Iterated carré du champ (scaled `4Γ₂`) at the leaf — its single neighbour is the centre. -/
+def gamma2Leaf (k : Nat) (o : Nat → Int) (c w : Int) : Int :=
+  (leafGammaCtr k o c w - leafGammaW c w)
+    - 2 * (c - w) * (leafLapCtr k o c w - (c - w))
+
+/-- The leaf's positive-curvature SOS term: `Σ_i ((o_i − c) + (w − c))²`. -/
+def leafGap (k : Nat) (o : Nat → Int) (c w : Int) : Int :=
+  gridSumZ k (fun i => ((o i - c) + (w - c)) * ((o i - c) + (w - c)))
+
+/-- `leafGap ≥ 0` — a grid sum of squares. -/
+theorem leafGap_nonneg (k : Nat) (o : Nat → Int) (c w : Int) : 0 ≤ leafGap k o c w :=
+  gridSumZ_nonneg k _ (fun _ _ => int_sq_nonneg _)
+
+/-- ★★★★★ **Discrete Bochner identity at a star leaf** (`k = b−1` other leaves):
+
+      `gamma2Leaf = (4 − k)·gammaW + Σ_i ((o_i−c)+(w−c))²`.
+
+    The minimization of `Γ₂` over the free other-leaf values is a perfect-square sum —
+    no division (contrast general `K_{a,b}`).  Pure `gridSumZ` linearity + `ring_intZ`. -/
+theorem bochner_star_leaf (k : Nat) (o : Nat → Int) (c w : Int) :
+    gamma2Leaf k o c w = (4 - (k : Int)) * leafGammaW c w + leafGap k o c w := by
+  have hgap : leafGap k o c w
+      = gridSumZ k (fun i => (o i - c) * (o i - c))
+        + 2 * (w - c) * gridSumZ k (fun i => o i - c)
+        + (k : Int) * ((w - c) * (w - c)) := by
+    unfold leafGap
+    rw [show gridSumZ k (fun i => ((o i - c) + (w - c)) * ((o i - c) + (w - c)))
+          = gridSumZ k (fun i => (o i - c) * (o i - c)
+              + (2 * (w - c) * (o i - c) + (w - c) * (w - c))) from
+        gridSumZ_congr k _ _ (fun i _ => by ring_intZ),
+        gridSumZ_add, gridSumZ_add, gridSumZ_mul_left, gridSumZ_const]
+    ring_intZ
+  unfold gamma2Leaf leafGammaCtr leafGammaW leafLapCtr
+  rw [hgap]; ring_intZ
+
+/-- ★★★★★ **`CD((5−b)/2, ∞)` at a star leaf.**  From `bochner_star_leaf` the residual
+    `leafGap ≥ 0`, so `gamma2Leaf ≥ (4−k)·gammaW`.  The leaf curvature `(5−b)/2`
+    exceeds the centre's `(3−b)/2` — the bipartite vertex-type asymmetry. -/
+theorem cd_star_leaf (k : Nat) (o : Nat → Int) (c w : Int) :
+    (4 - (k : Int)) * leafGammaW c w ≤ gamma2Leaf k o c w := by
+  rw [bochner_star_leaf]
+  apply Order.le_of_sub_nonneg
+  rw [show (4 - (k : Int)) * leafGammaW c w + leafGap k o c w
+        - (4 - (k : Int)) * leafGammaW c w = leafGap k o c w from by ring_intZ]
+  exact Order.nonneg_of_le_zero (leafGap_nonneg k o c w)
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery
