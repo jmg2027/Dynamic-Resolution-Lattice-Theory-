@@ -96,4 +96,35 @@ theorem wkl_heineBorel_calibration (T : List Bool → Bool) :
    infPath_imp_infB T,
    fun step hstep root => wkl_of_oracle T step hstep root⟩
 
+/-! ## The fan theorem — the dual Brouwerian principle (HB proper)
+
+`HB proper` (`¬HasInfPath ⟹ Bounded`) is the **fan theorem**: a bar (every stream leaves
+`T`) yields a uniform bound.  Constructively the fan theorem is a *Brouwerian principle*
+(bar induction), not ∅-axiom — the dual of `wkl_of_oracle`'s selection oracle.  Named here
+(`FanTheorem`) as a residue-native `Prop`; the clean ∅-axiom content is the stream→path
+direction `hasInfPath_of_stream` (a stream staying in `T` *is* an infinite path), whose
+contrapositive turns the fan theorem's bar hypothesis into the no-staying-stream fact. -/
+
+/-- The length-`n` prefix of a bit-stream. -/
+def takePrefix (p : Nat → Bool) : Nat → List Bool
+  | 0     => []
+  | n + 1 => takePrefix p n ++ [p n]
+
+theorem takePrefix_len (p : Nat → Bool) : ∀ n, (takePrefix p n).length = n
+  | 0     => rfl
+  | n + 1 => (length_snoc (takePrefix p n) (p n)).trans
+              (congrArg (fun m => m + 1) (takePrefix_len p n))
+
+/-- A bar: every bit-stream eventually leaves the tree. -/
+def Bar (T : List Bool → Bool) : Prop := ∀ p : Nat → Bool, ∃ n, T (takePrefix p n) = false
+
+/-- The **fan theorem** (Brouwerian): a bar yields a uniform bound. -/
+def FanTheorem (T : List Bool → Bool) : Prop := Bar T → Bounded T
+
+/-- ★ **A stream that stays in `T` is an infinite path**, ∅-axiom — the clean direction:
+    its prefixes are the path nodes. -/
+theorem hasInfPath_of_stream (T : List Bool → Bool) (p : Nat → Bool)
+    (hp : ∀ n, T (takePrefix p n) = true) : HasInfPath T :=
+  ⟨takePrefix p, rfl, hp, fun k => length_snoc (takePrefix p k) (p k)⟩
+
 end E213.Lib.Math.Logic

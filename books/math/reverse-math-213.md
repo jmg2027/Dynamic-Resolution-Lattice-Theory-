@@ -1,7 +1,7 @@
 # Reverse Mathematics 213 — the omniscience / axiom-cost ledger
 
 Marathon field 17 (`blueprints/math/17_reverse_math_213.md`).  Status: **CORE CLOSED**
-(Phases GA–GD, 22 PURE in `lean/E213/Lib/Math/Logic/`).
+(Phases GA–GD + continuations, 74 PURE across 10 files in `lean/E213/Lib/Math/Logic/`).
 
 ## The idea
 
@@ -61,10 +61,11 @@ parity decides which half vanishes; `LLPO.lean`, via a native Bool `parity`).
 - **GB-cont4** `Interleave.lean` (6 PURE) + `LLPOSelection.lean` (12 PURE) —
   `llpo_infChildExistsN`: König child selection from **LLPO** (the tight cost), via the
   monotone turn-off encoding (`interleave`, `ftrue`, `ftrue_unique`, `not_both`).
-- **GB-cont5** `WKLHeineBorel.lean` (7 PURE) — the global `WKL ⟺ Heine–Borel`: the
-  unconditional ∅-axiom half (`infPath_imp_infB` path ⟹ unbounded, `bounded_imp_not_infPath`
-  bounded ⟹ no path) and the oracle-conditional WKL-strength half (`wkl_of_oracle`:
-  unbounded + selection oracle ⟹ infinite path).
+- **GB-cont5** `WKLHeineBorel.lean` (13 PURE) — the global `WKL ⟺ Heine–Borel`: the
+  unconditional ∅-axiom half (`infPath_imp_infB`, `bounded_imp_not_infPath`), the
+  oracle-conditional WKL-strength half (`wkl_of_oracle`), the bundling
+  `wkl_heineBorel_calibration`, and the **fan theorem** named (`FanTheorem`/`Bar`,
+  Brouwerian = HB proper) with the clean `hasInfPath_of_stream` (stream-in-`T` ⟹ path).
 
 ## How the König thread arithmetized
 
@@ -147,7 +148,7 @@ kernel had it not been hypothesized or hand-rolled away.  The omniscience ledger
   the per-node disjunctions into the `step` function — which is *by design* not internal.)*
 - HB proper (¬HasInfPath ⟹ Bounded) as an oracle/decision-conditional statement (dual of
   `wkl_of_oracle`).
-- The fan theorem and bar induction as residue-native principles.
+- *(Named: `FanTheorem` / `Bar` as residue-native Brouwerian principles, `WKLHeineBorel.lean`; the fan theorem = HB proper, by-design external. Clean direction `hasInfPath_of_stream` done.)* Bar induction in general remains.
 - *(Done: `existsLevel` ↔ `KonigConditional.InfBelow` — `infB_iff_infBelow`; `LevelAntitone`
   from a downward-closed `T` — `levelAntitone_of_downwardClosed`; LPO ⟹ LLPO — `lpo_imp_llpo`;
   the two-ledger reconciliation with `STRICT_ZERO_AXIOM.md` — above; the external Lawvere
