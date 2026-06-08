@@ -189,8 +189,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   branching); ε-δ existential = first-nonzero-digit search = which-child-infinite =
   the same ∞-decision.  *Concept pass:* `concept_compactness.md` — compactness of
   dyadic `[0,1]` = König's binary lemma = the same `InfChildExists` import (theorem
-  seed `FiniteSubcoverOracle ↔ InfChildExists`).  *Next:* general-`p` νF escape, ℝ
-  one-carrier, more concept deep-dives (limit/completion, quotient, powerset).
+  seed `FiniteSubcoverOracle ↔ InfChildExists`, now CLOSED as an ∅-axiom calibration —
+  selection ⇒ compactness free, compactness ⇒ selection costs one LLPO step).  *Concept
+  deep-dives:* `concept_compactness.md` (= the König wall), `concept_redressing_itself.md`
+  (the re-dressing act = one more self-pointing; Lawvere/Yanofsky anchor; promoted to essay
+  `the_one_diagonal.md`), `concept_function_space.md` (powerset = the self-cover's codomain,
+  the CCC root of the diagonal).  *Next:* general-`p` νF escape, ℝ one-carrier, more
+  concept deep-dives (limit/completion, quotient, actual-vs-potential infinity).
 
 - `research_grade_closure_gate` — **meta-frontier**: `∅`-axiom is a
   necessary integrity check, not a sufficient *seriousness* check.

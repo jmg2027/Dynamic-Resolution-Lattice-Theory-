@@ -90,8 +90,13 @@ Run each standard abstract-concept naming through: *which Lens? which fold-level
 - **"quotient / equivalence class"** — the Lens-arrow (`theory/lens/unified_equivalence.md`);
   naming "ℝ as ℚ/Cauchy mod ∼" = naming a Lens.refines, where raw `=` would need funext
   (a Lens artifact, cf. `ZpSeqEquiv`).
-- **"the set of all functions / the powerset" / "∀,∃ over an infinite domain"** — where the
-  capture move is most tempting; expected to land on the refused bucket + a νF carrier.
+- **"the set of all functions / the powerset" / "∀,∃ over an infinite domain"** —
+  **deep-dive done** (`concept_function_space.md`): the function space `Raw → Bool` is the
+  *codomain of the self-cover* `Object1`, and the residue is exactly its non-image
+  (`object1_not_surjective`).  Naming it = a Lens codomain (necessary); the powerset axiom +
+  `LEM` surveying "all of it" = the capture (refused).  This is the cartesian-closed
+  exponential Lawvere needs, so it is *where the diagonal lives* — the CCC root of
+  `the_one_diagonal`.  No new Lean (`object1_not_surjective` is the theorem).
 - **"actual vs potential infinity"** — the frozen/dynamic (§5.7) reading: no external time
   axis ⇒ both are Lens readings; "actual infinity" = freezing the transition (the capture
   /import); "potential infinity" = the rule kept open (the allowed transition).
