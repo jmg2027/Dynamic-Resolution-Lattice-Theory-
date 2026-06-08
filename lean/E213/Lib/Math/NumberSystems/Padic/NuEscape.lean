@@ -682,6 +682,55 @@ theorem mulRaw_unbounded {p : Nat} (hp2 : 2 ≤ p) (C : Nat) :
   have hpos : 0 < (p - 1) * (p - 1) := Nat.mul_pos hpm1 hpm1
   exact Nat.lt_of_lt_of_le (Nat.lt_succ_self C) (Nat.le_mul_of_pos_right (C + 1) hpos)
 
+/-! ### General `p` — the carry is the multiplicative residue: a νF inhabitant of the *pointing*
+
+The decisive frontier fact.  `(-1)·(-1) = 1` — the **result** is the trivial element `1`
+(`neg_one_sq_eq_one`), the simplest µF object — yet the **carry** computing it is unbounded
+(`mulRaw_unbounded`, and `mulCarry` itself).  So the unbounded carry is not a property of the
+*number* (the product is `1`); it is a property of the **pointing** — the act of multiplying — the
+exact ring-operation image of "holonomicity is a property of the pointing, not the real"
+(`Real213/PresentationDependence`).
+
+And the carry stream *is literally a νF inhabitant*: `gspine` is generic over the leaf alphabet
+(CoResidue §20), so `gspine (mulCarry …) : GCoShape Nat` is a consistent, anti-reflexive co-tree
+reached by no finite Raw (`gspine_escapes` at `L = Nat`).  The multiplicative carry escapes the
+finite the same way `spineL` does — `carry_is_nu_escape`.  All ∅-axiom. -/
+
+/-- ★★★ **`(-1)² = 1` in ℤ_p (the result is the trivial element).**  Every digit of `neg_one ·
+    neg_one` equals `one`'s — via the trunc-level `(p^n−1)² ≡ 1` (`Zp.neg_one_sq_trunc`) bridged to
+    digits (`ZpSeq.trunc_succ_inj`).  The product is `1`, while its carry (`mulRaw_unbounded`) is
+    unbounded — the work is in the pointing, not the result. -/
+theorem neg_one_sq_eq_one (p : Nat) (hp1 : 1 < p) :
+    ∀ k, (Zp.mul p (Nat.lt_of_succ_lt hp1)
+            (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1))
+            (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1))).digits k
+        = (ZpSeq.one p hp1).digits k := by
+  intro k
+  have hp' : 0 < p := Nat.lt_of_succ_lt hp1
+  have htrunc :
+      (Zp.mul p hp' (ZpSeq.neg_one p hp') (ZpSeq.neg_one p hp')).trunc (k + 1)
+        = (ZpSeq.one p hp1).trunc (k + 1) :=
+    (Zp.neg_one_sq_trunc p hp1 k).trans (ZpSeq.trunc_one_succ p hp1 k).symm
+  exact (ZpSeq.trunc_succ_inj hp' k htrunc).2
+
+/-- The multiplicative carry as a label-stream over `Nat` (the unbounded alphabet). -/
+def mulCarryStream {p : Nat} (x y : ZpSeq p) : Nat → Nat := fun k => Zp.mulCarry p x y k
+
+/-- The multiplicative carry as a νF inhabitant on the generic carrier (`L = Nat`, CoResidue §20). -/
+def carryNu {p : Nat} (x y : ZpSeq p) : GSlashNu Nat := gspineSlashNu (mulCarryStream x y)
+
+/-- The carry co-tree is a genuine generic-νF inhabitant: consistent and anti-reflexive. -/
+theorem carry_is_nu {p : Nat} (x y : ZpSeq p) :
+    GConsistent (carryNu x y).val ∧ GAntiRefl (carryNu x y).val :=
+  (carryNu x y).property
+
+/-- ★★★ **The multiplicative carry is reached by no finite Raw.**  `gspine (mulCarry …)` differs
+    from every finite Raw's `gToShape` embedding (`gspine_escapes` at `L = Nat`).  The carry is a
+    νF escape — the multiplicative residue lives on the carrier, like `spineL`. -/
+theorem carry_is_nu_escape {p : Nat} (x y : ZpSeq p) (r : Raw) :
+    gToShape (0 : Nat) (1 : Nat) r.val ≠ (carryNu x y).val :=
+  fun h => gspine_escapes (0 : Nat) (1 : Nat) (mulCarryStream x y) r.val h.symm
+
 /-! ### General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
 
 Beyond the reached-by-none escape, the *not-enumerable* fact holds for every `p ≥ 2` natively:
