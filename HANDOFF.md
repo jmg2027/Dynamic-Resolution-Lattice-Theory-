@@ -5,11 +5,13 @@
 (all PURE, build clean: `CayleyDickson` + `Linalg213` + `Padic` umbrellas build, new modules
 scan 0 DIRTY).
 
-## What Was Done — five frontier seeds closed (∅-axiom)
+## What Was Done — seven frontier seeds closed (∅-axiom)
 
 The session worked the open-seed list (`research-notes/frontiers/`) across the named topics:
 *determinant/sign · p-adic harvest · residue-unit +1 · reciprocity · sums-of-squares · betti ·
-euler converse*.  Two topics are now closed; the rest are triaged below.
+euler converse*.  **Three topics fully closed** (determinant/sign, sums-of-squares disc-`−8`,
+p-adic harvest) plus the **Zolotarev homomorphism half** (reciprocity); the rest triaged below.
+Closures 6–7 (`Zolotarev.lean`) are listed in the reciprocity row of the triage table.
 
 ### 1. ★ disc-`−8` representation iff — **sums-of-squares topic CLOSED**
 `lean/E213/Lib/Math/Algebra/CayleyDickson/Integer/ZSqrtNegTwoSquare.lean` (11 PURE).
@@ -60,13 +62,15 @@ Catalog (`STRICT_ZERO_AXIOM.md`), the representation essay
 | **betti α=1** | `b₁ = NS²−1 = 1/α₃` closed; open is conceptual (does `NS²−1` recur in the other forced constants? a `c`-dependent higher `b_k`?) — a synthesis question, not a bounded Lean target. |
 
 ## Next (highest-value, in order)
-1. **Zolotarev bridge** `psign[a·x mod p] = (a/p)` — both endpoints PURE; the missing piece is
-   tying the mul-by-`a` permutation's `psign` to `gauss_core`'s `μ`-parity (the mul-map is a
-   permutation via the modular inverse + `List213.Nodup`; then `psign = (−1)^μ`).  The one
-   genuinely-tractable hard target left, and it spans reciprocity + euler-converse.
-2. **p-adic multiplicative trunc identities** (`Zp.mul_comm`/`mul_assoc`/`mul_one` at trunc) —
-   the gateway that unblocks `i₅ = teichmuller` and the `ω·u` sequence-level split.
-3. Residue-unit decidable carry-depth (assess `Theory/Raw/Odometer`).
+1. **Zolotarev converse** `psign(mulPerm a) = (−1)^{μ_a}` — the homomorphism half is now PURE
+   (`Zolotarev.lean`); the residual is the non-residue ⟹ odd direction.  Two routes, both
+   multi-file: (a) **primitive-root infrastructure** (`(ℤ/p)*` cyclic — needs Euler `φ` +
+   `∑_{d∣n} φ(d) = n` on top of the existing `RootBound.eval_zero` ≤-`d`-roots; then the
+   `(p−1)`-cycle of `mulPerm g`), the cleaner and more reusable; or (b) the **Zolotarev=Gauss
+   block decomposition** (pairing `x↦p−x`, within-pair swaps at the `μ_a` highs, block-lift
+   even) — reuses `fold_perm`/`gauss_qr` but needs general-transposition + disjoint-product
+   `psign` lemmas in the `Linalg213` framework.
+2. Residue-unit decidable carry-depth (assess `Theory/Raw/Odometer`); `Zp.diagLimit` abstraction.
 
 ## Three-tier state
 - **No promotions needed**: the determinant/sign narrative lives in
