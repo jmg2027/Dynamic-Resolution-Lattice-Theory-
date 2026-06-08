@@ -112,6 +112,32 @@ fitted number); it would pin the apex (`γ = π·R_u` is the other face of the
 single-parameter apex `z = r·e^{iπr}`), making `J = A²λ⁶η` atom-pinned and
 resolving θ_QCD's `J`.
 
+## Tested and NOT closed — the law-of-sines route (honest, fishing-risk flagged)
+
+Attempt: if all three triangle angles are atomic, law-of-sines forces `R_u`.
+We have `γ = π/φ²`. The second angle `β ≈ π/8` (atomic candidate: `8 = NS²−1`,
+the gluon-octet count) gives, with `γ`, `R_u = sin β / sin α = 0.38278` —
+matching the Möbius eigenvalue `1/φ² = 0.38197` to **0.2%**.
+
+**But this does NOT close the identification, and is flagged as
+approximation-stacking:**
+- `β = π/8 = 22.5°` is itself only a **2.2%** match to observed `β = 22.01°`
+  (from `sin 2β = 0.695`) — no better than other candidate-level matches.
+- The 0.2% agreement between the law-of-sines value and the Möbius eigenvalue
+  holds *only if* `β = π/8` exactly; given the 2% slop, the agreement may be
+  partly coincidental.
+- Finding several atomic readings that all roughly fit (`c/d`, `1/φ²`, `π/8`,
+  law-of-sines) is the **multiple-comparisons fishing** risk
+  (CLAUDE.md). None of these is a derivation.
+
+**Conclusion (§5.4):** the *value* `R_u = 1/φ²` is solidly grounded (Möbius
+contracting eigenvalue, PURE). The *physical identification* — why the CKM
+CP-apex modulus equals the residue self-reference contraction rate — was
+genuinely looked for and is **not derivable this session**; it remains the
+single open premise. Do not re-fish atomic-angle combinations; the next real
+step is a *structural* reason CP-violation depth = self-reference contraction,
+not another % match.
+
 ## Anchors
 
 - `lean/E213/Lib/Physics/Mixing/JarlskogApex.lean` — apex = φ² object, self-ref eigenvalue

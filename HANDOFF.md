@@ -1,10 +1,10 @@
-# Session Handoff — 2026-06-07 (Vision-achievement strategy + α_em DoF audit)
+# Session Handoff — 2026-06-07 (Vision strategy + α_em DoF audit + CKM/J arc)
 
 ## Branch
-`claude/vision-achievement-strategy-UzqpZ` — pushed, **9 commits ahead** of
+`claude/vision-achievement-strategy-UzqpZ` — pushed, **~18 commits ahead** of
 `origin/main` (branched from `540504f`, the prior QR handoff).
-`cd lean && lake build E213.Lib.Physics.AlphaEM` ✓ clean. All new theorems
-PURE (verified per file via `tools/scan_axioms.py`).
+`cd lean && lake build E213.Lib.Physics.{AlphaEM,Mixing}` ✓ clean. All new
+theorems PURE (verified per file via `tools/scan_axioms.py`).
 
 ## Theme
 Strategic question from the originator: "how do I actually *succeed* at the
@@ -62,6 +62,34 @@ honestly. No fudge introduced; the discipline IS the deliverable.
   (Linalg213/Gap/TensorProduct, 5⊗5=25) AND 2-fold cup-graduation denom
   `cup_graduation_denom 1 = d²` (`mechanisms_converge`).
 
+### 5. CKM / Jarlskog arc — self-audit → apex → self-reference eigenvalue
+Triggered by trying to promote θ_QCD P2 (derive `J`). Findings (all in
+`lean/E213/Lib/Physics/Mixing/JarlskogApex.lean`, 12 PURE, + `CPViolation.lean`
+docstring fix):
+- **Self-audit caught an overclaim**: DRLT's Jarlskog `J`, computed honestly
+  from its own derived factors (λ=5/22, A=φ/c=φ/2, δ=π/φ²), gives `8.18×10⁻⁵`
+  vs observed `3.08×10⁻⁵` — **×2.66 over**. A `CPViolation.lean` comment had
+  masked this with an arithmetic error ("≈3.5×10⁻⁵, within 10%"; its own
+  factors give 7.6×10⁻⁵). Corrected to an honest missing-physics note (no Lean
+  theorem asserted the wrong magnitude — comment-only).
+- **Missing physics = the CKM apex `(ρ,η)`**: `s₁₃=Aλ³` omits `√(ρ²+η²)`.
+- **Apex = a φ² object**: modulus `R_u = 1/φ²`, phase `δ = π/φ²` (same φ²).
+  Gives `R_u=0.382` (0.17% vs obs), `J=3.12×10⁻⁵` (+1.4%), `η=0.356` (2.3%).
+  `c/d=2/5=F₃/F₅` (F₃=NT,F₅=d) is the lowest Fibonacci convergent of 1/φ², not
+  a competitor.
+- **Single-parameter**: `δ=π·R_u`, apex `= r·e^{iπr}`, `r=1/φ²`. Determines the
+  triangle and predicts `β=22.45°`, `sin2β=0.706` (inside obs `0.695±0.019`,
+  the measured "golden mode"), `α=88.8°`, `R_t=0.932`.
+- **`1/φ²` grounded**: it is the **contracting eigenvalue of the residue
+  self-reference matrix** `[[c,1],[1,1]]` (Möbius `P`, §5.6) — `trace=NS`,
+  `det=1`, `disc=NS²−4=d`, eigenvalues φ²,1/φ². So `R_u=(NS−√d)/2`, structurally
+  distinguished (not a fitted golden power). PURE.
+- **NOT closed** (honest §5.4): the physical identification "CKM CP-apex
+  modulus = self-reference contraction rate" is the single open premise. A
+  law-of-sines route (β≈π/8, 8=NS²−1) is consistent at 0.2% but β=π/8 is a 2%
+  match — flagged as approximation-stacking / fishing risk; do NOT re-fish.
+  Frontier: `research-notes/frontiers/ckm_rho_eta_apex.md`.
+
 ## Current Precision Results (0 free parameters)
 No physics-constant *values* changed this session — this was a DoF *audit* of
 the standing `1/α_em` result. Standing table in `catalogs/physics-constants.md`;
@@ -84,10 +112,14 @@ structure — multi-session). The *math* leg (dim End V = d²) is solid; the gap
 is the physics identification + the underived cup rule.
 Frontier: `research-notes/frontiers/gram_d2_prefactor.md`.
 
-### 2. Jarlskog J magnitude (promote θ_QCD P2 to a clean prediction)
-Derive J≈3×10⁻⁵'s *magnitude* (not just λ-power structure) from λ=5/22 +
-δ_CP=π/φ². Closes the hidden input in `PRE_REGISTRATION.md` P2.
-Frontier: needs a note (none yet) — see `CPViolation.J_lambda_dependence`.
+### 2. CKM apex — one physical identification to pin J (mostly solved)
+`R_u = 1/φ²` (apex modulus) is grounded as the residue self-reference Möbius
+contracting eigenvalue `(NS−√d)/2` (PURE). The single open premise: **why the
+CKM CP-apex modulus = the self-reference contraction rate** — a *structural*
+reason, not another % match (the law-of-sines/β=π/8 route is approximation-
+stacking, do not re-fish). Closing it makes `J=A²λ⁶η` atom-pinned (currently
+1.4% on J) and resolves θ_QCD P2. Frontier:
+`research-notes/frontiers/ckm_rho_eta_apex.md`.
 
 ### 3. Gram Newton truncation + 27×10⁻⁹ residual
 Replace observed-α on the RHS of `gram_correction_e9` with a 213-internal
@@ -144,4 +176,11 @@ lean/E213/Lib/Physics/AlphaEM/GramCubicReduction.lean   ← 1 PURE: cubic = α²
 lean/E213/Lib/Physics/AlphaEM/GramD2Readings.lean       ← 3 PURE: d² value over-determined
 lean/E213/Lib/Physics/AlphaEM/GramD2Mechanism.lean      ← 5 PURE: degree-2 → d² mechanism
 lean/E213/Lib/Physics/AlphaEM.lean                      ← umbrella: + 5 new imports
+lean/E213/Lib/Physics/AlphaEM/GramD2Readings.lean       ← 3 PURE: d² value over-determined
+lean/E213/Lib/Physics/AlphaEM/GramD2Mechanism.lean      ← 5 PURE: degree-2 → d² mechanism
+lean/E213/Lib/Physics/Mixing/JarlskogApex.lean          ← 12 PURE: φ² apex = self-ref eigenvalue
+lean/E213/Lib/Physics/Mixing/CPViolation.lean           ← docstring: honest J magnitude-gap note
+lean/E213/Lib/Physics/Mixing.lean                       ← umbrella: + JarlskogApex
+research-notes/frontiers/gram_d2_prefactor.md           ← open: /d² mechanism + "not Gram" reframe
+research-notes/frontiers/ckm_rho_eta_apex.md            ← open: apex identification (do not re-fish)
 ```
