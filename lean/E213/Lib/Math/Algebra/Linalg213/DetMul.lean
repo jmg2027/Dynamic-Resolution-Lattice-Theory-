@@ -335,4 +335,39 @@ theorem leibDet_matMul_expand (A B : Nat → Nat → Int) (n : Nat) :
       sumZ_map_smul (prodDiagFrom A 0 f) (leibTerm (rowPerm f B)) (perms n),
       show leibDet n (rowPerm f B) = sumZ ((perms n).map (leibTerm (rowPerm f B))) from rfl]
 
+/-! ## §8 — the `funcs ↦ perms` partition and the assembly -/
+
+/-- A sum over a list with a vanishing predicate restricts to the filtered sublist. -/
+theorem sumZ_eq_filter {α : Type} (p : α → Bool) (g : α → Int) :
+    ∀ (L : List α), (∀ x ∈ L, p x = false → g x = 0) →
+      sumZ (L.map g) = sumZ ((L.filter p).map g)
+  | [],     _ => rfl
+  | a :: l, h => by
+    cases hp : p a with
+    | true =>
+      rw [List.filter_cons_of_pos hp]
+      show g a + sumZ (l.map g) = g a + sumZ ((l.filter p).map g)
+      rw [sumZ_eq_filter p g l (fun x hx => h x (List.Mem.tail _ hx))]
+    | false =>
+      rw [List.filter_cons_of_neg (by rw [hp]; exact Bool.noConfusion)]
+      show g a + sumZ (l.map g) = sumZ ((l.filter p).map g)
+      rw [h a (List.Mem.head _) hp, E213.Meta.Int213.zero_add,
+          sumZ_eq_filter p g l (fun x hx => h x (List.Mem.tail _ hx))]
+
+/-- The `perms`-sum assembles to `leibDet A · leibDet B` (each permutation term is
+    `prodDiagFrom A 0 f · psign f · leibDet B = leibTerm A f · leibDet B`). -/
+theorem leibDet_perms_assembly (A B : Nat → Nat → Int) (n : Nat) :
+    sumZ ((perms n).map (fun f => prodDiagFrom A 0 f * leibDet n (rowPerm f B)))
+      = leibDet n A * leibDet n B := by
+  rw [map_eq_of_mem (fun f => prodDiagFrom A 0 f * leibDet n (rowPerm f B))
+        (fun f => leibTerm A f * leibDet n B)
+        (fun f hf => by
+          show prodDiagFrom A 0 f * leibDet n (rowPerm f B) = leibTerm A f * leibDet n B
+          rw [leibDet_rowPerm f B n hf]
+          show prodDiagFrom A 0 f * (psign f * leibDet n B)
+             = (psign f * prodDiagFrom A 0 f) * leibDet n B
+          ring_intZ),
+      ← sumZ_map_smul_right (leibDet n B) (leibTerm A) (perms n),
+      show leibDet n A = sumZ ((perms n).map (leibTerm A)) from rfl]
+
 end E213.Lib.Math.Algebra.Linalg213.DetMul
