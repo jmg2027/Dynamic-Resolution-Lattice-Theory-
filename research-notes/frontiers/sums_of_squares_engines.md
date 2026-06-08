@@ -24,11 +24,14 @@ engines**, and that split makes several next questions crisp.
 
 ## New questions (structural shape now clear)
 
-- **Disc-`−8` congruence iff.**  `ZSqrtNegSplit.split_form_two` already gives
-  `p ∣ x²+2 ⟹ p = a²+2b²`.  The missing forward half is *which* primes have `−2` a QR — the
-  `p ≡ 1,3 mod 8` law, i.e. the quadratic character of `2`.  That character is the one input the
-  multiplicative engine still lacks; deriving it ∅-axiom closes the `−8` iff and likely the
-  general `(2/p)` supplement.
+- **Disc-`−8` congruence iff — CLOSED** (`ZSqrtNegTwoSquare.disc_neg_eight_iff`, 11 PURE):
+  `p = a²+2b² ⟺ p ≡ 1,3 (mod 8)` for an odd prime.  The missing forward half (*which* primes have
+  `−2` a QR) is supplied by the **Legendre homomorphism**, not a non-residue search:
+  `(−2/p) = (−1/p)·(2/p)` (`legendre_mul` at `a = p−1`, `b = 2`, using `((p−1)·2) % p = p − 2`),
+  the two factors being the closed first/second supplements (`neg_one_qr_iff`, `second_supplement`);
+  the characters agree exactly on `p ≡ 1,3 mod 8` ⟹ `p ∣ z²+2` ⟹ `split_form_two`.  Necessity is a
+  square / `2·square`-mod-8 enumeration (`form8_residue`).  Narrative folded into
+  `theory/essays/synthesis/representation_theorems_one_counting_bound.md` (open-frontier paragraph).
 
 - **Three-square theorem (`n = a²+b²+c²` iff `n ≠ 4ᵏ(8m+7)`).**  Genuinely outside *both* engines
   as stated: three squares is **not** multiplicative (no `isSum3_mul`), so the prime reduction
