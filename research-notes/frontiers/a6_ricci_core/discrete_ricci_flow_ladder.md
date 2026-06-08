@@ -104,8 +104,8 @@ discrete A6 core is closed across **four** curvature frames (Forman, Gauss–Bon
 all sign-agreeing.
 
 **Rung 6 refinement — the complete graph `K_m` for general `m`** — ✅ **DONE**
-(`BakryEmery.lean` §3, 9 PURE).  The triangle `bochner_triangle` was the `m = 3` case; §3 discharges the
-whole family parametric in the vertex count.  `K_m` is modelled as a **centre vertex** (value `c`) joined
+(`BakryEmery.lean` §3, 14 PURE: 6 defs + 8 theorems).  The triangle `bochner_triangle` was the `m = 3`
+case; §3 discharges the whole family parametric in the vertex count.  `K_m` is modelled as a **centre vertex** (value `c`) joined
 to `k = m−1` **neighbours** (`b : Nat → Int`), every pair also adjacent — a presentation that makes the
 positive-curvature term a **full double `gridSumZ` of squared differences** `sosGap = Σ_jΣ_{j'}(b j'−b j)²`
 whose diagonal `(b j − b j)² = 0` vanishes on its own, so **no index has to be excluded** (the bookkeeping
@@ -113,8 +113,10 @@ wall the `m = 3` hand computation only sidestepped concretely, and a Cauchy–Sc
 `bochner_complete` (`gamma2C = (k+3)·gammaC + sosGap`, pure `gridSumZ` linearity + `ring_intZ`) ⟹
 `cd_complete_graph` (`gamma2C ≥ (k+3)·gammaC`, from `sosGap_nonneg`): **`K_m` is `CD((m+2)/2, ∞)`** since
 `k+3 = m+2`, the textbook Bakry–Émery curvature of the complete graph, generalizing `cd_triangle`
-(`k = 2`: `k+3 = 5`, `sosGap = 2(b₀−b₁)²`).  New generic infra: `gridSumZ_const`, `gridSumZ_nonneg`
-(`OllivierRicci.lean` §1).
+(`k = 2`: `k+3 = 5`, `sosGap = 2(b₀−b₁)²`).  The bound is **sharp** (`cd_complete_graph_sharp`): on any
+constant-neighbour configuration `sosGap = 0`, so `gamma2C = (k+3)·gammaC` *exactly* — `(m+2)/2` is the
+*actual* curvature of `K_m`, not just a lower bound, hence cannot be improved.  New generic infra:
+`gridSumZ_const`, `gridSumZ_nonneg` (`OllivierRicci.lean` §1).
 
 Remaining refinements: the discrete Lin–Yau optimal `K` (the largest `K` in `CD(K,∞)`, a max over test
 functions); more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor

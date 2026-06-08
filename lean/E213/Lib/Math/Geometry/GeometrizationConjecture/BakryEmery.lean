@@ -42,7 +42,7 @@ namespace E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery
 open E213.Meta.Int213
 open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
   gridSumZ_succ gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left
-  gridSumZ_const gridSumZ_nonneg)
+  gridSumZ_const gridSumZ_nonneg gridSumZ_zero_fn)
 
 /-! ## §1 — the line `ℤ` (or large cycle): local Γ-calculus on a radius-2 stencil
 
@@ -274,5 +274,32 @@ theorem cd_complete_graph (k : Nat) (b : Nat → Int) (c : Int) :
     `CD((m+2)/2,∞)` is a genuine positive lower bound, not vacuous. -/
 theorem gammaC_nonneg (k : Nat) (b : Nat → Int) (c : Int) : 0 ≤ gammaC k b c :=
   gridSumZ_nonneg k _ (fun _ _ => int_sq_nonneg _)
+
+/-- The SOS gap vanishes when all neighbour values coincide: every difference
+    `b j' − b j = 0`, so the double sum is a sum of zeros. -/
+theorem sosGap_eq_zero_of_const (k : Nat) (b : Nat → Int)
+    (hb : ∀ i j, i < k → j < k → b i = b j) : sosGap k b = 0 := by
+  unfold sosGap
+  have hinner : ∀ j, j < k →
+      gridSumZ k (fun j' => (b j' - b j) * (b j' - b j)) = 0 := by
+    intro j hj
+    rw [gridSumZ_congr k _ (fun _ => (0 : Int))
+          (fun j' hj' => by
+            have hz : b j' - b j = 0 := by rw [hb j' j hj' hj]; exact add_neg_cancel (b j)
+            show (b j' - b j) * (b j' - b j) = 0
+            rw [hz]; exact zero_mul 0)]
+    exact gridSumZ_zero_fn k
+  rw [gridSumZ_congr k _ (fun _ => (0 : Int)) (fun j hj => hinner j hj)]
+  exact gridSumZ_zero_fn k
+
+/-- ★★★★ **The `CD((m+2)/2, ∞)` bound is sharp** — attained with equality on any
+    "constant-neighbour" configuration (`sosGap = 0`): `gamma2C = (k+3)·gammaC`
+    exactly.  So `(m+2)/2` is the *actual* Bakry–Émery curvature of `K_m`, not
+    merely a lower bound — the bound `cd_complete_graph` cannot be improved.  (The
+    witness is non-vacuous: take `b` constant `≠ c`, then `gammaC = k·(b−c)² > 0`.) -/
+theorem cd_complete_graph_sharp (k : Nat) (b : Nat → Int) (c : Int)
+    (hb : ∀ i j, i < k → j < k → b i = b j) :
+    gamma2C k b c = ((k : Int) + 3) * gammaC k b c := by
+  rw [bochner_complete, sosGap_eq_zero_of_const k b hb, Int.add_zero]
 
 end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery
