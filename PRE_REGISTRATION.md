@@ -95,6 +95,16 @@ near-term experiment whose result DRLT cannot retro-adjust.
 > currently inconsistent with the catalog θ_QCD value** until `(ρ,η)` is
 > derived. Frontier: `research-notes/frontiers/ckm_rho_eta_apex.md`.
 > Until resolved, P2 should **not** be relied on as a forward prediction.
+>
+> ✅ **Apex candidate found (2026-06-07, `JarlskogApex.lean`).** The missing
+> factor has a strong atomic candidate: `R_u = √(ρ²+η²) = c/d = 2/5`
+> (equivalently `|V_ub|/|V_cb| = c/D = 2/22`). With it, `s₁₃ = Aλ³·(c/d) =
+> 0.00380` matches observed `|V_ub| = 0.00382` (0.5%), and `J = 3.27×10⁻⁵`
+> matches observed `3.08×10⁻⁵` (6%, vs 166% without). This **restores** the
+> θ_QCD value to the catalog range and removes the inconsistency above — but
+> `R_u = c/d` is a **candidate** (the `c`-numerator is not yet a forcing
+> theorem), so P2 is upgraded from "inconsistent" to "candidate-derived at
+> ~6%", still not ppb-clean. Frontier: `ckm_rho_eta_apex.md`.
 
 ---
 
