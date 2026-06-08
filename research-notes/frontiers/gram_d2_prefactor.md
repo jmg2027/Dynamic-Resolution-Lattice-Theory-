@@ -67,6 +67,43 @@ in degree-2 structure — not a posit.
 Gram self-energy *with* the degree-2 / 2-point cup object — the natural
 reading of a self-energy, but not yet a separate forcing theorem.
 
+## Reframe — "it's not Gram" (2026-06-07, originator's insight)
+
+Testing the "Gram" label against `Lib/Math/Algebra/Linalg213/Gram.lean`:
+a genuine Gram matrix is **symmetric** (`inner_symm`) with **rank ≤ d**
+(stated, line 15). So its independent DOF is *not* `d²` (symmetric ⇒ ≤
+N(N+1)/2; rank ≤ d shrinks it further). Taking "Gram" literally
+**undercounts** — `d² = 25` is the dimension of the *full, unconstrained*
+2-point operator space `V ⊗ V ≅ End V` (all `d²` components), which a Gram
+matrix does not have. `gramMatrixEntries` happened to read `d²` only because
+it counts *entries*, not DOF.
+
+So "Gram" is a **view promoted to identity** (CLAUDE.md failure mode): the
+whole `Gram*` file family names the correction after one incidental reading.
+The mechanism is the **generic degree-2 / 2-point operator-space**
+normalization — exactly the leg `GramD2Mechanism` already used (`tensorDim`,
+not Gram DOF). The insight validates that leg and exposes the name as legacy
+(inherited from `GramStructural`/`GramSelfEnergy`).
+
+**Consequence — two d-facts were conflated under "Gram":**
+- **denominator `d²`** = ambient 2-point operator-space dimension (`/d²`),
+  independent of the object's rank;
+- **rank ≤ d** = the object's *effective content* (cf. the "rank-1 effective
+  trace", `refined_trace` weight=1 at k=1) — a numerator/`α²`-side fact.
+
+Separating them gives the clean form `α²/d² = (α/d)²` — the squared
+per-state-dimension coupling, a generic second-order self-energy with **no
+Gram-matrix machinery**. This brings the remaining premise closer to
+tautological (an `O(α²)` correction *is* a 2-point object).
+
+**Still open after the reframe**: why normalization is by the *full* `d²`
+(ambient) rather than a rank-reduced count. Reading (a) "divide by the
+dimension of the space the 2-point object lives in" ⇒ `d²` correct, Gram-rank
+irrelevant (cleaner, and consistent with the `tensorDim` grounding); reading
+(b) a genuinely rank-specific structure ⇒ re-examine. Evidence favors (a);
+not yet a theorem (reframe/hypothesis, not formalized — premature
+formalization would be fudge).
+
 ## What would fully close it
 
 A theorem identifying the Gram self-energy functional *as* the `k=1`
