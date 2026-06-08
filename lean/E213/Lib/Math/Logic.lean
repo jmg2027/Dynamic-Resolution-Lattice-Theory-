@@ -1,6 +1,8 @@
 import E213.Lib.Math.Logic.Omniscience
 import E213.Lib.Math.Logic.Pi01Decision
 import E213.Lib.Math.Logic.ChildSelection
+import E213.Lib.Math.Logic.DiagonalBase
+import E213.Lib.Math.Logic.Capstone
 
 /-!
 # Reverse Mathematics 213 — umbrella (`Lib/Math/Logic`)
