@@ -49,7 +49,12 @@ others together):
 a SEPARATE cap per axis; min-cover = max-anti is the transpose),
 `curvature_as_lens_readout` (curvature = a difference-Lens count + sign;
 Forman / Gauss–Bonnet / Ollivier / Bakry–Émery / conformal are five readouts of
-one sign↔topology fact).
+one sign↔topology fact),
+`the_permutation_under_three_readouts` (`det(permMatrix σ) = psign σ` — the sign
+via inversions and the determinant of the permutation matrix are one
+antisymmetric readout; Zolotarev adds the Legendre symbol `(a/p)` as a third on
+the `×a mod p` permutation, with `psign_mul` / `det_mul` / `legendre_mul` the one
+homomorphism under all three).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
