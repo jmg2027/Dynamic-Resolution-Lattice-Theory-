@@ -75,17 +75,23 @@ The committed-to multi-session build of `(ℤ/p)*` cyclic ⟹ Zolotarev nontrivi
   (`gcd(ord a, ord b) = 1 ⟹ ordModP ((a·b)%p) p = ord a · ord b`), via the product collapse +
   `euclid_of_coprime` + brick 1's `coprime_mul_dvd` (`lcm_dvd` + `gcd_mul_lcm`).
 
+- **brick 4a** `MaxOrder.lean` (13) — `maxOrd p` (max of `ordModP a p` over `[1,p−1]`) + pure
+  `nmax`; `maxOrd_ge`, ★★ `maxOrd_achieved` (`= ordModP g p`, some unit `g`), `one_le_maxOrd`,
+  `maxOrd_le_pred` (`1 ≤ maxOrd ≤ p−1`).  The exponent-argument scaffolding.
+
 **Bricks remaining:**
-- **brick 4 — `maxOrd` + "every order ∣ maxOrd"** (THE CRUX).  Define the maximum order over
-  `[1,p−1]` (a search/fold; the easy parts — achieved, `1 ≤ maxOrd ≤ p−1` — are routine).  The
-  hard heart is **orders closed under lcm**: given orders `α, d` with `α ∤ d`, build an element
-  of order `lcm(α,d) > d` (contradicting maximality), via bricks 2+3.  That needs the
-  **★ coprime lcm decomposition** `∃ α' d', α'∣α ∧ d'∣d ∧ gcd(α',d')=1 ∧ α'·d' = lcm(α,d)` —
-  then `a^(α/α')` has order `α'` (brick 2), `g^(d/d')` order `d'`, product order `α'·d' = lcm`
-  (brick 3).  **No simple gcd split works** (verified: `α=12,d=18` needs `α'=4,d'=9`, a
-  per-prime assignment), so this is the factorization-free **coprime-base extraction**
-  (iterated `gcd`-division, fuel-bounded) — a substantial ~200-line sub-build, the genuine heart
-  of the exponent argument.  Deserves its own focused session.
+- **brick 4b — "every order ∣ maxOrd"** (THE CRUX).  Given an order `α` and `d = maxOrd`
+  (achieved by `g`), if `α ∤ d` build an element of order `> d`, contradicting `maxOrd_ge`.
+  Sharpened **factorization-free** route (avoids full FTA): `α ∤ d ⟹ α/gcd(α,d) > 1 ⟹
+  ∃ prime q ∣ (α/gcd(α,d)) ⟹ v_q(α) > v_q(d)` (since `v_q(gcd) = min = v_q(d) < v_q(α)`).  Then
+  with `e = v_q(α)`, `f = v_q(d)` (`f < e`): `a^(α/qᵉ)` has order `qᵉ` (brick 2 `ord_pow`,
+  `gcd(α,α/qᵉ)=α/qᵉ`), `g^(qᶠ)` has order `d/qᶠ` (coprime to `q`), product order
+  `qᵉ·(d/qᶠ) = q^{e−f}·d > d` (brick 3 `ord_mul_coprime`).  **Missing infra**: `p`-adic
+  valuation `v_p` (search def + `pᵏ∣n ⟺ k ≤ v_p n`) and the `q`-part `q^{v_q(·)}` extraction
+  — a distinct ~200-line foundation (`Meta/Nat` or `NumberTheory`), the genuine heart.  Prime
+  factor of `n>1` exists (standard).  A dedicated next session.
+- **brick 5** RootBound gluing (`X^{maxOrd}−1` has `p−1` roots ⟹ `p−1 ≤ maxOrd` ⟹ `= p−1`).
+- **brick 6** `(p−1)`-cycle of `mulPerm g` ⟹ nontriviality ⟹ full Zolotarev.
 - **brick 5 — `RootBound` gluing**: every unit satisfies `x^{maxOrd} ≡ 1`, so `X^{maxOrd}−1`
   (as `List Int`) has `p−1` distinct roots; `RootBound.eval_zero` ⟹ `f ≡ 0` everywhere ⟹
   `f(0) = −1 ≡ 0`, contra ⟹ `p−1 ≤ maxOrd`; with `maxOrd ∣ p−1` ⟹ `maxOrd = p−1` ⟹
