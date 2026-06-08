@@ -38,7 +38,7 @@ parity decides which half vanishes; `LLPO.lean`, via a native Bool `parity`).
 | **free interior** | `cantor_stream_not_enumerable` — the Bool-stream carrier is not enumerable (Cantor's diagonal); the residue's `object1_not_surjective`; the p-adic `zpSeq_not_enumerable` | **none** |
 | **omniscience base** | `lpo_imp_wlpo`, `lpo_imp_mp` | structural |
 | **Π⁰₁ / Σ⁰₁ decision** | `lpo_decides_pi01` (deciding `∀n, h n = true`; instance `lpo_decides_infiniteBelow`, the König "infinite-below" via `existsLevel`); `lpo_decides_sigma01` (deciding `∃n, h n = true`) | **LPO** |
-| **König selection** | `lpo_infChildExistsN` — an infinite-below node has an infinite-below child, for a downward-closed (`LevelAntitone`) tree | **LPO** (LLPO suffices) |
+| **König selection** | an infinite-below node has an infinite-below child, downward-closed tree — `lpo_infChildExistsN` (LPO) and the tightened `llpo_infChildExistsN` (LLPO) | **LLPO** (tight) |
 
 `Lib/Math/Logic/Capstone.lean` bundles these into one ∅-axiom witness `reverse_math_ledger`.
 
@@ -58,6 +58,9 @@ parity decides which half vanishes; `LLPO.lean`, via a native Bool `parity`).
   `KonigConditional.InfBelow`); pure `append_nil_pure`/`append_assoc_pure` (5 PURE).
 - **GA-cont** `LLPO.lean` — `lpo_imp_llpo` (**LPO ⟹ LLPO**) via native `parity`,
   `even_or_odd`, `even_ne_odd` (8 PURE).
+- **GB-cont4** `Interleave.lean` (6 PURE) + `LLPOSelection.lean` (12 PURE) —
+  `llpo_infChildExistsN`: König child selection from **LLPO** (the tight cost), via the
+  monotone turn-off encoding (`interleave`, `ftrue`, `ftrue_unique`, `not_both`).
 
 ## How the König thread arithmetized
 
@@ -125,19 +128,12 @@ kernel had it not been hypothesized or hand-rolled away.  The omniscience ledger
 
 ## Open
 
-- **Tighten the König-selection cost from LPO to LLPO** — the headline remaining piece, and
-  *not* a corollary of `lpo_imp_llpo` (that runs LPO ⟹ LLPO, the wrong direction).  The
-  current `lpo_infChildExistsN` proof uses LPO to *decide* the left child (a `Π⁰₁`
-  decision), which LLPO cannot do.  A genuine LLPO proof uses the **monotone turn-off
-  encoding** via `g := interleave (ftrue fa) (ftrue fb)` with `fa = !e0`, `fb = !e1`
-  (`Interleave.lean`): `fa,fb` are monotone and never-both-true (else `e0,e1` both fail at
-  `max`, contradicting the cover `∀n (e0 n ∨ e1 n)`), so `g` is at-most-one-true and LLPO's
-  even-or-odd split + `ftrue_all_false` yields `InfB s0 ∨ InfB s1`.
-  *Infrastructure DONE* (`Interleave.lean`, 6 PURE): the div/mod-free `interleave` +
-  `il_even`/`il_odd`, the `ftrue` rising-edge stream, and `ftrue_all_false` (the
-  back-conversion).  *Remaining crux:* `ftrue_unique` (monotone ⟹ at-most-one rising edge,
-  via Nat trichotomy), `not_both` (monotone + disjoint ⟹ not both rise), `monotone`-from-
-  `LevelAntitone`, and the parity assembly of `g`'s at-most-one — ~120 lines, a focused pass.
+- *(Done — was the headline piece: König-selection cost tightened LPO → **LLPO**,
+  `llpo_infChildExistsN`/`llpo_infChildExists_downwardClosed`, `LLPOSelection.lean`.  The
+  monotone turn-off encoding on `Interleave.lean`: `g = interleave (ftrue fa) (ftrue fb)` is
+  at-most-one-true via `ftrue_unique` (monotone ⟹ one rising edge, Nat trichotomy) +
+  `not_both` (monotone + disjoint ⟹ not both rise); LLPO's even/odd split + `ftrue_all_false`
+  gives `InfB s0 ∨ InfB s1`.  This was *not* a corollary of `lpo_imp_llpo` — a fresh proof.)*
 - The fan theorem and bar induction as residue-native principles.
 - *(Done: `existsLevel` ↔ `KonigConditional.InfBelow` — `infB_iff_infBelow`; `LevelAntitone`
   from a downward-closed `T` — `levelAntitone_of_downwardClosed`; LPO ⟹ LLPO — `lpo_imp_llpo`;
