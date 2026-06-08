@@ -119,11 +119,12 @@ the one arrow under all four.
 
 ## Open frontier
 
-The middle equality is proven; the outer two edges are not yet wired in Lean. The
-ripe target is the Zolotarev edge itself — define the value-list of `×a mod p`,
-show it lies in `perms (p−1)` on units, and prove `psign (×a mod p) = (a/p)` by
-pairing the inversion count against Gauss's `μ`. That single ∅-axiom edge turns
-"one permutation, three readouts" from a picture into a theorem and closes the
-triangle `det (permMatrix (×a)) = (a/p)`. The p-adic lift (state the quadratic
-character as a `μ_{p−1}`-component identity on `ω`) is the second edge. Both are
-tracked in the `permutation_three_readouts` frontier.
+The Zolotarev edge is **closed for every odd prime**
+(`ModArith/ZolotarevMuBridge.zolotarev_mu`: `psign (×a mod p) = (a/p)`, via
+`det_permMatrix_mulPermMod` also `det (permMatrix (×a)) = (a/p)`) — the inversion
+count is paired against Gauss's `μ` by a symmetric-cross-count parity, so "one
+permutation, three readouts" is a theorem, not a picture.  See the dedicated
+chapter `theory/math/numbertheory/zolotarev.md` and the synthesis essay
+`the_legendre_symbol_is_the_sign_of_a_pointing.md`.  The remaining edge is the
+p-adic lift — state the quadratic character as a `μ_{p−1}`-component identity on
+the Teichmüller `ω` — tracked in the `permutation_three_readouts` frontier.
