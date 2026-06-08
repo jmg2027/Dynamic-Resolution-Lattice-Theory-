@@ -144,6 +144,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `selfref_matrix_crossdomain` — **the self-reference matrix `M=[[2,1],[1,1]]` as the common
+  root** (apex ↔ Casoratian ↔ axis, this session × main).  Five connections: (1) the CKM
+  factorises by discriminant — modulus on `ℚ(√5)` (+5, golden eigenvalue), phase on `ℚ(i)` (−4,
+  Hodge `⋆`); (2) `det=1` unimodularity is the one shared engine (apex reciprocity ↔ `det(AB)=det
+  A·det B` ↔ CKM unitarity ↔ Legendre); (3) "modulus = de-signed square" is the same Bool/
+  difference-Lens as the Casoratian/Cassini sign; (4) `M` is the companion matrix of `x²−3x+1`, so
+  the fourth-readout companion-sign machinery applies to the apex itself; (5) `H*(Δ⁴)` shared by
+  `1/α_em` and the CP phase.  Buildable: unimodularity note, companion-cycle reading of the apex,
+  the two eigen-fields of `d=5`.
 - `cp_crossdomain_insights` — **CP-phase cohomology ↔ main's sign/QR/cyclotomic
   campaigns** (merge marathon). Four candidate bridges where the two branches
   share one object: (1) the inversion sign is one object — `det(permMatrix)=psign`
