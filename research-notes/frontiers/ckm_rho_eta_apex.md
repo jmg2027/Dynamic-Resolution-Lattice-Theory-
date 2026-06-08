@@ -180,6 +180,37 @@ not a closed precision result.
   φ² the *same* φ that A₅ flavour symmetry produces, via a shared icosahedral
   structure? That would bridge the DRLT mechanism to established flavour physics.
 
+## Marathon result — the self-reference map IS an A₅ element (2026-06-08)
+
+The research lead above is now **substantially answered at the group-theory
+level** (`lean/E213/Lib/Math/Algebra/Icosahedral/`, 14 thms PURE):
+
+- `M` reduced mod `d = 5` satisfies `M⁵ ≡ −I (mod 5)`, `M¹⁰ ≡ I`, with order
+  **exactly** 5 in `PSL(2,𝔽₅) ≅ A₅` (the whole mod-5 orbit computed by genuine
+  𝔽₅-matrix multiplication, `OrderFive.order_exactly_five_in_psl` — closes the
+  "no early return" gap that `Mobius213ModFive`'s precomputed-entry statement
+  left open). So `M` is a **5-fold icosahedral rotation**.
+- That A₅ element carries the icosahedral 3-rep **character `φ`**; `M`'s ℝ
+  eigenvalue is `φ²`; they are **one** golden ratio, bridged by `φ² = φ + 1`
+  = the Fibonacci recurrence on convergents (`A5Bridge.golden_bridge`:
+  `eigenvalue = character + 1`).
+- `d = 5` is **both** `disc M = NS²−4` (ℝ side) **and** the field `𝔽₅`
+  realising A₅ (`OrderFive.d_double_role`).
+
+**What this changes for the open premise.** "Why is the CP-apex modulus a
+self-reference eigenvalue" now has a concrete *structural home*: the
+self-reference map is literally an `A₅` rotation, and `A₅` golden-ratio flavour
+symmetry (`SU(5)×A₅`, arXiv:1410.2057, 1312.0215) is established physics that
+reproduces quark mixing + the CP phase from this same `φ`. DRLT already has the
+`SU(5)` side (`d=5`, `5⊗5=25`); it now has the `A₅` side *as the same matrix*.
+
+**Still open (honest, §5.4).** This is a *bridge*, not a closure: it shows `M`
+is an A₅ element carrying `φ`, but does **not yet derive** the apex *value*
+`R_u = 1/φ²` from an explicit `A₅` flavour assignment of the three generations.
+The next real step: build the `A₅`-triplet assignment of the quark generations
+and read off the mixing apex — comparing against the established `SU(5)×A₅`
+model. That would convert the bridge into a derivation.
+
 ## Tested and NOT closed — the law-of-sines route (honest, fishing-risk flagged)
 
 Attempt: if all three triangle angles are atomic, law-of-sines forces `R_u`.

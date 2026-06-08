@@ -175,6 +175,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `√(ρ²+η²)≈0.39`). A `CPViolation.lean` comment had masked this with an
   arithmetic error ("within 10%"); corrected. Open: derive `(ρ,η)`/`η`.
   Consumer: θ_QCD (`PRE_REGISTRATION.md` P2).
+  **Update (2026-06-08)**: apex modulus `1/φ²` grounded as the self-reference
+  Möbius contracting eigenvalue, and `1/φ²`-over-`φ²` now *forced* by `R_u<1`
+  (`JarlskogApex.apex_modulus_subunit_forced`). **A₅ bridge marathon**
+  (`lean/E213/Lib/Math/Algebra/Icosahedral/`, 14 PURE): the self-reference map
+  `M` mod `d=5` is an order-5 element of `PSL(2,𝔽₅)≅A₅` (icosahedral) carrying
+  character `φ` = the eigenvalue `φ²` via `φ²=φ+1` — grounds the open premise in
+  established A₅ golden flavour symmetry. Still open: derive the apex *value*
+  from an explicit A₅ generation assignment.
 
 - `count_substrate_synthesis` — post-closure synthesis of the COUNT arc (both
   named bounds proven): patterns (dual COUNT faces share one residue + the
