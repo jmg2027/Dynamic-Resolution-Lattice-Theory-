@@ -194,16 +194,34 @@ functions.  **Still walled:** the *transcendental* Perelman
 `𝓦`-entropy `∫[τ(R+|∇f|²)+f−n](4πτ)^{−n/2}e^{−f}` (needs the `n`-dim Gaussian =
 `exp` integration; the discrete `𝓦`-analog is the rung-3 energy decay).
 
+## General-`n` conformal **scalar** curvature — the conformal route pushed past 2D
+
+The 2D-conformal Liouville curvature **generalizes to all `n`** for the *scalar*
+curvature (`ConformalCurvature.lean` §S6, PURE).  For `g = λ·δ` on `ℝⁿ` the conformal
+factor `φ = ½ln λ` cancels, leaving the **rational** (no transcendental) scalar
+curvature `R = −(n−1)(4λΔλ + (n−6)|∇λ|²)/(4λ³)` — `confRNumN` is the numerator over ℤ.
+It **reduces exactly to the 2D case** (`confRNumN_eq_confKNum`: `confRNumN 2 = 4·confKNum`,
+`R = 2K`), validating the general formula against the established `n = 2`.  At **`n = 3`**
+— the Poincaré/Geometrization dimension — the flat/positive/negative trichotomy is closed
+on polynomial `λ` at the origin 2-jet (`conformal_scalar_curvature_3d`: dome `48C`,
+paraboloid `−48`).  So the conformal route is **not** stuck at 2D; the general-`n`
+*scalar* curvature is reachable.  **Honest boundary**: this is only the *scalar* curvature;
+the full Ricci **tensor** and the Ricci **flow** for `n ≥ 3` need the general-`n` tensor
+calculus (and Ricci flow does **not** preserve conformality for `n ≥ 3`), still walled.
+
 ## Verdict
 
 The round-sphere extinction is the honest *floor*.  General-`n` + transcendental-
 metric `𝓕/𝓦`-monotonicity (the smooth *flow* with PDE a-priori estimates) remains
-the *core* wall.  But the smooth route is **not** wholesale walled, on two fronts:
-**2D conformal Ricci curvature/flow is reachable** (rational `K`, no sqrt/exp),
-and the **general-`n` Ricci lower bound is reachable synthetically** via the
-Bakry–Émery `CD(K,N)` condition (`BakryEmery.lean`) — the dimension-independent
-meaning of `Ric ≥ K` as a sum-of-squares fact.  Three converging routes to A6's
-core now stand: the **discrete** Forman/Ollivier/Bakry–Émery ladder
-(`a6_ricci_core/`), the **smooth 2D conformal** ladder above, and the
-**synthetic CD(K,N)** curvature-dimension condition.  Do not narrate the general
-smooth-flow core as "closed"; do pursue all three.
+the *core* wall.  But the smooth route is **not** wholesale walled, on three fronts:
+**2D conformal Ricci curvature/flow is reachable** (rational `K`, no sqrt/exp), the
+**general-`n` conformal *scalar* curvature is reachable** (`confRNumN`, the conformal
+route past 2D — incl. the `n = 3` Poincaré dimension), and the **general-`n` Ricci lower
+bound is reachable synthetically** via the Bakry–Émery `CD(K,N)` condition
+(`BakryEmery.lean`) — the dimension-independent meaning of `Ric ≥ K` as a sum-of-squares
+fact.  Converging routes to A6's core stand: the **discrete** Forman/Ollivier/Bakry–Émery
+ladder (`a6_ricci_core/`) + its **Lichnerowicz spectral bridge** (`DiscreteLichnerowicz`),
+the **smooth conformal** ladder (now general-`n` scalar), and the **synthetic CD(K,N)**
+condition.  Do not narrate the general smooth-flow core as "closed" — the Ricci *tensor* +
+*flow* for `n ≥ 3` and transcendental metrics + PDE a-priori estimates are the residual
+wall; do pursue all routes.

@@ -99,4 +99,71 @@ theorem conf_flow_stationary_imp_flat (lam lamx lamy lamxx lamyy : Int)
   rw [Int.neg_neg, Int.neg_zero] at h2
   exact h2
 
+/-! ## §S6 — general-`n` conformally-flat scalar curvature (the `n = 3` Poincaré dimension)
+
+The 2D Liouville curvature above generalizes: for a conformally-flat metric `ds² =
+λ·(dx₁²+…+dxₙ²)` on `ℝⁿ` (`λ > 0` a polynomial factor), the **scalar** curvature is the
+rational expression (no transcendentals — `φ = ½ln λ` cancels, leaving `λ`-rationals):
+
+  `R = −(n−1)·(4λ·Δλ + (n−6)·|∇λ|²) / (4λ³)`,   `|∇λ|² = Σ λ_i²`,  `Δλ = Σ λ_ii`.
+
+`confRNumN` is the numerator `−(n−1)(4λΔλ + (n−6)|∇λ|²)`; `R = confRNumN/(4λ³)`, so for
+`λ > 0` the sign of `R` is the sign of `confRNumN`.  It **reduces exactly** to the 2D
+Liouville case (`confRNumN_eq_confKNum`: `confRNumN 2 = 4·confKNum`, `R = 2K`), validating
+the general formula against the established `n = 2`.
+
+This is the genuine smooth-geometry advance toward general `n` along the **reachable
+conformal route** (polynomial `λ`, numerator over ℤ, `ring_intZ`) — and at `n = 3` it is
+the **scalar curvature of conformally-flat 3-metrics**, the Poincaré/Geometrization
+dimension.  Honest boundary: only the *scalar* curvature is reached this way; the full
+Ricci **tensor** and the Ricci **flow** for `n ≥ 3` need the general-`n` tensor calculus
+(and Ricci flow does **not** preserve conformality for `n ≥ 3`), which stays walled
+(`ricci_flow_smooth_core.md`).  All zero-axiom. -/
+
+/-- General-`n` conformally-flat **scalar**-curvature numerator from the `2`-jet of `λ`
+    (`gradSq = |∇λ|²`, `lap = Δλ`): `confRNumN n = −(n−1)(4λ·lap + (n−6)·gradSq)`.  The
+    scalar curvature is `R = confRNumN / (4λ³)`; the dimension `n` enters as an `Int`
+    parameter (the formula is polynomial in `n`). -/
+def confRNumN (n lam gradSq lap : Int) : Int :=
+  -(n - 1) * (4 * lam * lap + (n - 6) * gradSq)
+
+/-- ★★★★★ **Validation: the general-`n` formula reduces to 2D Liouville.**  At `n = 2`,
+    `confRNumN 2 lam |∇λ|² Δλ = 4·confKNum` — so `R = confRNumN/(4λ³) = 4·confKNum/(4λ³) =
+    confKNum/λ³ = 2K`, the established 2D Gauss curvature (`Ric = K·g`, `R = 2K`).  Pure
+    `ring_intZ`. -/
+theorem confRNumN_eq_confKNum (lam lamx lamy lamxx lamyy : Int) :
+    confRNumN 2 lam (lamx * lamx + lamy * lamy) (lamxx + lamyy)
+      = 4 * confKNum lam lamx lamy lamxx lamyy := by
+  unfold confRNumN confKNum; ring_intZ
+
+/-- ★★★ **Flat (any `n`).**  A constant conformal factor (`λ = c`, zero `2`-jet) has scalar
+    curvature `0`. -/
+theorem confR_flat (n c : Int) : confRNumN n c 0 0 = 0 := by
+  unfold confRNumN
+  rw [PolyIntM.mul_zeroZ, PolyIntM.mul_zeroZ, Int.add_zero, PolyIntM.mul_zeroZ]
+
+/-- ★★★★ **3D positive — the round-cap origin.**  In `n = 3`, the dome factor `λ = C − r²`
+    has `2`-jet at the origin `(λ, |∇λ|², Δλ) = (C, 0, −6)` (`Δr² = 2n = 6`), giving scalar
+    curvature numerator `48·C > 0` (`C > 0`): a genuine positively-curved 3-metric. -/
+theorem confR3_dome (C : Int) : confRNumN 3 C 0 (-6) = 48 * C := by
+  unfold confRNumN; rw [PolyIntM.mul_zeroZ, Int.add_zero]; ring_intZ
+
+/-- ★★★★ **3D negative — the paraboloid origin.**  In `n = 3`, `λ = r² + 1` has origin
+    `2`-jet `(1, 0, 6)`, scalar curvature numerator `−48 < 0`: a negatively-curved 3-metric. -/
+theorem confR3_paraboloid : confRNumN 3 1 0 6 = -48 := by
+  unfold confRNumN; rw [PolyIntM.mul_zeroZ, Int.add_zero]; ring_intZ
+
+/-- ★★★★★ **Smooth conformally-flat scalar-curvature trichotomy in `n = 3`** (the
+    Poincaré/Geometrization dimension).  Flat (`λ` constant), positive (dome `λ = C−r²`,
+    `C > 0`), negative (paraboloid `λ = r²+1`) — each a genuine smooth scalar-curvature
+    value of a conformally-flat 3-metric, `∅`-axiom, generalizing the 2D trichotomy
+    (`conformal_curvature_trichotomy`) to the 3-manifold dimension. -/
+theorem conformal_scalar_curvature_3d (C : Int) (hC : 0 < C) :
+    confRNumN 3 5 0 0 = 0
+    ∧ (0 : Int) < confRNumN 3 C 0 (-6)
+    ∧ confRNumN 3 1 0 6 < 0 := by
+  refine ⟨confR_flat 3 5, ?_, ?_⟩
+  · rw [confR3_dome]; exact OrderMul.mul_pos (by decide) hC
+  · rw [confR3_paraboloid]; decide
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.ConformalCurvature
