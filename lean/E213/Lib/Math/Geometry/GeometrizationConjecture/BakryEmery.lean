@@ -302,4 +302,25 @@ theorem cd_complete_graph_sharp (k : Nat) (b : Nat → Int) (c : Int)
     gamma2C k b c = ((k : Int) + 3) * gammaC k b c := by
   rw [bochner_complete, sosGap_eq_zero_of_const k b hb, Int.add_zero]
 
+/-- The constant-`0` neighbour configuration (centre `c = 1`) has `gammaC = k` — non-vacuous
+    (`> 0` for `k ≥ 1`), the witness that makes `CD((m+2)/2,∞)` a *tight* bound. -/
+theorem complete_graph_gammaC_witness (k : Nat) : gammaC k (fun _ => 0) 1 = (k : Int) := by
+  show gridSumZ k (fun _ => ((0:Int) - 1) * ((0:Int) - 1)) = (k : Int)
+  exact Eq.trans (Eq.trans
+    (gridSumZ_congr k (fun _ => ((0:Int) - 1) * ((0:Int) - 1)) (fun _ => (1:Int))
+      (fun _ _ => by dsimp only; ring_intZ))
+    (gridSumZ_const k 1)) (mul_one (k : Int))
+
+/-- ★★★★ **The Bakry–Émery curvature of `K_m` is exactly `(m+2)/2`** — the optimal Lin–Yau curvature.
+    The lower bound `CD((m+2)/2,∞)` (`cd_complete_graph`) is *attained with equality* on the constant-`0`
+    neighbour configuration, which has `gammaC = k > 0` (`k = m−1 ≥ 1`).  So no larger curvature constant
+    is a universal lower bound: `(m+2)/2` is the genuine Bakry–Émery (Lin–Yau optimal) curvature of `K_m`,
+    not merely a bound. -/
+theorem lin_yau_curvature_complete (k : Nat) (hk : 1 ≤ k) :
+    0 < gammaC k (fun _ => 0) 1
+    ∧ gamma2C k (fun _ => 0) 1 = ((k : Int) + 3) * gammaC k (fun _ => 0) 1 := by
+  refine ⟨?_, cd_complete_graph_sharp k (fun _ => 0) 1 (fun _ _ _ _ => rfl)⟩
+  rw [complete_graph_gammaC_witness]
+  exact Order.lt_of_lt_of_le (by decide) (OrderMul.ofNat_le_of_le hk)
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery

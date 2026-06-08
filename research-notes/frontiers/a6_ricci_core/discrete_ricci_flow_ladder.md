@@ -130,8 +130,14 @@ generalizing the §4 triangle (`m = 3`, `κ = ½`) and `→ 1` as `m → ∞`.  
 grid sums `gridSumZ_delta`, `gridSumZ_delta_zero`, `gridSumZ_delta_weight` (`OllivierRicci.lean` §1).  Both
 general-`m` complete-graph curvatures (Bakry–Émery `CD((m+2)/2,∞)` + Ollivier `(m−2)/(m−1)`) now stand.
 
-Remaining refinements: the discrete Lin–Yau optimal `K` (the largest `K` in `CD(K,∞)`, a max over test
-functions); more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
+**Lin–Yau optimal `K` for `K_m`** — ✅ **DONE** (`BakryEmery.lean` §3, `lin_yau_curvature_complete`).
+The lower bound `cd_complete_graph` is *attained with equality* on the constant-`0` neighbour
+configuration (`cd_complete_graph_sharp`), which is **non-vacuous** — `complete_graph_gammaC_witness`
+gives `gammaC = k > 0` for `k = m−1 ≥ 1`.  Lower bound + tight witness ⟹ `(m+2)/2` is the *optimal*
+(Lin–Yau) Bakry–Émery curvature of `K_m`, not merely a bound.
+
+Remaining refinements: the discrete Lin–Yau optimal `K` for *non-complete* graphs (the cycle, the
+bipartite `K_{a,b}`); more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
 flow* and the transcendental Perelman `𝓦`-entropy (`ricci_flow_smooth_core.md`) — but the general-`n` Ricci
 **lower bound** is now reachable synthetically via `CD(K,N)` (rung 6, now for *every* `K_m`).  The smooth
 2D-conformal route (S3–S5) is separately closed (`ConformalCurvature.lean`).
