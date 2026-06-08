@@ -108,3 +108,47 @@ ramified `p = 5` the quintupling identity `F_{5m} = F_m·(25F_m⁴+25(−1)ᵐF_
 analogue (an index-`α(p)`-multiplication identity with a cofactor `≡ 1 mod p`)
 — buildable from `fibZ_index_rec` iterated to `k = α(p)`, parametric in the
 rank.  Only `p = 5` is carried out.
+
+## New branch×main insights from this session's closures
+
+Surfaced by the rank law (`RankApparition`) + the `ℚ(√5)` morphism
+(`GoldenFieldBridge`) sitting next to main's Zolotarev / Pisano-predictor /
+CP-essay arcs.  The recurring object is the Legendre symbol `(5/p)`.
+
+### 6. The rank-law character `legendre213 5 p` IS Zolotarev's permutation sign
+
+This branch's rank law dispatches on `legendre213 5 p` — `(5/p)` read as the
+**terminal state of the FSM trajectory** `x ↦ 5x mod p` walked `(p−1)/2` steps
+(Euler's criterion).  Main's `ZolotarevMuBridge.zolotarev_mu` proves `(a/p) =
+psign σ_a` — `(5/p)` read as the **parity of the `×5 mod p` permutation**.  So
+the *same* `(5/p)` that fixes the Fibonacci rank `α(p) ∣ p − (5/p)` is the sign
+of the `×5` permutation: the Fibonacci entry point is governed by a permutation
+parity.  **Bridge (buildable):** `legendre213 5 p = (if psign σ_5 = 1 then 1
+else 2)` (the FSM-walk Legendre = the Zolotarev permutation sign, modulo the
+ramified `=0` corner) — then `α(p) ∣ p − psign(σ_5)`, tying the rank dispatch
+to the Zolotarev converse.  A **fifth** "permutation under three readouts"
+instance: `(5/p)` = trajectory terminal = permutation sign = `det(permMatrix)`,
+now also = Fibonacci rank offset.
+
+### 7. Rank dispatch and Pisano-period dispatch are one character, two read-outs
+
+Main's `UniversalDispatch.universal_dispatch_pellCoeff` dispatches the Pisano
+**period** `π(p)` (the order of the Pell matrix) on `legendre213 5 p`; this
+branch's `rank_law_dispatch` dispatches the **entry point** `α(p)` on the same
+character.  Period and rank are the two canonical Fibonacci-mod-`p` invariants,
+and `α(p) ∣ π(p)` (the first zero divides the cycle length).  One Legendre
+character, two FSM read-outs — first-zero (rank) vs cycle-length (period) — each
+with its own dispatch theorem of identical shape (`fin3_cases` on the symbol).
+The branch supplies the entry-point face of a dispatch main had only for the
+period.
+
+### 8. The `x ↦ −x` morphism vs. main's `σ²` conjugation on `ℚ(√5)`
+
+`GoldenFieldBridge`'s `x ↦ −x` relates the two *generators* of `ℚ(√5)` (the
+Binet `x²−x−1` and the cyclotomic-period `x²+x−1`), the disc-`+5` real face.
+Main's `CyclotomicFive` carries `σ² =` complex conjugation, the order-2 element
+of `Gal(ℚ(ζ₅)/ℚ) ≅ C₄` that *fixes* `ℚ(√5)` and swaps the periods `η₀ ↔ η₁`.
+Distinct order-2 maps on the same field — generator-negation (branch) vs
+period-swap / Galois conjugation (main) — both witnessing that `ℚ(√5)` is the
+order-2 real subfield where the imaginary CP story (disc `−4`) and the real
+Fibonacci story (disc `+5`) are the two embeddings `ℚ(√5) ⊂ ℚ(ζ₅)`.
