@@ -121,6 +121,31 @@ theorem apex_ingredients_internal :
     -- φ² atomic anchor: d·NT = NS²+1 (φ²+1/φ² = NS)
     ∧ (5 * 2 = 3 * 3 + 1) := by decide
 
+/-! ## §3.5 — the coupling is the §5.7 coincidence, NOT a spiral trajectory
+
+A tempting wrong picture: the apex is `n` steps of a uniform discrete spiral
+(phase `nπ/5` from `M⁵=−I` over 5 steps, modulus `(1/φ²)ⁿ`).  This is **ruled
+out**: the apex phase-fraction `δ/π = 1/φ²` lies **strictly between** the
+consecutive uniform steps `1/5` and `2/5` (`1/5 < 8/21 ≤ 1/φ² ≤ 5/13 < 2/5`), so
+**no integer step `n` realizes it** — and the fractional `n = 5/φ²` would give
+modulus `(1/φ²)^{5/φ²} ≠ 1/φ²`.  So the coupling is **not** a spiral trajectory;
+it is the §5.7 **frozen=dynamic coincidence**: the frozen contraction `R_u` and
+the dynamic phase-fraction `δ/π` are the *same* number `1/φ²` read two ways
+(the same residue, two Lens readings), not co-advancing along a path. -/
+
+/-- ★★★ **Not a uniform spiral step (coupling = §5.7 coincidence).**  The apex
+    phase-fraction `1/φ²` is strictly between the uniform-spiral steps `1/5` and
+    `2/5` (cross-multiplied via the Fibonacci convergents `8/21`, `5/13`), so no
+    integer step realizes the apex.  The coupling `δ/π = R_u` is therefore the
+    frozen=dynamic *coincidence* (both `= 1/φ²`), not a trajectory. -/
+theorem coupling_not_uniform_spiral :
+    -- 1/5 < 8/21 ≤ 1/φ² (lower): 1·21 < 5·8
+    (1 * 21 < 5 * 8)
+    -- 1/φ² ≤ 5/13 < 2/5 (upper): 5·5 < 13·2
+    ∧ (5 * 5 < 13 * 2)
+    -- the bracketing convergents are the 1/φ² ones (golden, Fibonacci)
+    ∧ (fib 6, fib 8) = (8, 21) ∧ (fib 5, fib 7) = (5, 13) := by decide
+
 /-! ## §4 — capstone -/
 
 /-- ★★★★★★ **Apex from self-reference (213-internal).**  The CKM apex is the

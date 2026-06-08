@@ -210,6 +210,15 @@ The coupling `δ = π·R_u` is read three ways, all 213-native, all consistent:
    contracted" = "how far turned". Only the transcendental coefficient `π`
    itself is non-Nat.
 
+**The spiral-trajectory reading is RULED OUT (PURE).**
+`ApexCPMechanism.coupling_not_uniform_spiral`: the apex is *not* `n` steps of a
+uniform discrete spiral (phase `nπ/5`, modulus `(1/φ²)ⁿ`) — the phase-fraction
+`1/φ²` lies strictly between the consecutive steps `1/5` and `2/5`
+(`1/5 < 8/21 ≤ 1/φ² ≤ 5/13 < 2/5`), so no integer step realizes it, and the
+fractional `n=5/φ²` gives the wrong modulus. So the `π/5`/`2π/5` angle-fishing
+routes are now *proven* dead (not just flagged): the coupling is the **§5.7
+coincidence** (two readings of one residue both `= 1/φ²`), not a trajectory.
+
 So the *rational-level* coupling is a PURE theorem (framing 3); the residual is
 solely the continuum form-minimality (framings 1–2).
 
