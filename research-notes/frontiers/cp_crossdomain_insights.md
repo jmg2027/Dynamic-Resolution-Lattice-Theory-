@@ -32,9 +32,13 @@ CKM-CP-phase-via-cohomology arc).  Recorded directions where the two genuinely
 - **Bridge**: the CP-phase `C₄`/`90°` and main's QR are the *same* Gaussian
   fact — `d=5 ≡ 1 mod 4` ⇒ `(−1/5)=+1` ⇒ `5` splits in `ℤ[i]` ⇒ `μ₄=⟨i⟩`/`90°`.
   Candidate theorem: `δ_CP = 90° ⟺ (−1/d) = +1` (the CP phase is the QR class of
-  `−1 mod d`).  And **Zolotarev** (`psign(×a mod p) = (a/p)`, the open edge of
-  `permutation_three_readouts`) ties the permutation sign (Insight 1) to the
-  Legendre symbol — so all three are one.
+  `−1 mod d`).  And **Zolotarev** (`psign(×a mod p) = (a/p)`) ties the permutation
+  sign (Insight 1) to the Legendre symbol — so all three are one.  The Zolotarev
+  side is **proven**: `psign_mulPermMod_qr` (`ModArith/ZolotarevSign`, PURE) gives
+  `psign(σ_a) = +1 ⟺ a` is a QR mod `p`, with `psign_mulPermMod` the
+  sign-homomorphism `σ_a ∘ σ_b = σ_{ab}`.  What remains open is the **CP** leg —
+  identifying `δ_CP`'s `C₄` class with the `(−1/d)` QR class as a theorem, not the
+  permutation↔Legendre identity itself.
 
 ## Insight 3 — `ℚ(ζ₅)` cyclotomic: CP modulus+phase ↔ main's Teichmüller/Gauss sums
 
@@ -63,11 +67,13 @@ CKM-CP-phase-via-cohomology arc).  Recorded directions where the two genuinely
 
 ## Status
 
-All four are **candidate bridges** (conceptual, not yet theorems) tying main's
-sign/QR/cyclotomic campaigns to this branch's CP-phase cohomology.  The richest:
-Insight 1+2 together — *the permutation sign, the Hodge-⋆ orientation, the
-Legendre symbol, and the CP phase are one inversion/Gaussian object*; the open
-**Zolotarev** edge (`permutation_three_readouts`) would make the whole square a
-theorem.  Closure record (the proven 213 sides): `Cup/SignedCup`, `Hodge/*`,
-`Mixing/CP*`, `Icosahedral/CyclotomicFive` (this branch); `PermSign`/`PermMatrixDet`,
-`ModArith/*`, the p-adic harvest (main).
+All four are **candidate bridges** tying main's sign/QR/cyclotomic campaigns to
+the CP-phase cohomology.  The richest: Insight 1+2 together — *the permutation
+sign, the Hodge-⋆ orientation, the Legendre symbol, and the CP phase are one
+inversion/Gaussian object*.  Three corners of that square are now theorems: the
+permutation sign = the determinant (`PermSign`/`PermMatrixDet`), and the
+permutation sign = the Legendre symbol (`ModArith/ZolotarevSign.psign_mulPermMod_qr`,
+PURE).  The remaining corner — the **CP** phase's `C₄` class = the `(−1/d)` QR
+class — is the open leg.  Closure record (the proven 213 sides): `Cup/SignedCup`,
+`Hodge/*`, `Mixing/CP*`, `Icosahedral/CyclotomicFive`; `PermSign`/`PermMatrixDet`,
+`ModArith/*` incl. `ZolotarevSign`, the p-adic harvest.
