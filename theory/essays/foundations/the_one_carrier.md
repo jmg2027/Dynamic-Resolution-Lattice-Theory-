@@ -155,32 +155,56 @@ of `x·y` is again reached by no finite Raw, `padic_ring_on_carrier`), and the r
 residue y` in 𝔽_p, because position `0` of `Zp.mul` carries nothing (`residue_mul`).  So ℤ_p, as
 the carrier subset of escapes, is a sub-ring with a genuine 𝔽_p ring-map readout.
 
-But `+` and `×` sit on the carrier *differently*, and the precise difference names a new object —
-**not** that one is native and the other isn't (that conflates two things).  *Both* are native
-**corecursive** operations on the co-tree: the Cauchy product is the textbook productive corecursion
-(Rutten's behavioural differential equations), and `Zp.mul` realises it as a genuine coalgebra
+But `+` and `×` sit on the carrier *differently*, and the difference names a new object.  *Both*
+are native **corecursive** operations on the co-tree: the Cauchy product is the textbook productive
+corecursion (Rutten's behavioural differential equations), and `Zp.mul` realises it as a coalgebra
 morphism for the carrier's shift — head `residue_mul` (`(x·y)₀ = x₀·y₀`), tail `mulRaw_tail`
-(`(x·y)' = x₀·y' + x'·y`), emit/advance `mul_digit_carry_step`, bundled in `mul_corecursive`.  Carry
-keeps each digit a *finite* computation (productive); it breaks only **bounded state**.
+(`(x·y)' = x₀·y' + x'·y`), bundled in `mul_corecursive`.  The split is **finite-state vs not**.
+Addition is finite-state: `Zp.add`'s carry is a single **bit** (`add_carry_le_one`), a one-bit
+Mealy machine (`add_mealy_step`) whose bit *is* the odometer unit (`the_residue_unit_odometer.md`).
+Multiplication is not: `mulCarry (-1)(-1)` is unbounded (`mulCarry_unbounded`, via
+`mulRaw_negOne_negOne` `= (k+1)(p-1)²`), the exact dual of `add_carry_le_one`.
 
-The real split is **finite-state vs not**.  Addition is finite-state: `Zp.add`'s carry is always a
-single **bit** (`add_carry_le_one`: each digit pair sums to `< 2p`), a one-bit Mealy machine
-(`add_mealy_step`) whose carry bit *is* the odometer unit (`the_residue_unit_odometer.md`).
-Multiplication is **not** finite-state, and this is now a *theorem*, not a verdict: the carry
-`mulCarry (-1)(-1)` is unbounded (`mulCarry_unbounded`, via `mulRaw_negOne_negOne` `= (k+1)(p-1)²`),
-the exact dual of `add_carry_le_one`.  And the **carry is literally a νF inhabitant**: `gspine` is
-generic over the alphabet, so `gspine (mulCarry …) : GCoShape Nat` is reached by no finite Raw
-(`carry_is_nu_escape`) — the multiplicative residue lives on the carrier exactly as `spineL` does.
+And the carry is **literally a νF inhabitant**: the carry stream `gspine (mulCarry …) : GCoShape
+Nat` is reached by no finite Raw (`carry_is_nu_escape`) — `spineL`'s kind of escape, on the `Nat`
+alphabet.  This is not an analogy to the number escape: `carry_is_nu_escape` and `padic_is_nu_escape`
+are **two type-instances of one polymorphic lemma**, `gspine_one_carrier` (`L = Nat` vs `L = Fin p`)
+— the *same* non-surjection of `gToShape : Tree → GCoShape L`, read at two alphabets.
 
-The decisive point: `(-1)² = 1` (`neg_one_sq_eq_one`) — the **result** is the trivial µF element
-`1`, yet the **carry** computing it is an unbounded νF escape.  So finite-state-ness is a property of
-the **pointing** (the carry, the act of multiplying), not of the **number** (the product is `1`) —
-the ring-operation image of "holonomicity is a property of the pointing, not the real"
-(`Real213/PresentationDependence`).  `mul_carry_nu_residue` bundles it.  One carry, read at two
-depths: the **unit** for `+` (the odometer), the **residue** for `×`.  Neither is forbidden; both
-are corecursive; only `+` is finite-state; the multiplicative residue is the carry escaping into νF.
-(The Hadamard/convolution irreducibility, `G188_multiplicative_conv_design`, is its sequence-scale
-mirror.)
+### One carrier is one *non-surjection* (the scale-invariant escape)
+
+The deeper reading dissolves the accreting list (numbers, then the shift, then `±1`, then `× p`,
+then the ring, then the carry).  Each is a **finite-stage cover failing to be surjective onto its
+own behaviour space**, and the un-covered inhabitant is in each case the cover's **diagonal** —
+reached by no finite stage, converged to by every one:
+
+| the pointing | finite-stage cover | escapee (reached by none) |
+|---|---|---|
+| a **number** | `gToShape : Tree → GCoShape L` (finite Raws) | the digit/cut/branch spine (`gspine_escapes`) |
+| an **operation**'s carry | the same map at `L = Nat` | `gspine (mulCarry)` (`carry_is_nu_escape`) |
+| a **description** | `Object1 : Raw → (Raw → Bool)` (self-cover by views) | the undifferentiated reading (`object1_not_surjective`) |
+
+These are *one* non-surjection — Cantor's diagonal, Lawvere's fixed point — instantiated against
+three covers; the first two are literally one lemma (`gspine_one_carrier`), the third the same
+diagonal one universe up (the description-scale instance owned by `why_the_reframing_recurs.md`, and
+at the automaton scale by `non_holonomicity_as_finite_state_escape.md`).
+
+So **"holonomic / finite-state" is the predicate "in the image of the finite-stage cover" — a
+property of the cover (the pointing), never of the inhabitant (the pointed-at).**  The decisive
+witness is `(-1)² = 1` (`neg_one_sq_eq_one`, `mul_carry_nu_residue`): the **result** is the trivial
+µF element `1` — squarely in the finite image — while the **carry computing it** is an unbounded νF
+escape.  One inhabitant, two verdicts; therefore the verdict is not a fact about the inhabitant.
+This is the ring-operation image of the principle already proven for the reals — a cut-decision is
+invisible under rescaling (`rcut_rescale`) and depends on the presentation, not the real
+(`PresentationDependence`): holonomicity is a property of the approximant sequence, which is a
+pointing.
+
+The **unit** and the **residue** are the two values of that one non-surjection.  When the cover is
+itself finite-state the diagonal collapses to a bounded readout — addition's carry bit, the odometer
+`+1`.  When it is not, the diagonal is a full νF inhabitant — multiplication's unbounded carry.  It
+is *one* alphabet-independent object (`runCarry`, `Theory/Raw/Odometer` §7); whether it lands as
+**unit** or as **residue** is decided entirely by which cover reads it.  (The Hadamard/convolution
+irreducibility, `G188_multiplicative_conv_design`, is its sequence-scale mirror.)
 
 ### Cross-frame
 
@@ -201,26 +225,17 @@ escape wearing the alphabet of whichever number system is being pointed at.
 
 ## Honest scope
 
-- The shared *arithmetic* is the additive odometer `±1` (`Theory/Raw/Odometer` §8; `(-1)+1=0`,
-  injective) **and** the multiplicative valuation generator `× p` (`mulBase`,
-  `padic_valuation_one_carrier`: the `pℤ_p` filtration, residue field 𝔽_p, `÷p` = the carrier
-  shift), and `mulBase` is the genuine ring `Zp.mul`-by-`p` (`mulBase_eq_mul_pElem`: multiplication
-  by `p` carries nothing, so it collapses to the shift).  The **binary** product `x·y` is on the
-  carrier as the *transport* of `Zp.mul`: escapes are `×`/`+`-closed and the 𝔽_p readout is a ring
-  hom (`padic_ring_on_carrier`).  And `×` is **native corecursive** on the carrier — `Zp.mul` is a
-  coalgebra morphism for the shift (`mul_corecursive`: head `residue_mul`, tail `mulRaw_tail`); the
-  earlier framing of a native product as "impossible" was wrong (it conflated *not finite-state*
-  with *not definable*).  The genuine split is finite-state: `+` is (carry `≤ 1`,
-  `add_carry_le_one`), `×` is **not** — `mulRaw (-1)(-1)` grows linearly (`mulRaw_unbounded`), so
-  the multiplicative carry is unbounded (the multiplicative residue).  ℝ's field is on the carrier
-  too: `cutSum`/`cutMul` preserve the escapes (`real_field_on_carrier`).  What is closed: the
-  carrier, the shift, the unit-`±1` arithmetic, the valuation filtration `× p`, the binary ring
-  (`+`/`×`) with a 𝔽_p ring-map readout, **both** the corecursive (`mul_corecursive`) and the
-  finite-state (`add` yes / `×` no, `mulRaw_unbounded`) characterizations, and ℝ's cut-field
-  closure — all grounded in the actual `Zp.add`/`Zp.mul`/`cutSum`/`cutMul`.  The honest *structural*
-  fact (not a prohibition): `×`'s carry and ℝ's order-based cut both escape finite state — reached by
-  no bounded machine, exactly as a real is reached by no finite Raw — while remaining well-defined
-  corecursive behaviours.
+- **Closed** (all grounded in the actual `Zp.add`/`Zp.mul`/`cutSum`/`cutMul`): the carrier, the
+  shift, the unit-`±1` arithmetic (`(-1)+1=0`), the valuation filtration `× p` (`mulBase = Zp.mul`-
+  by-`p`, `mulBase_eq_mul_pElem`; residue field 𝔽_p), the binary ring transported with a 𝔽_p
+  ring-hom readout (`padic_ring_on_carrier`, `residue_ring_hom`), and ℝ's cut-field closure
+  (`real_field_on_carrier`).
+- **The split is finite-state, not native-vs-not**: both `+` and `×` are native corecursive
+  (`mul_corecursive`); only `+` is finite-state (`add_carry_le_one`), `×` is not
+  (`mulCarry_unbounded`), and the unbounded carry is itself a νF inhabitant (`carry_is_nu_escape`).
+- **Residual, by structure not prohibition**: `×`'s carry and ℝ's order-based cut escape finite
+  state — reached by no bounded machine, as a real is reached by no finite Raw — while remaining
+  well-defined corecursive behaviours.
 - `cutBits` is one honest presentation-dependent extractor (the cut-decision diagonal); it is
   not claimed canonical on the equivalence class.  A faithful map on `Real213.equiv` would need
   the order-decision *limit* (existence via the modulus), which is the LPO-costed step of the

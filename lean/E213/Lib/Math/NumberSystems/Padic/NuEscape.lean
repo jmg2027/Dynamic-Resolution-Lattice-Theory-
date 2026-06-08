@@ -3,26 +3,29 @@ import E213.Lib.Math.NumberSystems.Padic.Norm
 import E213.Theory.Raw.API
 
 /-!
-# A p-adic integer is a residue escape (the νF bridge, 2-adic case)
+# The p-adic integer on the residue carrier — escape, arithmetic, multiplicative residue
 
-The companion to the König νF bridge (`Lib/Math/Combinatorics/KonigConditional.lean`)
-and the read-through in `theory/math/numbersystems/padic_real213.md`: a p-adic integer is a
-**branch of the p-ary tree** — an infinite digit stream reached by no finite prefix.  Here
-that is made a *theorem* in the same νF carrier as a König binary-tree branch.
+A `ZpSeq p` digit stream rides the residue's final-coalgebra carrier (`CoResidue.gspine`, the
+label-generic spine §20); this file develops its whole life there.  Narrative:
+`theory/essays/foundations/the_one_carrier.md`.
 
-For `p = 2` the fit is exact and faithful: a 2-adic digit is a `Bool` (`Fin 2 ≃ Bool`),
-so a `ZpSeq 2` *is* a `Nat → Bool` bit-stream, and `CoResidue.boolSpine_escapes` gives:
-the 2-adic integer, as a νF inhabitant (`SlashNu`), is **reached by no finite Raw**.  So
-`ℤ₂` sits inside the residue's escapes — a 2-adic integer is literally a branch of König's
-binary tree, never a finite Raw, never a frozen value.
+  * **Escape** — a p-adic integer is a branch of the p-ary tree, reached by no finite Raw
+    (`padic_is_nu_escape`, every `p ≥ 2`; the 2-adic `Fin 2 ≃ Bool` case `twoAdic_is_nu_escape`)
+    and by no enumeration (`zpSeq_not_enumerable`, the native Cantor diagonal).  Companion König
+    branch: `Combinatorics/KonigConditional`; ℝ on the same carrier: `Real213/NuEscape`.
 
-For **general `p`** the same νF carrier now applies: `CoResidue.gspine` is the label-generic
-spine (§20), so a `ZpSeq p` digit stream `Nat → Fin p` rides the **p-ary** spine
-`gspine x.digits : GCoShape (Fin p)` — the same binary König branch structure, leaf-labelled by
-`Fin p`.  `padic_is_nu_escape` gives: the p-adic integer, as a generic-νF inhabitant, is
-reached by no finite Raw, for every `p ≥ 2`.  So **`ℤ_p` for every `p` sits on one carrier** —
-the 2-adic case (`twoAdic_is_nu_escape`) is the `Fin 2 ≃ Bool` instance.  ℝ rides the same
-carrier via `Real213/NuEscape.lean`.
+  * **Arithmetic on the carrier** — the residue-unit odometer `±1` (`(-1)+1=0`), the valuation
+    filtration `× p = mulBase` (the genuine ring `Zp.mul`-by-`p`, `mulBase_eq_mul_pElem`; residue
+    field 𝔽_p, `residue_ring_hom`), and the binary ring transported with a 𝔽_p ring-hom readout
+    (`padic_ring_on_carrier`) — all grounded in the existing `Zp.add`/`Zp.mul`.
+
+  * **The multiplicative residue** — `+` is finite-state (carry one bit, `add_carry_le_one`); `×`
+    is native corecursive (`mul_corecursive`) but not finite-state (`mulCarry_unbounded`), and its
+    unbounded carry is itself a νF inhabitant (`carry_is_nu_escape`).  Since `(-1)² = 1` while that
+    carry escapes, finite-state-ness is a property of the pointing, not the number
+    (`mul_carry_nu_residue`).
+
+All ∅-axiom.
 -/
 
 namespace E213.Lib.Math.NumberSystems.Padic
@@ -561,12 +564,12 @@ theorem padic_native_addition {p : Nat} (hp : 0 < p) :
   ⟨fun x y k => add_carry_le_one hp x y k,
    fun x y k => Zp.add_digit_val p hp x y k⟩
 
-/-! ### General `p` — × IS native corecursive (just not finite-state)
+/-! ### General `p` — × is native corecursive (just not finite-state)
 
-The sharp correction: "`×` is not native to the carrier" conflates **not finite-state** (true) with
-**not corecursively definable** (false).  The Cauchy product is the textbook *productive
+`×` is **native corecursive** on the carrier: the Cauchy product is the textbook *productive
 corecursion* (Rutten's behavioural differential equations): `(x·y)₀ = x₀·y₀` and `(x·y)' = x₀·y' +
-x'·y`.  Carry keeps each digit a *finite* computation (productive), breaking only *bounded state*.
+x'·y`.  Carry keeps each digit a *finite* computation (productive), breaking only *bounded state*
+(the not-finite-state § below).  Native ≠ finite-state: these are distinct, and `×` is the first.
 
 Here `Zp.mul` is exhibited as a genuine coalgebra morphism for the carrier's shift structure
 (CoResidue §21): the **head law** `residue_mul` (`(x·y)₀ = x₀·y₀`), the **tail law** `mulRaw_tail`
@@ -631,7 +634,7 @@ theorem mul_digit_carry_step {p : Nat} (hp : 0 < p) (x y : ZpSeq p) (k : Nat) :
     3. **tail** — `mulRaw_tail`: `(x·y)' = x₀·y' + x'·y` (the convolution's shift law).
 
     So `×` is genuinely native to the final coalgebra (the carrier's shift, CoResidue §21) — a
-    *productive corecursion* — refuting "× is non-native by design".  The honest residue: it is
+    *productive corecursion*.  The honest residue: it is
     productive but **not finite-state** (the carry is unbounded, `mulRaw_unbounded`), the one sense
     in which `×` differs from the finite-state `+`.  ∅-axiom. -/
 theorem mul_corecursive {p : Nat} (hp : 0 < p) (x y : ZpSeq p) :

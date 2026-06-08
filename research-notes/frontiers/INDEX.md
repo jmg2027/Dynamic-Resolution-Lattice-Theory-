@@ -141,8 +141,9 @@ finite-depth algebra (Hadamard product, Casoratian rank, holonomic `ℚ(n)`-orbi
 - `G188_multiplicative_conv_design` — `mconv` (multiplicative twin of `conv`):
   the power-sum/Newton route, with an honest ∅-axiom feasibility verdict.
 - `multiplicative_carry_residue` — the digit-scale mirror: p-adic `×` is native corecursive
-  (`mul_corecursive`) but not finite-state (`mulRaw_unbounded`, dual of `add_carry_le_one`); open:
-  is the unbounded multiplicative carry itself a νF inhabitant (`spineL`-style escape)?
+  (`mul_corecursive`) but not finite-state (`mulRaw_unbounded`/`mulCarry_unbounded`, dual of
+  `add_carry_le_one`); the unbounded carry IS a νF inhabitant (`carry_is_nu_escape`) — core closed,
+  only the Lens-reading refinement soft-open.
 
 Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite_orbit_dimension}.md`.
 
