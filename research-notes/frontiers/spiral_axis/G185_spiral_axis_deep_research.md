@@ -67,5 +67,12 @@ ring homomorphism (NOT glyph-reuse):
     the order-4 normal form exceeds the kernel; `second_order/third_order/fourth_order_multiplier`
     are the rung instances).  Subsumes `CassiniUnimodular.det_step` (order 2) and
     `SecondCasoratian.second_casoratian` (order 3).
-  - **A5** (still open): prove the CD-tower / axis non-coincidence (kills the `1,2,4,8 ↔ {2,4,6}`
-    stereotype).  Easy, defensive.
+  - **A5** ✓ **CLOSED**: the CD-tower / axis non-coincidence — `Tower/SpiralAxisCrystallographic`
+    `cd_tower_axis_noncoincidence`.  The CD dimension tower `{1,2,4,8} = 2ⁿ` and the spiral axis
+    `{2,4,6}` meet only on `{2,4}` and diverge for two independent reasons: `8 = 2³` is a power of
+    two but not crystallographic (`φ 8 = 4 > 2`, the axis ⊆ crystallographic — *no octonion at the
+    axis*); `6` is crystallographic (`φ 6 = 2`) but no power of two (`not_pow_two_six` — *no order-6
+    CD rung*).  The `1,2,4,8 ↔ {2,4,6}` stereotype is ruled out; the axis's CD content flows
+    through the rings `ℤ[i], ℤ[ω]` (unit orders `4,6`), not the dimension doubling.
+
+**Status: all three ranked conjectures (A1, A3, A5) closed ∅-axiom.**
