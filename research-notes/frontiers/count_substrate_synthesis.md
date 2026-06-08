@@ -172,6 +172,16 @@ exposed patterns worth harvesting.
   products**).  Downstream: `CayleyHamilton` (integer `χ_M(M)=0`) +
   `CharPolyAdj` (polynomial adjugate over `ℤ[X]`).
 
+- ✓✓✓ **The sign theory + both determinant capstones — FULLY CLOSED, ∅-axiom.**
+  The keystone ★★★ `PermSign.psign_mul` (`psign(σ∘τ) = psign σ·psign τ`, bubble-sort
+  reduction, 30/30 PURE) — built on `PermGroup` (the symmetric group on value-lists,
+  two-sided `invPerm`, 19/19) — unlocks **both** capstones from scratch:
+  ★★★ `DetTranspose.det_transpose` (`det Mᵀ = det M`, 16/16) and
+  ★★★ `DetMul.det_matMul` (`det (A·B) = det A·det B`, 39/39, via the Cauchy–Binet
+  expansion over the `n^n` index functions + a constructive `cnt`-pigeonhole that
+  sidesteps the `propext`/`Quot.sound`-carrying `Decidable (a ∈ l)` instance).
+  The determinant chapter is now narrative-promotion-eligible.
+
 ## Cross-references
 
 `theory/essays/proof_isa/{counting_as_cardinality,sperner_double_counting,probabilistic_method}.md`;
