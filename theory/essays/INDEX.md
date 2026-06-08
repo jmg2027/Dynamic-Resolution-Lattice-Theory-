@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 69 essays are grouped into ten thematic sub-directories — distinct
+The 70 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -54,7 +54,12 @@ one sign↔topology fact),
 via inversions and the determinant of the permutation matrix are one
 antisymmetric readout; Zolotarev adds the Legendre symbol `(a/p)` as a third on
 the `×a mod p` permutation, with `psign_mul` / `det_mul` / `legendre_mul` the one
-homomorphism under all three).
+homomorphism under all three),
+`the_cp_phase_as_one_imaginary_unit` (the CKM CP phase = the signed Hodge `⋆` on
+`H*(Δ⁴)`, `arg = 90°` = the generator of `ℤ[i]^× = C₄`; one imaginary unit in four
+frames — `ℤ[i]` / `Gal(ℚ(ζ₅))≅C₄` + golden real subfield / Hodge `⋆` / the
+inversion sign `(−1)^inv` shared with `the_permutation_under_three_readouts`;
+existence DERIVED, `90°` FORCED via polarized-Hodge positivity, fit `~1.5σ`-consistent).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
