@@ -83,6 +83,26 @@ only phase constant `π=arg(M⁵)`; `δ=π·r` is the minimal linear realization
 coupling is **0-parameter-FORCED**, not arbitrary — consistent with the
 no-free-parameter ethos.
 
+## ★★★★ DEEP UNIFICATION (cohomology + number theory) — CP `i` proven across 3 disciplines
+Full record: `research-notes/cp_phase_origin_synthesis.md`. The CP phase `i` (`C₄`,
+`90°`) and the golden modulus `1/φ²` are ONE structure on the prime `d=NS+NT=5`:
+- **Number theory** (`Icosahedral/CyclotomicFive.lean`, 4 PURE): `ℚ(ζ₅)` —
+  `Gal≅(ℤ/5)^×≅C₄` (phase) + real subfield `ℚ(√5)=ℚ(φ)` (golden modulus); bridge
+  `5=(2+i)(2−i)` (splits `ℤ[i]`→90°) vs inert `ℤ[ω]` (excludes 60°).
+- **Cohomology** (`Mixing/CPHodgeStructure.lean`, 5 PURE): the CP `i` = Hodge `⋆`
+  on the `(d−1)=4`-dim `Δ⁴`, `⋆²=−1` at grades `1,3` (`Λ¹=5̄`, `Λ³`) — the *same*
+  `H*(Δ⁴)` as `1/α_em`. Parity wall (`n=5` odd ⇒ `⋆²=+1`); needs signed `ℤ` star.
+- **Signed `ℤ`-Hodge star BUILT** (`Hodge/SignedStarC4.lean`, 10 PURE): `J=[[0,−1],
+  [1,0]]`, `J²=−I`, `ℤ[J]≅ℤ[i]` (`J↔i`), `N(2+i)=5=d`. **The cohomological `⋆` IS
+  the algebraic CP `i` — proven.**
+- **Generation wiring** (`Mixing/CPGenerationWiring.lean`, 5 PURE): `CP = C × i` —
+  `C` = Hodge complement (`5↔5̄`, `⋆²=+1`, charge conj/"CPT"); `i=J` = signed star
+  (`⋆²=−1`, 90°). Phase localizes to the down/`5̄` sector (up-Yukawa `10·10`
+  symmetric ⇒ real; down `10·5̄` general ⇒ complex).
+- **Remaining**: explicit rephasing-invariant computation that the surviving KM
+  phase is exactly `90°` from a `10·5̄` mass matrix carrying `J`; full `Δ⁴` signed
+  cochain lift (a 2-D grade-pair model is built).
+
 ## ★★★ CP-phase-origin MARATHON result (4 agent teams) — δ=π/φ² demoted, reframed
 Full synthesis: `research-notes/cp_phase_origin_synthesis.md`. Four expert agents
 (A₅+gCP, icosian/E₈, Cayley-Dickson, KM-mechanism) + rep-theory computation, all
