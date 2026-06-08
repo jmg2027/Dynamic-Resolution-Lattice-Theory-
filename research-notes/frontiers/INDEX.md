@@ -176,6 +176,20 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   pure-`Nat` trap catalog; carry-explicit over modular) + next seeds (promote
   `add_left_cancel_pure`/`lt_two_pow` to `Meta/Nat`; odometer `ℤ`-action ↔
   Markov/Stern-Brocot `SL(2,ℤ)`; a decidable carry-depth sub-class).
+- `naming_abstract_concepts` — **deep-research candidate** (originator: Mingu
+  Jeong): what does *attaching a term to an abstract concept* in standard math
+  (ℕ, ℝ, ℚ_p, "limit", "completion", "uncountable", "set of all functions")
+  become under the 213 axiom?  Working answer: naming = a residue-internal Lens
+  event naming a **generation rule** (fold/coalgebra), never the completed
+  totality; the abstract/infinite content is the νF escape; the classical
+  "complete/decide" step is one single ∞-decision (capture), refused or carried
+  as input.  *Closed instance:* König νF bridge (`KonigConditional`, 5 PURE — the
+  infinity is a νF escape, no finite Raw).  *Read-through:* ℝ/ℚ_p/König are one
+  shape (dyadic / p-ary / general branching); ε-δ existential = first-nonzero-digit
+  search = which-child-infinite = the same ∞-decision.  *Next:* sibling theorems
+  `real_is_nu_escape` / `padic_is_nu_escape`, then the systematic concept-by-concept
+  pass (the deep-research target).
+
 - `research_grade_closure_gate` — **meta-frontier**: `∅`-axiom is a
   necessary integrity check, not a sufficient *seriousness* check.
   Candidate "research-grade" closure gates (non-triviality/depth,
