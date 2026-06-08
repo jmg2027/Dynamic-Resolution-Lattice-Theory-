@@ -130,23 +130,31 @@ The whole law reduces to one lemma: `ν₅(F_{5m}) = ν₅(F_m) + 1`
   `C_m = 5F_m⁴ + 5(−1)ᵐF_m² + 1`; corollary `five_dvd_fibZ_quintuple`
   (`5 ∣ F_{5m}`). ✓ CLOSED (the lower half `ν₅(F_{5m}) ≥ ν₅(F_m)+1`).
 
-What remains for the all-orders law (valuation bookkeeping, not new
-algebra), three rungs:
+### The all-orders law — CLOSED
 
-1. **`5 ∤ C_m`** — `C_m = 5·(F_m⁴ + (−1)ᵐF_m²) + 1 ≡ 1 mod 5`, so
-   `ν₅(C_m) = 0`.  Needs a pure `¬((5:Int) ∣ 1)` (core `decide` on Int
-   dvd leaks propext; build from `IntEuclid.dvd_sub'` + a Nat reduction).
-2. **rank over `fibZ`** — `5 ∣ fibZ n ⟺ 5 ∣ (n:Int)` (bridge the FSM
-   `five_dvd_fib_iff` to `fibZ`, or re-prove the period-20 fact on
-   `fibZ`).
-3. **the lift + induction** — from (1)+factored quintupling + Euclid for
-   the prime `5` (`int_euclid` / `nat_prime_dvd_mul`): `ν₅(F_{5m}) =
-   ν₅(F_m)+1`, then strong induction on `ν₅(n)` gives `∀n k, 5ᵏ ∣ F_n ⟺
-   5ᵏ ∣ n`.
+`lean/E213/Lib/Math/NumberTheory/FibZValuation.lean` (∅-axiom):
 
-The FSM rungs (`ν₅ ≥ 1, 2`), the full quintupling identity, and the
-lower-half lift are all closed above; only this `5ᵏ`-divisibility
-bookkeeping is open.
+  **`fibN_val_law : ∀ n k, 5ᵏ ∣ F_n ⟺ 5ᵏ ∣ n`**
+
+i.e. `ν₅(F_n) = ν₅(n)` for the native `Nat` Fibonacci `fibN`.  Route:
+
+1. `five_dvd_fibN` — rank `5 ∣ F_n ⟺ 5 ∣ n`, bridged from the period-20
+   FSM (`fibMod5_zero_iff`) via `run_val` (the FSM run reads `F_n mod 5`).
+2. `fibN_quintuple` — `F_{5m} = 5·c_m·F_m`, `5 ∤ c_m`, bridged from
+   `fibZ_quintuple_factored` through `natAbs` (`c_m = |C_m|`, `¬5∣c_m`
+   from `C_m ≡ 1 mod 5` + a pure `¬((5:Int)∣1)`).
+3. `cop_cancel` — coprime cancellation `5∤c ⟹ (5ʲ ∣ c·x ⟺ 5ʲ ∣ x)`,
+   from `gcd(c,5ʲ)=1` (`dvd_prime_pow_cases`) + `euclid_of_coprime`.
+4. `lift` / `lift_index` — `5^{j+1} ∣ F_{5m} ⟺ 5ʲ ∣ F_m` and
+   `5^{j+1} ∣ 5m ⟺ 5ʲ ∣ m` (cancel one `5` + `cop_cancel`).
+5. `fibN_val_law` — strong induction on `n` (`Nat.strongRecOn`): the
+   `5∤n` branch uses the rank; the `5∣n` branch (`n=5m`, `m<n`) chains
+   `lift`, the IH, and `lift_index`.
+
+All propext-leaking core bridges (`Int.natAbs_*`, `Nat.dvd_trans/
+dvd_zero`, `Nat.eq_of_mul_eq_mul_left`, Int-dvd `decide`) were
+pure-replaced.  The FSM rungs (`ν₅ ≥ 1, 2`), the quintupling identity,
+and the full law are all closed.
 
 ## Status
 - H1: settled (removed).  H2, H3: no internal handle — recorded plainly.
