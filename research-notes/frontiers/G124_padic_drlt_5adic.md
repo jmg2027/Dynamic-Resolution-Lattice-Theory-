@@ -126,15 +126,27 @@ The whole law reduces to one lemma: `ν₅(F_{5m}) = ν₅(F_m) + 1`
 - `fibZ_index_rec` — `F_{b+2m} = L_m F_{b+m} − (−1)ᵐ F_b` (the engine;
   pure once `(−1)ᵐ` is the Cassini value `fibZ_cassini_eps`).
 - **`fibZ_quintuple`** — `F_{5m} = F_m·(25F_m⁴ + 25(−1)ᵐF_m² + 5)`. ✓ CLOSED.
+- **`fibZ_quintuple_factored`** — `F_{5m} = 5·(C_m·F_m)`,
+  `C_m = 5F_m⁴ + 5(−1)ᵐF_m² + 1`; corollary `five_dvd_fibZ_quintuple`
+  (`5 ∣ F_{5m}`). ✓ CLOSED (the lower half `ν₅(F_{5m}) ≥ ν₅(F_m)+1`).
 
 What remains for the all-orders law (valuation bookkeeping, not new
-algebra): the bracket `B_m = 5·(5F_m⁴ + 5(−1)ᵐF_m² + 1)` has inner factor
-`≡ 1 mod 5`, so `ν₅(B_m) = 1`; with Euclid's lemma for the prime `5`
-(`PolyRoot/IntEuclid.int_euclid`, `FourSquareSeed.nat_prime_dvd_mul`) the
-quintupling gives `ν₅(F_{5m}) = ν₅(F_m) + 1`, and strong induction on
-`ν₅(n)` closes `ν₅(F_n) = ν₅(n)` (equivalently `∀n k, 5ᵏ ∣ F_n ⟺ 5ᵏ ∣
-n`).  Open: this `5ᵏ`-divisibility induction (the FSM rungs `ν₅ ≥ 1, 2`
-and the full quintupling identity are closed above).
+algebra), three rungs:
+
+1. **`5 ∤ C_m`** — `C_m = 5·(F_m⁴ + (−1)ᵐF_m²) + 1 ≡ 1 mod 5`, so
+   `ν₅(C_m) = 0`.  Needs a pure `¬((5:Int) ∣ 1)` (core `decide` on Int
+   dvd leaks propext; build from `IntEuclid.dvd_sub'` + a Nat reduction).
+2. **rank over `fibZ`** — `5 ∣ fibZ n ⟺ 5 ∣ (n:Int)` (bridge the FSM
+   `five_dvd_fib_iff` to `fibZ`, or re-prove the period-20 fact on
+   `fibZ`).
+3. **the lift + induction** — from (1)+factored quintupling + Euclid for
+   the prime `5` (`int_euclid` / `nat_prime_dvd_mul`): `ν₅(F_{5m}) =
+   ν₅(F_m)+1`, then strong induction on `ν₅(n)` gives `∀n k, 5ᵏ ∣ F_n ⟺
+   5ᵏ ∣ n`.
+
+The FSM rungs (`ν₅ ≥ 1, 2`), the full quintupling identity, and the
+lower-half lift are all closed above; only this `5ᵏ`-divisibility
+bookkeeping is open.
 
 ## Status
 - H1: settled (removed).  H2, H3: no internal handle — recorded plainly.

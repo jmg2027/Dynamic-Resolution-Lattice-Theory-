@@ -182,4 +182,22 @@ theorem fibZ_quintuple (m : Nat) :
   rw [key, lucasZ_sq m]
   exact quint_algebra (fibZ m) (altSign m) (altSign_sq m)
 
+/-- **Factored quintupling**: `F_{5m} = 5·(C_m · F_m)` with cofactor
+    `C_m = 5F_m⁴ + 5(−1)ᵐF_m² + 1`.  Exposes the single guaranteed factor
+    of `5` — the lower half `ν₅(F_{5m}) ≥ ν₅(F_m) + 1` of the lift.  (The
+    matching upper half needs `5 ∤ C_m`, true since `C_m = 5·(F_m⁴ +
+    (−1)ᵐF_m²) + 1 ≡ 1 mod 5`; then Euclid for the prime `5` gives
+    equality — the remaining valuation-bookkeeping rung.) -/
+theorem fibZ_quintuple_factored (m : Nat) :
+    fibZ (m + m + m + m + m)
+      = 5 * ((5 * (fibZ m * fibZ m * fibZ m * fibZ m)
+              + 5 * altSign m * (fibZ m * fibZ m) + 1) * fibZ m) := by
+  rw [fibZ_quintuple m]; ring_intZ
+
+/-- `5 ∣ F_{5m}` for every `m` — the index-`5` instance of the rank of
+    apparition, read on `ℤ`. -/
+theorem five_dvd_fibZ_quintuple (m : Nat) :
+    (5 : Int) ∣ fibZ (m + m + m + m + m) :=
+  ⟨_, fibZ_quintuple_factored m⟩
+
 end E213.Lib.Math.NumberTheory.FibZIdentities
