@@ -60,6 +60,11 @@ homomorphism under all three),
 frames — `ℤ[i]` / `Gal(ℚ(ζ₅))≅C₄` + golden real subfield / Hodge `⋆` / the
 inversion sign `(−1)^inv` shared with `the_permutation_under_three_readouts`;
 existence DERIVED, `90°` FORCED via polarized-Hodge positivity, fit `~1.5σ`-consistent).
+`the_i_point_of_the_spiral_axis` (the order-4 point of the spiral axis `4 = |ℤ[i]^×|` IS
+the CKM CP phase's `C₄` — one ring `ℤ[i]`, read as the continued-fraction floor rotation
+`μ=−i` (`gaussian_floor_rotation`) and as the Hodge `⋆` on `H*(Δ⁴)`; the CP phase sits at
+the `i`-point, disc `−4`, selected over the order-6 Eisenstein rung; same-object claim, the
+floor-rotation↔`⋆` morphism flagged open).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
