@@ -153,4 +153,45 @@ theorem composeList_invPerm_right (σ : List Nat) (hσ : ∀ j, j < σ.length �
           (by rw [composeList_length, invPerm_length]; exact Nat.not_lt.mp hi),
         getD_ge 0 (l := iota σ.length) (by rw [length_iota]; exact Nat.not_lt.mp hi)]
 
+/-- `getD` in range is a member. -/
+theorem getD_mem : ∀ (σ : List Nat) (i : Nat), i < σ.length → σ.getD i 0 ∈ σ
+  | a :: l, 0,     _ => List.Mem.head _
+  | a :: l, k + 1, h => List.Mem.tail _ (getD_mem l k (Nat.lt_of_succ_lt_succ h))
+
+/-- `idxOf v σ < |σ|` when `v ∈ σ`. -/
+theorem idxOf_lt (v : Nat) : ∀ (σ : List Nat), v ∈ σ → idxOf v σ < σ.length
+  | a :: l, h => by
+    by_cases hav : a = v
+    · show (if a = v then 0 else idxOf v l + 1) < (a :: l).length
+      rw [if_pos hav]; exact Nat.succ_pos _
+    · have hvl : v ∈ l := by
+        cases h with
+        | head => exact absurd rfl hav
+        | tail _ h' => exact h'
+      show (if a = v then 0 else idxOf v l + 1) < (a :: l).length
+      rw [if_neg hav]; exact Nat.succ_lt_succ (idxOf_lt v l hvl)
+
+/-- For a position-injective list (nodup), the first position of `σ i` is `i`. -/
+theorem idxOf_getD_self (σ : List Nat)
+    (hinj : ∀ i j, i < σ.length → j < σ.length → σ.getD i 0 = σ.getD j 0 → i = j)
+    (i : Nat) (hi : i < σ.length) : idxOf (σ.getD i 0) σ = i := by
+  have hmem : σ.getD i 0 ∈ σ := getD_mem σ i hi
+  exact hinj _ i (idxOf_lt _ σ hmem) hi (idxOf_getD (σ.getD i 0) σ hmem)
+
+/-- ★★ **Left inverse**: `σ⁻¹ ∘ σ = iota n`, for a position-injective `σ` (nodup) whose entries are
+    `< |σ|`.  With `composeList_invPerm_right`, `invPerm σ` is a **two-sided inverse** — the
+    value-list model of `iota n`-permutations is a group. -/
+theorem composeList_invPerm_left (σ : List Nat)
+    (hrange : ∀ i, i < σ.length → σ.getD i 0 < σ.length)
+    (hinj : ∀ i j, i < σ.length → j < σ.length → σ.getD i 0 = σ.getD j 0 → i = j) :
+    composeList (invPerm σ) σ = iota σ.length := by
+  refine list_ext_getD 0 ((composeList_length (invPerm σ) σ).trans (length_iota σ.length).symm)
+    (fun i => ?_)
+  by_cases hi : i < σ.length
+  · rw [composeList_getD (invPerm σ) σ i hi, invPerm_getD σ (σ.getD i 0) (hrange i hi),
+        idxOf_getD_self σ hinj i hi, getD_iota σ.length i hi]
+  · rw [getD_ge 0 (l := composeList (invPerm σ) σ)
+          (by rw [composeList_length]; exact Nat.not_lt.mp hi),
+        getD_ge 0 (l := iota σ.length) (by rw [length_iota]; exact Nat.not_lt.mp hi)]
+
 end E213.Lib.Math.Algebra.Linalg213.PermGroup
