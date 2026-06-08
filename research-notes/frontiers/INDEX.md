@@ -210,6 +210,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   the CCC root of the diagonal).  *Next:* general-`p` νF escape, ℝ one-carrier, more
   concept deep-dives (limit/completion, quotient, actual-vs-potential infinity).
 
+- `pure_lean_calibration_synthesis` — **cross-campaign synthesis** (post main-merge of the
+  determinant/permutation-sign stack + Reverse Math 213): two patterns shared by independent
+  campaigns — the core-`Decidable`/core-lemma **propext leak + hand-rolled-pure workaround**
+  (a consolidated `Meta/` propext-trap catalog is now earned), and **"classical hand-wave →
+  explicit 213 object"** (parity = sorting invariant; omniscience cost = hypothesis).
+
 - `research_grade_closure_gate` — **meta-frontier**: `∅`-axiom is a
   necessary integrity check, not a sufficient *seriousness* check.
   Candidate "research-grade" closure gates (non-triviality/depth,
