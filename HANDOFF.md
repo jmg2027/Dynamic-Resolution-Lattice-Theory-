@@ -57,9 +57,22 @@ already complete; this is pure dedup.
 ### 3. Determinant multiplicativity / transpose
 `det (M·N) = det M · det N` and `det Mᵀ = det M` are the natural next capstones
 on the now-complete Leibniz/Laplace stack (adjugate identity already in hand).
+**Caveat (scouted this session)**: both need a substantial new sign-theory
+lemma — `det Mᵀ = det M` needs inversions-of-inverse (`inv σ⁻¹ = inv σ`) or
+sign-multiplicativity `psign(σ∘τ)=psign σ·psign τ`; `det(M·N)` needs the
+function-enumeration expansion + multilinearity.  Neither is a quick close;
+`ProdLperm` (`prodZ`/`prodZ_lperm`/`prodZ_append`) is the laid foundation for
+the transpose reindex.
+
+### 3b. ✓ The **upper-triangular** determinant — CLOSED (this session)
+`DetTriangular.det_upper_triangular` — `M i j = 0` for `j < i` ⟹ `det = Π Mᵢᵢ`,
+the dual of `det_lower_triangular`, via **last-row** cofactor expansion
+(`cofExpand_lastRow` over `Laplace.cofactor_row_i`).  5 new lemmas, all PURE
+(`DetTriangular` now 13/13).
 
 ## File Map
 ```
+lean/E213/Lib/Math/Algebra/Linalg213/DetTriangular.lean  ← + det_upper_triangular (last-row), 13/13 PURE
 lean/E213/Meta/Nat/NatRing213.lean                       ← + nat_succ_sub (§5)
 lean/E213/Lib/Math/Combinatorics/SpernerChains.lean      ← succ_sub_clean → nat_succ_sub
 lean/E213/Lib/Math/Algebra/Linalg213/PermBridge.lean     ← NEW: the two-perms bridge, 7/7 PURE

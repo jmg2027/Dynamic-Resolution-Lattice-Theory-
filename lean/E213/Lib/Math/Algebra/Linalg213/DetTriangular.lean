@@ -3,17 +3,22 @@ import E213.Lib.Math.Algebra.Linalg213.CayleyHamilton
 /-!
 # Linalg213 — the triangular determinant `det = Π Mᵢᵢ`
 
-A lower-triangular matrix (`M i j = 0` for `i < j`) has determinant the product of its diagonal.
-Row-`0` cofactor expansion (the `DetN.det` recursion) peels `M₀₀` — the rest of row `0` is zero —
-and the `(0,0)`-minor is again lower-triangular, so the diagonal product accumulates.  All ∅-axiom.
+A triangular matrix has determinant the product of its diagonal.  **Lower**-triangular
+(`M i j = 0` for `i < j`): row-`0` cofactor expansion peels `M₀₀` — the rest of row `0` is zero —
+and the `(0,0)`-minor is again lower-triangular, so the diagonal product accumulates.  **Upper**-
+triangular (`M i j = 0` for `j < i`, the dual): row `0` is *not* mostly zero, so expand along the
+**last** row instead (`Laplace.cofactor_row_i` at `k = n`) — only `M n n` survives, sign
+`(−1)^(n+n)=1`, and the `(n,n)`-minor is again upper-triangular.  All ∅-axiom.
 -/
 
 namespace E213.Lib.Math.Algebra.Linalg213.DetTriangular
 
-open E213.Lib.Math.Algebra.Linalg213.Permutation (iota)
-open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_map' map_eq_of_mem)
-open E213.Lib.Math.Algebra.Linalg213.DetN (det cofSum minor colShift altSign)
-open E213.Lib.Math.Algebra.Linalg213.CayleyHamilton (add_zero' one_mul' mul_zero' matId)
+open E213.Lib.Math.Algebra.Linalg213.Permutation (iota sumZ)
+open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_map' map_eq_of_mem lt_of_mem_iota)
+open E213.Lib.Math.Algebra.Linalg213.DetN (det cofSum minor colShift altSign altSign_add)
+open E213.Lib.Math.Algebra.Linalg213.Laplace
+  (minorAt cofactor_row_i altSign_self sumZ_append map_append')
+open E213.Lib.Math.Algebra.Linalg213.CayleyHamilton (add_zero' one_mul' mul_zero' matId sumZ_map_zero)
 
 /-- Product of an `Int` list. -/
 def prodZ : List Int → Int
@@ -97,5 +102,81 @@ theorem det_matId (n : Nat) : det n matId = 1 := by
         show (if i = i then (1 : Int) else 0) = 1
         rw [if_pos rfl]),
       prodZ_map_one]
+
+/-! ## The upper-triangular determinant (dual: last-row cofactor expansion)
+
+An upper-triangular matrix (`M i j = 0` for `j < i` — zero **below** the diagonal) has the same
+determinant `Π Mᵢᵢ`.  Row-`0` expansion does not collapse here (row `0` is the full first row), so
+expand along the **last** row instead (`Laplace.cofactor_row_i` at `k = n`): the last row of an
+`(n+1)×(n+1)` upper-triangular matrix is `0,…,0,M n n`, so only the `j = n` term survives, with
+sign `(−1)^(n+n) = 1`, and the `(n,n)`-minor is again upper-triangular. -/
+
+/-- `prodZ` over a snoc: `prodZ (L ++ [x]) = prodZ L · x`. -/
+theorem prodZ_snoc : ∀ (L : List Int) (x : Int), prodZ (L ++ [x]) = prodZ L * x
+  | [],     x => by
+    show prodZ [x] = prodZ ([] : List Int) * x
+    rw [prodZ_singleton]; show x = 1 * x; rw [one_mul']
+  | a :: l, x => by
+    show a * prodZ (l ++ [x]) = (a * prodZ l) * x
+    rw [prodZ_snoc l x, E213.Meta.Int213.mul_assoc]
+
+/-- The `(n,n)`-minor of an upper-triangular matrix is upper-triangular (its row/column index
+    `(if i<n then i else i+1, colShift n j)` keeps the column strictly below the row when `j < i`). -/
+theorem minorAt_nn_upperTri {M : Nat → Nat → Int} (hM : ∀ i j, j < i → M i j = 0) (n : Nat) :
+    ∀ i j, j < i → minorAt n n M i j = 0 := by
+  intro i j hji
+  show M (if i < n then i else i + 1) (colShift n j) = 0
+  have hcol : colShift n j < (if i < n then i else i + 1) := by
+    show (if j < n then j else j + 1) < (if i < n then i else i + 1)
+    by_cases hi : i < n
+    · rw [if_pos hi, if_pos (Nat.lt_trans hji hi)]; exact hji
+    · rw [if_neg hi]
+      by_cases hj : j < n
+      · rw [if_pos hj]; exact Nat.lt_succ_of_lt hji
+      · rw [if_neg hj]; exact Nat.succ_lt_succ hji
+  exact hM _ _ hcol
+
+/-- On the diagonal (index `< n`), the `(n,n)`-minor agrees with `M`. -/
+theorem minorAt_nn_diag (M : Nat → Nat → Int) (n a : Nat) (ha : a < n) :
+    minorAt n n M a a = M a a := by
+  show M (if a < n then a else a + 1) (colShift n a) = M a a
+  rw [if_pos ha]; show M a (if a < n then a else a + 1) = M a a; rw [if_pos ha]
+
+/-- Last-row cofactor expansion of an upper-triangular matrix collapses to the lead term:
+    `det (n+1) M = M n n · det n (minor at (n,n))`. -/
+theorem cofExpand_lastRow (n : Nat) (M : Nat → Nat → Int) (hM : ∀ i j, j < i → M i j = 0) :
+    det (n + 1) M = M n n * det n (minorAt n n M) := by
+  rw [cofactor_row_i M n n (Nat.lt_succ_self n)]
+  show sumZ ((iota n ++ [n]).map (fun j => altSign (n + j) * M n j * det n (minorAt n j M)))
+     = M n n * det n (minorAt n n M)
+  rw [map_append' (fun j => altSign (n + j) * M n j * det n (minorAt n j M)) (iota n) [n],
+      sumZ_append,
+      map_eq_of_mem (fun j => altSign (n + j) * M n j * det n (minorAt n j M))
+        (fun _ => (0 : Int)) (fun j hj => by
+          show altSign (n + j) * M n j * det n (minorAt n j M) = 0
+          rw [hM n j (lt_of_mem_iota hj), mul_zero', E213.Meta.Int213.zero_mul]),
+      sumZ_map_zero, E213.Meta.Int213.zero_add]
+  show altSign (n + n) * M n n * det n (minorAt n n M) + 0 = M n n * det n (minorAt n n M)
+  rw [add_zero', altSign_add, altSign_self, one_mul']
+
+/-- ★★ **The upper-triangular determinant is the diagonal product.**  For `M i j = 0` whenever
+    `j < i`, `det n M = Π_{i<n} M i i` — the dual of `det_lower_triangular`. -/
+theorem det_upper_triangular : ∀ (n : Nat) (M : Nat → Nat → Int), (∀ i j, j < i → M i j = 0) →
+    det n M = prodZ ((iota n).map (fun i => M i i))
+  | 0,     _, _  => rfl
+  | n + 1, M, hM => by
+    rw [cofExpand_lastRow n M hM,
+        det_upper_triangular n (minorAt n n M) (minorAt_nn_upperTri hM n),
+        map_eq_of_mem (fun i => minorAt n n M i i) (fun i => M i i)
+          (fun a ha => minorAt_nn_diag M n a (lt_of_mem_iota ha))]
+    show M n n * prodZ ((iota n).map (fun i => M i i))
+       = prodZ ((iota n ++ [n]).map (fun i => M i i))
+    rw [map_append' (fun i => M i i) (iota n) [n]]
+    show M n n * prodZ ((iota n).map (fun i => M i i))
+       = prodZ ((iota n).map (fun i => M i i) ++ [M n n])
+    rw [prodZ_snoc]
+    show M n n * prodZ ((iota n).map (fun i => M i i))
+       = prodZ ((iota n).map (fun i => M i i)) * M n n
+    rw [E213.Meta.Int213.mul_comm]
 
 end E213.Lib.Math.Algebra.Linalg213.DetTriangular
