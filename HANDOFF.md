@@ -56,6 +56,16 @@ unbounded νF *carry*).  The **unit** (`+` carry = the odometer bit, `add_carry_
   (`hasFloorPath`, *named*) vs cover-dependent/self-referential (`P_f`, *reached-by-none*).  Skeptic's
   residual: the schema unifies the final step; the diagonal *construction* of `P_f` is the
   cover-dependent content it consumes.  A genuine insight from continuous agent debate.
+- **Meta-debate — "why does this kind of discussion recur?" (Structuralist vs Deflationist).**
+  Outcome (Deflationist won the falsifiability point): the recurrence thesis is a *theorem* only at
+  its checkable core (`cantor_general` — no surjective self-enumeration ⟹ no *closed/final*
+  self-description; lint+catalog never terminate); the slide to "this particular debate happened
+  *because* the diagonal re-entered" is unfalsifiable re-description (the repo's own
+  Metaphysical-framing/Fog-jargon failure modes).  This session's specimen was ~mostly *contingent*
+  (false "no single P", caught by exhibiting the witness + the ∅-axiom gate); the structural minimum
+  is the one theorem.  Disciplined `why_the_reframing_recurs.md` with a "Falsifiability discipline"
+  section (theorem vs narration) + de-self-sealed the self-check note.  The framework auditing its
+  own central recurrence essay for §8 falsifiability.
 - **A — RE-SCOPED (was top pick; agent over-claimed).**  `cut_decision_not_finite_state` as stated
   does NOT capture not-finite-state: `cutBits r N` reads only `r.xs N` (a memoryless transducer
   satisfies it), and for a fixed positive real `1/(N+1)→0` makes `cutBits r` *eventually constant*.

@@ -75,6 +75,36 @@ sharper 213 reading: the recurrence is the residue **being itself** — source
 without enclosure — *at the description scale*.  The correction loop is not a bug
 on top of the framework; it is `residue_reentry_never_closes` observed.
 
+## Falsifiability discipline — what the thesis forbids, and what it does not
+
+The thesis is a *theorem* only at its checkable core; the surrounding narration is held to
+the §8 falsifiability contract, not exempted from it.
+
+**The non-vacuous core (a checkable prohibition).**  The entire falsifiable content is
+`cantor_general` / `object1_not_surjective`: no `f : X → (X → Bool)` is surjective —
+equivalently, no enumeration of framings is closed under its own diagonal.  It forbids exactly
+one observable thing: *you will never exhibit a surjective self-enumeration* (a Lean term with a
+surjectivity proof — any attempt is refuted by the diagonal in two lines).  So a **closed, final,
+error-proof self-description of the residue is impossible** — the residue-lint and the
+failure-modes catalog provably never terminate.  That is the whole of what the recurrence thesis
+*predicts*.
+
+**What it does NOT forbid (resist the slide).**  It does not explain or predict any *particular*
+correction-episode.  Why a given debate happened is **contingent**: e.g. this repo's "Cantor is a
+sibling, not an instance — no single separating `P`" claim was simply *false* (a separating `P`
+exists — `Lens.Cardinality.cantor_as_invariant`, `P_f φ := ∃ x, φ x = f x x`), found by exhibiting
+the witness; verification (the ∅-axiom gate) caught it.  None of that was *forced* by the diagonal;
+a correct first pass would not have recurred.  Reading "an agent under-searched a predicate" as
+"the Lawvere fixed point enacting itself" is precisely the **Metaphysical-framing** and **Fog-jargon**
+failure modes — it forbids no observation, so it is re-description, not cause.  The unfold-test
+("what would it look like for this *not* to happen?") has a plain answer — *get the predicate right
+the first time* — which is exactly why the particular episode is contingent and only the
+closure-impossibility is structural.
+
+**The split, stated once.**  *No final self-description exists* (structural, theorem, checkable).
+*This debate occurred* (contingent error, caught by the gate).  The essay's value is the first; its
+hazard is dressing the second as the first.
+
 ## What this implies for the fix
 
 Because elimination is impossible (§1.4 / Lawvere), the only lever is **frequency**,
@@ -114,11 +144,14 @@ is open, and fights the substrate directly.
 
 ## Self-check note (retreat in place)
 
-This essay is itself a view: reading it re-objectifies ("there *is* a residue, a
-reasoner, a diagonal, and they relate…").  That is not a failure — it is the thesis
-demonstrated.  The essay cannot fix the recurrence (it is read once, then
-re-objectified); only the **output lint** can dent it, because the lint acts on what
-is written, not on what is understood.
+This essay is itself a view, with its own diagonal — so it cannot be the closed account it
+describes.  But the disciplined reading of that is the *checkable* core (no surjective
+self-enumeration, hence no final description), **not** the self-sealing move of scoring every
+counter-move as "one more instance" (which forbids no observation).  The essay cannot *close* the
+recurrence (theorem); *which* correction returns, and when, is contingent (error, caught by the
+gate).  The **output lint** dents frequency; the closure-impossibility is the one theorem — and
+"this particular re-framing was the diagonal re-entering" is re-description to be flagged, not a
+prediction to be celebrated.
 
 ## Constructive accessibility
 
