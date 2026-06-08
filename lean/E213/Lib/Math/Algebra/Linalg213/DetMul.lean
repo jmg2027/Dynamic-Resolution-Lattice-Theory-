@@ -12,7 +12,9 @@ the assembly.  All ∅-axiom.
 
 namespace E213.Lib.Math.Algebra.Linalg213.DetMul
 
-open E213.Lib.Math.Algebra.Linalg213.Permutation (psign iota perms LPerm)
+open E213.Lib.Math.Algebra.Linalg213.Permutation
+  (psign iota perms LPerm prodDiagFrom leibTerm leibDet sumZ map_lperm sumZ_lperm inversions)
+open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ prodZ_lperm)
 open E213.Lib.Math.Algebra.Linalg213.PermGroup
   (composeList composeList_getD composeList_length invPerm invPerm_getD invPerm_length
    idxOf idxOf_getD idxOf_getD_self idxOf_lt)
@@ -22,8 +24,11 @@ open E213.Lib.Math.Algebra.Linalg213.PermClosure
    perm_length lt_of_mem_iota)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (lperm_of_nodup_mem_iff mem_iota_of_lt)
 open E213.Lib.Math.Algebra.Linalg213.DetTranspose
-  (nodup_map_restrict perms_contains invPerm_mem_perms)
-open E213.Tactic.List213 (list_ext_getD getD_ge)
+  (nodup_map_restrict perms_contains invPerm_mem_perms psign_inv
+   zipDiag prodDiagFrom_eq_prodZ zipDiag_getD zipDiag_length list_self_map_getD)
+open E213.Lib.Math.Algebra.Linalg213.PermSign (psign_mul altSign_self)
+open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_smul)
+open E213.Tactic.List213 (list_ext_getD getD_ge getD_map_ib length_map)
 
 /-- Position-injectivity hypothesis for `idxOf_getD_self`, from `perms`-membership. -/
 private theorem injp {n : Nat} {σ : List Nat} (hσ : σ ∈ perms n) :
@@ -109,5 +114,79 @@ theorem perms_closed_rightMul (n : Nat) (ρ : List Nat) (hρ : ρ ∈ perms n) :
       rw [← composeList_leftInv n q ρ hq hρ]
       exact mem_map_mpr (fun τ => composeList τ ρ)
         (composeList_mem_perms n q (invPerm ρ) hq (invPerm_mem_perms n ρ hρ))
+
+/-! ## §3 — the row-permutation determinant `leibDet (rowPerm σ B) = psign σ · leibDet B` -/
+
+/-- Permute the rows of `B` by `σ`: row `i` of `rowPerm σ B` is row `σ i` of `B`. -/
+def rowPerm (σ : List Nat) (B : Nat → Nat → Int) : Nat → Nat → Int := fun i k => B (σ.getD i 0) k
+
+/-- The diagonal product of `rowPerm σ B` over `τ` reindexes to `B` over `composeList τ σ⁻¹`. -/
+theorem prodDiag_rowPerm_eq (σ : List Nat) (B : Nat → Nat → Int) (n : Nat) (hσ : σ ∈ perms n)
+    (τ : List Nat) (hτ : τ ∈ perms n) :
+    prodDiagFrom (rowPerm σ B) 0 τ = prodDiagFrom B 0 (composeList τ (invPerm σ)) := by
+  have hσlen : σ.length = n := perm_length hσ
+  have hτlen : τ.length = n := perm_length hτ
+  have hseclen : (zipDiag B 0 (composeList τ (invPerm σ))).length = n := by
+    rw [zipDiag_length, composeList_length, invPerm_length, hσlen]
+  have hkey : zipDiag (rowPerm σ B) 0 τ
+      = σ.map (fun v => (zipDiag B 0 (composeList τ (invPerm σ))).getD v 0) := by
+    refine list_ext_getD 0 (by rw [zipDiag_length, length_map, hτlen, hσlen]) (fun k => ?_)
+    by_cases hk : k < σ.length
+    · have hkn : k < n := hσlen ▸ hk
+      have hsk : σ.getD k 0 < n := perms_entry_lt hσ hkn
+      rw [zipDiag_getD (rowPerm σ B) 0 τ k (hτlen ▸ hkn),
+          getD_map_ib (fun v => (zipDiag B 0 (composeList τ (invPerm σ))).getD v 0) 0 0 σ k hk,
+          zipDiag_getD B 0 (composeList τ (invPerm σ)) (σ.getD k 0)
+            (by rw [composeList_length, invPerm_length, hσlen]; exact hsk),
+          composeList_getD τ (invPerm σ) (σ.getD k 0) (by rw [invPerm_length, hσlen]; exact hsk),
+          invPerm_getD σ (σ.getD k 0) (hσlen ▸ hsk),
+          idxOf_getD_self σ (injp hσ) k (hσlen ▸ hkn)]
+      show B (σ.getD (0 + k) 0) (τ.getD k 0) = B (0 + σ.getD k 0) (τ.getD k 0)
+      rw [Nat.zero_add, Nat.zero_add]
+    · rw [getD_ge 0 (l := zipDiag (rowPerm σ B) 0 τ)
+            (by rw [zipDiag_length]; exact hτlen ▸ hσlen ▸ Nat.not_lt.mp hk),
+          getD_ge 0 (l := σ.map (fun v => (zipDiag B 0 (composeList τ (invPerm σ))).getD v 0))
+            (by rw [length_map]; exact Nat.not_lt.mp hk)]
+  have hlp : LPerm (σ.map (fun v => (zipDiag B 0 (composeList τ (invPerm σ))).getD v 0))
+      (zipDiag B 0 (composeList τ (invPerm σ))) := by
+    have hrec : (iota n).map (fun v => (zipDiag B 0 (composeList τ (invPerm σ))).getD v 0)
+        = zipDiag B 0 (composeList τ (invPerm σ)) :=
+      (hseclen ▸ list_self_map_getD (zipDiag B 0 (composeList τ (invPerm σ)))).symm
+    have hml := map_lperm (fun v => (zipDiag B 0 (composeList τ (invPerm σ))).getD v 0)
+      (permsOf_sound (iota n) σ hσ)
+    rwa [hrec] at hml
+  rw [prodDiagFrom_eq_prodZ (rowPerm σ B) 0 τ, hkey, prodDiagFrom_eq_prodZ B 0 (composeList τ (invPerm σ))]
+  exact prodZ_lperm hlp
+
+/-- Per-term: `leibTerm (rowPerm σ B) τ = psign σ · leibTerm B (τ ∘ σ⁻¹)`.  The product reindexes
+    (`prodDiag_rowPerm_eq`) and the sign factors via `psign_mul`/`psign_inv` (`psign σ² = 1`). -/
+theorem leibTerm_rowPerm (σ : List Nat) (B : Nat → Nat → Int) (n : Nat) (τ : List Nat)
+    (hσ : σ ∈ perms n) (hτ : τ ∈ perms n) :
+    leibTerm (rowPerm σ B) τ = psign σ * leibTerm B (composeList τ (invPerm σ)) := by
+  have hsq : psign σ * psign σ = 1 := altSign_self (inversions σ)
+  show psign τ * prodDiagFrom (rowPerm σ B) 0 τ
+     = psign σ * (psign (composeList τ (invPerm σ)) * prodDiagFrom B 0 (composeList τ (invPerm σ)))
+  rw [prodDiag_rowPerm_eq σ B n hσ τ hτ,
+      psign_mul n τ (invPerm σ) hτ (invPerm_mem_perms n σ hσ), psign_inv n σ hσ,
+      show psign σ * (psign τ * psign σ * prodDiagFrom B 0 (composeList τ (invPerm σ)))
+         = psign τ * (psign σ * psign σ) * prodDiagFrom B 0 (composeList τ (invPerm σ)) from by
+        ring_intZ,
+      hsq]
+  ring_intZ
+
+/-- ★★★ **The row-permutation determinant**: permuting the rows of `B` by `σ` multiplies the
+    determinant by `psign σ`.  Each `leibTerm` reindexes by right-translation `τ ↦ τ ∘ σ⁻¹`
+    (`perms_closed_rightMul`), pulling out the constant `psign σ`. -/
+theorem leibDet_rowPerm (σ : List Nat) (B : Nat → Nat → Int) (n : Nat) (hσ : σ ∈ perms n) :
+    leibDet n (rowPerm σ B) = psign σ * leibDet n B := by
+  show sumZ ((perms n).map (leibTerm (rowPerm σ B)))
+     = psign σ * sumZ ((perms n).map (leibTerm B))
+  rw [map_eq_of_mem (leibTerm (rowPerm σ B))
+        (fun τ => psign σ * leibTerm B (composeList τ (invPerm σ)))
+        (fun τ hτ => leibTerm_rowPerm σ B n τ hσ hτ),
+      sumZ_map_smul (psign σ) (fun τ => leibTerm B (composeList τ (invPerm σ))) (perms n),
+      ← map_map' (fun τ => composeList τ (invPerm σ)) (leibTerm B) (perms n),
+      sumZ_lperm (map_lperm (leibTerm B)
+        (perms_closed_rightMul n (invPerm σ) (invPerm_mem_perms n σ hσ)))]
 
 end E213.Lib.Math.Algebra.Linalg213.DetMul

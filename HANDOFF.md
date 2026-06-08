@@ -97,15 +97,19 @@ the strategy:
   Phase 2b) + `leibDet_transpose`/`det_transpose` (assembly via `leibDet_eq_det`, Phase 2c).
   `DetTranspose` 16/16 PURE.
 
-**Next — `det(M·N) = det M·det N`** (the last big determinant capstone; now unblocked by
-`psign_mul`):
-  - **Route A (recommended)**: alternating-form uniqueness + `det_swapRows` (reaches "permute rows
-    by σ scales det by `psign σ`" via swap-induction, *without* the full Leibniz expansion).
-  - **Route B**: the direct Leibniz expansion — `det(AB) = Σ_p ∏ A(i,pᵢ)·det(B∘p)`, non-injective
-    `p` vanish (equal rows), permutation part recombines via `psign_mul`.  Needs a sum over
-    functions `[n]→[n]` (new enumeration) + the row-permutation determinant
-    `leibDet (rowPerm σ B) = psign σ · leibDet B` (now reachable: reindex the Leibniz sum by
-    `composeList`-with-σ + `psign_mul`, analogous to `det_transpose`).
+**`det(M·N) = det M·det N`** (the last big determinant capstone) — `DetMul.lean`, in progress:
+  - ✓ §1 `composeList_mem_perms` (perms is a group), §2 `perms_closed_rightMul` (right translation
+    is a bijection), §3 ★★★ **`leibDet_rowPerm`** (`leibDet (rowPerm σ B) = psign σ · leibDet B` —
+    "permuting rows by σ scales det by `psign σ`") — all CLOSED, PURE (`DetMul` 8/8).
+  - **Remaining — the function-sum expansion** (the last piece): `det(AB) = Σ_σ psign σ ∏ᵢ Σₖ AᵢₖBₖσᵢ
+    = Σ_{f:[n]→[n]} (∏ᵢ Aᵢfᵢ)·(Σ_σ psign σ ∏ᵢ B_{fᵢ}σᵢ) = Σ_{f:[n]→[n]} (∏ᵢ Aᵢfᵢ)·leibDet(rowPerm f B)`.
+    Non-injective `f` ⟹ `rowPerm f B` has two equal rows ⟹ `leibDet = 0` (`leibDet_rows_eq_ne`);
+    permutation `f` ⟹ `psign f · leibDet B` (★ `leibDet_rowPerm`, just built).  So
+    `det(AB) = (Σ_{f∈perms} psign f ∏ᵢ Aᵢfᵢ)·leibDet B = leibDet A · leibDet B`.  Needs: (a) an
+    enumeration of **all** functions `[n]→[n]` (length-`n` lists with entries `<n`, not just perms)
+    + (b) the product-of-sums distributivity `∏ᵢ(Σₖ …) = Σ_f ∏ᵢ …`, then (c) split injective/non-
+    injective.  This is the big remaining build (~120 lines); `leibDet_rowPerm` (the hard sign part)
+    is already done.
 
 ### 3b. ✓ The **upper-triangular** determinant — CLOSED (this session)
 `DetTriangular.det_upper_triangular` — `M i j = 0` for `j < i` ⟹ `det = Π Mᵢᵢ`,
