@@ -48,4 +48,15 @@ theorem lpo_imp_wlpo (h : LPO) : WLPO :=
 theorem lpo_imp_mp (h : LPO) : MP :=
   fun f hnot => (h f).elim (fun he => he) (fun hall => absurd hall hnot)
 
+/-- ★ **WLPO ∧ MP ⟹ LPO**, ∅-axiom.  WLPO decides "everywhere false"; in the negative
+    case MP supplies the witness — the converse that, with `lpo_imp_wlpo`/`lpo_imp_mp`,
+    splits LPO into its decidability and witness halves. -/
+theorem wlpo_and_mp_imp_lpo (hw : WLPO) (hm : MP) : LPO :=
+  fun f => (hw f).elim (fun hall => Or.inr hall) (fun hnot => Or.inl (hm f hnot))
+
+/-- ★★ **LPO ⟺ WLPO ∧ MP**, ∅-axiom.  The clean decomposition of the strongest base
+    principle: deciding "everywhere false" (WLPO) plus extracting a witness (MP). -/
+theorem lpo_iff_wlpo_and_mp : LPO ↔ (WLPO ∧ MP) :=
+  ⟨fun h => ⟨lpo_imp_wlpo h, lpo_imp_mp h⟩, fun h => wlpo_and_mp_imp_lpo h.1 h.2⟩
+
 end E213.Lib.Math.Logic

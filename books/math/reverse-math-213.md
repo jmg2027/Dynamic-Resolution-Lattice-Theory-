@@ -26,7 +26,9 @@ does not prove these; it states them as `Prop`s and calibrates everything agains
 - **MP** — not-everywhere-false yields an explicit witness;
 - **LLPO** — for an at-most-one-true stream, the true index is even or odd (weaker).
 
-The structural implications hold ∅-axiom: `lpo_imp_wlpo`, `lpo_imp_mp`.
+The structural implications hold ∅-axiom: `lpo_imp_wlpo`, `lpo_imp_mp`, and the clean
+decomposition `lpo_iff_wlpo_and_mp` — **LPO ⟺ WLPO ∧ MP** (deciding "everywhere false"
+plus extracting a witness).
 
 ## The ledger spine (`reverse_math_ledger`, ∅-axiom)
 
