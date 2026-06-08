@@ -61,22 +61,35 @@ Catalog (`STRICT_ZERO_AXIOM.md`), the representation essay
 | **residue-unit +1** | CLOSED (odometer + Zeckendorf carry); open seed = a *decidable* carry-depth sub-classification (the eventually-periodic / finite-state end) — unassessed this session. |
 | **betti α=1** | `b₁ = NS²−1 = 1/α₃` closed; open is conceptual (does `NS²−1` recur in the other forced constants? a `c`-dependent higher `b_k`?) — a synthesis question, not a bounded Lean target. |
 
-## Next (highest-value, in order)
-1. **Zolotarev converse** (non-residue ⟹ odd permutation) — via **primitive roots** (route a).
-   Foundation **step 1 done**: `MulOrder.lean` (12 PURE) — `ordModP`, `fermat`, `pow_ord`,
-   `ord_min`, `ord_dvd` (`aᵏ≡1 ⟹ ord∣k`), `ord_dvd_p_sub_one`.  Remaining:
-   - **step 2 (the crux)**: primitive-root existence (`∃ g, ordModP g p = p−1`).  Either the
-     **exponent/lcm argument** (`∃` element of order = lcm of all orders; if some order `δ ∤ d_max`
-     then `lcm(δ,d_max) > d_max` contradicts maximality — needs the *element-of-order-lcm* lemma,
-     gcd/coprime order splitting) glued to `RootBound.eval_zero` (`x^{d_max}−1` has ≤ `d_max` roots
-     ⟹ `p−1 ≤ d_max`, with `d_max ∣ p−1` ⟹ `d_max = p−1`); *or* the `∑_{d∣p−1} φ(d) = p−1`
-     counting (`ψ(d) ∈ {0,φ(d)}` via the cyclic-subgroup generators).
-   - **step 3**: `mulPerm g` (g a primitive root) is a single `(p−1)`-cycle (its powers exhaust
-     the nonzero residues), sign `(−1)^{p−2} = −1`; g is a non-residue (order even, not a square).
-     That `psign(mulPerm g) = −1` is the **nontriviality witness**, and with the homomorphism
-     (`Zolotarev.psign_mulPerm_hom`/`_qr`) closes the full `psign(mulPerm a) = (a/p)`.
-   Route (b) (Zolotarev=Gauss block decomposition) remains the alternative; both multi-session.
-2. Residue-unit decidable carry-depth (assess `Theory/Raw/Odometer`); `Zp.diagLimit` abstraction.
+## ★ Primitive-root marathon (route a → full Zolotarev) — IN PROGRESS
+
+The committed-to multi-session build of `(ℤ/p)*` cyclic ⟹ Zolotarev nontriviality witness.
+**Bricks done (all PURE):**
+- **brick 0** `MulOrder.lean` (12) — `ordModP`, `fermat`, `pow_ord`, `ord_min`,
+  `ord_dvd` (`aᵏ≡1 ⟹ ord∣k`), `ord_dvd_p_sub_one`.
+- **brick 1** `Lcm213.lean` (11) — ℕ `lcm` + universal property `lcm_dvd` **without Bezout**
+  (`gcd_div_coprime` + `euclid_of_coprime`), `gcd_mul_lcm` (`g·lcm = a·b`).
+- **brick 2** `OrderPow.lean` (3) — `ord_mod_eq` (order depends only on base mod `p`) + ★
+  `ord_pow` (`ord(aᵏ) = ord(a)/gcd(ord(a),k)`).
+
+**Bricks remaining:**
+- **brick 3 — coprime-product-order**: `gcd(ord a, ord b) = 1 ⟹ ord(a·b) = ord a · ord b`.
+  `γ ∣ αβ` (the product is `(a^α)^β·(b^β)^α ≡ 1`); and `α∣γ`, `β∣γ` (from `(ab)^{γβ}≡1` ⟹
+  `a^{γβ}≡1`, euclid), then `αβ = lcm(α,β) ∣ γ` (brick 1's `lcm_dvd` + `gcd_mul_lcm`).
+- **brick 4 — `maxOrd` + "every order ∣ maxOrd"**: define the maximum order over `[1,p−1]`
+  (a search/fold); if some order `δ ∤ d_max`, decompose `lcm(δ,d_max) = δ'·d'` coprime
+  (`δ'∣δ`, `d'∣d_max`) and build (via `ord_pow` brick 2 + brick 3) an element of order
+  `lcm(δ,d_max) > d_max`, contradiction.
+- **brick 5 — `RootBound` gluing**: every unit satisfies `x^{maxOrd} ≡ 1`, so `X^{maxOrd}−1`
+  (as `List Int`) has `p−1` distinct roots; `RootBound.eval_zero` ⟹ `f ≡ 0` everywhere ⟹
+  `f(0) = −1 ≡ 0`, contra ⟹ `p−1 ≤ maxOrd`; with `maxOrd ∣ p−1` ⟹ `maxOrd = p−1` ⟹
+  `∃ g, ordModP g p = p−1` (primitive root).
+- **brick 6 — cycle**: `mulPerm g` is a single `(p−1)`-cycle (powers of `g` exhaust the
+  nonzero residues), `psign = (−1)^{p−2} = −1`; `g` a non-residue ⟹ the **nontriviality
+  witness**, and with `Zolotarev.psign_mulPerm_hom`/`_qr` ⟹ full `psign(mulPerm a) = (a/p)`.
+
+## Next (other threads)
+- Residue-unit decidable carry-depth (assess `Theory/Raw/Odometer`); `Zp.diagLimit` abstraction.
 
 ## Three-tier state
 - **No promotions needed**: the determinant/sign narrative lives in
