@@ -217,8 +217,8 @@ theorem map_lperm {α β : Type} (f : α → β) {L1 L2 : List α} (h : LPerm L1
 Swapping rows `k, k+1` of `M` maps the term at `pre ++ y :: x :: l` (`k = pre.length`) to the
 **negation** of the term at the position-swapped list `pre ++ x :: y :: l`: the diagonal products
 agree (two factors commute, `mul_left_comm`), and the sign flips (`psign_swap_prefix`).  This is
-the determinant's core combinatorial content; the remaining gate is closure of `perms` under the
-position-swap up to `LPerm`. -/
+the determinant's core combinatorial content; the matching closure of `perms` under the
+position-swap up to `LPerm` is `PermClosure`. -/
 
 /-- `prodDiagFrom` splits over append (with the row offset advancing by the prefix length). -/
 theorem prodDiagFrom_append (M : Nat → Nat → Int) : ∀ (i : Nat) (L R : List Nat),

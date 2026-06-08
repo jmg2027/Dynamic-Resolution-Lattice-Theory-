@@ -89,6 +89,19 @@ theorem nat_add_sub_self_right (a b : Nat) : a + b - b = a := by
   | zero => rw [Nat.add_zero, Nat.sub_zero]
   | succ k ih => rw [Nat.add_succ, Nat.succ_sub_succ, ih]
 
+/-- `(n+1) − m = (n − m) + 1` for `m ≤ n` — PURE successor/subtraction
+    commute (recursion on `m` via `Nat.succ_sub_succ_eq_sub`, both PURE).
+    Core's `Nat.succ_sub` leaks `propext`; this is the canonical clean form
+    (re-proven ad-hoc elsewhere as `succ_sub_clean`). -/
+theorem nat_succ_sub : ∀ {m n : Nat}, m ≤ n → (n + 1) - m = (n - m) + 1
+  | 0,     n, _ => by rw [Nat.sub_zero, Nat.sub_zero]
+  | m + 1, n, h => by
+    cases n with
+    | zero   => exact absurd h (Nat.not_succ_le_zero m)
+    | succ n' =>
+      rw [Nat.succ_sub_succ_eq_sub, Nat.succ_sub_succ_eq_sub]
+      exact nat_succ_sub (Nat.le_of_succ_le_succ h)
+
 /-! ## §6 — Inequality cancellation -/
 
 /-- `a + b ≤ c + b → a ≤ c` — PURE re-derivation by induction on

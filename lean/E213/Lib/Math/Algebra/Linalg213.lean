@@ -4,6 +4,8 @@ import E213.Lib.Math.Algebra.Linalg213.Chiral
 import E213.Lib.Math.Algebra.Linalg213.DetN
 import E213.Lib.Math.Algebra.Linalg213.FibCassiniDet
 import E213.Lib.Math.Algebra.Linalg213.Laplace
+import E213.Lib.Math.Algebra.Linalg213.DetTranspose
+import E213.Lib.Math.Algebra.Linalg213.DetMul
 import E213.Lib.Math.Algebra.Linalg213.PolyDet
 import E213.Lib.Math.Algebra.Linalg213.CharPolyAdj
 import E213.Lib.Math.Algebra.Linalg213.CayleyHamilton
@@ -11,6 +13,7 @@ import E213.Lib.Math.Algebra.Linalg213.PhaseChiralBridge
 import E213.Lib.Math.Algebra.Linalg213.Gap
 import E213.Lib.Math.Algebra.Linalg213.Gram
 import E213.Lib.Math.Algebra.Linalg213.Permutation
+import E213.Lib.Math.Algebra.Linalg213.PermGroup
 import E213.Lib.Math.Algebra.Linalg213.ProdLperm
 import E213.Lib.Math.Algebra.Linalg213.ProdCongr
 import E213.Lib.Math.Algebra.Linalg213.SumLinear
@@ -18,7 +21,10 @@ import E213.Lib.Math.Algebra.Linalg213.RowDependence
 import E213.Lib.Math.Algebra.Linalg213.DetTriangular
 import E213.Lib.Math.Algebra.Linalg213.DetScale
 import E213.Lib.Math.Algebra.Linalg213.DetZeroCol
+import E213.Lib.Math.Algebra.Linalg213.DetRowOps
 import E213.Lib.Math.Algebra.Linalg213.PermClosure
+import E213.Lib.Math.Algebra.Linalg213.PermSign
+import E213.Lib.Math.Algebra.Linalg213.PermBridge
 import E213.Lib.Math.Algebra.Linalg213.Rank
 import E213.Lib.Math.Algebra.Linalg213.Rank5Concrete
 import E213.Lib.Math.Algebra.Linalg213.Span

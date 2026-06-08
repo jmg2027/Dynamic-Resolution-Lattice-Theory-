@@ -5,13 +5,14 @@ import E213.Meta.Int213.Core
 /-!
 # Linalg213 — the permutation enumeration realizes the symmetric-group action
 
-The remaining gate for the Leibniz determinant's **alternating** property: the enumeration
+The gate for the Leibniz determinant's **alternating** property: the enumeration
 `perms n` is closed (up to `LPerm`) under an adjacent position-swap `swapAt k`, and every
 listed permutation is a genuine rearrangement of `[0,…,n−1]` (sound) with no repeats (nodup).
 
-This file builds that closure bottom-up: clean (∅-axiom) `List` membership helpers → `LPerm`
-structural lemmas → enumeration **soundness** (each output is a rearrangement) → (later)
-completeness, nodup, and the closure itself.
+The closure is built bottom-up: clean (∅-axiom) `List` membership helpers → `LPerm`
+structural lemmas → enumeration **soundness** (each output is a rearrangement) →
+completeness, nodup, and the swap-closure itself, then `leibDet_rowSwap` (alternating),
+equal-rows-vanish, multilinearity, and the degeneracy corollaries.
 
 The core `List.mem_*` iff-lemmas are `propext`/`Quot.sound`-tainted, so membership is done
 structurally on the `List.Mem` constructors.  All ∅-axiom.

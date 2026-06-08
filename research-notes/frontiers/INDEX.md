@@ -145,13 +145,26 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
-- `count_substrate_synthesis` — post-closure synthesis of the COUNT arc (both
-  named bounds proven): patterns (dual COUNT faces share one residue + the
-  subset count `C(N,k)`; "engine + honest rung" closes once the enumeration infra
-  exists; the `nodup`-`flatMap`-disjoint-fibre counting idiom; the propext/Classical
-  tax on core arithmetic) + seeds (a clean strict-order/pow `Meta/Nat` suite;
-  more LYM-shaped named bounds — Dilworth, Bollobás; Leibniz determinant over
-  `perms`).
+- `count_substrate_synthesis` — the COUNT arc.  **CLOSED ∅-axiom**: LYM,
+  Bollobás (`bollobas_uniform`), Sperner (×3), Mirsky (`mirsky_boolean`), Dilworth
+  (`dilworth_boolean`/`scd_card` — the full SCD partition; narrative promoted to
+  `theory/essays/proof_isa/chain_antichain_duality.md`).  Patterns: dual COUNT
+  faces share one residue + the subset count `C(N,k)`; the
+  `nodup`-`flatMap`-disjoint-fibre counting idiom; SCD partition without
+  constructor injectivity; the propext/Classical tax on core arithmetic.  The
+  Leibniz determinant seed (`det = Σ_{σ∈perms} sign(σ)·Π M i σ(i)`) is **CLOSED**
+  through the full sign theory — see `determinant_closure_synthesis` below.
+
+- `determinant_closure_synthesis` — post-closure harvest of the sign theory.
+  **CLOSED ∅-axiom**: `PermSign.psign_mul` (the sign homomorphism, bubble-sort) and
+  on it both `DetTranspose.det_transpose` (`det Mᵀ = det M`) and `DetMul.det_matMul`
+  (`det(A·B) = det A·det B`, Cauchy–Binet + constructive `cnt`-pigeonhole); narrative
+  in `theory/essays/algebra/permutation_sign_as_homomorphism.md`.  Patterns: the pure
+  `cnt`-decision sidesteps the propext/Quot.sound `Decidable (a∈l)` instance;
+  homomorphism-to-`{±1}` as a sorting invariant; one keystone → multiple capstones.
+  **Open seeds**: `det(permMatrix σ) = psign σ` (the two readings of a permutation);
+  general column Laplace expansion as a `det_transpose` corollary; relocate the
+  constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.
 
 - `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
   residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at

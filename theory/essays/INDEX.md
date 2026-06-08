@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 58 essays are grouped into ten thematic sub-directories — distinct
+The 65 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -44,7 +44,12 @@ others together):
 
 **IV. `synthesis/` — synthesis & the master tower.**
 `synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`,
-`representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`.
+`representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
+`duality_as_one_transpose` (a duality = `sumOver_swap` on one 0/1 incidence +
+a SEPARATE cap per axis; min-cover = max-anti is the transpose),
+`curvature_as_lens_readout` (curvature = a difference-Lens count + sign;
+Forman / Gauss–Bonnet / Ollivier / Bakry–Émery / conformal are five readouts of
+one sign↔topology fact).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
@@ -53,8 +58,8 @@ others together):
 
 **VI. `algebra/` — algebra tower & linear algebra.**
 `cd_tower_polarization`, `exceptional_seeds_are_forced`,
-`determinant_as_quotient_characteristic`, `cayley_hamilton_self_characteristic`,
-`teichmuller_as_forced_fixed_point`.
+`determinant_as_quotient_characteristic`, `permutation_sign_as_homomorphism`,
+`cayley_hamilton_self_characteristic`, `teichmuller_as_forced_fixed_point`.
 
 **VII. `gra/` — GRA & higher structure.**
 `gra_universality_one_principle`, `gra_as_substrate_of_cat_hott`.
@@ -70,9 +75,13 @@ others together):
 **X. `proof_isa/` — proof as compilation to the residue ISA.**
 `what_is_a_proof` (series synthesis), `counting_as_cardinality` (the COUNT-arc
 synthesis), `probabilistic_method`, `sperner_double_counting`,
+`lym_inequality` (the per-term refinement Sperner discards; `Σ 1/C(n,|A|) ≤ 1`),
+`chain_antichain_duality` (Mirsky + Dilworth — Sperner's dual; the SCD partition),
 `linear_algebra_method`, `parity_invariant_method`, `konig_boundary`.
 The "why" of each reproduced technique; the instruction set's interior + edge.
-Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom.
+Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom; LYM is the
+sharp inequality Sperner is the corollary of; Mirsky/Dilworth are the chain-side
+dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 
 ## Current essays
 
@@ -118,6 +127,7 @@ Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom.
 | `methodology/reframe_presentation_transport.md` | When a reading fails to SEPARATE (over-counts), how does 213 read the same residue at a resolution where it separates? (Markov uniqueness, Zhang's 3c±2, presentation-transport as a lift) | `Foundations/ProofISALifts` (`lift_reframe`) + `math/analysis/markov_uniqueness.md` + `MarkovUniqueness.markov_max_unique_via_3c_pm2` + `MarkovPrimeFactor.sq_eq_collapse_pp` + CLAUDE.md *External-ruler smuggling* |
 | `representation_theorems_one_counting_bound.md` | Why are `p = a²−ab+b²` (disc −3), `p = a²+b²` (disc −4), and the `ℤ[√−D]` family all one theorem? | `PolyRoot/RootBound.eval_zero` + `NonFixedExists.exists_nonfixed_gen` + `Integer/{EisensteinSplit,GaussianSplit,ZSqrtNegSplit}.split_form` + `Integer/ZSqrtNegSharp.descent_false_at_three` |
 | `four_square_additive_pigeonhole.md` | Why is every `n = a²+b²+c²+d²`, and why does this need a *different* engine than the disc-`−D` representation theorems? | `NumberTheory/FourSquare.{four_sq_id,isSum4_mul,descent_core,odd_descent,halve_step,descent_rec,seed_multiple,exists_prime_factor,prime_isSum4,nat_isSum4}` + `FourSquareSeed.four_square_seed` + `Combinatorics/Pigeonhole.no_inj_lt` |
+| `curvature_as_lens_readout.md` | What is curvature, in 213? Why do Forman, Gauss–Bonnet, Ollivier, Bakry–Émery, and conformal give the same sign↔topology trichotomy? | `Geometry/GeometrizationConjecture/{DiscreteRicci,DiscreteGaussBonnet,OllivierRicci,BakryEmery,ConformalCurvature}` + `seed/AXIOM/06_lens_readings.md` §6.7 |
 | `k32_cohomology_simplex_higher_insight.md` | 213/K₃,₂²/코호몰로지 심플렉스 고차 통찰 — G140 + G138 B/D 프로모션 연결 | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
 | `mobius_self_form_fixed_point.md` | 모습 자체가 뫼비우스 행렬 — P는 왜 자기 설명 함자의 고정점인가? | `Px/MobiusSelfForm` + `Px/CharPolySelf` + `Px/PnFibonacciUniversal` + `math/mobius213_p_orbit_closure.md` |
 | `gra_universality_one_principle.md` | Walk-length, cup-length, truncation, chromatic height, resolution exponent — why are these the same? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/` umbrella + `GRA/Translation.lean` |
@@ -130,6 +140,7 @@ Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom.
 | `integers_as_difference_lens.md` | What is ℤ (signed counting / the negative) in 213, and where does it come from? (ℤ = count-Lens on a *directed* count-pair `(m,n)↦m−n`; magnitude Nat-style, sign Bool-style; refines §6.7) | `seed/AXIOM/06_lens_readings.md` §6.7 + `02_axiom.md` §2.4 + `05_no_exterior.md` §5.2 + `lean/E213/Meta/Int213/Core.lean` (`subNatNat_{add,mul}_subNatNat`, `neg_subNatNat`) + `theory/math/analysis/newton_gregory.md` |
 | `non_holonomicity_as_finite_state_escape.md` | What does it mean for π's continued fraction to be non-holonomic, why is it the residue escaping a finite-state machine, and what is the practical edge? | `Cauchy/{ZeroRunNonHolonomic (HomogRec/AutoRec + zero_run_not_homogRec/two_continuations_not_autoRec), ZeroRunNonHolonomicWitness (chi_nonHolonomic, chi_not_autoRec, chi_not_finiteRecurrence), NonHolonomicWitness (superFact_nonHolonomic), MorseHedlund (aperiodic_not_autoRec — dense)}` + `Theory/Raw/{CoResidue.spineL_escapes, StateMachine.mu_carrier_reachable_reduced_machine}` + `Cauchy/{NewtonGregory, FiniteDepthAlgebra}` + `Real213/PresentationDependence` + `theory/math/analysis/cf_holonomicity_hierarchy.md` |
 | `determinant_as_quotient_characteristic.md` | What is the **determinant** in 213? (det = the Lens-quotient characteristic value; `\|det M\| = \|ℤⁿ/M·ℤⁿ\|` = cokernel order; spectrum `{0 : collapse/축퇴, ±1 : unit-iso = monic = "나누어 떨어진다", other : proper quotient}`; the monic obstruction = the alternating `det=0` = the shared unit `det=±1`, one object both ends; antisymmetrization, not cofactor cancellation, is alternating's home) | `Linalg213/{DetN (colShift_comm), FibCassiniDet (fibCas_det_eq_unit, cassini_fibZ_eq_altSign)}` + `Cauchy/OrbitDimension.cassini_fibZ_step` + `Mobius213/Px/PnFibonacciUniversal.det_pn_universal` + `Lens/Number/SharedUnitAcrossReadings.the_unit_is_one_across_readings` (`ns_minus_nt_is_one`, `mobius_det_{eq_ns_minus_nt,is_unit}`) + `theory/math/analysis/cfinite_orbit_dimension.md` |
+| `permutation_sign_as_homomorphism.md` | What is the **sign of a permutation** in 213, and why do both determinant capstones descend from it? (sign = parity of a count: `psign = altSign(inversions)`, the count-Lens reading folded through the Bool-style `±1` involution of §6.7; a permutation IS its value-list, §6.2 op/object non-separation; the homomorphism `psign(σ∘τ)=psign σ·psign τ` is a bubble-sort invariant, not a pre-existing parity; `det Mᵀ=det M` and `det(A·B)=det A·det B` are its corollaries; antisymmetry = `psign_mul` at the row-swap fixed point) | `Linalg213/{PermGroup (composeList, invPerm), PermSign (psign_mul, Q_swap, inv_prefix_swap, sorted_perm_eq_iota), Permutation (psign, leibDet), DetTranspose (psign_inv, det_transpose), DetMul (det_matMul, leibDet_perms_assembly, firstDup, nodup_imp_perm)}` + `seed/AXIOM/06_lens_readings.md` §6.7 + §6.2 + `theory/essays/algebra/determinant_as_quotient_characteristic.md` |
 | `cayley_hamilton_self_characteristic.md` | What is **Cayley–Hamilton** `χ_M(M)=0` in 213? (a finite operand satisfies its own characteristic; `χ_M = det(X·I−M)` = the quotient-characteristic of "operand minus the free distinguishing"; the adjugate `(X·I−M)·adj = χ_M·I` lifted to `ℤ[X]` telescopes to the collapse; **monic = the unit comes from inside** = the shared `det=±1`; this is what closes the C-finite **Hadamard** ring — self-substitution lands on `0`, a self-pointing with no exterior, same fact as `P(φ)=φ`) | `Linalg213/{CharPolyAdj (cayley_hamilton, padj_identity), PolyDet (charPoly, charPoly_monic, degLe_pdet), Laplace (matMul_adj_diag), FibCassiniDet}` + `PolyZ.coeff_unique` + `Cauchy/CFiniteHadamard.cfiniteZ_mul` + `theory/essays/algebra/determinant_as_quotient_characteristic.md` + `seed/AXIOM/05_no_exterior.md` §5.1 |
 | `teichmuller_as_forced_fixed_point.md` | What is a `(p−1)`-th root of unity / the **Teichmüller representative** `ω(x)` in 213? (the forced fixed point of the Frobenius self-map `x↦x^p`, `ω^p=ω`; reached as the **diagonal** of its own approximant sequence — Cauchy identity IS the diagonal trunc-recursion, no inverse-limit completion; `μ_{p−1}` = the Frobenius-fixed points; Nat-style/Lambek self-reference completing, complementary to `object1_not_surjective`'s "reached by none"; same fixed-point fact as `P(φ)=φ`) | `Padic/Teichmuller.{teichmuller, teichmuller_pow_p_trunc, teichmuller_trunc_succ, teichmuller_iter_cauchy}` + `Padic/TeichmullerUnit.{teichmuller_pow_pred_trunc, mul_right_cancel_trunc}` + `Lens/FlatOntologyClosure.object1_not_surjective` + `Algebra/Mobius213` + `seed/AXIOM/05_no_exterior.md` §5.2/§5.6 + `theory/math/numbersystems/padic_real213.md` |
 | `the_modular_group_from_two_folds.md` | Why does `SL(2, ℤ)` appear from the two founding folds, and why does one discriminant govern both the static elliptic/parabolic/hyperbolic trichotomy and the periodic/aperiodic dynamics? (negation/reciprocal = reflections; `N·R = S`; `PSL(2,ℤ) = ℤ₂ * ℤ₃`; Cayley–Hamilton `M² = tr·M − det·I` the primitive, `disc = tr²−4det` its discriminant; trace recurrence = the dynamics; `S` period 4 / `U` period 6 bounded vs `G` aperiodic) | `theory/lens/zero_infinity_and_two_folds.md` + `theory/math/analysis/phi_pi_poles.md` + `seed/AXIOM/06_lens_readings.md` §6.9 + `Real213/{FoldReflections, FoldDuality, FoldKlein, EllipticCycleFixtures, ParabolicTranslation, Mat2CayleyHamilton, Mat2Assoc, Mat2TraceRecurrence, GoldenAperiodic, EllipticTracePeriodic, UTracePeriodic}` |
