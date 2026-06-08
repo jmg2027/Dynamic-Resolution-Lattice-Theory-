@@ -20,7 +20,10 @@ open E213.Lib.Math.Algebra.Linalg213.Permutation
   (swapAt swapAt_prefix swapAt_lperm psign psign_swap_prefix LPerm perms iota
    inversions ltCount ltCount_append ltCount_cons2_comm)
 open E213.Lib.Math.Algebra.Linalg213.PermGroup (composeList map_append')
-open E213.Lib.Math.Algebra.Linalg213.PermClosure (permsOf_sound permsOf_complete)
+open E213.Lib.Math.Algebra.Linalg213.PermClosure
+  (permsOf_sound permsOf_complete lperm_of_cnt_eq cnt_lperm add_left_cancel'
+   nodup_iota lt_of_mem_iota perm_length)
+open E213.Lib.Math.Algebra.Linalg213.PermGroup (iota_cons)
 open E213.Meta.Int213 (mul_neg neg_mul)
 
 /-! ## §1 — composition commutes with an adjacent position-swap -/
@@ -167,5 +170,62 @@ theorem Q_swap (σ pre : List Nat) (y x : Nat) (l : List Nat) (hxy : x ≠ y)
       composeList_cons σ x (y :: l), composeList_cons σ y l,
       psign_swap_prefix (composeList σ pre) (composeList σ l) hne,
       psign_swap_prefix pre l hxy, neg_mul, mul_neg, Int.neg_neg]
+
+/-! ## §6 — a sorted permutation of `iota n` is `iota n` (the base case) -/
+
+/-- The tail of a sorted list is sorted. -/
+theorem sorted_tail : ∀ {a : Nat} {t : List Nat}, Sorted (a :: t) → Sorted t
+  | _, [],     _ => trivial
+  | _, _ :: _, h => h.2
+
+/-- A sorted list's head is `≤` every entry (including itself). -/
+theorem sorted_head_le_self {a : Nat} {t : List Nat} (h : Sorted (a :: t)) :
+    ∀ v, v ∈ a :: t → a ≤ v := by
+  intro v hv
+  cases hv with
+  | head       => exact Nat.le_refl a
+  | tail _ hv' => exact sorted_head_le a t h v hv'
+
+/-- `LPerm` cons-cancellation (`z :: a ~ z :: b ⟹ a ~ b`). -/
+theorem lperm_cons_inv {z : Nat} {a b : List Nat} (h : LPerm (z :: a) (z :: b)) : LPerm a b := by
+  apply lperm_of_cnt_eq
+  intro w
+  exact add_left_cancel' (if z = w then 1 else 0) (cnt_lperm (a := w) h)
+
+/-- ★ **Two sorted lists with the same multiset are equal**. -/
+theorem sorted_lperm_eq : ∀ (a b : List Nat), Sorted a → Sorted b → LPerm a b → a = b
+  | [],     [],     _,   _,   _ => rfl
+  | [],     _ :: _, _,   _,   h => nomatch (PermClosure.LPerm.length_eq h)
+  | _ :: _, [],     _,   _,   h => nomatch (PermClosure.LPerm.length_eq h)
+  | p :: a, q :: b, hsa, hsb, h => by
+    have hpq : p = q :=
+      Nat.le_antisymm
+        (sorted_head_le_self hsa q (PermClosure.LPerm.mem (Permutation.LPerm.symm h) (List.Mem.head _)))
+        (sorted_head_le_self hsb p (PermClosure.LPerm.mem h (List.Mem.head _)))
+    subst hpq
+    rw [sorted_lperm_eq a b (sorted_tail hsa) (sorted_tail hsb) (lperm_cons_inv h)]
+
+/-- `map (·+1)` preserves sortedness. -/
+theorem sorted_map_succ : ∀ (L : List Nat), Sorted L → Sorted (L.map Nat.succ)
+  | [],          _ => trivial
+  | [_],         _ => trivial
+  | a :: b :: t, h => ⟨Nat.succ_le_succ h.1, sorted_map_succ (b :: t) h.2⟩
+
+/-- Prepend a head `≤` every entry to a sorted list. -/
+theorem sorted_cons (a : Nat) : ∀ {M : List Nat}, (∀ c, c ∈ M → a ≤ c) → Sorted M → Sorted (a :: M)
+  | [],     _,  _  => trivial
+  | c :: _, hc, hM => ⟨hc c (List.Mem.head _), hM⟩
+
+/-- `iota n` is sorted. -/
+theorem sorted_iota : ∀ n, Sorted (iota n)
+  | 0     => trivial
+  | n + 1 => by
+    rw [iota_cons n]
+    exact sorted_cons 0 (fun c _ => Nat.zero_le c) (sorted_map_succ (iota n) (sorted_iota n))
+
+/-- ★★ **A sorted permutation of `iota n` is `iota n`** — the base case for `psign_mul`. -/
+theorem sorted_perm_eq_iota (n : Nat) (τ : List Nat) (hs : Sorted τ) (hτ : τ ∈ perms n) :
+    τ = iota n :=
+  sorted_lperm_eq τ (iota n) hs (sorted_iota n) (permsOf_sound (iota n) τ hτ)
 
 end E213.Lib.Math.Algebra.Linalg213.PermSign
