@@ -139,20 +139,32 @@ finite-depth algebra (Hadamard product, Casoratian rank, holonomic `ℚ(n)`-orbi
   at the sequence scale.
 - `G188_multiplicative_conv_design` — `mconv` (multiplicative twin of `conv`):
   the power-sum/Newton route, with an honest ∅-axiom feasibility verdict.
+- `multiplicative_carry_residue` — the digit-scale mirror: p-adic `×` is native corecursive
+  (`mul_corecursive`) but not finite-state (`mulRaw_unbounded`/`mulCarry_unbounded`, dual of
+  `add_carry_le_one`); the unbounded carry IS a νF inhabitant (`carry_is_nu_escape`) — core closed,
+  only the Lens-reading refinement soft-open.
 
 Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite_orbit_dimension}.md`.
 
 ## Standalone frontiers (root of `frontiers/`)
 
 - `selfref_matrix_crossdomain` — **the self-reference matrix `M=[[2,1],[1,1]]` as the common
-  root** (apex ↔ Casoratian ↔ axis, this session × main).  Five connections: (1) the CKM
-  factorises by discriminant — modulus on `ℚ(√5)` (+5, golden eigenvalue), phase on `ℚ(i)` (−4,
-  Hodge `⋆`); (2) `det=1` unimodularity is the one shared engine (apex reciprocity ↔ `det(AB)=det
-  A·det B` ↔ CKM unitarity ↔ Legendre); (3) "modulus = de-signed square" is the same Bool/
-  difference-Lens as the Casoratian/Cassini sign; (4) `M` is the companion matrix of `x²−3x+1`, so
-  the fourth-readout companion-sign machinery applies to the apex itself; (5) `H*(Δ⁴)` shared by
-  `1/α_em` and the CP phase.  Buildable: unimodularity note, companion-cycle reading of the apex,
-  the two eigen-fields of `d=5`.
+  root** (apex ↔ Casoratian ↔ axis).  Five connections: (1) the CKM factorises by discriminant —
+  modulus on `ℚ(√5)` (+5, golden eigenvalue), phase on `ℚ(i)` (−4, Hodge `⋆`); (2) `det=1`
+  unimodularity is the one shared engine (apex reciprocity ↔ `det(AB)=det A·det B` ↔ CKM unitarity
+  ↔ Legendre); (3) "modulus = de-signed square" is the same Bool/difference-Lens as the Casoratian/
+  Cassini sign; (4) `M` is the companion matrix of `x²−3x+1`, so the fourth-readout companion-sign
+  machinery applies to the apex itself; (5) `H*(Δ⁴)` shared by `1/α_em` and the CP phase.  Buildable:
+  unimodularity note, companion-cycle reading of the apex, the two eigen-fields of `d=5`.  (The
+  `casoratian_axis_cp_crossdomain` note both links closed — `GaussianHodgeBridge` morphism +
+  `CasoratianPermSign` sign-bridge — and is archived.)
+- `one_carrier_crossdomain` — **the one-carrier branch ↔ merged main** (p-ary-spine marathon).
+  (1) "Unit result, non-finite-state generation" at two scales: `(-1)²=1` with unbounded carry
+  (`mulCarry_unbounded`/`carry_is_nu_escape`, branch) = Casoratian `q=−1` with no finite holonomic
+  depth (`cas_neg_unit_no_finite_depth`/`DetSpectrumPoles`, main) — finite-state is of the *pointing*,
+  not the value, on ring-op and sequence scales.  (2) Multiplication's unit/non-unit split IS the
+  finite-state/escape split: `× unit` = a finite permutation with a sign (Zolotarev `mulPermMod`,
+  main) vs `× p` = the valuation escape (`mulBase_eq_mul_pElem`, branch).  Open bridges noted.
 - `cp_crossdomain_insights` — **CP-phase cohomology ↔ main's sign/QR/cyclotomic
   campaigns** (merge marathon). Four candidate bridges where the two branches
   share one object: (1) the inversion sign is one object — `det(permMatrix)=psign`

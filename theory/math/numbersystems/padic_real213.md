@@ -61,6 +61,7 @@ The library is ∅-axiom throughout: every theorem reports
 | `TeichmullerUnit.lean` | `teichmuller_pow_pred_trunc` (`ω^(p−1) ≡ 1`, `(p−1)`-th root of unity); `teichmullerCofactor` (`ω⁻¹·x`) + `teichmullerCofactor_trunc_one` (`u ≡ 1 mod p`) — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split at trunc level (bridges Teichmuller + Hensel) |
 | `Field.lean` | `QpSeq` (num + shift), `QpSeq.{add,sub,mul,neg,ofNat}`, `QpSeq.inv` (Hensel via `invFull` + `shiftLeft`), `QpSeq.div`; general division `invGeneral` / `divGeneral` (non-unit denominator via valuation shift, `invGeneral_unit_eq_inv` reduction); `QpSeq.sqrt` (even-shift only — `√p ∉ ℚ_p`) + `sqr_sqrt_num_correct` |
 | `DRLT.lean` | `canonical_5adic_p` (= 5) + digit smokes, `canonical_5adic_zero` (canonical 5-adic embeddings) |
+| `NuEscape.lean` | the p-adic integer on the residue's νF carrier (`CoResidue.gspine`): escape (`padic_is_nu_escape`, `twoAdic_is_nu_escape`, `zpSeq_not_enumerable`); carrier arithmetic grounded in the real ring (`mulBase_eq_mul_pElem` = `Zp.mul`-by-`p`, `add_negOne_one_zero`, `padic_ring_on_carrier`, `residue_ring_hom`); the multiplicative residue (`add_carry_le_one` vs `mulCarry_unbounded`, `mul_corecursive`, `carry_is_nu_escape`, `neg_one_sq_eq_one`).  Synthesis: `theory/essays/foundations/the_one_carrier.md` |
 
 ## Narrative
 
@@ -517,6 +518,31 @@ per-truncation uniqueness to this equality funext-free (each digit a
 `Fin` equality, not a function equality).  The factorisation is thus
 unique full stop — there is no further "literal equality" to reach;
 that question asks for an equality the Lens does not define.
+
+## The one νF carrier — escape, arithmetic, the multiplicative residue
+
+A `ZpSeq p` digit stream rides the residue's final-coalgebra carrier (`CoResidue.gspine`, the
+label-generic spine over an arbitrary leaf alphabet); the foundational synthesis is
+`theory/essays/foundations/the_one_carrier.md` (König / `ℤ_p` / `ℝ` are one carrier).  For the
+p-adic side specifically:
+
+- **Escape.**  A p-adic integer is a branch of the p-ary tree, reached by no finite Raw
+  (`padic_is_nu_escape`, every `p ≥ 2`; the 2-adic `Fin 2 ≃ Bool` case `twoAdic_is_nu_escape`) and
+  by no enumeration (`zpSeq_not_enumerable`, the native Cantor diagonal).
+
+- **Arithmetic on the carrier, grounded in the real ring.**  `× p` is the valuation operator
+  `mulBase`, and it **is** the genuine `Zp.mul`-by-`p` (`mulBase_eq_mul_pElem`: multiplication by
+  `p` carries nothing, so it collapses to the digit shift); `(-1)+1 = 0` is the real
+  `Zp.add (neg_one) (one)` (`add_negOne_one_zero`); the escapes are `+`/`×`-closed with a residue
+  field 𝔽_p ring-hom readout (`padic_ring_on_carrier`, `residue_ring_hom`).
+
+- **The multiplicative residue.**  Addition is finite-state — its carry is a single bit
+  (`add_carry_le_one`); multiplication is **native corecursive** (`mul_corecursive`: the Cauchy
+  product's head/tail behavioural-differential law) but **not finite-state** — its carry is
+  unbounded (`mulCarry_unbounded`, dual of `add_carry_le_one`).  Since `(-1)² = 1`
+  (`neg_one_sq_eq_one`) while that carry escapes (`carry_is_nu_escape`, a νF inhabitant), being
+  finite-state is a property of the *pointing* (the carry / the act of multiplying), not the
+  *number* (the trivial result `1`).
 
 ## Closing reflection
 

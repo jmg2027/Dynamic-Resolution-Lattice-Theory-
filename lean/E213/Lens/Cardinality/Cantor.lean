@@ -37,4 +37,35 @@ theorem cantor_raw_bool :
     ¬ ∃ f : Raw → (Raw → Bool), Function.Surjective f :=
   cantor_general
 
+/-! ## Cantor factors through the invariant-separation schema (one schema, cover-dependent `P`)
+
+A multi-agent dialectic established that `cantor_general` is **not** a separate flavor of
+non-surjection from the residue's spine escapes — it is an instance of the *same* schema
+`CoResidue.escape_by_invariant` (an inhabitant lacking a property `P` that every cover-image has is
+in the image of none).  The single separator is the **cover-dependent** (self-referential)
+predicate `P_f φ := ∃ x, φ x = f x x` ("φ agrees with `f`'s own diagonal somewhere").  The genuine
+distinction from the spine escapes is therefore *not* "two schemas" but the **self-reference of the
+separator**: cover-independent / intrinsic (`hasFloorPath`, the *named* residue) vs cover-dependent /
+diagonal (`P_f`, the *reached-by-none* residue forced by the cover's own self-application). -/
+
+open E213.Theory.Raw.CoResidue (escape_by_invariant)
+
+/-- `!b = b` is impossible (the fixpoint-free flip). -/
+theorem bnot_self_ne : ∀ b : Bool, (! b) = b → False
+  | true  => fun h => Bool.noConfusion h
+  | false => fun h => Bool.noConfusion h
+
+/-- ★★★ **Cantor factors through `escape_by_invariant`.**  The diagonal non-surjection is the
+    invariant-separation schema at the **cover-dependent** separator `P_f φ := ∃ x, φ x = f x x`:
+    every row `f a` satisfies it (at `x = a`, `rfl`); the flip `g x := !(f x x)` satisfies it
+    nowhere (`bnot_self_ne`).  So `cantor_general` and the spine escapes (`gspine_escapes_via_schema`)
+    are *one* schema — differing only in whether the separator is self-referential (this, Cantor)
+    or intrinsic (`hasFloorPath`).  ∅-axiom. -/
+theorem cantor_as_invariant {X : Type} :
+    ¬ ∃ f : X → (X → Bool), Function.Surjective f := by
+  rintro ⟨f, hf⟩
+  obtain ⟨k, hk⟩ := hf (fun x => ! (f x x))
+  exact escape_by_invariant f (fun φ => ∃ x, φ x = f x x) (fun x => ! (f x x))
+    (fun ⟨x, hx⟩ => bnot_self_ne (f x x) hx) (fun a => ⟨a, rfl⟩) k hk
+
 end E213.Lens.Cardinality
