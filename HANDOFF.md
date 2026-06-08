@@ -1,107 +1,109 @@
-# Session Handoff — 2026-06-08 (the one-carrier program + the residue of the pointing; merge marathon)
+# Session Handoff — 2026-06-08 (Zolotarev converse closed + merge marathon)
 
 ## Branch
-`claude/p-ary-spine-r-carrier-MPHbA` — `origin/main` merged in (98 commits: the CKM CP-phase /
-Zolotarev / spiral-axis / determinant-sign stacks).  Ahead 103.  `rm -rf .lake/build && lake build
-E213` ✓ clean (fresh); `layer_audit` 0 violations / 1877 files; `kernel_regress` 45/45 0-axiom;
-purity 0 sorry/axiom/native_decide/Classical/Mathlib.  **READY TO MERGE → main.**
-
-## The arc, in one line
-König branches, ℤ_p (every `p`), and ℝ all live on **one νF carrier**, with the full ring
-arithmetic grounded in the real `Zp.add`/`Zp.mul`/`cutSum`/`cutMul` — and the deep insight that
-**finite-state-ness (holonomicity) is a property of the *pointing*, not the *pointed-at*.**
+`claude/converse-psign-character-ZEsQA` — pushed, **ahead of `origin/main`**
+(merge marathon).  `cd lean && lake build E213` ✓ clean.  All new theorems strict
+∅-axiom PURE (`tools/scan_axioms.py`).  **NOTE**: `origin/main` advanced during the
+marathon — re-merge `origin/main` before the final push/merge.
 
 ## What Was Done This Session
 
-### 1. The one-carrier program (all ∅-axiom)
-- **Carrier** — `CoResidue.lean` §20 label-generic spine `gspine : (Nat→L) → GCoShape L` (`boolSpine`
-  = `L=Bool`); §21 shift dynamics.  König / ℤ_p (`L=Fin p`) / ℝ (`L=Bool` cut-bits) all ride it
-  (`padic_is_nu_escape`, `real_is_nu_escape`, `gspine_one_carrier`).
-- **Arithmetic on the carrier** (`Padic/NuEscape.lean`, grounded in the real ring): additive odometer
-  `±1` (`add_negOne_one_zero` = real `Zp.add`; `Odometer` §7–8); valuation `× p = mulBase` = the
-  genuine `Zp.mul`-by-`p` (`mulBase_eq_mul_pElem`); binary ring + 𝔽_p ring-hom readout
-  (`padic_ring_on_carrier`, `residue_ring_hom`); `+` finite-state (`add_carry_le_one`); `×` native
-  corecursive (`mul_corecursive`) but NOT finite-state (`mulCarry_unbounded`); the carry is itself a
-  νF inhabitant (`carry_is_nu_escape`); `(-1)²=1` (`neg_one_sq_eq_one`).
-- **ℝ on the carrier** (`Real213/NuEscape.lean`): `cutBits`/`real_is_nu_escape`/`real_field_on_carrier`.
+**Zolotarev's lemma is fully closed for every odd prime, ∅-axiom PURE.**  The
+sign of the multiply-by-`a` permutation IS the Legendre symbol:
+`psign σ_a = 1 ⟺ a` is a QR (`ModArith/ZolotarevMuBridge.zolotarev_mu`).  This
+closes the converse that began as "a separate multi-session effort" — no primitive
+root needed.
 
-### 2. The non-surjection schema (CoResidue §22) — multi-agent dialectic
-`escape_by_invariant` — the abstract invariant-separation non-surjection; `gspine_escapes` (number +
-operation-carry escapes) is one instance.  **Cantor too** factors through it
-(`Lens.Cardinality.cantor_as_invariant`, single cover-dependent separator `P_f φ := ∃x, φ x = f x x`).
-`diag_via_modifier` — the construction-level root (Cantor = point-dependent modifier; invariant =
-constant modifier).  The genuine distinction = **separator self-reference** (cover-independent /
-*named* vs cover-dependent / *reached-by-none*).  A Unifier-vs-Skeptic debate refuted an earlier
-"Cantor is a sibling, not an instance" claim with the machine-checked factoring.
+### 1. Reusable permutation-sign combinatorics (`Linalg213/InversionsAppend.lean`, 28 PURE)
+- `inversions_append` / `psign_append` — `L ++ M` sign via cross-term
+  `crossInv L M = Σ_{x∈L} ltCount x M`.
+- propext-free reversal `revL` (+ `map_snoc`, `revL_lperm`, `ltCount_revL`,
+  `revL_getD`, `getD_append_left/right`, `length_append_pure`) — `List.reverse` /
+  `map_append` / `mem_append` all pull `propext`, so a self-contained reversal is used.
+- ★ `psign_csub_revL`: `psign ((revL L).map (c−·)) = psign L`.
+- ★ `psign_blockForm`: `psign (0 :: L ++ (revL L).map (p−·)) = altSign (crossInv L …)`.
+- ★ `altSign_crossInv_map_psub`: symmetric cross-count `= altSign (diagCount p F)`
+  (off-diagonal pairs cancel mod 2; `psub_lt_symm`).
 
-### 3. Methodology discipline (multi-agent debates)
-`why_the_reframing_recurs.md` given a **"Falsifiability discipline"** section: the recurrence thesis
-is a theorem only at its checkable core (`cantor_general` — no closed self-description); "this debate
-happened *because* the diagonal re-entered" is unfalsifiable re-description (the repo's own
-Metaphysical-framing/Fog-jargon failure modes).  A Fog-auditor vs Compression-defender debate
-confirmed 5/6 of the session's hard phrases are genuine compression (pin to ∅-axiom theorems); the
-one fog residue was stripped.
+### 2. The full converse (`ModArith/ZolotarevMuBridge.lean`, 14 PURE)
+- `neg_mul_mod`: `(a·(p−x)) % p = p − (a·x) % p`.
+- `mulPermMod_block`: `σ_a = 0 :: (fhList ++ (revL fhList).map(p−·))` (since
+  `σ_a(p−x) = p − σ_a(x)`).
+- `psign_mulPermMod_eq_diag` → `altSign (diagCount p fh)`; `pm_lt`/`sgn_helper`/
+  `altSign_diag_eq_prodSgn` → `= ∏ sgFn` (Gauss's `μ`).
+- ★ `zolotarev_mu`: `psign σ_a = 1 ⟺ QR(a)`, all odd primes.
+- ★ `det_permMatrix_mulPermMod`: `det (permMatrix σ_a) = (a/p)` — the "one
+  permutation, three readouts" triangle (psign = det = Legendre) closed universally.
 
-### 4. Merge marathon (this session's closing)
-merge `origin/main` → `/process` (1 sink decouple) → promote (one-carrier → `padic_real213.md`
-chapter, log row 36) → cross-domain note (branch × main) → `/essay`
-(`finite_state_is_of_the_pointing`, log row 37) → `/org-audit` (INDEX 94/19/14/7/73, clean) →
-`/purity-check` (clean) → `/ready-to-merge` (READY).
+### 3. Earlier this branch (already pushed before the marathon)
+- `ModArith/ZolotarevConverse.lean` (23 PURE): `p ≡ 3 (mod 4)` full identity +
+  the `−1` corner `psign σ_{−1} = (−1)^m = (−1/p)` (universal) + det triangle (p≡3).
+
+### 4. Merge marathon (skills)
+- Merged `origin/main` (one-carrier / p-adic νF arc, Casoratian / spiral-axis,
+  CKM CP-phase, finite-state-of-the-pointing); resolved the `ZolotarevSign` docstring
+  conflict to the now-complete state.
+- `/process`: 1 → 0 sink violations; `frontiers/INDEX.md` Zolotarev edges marked CLOSED.
+- Promotion: `theory/math/numbertheory/zolotarev.md` (log row 38).
+- Cross-domain: `frontiers/zolotarev_crossdomain.md` (4 bridges branch × main).
+- `/essay`: `theory/essays/synthesis/the_legendre_symbol_is_the_sign_of_a_pointing.md`
+  (log row 39).
+- `/org-audit` + `/purity-check` + `/ready-to-merge`: all green.
 
 ## Current Precision Results (0 free parameters)
-**No physics-constant changes** in this branch's work (pure mathematics / foundations).  Main's
-merged CKM CP-phase / α_em table stands in `catalogs/physics-constants.md`.
+Unchanged this session — Zolotarev is pure-math closure, not a physics observable.
+See `catalogs/physics-constants.md` (inherited from main: `1/α_em` 0.09 ppb, CKM
+`δ = 90°`, `R_u = 1/φ²`, …).
 
 ## Open Problems (Priority Order)
-### 1. The cross-scale unifier (×-carry ↔ Casoratian depth)
-A single ∅-axiom term with both the p-adic carry (`mulCarry_unbounded`) and the Casoratian depth
-(`cas_neg_unit_no_finite_depth`) as instances of "unit value, non-finite-state pointing".
-Frontier: `research-notes/frontiers/one_carrier_crossdomain.md` + `.../sequence_depth/multiplicative_carry_residue.md`.
 
-### 2. ℝ not-finite-state — needs a transducer / unbounded-modulus framework
-`cutBits r N` reads only `r.xs N` (eventually constant per real), so ℝ's "transport-only" is honest
-prose, NOT a clean theorem.  Frontier: `research-notes/frontiers/sequence_depth/multiplicative_carry_residue.md`.
+### 1. The remaining "three readouts" faces (insights 2–4)
+The Teichmüller `ω`-projection face of the quadratic character, the
+`ZpSeq ↠ ℤ/pⁿ ↠ ℤ/p` truncation-tower reading, and the Hensel/`diagLimit`
+square-root face (`(a/p)=1 ⟺ a has a √ in ℤ_p`).  Proven cores closed both sides;
+the bridging edges are open.
+Frontier note: `research-notes/frontiers/permutation_three_readouts.md` (insights 2–4).
 
-### 3. Multiplication's unit/non-unit = finite-state/escape (Zolotarev ↔ ×p)
-`× unit` = a finite permutation with a sign (`mulPermMod`, main) vs `× p` = the valuation escape
-(`mulBase`, branch).  Frontier: `research-notes/frontiers/one_carrier_crossdomain.md`.
-
-### 4. Lens §6.7 readout of the carry; exact-linear `mulCarry ≥ c·k`
-Frontier: `research-notes/frontiers/sequence_depth/multiplicative_carry_residue.md` (soft-open).
+### 2. Branch × main cross-domain bridges (ripe: insights 1–2)
+(1) `(a/p)` as the Z/2 invariant the finite `×a` pointing carries that the `×p`
+νF-escape lacks; (2) `psign (cyclicShift n) = altSign (n−1)` through `det_permMatrix`
+(mirroring `psign σ_a = (a/p)`), unifying Zolotarev with main's Casoratian companion
+sign as one "three readouts" family; (3) `crossInv` antisymmetry ↔ det repeated-row
+vanishing; (4) `psign σ_{−1} = (−1/p)` ↔ main's order-4 spiral-axis point `ℤ[i]^×=C₄`.
+Frontier note: `research-notes/frontiers/zolotarev_crossdomain.md`.
 
 ## Unresolved from This Session
-No dead ends.  Honest corrections made: the "Cantor is a sibling, not an instance" claim was refuted
-(now `cantor_as_invariant`); "Advance A" (ℝ not-finite-state) was found over-claimed and re-scoped to
-honest prose.  Propext traps recorded (Mathlib-free kernel): `Nat.succ_ne_zero`→`Nat.noConfusion`;
-`Nat.sub_add_cancel`→`cases p`; `Nat.zero_mod`→`Nat.mod_eq_of_lt`; `Nat.div_self`/`add_div_right`/
-`div_lt_of_lt_mul`→`NatDiv213.*`; `Nat.div_le_div_right` (absent)→`AddMod213.div_le_div_right_pure`;
-`Nat.add_sub_add_right`→`Nat.succ_sub_succ`; core `div_add_mod`→`AddMod213.div_add_mod`; `by_cases`→
-`rcases Nat.lt_or_ge`; `rw`-with-`Iff`→`.mp`/`.mpr`; base `a=a+0`→`(Nat.add_zero _).symm`.
+None — the μ-bridge closed cleanly.  Self-corrected dead ends to NOT re-attempt:
+`omega` / `Nat.sub_sub` / `Nat.add_sub_cancel_left` / `Nat.div_add_mod` /
+`Nat.mod_two_eq_zero_or_one` / `Nat.sub_add_cancel` / `List.reverse_cons` /
+`Nat.lt_of_mul_lt_mul_left` / `Nat.le_sub_of_add_le` — all pull `propext`/`Classical`
+in this Lean core; use the repo's pure replacements (`NatHelper.*`, `AddMod213.*`,
+`MulMod213.*`, self-defined `revL`/`sub_one_sub`).
 
 ## Next
-Highest-value: the cross-scale unifier (Open Problem 1) — one term with `mulCarry`-unbounded and the
-Casoratian depth as instances.  Or unify the omniscience ledger (field 17) with the finite-state
-ledger (operations and decisions are one cost).  Or a concept deep-dive (limit/completion).
+Push and merge this branch to `main` (re-merge `origin/main` first — it advanced
+during the marathon).  After merge: attack Open Problem 2 insight (2) — the buildable
+`psign (cyclicShift n) = altSign (n−1)` edge tying Zolotarev to the Casoratian.
 
-## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: one-carrier number-system results → `theory/math/numbersystems/padic_real213.md`
-  (§ "The one νF carrier", log row 36); essay `theory/essays/synthesis/finite_state_is_of_the_pointing.md`
-  (row 37); foundations essay `theory/essays/foundations/the_one_carrier.md` (this arc).
-- **Promotion candidates**: none outstanding from this branch.
-- **Active scratchpad**: `research-notes/frontiers/{one_carrier_crossdomain, sequence_depth/multiplicative_carry_residue}.md`.
+## Three-tier state
+- **Promotions this session**: `theory/math/numbertheory/zolotarev.md` (row 38) +
+  essay `the_legendre_symbol_is_the_sign_of_a_pointing.md` (row 39).
+- **Promotion candidates**: none outstanding for the Zolotarev arc (closed + promoted).
+- **Active scratchpad**: `frontiers/{permutation_three_readouts, zolotarev_crossdomain}.md`.
 
 ## File Map
 ```
-lean/E213/Theory/Raw/CoResidue.lean              ← §20 gspine, §21 shift, §22 escape_by_invariant/diag_via_modifier
-lean/E213/Theory/Raw/Odometer.lean               ← §7 runCarry, §8 p-ary odometer
-lean/E213/Lib/Math/NumberSystems/Padic/NuEscape.lean   ← escape + carrier arithmetic + multiplicative residue
-lean/E213/Lib/Math/NumberSystems/Real213/NuEscape.lean ← ℝ on the carrier + cut-field closure
-lean/E213/Lens/Cardinality/Cantor.lean           ← + cantor_as_invariant (Cantor factors through the schema)
-lean/E213/Meta/Nat/AddMod213.lean                ← + div_le_div_right_pure (pure monotone div)
-theory/essays/foundations/the_one_carrier.md     ← the one-carrier narrative (one non-surjection)
-theory/essays/synthesis/finite_state_is_of_the_pointing.md  ← branch×main cross-scale synthesis
-theory/essays/methodology/why_the_reframing_recurs.md  ← + Falsifiability discipline section
-theory/math/numbersystems/padic_real213.md       ← + "The one νF carrier" section (promotion)
-research-notes/frontiers/one_carrier_crossdomain.md          ← branch×main cross-domain note
-research-notes/frontiers/sequence_depth/multiplicative_carry_residue.md ← the carry frontier (core closed)
+lean/E213/Lib/Math/Algebra/Linalg213/InversionsAppend.lean   ← NEW, 28 PURE (reusable sign combinatorics)
+lean/E213/Lib/Math/Algebra/Linalg213.lean                    ← +InversionsAppend import
+lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevMuBridge.lean ← NEW, 14 PURE (full converse)
+lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevConverse.lean ← p≡3 + −1 corner (23 PURE)
+lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevSign.lean  ← docstring → fully-closed state
+lean/E213/Lib/Math/NumberTheory/ModArith.lean                ← +ZolotarevConverse, +ZolotarevMuBridge
+theory/math/numbertheory/zolotarev.md                        ← NEW promoted chapter
+theory/essays/synthesis/the_legendre_symbol_is_the_sign_of_a_pointing.md ← NEW essay
+research-notes/frontiers/permutation_three_readouts.md       ← Zolotarev edge marked CLOSED
+research-notes/frontiers/zolotarev_crossdomain.md            ← NEW (branch × main, 4 bridges)
+research-notes/frontiers/INDEX.md                            ← Zolotarev seeds → Done
+research-notes/promotion_essay_log.md                        ← rows 38 (promotion) + 39 (essay)
+theory/{INDEX,math/INDEX,essays/INDEX}.md                    ← counts: math 95, essays 74
 ```
