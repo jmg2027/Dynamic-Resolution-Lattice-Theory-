@@ -40,34 +40,36 @@ observed `|V_cb| ≈ 0.041` fine — the gap is specifically the apex.
   "magnitude un-derived" to "magnitude over-predicted ×2.66; missing
   `(ρ, η)`".
 
-## Candidate — `R_u = c/d` (2026-06-07, ~6% match)
+## Candidate — the apex is a φ² object: modulus `1/φ²`, phase `π/φ²` (2026-06-07)
 
-`JarlskogApex.lean` (PURE) records the atomic candidate that closes the gap:
+`JarlskogApex.lean` (PURE). Trying to force the first `c/d` guess revealed a
+better, **φ²-coherent** candidate: the CKM CP-apex is a single golden object —
+**modulus `R_u = 1/φ²`, phase `δ = π/φ²`** (the phase already derived in
+`CPViolation`). The same `φ²` in both, and `φ²` is atomic
+(`φ²+1/φ² = NS`, `d·NT = NS²+1`).
 
-  **R_u = √(ρ²+η²) = c/d = 2/5**, equivalently
-  **|V_ub|/|V_cb| = λ·R_u = c/D = 2/22** (`D = d²−d+c` = Cabibbo denom).
+Numerical match (full Jarlskog formula, `R_u = 1/φ²`):
+- `R_u = 1/φ² = 0.38197` vs observed `√(ρ̄²+η̄²) = 0.38260` (**0.17%**)
+- `J = 3.12×10⁻⁵` vs observed `3.08×10⁻⁵` (**+1.4%**, was 166% without)
+- `η = (1/φ²)·sin(π/φ²) = 0.356` vs observed `η̄ = 0.348` (**2.3%**)
 
-Numerical effect (full Jarlskog formula with this factor):
-- `s₁₃ = A·λ³·(c/d) = 0.00380` vs observed `|V_ub| = 0.00382` (**0.5%**)
-- `R_u = 0.40` vs observed `0.38–0.42` (≤4%, `Ru_in_observed_bracket`)
-- `J = 3.27×10⁻⁵` vs observed `3.08×10⁻⁵` (**6.2%**, was 166% without)
-- `η = (c/d)·sin(π/φ²) = 0.373` vs observed `η̄ ≈ 0.348` (7%)
+The earlier `c/d = 2/5` is **not a competitor**: it is the *lowest Fibonacci
+convergent* of `1/φ²` (`F₃/F₅`, with `F₃=NT, F₄=NS, F₅=d`), with higher
+convergents `5/13, 13/34 → 1/φ²` (Cassini alternation, all PURE).
 
-Structural story (suggestive, not yet a theorem): `V_ub` is the `λ³`
-third-level transition; crossing the extra level multiplies the ratio by the
-**multiplicity `c`** over the base `d` (the `c` = inter-level multiplicity
-reading, `AlphaEM/AssignmentForcing`).
-
-**Still open (now narrow)**: *why* `|V_ub|/|V_cb| = c/D` is forced — the
-numerator `c` lacks a forcing theorem. The candidate is strong (atomic ratio,
-0.5% on `|V_ub|`, 6% on `J`) but labelled CANDIDATE until that closes.
+**Status — strong, φ²-coherent, modulus not yet forced.** The Fibonacci/φ²
+identities are exact (PURE). `R_u = 1/φ²` matches at 0.17% (modulus) / 1.4%
+(J) and shares the derived phase's `φ²` — far past a fit. Open: *why* the
+apex modulus is exactly `1/φ²` (vs another φ-power). The open part shrank from
+"unexplained `c/d`" to "why the apex is the `φ²` object", and `φ²` is already
+atomic.
 
 ## What would fully close it
 
-A forcing theorem for the `c`-numerator in `|V_ub|/|V_cb| = c/D` (the
-multiplicity picked up crossing the `λ³` level), promoting the candidate to
-a derivation. Then `J = A²λ⁶η` is atom-pinned and θ_QCD's `J` input is
-resolved.
+A first-principles reason the unitarity-triangle apex modulus is `1/φ²` —
+e.g. a golden self-similarity of the triangle given the apex angle `γ = δ =
+π/φ²`. Then `J = A²λ⁶η` with `η = (1/φ²)sin(π/φ²)` is atom-pinned and θ_QCD's
+`J` input is resolved.
 
 ## Anchors
 

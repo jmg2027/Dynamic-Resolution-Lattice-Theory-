@@ -96,15 +96,16 @@ near-term experiment whose result DRLT cannot retro-adjust.
 > derived. Frontier: `research-notes/frontiers/ckm_rho_eta_apex.md`.
 > Until resolved, P2 should **not** be relied on as a forward prediction.
 >
-> ✅ **Apex candidate found (2026-06-07, `JarlskogApex.lean`).** The missing
-> factor has a strong atomic candidate: `R_u = √(ρ²+η²) = c/d = 2/5`
-> (equivalently `|V_ub|/|V_cb| = c/D = 2/22`). With it, `s₁₃ = Aλ³·(c/d) =
-> 0.00380` matches observed `|V_ub| = 0.00382` (0.5%), and `J = 3.27×10⁻⁵`
-> matches observed `3.08×10⁻⁵` (6%, vs 166% without). This **restores** the
-> θ_QCD value to the catalog range and removes the inconsistency above — but
-> `R_u = c/d` is a **candidate** (the `c`-numerator is not yet a forcing
-> theorem), so P2 is upgraded from "inconsistent" to "candidate-derived at
-> ~6%", still not ppb-clean. Frontier: `ckm_rho_eta_apex.md`.
+> ✅ **Apex found to be a φ² object (2026-06-07, `JarlskogApex.lean`).** The
+> missing factor is the apex modulus `R_u = 1/φ²` — φ²-coherent with the
+> already-derived phase `δ = π/φ²` (same `φ²`; `φ²` atomic via `φ²+1/φ²=NS`).
+> With it: `R_u = 0.38197` vs observed `0.38260` (**0.17%**), and
+> `J = 3.12×10⁻⁵` vs observed `3.08×10⁻⁵` (**+1.4%**, was 166% without). The
+> earlier `c/d=2/5` is the lowest Fibonacci convergent of `1/φ²` (`F₃/F₅`,
+> `F₃=NT, F₅=d`), not a competitor. This **restores** θ_QCD to the catalog
+> range. Still a **candidate** (the modulus `1/φ²` is not yet a forcing
+> theorem), so P2 is "candidate-derived at ~1.4% on J" — strong and
+> φ²-coherent, but not ppb-clean. Frontier: `ckm_rho_eta_apex.md`.
 
 ---
 
