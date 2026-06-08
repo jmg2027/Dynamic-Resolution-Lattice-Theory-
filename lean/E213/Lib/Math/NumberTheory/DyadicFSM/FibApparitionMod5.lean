@@ -130,6 +130,56 @@ theorem lucasMod5_never_zero (n : Nat) : lucasMod5 n ≠ 0 := by
   rw [lucasMod5_mod4 n]
   exact lucasMod5_residue_ne_zero (n % 4) (Nat.mod_lt n (by decide))
 
+/-! ## The `ν₅ ≥ 2` rung — Fibonacci mod 25
+
+The next valuation rung toward `ν₅(F_n) = ν₅(n)`: the zero-set of
+Fibonacci mod `25 = 5²`.  The Pisano period of `25` is `100 = 4·5²`, and
+the zeros sit exactly at the multiples of `25` — i.e. `25 ∣ F_n ⟺ 25 ∣
+n`, the `ν₅(·) ≥ 2` reading.  Proved the same way (period reduction +
+finite decide), one prime power up.  (The full all-powers law
+`ν₅(F_n) = ν₅(n)` is the open lifting-the-exponent rung — see
+`research-notes/frontiers/G124_padic_drlt_5adic.md`.) -/
+
+/-- Fibonacci-style FSM mod 25 (`init = (F₀, F₁) = (0, 1)`). -/
+def fibFSMmod25 : ArithFSM2 25 where
+  init := (⟨0, by decide⟩, ⟨1, by decide⟩)
+  step p := let (a, b) := p
+    (b, ⟨(a.val + b.val) % 25, Nat.mod_lt _ (by decide)⟩)
+  out p := p.1.val == 1
+
+/-- Fibonacci mod-25 run cycles with the Pisano period `100 = 4·5²`. -/
+theorem fibFSMmod25_run_period_100 :
+    ∀ k, fibFSMmod25.run (k + 100) = fibFSMmod25.run k :=
+  ArithFSM2.run_period_of_base _ (by decide)
+
+/-- `F_n mod 25`. -/
+def fibMod25 (n : Nat) : Nat := (fibFSMmod25.run n).1.val
+
+theorem fibMod25_mod100 (n : Nat) : fibMod25 n = fibMod25 (n % 100) := by
+  unfold fibMod25
+  rw [run_mod fibFSMmod25 fibFSMmod25_run_period_100 n]
+
+/-- Over one period, `25 ∣ F_r ⟺ 25 ∣ r` (decidable finite check;
+    zeros at `r ∈ {0, 25, 50, 75}`). -/
+theorem fibMod25_zero_residue :
+    ∀ r, r < 100 → (fibMod25 r = 0 ↔ r % 25 = 0) := by decide
+
+/-- **The `ν₅ ≥ 2` rung.**  `25 ∣ F_n ⟺ 25 ∣ n` — the zero-set of
+    Fibonacci mod `25` is exactly `25·ℕ`. -/
+theorem fibMod25_zero_iff (n : Nat) : fibMod25 n = 0 ↔ n % 25 = 0 := by
+  rw [fibMod25_mod100 n,
+      show n % 25 = (n % 100) % 25 from
+        (E213.Meta.Nat.AddMod213.mod_mod_of_dvd n ⟨4, rfl⟩).symm]
+  exact fibMod25_zero_residue (n % 100) (Nat.mod_lt n (by decide))
+
+/-- `25 ∣ F_n ⟺ 25 ∣ n`, stated with divisibility. -/
+theorem twentyfive_dvd_fib_iff (n : Nat) : fibMod25 n = 0 ↔ 25 ∣ n :=
+  (fibMod25_zero_iff n).trans
+    ⟨E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero,
+     fun h => by
+       rcases h with ⟨q, hq⟩; rw [hq]
+       exact E213.Tactic.NatHelper.mul_mod_right 25 q⟩
+
 /-! ## The divergence, packaged -/
 
 /-- **Singular vs regular at the ramified prime `5`.**  The same recurrence

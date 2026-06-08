@@ -101,9 +101,35 @@ Binet branches at the double root — without any forcible map onto an
 observable (the handle is pure 5-adic arithmetic of an already-built
 object; no physics target is constructed-to-match).
 
-Remaining rung (open, not closable ∅-axiom by FSM alone): the full
-valuation lift `ν₅(F_n) = ν₅(n)` (lifting-the-exponent), of which this
-closes the `n = 1` (zero-set / rank) rung.
+**Prime-power rungs by FSM** (each `ν₅(·) ≥ k` level is one finite
+decidable check):
+
+- `ν₅ ≥ 1`: `five_dvd_fib_iff` — `5 ∣ F_n ⟺ 5 ∣ n` (period 20).
+- `ν₅ ≥ 2`: `twentyfive_dvd_fib_iff` — `25 ∣ F_n ⟺ 25 ∣ n` (Pisano
+  period `100 = 4·5²`, zeros at `25·ℕ`).
+
+Each rung is a *separate* finite decide (period `4·5ᵏ`); the FSM cannot
+deliver the **all-`k`** law `ν₅(F_n) = ν₅(n)` in one stroke.  That needs
+lifting-the-exponent — see below.
+
+### Toward the all-orders law `ν₅(F_n) = ν₅(n)` (LTE)
+
+The whole law reduces to one lemma: `ν₅(F_{5m}) = ν₅(F_m) + 1`
+(`∀m≥1`), then strong induction on `ν₅(n)`.  The lemma comes from the
+**quintupling identity** (derivable from the index-multiplication
+recurrence `F_{(k+1)m} = L_m·F_{km} − (−1)ᵐ·F_{(k−1)m}` iterated to
+`k = 4`, then `L_m² = 5F_m² + 4(−1)ᵐ`):
+
+  `F_{5m} = F_m · (25 F_m⁴ + 25(−1)ᵐ F_m² + 5)`.
+
+The bracket `B_m = 5·(5F_m⁴ + 5(−1)ᵐ F_m² + 1)` has inner factor `≡ 1
+mod 5`, so `ν₅(B_m) = 1` exactly; with Euclid's lemma for the prime `5`
+(`PolyRoot/IntEuclid.int_euclid`, `FourSquareSeed.nat_prime_dvd_mul`)
+this gives `ν₅(F_m·B_m) = ν₅(F_m) + 1`.  Foundational stepping stones to
+build over `fibZ` (`Analysis/Cauchy/OrbitDimension`): the Fibonacci
+addition formula `F_{m+n+1} = F_{m+1}F_{n+1} + F_m F_n`, then doubling /
+index-multiplication, then the bracket-mod-5 fact.  Open: this integer
+identity marathon (the FSM rungs `ν₅ ≥ 1, 2` are closed above).
 
 ## Status
 - H1: settled (removed).  H2, H3: no internal handle — recorded plainly.
