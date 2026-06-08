@@ -155,9 +155,11 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   permutation identified, 8 PURE; the adjacent-swap = row-swap (`det_swapRows`) bubble-sort
   reduction reused from `psign_mul`).  Narrative in
   `theory/essays/algebra/{permutation_sign_as_homomorphism,determinant_as_quotient_characteristic,
-  cayley_hamilton_self_characteristic}.md`.  *Open seeds:* general column Laplace as a
-  `det_transpose` corollary; relocate the constructive pigeonhole
-  (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.  The `det_permMatrix` closure also
+  cayley_hamilton_self_characteristic}.md`.  General **column Laplace** is now also closed
+  (`ColumnLaplace.cofactor_col_k`, 2 PURE — the `det_transpose` corollary: `minorAt k j Mᵀ`
+  is defeq `transpose (minorAt j k M)` since row-skip = col-skip = `colShift`).  *Open seed:*
+  relocate the constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`
+  (a cleanup, not a closure).  The `det_permMatrix` closure also
   unlocks the **Zolotarev** bridge (reciprocity / euler-converse topics): `psign` of the
   multiplication-by-`a` value-list = the Legendre symbol.
 
