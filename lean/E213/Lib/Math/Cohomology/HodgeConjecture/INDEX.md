@@ -153,13 +153,3 @@ Citation: `E213.Lib.Math.Cohomology.HodgeConjecture.API.HC213`
 
 **Primary**: `theory/math/cohomology/hodge_conjecture.md`
 (read this for the human-readable account).
-
-Original exploration notes (`research-notes/archive/hodge/`):
-
-  · `G6_hodge_213_translation.md`      Standard ↔ 213 dictionary
-  · `G7_lens_initiality_cup_blueprint.md`  Uniform-proof sketch
-  · `G8_hodge_213_bridge_to_standard_math.md`  Standard-math bridge
-  · `G9_hodge_conjecture_complete.md`  HC²¹³ closure note
-  · `G10_post_hodge_program.md`        17 post-HC programme
-  · `G11_galois_at_eighty.md`          Galois counterfactual
-  · `G12_T2_pattern.md`                T² pattern follow-up

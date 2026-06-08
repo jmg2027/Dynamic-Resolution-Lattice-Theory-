@@ -345,20 +345,7 @@ so no count can be crowned as "the resolution / universe number".
 | `numV_eq_d_sq` | `Fractal.V25` | `numV = d² = 25` (level-2 enumeration) |
 | `configCountD_strictMono` | `Fractal.ConfigCount` | `n ↦ configCountD d n` strictly increasing (`d ≥ 2`): no privileged level |
 
-## Research-note provenance
-
-Foundational notes that fed this chapter live in
-`research-notes/archive/`:
-
-  · N_U re-derivation plan — diagnosis of three syntactically
-    distinct `def N_U` definitions and the four-Lens
-    convergence fiction; resolution by demoting `N_U` to an
-    abbrev over the parametric family.
-  · N_U family theory note — 7-phase plan for the
-    d-generalisation, modular reduction via FLT, and physics
-    bridges; multi-agent debate transcript across four
-    parallel research agents (number theory, structural
-    origin, Lean roadmap, physics consequences).
+## Algebraic backdrop
 
 The algebraic backdrop — Möbius `P = [[2,1],[1,1]]` with
 `disc = NS + NT = 5` and Pell-Fibonacci signature — appears in

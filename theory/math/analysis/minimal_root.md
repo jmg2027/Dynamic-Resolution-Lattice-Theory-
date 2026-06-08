@@ -205,4 +205,3 @@ python3 tools/scan_axioms.py Lib/Math/Analysis/DyadicSearch
 ## Citation guidance
 
 - ✅ `theory/math/analysis/minimal_root.md` (narrative)
-- ✅ archived note: `research-notes/archive/minimal_root/G31_*.md`

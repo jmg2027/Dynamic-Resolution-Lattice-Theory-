@@ -30,8 +30,7 @@ this is the **destination-variant** form of Pattern 1.
 The 24-item registry the scanner suite surfaced, plus nine
 per-sub-tree deep dives that elaborated each candidate, are closed
 to every item.  Closure summary lives in `scanner_suite.md`
-§"Open frontier"; per-note table in
-`research-notes/archive/metascan/INDEX.md`.
+§"Open frontier".
 
 ## Layout
 
