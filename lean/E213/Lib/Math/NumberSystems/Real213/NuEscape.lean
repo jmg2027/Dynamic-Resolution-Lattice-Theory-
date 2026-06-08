@@ -66,6 +66,17 @@ theorem real_cut_distinct {r r' : Real213} (h : ∃ k, cutBits r k ≠ cutBits r
     Distinct (cutNu r).val (cutNu r').val :=
   boolSpine_inj h
 
+/-- ★★★ **A real's cut carries the shift dynamics.**  Its cut-bit spine is the shift → νF
+    coalgebra hom of the cut-decision stream: the root branches, the left subtree reads the
+    depth-0 cut bit `cutBits r 0`, and the right subtree is the spine of the *shifted* cut-bit
+    stream.  So ℝ inherits the Bernoulli-shift sub-coalgebra on the shared carrier
+    (`boolSpine_shift_coalgebra`) — the same dynamical structure as ℤ_p's digit-shift. -/
+theorem real_shift_dynamics (r : Real213) :
+    boolSpine (cutBits r) [] = none
+    ∧ (∀ q, coLeftAt (boolSpine (cutBits r)) [] q = some (cutBits r 0))
+    ∧ (∀ q, coRightAt (boolSpine (cutBits r)) [] q = boolSpine (fun n => cutBits r (n + 1)) q) :=
+  boolSpine_shift_coalgebra (cutBits r)
+
 /-- ★★★ **ℝ on the one νF carrier (capstone).**  A constructive real's cut presentation, like a
     König branch and a p-adic integer, rides the shared binary νF carrier (`SlashNu`):
 

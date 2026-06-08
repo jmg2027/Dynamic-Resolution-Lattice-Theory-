@@ -1396,4 +1396,70 @@ theorem gspine_one_carrier {L : Type} (a b : L) :
    fun _ _ h => gspine_inj h,
    boolSpine_eq_gspine⟩
 
+/-! ## §21 — the generic spine carries the shift dynamics (the one carrier is *dynamical*)
+
+§19 gave the binary `boolSpine` the Bernoulli-shift sub-coalgebra structure; §20's generic spine
+carries it over **any** alphabet `L`, so every domain riding the one carrier (König, ℤ_p, ℝ)
+inherits the shift dynamics, not just the static escape.  `gspine` is the shift `(Nat→L ; head,
+tail) → GSlashNu L` coalgebra hom: the root branches, the left subtree reads the head label, the
+right subtree is the **shifted** spine.  Self-similarity = shift-periodicity; the §19 binary
+results are the `L = Bool` instances (`boolSpine_eq_gspine`).  All ∅-axiom, pointwise. -/
+
+/-- **Left descent reads the head label.**  The root's left subtree of `gspine f` is the constant
+    leaf `some (f 0)`. -/
+theorem gspine_coLeft {L : Type} (f : Nat → L) :
+    ∀ q, gCoLeftAt (gspine f) [] q = some (f 0) := fun _ => rfl
+
+/-- **Right descent is the shift.**  The root's right subtree of `gspine f` is the spine of the
+    *shifted* stream: `gCoRightAt (gspine f) [] = gspine (tail f)`. -/
+theorem gspine_coRight {L : Type} (f : Nat → L) :
+    ∀ q, gCoRightAt (gspine f) [] q = gspine (fun n => f (n + 1)) q := fun _ => rfl
+
+/-- ★★★ **`gspine` is the shift → νF coalgebra hom, over any alphabet.**  Root branches, left
+    subtree = head label, right subtree = shift.  So the Bernoulli shift `(Nat→L ; head, tail)`
+    embeds in the generic νF as a sub-coalgebra — König / ℤ_p / ℝ all inherit it. -/
+theorem gspine_shift_coalgebra {L : Type} (f : Nat → L) :
+    gspine f [] = none
+    ∧ (∀ q, gCoLeftAt (gspine f) [] q = some (f 0))
+    ∧ (∀ q, gCoRightAt (gspine f) [] q = gspine (fun n => f (n + 1)) q) :=
+  ⟨rfl, gspine_coLeft f, gspine_coRight f⟩
+
+/-- Pointwise-equal seed streams give pointwise-equal spines (a `funext`-free congruence, needed
+    to read periodicity over any `L`). -/
+theorem gspine_congr {L : Type} {f g : Nat → L} (h : ∀ n, f n = g n) :
+    ∀ q, gspine f q = gspine g q
+  | []           => rfl
+  | (true :: _)  => by show some (f 0) = some (g 0); rw [h 0]
+  | (false :: q) => gspine_congr (fun n => h (n + 1)) q
+
+/-- ★★★ **Self-similarity is shift-periodicity, over any alphabet.**  If the seed `f` is
+    `p`-periodic (`∀ n, f (n + p) = f n`), the escape is unchanged by a full-period descent:
+    `gspine (fun n => f (n + p)) = gspine f` pointwise.  A `p`-periodic seed gives a period-`p`
+    self-similar escape (the `p`-fold right-descent returns). -/
+theorem gspine_periodic_selfsimilar {L : Type} {f : Nat → L} {p : Nat}
+    (hper : ∀ n, f (n + p) = f n) :
+    ∀ q, gspine (fun n => f (n + p)) q = gspine f q :=
+  gspine_congr hper
+
+/-- ★★★ **The one carrier is dynamical (capstone).**  The generic spine carries the full shift
+    dynamical system over any alphabet `L`:
+
+    1. `gspine` is the shift → νF coalgebra hom (root branches, left = head, right = shift);
+    2. faithful — pointwise-distinct streams give `GDistinct` images (`(Nat→L)`-many orbits);
+    3. self-similarity = shift-periodicity (`gspine_periodic_selfsimilar`);
+    4. the §19 binary dynamics are the `L = Bool` instance (`boolSpine_eq_gspine`).
+
+    So König / ℤ_p / ℝ ride not just one *carrier* but one *dynamical system* — the Bernoulli
+    shift on label-streams sits inside νF.  ∅-axiom, pointwise (no `funext`, no `Cardinal`). -/
+theorem gspine_shift_dynamics {L : Type} :
+    (∀ f : Nat → L, gspine f [] = none
+        ∧ (∀ q, gCoLeftAt (gspine f) [] q = some (f 0))
+        ∧ (∀ q, gCoRightAt (gspine f) [] q = gspine (fun n => f (n + 1)) q))
+    ∧ (∀ f g : Nat → L, (∃ k, f k ≠ g k) → GDistinct (gspine f) (gspine g))
+    ∧ (∀ (f : Nat → L) (p : Nat), (∀ n, f (n + p) = f n) →
+        ∀ q, gspine (fun n => f (n + p)) q = gspine f q) :=
+  ⟨gspine_shift_coalgebra,
+   fun _ _ h => gspine_inj h,
+   fun _ _ hper => gspine_periodic_selfsimilar hper⟩
+
 end E213.Theory.Raw.CoResidue

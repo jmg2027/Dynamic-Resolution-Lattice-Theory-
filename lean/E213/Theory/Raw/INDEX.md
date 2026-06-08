@@ -36,7 +36,9 @@ leaves, fold, swap).  Public surface exposed via `API.lean`.
                         `coSwap`, shift dynamics); §20 the label-generic spine
                         `gspine : (Nat→L) → GCoShape L` — one νF carrier for
                         every alphabet (`boolSpine` = `L=Bool`; p-ary = `L=Fin p`;
-                        rides ℤ_p `Padic/NuEscape`, ℝ `Real213/NuEscape`); narr.
+                        rides ℤ_p `Padic/NuEscape`, ℝ `Real213/NuEscape`); §21 the
+                        carrier is *dynamical* — `gspine_shift_dynamics` (Bernoulli
+                        shift / period = self-similarity over any alphabet); narr.
                         `theory/essays/foundations/the_residue_as_primitive.md`
   - `StateMachine.lean` — the FSM/RTL reading (state = transition; reachable
                         vs trace; `the_residue_as_state_machine.md`)

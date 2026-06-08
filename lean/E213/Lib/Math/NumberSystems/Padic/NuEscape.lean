@@ -82,6 +82,24 @@ theorem padic_is_nu_escape {p : Nat} (hp : 2 ≤ p) (x : ZpSeq p) (r : Raw) :
     gToShape (finA p hp) (finB p hp) r.val ≠ (padicNu x).val :=
   fun h => gspine_escapes (finA p hp) (finB p hp) x.digits r.val h.symm
 
+/-- ★★ **Distinct p-adic integers give distinct νF escapes.**  A digit-level difference
+    (`∃ k, x.digits k ≠ y.digits k`) gives `GDistinct` spines (`gspine_inj`) — the p-ary spine
+    embedding `ℤ_p ↪ GSlashNu (Fin p)` is faithful, ∅-axiom (pointwise digit difference). -/
+theorem padic_distinct {p : Nat} {x y : ZpSeq p} (h : ∃ k, x.digits k ≠ y.digits k) :
+    GDistinct (padicNu x).val (padicNu y).val :=
+  gspine_inj h
+
+/-- ★★★ **A p-adic integer carries the digit-shift dynamics.**  Its p-ary spine is the shift →
+    νF coalgebra hom of the digit stream: the root branches, the left subtree reads the lowest
+    digit `x.digits 0`, and the right subtree is the spine of the *shifted* (drop-lowest-digit =
+    divide-by-`p`) digit stream.  So ℤ_p's odometer-shift sits inside the one νF carrier
+    (`gspine_shift_coalgebra`), for every `p`. -/
+theorem padic_shift_dynamics {p : Nat} (x : ZpSeq p) :
+    (padicNu x).val [] = none
+    ∧ (∀ q, gCoLeftAt (padicNu x).val [] q = some (x.digits 0))
+    ∧ (∀ q, gCoRightAt (padicNu x).val [] q = gspine (fun n => x.digits (n + 1)) q) :=
+  gspine_shift_coalgebra x.digits
+
 /-! ### General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
 
 Beyond the reached-by-none escape, the *not-enumerable* fact holds for every `p ≥ 2` natively:
