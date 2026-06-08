@@ -4,6 +4,7 @@ import E213.Lib.Math.Algebra.Linalg213.Chiral
 import E213.Lib.Math.Algebra.Linalg213.DetN
 import E213.Lib.Math.Algebra.Linalg213.FibCassiniDet
 import E213.Lib.Math.Algebra.Linalg213.Laplace
+import E213.Lib.Math.Algebra.Linalg213.DetTranspose
 import E213.Lib.Math.Algebra.Linalg213.PolyDet
 import E213.Lib.Math.Algebra.Linalg213.CharPolyAdj
 import E213.Lib.Math.Algebra.Linalg213.CayleyHamilton
