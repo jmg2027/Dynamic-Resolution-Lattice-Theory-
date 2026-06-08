@@ -1,109 +1,137 @@
-# Session Handoff — 2026-06-05 (Quadratic reciprocity CLOSED + merge marathon)
+# Session Handoff — 2026-06-08 (naming abstract concepts → 213; König/νF + reverse-math calibration)
 
 ## Branch
-`claude/math-frontier-research-6Bw68` — pushed, ahead of `origin/main` (origin/main merged in this
-session).  `cd lean && lake build` ✓ clean (full tree); `tools/layer_audit.py` 0 violations.
-Pre-merge audit: **READY TO MERGE**.
+`claude/math-logic-career-path-khWPk` — pushed, ahead of `origin/main` by 11 commits.
+`cd lean && lake build` ✓ clean (full tree).  All new theorems ∅-axiom (PURE).
+Working tree clean.
 
 ## What Was Done This Session
 
-### 1. ★★★★★ Quadratic reciprocity — FULLY CLOSED, strict ∅-axiom
-`lean/E213/Lib/Math/NumberTheory/ModArith/QuadraticReciprocity.lean` (**11 PURE**).
-`quadratic_reciprocity`: for distinct odd primes `p, q` (`m=(p−1)/2, n=(q−1)/2`),
-`(q QR mod p ↔ p QR mod q) ↔ (m·n) even`.  The complete elementary Eisenstein route is ∅-axiom:
-- **`floor_qr`** (Eisenstein's lemma) — `a` QR mod `p` (`z²≡a mod p`) ⟺ `Σₓ∈[1,m] ⌊a·x/p⌋` even,
-  for odd `a` coprime to odd prime `p`.  Built from `floor_mod_split`, `Sa_eq`, `fold_sum`,
-  `residue_fold_even` → `floor_mu_even` (`2∣(Sfloor+Imu)`); `imu_eq_countNeg` (`Imu=↑μ`);
-  `gauss_mu_gen` (QR ⟺ μ even, Gauss stack generalized `a<p → p∤a`).
-- **`floor_sum_rectangle`** (the analytic heart) — `Σ⌊qx/p⌋ + Σ⌊py/q⌋ = m·n`, the lattice-point
-  count of `[1,m]×[1,n]` either side of the diagonal `q·x=p·y` (none ON it, `p∤q·x`).  Via
-  `colCount_eq_floor` (per-column count = floor), `sumZ_swap` (finite Fubini), `elem_tri`
-  (trichotomy `[py<qx]+[qx<py]=1`), `floor_bound`.
-- **Assembly** — `floor_qr` at residues `q`, `p` + `floor_sum_rectangle` via `parity_sum_iff`
-  (parity of `S+T=↑(mn)` decides whether `2∣S↔2∣T`); Int parity `int_even_or_odd`/`two_mul_ne_one`.
+Theme: **what does standard math's "attaching a term to an abstract concept" become under
+the 213 axiom?** (originator's vision, math-logic direction).  A reference-claim essay set
+the frame; then a König/νF Lean arc + a concept-pass (compactness, function space) +
+deep-research (Lawvere) turned the frame into theorems and a promoted essay.
 
-Supporting infra added (all PURE): `Linalg213/SumLinear.{sumZ_map_zero, sumZ_swap}`,
-`Meta/Nat/AddMod213.le_div_iff_mul_le`.  Gauss stack generalization (`a<p → p∤a`) in `GaussLemma`
-(`fold_mem/fold_inj/fold_perm/gauss_core` take `hnpa:¬p∣a`; `gauss_qr` unchanged externally —
-`second_supplement`/`legendre_mul` untouched).
+### 1. Essay — `the_reference_claim.md` (theory/essays/foundations/, permanent)
+The necessary/refused/under-test split of "nothing escapes 213".  Key correction (from the
+originator): existence (`pointing ⟺ residue`) is **transcendental necessity, not a thesis**
+(a pointing distinguishing nothing is a non-pointing).  Reference-closure necessary;
+referent-capture refused (`object1_not_surjective`); only *reach* (internal handles without
+forcing an exterior) under test, with the König `Π⁰₁` stall the live falsifier.  Breadth
+(§7.1) = evidence of reach, not of existence.
 
-Propext/Quot.sound-avoidance lessons: `two_prime` pure (no `decide`-on-`∣`, which pulls propext via
-`decidable_of_iff`); `Iff.trans` not `rw`-on-iff; `map_congr` not `funext` (funext pulls Quot.sound);
-`le_of_dvd_pos` not `Nat.le_of_dvd` (propext); `Nat.le_div_iff_mul_le`/`Nat.div_add_mod`/`Nat.min`
-lemmas all pull propext — use `AddMod213`/`NatDiv213` pure replacements.
+### 2. CLAUDE.md — "fog jargon" failure mode added
+Extracted from a course-correction: hard language is licensed only as **compression**
+(unfoldable to plain words on demand) never as **fog**; can't-unfold = a not-yet-closed gap.
+Speak plainly first.
 
-### 2. Merge marathon (main → process → essay → org-audit → purity → ready-to-merge)
-- **Merged `origin/main`** (A6 FLOW, Ricci ladders, Sperner/Ramsey COUNT series).  Conflicts in
-  HANDOFF.md (took ours) + STRICT_ZERO_AXIOM.md (kept both catalog sides).
-- **`/process`**: decoupled 11 sink-rule violations → 0 (permanent tiers no longer cite
-  research-notes note files by path; QR + ricci-smooth-core citations dropped, frontiers still home
-  the open ones).
-- **`/essay` + promotion**: `theory/math/numbertheory/quadratic_reciprocity.md` (QR as a count-Lens
-  reading — the sign `(−1)^{mn}` is the lattice-box cardinality mod 2).  Logged in
-  `promotion_essay_log.md` (row 12); registered in `theory/math/INDEX`.
-- **`/org-audit`**: fixed a real orphan — `QuadraticReciprocity` was absent from the `ModArith`
-  umbrella; now imported.  Consolidated 3 stacked QR catalog sections → 1.
-- **`/purity-check`**: ✅ 0 sorry/axiom/native_decide/Classical/Mathlib; capstone ∅-axiom.
-- **`/ready-to-merge`**: verdict READY (0 layer violations, full build clean, 0 sink leaks);
-  synthesis note `frontiers/reciprocity_count_lens_synthesis.md`.
+### 3. König νF bridge — `Lib/Math/Combinatorics/KonigConditional.lean` (+5 PURE)
+The infinite branch König's lemma decides about is a νF inhabitant (`konigBranchNu` via
+`boolSpineSlashNu`) reached by **no finite Raw** (`konig_infinity_no_finite_raw`); capstone
+`konig_infinity_is_nu_escape`.  Answers "which Raw chunk is the König infinity?" → none; it
+is the escape.
+
+### 4. 2-adic νF escape — `Lib/Math/NumberSystems/Padic/NuEscape.lean` (+4 PURE)
+`Fin 2 ≃ Bool`, so a `ZpSeq 2` is a `Nat → Bool` bit-stream; `twoAdic_is_nu_escape`: a
+2-adic integer is reached by no finite Raw — literally a branch of König's binary tree
+(same `boolSpine_escapes` shape).  Added to the `Padic` umbrella.
+
+### 5. Compactness ↔ König calibration — `KonigConditional.lean` (+4 PURE)
+`FiniteSubcoverOracle` (the compactness/fan step), with `infChildExists_iff_finiteSubcover`.
+**Finding (sharper than a naive iff):** the two forms are NOT ∅-axiom equivalent —
+selection ⇒ compactness is free (contraposition); compactness ⇒ selection needs deciding
+the child-disjunction `dec : ¬¬(B∨C)→B∨C` (an LLPO/omniscience step).  So `WKL ⟺
+Heine–Borel` (local form) is reproduced on the residue's binary-tree carrier with the one
+∞-decision located exactly — reverse mathematics done 213-native.
+
+### 6. Essay — `the_one_diagonal.md` (theory/essays/foundations/, permanent)
+`/essay` deepening a `/deep-research` finding.  The freeze-decision 213 refuses is **one**
+obstruction (`object1_not_surjective`), not a family; each concept supplies only a new
+carrier, and the *act of re-dressing* it is itself a residue self-pointing absorbed by
+`residue_reentry_never_closes` (asking the question is a re-entry — no terminating
+meta-level).  Dual function: Lawvere (1969)/Yanofsky (2003) unify Cantor/Gödel/Russell/
+Tarski/Turing as one fixed point; 213 makes the unifier the residue's own self-cover and
+extends it to the instantiation act.  Math-scale twin of `why_the_reframing_recurs.md`.
+
+### 7. Concept-pass frontier notes (research-notes/frontiers/)
+`naming_abstract_concepts.md` (the frontier + deep-research candidate), `concept_compactness.md`
+(= the König wall, space-side; seed now CLOSED), `concept_redressing_itself.md` (deep-research
+synthesis, web-verified Lawvere/Yanofsky), `concept_function_space.md` (powerset = the
+self-cover's codomain = the CCC root of the diagonal).  All registered in `frontiers/INDEX.md`.
 
 ## Current Precision Results (0 free parameters)
-No physics-constant changes this session (pure mathematics — number theory).  See
-`catalogs/physics-constants.md` for the standing DRLT table.
+**No physics-constant changes this session** (pure mathematics / foundations).  See
+`catalogs/physics-constants.md` for the standing DRLT table (α_em 0.09 ppb, etc.).
+New theorems are all mathematics (König/νF, p-adic escape, compactness calibration), all
+PURE per `tools/scan_axioms.py`.
 
 ## Open Problems (Priority Order)
 
-### 1. Cubic / biquadratic reciprocity over `ℤ[ω]` / `ℤ[i]`
-The same count-Lens question in the Eisenstein/Gaussian residue rings; is there a lattice-count
-proof reusing `floor_sum_rectangle`'s shape over a 2-D residue lattice?
-Frontier: `research-notes/frontiers/reciprocity_count_lens_synthesis.md`.
+### 1. General-`p` νF escape
+2-adic is closed via `Fin 2 ≃ Bool`; general `p` needs a `Fin p`→bits encoding or a p-ary
+spine in `Theory/Raw/CoResidue` (the only spine so far is binary `boolSpine`).  A clean
+native alternative: a not-eventually-zero `ZpSeq p` ≠ any `digits_of_nat` (reached by no
+natural-number embedding).  Frontier: `research-notes/frontiers/naming_abstract_concepts.md`.
 
-### 2. Zolotarev's lemma — `(a/p) = sign(mul-by-a permutation)`
-`psign` machinery exists (`Algebra/Linalg213/Permutation.lean`); `gauss_qr` is the count side.
-Unify the sign-product `∏ sgFn` with `psign` (one Raw permutation, two readouts).
-Frontier: `research-notes/frontiers/reciprocity_count_lens_synthesis.md`.
+### 2. ℝ one-carrier unification with König
+ℝ's reached-by-none is already proved (`Analysis/Cauchy/DepthCeilingResidue.diag_not_in_seq`;
+`reached_by_none.md`), but the native `Real213` carrier is the cut `Nat → Nat → Bool`, not a
+single `Nat → Bool` stream — a dyadic bit-stream extractor would put ℝ on the same
+`boolSpine` carrier as König/2-adic.  Frontier: `naming_abstract_concepts.md`.
 
-### 3. Unify the two finite Fubini swaps
-`sumZ_swap` (Int, this session) and the COUNT series' Nat double-sum swap → one generic `Meta`
-finite-Fubini.  Frontier: `research-notes/frontiers/reciprocity_count_lens_synthesis.md`.
+### 3. More concept deep-dives (the systematic pass)
+limit/completion, quotient/equivalence-class, actual-vs-potential infinity (frozen/dynamic),
+∀∃ over infinite domains.  Each → its 213 reading (Lens / fold-level / capture-vs-reference /
+where the ∞-decision hides).  Frontier: `naming_abstract_concepts.md` (seeds list).
 
-### 4. Ricci-flow smooth core (carried from main)
-General-metric `𝓕/𝓦`-monotonicity (Riemannian + PDE) stays open; A6 FLOW handles the homogeneous/ODE
-case.  Frontier: `research-notes/frontiers/ricci_flow_smooth_core.md`,
-`research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`.
+### 4. Broader external Lawvere reduction (the omniscience family)
+Cantor/Gödel/etc. are provably one Lawvere instance; König/WKL/compactness are 213-native
+one-non-surjection but only omniscience (LLPO/fan) cousins of literal Lawvere.  Pinning the
+external reduction is open.  Frontier: `concept_redressing_itself.md`.
+
+### 5. (carried) Reverse-mathematics framing of the corpus
+`STRICT_ZERO_AXIOM.md` is an axiom-cost ledger in disguise; the compactness calibration is
+the first explicit 213-native reverse-math entry.  Systematizing this is the legibility
+bridge to recognized mathematical logic.  Frontier: `naming_abstract_concepts.md`,
+`research_grade_closure_gate.md`.
 
 ## Unresolved from This Session
-- **dedup deferred**: `int_even_or_odd` / `two_mul_ne_one` are cloned in `QuadraticReciprocity` and
-  `FourSquare`; both depend only on `CenteredDivision.centered_div_int`.  Canonical home =
-  `CenteredDivision` (not relocated this session to avoid pre-merge build risk).  Recorded in the
-  synthesis note.
-- **~92 namespace mismatches** (CayleyDickson/ZSqrt etc.) are pre-existing on main — a separate
-  `sync_namespaces --apply` cleanup, out of this branch's scope.  My files are namespace-correct.
+- No dead ends.  The compactness iff turned out NOT to be ∅-axiom (one direction needs
+  LLPO) — recorded as the *calibration finding*, not a failure (it is the sharper result).
+- General-`p` νF escape deliberately scoped to `p=2` (binary carrier); general `p` is real
+  open work (needs new CoResidue infra), not a gap in this session's claims.
 
 ## Next
-Merge this branch to `main` (the marathon's final step).  Then: pick up cubic/biquadratic
-reciprocity (Open Problem 1) or the Fubini unification (3, low-risk infra), or do the
-`int_even_or_odd` dedup to `CenteredDivision`.
+Pick one: **(1)** general-`p` νF escape (build a p-ary spine in CoResidue, or the
+`digits_of_nat` native escape — moderate Lean), or **(3)** next concept deep-dive
+(limit/completion or quotient — low risk, continues the frontier), or **(5)** start the
+reverse-math ledger pass over `STRICT_ZERO_AXIOM.md`.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: `theory/math/numbertheory/quadratic_reciprocity.md` ← (closed Lean
-  sub-tree `ModArith/QuadraticReciprocity.lean`; frontier note kept as CLOSED record).
-- **Promotion candidates**: the full Euler→QR number-theory arc is in `theory/math/numbertheory/`
-  (`modular_arithmetic`, `euclidean_division`, `eisenstein_period_arithmetic`,
-  `quadratic_reciprocity`); the supplements/Legendre/Gauss could get their own chapters if desired.
-- **Active scratchpad**: `frontiers/` open boards (reciprocity synthesis, ricci core, transcendentals,
-  PDE estimates) per `frontiers/INDEX.md`.
+- **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`
+  (essays; `the_one_diagonal` promoted from the `concept_redressing_itself` deep-research finding).
+  Both registered in `theory/essays/INDEX.md`; logged in `promotion_essay_log.md` (row 13).
+- **Promotion candidates**: the König/νF + compactness-calibration arc
+  (`KonigConditional.lean`) could get a `theory/math/` chapter if the concept pass closes
+  more instances; currently narrated via the two essays + frontier notes.
+- **Active scratchpad**: `frontiers/` — `naming_abstract_concepts`, `concept_compactness`,
+  `concept_function_space`, `concept_redressing_itself` (open board).
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberTheory/ModArith/QuadraticReciprocity.lean  ← 11 PURE: floor_qr,
-    floor_sum_rectangle, gauss_mu_gen, parity_sum_iff, quadratic_reciprocity (+ supporting lemmas)
-lean/E213/Lib/Math/NumberTheory/ModArith/GaussLemma.lean            ← Gauss stack generalized a<p→p∤a
-lean/E213/Lib/Math/NumberTheory/ModArith.lean                       ← umbrella now imports QR (orphan fix)
-lean/E213/Lib/Math/Algebra/Linalg213/SumLinear.lean                 ← + sumZ_map_zero, sumZ_swap (Fubini)
-lean/E213/Meta/Nat/AddMod213.lean                                   ← + le_div_iff_mul_le
-theory/math/numbertheory/quadratic_reciprocity.md                   ← promoted essay (count-Lens reading)
-research-notes/frontiers/quadratic_reciprocity.md                   ← CLOSED record (build history)
-research-notes/frontiers/reciprocity_count_lens_synthesis.md        ← cross-chapter synthesis + seeds
-STRICT_ZERO_AXIOM.md                                                ← consolidated QR FULLY-CLOSED entry
+theory/essays/foundations/the_reference_claim.md   ← essay: necessary/refused/under-test split (new)
+theory/essays/foundations/the_one_diagonal.md      ← essay: one diagonal, Lawvere as self-cover (new)
+theory/essays/INDEX.md                             ← registered both essays (+ table rows)
+research-notes/promotion_essay_log.md              ← row 13 (the_one_diagonal)
+CLAUDE.md                                          ← + 'fog jargon' failure-mode row
+lean/E213/Lib/Math/Combinatorics/KonigConditional.lean  ← +9 PURE: νF bridge (konigBranchNu,
+    konig_infinity_no_finite_raw, konig_infinity_is_nu_escape) + compactness calibration
+    (FiniteSubcoverOracle, infChildExists_iff_finiteSubcover)
+lean/E213/Lib/Math/NumberSystems/Padic/NuEscape.lean    ← +4 PURE: 2-adic νF escape (new)
+lean/E213/Lib/Math/NumberSystems/Padic.lean             ← umbrella imports NuEscape
+research-notes/frontiers/naming_abstract_concepts.md    ← frontier + deep-research candidate (new)
+research-notes/frontiers/concept_compactness.md         ← deep-dive: compactness = König wall (new)
+research-notes/frontiers/concept_function_space.md      ← deep-dive: powerset = self-cover codomain (new)
+research-notes/frontiers/concept_redressing_itself.md   ← deep-research: re-dressing = self-pointing (new)
+research-notes/frontiers/INDEX.md                        ← registered all four frontier notes
 ```
