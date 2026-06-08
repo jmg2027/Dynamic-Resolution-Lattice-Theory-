@@ -92,6 +92,13 @@ Narrative: `theory/math/numbersystems/completeness_without_completeness.md`.
                                       `H(n+1) = C·H(n)` (`det_matMul`) + `det_companion`,
                                       no expansion; subsumes order 2/3/4 (the order-4 rung
                                       beyond a direct `ring_intZ` expansion)
+  - `CasoratianPermSign.lean`      — the multiplier sign IS a permutation sign:
+                                      `det(companion a (m+1)) = psign(cycShift m)·a 0`
+                                      (`companion_det_is_perm_sign`), the cyclic shift
+                                      `(0 1 … m)` certified a permutation
+                                      (`Linalg213/CyclicShiftSign`).  Fourth instance of
+                                      "permutation under three readouts"
+                                      (`det(permMatrix)`=`psign`=Legendre/Zolotarev)
 
 ## Companion clusters
 

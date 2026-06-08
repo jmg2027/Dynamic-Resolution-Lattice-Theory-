@@ -63,6 +63,7 @@ import E213.Lib.Math.Analysis.Cauchy.CFiniteRing
 import E213.Lib.Math.Analysis.Cauchy.CFiniteHadamard
 import E213.Lib.Math.Analysis.Cauchy.CasoratianRank
 import E213.Lib.Math.Analysis.Cauchy.CasoratianDeterminant
+import E213.Lib.Math.Analysis.Cauchy.CasoratianPermSign
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Analysis.Cauchy`.
 
