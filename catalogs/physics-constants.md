@@ -2,7 +2,7 @@
 
 213 atomic chain of standard physical constants.
 
-> **Reading this catalog honestly** (per `research-notes/frontiers/headline_precision_scope.md`
+> **Reading this catalog honestly** (the headline-precision-scope audit
 > + `README.md` headline table): the precision tags below (`0.000%`, `ppb`, `%`)
 > are **central-value agreements**, often computed in the Lean *docstring*; the
 > corresponding **PURE theorem** typically proves a coarser *bracket* (0.1%–ppm)

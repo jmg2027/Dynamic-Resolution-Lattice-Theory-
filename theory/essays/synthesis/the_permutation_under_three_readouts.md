@@ -97,4 +97,4 @@ pairing the inversion count against Gauss's `μ`. That single ∅-axiom edge tur
 "one permutation, three readouts" from a picture into a theorem and closes the
 triangle `det (permMatrix (×a)) = (a/p)`. The p-adic lift (state the quadratic
 character as a `μ_{p−1}`-component identity on `ω`) is the second edge. Both are
-tracked in `research-notes/frontiers/permutation_three_readouts.md`.
+tracked in the `permutation_three_readouts` frontier.

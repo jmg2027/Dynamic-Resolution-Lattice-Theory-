@@ -3,7 +3,7 @@ import E213.Lib.Physics.Couplings.SpectrumComplete
 /-!
 # GramD2Readings — the self-energy prefactor `d² = 25` is over-determined
 
-`research-notes/frontiers/gram_d2_prefactor.md` records the open residual:
+`gram_d2_prefactor` (frontier) records the open residual:
 the Gram correction is `α²/d²` (`GramCubicReduction`), and the `/d²`
 prefactor's *mechanism* is not yet forced from the cup-ring trace.
 

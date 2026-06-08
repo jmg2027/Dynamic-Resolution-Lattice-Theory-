@@ -39,7 +39,7 @@ sub-question: **why is the correction `α²/d²`?**
 So: the cubic-form freedom is closed (reduced to the ansatz), but the
 ansatz's `/d²` prefactor is **not yet forced from the cup-ring trace**.
 Stated plainly rather than dressed as a derivation. Open frontier:
-`research-notes/frontiers/gram_d2_prefactor.md`.
+`gram_d2_prefactor` (frontier).
 -/
 
 namespace E213.Lib.Physics.AlphaEM.GramCubicReduction

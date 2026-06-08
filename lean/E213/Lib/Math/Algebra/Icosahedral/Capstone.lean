@@ -18,7 +18,7 @@ giving the golden eigenvalues) **and** the field `𝔽₅` realising `A₅`.
 
 ## Why this grounds the CKM apex frontier
 
-`research-notes/frontiers/ckm_rho_eta_apex.md` reduced the φ²-apex to a single
+`ckm_rho_eta_apex` (frontier) reduced the φ²-apex to a single
 open *physical* premise: **why the CKM CP-apex modulus is a self-reference
 eigenvalue at all**.  This marathon supplies the missing **structural home**:
 the self-reference map is literally an element of `A₅`, and `A₅` golden-ratio

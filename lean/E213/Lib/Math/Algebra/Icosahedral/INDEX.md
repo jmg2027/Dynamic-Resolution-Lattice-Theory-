@@ -5,7 +5,7 @@ The §5.6 self-reference Möbius map `M = [[c,1],[1,1]] = [[2,1],[1,1]]`
 eigenvalues `φ², 1/φ²` **and** — reduced mod `d = 5` — an order-5 element of
 `PSL(2,𝔽₅) ≅ A₅` (the icosahedral rotation group). This sub-tree builds that
 identification and the `A₅` flavour-symmetry layer it opens, grounding the CKM
-apex frontier (`research-notes/frontiers/ckm_rho_eta_apex.md`) in established
+apex frontier (`ckm_rho_eta_apex` (frontier)) in established
 `A₅` golden-ratio flavour symmetry (`SU(5)×A₅` models, arXiv:1410.2057,
 1312.0215).
 

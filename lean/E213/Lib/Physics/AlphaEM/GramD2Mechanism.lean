@@ -4,7 +4,7 @@ import E213.Lib.Physics.AlphaEM.RefinedCupLadderDerivation
 /-!
 # GramD2Mechanism — the mechanism behind the self-energy `/d²`
 
-`research-notes/frontiers/gram_d2_prefactor.md` and `GramD2Readings.lean`
+`gram_d2_prefactor` (frontier) and `GramD2Readings.lean`
 established that the Gram self-energy correction `α²/d²` has a prefactor
 `d² = 25` whose *value* is over-determined (three convergent readings) but
 whose **mechanism** was open: *why* must a self-energy normalize by `d²`?

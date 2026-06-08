@@ -42,7 +42,7 @@ DRLT formulae:
   DRLT uses `s₁₃ = A·λ³ = 0.0095` — omitting `√(ρ²+η²) ≈ 0.39`.  Equivalently
   `J = A²λ⁶·η` and DRLT has not derived `η`.  So J's *structure* (λ, A, δ)
   is atomic, but its *magnitude* awaits a derivation of `(ρ, η)`.
-  Frontier: `research-notes/frontiers/ckm_rho_eta_apex.md`.
+  Frontier: `ckm_rho_eta_apex` (frontier).
 
 ## Structural Lean
 

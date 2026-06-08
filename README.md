@@ -41,8 +41,8 @@ DRLT (Dynamic Resolution Lattice Theory)
 headline precision is a PURE theorem".** This table keeps the two apart, per
 row: *what the Lean actually proves* vs *what a finer number in a docstring
 claims*, and whether a result is a **parameter-free ratio** or an **absolute**
-(which needs an input scale, as any theory does). Audit:
-`research-notes/frontiers/headline_precision_scope.md`; methodology:
+(which needs an input scale, as any theory does). Audited per the
+headline-precision-scope frontier; methodology:
 `VERIFICATION_SPINE.md` §0 + `DEGREES_OF_FREEDOM_LEDGER.md`.
 
 ### A. Parameter-free — dimensionless ratios + exact combinatorics (no input scale)
@@ -79,8 +79,8 @@ measured scale, not a parameter-free absolute.
 **17 of 23 observables** in `catalogs/physics-constants.md` have both
 a PURE precision theorem AND a PURE falsifier bracket (74% closure).
 (Per the headline audit above, "PURE precision theorem" often means a
-*bracket* at the stated width, not the docstring central value — read
-`research-notes/frontiers/headline_precision_scope.md` for the per-row scope.)
+*bracket* at the stated width, not the docstring central value — see the
+headline-precision-scope frontier for the per-row scope.)
 Falsifier catalog F1–F20 in `catalogs/falsifiers.md`.  Remaining
 unpaired: Koide 2/3, η_B, m_t/m_c, m_p/m_e ≈ 6π⁵, M_Pl/v_H,
 muon prefactor 192 (precision only; falsifier follow-up).

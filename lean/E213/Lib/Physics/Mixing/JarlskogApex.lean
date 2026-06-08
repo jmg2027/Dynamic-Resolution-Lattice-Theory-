@@ -4,7 +4,7 @@ import E213.Lib.Physics.Foundations.GoldenRatio
 /-!
 # JarlskogApex — the CKM apex is a φ² object (magnitude 1/φ², phase π/φ²)
 
-`research-notes/frontiers/ckm_rho_eta_apex.md`: the Jarlskog magnitude was
+`ckm_rho_eta_apex` (frontier): the Jarlskog magnitude was
 over-predicted ×2.66 because DRLT's `s₁₃ = A·λ³` omits the Wolfenstein apex
 factor `R_u = √(ρ²+η²) ≈ 0.38`. This file records the apex candidate that
 closes the gap — and finds it is **φ²-coherent** with the already-derived

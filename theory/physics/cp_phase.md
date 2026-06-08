@@ -68,8 +68,8 @@ in the KM parametrisation; the Jarlskog is maximal for given angles, `sin δ_KM=
 This is convention-independent in content (the phase is the irreducible imaginary
 unit).  The *specific* right-triangle angle `α=90°` (convention-independent,
 `α_obs=92.4°±1.4°`) is a **separate, model-level candidate** — NOT forced by the
-`i` alone (a generic `J`-Yukawa texture does not give it; see
-`research-notes/frontiers/cp_yukawa_from_scratch.md`).
+`i` alone (a generic `J`-Yukawa texture does not give it; the cohomological
+Yukawa construction, item below, lifts this).
 
 ### 3. The `C₄`/`i` is one object on `d = 5` — three disciplines
 
@@ -132,10 +132,10 @@ output, `γ = arccos(1/φ²) = 67.54°`, `β = 22.46°` (observed `22.5°`), `α
 
 ## Research-note provenance
 
-- `research-notes/archive/cp_phase_origin_synthesis.md` — the full marathon synthesis
+- The full marathon synthesis (now archived in `research-notes/archive/`)
   (four expert-agent reports: A₅+gCP, icosian/E₈, Cayley–Dickson, KM mechanism;
   cohomology + number-theory legs).  Archived alongside this chapter.
-- `research-notes/frontiers/ckm_rho_eta_apex.md` — the open-frontier record (the
+- The `ckm_rho_eta_apex` open-frontier record (in `research-notes/frontiers/`; the
   apex value, the `1/φ²` grounding, the demotion of `π/φ²`).
 
 ## Open frontier
@@ -159,8 +159,8 @@ the filled `Pairing/HodgeRiemann` stub).  The assembled `Y_d = Λ²(ℝ³) ⊗
 `J`-invariant + HR-positive) ⇒ `δ=90°`.  Remaining: only the *numerical*
 evaluation of the cup functional (the rust `ckm_cp_phase` verifies the resulting
 `ℤ[i]` CKM is unitary with `δ=90°`); and the `~1.5σ` fit — now assessed **CONSISTENT** (not a tension): `R_u=1/φ²` is essentially exact (`0.382` vs `0.3825±0.011`), `α=90°` is `~0–1.7σ`, and the `ρ̄/α` residual is covered by the standard `O(λ²)` Wolfenstein correction (`λ²=25/484`, no free parameter), **not** RGE (`dα/dt=0` exact). `ApexFitConsistency`.  `α = 90°` (right unitarity
-triangle) is **falsifiable** against future UTfit/CKMfitter values.  Active record:
-`research-notes/frontiers/ckm_rho_eta_apex.md`.
+triangle) is **falsifiable** against future UTfit/CKMfitter values (catalog
+falsifier F27).  Active record: the `ckm_rho_eta_apex` frontier.
 
 ## How to verify
 
