@@ -5,7 +5,7 @@ import E213.Meta.Nat.PolyNatMTactic
 /-!
 # Discrete heat equation — mass conservation on the periodic grid (∅-axiom)
 
-**Marathon P3 infrastructure** (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`).
+**Marathon P3 infrastructure**.
 
 The discrete heat step is a redistribution: it moves heat between neighbours but creates and
 destroys none.  On the length-`n` periodic grid the **total mass** `Σ_{x<n} u(x)` is therefore

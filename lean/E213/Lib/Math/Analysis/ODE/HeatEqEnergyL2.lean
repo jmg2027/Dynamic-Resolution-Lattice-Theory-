@@ -4,7 +4,7 @@ import E213.Lib.Math.Foundations.Positivity
 /-!
 # Discrete heat equation — pointwise L²-Jensen (convexity) bounds (∅-axiom)
 
-**Marathon P3** (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`).
+**Marathon P3**.
 
 The heat step is a **convex average** of neighbour values, so by Jensen / convexity of the
 square it cannot increase the L² norm pointwise:

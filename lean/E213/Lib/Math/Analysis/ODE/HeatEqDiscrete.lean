@@ -48,8 +48,6 @@ theorem heatStep_const_eq_two_c (n c x : Nat) :
 
 /-! ## Discrete maximum principle (marathon P1)
 
-`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`, rung **P1**.
-
 The discrete heat step is an **average** of two neighbours, so it can neither rise
 above the field's max nor fall below its min — the discrete maximum principle, the
 seed of all parabolic a-priori estimates.  In the numerator convention
@@ -206,8 +204,7 @@ genuine smoothing operator is the **lazy** step `(¼,½,¼)`:
 
 whose eigenvalues `(1+cos θ)/2 ∈ [0,1]` give a real gap — it *kills* the checkerboard.
 The P1 maximum principle holds for both (convex combinations); only the strict *decay*
-(rung P2) needs the self-weight.  Recorded in
-`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`, P2. -/
+(rung P2) needs the self-weight. -/
 
 /-- Lazy heat step `(¼,½,¼)` — numerator of `4·u(x,t+1) = u_{x−1} + 2u_x + u_{x+1}`. -/
 def lazyHeatStepNum (n : Nat) (u : Nat → Nat) (x : Nat) : Nat :=

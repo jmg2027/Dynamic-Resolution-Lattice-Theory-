@@ -7,7 +7,7 @@ import E213.Meta.Nat.PolyNatMTactic
 /-!
 # Discrete heat equation — Dirichlet energy decay `E(lazy u) ≤ 16·E(u)` (∅-axiom)
 
-**Marathon P3 capstone** (`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`).
+**Marathon P3 capstone**.
 
 The lazy heat step does not increase the Dirichlet energy (averaged): on the length-`n`
 periodic grid, `E(lazyStep u) ≤ 16·E(u)` (the `16 = 4²` is the stencil's normalization, so the

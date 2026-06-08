@@ -4,7 +4,7 @@ import E213.Meta.Nat.PolyNatMTactic
 /-!
 # Real213 — exp Taylor convergence modulus (ratio-test core, ∅-axiom)
 
-**Marathon T1** (`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`).
+**Marathon T1**.
 
 `CutExpSeries` builds `expPartialSum x N = Σ_{k<N} xᵏ/k!`; the open follow-up was the
 **convergence modulus** — the ratio-test argument that the geometric majorant `Mⁿ/n!`

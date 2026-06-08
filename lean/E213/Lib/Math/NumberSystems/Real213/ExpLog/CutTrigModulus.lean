@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpModulus
 /-!
 # Real213 — sin / cos Taylor convergence modulus (by comparison to exp, ∅-axiom)
 
-**Marathon T2** (`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`).
+**Marathon T2**.
 
 The `sin` / `cos` Taylor terms are *exactly* the `exp` Taylor terms restricted to odd /
 even indices:

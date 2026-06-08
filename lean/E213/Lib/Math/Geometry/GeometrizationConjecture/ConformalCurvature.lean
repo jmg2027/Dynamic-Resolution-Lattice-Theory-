@@ -6,7 +6,7 @@ import E213.Meta.Int213.PolyIntMTactic
 
 The discrete (Forman) A6 route is closed (`DiscreteRicci`, `RicciFlowDiscrete`, `DiscreteGaussBonnet`);
 this file opens the **smooth** route — the one the marathon's transcendentals + PDE work unblocks —
-via the decisive 2D-conformal sidestep (`research-notes/frontiers/ricci_flow_smooth_core.md`).
+via the decisive 2D-conformal sidestep.
 
 For a 2D conformal metric `ds² = λ·(dx² + dy²)` with `λ` a **polynomial** (positive) factor, the
 Gauss curvature is the *rational* Liouville expression — **no sqrt/log/exp**:

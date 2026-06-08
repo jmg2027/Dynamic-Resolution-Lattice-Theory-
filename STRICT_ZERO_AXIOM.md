@@ -556,9 +556,8 @@ argument not yet done").  Worked at the term-magnitude level `Mᵏ/k!` (numerato
 the `k`-th) → `expTerm_geom_majorant` (`2ʲ·M^{N+j}·N! ≤ Mᴺ·(N+j)!` for `2M ≤ N+1`, the geometric tail
 ratio `1/2`) → `expTail_geom_decay` (base `N = 2M`: the tail decays as `term(2M)·2^{−j}` with explicit
 dyadic modulus `j ↦ 2ʲ`).  Plus `expTerm_antitone` (terms non-increasing past `2M` — the
-alternating-series-test input for the `sin`/`cos` series, T2).  Rung **T1** of the transcendentals marathon
-(`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`); next: package the rate
-into a `CauchyCutSeq` over `expPartialSum` (T1→T2 bridge) then `sin`/`cos` series (T2).
+alternating-series-test input for the `sin`/`cos` series, T2).  Rung **T1** of the transcendentals marathon;
+next: package the rate into a `CauchyCutSeq` over `expPartialSum` (T1→T2 bridge) then `sin`/`cos` series (T2).
 
 ### Marathon T1 (algebraic route) — exp(m) convergents + cross-determinant; e's clean modulus is m=1-special (2026-06-05)
 
@@ -806,9 +805,8 @@ self-weight pins the extremum.
 **Comparison principle** (same file, 4 more PURE): `heatStep_mono` / `lazyHeatStep_mono` (order-preservation
 `u ≤ v ⟹ heatStep u ≤ heatStep v`, both stencils), `heatIter_mono` (preserved for all time), and
 `heatStep_le_two_max_via_comparison` (the maximum principle re-derived as comparison against a constant
-field — the two P1 estimates are one principle).  Rung **P1** of the discrete-PDE-estimates marathon
-(`research-notes/frontiers/pde_estimates/discrete_pde_estimates_ladder.md`); next: oscillation decay rate
-(P2) + the `Real213` limit step.
+field — the two P1 estimates are one principle).  Rung **P1** of the discrete-PDE-estimates marathon;
+next: oscillation decay rate (P2) + the `Real213` limit step.
 
 ### Discrete (Forman) Ricci curvature — the 213-native route to the A6 core (2026-06-05)
 

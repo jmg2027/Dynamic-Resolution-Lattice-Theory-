@@ -14,7 +14,7 @@ cost — which is what pins `W₁` (and hence `κ`) when a coupling and a potent
 Worked over ℤ on a finite index set `{0,…,n−1}` (signed potentials/costs).  Infrastructure: an
 integer grid sum `gridSumZ` + Fubini (sum-swap).  All zero-axiom.
 
-Ladder: `research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`, rung 5.
+A6 discrete Ricci-flow ladder, rung 5.
 -/
 
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci

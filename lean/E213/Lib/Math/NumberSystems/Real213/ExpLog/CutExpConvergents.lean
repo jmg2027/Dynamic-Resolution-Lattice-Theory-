@@ -5,8 +5,7 @@ import E213.Meta.Nat.PolyNatMTactic
 /-!
 # Real213 — exp(m) rational convergents + cross-determinant (∅-axiom)
 
-**Marathon T1** (`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`),
-algebraic route.
+**Marathon T1**, algebraic route.
 
 `EulerModulus` gave e = exp(1) a *total* constructive cut modulus by feeding its convergents'
 **cross-determinant** into `RateModulus`.  This file generalizes the convergent arithmetic to

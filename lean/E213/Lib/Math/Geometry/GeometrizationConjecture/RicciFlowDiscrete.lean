@@ -27,8 +27,7 @@ estimates.  Concretely, on the edge-curvature field `K : grid → ℕ` (Forman c
     side (rung 3).
 
 This is A6's conquest core **in the discrete (Forman) theory** — a genuine parallel mathematics,
-not smooth Perelman (`ricci_flow_smooth_core.md` stays the wall).  Ladder:
-`research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`.
+not smooth Perelman; the smooth core stays walled.
 
 All zero-axiom.
 -/
