@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 76 essays are grouped into ten thematic sub-directories — distinct
+The 77 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -84,6 +84,11 @@ the-pointing).
 valuation `ν₅(F_n)=ν₅(n)` (Fibonacci rank of apparition `α(5)=5`) are two faces of `ℚ(√5)` at
 its ramified place; the Cassini unit `±1` underwrites both; disc `+5` real companion to the
 CP phase's disc `−4` imaginary `ℚ(ζ₅)` reading).
+`the_fibonacci_rank_is_a_permutation_sign` (the rank of apparition `α(p)` is fixed by one
+character — `α(p) ∣ p − (5/p)`, `rank_law_dispatch` — and `(5/p) = psign σ_5` (`zolotarev_mu`),
+so `α(p) ∣ p − psign(σ_5)`: the Fibonacci entry point is the parity of the `×5` permutation;
+the same Legendre character mains dispatch for the Pisano *period* the branch dispatches for the
+*entry point*, `α(p) ∣ π(p)`).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
