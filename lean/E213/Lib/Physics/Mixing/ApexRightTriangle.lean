@@ -49,6 +49,15 @@ and the golden modulus `R_u = 1/φ²` (the contracting eigenvalue of `M`) — fi
 whole triangle, with `cos γ = 1/φ²` a clean golden output and `β` essentially
 exact.  This **replaces** the single Niven-forbidden posit `δ = π/φ²`.
 
+## Correction (2026-06-08, `cp_yukawa_from_scratch`)
+
+`α = 90°` here is the right-triangle **candidate**, NOT forced by the CD `i`
+alone: a generic `J`-carrying Yukawa texture does *not* give `α=90°` (tested —
+various `α`).  What the `C₄`/`i` forces is **maximal CP** (the phase is the
+imaginary unit, `δ_KM=90°`, `CPMaximalPhase`).  The specific `α=90°` is a
+model-level (right-unitarity-triangle) candidate, combined here with the derived
+golden modulus to give `cos γ=1/φ²`.
+
 ## Honest scope
 
 `α = 90°` is still an *input* (motivated by the CD `i` / right-triangle program,

@@ -63,9 +63,13 @@ ratio there sits in the (real) mixing *angle*, never the phase.
 The 213-native complex structure is the **Cayley–Dickson imaginary unit `i`** —
 the `NT = 2` first doubling `ℝ → ℂ`, with `ℤ[i]^× = C₄ = {1, i, −1, −i}`.  So the
 phase lies in `C₄`.  Of these, `±1` are real (`J = 0`, no CP) and `±i` are pure
-imaginary (`J ≠ 0`).  Since CP exists (§1), the phase is forced to `±i = ±90°`
-(`CPPhaseC4Forcing.delta_ninety_forced`) — the right unitarity triangle `α = 90°`,
-the empirically-favoured value (`α_obs = 92.4° ± 1.4°`).
+imaginary (`J ≠ 0`).  Since CP exists (§1), the phase is forced to `±i` — i.e. **maximal CP** (`δ_KM=90°`
+in the KM parametrisation; the Jarlskog is maximal for given angles, `sin δ_KM=1`).
+This is convention-independent in content (the phase is the irreducible imaginary
+unit).  The *specific* right-triangle angle `α=90°` (convention-independent,
+`α_obs=92.4°±1.4°`) is a **separate, model-level candidate** — NOT forced by the
+`i` alone (a generic `J`-Yukawa texture does not give it; see
+`research-notes/frontiers/cp_yukawa_from_scratch.md`).
 
 ### 3. The `C₄`/`i` is one object on `d = 5` — three disciplines
 
