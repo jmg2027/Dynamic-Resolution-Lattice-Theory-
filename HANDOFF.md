@@ -1,97 +1,98 @@
-# Session Handoff — 2026-06-08 (G124 5-adic: Fibonacci 5-adic valuation — CLOSED)
+# Session Handoff — 2026-06-08 (Fibonacci 5-adic valuation: closed + promoted + merge marathon)
 
 ## Branch
-`claude/g124-5adic-drlt-HcdhH` — based at `origin/main` (98add99).  All
-commits pushed.  `lake build E213.Lib.Math` clean; the three new modules
-are all `∅-axiom` (FibApparitionMod5 20 PURE, FibZIdentities 13 PURE,
-FibZValuation 8 public PURE incl. all private helpers).
-
-## Headline — the open rung is CLOSED
-**`FibZValuation.fibN_val_law : ∀ n k, 5ᵏ ∣ F_n ⟺ 5ᵏ ∣ n`** — the
-all-orders 5-adic valuation law `ν₅(F_n) = ν₅(n)` at the ramified prime
-`5`, ∅-axiom.  Lifting-the-exponent done end to end.
+`claude/g124-5adic-drlt-HcdhH` — pushed, ahead of `origin/main` (98add99) by
+12 commits.  `lake build E213.Lib.Math` clean; `layer_audit` 0 violations;
+`kernel_regress` 45/45 0-axiom; purity 0 sorry/axiom/native_decide/Classical/
+Mathlib.  **READY TO MERGE → main** (pending the marathon's final merge).
 
 ## What Was Done This Session
 
-Theme: the **G124 H-direction** (DRLT-specific 5-adic content).  The
-frontier note prescribed exactly one admissible move — an *arithmetic-first*
-handle on an object the corpus already builds.  Found it: `5` is the
-*ramified* prime of the golden modulus `ℚ(√5)=ℚ(φ)` that DRLT uses
-(`R_u=1/φ²`), and the Fibonacci recurrence (Cassini/Casoratian) is already
-built.  Closed the **rank of apparition / 5-adic valuation** story.
+Theme: the **DRLT 5-adic direction**, taken from an honest "no physics handle"
+terrain map all the way to a closed math arc at the **ramified golden prime
+`5`**, then a full merge marathon.
 
-### 1. FSM rungs — `FibApparitionMod5.lean` (20 PURE)
-`lean/E213/Lib/Math/NumberTheory/DyadicFSM/FibApparitionMod5.lean`.
-- `five_dvd_fib_iff` — `5 ∣ F_n ⟺ 5 ∣ n` (period-20 FSM); rank of
-  apparition `α(5) = 5 = p` (`rank_apparition_five`), the ramified-prime
-  signature (generic `α(p) ∣ p±1`; ramified `α(p)=p`, `F_5=5`).
-- `lucasMod5_never_zero` — `5 ∤ L_n ∀n` (regular Binet branch);
-  `fib_lucas_apparition_divergence` packages the singular/regular split
-  the `LucasFSMmod5` docstring had only stated verbally.
-- `twentyfive_dvd_fib_iff` — `25 ∣ F_n ⟺ 25 ∣ n` (the `ν₅ ≥ 2` rung,
-  Pisano period 100).
-- Generic helpers `run_period_mul`, `run_mod` (period reduction).
-- ∅-axiom care: avoided `propext` from `Nat.mod_add_div` /
-  `mod_mod_of_dvd` / `dvd_iff` (→ `AddMod213` pure) and iff-`rw`
-  (→ `Iff.trans`).
+### 1. Rank of apparition + FSM rungs (`FibApparitionMod5.lean`, 20 PURE)
+- `five_dvd_fib_iff` — `5 ∣ F_n ⟺ 5 ∣ n`; rank of apparition `α(5) = 5 = p`
+  (`rank_apparition_five`), the **ramified** signature (generic `α(p) ∣ p±1`).
+- `lucasMod5_never_zero` — `5 ∤ L_n` (regular Binet branch);
+  `fib_lucas_apparition_divergence` packages the singular/regular split.
+- `twentyfive_dvd_fib_iff` — `25 ∣ F_n ⟺ 25 ∣ n` (the `ν₅ ≥ 2` rung).
 
-### 2. Integer Fibonacci identities → quintupling — `FibZIdentities.lean` (13 PURE)
-`lean/E213/Lib/Math/NumberTheory/FibZIdentities.lean` (new; over `fibZ`
-from `Analysis/Cauchy/OrbitDimension`, with `ring_intZ`).  Wired into
-`E213.Lib.Math`.
-- `fibZ_add` — addition formula `F_{m+n+1}=F_{m+1}F_{n+1}+F_m F_n`
-  (two-step induction; the repo lacked this).
-- `fibZ_shift` — composition `F_{j+m}=F_{j+1}F_m+F_j(F_{m+1}−F_m)`.
-- `lucasZ`, `lucasZ_sq` (`L²=5F²+4(−1)ᵐ`), `fibZ_cassini_eps`
-  (`F_{m+1}²−F_m F_{m+1}−F_m² = (−1)ᵐ`).
-- `fibZ_index_rec` — `F_{b+2m}=L_m F_{b+m}−(−1)ᵐ F_b` (the engine; a pure
-  poly identity once `(−1)ᵐ` is the Cassini value).
-- **`fibZ_quintuple`** — `F_{5m}=F_m·(25F_m⁴+25(−1)ᵐF_m²+5)` (iterate the
-  index recurrence to `k=4`, collapse via `ε²=1`, `L²=5F²+4ε`).
-- **`fibZ_quintuple_factored`** — `F_{5m}=5·(C_m·F_m)`,
-  `C_m=5F_m⁴+5(−1)ᵐF_m²+1`; `five_dvd_fibZ_quintuple` (`5∣F_{5m}`).
-- ∅-axiom care: pure-replaced `Int.mul_one` (→ `Int213.mul_one`) and
-  `Int.neg_mul_neg` (→ `ring_intZ`); `ring_intZ` does NOT fold `*0`/`*1`
-  (constants stay opaque) — handled the `e²=1` collapse via an explicit
-  correction term (`quint_algebra`).
+### 2. Integer Fibonacci identities → quintupling (`FibZIdentities.lean`, 13 PURE)
+Over `fibZ` with `ring_intZ`: `fibZ_add` (addition formula), `fibZ_shift`,
+`lucasZ`/`lucasZ_sq` (`L²=5F²+4(−1)ᵐ`), `fibZ_cassini_eps`, `fibZ_index_rec`
+(`F_{b+2m}=L_m F_{b+m}−(−1)ᵐ F_b`), and **`fibZ_quintuple`**
+(`F_{5m}=F_m(25F_m⁴+25(−1)ᵐF_m²+5)`) + `fibZ_quintuple_factored`.
 
-## Open Problems (Priority Order)
+### 3. The all-orders law (`FibZValuation.lean`, PURE)
+**`fibN_val_law : ∀ n k, 5ᵏ ∣ F_n ⟺ 5ᵏ ∣ n`** — i.e. `ν₅(F_n) = ν₅(n)`,
+lifting-the-exponent end to end.  Route: rank (FSM bridge via `run_val`) +
+`fibN_quintuple` (bridged from `fibZ_quintuple_factored` through `natAbs`) +
+`cop_cancel` (`dvd_prime_pow_cases` + `euclid_of_coprime`) + `lift`/`lift_index`
++ strong induction.  All propext-leaking core bridges pure-replaced.
 
-### 1. Promotion (housekeeping)
-The 5-adic / ramified-prime cluster is closed in Lean.  When ready,
-promote to `theory/math/numbersystems/` (narrative for the rank of
-apparition + `ν₅(F_n)=ν₅(n)`) per `theory/PROMOTION_CRITERIA.md`, then
-archive the frontier note.
-
-### 2. Optional extensions (not required)
-- The same machinery generalises to any prime `p` with its rank of
-  apparition (the FSM gives the period; the quintupling generalises to
-  a `p`-tupling identity).  Only `p = 5` (the ramified golden prime) is
-  done.
-- `ν₅` as an explicit valuation *function* (vs the divisibility form)
-  if a downstream use wants it.
-
-### 3. Prior G124 frontiers (unchanged)
-`i₅ ∈ μ₄` closed; H2/H3 no internal handle (recorded plainly).
+### 4. Merge marathon
+`/process` (decoupled 3 sink-rule violations → 0).  Promotion: chapter
+`theory/math/numbertheory/fibonacci_5adic_valuation.md` + `STRICT_ZERO_AXIOM`
+entry + log row 36 + frontier note archived.  Cross-domain note
+(`fibonacci_golden_prime_crossdomain`) + essay
+(`theory/essays/synthesis/the_golden_prime.md`, log row 37).  `/org-audit`
+(INDEX counts), `/purity-check` (PURE), `/ready-to-merge` (READY).
 
 ## Current Precision Results (0 free parameters)
 **No physics-constant changes** — pure mathematics / number theory.  The
 standing DRLT table (`catalogs/physics-constants.md`) is untouched.
 
+## Open Problems (Priority Order)
+
+### 1. General-`p` rank law `α(p) ∣ p − (5/p)` from the Legendre character
+The branch closed the ramified `p = 5` case (`α(5) = 5`); the split/inert
+primes' rank law is governed by the Legendre symbol `(5/p)` the QR arc
+already computes.  Buildable from `Legendre`/QR + a general-`p` Fibonacci FSM.
+Frontier: `research-notes/frontiers/fibonacci_golden_prime_crossdomain.md`.
+
+### 2. Shared-`ℚ(√5)` morphism: `cp_phase` ↔ `fibonacci_5adic_valuation`
+Main reads `ℚ(√5)` through `ℚ(ζ₅)`'s real subfield (CP-phase, disc `−4`
+imaginary companion); the branch ramifies it at `5` (Fibonacci, disc `+5`).
+A shared-field morphism would tie the two chapters.  Same frontier note.
+
+### 3. Prior 5-adic frontiers (unchanged)
+`i₅ ∈ μ₄` closed; the DRLT H2/H3 "no internal handle" verdicts recorded
+plainly (archived `research-notes/archive/fibonacci_5adic/`).
+
+## Unresolved from This Session
+No dead ends.  Two `ring_intZ` quirks worth remembering: it does **not** fold
+`x·0` / `x·1` (constants stay opaque — handle `e²=1` collapse via an explicit
+correction term), and degree-5 two-variable identities are fine (no overflow).
+Core Int↔Nat bridges (`Int.natAbs_*`, `Nat.dvd_trans/dvd_zero`,
+`Nat.eq_of_mul_eq_mul_left`, Int-dvd `decide`) all leak propext — pure
+replacements live in `IntEuclid`, `AddMod213`, `MarkovPrimeFactor`, or were
+hand-rolled.
+
+## Next
+The 5-adic direction is closed and promoted.  Highest-value next: **(1)** the
+general-`p` rank law (genuine, ties the branch to the QR/Legendre arc), or
+**(2)** the shared-`ℚ(√5)` morphism essay→Lean bridge, or a fresh field
+marathon (`blueprints/`).
+
+## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
+- **Promotions this session**: `theory/math/numbertheory/fibonacci_5adic_valuation.md`
+  (log row 36); essay `theory/essays/synthesis/the_golden_prime.md` (row 37).
+- **Promotion candidates**: none outstanding from this branch.
+- **Active scratchpad**: `research-notes/frontiers/fibonacci_golden_prime_crossdomain.md`
+  (2 buildable bridges).
+
 ## File Map
 ```
 lean/E213/Lib/Math/NumberTheory/DyadicFSM/FibApparitionMod5.lean  ← rank α(5)=5, Lucas≠0, ν₅≥2 (20 PURE)
-lean/E213/Lib/Math/NumberTheory/DyadicFSM/LucasFSMmod5.lean       ← + forward-ref to the proof
-lean/E213/Lib/Math/NumberTheory/DyadicFSM/INDEX.md, DyadicFSM.lean ← + FibApparitionMod5
-lean/E213/Lib/Math/NumberTheory/FibZIdentities.lean               ← NEW: addition formula → quintupling (13 PURE)
-lean/E213/Lib/Math/NumberTheory/FibZValuation.lean               ← NEW: ν₅(F_n)=ν₅(n), the all-orders law (PURE)
-lean/E213/Lib/Math.lean                                           ← + FibZIdentities + FibZValuation imports
-research-notes/frontiers/G124_padic_drlt_5adic.md                ← second handle + the all-orders law (CLOSED)
+lean/E213/Lib/Math/NumberTheory/FibZIdentities.lean               ← addition formula → quintupling (13 PURE)
+lean/E213/Lib/Math/NumberTheory/FibZValuation.lean                ← ν₅(F_n)=ν₅(n), the all-orders law (PURE)
+lean/E213/Lib/Math.lean                                           ← + FibZIdentities + FibZValuation
+theory/math/numbertheory/fibonacci_5adic_valuation.md             ← NEW chapter (promotion)
+theory/essays/synthesis/the_golden_prime.md                       ← NEW essay (value ⟷ valuation)
+STRICT_ZERO_AXIOM.md, theory/{INDEX,math/INDEX,essays/INDEX}.md   ← catalog + counts
+research-notes/frontiers/fibonacci_golden_prime_crossdomain.md    ← NEW cross-domain note (+INDEX)
+research-notes/archive/fibonacci_5adic/G124_padic_drlt_5adic.md   ← archived frontier (arc closed)
+research-notes/promotion_essay_log.md                             ← rows 36/37
 ```
-
-## Three-tier state
-- **Tier-2 (Lean)**: all three new modules PURE-verified.
-- **Promotion candidates**: none yet — the cluster is mid-marathon (LTE
-  open).  Promote to `theory/math/numbersystems/` once `ν₅(F_n)=ν₅(n)`
-  closes.
-- **Active scratchpad**: `research-notes/frontiers/G124_padic_drlt_5adic.md`.
