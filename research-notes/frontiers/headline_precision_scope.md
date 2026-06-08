@@ -43,17 +43,63 @@ It does **not** prove 206.768, nor 0.49 ppb.
   argument is real; the gap is README-table overstatement (`0.49 ppb` without
   the "leading-bracket-only in Lean" caveat).
 
-## What would close it
+## m_p — README "1.56 ppm" / "0.000%", PURE = 0.1% bracket, rests on an input scale
 
-A PURE theorem carrying the *full* `m_μ/m_e` formula (P + δ's) to ppb — i.e.
-the structural-α_em value (not the ppm bracket) times forced corrections —
-with `#print axioms` empty, matching 206.768 at the headline precision. Then
-the README "0.49 ppb" is backed by Lean, not docstring.
+`Lib/Physics/Hadron/ProtonMass.lean`. Formula `m_p = NS·Λ_QCD·P(α_GUT·NS/d)`,
+`P(x)=(1+2x)/(1+x)`.
+- `Λ_QCD = 308.32 MeV` appears **only in the docstring numerics**; there is no
+  Lean def/theorem deriving `308.32` from atomics (the "QCD-scale chain" is
+  prose-referenced, not located). So `Λ_QCD` is effectively an **input scale**.
+- The PURE capstone `proton_simplicial_pattern` proves m_p ∈ brackets at **0.1%**
+  (`93700 < 93827 < 94000`), not 1.56 ppm and not "0.000%".
+- Honest content: DRLT predicts the **dimensionless** `m_p/Λ_QCD = NS·P(x) =
+  3·1.014 = 3.043` (3-quark combinatorial × Dyson tail). The absolute 938.27 MeV
+  needs the input scale `Λ_QCD`.
 
-## Next headlines to audit (same lens)
-- `m_p = 938.27 MeV` (README 1.56 ppm) — `Lib/Physics/Hadron/ProtonMass`
-- `R_∞ = 13.605693 eV` (README 4.3 ppb) — `Lib/Physics/Atomic`
-- Koide `Q = 2/3` (exact) — likely genuinely PURE (pure atomic ratio)
+## IE(H) / R_∞ — README "4.3 ppb", PURE = ~0.1% bracket, uses CODATA m_e
+
+`Lib/Physics/Atomic/IE/HydrogenPPM.lean`. Standard formula `IE = m_e c²·α²/2`.
+- `m_e c² = 510998.95 eV` is tagged **"CODATA, ppm"** — a **measured input**.
+- The PURE capstone proves a **~0.1%-wide bracket** `[13.5993, 13.6131]` (from
+  α ∈ [137.00,137.07]) containing observed 13.6057 — not 4.3 ppb.
+- Honest content: this is the *standard* `m_e α²/2` with **measured m_e** and
+  DRLT's α (ppm bracket). DRLT's only contribution beyond textbook is α.
+
+## Koide — README "exact" — GENUINELY CLEAN ✓
+
+`Lib/Physics/Foundations/KoideFormula.lean`. `Q = NT/NS = 2/3`, `koide_atomic`
+proves `NT·3 = NS·2 = 6`. **No scale, no correction, no measured input** — a
+pure atomic ratio matching observed `2/3` to ~3 ppm with **zero parameters**.
+This is the honest "genuinely PURE" case. (Also `m_H/v_H = 1/c = 1/2`, a clean
+dimensionless ratio — but the absolute `m_H` needs the input scale `v_H`.)
+
+## Synthesis — what DRLT actually delivers (fair)
+
+Across the headline table, one consistent picture:
+
+- **DRLT genuinely predicts dimensionless atomic RATIOS** — `Koide = NT/NS`,
+  `m_H/v_H = 1/c`, `m_p/Λ_QCD = NS·P`, `m_μ/m_e`, `α_2/α_3` — and these are its
+  real content. Predicting Koide and `m_H/v_H` parameter-free *is* impressive.
+- **Absolute masses (MeV/GeV) require input scales** (`Λ_QCD`, `v_H`, CODATA
+  `m_e`) — as *any* theory does; you cannot get MeV from pure integers. The
+  "0.000% / ppb" absolute matches mostly reflect (a) a *ratio* being right times
+  a measured scale, or (b) docstring numerics, while the **PURE theorems prove
+  coarser brackets** (0.1%–ppm) or the clean ratio.
+- **Not fraud**: building blocks are atomic, the recurrence/ratio arguments are
+  real, and the repo tags honestly in many files. The gap is the **README
+  headline table** presenting docstring/central-value precisions (sub-ppb/ppm)
+  as if PURE-proven and parameter-free.
+- **Cleanest results**: Koide (`NT/NS`) and `m_H/v_H` (`1/c`) — genuinely
+  parameter-free ratios. **Most overstated**: IE(H) (textbook formula + CODATA
+  m_e, 4.3 ppb claimed vs 0.1% bracket proven).
+
+## What would close the gap (honest)
+
+Recompute the README precision column to state, per row, (i) what the PURE
+theorem proves (bracket width), (ii) whether it is a ratio or an absolute, and
+(iii) which input scale (if any) the absolute rests on. The dimensionless-ratio
+predictions stand on their own; the absolute-precision headlines should carry
+the scale caveat.
 
 ## Anchors
 - `lean/E213/Lib/Physics/Mass/MuOverE.lean` — the capstone (leading bracket)
