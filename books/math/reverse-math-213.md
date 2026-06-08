@@ -61,9 +61,10 @@ parity decides which half vanishes; `LLPO.lean`, via a native Bool `parity`).
 - **GB-cont4** `Interleave.lean` (6 PURE) + `LLPOSelection.lean` (12 PURE) —
   `llpo_infChildExistsN`: König child selection from **LLPO** (the tight cost), via the
   monotone turn-off encoding (`interleave`, `ftrue`, `ftrue_unique`, `not_both`).
-- **GB-cont5** `WKLHeineBorel.lean` (5 PURE) — the global `WKL ⟺ Heine–Borel`, ∅-axiom
-  half: `infPath_imp_infB` (a path ⟹ unbounded) and `bounded_imp_not_infPath` (bounded ⟹
-  no path).  The WKL-strength half (unbounded ⟹ path) is *not* ∅-axiom — see below.
+- **GB-cont5** `WKLHeineBorel.lean` (7 PURE) — the global `WKL ⟺ Heine–Borel`: the
+  unconditional ∅-axiom half (`infPath_imp_infB` path ⟹ unbounded, `bounded_imp_not_infPath`
+  bounded ⟹ no path) and the oracle-conditional WKL-strength half (`wkl_of_oracle`:
+  unbounded + selection oracle ⟹ infinite path).
 
 ## How the König thread arithmetized
 
@@ -137,13 +138,15 @@ kernel had it not been hypothesized or hand-rolled away.  The omniscience ledger
   at-most-one-true via `ftrue_unique` (monotone ⟹ one rising edge, Nat trichotomy) +
   `not_both` (monotone + disjoint ⟹ not both rise); LLPO's even/odd split + `ftrue_all_false`
   gives `InfB s0 ∨ InfB s1`.  This was *not* a corollary of `lpo_imp_llpo` — a fresh proof.)*
-- Global `WKL ⟺ Heine–Borel`, **WKL-strength half** (unbounded ⟹ infinite path, and ¬path ⟹
-  bounded): *not ∅-axiom* — where WKL is **strictly stronger than LLPO**.  Local child
-  selection is LLPO (`llpo_infChildExistsN`); iterating it into a *global* path needs
-  **dependent choice** (turn the per-node selection disjunctions into a `step` oracle).
-  Engine `KonigConditional.konig_conditional` (PURE) takes the oracle; building it is the
-  gap.  The ∅-axiom *half* — path ⟹ unbounded, bounded ⟹ no path — is done
-  (`WKLHeineBorel.lean`).
+- *(Done — WKL-strength half, conditional: `wkl_of_oracle` (`WKLHeineBorel.lean`) — given the
+  selection `step` oracle, unbounded ⟹ an infinite path, ∅-axiom.  The oracle is the
+  dependent-choice content, carried as a hypothesis exactly as `LLPO`/`step` are elsewhere;
+  per-node it is `llpo_infChildExistsN`.  So the global `WKL ⟺ Heine–Borel` is complete as
+  far as ∅-axiom allows: the unconditional half (path ⟹ unbounded, bounded ⟹ ¬path) plus the
+  oracle-conditional WKL.  The only genuinely-absent piece is the bare choice that converts
+  the per-node disjunctions into the `step` function — which is *by design* not internal.)*
+- HB proper (¬HasInfPath ⟹ Bounded) as an oracle/decision-conditional statement (dual of
+  `wkl_of_oracle`).
 - The fan theorem and bar induction as residue-native principles.
 - *(Done: `existsLevel` ↔ `KonigConditional.InfBelow` — `infB_iff_infBelow`; `LevelAntitone`
   from a downward-closed `T` — `levelAntitone_of_downwardClosed`; LPO ⟹ LLPO — `lpo_imp_llpo`;

@@ -52,4 +52,31 @@ theorem bounded_imp_not_infPath (T : List Bool → Bool) (hb : Bounded T) : ¬ H
     hp.elim (fun node h =>
       Bool.noConfusion ((h.2.1 N).symm.trans (hN (node N) (path_node_len node h.1 h.2.2 N)))))
 
+/-! ## The WKL-strength half — conditional on the selection oracle (the choice content)
+
+WKL proper (unbounded ⟹ an infinite path) is *not* ∅-axiom: assembling a global path needs
+**dependent choice** to iterate the per-node selection.  As everywhere in this marathon, the
+cost is carried as an **explicit hypothesis** — the `step` oracle and its `hstep`
+"selection stays infinite-below" — keeping the theorem PURE.  Per node, `hstep` is exactly
+what `llpo_infChildExistsN` justifies (LLPO gives `InfB s → InfB s0 ∨ InfB s1`); turning
+that disjunction into the `step` *function* for all `s` at once is the choice step. -/
+
+/-- `(l ++ [x]).length = l.length + 1`, propext-free. -/
+theorem length_snoc : ∀ (l : List Bool) (x : Bool), (l ++ [x]).length = l.length + 1
+  | [],     _ => rfl
+  | _ :: l, x => congrArg (fun m => m + 1) (length_snoc l x)
+
+/-- ★★ **WKL proper, conditional on the selection oracle (∅-axiom).**  Given a `step`
+    oracle that keeps the walk infinite-below (`hstep`) and an infinite-below root, an
+    infinite path exists.  The oracle is the dependent-choice content (its per-node
+    correctness is `llpo_infChildExistsN`); with it, WKL holds, completing the global
+    `WKL ⟺ Heine–Borel` picture (the ∅-axiom half above is unconditional). -/
+theorem wkl_of_oracle (T : List Bool → Bool) (step : List Bool → Bool)
+    (hstep : ∀ s, InfB T s → InfB T (s ++ [step s])) (root : InfB T []) : HasInfPath T := by
+  obtain ⟨node, h0, hT, hrec⟩ :=
+    E213.Lib.Math.Combinatorics.KonigConditional.konig_conditional T step (InfB T)
+      (fun s h => h 0) hstep root
+  exact ⟨node, h0, hT, fun k =>
+    (congrArg List.length (hrec k)).trans (length_snoc (node k) (step (node k)))⟩
+
 end E213.Lib.Math.Logic
