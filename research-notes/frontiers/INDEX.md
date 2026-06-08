@@ -144,6 +144,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `cp_crossdomain_insights` — **CP-phase cohomology ↔ main's sign/QR/cyclotomic
+  campaigns** (merge marathon). Four candidate bridges where the two branches
+  share one object: (1) the inversion sign is one object — `det(permMatrix)=psign`
+  (main) = the signed Hodge cup wedge sign `(−1)^inv` (this branch); (2) `ℤ[i]`:
+  the CP phase `C₄`/`90°` IS main's QR splitting (`d=5≡1 mod4 ⇒ (−1/5)=+1 ⇒ 5=(2+i)(2−i)`);
+  (3) `ℚ(ζ₅)` Gauss periods (CP golden modulus + `C₄`) ↔ main's Teichmüller/`gauss_qr`;
+  (4) Hodge-Riemann positivity `h=Q·J=I` ↔ main's `det_mul` (`det=1`). Richest:
+  the permutation sign + Hodge-⋆ orientation + Legendre symbol + CP phase are one
+  inversion/Gaussian object; the open **Zolotarev** edge closes the square.
+
 - `gram_d2_prefactor` — **the α_em Gram self-energy `/d²` prefactor**.
   *Closed this session*: the cubic `25y³+1=25Xy²` is the correction ansatz
   `α²/d²` re-expressed (not a free form); the prefactor *value* is
