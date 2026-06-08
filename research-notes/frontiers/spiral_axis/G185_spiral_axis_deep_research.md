@@ -53,9 +53,19 @@ ring homomorphism (NOT glyph-reuse):
 
 ## Open / next (ranked, from the conjecture agent)
 
-  - **A1** (top): the modular generators `S,U` are `q=1` trace-orbits — `trace(Mⁿ)` satisfies
-    `t(n+2)=tr·t(n+1)−det·t(n)` = `det_step` with `q=det(M)=1`.  Makes the modular↔Cassini bridge a
-    theorem (Cayley–Hamilton for 2×2, `ring_intZ`).  Easy.
-  - **A5**: prove the CD-tower / axis non-coincidence (kills the stereotype).  Easy, defensive.
-  - **A3 (k=4)**: the order-4 Casorati determinant `hankel4`, multiplier `a₀` — extend the
-    genuine determinantal ladder one rung.  Med.
+  - **A1** ✓ **CLOSED**: the modular generators `S,U` are trace-orbits — `trace(Mⁿ)` satisfies
+    `t(n+2)=tr·t(n+1)−det·t(n)` (Cayley–Hamilton iterated).  `Real213/Mat2CayleyHamilton.cayley_hamilton`
+    + `Mat2TraceRecurrence.trace_recurrence`; the elliptic orders read off as trace periods 4/6
+    (`UTracePeriodic.elliptic_orders_four_and_six`), the hyperbolic Lucas growth
+    (`golden_trace_recurrence`).  The modular↔Cassini bridge is a theorem.
+  - **A3** ✓ **CLOSED — and generalised past `k=4`.**  The determinantal ladder closed at **all**
+    orders in one structural theorem (not just the requested order-4 `hankel4`):
+    `Analysis/Cauchy/CasoratianDeterminant.casoratian_step` — for any constant-coefficient
+    order-`(K+1)` recurrence the `(K+1)×(K+1)` Hankel/Casoratian determinant multiplies by the
+    companion determinant `altSign K · a 0` each step.  Proof = `H(n+1) = C·H(n)`
+    (`hankel_shift_eq_matMul`) + `DetMul.det_matMul` + `det_companion` (no `ring_intZ` expansion —
+    the order-4 normal form exceeds the kernel; `second_order/third_order/fourth_order_multiplier`
+    are the rung instances).  Subsumes `CassiniUnimodular.det_step` (order 2) and
+    `SecondCasoratian.second_casoratian` (order 3).
+  - **A5** (still open): prove the CD-tower / axis non-coincidence (kills the `1,2,4,8 ↔ {2,4,6}`
+    stereotype).  Easy, defensive.

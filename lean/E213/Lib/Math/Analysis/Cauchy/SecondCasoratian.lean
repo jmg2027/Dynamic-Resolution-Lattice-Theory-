@@ -14,7 +14,10 @@ of a constant-coefficient order-3 recurrence `s(n+3) = a·s(n+2) + b·s(n+1) + c
 determinant of the order-3 companion shift `[[0,1,0],[0,0,1],[c,b,a]]`.
 
 This is the **determinantal / arithmetic** ascent of the depth ladder: order-`k` ↦ the `k×k`
-Casorati determinant, multiplier = `det(shift)`.  It is **all genus 0** (a linear-recurrence orbit
+Casorati determinant, multiplier = `det(shift)`.  (The all-orders structural statement —
+`Hₖ(n+1) = altSign(k−1)·a₀·Hₖ(n)` for every `k`, via `H(n+1)=C·H(n)` and `det_matMul` — is
+`CasoratianDeterminant.casoratian_step`; this file's order-3 `ring_intZ` expansion is its `k=3`
+instance, kept as the concrete witness.)  It is **all genus 0** (a linear-recurrence orbit
 is a toric / companion-matrix object at every order) — *not* a "genus climbs / order-3 ↦ elliptic
 curve" ascent (a category error: a `k×k` Hankel determinant is a singular determinantal variety,
 never a smooth plane curve; the degree of a many-variable form is not the genus of a curve).  So
