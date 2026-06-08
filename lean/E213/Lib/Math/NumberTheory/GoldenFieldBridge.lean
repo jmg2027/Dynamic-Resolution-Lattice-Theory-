@@ -35,8 +35,7 @@ factors as a perfect square mod `5`:
 
 and the two double roots are negatives, `3 + 2 ≡ 0 mod 5` — the `x ↦ −x` image.
 
-This is the formalization of the open frontier named in
-`research-notes/frontiers/fibonacci_golden_prime_crossdomain.md` (insight 5) and
+This formalizes the shared-field reading of
 `theory/essays/synthesis/the_golden_prime.md`: the CP-phase's `ℚ(ζ₅)` reading and
 the Fibonacci ramification are **one** `ℚ(√5)` object, with the value `φ` (the
 modulus `1/φ²`) and the valuation `ν₅(F_n)` its analytic and `p`-adic faces.

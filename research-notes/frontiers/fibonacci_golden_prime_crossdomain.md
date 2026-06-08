@@ -96,3 +96,15 @@ rank law from the Legendre character (`DyadicFSM/RankApparition.lean`), and (5)
 the shared-`ℚ(√5)` morphism between `cp_phase` and `fibonacci_5adic_valuation`
 (`NumberTheory/GoldenFieldBridge.lean`).  Insight 1 (value vs. valuation hinge)
 remains a conceptual framing, not a single unbuilt morphism.
+
+## Remaining open direction — higher valuation rungs for general `p`
+
+The rank law `α(p) ∣ p − (5/p)` is the **entry-point** (`νₚ ≥ 1`) rung,
+Legendre-dispatched.  The all-orders lift is open for general `p`: at the
+ramified `p = 5` the quintupling identity `F_{5m} = F_m·(25F_m⁴+25(−1)ᵐF_m²+5)`
+(`fibZ_quintuple`) supplies one factor of `5` per quintupling, closing
+`ν₅(F_n) = ν₅(n)` (`fibN_val_law`).  The general statement
+`νₚ(F_n) = νₚ(α(p)·k) = νₚ(k) + νₚ(α(p))`-style lift needs the `p`-tupling
+analogue (an index-`α(p)`-multiplication identity with a cofactor `≡ 1 mod p`)
+— buildable from `fibZ_index_rec` iterated to `k = α(p)`, parametric in the
+rank.  Only `p = 5` is carried out.

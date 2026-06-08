@@ -182,9 +182,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   recurrence (rank `α(5)=5`, `ν₅(F_n)=ν₅(n)`) at the *ramified* prime of the same `ℚ(√5)`.
   Proven shared objects: the Cassini unit `det=±1 = det P = NS−NT = 1` (already cited from
   `OrbitDimension` to `PnFibonacciUniversal`), and the binary sign axis (`ε=(−1)ᵐ` = the
-  `psign`/Legendre/inversion read of the permutation-three-readouts).  Buildable: the general-`p`
-  rank law `α(p) ∣ p − (5/p)` from the existing Legendre character; a shared-`ℚ(√5)` morphism
-  tying `cp_phase` ↔ `fibonacci_5adic_valuation` (disc `+5` real vs disc `−4` imaginary).
+  `psign`/Legendre/inversion read of the permutation-three-readouts).  **CLOSED**: the general-`p`
+  rank law `α(p) ∣ p − (5/p)` from the Legendre character (`DyadicFSM/RankApparition.lean`); the
+  shared-`ℚ(√5)` morphism tying `cp_phase` ↔ `fibonacci_5adic_valuation` (`x↦−x` between the Binet
+  `x²−x−1` and the Gaussian-period `x²+x−1`, `NumberTheory/GoldenFieldBridge.lean`).  **Open**: the
+  higher-valuation `νₚ(F_n)` rungs for general `p` (the `p`-tupling analogue of the quintupling
+  identity, beyond the entry point), and insight 1 (value-vs-valuation as a conceptual hinge).
 - `cp_crossdomain_insights` — **CP-phase cohomology ↔ main's sign/QR/cyclotomic
   campaigns** (merge marathon). Four candidate bridges where the two branches
   share one object: (1) the inversion sign is one object — `det(permMatrix)=psign`
