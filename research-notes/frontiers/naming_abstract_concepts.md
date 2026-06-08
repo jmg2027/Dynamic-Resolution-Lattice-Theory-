@@ -92,14 +92,25 @@ Run each standard abstract-concept naming through: *which Lens? which fold-level
   axis ⇒ both are Lens readings; "actual infinity" = freezing the transition (the capture
   /import); "potential infinity" = the rule kept open (the allowed transition).
 
-## Next concrete step (code)
+## Next concrete step (code) — partly closed
 
 Mirror the König bridge for the number systems, unifying ℝ/ℚ_p/König under one
 `boolSpine_escapes`-style pattern:
-- `real_is_nu_escape` — a `Real213` dyadic refinement stream is a νF escape (no finite Raw).
-- `padic_is_nu_escape` — a `ZpSeq p` digit stream is a νF escape (no finite Raw).
-Closing these makes "ℝ / ℚ_p / König infinity are literally the same escape" a theorem,
-not a read-through.
+- **ℚ_p (2-adic) — CLOSED, ∅-axiom** (`Lib/Math/NumberSystems/Padic/NuEscape.lean`,
+  4 PURE): a `ZpSeq 2` is a νF inhabitant (`twoAdicNu` via `boolSpineSlashNu`) reached by
+  **no finite Raw** (`twoAdic_is_nu_escape`) — same `boolSpine_escapes` shape as
+  `konig_infinity_no_finite_raw`.  `Fin 2 ≃ Bool`, so a 2-adic integer *is* literally a
+  branch of König's binary tree.
+- **ℝ — already on record**: the dyadic real's reached-by-none is closed
+  (`theory/essays/foundations/reached_by_none.md`; `Analysis/Cauchy/DepthCeilingResidue`,
+  `diag_not_in_seq`).  The native `Real213` carrier is the cut `Nat → Nat → Bool` (not a
+  single `Nat → Bool` stream), so a one-carrier-with-König unification would need a dyadic
+  bit-stream extractor — open polish, not a gap (the escape itself is proved).
+- **ℚ_p general `p` — open**: needs a `Fin p`→bits encoding or a p-ary spine in
+  `CoResidue` (the binary `boolSpine` is the only spine so far).
+
+So "ℚ_p (p=2) / König infinity are literally the same escape" is now a theorem; the ℝ and
+general-`p` one-carrier unifications are the remaining polish.
 
 ## Anchors
 
