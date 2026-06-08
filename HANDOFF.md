@@ -95,19 +95,25 @@ The committed-to multi-session build of `(ℤ/p)*` cyclic ⟹ Zolotarev nontrivi
   via the decidable `maxOrd % ord = 0` (no Classical `by_contra`).  **The exponent argument /
   every-order-divides-maxOrd is now CLOSED — the hardest part of the marathon is done.**
 
-**Bricks remaining (the "mechanical" finish):**
-- **brick 5 — primitive-root existence** (`∃ g, ordModP g p = p−1`).  Every unit `x` has
-  `ord x ∣ maxOrd` (4b-iv), so `x^maxOrd ≡ 1`, i.e. `p ∣ x^maxOrd − 1`.  Encode `X^maxOrd − 1`
-  as a `List Int` (`[−1, 0,…,0, 1]`, length `maxOrd+1`) with `eval f x = x^maxOrd − 1`; the
-  `p−1` units `{1,…,p−1}` are pairwise-distinct roots; `RootBound.eval_zero` ⟹ if `p−1 ≥
-  maxOrd+1` then `f ≡ 0` everywhere ⟹ `f(0) = −1 ≡ 0`, contra ⟹ `p−1 ≤ maxOrd`.  With
-  `maxOrd_le_pred` ⟹ `maxOrd = p−1`; `maxOrd_achieved`'s `g` is then a **primitive root**.
-  ~120 lines (the polynomial encoding + the distinct-units list + `eval_zero`).
-- **brick 6 — `(p−1)`-cycle ⟹ full Zolotarev**.  `mulPerm g` (g a primitive root) is a single
-  `(p−1)`-cycle (its powers exhaust the nonzero residues), `psign = (−1)^{p−2} = −1`; `g` is a
-  non-residue (order `p−1` even, not a square).  That `psign(mulPerm g) = −1` is the
-  **nontriviality witness**; with `Zolotarev.psign_mulPerm_hom`/`_qr` ⟹ full
-  `psign(mulPerm a) = (a/p)` ⟹ the **Zolotarev converse** ⟹ the Zolotarev/Legendre iff.
+- **brick 5** `PrimitiveRoot.lean` (9) — ★★★ `maxOrd_eq_pred` (`maxOrd p = p−1`, via
+  `RootBound.eval_zero` on `pmoSucc(maxOrd−1) = X^maxOrd−1` with the `p−1` distinct units
+  `segInt 1 (p−1)`, each a root by `pow_maxOrd_eq_one`); ★★★★ `exists_primitive_root`
+  (`∃ g, 1 ≤ g ≤ p−1 ∧ ordModP g p = p−1`).  **Primitive-root existence CLOSED.**
+
+**Brick remaining (the final combinatorial assembly):**
+- **brick 6 — `(p−1)`-cycle ⟹ full Zolotarev** (~200 lines).  Two parts:
+  - **(a) the nontriviality sign** `psign (mulPerm g p) = −1` for a primitive root `g`.
+    `mulPerm g` (`σ(k)=g·k mod p`) is conjugate to the **cyclic shift** on `{1,…,p−1}` via the
+    discrete-log list `τ = [g⁰%p, g¹%p, …, g^{p−2}%p]` (`mulPerm g ≈ τ ∘ shift ∘ τ⁻¹`, so
+    `psign(mulPerm g) = psign(shift)` by `PermSign.psign_mul` + `psign_inv`); the cyclic shift
+    `[1,2,…,p−2,0]` has `p−2` inversions ⟹ `psign = (−1)^{p−2} = −1` (`p` odd).  (Or: directly
+    show `mulPerm g` is one `(p−1)`-cycle and add a "sign of an `n`-cycle = `(−1)^{n−1}`" lemma to
+    the `psign` framework.)
+  - **(b) extend to all residues**: `φ(a) := psign(mulPerm a)` is a hom killing squares
+    (`Zolotarev.psign_mulPerm_hom`/`_qr`), and `φ(g) = −1` ⟹ `φ = Legendre`; for a non-residue
+    `a = g^k` (`k` odd), `φ(a) = φ(g)^k = −1 = (a/p)` (via `mulPerm_comp` iterated + the
+    discrete-log/QR characterisation `a` QR ⟺ `k` even).  ⟹ **`psign(mulPerm a) = (a/p)`** for
+    all units — the **Zolotarev converse** ⟹ the full Zolotarev/Legendre iff.
 - **brick 5 — `RootBound` gluing**: every unit satisfies `x^{maxOrd} ≡ 1`, so `X^{maxOrd}−1`
   (as `List Int`) has `p−1` distinct roots; `RootBound.eval_zero` ⟹ `f ≡ 0` everywhere ⟹
   `f(0) = −1 ≡ 0`, contra ⟹ `p−1 ≤ maxOrd`; with `maxOrd ∣ p−1` ⟹ `maxOrd = p−1` ⟹
