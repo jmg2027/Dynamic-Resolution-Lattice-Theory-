@@ -127,7 +127,7 @@ presentation/real split, and when a rate-free presentation (π) completes.
 - `G149_analysis_continuum_space_insights` — the analysis/continuum/space
   insight map feeding the completability and GRA programmes.
 
-Closure record: `theory/math/{completeness_relocated,completeness_without_completeness}.md`
+Closure record: `theory/math/numbersystems/{completeness_relocated,completeness_without_completeness}.md`
 + `theory/math/analysis/{holonomic_modulus,tower_native_completeness,refined_completability_engine}.md`.
 
 ## Sequence depth / multiplicative machinery  (`sequence_depth/`)
