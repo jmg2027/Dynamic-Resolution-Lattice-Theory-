@@ -5,10 +5,9 @@ import E213.Theory.Raw.API
 # A p-adic integer is a residue escape (the νF bridge, 2-adic case)
 
 The companion to the König νF bridge (`Lib/Math/Combinatorics/KonigConditional.lean`)
-and the read-through in `theory/math/numbersystems/padic_real213.md` /
-`research-notes/frontiers/naming_abstract_concepts.md`: a p-adic integer is a **branch
-of the p-ary tree** — an infinite digit stream reached by no finite prefix.  Here that is
-made a *theorem* in the same νF carrier as a König binary-tree branch.
+and the read-through in `theory/math/numbersystems/padic_real213.md`: a p-adic integer is a
+**branch of the p-ary tree** — an infinite digit stream reached by no finite prefix.  Here
+that is made a *theorem* in the same νF carrier as a König binary-tree branch.
 
 For `p = 2` the fit is exact and faithful: a 2-adic digit is a `Bool` (`Fin 2 ≃ Bool`),
 so a `ZpSeq 2` *is* a `Nat → Bool` bit-stream, and `CoResidue.boolSpine_escapes` gives:
