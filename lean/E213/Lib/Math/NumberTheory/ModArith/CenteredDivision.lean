@@ -3,6 +3,7 @@ import E213.Meta.Nat.NatRing213
 import E213.Meta.Int213.PolyIntMTactic
 import E213.Meta.Int213.OrderMul
 import E213.Meta.Nat.PolyNatMTactic
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # CenteredDivision — the centered (balanced) integer division
@@ -117,5 +118,26 @@ theorem centered_div_int_sq (A N : Int) (hN : 0 < N) :
   have hR : ((N.natAbs * N.natAbs : Nat) : Int) = N * N := Int.natAbs_mul_self
   rw [hL, hR] at hcast
   exact hcast
+
+/-! ## Integer parity (the `centered_div_int`-based even/odd split) -/
+
+open E213.Tactic.NatHelper (cases_lt_two)
+
+/-- Every integer is even or odd (witness form, via `centered_div_int`).  The canonical
+home for the even/odd split — consumers in `FourSquare` / `QuadraticReciprocity` delegate here. -/
+theorem int_even_or_odd (a : Int) : (∃ k, a = 2 * k) ∨ (∃ k, a = 2 * k + 1) := by
+  obtain ⟨q, r, hd, hr⟩ := centered_div_int a 2 (by decide)
+  rw [show (2 : Int).natAbs = 2 from rfl] at hr
+  have hle : r.natAbs ≤ 1 := by
+    rcases Nat.lt_or_ge r.natAbs 2 with h | h
+    · exact Nat.le_of_lt_succ h
+    · exact absurd (Nat.le_trans (Nat.mul_le_mul_left 2 h) hr) (by decide)
+  rcases cases_lt_two (Nat.lt_succ_of_le hle) with h0 | h1
+  · left; refine ⟨q, ?_⟩
+    have hr0 : r = 0 := by rcases Int.natAbs_eq r with he | he <;> rw [he, h0] <;> decide
+    rw [hd, hr0, Int.add_zero]; ring_intZ
+  · rcases Int.natAbs_eq r with he | he
+    · right; exact ⟨q, by rw [hd, he, h1, show ((1 : Nat) : Int) = 1 from rfl]; ring_intZ⟩
+    · right; exact ⟨q - 1, by rw [hd, he, h1, show ((1 : Nat) : Int) = 1 from rfl]; ring_intZ⟩
 
 end E213.Lib.Math.NumberTheory.ModArith.CenteredDivision

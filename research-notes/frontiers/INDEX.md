@@ -219,7 +219,9 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seeds:* a `Zp.diagLimit`
   abstraction (shared by `invFull`/`sqrtFull`/`teichmuller`); the concrete `i₅ = teichmuller(2-lift)`
   theorem (via `teichmuller_unique`); generalise the lift+fixed-point uniqueness engine to `sqrt`
-  (`unique_of_lift_fixed`); sequence-level ring axioms via `ZpSeqEquiv.of_trunc_all` (one-commit).
+  (`unique_of_lift_fixed`).  ✓ *Done:* the sequence-level **additive abelian group**
+  (`SetoidAssoc.zp_add_setoid_group_capstone` — assoc/comm/zero + `x+(−x)≈0` via
+  `of_trunc_all`); the **multiplicative** `ZpSeqEquiv` identities (mul comm/assoc/distrib) remain.
 - `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
   (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
   (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic
@@ -237,7 +239,8 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   *Open seeds:* cubic/biquadratic reciprocity over `ℤ[ω]/ℤ[i]` (reuse `floor_sum_rectangle`'s
   lattice-count shape); Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side, one
   permutation two readouts); fold `sumZ_swap` (Int) + the COUNT Nat double-sum into one `Meta`
-  finite-Fubini; a shared Int-parity home (`int_even_or_odd`/`two_mul_ne_one` → `CenteredDivision`).
+  finite-Fubini.  ✓ *Done:* `int_even_or_odd` deduplicated into `CenteredDivision`
+  (FourSquare / QuadraticReciprocity now thin re-exports); the `two_mul_ne_one` clones remain.
 - `second_supplement` — **CLOSED** (`2` QR ⟺ `p ≡ ±1 mod 8`, `SecondSupplement.lean`, 8 PURE incl
   `gauss_mu`).
 - `euler_criterion_converse` — Euler's criterion **CLOSED** strict ∅-axiom (full iff

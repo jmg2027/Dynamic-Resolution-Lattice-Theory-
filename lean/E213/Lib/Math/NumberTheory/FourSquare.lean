@@ -174,21 +174,10 @@ theorem descent_core (m p r a1 a2 a3 a4 q1 q2 q3 q4 A1 A2 A3 A4 : Int) (hm : 0 <
 open E213.Lib.Math.NumberTheory.ModArith.CenteredDivision (centered_div_int)
 open E213.Tactic.NatHelper (cases_lt_two)
 
-/-- Every integer is even or odd. -/
-theorem int_even_or_odd (a : Int) : (∃ k, a = 2 * k) ∨ (∃ k, a = 2 * k + 1) := by
-  obtain ⟨q, r, hd, hr⟩ := centered_div_int a 2 (by decide)
-  rw [show (2 : Int).natAbs = 2 from rfl] at hr
-  have hle : r.natAbs ≤ 1 := by
-    rcases Nat.lt_or_ge r.natAbs 2 with h | h
-    · exact Nat.le_of_lt_succ h
-    · exact absurd (Nat.le_trans (Nat.mul_le_mul_left 2 h) hr) (by decide)
-  rcases cases_lt_two (Nat.lt_succ_of_le hle) with h0 | h1
-  · left; refine ⟨q, ?_⟩
-    have hr0 : r = 0 := by rcases Int.natAbs_eq r with he | he <;> rw [he, h0] <;> decide
-    rw [hd, hr0, Int.add_zero]; ring_intZ
-  · rcases Int.natAbs_eq r with he | he
-    · right; exact ⟨q, by rw [hd, he, h1, show ((1 : Nat) : Int) = 1 from rfl]; ring_intZ⟩
-    · right; exact ⟨q - 1, by rw [hd, he, h1, show ((1 : Nat) : Int) = 1 from rfl]; ring_intZ⟩
+/-- Every integer is even or odd.  Canonical proof in `CenteredDivision`; this is a
+thin re-export so existing consumers keep the local name. -/
+theorem int_even_or_odd (a : Int) : (∃ k, a = 2 * k) ∨ (∃ k, a = 2 * k + 1) :=
+  E213.Lib.Math.NumberTheory.ModArith.CenteredDivision.int_even_or_odd a
 
 /-- `a − b = 2k` ⟹ `a²+b² = 2(s²+t²)` for some `s,t` (`s=b+k, t=k`). -/
 theorem sum_two_sq_of_even_diff (a b k : Int) (h : a - b = 2 * k) :
