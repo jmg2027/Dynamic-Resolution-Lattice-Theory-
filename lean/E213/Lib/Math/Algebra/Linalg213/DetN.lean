@@ -110,6 +110,27 @@ theorem det_congr : ∀ (n : Nat) {M M' : Nat → Nat → Int}, (∀ i j, M i j 
         rw [ih, h 0 c, det_congr n (minorEq c)]
     exact cof (n + 1)
 
+/-- ★ **`det` depends only on rows `< n`.**  The cofactor expansion `det (n+1) M` reads
+    `M 0 c` (row 0) and the minors `det n (minor M c)` (rows `1…n`), so it touches exactly the
+    rows below `n`; agreement there suffices.  (Weaker hypothesis than `det_congr`, needed when
+    two matrices differ only on the rows the determinant never sees — e.g. a row-shifted matrix
+    versus its source.) -/
+theorem det_congr_lt : ∀ (n : Nat) {M M' : Nat → Nat → Int},
+    (∀ i, i < n → ∀ j, M i j = M' i j) → det n M = det n M'
+  | 0,   _, _, _ => rfl
+  | n+1, M, M', h => by
+    have minorEq : ∀ (c i l : Nat), i < n → minor M c i l = minor M' c i l :=
+      fun c i l hi => h (i + 1) (Nat.succ_lt_succ hi) (colShift c l)
+    have cof : ∀ c, cofSum (det n) M c = cofSum (det n) M' c := by
+      intro c
+      induction c with
+      | zero => rfl
+      | succ c ih =>
+        show cofSum (det n) M c + altSign c * M 0 c * det n (minor M c)
+           = cofSum (det n) M' c + altSign c * M' 0 c * det n (minor M' c)
+        rw [ih, h 0 (Nat.succ_pos n) c, det_congr_lt n (fun i hi l => minorEq c i l hi)]
+    exact cof (n + 1)
+
 /-- Replace row `0` of `M` by `r`. -/
 def setRow0 (r : Nat → Int) (M : Nat → Nat → Int) : Nat → Nat → Int :=
   fun i j => if i = 0 then r j else M i j

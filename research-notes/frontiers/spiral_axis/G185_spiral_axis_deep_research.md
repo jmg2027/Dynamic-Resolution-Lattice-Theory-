@@ -53,9 +53,26 @@ ring homomorphism (NOT glyph-reuse):
 
 ## Open / next (ranked, from the conjecture agent)
 
-  - **A1** (top): the modular generators `S,U` are `q=1` trace-orbits — `trace(Mⁿ)` satisfies
-    `t(n+2)=tr·t(n+1)−det·t(n)` = `det_step` with `q=det(M)=1`.  Makes the modular↔Cassini bridge a
-    theorem (Cayley–Hamilton for 2×2, `ring_intZ`).  Easy.
-  - **A5**: prove the CD-tower / axis non-coincidence (kills the stereotype).  Easy, defensive.
-  - **A3 (k=4)**: the order-4 Casorati determinant `hankel4`, multiplier `a₀` — extend the
-    genuine determinantal ladder one rung.  Med.
+  - **A1** ✓ **CLOSED**: the modular generators `S,U` are trace-orbits — `trace(Mⁿ)` satisfies
+    `t(n+2)=tr·t(n+1)−det·t(n)` (Cayley–Hamilton iterated).  `Real213/Mat2CayleyHamilton.cayley_hamilton`
+    + `Mat2TraceRecurrence.trace_recurrence`; the elliptic orders read off as trace periods 4/6
+    (`UTracePeriodic.elliptic_orders_four_and_six`), the hyperbolic Lucas growth
+    (`golden_trace_recurrence`).  The modular↔Cassini bridge is a theorem.
+  - **A3** ✓ **CLOSED — and generalised past `k=4`.**  The determinantal ladder closed at **all**
+    orders in one structural theorem (not just the requested order-4 `hankel4`):
+    `Analysis/Cauchy/CasoratianDeterminant.casoratian_det_step` — for any constant-coefficient
+    order-`(K+1)` recurrence the `(K+1)×(K+1)` Hankel/Casoratian determinant multiplies by the
+    companion determinant `altSign K · a 0` each step.  Proof = `H(n+1) = C·H(n)`
+    (`hankel_shift_eq_matMul`) + `DetMul.det_matMul` + `det_companion` (no `ring_intZ` expansion —
+    the order-4 normal form exceeds the kernel; `second_order/third_order/fourth_order_multiplier`
+    are the rung instances).  Subsumes `CassiniUnimodular.det_step` (order 2) and
+    `SecondCasoratian.second_casoratian` (order 3).
+  - **A5** ✓ **CLOSED**: the CD-tower / axis non-coincidence — `Tower/SpiralAxisCrystallographic`
+    `cd_tower_axis_noncoincidence`.  The CD dimension tower `{1,2,4,8} = 2ⁿ` and the spiral axis
+    `{2,4,6}` meet only on `{2,4}` and diverge for two independent reasons: `8 = 2³` is a power of
+    two but not crystallographic (`φ 8 = 4 > 2`, the axis ⊆ crystallographic — *no octonion at the
+    axis*); `6` is crystallographic (`φ 6 = 2`) but no power of two (`not_pow_two_six` — *no order-6
+    CD rung*).  The `1,2,4,8 ↔ {2,4,6}` stereotype is ruled out; the axis's CD content flows
+    through the rings `ℤ[i], ℤ[ω]` (unit orders `4,6`), not the dimension doubling.
+
+**Status: all three ranked conjectures (A1, A3, A5) closed ∅-axiom.**

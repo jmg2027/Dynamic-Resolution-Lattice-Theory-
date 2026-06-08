@@ -1,125 +1,107 @@
-# Session Handoff — 2026-06-08 (CKM CP-phase marathon + promotion/merge pass)
+# Session Handoff — 2026-06-08 (the one-carrier program + the residue of the pointing; merge marathon)
 
 ## Branch
-`claude/vision-achievement-strategy-UzqpZ` — pushed, **0 behind / ~74 ahead**
-of `origin/main` (advanced origin/main's Zolotarev commit merged in cleanly).
-`cd lean && lake build E213` ✓ clean. `tools/kernel_regress.sh` 45/45 0-axiom.
-All new theorems strict ∅-axiom PURE (`tools/scan_axioms.py`). Rust binary
-`ckm-cp-phase` builds + runs.
+`claude/p-ary-spine-r-carrier-MPHbA` — `origin/main` merged in (98 commits: the CKM CP-phase /
+Zolotarev / spiral-axis / determinant-sign stacks).  Ahead 103.  `rm -rf .lake/build && lake build
+E213` ✓ clean (fresh); `layer_audit` 0 violations / 1877 files; `kernel_regress` 45/45 0-axiom;
+purity 0 sorry/axiom/native_decide/Classical/Mathlib.  **READY TO MERGE → main.**
+
+## The arc, in one line
+König branches, ℤ_p (every `p`), and ℝ all live on **one νF carrier**, with the full ring
+arithmetic grounded in the real `Zp.add`/`Zp.mul`/`cutSum`/`cutMul` — and the deep insight that
+**finite-state-ness (holonomicity) is a property of the *pointing*, not the *pointed-at*.**
 
 ## What Was Done This Session
 
-The CKM **CP-violating phase** is derived/forced (not posited) across three
-disciplines on the single prime `d = NS+NT = 5`, then promoted + merged.
+### 1. The one-carrier program (all ∅-axiom)
+- **Carrier** — `CoResidue.lean` §20 label-generic spine `gspine : (Nat→L) → GCoShape L` (`boolSpine`
+  = `L=Bool`); §21 shift dynamics.  König / ℤ_p (`L=Fin p`) / ℝ (`L=Bool` cut-bits) all ride it
+  (`padic_is_nu_escape`, `real_is_nu_escape`, `gspine_one_carrier`).
+- **Arithmetic on the carrier** (`Padic/NuEscape.lean`, grounded in the real ring): additive odometer
+  `±1` (`add_negOne_one_zero` = real `Zp.add`; `Odometer` §7–8); valuation `× p = mulBase` = the
+  genuine `Zp.mul`-by-`p` (`mulBase_eq_mul_pElem`); binary ring + 𝔽_p ring-hom readout
+  (`padic_ring_on_carrier`, `residue_ring_hom`); `+` finite-state (`add_carry_le_one`); `×` native
+  corecursive (`mul_corecursive`) but NOT finite-state (`mulCarry_unbounded`); the carry is itself a
+  νF inhabitant (`carry_is_nu_escape`); `(-1)²=1` (`neg_one_sq_eq_one`).
+- **ℝ on the carrier** (`Real213/NuEscape.lean`): `cutBits`/`real_is_nu_escape`/`real_field_on_carrier`.
 
-### 1. CP phase = 90°, forced not posited (Mixing/CP*, PURE)
-- Existence+uniqueness DERIVED: `N_gen = C(3,2) = 3 ⇒ 1` physical phase
-  (`CPPhaseCount`, KM counting).
-- Value FORCED to `90°`: `C₄` (CD `i`) + CP-existence ⇒ `±i` (`CPPhaseC4Forcing`);
-  Niven forbids a golden phase `δ = π/φ²` (rational-cosine ⇒ root of unity).
-- The premise "phase ∈ C₄" is itself forced by the Hodge structure
-  (`Hodge/SignedStarFull`: `⋆² = −1` on all of `Λ¹(ℝ⁴)` ⇒ order exactly 4).
+### 2. The non-surjection schema (CoResidue §22) — multi-agent dialectic
+`escape_by_invariant` — the abstract invariant-separation non-surjection; `gspine_escapes` (number +
+operation-carry escapes) is one instance.  **Cantor too** factors through it
+(`Lens.Cardinality.cantor_as_invariant`, single cover-dependent separator `P_f φ := ∃x, φ x = f x x`).
+`diag_via_modifier` — the construction-level root (Cantor = point-dependent modifier; invariant =
+constant modifier).  The genuine distinction = **separator self-reference** (cover-independent /
+*named* vs cover-dependent / *reached-by-none*).  A Unifier-vs-Skeptic debate refuted an earlier
+"Cantor is a sibling, not an instance" claim with the machine-checked factoring.
 
-### 2. The imaginary unit is ONE object, three disciplines
-- group: `ℤ[i]^× = C₄` (`Hodge/SignedStarC4`, `ℤ[J] ≅ ℤ[i]`, `det = a²+b²`).
-- number theory: `Gal(ℚ(ζ₅)/ℚ) ≅ C₄` (phase) + real subfield `ℚ(√5) = ℚ(φ)`
-  (golden modulus); `5 = (2+i)(2−i)` selects `C₄/90°` over `C₆/60°` (5 inert
-  in `ℤ[ω]`) (`Icosahedral/CyclotomicFive`).
-- cohomology: signed Hodge `⋆` on `H*(Δ⁴)` at grades 1,3 — the SAME `H*(Δ⁴)`
-  as `1/α_em` (`CPHodgeStructure`, `Hodge/HodgeRiemannJ` Weil operator,
-  `Q·J = I ≻ 0`).
+### 3. Methodology discipline (multi-agent debates)
+`why_the_reframing_recurs.md` given a **"Falsifiability discipline"** section: the recurrence thesis
+is a theorem only at its checkable core (`cantor_general` — no closed self-description); "this debate
+happened *because* the diagonal re-entered" is unfalsifiable re-description (the repo's own
+Metaphysical-framing/Fog-jargon failure modes).  A Fog-auditor vs Compression-defender debate
+confirmed 5/6 of the session's hard phrases are genuine compression (pin to ∅-axiom theorems); the
+one fog residue was stripped.
 
-### 3. Cohomological coupling forces 90° where a generic texture does not
-- Polarized-Hodge morphism: `J² = −I ∧ Jᵀ Q J = Q ∧ Q·J = I ≻ 0`
-  (`HodgeConjecture/Pairing/HodgeRiemann.hodge_riemann_positivity_signed` —
-  filled the previously-vacuous stub). Signed-ℤ cup product
-  (`Cup/SignedCup`, `mergeSign = (−1)^inv`, antisymmetric, `hPair = I`).
-
-### 4. ab-initio rust verification (exact ℤ[i], float-free)
-- `ckm_cp_phase.rs`: CKM unitary, `δ = 90°`, `V_ub` pure imaginary, Jarlskog ≠ 0.
-
-### 5. Fit ~1.5σ-CONSISTENT (not a tension)
-- `R_u = 1/φ² = 0.382` vs obs `0.3825 ± 0.011` ≈ exact; `α = 90°` ~0σ direct
-  to ~1.7σ global; residual is `O(λ²)` Wolfenstein (`λ = 5/22`), NOT RGE
-  (`dα/dt = 0` exactly) (`ApexFitConsistency`).
-
-### 6. Promotion + housekeeping (the marathon skills)
-- `/process`: 15 sink-rule violations decoupled (0 remaining).
-- Promotion: `theory/physics/cp_phase.md` (chapter), log row 31.
-- Cross-domain insights: `frontiers/cp_crossdomain_insights.md` (4 bridges
-  to main's sign/QR/cyclotomic campaigns).
-- `/essay`: `theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md`
-  (log row 32) — the CP phase as one imaginary unit in four frames.
-- `/org-audit`: wired the `SignedStarFull` orphan into the Hodge umbrella;
-  refreshed `Mixing/INDEX.md` (5→19, grouped); de-narrated 3 docstrings.
-- `/purity-check`: forbidden patterns 0/0/0/0; all session modules PURE.
-- Merged origin/main's **Zolotarev** (`ZolotarevSign`, PURE): the
-  permutation-sign = Legendre-symbol corner of the inversion-sign square is
-  now a theorem; cross-domain note updated.
+### 4. Merge marathon (this session's closing)
+merge `origin/main` → `/process` (1 sink decouple) → promote (one-carrier → `padic_real213.md`
+chapter, log row 36) → cross-domain note (branch × main) → `/essay`
+(`finite_state_is_of_the_pointing`, log row 37) → `/org-audit` (INDEX 94/19/14/7/73, clean) →
+`/purity-check` (clean) → `/ready-to-merge` (READY).
 
 ## Current Precision Results (0 free parameters)
-| Observable | DRLT | Observed | Status |
-|-----------|------|----------|--------|
-| `R_u = \|V_ub/V_cb·...\|` | `1/φ² = 0.382` | `0.3825 ± 0.011` | ≈ exact, PURE |
-| CKM phase `δ_KM` | `90°` (root of unity) | `≈ 90°` | FORCED, PURE |
-| `β` | `22.46°` | `22.5° ± 0.7°` | ≈ exact |
-| `α` (right UT) | `90°` | `92.4° ± 1.4°` | ~1.7σ (falsifier F27) |
-| `γ` | `67.54°` | `65.1° ± 1.5°` | ~1.6σ |
-| `N_gen` ⇒ phases | `3 ⇒ 1` | `3 ⇒ 1` | DERIVED, PURE |
+**No physics-constant changes** in this branch's work (pure mathematics / foundations).  Main's
+merged CKM CP-phase / α_em table stands in `catalogs/physics-constants.md`.
 
 ## Open Problems (Priority Order)
+### 1. The cross-scale unifier (×-carry ↔ Casoratian depth)
+A single ∅-axiom term with both the p-adic carry (`mulCarry_unbounded`) and the Casoratian depth
+(`cas_neg_unit_no_finite_depth`) as instances of "unit value, non-finite-state pointing".
+Frontier: `research-notes/frontiers/one_carrier_crossdomain.md` + `.../sequence_depth/multiplicative_carry_residue.md`.
 
-### 1. Explicit generation-Yukawa cup functional (the mixing angles)
-The cohomology forces the phase + the `Λ²(ℝ³)` generation index (diagonal
-`h = I`), but the mixing **angles** are a separate DRLT object, not forced by
-the polarization alone. Build the explicit signed-cup generation functional.
-Frontier note: `research-notes/frontiers/cp_yukawa_from_scratch.md`.
+### 2. ℝ not-finite-state — needs a transducer / unbounded-modulus framework
+`cutBits r N` reads only `r.xs N` (eventually constant per real), so ℝ's "transport-only" is honest
+prose, NOT a clean theorem.  Frontier: `research-notes/frontiers/sequence_depth/multiplicative_carry_residue.md`.
 
-### 2. Tighten the ~1.5σ fit / track the `α = 90°` falsifier
-`α = 90°` (right unitarity triangle) is falsifiable — UTfit `α = 92.4 ± 1.4°`.
-Residual is `O(λ²)` Wolfenstein, not RGE. Track future UT fits.
-Frontier note: `research-notes/frontiers/ckm_rho_eta_apex.md`; falsifier F27
-(`catalogs/falsifiers.md`).
+### 3. Multiplication's unit/non-unit = finite-state/escape (Zolotarev ↔ ×p)
+`× unit` = a finite permutation with a sign (`mulPermMod`, main) vs `× p` = the valuation escape
+(`mulBase`, branch).  Frontier: `research-notes/frontiers/one_carrier_crossdomain.md`.
 
-### 3. Close the CP leg of the inversion-sign square
-Three corners are theorems (perm-sign = det = Legendre via `ZolotarevSign`);
-the open corner is `δ_CP`'s `C₄` class = the `(−1/d)` QR class as a theorem.
-Frontier note: `research-notes/frontiers/cp_crossdomain_insights.md`
-(Insight 1+2) + `frontiers/permutation_three_readouts.md`.
+### 4. Lens §6.7 readout of the carry; exact-linear `mulCarry ≥ c·k`
+Frontier: `research-notes/frontiers/sequence_depth/multiplicative_carry_residue.md` (soft-open).
 
 ## Unresolved from This Session
-- Self-corrected over-claims (do NOT re-attempt): `δ = π/φ²` golden phase
-  (Niven-forbidden); "π outside 213" (π is the `PiCut` Real213 cut); "A₅
-  reproduces δ from φ" (A₅ 3-rep is REAL ⇒ CP-conserving); RGE as the fit
-  residual (`dα/dt = 0` exactly — it is `O(λ²)` Wolfenstein).
+No dead ends.  Honest corrections made: the "Cantor is a sibling, not an instance" claim was refuted
+(now `cantor_as_invariant`); "Advance A" (ℝ not-finite-state) was found over-claimed and re-scoped to
+honest prose.  Propext traps recorded (Mathlib-free kernel): `Nat.succ_ne_zero`→`Nat.noConfusion`;
+`Nat.sub_add_cancel`→`cases p`; `Nat.zero_mod`→`Nat.mod_eq_of_lt`; `Nat.div_self`/`add_div_right`/
+`div_lt_of_lt_mul`→`NatDiv213.*`; `Nat.div_le_div_right` (absent)→`AddMod213.div_le_div_right_pure`;
+`Nat.add_sub_add_right`→`Nat.succ_sub_succ`; core `div_add_mod`→`AddMod213.div_add_mod`; `by_cases`→
+`rcases Nat.lt_or_ge`; `rw`-with-`Iff`→`.mp`/`.mpr`; base `a=a+0`→`(Nat.add_zero _).symm`.
 
 ## Next
-Push and merge this branch to `main` (the marathon's final step). After merge:
-attack Open Problem 1 (explicit generation-Yukawa cup functional) — the last
-structural residual of the CP-phase arc.
+Highest-value: the cross-scale unifier (Open Problem 1) — one term with `mulCarry`-unbounded and the
+Casoratian depth as instances.  Or unify the omniscience ledger (field 17) with the finite-state
+ledger (operations and decisions are one cost).  Or a concept deep-dive (limit/completion).
 
-## Three-tier state
-- **Promotions this session**: `theory/physics/cp_phase.md` +
-  `theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md`.
-- **Promotion candidates**: none outstanding for the CP arc (the closed math
-  is promoted; the angle functional is an open frontier, not a closed sub-tree).
-- **Active scratchpad**: `frontiers/{cp_yukawa_from_scratch, ckm_rho_eta_apex,
-  cp_crossdomain_insights}.md`.
+## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
+- **Promotions this session**: one-carrier number-system results → `theory/math/numbersystems/padic_real213.md`
+  (§ "The one νF carrier", log row 36); essay `theory/essays/synthesis/finite_state_is_of_the_pointing.md`
+  (row 37); foundations essay `theory/essays/foundations/the_one_carrier.md` (this arc).
+- **Promotion candidates**: none outstanding from this branch.
+- **Active scratchpad**: `research-notes/frontiers/{one_carrier_crossdomain, sequence_depth/multiplicative_carry_residue}.md`.
 
 ## File Map
 ```
-theory/physics/cp_phase.md                         ← promoted CP-phase chapter
-theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md ← synthesis essay
-theory/essays/INDEX.md                             ← +essay (70 total)
-lean/E213/Lib/Math/Cohomology/Hodge.lean           ← umbrella +SignedStar*/HodgeRiemannJ
-lean/E213/Lib/Math/Cohomology/Hodge/{SignedStarC4,SignedStarFull,HodgeRiemannJ}.lean
-lean/E213/Lib/Math/Cohomology/Cup/SignedCup.lean   ← signed-ℤ cup (mergeSign)
-lean/E213/Lib/Math/Cohomology/HodgeConjecture/Pairing/HodgeRiemann.lean ← filled stub
-lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevSign.lean ← merged from main (PURE)
-lean/E213/Lib/Physics/Mixing/INDEX.md              ← refreshed 5→19 grouped
-lean/E213/Lib/Physics/Mixing/CP*.lean, Apex*.lean, *Yukawa*.lean ← CP arc
-rust-engine/crates/app/src/bin/ckm_cp_phase.rs     ← ab-initio ℤ[i] CKM
-research-notes/frontiers/cp_crossdomain_insights.md ← 4 bridges (Zolotarev closed)
-research-notes/promotion_essay_log.md              ← rows 31 (promotion) + 32 (essay)
-catalogs/falsifiers.md                             ← F27 (right UT α=90°)
+lean/E213/Theory/Raw/CoResidue.lean              ← §20 gspine, §21 shift, §22 escape_by_invariant/diag_via_modifier
+lean/E213/Theory/Raw/Odometer.lean               ← §7 runCarry, §8 p-ary odometer
+lean/E213/Lib/Math/NumberSystems/Padic/NuEscape.lean   ← escape + carrier arithmetic + multiplicative residue
+lean/E213/Lib/Math/NumberSystems/Real213/NuEscape.lean ← ℝ on the carrier + cut-field closure
+lean/E213/Lens/Cardinality/Cantor.lean           ← + cantor_as_invariant (Cantor factors through the schema)
+lean/E213/Meta/Nat/AddMod213.lean                ← + div_le_div_right_pure (pure monotone div)
+theory/essays/foundations/the_one_carrier.md     ← the one-carrier narrative (one non-surjection)
+theory/essays/synthesis/finite_state_is_of_the_pointing.md  ← branch×main cross-scale synthesis
+theory/essays/methodology/why_the_reframing_recurs.md  ← + Falsifiability discipline section
+theory/math/numbersystems/padic_real213.md       ← + "The one νF carrier" section (promotion)
+research-notes/frontiers/one_carrier_crossdomain.md          ← branch×main cross-domain note
+research-notes/frontiers/sequence_depth/multiplicative_carry_residue.md ← the carry frontier (core closed)
 ```
