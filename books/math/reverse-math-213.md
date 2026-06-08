@@ -26,9 +26,10 @@ does not prove these; it states them as `Prop`s and calibrates everything agains
 - **MP** — not-everywhere-false yields an explicit witness;
 - **LLPO** — for an at-most-one-true stream, the true index is even or odd (weaker).
 
-The structural implications hold ∅-axiom: `lpo_imp_wlpo`, `lpo_imp_mp`, and the clean
+The structural implications hold ∅-axiom: `lpo_imp_wlpo`, `lpo_imp_mp`, the clean
 decomposition `lpo_iff_wlpo_and_mp` — **LPO ⟺ WLPO ∧ MP** (deciding "everywhere false"
-plus extracting a witness).
+plus extracting a witness) — and `lpo_imp_llpo` — **LPO ⟹ LLPO** (the unique true index's
+parity decides which half vanishes; `LLPO.lean`, via a native Bool `parity`).
 
 ## The ledger spine (`reverse_math_ledger`, ∅-axiom)
 
@@ -55,6 +56,8 @@ plus extracting a witness).
 - **GD** `Capstone.lean` — `reverse_math_ledger` (1 PURE).
 - **GB-cont3** `KonigBridge.lean` — `infB_iff_infBelow` (native `InfB` = the ∃-form
   `KonigConditional.InfBelow`); pure `append_nil_pure`/`append_assoc_pure` (5 PURE).
+- **GA-cont** `LLPO.lean` — `lpo_imp_llpo` (**LPO ⟹ LLPO**) via native `parity`,
+  `even_or_odd`, `even_ne_odd` (8 PURE).
 
 ## How the König thread arithmetized
 
@@ -75,10 +78,13 @@ Everything is ∅-axiom (`#print axioms → empty`).  The recurring trap: core l
 `omega` all pull `propext` (and `omega` also `Quot.sound`) in this Mathlib-free kernel.
 Replacements used throughout: `Bool.noConfusion`, `Nat.noConfusion`, `Nat.succ.inj`,
 explicit `cases`, structural recursion, and hand-rolled pure lemmas
-(`append_nil_pure`/`append_assoc_pure`).  A sharper obstacle: the Nat **literal** `+ 2` does
-*not* definitionally reduce to `succ (succ ·)` (only `+ 1` does), so a `Bool`-recursion like
-`parity (n + 2)` does not unfold — this is why `LPO ⟹ LLPO` (which needs even/odd parity)
-does not close ∅-axiom without a custom pure Nat-arithmetic layer, and is left open.
+(`append_nil_pure`/`append_assoc_pure`).  Two subtleties found while closing `LPO ⟹ LLPO`
+(the parity proof): (1) although the kernel stores the Nat **literal** `2` as a GMP value,
+`n + 2`, `n + 1 + 1`, and `Nat.succ (Nat.succ n)` are nonetheless all definitionally equal
+(`rfl`), so the `parity` `Bool`-recursion unfolds fine; (2) prefix `!` binds *looser* than
+`=`, so `!(!b) = b` mis-parses as `!((!b) = b)` (silently a `decide`, which would pull
+`propext`) — parenthesizing the left `!`-expression, `(!(!b)) = b`, fixes it.  With those,
+`LPO ⟹ LLPO` closes ∅-axiom (`LLPO.lean`).
 
 ## Connections
 

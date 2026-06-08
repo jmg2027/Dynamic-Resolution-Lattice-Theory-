@@ -4,6 +4,7 @@ import E213.Lib.Math.Logic.ChildSelection
 import E213.Lib.Math.Logic.DiagonalBase
 import E213.Lib.Math.Logic.Capstone
 import E213.Lib.Math.Logic.KonigBridge
+import E213.Lib.Math.Logic.LLPO
 
 /-!
 # Reverse Mathematics 213 — umbrella (`Lib/Math/Logic`)

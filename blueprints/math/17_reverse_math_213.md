@@ -40,9 +40,9 @@ the ledger records the rest.
 
 ## Phase plan
 
-- **Phase GA — Omniscience principles + core implications** (this start).
-  `LPO`, `WLPO`, `MP`, `LLPO` as Props on `Nat → Bool`; prove the ∅-axiom implications
-  (`LPO → WLPO`, `LPO → MP`, …).  File: `Lib/Math/Logic/Omniscience.lean`.
+- **Phase GA — Omniscience principles + implications.**  DONE.  `LPO/WLPO/MP/LLPO`
+  (`Omniscience.lean`) + `lpo_imp_wlpo`, `lpo_imp_mp`, `lpo_iff_wlpo_and_mp` (LPO ⟺ WLPO ∧
+  MP); `lpo_imp_llpo` (LPO ⟹ LLPO, via native `parity`, `LLPO.lean`); `lpo_decides_sigma01`.
 - **Phase GB — König / compactness ↔ omniscience.**  *Predicate-decision half DONE*
   (`Lib/Math/Logic/Pi01Decision.lean`): `lpo_decides_pi01` (LPO decides every `Π⁰₁`) +
   `existsLevel` + `lpo_decides_infiniteBelow` — *deciding* infinite-below costs **LPO**.
