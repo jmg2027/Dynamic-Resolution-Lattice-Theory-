@@ -192,3 +192,23 @@ rust `ckm_cp_phase`.  This also fully explains the generic-texture negative: a
 generic texture mixes the phase into the angles, but the *cohomological* coupling
 keeps them factorised (diagonal pairing), so the phase is the clean `J=i=90°`.
 Item (a) closed; (b) the ~1.5σ fit under agent investigation.
+
+## ★ (b) Fit verdict — CONSISTENT (not a tension); O(λ²) Wolfenstein, NOT RGE (2026-06-08)
+
+Expert-agent assessment (UTfit/CKMfitter/PDG 2023-25 + RGE/Wolfenstein lit;
+`Mixing/ApexFitConsistency.lean`, 3 PURE):
+- **`R_u=1/φ²` is essentially EXACT**: `0.38197` vs obs `0.3825±0.011` (≪1σ) —
+  the striking half. `β=22.46°` exact. `η̄` 0.6σ.
+- **`α=90°` consistent** at `~0σ` (direct angle fit `90.7°⁺⁴·⁵₋₂.₉`) to `1.7σ`
+  (global `92.4°±1.4°`) — a known texture-motivated "right unitarity triangle",
+  **not** a significant tension.
+- The whole `~1.5σ` residual is the `ρ̄/α` direction; it is covered by the
+  standard **O(λ²) Wolfenstein** correction (`λ=5/22`, `λ²=25/484≈5%`,
+  `ρ̄=ρ(1−λ²/2)`), which shifts `α,γ` `~1-1.5°` the right way (≈half the gap),
+  **no free parameter**.
+- **Framing correction**: RGE running is RULED OUT — `dα/dt=0` *exactly* at one
+  loop (Luo-Xing 0912.4593), triangle shape RGE-invariant. The residual is
+  Wolfenstein-order, NOT scale evolution. Do not cite RGE.
+
+**Verdict: the `α=90°`+`R_u=1/φ²` apex is ~1.5σ-CONSISTENT (LO + standard O(λ²)),
+not a genuine tension.** Item (b) closed (honestly: consistent, no fishing).

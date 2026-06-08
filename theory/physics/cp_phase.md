@@ -158,7 +158,7 @@ the filled `Pairing/HodgeRiemann` stub).  The assembled `Y_d = Λ²(ℝ³) ⊗
 (signed-cup on `Λ¹(ℂ⁵)` with `J`)` meets the three forcing hypotheses (lattice +
 `J`-invariant + HR-positive) ⇒ `δ=90°`.  Remaining: only the *numerical*
 evaluation of the cup functional (the rust `ckm_cp_phase` verifies the resulting
-`ℤ[i]` CKM is unitary with `δ=90°`); and the `~1.5σ` fit (irreducible).  `α = 90°` (right unitarity
+`ℤ[i]` CKM is unitary with `δ=90°`); and the `~1.5σ` fit — now assessed **CONSISTENT** (not a tension): `R_u=1/φ²` is essentially exact (`0.382` vs `0.3825±0.011`), `α=90°` is `~0–1.7σ`, and the `ρ̄/α` residual is covered by the standard `O(λ²)` Wolfenstein correction (`λ²=25/484`, no free parameter), **not** RGE (`dα/dt=0` exact). `ApexFitConsistency`.  `α = 90°` (right unitarity
 triangle) is **falsifiable** against future UTfit/CKMfitter values.  Active record:
 `research-notes/frontiers/ckm_rho_eta_apex.md`.
 
