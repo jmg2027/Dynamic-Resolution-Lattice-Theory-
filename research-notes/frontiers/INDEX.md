@@ -251,6 +251,17 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `theory/math/numbertheory/legendre_symbol.md` (the QR chapter's base package).  *Open seed:*
   Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side, one permutation two readouts).
 
+- **permutation's three readouts** (`permutation_three_readouts.md`) — cross-domain synthesis
+  after merging the Legendre/QR package (main) into the determinant + p-adic branch.  Four open
+  bridging edges between the two campaigns: (1) ★ **Zolotarev** as the missing edge of "one
+  permutation, three readouts" — `psign` (inversions) ≡ `det(permMatrix)` [now proven,
+  `PermMatrixDet.det_permMatrix`] ≡ `(a/p)` [main, `gauss_qr`/`euler_criterion`], closed by
+  `psign (×a mod p) = (a/p)`; (2) the Legendre symbol as the 2-torsion projection of the
+  Teichmüller `ω ∈ μ_{p−1}` (Euler's criterion = mod-`p` shadow of a `μ_{p−1}` identity); (3) the
+  truncation tower `ZpSeq ↠ ℤ/pⁿ ↠ ℤ/p` reads the same ring-quotient (`SetoidMul` commRing) at the
+  level where QR lives; (4) `(a/p)=1 ⟺ a has a `diagLimit` √ in ℤ_p` (Hensel face of the Legendre
+  predicate).  Proven cores closed both sides; the edges are the work.
+
 Closure records (promoted off this board):
 - Lagrange's four-square theorem — **closed & promoted**:
   `∀ n, isSum4 ↑n` (`lean/E213/Lib/Math/NumberTheory/FourSquare.nat_isSum4`) +
