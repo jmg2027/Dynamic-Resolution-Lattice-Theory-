@@ -96,9 +96,16 @@ external reduction is open.  Frontier: `concept_redressing_itself.md`.
 ### 5. Reverse Mathematics 213 marathon (field 17) — STARTED, phases GB–GD open
 `blueprints/math/17_reverse_math_213.md` authored; INDEX field 17 added (Phase G).
 **Phase GA DONE** (`Lib/Math/Logic/Omniscience.lean`, 6 PURE): `LPO/WLPO/MP/LLPO` as Props
-on `Nat → Bool` + `lpo_imp_wlpo`, `lpo_imp_mp` (∅-axiom).  **Open phases:**
-- **GB** — `InfChildExists` (`KonigConditional`) as an LLPO-instance (tighten the
-  compactness calibration: the child-disjunction decision = LLPO).
+on `Nat → Bool` + `lpo_imp_wlpo`, `lpo_imp_mp` (∅-axiom).
+**Phase GB (predicate-decision half) DONE** (`Lib/Math/Logic/Pi01Decision.lean`, 5 PURE):
+`lpo_decides_pi01` (LPO decides every `∀n, h n = true`) + `existsLevel` (native
+infinite-below stream) + `lpo_decides_infiniteBelow`.  **Honest refinement of the
+blueprint:** the König step splits — *deciding* infinite-below is `Π⁰₁` = costs **LPO**
+(done); *selecting which child* is the LLPO-flavoured disjunction and additionally needs
+the tree **downward-closed** (the standard König hypothesis).  **Open phases:**
+- **GB-cont** — child selection: `InfChildExists` from LLPO + tree-closure (downward-closed
+  `T`); the `existsLevel`-monotonicity that the ∃-form `KonigConditional.InfBelow` bridge
+  needs.
 - **GC** — catalogue the diagonal/non-surjection family (`object1_not_surjective`, Cantor)
   as the no-omniscience base (the `RCA₀`-analogue) + the reached-by-none escapes.
 - **GD** — the ledger capstone: a (theorem → omniscience cost) table over the residue
@@ -113,11 +120,11 @@ This is the legibility bridge to recognized mathematical logic.  Frontier:
   open work (needs new CoResidue infra), not a gap in this session's claims.
 
 ## Next
-**Reverse Mathematics 213 marathon, Phase GB** — formalize `InfChildExists` as an
-LLPO-instance (link `Lib/Math/Combinatorics/KonigConditional.InfChildExists` to
-`Lib/Math/Logic.LLPO`), tightening `infChildExists_iff_finiteSubcover`.  Then GC (free
-interior base), GD (ledger capstone).  Alternatives: a concept deep-dive (limit/completion,
-quotient) or the one-carrier p-ary spine in `CoResidue`.
+**Reverse Mathematics 213 marathon, Phase GB-cont** — child selection: derive
+`InfChildExists` (or the `existsLevel`-native form) from `Logic.LLPO` + a downward-closed
+tree hypothesis; bridge `existsLevel` ↔ `KonigConditional.InfBelow` (∃-form).  Then GC
+(free-interior base: `object1_not_surjective`/Cantor as the no-omniscience base) and GD
+(ledger capstone: theorem → omniscience-cost table, reconciled with `STRICT_ZERO_AXIOM.md`).
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`
@@ -149,5 +156,7 @@ research-notes/frontiers/INDEX.md                        ← registered all four
 blueprints/math/17_reverse_math_213.md                  ← NEW field 17 blueprint (Reverse Math 213)
 blueprints/math/INDEX.md                                ← + Phase G / field 17 row
 lean/E213/Lib/Math/Logic/Omniscience.lean               ← Phase GA: LPO/WLPO/MP/LLPO + implications (6 PURE)
-lean/E213/Lib/Math.lean                                 ← + import Logic.Omniscience (in-tree)
+lean/E213/Lib/Math/Logic/Pi01Decision.lean              ← Phase GB: LPO decides Π⁰₁ + existsLevel (5 PURE)
+lean/E213/Lib/Math/Logic.lean                           ← Logic umbrella (Omniscience + Pi01Decision)
+lean/E213/Lib/Math.lean                                 ← imports Logic umbrella (in-tree)
 ```

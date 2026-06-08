@@ -43,8 +43,11 @@ the ledger records the rest.
 - **Phase GA — Omniscience principles + core implications** (this start).
   `LPO`, `WLPO`, `MP`, `LLPO` as Props on `Nat → Bool`; prove the ∅-axiom implications
   (`LPO → WLPO`, `LPO → MP`, …).  File: `Lib/Math/Logic/Omniscience.lean`.
-- **Phase GB — König / compactness ↔ LLPO.**  Show `InfChildExists` is an LLPO-instance
-  (the child-disjunction decision `¬¬(B∨C)→B∨C`), tightening `infChildExists_iff_finiteSubcover`.
+- **Phase GB — König / compactness ↔ omniscience.**  *Predicate-decision half DONE*
+  (`Lib/Math/Logic/Pi01Decision.lean`): `lpo_decides_pi01` (LPO decides every `Π⁰₁`) +
+  `existsLevel` + `lpo_decides_infiniteBelow` — *deciding* infinite-below costs **LPO**.
+  *GB-cont (open):* the which-child *selection* is the LLPO disjunction and needs the tree
+  **downward-closed**; bridge `existsLevel` ↔ the ∃-form `KonigConditional.InfBelow`.
 - **Phase GC — the free interior as the base.**  Catalogue the diagonal/non-surjection
   family (`object1_not_surjective`, Cantor) as the no-omniscience base (the `RCA₀`-analogue),
   and the reached-by-none escapes as its companions.
