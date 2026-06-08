@@ -21,7 +21,7 @@ open E213.Lib.Math.Algebra.Linalg213.PermGroup
    idxOf idxOf_getD idxOf_getD_self idxOf_lt)
 open E213.Lib.Math.Algebra.Linalg213.PermSign (perms_inj perms_entry_lt)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure
-  (nodup_iota nodup_of_lperm nodup_permsOf mem_map' mem_map_mpr permsOf_sound permsOf_complete
+  (Nodup nodup_iota nodup_of_lperm nodup_permsOf mem_map' mem_map_mpr permsOf_sound permsOf_complete
    perm_length lt_of_mem_iota)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (lperm_of_nodup_mem_iff mem_iota_of_lt)
 open E213.Lib.Math.Algebra.Linalg213.DetTranspose
@@ -30,7 +30,9 @@ open E213.Lib.Math.Algebra.Linalg213.DetTranspose
 open E213.Lib.Math.Algebra.Linalg213.PermSign (psign_mul altSign_self)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_smul leibDet_rows_eq_ne)
 open E213.Lib.Math.Algebra.Linalg213.CayleyHamilton (sumZ_map_smul_right add_zero' sumZ_swap)
-open E213.Lib.Math.Algebra.Linalg213.PermClosure (mem_flatMap')
+open E213.Lib.Math.Algebra.Linalg213.PermClosure
+  (mem_flatMap' mem_flatMap_mpr nodup_cons nodup_map nodup_flatMap cnt cnt_pos_mem cnt_pos_of_mem
+   cnt_eq_zero_of_not_mem lperm_of_cnt_eq cnt_lperm)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (matMul map_flatMap sumZ_flatMap sumZ_append)
 open E213.Tactic.List213 (list_ext_getD getD_ge getD_map_ib length_map)
 
@@ -369,5 +371,47 @@ theorem leibDet_perms_assembly (A B : Nat → Nat → Int) (n : Nat) :
           ring_intZ),
       ← sumZ_map_smul_right (leibDet n B) (leibTerm A) (perms n),
       show leibDet n A = sumZ ((perms n).map (leibTerm A)) from rfl]
+
+/-! ## §9 — `perms n ⊆ funcs n`, `funcs n` nodup -/
+
+/-- Entries of a list in `tuples vals len` are drawn from `vals`. -/
+theorem tuples_entries (vals : List Nat) : ∀ (len : Nat) (f : List Nat),
+    f ∈ tuples vals len → ∀ x, x ∈ f → x ∈ vals
+  | 0,       _, h, x, hx => by cases h with | head => nomatch hx | tail _ h' => nomatch h'
+  | len + 1, _, h, x, hx => by
+    rcases mem_flatMap' _ h with ⟨v, hv, hf⟩
+    rcases mem_map' _ hf with ⟨g, hg, he⟩
+    rw [← he] at hx
+    cases hx with
+    | head      => exact hv
+    | tail _ hx' => exact tuples_entries vals len g hg x hx'
+
+/-- Conversely, any list with entries in `vals` is enumerated by `tuples`. -/
+theorem mem_tuples (vals : List Nat) : ∀ (f : List Nat), (∀ x, x ∈ f → x ∈ vals) →
+    f ∈ tuples vals f.length
+  | [],     _ => List.Mem.head _
+  | a :: l, h => mem_flatMap_mpr _ (h a (List.Mem.head _))
+      (mem_map_mpr (a :: ·) (mem_tuples vals l (fun x hx => h x (List.Mem.tail _ hx))))
+
+/-- ★ **`perms n ⊆ funcs n`**: every permutation is a function. -/
+theorem perms_subset_funcs (n : Nat) (f : List Nat) (hf : f ∈ perms n) : f ∈ funcs n := by
+  have hm := mem_tuples (iota n) f
+    (fun x hx => PermClosure.LPerm.mem (permsOf_sound (iota n) f hf) hx)
+  rw [perm_length hf] at hm
+  exact hm
+
+/-- ★ **`funcs n` has no repeats** (each function once). -/
+theorem nodup_funcs (n : Nat) : Nodup (funcs n) := by
+  have key : ∀ (vals : List Nat), Nodup vals → ∀ len, Nodup (tuples vals len) := by
+    intro vals hv len
+    induction len with
+    | zero => exact nodup_cons (fun h => by cases h) (fun _ => Nat.zero_le _)
+    | succ len ih =>
+      refine nodup_flatMap (fun v => (tuples vals len).map (v :: ·)) (fun q => q.headD 0) vals hv ?_ ?_
+      · exact fun v _ => nodup_map (fun g g' he => (List.cons.inj he).2) ih
+      · intro v _ q hq
+        rcases mem_map' _ hq with ⟨g, _, he⟩
+        exact (congrArg (fun l => l.headD 0) he).symm
+  exact key (iota n) (nodup_iota n) n
 
 end E213.Lib.Math.Algebra.Linalg213.DetMul
