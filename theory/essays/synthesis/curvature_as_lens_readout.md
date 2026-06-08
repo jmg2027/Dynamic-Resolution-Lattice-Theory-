@@ -38,6 +38,19 @@ triangle `κ=½>0` (`triangle_*`), square `κ=0` (`c4_*`), double-star `κ=−2/
 (`ds_*`).  A *third* counting view — transport, not incidence — returns the same
 `+ / 0 / −` trichotomy, keyed to the same local clustering.
 
+**Frame 4 — Bakry–Émery (carré du champ).** The readout is the curvature `K` in
+`Γ₂(f) ≥ K·Γ(f)`, where `Γ(f) = ½Σ(f(y)−f(x))²` is the carré du champ of the
+graph Laplacian and `Γ₂ = ½LΓ − Γ(f,Lf)` its iterate (`BakryEmery.lean`).  The
+discrete Bochner identity makes `Γ₂` an exact sum of squares: `bochner_line`
+(`4Γ₂ = (Lf(x−1))² + 2(Lf(x))² + (Lf(x+1))²`, the flat `Ric=0` form with no
+negative term) gives the line `K=0`; `bochner_triangle`
+(`Γ₂ = (5/2)Γ + ½(f₁−f₂)²`) gives the triangle `K=5/2>0`.  This is the Bochner
+formula `½Δ|∇f|² = |Hess f|² + Ric(∇f,∇f)` read as a finite polynomial identity —
+the curvature is the coefficient the Hessian-squares leave over.  It is the frame
+*defined* without reference to dimension, so it is also the synthetic meaning of a
+Ricci lower bound (`CD(K,N)`, Lott–Sturm–Villani) — the same number, read as an
+algebraic inequality.
+
 ## Dual function
 
 This is the classical Ricci curvature with its smooth packaging stripped: the
@@ -54,14 +67,18 @@ recovering the same flat/positive/negative trichotomy
 
 ## Cross-frame connection
 
-Edge-count (`4−du−dv`), vertex-count (`2−deg`), transport-cost (`1−W₁/d`), and
-conformal-limit (`K` rational) — four resolutions, one sign↔topology fact.
-What makes them one is that each is a difference-Lens readout (§6.7): a count,
-then a sign.  The sign is never in the residue; it is the Bool-involution the
+Edge-count (`4−du−dv`), vertex-count (`2−deg`), transport-cost (`1−W₁/d`),
+carré-du-champ (`Γ₂/Γ`), and conformal-limit (`K` rational) — five resolutions,
+one sign↔topology fact.  What makes them one is that each is a difference-Lens
+readout (§6.7): a count of how neighbourhoods over- or under-lap, then a sign.
+The sign is never in the residue; it is the Bool-involution the
 ordered-difference Lens supplies.  Topology (`b₁`) is what the count is
-counting; the sign is how the Lens orients the count.  That the four frames
-cannot disagree is the content — `curvature_sign_topology` is not "a property
-of `K_{3,2}`" but "what every difference-Lens reads when `b₁ ≥ 1`."
+counting; the sign is how the Lens orients the count.  That the frames cannot
+disagree is the content — `curvature_sign_topology` is not "a property
+of `K_{3,2}`" but "what every difference-Lens reads when `b₁ ≥ 1`."  The
+Bakry–Émery frame is the sharpest statement of this: there the readout is
+literally an algebraic identity (`Γ₂ = Hessian-squares + K·Γ`), so the curvature
+`K` is the residue the squares leave over — a thing you can point at.
 
 ## Open frontier
 

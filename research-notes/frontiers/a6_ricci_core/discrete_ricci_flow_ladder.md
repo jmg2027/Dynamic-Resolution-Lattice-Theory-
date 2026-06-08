@@ -71,6 +71,23 @@ combinatorial formula).
    `ds_plan_optimal`, helper `sub_le_sub_bounds`) gives Ollivier `κ = 1 − 5/3 = −2/3 < 0` (a tree, like
    hyperbolic space) — so `+` (triangle, clustered) / `0` (square, flat) / `−` (double-star, tree) are all
    ∅-axiom theorems, the complete Ollivier mirror of the Forman / Gauss–Bonnet sign↔topology trichotomy.
+6. **Bakry–Émery curvature-dimension `CD(K,N)`** — ✅ **DONE** (`GeometrizationConjecture/BakryEmery.lean`,
+   6 PURE): the **fourth** curvature frame, via the discrete Bochner formula.  Carré du champ `Γ` + its
+   iterate `Γ₂` of the graph Laplacian, scaled to `ℤ` (`gammaL`/`gamma2L`, `gammaTri`/`gamma2Tri`).
+   **Discrete Bochner identity** `bochner_line` (`4Γ₂ = (Lf(x−1))² + 2(Lf(x))² + (Lf(x+1))²` — the flat
+   `Ric = 0` Bochner, `½Δ|∇f|² = |Hess f|² + Ric(∇f,∇f)` with only squares) ⟹ `cd_0_2_line` (the
+   line/large cycle is `CD(0,2)`, curvature `0`) + `gamma2_line_nonneg`.  `bochner_triangle`
+   (`4Γ₂ = 5·(2Γ) + 2(f₁−f₂)²`, i.e. `Γ₂ = (5/2)Γ + ½(f₁−f₂)²`) ⟹ `cd_triangle` (the triangle `C₃ = K₃` is
+   `CD(5/2,∞)`, the complete-graph value `(n+2)/2`).  This is the *dimension-independent* curvature frame
+   (`CD(K,N)` = synthetic `Ric ≥ K, dim ≤ N`, Lott–Sturm–Villani), so it is the 213-native handle for the
+   general-`n` Ricci **lower bound** even while the smooth `n`-tensor flow stays walled
+   (`ricci_flow_smooth_core.md`).  Sign agreement: flat line `K=0` / triangle `K=5/2>0` — same pattern as
+   Forman, Gauss–Bonnet, Ollivier.
+7. **Time-evolution: all-time fixed-point stability** — ✅ **DONE** (`RicciFlowDiscrete.lean` §6):
+   `lazyRicciFlow` (the smoothing step iterated) + `ricci_flow_fixed_point_stable`
+   (`lazyRicciFlow n t (constInit c) x = 4ᵗ·c` for *every* `t` — constant curvature is a genuine all-time
+   fixed point, the discrete "round/Einstein metric stays round under Ricci flow for all time", complementing
+   rung 3's `flow_reaches` *to* the fixed point).
 
 ## Honest boundary
 
@@ -81,8 +98,12 @@ Ricci flow to its normalized fixed point" — not "A6 solves Poincaré."
 
 ## Next action
 
-**Rungs 1–5 all ✅ DONE** (discrete Forman flow + a-priori package + Gauss–Bonnet + Ollivier
-transport core + concrete triangle `κ=½`).  The discrete A6 core is closed.  Remaining refinements:
-more concrete Ollivier `κ` values on further graphs (`K_{3,2}`, cycles `Cₙ`), Bochner/CD(K,N)
-Bakry–Émery, and the smooth route's general-`n` (walled).  The smooth 2D-conformal route (S3–S5) is
-separately closed (`ConformalCurvature.lean`, `ricci_flow_smooth_core.md`).
+**Rungs 1–7 all ✅ DONE** (Forman flow + a-priori package + Gauss–Bonnet + Ollivier transport core with
+full `+/0/−` trichotomy + Bakry–Émery `CD(K,N)` Bochner identity + all-time fixed-point stability).  The
+discrete A6 core is closed across **four** curvature frames (Forman, Gauss–Bonnet, Ollivier, Bakry–Émery),
+all sign-agreeing.  Remaining refinements: the complete graph `K_m` Bakry–Émery for general `m`
+(`CD((m+2)/2,∞)` — a `gridSum`-over-neighbours generalization of `bochner_triangle`); the discrete Lin–Yau
+optimal `K`; more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
+flow* and the transcendental Perelman `𝓦`-entropy (`ricci_flow_smooth_core.md`) — but the general-`n` Ricci
+**lower bound** is now reachable synthetically via `CD(K,N)` (rung 6).  The smooth 2D-conformal route
+(S3–S5) is separately closed (`ConformalCurvature.lean`).

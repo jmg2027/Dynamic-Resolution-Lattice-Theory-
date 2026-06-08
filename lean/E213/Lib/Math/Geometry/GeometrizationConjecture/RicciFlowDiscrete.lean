@@ -166,4 +166,36 @@ theorem spreadFlow_fixed_le_one (g : Nat) (h : spreadFlow g = g) : g ≤ 1 := by
     exact absurd h (Nat.ne_of_lt (Nat.sub_lt (Nat.lt_of_lt_of_le (by decide) hg) (by decide)))
   · exact Nat.le_of_lt_succ (Nat.lt_of_not_le hg)
 
+/-! ## §6 — time-evolution: the normalised fixed point is stable for all time
+
+§5's `flow_reaches` drives an arbitrary curvature field *to* the normalised state; this section
+runs the flow *forward in time* and shows the normalised (constant-curvature) state is then held
+for **all** `t` — the discrete analogue of "the round / Einstein metric stays round under Ricci
+flow for all time" (the homogeneous fixed point of `RicciSphereFlow`, here for the iterated
+discrete flow and every `t`). -/
+
+/-- The `t`-step **lazy** Ricci flow (the smoothing `(¼,½,¼)` step iterated; numerator-tracked, so
+    the true field is `/4ᵗ`). -/
+def lazyRicciFlow (n : Nat) : Nat → (Nat → Nat) → (Nat → Nat)
+  | 0,     K => K
+  | t + 1, K => lazyHeatStepNum n (lazyRicciFlow n t K)
+
+/-- ★★★★★ **The normalised fixed point is stable for all time.**  A constant-curvature complex
+    (`K_{NS,NT}`, every edge curvature `c`) stays uniform under the discrete Ricci flow for *every*
+    `t`: `lazyRicciFlow n t (constInit c) x = 4ᵗ·c` at every site (averaged curvature `= c`,
+    unchanged across all time).  The discrete time-evolution counterpart of the homogeneous Ricci
+    soliton — constant curvature is a genuine all-time fixed point, not just a one-step stationary
+    state.  Induction on `t` via `lazyHeatStep_const` (applied at the three stencil sites). -/
+theorem ricci_flow_fixed_point_stable (n c : Nat) :
+    ∀ (t x : Nat), lazyRicciFlow n t (constInit c) x = 4 ^ t * c := by
+  intro t
+  induction t with
+  | zero => intro x; show constInit c x = 4 ^ 0 * c; rw [Nat.pow_zero, Nat.one_mul]; rfl
+  | succ t ih =>
+    intro x
+    show lazyHeatStepNum n (lazyRicciFlow n t (constInit c)) x = 4 ^ (t + 1) * c
+    unfold lazyHeatStepNum
+    rw [ih (leftNbr n x), ih x, ih (rightNbr n x), Nat.pow_succ]
+    ring_nat
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete

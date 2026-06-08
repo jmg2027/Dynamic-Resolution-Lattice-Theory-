@@ -674,6 +674,30 @@ Int213 `Order`/`OrderMul`
 pure inequalities (core `Int.add_le_add`/`mul_le_mul_of_nonneg_right`/`sub_le_sub_left`/`Int.sub_self` all leak
 `propext`).
 
+### A6 CORE rung 6 — Bakry–Émery curvature-dimension `CD(K,N)` + discrete Bochner (2026-06-08)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery` — **6 PURE / 0 DIRTY**.  The **fourth** curvature
+frame: Bakry–Émery curvature via the carré-du-champ iteration `Γ₂ = ½LΓ − Γ(f,Lf)` of the graph Laplacian,
+scaled to `ℤ` (`gammaL`/`gamma2L`, `gammaTri`/`gamma2Tri`).  **Discrete Bochner identity** — `bochner_line`:
+`4Γ₂(f)(x) = (Lf(x−1))² + 2(Lf(x))² + (Lf(x+1))²` (the flat `Ric = 0` Bochner `½Δ|∇f|² = |Hess f|² + Ric(∇f,∇f)`,
+only squares) ⟹ `cd_0_2_line` (the line/large cycle is `CD(0,2)`, curvature `0`) + `gamma2_line_nonneg`.
+`bochner_triangle`: `4Γ₂ = 5·(2Γ) + 2(f₁−f₂)²` (i.e. `Γ₂ = (5/2)Γ + ½(f₁−f₂)²`) ⟹ `cd_triangle` (the triangle
+`C₃ = K₃` is `CD(5/2,∞)`, the complete-graph value `(n+2)/2`) + `gammaTri_nonneg`.  `CD(K,N)` is the synthetic
+(Lott–Sturm–Villani) meaning of `Ric ≥ K, dim ≤ N` — so this is the dimension-independent handle for the
+general-`n` Ricci **lower bound** even while the smooth `n`-tensor flow stays walled.  Sign agreement: flat line
+`K=0` / triangle `K=5/2>0` — same as Forman/Gauss–Bonnet/Ollivier.  Proofs `ring_intZ` (Bochner identities) +
+`int_sq_nonneg`/`add_nonneg`/`Order` (the SOS bounds), stencil-parametrised à la `ConformalCurvature` (no index
+arithmetic).
+
+### A6 CORE rung 7 — time-evolution: all-time fixed-point stability (2026-06-08)
+
+`E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete` (§6, +1 PURE).  `lazyRicciFlow` (the
+smoothing `(¼,½,¼)` step iterated) + **`ricci_flow_fixed_point_stable`**: `lazyRicciFlow n t (constInit c) x =
+4ᵗ·c` for *every* `t` — constant curvature is a genuine all-time fixed point (averaged curvature `= c`,
+unchanged across all time), the discrete "round/Einstein metric stays round under Ricci flow for all time",
+complementing rung 3's `flow_reaches` *to* the fixed point.  Induction on `t` via `lazyHeatStep_const` at the
+three stencil sites + `Nat.pow_succ`/`ring_nat`.
+
 ### A6 CORE — smooth 2D-conformal Gauss curvature (the smooth route) (2026-06-05)
 
 `E213.Lib.Math.Geometry.GeometrizationConjecture.ConformalCurvature` — **4 PURE / 0 DIRTY**.  Opens A6's
