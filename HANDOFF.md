@@ -1,138 +1,125 @@
-# Session Handoff — 2026-06-08 (naming abstract concepts → 213; Reverse Mathematics 213 marathon)
+# Session Handoff — 2026-06-08 (CKM CP-phase marathon + promotion/merge pass)
 
 ## Branch
-`claude/math-logic-career-path-khWPk` — `origin/main` merged in (131 commits: the
-determinant / permutation-sign stack, Ollivier–Ricci, transcendentals/PDE ladders, etc., now
-present alongside this session's work).  `rm -rf .lake/build && lake build` ✓ clean (forced
-fresh), `layer_audit` 0 violations / 1839 files, `kernel_regress` 45/45 0-axiom, purity
-0 sorry/axiom/native_decide/Classical/Mathlib.  **READY TO MERGE → main.**
+`claude/vision-achievement-strategy-UzqpZ` — pushed, **0 behind / ~74 ahead**
+of `origin/main` (advanced origin/main's Zolotarev commit merged in cleanly).
+`cd lean && lake build E213` ✓ clean. `tools/kernel_regress.sh` 45/45 0-axiom.
+All new theorems strict ∅-axiom PURE (`tools/scan_axioms.py`). Rust binary
+`ckm-cp-phase` builds + runs.
 
 ## What Was Done This Session
 
-Theme (originator's math-logic vision): **what does standard math's "attaching a term to
-an abstract concept" become under the 213 axiom?**  A reference-claim essay framed it; a
-König/νF Lean arc + concept-pass + deep-research turned it into theorems; it then crystallised
-into a full **Reverse Mathematics 213 marathon (field 17)** — the legibility bridge to
-recognized mathematical logic.  A closing **merge marathon** then ran: merge `origin/main`
-→ `/process` (sink decouple) → `/essay` (`the_omniscience_ledger`, caps field 17) →
-`/org-audit` (INDEX counts) → `/purity-check` (clean) → `/ready-to-merge` (READY).
+The CKM **CP-violating phase** is derived/forced (not posited) across three
+disciplines on the single prime `d = NS+NT = 5`, then promoted + merged.
 
-### 1. Two permanent essays (theory/essays/foundations/)
-- `the_reference_claim.md` — necessary/refused/under-test split.  Existence (`pointing ⟺
-  residue`) is **transcendental necessity, not a thesis**; reference-closure necessary,
-  referent-capture refused (`object1_not_surjective`), only *reach* under test.
-- `the_one_diagonal.md` — the freeze-decision is **one** obstruction; re-dressing it is one
-  more self-pointing (`residue_reentry_never_closes`).  Dual: Lawvere(1969)/Yanofsky(2003)
-  unify Cantor/Gödel/Russell/Tarski/Turing; 213 makes the unifier the residue's self-cover.
-  Math-scale twin of `why_the_reframing_recurs.md`.  Both registered in `theory/essays/INDEX.md`,
-  logged in `promotion_essay_log.md` (row 13).
+### 1. CP phase = 90°, forced not posited (Mixing/CP*, PURE)
+- Existence+uniqueness DERIVED: `N_gen = C(3,2) = 3 ⇒ 1` physical phase
+  (`CPPhaseCount`, KM counting).
+- Value FORCED to `90°`: `C₄` (CD `i`) + CP-existence ⇒ `±i` (`CPPhaseC4Forcing`);
+  Niven forbids a golden phase `δ = π/φ²` (rational-cosine ⇒ root of unity).
+- The premise "phase ∈ C₄" is itself forced by the Hodge structure
+  (`Hodge/SignedStarFull`: `⋆² = −1` on all of `Λ¹(ℝ⁴)` ⇒ order exactly 4).
 
-### 2. CLAUDE.md — "fog jargon" failure-mode row added
-Hard language licensed only as **compression** (unfoldable on demand), never **fog**.
+### 2. The imaginary unit is ONE object, three disciplines
+- group: `ℤ[i]^× = C₄` (`Hodge/SignedStarC4`, `ℤ[J] ≅ ℤ[i]`, `det = a²+b²`).
+- number theory: `Gal(ℚ(ζ₅)/ℚ) ≅ C₄` (phase) + real subfield `ℚ(√5) = ℚ(φ)`
+  (golden modulus); `5 = (2+i)(2−i)` selects `C₄/90°` over `C₆/60°` (5 inert
+  in `ℤ[ω]`) (`Icosahedral/CyclotomicFive`).
+- cohomology: signed Hodge `⋆` on `H*(Δ⁴)` at grades 1,3 — the SAME `H*(Δ⁴)`
+  as `1/α_em` (`CPHodgeStructure`, `Hodge/HodgeRiemannJ` Weil operator,
+  `Q·J = I ≻ 0`).
 
-### 3. König νF bridge + compactness calibration — `Lib/Math/Combinatorics/KonigConditional.lean` (+9 PURE)
-`konig_infinity_no_finite_raw`/`konig_infinity_is_nu_escape` (the König infinity is a νF
-escape, no finite Raw).  `FiniteSubcoverOracle` + `infChildExists_iff_finiteSubcover`:
-`WKL ⟺ Heine–Borel` *local* form on the residue carrier — NOT a naive iff (compactness ⇒
-selection costs one LLPO child-disjunction decision).
+### 3. Cohomological coupling forces 90° where a generic texture does not
+- Polarized-Hodge morphism: `J² = −I ∧ Jᵀ Q J = Q ∧ Q·J = I ≻ 0`
+  (`HodgeConjecture/Pairing/HodgeRiemann.hodge_riemann_positivity_signed` —
+  filled the previously-vacuous stub). Signed-ℤ cup product
+  (`Cup/SignedCup`, `mergeSign = (−1)^inv`, antisymmetric, `hPair = I`).
 
-### 4. p-adic νF escapes — `Lib/Math/NumberSystems/Padic/NuEscape.lean` (9 PURE)
-`twoAdic_is_nu_escape` (ℤ₂ = a König binary-tree branch, no finite Raw); `zpSeq_not_enumerable`
-(general `p ≥ 2`, native Cantor diagonal — pointwise, no `Cardinal`).
+### 4. ab-initio rust verification (exact ℤ[i], float-free)
+- `ckm_cp_phase.rs`: CKM unitary, `δ = 90°`, `V_ub` pure imaginary, Jarlskog ≠ 0.
 
-### 5. ★ Reverse Mathematics 213 marathon — field 17, CORE CLOSED (74 PURE / 10 files)
-`blueprints/math/17_reverse_math_213.md` + INDEX field 17 (Phase G); book
-`books/math/reverse-math-213.md`.  All ∅-axiom.  Calibrates each theorem by the omniscience
-/ choice principle it costs, on the residue's carriers — Simpson-style reverse math done
-213-native.  Files (`lean/E213/Lib/Math/Logic/`):
-- `Omniscience.lean` (8) — `LPO/WLPO/MP/LLPO` + `lpo_imp_wlpo`, `lpo_imp_mp`,
-  `lpo_iff_wlpo_and_mp` (**LPO ⟺ WLPO ∧ MP**), `wlpo_and_mp_imp_lpo`.
-- `Pi01Decision.lean` (6) — `lpo_decides_pi01` (**LPO decides Π⁰₁**), `lpo_decides_sigma01`,
-  `existsLevel`, `lpo_decides_infiniteBelow`.
-- `ChildSelection.lean` (11) — `lpo_infChildExistsN` (LPO + tree-monotonicity ⟹ König
-  child selection), `levelAntitone_of_downwardClosed`, `lpo_infChildExists_downwardClosed`.
-- `DiagonalBase.lean` (4) — `cantor_stream_not_enumerable` (the **cost-0** base).
-- `Capstone.lean` (1) — `reverse_math_ledger` (spine in one ∅-axiom witness).
-- `KonigBridge.lean` (5) — `infB_iff_infBelow` (native `InfB`/`existsLevel` = the König
-  file's ∃-form `KonigConditional.InfBelow`); pure `append_nil_pure`/`append_assoc_pure`.
-- `LLPO.lean` (8) — `lpo_imp_llpo` (**LPO ⟹ LLPO**) via native `parity`.
-- `Interleave.lean` (6) — div/mod-free even/odd `interleave` + `il_even`/`il_odd`, `ftrue`,
-  `ftrue_all_false` (selection-from-LLPO infrastructure).
-- `LLPOSelection.lean` (12) — **`llpo_infChildExistsN`**: König child selection from the
-  weaker **LLPO** (monotone turn-off encoding; `ftrue_unique`, `not_both`).
-- `WKLHeineBorel.lean` (13) — global `WKL ⟺ Heine–Borel`: unconditional half
-  (`infPath_imp_infB`, `bounded_imp_not_infPath`), oracle-conditional WKL (`wkl_of_oracle`),
-  `wkl_heineBorel_calibration`, and the **fan theorem** named (`FanTheorem`/`Bar`, the dual
-  Brouwerian principle = HB proper) + `hasInfPath_of_stream`.
+### 5. Fit ~1.5σ-CONSISTENT (not a tension)
+- `R_u = 1/φ² = 0.382` vs obs `0.3825 ± 0.011` ≈ exact; `α = 90°` ~0σ direct
+  to ~1.7σ global; residual is `O(λ²)` Wolfenstein (`λ = 5/22`), NOT RGE
+  (`dα/dt = 0` exactly) (`ApexFitConsistency`).
 
-### 6. Concept-pass frontier notes (research-notes/frontiers/, registered in INDEX)
-`naming_abstract_concepts.md`, `concept_compactness.md`, `concept_redressing_itself.md`
-(deep-research, web-verified Lawvere/Yanofsky), `concept_function_space.md`.
+### 6. Promotion + housekeeping (the marathon skills)
+- `/process`: 15 sink-rule violations decoupled (0 remaining).
+- Promotion: `theory/physics/cp_phase.md` (chapter), log row 31.
+- Cross-domain insights: `frontiers/cp_crossdomain_insights.md` (4 bridges
+  to main's sign/QR/cyclotomic campaigns).
+- `/essay`: `theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md`
+  (log row 32) — the CP phase as one imaginary unit in four frames.
+- `/org-audit`: wired the `SignedStarFull` orphan into the Hodge umbrella;
+  refreshed `Mixing/INDEX.md` (5→19, grouped); de-narrated 3 docstrings.
+- `/purity-check`: forbidden patterns 0/0/0/0; all session modules PURE.
+- Merged origin/main's **Zolotarev** (`ZolotarevSign`, PURE): the
+  permutation-sign = Legendre-symbol corner of the inversion-sign square is
+  now a theorem; cross-domain note updated.
 
 ## Current Precision Results (0 free parameters)
-**No physics-constant changes** (pure mathematics / foundations).  See
-`catalogs/physics-constants.md` for the standing DRLT table (α_em 0.09 ppb, etc.).
+| Observable | DRLT | Observed | Status |
+|-----------|------|----------|--------|
+| `R_u = \|V_ub/V_cb·...\|` | `1/φ² = 0.382` | `0.3825 ± 0.011` | ≈ exact, PURE |
+| CKM phase `δ_KM` | `90°` (root of unity) | `≈ 90°` | FORCED, PURE |
+| `β` | `22.46°` | `22.5° ± 0.7°` | ≈ exact |
+| `α` (right UT) | `90°` | `92.4° ± 1.4°` | ~1.7σ (falsifier F27) |
+| `γ` | `67.54°` | `65.1° ± 1.5°` | ~1.6σ |
+| `N_gen` ⇒ phases | `3 ⇒ 1` | `3 ⇒ 1` | DERIVED, PURE |
 
 ## Open Problems (Priority Order)
-All under `blueprints/math/17_reverse_math_213.md` +
-`research-notes/frontiers/naming_abstract_concepts.md`.
 
-### 1. WKL/HB external pieces (by design not internal)
-The bare dependent **choice** turning per-node selection disjunctions into the `step`
-function (WKL proper beyond LLPO), and the **fan theorem** (HB proper, Brouwerian).  Both
-are *named and isolated* (`wkl_of_oracle`/`FanTheorem`); the gap is by-design external —
-this IS the precise reverse-math calibration.  Nothing to "fix"; only to hypothesize.
+### 1. Explicit generation-Yukawa cup functional (the mixing angles)
+The cohomology forces the phase + the `Λ²(ℝ³)` generation index (diagonal
+`h = I`), but the mixing **angles** are a separate DRLT object, not forced by
+the polarization alone. Build the explicit signed-cup generation functional.
+Frontier note: `research-notes/frontiers/cp_yukawa_from_scratch.md`.
 
-### 2. One-carrier p-ary νF escape
-General `p` escape is done natively (`zpSeq_not_enumerable`) but on its own carrier; a
-**p-ary spine in `Theory/Raw/CoResidue`** would put all `p` on the same νF carrier as
-König/2-adic (only binary `boolSpine` exists).  Real CoResidue infra.
+### 2. Tighten the ~1.5σ fit / track the `α = 90°` falsifier
+`α = 90°` (right unitarity triangle) is falsifiable — UTfit `α = 92.4 ± 1.4°`.
+Residual is `O(λ²)` Wolfenstein, not RGE. Track future UT fits.
+Frontier note: `research-notes/frontiers/ckm_rho_eta_apex.md`; falsifier F27
+(`catalogs/falsifiers.md`).
 
-### 3. ℝ one-carrier with König
-ℝ's reached-by-none is proved (`Analysis/Cauchy/DepthCeilingResidue.diag_not_in_seq`); a
-dyadic bit-stream extractor from the `Real213` cut (`Nat → Nat → Bool`) would share the
-`boolSpine` carrier.
-
-### 4. More concept deep-dives (the systematic pass)
-limit/completion, quotient/equivalence-class, actual-vs-potential infinity.  Each → its 213
-reading.  Seeds in `naming_abstract_concepts.md`.
+### 3. Close the CP leg of the inversion-sign square
+Three corners are theorems (perm-sign = det = Legendre via `ZolotarevSign`);
+the open corner is `δ_CP`'s `C₄` class = the `(−1/d)` QR class as a theorem.
+Frontier note: `research-notes/frontiers/cp_crossdomain_insights.md`
+(Insight 1+2) + `frontiers/permutation_three_readouts.md`.
 
 ## Unresolved from This Session
-No dead ends.  Two diagnosed-then-resolved traps worth remembering:
-- **`LPO ⟹ LLPO` "Nat +2 wall" was a false alarm** — `n+2`, `n+1+1`, `succ(succ n)` ARE
-  defeq (`rfl`); the real blocker was prefix `!` binding looser than `=` (`!(!b)=b`
-  mis-parses to a `decide`).  Fix: parenthesize `(!(!b)) = b`.
-- **propext-pulling tools in this Mathlib-free kernel** (avoid): `omega` (also `Quot.sound`),
-  `Nat.succ_ne_zero`, `List.append_nil`/`append_assoc`, `if`/`split`, `decide`-on-`Prop`.
-  Use `Bool.noConfusion`/`Nat.noConfusion`/`Nat.succ.inj`/`cases`/structural recursion +
-  hand-rolled pure lemmas.
+- Self-corrected over-claims (do NOT re-attempt): `δ = π/φ²` golden phase
+  (Niven-forbidden); "π outside 213" (π is the `PiCut` Real213 cut); "A₅
+  reproduces δ from φ" (A₅ 3-rep is REAL ⇒ CP-conserving); RGE as the fit
+  residual (`dα/dt = 0` exactly — it is `O(λ²)` Wolfenstein).
 
 ## Next
-Field 17 is comprehensively closed.  Highest-value next: **(2)** the p-ary spine in
-`CoResidue` (genuine new infra), or **promote** field 17 to a `theory/math/logic/` chapter
-per `theory/PROMOTION_CRITERIA.md` (book exists in `books/math/`), or a **concept deep-dive**
-(limit/completion).
+Push and merge this branch to `main` (the marathon's final step). After merge:
+attack Open Problem 1 (explicit generation-Yukawa cup functional) — the last
+structural residual of the CP-phase arc.
 
-## Three-tier state (per CLAUDE.md "Three-tier discipline")
-- **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`,
-  `theory/essays/methodology/the_omniscience_ledger.md`.
-- **Promotion candidates**: field 17 `Lib/Math/Logic/` (74 PURE, book written) → a
-  `theory/math/` chapter is eligible.
-- **Active scratchpad**: `research-notes/frontiers/` (4 concept-pass notes + field-17 frontier).
+## Three-tier state
+- **Promotions this session**: `theory/physics/cp_phase.md` +
+  `theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md`.
+- **Promotion candidates**: none outstanding for the CP arc (the closed math
+  is promoted; the angle functional is an open frontier, not a closed sub-tree).
+- **Active scratchpad**: `frontiers/{cp_yukawa_from_scratch, ckm_rho_eta_apex,
+  cp_crossdomain_insights}.md`.
 
 ## File Map
 ```
-theory/essays/foundations/the_reference_claim.md         ← essay (new)
-theory/essays/foundations/the_one_diagonal.md            ← essay (new)
-theory/essays/INDEX.md, research-notes/promotion_essay_log.md  ← registered + row 13
-CLAUDE.md                                                ← + fog-jargon failure mode
-lean/E213/Lib/Math/Combinatorics/KonigConditional.lean   ← +9 PURE (νF bridge + compactness calib)
-lean/E213/Lib/Math/NumberSystems/Padic/NuEscape.lean     ← 9 PURE (2-adic + general-p escapes); +Padic umbrella
-lean/E213/Lib/Math/Logic/*.lean                          ← field 17 (10 files, 74 PURE)
-lean/E213/Lib/Math/Logic.lean                            ← Logic umbrella (10 files)
-lean/E213/Lib/Math.lean                                  ← imports Logic umbrella
-blueprints/math/17_reverse_math_213.md, blueprints/math/INDEX.md  ← field 17 blueprint + Phase G
-books/math/reverse-math-213.md                           ← marathon book (field 17)
-research-notes/frontiers/{naming_abstract_concepts,concept_compactness,
-    concept_redressing_itself,concept_function_space}.md ← concept-pass notes (+INDEX)
+theory/physics/cp_phase.md                         ← promoted CP-phase chapter
+theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md ← synthesis essay
+theory/essays/INDEX.md                             ← +essay (70 total)
+lean/E213/Lib/Math/Cohomology/Hodge.lean           ← umbrella +SignedStar*/HodgeRiemannJ
+lean/E213/Lib/Math/Cohomology/Hodge/{SignedStarC4,SignedStarFull,HodgeRiemannJ}.lean
+lean/E213/Lib/Math/Cohomology/Cup/SignedCup.lean   ← signed-ℤ cup (mergeSign)
+lean/E213/Lib/Math/Cohomology/HodgeConjecture/Pairing/HodgeRiemann.lean ← filled stub
+lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevSign.lean ← merged from main (PURE)
+lean/E213/Lib/Physics/Mixing/INDEX.md              ← refreshed 5→19 grouped
+lean/E213/Lib/Physics/Mixing/CP*.lean, Apex*.lean, *Yukawa*.lean ← CP arc
+rust-engine/crates/app/src/bin/ckm_cp_phase.rs     ← ab-initio ℤ[i] CKM
+research-notes/frontiers/cp_crossdomain_insights.md ← 4 bridges (Zolotarev closed)
+research-notes/promotion_essay_log.md              ← rows 31 (promotion) + 32 (essay)
+catalogs/falsifiers.md                             ← F27 (right UT α=90°)
 ```

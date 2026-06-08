@@ -24,6 +24,7 @@ arithmetic and physics couplings.
   - `Permutation.lean`    — `LPerm`, inversion-sign `psign`, the Leibniz `leibDet`
   - `PermGroup.lean`      — the symmetric group on value-lists (`composeList`, identity, assoc, `invPerm`)
   - `PermSign.lean`       — ★ sign-multiplicativity `psign(σ∘τ) = psign σ·psign τ` (bubble-sort)
+  - `PermMatrixDet.lean`  — ★ `det(permMatrix σ) = psign σ`: the two readings of a permutation agree (Leibniz sum collapses to the surviving `τ=σ` term)
   - `PermClosure.lean`    — enumeration sound/complete/nodup; alternating + multilinear
   - `Laplace.lean`        — cofactor expansion, `leibDet_eq_det`, adjugate `M·adj M = det·I`
   - `DetTranspose.lean`   — ★★★ `det Mᵀ = det M` (psign_inv + invPerm involution + product-reindex)

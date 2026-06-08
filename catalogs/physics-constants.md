@@ -2,6 +2,16 @@
 
 213 atomic chain of standard physical constants.
 
+> **Reading this catalog honestly** (the headline-precision-scope audit
+> + `README.md` headline table): the precision tags below (`0.000%`, `ppb`, `%`)
+> are **central-value agreements**, often computed in the Lean *docstring*; the
+> corresponding **PURE theorem** typically proves a coarser *bracket* (0.1%–ppm)
+> or the clean dimensionless ratio. **Dimensionless ratios** (Koide `NT/NS`,
+> `m_H/v_H = 1/c`, `m_μ/m_e`, `α_em`) are parameter-free DRLT content;
+> **absolute** masses/energies (`m_p` via `Λ_QCD≈308 MeV`, `m_H` via `v_H`,
+> `IE(H)` via CODATA `m_e`) rest on an **input scale**, as any theory does. The
+> ratio is the prediction; the absolute = ratio × measured scale.
+
 ## Coupling
 
   α_em ≈ 1/137.036  (Phase 1, ppm)

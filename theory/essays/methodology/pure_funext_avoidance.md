@@ -42,7 +42,9 @@
 
 원래 essay 작성 시점의 두 follow-up은 모두 closed:
 
-- **Zp.add 결합법칙을 LensMap composition law로 추상화** — `Lib/Math/NumberSystems/Padic/SetoidAssoc.lean` (8 PURE).  `Zp.add_trunc` (Residual Induction)으로 truncation 단위 결합법칙을 환원, `digits_eq_of_trunc_eq`로 digit-equality 추출, `zp_add_setoid_monoid_capstone`이 monoid 구조 (assoc + comm + zero) 전체를 Setoid 레벨에서 묶음.  핵심: trunc-level 결합법칙은 `Nat.add_assoc + add_mod_gen` chain.
+- **Zp.add 결합법칙을 LensMap composition law로 추상화** — `Lib/Math/NumberSystems/Padic/SetoidAssoc.lean` (8 PURE).  `Zp.add_trunc` (Residual Induction)으로 truncation 단위 결합법칙을 환원, `digits_eq_of_trunc_eq`로 digit-equality 추출, `zp_add_setoid_monoid_capstone`이 monoid 구조 (assoc + comm + zero) 전체를 Setoid 레벨에서 묶음 (`zp_add_setoid_group_capstone`이 `x+(−x)≈0`까지 더해 가법 아벨군 완성).  핵심: trunc-level 결합법칙은 `Nat.add_assoc + add_mod_gen` chain.
+
+  - **가환환까지 — 곱셈 Setoid 항등식** (`SetoidMul.lean`, 7 PURE).  같은 `of_trunc_all` lift를 곱셈의 ring-quotient 정리(`Zp.mul_trunc_comm`/`mul_trunc_assoc`/`mul_add_trunc`/`add_mul_trunc`, 그리고 `mul_trunc_one_left`)에 적용해 `zp_mul_comm_equiv`/`zp_mul_assoc_equiv`/`zp_mul_one_left_equiv`(곱셈 가환 monoid) + 좌·우 분배(`zp_mul_add_distrib_equiv`/`zp_add_mul_distrib_equiv`)를 Setoid 레벨에서 닫음.  `zp_setoid_commRing_capstone`이 가법 아벨군 + 곱셈 monoid + 분배를 한 정리로 묶어 **`(ZpSeq p, ZpSeqEquiv)`가 가환환**임을 funext·propext 없이 진술.  곱셈 자체가 `ZpSeqEquiv`를 보존한다는 `SetoidAlgebra.mul_respects`와 합치면 몫 위의 환 구조 전체.
 
 - **`cutSum_assoc`을 integer-extended 너머로** — `Lib/Math/NumberSystems/Real213/HalfValidCut.lean` (11 PURE).  IntValidCut(b=1)을 HalfValidCut(b=2)로 확장.  `cutSum_half_general`이 b=2에서도 bidirectional cutEq를 제공하므로 same pattern (bundled subtype + Nat.add_assoc)이 closure.
 
