@@ -137,6 +137,16 @@ the signed Hodge `⋆` on `H*(Δ⁴)` (cohomology, = the `1/α_em` complex), the
 of `ℚ(i)` linked to `ℚ(ζ₅)` by `5=(2+i)(2−i)` (number theory), and the CD `ℤ[i]^×`
 (algebra).
 
+### ★ Chain complete — the `i` is the apex element `V_ub` (`Mixing/CPMaximalPhase.lean`, 5 PURE)
+The final quantitative step: the down-sector `J=i` lands in the explicit CKM
+**apex element**. In the standard parametrization `V_ub = s₁₃ e^{−iδ}`; at the
+forced `δ=90°`, `e^{−iπ/2}=−i` ⟹ **`V_ub = −i·s₁₃` is PURE IMAGINARY** (every
+angle real), so the complex structure `J=i` (`= signed Hodge ⋆`, `SignedStarC4`)
+sits exactly in the down `1↔3` apex element — the sector `CPGenerationWiring`
+localizes CP to. Rephasing-invariant: `J_CP ∝ sin δ`, maximal at `δ=90°`
+(`sin 90°=1`). Contrast `δ=0,180°` (`e^{−iδ}=±1` real, no CP). So the
+cohomological `i` is traced all the way to the measured `V_ub` phase.
+
 ### The convergence (group + number theory + cohomology, on the prime `d=5`)
 All three legs give **golden modulus + `C₄`/`90°` phase** from the single
 `d = NS+NT = 5`: the eigenvalue `1/φ²` of `M` (group), the cyclotomic tower
