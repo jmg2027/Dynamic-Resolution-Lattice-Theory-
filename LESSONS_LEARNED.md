@@ -270,10 +270,9 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `lean/E213/Meta/AxiomMinimalityCapstone.lean` — 4-clause minimality
 - `lean/E213/Theory/Atomicity/PairForcing.lean` — (NS,NT,d) derivation
 - `theory/THEORY_BOOK.md` Part II — Raw, Lens, HasDistinguishing
-  (substrate derivation path; former `guide/01_substrate.md`
-  archived under `research-notes/archive/legacy_docs/guide/`)
+  (substrate derivation path)
 - `theory/THEORY_BOOK.md` Part I + Part VIII — falsifiability +
-  methodology (former `guide/15_metalogic.md` archived)
+  methodology
 
 ## 현재 (2026-05-18) HEAD epistemic 위치
 

@@ -143,23 +143,64 @@ Each rung `∅`-axiom, sidestepping transcendentals (rational `λ` only):
 S1. **Polynomial 2nd derivative** — assemble `IsDifferentiable` of a polynomial's
     derivative (rebut "linear only"); `d²/dx²(xⁿ)`.
 S2. **Laplacian** `Δf = ∂₀²f + ∂₁²f` on `MultiCut 2` from `partialAt`.
-S3. **Conformal Gauss curvature** `gaussK λ = (|∇λ|² − λ·Δλ)/(2λ³)` as a cut
-    expression (uses `cutDiv`); verify `K = 0` for `λ` constant (flat).
-S4. **A nonflat check** — a rational `λ` with `K ≠ 0` computed (e.g. the
-    stereographic round-sphere factor `λ = 4/(1+x²+y²)²` → `K = 1`), if the
-    division boundary behaves; else a polynomial `λ` with a clean `K`.
-S5. **2D conformal Ricci flow** `∂_t λ = −2K·λ` (since `Ric = K·g` in 2D) — a
-    genuine smooth flow on one rational field, then a monovariant for it.
+S3. **Conformal Gauss curvature** — ✅ DONE (`GeometrizationConjecture/ConformalCurvature.lean`,
+    over ℤ via the curvature numerator `confKNum = |∇λ|² − λΔλ`, `K = confKNum/(2λ³)`):
+    `confK_flat` (constant `λ` ⟹ `K = 0`, the flat metric).
+S4. **A nonflat check** — ✅ DONE (same file): both signs on polynomial `λ` —
+    `confK_paraboloid` (`λ = x²+y²+1` ⟹ numerator `−4`, negatively curved) and `confK_dome`
+    (`λ = C−x²−y²` ⟹ numerator `4C`, positively curved); `conformal_curvature_trichotomy` bundles
+    the flat/negative/positive trichotomy.  Genuine smooth 2D-conformal Ricci curvature, ∅-axiom.
+S5. **2D conformal Ricci flow** — ✅ DONE (`ConformalCurvature.lean`).  `∂_t λ = −2K·λ` (since
+    `Ric = K·g` in 2D), cleared to `λ²·∂_tλ = confFlowRate = −confKNum`; `conf_flow_flat_stationary`
+    (flat metrics are fixed points) + `conf_flow_stationary_imp_flat` (a fixed point ⟺ flat `K=0`) —
+    the flow drives the 2D-conformal metric to constant (zero) curvature, the smooth A6 conclusion.
+    **Smooth 2D-conformal route S3–S5 closed.**  (A monovariant/time-evolution simulation is a refinement.)
 
 This is genuine *smooth* (not discrete) Ricci geometry, `∅`-axiom, in 2D.
+
+## The general-`n` Ricci *lower bound* — the synthetic (CD(K,N)) bypass
+
+The wall above is the smooth *flow* with metric tensors.  The Ricci *lower
+bound* in general dimension — "Ric ≥ K, dim ≤ N" — has a **synthetic**
+characterization that needs no metric tensor at all: the Bakry–Émery
+curvature-dimension condition `CD(K,N)`,
+
+  `Γ₂(f) ≥ K·Γ(f) + (1/N)(Lf)²`,
+
+built from the carré du champ `Γ(f) = ½Σ(f(y)−f(x))²` and its iterate
+`Γ₂ = ½LΓ − Γ(f,Lf)` of the graph Laplacian `L`.  Lott–Sturm–Villani /
+Bakry–Émery: in the smooth case `CD(K,N)` is *equivalent* to `Ric ≥ K, dim ≤ N`
+— so `CD(K,N)` IS the dimension-independent meaning of a Ricci lower bound, and
+it is a finite polynomial inequality, `∅`-axiom.
+
+**Done** (`GeometrizationConjecture/BakryEmery.lean`): the discrete Bochner
+identity makes `Γ₂` an exact sum of squares — `bochner_line`
+(`4Γ₂ = (Lf(x−1))² + 2(Lf(x))² + (Lf(x+1))²`, the flat `Ric = 0` Bochner with no
+negative term) ⟹ `cd_0_2_line` (the line/large cycle is `CD(0,2)`); and
+`bochner_triangle` (`Γ₂ = (5/2)Γ + ½(f₁−f₂)²`) ⟹ `cd_triangle` (the triangle
+`C₃ = K₃` is `CD(5/2,∞)`, the complete-graph value `(n+2)/2`).  This is the
+**fourth** curvature frame (Forman, Gauss–Bonnet, Ollivier, Bakry–Émery), all
+agreeing on the sign, and the one that is *defined* dimension-independently — so
+"general-`n` Ricci lower bound" is reachable synthetically even while the smooth
+`n`-tensor flow stays walled.
+
+**Reachable next (no new idea):** the complete graph `K_m` for general `m`
+(`CD((m+2)/2, ∞)` — a single `gridSum`-over-neighbours computation generalizing
+`bochner_triangle`); the discrete Lin–Yau curvature (the optimal `K` in `CD(K,∞)`)
+as a max over test functions.  **Still walled:** the *transcendental* Perelman
+`𝓦`-entropy `∫[τ(R+|∇f|²)+f−n](4πτ)^{−n/2}e^{−f}` (needs the `n`-dim Gaussian =
+`exp` integration; the discrete `𝓦`-analog is the rung-3 energy decay).
 
 ## Verdict
 
 The round-sphere extinction is the honest *floor*.  General-`n` + transcendental-
-metric `𝓕/𝓦`-monotonicity remains the *core* wall (PDE a-priori estimates).
-But the smooth route is **not** wholesale walled: **2D conformal Ricci
-curvature/flow is reachable** with present + buildable infra (rational `K`
-formula, no sqrt/exp).  Two converging routes to A6's core now stand: the
-**discrete** Forman/Ollivier ladder (`a6_ricci_core/`) and the **smooth 2D
-conformal** ladder above.  Do not narrate the general core as "closed"; do
-pursue both ladders.
+metric `𝓕/𝓦`-monotonicity (the smooth *flow* with PDE a-priori estimates) remains
+the *core* wall.  But the smooth route is **not** wholesale walled, on two fronts:
+**2D conformal Ricci curvature/flow is reachable** (rational `K`, no sqrt/exp),
+and the **general-`n` Ricci lower bound is reachable synthetically** via the
+Bakry–Émery `CD(K,N)` condition (`BakryEmery.lean`) — the dimension-independent
+meaning of `Ric ≥ K` as a sum-of-squares fact.  Three converging routes to A6's
+core now stand: the **discrete** Forman/Ollivier/Bakry–Émery ladder
+(`a6_ricci_core/`), the **smooth 2D conformal** ladder above, and the
+**synthetic CD(K,N)** curvature-dimension condition.  Do not narrate the general
+smooth-flow core as "closed"; do pursue all three.

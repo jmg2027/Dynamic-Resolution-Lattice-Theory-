@@ -455,5 +455,3 @@ python3 tools/scan_axioms.py Lib/Math/Algebra/CayleyDickson
 - ✅ `theory/math/algebra/cayley_dickson/algebra_tower.md` (primary narrative)
 - ✅ `theory/math/algebra/cayley_dickson/exceptional_axes.md` (sibling: the
   `E₆E₇E₈` exceptional-rung derivation)
-- ✅ archived G-notes for deep dives:
-  `research-notes/archive/algebra_tower/G##_*.md`

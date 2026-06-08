@@ -53,6 +53,36 @@ def ZpSeq.trunc {p : Nat} (x : ZpSeq p) : Nat → Nat
   | 0 => 0
   | n + 1 => x.trunc n + (x.digits n).val * p^n
 
+/-! ## Diagonal limit of an approximation sequence
+
+The shared constructor behind `invFull` / `sqrtFull` / `teichmuller`: each builds its
+target `ZpSeq` as the **diagonal** of a Cauchy sequence of approximants — read digit `k`
+off the level-`k` approximant, which has settled by then. -/
+
+/-- **Diagonal limit** of an approximation sequence `s : ℕ → ZpSeq p`: digit `k` is read
+    off the matching-level approximant, `(s k).digits k`.  The limit object of a Cauchy
+    `ZpSeq` sequence whose `k`-th digit has stabilized by level `k`. -/
+def Zp.diagLimit {p : Nat} (s : Nat → ZpSeq p) : ZpSeq p where
+  digits := fun k => (s k).digits k
+
+/-- **Diagonal trunc identity**: `(diagLimit s).trunc (n+1) = (s n).trunc (n+1)`, from the
+    one-step stability `(s (n+1)).trunc (n+1) = (s n).trunc (n+1)` (each new approximant
+    agrees with the previous up to the previous level).  Every lower digit settled at its
+    own level, so the diagonal's truncation matches the level-`n` approximant.
+
+    The single proof factored out of `invFull_trunc_succ` / `sqrtFull_trunc_succ` /
+    `teichmuller_trunc_succ`. -/
+theorem Zp.diagLimit_trunc_succ {p : Nat} (s : Nat → ZpSeq p)
+    (hstab : ∀ n, (s (n + 1)).trunc (n + 1) = (s n).trunc (n + 1)) :
+    ∀ n, (Zp.diagLimit s).trunc (n + 1) = (s n).trunc (n + 1)
+  | 0 => rfl
+  | n + 1 => by
+    have ih := Zp.diagLimit_trunc_succ s hstab n
+    have hdig : (Zp.diagLimit s).digits (n + 1) = (s (n + 1)).digits (n + 1) := rfl
+    show (Zp.diagLimit s).trunc (n + 1) + ((Zp.diagLimit s).digits (n + 1)).val * p^(n + 1)
+       = (s (n + 1)).trunc (n + 1) + ((s (n + 1)).digits (n + 1)).val * p^(n + 1)
+    rw [ih, hdig, ← hstab n]
+
 /-! ## Canonical p-adic integers
 
 `zero`, `one`, `neg_one` (which is `(p-1, p-1, p-1, ...)` in our

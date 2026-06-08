@@ -3,6 +3,7 @@ import E213.Lib.Math.Analysis
 import E213.Lib.Math.Geometry.AngleStructure
 import E213.Lib.Math.Foundations.ArityForcingGeneral
 import E213.Lib.Math.Foundations.AxiomSystems
+import E213.Lib.Math.Logic
 import E213.Lib.Math.Geometry.BipartiteDecomp
 import E213.Lib.Math.Geometry.CartesianVsDisjoint
 import E213.Lib.Math.Foundations.Choice

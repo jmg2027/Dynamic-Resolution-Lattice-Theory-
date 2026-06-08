@@ -123,9 +123,7 @@ the TH-1 → TH-4 chain:
 
 When "X is derived from Raw" appears in DRLT commentary, papers,
 or AXIOM chapters, this section pins which reading is meant.
-Implementation-level evidence in `lean/E213/`; quantitative
-evidence in `research-notes/archive/metascan/G104_*.md` (Raw-
-derivation three-level taxonomy).
+Implementation-level evidence in `lean/E213/`.
 
 The phrase "everything in DRLT is derived from Raw" has three
 distinct technical meanings.  Each is independently TRUE or FALSE

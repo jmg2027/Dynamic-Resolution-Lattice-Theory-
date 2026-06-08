@@ -318,6 +318,7 @@ Grouped by module.
 | `Zp.teichmuller_unique` / `_equiv` | Frobenius-fixed lifts agreeing mod `p` are `ZpSeqEquiv`-equal (the 213 equality) |
 | `Zp.unit_decomp_unique` / `_equiv` | the `ω·u` (μ_{p−1} × (1+p·ℤ_p)) split is `ZpSeqEquiv`-unique |
 | `ZpSeqEquiv.of_trunc_all` | trunc-agreement ⇒ `ZpSeqEquiv` (funext-free bridge to the 213 equality) |
+| `Zp.diagLimit` / `Zp.diagLimit_trunc_succ` | the shared diagonal-limit constructor + its one trunc-recursion (factored out of `invFull`/`sqrtFull`/`teichmuller`, `Foundation.lean`) |
 | `Zp.teichmullerCofactor_trunc_one` | `(ω(x)⁻¹·x) ≡ 1 (mod p)` (principal-unit cofactor) |
 | `Zp.neg_one_sq_trunc` | `(−1)·(−1) ≡ 1` at every level (the ring identity for `−1`) |
 | `Zp.i_5_pow_four_trunc` | `i₅⁴ ≡ 1` at every level — the 5-adic imaginary unit is a primitive 4-th root of unity, `i₅ ∈ μ₄` |
@@ -429,21 +430,36 @@ induction.
 Cauchy convergence names a *limit*; `Zp.teichmuller` exhibits it
 as a concrete `ZpSeq`.  The construction is the same
 diagonal-extraction template that produced `invFull` / `sqrtFull`
-from their approximation sequences:
+from their approximation sequences — now factored out as a single
+`Foundation`-level abstraction `Zp.diagLimit`:
 
-  `ω(x).digits k := (teichmuller_iter x k).digits k`.
+  `Zp.diagLimit s := { digits := fun k => (s k).digits k }`
+  `ω(x) := Zp.diagLimit (teichmuller_iter x)`,
+  `invFull := Zp.diagLimit (invSeq …)`, `sqrtFull := Zp.diagLimit (sqrtSeq …)`.
 
-Each digit `k` is read off the `k`-th iterate, which has settled
-by level `k`.  Where `invFull` needed a separate digit-stability
-lemma, here the Cauchy identity *is* the diagonal trunc-recursion:
+Each digit `k` is read off the `k`-th approximant, which has settled
+by level `k`.  The diagonal trunc-recursion is proved **once**, for
+any approximation sequence, from a single one-step stability
+hypothesis:
+
+  `Zp.diagLimit_trunc_succ`:
+    `(s (n+1)).trunc (n+1) = (s n).trunc (n+1)`  (per-step stability)
+    ⟹  `(diagLimit s).trunc (n+1) = (s n).trunc (n+1)`  (every level).
+
+The three concrete limits feed their own stability witness —
+`invSeq_succ_trunc_low` / `sqrtSeq_succ_trunc_low` for the Hensel
+sequences, and the Cauchy identity `teichmuller_iter_cauchy` for the
+Frobenius iteration (here the Cauchy property *is* the stability
+hypothesis, so no separate digit-stability lemma is needed).  So
 
   `ω(x).trunc (n+1) = (iter x n).trunc (n+1)`     (`teichmuller_trunc_succ`)
 
-— the step case is exactly `teichmuller_iter_cauchy n`.  This is
-the 213-native form of "the limit reached by none of the
+is now a one-liner `diagLimit_trunc_succ (teichmuller_iter x) teichmuller_iter_cauchy`.
+This is the 213-native form of "the limit reached by none of the
 approximants is the diagonal of the approximant family": no
 completion functor, no inverse-limit existence axiom — the limit
-object is read directly out of the iteration it limits.
+object is read directly out of the sequence it limits, by one shared
+construction.
 
 `ω(x)` carries the two defining properties of a Teichmüller
 representative:

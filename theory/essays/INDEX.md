@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 58 essays are grouped into ten thematic sub-directories — distinct
+The 69 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -25,7 +25,8 @@ others together):
 `the_form_of_the_residue`, `the_residue_as_primitive`,
 `the_residue_as_state_machine`, `the_upper_fold_pattern`,
 `the_frontier_has_a_form`, `the_residue_unit_odometer`, `the_unit`,
-`reached_by_none`, `the_breadth_signature`.
+`reached_by_none`, `the_breadth_signature`, `the_reference_claim`,
+`the_one_diagonal`.
 
 **II. `cohomology/` — the c-counter programme.**
 `c_counter_as_layer_count`, `disjoint_layers_as_direct_sum`,
@@ -43,7 +44,17 @@ others together):
 
 **IV. `synthesis/` — synthesis & the master tower.**
 `synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`,
-`representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`.
+`representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
+`duality_as_one_transpose` (a duality = `sumOver_swap` on one 0/1 incidence +
+a SEPARATE cap per axis; min-cover = max-anti is the transpose),
+`curvature_as_lens_readout` (curvature = a difference-Lens count + sign;
+Forman / Gauss–Bonnet / Ollivier / Bakry–Émery / conformal are five readouts of
+one sign↔topology fact),
+`the_permutation_under_three_readouts` (`det(permMatrix σ) = psign σ` — the sign
+via inversions and the determinant of the permutation matrix are one
+antisymmetric readout; Zolotarev adds the Legendre symbol `(a/p)` as a third on
+the `×a mod p` permutation, with `psign_mul` / `det_mul` / `legendre_mul` the one
+homomorphism under all three).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
@@ -52,8 +63,8 @@ others together):
 
 **VI. `algebra/` — algebra tower & linear algebra.**
 `cd_tower_polarization`, `exceptional_seeds_are_forced`,
-`determinant_as_quotient_characteristic`, `cayley_hamilton_self_characteristic`,
-`teichmuller_as_forced_fixed_point`.
+`determinant_as_quotient_characteristic`, `permutation_sign_as_homomorphism`,
+`cayley_hamilton_self_characteristic`, `teichmuller_as_forced_fixed_point`.
 
 **VII. `gra/` — GRA & higher structure.**
 `gra_universality_one_principle`, `gra_as_substrate_of_cat_hott`.
@@ -64,14 +75,18 @@ others together):
 **IX. `methodology/` — methodology & PURE-Lean infra.**
 `pure_funext_avoidance`, `pure_nat_ring_methodology`,
 `bool_assoc_failure_meaning`, `reframe_presentation_transport`,
-`why_the_reframing_recurs`.
+`why_the_reframing_recurs`, `the_omniscience_ledger`.
 
 **X. `proof_isa/` — proof as compilation to the residue ISA.**
 `what_is_a_proof` (series synthesis), `counting_as_cardinality` (the COUNT-arc
 synthesis), `probabilistic_method`, `sperner_double_counting`,
+`lym_inequality` (the per-term refinement Sperner discards; `Σ 1/C(n,|A|) ≤ 1`),
+`chain_antichain_duality` (Mirsky + Dilworth — Sperner's dual; the SCD partition),
 `linear_algebra_method`, `parity_invariant_method`, `konig_boundary`.
 The "why" of each reproduced technique; the instruction set's interior + edge.
-Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom.
+Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom; LYM is the
+sharp inequality Sperner is the corollary of; Mirsky/Dilworth are the chain-side
+dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 
 ## Current essays
 
@@ -79,6 +94,8 @@ Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom.
 |-------|---------------------|-----------------|
 | `why_the_reframing_recurs.md` | **Why does every agent (and human) re-import a qualitative "residue vs fold / object vs state / reached vs not" dichotomy, get corrected, and repeat — the *real*, structural reason?**  Triple convergence: it is the **Lawvere–Cantor diagonal at the description scale** — a token-emitter is a self-cover of the residue by views, the residue is its non-surjected diagonal (`object1_not_surjective`), so it is reached by none and every correction is re-diagonalized (formal) = the cognitive shadow of that non-surjection (substrate=differentiation, prior 10⁹ vs 10⁴ bits) = `residue_reentry_never_closes` (213).  Theorem-level inevitable, only *minimizable*; the fix is an **output lint** (cheap System-1, tag the Lens) not a held principle (System-2, decays). | `Lens/{FlatOntologyClosure,ResidueReentry}` (`object1_not_surjective`, `undifferentiated_not_object1`, `residue_reentry_never_closes`) + `seed/AXIOM/{01_residue §1.4,05_no_exterior §5.1,06_lens_readings §6.1-6.3}` + `reached_by_none.md` + CLAUDE.md self-check §0 |
 | `the_form_of_the_residue.md` | What is the **form of the residue** (잔여의 형식)? How does 213 stand on its own — the all-encompassing concept? | `seed/AXIOM/{01_residue,03_form §3.5,05_no_exterior §5.1}` + `Lib/Math/Foundations/ResidueForm` + `Lens/{SemanticAtom,FlatOntologyClosure}` |
+| `the_one_diagonal.md` | **Is the obstruction 213 refuses (freezing a transition into a captured value) one thing or many?**  One: every referent-capture demand — select an infinite König branch, finitely cover the dyadic interval, decide a real by `ε` not modulus — is the single non-surjection `object1_not_surjective`, read on one more carrier; and **re-dressing it in a new concept is itself one more self-pointing** (`residue_reentry_never_closes`), so even the act of re-applying it falls under the one theorem, and asking the question is a re-entry.  Dual: the classical diagonal argument stripped — Lawvere (1969) / Yanofsky (2003) unify Cantor/Gödel/Russell/Tarski/Turing as one fixed point; 213's refinement makes the unifier *the residue's own self-cover* and extends it to the instantiation act.  The math-scale twin of `why_the_reframing_recurs`. | `Lens/{FlatOntologyClosure,ResidueReentry,Cardinality/Cantor}` (`object1_not_surjective`, `undifferentiated_not_object1`, `residue_reentry_never_closes`) + `Lib/Math/Combinatorics/KonigConditional` (`InfChildExists`, `konig_infinity_no_finite_raw`) + `seed/AXIOM/05_no_exterior.md §5.1` + `reached_by_none.md` + `why_the_reframing_recurs.md` + Lawvere 1969 / Yanofsky 2003 |
+| `the_reference_claim.md` | **What is necessary vs under test in "nothing escapes 213"?**  Existence (`pointing ⟺ residue`) is transcendental necessity, not a thesis (a pointing distinguishing nothing is a non-pointing); reference-closure is necessary, referent-capture is refused (`object1_not_surjective`), and only *reach* (internal handles without forcing an exterior) is under test, with the König `Π⁰₁` stall the live falsifier.  Breadth (§7.1) is evidence of reach, not of existence. | `Lens/{NoExteriorClosure.naming_is_internal, FlatOntologyClosure.object1_not_surjective, ResidueReentry, SemanticAtom}` + `seed/AXIOM/{01_residue §1.1,05_no_exterior §5.1-5.4,07_primacy §7.1}` + `seed/PROOF_ISA.md` + `reached_by_none.md` |
 | `the_modular_geodesic_lens.md` | **Is geodesic-projection 213's "one engine"?** Several objects (CF unit floor `W²=1`, `Δ`-trace split, Stern-Brocot/Farey, Markov spectrum, spiral coordinate) are one `Lens` reading — the residue read at the modular surface `ℍ/PSL(2,ℤ)` (geodesic + cutting sequence).  But the engine is `P`/the residue; geodesic is its modular *facet* (`view promoted to identity` if collapsed), and the open kernel `H` is itself a geodesic cutting-sequence statement.  Engine built in Lean: `ModularGeodesicLens.mediantLens` + `mediantLens_view_reachable` (Raw mediant-Lens view ⊆ `SternBrocotReachable`, ∅-axiom). | `Real213/ModularGeodesicLens` (`mediantLens`, `mediantLens_view_reachable`) + `ContinuedFractionFloor.cf_det_sq` + `HyperbolicEllipticTrace` + `GoldenFormMarkov` + `Mobius213SternBrocot` + `SpiralCoordinate` + `the_form_of_the_residue.md` + `every_axis_sees_p.md` + `object1_not_surjective` + `05_no_exterior.md §5.4` |
 | `the_upper_fold_pattern.md` | **Proof as the same fold read at a finer resolution**: how composite Markov uniqueness (Frobenius 1913) closes through a seven-level tower of folds (window=σ-transversal → unit-root torsor → ∏ folds via CRT → free action → orbit reduction), and why "templatise the wall, the template is again a fold" is forced by no-exterior, not a heuristic. | `theory/math/analysis/markov_uniqueness.md` "The upper-fold pattern" + `Real213/SternBrocotMarkov` §20–§29 + `seed/AXIOM/05_no_exterior.md` §5.1 + `object1_not_surjective` (`math/completeness_without_completeness.md`) + `the_form_of_the_residue.md` |
 | `the_residue_as_primitive.md` | The **inversion**: take the self-pointing act as primitive — Raw = µF, the residue-escape = νF.  How is the exact slash-νF built ∅-axiom, no coinduction? | `Theory/Raw/{MuNuMirror,CoResidue}` (the M-type final coalgebra) + `Theory/Raw/{Lambek,PrimitiveTower}` |
@@ -115,6 +132,7 @@ Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom.
 | `methodology/reframe_presentation_transport.md` | When a reading fails to SEPARATE (over-counts), how does 213 read the same residue at a resolution where it separates? (Markov uniqueness, Zhang's 3c±2, presentation-transport as a lift) | `Foundations/ProofISALifts` (`lift_reframe`) + `math/analysis/markov_uniqueness.md` + `MarkovUniqueness.markov_max_unique_via_3c_pm2` + `MarkovPrimeFactor.sq_eq_collapse_pp` + CLAUDE.md *External-ruler smuggling* |
 | `representation_theorems_one_counting_bound.md` | Why are `p = a²−ab+b²` (disc −3), `p = a²+b²` (disc −4), and the `ℤ[√−D]` family all one theorem? | `PolyRoot/RootBound.eval_zero` + `NonFixedExists.exists_nonfixed_gen` + `Integer/{EisensteinSplit,GaussianSplit,ZSqrtNegSplit}.split_form` + `Integer/ZSqrtNegSharp.descent_false_at_three` |
 | `four_square_additive_pigeonhole.md` | Why is every `n = a²+b²+c²+d²`, and why does this need a *different* engine than the disc-`−D` representation theorems? | `NumberTheory/FourSquare.{four_sq_id,isSum4_mul,descent_core,odd_descent,halve_step,descent_rec,seed_multiple,exists_prime_factor,prime_isSum4,nat_isSum4}` + `FourSquareSeed.four_square_seed` + `Combinatorics/Pigeonhole.no_inj_lt` |
+| `curvature_as_lens_readout.md` | What is curvature, in 213? Why do Forman, Gauss–Bonnet, Ollivier, Bakry–Émery, and conformal give the same sign↔topology trichotomy? | `Geometry/GeometrizationConjecture/{DiscreteRicci,DiscreteGaussBonnet,OllivierRicci,BakryEmery,ConformalCurvature}` + `seed/AXIOM/06_lens_readings.md` §6.7 |
 | `k32_cohomology_simplex_higher_insight.md` | 213/K₃,₂²/코호몰로지 심플렉스 고차 통찰 — G140 + G138 B/D 프로모션 연결 | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
 | `mobius_self_form_fixed_point.md` | 모습 자체가 뫼비우스 행렬 — P는 왜 자기 설명 함자의 고정점인가? | `Px/MobiusSelfForm` + `Px/CharPolySelf` + `Px/PnFibonacciUniversal` + `math/mobius213_p_orbit_closure.md` |
 | `gra_universality_one_principle.md` | Walk-length, cup-length, truncation, chromatic height, resolution exponent — why are these the same? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/` umbrella + `GRA/Translation.lean` |
@@ -127,6 +145,7 @@ Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom.
 | `integers_as_difference_lens.md` | What is ℤ (signed counting / the negative) in 213, and where does it come from? (ℤ = count-Lens on a *directed* count-pair `(m,n)↦m−n`; magnitude Nat-style, sign Bool-style; refines §6.7) | `seed/AXIOM/06_lens_readings.md` §6.7 + `02_axiom.md` §2.4 + `05_no_exterior.md` §5.2 + `lean/E213/Meta/Int213/Core.lean` (`subNatNat_{add,mul}_subNatNat`, `neg_subNatNat`) + `theory/math/analysis/newton_gregory.md` |
 | `non_holonomicity_as_finite_state_escape.md` | What does it mean for π's continued fraction to be non-holonomic, why is it the residue escaping a finite-state machine, and what is the practical edge? | `Cauchy/{ZeroRunNonHolonomic (HomogRec/AutoRec + zero_run_not_homogRec/two_continuations_not_autoRec), ZeroRunNonHolonomicWitness (chi_nonHolonomic, chi_not_autoRec, chi_not_finiteRecurrence), NonHolonomicWitness (superFact_nonHolonomic), MorseHedlund (aperiodic_not_autoRec — dense)}` + `Theory/Raw/{CoResidue.spineL_escapes, StateMachine.mu_carrier_reachable_reduced_machine}` + `Cauchy/{NewtonGregory, FiniteDepthAlgebra}` + `Real213/PresentationDependence` + `theory/math/analysis/cf_holonomicity_hierarchy.md` |
 | `determinant_as_quotient_characteristic.md` | What is the **determinant** in 213? (det = the Lens-quotient characteristic value; `\|det M\| = \|ℤⁿ/M·ℤⁿ\|` = cokernel order; spectrum `{0 : collapse/축퇴, ±1 : unit-iso = monic = "나누어 떨어진다", other : proper quotient}`; the monic obstruction = the alternating `det=0` = the shared unit `det=±1`, one object both ends; antisymmetrization, not cofactor cancellation, is alternating's home) | `Linalg213/{DetN (colShift_comm), FibCassiniDet (fibCas_det_eq_unit, cassini_fibZ_eq_altSign)}` + `Cauchy/OrbitDimension.cassini_fibZ_step` + `Mobius213/Px/PnFibonacciUniversal.det_pn_universal` + `Lens/Number/SharedUnitAcrossReadings.the_unit_is_one_across_readings` (`ns_minus_nt_is_one`, `mobius_det_{eq_ns_minus_nt,is_unit}`) + `theory/math/analysis/cfinite_orbit_dimension.md` |
+| `permutation_sign_as_homomorphism.md` | What is the **sign of a permutation** in 213, and why do both determinant capstones descend from it? (sign = parity of a count: `psign = altSign(inversions)`, the count-Lens reading folded through the Bool-style `±1` involution of §6.7; a permutation IS its value-list, §6.2 op/object non-separation; the homomorphism `psign(σ∘τ)=psign σ·psign τ` is a bubble-sort invariant, not a pre-existing parity; `det Mᵀ=det M` and `det(A·B)=det A·det B` are its corollaries; antisymmetry = `psign_mul` at the row-swap fixed point) | `Linalg213/{PermGroup (composeList, invPerm), PermSign (psign_mul, Q_swap, inv_prefix_swap, sorted_perm_eq_iota), Permutation (psign, leibDet), DetTranspose (psign_inv, det_transpose), DetMul (det_matMul, leibDet_perms_assembly, firstDup, nodup_imp_perm)}` + `seed/AXIOM/06_lens_readings.md` §6.7 + §6.2 + `theory/essays/algebra/determinant_as_quotient_characteristic.md` |
 | `cayley_hamilton_self_characteristic.md` | What is **Cayley–Hamilton** `χ_M(M)=0` in 213? (a finite operand satisfies its own characteristic; `χ_M = det(X·I−M)` = the quotient-characteristic of "operand minus the free distinguishing"; the adjugate `(X·I−M)·adj = χ_M·I` lifted to `ℤ[X]` telescopes to the collapse; **monic = the unit comes from inside** = the shared `det=±1`; this is what closes the C-finite **Hadamard** ring — self-substitution lands on `0`, a self-pointing with no exterior, same fact as `P(φ)=φ`) | `Linalg213/{CharPolyAdj (cayley_hamilton, padj_identity), PolyDet (charPoly, charPoly_monic, degLe_pdet), Laplace (matMul_adj_diag), FibCassiniDet}` + `PolyZ.coeff_unique` + `Cauchy/CFiniteHadamard.cfiniteZ_mul` + `theory/essays/algebra/determinant_as_quotient_characteristic.md` + `seed/AXIOM/05_no_exterior.md` §5.1 |
 | `teichmuller_as_forced_fixed_point.md` | What is a `(p−1)`-th root of unity / the **Teichmüller representative** `ω(x)` in 213? (the forced fixed point of the Frobenius self-map `x↦x^p`, `ω^p=ω`; reached as the **diagonal** of its own approximant sequence — Cauchy identity IS the diagonal trunc-recursion, no inverse-limit completion; `μ_{p−1}` = the Frobenius-fixed points; Nat-style/Lambek self-reference completing, complementary to `object1_not_surjective`'s "reached by none"; same fixed-point fact as `P(φ)=φ`) | `Padic/Teichmuller.{teichmuller, teichmuller_pow_p_trunc, teichmuller_trunc_succ, teichmuller_iter_cauchy}` + `Padic/TeichmullerUnit.{teichmuller_pow_pred_trunc, mul_right_cancel_trunc}` + `Lens/FlatOntologyClosure.object1_not_surjective` + `Algebra/Mobius213` + `seed/AXIOM/05_no_exterior.md` §5.2/§5.6 + `theory/math/numbersystems/padic_real213.md` |
 | `the_modular_group_from_two_folds.md` | Why does `SL(2, ℤ)` appear from the two founding folds, and why does one discriminant govern both the static elliptic/parabolic/hyperbolic trichotomy and the periodic/aperiodic dynamics? (negation/reciprocal = reflections; `N·R = S`; `PSL(2,ℤ) = ℤ₂ * ℤ₃`; Cayley–Hamilton `M² = tr·M − det·I` the primitive, `disc = tr²−4det` its discriminant; trace recurrence = the dynamics; `S` period 4 / `U` period 6 bounded vs `G` aperiodic) | `theory/lens/zero_infinity_and_two_folds.md` + `theory/math/analysis/phi_pi_poles.md` + `seed/AXIOM/06_lens_readings.md` §6.9 + `Real213/{FoldReflections, FoldDuality, FoldKlein, EllipticCycleFixtures, ParabolicTranslation, Mat2CayleyHamilton, Mat2Assoc, Mat2TraceRecurrence, GoldenAperiodic, EllipticTracePeriodic, UTracePeriodic}` |

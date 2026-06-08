@@ -30,7 +30,7 @@ under the same thematic super-cluster as its Lean sub-tree.
 `cup_ladder_graduation`, `k32_higher_cohomology`, `k_nm_c_classification`,
 `mediant_cohomology_functor`, `tripartite_self_containment`, `sym3_spine`.
 
-### `numbertheory/` — `dyadic_fsm`, `modular_arithmetic`, `eisenstein_period_arithmetic`, `euclidean_division`, `quadratic_reciprocity`.
+### `numbertheory/` — `dyadic_fsm`, `modular_arithmetic`, `eisenstein_period_arithmetic`, `euclidean_division`, `legendre_symbol`, `quadratic_reciprocity`.
 
 ### `geometry/` — geometric / topological / discrete-substrate
 `geometry`, `topology`, `geometrization_conjecture`, `exotic_4mfd_cork`,
@@ -44,6 +44,10 @@ under the same thematic super-cluster as its Lean sub-tree.
 ### `probability/` — `probability`, `information`.
 
 ### `combinatorics/` — `combinatorics`, `logic`, `graph_connectivity`, `bool_enumeration`.
+
+### `logic/` — reverse mathematics / omniscience ledger
+`reverse_math_213` (the `Lib/Math/Logic/` mirror — LPO/WLPO/MP/LLPO, the König
+selection cost, `WKL ⟺ Heine–Borel`, the object-level axiom-cost ledger).
 
 ### `tactic/` — `tactic`, `extras` (math-side infra).
 
