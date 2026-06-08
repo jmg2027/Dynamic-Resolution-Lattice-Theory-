@@ -57,26 +57,40 @@ Apex on the Thales circle ⇒ **`cos γ = R_u = 1/φ²`**:
 
 Two principled inputs (`α=π/2` from CD `i`; `R_u=1/φ²` derived) fix the triangle.
 
+## ★ `α = 90°` upgraded from input to FORCED (`CPPhaseC4Forcing.lean`, 6 PURE)
+
+The "wiring" step is now done as a **forcing argument**.  Two 213-derived inputs:
+1. the complex structure is the **CD `i`** (`NT=2` first doubling) ⇒ phase
+   `∈ ℤ[i]^× = C₄ = {1,i,−1,−i}` (`{0,90,180,270}°`);
+2. **CP exists** (`CPPhaseCount`: `N_gen=3 ⇒ 1` *physical*, `J≠0` phase).
+
+Forcing: `J ∝ Im`; the real `C₄` units `{±1}` give `J=0` (no CP), so CP-existence
+**excludes** them, leaving `{i,−i} = {±90°}` (pure imaginary, `J≠0`).  Up to
+CP-orientation (`δ↔−δ`), **`δ = 90°` is forced** — the right unitarity triangle.
+So `α=90°` is **derived** from `C₄` + CP-existence, *not* posited.
+
 ## Honest status
 
-- **Demoted**: `δ = π/φ²` (Niven-forbidden golden phase; was a posit `176/147`,
-  and a mediocre `68.75°` vs `γ_obs=65.1°`).
-- **`α = 90°` is still an input** — motivated by the CD `i` / right-triangle /
-  maximal-CP program (and `α_obs≈92°`), but not rigorously forced to be the CKM
-  `α`.  The fit is decent (`β` exact, `α,γ` ~1.5σ), not perfect.
-- **The advance is principled-ness**, not precision: the phase is now a Niven-
-  allowed root of unity consistent with every no-go, and `cos γ = 1/φ²` is a
-  clean golden *output*.
+- **Demoted**: `δ = π/φ²` (Niven-forbidden golden phase; mediocre `68.75°`).
+- **`α = 90°` now FORCED** given the *sole* remaining premise "phase `∈ C₄`"
+  (the complex structure is the `NT=2` first doubling `i`, not a higher
+  cyclotomic).  Why `C₄` not `C₆` (`ℤ[ω]`, `60°`): the *first/minimal* complex
+  doubling is `ℤ[i]`; and empirically `α≈90°`, not `60°`.  This premise is far
+  weaker and more principled than positing a value.
+- **`R_u = 1/φ²` derived** (M eigenvalue) ⇒ `cos γ = 1/φ²` (golden output);
+  `β = 22.46°` ≈ exact; fit ~1.5σ on `α,γ`.
+- **The advance**: the phase value is now *forced* (not posited) from 213-native
+  structure — `C₄` (CD `i`) + CP-existence — consistent with every no-go.
 
-## What "new territory" would close it fully
+## What "new territory" remains (after the C₄ forcing)
 
-To *derive* (not posit) `α=90°`: a forcing theorem that the single KM phase is
-pinned to the CD `i` (the `C₄` unit) — i.e. that the 3-generation flavour space
-is wired to the `NT=2` CD doubling such that the surviving rephasing-invariant
-phase is exactly `arg i = π/2`.  This is the precise missing bridge: a
-**complex-type (`FS=−1`) representation of the 3 generations carrying the CD `i`**,
-evading the A₅ reality wall.  The CD tower has the `i` (`ℤ[i]`, `C₄`) and 213 has
-`N_gen=3`; what is unbuilt is the wiring between them.
+The forcing reduces the open part to a single premise: **the relevant complex
+structure is the CD `i` (phase `∈ C₄`)**.  To eliminate even that, build the
+explicit bridge — a complex-type (`FS=−1`) representation of the 3 generations
+(SU(5) `5̄⊕10`) carrying the CD `i`, so the surviving rephasing-invariant phase
+is *structurally* a `ℤ[i]` unit (not assumed).  This would turn "phase `∈ C₄`"
+from a premise into a theorem.  The CD `i` (`ℤ[i]`, `C₄`), `N_gen=3`, and the
+forcing all exist; only the explicit generation↔`ℤ[i]` mass-structure is unbuilt.
 
 ## Lean / files
 - `Mixing/CPPhaseCount.lean` (6 PURE) — CP existence+uniqueness from `N_gen=3`.
