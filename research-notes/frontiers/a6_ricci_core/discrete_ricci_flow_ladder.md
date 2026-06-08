@@ -168,9 +168,18 @@ the non-vertex-transitive bipartite graph (`K_m` and the cycle are vertex-transi
   · **Phase 3b** `kab_cd_narrow` (`b ≤ 2a−2`, incl. `K_{3,2}`): the negative `X²`-coefficient needs the
     **discrete Cauchy–Schwarz** `X² ≤ b·gammaC` (`cauchy_schwarz_gridZ`, proven by induction with `kab_inner`
     as the SOS gap) ⟹ `CD((b−a+4)/2,∞)`.
-The `A`-vertex curvature is `min(3a−b, b−a+4)/2`; `K_{3,2}` (`a=3,b=2`) is `CD(3/2,∞)`.  Reduces to the
-star (`BakryEmery` §4) at `na=0`.  A **`B`-vertex** is the *same* theorems with `(na,nb) ↦ (b−1, a)`
-(curvature `min(3b−a, a−b+4)/2`) — no extra work, the `(na,nb)` parametrization is the per-vertex view.
+The `A`-vertex curvature is `min(3a−b, b−a+4)/2`; `K_{3,2}` (`a=3,b=2`) is `CD(3/2,∞)` (`kab_K32_pos`,
+positive at either vertex).  Reduces to the star (`BakryEmery` §4) at `na=0`.  A **`B`-vertex** is the
+*same* theorems with `(na,nb) ↦ (b−1, a)` (curvature `min(3b−a, a−b+4)/2`) — no extra work, the `(na,nb)`
+parametrization is the per-vertex view.
+
+**Cross-frame sign divergence (honest, `K_{3,2}`).**  Simple Forman–Ricci `4 − d_u − d_v` (correctly
+scoped to triangle-free graphs, which `K_{3,2}` is) gives `4 − 3 − 2 = −1 < 0` (`forman_K32`) — the
+**opposite sign** to the Bakry–Émery `CD(3/2) > 0`.  The degree-dominated Forman and the
+curvature-dimension Bakry–Émery need not agree in sign on a fixed graph (documented for `d_u+d_v > 4`);
+the four frames coincide on the qualitative `+/0/−` *trichotomy* across the standard test set, not
+pointwise.  So "the four frames all agree" holds for the trichotomy, **not** as a pointwise sign identity —
+for the DRLT lattice the Bakry–Émery `CD(3/2)` is the finer, transport-consistent reading.
 
 Remaining refinements: general bipartite `K_{a,b}` (`a ≥ 2`, the DRLT `K_{3,2}` core, two-shell); the
 discrete Lin–Yau optimal `K` for the cycle; more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor

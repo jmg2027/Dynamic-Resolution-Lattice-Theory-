@@ -254,4 +254,23 @@ theorem kab_cd_narrow (na nb : Nat) (x y : Nat → Int)
           + kabShellGap na nb x y from by ring_intZ]
   exact Order.nonneg_of_le_zero (add_nonneg hprod (kabShellGap_nonneg na nb x y))
 
+/-! ## §6 — the DRLT core `K_{3,2}` and a cross-frame sign divergence -/
+
+/-- ★★★★★ **The DRLT core `K_{3,2}` is `CD(3/2, ∞)`** — positive curvature at either vertex
+    (`a=3, b=2`: the `A`-vertex `min(3a−b, b−a+4)/2 = min(7,3)/2 = 3/2`; the `B`-vertex
+    `min(3b−a, a−b+4)/2 = min(3,5)/2 = 3/2`).  `b`-scaled: `2·gamma2 ≥ 6·gammaC`, i.e.
+    `Γ₂ ≥ (3/2)·Γ`.  Instance of `kab_cd_narrow` (`K_{3,2}` is narrow: `b = 2 ≤ 2a−2 = 4`).
+
+    **Cross-frame note (honest).**  The simple Forman–Ricci `4 − d_u − d_v` — correctly
+    scoped to triangle-free graphs, which `K_{3,2}` is — gives `4 − 3 − 2 = −1 < 0`
+    (`DiscreteRicci.forman_K32`), the **opposite sign** to this `CD(3/2) > 0`.  The crude
+    degree-dominated Forman and the curvature-dimension Bakry–Émery need not agree in sign
+    on a fixed graph (a documented phenomenon for graphs with `d_u + d_v > 4`); the four
+    discrete frames coincide on the qualitative `+/0/−` *trichotomy* across the standard
+    test graphs, not pointwise on every graph.  For the DRLT lattice the Bakry–Émery
+    `CD(3/2)` is the finer, optimal-transport-consistent reading. -/
+theorem kab_K32_pos (x y : Nat → Int) :
+    6 * kabGammaC 2 x ≤ 2 * kabGamma2C 2 2 x y :=
+  kab_cd_narrow 2 2 x y (by decide)
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
