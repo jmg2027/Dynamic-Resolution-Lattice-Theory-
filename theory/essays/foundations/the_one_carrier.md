@@ -25,7 +25,9 @@ reads as three labellings of one residue-escape — a breadth-claim (`seed/AXIOM
   (`konig_infinity_no_finite_raw`).
 - p-adic instance: `lean/E213/Lib/Math/NumberSystems/Padic/NuEscape.lean`
   (`padicNu`, `padic_is_nu_escape`, `padic_distinct`, `padic_shift_dynamics`; the `Fin 2 ≃ Bool`
-  case `twoAdic_is_nu_escape`; the arithmetic capstone `padic_arithmetic_one_carrier`).
+  case `twoAdic_is_nu_escape`; the arithmetic capstone `padic_arithmetic_one_carrier`; the
+  multiplicative valuation `mulBase`/`residue`/`padic_valuation_one_carrier`, against
+  `Padic/Norm.lean`'s `Zp.valAtLeast`).
 - arithmetic (the residue unit `+1`): `lean/E213/Theory/Raw/Odometer.lean` §7–§8
   (`runCarry` the alphabet-independent carry; `pOdo`/`pCarry` the p-ary odometer,
   `pOdo_allTop_zero` = `(-1)+1=0`, `pOdo_injective`).
@@ -125,6 +127,16 @@ So ℤ_p's successor *is* the residue unit acting on `gspine`-over-`Fin p`, and 
 its canonical escape (`padic_arithmetic_one_carrier`).  The carrier hosts not just the *shape* and
 the *shift* of the number systems but the residue unit's *arithmetic*.
 
+The **multiplicative** skeleton is there too — its generator, `× p`, the p-adic valuation
+operator (`mulBase`, `padic_valuation_one_carrier`).  Multiplication by the base shifts the digits
+up and inserts a `0`: it lands in the maximal ideal `pℤ_p` and raises the valuation by exactly one
+(`mulBase_valAtLeast_succ`: `v_p(p·x) = 1 + v_p(x)`, against the existing `Norm` valuation), is
+injective (`p` is not a zero divisor), and — the carrier fact — its inverse `÷p` is *exactly the
+shift* of CoResidue §21 (`mulBase_coRight`: the right-descent of `gspine (p·x)` is `gspine x`).
+The lowest-digit readout is the residue field 𝔽_p (`residue`, surjective; `× p` reduces to `0`; the
+unit `1` is outside the image, so `p` is not a unit).  So the carrier carries ℤ_p's valuation
+*filtration* — the multiplicative norm structure — as well as the additive odometer.
+
 ### Cross-frame
 
 The "one carrier" reading is the number-system instance of three already-pinned 213 facts.
@@ -144,12 +156,14 @@ escape wearing the alphabet of whichever number system is being pointed at.
 
 ## Honest scope
 
-- The shared *arithmetic* is the residue unit `+1` (the odometer, `Theory/Raw/Odometer` §8) and
-  its inverse `-1` — the additive successor structure, with `(-1) + 1 = 0` and injectivity.  The
-  *full* ring of ℤ_p (multiplication, the `× p` valuation shift) and the field of ℝ are **not**
-  claimed to descend from `gspine`; lifting `×` (digit convolution with carry) to the generic
-  carrier is the remaining open frontier.  What is closed: the carrier, the shift, and the
-  unit-`+1` arithmetic.
+- The shared *arithmetic* is the additive odometer `±1` (`Theory/Raw/Odometer` §8; `(-1)+1=0`,
+  injective) **and** the multiplicative valuation generator `× p` (`mulBase`,
+  `padic_valuation_one_carrier`: the `pℤ_p` filtration, residue field 𝔽_p, `÷p` = the carrier
+  shift).  What remains open is the **full** digit-convolution multiplication: `Zp.mul` exists
+  (`Padic/Arith.lean`) but is not yet *identified* with `mulBase` on the `× p` case, nor lifted to
+  a binary operation on `gspine` — and ℝ's field structure on the carrier is untouched.  What is
+  closed: the carrier, the shift, the unit-`±1` arithmetic, and the multiplicative valuation
+  filtration (`× p`).
 - `cutBits` is one honest presentation-dependent extractor (the cut-decision diagonal); it is
   not claimed canonical on the equivalence class.  A faithful map on `Real213.equiv` would need
   the order-decision *limit* (existence via the modulus), which is the LPO-costed step of the

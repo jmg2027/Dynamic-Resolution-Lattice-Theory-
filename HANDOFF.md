@@ -103,8 +103,16 @@ bits.  So König / ℤ_p / ℝ all sit on one νF carrier.
 (µF/νF mirror), `pOdo_allTop_zero` (`(-1)+1=0`), `pOdo_injective` (no collision).  `Padic/NuEscape`
 capstone `padic_arithmetic_one_carrier`: ℤ_p's `-1` (= `ZpSeq.neg_one`, all digits `p-1`) is the
 all-top stream whose `+1`-carry never lands and wraps to `0` — so the one-carrier claim is
-*algebraic* (the residue unit `+1`), not only dynamical.  **Open**: lifting `×` (digit convolution
-with carry) — the full ℤ_p ring / ℝ field on the generic carrier.  Essay updated.
+*algebraic* (the residue unit `+1`), not only dynamical.
+
+### 3c. Multiplicative valuation on the carrier — ✅ CLOSED (this session)
+`Padic/NuEscape` `padic_valuation_one_carrier`: the multiplicative generator `× p` (`mulBase` =
+prepend-`0` digit) is the valuation operator — `p·x ∈ pℤ_p`, `v_p(p·x)=1+v_p(x)`
+(`mulBase_valAtLeast_succ`, against the existing `Norm.Zp.valAtLeast`), injective, residue field
+𝔽_p (`residue`, surjective; `1 ∉ pℤ_p`), and **`÷p` = the carrier shift** (`mulBase_coRight`,
+CoResidue §21).  So the carrier carries ℤ_p's valuation *filtration* (the multiplicative norm
+skeleton).  **Open**: identifying `mulBase` with the existing full `Zp.mul`-by-`p` (digit
+convolution, `Arith.lean`) and lifting `×` as a binary op on `gspine`; ℝ's field on the carrier.
 
 > Note (propext traps hit + recorded): `Nat.succ_ne_zero`, `Nat.sub_add_cancel`, `by_cases`, and
 > `rw`-with-an-`Iff` all pull `propext`.  Use `Nat.noConfusion`, `cases p`/defeq, `rcases
