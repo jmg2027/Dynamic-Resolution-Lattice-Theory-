@@ -21,6 +21,7 @@ open E213.Lib.Math.Algebra.Linalg213.Permutation
    inversions ltCount ltCount_append ltCount_cons2_comm)
 open E213.Lib.Math.Algebra.Linalg213.PermGroup (composeList map_append')
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (permsOf_sound permsOf_complete)
+open E213.Meta.Int213 (mul_neg neg_mul)
 
 /-! ## §1 — composition commutes with an adjacent position-swap -/
 
@@ -150,5 +151,21 @@ theorem descent_of_inv_pos (τ : List Nat) (h : inversions τ ≠ 0) :
   rcases sorted_or_descent τ with hs | hd
   · exact absurd (sorted_imp_inv_zero τ hs) h
   · exact hd
+
+/-! ## §5 — the swap-invariant `psign(σ∘τ)·psign τ` -/
+
+/-- ★★ **The step invariant**: `psign(σ∘τ)·psign τ` is unchanged by swapping an adjacent pair
+    (`pre ++ y :: x :: l ↦ pre ++ x :: y :: l`), provided the entries and their `σ`-images differ.
+    Both factors flip sign (`psign_swap_prefix` on `τ` and on `σ∘τ`), so the product is preserved —
+    this makes the value `psign(σ∘τ)·psign τ` an invariant of the bubble-sort reduction. -/
+theorem Q_swap (σ pre : List Nat) (y x : Nat) (l : List Nat) (hxy : x ≠ y)
+    (hne : σ.getD x 0 ≠ σ.getD y 0) :
+    psign (composeList σ (pre ++ y :: x :: l)) * psign (pre ++ y :: x :: l)
+      = psign (composeList σ (pre ++ x :: y :: l)) * psign (pre ++ x :: y :: l) := by
+  rw [composeList_append σ pre (y :: x :: l), composeList_append σ pre (x :: y :: l),
+      composeList_cons σ y (x :: l), composeList_cons σ x l,
+      composeList_cons σ x (y :: l), composeList_cons σ y l,
+      psign_swap_prefix (composeList σ pre) (composeList σ l) hne,
+      psign_swap_prefix pre l hxy, neg_mul, mul_neg, Int.neg_neg]
 
 end E213.Lib.Math.Algebra.Linalg213.PermSign
