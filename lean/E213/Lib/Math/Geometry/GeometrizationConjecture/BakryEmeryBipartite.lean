@@ -1,0 +1,130 @@
+import E213.Meta.Int213
+import E213.Meta.Int213.Bound
+import E213.Meta.Int213.PolyIntMTactic
+import E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
+
+/-!
+# Bakry–Émery curvature of the complete bipartite graph `K_{a,b}` — the DRLT core (∅-axiom)
+
+The general bipartite case `K_{a,b}` (`a = |A|`, `b = |B|`), of which `K_{3,2}` is the
+repo's central lattice.  Curvature is read at an `A`-vertex (the `B`-vertex case is the
+`a ↔ b` mirror).  Unlike the star `K_{1,b}` (`BakryEmery.lean` §4, `a = 1`, second shell
+empty), `a ≥ 2` has a genuine **second shell**: the centre `v ∈ A` → its `b` neighbours
+in `B` → their `a−1` *other* `A`-neighbours.
+
+Working **relative to the centre** (translation-invariance of `Γ`/`Γ₂`) eliminates the
+centre value: `x j = w_j − c` are the `B`-values, `y i = u_i − c` the other-`A` values
+(`nb = b` of the former, `na = a−1` of the latter).  Then the centre Laplacian
+`X = Σ x_j`, `Γ(centre) = Σ x_j²`, a `B`-vertex `w_j` reads `Lf(w_j) = Y − a·x_j`
+(`Y = Σ y_i`, `a = na+1`), and the closed form is
+
+  `gamma2 = (3a−b)·gammaC + 2X² + b·Q_y − 4XY`        (`Q_y = Σ y_i²`)   — `kab_bochner`.
+
+Completing the square over the **free second shell** `y` (`kab_shell_sos`):
+
+  `b·gamma2 = b(3a−b)·gammaC + (2b−4a+4)·X² + Σ_i (b·y_i − 2X)²`,
+
+the last term a manifest SOS.  Hence:
+
+  · `b ≥ 2a−2` (`2b−4a+4 ≥ 0`): `b·gamma2 ≥ b(3a−b)·gammaC` directly — `CD((3a−b)/2, ∞)`
+    with **no** Cauchy–Schwarz (`kab_cd_wide`);
+  · `b ≤ 2a−2`: the `X²` coefficient is negative, needing the discrete Cauchy–Schwarz
+    `X² ≤ b·gammaC` to reach `CD((b−a+4)/2, ∞)`.
+
+Overall the `A`-vertex curvature is `min(3a−b, b−a+4)/2`, reducing to the star's `3−b`
+at `a = 1` (`BakryEmery.lean` §4).  All `∅`-axiom.
+-/
+
+namespace E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
+
+open E213.Meta.Int213
+open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
+  gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_const
+  gridSumZ_nonneg)
+
+/-! ## §1 — the two-shell Γ-calculus at an `A`-vertex (centred coordinates) -/
+
+/-- Centre Laplacian `X = Σ_{j<nb} x_j` (the `B`-values relative to the centre). -/
+def kabLapC (nb : Nat) (x : Nat → Int) : Int := gridSumZ nb x
+
+/-- Centre carré du champ (scaled `2Γ`) `Σ_{j<nb} x_j²`. -/
+def kabGammaC (nb : Nat) (x : Nat → Int) : Int := gridSumZ nb (fun j => x j * x j)
+
+/-- Laplacian at a `B`-vertex `w_j`: `Lf(w_j) = Y − a·x_j` (`a = na+1` neighbours: the
+    centre + the `na` other `A`-vertices), `Y = Σ y_i`. -/
+def kabLapB (na : Nat) (x y : Nat → Int) (j : Nat) : Int :=
+  gridSumZ na y - ((na : Int) + 1) * x j
+
+/-- Carré du champ (scaled `2Γ`) at a `B`-vertex `w_j`: centre edge `x_j²` plus the
+    other-`A` edges `Σ_i (y_i − x_j)²`. -/
+def kabGammaB (na : Nat) (x y : Nat → Int) (j : Nat) : Int :=
+  x j * x j + gridSumZ na (fun i => (y i - x j) * (y i - x j))
+
+/-- Iterated carré du champ (scaled `4Γ₂`) at the centre `A`-vertex. -/
+def kabGamma2C (na nb : Nat) (x y : Nat → Int) : Int :=
+  gridSumZ nb (fun j => kabGammaB na x y j - kabGammaC nb x)
+    - 2 * gridSumZ nb (fun j => x j * (kabLapB na x y j - kabLapC nb x))
+
+/-- Per-`B`-vertex expansion of the other-`A` carré du champ:
+    `Σ_i (y_i − x_j)² = Σ_i y_i² − 2 x_j·Y + na·x_j²`. -/
+theorem kab_inner (na : Nat) (x y : Nat → Int) (j : Nat) :
+    gridSumZ na (fun i => (y i - x j) * (y i - x j))
+      = gridSumZ na (fun i => y i * y i) - 2 * x j * gridSumZ na y
+        + (na : Int) * (x j * x j) := by
+  rw [show gridSumZ na (fun i => (y i - x j) * (y i - x j))
+        = gridSumZ na (fun i => y i * y i - 2 * x j * y i + x j * x j) from
+      gridSumZ_congr na _ _ (fun i _ => by ring_intZ),
+      gridSumZ_add, gridSumZ_sub, gridSumZ_mul_left, gridSumZ_const]
+
+/-! ## §2 — the two-shell Bochner closed form -/
+
+/-- Piece A: `Σ_j (Γ(w_j) − Γ(centre)) = nb·Q_y − 2·X·Y + (1 + na − nb)·gammaC`. -/
+theorem kab_pieceA (na nb : Nat) (x y : Nat → Int) :
+    gridSumZ nb (fun j => kabGammaB na x y j - kabGammaC nb x)
+      = (nb : Int) * gridSumZ na (fun i => y i * y i)
+        - 2 * gridSumZ nb x * gridSumZ na y
+        + (1 + (na : Int) - (nb : Int)) * gridSumZ nb (fun j => x j * x j) := by
+  rw [show gridSumZ nb (fun j => kabGammaB na x y j - kabGammaC nb x)
+        = gridSumZ nb (fun j =>
+            (gridSumZ na (fun i => y i * y i) - 2 * gridSumZ na y * x j
+              + ((na : Int) + 1) * (x j * x j))
+            - gridSumZ nb (fun j => x j * x j)) from
+      gridSumZ_congr nb _ _ (fun j _ => by
+        unfold kabGammaB kabGammaC
+        rw [kab_inner]; ring_intZ),
+      gridSumZ_sub, gridSumZ_add, gridSumZ_sub, gridSumZ_const, gridSumZ_const,
+      gridSumZ_mul_left, gridSumZ_mul_left]
+  ring_intZ
+
+/-- Piece B: `Σ_j x_j·(Lf(w_j) − Lf(centre)) = X·Y − X² − (na+1)·gammaC`. -/
+theorem kab_pieceB (na nb : Nat) (x y : Nat → Int) :
+    gridSumZ nb (fun j => x j * (kabLapB na x y j - kabLapC nb x))
+      = gridSumZ nb x * gridSumZ na y - gridSumZ nb x * gridSumZ nb x
+        - ((na : Int) + 1) * gridSumZ nb (fun j => x j * x j) := by
+  rw [show gridSumZ nb (fun j => x j * (kabLapB na x y j - kabLapC nb x))
+        = gridSumZ nb (fun j => gridSumZ na y * x j
+            - ((na : Int) + 1) * (x j * x j) - gridSumZ nb x * x j) from
+      gridSumZ_congr nb _ _ (fun j _ => by unfold kabLapB kabLapC; ring_intZ),
+      gridSumZ_sub, gridSumZ_sub, gridSumZ_mul_left, gridSumZ_mul_left, gridSumZ_mul_left]
+  ring_intZ
+
+/-- ★★★★★ **Two-shell Bochner closed form for `K_{a,b}` at an `A`-vertex** (`a = na+1`,
+    `b = nb`):
+
+      `gamma2 = (3a − b)·gammaC + 2·X² + b·Q_y − 4·X·Y`.
+
+    The clean `c`-free form (centred coordinates); `Q_y = Σ y_i²`, `X = Σ x_j`,
+    `Y = Σ y_i`.  Reduces to the star `BakryEmery` §4 at `na = 0` (`Q_y = Y = 0`,
+    `gamma2 = (3 − b)·gammaC + 2X²`).  Pure `gridSumZ` linearity + `ring_intZ`. -/
+theorem kab_bochner (na nb : Nat) (x y : Nat → Int) :
+    kabGamma2C na nb x y
+      = (3 * (na : Int) + 3 - (nb : Int)) * kabGammaC nb x
+        + 2 * (kabLapC nb x * kabLapC nb x)
+        + (nb : Int) * gridSumZ na (fun i => y i * y i)
+        - 4 * (kabLapC nb x * gridSumZ na y) := by
+  unfold kabGamma2C
+  rw [kab_pieceA, kab_pieceB]
+  unfold kabGammaC kabLapC
+  ring_intZ
+
+end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
