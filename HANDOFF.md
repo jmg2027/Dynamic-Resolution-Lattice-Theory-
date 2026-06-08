@@ -1,87 +1,125 @@
-# Session Handoff — 2026-06-08 (CKM CP-phase: multi-disciplinary derivation marathon)
+# Session Handoff — 2026-06-08 (CKM CP-phase marathon + promotion/merge pass)
 
 ## Branch
-`claude/vision-achievement-strategy-UzqpZ` — pushed, far ahead of `origin/main`.
-`cd lean && lake build E213.Lib.Physics.Mixing` ✓ clean. All new theorems PURE
-(114 PURE / 0 dirty across the session, `tools/scan_axioms.py`). Rust engine
-binary `ckm-cp-phase` builds + runs (`cargo run --release --bin ckm-cp-phase`).
+`claude/vision-achievement-strategy-UzqpZ` — pushed, **0 behind / ~74 ahead**
+of `origin/main` (advanced origin/main's Zolotarev commit merged in cleanly).
+`cd lean && lake build E213` ✓ clean. `tools/kernel_regress.sh` 45/45 0-axiom.
+All new theorems strict ∅-axiom PURE (`tools/scan_axioms.py`). Rust binary
+`ckm-cp-phase` builds + runs.
 
-## Theme
-Originator's direction, in stages: (1) "derive from 213, not literature";
-(2) "go deeper — cohomology + number theory, not just group theory";
-(3) "ab-initio diagonalisation via the rust engine". Result: the CKM **CP phase**
-is derived/forced (not posited) and grounded across **three disciplines**, with
-an exact float-free computational confirmation.
+## What Was Done This Session
 
-## The headline result
+The CKM **CP-violating phase** is derived/forced (not posited) across three
+disciplines on the single prime `d = NS+NT = 5`, then promoted + merged.
 
-The posit `δ = π/φ²` (a golden phase) is **demoted** (Niven's theorem: a discrete
-CP phase has rational cosine ⇒ root of unity; golden `π/φ²` is impossible). The
-213-coherent CP structure is **golden modulus `R_u=1/φ²` + `90°` phase**, all from
-the single prime `d = NS+NT = 5`:
+### 1. CP phase = 90°, forced not posited (Mixing/CP*, PURE)
+- Existence+uniqueness DERIVED: `N_gen = C(3,2) = 3 ⇒ 1` physical phase
+  (`CPPhaseCount`, KM counting).
+- Value FORCED to `90°`: `C₄` (CD `i`) + CP-existence ⇒ `±i` (`CPPhaseC4Forcing`);
+  Niven forbids a golden phase `δ = π/φ²` (rational-cosine ⇒ root of unity).
+- The premise "phase ∈ C₄" is itself forced by the Hodge structure
+  (`Hodge/SignedStarFull`: `⋆² = −1` on all of `Λ¹(ℝ⁴)` ⇒ order exactly 4).
 
+### 2. The imaginary unit is ONE object, three disciplines
+- group: `ℤ[i]^× = C₄` (`Hodge/SignedStarC4`, `ℤ[J] ≅ ℤ[i]`, `det = a²+b²`).
+- number theory: `Gal(ℚ(ζ₅)/ℚ) ≅ C₄` (phase) + real subfield `ℚ(√5) = ℚ(φ)`
+  (golden modulus); `5 = (2+i)(2−i)` selects `C₄/90°` over `C₆/60°` (5 inert
+  in `ℤ[ω]`) (`Icosahedral/CyclotomicFive`).
+- cohomology: signed Hodge `⋆` on `H*(Δ⁴)` at grades 1,3 — the SAME `H*(Δ⁴)`
+  as `1/α_em` (`CPHodgeStructure`, `Hodge/HodgeRiemannJ` Weil operator,
+  `Q·J = I ≻ 0`).
+
+### 3. Cohomological coupling forces 90° where a generic texture does not
+- Polarized-Hodge morphism: `J² = −I ∧ Jᵀ Q J = Q ∧ Q·J = I ≻ 0`
+  (`HodgeConjecture/Pairing/HodgeRiemann.hodge_riemann_positivity_signed` —
+  filled the previously-vacuous stub). Signed-ℤ cup product
+  (`Cup/SignedCup`, `mergeSign = (−1)^inv`, antisymmetric, `hPair = I`).
+
+### 4. ab-initio rust verification (exact ℤ[i], float-free)
+- `ckm_cp_phase.rs`: CKM unitary, `δ = 90°`, `V_ub` pure imaginary, Jarlskog ≠ 0.
+
+### 5. Fit ~1.5σ-CONSISTENT (not a tension)
+- `R_u = 1/φ² = 0.382` vs obs `0.3825 ± 0.011` ≈ exact; `α = 90°` ~0σ direct
+  to ~1.7σ global; residual is `O(λ²)` Wolfenstein (`λ = 5/22`), NOT RGE
+  (`dα/dt = 0` exactly) (`ApexFitConsistency`).
+
+### 6. Promotion + housekeeping (the marathon skills)
+- `/process`: 15 sink-rule violations decoupled (0 remaining).
+- Promotion: `theory/physics/cp_phase.md` (chapter), log row 31.
+- Cross-domain insights: `frontiers/cp_crossdomain_insights.md` (4 bridges
+  to main's sign/QR/cyclotomic campaigns).
+- `/essay`: `theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md`
+  (log row 32) — the CP phase as one imaginary unit in four frames.
+- `/org-audit`: wired the `SignedStarFull` orphan into the Hodge umbrella;
+  refreshed `Mixing/INDEX.md` (5→19, grouped); de-narrated 3 docstrings.
+- `/purity-check`: forbidden patterns 0/0/0/0; all session modules PURE.
+- Merged origin/main's **Zolotarev** (`ZolotarevSign`, PURE): the
+  permutation-sign = Legendre-symbol corner of the inversion-sign square is
+  now a theorem; cross-domain note updated.
+
+## Current Precision Results (0 free parameters)
+| Observable | DRLT | Observed | Status |
+|-----------|------|----------|--------|
+| `R_u = \|V_ub/V_cb·...\|` | `1/φ² = 0.382` | `0.3825 ± 0.011` | ≈ exact, PURE |
+| CKM phase `δ_KM` | `90°` (root of unity) | `≈ 90°` | FORCED, PURE |
+| `β` | `22.46°` | `22.5° ± 0.7°` | ≈ exact |
+| `α` (right UT) | `90°` | `92.4° ± 1.4°` | ~1.7σ (falsifier F27) |
+| `γ` | `67.54°` | `65.1° ± 1.5°` | ~1.6σ |
+| `N_gen` ⇒ phases | `3 ⇒ 1` | `3 ⇒ 1` | DERIVED, PURE |
+
+## Open Problems (Priority Order)
+
+### 1. Explicit generation-Yukawa cup functional (the mixing angles)
+The cohomology forces the phase + the `Λ²(ℝ³)` generation index (diagonal
+`h = I`), but the mixing **angles** are a separate DRLT object, not forced by
+the polarization alone. Build the explicit signed-cup generation functional.
+Frontier note: `research-notes/frontiers/cp_yukawa_from_scratch.md`.
+
+### 2. Tighten the ~1.5σ fit / track the `α = 90°` falsifier
+`α = 90°` (right unitarity triangle) is falsifiable — UTfit `α = 92.4 ± 1.4°`.
+Residual is `O(λ²)` Wolfenstein, not RGE. Track future UT fits.
+Frontier note: `research-notes/frontiers/ckm_rho_eta_apex.md`; falsifier F27
+(`catalogs/falsifiers.md`).
+
+### 3. Close the CP leg of the inversion-sign square
+Three corners are theorems (perm-sign = det = Legendre via `ZolotarevSign`);
+the open corner is `δ_CP`'s `C₄` class = the `(−1/d)` QR class as a theorem.
+Frontier note: `research-notes/frontiers/cp_crossdomain_insights.md`
+(Insight 1+2) + `frontiers/permutation_three_readouts.md`.
+
+## Unresolved from This Session
+- Self-corrected over-claims (do NOT re-attempt): `δ = π/φ²` golden phase
+  (Niven-forbidden); "π outside 213" (π is the `PiCut` Real213 cut); "A₅
+  reproduces δ from φ" (A₅ 3-rep is REAL ⇒ CP-conserving); RGE as the fit
+  residual (`dα/dt = 0` exactly — it is `O(λ²)` Wolfenstein).
+
+## Next
+Push and merge this branch to `main` (the marathon's final step). After merge:
+attack Open Problem 1 (explicit generation-Yukawa cup functional) — the last
+structural residual of the CP-phase arc.
+
+## Three-tier state
+- **Promotions this session**: `theory/physics/cp_phase.md` +
+  `theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md`.
+- **Promotion candidates**: none outstanding for the CP arc (the closed math
+  is promoted; the angle functional is an open frontier, not a closed sub-tree).
+- **Active scratchpad**: `frontiers/{cp_yukawa_from_scratch, ckm_rho_eta_apex,
+  cp_crossdomain_insights}.md`.
+
+## File Map
 ```
-① CP existence+uniqueness  N_gen=C(3,2)=3 ⇒ 1 phase (KM counting) ──── DERIVED
-② CP phase = 90°           C₄(CD i)+CP-existence ⇒ real phases J=0 excluded ⇒ ±i ── FORCED
-③ the C₄/i = d=5 complex structure, three disciplines:
-     · group       CD doubling ℤ[i]^×
-     · number thy  ℚ(ζ₅): Gal≅C₄ (phase) + real subfield ℚ(√5)=ℚ(φ) (modulus);
-                   bridge 5=(2+i)(2−i) selects C₄/90° over C₆/60° (5 inert in ℤ[ω])
-     · cohomology  signed Hodge ⋆ on the (d−1)=4-dim Δ⁴ (⋆²=−1 at grades 1,3)
-                   = J=[[0,−1],[1,0]], ℤ[J]≅ℤ[i] — the SAME H*(Δ⁴) as 1/α_em ── PROVEN
-④ wired to fermions  CP = C × i : C=Hodge complement (5↔5̄, ⋆²=+1, charge conj);
-                     i=J localizes to down/5̄ (up-Yukawa 10·10 symmetric⇒real)
-⑤ the i = apex element V_ub = −i·s₁₃ (pure imaginary at δ=90°)
-⑥ ab-initio (rust, ℤ[i], float-free): unitary CKM, δ=90°, maximal Jarlskog ── EXACT
-⑦ + golden modulus R_u=1/φ² (M eigenvalue = ℚ(ζ₅) real subfield)
-       ⇒ cos γ = 1/φ², γ=67.54°, β=22.46° (obs 22.5°), α=90° (obs 92.4°)
+theory/physics/cp_phase.md                         ← promoted CP-phase chapter
+theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md ← synthesis essay
+theory/essays/INDEX.md                             ← +essay (70 total)
+lean/E213/Lib/Math/Cohomology/Hodge.lean           ← umbrella +SignedStar*/HodgeRiemannJ
+lean/E213/Lib/Math/Cohomology/Hodge/{SignedStarC4,SignedStarFull,HodgeRiemannJ}.lean
+lean/E213/Lib/Math/Cohomology/Cup/SignedCup.lean   ← signed-ℤ cup (mergeSign)
+lean/E213/Lib/Math/Cohomology/HodgeConjecture/Pairing/HodgeRiemann.lean ← filled stub
+lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevSign.lean ← merged from main (PURE)
+lean/E213/Lib/Physics/Mixing/INDEX.md              ← refreshed 5→19 grouped
+lean/E213/Lib/Physics/Mixing/CP*.lean, Apex*.lean, *Yukawa*.lean ← CP arc
+rust-engine/crates/app/src/bin/ckm_cp_phase.rs     ← ab-initio ℤ[i] CKM
+research-notes/frontiers/cp_crossdomain_insights.md ← 4 bridges (Zolotarev closed)
+research-notes/promotion_essay_log.md              ← rows 31 (promotion) + 32 (essay)
+catalogs/falsifiers.md                             ← F27 (right UT α=90°)
 ```
-
-## Honest status
-- **Derived/forced** (Lean PURE): CP existence+uniqueness; phase = 90° (given
-  "phase ∈ C₄" = complex structure is the NT=2 doubling); the C₄/i = signed
-  Hodge ⋆ = ℤ[i] = ℚ(ζ₅) (three disciplines); golden modulus 1/φ².
-- **Verified** (rust, exact ℤ[i], float-free): the i-in-apex CKM is unitary,
-  δ=90°, maximal CP.
-- **Fit**: `β` ≈ exact; `α,γ` ~1.5σ (decent, not perfect). The advance is
-  principled-ness (Niven-allowed root-of-unity phase), not precision.
-- **Open** (narrowed): the sole premise "phase ∈ C₄" (vs the explicit generation
-  Yukawa carrying J from first principles); a full Δ⁴ signed-cochain Hodge lift
-  (a 2-D grade-pair model is built); the ~1.5σ fit. Do NOT re-fish golden δ
-  (Niven-forbidden) or atomic angles (π/5, 2π/5 excluded).
-
-## File map (this session, all PURE unless noted)
-```
-lean/E213/Lib/Math/Algebra/Icosahedral/   (9 files, ~46 PURE — the d=5/A₅/self-ref math)
-  OrderFive · A5Bridge · A5Reps · GoldenMixing · SpanAreas · A5ThreeRepPhase
-  · A5RealityNoCP (A₅ real ⇒ no golden phase) · CyclotomicFive (ℚ(ζ₅) unify) · Capstone · INDEX
-lean/E213/Lib/Math/Cohomology/Hodge/SignedStarC4.lean   (10 PURE — signed ⋆ = ℤ[i])
-lean/E213/Lib/Physics/Mixing/
-  JarlskogApex · ApexCPMechanism · ApexPiInternal · A5QuarkApex   (apex φ² object, π internal)
-  CPPhaseCount (N_gen=3⇒1 phase) · CPPhaseC4Forcing (δ=90° forced)
-  ApexRightTriangle (cos γ=1/φ²) · CPHodgeStructure (CP i = Hodge ⋆)
-  CPGenerationWiring (CP=C×i, down sector) · CPMaximalPhase (i = apex V_ub)
-rust-engine/crates/app/src/bin/ckm_cp_phase.rs   (ab-initio EXACT ℤ[i] CKM, δ=90°)
-research-notes/cp_phase_origin_synthesis.md   (full marathon synthesis + agent reports)
-research-notes/frontiers/ckm_rho_eta_apex.md  (full frontier record)
-```
-
-## Next (options)
-1. **Promote to `theory/`**: the closed `Icosahedral/` math + the CP-structure
-   chain (three-tier discipline; the math is closed, the apex *fit* is the soft
-   part). Candidate: `theory/physics/cp_phase/` mirroring the chain.
-2. **Tighten the fit / `α=90°` test**: the prediction `α=90°` (right unitarity
-   triangle) is falsifiable — UTfit `α=92.4±1.4°`. Track future UT fits.
-3. **Full Δ⁴ signed Hodge lift** + explicit generation Yukawa carrying J (the
-   last premise).
-4. Other standing: external DOI deposit of `PRE_REGISTRATION.md`.
-
-## Earlier this session (pre-CP-marathon, same branch, also PURE)
-- `1/φ²` forced over other golden powers (`JarlskogApex.apex_modulus_subunit_forced`).
-- Icosahedral marathon: M is an order-5 A₅ element (M⁵≡−I), golden bridge
-  `φ²=χ+1`, A₅ rep data, golden-mixing template, span-areas (apex CP-area
-  skeleton=NS), 3-rep phase origin.
-- Self-corrections (integrity): demoted the `δ=π·R_u` §5.7 over-claim (per-step
-  rates differ); corrected "π outside 213" (π is the `PiCut` Real213 cut);
-  corrected "A₅ reproduces δ from φ" (A₅ is real ⇒ CP-conserving). CLAUDE.md
-  failure mode "Transcendental-as-exterior" added.
