@@ -98,6 +98,22 @@ theorem gridSumZ_sub (n : Nat) (f g : Nat → Int) :
         = (gridSumZ m f + f m) - (gridSumZ m g + g m)
     rw [ih]; ring_intZ
 
+/-- Sum of a constant: `Σ_{x<n} c = n · c`. -/
+theorem gridSumZ_const (n : Nat) (c : Int) :
+    gridSumZ n (fun _ => c) = (n : Int) * c := by
+  induction n with
+  | zero => show (0 : Int) = (0 : Int) * c; exact (zero_mul c).symm
+  | succ m ih =>
+    show gridSumZ m (fun _ => c) + c = ((m : Int) + 1) * c
+    rw [ih]; ring_intZ
+
+/-- Non-negativity: a pointwise-non-negative function has a non-negative grid sum
+    (the `f = 0` special case of `gridSumZ_le`). -/
+theorem gridSumZ_nonneg (n : Nat) (f : Nat → Int) (h : ∀ x, x < n → 0 ≤ f x) :
+    0 ≤ gridSumZ n f := by
+  have hle := gridSumZ_le n (fun _ => 0) f h
+  rwa [gridSumZ_zero_fn] at hle
+
 /-! ## §2 — Kantorovich weak duality (the transport core) -/
 
 /-- Row marginal of a transport plan `π`: `μ x = Σ_y π x y`. -/

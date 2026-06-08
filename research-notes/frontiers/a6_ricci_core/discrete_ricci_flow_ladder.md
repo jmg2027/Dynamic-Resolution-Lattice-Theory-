@@ -101,9 +101,23 @@ Ricci flow to its normalized fixed point" — not "A6 solves Poincaré."
 **Rungs 1–7 all ✅ DONE** (Forman flow + a-priori package + Gauss–Bonnet + Ollivier transport core with
 full `+/0/−` trichotomy + Bakry–Émery `CD(K,N)` Bochner identity + all-time fixed-point stability).  The
 discrete A6 core is closed across **four** curvature frames (Forman, Gauss–Bonnet, Ollivier, Bakry–Émery),
-all sign-agreeing.  Remaining refinements: the complete graph `K_m` Bakry–Émery for general `m`
-(`CD((m+2)/2,∞)` — a `gridSum`-over-neighbours generalization of `bochner_triangle`); the discrete Lin–Yau
-optimal `K`; more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
+all sign-agreeing.
+
+**Rung 6 refinement — the complete graph `K_m` for general `m`** — ✅ **DONE**
+(`BakryEmery.lean` §3, 9 PURE).  The triangle `bochner_triangle` was the `m = 3` case; §3 discharges the
+whole family parametric in the vertex count.  `K_m` is modelled as a **centre vertex** (value `c`) joined
+to `k = m−1` **neighbours** (`b : Nat → Int`), every pair also adjacent — a presentation that makes the
+positive-curvature term a **full double `gridSumZ` of squared differences** `sosGap = Σ_jΣ_{j'}(b j'−b j)²`
+whose diagonal `(b j − b j)² = 0` vanishes on its own, so **no index has to be excluded** (the bookkeeping
+wall the `m = 3` hand computation only sidestepped concretely, and a Cauchy–Schwarz route would have hit).
+`bochner_complete` (`gamma2C = (k+3)·gammaC + sosGap`, pure `gridSumZ` linearity + `ring_intZ`) ⟹
+`cd_complete_graph` (`gamma2C ≥ (k+3)·gammaC`, from `sosGap_nonneg`): **`K_m` is `CD((m+2)/2, ∞)`** since
+`k+3 = m+2`, the textbook Bakry–Émery curvature of the complete graph, generalizing `cd_triangle`
+(`k = 2`: `k+3 = 5`, `sosGap = 2(b₀−b₁)²`).  New generic infra: `gridSumZ_const`, `gridSumZ_nonneg`
+(`OllivierRicci.lean` §1).
+
+Remaining refinements: the discrete Lin–Yau optimal `K` (the largest `K` in `CD(K,∞)`, a max over test
+functions); more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
 flow* and the transcendental Perelman `𝓦`-entropy (`ricci_flow_smooth_core.md`) — but the general-`n` Ricci
-**lower bound** is now reachable synthetically via `CD(K,N)` (rung 6).  The smooth 2D-conformal route
-(S3–S5) is separately closed (`ConformalCurvature.lean`).
+**lower bound** is now reachable synthetically via `CD(K,N)` (rung 6, now for *every* `K_m`).  The smooth
+2D-conformal route (S3–S5) is separately closed (`ConformalCurvature.lean`).

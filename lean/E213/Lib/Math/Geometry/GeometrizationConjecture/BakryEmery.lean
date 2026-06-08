@@ -1,6 +1,7 @@
 import E213.Meta.Int213
 import E213.Meta.Int213.Bound
 import E213.Meta.Int213.PolyIntMTactic
+import E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
 
 /-!
 # Discrete Bakry–Émery Γ-calculus + the Bochner identity — A6 core, rung 6 (∅-axiom)
@@ -39,6 +40,9 @@ take the neighbourhood values directly.  All zero-axiom.
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery
 
 open E213.Meta.Int213
+open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
+  gridSumZ_succ gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left
+  gridSumZ_const gridSumZ_nonneg)
 
 /-! ## §1 — the line `ℤ` (or large cycle): local Γ-calculus on a radius-2 stencil
 
@@ -152,5 +156,123 @@ theorem cd_triangle (f0 f1 f2 : Int) :
 theorem gammaTri_nonneg (f0 f1 f2 : Int) : 0 ≤ gammaTri f0 f1 f2 := by
   unfold gammaTri
   exact add_nonneg (int_sq_nonneg _) (int_sq_nonneg _)
+
+/-! ## §3 — the complete graph `K_m` for general `m`: `CD((m+2)/2, ∞)`
+
+The triangle `K₃` of §2 is the `m = 3` case of the complete graph `K_m`; this
+section discharges the whole family at once, parametric in the vertex count.
+Model `K_m` as a **centre vertex** (value `c`) joined to `k = m − 1` **neighbour
+vertices** (values `b 0, …, b (k−1)`), every pair of which is also adjacent.  This
+"centre + `k` neighbours" presentation keeps the centre value `c` a single
+variable and the neighbour sum a clean `gridSumZ k`; crucially it makes the
+positive-curvature term a **full double sum of squared differences** (the diagonal
+`(b j − b j)² = 0` vanishes on its own, so no index has to be excluded — the wall
+that the §2 hand computation sidestepped only for `m = 3`).
+
+The Γ-calculus at the centre, all scaled (`gammaC… = 2Γ`, `gamma2C… = 4Γ₂`):
+
+  * Laplacian `lapC = Σ_j (b j − c)` (= `B − k·c`, `B = Σ b`);
+  * carré du champ `gammaC = Σ_j (b j − c)²`;
+  * a neighbour `j` is adjacent to the centre **and** every other neighbour, so its
+    Laplacian/`Γ` read `(c − b j)` together with `Σ_{j'}(b j' − b j)`;
+  * `gamma2C = Σ_j (gammaNbr j − gammaC) − 2 Σ_j (b j − c)(lapNbr j − lapC)`.
+
+The closed form (`bochner_complete`) is `gamma2C = (k+3)·gammaC + sosGap`, where
+`sosGap = Σ_j Σ_{j'} (b j' − b j)² ≥ 0` is the manifest sum of squares — the exact
+generalization of §2's `bochner_triangle` `4Γ₂ = 5·(2Γ) + 2(f₁−f₂)²` (`m = 3`,
+`k = 2`: `k+3 = 5` and `sosGap = 2(b₀−b₁)²`).  Hence `gamma2C ≥ (k+3)·gammaC`, i.e.
+`4Γ₂ ≥ (m+2)·2Γ` ⟺ `Γ₂ ≥ ((m+2)/2)·Γ`: the complete graph `K_m` is
+`CD((m+2)/2, ∞)`, the textbook Bakry–Émery curvature of `K_m`. -/
+
+/-- Centre Laplacian of `K_m`: `Σ_{j<k} (b j − c)`. -/
+def lapC (k : Nat) (b : Nat → Int) (c : Int) : Int :=
+  gridSumZ k (fun j => b j - c)
+
+/-- Centre carré du champ (scaled `2Γ`): `Σ_{j<k} (b j − c)²`. -/
+def gammaC (k : Nat) (b : Nat → Int) (c : Int) : Int :=
+  gridSumZ k (fun j => (b j - c) * (b j - c))
+
+/-- Laplacian at neighbour `j`: the centre edge `(c − b j)` plus the edges to the
+    other neighbours `Σ_{j'<k} (b j' − b j)`. -/
+def lapNbr (k : Nat) (b : Nat → Int) (c : Int) (j : Nat) : Int :=
+  (c - b j) + gridSumZ k (fun j' => b j' - b j)
+
+/-- Carré du champ (scaled `2Γ`) at neighbour `j`: centre edge squared plus the
+    other-neighbour edges squared. -/
+def gammaNbr (k : Nat) (b : Nat → Int) (c : Int) (j : Nat) : Int :=
+  (c - b j) * (c - b j) + gridSumZ k (fun j' => (b j' - b j) * (b j' - b j))
+
+/-- Iterated carré du champ (scaled `4Γ₂`) at the centre. -/
+def gamma2C (k : Nat) (b : Nat → Int) (c : Int) : Int :=
+  gridSumZ k (fun j => gammaNbr k b c j - gammaC k b c)
+    - 2 * gridSumZ k (fun j => (b j - c) * (lapNbr k b c j - lapC k b c))
+
+/-- The positive-curvature sum-of-squares term: `Σ_{j<k} Σ_{j'<k} (b j' − b j)²`. -/
+def sosGap (k : Nat) (b : Nat → Int) : Int :=
+  gridSumZ k (fun j => gridSumZ k (fun j' => (b j' - b j) * (b j' - b j)))
+
+/-- `sosGap ≥ 0` — a double grid sum of squares. -/
+theorem sosGap_nonneg (k : Nat) (b : Nat → Int) : 0 ≤ sosGap k b :=
+  gridSumZ_nonneg k _ (fun _ _ => gridSumZ_nonneg k _ (fun _ _ => int_sq_nonneg _))
+
+/-- The neighbour-minus-centre Laplacian gap collapses: `lapNbr j − lapC =
+    −(k+1)(b j − c)` (= `−m·(b j − c)`, the `K_m` Laplacian difference). -/
+theorem lapNbr_sub_lapC (k : Nat) (b : Nat → Int) (c : Int) (j : Nat) :
+    lapNbr k b c j - lapC k b c = -((k : Int) + 1) * (b j - c) := by
+  unfold lapNbr lapC
+  rw [gridSumZ_sub, gridSumZ_const, gridSumZ_sub, gridSumZ_const]
+  ring_intZ
+
+/-- Sum of the neighbour carrés du champ: `Σ_j gammaNbr j = gammaC + sosGap`. -/
+theorem sum_gammaNbr (k : Nat) (b : Nat → Int) (c : Int) :
+    gridSumZ k (fun j => gammaNbr k b c j) = gammaC k b c + sosGap k b := by
+  unfold gammaNbr
+  rw [gridSumZ_add,
+      gridSumZ_congr k (fun j => (c - b j) * (c - b j))
+        (fun j => (b j - c) * (b j - c)) (fun _ _ => by dsimp only; ring_intZ)]
+  rfl
+
+/-- ★★★★★ **Discrete Bochner identity for the complete graph `K_m`** (`m = k+1`):
+
+      `4Γ₂(f) = (k+3)·(2Γ(f)) + Σ_j Σ_{j'} (b j' − b j)²`,
+
+    i.e. `gamma2C = (k+3)·gammaC + sosGap`.  The positive-curvature coefficient
+    `k + 3 = m + 2` is forced by the all-to-all adjacency, and the remainder is a
+    manifest sum of squares.  Generalizes `bochner_triangle` (`k = 2`: `k+3 = 5`,
+    `sosGap = 2(b₀−b₁)²`).  Pure `gridSumZ` linearity + `ring_intZ`. -/
+theorem bochner_complete (k : Nat) (b : Nat → Int) (c : Int) :
+    gamma2C k b c = ((k : Int) + 3) * gammaC k b c + sosGap k b := by
+  have hterm2 : gridSumZ k (fun j => (b j - c) * (lapNbr k b c j - lapC k b c))
+      = -((k : Int) + 1) * gammaC k b c := by
+    have hcongr : gridSumZ k (fun j => (b j - c) * (lapNbr k b c j - lapC k b c))
+        = gridSumZ k (fun j => -((k : Int) + 1) * ((b j - c) * (b j - c))) :=
+      gridSumZ_congr k _ _ (fun j _ => by rw [lapNbr_sub_lapC]; ring_intZ)
+    rw [hcongr, gridSumZ_mul_left]
+    rfl
+  have hterm1 : gridSumZ k (fun j => gammaNbr k b c j - gammaC k b c)
+      = gammaC k b c + sosGap k b - (k : Int) * gammaC k b c := by
+    rw [gridSumZ_sub, sum_gammaNbr, gridSumZ_const]
+  unfold gamma2C
+  rw [hterm1, hterm2]
+  ring_intZ
+
+/-- ★★★★★ **`CD((m+2)/2, ∞)` for the complete graph `K_m`** (`m = k+1`): the
+    Bakry–Émery curvature lower bound `Γ₂ ≥ ((m+2)/2)·Γ`, in scaled form
+    `gamma2C ≥ (k+3)·gammaC`.  Immediate from `bochner_complete` + `sosGap ≥ 0`.
+    Specializes to the triangle `cd_triangle` (`k = 2`, `k+3 = 5`) and is the
+    general-`m` Bakry–Émery counterpart of the Forman / Gauss–Bonnet / Ollivier
+    sign↔topology results. -/
+theorem cd_complete_graph (k : Nat) (b : Nat → Int) (c : Int) :
+    ((k : Int) + 3) * gammaC k b c ≤ gamma2C k b c := by
+  rw [bochner_complete]
+  apply Order.le_of_sub_nonneg
+  rw [show ((k : Int) + 3) * gammaC k b c + sosGap k b - ((k : Int) + 3) * gammaC k b c
+        = sosGap k b from by ring_intZ]
+  exact Order.nonneg_of_le_zero (sosGap_nonneg k b)
+
+/-- `gammaC ≥ 0` (the centre carré du champ is a sum of squares) — so
+    `CD((m+2)/2,∞)` is a genuine positive lower bound, not vacuous. -/
+theorem gammaC_nonneg (k : Nat) (b : Nat → Int) (c : Int) : 0 ≤ gammaC k b c :=
+  gridSumZ_nonneg k _ (fun _ _ => int_sq_nonneg _)
 
 end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery

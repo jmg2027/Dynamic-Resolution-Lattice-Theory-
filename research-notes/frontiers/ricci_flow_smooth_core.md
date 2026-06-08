@@ -184,10 +184,13 @@ agreeing on the sign, and the one that is *defined* dimension-independently — 
 "general-`n` Ricci lower bound" is reachable synthetically even while the smooth
 `n`-tensor flow stays walled.
 
-**Reachable next (no new idea):** the complete graph `K_m` for general `m`
-(`CD((m+2)/2, ∞)` — a single `gridSum`-over-neighbours computation generalizing
-`bochner_triangle`); the discrete Lin–Yau curvature (the optimal `K` in `CD(K,∞)`)
-as a max over test functions.  **Still walled:** the *transcendental* Perelman
+**Done** (`BakryEmery.lean` §3): the complete graph `K_m` for general `m` is
+`CD((m+2)/2, ∞)` (`cd_complete_graph`, 9 PURE) — the `gridSumZ`-over-neighbours
+generalization of `bochner_triangle`, via the closed form `gamma2C = (k+3)·gammaC +
+sosGap` (`bochner_complete`) with `sosGap = Σ_jΣ_{j'}(b j'−b j)² ≥ 0` a manifest
+double sum of squares (`k = m−1`, `k+3 = m+2`).  **Reachable next (no new idea):**
+the discrete Lin–Yau curvature (the optimal `K` in `CD(K,∞)`) as a max over test
+functions.  **Still walled:** the *transcendental* Perelman
 `𝓦`-entropy `∫[τ(R+|∇f|²)+f−n](4πτ)^{−n/2}e^{−f}` (needs the `n`-dim Gaussian =
 `exp` integration; the discrete `𝓦`-analog is the rung-3 energy decay).
 
