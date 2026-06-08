@@ -321,7 +321,7 @@ theorem geometrization_spectrum_with_corrected_euler :
   real `Ric=(n−1)g`).  Both ∅-axiom.  The general-metric core —
   Perelman's `𝓕/𝓦`-entropy monotonicity, non-collapsing, surgery —
   needs Riemannian-geometry + PDE infrastructure absent here and
-  stays OPEN: `research-notes/frontiers/ricci_flow_smooth_core.md`.
+  stays OPEN.
 -/
 theorem geometrization_correspondence_capstone :
     -- Pillar P (Poincaré): K_{3,1}^{(c=1)} unique tree at d_M = 3

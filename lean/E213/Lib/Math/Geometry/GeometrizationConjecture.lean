@@ -47,8 +47,7 @@ import E213.Lib.Math.Geometry.GeometrizationConjecture.KChartLensAbstract
     · `RicciSphereFlow.lean`  — round Sⁿ SMOOTH-metric Ricci flow → finite
                                 extinction via A6 FLOW (the homogeneous/ODE case;
                                 rate = genuine Ric=(n−1)g; n=3 Poincaré seed).
-                                General-metric 𝓦-monotonicity core stays OPEN —
-                                `research-notes/frontiers/ricci_flow_smooth_core.md`
+                                General-metric 𝓦-monotonicity core stays OPEN.
     · `EightGeometries.lean`  — Steps 11, 18-22 (8 model geometries via Möbius P)
     · `StructuralMapping.lean`— Steps 21, 23, 24 (HC_K32 + universal-8 + ultimate)
     · `Capstone.lean`         — Step 25 (d=4 info richness + master + close certificate)

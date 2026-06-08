@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 58 essays are grouped into ten thematic sub-directories — distinct
+The 63 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -43,7 +43,9 @@ others together):
 
 **IV. `synthesis/` — synthesis & the master tower.**
 `synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`,
-`representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`.
+`representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
+`duality_as_one_transpose` (a duality = `sumOver_swap` on one 0/1 incidence +
+a SEPARATE cap per axis; min-cover = max-anti is the transpose).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
@@ -69,9 +71,13 @@ others together):
 **X. `proof_isa/` — proof as compilation to the residue ISA.**
 `what_is_a_proof` (series synthesis), `counting_as_cardinality` (the COUNT-arc
 synthesis), `probabilistic_method`, `sperner_double_counting`,
+`lym_inequality` (the per-term refinement Sperner discards; `Σ 1/C(n,|A|) ≤ 1`),
+`chain_antichain_duality` (Mirsky + Dilworth — Sperner's dual; the SCD partition),
 `linear_algebra_method`, `parity_invariant_method`, `konig_boundary`.
 The "why" of each reproduced technique; the instruction set's interior + edge.
-Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom.
+Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom; LYM is the
+sharp inequality Sperner is the corollary of; Mirsky/Dilworth are the chain-side
+dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 
 ## Current essays
 
