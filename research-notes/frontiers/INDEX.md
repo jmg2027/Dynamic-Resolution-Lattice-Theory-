@@ -144,26 +144,17 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
-- `count_substrate_synthesis` — the COUNT arc.  **CLOSED ∅-axiom**: LYM,
-  Bollobás (`bollobas_uniform`), Sperner (×3), Mirsky (`mirsky_boolean`), Dilworth
-  (`dilworth_boolean`/`scd_card` — the full SCD partition; narrative promoted to
-  `theory/essays/proof_isa/chain_antichain_duality.md`).  Patterns: dual COUNT
-  faces share one residue + the subset count `C(N,k)`; the
-  `nodup`-`flatMap`-disjoint-fibre counting idiom; SCD partition without
-  constructor injectivity; the propext/Classical tax on core arithmetic.  The
-  Leibniz determinant seed (`det = Σ_{σ∈perms} sign(σ)·Π M i σ(i)`) is **CLOSED**
-  through the full sign theory — see `determinant_closure_synthesis` below.
+- **COUNT extremal combinatorics** — CLOSED ∅-axiom (LYM, Bollobás `bollobas_uniform`,
+  Sperner ×3, Mirsky `mirsky_boolean`, Dilworth `dilworth_boolean`/`scd_card`, and the
+  Leibniz determinant seed).  Promoted → `theory/essays/proof_isa/{chain_antichain_duality,
+  counting_as_cardinality,sperner_double_counting,probabilistic_method}.md`.  No open seed.
 
-- `determinant_closure_synthesis` — post-closure harvest of the sign theory.
-  **CLOSED ∅-axiom**: `PermSign.psign_mul` (the sign homomorphism, bubble-sort) and
-  on it both `DetTranspose.det_transpose` (`det Mᵀ = det M`) and `DetMul.det_matMul`
-  (`det(A·B) = det A·det B`, Cauchy–Binet + constructive `cnt`-pigeonhole); narrative
-  in `theory/essays/algebra/permutation_sign_as_homomorphism.md`.  Patterns: the pure
-  `cnt`-decision sidesteps the propext/Quot.sound `Decidable (a∈l)` instance;
-  homomorphism-to-`{±1}` as a sorting invariant; one keystone → multiple capstones.
-  **Open seeds**: `det(permMatrix σ) = psign σ` (the two readings of a permutation);
-  general column Laplace expansion as a `det_transpose` corollary; relocate the
-  constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.
+- **determinant / permutation-sign** — CLOSED ∅-axiom (`PermSign.psign_mul`,
+  `DetTranspose.det_transpose`, `DetMul.det_matMul`); narrative in
+  `theory/essays/algebra/{permutation_sign_as_homomorphism,determinant_as_quotient_characteristic,
+  cayley_hamilton_self_characteristic}.md`.  *Open seeds:* `det(permMatrix σ) = psign σ`
+  (the two readings of a permutation); general column Laplace as a `det_transpose` corollary;
+  relocate the constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.
 
 - `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
   residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at
@@ -183,11 +174,10 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `theory/essays/foundations/reached_by_none.md`, and `Real213/{MinkowskiCocycle,MinkowskiGoldenExtremal,
   MinkowskiPeriodIntegral,MinkowskiHigherWeightPeriod,MinkowskiPeriodRelations,MinkowskiPeriodPolynomial,
   MinkowskiModularSymbol}` + `CupLadderResidueUnit`.
-- `odometer_unit_synthesis` — post-closure synthesis of the residue-unit `+1`
-  dynamics arc: patterns (single-primitive-as-full-dynamics; the ∅-purity
-  pure-`Nat` trap catalog; carry-explicit over modular) + next seeds (promote
-  `add_left_cancel_pure`/`lt_two_pow` to `Meta/Nat`; odometer `ℤ`-action ↔
-  Markov/Stern-Brocot `SL(2,ℤ)`; a decidable carry-depth sub-class).
+- **residue-unit `+1` dynamics** — CLOSED ∅-axiom (binary odometer + profinite `ℤ`-action +
+  golden/Zeckendorf carry); narrative `theory/essays/foundations/{the_residue_unit_odometer,the_unit}.md`
+  + `theory/math/algebra/phi_self_similarity.md` §3.7.  *Open seed:* a decidable carry-depth
+  sub-classification (the eventually-periodic / finite-state end).
 - **concept-pass open seeds** — the systematic "what does *naming an abstract
   concept* become under the 213 axiom?" pass (originator: Mingu Jeong).  Closed
   instances are permanent: König νF bridge (`KonigConditional`) + 2-adic/general-`p`
@@ -196,11 +186,11 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   general-`p` one-carrier νF spine, ℝ one-carrier with König, and the next deep-dives
   (limit/completion, quotient/equivalence-class, actual-vs-potential infinity).
 
-- `pure_lean_calibration_synthesis` — **cross-campaign synthesis** (post main-merge of the
-  determinant/permutation-sign stack + Reverse Math 213): two patterns shared by independent
-  campaigns — the core-`Decidable`/core-lemma **propext leak + hand-rolled-pure workaround**
-  (a consolidated `Meta/` propext-trap catalog is now earned), and **"classical hand-wave →
-  explicit 213 object"** (parity = sorting invariant; omniscience cost = hypothesis).
+- `pure_lean_calibration_synthesis` — **infra frontier** (cross-campaign: determinant/sign +
+  Reverse Math 213): the recurring core-`Decidable`/core-lemma **propext leak + hand-rolled-pure
+  workaround** is now consolidated enough that a **`Meta/` propext-trap catalog** (which core
+  constructs leak, which `*_pure`/`*213` replacement to use) is earned but **unbuilt — the open
+  task**.  Plus the essay-trigger observation "classical hand-wave → explicit 213 object".
 
 - `research_grade_closure_gate` — **meta-frontier**: `∅`-axiom is a
   necessary integrity check, not a sufficient *seriousness* check.
@@ -224,10 +214,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (explicit Teichmüller ω), B (μ_{p−1} root-of-unity + unit decomposition),
   G (general division) now **closed** in `lean`.  The remaining direction H
   is tracked in its own note `G124_padic_drlt_5adic`.
-- `G125_padic_closure_synthesis` — post-closure harvest: the diagonal-limit
-  constructor, `frobenius_lift` as a uniqueness engine, `ZpSeqEquiv` as the
-  funext-free canonical equality (retiring direction C), and the reachable
-  `i₅ = teichmuller(2-lift)`.
+- **p-adic closure harvest** — Teichmüller `ω(x)` + uniqueness + `μ_{p−1}×(1+pℤ_p)` decomposition
+  + general division CLOSED ∅-axiom; chapter `theory/math/numbersystems/padic_real213.md` + essay
+  `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seeds:* a `Zp.diagLimit`
+  abstraction (shared by `invFull`/`sqrtFull`/`teichmuller`); the concrete `i₅ = teichmuller(2-lift)`
+  theorem (via `teichmuller_unique`); generalise the lift+fixed-point uniqueness engine to `sqrt`
+  (`unique_of_lift_fixed`); sequence-level ring axioms via `ZpSeqEquiv.of_trunc_all` (one-commit).
 - `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
   (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
   (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic
@@ -240,10 +232,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   pigeonhole), and the next number-theory seeds (disc-`−8` congruence iff via
   the quadratic character of `2`; the three-square theorem as a hard
   out-of-both-engines frontier).
-- `reciprocity_count_lens_synthesis` — cross-chapter synthesis after the QR closure: a classical
-  sign is the parity bit of a named count; finite Fubini (`sumZ_swap`) appears twice unrecognised
-  as one; "no point on the boundary" = `object1_not_surjective`.  Seeds: cubic/biquadratic
-  reciprocity over `ℤ[ω]/ℤ[i]`, Zolotarev unification, a shared Int-parity home.
+- **reciprocity as count-Lens** — QR + second supplement CLOSED ∅-axiom; narrative
+  `theory/math/numbertheory/quadratic_reciprocity.md` + `theory/essays/proof_isa/counting_as_cardinality.md`.
+  *Open seeds:* cubic/biquadratic reciprocity over `ℤ[ω]/ℤ[i]` (reuse `floor_sum_rectangle`'s
+  lattice-count shape); Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side, one
+  permutation two readouts); fold `sumZ_swap` (Int) + the COUNT Nat double-sum into one `Meta`
+  finite-Fubini; a shared Int-parity home (`int_even_or_odd`/`two_mul_ne_one` → `CenteredDivision`).
 - `second_supplement` — **CLOSED** (`2` QR ⟺ `p ≡ ±1 mod 8`, `SecondSupplement.lean`, 8 PURE incl
   `gauss_mu`).
 - `euler_criterion_converse` — Euler's criterion **CLOSED** strict ∅-axiom (full iff
