@@ -1,109 +1,107 @@
-# Session Handoff — 2026-06-08 (Zolotarev converse closed + merge marathon)
+# Session Handoff — 2026-06-08 (general rank law + shared ℚ(√5) morphism + merge marathon)
 
 ## Branch
-`claude/converse-psign-character-ZEsQA` — pushed, **ahead of `origin/main`**
-(merge marathon).  `cd lean && lake build E213` ✓ clean.  All new theorems strict
-∅-axiom PURE (`tools/scan_axioms.py`).  **NOTE**: `origin/main` advanced during the
-marathon — re-merge `origin/main` before the final push/merge.
+`claude/prime-rank-fibonacci-5adic-zohhac` — pushed, ahead of `origin/main`.
+`cd lean && lake build E213` ✓ clean (full build, 307/307).  All new theorems
+strict ∅-axiom PURE (`tools/scan_axioms.py`).  Ready-to-merge audit GREEN
+(layer 0 violations, 0 stale paths, 0 sink leaks).
 
 ## What Was Done This Session
 
-**Zolotarev's lemma is fully closed for every odd prime, ∅-axiom PURE.**  The
-sign of the multiply-by-`a` permutation IS the Legendre symbol:
-`psign σ_a = 1 ⟺ a` is a QR (`ModArith/ZolotarevMuBridge.zolotarev_mu`).  This
-closes the converse that began as "a separate multi-session effort" — no primitive
-root needed.
+Two buildable bridges of `fibonacci_golden_prime_crossdomain` (insights 3, 5)
+closed ∅-axiom, then a full merge marathon.
 
-### 1. Reusable permutation-sign combinatorics (`Linalg213/InversionsAppend.lean`, 28 PURE)
-- `inversions_append` / `psign_append` — `L ++ M` sign via cross-term
-  `crossInv L M = Σ_{x∈L} ltCount x M`.
-- propext-free reversal `revL` (+ `map_snoc`, `revL_lperm`, `ltCount_revL`,
-  `revL_getD`, `getD_append_left/right`, `length_append_pure`) — `List.reverse` /
-  `map_append` / `mem_append` all pull `propext`, so a self-contained reversal is used.
-- ★ `psign_csub_revL`: `psign ((revL L).map (c−·)) = psign L`.
-- ★ `psign_blockForm`: `psign (0 :: L ++ (revL L).map (p−·)) = altSign (crossInv L …)`.
-- ★ `altSign_crossInv_map_psub`: symmetric cross-count `= altSign (diagCount p F)`
-  (off-diagonal pairs cancel mod 2; `psub_lt_symm`).
+### 1. General rank law `α(p) ∣ p − (5/p)` from the Legendre character (`DyadicFSM/RankApparition.lean`, 10 PURE)
+- `rankIndex p hp = p − (5/p)` — the Fibonacci entry-point index dispatched on
+  the FSM-walking quadratic character `legendre213 5 p`: split `p−1`, inert
+  `p+1`, ramified `p`.  Face lemmas `rankIndex_{ramified,split,inert}` make
+  `p − (5/p)` literal.
+- ★ `rank_law_dispatch` — `p ∣ F_{p−(5/p)}` (= `α(p) ∣ p−(5/p)` via
+  `p∣F_n ⟺ α(p)∣n`), mirroring `UniversalDispatch.universal_dispatch_pellCoeff`
+  (the Pisano-period dispatch); here the read-out is the entry point.
+- Per-prime instantiations through the *universal* machinery, not `decide`:
+  split via `binet_F_p_minus_1_zero` (`𝔽_p` Binet/FLT), inert via
+  `fpp1_eq_zero_of_frob_phi` (`𝔽_{p²}` Frobenius FLT), ramified `p=5` direct.
+  Bundled in `rank_law_table` (p ∈ {3,5,7,11}).
 
-### 2. The full converse (`ModArith/ZolotarevMuBridge.lean`, 14 PURE)
-- `neg_mul_mod`: `(a·(p−x)) % p = p − (a·x) % p`.
-- `mulPermMod_block`: `σ_a = 0 :: (fhList ++ (revL fhList).map(p−·))` (since
-  `σ_a(p−x) = p − σ_a(x)`).
-- `psign_mulPermMod_eq_diag` → `altSign (diagCount p fh)`; `pm_lt`/`sgn_helper`/
-  `altSign_diag_eq_prodSgn` → `= ∏ sgFn` (Gauss's `μ`).
-- ★ `zolotarev_mu`: `psign σ_a = 1 ⟺ QR(a)`, all odd primes.
-- ★ `det_permMatrix_mulPermMod`: `det (permMatrix σ_a) = (a/p)` — the "one
-  permutation, three readouts" triangle (psign = det = Legendre) closed universally.
+### 2. Shared ℚ(√5) morphism — cp_phase ⟷ fibonacci_5adic_valuation (`NumberTheory/GoldenFieldBridge.lean`, 10 PURE)
+- ★ `bPoly_neg_eq_gPoly` — the morphism `x ↦ −x`: the Binet polynomial `x²−x−1`
+  (Fibonacci, `FibApparitionMod5`) and the Gaussian-period polynomial `x²+x−1`
+  (`ℚ(ζ₅)⁺`, `CyclotomicFive`/cp_phase) are one `ℚ(√5)` object (`bPoly(−x)=gPoly x`).
+- `shared_discriminant_five`, `bPoly_ramified_mod5`, `gPoly_ramified_mod5`,
+  `ramified_roots_negate` — both faces share disc `5` and the single ramified
+  prime `5`, each a perfect square mod 5 (double roots `3`, `2`; negatives, `3+2≡0`).
+- ★ `shared_golden_field_morphism` — capstone bundling the morphism, the shared
+  discriminant, both ramifications, the Fibonacci `α(5)=5` signature, and the
+  cyclotomic golden subfield.
 
-### 3. Earlier this branch (already pushed before the marathon)
-- `ModArith/ZolotarevConverse.lean` (23 PURE): `p ≡ 3 (mod 4)` full identity +
-  the `−1` corner `psign σ_{−1} = (−1)^m = (−1/p)` (universal) + det triangle (p≡3).
-
-### 4. Merge marathon (skills)
-- Merged `origin/main` (one-carrier / p-adic νF arc, Casoratian / spiral-axis,
-  CKM CP-phase, finite-state-of-the-pointing); resolved the `ZolotarevSign` docstring
-  conflict to the now-complete state.
-- `/process`: 1 → 0 sink violations; `frontiers/INDEX.md` Zolotarev edges marked CLOSED.
-- Promotion: `theory/math/numbertheory/zolotarev.md` (log row 38).
-- Cross-domain: `frontiers/zolotarev_crossdomain.md` (4 bridges branch × main).
-- `/essay`: `theory/essays/synthesis/the_legendre_symbol_is_the_sign_of_a_pointing.md`
-  (log row 39).
-- `/org-audit` + `/purity-check` + `/ready-to-merge`: all green.
+### 3. Merge marathon (skills)
+- `/process`: 1 → 0 sink violations (decoupled `GoldenFieldBridge` docstring
+  from the frontier note → `theory/.../the_golden_prime.md`); recorded the
+  remaining open direction (higher `νₚ(F_n)` rungs) in `frontiers/`.
+- Promotion: in-place chapter+essay upgrade (rank law → `fibonacci_5adic_valuation`
+  §; morphism → `the_golden_prime` open-frontier CLOSED).  Log row 44.
+- Cross-domain: branch×main insights 6–8 in `fibonacci_golden_prime_crossdomain`
+  (the rank character IS `psign σ_5`; rank-vs-period one character; `x↦−x` vs `σ²`).
+- `/essay`: `theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md`
+  (log row 45; essays 76 → 77).
+- `/org-audit` + `/purity-check` + `/ready-to-merge`: all GREEN.
 
 ## Current Precision Results (0 free parameters)
-Unchanged this session — Zolotarev is pure-math closure, not a physics observable.
-See `catalogs/physics-constants.md` (inherited from main: `1/α_em` 0.09 ppb, CKM
-`δ = 90°`, `R_u = 1/φ²`, …).
+Unchanged this session — both closures are pure-math (number theory), not
+physics observables.  See `catalogs/physics-constants.md` (`1/α_em` 0.09 ppb,
+CKM `δ = 90°`, `R_u = 1/φ²`, …).
 
 ## Open Problems (Priority Order)
 
-### 1. The remaining "three readouts" faces (insights 2–4)
-The Teichmüller `ω`-projection face of the quadratic character, the
-`ZpSeq ↠ ℤ/pⁿ ↠ ℤ/p` truncation-tower reading, and the Hensel/`diagLimit`
-square-root face (`(a/p)=1 ⟺ a has a √ in ℤ_p`).  Proven cores closed both sides;
-the bridging edges are open.
-Frontier note: `research-notes/frontiers/permutation_three_readouts.md` (insights 2–4).
+### 1. Higher valuation rungs `νₚ(F_n)` for general `p`
+The rank law is the entry-point (`νₚ ≥ 1`) rung.  The all-orders lift is open
+beyond `p = 5`: needs the `p`-tupling analogue of the quintupling identity (an
+index-`α(p)`-multiplication identity with cofactor `≡ 1 mod p`), buildable from
+`fibZ_index_rec` iterated to `k = α(p)`, parametric in the rank.
+Frontier note: `research-notes/frontiers/fibonacci_golden_prime_crossdomain.md`
+("Remaining open direction").
 
-### 2. Branch × main cross-domain bridges (ripe: insights 1–2)
-(1) `(a/p)` as the Z/2 invariant the finite `×a` pointing carries that the `×p`
-νF-escape lacks; (2) `psign (cyclicShift n) = altSign (n−1)` through `det_permMatrix`
-(mirroring `psign σ_a = (a/p)`), unifying Zolotarev with main's Casoratian companion
-sign as one "three readouts" family; (3) `crossInv` antisymmetry ↔ det repeated-row
-vanishing; (4) `psign σ_{−1} = (−1/p)` ↔ main's order-4 spiral-axis point `ℤ[i]^×=C₄`.
-Frontier note: `research-notes/frontiers/zolotarev_crossdomain.md`.
+### 2. The `legendre213 5 p = psign σ_5` equality morphism
+The rank-law character (FSM-walk terminal) and Zolotarev's permutation sign are
+stated equal from two proven sides; the explicit Lean morphism (modulo the
+ramified `=0` corner) would let `α(p) ∣ p − psign(σ_5)` be one theorem.
+Frontier note: `research-notes/frontiers/fibonacci_golden_prime_crossdomain.md`
+(insight 6).
 
 ## Unresolved from This Session
-None — the μ-bridge closed cleanly.  Self-corrected dead ends to NOT re-attempt:
-`omega` / `Nat.sub_sub` / `Nat.add_sub_cancel_left` / `Nat.div_add_mod` /
-`Nat.mod_two_eq_zero_or_one` / `Nat.sub_add_cancel` / `List.reverse_cons` /
-`Nat.lt_of_mul_lt_mul_left` / `Nat.le_sub_of_add_le` — all pull `propext`/`Classical`
-in this Lean core; use the repo's pure replacements (`NatHelper.*`, `AddMod213.*`,
-`MulMod213.*`, self-defined `revL`/`sub_one_sub`).
+None — both bridges closed cleanly.  Self-corrected dead end to NOT re-attempt:
+`ring_intZ` does **not** expand `^` (treats `x^2` as an opaque atom) — write
+polynomial identities with explicit `*` (`x*x`), as in `GoldenFieldBridge.bPoly`.
 
 ## Next
-Push and merge this branch to `main` (re-merge `origin/main` first — it advanced
-during the marathon).  After merge: attack Open Problem 2 insight (2) — the buildable
-`psign (cyclicShift n) = altSign (n−1)` edge tying Zolotarev to the Casoratian.
+Push and merge this branch to `main`.  After merge: attack Open Problem 2 (the
+buildable `legendre213 5 p = psign σ_5` edge) — it ties the rank law to the
+Zolotarev converse and would close insight 6 in Lean; or Open Problem 1 (the
+`p`-tupling identity for general-`p` higher valuation).
 
 ## Three-tier state
-- **Promotions this session**: `theory/math/numbertheory/zolotarev.md` (row 38) +
-  essay `the_legendre_symbol_is_the_sign_of_a_pointing.md` (row 39).
-- **Promotion candidates**: none outstanding for the Zolotarev arc (closed + promoted).
-- **Active scratchpad**: `frontiers/{permutation_three_readouts, zolotarev_crossdomain}.md`.
+- **Promotions this session**: in-place upgrades — rank law → `theory/math/
+  numbertheory/fibonacci_5adic_valuation.md` (§ + key-results rows); morphism →
+  `theory/essays/synthesis/the_golden_prime.md` (open frontier CLOSED).  Log row 44.
+- **Essay**: `theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md`
+  (row 45).
+- **Promotion candidates**: none outstanding for this arc (closed + promoted).
+- **Active scratchpad**: `frontiers/fibonacci_golden_prime_crossdomain.md`
+  (insights 1, 6 + higher-νₚ open; 2–5 closed/proven).
 
 ## File Map
 ```
-lean/E213/Lib/Math/Algebra/Linalg213/InversionsAppend.lean   ← NEW, 28 PURE (reusable sign combinatorics)
-lean/E213/Lib/Math/Algebra/Linalg213.lean                    ← +InversionsAppend import
-lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevMuBridge.lean ← NEW, 14 PURE (full converse)
-lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevConverse.lean ← p≡3 + −1 corner (23 PURE)
-lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevSign.lean  ← docstring → fully-closed state
-lean/E213/Lib/Math/NumberTheory/ModArith.lean                ← +ZolotarevConverse, +ZolotarevMuBridge
-theory/math/numbertheory/zolotarev.md                        ← NEW promoted chapter
-theory/essays/synthesis/the_legendre_symbol_is_the_sign_of_a_pointing.md ← NEW essay
-research-notes/frontiers/permutation_three_readouts.md       ← Zolotarev edge marked CLOSED
-research-notes/frontiers/zolotarev_crossdomain.md            ← NEW (branch × main, 4 bridges)
-research-notes/frontiers/INDEX.md                            ← Zolotarev seeds → Done
-research-notes/promotion_essay_log.md                        ← rows 38 (promotion) + 39 (essay)
-theory/{INDEX,math/INDEX,essays/INDEX}.md                    ← counts: math 95, essays 74
+lean/E213/Lib/Math/NumberTheory/DyadicFSM/RankApparition.lean ← NEW, 10 PURE (rank law from Legendre)
+lean/E213/Lib/Math/NumberTheory/DyadicFSM.lean                ← +RankApparition import
+lean/E213/Lib/Math/NumberTheory/GoldenFieldBridge.lean        ← NEW, 10 PURE (shared ℚ(√5) morphism)
+lean/E213/Lib/Math.lean                                       ← +GoldenFieldBridge import
+theory/math/numbertheory/fibonacci_5adic_valuation.md         ← +general-p rank law §, key-results rows
+theory/essays/synthesis/the_golden_prime.md                   ← open frontier → CLOSED
+theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md ← NEW essay
+theory/essays/INDEX.md, theory/INDEX.md                       ← essays 76 → 77
+research-notes/frontiers/fibonacci_golden_prime_crossdomain.md ← insights 3,5 CLOSED; 6–8 + νₚ open recorded
+research-notes/frontiers/INDEX.md                             ← Fibonacci entry CLOSED/Open updated
+research-notes/promotion_essay_log.md                         ← rows 44 (promotion) + 45 (essay)
+STRICT_ZERO_AXIOM.md                                          ← +RankApparition + GoldenFieldBridge entry (20 PURE)
 ```
