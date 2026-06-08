@@ -27,7 +27,7 @@ open E213.Lib.Math.Algebra.Linalg213.DetTranspose
   (nodup_map_restrict perms_contains invPerm_mem_perms psign_inv
    zipDiag prodDiagFrom_eq_prodZ zipDiag_getD zipDiag_length list_self_map_getD)
 open E213.Lib.Math.Algebra.Linalg213.PermSign (psign_mul altSign_self)
-open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_smul)
+open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_smul leibDet_rows_eq_ne)
 open E213.Tactic.List213 (list_ext_getD getD_ge getD_map_ib length_map)
 
 /-- Position-injectivity hypothesis for `idxOf_getD_self`, from `perms`-membership. -/
@@ -188,5 +188,24 @@ theorem leibDet_rowPerm (σ : List Nat) (B : Nat → Nat → Int) (n : Nat) (hσ
       ← map_map' (fun τ => composeList τ (invPerm σ)) (leibTerm B) (perms n),
       sumZ_lperm (map_lperm (leibTerm B)
         (perms_closed_rightMul n (invPerm σ) (invPerm_mem_perms n σ hσ)))]
+
+/-! ## §4 — non-injective row-permutations vanish; the function enumeration -/
+
+/-- ★★ **A repeated row index makes the row-permutation determinant vanish.**  If `f` sends two
+    distinct positions `i ≠ j` to the same value, `rowPerm f B` has two equal rows, so its
+    determinant is `0` — the term that kills non-permutation `f` in the `det(M·N)` expansion. -/
+theorem leibDet_rowPerm_zero (n : Nat) (f : List Nat) (B : Nat → Nat → Int) {i j : Nat}
+    (hij : i ≠ j) (hi : i < n) (hj : j < n) (he : f.getD i 0 = f.getD j 0) :
+    leibDet n (rowPerm f B) = 0 :=
+  leibDet_rows_eq_ne (rowPerm f B) n i j hij hi hj (fun c => by
+    show B (f.getD i 0) c = B (f.getD j 0) c; rw [he])
+
+/-- All length-`len` lists with entries drawn from `vals` (the choice/function enumeration). -/
+def tuples (vals : List Nat) : Nat → List (List Nat)
+  | 0       => [[]]
+  | len + 1 => vals.flatMap (fun v => (tuples vals len).map (v :: ·))
+
+/-- All functions `[n] → [n]` as length-`n` value-lists with entries `< n`. -/
+def funcs (n : Nat) : List (List Nat) := tuples (iota n) n
 
 end E213.Lib.Math.Algebra.Linalg213.DetMul

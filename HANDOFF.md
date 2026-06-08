@@ -101,15 +101,22 @@ the strategy:
   - ✓ §1 `composeList_mem_perms` (perms is a group), §2 `perms_closed_rightMul` (right translation
     is a bijection), §3 ★★★ **`leibDet_rowPerm`** (`leibDet (rowPerm σ B) = psign σ · leibDet B` —
     "permuting rows by σ scales det by `psign σ`") — all CLOSED, PURE (`DetMul` 8/8).
-  - **Remaining — the function-sum expansion** (the last piece): `det(AB) = Σ_σ psign σ ∏ᵢ Σₖ AᵢₖBₖσᵢ
-    = Σ_{f:[n]→[n]} (∏ᵢ Aᵢfᵢ)·(Σ_σ psign σ ∏ᵢ B_{fᵢ}σᵢ) = Σ_{f:[n]→[n]} (∏ᵢ Aᵢfᵢ)·leibDet(rowPerm f B)`.
-    Non-injective `f` ⟹ `rowPerm f B` has two equal rows ⟹ `leibDet = 0` (`leibDet_rows_eq_ne`);
-    permutation `f` ⟹ `psign f · leibDet B` (★ `leibDet_rowPerm`, just built).  So
-    `det(AB) = (Σ_{f∈perms} psign f ∏ᵢ Aᵢfᵢ)·leibDet B = leibDet A · leibDet B`.  Needs: (a) an
-    enumeration of **all** functions `[n]→[n]` (length-`n` lists with entries `<n`, not just perms)
-    + (b) the product-of-sums distributivity `∏ᵢ(Σₖ …) = Σ_f ∏ᵢ …`, then (c) split injective/non-
-    injective.  This is the big remaining build (~120 lines); `leibDet_rowPerm` (the hard sign part)
-    is already done.
+  - ✓ §4 **both split cases + the enumeration** (`DetMul` 11/11 PURE): ★ `leibDet_rowPerm_zero`
+    (non-injective `f` — two equal rows ⟹ `leibDet (rowPerm f B) = 0`), `tuples`/`funcs n`
+    (all functions `[n]→[n]` as length-`n` lists with entries `< n`).
+  - **Remaining — the product-of-sums distributivity + assembly** (the genuine last piece):
+    1. **distributivity** `prodDiagFrom (matMul n A B) 0 σ = sumZ ((funcs n).map (fun f =>
+       prodChoice A B 0 σ f))` where `prodChoice A B start (a::ps) (j::fs) = A start j · B j a ·
+       prodChoice A B (start+1) ps fs` — by induction on `σ`, the inductive step a bilinear
+       distribution (`sumZ_mul` + `sumZ_flatMap` over the `tuples` recursion).  Watch the
+       `start`-index alignment.
+    2. **factor** `prodChoice A B 0 σ f = prodDiagFrom A 0 f · prodDiagFrom (rowPerm f B) 0 σ`.
+    3. **sum-swap** (`CayleyHamilton.sumZ_swap`): `leibDet(AB) = Σ_σ psign σ Σ_f … = Σ_f prodA(f)·
+       leibDet(rowPerm f B)`.
+    4. **partition** `funcs n = perms n ⊎ (non-injective)`: non-inj ⟹ 0 (`leibDet_rowPerm_zero`,
+       via pigeonhole "injective length-`n` entries-`<n` ⟹ perm"); perm part ⟹ `leibDet A·leibDet B`
+       (`leibDet_rowPerm`).  Est. ~150 lines; both *sign* cases (the hard parts) are done — what
+       remains is bookkeeping (distributivity, sum-swap, the `funcs`↔`perms` partition).
 
 ### 3b. ✓ The **upper-triangular** determinant — CLOSED (this session)
 `DetTriangular.det_upper_triangular` — `M i j = 0` for `j < i` ⟹ `det = Π Mᵢᵢ`,
