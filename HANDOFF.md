@@ -55,19 +55,32 @@ Found `δ=π/φ²` was never derived (`CPViolation` only computes the number
 - **Answers the open premise**: the apex IS the self-reference contraction `r`,
   complexified by the dynamic central element `M⁵=−1`. Structural, not a fit.
 
+### 5b. Pell-area route — the CP-area integer skeleton (`SpanAreas`, 7 PURE)
+Pursued the flagged Pell-area ↔ CP route. Convergent span-area
+`det(v_m,v_{m+k}) = −F₂ₖ` (position-independent, from `det M = 1`):
+- `k=1` (adjacent gen): `−1` = Pell symplectic unit; same `−1` as central `M⁵=−1`.
+- `k=2` (gen 1↔3, the **apex span**): `−F₄ = −NS = −3` — the **integer skeleton
+  of the unitarity-triangle CP-area** `η̄/2`.
+- **3-generation CP triangle**: 3 consecutive convergents span the minimal
+  nonzero (unit) area; 2 points → area 0. So "CP needs 3 generations" is
+  geometric: `N_gen = NS = 3` is the minimum to enclose the symplectic unit.
+
 ## The one remaining internal gap (NEXT TARGET)
 The frozen↔dynamic **coupling** `δ = π·R_u` (phase `= π ×` modulus, i.e.
-`δ/π = r = 1/φ²`). Both *ingredients* are now internal (`r` frozen, `π=M⁵`
-dynamic) and the CP-existence mechanism is derived; what is **not yet forced**
-is *why the two Lens readings couple as `phase = π·modulus`*.
+`δ/π = r = 1/φ²`; equivalently `arg z = π|z|`). All *ingredients* are now
+internal — `r` frozen, `π = M⁵` dynamic, the CP-area skeleton `F₄ = NS` — and
+the CP-existence mechanism is derived; what is **not yet forced** is *why the
+phase fraction `δ/π` equals the contraction `r`* (the dressing of the integer
+skeleton `F₄=NS` into the physical `η̄ ≈ 0.356`).
 - Tried and rejected (do NOT re-fish): the naive one-step spiral gives per-step
-  rotation `π/5 = 36°` (from `M⁵=−I` over 5 steps), NOT `π/φ²=68.75°`. So the
-  coupling is not a simple spiral step. The icosahedral `2π/5=72°` is also wrong.
-- Next real step: find why the dynamic phase *fraction* `δ/π` equals the frozen
-  contraction `r` — likely in how the 3-generation (3-rep) span maps to the
-  M-iteration depth, or the Pell symplectic invariant (`pell_unit_at = −1`,
-  the conserved area = the CP/area part). The Pell area invariant `−1` and the
-  central `M⁵=−1` are the same `−1`; the η (triangle area) link is unprobed.
+  rotation `π/5 = 36°` (from `M⁵=−I` over 5 steps), NOT `π/φ²=68.75°`; the
+  icosahedral `2π/5=72°` is also wrong.
+- Pell-area route gave the integer skeleton (above) but not the λ/φ dressing
+  that maps `F₄=NS` → `η̄`. That dressing (the λ-hierarchy + φ-contraction
+  normalisation) is the remaining piece.
+- Honest status: the coupling may be a genuine multi-session nut; further
+  atomic-angle attempts are fishing (flagged). The CP-*existence* and the
+  *integer skeleton* are the solid internal results.
 
 ## Files this session
 ```
@@ -75,6 +88,7 @@ lean/E213/Lib/Math/Algebra/Icosahedral/OrderFive.lean     ← 9 PURE: M⁵≡−
 lean/E213/Lib/Math/Algebra/Icosahedral/A5Bridge.lean      ← 4 PURE: eigenvalue φ²=character φ+1
 lean/E213/Lib/Math/Algebra/Icosahedral/A5Reps.lean        ← 5 PURE: irreps, Clebsch, χ-orthonormality
 lean/E213/Lib/Math/Algebra/Icosahedral/GoldenMixing.lean  ← 4 PURE: sin²θ₁₂=1/(φ²+1) template
+lean/E213/Lib/Math/Algebra/Icosahedral/SpanAreas.lean      ← 7 PURE: span-areas, apex CP-area skeleton=NS
 lean/E213/Lib/Math/Algebra/Icosahedral/Capstone.lean      ← 1 PURE: M ∈ A₅ capstone
 lean/E213/Lib/Math/Algebra/Icosahedral/INDEX.md           ← sub-tree index (5 files)
 lean/E213/Lib/Physics/Mixing/JarlskogApex.lean            ← +§5.5 apex_modulus_subunit_forced; §4 honest sin2β
