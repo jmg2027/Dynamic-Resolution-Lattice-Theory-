@@ -31,7 +31,7 @@ now **fully closed for every odd prime** in `ModArith/ZolotarevMuBridge.lean`
 block form `0 :: (fh ++ (revL fh).map (p−·))`, so `psign σ_a = altSign (diagCount p fh)`
 reduces to a symmetric cross-count whose parity is Gauss's `μ` — no primitive root needed.
 The `−1`-axis / `p ≡ 3 (mod 4)` partial result (`ZolotarevConverse.zolotarev_pmod4_three`)
-is subsumed.  Closure record: `research-notes/frontiers/permutation_three_readouts.md`.
+is subsumed.
 
 All ∅-axiom.
 -/

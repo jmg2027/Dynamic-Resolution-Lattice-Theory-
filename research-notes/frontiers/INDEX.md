@@ -171,7 +171,8 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (3) `ℚ(ζ₅)` Gauss periods (CP golden modulus + `C₄`) ↔ main's Teichmüller/`gauss_qr`;
   (4) Hodge-Riemann positivity `h=Q·J=I` ↔ main's `det_mul` (`det=1`). Richest:
   the permutation sign + Hodge-⋆ orientation + Legendre symbol + CP phase are one
-  inversion/Gaussian object; the open **Zolotarev** edge closes the square.
+  inversion/Gaussian object; the **Zolotarev** edge — now CLOSED
+  (`ModArith/ZolotarevMuBridge.zolotarev_mu`, all odd primes) — closes the square.
 
 - `gram_d2_prefactor` — **the α_em Gram self-energy `/d²` prefactor**.
   *Closed this session*: the cubic `25y³+1=25Xy²` is the correction ansatz
@@ -309,22 +310,24 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - **reciprocity as count-Lens** — QR + second supplement CLOSED ∅-axiom; narrative
   `theory/math/numbertheory/quadratic_reciprocity.md` + `theory/essays/proof_isa/counting_as_cardinality.md`.
   *Open seeds:* cubic/biquadratic reciprocity over `ℤ[ω]/ℤ[i]` (reuse `floor_sum_rectangle`'s
-  lattice-count shape); Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side, one
-  permutation two readouts); fold `sumZ_swap` (Int) + the COUNT Nat double-sum into one `Meta`
-  finite-Fubini.  ✓ *Done:* `int_even_or_odd` deduplicated into `CenteredDivision`
+  lattice-count shape); fold `sumZ_swap` (Int) + the COUNT Nat double-sum into one `Meta`
+  finite-Fubini.  ✓ *Done:* Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side,
+  one permutation two readouts) — `ModArith/ZolotarevMuBridge.zolotarev_mu`;
+  `int_even_or_odd` deduplicated into `CenteredDivision`
   (FourSquare / QuadraticReciprocity now thin re-exports); the `two_mul_ne_one` clones remain.
 - **Legendre-symbol package** — CLOSED ∅-axiom (54 PURE): Euler's criterion (`qr_iff_pow_one`,
   full iff `euler_criterion`), multiplicativity (`legendre_mul`), both supplements
   (`neg_one_qr_iff`, `second_supplement`), Gauss's lemma (`gauss_qr`/`gauss_mu`).  **Promoted** →
-  `theory/math/numbertheory/legendre_symbol.md` (the QR chapter's base package).  *Open seed:*
-  Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side, one permutation two readouts).
+  `theory/math/numbertheory/legendre_symbol.md` (the QR chapter's base package).  ✓ *Done:*
+  Zolotarev (`psign σ_a = (a/p)`, all odd primes) — `ModArith/ZolotarevMuBridge.zolotarev_mu`.
 
 - **permutation's three readouts** (`permutation_three_readouts.md`) — cross-domain synthesis
-  after merging the Legendre/QR package (main) into the determinant + p-adic branch.  Four open
-  bridging edges between the two campaigns: (1) ★ **Zolotarev** as the missing edge of "one
-  permutation, three readouts" — `psign` (inversions) ≡ `det(permMatrix)` [now proven,
-  `PermMatrixDet.det_permMatrix`] ≡ `(a/p)` [main, `gauss_qr`/`euler_criterion`], closed by
-  `psign (×a mod p) = (a/p)`; (2) the Legendre symbol as the 2-torsion projection of the
+  after merging the Legendre/QR package (main) into the determinant + p-adic branch.  Edge (1)
+  ★ **CLOSED**; (2)–(4) open.  (1) ★ **Zolotarev** — the missing edge of "one
+  permutation, three readouts" — `psign` (inversions) ≡ `det(permMatrix)`
+  [`PermMatrixDet.det_permMatrix`] ≡ `(a/p)` [main, `gauss_qr`/`euler_criterion`]: **now a
+  theorem for every odd prime** (`ModArith/ZolotarevMuBridge.zolotarev_mu` +
+  `det_permMatrix_mulPermMod`); (2) the Legendre symbol as the 2-torsion projection of the
   Teichmüller `ω ∈ μ_{p−1}` (Euler's criterion = mod-`p` shadow of a `μ_{p−1}` identity); (3) the
   truncation tower `ZpSeq ↠ ℤ/pⁿ ↠ ℤ/p` reads the same ring-quotient (`SetoidMul` commRing) at the
   level where QR lives; (4) `(a/p)=1 ⟺ a has a `diagLimit` √ in ℤ_p` (Hensel face of the Legendre
