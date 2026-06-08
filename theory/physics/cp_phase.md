@@ -138,12 +138,15 @@ output, `γ = arccos(1/φ²) = 67.54°`, `β = 22.46°` (observed `22.5°`), `α
 
 Closed: CP existence+uniqueness; the phase forced to `90°` (given "phase `∈ C₄`");
 the `C₄`/`i` = signed Hodge `⋆` = `ℤ[i]` = `ℚ(ζ₅)` identity; the golden modulus.
-**Not closed**: (i) the *sole premise* "phase `∈ C₄`" — eliminating it needs the
-explicit `5̄⊕10` generation Yukawa carrying `J` from first principles (a complex-
-type `FS=−1` generation rep evading the A₅ reality wall); (ii) lifting the signed
-Hodge `⋆` from the 2-D grade-pair model to the full `Δ⁴` cochain complex; (iii)
-the fit is `~1.5σ` on `α, γ` (`β` ≈ exact) — the advance is *principled-ness* (a
-Niven-allowed root-of-unity phase), not precision.  `α = 90°` (right unitarity
+**Closed since promotion**: the premise "phase `∈ C₄`" is now *forced*, not
+assumed — `Hodge/SignedStarFull` lifts the signed Hodge `⋆` to the full grade-1
+space `Λ¹(ℝ⁴)` and shows `⋆²=−1` on all of it, so `⟨⋆⟩` is order *exactly* 4 =
+`C₄` (not `C₆`); the Hodge structure on the `d=5` cohomology *is* the `C₄`.
+**Not closed**: (i) the explicit `5̄⊕10` generation Yukawa carrying `J` from first
+principles (the structural wiring + the rust ab-initio `ℤ[i]` check are done; a
+from-scratch generation-Yukawa derivation is not); (ii) the fit is `~1.5σ` on
+`α, γ` (`β` ≈ exact) — irreducible at this level, the advance is *principled-ness*
+(a Niven-allowed, Hodge-forced root-of-unity phase), not precision.  `α = 90°` (right unitarity
 triangle) is **falsifiable** against future UTfit/CKMfitter values.  Active record:
 `research-notes/frontiers/ckm_rho_eta_apex.md`.
 
