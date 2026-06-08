@@ -163,6 +163,22 @@ native op and *no* ring-hom readout; its field is irreducibly transport-only.  T
 named one-carrier frontier (carrier, shift, additive ±1, multiplicative valuation, binary ×, native
 finite-state characterization, ℝ field).
 
+### 3i. × IS native corecursive (claim corrected) + the not-finite-state THEOREM — ✅ (this session)
+A multi-agent research pass (4 expert agents) found my "× native is by-design impossible" claim was
+WRONG — it conflated *not finite-state* (true) with *not corecursively definable* (false).  The
+Cauchy product is textbook productive corecursion.  Now proved in `Padic/NuEscape`:
+- `mul_corecursive` — `Zp.mul` is a coalgebra morphism for the carrier shift: head `residue_mul`
+  (`(x·y)₀=x₀·y₀`), tail `mulRaw_tail` (`(x·y)'=x₀·y'+x'·y`, `dropHd`=shift), emit/advance
+  `mul_digit_carry_step`.  So × IS native corecursive.
+- `mulRaw_negOne_negOne` (`mulRaw (-1)(-1) k = (k+1)(p-1)²`) + `mulRaw_unbounded` — × is provably
+  NOT finite-state, the exact dual of `add_carry_le_one`.  The unbounded carry = the multiplicative
+  residue (escapes every finite-state machine, `spineL`-style).
+Narrative corrected (dropped the "fine-tuning-as-forbidden" framing); frontier note
+`research-notes/frontiers/sequence_depth/multiplicative_carry_residue.md` records the open part (is
+the mul-carry itself a νF inhabitant?).  Propext traps avoided: `Nat.add_sub_add_right` →
+`Nat.succ_sub_succ`; core `div_add_mod` → `AddMod213.div_add_mod`; base cases via
+`(Nat.add_zero _).symm`.
+
 > Note (propext traps hit + recorded): `Nat.succ_ne_zero`, `Nat.sub_add_cancel`, `by_cases`, and
 > `rw`-with-an-`Iff` all pull `propext`.  Use `Nat.noConfusion`, `cases p`/defeq, `rcases
 > Nat.lt_or_ge`, and `.mp`/`.mpr` via defeq instead.

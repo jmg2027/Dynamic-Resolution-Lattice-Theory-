@@ -561,6 +561,127 @@ theorem padic_native_addition {p : Nat} (hp : 0 < p) :
   ⟨fun x y k => add_carry_le_one hp x y k,
    fun x y k => Zp.add_digit_val p hp x y k⟩
 
+/-! ### General `p` — × IS native corecursive (just not finite-state)
+
+The sharp correction: "`×` is not native to the carrier" conflates **not finite-state** (true) with
+**not corecursively definable** (false).  The Cauchy product is the textbook *productive
+corecursion* (Rutten's behavioural differential equations): `(x·y)₀ = x₀·y₀` and `(x·y)' = x₀·y' +
+x'·y`.  Carry keeps each digit a *finite* computation (productive), breaking only *bounded state*.
+
+Here `Zp.mul` is exhibited as a genuine coalgebra morphism for the carrier's shift structure
+(CoResidue §21): the **head law** `residue_mul` (`(x·y)₀ = x₀·y₀`), the **tail law** `mulRaw_tail`
+(`(x·y)' = x₀·y' + x'·y` — the convolution's behavioural differential equation, `dropHd` = the
+shift `÷p`), and the **emit-digit / advance-carry** step `mul_digit_carry_step`.  So `×` is native
+*corecursive* — `mul_corecursive` bundles it.  All ∅-axiom; productive but, unlike `+`, not
+bounded-state. -/
+
+/-- Drop the lowest digit (the shift `÷p` / `tail` on the carrier). -/
+def dropHd {p : Nat} (x : ZpSeq p) : ZpSeq p := ⟨fun i => x.digits (i + 1)⟩
+
+/-- The convolution's shift identity: peeling the lowest factor digit.  By induction on the partial
+    sum's `upper` bound — the `i ↦ i+1` reindex turns `x_{i+1}` into `(dropHd x)_i` and `y_{(k+1)-(i+1)}`
+    into `y_{k-i}` (`Nat.succ_sub_succ`). -/
+theorem mulRawSum_shift {p : Nat} (x y : ZpSeq p) (k : Nat) :
+    ∀ upper, Zp.mulRawSum p x y (k + 1) (upper + 1)
+      = (x.digits 0).val * (y.digits (k + 1)).val
+        + Zp.mulRawSum p (dropHd x) y k upper
+  | 0 => by
+      show Zp.mulRawSum p x y (k + 1) 0
+            + (x.digits 0).val * (y.digits (k + 1 - 0)).val
+          = (x.digits 0).val * (y.digits (k + 1)).val + Zp.mulRawSum p (dropHd x) y k 0
+      rw [Nat.sub_zero]
+      exact (Nat.zero_add _).trans (Nat.add_zero _).symm
+  | upper + 1 => by
+      show Zp.mulRawSum p x y (k + 1) (upper + 1)
+            + (x.digits (upper + 1)).val * (y.digits (k + 1 - (upper + 1))).val
+          = (x.digits 0).val * (y.digits (k + 1)).val
+            + Zp.mulRawSum p (dropHd x) y k (upper + 1)
+      rw [mulRawSum_shift x y k upper, Nat.succ_sub_succ, Nat.add_assoc]
+      rfl
+
+/-- ★★★ **The product's tail law (behavioural differential equation).**  `(x·y)' = x₀·y' + x'·y`:
+    the shift of the convolution is `x₀` times the shifted second factor plus the product of the
+    shifted first factor with the second (`dropHd` = the shift).  This is the corecursive identity
+    that makes `Zp.mul` a coalgebra morphism for the carrier's shift (CoResidue §21) — `×` native
+    corecursive, the tail complement of the head law `residue_mul`. -/
+theorem mulRaw_tail {p : Nat} (x y : ZpSeq p) (k : Nat) :
+    Zp.mulRaw p x y (k + 1)
+      = (x.digits 0).val * (y.digits (k + 1)).val + Zp.mulRaw p (dropHd x) y k :=
+  mulRawSum_shift x y k (k + 1)
+
+/-- ★★★ **The emit-digit / advance-carry step (productivity).**  `(x·y)_k + carry_{k+1}·p =
+    rawₖ + carryₖ`: position `k` emits a digit (`% p`) and advances the carry (`/ p`) — `Zp.mul` is
+    a productive transducer (`div_add_mod`).  Unlike `+`, the carry here is unbounded
+    (`mulRaw_unbounded`), so this is corecursive, not finite-state. -/
+theorem mul_digit_carry_step {p : Nat} (hp : 0 < p) (x y : ZpSeq p) (k : Nat) :
+    ((Zp.mul p hp x y).digits k).val + Zp.mulCarry p x y (k + 1) * p
+      = Zp.mulRaw p x y k + Zp.mulCarry p x y k := by
+  show (Zp.mulRaw p x y k + Zp.mulCarry p x y k) % p
+        + (Zp.mulRaw p x y k + Zp.mulCarry p x y k) / p * p
+      = Zp.mulRaw p x y k + Zp.mulCarry p x y k
+  rw [Nat.mul_comm, Nat.add_comm]
+  exact E213.Meta.Nat.AddMod213.div_add_mod _ p
+
+/-- ★★★ **`Zp.mul` is a coalgebra morphism for the carrier (capstone): `×` is native corecursive.**
+    The product satisfies the behavioural differential equations of the Cauchy product:
+
+    1. **head** — `residue (x·y) = residue x · residue y` (`residue_mul`): `(x·y)₀ = x₀·y₀`;
+    2. **emit/advance** — `mul_digit_carry_step`: each position emits a digit and advances the carry
+       (productive transducer);
+    3. **tail** — `mulRaw_tail`: `(x·y)' = x₀·y' + x'·y` (the convolution's shift law).
+
+    So `×` is genuinely native to the final coalgebra (the carrier's shift, CoResidue §21) — a
+    *productive corecursion* — refuting "× is non-native by design".  The honest residue: it is
+    productive but **not finite-state** (the carry is unbounded, `mulRaw_unbounded`), the one sense
+    in which `×` differs from the finite-state `+`.  ∅-axiom. -/
+theorem mul_corecursive {p : Nat} (hp : 0 < p) (x y : ZpSeq p) :
+    (residue (Zp.mul p hp x y) = finMul hp (residue x) (residue y))
+    ∧ (∀ k, ((Zp.mul p hp x y).digits k).val + Zp.mulCarry p x y (k + 1) * p
+              = Zp.mulRaw p x y k + Zp.mulCarry p x y k)
+    ∧ (∀ k, Zp.mulRaw p x y (k + 1)
+              = (x.digits 0).val * (y.digits (k + 1)).val + Zp.mulRaw p (dropHd x) y k) :=
+  ⟨residue_mul hp x y, mul_digit_carry_step hp x y, fun k => mulRaw_tail x y k⟩
+
+/-! ### General `p` — × is NOT finite-state: the multiplicative carry is unbounded
+
+The precise dual of `add_carry_le_one` (addition's carry `≤ 1`): multiplication's convolution is
+unbounded.  Witness `(-1)·(-1)` (both streams all-top, `ZpSeq.neg_one`): every convolution term is
+`(p-1)·(p-1)`, so `mulRaw (-1) (-1) k = (k+1)·(p-1)²` **exactly** (`mulRaw_negOne_negOne`), which is
+unbounded in `k` (`mulRaw_unbounded`).  So the per-position raw value — hence the carry — admits no
+constant bound: `×` is computed by no finite-state machine.  This is the **multiplicative residue**:
+the part of `×` that escapes finite-state description, the `spineL_escapes` /
+`non_holonomicity_as_finite_state_escape` shape read at the ring-operation scale.  (Productive, yet
+reached by no bounded state — `mul_corecursive` vs this.)  ∅-axiom. -/
+
+/-- The all-top (`-1`) convolution partial sum is `upper · (p-1)²`. -/
+theorem mulRawSum_negOne {p : Nat} (hp : 0 < p) (k : Nat) :
+    ∀ upper, Zp.mulRawSum p (ZpSeq.neg_one p hp) (ZpSeq.neg_one p hp) k upper
+      = upper * ((p - 1) * (p - 1))
+  | 0       => (Nat.zero_mul _).symm
+  | upper + 1 => by
+      show Zp.mulRawSum p (ZpSeq.neg_one p hp) (ZpSeq.neg_one p hp) k upper
+            + (p - 1) * (p - 1) = (upper + 1) * ((p - 1) * (p - 1))
+      rw [mulRawSum_negOne hp k upper, Nat.succ_mul]
+
+/-- ★★ **The all-top product convolution is exactly `(k+1)(p-1)²`.**  `mulRaw (-1) (-1) k =
+    (k+1)·(p-1)²` — every term of the convolution is `(p-1)·(p-1)`. -/
+theorem mulRaw_negOne_negOne {p : Nat} (hp : 0 < p) (k : Nat) :
+    Zp.mulRaw p (ZpSeq.neg_one p hp) (ZpSeq.neg_one p hp) k = (k + 1) * ((p - 1) * (p - 1)) :=
+  mulRawSum_negOne hp k (k + 1)
+
+/-- ★★★ **The multiplicative carry/convolution is unbounded** (`p ≥ 2`) — the dual of
+    `add_carry_le_one`.  For every `C`, the convolution `mulRaw (-1) (-1) k` exceeds `C` at `k = C`
+    (`(C+1)·(p-1)² ≥ C+1 > C`, since `(p-1)² ≥ 1`).  So `×` has no bounded per-position value and is
+    computed by no finite-state machine — the precise sense of "× is not native finite-state". -/
+theorem mulRaw_unbounded {p : Nat} (hp2 : 2 ≤ p) (C : Nat) :
+    ∃ k, C < Zp.mulRaw p (ZpSeq.neg_one p (Nat.le_of_succ_le hp2))
+                          (ZpSeq.neg_one p (Nat.le_of_succ_le hp2)) k := by
+  refine ⟨C, ?_⟩
+  rw [mulRaw_negOne_negOne (Nat.le_of_succ_le hp2) C]
+  have hpm1 : 0 < p - 1 := Nat.sub_le_sub_right hp2 1
+  have hpos : 0 < (p - 1) * (p - 1) := Nat.mul_pos hpm1 hpm1
+  exact Nat.lt_of_lt_of_le (Nat.lt_succ_self C) (Nat.le_mul_of_pos_right (C + 1) hpos)
+
 /-! ### General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
 
 Beyond the reached-by-none escape, the *not-enumerable* fact holds for every `p ≥ 2` natively:

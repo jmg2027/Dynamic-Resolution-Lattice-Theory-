@@ -28,7 +28,9 @@ reads as three labellings of one residue-escape — a breadth-claim (`seed/AXIOM
   case `twoAdic_is_nu_escape`; the arithmetic capstone `padic_arithmetic_one_carrier`; the
   multiplicative valuation `mulBase`/`residue`/`padic_valuation_one_carrier`, against
   `Padic/Norm.lean`'s `Zp.valAtLeast`; the ring identity `mulBase_eq_mul_pElem` /
-  `mulCarry_pElem`, against `Padic/Arith.lean`'s `Zp.mul`).
+  `mulCarry_pElem`, against `Padic/Arith.lean`'s `Zp.mul`; the corecursive characterization
+  `mul_corecursive` (`mulRaw_tail`/`mul_digit_carry_step`) and the not-finite-state theorem
+  `mulRaw_unbounded`/`mulRaw_negOne_negOne`, the dual of `add_carry_le_one`).
 - arithmetic (the residue unit `+1`): `lean/E213/Theory/Raw/Odometer.lean` §7–§8
   (`runCarry` the alphabet-independent carry; `pOdo`/`pCarry` the p-ary odometer,
   `pOdo_allTop_zero` = `(-1)+1=0`, `pOdo_injective`).
@@ -153,16 +155,25 @@ of `x·y` is again reached by no finite Raw, `padic_ring_on_carrier`), and the r
 residue y` in 𝔽_p, because position `0` of `Zp.mul` carries nothing (`residue_mul`).  So ℤ_p, as
 the carrier subset of escapes, is a sub-ring with a genuine 𝔽_p ring-map readout.
 
-But `+` and `×` sit on the carrier *differently*, and this is the sharpest structural fact.
-**Addition is native** — a one-bit-state Mealy machine on the co-tree: `Zp.add`'s carry is always a
-single **bit** (`add_carry_le_one`: each digit pair sums to `< 2p`), so each output digit comes
-from a bounded state (`add_mealy_step`), and that carry bit *is* the odometer bit
-(`the_residue_unit_odometer.md`).  **Multiplication is not native** — the convolution at position
-`k` reads *all* lower digits, so `Zp.mul`'s carry accumulates unboundedly; there is no
-finite-state form, and `×` lives on the carrier only by *transport*.  This is the holonomic /
-non-holonomic split (`non_holonomicity_as_finite_state_escape.md`) read at the ring-operation
-scale: the residue-unit operations (`+1`, `+`) are finite-state and native; the genuinely
-non-local one (`×`) is not.
+But `+` and `×` sit on the carrier *differently*, and the precise difference names a new object —
+**not** that one is native and the other isn't (that conflates two things).  *Both* are native
+**corecursive** operations on the co-tree: the Cauchy product is the textbook productive corecursion
+(Rutten's behavioural differential equations), and `Zp.mul` realises it as a genuine coalgebra
+morphism for the carrier's shift — head `residue_mul` (`(x·y)₀ = x₀·y₀`), tail `mulRaw_tail`
+(`(x·y)' = x₀·y' + x'·y`), emit/advance `mul_digit_carry_step`, bundled in `mul_corecursive`.  Carry
+keeps each digit a *finite* computation (productive); it breaks only **bounded state**.
+
+The real split is **finite-state vs not**.  Addition is finite-state: `Zp.add`'s carry is always a
+single **bit** (`add_carry_le_one`: each digit pair sums to `< 2p`), a one-bit Mealy machine
+(`add_mealy_step`) whose carry bit *is* the odometer unit (`the_residue_unit_odometer.md`).
+Multiplication is **not** finite-state, and this is now a *theorem*, not a verdict: the convolution
+`mulRaw (-1)(-1) k = (k+1)·(p-1)²` grows without bound (`mulRaw_negOne_negOne`, `mulRaw_unbounded`),
+the exact dual of `add_carry_le_one`.  So `×`'s **unbounded carry is the multiplicative residue** —
+the part of the operation that escapes every finite-state machine, the `spineL_escapes` /
+`object1_not_surjective` escape (`non_holonomicity_as_finite_state_escape.md`) read at the
+ring-operation scale, with the Hadamard/convolution irreducibility (`G188_multiplicative_conv_design`)
+its sequence-scale mirror.  One carry, read at two depths: the **unit** for `+`, the **residue** for
+`×`.  Neither is forbidden; both are corecursive; only `+` is finite-state.
 
 ### Cross-frame
 
@@ -189,19 +200,20 @@ escape wearing the alphabet of whichever number system is being pointed at.
   shift), and `mulBase` is the genuine ring `Zp.mul`-by-`p` (`mulBase_eq_mul_pElem`: multiplication
   by `p` carries nothing, so it collapses to the shift).  The **binary** product `x·y` is on the
   carrier as the *transport* of `Zp.mul`: escapes are `×`/`+`-closed and the 𝔽_p readout is a ring
-  hom (`padic_ring_on_carrier`).  The native-vs-transport question is *resolved structurally*:
-  addition is native (a one-bit finite-state Mealy machine, `add_carry_le_one`/`add_mealy_step`),
-  while a native co-recursive product is **impossible as a finite-state operation** — `×`'s
-  convolution is non-local — so `×` is transport-only by its nature, not for lack of effort.  And
-  **ℝ's field is on the carrier too**: the cut-table operations `cutSum`/`cutMul` preserve the
-  escapes (`real_field_on_carrier`), so ℝ is a `+`/`×`-closed carrier subset like ℤ_p.  What is
-  closed: the carrier, the shift, the unit-`±1` arithmetic, the valuation filtration `× p`, the
-  binary ring structure (`+`/`×`) transported with a 𝔽_p ring-map readout, the native/finite-state
-  characterization of `+` (vs the non-finite-state `×`), and ℝ's cut-field closure — all grounded
-  in the actual `Zp.add`/`Zp.mul` and `cutSum`/`cutMul`.  The honest *structural* limit (not a
-  to-do): ℝ's cut is order-decision-based and presentation-dependent, so unlike ℤ_p's faithful
-  digit carrier it admits *no* finite-state native op and *no* ring-hom readout — its field is
-  irreducibly transport-only, by-design (a real is reached by none).
+  hom (`padic_ring_on_carrier`).  And `×` is **native corecursive** on the carrier — `Zp.mul` is a
+  coalgebra morphism for the shift (`mul_corecursive`: head `residue_mul`, tail `mulRaw_tail`); the
+  earlier framing of a native product as "impossible" was wrong (it conflated *not finite-state*
+  with *not definable*).  The genuine split is finite-state: `+` is (carry `≤ 1`,
+  `add_carry_le_one`), `×` is **not** — `mulRaw (-1)(-1)` grows linearly (`mulRaw_unbounded`), so
+  the multiplicative carry is unbounded (the multiplicative residue).  ℝ's field is on the carrier
+  too: `cutSum`/`cutMul` preserve the escapes (`real_field_on_carrier`).  What is closed: the
+  carrier, the shift, the unit-`±1` arithmetic, the valuation filtration `× p`, the binary ring
+  (`+`/`×`) with a 𝔽_p ring-map readout, **both** the corecursive (`mul_corecursive`) and the
+  finite-state (`add` yes / `×` no, `mulRaw_unbounded`) characterizations, and ℝ's cut-field
+  closure — all grounded in the actual `Zp.add`/`Zp.mul`/`cutSum`/`cutMul`.  The honest *structural*
+  fact (not a prohibition): `×`'s carry and ℝ's order-based cut both escape finite state — reached by
+  no bounded machine, exactly as a real is reached by no finite Raw — while remaining well-defined
+  corecursive behaviours.
 - `cutBits` is one honest presentation-dependent extractor (the cut-decision diagonal); it is
   not claimed canonical on the equivalence class.  A faithful map on `Real213.equiv` would need
   the order-decision *limit* (existence via the modulus), which is the LPO-costed step of the
