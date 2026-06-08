@@ -152,6 +152,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   instance of main's "permutation under three readouts"); `det_matMul` is the shared engine.
   Buildable: `det_companion ↔ psign(cyclicShift)` (Lean), and a synthesis essay tying
   `cp_phase` ↔ `spiral_coordinate_classification` through `ℤ[i]^×=C₄`.
+- `fibonacci_golden_prime_crossdomain` — **the Fibonacci 5-adic branch ↔ main's CKM
+  CP-phase / Legendre arc**.  The prime `5` is the shared hinge: main takes the *value*
+  `φ ∈ ℚ(√5)` (golden modulus `R_u=1/φ²`), the branch the *5-adic valuation* of the Fibonacci
+  recurrence (rank `α(5)=5`, `ν₅(F_n)=ν₅(n)`) at the *ramified* prime of the same `ℚ(√5)`.
+  Proven shared objects: the Cassini unit `det=±1 = det P = NS−NT = 1` (already cited from
+  `OrbitDimension` to `PnFibonacciUniversal`), and the binary sign axis (`ε=(−1)ᵐ` = the
+  `psign`/Legendre/inversion read of the permutation-three-readouts).  Buildable: the general-`p`
+  rank law `α(p) ∣ p − (5/p)` from the existing Legendre character; a shared-`ℚ(√5)` morphism
+  tying `cp_phase` ↔ `fibonacci_5adic_valuation` (disc `+5` real vs disc `−4` imaginary).
 - `cp_crossdomain_insights` — **CP-phase cohomology ↔ main's sign/QR/cyclotomic
   campaigns** (merge marathon). Four candidate bridges where the two branches
   share one object: (1) the inversion sign is one object — `det(permMatrix)=psign`
