@@ -71,36 +71,38 @@ index-2 kernel argument closes it); (b) the **Gauss-`μ` parity bridge**
 through the half-system `[1,m]` (the `fold`/`sgFn` machinery already in `GaussLemma`).
 Closing either gives the triangle `det (permMatrix (mulPermMod a p)) = (a/p)` for all `p`.
 
-### μ-bridge blueprint (concrete construction — no longer "infrastructure the repo lacks")
+### μ-bridge blueprint — the S-free route (infra now built)
 
-The bridge `psign σ_a = ∏ₓ sgFn(a·x) = (−1)^μ` factors `σ_a = composeList B S`
-(`psign_mul` then telescopes), where **both factors are explicit value-lists** (no `f⁻¹`):
+The earlier "`σ_a = composeList B S`" plan needed a flip-permutation `S` with
+`psign S = (−1)^μ` (disjoint-transposition sign) **and** a composition identity — both
+hard.  A cleaner route **eliminates `S` entirely**: `σ_a` is *itself* in block form, because
+`σ_a(p−x) = (a(p−x)) % p = p − (a·x)%p = p − σ_a(x)`.  So as a value-list
 
-- **`S` (source flips), `psign S = (−1)^μ`.**  `S(0)=0`; for `y∈[1,p−1]` let
-  `z = if y ≤ m then y else p−y` (the half-rep); `S(y) = if sgFn a p m z = −1 then p−y else y`.
-  `S` is `μ` *disjoint* transpositions `{x, p−x}` (one per `x∈[1,m]` with `ε(x)=−1`), so
-  `psign S = (−1)^μ`.  Needs: sign of a product of disjoint transpositions (build `S` as a
-  `composeList` chain of single transpositions, `psign_mul` + sign of one transposition `= −1`).
+  `mulPermMod a p = 0 :: (fh ++ (revL fh).map (p − ·))`,  `fh = [σ_a(1), …, σ_a(m)]`.
 
-- **`B` (block/orientation-preserving), `psign B = 1`.**  `B(0)=0`, `B(x)=f(x)` for `x∈[1,m]`,
-  `B(p−x)=p−f(x)` for `x∈[1,m]`, where `f = fold a p m` is the half-system permutation
-  (`GaussLemma.fold_perm`).  As a value-list, `B = [0] ++ g ++ [p−f(m), …, p−f(1)]` with
-  `g = [f(1),…,f(m)]`.  **The gem:** `inversions B = 2·inversions g`, hence
-  `psign B = altSign(2·inv g) = 1` (no abstract "sign-squared" needed).  Proof of the count:
-  the leading `0` and every cross-pair (first half ⊂ `[1,m]` < second half ⊂ `[m+1,p−1]`, and
-  positionally before) contribute `0`; the second half `[p−f(m),…,p−f(1)] = map (p−·) (reverse g)`
-  has `inversions = inversions g` (order-reversing `p−·` ∘ position-reversing `reverse` cancel,
-  pair-by-pair: `(k,l) k<l` inv ⟺ `f(m+1−k) < f(m+1−l)` ⟺ the pair `(m+1−l, m+1−k)` is an
-  inversion of `g`).
+**Built infrastructure** (`Linalg213/InversionsAppend.lean`, 14 PURE):
+`inversions_append` / `psign_append` (cross term `crossInv L M = Σ_{x∈L} ltCount x M`),
+propext-free reversal `revL`, `psign_csub_revL` (`psign ((revL L).map (c−·)) = psign L`), and
+★ **`psign_blockForm`**: `psign (0 :: L ++ (revL L).map (p−·)) = altSign (crossInv L (…))` for
+`L ≤ p`.  Applied to `fh`:
 
-- **Composition identity** `composeList B S = mulPermMod a p` by `getD` cases
-  (`i=0`, `i∈[1,m]`, `i∈[m+1,p−1]`) against the `fold`/`sgFn` definitions.
+  **`psign σ_a = altSign (crossInv fh ((revL fh).map (p − ·)))`** — one cross-inversion count.
 
-Remaining helpers to build (reusable): `inversions_append` (with cross-term
-`crossInv L M = Σ_{x∈L} ltCount x M`), `inversions (map (p−·) (reverse L)) = inversions L`
-for distinct `L ⊂ [1,m]`, and `psign` of a single non-adjacent transposition `= −1`.
-With the bridge, `gauss_qr` gives `psign σ_a = (a/p)` for **every** prime — subsuming the
-`p≡3 mod 4` result and closing the triangle universally.
+**Remaining (≈3 lemmas, all PURE-feasible, no new "missing infra"):**
+1. *Decomposition* `mulPermMod a p = 0 :: (fh ++ (revL fh).map (p−·))` with
+   `fh = (seg m).map (fun x => (a·x)%p)` — `getD` extensionality over `i=0 / [1,m] / [m+1,2m]`
+   (same shape as `ZolotarevConverse.mulPermMod_negone_eq`), using `(a(p−x))%p = p − (a·x)%p`.
+2. *Symmetric-parity* `altSign (crossInv fh ((revL fh).map (p−·))) = altSign μ`.  Since
+   `crossInv L M` is multiset-invariant in `M` (`ltCount_lperm`), `crossInv fh ((revL fh).map(p−·))
+   = crossInv fh (fh.map(p−·)) = Σ_{x∈fh} #{w∈fh : p−w < x} = #{(x,w)∈fh² : x+w>p}` — a
+   **symmetric** relation.  General lemma: `altSign (Σ_{x∈L} #{w∈L : r x w}) = altSign #{x∈L : r x x}`
+   for symmetric `r` (off-diagonal pairs come in 2s; induction peels `a`, the two cross terms
+   `#{w∈t : r a w} = #{x∈t : r x a}` are equal by symmetry ⇒ even).  The diagonal is
+   `#{x∈fh : p−x < x} = #{x∈fh : x>m} = μ` (since `p = 2m+1`).
+3. *Gauss connection* `altSign μ = ∏ₓ sgFn(a·x)` (both `= (−1)^μ`) and `μ` here `=` the
+   `GaussLemma` count; then `gauss_qr` (`∏ sgFn = 1 ⟺ QR`) gives `psign σ_a = (a/p)` for
+   **every** prime — subsuming `p≡3 mod 4` and closing the `det = psign = (a/p)` triangle
+   universally.
 
 ## 2. Teichmüller ω ↔ the quadratic character (p-adic lift of Euler's criterion)
 
