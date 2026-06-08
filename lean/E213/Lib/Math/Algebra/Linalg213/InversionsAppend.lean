@@ -1,4 +1,5 @@
 import E213.Lib.Math.Algebra.Linalg213.Laplace
+import E213.Lib.Math.Algebra.Linalg213.PermSign
 import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Tactic.NatHelper
 
@@ -22,8 +23,10 @@ open E213.Lib.Math.Algebra.Linalg213.Permutation
   (inversions ltCount psign ltCount_append psign_cons LPerm)
 open E213.Lib.Math.Algebra.Linalg213.DetN (altSign altSign_add)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (ltCount_lperm)
-open E213.Tactic.NatHelper (sub_le_sub_left sub_sub_self)
-open E213.Meta.Int213 (mul_one mul_comm)
+open E213.Lib.Math.Algebra.Linalg213.PermSign (ltCount_zero_of_all_ge altSign_self)
+open E213.Tactic.NatHelper (sub_le_sub_left sub_sub_self le_sub_of_add_le)
+open E213.Tactic.List213 (exists_of_mem_map)
+open E213.Meta.Int213 (mul_one mul_comm mul_assoc)
 
 /-! ## §1 — cross inversions and the append law -/
 
@@ -126,5 +129,55 @@ theorem psign_csub_revL (c : Nat) :
         show psign ([c - a] : List Nat) = 1 from rfl, mul_one,
         crossInv_map_csub a c hac (revL t) hmemt, ltCount_revL a t, psign_cons]
     exact mul_comm (psign t) (altSign (ltCount a t))
+
+/-! ## §3 — block-doubling has trivial sign -/
+
+/-- `crossInv L M = 0` when every `M`-entry is at least every `L`-entry (no cross inversions). -/
+theorem crossInv_eq_zero : ∀ (L M : List Nat), (∀ x ∈ L, ltCount x M = 0) → crossInv L M = 0
+  | [],     _, _ => rfl
+  | a :: L, M, h => by
+      show ltCount a M + crossInv L M = 0
+      rw [h a (List.Mem.head L), Nat.zero_add,
+          crossInv_eq_zero L M (fun x hx => h x (List.Mem.tail a hx))]
+
+/-- ★★★ **The block form's sign is its cross-inversion count.**  For any `L` with entries `≤ p`,
+    the `±`-paired "block" list `0 :: L ++ (revL L).map (p − ·)` has
+    `psign = altSign (crossInv L ((revL L).map (p − ·)))`.  The leading `0` contributes no
+    inversions and the two halves carry **equal** sign (`psign_csub_revL`, `psign L · psign L = 1`),
+    so only the cross term survives.  This is exactly the shape of `σ_a` (since
+    `σ_a(p−x) = p − σ_a(x)`): `psign σ_a` reduces to a single cross-inversion count. -/
+theorem psign_blockForm (p : Nat) (L : List Nat) (hL : ∀ x ∈ L, x ≤ p) :
+    psign (0 :: (L ++ (revL L).map (fun v => p - v)))
+      = altSign (crossInv L ((revL L).map (fun v => p - v))) := by
+  rw [psign_cons, ltCount_zero_of_all_ge 0 _ (fun v _ => Nat.zero_le v),
+      psign_append, psign_csub_revL p L hL]
+  show (1 : Int) * (psign L * altSign (crossInv L ((revL L).map (fun v => p - v))) * psign L)
+     = altSign (crossInv L ((revL L).map (fun v => p - v)))
+  rw [Int.one_mul, mul_comm (psign L) (altSign (crossInv L ((revL L).map (fun v => p - v)))),
+      mul_assoc, show psign L * psign L = 1 from altSign_self (inversions L), mul_one]
+
+/-- ★★★ **Block-doubling has trivial sign.**  For `g` with all entries `≤ m` and `2m+1 ≤ p`, the
+    orientation-preserving "doubling" `0 :: g ++ (revL g).map (p − ·)` has `psign = 1`: every cross
+    pair vanishes (first half `⊆ [1,m]` strictly below second half `⊆ [m+1,2m]`), so the surviving
+    cross-inversion count is `0`. -/
+theorem psign_blockLift (g : List Nat) (p m : Nat) (hpm : 2 * m + 1 ≤ p) (hg : ∀ x ∈ g, x ≤ m) :
+    psign (0 :: (g ++ (revL g).map (fun v => p - v))) = 1 := by
+  have hmp : m ≤ p :=
+    Nat.le_trans (Nat.le_trans (Nat.le_mul_of_pos_left m (by decide)) (Nat.le_succ (2 * m))) hpm
+  have hmp1 : m + 1 ≤ p - m :=
+    le_sub_of_add_le (by rw [show m + 1 + m = 2 * m + 1 from by ring_nat]; exact hpm)
+  have hsh_ge : ∀ y ∈ (revL g).map (fun v => p - v), m + 1 ≤ y := by
+    intro y hy
+    obtain ⟨x', hx', hyx'⟩ := exists_of_mem_map hy
+    have hx'g : x' ∈ g :=
+      E213.Lib.Math.Algebra.Linalg213.PermClosure.LPerm.mem
+        (E213.Lib.Math.Algebra.Linalg213.Permutation.LPerm.symm (revL_lperm g)) hx'
+    rw [← hyx']
+    exact Nat.le_trans hmp1 (sub_le_sub_left p (hg x' hx'g))
+  have hcross : crossInv g ((revL g).map (fun v => p - v)) = 0 :=
+    crossInv_eq_zero g _ (fun x hx => ltCount_zero_of_all_ge x _
+      (fun y hy => Nat.le_trans (hg x hx) (Nat.le_trans (Nat.le_succ m) (hsh_ge y hy))))
+  rw [psign_blockForm p g (fun x hx => Nat.le_trans (hg x hx) hmp), hcross]
+  rfl
 
 end E213.Lib.Math.Algebra.Linalg213.InversionsAppend
