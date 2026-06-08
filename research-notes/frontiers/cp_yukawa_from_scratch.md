@@ -70,3 +70,33 @@ honest forced content is **maximal CP**; the specific angle is a candidate.
   to "maximal CP forced; `α=90°` candidate").
 - `lean/E213/Lib/Physics/Mixing/CPMaximalPhase.lean` — maximal CP (phase = `i`).
 - `lean/E213/Lib/Physics/Mixing/ApexRightTriangle.lean` — the `α=90°` candidate + golden modulus.
+
+## ★ Reframing (2026-06-08) — the 213-native Yukawa is NOT a generic texture
+
+The negative above (generic `J`-texture ⇏ `α=90°`) is in the **SM framing**
+(arbitrary mass-matrix textures).  But in 213 the Yukawa is **not** a free texture
+— it is a *specific* cohomological cup-product object on `H*(Δ⁴)` (the *same*
+cup-ring that derives `1/α_em`, `CupRingTrace.lean`).  So the generic-texture
+negative **does not apply** to the 213-native Yukawa.
+
+**The genuine 213-native question** (under expert-agent investigation): does the
+Yukawa-as-cup-product, carrying the **signed Hodge `⋆` (the Weil operator `J`,
+`J²=−1`)**, *force* the CP phase?  Conjecture: a coupling that is a **morphism of
+the polarized Hodge structure** (respects the Weil operator `J`) carries `J`'s
+phase `arg(i)=90°` — unlike a generic texture (which respects no `J`).  This is
+the cohomological (Hodge-theoretic) origin of the Yukawa, where the phase is
+*determined* by the Hodge structure, not free.
+
+Two related 213-native anchors:
+- **CDI-2** (`catalogs/cross-domain-identifications.md`): `b₁(K₅) = δ_CP =
+  SU(5)-adjoint = d²−1 = 24` — a machine-verified 5-way identity linking the
+  cohomology (`b₁`) to the CP-sector *count* (24).  The cohomology fixes the CP
+  *structure-count*; the signed Hodge `⋆` fixes the *phase* (`i`, 90°).  Together
+  the cohomology would determine both.
+- The cup-ring functionals `F1..F5` (`CupRingTrace`) are *single numbers* (the
+  α_em trace); a **generation-indexed** cup pairing would be the Yukawa *matrix*.
+
+If the Hodge-structure-morphism argument holds, `δ=90°` *is* forced for the
+213-native (cohomological) Yukawa — resolving the open item.  Pending agents:
+(1) repo cup-ring / Hodge-Riemann pairing pieces; (2) the rigorous Hodge-theory
+"does a polarized-Hodge coupling force `δ=π/2`" question.
