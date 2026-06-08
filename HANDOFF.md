@@ -53,17 +53,16 @@ Also: `ring_intZ` fails when one side normalizes to the bare zero polynomial
 blocks need a leading `dsimp only` to beta-reduce.
 
 ## Open Frontiers (priority order)
-1. **General bipartite `K_{a,b}` (`a ≥ 2`) Bakry–Émery** — the DRLT-core direction
-   (`K_{3,2}` is the central lattice).  The `a = 1` **star `K_{1,b}`** is now
-   ✅ DONE (`BakryEmery.lean` §4: `bochner_star`/`cd_star` = `CD((3−b)/2,∞)`,
-   negative for `b ≥ 4`).  The remaining `a ≥ 2` case is the harder **two-shell**
-   derivation (centre `v∈A` → its `b` neighbours in `B` → their `a−1` other
-   `A`-neighbours): `Lf(w)−Lf(v)` is **not** proportional to `(w−v)`, and the
-   `CD` bound requires *minimizing* `Γ₂` over the (free) second shell — the optimum
-   is at `u_i = W/b`, giving a `−(a−1)(2W−bc)²/b` term (division by `b`), so the
-   closed form is messier than the clean star SOS.  `K_{a,b}` is triangle-free, so
-   no Forman-vs-rest divergence.  Frontier:
-   `research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`.
+1. ✅ **General bipartite `K_{a,b}` (`a ≥ 2`) Bakry–Émery — DONE this session**
+   (`BakryEmeryBipartite.lean`, the DRLT `K_{3,2}` core).  Four-phase marathon:
+   `kab_bochner` (two-shell closed form, centred coords) → `kab_shell_sos`
+   (complete the square over the free second shell, clearing `1/b`) → `kab_cd_wide`
+   (`b ≥ 2a−2`, no Cauchy–Schwarz) + `kab_cd_narrow` (`b ≤ 2a−2`, via the discrete
+   `cauchy_schwarz_gridZ`).  `A`-vertex curvature `min(3a−b, b−a+4)/2`; `K_{3,2}` is
+   `CD(3/2,∞)`.  A `B`-vertex = same theorems with `(na,nb) ↦ (b−1, a)`.  15 PURE.
+   Possible follow-ups: a literal `K_{3,2}` corollary (currently the general lemma
+   instantiated, deferred for Int-cast tidiness); promote the whole bipartite arc to
+   `theory/`.
 2. **Cycle `C_n` Ollivier** (flat, `κ=0` for `n ≥ 5`) — parametric companion of
    the line/large-cycle `CD(0,2)`.  Needs a cycle distance `min(|i−j|, n−|i−j|)`
    + Lipschitz over general `n` (mod arithmetic), fiddlier than the trivial `0/1`
