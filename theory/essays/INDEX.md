@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 73 essays are grouped into ten thematic sub-directories — distinct
+The 74 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -70,6 +70,11 @@ value: `(-1)²=1` with an unbounded `×`-carry (`mulCarry_unbounded`/`carry_is_n
 Casoratian `q=−1` with no finite holonomic depth (`cas_neg_unit_no_finite_depth`); one
 `escape_by_invariant` non-surjection read on a number's arithmetic, a sequence's recurrence, and a
 reasoner's framings — the branch×main cross-scale synthesis).
+`the_legendre_symbol_is_the_sign_of_a_pointing` (the Legendre symbol `(a/p)` is `psign σ_a`,
+the parity of the multiply-by-`a` permutation — `zolotarev_mu`, all odd primes: one count read
+as inversion sign = `det(permMatrix)` = half-system `∏ sgFn`; and `(a/p)` is the Z/2 invariant
+the *finite* `×a` pointing carries that the `×p` νF-escape lacks — Zolotarev × finite-state-of-
+the-pointing).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
