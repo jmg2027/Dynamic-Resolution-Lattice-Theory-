@@ -110,7 +110,7 @@ the tree **downward-closed** (the standard König hypothesis).
 — the Bool-stream carrier is not enumerable (Cantor diagonal), the **cost-0 base**.
 **Phase GD DONE** (`Lib/Math/Logic/Capstone.lean`, 1 PURE): `reverse_math_ledger` bundles
 the spine (free interior + LPO⟹WLPO/MP + LPO-Π⁰₁-decision + LPO-König-selection) into one
-∅-axiom witness.  **Marathon field 17 = CORE CLOSED** (34 PURE total; book
+∅-axiom witness.  **Marathon field 17 = CORE CLOSED** (35 PURE total; book
 `books/math/reverse-math-213.md`; INDEX updated).  GB-cont2 added
 (`ChildSelection.lean`, +5 PURE): `levelAntitone_of_downwardClosed` (via `existsLevel_pred`)
 + `lpo_infChildExists_downwardClosed` — König selection now holds for an **actual
@@ -121,7 +121,7 @@ native `InfB` (via `existsLevel`) equals the König file's ∃-form
 (Needed pure `append_nil_pure`/`append_assoc_pure` — core `List.append_nil`/`append_assoc`
 pull `propext` in this kernel.)  GA also gained `lpo_iff_wlpo_and_mp` (LPO ⟺ WLPO ∧ MP).
 **Open follow-ups (not blocking):**
-- tighten König-selection cost LPO → LLPO (parity); reconcile the ledger with
+- tighten König-selection cost LPO → LLPO (blocked: needs pure Nat-arith for the `+2`-literal parity reduction); reconcile the ledger with
   `STRICT_ZERO_AXIOM.md`; the external Lawvere reduction of the omniscience family.
 This is the legibility bridge to recognized mathematical logic.  Frontier:
 `blueprints/math/17_reverse_math_213.md`, `naming_abstract_concepts.md`.

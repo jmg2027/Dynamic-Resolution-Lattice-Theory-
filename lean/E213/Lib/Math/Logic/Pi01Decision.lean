@@ -45,6 +45,15 @@ theorem lpo_decides_pi01 (hlpo : LPO) (h : Nat → Bool) :
         Bool.noConfusion ((not_eq_true_imp (h n) hn).symm.trans (hall n)))))
     (fun hall => Or.inl (fun n => not_eq_false_imp (h n) (hall n)))
 
+/-- ★ **LPO decides every `Σ⁰₁` statement** `∃ n, h n = true` — the dual of
+    `lpo_decides_pi01`.  LPO's witness alternative gives the `∃`; its everywhere-false
+    alternative refutes it. -/
+theorem lpo_decides_sigma01 (hlpo : LPO) (h : Nat → Bool) :
+    (∃ n, h n = true) ∨ ¬ (∃ n, h n = true) :=
+  (hlpo h).elim (fun he => Or.inl he)
+    (fun hall => Or.inr (fun he =>
+      he.elim (fun n hn => Bool.noConfusion (hn.symm.trans (hall n)))))
+
 /-- The native "infinite-below `s`" decision stream on a Bool tree: `existsLevel T s n` =
     is there a node at depth exactly `n` below `s` (a `Π⁰₁` body, by Bool recursion — no
     finite-enumeration needed). -/

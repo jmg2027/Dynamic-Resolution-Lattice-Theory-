@@ -36,7 +36,7 @@ plus extracting a witness).
 |---|---|---|
 | **free interior** | `cantor_stream_not_enumerable` — the Bool-stream carrier is not enumerable (Cantor's diagonal); the residue's `object1_not_surjective`; the p-adic `zpSeq_not_enumerable` | **none** |
 | **omniscience base** | `lpo_imp_wlpo`, `lpo_imp_mp` | structural |
-| **Π⁰₁ decision** | `lpo_decides_pi01` — deciding `∀n, h n = true`; instance `lpo_decides_infiniteBelow` (the König "infinite-below" predicate, via the native `existsLevel` recursion) | **LPO** |
+| **Π⁰₁ / Σ⁰₁ decision** | `lpo_decides_pi01` (deciding `∀n, h n = true`; instance `lpo_decides_infiniteBelow`, the König "infinite-below" via `existsLevel`); `lpo_decides_sigma01` (deciding `∃n, h n = true`) | **LPO** |
 | **König selection** | `lpo_infChildExistsN` — an infinite-below node has an infinite-below child, for a downward-closed (`LevelAntitone`) tree | **LPO** (LLPO suffices) |
 
 `Lib/Math/Logic/Capstone.lean` bundles these into one ∅-axiom witness `reverse_math_ledger`.
@@ -44,7 +44,7 @@ plus extracting a witness).
 ## The phases
 
 - **GA** `Omniscience.lean` — the principles + implications (6 PURE).
-- **GB** `Pi01Decision.lean` — `lpo_decides_pi01`; `existsLevel` (level-existence Bool
+- **GB** `Pi01Decision.lean` — `lpo_decides_pi01`, `lpo_decides_sigma01`; `existsLevel` (level-existence Bool
   recursion); `lpo_decides_infiniteBelow` (5 PURE).
 - **GB-cont** `ChildSelection.lean` — `lpo_infChildExistsN` (LPO + tree-monotonicity ⟹
   child selection); `levelAntitone_of_downwardClosed` (`existsLevel_pred` one-step-down by
@@ -71,9 +71,14 @@ selection step and the finite-subcover step are equivalent modulo one omniscienc
 ## Pure-Lean notes
 
 Everything is ∅-axiom (`#print axioms → empty`).  The recurring trap: core lemmas like
-`Nat.succ_ne_zero` and the `if`/`split` machinery pull `propext` in this Mathlib-free
-kernel.  Replacements used throughout: `Bool.noConfusion`, `Nat.noConfusion`, explicit
-`cases`, and structural recursion.
+`Nat.succ_ne_zero`, `List.append_nil`/`List.append_assoc`, the `if`/`split` machinery, and
+`omega` all pull `propext` (and `omega` also `Quot.sound`) in this Mathlib-free kernel.
+Replacements used throughout: `Bool.noConfusion`, `Nat.noConfusion`, `Nat.succ.inj`,
+explicit `cases`, structural recursion, and hand-rolled pure lemmas
+(`append_nil_pure`/`append_assoc_pure`).  A sharper obstacle: the Nat **literal** `+ 2` does
+*not* definitionally reduce to `succ (succ ·)` (only `+ 1` does), so a `Bool`-recursion like
+`parity (n + 2)` does not unfold — this is why `LPO ⟹ LLPO` (which needs even/odd parity)
+does not close ∅-axiom without a custom pure Nat-arithmetic layer, and is left open.
 
 ## Connections
 
