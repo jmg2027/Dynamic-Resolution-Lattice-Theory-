@@ -1,125 +1,80 @@
-# Session Handoff — 2026-06-08 (CKM CP-phase marathon + promotion/merge pass)
+# Session Handoff — 2026-06-08 (Ricci-flow open frontier: general-`m` complete-graph curvature)
 
 ## Branch
-`claude/vision-achievement-strategy-UzqpZ` — pushed, **0 behind / ~74 ahead**
-of `origin/main` (advanced origin/main's Zolotarev commit merged in cleanly).
-`cd lean && lake build E213` ✓ clean. `tools/kernel_regress.sh` 45/45 0-axiom.
-All new theorems strict ∅-axiom PURE (`tools/scan_axioms.py`). Rust binary
-`ckm-cp-phase` builds + runs.
+`claude/rich-flow-open-frontier-WIA6l` — pushed, 4 commits ahead of `origin/main`.
+`cd lean && lake build E213.Lib.Math.Geometry.GeometrizationConjecture` ✓ clean
+(197/197). All new theorems strict ∅-axiom PURE: `BakryEmery` 28/0, `OllivierRicci`
+74/0 (`tools/scan_axioms.py`).
 
 ## What Was Done This Session
 
-The CKM **CP-violating phase** is derived/forced (not posited) across three
-disciplines on the single prime `d = NS+NT = 5`, then promoted + merged.
+Closed the **general-`m` complete graph `K_m` curvature** across **two** discrete
+curvature frames (the `a6_ricci_core` ladder's rung-5 Ollivier + rung-6
+Bakry–Émery refinements, both flagged "no new idea" but only closed for the
+triangle `K₃` before).  Parametric in the vertex count `m` — not `decide` on a
+fixed graph.
 
-### 1. CP phase = 90°, forced not posited (Mixing/CP*, PURE)
-- Existence+uniqueness DERIVED: `N_gen = C(3,2) = 3 ⇒ 1` physical phase
-  (`CPPhaseCount`, KM counting).
-- Value FORCED to `90°`: `C₄` (CD `i`) + CP-existence ⇒ `±i` (`CPPhaseC4Forcing`);
-  Niven forbids a golden phase `δ = π/φ²` (rational-cosine ⇒ root of unity).
-- The premise "phase ∈ C₄" is itself forced by the Hodge structure
-  (`Hodge/SignedStarFull`: `⋆² = −1` on all of `Λ¹(ℝ⁴)` ⇒ order exactly 4).
+### 1. Bakry–Émery `K_m` is `CD((m+2)/2, ∞)` (`BakryEmery.lean` §3, PURE)
+- Model `K_m` as a **centre + `k = m−1` neighbours** (`b : Nat → Int`): this makes
+  the positive-curvature term a **full double `gridSumZ` of squared differences**
+  `sosGap = Σ_jΣ_{j'}(b j'−b j)²`, whose diagonal `(b j−b j)²=0` vanishes on its
+  own — **no index excluded** (the bookkeeping wall the `K₃` hand computation only
+  sidestepped concretely; a Cauchy–Schwarz route would have needed a zero-entry
+  refinement).
+- `bochner_complete` (`gamma2C = (k+3)·gammaC + sosGap`) ⟹ `cd_complete_graph`
+  (`gamma2C ≥ (k+3)·gammaC`, from `sosGap_nonneg`).  `k+3 = m+2`.
+- **Sharp + optimal**: `cd_complete_graph_sharp` (equality on constant-neighbour
+  configs, `sosGap=0`) + `complete_graph_gammaC_witness` (`gammaC = k > 0`) ⟹
+  `lin_yau_curvature_complete`: `(m+2)/2` is the **exact** (Lin–Yau optimal)
+  Bakry–Émery curvature, not merely a bound.  Generalizes `cd_triangle` (`k=2`).
 
-### 2. The imaginary unit is ONE object, three disciplines
-- group: `ℤ[i]^× = C₄` (`Hodge/SignedStarC4`, `ℤ[J] ≅ ℤ[i]`, `det = a²+b²`).
-- number theory: `Gal(ℚ(ζ₅)/ℚ) ≅ C₄` (phase) + real subfield `ℚ(√5) = ℚ(φ)`
-  (golden modulus); `5 = (2+i)(2−i)` selects `C₄/90°` over `C₆/60°` (5 inert
-  in `ℤ[ω]`) (`Icosahedral/CyclotomicFive`).
-- cohomology: signed Hodge `⋆` on `H*(Δ⁴)` at grades 1,3 — the SAME `H*(Δ⁴)`
-  as `1/α_em` (`CPHodgeStructure`, `Hodge/HodgeRiemannJ` Weil operator,
-  `Q·J = I ≻ 0`).
+### 2. Ollivier `K_m` has `κ = (m−2)/(m−1) > 0` (`OllivierRicci.lean` §7, PURE)
+- Edge `(0,1)` of `K_m`; walk measures `m₀,m₁` differ only at `0,1` (share the
+  `m−2` neighbours `{2,…,m−1}`).  Plan `kmPi` keeps shared units diagonal, moves
+  `1↦0` (cost 1); `δ₁` potential `kmF` reaches dual 1.
+- `km_cost = 1`, `km_dual = 1` ⟹ `km_ollivier_optimal` (meet) + `km_plan_optimal`
+  (cost ≤ every coupling, via `km_coupling` + `kmF_lipschitz`): scaled `W₁ = 1`,
+  `κ = 1 − 1/(m−1) = (m−2)/(m−1) > 0` (`m ≥ 3`).  Generalizes the §4 triangle
+  (`m=3`, `κ=½`); `κ → 1` as `m → ∞`.
 
-### 3. Cohomological coupling forces 90° where a generic texture does not
-- Polarized-Hodge morphism: `J² = −I ∧ Jᵀ Q J = Q ∧ Q·J = I ≻ 0`
-  (`HodgeConjecture/Pairing/HodgeRiemann.hodge_riemann_positivity_signed` —
-  filled the previously-vacuous stub). Signed-ℤ cup product
-  (`Cup/SignedCup`, `mergeSign = (−1)^inv`, antisymmetric, `hPair = I`).
+### 3. New reusable infra (`OllivierRicci.lean` §1, PURE)
+- `gridSumZ_const`, `gridSumZ_nonneg`; Kronecker-`δ` grid sums `gridSumZ_delta`,
+  `gridSumZ_delta_zero`, `gridSumZ_delta_weight`.  Reusable for any future
+  parametric measure/transport computation.
 
-### 4. ab-initio rust verification (exact ℤ[i], float-free)
-- `ckm_cp_phase.rs`: CKM unitary, `δ = 90°`, `V_ub` pure imaginary, Jarlskog ≠ 0.
+## Lean-friction note (for the next session)
+`rw [gridSumZ_delta …]` / `rw [gridSumZ_const …]` repeatedly **failed to
+key-match** the lambda produced by `gridSumZ_congr` / lemma instantiation.  The
+robust pattern that worked: build the equality as a **term** via
+`Eq.trans (gridSumZ_congr …) (gridSumZ_delta …)` and close with `exact` (full
+defeq), using `show` to align the goal — never `rw` on a `gridSumZ`-of-lambda.
+Also: `ring_intZ` fails when one side normalizes to the bare zero polynomial
+(use pure `zero_mul`/`add_neg_cancel`/`Int.add_zero` instead); congr tactic
+blocks need a leading `dsimp only` to beta-reduce.
 
-### 5. Fit ~1.5σ-CONSISTENT (not a tension)
-- `R_u = 1/φ² = 0.382` vs obs `0.3825 ± 0.011` ≈ exact; `α = 90°` ~0σ direct
-  to ~1.7σ global; residual is `O(λ²)` Wolfenstein (`λ = 5/22`), NOT RGE
-  (`dα/dt = 0` exactly) (`ApexFitConsistency`).
-
-### 6. Promotion + housekeeping (the marathon skills)
-- `/process`: 15 sink-rule violations decoupled (0 remaining).
-- Promotion: `theory/physics/cp_phase.md` (chapter), log row 31.
-- Cross-domain insights: `frontiers/cp_crossdomain_insights.md` (4 bridges
-  to main's sign/QR/cyclotomic campaigns).
-- `/essay`: `theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md`
-  (log row 32) — the CP phase as one imaginary unit in four frames.
-- `/org-audit`: wired the `SignedStarFull` orphan into the Hodge umbrella;
-  refreshed `Mixing/INDEX.md` (5→19, grouped); de-narrated 3 docstrings.
-- `/purity-check`: forbidden patterns 0/0/0/0; all session modules PURE.
-- Merged origin/main's **Zolotarev** (`ZolotarevSign`, PURE): the
-  permutation-sign = Legendre-symbol corner of the inversion-sign square is
-  now a theorem; cross-domain note updated.
-
-## Current Precision Results (0 free parameters)
-| Observable | DRLT | Observed | Status |
-|-----------|------|----------|--------|
-| `R_u = \|V_ub/V_cb·...\|` | `1/φ² = 0.382` | `0.3825 ± 0.011` | ≈ exact, PURE |
-| CKM phase `δ_KM` | `90°` (root of unity) | `≈ 90°` | FORCED, PURE |
-| `β` | `22.46°` | `22.5° ± 0.7°` | ≈ exact |
-| `α` (right UT) | `90°` | `92.4° ± 1.4°` | ~1.7σ (falsifier F27) |
-| `γ` | `67.54°` | `65.1° ± 1.5°` | ~1.6σ |
-| `N_gen` ⇒ phases | `3 ⇒ 1` | `3 ⇒ 1` | DERIVED, PURE |
-
-## Open Problems (Priority Order)
-
-### 1. Explicit generation-Yukawa cup functional (the mixing angles)
-The cohomology forces the phase + the `Λ²(ℝ³)` generation index (diagonal
-`h = I`), but the mixing **angles** are a separate DRLT object, not forced by
-the polarization alone. Build the explicit signed-cup generation functional.
-Frontier note: `research-notes/frontiers/cp_yukawa_from_scratch.md`.
-
-### 2. Tighten the ~1.5σ fit / track the `α = 90°` falsifier
-`α = 90°` (right unitarity triangle) is falsifiable — UTfit `α = 92.4 ± 1.4°`.
-Residual is `O(λ²)` Wolfenstein, not RGE. Track future UT fits.
-Frontier note: `research-notes/frontiers/ckm_rho_eta_apex.md`; falsifier F27
-(`catalogs/falsifiers.md`).
-
-### 3. Close the CP leg of the inversion-sign square
-Three corners are theorems (perm-sign = det = Legendre via `ZolotarevSign`);
-the open corner is `δ_CP`'s `C₄` class = the `(−1/d)` QR class as a theorem.
-Frontier note: `research-notes/frontiers/cp_crossdomain_insights.md`
-(Insight 1+2) + `frontiers/permutation_three_readouts.md`.
-
-## Unresolved from This Session
-- Self-corrected over-claims (do NOT re-attempt): `δ = π/φ²` golden phase
-  (Niven-forbidden); "π outside 213" (π is the `PiCut` Real213 cut); "A₅
-  reproduces δ from φ" (A₅ 3-rep is REAL ⇒ CP-conserving); RGE as the fit
-  residual (`dα/dt = 0` exactly — it is `O(λ²)` Wolfenstein).
-
-## Next
-Push and merge this branch to `main` (the marathon's final step). After merge:
-attack Open Problem 1 (explicit generation-Yukawa cup functional) — the last
-structural residual of the CP-phase arc.
-
-## Three-tier state
-- **Promotions this session**: `theory/physics/cp_phase.md` +
-  `theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md`.
-- **Promotion candidates**: none outstanding for the CP arc (the closed math
-  is promoted; the angle functional is an open frontier, not a closed sub-tree).
-- **Active scratchpad**: `frontiers/{cp_yukawa_from_scratch, ckm_rho_eta_apex,
-  cp_crossdomain_insights}.md`.
+## Open Frontiers (priority order)
+1. **Bipartite `K_{a,b}` Bakry–Émery / Ollivier** — the DRLT-core direction
+   (`K_{3,2}` is the central lattice).  `K_{a,b}` is **triangle-free** (so the
+   simple Forman `4−NS−NT` already applies, `forman_bipartite`) and the
+   Bakry–Émery / Ollivier values should *agree* (no Forman-vs-rest divergence,
+   unlike clustered graphs).  Harder than `K_m`: a **two-shell** derivation
+   (centre `v∈A` → its `b` neighbours in `B` → their `a−1` other `A`-neighbours),
+   `Lf(w)−Lf(v)` is **not** proportional to `(w−v)` (asymmetric `a,b`), so the
+   `gamma2C` closed form involves both shells.  Frontier:
+   `research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`.
+2. **Cycle `C_n` Ollivier** (flat, `κ=0` for `n ≥ 5`) — parametric companion of
+   the line/large-cycle `CD(0,2)`.  Needs a cycle distance `min(|i−j|, n−|i−j|)`
+   + Lipschitz over general `n` (mod arithmetic), fiddlier than the trivial `0/1`
+   complete-graph distance.
+3. Smooth general-`n` tensor Ricci flow + transcendental Perelman `𝓦`-entropy —
+   **still walled** (`ricci_flow_smooth_core.md`).  Discrete A6 core is closed on
+   four frames (Forman, Gauss–Bonnet, Ollivier, Bakry–Émery); general-`n` Ricci
+   *lower bound* reachable synthetically via `CD(K,N)` (now for every `K_m`).
 
 ## File Map
 ```
-theory/physics/cp_phase.md                         ← promoted CP-phase chapter
-theory/essays/synthesis/the_cp_phase_as_one_imaginary_unit.md ← synthesis essay
-theory/essays/INDEX.md                             ← +essay (70 total)
-lean/E213/Lib/Math/Cohomology/Hodge.lean           ← umbrella +SignedStar*/HodgeRiemannJ
-lean/E213/Lib/Math/Cohomology/Hodge/{SignedStarC4,SignedStarFull,HodgeRiemannJ}.lean
-lean/E213/Lib/Math/Cohomology/Cup/SignedCup.lean   ← signed-ℤ cup (mergeSign)
-lean/E213/Lib/Math/Cohomology/HodgeConjecture/Pairing/HodgeRiemann.lean ← filled stub
-lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevSign.lean ← merged from main (PURE)
-lean/E213/Lib/Physics/Mixing/INDEX.md              ← refreshed 5→19 grouped
-lean/E213/Lib/Physics/Mixing/CP*.lean, Apex*.lean, *Yukawa*.lean ← CP arc
-rust-engine/crates/app/src/bin/ckm_cp_phase.rs     ← ab-initio ℤ[i] CKM
-research-notes/frontiers/cp_crossdomain_insights.md ← 4 bridges (Zolotarev closed)
-research-notes/promotion_essay_log.md              ← rows 31 (promotion) + 32 (essay)
-catalogs/falsifiers.md                             ← F27 (right UT α=90°)
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/BakryEmery.lean    ← §3 K_m (CD, sharp, Lin–Yau)
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/OllivierRicci.lean ← §1 δ-sum infra + §7 K_m (κ)
+research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md    ← rungs 5/6 refinements + open K_{a,b}
+research-notes/frontiers/ricci_flow_smooth_core.md                      ← K_m done; smooth core still walled
 ```
