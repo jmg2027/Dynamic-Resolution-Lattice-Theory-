@@ -104,11 +104,17 @@ blueprint:** the König step splits — *deciding* infinite-below is `Π⁰₁` 
 (done); *selecting which child* is the LLPO-flavoured disjunction and additionally needs
 the tree **downward-closed** (the standard König hypothesis).
 **Phase GB-cont DONE** (`Lib/Math/Logic/ChildSelection.lean`, 6 PURE): `lpo_infChildExistsN`
-— `LPO` + tree-monotonicity (`LevelAntitone`) ⟹ König child selection (an infinite-below
-node has an infinite-below child), native `existsLevel`/`InfB` form.  (LLPO would suffice;
-LPO is the clean upper bound used.)  **Open phases:**
-- **GC** — free-interior base: `object1_not_surjective` / Cantor as the no-omniscience base
-  (the `RCA₀`-analogue); the reached-by-none escapes as companions.
+— `LPO` + tree-monotonicity (`LevelAntitone`) ⟹ König child selection, native
+`existsLevel`/`InfB` form.
+**Phase GC DONE** (`Lib/Math/Logic/DiagonalBase.lean`, 4 PURE): `cantor_stream_not_enumerable`
+— the Bool-stream carrier is not enumerable (Cantor diagonal), the **cost-0 base**.
+**Phase GD DONE** (`Lib/Math/Logic/Capstone.lean`, 1 PURE): `reverse_math_ledger` bundles
+the spine (free interior + LPO⟹WLPO/MP + LPO-Π⁰₁-decision + LPO-König-selection) into one
+∅-axiom witness.  **Marathon field 17 = CORE CLOSED** (22 PURE total; book
+`books/math/reverse-math-213.md`; INDEX updated).  **Open follow-ups (not blocking):**
+- bridge native `existsLevel` ↔ ∃-form `KonigConditional.InfBelow`; derive `LevelAntitone`
+  from a downward-closed `T`; tighten König-selection cost LPO → LLPO; reconcile the ledger
+  with `STRICT_ZERO_AXIOM.md`.
 - **GC** — catalogue the diagonal/non-surjection family (`object1_not_surjective`, Cantor)
   as the no-omniscience base (the `RCA₀`-analogue) + the reached-by-none escapes.
 - **GD** — the ledger capstone: a (theorem → omniscience cost) table over the residue
@@ -123,13 +129,14 @@ This is the legibility bridge to recognized mathematical logic.  Frontier:
   open work (needs new CoResidue infra), not a gap in this session's claims.
 
 ## Next
-**Reverse Mathematics 213 marathon, Phase GC** — the free-interior base: catalogue the
-diagonal/non-surjection family (`Lens/FlatOntologyClosure.object1_not_surjective`,
-`Cantor.cantor_general`) as the *no-omniscience* base (the `RCA₀`-analogue), with the
-reached-by-none escapes (`Padic/NuEscape`, `reached_by_none.md`) as companions — a Lean
-"interior" file + the start of the GD ledger (theorem → omniscience-cost table, reconciled
-with `STRICT_ZERO_AXIOM.md`).  Optional later: bridge `existsLevel` ↔ the ∃-form
-`KonigConditional.InfBelow`, and derive `LevelAntitone` from a downward-closed `T`.
+The Reverse Mathematics 213 marathon (field 17) is **CORE CLOSED**.  Options:
+**(a)** the open follow-ups above (existsLevel↔InfBelow bridge, LevelAntitone from
+downward-closed `T`, LPO→LLPO tightening, ledger ↔ `STRICT_ZERO_AXIOM.md`) — would take the
+field from CORE CLOSED to fully closed;
+**(b)** a concept deep-dive (limit/completion, quotient/equivalence-class,
+actual-vs-potential infinity) continuing `naming_abstract_concepts.md`;
+**(c)** promote the marathon to a `theory/` chapter (the book is in `books/math/`, a
+`theory/math/` mirror could follow per `PROMOTION_CRITERIA.md`).
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`
@@ -163,6 +170,9 @@ blueprints/math/INDEX.md                                ← + Phase G / field 17
 lean/E213/Lib/Math/Logic/Omniscience.lean               ← Phase GA: LPO/WLPO/MP/LLPO + implications (6 PURE)
 lean/E213/Lib/Math/Logic/Pi01Decision.lean              ← Phase GB: LPO decides Π⁰₁ + existsLevel (5 PURE)
 lean/E213/Lib/Math/Logic/ChildSelection.lean            ← Phase GB-cont: LPO+monotone ⟹ child selection (6 PURE)
-lean/E213/Lib/Math/Logic.lean                           ← Logic umbrella (Omniscience + Pi01Decision + ChildSelection)
+lean/E213/Lib/Math/Logic/DiagonalBase.lean              ← Phase GC: cost-0 Cantor diagonal base (4 PURE)
+lean/E213/Lib/Math/Logic/Capstone.lean                  ← Phase GD: reverse_math_ledger spine (1 PURE)
+lean/E213/Lib/Math/Logic.lean                           ← Logic umbrella (5 phase files)
+books/math/reverse-math-213.md                          ← marathon book (field 17, CORE CLOSED)
 lean/E213/Lib/Math.lean                                 ← imports Logic umbrella (in-tree)
 ```

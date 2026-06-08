@@ -73,7 +73,7 @@ illustrates the standard.
 
 | # | Field | File | Priority |
 |---|---|---|---|
-| 17 | **Reverse Mathematics 213** 🟡 STARTED | `17_reverse_math_213.md` | ★★★ (omniscience / axiom-cost ledger — the legibility bridge to mathematical logic; Phase GA in `Lib/Math/Logic/Omniscience.lean`) |
+| 17 | **Reverse Mathematics 213** ✅ CORE CLOSED | `17_reverse_math_213.md` | ★★★ (omniscience / axiom-cost ledger — the legibility bridge to mathematical logic; Phases GA–GD, 22 PURE in `Lib/Math/Logic/`, book `books/math/reverse-math-213.md`) |
 
 ---
 
@@ -108,6 +108,7 @@ Split into base spec + phases file (`15_cohomology_213.md` +
 | 11 | **Group Theory 213** | ✅ **REALIZED** | `Math/Group/` (4 files + Capstone); ℤ/nℤ via Nat mod, Sₙ via `Nat → Nat`, group action + orbit, SU(5) GUT channel counting (25 = 5⊗5, 24 generators, 5²⁵ N_U link). |
 | 12 | **Information Theory 213** | ✅ **REALIZED** | 7 atomic files + Capstone (8 witnesses); BitDepth, Entropy, MutualInfo, KL, Channel, Coding, Kolmogorov K(213)=4. |
 | 14 | **Logic / Proof Theory 213** | ✅ **REALIZED** | `Math/Logic/` (3 files + Capstone); intuitionistic predicate calculus, Trajectory = List Bool, proofLength composition. |
+| 17 | **Reverse Mathematics 213** | ✅ **CORE CLOSED** | `Lib/Math/Logic/` (5 files, 22 PURE): omniscience principles (LPO/WLPO/MP/LLPO) + implications; `lpo_decides_pi01` (LPO decides Π⁰₁ = infinite-below cost); `lpo_infChildExistsN` (König child selection from LPO + tree-monotonicity); `cantor_stream_not_enumerable` (cost-0 diagonal base); `reverse_math_ledger` capstone. The axiom-cost ledger on the residue's carriers. Book `books/math/reverse-math-213.md`. |
 
 Summary: **15 of 15 fields fully realized** ✅✅✅
 (01 Probability, 02 Multivariable, 03 Topology, 04 Complex,
