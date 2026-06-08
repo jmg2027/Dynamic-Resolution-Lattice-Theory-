@@ -79,4 +79,21 @@ theorem wkl_of_oracle (T : List Bool → Bool) (step : List Bool → Bool)
   exact ⟨node, h0, hT, fun k =>
     (congrArg List.length (hrec k)).trans (length_snoc (node k) (step (node k)))⟩
 
+/-- ★★★ **The global WKL ⟺ Heine–Borel calibration, ∅-axiom.**  Bundles every direction
+    whose cost the residue can pin: an infinite path ⟹ unbounded and ⟹ ¬bounded
+    (unconditional); bounded ⟹ ¬path (unconditional); and WKL proper — unbounded ⟹ a path —
+    *conditional on the selection oracle* (the dependent-choice content).  The one direction
+    absent by design — `¬HasInfPath ⟹ Bounded` (HB proper) — is the **fan theorem**, a
+    Brouwerian/bar-induction principle, the dual external content. -/
+theorem wkl_heineBorel_calibration (T : List Bool → Bool) :
+    (HasInfPath T → ¬ Bounded T)
+    ∧ (Bounded T → ¬ HasInfPath T)
+    ∧ (HasInfPath T → InfB T [])
+    ∧ (∀ step : List Bool → Bool,
+        (∀ s, InfB T s → InfB T (s ++ [step s])) → InfB T [] → HasInfPath T) :=
+  ⟨fun hp hb => bounded_imp_not_infPath T hb hp,
+   bounded_imp_not_infPath T,
+   infPath_imp_infB T,
+   fun step hstep root => wkl_of_oracle T step hstep root⟩
+
 end E213.Lib.Math.Logic

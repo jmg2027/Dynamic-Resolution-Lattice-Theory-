@@ -110,7 +110,7 @@ the tree **downward-closed** (the standard König hypothesis).
 — the Bool-stream carrier is not enumerable (Cantor diagonal), the **cost-0 base**.
 **Phase GD DONE** (`Lib/Math/Logic/Capstone.lean`, 1 PURE): `reverse_math_ledger` bundles
 the spine (free interior + LPO⟹WLPO/MP + LPO-Π⁰₁-decision + LPO-König-selection) into one
-∅-axiom witness.  **Marathon field 17 = CORE CLOSED** (68 PURE total; book
+∅-axiom witness.  **Marathon field 17 = CORE CLOSED** (69 PURE total; book
 `books/math/reverse-math-213.md`; INDEX updated).  GB-cont2 added
 (`ChildSelection.lean`, +5 PURE): `levelAntitone_of_downwardClosed` (via `existsLevel_pred`)
 + `lpo_infChildExists_downwardClosed` — König selection now holds for an **actual
