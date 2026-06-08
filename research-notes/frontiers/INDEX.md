@@ -159,6 +159,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (currently a structural assertion). Anchors:
   `Lib/Physics/AlphaEM/{GramCubicReduction,GramD2Readings,GramD2Mechanism}`.
 
+- `ckm_rho_eta_apex` — **the CKM Wolfenstein apex `(ρ,η)` / Jarlskog
+  magnitude**. Found auditing whether θ_QCD's `J` is derivable: J's
+  *structure* is atomic (λ=5/22, A=φ/c, δ=π/φ²) but its *magnitude* is
+  over-predicted ×2.66 (`J_DRLT=8.18×10⁻⁵` vs observed `3.08×10⁻⁵`) — the
+  missing piece is the un-derived apex `(ρ,η)` (`s₁₃=Aλ³` omits
+  `√(ρ²+η²)≈0.39`). A `CPViolation.lean` comment had masked this with an
+  arithmetic error ("within 10%"); corrected. Open: derive `(ρ,η)`/`η`.
+  Consumer: θ_QCD (`PRE_REGISTRATION.md` P2).
+
 - `count_substrate_synthesis` — post-closure synthesis of the COUNT arc (both
   named bounds proven): patterns (dual COUNT faces share one residue + the
   subset count `C(N,k)`; "engine + honest rung" closes once the enumeration infra

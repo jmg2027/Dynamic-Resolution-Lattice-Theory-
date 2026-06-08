@@ -9,7 +9,10 @@ DRLT formulae:
 
   δ_CKM = π/φ² ≈ 1.20 rad ≈ 68.75°
   J = c₁₂·s₁₂·c₂₃·s₂₃·c₁₃²·s₁₃·sin(δ)
-    ≈ 3.18 × 10⁻⁵ (DRLT Lens reading agrees with consensus reading)
+
+  ⚠ MAGNITUDE NOT YET DERIVED (honest, see "Jarlskog magnitude gap" below).
+  Only the λ-power *structure* is ∅-axiom (`J_lambda_dependence`); the
+  numeric magnitude is not a theorem here.
 
 ## ★ Lattice meaning of δ_CKM ★
 
@@ -19,16 +22,27 @@ DRLT formulae:
   φ² + φ⁻² = (3+√5)/2 + (3-√5)/2 = 3 = NS  ★
   → φ² + 1/φ² = NS = spatial dim.
 
-## ★ J ≈ Jarlskog atomic structure ★
+## ★ Jarlskog structure (atomic) + the magnitude gap (honest) ★
 
-  J ≈ s₁₂·s₂₃·s₁₃·sin(δ)·...
-  s₁₂ = 5/22 (Cabibbo)
-  s₂₃ ≈ A·λ² ≈ 0.04
-  s₁₃ ≈ A·λ³ ≈ 0.009
-  sin(δ_DRLT) ≈ sin(π/φ²) ≈ 0.93
-  
-  J ≈ (5/22)·0.04·0.009·0.93 ≈ 3.5×10⁻⁵
-  Within 10% of observed 3.18×10⁻⁵.
+  J = c₁₂·s₁₂·c₂₃·s₂₃·c₁₃²·s₁₃·sin(δ), with all factors DRLT-derived:
+  s₁₂ = λ = 5/22 (Cabibbo, atomic)
+  s₂₃ = A·λ² ≈ 0.0418   (A = φ/c = φ/2, golden-ratio-over-c)
+  s₁₃ = A·λ³ ≈ 0.0095
+  sin(δ) = sin(π/φ²) ≈ 0.932
+
+  **Honest magnitude check** (computed from the factors above, full
+  formula): J_DRLT = 8.18 × 10⁻⁵ — vs observed J = 3.08 × 10⁻⁵, i.e.
+  **DRLT over-predicts by ×2.66**.  (A prior comment here claimed
+  "≈3.5×10⁻⁵, within 10%"; that was an arithmetic error — the stated
+  factors multiply to 7.6×10⁻⁵, not 3.5×10⁻⁵.)
+
+  **Missing physics** (per CLAUDE.md "if a number differs, look for missing
+  physics", not fudge): the discrepancy is the un-derived Wolfenstein apex
+  `(ρ, η)`.  Observed `|V_ub| = A·λ³·√(ρ²+η²) ≈ A·λ³·0.39 ≈ 0.0037`, but
+  DRLT uses `s₁₃ = A·λ³ = 0.0095` — omitting `√(ρ²+η²) ≈ 0.39`.  Equivalently
+  `J = A²λ⁶·η` and DRLT has not derived `η`.  So J's *structure* (λ, A, δ)
+  is atomic, but its *magnitude* awaits a derivation of `(ρ, η)`.
+  Frontier: `research-notes/frontiers/ckm_rho_eta_apex.md`.
 
 ## Structural Lean
 

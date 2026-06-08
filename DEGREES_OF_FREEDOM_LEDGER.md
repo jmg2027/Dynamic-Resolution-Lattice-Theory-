@@ -187,7 +187,7 @@ seeing data are flagged here, not buried:
 |---|---|---|
 | **v2: H³ imbalance** (`3·α_GUT → 4·α_GUT` in 1/α_2) | `TripleCoupling.lean` "v2 corrections" | a correction term added on top of the v1 skeleton; reads as a fit-improving refinement until a forcing argument is supplied |
 | **v2: α_GUT² self-interaction** (`+α_GUT²/2` in 1/α_3) | same | same — second-order term whose *necessity* is not yet derived |
-| **Jarlskog `J ≈ 3×10⁻⁵`** (θ_QCD prefactor) | `CPViolation.J_lambda_dependence` + `ThetaQCD` (`theta_QCD_num := 286` hardcoded) | *(found by self-audit)* only the λ-power **structure** is derived (λ=5/22, λ⁶); the **magnitude** carries measured CKM input, in-code "Hmm not the right magnitude." θ_QCD (`PRE_REGISTRATION.md` P2) is therefore a cross-prediction, not atom-pinned, until `J` is derived |
+| **Jarlskog `J`** (θ_QCD prefactor) | `CPViolation` + `ThetaQCD` (`theta_QCD_num := 286` hardcoded) | *(self-audit, upgraded)* only the λ-power **structure** is derived; computing `J` from DRLT's own factors (λ=5/22, A=φ/2, δ=π/φ²) gives **8.18×10⁻⁵ vs observed 3.08×10⁻⁵ — ×2.66 over** (missing Wolfenstein apex `(ρ,η)`; `s₁₃=Aλ³` omits `√(ρ²+η²)≈0.39`). A `CPViolation.lean` comment had masked this with an arithmetic error ("within 10%"); corrected. θ_QCD (`PRE_REGISTRATION.md` P2) is not just un-pinned but **inconsistent with the catalog value** until `(ρ,η)` is derived. Frontier: `ckm_rho_eta_apex.md` |
 
 These do **not** affect the Layer-0 forcing chain or the 1/α_em
 *leading* skeleton; they live in the α_2 / α_3 v2 refinements. Flagging

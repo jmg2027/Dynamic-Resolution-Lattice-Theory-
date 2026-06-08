@@ -83,6 +83,18 @@ near-term experiment whose result DRLT cannot retro-adjust.
 > caveat attached* — registering it as "fully PURE-pinned" would be the
 > exact dishonest move this whole register exists to prevent
 > (`seed/AXIOM/05_no_exterior.md` §5.4 guard).
+>
+> ⚠️⚠️ **Worse than un-derived (self-audit 2026-06-07).** Computing `J`
+> from DRLT's *own* derived factors (`λ=5/22`, `A=φ/2`, `δ=π/φ²`) gives
+> `J_DRLT = 8.18×10⁻⁵` vs observed `3.08×10⁻⁵` — **over by ×2.66** (the
+> missing Wolfenstein apex `(ρ,η)`: DRLT's `s₁₃=Aλ³=0.0095` omits
+> `√(ρ²+η²)≈0.39`, true `|V_ub|≈0.0037`). A `CPViolation.lean` comment had
+> masked this with an arithmetic error ("within 10%"); corrected. With the
+> honest `J`, θ_QCD's central value shifts ×2.66, **outside the
+> `[2.51,3.00]×10⁻¹¹` bracket**. **P2 is therefore not merely un-pinned but
+> currently inconsistent with the catalog θ_QCD value** until `(ρ,η)` is
+> derived. Frontier: `research-notes/frontiers/ckm_rho_eta_apex.md`.
+> Until resolved, P2 should **not** be relied on as a forward prediction.
 
 ---
 
