@@ -127,4 +127,73 @@ theorem kab_bochner (na nb : Nat) (x y : Nat → Int) :
   unfold kabGammaC kabLapC
   ring_intZ
 
+/-! ## §3 — completing the square over the free second shell -/
+
+/-- The second-shell sum of squares `Σ_i (b·y_i − 2X)²` (the `Γ₂` minimum over the free
+    other-`A` values is at `b·y_i = 2X`). -/
+def kabShellGap (na nb : Nat) (x y : Nat → Int) : Int :=
+  gridSumZ na (fun i => ((nb : Int) * y i - 2 * kabLapC nb x)
+                        * ((nb : Int) * y i - 2 * kabLapC nb x))
+
+/-- `kabShellGap ≥ 0` — a grid sum of squares. -/
+theorem kabShellGap_nonneg (na nb : Nat) (x y : Nat → Int) : 0 ≤ kabShellGap na nb x y :=
+  gridSumZ_nonneg na _ (fun _ _ => int_sq_nonneg _)
+
+/-- ★★★★★ **Second-shell completion of square.**  Clearing the `1/b` of the second-shell
+    minimization:
+
+      `b·gamma2 = b(3a−b)·gammaC + (2b−4a+4)·X² + Σ_i (b·y_i − 2X)²`.
+
+    The last term is the manifest SOS; its minimum `0` (at `b·y_i = 2X`) is the worst
+    case over the free second shell, so the curvature bound is governed by the
+    `X²`-coefficient `2b−4a+4`. -/
+theorem kab_shell_sos (na nb : Nat) (x y : Nat → Int) :
+    (nb : Int) * kabGamma2C na nb x y
+      = (nb : Int) * (3 * (na : Int) + 3 - (nb : Int)) * kabGammaC nb x
+        + (2 * (nb : Int) - 4 * (na : Int)) * (kabLapC nb x * kabLapC nb x)
+        + kabShellGap na nb x y := by
+  have hShell : kabShellGap na nb x y
+      = (nb : Int) * (nb : Int) * gridSumZ na (fun i => y i * y i)
+        - 4 * (nb : Int) * kabLapC nb x * gridSumZ na y
+        + (na : Int) * (4 * (kabLapC nb x * kabLapC nb x)) := by
+    unfold kabShellGap
+    rw [show gridSumZ na (fun i => ((nb : Int) * y i - 2 * kabLapC nb x)
+                                   * ((nb : Int) * y i - 2 * kabLapC nb x))
+          = gridSumZ na (fun i => (nb : Int) * (nb : Int) * (y i * y i)
+              - 4 * (nb : Int) * kabLapC nb x * y i
+              + 4 * (kabLapC nb x * kabLapC nb x)) from
+        gridSumZ_congr na _ _ (fun i _ => by ring_intZ),
+        gridSumZ_add, gridSumZ_sub, gridSumZ_mul_left, gridSumZ_mul_left, gridSumZ_const]
+  rw [hShell, kab_bochner]; ring_intZ
+
+/-! ## §4 — the curvature-dimension bound (wide regime `b ≥ 2a−2`) -/
+
+/-- ★★★★★ **`K_{a,b}` is `CD((3a−b)/2, ∞)` at an `A`-vertex when `b ≥ 2a−2`** (`b`-scaled:
+    `b·gamma2 ≥ b(3a−b)·gammaC`).  In this "wide" regime the `X²`-coefficient `2b−4a+4 ≥ 0`,
+    so the bound follows from `kab_shell_sos` with **no** Cauchy–Schwarz — both the
+    `X²`-term and the shell SOS are non-negative.  (Narrow `b < 2a−2`, incl. the DRLT
+    `K_{3,2}`, needs the discrete Cauchy–Schwarz `X² ≤ b·gammaC` — Phase 3b.)  At `a = 1`
+    (`na = 0`) this is the star centre `CD((3−b)/2,∞)` (`BakryEmery` §4). -/
+theorem kab_cd_wide (na nb : Nat) (x y : Nat → Int)
+    (hwide : 2 * (na : Int) ≤ (nb : Int)) :
+    (nb : Int) * (3 * (na : Int) + 3 - (nb : Int)) * kabGammaC nb x
+      ≤ (nb : Int) * kabGamma2C na nb x y := by
+  have hcoef : (0 : Int) ≤ 2 * (nb : Int) - 4 * (na : Int) := by
+    have h := OrderMul.mul_le_mul_left_nonneg hwide 2 (by decide)
+    rw [show (2 : Int) * (2 * (na : Int)) = 4 * (na : Int) from by ring_intZ] at h
+    exact Order.le_zero_of_nonneg (Order.sub_nonneg_of_le h)
+  rw [kab_shell_sos]
+  apply Order.le_of_sub_nonneg
+  rw [show (nb : Int) * (3 * (na : Int) + 3 - (nb : Int)) * kabGammaC nb x
+        + (2 * (nb : Int) - 4 * (na : Int)) * (kabLapC nb x * kabLapC nb x)
+        + kabShellGap na nb x y
+        - (nb : Int) * (3 * (na : Int) + 3 - (nb : Int)) * kabGammaC nb x
+        = (2 * (nb : Int) - 4 * (na : Int)) * (kabLapC nb x * kabLapC nb x)
+          + kabShellGap na nb x y from by ring_intZ]
+  have hX : (0 : Int) ≤ (2 * (nb : Int) - 4 * (na : Int)) * (kabLapC nb x * kabLapC nb x) := by
+    have h := OrderMul.mul_le_mul_right_nonneg hcoef (kabLapC nb x * kabLapC nb x)
+      (int_sq_nonneg _)
+    rwa [zero_mul] at h
+  exact Order.nonneg_of_le_zero (add_nonneg hX (kabShellGap_nonneg na nb x y))
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
