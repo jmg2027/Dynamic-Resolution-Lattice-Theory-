@@ -144,13 +144,6 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
-- `casoratian_axis_cp_crossdomain` — **the Casoratian / spiral-axis branch ↔ main's CKM
-  CP-phase arc**.  **Both links now closed (∅-axiom):** (1) the morphism `φ:ℤ[i]→ℤ[J]` —
-  floor rotation IS the Hodge `⋆`, one `C₄=ℤ[i]^×` (`Cohomology/Hodge/GaussianHodgeBridge`);
-  (2) the companion-determinant sign `altSign(k−1)` IS the `psign` of the shift cycle, a fourth
-  "permutation under three readouts" instance (`Cauchy/CasoratianPermSign`, also `=det(permMatrix)`).
-  Insights promoted to `theory/essays/synthesis/{the_i_point_of_the_spiral_axis,
-  the_permutation_under_three_readouts}.md`.  Archive candidate.
 - `cp_crossdomain_insights` — **CP-phase cohomology ↔ main's sign/QR/cyclotomic
   campaigns** (merge marathon). Four candidate bridges where the two branches
   share one object: (1) the inversion sign is one object — `det(permMatrix)=psign`
