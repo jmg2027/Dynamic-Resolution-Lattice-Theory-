@@ -4,7 +4,7 @@ CKM (quark) + PMNS (neutrino) mixing matrices, Cabibbo angle, and the
 CKM CP-violating phase derived/forced across group theory, number theory,
 and cohomology (the signed Hodge ⋆ on `H*(Δ⁴)`).
 
-## Files (19)
+## Files (20)
 
 ### Mixing matrices + angles
   - `CabibboAngle.lean`     — Cabibbo angle θ_C
@@ -32,6 +32,10 @@ and cohomology (the signed Hodge ⋆ on `H*(Δ⁴)`).
   - `BigradedYukawa.lean`         — generations = `Λ²(ℝ³)`, `dim = C(3,2) = 3`
   - `CohomologicalYukawa.lean`    — assembly: the three Hodge hypotheses
   - `CohomologicalYukawaEval.lean`— diagonal `h = I` → phase + index (angles separate)
+  - `CKMExactUnitarity.lean`      — item (a): the assembled `ℤ[i]` CKM at `δ=90°`
+                                    (Pythagorean angles `(3,4,5)/(5,12,13)/(8,15,17)`,
+                                    `D=1105`) is exactly unitary (`M·M†=D²·I`),
+                                    pure-imaginary apex, maximal CP — float-free, PURE
 
 ## Where to add new files
 

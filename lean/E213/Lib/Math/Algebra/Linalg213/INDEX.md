@@ -30,6 +30,7 @@ arithmetic and physics couplings.
   - `DetTranspose.lean`   — ★★★ `det Mᵀ = det M` (psign_inv + invPerm involution + product-reindex)
   - `DetMul.lean`         — ★★★ `det(M·N) = det M·det N`: perm-group closure + row-permutation det + Cauchy–Binet expansion + constructive pigeonhole
   - `PermBridge.lean`     — the two `perms` enumerations coincide; `leibDet` is a sum of `n!` terms
+  - `CyclicShiftSign.lean`— the `(m+1)`-cycle `(0 1 … m)` = `cycShift m = [1,…,m,0]`: `inversions = m`, `psign(cycShift m) = altSign m` (the companion/Casoratian sign); certified a permutation of `[0,…,m]` (`cycShift_perm_iota`).  Bridges to `Cauchy/CasoratianPermSign`
   - `CayleyHamilton.lean` — matrix ring + integer Cayley–Hamilton `χ_M(M)=0`
   - `CharPolyAdj.lean` / `PolyDet.lean` — polynomial adjugate identity over `ℤ[X]`
   - `DetTriangular.lean` / `DetScale.lean` / `DetZeroCol.lean` — determinant corollaries

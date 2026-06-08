@@ -37,9 +37,10 @@ selecting the single physical phase (`CPPhaseCount`).  **A generic texture is no
 such a morphism (it fails `J`-invariance / HR-positivity) — that is why the
 cohomological `Y_d` forces `90°` and a generic texture does not.**
 
-This *assembles* the construction; the remaining step is the explicit numerical
-evaluation of the cup functional (the rust `ckm_cp_phase` already verifies the
-resulting `ℤ[i]` CKM is unitary with `δ=90°`).
+This *assembles* the construction; the explicit numerical evaluation of the cup
+functional is closed in ∅-axiom Lean (`Mixing/CKMExactUnitarity`): the resulting
+`ℤ[i]` CKM is proven exactly unitary with `δ=90°` and maximal CP, float-free
+(mirroring the rust `ckm_cp_phase`).
 
 All theorems PURE.
 -/
@@ -90,7 +91,8 @@ theorem index_and_sector :
     CP phase is forced to `ℤ[J]^× = C₄`, and with `N_gen=3` ⇒ 1 phase
     (`CPPhaseCount`), the CP-violating value is `±i = ±90°` (maximal CP).  A
     generic texture, failing these, is unconstrained.  PURE skeleton; the
-    numerical `ℤ[i]` CKM (unitary, `δ=90°`) is the rust `ckm_cp_phase`. -/
+    numerical `ℤ[i]` CKM (exactly unitary, `δ=90°`, maximal CP) is closed in
+    `Mixing/CKMExactUnitarity` (float-free, mirroring the rust `ckm_cp_phase`). -/
 theorem cohomological_yukawa_forces_90 :
     -- the three Hodge hypotheses (J-inv, lattice, HR-positive)
     (mul J J = negI ∧ (cup1 0 1 = 1 ∧ cup1 1 0 = -1) ∧ mul Q J = I)

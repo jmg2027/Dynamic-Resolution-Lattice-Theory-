@@ -159,7 +159,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (3) `crossInv` antisymmetry (off-diagonal pairs cancel mod 2) ↔ det's repeated-row vanishing;
   (4) ★ `psign σ_{−1} = (−1/p) = +1 ⟺ p≡1 mod4 ⟺ i∈ℤ/p` ties the order-2 negation-permutation
   sign to main's order-4 spiral-axis point `ℤ[i]^×=C₄`.
-
+- `selfref_matrix_crossdomain` — **the self-reference matrix `M=[[2,1],[1,1]]` as the common
+  root** (apex ↔ Casoratian ↔ axis).  Five connections: (1) the CKM factorises by discriminant —
+  modulus on `ℚ(√5)` (+5, golden eigenvalue), phase on `ℚ(i)` (−4, Hodge `⋆`); (2) `det=1`
+  unimodularity is the one shared engine (apex reciprocity ↔ `det(AB)=det A·det B` ↔ CKM unitarity
+  ↔ Legendre); (3) "modulus = de-signed square" is the same Bool/difference-Lens as the Casoratian/
+  Cassini sign; (4) `M` is the companion matrix of `x²−3x+1`, so the fourth-readout companion-sign
+  machinery applies to the apex itself; (5) `H*(Δ⁴)` shared by `1/α_em` and the CP phase.  Buildable:
+  unimodularity note, companion-cycle reading of the apex, the two eigen-fields of `d=5`.  (The
+  `casoratian_axis_cp_crossdomain` note both links closed — `GaussianHodgeBridge` morphism +
+  `CasoratianPermSign` sign-bridge — and is archived.)
 - `one_carrier_crossdomain` — **the one-carrier branch ↔ merged main** (p-ary-spine marathon).
   (1) "Unit result, non-finite-state generation" at two scales: `(-1)²=1` with unbounded carry
   (`mulCarry_unbounded`/`carry_is_nu_escape`, branch) = Casoratian `q=−1` with no finite holonomic
@@ -167,14 +176,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   not the value, on ring-op and sequence scales.  (2) Multiplication's unit/non-unit split IS the
   finite-state/escape split: `× unit` = a finite permutation with a sign (Zolotarev `mulPermMod`,
   main) vs `× p` = the valuation escape (`mulBase_eq_mul_pElem`, branch).  Open bridges noted.
-- `casoratian_axis_cp_crossdomain` — **the Casoratian / spiral-axis branch ↔ main's CKM
-  CP-phase arc** (merge marathon).  Proven shared object: the order-4 spiral-axis point
-  `4=|ℤ[i]^×|` IS the CKM CP-phase's `C₄` — the *same* ring `ℤ[i]`, read as a floor rotation
-  (axis) and as the Hodge `⋆` (CP); the CP phase sits at the `i`-point (disc `−4`) of the axis.
-  Plus: the companion-determinant sign `altSign(k−1)` is the `psign` of the shift cycle (a fourth
-  instance of main's "permutation under three readouts"); `det_matMul` is the shared engine.
-  Buildable: `det_companion ↔ psign(cyclicShift)` (Lean), and a synthesis essay tying
-  `cp_phase` ↔ `spiral_coordinate_classification` through `ℤ[i]^×=C₄`.
+- `fibonacci_golden_prime_crossdomain` — **the Fibonacci 5-adic branch ↔ main's CKM
+  CP-phase / Legendre arc**.  The prime `5` is the shared hinge: main takes the *value*
+  `φ ∈ ℚ(√5)` (golden modulus `R_u=1/φ²`), the branch the *5-adic valuation* of the Fibonacci
+  recurrence (rank `α(5)=5`, `ν₅(F_n)=ν₅(n)`) at the *ramified* prime of the same `ℚ(√5)`.
+  Proven shared objects: the Cassini unit `det=±1 = det P = NS−NT = 1` (already cited from
+  `OrbitDimension` to `PnFibonacciUniversal`), and the binary sign axis (`ε=(−1)ᵐ` = the
+  `psign`/Legendre/inversion read of the permutation-three-readouts).  Buildable: the general-`p`
+  rank law `α(p) ∣ p − (5/p)` from the existing Legendre character; a shared-`ℚ(√5)` morphism
+  tying `cp_phase` ↔ `fibonacci_5adic_valuation` (disc `+5` real vs disc `−4` imaginary).
 - `cp_crossdomain_insights` — **CP-phase cohomology ↔ main's sign/QR/cyclotomic
   campaigns** (merge marathon). Four candidate bridges where the two branches
   share one object: (1) the inversion sign is one object — `det(permMatrix)=psign`
@@ -214,7 +224,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   over-predicted ×2.66 (`J_DRLT=8.18×10⁻⁵` vs observed `3.08×10⁻⁵`) — the
   missing piece is the un-derived apex `(ρ,η)` (`s₁₃=Aλ³` omits
   `√(ρ²+η²)≈0.39`). A `CPViolation.lean` comment had masked this with an
-  arithmetic error ("within 10%"); corrected. Open: derive `(ρ,η)`/`η`.
+  arithmetic error ("within 10%"); corrected.  **Multi-agent deep-dive (2026-06-08)**:
+  the apex modulus `R_u=(NS−√d)/2=1/φ²` is the self-reference matrix's contracting
+  eigenvalue; findings #2 (`disc=d` is *selection*, `FibonacciAtomicLock.
+  disc_eq_atomic_sum_selects_shape`) and #4 (modulus = *de-signed square*,
+  `apex_modulus_is_designed_square`) now ∅-axiom; item (a) (exact `ℤ[i]` CKM unitarity)
+  closed (`Mixing/CKMExactUnitarity`).  **Open**: the `det=1`↔base-normalization arrow
+  (apex modulus = `λ₋` of the CKM-from-`M` map); golden in the *radius* not the angle.
   Consumer: θ_QCD (`PRE_REGISTRATION.md` P2).
   **Update (2026-06-08)**: apex modulus `1/φ²` grounded as the self-reference
   Möbius contracting eigenvalue, and `1/φ²`-over-`φ²` now *forced* by `R_u<1`
@@ -296,7 +312,9 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   library (`theory/math/numbersystems/padic_real213.md`).  Directions A
   (explicit Teichmüller ω), B (μ_{p−1} root-of-unity + unit decomposition),
   G (general division) now **closed** in `lean`.  The remaining direction H
-  is tracked in its own note `G124_padic_drlt_5adic`.
+  (DRLT 5-adic content) is **CLOSED** — chapter
+  `theory/math/numbertheory/fibonacci_5adic_valuation.md`
+  (`archive/fibonacci_5adic/`).
 - **p-adic closure harvest** — Teichmüller `ω(x)` + uniqueness + `μ_{p−1}×(1+pℤ_p)` decomposition
   + general division CLOSED ∅-axiom; chapter `theory/math/numbersystems/padic_real213.md` + essay
   `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seeds:* the concrete
@@ -307,13 +325,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `zp_setoid_commRing_capstone`); the shared **`Zp.diagLimit`** abstraction
   (`Foundation.diagLimit` + `diagLimit_trunc_succ` — the single diagonal-limit proof now
   factored out of `invFull`/`sqrtFull`/`teichmuller`, all three rewired to it).
-- `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
-  (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
-  (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic
-  L-values) have **no internal handle** — recorded plainly per §5.4, no
-  forcible map onto physics.  Pure-math spinoff `i₅ ∈ μ₄` (the 5-adic
-  imaginary unit is a 4-th root of unity) CLOSED ∅-axiom and folded into the
-  Teichmüller chapter + essay.
+- `fibonacci_5adic_valuation` (**CLOSED** → chapter
+  `theory/math/numbertheory/fibonacci_5adic_valuation.md`,
+  `archive/fibonacci_5adic/`) — H: DRLT-specific 5-adic content.  H1 (5²⁵
+  obstruction) settled-as-removed; H2/H3 (physics meaning / L-values) have
+  no internal handle (recorded plainly per §5.4).  The admissible
+  arithmetic-first move opened a full math arc at the ramified golden prime
+  `5`: rank of apparition `α(5)=5` + Lucas-never-zero, the `ν₅≥1,2` FSM
+  rungs, the quintupling identity `F_{5m}=F_m(25F_m⁴+25(−1)ᵐF_m²+5)`, and
+  the all-orders law `ν₅(F_n)=ν₅(n)` (`fibN_val_law`).  Pure-math spinoff
+  `i₅ ∈ μ₄` folded into the Teichmüller chapter + essay.
 - `sums_of_squares_engines` — synthesis seed after four-square closure: the
   two representation engines (multiplicative root-bound vs. additive
   pigeonhole), and the next number-theory seeds (disc-`−8` congruence iff via
