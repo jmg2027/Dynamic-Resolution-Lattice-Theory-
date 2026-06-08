@@ -67,6 +67,7 @@ import E213.Lib.Math.NumberTheory.PolyRoot.ResidueList
 import E213.Lib.Math.NumberTheory.EuclideanDivision
 import E213.Lib.Math.NumberTheory.FibZIdentities
 import E213.Lib.Math.NumberTheory.FibZValuation
+import E213.Lib.Math.NumberTheory.GoldenFieldBridge
 import E213.Lib.Math.Analysis.Cauchy
 import E213.Lib.Math.Probability.MaxEntropy
 import E213.Lib.Math.Algebra.DetSpectrumPoles
