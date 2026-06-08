@@ -54,15 +54,34 @@ determinant side reuse `mem_perms_iff` / `perms_append_mem` directly (currently
 each side re-derives sound/complete/nodup).  Low priority — both sides are
 already complete; this is pure dedup.
 
-### 3. Determinant multiplicativity / transpose
-`det (M·N) = det M · det N` and `det Mᵀ = det M` are the natural next capstones
-on the now-complete Leibniz/Laplace stack (adjugate identity already in hand).
-**Caveat (scouted this session)**: both need a substantial new sign-theory
-lemma — `det Mᵀ = det M` needs inversions-of-inverse (`inv σ⁻¹ = inv σ`) or
-sign-multiplicativity `psign(σ∘τ)=psign σ·psign τ`; `det(M·N)` needs the
-function-enumeration expansion + multilinearity.  Neither is a quick close;
-`ProdLperm` (`prodZ`/`prodZ_lperm`/`prodZ_append`) is the laid foundation for
-the transpose reindex.
+### 3. Determinant multiplicativity / transpose — the SIGN-THEORY campaign
+`det (M·N) = det M · det N` and `det Mᵀ = det M` are the remaining capstones.
+A `/deep-research` pass this session (Mathlib `signAux`/`det_transpose`/`det_mul`,
+mathcomp, Isabelle, Conrad, Baker — sources in the prompt log / chat) established
+the strategy:
+
+- **Our `psign` over `List Nat` is the right (constructive) definition** =
+  Mathlib's `signAux` route, and being list-based it **dodges the
+  `Multiset`/`Finset` quotient** that makes Mathlib's `sign` carry `Quot.sound` —
+  why our `psign` is already PURE.
+- **We already own the generating fact** `psign_swap_adj`/`psign_swap_prefix`
+  ("adjacent transposition flips parity ±1") — the bootstrap for everything.
+- **Keystone = `psign_mul` (`psign(σ∘τ)=psign σ·psign τ`)**; then `psign_inv` is a
+  one-liner (`psign σ·psign σ⁻¹ = psign id = 1` in {±1}).  `det Mᵀ = det M` =
+  reindex `perms` by `invPerm` + `psign_inv` + `prodZ_lperm` (product reindex).
+- **`det(M·N)`**: Mathlib's direct-Leibniz route needs `psign_mul`; the
+  *alternating-form-uniqueness* route reaches it from `det_swapRows` +
+  "permute-rows-by-σ scales det by `psign σ`" (which needs a swap-reachability
+  induction: sorted⟹iota + directed inversion-decrease — ~150 lines, no infra yet).
+
+**Foundation built this session**: `PermGroup.lean` (15/15 PURE) — the symmetric
+group on value-lists: `composeList` (`(σ∘τ) i = σ(τ i)`), `iota n` two-sided
+identity, associativity, and `invPerm` with `composeList_invPerm_right`
+(`σ∘σ⁻¹ = iota n`).  This is the substrate `psign_mul` builds on.  **Next**:
+`psign_mul` — cleanest routes are (i) the inversion-pair reindexing bijection
+(mirrors Mathlib `signAux_mul`) or (ii) the Vandermonde discriminant over `PolyZ`
+(multiplicativity free from action-associativity; `PolyZ` already exists in
+`CharPolyAdj`) — worth a feasibility probe.
 
 ### 3b. ✓ The **upper-triangular** determinant — CLOSED (this session)
 `DetTriangular.det_upper_triangular` — `M i j = 0` for `j < i` ⟹ `det = Π Mᵢᵢ`,
@@ -84,6 +103,7 @@ no new sign theory — pure consequences of the already-proven multilinearity
 ```
 lean/E213/Lib/Math/Algebra/Linalg213/DetTriangular.lean  ← + det_upper_triangular (last-row), 13/13 PURE
 lean/E213/Lib/Math/Algebra/Linalg213/DetRowOps.lean      ← NEW: row ops (add-multiple preserves, swap negates) det, 11/11 PURE
+lean/E213/Lib/Math/Algebra/Linalg213/PermGroup.lean      ← NEW: symmetric group on value-lists (composeList, identity, assoc, invPerm), 15/15 PURE
 lean/E213/Meta/Nat/NatRing213.lean                       ← + nat_succ_sub (§5)
 lean/E213/Lib/Math/Combinatorics/SpernerChains.lean      ← succ_sub_clean → nat_succ_sub
 lean/E213/Lib/Math/Algebra/Linalg213/PermBridge.lean     ← NEW: the two-perms bridge, 7/7 PURE

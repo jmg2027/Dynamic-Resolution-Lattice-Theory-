@@ -11,6 +11,7 @@ import E213.Lib.Math.Algebra.Linalg213.PhaseChiralBridge
 import E213.Lib.Math.Algebra.Linalg213.Gap
 import E213.Lib.Math.Algebra.Linalg213.Gram
 import E213.Lib.Math.Algebra.Linalg213.Permutation
+import E213.Lib.Math.Algebra.Linalg213.PermGroup
 import E213.Lib.Math.Algebra.Linalg213.ProdLperm
 import E213.Lib.Math.Algebra.Linalg213.ProdCongr
 import E213.Lib.Math.Algebra.Linalg213.SumLinear
