@@ -148,6 +148,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `zolotarev_crossdomain` — **the Zolotarev / permutation-sign branch ↔ merged main**
+  (converse-psign marathon).  Four bridges where this branch's closed Zolotarev
+  (`psign σ_a = (a/p)`, all primes) + `InversionsAppend` combinatorics touch main's arcs:
+  (1) `σ_a` is the finite-state side of the `×unit`/`×p` finite-state-vs-escape split —
+  `(a/p)` is the Z/2 invariant the finite pointing carries and the νF escape lacks;
+  (2) Zolotarev `psign σ_a = det(permMatrix) = (a/p)` and main's companion-determinant sign
+  `altSign(k−1) = psign(shift cycle)` are two closed instances of one "three readouts" schema
+  (shared engine `det_permMatrix`); buildable `psign(cyclicShift n) = altSign(n−1)`;
+  (3) `crossInv` antisymmetry (off-diagonal pairs cancel mod 2) ↔ det's repeated-row vanishing;
+  (4) ★ `psign σ_{−1} = (−1/p) = +1 ⟺ p≡1 mod4 ⟺ i∈ℤ/p` ties the order-2 negation-permutation
+  sign to main's order-4 spiral-axis point `ℤ[i]^×=C₄`.
+
 - `one_carrier_crossdomain` — **the one-carrier branch ↔ merged main** (p-ary-spine marathon).
   (1) "Unit result, non-finite-state generation" at two scales: `(-1)²=1` with unbounded carry
   (`mulCarry_unbounded`/`carry_is_nu_escape`, branch) = Casoratian `q=−1` with no finite holonomic
