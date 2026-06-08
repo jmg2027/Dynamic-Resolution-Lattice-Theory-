@@ -26,7 +26,7 @@ Zolotarev: the sign character agrees with the Legendre symbol on the quadratic-r
 subgroup.
 
 The **converse** (non-residue ⟹ odd permutation, i.e. the sign character is nontrivial) is
-now **fully closed for every odd prime** in `ModArith/ZolotarevMuBridge.lean`
+**closed for every odd prime** in `ModArith/ZolotarevMuBridge.lean`
 (`zolotarev_mu`: `psign σ_a = 1 ⟺ a` is a QR).  Because `σ_a(p−x) = p − σ_a(x)`, `σ_a` is in
 block form `0 :: (fh ++ (revL fh).map (p−·))`, so `psign σ_a = altSign (diagCount p fh)`
 reduces to a symmetric cross-count whose parity is Gauss's `μ` — no primitive root needed.
