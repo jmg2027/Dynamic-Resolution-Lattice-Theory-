@@ -69,10 +69,46 @@ index) and the forcible-map trap.  The admissible shape is
 object the corpus *already builds* (a graded-formula coefficient, a
 simplex count, a Cassini/continuant value) is non-trivial — and only
 *then*, if a bridge appears unforced, read it toward an observable.
-Open until such an unforced arithmetic handle is exhibited; absent one,
-H stays honestly "not reached from inside."
+
+## A second arithmetic-first handle exhibited (CLOSED)
+
+Looking again in the admissible shape turned up a second unforced
+handle, on the Cassini/continuant object the corpus already builds (the
+golden recurrence behind `R_u = 1/φ²`, the CKM CP modulus): the
+**Fibonacci rank of apparition at the ramified prime 5**.
+
+`5` is the discriminant of `x² − x − 1`, the *unique ramified* prime of
+the golden modulus `ℚ(√5)` (`x² − x − 1 ≡ (x − 3)² mod 5`).  At the
+double root the two Binet branches split in status, and the corpus's two
+mod-5 FSMs read the split exactly:
+
+- **Fibonacci** (singular branch, `F_n ≡ n·3ⁿ⁻¹`):
+  `FibApparitionMod5.five_dvd_fib_iff` — `5 ∣ F_n ⟺ 5 ∣ n`.  The rank of
+  apparition is `α(5) = 5 = p` itself (`rank_apparition_five`), the
+  **ramified-prime signature** (generic primes have `α(p) ∣ p ± 1`; only
+  the ramified prime has `α(p) = p`, and `F_5 = 5 = p`).
+- **Lucas** (regular branch, `L_n ≡ 2·3ⁿ`):
+  `FibApparitionMod5.lucasMod5_never_zero` — `5 ∤ L_n` for every `n`, no
+  rank of apparition.
+
+Packaged: `fib_lucas_apparition_divergence` (13 PURE, ∅-axiom,
+`lean/E213/Lib/Math/NumberTheory/DyadicFSM/FibApparitionMod5.lean`).
+This is the FSM-level proof of the divergence the `LucasFSMmod5`
+docstring had stated only verbally.  It ties the resolution prime `5`
+(`configCount 2 = 5²⁵`) to the *ramified* prime of the DRLT golden
+modulus through one structural fact — the singular/regular split of the
+Binet branches at the double root — without any forcible map onto an
+observable (the handle is pure 5-adic arithmetic of an already-built
+object; no physics target is constructed-to-match).
+
+Remaining rung (open, not closable ∅-axiom by FSM alone): the full
+valuation lift `ν₅(F_n) = ν₅(n)` (lifting-the-exponent), of which this
+closes the `n = 1` (zero-set / rank) rung.
 
 ## Status
 - H1: settled (removed).  H2, H3: no internal handle — recorded plainly.
 - Pure-math spinoff `i₅ ∈ μ₄`: CLOSED (∅-axiom), folded into the
   Teichmüller chapter + essay.
+- Pure-math spinoff Fibonacci rank of apparition `α(5) = 5` +
+  Lucas-never-zero: CLOSED (∅-axiom, `FibApparitionMod5`).  Open rung:
+  `ν₅(F_n) = ν₅(n)` (LTE).
