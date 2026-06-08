@@ -128,12 +128,16 @@ kernel had it not been hypothesized or hand-rolled away.  The omniscience ledger
 - **Tighten the König-selection cost from LPO to LLPO** — the headline remaining piece, and
   *not* a corollary of `lpo_imp_llpo` (that runs LPO ⟹ LLPO, the wrong direction).  The
   current `lpo_infChildExistsN` proof uses LPO to *decide* the left child (a `Π⁰₁`
-  decision), which LLPO cannot do.  A genuine LLPO proof needs the **monotone turn-off
-  encoding**: from antitone `existsLevel s0`/`existsLevel s1` with `∀n (e0 n ∨ e1 n)`, build
-  `g(2n) = "fa = !e0 first-true at n"`, `g(2n+1) = "fb first-true at n"`; `fa,fb` are
-  monotone and never-both-true (else `e0,e1` both fail at `max`, contradicting the cover),
-  so `g` is at-most-one-true and `lpo`/`LLPO`'s even-or-odd split yields `InfB s0 ∨ InfB s1`.
-  A bounded but real (~100-line) proof; scoped for a focused pass.
+  decision), which LLPO cannot do.  A genuine LLPO proof uses the **monotone turn-off
+  encoding** via `g := interleave (ftrue fa) (ftrue fb)` with `fa = !e0`, `fb = !e1`
+  (`Interleave.lean`): `fa,fb` are monotone and never-both-true (else `e0,e1` both fail at
+  `max`, contradicting the cover `∀n (e0 n ∨ e1 n)`), so `g` is at-most-one-true and LLPO's
+  even-or-odd split + `ftrue_all_false` yields `InfB s0 ∨ InfB s1`.
+  *Infrastructure DONE* (`Interleave.lean`, 6 PURE): the div/mod-free `interleave` +
+  `il_even`/`il_odd`, the `ftrue` rising-edge stream, and `ftrue_all_false` (the
+  back-conversion).  *Remaining crux:* `ftrue_unique` (monotone ⟹ at-most-one rising edge,
+  via Nat trichotomy), `not_both` (monotone + disjoint ⟹ not both rise), `monotone`-from-
+  `LevelAntitone`, and the parity assembly of `g`'s at-most-one — ~120 lines, a focused pass.
 - The fan theorem and bar induction as residue-native principles.
 - *(Done: `existsLevel` ↔ `KonigConditional.InfBelow` — `infB_iff_infBelow`; `LevelAntitone`
   from a downward-closed `T` — `levelAntitone_of_downwardClosed`; LPO ⟹ LLPO — `lpo_imp_llpo`;
