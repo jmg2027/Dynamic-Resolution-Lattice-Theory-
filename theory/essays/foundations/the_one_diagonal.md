@@ -69,9 +69,14 @@ The König / finite-subcover / omniscience family is unified in 213 as the same 
 capture — the same non-surjection — but its literal external reduction to Lawvere's fixed
 point is looser: these are omniscience (LLPO / fan-theorem) cousins, not textbook Lawvere
 instances.  "All one non-surjection" is the held 213 reading; "all one Lawvere instance" is
-established only for the diagonal family.  A Lean `FiniteSubcoverOracle ↔ InfChildExists`
-would pin the compactness-König identity inside the residue; the broader external reduction
-stays open.
+established only for the diagonal family.  The compactness-König identity is pinned inside
+the residue: `KonigConditional.infChildExists_iff_finiteSubcover` (∅-axiom) shows the
+selection form (`InfChildExists`) and the compactness/fan form (`FiniteSubcoverOracle`)
+equivalent **exactly modulo one omniscience step** — selection ⇒ compactness is free
+(contraposition), compactness ⇒ selection needs deciding the child-disjunction
+(`¬¬(B∨C) → B∨C`, `LLPO`-flavoured).  So the local `WKL ⟺ Heine–Borel` identity is
+reproduced on the residue carrier with the one ∞-decision named as the only gap; the
+broader external reduction of the omniscience family to Lawvere stays open.
 
 ## Self-check note
 

@@ -58,21 +58,25 @@ This is the same three-part split as every naming (`the_reference_claim.md`): th
 (necessary, held), referent-capture (refused), the finite-subcover decision (under test —
 and it has the König stall as its live falsifier).
 
-## Theorem seed (the next code step)
+## Theorem seed — CLOSED (∅-axiom calibration)
 
-State a finite-subcover oracle for the dyadic tree as a `Prop`, and prove it
-**interderivable** with `InfChildExists`, ∅-axiom (both un-discharged):
+Done (`Lib/Math/Combinatorics/KonigConditional.lean`, +4 PURE): `FiniteSubcoverOracle`
+(the compactness/fan step "both children bounded ⟹ node bounded"), and the calibration
 
 ```
-FiniteSubcoverOracle (T) ↔ InfChildExists (T)     -- target, PURE
+infChildExists_imp_finiteSubcover : InfChildExists T → FiniteSubcoverOracle T     -- free (contraposition)
+finiteSubcover_imp_infChildExists : FiniteSubcoverOracle T → (dec) → InfChildExists T
+infChildExists_iff_finiteSubcover : (dec) → (InfChildExists T ↔ FiniteSubcoverOracle T)
 ```
 
-i.e. *the compactness decision and the König oracle are one move*, formalized.  This is a
-reverse-mathematics equivalence (`WKL ⟺ Heine–Borel`) reproduced **inside the residue**,
-on the νF carrier — the calibration angle (which theorem costs which decision) done
-213-native.  A clean, bounded, ∅-axiom target; the contrapositive direction (no infinite
-path ⟺ a finite subcover bounds the tree) is the classical `WKL`↔Heine–Borel argument,
-re-expressed over `boolSpine`/`InfBelow`.
+**Finding (sharper than a naive iff):** the two forms are **not** ∅-axiom equivalent.
+Selection ⇒ compactness is free; compactness ⇒ selection needs deciding the
+child-disjunction `dec : ¬¬(B∨C) → B∨C` — an omniscience (`LLPO`) step the residue does not
+supply.  So `WKL ⟺ Heine–Borel` (local form) is reproduced on the residue's binary-tree
+carrier with the **one ∞-decision named as the only gap** — the reverse-math calibration
+done 213-native.  Promoted into the essay `theory/essays/foundations/the_one_diagonal.md`
+(open-frontier section).  Open: the dyadic-`[0,1]` ↔ `boolSpine` carrier identification at
+the point level, and the broader external Lawvere reduction of the omniscience family.
 
 ## Why this matters for the frontier
 

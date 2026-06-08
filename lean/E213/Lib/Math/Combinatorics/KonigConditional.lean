@@ -149,4 +149,49 @@ theorem konig_infinity_is_nu_escape
   ⟨fun k => hInfMem _ (walk_inf step Inf hstep root k),
    fun r => konig_infinity_no_finite_raw step r⟩
 
+/-! ## Compactness ↔ selection — the local fan step (reverse-math calibration)
+
+`InfChildExists` (an infinite node has an infinite child) is the **selection** step König
+needs.  Its contrapositive is the **compactness / fan** step: if both children are
+finitely-bounded, the node is finitely-bounded — the local inductive heart of "no infinite
+path ⟹ bounded" (Heine–Borel / `WKL`-contrapositive on the binary tree).  The two are
+**not** ∅-axiom equivalent: selection ⇒ compactness is free (contraposition), but
+compactness ⇒ selection needs deciding the child-disjunction (`¬¬(B∨C) → B∨C`) — an
+omniscience (`LLPO`-flavoured) step the residue does not supply.  That *is* the
+calibration: the same single ∞-decision, located exactly — the reverse-math identity
+`WKL ⟺ Heine–Borel` (local form) reproduced on the residue's own binary-tree carrier. -/
+
+/-- The compactness / fan step on the binary tree (dual to `InfChildExists`): both children
+    finitely-bounded (not `InfBelow`) ⟹ the node finitely-bounded. -/
+def FiniteSubcoverOracle (T : List Bool → Bool) : Prop :=
+  ∀ s, ¬ InfBelow T (s ++ [false]) → ¬ InfBelow T (s ++ [true]) → ¬ InfBelow T s
+
+/-- ★ **Selection ⇒ compactness, ∅-axiom** — plain contraposition of `InfChildExists`. -/
+theorem infChildExists_imp_finiteSubcover (T : List Bool → Bool)
+    (h : InfChildExists T) : FiniteSubcoverOracle T :=
+  fun s hf ht hs => (h s hs).elim hf ht
+
+/-- **Compactness ⇒ selection, given the child-disjunction decision.**  The decision `dec`
+    (`¬¬(B∨C) → B∨C` at each node) is the omniscience step; with it the compactness form
+    recovers the selection form.  ∅-axiom — the classical content sits entirely in the `dec`
+    hypothesis, not in the proof. -/
+theorem finiteSubcover_imp_infChildExists (T : List Bool → Bool)
+    (h : FiniteSubcoverOracle T)
+    (dec : ∀ s, ¬¬ (InfBelow T (s ++ [false]) ∨ InfBelow T (s ++ [true]))
+              → InfBelow T (s ++ [false]) ∨ InfBelow T (s ++ [true])) :
+    InfChildExists T :=
+  fun s hs => dec s (fun hno =>
+    h s (fun h0 => hno (Or.inl h0)) (fun h1 => hno (Or.inr h1)) hs)
+
+/-- ★★ **The two forms are equivalent exactly modulo the omniscience step.**  Given the
+    child-disjunction decision `dec`, `InfChildExists ↔ FiniteSubcoverOracle` — `WKL ⟺
+    Heine–Borel` (local form) on the residue carrier, with the one ∞-decision named as the
+    only gap.  The compactness "concept" adds no new wall: it is the König selection step
+    read through its contrapositive, differing by exactly the refused capture. -/
+theorem infChildExists_iff_finiteSubcover (T : List Bool → Bool)
+    (dec : ∀ s, ¬¬ (InfBelow T (s ++ [false]) ∨ InfBelow T (s ++ [true]))
+              → InfBelow T (s ++ [false]) ∨ InfBelow T (s ++ [true])) :
+    InfChildExists T ↔ FiniteSubcoverOracle T :=
+  ⟨infChildExists_imp_finiteSubcover T, fun h => finiteSubcover_imp_infChildExists T h dec⟩
+
 end E213.Lib.Math.Combinatorics.KonigConditional
