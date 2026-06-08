@@ -148,6 +148,15 @@ axis (read off a continued fraction) and the geometric rotation census (read off
 are the same `{1,2,3}` seen through one binary cover — the analysis side and the
 exceptional-tower side meet on `{1,2,3}`.
 
+What the axis is *not*: the **Cayley–Dickson dimension tower** `{1,2,4,8} = 2ⁿ`.  The tempting
+`1,2,4,8 ↔ {2,4,6}` map is a stereotype — the two sequences meet only on `{2,4}` and then diverge
+for two independent reasons (`Tower/SpiralAxisCrystallographic.cd_tower_axis_noncoincidence`): the
+octonion dimension `8 = 2³` is a power of two but **not** a crystallographic order (`φ 8 = 4 > 2`;
+since the axis is the even half of the crystallographic set, `8` is off it — *no octonion at the
+axis*), while the axis order `6` is crystallographic (`φ 6 = 2`) but **not** a power of two
+(`not_pow_two_six` — *no order-6 Cayley–Dickson rung*).  The Cayley–Dickson content of the axis runs
+through the *rings* `ℤ[i], ℤ[ω]` (unit orders `4, 6`), not the dimension doubling `2ⁿ`.
+
 The three axes carry a transcendental shadow through the Chowla–Selberg / Gross CM-period
 formula (the unit order `w` appears in its exponent): `Γ(1/2) ∼ π` at the boundary, `Γ(1/4)`
 at disc `−4` (`ℤ[i]`), `Γ(1/3)` at disc `−3` (`ℤ[ω]`).  This is interpretive, not

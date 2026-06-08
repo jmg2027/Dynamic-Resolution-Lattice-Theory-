@@ -47,16 +47,15 @@ Five-agent repo sweep (seed / theory / lean core / lean Lib / research-notes):
   (`det(P) = NS − NT`); `G75_det_is_axis_generator_fold` ("the 1 in det is
   structurally identical to the 1 in NS−NT"); `catalogs/cross-domain-identifications`
   CDI-9 (`det = glue = unit` are byte-identical proof terms).
-- **Originator's own statement** (`archive/universe_chain/G74_one_as_glue_213_spiral.md`,
-  `Mobius213OneAsGlue.lean` header): "1이 접착제이고 회전축... '어떤 관점'에선
+- **Originator's own statement** (`Mobius213OneAsGlue.lean` header): "1이 접착제이고 회전축... '어떤 관점'에선
   2축으로 보였던게 3축으로 보이고 vice versa. 2-1-3은 불가분." (The 1 is glue and
   rotation axis; from one view the 2-axis is seen as the 3-axis and vice versa;
   2-1-3 is indivisible.) → the 1 is the **rotation axis** under which 2↔3
   interconvert — neither an interval nor a collapse.
-- **0 vs 1** (`archive/G64_zero_as_emergent_artifact`): **0** = swap-fixed
+- **0 vs 1**: **0** = swap-fixed
   diagonal collapse = the unique non-atomic integer = the *gap/void*; **1** =
   det/unit/origin = the *undivided residue*. The collapse-role is 0, not 1.
-- **Frobenius reversal** (`archive/G148_..._synthesis §3.3`): classically
+- **Frobenius reversal**: classically
   `F(2,3)=1` is the unique integer *unreachable* by `2a+3b` (a "hole/gap"); in
   213 it is `1 = det = unit = the origin` both generators presuppose. The
   classical "gap" IS the 213 origin.
@@ -169,9 +168,8 @@ identity" — a reading is a facet, never the residue itself.)
 - glue/axis: `Lib/Math/Mobius213OneAsGlue.lean`, `…/Mobius213/Px/{MobiusSelfForm,
   CharPolySelf,ConvergentDet,TripartiteK213}.lean`, `Lib/Math/Mobius213.lean`.
 - residue def: `Lib/Math/UniverseChain/Residue.lean`, `research-notes/G29_residue.md`.
-- 0 vs 1 / Frobenius: `archive/G64_zero_as_emergent_artifact.md`,
-  `archive/G148_graded_residue_arithmetic_synthesis.md`,
-  `archive/universe_chain/{G74_one_as_glue_213_spiral,G75_det_is_axis_generator_fold}.md`.
+- 0 vs 1 / Frobenius: `theory/math/foundations/universe_chain.md` (the 1-as-glue /
+  axis-generator narrative) + `Lib/Math/Mobius213.lean`.
 - flat ontology: `Lens/FlatOntology.lean`, `Lens/RawTopology.lean`,
   `Lens/UndifferentiatedRaw.lean`, `Lens/Cardinality/{Cantor,Godel}.lean`.
 - self-pointing axis: `research-notes/G121_dim4_self_pointing_axis.md`.

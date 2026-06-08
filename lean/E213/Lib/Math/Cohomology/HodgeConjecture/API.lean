@@ -48,8 +48,8 @@ The **Bridge/** layer is the public API surface — each file is a
 classical-area entry point a non-213 mathematician can recognise
 and start from.
 
-See `INDEX.md` for navigation, `research-notes/archive/hodge/ (G6-G11)` for the
-philosophical / programme notes.
+See `INDEX.md` for navigation and `theory/math/cohomology/hodge_conjecture.md`
+for the human-readable account.
 -/
 
 namespace E213.Lib.Math.Cohomology.HodgeConjecture.API

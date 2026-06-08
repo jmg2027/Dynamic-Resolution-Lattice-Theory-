@@ -620,34 +620,23 @@ theorem Zp.invSeq_digit_stable (p : Nat) (hp : 0 < p) (x : ZpSeq p)
       rw [Zp.invSeq_succ_digit_below p hp x h_gcd n j hne]
       exact Zp.invSeq_digit_stable p hp x h_gcd n j hjle_n
 
-/-- The full inverse `ZpSeq p`: extract each "settled" digit. -/
+/-- The full inverse `ZpSeq p`: the diagonal limit of the Hensel approximation sequence
+    `invSeq` (each "settled" digit read off its level). -/
 def Zp.invFull (p : Nat) (hp : 0 < p) (x : ZpSeq p)
     (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
-              (x.digits 0).val p).1 = 1) : ZpSeq p where
-  digits := fun k => (Zp.invSeq p hp x h_gcd k).digits k
+              (x.digits 0).val p).1 = 1) : ZpSeq p :=
+  Zp.diagLimit (Zp.invSeq p hp x h_gcd)
 
-/-- `invFull.trunc (n+1) = (invSeq n).trunc (n+1)` — at level n+1,
-    invFull's truncation matches the level-n approximation
-    (which has all digits 0..n correctly set). -/
+/-- `invFull.trunc (n+1) = (invSeq n).trunc (n+1)` — at level n+1, invFull's truncation
+    matches the level-n approximation (`diagLimit_trunc_succ` with stability from
+    `invSeq_succ_trunc_low`). -/
 theorem Zp.invFull_trunc_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
     (h_gcd : (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout
               (x.digits 0).val p).1 = 1) :
     ∀ n, (Zp.invFull p hp x h_gcd).trunc (n + 1)
-          = (Zp.invSeq p hp x h_gcd n).trunc (n + 1)
-  | 0 => rfl
-  | n + 1 => by
-    have ih : (Zp.invFull p hp x h_gcd).trunc (n + 1)
-              = (Zp.invSeq p hp x h_gcd n).trunc (n + 1) :=
-      Zp.invFull_trunc_succ p hp x h_gcd n
-    show (Zp.invFull p hp x h_gcd).trunc (n + 1)
-          + ((Zp.invFull p hp x h_gcd).digits (n + 1)).val * p^(n + 1)
-        = (Zp.invSeq p hp x h_gcd (n + 1)).trunc (n + 1)
-          + ((Zp.invSeq p hp x h_gcd (n + 1)).digits (n + 1)).val * p^(n + 1)
-    rw [ih]
-    -- (invSeq n).trunc (n+1) → (invSeq (n+1)).trunc (n+1) via ← invSeq_succ_trunc_low.
-    rw [← Zp.invSeq_succ_trunc_low p hp x h_gcd n (n + 1) (Nat.le_refl _)]
-    -- invFull.digits (n+1) = invSeq (n+1).digits (n+1) by definition (rfl).
-    rfl
+          = (Zp.invSeq p hp x h_gcd n).trunc (n + 1) :=
+  Zp.diagLimit_trunc_succ (Zp.invSeq p hp x h_gcd)
+    (fun n => Zp.invSeq_succ_trunc_low p hp x h_gcd n (n + 1) (Nat.le_refl (n + 1)))
 
 /-- **Full Hensel correctness**: `x · invFull ≡ 1 (mod p^(n+1))` for all `n`. -/
 theorem Zp.mul_invFull_correct (p : Nat) (hp : 1 < p) (x : ZpSeq p)
@@ -1417,29 +1406,21 @@ theorem Zp.sqrtSeq_digit_stable (p : Nat) (hp : 0 < p) (x : ZpSeq p)
       rw [Zp.sqrtSeq_succ_digit_below p hp x sb n j hne]
       exact Zp.sqrtSeq_digit_stable p hp x sb n j hjle_n
 
-/-- The full sqrt `ZpSeq p`: extract each "settled" digit. -/
+/-- The full sqrt `ZpSeq p`: the diagonal limit of the Hensel sqrt approximation sequence
+    `sqrtSeq` (each "settled" digit read off its level). -/
 def Zp.sqrtFull (p : Nat) (hp : 0 < p) (x : ZpSeq p)
-    (sb : Zp.SqrtBase p x) : ZpSeq p where
-  digits := fun k => (Zp.sqrtSeq p hp x sb k).digits k
+    (sb : Zp.SqrtBase p x) : ZpSeq p :=
+  Zp.diagLimit (Zp.sqrtSeq p hp x sb)
 
-/-- `sqrtFull.trunc (n+1) = (sqrtSeq n).trunc (n+1)` — at level n+1,
-    sqrtFull's truncation matches the level-n approximation. -/
+/-- `sqrtFull.trunc (n+1) = (sqrtSeq n).trunc (n+1)` — at level n+1, sqrtFull's truncation
+    matches the level-n approximation (`diagLimit_trunc_succ` with stability from
+    `sqrtSeq_succ_trunc_low`). -/
 theorem Zp.sqrtFull_trunc_succ (p : Nat) (hp : 0 < p) (x : ZpSeq p)
     (sb : Zp.SqrtBase p x) :
     ∀ n, (Zp.sqrtFull p hp x sb).trunc (n + 1)
-          = (Zp.sqrtSeq p hp x sb n).trunc (n + 1)
-  | 0 => rfl
-  | n + 1 => by
-    have ih : (Zp.sqrtFull p hp x sb).trunc (n + 1)
-              = (Zp.sqrtSeq p hp x sb n).trunc (n + 1) :=
-      Zp.sqrtFull_trunc_succ p hp x sb n
-    show (Zp.sqrtFull p hp x sb).trunc (n + 1)
-          + ((Zp.sqrtFull p hp x sb).digits (n + 1)).val * p^(n + 1)
-        = (Zp.sqrtSeq p hp x sb (n + 1)).trunc (n + 1)
-          + ((Zp.sqrtSeq p hp x sb (n + 1)).digits (n + 1)).val * p^(n + 1)
-    rw [ih]
-    rw [← Zp.sqrtSeq_succ_trunc_low p hp x sb n (n + 1) (Nat.le_refl _)]
-    rfl
+          = (Zp.sqrtSeq p hp x sb n).trunc (n + 1) :=
+  Zp.diagLimit_trunc_succ (Zp.sqrtSeq p hp x sb)
+    (fun n => Zp.sqrtSeq_succ_trunc_low p hp x sb n (n + 1) (Nat.le_refl (n + 1)))
 
 /-- **Full Hensel sqrt correctness**: `sqrtFull² ≡ x (mod p^(n+1))`
     for all `n`. -/

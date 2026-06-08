@@ -45,8 +45,7 @@ non-Hurwitzian yet holonomic, as `2ⁿ` shows).
   a theorem; flags one category error to avoid.
 
 Closure record (the proven side of this arc):
-`theory/math/analysis/{cf_holonomicity_hierarchy,phi_pi_poles}.md` +
-`archive/analysis_depth/G183_holonomic_pointing_synthesis.md`.
+`theory/math/analysis/{cf_holonomicity_hierarchy,phi_pi_poles}.md`.
 
 ## Markov / Lagrange spectrum  (`markov_lagrange/`)
 
@@ -114,9 +113,9 @@ depth; axis = unit-group order `{2,4,6}`), and its tower extension.
 
 Closure record: `theory/math/analysis/spiral_coordinate_classification.md`.
 `G181_atomic_spiral_adic` (the variable-base adic / carry = the residue unit) is
-**closed & archived** → `archive/spiral_axis/G181_atomic_spiral_adic.md`; built as
-`Theory/Raw/{Odometer,OdometerValue}` + `Real213/ZeckendorfCarry`, narrated in
-`theory/essays/foundations/the_residue_unit_odometer.md` + `theory/math/algebra/phi_self_similarity.md` §3.7.
+**closed**, built as `Theory/Raw/{Odometer,OdometerValue}` + `Real213/ZeckendorfCarry`,
+narrated in `theory/essays/foundations/the_residue_unit_odometer.md` +
+`theory/math/algebra/phi_self_similarity.md` §3.7.
 
 ## Real-completeness / intensional completability  (`completability/`)
 
@@ -128,7 +127,7 @@ presentation/real split, and when a rate-free presentation (π) completes.
 - `G149_analysis_continuum_space_insights` — the analysis/continuum/space
   insight map feeding the completability and GRA programmes.
 
-Closure record: `theory/math/{completeness_relocated,completeness_without_completeness}.md`
+Closure record: `theory/math/numbersystems/{completeness_relocated,completeness_without_completeness}.md`
 + `theory/math/analysis/{holonomic_modulus,tower_native_completeness,refined_completability_engine}.md`.
 
 ## Sequence depth / multiplicative machinery  (`sequence_depth/`)
@@ -149,26 +148,76 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
-- `count_substrate_synthesis` — the COUNT arc.  **CLOSED ∅-axiom**: LYM,
-  Bollobás (`bollobas_uniform`), Sperner (×3), Mirsky (`mirsky_boolean`), Dilworth
-  (`dilworth_boolean`/`scd_card` — the full SCD partition; narrative promoted to
-  `theory/essays/proof_isa/chain_antichain_duality.md`).  Patterns: dual COUNT
-  faces share one residue + the subset count `C(N,k)`; the
-  `nodup`-`flatMap`-disjoint-fibre counting idiom; SCD partition without
-  constructor injectivity; the propext/Classical tax on core arithmetic.  The
-  Leibniz determinant seed (`det = Σ_{σ∈perms} sign(σ)·Π M i σ(i)`) is **CLOSED**
-  through the full sign theory — see `determinant_closure_synthesis` below.
+- `casoratian_axis_cp_crossdomain` — **the Casoratian / spiral-axis branch ↔ main's CKM
+  CP-phase arc** (merge marathon).  Proven shared object: the order-4 spiral-axis point
+  `4=|ℤ[i]^×|` IS the CKM CP-phase's `C₄` — the *same* ring `ℤ[i]`, read as a floor rotation
+  (axis) and as the Hodge `⋆` (CP); the CP phase sits at the `i`-point (disc `−4`) of the axis.
+  Plus: the companion-determinant sign `altSign(k−1)` is the `psign` of the shift cycle (a fourth
+  instance of main's "permutation under three readouts"); `det_matMul` is the shared engine.
+  Buildable: `det_companion ↔ psign(cyclicShift)` (Lean), and a synthesis essay tying
+  `cp_phase` ↔ `spiral_coordinate_classification` through `ℤ[i]^×=C₄`.
+- `cp_crossdomain_insights` — **CP-phase cohomology ↔ main's sign/QR/cyclotomic
+  campaigns** (merge marathon). Four candidate bridges where the two branches
+  share one object: (1) the inversion sign is one object — `det(permMatrix)=psign`
+  (main) = the signed Hodge cup wedge sign `(−1)^inv` (this branch); (2) `ℤ[i]`:
+  the CP phase `C₄`/`90°` IS main's QR splitting (`d=5≡1 mod4 ⇒ (−1/5)=+1 ⇒ 5=(2+i)(2−i)`);
+  (3) `ℚ(ζ₅)` Gauss periods (CP golden modulus + `C₄`) ↔ main's Teichmüller/`gauss_qr`;
+  (4) Hodge-Riemann positivity `h=Q·J=I` ↔ main's `det_mul` (`det=1`). Richest:
+  the permutation sign + Hodge-⋆ orientation + Legendre symbol + CP phase are one
+  inversion/Gaussian object; the open **Zolotarev** edge closes the square.
 
-- `determinant_closure_synthesis` — post-closure harvest of the sign theory.
-  **CLOSED ∅-axiom**: `PermSign.psign_mul` (the sign homomorphism, bubble-sort) and
-  on it both `DetTranspose.det_transpose` (`det Mᵀ = det M`) and `DetMul.det_matMul`
-  (`det(A·B) = det A·det B`, Cauchy–Binet + constructive `cnt`-pigeonhole); narrative
-  in `theory/essays/algebra/permutation_sign_as_homomorphism.md`.  Patterns: the pure
-  `cnt`-decision sidesteps the propext/Quot.sound `Decidable (a∈l)` instance;
-  homomorphism-to-`{±1}` as a sorting invariant; one keystone → multiple capstones.
-  **Open seeds**: `det(permMatrix σ) = psign σ` (the two readings of a permutation);
-  general column Laplace expansion as a `det_transpose` corollary; relocate the
-  constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.
+- `gram_d2_prefactor` — **the α_em Gram self-energy `/d²` prefactor**.
+  *Closed this session*: the cubic `25y³+1=25Xy²` is the correction ansatz
+  `α²/d²` re-expressed (not a free form); the prefactor *value* is
+  over-determined (three readings coincide at `d²`); the *mechanism* is
+  identified — a degree-2 (2-point) object on the d=5 state space normalizes
+  by `d²`, grounded in two convergent math structures (2-point operator-space
+  dim `tensorDim d d` + 2-fold cup-graduation `cup_graduation_denom 1`).
+  *Open*: (a) the remaining premise — a forcing theorem identifying the Gram
+  self-energy *as* the `k=1` self-pairing cup term (promote
+  `CupRingTrace`/`SelfPairingTrace` test → derivation); (b) derive the
+  cup-graduation rule "each cup factor carries 1/d" from cup-ring axioms
+  (currently a structural assertion). Anchors:
+  `Lib/Physics/AlphaEM/{GramCubicReduction,GramD2Readings,GramD2Mechanism}`.
+
+- `headline_precision_scope` — **what the Lean proves vs the README precision
+  column**, headline by headline (extends the α_em DoF ledger). First finding:
+  `m_μ/m_e` README "0.49 ppb" is PURE-proven only to the *leading integer
+  bracket* (205); the ppb match is docstring numerics (leading α_em ppm bracket
+  × Dyson tail `P` × δ's), inheriting α_em's DoF. Fair, not deception (atomic
+  building blocks + recurrence argument real; gap = headline overstatement).
+  Next: m_p (1.56 ppm), R_∞ (4.3 ppb), Koide.
+
+- `ckm_rho_eta_apex` — **the CKM Wolfenstein apex `(ρ,η)` / Jarlskog
+  magnitude**. Found auditing whether θ_QCD's `J` is derivable: J's
+  *structure* is atomic (λ=5/22, A=φ/c, δ=π/φ²) but its *magnitude* is
+  over-predicted ×2.66 (`J_DRLT=8.18×10⁻⁵` vs observed `3.08×10⁻⁵`) — the
+  missing piece is the un-derived apex `(ρ,η)` (`s₁₃=Aλ³` omits
+  `√(ρ²+η²)≈0.39`). A `CPViolation.lean` comment had masked this with an
+  arithmetic error ("within 10%"); corrected. Open: derive `(ρ,η)`/`η`.
+  Consumer: θ_QCD (`PRE_REGISTRATION.md` P2).
+  **Update (2026-06-08)**: apex modulus `1/φ²` grounded as the self-reference
+  Möbius contracting eigenvalue, and `1/φ²`-over-`φ²` now *forced* by `R_u<1`
+  (`JarlskogApex.apex_modulus_subunit_forced`). **A₅ bridge marathon**
+  (`lean/E213/Lib/Math/Algebra/Icosahedral/`, 14 PURE): the self-reference map
+  `M` mod `d=5` is an order-5 element of `PSL(2,𝔽₅)≅A₅` (icosahedral) carrying
+  character `φ` = the eigenvalue `φ²` via `φ²=φ+1` — grounds the open premise in
+  established A₅ golden flavour symmetry. Still open: derive the apex *value*
+  from an explicit A₅ generation assignment.
+
+- **COUNT extremal combinatorics** — CLOSED ∅-axiom (LYM, Bollobás `bollobas_uniform`,
+  Sperner ×3, Mirsky `mirsky_boolean`, Dilworth `dilworth_boolean`/`scd_card`, and the
+  Leibniz determinant seed).  Promoted → `theory/essays/proof_isa/{chain_antichain_duality,
+  counting_as_cardinality,sperner_double_counting,probabilistic_method}.md`.  No open seed.
+
+- **determinant / permutation-sign** — CLOSED ∅-axiom (`PermSign.psign_mul`,
+  `DetTranspose.det_transpose`, `DetMul.det_matMul`, `PermMatrixDet.det_permMatrix`); narrative in
+  `theory/essays/algebra/{permutation_sign_as_homomorphism,determinant_as_quotient_characteristic,
+  cayley_hamilton_self_characteristic}.md`.  ✓ *Done:* `det(permMatrix σ) = psign σ`
+  (`PermMatrixDet.lean`, 11 PURE — the Leibniz sum collapses to the surviving `τ=σ` term via the
+  nodup selector `sumZ_select`); the two readings of a permutation agree.  *Open seeds:* general
+  column Laplace as a `det_transpose` corollary; relocate the constructive pigeonhole
+  (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.
 
 - `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
   residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at
@@ -188,37 +237,23 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `theory/essays/foundations/reached_by_none.md`, and `Real213/{MinkowskiCocycle,MinkowskiGoldenExtremal,
   MinkowskiPeriodIntegral,MinkowskiHigherWeightPeriod,MinkowskiPeriodRelations,MinkowskiPeriodPolynomial,
   MinkowskiModularSymbol}` + `CupLadderResidueUnit`.
-- `odometer_unit_synthesis` — post-closure synthesis of the residue-unit `+1`
-  dynamics arc: patterns (single-primitive-as-full-dynamics; the ∅-purity
-  pure-`Nat` trap catalog; carry-explicit over modular) + next seeds (promote
-  `add_left_cancel_pure`/`lt_two_pow` to `Meta/Nat`; odometer `ℤ`-action ↔
-  Markov/Stern-Brocot `SL(2,ℤ)`; a decidable carry-depth sub-class).
-- `naming_abstract_concepts` — **deep-research candidate** (originator: Mingu
-  Jeong): what does *attaching a term to an abstract concept* in standard math
-  (ℕ, ℝ, ℚ_p, "limit", "completion", "uncountable", "set of all functions")
-  become under the 213 axiom?  Working answer: naming = a residue-internal Lens
-  event naming a **generation rule** (fold/coalgebra), never the completed
-  totality; the abstract/infinite content is the νF escape; the classical
-  "complete/decide" step is one single ∞-decision (capture), refused or carried
-  as input.  *Closed instances:* König νF bridge (`KonigConditional`, 5 PURE) +
-  2-adic νF escape (`Padic/NuEscape`, 4 PURE — ℤ₂ = König binary-tree branch, no
-  finite Raw).  *Read-through:* ℝ/ℚ_p/König are one shape (dyadic / p-ary / general
-  branching); ε-δ existential = first-nonzero-digit search = which-child-infinite =
-  the same ∞-decision.  *Concept pass:* `concept_compactness.md` — compactness of
-  dyadic `[0,1]` = König's binary lemma = the same `InfChildExists` import (theorem
-  seed `FiniteSubcoverOracle ↔ InfChildExists`, now CLOSED as an ∅-axiom calibration —
-  selection ⇒ compactness free, compactness ⇒ selection costs one LLPO step).  *Concept
-  deep-dives:* `concept_compactness.md` (= the König wall), `concept_redressing_itself.md`
-  (the re-dressing act = one more self-pointing; Lawvere/Yanofsky anchor; promoted to essay
-  `the_one_diagonal.md`), `concept_function_space.md` (powerset = the self-cover's codomain,
-  the CCC root of the diagonal).  *Next:* general-`p` νF escape, ℝ one-carrier, more
-  concept deep-dives (limit/completion, quotient, actual-vs-potential infinity).
+- **residue-unit `+1` dynamics** — CLOSED ∅-axiom (binary odometer + profinite `ℤ`-action +
+  golden/Zeckendorf carry); narrative `theory/essays/foundations/{the_residue_unit_odometer,the_unit}.md`
+  + `theory/math/algebra/phi_self_similarity.md` §3.7.  *Open seed:* a decidable carry-depth
+  sub-classification (the eventually-periodic / finite-state end).
+- **concept-pass open seeds** — the systematic "what does *naming an abstract
+  concept* become under the 213 axiom?" pass (originator: Mingu Jeong).  Closed
+  instances are permanent: König νF bridge (`KonigConditional`) + 2-adic/general-`p`
+  νF escape (`Padic/NuEscape`) in Lean; the re-dressing / function-space readings in
+  `theory/essays/foundations/{the_one_diagonal,the_reference_claim}.md`.  *Still open:*
+  general-`p` one-carrier νF spine, ℝ one-carrier with König, and the next deep-dives
+  (limit/completion, quotient/equivalence-class, actual-vs-potential infinity).
 
-- `pure_lean_calibration_synthesis` — **cross-campaign synthesis** (post main-merge of the
-  determinant/permutation-sign stack + Reverse Math 213): two patterns shared by independent
-  campaigns — the core-`Decidable`/core-lemma **propext leak + hand-rolled-pure workaround**
-  (a consolidated `Meta/` propext-trap catalog is now earned), and **"classical hand-wave →
-  explicit 213 object"** (parity = sorting invariant; omniscience cost = hypothesis).
+- `pure_lean_calibration_synthesis` — **infra frontier** (cross-campaign: determinant/sign +
+  Reverse Math 213): the recurring core-`Decidable`/core-lemma **propext leak + hand-rolled-pure
+  workaround** is now consolidated enough that a **`Meta/` propext-trap catalog** (which core
+  constructs leak, which `*_pure`/`*213` replacement to use) is earned but **unbuilt — the open
+  task**.  Plus the essay-trigger observation "classical hand-wave → explicit 213 object".
 
 - `research_grade_closure_gate` — **meta-frontier**: `∅`-axiom is a
   necessary integrity check, not a sufficient *seriousness* check.
@@ -229,8 +264,7 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 - `G167_crossdet_number_field_eisenstein_conjecture` — the cross-determinant
   classification's number-field reading; the Eisenstein/elliptic conjecture
-  (originator: Mingu Jeong).  Closure record:
-  `archive/completeness/G168_eisenstein_completion.md` (the proven core).
+  (originator: Mingu Jeong).  The proven core is closed in `lean/E213/`.
 - `G121_dim4_self_pointing_axis` — the `d_M = d_213 − 1` geometrization ansatz;
   four open knots (M1)-(M4).  Side-observations feed
   `theory/math/geometry/geometrization_conjecture.md` (R1 closed; R1+ open).
@@ -243,10 +277,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (explicit Teichmüller ω), B (μ_{p−1} root-of-unity + unit decomposition),
   G (general division) now **closed** in `lean`.  The remaining direction H
   is tracked in its own note `G124_padic_drlt_5adic`.
-- `G125_padic_closure_synthesis` — post-closure harvest: the diagonal-limit
-  constructor, `frobenius_lift` as a uniqueness engine, `ZpSeqEquiv` as the
-  funext-free canonical equality (retiring direction C), and the reachable
-  `i₅ = teichmuller(2-lift)`.
+- **p-adic closure harvest** — Teichmüller `ω(x)` + uniqueness + `μ_{p−1}×(1+pℤ_p)` decomposition
+  + general division CLOSED ∅-axiom; chapter `theory/math/numbersystems/padic_real213.md` + essay
+  `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seeds:* the concrete
+  `i₅ = teichmuller(2-lift)` theorem (via `teichmuller_unique`); generalise the
+  lift+fixed-point uniqueness engine to `sqrt` (`unique_of_lift_fixed`).  ✓ *Done:* the
+  sequence-level **additive abelian group** (`SetoidAssoc.zp_add_setoid_group_capstone`); the
+  **multiplicative** `ZpSeqEquiv` identities (`SetoidMul` — mul comm/assoc/one/distrib +
+  `zp_setoid_commRing_capstone`); the shared **`Zp.diagLimit`** abstraction
+  (`Foundation.diagLimit` + `diagLimit_trunc_succ` — the single diagonal-limit proof now
+  factored out of `invFull`/`sqrtFull`/`teichmuller`, all three rewired to it).
 - `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
   (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
   (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic
@@ -259,37 +299,42 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   pigeonhole), and the next number-theory seeds (disc-`−8` congruence iff via
   the quadratic character of `2`; the three-square theorem as a hard
   out-of-both-engines frontier).
-- `quadratic_reciprocity` — **CLOSED** strict ∅-axiom (`ModArith/QuadraticReciprocity.lean`,
-  11 PURE).  `quadratic_reciprocity`: for distinct odd primes `p,q` (`m=(p−1)/2,n=(q−1)/2`),
-  `(q QR mod p ↔ p QR mod q) ↔ (m·n) even`.  The complete Eisenstein route: `floor_qr` (Eisenstein's
-  lemma `QR(a) ⟺ Σ⌊a·x/p⌋ even`, `p∤a`) ∘ `floor_sum_rectangle` (`Σ⌊qx/p⌋ + Σ⌊py/q⌋ = m·n`) ∘
-  `parity_sum_iff`.  Promoted → `theory/math/numbertheory/quadratic_reciprocity.md`.
-- `reciprocity_count_lens_synthesis` — cross-chapter synthesis after the QR closure: a classical
-  sign is the parity bit of a named count; finite Fubini (`sumZ_swap`) appears twice unrecognised
-  as one; "no point on the boundary" = `object1_not_surjective`.  Seeds: cubic/biquadratic
-  reciprocity over `ℤ[ω]/ℤ[i]`, Zolotarev unification, a shared Int-parity home.
-- `second_supplement` — **CLOSED** (`2` QR ⟺ `p ≡ ±1 mod 8`, `SecondSupplement.lean`, 8 PURE incl
-  `gauss_mu`).
-- `euler_criterion_converse` — Euler's criterion **CLOSED** strict ∅-axiom (full iff
-  `aᵐ ≡ 1 ⟺ QR`, `ModArith/{EulerCriterion,EulerConverse}.lean`, 16 PURE; the converse =
-  squares-list saturation of `RootBound.eval_zero`).  The note now tracks the **open
-  downstream**: the quadratic character of `2` (second supplement), Gauss's lemma, and
-  Zolotarev (`psign` sign side already PURE).  Promotion-eligible → `theory/math/numbertheory/`.
+- **reciprocity as count-Lens** — QR + second supplement CLOSED ∅-axiom; narrative
+  `theory/math/numbertheory/quadratic_reciprocity.md` + `theory/essays/proof_isa/counting_as_cardinality.md`.
+  *Open seeds:* cubic/biquadratic reciprocity over `ℤ[ω]/ℤ[i]` (reuse `floor_sum_rectangle`'s
+  lattice-count shape); Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side, one
+  permutation two readouts); fold `sumZ_swap` (Int) + the COUNT Nat double-sum into one `Meta`
+  finite-Fubini.  ✓ *Done:* `int_even_or_odd` deduplicated into `CenteredDivision`
+  (FourSquare / QuadraticReciprocity now thin re-exports); the `two_mul_ne_one` clones remain.
+- **Legendre-symbol package** — CLOSED ∅-axiom (54 PURE): Euler's criterion (`qr_iff_pow_one`,
+  full iff `euler_criterion`), multiplicativity (`legendre_mul`), both supplements
+  (`neg_one_qr_iff`, `second_supplement`), Gauss's lemma (`gauss_qr`/`gauss_mu`).  **Promoted** →
+  `theory/math/numbertheory/legendre_symbol.md` (the QR chapter's base package).  *Open seed:*
+  Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side, one permutation two readouts).
+
+- **permutation's three readouts** (`permutation_three_readouts.md`) — cross-domain synthesis
+  after merging the Legendre/QR package (main) into the determinant + p-adic branch.  Four open
+  bridging edges between the two campaigns: (1) ★ **Zolotarev** as the missing edge of "one
+  permutation, three readouts" — `psign` (inversions) ≡ `det(permMatrix)` [now proven,
+  `PermMatrixDet.det_permMatrix`] ≡ `(a/p)` [main, `gauss_qr`/`euler_criterion`], closed by
+  `psign (×a mod p) = (a/p)`; (2) the Legendre symbol as the 2-torsion projection of the
+  Teichmüller `ω ∈ μ_{p−1}` (Euler's criterion = mod-`p` shadow of a `μ_{p−1}` identity); (3) the
+  truncation tower `ZpSeq ↠ ℤ/pⁿ ↠ ℤ/p` reads the same ring-quotient (`SetoidMul` commRing) at the
+  level where QR lives; (4) `(a/p)=1 ⟺ a has a `diagLimit` √ in ℤ_p` (Hensel face of the Legendre
+  predicate).  Proven cores closed both sides; the edges are the work.
 
 Closure records (promoted off this board):
 - Lagrange's four-square theorem — **closed & promoted**:
   `∀ n, isSum4 ↑n` (`lean/E213/Lib/Math/NumberTheory/FourSquare.nat_isSum4`) +
   the additive-pigeonhole seed (`FourSquareSeed.four_square_seed`) → canonical
-  `theory/essays/synthesis/four_square_additive_pigeonhole.md`; archived at
-  `archive/four_square/four_square_marathon.md`.
+  `theory/essays/synthesis/four_square_additive_pigeonhole.md`.
 - `G178_next_proofline_conjectures` (νF population + C-phys bridges + odometer cross-arc) —
-  **closed & archived** → `archive/G178_next_proofline_conjectures.md`; canonical
+  **closed** → canonical
   `theory/essays/foundations/{the_residue_as_primitive,the_frontier_has_a_form,the_residue_unit_odometer}.md`.
 - `G182_completed_system_synthesis` ("the frontier (νF) has a form") →
-  `theory/essays/foundations/the_frontier_has_a_form.md`; archived at
-  `archive/G182_completed_system_synthesis.md`.
+  `theory/essays/foundations/the_frontier_has_a_form.md`.
 
-## proof-ISA compilation series  (`G200_*`)  — ★ CLOSED & archived
+## proof-ISA compilation series  (`G200_*`)  — ★ CLOSED
 
 The experiment (reproduce *solved* hard techniques by compiling them down the
 proof-ISA, `seed/PROOF_ISA.md`) is **complete**.  Both named COUNT bounds are
@@ -298,8 +343,7 @@ and Sperner (`SpernerChains.sperner_theorem`) — with no new instruction forced
 (COUNT's union-bound face and its double-counting dual).  König alone stalls, at
 the non-constructive `DECIDE`.  The "why" archive is promoted to
 `theory/essays/proof_isa/` (probabilistic, linear-algebra, parity, sperner,
-könig, + the `what_is_a_proof` synthesis).  Source notes archived to
-`research-notes/archive/proof_isa/` (`G200`, `G205`).
+könig, + the `what_is_a_proof` synthesis).
 
 The catalog has since grown to **seven** lift archetypes (`ProofISALifts.lean`):
 A6 FLOW + A7 POSITIVITY added (the cross-domain-conquest marathon), each driving

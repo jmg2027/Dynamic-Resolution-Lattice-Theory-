@@ -2,7 +2,7 @@
 
 Physics chapters.  Mirrors `lean/E213/Lib/Physics/`.
 
-## Closed chapters (17)
+## Closed chapters (18)
 
 | Chapter | Lean sub-tree |
 |---|---|
@@ -17,6 +17,7 @@ Physics chapters.  Mirrors `lean/E213/Lib/Physics/`.
 | [`cosmology.md`](cosmology.md) | Cosmology/ (8 files; F26) |
 | [`nuclear.md`](nuclear.md) | Nuclear/ (6 files) |
 | [`mixing.md`](mixing.md) | Mixing/ (5 files) |
+| [`cp_phase.md`](cp_phase.md) | Mixing/ (CP-phase chain, 11 files) + Icosahedral/ + Hodge/SignedStarC4 |
 | [`simplex.md`](simplex.md) | Simplex/ (7 files; N_gen=3) |
 | [`yang_mills.md`](yang_mills.md) | YangMills/ (5 files) |
 | [`capstones.md`](capstones.md) | Capstones/ (7 files) |

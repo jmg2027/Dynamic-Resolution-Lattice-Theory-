@@ -1,8 +1,8 @@
 # G188 — `mconv` (multiplicative twin of `conv`): the power-sum/Newton route, an honest ∅-axiom verdict
 
 **Date**: 2026-06-03.  **Status**: design + feasibility note (Tier-1).  **No `.lean`
-written.**  Companion to `archive/G185_hadamard_linalg_program.md` (the determinant / Cayley–Hamilton
-route).  This note investigates the *determinant-free* lead — power sums + Newton's identities
+written.**  Companion to the determinant / Cayley–Hamilton route (now closed —
+`theory/essays/algebra/cayley_hamilton_self_characteristic.md`).  This note investigates the *determinant-free* lead — power sums + Newton's identities
 — asked for as the "multiplicative twin of `conv`", and renders a verdict on its viability over
 `ℤ` under the ∅-axiom standard, then states the best fallback.
 
@@ -242,7 +242,7 @@ case waits on `G185`'s determinant build.
 ## Anchors
 
   - This note: `research-notes/G188_multiplicative_conv_design.md`.
-  - Companion (determinant program): `research-notes/archive/G185_hadamard_linalg_program.md`.
+  - Companion (determinant program, closed): `theory/essays/algebra/cayley_hamilton_self_characteristic.md`.
   - Sum-closure twin: `lean/E213/Lib/Math/Cauchy/CFiniteRing.lean` (`conv`, `conv_annih_add`,
     `conv_snoc`, `cfiniteZ_add`; geometric-factor corner `cfiniteZ_geomScale`, `geom_shiftSum`).
   - Determinant seed: `lean/E213/Lib/Math/Linalg213/DetN.lean` (`det`, `minor`, `cofSum`).

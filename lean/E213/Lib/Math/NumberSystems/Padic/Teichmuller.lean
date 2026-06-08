@@ -394,29 +394,20 @@ IS the trunc recursion for the diagonal.
     diagonal of the iteration `iter x n = x^(p^n)`.  Each digit `k` is
     read off the `k`-th iterate, which has settled by level `k`
     (`teichmuller_iter_cauchy`). -/
-def Zp.teichmuller (p : Nat) (hp : 1 < p) (x : ZpSeq p) : ZpSeq p where
-  digits := fun k => (Zp.teichmuller_iter p hp x k).digits k
+def Zp.teichmuller (p : Nat) (hp : 1 < p) (x : ZpSeq p) : ZpSeq p :=
+  Zp.diagLimit (Zp.teichmuller_iter p hp x)
 
 /-- **Diagonal trunc identity**: `ω(x).trunc (n+1) = (iter x n).trunc (n+1)`.
-    The diagonal agrees with the level-`n` iterate up to level `n+1`,
-    because each lower digit settled at its own level (Cauchy). -/
+    The diagonal agrees with the level-`n` iterate up to level `n+1`, because each lower
+    digit settled at its own level (`diagLimit_trunc_succ` with stability from the Cauchy
+    identity `teichmuller_iter_cauchy`). -/
 theorem Zp.teichmuller_trunc_succ (p : Nat) (hp : 1 < p) (x : ZpSeq p)
     (h_prime_gcd : ∀ m, 0 < m → m < p
                   → (E213.Lib.Math.NumberTheory.ModArith.ModBezout.modBezout m p).1 = 1) :
     ∀ n, (Zp.teichmuller p hp x).trunc (n + 1)
-       = (Zp.teichmuller_iter p hp x n).trunc (n + 1)
-  | 0 => rfl
-  | n + 1 => by
-    have ih := Zp.teichmuller_trunc_succ p hp x h_prime_gcd n
-    -- The diagonal digit at position n+1 is, by definition, the (n+1)-th iterate's.
-    have hdig : (Zp.teichmuller p hp x).digits (n + 1)
-              = (Zp.teichmuller_iter p hp x (n + 1)).digits (n + 1) := rfl
-    show (Zp.teichmuller p hp x).trunc (n + 1)
-          + ((Zp.teichmuller p hp x).digits (n + 1)).val * p^(n + 1)
-        = (Zp.teichmuller_iter p hp x (n + 1)).trunc (n + 1)
-          + ((Zp.teichmuller_iter p hp x (n + 1)).digits (n + 1)).val * p^(n + 1)
-    -- ih fixes the trunc; Cauchy converts (iter x (n+1)).trunc(n+1) → (iter x n).trunc(n+1).
-    rw [ih, hdig, Zp.teichmuller_iter_cauchy p hp x h_prime_gcd n]
+       = (Zp.teichmuller_iter p hp x n).trunc (n + 1) :=
+  Zp.diagLimit_trunc_succ (Zp.teichmuller_iter p hp x)
+    (Zp.teichmuller_iter_cauchy p hp x h_prime_gcd)
 
 /-- **Digit-0 invariant**: `ω(x).digits 0 = x.digits 0`.  The
     representative lifts the residue `x mod p`. -/

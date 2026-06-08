@@ -181,4 +181,36 @@ theorem zp_add_setoid_monoid_capstone
   · exact zp_add_comm_equiv p hp x y
   · exact zp_add_zero_left_equiv p hp x
 
+/-! ## §7 — Zp.add additive inverse at the Setoid level -/
+
+/-- ★★★★ **Additive inverse** at the Setoid level: `x + (−x) ≈ 0`.  Completes the
+    additive abelian group on `ZpSeq` modulo `ZpSeqEquiv` (monoid + inverse), lifting the
+    per-truncation cancellation `Zp.add_neg_self_trunc` via `of_trunc_all` (funext-free). -/
+theorem zp_add_neg_self_equiv (p : Nat) (hp : 1 < p) (x : ZpSeq p) :
+    ZpSeqEquiv (Zp.add p (Nat.lt_of_succ_lt hp) x (Zp.neg p hp x))
+                (ZpSeq.zero p (Nat.lt_of_succ_lt hp)) :=
+  SetoidFramework.ZpSeqEquiv.of_trunc_all (Nat.lt_of_succ_lt hp) (fun n => by
+    cases n with
+    | zero => rfl
+    | succ m =>
+        rw [Zp.add_neg_self_trunc p hp x m,
+            ZpSeq.trunc_zero p (Nat.lt_of_succ_lt hp) (m + 1)])
+
+/-- ★★★★★ **Setoid-level additive abelian group capstone for `Zp.add`**: extends the
+    monoid capstone with the additive inverse — assoc, comm, zero, and `x + (−x) ≈ 0`. -/
+theorem zp_add_setoid_group_capstone
+    (p : Nat) (hp : 1 < p) (x y z : ZpSeq p) :
+    ZpSeqEquiv (Zp.add p (Nat.lt_of_succ_lt hp) (Zp.add p (Nat.lt_of_succ_lt hp) x y) z)
+                (Zp.add p (Nat.lt_of_succ_lt hp) x (Zp.add p (Nat.lt_of_succ_lt hp) y z))
+    ∧ ZpSeqEquiv (Zp.add p (Nat.lt_of_succ_lt hp) x y)
+                  (Zp.add p (Nat.lt_of_succ_lt hp) y x)
+    ∧ ZpSeqEquiv (Zp.add p (Nat.lt_of_succ_lt hp) (ZpSeq.zero p (Nat.lt_of_succ_lt hp)) x) x
+    ∧ ZpSeqEquiv (Zp.add p (Nat.lt_of_succ_lt hp) x (Zp.neg p hp x))
+                  (ZpSeq.zero p (Nat.lt_of_succ_lt hp)) := by
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · exact zp_add_assoc_equiv p (Nat.lt_of_succ_lt hp) x y z
+  · exact zp_add_comm_equiv p (Nat.lt_of_succ_lt hp) x y
+  · exact zp_add_zero_left_equiv p (Nat.lt_of_succ_lt hp) x
+  · exact zp_add_neg_self_equiv p hp x
+
 end E213.Lib.Math.NumberSystems.Padic.SetoidAssoc

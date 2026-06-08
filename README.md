@@ -35,21 +35,52 @@ DRLT (Dynamic Resolution Lattice Theory)
 - *Independent Rust verification engine* — 53 binaries, 184 tests,
   94 Lean-theorem citations resolved at theorem-id level.
 
-## Headline results (sub-ppm physics)
+## Headline results — read honestly
 
-| Observable | DRLT | Observed | Δ |
+**∅-axiom purity (what the Lean kernel guarantees) is not the same as "the
+headline precision is a PURE theorem".** This table keeps the two apart, per
+row: *what the Lean actually proves* vs *what a finer number in a docstring
+claims*, and whether a result is a **parameter-free ratio** or an **absolute**
+(which needs an input scale, as any theory does). Audited per the
+headline-precision-scope frontier; methodology:
+`VERIFICATION_SPINE.md` §0 + `DEGREES_OF_FREEDOM_LEDGER.md`.
+
+### A. Parameter-free — dimensionless ratios + exact combinatorics (no input scale)
+
+| Observable | DRLT form | What Lean proves (PURE) | Match |
 |---|---|---|---|
-| 1/α_em | 137.0359895 | 137.0359991 | **0.07 ppm** |
-| m_μ/m_e | 206.7682837 | 206.7682838 | **0.49 ppb** |
-| m_p | 938.271472 MeV | 938.2700 MeV | **1.56 ppm** |
-| H ionization | 13.605693 eV | 13.605693 eV | **4.3 ppb** |
-| Magic numbers 2,8,20 | exact | exact | EXACT |
-| Muon prefactor 192 | exact | 192 | EXACT |
+| **Koide Q** | `NT/NS = 2/3` | exact ratio (`koide_atomic`) | ~3 ppm, **0 param** |
+| **1/α_em** | `60·ζ(2)+30+25/3+α_GUT corr.` | structural `137.035999111` = CODATA `…084` + 27e-9 (`invAlphaEm_precision_theorem`) | **0.2 ppb, PURE** ¹ |
+| m_H/v_H | `1/c = 1/2` (+ α_GUT corr.) | `1/c` exact ratio | leading exact |
+| m_μ/m_e | `(NS/NT)·(1/α_em)·P·(1+Σδ)` | leading bracket `205 ∈ [197,206]` | 0.49 ppb is **docstring**, not the theorem ² |
+| Magic numbers 2,8,20… | HO closed form | exact | EXACT |
+| Muon prefactor | `(NS²−1)(d²−1) = 192` | exact integer | EXACT |
+
+¹ α_em's ppb precision *is* a PURE theorem; the residual is in the *assembly*
+of the formula (assignment / Gram form), tracked + mostly closed in
+`DEGREES_OF_FREEDOM_LEDGER.md`.
+² m_μ/m_e's PURE theorem proves only the leading integer bracket; the sub-ppb
+number comes from the docstring formula (Dyson tail `P` + δ's) and inherits
+α_em's bracket.
+
+### B. Absolute masses / energies — require an input scale
+
+| Observable | DRLT | Input scale | What Lean proves |
+|---|---|---|---|
+| m_p ≈ 938.27 MeV | `NS·Λ_QCD·P(α_GUT·NS/d)` | **Λ_QCD ≈ 308 MeV** (docstring; not atom-derived) | 0.1% bracket; real content is the *ratio* `m_p/Λ_QCD = NS·P = 3.04` |
+| IE(H) ≈ 13.606 eV | `m_e·α²/2` (textbook) | **CODATA m_e** | ~0.1% bracket; DRLT's only input beyond textbook is α |
+
+The dimensionless-ratio predictions (Koide, m_H/v_H, m_μ/m_e, α_em) stand on
+their own; the **absolute** sub-ppm/ppb figures reflect a correct ratio times a
+measured scale, not a parameter-free absolute.
 
 ## DRLT Validation Standard pairings
 
 **17 of 23 observables** in `catalogs/physics-constants.md` have both
 a PURE precision theorem AND a PURE falsifier bracket (74% closure).
+(Per the headline audit above, "PURE precision theorem" often means a
+*bracket* at the stated width, not the docstring central value — see the
+headline-precision-scope frontier for the per-row scope.)
 Falsifier catalog F1–F20 in `catalogs/falsifiers.md`.  Remaining
 unpaired: Koide 2/3, η_B, m_t/m_c, m_p/m_e ≈ 6π⁵, M_Pl/v_H,
 muon prefactor 192 (precision only; falsifier follow-up).

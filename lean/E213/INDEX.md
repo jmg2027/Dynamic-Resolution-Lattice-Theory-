@@ -2,10 +2,8 @@
 
 The authoritative state of 213.  All other documents (theory/,
 research-notes/, blueprints/, seed/) are entry points INTO this
-body of work or derived artifacts.  Legacy narrative archives
-(former `guide/`, `books/math/`, `papers/`) now live under
-`research-notes/archive/legacy_docs/` and
-`papers/README.md`.
+body of work or derived artifacts.  The current narrative lives in
+`theory/`; `papers/README.md` indexes the paper drafts.
 
 > **Theoretical architecture** is canonically documented in
 > `ARCHITECTURE.md` (this directory).  That file defines what each

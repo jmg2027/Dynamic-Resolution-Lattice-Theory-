@@ -135,6 +135,30 @@ The depth-0 instance is the residue's own algebraic floor.  The Fibonacci Cassin
 `det P = 1` invariant of the `P = [[2,1],[1,1]]` / `φ` orbit, already at the floor) with sign the
 period-2 axis toggle (`cassini_pair`).
 
+### 7.1 The single-sequence determinantal ladder — all orders at once
+
+A second, parallel determinant rides the depth ladder: for **one** sequence `s` obeying a
+*constant-coefficient* order-`k` recurrence `s(m+k) = Σ_{l<k} a l · s(m+l)`, the `k×k` **Hankel
+(Casoratian) determinant** `Hₖ(n) = det[s(n+i+j)]_{i,j<k}` multiplies by the **companion
+determinant** at every step:
+
+> `Hₖ(n+1) = altSign(k−1) · a 0 · Hₖ(n)`   (`CasoratianDeterminant.casoratian_det_step`).
+
+This is the determinantal / arithmetic ascent of the depth ladder — order-`k` ↦ the `k×k`
+determinant, multiplier `= det(shift)` — and it is closed at **every** order in one structural
+theorem, not order by order.  The proof needs no expansion: the shifted Hankel matrix is the
+companion matrix times the original, `H(n+1) = C·H(n)` (the recurrence read as a single linear
+map, `hankel_shift_eq_matMul`), so `det H(n+1) = det C · det H(n)` (`DetMul.det_matMul`), and the
+companion determinant is `det C = (−1)^{k−1}·a 0` (`det_companion`, cofactor expansion along the
+single-entry first row, recursing on the `(0,1)`-minor).  The order-2 (`CassiniUnimodular.det_step`,
+multiplier `q`) and order-3 (`SecondCasoratian.second_casoratian`, multiplier `c`) rungs are the
+`k = 2, 3` instances, each also provable by a direct `ring_intZ` expansion; the order-4 rung
+(`fourth_order_multiplier`, multiplier `−a 0`) lies **beyond** that direct expansion (its `4×4`
+normal form exceeds the kernel) and is a one-line instance of the structural law.  The
+conserved object is the companion-matrix determinant — a toric / genus-0 invariant whose *size*
+grows with the order, the genus staying `0` at every rung (the precise replacement for the mistaken
+"order-3 ↦ genus-1 curve").
+
 ## 8. The reading
 
 Read in residue terms, `diff` is a pointing event — pointing again at how a sequence changes — and
@@ -156,8 +180,12 @@ sequence's own structure folding onto itself in finitely many steps.
 - `Cauchy/FiniteDepthAlgebra` — `polyDepthZ_{add,smul,mul}`, the finite-depth ring.
 - `Cauchy/DepthAperyCubic` — `apery_cubic_rung`, `zeta2_quadratic_rung`, `*_depth_exact`.
 - `Cauchy/DepthQuadraticGeneric` — `quadratic_polyDepth`.
-- `Cauchy/{CasoratianStep, CasoratianSigned, CassiniSigned}` — the Wronskian, its native sign, the
-  depth-0 floor.
+- `Cauchy/{CasoratianStep, CasoratianSigned, CassiniSigned}` — the 2-solution Wronskian, its native
+  sign, the depth-0 floor.
+- `Cauchy/{SecondCasoratian, CasoratianDeterminant}` — the single-sequence determinantal ladder:
+  `second_casoratian` (order 3), and ★ `casoratian_det_step` / `casoratian_det_closed` (the all-orders
+  Hankel multiplier law `Hₖ(n+1) = altSign(k−1)·a₀·Hₖ(n)`, via `det_companion` + `DetMul.det_matMul`);
+  `Linalg213/DetN.det_congr_lt` (det depends only on rows `< n`).
 - Tooling: `Meta/Nat/PolyNatM` + `ring_nat`, `Meta/Int213/PolyIntM` + `ring_intZ` — the ∅-axiom
   multivariate polynomial-identity provers (the `ring` replacement, over `ℕ` and `ℤ`) that discharge
   the coefficient reorders throughout.

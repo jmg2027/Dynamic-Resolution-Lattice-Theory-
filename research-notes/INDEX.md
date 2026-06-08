@@ -62,10 +62,9 @@ volatile, so CLAUDE.md "no session-number in long-lived names" doesn't apply).
 - **`frontiers/`** — the live open-frontier board, grouped by topic
   (π non-holonomicity, Markov/Lagrange, spiral-axis, completability,
   sequence-depth, + standalones).  See `frontiers/INDEX.md`.
-- **`archive/`** — closed historical material, grouped by topic
-  (`hodge/`, `algebra_tower/`, `universe_chain/`, `c_counter/`,
-  `self_reference/`, `spiral_axis/`, `analysis_depth/`, `completeness/`,
-  `marathon_synthesis/`, `p_orbit/`, `metascan/`, `audits/`, …).
+- **`archive/`** — where a closed topic's source notes move when its
+  frontier is promoted (see the cycle above).  Currently empty; git
+  history retains the path, and it repopulates as future frontiers close.
 - **`audit/`** — G17 empirical pattern audit + G18–G27 classification (raw data retained).
 - **`data/`** — raw evidence (`probes/`).
 
