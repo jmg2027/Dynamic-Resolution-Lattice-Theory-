@@ -179,4 +179,21 @@ theorem det_upper_triangular : ∀ (n : Nat) (M : Nat → Nat → Int), (∀ i j
        = prodZ ((iota n).map (fun i => M i i)) * M n n
     rw [E213.Meta.Int213.mul_comm]
 
+/-! ## The diagonal determinant (a corollary: diagonal ⟹ both triangular) -/
+
+/-- ★ **The diagonal determinant is the diagonal product.**  A diagonal matrix (`M i j = 0`
+    whenever `i ≠ j`) is in particular lower-triangular, so `det n M = Π_{i<n} Mᵢᵢ`. -/
+theorem det_diagonal (n : Nat) (M : Nat → Nat → Int) (hd : ∀ i j, i ≠ j → M i j = 0) :
+    det n M = prodZ ((iota n).map (fun i => M i i)) :=
+  det_lower_triangular n M (fun i j hij => hd i j (Nat.ne_of_lt hij))
+
+/-- ★ **The determinant of `diag(d₀,…,d_{n-1})` is `Π dᵢ`.**  The matrix `fun i j => if i = j
+    then d i else 0`. -/
+theorem det_diag_fun (n : Nat) (d : Nat → Int) :
+    det n (fun i j => if i = j then d i else 0) = prodZ ((iota n).map d) := by
+  rw [det_diagonal n (fun i j => if i = j then d i else 0)
+        (fun i j hij => by show (if i = j then d i else 0) = 0; rw [if_neg hij]),
+      map_eq_of_mem (fun i => (if i = i then d i else 0)) d
+        (fun i _ => by show (if i = i then d i else 0) = d i; rw [if_pos rfl])]
+
 end E213.Lib.Math.Algebra.Linalg213.DetTriangular
