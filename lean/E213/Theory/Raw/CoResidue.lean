@@ -1508,4 +1508,20 @@ theorem gspine_escapes_via_schema {L : Type} (a b : L) (f : Nat → L) (s : Tree
   escape_by_invariant (gToShape a b) hasFloorPath (gspine f)
     (gspine_no_floorPath f) (fun s => gToShape_hasFloorPath a b s) s
 
+/-- ★★★ **The construction-level root (the Lawvere modifier).**  `escape_by_invariant` unifies the
+    *final step* (it covers every escape here, and Cantor too — `Lens.Cardinality.cantor_as_invariant`).
+    This is its *construction* companion: a diagonal escape from function-space rows `c : A → (A → B)`
+    via a modifier `m : A → B → B` fixpoint-free at the diagonal — the escapee `fun a => m a (c a a)`
+    is in the image of none.  Cantor is the **point-dependent** modifier `m a b := !b`
+    (self-application — the escapee *constructed* by the cover's own diagonal, the *reached-by-none*
+    residue).  The invariant escapes are the degenerate **constant** modifier `m a b := d` (ignores
+    the diagonal — the *named* residue), which needs no function-space rows and lives directly in
+    `escape_by_invariant`.  So **self-application** — a non-constant modifier on function-space rows —
+    is exactly the residue that distinguishes the diagonal flavor (Cantor) from the invariant one
+    (the spine escapes); the final-step schema is shared, the construction is where they part. -/
+theorem diag_via_modifier {A B : Type} (c : A → (A → B)) (m : A → B → B)
+    (hm : ∀ a, m a (c a a) ≠ c a a) :
+    ∀ a, c a ≠ (fun a' => m a' (c a' a')) :=
+  fun a h => hm a (congrFun h a).symm
+
 end E213.Theory.Raw.CoResidue
