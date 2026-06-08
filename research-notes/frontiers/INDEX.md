@@ -150,11 +150,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   counting_as_cardinality,sperner_double_counting,probabilistic_method}.md`.  No open seed.
 
 - **determinant / permutation-sign** — CLOSED ∅-axiom (`PermSign.psign_mul`,
-  `DetTranspose.det_transpose`, `DetMul.det_matMul`); narrative in
+  `DetTranspose.det_transpose`, `DetMul.det_matMul`, `PermMatrixDet.det_permMatrix`); narrative in
   `theory/essays/algebra/{permutation_sign_as_homomorphism,determinant_as_quotient_characteristic,
-  cayley_hamilton_self_characteristic}.md`.  *Open seeds:* `det(permMatrix σ) = psign σ`
-  (the two readings of a permutation); general column Laplace as a `det_transpose` corollary;
-  relocate the constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.
+  cayley_hamilton_self_characteristic}.md`.  ✓ *Done:* `det(permMatrix σ) = psign σ`
+  (`PermMatrixDet.lean`, 11 PURE — the Leibniz sum collapses to the surviving `τ=σ` term via the
+  nodup selector `sumZ_select`); the two readings of a permutation agree.  *Open seeds:* general
+  column Laplace as a `det_transpose` corollary; relocate the constructive pigeonhole
+  (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.
 
 - `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
   residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at
