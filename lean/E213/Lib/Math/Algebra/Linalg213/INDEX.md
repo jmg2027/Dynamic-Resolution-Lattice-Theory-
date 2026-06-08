@@ -23,6 +23,7 @@ arithmetic and physics couplings.
   - `DetN.lean`           — recursive `n×n` determinant (`det`, cofactor/Laplace)
   - `Permutation.lean`    — `LPerm`, inversion-sign `psign`, the Leibniz `leibDet`
   - `PermGroup.lean`      — the symmetric group on value-lists (`composeList`, identity, assoc, `invPerm`)
+  - `PermSign.lean`       — the position-swap action (`composeList_swapAt`, `psign_swapAt`); toward `psign_mul`
   - `PermClosure.lean`    — enumeration sound/complete/nodup; alternating + multilinear
   - `Laplace.lean`        — cofactor expansion, `leibDet_eq_det`, adjugate `M·adj M = det·I`
   - `PermBridge.lean`     — the two `perms` enumerations coincide; `leibDet` is a sum of `n!` terms
