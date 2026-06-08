@@ -1,9 +1,11 @@
 # Session Handoff — 2026-06-08 (naming abstract concepts → 213; Reverse Mathematics 213 marathon)
 
 ## Branch
-`claude/math-logic-career-path-khWPk` — pushed, well ahead of `origin/main`.
-`cd lean && lake build` ✓ clean (full tree).  All new theorems ∅-axiom (PURE).
-Working tree clean.
+`claude/math-logic-career-path-khWPk` — `origin/main` merged in (131 commits: the
+determinant / permutation-sign stack, Ollivier–Ricci, transcendentals/PDE ladders, etc., now
+present alongside this session's work).  `rm -rf .lake/build && lake build` ✓ clean (forced
+fresh), `layer_audit` 0 violations / 1839 files, `kernel_regress` 45/45 0-axiom, purity
+0 sorry/axiom/native_decide/Classical/Mathlib.  **READY TO MERGE → main.**
 
 ## What Was Done This Session
 
@@ -11,7 +13,9 @@ Theme (originator's math-logic vision): **what does standard math's "attaching a
 an abstract concept" become under the 213 axiom?**  A reference-claim essay framed it; a
 König/νF Lean arc + concept-pass + deep-research turned it into theorems; it then crystallised
 into a full **Reverse Mathematics 213 marathon (field 17)** — the legibility bridge to
-recognized mathematical logic.
+recognized mathematical logic.  A closing **merge marathon** then ran: merge `origin/main`
+→ `/process` (sink decouple) → `/essay` (`the_omniscience_ledger`, caps field 17) →
+`/org-audit` (INDEX counts) → `/purity-check` (clean) → `/ready-to-merge` (READY).
 
 ### 1. Two permanent essays (theory/essays/foundations/)
 - `the_reference_claim.md` — necessary/refused/under-test split.  Existence (`pointing ⟺
@@ -110,7 +114,8 @@ per `theory/PROMOTION_CRITERIA.md` (book exists in `books/math/`), or a **concep
 (limit/completion).
 
 ## Three-tier state (per CLAUDE.md "Three-tier discipline")
-- **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`.
+- **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`,
+  `theory/essays/methodology/the_omniscience_ledger.md`.
 - **Promotion candidates**: field 17 `Lib/Math/Logic/` (74 PURE, book written) → a
   `theory/math/` chapter is eligible.
 - **Active scratchpad**: `research-notes/frontiers/` (4 concept-pass notes + field-17 frontier).
