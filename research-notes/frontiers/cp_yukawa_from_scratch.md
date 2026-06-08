@@ -138,3 +138,21 @@ the `Q(a,Jb)` Hodge-Riemann pairing wiring `J` into the cup (the `Pairing/
 HodgeRiemann.lean` stub is vacuous), and (c) **a cohomological home for the 3
 `C(3,2)` generations**.  The principle ("cohomological ⟹ 90°") is *settled*; the
 construction is the named multi-session frontier.
+
+## ★ Generation-index gap BRIDGED (2026-06-08, BigradedYukawa)
+
+The deepest obstruction (no cohomological index for the 3 generations) is now
+bridged.  `Mixing/BigradedYukawa.lean` (4 PURE): the generation count is
+**`N_gen = C(NS,NT) = dim Λ^{NT}(ℝ^{NS}) = dim Λ²(ℝ³) = 3`** — the 3 generations
+are a genuine **cohomology grade** (the `NT`-th exterior power of the spatial
+`NS`-space), not a bare partition count.  The bigraded Yukawa space is
+**`Λ²(ℝ³) ⊗ Λ*(ℂ⁵)`** (generation × internal), joined by `d = NS+NT`; the down-
+Yukawa `Λ²(ℝ³) ⊗ Λ¹(ℂ⁵)=5̄` is a `3×3` `ℤ[i]`-valued matrix carrying the internal
+signed Hodge `J` (`SignedStarC4`), so — as a polarized-Hodge morphism
+(`HodgeRiemannJ`) — it forces `δ = arg J = 90°`.
+
+So the generation index now lives in the same exterior-algebra/cup-ring world as
+the CP `i`.  **Remaining (narrowed)**: the explicit signed-`ℤ` cup-product
+computation on this bigraded structure (the signed cup + the `Q(a,Jb)` pairing,
+mechanical) — the STRUCTURE (index + J + polarization) is in place, and the
+principle (cohomological ⟹ 90°) applies.
