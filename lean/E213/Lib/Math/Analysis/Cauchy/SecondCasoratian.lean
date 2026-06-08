@@ -17,7 +17,7 @@ This is the **determinantal / arithmetic** ascent of the depth ladder: order-`k`
 Casorati determinant, multiplier = `det(shift)`.  (The all-orders structural statement —
 `Hₖ(n+1) = altSign(k−1)·a₀·Hₖ(n)` for every `k`, via `H(n+1)=C·H(n)` and `det_matMul` — is
 `CasoratianDeterminant.casoratian_det_step`; this file's order-3 `ring_intZ` expansion is its `k=3`
-instance, kept as the concrete witness.)  It is **all genus 0** (a linear-recurrence orbit
+concrete instance.)  It is **all genus 0** (a linear-recurrence orbit
 is a toric / companion-matrix object at every order) — *not* a "genus climbs / order-3 ↦ elliptic
 curve" ascent (a category error: a `k×k` Hankel determinant is a singular determinantal variety,
 never a smooth plane curve; the degree of a many-variable form is not the genus of a curve).  So

@@ -91,7 +91,7 @@ Narrative: `theory/math/numbersystems/completeness_without_completeness.md`.
                                       (`casoratian_det_step`, `casoratian_det_closed`).  Structural —
                                       `H(n+1) = C·H(n)` (`det_matMul`) + `det_companion`,
                                       no expansion; subsumes order 2/3/4 (the order-4 rung
-                                      `ring_intZ` could not reach)
+                                      beyond a direct `ring_intZ` expansion)
 
 ## Companion clusters
 

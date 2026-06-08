@@ -7,10 +7,10 @@ import E213.Meta.Int213.PolyIntMTactic
 
 The determinantal depth ladder, closed structurally at **every** order in one theorem.
 
-`CassiniUnimodular.det_step` (order 2, multiplier `q`) and `SecondCasoratian.second_casoratian`
-(order 3, multiplier `c`) each proved a single rung by brute `ring_intZ` on the explicit
-determinant expansion — a method that does not scale (the order-4 normal form already exceeds the
-kernel's reach).  The structural statement holds at all orders and needs no expansion:
+A direct `ring_intZ` expansion of the explicit determinant proves one rung at a time
+(`CassiniUnimodular.det_step` order 2, multiplier `q`; `SecondCasoratian.second_casoratian` order 3,
+multiplier `c`) but does not scale: the order-4 normal form exceeds the kernel's reach.  The
+structural statement holds at all orders and needs no expansion:
 
 > For a constant-coefficient order-`k` recurrence `s(m+k) = Σ_{l<k} a l · s(m+l)`, the `k×k`
 > **Hankel (Casoratian) determinant** `Hₖ(n) = det[s(n+i+j)]_{i,j<k}` multiplies by the
@@ -228,8 +228,8 @@ theorem casoratian_det_closed (s : Nat → Int) (a : Nat → Int) (K : Nat)
 The general law specialises to each rung by reading off `altSign K`.  `casoratian s 2` is the
 `2×2` Hankel determinant `s n·s(n+2) − s(n+1)²` (the object of `CassiniUnimodular.det_step`) and
 `casoratian s 3` the `3×3` one (the object of `SecondCasoratian.second_casoratian`); the order-4
-rung below is the one direct `ring_intZ` expansion could not reach (the `4×4` Hankel normal form
-exceeds the kernel) — here a one-line instance. -/
+rung below lies beyond a direct `ring_intZ` expansion (its `4×4` Hankel normal form exceeds the
+kernel) — here a one-line instance. -/
 
 /-- **Order 2** (`K = 1`): multiplier `altSign 1 · a 0 = −a 0`.  With the `det_step` convention
     `s(m+2) = p·s(m+1) − q·s(m)` (`a 0 = −q`) this is `q` — `CassiniUnimodular.det_step`. -/

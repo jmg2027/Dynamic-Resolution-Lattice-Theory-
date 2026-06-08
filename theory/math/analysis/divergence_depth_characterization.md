@@ -151,10 +151,10 @@ companion matrix times the original, `H(n+1) = C·H(n)` (the recurrence read as 
 map, `hankel_shift_eq_matMul`), so `det H(n+1) = det C · det H(n)` (`DetMul.det_matMul`), and the
 companion determinant is `det C = (−1)^{k−1}·a 0` (`det_companion`, cofactor expansion along the
 single-entry first row, recursing on the `(0,1)`-minor).  The order-2 (`CassiniUnimodular.det_step`,
-multiplier `q`) and order-3 (`SecondCasoratian.second_casoratian`, multiplier `c`) rungs — each
-previously proved by a direct `ring_intZ` expansion — are the `k = 2, 3` instances; the order-4 rung
-(`fourth_order_multiplier`, multiplier `−a 0`) is the first the direct expansion **could not reach**
-(its `4×4` normal form overflows the kernel), now a one-line instance of the structural law.  The
+multiplier `q`) and order-3 (`SecondCasoratian.second_casoratian`, multiplier `c`) rungs are the
+`k = 2, 3` instances, each also provable by a direct `ring_intZ` expansion; the order-4 rung
+(`fourth_order_multiplier`, multiplier `−a 0`) lies **beyond** that direct expansion (its `4×4`
+normal form exceeds the kernel) and is a one-line instance of the structural law.  The
 conserved object is the companion-matrix determinant — a toric / genus-0 invariant whose *size*
 grows with the order, the genus staying `0` at every rung (the precise replacement for the mistaken
 "order-3 ↦ genus-1 curve").
