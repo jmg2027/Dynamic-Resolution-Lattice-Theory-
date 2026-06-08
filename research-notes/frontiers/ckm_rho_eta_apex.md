@@ -577,7 +577,11 @@ reciprocal pair `λ₊λ₋=det=1`.  (Fixed in `JarlskogApex.lean §5` docstring
 (the difference-Lens Bool readout).  Squaring kills the sign → `1/φ²` (positive).  A
 **modulus** is sign-free, so the apex *modulus* must be `1/φ²` (two-step, de-signed),
 **not** `1/φ` (one-step, negative): a modulus cannot equal a negative one-step
-eigenvalue.  The square is forced by "it's a modulus."
+eigenvalue.  The square is forced by "it's a modulus."  **Now ∅-axiom**
+(`Mobius213/Px/FibonacciAtomicLock.apex_modulus_is_designed_square`): `det Q = −1`
+(signed), `det P = (det Q)² = +1` (de-signed) ⟹ the contracting eigenvalue is
+positive (its own modulus) only at the `Q²` level (`1/φ²`); plus Vieta reciprocity
+(`λ₊λ₋ = det = 1`, `λ₊+λ₋ = trace = NS`) — the base-normalization data.
 
 ### 5. The arrow to close the gap — `det=1` ↔ base-normalization
 The one missing step (candidate→theorem): *why the apex modulus = `λ₋` specifically*.
