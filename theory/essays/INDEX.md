@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 63 essays are grouped into ten thematic sub-directories — distinct
+The 64 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -45,7 +45,10 @@ others together):
 `synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`,
 `representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
 `duality_as_one_transpose` (a duality = `sumOver_swap` on one 0/1 incidence +
-a SEPARATE cap per axis; min-cover = max-anti is the transpose).
+a SEPARATE cap per axis; min-cover = max-anti is the transpose),
+`curvature_as_lens_readout` (curvature = a difference-Lens count + sign;
+Forman / Gauss–Bonnet / Ollivier / conformal are four readouts of one
+sign↔topology fact).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
@@ -121,6 +124,7 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `methodology/reframe_presentation_transport.md` | When a reading fails to SEPARATE (over-counts), how does 213 read the same residue at a resolution where it separates? (Markov uniqueness, Zhang's 3c±2, presentation-transport as a lift) | `Foundations/ProofISALifts` (`lift_reframe`) + `math/analysis/markov_uniqueness.md` + `MarkovUniqueness.markov_max_unique_via_3c_pm2` + `MarkovPrimeFactor.sq_eq_collapse_pp` + CLAUDE.md *External-ruler smuggling* |
 | `representation_theorems_one_counting_bound.md` | Why are `p = a²−ab+b²` (disc −3), `p = a²+b²` (disc −4), and the `ℤ[√−D]` family all one theorem? | `PolyRoot/RootBound.eval_zero` + `NonFixedExists.exists_nonfixed_gen` + `Integer/{EisensteinSplit,GaussianSplit,ZSqrtNegSplit}.split_form` + `Integer/ZSqrtNegSharp.descent_false_at_three` |
 | `four_square_additive_pigeonhole.md` | Why is every `n = a²+b²+c²+d²`, and why does this need a *different* engine than the disc-`−D` representation theorems? | `NumberTheory/FourSquare.{four_sq_id,isSum4_mul,descent_core,odd_descent,halve_step,descent_rec,seed_multiple,exists_prime_factor,prime_isSum4,nat_isSum4}` + `FourSquareSeed.four_square_seed` + `Combinatorics/Pigeonhole.no_inj_lt` |
+| `curvature_as_lens_readout.md` | What is curvature, in 213? Why do Forman, Gauss–Bonnet, Ollivier, and conformal give the same sign↔topology trichotomy? | `Geometry/GeometrizationConjecture/{DiscreteRicci,DiscreteGaussBonnet,OllivierRicci,ConformalCurvature}` + `seed/AXIOM/06_lens_readings.md` §6.7 |
 | `k32_cohomology_simplex_higher_insight.md` | 213/K₃,₂²/코호몰로지 심플렉스 고차 통찰 — G140 + G138 B/D 프로모션 연결 | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
 | `mobius_self_form_fixed_point.md` | 모습 자체가 뫼비우스 행렬 — P는 왜 자기 설명 함자의 고정점인가? | `Px/MobiusSelfForm` + `Px/CharPolySelf` + `Px/PnFibonacciUniversal` + `math/mobius213_p_orbit_closure.md` |
 | `gra_universality_one_principle.md` | Walk-length, cup-length, truncation, chromatic height, resolution exponent — why are these the same? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/` umbrella + `GRA/Translation.lean` |
