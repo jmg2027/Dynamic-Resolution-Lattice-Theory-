@@ -26,6 +26,7 @@ import E213.Lib.Math.NumberTheory.ModArith.GaussLemma
 import E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
 import E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
 import E213.Lib.Math.NumberTheory.ModArith.ZolotarevSign
+import E213.Lib.Math.NumberTheory.ModArith.ZolotarevConverse
 import E213.Lib.Math.NumberTheory.ModArith.FP2Sqrt5
 import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 

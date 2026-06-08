@@ -47,14 +47,24 @@ the Legendre symbol is literally `det` of the permutation matrix of `×a mod p`.
 (`QR(a) ⟺ ∏ sgFn = 1 = (a/p)`) this is the residue side: the sign character agrees
 with the Legendre symbol on the quadratic-residue subgroup.
 
-**Residual (the converse / full identity):** `psign σ_a = (a/p)` for *every* unit
-needs the non-residue ⟹ odd-permutation direction (the character is *nontrivial*).
-Two routes, both needing infrastructure the repo lacks: (a) a **primitive root** `g`
-(then `σ_g` is a single `(p−1)`-cycle of sign `−1`, and the index-2 kernel argument
-closes it); (b) the **Gauss-`μ` parity bridge** `psign σ_a = (−1)^μ` via the
-`σ_a = (block lift) ∘ (μ within-pair flips)` decomposition through the half-system
-`[1,m]` (the `fold`/`sgFn` machinery already in `GaussLemma`).  Closing either gives
-the triangle `det (permMatrix (mulPermMod a p)) = (a/p)`.
+**Converse — closed on the `−1` axis + for `p ≡ 3 (mod 4)`**
+(`ModArith/ZolotarevConverse.lean`, 22 PURE): `σ_{-1}` is the reversal `[0, p−1, …, 1]`,
+whose inversion count `tri₂(p−1)` has parity `m`, so `psign σ_{-1} = (−1)^m`
+(`psign_mulPermMod_negone`).  `(−1)^m = 1 ⟺ m` even `⟺ p ≡ 1 mod 4 ⟺ −1` is a QR
+(`neg_one_qr_iff`), i.e. `psign σ_{-1}` **matches the Legendre symbol at `−1`**
+(`psign_mulPermMod_negone_qr`) — the `(−1/p)` corner of the inversion-sign square.
+For `p ≡ 3 (mod 4)`, `−1` is a *non-residue* with `psign σ_{-1} = −1`: the
+**nontriviality witness**.  Every non-residue `a` is then `(QR)·(−1)`
+(`legendre_mul`), so `psign σ_a = psign σ_{QR} · psign σ_{-1} = 1·(−1) = −1 = (a/p)`
+(`zolotarev_pmod4_three`) — the **full identity** for half the primes.
+
+**Residual (the last edge):** the full identity for `p ≡ 1 (mod 4)` (where `−1` is a
+*residue*, so the `−1` axis yields no nontriviality witness).  Two routes: (a) a
+**primitive root** `g` (then `σ_g` is a single `(p−1)`-cycle of sign `−1`, and the
+index-2 kernel argument closes it); (b) the **Gauss-`μ` parity bridge**
+`psign σ_a = (−1)^μ` via the `σ_a = (block lift) ∘ (μ within-pair flips)` decomposition
+through the half-system `[1,m]` (the `fold`/`sgFn` machinery already in `GaussLemma`).
+Closing either gives the triangle `det (permMatrix (mulPermMod a p)) = (a/p)` for all `p`.
 
 ## 2. Teichmüller ω ↔ the quadratic character (p-adic lift of Euler's criterion)
 
