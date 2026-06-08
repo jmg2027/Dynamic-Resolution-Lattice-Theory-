@@ -2,6 +2,7 @@ import E213.Meta.Int213
 import E213.Meta.Int213.Bound
 import E213.Meta.Int213.PolyIntMTactic
 import E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
+import E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
 
 /-!
 # Curvature → spectrum: the integrated Bochner / Lichnerowicz bridge (∅-axiom)
@@ -35,6 +36,7 @@ namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteLichnerowicz
 open E213.Meta.Int213
 open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
   gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_const)
+open E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite (kab_inner)
 
 /-- Global graph Laplacian of `K_m` at vertex `x`: `Lf(x) = Σ_y (f y − f x) = S − m·f x`
     (`S = Σ f`; the `y = x` term vanishes, so the sum is over all `m` vertices). -/
@@ -64,6 +66,32 @@ theorem km_f_lap_sum (m : Nat) (f : Nat → Int) :
         = gridSumZ m (fun x => gridSumZ m f * f x - (m : Int) * (f x * f x)) from
       gridSumZ_congr m _ _ (fun x _ => by ring_intZ),
       gridSumZ_sub, gridSumZ_mul_left, gridSumZ_mul_left]
+
+/-- Carré du champ (scaled `2Γ`) at vertex `x` of `K_m`: `Σ_y (f y − f x)²`. -/
+def twoGammaG (m : Nat) (f : Nat → Int) (x : Nat) : Int :=
+  gridSumZ m (fun y => (f y - f x) * (f y - f x))
+
+/-- `Σ_x 2Γ(f)(x) = 2·(m·Σf² − S²)` — the integrated Dirichlet form. -/
+theorem km_dirichlet_sum (m : Nat) (f : Nat → Int) :
+    gridSumZ m (fun x => twoGammaG m f x)
+      = 2 * ((m : Int) * gridSumZ m (fun y => f y * f y) - gridSumZ m f * gridSumZ m f) := by
+  rw [show gridSumZ m (fun x => twoGammaG m f x)
+        = gridSumZ m (fun x => gridSumZ m (fun y => f y * f y)
+            - 2 * gridSumZ m f * f x + (m : Int) * (f x * f x)) from
+      gridSumZ_congr m _ _ (fun x _ => by
+        unfold twoGammaG; rw [kab_inner m f f x]; ring_intZ),
+      gridSumZ_add, gridSumZ_sub, gridSumZ_const, gridSumZ_mul_left, gridSumZ_mul_left]
+  ring_intZ
+
+/-- ★★★★ **Green / integration-by-parts identity for `K_m`**: `Σ_x 2Γ(f)(x) =
+    −2·Σ_x f x·Lf x`, i.e. the Dirichlet energy `Σ Γ = E(f) = −Σ f·Lf` (the carré du
+    champ *is* the Dirichlet form).  With `km_lap_sq_sum` (= `Σ Γ₂ = Σ(Lf)²` up to the
+    scale) these are exactly the two integration inputs `lichnerowicz_abstract` consumes
+    — closed explicitly for `K_m`. -/
+theorem km_green (m : Nat) (f : Nat → Int) :
+    gridSumZ m (fun x => twoGammaG m f x)
+      = -(2 * gridSumZ m (fun x => f x * kmLapG m f x)) := by
+  rw [km_dirichlet_sum, km_f_lap_sum]; ring_intZ
 
 /-- ★★★★★ **The `K_m` Rayleigh / integrated-Bochner identity**:
 

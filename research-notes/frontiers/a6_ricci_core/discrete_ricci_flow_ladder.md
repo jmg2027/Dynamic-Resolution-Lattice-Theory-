@@ -103,7 +103,9 @@ The **abstract Lichnerowicz mechanism** is now also closed: `lichnerowicz_abstra
 (`K·(λN) ≤ λ·(λN)`, `λ,N > 0` ⟹ `K ≤ λ`) via the positive multiplicative cancellation
 `le_of_mul_le_mul_right_pos` (a general `Int` fact absent from `Int213.OrderMul` — a
 Meta-layer relocation candidate, kept local for now).  `km_eigenvalue` shows the `K_m`
-spectrum is exactly `{0, m}`.
+spectrum is exactly `{0, m}`, and `km_meanzero_eigen`/`km_const_eigen` realize both
+eigenspaces (multiplicities `m−1, 1`).  The two integration inputs are now explicit for
+`K_m`: `km_green` (`Σ Γ = E = −Σ f·Lf`) and `km_lap_sq_sum` (`Σ Γ₂ = Σ(Lf)²`).
 **Reachable next**: the general integration-by-parts identities (`Σ Γ₂ = Σ(Lf)²`,
 `Σ Γ = E`) for an arbitrary finite graph (cyclic-sum invariance, as in
 `HeatEq.Conservation`) — the one remaining input to feed `lichnerowicz_abstract` for
