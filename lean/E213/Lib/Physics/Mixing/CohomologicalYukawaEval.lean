@@ -36,8 +36,8 @@ The CKM **mixing angles** are a *separate*, already-DRLT-derived structure:
 
   **CKM = (DRLT angles `λ, A`) · (cohomological phase `J = i`, `δ=90°`)**,
 
-and the rust `ckm_cp_phase` verifies the assembled `ℤ[i]` CKM (rational angles ×
-the `i` phase) is exactly unitary with `δ=90°`, maximal CP.
+and `Mixing/CKMExactUnitarity` proves (∅-axiom, float-free) the assembled `ℤ[i]`
+CKM (rational angles × the `i` phase) is exactly unitary with `δ=90°`, maximal CP.
 
 ## Honest scope
 
@@ -90,8 +90,8 @@ theorem mixing_is_separate_drlt :
     diagonal (`h=I`) ⇒ it supplies the generation/sector **index** + the CP
     **phase** (`J=i`, `δ=90°`), NOT the mixing.  The mixing **angles** are the
     separate DRLT atomic rationals (`λ=5/22`).  So the full CKM **factorises**:
-    `(DRLT angles) × (cohomological phase J=i)` — verified unitary at `δ=90°` by
-    the rust `ckm_cp_phase`.  Clean, forced, unfished.  PURE. -/
+    `(DRLT angles) × (cohomological phase J=i)` — proven exactly unitary at `δ=90°`
+    with maximal CP in `Mixing/CKMExactUnitarity` (∅-axiom).  Clean, forced, unfished.  PURE. -/
 theorem cup_evaluation_capstone :
     -- cohomology: diagonal pairing (phase+index), the J-phase 90°
     (hPair 0 0 = 1 ∧ hPair 0 1 = 0 ∧ elt 0 1 = J ∧ 360 / 4 = 90)

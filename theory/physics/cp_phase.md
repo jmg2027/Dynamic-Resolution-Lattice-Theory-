@@ -19,13 +19,15 @@ cosine (only `0°, 60°, 90°`), so a golden-valued phase is structurally imposs
 ## Lean source
 
 - Umbrella: `lean/E213/Lib/Physics/Mixing.lean`, `lean/E213/Lib/Math/Algebra/Icosahedral.lean`
-- ∅-axiom status: **0 DIRTY, 114 PURE** across the sub-tree (`tools/scan_axioms.py`)
+- ∅-axiom status: **0 DIRTY, 129 PURE** across the sub-tree (`tools/scan_axioms.py`)
 - Files:
   - `Mixing/CPPhaseCount.lean` (6) — existence + uniqueness (KM counting)
   - `Mixing/CPPhaseC4Forcing.lean` (6) — `δ = 90°` forced by `C₄` + CP-existence
   - `Mixing/ApexRightTriangle.lean` (5) — `cos γ = 1/φ²` (right triangle)
   - `Mixing/CPHodgeStructure.lean` (5) — the CP `i` = Hodge `⋆` on the 4-dim `Δ⁴`
   - `Mixing/CPGenerationWiring.lean` (5) — `CP = C × i`, down/`5̄` localization
+  - `Mixing/CKMExactUnitarity.lean` (15) — item (a): the assembled `ℤ[i]` CKM at
+    `δ=90°` (Pythagorean angles, `D=1105`) is exactly unitary + maximal CP, PURE
   - `Mixing/CPMaximalPhase.lean` (5) — the `i` = apex element `V_ub`
   - `Mixing/JarlskogApex.lean`, `ApexCPMechanism.lean`, `ApexPiInternal.lean`,
     `A5QuarkApex.lean` — the apex `φ²` object; `R_u=1/φ²` forced; `π` is 213-internal
@@ -156,9 +158,14 @@ gap), the signed-`ℤ` cup (`Cup/SignedCup`, antisymmetric + HR-positive `h=I`),
 signed Hodge `J` (`SignedStarC4/Full`), the polarization (`HodgeRiemannJ` +
 the filled `Pairing/HodgeRiemann` stub).  The assembled `Y_d = Λ²(ℝ³) ⊗
 (signed-cup on `Λ¹(ℂ⁵)` with `J`)` meets the three forcing hypotheses (lattice +
-`J`-invariant + HR-positive) ⇒ `δ=90°`.  Remaining: only the *numerical*
-evaluation of the cup functional (the rust `ckm_cp_phase` verifies the resulting
-`ℤ[i]` CKM is unitary with `δ=90°`); and the `~1.5σ` fit — now assessed **CONSISTENT** (not a tension): `R_u=1/φ²` is essentially exact (`0.382` vs `0.3825±0.011`), `α=90°` is `~0–1.7σ`, and the `ρ̄/α` residual is covered by the standard `O(λ²)` Wolfenstein correction (`λ²=25/484`, no free parameter), **not** RGE (`dα/dt=0` exact). `ApexFitConsistency`.  `α = 90°` (right unitarity
+`J`-invariant + HR-positive) ⇒ `δ=90°`.  **Item (a) closed in ∅-axiom Lean**
+(`Mixing/CKMExactUnitarity`): the assembled `ℤ[i]` CKM — PDG parametrisation at
+`δ=90°` (`e^{∓iδ}=∓i`), Pythagorean-triple mixing angles `(3,4,5)/(5,12,13)/(8,15,17)`
+scaled by `D=1105` so every entry is a Gaussian integer — is proven *exactly*
+unitary (`M·M†=D²·I`, `ckm_unitary`), pure-imaginary at the apex (`M_ub=−425·i`,
+`δ=90°`, `ckm_apex_pure_imaginary`), and maximally CP-violating (Jarlskog `≠0`,
+`ckm_cp_maximal`).  Float-free, PURE — the rust `ckm_cp_phase` is now mirrored by a
+kernel-checked theorem.  Remaining: the `~1.5σ` fit — now assessed **CONSISTENT** (not a tension): `R_u=1/φ²` is essentially exact (`0.382` vs `0.3825±0.011`), `α=90°` is `~0–1.7σ`, and the `ρ̄/α` residual is covered by the standard `O(λ²)` Wolfenstein correction (`λ²=25/484`, no free parameter), **not** RGE (`dα/dt=0` exact). `ApexFitConsistency`.  `α = 90°` (right unitarity
 triangle) is **falsifiable** against future UTfit/CKMfitter values (catalog
 falsifier F27).  Active record: the `ckm_rho_eta_apex` frontier.
 
