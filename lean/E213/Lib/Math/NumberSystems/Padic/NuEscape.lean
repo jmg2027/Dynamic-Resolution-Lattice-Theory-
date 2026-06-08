@@ -328,6 +328,89 @@ theorem mulBase_eq_mul_pElem {p : Nat} (hp0 : 0 < p) (hp1 : 1 < p) (x : ZpSeq p)
       rw [mulRaw_pElem_succ hp0 hp1 x j]
       exact Nat.mod_eq_of_lt (x.digits j).isLt
 
+/-! ### General `p` — reconciliation with `Zp.shiftLeft`, and the real-ring additive grounding
+
+Two closures.  (i) **Repo-first**: `mulBase` is the existing `Zp.shiftLeft … 1` (the `×p^k` shift,
+`Arith.lean`) — `mulBase_eq_shiftLeft` records this, so the carrier work connects to the existing
+filtration theory (`mulBase` is just the cons-presentation, with cleaner defeq for the spine).
+(ii) **Additive grounding**: the abstract odometer's overflow (`padic_arithmetic_one_carrier`,
+which used the abstract `pOdo`) is the *actual* ring `(-1) + 1 = 0` — `add_negOne_one_zero` proves
+`Zp.add (neg_one) (one) = 0` at the digit level (the carry is `1` from position 1 on,
+`add_negOne_one_carry`, so every digit `(p-1)+1 ≡ 0`).  So the residue-unit `+1` on the carrier is
+the genuine `Zp.add`-by-`one`.  ∅-axiom. -/
+
+/-- ★★ **`mulBase` is `Zp.shiftLeft 1`** (the existing `× p` shift).  Pointwise: position `0` is
+    the inserted `0`, position `k+1` is `x.digits k`.  Connects the carrier valuation operator to
+    the existing `× p^k` filtration theory (`Arith.lean`). -/
+theorem mulBase_eq_shiftLeft {p : Nat} (hp : 0 < p) (x : ZpSeq p) :
+    ∀ j, (mulBase hp x).digits j = (Zp.shiftLeft p hp 1 x).digits j := by
+  intro j
+  apply Fin.ext
+  cases j with
+  | zero   => exact (Zp.shiftLeft_digit_low p hp 1 x 0 (Nat.lt_succ_self 0)).symm
+  | succ k =>
+      show (x.digits k).val = ((Zp.shiftLeft p hp 1 x).digits (k + 1)).val
+      rw [show k + 1 = 1 + k from Nat.add_comm k 1, Zp.shiftLeft_digit_high p hp 1 x k]
+
+/-- `p / p = 1` (propext-free, via `NatDiv213.mul_div_self_pure`; core `Nat.div_self` is
+    axiom-dirty). -/
+private theorem p_div_p {p : Nat} (hp1 : 1 < p) : p / p = 1 := by
+  have h := E213.Meta.Nat.NatDiv213.mul_div_self_pure 1 p (Nat.lt_of_succ_lt hp1)
+  rw [Nat.one_mul] at h; exact h
+
+/-- ★★ **The `(-1) + 1` carry is `1` from position 1 on.**  Adding `1` to `-1` (= all digits
+    `p-1`): position 0 overflows (`(p-1)+1 = p`, carry `1`), and each later top digit propagates
+    it (`(p-1)+1 = p`, carry `1`). -/
+theorem add_negOne_one_carry {p : Nat} (hp1 : 1 < p) :
+    ∀ k, Zp.carry p (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1)) (ZpSeq.one p hp1) (k + 1) = 1
+  | 0 => by
+      rw [Zp.carry_succ, Zp.carry_zero, Nat.add_zero,
+          show ((ZpSeq.one p hp1).digits 0).val = 1 from rfl,
+          negOne_all_top p (Nat.lt_of_succ_lt hp1) 0]
+      exact p_div_p hp1
+  | k + 1 => by
+      rw [Zp.carry_succ, add_negOne_one_carry hp1 k,
+          show ((ZpSeq.one p hp1).digits (k + 1)).val = 0 from rfl, Nat.add_zero,
+          negOne_all_top p (Nat.lt_of_succ_lt hp1) (k + 1)]
+      exact p_div_p hp1
+
+/-- ★★★ **`(-1) + 1 = 0` in the actual ring.**  Every digit of `Zp.add (neg_one) (one)` is `0`:
+    position 0 is `((p-1)+1) % p = 0`, and each later position is `((p-1) + 0 + 1) % p = 0` (the
+    carry is `1`, `add_negOne_one_carry`).  So the abstract odometer overflow
+    (`padic_succ_negOne_eq_zero`, via `pOdo`) is the genuine `Zp.add`-by-`one`. -/
+theorem add_negOne_one_zero {p : Nat} (hp1 : 1 < p) :
+    ∀ k, ((Zp.add p (Nat.lt_of_succ_lt hp1)
+            (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1)) (ZpSeq.one p hp1)).digits k).val = 0 := by
+  intro k
+  rw [Zp.add_digit_val]
+  cases k with
+  | zero =>
+      rw [Zp.carry_zero, Nat.add_zero,
+          show ((ZpSeq.one p hp1).digits 0).val = 1 from rfl,
+          negOne_all_top p (Nat.lt_of_succ_lt hp1) 0]
+      exact E213.Meta.Nat.AddMod213.mod_self p
+  | succ j =>
+      rw [add_negOne_one_carry hp1 j,
+          show ((ZpSeq.one p hp1).digits (j + 1)).val = 0 from rfl, Nat.add_zero,
+          negOne_all_top p (Nat.lt_of_succ_lt hp1) (j + 1)]
+      exact E213.Meta.Nat.AddMod213.mod_self p
+
+/-- ★★★ **The additive one-carrier grounding (capstone).**  The residue-unit `+1` on the carrier
+    is the genuine ring `Zp.add`-by-`one`:
+
+    1. the abstract odometer overflow `pOdo (neg_one) = zero` (`padic_succ_negOne_eq_zero`);
+    2. the *actual* ring `Zp.add (neg_one) (one) = 0` (`add_negOne_one_zero`).
+
+    Both say `(-1) + 1 = 0` on the p-adic carrier — the abstract odometer and the real `Zp.add`
+    agree.  Together with `mulBase_eq_mul_pElem` (the `× p` side is the real `Zp.mul`), the
+    carrier's unit arithmetic is grounded in the existing ring on both `+` and `×`. -/
+theorem padic_additive_one_carrier {p : Nat} (hp1 : 1 < p) :
+    (∀ n, pOdo (Nat.lt_of_succ_lt hp1) (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1)).digits n
+            = (ZpSeq.zero p (Nat.lt_of_succ_lt hp1)).digits n)
+    ∧ (∀ k, ((Zp.add p (Nat.lt_of_succ_lt hp1)
+            (ZpSeq.neg_one p (Nat.lt_of_succ_lt hp1)) (ZpSeq.one p hp1)).digits k).val = 0) :=
+  ⟨padic_succ_negOne_eq_zero p (Nat.lt_of_succ_lt hp1), add_negOne_one_zero hp1⟩
+
 /-! ### General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
 
 Beyond the reached-by-none escape, the *not-enumerable* fact holds for every `p ≥ 2` natively:

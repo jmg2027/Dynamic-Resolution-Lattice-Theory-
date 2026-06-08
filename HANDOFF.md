@@ -123,6 +123,18 @@ genuine ring operation, not a stand-in.  **Open**: `×` as a *binary* op on `gsp
 
 > Note: `Nat.zero_mod` also pulls `propext` (use `Nat.mod_eq_of_lt hp` for `0 % p = 0`).
 
+### 3e. Additive grounding + `shiftLeft` reconciliation — ✅ CLOSED (this session)
+Repo-first: `mulBase` IS the existing `Zp.shiftLeft … 1` (`mulBase_eq_shiftLeft`) — the cons-
+presentation of the existing `×p^k` shift, kept for cleaner spine defeq.  Real-ring additive
+grounding: `add_negOne_one_zero` — `Zp.add (neg_one) (one) = 0` at the digit level (carry is `1`
+from position 1, `add_negOne_one_carry`), so the abstract odometer overflow
+(`padic_succ_negOne_eq_zero`, via `pOdo`) is the genuine `Zp.add`-by-`one`
+(`padic_additive_one_carrier`).  So **both** `+` (`Zp.add`) and `×p` (`Zp.mul`) on the carrier are
+grounded in the existing ring.  **Open**: `×` as a binary op on `gspine`; ℝ field on the carrier.
+
+> Note: `Nat.div_self` and `Nat.add_div_right` pull `propext`; use `NatDiv213.mul_div_self_pure`
+> (`1*p/p=1` ⟹ `p/p=1`) for `p/p=1`.
+
 > Note (propext traps hit + recorded): `Nat.succ_ne_zero`, `Nat.sub_add_cancel`, `by_cases`, and
 > `rw`-with-an-`Iff` all pull `propext`.  Use `Nat.noConfusion`, `cases p`/defeq, `rcases
 > Nat.lt_or_ge`, and `.mp`/`.mpr` via defeq instead.

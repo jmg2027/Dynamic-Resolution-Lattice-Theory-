@@ -126,7 +126,9 @@ one-carrier claim **algebraic**, not only dynamical:
 
 So ℤ_p's successor *is* the residue unit acting on `gspine`-over-`Fin p`, and the p-adic `-1` is
 its canonical escape (`padic_arithmetic_one_carrier`).  The carrier hosts not just the *shape* and
-the *shift* of the number systems but the residue unit's *arithmetic*.
+the *shift* of the number systems but the residue unit's *arithmetic* — and this is grounded in the
+**real ring**: the abstract odometer's `(-1)+1=0` is the genuine `Zp.add (neg_one) (one) = 0`
+(`add_negOne_one_zero`, `padic_additive_one_carrier`), the carry being `1` from position 1 on.
 
 The **multiplicative** skeleton is there too — its generator, `× p`, the p-adic valuation
 operator (`mulBase`, `padic_valuation_one_carrier`).  Multiplication by the base shifts the digits
