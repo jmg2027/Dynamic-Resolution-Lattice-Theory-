@@ -65,22 +65,35 @@ Pursued the flagged Pell-area ↔ CP route. Convergent span-area
   nonzero (unit) area; 2 points → area 0. So "CP needs 3 generations" is
   geometric: `N_gen = NS = 3` is the minimum to enclose the symplectic unit.
 
-## The one remaining internal gap (NEXT TARGET)
-The frozen↔dynamic **coupling** `δ = π·R_u` (phase `= π ×` modulus, i.e.
-`δ/π = r = 1/φ²`; equivalently `arg z = π|z|`). All *ingredients* are now
-internal — `r` frozen, `π = M⁵` dynamic, the CP-area skeleton `F₄ = NS` — and
-the CP-existence mechanism is derived; what is **not yet forced** is *why the
-phase fraction `δ/π` equals the contraction `r`* (the dressing of the integer
-skeleton `F₄=NS` into the physical `η̄ ≈ 0.356`).
-- Tried and rejected (do NOT re-fish): the naive one-step spiral gives per-step
-  rotation `π/5 = 36°` (from `M⁵=−I` over 5 steps), NOT `π/φ²=68.75°`; the
-  icosahedral `2π/5=72°` is also wrong.
-- Pell-area route gave the integer skeleton (above) but not the λ/φ dressing
-  that maps `F₄=NS` → `η̄`. That dressing (the λ-hierarchy + φ-contraction
-  normalisation) is the remaining piece.
-- Honest status: the coupling may be a genuine multi-session nut; further
-  atomic-angle attempts are fishing (flagged). The CP-*existence* and the
-  *integer skeleton* are the solid internal results.
+### 5c. CP-phase origin in the 3-rep + the NT cover (`A5ThreeRepPhase`, 4 PURE)
+Complement to the 2-rep `M⁵=−1` story: in the 3-rep the order-5 generator has
+eigenvalues the **5th roots of unity** `{1,ζ,ζ⁴}` — the complex `ζ=e^{2πi/5}` is
+the flavour-sector CP-phase source; Gauss sums `g₁=ζ+ζ⁴=1/φ`, `g₂=ζ²+ζ³=−φ` are
+roots of `x²+x−1` (power-sum = NS), characters `1+g₁=φ`, `1+g₂=1−φ`. The
+**2-rep/3-rep period cover** `10/5 = NT = 2`: the central `−1=M⁵` (apex-phase π)
+is what the binary cover adds over the 3-rep's `ζ⁵=1`. So the phase has two
+internal sources (3-rep `ζ`, 2-cover `−1`), related by `NT`.
+
+### 5d. The coupling reframed as 0-parameter-forced (doc-only, §5.1)
+`δ=π·R_u` *follows* from the apex form `z=r·(−1)^r` (`arg((−1)^r)=πr`); the real
+question is why the apex is **single-parameter** (exponent = modulus). That is
+the **§5.1 no-exterior / 0-parameter** principle: the apex phase has no
+independent dialer, so it must be a function of the one internal `r` and the
+only phase constant `π=arg(M⁵)`; `δ=π·r` is the minimal linear realization. The
+coupling is **0-parameter-FORCED**, not arbitrary — consistent with the
+no-free-parameter ethos.
+
+## The one remaining (soft) residual
+Only the **minimality/uniqueness of the linear form** `f(r)=π·r` (coefficient
+exactly `π`, linear vs higher-order). The apex structure, the CP-existence
+mechanism (`η≠0 ⟺ M⁵=−1`), the phase's two internal sources, the CP-area
+integer skeleton, and the 0-parameter status of the coupling are **all
+internal**. This is no longer a "one unexplained identification" — it is a soft,
+well-isolated form-minimality question.
+- Do NOT re-fish atomic angles (`π/5=36°`, `2π/5=72°` both already excluded).
+- A genuine attack would PROVE the linear form is forced (e.g. a 213 reason the
+  phase-function is degree-1 in `r` with central-half-turn coefficient), or
+  derive the apex *value* from explicit A₅ 3-rep mass matrices (larger target).
 
 ## Files this session
 ```
