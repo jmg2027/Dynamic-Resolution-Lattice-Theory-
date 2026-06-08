@@ -29,7 +29,8 @@ open E213.Lib.Math.Algebra.Linalg213.DetTranspose
    zipDiag prodDiagFrom_eq_prodZ zipDiag_getD zipDiag_length list_self_map_getD)
 open E213.Lib.Math.Algebra.Linalg213.PermSign (psign_mul altSign_self)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_smul leibDet_rows_eq_ne)
-open E213.Lib.Math.Algebra.Linalg213.CayleyHamilton (sumZ_map_smul_right add_zero')
+open E213.Lib.Math.Algebra.Linalg213.CayleyHamilton (sumZ_map_smul_right add_zero' sumZ_swap)
+open E213.Lib.Math.Algebra.Linalg213.PermClosure (mem_flatMap')
 open E213.Lib.Math.Algebra.Linalg213.Laplace (matMul map_flatMap sumZ_flatMap sumZ_append)
 open E213.Tactic.List213 (list_ext_getD getD_ge getD_map_ib length_map)
 
@@ -293,5 +294,45 @@ theorem prodChoice_split (A B : Nat → Nat → Int) (f σ : List Nat) (h : σ.l
   have hpb : prodDiagFrom (rowPerm f B) 0 σ = pB B σ f :=
     prodDiag_rowPerm_eq_pB f B 0 σ (by rw [Nat.zero_add]; exact h)
   rw [prodChoice_eq A B 0 σ f h, hpb]
+
+/-! ## §7 — the sum-swap: `det(A·B) = Σ_f (∏ A) · leibDet (rowPerm f B)` -/
+
+/-- Every list in `tuples vals len` has length `len`. -/
+theorem tuples_length (vals : List Nat) : ∀ (len : Nat) (f : List Nat),
+    f ∈ tuples vals len → f.length = len
+  | 0,       f, h => by cases h with | head => rfl | tail _ h' => nomatch h'
+  | len + 1, f, h => by
+    rcases mem_flatMap' _ h with ⟨v, _, hf⟩
+    rcases mem_map' _ hf with ⟨g, hg, he⟩
+    rw [← he, List.length_cons, tuples_length vals len g hg]
+
+/-- ★★★ **The function-sum form of `det(A·B)`**: `leibDet (A·B) = Σ_{f∈funcs} prodDiagFrom A 0 f ·
+    leibDet (rowPerm f B)`.  Each `leibTerm (A·B) σ` expands (distributivity) into a sum over `f`;
+    swapping the `σ`/`f` sums (`sumZ_swap`) and factoring (`prodChoice_split`) gives the result. -/
+theorem leibDet_matMul_expand (A B : Nat → Nat → Int) (n : Nat) :
+    leibDet n (matMul n A B)
+      = sumZ ((funcs n).map (fun f => prodDiagFrom A 0 f * leibDet n (rowPerm f B))) := by
+  show sumZ ((perms n).map (leibTerm (matMul n A B))) = _
+  rw [map_eq_of_mem (leibTerm (matMul n A B))
+        (fun σ => sumZ ((funcs n).map (fun f => psign σ * prodChoice A B 0 σ f)))
+        (fun σ hσ => by
+          have hexp : prodDiagFrom (matMul n A B) 0 σ = sumZ ((funcs n).map (prodChoice A B 0 σ)) := by
+            have h := prodDiag_matMul_expand A B n 0 σ; rw [perm_length hσ] at h; exact h
+          show psign σ * prodDiagFrom (matMul n A B) 0 σ
+             = sumZ ((funcs n).map (fun f => psign σ * prodChoice A B 0 σ f))
+          rw [hexp, sumZ_map_smul (psign σ) (prodChoice A B 0 σ) (funcs n)]),
+      sumZ_swap (fun σ f => psign σ * prodChoice A B 0 σ f) (perms n) (funcs n)]
+  apply congrArg sumZ
+  apply map_eq_of_mem
+  intro f hf
+  rw [map_eq_of_mem (fun σ => psign σ * prodChoice A B 0 σ f)
+        (fun σ => prodDiagFrom A 0 f * leibTerm (rowPerm f B) σ)
+        (fun σ hσ => by
+          show psign σ * prodChoice A B 0 σ f
+             = prodDiagFrom A 0 f * (psign σ * prodDiagFrom (rowPerm f B) 0 σ)
+          rw [prodChoice_split A B f σ (by rw [perm_length hσ, tuples_length (iota n) n f hf])]
+          ring_intZ),
+      sumZ_map_smul (prodDiagFrom A 0 f) (leibTerm (rowPerm f B)) (perms n),
+      show leibDet n (rowPerm f B) = sumZ ((perms n).map (leibTerm (rowPerm f B))) from rfl]
 
 end E213.Lib.Math.Algebra.Linalg213.DetMul
