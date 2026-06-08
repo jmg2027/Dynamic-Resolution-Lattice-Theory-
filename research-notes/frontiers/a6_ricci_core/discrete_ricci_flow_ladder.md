@@ -118,6 +118,18 @@ constant-neighbour configuration `sosGap = 0`, so `gamma2C = (k+3)·gammaC` *exa
 *actual* curvature of `K_m`, not just a lower bound, hence cannot be improved.  New generic infra:
 `gridSumZ_const`, `gridSumZ_nonneg` (`OllivierRicci.lean` §1).
 
+**Rung 5 refinement — Ollivier `κ` for the complete graph `K_m`, general `m`** — ✅ **DONE**
+(`OllivierRicci.lean` §7, parametric, PURE).  The optimal-transport companion of the Bakry–Émery `K_m`
+above: the edge `(0,1)` of `K_m`, walk measures `m₀,m₁` differing only at `0,1` (they share the `m−2`
+neighbours `{2,…,m−1}`).  The plan `kmPi` keeps the shared units on the diagonal and moves the single unit
+`1 ↦ 0` (cost `1`); the `δ₁` potential `kmF` reaches dual value `1`.  `km_cost`/`km_dual` (each a
+`gridSumZ`-`δ` computation parametric in `m`, **not** `decide` on a fixed graph) ⟹ `km_ollivier_optimal`
+(meet: `dualValue = transportCost = 1`) + `km_plan_optimal` (cost `≤` every coupling, via `km_coupling` +
+`kmF_lipschitz`): scaled `W₁ = 1`, so **Ollivier `κ = 1 − 1/(m−1) = (m−2)/(m−1) > 0`** for `K_m` (`m ≥ 3`),
+generalizing the §4 triangle (`m = 3`, `κ = ½`) and `→ 1` as `m → ∞`.  New generic infra: the Kronecker-`δ`
+grid sums `gridSumZ_delta`, `gridSumZ_delta_zero`, `gridSumZ_delta_weight` (`OllivierRicci.lean` §1).  Both
+general-`m` complete-graph curvatures (Bakry–Émery `CD((m+2)/2,∞)` + Ollivier `(m−2)/(m−1)`) now stand.
+
 Remaining refinements: the discrete Lin–Yau optimal `K` (the largest `K` in `CD(K,∞)`, a max over test
 functions); more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
 flow* and the transcendental Perelman `𝓦`-entropy (`ricci_flow_smooth_core.md`) — but the general-`n` Ricci
