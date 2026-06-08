@@ -1,4 +1,5 @@
 import E213.Lib.Math.Algebra.Linalg213.DetTranspose
+import E213.Lib.Math.Algebra.Linalg213.CayleyHamilton
 
 /-!
 # Linalg213 — the multiplicative determinant `det (M·N) = det M · det N`
@@ -28,6 +29,8 @@ open E213.Lib.Math.Algebra.Linalg213.DetTranspose
    zipDiag prodDiagFrom_eq_prodZ zipDiag_getD zipDiag_length list_self_map_getD)
 open E213.Lib.Math.Algebra.Linalg213.PermSign (psign_mul altSign_self)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (map_eq_of_mem map_map' sumZ_map_smul leibDet_rows_eq_ne)
+open E213.Lib.Math.Algebra.Linalg213.CayleyHamilton (sumZ_map_smul_right add_zero')
+open E213.Lib.Math.Algebra.Linalg213.Laplace (matMul map_flatMap sumZ_flatMap sumZ_append)
 open E213.Tactic.List213 (list_ext_getD getD_ge getD_map_ib length_map)
 
 /-- Position-injectivity hypothesis for `idxOf_getD_self`, from `perms`-membership. -/
@@ -207,5 +210,41 @@ def tuples (vals : List Nat) : Nat → List (List Nat)
 
 /-- All functions `[n] → [n]` as length-`n` value-lists with entries `< n`. -/
 def funcs (n : Nat) : List (List Nat) := tuples (iota n) n
+
+/-! ## §5 — the product-of-sums distributivity over the function enumeration -/
+
+/-- The choice-product for a function `f`: `prodChoice A B start σ f = ∏ₚ A (start+p) fₚ · B fₚ σₚ`. -/
+def prodChoice (A B : Nat → Nat → Int) : Nat → List Nat → List Nat → Int
+  | _,     [],      _       => 1
+  | start, a :: ps, j :: fs => A start j * B j a * prodChoice A B (start + 1) ps fs
+  | _,     _ :: _,  []      => 1
+
+/-- ★★★ **The product-of-sums distributivity**: the diagonal product of `A·B` over `σ` expands
+    into a sum over all choice functions `f`.  Induction on `σ`: the head factor
+    `(A·B) start a = Σⱼ A start j · B j a` distributes (bilinearly) over the tail's choice-sum. -/
+theorem prodDiag_matMul_expand (A B : Nat → Nat → Int) (m : Nat) :
+    ∀ (start : Nat) (σ : List Nat),
+      prodDiagFrom (matMul m A B) start σ
+        = sumZ ((tuples (iota m) σ.length).map (prodChoice A B start σ))
+  | start, []      => by show (1 : Int) = 1 + 0; rw [add_zero']
+  | start, a :: ps => by
+    show matMul m A B start a * prodDiagFrom (matMul m A B) (start + 1) ps
+       = sumZ (((iota m).flatMap (fun v => (tuples (iota m) ps.length).map (v :: ·))).map
+           (prodChoice A B start (a :: ps)))
+    rw [prodDiag_matMul_expand A B m (start + 1) ps,
+        show matMul m A B start a = sumZ ((iota m).map (fun j => A start j * B j a)) from rfl,
+        sumZ_map_smul_right (sumZ ((tuples (iota m) ps.length).map (prodChoice A B (start + 1) ps)))
+          (fun j => A start j * B j a) (iota m),
+        map_flatMap (prodChoice A B start (a :: ps)) (fun v => (tuples (iota m) ps.length).map (v :: ·)),
+        sumZ_flatMap]
+    apply congrArg sumZ
+    apply map_eq_of_mem
+    intro v _
+    rw [map_map' (v :: ·) (prodChoice A B start (a :: ps)) (tuples (iota m) ps.length)]
+    show (A start v * B v a)
+           * sumZ ((tuples (iota m) ps.length).map (prodChoice A B (start + 1) ps))
+       = sumZ ((tuples (iota m) ps.length).map
+           (fun f' => A start v * B v a * prodChoice A B (start + 1) ps f'))
+    rw [sumZ_map_smul (A start v * B v a) (prodChoice A B (start + 1) ps)]
 
 end E213.Lib.Math.Algebra.Linalg213.DetMul
