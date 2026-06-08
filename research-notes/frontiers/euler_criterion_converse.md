@@ -31,16 +31,23 @@ replacing the residue range.  This sub-tree is **promotion-eligible** (closed + 
 
 ## Open downstream
 
-3. **Zolotarev** `(a/p) = sign(x ↦ a·x mod p)`.  The **matrix/sign side is now fully PURE**:
-   `PermMatrixDet.det_permMatrix` (`det (permMatrix σ) = psign σ`) closed this arc, and `psign`
-   itself was already PURE.  The remaining gap is the *number-theoretic* identification
-   `psign [a·0, a·1, …, a·(p−1) mod p] = (a/p)` — tying the sign of the explicit
-   multiplication-by-`a` value-list to the Legendre symbol.  Needs: (a) the mul-map is a
-   permutation of the residues (injectivity via the modular inverse + the `List213` `Nodup`
-   cardinality toolkit), (b) its `psign` = `(a/p)` (cycle-structure or, more directly, a
-   Gauss-lemma bridge — `gauss_core`'s sign product is the same `μ`-parity that Zolotarev's
-   transposition count must reproduce).  This bridge (Zolotarev = Gauss) is the genuinely hard
-   residual; both endpoints are closed, the equivalence of the two sign-readouts is not.
+3. **Zolotarev** `(a/p) = sign(x ↦ a·x mod p)`.  **Homomorphism half CLOSED**
+   (`ModArith/Zolotarev.lean`, 12 PURE): `mulPerm a p = [a·0,…,a·(p−1) mod p]` is a permutation
+   (`mulPerm_mem_perms`, injectivity via `res_cancel` + the `nodup_imp_perm` toolkit);
+   multiplication becomes composition (`mulPerm_comp`: `composeList (mulPerm a)(mulPerm b) =
+   mulPerm ((a·b)%p)`, both `getD i = (a·b·i)%p`); hence the **sign is multiplicative**
+   (`psign_mulPerm_hom`, via `psign_mul`) and a **quadratic residue's permutation is even**
+   (`psign_mulPerm_qr`/`psign_mulPerm_qr_pred`: `mulPerm (z²) = mulPerm z ∘ mulPerm z`,
+   `psign = psign(mulPerm z)² = 1`) — the `(a/p)=+1 ⟸ a` QR direction realised as the sign.
+   **Remaining residual** (the converse, non-residue ⟹ odd permutation): the clean homomorphism
+   route needs a *nontriviality witness* (`∃a, psign(mulPerm a) = −1`), which requires a
+   **primitive root / `(p−1)`-cycle** (no universal non-residue witness for `p ≡ 1 mod 4`) — the
+   repo has no primitive-root infrastructure; *or* the direct **Zolotarev = Gauss** count
+   `psign(mulPerm a) = (−1)^{μ_a}` via the pairing/block decomposition (`x ↦ p−x` pairs the
+   residues, mul permutes the `m` pairs by `fold_a` with within-pair swaps at the `μ_a` "high"
+   positions; block-lifts are even ⟹ sign `(−1)^{μ_a}`), then `gauss_qr`.  Both are multi-file
+   undertakings (the block-decomposition needs disjoint-transposition-sign machinery in the
+   `psign` framework).
 
 ## Cross-references
 `lean/E213/Lib/Math/NumberTheory/ModArith/{EulerCriterion,EulerConverse}.lean`,

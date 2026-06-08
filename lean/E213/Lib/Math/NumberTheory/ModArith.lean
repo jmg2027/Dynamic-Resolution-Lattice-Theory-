@@ -27,6 +27,7 @@ import E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
 import E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
 import E213.Lib.Math.NumberTheory.ModArith.FP2Sqrt5
 import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
+import E213.Lib.Math.NumberTheory.ModArith.Zolotarev
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.
 
