@@ -1,7 +1,7 @@
 # Session Handoff — 2026-06-08 (closing the p-adic / reciprocity frontier seeds)
 
 ## Branch
-`claude/p-adic-reciprocity-topics-qBPUW`.  **Seven ∅-axiom closures** (incl. the Zolotarev homomorphism half) committed this session
+`claude/p-adic-reciprocity-topics-qBPUW`.  **Eight ∅-axiom closures** (incl. the Zolotarev homomorphism half + the multiplicative-order foundation) committed this session
 (all PURE, build clean: `CayleyDickson` + `Linalg213` + `Padic` umbrellas build, new modules
 scan 0 DIRTY).
 
@@ -62,14 +62,20 @@ Catalog (`STRICT_ZERO_AXIOM.md`), the representation essay
 | **betti α=1** | `b₁ = NS²−1 = 1/α₃` closed; open is conceptual (does `NS²−1` recur in the other forced constants? a `c`-dependent higher `b_k`?) — a synthesis question, not a bounded Lean target. |
 
 ## Next (highest-value, in order)
-1. **Zolotarev converse** `psign(mulPerm a) = (−1)^{μ_a}` — the homomorphism half is now PURE
-   (`Zolotarev.lean`); the residual is the non-residue ⟹ odd direction.  Two routes, both
-   multi-file: (a) **primitive-root infrastructure** (`(ℤ/p)*` cyclic — needs Euler `φ` +
-   `∑_{d∣n} φ(d) = n` on top of the existing `RootBound.eval_zero` ≤-`d`-roots; then the
-   `(p−1)`-cycle of `mulPerm g`), the cleaner and more reusable; or (b) the **Zolotarev=Gauss
-   block decomposition** (pairing `x↦p−x`, within-pair swaps at the `μ_a` highs, block-lift
-   even) — reuses `fold_perm`/`gauss_qr` but needs general-transposition + disjoint-product
-   `psign` lemmas in the `Linalg213` framework.
+1. **Zolotarev converse** (non-residue ⟹ odd permutation) — via **primitive roots** (route a).
+   Foundation **step 1 done**: `MulOrder.lean` (12 PURE) — `ordModP`, `fermat`, `pow_ord`,
+   `ord_min`, `ord_dvd` (`aᵏ≡1 ⟹ ord∣k`), `ord_dvd_p_sub_one`.  Remaining:
+   - **step 2 (the crux)**: primitive-root existence (`∃ g, ordModP g p = p−1`).  Either the
+     **exponent/lcm argument** (`∃` element of order = lcm of all orders; if some order `δ ∤ d_max`
+     then `lcm(δ,d_max) > d_max` contradicts maximality — needs the *element-of-order-lcm* lemma,
+     gcd/coprime order splitting) glued to `RootBound.eval_zero` (`x^{d_max}−1` has ≤ `d_max` roots
+     ⟹ `p−1 ≤ d_max`, with `d_max ∣ p−1` ⟹ `d_max = p−1`); *or* the `∑_{d∣p−1} φ(d) = p−1`
+     counting (`ψ(d) ∈ {0,φ(d)}` via the cyclic-subgroup generators).
+   - **step 3**: `mulPerm g` (g a primitive root) is a single `(p−1)`-cycle (its powers exhaust
+     the nonzero residues), sign `(−1)^{p−2} = −1`; g is a non-residue (order even, not a square).
+     That `psign(mulPerm g) = −1` is the **nontriviality witness**, and with the homomorphism
+     (`Zolotarev.psign_mulPerm_hom`/`_qr`) closes the full `psign(mulPerm a) = (a/p)`.
+   Route (b) (Zolotarev=Gauss block decomposition) remains the alternative; both multi-session.
 2. Residue-unit decidable carry-depth (assess `Theory/Raw/Odometer`); `Zp.diagLimit` abstraction.
 
 ## Three-tier state
