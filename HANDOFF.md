@@ -93,11 +93,18 @@ Cantor/Gödel/etc. are provably one Lawvere instance; König/WKL/compactness are
 one-non-surjection but only omniscience (LLPO/fan) cousins of literal Lawvere.  Pinning the
 external reduction is open.  Frontier: `concept_redressing_itself.md`.
 
-### 5. (carried) Reverse-mathematics framing of the corpus
-`STRICT_ZERO_AXIOM.md` is an axiom-cost ledger in disguise; the compactness calibration is
-the first explicit 213-native reverse-math entry.  Systematizing this is the legibility
-bridge to recognized mathematical logic.  Frontier: `naming_abstract_concepts.md`,
-`research_grade_closure_gate.md`.
+### 5. Reverse Mathematics 213 marathon (field 17) — STARTED, phases GB–GD open
+`blueprints/math/17_reverse_math_213.md` authored; INDEX field 17 added (Phase G).
+**Phase GA DONE** (`Lib/Math/Logic/Omniscience.lean`, 6 PURE): `LPO/WLPO/MP/LLPO` as Props
+on `Nat → Bool` + `lpo_imp_wlpo`, `lpo_imp_mp` (∅-axiom).  **Open phases:**
+- **GB** — `InfChildExists` (`KonigConditional`) as an LLPO-instance (tighten the
+  compactness calibration: the child-disjunction decision = LLPO).
+- **GC** — catalogue the diagonal/non-surjection family (`object1_not_surjective`, Cantor)
+  as the no-omniscience base (the `RCA₀`-analogue) + the reached-by-none escapes.
+- **GD** — the ledger capstone: a (theorem → omniscience cost) table over the residue
+  carriers; reconcile with `STRICT_ZERO_AXIOM.md`.
+This is the legibility bridge to recognized mathematical logic.  Frontier:
+`blueprints/math/17_reverse_math_213.md`, `naming_abstract_concepts.md`.
 
 ## Unresolved from This Session
 - No dead ends.  The compactness iff turned out NOT to be ∅-axiom (one direction needs
@@ -106,10 +113,11 @@ bridge to recognized mathematical logic.  Frontier: `naming_abstract_concepts.md
   open work (needs new CoResidue infra), not a gap in this session's claims.
 
 ## Next
-Pick one: **(1)** general-`p` νF escape (build a p-ary spine in CoResidue, or the
-`digits_of_nat` native escape — moderate Lean), or **(3)** next concept deep-dive
-(limit/completion or quotient — low risk, continues the frontier), or **(5)** start the
-reverse-math ledger pass over `STRICT_ZERO_AXIOM.md`.
+**Reverse Mathematics 213 marathon, Phase GB** — formalize `InfChildExists` as an
+LLPO-instance (link `Lib/Math/Combinatorics/KonigConditional.InfChildExists` to
+`Lib/Math/Logic.LLPO`), tightening `infChildExists_iff_finiteSubcover`.  Then GC (free
+interior base), GD (ledger capstone).  Alternatives: a concept deep-dive (limit/completion,
+quotient) or the one-carrier p-ary spine in `CoResidue`.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`
@@ -138,4 +146,8 @@ research-notes/frontiers/concept_compactness.md         ← deep-dive: compactne
 research-notes/frontiers/concept_function_space.md      ← deep-dive: powerset = self-cover codomain (new)
 research-notes/frontiers/concept_redressing_itself.md   ← deep-research: re-dressing = self-pointing (new)
 research-notes/frontiers/INDEX.md                        ← registered all four frontier notes
+blueprints/math/17_reverse_math_213.md                  ← NEW field 17 blueprint (Reverse Math 213)
+blueprints/math/INDEX.md                                ← + Phase G / field 17 row
+lean/E213/Lib/Math/Logic/Omniscience.lean               ← Phase GA: LPO/WLPO/MP/LLPO + implications (6 PURE)
+lean/E213/Lib/Math.lean                                 ← + import Logic.Omniscience (in-tree)
 ```

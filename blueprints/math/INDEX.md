@@ -69,6 +69,12 @@ illustrates the standard.
 |---|---|---|---|
 | 16 | **GRA Universality** | `16_gra_universality.md` | ★★★ (213의 랭글랜즈 — 5 Reading 동형 증명 프로그램) |
 
+### Phase G — Reverse Mathematics (added 2026-06-08)
+
+| # | Field | File | Priority |
+|---|---|---|---|
+| 17 | **Reverse Mathematics 213** 🟡 STARTED | `17_reverse_math_213.md` | ★★★ (omniscience / axiom-cost ledger — the legibility bridge to mathematical logic; Phase GA in `Lib/Math/Logic/Omniscience.lean`) |
+
 ---
 
 ## Completed (2026-04-27)
