@@ -104,13 +104,40 @@ n`, i.e. `ν₅(F_n) = ν₅(n)`.
 | `fibZ_index_rec` | `FibZIdentities` | `F_{b+2m} = L_m F_{b+m} − (−1)ᵐ F_b` |
 | `fibZ_quintuple` | `FibZIdentities` | `F_{5m} = F_m(25F_m⁴+25(−1)ᵐF_m²+5)` |
 | `fibN_val_law` | `FibZValuation` | `∀ n k, 5ᵏ ∣ F_n ⟺ 5ᵏ ∣ n` (`ν₅(F_n)=ν₅(n)`) |
+| `rank_law_dispatch` | `RankApparition` | `p ∣ F_{p−(5/p)}` (= `α(p) ∣ p−(5/p)`), Legendre-dispatched |
+| `shared_golden_field_morphism` | `GoldenFieldBridge` | `x²−x−1` (Binet) ≅ `x²+x−1` (`ℚ(ζ₅)⁺`) under `x↦−x`, one ramified `ℚ(√5)` |
+
+## The general-`p` rank law `α(p) ∣ p − (5/p)`
+
+The `p = 5` ramified rung sits inside the general law, now built from the
+Legendre character (`DyadicFSM/RankApparition.lean`, 10 PURE).  The
+FSM-walking quadratic character `legendre213 5 p` dispatches the Fibonacci
+**entry-point index** `rankIndex p hp = p − (5/p)`:
+
+  * split `(5/p)=+1` ⇒ `p − 1`,  inert `(5/p)=−1` ⇒ `p + 1`,
+    ramified `(5/p)=0` ⇒ `p` (= `5`, `α(5)=5`),
+
+and `rank_law_dispatch` gives `p ∣ F_{p−(5/p)}` (= `α(p) ∣ p − (5/p)` via
+`p ∣ F_n ⟺ α(p) ∣ n`).  Each branch is discharged through the actual universal
+Fibonacci-mod-`p` theorem — split via the `𝔽_p` Binet/FLT bridge
+(`binet_F_p_minus_1_zero`), inert via the `𝔽_{p²}` Frobenius FLT
+(`fpp1_eq_zero_of_frob_phi`), ramified `p=5` via `rank_apparition_five` — so the
+law is *built*, not decided per prime.  This mirrors the Pisano-period dispatch
+`UniversalDispatch.universal_dispatch_pellCoeff`; here the read-out is the
+entry point rather than the period.
+
+The bridge to the CP-phase's `ℚ(ζ₅)` reading is also closed
+(`NumberTheory/GoldenFieldBridge.lean`): the Binet polynomial `x²−x−1` and the
+Gaussian-period polynomial `x²+x−1` of `ℚ(ζ₅)⁺` are one `ℚ(√5)` object under
+`x ↦ −x`, sharing discriminant `5` and the single ramified prime `5` (see
+`theory/essays/synthesis/the_golden_prime.md`).
 
 ## Open frontier
 
-None for the prime `5`.  The same machinery generalises to any prime `p`
-with its rank of apparition (the FSM gives the Pisano period; the
-quintupling generalises to a `p`-tupling identity); only the ramified
-golden prime `p = 5` is carried out here.
+None for the prime `5`.  The all-orders valuation lift `ν₅(F_n) = ν₅(n)` and the
+general rank law `α(p) ∣ p − (5/p)` are both carried out; the `p`-tupling
+analogue of the quintupling identity for a general prime's higher valuation
+rungs (`νₚ(F_n)` beyond the entry point) is the remaining generalisation.
 
 ## How to verify
 

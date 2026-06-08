@@ -45,10 +45,16 @@ ramified signature.  The FSM file `Fib/FSMmod` already records the
 split/inert period buckets per the symbol; the branch closed the
 ramified `p=5` rung.
 
-**Bridge (buildable):** prove `α(p) ∣ p − (5/p)` for general `p` from the
-existing `Legendre`/QR character + a general-`p` Fibonacci FSM — unifying
-the branch's `p=5` ramified case with main's `(5/p)` for the split/inert
-primes under one statement.
+**Bridge (CLOSED):** `α(p) ∣ p − (5/p)` built for general `p` from the
+`Legendre` character + the universal Fibonacci-mod-`p` machinery
+(`DyadicFSM/RankApparition.lean`, 10 PURE).  `rankIndex p hp = p − (5/p)` is
+dispatched on the FSM-walking character `legendre213 5 p` (split `p−1`, inert
+`p+1`, ramified `p`), and `rank_law_dispatch` gives `p ∣ F_{p−(5/p)}` — each
+case discharged through the actual universal theorem for its branch (split via
+the `𝔽_p` Binet/FLT bridge `binet_F_p_minus_1_zero`, inert via the `𝔽_{p²}`
+Frobenius FLT `fpp1_eq_zero_of_frob_phi`, ramified `p=5` via
+`rank_apparition_five`).  Mirrors `UniversalDispatch.universal_dispatch_pellCoeff`
+(period dispatch); here the read-out is the entry point.
 
 ## 4. The binary sign axis — a fourth instance
 
@@ -72,13 +78,21 @@ Fibonacci rank/valuation.  The imaginary golden prime story (`ζ₅`,
 `C₄`-phase) and the real golden prime story (`√5`, Fibonacci `ν₅`) are the
 two embeddings of `ℚ(√5) ⊂ ℚ(ζ₅)`.
 
-**Bridge (open):** make explicit, in `lean`, that the `ℚ(√5)` main reads
-through `ℚ(ζ₅)`'s real subfield (CP-phase) and the `ℚ(√5)` the branch
-ramifies at `5` (Fibonacci) are one field object — a shared-field morphism
-tying `cp_phase` to `fibonacci_5adic_valuation`.
+**Bridge (CLOSED):** the shared-field morphism is built in
+`lean/E213/Lib/Math/NumberTheory/GoldenFieldBridge.lean` (10 PURE).  The Binet
+polynomial `x²−x−1` (Fibonacci `ℚ(√5)`, `FibApparitionMod5`) and the
+Gaussian-period polynomial `x²+x−1` (`ℚ(ζ₅)⁺`, `CyclotomicFive`/`cp_phase`) are
+one object under `x ↦ −x` (`bPoly_neg_eq_gPoly`: `bPoly(−x) = gPoly x`), share
+discriminant `5`, and ramify at the single prime `5` — each a perfect square
+mod `5` (double roots `3`, `2`; negatives, `3+2≡0`).  `shared_golden_field_morphism`
+bundles the morphism, the shared discriminant, both ramifications, the
+Fibonacci `α(5)=5` signature (`rank_apparition_five`), and the cyclotomic
+golden subfield (`golden_real_subfield`).
 
 ## Status
 Insights 2 and 4 are *proven shared objects* (one `lean` object each).
-Insights 1, 3, 5 name **buildable bridges**: (3) the general-`p`
-`α(p) ∣ p − (5/p)` rank law from the Legendre character, and (5) the
-shared-`ℚ(√5)` morphism between `cp_phase` and `fibonacci_5adic_valuation`.
+Insights **3 and 5 are now CLOSED**: (3) the general-`p` `α(p) ∣ p − (5/p)`
+rank law from the Legendre character (`DyadicFSM/RankApparition.lean`), and (5)
+the shared-`ℚ(√5)` morphism between `cp_phase` and `fibonacci_5adic_valuation`
+(`NumberTheory/GoldenFieldBridge.lean`).  Insight 1 (value vs. valuation hinge)
+remains a conceptual framing, not a single unbuilt morphism.

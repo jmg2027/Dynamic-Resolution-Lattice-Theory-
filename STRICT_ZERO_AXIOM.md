@@ -255,6 +255,27 @@ ramified golden prime `5`:
 
 Chapter: `theory/math/numbertheory/fibonacci_5adic_valuation.md`.
 
+### General rank law `α(p) ∣ p − (5/p)` + shared `ℚ(√5)` morphism — strict ∅-axiom (2026-06-08)
+
+`E213.Lib.Math.NumberTheory.DyadicFSM.RankApparition` (10/10 PURE) and
+`.GoldenFieldBridge` (10/10 PURE) — 0 DIRTY (`tools/scan_axioms.py`).  Two
+named open bridges of `fibonacci_golden_prime_crossdomain` closed:
+
+  · **`rank_law_dispatch`** — the Fibonacci rank of apparition `α(p) ∣ p − (5/p)`
+    in entry-point form `p ∣ F_{p−(5/p)}`, the index dispatched on the
+    FSM-walking Legendre character `legendre213 5 p` (split `p−1`, inert `p+1`,
+    ramified `p`).  Each branch via the universal Fibonacci-mod-`p` machinery
+    (`binet_F_p_minus_1_zero`, `fpp1_eq_zero_of_frob_phi`, `rank_apparition_five`);
+    mirrors `UniversalDispatch.universal_dispatch_pellCoeff`.
+  · **`shared_golden_field_morphism`** — the Binet polynomial `x²−x−1`
+    (Fibonacci) and the Gaussian-period polynomial `x²+x−1` (`ℚ(ζ₅)⁺`/cp_phase)
+    are one `ℚ(√5)` object under `x ↦ −x` (`bPoly_neg_eq_gPoly`), sharing
+    discriminant `5` and the single ramified prime `5` (both perfect squares
+    mod `5`, double roots `3`, `2`, negatives).
+
+Chapters: `theory/math/numbertheory/fibonacci_5adic_valuation.md`,
+`theory/essays/synthesis/the_golden_prime.md`.
+
 ### Sperner's theorem compiled to COUNT's double-counting face (2026-06-05)
 
 `E213.Lib.Math.Combinatorics.Sperner` — **39/39 PURE / 0 DIRTY** (`tools/scan_axioms.py`).

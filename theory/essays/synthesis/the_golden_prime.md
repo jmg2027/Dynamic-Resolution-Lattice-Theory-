@@ -73,7 +73,16 @@ read (`√5`, Fibonacci `ν₅`, disc `+5`) are the two embeddings of
 
 ## Open frontier
 
-The general-`p` rank law `α(p) ∣ p − (5/p)` is stated, not yet built from
-the Legendre character; and the shared-`ℚ(√5)` morphism tying the
-CP-phase's `ℚ(ζ₅)` reading to the Fibonacci ramification is named, not
-formalized.  Only the ramified prime `5` itself is carried out end to end.
+Both bridges named here are now built, ∅-axiom.  The general-`p` rank law
+`α(p) ∣ p − (5/p)` is built from the Legendre character
+(`DyadicFSM/RankApparition.lean`): the FSM-walking character `legendre213 5 p`
+dispatches the entry index `p − (5/p)` (split `p−1`, inert `p+1`, ramified `p`)
+and `rank_law_dispatch` gives `p ∣ F_{p−(5/p)}`, each branch through the
+universal Fibonacci-mod-`p` machinery.  The shared-`ℚ(√5)` morphism tying the
+CP-phase's `ℚ(ζ₅)` reading to the Fibonacci ramification is formalized
+(`NumberTheory/GoldenFieldBridge.lean`): the Binet polynomial `x²−x−1` and the
+Gaussian-period polynomial `x²+x−1` are one field object under `x ↦ −x`
+(`bPoly_neg_eq_gPoly`), sharing discriminant `5` and the single ramified prime
+`5` — each a perfect square mod `5` (double roots `3`, `2`; negatives,
+`3+2≡0`).  Remaining: the higher-valuation `νₚ(F_n)` rungs for a general prime
+(the `p`-tupling analogue of the quintupling identity).
