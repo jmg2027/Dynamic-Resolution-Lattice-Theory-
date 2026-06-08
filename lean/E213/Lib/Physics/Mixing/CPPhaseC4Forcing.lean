@@ -37,6 +37,12 @@ the single `NT=2` doubling `i`, not a higher cyclotomic) — far weaker, and mor
 principled, than positing a value.  Combined with the derived golden modulus
 `R_u = 1/φ²` (`ApexRightTriangle`): `cos γ = 1/φ²`.
 
+**This premise is now CLOSED** (`Cohomology/Hodge/SignedStarFull`): the signed
+Hodge star on grade 1 of the `d=5` cohomology has `⋆² = −1` on *all* of `Λ¹`, so
+`⟨⋆⟩` is order **exactly 4** = `C₄` — not `C₆` (order 6 needs `⋆⁶=1` with `⋆²≠1`,
+impossible once `⋆²=−1`).  So "phase `∈ C₄`" is *forced by the Hodge structure*,
+not assumed.
+
 ## Why `C₄` and not a higher root of unity
 
 By Niven's theorem a discrete CP phase has rational cosine (only `0,60,90°`).

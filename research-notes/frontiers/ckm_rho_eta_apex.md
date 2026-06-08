@@ -530,3 +530,14 @@ not another % match.
 - `lean/E213/Lib/Physics/Mixing/CabibboAngle.lean` — λ = 5/22
 - `lean/E213/Lib/Physics/Couplings/ThetaQCD.lean` — the θ_QCD consumer of J
 </content>
+
+## ★ "phase ∈ C₄" premise CLOSED (2026-06-08, SignedStarFull)
+
+The last CP-phase premise is now forced. `Cohomology/Hodge/SignedStarFull` (6
+PURE) lifts the signed Hodge star to the full grade-1 space `Λ¹(ℝ⁴)` of the
+`(d−1)=4`-dim simplex (diagonal: forward signs `(+1,−1,+1,−1)`, back `(−1,+1,−1,
++1)`), showing `⋆²=−1` on ALL of `Λ¹` ⇒ `⟨⋆⟩` order *exactly* 4 = `C₄` (not `C₆`).
+So "phase ∈ C₄" (`CPPhaseC4Forcing`) is not assumed — the Hodge structure on the
+`d=5` cohomology IS the `C₄`, hence the phase is `90°`. Remaining open: the
+explicit `5̄⊕10` generation Yukawa from first principles; the ~1.5σ fit
+(irreducible, principled-ness over precision).
