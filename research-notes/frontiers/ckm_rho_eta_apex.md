@@ -258,9 +258,100 @@ the two. The apex therefore splits honestly:
 | **phase `δ = π/φ²`** | **posit** — NOT an A₅ consequence; needs a genuinely complex mechanism (the self-reference complexification `−1=M⁵ ↦ e^{iπ}`, itself a posit), distinct from the real A₅ flavour mixing |
 
 So the open premise is now precisely located: it is **only** the *phase* `δ`,
-and the A₅/golden route to it is **closed** (A₅ gives no golden phase). Closing
-`δ` needs a complex mechanism beyond A₅ flavour symmetry; the wrong routes
-(A₅-golden, spiral, `π/5`, `2π/5`) are all now proven/argued dead.
+and the A₅/golden route to it is **closed** (A₅ gives no golden phase).
+
+### ★ Icosian/2I route also CLOSED (agent computation, 2026-06-08)
+
+The binary-icosahedral `2I`/`600`-cell/`E₈` structure produces only
+**`π/5`-quantized angles** `{36, 60, 72, 108, 144, 180, 216, 240, 288}°` — all
+*rational* multiples of `π`. The order-10 icosian (`M⁵=−1`) is a `72°=2π/5`
+rotation; the `2I` 2-dim spinor irreps force phases `{36,108,252,324}° = k·π/5`.
+**`π/φ²=68.75°` is an *irrational* multiple of `π`** (`φ²` irrational), so it
+**cannot** be any icosian angle/phase — a *structural* impossibility, not a
+numerical miss. This is the deeper meaning of `coupling_not_uniform_spiral`
+(`δ/π = 1/φ² ∈ (1/5, 2/5)`): `δ` is **off the icosian `π/5` phase-lattice**
+(`5/φ² = 1.91 ∉ ℤ`). Nearest icosian phase: `72°` (gap `3.25°`); the icosian
+structure, if it forced `δ` at all, would give `36°` or `72°`, not `π/φ²`.
+
+Golden-but-not-icosian closed forms near the posit: `arctan(φ²) = 69.095°`
+(gap `0.35°`), `arccos(1/φ²) = 67.54°` — separate golden constructions, **not**
+group-grounded.
+
+### ★ CD-tower route also CLOSED (agent computation, 2026-06-08)
+
+The Cayley–Dickson tower (`CayleyDickson/`) and the CP-phase machinery
+(`Mixing/`) are **architecturally disjoint** (no `Mixing` file imports CD). CD's
+complex structure (`ℂ=ℤ[i]`, `ℤ[ω]`) carries only **discrete** phases — the
+cyclotomic unit groups `C₄` (`90°`, `ℤ[i]`) and `C₆` (`60°,120°`, `ℤ[ω]`); no
+derived continuous `U(1)`/argument. The `d=5` golden `ζ₅=e^{2πi/5}` does **not**
+appear as a CD unit (the icosian `ℤ[φ]` is a *real* quadratic field). So CD gives
+`π/2`- and `π/3`-quantized phases, again **not** `π/φ²`.
+
+**The hard obstruction (named):** `A5RealityNoCP.a5_3rep_is_real` (`FS=+1`) is a
+*wall* — the `d=5` golden structure puts `ζ₅` into the (real) **mixing angle**,
+the phase cancelling. Any CP mechanism must break this reality via a
+**complex-type (`FS=−1`) representation wired to the 3 generations** — which no
+current 213 structure (real `A₅`, real-quadratic icosian `ℤ[φ]`, generation-
+disconnected complex `ℤ[i]/ℤ[ω]`) provides.
+
+### ★ The coherent conclusion (3 independent agent routes)
+
+| 213 structure | forced phases | `π/φ²`? |
+|---|---|---|
+| A₅ + gCP | `{0,90,180,270}°` (`π/2`·ℤ) | ✗ |
+| Icosian / `2I` / E₈ | `{36,72,108,…}°` (`π/5`·ℤ) | ✗ (off-lattice) |
+| CD tower (`ℤ[i],ℤ[ω]`) | `C₄=90°`, `C₆=60,120°` (`π/2,π/3`·ℤ) | ✗ |
+
+**Every 213 discrete/cyclotomic structure forces a phase that is a *rational*
+multiple of `π` (a root of unity). `π/φ²` is an *irrational* multiple of `π`.**
+So `δ = π/φ²` is provably **not** a discrete-symmetry/cyclotomic phase — it is a
+golden-*arithmetic* posit, not a group-theoretic angle. Routes proven dead:
+A₅-golden, icosian `π/5`, CD `C₄/C₆`, spiral, `π/5`, `2π/5`.
+
+**What this forces (the real fork):** either **(a)** `δ = π/φ²` is the wrong
+posit and the genuine 213 CP phase is a *quantized* value (`90°` = right
+unitarity triangle, from `C₄`/CD `i`); or **(b)** new non-discrete infrastructure.
+
+### ★★★ RESOLUTION (KM-mechanism agent + synthesis, 2026-06-08) — option (a)
+
+The KM-mechanism agent closed it via **Niven's theorem**: a discrete-symmetry CP
+phase has rational cosine, allowed only at `0°,60°,90°` — so it is a **root of
+unity**, and **a golden (`φ`-valued) phase is impossible from any discrete
+structure**. `δ = π/φ²` (cos irrational) is Niven-**forbidden** as a discrete
+phase. The empirical special value is `α ≈ 90°` (UTfit `α = 92.4°±1.4°`; the
+"right unitarity triangle" / maximal-CP program).
+
+**So the apex reframes** (`Mixing/ApexRightTriangle.lean`, 5 PURE): the CP phase
+is the **CD imaginary unit `i`** (the `NT=2` first doubling, `ℤ[i]^× = C₄`,
+`arg i = π/2`) ⟹ **`α = 90°`** (right triangle), and the golden ratio is the
+**modulus** `R_u = 1/φ²` (derived `M`-eigenvalue), NOT the phase. Then the apex
+on the Thales circle gives the clean output
+
+  **`cos γ = R_u = 1/φ²`,  `γ = arccos(1/φ²) = 67.54°`,  `β = 22.46°`,  `α = 90°`.**
+
+| element | predicted | observed |
+|---|---|---|
+| `β` | `22.46°` | `22.5°±0.7°` ✓ ≈exact |
+| `γ` | `67.54°` | `65.1°±1.5°` (~1.6σ) |
+| `α` | `90°` | `92.4°±1.4°` (~1.7σ) |
+| `η̄` | `0.353` | `0.347±0.010` |
+| `ρ̄=R_u²` | `0.146` | `0.161±0.010` (~1.5σ) |
+
+**Two principled inputs** — the quantized phase `α = π/2` (CD `i`, Niven-allowed)
++ the golden modulus `R_u = 1/φ²` (derived) — fix the triangle, with `cos γ=1/φ²`
+a clean golden output and `β` essentially exact. This **replaces** the single
+Niven-forbidden golden-phase posit `δ = π/φ²`. Honest: `α=90°` is still an input
+(motivated by CD `i` / right-triangle, not forced); fit is ~1.5σ (decent, not
+perfect). The advance is **principled-ness** — the phase is a Niven-allowed root
+of unity consistent with *every* no-go (A₅ real, icosian `π/5`, CD `C₄/C₆`,
+Niven), rather than a structurally-impossible golden phase.
+
+**Marathon verdict.** `δ = π/φ²` is demoted (Niven-forbidden golden phase). The
+213-coherent CP structure is **golden modulus + `π/2` phase** (`cos γ = 1/φ²`).
+What *is* derived: CP **existence+uniqueness** (`CPPhaseCount`: `N_gen=3 ⇒ 1`
+phase) and the golden **modulus** (`R_u=1/φ²`). What is an input: the `α=90°`
+phase (principled via CD `i`, but a posit). Full synthesis:
+`research-notes/cp_phase_origin_synthesis.md`.
 
 **Correction (`π` is 213-internal).** An earlier note here called the `π`
 coefficient "the transcendental tail outside 213 / the Nat boundary" — that was

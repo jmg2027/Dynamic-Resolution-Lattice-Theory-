@@ -83,6 +83,27 @@ only phase constant `π=arg(M⁵)`; `δ=π·r` is the minimal linear realization
 coupling is **0-parameter-FORCED**, not arbitrary — consistent with the
 no-free-parameter ethos.
 
+## ★★★ CP-phase-origin MARATHON result (4 agent teams) — δ=π/φ² demoted, reframed
+Full synthesis: `research-notes/cp_phase_origin_synthesis.md`. Four expert agents
+(A₅+gCP, icosian/E₈, Cayley-Dickson, KM-mechanism) + rep-theory computation, all
+converging:
+- **3 no-go results**: A₅+gCP → `{0,90°}`; icosian/2I → `π/5·ℤ` (`π/φ²` off-
+  lattice, irrational·π); CD tower → `C₄/C₆` (`π/2,π/3`). **Niven's theorem**:
+  a discrete CP phase has rational cosine (only `0,60,90°`) ⇒ root of unity ⇒
+  **golden `π/φ²` is structurally forbidden as a discrete phase**. Golden lives
+  in the (real) angle/modulus; the phase is a root of unity.
+- **DERIVED**: CP existence+uniqueness (`CPPhaseCount.lean`, 6 PURE: `N_gen=3 ⇒
+  1` phase via KM counting; `N=2 ⇒ 0`); the golden **modulus** `R_u=1/φ²`.
+- **REFRAMED** (`ApexRightTriangle.lean`, 5 PURE): phase = CD imaginary unit `i`
+  (`C₄`, `α=90°` right triangle, Niven-allowed) + golden modulus `R_u=1/φ²` ⇒
+  **`cos γ = 1/φ²`**, `γ=67.54°`, `β=22.46°` (≈exact vs obs 22.5°), `α=90°`
+  (obs 92.4°). Replaces the demoted Niven-forbidden posit `δ=π/φ²=68.75°`.
+- **Open / new territory**: `α=90°` is still an input (motivated by CD `i`, not
+  forced). To derive it: wire the 3 generations to the `NT=2` CD doubling so the
+  surviving KM phase is `arg i=π/2` — a complex-type (`FS=−1`) generation rep
+  evading the A₅ reality wall. The CD `i` and `N_gen=3` both exist; the wiring is
+  unbuilt.
+
 ## ★ Question-1 result (agent team) — `δ` is NOT an A₅ quantity (rigorous negative)
 Attacked "derive `δ` from A₅ 3-rep mass matrices" with an agent team (A₅+gCP
 literature + explicit 3-rep computation). Decisive **negative**
