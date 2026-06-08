@@ -146,11 +146,15 @@ the `C₄`/`i` = signed Hodge `⋆` = `ℤ[i]` = `ℚ(ζ₅)` identity; the gold
 assumed — `Hodge/SignedStarFull` lifts the signed Hodge `⋆` to the full grade-1
 space `Λ¹(ℝ⁴)` and shows `⋆²=−1` on all of it, so `⟨⋆⟩` is order *exactly* 4 =
 `C₄` (not `C₆`); the Hodge structure on the `d=5` cohomology *is* the `C₄`.
-**Not closed**: (i) the explicit `5̄⊕10` generation Yukawa carrying `J` from first
-principles (the structural wiring + the rust ab-initio `ℤ[i]` check are done; a
-from-scratch generation-Yukawa derivation is not); (ii) the fit is `~1.5σ` on
-`α, γ` (`β` ≈ exact) — irreducible at this level, the advance is *principled-ness*
-(a Niven-allowed, Hodge-forced root-of-unity phase), not precision.  `α = 90°` (right unitarity
+**Principle settled (rigorous)**: a *cohomological* coupling — a morphism of the
+polarized Hodge structure (`J`-invariant + lattice-defined + `J`-Hermitian) —
+forces `δ=90°` (Voisin/HR + Niven; the polarization `(Q,J)` is Lean-PURE,
+`Hodge/HodgeRiemannJ`: `J²=−I`, `Jᵀ Q J=Q`, `Q·J=I≻0`).  A *generic* texture fails
+the three conditions and does **not** (tested: `α≈0°,−38°,60°`).  **Construction
+open**: the explicit *generation-indexed* cup-product Yukawa `Y_d(i,j)=⟨αᵢ,Jαⱼ⟩`;
+the deepest gap is that the 3 generations (`C(3,2)`, simplex-partition) have no
+cohomological index in the `Λ*(ℂ⁵)` cup-ring that carries `J` — unbridged. Plus
+the `~1.5σ` fit (irreducible at this level).  `α = 90°` (right unitarity
 triangle) is **falsifiable** against future UTfit/CKMfitter values.  Active record:
 `research-notes/frontiers/ckm_rho_eta_apex.md`.
 

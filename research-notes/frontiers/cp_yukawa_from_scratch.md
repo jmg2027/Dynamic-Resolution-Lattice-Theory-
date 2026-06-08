@@ -100,3 +100,41 @@ If the Hodge-structure-morphism argument holds, `δ=90°` *is* forced for the
 213-native (cohomological) Yukawa — resolving the open item.  Pending agents:
 (1) repo cup-ring / Hodge-Riemann pairing pieces; (2) the rigorous Hodge-theory
 "does a polarized-Hodge coupling force `δ=π/2`" question.
+
+## ★★★ RESOLUTION of the principle (2026-06-08, two expert agents + Lean)
+
+Two expert agents (repo cup-ring/Hodge pieces; rigorous Hodge-Riemann math)
+settled the *principle*, leaving only the *construction*.
+
+### The rigorous theorem (Hodge-forced maximal CP, conditional)
+**A polarized Hodge structure does NOT force `δ=π/2` for a *generic* coupling —
+but it DOES force it for a *cohomological* one.**  Precisely (Voisin I §7.1-2,
+Griffiths-Harris Ch.0 §7, Niven): if a coupling `β` is **(i) a morphism of Hodge
+structures (J-invariant), (ii) lattice-defined (ℤ-integral), (iii) polarization-
+compatible (J-Hermitian / HR-positive)**, then its CP-violating discrete phase
+lies in `ℤ[J]^× = C₄ = ⟨i⟩`, whose CP-violating units are `±i = ±90°` — **maximal
+CP**.  A **generic texture fails (i)/(iii)** and is unconstrained — *that* is why
+a cohomological coupling forces `90°` and a generic `J`-texture (tested:
+`α≈0°,−38°,60°`) does not.
+
+### Formalized (Lean PURE): the Weil operator IS a polarization
+`Cohomology/Hodge/HodgeRiemannJ.lean` (7 PURE): on `H¹=Λ¹⊕Λ³` the cup form
+`Q=[[0,1],[−1,0]]` (symplectic, `Qᵀ=−Q`) and the signed Hodge star `J=[[0,−1],
+[1,0]]` satisfy `J²=−I`, **`Jᵀ Q J = Q`** (`J∈O(Q)`, the HR identity
+`Q(Ja,Jb)=Q(a,b)`), **`Q·J = I ≻ 0`** (HR2 positivity).  So `(Q,J)` is a genuine
+**polarization** (Kähler/Hermitian pair); the J-Hermitian decomposition `M=A+JB`
+(A sym real, B antisym = the J-anticommuting CP carrier) puts the phase in the
+pure-imaginary part ⟹ `δ=90°` (`= CPMaximalPhase`).  The three forcing hypotheses
+are now the explicit polarization data + lattice (Niven→`C₄`, `CPPhaseC4Forcing`).
+
+### What remains — the CONSTRUCTION (the deepest gap, per agent 1)
+Not the principle but the explicit object: a **generation-indexed** cup-product
+Yukawa `Y_d(i,j)=⟨αᵢ, J αⱼ⟩(top)`.  The deepest obstruction is that **the 3
+generations have no cohomological index**: generations come from `C(NS,NT)=C(3,2)
+=3` (a *simplex-partition* count), while the cup-ring/Hodge `J` lives in
+`Λ*(ℂ⁵)` (the *d=5 simplex*) — two different combinatorial sources, unbridged.
+Building the generation-indexed cohomological Yukawa needs (a) a signed-ℤ cup, (b)
+the `Q(a,Jb)` Hodge-Riemann pairing wiring `J` into the cup (the `Pairing/
+HodgeRiemann.lean` stub is vacuous), and (c) **a cohomological home for the 3
+`C(3,2)` generations**.  The principle ("cohomological ⟹ 90°") is *settled*; the
+construction is the named multi-session frontier.
