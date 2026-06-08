@@ -115,8 +115,13 @@ Mirror the König bridge for the number systems, unifying ℝ/ℚ_p/König under
   `diag_not_in_seq`).  The native `Real213` carrier is the cut `Nat → Nat → Bool` (not a
   single `Nat → Bool` stream), so a one-carrier-with-König unification would need a dyadic
   bit-stream extractor — open polish, not a gap (the escape itself is proved).
-- **ℚ_p general `p` — open**: needs a `Fin p`→bits encoding or a p-ary spine in
-  `CoResidue` (the binary `boolSpine` is the only spine so far).
+- **ℚ_p general `p` — CLOSED natively** (`Padic/NuEscape.zpSeq_not_enumerable`, `p ≥ 2`,
+  +5 PURE): no enumeration `e : ℕ → ZpSeq p` contains the diagonal (`zpDiagonal` differs
+  from every `e k` at digit `k`, `digitFlip_ne`) — Cantor on the residue's p-ary digit
+  tree, honest pointwise form.  *Still open*: the one-carrier unification (a p-ary spine in
+  `CoResidue` putting general `p` on the same νF carrier as König/2-adic — only binary
+  `boolSpine` exists).  Pure-Lean note: use `Nat.noConfusion`, not `Nat.succ_ne_zero`
+  (propext).
 
 So "ℚ_p (p=2) / König infinity are literally the same escape" is now a theorem; the ℝ and
 general-`p` one-carrier unifications are the remaining polish.

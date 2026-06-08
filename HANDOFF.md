@@ -67,11 +67,15 @@ PURE per `tools/scan_axioms.py`.
 
 ## Open Problems (Priority Order)
 
-### 1. General-`p` νF escape
-2-adic is closed via `Fin 2 ≃ Bool`; general `p` needs a `Fin p`→bits encoding or a p-ary
-spine in `Theory/Raw/CoResidue` (the only spine so far is binary `boolSpine`).  A clean
-native alternative: a not-eventually-zero `ZpSeq p` ≠ any `digits_of_nat` (reached by no
-natural-number embedding).  Frontier: `research-notes/frontiers/naming_abstract_concepts.md`.
+### 1. General-`p` νF escape — CLOSED (native Cantor diagonal)
+2-adic is closed via `Fin 2 ≃ Bool` (`twoAdic_is_nu_escape`).  General `p` is now closed
+natively: `Padic/NuEscape.zpSeq_not_enumerable` (`p ≥ 2`) — no enumeration `e : ℕ → ZpSeq p`
+contains the diagonal (`zpDiagonal`), which differs from every `e k` at digit `k`
+(`digitFlip_ne`).  Honest reached-by-none (pointwise digit difference, no `Cardinal`).
+PURE — note `Nat.noConfusion` not `Nat.succ_ne_zero` (the latter pulls `propext` in this
+Mathlib-free core).  Remaining open here: the *one-carrier* unification (a p-ary spine in
+`Theory/Raw/CoResidue` putting general `p` on the same νF carrier as König/2-adic) — only
+the binary `boolSpine` spine exists.  Frontier: `research-notes/frontiers/naming_abstract_concepts.md`.
 
 ### 2. ℝ one-carrier unification with König
 ℝ's reached-by-none is already proved (`Analysis/Cauchy/DepthCeilingResidue.diag_not_in_seq`;

@@ -49,4 +49,44 @@ theorem twoAdic_is_nu_escape (x : ZpSeq 2) (r : Raw) :
     (rawToSlashNu r).val ≠ (twoAdicNu x).val :=
   fun h => boolSpine_escapes (twoAdicBits x) r.val h.symm
 
+/-! ## General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
+
+The 2-adic escape above rides the binary νF carrier (`Fin 2 ≃ Bool`); general `p` has no
+p-ary spine yet.  But the *reached-by-none* fact holds for every `p ≥ 2` natively: no
+enumeration `e : ℕ → ZpSeq p` contains the diagonal sequence, by Cantor's own argument on
+the residue's p-ary digit tree.  This is the honest form (pointwise digit difference, not a
+`Cardinal` theorem) — the p-adic integers are reached by no enumeration. -/
+
+/-- A Nat-level flip to a different small value: `0 ↦ 1`, `_+1 ↦ 0`. -/
+def natFlip : Nat → Nat
+  | 0     => 1
+  | _ + 1 => 0
+
+theorem natFlip_ne (n : Nat) : natFlip n ≠ n :=
+  Nat.casesOn n (fun h => Nat.noConfusion h) (fun _ h => Nat.noConfusion h)
+
+theorem natFlip_le_one : ∀ n, natFlip n ≤ 1
+  | 0     => Nat.le_refl 1
+  | _ + 1 => Nat.zero_le 1
+
+/-- Flip a digit to a provably different digit (needs `p ≥ 2` so two digits exist). -/
+def digitFlip (p : Nat) (hp : 2 ≤ p) (d : Fin p) : Fin p :=
+  ⟨natFlip d.val, Nat.lt_of_le_of_lt (natFlip_le_one d.val) hp⟩
+
+/-- The flip really differs. -/
+theorem digitFlip_ne (p : Nat) (hp : 2 ≤ p) (d : Fin p) : digitFlip p hp d ≠ d :=
+  fun heq => natFlip_ne d.val (congrArg (·.val) heq)
+
+/-- The Cantor diagonal of an enumeration: digit `k` disagrees with the `k`-th entry. -/
+def zpDiagonal (p : Nat) (hp : 2 ≤ p) (e : Nat → ZpSeq p) : ZpSeq p :=
+  ⟨fun k => digitFlip p hp ((e k).digits k)⟩
+
+/-- ★★ **`ZpSeq p` is reached by no enumeration** (`p ≥ 2`).  For any `e : ℕ → ZpSeq p`,
+    the diagonal differs from every `e k` at digit `k` — Cantor on the residue's p-ary
+    digit tree, the general-`p` reached-by-none (honest: pointwise difference, no
+    `Cardinal`). -/
+theorem zpSeq_not_enumerable (p : Nat) (hp : 2 ≤ p) (e : Nat → ZpSeq p) :
+    ∃ x : ZpSeq p, ∀ k, x.digits k ≠ (e k).digits k :=
+  ⟨zpDiagonal p hp e, fun k => digitFlip_ne p hp ((e k).digits k)⟩
+
 end E213.Lib.Math.NumberSystems.Padic
