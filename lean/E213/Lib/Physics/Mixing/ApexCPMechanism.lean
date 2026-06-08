@@ -128,10 +128,11 @@ A tempting wrong picture: the apex is `n` steps of a uniform discrete spiral
 out**: the apex phase-fraction `δ/π = 1/φ²` lies **strictly between** the
 consecutive uniform steps `1/5` and `2/5` (`1/5 < 8/21 ≤ 1/φ² ≤ 5/13 < 2/5`), so
 **no integer step `n` realizes it** — and the fractional `n = 5/φ²` would give
-modulus `(1/φ²)^{5/φ²} ≠ 1/φ²`.  So the coupling is **not** a spiral trajectory;
-it is the §5.7 **frozen=dynamic coincidence**: the frozen contraction `R_u` and
-the dynamic phase-fraction `δ/π` are the *same* number `1/φ²` read two ways
-(the same residue, two Lens readings), not co-advancing along a path. -/
+modulus `(1/φ²)^{5/φ²} ≠ 1/φ²`.  So *if* `δ/π = R_u` (the single-parameter
+posit), it is **not** realized as a spiral trajectory.  Note this *also* shows
+§5.7 does not force the coincidence: the per-step rates differ (frozen `1/φ²`,
+dynamic `1/5`).  What is proven here is the **exclusion** (no uniform step), not
+the coincidence — `δ = π·R_u` stays the posit. -/
 
 /-- ★★★ **Not a uniform spiral step (coupling = §5.7 coincidence).**  The apex
     phase-fraction `1/φ²` is strictly between the uniform-spiral steps `1/5` and

@@ -202,13 +202,17 @@ The coupling `δ = π·R_u` is read three ways, all 213-native, all consistent:
 2. **§5.1 no-exterior.** The apex phase has no independent dialer, so it must be
    `f(R_u, π=arg M⁵)`; `δ = π·R_u` is the minimal linear realization
    (0-parameter-forced).
-3. **§5.7 frozen=dynamic.** `δ/π = R_u` *is* the frozen=dynamic identity at the
-   apex: the FROZEN contraction `R_u` and the DYNAMIC phase-fraction `δ/π` are
-   the **same** 213-native rational at every Fibonacci-convergent depth —
-   **already PURE** (`JarlskogApex.phase_over_pi_eq_modulus`: both share
-   `2/5, 5/13, …`). The apex is the self-reference point where "how far
-   contracted" = "how far turned". Only the transcendental coefficient `π`
-   itself is non-Nat.
+3. **§5.7 frozen=dynamic (suggestive, NOT forcing — honest correction).** It is
+   *tempting* to read `δ/π = R_u` as the frozen=dynamic identity (frozen
+   contraction = dynamic phase-fraction, the same residue two ways). **But this
+   does not force the coincidence**: the *per-step* rates genuinely **differ** —
+   frozen contraction is `1/φ²` per step, dynamic phase is `1/5` per step
+   (`M⁵=−I` over 5 steps), and `1/5 ≠ 1/φ²`. So §5.7 ("both readings hold")
+   does *not* imply the two extracted numbers agree. `JarlskogApex.phase_over_-
+   pi_eq_modulus` is just **Fibonacci arithmetic** (`2/5, 5/13` are what they
+   are); reading them as "both = `δ/π` and `R_u`" *assumes* `δ=π/φ²` (which
+   `CPViolation` **posits** as `176/147`, not derives). So `δ/π = R_u` remains
+   the **single-parameter posit/ansatz**, not a PURE-forced identity.
 
 **The spiral-trajectory reading is RULED OUT (PURE).**
 `ApexCPMechanism.coupling_not_uniform_spiral`: the apex is *not* `n` steps of a
@@ -219,8 +223,16 @@ fractional `n=5/φ²` gives the wrong modulus. So the `π/5`/`2π/5` angle-fishi
 routes are now *proven* dead (not just flagged): the coupling is the **§5.7
 coincidence** (two readings of one residue both `= 1/φ²`), not a trajectory.
 
-So the *rational-level* coupling is a PURE theorem (framing 3); the residual is
-solely the continuum form-minimality (framings 1–2).
+**Honest net (after self-correction).** What is PROVEN: `R_u = 1/φ²` grounded
+(contracting eigenvalue); `M ∈ A₅/2I`; CP-existence `⟺ M⁵=−1`; the spiral-
+trajectory reading RULED OUT; `π` 213-internal; all *ingredients* internal. What
+is **still posited** (not derived): `δ = π/φ²` itself (= the single-parameter
+coincidence `δ/π = R_u`). The §5.7 reading is suggestive but *does not force* it
+(per-step rates differ). So the residual is **not** merely "continuum form-
+minimality" — it is the **posit `δ = π·R_u`** itself, now sharply isolated: a
+genuine single open ansatz, with the wrong pictures (spiral, `π/5`, `2π/5`)
+proven dead and all ingredients internal. Closing it needs a real derivation of
+the dynamic phase `δ` (not assuming `δ/π = R_u`).
 
 **Correction (`π` is 213-internal).** An earlier note here called the `π`
 coefficient "the transcendental tail outside 213 / the Nat boundary" — that was
