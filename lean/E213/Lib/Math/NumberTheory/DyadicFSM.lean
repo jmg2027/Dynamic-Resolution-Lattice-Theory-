@@ -14,6 +14,7 @@ import E213.Lib.Math.NumberTheory.DyadicFSM.Signature.Conjecture
 import E213.Lib.Math.NumberTheory.DyadicFSM.Product.CrossClassLens
 import E213.Lib.Math.NumberTheory.DyadicFSM.Fib
 import E213.Lib.Math.NumberTheory.DyadicFSM.FibApparitionMod5
+import E213.Lib.Math.NumberTheory.DyadicFSM.RankApparition
 import E213.Lib.Math.NumberTheory.DyadicFSM.KBonacci
 import E213.Lib.Math.NumberTheory.DyadicFSM.Forward.ForwardClosure
 import E213.Lib.Math.NumberTheory.DyadicFSM.Forward.ForwardEventual
