@@ -116,20 +116,25 @@ lifting-the-exponent — see below.
 
 The whole law reduces to one lemma: `ν₅(F_{5m}) = ν₅(F_m) + 1`
 (`∀m≥1`), then strong induction on `ν₅(n)`.  The lemma comes from the
-**quintupling identity** (derivable from the index-multiplication
-recurrence `F_{(k+1)m} = L_m·F_{km} − (−1)ᵐ·F_{(k−1)m}` iterated to
-`k = 4`, then `L_m² = 5F_m² + 4(−1)ᵐ`):
+**quintupling identity**.  The integer-Fibonacci algebra is now built
+∅-axiom over `fibZ` (`lean/E213/Lib/Math/NumberTheory/FibZIdentities.lean`,
+11 PURE):
 
-  `F_{5m} = F_m · (25 F_m⁴ + 25(−1)ᵐ F_m² + 5)`.
+- `fibZ_add` — addition formula `F_{m+n+1} = F_{m+1}F_{n+1} + F_m F_n`.
+- `fibZ_shift` — composition law `F_{j+m} = F_{j+1}F_m + F_j(F_{m+1}−F_m)`.
+- `lucasZ`, `lucasZ_sq` — `L_m = 2F_{m+1}−F_m`, `L_m² = 5F_m² + 4(−1)ᵐ`.
+- `fibZ_index_rec` — `F_{b+2m} = L_m F_{b+m} − (−1)ᵐ F_b` (the engine;
+  pure once `(−1)ᵐ` is the Cassini value `fibZ_cassini_eps`).
+- **`fibZ_quintuple`** — `F_{5m} = F_m·(25F_m⁴ + 25(−1)ᵐF_m² + 5)`. ✓ CLOSED.
 
-The bracket `B_m = 5·(5F_m⁴ + 5(−1)ᵐ F_m² + 1)` has inner factor `≡ 1
-mod 5`, so `ν₅(B_m) = 1` exactly; with Euclid's lemma for the prime `5`
-(`PolyRoot/IntEuclid.int_euclid`, `FourSquareSeed.nat_prime_dvd_mul`)
-this gives `ν₅(F_m·B_m) = ν₅(F_m) + 1`.  Foundational stepping stones to
-build over `fibZ` (`Analysis/Cauchy/OrbitDimension`): the Fibonacci
-addition formula `F_{m+n+1} = F_{m+1}F_{n+1} + F_m F_n`, then doubling /
-index-multiplication, then the bracket-mod-5 fact.  Open: this integer
-identity marathon (the FSM rungs `ν₅ ≥ 1, 2` are closed above).
+What remains for the all-orders law (valuation bookkeeping, not new
+algebra): the bracket `B_m = 5·(5F_m⁴ + 5(−1)ᵐF_m² + 1)` has inner factor
+`≡ 1 mod 5`, so `ν₅(B_m) = 1`; with Euclid's lemma for the prime `5`
+(`PolyRoot/IntEuclid.int_euclid`, `FourSquareSeed.nat_prime_dvd_mul`) the
+quintupling gives `ν₅(F_{5m}) = ν₅(F_m) + 1`, and strong induction on
+`ν₅(n)` closes `ν₅(F_n) = ν₅(n)` (equivalently `∀n k, 5ᵏ ∣ F_n ⟺ 5ᵏ ∣
+n`).  Open: this `5ᵏ`-divisibility induction (the FSM rungs `ν₅ ≥ 1, 2`
+and the full quintupling identity are closed above).
 
 ## Status
 - H1: settled (removed).  H2, H3: no internal handle — recorded plainly.
