@@ -239,6 +239,22 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Fibonacci 5-adic valuation `ν₅(F_n) = ν₅(n)` — FULLY CLOSED, strict ∅-axiom (2026-06-08)
+
+`E213.Lib.Math.NumberTheory.FibZValuation` (PURE), `.FibZIdentities`
+(13/13 PURE), `.DyadicFSM.FibApparitionMod5` (20/20 PURE) — all 0 DIRTY
+(`tools/scan_axioms.py`).  The full 5-adic arithmetic of Fibonacci at the
+ramified golden prime `5`:
+
+  · `five_dvd_fib_iff` — rank of apparition `α(5) = 5` (`5 ∣ F_n ⟺ 5 ∣ n`).
+  · `lucasMod5_never_zero` — Lucas never `0 mod 5` (regular Binet branch).
+  · `twentyfive_dvd_fib_iff` — `25 ∣ F_n ⟺ 25 ∣ n` (the `ν₅ ≥ 2` rung).
+  · `fibZ_quintuple` — `F_{5m} = F_m·(25F_m⁴ + 25(−1)ᵐF_m² + 5)`.
+  · **`fibN_val_law`** — `∀ n k, 5ᵏ ∣ F_n ⟺ 5ᵏ ∣ n`, i.e. `ν₅(F_n) =
+    ν₅(n)` (lifting-the-exponent, all orders, via Euclid for prime 5).
+
+Chapter: `theory/math/numbertheory/fibonacci_5adic_valuation.md`.
+
 ### Sperner's theorem compiled to COUNT's double-counting face (2026-06-05)
 
 `E213.Lib.Math.Combinatorics.Sperner` — **39/39 PURE / 0 DIRTY** (`tools/scan_axioms.py`).

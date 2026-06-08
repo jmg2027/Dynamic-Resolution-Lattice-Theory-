@@ -272,7 +272,9 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   library (`theory/math/numbersystems/padic_real213.md`).  Directions A
   (explicit Teichmüller ω), B (μ_{p−1} root-of-unity + unit decomposition),
   G (general division) now **closed** in `lean`.  The remaining direction H
-  is tracked in its own note `G124_padic_drlt_5adic`.
+  (DRLT 5-adic content) is **CLOSED** — chapter
+  `theory/math/numbertheory/fibonacci_5adic_valuation.md`
+  (`archive/fibonacci_5adic/`).
 - **p-adic closure harvest** — Teichmüller `ω(x)` + uniqueness + `μ_{p−1}×(1+pℤ_p)` decomposition
   + general division CLOSED ∅-axiom; chapter `theory/math/numbersystems/padic_real213.md` + essay
   `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seeds:* the concrete
@@ -283,13 +285,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `zp_setoid_commRing_capstone`); the shared **`Zp.diagLimit`** abstraction
   (`Foundation.diagLimit` + `diagLimit_trunc_succ` — the single diagonal-limit proof now
   factored out of `invFull`/`sqrtFull`/`teichmuller`, all three rewired to it).
-- `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
-  (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
-  (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic
-  L-values) have **no internal handle** — recorded plainly per §5.4, no
-  forcible map onto physics.  Pure-math spinoff `i₅ ∈ μ₄` (the 5-adic
-  imaginary unit is a 4-th root of unity) CLOSED ∅-axiom and folded into the
-  Teichmüller chapter + essay.
+- `fibonacci_5adic_valuation` (**CLOSED** → chapter
+  `theory/math/numbertheory/fibonacci_5adic_valuation.md`,
+  `archive/fibonacci_5adic/`) — H: DRLT-specific 5-adic content.  H1 (5²⁵
+  obstruction) settled-as-removed; H2/H3 (physics meaning / L-values) have
+  no internal handle (recorded plainly per §5.4).  The admissible
+  arithmetic-first move opened a full math arc at the ramified golden prime
+  `5`: rank of apparition `α(5)=5` + Lucas-never-zero, the `ν₅≥1,2` FSM
+  rungs, the quintupling identity `F_{5m}=F_m(25F_m⁴+25(−1)ᵐF_m²+5)`, and
+  the all-orders law `ν₅(F_n)=ν₅(n)` (`fibN_val_law`).  Pure-math spinoff
+  `i₅ ∈ μ₄` folded into the Teichmüller chapter + essay.
 - `sums_of_squares_engines` — synthesis seed after four-square closure: the
   two representation engines (multiplicative root-bound vs. additive
   pigeonhole), and the next number-theory seeds (disc-`−8` congruence iff via
