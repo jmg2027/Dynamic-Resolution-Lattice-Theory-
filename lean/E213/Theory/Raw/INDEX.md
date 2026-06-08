@@ -33,7 +33,10 @@ leaves, fold, swap).  Public surface exposed via `API.lean`.
                         (`ascent_unbounded`, `ascent_adds_unit`, `tower_no_cycle`)
   - `CoResidue.lean`  — νF = `SlashNu`: the exact slash final coalgebra,
                         the populated escape (spine family, bit-streams,
-                        `coSwap`, shift dynamics); narr.
+                        `coSwap`, shift dynamics); §20 the label-generic spine
+                        `gspine : (Nat→L) → GCoShape L` — one νF carrier for
+                        every alphabet (`boolSpine` = `L=Bool`; p-ary = `L=Fin p`;
+                        rides ℤ_p `Padic/NuEscape`, ℝ `Real213/NuEscape`); narr.
                         `theory/essays/foundations/the_residue_as_primitive.md`
   - `StateMachine.lean` — the FSM/RTL reading (state = transition; reachable
                         vs trace; `the_residue_as_state_machine.md`)

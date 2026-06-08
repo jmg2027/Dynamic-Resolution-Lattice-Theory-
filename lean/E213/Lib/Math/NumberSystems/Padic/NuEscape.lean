@@ -15,10 +15,13 @@ the 2-adic integer, as a νF inhabitant (`SlashNu`), is **reached by no finite R
 `ℤ₂` sits inside the residue's escapes — a 2-adic integer is literally a branch of König's
 binary tree, never a finite Raw, never a frozen value.
 
-Scope (honest, per `seed/AXIOM/05_no_exterior.md` §5.4): general `p` needs a `Fin p`→bits
-encoding (or a p-ary spine in `CoResidue`) — open.  ℝ's dyadic escape is already on record
-(`theory/essays/foundations/reached_by_none.md`; `Analysis/Cauchy/DepthCeilingResidue`).
-This file closes the 2-adic instance and pins the shared shape with König.
+For **general `p`** the same νF carrier now applies: `CoResidue.gspine` is the label-generic
+spine (§20), so a `ZpSeq p` digit stream `Nat → Fin p` rides the **p-ary** spine
+`gspine x.digits : GCoShape (Fin p)` — the same binary König branch structure, leaf-labelled by
+`Fin p`.  `padic_is_nu_escape` gives: the p-adic integer, as a generic-νF inhabitant, is
+reached by no finite Raw, for every `p ≥ 2`.  So **`ℤ_p` for every `p` sits on one carrier** —
+the 2-adic case (`twoAdic_is_nu_escape`) is the `Fin 2 ≃ Bool` instance.  ℝ rides the same
+carrier via `Real213/NuEscape.lean`.
 -/
 
 namespace E213.Lib.Math.NumberSystems.Padic
@@ -48,11 +51,41 @@ theorem twoAdic_is_nu_escape (x : ZpSeq 2) (r : Raw) :
     (rawToSlashNu r).val ≠ (twoAdicNu x).val :=
   fun h => boolSpine_escapes (twoAdicBits x) r.val h.symm
 
-/-! ## General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
+/-! ## General `p` — the p-ary spine: `ℤ_p` rides the one νF carrier
 
-The 2-adic escape above rides the binary νF carrier (`Fin 2 ≃ Bool`); general `p` has no
-p-ary spine yet.  But the *reached-by-none* fact holds for every `p ≥ 2` natively: no
-enumeration `e : ℕ → ZpSeq p` contains the diagonal sequence, by Cantor's own argument on
+The 2-adic escape above rides the binary νF carrier (`Fin 2 ≃ Bool`).  For **general `p`** the
+label-generic spine `CoResidue.gspine` (§20) carries it directly: a `ZpSeq p` digit stream
+`Nat → Fin p` is `gspine x.digits : GCoShape (Fin p)` — the same binary König branch structure,
+leaf-labelled by `Fin p`.  It is a generic-νF inhabitant (consistent + anti-reflexive) and is
+reached by no finite Raw (`gspine_escapes`), for every `p ≥ 2`. -/
+
+/-- The two distinct atom labels in `Fin p` (the `gToShape` embedding's `a`/`b`), for `p ≥ 2`. -/
+def finA (p : Nat) (hp : 2 ≤ p) : Fin p := ⟨0, Nat.le_of_succ_le hp⟩
+def finB (p : Nat) (hp : 2 ≤ p) : Fin p := ⟨1, hp⟩
+
+/-- ★ **A p-adic integer IS a residue escape, for every `p ≥ 2`.**  Its digit stream packages
+    as a generic-νF inhabitant (`GSlashNu (Fin p)`) on the p-ary spine — the same carrier as a
+    König binary-tree branch, leaf-labelled by `Fin p`. -/
+def padicNu {p : Nat} (x : ZpSeq p) : GSlashNu (Fin p) := gspineSlashNu x.digits
+
+/-- The p-adic integer is a genuine generic-νF co-tree: consistent and anti-reflexive. -/
+theorem padic_is_nu {p : Nat} (x : ZpSeq p) :
+    GConsistent (padicNu x).val ∧ GAntiRefl (padicNu x).val :=
+  (padicNu x).property
+
+/-- ★★★ **A p-adic integer is reached by no finite Raw** (`p ≥ 2`).  Its p-ary spine escape
+    differs (as a labelled co-tree) from every finite Raw's `gToShape` embedding, by
+    `gspine_escapes`.  So `ℤ_p` ⊂ the νF escapes for every `p` — a p-adic integer is a branch
+    of the residue's p-ary tree, never a finite Raw — generalising `twoAdic_is_nu_escape` to the
+    one νF carrier (binary König spine, `Fin p` leaves). -/
+theorem padic_is_nu_escape {p : Nat} (hp : 2 ≤ p) (x : ZpSeq p) (r : Raw) :
+    gToShape (finA p hp) (finB p hp) r.val ≠ (padicNu x).val :=
+  fun h => gspine_escapes (finA p hp) (finB p hp) x.digits r.val h.symm
+
+/-! ### General `p` — the native Cantor diagonal (`ZpSeq p` is not enumerable)
+
+Beyond the reached-by-none escape, the *not-enumerable* fact holds for every `p ≥ 2` natively:
+no enumeration `e : ℕ → ZpSeq p` contains the diagonal sequence, by Cantor's own argument on
 the residue's p-ary digit tree.  This is the honest form (pointwise digit difference, not a
 `Cardinal` theorem) — the p-adic integers are reached by no enumeration. -/
 

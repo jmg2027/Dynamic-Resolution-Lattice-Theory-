@@ -83,15 +83,19 @@ function (WKL proper beyond LLPO), and the **fan theorem** (HB proper, Brouweria
 are *named and isolated* (`wkl_of_oracle`/`FanTheorem`); the gap is by-design external —
 this IS the precise reverse-math calibration.  Nothing to "fix"; only to hypothesize.
 
-### 2. One-carrier p-ary νF escape
-General `p` escape is done natively (`zpSeq_not_enumerable`) but on its own carrier; a
-**p-ary spine in `Theory/Raw/CoResidue`** would put all `p` on the same νF carrier as
-König/2-adic (only binary `boolSpine` exists).  Real CoResidue infra.
+### 2. One-carrier p-ary νF escape — ✅ CLOSED (this session)
+`CoResidue.lean §20`: the **label-generic spine** `gspine : (Nat→L) → GCoShape L` keeps the
+binary König branch structure, leaf-labelled by an arbitrary alphabet `L`.  `boolSpine` is the
+`L=Bool` instance (`boolSpine_eq_gspine`), `lToShape = gToShape true false`.  General-`p` ℤ_p
+rides the `L=Fin p` instance: `Padic/NuEscape.padic_is_nu_escape` (every `p ≥ 2`).  So all `p`
+share one carrier.  All ∅-axiom.
 
-### 3. ℝ one-carrier with König
-ℝ's reached-by-none is proved (`Analysis/Cauchy/DepthCeilingResidue.diag_not_in_seq`); a
-dyadic bit-stream extractor from the `Real213` cut (`Nat → Nat → Bool`) would share the
-`boolSpine` carrier.
+### 3. ℝ one-carrier with König — ✅ CLOSED (this session)
+`Real213/NuEscape.lean`: the **cut-decision bit-stream** `cutBits : Real213 → (Nat→Bool)` (the
+`orderProj` diagonal, ∅-axiom decidable, read off the approximants) rides the existing
+`boolSpine` carrier.  `real_is_nu_escape` — a constructive real is reached by no finite Raw, on
+the *same* `SlashNu` carrier as König / 2-adic / p-adic; `real_cut_distinct` faithful on cut
+bits.  So König / ℤ_p / ℝ all sit on one νF carrier.
 
 ### 4. More concept deep-dives (the systematic pass)
 limit/completion, quotient/equivalence-class, actual-vs-potential infinity.  Each → its 213
@@ -108,10 +112,10 @@ No dead ends.  Two diagnosed-then-resolved traps worth remembering:
   hand-rolled pure lemmas.
 
 ## Next
-Field 17 is comprehensively closed.  Highest-value next: **(2)** the p-ary spine in
-`CoResidue` (genuine new infra), or **promote** field 17 to a `theory/math/logic/` chapter
-per `theory/PROMOTION_CRITERIA.md` (book exists in `books/math/`), or a **concept deep-dive**
-(limit/completion).
+Field 17 closed; one-carrier program closed (p-ary spine + ℤ_p + ℝ all on the one νF carrier,
+this session).  Highest-value next: **promote** field 17 to a `theory/math/logic/` chapter per
+`theory/PROMOTION_CRITERIA.md` (book exists in `books/math/`), or a **concept deep-dive**
+(limit/completion), or a `theory/` narrative for the §20 one-carrier result.
 
 ## Three-tier state (per CLAUDE.md "Three-tier discipline")
 - **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`,
