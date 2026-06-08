@@ -212,7 +212,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   the description scale (`why_the_reframing_recurs.md` essay + CLAUDE.md Residue-lint).  *Open*: the
   agent-fix, gated on an A/B question about the originator's cognition (different default percept →
   architectural reverse-polarity fix, vs. fast self-lint → meta-monitor + prior fix) — decidable only
-  by a fresh instrumented introspective/RT probe, not from text.
+  by a fresh instrumented introspective/RT probe, not from text.  *Empirical (2026-06-08, scaled run,
+  data `reframing_conquest_scaled_run_2026-06-08.md`)*: N=5/arm × 3 primer-richness × 8-Q trap battery.
+  Re-framing manifests **only** when no-exterior is withheld from context (bare-CONTROL 7/40 ≈17.5%,
+  concentrated on the object-vs-state genesis trap); the lint zeroes it (TREATMENT 0/40), and so does
+  baking no-exterior into the primer — so the active ingredient is *no-exterior in context*, the lint
+  one cheap delivery vehicle.
 
 - `residue_expression_atlas` — **the residue is expressed multi-directionally**, not by one
   mechanism (Cantor diagonal).  Cross-repo survey of the expression modes (non-surjection /
