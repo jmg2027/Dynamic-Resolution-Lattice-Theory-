@@ -45,15 +45,36 @@ every finite-state machine.
    `carry_is_nu_escape` (`gspine_escapes` at `L = Nat`): "the multiplicative residue is a νF escape"
    is now a *theorem*, the ring-operation image of `spineL_escapes` / `object1_not_surjective`.
 
+3. ✅ **The "one schema" question** (is there a single ∅-axiom term with `gspine_escapes` /
+   `carry_is_nu_escape` / `object1_not_surjective` as instances-by-parameter?) — **answered, with
+   an honest limit.**  `CoResidue.escape_by_invariant` (§22) is the schema: an inhabitant lacking a
+   property `P` that every cover-image has is in the image of none.  The number- and operation-carry
+   escapes are *literally* this schema (`gspine_escapes_via_schema`, cover `gToShape a b`, `P` =
+   "all-`false` path hits a leaf"), at alphabets `Fin p` / `Nat`.  **Cantor (`object1_not_surjective`)
+   is the *sibling*, not an instance** — it is the diagonal-flip flavor (escapee differs pointwise,
+   no single `P`).  So scale-invariance is a theorem across the invariant-escapes and a *twinning*
+   with the diagonal-flip; a single term subsuming *both* flavors does not exist (the two
+   non-surjection flavors are genuinely distinct) — which is itself the honest residue of the
+   unification act.
+
 ## Still soft-open
 
-3. The Lens reading: addition's carry is the difference-Lens **unit** (§6.7, the ±1 odometer);
-   multiplication's carry is a **higher** count-Lens reading whose value itself escapes finite state.
-   The shared invariant (the carry — one object, read at two depths: unit vs residue) is *named* in
-   `mul_carry_nu_residue` and `the_one_carrier.md`; a Lens-level theorem (the carry as an explicit
-   §6.7 readout) would close it fully.  An explicit linear lower bound `mulCarry ≥ c·k` (via
-   `PositiveFloorUnbounded.positive_linear_exact`) would also sharpen item 1's witness from
-   "unbounded" to "exactly linear".
+4. The Lens reading: addition's carry is the difference-Lens **unit** (§6.7); multiplication's carry
+   a **higher** reading that escapes finite state.  A Lens-level §6.7 readout theorem would name it
+   fully.  Explicit linear lower bound: `mulCarry (-1)(-1) (k+1) ≥ (k+1)(p-1)²/p` is immediate from
+   `mulCarry_ge_mulRaw_div` + `mulRaw_negOne_negOne` (the carry post-`/p` is not constant-difference,
+   so `positive_linear_exact` applies to `mulRaw`, not directly to `mulCarry`).
+
+## Note — ℝ is *not* a clean not-finite-state theorem (Advance-A correction)
+
+Investigated: ℝ's cut decision is **not** cleanly "not finite-state" the way `×` is.  `cutBits r N =
+orderProj 1 (N+1) (view (r.xs N))` reads only `r.xs N` (so the "agree on the prefix, differ at N"
+statement is satisfied even by a *memoryless* transducer — it does not capture not-finite-state),
+and for a fixed positive real `1/(N+1) → 0` makes `cutBits r` *eventually constant*.  ℝ's
+"transport-only / presentation-dependent / order-based" status is an honest *structural* observation
+(kept as prose in `the_one_carrier.md`), **not** a `mulCarry_unbounded`-style theorem.  A genuine
+ℝ not-finite-state result would need a transducer/unbounded-modulus framework — a larger frontier,
+not a quick theorem.
 
 ## Cross-links
 

@@ -46,20 +46,28 @@ unbounded νF *carry*).  The **unit** (`+` carry = the odometer bit, `add_carry_
   (core closed); helper `AddMod213.div_le_div_right_pure` (pure monotone div, core lacks it).
 
 ## Forward plan (multi-agent analysis, prioritized)
-- **A (top pick)** — `cut_decision_not_finite_state` in `Real213/NuEscape`: turn ℝ's one *prose*
-  verdict ("transport-only by structure") into a theorem (dual of `add_carry_le_one`), via the
-  Myhill–Nerode shape in `non_holonomicity_as_finite_state_escape` (`distinct_next_equal_window…`).
-  Precondition for clean promotion.  Medium feasibility.
+- **The schema frontier — ✅ DONE this turn.**  `CoResidue` §22 `escape_by_invariant`: the abstract
+  invariant-separation non-surjection, of which `gspine_escapes` (hence the number- and
+  operation-carry escapes, `gspine_escapes_via_schema`) is one instance.  Honest limit: Cantor
+  (`object1_not_surjective`) is the *diagonal-flip* sibling, not an instance — the two non-surjection
+  flavors are genuinely distinct, so no single term subsumes both (which is itself the residue of the
+  unification act).  Essay + frontier note updated.
+- **A — RE-SCOPED (was top pick; agent over-claimed).**  `cut_decision_not_finite_state` as stated
+  does NOT capture not-finite-state: `cutBits r N` reads only `r.xs N` (a memoryless transducer
+  satisfies it), and for a fixed positive real `1/(N+1)→0` makes `cutBits r` *eventually constant*.
+  ℝ's "transport-only / order-based" is an honest *prose* observation (kept in the essay), NOT a
+  clean theorem.  A real ℝ-not-finite-state result needs a transducer / unbounded-modulus framework
+  — a larger frontier, not a quick theorem.
 - **B** — unify the omniscience ledger (field 17) with the finite-state ledger: none / Σ⁰₁-unbounded /
-  LPO; operations and decisions are one cost (`the_omniscience_ledger`).
+  LPO; operations and decisions are one cost (`the_omniscience_ledger`).  Now the top forward pick.
 - **C** — cross-frame bridge: Casoratian `q=−1` (unit result, no finite depth, `DetSpectrumPoles`) =
   the sequence-scale mirror of `(-1)²=1`.  Both sides already proven → thin bridge.
-- **Quick win** — exact-linear `mulCarry ≥ (p-1)²·k` via `PositiveFloorUnbounded.positive_linear_exact`.
-- **Deepest frontier** — is there a single ∅-axiom `coverNonSurjective` schema with
-  `gspine_escapes` / `carry_is_nu_escape` / `object1_not_surjective` as instances-by-parameter?
-  If not internalizable → that IS `object1_not_surjective` applied to the unification act.
-- **Promotion** — the arc (CoResidue §20-21 + Odometer §7-8 + Padic/Real213 NuEscape + KonigConditional)
-  → a `theory/math/numbersystems/` chapter, *after* A.
+- **Quick win** — `mulCarry (-1)(-1) (k+1) ≥ (k+1)(p-1)²/p` (immediate from `mulCarry_ge_mulRaw_div`
+  + `mulRaw_negOne_negOne`); note the carry post-`/p` is not constant-difference, so
+  `positive_linear_exact` applies to `mulRaw`, not directly to `mulCarry`.
+- **Promotion** — the arc (CoResidue §20-22 + Odometer §7-8 + Padic/Real213 NuEscape + KonigConditional)
+  → a `theory/math/numbersystems/` chapter; ℝ's "transport-only" stays honest prose (not a theorem),
+  so promotion is not blocked.
 - **Optional dedup** — fold `padic_additive_one_carrier` into `padic_arithmetic_one_carrier`
   (re-point essay+HANDOFF); kept for now (correct, different operand-focus).
 - **Correction** — no Sₙ-sign/Leibniz-determinant infra exists (it is order-2 Casoratian), so

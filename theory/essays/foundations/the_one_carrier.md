@@ -184,10 +184,16 @@ reached by no finite stage, converged to by every one:
 | an **operation**'s carry | the same map at `L = Nat` | `gspine (mulCarry)` (`carry_is_nu_escape`) |
 | a **description** | `Object1 : Raw → (Raw → Bool)` (self-cover by views) | the undifferentiated reading (`object1_not_surjective`) |
 
-These are *one* non-surjection — Cantor's diagonal, Lawvere's fixed point — instantiated against
-three covers; the first two are literally one lemma (`gspine_one_carrier`), the third the same
-diagonal one universe up (the description-scale instance owned by `why_the_reframing_recurs.md`, and
-at the automaton scale by `non_holonomicity_as_finite_state_escape.md`).
+The first two are literally one schema — `escape_by_invariant` (CoResidue §22): an inhabitant
+lacking a property `P` that every image of the cover has is in the image of none.  The number- and
+operation-escapes are this schema at covers `gToShape a b` (alphabets `L = Fin p`, `L = Nat`), with
+`P` = "the all-`false` path hits a leaf" (`gspine_escapes_via_schema`).  The description scale is
+its **sibling, not its instance**: Cantor's diagonal (`object1_not_surjective`) is the
+*diagonal-flip* flavor — the escapee differs from each image *pointwise*, with no single separating
+`P` — owned at the description scale by `why_the_reframing_recurs.md` and at the automaton scale by
+`non_holonomicity_as_finite_state_escape.md`.  So scale-invariance is a *theorem* across the
+invariant-escapes (one `escape_by_invariant`), and a *twinning* with the diagonal-flip Cantor
+escape — not a single term subsuming both (the honest limit; see the frontier note).
 
 So **"holonomic / finite-state" is the predicate "in the image of the finite-stage cover" — a
 property of the cover (the pointing), never of the inhabitant (the pointed-at).**  The decisive

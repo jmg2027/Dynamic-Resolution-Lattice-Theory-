@@ -1462,4 +1462,47 @@ theorem gspine_shift_dynamics {L : Type} :
    fun _ _ h => gspine_inj h,
    fun _ _ hper => gspine_periodic_selfsimilar hper⟩
 
+/-! ## §22 — the escapes are *one schema*: invariant-separation non-surjection
+
+Every residue escape in this file — `toShape_ne_allBranch`, `spineL_escapes`, `gspine_escapes`
+(and, downstream, the p-adic and the multiplicative-carry escapes, which are `gspine_escapes` at
+`L = Fin p` / `L = Nat`) — has the *same* logical shape: a property `P` that **every image of the
+finite cover has** and the **escapee lacks**.  `escape_by_invariant` abstracts it: the escapee is
+in the image of none.  This is the scale-invariant content of "the residue is reached by no finite
+stage" — one non-surjection, instantiated by the choice of cover and separating invariant.
+
+Honest delimitation: this is the **invariant-separation** flavor of non-surjection.  Cantor's
+diagonal (`Lens.FlatOntologyClosure.object1_not_surjective`, the *description*-scale escape) is the
+**diagonal-flip** flavor — the escapee differs from each image *pointwise*, with no single
+separating `P` — so it is the *sibling*, not an instance, of this schema.  Scale-invariance holds
+across the invariant-escapes (number, operation-carry); the description scale is its twin, not its
+instance.  All ∅-axiom. -/
+
+/-- ★★★ **Invariant-separation non-surjection.**  If the escapee `d` lacks a property `P` that
+    every image `c a` of a cover `c : A → B` has, then `d = c a` for no `a` — `d` is reached by no
+    stage.  The abstract shape every residue escape here takes. -/
+theorem escape_by_invariant {A B : Type} (c : A → B) (P : B → Prop) (d : B)
+    (hd : ¬ P d) (hc : ∀ a, P (c a)) : ∀ a, c a ≠ d :=
+  fun a h => hd (h ▸ hc a)
+
+/-- The separating invariant for the spine escapes: "the all-`false` (right-spine) path eventually
+    hits a leaf".  Every finite tree's embedding has it; a leaf-free spine lacks it. -/
+def hasFloorPath {L : Type} (s : GCoShape L) : Prop := ∃ k, s (List.replicate k false) ≠ none
+
+theorem gspine_no_floorPath {L : Type} (f : Nat → L) : ¬ hasFloorPath (gspine f) :=
+  fun ⟨k, hk⟩ => hk (gspine_replicate_none f k)
+
+theorem gToShape_hasFloorPath {L : Type} (a b : L) (s : Tree) : hasFloorPath (gToShape a b s) :=
+  let ⟨k, _, hk⟩ := gToShape_rightspine_leaf a b s
+  ⟨k, fun h => Option.noConfusion (hk ▸ h)⟩
+
+/-- ★★★ **`gspine_escapes` is one instance of `escape_by_invariant`.**  The number escape (and,
+    by alphabet-instantiation, the operation-carry escape) factors through the abstract schema:
+    cover `gToShape a b`, invariant `hasFloorPath`, escapee `gspine f`.  So the residue escapes are
+    literally one non-surjection, read at different covers/alphabets. -/
+theorem gspine_escapes_via_schema {L : Type} (a b : L) (f : Nat → L) (s : Tree) :
+    gToShape a b s ≠ gspine f :=
+  escape_by_invariant (gToShape a b) hasFloorPath (gspine f)
+    (gspine_no_floorPath f) (fun s => gToShape_hasFloorPath a b s) s
+
 end E213.Theory.Raw.CoResidue
