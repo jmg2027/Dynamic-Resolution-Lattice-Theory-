@@ -79,18 +79,24 @@ The committed-to multi-session build of `(ℤ/p)*` cyclic ⟹ Zolotarev nontrivi
   `nmax`; `maxOrd_ge`, ★★ `maxOrd_achieved` (`= ordModP g p`, some unit `g`), `one_le_maxOrd`,
   `maxOrd_le_pred` (`1 ≤ maxOrd ≤ p−1`).  The exponent-argument scaffolding.
 
+- **brick 4b-i** `Meta/Nat/Valuation.lean` (15) — the `q`-adic valuation `vp q n` (largest `k`
+  with `qᵏ∣n`): `pow_vp_dvd`, `vp_ge`, `vp_not_dvd_succ` (exactness), `le_vp_iff`.  (Core `Nat`
+  dvd/mod API is propext-tainted — decides on `n%qᵏ=0` + pure dvd helpers throughout.)
+
 **Bricks remaining:**
-- **brick 4b — "every order ∣ maxOrd"** (THE CRUX).  Given an order `α` and `d = maxOrd`
-  (achieved by `g`), if `α ∤ d` build an element of order `> d`, contradicting `maxOrd_ge`.
-  Sharpened **factorization-free** route (avoids full FTA): `α ∤ d ⟹ α/gcd(α,d) > 1 ⟹
-  ∃ prime q ∣ (α/gcd(α,d)) ⟹ v_q(α) > v_q(d)` (since `v_q(gcd) = min = v_q(d) < v_q(α)`).  Then
-  with `e = v_q(α)`, `f = v_q(d)` (`f < e`): `a^(α/qᵉ)` has order `qᵉ` (brick 2 `ord_pow`,
-  `gcd(α,α/qᵉ)=α/qᵉ`), `g^(qᶠ)` has order `d/qᶠ` (coprime to `q`), product order
-  `qᵉ·(d/qᶠ) = q^{e−f}·d > d` (brick 3 `ord_mul_coprime`).  **Missing infra**: `p`-adic
-  valuation `v_p` (search def + `pᵏ∣n ⟺ k ≤ v_p n`) and the `q`-part `q^{v_q(·)}` extraction
-  — a distinct ~200-line foundation (`Meta/Nat` or `NumberTheory`), the genuine heart.  Prime
-  factor of `n>1` exists (standard).  A dedicated next session.
-- **brick 5** RootBound gluing (`X^{maxOrd}−1` has `p−1` roots ⟹ `p−1 ≤ maxOrd` ⟹ `= p−1`).
+- **brick 4b-ii — `q`-part properties** (~120 lines): `qpart q n := q^(vp q n)`; `qpart ∣ n`
+  (`pow_vp_dvd`); `q ∤ (n/qpart)` (else `q^(vp+1)∣n`, contra `vp_not_dvd_succ`); and
+  `gcd(q^e, B) = 1` when `q ∤ B`, `q` prime (`B`'s divisors of `q^e` are `q`-powers via
+  `dvd_prime_pow_cases` + `q∤B` ⟹ `gcd = 1`).
+- **brick 4b-iii — prime + valuation comparison** (~80 lines): `α ∤ d ⟹ α/gcd(α,d) > 1 ⟹
+  ∃ prime q ∣ (α/gcd) ⟹ v_q(α) > v_q(d)` (since `v_q(gcd)=min=v_q(d)<v_q(α)`; or directly
+  `q ∣ α/gcd` ⟹ `q^{v_q(d)+1} ∣ α` while `∤ d`).
+- **brick 4b-iv — the contradiction** (~80 lines): with `A = q^{v_q α}` (`∣α`),
+  `B = d/q^{v_q d}` (`∣d`, `q`-free, `gcd(A,B)=1`): `a^(α/A)` has order `A` (brick 2),
+  `g^(d/B)` order `B`, product order `A·B = q^{e−f}·d > d` (brick 3) — contradicts `maxOrd_ge`.
+  ⟹ **`every_ord_dvd_maxOrd`**; then `maxOrd = p−1` via brick 5.
+- **brick 5** RootBound gluing (`X^{maxOrd}−1` (as `List Int`) has `p−1` roots ⟹ `eval_zero` ⟹
+  `f≡0` ⟹ `f(0)=−1≡0`, contra ⟹ `p−1 ≤ maxOrd`; with `maxOrd ∣ p−1` ⟹ `= p−1` ⟹ primitive root).
 - **brick 6** `(p−1)`-cycle of `mulPerm g` ⟹ nontriviality ⟹ full Zolotarev.
 - **brick 5 — `RootBound` gluing**: every unit satisfies `x^{maxOrd} ≡ 1`, so `X^{maxOrd}−1`
   (as `List Int`) has `p−1` distinct roots; `RootBound.eval_zero` ⟹ `f ≡ 0` everywhere ⟹
