@@ -3,14 +3,14 @@
 Real213-p-adic construction: ∅-axiom p-adic integers `ℤ_p` (`ZpSeq p`)
 and p-adic numbers `ℚ_p` (`QpSeq`) via carry-propagation FSM.
 
-**Status**: CLOSED — 27 files, ~510 PURE declarations.
+**Status**: CLOSED — 28 files, ~520 PURE declarations.
 All phases (1–6) complete.  Promoted chapter: `theory/math/numbersystems/padic_real213.md`.
 
 ## File map
 
 | File | Phase | Decls | Content |
 |---|---|---|---|
-| `Foundation.lean` | 1 | 41 | `ZpDigit`, `ZpSeq`, `trunc`, `zero`/`one`/`neg_one`, `eq_mod_pn`, `trunc_lt_p_pow`, `digits_of_nat` |
+| `Foundation.lean` | 1 | 42 | `ZpDigit`, `ZpSeq`, `trunc`, `zero`/`one`/`neg_one`, `eq_mod_pn`, `trunc_lt_p_pow`, `digits_of_nat`; `diagLimit` + `diagLimit_trunc_succ` (the shared diagonal-limit constructor of `invFull`/`sqrtFull`/`teichmuller`) |
 | `Arith.lean` | 2 | 110 | `Zp.add`/`mul`/`neg` via carry FSM, ring axioms at trunc (comm/assoc/distrib/add-inverse), `neg_one_sq_trunc` (`(−1)²≡1`); `shiftLeft`/`shiftRight` + factorisation exactness `shiftLeft_shiftRight_trunc_of_low_zero` |
 | `Pow.lean` | 2+ | 18 | `Zp.pow`, `pow_trunc`, Fermat at digit 0, `teichmuller_iter` |
 | `Norm.lean` | 3 | 21 | `valAtLeast`/`valEq`, strong ultrametric (`valEq_add_of_lt`, `valEq_mul`, `valEq_neg`) |
@@ -23,8 +23,9 @@ All phases (1–6) complete.  Promoted chapter: `theory/math/numbersystems/padic
 | `NegInvolutionFull.lean` | 4 | 5 | Full negation involution |
 | `NegInvolutionPreserve.lean` | 4 | 4 | Negation preservation lemmas |
 | `SetoidFramework.lean` | 4 | 15 | `ZpSeqEquiv` setoid (the canonical 213 equality) + `of_trunc_all`/`iff_trunc_all` bridge (trunc-agreement ⇔ `ZpSeqEquiv`, funext-free) |
-| `SetoidAssoc.lean` | 4 | 8 | Ring operation associativity under setoid |
-| `SetoidAlgebra.lean` | 4 | 8 | Algebraic structure under setoid equivalence |
+| `SetoidAssoc.lean` | 4 | 8 | `Zp.add` associativity/comm/zero + inverse under setoid (additive abelian group, `zp_add_setoid_group_capstone`) |
+| `SetoidAlgebra.lean` | 4 | 8 | Each ring operation respects `ZpSeqEquiv` (`add`/`neg`/`mul`) |
+| `SetoidMul.lean` | 4 | 7 | `Zp.mul` comm/assoc/one + distributivity under setoid; `zp_setoid_commRing_capstone` (`ZpSeq`/`ZpSeqEquiv` is a commutative ring) |
 | `Teichmuller.lean` | 4 | 15 | Frobenius lift, `teichmuller_iter_cauchy`, geometric sum; explicit representative `teichmuller` (`ω(x)`, diagonal limit), Frobenius fix `teichmuller_pow_p_trunc` (`ω^p ≡ ω`); uniqueness `teichmuller_unique` / `teichmuller_eq_of_fixed` (Frobenius-fixed lift is unique up to `ZpSeqEquiv`) |
 | `TeichmullerUnit.lean` | 4 | 10 | `ω(x)` as `(p−1)`-th root of unity (`teichmuller_pow_pred_trunc`); principal-unit decomposition `x = ω·u` (`teichmullerCofactor`, `u ≡ 1 mod p`) + uniqueness `unit_decomp_unique` — the `ℤ_p^× ≃ μ_{p−1} × (1+p·ℤ_p)` split unique up to `ZpSeqEquiv`; concrete `i₅ ∈ μ₄` (`i_5_pow_four_trunc`) |
 | `Field.lean` | 5 | 50 | `QpSeq` (ℚ_p): add/sub/mul/neg/inv/div/sqrt; general division `invGeneral`/`divGeneral` (non-unit denominator via valuation shift, reduces to `inv`/`div` at v=0) + correctness `div_general_value` (`y·u⁻¹ ≡ p^v`) |
@@ -44,7 +45,7 @@ All phases (1–6) complete.  Promoted chapter: `theory/math/numbersystems/padic
 Foundation
    ├── Arith ─── Pow ─── Teichmuller ─── TeichmullerUnit (+ Hensel, SetoidFramework)
    │     └── NegInvolution{,Digit1,Full,Preserve}
-   │     └── SetoidFramework ─── SetoidAssoc ─── SetoidAlgebra
+   │     └── SetoidFramework ─── SetoidAlgebra ─── SetoidAssoc ─── SetoidMul
    ├── Norm ─── Valuation
    ├── Hensel{,Bridge,Residual}
    ├── Field (= ℚ_p)
