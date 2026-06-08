@@ -102,10 +102,13 @@ on `Nat → Bool` + `lpo_imp_wlpo`, `lpo_imp_mp` (∅-axiom).
 infinite-below stream) + `lpo_decides_infiniteBelow`.  **Honest refinement of the
 blueprint:** the König step splits — *deciding* infinite-below is `Π⁰₁` = costs **LPO**
 (done); *selecting which child* is the LLPO-flavoured disjunction and additionally needs
-the tree **downward-closed** (the standard König hypothesis).  **Open phases:**
-- **GB-cont** — child selection: `InfChildExists` from LLPO + tree-closure (downward-closed
-  `T`); the `existsLevel`-monotonicity that the ∃-form `KonigConditional.InfBelow` bridge
-  needs.
+the tree **downward-closed** (the standard König hypothesis).
+**Phase GB-cont DONE** (`Lib/Math/Logic/ChildSelection.lean`, 6 PURE): `lpo_infChildExistsN`
+— `LPO` + tree-monotonicity (`LevelAntitone`) ⟹ König child selection (an infinite-below
+node has an infinite-below child), native `existsLevel`/`InfB` form.  (LLPO would suffice;
+LPO is the clean upper bound used.)  **Open phases:**
+- **GC** — free-interior base: `object1_not_surjective` / Cantor as the no-omniscience base
+  (the `RCA₀`-analogue); the reached-by-none escapes as companions.
 - **GC** — catalogue the diagonal/non-surjection family (`object1_not_surjective`, Cantor)
   as the no-omniscience base (the `RCA₀`-analogue) + the reached-by-none escapes.
 - **GD** — the ledger capstone: a (theorem → omniscience cost) table over the residue
@@ -120,11 +123,13 @@ This is the legibility bridge to recognized mathematical logic.  Frontier:
   open work (needs new CoResidue infra), not a gap in this session's claims.
 
 ## Next
-**Reverse Mathematics 213 marathon, Phase GB-cont** — child selection: derive
-`InfChildExists` (or the `existsLevel`-native form) from `Logic.LLPO` + a downward-closed
-tree hypothesis; bridge `existsLevel` ↔ `KonigConditional.InfBelow` (∃-form).  Then GC
-(free-interior base: `object1_not_surjective`/Cantor as the no-omniscience base) and GD
-(ledger capstone: theorem → omniscience-cost table, reconciled with `STRICT_ZERO_AXIOM.md`).
+**Reverse Mathematics 213 marathon, Phase GC** — the free-interior base: catalogue the
+diagonal/non-surjection family (`Lens/FlatOntologyClosure.object1_not_surjective`,
+`Cantor.cantor_general`) as the *no-omniscience* base (the `RCA₀`-analogue), with the
+reached-by-none escapes (`Padic/NuEscape`, `reached_by_none.md`) as companions — a Lean
+"interior" file + the start of the GD ledger (theorem → omniscience-cost table, reconciled
+with `STRICT_ZERO_AXIOM.md`).  Optional later: bridge `existsLevel` ↔ the ∃-form
+`KonigConditional.InfBelow`, and derive `LevelAntitone` from a downward-closed `T`.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`
@@ -157,6 +162,7 @@ blueprints/math/17_reverse_math_213.md                  ← NEW field 17 bluepri
 blueprints/math/INDEX.md                                ← + Phase G / field 17 row
 lean/E213/Lib/Math/Logic/Omniscience.lean               ← Phase GA: LPO/WLPO/MP/LLPO + implications (6 PURE)
 lean/E213/Lib/Math/Logic/Pi01Decision.lean              ← Phase GB: LPO decides Π⁰₁ + existsLevel (5 PURE)
-lean/E213/Lib/Math/Logic.lean                           ← Logic umbrella (Omniscience + Pi01Decision)
+lean/E213/Lib/Math/Logic/ChildSelection.lean            ← Phase GB-cont: LPO+monotone ⟹ child selection (6 PURE)
+lean/E213/Lib/Math/Logic.lean                           ← Logic umbrella (Omniscience + Pi01Decision + ChildSelection)
 lean/E213/Lib/Math.lean                                 ← imports Logic umbrella (in-tree)
 ```
