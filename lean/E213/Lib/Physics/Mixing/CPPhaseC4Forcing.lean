@@ -32,16 +32,13 @@ are complex-conjugate (`δ ↔ −δ`, the CP vs anti-CP orientation, same `|J|`
 `α = 90°`.
 
 So `δ = 90°` is **derived** from `C₄` (CD `i`) + CP-existence — *not* posited.
-The only remaining premise is "the phase lives in `C₄`" (the complex structure is
-the single `NT=2` doubling `i`, not a higher cyclotomic) — far weaker, and more
-principled, than positing a value.  Combined with the derived golden modulus
-`R_u = 1/φ²` (`ApexRightTriangle`): `cos γ = 1/φ²`.
-
-**This premise is now CLOSED** (`Cohomology/Hodge/SignedStarFull`): the signed
-Hodge star on grade 1 of the `d=5` cohomology has `⋆² = −1` on *all* of `Λ¹`, so
-`⟨⋆⟩` is order **exactly 4** = `C₄` — not `C₆` (order 6 needs `⋆⁶=1` with `⋆²≠1`,
-impossible once `⋆²=−1`).  So "phase `∈ C₄`" is *forced by the Hodge structure*,
-not assumed.
+The premise "the phase lives in `C₄`" (the complex structure is the single `NT=2`
+doubling `i`, not a higher cyclotomic) is itself forced by the Hodge structure
+(`Cohomology/Hodge/SignedStarFull`): the signed Hodge star on grade 1 of the
+`d=5` cohomology has `⋆² = −1` on *all* of `Λ¹`, so `⟨⋆⟩` is order **exactly 4**
+= `C₄` — not `C₆` (order 6 needs `⋆⁶=1` with `⋆²≠1`, impossible once `⋆²=−1`).
+Combined with the derived golden modulus `R_u = 1/φ²` (`ApexRightTriangle`):
+`cos γ = 1/φ²`.
 
 ## Why `C₄` and not a higher root of unity
 

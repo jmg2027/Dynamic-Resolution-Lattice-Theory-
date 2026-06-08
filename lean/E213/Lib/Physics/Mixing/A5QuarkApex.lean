@@ -4,8 +4,8 @@ import E213.Lib.Physics.Foundations.GoldenRatio
 /-!
 # A5QuarkApex — the quark CKM has two distinct origins (magnitude vs CP-depth)
 
-Deep-research (2026-06-08) on established `A₅`/`SU(5)×A₅` quark flavour models
-clarified the structure the DRLT apex must respect:
+Established `A₅`/`SU(5)×A₅` quark flavour models set the structure the DRLT apex
+must respect:
 
 - **Established flavour models *fit* the quark CKM, they do not golden-predict
   it.**  At leading order the CKM is `≈ identity + Cabibbo`; the apex / CP phase
