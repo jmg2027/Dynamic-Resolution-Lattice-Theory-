@@ -323,4 +323,95 @@ theorem lin_yau_curvature_complete (k : Nat) (hk : 1 ≤ k) :
   rw [complete_graph_gammaC_witness]
   exact Order.lt_of_lt_of_le (by decide) (OrderMul.ofNat_le_of_le hk)
 
+/-! ## §4 — the bipartite star `K_{1,b}`: `CD((3−b)/2, ∞)` at the centre
+
+The first bipartite case `K_{a,b}` with `a = 1`: a **centre** vertex (value `c`)
+joined to `b = k` **leaves** (values `b 0, …, b (k−1)`), with **no leaf–leaf edges**
+(`K_{1,b}` is the star `S_b`, triangle-free).  The centre operators are exactly those
+of §3 (`lapC`, `gammaC` — the centre Laplacian / carré du champ are graph-independent);
+only the *leaf* operators change: a leaf's **sole** neighbour is the centre, so
+`lapLeaf = c − b j`, `gammaLeaf = (c − b j)²` carry **no** other-neighbour sum (the
+`K_m` neighbours were mutually adjacent; star leaves are not).
+
+The closed form (`bochner_star`) is `gamma2Star = (3 − b)·gammaC + 2·lapC²`, with
+`2·lapC² ≥ 0` the manifest SOS — so the star centre is `CD((3−b)/2, ∞)`.  Sign
+trichotomy in the leaf count `b = k`:
+
+  · `b ≤ 2` → `(3−b)/2 > 0` (positively curved — a short path through the centre);
+  · `b = 3` → flat;
+  · `b ≥ 4` → `(3−b)/2 < 0` (**negatively curved** — a hub with many leaves, like a
+    tree), matching the double-star Ollivier `κ = −2/3 < 0` (`OllivierRicci` §6).
+
+Contrast `K_m` (`CD((m+2)/2,∞) > 0`, ever more positive): adding the leaf–leaf edges
+(turning the star into a clique) flips the curvature from negative to positive — the
+clustering the Bakry–Émery `Γ₂` measures.  General `K_{a,b}` (`a ≥ 2`) needs a
+second-shell (`a−1` other `A`-vertices) optimization and is left open. -/
+
+/-- Leaf Laplacian in `K_{1,b}`: a leaf's only neighbour is the centre, `Lf = c − b j`. -/
+def lapLeaf (b : Nat → Int) (c : Int) (j : Nat) : Int := c - b j
+
+/-- Leaf carré du champ (scaled `2Γ`) in `K_{1,b}`: `(c − b j)²` (one edge only). -/
+def gammaLeaf (b : Nat → Int) (c : Int) (j : Nat) : Int := (c - b j) * (c - b j)
+
+/-- Iterated carré du champ (scaled `4Γ₂`) at the star centre — same shape as
+    `gamma2C` but with the leaf operators (no leaf–leaf term). -/
+def gamma2Star (k : Nat) (b : Nat → Int) (c : Int) : Int :=
+  gridSumZ k (fun j => gammaLeaf b c j - gammaC k b c)
+    - 2 * gridSumZ k (fun j => (b j - c) * (lapLeaf b c j - lapC k b c))
+
+/-- ★★★★★ **Discrete Bochner identity for the star `K_{1,b}`** (`b = k` leaves):
+
+      `4Γ₂(f) = (3 − b)·(2Γ(f)) + 2·(Lf at centre)²`,  i.e.  `gamma2Star = (3−b)·gammaC
+      + 2·lapC²`.
+
+    The curvature coefficient `3 − b` *decreases* with the leaf count (vs `K_m`'s
+    `k + 3` which increases) — a hub is increasingly negatively curved.  Pure
+    `gridSumZ` linearity + `ring_intZ`. -/
+theorem bochner_star (k : Nat) (b : Nat → Int) (c : Int) :
+    gamma2Star k b c = (3 - (k : Int)) * gammaC k b c + 2 * (lapC k b c * lapC k b c) := by
+  have hA : gridSumZ k (fun j => gammaLeaf b c j - gammaC k b c)
+      = (1 - (k : Int)) * gammaC k b c := by
+    rw [gridSumZ_sub,
+        show gridSumZ k (fun j => gammaLeaf b c j) = gammaC k b c from
+          gridSumZ_congr k _ (fun j => (b j - c) * (b j - c))
+            (fun j _ => by dsimp only; unfold gammaLeaf; ring_intZ),
+        show gridSumZ k (fun _ => gammaC k b c) = (k : Int) * gammaC k b c from
+          gridSumZ_const k _]
+    ring_intZ
+  have hB : gridSumZ k (fun j => (b j - c) * (lapLeaf b c j - lapC k b c))
+      = (-1) * gammaC k b c - lapC k b c * lapC k b c := by
+    rw [show gridSumZ k (fun j => (b j - c) * (lapLeaf b c j - lapC k b c))
+          = gridSumZ k (fun j => (-1) * ((b j - c) * (b j - c))
+              - lapC k b c * (b j - c)) from
+        gridSumZ_congr k _ _ (fun j _ => by unfold lapLeaf; ring_intZ),
+        gridSumZ_sub, gridSumZ_mul_left, gridSumZ_mul_left]
+    rfl
+  unfold gamma2Star
+  rw [hA, hB]; ring_intZ
+
+/-- ★★★★★ **`CD((3−b)/2, ∞)` for the star `K_{1,b}`.**  From `bochner_star`, the
+    residual `2·lapC² ≥ 0`, so `gamma2Star ≥ (3−b)·gammaC`.  Negative coefficient for
+    `b ≥ 4` — a genuine *negative* curvature lower bound (the hub case). -/
+theorem cd_star (k : Nat) (b : Nat → Int) (c : Int) :
+    (3 - (k : Int)) * gammaC k b c ≤ gamma2Star k b c := by
+  rw [bochner_star]
+  apply Order.le_of_sub_nonneg
+  rw [show (3 - (k : Int)) * gammaC k b c + 2 * (lapC k b c * lapC k b c)
+        - (3 - (k : Int)) * gammaC k b c = 2 * (lapC k b c * lapC k b c) from by ring_intZ]
+  have h2 : (0 : Int) ≤ 2 * (lapC k b c * lapC k b c) := by
+    rw [show (2 : Int) * (lapC k b c * lapC k b c)
+          = lapC k b c * lapC k b c + lapC k b c * lapC k b c from by ring_intZ]
+    exact add_nonneg (int_sq_nonneg _) (int_sq_nonneg _)
+  exact Order.nonneg_of_le_zero h2
+
+/-- The star curvature coefficient `3 − b` is **negative for `b ≥ 4`** — the centre of a
+    large star is negatively curved, the Bakry–Émery counterpart of the double-star
+    Ollivier `κ < 0` (a hub/tree, like hyperbolic space), opposite the clique `K_m`. -/
+theorem star_negatively_curved (k : Nat) (hk : 4 ≤ k) : (3 : Int) - (k : Int) < 0 := by
+  have h4 : (4 : Int) ≤ (k : Int) := OrderMul.ofNat_le_of_le hk
+  have h3k : (3 : Int) < (k : Int) := Order.lt_of_lt_of_le (by decide) h4
+  apply Order.lt_of_sub_pos
+  rw [show (0 : Int) - (3 - (k : Int)) = (k : Int) - 3 from by ring_intZ]
+  exact Order.sub_pos_of_lt h3k
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery

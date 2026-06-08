@@ -136,8 +136,20 @@ configuration (`cd_complete_graph_sharp`), which is **non-vacuous** — `complet
 gives `gammaC = k > 0` for `k = m−1 ≥ 1`.  Lower bound + tight witness ⟹ `(m+2)/2` is the *optimal*
 (Lin–Yau) Bakry–Émery curvature of `K_m`, not merely a bound.
 
-Remaining refinements: the discrete Lin–Yau optimal `K` for *non-complete* graphs (the cycle, the
-bipartite `K_{a,b}`); more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
+**Bipartite star `K_{1,b}` Bakry–Émery** — ✅ **DONE** (`BakryEmery.lean` §4, PURE).  The first bipartite
+case `K_{a,b}` with `a = 1`: a centre joined to `b = k` leaves, **no leaf–leaf edges** (triangle-free).
+Reuses the centre operators `lapC`, `gammaC`; only the *leaf* operators change (a leaf's sole neighbour is
+the centre, so `lapLeaf = c − b j`, `gammaLeaf = (c − b j)²` — **no** other-neighbour sum, unlike `K_m`'s
+mutually-adjacent neighbours).  `bochner_star` (`gamma2Star = (3 − b)·gammaC + 2·lapC²`, `2·lapC² ≥ 0` SOS)
+⟹ `cd_star` (`CD((3−b)/2, ∞)`).  **Sign trichotomy in the leaf count `b`**: `b ≤ 2` positive, `b = 3`
+flat, `b ≥ 4` **negative** (`star_negatively_curved`: `3 − b < 0`) — a hub/tree is negatively curved,
+matching the double-star Ollivier `κ = −2/3 < 0` (`OllivierRicci` §6) and *opposite* the clique `K_m`
+(`CD((m+2)/2,∞) > 0`): adding leaf–leaf edges (star → clique) flips curvature sign, the clustering `Γ₂`
+measures.  **Still open**: general `K_{a,b}` (`a ≥ 2`) needs a **second-shell** (`a−1` other `A`-vertices)
+optimization (`Lf(w) − Lf(v)` is not proportional to `(w − v)`), heavier than the star.
+
+Remaining refinements: general bipartite `K_{a,b}` (`a ≥ 2`, the DRLT `K_{3,2}` core, two-shell); the
+discrete Lin–Yau optimal `K` for the cycle; more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
 flow* and the transcendental Perelman `𝓦`-entropy (`ricci_flow_smooth_core.md`) — but the general-`n` Ricci
 **lower bound** is now reachable synthetically via `CD(K,N)` (rung 6, now for *every* `K_m`).  The smooth
 2D-conformal route (S3–S5) is separately closed (`ConformalCurvature.lean`).
