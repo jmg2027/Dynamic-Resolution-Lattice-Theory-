@@ -150,11 +150,15 @@ space `Λ¹(ℝ⁴)` and shows `⋆²=−1` on all of it, so `⟨⋆⟩` is orde
 polarized Hodge structure (`J`-invariant + lattice-defined + `J`-Hermitian) —
 forces `δ=90°` (Voisin/HR + Niven; the polarization `(Q,J)` is Lean-PURE,
 `Hodge/HodgeRiemannJ`: `J²=−I`, `Jᵀ Q J=Q`, `Q·J=I≻0`).  A *generic* texture fails
-the three conditions and does **not** (tested: `α≈0°,−38°,60°`).  **Construction
-open**: the explicit *generation-indexed* cup-product Yukawa `Y_d(i,j)=⟨αᵢ,Jαⱼ⟩`;
-the deepest gap is that the 3 generations (`C(3,2)`, simplex-partition) have no
-cohomological index in the `Λ*(ℂ⁵)` cup-ring that carries `J` — unbridged. Plus
-the `~1.5σ` fit (irreducible at this level).  `α = 90°` (right unitarity
+the three conditions and does **not** (tested: `α≈0°,−38°,60°`).  **Construction ASSEMBLED** (`CohomologicalYukawa.lean`): every primitive is now
+built — the generation index `Λ²(ℝ³)` (`BigradedYukawa`, bridging the `C(3,2)`
+gap), the signed-`ℤ` cup (`Cup/SignedCup`, antisymmetric + HR-positive `h=I`), the
+signed Hodge `J` (`SignedStarC4/Full`), the polarization (`HodgeRiemannJ` +
+the filled `Pairing/HodgeRiemann` stub).  The assembled `Y_d = Λ²(ℝ³) ⊗
+(signed-cup on `Λ¹(ℂ⁵)` with `J`)` meets the three forcing hypotheses (lattice +
+`J`-invariant + HR-positive) ⇒ `δ=90°`.  Remaining: only the *numerical*
+evaluation of the cup functional (the rust `ckm_cp_phase` verifies the resulting
+`ℤ[i]` CKM is unitary with `δ=90°`); and the `~1.5σ` fit (irreducible).  `α = 90°` (right unitarity
 triangle) is **falsifiable** against future UTfit/CKMfitter values.  Active record:
 `research-notes/frontiers/ckm_rho_eta_apex.md`.
 
