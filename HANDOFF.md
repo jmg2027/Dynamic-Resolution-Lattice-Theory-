@@ -1,194 +1,133 @@
-# Session Handoff — 2026-06-08 (naming abstract concepts → 213; König/νF + reverse-math calibration)
+# Session Handoff — 2026-06-08 (naming abstract concepts → 213; Reverse Mathematics 213 marathon)
 
 ## Branch
-`claude/math-logic-career-path-khWPk` — pushed, ahead of `origin/main` by 11 commits.
+`claude/math-logic-career-path-khWPk` — pushed, well ahead of `origin/main`.
 `cd lean && lake build` ✓ clean (full tree).  All new theorems ∅-axiom (PURE).
 Working tree clean.
 
 ## What Was Done This Session
 
-Theme: **what does standard math's "attaching a term to an abstract concept" become under
-the 213 axiom?** (originator's vision, math-logic direction).  A reference-claim essay set
-the frame; then a König/νF Lean arc + a concept-pass (compactness, function space) +
-deep-research (Lawvere) turned the frame into theorems and a promoted essay.
+Theme (originator's math-logic vision): **what does standard math's "attaching a term to
+an abstract concept" become under the 213 axiom?**  A reference-claim essay framed it; a
+König/νF Lean arc + concept-pass + deep-research turned it into theorems; it then crystallised
+into a full **Reverse Mathematics 213 marathon (field 17)** — the legibility bridge to
+recognized mathematical logic.
 
-### 1. Essay — `the_reference_claim.md` (theory/essays/foundations/, permanent)
-The necessary/refused/under-test split of "nothing escapes 213".  Key correction (from the
-originator): existence (`pointing ⟺ residue`) is **transcendental necessity, not a thesis**
-(a pointing distinguishing nothing is a non-pointing).  Reference-closure necessary;
-referent-capture refused (`object1_not_surjective`); only *reach* (internal handles without
-forcing an exterior) under test, with the König `Π⁰₁` stall the live falsifier.  Breadth
-(§7.1) = evidence of reach, not of existence.
+### 1. Two permanent essays (theory/essays/foundations/)
+- `the_reference_claim.md` — necessary/refused/under-test split.  Existence (`pointing ⟺
+  residue`) is **transcendental necessity, not a thesis**; reference-closure necessary,
+  referent-capture refused (`object1_not_surjective`), only *reach* under test.
+- `the_one_diagonal.md` — the freeze-decision is **one** obstruction; re-dressing it is one
+  more self-pointing (`residue_reentry_never_closes`).  Dual: Lawvere(1969)/Yanofsky(2003)
+  unify Cantor/Gödel/Russell/Tarski/Turing; 213 makes the unifier the residue's self-cover.
+  Math-scale twin of `why_the_reframing_recurs.md`.  Both registered in `theory/essays/INDEX.md`,
+  logged in `promotion_essay_log.md` (row 13).
 
-### 2. CLAUDE.md — "fog jargon" failure mode added
-Extracted from a course-correction: hard language is licensed only as **compression**
-(unfoldable to plain words on demand) never as **fog**; can't-unfold = a not-yet-closed gap.
-Speak plainly first.
+### 2. CLAUDE.md — "fog jargon" failure-mode row added
+Hard language licensed only as **compression** (unfoldable on demand), never **fog**.
 
-### 3. König νF bridge — `Lib/Math/Combinatorics/KonigConditional.lean` (+5 PURE)
-The infinite branch König's lemma decides about is a νF inhabitant (`konigBranchNu` via
-`boolSpineSlashNu`) reached by **no finite Raw** (`konig_infinity_no_finite_raw`); capstone
-`konig_infinity_is_nu_escape`.  Answers "which Raw chunk is the König infinity?" → none; it
-is the escape.
+### 3. König νF bridge + compactness calibration — `Lib/Math/Combinatorics/KonigConditional.lean` (+9 PURE)
+`konig_infinity_no_finite_raw`/`konig_infinity_is_nu_escape` (the König infinity is a νF
+escape, no finite Raw).  `FiniteSubcoverOracle` + `infChildExists_iff_finiteSubcover`:
+`WKL ⟺ Heine–Borel` *local* form on the residue carrier — NOT a naive iff (compactness ⇒
+selection costs one LLPO child-disjunction decision).
 
-### 4. 2-adic νF escape — `Lib/Math/NumberSystems/Padic/NuEscape.lean` (+4 PURE)
-`Fin 2 ≃ Bool`, so a `ZpSeq 2` is a `Nat → Bool` bit-stream; `twoAdic_is_nu_escape`: a
-2-adic integer is reached by no finite Raw — literally a branch of König's binary tree
-(same `boolSpine_escapes` shape).  Added to the `Padic` umbrella.
+### 4. p-adic νF escapes — `Lib/Math/NumberSystems/Padic/NuEscape.lean` (9 PURE)
+`twoAdic_is_nu_escape` (ℤ₂ = a König binary-tree branch, no finite Raw); `zpSeq_not_enumerable`
+(general `p ≥ 2`, native Cantor diagonal — pointwise, no `Cardinal`).
 
-### 5. Compactness ↔ König calibration — `KonigConditional.lean` (+4 PURE)
-`FiniteSubcoverOracle` (the compactness/fan step), with `infChildExists_iff_finiteSubcover`.
-**Finding (sharper than a naive iff):** the two forms are NOT ∅-axiom equivalent —
-selection ⇒ compactness is free (contraposition); compactness ⇒ selection needs deciding
-the child-disjunction `dec : ¬¬(B∨C)→B∨C` (an LLPO/omniscience step).  So `WKL ⟺
-Heine–Borel` (local form) is reproduced on the residue's binary-tree carrier with the one
-∞-decision located exactly — reverse mathematics done 213-native.
+### 5. ★ Reverse Mathematics 213 marathon — field 17, CORE CLOSED (74 PURE / 10 files)
+`blueprints/math/17_reverse_math_213.md` + INDEX field 17 (Phase G); book
+`books/math/reverse-math-213.md`.  All ∅-axiom.  Calibrates each theorem by the omniscience
+/ choice principle it costs, on the residue's carriers — Simpson-style reverse math done
+213-native.  Files (`lean/E213/Lib/Math/Logic/`):
+- `Omniscience.lean` (8) — `LPO/WLPO/MP/LLPO` + `lpo_imp_wlpo`, `lpo_imp_mp`,
+  `lpo_iff_wlpo_and_mp` (**LPO ⟺ WLPO ∧ MP**), `wlpo_and_mp_imp_lpo`.
+- `Pi01Decision.lean` (6) — `lpo_decides_pi01` (**LPO decides Π⁰₁**), `lpo_decides_sigma01`,
+  `existsLevel`, `lpo_decides_infiniteBelow`.
+- `ChildSelection.lean` (11) — `lpo_infChildExistsN` (LPO + tree-monotonicity ⟹ König
+  child selection), `levelAntitone_of_downwardClosed`, `lpo_infChildExists_downwardClosed`.
+- `DiagonalBase.lean` (4) — `cantor_stream_not_enumerable` (the **cost-0** base).
+- `Capstone.lean` (1) — `reverse_math_ledger` (spine in one ∅-axiom witness).
+- `KonigBridge.lean` (5) — `infB_iff_infBelow` (native `InfB`/`existsLevel` = the König
+  file's ∃-form `KonigConditional.InfBelow`); pure `append_nil_pure`/`append_assoc_pure`.
+- `LLPO.lean` (8) — `lpo_imp_llpo` (**LPO ⟹ LLPO**) via native `parity`.
+- `Interleave.lean` (6) — div/mod-free even/odd `interleave` + `il_even`/`il_odd`, `ftrue`,
+  `ftrue_all_false` (selection-from-LLPO infrastructure).
+- `LLPOSelection.lean` (12) — **`llpo_infChildExistsN`**: König child selection from the
+  weaker **LLPO** (monotone turn-off encoding; `ftrue_unique`, `not_both`).
+- `WKLHeineBorel.lean` (13) — global `WKL ⟺ Heine–Borel`: unconditional half
+  (`infPath_imp_infB`, `bounded_imp_not_infPath`), oracle-conditional WKL (`wkl_of_oracle`),
+  `wkl_heineBorel_calibration`, and the **fan theorem** named (`FanTheorem`/`Bar`, the dual
+  Brouwerian principle = HB proper) + `hasInfPath_of_stream`.
 
-### 6. Essay — `the_one_diagonal.md` (theory/essays/foundations/, permanent)
-`/essay` deepening a `/deep-research` finding.  The freeze-decision 213 refuses is **one**
-obstruction (`object1_not_surjective`), not a family; each concept supplies only a new
-carrier, and the *act of re-dressing* it is itself a residue self-pointing absorbed by
-`residue_reentry_never_closes` (asking the question is a re-entry — no terminating
-meta-level).  Dual function: Lawvere (1969)/Yanofsky (2003) unify Cantor/Gödel/Russell/
-Tarski/Turing as one fixed point; 213 makes the unifier the residue's own self-cover and
-extends it to the instantiation act.  Math-scale twin of `why_the_reframing_recurs.md`.
-
-### 7. Concept-pass frontier notes (research-notes/frontiers/)
-`naming_abstract_concepts.md` (the frontier + deep-research candidate), `concept_compactness.md`
-(= the König wall, space-side; seed now CLOSED), `concept_redressing_itself.md` (deep-research
-synthesis, web-verified Lawvere/Yanofsky), `concept_function_space.md` (powerset = the
-self-cover's codomain = the CCC root of the diagonal).  All registered in `frontiers/INDEX.md`.
+### 6. Concept-pass frontier notes (research-notes/frontiers/, registered in INDEX)
+`naming_abstract_concepts.md`, `concept_compactness.md`, `concept_redressing_itself.md`
+(deep-research, web-verified Lawvere/Yanofsky), `concept_function_space.md`.
 
 ## Current Precision Results (0 free parameters)
-**No physics-constant changes this session** (pure mathematics / foundations).  See
+**No physics-constant changes** (pure mathematics / foundations).  See
 `catalogs/physics-constants.md` for the standing DRLT table (α_em 0.09 ppb, etc.).
-New theorems are all mathematics (König/νF, p-adic escape, compactness calibration), all
-PURE per `tools/scan_axioms.py`.
 
 ## Open Problems (Priority Order)
+All under `blueprints/math/17_reverse_math_213.md` +
+`research-notes/frontiers/naming_abstract_concepts.md`.
 
-### 1. General-`p` νF escape — CLOSED (native Cantor diagonal)
-2-adic is closed via `Fin 2 ≃ Bool` (`twoAdic_is_nu_escape`).  General `p` is now closed
-natively: `Padic/NuEscape.zpSeq_not_enumerable` (`p ≥ 2`) — no enumeration `e : ℕ → ZpSeq p`
-contains the diagonal (`zpDiagonal`), which differs from every `e k` at digit `k`
-(`digitFlip_ne`).  Honest reached-by-none (pointwise digit difference, no `Cardinal`).
-PURE — note `Nat.noConfusion` not `Nat.succ_ne_zero` (the latter pulls `propext` in this
-Mathlib-free core).  Remaining open here: the *one-carrier* unification (a p-ary spine in
-`Theory/Raw/CoResidue` putting general `p` on the same νF carrier as König/2-adic) — only
-the binary `boolSpine` spine exists.  Frontier: `research-notes/frontiers/naming_abstract_concepts.md`.
+### 1. WKL/HB external pieces (by design not internal)
+The bare dependent **choice** turning per-node selection disjunctions into the `step`
+function (WKL proper beyond LLPO), and the **fan theorem** (HB proper, Brouwerian).  Both
+are *named and isolated* (`wkl_of_oracle`/`FanTheorem`); the gap is by-design external —
+this IS the precise reverse-math calibration.  Nothing to "fix"; only to hypothesize.
 
-### 2. ℝ one-carrier unification with König
-ℝ's reached-by-none is already proved (`Analysis/Cauchy/DepthCeilingResidue.diag_not_in_seq`;
-`reached_by_none.md`), but the native `Real213` carrier is the cut `Nat → Nat → Bool`, not a
-single `Nat → Bool` stream — a dyadic bit-stream extractor would put ℝ on the same
-`boolSpine` carrier as König/2-adic.  Frontier: `naming_abstract_concepts.md`.
+### 2. One-carrier p-ary νF escape
+General `p` escape is done natively (`zpSeq_not_enumerable`) but on its own carrier; a
+**p-ary spine in `Theory/Raw/CoResidue`** would put all `p` on the same νF carrier as
+König/2-adic (only binary `boolSpine` exists).  Real CoResidue infra.
 
-### 3. More concept deep-dives (the systematic pass)
-limit/completion, quotient/equivalence-class, actual-vs-potential infinity (frozen/dynamic),
-∀∃ over infinite domains.  Each → its 213 reading (Lens / fold-level / capture-vs-reference /
-where the ∞-decision hides).  Frontier: `naming_abstract_concepts.md` (seeds list).
+### 3. ℝ one-carrier with König
+ℝ's reached-by-none is proved (`Analysis/Cauchy/DepthCeilingResidue.diag_not_in_seq`); a
+dyadic bit-stream extractor from the `Real213` cut (`Nat → Nat → Bool`) would share the
+`boolSpine` carrier.
 
-### 4. Broader external Lawvere reduction (the omniscience family)
-Cantor/Gödel/etc. are provably one Lawvere instance; König/WKL/compactness are 213-native
-one-non-surjection but only omniscience (LLPO/fan) cousins of literal Lawvere.  Pinning the
-external reduction is open.  Frontier: `concept_redressing_itself.md`.
-
-### 5. Reverse Mathematics 213 marathon (field 17) — STARTED, phases GB–GD open
-`blueprints/math/17_reverse_math_213.md` authored; INDEX field 17 added (Phase G).
-**Phase GA DONE** (`Lib/Math/Logic/Omniscience.lean`, 6 PURE): `LPO/WLPO/MP/LLPO` as Props
-on `Nat → Bool` + `lpo_imp_wlpo`, `lpo_imp_mp` (∅-axiom).
-**Phase GB (predicate-decision half) DONE** (`Lib/Math/Logic/Pi01Decision.lean`, 5 PURE):
-`lpo_decides_pi01` (LPO decides every `∀n, h n = true`) + `existsLevel` (native
-infinite-below stream) + `lpo_decides_infiniteBelow`.  **Honest refinement of the
-blueprint:** the König step splits — *deciding* infinite-below is `Π⁰₁` = costs **LPO**
-(done); *selecting which child* is the LLPO-flavoured disjunction and additionally needs
-the tree **downward-closed** (the standard König hypothesis).
-**Phase GB-cont DONE** (`Lib/Math/Logic/ChildSelection.lean`, 6 PURE): `lpo_infChildExistsN`
-— `LPO` + tree-monotonicity (`LevelAntitone`) ⟹ König child selection, native
-`existsLevel`/`InfB` form.
-**Phase GC DONE** (`Lib/Math/Logic/DiagonalBase.lean`, 4 PURE): `cantor_stream_not_enumerable`
-— the Bool-stream carrier is not enumerable (Cantor diagonal), the **cost-0 base**.
-**Phase GD DONE** (`Lib/Math/Logic/Capstone.lean`, 1 PURE): `reverse_math_ledger` bundles
-the spine (free interior + LPO⟹WLPO/MP + LPO-Π⁰₁-decision + LPO-König-selection) into one
-∅-axiom witness.  **Marathon field 17 = CORE CLOSED** (74 PURE total; book
-`books/math/reverse-math-213.md`; INDEX updated).  GB-cont2 added
-(`ChildSelection.lean`, +5 PURE): `levelAntitone_of_downwardClosed` (via `existsLevel_pred`)
-+ `lpo_infChildExists_downwardClosed` — König selection now holds for an **actual
-downward-closed Bool tree** (monotonicity discharged).
-**GB-cont3 DONE** (`Lib/Math/Logic/KonigBridge.lean`, +5 PURE): `infB_iff_infBelow` — the
-native `InfB` (via `existsLevel`) equals the König file's ∃-form
-`KonigConditional.InfBelow`, so the whole LPO calibration speaks König's own predicate.
-(Needed pure `append_nil_pure`/`append_assoc_pure` — core `List.append_nil`/`append_assoc`
-pull `propext` in this kernel.)  GA also gained `lpo_iff_wlpo_and_mp` (LPO ⟺ WLPO ∧ MP).
-**Open follow-ups (not blocking):**
-- *Done:* LPO ⟹ LLPO (`LLPO.lean`); the two-ledger reconciliation with
-  `STRICT_ZERO_AXIOM.md` (object-level omniscience cost = the hypothesis form of the
-  meta-level kernel-axiom cost) — written up in `books/math/reverse-math-213.md`; the
-  external Lawvere placement (diagonal family = Lawvere; omniscience family = a *separate*
-  Brouwerian hierarchy, NOT a Lawvere instance — the over-read to avoid) — also in the book.
-- *Remaining (headline):* tighten the König-selection cost LPO → LLPO.  NOT a corollary of
-  `lpo_imp_llpo` (wrong direction); needs a fresh selection-from-LLPO proof via the
-  **monotone turn-off encoding** (sketch in the book's Open section) — a bounded ~100-line
-  proof.  Plus: the fan theorem / bar induction as residue-native principles.
-This is the legibility bridge to recognized mathematical logic.  Frontier:
-`blueprints/math/17_reverse_math_213.md`, `naming_abstract_concepts.md`.
+### 4. More concept deep-dives (the systematic pass)
+limit/completion, quotient/equivalence-class, actual-vs-potential infinity.  Each → its 213
+reading.  Seeds in `naming_abstract_concepts.md`.
 
 ## Unresolved from This Session
-- No dead ends.  The compactness iff turned out NOT to be ∅-axiom (one direction needs
-  LLPO) — recorded as the *calibration finding*, not a failure (it is the sharper result).
-- General-`p` νF escape deliberately scoped to `p=2` (binary carrier); general `p` is real
-  open work (needs new CoResidue infra), not a gap in this session's claims.
+No dead ends.  Two diagnosed-then-resolved traps worth remembering:
+- **`LPO ⟹ LLPO` "Nat +2 wall" was a false alarm** — `n+2`, `n+1+1`, `succ(succ n)` ARE
+  defeq (`rfl`); the real blocker was prefix `!` binding looser than `=` (`!(!b)=b`
+  mis-parses to a `decide`).  Fix: parenthesize `(!(!b)) = b`.
+- **propext-pulling tools in this Mathlib-free kernel** (avoid): `omega` (also `Quot.sound`),
+  `Nat.succ_ne_zero`, `List.append_nil`/`append_assoc`, `if`/`split`, `decide`-on-`Prop`.
+  Use `Bool.noConfusion`/`Nat.noConfusion`/`Nat.succ.inj`/`cases`/structural recursion +
+  hand-rolled pure lemmas.
 
 ## Next
-The Reverse Mathematics 213 marathon (field 17) is **CORE CLOSED**.  Options:
-**(a)** the open follow-ups above (existsLevel↔InfBelow bridge, LevelAntitone from
-downward-closed `T`, LPO→LLPO tightening, ledger ↔ `STRICT_ZERO_AXIOM.md`) — would take the
-field from CORE CLOSED to fully closed;
-**(b)** a concept deep-dive (limit/completion, quotient/equivalence-class,
-actual-vs-potential infinity) continuing `naming_abstract_concepts.md`;
-**(c)** promote the marathon to a `theory/` chapter (the book is in `books/math/`, a
-`theory/math/` mirror could follow per `PROMOTION_CRITERIA.md`).
+Field 17 is comprehensively closed.  Highest-value next: **(2)** the p-ary spine in
+`CoResidue` (genuine new infra), or **promote** field 17 to a `theory/math/logic/` chapter
+per `theory/PROMOTION_CRITERIA.md` (book exists in `books/math/`), or a **concept deep-dive**
+(limit/completion).
 
-## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`
-  (essays; `the_one_diagonal` promoted from the `concept_redressing_itself` deep-research finding).
-  Both registered in `theory/essays/INDEX.md`; logged in `promotion_essay_log.md` (row 13).
-- **Promotion candidates**: the König/νF + compactness-calibration arc
-  (`KonigConditional.lean`) could get a `theory/math/` chapter if the concept pass closes
-  more instances; currently narrated via the two essays + frontier notes.
-- **Active scratchpad**: `frontiers/` — `naming_abstract_concepts`, `concept_compactness`,
-  `concept_function_space`, `concept_redressing_itself` (open board).
+## Three-tier state (per CLAUDE.md "Three-tier discipline")
+- **Promotions this session**: `theory/essays/foundations/{the_reference_claim,the_one_diagonal}.md`.
+- **Promotion candidates**: field 17 `Lib/Math/Logic/` (74 PURE, book written) → a
+  `theory/math/` chapter is eligible.
+- **Active scratchpad**: `research-notes/frontiers/` (4 concept-pass notes + field-17 frontier).
 
 ## File Map
 ```
-theory/essays/foundations/the_reference_claim.md   ← essay: necessary/refused/under-test split (new)
-theory/essays/foundations/the_one_diagonal.md      ← essay: one diagonal, Lawvere as self-cover (new)
-theory/essays/INDEX.md                             ← registered both essays (+ table rows)
-research-notes/promotion_essay_log.md              ← row 13 (the_one_diagonal)
-CLAUDE.md                                          ← + 'fog jargon' failure-mode row
-lean/E213/Lib/Math/Combinatorics/KonigConditional.lean  ← +9 PURE: νF bridge (konigBranchNu,
-    konig_infinity_no_finite_raw, konig_infinity_is_nu_escape) + compactness calibration
-    (FiniteSubcoverOracle, infChildExists_iff_finiteSubcover)
-lean/E213/Lib/Math/NumberSystems/Padic/NuEscape.lean    ← +4 PURE: 2-adic νF escape (new)
-lean/E213/Lib/Math/NumberSystems/Padic.lean             ← umbrella imports NuEscape
-research-notes/frontiers/naming_abstract_concepts.md    ← frontier + deep-research candidate (new)
-research-notes/frontiers/concept_compactness.md         ← deep-dive: compactness = König wall (new)
-research-notes/frontiers/concept_function_space.md      ← deep-dive: powerset = self-cover codomain (new)
-research-notes/frontiers/concept_redressing_itself.md   ← deep-research: re-dressing = self-pointing (new)
-research-notes/frontiers/INDEX.md                        ← registered all four frontier notes
-blueprints/math/17_reverse_math_213.md                  ← NEW field 17 blueprint (Reverse Math 213)
-blueprints/math/INDEX.md                                ← + Phase G / field 17 row
-lean/E213/Lib/Math/Logic/Omniscience.lean               ← Phase GA: LPO/WLPO/MP/LLPO + implications (6 PURE)
-lean/E213/Lib/Math/Logic/Pi01Decision.lean              ← Phase GB: LPO decides Π⁰₁ + existsLevel (5 PURE)
-lean/E213/Lib/Math/Logic/ChildSelection.lean            ← Phase GB-cont: LPO+monotone ⟹ child selection (6 PURE)
-lean/E213/Lib/Math/Logic/DiagonalBase.lean              ← Phase GC: cost-0 Cantor diagonal base (4 PURE)
-lean/E213/Lib/Math/Logic/Capstone.lean                  ← Phase GD: reverse_math_ledger spine (1 PURE)
-lean/E213/Lib/Math/Logic/KonigBridge.lean               ← GB-cont3: existsLevel ↔ InfBelow (5 PURE)
-lean/E213/Lib/Math/Logic/LLPO.lean                      ← GA-cont: LPO ⟹ LLPO via parity (8 PURE)
-lean/E213/Lib/Math/Logic/Interleave.lean                ← GB-cont4-infra: div/mod-free even/odd interleave + ftrue (6 PURE)
-lean/E213/Lib/Math/Logic/LLPOSelection.lean             ← GB-cont4: llpo_infChildExistsN — König selection from LLPO (12 PURE)
-lean/E213/Lib/Math/Logic/WKLHeineBorel.lean             ← GB-cont5: global WKL ⟺ HB (∅-axiom half + wkl_of_oracle, 7 PURE)
-lean/E213/Lib/Math/Logic.lean                           ← Logic umbrella (10 phase files)
-books/math/reverse-math-213.md                          ← marathon book (field 17, CORE CLOSED)
-lean/E213/Lib/Math.lean                                 ← imports Logic umbrella (in-tree)
+theory/essays/foundations/the_reference_claim.md         ← essay (new)
+theory/essays/foundations/the_one_diagonal.md            ← essay (new)
+theory/essays/INDEX.md, research-notes/promotion_essay_log.md  ← registered + row 13
+CLAUDE.md                                                ← + fog-jargon failure mode
+lean/E213/Lib/Math/Combinatorics/KonigConditional.lean   ← +9 PURE (νF bridge + compactness calib)
+lean/E213/Lib/Math/NumberSystems/Padic/NuEscape.lean     ← 9 PURE (2-adic + general-p escapes); +Padic umbrella
+lean/E213/Lib/Math/Logic/*.lean                          ← field 17 (10 files, 74 PURE)
+lean/E213/Lib/Math/Logic.lean                            ← Logic umbrella (10 files)
+lean/E213/Lib/Math.lean                                  ← imports Logic umbrella
+blueprints/math/17_reverse_math_213.md, blueprints/math/INDEX.md  ← field 17 blueprint + Phase G
+books/math/reverse-math-213.md                           ← marathon book (field 17)
+research-notes/frontiers/{naming_abstract_concepts,concept_compactness,
+    concept_redressing_itself,concept_function_space}.md ← concept-pass notes (+INDEX)
 ```
