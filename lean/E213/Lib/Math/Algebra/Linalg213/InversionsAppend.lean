@@ -51,6 +51,14 @@ theorem psign_append (L M : List Nat) :
      = altSign (inversions L) * altSign (crossInv L M) * altSign (inversions M)
   rw [inversions_append L M, altSign_add, altSign_add]
 
+/-- `crossInv` is invariant under reordering its second argument (multiset-invariant). -/
+theorem crossInv_lperm_right : ∀ (L : List Nat) {M M' : List Nat}, LPerm M M' →
+    crossInv L M = crossInv L M'
+  | [],     _, _, _ => rfl
+  | a :: t, _, _, h => by
+      show ltCount a _ + crossInv t _ = ltCount a _ + crossInv t _
+      rw [ltCount_lperm h, crossInv_lperm_right t h]
+
 /-! ## §2 — a propext-free reversal and the sign of `(c−·) ∘ reverse` -/
 
 /-- Reversal (propext-free; `List.reverse` lemmas pull `propext`). -/
@@ -294,7 +302,7 @@ theorem revL_length : ∀ (L : List Nat), (revL L).length = L.length
       rw [length_append_pure, revL_length t]; rfl
 
 /-- `n − 1 − j = n − j − 1` (propext-free; `Nat.sub_sub` pulls `propext`). -/
-private theorem sub_one_sub : ∀ (n j : Nat), n - 1 - j = n - j - 1
+theorem sub_one_sub : ∀ (n j : Nat), n - 1 - j = n - j - 1
   | _, 0     => by rw [Nat.sub_zero, Nat.sub_zero]
   | n, j + 1 => by show (n - 1 - j) - 1 = (n - j - 1) - 1; rw [sub_one_sub n j]
 
