@@ -71,15 +71,21 @@ The committed-to multi-session build of `(ℤ/p)*` cyclic ⟹ Zolotarev nontrivi
   (`gcd_div_coprime` + `euclid_of_coprime`), `gcd_mul_lcm` (`g·lcm = a·b`).
 - **brick 2** `OrderPow.lean` (3) — `ord_mod_eq` (order depends only on base mod `p`) + ★
   `ord_pow` (`ord(aᵏ) = ord(a)/gcd(ord(a),k)`).
+- **brick 3** `CoprimeOrder.lean` (1+2) — ★ `ord_mul_coprime`
+  (`gcd(ord a, ord b) = 1 ⟹ ordModP ((a·b)%p) p = ord a · ord b`), via the product collapse +
+  `euclid_of_coprime` + brick 1's `coprime_mul_dvd` (`lcm_dvd` + `gcd_mul_lcm`).
 
 **Bricks remaining:**
-- **brick 3 — coprime-product-order**: `gcd(ord a, ord b) = 1 ⟹ ord(a·b) = ord a · ord b`.
-  `γ ∣ αβ` (the product is `(a^α)^β·(b^β)^α ≡ 1`); and `α∣γ`, `β∣γ` (from `(ab)^{γβ}≡1` ⟹
-  `a^{γβ}≡1`, euclid), then `αβ = lcm(α,β) ∣ γ` (brick 1's `lcm_dvd` + `gcd_mul_lcm`).
-- **brick 4 — `maxOrd` + "every order ∣ maxOrd"**: define the maximum order over `[1,p−1]`
-  (a search/fold); if some order `δ ∤ d_max`, decompose `lcm(δ,d_max) = δ'·d'` coprime
-  (`δ'∣δ`, `d'∣d_max`) and build (via `ord_pow` brick 2 + brick 3) an element of order
-  `lcm(δ,d_max) > d_max`, contradiction.
+- **brick 4 — `maxOrd` + "every order ∣ maxOrd"** (THE CRUX).  Define the maximum order over
+  `[1,p−1]` (a search/fold; the easy parts — achieved, `1 ≤ maxOrd ≤ p−1` — are routine).  The
+  hard heart is **orders closed under lcm**: given orders `α, d` with `α ∤ d`, build an element
+  of order `lcm(α,d) > d` (contradicting maximality), via bricks 2+3.  That needs the
+  **★ coprime lcm decomposition** `∃ α' d', α'∣α ∧ d'∣d ∧ gcd(α',d')=1 ∧ α'·d' = lcm(α,d)` —
+  then `a^(α/α')` has order `α'` (brick 2), `g^(d/d')` order `d'`, product order `α'·d' = lcm`
+  (brick 3).  **No simple gcd split works** (verified: `α=12,d=18` needs `α'=4,d'=9`, a
+  per-prime assignment), so this is the factorization-free **coprime-base extraction**
+  (iterated `gcd`-division, fuel-bounded) — a substantial ~200-line sub-build, the genuine heart
+  of the exponent argument.  Deserves its own focused session.
 - **brick 5 — `RootBound` gluing**: every unit satisfies `x^{maxOrd} ≡ 1`, so `X^{maxOrd}−1`
   (as `List Int`) has `p−1` distinct roots; `RootBound.eval_zero` ⟹ `f ≡ 0` everywhere ⟹
   `f(0) = −1 ≡ 0`, contra ⟹ `p−1 ≤ maxOrd`; with `maxOrd ∣ p−1` ⟹ `maxOrd = p−1` ⟹
