@@ -227,8 +227,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   abstraction (shared by `invFull`/`sqrtFull`/`teichmuller`); the concrete `i₅ = teichmuller(2-lift)`
   theorem (via `teichmuller_unique`); generalise the lift+fixed-point uniqueness engine to `sqrt`
   (`unique_of_lift_fixed`).  ✓ *Done:* the sequence-level **additive abelian group**
-  (`SetoidAssoc.zp_add_setoid_group_capstone` — assoc/comm/zero + `x+(−x)≈0` via
-  `of_trunc_all`); the **multiplicative** `ZpSeqEquiv` identities (mul comm/assoc/distrib) remain.
+  (`SetoidAssoc.zp_add_setoid_group_capstone`) **and now the multiplicative `ZpSeqEquiv`
+  identities** (`SetoidMul`, 11 PURE — `zp_mul_{comm,assoc,one,add}_equiv` + the
+  `zp_setoid_comm_ring_capstone`: `ZpSeq / ZpSeqEquiv` is a **commutative ring**).  The note's
+  "high difficulty (propext / convolution reindexing)" was overcautious — `Zp.mul_trunc` descends
+  each law to `ℤ/pⁿ` exactly as `Zp.add_trunc` did for addition (only `Nat.mul_assoc`'s propext
+  needed swapping for `ring_nat`).  This **unblocks `i₅ = teichmuller(2-lift)`** — the trunc-level
+  mul assoc/comm it needed now exist.
 - `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
   (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
   (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic

@@ -1436,6 +1436,8 @@ characters agree on `p ≡ 1,3 mod 8` ⟹ `p ∣ z²+2` ⟹ `ZSqrtNegSplit.split
 (`mod8_of_rep`): a square/`2·square`-mod-8 enumeration (`int_small8`/`sq8`/`two_sq8`/`form8_residue`).
 The `−2`-character supplies the Pillar-I input the bare non-residue search lacked.
 
+`E213.Lib.Math.NumberSystems.Padic.SetoidMul` — **11 PURE / 0 DIRTY**.  The multiplicative twin of `SetoidAssoc` (which gave the additive abelian group): `Zp.mul` commutativity / associativity / identity / left-distributivity at the **Setoid level** (`ZpSeqEquiv`).  `Zp.mul_trunc` descends each law to `ℤ/pⁿ` — `mul_comm_trunc` (`Nat.mul_comm`), `mul_assoc_trunc` (`mul_mod_left/right_pure` + `ring_nat` for the `Nat.mul_assoc` whose core proof carries `propext`), `mul_one_trunc` (`trunc_one_succ` + no-wraparound), `mul_add_trunc` (`mul_mod_right_pure` + `add_mod_gen` + `Nat.mul_add`) — then `digits_eq_of_trunc_eq` lifts trunc-equality-at-every-`n` to `ZpSeqEquiv` (funext-free).  ★★★★★ `zp_setoid_comm_ring_capstone`: with the additive group, `ZpSeq / ZpSeqEquiv` is a **commutative ring**.  Unblocks `i₅ = teichmuller`.
+
 ### G122 closure addition (2026-05-22; extended through 2026-05-23)
 
 `E213.Lib.Math.NumberSystems.Padic.*` — Real213-p-adic library — adds **308 PURE
