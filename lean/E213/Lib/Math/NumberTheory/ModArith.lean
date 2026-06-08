@@ -28,6 +28,7 @@ import E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
 import E213.Lib.Math.NumberTheory.ModArith.FP2Sqrt5
 import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 import E213.Lib.Math.NumberTheory.ModArith.Zolotarev
+import E213.Lib.Math.NumberTheory.ModArith.ZolotarevConverse
 import E213.Lib.Math.NumberTheory.ModArith.MulOrder
 import E213.Lib.Math.NumberTheory.ModArith.OrderPow
 import E213.Lib.Math.NumberTheory.ModArith.CoprimeOrder
