@@ -80,29 +80,30 @@ hard.  A cleaner route **eliminates `S` entirely**: `σ_a` is *itself* in block 
 
   `mulPermMod a p = 0 :: (fh ++ (revL fh).map (p − ·))`,  `fh = [σ_a(1), …, σ_a(m)]`.
 
-**Built infrastructure** (`Linalg213/InversionsAppend.lean`, 14 PURE):
-`inversions_append` / `psign_append` (cross term `crossInv L M = Σ_{x∈L} ltCount x M`),
-propext-free reversal `revL`, `psign_csub_revL` (`psign ((revL L).map (c−·)) = psign L`), and
-★ **`psign_blockForm`**: `psign (0 :: L ++ (revL L).map (p−·)) = altSign (crossInv L (…))` for
-`L ≤ p`.  Applied to `fh`:
+**Built infrastructure — COMPLETE** (`Linalg213/InversionsAppend.lean`, 26 PURE):
+- `inversions_append` / `psign_append` (cross term `crossInv L M = Σ_{x∈L} ltCount x M`);
+- propext-free reversal `revL` + `psign_csub_revL` (`psign ((revL L).map (c−·)) = psign L`);
+- ★ `psign_blockForm`: `psign (0 :: L ++ (revL L).map (p−·)) = altSign (crossInv L (…))` for
+  `L ≤ p` — so `psign σ_a = altSign (crossInv fh ((revL fh).map (p−·)))`, one cross count;
+- ★ `altSign_crossInv_map_psub`: `altSign (crossInv F (F.map (p−·))) = altSign (diagCount p F)`
+  (`psub_lt_symm` symmetry ⇒ off-diagonal pairs cancel mod 2; diagonal `diagCount p F`);
+- `getD`/`revL` plumbing (`length_append_pure`, `getD_append_left/right`, `revL_getD`,
+  `revL_length`) for the decomposition.
 
-  **`psign σ_a = altSign (crossInv fh ((revL fh).map (p − ·)))`** — one cross-inversion count.
+So `psign σ_a = altSign (diagCount p fh)`, `fh = (seg m).map (fun x => (a·x)%p)`, and the
+diagonal `diagCount p fh = #{x∈fh : p−x<x} = #{x∈fh : x>m} = μ`.
 
-**Remaining (≈3 lemmas, all PURE-feasible, no new "missing infra"):**
-1. *Decomposition* `mulPermMod a p = 0 :: (fh ++ (revL fh).map (p−·))` with
-   `fh = (seg m).map (fun x => (a·x)%p)` — `getD` extensionality over `i=0 / [1,m] / [m+1,2m]`
-   (same shape as `ZolotarevConverse.mulPermMod_negone_eq`), using `(a(p−x))%p = p − (a·x)%p`.
-2. *Symmetric-parity* `altSign (crossInv fh ((revL fh).map (p−·))) = altSign μ`.  Since
-   `crossInv L M` is multiset-invariant in `M` (`ltCount_lperm`), `crossInv fh ((revL fh).map(p−·))
-   = crossInv fh (fh.map(p−·)) = Σ_{x∈fh} #{w∈fh : p−w < x} = #{(x,w)∈fh² : x+w>p}` — a
-   **symmetric** relation.  General lemma: `altSign (Σ_{x∈L} #{w∈L : r x w}) = altSign #{x∈L : r x x}`
-   for symmetric `r` (off-diagonal pairs come in 2s; induction peels `a`, the two cross terms
-   `#{w∈t : r a w} = #{x∈t : r x a}` are equal by symmetry ⇒ even).  The diagonal is
-   `#{x∈fh : p−x < x} = #{x∈fh : x>m} = μ` (since `p = 2m+1`).
-3. *Gauss connection* `altSign μ = ∏ₓ sgFn(a·x)` (both `= (−1)^μ`) and `μ` here `=` the
-   `GaussLemma` count; then `gauss_qr` (`∏ sgFn = 1 ⟺ QR`) gives `psign σ_a = (a/p)` for
-   **every** prime — subsuming `p≡3 mod 4` and closing the `det = psign = (a/p)` triangle
-   universally.
+**Remaining — mechanical ModArith integration only (no new infrastructure):**
+1. *Decomposition* `mulPermMod a p = 0 :: (fh ++ (revL fh).map (p−·))` — `list_ext_getD` over
+   `i = 0 / [1,m] / [m+1,2m]` using `getD_append_left/right` + `revL_getD` + `seg` `getD`
+   (`= j+1`) + the negation identity `(a(p−x))%p = p − (a·x)%p` (generalise
+   `ZolotarevConverse.negmul_mod`).
+2. *Bridge* `psign σ_a = altSign (diagCount p fh)` via `psign_blockForm` + `altSign_crossInv_map_psub`
+   (`fh ≤ p` since residues `< p`).
+3. *Gauss connection* `altSign (diagCount p fh) = prodZ ((seg m).map (sgFn a p m))` (both
+   `(−1)^μ`: `diagCount`-over-map = sum of `[¬(σ_a x ≤ m)]`, and `altSign(count of −1s) = ∏ ±1`),
+   then `gauss_qr` (`∏ sgFn = 1 ⟺ QR`) ⟹ `psign σ_a = (a/p)` for **every** prime — subsuming
+   `p≡3 mod 4` and closing the `det = psign = (a/p)` triangle universally.
 
 ## 2. Teichmüller ω ↔ the quadratic character (p-adic lift of Euler's criterion)
 
