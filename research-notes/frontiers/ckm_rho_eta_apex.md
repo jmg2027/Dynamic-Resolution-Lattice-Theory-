@@ -564,7 +564,13 @@ Per "give meaning to nothing": `(NS−√d)/2 = (3−√5)/2` imports only the a
 counts + the quadratic formula; "1/φ²" smuggles the golden-ratio *name*.  Commit to
 `R_u = (NS−√d)/2`; "1/φ²" is the derived golden *reading*.  It also exposes the
 load-bearing coincidence **disc = NS²−4 = NS+NT = d**, true *only* at `(NS,NT)=(3,2)`
-(`9−4=5=3+2`) — a sub-question: selection or accident? (cheap finite check, do first.)
+(`9−4=5=3+2`) — a sub-question: selection or accident?  **RESOLVED — selection**
+(now ∅-axiom, `FibonacciAtomicLock.disc_eq_atomic_sum_selects_shape`): under
+`NT ≥ 1` (a time axis) and `NT < NS` (fewer time than space axes), the discriminant
+equation `ns²−4 = ns+nt` has the **unique** solution `(3,2)` — `nt<ns ⟹ ns²<2ns+4 ⟹
+ns≤3`; `nt≥1 ⟹ ns²≥ns+5 ⟹ ns≥3`.  So `d=5` (hence `√d=√5` in `R_u=(NS−√d)/2`) is
+*forced* by the self-reference discriminant, a second independent route to the atomic
+shape (cf. `Theory/Atomicity/PairForcing`).  Not an accident.
 
 ### 3. CORRECTION — `1/φ²` is the eigenvalue, NOT the convergence rate
 The repo gloss "`1/φ²` = rate `P^n→φ` converges" is imprecise.  The Möbius

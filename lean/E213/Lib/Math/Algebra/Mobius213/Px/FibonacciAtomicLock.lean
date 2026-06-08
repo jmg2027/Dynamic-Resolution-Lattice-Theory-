@@ -1,4 +1,5 @@
 import E213.Lib.Physics.Simplex.Counts
+import E213.Meta.Nat.PureNat
 
 /-!
 # Mobius213.Px.FibonacciAtomicLock — atomic signature = consecutive Fibonacci
@@ -224,5 +225,77 @@ theorem apex_modulus_is_designed_square :
     ∧ ((1 : Int) = 1 ∧ (2 : Int) + 1 = (NS : Int))
     -- real, distinct roots: disc = NS²−4·det = d = 5
     ∧ ((NS : Int) * NS - 4 * 1 = (d : Int)) := by decide
+
+/-! ## §4 — `disc = d` SELECTS the atomic shape (not an accident)
+
+The coincidence `disc(M) = NS²−4 = NS+NT = d` (the self-reference matrix's
+discriminant equals the atomicity sum) is **not** an accident.  Under the minimal
+shape constraints `NT ≥ 1` (a time axis exists) and `NT < NS` (fewer time than
+space axes), the discriminant equation `ns² − 4 = ns + nt` has the **unique**
+solution `(ns, nt) = (3, 2)`.  So `d = 5` — hence the `√d = √5` inside
+`R_u = (NS−√d)/2` — is forced by the *same* discriminant that produces the golden
+eigenvalues `φ², 1/φ²`: a second, independent route to the atomic shape
+(cf. `Theory/Atomicity/PairForcing`, which forces `(3,2)` from arity/atomicity).
+This answers the "selection vs accident" question for `disc = d`: selection. -/
+
+/-- ★★★★★ **`disc = d` selects `(NS,NT) = (3,2)` uniquely.**  Any `(ns,nt)` with
+    `ns²−4 = ns+nt` (the self-reference discriminant `= ` atomic sum), `1 ≤ nt` (a
+    time axis), and `nt < ns` (fewer time than space axes) must be `(3,2)`.  Hence
+    `d = NS+NT = 5` is forced by the discriminant, not coincident with it.  Proof:
+    `nt < ns ⟹ ns² < 2ns+4 ⟹ ns ≤ 3`; `nt ≥ 1 ⟹ ns² ≥ ns+5 ⟹ ns ≥ 3`; so `ns=3`,
+    `nt=2`. -/
+theorem disc_eq_atomic_sum_selects_shape (ns nt : Nat)
+    (hdisc : ns * ns = ns + nt + 4)
+    (hnt : 1 ≤ nt)
+    (hlt : nt < ns) :
+    ns = 3 ∧ nt = 2 := by
+  -- upper bound  ns*ns < 2*ns + 4
+  have hub : ns * ns < 2 * ns + 4 := by
+    have hstep : ns + nt < ns + ns := Nat.add_lt_add_left hlt ns
+    calc ns * ns = ns + nt + 4 := hdisc
+      _ < ns + ns + 4 := Nat.add_lt_add_right hstep 4
+      _ = 2 * ns + 4 := by rw [Nat.two_mul]
+  -- ns ≤ 3
+  have hle3 : ns ≤ 3 := by
+    rcases Nat.lt_or_ge ns 4 with hlt4 | hge4
+    · exact Nat.le_of_lt_succ hlt4
+    · exfalso
+      have c1 : 4 * ns ≤ ns * ns := Nat.mul_le_mul_right ns hge4
+      have c2 : 8 ≤ 2 * ns := Nat.mul_le_mul_left 2 hge4
+      have e4 : 4 * ns = 2 * ns + 2 * ns := by
+        rw [show (4 : Nat) = 2 + 2 from rfl]; exact E213.Meta.Nat.PureNat.add_mul 2 2 ns
+      have c3 : 2 * ns + 4 ≤ 2 * ns + 2 * ns :=
+        Nat.add_le_add_left (Nat.le_trans (by decide) c2) (2 * ns)
+      have c4 : 2 * ns + 4 ≤ ns * ns :=
+        Nat.le_trans c3 (Nat.le_trans (Nat.le_of_eq e4.symm) c1)
+      exact absurd (Nat.lt_of_lt_of_le hub c4) (Nat.lt_irrefl _)
+  -- ns ≥ 3
+  have hge3 : 3 ≤ ns := by
+    rcases Nat.lt_or_ge ns 3 with hlt3 | hge3'
+    · exfalso
+      have h2 : ns ≤ 2 := Nat.le_of_lt_succ hlt3
+      have hsq : ns * ns ≤ 4 := Nat.le_trans (Nat.mul_le_mul h2 h2) (by decide)
+      have hlow : 5 ≤ ns * ns := by
+        calc 5 = 0 + 1 + 4 := by decide
+          _ ≤ ns + nt + 4 :=
+              Nat.add_le_add_right (Nat.add_le_add (Nat.zero_le ns) hnt) 4
+          _ = ns * ns := hdisc.symm
+      exact absurd (Nat.le_trans hlow hsq) (by decide)
+    · exact hge3'
+  have hns3 : ns = 3 := Nat.le_antisymm hle3 hge3
+  subst hns3
+  -- 3·3 = 3 + nt + 4 = nt + 7 = 9, with 1 ≤ nt < 3  ⟹  nt = 2
+  have e : 3 + nt + 4 = nt + 7 := by rw [Nat.add_comm 3 nt, Nat.add_assoc]
+  have h9 : nt + 7 = 9 := by rw [← e]; exact hdisc.symm
+  have hnt_le : nt ≤ 2 := Nat.le_of_lt_succ hlt
+  have hnt_ge : 2 ≤ nt := by
+    rcases Nat.lt_or_ge nt 2 with hl | hg
+    · exfalso
+      have h1 : nt ≤ 1 := Nat.le_of_lt_succ hl
+      have hle8 : nt + 7 ≤ 1 + 7 := Nat.add_le_add_right h1 7
+      rw [h9] at hle8
+      exact absurd hle8 (by decide)
+    · exact hg
+  exact ⟨rfl, Nat.le_antisymm hnt_le hnt_ge⟩
 
 end E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock
