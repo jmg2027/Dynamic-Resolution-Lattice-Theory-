@@ -143,4 +143,20 @@ theorem lichnerowicz_abstract {K lam N : Int} (hN : 0 < N) (hlam : 0 < lam)
     (hCD : K * (lam * N) ≤ lam * (lam * N)) : K ≤ lam :=
   le_of_mul_le_mul_right_pos hCD (OrderMul.mul_pos hlam hN)
 
+/-! ## §3 — the eigenspaces realized: `{0, m}` with multiplicities `1, m−1` -/
+
+/-- **Mean-zero functions are `λ = m` eigenfunctions.**  If `Σf = 0` then `Lf(x) = −m·f x`
+    for every `x` (the centre term `S = 0`).  These are the `(m−1)`-dimensional `λ = m`
+    eigenspace (the orthogonal complement of the constants). -/
+theorem km_meanzero_eigen (m : Nat) (f : Nat → Int) (h0 : gridSumZ m f = 0) (x : Nat) :
+    kmLapG m f x = -((m : Int) * f x) := by
+  unfold kmLapG; rw [h0]; exact Order.zero_sub _
+
+/-- **Constant functions are `λ = 0` eigenfunctions** (`Lf ≡ 0`): the `1`-dimensional
+    kernel.  With `km_meanzero_eigen` and `km_eigenvalue` this pins the full `K_m`
+    Laplacian spectrum `{0¹, m^{m−1}}`. -/
+theorem km_const_eigen (m : Nat) (c : Int) (x : Nat) :
+    kmLapG m (fun _ => c) x = 0 := by
+  unfold kmLapG; rw [gridSumZ_const]; exact Order.sub_self_zero _
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteLichnerowicz
