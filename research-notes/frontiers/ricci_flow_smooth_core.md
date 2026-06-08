@@ -205,9 +205,17 @@ It **reduces exactly to the 2D case** (`confRNumN_eq_confKNum`: `confRNumN 2 = 4
 — the Poincaré/Geometrization dimension — the flat/positive/negative trichotomy is closed
 on polynomial `λ` at the origin 2-jet (`conformal_scalar_curvature_3d`: dome `48C`,
 paraboloid `−48`).  So the conformal route is **not** stuck at 2D; the general-`n`
-*scalar* curvature is reachable.  **Honest boundary**: this is only the *scalar* curvature;
-the full Ricci **tensor** and the Ricci **flow** for `n ≥ 3` need the general-`n` tensor
-calculus (and Ricci flow does **not** preserve conformality for `n ≥ 3`), still walled.
+*scalar* curvature is reachable.
+
+The conformally-flat Ricci **tensor** itself is now reached too (`ConformalCurvature.lean`
+§S7, PURE): `confRicOffNum`/`confRicDiagNum` (numerators `×4λ²`), validated by the trace
+identity `confRicTrace3` (`Σ_i Ric_{ii} = confRNumN`, so `R = (1/λ)·tr Ric` = the §S6 scalar).
+`confRic3_dome_origin`: the 3D dome `λ = C−r²` is **Einstein at its origin** (`Ric` isotropic
+— off-diagonal `0`, diagonal `16C`, `Ric ∝ g`).  **Honest boundary (narrowed)**: the
+*conformally-flat* Ricci tensor (not just the scalar) is now `∅`-axiom in general `n`; the
+residual wall is the Ricci tensor of an *arbitrary* metric (general `g_{ij}`, its inverse,
+Christoffel/Riemann as index sums), transcendental metrics, and the *flow* with PDE a-priori
+estimates (and Ricci flow not preserving conformality for `n ≥ 3`).
 
 ## Verdict
 

@@ -166,4 +166,53 @@ theorem conformal_scalar_curvature_3d (C : Int) (hC : 0 < C) :
   · rw [confR3_dome]; exact OrderMul.mul_pos (by decide) hC
   · rw [confR3_paraboloid]; decide
 
+/-! ## §S7 — the conformally-flat Ricci **tensor** (toward the wall)
+
+The scalar above is `g^{ij}Ric_{ij}`; the Ricci **tensor** itself — the object Ricci flow
+`∂_t g = −2 Ric` actually evolves — has, for `g = λ·δ`, the components (numerators `×4λ²`):
+
+  off-diagonal `i≠j`:  `4λ²·Ric_{ij} = −(n−2)(2λ·λ_{ij} − 3λ_i λ_j)`,
+  diagonal `i=j`:      `4λ²·Ric_{ii} = −(n−2)(2λ·λ_{ii} − 3λ_i²) − (2λ·Δλ + (n−4)|∇λ|²)`.
+
+The consistency check is the trace: `Σ_i 4λ²·Ric_{ii} = confRNumN` (`confRicTrace3`, `n=3`),
+so `R = g^{ij}Ric_{ij} = (1/λ)Σ_i Ric_{ii} = confRNumN/(4λ³)` — the §S6 scalar.  This is the
+genuine Ricci *tensor* of a conformally-flat metric, `∅`-axiom (rational, numerator over ℤ).
+**Honest boundary**: still the *conformally-flat* class (`g = λδ`); the Ricci tensor of an
+*arbitrary* metric (general `g_{ij}`, its inverse, Christoffel/Riemann index sums) and the
+*flow* with PDE a-priori estimates remain the wall (`ricci_flow_smooth_core.md`). -/
+
+/-- Off-diagonal Ricci numerator (`×4λ²`) of `g = λδ`, `i ≠ j`: `−(n−2)(2λ·λ_{ij} − 3λ_iλ_j)`
+    (`li = λ_i`, `lj = λ_j`, `lij = λ_{ij}`). -/
+def confRicOffNum (n lam li lj lij : Int) : Int :=
+  -(n - 2) * (2 * lam * lij - 3 * li * lj)
+
+/-- Diagonal Ricci numerator (`×4λ²`) of `g = λδ`: `−(n−2)(2λ·λ_{ii} − 3λ_i²) − (2λ·Δλ +
+    (n−4)|∇λ|²)` (`li = λ_i`, `lii = λ_{ii}`, `gradSq = |∇λ|²`, `lap = Δλ`). -/
+def confRicDiagNum (n lam li lii gradSq lap : Int) : Int :=
+  -(n - 2) * (2 * lam * lii - 3 * li * li) - (2 * lam * lap + (n - 4) * gradSq)
+
+/-- ★★★★★ **Trace consistency (`n = 3`): the Ricci tensor's trace is the scalar.**  Summing the
+    three diagonal numerators (each with the full `|∇λ|² = λx²+λy²+λz²`, `Δλ = λxx+λyy+λzz`)
+    returns `confRNumN` — so `R = (1/λ)Σ_i Ric_{ii} = confRNumN/(4λ³)`, validating the Ricci
+    *tensor* (§S7) against the *scalar* (§S6).  Pure `ring_intZ`. -/
+theorem confRicTrace3 (lam lx ly lz lxx lyy lzz : Int) :
+    confRicDiagNum 3 lam lx lxx (lx*lx + ly*ly + lz*lz) (lxx + lyy + lzz)
+      + confRicDiagNum 3 lam ly lyy (lx*lx + ly*ly + lz*lz) (lxx + lyy + lzz)
+      + confRicDiagNum 3 lam lz lzz (lx*lx + ly*ly + lz*lz) (lxx + lyy + lzz)
+      = confRNumN 3 lam (lx*lx + ly*ly + lz*lz) (lxx + lyy + lzz) := by
+  unfold confRicDiagNum confRNumN; ring_intZ
+
+/-- ★★★★ **Einstein at a point.**  At the origin `2`-jet of the 3D dome `λ = C − r²`
+    (`λ_i = 0`, `λ_{ij} = 0` for `i≠j`, `λ_{ii} = −2`, `|∇λ|² = 0`, `Δλ = −6`), the Ricci
+    tensor is **isotropic** — every off-diagonal component vanishes and every diagonal
+    numerator equals `16·C` — so `Ric = (16C/4λ²)·δ = (4C/λ²)·δ` is a multiple of the metric:
+    the dome is **Einstein at its origin** (`Ric ∝ g`, the round-cap point). -/
+theorem confRic3_dome_origin (C : Int) :
+    confRicOffNum 3 C 0 0 0 = 0 ∧ confRicDiagNum 3 C 0 (-2) 0 (-6) = 16 * C := by
+  refine ⟨?_, ?_⟩
+  · unfold confRicOffNum
+    rw [PolyIntM.mul_zeroZ, PolyIntM.mul_zeroZ, Order.sub_zero, PolyIntM.mul_zeroZ]
+  · unfold confRicDiagNum
+    rw [PolyIntM.mul_zeroZ, PolyIntM.mul_zeroZ, Int.add_zero, Order.sub_zero]; ring_intZ
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.ConformalCurvature
