@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 71 essays are grouped into ten thematic sub-directories — distinct
+The 72 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -65,6 +65,10 @@ the CKM CP phase's `C₄` — one ring `ℤ[i]`, read as the continued-fraction 
 `μ=−i` (`gaussian_floor_rotation`) and as the Hodge `⋆` on `H*(Δ⁴)`; the CP phase sits at
 the `i`-point, disc `−4`, selected over the order-6 Eisenstein rung; same-object claim, the
 floor-rotation↔`⋆` morphism flagged open).
+`the_golden_prime` (the prime `5` where the value `φ` (golden modulus `R_u=1/φ²`) and the
+valuation `ν₅(F_n)=ν₅(n)` (Fibonacci rank of apparition `α(5)=5`) are two faces of `ℚ(√5)` at
+its ramified place; the Cassini unit `±1` underwrites both; disc `+5` real companion to the
+CP phase's disc `−4` imaginary `ℚ(ζ₅)` reading).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
