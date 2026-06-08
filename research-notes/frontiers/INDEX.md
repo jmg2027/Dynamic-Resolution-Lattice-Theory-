@@ -150,11 +150,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   counting_as_cardinality,sperner_double_counting,probabilistic_method}.md`.  No open seed.
 
 - **determinant / permutation-sign** — CLOSED ∅-axiom (`PermSign.psign_mul`,
-  `DetTranspose.det_transpose`, `DetMul.det_matMul`); narrative in
+  `DetTranspose.det_transpose`, `DetMul.det_matMul`, and now
+  **`PermMatrixDet.det_permMatrix`** — `det n (permMatrix σ) = psign σ`, the two readings of a
+  permutation identified, 8 PURE; the adjacent-swap = row-swap (`det_swapRows`) bubble-sort
+  reduction reused from `psign_mul`).  Narrative in
   `theory/essays/algebra/{permutation_sign_as_homomorphism,determinant_as_quotient_characteristic,
-  cayley_hamilton_self_characteristic}.md`.  *Open seeds:* `det(permMatrix σ) = psign σ`
-  (the two readings of a permutation); general column Laplace as a `det_transpose` corollary;
-  relocate the constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.
+  cayley_hamilton_self_characteristic}.md`.  *Open seeds:* general column Laplace as a
+  `det_transpose` corollary; relocate the constructive pigeonhole
+  (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.  The `det_permMatrix` closure also
+  unlocks the **Zolotarev** bridge (reciprocity / euler-converse topics): `psign` of the
+  multiplication-by-`a` value-list = the Legendre symbol.
 
 - `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
   residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at
