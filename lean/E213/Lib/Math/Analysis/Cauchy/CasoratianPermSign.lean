@@ -9,11 +9,11 @@ The all-orders Casoratian law multiplies the Hankel determinant each step by
 `altSign(k−1)·a 0` (`CasoratianDeterminant.casoratian_det_step`); the sign comes from the
 companion (cyclic-shift) determinant `det_companion : det(companion a (m+1)) = altSign m · a 0`.
 
-This file closes link 2 of `research-notes/frontiers/casoratian_axis_cp_crossdomain.md`: that
+This file shows the companion/Casoratian multiplier sign IS a permutation sign: that
 sign `altSign m` is exactly the **permutation sign** `psign` of the underlying `(m+1)`-cycle
 `(0 1 … m)` (`CyclicShiftSign.cycShift_psign`).  So the companion determinant joins the
-"permutation under three readouts" (main's `det(permMatrix)` = `psign` = Legendre/Zolotarev,
-`theory/essays/algebra/the_permutation_under_three_readouts.md`) as a **fourth** instance of
+"permutation under three readouts" (`det(permMatrix)` = `psign` = Legendre/Zolotarev,
+`theory/essays/synthesis/the_permutation_under_three_readouts.md`) as a **fourth** instance of
 the single inversion-sign readout — the Casoratian depth multiplier carries the sign of the
 shift cycle.
 

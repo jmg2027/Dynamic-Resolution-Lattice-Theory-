@@ -76,9 +76,9 @@ is now a Lean morphism.
 ## Open frontier
 
 The CP value `90°` is forced while the explicit generation-Yukawa construction stays open (the
-`cp_phase` chapter's frontier).  The remaining sibling bridge is the `det_companion`-sign `↔
-psign`-of-shift identification, which would put the axis rotation and the Hodge orientation on one
-inversion-sign readout (`research-notes/frontiers/casoratian_axis_cp_crossdomain.md` link 2).
+`cp_phase` chapter's frontier).  The sibling `det_companion`-sign ↔ `psign`-of-shift
+identification — putting the axis rotation and the Hodge orientation on one inversion-sign readout —
+is built in `Cauchy/CasoratianPermSign` (`companion_det_is_perm_sign`).
 
 ## Self-check note
 

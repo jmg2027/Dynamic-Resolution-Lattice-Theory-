@@ -201,8 +201,7 @@ already sign-free and algebraic; `1/φ` would require an imposed `|·|`, not an
 eigenvalue.  And `det P = 1` makes the eigenvalue pair **reciprocal**
 (`λ₊·λ₋ = 1`, Vieta constant term) with `λ₊+λ₋ = NS` (trace) — the base-
 normalization that lets one unit leg carry `λ₊` and forces the apex onto `λ₋`.
-Cf. `JarlskogApex.apex_modulus_is_selfref_contracting_eigenvalue`,
-`research-notes/frontiers/ckm_rho_eta_apex.md` (finding #4). -/
+Cf. `JarlskogApex.apex_modulus_is_selfref_contracting_eigenvalue`. -/
 
 /-- `det Q = Q00·Q11 − Q01·Q10 = −1` — one Fibonacci step is **sign-carrying**
     (its contracting eigenvalue `−1/φ` is negative). -/
