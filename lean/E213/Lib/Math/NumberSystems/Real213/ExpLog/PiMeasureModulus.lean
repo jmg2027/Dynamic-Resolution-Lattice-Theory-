@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.PiCut
 import E213.Lib.Math.NumberSystems.Real213.BracketModulus
+import E213.Lib.Math.NumberSystems.Real213.RateStratification
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!
@@ -43,6 +44,9 @@ open E213.Lib.Math.Analysis.Cauchy.WallisSeq
   (wallisNum wallisDen wallisNum_pos wallisDen_pos kk_lt_4_kp1_sq wallis_upper_inv)
 open E213.Lib.Math.NumberSystems.Real213.BracketModulus (Inside bracket_total_modulus)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.PiCut (halfPiCut halfPiCut_eq piCut)
+open E213.Lib.Math.NumberSystems.Real213.RateModulus (HtelS)
+open E213.Lib.Math.NumberSystems.Real213.RateStratification
+  (DominatesS htelS_iff_dominatesS)
 open E213.Meta.Nat.NatRing213 (nat_mul_lt_mul_left)
 open E213.Tactic.NatHelper (le_of_mul_le_mul_right)
 
@@ -172,5 +176,102 @@ theorem pi_measure_modulus (C s : Nat) (hμ : PiHalfMeasure C s)
   have h2k : 1 ≤ 2 * k := Nat.le_trans hk (Nat.le_mul_of_pos_left k (by decide))
   obtain ⟨N, hN⟩ := halfPi_measure_modulus C s hμ m (2*k) h2k
   exact ⟨N, fun i j hi hj => hN i j hi hj⟩
+
+/-! ## §4 — the Wallis pointing is beyond every rung (the unconditional negative) -/
+
+/-- **π/2's Wallis cross-determinant is the full product** `W_n = a_n·d_n`
+    (`(2n+1)(2n+3) + 1 = 4(n+1)²`).  This is *why* the presentation's
+    divergence depth is `6` (`DepthPiQuartic.piRatio_polyDepth`: the ratio
+    `W_{n+1}/W_n = 4(n+1)²(2n+1)(2n+3)` is the degree-4 polynomial) — and why
+    no schedule can absorb it. -/
+theorem wallis_cross_det (n : Nat) :
+    wallisNum (n+1) * wallisDen n
+      = wallisNum n * wallisDen (n+1) + wallisNum n * wallisDen n := by
+  show wallisNum n * (4 * (n+1) * (n+1)) * wallisDen n
+      = wallisNum n * (wallisDen n * ((2*n+1) * (2*n+3)))
+        + wallisNum n * wallisDen n
+  ring_nat
+
+theorem wallisNum_ge_four : ∀ n, 1 ≤ n → 4 ≤ wallisNum n
+  | 0, h => absurd h (by decide)
+  | 1, _ => by decide
+  | n+2, _ => by
+      have ih := wallisNum_ge_four (n+1) (Nat.succ_le_succ (Nat.zero_le n))
+      show 4 ≤ wallisNum (n+1) * (4 * (n+2) * (n+2))
+      exact Nat.le_trans ih (Nat.le_mul_of_pos_right _
+        (Nat.mul_pos (Nat.mul_pos (by decide) (Nat.zero_lt_succ _))
+          (Nat.zero_lt_succ _)))
+
+/-- From layer 2 on, the Wallis numerator passes the denominator-growth
+    quadratic: `(2n+1)(2n+3) < wallisNum n`. -/
+theorem quad_lt_wallisNum : ∀ n, 2 ≤ n → (2*n+1) * (2*n+3) < wallisNum n
+  | 0, h => absurd h (by decide)
+  | 1, h => absurd h (by decide)
+  | m+2, _ => by
+      have h4 : 4 ≤ wallisNum (m+1) :=
+        wallisNum_ge_four (m+1) (Nat.succ_le_succ (Nat.zero_le m))
+      show (2*(m+2)+1) * (2*(m+2)+3) < wallisNum (m+1) * (4 * (m+2) * (m+2))
+      have h1 : (2*(m+2)+1) * (2*(m+2)+3) < 4 * ((m+3) * (m+3)) :=
+        kk_lt_4_kp1_sq (m+2)
+      have hb : m+3 ≤ 2*(m+2) := by
+        have e : 2*(m+2) = (m+3) + (m+1) := by ring_nat
+        rw [e]; exact Nat.le_add_right _ _
+      have h2 : 4 * ((m+3) * (m+3)) ≤ 4 * (4 * (m+2) * (m+2)) := by
+        have e : (2*(m+2)) * (2*(m+2)) = 4 * (m+2) * (m+2) := by ring_nat
+        exact Nat.mul_le_mul_left 4 (e ▸ Nat.mul_le_mul hb hb)
+      have h3 : 4 * (4 * (m+2) * (m+2)) ≤ wallisNum (m+1) * (4 * (m+2) * (m+2)) :=
+        Nat.mul_le_mul_right _ h4
+      exact Nat.lt_of_lt_of_le h1 (Nat.le_trans h2 h3)
+
+/-- ★★★ **The Wallis pointing overtakes every schedule.**  For *any* positive
+    probe schedule `ρ`, scheduled domination fails at every layer `n ≥ 2`:
+    `W_n = a_n·d_n` exceeds the scheduled denominator quantum no matter how
+    much polynomial slack the schedule forgives.  The Wallis pointing of π/2
+    sits **beyond every rung** of the graded ladder — its rung is `∞`. -/
+theorem wallis_overtakes_every_schedule (ρ : Nat → Nat) (hρ : ∀ n, 1 ≤ ρ n)
+    (n : Nat) (hn : 2 ≤ n) :
+    ¬ DominatesS (fun j => wallisNum j * wallisDen j) wallisDen ρ n := by
+  intro hdom
+  have hQ : (2*n+1) * (2*n+3) < wallisNum n := quad_lt_wallisNum n hn
+  have eR : ρ (n+1) * wallisDen (n+1)
+      = (ρ (n+1) * wallisDen n) * ((2*n+1) * (2*n+3)) := by
+    show ρ (n+1) * (wallisDen n * ((2*n+1) * (2*n+3)))
+        = (ρ (n+1) * wallisDen n) * ((2*n+1) * (2*n+3))
+    ring_nat
+  have hlt : (ρ (n+1) * wallisDen n) * ((2*n+1) * (2*n+3))
+      < (ρ (n+1) * wallisDen n) * wallisNum n :=
+    nat_mul_lt_mul_left (Nat.mul_pos (hρ (n+1)) (wallisDen_pos n)) hQ
+  have hle : (ρ (n+1) * wallisDen n) * wallisNum n
+      ≤ ρ n * ρ (n+1) * (wallisNum n * wallisDen n) := by
+    have e1 : (ρ (n+1) * wallisDen n) * wallisNum n
+        = 1 * (ρ (n+1) * (wallisNum n * wallisDen n)) := by ring_nat
+    have e2 : ρ n * ρ (n+1) * (wallisNum n * wallisDen n)
+        = ρ n * (ρ (n+1) * (wallisNum n * wallisDen n)) := by ring_nat
+    rw [e1, e2]
+    exact Nat.mul_le_mul_right _ (hρ n)
+  have habs : ρ (n+1) * wallisDen (n+1) < ρ (n+1) * wallisDen (n+1) :=
+    calc ρ (n+1) * wallisDen (n+1)
+        = (ρ (n+1) * wallisDen n) * ((2*n+1) * (2*n+3)) := eR
+      _ < (ρ (n+1) * wallisDen n) * wallisNum n := hlt
+      _ ≤ ρ n * ρ (n+1) * (wallisNum n * wallisDen n) := hle
+      _ ≤ ρ n * ρ (n+1) * (wallisNum n * wallisDen n) + ρ n * wallisDen n :=
+          Nat.le_add_right _ _
+      _ ≤ ρ (n+1) * wallisDen (n+1) := hdom
+  exact Nat.lt_irrefl _ habs
+
+/-- ★★★ **No graded rate certificate at any schedule** — the rung of the Wallis
+    pointing is `∞`: for every positive schedule `ρ`, `HtelS wallisNum wallisDen ρ`
+    fails (it would force scheduled domination at layer 2, which
+    `wallis_overtakes_every_schedule` refutes).  Together with the conditional
+    modulus (§3) this completes π's placement: the *pointing* has no finite
+    rung, and what remains attributable to π itself is exactly the measure
+    hypothesis `PiHalfMeasure` — the rung is a property of the pointing, not of
+    the real (`PresentationDependence`; depth is intensional,
+    `SpiralLayer.depth_is_intensional`). -/
+theorem wallis_no_graded_certificate (ρ : Nat → Nat) (hρ : ∀ n, 1 ≤ ρ n) :
+    ¬ HtelS wallisNum wallisDen ρ := fun h =>
+  wallis_overtakes_every_schedule ρ hρ 2 (Nat.le_refl 2)
+    (((htelS_iff_dominatesS (fun j => wallisNum j * wallisDen j)
+        (fun i => wallis_cross_det i)).mp h) 2 (by decide))
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.PiMeasureModulus

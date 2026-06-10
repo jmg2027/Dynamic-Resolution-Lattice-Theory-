@@ -1387,7 +1387,7 @@ the **exclusion depth** `B` (`Inside at n ⟹ n ≤ B k`), yields the total
 ∅-axiom modulus `N(m,k) = B k + 2` (`bracket_total_modulus`).  Unconditional
 engine; the measure enters only through `B`.
 
-`E213.Lib.Math.NumberSystems.Real213.ExpLog.PiMeasureModulus` — **11 PURE / 0
+`E213.Lib.Math.NumberSystems.Real213.ExpLog.PiMeasureModulus` — **16 PURE / 0
 DIRTY**.  ★★★ **π/2 (and π) conditionally degree-`s`** — ladder rung 2, first
 named instance.  The Wallis fold gets a decreasing upper companion
 `U_n = W_n·(2n+2)/(2n+1)` (`upNum/upDen`, `up_mono` via the exact identity
@@ -1400,7 +1400,15 @@ isolated in this one inequality.  `measure_exclusion` (depth `n ≤ C·k^s`, via
 `wallisNum_le_two_den` from `wallis_upper_inv`), then ★★★
 `halfPi_measure_modulus` / `pi_measure_modulus`: total modulus
 **`N(m,k) = C·k^s + 2`** (π: `C·(2k)^s + 2`).  π moves from "completion
-modulus as opaque hypothesis" to "conditional degree-`s` modulus".
+modulus as opaque hypothesis" to "conditional degree-`s` modulus".  §4, the
+unconditional negative: `wallis_cross_det` — **the Wallis cross-determinant is
+the full product `W_n = a_n·d_n`** (`(2n+1)(2n+3)+1 = 4(n+1)²`; why the
+presentation's divergence depth is 6, ratio degree 4) — and ★★★
+`wallis_overtakes_every_schedule` / `wallis_no_graded_certificate`: for
+**every** positive schedule `ρ`, scheduled domination fails at every layer
+`n ≥ 2` (`(2n+1)(2n+3) < wallisNum n` from layer 2), so
+`HtelS wallisNum wallisDen ρ` fails — **the Wallis pointing's rung is `∞`**,
+proved, not estimated; the rung is a property of the pointing, not of π.
 
 `E213.Lib.Math.Analysis.Cauchy.DepthAperyCubic` — **23 PURE / 0 DIRTY**.  The Apéry
 zeta coefficient-degree statistic: the minimal-holonomic recurrence coefficients

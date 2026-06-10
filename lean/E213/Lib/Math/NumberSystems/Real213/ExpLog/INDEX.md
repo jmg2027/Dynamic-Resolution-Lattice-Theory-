@@ -29,7 +29,11 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   makes a per-layer shrinking bracket;
                                   `PiHalfMeasure C s` (effective measure, one ℕ
                                   inequality) ⟹ total modulus `N = C·k^s + 2`
-                                  via `Real213/BracketModulus` (ladder rung 2).
+                                  via `Real213/BracketModulus` (ladder rung 2);
+                                  and the unconditional negative: `W_n = a_n·d_n`
+                                  (`wallis_cross_det`) overtakes **every**
+                                  schedule — the Wallis pointing's rung is ∞
+                                  (`wallis_no_graded_certificate`).
 
 Both are thin instances of the shared `Real213/AbCutSeq.lean` (every
 monotone-bounded ab-sequence is a `Real213` cut): valid/ratio/nesting/eventual-

@@ -109,10 +109,15 @@ transcendental-only regime.
 
 ## 4. Frontier
 
-**π via Wallis is rate-free — and conditionally priced.**  The Wallis partial
-products converge like `1/n` while their denominators grow fast, so
-`tailₙ · k · dₙ ≫ 1`: the criterion fails at *every* grade (the `1/n` tail
-overtakes every scheduled quantum), and deciding the side needs a lower bound on
+**π via Wallis is rate-free — at every grade, provably — and conditionally
+priced.**  The Wallis cross-determinant is the *full product* `W_n = a_n·d_n`
+(`wallis_cross_det`: `(2n+1)(2n+3)+1 = 4(n+1)²` — the same mechanism as the
+presentation's divergence depth 6), so scheduled domination fails at every
+layer `n ≥ 2` for **every** positive schedule
+(`PiMeasureModulus.wallis_overtakes_every_schedule`,
+`wallis_no_graded_certificate`): the Wallis pointing sits beyond every rung of
+the graded ladder — a theorem, not an estimate.  Deciding the side therefore
+needs a lower bound on
 `|π/2 − m/k|` — π's irrationality measure (`μ(π) ≤ 7.1`, genuinely hard).  A
 fast π series (geometric-rate, e.g. arctan/Machin) would meet the criterion;
 Wallis cannot.  This is the rate-free posture of `PiCut`, not a property of

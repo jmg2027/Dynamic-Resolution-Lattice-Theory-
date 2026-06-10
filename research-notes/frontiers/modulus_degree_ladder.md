@@ -122,9 +122,16 @@ modulus is the growth class of `N` in `k`, and it factors as
    (`halfPi_measure_modulus` / `pi_measure_modulus`).  π is now a *conditional
    degree-`s` modulus real*; the analytic cost (`μ(π) ≤ 7.103`,
    Zeilberger–Zudilin 2020, no effective `(C,s)` formalized) is isolated in the
-   single `PiHalfMeasure` inequality.  *Residual opening*: prove an actual
-   `(C, s)` instance — even a weak one (any effective transcendence-measure
-   bound for π) — turning the conditional modulus unconditional.
+   single `PiHalfMeasure` inequality.  The conditionality is now proved
+   **necessary for this pointing**: `wallis_cross_det` (`W_n = a_n·d_n`, the
+   full product — the depth-6 mechanism) ⟹ `wallis_overtakes_every_schedule`
+   / `wallis_no_graded_certificate`: domination fails at every layer ≥ 2 for
+   **every** positive schedule — the Wallis pointing's **rung is ∞**
+   (originator's test question, answered).  Rung is pointing-relative
+   (`depth_is_intensional`): a Machin/arctan pointing of the same π would sit
+   at rung 1.  *Residual opening*: prove an actual `(C, s)` instance — even a
+   weak one (any effective transcendence-measure bound for π) — turning the
+   conditional modulus unconditional.
 3. **Two-real separation modulus** — the genuine `N(m1,k1)×N(m2,k2)` object:
    deciding `x ≤ y` for two folds needs a joint `|x−y|` lower bound.  The
    one-probe gap quantum `1/(k·d_i)` is already bilinear (probe × convergent,
