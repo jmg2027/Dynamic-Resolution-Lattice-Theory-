@@ -3,7 +3,7 @@ import E213.Lib.Math.Analysis.Modulus.InfoClosure
 import E213.Lib.Math.Analysis.Modulus.DepthCompleteness
 
 /-!
-# G40 Capstone — ε-δ as Discrete Depth Modulus (∅-axiom)
+# Capstone — ε-δ as Discrete Depth Modulus (∅-axiom)
 
 4 cluster witnesses + total bundle.
 

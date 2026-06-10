@@ -71,7 +71,7 @@ atomic-derivable closure — are P-orbit-derivable at depth 2.
 ## Dual function
 
 This is not "213 had an over-tight atomic catalog and we
-relaxed it".  The original 36-species catalog (G144) was
+relaxed it".  The original 36-species catalog was
 maximally tight under one curatorial choice: depth ≤ 1 of
 the P-orbit.  The relaxation to full P-orbit-derivability is
 not a weakening of standards — it is the precise statement
@@ -87,8 +87,8 @@ The P-orbit reading absorbs both: `7` is neither external nor
 accidental.  It is the depth-2 trace of P.  The naturalness
 boundary moves from "is in `⟨{NT, NS, d}⟩_ℤ`" (depth 0) to
 "is in `⟨{L(k)} ∪ {NT, NS, d}⟩_ℤ`" (depth ≤ ω).  The framework
-remains tight; the tightness sits one level deeper than
-previously stated.
+remains tight; the tightness sits one level deeper than the
+depth-0 form.
 
 ## Cross-frame connections
 
@@ -117,7 +117,7 @@ inequivalent definitions all yielding the same `L(k)` sequence
 
 ## Self-naturalisation refined
 
-The earlier claim (G144 §20.5): 213 is self-naturalising via
+The earlier claim: 213 is self-naturalising via
 PURE-Lens admissibility, matching the atomic catalog.
 
 The refined claim: 213's naturalness predicate = PURE-Lens

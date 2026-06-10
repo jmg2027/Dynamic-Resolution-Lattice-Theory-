@@ -20,6 +20,6 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Structure.Ring
                                    (real dim 4 = complex dim 2):
                                    `L²` mult-by-2 on H⁰→H⁴,
                                    `L` 4×4 permutation det=+1
-                                   on H¹→H³.  G10 Phase 2
+                                   on H¹→H³.  Phase 2
                                    follow-up closed.
 -/

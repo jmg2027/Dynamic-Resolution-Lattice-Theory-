@@ -9,6 +9,7 @@ catalog, pure-atomic observables, cross-observable bridges.
   - `PhysicsTrackComplete.lean`      — physics-track completeness
   - `PureAtomicObservables.lean`     — pure-atomic observable set
   - `NSNTPi5Block.lean`              — NS·NT·π⁵ cross-observable bridge
+  - `PhiUnification.lean`            — φ-appearance unification capstone
 
 ## Top-level
 

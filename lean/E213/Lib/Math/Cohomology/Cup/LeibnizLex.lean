@@ -142,7 +142,7 @@ form holds only under additional symmetric-cochain hypotheses
 /-- ★★★ **Phase 2 native closure** — the lex-projection cup admits
     a universal Leibniz with the boundary-endpoint correction.
     Closes the Phase 2 hero acceptance criterion at the 213-native
-    level (path δ from G85's resolution paths, reframed as native
+    level (path δ from the resolution paths, reframed as native
     closure rather than mixed-Lens twisting).  PURE. -/
 theorem phase2_native_closure :
     ∀ (a₀ a₁ a₂ a₃ a₄ b₀ b₁ b₂ b₃ b₄ : Bool) (i : Fin (binom 5 3)),

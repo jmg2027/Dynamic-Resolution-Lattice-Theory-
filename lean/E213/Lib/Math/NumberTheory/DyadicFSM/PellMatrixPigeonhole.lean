@@ -2,7 +2,7 @@ import E213.Lib.Math.NumberTheory.DyadicFSM.PellMatrixInverse
 import E213.Lib.Math.NumberTheory.DyadicFSM.PellMatrixAction
 import E213.Lib.Math.NumberTheory.DyadicFSM.ArithFSM.InvertibleArithFSM2
 /-!
-# Existential Pisano period via the generic invertible-FSM template — G119 Phase 2
+# Existential Pisano period via the generic invertible-FSM template — Phase 2
 
 `pellCoeffFSM p hp` (the Cayley-Hamilton coefficient FSM for the Pell
 matrix `M = [[2, 1], [1, 1]]`) is an `InvertibleArithFSM2 p` —

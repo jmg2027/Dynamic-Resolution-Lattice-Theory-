@@ -47,7 +47,7 @@ def localDivergence (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
   fluxScale (2^db.expE) 1 (fluxAlong f db)
 
 /-- Scaling preserves balance (cohomological vanishing carries through, PURE).
-    G110 FLUX-1 template (generic variant). -/
+    FLUX-1 template (generic variant). -/
 theorem fluxScale_balanced (a b : Nat) (fc : FluxCut) (h : isBalanced fc) :
     isBalanced (fluxScale a b fc) := by
   intro m k

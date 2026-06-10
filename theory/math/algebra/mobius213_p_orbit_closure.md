@@ -239,8 +239,8 @@ modules.
 
 ## Refined self-naturalisation claim
 
-The earlier claim (G144 §20.5): 213 is a *self-naturalising
-framework* via PURE-Lens admissibility, matching atomic catalog.
+The earlier claim: 213 is a *self-naturalising framework* via
+PURE-Lens admissibility, matching the atomic catalog.
 
 The refined claim: 213's naturalness predicate = PURE-Lens
 admissibility = **P-orbit-derivability**.  The atomic catalog
@@ -386,10 +386,10 @@ See `theory/essays/p_orbit/p_orbit_closure_master.md` for the 11-phase
 synthesis and `theory/essays/methodology/pure_nat_ring_methodology.md` for the
 PURE ring discovery + closure pattern.
 
-## Self-form fixed-point (G139)
+## Self-form fixed-point
 
 The P-orbit closure establishes that P generates all
-framework-natural integers.  G139 sharpens this to a
+framework-natural integers.  This sharpens to a
 **fixed-point theorem**: P is the unique element of SL(2,ℤ)₊
 whose syntactic form, algebraic invariants, and dynamical orbit
 all reproduce the same triple `(NS, NT, det) = (3, 2, 1)`.
@@ -456,11 +456,11 @@ conjuncts:
   (d) det preservation — `det(P^n) = 1` for all n
 
 Together: P generates its orbit, the orbit reconstructs P, P is
-unique, and iteration preserves the form.  This closes G139's
-thesis: **모습 자체가 뫼비우스 행렬** (the form itself IS the
-Möbius matrix).
+unique, and iteration preserves the form.  This closes the
+self-form thesis: **모습 자체가 뫼비우스 행렬** (the form itself
+IS the Möbius matrix).
 
-### Lean source (G139)
+### Lean source (self-form fixed-point)
 
   · `lean/E213/Lib/Math/Algebra/Mobius213/Px/MobiusSelfForm.lean`
     (~18 declarations, ∅-axiom)
@@ -529,7 +529,7 @@ p-adic library narrative (308 PURE theorems).
     construction (the Lens-arena for mod-p reductions)
   · `theory/essays/p_orbit/p_orbit_naturalness_boundary.md` — synthesis
     essay on the dynamic = static coincidence at P
-  · `theory/essays/p_orbit/mobius_self_form_fixed_point.md` — G139 essay:
+  · `theory/essays/p_orbit/mobius_self_form_fixed_point.md` — self-form essay:
     P as self-form fixed point (모습 자체가 뫼비우스 행렬)
   · `theory/essays/p_orbit/bipartite_tripartite_self_containment.md` —
     the self-containment thesis (K_{3,2}^{(c=2)} already carries

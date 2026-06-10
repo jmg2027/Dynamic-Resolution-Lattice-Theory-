@@ -72,7 +72,7 @@ lex-projection cup admits a modified Leibniz with a single
 un-cancelled middle-face term (`δ(α⌣β) = δα⌣β ⊕ α⌣δβ ⊕
 α⌣β | τ\{τ[k]}`); the AW cup satisfies the standard graded
 Leibniz.  Neither is canonical — `cup` carries the self-referential
-Leibniz that closes G86, and `cupAW` carries the per-bidegree
+Leibniz closure, and `cupAW` carries the per-bidegree
 grading that closes the K_{3,2}^{(c=2)} cohomology stack.
 Chapter: `theory/math/cohomology/cup.md` (and `cupaw.md`).
 

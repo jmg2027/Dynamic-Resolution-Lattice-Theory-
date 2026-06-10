@@ -203,7 +203,7 @@ theorem c2_derived_from_mobius_period :
   Combines THREE independent strong forcings:
 
     1. Atomicity (Raw Clause 1, step 4)         → (N_S, N_T) = (3, 2)
-    2. Möbius mod-5 period (G80, step 8)        → c = 2
+    2. Möbius mod-5 period (step 8)        → c = 2
     3. Cohomology α_3 match (step 5+7)          → b_1 = 8 verified
 
   Routes 1 and 2 are sufficient on their own to force

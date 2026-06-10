@@ -22,20 +22,26 @@
   - `Linalg213.lean`       — 213-native linear algebra
   - `Polynomial213.lean`   — coefficient-array polynomials
   - `Hyper.lean`           — hypernumbers
+  - `Padic.lean`           — p-adic ℤ_p[√D] cluster (Hensel, Frobenius)
   - `Group.lean`           — group structure
   - `SignedCut.lean`       — signed-cut algebra (6 sub-dirs)
   - `Complex.lean`         — complex on Real213
   - `Irrational.lean`      — irrationality without ZFC
+  - `IntSqrt.lean`         — integer square root
+  - `Icosahedral.lean`     — icosahedral / H₃ structure
   - `Mobius213.lean`,
-    `Mobius213OneAsGlue.lean` — Möbius matrix [[2,1],[1,1]]
+    `Mobius213OneAsGlue.lean`,
+    `Mobius213GrandUnification.lean`,
+    `Mobius213SignatureAxisCatalogPhase2.lean` — Möbius matrix [[2,1],[1,1]] + signature-axis catalogue
 
 ### Topology + structure
   - `Topology.lean`        — base topology
   - `LevelTopology.lean`   — level-tower topology (6 files)
   - `Combinatorics.lean`   — combinatorics
   - `Pigeonhole.lean`      — pigeonhole infrastructure
-  - `AngleStructure.lean`  — G42 angle structure
-  - `TriangularTower.lean` — G47 triangular tower
+  - `AngleStructure.lean`  — angle structure
+  - `TriangularTower.lean` — triangular tower
+  - `AkbulutCork.lean`     — Akbulut cork (exotic 4-manifold seed)
 
 ### Cohomology + Hodge
   - `Cohomology.lean`      — base cohomology (11 sub-dirs)
@@ -59,7 +65,9 @@
 ### Cross-domain
   - `ParadigmDomain.lean`,
     `ParadigmDomainGraded.lean`,
-    `ParadigmDomainGradedRing.lean` — graded ring on the paradigm
+    `ParadigmDomainGradedRing.lean`,
+    `ParadigmDomainPhysics.lean` — graded ring on the paradigm + physics face
+  - `GradedRingConfigCountBridge.lean` — graded ring ↔ configCount bridge
   - `CrossDomainUnification.lean`    — domain unification capstone
   - `PrimeDescentObservations.lean`  — prime-descent observations
 

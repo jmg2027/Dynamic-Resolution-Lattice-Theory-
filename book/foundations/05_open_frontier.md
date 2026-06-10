@@ -41,9 +41,7 @@ correcting a doctrine line.  None is left dangling.
    identity of the unit, not by construction-dependency* — `NS − NT = 1` is the same unit
    the difference-Lens carries as `det P`
    (`SharedUnitAcrossReadings.the_unit_is_one_across_readings`).  `ℚ` and `ℤ` are sibling
-   readings of the count, coupled at the unit `1`, not stacked.  (The stale
-   `seed/RESOLUTION_LIMIT_SPEC.md` pointer and the `N_U = d^(d²)` universe-constant phrasing
-   in §6.7 are corrected to the parametric `configCountD d n = d^(d^n)` reading.)
+   readings of the count, coupled at the unit `1`, not stacked.
 
 2. **Exhaustiveness / uniqueness — resolved as a *no*, which is the answer.**  The bundling
    is *not* a unique forced chain, and the Lean already witnesses why: `Lens.refines` is a

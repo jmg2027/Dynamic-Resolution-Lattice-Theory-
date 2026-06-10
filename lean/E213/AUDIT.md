@@ -1,8 +1,7 @@
 # lean/E213/AUDIT.md — Implementation × axiom cross-check
 
-(formerly `seed/AXIOM/{08_implementation,09_audit}.md`, moved here
-2026-05-12 — these are Lean-implementation analysis, NOT axiom
-content.  AXIOM corpus stays focused on the axiom itself.)
+Lean-implementation analysis, NOT axiom content — the AXIOM
+corpus (`seed/AXIOM/`) stays focused on the axiom itself.
 
 This file contains:
 - **Part I** (§I.*) — Implementation device classification
@@ -16,7 +15,7 @@ For the axiom itself: `seed/AXIOM/02_axiom.md`.
 For the encoding-costs framing: `seed/AXIOM/10_encoding_costs.md`.
 
 
-(formerly seed/IMPLEMENTATION.md)
+# Part I — Implementation device classification
 
 ## Abstract
 
@@ -512,13 +511,11 @@ changes.
 ---
 
 
-(formerly seed/AUDIT_Lean.md)
+# Part II — Lean ↔ axiom 4-clause cross-check
 
 **Audit target**: `lean/E213/Theory/`
 **Reference**: `02_axiom.md` (the 4-clause axiom)
-**Audit date**: 2026-04-24
 **Overall verdict**: **Faithful**.  No structural revision required.
-Three minor sanding items recommended.
 
 ---
 

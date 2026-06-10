@@ -3,7 +3,7 @@
 Addition on Real213 cuts: `cutSum`, plus signed sum, identity laws,
 commutativity, and general/pointwise variants.
 
-## Files (11)
+## Files (12)
 
 ### Core addition
   - `CutSum.lean`            — base `cutSum` definition
@@ -21,6 +21,7 @@ commutativity, and general/pointwise variants.
 ### Signed sum
   - `Signed.lean`            — signed-cut carrier
   - `SignedSum.lean`         — signed-sum operation
+  - `CutSumNMixed.lean` — cross-denominator closure for cutSumN
 
 ## Where to add new files
 

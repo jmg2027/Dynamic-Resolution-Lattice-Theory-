@@ -57,7 +57,7 @@ private theorem xorRange_xor_split (n : Nat) (f g : Nat → Bool) :
       cases f n' <;> cases g n' <;> rfl
 
 /-- ★★★ **Symmetric Leibniz at the list level** — sum of the
-    G86 list Leibniz at `(k, l)` and its mirror at `(l, k)`.  The
+    the list Leibniz at `(k, l)` and its mirror at `(l, k)`.  The
     correction is the XOR of the two boundary face values:
 
       `(α⌣β)(τ \ {τ[k]}) ⊕ (β⌣α)(τ \ {τ[l]})`

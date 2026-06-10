@@ -173,6 +173,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- **forcing chain ↔ foliation** — cross-domain note
+  (`forcing_chain_meets_foliation.md`): this branch's §3.4 "the
+  forcing chain is logical, not temporal" and main's
+  `growth_without_a_clock` essay ("the foliation is a Lens
+  convention") are one state-transition=state reading (§6.6, §5.7) at
+  the axiom scale vs. the async-run scale; the grading's
+  run-invariance (`fold_eq_depth`) witnesses why clause-order is
+  expository.  Conceptual, no open Lean obligation.
+
 - `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
   modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
   completeness-layer receipt count; both Lens-properties of the pointing, object

@@ -21,7 +21,7 @@ genuinely Raw-derivable, TH-3 confirms the abstraction preserves
 the falsifier surface, TH-4 extracts the parametric helper.
 
 Companions: `seed/META_SCAN_ARCHETYPES.md` (the 11 scanner
-archetypes + dual-branch process model), `LESSONS_LEARNED.md`
+archetypes + dual-branch process model), `theory/meta/methodology_patterns.md`
 Patterns #1-#20.
 
 ---
@@ -163,7 +163,7 @@ derivable from the 4-clause Raw axiom alone**.
 ZOmega^× = C_6 / dual-filling χ-sum chain constructs the corpus's
 headline numbers (`α_em`, `m_t/m_c`, `η_B`, …) without invoking
 external content — verified by the substantive branches' work and
-catalogued in `catalogs/precision-results.md`.
+catalogued in `catalogs/physics-constants.md`.
 
 Reading (β) is the **structural-mathematical** version: the
 mathematics itself, not just its kernel-checkability.
@@ -372,7 +372,7 @@ observed.
 
 ### Operational signature
 
-The Pattern #2 quantification (`LESSONS_LEARNED.md`):
+The Pattern #2 quantification (`theory/meta/methodology_patterns.md`):
 
   · 1,178 single-tactic `[decide]` proofs.
   · 135 negative-side `decide` proofs (this catalogue).
@@ -556,7 +556,7 @@ retired.
 
 ### Companions
 
-  · `LESSONS_LEARNED.md` Patterns #1-#20.
+  · `theory/meta/methodology_patterns.md` Patterns #1-#20.
   · `theory/meta/scanner_suite.md` — Tier-3 chapter mirroring the
     methodology.
   · `theory/meta/raw_derivation_levels.md` — Tier-3 chapter

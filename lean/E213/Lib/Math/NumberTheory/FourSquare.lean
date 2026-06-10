@@ -5,6 +5,7 @@ import E213.Meta.Int213.PolyIntMTactic
 import E213.Meta.Int213.OrderMul
 import E213.Meta.Tactic.NatHelper
 import E213.Meta.Nat.NatRing213
+import E213.Meta.Nat.PureNat
 
 /-!
 # FourSquare — Lagrange's four-square theorem via Euler descent (Pillar II)
@@ -408,12 +409,8 @@ theorem odd_descent (p : Nat) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
 
 open E213.Meta.Nat.AddMod213 (div_add_mod)
 
-/-- Every `Nat` is even or odd (`∅`-axiom; via `div_add_mod` + `cases_lt_two`). -/
-theorem nat_even_or_odd (m : Nat) : (∃ k, m = 2 * k) ∨ (∃ k, m = 2 * k + 1) := by
-  have hdm := div_add_mod m 2
-  rcases cases_lt_two (Nat.mod_lt m (by decide)) with h0 | h1
-  · left; rw [h0, Nat.add_zero] at hdm; exact ⟨m / 2, hdm.symm⟩
-  · right; rw [h1] at hdm; exact ⟨m / 2, hdm.symm⟩
+/-- Every `Nat` is even or odd — `Meta.Nat.PureNat.nat_dichotomy`. -/
+abbrev nat_even_or_odd := E213.Meta.Nat.PureNat.nat_dichotomy
 
 /-- ★★★★★ **The descent recursion.**  `p` prime; for `1 ≤ m < p` with `isSum4 (m·p)`,
     every such `m` descends to `m = 1`, giving `isSum4 p`.  Even `m` halves (`halve_step`),

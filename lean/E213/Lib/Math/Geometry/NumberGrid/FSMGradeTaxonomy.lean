@@ -1,7 +1,7 @@
 /-!
 # FSM Grade Taxonomy — Horizontal axis (∅-axiom)
 
-Mingu's insight (post G40): the number-system taxonomy is
+Mingu's insight: the number-system taxonomy is
 **2-dimensional**, not linear:
 
   * **Vertical axis**: CD tower level (0..25), already formalized.

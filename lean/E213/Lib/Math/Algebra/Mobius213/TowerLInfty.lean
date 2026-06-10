@@ -1,7 +1,7 @@
 import E213.Lib.Math.Algebra.Mobius213
 
 /-!
-# Mobius213.TowerLInfty — G61 structural questions formalised
+# Mobius213.TowerLInfty — tower-L∞ structural questions formalised
 
  poses five
 structural questions about the 213-tower (the lattice built by
@@ -19,7 +19,7 @@ The questions, restated:
       in 213-native terms?
   Q4. What is the "3-side extension" — the algebraic analog of
       ℕ → ℤ but for the (NS, NT, d) = (3, 2, 5) signature?  (Deferred
-      to G62 follow-up; see file docstring there.)
+      to follow-up.)
   Q5. Does the tower stabilise at some L_∞, or strictly ascend without
       limit?  (The "∃ φ ∈ Cut" answer is in Phase 1b; here we record
       the recurrence-level statement.)
@@ -134,7 +134,7 @@ theorem pell_unit_constant_under_iteration :
     ∀ n, pell_unit_at n = -1 :=
   mobius_213_pell_unit_invariant_forall
 
-/-! ## Capstone — three G61 questions unified
+/-! ## Capstone — three structural questions unified
 
 A single conjunction tying Q1 + Q5 (bracket) + L_∞ invariant.  The
 remaining questions Q2, Q3, Q4 are recorded in the docstring as

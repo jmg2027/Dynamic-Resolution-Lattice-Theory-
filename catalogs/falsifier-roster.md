@@ -1,4 +1,4 @@
-# DRLT Falsifier Roster (G100 + parallel G87 manual catalog)
+# DRLT Falsifier Roster (automated + manual headline catalogs)
 
 Complete catalog of DRLT's machine-verified impossibility +
 distinguishability theorems.  Each entry is a `decide`-proven
@@ -6,16 +6,15 @@ negative claim (¬ P, x ≠ y, ¬ ∃, ¬ ∀).  These are the
 **falsifiability bite-points** — what DRLT formally claims
 CANNOT happen.
 
-Source:
-    automated catalog (135 entries)
-    (parallel branch) — manual headline catalog (~10 entries)
+Source: the automated falsifier-mining scan (`tools/falsifier_mining_scan.py`,
+135 entries) plus the manually-curated headline catalog (~10 entries).
 
-The G100 automated catalog is the complete machine-verified
-surface; G87 highlights the conceptually-load-bearing subset.
+The automated catalog is the complete machine-verified
+surface; the manual catalog highlights the conceptually-load-bearing subset.
 
 ---
 
-## Headline structural-impossibility theorems (G100 §3 not_exists, 8 entries)
+## Headline structural-impossibility theorems (not_exists, 8 entries)
 
 The deepest finds — automatically discovered "no construction
 exists" claims:
@@ -35,7 +34,7 @@ otherwise be plausible.
 
 ---
 
-## Category distribution (G100 §"Category breakdown")
+## Category distribution
 
 | Category | Count | % | Significance |
 |----------|------:|--:|--------------|
@@ -50,7 +49,7 @@ essence of the 4 clauses.
 
 ---
 
-## File concentration (G100 §"Top files")
+## File concentration
 
 | Count | File | Notes |
 |------:|------|-------|
@@ -151,9 +150,9 @@ witness of the universal claim), shifting to that category.
 
 ---
 
-## G100 vs G87 manual roster
+## Automated vs manual roster
 
-| | G87 (parallel branch, manual) | G100 (meta branch, automated) |
+| | manual | automated |
 |---|------------------------------|------------------------------|
 | Method | curated headline | shape-pattern matching |
 | Coverage | ~5-10 entries | 135 entries |
@@ -161,20 +160,20 @@ witness of the universal claim), shifting to that category.
 | Cross-reference | each headline cited from research-notes | per-decl TSV |
 | Strength | narrative coherence | comprehensiveness |
 
-The two are **complementary**: G87 explains WHY specific
-falsifiers matter; G100 confirms they exist + identifies the
+The two are **complementary**: the manual roster explains WHY specific
+falsifiers matter; the automated scan confirms they exist + identifies the
 full surface.
 
 ---
 
 ## How DRLT achieves the falsifiability surface
 
-DRLT's `decide`-finitism (Pattern #2 + LESSONS_LEARNED Pattern #13)
+DRLT's `decide`-finitism (`theory/meta/methodology_patterns.md` Patterns #2 + #16)
 operationalises falsifiability:
 
   · Every theorem in the 0-axiom standard is either decidable
     or rigorously proven.
-  · 8 % of decls are decide-verified negative claims (G100).
+  · 8 % of decls are decide-verified negative claims.
   · 78 % of negation is distinguishability (`≠`) — directly
     using Raw's distinguishability primitive.
 
@@ -200,6 +199,6 @@ python3 tools/falsifier_mining_scan.py
     (parallel branch) — manual headline catalog.
   · `seed/AXIOM/08_falsifiability.md` — falsifiability
     doctrine.
-  · `LESSONS_LEARNED.md` Pattern #2 (decide-finitism) +
+  · `theory/meta/methodology_patterns.md` Pattern #2 (decide-finitism) +
     Pattern #13 (quantitative profile).
   · `STRICT_ZERO_AXIOM.md` — 0-axiom standard.

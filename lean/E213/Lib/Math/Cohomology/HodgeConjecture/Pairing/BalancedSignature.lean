@@ -44,7 +44,7 @@ What naturally closes here:
     `BalancedSignatureData` with `num_blocks = ½·C(2n, n)`,
     `decide`-check that `2 * num_blocks = C(2n, n) = b_n(T²ⁿ)`.
 
-The fully general inductive form is left for G14 (binom symmetry
+The fully general inductive form is left as follow-up (binom symmetry
 + even-ness lemma + parametric instance).
 
 STRICT ∅-AXIOM.
@@ -107,7 +107,7 @@ end BalancedSignatureData
     `num_blocks = ½·C(2n, n)` matching the verified pattern.
 
     For larger `n`, the instantiation requires a parametric proof
-    that `C(2n, n)` is even (binom symmetry); see G14 below. -/
+    that `C(2n, n)` is even (binom symmetry); see the master pattern theorem. -/
 def T2_blocks   : BalancedSignatureData := ⟨1⟩    -- ½·C(2,1) = 1
 def T2sq_blocks : BalancedSignatureData := ⟨3⟩    -- ½·C(4,2) = 3
 def T2cu_blocks : BalancedSignatureData := ⟨10⟩   -- ½·C(6,3) = 10
@@ -142,7 +142,7 @@ theorem T2pe_total_rank_match : T2pe_blocks.total_rank = T2n_betti 5 5 := by dec
     `C(2n, n)` is even for `n ≥ 1`, which in turn needs the
     binom-symmetry lemma `C(n, k) = C(n, n − k)` — currently not
     formalised in 213.  The five small-n witnesses below confirm
-    the pattern; the inductive form is left as G14. -/
+    the pattern; the inductive form is left as follow-up. -/
 theorem T2n_pattern_master_A :
     -- (i) Abstract structural facts
     (∀ d : BalancedSignatureData, d.signature = (d.num_blocks, d.num_blocks))

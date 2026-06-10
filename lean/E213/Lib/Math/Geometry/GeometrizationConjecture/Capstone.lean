@@ -54,7 +54,7 @@ information layer is partially captured by:
     "exotic-as-information-feature".
 
 **Full 213-native "exotic enumeration" formalization** (Donaldson-
-style invariants of 4-mfd) remains OPEN — would need a new G122
+style invariants of 4-mfd) remains OPEN — would need a new
 marathon dedicated to *exotic-structure enumeration via Sym(3)
 gauge action on K_{3,2}^{(c=2)}*.
 
@@ -85,13 +85,13 @@ theorem dim4_information_richness :
   refine ⟨rfl, ?_, ?_, rfl, rfl, ?_, ?_, ?_, ?_, rfl, rfl, ?_⟩
   all_goals first | rfl | decide
 
-/-! ## §FW — Future-work registry for G122+ marathons (R1 step 25)
+/-! ## §FW — Future-work registry for follow-on marathons
 
 R1 close at 147 PURE.  The following items are
 explicitly OUT OF SCOPE for R1 but recorded as launch
 candidates for future marathons:
 
-**G122 candidate — 4-mfd exotic enumeration via Sym(3) gauge**:
+**Candidate — 4-mfd exotic enumeration via Sym(3) gauge**:
   · Inspired by user-insight ("4차원이 가장 투명").
   · Goal: 213-native form of Donaldson invariants on
     K_{3,2}^{(c=2)} via the C3 chain Sym(3) gauge structure.
@@ -171,8 +171,8 @@ None of these are blocking for R1 close.
      is the unique window where BOTH tree and critical branches
      are visible.
 
-  **OPEN WORK** (G122- marathon candidates registered above):
-     · G122: 4-mfd exotic enumeration via Sym(3) gauge
+  **OPEN WORK** (marathon candidates registered above):
+     · 4-mfd exotic enumeration via Sym(3) gauge
      · : JSJ deeper close via 3-cell complex
      · : K_{NS,NT}^{(c)} generalization
      · : 4 remaining 8-geometries direct realization

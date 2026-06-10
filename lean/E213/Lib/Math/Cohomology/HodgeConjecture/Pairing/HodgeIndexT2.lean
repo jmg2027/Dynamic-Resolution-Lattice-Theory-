@@ -3,7 +3,7 @@ import E213.Lib.Math.Cohomology.Surfaces.T2Minimal.Signature
 /-!
 # Hodge Index Theorem on T² — non-vacuous ℚ²¹³ refinement
 
-G10 Phase 2 follow-up.  The base `Pairing/HodgeIndex.lean` capstone
+Phase 2 follow-up.  The base `Pairing/HodgeIndex.lean` capstone
 fires on K_{3,2}^{(c=2)}, which is a graph (real dim 1): the
 cup-pairing H¹ × H¹ → H² lands in H² = 0, so it is *vacuously*
 zero and the Hodge Index theorem reduces to a trivial cardinality
@@ -18,7 +18,7 @@ which:
   · The cup-pairing matrix `[[0,1],[1,0]]` has eigenvalues ±1
   · Signature = (1, 1) = (1, ρ − 1) with Picard rank ρ = 2
 
-Realises the *non-vacuous* Hodge Index Theorem statement that G10
+Realises the *non-vacuous* Hodge Index Theorem statement the
 Phase 2 closure summary marked deferred:
 
   > "Non-vacuous extensions (signature on a 213-canonical 2-fold;

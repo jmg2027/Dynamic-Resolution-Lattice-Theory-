@@ -9,7 +9,7 @@ The standard `=` on `Lens α` reduces componentwise via Lean kernel:
 - combine: function Eq → requires funext (Quot.sound)
 
 For `L = M` proofs, the funext on `combine` is the SOLE Quot.sound
-source in ~50 Cat 1 DIRTY items (per G83).
+source in ~50 Cat 1 DIRTY items.
 
 `LensEqPW` is **pointwise equality on combine**:
   `L ≡ M  ⟺  L.base_a = M.base_a  ∧  L.base_b = M.base_b

@@ -17,6 +17,8 @@ import E213.Lib.Math.Foundations.UniverseChain.RawRecurrence
 import E213.Lib.Math.Foundations.UniverseChain.Recursion
 import E213.Lib.Math.Foundations.UniverseChain.Residue
 import E213.Lib.Math.Foundations.UniverseChain.TriangleRecurrence
+import E213.Lib.Math.Foundations.UniverseChain.PhiThreeWayBridge
+import E213.Lib.Math.Foundations.UniverseChain.PhysicsRigor
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Foundations.UniverseChain`.
 

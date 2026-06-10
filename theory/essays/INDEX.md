@@ -4,7 +4,7 @@ Cross-cutting essays: on-demand trajectories through the
 catalog/book that surface structural insights not localised to
 any single chapter.
 
-See `lean/E213/.claude/skills/essay/SKILL.md` for the
+See `.claude/skills/essay/SKILL.md` for the
 derivation+citation+dual-function+cross-frame+self-check
 +constructive-accessibility protocol.
 
@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 81 essays are grouped into ten thematic sub-directories — distinct
+The 82 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -106,6 +106,11 @@ total pairwise distinguishing `Σ_{i<j}(a_i−a_j)²`, saturated on the diagonal
 presentation-invariant but the *certificate* has depth — depth-0 pair-sum vs per-rung SOS folded
 along the `gridSumZ` induction (`cauchy_schwarz_gridZ`) — and the `K_{a,b}` wide/narrow curvature
 regime split (`kab_cd_wide`/`kab_cd_narrow`) is exactly that depth).
+`the_expository_sequence_is_a_lens_reading` (the order written across a derivation — clause-order
+in §3.4's forcing chain, stage-order in the async run — is a Lens reading of one complete object,
+never the object's succession; the state-transition=state non-separation (§6.6, §5.7) at the
+axiom-forcing scale vs the async-run scale, with the grading's run-invariance
+`Levels.fold_eq_depth` the witness that a fold sees neither the run nor the explanation's order).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
@@ -187,7 +192,7 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `representation_theorems_one_counting_bound.md` | Why are `p = a²−ab+b²` (disc −3), `p = a²+b²` (disc −4), and the `ℤ[√−D]` family all one theorem? | `PolyRoot/RootBound.eval_zero` + `NonFixedExists.exists_nonfixed_gen` + `Integer/{EisensteinSplit,GaussianSplit,ZSqrtNegSplit}.split_form` + `Integer/ZSqrtNegSharp.descent_false_at_three` |
 | `four_square_additive_pigeonhole.md` | Why is every `n = a²+b²+c²+d²`, and why does this need a *different* engine than the disc-`−D` representation theorems? | `NumberTheory/FourSquare.{four_sq_id,isSum4_mul,descent_core,odd_descent,halve_step,descent_rec,seed_multiple,exists_prime_factor,prime_isSum4,nat_isSum4}` + `FourSquareSeed.four_square_seed` + `Combinatorics/Pigeonhole.no_inj_lt` |
 | `curvature_as_lens_readout.md` | What is curvature, in 213? Why do Forman, Gauss–Bonnet, Ollivier, Bakry–Émery, and conformal give the same sign↔topology trichotomy? | `Geometry/GeometrizationConjecture/{DiscreteRicci,DiscreteGaussBonnet,OllivierRicci,BakryEmery,ConformalCurvature}` + `seed/AXIOM/06_lens_readings.md` §6.7 |
-| `k32_cohomology_simplex_higher_insight.md` | 213/K₃,₂²/코호몰로지 심플렉스 고차 통찰 — G140 + G138 B/D 프로모션 연결 | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
+| `k32_cohomology_simplex_higher_insight.md` | The K_{3,2}^{(c=2)} cohomology simplex, read one level up — `PGeneratesNat` + the Sym(3) spine + Nodup-as-Clause-4 tied together | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
 | `mobius_self_form_fixed_point.md` | 모습 자체가 뫼비우스 행렬 — P는 왜 자기 설명 함자의 고정점인가? | `Px/MobiusSelfForm` + `Px/CharPolySelf` + `Px/PnFibonacciUniversal` + `math/mobius213_p_orbit_closure.md` |
 | `gra_universality_one_principle.md` | Walk-length, cup-length, truncation, chromatic height, resolution exponent — why are these the same? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/` umbrella + `GRA/Translation.lean` |
 | `gra_as_substrate_of_cat_hott.md` | Could GRA play the role Category theory / HoTT normally occupy, but from a more fundamental position? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/LensBridge.lean` (Phase 16: `Raw.fold 2 3 (· + ·)` as canonical grade map; `truncation_operad_grade_agree` as the HoTT ↔ Higher Algebra Lens equation) |

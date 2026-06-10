@@ -50,17 +50,17 @@ import E213.Lens.Number.Nat213.Tower.PairCompletion
 
   ## Tower/
 
-  ℕ-pair / ℕ-triple → 다른 number system via diagonal quotient
-  (/ G73 framing).  세 Tower 가 동일 syntactic container
-  `Nat × Nat` 또는 `Peano.Nat213 × Peano.Nat213` 에서 출발해
-  다른 quotient relation 으로 분기:
+  ℕ-pair / ℕ-triple → further number systems via diagonal
+  quotients.  All three towers start from the same syntactic
+  container — `Nat × Nat` or `Peano.Nat213 × Peano.Nat213` —
+  and branch by quotient relation:
 
     * `Tower/NatPairToInt`   — ℤ via additive diagonal quotient
-                                (Lean Nat 위; G62).  `a + d = b + c`.
+                                (over Lean Nat).  `a + d = b + c`.
     * `Tower/NatPairToQPos`  — ℚ₊ via multiplicative quotient
-                                (Peano.Nat213 위; G73).  `a · d = b · c`.
+                                (over Peano.Nat213).  `a · d = b · c`.
     * `Tower/NatTripleToZ2`  — ℤ² via 3-axis projection
-                                (Lean Nat 위; Eisenstein basis).
+                                (over Lean Nat; Eisenstein basis).
                                 `(a, b, c) ↦ (a - c, b - c)`.
     * `Tower/PairCompletion` — the invert move once: a generic
                                 commutative-cancellative-semigroup pair

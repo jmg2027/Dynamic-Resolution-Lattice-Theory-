@@ -17,7 +17,7 @@ In 213/ℤ/2 on K_{3,2}^{(c=2)} (a graph, dim 1):
 
 Hodge Index²¹³ on a graph is therefore *vacuously trivial*.  The
 non-trivial form requires a 2-fold (real dim 4 = complex dim 2);
-candidate complexes deferred to G10 Phase 2 follow-up.
+candidate complexes deferred to Phase 2 follow-up.
 
 For the ℚ²¹³-refined version: positivity / signature requires
 lifting to ℚ²¹³ coefficients (no positivity in ℤ/2); also deferred.

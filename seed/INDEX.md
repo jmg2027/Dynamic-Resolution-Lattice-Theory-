@@ -58,19 +58,18 @@ all three sides:
 - *below* — removing any clause collapses to trivial / static /
   void (`Meta/AxiomMinimality`).
 - *sideways* — any distinguishability framework factors through
-  Raw (`Meta/UniversalLens`).
+  Raw (`Lens/SemanticAtom` + `Lens/Initiality` +
+  `Lens/Universal/Witnesses`).
 - *above* — Raw's shape is forced to (NS, NT, d) = (3, 2, 5)
   (`Theory/Atomicity/{Five, PairForcing, …}`, pure-ℕ, no Raw
   import).
 
-**Resolution-depth family — parametric Lens output**
-(G120 Round 3, 2026-05-22 rewrite).  Canonical object is the
-parametric family `configCount : Nat → Nat` (`Lib/Math/Cohomology/
-Fractal/ConfigCount`).  The historical value `N_U = 5²⁵` is
-`configCount 2`, one value of the family — not a privileged
-universe constant.  Two real Lean derivations at level n = 2
-(fractal iteration count + K₂₅ graph coloring); earlier "4-way
-convergence" was reduced to 2-of-4 real per G120 audit.
+**Resolution-depth family — parametric Lens output.**
+Canonical object is the parametric family
+`configCount : Nat → Nat` (`Lib/Math/Cohomology/Fractal/ConfigCount`).
+The value `5²⁵` is `configCount 2`, one value of the family — not
+a privileged universe constant.  Two real Lean derivations exist
+at level n = 2 (fractal iteration count + K₂₅ graph coloring).
 
 ---
 
@@ -186,7 +185,7 @@ seed/
 
 Static-analysis archetypes (11 scanner types + dual-branch process
 model): `seed/META_SCAN_ARCHETYPES.md`.  Pattern catalogue +
-methodology suite: `LESSONS_LEARNED.md` Patterns #1-#20.  Tooling
+methodology suite: `theory/meta/methodology_patterns.md` Patterns #1-#20.  Tooling
 inventory: `tools/*.py` (each scanner accepts `--report-only`
 against cached TSV).
 

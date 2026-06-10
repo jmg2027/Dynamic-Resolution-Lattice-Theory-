@@ -70,7 +70,7 @@ same separation.
   · the per-subtree deep-dive research notes — per-subtree Tier-2/3 deep
     dives (Real213/Analysis, FluxMVT, Cohomology,
     HodgeConjecture, DyadicFSM, CayleyDickson — ~6,400 decls).
-  · `LESSONS_LEARNED.md` Patterns #10-#17 — methodological
+  · `theory/meta/methodology_patterns.md` Patterns #10-#17 — methodological
     findings from the meta-analysis branch.
 
 ---

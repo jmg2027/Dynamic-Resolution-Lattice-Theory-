@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.Bipartite.V32
 /-!
 # C2DoublingDerivation — the structural origin of c=2 in K_{3,2}^{(c=2)}
 
-Per **G80 (c=2 doubling = pentagonal binary cover)**: the
+Per the **c=2-doubling = pentagonal-binary-cover** reading: the
 multiplicity-2 superscript in `K_{3,2}^{(c=2)}` is NOT arbitrary.
 It corresponds exactly to the **binary cover ratio** required to
 go from pentagonal half-closure to full closure under the Möbius
@@ -30,7 +30,7 @@ P^10 = (P^5)² ≡ +I (mod 5)    ← FULL closure (sign restored)
                                    = 6 · 2 = 6 · NT
                                    = 6 · binary-cover
 
-This is the **G80 §"Why c=2 in K_{3,2}^{(c=2)}"** result, lifted
+This is the **"Why c=2 in K_{3,2}^{(c=2)}"** result, lifted
 from research-note prose to a single PURE Lean theorem.
 
 ## Cross-domain readings of c=2
@@ -166,7 +166,7 @@ theorem two_atomic_readings :
 
 /-- ★★ ** c=2 structural derivation capstone**.
 
-    Lifts the G80 §"Why c=2 in K_{3,2}^{(c=2)}" prose argument to
+    Lifts the §"Why c=2 in K_{3,2}^{(c=2)}" prose argument to
     a single PURE Lean theorem:
 
       (a) half_period = 5 = d (pentagonal half-rotation)

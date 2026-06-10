@@ -3,6 +3,12 @@ import E213.Lib.Math.Cohomology.Fractal.ConfigCount
 import E213.Lib.Math.Cohomology.Fractal.ConfigCountModular
 import E213.Lib.Math.Cohomology.Fractal.Level
 import E213.Lib.Math.Cohomology.Fractal.V25
+import E213.Lib.Math.Cohomology.Fractal.AltPrimitiveSet
+import E213.Lib.Math.Cohomology.Fractal.AurifeuilleanDepth2PowCutoff
+import E213.Lib.Math.Cohomology.Fractal.ConfigCountAurifeuilleanParam
+import E213.Lib.Math.Cohomology.Fractal.EventualPeriodicity
+import E213.Lib.Math.Cohomology.Fractal.HunterAtomicClosure
+import E213.Lib.Math.Cohomology.Fractal.PisanoGridCapstone
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.Fractal`.
 

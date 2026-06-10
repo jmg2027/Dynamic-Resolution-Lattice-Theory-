@@ -3,7 +3,7 @@ import E213.Lib.Math.Cohomology.Hodge.Star
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Physics.Simplex.Counts
 /-!
-# Hodge ⋆⋆ = id involution template — G111 COH-2 (Hodge Prop quartet)
+# Hodge ⋆⋆ = id involution template — the COH-2 template (Hodge Prop quartet)
 
 The 4 `hodge_sq_prop_5_k` proofs (k ∈ {1, 2, 3, 4}) in
 `Hodge/Prop.lean`, `Prop52.lean`, `Prop53.lean`, `Prop54.lean` follow

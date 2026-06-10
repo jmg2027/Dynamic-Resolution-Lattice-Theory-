@@ -8,6 +8,9 @@ import E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLensMonotone
 import E213.Lib.Math.Analysis.DyadicSearch.MultiVarBisection
 import E213.Lib.Math.Analysis.DyadicSearch.SignedLeftCollapse
 import E213.Lib.Math.Analysis.DyadicSearch.UnitConsistentOracles
+import E213.Lib.Math.Analysis.DyadicSearch.MinimalRootCapstone
+import E213.Lib.Math.Analysis.DyadicSearch.MultiVarRigor
+import E213.Lib.Math.Analysis.DyadicSearch.RootCertificate
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Analysis.DyadicSearch`.
 

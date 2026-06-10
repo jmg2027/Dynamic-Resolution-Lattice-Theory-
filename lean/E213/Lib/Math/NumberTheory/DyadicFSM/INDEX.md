@@ -1,4 +1,4 @@
-# DyadicFSM — Module Index (sub-organized 2026-05-13; G119 marathon merged 2026-05-22)
+# DyadicFSM — Module Index
 
 213-native number theory via dyadic FSMs — Pell, Fibonacci,
 Tribonacci, Pisano, Legendre families.  G119 (Phase 3.2/3.3/4)
@@ -20,21 +20,23 @@ marathon adds FLT, Frobenius, F_{p²}, Binet-bridge infrastructure.
 | `Signature/` | 6 | Signature{,Predict,Bipartite}, Classifier, Conjecture, WalkUniversal |
 | `Forward/` | 3 | ForwardClosure, ForwardEventual, ForwardPeriodicity |
 | `Tier/` | 3 | Tier2Hardness, TierBridge, AlgebraicDegree |
-| `FLT/` | 8 | G119 FLT chain: Binomial / BinomialTheorem / ChoosePrime / FreshmanDream / FLTPrimary / FLTMain / PhiFLT / Sum |
+| `FLT/` | 10 | FLT chain: Binomial / BinomialTheorem / BinomialTwoVar / ChooseFactorial / ChoosePrime / FreshmanDream / FLTPrimary / FLTMain / PhiFLT / Sum |
 
 ## Top-level standalone
 
-BitAuto2, ConcretePellSig, LucasFSMmod5, FibApparitionMod5,
-NumberTheory213, ThueMorse, TwoLayerPredictor — independent files.
+BitAuto2, ConcretePellSig, ContinuedFraction, LucasFSMmod5,
+FibApparitionMod5, NumberTheory213, ThueMorse, TwoLayerPredictor —
+independent files.
 `FibApparitionMod5` — Fibonacci rank of apparition `α(5) = 5` at the
 ramified prime (`5 ∣ F_n ⟺ 5 ∣ n`) vs Lucas-never-zero (the
 singular/regular Binet split at the double root).
 
-G119 additions (top-level): BinetBridge, PellFibBridge,
-PellMatrixPigeonhole, PhiMod5, PsiMod5, MulOrderPigeonhole,
-UniversalPhase32, UniversalPhase33, UniversalPhase4 — bridges
-between Pell-matrix iteration and modular arithmetic + the
-universal-over-primes Phase 3.2/3.3/4 closures.
+Pell-matrix / modular bridges (top-level): BinetBridge,
+PellFibBridge, PellMatrix{,Action,Cases,Inverse,Pigeonhole},
+PhiMod5, PsiMod5, MulOrderPigeonhole, RankApparition,
+KBonacci, KBonacciRecurrence, UniversalDispatch, UniversalInert,
+UniversalSplit — bridges between Pell-matrix iteration and modular
+arithmetic + the universal-over-primes closures.
 
 `DyadicFSM.lean` — top aggregator.
 

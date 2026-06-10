@@ -39,6 +39,14 @@ import E213.Lib.Math.NumberTheory.DyadicFSM.Tier.TierBridge
 import E213.Lib.Math.NumberTheory.DyadicFSM.Trib
 import E213.Lib.Math.NumberTheory.DyadicFSM.TwoLayerPredictor
 import E213.Lib.Math.NumberTheory.DyadicFSM.Signature.WalkUniversal
+import E213.Lib.Math.NumberTheory.DyadicFSM.ContinuedFraction
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTwoVar
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.PhiFLT
+import E213.Lib.Math.NumberTheory.DyadicFSM.KBonacciRecurrence
+import E213.Lib.Math.NumberTheory.DyadicFSM.PellMatrixCases
+import E213.Lib.Math.NumberTheory.DyadicFSM.PellMatrixPigeonhole
+import E213.Lib.Math.NumberTheory.DyadicFSM.UniversalDispatch
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.DyadicFSM`.
 
@@ -60,10 +68,8 @@ import E213.Lib.Math.NumberTheory.DyadicFSM.Signature.WalkUniversal
     * `Pell/`       — Pell-equation cluster + per-mod variants
     * `Pisano/`     — Pisano-period predictor per base
     * `Trib/`       — Tribonacci variants + CRT4Capstone
-    * `Archive`     — historical sub-cluster (single file post
-                      consolidation): `EdgeSignature`
-                      + `SubwordComplexity` sub-namespaces
+    * `Archive`     — `EdgeSignature` + `SubwordComplexity`
+                      sub-namespaces (single file)
 
-  All files build clean.  The deferred-cluster repair (`lean/E213/docs/HIERARCHICAL_PLACEMENT.md` §6.3) is
-  closed.
+  All files build clean.
 -/

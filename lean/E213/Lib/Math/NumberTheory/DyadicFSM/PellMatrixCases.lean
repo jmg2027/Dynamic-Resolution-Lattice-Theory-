@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberTheory.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.NumberTheory.DyadicFSM.ArithFSM.ModMedium
 import E213.Lib.Math.NumberTheory.DyadicFSM.ArithFSM.ModLarge
 /-!
-# Per-prime Pisano period closures via bridge — G119 Phase 3 closure
+# Per-prime Pisano period closures via bridge — Phase 3 closure
 
 For each empirically-verified prime in the 23-prime Predictor chain,
 derive the pellFSMmod bit-period claim via the bridge theorem:

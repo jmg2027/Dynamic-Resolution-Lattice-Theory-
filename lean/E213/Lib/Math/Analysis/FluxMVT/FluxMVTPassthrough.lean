@@ -200,7 +200,7 @@ open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne (cutMul_one_one_at)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero (cutMul_zero_zero_at)
 
 /-- Passthrough closed under cutMul — left, fully pointwise (∅-axiom).
-    G110 FLUX-1 template. -/
+    the FLUX-1 template. -/
 theorem passthrough_mul_at_left
     (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (hf_left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k)
@@ -215,7 +215,7 @@ theorem passthrough_mul_at_left
   exact cutMul_zero_zero_at m k
 
 /-- Passthrough closed under cutMul — right, fully pointwise (∅-axiom).
-    G110 FLUX-1 template. -/
+    the FLUX-1 template. -/
 theorem passthrough_mul_at_right
     (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (hf_right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k)

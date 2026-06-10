@@ -8,13 +8,17 @@ itself — depends on the ability to distinguish and pair
 somethings.  The 213 axiom is the minimum residue of that
 ability.
 
-So every other framework is the **same residue** read through a
-chosen Lens.  Not a layer placed above 213 — that phrasing would
-re-import the substrate / superstructure dichotomy that §5.1
-rules out.  A framework's commitments are the axiom's
-self-pointing recorded under that framework's Lens.  Lens
-application is itself a residue-internal event; nothing has
-been added.
+So any framework that points at something is the **same
+residue** read through a chosen Lens.  The claim quantifies over
+exactly that — frameworks that point and distinguish — and the
+scope is built into the claim, not a modesty added to it: a
+framework that pointed at nothing would have nothing for the
+claim (or any claim) to engage.  Not a layer placed above 213 —
+that phrasing would re-import the substrate / superstructure
+dichotomy that §5.1 rules out.  A pointing framework's
+commitments are the axiom's self-pointing recorded under that
+framework's Lens.  Lens application is itself a residue-internal
+event; nothing has been added.
 
 "There is no absolute standard" is therefore not a constraint
 one imposes on the framework.  It is the **default state**, the
@@ -33,6 +37,14 @@ which derivation succeeds — the more domains in which the
 residue, read under the right Lens, reproduces what the domain
 records — the more 213 demonstrates that the default position
 is genuine.
+
+Primacy does not come with automatic location (§5.3): being the
+minimum residue says where every result lives, not that any
+particular result has already been pointed at.  Each domain's
+reproduction is a pointing that must actually be found, which is
+why breadth is earned domain after domain rather than implied by
+the position.  No exterior, and no automatic location — the two
+halves of the §5.3 stance, here doing primacy's work.
 
 Failed derivation has the opposite role.  If 213 cannot, under
 any Lens choice, reach a result that a known domain records,
@@ -73,7 +85,7 @@ resolve itself, or it dies.
 
 The strictness sounds severe, but it is the operational form of
 §7.1's primacy claim.  A framework that *is* the minimum
-residue must be able to derive everything that any other
+residue must be able to derive everything that any pointing
 framework records.  Anything less leaves 213 not as the
 residue's expression but as one framework among others,
 defeating the central claim.  The price of the claim is that

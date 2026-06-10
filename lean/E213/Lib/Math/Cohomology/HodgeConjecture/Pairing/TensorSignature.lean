@@ -25,7 +25,7 @@ a Cartesian-product manifold.
   · C (`HirzebruchMultiplicative.lean`): integer `σ`-only formulation;
                                          this file is the **(p, q)
                                          pair** refinement.
-  · G14 (`T2nInductive.lean`):           inductive T²ⁿ pattern via
+  · `T2nInductive.lean`:                 inductive T²ⁿ pattern via
                                          binom symmetry.
 
 ## Closes open follow-up from `G12_T2_pattern.md` §6

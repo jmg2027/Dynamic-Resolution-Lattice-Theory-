@@ -3,7 +3,7 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndexT2
 /-!
 # Hodge-Riemann bilinear relations on T² — non-vacuous ℚ²¹³ refinement
 
-G10 Phase 2 follow-up.  The base `Pairing/HodgeRiemann.lean`
+Phase 2 follow-up.  The base `Pairing/HodgeRiemann.lean`
 capstone fires on K_{3,2}^{(c=2)} where positivity is *vacuous*
 (no order on `Bool` / ℤ/2).  This file lifts to the **213-canonical
 2-fold T²** (minimal CW: 1 vertex + 2 edges + 1 face) with
@@ -19,7 +19,7 @@ Hodge-Riemann positivity in 213-native terms:
   · Restricted to span(ω) the form is positive-definite —
     the simplest non-vacuous Hodge-Riemann statement.
 
-Realises the *non-vacuous* Hodge-Riemann positivity that G10
+Realises the *non-vacuous* Hodge-Riemann positivity the
 Phase 2 closure summary marked deferred to ℚ²¹³ refinement.
 
 STRICT ∅-AXIOM.

@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberSystems.SignedCut.Core.Core
 /-!
 # SignedCut — Generalised Cayley-Dickson level-`n` tower (∅-axiom)
 
-Formalisation of the G36 insight:
+Formalisation of the insight:
 
   > "ℝ, ℂ, ℍ, 𝕆, ... are all the same structural pair extension
   >  with Cut (level 0) as the base, structured as a Cayley-Dickson tower."

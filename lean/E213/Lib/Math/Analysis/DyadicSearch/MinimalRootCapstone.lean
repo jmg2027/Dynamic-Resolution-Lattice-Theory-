@@ -1,10 +1,10 @@
 import E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLensMonotone
 
 /-!
-# MinimalRootCapstone — G31 closure summary (Phase 4)
+# MinimalRootCapstone — closure summary (Phase 4)
 
 This file bundles the existing `MinimalRootLens` + `MinimalRootLensMonotone`
-machinery as a clean public-facing IVT certificate, closing G31's main
+machinery as a clean public-facing IVT certificate, closing the programme's main
 deliverable per `/root/.claude/plans/smooth-mapping-metcalfe.md` Phase 4.
 
 Design (per `theory/math/analysis/minimal_root.md`): the IVT
@@ -43,7 +43,7 @@ open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (RatioCut)
 /-! ## §1.  Public-facing IVT root constructor
 
 The chief Phase 4 deliverable: a single named constructor making the
-G31 IVT certificate explicit at the user-API layer. -/
+the IVT certificate explicit at the user-API layer. -/
 
 /-- ★★★ ** IVT certificate** — 4-typed-input root constructor.
 
