@@ -317,7 +317,8 @@ The GENUINE residual wall was (i) the weighted **integration-by-parts** identity
 (ii) the `(4πτ)^{−n/2}e^{−f}` Gaussian normalization of the true `𝓦`, (iii) **Li–Yau Harnack**
 (nonlinear), and (iv) **κ-solution / surgery classification + no-local-collapsing compactness** —
 the last is the genuine, un-reframable century-problem core.  Reachable next bricks (all
-recorded): `expCauchySeq`, the `Real213`-cut maximum principle, the χ²-entropy descent.
+recorded): `expCauchySeq`, the `Real213`-cut maximum principle, the χ²-entropy descent
+(the last now ✅ closed — `ricci_chi_entropy_monotone`, see below).
 
 ## The four wall items: discrete cores closed (this session)
 
@@ -358,6 +359,20 @@ open; see honest boundaries below):
   the smooth κ-solution classification (shrinking solitons / Bryant), canonical-neighbourhood
   geometry, and **no-local-collapsing compactness** — the latter is now the sharpest single
   remaining wall item.
+
+**No-local-collapsing, discrete core** — ✅ DONE (follow-up session;
+`DiscreteGaussian.lean` §4 + `Binomial.lean` unimodality).  `binom_le_central`
+(`C(2n,k) ≤ C(2n,n)` ∀k — rising/falling halves from the same absorption identity as the
+Li–Yau estimate) + `gaussian_normalization` give `no_local_collapsing`:
+`2^{2n} ≤ (2n+1)·u(2n,n)` — the kernel's central value dominates the **average density**,
+so mass cannot escape into a thin neck (the cigar exclusion, in kernel form); with
+`kernel_le_mass` (`u(t,x) ≤ 2^t`) the central density is **pinched**
+(`kernel_density_pinch`) — the `𝓦` ⟹ κ-noncollapsing implication, discrete.  The
+**χ²-entropy descent** is also closed (`RicciFlowDiscrete.ricci_chi_entropy_monotone`:
+`V(K') ≤ 16·V(K)`, `V(K) = n·ΣK² − (ΣK)²`, from `lazy_l2_norm_bound` + mass conservation —
+the curvature field's χ²-divergence from the constant/round state is non-increasing).
+**What remains of (iv)** — the genuinely smooth part: compactness extraction (blow-up
+limits), canonical neighbourhoods, soliton classification, on a manifold.
 
 Lean-tooling lesson (recurring): `rw` with a *defeq-rfl* lemma (`Nat.add_zero`,
 `Nat.mul_zero`) can silently no-op at a hypothesis — close such goals with

@@ -1,11 +1,26 @@
-# Session Handoff — 2026-06-10 (Perelman residual wall: all four items' discrete cores closed)
+# Session Handoff — 2026-06-10 (Perelman residual wall: four discrete cores + no-local-collapsing pinch + χ²-entropy)
 
 ## Branch & build state
 `claude/weighted-ibp-li-yau-91qefg` (continues the Ricci-flow frontier branch).  `lake build`
-✓ clean; `scan_all_axioms.py` **548 PURE / 0 DIRTY**; `audit_axioms.py` all ✓.  Session
+✓ clean; `scan_all_axioms.py` **654 PURE / 0 DIRTY**; `audit_axioms.py` all ✓.  Session
 modules strict ∅-axiom (`tools/scan_axioms.py`): `WeightedGreen` 11/0, `DiscreteGaussian`
-8/0, `DiscreteSurgery` 15/0, `Binomial` 12/0, `IntGridSum` +1 (`gridSumZ_antisym_zero`),
-`OrderMul` +1 (`eq_zero_of_two_mul_eq_zero`).
+11/0, `DiscreteSurgery` 15/0, `Binomial` 15/0, `RicciFlowDiscrete` 17/0, `IntGridSum` +1
+(`gridSumZ_antisym_zero`), `OrderMul` +1 (`eq_zero_of_two_mul_eq_zero`), `Conservation` +2
+(`gridSum_const`, `gridSum_term_le`).
+
+## Follow-up arc (same session, "이어서"): no-local-collapsing + χ²-entropy closed
+
+- **No-local-collapsing, discrete core** (was Open Problem 1): `Binomial.binom_le_central`
+  (unimodality `C(2n,k) ≤ C(2n,n)` ∀k — rising/falling halves `binom_le_succ_of_le_half` /
+  `binom_succ_le_of_half_le`, division-free via the same absorption identity as Li–Yau) +
+  `gaussian_normalization` ⟹ `DiscreteGaussian.no_local_collapsing`:
+  `2^{2n} ≤ (2n+1)·u(2n,n)` — central value ≥ average density, the cigar exclusion in
+  kernel form; `kernel_le_mass` + `kernel_density_pinch` give the two-sided pinch.
+- **χ²-entropy descent** (was Open Problem 5): `RicciFlowDiscrete.ricci_chi_entropy_monotone`
+  — `V(K') ≤ 16·V(K)`, `V(K) = n·ΣK² − (ΣK)²` (additive Nat-ledger form), from the
+  **already-existing** `EnergyDecay.lazy_l2_norm_bound` (repo-first: do NOT re-prove the
+  L² contraction) + mass conservation.  EnergyL2's stale "remaining summation step"
+  docstring corrected.
 
 ## What was done — the four Perelman wall items (Open Problem 4 of the previous handoff)
 
@@ -68,18 +83,19 @@ compactness** — now the sharpest single remaining wall item.
   (`have ihn : … binom … := gaussian_normalization t`).
 
 ## Open Problems (priority order)
-1. **No-local-collapsing, discrete** (the sharpened wall item): a volume/mass lower bound
-   along the discrete flow — candidate: kernel anti-concentration from
-   `gaussian_normalization` + `gaussian_li_yau` (log-concave measure ⟹ max ≥ mass/support,
-   a cleared-form `κ`-noncollapsing).  Genuinely new idea needed for the compactness half.
-2. **Discrete Bochner-with-Ricci coupling** for manifold-style Li–Yau: combine
-   `BakryEmery`'s `CD(K,∞)` with the §(iii) log-concavity to get a curvature-dependent
+1. **Discrete Bochner-with-Ricci coupling** for manifold-style Li–Yau: combine
+   `BakryEmery`'s `CD(K,∞)` with the log-concavity machinery to get a curvature-dependent
    gradient estimate (`Δlog u ≥ −K`-shaped, cleared form).
-3. **`Real213`-cut maximum principle** (carried over): promote `heatIter_range` to a
+2. **`Real213`-cut maximum principle** (carried over): promote `heatIter_range` to a
    `cutLe` via the `RealCauchyWitness` order-squeeze idiom (~40 lines, solved pattern).
-4. **`expCauchySeq` packaging** (carried over): retire the `Core/Functions.lean`
+3. **`expCauchySeq` packaging** (carried over): retire the `Core/Functions.lean`
    transcendental stubs (template: `eulerCauchySeq`).
-5. **Discrete χ²-entropy descent** (carried over): `Ent(μ) = Σμ(μ−1)` under `lazyHeatStep`.
+4. **Compactness extraction** (the genuinely smooth remainder of wall item (iv)):
+   blow-up limits / canonical neighbourhoods / soliton classification on a manifold —
+   un-discretized; record-only until a 213-native handle appears.
+5. **Promotion**: the `GeometrizationConjecture` discrete-curvature sub-tree (4 curvature
+   frames + the four wall-item files + noncollapsing/entropy) is a strong candidate for a
+   consolidated `theory/` chapter (`theory/PROMOTION_CRITERIA.md` H1–H4 + S1–S3).
 
 ## Three-tier state
 - **Tier-2 added**: `WeightedGreen.lean`, `DiscreteGaussian.lean`, `DiscreteSurgery.lean`

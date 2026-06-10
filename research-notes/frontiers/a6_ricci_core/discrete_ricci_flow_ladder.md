@@ -124,6 +124,15 @@ non-complete graphs; the star / `K_{a,b}` spectral gaps via the same integration
     Gauss–Bonnet (handshake ⟹ `Σκ = 2χ`), cut-a-neck ledger (`χ+1`, curvature `+2`),
     round-XOR-neck dichotomy, A6 termination with **exact count `= b₁`**, `K_{3,2}` worked
     ledger `−2→0→+2` (wall item (iv), discrete).
+11. **No-local-collapsing (kernel density pinch)** — ✅ DONE (`DiscreteGaussian.lean` §4 +
+    `Binomial.binom_le_central` unimodality): `2^{2n} ≤ (2n+1)·u(2n,n)` (central value ≥
+    average density — the cigar exclusion) + `u(t,x) ≤ 2^t` (non-concentration), the
+    two-sided `kernel_density_pinch`.  New generic infra: `gridSum_const`,
+    `gridSum_term_le` (`Conservation`).
+12. **χ²-entropy descent on curvature** — ✅ DONE (`RicciFlowDiscrete` §7,
+    `ricci_chi_entropy_monotone`): `V(K') ≤ 16·V(K)` for `V(K) = n·ΣK² − (ΣK)²` (additive
+    ledger form), from `EnergyDecay.lazy_l2_norm_bound` + total-curvature conservation —
+    the discrete Perelman entropy (divergence from the round state) is non-increasing.
 
 ## Honest boundary
 
