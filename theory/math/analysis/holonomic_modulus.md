@@ -118,10 +118,20 @@ layer `n ≥ 2` for **every** positive schedule
 `wallis_no_graded_certificate`): the Wallis pointing sits beyond every rung of
 the graded ladder — a theorem, not an estimate.  Deciding the side therefore
 needs a lower bound on
-`|π/2 − m/k|` — π's irrationality measure (`μ(π) ≤ 7.1`, genuinely hard).  A
-fast π series (geometric-rate, e.g. arctan/Machin) would meet the criterion;
-Wallis cannot.  This is the rate-free posture of `PiCut`, not a property of
-transcendence.  What the conversion law *can* do is price the missing measure
+`|π/2 − m/k|` — π's irrationality measure (`μ(π) ≤ 7.1`, genuinely hard).
+And no *known* π pointing escapes this: the margin race needs the tail to
+shrink against the **probe-weighted** quantum `1/(ρ_i·d_i)`, i.e.
+`tail_i·d_i → 0` — factorial-grade *nested* denominator growth, as in e
+(`tail·d = 1/i`).  A fixed-ratio geometric pointing has `tail·d ≈ const`
+(the race never resolves with depth), and Machin/arctan-type series
+additionally inflate the common denominator by `lcm(odd ≤ 2n+1) ≈ e²ⁿ`.  So
+"fast" alone does not buy the free modulus; what a fast pointing buys is the
+**bracket width per layer** — the rate⁻¹ factor of the *conditional* modulus
+(logarithmically many layers instead of polynomially many, for the same
+measure hypothesis).  Constructing any genuinely rate-carrying π pointing
+would yield an effective below-side separation for π — open,
+transcendence-grade.  This is the rate-free posture of `PiCut`, not a
+property of transcendence.  What the conversion law *can* do is price the missing measure
 exactly (`ExpLog/PiMeasureModulus` + the engine `BracketModulus`): the Wallis
 fold has a decreasing upper companion `U_n = W_n·(2n+2)/(2n+1)` (a per-layer
 shrinking bracket, width `≤ 2/(2n+1)`), and the single hypothesis

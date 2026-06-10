@@ -101,10 +101,14 @@ modulus is the growth class of `N` in `k`, and it factors as
    (`sep_graded_modulus`) — a real rescued outside the degree-1 class.  Rescue
    is now graded the way `CompletabilityGrade` grades break.  Narrative:
    `theory/math/analysis/holonomic_modulus.md` §4.
-   *Post-closure sub-questions*: (a) **schedule comparison law** — `DominatesS`
-   is *not* monotone in `ρ` bare (the `ρ_i·d_i` carry term flips; a tentative
-   sufficient condition needs `d` non-decreasing + a `ρ'/ρ` ratio condition);
-   when exactly does a slower schedule dominate-imply a faster one?  (b) **what
+   *Post-closure sub-questions*: (a) **schedule comparison law — CLOSED**
+   (`dominatesS_schedule_mono` + `schedule_comparison_needs_gap`): a slower
+   schedule inherits domination iff, beyond `d` non-decreasing and `ρ' ≤ ρ`,
+   the **gap law** holds — `1/ρ'_i − 1/ρ_i ≥ 1/ρ'_{i+1} − 1/ρ_{i+1}`
+   (cross-multiplied ℕ form); and the gap law is indispensable (`W≡1, d≡6`,
+   layer 2: identity `18 ≤ 18` ✓, root-2 `7 ≤ 6` ✗).  Pointwise the ladder is
+   **not a chain**; rungs are independent comparisons, ordered only where the
+   gap law holds (it fails inside root-schedule stretches).  (b) **what
    real is `sepNum/sepDen`?** — the witness is synthetic (cross-det relation
    solved over ℕ); its limit's classical identity (CF shape `[0; 2, 3, 3, 4, …]`
    with partial quotients `⌊√i⌋+2`-driven) is uncharacterized, only its
@@ -128,10 +132,21 @@ modulus is the growth class of `N` in `k`, and it factors as
    / `wallis_no_graded_certificate`: domination fails at every layer ≥ 2 for
    **every** positive schedule — the Wallis pointing's **rung is ∞**
    (originator's test question, answered).  Rung is pointing-relative
-   (`depth_is_intensional`): a Machin/arctan pointing of the same π would sit
-   at rung 1.  *Residual opening*: prove an actual `(C, s)` instance — even a
-   weak one (any effective transcendence-measure bound for π) — turning the
-   conditional modulus unconditional.
+   (`depth_is_intensional`) — but **no known π pointing sits at a finite
+   rung** (corrected 2026-06-10: the earlier "Machin/arctan would sit at
+   rung 1" was wrong).  The race needs `tail_i·d_i → 0` (nested
+   factorial-grade denominators, e-style); a fixed-ratio geometric pointing
+   has `tail·d ≈ const` and never resolves, and Machin-type series inflate
+   the common denominator by `lcm(odds) ≈ e²ⁿ`.  A fast pointing improves
+   only the **rate⁻¹ factor of the conditional modulus** (log-many layers
+   for the same measure hypothesis — e.g. a geometric-width bracket like the
+   Catalan/BBP series `π = 3·Σ Catₙ/16ⁿ`, blocked for now on the
+   series-limit = Wallis-limit identification, a real-analysis bridge).
+   Constructing any rate-carrying π pointing = an effective below-side
+   separation for π, transcendence-grade open.  *Residual opening*: prove an
+   actual `(C, s)` instance — even a weak one (any effective
+   transcendence-measure bound for π) — turning the conditional modulus
+   unconditional.
 3. **Two-real separation modulus** — the genuine `N(m1,k1)×N(m2,k2)` object:
    deciding `x ≤ y` for two folds needs a joint `|x−y|` lower bound.  The
    one-probe gap quantum `1/(k·d_i)` is already bilinear (probe × convergent,

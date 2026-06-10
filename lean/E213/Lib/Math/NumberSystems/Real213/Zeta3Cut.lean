@@ -2,6 +2,7 @@ import E213.Lib.Math.Analysis.Cauchy.DepthAperyCubic
 import E213.Lib.Math.NumberSystems.Real213.AbCutSeq
 import E213.Lib.Math.NumberSystems.Real213.RateStratification
 import E213.Meta.Nat.PolyNat
+import E213.Meta.Nat.PolyNatMTactic
 
 /-!
 # Zeta3Cut — ζ(3) as a constructed fold (an `AbCutSeq` from the Apéry recurrence)
@@ -68,9 +69,10 @@ open E213.Lib.Math.Analysis.Cauchy.DepthPRecursive (polyDepth)
 open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut)
 open E213.Lib.Math.NumberSystems.Real213.RateStratification (Dominates overtake_breaks_layer)
+open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut rateS_cut_const hmono_of_hmonoS)
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Tactic.NatHelper (add_mul mul_assoc mul_left_comm sub_add_cancel
-  le_sub_of_add_le add_right_cancel)
+  le_sub_of_add_le add_right_cancel le_of_mul_le_mul_right le_of_add_le_add_left)
 
 /-! ## §1 — the factorial-cleared Apéry orbit -/
 
@@ -509,5 +511,207 @@ theorem zeta3_fold_is_apery :
     the recorded open frontier. -/
 theorem zeta3_presentation_overtakes : ¬ Dominates aperyCasDet zeta3Den 9 :=
   overtake_breaks_layer aperyCasDet 9 (by decide) (by decide)
+
+/-! ## §8 — geometric orbit growth + the reduced-presentation conditional
+
+The reduced presentation (`dₙ = 2·lcm(1..n)³·bₙ`) wins its rate race with the
+margin `28 > 27 = 3³`: Hanson's `lcm(1..n) < 3ⁿ` contributes at most `27` per
+layer on the denominator side, while the orbit grows by at least `28·(m+1)³`
+per layer from layer 7 on (`aperyOrbit_geom` — the geometric strengthening of
+`aperyOrbit_inv`).  The conditional theorem (`zeta3_reduced_conditional`)
+assembles the engine end of the route: given the reduction (the integrality
+input I1, as a common-factor factorization) and the reduced smallness law from
+some layer (the lcm input I2), ζ(3)'s cut carries the constructed total
+modulus `N(m,k) = k + n₀ + 2`.  The two classical arithmetic inputs stay
+isolated as the named hypotheses; everything else is ∅-axiom constructed. -/
+
+private theorem geom_step_coeff (t : Nat) :
+    784 * aperyBot (t+8) + aperyBot (t+7) ≤ 28 * aperyLead (t+7) := by
+  show 784 * ((t+8+1)*(t+8+1)*(t+8+1)) + (t+7+1)*(t+7+1)*(t+7+1)
+      ≤ 28 * (34*(t+7)*(t+7)*(t+7) + 153*(t+7)*(t+7) + 231*(t+7) + 117)
+  have h : 28 * (34*(t+7)*(t+7)*(t+7) + 153*(t+7)*(t+7) + 231*(t+7) + 117)
+      = (784 * ((t+8+1)*(t+8+1)*(t+8+1)) + (t+7+1)*(t+7+1)*(t+7+1))
+        + (167*(t*t*t) + 3084*(t*t) + 15684*t + 12956) := by ring_nat
+  rw [h]
+  exact Nat.le_add_right _ _
+
+/-- ★★ **Geometric orbit growth**: from layer 7 on, every Apéry-orbit step
+    multiplies by at least `28·(trailing cube)` — and `28 > 27 = 3³` is exactly
+    the reduced presentation's race margin against Hanson's `lcm(1..n) < 3ⁿ`
+    (the `e³ < α` inequality in per-step `ℕ` form).  Strengthens
+    `aperyOrbit_inv` (factor `(m+1)³`) to factor `28·(m+1)³`; the base layer 7
+    is sharp (the ratio at layer 6 is `≈ 27.2 < 28`). -/
+theorem aperyOrbit_geom (x0 x1 : Nat) (hseed : x0 + 8 * x1 ≤ 117 * x1)
+    (hbase : 28 * aperyBot 7 * aperyOrbit x0 x1 7 ≤ aperyOrbit x0 x1 8) :
+    ∀ m, 7 ≤ m → 28 * aperyBot m * aperyOrbit x0 x1 m ≤ aperyOrbit x0 x1 (m+1) := by
+  have aux : ∀ t, 28 * aperyBot (t+7) * aperyOrbit x0 x1 (t+7)
+      ≤ aperyOrbit x0 x1 (t+7+1) := by
+    intro t
+    induction t with
+    | zero => exact hbase
+    | succ t ih =>
+      have hEx := aperyOrbit_exact x0 x1 hseed (t+7)
+      -- 28·(B²x') ≤ B·x₈  from ih
+      have h28 : 28 * (aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7))
+          ≤ aperyBot (t+7) * aperyOrbit x0 x1 (t+7+1) := by
+        have e : 28 * (aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7))
+            = aperyBot (t+7) * (28 * aperyBot (t+7) * aperyOrbit x0 x1 (t+7)) := by
+          ring_nat
+        rw [e]
+        exact Nat.mul_le_mul_left _ ih
+      -- the coefficient inequality, times x₈
+      have hcoefx : (784 * aperyBot (t+8) + aperyBot (t+7)) * aperyOrbit x0 x1 (t+7+1)
+          ≤ (28 * aperyLead (t+7)) * aperyOrbit x0 x1 (t+7+1) :=
+        Nat.mul_le_mul_right _ (geom_step_coeff t)
+      -- assemble ×28, then cancel 28
+      have key : (28 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1)
+            + aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7)) * 28
+          ≤ (aperyLead (t+7) * aperyOrbit x0 x1 (t+7+1)) * 28 := by
+        have eL : (28 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1)
+              + aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7)) * 28
+            = 784 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1)
+              + 28 * (aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7)) := by
+          ring_nat
+        have eM : 784 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1)
+              + aperyBot (t+7) * aperyOrbit x0 x1 (t+7+1)
+            = (784 * aperyBot (t+8) + aperyBot (t+7)) * aperyOrbit x0 x1 (t+7+1) := by
+          ring_nat
+        have eR : (28 * aperyLead (t+7)) * aperyOrbit x0 x1 (t+7+1)
+            = (aperyLead (t+7) * aperyOrbit x0 x1 (t+7+1)) * 28 := by ring_nat
+        rw [eL]
+        calc 784 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1)
+              + 28 * (aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7))
+            ≤ 784 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1)
+              + aperyBot (t+7) * aperyOrbit x0 x1 (t+7+1) := Nat.add_le_add_left h28 _
+          _ = (784 * aperyBot (t+8) + aperyBot (t+7)) * aperyOrbit x0 x1 (t+7+1) := eM
+          _ ≤ (28 * aperyLead (t+7)) * aperyOrbit x0 x1 (t+7+1) := hcoefx
+          _ = (aperyLead (t+7) * aperyOrbit x0 x1 (t+7+1)) * 28 := eR
+      have hsum : 28 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1)
+            + aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7)
+          ≤ aperyLead (t+7) * aperyOrbit x0 x1 (t+7+1) :=
+        le_of_mul_le_mul_right (by decide) key
+      -- replace the RHS by the exact recurrence and cancel the B²x' term
+      rw [← hEx] at hsum
+      -- hsum : 28·B(t+8)·x(t+8) + B²x' ≤ x(t+9) + B²x'
+      have egoal : 28 * aperyBot (t+7+1) * aperyOrbit x0 x1 (t+7+1)
+          = 28 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1) := rfl
+      rw [egoal]
+      have hflip : aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7)
+            + 28 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1)
+          ≤ aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7)
+            + aperyOrbit x0 x1 (t+7+2) := by
+        have eX : aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7)
+              + 28 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1)
+            = 28 * aperyBot (t+8) * aperyOrbit x0 x1 (t+7+1)
+              + aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7) := by ring_nat
+        have eY : aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7)
+              + aperyOrbit x0 x1 (t+7+2)
+            = aperyOrbit x0 x1 (t+7+2)
+              + aperyBot (t+7) * aperyBot (t+7) * aperyOrbit x0 x1 (t+7) := by ring_nat
+        rw [eX, eY]
+        exact hsum
+      exact le_of_add_le_add_left hflip
+  intro m hm
+  have h := aux (m - 7)
+  rw [sub_add_cancel hm] at h
+  exact h
+
+/-- The geometric growth, on ζ(3)'s denominators (base layer by kernel
+    computation; the margin at layer 7 is `28.0125…`, tight). -/
+theorem zeta3Den_geom : ∀ m, 7 ≤ m →
+    28 * aperyBot m * zeta3Den m ≤ zeta3Den (m+1) :=
+  aperyOrbit_geom 1 5 (by decide) (by decide)
+
+/-- The geometric growth, on ζ(3)'s numerators. -/
+theorem zeta3Num_geom : ∀ m, 7 ≤ m →
+    28 * aperyBot m * zeta3Num m ≤ zeta3Num (m+1) :=
+  aperyOrbit_geom 0 6 (by decide) (by decide)
+
+/-- The Casoratian is positive (`6·(m!)⁶ ≥ 6`). -/
+theorem aperyCasDet_pos (m : Nat) : 1 ≤ aperyCasDet m := by
+  induction m with
+  | zero => decide
+  | succ m ih =>
+    show 1 ≤ aperyBot m * aperyBot m * aperyCasDet m
+    exact Nat.le_trans ih (Nat.le_mul_of_pos_left _
+      (Nat.mul_pos (aperyBot_pos m) (aperyBot_pos m)))
+
+private theorem cancel_le_left (c X Y : Nat) (hc : 1 ≤ c) (h : c * X ≤ c * Y) :
+    X ≤ Y := by
+  rw [Nat.mul_comm c X, Nat.mul_comm c Y] at h
+  exact le_of_mul_le_mul_right hc h
+
+private theorem cancel_lt_left (c X Y : Nat) (h : c * X < c * Y) : X < Y := by
+  rcases Nat.lt_or_ge X Y with h' | h'
+  · exact h'
+  · exact absurd (Nat.mul_le_mul_left c h') (Nat.not_le.mpr h)
+
+/-- ★★★ **The reduced-presentation conditional** (the e-grade route, engine
+    end).  Hypotheses are the two classical Apéry inputs, isolated:
+
+      * **I1 (integrality / reduction)** — the convergents factor through a
+        reduced pair: `zeta3Num n = c n · p n`, `zeta3Den n = c n · q n`
+        (classically `q n = 2·lcm(1..n)³·bₙ`, `c n = (n!)³/(2·lcm³)`-grade);
+      * **I2 (the lcm race)** — the reduced pair satisfies the margin
+        smallness law from some layer `n₀` (classically from Hanson's
+        `lcm(1..n) < 3ⁿ` against the orbit's `28`-geometric growth
+        `zeta3Den_geom` — `28 > 27 = 3³` is the whole race).
+
+    Then ζ(3)'s cut — the *original* fold, unchanged — carries the constructed
+    total ∅-axiom modulus `N(m,k) = k + n₀ + 2`: the from-layer generator runs
+    on the reduced pair and the cut transfers back through the common factor
+    (`rcut` is scaling-invariant).  Proving I1 + I2 (classical Apéry
+    arithmetic) is the recorded frontier; nothing else remains. -/
+theorem zeta3_reduced_conditional (p q c : Nat → Nat)
+    (hc : ∀ n, 1 ≤ c n) (hq : ∀ n, 1 ≤ q n)
+    (hp : ∀ n, zeta3Num n = c n * p n)
+    (hqe : ∀ n, zeta3Den n = c n * q n)
+    (n₀ : Nat)
+    (htel : ∀ i, n₀ ≤ i →
+      (p (i+1) * (i+1) + 1) * (i * q i) ≤ (p i * i + 1) * ((i+1) * q (i+1)))
+    (m k : Nat) (hk : 1 ≤ k) :
+    ∃ N, ∀ i j, i ≥ N → j ≥ N →
+      rcut zeta3Num zeta3Den i m k = rcut zeta3Num zeta3Den j m k := by
+  -- the reduced pair is strictly increasing (the Casoratian survives reduction)
+  have hps : ∀ n, p n * q (n+1) < p (n+1) * q n := by
+    intro n
+    have hcd := zeta3_cross_det n
+    rw [hp (n+1), hqe n, hp n, hqe (n+1)] at hcd
+    have e1 : c (n+1) * p (n+1) * (c n * q n)
+        = (c n * c (n+1)) * (p (n+1) * q n) := by ring_nat
+    have e2 : c n * p n * (c (n+1) * q (n+1))
+        = (c n * c (n+1)) * (p n * q (n+1)) := by ring_nat
+    rw [e1, e2] at hcd
+    have hlt : (c n * c (n+1)) * (p n * q (n+1))
+        < (c n * c (n+1)) * (p (n+1) * q n) := by
+      rw [hcd]
+      exact Nat.lt_add_of_pos_right (aperyCasDet_pos n)
+    exact cancel_lt_left _ _ _ hlt
+  -- the cut transfers through the common factor, layer by layer
+  have hcut : ∀ n, rcut zeta3Num zeta3Den n m k = rcut p q n m k := by
+    intro n
+    show decide (zeta3Num n * k ≤ zeta3Den n * m) = decide (p n * k ≤ q n * m)
+    rw [hp n, hqe n, mul_assoc (c n) (p n) k, mul_assoc (c n) (q n) m]
+    rcases Nat.lt_or_ge (q n * m) (p n * k) with hlt | hle
+    · have hf1 : decide (p n * k ≤ q n * m) = false :=
+        decide_eq_false (Nat.not_le.mpr hlt)
+      have hf2 : decide (c n * (p n * k) ≤ c n * (q n * m)) = false := by
+        apply decide_eq_false
+        intro hcon
+        exact absurd (cancel_le_left (c n) _ _ (hc n) hcon) (Nat.not_le.mpr hlt)
+      rw [hf1, hf2]
+    · have ht1 : decide (p n * k ≤ q n * m) = true := decide_eq_true hle
+      have ht2 : decide (c n * (p n * k) ≤ c n * (q n * m)) = true :=
+        decide_eq_true (Nat.mul_le_mul_left (c n) hle)
+      rw [ht1, ht2]
+  refine ⟨k + n₀ + 2, fun i j hi hj => ?_⟩
+  rw [hcut i, hcut j]
+  exact rateS_cut_const hq (fun _ h1 => h1)
+    (hmono_of_hmonoS hq hps) hps m k hk
+    (k + n₀ + 1) (Nat.succ_le_succ (Nat.zero_le _))
+    (Nat.le_trans (Nat.le_add_right k n₀) (Nat.le_succ _))
+    (fun i hi' => htel i
+      (Nat.le_trans (Nat.le_trans (Nat.le_add_left n₀ k) (Nat.le_succ _)) hi'))
+    i j hi hj
 
 end E213.Lib.Math.NumberSystems.Real213.Zeta3Cut

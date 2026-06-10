@@ -26,7 +26,7 @@
   - `PhiAbCut.lean` — φ as an `AbCutSeq`; the algebraic/transcendental split as a
     theorem (φ completes with closed-form modulus `N=2k`, e/π take it as a
     hypothesis — algebraicity *is* the closed-form modulus).
-  - `Zeta3Cut.lean` — ★ **ζ(3) as a constructed fold**: the Apéry recurrence
+  - `Zeta3Cut.lean` — ★ **ζ(3) as a constructed fold + the reduced-route engine**: the Apéry recurrence
     (the `DepthAperyCubic` degree-3 coefficients) made exact over ℕ by a
     growth-invariant engine (`aperyOrbit_exact`), the Casoratian in closed form
     (`zeta3_cross_det`: cross-det `= aperyCasDet m = 6·(m!)⁶`), the convergents
@@ -35,7 +35,11 @@
     `ValidCut` limit.  Honest stratum: the factorial-cleared presentation is
     *proved* rate-free (`zeta3_presentation_overtakes`, `RateStratification`
     overtake at layer 9) — the constructed-modulus upgrade is the reduced
-    presentation (Apéry integrality + lcm bound), a recorded frontier.
+    presentation, whose **engine end is done**: `aperyOrbit_geom` (orbit grows
+    `≥ 28·(m+1)³` per layer from layer 7; `28 > 27 = 3³` = the Hanson race
+    margin) + `zeta3_reduced_conditional` (I1 integrality + I2 reduced
+    smallness ⟹ total modulus `N = k+n₀+2` for the original cut).  The two
+    classical Apéry inputs (I1, I2) are the recorded frontier.
   - `CubeRootTwoCut.lean` — ★ **∛2: the degree-3 form-margin modulus**.
     Side-decision reduces to the all-additive `ε·k³ < d³` (the form margin
     `|m³−2k³| ≥ 1` = `Nat` strictness `+1`); dyadic bisection presentation ⟹
@@ -107,7 +111,11 @@
     `sepDen` (`d_{i+1}=(⌊√i⌋+2)·d_i`, `W=d`) is root-2-dominated everywhere yet
     breaks `Dominates` at layer 4 (`graded_stratification`), and the witness is
     an actual presentation — `sepNum/sepDen` completes through the degree-2
-    schedule with constructed modulus `N=k²+1` (`sep_graded_modulus`).
+    schedule with constructed modulus `N=k²+1` (`sep_graded_modulus`).  The
+    **schedule comparison law**: `dominatesS_schedule_mono` (slower schedule
+    inherits domination under the cross-multiplied **gap law**
+    `1/ρ' − 1/ρ` non-increasing) + `schedule_comparison_needs_gap` (the gap
+    law is indispensable — pointwise the ladder is not a chain).
   - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
     presentations**: strictly increasing lower fold + non-increasing upper
     companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`

@@ -1,4 +1,4 @@
-# Session Handoff — 2026-06-10 (graded rate generator + conditional measure-modulus: rungs 1 AND 2 closed)
+# Session Handoff — 2026-06-10 (rungs 1+2 + schedule comparison law + ζ(3) engine end; Machin claim corrected)
 
 ## Branch
 `claude/graded-rate-generator-yfk1u3` — branched from main after the
@@ -7,7 +7,8 @@ modulus-degree-ladder merge.  Build clean (explicit module builds of the whole
 (`tools/scan_axioms.py`): `RateModulus` 11/0, `RateStratification` 26/0,
 `Meta.Nat.PowBasic` 6/0, `Meta.Nat.RootFloor` 11/0, `ModulusComposition` 28/0
 (was 34 — its §0 pow toolkit now lives in `Meta/Nat/PowBasic`),
-`BracketModulus` 3/0, `ExpLog.PiMeasureModulus` 16/0.
+`BracketModulus` 3/0, `ExpLog.PiMeasureModulus` 16/0, `Zeta3Cut` 40/0
+(was 35), `RateStratification` 28/0 (comparison law added).
 0 sorry / 0 axiom / 0 native_decide / 0 Classical / 0 Mathlib.
 
 ## What Was Done This Session
@@ -74,7 +75,9 @@ by one with modulus-like certificates — the conditional measure-modulus schema
   depth-6 mechanism) ⟹ `wallis_overtakes_every_schedule` /
   `wallis_no_graded_certificate` — **every** positive schedule is overtaken
   at every layer ≥ 2; the Wallis pointing's rung is ∞, proved.  Rung is
-  pointing-relative; a Machin pointing would sit at rung 1.  The Wallis fold's decreasing upper companion
+  pointing-relative — but see §7: no *known* π pointing sits at a finite
+  rung (the earlier "Machin would sit at rung 1" was wrong, corrected).
+  The Wallis fold's decreasing upper companion
   `U_n = W_n·(2n+2)/(2n+1)` proved (`up_mono`, exact identity
   `4(n+1)²(2n+4)(2n+1) + 2(n+1)(2n+1) = (2n+2)(2n+1)(2n+3)²` by `ring_nat`);
   bracket width `≤ 2/(2n+1)`.  `PiHalfMeasure C s` = the effective
@@ -87,13 +90,54 @@ by one with modulus-like certificates — the conditional measure-modulus schema
   analytic cost (classically `μ(π) ≤ 7.103`, Zeilberger–Zudilin 2020; no
   effective `(C,s)` formalized) is isolated in one named inequality.
 
-### 5. Docs synced
-`STRICT_ZERO_AXIOM.md` (6 entries + 2 count fixes), `Real213/INDEX.md`
-(171 = 102 top-level + 69; `BracketModulus` + `PiMeasureModulus` entries),
-`Meta/Nat/INDEX.md` (refreshed to 18), `ExpLog/INDEX.md` (18), narrative
-`theory/math/analysis/holonomic_modulus.md` §4 (graded section + π
-conditional-pricing paragraph), frontier `modulus_degree_ladder.md`
-(rungs 1 AND 2 CLOSED + post-closure sub-questions), `frontiers/INDEX.md`.
+
+### 6. The schedule comparison law (`RateStratification`, → 28 PURE ✓)
+- ★★ `dominatesS_schedule_mono`: a slower schedule `ρ'` inherits `DominatesS`
+  from `ρ` iff, beyond `d` non-decreasing and `ρ' ≤ ρ`, the **gap law** holds:
+  `1/ρ'_i − 1/ρ_i ≥ 1/ρ'_{i+1} − 1/ρ_{i+1}` (cross-multiplied ℕ form; proof
+  by the `Nat.le.dest` rearrangement lemma + additive cancellation, `ring_nat`).
+- ★★ `schedule_comparison_needs_gap`: the gap law is indispensable — `W ≡ 1`,
+  `d ≡ 6` at layer 2 has identity-domination (`18 ≤ 18`) but root-2 fails
+  (`7 ≤ 6`).  **Pointwise the ladder is not a chain**; rungs are independent
+  comparisons (the gap law fails inside root-schedule stretches).
+- Engine generalized: `rateS_cut_const` now takes the certificate **from the
+  admitted layer only** (eventual-only certificates generate; wrappers
+  unchanged) — needed for ζ(3) below, independently right.
+
+### 7. (a) corrected: no known π pointing is rate-carrying
+The HANDOFF's previous claim "Machin/arctan π meets the criterion
+unconditionally ⟹ free modulus" is **false** and has been corrected in
+`holonomic_modulus.md` §4 + the ladder note.  The margin race needs
+`tail_i·d_i → 0` (nested factorial-grade denominators, e-style);
+fixed-ratio geometric pointings have `tail·d ≈ const` (never resolves), and
+Machin-type series inflate the common denominator by `lcm(odds) ≈ e²ⁿ`.
+A fast pointing buys only the **rate⁻¹ factor of the conditional modulus**
+(log-many layers for the same measure hypothesis); a candidate geometric
+bracket is Catalan/BBP `π = 3·Σ Catₙ/16ⁿ`, blocked on the series-limit =
+Wallis-limit identification (real-analysis bridge, recorded).  Any genuinely
+rate-carrying π pointing would yield an effective below-side separation —
+transcendence-grade open.
+
+### 8. (b) ζ(3) reduced route: the engine end is DONE (`Zeta3Cut` §8, → 40 PURE ✓)
+- ★★ `aperyOrbit_geom`: the orbit grows by `≥ 28·(m+1)³` per layer from
+  layer 7 (`zeta3Den_geom`/`zeta3Num_geom`, bases by kernel computation;
+  sharp — the layer-6 ratio is `≈ 27.2 < 28`).  **`28 > 27 = 3³` is the
+  whole `e³ < α` race** against Hanson's `lcm(1..n) < 3ⁿ`, in per-step ℕ form.
+- ★★★ `zeta3_reduced_conditional`: given **I1** (integrality — the
+  convergents factor through a reduced pair `zeta3Num = c·p`,
+  `zeta3Den = c·q`) and **I2** (the reduced smallness law from a layer `n₀`),
+  the *original* ζ(3) cut carries constructed modulus `N(m,k) = k + n₀ + 2`
+  (from-layer generator on `(p,q)`; monotonicity derived from the Casoratian
+  surviving reduction; `rcut` transfers through the common factor).
+  Remaining: **only I1 + I2** (classical Apéry arithmetic) — frontier updated.
+
+### 9. Docs synced
+`STRICT_ZERO_AXIOM.md`, `Real213/INDEX.md` (171 = 102 + 69),
+`Meta/Nat/INDEX.md` (18), `ExpLog/INDEX.md` (18),
+`theory/math/analysis/holonomic_modulus.md` §4 (graded + π pricing + the
+Machin correction), frontiers `modulus_degree_ladder.md` (rungs 1, 2 CLOSED;
+comparison law CLOSED; Machin correction) + `zeta3_free_modulus.md` (engine
+end DONE, only I1/I2 remain) + `frontiers/INDEX.md`.
 
 ## Current Precision Results (0 free parameters)
 Physics catalog untouched this session (math branch).  Canonical table:
@@ -110,13 +154,13 @@ isolated exactly this.
 Frontier: `research-notes/frontiers/modulus_degree_ladder.md` (rung 2
 residual opening).
 
-### 1. Schedule comparison law
-`DominatesS` is not monotone in `ρ` bare (the `ρ_i·d_i` carry term flips).
-When does a slower schedule's domination imply a faster one's?  Tentative:
-`d` non-decreasing + a `ρ'/ρ` ratio condition.  This is the order structure
-*on the ladder itself*.
-Frontier: `research-notes/frontiers/modulus_degree_ladder.md` (rung 1
-post-closure (a)).
+### 1. ζ(3)'s I1 + I2 (the last two inputs)
+I1: Apéry numerator integrality (`2·lcm³·aₙ ∈ ℕ`, binomial-divisibility
+core); I2: the reduced smallness law (classically Hanson `lcm(1..n) < 3ⁿ` +
+`zeta3Den_geom`'s 28-growth + the `Wₙ = 24·lcmₙ³lcmₙ₊₁³/(n+1)³` arithmetic).
+Everything else is done (`zeta3_reduced_conditional`).  I2 alone needs the
+lcm bound — an elementary but genuine formalization project (primorial route).
+Frontier: `research-notes/frontiers/zeta3_free_modulus.md`.
 
 ### 2. dyUp tightness
 The lower witness needs the ratio/rescale property; then `powSched` is
@@ -124,19 +168,11 @@ two-sidedly pinned.
 Frontier: `research-notes/frontiers/modulus_degree_ladder.md` (rung 0′
 "Still open").
 
-### 3. ζ(3) free modulus
-Reduced-presentation integrality + `lcm(1..n) < 3ⁿ` ⟹ `zeta3HolonomicReal`.
-Frontier: `research-notes/frontiers/zeta3_free_modulus.md`.
-
-### 4. Ladder remainder
+### 3. Ladder remainder
 Two-real separation modulus, Dirichlet floor `μ ≥ 2` (constructive via
 `Pigeonhole`), self-degree fixed point `μ(τ) = τ` (conjecture), degree-4+
-form cuts; also: what classical real is `sepNum/sepDen`? (post-closure (b)).
-More reals to pull in via the two engines (graded `HtelS` / bracket
-exclusion): candidate next instances are fast alternating series (arctan/
-Machin-style π presentations meet the rate criterion *unconditionally* —
-would give π a free modulus through a different pointing) and ζ(3)'s reduced
-presentation (open problem 3).
+form cuts; what classical real is `sepNum/sepDen`?; the Catalan/BBP geometric
+π bracket (needs the series-limit = Wallis-limit bridge).
 Frontier: `research-notes/frontiers/modulus_degree_ladder.md` rungs 0/0′/3/4.
 
 ## Unresolved from This Session
@@ -152,13 +188,12 @@ Frontier: `research-notes/frontiers/modulus_degree_ladder.md` rungs 0/0′/3/4.
   some session.
 
 ## Next
-The originator directs: keep pulling reals in one by one with modulus-like
-certificates ("새로운 확장 방식" demonstrated).  Best next instances:
-(a) **a Machin/arctan presentation of π** — geometric rate meets the
-unconditional criterion, giving π a *free* modulus through a different
-pointing (presentation-dependence made vivid: same real, hypothesis-free at a
-faster pointing); (b) **ζ(3) reduced presentation** (open problem 3);
-(c) **schedule comparison law** (open problem 1, small and self-contained).
+Of the originator's three directives this session: (c) comparison law DONE,
+(b) ζ(3) engine end DONE (I1/I2 remain — open problem 1, the lcm bound is the
+tractable half), (a) corrected (no free Machin modulus; the honest follow-up
+is the Catalan/BBP geometric *bracket* + the Wallis-identification bridge).
+Best next: **Hanson `lcm(1..n) < 3ⁿ`** (I2's missing piece — elementary,
+self-contained, big payoff: ζ(3) drops to I1 only).
 Real213 root clustering is being handled elsewhere per the originator — do
 not start it here.
 
@@ -189,4 +224,6 @@ lean/E213/Lib/Math/NumberSystems/Real213/BracketModulus.lean      ← NEW: brack
 lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/PiMeasureModulus.lean ← NEW: π conditional degree-s + rung-∞ negative (16 PURE)
 lean/E213/Lib/Math/NumberSystems/Real213.lean                     ← aggregator += 2
 lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/INDEX.md          ← 18 files
+lean/E213/Lib/Math/NumberSystems/Real213/Zeta3Cut.lean            ← §8: 28-growth + reduced conditional (40 PURE)
+research-notes/frontiers/zeta3_free_modulus.md                    ← engine end DONE; I1/I2 isolated
 ```

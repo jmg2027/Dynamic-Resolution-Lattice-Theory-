@@ -86,15 +86,16 @@ private theorem L_base (x k r : Nat) (hkr : k ≤ r) : (x*r+1)*k ≤ (x*k+1)*r :
     rw [mul_assoc, Nat.mul_comm k r, ← mul_assoc]
   rw [l1, l2]; exact Nat.add_le_add_left hkr _
 
-private theorem rinvS_step (hd : ∀ i, 1 ≤ d i) (hρ : ∀ i, 1 ≤ i → 1 ≤ ρ i)
-    (htel : HtelS a d ρ) (m k i : Nat) (hi1 : 1 ≤ i)
-    (ih : RInvS a d ρ m k i) : RInvS a d ρ m k (i+1) := by
-  have hpos : 0 < ρ i * d i := Nat.mul_pos (hρ i hi1) (hd i)
+private theorem rinvS_step (hd : ∀ i, 1 ≤ d i) (hρi : 1 ≤ ρ i)
+    (hstep : (a (i+1) * ρ (i+1) + 1) * (ρ i * d i)
+      ≤ (a i * ρ i + 1) * (ρ (i+1) * d (i+1)))
+    (m k : Nat) (ih : RInvS a d ρ m k i) : RInvS a d ρ m k (i+1) := by
+  have hpos : 0 < ρ i * d i := Nat.mul_pos hρi (hd i)
   have hki : ((a (i+1)*ρ (i+1)+1)*k)*(ρ i*d i)
       ≤ (m*(ρ (i+1)*d (i+1)))*(ρ i*d i) :=
     calc ((a (i+1)*ρ (i+1)+1)*k)*(ρ i*d i)
         = ((a (i+1)*ρ (i+1)+1)*(ρ i*d i))*k := swap_kr _ k (ρ i*d i)
-      _ ≤ ((a i*ρ i+1)*(ρ (i+1)*d (i+1)))*k := Nat.mul_le_mul_right k (htel i hi1)
+      _ ≤ ((a i*ρ i+1)*(ρ (i+1)*d (i+1)))*k := Nat.mul_le_mul_right k hstep
       _ = ((a i*ρ i+1)*k)*(ρ (i+1)*d (i+1)) := swap_kr _ (ρ (i+1)*d (i+1)) k
       _ ≤ (m*(ρ i*d i))*(ρ (i+1)*d (i+1)) := Nat.mul_le_mul_right _ ih
       _ = (m*(ρ (i+1)*d (i+1)))*(ρ i*d i) := by
@@ -103,7 +104,9 @@ private theorem rinvS_step (hd : ∀ i, 1 ≤ d i) (hρ : ∀ i, 1 ≤ i → 1 �
   exact le_of_mul_le_mul_right hpos hki
 
 private theorem rinvS (hd : ∀ i, 1 ≤ d i) (hρ : ∀ i, 1 ≤ i → 1 ≤ ρ i)
-    (htel : HtelS a d ρ) (m k i₀ : Nat) (hi₀ : 1 ≤ i₀) (hkρ : k ≤ ρ i₀)
+    (m k i₀ : Nat) (hi₀ : 1 ≤ i₀) (hkρ : k ≤ ρ i₀)
+    (htel : ∀ i, i₀ ≤ i → (a (i+1) * ρ (i+1) + 1) * (ρ i * d i)
+      ≤ (a i * ρ i + 1) * (ρ (i+1) * d (i+1)))
     (hstrict : a i₀ * k + 1 ≤ d i₀ * m) :
     ∀ i, i₀ ≤ i → RInvS a d ρ m k i := by
   have aux : ∀ t, RInvS a d ρ m k (i₀+t) := by
@@ -118,7 +121,7 @@ private theorem rinvS (hd : ∀ i, 1 ≤ d i) (hρ : ∀ i, 1 ≤ i → 1 ≤ ρ
       exact Nat.le_trans (L_base (a i₀) k (ρ i₀) hkρ) (e3 ▸ e2)
     | succ t ih =>
       have hi1 : 1 ≤ i₀+t := Nat.le_trans hi₀ (Nat.le_add_right i₀ t)
-      exact rinvS_step hd hρ htel m k (i₀+t) hi1 ih
+      exact rinvS_step hd (hρ (i₀+t) hi1) (htel (i₀+t) (Nat.le_add_right i₀ t)) m k ih
   intro i hi; rw [← add_sub_of_le hi]; exact aux (i - i₀)
 
 private theorem rinvS_cut (m k i : Nat) (hk : 1 ≤ k)
@@ -184,25 +187,27 @@ private theorem eq_false_at (m k j : Nat) (hk : 1 ≤ k)
   exact absurd hle (Nat.not_le.mpr c)
 
 /-- ★★★ **Graded rate-carrying ⟹ total modulus (constant form).**  A monotone
-    convergent cut-sequence `a_i/d_i` with a non-increasing scheduled margin
-    `e_i + 1/(ρ_i·d_i)` (`HtelS`) has its cut constant past any layer `i₀ ≥ 1`
+    convergent cut-sequence `a_i/d_i` whose scheduled margin `e_i + 1/(ρ_i·d_i)`
+    is non-increasing **from the admitted layer on** (`htel` from `i₀`; a full
+    `HtelS` certificate restricts) has its cut constant past any layer `i₀ ≥ 1`
     at which the schedule admits the probe denominator (`k ≤ ρ i₀`):
     `rcut a d i m k = rcut a d j m k` for all `i, j ≥ i₀+1` (`k ≥ 1`).  No LEM,
-    no irrationality measure — the graded certificate plus one admitted layer
-    suffice. -/
+    no irrationality measure — the from-layer certificate plus one admitted
+    layer suffice (so certificates valid only eventually still generate). -/
 theorem rateS_cut_const (hd : ∀ i, 1 ≤ d i) (hρ : ∀ i, 1 ≤ i → 1 ≤ ρ i)
-    (htel : HtelS a d ρ)
     (hmono : ∀ N i, N ≤ i → a N * d i ≤ a i * d N)
     (hmonoS : ∀ i, a i * d (i+1) < a (i+1) * d i)
     (m k : Nat) (hk : 1 ≤ k)
     (i₀ : Nat) (hi₀ : 1 ≤ i₀) (hkρ : k ≤ ρ i₀)
+    (htel : ∀ i, i₀ ≤ i → (a (i+1) * ρ (i+1) + 1) * (ρ i * d i)
+      ≤ (a i * ρ i + 1) * (ρ (i+1) * d (i+1)))
     (i j : Nat) (hi : i₀+1 ≤ i) (hj : i₀+1 ≤ j) :
     rcut a d i m k = rcut a d j m k := by
   have hi' : i₀ ≤ i := Nat.le_trans (Nat.le_succ _) hi
   have hj' : i₀ ≤ j := Nat.le_trans (Nat.le_succ _) hj
   rcases Nat.lt_trichotomy (a i₀*k) (d i₀*m) with hlt | heq | hgt
-  · exact (rinvS_cut m k i hk (rinvS hd hρ htel m k i₀ hi₀ hkρ hlt i hi')).trans
-        (rinvS_cut m k j hk (rinvS hd hρ htel m k i₀ hi₀ hkρ hlt j hj')).symm
+  · exact (rinvS_cut m k i hk (rinvS hd hρ m k i₀ hi₀ hkρ htel hlt i hi')).trans
+        (rinvS_cut m k j hk (rinvS hd hρ m k i₀ hi₀ hkρ htel hlt j hj')).symm
   · have hf := eq_false_at m k i₀ hk hmonoS heq
     exact (false_fwd hd hmono m k (i₀+1) hf i hi).trans
         (false_fwd hd hmono m k (i₀+1) hf j hj).symm
@@ -222,8 +227,8 @@ theorem rateS_total_modulus (hd : ∀ i, 1 ≤ d i) (hρ : ∀ i, 1 ≤ i → 1 
     (m k : Nat) (hk : 1 ≤ k) :
     ∃ N, ∀ i j, i ≥ N → j ≥ N → rcut a d i m k = rcut a d j m k :=
   ⟨B k + 1, fun i j hi hj =>
-    rateS_cut_const hd hρ htel hmono hmonoS m k hk (B k)
-      (hB k hk).1 (hB k hk).2 i j hi hj⟩
+    rateS_cut_const hd hρ hmono hmonoS m k hk (B k) (hB k hk).1 (hB k hk).2
+      (fun i hi' => htel i (Nat.le_trans (hB k hk).1 hi')) i j hi hj⟩
 
 /-! ## The identity schedule — degree 1, `N = k+2` -/
 
@@ -235,8 +240,10 @@ theorem rate_cut_const (hd : ∀ i, 1 ≤ d i) (htel : Htel a d)
     (hmonoS : ∀ i, a i * d (i+1) < a (i+1) * d i)
     (m k : Nat) (hk : 1 ≤ k) (i j : Nat) (hi : k+2 ≤ i) (hj : k+2 ≤ j) :
     rcut a d i m k = rcut a d j m k :=
-  rateS_cut_const hd (fun _ h1 => h1) (htelS_of_htel htel) hmono hmonoS m k hk
-    (k+1) (Nat.succ_le_succ (Nat.zero_le k)) (Nat.le_succ k) i j hi hj
+  rateS_cut_const hd (fun _ h1 => h1) hmono hmonoS m k hk
+    (k+1) (Nat.succ_le_succ (Nat.zero_le k)) (Nat.le_succ k)
+    (fun i hi' => htelS_of_htel htel i
+      (Nat.le_trans (Nat.succ_le_succ (Nat.zero_le k)) hi')) i j hi hj
 
 /-- ★★★ **The identity-schedule generator, existential form.**  Every
     rate-carrying convergent cut-sequence has a total ∅-axiom modulus
@@ -263,8 +270,9 @@ theorem graded_cut_const (s : Nat) (hs : 1 ≤ s)
     (hmonoS : ∀ i, a i * d (i+1) < a (i+1) * d i)
     (m k : Nat) (hk : 1 ≤ k) (i j : Nat) (hi : k^s+1 ≤ i) (hj : k^s+1 ≤ j) :
     rcut a d i m k = rcut a d j m k :=
-  rateS_cut_const hd (fun n h1 => rootFloor_pos s n h1) htel hmono hmonoS m k hk
-    (k^s) (one_le_pow hk s) (Nat.le_of_eq (rootFloor_pow s hs k).symm) i j hi hj
+  rateS_cut_const hd (fun n h1 => rootFloor_pos s n h1) hmono hmonoS m k hk
+    (k^s) (one_le_pow hk s) (Nat.le_of_eq (rootFloor_pow s hs k).symm)
+    (fun i hi' => htel i (Nat.le_trans (one_le_pow hk s) hi')) i j hi hj
 
 /-- ★★★ **The graded generator at degree `s`, existential form.**  Every
     cut-sequence carrying the degree-`s` rate certificate has a total ∅-axiom

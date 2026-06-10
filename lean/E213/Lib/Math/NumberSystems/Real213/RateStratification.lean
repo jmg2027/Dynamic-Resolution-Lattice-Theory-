@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.RateModulus
 import E213.Meta.Nat.PolyNat
+import E213.Meta.Nat.PolyNatMTactic
 
 /-!
 # RateStratification — completeness as a layer-by-layer growth-axis comparison
@@ -72,7 +73,8 @@ open E213.Lib.Math.NumberSystems.Real213.RateModulus
    hmono_of_hmonoS)
 open E213.Meta.Nat.PolyNat (PE poly_id)
 open E213.Meta.Nat.RootFloor (rootFloor rootFloor_mono)
-open E213.Tactic.NatHelper (add_mul mul_assoc mul_mul_mul_comm_213 le_of_add_le_add_left)
+open E213.Tactic.NatHelper
+  (add_mul mul_assoc mul_mul_mul_comm_213 le_of_add_le_add_left le_of_mul_le_mul_right)
 
 /-- The **scheduled domination predicate** at layer `i`: the cross-determinant
     `W_i` stays below the denominator's growth quantum, measured under the probe
@@ -319,7 +321,102 @@ theorem sep_graded_modulus (m k : Nat) (hk : 1 ≤ k) :
     (fun i _ => sep_dominatesS_all i)
     (hmono_of_hmonoS sepDen_pos sep_hmonoS) sep_hmonoS m k hk
 
-/-! ## §5 — capstones -/
+/-! ## §5 — the schedule comparison law (the order structure on the ladder) -/
+
+private theorem rearrange (a b x y : Nat) (hab : a ≤ b) (hxy : x ≤ y) :
+    a*y + b*x ≤ a*x + b*y := by
+  obtain ⟨u, hu⟩ := Nat.le.dest hab
+  obtain ⟨v, hv⟩ := Nat.le.dest hxy
+  subst hu; subst hv
+  have hid : a*x + (a+u)*(x+v) = (a*(x+v) + (a+u)*x) + u*v := by ring_nat
+  rw [hid]
+  exact Nat.le_add_right _ _
+
+/-- ★★ **Schedule comparison, sufficient condition.**  A slower schedule `ρ'`
+    inherits domination at layer `i` from `ρ` when (1) the denominator does not
+    shrink (`d_i ≤ d_{i+1}`), (2) `ρ'_i ≤ ρ_i`, and (3) the **gap law** holds —
+    the slack difference `1/ρ' − 1/ρ` is non-increasing across the layer,
+    cross-multiplied:
+
+        ρ'_i·ρ'_{i+1}·ρ_{i+1} + ρ'_i·ρ_i·ρ_{i+1} ≤ ρ_i·ρ'_{i+1}·ρ_{i+1} + ρ'_i·ρ_i·ρ'_{i+1}.
+
+    The gap law is the genuine content: `schedule_comparison_needs_gap` shows
+    (1)+(2) alone do **not** suffice — pointwise, the ladder is *not* a chain;
+    rungs are independent comparisons, ordered only where the gap law holds. -/
+theorem dominatesS_schedule_mono (W : Nat → Nat) {ρ' : Nat → Nat} (i : Nat)
+    (hρi : 1 ≤ ρ i) (hρi1 : 1 ≤ ρ (i+1))
+    (hd : d i ≤ d (i+1)) (h1 : ρ' i ≤ ρ i)
+    (hgap : ρ' i * ρ' (i+1) * ρ (i+1) + ρ' i * ρ i * ρ (i+1)
+      ≤ ρ i * ρ' (i+1) * ρ (i+1) + ρ' i * ρ i * ρ' (i+1))
+    (hdom : DominatesS W d ρ i) : DominatesS W d ρ' i := by
+  -- A1: (d_{i+1} − d_i)·(ρ_i − ρ'_i) ≥ 0, cleared and ×(ρ'_{i+1}·ρ_{i+1})
+  have hxy : ρ' i * (ρ' (i+1) * ρ (i+1)) ≤ ρ i * (ρ' (i+1) * ρ (i+1)) :=
+    Nat.mul_le_mul_right _ h1
+  have hA1 : d i * (ρ i * (ρ' (i+1) * ρ (i+1))) + d (i+1) * (ρ' i * (ρ' (i+1) * ρ (i+1)))
+      ≤ d i * (ρ' i * (ρ' (i+1) * ρ (i+1))) + d (i+1) * (ρ i * (ρ' (i+1) * ρ (i+1))) :=
+    rearrange (d i) (d (i+1)) _ _ hd hxy
+  -- A2: the gap law × d_i
+  have hA2 : d i * (ρ' i * ρ' (i+1) * ρ (i+1) + ρ' i * ρ i * ρ (i+1))
+      ≤ d i * (ρ i * ρ' (i+1) * ρ (i+1) + ρ' i * ρ i * ρ' (i+1)) :=
+    Nat.mul_le_mul_left _ hgap
+  -- (★): B' + C ≤ C' + B, by summing A1 + A2 and cancelling the common junk J
+  have hsum := Nat.add_le_add hA1 hA2
+  have hstar : (ρ i * ρ (i+1)) * (ρ' i * d i) + ρ' i * ρ' (i+1) * (ρ (i+1) * d (i+1))
+      ≤ (ρ i * ρ (i+1)) * (ρ' (i+1) * d (i+1)) + ρ' i * ρ' (i+1) * (ρ i * d i) := by
+    have eL : d i * (ρ i * (ρ' (i+1) * ρ (i+1))) + d (i+1) * (ρ' i * (ρ' (i+1) * ρ (i+1)))
+        + d i * (ρ' i * ρ' (i+1) * ρ (i+1) + ρ' i * ρ i * ρ (i+1))
+        = (d i * (ρ i * (ρ' (i+1) * ρ (i+1))) + d i * (ρ' i * (ρ' (i+1) * ρ (i+1))))
+          + ((ρ i * ρ (i+1)) * (ρ' i * d i)
+              + ρ' i * ρ' (i+1) * (ρ (i+1) * d (i+1))) := by ring_nat
+    have eR : d i * (ρ' i * (ρ' (i+1) * ρ (i+1))) + d (i+1) * (ρ i * (ρ' (i+1) * ρ (i+1)))
+        + d i * (ρ i * ρ' (i+1) * ρ (i+1) + ρ' i * ρ i * ρ' (i+1))
+        = (d i * (ρ i * (ρ' (i+1) * ρ (i+1))) + d i * (ρ' i * (ρ' (i+1) * ρ (i+1))))
+          + ((ρ i * ρ (i+1)) * (ρ' (i+1) * d (i+1))
+              + ρ' i * ρ' (i+1) * (ρ i * d i)) := by ring_nat
+    rw [eL, eR] at hsum
+    exact le_of_add_le_add_left hsum
+  -- assemble: G′ = hdom × (ρ'_i·ρ'_{i+1}), then cancel C and divide by ρ_i·ρ_{i+1}
+  have hG' : ρ' i * ρ' (i+1) * (ρ i * ρ (i+1) * W i + ρ i * d i)
+      ≤ ρ' i * ρ' (i+1) * (ρ (i+1) * d (i+1)) :=
+    Nat.mul_le_mul_left _ hdom
+  have hfinal : (ρ' i * ρ' (i+1) * W i + ρ' i * d i) * (ρ i * ρ (i+1))
+      ≤ (ρ' (i+1) * d (i+1)) * (ρ i * ρ (i+1)) := by
+    have key : (ρ' i * ρ' (i+1) * (ρ (i+1) * d (i+1)) + ρ' i * ρ' (i+1) * (ρ i * d i))
+        + (ρ' i * ρ' (i+1) * W i + ρ' i * d i) * (ρ i * ρ (i+1))
+        ≤ (ρ' i * ρ' (i+1) * (ρ (i+1) * d (i+1)) + ρ' i * ρ' (i+1) * (ρ i * d i))
+        + (ρ' (i+1) * d (i+1)) * (ρ i * ρ (i+1)) := by
+      have eL' : (ρ' i * ρ' (i+1) * (ρ (i+1) * d (i+1)) + ρ' i * ρ' (i+1) * (ρ i * d i))
+          + (ρ' i * ρ' (i+1) * W i + ρ' i * d i) * (ρ i * ρ (i+1))
+          = ρ' i * ρ' (i+1) * (ρ i * ρ (i+1) * W i + ρ i * d i)
+            + ((ρ i * ρ (i+1)) * (ρ' i * d i)
+                + ρ' i * ρ' (i+1) * (ρ (i+1) * d (i+1))) := by ring_nat
+      have eR' : (ρ' i * ρ' (i+1) * (ρ (i+1) * d (i+1)) + ρ' i * ρ' (i+1) * (ρ i * d i))
+          + (ρ' (i+1) * d (i+1)) * (ρ i * ρ (i+1))
+          = ρ' i * ρ' (i+1) * (ρ (i+1) * d (i+1))
+            + ((ρ i * ρ (i+1)) * (ρ' (i+1) * d (i+1))
+                + ρ' i * ρ' (i+1) * (ρ i * d i)) := by ring_nat
+      rw [eL', eR']
+      exact Nat.add_le_add hG' hstar
+    exact le_of_add_le_add_left key
+  exact le_of_mul_le_mul_right (Nat.mul_pos hρi hρi1) hfinal
+
+/-- ★★ **The gap law is not dispensable**: with `W ≡ 1`, `d ≡ 6` at layer 2,
+    the identity schedule dominates (`18 ≤ 18`) while the root-2 schedule does
+    not (`7 ≤ 6` fails) — even though the denominator is non-decreasing and the
+    root schedule is pointwise slower.  Pointwise, rung 1 does not imply
+    rung 2: the schedule axis is a genuine new dial, not a refinement chain. -/
+theorem schedule_comparison_needs_gap :
+    Dominates (fun _ => 1) (fun _ => 6) 2
+    ∧ ¬ DominatesS (fun _ => 1) (fun _ => 6) (rootFloor 2) 2 := by
+  constructor
+  · show 2*(2+1)*1 + 2*6 ≤ (2+1)*6
+    decide
+  · intro h
+    have h' : rootFloor 2 2 * rootFloor 2 (2+1) * 1 + rootFloor 2 2 * 6
+        ≤ rootFloor 2 (2+1) * 6 := h
+    exact absurd h' (by decide)
+
+/-! ## §6 — capstones -/
 
 /-- ★★★ **Tower stratification capstone (degree 1).**  The three facts of the
     W-vs-d comparison:

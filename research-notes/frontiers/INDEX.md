@@ -181,8 +181,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (`BracketModulus`, `N = B k + 2`) + the proved-decreasing Wallis upper
   companion `U_n = W_n·(2n+2)/(2n+1)` give **π conditionally degree-`s`**
   (`PiMeasureModulus`: `PiHalfMeasure C s` ⟹ π modulus `C·(2k)^s + 2`).
-  Open: an actual effective `(C,s)` for π, the two-real separation modulus,
-  degree-4+ form cuts, `dyUp` tightness.
+  Schedule comparison law closed (`dominatesS_schedule_mono`: the gap law is
+  the exact extra condition; pointwise the ladder is not a chain).  ζ(3)
+  engine end closed (`aperyOrbit_geom` 28-growth + `zeta3_reduced_conditional`).
+  Open: an actual effective `(C,s)` for π, ζ(3)'s I1/I2 (Apéry integrality +
+  Hanson lcm), the two-real separation modulus, degree-4+ form cuts, `dyUp`
+  tightness.
 - `zeta3_free_modulus` — **ζ(3): built fold → free total modulus**.  The fold is
   closed (`Real213/Zeta3Cut`, 35 PURE: exact ℕ Apéry recurrence + closed-form
   Casoratian `6·(m!)⁶` + `AbCutSeq` + bracket `601/500 < ζ(3) ≤ 1203/1000`), and
