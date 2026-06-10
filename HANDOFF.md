@@ -68,6 +68,12 @@ ready-to-merge).
 - `/purity-check` + `/ready-to-merge`: 0 sorry / 0 external axiom / 0
   Mathlib / 0 Classical / 0 native_decide; layer 0 violations; sink rule
   0 leaks; fresh build clean.
+- Then re-merged `origin/main` once more (its modulus-degree-ladder
+  session: ζ(3) Apéry fold, ∛2 form-margin modulus, composed
+  irrational-degree schedules, `form_margin_modulus.md` +
+  `the_degree_of_a_number.md`); 4 list-append conflicts unioned
+  (promotion-log rows 54–55 from main + 56 mine; frontiers entries; the
+  STRICT async-citation taken from this branch's accurate form).
 
 ## Current Precision Results (0 free parameters)
 | Observable | DRLT | Error |

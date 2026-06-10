@@ -93,6 +93,20 @@ recurrence actually generates its convergents.
 The elementary witness form — e certified on its proven bracket `(8/3, 3)` directly
 from the bounds — is `ExpLog/EulerCertifiedBracket`.
 
+**∛2 — algebraic degree 3, the form-margin mechanism (`CubeRootTwoCut`).**  The
+algebraic instances do not need the rate race at all: the side-decision against a
+probe `m/k` reduces to the all-additive comparison `ε_i·k³ < d_i³`, where the
+degree-3 form margin `|m³ − 2k³| ≥ 1` arrives as the `+1` of `Nat` strictness and
+`ε_i` is the presentation's cube-slack.  With the dyadic bisection presentation
+(`cbrtNum i / 2^i`, slack `≤ 24·4^i` vs `d³ = 8^i`) the total modulus is
+`N(m,k) = 3k+5` (`cbrtCauchySeq`), and the completed fold lands exactly on the
+frozen closed-form cut `decide (2k³ ≤ m³)` (`cbrt_limit_eq_form`) — the degree-3
+analog of φ's `masterCut` story (`FibCassiniNat.qb_lt_pk`'s `4k² < b²` is the
+degree-2 shadow of the same `ε·k^s < d^s` schema).  The algebraic degree enters
+as the probe exponent `k^s` in the schedule, and the form makes the modulus
+presentation-robust; the rate-carrying / rate-free divide of this chapter is the
+transcendental-only regime.
+
 ## 4. Frontier
 
 **π via Wallis is rate-free.**  The Wallis partial products converge like `1/n`
@@ -112,6 +126,18 @@ bespoke estimate — the depth arc and the modulus generator are one mechanism. 
 remains for another fast holonomic real is just its `W` and the smallness check
 `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`; the rate-free reals (π via Wallis) are exactly
 those whose `W` grows too fast for it.
+
+**ζ(3) sits at the boundary, presentation-dependently** (`Real213/Zeta3Cut`).  The
+Apéry convergents are built as an exact ℕ orbit of the degree-3 recurrence
+(`aperyOrbit_exact`), with closed-form cross-determinant `W_m = 6·(m!)⁶`
+(`zeta3_cross_det`) and the bracket `601/500 < ζ(3) ≤ 1203/1000`; but in the
+factorial-cleared presentation that `W` *overtakes* the denominator quantum at
+layer 9 (`zeta3_presentation_overtakes`, via `overtake_breaks_layer`) — rate-free,
+so the completion modulus stays a hypothesis there, as for π/Wallis.  The
+rate-carrying ζ(3) presentation is the reduced one (`2·lcm(1..n)³·bₙ`
+denominators, tail `α⁻²ⁿ` with `α = (1+√2)⁴`, and `e³ < α` makes the criterion
+hold); its ∅-axiom construction costs exactly the classical Apéry arithmetic
+(reduced-numerator integrality, `lcm(1..n) < 3ⁿ`) and is an open frontier.
 
 **The smallness law is a stratification — `W` against `d`, layer by layer.**  Making
 the smallness condition the primitive object turns completeness into a comparison of

@@ -171,6 +171,28 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   run-invariance (`fold_eq_depth`) witnesses why clause-order is
   expository.  Conceptual, no open Lean obligation.
 
+- `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
+  modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
+  completeness-layer receipt count; both Lens-properties of the pointing, object
+  invariant); (2) `reschedule_limit_eq` is "the stage is of the run" at the real
+  layer — the modulus is of the run, the real is the run-invariant, `powSched_mono`
+  orders the runs.  Open: the four-scale cover-non-surjection schema stated once.
+- `modulus_degree_ladder` — **grading "completes" beyond the binary**.  Closed:
+  the algebraic pillar at degrees 2 (φ form cut) and 3 (`CubeRootTwoCut`, 31
+  PURE: side-decision = `ε·k³ < d³`, total modulus `N = 3k+5`, fold lands on
+  the frozen form cut) — algebraic degree enters as the probe exponent `k^s`,
+  presentation-robust, vs the transcendental-only `W`-vs-`d` race.  Open: the
+  graded rate generator (`Dominates_s` ⟹ `N = k^s`), the conditional
+  measure-modulus schema (Wallis-π + `μ(π) ≤ 7.11` ⟹ degree-≈7), the two-real
+  separation modulus, degree-4+ form cuts.
+- `zeta3_free_modulus` — **ζ(3): built fold → free total modulus**.  The fold is
+  closed (`Real213/Zeta3Cut`, 35 PURE: exact ℕ Apéry recurrence + closed-form
+  Casoratian `6·(m!)⁶` + `AbCutSeq` + bracket `601/500 < ζ(3) ≤ 1203/1000`), and
+  the built presentation is *proved* rate-free (`zeta3_presentation_overtakes`,
+  overtake at layer 9).  Open: the e-grade upgrade — the reduced presentation
+  (`2·lcm³·bₙ`) is rate-carrying but needs the two classical Apéry arithmetic
+  inputs (reduced-numerator integrality; `lcm(1..n) < 3ⁿ`), then
+  `rate_total_modulus` gives `zeta3HolonomicReal` unconditionally.
 - **async point–line system ≅ Raw** — CLOSED ∅-axiom (full 8-item agenda,
   74 PURE) and promoted → `theory/math/foundations/async_growth.md`
   (origin: `seed/ORIGIN_RAW.md`; note archived at

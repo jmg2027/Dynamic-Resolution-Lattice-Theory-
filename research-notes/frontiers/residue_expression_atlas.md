@@ -152,6 +152,14 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
   modulus — which the classical modular periods are not.  So the period thread's true residual is a
   *fold to construct* (the `q`-expansion → cut machinery), **not** an irreducible residue.  Open: is
   any *non-holonomic* period the genuine residue (the transcendence/holonomicity question).
+  **And the ζ(3) fold is now BUILT** (`Real213/Zeta3Cut`, 35 PURE): the Apéry recurrence made exact
+  over ℕ (growth-invariant engine), the Casoratian in closed form `6·(m!)⁶`, the convergents an
+  `AbCutSeq` with bracket `601/500 < ζ(3) ≤ 1203/1000`, completion to a `ValidCut` limit, and the
+  honest stratum *proved*: the factorial-cleared presentation is rate-free
+  (`zeta3_presentation_overtakes`, overtake at layer 9), so the constructed-total-modulus upgrade
+  lives in the reduced presentation — the two classical Apéry arithmetic inputs
+  (`zeta3_free_modulus.md`).  The weight-4 atom is no longer a wall *or* a missing fold; what
+  remains is one presentation upgrade.
   (Three successive corrections under "ㄱㄱ": integration is ∅-axiom (CutIntegral); the wall isn't
   k≥2 (it's distinct-sample addition / completion); and the power rule is already done (FTC).  Each
   revealed the framework integrates natively; the residual is the complex contour alone.)

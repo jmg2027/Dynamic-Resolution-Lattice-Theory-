@@ -1,18 +1,18 @@
 # Real213 — Module Index
 
-213-native real-number type via Dedekind cut.  67 files in 7 sub-clusters.
+213-native real-number type via Dedekind cut.  169 files: 101 top-level + 68 in
+6 sub-clusters.
 
 ## Sub-clusters
 
 | Dir | Files | Topic |
 |---|---|---|
 | `Core/` | 11 | type + Equiv + ValidCut + Dyadic + Functions + Poset |
-| `Sum/` | 11 | cutSum + signedSum family |
-| `Mul/` | 15 | cutMul/Inv/Pow/Poly + ConstCutScale + CutBinary/Double/Distance |
+| `Sum/` | 14 | cutSum + signedSum family |
+| `Mul/` | 18 | cutMul/Inv/Pow/Poly + ConstCutScale + CutBinary/Double/Distance |
 | `Lattice/` | 5 | cutMax/Min/Mid + LatticeEq + ScaleLattice |
 | `Bisection/` | 3 | bisection + continuity (CutBisection{,Algo}, CutContinuity) |
-| `ExpLog/` | 13 | CutExp/Log series + ODE + Geom* (Cauchy convergence) + EulerCut (e) / PiCut (π) |
-| `Cauchy/` | 1 | ChainToCut (Method A Nat213 chain → cut bridge, via `Lens.Number.Nat213.Bridge.value_toRaw*`) |
+| `ExpLog/` | 17 | CutExp/Log series + ODE + Geom* (Cauchy convergence) + EulerCut (e) / PiCut (π) |
 
 ## Top-level
 
@@ -26,6 +26,32 @@
   - `PhiAbCut.lean` — φ as an `AbCutSeq`; the algebraic/transcendental split as a
     theorem (φ completes with closed-form modulus `N=2k`, e/π take it as a
     hypothesis — algebraicity *is* the closed-form modulus).
+  - `Zeta3Cut.lean` — ★ **ζ(3) as a constructed fold**: the Apéry recurrence
+    (the `DepthAperyCubic` degree-3 coefficients) made exact over ℕ by a
+    growth-invariant engine (`aperyOrbit_exact`), the Casoratian in closed form
+    (`zeta3_cross_det`: cross-det `= aperyCasDet m = 6·(m!)⁶`), the convergents
+    an `AbCutSeq` with bracket `601/500 < ζ(3) ≤ 1203/1000`
+    (upper bounds are themselves orbits — `aperyOrbit_linear`), completion to a
+    `ValidCut` limit.  Honest stratum: the factorial-cleared presentation is
+    *proved* rate-free (`zeta3_presentation_overtakes`, `RateStratification`
+    overtake at layer 9) — the constructed-modulus upgrade is the reduced
+    presentation (Apéry integrality + lcm bound), a recorded frontier.
+  - `CubeRootTwoCut.lean` — ★ **∛2: the degree-3 form-margin modulus**.
+    Side-decision reduces to the all-additive `ε·k³ < d³` (the form margin
+    `|m³−2k³| ≥ 1` = `Nat` strictness `+1`); dyadic bisection presentation ⟹
+    total modulus `N(m,k) = 3k+5` (`cbrtCauchySeq`) — the first degree-3 member
+    of the unconditional class, by the *form*, not the rate race.  The fold
+    lands on the frozen closed-form cut `decide (2k³ ≤ m³)`
+    (`cbrt_limit_eq_form`); bracket `5/4 < ∛2 ≤ 13/10`.  Degree-2 shadow:
+    `FibCassiniNat.qb_lt_pk` (`4k² < b²`).
+  - `ModulusComposition.lean` — ★ **schedules with irrational degree**:
+    `powSched c B k = ⌈k^{p/2^k}⌉` with the exponent read off a cut (`dyUp` +
+    exact `rootCeil`); calibrated to `k^s` at integer exponents
+    (`powSched_rat`); instances at degree ∛2 (`cbrtPow_at_two = 3`) and degree
+    e (`ePow_at_two = 7`, the kernel running `eulerCauchySeq.N` inside the
+    schedule); `reschedule` + `eSelfScheduled` (e's modulus written through
+    e's own modulus, limit-preserving) — receipts taking receipts as
+    arguments.
   - `MobiusProbeTwist.lean` — the cut-probe lattice `(m,k)` is twisted by the
     Möbius `P = [[2,1],[1,1]]` (`Pstep (m,k) = (2m+k, m+k)`); P preserves rational
     order (det `= NS−NT = 1`), so the twist sends cuts to cuts

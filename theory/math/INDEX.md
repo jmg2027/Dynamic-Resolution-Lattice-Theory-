@@ -14,7 +14,7 @@ under the same thematic super-cluster as its Lean sub-tree.
 `cauchy`, `measure`, `multivariable`, `functional`, `modulus`, `modulus_structure`,
 `cascade_calculus`, `ode`, plus the depth / continued-fraction arc
 (`divergence_depth_characterization`, `cfinite_orbit_dimension`,
-`cf_holonomicity_hierarchy`, `newton_gregory`, `holonomic_modulus`,
+`cf_holonomicity_hierarchy`, `newton_gregory`, `holonomic_modulus`, `form_margin_modulus`,
 `tower_native_completeness`, `refined_completability_engine`,
 `spiral_coordinate_classification`, `phi_pi_poles`, `markov_spectrum`,
 `markov_uniqueness`).
