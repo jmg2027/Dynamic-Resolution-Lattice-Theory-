@@ -94,6 +94,12 @@ root `g` (`exists_primitive_root`), the Legendre symbol is the mod-2 readout of 
 in the single orbit `(ℤ/p)*`; Euler's `a^m ≡ (−1)^k`, the cycle sign `psign σ_a`, the determinant,
 and the discrete-log parity are four readouts of one bit `k mod 2`, forced by the orbit being
 cyclic of even order — the structural why behind the character's existence).
+`the_character_is_the_groups_eigen_data` (a character of `ℤ/p` is eigen-data of the group acting
+on itself: the *multiplication* action `×a` forces a sign — the quadratic/Legendre character
+`(a/p) = psign σ_a` — and the *shift* action forces an eigenbasis — the additive characters as the
+`K_p` Laplacian `λ=p` eigenspace, `km_eigenvalue`/`km_meanzero_eigen`; one cyclic group, two
+character-faces, both spectral; cross-frame with Lichnerowicz `CD(K)⟹λ₁≥K` as a third "structure ⟹
+spectrum" instance).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
