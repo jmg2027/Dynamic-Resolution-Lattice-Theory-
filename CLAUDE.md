@@ -135,7 +135,7 @@ classification** — NOT file count or merge density.
 6. INDEX.md per non-trivial sub-tree (≥ 5 files).
 7. Same-topic evolution (Seq → Pure) / instance sets (per modulus, per dim) — **한 파일에** 통합, 별도 파일 X.
 8. `open` repetition within a file (namespace 블록마다 반복) **금지** — 파일 top 한 번 또는 단일 namespace.
-9. Layer-by-layer enumeration (`_layer0..N`, `_at_level_5`) is a smell — prefer one bundle / one structural theorem.  See `LESSONS_LEARNED.md` "Reduction patterns".
+9. Layer-by-layer enumeration (`_layer0..N`, `_at_level_5`) is a smell — prefer one bundle / one structural theorem.  See `theory/meta/methodology_patterns.md` "Reduction patterns".
 
 **Layer architecture**: `lean/E213/ARCHITECTURE.md` (4 ring + Meta,
 canonical).  **Source of truth**: `lean/E213/` — when narrative and

@@ -72,7 +72,7 @@ Net Lean deliverables this branch:
   · 130 sites absorbed via 20 PURE helpers.
 
 Doc deliverables:
-  · `LESSONS_LEARNED.md` Patterns #10, #11, #12, #13 added.
+  · `theory/meta/methodology_patterns.md` Patterns #10, #11, #12, #13.
   · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2 — α/β/γ readings.
   · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 — falsifier surface (quantitative §8.2).
   · `catalogs/recursor-inventory.md` — CAT-3.

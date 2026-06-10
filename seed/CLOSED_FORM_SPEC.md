@@ -226,7 +226,7 @@ an external Bishop API to compare against, which is outside the
 
   · `lean/E213/Lib/Math/NumberSystems/Real213/Core/AsLensOutput.lean` — formal
     carrier.
-  · `LESSONS_LEARNED.md` Pattern #17 — framework-internal
+  · `theory/meta/methodology_patterns.md` Pattern #17 — framework-internal
     subsumption.
   · `catalogs/cross-domain-identifications.md` — math ↔ physics
     bridges sit on top of `RealAsLensOutput`.

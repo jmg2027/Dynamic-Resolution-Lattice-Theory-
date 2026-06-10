@@ -168,7 +168,7 @@ full surface.
 
 ## How DRLT achieves the falsifiability surface
 
-DRLT's `decide`-finitism (Pattern #2 + LESSONS_LEARNED Pattern #13)
+DRLT's `decide`-finitism (`theory/meta/methodology_patterns.md` Patterns #2 + #16)
 operationalises falsifiability:
 
   · Every theorem in the 0-axiom standard is either decidable
@@ -199,6 +199,6 @@ python3 tools/falsifier_mining_scan.py
     (parallel branch) — manual headline catalog.
   · `seed/AXIOM/08_falsifiability.md` — falsifiability
     doctrine.
-  · `LESSONS_LEARNED.md` Pattern #2 (decide-finitism) +
+  · `theory/meta/methodology_patterns.md` Pattern #2 (decide-finitism) +
     Pattern #13 (quantitative profile).
   · `STRICT_ZERO_AXIOM.md` — 0-axiom standard.

@@ -183,7 +183,7 @@ seed/
 
 Static-analysis archetypes (11 scanner types + dual-branch process
 model): `seed/META_SCAN_ARCHETYPES.md`.  Pattern catalogue +
-methodology suite: `LESSONS_LEARNED.md` Patterns #1-#20.  Tooling
+methodology suite: `theory/meta/methodology_patterns.md` Patterns #1-#20.  Tooling
 inventory: `tools/*.py` (each scanner accepts `--report-only`
 against cached TSV).
 
