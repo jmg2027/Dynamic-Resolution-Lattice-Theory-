@@ -150,8 +150,10 @@ stays a cardinality statement.
 
 ## 5. Theorem agenda (marathon order; referee-ranked)
 
-Items 1–6 **CLOSED** ∅-axiom (51/51 PURE, 2026-06-10 marathon);
-Lean anchors below.  Items 7–8 open.
+Items 1–8 **CLOSED** ∅-axiom (74 PURE total, 2026-06-10 marathon);
+Lean anchors below.  The arc is promotion-eligible
+(`theory/PROMOTION_CRITERIA.md`) — remaining seams are listed under
+each item and in §6.
 
 1. ✓ **O2-fused ladder** — `Theory/Raw/Async.lean` (14 PURE):
    `step1_forced`, `level2_canonical` (exact swap-conjugate list
@@ -196,11 +198,19 @@ Lean anchors below.  Items 7–8 open.
    argmin-by-depth fill construction + `List213.
    length_filter_lt_of_mem` measure), and the fused step-3
    swap-class census (= 4) via state enumeration.
-8. **Honest counting theorem** (L) — `enumTreeDepth n` members
-   canonical + Nodup + complete, so `rawCount n` counts canonical
-   Raws of depth ≤ n; blocked on `Tree.cmp` transitivity (~150
-   lines, independently valuable infra).
-   → `Term/Internal/Tree/Cmp.lean` + `RawEnumeration.lean`.
+8. ✓ **Honest counting theorem** —
+   `UniverseChain/RawEnumeration.lean` (+8 PURE): `honest_count` —
+   `enumTreeDepth n` lists exactly the canonical Trees of depth ≤ n
+   (`enum_members` + `enum_complete`), Nodup, length `rawCount n`.
+   **The `Tree.cmp`-transitivity gate dissolved**: the strict
+   `Pairwise (cmp · · = .lt)` invariant propagates through
+   `newSlashes` using only the lex head structure
+   (`cmp_slash_same`, `cmp_slash_lt_head`), `cmp_self_eq`, and the
+   swap conversions — no transitivity, no sorted-insertion
+   machinery.  So `rawCount = 2, 3, 5, 12, 68, …` genuinely counts
+   the canonical Raw population per depth, and every count theorem
+   in §3(b) (normal form, mod-5 cycle, base-2 sandwich) is now
+   about the *actual* census, not just the recurrence.
 
 ## 6. Deferred (conjectures / notes only)
 

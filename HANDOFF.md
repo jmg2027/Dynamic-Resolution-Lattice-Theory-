@@ -55,19 +55,29 @@
 Unchanged — this arc is pure math (foundations).  See
 `catalogs/physics-constants.md`.
 
+## Item 8 also closed (final state: full agenda 1–8, 74 PURE)
+- `UniverseChain/RawEnumeration.lean` (+8 PURE) — `honest_count`:
+  `enumTreeDepth n` = exactly the canonical Trees of depth ≤ n,
+  Nodup, length `rawCount n`.  The `Tree.cmp`-transitivity gate
+  dissolved (strict `Pairwise` invariant + lex head structure only).
+
 ## Open Problems (Priority Order)
 
-### 1. Frontier agenda item 8 (`async_pointline_raw.md` §5)
-- **Honest counting theorem** (L): `rawCount n` = #canonical Raws of
-  depth ≤ n; gate is `Tree.cmp` transitivity (~150 lines infra at
-  `Term/Internal/Tree/Cmp.lean`), then sorted-invariant on
-  `enumTreeDepth` (route α of the Lean-agent design).
+### 1. Promote the async arc (`theory/PROMOTION_CRITERIA.md`)
+All 8 frontier agenda items closed — `Theory/Raw/{Async,AsyncReach}`
++ the `UniverseChain` census cluster form a coherent chapter
+candidate.  Run `/process` + promotion; archive
+`research-notes/frontiers/async_pointline_raw.md` per PROCESS.md.
+
+### 2. Remaining seams (recorded in the frontier note §5)
 - **Exact-membership converse of O1**: `Closed P ∧ Nodup P ⟹
   ∃ reachable s, MemEq s P` — argmin-by-depth fill construction +
   `List213.length_filter_lt_of_mem` measure; atoms case via
   "depth 0 ⟹ ∈ {a,b}".
 - **Fused step-3 swap-class census (= 4)** — needs a state
   enumeration function (`decide`-able once states are enumerated).
+- **Uniform `depth ≤ dagSize ≤ leaves − 1`** by `Raw.rec` induction
+  + min-run-length = dagSize.
 
 ### 2. Smaller seams left by items 1/6
 - Fused step-3 swap-class census (= 4) — needs state enumeration

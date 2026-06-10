@@ -241,9 +241,17 @@ DIRTY: every Lean-core axiom use is structurally justified per
 
 ### Async growth ladder + Raw census structure — strict ∅-axiom (2026-06-10)
 
-Seven modules + Slash additions, 66/66 PURE, 0 DIRTY
-(`tools/scan_axioms.py`); the closures of the async point–line
-frontier's ranked agenda items 1–7:
+Eight closures + Slash additions, 74 PURE, 0 DIRTY
+(`tools/scan_axioms.py`); the async point–line frontier's full
+ranked agenda, items 1–8:
+
+  · **`...UniverseChain.RawEnumeration`** (+8 PURE) — the honest
+    counting theorem `honest_count`: `enumTreeDepth n` lists exactly
+    the canonical Trees of depth ≤ n (`enum_members` soundness,
+    `enum_complete` completeness), Nodup, length `rawCount n`.  The
+    anticipated `Tree.cmp`-transitivity gate dissolved — the strict
+    `Pairwise (cmp = lt)` invariant needs only the lex head
+    structure + `cmp_self_eq` + swap conversions.
 
   · **`E213.Theory.Async` (AsyncReach.lean)** (12 PURE) — O1:
     `reach_closed` (reachable snapshots are subterm-closed, via the
