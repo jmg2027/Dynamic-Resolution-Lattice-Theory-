@@ -4,6 +4,33 @@
 theory / skeptic); corrections integrated in place, theorem targets
 T1–T4 below.*
 
+## Ontology: the tuple tower (the no-quotient reading is primary)
+
+Numbers are nested ℕ-tuples, and **the tuple is the number**: the
+nesting is the axis structure.  `(1,3)` is a two-axis number; a
+Gaussian-type number is `(p,q)` when the components are naturals,
+`((p₁,p₂),(q₁,q₂))` when integers, four pairs when rationals.  A new
+axis corresponds to a new operation; "integer / rational / complex /
+irrational" are names for the **operation-history of the axes**, not
+different kinds of number.  The cross-equations
+(`subNatNat_eq_iff`, `ratioEquiv`, `ratioEqZ`, `qdiffEquiv`) are
+**relations between tuple-numbers, not identities**: `(1,3) ≈ (2,4)`
+holds; `(1,3) = (2,4)` does not.  Reduction (gcd-strip, lowest terms)
+is the theorem that every ×-pair *relates to* a coprime one — that
+this is possible at all is the content (Euclidean descent); applying
+it silently flattens the axes into the classical "one-line" systems,
+which is a quotient Lens — one reading, not the ontology.  Classical
+notation (`p+qi`, fraction bars) overloads `+` and `/` to hide the
+tupling: the `+` in `p+qi` is *not* ℕ's `+` but the axis-combination
+of a new operation (the pair arithmetic the keystones define).  The
+question-tuple of `f(x) = b` **in standard expanded form** is the
+solution's representation: `x+x=b` standardizes to `2·x=b`, so
+`x = (2,b)`; `a^x = b` gives `x = (a,b)` (`(2,8) ≈ 3` is a relation,
+not an identity); `(1+x)(1+x)=b` expands to `x²+2x+1=b` — five slots.
+Everything below that speaks of "normal forms" is to be read in this
+register: the normal form is the distinguished point of a relation
+orbit, and naming the orbit by it is the *flattened* reading.
+
 ## The square
 
 ```

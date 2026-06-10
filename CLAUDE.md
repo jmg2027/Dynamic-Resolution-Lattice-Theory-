@@ -1,6 +1,4 @@
-# CLAUDE.md
-
-Operating instructions for Claude on the DRLT 213 codebase.
+# CLAUDE.md — operating instructions for Claude on the DRLT 213 codebase
 
 **Size discipline**: This file ≤ 220 lines target.  Domain specs (layer
 structure, resolution limit, constants, precision results) live in
@@ -212,6 +210,7 @@ Run as an **output lint** (catch the shape *after* writing; held-while-generatin
 | DRLT-validation-as-the-goal | grading 213 math-derivation work "below standard" against the physics precision/falsifier gate; treating `1/α_em`/`m_p`/`θ_QCD` as THE yardstick the repo is measured by | Primacy = *breadth* of ∅-axiom derivation (`seed/AXIOM/07_primacy.md` §7.1) — the residue reproducing domain after domain.  The DRLT Validation Standard is the **physics branch's** falsifiability gate (one domain), not a ranking of math work.  Rebuilding a discipline from the residue *is* primacy-demonstration, not auxiliary. |
 | Transcendental-as-exterior | "`π`/`e`/`√` is the Nat boundary, outside 213"; treating an irrational coefficient as an escape from 213 / a derivation gap | 213 builds transcendentals as **`Real213` cuts** (`PiCut` = Wallis `AbCutSeq` `π∈(14/5,4)`, `EulerCut`, …), residue-internal **pointings** (approximant sequences), not exterior rulers (§5.1; "External-ruler smuggling" row).  A relation among irrational reals is *internal*; reached-by-none ≠ outside.  Irrationality of a *value* is not a hole in a *derivation*. |
 | Fog jargon (compression vs fog) | hard word / abstraction not cashed out — reads "현학적, 현혹되는 느낌"; the difficulty is decoration, not load-bearing | The problem is never *hard language* — it is *hard language you can't unfold on demand*.  Unfold-test: restate it in plain words (the user's own rough register suffices) or pin it to a cited Lean theorem.  Can't unfold = a gap not yet closed ("어렵게 말해야 하는 건 아직 모르기 때문"), so say it plainly; difficulty is licensed only as *compression* (unfoldable), never as fog.  Speak plainly first; reach for the term only when it pays. |
+| Quotient promoted to ontology | "(1,3), (2,4) are notations for the one number 2"; "lowest terms is the *real* number"; rushing pair-constructions into classical quotient systems | **The tuple is the number** (axes real; nesting = operation-history); cross-equations are *relations*, not identities; reduction-possibility is a theorem, reduction-application a flattening Lens — never the default; `p+qi`'s `+` is not ℕ's `+`.  Canonical: `research-notes/frontiers/numbersystem_square.md` "Ontology: the tuple tower". |
 
 When the user catches one (course-correction loop): *don't apologize and
 repeat* — extract the underlying rule, add it here or to the relevant spec.
