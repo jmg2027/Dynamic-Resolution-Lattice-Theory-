@@ -102,10 +102,25 @@ compactness** — now the sharpest single remaining wall item.
   mono) — a session-scale T1→T2 marathon, **not** a 40-line brick.  Next session's prime
   candidate.
 
+## Fourth arc (same session): the expCauchySeq marathon — unit-fraction family closed
+
+`ExpLog/ExpUnitModulus.lean` (14 PURE): the euler generator extends **verbatim** to
+`exp(1/q)` for every `q ≥ 1` — convergents `a_n/(qⁿ·n!)`, cross-det `= dₙ`
+(`expU_cross_det`, the e-pattern uniform in `q`), `Htel` side condition
+`i(i+1)+i ≤ (i+1)²q` (true ∀ `q ≥ 1`).  Deliverables: `expUnitCauchySeq q` (genuine
+`CauchyCutSeq`, total modulus `N(m,k) = k+2`, uniform in `q`), `sqrtECauchySeq`
+(`√e = exp(1/2)`), `expU_one_num/den` (`q = 1` ≡ euler definitionally),
+`expUnitCauchySeq_cut_stable`.  `Core/Functions.lean`'s `expCut` placeholder retired
+(no consumers; doc now points at the genuine objects; sin/cos/π interfaces remain,
+honestly marked).  **Key discovery**: for `p ≥ 2` the cross-det `p^{i+1}·dᵢ` exceeds
+the `1/(i·dᵢ)` margin `RateModulus.Htel` hardcodes — general `exp(p/q)` needs a
+**parametric-margin RateModulus** (margin `Bᵢ/(i·dᵢ)`, tail certificate from
+`CutExpModulus.expTail_geom_decay`) or the `exp(1/q)ᵖ` cut-power route.
+
 ## Open Problems (priority order)
-1. **`expCauchySeq` marathon** (scoped above): build `expNum/expDen` convergents for
-   `exp(p/q)`, re-derive the cross-det certificate from `CutExpModulus`, feed
-   `RateModulus.rate_cut_const`, retire the `Core/Functions.lean` stubs.
+1. **Parametric-margin `RateModulus`** (the `exp(p/q)`, `p ≥ 2` completion): generalize
+   the margin `1/(i·dᵢ)` → `Bᵢ/(i·dᵢ)` with a tail-bound certificate `Bᵢ` (geometric
+   decay from `CutExpModulus`); or build cut multiplication powers `exp(1/q)ᵖ`.
 2. **Bochner coupling beyond the spectral case**: the gradient-commutation *inequality*
    on a non-vertex-transitive graph (star / `K_{a,b}`, no longer exact) — the genuine
    `CD(K,∞) ⟹ gradient estimate` implication.

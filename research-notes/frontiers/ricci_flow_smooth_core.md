@@ -323,14 +323,21 @@ principle (✅ closed — `HeatEq/MaxPrincipleReal.heat_max_principle_real`: dat
 for all `t`; generic bridge `constCut_le_constCut`), and the χ²-entropy descent
 (✅ closed — `ricci_chi_entropy_monotone`, see below).
 
-**`expCauchySeq` scoping (honest)**: "packaging" understates it.  The euler template
-(`eulerCauchySeq`) rests on `RateModulus.rate_cut_const`, which consumes the *rational
-convergent* representation (`rcut a d` with `a/d = eulerNum/eulerDen`) plus four
-certificates: `d` positive, `Htel` (telescoped rate, via `Htel_of_crossdet`: cross-det
-`W i` with `i(i+1)·W i + i·d i ≤ (i+1)·d (i+1)`), monotone, strictly monotone.  For
-`exp(p/q)` one must first build the convergent pair `expNum/expDen` (`d i = qⁱ·i!`),
-re-derive the cross-det from `CutExpModulus.expTail_geom_decay`, and handle the `p/q`
-ranges — a session-scale marathon (T1→T2 bridge), not a 40-line brick.
+**`expCauchySeq` — ✅ the unit-fraction family closed** (`ExpLog/ExpUnitModulus.lean`,
+14 PURE).  The euler generator extends **verbatim** to `exp(1/q)` for every `q ≥ 1`:
+convergents `a_n/(qⁿ·n!)` (`a_{n+1} = (n+1)q·a_n + 1`), cross-determinant exactly the
+denominator (`expU_cross_det`), and the `Htel` side condition reduces to
+`i(i+1)+i ≤ (i+1)²·q` — true for all `q ≥ 1`.  So `expUnitCauchySeq q` is a genuine
+`CauchyCutSeq` with total modulus `N(m,k) = k+2`, uniformly in `q` (instances: `e` at
+`q = 1`, definitionally `eulerNum/eulerDen`; `√e = exp(1/2)` at `q = 2`).  The
+`Core/Functions.lean` `expCut` placeholder is retired (no consumers; doc points to the
+genuine objects).  **Honest residual**: `exp(p/q)`, `p ≥ 2` — the cross-det becomes
+`p^{i+1}·d_i`, which *exceeds* the `1/(i·d_i)` margin envelope `RateModulus.Htel`
+hardcodes (the early Taylor increments are genuinely bigger), so the needed
+generalization is a **parametric-margin `RateModulus`** (margin `B_i/(i·d_i)` with a
+tail-bound certificate `B_i`, fed by `CutExpModulus.expTail_geom_decay`) or the
+multiplicative route `exp(p/q) = exp(1/q)ᵖ` through cut multiplication — a separate
+marathon, recorded.
 
 **Bochner-with-Ricci coupling** — ✅ first rung closed (`DiscreteLichnerowicz` §4):
 on `K_m` the Bakry–Émery gradient-semigroup commutation holds as an **identity** —
