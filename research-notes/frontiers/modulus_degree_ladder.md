@@ -187,12 +187,26 @@ modulus is the growth class of `N` in `k`, and it factors as
    `PF_head_le`, and the **first instance of the upper transfer**:
    `coth1_lt_4_3` ⟹ `T_J <` the first odd convergent `4/3` uniformly (same
    margin induction as the `3/2`-bound; the series cut reads `true` at `4/3`
-   at every layer).  **Stage 3c core (remaining)**: the parity sign of the tail
-   cross `Y_A·X_B − Y_B·X_A` (the truncated Casoratian; candidate route: the
-   weighted-mediant structure of `X_A/X_B` over the shared `R·FNum` weights,
-   reducing the sign to coefficient minors of `(AP, BP)`), then the cofinal
-   lower transfer and limit-cut equality; then `e^{2/q} = (coth+1)/(coth−1)`
-   (cut-Möbius) discharges `hmeas`.  (Lean: core `Nat.pow_add` and
+   at every layer).  **Stage 3c, base + choice-function inputs — ✅**
+   (`CothSeriesCut` §6): `coth_lt_first_odd` — `T_J` below the first odd
+   convergent `r₁ = (3q²+1)/(3q)` for **every** `q`, margin recursion with
+   slack `4J(J+1)q²` from the exact base `X_0 = 1` (cut level:
+   `coth_series_below_r1`); `t_mono_strict` — the climb is strict (the explicit
+   positive increment the choice functions consume).
+   **Stage 3c core (remaining; fully scoped)**: the sup-equality needs two
+   cross-system uniform families — (A′) `T_J ≤ r_{2i+1}` ∀i (only `i = 0` is
+   margin-inductive; the family needs the rows) and (A) `r_{2k} ≤ U_J` (upper
+   companion); given them the transfers follow by gap/increment choice
+   functions (CF gaps from `cf_det`/`cf_even_det`, T-increments from
+   `t_mono_strict`).  Via `row_det` the families reduce to the tail-cross
+   sign, which by the shared-weight structure (`X_A, X_B` share
+   `R·FNum`-weights; the per-step weight ratio is `[F−1]/F` — monotone for
+   free) is a **Chebyshev rearrangement over the coefficient minors of
+   `(AP, BP)`** (parity-signed, `cf_det`-style induction expected) — but the
+   naive list-induction assembly couples the gaps (`QW·γ₂ ≤ F·γ₁`), so the
+   honest implementation needs finite double-sum infra (list-indexed ΣΣ +
+   rearrangement), a dedicated session.  After that: cofinal transfer,
+   limit-cut equality, `e^{2/q}` cut-Möbius, `hmeas` discharged.  (Lean: core `Nat.pow_add` and
    `Nat.le_of_add_le_add_right` are `propext`-dirty — `pow_add_two` via the
    definitional `pow_succ` chain; NatHelper's left-cancel + `add_comm`.)
    Lean note: PolyNatM's normalizer does **not** drop `0·atom` monomials and chokes

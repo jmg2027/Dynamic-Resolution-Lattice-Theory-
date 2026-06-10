@@ -252,16 +252,29 @@ so the truncated-coth-vs-convergent comparison is governed **entirely by the
 (`coth1_series_below_first_odd`) — the first instance of the upper order transfer.
 Modules: LambertWeld 41 PURE, CothSeriesCut 19 PURE (combined 59 with shared scan).
 
+## Fourteenth arc: weld 3c — base generalized to every `q`, strict climb, core scoped
+
+`CothSeriesCut` §6 (module 22 PURE): **`coth_lt_first_odd`** — `T_J` sits below the
+first odd convergent `r₁ = (3q²+1)/(3q)` for **every** `q ≥ 1` (margin recursion with
+slack `4J(J+1)q²`, exact base `X_0 = 1`; cut level `coth_series_below_r1`) — the
+`(A′)`-family's base case, now `q`-uniform; **`t_mono_strict`** — the truncated coth
+climb is strict, the explicit positive increment for the 3c choice functions.
+
+**3c core, fully scoped (the one remaining piece of the weld)**: sup-equality needs
+the two cross-system families (A′) `T_J ≤ r_{2i+1}` ∀i and (A) `r_{2k} ≤ U_J`; via
+`row_det` they reduce to the tail-cross sign = a **Chebyshev rearrangement over the
+coefficient minors of `(AP, BP)`** with the shared `R·FNum` weights (per-step weight
+ratio `[F−1]/F` is monotone for free); the naive list-induction couples the gaps
+(`QW·γ₂ ≤ F·γ₁`), so the implementation needs finite double-sum infra (list-indexed
+ΣΣ + rearrangement) + the parity minor-sign induction — a dedicated session.
+
 ## Open Problems (priority order)
-1. **The weld, stage 3c core — the tail-cross sign**: the parity sign of
-   `Y_A·X_B − Y_B·X_A` (the truncated Casoratian of the PF pairings).  Candidate
-   route: `X_A/X_B` and `Y_A/Y_B` are **weighted mediants over shared positive
-   weights** (`R(m,J,i)·FNum(m,J−i)` — identical for the `A` and `B` rows!), so
-   their cross reduces to coefficient minors `ãᵢb̃ⱼ − ãⱼb̃ᵢ` of `(AP, BP)` whose
-   parity sign should follow from the list recursion (a `cf_det`-style paired
-   induction at the coefficient level).  Then: cofinal lower transfer, limit-cut
-   equality (both folds rise strictly — no boundary irrationality needed),
-   `e^{2/q} = (coth+1)/(coth−1)` cut-Möbius, `hmeas` discharged.
+1. **The weld, 3c core**: (i) list-indexed finite ΣΣ infra + rearrangement
+   (Chebyshev) lemma; (ii) the parity sign of the `(AP, BP)` coefficient minors
+   (`cf_det`-style paired induction at coefficient level); (iii) assemble the
+   uniform families (A′)/(A) via `row_det`, then the gap/increment choice
+   functions (`cf_det`/`cf_even_det` gaps, `t_mono_strict` increments) close
+   sup-equality ⟹ limit-cut equality ⟹ `e^{2/q}` cut-Möbius ⟹ `hmeas`.
 2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
    numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient

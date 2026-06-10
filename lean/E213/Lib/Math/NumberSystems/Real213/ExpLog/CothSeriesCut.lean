@@ -278,4 +278,89 @@ theorem coth1_series_below_first_odd (n : Nat) :
     _ ≤ 4 * sinhNum 1 n := h
     _ = sinhNum 1 n * 4 := Nat.mul_comm 4 _
 
+/-! ## §6 — the upper transfer's base for every `q`, and the strict climb
+
+The `(A')`-family's base case (`T_J` below the **first** odd convergent
+`r₁ = (3q²+1)/(3q)`) holds for *every* `q ≥ 1` with margin `≥ 1`: the margin
+`X_J = (3q²+1)·sinhNum − 3q²(2J+1)·coshNum` obeys
+`X_{J+1} = (2J+2)(2J+3)q²·X_J − (3q²(2J+2) − (2J+2)(2J+3)q²)` with slack
+`4J(J+1)q² ≥ 0` — safe from the **exact** base `X_0 = 1`.  And the climb is
+strict (`t_mono_strict`), giving the explicit positive increment the 3c choice
+functions will consume. -/
+
+/-- ★★★ **`T_J` below the first odd convergent, every `q`**:
+    `3q²(2J+1)·coshNum + 1 ≤ (3q²+1)·sinhNum` (i.e. `T_J < (3q²+1)/(3q) = r₁`,
+    cross-multiplied, with margin ≥ 1; equality of margins at `J = 0`). -/
+theorem coth_lt_first_odd (q : Nat) : ∀ J,
+    3 * q ^ 2 * (2 * J + 1) * coshNum q J + 1 ≤ (3 * q ^ 2 + 1) * sinhNum q J
+  | 0 => by
+    show 3 * q ^ 2 * 1 * 1 + 1 ≤ (3 * q ^ 2 + 1) * 1
+    rw [Nat.mul_one, Nat.mul_one, Nat.mul_one]
+    exact Nat.le_refl _
+  | J + 1 => by
+    have ih := coth_lt_first_odd q J
+    show 3 * q ^ 2 * (2 * (J + 1) + 1)
+          * ((2 * J + 1) * (2 * J + 2) * q ^ 2 * coshNum q J + 1) + 1
+        ≤ (3 * q ^ 2 + 1) * ((2 * J + 2) * (2 * J + 3) * q ^ 2 * sinhNum q J + 1)
+    apply le_of_add_le_add_right' (k := (2 * J + 2) * (2 * J + 3) * q ^ 2)
+    calc 3 * q ^ 2 * (2 * (J + 1) + 1)
+          * ((2 * J + 1) * (2 * J + 2) * q ^ 2 * coshNum q J + 1) + 1
+          + (2 * J + 2) * (2 * J + 3) * q ^ 2
+        = (2 * J + 2) * (2 * J + 3) * q ^ 2
+            * (3 * q ^ 2 * (2 * J + 1) * coshNum q J + 1)
+          + (3 * q ^ 2 * (2 * J + 3) + 1) := by ring_nat
+      _ ≤ (2 * J + 2) * (2 * J + 3) * q ^ 2 * ((3 * q ^ 2 + 1) * sinhNum q J)
+          + (3 * q ^ 2 * (2 * J + 3) + 1) :=
+          Nat.add_le_add_right (Nat.mul_le_mul_left _ ih) _
+      _ ≤ (2 * J + 2) * (2 * J + 3) * q ^ 2 * ((3 * q ^ 2 + 1) * sinhNum q J)
+          + ((3 * q ^ 2 + 1) + (2 * J + 2) * (2 * J + 3) * q ^ 2) :=
+          Nat.add_le_add_left
+            (Nat.le.intro (show 3 * q ^ 2 * (2 * J + 3) + 1
+                + (2 * J) * (2 * J + 2) * q ^ 2
+                = (3 * q ^ 2 + 1) + (2 * J + 2) * (2 * J + 3) * q ^ 2 from by
+              ring_nat)) _
+      _ = (3 * q ^ 2 + 1) * ((2 * J + 2) * (2 * J + 3) * q ^ 2 * sinhNum q J + 1)
+          + (2 * J + 2) * (2 * J + 3) * q ^ 2 := by ring_nat
+
+/-- The series cut reads `true` at `r₁ = (3q²+1)/(3q)` at every layer, every `q` —
+    the `(A')`-family's base case at the cut level. -/
+theorem coth_series_below_r1 (q : Nat) (hq : 1 ≤ q) (n : Nat) :
+    (cothSeriesAb q hq).cut n (3 * q ^ 2 + 1) (3 * q) = true := by
+  rw [cothSeriesCut_eq]
+  apply decide_eq_true
+  show (2 * n + 1) * q * coshNum q n * (3 * q) ≤ sinhNum q n * (3 * q ^ 2 + 1)
+  have h := Nat.le_of_succ_le (coth_lt_first_odd q n)
+  calc (2 * n + 1) * q * coshNum q n * (3 * q)
+      = 3 * (q * q) * (2 * n + 1) * coshNum q n := by ring_nat
+    _ = 3 * q ^ 2 * (2 * n + 1) * coshNum q n := by
+        rw [show (q : Nat) ^ 2 = q * q from by rw [Nat.pow_succ, Nat.pow_one]]
+    _ ≤ (3 * q ^ 2 + 1) * sinhNum q n := h
+    _ = sinhNum q n * (3 * q ^ 2 + 1) := Nat.mul_comm _ _
+
+/-- ★★ **The climb is strict**: `(2J+1)·cosh_J·sinh_{J+1} + 1 ≤
+    (2J+3)·cosh_{J+1}·sinh_J` — the truncated coth ratio strictly increases (the
+    explicit positive increment the order-transfer choice functions consume). -/
+theorem t_mono_strict (q J : Nat) :
+    (2 * J + 1) * coshNum q J * sinhNum q (J + 1) + 1
+      ≤ (2 * J + 3) * coshNum q (J + 1) * sinhNum q J := by
+  have h1 : (2 * J + 1) * coshNum q J + 1 ≤ (2 * J + 3) * sinhNum q J := by
+    calc (2 * J + 1) * coshNum q J + 1
+        ≤ (2 * J + 1) * sinhNum q J + 1 :=
+          Nat.add_le_add_right
+            (Nat.mul_le_mul (Nat.le_refl _) (cosh_le_sinh q J)) 1
+      _ ≤ (2 * J + 1) * sinhNum q J + 2 * sinhNum q J :=
+          Nat.add_le_add_left
+            (Nat.le_trans (sinhNum_pos q J)
+              (Nat.le_mul_of_pos_left _ (by decide))) _
+      _ = (2 * J + 3) * sinhNum q J := by ring_nat
+  apply le_of_add_le_add_right' (k := (2 * J + 1) * coshNum q J)
+  calc (2 * J + 1) * coshNum q J * sinhNum q (J + 1) + 1
+        + (2 * J + 1) * coshNum q J
+      = (2 * J + 1) * coshNum q J * sinhNum q (J + 1)
+        + ((2 * J + 1) * coshNum q J + 1) := by ring_nat
+    _ ≤ (2 * J + 1) * coshNum q J * sinhNum q (J + 1) + (2 * J + 3) * sinhNum q J :=
+        Nat.add_le_add_left h1 _
+    _ = (2 * J + 3) * coshNum q (J + 1) * sinhNum q J
+        + (2 * J + 1) * coshNum q J := tcross_id q J
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut
