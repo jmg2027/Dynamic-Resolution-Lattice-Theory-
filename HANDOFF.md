@@ -9,7 +9,7 @@ modulus-degree-ladder merge.  Build clean (explicit module builds of the whole
 (was 34 — its §0 pow toolkit now lives in `Meta/Nat/PowBasic`),
 `BracketModulus` 3/0, `ExpLog.PiMeasureModulus` 16/0, `Zeta3Cut` 40/0
 (was 35), `RateStratification` 28/0 (comparison law added),
-`FiniteOrderSpectrum` 24/0 (NEW).
+`FiniteOrderSpectrum` 29/0 (NEW; §6 no-five-fold added).
 0 sorry / 0 axiom / 0 native_decide / 0 Classical / 0 Mathlib.
 
 ## What Was Done This Session
@@ -154,9 +154,14 @@ census).  Trace trichotomy on `Mat2TraceRecurrence.trace_recurrence`:
 `tr ≥ 3` growth (generalizes `golden_trace_mono`), `tr ≤ −3` via the square,
 `tr = ±2` parabolic rigidity (`parabolic_pow`: `Mᵏ = I + k(M−I)`),
 `tr ∈ {0,±1}` Cayley–Hamilton orders.  Six is the last finite period of the
-modular family.  Lean lesson (recurring): `ring_intZ`'s normal form does NOT
-prune explicit `0·x`/`1·x` terms — clear with `zero_mul`/`one_mulZ`/`mul_one`
-first; cancellation-produced zeros are fine.
+modular family.  §6 (added this marathon iteration): ★★★ `no_order_five`
+(`det M = 1, M⁵ = I ⟹ M = I` — **no five-fold lattice symmetry**, the
+crystallographic crown jewel) + `no_order_seven` (only prime orders are 2, 3),
+`exact_order_four`/`_six` (S/U realize 4/6 exactly), capstone
+`crystallographic_spectrum` (the spectrum is exactly `{1,2,3,4,6}`).  Lean
+lesson (recurring): `ring_intZ`'s normal form does NOT prune explicit
+`0·x`/`1·x` terms — clear with `zero_mul`/`one_mulZ`/`mul_one` first;
+cancellation-produced zeros are fine.
 
 ### 11. Docs synced
 `STRICT_ZERO_AXIOM.md`, `Real213/INDEX.md` (171 = 102 + 69),
