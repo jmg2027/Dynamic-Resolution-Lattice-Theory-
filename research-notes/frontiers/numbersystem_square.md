@@ -213,11 +213,23 @@ denominators returns ℕ-fold comparisons) is the `Real213` cut — a
 crossing that never lands on a lattice point at any resolution is the
 equation/sandwich boundary again.
 
-**The degree-n mix, same rule**: `a·xⁿ + b = c·xⁿ + d`, data
-`((a,b,c,d), n)` — now `xⁿ = (d−b)/(a−c)` can be negative, and for
-even `n` the obstruction is the `CompletionDichotomy` rigidity
-(`int_sumSq_eq_zero` at `n = 2`, value `−1`): mixing imports the sign
-into the root-question.  Fully general:
+**Witness-form discipline (house rule, stated).**  Constructions are
+phrased over ℕ-pairs only: extension systems are *targets being
+described*, never *tools used in the description* — no inverse
+operations or imported systems in hypotheses.  Every closed theorem
+of this arc already obeys it (`gcd_strip_coprime`'s `a = g·a₁`, not
+`a/g`; `subNatNat_eq_negSucc_iff`'s `b + (y+1) = a`, not `a − b`;
+`affine_cross`'s `a = c + e`, `d = b + f`).
+
+**The degree-n mix, same rule**: the crossing of `a·xⁿ + b` and
+`c·xⁿ + d` in witness form (`a = c + e`, head start on either side) —
+data `((c, e, b, f), n)`.  The orientation dichotomy (which fold is
+steeper / which starts higher) is total for `n = 1`: a mismatched
+orientation moves its witness to the slot-swapped question (the
+x-reflection).  **Even folds are reflection-symmetric, so a
+mismatched orientation cannot be moved** — that is the
+`CompletionDichotomy` rigidity (`int_sumSq_eq_zero`, the
+cleared-denominator form at `n = 2`).  Fully general:
 `Σ aᵢ x^{eᵢ} = Σ bⱼ x^{fⱼ}` — the equation data is itself a **pair
 of ℕ-polynomial folds**: the pair structure recurs one level up
 (numbers = pairs of unit-folds; algebraic numbers = pairs of
