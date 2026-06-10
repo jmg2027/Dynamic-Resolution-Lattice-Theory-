@@ -146,13 +146,14 @@ Physics catalog untouched this session (math branch).  Canonical table:
 prove brackets/ratios, see the catalog's honesty header).
 
 ## Open Problems (Priority Order)
-### 0. An effective `(C, s)` for π
-`PiHalfMeasure C s` awaits any actual instance — even a weak effective
-transcendence-measure bound for π would turn the conditional `C·(2k)^s + 2`
-modulus unconditional.  Genuinely hard (transcendence theory); the schema has
-isolated exactly this.
-Frontier: `research-notes/frontiers/modulus_degree_ladder.md` (rung 2
-residual opening).
+### 0. An effective `(C, s)` for π — named target: Mahler (1, 42)
+`PiHalfMeasure C s` awaits an actual instance.  Debate-verified (2026-06-10):
+**Mahler 1953, `|π − p/q| ≥ q⁻⁴²` for all `q ≥ 2`, C = 1, is the ONLY
+published fully-explicit measure for π** (no explicit `q₀` exists below
+exponent 42) — formalizing it (exp/log Hermite–Padé) is the one move that
+makes the conditional modulus unconditional.  Hard but finite.
+Frontier: `research-notes/frontiers/modulus_degree_ladder.md` (rung 2) +
+`research-notes/frontiers/pi_nonholonomicity/forall_form_characterization.md`.
 
 ### 1. ζ(3)'s I1 + I2 (the last two inputs)
 I1: Apéry numerator integrality (`2·lcm³·aₙ ∈ ℕ`, binomial-divisibility
@@ -193,7 +194,10 @@ Of the originator's three directives this session: (c) comparison law DONE,
 tractable half), (a) corrected (no free Machin modulus; the honest follow-up
 is the Catalan/BBP geometric *bracket* + the Wallis-identification bridge).
 Best next: **Hanson `lcm(1..n) < 3ⁿ`** (I2's missing piece — elementary,
-self-contained, big payoff: ζ(3) drops to I1 only).
+self-contained, big payoff: ζ(3) drops to I1 only); or the **uniform
+period-spectrum capstone** (`M^n = I ⟹ ord ∈ {1,2,3,4,6}`, ~250 lines — the
+∀-form debate's build item, upgrades the range-13 decide census; see
+`pi_nonholonomicity/forall_form_characterization.md`).
 Real213 root clustering is being handled elsewhere per the originator — do
 not start it here.
 

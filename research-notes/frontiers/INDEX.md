@@ -43,6 +43,17 @@ non-Hurwitzian yet holonomic, as `2ⁿ` shows).
 - `G174_pi_residue_continuous_symmetry` — conjectural: π as the
   continuous-symmetry image of the residue (φ/π two-faces).  Conceptual, not
   a theorem; flags one category error to avoid.
+- `forall_form_characterization` — ★ the originator's **∀-form**: π as the
+  universal escape-residue of the modulus family ("whatever modulus you bring,
+  what remains"), debate-audited (3 rounds, critic web-verified).  Verdict:
+  characterization + correctly-typed program, not a definition — quantified
+  form = the measure hypothesis (`PiHalfMeasure`), sole honest instantiation
+  **Mahler 1953 `(C,s) = (1,42)`** (only published explicit measure for π);
+  place/character/number separation (solenoid theorem / forced `e^{±2πix}` /
+  series anchor); the algebraic→transcendental wall discontinuity; genericity
+  tension (μ(π) = 2 conjectured — specialness lives in effectivity).  Build
+  candidate: uniform period-spectrum capstone (`M^n = I ⟹ ord ∈ {1,2,3,4,6}`,
+  ~250 lines).
 
 Closure record (the proven side of this arc):
 `theory/math/analysis/{cf_holonomicity_hierarchy,phi_pi_poles}.md`.
