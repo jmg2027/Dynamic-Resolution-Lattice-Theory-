@@ -83,7 +83,12 @@ modulus is the growth class of `N` in `k`, and it factors as
    `htel_iff_dominates`) — the sharpest concrete boundary case for rung 1 / the
    dyadic-bracket route: a *transcendental of measure 2* whose natural pointing is
    rate-free.  Whoever builds rung 1 (or the `CubeRootTwoCut`-style schedule for a
-   series tail) should test it on `exp(2)` first.
+   series tail) should test it on `exp(2)` first.  **The fold side is now built**
+   (`ExpLog/ExpRationalCut`, 18 PURE): `expPQAb : AbCutSeq` for every `exp(p/q)`
+   (`q ≥ 1`), with the doubled-tail upper bracket `S_{N+j} ≤ (a_N(N+1)q + 2p^{N+1})/d_{N+1}`
+   past the threshold `2p ≤ (N+2)q` (the geometric halving as one Nat invariant), and
+   `e²` localized in `(7, 904/120]` — the ζ(3) posture (fold closed, free modulus
+   open) now holds for all rational exp arguments.
 1. **Graded rate generator** — refine the binary `Dominates`
    (`RateStratification`) with polynomial slack: `Dominates_s` forgiving an
    `i^{s−1}` factor of overtake, generalizing `rate_total_modulus` to

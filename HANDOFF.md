@@ -139,11 +139,27 @@ from `CutExpModulus.expTail_geom_decay`) or the graded generator
 (`modulus_degree_ladder.md` rung 1) — `exp(2)` is the named first test case
 (recorded in the ladder note, rung 0″).
 
+## Sixth arc: `exp(p/q)` fold built (the ζ(3) posture, positive side of §6)
+
+`ExpLog/ExpRationalCut.lean` (18 PURE): `expPQAb p q hq : AbCutSeq` — `exp` at **every
+positive rational** now has its constructed fold (layer `ValidCut`s, nesting, eventual
+constancy, completion-given-modulus, all generic).  The analytic content:
+`exp_pq_upper_invariant` — the doubled-tail quantity `S_i + 2t_{i+1}` (cross-multiplied:
+`upNum p q i = aᵢ(i+1)q + 2p^{i+1}` over `d_{i+1}`) is non-increasing past the
+ratio-test threshold `2p ≤ (N+2)q`, by the term-halving induction — hence
+`exp_pq_le_upper`: every later convergent `≤ U_N/d_{N+1}` (the geometric tail bound as
+one `Nat` inequality), and `exp_two_localized`: **`e² ∈ (7, 904/120]`** (lower: layer-5
+convergent `872/120 > 7`, nesting-stable; upper: the `N = 4` bracket).  Together with
+`exp_pq_no_htel` this is the exact ζ(3) symmetry: fold closed + provably-rate-free
+presentation + free modulus open.
+
 ## Open Problems (priority order)
-1. **`exp(p/q)`, `p ≥ 2` completion — by presentation change**: dyadic-bracket
-   schedule on the `CutExpModulus` tail bound (the `CubeRootTwoCut` pattern), OR the
-   graded rate generator (`Dominates_s`, ladder rung 1).  First test: `exp(2)`.
-   The negative direction is closed (`exp_pq_no_htel`).
+1. **`exp(p/q)` free total modulus**: dyadic-bracket *schedule* presentation
+   (`CubeRootTwoCut` pattern) **fed by `exp_pq_le_upper`'s bracket** (the bracket
+   width `2p^{N+1}/d_{N+1}` halves per step past the threshold — exactly a dyadic
+   schedule), OR the graded generator (`Dominates_s`, ladder rung 1), OR an effective
+   irrationality certificate (Padé).  First test: `exp(2)` from the `(7, 904/120]`
+   bracket.  Negative direction closed (`exp_pq_no_htel`).
 2. **ζ(3) free modulus** (merged frontier, `zeta3_free_modulus.md`): numerator
    integrality `2·lcm(1..n)³·aₙ ∈ ℕ` + `lcm(1..n) < 3ⁿ` (Hanson) ⟹ ζ(3) joins φ/e
    in the unconditional real API.
@@ -153,8 +169,8 @@ from `CutExpModulus.expTail_geom_decay`) or the graded generator
 4. **Compactness extraction** (smooth remainder of wall item (iv)) — record-only.
 5. **Promotion**: the `GeometrizationConjecture` discrete-curvature sub-tree, and now
    also the modulus-degree ladder cluster (`Zeta3Cut`/`CubeRootTwoCut`/
-   `ModulusComposition`/`ExpUnitModulus` + `RateModulus`/`RateStratification`) —
-   check `theory/PROMOTION_CRITERIA.md`.
+   `ModulusComposition`/`ExpUnitModulus`/`ExpRationalCut` + `RateModulus`/
+   `RateStratification`) — check `theory/PROMOTION_CRITERIA.md`.
 
 ## Three-tier state
 - **Tier-2 added**: `WeightedGreen.lean`, `DiscreteGaussian.lean`, `DiscreteSurgery.lean`

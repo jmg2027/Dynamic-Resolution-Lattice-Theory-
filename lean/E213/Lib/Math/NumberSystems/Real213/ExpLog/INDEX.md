@@ -3,7 +3,7 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (18)
+## Files (19)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
@@ -20,6 +20,11 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   (total modulus `N(m,k)=k+2`); `√e` instance;
                                   `q = 1` ≡ euler.  exp(p/q), p ≥ 2: open (offset
                                   modulus or cut-power route).
+  - `ExpRationalCut.lean`       — **`exp(p/q)` as a constructed fold** (`AbCutSeq`,
+                                  every positive rational arg): convergent carrier +
+                                  doubled-tail upper bracket (`upNum`, geometric
+                                  halving past `2p ≤ (N+2)q`); `e² ∈ (7, 904/120]`.
+                                  Free modulus open (`exp_pq_no_htel` boundary).
   - `CutTrigModulus.lean`       — `sin`/`cos` Taylor convergence modulus by
                                   comparison to `exp` (odd/even index sampling:
                                   geometric decay + antitone).  Marathon T2.
