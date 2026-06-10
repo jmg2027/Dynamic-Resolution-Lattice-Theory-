@@ -36,6 +36,7 @@ import E213.Lib.Math.Geometry.OperationTopology
 import E213.Lib.Math.NumberSystems.SignedCut
 import E213.Lib.Math.NumberSystems.Rat213
 import E213.Lib.Math.NumberSystems.CompletionDichotomy
+import E213.Lib.Math.NumberSystems.GaussTuple
 import E213.Lib.Math.Tactic
 import E213.Lib.Math.Foundations.PatternCatalog
 import E213.Lib.Math.Probability
