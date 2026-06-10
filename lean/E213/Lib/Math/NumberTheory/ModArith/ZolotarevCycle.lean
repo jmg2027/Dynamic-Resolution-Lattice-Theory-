@@ -177,4 +177,57 @@ theorem psign_cycS (p m : Nat) (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (hp : 2 ≤
   rw [← he]
   exact altSign_odd m'
 
+/-! ## §4 — `cycS` is a permutation -/
+
+theorem sFun_zero (p : Nat) : sFun p 0 = 0 := rfl
+theorem sFun_one (p : Nat) : sFun p 1 = p - 1 := rfl
+theorem sFun_ss (p k : Nat) : sFun p (k + 2) = k + 1 := rfl
+
+/-- Every value of `sFun p` is `< p` (on `[0, p)`). -/
+theorem sFun_lt (p y : Nat) (hp : 1 < p) (hy : y < p) : sFun p y < p := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
+  rcases y with _ | _ | k
+  · rw [sFun_zero]; exact hppos
+  · rw [sFun_one]; exact Nat.sub_lt hppos Nat.zero_lt_one
+  · rw [sFun_ss]; exact Nat.lt_trans (Nat.lt_succ_self (k + 1)) hy
+
+/-- `sFun p` is injective on `[0, p)`. -/
+theorem sFun_inj (p : Nat) (hp : 1 < p) :
+    ∀ x, x ∈ iota p → ∀ y, y ∈ iota p → sFun p x = sFun p y → x = y := by
+  have hp1 : 1 ≤ p - 1 := Nat.le_sub_one_of_lt hp
+  intro x hx y hy heq
+  have hxp : x < p := lt_of_mem_iota hx
+  have hyp : y < p := lt_of_mem_iota hy
+  rcases x with _ | _ | k
+  · rcases y with _ | _ | j
+    · rfl
+    · rw [sFun_zero, sFun_one] at heq; exact absurd heq.symm (Nat.not_eq_zero_of_lt hp1)
+    · rw [sFun_zero, sFun_ss] at heq; exact absurd heq.symm (Nat.not_eq_zero_of_lt (Nat.succ_pos j))
+  · rcases y with _ | _ | j
+    · rw [sFun_one, sFun_zero] at heq; exact absurd heq (Nat.not_eq_zero_of_lt hp1)
+    · rfl
+    · rw [sFun_one, sFun_ss] at heq
+      have hj : j + 1 < p - 1 :=
+        Nat.lt_of_lt_of_le (Nat.lt_succ_self (j + 1)) (Nat.le_sub_one_of_lt hyp)
+      exact absurd heq (Nat.ne_of_gt hj)
+  · rcases y with _ | _ | j
+    · rw [sFun_ss, sFun_zero] at heq; exact absurd heq (Nat.not_eq_zero_of_lt (Nat.succ_pos k))
+    · rw [sFun_ss, sFun_one] at heq
+      have hk : k + 1 < p - 1 :=
+        Nat.lt_of_lt_of_le (Nat.lt_succ_self (k + 1)) (Nat.le_sub_one_of_lt hxp)
+      exact absurd heq.symm (Nat.ne_of_gt hk)
+    · rw [sFun_ss, sFun_ss] at heq
+      have hkj : k = j := Nat.succ.inj heq
+      rw [hkj]
+
+/-- ★ **`cycS p ∈ perms p`** — the standard rotation is a permutation of the residues. -/
+theorem cycS_mem_perms (p : Nat) (hp : 1 < p) : cycS p ∈ perms p := by
+  have hfuncs : cycS p ∈ funcs p := by
+    have h := mem_tuples (iota p) (cycS p)
+      (fun v hv => by
+        obtain ⟨y, hy, hvy⟩ := exists_of_mem_map hv
+        rw [← hvy]; exact mem_iota_of_lt (sFun_lt p y hp (lt_of_mem_iota hy)))
+    rwa [cycS_length p] at h
+  exact nodup_imp_perm p (cycS p) hfuncs (nodup_map_restrict (sFun_inj p hp) (nodup_iota p))
+
 end E213.Lib.Math.NumberTheory.ModArith.ZolotarevCycle
