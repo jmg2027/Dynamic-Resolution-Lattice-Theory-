@@ -143,3 +143,36 @@ Open brick 5: the magnitude side as a theorem — the ℚ₊ exponent
 lattice (`vp` valuation vectors) and its divisible hull as the
 root-completion, connecting `Valuation.le_vp_iff` to the radical
 tower.
+
+## Question tuple vs answer axes (the fold-back rule)
+
+Two different tuple counts, separated: the **question tuple** (the
+equation's coefficients — `a·xⁿ = b` is a *pair* for every degree;
+general degree n is n+1 coefficients + a root selector) and the
+**answer-system axes** (the dimension of the +,×-closure over ℚ).
+Adjoining α a priori creates infinitely many axes α, α², …; the
+equation `a·αⁿ = (lower terms)` is a **fold-back rule** sending the
+n-th power into the span of the first n, so the axes stop at n:
+
+| equation | question tuple | answer axes |
+|---|---|---|
+| `a+x=b`, `a·x=b` | 2 | 1 (collapse — degree 1 folds α itself into the base) |
+| `a·xⁿ=b` | 2 | n |
+| general degree n (irreducible) | n+1 | n |
+| k independent square roots | 2 each | 2^k (compositum doubling — the commutative twin of the CD tower; `ZSqrt*`/`ZOmega`/`ZI` the 2-axis PURE instances, `HurwitzTower` the 4-axis) |
+| no equation (transcendental) | ∞ | ∞ (sandwich-family only) |
+
+So **algebraic vs transcendental = finite fold-back vs infinite
+axes = equation-completable vs sandwich-family-only** — the
+equation/sandwich split of the witness characterization, promoted to
+the classification of numbers.  Collapse-vs-rigid concretizes once
+more as degree-1 vs degree-≥2, and *irreducibility* is the
+lowest-terms criterion one rung up: a factorable equation is the
+polynomial world's gcd-strip.
+
+Open brick 6: **the minimal polynomial as the next rung's
+lowest-terms normal form** — existence (every algebraic number has a
+monic minimal polynomial) + uniqueness, mirroring
+`gcd_strip_coprime` + `coprime_repr_unique` one level up; candidate
+ground: the existing `PolyRoot/` (FactorTheorem, IntEuclid) +
+`ZSqrt*` instances.
