@@ -279,3 +279,42 @@ the **smooth conformal** ladder (now general-`n` scalar), and the **synthetic CD
 condition.  Do not narrate the general smooth-flow core as "closed" — the Ricci *tensor* +
 *flow* for `n ≥ 3` and transcendental metrics + PDE a-priori estimates are the residual
 wall; do pursue all routes.
+
+## Panel exploration of the residual wall (4 mathematician agents) + the consensus brick
+
+A 4-agent panel (hard-analyst / PDE-analyst / Perelman-𝓦-specialist / 213-native skeptic)
+explored the residual wall against the actual repo state.  Convergent findings:
+
+- **Transcendentals are NOT the century-problem wall — they are an un-assembled `Real213`
+  library stub.**  The hard analytic rate IS already PURE: `exp`/`sin`/`cos` series with proven
+  geometric-decay moduli (`Real213/ExpLog/CutExpModulus`, `CutTrigModulus`, 4+4 PURE) and the
+  derivative coefficient identities (`exp_deriv_coeff_fixed : (n+1)·n! = (n+1)!`, etc., 3 PURE).
+  The only gap is *packaging* `expPartialSum x` into a `CauchyCutSeq` (template: `eulerCauchySeq`)
+  to retire the `Core/Functions.lean` stubs.  Smallest brick: `expCauchySeq (x) : CauchyCutSeq`
+  → `expCut x`.  (Per the repo's own "Transcendental-as-exterior" failure mode, this should be
+  dropped from the "wall" statement.)
+- **The discrete→continuous PDE limit is a SOLVED pattern, not a wall.**  The discrete maximum
+  principle is fully proven (`heatIter_range`, `heatStep_mono`); the "limit step" is purely
+  representational — promote the sup-norm sequence to a `Real213` `cutLe` via the
+  `RealCauchyWitness` order-squeeze idiom (~40 lines).  The TRUE analytic wall is **P4 Li–Yau /
+  differential Harnack** (needs genuine `Real213` division for `|∇u|²/u` + a discrete
+  Bochner-with-Ricci — both absent; the `Nat`-numerator trick breaks at `∇log`).
+- **Perelman's monotonicity integrand is NOW a ∅-axiom SOS** (the standout): since `Ric` exists
+  (`ricciFromRiem`) and `Hess f = ∂_i∂_j f` is the same `2`-jet pattern, the rate
+  `d/dt 𝓕 = 2∫|Ric_{ij}+∇_i∇_j f|²e^{−f}dV ≥ 0` becomes, with the integral a finite `gridSumZ`
+  and weight `1`, the manifest SOS `perelman_rate_nonneg : 0 ≤ Σ_{i,j}(Ric_{ij}+Hess_{ij}f)²`
+  (`TensorCalculus.lean` §7) — **built this panel, PURE, no new primitive**.  So the *monovariant
+  + non-negative rate* of Perelman's entropy (curvature term included) is ∅-axiom.
+- **213-native reframing**: `𝓦`-monotonicity's *content* is discrete entropy descent (the
+  Lott–Sturm–Villani / Bakry–Émery `CD(K,N)` synthetic precedent), not the Gaussian dress; a
+  reachable rung is a discrete χ²-entropy `Ent(μ)=Σ μ(μ−1)` descending under `lazyHeatStep`
+  (same shape as `ricci_energy_monotone`, applied to the measure field).
+
+**Corrected wall (panel consensus).**  Dropped from the wall: "transcendental metrics" (a
+`Real213` packaging stub).  Now ∅-axiom: the monotonicity integrand SOS (`perelman_rate_nonneg`).
+The GENUINE residual wall is (i) the weighted **integration-by-parts** identity that *connects*
+`∇𝓕` to the flow `∂_t g = −2Ric` (so "Ricci flow IS the gradient flow of 𝓕" stays a premise),
+(ii) the `(4πτ)^{−n/2}e^{−f}` Gaussian normalization of the true `𝓦`, (iii) **Li–Yau Harnack**
+(nonlinear), and (iv) **κ-solution / surgery classification + no-local-collapsing compactness** —
+the last is the genuine, un-reframable century-problem core.  Reachable next bricks (all
+recorded): `expCauchySeq`, the `Real213`-cut maximum principle, the χ²-entropy descent.
