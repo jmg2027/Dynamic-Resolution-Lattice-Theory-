@@ -32,7 +32,7 @@ namespace E213.Lib.Math.Geometry.TensorCalculus
 
 open E213.Meta.Int213
 open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
-  gridSumZ_congr gridSumZ_mul_left gridSumZ_fubini gridSumZ_delta_weight)
+  gridSumZ_congr gridSumZ_mul_left gridSumZ_fubini gridSumZ_delta_weight gridSumZ_zero_fn)
 
 /-- **Christoffel symbol of the first kind**, scaled `×2` (to stay over ℤ):
     `2·Γ_{kij} = ∂_i g_{kj} + ∂_j g_{ki} − ∂_k g_{ij}`, read off the metric-derivative tensor
@@ -112,5 +112,46 @@ theorem chris2_lower (n : Nat) (g adj : Nat → Nat → Int) (dg : Nat → Nat �
     rw [gridSumZ_mul_left, hadj m]
     ring_intZ
   rw [hcollapse, gridSumZ_delta_weight n p (fun m => det * chris1x2 dg m i j) hp]
+
+/-! ## §3 — the Riemann curvature tensor
+
+The curvature `R^l_{ijk} = ∂_j Γ^l_{ik} − ∂_k Γ^l_{ij} + Σ_m(Γ^l_{jm}Γ^m_{ik} − Γ^l_{km}Γ^m_{ij})`
+— the obstruction to `∇` being flat, built from the connection coefficients `Gam l i j = Γ^l_{ij}`
+(second kind) and their derivative `dGamma a l i k = ∂_a Γ^l_{ik}` (both abstract here, exactly
+as the metric entered §1 through `dg`).  The `ΓΓ` contractions are `gridSumZ` sums over `m`.
+Dimension-free.  Two defining facts:
+
+  · `riem_antisym_jk` — `R^l_{ijk} = −R^l_{ikj}` (antisymmetry in the last pair, the curvature
+    `2`-form structure — `[∇_j, ∇_k]` is antisymmetric);
+  · `riem_flat` — a flat connection (`Γ ≡ 0`, `∂Γ ≡ 0`) has `R ≡ 0`: no curvature.
+
+The further symmetries (first Bianchi, pair symmetry) and `Ric = Σ_k R^k_{ikj}` need the
+metric structure relating `Γ` to `g` (§1–§2) — the next rungs toward the Ricci tensor. -/
+
+/-- The Riemann curvature `R^l_{ijk}` from the connection `Gam l i j = Γ^l_{ij}` and its
+    derivative `dGamma a l i k = ∂_a Γ^l_{ik}`. -/
+def riemUp (n : Nat) (dGamma : Nat → Nat → Nat → Nat → Int) (Gam : Nat → Nat → Nat → Int)
+    (l i j k : Nat) : Int :=
+  (dGamma j l i k + gridSumZ n (fun m => Gam l j m * Gam m i k))
+    - (dGamma k l i j + gridSumZ n (fun m => Gam l k m * Gam m i j))
+
+/-- ★★★★★ **Riemann antisymmetry in the last pair** `R^l_{ijk} = −R^l_{ikj}` — the curvature
+    is the antisymmetric commutator `[∇_j, ∇_k]`; swapping `j ↔ k` negates it by construction.
+    Holds in every dimension, for any connection. -/
+theorem riem_antisym_jk (n : Nat) (dGamma : Nat → Nat → Nat → Nat → Int)
+    (Gam : Nat → Nat → Nat → Int) (l i j k : Nat) :
+    riemUp n dGamma Gam l i j k = -(riemUp n dGamma Gam l i k j) := by
+  unfold riemUp; ring_intZ
+
+/-- ★★★★ **Flat connection ⟹ no curvature.**  A vanishing connection (`Γ ≡ 0`, `∂Γ ≡ 0`)
+    has `R ≡ 0` — the manifold is flat, no curvature obstruction.  (`Γ ≡ 0` is the constant-
+    metric case of §1, `chris1_flat`.) -/
+theorem riem_flat (n l i j k : Nat) :
+    riemUp n (fun _ _ _ _ => 0) (fun _ _ _ => 0) l i j k = 0 := by
+  unfold riemUp
+  rw [gridSumZ_congr n _ (fun _ => (0 : Int)) (fun m _ => by show (0 : Int) * 0 = 0; decide),
+      gridSumZ_congr n _ (fun _ => (0 : Int)) (fun m _ => by show (0 : Int) * 0 = 0; decide),
+      gridSumZ_zero_fn]
+  show (0 : Int) + 0 - (0 + 0) = 0; decide
 
 end E213.Lib.Math.Geometry.TensorCalculus

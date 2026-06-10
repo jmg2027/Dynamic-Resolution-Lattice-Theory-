@@ -230,10 +230,16 @@ layer is now opened** (`TensorCalculus.lean` §2, PURE): the `det`-scaled second
 `2·det·Γ^l_{ij} = Σ_m adj^{lm}·2Γ_{mij}` (`chris2xDet`, `gridSumZ` over `m`), its lower-pair
 symmetry (`chris2_symm`), and — the key — `chris2_lower`: `Σ_l g_{pl}·(2 det Γ^l_{ij}) =
 det·2Γ_{pij}`, the raising-then-lowering consistency, from the abstract inverse property
-`g·adj = det·I` (`hadj`) via `gridSumZ` Fubini + the Kronecker collapse.  **Next rung**: the
-Riemann tensor `R^l_{ijk} = ∂_iΓ^l_{jk} − ∂_jΓ^l_{ik} + Γ^l_{im}Γ^m_{jk} − Γ^l_{jm}Γ^m_{ik}`
-(Christoffel products — now expressible — + second metric derivatives), then `Ric` as its
-contraction.
+`g·adj = det·I` (`hadj`) via `gridSumZ` Fubini + the Kronecker collapse.  The **Riemann tensor** is now constructed (`TensorCalculus.lean` §3, PURE): `riemUp`
+`R^l_{ijk} = ∂_jΓ^l_{ik} − ∂_kΓ^l_{ij} + Σ_m(Γ^l_{jm}Γ^m_{ik} − Γ^l_{km}Γ^m_{ij})` from the
+connection `Gam` and its derivative `dGamma` (abstract, as the metric entered via `dg`), with
+the defining `(j,k)`-antisymmetry `riem_antisym_jk` (`R^l_{ijk} = −R^l_{ikj}`, the curvature
+`2`-form / commutator structure) and `riem_flat` (`Γ≡0 ⟹ R≡0`).  **Next rung**: the further
+Riemann symmetries (first Bianchi, pair symmetry) and `Ric = Σ_k R^k_{ikj}` need the metric
+structure relating `Γ` to `g` (§1–§2 wired into §3) — then the scalar `R = g^{ij}Ric_{ij}`,
+the input to the conformal scalar of §S6 in the *non*-conformal case.  The residual wall stays
+the transcendental metrics + the PDE a-priori estimates (Shi/maximum-principle/compactness)
+behind Perelman's `𝓦`-monotonicity.
 
 ## Verdict
 
