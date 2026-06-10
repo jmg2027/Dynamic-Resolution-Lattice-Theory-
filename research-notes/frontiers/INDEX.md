@@ -165,8 +165,8 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - **async point–line system ≅ Raw** — CLOSED ∅-axiom (full 8-item agenda,
   74 PURE) and promoted → `theory/math/foundations/async_growth.md`
   (origin: `seed/ORIGIN_RAW.md`; note archived at
-  `archive/async_pointline_raw.md`).  *Open seeds* (recorded in the
-  chapter's Open frontier): exact-membership converse of reachability,
+  `archive/async_pointline_raw.md`).  *Open seeds* →
+  `async_growth_seeds.md`: exact-membership converse of reachability,
   fused step-3 swap-class census, uniform dagSize bounds, the
   axes-of-growth definition.
 - `G35_chiral_cup_ring_catalog` — **the 213-Algebra field catalog** (17 domains):
