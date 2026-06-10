@@ -239,15 +239,29 @@ the bracket probes — both `true` at `3/2` (series side: the uniform bound
 New core dirt: `Nat.le_of_add_le_add_right` is `propext`-dirty (NatHelper's left
 version + `add_comm` is the pure route).
 
+## Thirteenth arc: weld 3c prep — the row determinant collapses + first upper transfer
+
+`LambertWeld` §8: **`row_det`** — multiplying the cosh weld row by the sinh pairing
+and vice versa, the head products cancel exactly:
+`(vFac·cosh)·X_B − (v0Fac·sinh)·X_A = 2J·(Y_A·X_B − Y_B·X_A)` (proven additively) —
+so the truncated-coth-vs-convergent comparison is governed **entirely by the
+`2J`-tail cross**; `vFac_eq` (`vFac = (2J+1)·v0Fac` — the link to
+`T_J = (2J+1)q·cosh/sinh`), `FNum_pos`, `PF_head_le`.  `CothSeriesCut` §5:
+`coth1_lt_4_3` (margin recursion `X_{J+1} = (2J+2)(2J+3)X_J − (6J+5)`, safe from
+`X_0 = 1`) ⟹ **`T_J` sits below the first odd CF convergent `4/3` uniformly**
+(`coth1_series_below_first_odd`) — the first instance of the upper order transfer.
+Modules: LambertWeld 41 PURE, CothSeriesCut 19 PURE (combined 59 with shared scan).
+
 ## Open Problems (priority order)
-1. **The weld, stage 3c — the ∀-probe order transfer (the last step)**: from the
-   §5 weld rows + §7 bridge, the truncated-determinant comparison
-   `cfPn-side·sinhNum` vs `coshNum·cfQn-side`: (i) the PF–dev determinant's sign
-   per parity (the cleared `F₋₁B̃ − F₀Ã = ±uⁿF`-shape), (ii) `2J`-tail bounds
-   (`FNum` positivity/monotonicity), ⟹ even CF convergents ≤ `T_J`-cofinally and
-   `T_J` ≤ odd convergents ⟹ the two folds' sups coincide ⟹ limit cuts equal
-   (both rise strictly from below — no irrationality needed at the boundary).
-   Then `e^{2/q} = (coth+1)/(coth−1)` via cut-Möbius discharges `hmeas` (`p = 2`).
+1. **The weld, stage 3c core — the tail-cross sign**: the parity sign of
+   `Y_A·X_B − Y_B·X_A` (the truncated Casoratian of the PF pairings).  Candidate
+   route: `X_A/X_B` and `Y_A/Y_B` are **weighted mediants over shared positive
+   weights** (`R(m,J,i)·FNum(m,J−i)` — identical for the `A` and `B` rows!), so
+   their cross reduces to coefficient minors `ãᵢb̃ⱼ − ãⱼb̃ᵢ` of `(AP, BP)` whose
+   parity sign should follow from the list recursion (a `cf_det`-style paired
+   induction at the coefficient level).  Then: cofinal lower transfer, limit-cut
+   equality (both folds rise strictly — no boundary irrationality needed),
+   `e^{2/q} = (coth+1)/(coth−1)` cut-Möbius, `hmeas` discharged.
 2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
    numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient

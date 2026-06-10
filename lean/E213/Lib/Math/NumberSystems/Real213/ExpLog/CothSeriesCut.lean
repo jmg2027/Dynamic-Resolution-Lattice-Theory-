@@ -227,4 +227,55 @@ theorem two_pointings_agree :
       ∧ ∀ n, 2 ≤ n → (cothSeriesAb 1 (Nat.le_refl 1)).cut n 5 4 = false) :=
   ⟨⟨by decide, coth1_series_at_3_2⟩, ⟨by decide, coth1_series_at_5_4⟩⟩
 
+/-! ## §5 — the upper transfer, first instance: `T_J` below the first odd convergent
+
+The order transfer's upper half says `T_J ≤` every odd CF convergent.  Its first
+instance is provable now by the same margin induction as the `3/2`-bound: at `q = 1`
+the first odd convergent is `cfPn 1/cfQn 1 = 4/3`, and `T_J < 4/3` uniformly — the
+margin `X_J = 4·sinhNum − 3(2J+1)·coshNum` obeys `X_{J+1} = (2J+2)(2J+3)X_J − (6J+5)`,
+safe from `X_0 = 1`.  (The ∀-convergent version is stage 3c, through `row_det`.) -/
+
+/-- `T_J < 4/3` uniformly (`q = 1`): `3(2J+1)·coshNum + 1 ≤ 4·sinhNum`. -/
+theorem coth1_lt_4_3 : ∀ J, 3 * (2 * J + 1) * coshNum 1 J + 1 ≤ 4 * sinhNum 1 J
+  | 0 => by decide
+  | J + 1 => by
+    have ih := coth1_lt_4_3 J
+    have hc : coshNum 1 (J + 1) = (2 * J + 1) * (2 * J + 2) * coshNum 1 J + 1 := by
+      show (2 * J + 1) * (2 * J + 2) * 1 ^ 2 * coshNum 1 J + 1 = _
+      rw [show ((1 : Nat) ^ 2) = 1 from rfl, Nat.mul_one]
+    have hs : sinhNum 1 (J + 1) = (2 * J + 2) * (2 * J + 3) * sinhNum 1 J + 1 := by
+      show (2 * J + 2) * (2 * J + 3) * 1 ^ 2 * sinhNum 1 J + 1 = _
+      rw [show ((1 : Nat) ^ 2) = 1 from rfl, Nat.mul_one]
+    show 3 * (2 * (J + 1) + 1) * coshNum 1 (J + 1) + 1 ≤ 4 * sinhNum 1 (J + 1)
+    rw [hc, hs]
+    apply le_of_add_le_add_right' (k := (2 * J + 2) * (2 * J + 3))
+    calc 3 * (2 * (J + 1) + 1) * ((2 * J + 1) * (2 * J + 2) * coshNum 1 J + 1) + 1
+          + (2 * J + 2) * (2 * J + 3)
+        = (2 * J + 2) * (2 * J + 3) * (3 * (2 * J + 1) * coshNum 1 J + 1)
+          + (6 * J + 10) := by ring_nat
+      _ ≤ (2 * J + 2) * (2 * J + 3) * (4 * sinhNum 1 J) + (6 * J + 10) :=
+          Nat.add_le_add_right (Nat.mul_le_mul_left _ ih) _
+      _ ≤ (2 * J + 2) * (2 * J + 3) * (4 * sinhNum 1 J)
+          + ((2 * J + 2) * (2 * J + 3) + 4) :=
+          Nat.add_le_add_left
+            (Nat.le.intro (show 6 * J + 10 + (4 * J * J + 4 * J)
+                = (2 * J + 2) * (2 * J + 3) + 4 from by ring_nat)) _
+      _ = 4 * ((2 * J + 2) * (2 * J + 3) * sinhNum 1 J + 1)
+          + (2 * J + 2) * (2 * J + 3) := by ring_nat
+
+/-- ★★★ **The series fold sits below the first odd CF convergent, uniformly**: the
+    series cut reads `true` at `4/3 = cfPn 1/cfQn 1` at every layer — the first
+    instance of the upper order transfer (`T_J ≤ r₁`), by the margin induction.  The
+    ∀-convergent upper transfer is stage 3c. -/
+theorem coth1_series_below_first_odd (n : Nat) :
+    (cothSeriesAb 1 (Nat.le_refl 1)).cut n 4 3 = true := by
+  rw [cothSeriesCut_eq]
+  apply decide_eq_true
+  show (2 * n + 1) * 1 * coshNum 1 n * 3 ≤ sinhNum 1 n * 4
+  have h := Nat.le_of_succ_le (coth1_lt_4_3 n)
+  calc (2 * n + 1) * 1 * coshNum 1 n * 3
+      = 3 * (2 * n + 1) * coshNum 1 n := by ring_nat
+    _ ≤ 4 * sinhNum 1 n := h
+    _ = sinhNum 1 n * 4 := Nat.mul_comm 4 _
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut

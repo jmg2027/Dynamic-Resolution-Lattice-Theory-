@@ -178,10 +178,20 @@ modulus is the growth class of `N` in `k`, and it factors as
    bracket probes** `(5/4, 3/2]` (`two_pointings_agree`; series side: the
    uniform bound `2(2J+1)coshNum + 1 ≤ 3·sinhNum`, margin recursion
    `X_{J+1} = (2J+2)(2J+3)X_J − (4J+3)` safe from `X_0 = 1`).
-   **Stage 3c (the last step)**: ∀-probe order transfer — from the §5 weld rows
-   + §7 bridge, the cross-product comparison `cfPn·sinh-side` vs
-   `cosh-side·cfQn` (the truncated determinant's sign and the `2J`-tail bounds)
-   pins the two folds' sups equal; then `e^{2/q} = (coth+1)/(coth−1)`
+   **Stage 3c prep — ✅ the row determinant collapses** (`LambertWeld` §8 +
+   `CothSeriesCut` §5): `row_det` — multiplying the cosh row by the sinh pairing
+   and vice versa, the head products `X_A·X_B` cancel **exactly**:
+   `(vFac·cosh)·X_B − (v0Fac·sinh)·X_A = 2J·(Y_A·X_B − Y_B·X_A)` (additive form
+   proven) — the order comparison is governed entirely by the `2J`-tail cross;
+   plus `vFac_eq` (`vFac = (2J+1)·v0Fac`, the `T_J`-scaling link), `FNum_pos`,
+   `PF_head_le`, and the **first instance of the upper transfer**:
+   `coth1_lt_4_3` ⟹ `T_J <` the first odd convergent `4/3` uniformly (same
+   margin induction as the `3/2`-bound; the series cut reads `true` at `4/3`
+   at every layer).  **Stage 3c core (remaining)**: the parity sign of the tail
+   cross `Y_A·X_B − Y_B·X_A` (the truncated Casoratian; candidate route: the
+   weighted-mediant structure of `X_A/X_B` over the shared `R·FNum` weights,
+   reducing the sign to coefficient minors of `(AP, BP)`), then the cofinal
+   lower transfer and limit-cut equality; then `e^{2/q} = (coth+1)/(coth−1)`
    (cut-Möbius) discharges `hmeas`.  (Lean: core `Nat.pow_add` and
    `Nat.le_of_add_le_add_right` are `propext`-dirty — `pow_add_two` via the
    definitional `pow_succ` chain; NatHelper's left-cancel + `add_comm`.)

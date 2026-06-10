@@ -653,4 +653,51 @@ theorem cf_bridge_anchors :
     ∧ cfQn (cothCF 2) 3 = 2 * dev 2 (BP 4) :=
   ⟨by decide, by decide, by decide, by decide⟩
 
+/-! ## §8 — toward the order transfer: the row determinant collapses (weld 3c prep)
+
+Comparing the truncated coth ratio with a CF convergent means comparing the two weld
+rows cross-multiplied against the pairings.  The head products `X_A·X_B` cancel
+**exactly**: the row determinant collapses to the `2J`-tail cross — the truncated form
+of the classical `F₋₁B̃ − F₀Ã = ±u·(det)·F`-telescope.  Stage 3c reduces to the sign
+of the tail cross `Y_A·X_B − Y_B·X_A` (and the `vFac = (2J+1)·v0Fac` scaling link,
+which is what makes the rows comparable to `T_J = (2J+1)q·coshNum/sinhNum` at all). -/
+
+theorem FNum_pos (q n : Nat) : ∀ J, 1 ≤ FNum q n J
+  | 0 => Nat.le_refl 1
+  | _ + 1 => Nat.le_add_left 1 _
+
+/-- The pairing dominates its head term. -/
+theorem PF_head_le (q c : Nat) (cs : List Nat) (m J : Nat) :
+    c * FNum q m J ≤ PF q (c :: cs) m J :=
+  Nat.le_add_right _ _
+
+/-- The two conversion weights differ by exactly the `T`-scaling factor:
+    `vFac J n = (2J+1)·v0Fac J n` — the cosh row is `(2J+1)`-heavier, which is
+    precisely the truncated coth numerator's `(2J+1)` (the ratio `(2J+1)!/(2J)!`). -/
+theorem vFac_eq (J : Nat) : ∀ n, vFac J n = (2 * J + 1) * v0Fac J n
+  | 0 => by
+    show 2 * J + 1 = (2 * J + 1) * 1
+    exact (Nat.mul_one _).symm
+  | n + 1 => by
+    show (2 * J + 2 * n + 3) * vFac J n = (2 * J + 1) * ((2 * J + 2 * n + 3) * v0Fac J n)
+    rw [vFac_eq J n]
+    ring_nat
+
+/-- ★★★★★ **The row determinant collapses to the tail cross**:
+
+      `vFac·cosh·[B̃F]-pairing + 2J·(Y_B·X_A) = v0Fac·sinh·[ÃF]-pairing + 2J·(Y_A·X_B)`
+
+    (additive form of `(vFac·cosh)·X_B − (v0Fac·sinh)·X_A = 2J·(Y_AX_B − Y_BX_A)`):
+    multiplying the cosh row by the sinh pairing and vice versa, the head products
+    cancel exactly — the order comparison between the truncated coth and a CF
+    convergent is governed **entirely by the `2J`-tail cross**, whose parity sign is
+    stage 3c's remaining content. -/
+theorem row_det (q n J : Nat) :
+    vFac J n * coshNum q J * PF q (BP (n + 1)) n J
+      + 2 * J * (PF q (BP n) (n + 1) (J - 1) * PF q (AP (n + 1)) n J)
+    = v0Fac J n * sinhNum q J * PF q (AP (n + 1)) n J
+      + 2 * J * (PF q (AP n) (n + 1) (J - 1) * PF q (BP (n + 1)) n J) := by
+  rw [weld_pair_cosh q n J, weld_pair_sinh q n J]
+  ring_nat
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld
