@@ -1,4 +1,4 @@
-# Session Handoff — 2026-06-10 (rungs 1+2 + schedule comparison law + ζ(3) engine end; Machin claim corrected)
+# Session Handoff — 2026-06-10 (ladder rungs 1+2, comparison law, ζ(3) engine end, ∀-form debate, FiniteOrderSpectrum)
 
 ## Branch
 `claude/graded-rate-generator-yfk1u3` — branched from main after the
@@ -8,7 +8,8 @@ modulus-degree-ladder merge.  Build clean (explicit module builds of the whole
 `Meta.Nat.PowBasic` 6/0, `Meta.Nat.RootFloor` 11/0, `ModulusComposition` 28/0
 (was 34 — its §0 pow toolkit now lives in `Meta/Nat/PowBasic`),
 `BracketModulus` 3/0, `ExpLog.PiMeasureModulus` 16/0, `Zeta3Cut` 40/0
-(was 35), `RateStratification` 28/0 (comparison law added).
+(was 35), `RateStratification` 28/0 (comparison law added),
+`FiniteOrderSpectrum` 24/0 (NEW).
 0 sorry / 0 axiom / 0 native_decide / 0 Classical / 0 Mathlib.
 
 ## What Was Done This Session
@@ -131,7 +132,33 @@ transcendence-grade open.
   surviving reduction; `rcut` transfers through the common factor).
   Remaining: **only I1 + I2** (classical Apéry arithmetic) — frontier updated.
 
-### 9. Docs synced
+### 9. The ∀-form debate (multi-agent, 3 rounds) + its build item
+The originator proposed: π = the universal residue of the modulus family
+("whatever modulus you bring, what remains"), NOT a limit of modular data.
+Debated by 4 experts → adversarial critic (web-verified) → synthesizer.
+Record: `research-notes/frontiers/pi_nonholonomicity/forall_form_characterization.md`.
+Surviving core: characterization + typed program, not a definition (bare ∀
+underdetermines — the circle group is speed-free; ∀ + escape-modulus ε =
+exactly `PiHalfMeasure` + engine); **Mahler 1953 `(C,s) = (1,42)` verified as
+the ONLY published fully-explicit π measure** → named target for open
+problem 0; place/character/number separation (solenoid / forced `e^{±2πix}` /
+series anchor); algebraic→transcendental wall discontinuity; genericity
+tension (μ(π) = 2 conjectured).  Do-not-claim list recorded in the note.
+
+### 10. FiniteOrderSpectrum (NEW, 24 PURE ✓) — the debate's build item
+★★★ `finite_order_spectrum`: for every `M ∈ SL(2,ℤ)`, every `n`,
+`M^{n+1} = I ⟹ M = I ∨ M² = I ∨ M³ = I ∨ M⁴ = I ∨ M⁶ = I`; ★★★
+`finite_order_divides_twelve` (`⟹ M¹² = I`).  The crystallographic
+restriction as one uniform structural theorem (upgrades the range-13 decide
+census).  Trace trichotomy on `Mat2TraceRecurrence.trace_recurrence`:
+`tr ≥ 3` growth (generalizes `golden_trace_mono`), `tr ≤ −3` via the square,
+`tr = ±2` parabolic rigidity (`parabolic_pow`: `Mᵏ = I + k(M−I)`),
+`tr ∈ {0,±1}` Cayley–Hamilton orders.  Six is the last finite period of the
+modular family.  Lean lesson (recurring): `ring_intZ`'s normal form does NOT
+prune explicit `0·x`/`1·x` terms — clear with `zero_mul`/`one_mulZ`/`mul_one`
+first; cancellation-produced zeros are fine.
+
+### 11. Docs synced
 `STRICT_ZERO_AXIOM.md`, `Real213/INDEX.md` (171 = 102 + 69),
 `Meta/Nat/INDEX.md` (18), `ExpLog/INDEX.md` (18),
 `theory/math/analysis/holonomic_modulus.md` §4 (graded + π pricing + the
@@ -194,10 +221,11 @@ Of the originator's three directives this session: (c) comparison law DONE,
 tractable half), (a) corrected (no free Machin modulus; the honest follow-up
 is the Catalan/BBP geometric *bracket* + the Wallis-identification bridge).
 Best next: **Hanson `lcm(1..n) < 3ⁿ`** (I2's missing piece — elementary,
-self-contained, big payoff: ζ(3) drops to I1 only); or the **uniform
-period-spectrum capstone** (`M^n = I ⟹ ord ∈ {1,2,3,4,6}`, ~250 lines — the
-∀-form debate's build item, upgrades the range-13 decide census; see
-`pi_nonholonomicity/forall_form_characterization.md`).
+self-contained, big payoff: ζ(3) drops to I1 only).  Period-spectrum capstone
+DONE this session (`FiniteOrderSpectrum`, 24 PURE).  Other teed-up items:
+trace-escape-ladder instances (k = 5, 7 — Liouville escapes for `2cos(2π/k)`
+through the rung-2 engine); rung-3 two-real separation (the
+presentation-transfer gap typed by the debate); Mahler-42 (long-range).
 Real213 root clustering is being handled elsewhere per the originator — do
 not start it here.
 
@@ -230,4 +258,6 @@ lean/E213/Lib/Math/NumberSystems/Real213.lean                     ← aggregator
 lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/INDEX.md          ← 18 files
 lean/E213/Lib/Math/NumberSystems/Real213/Zeta3Cut.lean            ← §8: 28-growth + reduced conditional (40 PURE)
 research-notes/frontiers/zeta3_free_modulus.md                    ← engine end DONE; I1/I2 isolated
+lean/E213/Lib/Math/NumberSystems/Real213/FiniteOrderSpectrum.lean ← NEW: uniform crystallographic spectrum (24 PURE)
+research-notes/frontiers/pi_nonholonomicity/forall_form_characterization.md ← ∀-form debate record
 ```
