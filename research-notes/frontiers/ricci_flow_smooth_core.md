@@ -225,8 +225,15 @@ genuine general-`n` identities `chris1_symm` (lower-pair symmetry / torsion-free
 `chris1_flat`.  Dimension-free: indices arbitrary `Nat`, the metric enters only via its
 derivative tensor `dg a b c = ∂_a g_{bc}` (symmetric in the last two slots).  **Next rungs**:
 the second-kind `Γ^l_{ij} = g^{lm}Γ_{mij}` and the Riemann/Ricci tensors need the metric
-**inverse** `g^{lm}` (adjugate/`det` over ℤ) + second derivatives — the genuinely harder
-inverse-bearing layer.
+**inverse** `g^{lm}` (adjugate/`det` over ℤ) + second derivatives.  The **inverse-bearing
+layer is now opened** (`TensorCalculus.lean` §2, PURE): the `det`-scaled second kind
+`2·det·Γ^l_{ij} = Σ_m adj^{lm}·2Γ_{mij}` (`chris2xDet`, `gridSumZ` over `m`), its lower-pair
+symmetry (`chris2_symm`), and — the key — `chris2_lower`: `Σ_l g_{pl}·(2 det Γ^l_{ij}) =
+det·2Γ_{pij}`, the raising-then-lowering consistency, from the abstract inverse property
+`g·adj = det·I` (`hadj`) via `gridSumZ` Fubini + the Kronecker collapse.  **Next rung**: the
+Riemann tensor `R^l_{ijk} = ∂_iΓ^l_{jk} − ∂_jΓ^l_{ik} + Γ^l_{im}Γ^m_{jk} − Γ^l_{jm}Γ^m_{ik}`
+(Christoffel products — now expressible — + second metric derivatives), then `Ric` as its
+contraction.
 
 ## Verdict
 

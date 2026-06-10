@@ -1,5 +1,6 @@
 import E213.Meta.Int213
 import E213.Meta.Int213.PolyIntMTactic
+import E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
 
 /-!
 # General-`n` tensor calculus I: Christoffel symbols of the first kind (∅-axiom)
@@ -30,6 +31,8 @@ The second-kind `Γ^l_{ij} = g^{lm}Γ_{mij}` and the Riemann/Ricci tensors need 
 namespace E213.Lib.Math.Geometry.TensorCalculus
 
 open E213.Meta.Int213
+open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
+  gridSumZ_congr gridSumZ_mul_left gridSumZ_fubini gridSumZ_delta_weight)
 
 /-- **Christoffel symbol of the first kind**, scaled `×2` (to stay over ℤ):
     `2·Γ_{kij} = ∂_i g_{kj} + ∂_j g_{ki} − ∂_k g_{ij}`, read off the metric-derivative tensor
@@ -60,5 +63,54 @@ theorem chris1_metric_compat (dg : Nat → Nat → Nat → Int)
     (no curvature can arise from `Γ`). -/
 theorem chris1_flat (k i j : Nat) : chris1x2 (fun _ _ _ => 0) k i j = 0 := by
   unfold chris1x2; show (0 : Int) + 0 - 0 = 0; decide
+
+/-! ## §2 — Christoffel symbols of the second kind (the metric inverse, over ℤ)
+
+The second kind `Γ^l_{ij} = g^{lm}Γ_{mij}` raises an index with the inverse metric `g^{lm}`.
+Over ℤ the inverse carries a `det g` denominator (`g^{lm} = adj(g)^{lm}/det g`), so we work
+with the **`det`-scaled** second kind `2·det·Γ^l_{ij} = Σ_m adj(g)^{lm}·(2Γ_{mij})`, a
+polynomial index sum (`adj` the adjugate, `gridSumZ` the sum over `m < n`).  The defining
+property of the inverse — `g·adj = det·I`, i.e. `Σ_l g_{pl} adj^{lm} = det·δ_p^m` — is taken
+as the abstract hypothesis `hadj`, exactly as the first kind took the metric symmetry. -/
+
+/-- The **`det`-scaled second-kind** Christoffel `2·det·Γ^l_{ij} = Σ_{m<n} adj^{lm}·2Γ_{mij}`
+    (raise the lower index of the first kind with the adjugate). -/
+def chris2xDet (n : Nat) (adj : Nat → Nat → Int) (dg : Nat → Nat → Nat → Int)
+    (l i j : Nat) : Int :=
+  gridSumZ n (fun m => adj l m * chris1x2 dg m i j)
+
+/-- ★★★★ **Lower-pair symmetry of the second kind** `Γ^l_{ij} = Γ^l_{ji}` — inherited from
+    the first-kind symmetry, summed against the adjugate. -/
+theorem chris2_symm (n : Nat) (adj : Nat → Nat → Int) (dg : Nat → Nat → Nat → Int)
+    (hsym : ∀ a b c, dg a b c = dg a c b) (l i j : Nat) :
+    chris2xDet n adj dg l i j = chris2xDet n adj dg l j i :=
+  gridSumZ_congr n _ _ (fun m _ => by rw [chris1_symm dg hsym m i j])
+
+/-- ★★★★★ **Raising then lowering recovers the first kind** (`g·Γ²·= det·Γ¹`):
+    `Σ_l g_{pl}·(2·det·Γ^l_{ij}) = det·(2Γ_{pij})`, the consistency of the metric inverse
+    `g·adj = det·I` (`hadj`).  This is the algebraic content of "`Γ^l` is `Γ_l` with the index
+    raised by `g^{-1}`" — `∅`-axiom (`gridSumZ` linearity + Fubini + the Kronecker collapse
+    `gridSumZ_delta_weight`). -/
+theorem chris2_lower (n : Nat) (g adj : Nat → Nat → Int) (dg : Nat → Nat → Nat → Int)
+    (det : Int) (p i j : Nat) (hp : p < n)
+    (hadj : ∀ m, gridSumZ n (fun l => g p l * adj l m) = det * (if m = p then 1 else 0)) :
+    gridSumZ n (fun l => g p l * chris2xDet n adj dg l i j)
+      = det * chris1x2 dg p i j := by
+  have hpull : gridSumZ n (fun l => g p l * chris2xDet n adj dg l i j)
+      = gridSumZ n (fun l => gridSumZ n (fun m =>
+          chris1x2 dg m i j * (g p l * adj l m))) := by
+    apply gridSumZ_congr; intro l _
+    unfold chris2xDet
+    rw [← gridSumZ_mul_left]
+    apply gridSumZ_congr; intro m _
+    ring_intZ
+  rw [hpull, gridSumZ_fubini]
+  have hcollapse : gridSumZ n (fun m => gridSumZ n (fun l =>
+        chris1x2 dg m i j * (g p l * adj l m)))
+      = gridSumZ n (fun m => (if m = p then (1 : Int) else 0) * (det * chris1x2 dg m i j)) := by
+    apply gridSumZ_congr; intro m _
+    rw [gridSumZ_mul_left, hadj m]
+    ring_intZ
+  rw [hcollapse, gridSumZ_delta_weight n p (fun m => det * chris1x2 dg m i j) hp]
 
 end E213.Lib.Math.Geometry.TensorCalculus
