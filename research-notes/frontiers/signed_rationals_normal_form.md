@@ -42,9 +42,18 @@ freely with the sign axis.
    coprime + `0 < q₁` force componentwise equality.  With
    `gcd_strip_coprime` (existence), the ∣-order normal form of a
    ratio pair is now exact.
-3. **Signed composite** (open): the full normal form above, with the
-   derived order (sign-major, cross-`≤` on magnitudes within the
-   positive sign) and its compatibility with `ratioEquiv`.
+3. **Signed composite** — ★ CLOSED for the normal form
+   (`Lib/Math/NumberSystems/Rat213.lean`, PURE): numerator `Int`
+   (sign carried by the constructor = the swap readout) × positive
+   `Nat` denominator; `ratioEqZ` the signed cross-equation,
+   `IsLowest` the lowest-terms condition; `lowest_exists`
+   (normalization via `gcd_strip_coprime`) + `lowest_unique`
+   (mixed signs die by constructor clash; same signs reduce to
+   `coprime_repr_unique`).  Remaining open: the **derived order**
+   (sign-major, cross-`≤` on magnitudes within the positive sign) and
+   its descent through `ratioEqZ` — the positive-cone-only
+   ×-equivariance (`mul_le_mul_right_nonpos`) made explicit as a
+   well-definedness theorem.
 
 ## Where it feeds
 
