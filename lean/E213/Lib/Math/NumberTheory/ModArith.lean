@@ -25,10 +25,13 @@ import E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative
 import E213.Lib.Math.NumberTheory.ModArith.GaussLemma
 import E213.Lib.Math.NumberTheory.ModArith.SecondSupplement
 import E213.Lib.Math.NumberTheory.ModArith.QuadraticReciprocity
+import E213.Lib.Math.NumberTheory.ModArith.ZolotarevSign
+import E213.Lib.Math.NumberTheory.ModArith.ZolotarevConverse
+import E213.Lib.Math.NumberTheory.ModArith.ZolotarevMuBridge
 import E213.Lib.Math.NumberTheory.ModArith.FP2Sqrt5
 import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
 import E213.Lib.Math.NumberTheory.ModArith.Zolotarev
-import E213.Lib.Math.NumberTheory.ModArith.ZolotarevConverse
+import E213.Lib.Math.NumberTheory.ModArith.ZolotarevReduction
 import E213.Lib.Math.NumberTheory.ModArith.ZolotarevCycle
 import E213.Lib.Math.NumberTheory.ModArith.MulOrder
 import E213.Lib.Math.NumberTheory.ModArith.OrderPow

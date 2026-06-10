@@ -287,3 +287,7 @@ path = "src/bin/level2_search.rs"
 [[bin]]
 name = "aurifeuillean-lm"
 path = "src/bin/aurifeuillean_lm.rs"
+
+[[bin]]
+name = "ckm-cp-phase"
+path = "src/bin/ckm_cp_phase.rs"

@@ -3,7 +3,7 @@
 Hodge star operator + ⋆⋆ = id involution structural propositions
 on the 213 cohomology complex.
 
-## Files (6)
+## Files (11)
 
 ### Hodge / Delta core
   - `Star.lean`              — Hodge `⋆` operator (cochain level)
@@ -26,6 +26,25 @@ on the 213 cohomology complex.
   - `InvolutionCapstone.lean` — re-exports the all-strata bundle
                                  under the historical name for
                                  backward compatibility.
+
+### Signed star / CP `C₄ = ℤ[i]`
+  - `SignedStarC4.lean`       — the **signed** ⋆ on the `(Λ¹,Λ³)` pair
+                                 of `Δ⁴`: `J=[[0,−1],[1,0]]`, `⋆²=−I`,
+                                 `⋆⁴=I`, `ℤ[J]≅ℤ[i]` (the CP `i`).
+  - `SignedStarFull.lean`     — signed ⋆ across all grade pairs.
+  - `HodgeRiemannJ.lean`      — Hodge–Riemann positivity for `J`.
+  - `GaussianHodgeBridge.lean`— the morphism `φ:ℤ[i]→ℤ[J]` (injective
+                                 multiplicative hom): the spiral-axis
+                                 **floor rotation** (`μ=−i`,
+                                 `GaussianCrossDet`) IS the Hodge `⋆`,
+                                 one `C₄=ℤ[i]^×`.  `crossDet_image_rotates`,
+                                 `gaussian_floor_is_hodge_star`.
+  - `EisensteinNoComplexStructure.lean`
+                               — the order-6 axis rung is NOT a complex
+                                 structure: `Ω=[[0,−1],[1,−1]]`, `Ω²=−Ω−I≠−I`,
+                                 `Ω³=I`; `ℤ[Ω]≅ℤ[ω]` (`omegaToStar_mul`).  Since
+                                 `⋆²=−1` fails at order 6, the Hodge `⋆` selects
+                                 disc `−4` over `−3` (`hodge_selects_disc_neg_four`).
 
 ## Where to add new evidence
 

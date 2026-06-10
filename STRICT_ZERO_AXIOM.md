@@ -239,6 +239,43 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Fibonacci 5-adic valuation `ν₅(F_n) = ν₅(n)` — FULLY CLOSED, strict ∅-axiom (2026-06-08)
+
+`E213.Lib.Math.NumberTheory.FibZValuation` (PURE), `.FibZIdentities`
+(13/13 PURE), `.DyadicFSM.FibApparitionMod5` (20/20 PURE) — all 0 DIRTY
+(`tools/scan_axioms.py`).  The full 5-adic arithmetic of Fibonacci at the
+ramified golden prime `5`:
+
+  · `five_dvd_fib_iff` — rank of apparition `α(5) = 5` (`5 ∣ F_n ⟺ 5 ∣ n`).
+  · `lucasMod5_never_zero` — Lucas never `0 mod 5` (regular Binet branch).
+  · `twentyfive_dvd_fib_iff` — `25 ∣ F_n ⟺ 25 ∣ n` (the `ν₅ ≥ 2` rung).
+  · `fibZ_quintuple` — `F_{5m} = F_m·(25F_m⁴ + 25(−1)ᵐF_m² + 5)`.
+  · **`fibN_val_law`** — `∀ n k, 5ᵏ ∣ F_n ⟺ 5ᵏ ∣ n`, i.e. `ν₅(F_n) =
+    ν₅(n)` (lifting-the-exponent, all orders, via Euclid for prime 5).
+
+Chapter: `theory/math/numbertheory/fibonacci_5adic_valuation.md`.
+
+### General rank law `α(p) ∣ p − (5/p)` + shared `ℚ(√5)` morphism — strict ∅-axiom (2026-06-08)
+
+`E213.Lib.Math.NumberTheory.DyadicFSM.RankApparition` (10/10 PURE) and
+`.GoldenFieldBridge` (10/10 PURE) — 0 DIRTY (`tools/scan_axioms.py`).  Two
+named open bridges of `fibonacci_golden_prime_crossdomain` closed:
+
+  · **`rank_law_dispatch`** — the Fibonacci rank of apparition `α(p) ∣ p − (5/p)`
+    in entry-point form `p ∣ F_{p−(5/p)}`, the index dispatched on the
+    FSM-walking Legendre character `legendre213 5 p` (split `p−1`, inert `p+1`,
+    ramified `p`).  Each branch via the universal Fibonacci-mod-`p` machinery
+    (`binet_F_p_minus_1_zero`, `fpp1_eq_zero_of_frob_phi`, `rank_apparition_five`);
+    mirrors `UniversalDispatch.universal_dispatch_pellCoeff`.
+  · **`shared_golden_field_morphism`** — the Binet polynomial `x²−x−1`
+    (Fibonacci) and the Gaussian-period polynomial `x²+x−1` (`ℚ(ζ₅)⁺`/cp_phase)
+    are one `ℚ(√5)` object under `x ↦ −x` (`bPoly_neg_eq_gPoly`), sharing
+    discriminant `5` and the single ramified prime `5` (both perfect squares
+    mod `5`, double roots `3`, `2`, negatives).
+
+Chapters: `theory/math/numbertheory/fibonacci_5adic_valuation.md`,
+`theory/essays/synthesis/the_golden_prime.md`.
+
 ### Sperner's theorem compiled to COUNT's double-counting face (2026-06-05)
 
 `E213.Lib.Math.Combinatorics.Sperner` — **39/39 PURE / 0 DIRTY** (`tools/scan_axioms.py`).

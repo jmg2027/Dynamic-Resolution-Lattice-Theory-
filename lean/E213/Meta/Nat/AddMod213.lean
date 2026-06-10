@@ -302,4 +302,22 @@ theorem le_div_iff_mul_le {p : Nat} (hp : 0 < p) (y a : Nat) :
       exact Nat.lt_irrefl a (Nat.lt_of_lt_of_le (Nat.lt_of_lt_of_le hlt2 hle2) h)
     · exact hge
 
+/-- Monotonicity of division on the right: `a ≤ b → a / c ≤ b / c` (`0 < c`).  Lean core has no
+    `Nat.div_le_div_right` here; this ∅-axiom replacement uses `div_mul_le_self` + `div_add_mod`. -/
+theorem div_le_div_right_pure {a b c : Nat} (hc : 0 < c) (h : a ≤ b) : a / c ≤ b / c := by
+  rcases Nat.lt_or_ge (b / c) (a / c) with hlt | hge
+  · exfalso
+    have h2 : (b / c + 1) * c ≤ a / c * c := Nat.mul_le_mul_right c hlt
+    have h3 : a / c * c ≤ a := NatDiv213.div_mul_le_self a c
+    have h4 : (b / c + 1) * c ≤ b := Nat.le_trans (Nat.le_trans h2 h3) h
+    have h5 : b < (b / c + 1) * c := by
+      rw [Nat.succ_mul]
+      have hmod : c * (b / c) + b % c = b := div_add_mod b c
+      have hstep : c * (b / c) + b % c < c * (b / c) + c :=
+        Nat.add_lt_add_left (Nat.mod_lt b hc) _
+      rw [hmod] at hstep
+      rw [Nat.mul_comm (b / c) c]; exact hstep
+    exact Nat.lt_irrefl b (Nat.lt_of_lt_of_le h5 h4)
+  · exact hge
+
 end E213.Meta.Nat.AddMod213

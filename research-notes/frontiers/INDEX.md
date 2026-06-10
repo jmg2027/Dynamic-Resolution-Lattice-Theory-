@@ -127,7 +127,7 @@ presentation/real split, and when a rate-free presentation (π) completes.
 - `G149_analysis_continuum_space_insights` — the analysis/continuum/space
   insight map feeding the completability and GRA programmes.
 
-Closure record: `theory/math/{completeness_relocated,completeness_without_completeness}.md`
+Closure record: `theory/math/numbersystems/{completeness_relocated,completeness_without_completeness}.md`
 + `theory/math/analysis/{holonomic_modulus,tower_native_completeness,refined_completability_engine}.md`.
 
 ## Sequence depth / multiplicative machinery  (`sequence_depth/`)
@@ -139,10 +139,110 @@ finite-depth algebra (Hadamard product, Casoratian rank, holonomic `ℚ(n)`-orbi
   at the sequence scale.
 - `G188_multiplicative_conv_design` — `mconv` (multiplicative twin of `conv`):
   the power-sum/Newton route, with an honest ∅-axiom feasibility verdict.
+- `multiplicative_carry_residue` — the digit-scale mirror: p-adic `×` is native corecursive
+  (`mul_corecursive`) but not finite-state (`mulRaw_unbounded`/`mulCarry_unbounded`, dual of
+  `add_carry_le_one`); the unbounded carry IS a νF inhabitant (`carry_is_nu_escape`) — core closed,
+  only the Lens-reading refinement soft-open.
 
 Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite_orbit_dimension}.md`.
 
 ## Standalone frontiers (root of `frontiers/`)
+
+- `zolotarev_crossdomain` — **the Zolotarev / permutation-sign branch ↔ merged main**
+  (converse-psign marathon).  Four bridges where this branch's closed Zolotarev
+  (`psign σ_a = (a/p)`, all primes) + `InversionsAppend` combinatorics touch main's arcs:
+  (1) `σ_a` is the finite-state side of the `×unit`/`×p` finite-state-vs-escape split —
+  `(a/p)` is the Z/2 invariant the finite pointing carries and the νF escape lacks;
+  (2) Zolotarev `psign σ_a = det(permMatrix) = (a/p)` and main's companion-determinant sign
+  `altSign(k−1) = psign(shift cycle)` are two closed instances of one "three readouts" schema
+  (shared engine `det_permMatrix`); buildable `psign(cyclicShift n) = altSign(n−1)`;
+  (3) `crossInv` antisymmetry (off-diagonal pairs cancel mod 2) ↔ det's repeated-row vanishing;
+  (4) ★ `psign σ_{−1} = (−1/p) = +1 ⟺ p≡1 mod4 ⟺ i∈ℤ/p` ties the order-2 negation-permutation
+  sign to main's order-4 spiral-axis point `ℤ[i]^×=C₄`.
+- `selfref_matrix_crossdomain` — **the self-reference matrix `M=[[2,1],[1,1]]` as the common
+  root** (apex ↔ Casoratian ↔ axis).  Five connections: (1) the CKM factorises by discriminant —
+  modulus on `ℚ(√5)` (+5, golden eigenvalue), phase on `ℚ(i)` (−4, Hodge `⋆`); (2) `det=1`
+  unimodularity is the one shared engine (apex reciprocity ↔ `det(AB)=det A·det B` ↔ CKM unitarity
+  ↔ Legendre); (3) "modulus = de-signed square" is the same Bool/difference-Lens as the Casoratian/
+  Cassini sign; (4) `M` is the companion matrix of `x²−3x+1`, so the fourth-readout companion-sign
+  machinery applies to the apex itself; (5) `H*(Δ⁴)` shared by `1/α_em` and the CP phase.  Buildable:
+  unimodularity note, companion-cycle reading of the apex, the two eigen-fields of `d=5`.  (The
+  `casoratian_axis_cp_crossdomain` note both links closed — `GaussianHodgeBridge` morphism +
+  `CasoratianPermSign` sign-bridge — and is archived.)
+- `one_carrier_crossdomain` — **the one-carrier branch ↔ merged main** (p-ary-spine marathon).
+  (1) "Unit result, non-finite-state generation" at two scales: `(-1)²=1` with unbounded carry
+  (`mulCarry_unbounded`/`carry_is_nu_escape`, branch) = Casoratian `q=−1` with no finite holonomic
+  depth (`cas_neg_unit_no_finite_depth`/`DetSpectrumPoles`, main) — finite-state is of the *pointing*,
+  not the value, on ring-op and sequence scales.  (2) Multiplication's unit/non-unit split IS the
+  finite-state/escape split: `× unit` = a finite permutation with a sign (Zolotarev `mulPermMod`,
+  main) vs `× p` = the valuation escape (`mulBase_eq_mul_pElem`, branch).  Open bridges noted.
+- `fibonacci_golden_prime_crossdomain` — **the Fibonacci 5-adic branch ↔ main's CKM
+  CP-phase / Legendre arc**.  The prime `5` is the shared hinge: main takes the *value*
+  `φ ∈ ℚ(√5)` (golden modulus `R_u=1/φ²`), the branch the *5-adic valuation* of the Fibonacci
+  recurrence (rank `α(5)=5`, `ν₅(F_n)=ν₅(n)`) at the *ramified* prime of the same `ℚ(√5)`.
+  Proven shared objects: the Cassini unit `det=±1 = det P = NS−NT = 1` (already cited from
+  `OrbitDimension` to `PnFibonacciUniversal`), and the binary sign axis (`ε=(−1)ᵐ` = the
+  `psign`/Legendre/inversion read of the permutation-three-readouts).  **CLOSED**: the general-`p`
+  rank law `α(p) ∣ p − (5/p)` from the Legendre character (`DyadicFSM/RankApparition.lean`); the
+  shared-`ℚ(√5)` morphism tying `cp_phase` ↔ `fibonacci_5adic_valuation` (`x↦−x` between the Binet
+  `x²−x−1` and the Gaussian-period `x²+x−1`, `NumberTheory/GoldenFieldBridge.lean`).  **Open**: the
+  higher-valuation `νₚ(F_n)` rungs for general `p` (the `p`-tupling analogue of the quintupling
+  identity, beyond the entry point), and insight 1 (value-vs-valuation as a conceptual hinge).
+- `cp_crossdomain_insights` — **CP-phase cohomology ↔ main's sign/QR/cyclotomic
+  campaigns** (merge marathon). Four candidate bridges where the two branches
+  share one object: (1) the inversion sign is one object — `det(permMatrix)=psign`
+  (main) = the signed Hodge cup wedge sign `(−1)^inv` (this branch); (2) `ℤ[i]`:
+  the CP phase `C₄`/`90°` IS main's QR splitting (`d=5≡1 mod4 ⇒ (−1/5)=+1 ⇒ 5=(2+i)(2−i)`);
+  (3) `ℚ(ζ₅)` Gauss periods (CP golden modulus + `C₄`) ↔ main's Teichmüller/`gauss_qr`;
+  (4) Hodge-Riemann positivity `h=Q·J=I` ↔ main's `det_mul` (`det=1`). Richest:
+  the permutation sign + Hodge-⋆ orientation + Legendre symbol + CP phase are one
+  inversion/Gaussian object; the **Zolotarev** edge — now CLOSED
+  (`ModArith/ZolotarevMuBridge.zolotarev_mu`, all odd primes) — closes the square.
+
+- `gram_d2_prefactor` — **the α_em Gram self-energy `/d²` prefactor**.
+  *Closed this session*: the cubic `25y³+1=25Xy²` is the correction ansatz
+  `α²/d²` re-expressed (not a free form); the prefactor *value* is
+  over-determined (three readings coincide at `d²`); the *mechanism* is
+  identified — a degree-2 (2-point) object on the d=5 state space normalizes
+  by `d²`, grounded in two convergent math structures (2-point operator-space
+  dim `tensorDim d d` + 2-fold cup-graduation `cup_graduation_denom 1`).
+  *Open*: (a) the remaining premise — a forcing theorem identifying the Gram
+  self-energy *as* the `k=1` self-pairing cup term (promote
+  `CupRingTrace`/`SelfPairingTrace` test → derivation); (b) derive the
+  cup-graduation rule "each cup factor carries 1/d" from cup-ring axioms
+  (currently a structural assertion). Anchors:
+  `Lib/Physics/AlphaEM/{GramCubicReduction,GramD2Readings,GramD2Mechanism}`.
+
+- `headline_precision_scope` — **what the Lean proves vs the README precision
+  column**, headline by headline (extends the α_em DoF ledger). First finding:
+  `m_μ/m_e` README "0.49 ppb" is PURE-proven only to the *leading integer
+  bracket* (205); the ppb match is docstring numerics (leading α_em ppm bracket
+  × Dyson tail `P` × δ's), inheriting α_em's DoF. Fair, not deception (atomic
+  building blocks + recurrence argument real; gap = headline overstatement).
+  Next: m_p (1.56 ppm), R_∞ (4.3 ppb), Koide.
+
+- `ckm_rho_eta_apex` — **the CKM Wolfenstein apex `(ρ,η)` / Jarlskog
+  magnitude**. Found auditing whether θ_QCD's `J` is derivable: J's
+  *structure* is atomic (λ=5/22, A=φ/c, δ=π/φ²) but its *magnitude* is
+  over-predicted ×2.66 (`J_DRLT=8.18×10⁻⁵` vs observed `3.08×10⁻⁵`) — the
+  missing piece is the un-derived apex `(ρ,η)` (`s₁₃=Aλ³` omits
+  `√(ρ²+η²)≈0.39`). A `CPViolation.lean` comment had masked this with an
+  arithmetic error ("within 10%"); corrected.  **Multi-agent deep-dive (2026-06-08)**:
+  the apex modulus `R_u=(NS−√d)/2=1/φ²` is the self-reference matrix's contracting
+  eigenvalue; findings #2 (`disc=d` is *selection*, `FibonacciAtomicLock.
+  disc_eq_atomic_sum_selects_shape`) and #4 (modulus = *de-signed square*,
+  `apex_modulus_is_designed_square`) now ∅-axiom; item (a) (exact `ℤ[i]` CKM unitarity)
+  closed (`Mixing/CKMExactUnitarity`).  **Open**: the `det=1`↔base-normalization arrow
+  (apex modulus = `λ₋` of the CKM-from-`M` map); golden in the *radius* not the angle.
+  Consumer: θ_QCD (`PRE_REGISTRATION.md` P2).
+  **Update (2026-06-08)**: apex modulus `1/φ²` grounded as the self-reference
+  Möbius contracting eigenvalue, and `1/φ²`-over-`φ²` now *forced* by `R_u<1`
+  (`JarlskogApex.apex_modulus_subunit_forced`). **A₅ bridge marathon**
+  (`lean/E213/Lib/Math/Algebra/Icosahedral/`, 14 PURE): the self-reference map
+  `M` mod `d=5` is an order-5 element of `PSL(2,𝔽₅)≅A₅` (icosahedral) carrying
+  character `φ` = the eigenvalue `φ²` via `φ²=φ+1` — grounds the open premise in
+  established A₅ golden flavour symmetry. Still open: derive the apex *value*
+  from an explicit A₅ generation assignment.
 
 - **COUNT extremal combinatorics** — CLOSED ∅-axiom (LYM, Bollobás `bollobas_uniform`,
   Sperner ×3, Mirsky `mirsky_boolean`, Dilworth `dilworth_boolean`/`scd_card`, and the
@@ -150,18 +250,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   counting_as_cardinality,sperner_double_counting,probabilistic_method}.md`.  No open seed.
 
 - **determinant / permutation-sign** — CLOSED ∅-axiom (`PermSign.psign_mul`,
-  `DetTranspose.det_transpose`, `DetMul.det_matMul`, and now
-  **`PermMatrixDet.det_permMatrix`** — `det n (permMatrix σ) = psign σ`, the two readings of a
-  permutation identified, 8 PURE; the adjacent-swap = row-swap (`det_swapRows`) bubble-sort
-  reduction reused from `psign_mul`).  Narrative in
+  `DetTranspose.det_transpose`, `DetMul.det_matMul`, `PermMatrixDet.det_permMatrix`); narrative in
   `theory/essays/algebra/{permutation_sign_as_homomorphism,determinant_as_quotient_characteristic,
-  cayley_hamilton_self_characteristic}.md`.  General **column Laplace** is now also closed
-  (`ColumnLaplace.cofactor_col_k`, 2 PURE — the `det_transpose` corollary: `minorAt k j Mᵀ`
-  is defeq `transpose (minorAt j k M)` since row-skip = col-skip = `colShift`).  *Open seed:*
-  relocate the constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`
-  (a cleanup, not a closure).  The `det_permMatrix` closure also
-  unlocks the **Zolotarev** bridge (reciprocity / euler-converse topics): `psign` of the
-  multiplication-by-`a` value-list = the Legendre symbol.
+  cayley_hamilton_self_characteristic}.md`.  ✓ *Done:* `det(permMatrix σ) = psign σ`
+  (`PermMatrixDet.lean`, 11 PURE — the Leibniz sum collapses to the surviving `τ=σ` term via the
+  nodup selector `sumZ_select`); the two readings of a permutation agree.  General **column
+  Laplace** is also closed (`ColumnLaplace.cofactor_col_k`, 2 PURE — the `det_transpose`
+  corollary: `minorAt k j Mᵀ` is defeq `transpose (minorAt j k M)` since row-skip = col-skip =
+  `colShift`).  The `det_permMatrix` closure unlocks the **Zolotarev** bridge: `psign` of the
+  multiplication-by-`a` value-list = the Legendre symbol (closed two ways — μ-block-decomposition
+  `ZolotarevMuBridge` and primitive-root conjugation `ZolotarevCycle.zolotarev_full`).  *Open
+  seed:* relocate the constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to
+  `Meta` (a cleanup, not a closure).
 
 - `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
   residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at
@@ -220,30 +320,31 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   library (`theory/math/numbersystems/padic_real213.md`).  Directions A
   (explicit Teichmüller ω), B (μ_{p−1} root-of-unity + unit decomposition),
   G (general division) now **closed** in `lean`.  The remaining direction H
-  is tracked in its own note `G124_padic_drlt_5adic`.
+  (DRLT 5-adic content) is **CLOSED** — chapter
+  `theory/math/numbertheory/fibonacci_5adic_valuation.md`
+  (`archive/fibonacci_5adic/`).
 - **p-adic closure harvest** — Teichmüller `ω(x)` + uniqueness + `μ_{p−1}×(1+pℤ_p)` decomposition
   + general division CLOSED ∅-axiom; chapter `theory/math/numbersystems/padic_real213.md` + essay
-  `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seeds:* a `Zp.diagLimit`
-  abstraction (shared by `invFull`/`sqrtFull`/`teichmuller`); generalise the lift+fixed-point
-  uniqueness engine to `sqrt` (`unique_of_lift_fixed`).  ✓ **`i₅ = teichmuller(2-lift)` CLOSED**
-  (`TeichmullerI5.i5_eq_teichmuller`, 5 PURE): `i₅⁴ ≡ 1` (`i_5_pow_four_trunc`) ⟹ Frobenius-fixed
-  `i₅⁵ ≡ i₅` (clean from `Zp.pow_trunc`: everything in `ℤ/5ᵐ`) ⟹ `teichmuller_eq_of_fixed` — the
-  5-adic imaginary unit IS the canonical `μ₄` Teichmüller representative of its residue, not an
-  adjoined structure.  ✓ *Done:* the sequence-level **additive abelian group**
-  (`SetoidAssoc.zp_add_setoid_group_capstone`) **and now the multiplicative `ZpSeqEquiv`
-  identities** (`SetoidMul`, 11 PURE — `zp_mul_{comm,assoc,one,add}_equiv` + the
-  `zp_setoid_comm_ring_capstone`: `ZpSeq / ZpSeqEquiv` is a **commutative ring**).  The note's
-  "high difficulty (propext / convolution reindexing)" was overcautious — `Zp.mul_trunc` descends
-  each law to `ℤ/pⁿ` exactly as `Zp.add_trunc` did for addition (only `Nat.mul_assoc`'s propext
-  needed swapping for `ring_nat`).  This **unblocks `i₅ = teichmuller(2-lift)`** — the trunc-level
-  mul assoc/comm it needed now exist.
-- `G124_padic_drlt_5adic` — H: DRLT-specific 5-adic content.  Terrain map
-  (not a closure): H1 (5²⁵ obstruction) **settled-as-removed**
-  (`RERESEARCH_n_u_removal.md`); H2 (i₅ physics meaning) / H3 (5-adic
-  L-values) have **no internal handle** — recorded plainly per §5.4, no
-  forcible map onto physics.  Pure-math spinoff `i₅ ∈ μ₄` (the 5-adic
-  imaginary unit is a 4-th root of unity) CLOSED ∅-axiom and folded into the
-  Teichmüller chapter + essay.
+  `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seed:* generalise the
+  lift+fixed-point uniqueness engine to `sqrt` (`unique_of_lift_fixed`).  ✓ *Done:* the
+  sequence-level **additive abelian group** (`SetoidAssoc.zp_add_setoid_group_capstone`); the
+  **multiplicative** `ZpSeqEquiv` identities (`SetoidMul` — mul comm/assoc/one/distrib +
+  `zp_setoid_commRing_capstone`); the shared **`Zp.diagLimit`** abstraction
+  (`Foundation.diagLimit` + `diagLimit_trunc_succ` — the single diagonal-limit proof now
+  factored out of `invFull`/`sqrtFull`/`teichmuller`, all three rewired to it).  ✓ **`i₅ =
+  teichmuller(2-lift)` CLOSED** (`TeichmullerI5.i5_eq_teichmuller`, 5 PURE): `i₅⁴ ≡ 1` ⟹
+  Frobenius-fixed `i₅⁵ ≡ i₅` ⟹ `teichmuller_eq_of_fixed` — the 5-adic imaginary unit IS the
+  canonical `μ₄` Teichmüller representative of its residue, not an adjoined structure.
+- `fibonacci_5adic_valuation` (**CLOSED** → chapter
+  `theory/math/numbertheory/fibonacci_5adic_valuation.md`,
+  `archive/fibonacci_5adic/`) — H: DRLT-specific 5-adic content.  H1 (5²⁵
+  obstruction) settled-as-removed; H2/H3 (physics meaning / L-values) have
+  no internal handle (recorded plainly per §5.4).  The admissible
+  arithmetic-first move opened a full math arc at the ramified golden prime
+  `5`: rank of apparition `α(5)=5` + Lucas-never-zero, the `ν₅≥1,2` FSM
+  rungs, the quintupling identity `F_{5m}=F_m(25F_m⁴+25(−1)ᵐF_m²+5)`, and
+  the all-orders law `ν₅(F_n)=ν₅(n)` (`fibN_val_law`).  Pure-math spinoff
+  `i₅ ∈ μ₄` folded into the Teichmüller chapter + essay.
 - `sums_of_squares_engines` — synthesis seed after four-square closure: the
   two representation engines (multiplicative root-bound vs. additive
   pigeonhole), and the next number-theory seeds (disc-`−8` congruence iff via
@@ -252,17 +353,28 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - **reciprocity as count-Lens** — QR + second supplement CLOSED ∅-axiom; narrative
   `theory/math/numbertheory/quadratic_reciprocity.md` + `theory/essays/proof_isa/counting_as_cardinality.md`.
   *Open seeds:* cubic/biquadratic reciprocity over `ℤ[ω]/ℤ[i]` (reuse `floor_sum_rectangle`'s
-  lattice-count shape); Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side, one
-  permutation two readouts); fold `sumZ_swap` (Int) + the COUNT Nat double-sum into one `Meta`
-  finite-Fubini.  ✓ *Done:* `int_even_or_odd` deduplicated into `CenteredDivision`
+  lattice-count shape); fold `sumZ_swap` (Int) + the COUNT Nat double-sum into one `Meta`
+  finite-Fubini.  ✓ *Done:* Zolotarev unification (`psign` sign side ↔ `gauss_qr` count side,
+  one permutation two readouts) — `ModArith/ZolotarevMuBridge.zolotarev_mu`;
+  `int_even_or_odd` deduplicated into `CenteredDivision`
   (FourSquare / QuadraticReciprocity now thin re-exports); the `two_mul_ne_one` clones remain.
-- `second_supplement` — **CLOSED** (`2` QR ⟺ `p ≡ ±1 mod 8`, `SecondSupplement.lean`, 8 PURE incl
-  `gauss_mu`).
-- `euler_criterion_converse` — Euler's criterion **CLOSED** strict ∅-axiom (full iff
-  `aᵐ ≡ 1 ⟺ QR`, `ModArith/{EulerCriterion,EulerConverse}.lean`, 16 PURE; the converse =
-  squares-list saturation of `RootBound.eval_zero`).  The note now tracks the **open
-  downstream**: the quadratic character of `2` (second supplement), Gauss's lemma, and
-  Zolotarev (`psign` sign side already PURE).  Promotion-eligible → `theory/math/numbertheory/`.
+- **Legendre-symbol package** — CLOSED ∅-axiom (54 PURE): Euler's criterion (`qr_iff_pow_one`,
+  full iff `euler_criterion`), multiplicativity (`legendre_mul`), both supplements
+  (`neg_one_qr_iff`, `second_supplement`), Gauss's lemma (`gauss_qr`/`gauss_mu`).  **Promoted** →
+  `theory/math/numbertheory/legendre_symbol.md` (the QR chapter's base package).  ✓ *Done:*
+  Zolotarev (`psign σ_a = (a/p)`, all odd primes) — `ModArith/ZolotarevMuBridge.zolotarev_mu`.
+
+- **permutation's three readouts** (`permutation_three_readouts.md`) — cross-domain synthesis
+  after merging the Legendre/QR package (main) into the determinant + p-adic branch.  Edge (1)
+  ★ **CLOSED**; (2)–(4) open.  (1) ★ **Zolotarev** — the missing edge of "one
+  permutation, three readouts" — `psign` (inversions) ≡ `det(permMatrix)`
+  [`PermMatrixDet.det_permMatrix`] ≡ `(a/p)` [main, `gauss_qr`/`euler_criterion`]: **now a
+  theorem for every odd prime** (`ModArith/ZolotarevMuBridge.zolotarev_mu` +
+  `det_permMatrix_mulPermMod`); (2) the Legendre symbol as the 2-torsion projection of the
+  Teichmüller `ω ∈ μ_{p−1}` (Euler's criterion = mod-`p` shadow of a `μ_{p−1}` identity); (3) the
+  truncation tower `ZpSeq ↠ ℤ/pⁿ ↠ ℤ/p` reads the same ring-quotient (`SetoidMul` commRing) at the
+  level where QR lives; (4) `(a/p)=1 ⟺ a has a `diagLimit` √ in ℤ_p` (Hensel face of the Legendre
+  predicate).  Proven cores closed both sides; the edges are the work.
 
 Closure records (promoted off this board):
 - Lagrange's four-square theorem — **closed & promoted**:

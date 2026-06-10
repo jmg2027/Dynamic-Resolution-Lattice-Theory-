@@ -33,13 +33,21 @@ leaves, fold, swap).  Public surface exposed via `API.lean`.
                         (`ascent_unbounded`, `ascent_adds_unit`, `tower_no_cycle`)
   - `CoResidue.lean`  — νF = `SlashNu`: the exact slash final coalgebra,
                         the populated escape (spine family, bit-streams,
-                        `coSwap`, shift dynamics); narr.
+                        `coSwap`, shift dynamics); §20 the label-generic spine
+                        `gspine : (Nat→L) → GCoShape L` — one νF carrier for
+                        every alphabet (`boolSpine` = `L=Bool`; p-ary = `L=Fin p`;
+                        rides ℤ_p `Padic/NuEscape`, ℝ `Real213/NuEscape`); §21 the
+                        carrier is *dynamical* — `gspine_shift_dynamics` (Bernoulli
+                        shift / period = self-similarity over any alphabet); narr.
                         `theory/essays/foundations/the_residue_as_primitive.md`
   - `StateMachine.lean` — the FSM/RTL reading (state = transition; reachable
                         vs trace; `the_residue_as_state_machine.md`)
   - `Odometer.lean`   — the residue unit's `+1` adding machine on the
                         bit-stream escapes: carry/escape, injective + invertible
-                        (`ℤ`-action), reversibility asymmetry, `ℤ₂`-homeomorphism
+                        (`ℤ`-action), reversibility asymmetry, `ℤ₂`-homeomorphism;
+                        §7 the alphabet-independent carry (`runCarry`), §8 the
+                        **p-ary odometer** (`pOdo`, ℤ_p's `+1`: `(-1)+1=0`,
+                        injective — the arithmetic one-carrier, `Padic/NuEscape`)
   - `OdometerValue.lean` — the profinite value (`bval`): `odo = +1 mod 2ᵏ`
                         (`bval_odo`) + `ℤ`-action freeness (`odo_free`); narr.
                         `theory/essays/foundations/the_residue_unit_odometer.md`

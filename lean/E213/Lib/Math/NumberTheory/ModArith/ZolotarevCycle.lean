@@ -1,12 +1,12 @@
 import E213.Lib.Math.NumberTheory.ModArith.Zolotarev
-import E213.Lib.Math.NumberTheory.ModArith.ZolotarevConverse
+import E213.Lib.Math.NumberTheory.ModArith.ZolotarevReduction
 import E213.Lib.Math.NumberTheory.ModArith.PrimitiveRoot
 
 /-!
 # ZolotarevCycle — the odd-cycle witness (brick 7), completing the full Zolotarev identity
 
 A primitive root `g` has `psign (mulPerm g p) = −1`.  This is the single input that
-`ZolotarevConverse.zolotarev_iff` needs: with it, `psign (mulPerm a p) = 1 ⟺ a` is a QR for **all**
+`ZolotarevReduction.zolotarev_iff` needs: with it, `psign (mulPerm a p) = 1 ⟺ a` is a QR for **all**
 units `a`.
 
 `mulPerm g` (`v ↦ g·v mod p`) fixes `0` and is a single `(p−1)`-cycle on the units.  It is conjugate
@@ -47,7 +47,7 @@ open E213.Meta.Nat.MulMod213 (mul_mod_right_pure)
 open E213.Meta.Nat.AddMod213 (div_add_mod dvd_of_mod_eq_zero)
 open E213.Lib.Math.NumberTheory.ModArith.CubeFromFLT (pow_add_pure)
 open E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative (qr_iff_pow_one)
-open E213.Lib.Math.NumberTheory.ModArith.ZolotarevConverse (mul_neg_one_int zolotarev_iff)
+open E213.Lib.Math.NumberTheory.ModArith.ZolotarevReduction (mul_neg_one_int zolotarev_iff)
 open E213.Meta.Int213 (mul_one)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Tactic.NatHelper (add_sub_of_le sub_add_cancel add_sub_cancel_right add_left_cancel_pure)
@@ -487,7 +487,7 @@ theorem primitive_not_qr (g p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d 
     `m ≥ 1`) and a unit `1 ≤ a < p`:  `psign (mulPerm a p) = 1 ⟺ a` is a quadratic residue mod `p`.
     The single odd witness is a primitive root `g` (`exists_primitive_root`): it is a non-residue
     (`primitive_not_qr`) whose permutation is odd (`psign_mulPerm_primitive`), so
-    `ZolotarevConverse.zolotarev_iff` upgrades to all units. -/
+    `ZolotarevReduction.zolotarev_iff` upgrades to all units. -/
 theorem zolotarev_full (p m a : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
     (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) :
     psign (mulPerm a p) = 1 ↔ ∃ x, 1 ≤ x ∧ x < p ∧ x ^ 2 % p = a := by

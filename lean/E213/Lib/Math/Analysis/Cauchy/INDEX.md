@@ -78,6 +78,31 @@ Narrative: `theory/math/numbersystems/completeness_without_completeness.md`.
                                       monic annihilator`, and ★ `cfiniteZ_add`
                                       (C-finite closed under `+`; orbit dimensions add)
 
+## Casoratian / determinantal depth ladder
+
+  - `SecondCasoratian.lean`        — the order-3 rung: the `3×3` Hankel (Casoratian)
+                                      determinant multiplies by `c` (`second_casoratian`),
+                                      `Δ³`-closure, genus-0 (no conserved cubic form); proved
+                                      by direct `ring_intZ` expansion
+  - `CasoratianDeterminant.lean`   — ★ the **all-orders** law: for any constant-coefficient
+                                      order-`(K+1)` recurrence the `(K+1)×(K+1)` Hankel
+                                      (Casoratian) determinant multiplies by the companion
+                                      determinant `altSign K · a 0` each step
+                                      (`casoratian_det_step`, `casoratian_det_closed`).  Structural —
+                                      `H(n+1) = C·H(n)` (`det_matMul`) + `det_companion`,
+                                      no expansion; subsumes order 2/3/4 (the order-4 rung
+                                      beyond a direct `ring_intZ` expansion)
+  - `CasoratianPermSign.lean`      — the multiplier sign IS a permutation sign:
+                                      `det(companion a (m+1)) = psign(cycShift m)·a 0`
+                                      (`companion_det_is_perm_sign`), the cyclic shift
+                                      `(0 1 … m)` certified a permutation
+                                      (`Linalg213/CyclicShiftSign`); and *literally* a
+                                      permutation-matrix determinant —
+                                      `det(companion a (m+1)) = det(permMatrix(cycShift m))·a 0`
+                                      (`companion_det_eq_permMatrix_det`).  Fourth instance of
+                                      "permutation under three readouts"
+                                      (`det(permMatrix)`=`psign`=Legendre/Zolotarev)
+
 ## Companion clusters
 
   - `Real213/Cauchy/ChainToCut`   — Cauchy chain → cut bridge

@@ -1,150 +1,107 @@
-# Session Handoff — 2026-06-08 (closing the p-adic / reciprocity frontier seeds)
+# Session Handoff — 2026-06-08 (general rank law + shared ℚ(√5) morphism + merge marathon)
 
 ## Branch
-`claude/p-adic-reciprocity-topics-qBPUW`.  **Eight ∅-axiom closures** (incl. the Zolotarev homomorphism half + the multiplicative-order foundation) committed this session
-(all PURE, build clean: `CayleyDickson` + `Linalg213` + `Padic` umbrellas build, new modules
-scan 0 DIRTY).
+`claude/prime-rank-fibonacci-5adic-zohhac` — pushed, ahead of `origin/main`.
+`cd lean && lake build E213` ✓ clean (full build, 307/307).  All new theorems
+strict ∅-axiom PURE (`tools/scan_axioms.py`).  Ready-to-merge audit GREEN
+(layer 0 violations, 0 stale paths, 0 sink leaks).
 
-## What Was Done — seven frontier seeds closed (∅-axiom)
+## What Was Done This Session
 
-The session worked the open-seed list (`research-notes/frontiers/`) across the named topics:
-*determinant/sign · p-adic harvest · residue-unit +1 · reciprocity · sums-of-squares · betti ·
-euler converse*.  **Three topics fully closed** (determinant/sign, sums-of-squares disc-`−8`,
-p-adic harvest) plus the **Zolotarev homomorphism half** (reciprocity); the rest triaged below.
-Closures 6–7 (`Zolotarev.lean`) are listed in the reciprocity row of the triage table.
+Two buildable bridges of `fibonacci_golden_prime_crossdomain` (insights 3, 5)
+closed ∅-axiom, then a full merge marathon.
 
-### 1. ★ disc-`−8` representation iff — **sums-of-squares topic CLOSED**
-`lean/E213/Lib/Math/Algebra/CayleyDickson/Integer/ZSqrtNegTwoSquare.lean` (11 PURE).
-`disc_neg_eight_iff` : `p = a²+2b² ⟺ p ≡ 1,3 (mod 8)` for an odd prime — the `ℤ[√−2]` twin of
-`GaussianTwoSquare.two_square_iff`.  Sufficiency (`rep_of_mod8`) supplies the Pillar-I input the
-bare non-residue search lacked, via the **Legendre homomorphism** `(−2/p) = (−1/p)·(2/p)`
-(`legendre_mul` at `a=p−1`, `b=2`, with `((p−1)·2) % p = p−2`), the factors being the closed
-first/second supplements; the characters agree on `p ≡ 1,3 mod 8` ⟹ `p ∣ z²+2` ⟹
-`split_form_two`.  Necessity (`mod8_of_rep`) is a square/`2·square`-mod-8 enumeration.
+### 1. General rank law `α(p) ∣ p − (5/p)` from the Legendre character (`DyadicFSM/RankApparition.lean`, 10 PURE)
+- `rankIndex p hp = p − (5/p)` — the Fibonacci entry-point index dispatched on
+  the FSM-walking quadratic character `legendre213 5 p`: split `p−1`, inert
+  `p+1`, ramified `p`.  Face lemmas `rankIndex_{ramified,split,inert}` make
+  `p − (5/p)` literal.
+- ★ `rank_law_dispatch` — `p ∣ F_{p−(5/p)}` (= `α(p) ∣ p−(5/p)` via
+  `p∣F_n ⟺ α(p)∣n`), mirroring `UniversalDispatch.universal_dispatch_pellCoeff`
+  (the Pisano-period dispatch); here the read-out is the entry point.
+- Per-prime instantiations through the *universal* machinery, not `decide`:
+  split via `binet_F_p_minus_1_zero` (`𝔽_p` Binet/FLT), inert via
+  `fpp1_eq_zero_of_frob_phi` (`𝔽_{p²}` Frobenius FLT), ramified `p=5` direct.
+  Bundled in `rank_law_table` (p ∈ {3,5,7,11}).
 
-### 2. ★★ `det (permMatrix σ) = psign σ` — **determinant/sign headline CLOSED**
-`lean/E213/Lib/Math/Algebra/Linalg213/PermMatrixDet.lean` (8 PURE).  The two readings of a
-permutation (matrix vs. inversion-count sign) identified.  Reuses the bubble-sort reduction of
-`psign_mul`: an adjacent `swapAt` is a **row swap** of `permMatrix` (`permMatrix_swap_pointwise`),
-so `det_swapRows` negates `det` in lockstep with `psign_swapAt`; `descent_of_inv_pos` drives `σ`
-to `iota n`, where `det_permMatrix_iota` (lower-triangular, value `1`) meets `psign(iota n) = 1`.
+### 2. Shared ℚ(√5) morphism — cp_phase ⟷ fibonacci_5adic_valuation (`NumberTheory/GoldenFieldBridge.lean`, 10 PURE)
+- ★ `bPoly_neg_eq_gPoly` — the morphism `x ↦ −x`: the Binet polynomial `x²−x−1`
+  (Fibonacci, `FibApparitionMod5`) and the Gaussian-period polynomial `x²+x−1`
+  (`ℚ(ζ₅)⁺`, `CyclotomicFive`/cp_phase) are one `ℚ(√5)` object (`bPoly(−x)=gPoly x`).
+- `shared_discriminant_five`, `bPoly_ramified_mod5`, `gPoly_ramified_mod5`,
+  `ramified_roots_negate` — both faces share disc `5` and the single ramified
+  prime `5`, each a perfect square mod 5 (double roots `3`, `2`; negatives, `3+2≡0`).
+- ★ `shared_golden_field_morphism` — capstone bundling the morphism, the shared
+  discriminant, both ramifications, the Fibonacci `α(5)=5` signature, and the
+  cyclotomic golden subfield.
 
-### 3. ★ column Laplace expansion — **determinant/sign seed (b) CLOSED**
-`lean/E213/Lib/Math/Algebra/Linalg213/ColumnLaplace.lean` (2 PURE).  `cofactor_col_k` expands
-`det` along an arbitrary column, the dual of `cofactor_row_i`, free from `det_transpose`:
-`minorAt k j Mᵀ` is **defeq** `transpose (minorAt j k M)` (row-skip = col-skip = `colShift`).
+### 3. Merge marathon (skills)
+- `/process`: 1 → 0 sink violations (decoupled `GoldenFieldBridge` docstring
+  from the frontier note → `theory/.../the_golden_prime.md`); recorded the
+  remaining open direction (higher `νₚ(F_n)` rungs) in `frontiers/`.
+- Promotion: in-place chapter+essay upgrade (rank law → `fibonacci_5adic_valuation`
+  §; morphism → `the_golden_prime` open-frontier CLOSED).  Log row 44.
+- Cross-domain: branch×main insights 6–8 in `fibonacci_golden_prime_crossdomain`
+  (the rank character IS `psign σ_5`; rank-vs-period one character; `x↦−x` vs `σ²`).
+- `/essay`: `theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md`
+  (log row 45; essays 76 → 77).
+- `/org-audit` + `/purity-check` + `/ready-to-merge`: all GREEN.
 
-### 4. ★ p-adic multiplicative `ZpSeqEquiv` identities — **p-adic harvest topic CLOSED**
-`lean/E213/Lib/Math/NumberSystems/Padic/SetoidMul.lean` (11 PURE).  `mul_{comm,assoc,one,add}`
-at the Setoid level + `zp_setoid_comm_ring_capstone` — `ZpSeq` modulo `ZpSeqEquiv` is a
-commutative ring.  `Zp.mul_trunc` descends each law to `ℤ/pⁿ` (only `Nat.mul_assoc`'s propext
-needed swapping for `ring_nat`), mirroring `SetoidAssoc` for `Zp.add`.
+## Current Precision Results (0 free parameters)
+Unchanged this session — both closures are pure-math (number theory), not
+physics observables.  See `catalogs/physics-constants.md` (`1/α_em` 0.09 ppb,
+CKM `δ = 90°`, `R_u = 1/φ²`, …).
 
-### 5. ★ `i₅ = teichmuller(2-lift)` — **the follow-on it unblocked**
-`lean/E213/Lib/Math/NumberSystems/Padic/TeichmullerI5.lean` (5 PURE).  `i₅⁴ ≡ 1` ⟹ Frobenius-fixed
-`i₅⁵ ≡ i₅` (clean from `Zp.pow_trunc`, all in `ℤ/5ᵐ`) ⟹ `teichmuller_eq_of_fixed` — the 5-adic
-imaginary unit IS the canonical `μ₄` Teichmüller representative of its residue.
+## Open Problems (Priority Order)
 
-Catalog (`STRICT_ZERO_AXIOM.md`), the representation essay
-(`theory/essays/synthesis/representation_theorems_one_counting_bound.md`), and the frontier notes
-(`sums_of_squares_engines.md`, `euler_criterion_converse.md`, `INDEX.md`) all updated.
+### 1. Higher valuation rungs `νₚ(F_n)` for general `p`
+The rank law is the entry-point (`νₚ ≥ 1`) rung.  The all-orders lift is open
+beyond `p = 5`: needs the `p`-tupling analogue of the quintupling identity (an
+index-`α(p)`-multiplication identity with cofactor `≡ 1 mod p`), buildable from
+`fibZ_index_rec` iterated to `k = α(p)`, parametric in the rank.
+Frontier note: `research-notes/frontiers/fibonacci_golden_prime_crossdomain.md`
+("Remaining open direction").
 
-## Topic-by-topic status (honest triage)
+### 2. The `legendre213 5 p = psign σ_5` equality morphism
+The rank-law character (FSM-walk terminal) and Zolotarev's permutation sign are
+stated equal from two proven sides; the explicit Lean morphism (modulo the
+ramified `=0` corner) would let `α(p) ∣ p − psign(σ_5)` be one theorem.
+Frontier note: `research-notes/frontiers/fibonacci_golden_prime_crossdomain.md`
+(insight 6).
 
-| Topic | Status |
-|---|---|
-| **determinant / sign** | **CLOSED** — `det_permMatrix` (a) + `cofactor_col_k` (b).  Only open: relocate the constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta` — a *cleanup*, not a closure. |
-| **sums-of-squares** | disc-`−8` iff **CLOSED**.  Three-square theorem (`n ≠ 4ᵏ(8m+7)`) stays out of reach ∅-axiom (not multiplicative; classical proof needs Dirichlet AP + ternary genus). |
-| **euler converse** | downstream **CLOSED in-repo**: 2-character (`second_supplement`), Gauss's lemma (`gauss_qr`).  Narrative already in `theory/math/numbertheory/quadratic_reciprocity.md`.  Open: Zolotarev (below). |
-| **reciprocity** | QR + supplements closed.  **Zolotarev homomorphism half CLOSED** (`ModArith/Zolotarev.lean`, 12 PURE): `mulPerm a p` is a permutation (`mulPerm_mem_perms`), multiplication ↦ composition (`mulPerm_comp`), the sign is multiplicative (`psign_mulPerm_hom`), and a **quadratic residue's permutation is even** (`psign_mulPerm_qr`: the `(a/p)=+1 ⟸ a` QR direction as the sign).  **Residual** (converse, non-residue ⟹ odd): the homomorphism route needs a nontriviality witness `∃a, psign(mulPerm a)=−1` — verified that even `a=p−1` (`psign = (−1)^{(p−1)(p−2)/2} = ((p−1)/p)`) only works for `p≡3 mod 4`; **no universal non-residue witness exists for `p≡1 mod 4`**, so it needs a **primitive root / `(p−1)`-cycle** (no such infra in repo) *or* the **Zolotarev=Gauss block-decomposition** `psign(mulPerm a) = (−1)^{μ_a}` (pairing `x↦p−x` + within-pair swaps at the `μ_a` highs; needs disjoint-transposition-sign machinery in the `psign` framework).  Both multi-file.  Cubic/biquadratic reciprocity is very hard. |
-| **p-adic harvest** | **CLOSED**: the multiplicative `ZpSeqEquiv` identities (`SetoidMul`, 11 PURE — `zp_setoid_comm_ring_capstone`: `ZpSeq/ZpSeqEquiv` is a commutative ring) and the follow-on **`i₅ = teichmuller(2-lift)`** (`TeichmullerI5`, 5 PURE).  The note's "high difficulty" was overcautious — `Zp.mul_trunc`/`Zp.pow_trunc` descend everything to `ℤ/pⁿ`.  Remaining open: a `Zp.diagLimit` abstraction (refactor) + generalise the uniqueness engine to `sqrt`. |
-| **residue-unit +1** | CLOSED (odometer + Zeckendorf carry); open seed = a *decidable* carry-depth sub-classification (the eventually-periodic / finite-state end) — unassessed this session. |
-| **betti α=1** | `b₁ = NS²−1 = 1/α₃` closed; open is conceptual (does `NS²−1` recur in the other forced constants? a `c`-dependent higher `b_k`?) — a synthesis question, not a bounded Lean target. |
+## Unresolved from This Session
+None — both bridges closed cleanly.  Self-corrected dead end to NOT re-attempt:
+`ring_intZ` does **not** expand `^` (treats `x^2` as an opaque atom) — write
+polynomial identities with explicit `*` (`x*x`), as in `GoldenFieldBridge.bPoly`.
 
-## ★ Primitive-root marathon (route a → full Zolotarev) — IN PROGRESS
-
-The committed-to multi-session build of `(ℤ/p)*` cyclic ⟹ Zolotarev nontriviality witness.
-**Bricks done (all PURE):**
-- **brick 0** `MulOrder.lean` (12) — `ordModP`, `fermat`, `pow_ord`, `ord_min`,
-  `ord_dvd` (`aᵏ≡1 ⟹ ord∣k`), `ord_dvd_p_sub_one`.
-- **brick 1** `Lcm213.lean` (11) — ℕ `lcm` + universal property `lcm_dvd` **without Bezout**
-  (`gcd_div_coprime` + `euclid_of_coprime`), `gcd_mul_lcm` (`g·lcm = a·b`).
-- **brick 2** `OrderPow.lean` (3) — `ord_mod_eq` (order depends only on base mod `p`) + ★
-  `ord_pow` (`ord(aᵏ) = ord(a)/gcd(ord(a),k)`).
-- **brick 3** `CoprimeOrder.lean` (1+2) — ★ `ord_mul_coprime`
-  (`gcd(ord a, ord b) = 1 ⟹ ordModP ((a·b)%p) p = ord a · ord b`), via the product collapse +
-  `euclid_of_coprime` + brick 1's `coprime_mul_dvd` (`lcm_dvd` + `gcd_mul_lcm`).
-
-- **brick 4a** `MaxOrder.lean` (13) — `maxOrd p` (max of `ordModP a p` over `[1,p−1]`) + pure
-  `nmax`; `maxOrd_ge`, ★★ `maxOrd_achieved` (`= ordModP g p`, some unit `g`), `one_le_maxOrd`,
-  `maxOrd_le_pred` (`1 ≤ maxOrd ≤ p−1`).  The exponent-argument scaffolding.
-
-- **brick 4b-i** `Meta/Nat/Valuation.lean` (15) — the `q`-adic valuation `vp q n` (largest `k`
-  with `qᵏ∣n`): `pow_vp_dvd`, `vp_ge`, `vp_not_dvd_succ` (exactness), `le_vp_iff`.  (Core `Nat`
-  dvd/mod API is propext-tainted — decides on `n%qᵏ=0` + pure dvd helpers throughout.)
-- **brick 4b-ii** `QPart.lean` (6) — `qpart q n := q^(vp q n)`; `qpart_dvd`, `qpart_pos`,
-  `gcd_eq_of_dvd` (`b∣a ⟹ gcd a b = b`), `q_not_dvd_quot` (`q∤(n/qpart)`),
-  `gcd_qpow_qfree` (`gcd(qᵉ,B)=1` for `q` prime, `q∤B`).
-- **brick 4b-iii** `ValuationAlg.lean` (5) — `vp_mul` (`vp q(a·b)=vp q a+vp q b`); ★★★
-  `exists_prime_vp_gt` (`α∤d ⟹ ∃ prime q, vp q α > vp q d`, via `gcd_div_coprime` ⟹
-  `vp(d/g)=0`).  Plus `vp_eq_of`/`vp_eq_zero`/`one_le_vp`.  *(`OrderPow.not_dvd_pow` exposed
-  this session for 4b-iv.)*
-
-- **brick 4b-iv** `EveryOrdDvdMax.lean` (3) — ★★★★ `every_ord_dvd_maxOrd` (THE EXPONENT
-  ARGUMENT, the crux): for a unit `a`, `ordModP a p ∣ maxOrd p`.  Pure proof-by-contradiction
-  via the decidable `maxOrd % ord = 0` (no Classical `by_contra`).  **The exponent argument /
-  every-order-divides-maxOrd is now CLOSED — the hardest part of the marathon is done.**
-
-- **brick 5** `PrimitiveRoot.lean` (9) — ★★★ `maxOrd_eq_pred` (`maxOrd p = p−1`, via
-  `RootBound.eval_zero` on `pmoSucc(maxOrd−1) = X^maxOrd−1` with the `p−1` distinct units
-  `segInt 1 (p−1)`, each a root by `pow_maxOrd_eq_one`); ★★★★ `exists_primitive_root`
-  (`∃ g, 1 ≤ g ≤ p−1 ∧ ordModP g p = p−1`).  **Primitive-root existence CLOSED.**
-
-- **brick 6 — DONE** `ZolotarevConverse.lean` (4 PURE) — **the converse reduction**.
-  `qr_dec` (QR membership decidable via bounded `firstSqrt`); `mul_neg_one_int` (pure
-  `x·(−1)=−x`); ★★★ `nonqr_psign_neg` — given **one** non-residue `a₀` with
-  `psign(mulPerm a₀)=−1`, every non-residue `a` is odd (`a·a₀` is a residue by `legendre_mul`,
-  even by `psign_mulPerm_qr_pred`, so `psign(mulPerm a)·(−1)=1` by `psign_mulPerm_hom`); ★★★★★
-  `zolotarev_iff` — full `psign(mulPerm a p)=1 ⟺ a` QR, modulo the single odd witness.
-
-- **brick 7 — DONE** `ZolotarevCycle.lean` (47 PURE) — **the odd-cycle witness**, closing the
-  **FULL Zolotarev identity**.  ★★★★★ `zolotarev_full` — for an odd prime `p` (`2m=p−1`, `m≥1`),
-  unit `1≤a<p`: `psign(mulPerm a p)=1 ⟺ a` QR.  ★★★ `psign_mulPerm_primitive` —
-  `psign(mulPerm g p)=−1` for a primitive root `g`: `mulPerm g` (fixing `0`, a `(p−1)`-cycle) is
-  conjugate to the standard rotation `cycS=[0,p−1,1,…,p−2]` via the discrete-log list
-  `τ(i)=g^(p−1−i)%p` (`conj_eq` by `getD`-ext + `conj_pointwise` `g·τ(i)≡τ(S(i))`), so `psign` (a
-  class function: `psign_mul` + `±1` self-cancel) gives `psign(mulPerm g)=psign(cycS)`; `psign_cycS
-  =−1` from `inversions_cycS=p−2` (`asc` calculus) + `altSign_odd`.  `cycS`/`τ ∈ perms p`
-  (`sFun_inj`; discrete-log injectivity `pow_inj_mod` via `res_cancel`+`ord_dvd`+`pow_period`).
-  `primitive_not_qr` (`ord g=2m∤m`).  **Primitive-root marathon COMPLETE; full Zolotarev CLOSED.**
-
-## Marathon closed — Zolotarev `(a/p) = sign(x↦a·x mod p)` is ∅-axiom end-to-end
-bricks 0–7 (MulOrder → Lcm213 → OrderPow → CoprimeOrder → MaxOrder → Valuation/QPart/ValuationAlg
-→ EveryOrdDvdMax → PrimitiveRoot → ZolotarevConverse → ZolotarevCycle).  `zolotarev_full` is the
-keystone; `1/α_em`-adjacent number theory now has the Legendre character realised as a permutation
-sign, all PURE.
-
-## Next (other threads)
-- Residue-unit decidable carry-depth (assess `Theory/Raw/Odometer`); `Zp.diagLimit` abstraction.
+## Next
+Push and merge this branch to `main`.  After merge: attack Open Problem 2 (the
+buildable `legendre213 5 p = psign σ_5` edge) — it ties the rank law to the
+Zolotarev converse and would close insight 6 in Lean; or Open Problem 1 (the
+`p`-tupling identity for general-`p` higher valuation).
 
 ## Three-tier state
-- **No promotions needed**: the determinant/sign narrative lives in
-  `theory/essays/algebra/{permutation_sign_as_homomorphism,determinant_as_quotient_characteristic}.md`;
-  the disc-`−8` is folded into `representation_theorems_one_counting_bound.md`; euler/QR in
-  `theory/math/numbertheory/quadratic_reciprocity.md`.
-- **Active frontier board**: `research-notes/frontiers/` — updated this session.
+- **Promotions this session**: in-place upgrades — rank law → `theory/math/
+  numbertheory/fibonacci_5adic_valuation.md` (§ + key-results rows); morphism →
+  `theory/essays/synthesis/the_golden_prime.md` (open frontier CLOSED).  Log row 44.
+- **Essay**: `theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md`
+  (row 45).
+- **Promotion candidates**: none outstanding for this arc (closed + promoted).
+- **Active scratchpad**: `frontiers/fibonacci_golden_prime_crossdomain.md`
+  (insights 1, 6 + higher-νₚ open; 2–5 closed/proven).
 
 ## File Map
 ```
-lean/E213/Lib/Math/Algebra/CayleyDickson/Integer/ZSqrtNegTwoSquare.lean  ← disc-−8 iff (11 PURE, new)
-lean/E213/Lib/Math/Algebra/CayleyDickson.lean                            ← +import
-lean/E213/Lib/Math/Algebra/Linalg213/PermMatrixDet.lean                  ← det(permMatrix)=psign (8 PURE, new)
-lean/E213/Lib/Math/Algebra/Linalg213/ColumnLaplace.lean                  ← column Laplace (2 PURE, new)
-lean/E213/Lib/Math/Algebra/Linalg213.lean                                ← +2 imports
-STRICT_ZERO_AXIOM.md                                                     ← +3 module entries
-theory/essays/synthesis/representation_theorems_one_counting_bound.md    ← disc-−8 closure folded in
-research-notes/frontiers/{sums_of_squares_engines,euler_criterion_converse,INDEX}.md  ← status updated
-lean/E213/Lib/Math/NumberSystems/Padic/SetoidMul.lean                    ← mul ZpSeqEquiv identities (11 PURE, new)
-lean/E213/Lib/Math/NumberSystems/Padic/TeichmullerI5.lean                ← i₅ = teichmuller (5 PURE, new)
-lean/E213/Lib/Math/NumberSystems/Padic.lean                              ← +2 imports
+lean/E213/Lib/Math/NumberTheory/DyadicFSM/RankApparition.lean ← NEW, 10 PURE (rank law from Legendre)
+lean/E213/Lib/Math/NumberTheory/DyadicFSM.lean                ← +RankApparition import
+lean/E213/Lib/Math/NumberTheory/GoldenFieldBridge.lean        ← NEW, 10 PURE (shared ℚ(√5) morphism)
+lean/E213/Lib/Math.lean                                       ← +GoldenFieldBridge import
+theory/math/numbertheory/fibonacci_5adic_valuation.md         ← +general-p rank law §, key-results rows
+theory/essays/synthesis/the_golden_prime.md                   ← open frontier → CLOSED
+theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md ← NEW essay
+theory/essays/INDEX.md, theory/INDEX.md                       ← essays 76 → 77
+research-notes/frontiers/fibonacci_golden_prime_crossdomain.md ← insights 3,5 CLOSED; 6–8 + νₚ open recorded
+research-notes/frontiers/INDEX.md                             ← Fibonacci entry CLOSED/Open updated
+research-notes/promotion_essay_log.md                         ← rows 44 (promotion) + 45 (essay)
+STRICT_ZERO_AXIOM.md                                          ← +RankApparition + GoldenFieldBridge entry (20 PURE)
 ```

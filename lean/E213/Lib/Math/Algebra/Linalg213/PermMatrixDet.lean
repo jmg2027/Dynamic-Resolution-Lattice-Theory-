@@ -1,180 +1,190 @@
-import E213.Lib.Math.Algebra.Linalg213.DetRowOps
-import E213.Lib.Math.Algebra.Linalg213.DetTriangular
+import E213.Lib.Math.Algebra.Linalg213.Laplace
 import E213.Lib.Math.Algebra.Linalg213.PermSign
 
 /-!
 # Linalg213 — the determinant of a permutation matrix is its sign
 
-The two readings of a permutation, identified: `det (permMatrix σ) = psign σ`.  A permutation
-value-list `σ` reads as a matrix `permMatrix σ` (row `i` carries its `1` in column `σ i`) and as
-a sign `psign σ = (−1)^(inversions σ)`.  The determinant of the one is the other.
+`det (permMatrix σ) = psign σ` — the **two readings of a permutation** coincide.  A
+permutation `σ` (carried as its value list) has two independent numerical invariants:
 
-The proof reuses the **bubble-sort reduction** already powering `PermSign.psign_mul`: an adjacent
-position-swap `swapAt` is a **row swap** of `permMatrix` (`det_swapRows` negates the determinant,
-`psign_swapAt` negates the sign), and `descent_of_inv_pos` drives `σ` down to `iota n` where the
-matrix is lower-triangular with unit diagonal (`det_lower_triangular`, value `1`) and the sign is
-`(−1)^0 = 1`.  Both halves track the *same* sign at every transposition.  All ∅-axiom.
+  · its **sign** `psign σ` — `(−1)` to the inversion count (`Permutation.psign`);
+  · the **determinant** of its permutation matrix `permMatrix σ` (a `1` in row `i`,
+    column `σ i`).
+
+This file proves they are the same integer.  The proof runs through the Leibniz form
+`leibDet (permMatrix σ) = Σ_τ psign τ · Πᵢ [σ i = τ i]`: the diagonal product
+`Πᵢ [σ i = τ i]` is `1` when `τ = σ` and `0` otherwise (a permutation matrix selects
+exactly the permutation that built it), so the sum collapses to the single surviving
+term `psign σ` — using that the enumeration `perms n` lists `σ` exactly once (nodup).
+The recursive determinant follows by `Laplace.leibDet_eq_det`.
+
+All ∅-axiom (over `Int213`).
 -/
 
 namespace E213.Lib.Math.Algebra.Linalg213.PermMatrixDet
 
-open E213.Lib.Math.Algebra.Linalg213.DetN (det minor det_congr)
-open E213.Lib.Math.Algebra.Linalg213.DetRowOps (swapRows det_swapRows)
-open E213.Lib.Math.Algebra.Linalg213.DetTriangular (prodZ det_lower_triangular prodZ_map_one)
+open E213.Lib.Math.Algebra.Linalg213.DetN (det altSign)
 open E213.Lib.Math.Algebra.Linalg213.Permutation
-  (swapAt swapAt_prefix psign inversions iota perms)
-open E213.Lib.Math.Algebra.Linalg213.PermSign
-  (psign_swapAt descent_of_inv_pos sorted_perm_eq_iota inv_prefix_swap swapAt_mem_perms
-   inv_zero_imp_sorted)
-open E213.Lib.Math.Algebra.Linalg213.PermClosure (perm_length lt_of_mem_iota map_eq_of_mem length_iota)
-open E213.Lib.Math.Algebra.Linalg213.PermGroup (getD_iota)
-open E213.Tactic.List213 (getD_ge length_append)
+  (prodDiagFrom psign leibTerm leibDet perms iota sumZ inversions LPerm)
+open E213.Lib.Math.Algebra.Linalg213.PermClosure
+  (Nodup nodup_permsOf nodup_iota nodup_head_not_mem nodup_tail perm_length map_eq_of_mem
+   permsOf_complete)
+open E213.Lib.Math.Algebra.Linalg213.PermSign (sorted_iota sorted_imp_inv_zero)
+open E213.Lib.Math.Algebra.Linalg213.Laplace (leibDet_eq_det)
 
-/-- The permutation matrix of a value-list: row `i` has a `1` in column `σ i`, else `0`. -/
+/-! ## §0 — the permutation matrix -/
+
+/-- The **permutation matrix** of a value list `σ`: a `1` in row `i` at column `σ.getD i 0`,
+    `0` elsewhere.  Row `i` is the indicator of the value `σ` sends `i` to. -/
 def permMatrix (σ : List Nat) : Nat → Nat → Int :=
   fun i j => if σ.getD i 0 = j then 1 else 0
 
-/-! ## §1 — `getD` at and around the swapped pair -/
+/-! ## §1 — the diagonal product selects the building permutation
 
-/-- `(pre ++ a :: rest).getD pre.length 0 = a`. -/
-theorem getD_at_len : ∀ (pre : List Nat) (a : Nat) (rest : List Nat),
-    (pre ++ a :: rest).getD pre.length 0 = a
-  | [],       a, rest => rfl
-  | p :: pre, a, rest => getD_at_len pre a rest
+`prodDiagFrom (permMatrix σ) i suf` is the product of `[σ (i+k) = suf_k]` over the suffix.
+It is `1` exactly when `suf` matches `σ` from offset `i`, and `0` as soon as one index
+disagrees. -/
 
-/-- `(pre ++ a :: b :: rest).getD (pre.length + 1) 0 = b`. -/
-theorem getD_at_len_succ : ∀ (pre : List Nat) (a b : Nat) (rest : List Nat),
-    (pre ++ a :: b :: rest).getD (pre.length + 1) 0 = b
-  | [],       a, b, rest => rfl
-  | p :: pre, a, b, rest => getD_at_len_succ pre a b rest
+/-- All-match ⟹ the diagonal product is `1`: if `suf` agrees with `σ` from offset `i`
+    at every position, every indicator factor is `1`. -/
+theorem prodDiag_permMatrix_one (σ : List Nat) : ∀ (i : Nat) (suf : List Nat),
+    (∀ j, j < suf.length → σ.getD (i + j) 0 = suf.getD j 0) →
+    prodDiagFrom (permMatrix σ) i suf = 1
+  | _, [],     _ => rfl
+  | i, h :: t, hmatch => by
+    show permMatrix σ i h * prodDiagFrom (permMatrix σ) (i + 1) t = 1
+    have hd : σ.getD i 0 = h := hmatch 0 (Nat.succ_pos t.length)
+    have hf : permMatrix σ i h = 1 := by
+      show (if σ.getD i 0 = h then (1 : Int) else 0) = 1
+      rw [if_pos hd]
+    rw [hf, Int.one_mul]
+    refine prodDiag_permMatrix_one σ (i + 1) t (fun j hj => ?_)
+    have hidx : i + (j + 1) = (i + 1) + j := (Nat.add_succ i j).trans (Nat.succ_add i j).symm
+    have hstep := hmatch (j + 1) (Nat.succ_lt_succ hj)
+    rw [hidx] at hstep
+    exact hstep
 
-/-- Off the two swapped positions, swapping the pair leaves `getD` unchanged. -/
-theorem getD_swap_outside : ∀ (pre : List Nat) (y x : Nat) (l : List Nat) (i : Nat),
-    i ≠ pre.length → i ≠ pre.length + 1 →
-    (pre ++ x :: y :: l).getD i 0 = (pre ++ y :: x :: l).getD i 0
-  | [],       y, x, l, i, h0, h1 => by
-    cases i with
-    | zero => exact absurd rfl h0
-    | succ i' =>
-      cases i' with
-      | zero => exact absurd rfl h1
-      | succ i'' => rfl
-  | p :: pre, y, x, l, i, h0, h1 => by
-    cases i with
-    | zero => rfl
-    | succ i' =>
-      show (pre ++ x :: y :: l).getD i' 0 = (pre ++ y :: x :: l).getD i' 0
-      exact getD_swap_outside pre y x l i'
-        (fun h => h0 (congrArg (· + 1) h)) (fun h => h1 (congrArg (· + 1) h))
+/-- A single mismatch ⟹ the diagonal product is `0`: at the first disagreeing index the
+    indicator factor vanishes, zeroing the product. -/
+theorem prodDiag_permMatrix_zero (σ : List Nat) : ∀ (i : Nat) (suf : List Nat) (k : Nat),
+    k < suf.length → σ.getD (i + k) 0 ≠ suf.getD k 0 →
+    prodDiagFrom (permMatrix σ) i suf = 0
+  | _, [],     k, hk, _   => absurd hk (Nat.not_lt_zero k)
+  | i, h :: t, 0, _,  hne => by
+    show permMatrix σ i h * prodDiagFrom (permMatrix σ) (i + 1) t = 0
+    have hd : ¬ σ.getD i 0 = h := hne
+    have hf : permMatrix σ i h = 0 := by
+      show (if σ.getD i 0 = h then (1 : Int) else 0) = 0
+      rw [if_neg hd]
+    rw [hf, E213.Meta.Int213.zero_mul]
+  | i, h :: t, k + 1, hk, hne => by
+    show permMatrix σ i h * prodDiagFrom (permMatrix σ) (i + 1) t = 0
+    have hidx : i + (k + 1) = (i + 1) + k := (Nat.add_succ i k).trans (Nat.succ_add i k).symm
+    have hrec : prodDiagFrom (permMatrix σ) (i + 1) t = 0 := by
+      refine prodDiag_permMatrix_zero σ (i + 1) t k (Nat.lt_of_succ_lt_succ hk) ?_
+      rw [hidx] at hne; exact hne
+    rw [hrec, E213.Meta.Int213.mul_comm, E213.Meta.Int213.zero_mul]
 
-/-! ## §2 — an adjacent position-swap is a row swap of the permutation matrix -/
+/-- The diagonal product of `permMatrix σ` over `σ` itself is `1`. -/
+theorem prodDiag_permMatrix_self (σ : List Nat) :
+    prodDiagFrom (permMatrix σ) 0 σ = 1 :=
+  prodDiag_permMatrix_one σ 0 σ (fun j _ => by rw [Nat.zero_add])
 
-/-- ★ **`permMatrix (pre ++ x :: y :: l) = swapRows pre.length (pre.length+1) (permMatrix (pre ++
-    y :: x :: l))`** (pointwise): swapping two adjacent entries of `σ` swaps the two corresponding
-    rows of `permMatrix σ`. -/
-theorem permMatrix_swap_pointwise (pre : List Nat) (y x : Nat) (l : List Nat) (i j : Nat) :
-    permMatrix (pre ++ x :: y :: l) i j
-      = swapRows pre.length (pre.length + 1) (permMatrix (pre ++ y :: x :: l)) i j := by
-  by_cases h1 : i = pre.length
-  · subst h1
-    show (if (pre ++ x :: y :: l).getD pre.length 0 = j then (1 : Int) else 0)
-       = (if pre.length = pre.length then permMatrix (pre ++ y :: x :: l) (pre.length + 1) j
-          else if pre.length = pre.length + 1 then permMatrix (pre ++ y :: x :: l) pre.length j
-          else permMatrix (pre ++ y :: x :: l) pre.length j)
-    rw [if_pos rfl, getD_at_len pre x (y :: l)]
-    show (if x = j then (1 : Int) else 0)
-       = (if (pre ++ y :: x :: l).getD (pre.length + 1) 0 = j then (1 : Int) else 0)
-    rw [getD_at_len_succ pre y x l]
-  · by_cases h2 : i = pre.length + 1
-    · subst h2
-      show (if (pre ++ x :: y :: l).getD (pre.length + 1) 0 = j then (1 : Int) else 0)
-         = (if pre.length + 1 = pre.length then permMatrix (pre ++ y :: x :: l) (pre.length + 1) j
-            else if pre.length + 1 = pre.length + 1 then permMatrix (pre ++ y :: x :: l) pre.length j
-            else permMatrix (pre ++ y :: x :: l) (pre.length + 1) j)
-      rw [if_neg h1, if_pos rfl, getD_at_len_succ pre x y l]
-      show (if y = j then (1 : Int) else 0)
-         = (if (pre ++ y :: x :: l).getD pre.length 0 = j then (1 : Int) else 0)
-      rw [getD_at_len pre y (x :: l)]
-    · show (if (pre ++ x :: y :: l).getD i 0 = j then (1 : Int) else 0)
-         = (if i = pre.length then permMatrix (pre ++ y :: x :: l) (pre.length + 1) j
-            else if i = pre.length + 1 then permMatrix (pre ++ y :: x :: l) pre.length j
-            else permMatrix (pre ++ y :: x :: l) i j)
-      rw [if_neg h1, if_neg h2, getD_swap_outside pre y x l i h1 h2]
-      rfl
+/-! ## §2 — index of disagreement for distinct equal-length lists -/
 
-/-! ## §3 — base: the identity-shaped matrix at `iota n` -/
+/-- Two distinct lists of equal length disagree at some in-range index (constructive). -/
+theorem getD_ne_of_ne : ∀ (L1 L2 : List Nat), L1.length = L2.length → L1 ≠ L2 →
+    ∃ k, k < L1.length ∧ L1.getD k 0 ≠ L2.getD k 0
+  | [],      [],      _,  hne => absurd rfl hne
+  | [],      _ :: _,  hl, _   => Nat.noConfusion hl
+  | _ :: _,  [],      hl, _   => Nat.noConfusion hl
+  | a :: as, b :: bs, hl, hne => by
+    by_cases hab : a = b
+    · have hasbs : as ≠ bs := fun e => hne (by rw [hab, e])
+      rcases getD_ne_of_ne as bs (Nat.succ.inj hl) hasbs with ⟨k, hk, hkne⟩
+      exact ⟨k + 1, Nat.succ_lt_succ hk, hkne⟩
+    · exact ⟨0, Nat.succ_pos as.length, hab⟩
 
-/-- ★ **`det n (permMatrix (iota n)) = 1`** — `permMatrix (iota n)` is lower-triangular with a
-    unit diagonal. -/
-theorem det_permMatrix_iota (n : Nat) : det n (permMatrix (iota n)) = 1 := by
-  rw [det_lower_triangular n (permMatrix (iota n)) (fun i j hij => by
-        show (if (iota n).getD i 0 = j then (1 : Int) else 0) = 0
-        have hne : (iota n).getD i 0 ≠ j := by
-          rcases Nat.lt_or_ge i n with hin | hin
-          · rw [getD_iota n i hin]; exact Nat.ne_of_lt hij
-          · rw [getD_ge 0 (by rw [length_iota]; exact hin)]
-            exact Nat.ne_of_lt (Nat.lt_of_le_of_lt (Nat.zero_le i) hij)
-        rw [if_neg hne])]
-  rw [map_eq_of_mem (fun i => permMatrix (iota n) i i) (fun _ => (1 : Int)) (fun i hi => by
-        show (if (iota n).getD i 0 = i then (1 : Int) else 0) = 1
-        rw [getD_iota n i (lt_of_mem_iota hi), if_pos rfl]),
-      prodZ_map_one]
+/-! ## §3 — the per-term characterization + the surviving-term sum -/
 
-/-! ## §4 — the bubble-sort reduction -/
+/-- For permutations `σ, p ∈ perms n`, the diagonal product of `permMatrix σ` over `p`
+    is `1` if `p = σ` and `0` otherwise. -/
+theorem prodDiag_permMatrix_eq_ite (n : Nat) (σ p : List Nat)
+    (hσ : σ ∈ perms n) (hp : p ∈ perms n) :
+    prodDiagFrom (permMatrix σ) 0 p = if p = σ then 1 else 0 := by
+  by_cases hpσ : p = σ
+  · rw [if_pos hpσ, hpσ]; exact prodDiag_permMatrix_self σ
+  · rw [if_neg hpσ]
+    have hlen : σ.length = p.length := (perm_length hσ).trans (perm_length hp).symm
+    rcases getD_ne_of_ne σ p hlen (fun e => hpσ e.symm) with ⟨k, hk, hkne⟩
+    exact prodDiag_permMatrix_zero σ 0 p k (hlen ▸ hk) (by rw [Nat.zero_add]; exact hkne)
 
-/-- Fuel-bounded `det (permMatrix σ) = psign σ` (induction on `inversions σ ≤ fuel`). -/
-theorem det_permMatrix_aux : ∀ (fuel n : Nat) (σ : List Nat), σ ∈ perms n →
-    inversions σ ≤ fuel → det n (permMatrix σ) = psign σ
-  | 0, n, σ, hσ, hf =>
-    by
-      have hz : inversions σ = 0 := Nat.le_antisymm hf (Nat.zero_le _)
-      have hiota : σ = iota n := sorted_perm_eq_iota n σ (inv_zero_imp_sorted σ hz) hσ
-      have hL : det n (permMatrix σ) = 1 := by rw [hiota]; exact det_permMatrix_iota n
-      have hR : psign σ = 1 := by show E213.Lib.Math.Algebra.Linalg213.DetN.altSign (inversions σ) = 1; rw [hz]; rfl
-      rw [hL, hR]
-  | fuel + 1, n, σ, hσ, hf =>
-    by
-      by_cases hz : inversions σ = 0
-      · have hiota : σ = iota n := sorted_perm_eq_iota n σ (inv_zero_imp_sorted σ hz) hσ
-        have hL : det n (permMatrix σ) = 1 := by rw [hiota]; exact det_permMatrix_iota n
-        have hR : psign σ = 1 := by show E213.Lib.Math.Algebra.Linalg213.DetN.altSign (inversions σ) = 1; rw [hz]; rfl
-        rw [hL, hR]
-      · obtain ⟨pre, y, x, l, he, hxy⟩ := descent_of_inv_pos σ hz
-        subst he
-        have hlen : (pre ++ y :: x :: l).length = n := perm_length hσ
-        have hk1n : pre.length + 1 < n := by
-          rw [← hlen, length_append pre (y :: x :: l)]
-          exact Nat.add_lt_add_left (Nat.succ_lt_succ (Nat.succ_pos l.length)) pre.length
-        have hkn : pre.length < n := Nat.lt_of_succ_lt hk1n
-        -- the swapped list S = pre ++ x :: y :: l ∈ perms n with one fewer inversion
-        have hSperm : (pre ++ x :: y :: l) ∈ perms n := by
-          have hm := swapAt_mem_perms n pre.length (pre ++ y :: x :: l) hσ
-          rwa [swapAt_prefix pre y x l] at hm
-        have hSf : inversions (pre ++ x :: y :: l) ≤ fuel := by
-          have hf' := hf
-          rw [inv_prefix_swap pre y x l hxy] at hf'
-          exact Nat.le_of_succ_le_succ hf'
-        -- det of S = − det of O (row swap)
-        have hdetS : det n (permMatrix (pre ++ x :: y :: l))
-            = - det n (permMatrix (pre ++ y :: x :: l)) := by
-          rw [det_congr n (permMatrix_swap_pointwise pre y x l)]
-          exact det_swapRows n pre.length (pre.length + 1)
-            (Nat.ne_of_lt (Nat.lt_succ_self pre.length)) hkn hk1n (permMatrix (pre ++ y :: x :: l))
-        -- recursion + sign flip
-        have hrec : det n (permMatrix (pre ++ x :: y :: l)) = psign (pre ++ x :: y :: l) :=
-          det_permMatrix_aux fuel n (pre ++ x :: y :: l) hSperm hSf
-        have hps : psign (pre ++ x :: y :: l) = - psign (pre ++ y :: x :: l) := by
-          have h := psign_swapAt pre y x l (Ne.symm (Nat.ne_of_lt hxy))
-          rwa [swapAt_prefix pre y x l] at h
-        rw [show det n (permMatrix (pre ++ y :: x :: l))
-              = - det n (permMatrix (pre ++ x :: y :: l)) from by rw [hdetS, Int.neg_neg],
-            hrec, hps, Int.neg_neg]
+/-- `a · 0 = 0` over `ℤ` (propext-free). -/
+private theorem mul_zero' (a : Int) : a * 0 = 0 :=
+  (E213.Meta.Int213.mul_comm a 0).trans (E213.Meta.Int213.zero_mul a)
 
-/-- ★★★ **The determinant of a permutation matrix is the permutation's sign.**
-    `det n (permMatrix σ) = psign σ` for any `σ ∈ perms n` — the two readings of a permutation
-    (matrix vs. sign) coincide. -/
+/-- `a + 0 = a` over `ℤ` (propext-free). -/
+private theorem add_zero' (a : Int) : a + 0 = a :=
+  (E213.Meta.Int213.add_comm a 0).trans (E213.Meta.Int213.zero_add a)
+
+/-- A selector sum over a list with no `a`: every indicator is `0`, so the sum is `0`. -/
+theorem sumZ_select_zero (f : List Nat → Int) : ∀ (L : List (List Nat)) (a : List Nat),
+    a ∉ L → sumZ (L.map (fun p => f p * (if p = a then 1 else 0))) = 0
+  | [],     _, _ => rfl
+  | b :: l, a, h => by
+    show f b * (if b = a then 1 else 0)
+          + sumZ (l.map (fun p => f p * (if p = a then 1 else 0))) = 0
+    by_cases hba : b = a
+    · subst hba; exact absurd (List.Mem.head l) h
+    · rw [if_neg hba, mul_zero', E213.Meta.Int213.zero_add,
+          sumZ_select_zero f l a (fun hm => h (List.Mem.tail b hm))]
+
+/-- ★★ **The surviving-term sum**: in a nodup list `L` containing `a`, the selector sum
+    `Σ_{p∈L} f p · [p = a]` collapses to `f a` (only the `p = a` term survives). -/
+theorem sumZ_select (f : List Nat → Int) : ∀ (L : List (List Nat)),
+    Nodup L → ∀ (a : List Nat), a ∈ L →
+    sumZ (L.map (fun p => f p * (if p = a then 1 else 0))) = f a
+  | [],     _,   _, ha => by cases ha
+  | b :: l, hnd, a, ha => by
+    show f b * (if b = a then 1 else 0)
+          + sumZ (l.map (fun p => f p * (if p = a then 1 else 0))) = f a
+    cases ha with
+    | head =>
+      rw [if_pos rfl, E213.Meta.Int213.mul_one,
+          sumZ_select_zero f l b (nodup_head_not_mem hnd), add_zero']
+    | tail _ hal =>
+      by_cases hba : b = a
+      · subst hba; exact absurd hal (nodup_head_not_mem hnd)
+      · rw [if_neg hba, mul_zero', E213.Meta.Int213.zero_add,
+            sumZ_select f l (nodup_tail hnd) a hal]
+
+/-! ## §4 — the theorem -/
+
+/-- ★★★ **Leibniz determinant of a permutation matrix is its sign**
+    (`leibDet (permMatrix σ) = psign σ`), for `σ ∈ perms n`. -/
+theorem leibDet_permMatrix (n : Nat) (σ : List Nat) (hσ : σ ∈ perms n) :
+    leibDet n (permMatrix σ) = psign σ := by
+  show sumZ ((perms n).map (leibTerm (permMatrix σ))) = psign σ
+  rw [map_eq_of_mem (leibTerm (permMatrix σ))
+        (fun p => psign p * (if p = σ then 1 else 0))
+        (fun p hp => by
+          show psign p * prodDiagFrom (permMatrix σ) 0 p = psign p * (if p = σ then 1 else 0)
+          rw [prodDiag_permMatrix_eq_ite n σ p hσ hp])]
+  exact sumZ_select psign (perms n) (nodup_permsOf (nodup_iota n)) σ hσ
+
+/-- ★★★ **Determinant of a permutation matrix is its sign**: `det (permMatrix σ) = psign σ`
+    for `σ ∈ perms n` — the sign reading and the determinant reading of a permutation agree. -/
 theorem det_permMatrix (n : Nat) (σ : List Nat) (hσ : σ ∈ perms n) :
-    det n (permMatrix σ) = psign σ :=
-  det_permMatrix_aux (inversions σ) n σ hσ (Nat.le_refl _)
+    det n (permMatrix σ) = psign σ := by
+  rw [← leibDet_eq_det]
+  exact leibDet_permMatrix n σ hσ
+
+/-! ## §5 — sanity: the identity permutation matrix has determinant `1` -/
+
+/-- `permMatrix (iota n)` is the identity matrix; its determinant is `psign (iota n) = 1`. -/
+theorem det_permMatrix_iota (n : Nat) : det n (permMatrix (iota n)) = 1 := by
+  rw [det_permMatrix n (iota n) (permsOf_complete (iota n) (iota n) (LPerm.refl (iota n)))]
+  show altSign (inversions (iota n)) = 1
+  rw [sorted_imp_inv_zero (iota n) (sorted_iota n)]; rfl
 
 end E213.Lib.Math.Algebra.Linalg213.PermMatrixDet
