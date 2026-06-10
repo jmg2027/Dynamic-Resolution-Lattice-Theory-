@@ -1,7 +1,7 @@
 import E213.Meta.Int213
 import E213.Meta.Int213.Bound
 import E213.Meta.Int213.PolyIntMTactic
-import E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
+import E213.Lib.Math.Combinatorics.IntGridSum
 import E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
 
 /-!
@@ -34,7 +34,7 @@ All `∅`-axiom (the identity is pure `gridSumZ` linearity + `ring_intZ`).
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteLichnerowicz
 
 open E213.Meta.Int213
-open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
+open E213.Lib.Math.Combinatorics.IntGridSum (gridSumZ
   gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_const)
 open E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite (kab_inner)
 

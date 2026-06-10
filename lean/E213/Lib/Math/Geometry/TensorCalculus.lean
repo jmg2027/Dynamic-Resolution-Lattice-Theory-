@@ -1,7 +1,7 @@
 import E213.Meta.Int213
 import E213.Meta.Int213.Bound
 import E213.Meta.Int213.PolyIntMTactic
-import E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
+import E213.Lib.Math.Combinatorics.IntGridSum
 
 /-!
 # General-`n` tensor calculus I: Christoffel symbols of the first kind (∅-axiom)
@@ -32,7 +32,7 @@ The second-kind `Γ^l_{ij} = g^{lm}Γ_{mij}` and the Riemann/Ricci tensors need 
 namespace E213.Lib.Math.Geometry.TensorCalculus
 
 open E213.Meta.Int213
-open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
+open E213.Lib.Math.Combinatorics.IntGridSum (gridSumZ
   gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_const
   gridSumZ_fubini gridSumZ_delta_weight gridSumZ_zero_fn gridSumZ_nonneg)
 

@@ -1,7 +1,7 @@
 import E213.Meta.Int213
 import E213.Meta.Int213.Bound
 import E213.Meta.Int213.PolyIntMTactic
-import E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
+import E213.Lib.Math.Combinatorics.IntGridSum
 
 /-!
 # Discrete Bakry–Émery Γ-calculus + the Bochner identity — A6 core, rung 6 (∅-axiom)
@@ -40,7 +40,7 @@ take the neighbourhood values directly.  All zero-axiom.
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery
 
 open E213.Meta.Int213
-open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
+open E213.Lib.Math.Combinatorics.IntGridSum (gridSumZ
   gridSumZ_succ gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left
   gridSumZ_const gridSumZ_nonneg gridSumZ_zero_fn)
 

@@ -138,7 +138,7 @@ wall the `m = 3` hand computation only sidestepped concretely, and a Cauchy–Sc
 (`k = 2`: `k+3 = 5`, `sosGap = 2(b₀−b₁)²`).  The bound is **sharp** (`cd_complete_graph_sharp`): on any
 constant-neighbour configuration `sosGap = 0`, so `gamma2C = (k+3)·gammaC` *exactly* — `(m+2)/2` is the
 *actual* curvature of `K_m`, not just a lower bound, hence cannot be improved.  New generic infra:
-`gridSumZ_const`, `gridSumZ_nonneg` (`OllivierRicci.lean` §1).
+`gridSumZ_const`, `gridSumZ_nonneg` (`Combinatorics/IntGridSum`).
 
 **Rung 5 refinement — Ollivier `κ` for the complete graph `K_m`, general `m`** — ✅ **DONE**
 (`OllivierRicci.lean` §7, parametric, PURE).  The optimal-transport companion of the Bakry–Émery `K_m`
@@ -149,7 +149,7 @@ neighbours `{2,…,m−1}`).  The plan `kmPi` keeps the shared units on the diag
 (meet: `dualValue = transportCost = 1`) + `km_plan_optimal` (cost `≤` every coupling, via `km_coupling` +
 `kmF_lipschitz`): scaled `W₁ = 1`, so **Ollivier `κ = 1 − 1/(m−1) = (m−2)/(m−1) > 0`** for `K_m` (`m ≥ 3`),
 generalizing the §4 triangle (`m = 3`, `κ = ½`) and `→ 1` as `m → ∞`.  New generic infra: the Kronecker-`δ`
-grid sums `gridSumZ_delta`, `gridSumZ_delta_zero`, `gridSumZ_delta_weight` (`OllivierRicci.lean` §1).  Both
+grid sums `gridSumZ_delta`, `gridSumZ_delta_zero`, `gridSumZ_delta_weight` (`Combinatorics/IntGridSum`).  Both
 general-`m` complete-graph curvatures (Bakry–Émery `CD((m+2)/2,∞)` + Ollivier `(m−2)/(m−1)`) now stand.
 
 **Lin–Yau optimal `K` for `K_m`** — ✅ **DONE** (`BakryEmery.lean` §3, `lin_yau_curvature_complete`).

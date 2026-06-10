@@ -1,7 +1,7 @@
 import E213.Meta.Int213
 import E213.Meta.Int213.Bound
 import E213.Meta.Int213.PolyIntMTactic
-import E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
+import E213.Lib.Math.Combinatorics.IntGridSum
 
 /-!
 # Bakry–Émery curvature of the complete bipartite graph `K_{a,b}` — the DRLT core (∅-axiom)
@@ -38,7 +38,7 @@ at `a = 1` (`BakryEmery.lean` §4).  All `∅`-axiom.
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
 
 open E213.Meta.Int213
-open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
+open E213.Lib.Math.Combinatorics.IntGridSum (gridSumZ
   gridSumZ_succ gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_const
   gridSumZ_nonneg)
 
@@ -171,8 +171,8 @@ theorem kab_shell_sos (na nb : Nat) (x y : Nat → Int) :
 /-- ★★★★★ **`K_{a,b}` is `CD((3a−b)/2, ∞)` at an `A`-vertex when `b ≥ 2a−2`** (`b`-scaled:
     `b·gamma2 ≥ b(3a−b)·gammaC`).  In this "wide" regime the `X²`-coefficient `2b−4a+4 ≥ 0`,
     so the bound follows from `kab_shell_sos` with **no** Cauchy–Schwarz — both the
-    `X²`-term and the shell SOS are non-negative.  (Narrow `b < 2a−2`, incl. the DRLT
-    `K_{3,2}`, needs the discrete Cauchy–Schwarz `X² ≤ b·gammaC` — Phase 3b.)  At `a = 1`
+    `X²`-term and the shell SOS are non-negative.  (The narrow regime `b < 2a−2`, incl. the
+    DRLT `K_{3,2}`, needs the discrete Cauchy–Schwarz `X² ≤ b·gammaC`; see `kab_cd_narrow`.)  At `a = 1`
     (`na = 0`) this is the star centre `CD((3−b)/2,∞)` (`BakryEmery` §4). -/
 theorem kab_cd_wide (na nb : Nat) (x y : Nat → Int)
     (hwide : 2 * (na : Int) ≤ (nb : Int)) :
