@@ -144,7 +144,7 @@ theorem ord_min (a p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d =
 /-! ## §3 — `aᵏ ≡ 1 ⟹ ord ∣ k` -/
 
 /-- `a^(ord·q + r) ≡ aʳ (mod p)` — the `a^ord ≡ 1` collapse. -/
-private theorem pow_split_eq (a p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+theorem pow_split_eq (a p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
     (ha0 : 0 < a) (halt : a < p) (q r : Nat) :
     a ^ (ordModP a p * q + r) % p = a ^ r % p := by
   rw [pow_add_pure a (ordModP a p * q) r, pow_mul_loc a (ordModP a p) q]
