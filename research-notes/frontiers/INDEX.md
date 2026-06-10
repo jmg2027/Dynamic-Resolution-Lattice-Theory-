@@ -148,6 +148,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `curvature_spectrum_crossdomain` — **the discrete-curvature / spectrum branch ↔ merged
+  main** (rich-flow-open-frontier marathon).  Three bridges where this branch's curvature
+  + Lichnerowicz spectral work touches main's `(ℤ/p)*`-cyclic / character arc: (1) the `K_p`
+  Laplacian spectrum `{0,p}` (`km_eigenvalue`/`km_meanzero_eigen`) IS the **additive**-character
+  spectrum of `ℤ/p`, dual to main's **multiplicative** Legendre character — characters of the
+  cyclic group as eigen-data, two ways; (2) the central lattice `K_{3,2}` carries both a golden
+  (`5 = NS+NT`) and a curvature (`CD(3/2)` / Forman `−1`) signature, meeting at `a+b = 5`;
+  (3) "structure forces the invariant" — Lichnerowicz `CD(K) ⟹ λ₁ ≥ K` parallels cyclicity
+  forcing the quadratic character.  Bridge 1 buildable (the `m=p` instantiation); 2–3 conceptual.
 - `zolotarev_crossdomain` — **the Zolotarev / permutation-sign branch ↔ merged main**
   (converse-psign marathon).  Four bridges where this branch's closed Zolotarev
   (`psign σ_a = (a/p)`, all primes) + `InversionsAppend` combinatorics touch main's arcs:
