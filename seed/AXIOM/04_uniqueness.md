@@ -178,9 +178,10 @@ The proofs live under `lean/E213/Theory/Atomicity/`:
   - `PairForcing.lean` proves that, once arity = 2 and
     atomicity are imposed, `(NS, NT, d) = (3, 2, 5)` is the
     **unique** admissible shape.
-  - `ArityForcing.lean` and `ArityForcingGeneral.lean` close the
-    gap by forcing arity = 2 itself from the §2 axiom (no unary,
-    no ternary primitive).
+  - `ArityForcing.lean` (with the general `N < k` pigeonhole
+    form at `Lib/Math/Foundations/ArityForcingGeneral.lean`)
+    closes the gap by forcing arity = 2 itself from the §2 axiom
+    (no unary, no ternary primitive).
   - `NonDecomposable.lean` and `Alive.lean` capture the
     sub-properties that the atomicity constraint pins down.
   - `PrimitiveSizes.lean` enumerates the sub-`d` candidate sizes

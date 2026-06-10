@@ -26,6 +26,10 @@ import E213.Lib.Math.Cohomology.Tripartite
 import E213.Lib.Math.Cohomology.Universal
 import E213.Lib.Math.Cohomology.Examples.WhyDimFive
 import E213.Lib.Math.Cohomology.Bridge.XorPairCombine
+import E213.Lib.Math.Cohomology.Bridge.PredicateAsCochain
+import E213.Lib.Math.Cohomology.CrossGraphPattern
+import E213.Lib.Math.Cohomology.K33Unified
+import E213.Lib.Math.Cohomology.MediantCohomologyFunctor
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology`.
 

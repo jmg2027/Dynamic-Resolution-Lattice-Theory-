@@ -76,8 +76,9 @@ a single Lean statement at
     factors through Raw.
   - **From above** — the cluster `Theory/Atomicity/{Five,
     PairForcing, NonDecomposable, Alive, ArityForcing,
-    ArityForcingGeneral, PrimitiveSizes}` (§4.3).  Only one
-    shape is self-consistent.
+    PrimitiveSizes}` plus
+    `Lib/Math/Foundations/ArityForcingGeneral.lean` (§4.3).
+    Only one shape is self-consistent.
 
 The bundling theorem certifies all three simultaneously.
 

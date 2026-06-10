@@ -23,6 +23,7 @@ import E213.Lib.Math.Probability.Inequality.ChernoffGrade
 import E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation
 import E213.Lib.Math.Cohomology.Bridge.CutLog
 import E213.Lib.Math.Probability.Foundation.Capstone
+import E213.Lib.Math.Probability.Limit.LLNCauchy
 
 /-!
 # Probability 213 — umbrella

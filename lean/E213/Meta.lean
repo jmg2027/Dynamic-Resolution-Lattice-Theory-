@@ -8,6 +8,7 @@ import E213.Meta.Nat
 import E213.Meta.SelfRecognising
 import E213.Meta.Tactic
 import E213.Meta.ThreeDirectionUniqueness
+import E213.Meta.API
 
 /-! Spec-as-code entry point for `E213.Meta`.
 

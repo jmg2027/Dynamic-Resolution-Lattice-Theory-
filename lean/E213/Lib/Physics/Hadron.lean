@@ -6,6 +6,7 @@ import E213.Lib.Physics.Hadron.ProtonElectronRatio
 import E213.Lib.Physics.Hadron.ProtonG
 import E213.Lib.Physics.Hadron.ProtonMass
 import E213.Lib.Physics.Hadron.QuarkHierarchy
+import E213.Lib.Physics.Hadron.MtOverMc
 
 /-! Spec-as-code entry point for `E213.Lib.Physics.Hadron`.
 

@@ -21,8 +21,8 @@ fully determined.
 
 ## 1. Umbrella coverage
 
-Every top-level layer (`Term`, `Theory`, `Lens`, `Meta`, `App`,
-`OS`, `Lib/Math`, `Lib/Physics`) and every Math/Physics sub-tree
+Every top-level layer (`Term`, `Theory`, `Lens`, `Meta`,
+`Lib/Math`, `Lib/Physics`) and every Math/Physics sub-tree
 has an umbrella.  The top-level `Math.lean` / `Physics.lean`
 umbrellas import topical sub-umbrellas, not files directly.
 File counts per sub-tree are recomputed, not recorded here —
@@ -38,9 +38,9 @@ recompute the distribution.
 mechanical computation.  `Lib/Math/X.lean` files' mechanical layer
 is distributed across {Term, Theory, Lens, Meta} — the path
 encodes the *topical* axis only.  `Lib` is the horizontal topical
-ring, not a rung in the vertical `{Term < Theory < Lens < Meta <
-App}` ordering, so Lens-layer files may import Lib (verified by
-`layer_audit.py`).
+ring, not a rung in the vertical `{Term < Theory < Lens}` ordering
+(`Meta` is ring-independent per `ARCHITECTURE.md`), so Lens-layer
+files may import Lib (verified by `layer_audit.py`).
 
 **Invariant**: no file imports a layer above its claimed level.
 `tools/layer_audit.py` must report `## Violations: 0`.
@@ -77,7 +77,7 @@ Full rule definitions: `CONSOLIDATION_PROTOCOL.md`.
 ```bash
 cd lean
 lake build E213.Term E213.Theory E213.Lens E213.Meta \
-            E213.App E213.OS E213.Lib.Math E213.Lib.Physics
+            E213.Lib.Math E213.Lib.Physics
 # Each should report ✔ Built E213.<Layer>.
 
 python3 ../tools/layer_audit.py | head -10

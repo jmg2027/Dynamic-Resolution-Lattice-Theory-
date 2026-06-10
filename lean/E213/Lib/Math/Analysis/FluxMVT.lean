@@ -21,6 +21,7 @@ import E213.Lib.Math.Analysis.FluxMVT.FluxSeries
 import E213.Lib.Math.Analysis.FluxMVT.MVTWitnessCatalog
 import E213.Lib.Math.Analysis.FluxMVT.MVTWitnessChain
 import E213.Lib.Math.Analysis.FluxMVT.TelescopingConservation
+import E213.Lib.Math.Analysis.FluxMVT.QuintupleTelescope
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Analysis.FluxMVT`.
 

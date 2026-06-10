@@ -9,7 +9,7 @@ These are the **first non-trivial witnesses** for the
 `Meta.SelfRecognising` axiom-game.  Each cluster has shape
 (carrier · arithmetic · domain · instance · hom).
 
-## Files (26)
+## Files (31)
 
 ### ZI = ℤ[i] (Gaussian integers)
   - `ZI.lean`           — type + arithmetic
@@ -61,6 +61,11 @@ These are the **first non-trivial witnesses** for the
 
 ### Hurwitz integers (ℤ[ω] quaternionic extension)
   - `Hurwitz213.lean`         — Hurwitz quaternion integers
+  - `HurwitzTower.lean` — Type D Hurwitz CD-doubling tower — L1 and L2
+  - `UnitsToModular.lean` — modular generators `S, U` as regular-representation images of the units
+  - `ZOmegaQuadAlgebra213.lean` — `ZOmegaQuad` as a `MoufangIntegerNormed213` instance
+  - `ZSqrtMinus2Algebra213.lean` — `L3T` (= CDDouble ZSqrt[-2]) Algebra213 bridge
+  - `ZSqrtMinus2TowerDeep.lean` — ZSqrt[-2] tower — deeper layers L7, L8, L9
 
 ## Sibling buckets (in `CayleyDickson/`)
 

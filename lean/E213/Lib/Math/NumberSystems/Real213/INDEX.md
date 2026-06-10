@@ -1,4 +1,4 @@
-# Real213 — Module Index (sub-organized 2026-05-13)
+# Real213 — Module Index
 
 213-native real-number type via Dedekind cut.  67 files in 7 sub-clusters.
 
@@ -153,6 +153,17 @@
   - `ModularGeodesicLens.lean` — ★ the geodesic engine as a Raw-Lens:
     `mediantLens` + `mediantLens_view_reachable` (mediant-Lens view ⊆
     `SternBrocotReachable`, ∅-axiom) — the residue read at `ℍ/PSL(2,ℤ)`.
+
+**`cutSumN` associativity closures + named-`b` cut bundles**:
+  - `ThirdValidCut.lean` / `FifthValidCut.lean` / `HalfValidCut.lean` —
+    bundled `b = 3 / 5 / 2` cuts, explicit `ValidCutN` instances closing
+    `cutSumN` associativity at their denominators.
+  - `CutSumAssocB3.lean` — `cutSum_assoc` at `b ≥ 3`, the
+    precision-artifact honest closure.
+  - `PellFibCutBridge.lean` — the Pell convergents ARE the Fibonacci
+    convergents (∀n, PURE).
+  - `OracleContinuity.lean` — oracle-based continuity, eliminating the
+    ε-δ residue from `Real213`.
 
 ## Architecture notes
 

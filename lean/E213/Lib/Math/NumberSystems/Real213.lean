@@ -112,6 +112,20 @@ import E213.Lib.Math.NumberSystems.Real213.TowerNativeCompleteness
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCertifiedBracket
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerModulus
 import E213.Lib.Math.NumberSystems.Real213.NuEscape
+import E213.Lib.Math.NumberSystems.Real213.CutSumAssocB3
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpConvergents
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutLogCauchyConvCapstone
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.PiCut
+import E213.Lib.Math.NumberSystems.Real213.FifthValidCut
+import E213.Lib.Math.NumberSystems.Real213.HalfValidCut
+import E213.Lib.Math.NumberSystems.Real213.Mul.Mobius213CutMulNPhase3
+import E213.Lib.Math.NumberSystems.Real213.OracleContinuity
+import E213.Lib.Math.NumberSystems.Real213.PellFibCutBridge
+import E213.Lib.Math.NumberSystems.Real213.ProbeTwistDynamics
+import E213.Lib.Math.NumberSystems.Real213.ProbeTwistFixedPoint
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumNMixed
+import E213.Lib.Math.NumberSystems.Real213.ThirdValidCut
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberSystems.Real213`.
 
