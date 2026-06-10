@@ -71,7 +71,10 @@ modulus is the growth class of `N` in `k`, and it factors as
    degree-3 brick as an exponent) and degree e (`ePow_at_two = 7`, the kernel
    evaluating `eulerCauchySeq.N` inside the schedule), and iterated once:
    `eSelfScheduled` — e rescheduled by a schedule querying e's own modulus,
-   limit-preserving (`reschedule_limit_eq`).  Still open here: *tightness* of
+   limit-preserving (`reschedule_limit_eq`).  **And the degree-as-cut backbone is LANDED** (`powSched_mono`: exponent-cut
+   order transports to schedule order, so the threshold "a degree-τ schedule
+   suffices for x" is monotone — a cut one level up; its decidability = the
+   effective-μ question, Roth-grade).  Still open here: *tightness* of
    `dyUp` (lower witness needs the ratio/rescale property), and a real whose
    *intrinsic* degree is irrational (Jarník construction) rather than a
    rescheduled presentation.

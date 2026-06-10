@@ -301,4 +301,74 @@ theorem eSelfScheduled_limit_eq (m k : Nat) :
     eSelfScheduled.limit m k = eulerCauchySeq.limit m k :=
   reschedule_limit_eq eulerCauchySeq _ _ m k
 
+/-! ## §8 — degree order transports to schedule order (the degree-as-cut backbone)
+
+Exponent cuts are ordered by `τ₁ ≤ τ₂ ⟺ (τ₂'s true-set ⊆ τ₁'s)` (a larger real
+affirms fewer probes).  The schedule functional is **monotone** along this
+order: a larger degree never yields a smaller schedule.  This is what makes
+"the degree of a real" a *cut-shaped* threshold over exponent cuts — the
+predicate "a degree-τ schedule suffices for `x`" is monotone in τ, so its
+threshold is a cut one level up.  (Whether that threshold is *decidable* is
+exactly the effectivity question of the exact degree — Roth-grade content,
+recorded on the frontier board, not claimed here.) -/
+
+theorem pow_le_pow_exp {k : Nat} (hk : 1 ≤ k) {a b : Nat} (h : a ≤ b) :
+    k^a ≤ k^b := by
+  rw [← E213.Tactic.NatHelper.add_sub_of_le h, pow_add k a (b-a)]
+  have h1 : k^a * 1 ≤ k^a * k^(b-a) := Nat.mul_le_mul_left _ (one_le_pow hk (b-a))
+  rwa [Nat.mul_one] at h1
+
+theorem rootCeil_mono (q : Nat) (hq : 1 ≤ q) {x₁ x₂ : Nat} (h : x₁ ≤ x₂) :
+    rootCeil q x₁ ≤ rootCeil q x₂ := by
+  refine Nat.le_of_not_lt (fun hlt => ?_)
+  have hless : (rootCeil q x₂)^q < x₁ := rootCeil_least q x₁ _ hlt
+  exact Nat.lt_irrefl _
+    (Nat.lt_of_le_of_lt (Nat.le_trans h (rootCeil_sound q x₂ hq)) hless)
+
+/-- ★★ **Degree order ⟹ dyadic-reading order**: if every probe `τ₂` affirms,
+    `τ₁` affirms too (`τ₁ ≤ τ₂`), then the upper readings stay ordered at every
+    precision. -/
+theorem dyUp_mono (c₁ c₂ : Nat → Nat → Bool) (B : Nat)
+    (hle : ∀ m k, c₂ m k = true → c₁ m k = true) :
+    ∀ j, dyUp c₁ B j ≤ dyUp c₂ B j
+  | 0 => Nat.le_refl B
+  | j+1 => by
+      have ih := dyUp_mono c₁ c₂ B hle j
+      show (cond (c₁ (2 * dyUp c₁ B j - 1) (2^(j+1)))
+              (2 * dyUp c₁ B j - 1) (2 * dyUp c₁ B j))
+         ≤ (cond (c₂ (2 * dyUp c₂ B j - 1) (2^(j+1)))
+              (2 * dyUp c₂ B j - 1) (2 * dyUp c₂ B j))
+      have hLub : (cond (c₁ (2 * dyUp c₁ B j - 1) (2^(j+1)))
+              (2 * dyUp c₁ B j - 1) (2 * dyUp c₁ B j)) ≤ 2 * dyUp c₁ B j := by
+        cases c₁ (2 * dyUp c₁ B j - 1) (2^(j+1)) with
+        | true => exact Nat.sub_le _ _
+        | false => exact Nat.le_refl _
+      cases hc2 : c₂ (2 * dyUp c₂ B j - 1) (2^(j+1)) with
+      | false => exact Nat.le_trans hLub (Nat.mul_le_mul_left 2 ih)
+      | true =>
+        by_cases heq : dyUp c₁ B j = dyUp c₂ B j
+        · rw [heq]
+          cases hc1 : c₁ (2 * dyUp c₂ B j - 1) (2^(j+1)) with
+          | true => exact Nat.le_refl _
+          | false => rw [hle _ _ hc2] at hc1; exact absurd hc1 (by decide)
+        · have hlt : dyUp c₁ B j < dyUp c₂ B j := Nat.lt_of_le_of_ne ih heq
+          refine Nat.le_trans hLub (E213.Tactic.NatHelper.le_sub_of_add_le ?_)
+          have h2 : 2 * (dyUp c₁ B j + 1) ≤ 2 * dyUp c₂ B j :=
+            Nat.mul_le_mul_left 2 hlt
+          rw [Nat.mul_add, Nat.mul_one] at h2
+          exact Nat.le_trans (Nat.add_le_add_left (by decide) (2 * dyUp c₁ B j)) h2
+
+/-- ★★★ **Degree order ⟹ schedule order**: the composed schedule is monotone
+    in the exponent cut.  The backbone of "degree is a cut over exponent cuts":
+    the threshold of "a degree-τ schedule suffices" is a monotone boundary. -/
+theorem powSched_mono (c₁ c₂ : Nat → Nat → Bool) (B : Nat)
+    (hle : ∀ m k, c₂ m k = true → c₁ m k = true) (k : Nat) :
+    powSched c₁ B k ≤ powSched c₂ B k := by
+  match k with
+  | 0 => exact Nat.le_refl _
+  | t+1 =>
+    exact rootCeil_mono (2^(t+1))
+      (E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut.two_pow_pos (t+1))
+      (pow_le_pow_exp (Nat.succ_le_succ (Nat.zero_le t)) (dyUp_mono c₁ c₂ B hle (t+1)))
+
 end E213.Lib.Math.NumberSystems.Real213.ModulusComposition
