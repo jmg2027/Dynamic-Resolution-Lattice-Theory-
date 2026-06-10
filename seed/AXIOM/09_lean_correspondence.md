@@ -67,10 +67,11 @@ a single Lean statement at
 `lean/E213/Meta/ThreeDirectionUniqueness.lean`:
 
   - **From below** — `Meta/AxiomMinimality.lean` and its
-    capstone (§4.1).  No clause can be removed.
+    capstone `Meta/AxiomMinimalityCapstone.lean` (§4.1).  No
+    clause can be removed.
   - **Sideways** — the witness family
-    `Lens/Universal/Witnesses/{Core, Nat2, Nat2Inj, Q213,
-    Q213Inj, Nat3, Q213_3, TripleCapstone, Padding,
+    `Lens/Universal/Witnesses/{Core, Nat2, Nat2Inj, Nat3, Nat4,
+    Q213, Q213Inj, Q213_3, TripleCapstone, Padding,
     PaddingCapstone}` (§4.2).  Any distinguishability framework
     factors through Raw.
   - **From above** — the cluster `Theory/Atomicity/{Five,
@@ -121,10 +122,10 @@ For §5:
 
 The directory `seed/AXIOM/` is the **sole** axiom corpus.
 Derivation work belongs in `research-notes/` (active scratch)
-and in the Lean metatheory layer (`Meta/UniversalLens/`).
-Active narratives live in `theory/THEORY_BOOK.md` (single
-linearised reading path) and in per-area chapters at
-`theory/<math, physics, lens, meta>/`.
+and in the Lean tree (`Lens/Universal/`, `Meta/`).  Closed
+narratives live in `theory/` — `theory/INDEX.md` is the index,
+`theory/THEORY_BOOK.md` the single linearised reading path,
+with per-area chapters at `theory/<math, physics, lens, meta>/`.
 
 ---
 

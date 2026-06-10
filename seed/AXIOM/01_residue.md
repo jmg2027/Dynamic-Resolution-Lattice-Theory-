@@ -65,8 +65,8 @@ exist, and that forcing *is* the proof.  Cantor, Russell, Gödel, Turing, Tarski
 totality, exhibit the residue outside it.
 
 This is a theorem, not a slogan.  `Lens/Cardinality/Cantor.lean` `cantor_general` is the diagonal
-argument; `Lens/FlatOntologyClosure.lean` `object1_not_surjective` (`= cantor_raw_bool`) is its `Raw`
-instance, and it names the un-pointable surplus — the predicates outside the image of any `Raw`-indexed
+argument; `Lens/FlatOntologyClosure.lean` `object1_not_surjective` (derived from `cantor_raw_bool`) is its
+`Raw` instance, and it names the un-pointable surplus — the predicates outside the image of any `Raw`-indexed
 self-cover — **as the residue**.  So the residue is not merely *what reference leaves behind*; it is the
 *engine* of the deepest proofs about the infinite.
 

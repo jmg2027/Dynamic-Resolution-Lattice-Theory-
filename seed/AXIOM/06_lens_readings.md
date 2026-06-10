@@ -120,8 +120,8 @@ collapses: parser and printer are Lens-layer catamorphisms over
 the same Raw cascade, not external machinery.
 
 The full L2 + L3 + L4 realisation lives at
-`lean/E213/Lens/SyntacticInternalization.lean` — 25 strict
-∅-axiom symbols.
+`lean/E213/Lens/SyntacticInternalization.lean`, all strict
+∅-axiom.
 
 **L2 — the cascade halts at glyph encoding.**
 
@@ -209,11 +209,13 @@ The Lean realisations:
     indiscrete reading (singleton image, total kernel,
     globally-collapsed, coarsest-Lens), realising "K_∞ ≡ point
     ≡ trivial-topology" at the Lens-quotient level.  The file
-    also carries `constLens_collapses`,
-    `pre_lens_singleton`, `constLens_kernel_total` — the
-    constant-Lens collapse.
+    also carries `constLens_view_eq`, `constLens_equiv`,
+    `constLens_is_top` — the constant-Lens collapse — and
+    `topology_two_bookends`, which pairs the collapse with the
+    discrete bookend below.
   - `lean/E213/Lens/Algebra/IdLensEq.lean` — the discrete
-    bookend.  `idLens` kernel is exactly equality.
+    bookend.  `idLens_equiv_eq`: the `idLens` kernel is exactly
+    equality.
 
 ---
 
@@ -302,7 +304,7 @@ depth.
 
 ## §6.8 Atomic cofactors recur across domains
 
-The shape parameters `(NS, NT, d) = (3, 2, 5)` of §1.3 are not
+The shape parameters `(NS, NT, d) = (3, 2, 5)` of §4.3 are not
 just three numbers that appear in the atomic statement; they
 generate a small family of derived cofactors — `d − 1 = 4`,
 `d² = 25`, `d² − 1 = 24`, `NS · NT = 6`, `2 · NS · NT = 12`,

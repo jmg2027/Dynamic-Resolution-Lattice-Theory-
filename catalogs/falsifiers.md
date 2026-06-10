@@ -145,7 +145,7 @@ the framework.
 
 ## Stake formal
 
-  phase3_falsifiers : 19-conjunct, 0 axioms (Lean verified)
+  `falsifier_roster_forced` (next section) — ∅-axiom, Lean verified
 
 ## Forced-roster super-theorem (the integers are not fits)
 

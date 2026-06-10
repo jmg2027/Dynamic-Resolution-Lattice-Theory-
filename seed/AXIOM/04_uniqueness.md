@@ -25,20 +25,22 @@ A bundled statement asserting all three simultaneously lives at
 The first uniqueness reading is the **minimum from below**:
 weakening or removing any clause makes the framework collapse to
 trivial, static, or void.  This is mechanically verified in
-`lean/E213/Meta/AxiomMinimality.lean` and its capstone — a
-four-case formalisation that walks through each clause (the two
-atoms, the binary slash, the symmetry, the distinctness
+`lean/E213/Meta/AxiomMinimality.lean` and its capstone
+(`Meta/AxiomMinimalityCapstone.lean`, `raw_minimality_capstone`)
+— a four-case formalisation that walks through each clause (the
+two atoms, the binary slash, the symmetry, the distinctness
 precondition) and exhibits a collapse witness for its removal.
 
 Two further structures formalise the same minimum-from-below
 reading from different angles.  `Lens/SemanticAtom.lean` defines
-the typeclass `HasDistinguishing` and its `universalMorphism`,
-exhibiting Raw as the partial form of the initial object in the
-distinguishing-framework category.  The same file's
+the typeclass `HasDistinguishing` and its `universalMorphism` — the
+existence half of Raw's initiality in the distinguishing-
+framework category (§4.2 adds the uniqueness half via
+`Lens.view_unique`).  The same file's
 `exists_non_lens_expressible` carries a boundary witness: not
 every function `Raw → α` is Lens-expressible (depth parity is
 the explicit counterexample, mechanised in
-`Lens/Morphism/DepthParityNotFold.lean`).  This shows that the
+`Lens/Properties/Morphism/DepthParityNotFold.lean`).  This shows that the
 Lens language is non-trivial — not every function on Raw is a
 fold.  The boundary is internal, not an exhibited exterior
 (§1.0).  Note what the witness is made of: "depth" is a readout
@@ -68,9 +70,11 @@ declaration.
 
 The second reading targets the question "could a framework
 distinguish that *is* something different from Raw?"  The
-answer, formalised in `lean/E213/Meta/UniversalLens/`, is no —
-in two categorically separate senses that should not be
-conflated.  First, **initiality**: every `HasDistinguishing`
+answer — formalised across `Lens/SemanticAtom.lean` (the
+typeclass and the universal morphism), `Lens/Initiality.lean`
+(its uniqueness), and `Lens/Universal/Witnesses/` (the instance
+families) — is no, in two categorically separate senses that
+should not be conflated.  First, **initiality**: every `HasDistinguishing`
 instance receives the *unique* combine-preserving morphism from
 Raw (the universal morphism, realised by the catamorphism
 `Raw.fold`); this is the precise content of "factors through
@@ -118,8 +122,8 @@ content is that **Raw is the initial object in the category of
 homomorphisms**.
 
 The witness families `Lens/Universal/Witnesses/{Core, Nat2,
-Nat2Inj, Q213, Q213Inj, Nat3, Q213_3, TripleCapstone, Padding,
-PaddingCapstone}` realise the factoring for the codomains that
+Nat2Inj, Nat3, Nat4, Q213, Q213Inj, Q213_3, TripleCapstone,
+Padding, PaddingCapstone}` realise the factoring for the codomains that
 Lean can handle directly; the `*Inj` members carry the
 injectivity certificates — the faithful-Lens half of the §4.2
 opening.  An entity earns the description "meaningful" exactly
@@ -131,7 +135,7 @@ morphism.
 
 A useful contrast, scoped to exactly what the cited files prove.
 Certain functions are not folds (depth parity is the mechanised
-witness: `Lens/Morphism/NoDepthParity.lean`,
+witness: `Lens/Properties/Morphism/NoDepthParity.lean`,
 `DepthParityNotFold.lean`), and the objects ZFC commits to
 through its arbitrariness axioms — Power, Choice, arbitrary
 `P(X)` subsets — sit on that side: they have no fold-structured
@@ -198,11 +202,12 @@ atomicity + arity demands, and it is `(NS, NT, d) = (3, 2, 5)`.
 
 ## §4.4 Bundled
 
-The three readings are bundled into a single statement at
-`lean/E213/Meta/ThreeDirectionUniqueness.lean`, which certifies
+The three readings are bundled into a single statement —
+`three_direction_uniqueness` at
+`lean/E213/Meta/ThreeDirectionUniqueness.lean` — which certifies
 all three simultaneously: nothing weaker (`AxiomMinimality`),
-nothing distinct (`UniversalLens` witnesses), only one shape
-(`Atomicity` cluster).
+nothing distinct (the `Lens/Universal/Witnesses/` family), only
+one shape (`Atomicity` cluster).
 
 The architectural placement of the atomicity proofs (under
 `Theory/Atomicity/`) is canonicalised in
