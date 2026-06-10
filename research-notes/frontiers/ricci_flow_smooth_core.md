@@ -217,6 +217,17 @@ residual wall is the Ricci tensor of an *arbitrary* metric (general `g_{ij}`, it
 Christoffel/Riemann as index sums), transcendental metrics, and the *flow* with PDE a-priori
 estimates (and Ricci flow not preserving conformality for `n ≥ 3`).
 
+**General-metric tensor calculus opened** (`Geometry/TensorCalculus.lean`, PURE,
+dimension-free): the **Christoffel symbols of the first kind** `Γ_{kij} = ½(∂_i g_{kj} +
+∂_j g_{ki} − ∂_k g_{ij})` — the inverse-free part (no `g^{lm}`, no division) — with the
+genuine general-`n` identities `chris1_symm` (lower-pair symmetry / torsion-free),
+`chris1_metric_compat` (`Γ_{kij}+Γ_{jik} = ∂_i g_{kj}`, metric compatibility `∇g = 0`), and
+`chris1_flat`.  Dimension-free: indices arbitrary `Nat`, the metric enters only via its
+derivative tensor `dg a b c = ∂_a g_{bc}` (symmetric in the last two slots).  **Next rungs**:
+the second-kind `Γ^l_{ij} = g^{lm}Γ_{mij}` and the Riemann/Ricci tensors need the metric
+**inverse** `g^{lm}` (adjugate/`det` over ℤ) + second derivatives — the genuinely harder
+inverse-bearing layer.
+
 ## Verdict
 
 The round-sphere extinction is the honest *floor*.  General-`n` + transcendental-
