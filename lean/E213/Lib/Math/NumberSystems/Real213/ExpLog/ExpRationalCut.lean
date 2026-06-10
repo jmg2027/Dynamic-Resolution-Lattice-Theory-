@@ -40,10 +40,12 @@ open E213.Lens.Instances.AB (abLens)
 open E213.Lib.Math.Analysis.Cauchy.Archimedean (orderProj)
 open E213.Lib.Math.Analysis.Cauchy.PellSeq (abLens_witness)
 open E213.Lib.Math.Analysis.Cauchy.MonotonicBounded (IsAbMonotonic IsAbPositiveB)
+open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
 open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpUnitModulus
   (expNum expUDen expUDen_pos exp_pq_cross_det)
+open E213.Meta.Nat.NatRing213 (nat_mul_lt_mul_right)
 
 /-! ## §1 — positivity -/
 
@@ -229,5 +231,97 @@ theorem exp_two_localized (n : Nat) (hn : 5 ≤ n) :
     expPQCut 2 1 (Nat.le_refl 1) n 7 1 = false
     ∧ expPQCut 2 1 (Nat.le_refl 1) n 904 120 = true :=
   ⟨exp_two_above_7 n hn, exp_two_below_904_120 n (Nat.le_trans (by decide) hn)⟩
+
+/-! ## §5 — conditional completion: the measure-modulus schema instantiated
+
+`exp_pq_no_htel` killed the rate route; `AbCutSeq.toCauchySep` isolates what is
+genuinely missing: a **separation certificate**.  The bracket (§3) reduces it to one
+arithmetic hypothesis per resolution — *no fraction of denominator `k` lies in the
+`I k`-th bracket `[S_{I k}, U_{I k}/d_{I k + 1}]`* — and then `exp(p/q)` completes
+with the constructed modulus `N(m,k) = I k`.  Classically the hypothesis holds with
+`I k ≈ 2p/q + O(log k)` (the bracket width halves per layer; Padé/Hermite supplies the
+effective irrationality) — that arithmetic is the recorded open content
+(`modulus_degree_ladder.md` rung 2). -/
+
+/-- ★★★★ **The bracket reduces separation to one hypothesis.**  If every fraction
+    of denominator `k` at-or-above the `I k`-th convergent is strictly above the
+    `I k`-th upper bracket (`hmeas`), then any `false` reading anywhere already shows
+    at layer `I k`: below `I k` by nesting; above `I k` because the convergent sits
+    inside the bracket, squeezing a strict cycle (`d·m < a·k ≤ U-bracket < d·m`). -/
+theorem exp_pq_sep (p q : Nat) (hq : 1 ≤ q) (I : Nat → Nat)
+    (hI : ∀ k, 2 * p ≤ (I k + 2) * q)
+    (hmeas : ∀ m k, 1 ≤ k →
+      expNum p q (I k) * k ≤ expUDen q (I k) * m →
+      upNum p q (I k) * k < expUDen q (I k + 1) * m) :
+    ∀ m k, 1 ≤ k → ∀ i,
+      expPQCut p q hq i m k = false → expPQCut p q hq (I k) m k = false := by
+  intro m k hk i hfalse
+  cases hC : expPQCut p q hq (I k) m k with
+  | false => rfl
+  | true =>
+    have hCle : expNum p q (I k) * k ≤ expUDen q (I k) * m := by
+      have h := hC
+      rw [expPQCut_eq] at h
+      exact of_decide_eq_true h
+    have hup := hmeas m k hk hCle
+    have hilt : expUDen q i * m < expNum p q i * k := by
+      have h := hfalse
+      rw [expPQCut_eq] at h
+      exact Nat.lt_of_not_le (of_decide_eq_false h)
+    rcases Nat.le_total i (I k) with hcase | hcase
+    · have h : expPQCut p q hq (I k) m k = false :=
+        (expPQAb p q hq).cut_false_fwd m k i hfalse (I k) hcase
+      rw [hC] at h
+      exact Bool.noConfusion h
+    · obtain ⟨j, hj⟩ := Nat.le.dest hcase
+      have hbr : expNum p q (I k + j) * expUDen q (I k + 1)
+          ≤ upNum p q (I k) * expUDen q (I k + j) :=
+        exp_pq_le_upper p q (I k) hq (hI k) j
+      rw [hj] at hbr
+      have c1 : expUDen q i * m * expUDen q (I k + 1)
+          < expNum p q i * k * expUDen q (I k + 1) :=
+        nat_mul_lt_mul_right (expUDen_pos q hq (I k + 1)) hilt
+      have c2 : expNum p q i * k * expUDen q (I k + 1)
+          ≤ upNum p q (I k) * k * expUDen q i := by
+        calc expNum p q i * k * expUDen q (I k + 1)
+            = (expNum p q i * expUDen q (I k + 1)) * k := by ring_nat
+          _ ≤ (upNum p q (I k) * expUDen q i) * k := Nat.mul_le_mul hbr (Nat.le_refl k)
+          _ = upNum p q (I k) * k * expUDen q i := by ring_nat
+      have c3 : upNum p q (I k) * k * expUDen q i
+          < expUDen q (I k + 1) * m * expUDen q i :=
+        nat_mul_lt_mul_right (expUDen_pos q hq i) hup
+      have hcycle : expUDen q i * m * expUDen q (I k + 1)
+          < expUDen q i * m * expUDen q (I k + 1) := by
+        calc expUDen q i * m * expUDen q (I k + 1)
+            < expNum p q i * k * expUDen q (I k + 1) := c1
+          _ ≤ upNum p q (I k) * k * expUDen q i := c2
+          _ < expUDen q (I k + 1) * m * expUDen q i := c3
+          _ = expUDen q i * m * expUDen q (I k + 1) := by ring_nat
+      exact absurd hcycle (Nat.lt_irrefl _)
+
+/-- ★★★★★ **`exp(p/q)` completes conditionally, with a constructed modulus** — the
+    measure-modulus schema (`AbCutSeq.toCauchySep`) instantiated: given a schedule
+    `I` past the ratio threshold and the one bracket-separation hypothesis `hmeas`,
+    `exp(p/q)` is a genuine `CauchyCutSeq` with modulus `N(m,k) = I k`.  The entire
+    effective-irrationality cost of `exp` at a general rational is isolated in
+    `hmeas`; everything else — fold, bracket, schema — is constructed, ∅-axiom.
+    (The π-posture upgraded: not "modulus as hypothesis" but "modulus constructed
+    from one arithmetic hypothesis".) -/
+def expPQCauchySep (p q : Nat) (hq : 1 ≤ q) (I : Nat → Nat)
+    (hI : ∀ k, 2 * p ≤ (I k + 2) * q)
+    (hmeas : ∀ m k, 1 ≤ k →
+      expNum p q (I k) * k ≤ expUDen q (I k) * m →
+      upNum p q (I k) * k < expUDen q (I k + 1) * m) :
+    CauchyCutSeq :=
+  (expPQAb p q hq).toCauchySep I (exp_pq_sep p q hq I hI hmeas)
+
+/-- The conditional completion's limit is a real (`ValidCut`) — generic. -/
+theorem expPQCauchySep_limit_valid (p q : Nat) (hq : 1 ≤ q) (I : Nat → Nat)
+    (hI : ∀ k, 2 * p ≤ (I k + 2) * q)
+    (hmeas : ∀ m k, 1 ≤ k →
+      expNum p q (I k) * k ≤ expUDen q (I k) * m →
+      upNum p q (I k) * k < expUDen q (I k + 1) * m) :
+    ValidCut (expPQCauchySep p q hq I hI hmeas).limit :=
+  (expPQAb p q hq).toCauchy_limit_valid _ _
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpRationalCut

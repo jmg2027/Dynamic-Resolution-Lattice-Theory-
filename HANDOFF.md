@@ -153,24 +153,35 @@ convergent `872/120 > 7`, nesting-stable; upper: the `N = 4` bracket).  Together
 `exp_pq_no_htel` this is the exact ζ(3) symmetry: fold closed + provably-rate-free
 presentation + free modulus open.
 
+## Seventh arc: the conditional measure-modulus schema (ladder rung 2) built + exp instantiated
+
+`AbCutSeq.sep_cauchy` / `toCauchySep` (+ `cut_resolution_zero`): a separation schedule
+`I` ("every `false` reading at resolution `k` already shows at layer `I k`") completes
+**any** fold with the constructed modulus `N(m,k) = I k` — `Bool` case analysis +
+generic nesting, the transcendental's effective-irrationality cost isolated in `hsep`.
+`ExpRationalCut` §5 (`exp_pq_sep`, `expPQCauchySep`, module 21 PURE): the §3 bracket
+reduces `hsep` for `exp(p/q)` to ONE arithmetic hypothesis per resolution (no
+denominator-`k` fraction in the `I k`-th bracket; the above-schedule case closes by
+the strict squeeze `d·m < a·k ≤ U·bracket < d·m`).  So `exp(p/q)` now completes with
+a *constructed* modulus conditionally on `hmeas` — the π-posture upgraded.  Wallis-π
+instantiates `toCauchySep` in one line whenever its measure hypothesis is supplied.
+
 ## Open Problems (priority order)
-1. **`exp(p/q)` free total modulus**: dyadic-bracket *schedule* presentation
-   (`CubeRootTwoCut` pattern) **fed by `exp_pq_le_upper`'s bracket** (the bracket
-   width `2p^{N+1}/d_{N+1}` halves per step past the threshold — exactly a dyadic
-   schedule), OR the graded generator (`Dominates_s`, ladder rung 1), OR an effective
-   irrationality certificate (Padé).  First test: `exp(2)` from the `(7, 904/120]`
-   bracket.  Negative direction closed (`exp_pq_no_htel`).
+1. **Discharge `hmeas` for `exp(p/q)`** (the last open piece of the chain): the
+   Padé/Hermite effective irrationality of exp at rationals, with schedule
+   `I k ≈ 2p/q + O(log k)` (bracket halves per layer).  Alternatively the Hurwitz
+   continued fraction of `e^{2/q}`.  This is genuine number-theory formalization —
+   the single hypothesis the whole constructed chain now waits on.
 2. **ζ(3) free modulus** (merged frontier, `zeta3_free_modulus.md`): numerator
    integrality `2·lcm(1..n)³·aₙ ∈ ℕ` + `lcm(1..n) < 3ⁿ` (Hanson) ⟹ ζ(3) joins φ/e
-   in the unconditional real API.
+   in the unconditional real API; its fold can also ride `toCauchySep` once a
+   bracket-separation certificate exists.
 3. **Bochner coupling beyond the spectral case**: the gradient-commutation
-   *inequality* on a non-vertex-transitive graph (star / `K_{a,b}`) — the genuine
-   `CD(K,∞) ⟹ gradient estimate` implication.
+   *inequality* on a non-vertex-transitive graph (star / `K_{a,b}`).
 4. **Compactness extraction** (smooth remainder of wall item (iv)) — record-only.
-5. **Promotion**: the `GeometrizationConjecture` discrete-curvature sub-tree, and now
-   also the modulus-degree ladder cluster (`Zeta3Cut`/`CubeRootTwoCut`/
-   `ModulusComposition`/`ExpUnitModulus`/`ExpRationalCut` + `RateModulus`/
-   `RateStratification`) — check `theory/PROMOTION_CRITERIA.md`.
+5. **Promotion**: GeometrizationConjecture discrete-curvature sub-tree + the
+   modulus-degree ladder cluster (now incl. `ExpRationalCut` + the `toCauchySep`
+   schema) — check `theory/PROMOTION_CRITERIA.md`.
 
 ## Three-tier state
 - **Tier-2 added**: `WeightedGreen.lean`, `DiscreteGaussian.lean`, `DiscreteSurgery.lean`

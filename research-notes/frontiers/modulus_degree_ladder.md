@@ -95,11 +95,20 @@ modulus is the growth class of `N` in `k`, and it factors as
    `N(m,k) = k^s + 2`.  Makes "rescue" graded the way `CompletabilityGrade`
    already grades "break" (lex `(height, rate)` ordinal) — the two axes become
    symmetric.
-2. **Conditional measure-modulus schema** — `effective measure μ + Cauchy rate
-   ⟹ constructed N`.  Instance: Wallis-π with `μ(π) ≤ 7.11` would carry a
-   degree-≈7 modulus; the formalization cost of the measure is thereby isolated
-   in one hypothesis.  (π moves from "hypothesis modulus" to "conditional
-   degree-7 modulus".)
+2. **Conditional measure-modulus schema** — ✅ **the schema is BUILT**
+   (`AbCutSeq.sep_cauchy` / `toCauchySep`): a separation schedule `I : Nat → Nat`
+   ("every `false` reading at resolution `k` already shows at layer `I k`")
+   completes any fold with the constructed modulus `N(m,k) = I k` — the
+   effective-irrationality cost isolated in the one hypothesis `hsep`.
+   **Instantiated at `exp(p/q)`** (`ExpRationalCut` §5, `expPQCauchySep`): the §3
+   bracket reduces `hsep` to *one arithmetic statement per resolution* ("no
+   fraction of denominator `k` lies in the `I k`-th bracket"), with the strict
+   squeeze `d·m < a·k ≤ U-bracket < d·m` closing the above-schedule case.  What
+   remains open is supplying `hmeas` unconditionally (Padé/Hermite effective
+   irrationality of exp, `I k ≈ 2p/q + O(log k)`); Wallis-π instantiates the same
+   `toCauchySep` in one line whenever its `μ(π) ≤ 7.11`-grade separation
+   hypothesis is supplied (π moves from "hypothesis modulus" to "conditional
+   degree-7 modulus").
 3. **Two-real separation modulus** — the genuine `N(m1,k1)×N(m2,k2)` object:
    deciding `x ≤ y` for two folds needs a joint `|x−y|` lower bound.  The
    one-probe gap quantum `1/(k·d_i)` is already bilinear (probe × convergent,
