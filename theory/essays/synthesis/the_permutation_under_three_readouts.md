@@ -88,13 +88,43 @@ of the Teichmüller unit `ω(a) ∈ μ_{p−1}` (`Padic.teichmuller_pow_pred_tru
 `ω^(p−1) ≡ 1`), so Euler's criterion is the mod-`p` shadow of a statement about
 the `(p−1)`-th-root-of-unity torus, and `(a/p)` is `ω(a)` projected to `{±1}`.
 
+## The fourth readout — the companion (Casoratian) sign
+
+The same inversion-sign surfaces a fourth time, in sequence-depth rather than number
+theory. The companion matrix of an order-`(m+1)` linear recurrence is the cyclic shift, and
+its determinant carries the sign `altSign m`
+(`Cauchy.CasoratianDeterminant.det_companion`) — the multiplier of the Casoratian (Hankel)
+determinant at every step. That sign is not merely `(−1)^m`: it is the `psign` of an actual
+permutation. The `(m+1)`-cycle `(0 1 … m)` in one-line notation is `cycShift m = [1,…,m,0]`
+(`Linalg213.CyclicShiftSign.cycShift`), a certified rearrangement of `[0,…,m]`
+(`cycShift_perm_iota`, a rotation `LPerm`), whose inversion count is exactly `m` — the
+trailing `0` sits below all of `1…m` and the block itself is sorted
+(`cycShift_inversions`). So `psign (cycShift m) = altSign m` (`cycShift_psign`), and
+
+> `det (companion a (m+1)) = psign (cycShift m) · a 0`  (`CasoratianPermSign.companion_det_is_perm_sign`).
+
+And the *middle* readout applies literally: `cycShift m` is a genuine permutation, so its
+permutation matrix has determinant `det (permMatrix (cycShift m)) = altSign m`
+(`det_permMatrix_cycShift`, routing through `det_permMatrix`), and hence
+`det (companion a (m+1)) = det (permMatrix (cycShift m)) · a 0`
+(`companion_det_eq_permMatrix_det`) — the recurrence determinant and the permutation-matrix
+determinant coincide on the shift cycle.
+
+The depth multiplier of the determinantal ladder is the sign of the shift cycle — the *same*
+antisymmetric readout as `det(permMatrix)`, the Legendre symbol, and Euler's power. One
+permutation object, now read a fourth way: arithmetic depth (`a^((p−1)/2)`), counting
+(inversions / Gauss's `μ`), antisymmetrization (determinant), and **sequence depth** (the
+Casoratian multiplier). The multiplicative engine `psign_mul` / `det_mul` / `legendre_mul` is
+the one arrow under all four.
+
 ## Open frontier
 
-The middle equality is proven; the outer two edges are not yet wired in Lean. The
-ripe target is the Zolotarev edge itself — define the value-list of `×a mod p`,
-show it lies in `perms (p−1)` on units, and prove `psign (×a mod p) = (a/p)` by
-pairing the inversion count against Gauss's `μ`. That single ∅-axiom edge turns
-"one permutation, three readouts" from a picture into a theorem and closes the
-triangle `det (permMatrix (×a)) = (a/p)`. The p-adic lift (state the quadratic
-character as a `μ_{p−1}`-component identity on `ω`) is the second edge. Both are
-tracked in the `permutation_three_readouts` frontier.
+The Zolotarev edge is **closed for every odd prime**
+(`ModArith/ZolotarevMuBridge.zolotarev_mu`: `psign (×a mod p) = (a/p)`, via
+`det_permMatrix_mulPermMod` also `det (permMatrix (×a)) = (a/p)`) — the inversion
+count is paired against Gauss's `μ` by a symmetric-cross-count parity, so "one
+permutation, three readouts" is a theorem, not a picture.  See the dedicated
+chapter `theory/math/numbertheory/zolotarev.md` and the synthesis essay
+`the_legendre_symbol_is_the_sign_of_a_pointing.md`.  The remaining edge is the
+p-adic lift — state the quadratic character as a `μ_{p−1}`-component identity on
+the Teichmüller `ω` — tracked in the `permutation_three_readouts` frontier.

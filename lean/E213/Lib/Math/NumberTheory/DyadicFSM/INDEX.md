@@ -24,8 +24,11 @@ marathon adds FLT, Frobenius, F_{p²}, Binet-bridge infrastructure.
 
 ## Top-level standalone
 
-BitAuto2, ConcretePellSig, LucasFSMmod5, NumberTheory213,
-ThueMorse, TwoLayerPredictor — independent files.
+BitAuto2, ConcretePellSig, LucasFSMmod5, FibApparitionMod5,
+NumberTheory213, ThueMorse, TwoLayerPredictor — independent files.
+`FibApparitionMod5` — Fibonacci rank of apparition `α(5) = 5` at the
+ramified prime (`5 ∣ F_n ⟺ 5 ∣ n`) vs Lucas-never-zero (the
+singular/regular Binet split at the double root).
 
 G119 additions (top-level): BinetBridge, PellFibBridge,
 PellMatrixPigeonhole, PhiMod5, PsiMod5, MulOrderPigeonhole,

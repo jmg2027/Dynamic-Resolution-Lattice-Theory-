@@ -541,3 +541,90 @@ So "phase ∈ C₄" (`CPPhaseC4Forcing`) is not assumed — the Hodge structure 
 `d=5` cohomology IS the `C₄`, hence the phase is `90°`. Remaining open: the
 explicit `5̄⊕10` generation Yukawa from first principles; the ~1.5σ fit
 (irreducible, principled-ness over precision).
+
+---
+
+## ★★★ Multi-agent deep-dive (2026-06-08) — "why exactly 1/φ², is it the right value?"
+
+Four-agent investigation (repo archaeology + geometry + live data + theory).
+Net: the **value is structurally forced; the open part is one physical arrow; and
+the golden-ness is in the radius, not the angle**.  Five concrete findings.
+
+### 1. The value is canonical, not reverse-engineered (archaeology)
+`M=[[2,1],[1,1]]` is the **algebraic encoding of the 213 axiom itself**
+(`seed/AXIOM/03_form.md §3.5`, ∅-axiom `Mobius213.lean`): trace `=NS=3`, det `=1`,
+disc `=NS²−4 = 5 = NS+NT = d`, eigenvalues `(NS±√d)/2 = φ², 1/φ²`.  `M = Q²` with
+`Q=[[1,1],[1,0]]` the Fibonacci matrix (`FibonacciAtomicLock.P_eq_Q_squared`); also
+`M = R·L` (Stern–Brocot).  It appears in 17+ non-physics files (self-reference,
+Moufang-failure rate, Nat construction) **before** any CKM use.  So `R_u=1/φ²`'s
+forcing is real.
+
+### 2. The primitive form is `(NS−√d)/2`, not "1/φ²" (theory)
+Per "give meaning to nothing": `(NS−√d)/2 = (3−√5)/2` imports only the atomic
+counts + the quadratic formula; "1/φ²" smuggles the golden-ratio *name*.  Commit to
+`R_u = (NS−√d)/2`; "1/φ²" is the derived golden *reading*.  It also exposes the
+load-bearing coincidence **disc = NS²−4 = NS+NT = d**, true *only* at `(NS,NT)=(3,2)`
+(`9−4=5=3+2`) — a sub-question: selection or accident?  **RESOLVED — selection**
+(now ∅-axiom, `FibonacciAtomicLock.disc_eq_atomic_sum_selects_shape`): under
+`NT ≥ 1` (a time axis) and `NT < NS` (fewer time than space axes), the discriminant
+equation `ns²−4 = ns+nt` has the **unique** solution `(3,2)` — `nt<ns ⟹ ns²<2ns+4 ⟹
+ns≤3`; `nt≥1 ⟹ ns²≥ns+5 ⟹ ns≥3`.  So `d=5` (hence `√d=√5` in `R_u=(NS−√d)/2`) is
+*forced* by the self-reference discriminant, a second independent route to the atomic
+shape (cf. `Theory/Atomicity/PairForcing`).  Not an accident.
+
+### 3. CORRECTION — `1/φ²` is the eigenvalue, NOT the convergence rate
+The repo gloss "`1/φ²` = rate `P^n→φ` converges" is imprecise.  The Möbius
+multiplier at the fixed point is `P′(φ)=1/(φ+1)²=1/φ⁴` (the eigenvalue *ratio*
+`λ₋/λ₊`), a distinct quantity.  `1/φ²` is the contracting *eigenvalue* `λ₋` of the
+reciprocal pair `λ₊λ₋=det=1`.  (Fixed in `JarlskogApex.lean §5` docstring.)
+
+### 4. Why a SQUARE (modulus/de-signed-step) — the genuinely structural reason
+`M=Q²`.  One Fibonacci step has eigenvalues `φ, −1/φ` — the `−1/φ` is **signed**
+(the difference-Lens Bool readout).  Squaring kills the sign → `1/φ²` (positive).  A
+**modulus** is sign-free, so the apex *modulus* must be `1/φ²` (two-step, de-signed),
+**not** `1/φ` (one-step, negative): a modulus cannot equal a negative one-step
+eigenvalue.  The square is forced by "it's a modulus."  **Now ∅-axiom**
+(`Mobius213/Px/FibonacciAtomicLock.apex_modulus_is_designed_square`): `det Q = −1`
+(signed), `det P = (det Q)² = +1` (de-signed) ⟹ the contracting eigenvalue is
+positive (its own modulus) only at the `Q²` level (`1/φ²`); plus Vieta reciprocity
+(`λ₊λ₋ = det = 1`, `λ₊+λ₋ = trace = NS`) — the base-normalization data.
+
+### 5. The arrow to close the gap — `det=1` ↔ base-normalization
+The one missing step (candidate→theorem): *why the apex modulus = `λ₋` specifically*.
+Most promising route: `M` is unimodular (`det=1`) ⇒ reciprocal pair `λ₊λ₋=1`.  The
+unitarity triangle normalizes one leg (cb) to `1`.  Reciprocity (`λ₊λ₋=1`) **is**
+base-normalization (one leg ≡ `1` carries `λ₊`), forcing the **apex** to carry `λ₋`.
+Pure algebra (`det=1`), no fitting.  Build: express CKM in `M`'s eigenbasis and show
+the 1–3 (apex) sector inherits `λ₋`.
+
+### 6. Live-data verdict (UTfit/HFLAV 2024, fetched) — radius confirmed, can't resolve form
+`R_u = 0.3812 ± 0.0090` (UTfit Summer-2024), `0.3797 ± 0.0130` (HFLAV PDG-2024).
+`1/φ² = 0.38197` is **+0.08σ / +0.17σ** — consistent with *exactly* `1/φ²`.  Caveats:
+- Data **cannot distinguish** `1/φ²` from convergents `8/21, 13/34, 21/55` (cluster
+  within 0.15σ; need ~20× tighter `σ_Ru`).  And higher convergents do **not** fit
+  better — the limit sits closest to center (the "more-resolved = better" intuition
+  is wrong; convergents oscillate around the limit).
+- The match is a **global-fit** property.  Raw `|Vub/Vcb|` (incl or excl) gives
+  `R_u=0.40–0.42` (1–1.5σ high); the `|Vub|` incl/excl puzzle (~2–3σ) is a ~5%
+  irreducible systematic.  Inclusive `|Vub|` is *worse* for `1/φ²`.
+
+### 7. Limit vs convergent — resolved by presentation-invariance
+`1/φ²` (the exact root) is the right object **because the eigenvalue is
+presentation-invariant** (exact in `M`'s eigenbasis, no iteration needed), while a
+finite convergent `Pⁿ(x₀)` is presentation-dependent (depends on `n`, seed `x₀`).
+By the repo's own `PresentationDependence` logic the invariant object is the real.
+NOT "irrational so untouchable" — that would be the Real213-as-shield failure mode.
+
+### ★ Recommendation (the sharpest 213 position)
+**Decouple radius from angle.**
+- **Tier-1 (near-exact, forced-value):** `R_u = (NS−√d)/2 = 1/φ²` — the golden
+  *radius*.  `+0.1σ`.  Open arrow: finding (5).
+- **Tier-2 (separate, falsifiable, currently ~−1.6σ):** `α=90°` (right triangle,
+  from the proven Hodge `C₄`/`⋆²=−1`) ⟹ `ρ̄ = R_u² = 1/φ⁴ ≈ 0.146` vs observed
+  `ρ̄≈0.159`.  The `O(λ²)` Wolfenstein correction does **not** cure it (moves `ρ̄`
+  to `0.142`, wrong way).  With the *observed* `γ≈66°`, `R_u=1/φ²` reconstructs
+  `ρ̄=0.156, η̄=0.349` perfectly — so the angle is non-golden (`arccos(1/φ²)=67.5°`
+  is **not** a golden angle 36/72/108).
+Do **not** bundle a golden *length* with a non-golden *right angle*; the bundle
+hides the `ρ̄` tension and ties the program's strongest result (radius) to its
+weakest (α=90°).  State `ρ̄=1/φ⁴` loudly as the Tier-2 falsifier.

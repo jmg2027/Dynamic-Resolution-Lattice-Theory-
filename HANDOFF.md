@@ -1,8 +1,9 @@
 # Session Handoff — 2026-06-10 (Ricci-flow frontier: discrete curvature → spectrum → smooth Perelman tensor calculus)
 
 ## Branch & build state
-`claude/rich-flow-open-frontier-WIA6l` — pushed, ~32 commits ahead of `origin/main`.
-**Full `cd lean && lake build E213` ✓ clean (307/307)** — no downstream breakage.
+`claude/rich-flow-open-frontier-WIA6l` — pushed.  **`origin/main` merged in** (the
+primitive-root / full-Zolotarev marathon, ~133 commits; clean auto-merge, only HANDOFF
+conflicted).  **Full `cd lean && lake build E213` ✓ clean (307/307)** — no downstream breakage.
 All session modules strict ∅-axiom PURE (`tools/scan_axioms.py`): `OllivierRicci` 74/0,
 `BakryEmery` 42/0, `BakryEmeryBipartite` 16/0, `DiscreteLichnerowicz` 12/0,
 `ConformalCurvature` 18/0, `TensorCalculus` 23/0.

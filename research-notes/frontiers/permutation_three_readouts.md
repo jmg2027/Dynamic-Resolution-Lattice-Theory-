@@ -27,10 +27,15 @@ So the open synthesis is **one permutation, three readouts**:
 ```
    inversions (psign)  ──[PermMatrixDet, proven]──  det(permMatrix)
             │                                              │
-            └──────── Zolotarev (OPEN edge) ───────────────┘
+            └──────── Zolotarev (CLOSED, all p) ───────────┘
                               │
                     Legendre (a/p)  ──[main: gauss_qr / euler_criterion, proven]
 ```
+
+**The triangle is now a theorem for EVERY odd prime**
+(`ModArith/ZolotarevMuBridge.det_permMatrix_mulPermMod` and `.zolotarev_mu`):
+`det (permMatrix (mulPermMod a p)) = psign σ_a = 1 ⟺ a` is a QR.  All three readouts
+(`psign` = `det` = `(a/p)`) coincide universally.  ✅ **CLOSED** — see below for the proof.
 
 The frontier note `reciprocity_as_count_lens` already flagged "Zolotarev
 unification (`psign` sign side ↔ `gauss_qr` count side, one permutation two
@@ -47,14 +52,60 @@ the Legendre symbol is literally `det` of the permutation matrix of `×a mod p`.
 (`QR(a) ⟺ ∏ sgFn = 1 = (a/p)`) this is the residue side: the sign character agrees
 with the Legendre symbol on the quadratic-residue subgroup.
 
-**Residual (the converse / full identity):** `psign σ_a = (a/p)` for *every* unit
-needs the non-residue ⟹ odd-permutation direction (the character is *nontrivial*).
-Two routes, both needing infrastructure the repo lacks: (a) a **primitive root** `g`
-(then `σ_g` is a single `(p−1)`-cycle of sign `−1`, and the index-2 kernel argument
-closes it); (b) the **Gauss-`μ` parity bridge** `psign σ_a = (−1)^μ` via the
-`σ_a = (block lift) ∘ (μ within-pair flips)` decomposition through the half-system
-`[1,m]` (the `fold`/`sgFn` machinery already in `GaussLemma`).  Closing either gives
-the triangle `det (permMatrix (mulPermMod a p)) = (a/p)`.
+**Converse — closed on the `−1` axis + for `p ≡ 3 (mod 4)`**
+(`ModArith/ZolotarevConverse.lean`, 22 PURE): `σ_{-1}` is the reversal `[0, p−1, …, 1]`,
+whose inversion count `tri₂(p−1)` has parity `m`, so `psign σ_{-1} = (−1)^m`
+(`psign_mulPermMod_negone`).  `(−1)^m = 1 ⟺ m` even `⟺ p ≡ 1 mod 4 ⟺ −1` is a QR
+(`neg_one_qr_iff`), i.e. `psign σ_{-1}` **matches the Legendre symbol at `−1`**
+(`psign_mulPermMod_negone_qr`) — the `(−1/p)` corner of the inversion-sign square.
+For `p ≡ 3 (mod 4)`, `−1` is a *non-residue* with `psign σ_{-1} = −1`: the
+**nontriviality witness**.  Every non-residue `a` is then `(QR)·(−1)`
+(`legendre_mul`), so `psign σ_a = psign σ_{QR} · psign σ_{-1} = 1·(−1) = −1 = (a/p)`
+(`zolotarev_pmod4_three`) — the **full identity** for half the primes.
+
+**Residual (the last edge):** the full identity for `p ≡ 1 (mod 4)` (where `−1` is a
+*residue*, so the `−1` axis yields no nontriviality witness).  Two routes: (a) a
+**primitive root** `g` (then `σ_g` is a single `(p−1)`-cycle of sign `−1`, and the
+index-2 kernel argument closes it); (b) the **Gauss-`μ` parity bridge**
+`psign σ_a = (−1)^μ` via the `σ_a = (block lift) ∘ (μ within-pair flips)` decomposition
+through the half-system `[1,m]` (the `fold`/`sgFn` machinery already in `GaussLemma`).
+Closing either gives the triangle `det (permMatrix (mulPermMod a p)) = (a/p)` for all `p`.
+
+### μ-bridge blueprint — the S-free route (infra now built)
+
+The earlier "`σ_a = composeList B S`" plan needed a flip-permutation `S` with
+`psign S = (−1)^μ` (disjoint-transposition sign) **and** a composition identity — both
+hard.  A cleaner route **eliminates `S` entirely**: `σ_a` is *itself* in block form, because
+`σ_a(p−x) = (a(p−x)) % p = p − (a·x)%p = p − σ_a(x)`.  So as a value-list
+
+  `mulPermMod a p = 0 :: (fh ++ (revL fh).map (p − ·))`,  `fh = [σ_a(1), …, σ_a(m)]`.
+
+**Built infrastructure — COMPLETE** (`Linalg213/InversionsAppend.lean`, 26 PURE):
+- `inversions_append` / `psign_append` (cross term `crossInv L M = Σ_{x∈L} ltCount x M`);
+- propext-free reversal `revL` + `psign_csub_revL` (`psign ((revL L).map (c−·)) = psign L`);
+- ★ `psign_blockForm`: `psign (0 :: L ++ (revL L).map (p−·)) = altSign (crossInv L (…))` for
+  `L ≤ p` — so `psign σ_a = altSign (crossInv fh ((revL fh).map (p−·)))`, one cross count;
+- ★ `altSign_crossInv_map_psub`: `altSign (crossInv F (F.map (p−·))) = altSign (diagCount p F)`
+  (`psub_lt_symm` symmetry ⇒ off-diagonal pairs cancel mod 2; diagonal `diagCount p F`);
+- `getD`/`revL` plumbing (`length_append_pure`, `getD_append_left/right`, `revL_getD`,
+  `revL_length`) for the decomposition.
+
+So `psign σ_a = altSign (diagCount p fh)`, `fh = (seg m).map (fun x => (a·x)%p)`, and the
+diagonal `diagCount p fh = #{x∈fh : p−x<x} = #{x∈fh : x>m} = μ`.
+
+**✅ CLOSED** (`ModArith/ZolotarevMuBridge.lean`, 14 PURE) — the integration, exactly as planned:
+1. `mulPermMod_block` (`neg_mul_mod` + `list_ext_getD` over `i = 0 / [1,m] / [m+1,2m]`):
+   `mulPermMod a p = 0 :: (fhList a p m ++ (revL fhList).map (p−·))`.
+2. `psign_mulPermMod_eq_diag`: `psign σ_a = altSign (diagCount p fh)` (`psign_blockForm` +
+   `crossInv_lperm_right` + `altSign_crossInv_map_psub`).
+3. `altSign_diag_eq_prodSgn` (via `pm_lt`/`sgn_helper`: `p−y<y ↔ m<y`):
+   `altSign (diagCount p fh) = prodZ ((seg m).map (sgFn a p m))`.
+4. `zolotarev_mu` = `psign_mulPermMod_eq_prodSgn` ∘ `gauss_qr`:
+   **`psign σ_a = 1 ⟺ a` is a QR, for every odd prime** — the full converse.
+5. `det_permMatrix_mulPermMod` (∘ `det_permMatrix`): the determinant reading, universal.
+
+No primitive root needed; the symmetric-cross-count parity (off-diagonal pairs cancel mod 2,
+diagonal `= μ`) carries the whole converse.
 
 ## 2. Teichmüller ω ↔ the quadratic character (p-adic lift of Euler's criterion)
 

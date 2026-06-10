@@ -25,12 +25,13 @@ because `a ≡ z²` gives `σ_a = σ_z ∘ σ_z`, an even permutation (`altSign_
 Zolotarev: the sign character agrees with the Legendre symbol on the quadratic-residue
 subgroup.
 
-**Open (the converse / full identity)**: `psign σ_a = (a/p)` for *every* unit needs the
-non-residue ⟹ odd-permutation direction — equivalently that the sign character is
-nontrivial.  Without a primitive root this is the Gauss-`μ` parity bridge
-`psign σ_a = (−1)^μ` (the `σ_a = (block lift) ∘ (μ within-pair flips)` decomposition through
-the half-system `[1,m]` already built in `GaussLemma`).  Tracked in
-`research-notes/frontiers/permutation_three_readouts.md`.
+The **converse** (non-residue ⟹ odd permutation, i.e. the sign character is nontrivial) is
+**closed for every odd prime** in `ModArith/ZolotarevMuBridge.lean`
+(`zolotarev_mu`: `psign σ_a = 1 ⟺ a` is a QR).  Because `σ_a(p−x) = p − σ_a(x)`, `σ_a` is in
+block form `0 :: (fh ++ (revL fh).map (p−·))`, so `psign σ_a = altSign (diagCount p fh)`
+reduces to a symmetric cross-count whose parity is Gauss's `μ` — no primitive root needed.
+The `−1`-axis / `p ≡ 3 (mod 4)` partial result (`ZolotarevConverse.zolotarev_pmod4_three`)
+is subsumed.
 
 All ∅-axiom.
 -/

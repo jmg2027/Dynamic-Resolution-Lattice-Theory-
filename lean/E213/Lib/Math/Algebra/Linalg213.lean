@@ -24,8 +24,11 @@ import E213.Lib.Math.Algebra.Linalg213.DetZeroCol
 import E213.Lib.Math.Algebra.Linalg213.DetRowOps
 import E213.Lib.Math.Algebra.Linalg213.PermClosure
 import E213.Lib.Math.Algebra.Linalg213.PermSign
+import E213.Lib.Math.Algebra.Linalg213.InversionsAppend
 import E213.Lib.Math.Algebra.Linalg213.PermMatrixDet
+import E213.Lib.Math.Algebra.Linalg213.ColumnLaplace
 import E213.Lib.Math.Algebra.Linalg213.PermBridge
+import E213.Lib.Math.Algebra.Linalg213.CyclicShiftSign
 import E213.Lib.Math.Algebra.Linalg213.Rank
 import E213.Lib.Math.Algebra.Linalg213.Rank5Concrete
 import E213.Lib.Math.Algebra.Linalg213.Span

@@ -22,6 +22,11 @@ At split / inert: same as Fib.
 
 This makes Lucas a third recurrence family in 213's Pisano-CRT
 framework, distinct from Pell and Fibonacci.
+
+The singular/regular divergence stated here is proved ∅-axiom in
+`FibApparitionMod5`: Fibonacci vanishes exactly on `5·ℕ` (rank of
+apparition `α(5) = 5`, the ramified-prime signature), Lucas never
+vanishes mod 5 (`lucasMod5_never_zero`).
 -/
 
 namespace E213.Lib.Math.NumberTheory.DyadicFSM.LucasFSMmod5

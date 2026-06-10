@@ -5,6 +5,8 @@ import E213.Lib.Math.Cohomology.Hodge.InvolutionLifts
 import E213.Lib.Math.Cohomology.Hodge.InvolutionTemplate
 import E213.Lib.Math.Cohomology.Hodge.Star
 import E213.Lib.Math.Cohomology.Hodge.SignedStarC4
+import E213.Lib.Math.Cohomology.Hodge.GaussianHodgeBridge
+import E213.Lib.Math.Cohomology.Hodge.EisensteinNoComplexStructure
 import E213.Lib.Math.Cohomology.Hodge.SignedStarFull
 import E213.Lib.Math.Cohomology.Hodge.HodgeRiemannJ
 
