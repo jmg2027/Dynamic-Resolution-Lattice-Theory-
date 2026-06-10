@@ -100,7 +100,7 @@ Numerical-only = research note.  **Prohibited**: timeline/ROI.
 ## Fractal-level configuration count (parametric bare combinatorics)
 
 `configCountD d n = d^(d^n)` is parametric bare combinatorics
-(`Lib/Math/Cohomology/Fractal/ConfigCount.lean`); **no level privileged**; `configCount 2 = 5^25` is a true arithmetic theorem.  The `5²⁵ = N_U` "resolution for 1/α_em" claim (count ≠ truncation index) is **deleted** (`research-notes/archive/RERESEARCH_n_u_removal.md`).
+(`Lib/Math/Cohomology/Fractal/ConfigCount.lean`); **no level privileged**; `configCount 2 = 5^25` is a true arithmetic theorem.  The `5²⁵ = N_U` "resolution for 1/α_em" claim (count ≠ truncation index) is **deleted**.
 
 ## Operating principles
 

@@ -50,8 +50,7 @@ volatile, so CLAUDE.md "no session-number in long-lived names" doesn't apply).
   flat ontology, reading-equivalence RFC — permanent homes:
   `seed/AXIOM/`, `theory/lens/`, `lean/E213/Lens/`); flat files are
   closed cross-domain notes + registries (e.g.
-  `RERESEARCH_n_u_removal.md`, the `5²⁵ = N_U`-deletion registry cited
-  by CLAUDE.md).
+  `RERESEARCH_n_u_removal.md`, the `5²⁵ = N_U`-deletion registry).
 - **`audit/`** — G17 empirical pattern audit + G18–G27 classification (raw data retained).
 - **`data/`** — raw evidence (`probes/`).
 

@@ -684,7 +684,8 @@ field-L² companion of the energy (gradient-L²) decay.
 
 ### A6 CORE rung 5 — Ollivier–Ricci: Kantorovich weak duality + concrete triangle κ=½ (2026-06-05)
 
-`E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci` — **PURE / 0 DIRTY**.  The last discrete
+`E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci` — **60 PURE / 0 DIRTY** (§§2–6; the
+parametric `K_m` §7 is catalogued under "discrete curvature parametric closure" below).  The last discrete
 curvature rung: Ollivier–Ricci `κ(x,y)=1−W₁(m_x,m_y)/d(x,y)`, whose heart is optimal transport.  Built the
 integer grid sum `gridSumZ` (+ `_add`/`_sub`/`_mul_left`/`_le`/`_congr`/**`_fubini`** sum-swap) and proved
 **`kantorovich_weak_duality`**: for any transport plan `π ≥ 0` and `1`-Lipschitz potential `f`,
@@ -713,7 +714,8 @@ pure inequalities (core `Int.add_le_add`/`mul_le_mul_of_nonneg_right`/`sub_le_su
 
 ### A6 CORE rung 6 — Bakry–Émery curvature-dimension `CD(K,N)` + discrete Bochner (2026-06-08)
 
-`E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery` — **6 PURE / 0 DIRTY**.  The **fourth** curvature
+`E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery` — **42 PURE / 0 DIRTY** (§§1–2 here; the
+parametric §§3–5 are catalogued under "discrete curvature parametric closure" below).  The **fourth** curvature
 frame: Bakry–Émery curvature via the carré-du-champ iteration `Γ₂ = ½LΓ − Γ(f,Lf)` of the graph Laplacian,
 scaled to `ℤ` (`gammaL`/`gamma2L`, `gammaTri`/`gamma2Tri`).  **Discrete Bochner identity** — `bochner_line`:
 `4Γ₂(f)(x) = (Lf(x−1))² + 2(Lf(x))² + (Lf(x+1))²` (the flat `Ric = 0` Bochner `½Δ|∇f|² = |Hess f|² + Ric(∇f,∇f)`,
@@ -725,6 +727,39 @@ general-`n` Ricci **lower bound** even while the smooth `n`-tensor flow stays wa
 `K=0` / triangle `K=5/2>0` — same as Forman/Gauss–Bonnet/Ollivier.  Proofs `ring_intZ` (Bochner identities) +
 `int_sq_nonneg`/`add_nonneg`/`Order` (the SOS bounds), stencil-parametrised à la `ConformalCurvature` (no index
 arithmetic).
+
+### A6 CORE — discrete curvature parametric closure + Lichnerowicz spectrum + tensor calculus (2026-06-10)
+
+The Ricci-flow marathon closed the discrete-curvature ladder **parametrically across graph families**
+(strict ∅-axiom throughout; `tools/scan_axioms.py` 60/42/16/11/23/14 PURE, 0 DIRTY):
+
+- `…GeometrizationConjecture.OllivierRicci` §7 — the complete graph `K_m` for **general `m`**:
+  Ollivier `κ = (m−2)/(m−1) > 0` (`kmPi` coupling + optimality), the parametric form of the
+  triangle/square/double-star trichotomy.
+- `…GeometrizationConjecture.BakryEmery` §§3–5 — `K_m` is `CD((m+2)/2, ∞)` **sharp**
+  (`cd_complete_graph`, `cd_complete_graph_sharp`, `complete_graph_gammaC_witness`); the star
+  `K_{1,b}` centre is `CD((3−b)/2, ∞)` (`cd_star`, negative for `b ≥ 4`) and a leaf is
+  `CD((5−b)/2, ∞)` (`cd_star_leaf`) — curvature now a *function of the family parameter*.
+- `…GeometrizationConjecture.BakryEmeryBipartite` — **16 PURE / 0 DIRTY**, general bipartite
+  `K_{a,b}` at an `A`-vertex: `CD(min(3a−b, b−a+4)/2, ∞)`, split into the wide regime
+  `b ≥ 2a−2` (`kab_cd_wide`, SOS only) and the narrow regime (`kab_cd_narrow`, via the discrete
+  Cauchy–Schwarz `cauchy_schwarz_gridZ`).  DRLT core: `K_{3,2}` is `CD(3/2, ∞)` (`kab_K32_pos`)
+  — **positive** Bakry–Émery against Forman `−1`, an honest cross-frame sign divergence
+  (`theory/essays/synthesis/curvature_as_lens_readout.md`).
+- `…GeometrizationConjecture.DiscreteLichnerowicz` — **11 PURE / 0 DIRTY**, curvature → spectrum:
+  the integration-by-parts trio `km_green`/`km_rayleigh` (`Σ(Lf)² = m·E`), `km_eigenvalue` +
+  eigenspaces (`km_const_eigen`, `km_meanzero_eigen`) ⟹ the `K_m` Laplacian spectrum is
+  `{0¹, m^{m−1}}`; `lichnerowicz_abstract` (`CD(K) ⟹ K ≤ λ`, Int positive cancellation).
+- `…Geometry.TensorCalculus` — **23 PURE / 0 DIRTY**, dimension-free general-metric algebraic
+  tensor calculus: Christoffel (1st/2nd kind, symmetry, metric compatibility) → Riemann tensor
+  with **all four symmetries** (via the metric 2-jet `riemLow`) → Ricci + first Bianchi → scalar
+  `R = g^{ij}Ric` + Einstein `R = λn`; `perelman_rate_nonneg` (`0 ≤ Σ(Ric_{ij}+∇_i∇_j f)²`, the
+  algebraic Perelman `d/dt 𝓕 ≥ 0` rate).  Chapter: `theory/math/geometry/riemannian_curvature_tensor.md`.
+- `…Combinatorics.IntGridSum` — **14 PURE / 0 DIRTY**, the `gridSumZ` finite-Int-sum toolkit
+  (add/sub/mul_left/le/congr/fubini + nonneg), domain-agnostic infra relocated out of the
+  curvature leaf; 5 consumers.
+
+Chapter: `theory/math/geometry/discrete_curvature.md` (the parametric discrete-curvature closure).
 
 ### A6 CORE rung 7 — time-evolution: all-time fixed-point stability (2026-06-08)
 
