@@ -700,4 +700,218 @@ theorem row_det (q n J : Nat) :
   rw [weld_pair_cosh q n J, weld_pair_sinh q n J]
   ring_nat
 
+/-! ## §9 — the Chebyshev engine: pairing-vs-evaluation cross, conditional on minors
+
+The order transfer's analytic core.  `PF` and `dev` are two positive-weight readings
+of the same coefficient list; their cross over a pair `(a, b)` is controlled by two
+facts: (i) **weight dominance** — the `PF`-weight system, transported one `u`-shift,
+is dominated by the `dev`-weight system (`weight_dom`: per step it is the `FNum`
+recursion minus its `+1`); (ii) the **coefficient minors** of `(a, b)`
+(`MinorLE`, the hypothesis the convergent-polynomial pair supplies).  The engine
+(`cross_le`) reduces the mixed-head terms to weight dominance **of the gap list**
+(`b₀·as = a₀·bs + g` pointwise), so no double-sum infrastructure is needed: two
+list inductions close it. -/
+
+/-- Pointwise (truncated) list difference, keeping the first list's length. -/
+def lsub : List Nat → List Nat → List Nat
+  | a :: as, b :: bs => (a - b) :: lsub as bs
+  | a, _ => a
+
+theorem lsub_length : ∀ (a b : List Nat), (lsub a b).length = a.length
+  | [], [] => rfl
+  | [], _ :: _ => rfl
+  | _ :: _, [] => rfl
+  | _ :: as, _ :: bs => by
+    show (lsub as bs).length + 1 = as.length + 1
+    rw [lsub_length as bs]
+
+/-- Pointwise scaled comparison: `x·vⱼ ≤ y·uⱼ` along the zip of `(us, vs)`. -/
+def scaledLE (x y : Nat) : List Nat → List Nat → Prop
+  | u :: us, v :: vs => x * v ≤ y * u ∧ scaledLE x y us vs
+  | _, _ => True
+
+/-- The full minor condition: every head scales below every later entry —
+    `aᵢ·bⱼ ≤ bᵢ·aⱼ` for all `i < j` (`a/b` increasing along positions). -/
+def MinorLE : List Nat → List Nat → Prop
+  | a :: as, b :: bs => scaledLE a b as bs ∧ MinorLE as bs
+  | _, _ => True
+
+private theorem add_sub_recover {x y : Nat} (h : x ≤ y) : x + (y - x) = y := by
+  obtain ⟨k, hk⟩ := Nat.le.dest h
+  rw [← hk, Nat.add_comm x k, E213.Tactic.NatHelper.add_sub_cancel_right k x]
+  exact Nat.add_comm x k
+
+/-- Gap recovery: under `scaledLE x y us vs`, the pointwise gap
+    `g = lsub (lsmul y us) (lsmul x vs)` satisfies `lsmul x vs + g = lsmul y us`. -/
+theorem ladd_lsub_recover (x y : Nat) : ∀ (us vs : List Nat),
+    us.length = vs.length → scaledLE x y us vs →
+    ladd (lsmul x vs) (lsub (lsmul y us) (lsmul x vs)) = lsmul y us
+  | [], [], _, _ => rfl
+  | [], _ :: _, h, _ => Nat.noConfusion h
+  | _ :: _, [], h, _ => Nat.noConfusion h
+  | u :: us, v :: vs, h, hsc => by
+    show (x * v + (y * u - x * v)) :: ladd (lsmul x vs) (lsub (lsmul y us) (lsmul x vs))
+        = y * u :: lsmul y us
+    rw [add_sub_recover hsc.1,
+        ladd_lsub_recover x y us vs (Nat.succ.inj h) hsc.2]
+
+/-- ★★★★ **Weight dominance**: the `PF`-weight system, transported one `u`-shift
+    (`2J(2m+2J+1)·q^{2·len}·PF(·, J−1)`), is dominated by the `dev`-weight system
+    scaled by `FNum(m,J)` — per step it is exactly the `FNum` recursion minus its
+    `+1`.  Holds for **every** coefficient list, no hypotheses. -/
+theorem weight_dom (q m : Nat) : ∀ (c : List Nat) (J : Nat),
+    2 * J * (2 * m + 2 * J + 1) * q ^ (2 * c.length) * PF q c m (J - 1)
+      ≤ FNum q m J * dev q c
+  | [], J => by
+    show 2 * J * (2 * m + 2 * J + 1) * q ^ (2 * 0) * 0 ≤ FNum q m J * 0
+    exact Nat.le_refl _
+  | c :: cs, 0 => by
+    rw [show (2 * 0 : Nat) = 0 from rfl, Nat.zero_mul, Nat.zero_mul, Nat.zero_mul]
+    exact Nat.zero_le _
+  | c :: cs, J + 1 => by
+    have ih := weight_dom q m cs J
+    have hF : FNum q m (J + 1)
+        = (2 * J + 2) * (2 * m + 2 * J + 3) * q ^ 2 * FNum q m J + 1 := rfl
+    rw [dev_cons q c cs]
+    show 2 * (J + 1) * (2 * m + 2 * (J + 1) + 1) * q ^ (2 * (cs.length + 1))
+          * (c * FNum q m J + 2 * J * (2 * m + 2 * J + 1) * PF q cs m (J - 1))
+        ≤ FNum q m (J + 1) * (c * q ^ (2 * cs.length) + dev q cs)
+    rw [show q ^ (2 * (cs.length + 1)) = q ^ (2 * cs.length) * (q * q) from
+          pow_add_two q (2 * cs.length),
+        hF, pow_two q]
+    have hhead : 2 * (J + 1) * (2 * m + 2 * (J + 1) + 1) * (q ^ (2 * cs.length) * (q * q))
+          * (c * FNum q m J)
+        ≤ ((2 * J + 2) * (2 * m + 2 * J + 3) * (q * q) * FNum q m J + 1)
+          * (c * q ^ (2 * cs.length)) := by
+      rw [show 2 * (J + 1) * (2 * m + 2 * (J + 1) + 1) * (q ^ (2 * cs.length) * (q * q))
+            * (c * FNum q m J)
+          = ((2 * J + 2) * (2 * m + 2 * J + 3) * (q * q) * FNum q m J)
+            * (c * q ^ (2 * cs.length)) from by ring_nat]
+      exact Nat.mul_le_mul (Nat.le_add_right _ 1) (Nat.le_refl _)
+    have htail : 2 * (J + 1) * (2 * m + 2 * (J + 1) + 1) * (q ^ (2 * cs.length) * (q * q))
+          * (2 * J * (2 * m + 2 * J + 1) * PF q cs m (J - 1))
+        ≤ ((2 * J + 2) * (2 * m + 2 * J + 3) * (q * q) * FNum q m J + 1) * dev q cs := by
+      have h1 : (2 * J + 2) * (2 * m + 2 * J + 3) * (q * q)
+            * (2 * J * (2 * m + 2 * J + 1) * q ^ (2 * cs.length) * PF q cs m (J - 1))
+          ≤ (2 * J + 2) * (2 * m + 2 * J + 3) * (q * q) * (FNum q m J * dev q cs) :=
+        Nat.mul_le_mul_left _ ih
+      calc 2 * (J + 1) * (2 * m + 2 * (J + 1) + 1) * (q ^ (2 * cs.length) * (q * q))
+            * (2 * J * (2 * m + 2 * J + 1) * PF q cs m (J - 1))
+          = (2 * J + 2) * (2 * m + 2 * J + 3) * (q * q)
+            * (2 * J * (2 * m + 2 * J + 1) * q ^ (2 * cs.length) * PF q cs m (J - 1)) := by
+            ring_nat
+        _ ≤ (2 * J + 2) * (2 * m + 2 * J + 3) * (q * q) * (FNum q m J * dev q cs) := h1
+        _ = ((2 * J + 2) * (2 * m + 2 * J + 3) * (q * q) * FNum q m J) * dev q cs := by
+            ring_nat
+        _ ≤ ((2 * J + 2) * (2 * m + 2 * J + 3) * (q * q) * FNum q m J + 1) * dev q cs :=
+            Nat.mul_le_mul (Nat.le_add_right _ 1) (Nat.le_refl _)
+    calc 2 * (J + 1) * (2 * m + 2 * (J + 1) + 1) * (q ^ (2 * cs.length) * (q * q))
+          * (c * FNum q m J + 2 * J * (2 * m + 2 * J + 1) * PF q cs m (J - 1))
+        = 2 * (J + 1) * (2 * m + 2 * (J + 1) + 1) * (q ^ (2 * cs.length) * (q * q))
+            * (c * FNum q m J)
+          + 2 * (J + 1) * (2 * m + 2 * (J + 1) + 1) * (q ^ (2 * cs.length) * (q * q))
+            * (2 * J * (2 * m + 2 * J + 1) * PF q cs m (J - 1)) := by ring_nat
+      _ ≤ ((2 * J + 2) * (2 * m + 2 * J + 3) * (q * q) * FNum q m J + 1)
+            * (c * q ^ (2 * cs.length))
+          + ((2 * J + 2) * (2 * m + 2 * J + 3) * (q * q) * FNum q m J + 1) * dev q cs :=
+          Nat.add_le_add hhead htail
+      _ = ((2 * J + 2) * (2 * m + 2 * J + 3) * (q * q) * FNum q m J + 1)
+            * (c * q ^ (2 * cs.length) + dev q cs) := by ring_nat
+
+/-- ★★★★★ **The Chebyshev cross engine**: for equal-length lists with the minor
+    condition (`a/b` increasing along positions),
+
+      `[a·F_m]|_J · dev b ≤ dev a · [b·F_m]|_J`.
+
+    The `PF`-weights shift mass to early positions relative to the `dev`-weights
+    (weight dominance), and `a/b` increases — so the `PF`-average of `a/b` is the
+    smaller.  Induction: tails by IH; the mixed-head terms reduce **exactly** to
+    `weight_dom` on the pointwise gap list `g` (`b₀·as = a₀·bs + g`).  This is the
+    order-transfer engine; instantiating `(a,b) = (AP, BP)` per parity (the minor
+    sign of the convergent polynomials) is what remains of the weld. -/
+theorem cross_le (q m : Nat) : ∀ (a b : List Nat) (J : Nat),
+    a.length = b.length → MinorLE a b →
+    PF q a m J * dev q b ≤ dev q a * PF q b m J
+  | [], [], _, _, _ => Nat.le_refl _
+  | [], _ :: _, _, h, _ => Nat.noConfusion h
+  | _ :: _, [], _, h, _ => Nat.noConfusion h
+  | a₀ :: as, b₀ :: bs, J, hlen, hminor => by
+    obtain ⟨hsc, hm⟩ := hminor
+    have hl : as.length = bs.length := Nat.succ.inj hlen
+    have ih := cross_le q m as bs (J - 1) hl hm
+    have hgadd : ladd (lsmul a₀ bs) (lsub (lsmul b₀ as) (lsmul a₀ bs)) = lsmul b₀ as :=
+      ladd_lsub_recover a₀ b₀ as bs hl hsc
+    have hglen : (lsub (lsmul b₀ as) (lsmul a₀ bs)).length = bs.length := by
+      rw [lsub_length, lsmul_length, hl]
+    have hdev : b₀ * dev q as
+        = a₀ * dev q bs + dev q (lsub (lsmul b₀ as) (lsmul a₀ bs)) := by
+      have h1 : dev q (lsmul b₀ as)
+          = dev q (ladd (lsmul a₀ bs) (lsub (lsmul b₀ as) (lsmul a₀ bs))) :=
+        congrArg (dev q) hgadd.symm
+      rw [dev_lsmul,
+          dev_ladd_eq q _ _ (by rw [lsmul_length, hglen]),
+          dev_lsmul] at h1
+      exact h1
+    have hpf : b₀ * PF q as m (J - 1)
+        = a₀ * PF q bs m (J - 1) + PF q (lsub (lsmul b₀ as) (lsmul a₀ bs)) m (J - 1) := by
+      have h1 : PF q (lsmul b₀ as) m (J - 1)
+          = PF q (ladd (lsmul a₀ bs) (lsub (lsmul b₀ as) (lsmul a₀ bs))) m (J - 1) :=
+        congrArg (fun l => PF q l m (J - 1)) hgadd.symm
+      rw [PF_lsmul, PF_ladd, PF_lsmul] at h1
+      exact h1
+    have hwd : 2 * J * (2 * m + 2 * J + 1) * q ^ (2 * bs.length)
+          * PF q (lsub (lsmul b₀ as) (lsmul a₀ bs)) m (J - 1)
+        ≤ FNum q m J * dev q (lsub (lsmul b₀ as) (lsmul a₀ bs)) := by
+      have h := weight_dom q m (lsub (lsmul b₀ as) (lsmul a₀ bs)) J
+      rwa [hglen] at h
+    have e1 : PF q (a₀ :: as) m J * dev q (b₀ :: bs)
+        = (a₀ * b₀ * (q ^ (2 * bs.length) * FNum q m J)
+            + a₀ * FNum q m J * dev q bs
+            + a₀ * (q ^ (2 * bs.length)
+              * (2 * J * (2 * m + 2 * J + 1) * PF q bs m (J - 1))))
+          + (q ^ (2 * bs.length) * (2 * J * (2 * m + 2 * J + 1)
+              * PF q (lsub (lsmul b₀ as) (lsmul a₀ bs)) m (J - 1))
+            + 2 * J * (2 * m + 2 * J + 1) * (PF q as m (J - 1) * dev q bs)) := by
+      rw [show PF q (a₀ :: as) m J
+            = a₀ * FNum q m J + 2 * J * (2 * m + 2 * J + 1) * PF q as m (J - 1) from rfl,
+          dev_cons q b₀ bs,
+          show (a₀ * FNum q m J + 2 * J * (2 * m + 2 * J + 1) * PF q as m (J - 1))
+              * (b₀ * q ^ (2 * bs.length) + dev q bs)
+            = q ^ (2 * bs.length) * (2 * J * (2 * m + 2 * J + 1)
+                * (b₀ * PF q as m (J - 1)))
+              + (a₀ * b₀ * (q ^ (2 * bs.length) * FNum q m J)
+                + a₀ * FNum q m J * dev q bs
+                + 2 * J * (2 * m + 2 * J + 1) * (PF q as m (J - 1) * dev q bs)) from by
+            ring_nat,
+          hpf]
+      ring_nat
+    have e2 : dev q (a₀ :: as) * PF q (b₀ :: bs) m J
+        = (a₀ * b₀ * (q ^ (2 * bs.length) * FNum q m J)
+            + a₀ * FNum q m J * dev q bs
+            + a₀ * (q ^ (2 * bs.length)
+              * (2 * J * (2 * m + 2 * J + 1) * PF q bs m (J - 1))))
+          + (FNum q m J * dev q (lsub (lsmul b₀ as) (lsmul a₀ bs))
+            + 2 * J * (2 * m + 2 * J + 1) * (dev q as * PF q bs m (J - 1))) := by
+      rw [dev_cons q a₀ as, hl,
+          show PF q (b₀ :: bs) m J
+            = b₀ * FNum q m J + 2 * J * (2 * m + 2 * J + 1) * PF q bs m (J - 1) from rfl,
+          show (a₀ * q ^ (2 * bs.length) + dev q as)
+              * (b₀ * FNum q m J + 2 * J * (2 * m + 2 * J + 1) * PF q bs m (J - 1))
+            = FNum q m J * (b₀ * dev q as)
+              + (a₀ * b₀ * (q ^ (2 * bs.length) * FNum q m J)
+                + a₀ * (q ^ (2 * bs.length)
+                  * (2 * J * (2 * m + 2 * J + 1) * PF q bs m (J - 1)))
+                + 2 * J * (2 * m + 2 * J + 1) * (dev q as * PF q bs m (J - 1))) from by
+            ring_nat,
+          hdev]
+      ring_nat
+    rw [e1, e2]
+    refine Nat.add_le_add_left (Nat.add_le_add ?_ ?_) _
+    · calc q ^ (2 * bs.length) * (2 * J * (2 * m + 2 * J + 1)
+            * PF q (lsub (lsmul b₀ as) (lsmul a₀ bs)) m (J - 1))
+          = 2 * J * (2 * m + 2 * J + 1) * q ^ (2 * bs.length)
+            * PF q (lsub (lsmul b₀ as) (lsmul a₀ bs)) m (J - 1) := by ring_nat
+        _ ≤ FNum q m J * dev q (lsub (lsmul b₀ as) (lsmul a₀ bs)) := hwd
+    · exact Nat.mul_le_mul_left _ ih
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld

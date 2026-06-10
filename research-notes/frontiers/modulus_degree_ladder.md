@@ -202,11 +202,20 @@ modulus is the growth class of `N` in `k`, and it factors as
    sign, which by the shared-weight structure (`X_A, X_B` share
    `R·FNum`-weights; the per-step weight ratio is `[F−1]/F` — monotone for
    free) is a **Chebyshev rearrangement over the coefficient minors of
-   `(AP, BP)`** (parity-signed, `cf_det`-style induction expected) — but the
-   naive list-induction assembly couples the gaps (`QW·γ₂ ≤ F·γ₁`), so the
-   honest implementation needs finite double-sum infra (list-indexed ΣΣ +
-   rearrangement), a dedicated session.  After that: cofinal transfer,
-   limit-cut equality, `e^{2/q}` cut-Möbius, `hmeas` discharged.  (Lean: core `Nat.pow_add` and
+   `(AP, BP)`** (parity-signed, `cf_det`-style induction expected) — **The engine is
+   now BUILT** (`LambertWeld` §9, no ΣΣ infra needed): the γ-coupling dissolves
+   because the mixed-head terms reduce *exactly* to weight dominance of the
+   pointwise **gap list** (`b₀·as = a₀·bs + g`): `weight_dom` (the transported
+   `PF`-weight system is dominated by the `dev`-system scaled by `FNum` — per
+   step it is the `FNum` recursion minus its `+1`; holds for every list, no
+   hypotheses) + `cross_le` (`PF a·dev b ≤ dev a·PF b` under `MinorLE a b`,
+   two list inductions; gap recovery via `lsub`/`ladd_lsub_recover`).
+   **Remaining (the last piece)**: the minor sign `MinorLE (AP n) (BP n-pad)`
+   (universal orientation — `Ã/B̃` coefficient ratios increase; `cf_det`-style
+   paired induction with the mixed-pair auxiliary families), then the (A′)
+   assembly: X-piece = `cross_le` at level `n+1`, Y-piece = `cross_le` at level
+   `n` + the `cf_det` dev-cross, then choice functions, limit-cut equality,
+   `e^{2/q}` cut-Möbius, `hmeas` discharged.  (Lean: core `Nat.pow_add` and
    `Nat.le_of_add_le_add_right` are `propext`-dirty — `pow_add_two` via the
    definitional `pow_succ` chain; NatHelper's left-cancel + `add_comm`.)
    Lean note: PolyNatM's normalizer does **not** drop `0·atom` monomials and chokes

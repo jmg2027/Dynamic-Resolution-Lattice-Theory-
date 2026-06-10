@@ -268,13 +268,31 @@ ratio `[F−1]/F` is monotone for free); the naive list-induction couples the ga
 (`QW·γ₂ ≤ F·γ₁`), so the implementation needs finite double-sum infra (list-indexed
 ΣΣ + rearrangement) + the parity minor-sign induction — a dedicated session.
 
+## Fifteenth arc: weld 3c — the Chebyshev engine BUILT (no ΣΣ infra needed)
+
+`LambertWeld` §9 (module 47 PURE): the γ-coupling that blocked the naive induction
+**dissolves** — the mixed-head terms of the cross reduce *exactly* to weight
+dominance of the pointwise gap list (`b₀·as = a₀·bs + g`):
+- `weight_dom`: `2J(2m+2J+1)·q^{2·len}·PF(c, m, J−1) ≤ FNum(m,J)·dev c` for **every**
+  list, no hypotheses — per step it is the `FNum` recursion minus its `+1`;
+- `cross_le`: `PF a·dev b ≤ dev a·PF b` for equal-length lists under `MinorLE a b`
+  (`a/b` increasing along positions) — tails by IH, mixed heads by `weight_dom`
+  on the gap (recovered via `lsub`/`ladd_lsub_recover`; `scaledLE`/`MinorLE`
+  pointwise, subtraction-free).
+New core dirt: `Nat.add_sub_cancel'`/`Nat.sub_add_cancel` are `propext`-dirty —
+pure `add_sub_recover` via `Nat.le.dest` + NatHelper's `add_sub_cancel_right`.
+
 ## Open Problems (priority order)
-1. **The weld, 3c core**: (i) list-indexed finite ΣΣ infra + rearrangement
-   (Chebyshev) lemma; (ii) the parity sign of the `(AP, BP)` coefficient minors
-   (`cf_det`-style paired induction at coefficient level); (iii) assemble the
-   uniform families (A′)/(A) via `row_det`, then the gap/increment choice
-   functions (`cf_det`/`cf_even_det` gaps, `t_mono_strict` increments) close
-   sup-equality ⟹ limit-cut equality ⟹ `e^{2/q}` cut-Möbius ⟹ `hmeas`.
+1. **The weld's last piece — the minor sign**: `MinorLE (AP k) (BPpad k)` (the
+   `Ã/B̃` coefficient ratios increase, universal orientation; heads are equal
+   `(2n+1)!!`).  Proof plan: `cf_det`-style paired induction on the `AP/BP`
+   recursion with the mixed-pair auxiliary families (orientation flips on the
+   mixed pairs — the bilinear expansion of `minor(n+1)` in terms of `minor(n)`,
+   `minor(n−1)`, and the two mixed crosses; verify the auxiliary family closure
+   numerically first).  Then the (A′) assembly: X-piece = `cross_le` at level
+   `n+1` (padded), Y-piece = `cross_le` at level `n` + `cf_det` dev-cross;
+   choice functions (`t_mono_strict` increments, `cf_det` gaps); limit-cut
+   equality; `e^{2/q}` cut-Möbius; `hmeas` discharged.
 2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
    numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient
