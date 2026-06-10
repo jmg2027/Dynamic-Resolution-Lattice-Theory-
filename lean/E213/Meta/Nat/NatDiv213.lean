@@ -103,4 +103,108 @@ theorem two_cancel_lt (x y : Nat) (h : 2 * x < 2 * y) : x < y := by
   | inl hlt => exact hlt
   | inr hge => exact (Nat.not_lt.mpr (Nat.mul_le_mul_left 2 hge) h).elim
 
+/-- `0 % a = 0`, ∅-axiom (Lean-core `Nat.zero_mod` brings `propext`). -/
+theorem zero_mod_pure (a : Nat) : 0 % a = 0 := by
+  rw [Nat.mod_eq]
+  rw [if_neg (fun h : 0 < a ∧ a ≤ 0 =>
+    Nat.not_succ_le_zero 0 (Nat.le_trans h.1 h.2))]
+
+/-- `a * x % a = 0`, ∅-axiom replacement for `Nat.mul_mod_right`. -/
+theorem mul_mod_self_pure (a : Nat) : ∀ (x : Nat), a * x % a = 0
+  | 0 => by rw [Nat.mul_zero]; exact zero_mod_pure a
+  | x + 1 => by
+    cases a with
+    | zero => rw [Nat.zero_mul]
+    | succ k =>
+      rw [Nat.mul_succ]
+      rw [add_mod_right_pos (Nat.succ_pos k)]
+      exact mul_mod_self_pure (k + 1) x
+
+/-- `a * (b / a) + b % a = b`, ∅-axiom replacement for
+    `Nat.div_add_mod` (Lean-core brings `propext`).  Strong recursion
+    on `b`, same shape as `div_mul_le_self`. -/
+theorem div_add_mod_pure : ∀ (b a : Nat), a * (b / a) + b % a = b := fun b a =>
+  Nat.strongRecOn b (motive := fun b => a * (b / a) + b % a = b) fun b ih => by
+    show a * (b / a) + b % a = b
+    by_cases h : 0 < a ∧ a ≤ b
+    · have hsub_lt : b - a < b := Nat.sub_lt (Nat.lt_of_lt_of_le h.1 h.2) h.1
+      have ih' := ih (b - a) hsub_lt
+      have hd : b / a = (b - a) / a + 1 := by rw [Nat.div_eq]; rw [if_pos h]
+      have hm : b % a = (b - a) % a := by rw [Nat.mod_eq]; rw [if_pos h]
+      rw [hd, hm, Nat.mul_succ, Nat.add_right_comm, ih']
+      exact sub_add_cancel h.2
+    · have hd : b / a = 0 := by rw [Nat.div_eq]; rw [if_neg h]
+      have hm : b % a = b := by rw [Nat.mod_eq]; rw [if_neg h]
+      rw [hd, hm, Nat.mul_zero, Nat.zero_add]
+
+/-! ## Witness location — the ÷-sandwich
+
+The ×-mirror of `Meta/Int213/Core.lean`'s witness characterization.
+The question `a * x = b` may have no ℕ-witness, but the sandwich
+`a * x ≤ b < a * (x + 1)` always pins exactly one location
+(`div_sandwich`, `div_sandwich_unique`), and that location is `b / a`
+(`div_eq_of_sandwich`).  Unlike the `+`-sandwich, which collapses to a
+point (`Int213.eq_of_sandwich`), the ÷-sandwich keeps an interval of
+`a - 1` missed rungs; the exact witness exists precisely when the
+remainder readout vanishes (`mul_witness_iff_mod_eq_zero`). -/
+
+/-- The ÷-sandwich always locates: `a * (b / a) ≤ b < a * (b / a + 1)`
+    when `0 < a`.  Division is the located — not necessarily witnessed —
+    answer to the ×-question. -/
+theorem div_sandwich (a b : Nat) (ha : 0 < a) :
+    a * (b / a) ≤ b ∧ b < a * (b / a + 1) := by
+  constructor
+  · rw [Nat.mul_comm]
+    exact div_mul_le_self b a
+  · have hmod : a * (b / a) + b % a = b := div_add_mod_pure b a
+    have hlt : b % a < a := Nat.mod_lt b ha
+    have h2 : a * (b / a) + b % a < a * (b / a) + a :=
+      Nat.add_lt_add_left hlt _
+    rw [hmod] at h2
+    rw [Nat.mul_succ]
+    exact h2
+
+/-- The ÷-sandwich pins at most one location. -/
+theorem div_sandwich_unique {a b x y : Nat}
+    (hx1 : a * x ≤ b) (hx2 : b < a * (x + 1))
+    (hy1 : a * y ≤ b) (hy2 : b < a * (y + 1)) : x = y := by
+  have hxy : x < y + 1 := by
+    cases Nat.lt_or_ge x (y + 1) with
+    | inl h => exact h
+    | inr h =>
+        exact (Nat.not_lt.mpr
+          (Nat.le_trans (Nat.mul_le_mul_left a h) hx1) hy2).elim
+  have hyx : y < x + 1 := by
+    cases Nat.lt_or_ge y (x + 1) with
+    | inl h => exact h
+    | inr h =>
+        exact (Nat.not_lt.mpr
+          (Nat.le_trans (Nat.mul_le_mul_left a h) hy1) hx2).elim
+  exact Nat.le_antisymm (Nat.le_of_lt_succ hxy) (Nat.le_of_lt_succ hyx)
+
+/-- The sandwich presentation reads out through the division-Lens:
+    the inequality pair determines `x = b / a`.  ÷-mirror of
+    `Int213.subNatNat_of_sandwich`. -/
+theorem div_eq_of_sandwich {a b x : Nat} (ha : 0 < a)
+    (h1 : a * x ≤ b) (h2 : b < a * (x + 1)) : x = b / a :=
+  div_sandwich_unique h1 h2 (div_sandwich a b ha).1 (div_sandwich a b ha).2
+
+/-- Exact ×-witness iff the remainder readout vanishes: the ÷-question's
+    interval collapses to a witnessed point only on the multiples of `a`.
+    ÷-mirror of `Int213.witness_total`/`witness_not_both`, with the
+    two-valued swap readout (sign) replaced by the `a`-valued position
+    readout (remainder). -/
+theorem mul_witness_iff_mod_eq_zero (a b : Nat) :
+    (∃ x, a * x = b) ↔ b % a = 0 := by
+  constructor
+  · intro h
+    rcases h with ⟨x, hx⟩
+    rw [← hx]
+    exact mul_mod_self_pure a x
+  · intro h
+    refine ⟨b / a, ?_⟩
+    have hmod : a * (b / a) + b % a = b := div_add_mod_pure b a
+    rw [h, Nat.add_zero] at hmod
+    exact hmod
+
 end E213.Meta.Nat.NatDiv213
