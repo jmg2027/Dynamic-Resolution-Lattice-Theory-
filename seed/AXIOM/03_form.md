@@ -67,6 +67,13 @@ the thing is not distinguished from itself.  Allowing `x/x`
 would directly contradict the content of clause 1 (primitive
 distinction).
 
+Neither feature is a constraint imposed on a pairing mechanism
+that could have behaved otherwise.  Symmetry records an
+*absence* (no order criterion exists to separate `a/b` from
+`b/a`); anti-reflexivity records an *absence* (no operand exists
+for self-distinguishing).  Both are read off the completed act
+of §2.3, not bolted onto a machine.
+
 ---
 
 ## §3.4 The forcing chain: 1 → 2 → 3 → 4
@@ -91,6 +98,14 @@ So fewer than four clauses cannot record distinguishing-yields-
 residue, and more than four would add what is already derived
 from these.  Four is not the result of taste; it is **the**
 number that closes the operation.
+
+The arrows of the chain are **logical forcing, not temporal
+stages**.  Nothing happens "first" in the act of pointing — all
+four clauses are simultaneously present (§2.3, §5.5).  The chain
+is the order in which an *explanation* walks the one complete
+event, the same expository shadow that §2.2 notes for the
+notation `a`, `b`, `a/b`: a Lens reading of the act after the
+fact, not the act's internal sequence.
 
 ---
 

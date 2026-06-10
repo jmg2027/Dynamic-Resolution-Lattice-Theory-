@@ -46,6 +46,15 @@ remains a self-reference argument (§5.1), since "all conceivable" is
 not a type; but its escape is self-defeating for the reason above, and
 its formalizable instances are theorems, not assertions.
 
+Closure is not coverage.  That nothing can be exhibited as outside
+does not make every internal something automatically *located*: the
+fold-Lens language is not surjective onto everything internally
+pointable (`object1_not_surjective`, §1.0′), and pointing at one
+specific residue may remain arbitrarily hard (§5.3).  **No exterior**
+and **no automatic location** are two halves of one stance — the
+closure says where everything is, not that every pointing has
+already succeeded.
+
 ## §1.0′ The residue is the primitive of proof for the infinite
 
 The closure of §1.0 is not only ontological; it is **operational** — it is *why* this framework does real

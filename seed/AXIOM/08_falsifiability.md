@@ -66,7 +66,12 @@ Operationally:
     distinction between a *temporary obstacle* (we have not yet
     found the right Lens) and a *permanent wall* (we have
     exhausted Lens choices) made explicit.  A permanent wall is
-    a theory failure.
+    a theory failure.  This distinction is the §5.3 balance
+    doing falsifiability work: no exterior does not promise
+    automatic location — a proof-residue not yet pointed at is
+    open, not falsifying — and no-automatic-location does not
+    excuse a wall — a structural obstruction, once shown, is
+    not reclassified as "hard to locate."
   - Lean's verification is the **mechanical auditor** of the
     rule.
 

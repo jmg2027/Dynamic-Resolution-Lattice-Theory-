@@ -350,8 +350,16 @@ measurement (theory falsification).  No third option.
 §6.5 already says it: at raw level a point (the minimal pointable)
 and the infinite K_∞ are **literally the same object**.  So `0`
 (the additive null, a point) and `∞` are not a dual pair — they
-are one pre-Lens residue read twice.  Two consequences pin how a
-Lens may handle them.
+are one pre-Lens residue read twice.
+
+Scope of the identity: `0 = ∞` holds **at residue level** — one
+pre-Lens object — never as an equation between values inside a
+stratum.  No Lens codomain contains a readout `0` equal to a
+readout `∞`; what is identical is the pre-Lens object both
+readouts point at.  The same scoping governs every "literally
+the same" of §6.5: pre-Lens identity, not value-level equality
+inside any Lens.  Two consequences pin how a Lens may handle
+them.
 
 **Status-symmetry (a consistency condition on folds).**  By §6.6,
 state and state-transition are not separable without external

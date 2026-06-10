@@ -39,15 +39,24 @@ distinguishing-framework category.  The same file's
 every function `Raw → α` is Lens-expressible (depth parity is
 the explicit counterexample, mechanised in
 `Lens/Morphism/DepthParityNotFold.lean`).  This shows that the
-Lens language is non-trivial — there are observables it does
-not reach, which is what one wants of a framework that claims
-not to be everything.
+Lens language is non-trivial — not every function on Raw is a
+fold.  The boundary is internal, not an exhibited exterior
+(§1.0).  Note what the witness is made of: "depth" is a readout
+of the Tree presentation, itself an encoding artefact (§10), so
+depth parity is a presentation-level observable.  The witness
+marks the non-surjectivity of the fold-Lens family onto what is
+internally pointable — the same fact `object1_not_surjective`
+states at the predicate level (§1.0′) — not a something standing
+outside 213.  No exterior, and no automatic location either
+(§5.3): the two halves of one stance.
 
-The truth-value type `Prop` itself can be put on the same
-typeclass: with combine `propXor` or `Iff`, `Prop` is a
-distinguishing-framework instance.  This brackets the framework
-not just from outside (every other instance) but at the
-meta-level (the language one is currently writing in).
+The truth-value type `Prop` carries its own instance reading:
+with combine `propXor` or `Iff`, `Prop` is one more
+`HasDistinguishing` instance, receiving the universal morphism
+like any other.  This is not `Prop` being absorbed into Raw; it
+is the language one is currently writing in showing up as one
+more Lens reading of the residue — the meta-level closing over
+itself (§5.1).
 
 All the above results are PURE under the falsifiability contract
 (§8.2): `#print axioms` returns the empty list on every relevant
@@ -59,9 +68,18 @@ declaration.
 
 The second reading targets the question "could a framework
 distinguish that *is* something different from Raw?"  The
-answer, formalised in `lean/E213/Meta/UniversalLens/`, is no.
-Any distinguishability framework factors through Raw via an
-injective Lens view.
+answer, formalised in `lean/E213/Meta/UniversalLens/`, is no —
+in two categorically separate senses that should not be
+conflated.  First, **initiality**: every `HasDistinguishing`
+instance receives the *unique* combine-preserving morphism from
+Raw (the universal morphism, realised by the catamorphism
+`Raw.fold`); this is the precise content of "factors through
+Raw."  Second, **injectivity of particular views**: for the
+witnessed codomains the universal morphism is moreover injective
+— a faithful Lens, losing no distinguishing on the way in.
+Initiality says the arrow exists and is unique; injectivity says
+what that arrow preserves.  They are independent certificates,
+and the corpus carries both.
 
 The crucial observation behind this reading is that
 **"distinguishable from another" and "the difference being read"
@@ -102,21 +120,28 @@ homomorphisms**.
 The witness families `Lens/Universal/Witnesses/{Core, Nat2,
 Nat2Inj, Q213, Q213Inj, Nat3, Q213_3, TripleCapstone, Padding,
 PaddingCapstone}` realise the factoring for the codomains that
-Lean can handle directly.  An entity earns the description
-"meaningful" exactly when it can serve as a `HasDistinguishing`
-instance — and being a candidate is precisely receiving from
-Raw via the universal morphism.
+Lean can handle directly; the `*Inj` members carry the
+injectivity certificates — the faithful-Lens half of the §4.2
+opening.  An entity earns the description "meaningful" exactly
+when it can serve as a `HasDistinguishing` instance — and being
+a candidate is precisely receiving from Raw via the universal
+morphism.
 
-### What lies outside the picture
+### The contrast with ZFC — deliberately narrow scope
 
-A useful contrast.  The objects committed to by ZFC's
-arbitrariness axioms (Power, Choice, arbitrary `P(X)` subsets)
-have no fold-structured representation
-(`Lens/Morphism/NoDepthParity.lean`, `DepthParityNotFold.lean`).
-They have no representation inside the 213 framework.  Whether
-they "exist" outside it is an interpretive question under this
-Lens — and the only answer 213 can offer is that the framework
-provides no operand for the question.
+A useful contrast, scoped to exactly what the cited files prove.
+Certain functions are not folds (depth parity is the mechanised
+witness: `Lens/Morphism/NoDepthParity.lean`,
+`DepthParityNotFold.lean`), and the objects ZFC commits to
+through its arbitrariness axioms — Power, Choice, arbitrary
+`P(X)` subsets — sit on that side: they have no fold-structured
+representation in this Lens language.  That is the whole claim.
+It is not a verdict on set theory as a discipline, and it does
+not say set-theoretic mathematics is unreachable — as a
+distinguishing framework, it factors through Raw like any other
+(above).  What has no fold representation is the
+arbitrary-subset commitment itself; whether such objects "exist"
+elsewhere is a question 213 provides no operand for.
 
 The sideways reading does not close under the falsifiability
 contract via Lean alone; it uses a Lens whose codomain reaches
@@ -135,6 +160,13 @@ imposed (and these are themselves consequences of the axiom),
 the shape parameters `(NS, NT, d) = (3, 2, 5)` are the unique
 admissible solution.
 
+**Atomicity, in one sentence**: a carrier size `n` is *atomic*
+when it admits exactly one decomposition `n = 2a + 3b` into the
+binary and ternary primitive parts, and that unique
+decomposition is *alive* — both parts odd, so neither
+annihilates under the self-pair exclusion of clause 4
+(`Theory/Atomicity/Five.lean`, `Atomic`).
+
 The proofs live under `lean/E213/Theory/Atomicity/`:
 
   - `Five.lean` proves `atomic_iff_five`: a Raw shape is atomic
@@ -151,13 +183,16 @@ The proofs live under `lean/E213/Theory/Atomicity/`:
     that the constraint rules out.
 
 These are **pure-ℕ proofs that do not import Raw**.  Their
-independence is not "external view of Raw" — with no exterior
-from which to set parameters (§5.1), the shape parameters
-appear as the only self-consistent fixed point under the
-constraints.  The from-above reading says: of all the shapes a
-framework satisfying clauses 1–4 could take, exactly one
-survives the atomicity + arity demands, and it is
-`(NS, NT, d) = (3, 2, 5)`.
+independence is not "external view of Raw," and not a truth
+established prior to Raw: ℕ is itself a Lens reading of the
+residue (§2.5, §10.1), so a pure-ℕ proof is a uniqueness proof
+conducted **inside the shape-Lens's codomain** — not from a
+position before or outside Raw.  With no exterior from which to
+set parameters (§5.1), the shape parameters appear as the only
+self-consistent fixed point under the constraints.  The
+from-above reading says: of all the shapes a framework
+satisfying clauses 1–4 could take, exactly one survives the
+atomicity + arity demands, and it is `(NS, NT, d) = (3, 2, 5)`.
 
 ---
 

@@ -41,6 +41,16 @@ of some binary operation to `a` and `b`.  The slash is a way of
 **referring** to a particular member of the residue family —
 naming what was produced, not invoking a function.
 
+A second subtlety: what looks like a recursion of notation in
+the statement — first `b`, then `a/b`, then `a/(a/b)`, "and so
+on" — is the **expository shadow of self-completion**, not a
+temporal or inductive genesis.  Raw is not assembled in stages
+that the statement is narrating.  The labels `a`, `b`, `a/b` are
+the way a Lens reads the residue family after the fact (§6.1:
+chart-local labels), not a mechanism inside the Raw structure.
+§2.3 records the same point from the act's side: the pointing is
+already complete.
+
 ---
 
 ## §2.3 Self-completion
