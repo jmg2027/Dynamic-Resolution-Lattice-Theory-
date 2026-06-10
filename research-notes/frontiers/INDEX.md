@@ -180,7 +180,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   convention") are one state-transition=state reading (§6.6, §5.7) at
   the axiom scale vs. the async-run scale; the grading's
   run-invariance (`fold_eq_depth`) witnesses why clause-order is
-  expository.  Conceptual, no open Lean obligation.
+  expository.  Third scale added (2026-06-10 merge): the **probe
+  schedule is a foliation of the approximation race** — and the
+  graded-ladder branch supplies the two theorems the foliation story
+  lacked: the foliation-freedom has a proven boundary
+  (`wallis_no_graded_certificate`: some pointings defeat every
+  schedule), and foliations are not totally ordered
+  (`schedule_comparison_needs_gap`: the ladder is not a chain).
+  Conceptual core closed; no open Lean obligation.
 
 - `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
   modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
