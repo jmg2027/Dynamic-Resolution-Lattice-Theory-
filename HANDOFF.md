@@ -1,130 +1,151 @@
-# Session Handoff — 2026-06-10 (async growth arc: origin → debate → 8-item marathon → promotion → main merge)
+# Session Handoff — 2026-06-10 (AXIOM-corpus revision + decoupling marathon; READY TO MERGE)
 
 ## Branch
-`claude/tensors-dimensional-discretization-nqb10o` — pushed; merged
-`origin/main` IN (196 commits: discrete-curvature/Lichnerowicz,
-primitive-root/Zolotarev, tensor-calculus, certificate-depth arcs);
-ready-to-merge audit GREEN (0 layer violations, fresh full build
-309/309 clean, purity 0/0/0/0, sink rule 0).  **Intended next git
-action: merge this branch → `main` (originator-authorized).**
+`claude/axiom-document-revisions-9581uz` — pushed, **14 commits ahead of
+`origin/main`**, `origin/main` merged in.  Fresh `rm -rf .lake/build &&
+lake build` ✓ clean; kernel regression 45/45 0-axiom.  **Verdict:
+READY TO MERGE.**
 
 ## What Was Done This Session
 
-### 1. Origin record (`seed/ORIGIN_RAW.md`)
-The Raw axiom rebuilt from "difference" alone — the originator's
-dialogue, Korean verbatim + English translation; axiom-side companion
-to `ORIGIN.md`'s physics descent.  New-to-corpus content: the
-asynchronous two-event reading of growth, rejection of the lockstep
-clock, the layer-scale question (§6–§10).
+Documentation/organization, not new mathematics: a revision of the
+`seed/AXIOM/` corpus, a full sink-rule decoupling of the permanent tiers
+from `research-notes/`, the org-audit orphan-wiring, and a closing skills
+marathon (merge → process → crossdomain → essay → org-audit → purity →
+ready-to-merge).
 
-### 2. Multi-agent debate → frontier corrections
-Four experts (concurrency, number theory, Lean, physics) + an
-adversarial referee; all numerics machine-verified twice.  Standing
-corrections: the boundary ladder is semantics-tagged; **no run is
-forced through the 5-census** (its distinction is past-completeness,
-an order property); the census sandwich is **base-2 (= NT)**, not
-d = 5; the mod-5 cycle is a generic self-restart, not a resonance.
+### 1. AXIOM corpus revision (`seed/AXIOM/`, 13 reviewer points)
+- §2.2: notational recursion is the **expository shadow of
+  self-completion**, not temporal/inductive genesis.
+- §3.3–§3.4: symmetry/anti-reflexivity record *absences*; the forcing
+  chain is **logical forcing, not temporal stages** (resolves tension
+  with §2.3 self-completion).
+- §4.1: boundary witness is internal non-surjection, not an exhibited
+  exterior; depth flagged as encoding artefact; `Prop` carries its own
+  instance reading (not absorbed into Raw).
+- §4.2: **initiality** (universal morphism + `view_unique`) separated
+  from **injectivity** (faithful Lens) as independent certificates.
+- §4.3: one-sentence atomicity definition; pure-ℕ proofs are uniqueness
+  proofs *inside the shape-Lens codomain*, not truths prior to Raw.
+- §6.9: `0 = ∞` scoped to **residue level**, never value-level equality.
+- §7.1–§7.2: primacy quantifies over *pointing* frameworks; no automatic
+  location.
+- Then synced every cited Lean path/theorem name to the current tree
+  (moved paths, renamed theorems, F1–F27 falsifier count, +Nat4 witness).
 
-### 3. Marathon: full 8-item agenda CLOSED ∅-axiom (74 PURE, 0 DIRTY)
-- `Theory/Raw/Async.lean` (14) — fused ladder: `step1_forced`,
-  `level2_canonical` (exact swap-conjugate disjunction),
-  `level3_diverges` (beyond-swap divergence at step 3).
-- `Theory/Raw/AsyncReach.lean` (12) — `reach_closed`,
-  `reach_joinable` (no fairness), `every_raw_reached`,
-  `list_reached`; hand-rolled `memDec`.
-- `Theory/Raw/Slash.lean` (+3) — **`slash_inj`** pair injectivity.
-- `UniverseChain/`: `RawPastCompleteness` (6, `depth3_boundary` —
-  only the full join survives at depth 3), `AtomicityCensusBridge`
-  (8, `two_fives` mediated by `choose2 n = n ↔ n = 3`),
-  `RawCountQuadratic` (9, normal form `2T(n+1)+T(n)=T(n)²+4`, mod-5
-  pure period 3), `RawCountBounds` (6, strict
-  `2^(2^(n+1)) < rawCount(n+3) < 2^(2^(n+2))`), `RawDagSize` (8,
-  event-cost fold, sharing starts at depth 3 at `[t1,t4,t7]`),
-  `RawEnumeration` honest-count section (+8, `honest_count`:
-  soundness + completeness + Nodup — the predicted
-  `Tree.cmp`-transitivity gate dissolved; `Pairwise` + lex heads
-  sufficed).
+### 2. Sink-rule decoupling (PROCESS.md, permanent tiers)
+- **~150 dangling `G##` note citations** removed across every permanent
+  tier (cited notes had been archived/deleted): `methodology_patterns.md`
+  fully decoupled, catalogs, seed, STRICT_ZERO_AXIOM, CLAUDE.md, 113 Lean
+  docstring lines across ~75 files.
+- `seed/RESOLUTION_LIMIT_SPEC.md` (cited by 7 permanent files, **never
+  committed**) → repointed to `ConfigCount.lean` / `ResolutionLimit.lean`
+  / AXIOM §6.7.
+- `LESSONS_LEARNED.md` translated to English; stale `Pattern #N` pointers
+  repointed to `theory/meta/methodology_patterns.md`.
 
-### 4. Promotion + essay
-- Chapter `theory/math/foundations/async_growth.md` (promotion log
-  row 52); frontier note archived
-  (`research-notes/archive/async_pointline_raw.md`).
-- Essay `theory/essays/foundations/growth_without_a_clock.md` (log
-  row 53): time = run / foliation / grading; only the grading is
-  run-invariant; "the stage is of the run" = the temporal instance of
-  finite-state-is-of-the-pointing.
+### 3. org-audit (orphans + INDEX + narrative hygiene)
+- **110 orphan modules** wired into umbrellas (cycle-checked); new
+  `Lib/Physics/Quantum.lean` umbrella; layer build 1913/1913 green.
+- Cluster INDEXes for `Cohomology/{Bipartite,Cup,Fractal}`; stale tallies
+  corrected (CayleyDickson 57→118, Cohomology ~234→~305).
+- Deduped `nat_even_or_odd` → `Meta.Nat.PureNat.nat_dichotomy`.
 
-### 5. Post-merge cross-domain note
-`research-notes/frontiers/async_growth_crossdomain.md`: (1)
-**orbit-LTE** — main's `ν₅(F_n)=ν₅(n)` vs the census tower's
-attracting mod-5 cycle (`v₅(T(n+3)−T(n)) = ⌊(n+1)/3⌋+1` open law);
-(2) the ancestor-order Hasse diagram as carrier for main's Forman
-curvature; (3) the census squeeze is a depth-0 positivity
-certificate.
+### 4. Closing marathon (this turn)
+- **Merged `origin/main`** (async-growth arc: 7 Lean + 4 narrative); 4
+  INDEX/count conflicts resolved to true values (math 100, essays 82,
+  ~222 total).
+- `/process`: decoupled the one merge-introduced leak (STRICT_ZERO_AXIOM
+  async-census cited an archived note + stale "items 7–8 open").
+- **Cross-domain insight** `forcing_chain_meets_foliation`: this branch's
+  §3.4 ("forcing chain is logical, not temporal") and main's
+  `growth_without_a_clock` ("the run foliation is a Lens convention") are
+  one state-transition=state non-separation (§6.6, §5.7) at the axiom
+  scale vs the async-run scale; `fold_eq_depth` is the run-scale witness.
+- `/essay`: **`the_expository_sequence_is_a_lens_reading`** written to
+  `theory/essays/synthesis/`.
+- **Essay skill changed**: file-save is now the default.
+- `/purity-check` + `/ready-to-merge`: 0 sorry / 0 external axiom / 0
+  Mathlib / 0 Classical / 0 native_decide; layer 0 violations; sink rule
+  0 leaks; fresh build clean.
 
 ## Current Precision Results (0 free parameters)
-Unchanged — this arc is pure math (foundations).  See
-`catalogs/physics-constants.md` (`1/α_em` 0.09 ppb, CKM `δ = 90°`,
-`R_u = 1/φ²`, …).
+| Observable | DRLT | Error |
+|---|---|---|
+| 1/α_em | 137.036 | ppm |
+| m_μ/m_e | 206.768 (NS·137/NT) | 0.48 ppb |
+| m_p | 938.27 MeV (NS·Λ_QCD·P) | 0.000 % |
+| Ω_Λ | 0.685 ((1−1/π)(1+α/d)) | 0.0008 % |
+| η_B | ≈6×10⁻¹⁰ (6 = NS·NT) | leading-integer atomic |
+
+No precision results changed this session.  `falsifier_roster_forced`
+ties F1–F27 integers to the unique atomic triple (NS,NT,d)=(3,2,5).
 
 ## Open Problems (Priority Order)
 
-### 1. Async-growth open seeds
-Frontier note: `research-notes/frontiers/async_growth_seeds.md`.
-Exact-membership converse of reachability (argmin-by-depth fill);
-fused step-3 swap-class census (= 4, needs state enumeration);
-uniform `depth ≤ dagSize ≤ leaves − 1` by `Raw.rec`; axes-of-growth
-definition (constrained: bare ordering fraction diverges).
+### 1. forcing-chain ↔ foliation unification (conceptual)
+Make "the fold does not see the run" and "the fold does not see the
+clause-order" instances of **one** theorem — the async run-relation and
+the clause-forcing order as two quotients with the grading as their
+common section.  No open Lean obligation beyond that single statement.
+Frontier note: `research-notes/frontiers/forcing_chain_meets_foliation.md`
 
-### 2. Cross-domain bridges to main's arcs
-Frontier note: `research-notes/frontiers/async_growth_crossdomain.md`.
-First brick: `v₅(rawCount(n+3) − rawCount n) ≥ 1` (one subtraction
-lemma from `rawCount_mod5_cycle`), then the exact orbit-LTE law.
-Checkable: `formanEdge` on the depth-≤3 Hasse diagram (12 vertices).
+### 2. async growth — exact-membership converse
+`Closed P ∧ Nodup P ⟹ ∃ reachable s` with the same membership (the
+argmin-by-depth fill; `list_reached` gives the ⊇ form).
+Frontier note: `research-notes/frontiers/async_growth_seeds.md`
 
-### 3. Pre-existing (from main, unchanged)
-Markov `H` kernel (maximally localized), π non-holonomicity, Ricci
-smooth core, νₚ(F_n) higher rungs — see
-`research-notes/frontiers/INDEX.md`.
+### 3. Ricci-flow smooth analytic core (century-problem wall)
+Algebraic tensor calculus ∅-axiom closed
+(`theory/math/geometry/riemannian_curvature_tensor.md`); residual wall is
+weighted integration-by-parts (`∇𝓕 ↔ flow`), `𝓦` Gaussian, Li–Yau
+Harnack, κ-solution/surgery.
+Frontier note: `research-notes/frontiers/ricci_flow_smooth_core.md`
+
+### 4. Markov/Lagrange uniform-c lift (Zhang 3c±2)
+Composite + even ω=3 Markov numbers via the `3c±2` modulus shift;
+formalization-ready roadmap exists.
+Frontier note: `research-notes/frontiers/markov_lagrange/G202_zhang_3c_pm2_roadmap.md`
 
 ## Unresolved from This Session
-None blocking.  Landmine catalog (do not re-trip): Lean-core list-`∈`
-decidability instance leaks propext (use explicit `Mem` constructors
-/ Bool membership / hand-rolled `memDec`); `Nat.mul_assoc` and
-`Nat.pow_add` leak propext (use `NatHelper.mul_assoc`,
-`Pow213.pow_add_two`); `ac_rfl` leaks propext+Quot.sound; index
-refinement in term matches needs the variable matched alongside the
-membership proof (`match w, hw with`).
+None attempted-and-failed.  This was a documentation/organization session;
+the one Lean change (`nat_even_or_odd` dedup) is PURE and built.  The 134
+namespace mismatches surfaced by `sync_namespaces.py` are the repo's
+**pre-existing directory-namespace convention** (present on `origin/main`),
+not this branch's doing — a tree-wide rewrite deserving its own commit
+chain, recorded as informational, not a blocker.
 
 ## Next
-1. **Merge this branch → `main`** (authorized; ready-to-merge GREEN).
-2. Then: the orbit-LTE first brick (frontier #2) or the
-   exact-membership converse (frontier #1); both are S–M with
-   machinery in place.
+After merge to `main`: the forcing-chain↔foliation single theorem (Open
+Problem 1, surgical, conceptual) or the async exact-membership converse
+(Open Problem 2, the argmin-by-depth fill).  Both are recorded frontiers.
 
 ## Three-tier state
-- **Promotions this session**: `theory/math/foundations/
-  async_growth.md` ← async arc (row 52); essay
-  `growth_without_a_clock.md` (row 53).
-- **Promotion candidates**: none outstanding from this branch.
-- **Active scratchpad**: `frontiers/async_growth_seeds.md`,
-  `frontiers/async_growth_crossdomain.md`.
+- **Promotions this session**: none (main's merge brought
+  `discrete_curvature.md` + `async_growth.md`, already promoted on main).
+- **Essays written**:
+  `theory/essays/synthesis/the_expository_sequence_is_a_lens_reading.md`.
+- **Promotion candidates**: none outstanding — all CLOSED frontiers have
+  theory/ chapters (verified in `/process`).
+- **Active scratchpad**: `research-notes/frontiers/` open boards
+  (forcing_chain_meets_foliation, async_growth_seeds,
+  ricci_flow_smooth_core, markov_lagrange).
 
 ## File Map
 ```
-seed/ORIGIN_RAW.md                                   ← origin record (dialogue verbatim)
-theory/math/foundations/async_growth.md              ← NEW chapter (the arc)
-theory/essays/foundations/growth_without_a_clock.md  ← NEW essay
-lean/E213/Theory/Raw/Async.lean                      ← NEW 14 PURE (ladder)
-lean/E213/Theory/Raw/AsyncReach.lean                 ← NEW 12 PURE (reachability)
-lean/E213/Theory/Raw/Slash.lean                      ← +slash_inj, slash_val_lt/gt
-lean/E213/Lib/Math/Foundations/UniverseChain/
-  {RawPastCompleteness,AtomicityCensusBridge,
-   RawCountQuadratic,RawCountBounds,RawDagSize}.lean ← NEW 5 modules (37 PURE)
-  RawEnumeration.lean                                ← +honest_count section (8 PURE)
-research-notes/frontiers/async_growth_seeds.md       ← open seeds (4)
-research-notes/frontiers/async_growth_crossdomain.md ← bridges to main (3)
-research-notes/archive/async_pointline_raw.md        ← archived frontier
-STRICT_ZERO_AXIOM.md                                 ← 2026-06-10 entry (74 PURE)
-theory/{INDEX,math/INDEX,essays/INDEX}.md            ← counts + rows synced
+seed/AXIOM/0{1,2,3,4,6,7,8,9}_*.md   <- reviewer-point revisions + Lean-path sync
+seed/INDEX.md                         <- sideways-uniqueness anchor + configCount
+LESSONS_LEARNED.md                    <- translated to English; pattern pointers repointed
+theory/meta/methodology_patterns.md   <- G## decoupled; reduction-patterns translated
+catalogs/*.md                         <- G## decoupled (6 files)
+STRICT_ZERO_AXIOM.md                  <- async-census citation decoupled
+lean/E213/Lib/Physics/Quantum.lean    <- NEW umbrella (Qubit/Bell/Bekenstein)
+lean/E213/Lib/Math/Cohomology/{Bipartite,Cup,Fractal}/INDEX.md  <- NEW cluster INDEXes
+lean/E213/Lib/Math/NumberTheory/FourSquare.lean,
+lean/E213/Lib/Math/Algebra/CayleyDickson/Tower/DiscForcingObstruction.lean
+                                      <- nat_even_or_odd deduped
+~75 lean docstrings                   <- dangling G## citations rewritten to stand alone
+theory/essays/synthesis/the_expository_sequence_is_a_lens_reading.md  <- NEW essay
+research-notes/frontiers/forcing_chain_meets_foliation.md  <- NEW crossdomain note
+.claude/skills/essay/SKILL.md          <- file-save now the default
 ```
