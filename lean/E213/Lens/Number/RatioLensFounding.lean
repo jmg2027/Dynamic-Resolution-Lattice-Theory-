@@ -1,5 +1,6 @@
 import E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal
 import E213.Lib.Math.Algebra.Mobius213OneAsGlue
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # RatioLensFounding — `ℚ` is the ratio rung, and its coprimality is `det P = NS − NT = 1`
@@ -30,6 +31,7 @@ namespace E213.Lens.Number.RatioLensFounding
 open E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11 det_pn_universal)
 open E213.Lib.Math.Algebra.Mobius213OneAsGlue (ns_minus_nt_is_one)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
+open E213.Tactic.NatHelper (mul_assoc)
 
 /-- The ratio identity: `p₁/p₂ = q₁/q₂` is cross-multiplication `p₁·q₂ = q₁·p₂`. -/
 def ratioEquiv (p q : Nat × Nat) : Prop := p.1 * q.2 = q.1 * p.2
@@ -37,6 +39,69 @@ def ratioEquiv (p q : Nat × Nat) : Prop := p.1 * q.2 = q.1 * p.2
 theorem ratioEquiv_refl (p : Nat × Nat) : ratioEquiv p p := rfl
 
 theorem ratioEquiv_symm {p q : Nat × Nat} (h : ratioEquiv p q) : ratioEquiv q p := h.symm
+
+/-! ## The ratio rung runs the same sandwich, transported by ×
+
+Comparison is primitive only on the chain.  Each rung compares its
+objects by transporting both into one chain frame via *its own fold's
+action*, then running the chain's one sandwich.  The difference-Lens
+transports by co-translation (`Int213.subNatNat_add_add`); the
+ratio-Lens transports by co-scaling (`ratioEquiv_scale`) and compares
+crossed readings `p₁·q₂` vs `q₁·p₂` — the join frame (common
+denominator).  The sandwich itself is unchanged: ratio identity is its
+collapse on the crossed readings (`ratioEquiv_of_cross_sandwich`,
+mirroring `Int213.eq_of_sandwich`), and the coherence of the transport
+is exactly transitivity, which holds by cancelling the middle reading —
+possible only at positive resolution (`ratioEquiv_trans`). -/
+
+/-- Co-scaling is the ratio fiber: `(a, b) ~ (k·a, k·b)`.  The ×-action
+    analog of the difference-Lens fiber `(a,b) ~ (a+c, b+c)`.  (For
+    `k = 0` the readout degenerates; the live fiber is `0 < k`,
+    cf. `ratioEquiv_trans`'s positivity.) -/
+theorem ratioEquiv_scale (a b k : Nat) :
+    ratioEquiv (a, b) (k * a, k * b) := by
+  show a * (k * b) = (k * a) * b
+  rw [← mul_assoc a k b, Nat.mul_comm a k]
+
+/-- Ratio identity is the chain sandwich collapsed on the *crossed*
+    readings: same strict-inequality pair as `Int213.eq_of_sandwich`,
+    transported into the join frame by ×. -/
+theorem ratioEquiv_of_cross_sandwich {p q : Nat × Nat}
+    (h1 : p.1 * q.2 < q.1 * p.2 + 1) (h2 : q.1 * p.2 < p.1 * q.2 + 1) :
+    ratioEquiv p q :=
+  Nat.le_antisymm (Nat.le_of_lt_succ h1) (Nat.le_of_lt_succ h2)
+
+/-- ★★★ Transitivity of the ratio identity — the coherence of the
+    ×-transport.  Cancelling the middle reading `q.2` needs `0 < q.2`:
+    two transports compose only at positive resolution. -/
+theorem ratioEquiv_trans {p q r : Nat × Nat} (hq : 0 < q.2)
+    (h1 : ratioEquiv p q) (h2 : ratioEquiv q r) : ratioEquiv p r := by
+  obtain ⟨p1, p2⟩ := p
+  obtain ⟨q1, q2⟩ := q
+  obtain ⟨r1, r2⟩ := r
+  have hc1 : p1 * q2 = q1 * p2 := h1
+  have hc2 : q1 * r2 = r1 * q2 := h2
+  show p1 * r2 = r1 * p2
+  have key : q2 * (p1 * r2) = q2 * (r1 * p2) := by
+    calc q2 * (p1 * r2)
+        = (q2 * p1) * r2 := (mul_assoc q2 p1 r2).symm
+      _ = (p1 * q2) * r2 := by rw [Nat.mul_comm q2 p1]
+      _ = (q1 * p2) * r2 := by rw [hc1]
+      _ = q1 * (p2 * r2) := mul_assoc q1 p2 r2
+      _ = q1 * (r2 * p2) := by rw [Nat.mul_comm p2 r2]
+      _ = (q1 * r2) * p2 := (mul_assoc q1 r2 p2).symm
+      _ = (r1 * q2) * p2 := by rw [hc2]
+      _ = r1 * (q2 * p2) := mul_assoc r1 q2 p2
+      _ = r1 * (p2 * q2) := by rw [Nat.mul_comm q2 p2]
+      _ = (r1 * p2) * q2 := (mul_assoc r1 p2 q2).symm
+      _ = q2 * (r1 * p2) := Nat.mul_comm (r1 * p2) q2
+  have hle1 : q2 * (p1 * r2) ≤ q2 * (r1 * p2) := by
+    rw [key]; exact Nat.le_refl _
+  have hle2 : q2 * (r1 * p2) ≤ q2 * (p1 * r2) := by
+    rw [key]; exact Nat.le_refl _
+  exact Nat.le_antisymm
+    (Nat.le_of_mul_le_mul_left hle1 hq)
+    (Nat.le_of_mul_le_mul_left hle2 hq)
 
 /-- ★★★ **The convergent's lowest-terms condition is the difference-Lens unit `det P = NS − NT`.**
     The convergent matrix `Pⁿ = [[Q00, Q01],[Q01, Q11]]` has determinant `Q00·Q11 − Q01² = NS − NT`,
