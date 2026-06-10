@@ -97,6 +97,16 @@ theorem le_of_mul_le_mul_right_pos {a b c : Int} (h : a * c ≤ b * c) (hc : 0 <
       exact mul_pos ha_b hc
     exact Order.not_le_of_lt hlt h
 
+/-- ★★ **Doubling cancellation at zero**: `2·a = 0 ⟹ a = 0`, both `≤`-directions via
+    `le_of_mul_le_mul_right_pos`.  The closing step of any antisymmetric-kernel sum
+    (`S = −S ⟹ S = 0`) without division. -/
+theorem eq_zero_of_two_mul_eq_zero {a : Int} (h : 2 * a = 0) : a = 0 := by
+  have hle : a ≤ 0 := le_of_mul_le_mul_right_pos (c := 2)
+    (by rw [mul_comm a 2, h, E213.Meta.Int213.zero_mul]; exact Order.le_refl 0) (by decide)
+  have hge : (0 : Int) ≤ a := le_of_mul_le_mul_right_pos (c := 2)
+    (by rw [E213.Meta.Int213.zero_mul, mul_comm a 2, h]; exact Order.le_refl 0) (by decide)
+  exact Order.le_antisymm hle hge
+
 /-- ★★ **`<` is irreflexive** (`Int.lt_irrefl` is `propext`-dirty), by reducing `a < a` to
     `(-1).NonNeg`. -/
 theorem int_lt_irrefl (a : Int) : ¬ (a < a) := by

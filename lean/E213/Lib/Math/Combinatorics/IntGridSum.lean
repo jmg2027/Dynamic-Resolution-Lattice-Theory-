@@ -105,6 +105,32 @@ theorem gridSumZ_nonneg (n : Nat) (f : Nat → Int) (h : ∀ x, x < n → 0 ≤ 
   have hle := gridSumZ_le n (fun _ => 0) f h
   rwa [gridSumZ_zero_fn] at hle
 
+/-- **Antisymmetric kernel sums to zero**: `A x y = −A y x` ⟹ `Σ_xΣ_y A x y = 0`.
+    Fubini reflects the double sum onto its own negation (`S = −S`), and the doubling
+    cancellation `2S = 0 ⟹ S = 0` closes without division — the discrete
+    integration-by-parts engine (every Green identity is an antisymmetrized kernel). -/
+theorem gridSumZ_antisym_zero (n : Nat) (A : Nat → Nat → Int)
+    (hA : ∀ x y, A x y = - A y x) :
+    gridSumZ n (fun x => gridSumZ n (fun y => A x y)) = 0 := by
+  have hswap : gridSumZ n (fun x => gridSumZ n (fun y => A x y))
+      = gridSumZ n (fun y => gridSumZ n (fun x => A x y)) := gridSumZ_fubini n n A
+  have hneg : gridSumZ n (fun y => gridSumZ n (fun x => A x y))
+      = gridSumZ n (fun y => (-1) * gridSumZ n (fun x => A y x)) :=
+    gridSumZ_congr n _ _ (fun y _ => by
+      rw [← gridSumZ_mul_left n (-1) (fun x => A y x)]
+      exact gridSumZ_congr n _ _ (fun x _ => by rw [hA x y]; ring_intZ))
+  have hS : gridSumZ n (fun x => gridSumZ n (fun y => A x y))
+      = (-1) * gridSumZ n (fun y => gridSumZ n (fun x => A y x)) :=
+    Eq.trans hswap (Eq.trans hneg
+      (gridSumZ_mul_left n (-1) (fun y => gridSumZ n (fun x => A y x))))
+  have h2 : 2 * gridSumZ n (fun x => gridSumZ n (fun y => A x y)) = 0 := by
+    rw [show 2 * gridSumZ n (fun x => gridSumZ n (fun y => A x y))
+          = gridSumZ n (fun x => gridSumZ n (fun y => A x y))
+            - (-1) * gridSumZ n (fun y => gridSumZ n (fun x => A y x)) from by ring_intZ,
+        ← hS]
+    exact Order.sub_self_zero _
+  exact OrderMul.eq_zero_of_two_mul_eq_zero h2
+
 /-- Indicator sum vanishes below the spike: `a ≥ n` ⟹ `Σ_{i<n} [i=a]·v = 0` (no `i < n`
     hits the spike `a`). -/
 theorem gridSumZ_delta_zero (n a : Nat) (v : Int) (ha : n ≤ a) :
