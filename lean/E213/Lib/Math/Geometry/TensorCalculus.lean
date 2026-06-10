@@ -32,7 +32,8 @@ namespace E213.Lib.Math.Geometry.TensorCalculus
 
 open E213.Meta.Int213
 open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
-  gridSumZ_congr gridSumZ_mul_left gridSumZ_fubini gridSumZ_delta_weight gridSumZ_zero_fn)
+  gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_fubini
+  gridSumZ_delta_weight gridSumZ_zero_fn)
 
 /-- **Christoffel symbol of the first kind**, scaled `×2` (to stay over ℤ):
     `2·Γ_{kij} = ∂_i g_{kj} + ∂_j g_{ki} − ∂_k g_{ij}`, read off the metric-derivative tensor
@@ -153,5 +154,54 @@ theorem riem_flat (n l i j k : Nat) :
       gridSumZ_congr n _ (fun _ => (0 : Int)) (fun m _ => by show (0 : Int) * 0 = 0; decide),
       gridSumZ_zero_fn]
   show (0 : Int) + 0 - (0 + 0) = 0; decide
+
+/-! ## §4 — the Ricci tensor (contraction of Riemann) -/
+
+/-- The **Ricci tensor** `Ric_{ik} = Σ_l R^l_{ilk}` — the trace of the Riemann tensor on its
+    upper index against the second lower index. -/
+def ricciFromRiem (n : Nat) (dGamma : Nat → Nat → Nat → Nat → Int)
+    (Gam : Nat → Nat → Nat → Int) (i k : Nat) : Int :=
+  gridSumZ n (fun l => riemUp n dGamma Gam l i l k)
+
+/-- ★★★★ **Flat ⟹ Ricci-flat.**  A flat connection (`Γ ≡ 0`, `∂Γ ≡ 0`) has vanishing Ricci
+    curvature — the contraction of `riem_flat`.  Ricci-flatness is the Einstein vacuum
+    condition; the flat metric satisfies it trivially. -/
+theorem ricci_flat (n i k : Nat) :
+    ricciFromRiem n (fun _ _ _ _ => 0) (fun _ _ _ => 0) i k = 0 := by
+  unfold ricciFromRiem
+  rw [gridSumZ_congr n _ (fun _ => (0 : Int)) (fun l _ => riem_flat n l i l k),
+      gridSumZ_zero_fn]
+
+/-- Pure cyclic-cancellation `A − B + B − C + C − A = 0` (the per-`m` Bianchi summand after
+    the connection symmetry), avoiding `ring_intZ`'s zero-polynomial gap. -/
+private theorem hexcancel (A B C : Int) : A - B + B - C + C - A = 0 := by
+  rw [sub_add_cancel_int A B, sub_add_cancel_int A C, Order.sub_self_zero]
+
+/-- ★★★★★ **First Bianchi identity** `R^l_{ijk} + R^l_{jki} + R^l_{kij} = 0` (cyclic in the
+    lower triple), for a **torsion-free** connection (`Gam` symmetric in its lower pair `hGam`,
+    hence `∂Γ` symmetric there `hdG`).  The fundamental algebraic curvature symmetry: the `∂Γ`
+    terms cancel pairwise via `hdG`, the six `ΓΓ` contractions combine into one `gridSumZ` whose
+    summand cancels per-`m` via `hGam`.  Dimension-free, `∅`-axiom. -/
+theorem riem_bianchi1 (n : Nat) (dGamma : Nat → Nat → Nat → Nat → Int)
+    (Gam : Nat → Nat → Nat → Int)
+    (hGam : ∀ l a b, Gam l a b = Gam l b a)
+    (hdG : ∀ a l b c, dGamma a l b c = dGamma a l c b) (l i j k : Nat) :
+    riemUp n dGamma Gam l i j k + riemUp n dGamma Gam l j k i
+      + riemUp n dGamma Gam l k i j = 0 := by
+  have hScomb :
+      gridSumZ n (fun m => Gam l j m * Gam m i k)
+        - gridSumZ n (fun m => Gam l k m * Gam m i j)
+        + gridSumZ n (fun m => Gam l k m * Gam m j i)
+        - gridSumZ n (fun m => Gam l i m * Gam m j k)
+        + gridSumZ n (fun m => Gam l i m * Gam m k j)
+        - gridSumZ n (fun m => Gam l j m * Gam m k i) = 0 := by
+    rw [← gridSumZ_sub, ← gridSumZ_add, ← gridSumZ_sub, ← gridSumZ_add, ← gridSumZ_sub,
+        gridSumZ_congr n _ (fun _ => (0 : Int))
+          (fun m _ => by
+            dsimp only; rw [hGam m i k, hGam m i j, hGam m j k]; exact hexcancel _ _ _)]
+    exact gridSumZ_zero_fn n
+  unfold riemUp
+  rw [hdG j l i k, hdG k l i j, hdG i l j k, ← hScomb]
+  ring_intZ
 
 end E213.Lib.Math.Geometry.TensorCalculus

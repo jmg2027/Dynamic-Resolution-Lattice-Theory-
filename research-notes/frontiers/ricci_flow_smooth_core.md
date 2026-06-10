@@ -235,11 +235,18 @@ det·2Γ_{pij}`, the raising-then-lowering consistency, from the abstract invers
 connection `Gam` and its derivative `dGamma` (abstract, as the metric entered via `dg`), with
 the defining `(j,k)`-antisymmetry `riem_antisym_jk` (`R^l_{ijk} = −R^l_{ikj}`, the curvature
 `2`-form / commutator structure) and `riem_flat` (`Γ≡0 ⟹ R≡0`).  **Next rung**: the further
-Riemann symmetries (first Bianchi, pair symmetry) and `Ric = Σ_k R^k_{ikj}` need the metric
-structure relating `Γ` to `g` (§1–§2 wired into §3) — then the scalar `R = g^{ij}Ric_{ij}`,
-the input to the conformal scalar of §S6 in the *non*-conformal case.  The residual wall stays
-the transcendental metrics + the PDE a-priori estimates (Shi/maximum-principle/compactness)
-behind Perelman's `𝓦`-monotonicity.
+Riemann symmetries (first Bianchi, pair symmetry) the **Ricci tensor** `Ric_{ik} = Σ_l R^l_{ilk}`
+(`ricciFromRiem`, `ricci_flat`) and the **first Bianchi identity** `R^l_{ijk}+R^l_{jki}+
+R^l_{kij}=0` (`riem_bianchi1`, for a torsion-free `Γ`) are now ∅-axiom too (§4).  So the
+algebraic tensor calculus — Christoffel (both kinds) → Riemann → Ricci + Bianchi — stands,
+dimension-free.  The residual wall: the *metric-tied* Riemann symmetries (pair symmetry needs
+`Γ ↔ g`), the scalar `R = g^{ij}Ric_{ij}`, transcendental metrics, and the PDE a-priori
+estimates (Shi/maximum-principle/compactness) behind Perelman's `𝓦`-monotonicity.
+
+  (`ring_intZ` note: its normalizer cannot certify an expression that reduces to the **zero
+  polynomial** `= 0`; the Bianchi per-`m` cyclic cancellation was closed with the pure helper
+  `hexcancel` (`sub_add_cancel_int` + `sub_self_zero`) instead — `omega` would close it but
+  leaks `propext`+`Quot.sound`, so is barred.)
 
 ## Verdict
 
