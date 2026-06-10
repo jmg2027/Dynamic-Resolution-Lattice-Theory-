@@ -162,6 +162,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `numbersystem_square` — **the number-system square**: ℕ→ℤ→ℚ vs
+  ℕ→ℚ₊→ℚ, two Lenses (difference, ratio) applied in two orders;
+  distributivity as the commutation law (the reason both routes
+  converge to one ℚ), the judgment formulas (sandwich, coprimality) as
+  membership detectors across levels.  Open: the ℚ₊→ℚ leg, the
+  square-commutes theorem, the frames essay after closure.
 - `signed_rationals_normal_form` — ★ ALL BRICKS CLOSED, **promotion
   candidate**: all of ℚ as sign × coprime pair — the composite of the
   difference-Lens swap readout and the ∣-order lowest-terms readout.
