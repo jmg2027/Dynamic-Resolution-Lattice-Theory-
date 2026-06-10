@@ -182,24 +182,36 @@ irreducible data, `((a, b), n)`.  Three grades:
 3. **the occurrence count itself is the unknown** (`aˣ = b`) — no
    fold-back, **transcendental** (sandwich-family only).
 
-**The mixed form and why it is 4 slots.**  ℕ has no subtraction, so
-deficits live on the other side: every fold-equation is two-sided
-(the pair `(a, b)` of `a + x = b` *is* the two sides).  Mixing the
-ℤ-equation and the ℚ₊-equation = giving each side one ×-slot and one
-+-slot:
+**The mixed form, derived from the sandwich (the crossing rule).**
+The earlier "give each side one ×-slot and one +-slot" was a
+postulate; the sandwich derivation replaces it.  **Slot attachment
+rule**: a slot may be attached wherever it preserves monotonicity of
+the fold in the unknown (+-slots, positive ×-slots, exponent slots
+all do; a subtraction slot would break it — which is why that data
+lives elsewhere, see below).  **Generalization rule**: the general
+question is not "fold = constant" but "*where do two monotone folds
+cross*"; the constant is the degenerate crossing partner.  The
+sandwich generalizes to the crossing sandwich
 
 ```
-        a·x + b = c·x + d        (4 = 2 sides × 2 operation slots)
+        F(x) ≤ G(x)  ∧  G(x+1) < F(x+1)
 ```
 
-with the parents as degenerate faces — `(a,c) = (1,0)` gives
-`x + b = d` (the ℤ-pair `(b,d)`), `(b,c) = (0,0)` gives `a·x = d`
-(the ℚ₊-pair `(a,d)`).  The solution `x = (d−b)/(a−c)` exhibits the
-mix: the two +-slots form a difference pair (numerator), the two
-×-slots a difference pair (denominator), and the two a ratio pair —
-ℕ⁴, re-deriving the square's nested-pair bracketings from the
-equation side; the two signs multiply into the one sign of the
-`Rat213` normal form.
+and for affine folds this **reduces exactly to the ÷-sandwich of the
+slot differences** — closed PURE
+(`NatDiv213.affine_cross_iff_div_sandwich`,
+`affine_cross_eq_div`: in witness form `a = c + e`, `d = b + f`, the
+crossing sandwich of `a·x + b` vs `c·x + d` is `e·x ≤ f < e·(x+1)`,
+location `f / e`).  So the 4-slot form is forced: a crossing needs
+two folds, each with one ×-slot and one +-slot; the **sign data is
+the crossing orientation** (which fold is steeper, which starts
+higher — two swap bits multiplying to the rational's sign), which is
+where the monotonicity-breaking "subtraction slot" actually lives.
+Degree-n crossings (two polynomial folds) locate real algebraic
+numbers; refining the crossing through rational grids (clearing
+denominators returns ℕ-fold comparisons) is the `Real213` cut — a
+crossing that never lands on a lattice point at any resolution is the
+equation/sandwich boundary again.
 
 **The degree-n mix, same rule**: `a·xⁿ + b = c·xⁿ + d`, data
 `((a,b,c,d), n)` — now `xⁿ = (d−b)/(a−c)` can be negative, and for

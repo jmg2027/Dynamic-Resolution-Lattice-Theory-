@@ -207,4 +207,72 @@ theorem mul_witness_iff_mod_eq_zero (a b : Nat) :
     rw [h, Nat.add_zero] at hmod
     exact hmod
 
+/-! ## The crossing sandwich — mixed questions reduce to the ÷-sandwich
+
+A mixed (two-fold) question is not "fold = constant" but "where do two
+monotone folds cross".  In subtraction-free witness form (`a = c + e`
+with `0 < e` the steepness surplus, `d = b + f` with `f` the head
+start), the crossing sandwich
+
+    `a·x + b ≤ c·x + d  ∧  c·(x+1) + d < a·(x+1) + b`
+
+is *exactly* the ÷-sandwich `e·x ≤ f < e·(x+1)` on the slot
+differences (`affine_cross_iff_div_sandwich`), so the crossing
+location is `f / e` (`affine_cross_eq_div`).  The two-sided linear
+form (4 slots) is thereby derived, not postulated: a crossing needs
+two affine folds, each carrying one ×-slot and one +-slot, and the
+crossing orientation (which fold is steeper / which starts higher) is
+the sign data. -/
+
+/-- `a + b ≤ a + c → b ≤ c`, ∅-axiom (Lean-core
+    `Nat.le_of_add_le_add_left` brings `propext`). -/
+theorem le_of_add_le_add_left_pure : ∀ {a b c : Nat}, a + b ≤ a + c → b ≤ c
+  | 0, _, _, h => by rwa [Nat.zero_add, Nat.zero_add] at h
+  | a + 1, _, _, h => by
+    rw [Nat.succ_add, Nat.succ_add] at h
+    exact le_of_add_le_add_left_pure (Nat.le_of_succ_le_succ h)
+
+/-- The crossing sandwich of two affine folds, in witness form, is the
+    ÷-sandwich of the slot differences. -/
+theorem affine_cross_iff_div_sandwich (c b e f x : Nat) :
+    (((c + e) * x + b ≤ c * x + (b + f))
+      ∧ (c * (x + 1) + (b + f) < (c + e) * (x + 1) + b))
+    ↔ (e * x ≤ f ∧ f < e * (x + 1)) := by
+  have eL : ∀ y : Nat, (c + e) * y + b = c * y + (e * y + b) := fun y => by
+    rw [E213.Tactic.NatHelper.add_mul, Nat.add_assoc]
+  constructor
+  · intro h
+    obtain ⟨h1, h2⟩ := h
+    refine ⟨?_, ?_⟩
+    · rw [eL x] at h1
+      have h1' : e * x + b ≤ b + f := le_of_add_le_add_left_pure h1
+      rw [Nat.add_comm (e * x) b] at h1'
+      exact le_of_add_le_add_left_pure h1'
+    · rw [eL (x + 1)] at h2
+      have h2' : b + f < e * (x + 1) + b := Nat.lt_of_add_lt_add_left h2
+      rw [Nat.add_comm (e * (x + 1)) b] at h2'
+      exact Nat.lt_of_add_lt_add_left h2'
+  · intro g
+    obtain ⟨g1, g2⟩ := g
+    refine ⟨?_, ?_⟩
+    · rw [eL x]
+      apply Nat.add_le_add_left
+      rw [Nat.add_comm (e * x) b]
+      exact Nat.add_le_add_left g1 b
+    · rw [eL (x + 1)]
+      apply Nat.add_lt_add_left
+      rw [Nat.add_comm (e * (x + 1)) b]
+      exact Nat.add_lt_add_left g2 b
+
+/-- ★★★★ The crossing location of two affine folds is the ÷-floor of
+    the slot differences: head start over steepness surplus.  The
+    mixed (4-slot) question's sandwich *is* the ÷-sandwich, one level
+    of slot-difference down. -/
+theorem affine_cross_eq_div {c b e f x : Nat} (he : 0 < e)
+    (h1 : (c + e) * x + b ≤ c * x + (b + f))
+    (h2 : c * (x + 1) + (b + f) < (c + e) * (x + 1) + b) :
+    x = f / e := by
+  obtain ⟨g1, g2⟩ := (affine_cross_iff_div_sandwich c b e f x).mp ⟨h1, h2⟩
+  exact div_eq_of_sandwich he g1 g2
+
 end E213.Meta.Nat.NatDiv213
