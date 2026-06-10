@@ -191,15 +191,33 @@ Lean lessons (recorded in the ladder note): PolyNatM doesn't drop `0·atom`
 monomials; un-reduced `(J+1)−1` IH indices become spurious atoms — `rfl` for
 all-literal rungs, re-ascribe IHs.
 
+## Tenth arc: weld stage 2 — the finite weld identity PROVEN
+
+`LambertWeld` §4–§6 (module 22 PURE): the pairing functional `PF q c m J`
+(`[P(u)·F_m]|_J` cleared; the `u`-shift costs `2J(2m+2J+1)` and drops `J`), the
+**lifted ladder** `pf_ladder` (`(2n+2J+3)·[PF c n J] = (2n+3)·[PF c (n+1) J] +
+2J·[PF c (n+2) (J−1)]`, uniform in the list — its tail case reduces to itself one
+level down), the convergent polynomials `AP/BP` (`ladd`/`lsmul` list algebra), and
+the **matrix-unrolling weld rows** `weld_pair_cosh` / `weld_pair_sinh`:
+`vFac J n·coshNum q J = PF (AP (n+1)) n J + 2J·PF (AP n) (n+1) (J−1)` (and the
+sinh row with `BP`, `v0Fac`) — the CF-correctness identity
+`(F_{−1},F_0) = M₀⋯M_{n−1}(Fₙ,F_{n+1})`, exact at every truncation, division-free,
+with `decide`-checked instances at `n = 2, J = 2`.  Each induction step is one
+generic `pair_step` (ladder + linearity) matching the `AP/BP` recursion.
+Lean lessons: overlapping `match` rows (`ladd ([],l)/(l,[])`) block iota reduction
+— make patterns disjoint; `lake build` from the repo ROOT is a false success
+(must build from `lean/`).
+
 ## Open Problems (priority order)
-1. **The weld, stage 2 — the finite pairing identity**: define the `u`-polynomial
-   convergents `Ãₙ, B̃ₙ` (recursion `Ãₙ = (2n+1)Ã_{n−1} + u·Ã_{n−2}`), prove
-   `F_{−1}·B̃ₙ − F_0·Ãₙ = ±u^{n+1}·F_{n+1}` at truncated level by induction on `n`
-   along `weld_ladder` (subtraction-free paired-parity form like `cf_det`), the
-   bridge `cfPn (cothCF q) n = q^{n+1}·Ãₙ(1/q²)` (equivalence transform), then
-   order-transfer: `cothUnitCFCauchySeq q` is pinned between the cosh/sinh
-   brackets — the weld closes, and `e^{2/q} = (coth+1)/(coth−1)` (cut-Möbius)
-   discharges `hmeas` for `p = 2`.
+1. **The weld, stage 3 — evaluation bridge + order transfer**: (a) relate the
+   `PF`-pairings to the regular-CF convergents — `cfPn (cothCF q) n = q^{n+1}·Ãₙ(1/q²)`
+   in cleared form (induction comparing `AP`-evaluation against `cfPn`'s recursion,
+   weights `q^{2⌈·⌉}`); (b) positivity/size of the `2J`-tail terms in the weld rows
+   (FNum monotonicity in `J`, easy); (c) order-transfer: from the two weld rows,
+   `coshNum/sinhNum`-cross-products vs `cfPn/cfQn`-cross-products differ by the
+   bounded tail ⟹ `cothUnitCFCauchySeq q` is pinned between the cosh/sinh partial
+   brackets ⟹ the Lambert real IS `coth(1/q)`; then `e^{2/q}` via cut-Möbius
+   discharges `hmeas` (`p = 2`).
 2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
    numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient

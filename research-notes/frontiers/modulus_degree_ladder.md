@@ -144,10 +144,25 @@ modulus is the growth class of `N` in `k`, and it factors as
    and the bottom rungs collapse to cosh/sinh exactly (`(2j)!!(2j−1)!! = (2j)!`):
    `weld_base` (cosh enters at `n = −1`), `sinhNum_eq_FNum_zero` (`n = 0` IS sinh).
    So `coth(1/q) = q·F_{−1}/F_0` and the unrolled ladder IS `[q; 3q, 5q, …]`.
-   **Stage 2 (the finite weld identity, open)**: pair with the CF convergent
-   polynomials — `F_{−1}·B̃_n − F_0·Ãₙ = ±u^{n+1}·F_{n+1}` truncated (induction on
-   `n` along `weld_ladder`), bridge `cfPn (cothCF q) n = q^{n+1}·Ãₙ(1/q²)`, then
-   order-transfer pins `cothUnitCFCauchySeq q` between the cosh/sinh brackets.
+   **Stage 2 — ✅ the finite weld identity is PROVEN** (`LambertWeld` §4–§6, module
+   22 PURE): the pairing functional `PF` (`[P(u)·F_m]|_J` cleared, Horner: the
+   `u`-shift costs exactly `2J·(2m+2J+1)` and drops `J` by one), the lifted ladder
+   `pf_ladder` (same shape as `weld_ladder`, uniform in the polynomial — the tail
+   reduces to itself one level down), the convergent polynomials `AP`/`BP`
+   (`Ã/B̃`, list recursion), and the **matrix-unrolling rows**
+
+     `vFac J n · coshNum q J = [Ã_{n−1}F_n]|_J + 2J·[Ã_{n−2}F_{n+1}]|_{J−1}`
+     `v0Fac J n · sinhNum q J = [B̃_{n−1}F_n]|_J + 2J·[B̃_{n−2}F_{n+1}]|_{J−1}`
+
+   (`weld_pair_cosh`/`weld_pair_sinh`, exact at every truncation, division-free;
+   `n = 0` rungs are `weld_base`/`sinhNum_eq_FNum_zero`; each step is one
+   `pair_step` = ladder + linearity, matching the `AP/BP` recursion exactly).
+   This IS the CF-correctness identity `(F_{−1}, F_0) = M₀⋯M_{n−1}·(Fₙ, F_{n+1})`
+   of the Lambert fold.  **Stage 3 (remaining)**: the evaluation bridge
+   `cfPn (cothCF q) n = q^{n+1}·Ãₙ(1/q²)` (relate `PF`-pairings to `cfPn/cfQn`
+   cross-products), positivity/size bounds on the `2J`-tail terms, then
+   order-transfer: `cothUnitCFCauchySeq q` pinned between the cosh/sinh partial
+   brackets — the weld closes.
    Lean note: PolyNatM's normalizer does **not** drop `0·atom` monomials and chokes
    on un-reduced `(J+1)−1` index atoms — close `J = 0` rungs by `rfl` (all-literal
    defeq) and re-ascribe IHs with reduced indices.
