@@ -6,6 +6,7 @@ import E213.Lib.Math.Foundations.UniverseChain.FiniteContainsInfinite
 import E213.Lib.Math.Foundations.UniverseChain.PairAxes
 import E213.Lib.Math.Foundations.UniverseChain.RawBipartition
 import E213.Lib.Math.Foundations.UniverseChain.RawCountGeneric
+import E213.Lib.Math.Foundations.UniverseChain.RawCountQuadratic
 import E213.Lib.Math.Foundations.UniverseChain.RawDepth3
 import E213.Lib.Math.Foundations.UniverseChain.RawDepthCount
 import E213.Lib.Math.Foundations.UniverseChain.RawEnumeration
