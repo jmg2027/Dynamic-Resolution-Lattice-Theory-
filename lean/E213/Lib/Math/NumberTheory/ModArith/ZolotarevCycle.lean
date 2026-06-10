@@ -37,7 +37,7 @@ open E213.Lib.Math.Algebra.Linalg213.DetMul (funcs nodup_imp_perm mem_tuples)
 open E213.Lib.Math.Algebra.Linalg213.DetTranspose (nodup_map_restrict)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (mem_iota_of_lt)
 open E213.Tactic.List213 (getD_ge getD_map_ib list_ext_getD exists_of_mem_map)
-open E213.Lib.Math.Algebra.Linalg213.PermGroup (composeList_getD)
+open E213.Lib.Math.Algebra.Linalg213.PermGroup (composeList_getD composeList_length)
 open E213.Lib.Math.NumberTheory.ModArith.Zolotarev
   (mulPerm length_map_pure mulPerm_getD mulPerm_mem_perms res_cancel mulPerm_length)
 open E213.Lib.Math.NumberTheory.ModArith.MulOrder (ordModP fermat pow_split_eq ord_dvd)
@@ -46,6 +46,9 @@ open E213.Lib.Math.NumberTheory.ModArith.PrimitiveRoot (exists_primitive_root)
 open E213.Meta.Nat.MulMod213 (mul_mod_right_pure)
 open E213.Meta.Nat.AddMod213 (div_add_mod dvd_of_mod_eq_zero)
 open E213.Lib.Math.NumberTheory.ModArith.CubeFromFLT (pow_add_pure)
+open E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative (qr_iff_pow_one)
+open E213.Lib.Math.NumberTheory.ModArith.ZolotarevConverse (mul_neg_one_int zolotarev_iff)
+open E213.Meta.Int213 (mul_one)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Tactic.NatHelper (add_sub_of_le sub_add_cancel add_sub_cancel_right add_left_cancel_pure)
 
@@ -371,5 +374,130 @@ theorem tau_mem_perms (g p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 �
     rwa [tau_length g p] at h
   exact nodup_imp_perm p (tau g p) hfuncs
     (nodup_map_restrict (tau_inj g p hp hpr hg0 hglt hord) (nodup_iota p))
+
+/-! ## §7 — the conjugation `composeList (mulPerm g) τ = composeList τ (cycS)` -/
+
+theorem tauFun_of_ne (g p i : Nat) (h : ¬ i = 0) : tauFun g p i = g ^ (p - 1 - i) % p := if_neg h
+
+theorem tauFun_one (g p : Nat) : tauFun g p 1 = g ^ (p - 1 - 1) % p := rfl
+
+/-- The exponent step: `(m − (k+2)) + 1 = m − (k+1)` (when `k+2 ≤ m`). -/
+theorem exp_step (m k : Nat) (h : k + 2 ≤ m) : (m - (k + 2)) + 1 = m - (k + 1) := by
+  obtain ⟨t, rfl⟩ : ∃ t, m = (k + 2) + t := ⟨m - (k + 2), (add_sub_of_le h).symm⟩
+  have l : (k + 2) + t - (k + 2) = t := by
+    rw [Nat.add_comm (k + 2) t]; exact add_sub_cancel_right t (k + 2)
+  have r : (k + 2) + t - (k + 1) = t + 1 := by
+    rw [show (k + 2) + t = (t + 1) + (k + 1) from by ring_nat]
+    exact add_sub_cancel_right (t + 1) (k + 1)
+  rw [l, r]
+
+/-- **The conjugation, pointwise**: `g·τ(i) ≡ τ(S(i)) (mod p)` for `i < p`. -/
+theorem conj_pointwise (g p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hg0 : 0 < g) (hglt : g < p) (i : Nat) (hi : i < p) :
+    g * tauFun g p i % p = tauFun g p (sFun p i) := by
+  have hp2 : 2 ≤ p := hp
+  rcases i with _ | _ | k
+  · -- i = 0
+    rw [tauFun_zero, Nat.mul_zero, sFun_zero, tauFun_zero]
+    exact Nat.mod_eq_of_lt (Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp))
+  · -- i = 1
+    have hne : ¬ (p - 1) = 0 := Nat.not_eq_zero_of_lt (Nat.le_sub_one_of_lt hp)
+    have eqA : (p - 1 - 1) + 1 = p - 1 := Nat.succ_pred_eq_of_pos (Nat.le_sub_one_of_lt hp)
+    have hLHS : g * tauFun g p 1 % p = 1 := by
+      rw [tauFun_one, g_mul_pow, eqA]
+      exact fermat g p hp hpr hg0 hglt
+    have hRHS : tauFun g p (sFun p 1) = 1 := by
+      rw [sFun_one, tauFun_of_ne g p (p - 1) hne, Nat.sub_self, Nat.pow_zero]
+      exact Nat.mod_eq_of_lt hp
+    rw [hLHS, hRHS]
+  · -- i = k + 2
+    have hk2 : k + 2 ≤ p - 1 := Nat.le_sub_one_of_lt hi
+    have hne1 : ¬ (k + 2 : Nat) = 0 := Nat.not_eq_zero_of_lt (Nat.succ_pos (k + 1))
+    have hne2 : ¬ (k + 1 : Nat) = 0 := Nat.not_eq_zero_of_lt (Nat.succ_pos k)
+    rw [tauFun_of_ne g p (k + 2) hne1, g_mul_pow, exp_step (p - 1) k hk2,
+        sFun_ss, tauFun_of_ne g p (k + 1) hne2]
+
+/-- **The conjugation identity**: `composeList (mulPerm g) τ = composeList τ (cycS)`. -/
+theorem conj_eq (g p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hg0 : 0 < g) (hglt : g < p) (hord : ordModP g p = p - 1) :
+    composeList (mulPerm g p) (tau g p) = composeList (tau g p) (cycS p) := by
+  apply list_ext_getD 0
+  · rw [composeList_length, composeList_length, tau_length, cycS_length]
+  · intro i
+    rcases Nat.lt_or_ge i p with hi | hi
+    · rw [composeList_getD (mulPerm g p) (tau g p) i (by rw [tau_length]; exact hi),
+          composeList_getD (tau g p) (cycS p) i (by rw [cycS_length]; exact hi),
+          tau_getD g p i hi, cycS_getD p i hi,
+          mulPerm_getD g p (tauFun g p i) (tauFun_lt g p i hp),
+          tau_getD g p (sFun p i) (sFun_lt p i hp hi)]
+      exact conj_pointwise g p hp hpr hg0 hglt i hi
+    · rw [getD_ge 0 (by rw [composeList_length, tau_length]; exact hi),
+          getD_ge 0 (by rw [composeList_length, cycS_length]; exact hi)]
+
+/-! ## §8 — assembly: a primitive root's permutation is odd, and full Zolotarev -/
+
+/-- `altSign n = ±1`. -/
+theorem altSign_pm : ∀ n, altSign n = 1 ∨ altSign n = -1
+  | 0 => Or.inl rfl
+  | n + 1 => by
+    show -(altSign n) = 1 ∨ -(altSign n) = -1
+    rcases altSign_pm n with h | h
+    · right; rw [h]
+    · left; rw [h]; exact Int.neg_neg 1
+
+/-- A permutation's sign is `±1`. -/
+theorem psign_pm (l : List Nat) : psign l = 1 ∨ psign l = -1 := altSign_pm (inversions l)
+
+/-- ★★★ **A primitive root's multiplication-permutation is odd**: `psign (mulPerm g p) = −1`.
+    `mulPerm g` is conjugate to the standard rotation `cycS` (`conj_eq`), and `psign` is a class
+    function (`psign_mul`, with the conjugator's sign squaring to `1`), so
+    `psign (mulPerm g) = psign (cycS) = −1`. -/
+theorem psign_mulPerm_primitive (g p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hg0 : 0 < g) (hglt : g < p) (hord : ordModP g p = p - 1)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) : psign (mulPerm g p) = -1 := by
+  have hp2 : 2 ≤ p := hp
+  have hmemG := mulPerm_mem_perms g p hp hpr (not_dvd_g g p hg0 hglt)
+  have hmemT := tau_mem_perms g p hp hpr hg0 hglt hord
+  have hmemC := cycS_mem_perms p hp
+  have hpsi := congrArg psign (conj_eq g p hp hpr hg0 hglt hord)
+  rw [psign_mul p (mulPerm g p) (tau g p) hmemG hmemT,
+      psign_mul p (tau g p) (cycS p) hmemT hmemC,
+      psign_cycS p m h2m hm1 hp2, mul_neg_one_int (psign (tau g p))] at hpsi
+  -- hpsi : psign (mulPerm g p) * psign (tau g p) = -(psign (tau g p))
+  rcases psign_pm (tau g p) with hT | hT
+  · rw [hT, mul_one] at hpsi; exact hpsi
+  · rw [hT, mul_neg_one_int, Int.neg_neg] at hpsi
+    have hneg := congrArg Neg.neg hpsi
+    rwa [Int.neg_neg] at hneg
+
+/-- A primitive root is a quadratic **non**-residue: its order `p−1 = 2m` does not divide `m`. -/
+theorem primitive_not_qr (g p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hg1 : 1 ≤ g) (hglt : g < p) (hord : ordModP g p = p - 1)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) :
+    ¬ ∃ x, 1 ≤ x ∧ x < p ∧ x ^ 2 % p = g := by
+  intro hqr
+  have hpow : g ^ m % p = 1 := (qr_iff_pow_one p m g hp hpr h2m hm1 hg1 hglt).mp hqr
+  have hdvd : ordModP g p ∣ m := ord_dvd g p hp hpr hg1 hglt m hpow
+  rw [hord, ← h2m] at hdvd
+  have hle : 2 * m ≤ m := le_of_dvd_pos (2 * m) m hm1 hdvd
+  have hmm : m + m ≤ m := by rw [← Nat.two_mul]; exact hle
+  exact absurd (Nat.le_trans (Nat.add_le_add_left hm1 m) hmm) (Nat.not_succ_le_self m)
+
+/-- ★★★★★ **Full Zolotarev / Legendre–sign identity.**  For an odd prime `p` (`2m = p − 1`,
+    `m ≥ 1`) and a unit `1 ≤ a < p`:  `psign (mulPerm a p) = 1 ⟺ a` is a quadratic residue mod `p`.
+    The single odd witness is a primitive root `g` (`exists_primitive_root`): it is a non-residue
+    (`primitive_not_qr`) whose permutation is odd (`psign_mulPerm_primitive`), so
+    `ZolotarevConverse.zolotarev_iff` upgrades to all units. -/
+theorem zolotarev_full (p m a : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) :
+    psign (mulPerm a p) = 1 ↔ ∃ x, 1 ≤ x ∧ x < p ∧ x ^ 2 % p = a := by
+  obtain ⟨g, hg1, hgp, hord⟩ := exists_primitive_root p hp hpr
+  have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
+  have hglt : g < p := Nat.lt_of_le_of_lt hgp (Nat.sub_lt hppos Nat.zero_lt_one)
+  have hsign : psign (mulPerm g p) = -1 :=
+    psign_mulPerm_primitive g p m hp hpr hg1 hglt hord h2m hm1
+  have hnqr : ¬ ∃ x, 1 ≤ x ∧ x < p ∧ x ^ 2 % p = g :=
+    primitive_not_qr g p m hp hpr hg1 hglt hord h2m hm1
+  exact zolotarev_iff p m a g hp hpr h2m hm1 ha1 halt hg1 hglt hnqr hsign
 
 end E213.Lib.Math.NumberTheory.ModArith.ZolotarevCycle
