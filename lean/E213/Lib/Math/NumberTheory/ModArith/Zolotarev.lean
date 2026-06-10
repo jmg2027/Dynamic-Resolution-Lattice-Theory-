@@ -23,8 +23,9 @@ and a quadratic residue `a = z²` factors `mulPerm a = mulPerm z ∘ mulPerm z`,
   * ★★★ `psign_mulPerm_hom` — the sign is multiplicative.
   * ★★★ `psign_mulPerm_qr` — a quadratic residue's mul-permutation is **even** (`psign = 1`).
 
-All ∅-axiom.  (The converse — a non-residue's permutation is odd — is the Gauss-count residual,
-recorded in `research-notes/frontiers/euler_criterion_converse.md`.)
+All ∅-axiom.  The converse — a non-residue's permutation is odd — is closed in `ZolotarevCycle`
+(`psign_mulPerm_primitive`, the primitive-root `(p−1)`-cycle witness) and assembled into the full
+identity `psign (mulPerm a p) = 1 ⟺ a` QR by `ZolotarevReduction.zolotarev_iff`.
 -/
 
 namespace E213.Lib.Math.NumberTheory.ModArith.Zolotarev
