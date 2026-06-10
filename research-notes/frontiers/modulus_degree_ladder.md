@@ -100,6 +100,14 @@ modulus is the growth class of `N` in `k`, and it factors as
    (`sep_graded_modulus`) — a real rescued outside the degree-1 class.  Rescue
    is now graded the way `CompletabilityGrade` grades break.  Narrative:
    `theory/math/analysis/holonomic_modulus.md` §4.
+   *Post-closure sub-questions*: (a) **schedule comparison law** — `DominatesS`
+   is *not* monotone in `ρ` bare (the `ρ_i·d_i` carry term flips; a tentative
+   sufficient condition needs `d` non-decreasing + a `ρ'/ρ` ratio condition);
+   when exactly does a slower schedule dominate-imply a faster one?  (b) **what
+   real is `sepNum/sepDen`?** — the witness is synthetic (cross-det relation
+   solved over ℕ); its limit's classical identity (CF shape `[0; 2, 3, 3, 4, …]`
+   with partial quotients `⌊√i⌋+2`-driven) is uncharacterized, only its
+   degree-2-rescued completion is.
 2. **Conditional measure-modulus schema** — `effective measure μ + Cauchy rate
    ⟹ constructed N`.  Instance: Wallis-π with `μ(π) ≤ 7.11` would carry a
    degree-≈7 modulus; the formalization cost of the measure is thereby isolated
