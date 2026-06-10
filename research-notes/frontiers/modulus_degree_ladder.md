@@ -158,11 +158,22 @@ modulus is the growth class of `N` in `k`, and it factors as
    `n = 0` rungs are `weld_base`/`sinhNum_eq_FNum_zero`; each step is one
    `pair_step` = ladder + linearity, matching the `AP/BP` recursion exactly).
    This IS the CF-correctness identity `(F_{−1}, F_0) = M₀⋯M_{n−1}·(Fₙ, F_{n+1})`
-   of the Lambert fold.  **Stage 3 (remaining)**: the evaluation bridge
-   `cfPn (cothCF q) n = q^{n+1}·Ãₙ(1/q²)` (relate `PF`-pairings to `cfPn/cfQn`
-   cross-products), positivity/size bounds on the `2J`-tail terms, then
-   order-transfer: `cothUnitCFCauchySeq q` pinned between the cosh/sinh partial
-   brackets — the weld closes.
+   of the Lambert fold.  **Stage 3a — ✅ the evaluation bridge is PROVEN**
+   (`LambertWeld` §7, module 36 PURE): descending Horner evaluation `dev`
+   (`hornEv` with the defeq-clean `c + q²·acc` accumulator), the list algebra
+   (`dev_lsmul`, `dev_ladd_eq`, `dev_ladd_succ` with the padding power `q²`,
+   parity length lemmas `AP_BP_length`), and **`cf_bridge`**:
+   `cfPn (cothCF q) (2k) = q·dev (AP (2k+1))`, `cfPn (2k+1) = dev (AP (2k+2))`,
+   `cfQn (2k) = dev (BP (2k+1))`, `cfQn (2k+1) = q·dev (BP (2k+2))` — the
+   equivalence transform `[q; 3q, 5q, …] ↔ 1 + u/(3 + u/(5 + …))` as four `Nat`
+   identities (4-way parity induction riding the `AP/BP` recursions;
+   `decide`-anchored at `q = 2`).  The CF fold and the cosh/sinh partial
+   numerators now live in ONE identity system (weld rows §5 + bridge §7).
+   **Stage 3b (remaining, pure order work)**: positivity/size of the `2J`-tail
+   terms in the weld rows, then order-transfer — `cothUnitCFCauchySeq q` pinned
+   between cosh/sinh partial brackets; the weld closes.  (Lean: core
+   `Nat.pow_add` is `propext`-dirty — use the definitional `pow_succ` chain,
+   `pow_add_two`.)
    Lean note: PolyNatM's normalizer does **not** drop `0·atom` monomials and chokes
    on un-reduced `(J+1)−1` index atoms — close `J = 0` rungs by `rfl` (all-literal
    defeq) and re-ascribe IHs with reduced indices.

@@ -208,16 +208,31 @@ Lean lessons: overlapping `match` rows (`ladd ([],l)/(l,[])`) block iota reducti
 — make patterns disjoint; `lake build` from the repo ROOT is a false success
 (must build from `lean/`).
 
+## Eleventh arc: weld stage 3a — the evaluation bridge PROVEN
+
+`LambertWeld` §7 (module 36 PURE): descending Horner evaluation `dev`/`hornEv`
+(accumulator written `c + q²·acc` for defeq-cleanliness), the list-eval algebra
+(`hornEv_acc`, `dev_cons`, `dev_lsmul`, `dev_ladd_eq`, `dev_ladd_succ` — the
+padding case costs exactly `q²` — and the parity length lemmas `AP_BP_length`),
+and **`cf_bridge`**: `cfPn (cothCF q) (2k) = q·dev(AP (2k+1))`,
+`cfPn (2k+1) = dev(AP (2k+2))`, `cfQn (2k) = dev(BP (2k+1))`,
+`cfQn (2k+1) = q·dev(BP (2k+2))` — the equivalence transform
+`[q; 3q, 5q, …] ↔ 1 + u/(3 + u/(5 + …))` as four `Nat` identities, by 4-way
+parity induction riding the `AP/BP` recursions (`decide`-anchored at `q = 2`).
+**The CF fold (`cothUnitCFCauchySeq`) and the cosh/sinh partial numerators now
+live in one identity system** (weld rows §5 + bridge §7).  New Lean dirt found:
+core `Nat.pow_add` is `propext`-dirty — pure replacement `pow_add_two` via the
+definitional `pow_succ` chain.
+
 ## Open Problems (priority order)
-1. **The weld, stage 3 — evaluation bridge + order transfer**: (a) relate the
-   `PF`-pairings to the regular-CF convergents — `cfPn (cothCF q) n = q^{n+1}·Ãₙ(1/q²)`
-   in cleared form (induction comparing `AP`-evaluation against `cfPn`'s recursion,
-   weights `q^{2⌈·⌉}`); (b) positivity/size of the `2J`-tail terms in the weld rows
-   (FNum monotonicity in `J`, easy); (c) order-transfer: from the two weld rows,
-   `coshNum/sinhNum`-cross-products vs `cfPn/cfQn`-cross-products differ by the
-   bounded tail ⟹ `cothUnitCFCauchySeq q` is pinned between the cosh/sinh partial
-   brackets ⟹ the Lambert real IS `coth(1/q)`; then `e^{2/q}` via cut-Möbius
-   discharges `hmeas` (`p = 2`).
+1. **The weld, stage 3b — order transfer (the last step)**: (i) positivity and
+   `J`-monotonicity of `FNum`/`PF` (easy inductions); (ii) from the weld rows +
+   `cf_bridge`, the cross-product comparison: `cfPn(2i)·sinhNum-side` vs
+   `coshNum-side·cfQn(2i)` differ by the bounded `2J`-tail terms ⟹ the even CF
+   convergents sit below the cosh/sinh ratio and (odd side) above ⟹
+   `cothUnitCFCauchySeq q`'s limit cut is pinned: the Lambert real IS
+   `coth(1/q)`.  Then `e^{2/q} = (coth+1)/(coth−1)` via cut-Möbius discharges
+   `hmeas` (`p = 2`) — unconditional `exp(2/q)`.
 2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
    numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient

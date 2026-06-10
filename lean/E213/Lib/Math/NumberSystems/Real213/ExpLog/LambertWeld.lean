@@ -1,4 +1,5 @@
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!
@@ -377,6 +378,279 @@ theorem weld_pair_anchors :
     AP 2 = [3, 1] ∧ BP 2 = [3]
     ∧ vFac 2 2 * coshNum 1 2 = PF 1 (AP 3) 2 2 + 2 * 2 * PF 1 (AP 2) 3 1
     ∧ v0Fac 2 2 * sinhNum 1 2 = PF 1 (BP 3) 2 2 + 2 * 2 * PF 1 (BP 2) 3 1 :=
+  ⟨by decide, by decide, by decide, by decide⟩
+
+/-! ## §7 — the evaluation bridge: the weld polynomials ARE the CF convergents
+
+The Lambert fold (`ContinuedFractionModulus.cfPn/cfQn` at `cothCF q`) and the weld
+rows (§5, in `AP`/`BP`-polynomial language) speak the same coordinates: evaluating
+the `u`-polynomials at `u = 1/q²` and clearing (descending Horner `dev`, head =
+highest power of `q²`) recovers the regular-CF convergents exactly, up to the
+parity-alternating factor `q`:
+
+  `cfPn (cothCF q) (2k)   = q · dev (AP (2k+1))`,   `cfPn (2k+1) = dev (AP (2k+2))`,
+  `cfQn (cothCF q) (2k)   =     dev (BP (2k+1))`,   `cfQn (2k+1) = q · dev (BP (2k+2))`
+
+(the equivalence transform `[q; 3q, 5q, …] ↔ 1 + u/(3 + u/(5 + …))` made explicit).
+With §5's weld rows this puts `cothUnitCFCauchySeq`'s convergents and the cosh/sinh
+partial numerators in one identity system — stage 3's remaining step is pure order
+transfer. -/
+
+/-- Pure `q^{n+2} = qⁿ·(q·q)` (core `Nat.pow_add` carries `propext`; `pow_succ` is
+    definitional). -/
+private theorem pow_add_two (q n : Nat) : q ^ (n + 2) = q ^ n * (q * q) := by
+  show q ^ n * q * q = q ^ n * (q * q)
+  ring_nat
+
+private theorem pow_two (q : Nat) : q ^ 2 = q * q := by
+  rw [Nat.pow_succ, Nat.pow_one]
+
+/-- Descending Horner evaluation at `q²` (head coefficient gets the highest power):
+    `hornEv q a [c₀,…,c_D] = a·q^{2(D+1)} + Σᵢ cᵢ·q^{2(D−i)}`. -/
+def hornEv (q : Nat) : Nat → List Nat → Nat
+  | acc, [] => acc
+  | acc, c :: cs => hornEv q (c + q ^ 2 * acc) cs
+
+/-- The cleared descending evaluation `dev q c = Σᵢ cᵢ·q^{2(D−i)}`. -/
+def dev (q : Nat) (c : List Nat) : Nat := hornEv q 0 c
+
+theorem hornEv_acc (q : Nat) : ∀ (c : List Nat) (a : Nat),
+    hornEv q a c = a * q ^ (2 * c.length) + hornEv q 0 c
+  | [], a => by
+    show a = a * 1 + 0
+    rw [Nat.mul_one]
+    exact (Nat.add_zero a).symm
+  | c :: cs, a => by
+    show hornEv q (c + q ^ 2 * a) cs
+        = a * q ^ (2 * cs.length + 2) + hornEv q c cs
+    rw [hornEv_acc q cs (c + q ^ 2 * a), hornEv_acc q cs c,
+        pow_add_two q (2 * cs.length), pow_two q]
+    ring_nat
+
+theorem dev_cons (q c : Nat) (cs : List Nat) :
+    dev q (c :: cs) = c * q ^ (2 * cs.length) + dev q cs := by
+  show hornEv q c cs = c * q ^ (2 * cs.length) + hornEv q 0 cs
+  exact hornEv_acc q cs c
+
+/-- A leading zero is free: `dev (0 :: c) = dev c`. -/
+theorem dev_zero_cons (q : Nat) (c : List Nat) : dev q (0 :: c) = dev q c := rfl
+
+theorem lsmul_length (k : Nat) : ∀ c : List Nat, (lsmul k c).length = c.length
+  | [] => rfl
+  | c :: cs => by
+    show (lsmul k cs).length + 1 = cs.length + 1
+    rw [lsmul_length k cs]
+
+theorem dev_lsmul (q k : Nat) : ∀ c : List Nat, dev q (lsmul k c) = k * dev q c
+  | [] => (Nat.mul_zero k).symm
+  | c :: cs => by
+    rw [show lsmul k (c :: cs) = k * c :: lsmul k cs from rfl,
+        dev_cons, dev_cons, dev_lsmul q k cs, lsmul_length k cs]
+    ring_nat
+
+theorem ladd_length_eq : ∀ (c d : List Nat), c.length = d.length →
+    (ladd c d).length = d.length
+  | [], [], _ => rfl
+  | [], _ :: _, h => Nat.noConfusion h
+  | _ :: _, [], h => Nat.noConfusion h
+  | _ :: cs, _ :: ds, h => by
+    show (ladd cs ds).length + 1 = ds.length + 1
+    rw [ladd_length_eq cs ds (Nat.succ.inj h)]
+
+theorem ladd_length_succ : ∀ (c d : List Nat), c.length + 1 = d.length →
+    (ladd c d).length = d.length
+  | [], [], h => Nat.noConfusion h
+  | [], _ :: ds, _ => rfl
+  | _ :: _, [], h => Nat.noConfusion h
+  | _ :: cs, _ :: ds, h => by
+    show (ladd cs ds).length + 1 = ds.length + 1
+    rw [ladd_length_succ cs ds (Nat.succ.inj h)]
+
+theorem dev_ladd_eq (q : Nat) : ∀ (c d : List Nat), c.length = d.length →
+    dev q (ladd c d) = dev q c + dev q d
+  | [], [], _ => rfl
+  | [], _ :: _, h => Nat.noConfusion h
+  | _ :: _, [], h => Nat.noConfusion h
+  | c :: cs, d :: ds, h => by
+    have hl : cs.length = ds.length := Nat.succ.inj h
+    rw [show ladd (c :: cs) (d :: ds) = (c + d) :: ladd cs ds from rfl,
+        dev_cons, dev_cons, dev_cons, dev_ladd_eq q cs ds hl,
+        ladd_length_eq cs ds hl, hl]
+    ring_nat
+
+theorem dev_ladd_succ (q : Nat) : ∀ (c d : List Nat), c.length + 1 = d.length →
+    dev q (ladd c d) = q ^ 2 * dev q c + dev q d
+  | [], [], h => Nat.noConfusion h
+  | [], d :: ds, h => by
+    show dev q (d :: ds) = q ^ 2 * 0 + dev q (d :: ds)
+    rw [Nat.mul_zero]
+    exact (Nat.zero_add _).symm
+  | _ :: _, [], h => Nat.noConfusion h
+  | c :: cs, d :: ds, h => by
+    have hl : cs.length + 1 = ds.length := Nat.succ.inj h
+    rw [show ladd (c :: cs) (d :: ds) = (c + d) :: ladd cs ds from rfl,
+        dev_cons, dev_cons, dev_cons, dev_ladd_succ q cs ds hl,
+        ladd_length_succ cs ds hl, ← hl,
+        show q ^ (2 * (cs.length + 1)) = q ^ (2 * cs.length) * (q * q) from
+          pow_add_two q (2 * cs.length),
+        pow_two q]
+    ring_nat
+
+/-- Lengths of the weld polynomials, by parity: `|AP (2k+1)| = k+1`,
+    `|AP (2k+2)| = k+2`, `|BP (2k+1)| = k+1`, `|BP (2k+2)| = k+1`. -/
+theorem AP_BP_length : ∀ k : Nat,
+    (AP (2 * k + 1)).length = k + 1 ∧ (AP (2 * k + 2)).length = k + 2
+    ∧ (BP (2 * k + 1)).length = k + 1 ∧ (BP (2 * k + 2)).length = k + 1
+  | 0 => ⟨rfl, rfl, rfl, rfl⟩
+  | k + 1 => by
+    obtain ⟨h1, h2, h3, h4⟩ := AP_BP_length k
+    refine ⟨?_, ?_, ?_, ?_⟩
+    · show (ladd (lsmul (2 * (2 * k + 1) + 3) (AP (2 * k + 2))) (0 :: AP (2 * k + 1))).length
+          = k + 2
+      rw [ladd_length_eq _ _ (by
+            rw [lsmul_length, h2]
+            show k + 2 = (AP (2 * k + 1)).length + 1
+            rw [h1])]
+      show (AP (2 * k + 1)).length + 1 = k + 2
+      rw [h1]
+    · show (ladd (lsmul (2 * (2 * k + 2) + 3) (AP (2 * k + 3))) (0 :: AP (2 * k + 2))).length
+          = k + 3
+      have h1' : (AP (2 * k + 3)).length = k + 2 := by
+        show (ladd (lsmul (2 * (2 * k + 1) + 3) (AP (2 * k + 2))) (0 :: AP (2 * k + 1))).length
+            = k + 2
+        rw [ladd_length_eq _ _ (by
+              rw [lsmul_length, h2]
+              show k + 2 = (AP (2 * k + 1)).length + 1
+              rw [h1])]
+        show (AP (2 * k + 1)).length + 1 = k + 2
+        rw [h1]
+      rw [ladd_length_succ _ _ (by
+            rw [lsmul_length, h1']
+            show k + 3 = (AP (2 * k + 2)).length + 1
+            rw [h2])]
+      show (AP (2 * k + 2)).length + 1 = k + 3
+      rw [h2]
+    · show (ladd (lsmul (2 * (2 * k + 1) + 3) (BP (2 * k + 2))) (0 :: BP (2 * k + 1))).length
+          = k + 2
+      rw [ladd_length_succ _ _ (by
+            rw [lsmul_length, h4]
+            show k + 2 = (BP (2 * k + 1)).length + 1
+            rw [h3])]
+      show (BP (2 * k + 1)).length + 1 = k + 2
+      rw [h3]
+    · show (ladd (lsmul (2 * (2 * k + 2) + 3) (BP (2 * k + 3))) (0 :: BP (2 * k + 2))).length
+          = k + 2
+      have h3' : (BP (2 * k + 3)).length = k + 2 := by
+        show (ladd (lsmul (2 * (2 * k + 1) + 3) (BP (2 * k + 2))) (0 :: BP (2 * k + 1))).length
+            = k + 2
+        rw [ladd_length_succ _ _ (by
+              rw [lsmul_length, h4]
+              show k + 2 = (BP (2 * k + 1)).length + 1
+              rw [h3])]
+        show (BP (2 * k + 1)).length + 1 = k + 2
+        rw [h3]
+      rw [ladd_length_eq _ _ (by
+            rw [lsmul_length, h3']
+            show k + 2 = (BP (2 * k + 2)).length + 1
+            rw [h4])]
+      show (BP (2 * k + 2)).length + 1 = k + 2
+      rw [h4]
+
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus (cfPn cothCF)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor (cfQn)
+
+/-- ★★★★★ **The evaluation bridge**: the regular-CF convergents of the Lambert fold
+    (`cothUnitCFCauchySeq`'s carrier, partial quotients `(2n+1)q`) are **exactly** the
+    cleared evaluations of the weld polynomials, with the parity-alternating factor
+    `q` — the equivalence transform `[q; 3q, 5q, …] ↔ 1 + u/(3 + u/(5 + …))` as four
+    `Nat` identities.  Together with the weld rows (§5) the CF fold and the cosh/sinh
+    partial numerators now live in one identity system. -/
+theorem cf_bridge (q : Nat) : ∀ k : Nat,
+    cfPn (cothCF q) (2 * k) = q * dev q (AP (2 * k + 1))
+    ∧ cfPn (cothCF q) (2 * k + 1) = dev q (AP (2 * k + 2))
+    ∧ cfQn (cothCF q) (2 * k) = dev q (BP (2 * k + 1))
+    ∧ cfQn (cothCF q) (2 * k + 1) = q * dev q (BP (2 * k + 2))
+  | 0 => by
+    refine ⟨?_, ?_, ?_, ?_⟩
+    · show 1 * q = q * 1
+      rw [Nat.one_mul, Nat.mul_one]
+    · show 3 * q * (1 * q) + 1 = 1 + q ^ 2 * 3
+      rw [Nat.one_mul, pow_two]
+      ring_nat
+    · rfl
+    · show 3 * q = q * 3
+      ring_nat
+  | k + 1 => by
+    obtain ⟨ih1, ih2, ih3, ih4⟩ := cf_bridge q k
+    obtain ⟨l1, l2, l3, l4⟩ := AP_BP_length k
+    obtain ⟨m1, m2, m3, m4⟩ := AP_BP_length (k + 1)
+    have m1' : (AP (2 * k + 3)).length = k + 2 := m1
+    have m3' : (BP (2 * k + 3)).length = k + 2 := m3
+    have hA3 : dev q (AP (2 * k + 3))
+        = (2 * (2 * k + 1) + 3) * dev q (AP (2 * k + 2)) + dev q (AP (2 * k + 1)) := by
+      show dev q (ladd (lsmul (2 * (2 * k + 1) + 3) (AP (2 * k + 2))) (0 :: AP (2 * k + 1)))
+          = _
+      rw [dev_ladd_eq q _ _ (by
+            rw [lsmul_length, l2]
+            show k + 2 = (AP (2 * k + 1)).length + 1
+            rw [l1]),
+          dev_lsmul, dev_zero_cons]
+    have hA4 : dev q (AP (2 * k + 4))
+        = q ^ 2 * ((2 * (2 * k + 2) + 3) * dev q (AP (2 * k + 3))) + dev q (AP (2 * k + 2)) := by
+      show dev q (ladd (lsmul (2 * (2 * k + 2) + 3) (AP (2 * k + 3))) (0 :: AP (2 * k + 2)))
+          = _
+      rw [dev_ladd_succ q _ _ (by
+            rw [lsmul_length, m1']
+            show k + 3 = (AP (2 * k + 2)).length + 1
+            rw [l2]),
+          dev_lsmul, dev_zero_cons]
+    have hB3 : dev q (BP (2 * k + 3))
+        = q ^ 2 * ((2 * (2 * k + 1) + 3) * dev q (BP (2 * k + 2))) + dev q (BP (2 * k + 1)) := by
+      show dev q (ladd (lsmul (2 * (2 * k + 1) + 3) (BP (2 * k + 2))) (0 :: BP (2 * k + 1)))
+          = _
+      rw [dev_ladd_succ q _ _ (by
+            rw [lsmul_length, l4]
+            show k + 2 = (BP (2 * k + 1)).length + 1
+            rw [l3]),
+          dev_lsmul, dev_zero_cons]
+    have hB4 : dev q (BP (2 * k + 4))
+        = (2 * (2 * k + 2) + 3) * dev q (BP (2 * k + 3)) + dev q (BP (2 * k + 2)) := by
+      show dev q (ladd (lsmul (2 * (2 * k + 2) + 3) (BP (2 * k + 3))) (0 :: BP (2 * k + 2)))
+          = _
+      rw [dev_ladd_eq q _ _ (by
+            rw [lsmul_length, m3']
+            show k + 2 = (BP (2 * k + 2)).length + 1
+            rw [l4]),
+          dev_lsmul, dev_zero_cons]
+    have g1 : cfPn (cothCF q) (2 * k + 2) = q * dev q (AP (2 * k + 3)) := by
+      show (2 * (2 * k + 2) + 1) * q * cfPn (cothCF q) (2 * k + 1) + cfPn (cothCF q) (2 * k)
+          = q * dev q (AP (2 * k + 3))
+      rw [ih2, ih1, hA3]
+      ring_nat
+    have g2 : cfPn (cothCF q) (2 * k + 3) = dev q (AP (2 * k + 4)) := by
+      show (2 * (2 * k + 3) + 1) * q * cfPn (cothCF q) (2 * k + 2) + cfPn (cothCF q) (2 * k + 1)
+          = dev q (AP (2 * k + 4))
+      rw [g1, ih2, hA4, pow_two]
+      ring_nat
+    have g3 : cfQn (cothCF q) (2 * k + 2) = dev q (BP (2 * k + 3)) := by
+      show (2 * (2 * k + 2) + 1) * q * cfQn (cothCF q) (2 * k + 1) + cfQn (cothCF q) (2 * k)
+          = dev q (BP (2 * k + 3))
+      rw [ih4, ih3, hB3, pow_two]
+      ring_nat
+    have g4 : cfQn (cothCF q) (2 * k + 3) = q * dev q (BP (2 * k + 4)) := by
+      show (2 * (2 * k + 3) + 1) * q * cfQn (cothCF q) (2 * k + 2) + cfQn (cothCF q) (2 * k + 1)
+          = q * dev q (BP (2 * k + 4))
+      rw [g3, ih4, hB4]
+      ring_nat
+    exact ⟨g1, g2, g3, g4⟩
+
+/-- Bridge anchors (`q = 2`, so the `q`-powers are visible): `p₂ = 2·dev(AP 3)`,
+    `q₂ = dev(BP 3)`, etc., `decide`-checked. -/
+theorem cf_bridge_anchors :
+    cfPn (cothCF 2) 2 = 2 * dev 2 (AP 3)
+    ∧ cfPn (cothCF 2) 3 = dev 2 (AP 4)
+    ∧ cfQn (cothCF 2) 2 = dev 2 (BP 3)
+    ∧ cfQn (cothCF 2) 3 = 2 * dev 2 (BP 4) :=
   ⟨by decide, by decide, by decide, by decide⟩
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld
