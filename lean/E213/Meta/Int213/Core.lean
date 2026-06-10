@@ -640,6 +640,11 @@ theorem mul_assoc (a b c : Int) : a * b * c = a * (b * c) := by
 theorem mul_left_comm (a b c : Int) : a * (b * c) = b * (a * c) := by
   rw [← mul_assoc, mul_comm a b, mul_assoc]
 
+/-- ∅-axiom: `(x·y)·(z·w) = (x·z)·(y·w)` — the middle-swap shuffle. -/
+theorem mul_mul_mul_comm (x y z w : Int) :
+    (x * y) * (z * w) = (x * z) * (y * w) := by
+  rw [mul_assoc x y (z * w), mul_left_comm y z w, ← mul_assoc x z (y * w)]
+
 /-- ∅-axiom: `Int.zero_add` (Lean-core is propext). -/
 theorem zero_add (a : Int) : 0 + a = a := by
   rw [add_comm, Int.add_zero]

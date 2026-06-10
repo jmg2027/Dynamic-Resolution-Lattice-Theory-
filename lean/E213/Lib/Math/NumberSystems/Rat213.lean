@@ -1,4 +1,5 @@
 import E213.Meta.Nat.Gcd213
+import E213.Meta.Int213.OrderMul
 
 /-!
 # Rat213 — the signed lowest-terms normal form of a ratio pair
@@ -36,6 +37,9 @@ open E213.Tactic.NatHelper (gcd213)
 open E213.Meta.Nat.Gcd213
   (gcd213_dvd_left gcd213_dvd_right gcd_strip_coprime coprime_repr_unique
    mul_assoc_213)
+open E213.Meta.Int213 (mul_mul_mul_comm mul_comm)
+open E213.Meta.Int213.Order (sub_zero ofNat_succ_sub_one lt_of_sub_one_nonneg)
+open E213.Meta.Int213.OrderMul (mul_le_mul_right_nonneg le_of_mul_le_mul_right_pos)
 
 /-- The signed cross-equation: `a₁/b₁ = a₂/b₂` as
     `a₁ · b₂ = a₂ · b₁` over `Int` (denominators cast). -/
@@ -165,5 +169,86 @@ theorem lowest_unique {a₁ a₂ : Int} {b₁ b₂ : Nat}
             congrArg Nat.succ hinj
           obtain ⟨hm, hb⟩ := coprime_repr_unique hnat hco₁ hco₂ hb₁
           exact ⟨congrArg Int.negSucc (Nat.succ.inj hm), hb⟩
+
+/-! ## The derived order and its descent through `ratioEqZ`
+
+Cross-`≤` is only ×-equivariant on the positive cone
+(`OrderMul.mul_le_mul_right_nonpos` is the reversal witness), so the
+order below is stated with `Nat` (positive) denominators — the sign
+already read off into the numerator — and *then* it descends through
+the cross-equation. -/
+
+/-- The signed cross-order: `a₁/b₁ ≤ a₂/b₂` as `a₁·b₂ ≤ a₂·b₁`. -/
+def ratioLeZ (a₁ : Int) (b₁ : Nat) (a₂ : Int) (b₂ : Nat) : Prop :=
+  a₁ * Int.ofNat b₂ ≤ a₂ * Int.ofNat b₁
+
+/-- `0 < n → 0 < ofNat n` over `Int`. -/
+theorem ofNat_pos : ∀ {n : Nat}, 0 < n → (0 : Int) < Int.ofNat n
+  | 0, h => absurd h (Nat.lt_irrefl 0)
+  | n + 1, _ => by
+    apply lt_of_sub_one_nonneg
+    have hval : Int.ofNat (n + 1) - 0 - 1 = Int.ofNat n := by
+      rw [sub_zero]; exact ofNat_succ_sub_one n
+    rw [hval]
+    exact ⟨n⟩
+
+/-- ★★★★★ **The cross-order descends through the cross-equation** (one
+    direction; `ratioLeZ_iff` for both).  Multiply into the join frame
+    `B·D`, transport along the two cross-equations (`mul_mul_mul_comm`
+    shuffles), cancel the positive frame
+    (`le_of_mul_le_mul_right_pos`).  This is the well-definedness that
+    fails outside the positive cone: sign-major first, cross-`≤` on
+    magnitudes after. -/
+theorem ratioLeZ_descends {a c a' c' : Int} {b d b' d' : Nat}
+    (hb : 0 < b) (hd : 0 < d)
+    (ha : ratioEqZ a b a' b') (hc : ratioEqZ c d c' d')
+    (h : ratioLeZ a b c d) : ratioLeZ a' b' c' d' := by
+  have hK : (0 : Int) ≤ Int.ofNat b' * Int.ofNat d' := by
+    show (0 : Int) ≤ Int.ofNat (b' * d')
+    exact Int.ofNat_nonneg _
+  have step1 : (a * Int.ofNat d) * (Int.ofNat b' * Int.ofNat d')
+             ≤ (c * Int.ofNat b) * (Int.ofNat b' * Int.ofNat d') :=
+    mul_le_mul_right_nonneg h _ hK
+  have hL : (a * Int.ofNat d) * (Int.ofNat b' * Int.ofNat d')
+          = (a' * Int.ofNat d') * (Int.ofNat b * Int.ofNat d) :=
+    calc (a * Int.ofNat d) * (Int.ofNat b' * Int.ofNat d')
+        = (a * Int.ofNat b') * (Int.ofNat d * Int.ofNat d') :=
+          mul_mul_mul_comm a (Int.ofNat d) (Int.ofNat b') (Int.ofNat d')
+      _ = (a' * Int.ofNat b) * (Int.ofNat d * Int.ofNat d') :=
+          congrArg (· * (Int.ofNat d * Int.ofNat d')) ha
+      _ = (a' * Int.ofNat b) * (Int.ofNat d' * Int.ofNat d) := by
+          rw [mul_comm (Int.ofNat d) (Int.ofNat d')]
+      _ = (a' * Int.ofNat d') * (Int.ofNat b * Int.ofNat d) :=
+          mul_mul_mul_comm a' (Int.ofNat b) (Int.ofNat d') (Int.ofNat d)
+  have hR : (c * Int.ofNat b) * (Int.ofNat b' * Int.ofNat d')
+          = (c' * Int.ofNat b') * (Int.ofNat b * Int.ofNat d) :=
+    calc (c * Int.ofNat b) * (Int.ofNat b' * Int.ofNat d')
+        = (c * Int.ofNat b) * (Int.ofNat d' * Int.ofNat b') := by
+          rw [mul_comm (Int.ofNat b') (Int.ofNat d')]
+      _ = (c * Int.ofNat d') * (Int.ofNat b * Int.ofNat b') :=
+          mul_mul_mul_comm c (Int.ofNat b) (Int.ofNat d') (Int.ofNat b')
+      _ = (c' * Int.ofNat d) * (Int.ofNat b * Int.ofNat b') :=
+          congrArg (· * (Int.ofNat b * Int.ofNat b')) hc
+      _ = (c' * Int.ofNat d) * (Int.ofNat b' * Int.ofNat b) := by
+          rw [mul_comm (Int.ofNat b) (Int.ofNat b')]
+      _ = (c' * Int.ofNat b') * (Int.ofNat d * Int.ofNat b) :=
+          mul_mul_mul_comm c' (Int.ofNat d) (Int.ofNat b') (Int.ofNat b)
+      _ = (c' * Int.ofNat b') * (Int.ofNat b * Int.ofNat d) := by
+          rw [mul_comm (Int.ofNat d) (Int.ofNat b)]
+  rw [hL, hR] at step1
+  have hBD : (0 : Int) < Int.ofNat b * Int.ofNat d := by
+    show (0 : Int) < Int.ofNat (b * d)
+    exact ofNat_pos (Nat.mul_pos hb hd)
+  exact le_of_mul_le_mul_right_pos step1 hBD
+
+/-- Both ways: equivalent positive-denominator presentations agree on
+    the cross-order — the derived order is well-defined on the
+    quotient. -/
+theorem ratioLeZ_iff {a c a' c' : Int} {b d b' d' : Nat}
+    (hb : 0 < b) (hd : 0 < d) (hb' : 0 < b') (hd' : 0 < d')
+    (ha : ratioEqZ a b a' b') (hc : ratioEqZ c d c' d') :
+    ratioLeZ a b c d ↔ ratioLeZ a' b' c' d' :=
+  ⟨ratioLeZ_descends hb hd ha hc,
+   ratioLeZ_descends hb' hd' ha.symm hc.symm⟩
 
 end E213.Lib.Math.NumberSystems.Rat213

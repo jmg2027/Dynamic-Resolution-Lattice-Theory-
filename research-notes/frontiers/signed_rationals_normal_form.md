@@ -49,11 +49,18 @@ freely with the sign axis.
    `IsLowest` the lowest-terms condition; `lowest_exists`
    (normalization via `gcd_strip_coprime`) + `lowest_unique`
    (mixed signs die by constructor clash; same signs reduce to
-   `coprime_repr_unique`).  Remaining open: the **derived order**
-   (sign-major, cross-`≤` on magnitudes within the positive sign) and
-   its descent through `ratioEqZ` — the positive-cone-only
-   ×-equivariance (`mul_le_mul_right_nonpos`) made explicit as a
-   well-definedness theorem.
+   `coprime_repr_unique`).
+4. **Derived order** — ★ CLOSED (`Rat213.ratioLeZ_descends` /
+   `ratioLeZ_iff`, PURE): the cross-order `ratioLeZ` (positive `Nat`
+   denominators — the positive cone, sign already in the numerator)
+   descends through `ratioEqZ`: multiply into the join frame `B·D`,
+   transport along the cross-equations (`Int213.mul_mul_mul_comm`),
+   cancel the positive frame (`le_of_mul_le_mul_right_pos`).
+
+**All bricks closed** — candidate for promotion
+(`theory/PROMOTION_CRITERIA.md`) next session: the signed ℚ normal
+form (existence, uniqueness, well-defined order) is ∅-axiom end to
+end.
 
 ## Where it feeds
 

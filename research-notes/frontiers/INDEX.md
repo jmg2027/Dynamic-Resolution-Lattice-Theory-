@@ -162,16 +162,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
-- `signed_rationals_normal_form` — **all of ℚ as sign × coprime pair**:
-  the composite of the difference-Lens swap readout and the ∣-order
-  lowest-terms readout (`gcd_strip_coprime`).  Why the mix is forced this
-  way is closed (`OrderMul.mul_le_mul_right_nonpos`: a nonpositive factor
-  reverses `≤`, so cross-`≤` does not descend through the sign quotient);
-  Euclid's lemma (`coprime_dvd_of_dvd_mul`, Bezout-free via
-  `gcd213_mul_left` distributivity), uniqueness of the coprime
-  representation (`coprime_repr_unique`), and the signed normal form
-  (`Rat213.lowest_exists`/`lowest_unique`) are closed; remaining open
-  brick: the derived order's descent through `ratioEqZ`.
+- `signed_rationals_normal_form` — ★ ALL BRICKS CLOSED, **promotion
+  candidate**: all of ℚ as sign × coprime pair — the composite of the
+  difference-Lens swap readout and the ∣-order lowest-terms readout.
+  Why the mix is forced (`OrderMul.mul_le_mul_right_nonpos`), Euclid's
+  lemma (`coprime_dvd_of_dvd_mul`, Bezout-free via `gcd213_mul_left`),
+  uniqueness (`coprime_repr_unique`), the signed normal form
+  (`Rat213.lowest_exists`/`lowest_unique`), and the derived order's
+  descent (`Rat213.ratioLeZ_descends`/`ratioLeZ_iff`) — all PURE.
 - `G35_chiral_cup_ring_catalog` — **the 213-Algebra field catalog** (17 domains):
   the field-level synthesis board, broader than any single `theory/` chapter;
   §0.5 tracks per-conjecture (C1–C6) closure status + promoted chapters.  Active
