@@ -735,4 +735,103 @@ theorem int_eq_zero_of_eq_neg {x : Int} (h : x = -x) : x = 0 := by
     rw [show Int.negSucc m + Int.negSucc m = Int.negSucc (m + m + 1) from rfl] at hxx
     exact Int.noConfusion hxx
 
+/-! ## Witness characterization — the order presentation of the difference-Lens
+
+The pair `(a, b)` can name its difference two ways: by the equation
+`a + x = b`, or by the sandwich `a + x < b + 1 ∧ b < a + x + 1`.  Over `ℕ`
+the two presentations coincide (`eq_of_sandwich`), the witness is unique
+(`witness_unique`), and the equation is solvable for **exactly one
+orientation** of the pair: `subNatNat b a` reads out `ofNat x` precisely
+when `x` witnesses `a + x = b` (`subNatNat_eq_ofNat_iff`), and `negSucc y`
+precisely when the *swapped* equation `b + (y + 1) = a` is witnessed
+(`subNatNat_eq_negSucc_iff`); the two sides are total (`witness_total`)
+and exclusive (`witness_not_both`).  Sign = which orientation carries the
+ℕ-witness — the order-side statement of the pair-swap `neg_subNatNat`.
+The diagonal `(n, n)` is the boundary case: witnessed by `x = 0` on the
+`ofNat` side only (`Int.subNatNat_self`).  Narrative:
+`theory/essays/analysis/integers_as_difference_lens.md`. -/
+
+/-- The sandwich pins the equation: `a + x < b + 1` and `b < a + x + 1`
+    force `a + x = b`.  The strict-inequality pair is not a weaker
+    presentation of the difference — over `ℕ` it is the same one. -/
+theorem eq_of_sandwich {a b x : Nat}
+    (h1 : a + x < b + 1) (h2 : b < a + x + 1) : a + x = b :=
+  Nat.le_antisymm (Nat.le_of_lt_succ h1) (Nat.le_of_lt_succ h2)
+
+/-- Witness uniqueness: `a + x = b` has at most one solution `x`. -/
+theorem witness_unique {a b x y : Nat} (hx : a + x = b) (hy : a + y = b) :
+    x = y :=
+  add_left_cancel (hx.trans hy.symm)
+
+/-- Witness reading, positive side: `subNatNat b a` reads out the natural
+    `x` exactly when `x` witnesses `a + x = b`. -/
+theorem subNatNat_eq_ofNat_iff (a b x : Nat) :
+    Int.subNatNat b a = Int.ofNat x ↔ a + x = b := by
+  constructor
+  · intro h
+    rcases Nat.lt_or_ge b a with hba | hba
+    · rw [subNatNat_of_lt hba] at h
+      exact Int.noConfusion h
+    · rw [subNatNat_of_le hba] at h
+      have hx : b - a = x := Int.ofNat.inj h
+      rw [← hx]
+      exact add_sub_of_le hba
+  · intro h
+    have h1 : Int.subNatNat (x + a) (0 + a) = Int.subNatNat x 0 :=
+      subNatNat_add_add x 0 a
+    rw [Nat.zero_add] at h1
+    rw [← h, Nat.add_comm a x, h1, subNatNat_zero]
+
+/-- Witness reading, negative side: `subNatNat b a` reads out `negSucc y`
+    exactly when the *swapped* equation `b + (y + 1) = a` is witnessed.
+    The unsolvability of `a + x = b` is not a failure of the pair — it is
+    the solvability of its swap, read through `neg_subNatNat`. -/
+theorem subNatNat_eq_negSucc_iff (a b y : Nat) :
+    Int.subNatNat b a = Int.negSucc y ↔ b + (y + 1) = a := by
+  constructor
+  · intro h
+    rcases Nat.lt_or_ge b a with hba | hba
+    · rw [subNatNat_of_lt hba] at h
+      have hk : a - b - 1 = y := Int.negSucc.inj h
+      have h2 : (a - b - 1) + 1 = a - b :=
+        Nat.sub_one_add_one_eq_of_pos (sub_pos_of_lt hba)
+      rw [hk] at h2
+      rw [h2]
+      exact add_sub_of_le (Nat.le_of_lt hba)
+    · rw [subNatNat_of_le hba] at h
+      exact Int.noConfusion h
+  · intro h
+    have h1 : Int.subNatNat (0 + b) ((y + 1) + b) = Int.subNatNat 0 (y + 1) :=
+      subNatNat_add_add 0 (y + 1) b
+    rw [Nat.zero_add] at h1
+    rw [← h, Nat.add_comm b (y + 1), h1, subNatNat_zero_succ]
+
+/-- Witness totality: every oriented pair is witnessed from one side —
+    `a + x = b` solvable, or the swap `b + (y + 1) = a` solvable. -/
+theorem witness_total (a b : Nat) :
+    (∃ x, a + x = b) ∨ (∃ y, b + (y + 1) = a) := by
+  rcases Nat.lt_or_ge b a with hba | hba
+  · exact Or.inr ⟨a - b - 1,
+      (subNatNat_eq_negSucc_iff a b _).mp (subNatNat_of_lt hba)⟩
+  · exact Or.inl ⟨b - a, add_sub_of_le hba⟩
+
+/-- Witness exclusivity: no pair is witnessed from both orientations.
+    Together with `witness_total`: sign is a readout, not a choice. -/
+theorem witness_not_both {a b x y : Nat}
+    (hx : a + x = b) (hy : b + (y + 1) = a) : False := by
+  have h : a + (x + (y + 1)) = a := by
+    rw [← Nat.add_assoc, hx]; exact hy
+  have h0 : x + (y + 1) = 0 :=
+    add_left_cancel (h.trans (Nat.add_zero a).symm)
+  rw [← Nat.add_assoc] at h0
+  have h1 : (x + y).succ = 0 := h0
+  exact Nat.noConfusion h1
+
+/-- The sandwich presentation reads out through the difference-Lens:
+    the strict-inequality pair determines `subNatNat b a = ofNat x`. -/
+theorem subNatNat_of_sandwich {a b x : Nat}
+    (h1 : a + x < b + 1) (h2 : b < a + x + 1) :
+    Int.subNatNat b a = Int.ofNat x :=
+  (subNatNat_eq_ofNat_iff a b x).mpr (eq_of_sandwich h1 h2)
+
 end E213.Meta.Int213
