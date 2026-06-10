@@ -79,7 +79,7 @@ Chapter exists when the Lean sub-tree closed per
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
-| `math/`    | 96 | [`math/INDEX.md`](math/INDEX.md) |
+| `math/`    | 97 | [`math/INDEX.md`](math/INDEX.md) |
 | `physics/` | 19 | [`physics/INDEX.md`](physics/INDEX.md) |
 | `lens/`    | 14 | [`lens/INDEX.md`](lens/INDEX.md) |
 | `meta/`    |  7 | [`meta/INDEX.md`](meta/INDEX.md) |

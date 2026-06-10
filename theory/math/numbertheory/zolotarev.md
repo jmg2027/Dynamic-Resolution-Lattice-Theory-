@@ -97,8 +97,12 @@ prime (`zolotarev_mu`).
 
 **No primitive root** is needed.  The classical proof routes through a generator
 `g` (then `σ_g` is a single `(p−1)`-cycle of sign `−1`); the symmetric-cross-count
-parity replaces that with a direct combinatorial identity, which is why the whole
-converse is `∅`-axiom without any cyclicity-of-units infrastructure.
+parity replaces that with a direct combinatorial identity, which is why this
+converse is `∅`-axiom without any cyclicity-of-units infrastructure.  The
+generator route is closed independently in `primitive_roots.md`
+(`ZolotarevCycle.zolotarev_full`), which also builds the `(ℤ/p)*`-cyclic
+infrastructure as a reusable result in its own right; the two proofs of
+Zolotarev are independent.
 
 **Three readouts as one.**  `det_permMatrix : det (permMatrix σ) = psign σ`
 (`Linalg213.PermMatrixDet`) makes the Legendre symbol literally the determinant of

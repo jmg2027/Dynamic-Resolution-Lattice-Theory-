@@ -30,7 +30,7 @@ under the same thematic super-cluster as its Lean sub-tree.
 `cup_ladder_graduation`, `k32_higher_cohomology`, `k_nm_c_classification`,
 `mediant_cohomology_functor`, `tripartite_self_containment`, `sym3_spine`.
 
-### `numbertheory/` — `dyadic_fsm`, `modular_arithmetic`, `eisenstein_period_arithmetic`, `euclidean_division`, `legendre_symbol`, `quadratic_reciprocity`, `zolotarev`, `fibonacci_5adic_valuation`.
+### `numbertheory/` — `dyadic_fsm`, `modular_arithmetic`, `eisenstein_period_arithmetic`, `euclidean_division`, `legendre_symbol`, `quadratic_reciprocity`, `zolotarev`, `primitive_roots`, `fibonacci_5adic_valuation`.
 
 ### `geometry/` — geometric / topological / discrete-substrate
 `geometry`, `topology`, `geometrization_conjecture`, `exotic_4mfd_cork`,
