@@ -165,7 +165,10 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - **async point–line system ≅ Raw** — CLOSED ∅-axiom (full 8-item agenda,
   74 PURE) and promoted → `theory/math/foundations/async_growth.md`
   (origin: `seed/ORIGIN_RAW.md`; note archived at
-  `archive/async_pointline_raw.md`).  *Open seeds* →
+  `archive/async_pointline_raw.md`).  Cross-domain bridges to main's
+  curvature / LTE / certificate-depth arcs: `async_growth_crossdomain.md`
+  (orbit-LTE law, Hasse-diagram curvature, depth-0 squeeze certificate).
+  *Open seeds* →
   `async_growth_seeds.md`: exact-membership converse of reachability,
   fused step-3 swap-class census, uniform dagSize bounds, the
   axes-of-growth definition.
