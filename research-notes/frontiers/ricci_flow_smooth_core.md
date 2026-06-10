@@ -184,23 +184,137 @@ agreeing on the sign, and the one that is *defined* dimension-independently — 
 "general-`n` Ricci lower bound" is reachable synthetically even while the smooth
 `n`-tensor flow stays walled.
 
-**Reachable next (no new idea):** the complete graph `K_m` for general `m`
-(`CD((m+2)/2, ∞)` — a single `gridSum`-over-neighbours computation generalizing
-`bochner_triangle`); the discrete Lin–Yau curvature (the optimal `K` in `CD(K,∞)`)
-as a max over test functions.  **Still walled:** the *transcendental* Perelman
+**Done** (`BakryEmery.lean` §3): the complete graph `K_m` for general `m` is
+`CD((m+2)/2, ∞)` (`cd_complete_graph`, 9 PURE) — the `gridSumZ`-over-neighbours
+generalization of `bochner_triangle`, via the closed form `gamma2C = (k+3)·gammaC +
+sosGap` (`bochner_complete`) with `sosGap = Σ_jΣ_{j'}(b j'−b j)² ≥ 0` a manifest
+double sum of squares (`k = m−1`, `k+3 = m+2`).  **Reachable next (no new idea):**
+the discrete Lin–Yau curvature (the optimal `K` in `CD(K,∞)`) as a max over test
+functions.  **Still walled:** the *transcendental* Perelman
 `𝓦`-entropy `∫[τ(R+|∇f|²)+f−n](4πτ)^{−n/2}e^{−f}` (needs the `n`-dim Gaussian =
 `exp` integration; the discrete `𝓦`-analog is the rung-3 energy decay).
+
+## General-`n` conformal **scalar** curvature — the conformal route pushed past 2D
+
+The 2D-conformal Liouville curvature **generalizes to all `n`** for the *scalar*
+curvature (`ConformalCurvature.lean` §S6, PURE).  For `g = λ·δ` on `ℝⁿ` the conformal
+factor `φ = ½ln λ` cancels, leaving the **rational** (no transcendental) scalar
+curvature `R = −(n−1)(4λΔλ + (n−6)|∇λ|²)/(4λ³)` — `confRNumN` is the numerator over ℤ.
+It **reduces exactly to the 2D case** (`confRNumN_eq_confKNum`: `confRNumN 2 = 4·confKNum`,
+`R = 2K`), validating the general formula against the established `n = 2`.  At **`n = 3`**
+— the Poincaré/Geometrization dimension — the flat/positive/negative trichotomy is closed
+on polynomial `λ` at the origin 2-jet (`conformal_scalar_curvature_3d`: dome `48C`,
+paraboloid `−48`).  So the conformal route is **not** stuck at 2D; the general-`n`
+*scalar* curvature is reachable.
+
+The conformally-flat Ricci **tensor** itself is now reached too (`ConformalCurvature.lean`
+§S7, PURE): `confRicOffNum`/`confRicDiagNum` (numerators `×4λ²`), validated by the trace
+identity `confRicTrace3` (`Σ_i Ric_{ii} = confRNumN`, so `R = (1/λ)·tr Ric` = the §S6 scalar).
+`confRic3_dome_origin`: the 3D dome `λ = C−r²` is **Einstein at its origin** (`Ric` isotropic
+— off-diagonal `0`, diagonal `16C`, `Ric ∝ g`).  **Honest boundary (narrowed)**: the
+*conformally-flat* Ricci tensor (not just the scalar) is now `∅`-axiom in general `n`; the
+residual wall is the Ricci tensor of an *arbitrary* metric (general `g_{ij}`, its inverse,
+Christoffel/Riemann as index sums), transcendental metrics, and the *flow* with PDE a-priori
+estimates (and Ricci flow not preserving conformality for `n ≥ 3`).
+
+**General-metric tensor calculus opened** (`Geometry/TensorCalculus.lean`, PURE,
+dimension-free): the **Christoffel symbols of the first kind** `Γ_{kij} = ½(∂_i g_{kj} +
+∂_j g_{ki} − ∂_k g_{ij})` — the inverse-free part (no `g^{lm}`, no division) — with the
+genuine general-`n` identities `chris1_symm` (lower-pair symmetry / torsion-free),
+`chris1_metric_compat` (`Γ_{kij}+Γ_{jik} = ∂_i g_{kj}`, metric compatibility `∇g = 0`), and
+`chris1_flat`.  Dimension-free: indices arbitrary `Nat`, the metric enters only via its
+derivative tensor `dg a b c = ∂_a g_{bc}` (symmetric in the last two slots).  **Next rungs**:
+the second-kind `Γ^l_{ij} = g^{lm}Γ_{mij}` and the Riemann/Ricci tensors need the metric
+**inverse** `g^{lm}` (adjugate/`det` over ℤ) + second derivatives.  The **inverse-bearing
+layer is now opened** (`TensorCalculus.lean` §2, PURE): the `det`-scaled second kind
+`2·det·Γ^l_{ij} = Σ_m adj^{lm}·2Γ_{mij}` (`chris2xDet`, `gridSumZ` over `m`), its lower-pair
+symmetry (`chris2_symm`), and — the key — `chris2_lower`: `Σ_l g_{pl}·(2 det Γ^l_{ij}) =
+det·2Γ_{pij}`, the raising-then-lowering consistency, from the abstract inverse property
+`g·adj = det·I` (`hadj`) via `gridSumZ` Fubini + the Kronecker collapse.  The **Riemann tensor** is now constructed (`TensorCalculus.lean` §3, PURE): `riemUp`
+`R^l_{ijk} = ∂_jΓ^l_{ik} − ∂_kΓ^l_{ij} + Σ_m(Γ^l_{jm}Γ^m_{ik} − Γ^l_{km}Γ^m_{ij})` from the
+connection `Gam` and its derivative `dGamma` (abstract, as the metric entered via `dg`), with
+the defining `(j,k)`-antisymmetry `riem_antisym_jk` (`R^l_{ijk} = −R^l_{ikj}`, the curvature
+`2`-form / commutator structure) and `riem_flat` (`Γ≡0 ⟹ R≡0`).  **Next rung**: the further
+Riemann symmetries (first Bianchi, pair symmetry) the **Ricci tensor** `Ric_{ik} = Σ_l R^l_{ilk}`
+(`ricciFromRiem`, `ricci_flat`) and the **first Bianchi identity** `R^l_{ijk}+R^l_{jki}+
+R^l_{kij}=0` (`riem_bianchi1`, for a torsion-free `Γ`) are now ∅-axiom too (§4).  So the
+algebraic tensor calculus — Christoffel (both kinds) → Riemann → Ricci + Bianchi — stands,
+dimension-free.  The **metric-tied Riemann symmetries** are now closed too (`TensorCalculus.lean` §5, PURE):
+the lowered curvature 2-jet `2R_{iklj} = ∂_i∂_j g_{kl} + ∂_k∂_l g_{ij} − ∂_i∂_l g_{kj} −
+∂_k∂_j g_{il}` (`riemLow`, the Riemann tensor in normal coordinates) has **all four**
+symmetries from the 2-jet symmetries (`hd`: `∂∂` commute, `hg`: `g` symmetric): the two
+antisymmetries (`riemLow_antisym_ik/_lj`, pure `ring`), the pair/block symmetry
+(`riemLow_pair_symm`), and the first Bianchi (`riemLow_bianchi1`, moved-over form to dodge the
+zero-polynomial `ring` gap).  So the full algebraic Riemannian curvature tensor calculus —
+Christoffel (both kinds) → Riemann → Ricci → Bianchi → all curvature symmetries — stands,
+dimension-free, ∅-axiom.  The **scalar curvature** is now closed too (`TensorCalculus.lean` §6, PURE): `det·R =
+Σ_{i,j} adj^{ij}·Ric_{ij}` (`scalarFromRicci`, the `g^{-1}` double contraction over ℤ), with
+the **Einstein** relation `scalar_einstein`: `Ric = λ·g ⟹ R = λ·n` (constant scalar = Einstein
+constant × dimension, since `tr(adj·g) = n·det`).  So the **entire algebraic Riemannian
+curvature tensor calculus** — metric 2-jet / Christoffel (both kinds) + raising/lowering →
+Riemann (+ all four symmetries) → Ricci → Bianchi → scalar (+ Einstein) — now stands,
+dimension-free, ∅-axiom.  The residual wall is precisely the **analysis**: transcendental
+metrics (`sin/cos/exp/sqrt` with convergent derivative rules) and the PDE a-priori estimates
+(Shi/maximum-principle/compactness) behind Perelman's `𝓦`-monotonicity — the genuine
+century-problem core, out of ∅-axiom reach with the current toolset.
+
+  (`ring_intZ` note: its normalizer cannot certify an expression that reduces to the **zero
+  polynomial** `= 0`; the Bianchi per-`m` cyclic cancellation was closed with the pure helper
+  `hexcancel` (`sub_add_cancel_int` + `sub_self_zero`) instead — `omega` would close it but
+  leaks `propext`+`Quot.sound`, so is barred.)
 
 ## Verdict
 
 The round-sphere extinction is the honest *floor*.  General-`n` + transcendental-
 metric `𝓕/𝓦`-monotonicity (the smooth *flow* with PDE a-priori estimates) remains
-the *core* wall.  But the smooth route is **not** wholesale walled, on two fronts:
-**2D conformal Ricci curvature/flow is reachable** (rational `K`, no sqrt/exp),
-and the **general-`n` Ricci lower bound is reachable synthetically** via the
-Bakry–Émery `CD(K,N)` condition (`BakryEmery.lean`) — the dimension-independent
-meaning of `Ric ≥ K` as a sum-of-squares fact.  Three converging routes to A6's
-core now stand: the **discrete** Forman/Ollivier/Bakry–Émery ladder
-(`a6_ricci_core/`), the **smooth 2D conformal** ladder above, and the
-**synthetic CD(K,N)** curvature-dimension condition.  Do not narrate the general
-smooth-flow core as "closed"; do pursue all three.
+the *core* wall.  But the smooth route is **not** wholesale walled, on three fronts:
+**2D conformal Ricci curvature/flow is reachable** (rational `K`, no sqrt/exp), the
+**general-`n` conformal *scalar* curvature is reachable** (`confRNumN`, the conformal
+route past 2D — incl. the `n = 3` Poincaré dimension), and the **general-`n` Ricci lower
+bound is reachable synthetically** via the Bakry–Émery `CD(K,N)` condition
+(`BakryEmery.lean`) — the dimension-independent meaning of `Ric ≥ K` as a sum-of-squares
+fact.  Converging routes to A6's core stand: the **discrete** Forman/Ollivier/Bakry–Émery
+ladder (`a6_ricci_core/`) + its **Lichnerowicz spectral bridge** (`DiscreteLichnerowicz`),
+the **smooth conformal** ladder (now general-`n` scalar), and the **synthetic CD(K,N)**
+condition.  Do not narrate the general smooth-flow core as "closed" — the Ricci *tensor* +
+*flow* for `n ≥ 3` and transcendental metrics + PDE a-priori estimates are the residual
+wall; do pursue all routes.
+
+## Panel exploration of the residual wall (4 mathematician agents) + the consensus brick
+
+A 4-agent panel (hard-analyst / PDE-analyst / Perelman-𝓦-specialist / 213-native skeptic)
+explored the residual wall against the actual repo state.  Convergent findings:
+
+- **Transcendentals are NOT the century-problem wall — they are an un-assembled `Real213`
+  library stub.**  The hard analytic rate IS already PURE: `exp`/`sin`/`cos` series with proven
+  geometric-decay moduli (`Real213/ExpLog/CutExpModulus`, `CutTrigModulus`, 4+4 PURE) and the
+  derivative coefficient identities (`exp_deriv_coeff_fixed : (n+1)·n! = (n+1)!`, etc., 3 PURE).
+  The only gap is *packaging* `expPartialSum x` into a `CauchyCutSeq` (template: `eulerCauchySeq`)
+  to retire the `Core/Functions.lean` stubs.  Smallest brick: `expCauchySeq (x) : CauchyCutSeq`
+  → `expCut x`.  (Per the repo's own "Transcendental-as-exterior" failure mode, this should be
+  dropped from the "wall" statement.)
+- **The discrete→continuous PDE limit is a SOLVED pattern, not a wall.**  The discrete maximum
+  principle is fully proven (`heatIter_range`, `heatStep_mono`); the "limit step" is purely
+  representational — promote the sup-norm sequence to a `Real213` `cutLe` via the
+  `RealCauchyWitness` order-squeeze idiom (~40 lines).  The TRUE analytic wall is **P4 Li–Yau /
+  differential Harnack** (needs genuine `Real213` division for `|∇u|²/u` + a discrete
+  Bochner-with-Ricci — both absent; the `Nat`-numerator trick breaks at `∇log`).
+- **Perelman's monotonicity integrand is NOW a ∅-axiom SOS** (the standout): since `Ric` exists
+  (`ricciFromRiem`) and `Hess f = ∂_i∂_j f` is the same `2`-jet pattern, the rate
+  `d/dt 𝓕 = 2∫|Ric_{ij}+∇_i∇_j f|²e^{−f}dV ≥ 0` becomes, with the integral a finite `gridSumZ`
+  and weight `1`, the manifest SOS `perelman_rate_nonneg : 0 ≤ Σ_{i,j}(Ric_{ij}+Hess_{ij}f)²`
+  (`TensorCalculus.lean` §7) — **built this panel, PURE, no new primitive**.  So the *monovariant
+  + non-negative rate* of Perelman's entropy (curvature term included) is ∅-axiom.
+- **213-native reframing**: `𝓦`-monotonicity's *content* is discrete entropy descent (the
+  Lott–Sturm–Villani / Bakry–Émery `CD(K,N)` synthetic precedent), not the Gaussian dress; a
+  reachable rung is a discrete χ²-entropy `Ent(μ)=Σ μ(μ−1)` descending under `lazyHeatStep`
+  (same shape as `ricci_energy_monotone`, applied to the measure field).
+
+**Corrected wall (panel consensus).**  Dropped from the wall: "transcendental metrics" (a
+`Real213` packaging stub).  Now ∅-axiom: the monotonicity integrand SOS (`perelman_rate_nonneg`).
+The GENUINE residual wall is (i) the weighted **integration-by-parts** identity that *connects*
+`∇𝓕` to the flow `∂_t g = −2Ric` (so "Ricci flow IS the gradient flow of 𝓕" stays a premise),
+(ii) the `(4πτ)^{−n/2}e^{−f}` Gaussian normalization of the true `𝓦`, (iii) **Li–Yau Harnack**
+(nonlinear), and (iv) **κ-solution / surgery classification + no-local-collapsing compactness** —
+the last is the genuine, un-reframable century-problem core.  Reachable next bricks (all
+recorded): `expCauchySeq`, the `Real213`-cut maximum principle, the χ²-entropy descent.

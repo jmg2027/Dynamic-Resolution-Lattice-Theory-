@@ -93,6 +93,20 @@ class-number core (composite `c` with both `3c±2` composite, smallest `1325`).
   difficulty.
 - `G199_compilation_catalog_lift_archetypes` — the finite→uniform lift archetypes
   (the compilation-catalog methodology generalised).
+- `G200_action_A_distance1_crossline_separate` — action A executed: the
+  **distance-1 cross-line `SEPARATE`** closed ∅-axiom (`markovNum_children_ne`,
+  `SternBrocotMarkov` §35) — every node's two children carry distinct Markov
+  numbers; the size route localized as exhausted.
+- `G201_action_b_even_markov_family` — action (b): the **even `2·pᵏ` infinite
+  uniqueness family** closed ∅-axiom (`markov_two_prime_pow_unique`; first
+  instance `markovMaxUnique_34`).
+- `G202_zhang_3c_pm2_roadmap` — expert-agent attack on the open kernel:
+  **Zhang's `3c±2` modulus-shift criterion** — verified, formalization-ready
+  roadmap to the composite/even families, plus a sharp delineation of where
+  elementary methods provably stop.
+- `G203_reframe_archetype_modulus_shift` — the `3c±2` modulus shift compiled to
+  all four layers (Raw / Lens / proof-ISA / residue): the **REFRAME** lift
+  archetype (A4) extracted from `markov_max_unique_via_3c_minus_2`.
 
 Closure record: `theory/math/analysis/{markov_uniqueness,markov_spectrum}.md`.
 **Status of `H`**: maximally localized (terminal, `G197`) — the open residue *is*
@@ -155,6 +169,28 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   chapter's Open frontier): exact-membership converse of reachability,
   fused step-3 swap-class census, uniform dagSize bounds, the
   axes-of-growth definition.
+- `G35_chiral_cup_ring_catalog` — **the 213-Algebra field catalog** (17 domains):
+  the field-level synthesis board, broader than any single `theory/` chapter;
+  §0.5 tracks per-conjecture (C1–C6) closure status + promoted chapters.  Active
+  scratch — Lean docstrings cite its §C## conjecture labels
+  (`research-notes/frontiers/G35`).
+- `inequalities_positivity_fold_crossdomain` — **the curvature arc ↔ the proof-ISA arc**:
+  A7 POSITIVITY's 2-D Cauchy–Schwarz (`cauchy_schwarz_2d`, depth-0 Lagrange square) and the
+  curvature module's n-dim power-mean Cauchy–Schwarz (`cauchy_schwarz_gridZ`, per-rung SOS
+  folded along the `gridSumZ` induction) are one instruction at two certificate depths; the
+  `K_{a,b}` wide/narrow regime split (`kab_cd_wide`/`kab_cd_narrow`) is literally certificate
+  depth.  Open: the "inequality = POSITIVITY ∘ LOOP" compilation theorem (buildable first
+  brick: the pair-sum Lagrange identity `n·Σa² − (Σa)² = Σ_{i<j}(a_i−a_j)²`), and the
+  evidence it gives on G205's POSITIVITY-vs-GAP question.
+- `curvature_spectrum_crossdomain` — **the discrete-curvature / spectrum branch ↔ merged
+  main** (rich-flow-open-frontier marathon).  Three bridges where this branch's curvature
+  + Lichnerowicz spectral work touches main's `(ℤ/p)*`-cyclic / character arc: (1) the `K_p`
+  Laplacian spectrum `{0,p}` (`km_eigenvalue`/`km_meanzero_eigen`) IS the **additive**-character
+  spectrum of `ℤ/p`, dual to main's **multiplicative** Legendre character — characters of the
+  cyclic group as eigen-data, two ways; (2) the central lattice `K_{3,2}` carries both a golden
+  (`5 = NS+NT`) and a curvature (`CD(3/2)` / Forman `−1`) signature, meeting at `a+b = 5`;
+  (3) "structure forces the invariant" — Lichnerowicz `CD(K) ⟹ λ₁ ≥ K` parallels cyclicity
+  forcing the quadratic character.  Bridge 1 buildable (the `m=p` instantiation); 2–3 conceptual.
 - `zolotarev_crossdomain` — **the Zolotarev / permutation-sign branch ↔ merged main**
   (converse-psign marathon).  Four bridges where this branch's closed Zolotarev
   (`psign σ_a = (a/p)`, all primes) + `InversionsAppend` combinatorics touch main's arcs:
@@ -261,9 +297,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `theory/essays/algebra/{permutation_sign_as_homomorphism,determinant_as_quotient_characteristic,
   cayley_hamilton_self_characteristic}.md`.  ✓ *Done:* `det(permMatrix σ) = psign σ`
   (`PermMatrixDet.lean`, 11 PURE — the Leibniz sum collapses to the surviving `τ=σ` term via the
-  nodup selector `sumZ_select`); the two readings of a permutation agree.  *Open seeds:* general
-  column Laplace as a `det_transpose` corollary; relocate the constructive pigeonhole
-  (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to `Meta`.
+  nodup selector `sumZ_select`); the two readings of a permutation agree.  General **column
+  Laplace** is also closed (`ColumnLaplace.cofactor_col_k`, 2 PURE — the `det_transpose`
+  corollary: `minorAt k j Mᵀ` is defeq `transpose (minorAt j k M)` since row-skip = col-skip =
+  `colShift`).  The `det_permMatrix` closure unlocks the **Zolotarev** bridge: `psign` of the
+  multiplication-by-`a` value-list = the Legendre symbol (closed two ways — μ-block-decomposition
+  `ZolotarevMuBridge` and primitive-root conjugation `ZolotarevCycle.zolotarev_full`).  *Open
+  seed:* relocate the constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to
+  `Meta` (a cleanup, not a closure).
 
 - `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
   residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at
@@ -327,14 +368,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (`archive/fibonacci_5adic/`).
 - **p-adic closure harvest** — Teichmüller `ω(x)` + uniqueness + `μ_{p−1}×(1+pℤ_p)` decomposition
   + general division CLOSED ∅-axiom; chapter `theory/math/numbersystems/padic_real213.md` + essay
-  `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seeds:* the concrete
-  `i₅ = teichmuller(2-lift)` theorem (via `teichmuller_unique`); generalise the
+  `theory/essays/algebra/teichmuller_as_forced_fixed_point.md`.  *Open seed:* generalise the
   lift+fixed-point uniqueness engine to `sqrt` (`unique_of_lift_fixed`).  ✓ *Done:* the
   sequence-level **additive abelian group** (`SetoidAssoc.zp_add_setoid_group_capstone`); the
   **multiplicative** `ZpSeqEquiv` identities (`SetoidMul` — mul comm/assoc/one/distrib +
   `zp_setoid_commRing_capstone`); the shared **`Zp.diagLimit`** abstraction
   (`Foundation.diagLimit` + `diagLimit_trunc_succ` — the single diagonal-limit proof now
-  factored out of `invFull`/`sqrtFull`/`teichmuller`, all three rewired to it).
+  factored out of `invFull`/`sqrtFull`/`teichmuller`, all three rewired to it).  ✓ **`i₅ =
+  teichmuller(2-lift)` CLOSED** (`TeichmullerI5.i5_eq_teichmuller`, 5 PURE): `i₅⁴ ≡ 1` ⟹
+  Frobenius-fixed `i₅⁵ ≡ i₅` ⟹ `teichmuller_eq_of_fixed` — the 5-adic imaginary unit IS the
+  canonical `μ₄` Teichmüller representative of its residue, not an adjoined structure.
 - `fibonacci_5adic_valuation` (**CLOSED** → chapter
   `theory/math/numbertheory/fibonacci_5adic_valuation.md`,
   `archive/fibonacci_5adic/`) — H: DRLT-specific 5-adic content.  H1 (5²⁵
@@ -387,7 +430,7 @@ Closure records (promoted off this board):
 - `G182_completed_system_synthesis` ("the frontier (νF) has a form") →
   `theory/essays/foundations/the_frontier_has_a_form.md`.
 
-## proof-ISA compilation series  (`G200_*`)  — ★ CLOSED
+## proof-ISA compilation series  — ★ CLOSED
 
 The experiment (reproduce *solved* hard techniques by compiling them down the
 proof-ISA, `seed/PROOF_ISA.md`) is **complete**.  Both named COUNT bounds are
@@ -401,6 +444,13 @@ könig, + the `what_is_a_proof` synthesis).
 The catalog has since grown to **seven** lift archetypes (`ProofISALifts.lean`):
 A6 FLOW + A7 POSITIVITY added (the cross-domain-conquest marathon), each driving
 real ∅-axiom conquests.
+
+- `G205_cross_domain_conquests_compilation` — the marathon's source note: the
+  standing compilation table (history's cross-domain conquests lowered onto the
+  proof-ISA; headline: cross-domain *is* REFRAME).  A6 FLOW + A7 POSITIVITY both
+  ✅ closed from its candidate list.  **Residual open**: is POSITIVITY a GAP
+  sub-mode or its own primitive; the per-conquest rows still pending ∅-axiom
+  witnesses (S2 Weil weights, A6 index, …).
 
 ## A6 FLOW core / Ricci flow  (`a6_ricci_core/`, `ricci_flow_smooth_core.md`)
 

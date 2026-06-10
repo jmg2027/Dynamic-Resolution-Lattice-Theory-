@@ -1,5 +1,6 @@
 import E213.Meta.Int213
 import E213.Meta.Int213.PolyIntMTactic
+import E213.Lib.Math.Combinatorics.IntGridSum
 
 /-!
 # Ollivier–Ricci curvature — A6 core, rung 5 (∅-axiom)
@@ -20,85 +21,12 @@ A6 discrete Ricci-flow ladder, rung 5.
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
 
 open E213.Meta.Int213
+open E213.Lib.Math.Combinatorics.IntGridSum
 
-/-! ## §1 — integer grid sum -/
+/-! ## §2 — Kantorovich weak duality (the transport core)
 
-/-- `gridSumZ n f = Σ_{x<n} f x` over ℤ. -/
-def gridSumZ : Nat → (Nat → Int) → Int
-  | 0,     _ => 0
-  | n + 1, f => gridSumZ n f + f n
-
-theorem gridSumZ_succ (n : Nat) (f : Nat → Int) :
-    gridSumZ (n + 1) f = gridSumZ n f + f n := rfl
-
-theorem gridSumZ_congr (n : Nat) (f g : Nat → Int) (h : ∀ x, x < n → f x = g x) :
-    gridSumZ n f = gridSumZ n g := by
-  induction n with
-  | zero => rfl
-  | succ m ih =>
-    rw [gridSumZ_succ, gridSumZ_succ, h m (Nat.lt_succ_self m),
-        ih (fun x hx => h x (Nat.lt_succ_of_lt hx))]
-
-/-- The zero function sums to `0`. -/
-theorem gridSumZ_zero_fn : ∀ n, gridSumZ n (fun _ => (0 : Int)) = 0
-  | 0 => rfl
-  | n + 1 => by show gridSumZ n (fun _ => 0) + 0 = 0; rw [gridSumZ_zero_fn n, Int.add_zero]
-
-theorem gridSumZ_add (n : Nat) (f g : Nat → Int) :
-    gridSumZ n (fun x => f x + g x) = gridSumZ n f + gridSumZ n g := by
-  induction n with
-  | zero => rfl
-  | succ m ih =>
-    show gridSumZ m (fun x => f x + g x) + (f m + g m)
-        = (gridSumZ m f + f m) + (gridSumZ m g + g m)
-    rw [ih]; ring_intZ
-
-/-- Pull a scalar out: `Σ (c · f) = c · Σ f`. -/
-theorem gridSumZ_mul_left (n : Nat) (c : Int) (f : Nat → Int) :
-    gridSumZ n (fun x => c * f x) = c * gridSumZ n f := by
-  induction n with
-  | zero => show (0 : Int) = c * 0; rw [Int.mul_zero]
-  | succ m ih => show gridSumZ m (fun x => c * f x) + c * f m = c * (gridSumZ m f + f m)
-                 rw [ih]; ring_intZ
-
-/-- Monotonicity: pointwise `f ≤ g` ⟹ `Σ f ≤ Σ g`. -/
-theorem gridSumZ_le (n : Nat) (f g : Nat → Int) (h : ∀ x, x < n → f x ≤ g x) :
-    gridSumZ n f ≤ gridSumZ n g := by
-  induction n with
-  | zero => exact Order.le_refl 0
-  | succ m ih =>
-    rw [gridSumZ_succ, gridSumZ_succ]
-    exact Order.le_trans
-      (Order.add_le_add_right (ih (fun x hx => h x (Nat.lt_succ_of_lt hx))) (f m))
-      (Order.add_le_add_left (h m (Nat.lt_succ_self m)) (gridSumZ m g))
-
-/-- **Fubini**: `Σ_x Σ_y g x y = Σ_y Σ_x g x y`. -/
-theorem gridSumZ_fubini (n m : Nat) (g : Nat → Nat → Int) :
-    gridSumZ n (fun x => gridSumZ m (fun y => g x y))
-      = gridSumZ m (fun y => gridSumZ n (fun x => g x y)) := by
-  induction n with
-  | zero =>
-    show (0 : Int) = gridSumZ m (fun y => gridSumZ 0 (fun x => g x y))
-    rw [gridSumZ_congr m (fun y => gridSumZ 0 (fun x => g x y)) (fun _ => 0) (fun _ _ => rfl),
-        gridSumZ_zero_fn m]
-  | succ p ih =>
-    show gridSumZ p (fun x => gridSumZ m (fun y => g x y)) + gridSumZ m (fun y => g p y)
-        = gridSumZ m (fun y => gridSumZ (p + 1) (fun x => g x y))
-    rw [ih,
-        gridSumZ_congr m (fun y => gridSumZ (p + 1) (fun x => g x y))
-          (fun y => gridSumZ p (fun x => g x y) + g p y) (fun y _ => gridSumZ_succ p _),
-        gridSumZ_add m (fun y => gridSumZ p (fun x => g x y)) (fun y => g p y)]
-
-theorem gridSumZ_sub (n : Nat) (f g : Nat → Int) :
-    gridSumZ n (fun x => f x - g x) = gridSumZ n f - gridSumZ n g := by
-  induction n with
-  | zero => rfl
-  | succ m ih =>
-    show gridSumZ m (fun x => f x - g x) + (f m - g m)
-        = (gridSumZ m f + f m) - (gridSumZ m g + g m)
-    rw [ih]; ring_intZ
-
-/-! ## §2 — Kantorovich weak duality (the transport core) -/
+Built on the integer grid sum `gridSumZ` + its linearity/Fubini/Kronecker-`δ` toolkit
+(`Combinatorics/IntGridSum.lean`, the domain-agnostic infrastructure). -/
 
 /-- Row marginal of a transport plan `π`: `μ x = Σ_y π x y`. -/
 def rowMarg (n : Nat) (pi : Nat → Nat → Int) (x : Nat) : Int := gridSumZ n (fun y => pi x y)
@@ -485,5 +413,229 @@ theorem ds_plan_optimal (pi' : Nat → Nat → Int)
     (fun x hx => ?_) (fun y hy => ?_) ds_ollivier_negative.1
   · rw [ds_coupling.1 x hx, hrow x hx]
   · rw [ds_coupling.2 y hy, hcol y hy]
+
+/-! ## §7 — the complete graph `K_m` for general `m`: Ollivier `κ = (m−2)/(m−1) > 0`
+
+The parametric companion of the §4 triangle (`K₃`).  The edge `(0,1)` of `K_m` (vertices `0..m−1`, every
+distinct pair at distance `1`).  The one-step walk measures (uniform on the `m−1` neighbours, scaled to
+total mass `m−1`) are `m₀ = [i ↦ 1 unless i = 0]` and `m₁ = [i ↦ 1 unless i = 1]`: they agree on the
+`m−2` shared neighbours `{2,…,m−1}` and differ only at `0,1` — `m₀` has the unit at `1`, `m₁` the unit at
+`0`.  So the optimal plan `kmPi` keeps the `m−2` shared units on the diagonal (cost `0`) and moves the
+single unit at vertex `1` to vertex `0` (distance `1`): cost `1`.  The `1`-Lipschitz Kronecker-`δ`
+potential `kmF = δ₁` reaches dual value `1`; they **meet**, so (scaled) `W₁(m₀,m₁) = 1`, probability
+`W₁ = 1/(m−1)`, Ollivier `κ = 1 − 1/(m−1) = (m−2)/(m−1) > 0` for `m ≥ 3`.  At `m = 3` this is the triangle
+`κ = ½`; `κ → 1` as `m → ∞` (the complete graph is increasingly positively curved) — the
+optimal-transport reading of all-to-all adjacency, parallel to the Bakry–Émery `CD((m+2)/2,∞)`
+(`BakryEmery.lean` §3).  Unlike §4–§6 (`decide` on a fixed graph), every step here is a `gridSumZ`-`δ`
+computation parametric in `m`. -/
+
+/-- Graph distance on `K_m`: `0` on the diagonal, `1` off it (all distinct vertices adjacent). -/
+def kmD : Nat → Nat → Int := fun i j => if i = j then 0 else 1
+
+/-- Walk measure at vertex `0` (uniform on neighbours `= all except 0`, scaled mass `1` each). -/
+def kmMu0 : Nat → Int := fun i => if i = 0 then 0 else 1
+
+/-- Walk measure at vertex `1` (uniform on neighbours `= all except 1`). -/
+def kmMu1 : Nat → Int := fun i => if i = 1 then 0 else 1
+
+/-- The optimal transport plan: move the unit at vertex `1` to vertex `0`, keep every shared neighbour
+    `≥ 2` on the diagonal. -/
+def kmPi : Nat → Nat → Int :=
+  fun x y => if x = 1 then (if y = 0 then 1 else 0)
+             else if 2 ≤ x then (if y = x then 1 else 0) else 0
+
+/-- The Kantorovich dual potential: the Kronecker-`δ` at vertex `1`. -/
+def kmF : Nat → Int := fun i => if i = 1 then 1 else 0
+
+/-- `2 ≤ x` from `x ≠ 0` and `x ≠ 1`. -/
+private theorem two_le_of_ne01 {x : Nat} (h0 : ¬ x = 0) (h1 : ¬ x = 1) : 2 ≤ x := by
+  match x with
+  | 0 => exact absurd rfl h0
+  | 1 => exact absurd rfl h1
+  | n + 2 => exact Nat.le_add_left 2 n
+
+/-- Row `0` of the plan is empty. -/
+theorem kmPi_row0 (y : Nat) : kmPi 0 y = 0 := by
+  unfold kmPi; rw [if_neg (by decide : ¬ (0:Nat) = 1), if_neg (by decide : ¬ 2 ≤ (0:Nat))]
+
+/-- Row `1` of the plan is the `δ` at `0`. -/
+theorem kmPi_row1 (y : Nat) : kmPi 1 y = if y = 0 then 1 else 0 := by
+  unfold kmPi; rw [if_pos rfl]
+
+/-- Row `x ≥ 2` of the plan is the diagonal `δ` at `x`. -/
+theorem kmPi_rowGe2 {x : Nat} (hx : 2 ≤ x) (y : Nat) :
+    kmPi x y = if y = x then 1 else 0 := by
+  unfold kmPi
+  rw [if_neg (fun h => by rw [h] at hx; exact absurd hx (by decide)), if_pos hx]
+
+/-- Column `0` of the plan is the `δ` at `1` (only `1 ↦ 0` lands in column `0`). -/
+theorem kmPi_col0 (x : Nat) : kmPi x 0 = if x = 1 then 1 else 0 := by
+  by_cases hx1 : x = 1
+  · subst hx1; decide
+  · rw [if_neg hx1]
+    by_cases hx0 : x = 0
+    · subst hx0; exact kmPi_row0 0
+    · rw [kmPi_rowGe2 (two_le_of_ne01 hx0 hx1), if_neg (fun h => hx0 h.symm)]
+
+/-- Column `1` of the plan is empty. -/
+theorem kmPi_col1 (x : Nat) : kmPi x 1 = 0 := by
+  by_cases hx1 : x = 1
+  · subst hx1; decide
+  · by_cases hx0 : x = 0
+    · subst hx0; exact kmPi_row0 1
+    · rw [kmPi_rowGe2 (two_le_of_ne01 hx0 hx1), if_neg (fun h => hx1 h.symm)]
+
+/-- Column `j ≥ 2` of the plan is the diagonal `δ` at `j`. -/
+theorem kmPi_colGe2 {j : Nat} (hj : 2 ≤ j) (x : Nat) :
+    kmPi x j = if x = j then 1 else 0 := by
+  by_cases hx1 : x = 1
+  · subst hx1
+    rw [kmPi_row1, if_neg (fun h => by rw [h] at hj; exact absurd hj (by decide)),
+        if_neg (fun h => by rw [← h] at hj; exact absurd hj (by decide))]
+  · by_cases hx0 : x = 0
+    · subst hx0
+      rw [kmPi_row0, if_neg (fun h => by rw [← h] at hj; exact absurd hj (by decide))]
+    · rw [kmPi_rowGe2 (two_le_of_ne01 hx0 hx1)]
+      by_cases hxj : x = j
+      · rw [if_pos hxj.symm, if_pos hxj]
+      · rw [if_neg (fun h => hxj h.symm), if_neg hxj]
+
+/-- ★★★★★ **`kmPi` is a valid coupling of `m₀` and `m₁`** (its marginals are `kmMu0`, `kmMu1`),
+    parametric in the vertex count `m ≥ 2`.  The three row/column cases (`0`, `1`, `≥ 2`) are each a
+    Kronecker-`δ` grid sum. -/
+theorem km_coupling (m : Nat) (hm : 2 ≤ m) :
+    (∀ x, x < m → rowMarg m kmPi x = kmMu0 x)
+    ∧ (∀ y, y < m → colMarg m kmPi y = kmMu1 y) := by
+  have h0m : 0 < m := Nat.lt_of_lt_of_le (by decide) hm
+  have h1m : 1 < m := Nat.lt_of_lt_of_le (by decide) hm
+  refine ⟨fun x hx => ?_, fun y hy => ?_⟩
+  · by_cases hx1 : x = 1
+    · subst hx1
+      show gridSumZ m (fun b => kmPi 1 b) = (1:Int)
+      exact Eq.trans (gridSumZ_congr m (fun b => kmPi 1 b) (fun b => if b = 0 then (1:Int) else 0)
+          (fun b _ => kmPi_row1 b)) (gridSumZ_delta m 0 1 h0m)
+    · by_cases hx0 : x = 0
+      · subst hx0
+        show gridSumZ m (fun b => kmPi 0 b) = (0:Int)
+        exact Eq.trans (gridSumZ_congr m (fun b => kmPi 0 b) (fun _ => (0:Int))
+            (fun b _ => kmPi_row0 b)) (gridSumZ_zero_fn m)
+      · show gridSumZ m (fun b => kmPi x b) = kmMu0 x
+        have hmu : kmMu0 x = 1 := by unfold kmMu0; rw [if_neg hx0]
+        exact (Eq.trans (gridSumZ_congr m (fun b => kmPi x b) (fun b => if b = x then (1:Int) else 0)
+            (fun b _ => kmPi_rowGe2 (two_le_of_ne01 hx0 hx1) b))
+          (gridSumZ_delta m x 1 hx)).trans hmu.symm
+  · by_cases hy1 : y = 1
+    · subst hy1
+      show gridSumZ m (fun a => kmPi a 1) = (0:Int)
+      exact Eq.trans (gridSumZ_congr m (fun a => kmPi a 1) (fun _ => (0:Int))
+          (fun a _ => kmPi_col1 a)) (gridSumZ_zero_fn m)
+    · by_cases hy0 : y = 0
+      · subst hy0
+        show gridSumZ m (fun a => kmPi a 0) = (1:Int)
+        exact Eq.trans (gridSumZ_congr m (fun a => kmPi a 0) (fun a => if a = 1 then (1:Int) else 0)
+            (fun a _ => kmPi_col0 a)) (gridSumZ_delta m 1 1 h1m)
+      · show gridSumZ m (fun a => kmPi a y) = kmMu1 y
+        have hmu : kmMu1 y = 1 := by unfold kmMu1; rw [if_neg hy1]
+        exact (Eq.trans (gridSumZ_congr m (fun a => kmPi a y) (fun a => if a = y then (1:Int) else 0)
+            (fun a _ => kmPi_colGe2 (two_le_of_ne01 hy0 hy1) a))
+          (gridSumZ_delta m y 1 hy)).trans hmu.symm
+
+/-- ★★★★★ **Transport cost `= 1`** (parametric in `m ≥ 2`).  The only off-diagonal mass is `1 ↦ 0` at
+    distance `1`; the `m−2` shared units sit on the diagonal (distance `0`).  `kmD a b · kmPi a b =
+    δ₁(a)·δ₀(b)`, so the double `δ`-sum is `1`. -/
+theorem km_cost (m : Nat) (hm : 2 ≤ m) : transportCost m kmD kmPi = 1 := by
+  have h0m : 0 < m := Nat.lt_of_lt_of_le (by decide) hm
+  have h1m : 1 < m := Nat.lt_of_lt_of_le (by decide) hm
+  unfold transportCost
+  have inner : ∀ a, gridSumZ m (fun b => kmD a b * kmPi a b) = if a = 1 then (1:Int) else 0 := by
+    intro a
+    by_cases ha1 : a = 1
+    · subst ha1
+      show gridSumZ m (fun b => kmD 1 b * kmPi 1 b) = 1
+      exact Eq.trans (gridSumZ_congr m (fun b => kmD 1 b * kmPi 1 b)
+          (fun b => if b = 0 then (1:Int) else 0)
+          (fun b _ => by
+            dsimp only
+            rw [kmPi_row1]
+            by_cases hb0 : b = 0
+            · subst hb0; decide
+            · rw [if_neg hb0, PolyIntM.mul_zeroZ]))
+        (gridSumZ_delta m 0 1 h0m)
+    · rw [if_neg ha1]
+      exact Eq.trans (gridSumZ_congr m (fun b => kmD a b * kmPi a b) (fun _ => (0:Int))
+          (fun b _ => by
+            dsimp only
+            by_cases ha0 : a = 0
+            · subst ha0; rw [kmPi_row0, PolyIntM.mul_zeroZ]
+            · rw [kmPi_rowGe2 (two_le_of_ne01 ha0 ha1)]
+              by_cases hba : b = a
+              · rw [if_pos hba]; unfold kmD; rw [if_pos hba.symm, zero_mul]
+              · rw [if_neg hba, PolyIntM.mul_zeroZ]))
+        (gridSumZ_zero_fn m)
+  show gridSumZ m (fun a => gridSumZ m (fun b => kmD a b * kmPi a b)) = 1
+  exact Eq.trans (gridSumZ_congr m (fun a => gridSumZ m (fun b => kmD a b * kmPi a b))
+      (fun a => if a = 1 then (1:Int) else 0) (fun a _ => inner a))
+    (gridSumZ_delta m 1 1 h1m)
+
+/-- ★★★★★ **Dual value `= 1`** (parametric in `m ≥ 2`).  Against the `δ₁` potential, the dual collapses
+    to `rowMarg(1) − colMarg(1) = m₀(1) − m₁(1) = 1 − 0 = 1` via the weighted-`δ` sum. -/
+theorem km_dual (m : Nat) (hm : 2 ≤ m) : dualValue m kmF kmPi = 1 := by
+  have h0m : 0 < m := Nat.lt_of_lt_of_le (by decide) hm
+  have h1m : 1 < m := Nat.lt_of_lt_of_le (by decide) hm
+  have hrow1 : rowMarg m kmPi 1 = 1 :=
+    Eq.trans (gridSumZ_congr m (fun b => kmPi 1 b) (fun b => if b = 0 then (1:Int) else 0)
+      (fun b _ => kmPi_row1 b)) (gridSumZ_delta m 0 1 h0m)
+  have hcol1 : colMarg m kmPi 1 = 0 :=
+    Eq.trans (gridSumZ_congr m (fun a => kmPi a 1) (fun _ => (0:Int))
+      (fun a _ => kmPi_col1 a)) (gridSumZ_zero_fn m)
+  have hs1 : gridSumZ m (fun x => kmF x * rowMarg m kmPi x) = 1 :=
+    (gridSumZ_delta_weight m 1 (rowMarg m kmPi) h1m).trans hrow1
+  have hs2 : gridSumZ m (fun y => kmF y * colMarg m kmPi y) = 0 :=
+    (gridSumZ_delta_weight m 1 (colMarg m kmPi) h1m).trans hcol1
+  show gridSumZ m (fun x => kmF x * rowMarg m kmPi x)
+       - gridSumZ m (fun y => kmF y * colMarg m kmPi y) = 1
+  rw [hs1, hs2]; decide
+
+/-- ★★★★★ **The plan meets the dual at `1`** (`dualValue = transportCost = 1`), parametric in `m ≥ 2`.
+    By `kantorovich_weak_duality` this pins the scaled `W₁(m₀,m₁) = 1`, probability `1/(m−1)` — Ollivier
+    `κ = (m−2)/(m−1) > 0` for the complete graph `K_m`, generalizing the triangle (`m = 3`, `κ = ½`). -/
+theorem km_ollivier_optimal (m : Nat) (hm : 2 ≤ m) :
+    dualValue m kmF kmPi = transportCost m kmD kmPi
+    ∧ transportCost m kmD kmPi = 1 :=
+  ⟨(km_dual m hm).trans (km_cost m hm).symm, km_cost m hm⟩
+
+/-- `kmF i ≤ 1` (the `δ₁` potential takes values in `{0,1}`). -/
+theorem kmF_le_one (i : Nat) : kmF i ≤ 1 := by
+  unfold kmF; by_cases h : i = 1
+  · rw [if_pos h]; exact Order.le_refl 1
+  · rw [if_neg h]; decide
+
+/-- `0 ≤ kmF i`. -/
+theorem kmF_nonneg (i : Nat) : (0:Int) ≤ kmF i := by
+  unfold kmF; by_cases h : i = 1
+  · rw [if_pos h]; decide
+  · rw [if_neg h]; exact Order.le_refl 0
+
+/-- `kmF` is `1`-Lipschitz w.r.t. the `K_m` distance: off-diagonal `d = 1 ≥ f i − f j`. -/
+theorem kmF_lipschitz (i j : Nat) : kmF i - kmF j ≤ kmD i j := by
+  by_cases hij : i = j
+  · subst hij; rw [Order.sub_self_zero]
+    show (0:Int) ≤ kmD i i; unfold kmD; rw [if_pos rfl]; exact Order.le_refl 0
+  · have hd : (1:Int) ≤ kmD i j := by unfold kmD; rw [if_neg hij]; exact Order.le_refl 1
+    exact Order.le_trans (sub_le_of_le_of_nonneg (kmF_le_one i) (kmF_nonneg j)) hd
+
+/-- ★★★★★ **`kmPi` is the optimal plan** (not merely *a* plan meeting the dual): its cost `1 ≤` the cost
+    of **every** valid coupling `π'` of `m₀, m₁`, so the scaled `W₁(m₀,m₁) = 1` is a genuine optimum and
+    Ollivier `κ = (m−2)/(m−1) > 0` rigorously for `K_m`, general `m ≥ 2`.  Via `ollivier_plan_optimal`
+    with the `kmF` certificate and `km_coupling`. -/
+theorem km_plan_optimal (m : Nat) (hm : 2 ≤ m) (pi' : Nat → Nat → Int)
+    (hpi' : ∀ x y, x < m → y < m → 0 ≤ pi' x y)
+    (hrow : ∀ x, x < m → rowMarg m pi' x = kmMu0 x)
+    (hcol : ∀ y, y < m → colMarg m pi' y = kmMu1 y) :
+    transportCost m kmD kmPi ≤ transportCost m kmD pi' := by
+  refine ollivier_plan_optimal m kmD kmF kmPi pi' hpi' kmF_lipschitz
+    (fun x hx => ?_) (fun y hy => ?_) (km_ollivier_optimal m hm).1
+  · rw [(km_coupling m hm).1 x hx, hrow x hx]
+  · rw [(km_coupling m hm).2 y hy, hcol y hy]
 
 end E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci

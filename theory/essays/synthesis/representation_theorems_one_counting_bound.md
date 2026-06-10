@@ -72,6 +72,15 @@ non-Euclidean class-number-one fields (`d = 19, 43, 67, 163`, PID but not Euclid
 form does not apply) are untouched. The Pillar-I residue input is also only as general as the
 order argument: `−1` (`p ≡ 1 mod 4`) and `−3` (`p ≡ 1 mod 3`) follow from a single
 multiplicative-order witness, but `−2` (`p ≡ 1, 3 mod 8`) needs the quadratic character of `2`,
-which the bare non-residue search does not supply — so the `D = 2` arc has the conditional split
-`split_form_two` (Pillar II), not the unconditional congruence iff (Pillar I open). The
-transcendental companion (the period value, `L(1, χ₋₃)` / `Γ(1/3)`) is separately out of reach.
+which the bare non-residue search does not supply.  That character is now closed — not from the
+non-residue search but from the **Legendre homomorphism**: `(−2/p) = (−1/p)·(2/p)`
+(`LegendreMultiplicative.legendre_mul` at `a = p−1`, `b = 2`, with `((p−1)·2) % p = p − 2`),
+the two factors being the already-closed first and second supplements
+(`EulerFirstSupplement.neg_one_qr_iff`, `SecondSupplement.second_supplement`).  The two
+characters agree exactly on `p ≡ 1, 3 (mod 8)`, supplying Pillar I, so the `D = 2` arc now has
+the **unconditional congruence iff** `ZSqrtNegTwoSquare.disc_neg_eight_iff`
+(`p = a² + 2b² ⟺ p ≡ 1, 3 mod 8`) — the disc-`−8` twin of `two_square_iff`, the necessity half
+a square-and-`2·square`-mod-8 enumeration (`form8_residue`).  The remaining
+norm-Euclidean imaginary quadratic fields (`d = 7, 11`) and the non-Euclidean class-number-one
+fields stay untouched.  The transcendental companion (the period value, `L(1, χ₋₃)` / `Γ(1/3)`)
+is separately out of reach.

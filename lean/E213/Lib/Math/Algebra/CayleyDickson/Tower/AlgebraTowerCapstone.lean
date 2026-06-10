@@ -25,9 +25,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Tower.TowerFixedPoint
 # Algebra Tower Capstone
 
 Bundle of all ∅-axiom theorems established for the 213 algebra tower
-discovery (session).  See `research-notes/G56_session
-_summary_algebra_tower.md` for narrative; this file collects the
-formal ∅-axiom witnesses across:
+discovery; this file collects the formal ∅-axiom witnesses across:
 
   - Raw side: Möbius P [[2,1],[1,1]] generator (Theory/Raw/Mobius)
   - Algebra side: 24 specific + 2 generic theorems

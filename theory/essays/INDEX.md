@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 77 essays are grouped into ten thematic sub-directories — distinct
+The 80 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -89,6 +89,23 @@ character — `α(p) ∣ p − (5/p)`, `rank_law_dispatch` — and `(5/p) = psig
 so `α(p) ∣ p − psign(σ_5)`: the Fibonacci entry point is the parity of the `×5` permutation;
 the same Legendre character mains dispatch for the Pisano *period* the branch dispatches for the
 *entry point*, `α(p) ∣ π(p)`).
+`the_quadratic_character_is_a_discrete_log_parity` (`(a/p) = (−1)^{dlog_g(a)}` — with a primitive
+root `g` (`exists_primitive_root`), the Legendre symbol is the mod-2 readout of a unit's position
+in the single orbit `(ℤ/p)*`; Euler's `a^m ≡ (−1)^k`, the cycle sign `psign σ_a`, the determinant,
+and the discrete-log parity are four readouts of one bit `k mod 2`, forced by the orbit being
+cyclic of even order — the structural why behind the character's existence).
+`the_character_is_the_groups_eigen_data` (a character of `ℤ/p` is eigen-data of the group acting
+on itself: the *multiplication* action `×a` forces a sign — the quadratic/Legendre character
+`(a/p) = psign σ_a` — and the *shift* action forces an eigenbasis — the additive characters as the
+`K_p` Laplacian `λ=p` eigenspace, `km_eigenvalue`/`km_meanzero_eigen`; one cyclic group, two
+character-faces, both spectral; cross-frame with Lichnerowicz `CD(K)⟹λ₁≥K` as a third "structure ⟹
+spectrum" instance).
+`the_cauchy_schwarz_gap_is_a_square` (Cauchy–Schwarz is the READ of a gap exhibited as a square —
+A7 POSITIVITY: the 2-D gap IS the Lagrange square (`cauchy_schwarz_2d`), the power-mean gap IS the
+total pairwise distinguishing `Σ_{i<j}(a_i−a_j)²`, saturated on the diagonal; the bound is
+presentation-invariant but the *certificate* has depth — depth-0 pair-sum vs per-rung SOS folded
+along the `gridSumZ` induction (`cauchy_schwarz_gridZ`) — and the `K_{a,b}` wide/narrow curvature
+regime split (`kab_cd_wide`/`kab_cd_narrow`) is exactly that depth).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,

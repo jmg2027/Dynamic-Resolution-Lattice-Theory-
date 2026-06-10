@@ -52,7 +52,7 @@ founding does not even *cite* the `ℤ` one.
 alternatives; if the count-Lens, the difference-Lens, the ratio-Lens, the Cauchy
 completion are *choices*, then the tower is one selection from a space of towers, and
 no rung is privileged — exactly the discipline of `seed/AXIOM/05_no_exterior.md` and
-the "View promoted to identity" failure mode (`research-notes/G152`,
+the "View promoted to identity" failure mode (CLAUDE.md,
 `FlatOntologyClosure.object1_not_surjective`): a reading is a facet, not the thing.
 
 But some rungs may be *more* forced than others.  The count `⟨1, 1, +⟩` may be the

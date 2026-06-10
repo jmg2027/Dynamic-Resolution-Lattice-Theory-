@@ -30,6 +30,18 @@ import E213.Lib.Math.NumberTheory.ModArith.ZolotarevConverse
 import E213.Lib.Math.NumberTheory.ModArith.ZolotarevMuBridge
 import E213.Lib.Math.NumberTheory.ModArith.FP2Sqrt5
 import E213.Lib.Math.NumberTheory.ModArith.FP2SqrtD
+import E213.Lib.Math.NumberTheory.ModArith.Zolotarev
+import E213.Lib.Math.NumberTheory.ModArith.ZolotarevReduction
+import E213.Lib.Math.NumberTheory.ModArith.ZolotarevCycle
+import E213.Lib.Math.NumberTheory.ModArith.MulOrder
+import E213.Lib.Math.NumberTheory.ModArith.OrderPow
+import E213.Lib.Math.NumberTheory.ModArith.CoprimeOrder
+import E213.Lib.Math.NumberTheory.ModArith.MaxOrder
+import E213.Lib.Math.NumberTheory.ModArith.QPart
+import E213.Lib.Math.NumberTheory.ModArith.ValuationAlg
+import E213.Lib.Math.NumberTheory.ModArith.EveryOrdDvdMax
+import E213.Lib.Math.NumberTheory.ModArith.PrimitiveRoot
+import E213.Lib.Math.NumberTheory.Lcm213
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.
 

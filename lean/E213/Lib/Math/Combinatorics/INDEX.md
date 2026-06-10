@@ -29,6 +29,7 @@ Blueprint: `blueprints/math/10_combinatorics_213.md` (retired).
 | `LinearDependence.lean` | `dimension_bound_is_count` — `m>n` vectors in `𝔽₂^n` dependent via subset-sum collision (= COUNT in a linear codomain); `vsum`/`vxor` | ∅-axiom |
 | `ParityInvariant.lean` | mutilated chessboard: `tiling_balanced` (conserved colour-count = READ ∘ SEPARATE), `corners_same_colour`; `par` = `Mod213.parity` | ∅-axiom |
 | `KonigConditional.lean` | König boundary: `konig_conditional`/`walk` (the LOOP, internal); `InfBelow`/`InfChildExists` (the un-dischargeable `DECIDE` = the exterior) | ∅-axiom (conditional) |
+| `IntGridSum.lean` | the integer grid sum `gridSumZ n f = Σ_{x<n} f x` (`Int`-valued, `Nat`-indexed) + its domain-agnostic toolkit: `succ`/`congr`/`zero_fn`/`add`/`sub`/`mul_left`/`const`/`le`/`nonneg`/`fubini` (sum-swap) + Kronecker-`δ` family `delta`/`delta_zero`/`delta_weight`.  The shared finite-summation infrastructure under the discrete-curvature frames (Ollivier transport, Bakry–Émery `Γ₂`, Lichnerowicz, the Riemann tensor contractions) | ∅-axiom |
 | `Combinatorics.lean` | umbrella (sibling) | — |
 
 ## Key 213-native results

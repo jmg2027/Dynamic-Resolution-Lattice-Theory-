@@ -79,6 +79,24 @@ theorem mul_pos {a b : Int} (ha : 0 < a) (hb : 0 < b) : 0 < a * b := by
     rwa [mul_comm 1 b, mul_one] at hx
   exact lt_of_lt_of_le hb hble
 
+/-- ★★ **Positive right-cancellation**: `a·c ≤ b·c` and `0 < c` ⟹ `a ≤ b`.  The converse of
+    `mul_le_mul_right_nonneg` — if `b < a` then `(a−b)·c > 0`, so `b·c < a·c`, contradicting
+    the hypothesis. -/
+theorem le_of_mul_le_mul_right_pos {a b c : Int} (h : a * c ≤ b * c) (hc : 0 < c) : a ≤ b := by
+  apply Order.le_of_sub_nonneg
+  apply Order.nonneg_of_le_zero
+  rcases Order.pos_zero_or_neg (b - a) with hpos | hzero | hneg
+  · exact Order.le_of_lt hpos
+  · rw [hzero]; exact Order.le_refl 0
+  · exfalso
+    have ha_b : (0 : Int) < a - b := by
+      rw [show a - b = -(b - a) from by ring_intZ]; exact Order.neg_pos_of_neg hneg
+    have hlt : b * c < a * c := by
+      apply Order.lt_of_sub_pos
+      rw [show a * c - b * c = (a - b) * c from by ring_intZ]
+      exact mul_pos ha_b hc
+    exact Order.not_le_of_lt hlt h
+
 /-- ★★ **`<` is irreflexive** (`Int.lt_irrefl` is `propext`-dirty), by reducing `a < a` to
     `(-1).NonNeg`. -/
 theorem int_lt_irrefl (a : Int) : ¬ (a < a) := by

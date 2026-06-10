@@ -89,6 +89,28 @@ combinatorial formula).
    fixed point, the discrete "round/Einstein metric stays round under Ricci flow for all time", complementing
    rung 3's `flow_reaches` *to* the fixed point).
 
+## New direction — curvature → spectrum (Lichnerowicz)
+
+**Opened** (`DiscreteLichnerowicz.lean`, PURE).  The pointwise `CD(K,∞)` summed over
+vertices + integration-by-parts (`Σ Γ₂ = Σ(Lf)²`, `Σ Γ = −Σ f·Lf = E`) gives the
+Lichnerowicz spectral gap `λ₁ ≥ K` (eigenvalue `λ` of the graph Laplacian).  First
+concrete rung: the complete graph `K_m`, where the integrated Bochner is the **exact
+identity** `km_rayleigh : Σ_x (Lf x)² = m·E(f)` (all `f`, via `km_lap_sq_sum` +
+`km_f_lap_sum`) — the Rayleigh quotient is identically `m`, so `K_m`'s Laplacian
+`L = J − m·I` has spectrum `{0, m}` (algebraic connectivity `m`).  With
+`cd_complete_graph` (`CD((m+2)/2)`) this realizes Lichnerowicz: gap `m ≥ (m+2)/2`.
+The **abstract Lichnerowicz mechanism** is now also closed: `lichnerowicz_abstract`
+(`K·(λN) ≤ λ·(λN)`, `λ,N > 0` ⟹ `K ≤ λ`) via the positive multiplicative cancellation
+`le_of_mul_le_mul_right_pos` (a general `Int` fact absent from `Int213.OrderMul` — a
+Meta-layer relocation candidate, kept local for now).  `km_eigenvalue` shows the `K_m`
+spectrum is exactly `{0, m}`, and `km_meanzero_eigen`/`km_const_eigen` realize both
+eigenspaces (multiplicities `m−1, 1`).  The two integration inputs are now explicit for
+`K_m`: `km_green` (`Σ Γ = E = −Σ f·Lf`) and `km_lap_sq_sum` (`Σ Γ₂ = Σ(Lf)²`).
+**Reachable next**: the general integration-by-parts identities (`Σ Γ₂ = Σ(Lf)²`,
+`Σ Γ = E`) for an arbitrary finite graph (cyclic-sum invariance, as in
+`HeatEq.Conservation`) — the one remaining input to feed `lichnerowicz_abstract` for
+non-complete graphs; the star / `K_{a,b}` spectral gaps via the same integration.
+
 ## Honest boundary
 
 This closes A6's core **in the discrete (Forman/Ollivier) theory** — a genuine
@@ -101,9 +123,88 @@ Ricci flow to its normalized fixed point" — not "A6 solves Poincaré."
 **Rungs 1–7 all ✅ DONE** (Forman flow + a-priori package + Gauss–Bonnet + Ollivier transport core with
 full `+/0/−` trichotomy + Bakry–Émery `CD(K,N)` Bochner identity + all-time fixed-point stability).  The
 discrete A6 core is closed across **four** curvature frames (Forman, Gauss–Bonnet, Ollivier, Bakry–Émery),
-all sign-agreeing.  Remaining refinements: the complete graph `K_m` Bakry–Émery for general `m`
-(`CD((m+2)/2,∞)` — a `gridSum`-over-neighbours generalization of `bochner_triangle`); the discrete Lin–Yau
-optimal `K`; more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
+all sign-agreeing.
+
+**Rung 6 refinement — the complete graph `K_m` for general `m`** — ✅ **DONE**
+(`BakryEmery.lean` §3, 14 PURE: 6 defs + 8 theorems).  The triangle `bochner_triangle` was the `m = 3`
+case; §3 discharges the whole family parametric in the vertex count.  `K_m` is modelled as a **centre vertex** (value `c`) joined
+to `k = m−1` **neighbours** (`b : Nat → Int`), every pair also adjacent — a presentation that makes the
+positive-curvature term a **full double `gridSumZ` of squared differences** `sosGap = Σ_jΣ_{j'}(b j'−b j)²`
+whose diagonal `(b j − b j)² = 0` vanishes on its own, so **no index has to be excluded** (the bookkeeping
+wall the `m = 3` hand computation only sidestepped concretely, and a Cauchy–Schwarz route would have hit).
+`bochner_complete` (`gamma2C = (k+3)·gammaC + sosGap`, pure `gridSumZ` linearity + `ring_intZ`) ⟹
+`cd_complete_graph` (`gamma2C ≥ (k+3)·gammaC`, from `sosGap_nonneg`): **`K_m` is `CD((m+2)/2, ∞)`** since
+`k+3 = m+2`, the textbook Bakry–Émery curvature of the complete graph, generalizing `cd_triangle`
+(`k = 2`: `k+3 = 5`, `sosGap = 2(b₀−b₁)²`).  The bound is **sharp** (`cd_complete_graph_sharp`): on any
+constant-neighbour configuration `sosGap = 0`, so `gamma2C = (k+3)·gammaC` *exactly* — `(m+2)/2` is the
+*actual* curvature of `K_m`, not just a lower bound, hence cannot be improved.  New generic infra:
+`gridSumZ_const`, `gridSumZ_nonneg` (`Combinatorics/IntGridSum`).
+
+**Rung 5 refinement — Ollivier `κ` for the complete graph `K_m`, general `m`** — ✅ **DONE**
+(`OllivierRicci.lean` §7, parametric, PURE).  The optimal-transport companion of the Bakry–Émery `K_m`
+above: the edge `(0,1)` of `K_m`, walk measures `m₀,m₁` differing only at `0,1` (they share the `m−2`
+neighbours `{2,…,m−1}`).  The plan `kmPi` keeps the shared units on the diagonal and moves the single unit
+`1 ↦ 0` (cost `1`); the `δ₁` potential `kmF` reaches dual value `1`.  `km_cost`/`km_dual` (each a
+`gridSumZ`-`δ` computation parametric in `m`, **not** `decide` on a fixed graph) ⟹ `km_ollivier_optimal`
+(meet: `dualValue = transportCost = 1`) + `km_plan_optimal` (cost `≤` every coupling, via `km_coupling` +
+`kmF_lipschitz`): scaled `W₁ = 1`, so **Ollivier `κ = 1 − 1/(m−1) = (m−2)/(m−1) > 0`** for `K_m` (`m ≥ 3`),
+generalizing the §4 triangle (`m = 3`, `κ = ½`) and `→ 1` as `m → ∞`.  New generic infra: the Kronecker-`δ`
+grid sums `gridSumZ_delta`, `gridSumZ_delta_zero`, `gridSumZ_delta_weight` (`Combinatorics/IntGridSum`).  Both
+general-`m` complete-graph curvatures (Bakry–Émery `CD((m+2)/2,∞)` + Ollivier `(m−2)/(m−1)`) now stand.
+
+**Lin–Yau optimal `K` for `K_m`** — ✅ **DONE** (`BakryEmery.lean` §3, `lin_yau_curvature_complete`).
+The lower bound `cd_complete_graph` is *attained with equality* on the constant-`0` neighbour
+configuration (`cd_complete_graph_sharp`), which is **non-vacuous** — `complete_graph_gammaC_witness`
+gives `gammaC = k > 0` for `k = m−1 ≥ 1`.  Lower bound + tight witness ⟹ `(m+2)/2` is the *optimal*
+(Lin–Yau) Bakry–Émery curvature of `K_m`, not merely a bound.
+
+**Bipartite star `K_{1,b}` Bakry–Émery** — ✅ **DONE** (`BakryEmery.lean` §4, PURE).  The first bipartite
+case `K_{a,b}` with `a = 1`: a centre joined to `b = k` leaves, **no leaf–leaf edges** (triangle-free).
+Reuses the centre operators `lapC`, `gammaC`; only the *leaf* operators change (a leaf's sole neighbour is
+the centre, so `lapLeaf = c − b j`, `gammaLeaf = (c − b j)²` — **no** other-neighbour sum, unlike `K_m`'s
+mutually-adjacent neighbours).  `bochner_star` (`gamma2Star = (3 − b)·gammaC + 2·lapC²`, `2·lapC² ≥ 0` SOS)
+⟹ `cd_star` (`CD((3−b)/2, ∞)`).  **Sign trichotomy in the leaf count `b`**: `b ≤ 2` positive, `b = 3`
+flat, `b ≥ 4` **negative** (`star_negatively_curved`: `3 − b < 0`) — a hub/tree is negatively curved,
+matching the double-star Ollivier `κ = −2/3 < 0` (`OllivierRicci` §6) and *opposite* the clique `K_m`
+(`CD((m+2)/2,∞) > 0`): adding leaf–leaf edges (star → clique) flips curvature sign, the clustering `Γ₂`
+measures.
+
+**Star `K_{1,b}` curvature at a LEAF** — ✅ **DONE** (`BakryEmery.lean` §5, PURE).  The bipartite
+**vertex-type asymmetry**: curvature differs by vertex type (a leaf vs the centre).  A leaf's sole
+neighbour is the centre, whose `Γ` sums over all `b` leaves, so the leaf's `Γ₂` sees the other `k=b−1`
+leaves (`o_i`) — yet the curvature-dimension minimization closes as a **perfect-square sum** (no division,
+unlike general `K_{a,b}`): `bochner_star_leaf` (`gamma2Leaf = (4−k)·gammaW + Σ_i((o_i−c)+(w−c))²`) ⟹
+`cd_star_leaf` (`CD((4−k)/2,∞) = CD((5−b)/2,∞)`).  A **leaf is less negatively curved than the centre**
+(`(5−b)/2 > (3−b)/2`; `b=4`: centre `−½`, leaf `+½`) — vertex-type-dependent curvature, the hallmark of
+the non-vertex-transitive bipartite graph (`K_m` and the cycle are vertex-transitive, one curvature).
+
+**General bipartite `K_{a,b}` (`a ≥ 2`)** — ✅ **DONE** (`BakryEmeryBipartite.lean`, PURE, the DRLT
+`K_{3,2}` core).  Curvature at an `A`-vertex, in **centred coordinates** (`x_j = w_j−c` the `B`-values,
+`y_i = u_i−c` the `na = a−1` other-`A` values; translation-invariance kills `c`).  Four phases:
+  · **Phase 1** `kab_bochner` — the two-shell Bochner closed form `gamma2 = (3a−b)·gammaC + 2X² + b·Q_y −
+    4XY` (`kab_inner`/`kab_pieceA`/`kab_pieceB` handle the genuine second shell: centre → `b` `B`-neighbours
+    → their `a−1` other-`A` neighbours);
+  · **Phase 2** `kab_shell_sos` — completing the square over the **free second shell** (clearing the `1/b`):
+    `b·gamma2 = b(3a−b)·gammaC + (2b−4a+4)·X² + Σ_i(b·y_i − 2X)²`, last term a manifest SOS;
+  · **Phase 3a** `kab_cd_wide` (`b ≥ 2a−2`): `2b−4a+4 ≥ 0` ⟹ `CD((3a−b)/2,∞)` with **no** Cauchy–Schwarz;
+  · **Phase 3b** `kab_cd_narrow` (`b ≤ 2a−2`, incl. `K_{3,2}`): the negative `X²`-coefficient needs the
+    **discrete Cauchy–Schwarz** `X² ≤ b·gammaC` (`cauchy_schwarz_gridZ`, proven by induction with `kab_inner`
+    as the SOS gap) ⟹ `CD((b−a+4)/2,∞)`.
+The `A`-vertex curvature is `min(3a−b, b−a+4)/2`; `K_{3,2}` (`a=3,b=2`) is `CD(3/2,∞)` (`kab_K32_pos`,
+positive at either vertex).  Reduces to the star (`BakryEmery` §4) at `na=0`.  A **`B`-vertex** is the
+*same* theorems with `(na,nb) ↦ (b−1, a)` (curvature `min(3b−a, a−b+4)/2`) — no extra work, the `(na,nb)`
+parametrization is the per-vertex view.
+
+**Cross-frame sign divergence (honest, `K_{3,2}`).**  Simple Forman–Ricci `4 − d_u − d_v` (correctly
+scoped to triangle-free graphs, which `K_{3,2}` is) gives `4 − 3 − 2 = −1 < 0` (`forman_K32`) — the
+**opposite sign** to the Bakry–Émery `CD(3/2) > 0`.  The degree-dominated Forman and the
+curvature-dimension Bakry–Émery need not agree in sign on a fixed graph (documented for `d_u+d_v > 4`);
+the four frames coincide on the qualitative `+/0/−` *trichotomy* across the standard test set, not
+pointwise.  So "the four frames all agree" holds for the trichotomy, **not** as a pointwise sign identity —
+for the DRLT lattice the Bakry–Émery `CD(3/2)` is the finer, transport-consistent reading.
+
+Remaining refinements: general bipartite `K_{a,b}` (`a ≥ 2`, the DRLT `K_{3,2}` core, two-shell); the
+discrete Lin–Yau optimal `K` for the cycle; more concrete Ollivier `κ` on further graphs.  Still walled: the smooth general-`n` *tensor
 flow* and the transcendental Perelman `𝓦`-entropy (`ricci_flow_smooth_core.md`) — but the general-`n` Ricci
-**lower bound** is now reachable synthetically via `CD(K,N)` (rung 6).  The smooth 2D-conformal route
-(S3–S5) is separately closed (`ConformalCurvature.lean`).
+**lower bound** is now reachable synthetically via `CD(K,N)` (rung 6, now for *every* `K_m`).  The smooth
+2D-conformal route (S3–S5) is separately closed (`ConformalCurvature.lean`).

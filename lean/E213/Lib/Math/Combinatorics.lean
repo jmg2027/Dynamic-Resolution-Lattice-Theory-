@@ -20,6 +20,7 @@ import E213.Lib.Math.Combinatorics.Permutations
 import E213.Lib.Math.Combinatorics.LinearDependence
 import E213.Lib.Math.Combinatorics.ParityInvariant
 import E213.Lib.Math.Combinatorics.KonigConditional
+import E213.Lib.Math.Combinatorics.IntGridSum
 
 /-!
 # Combinatorics 213 — umbrella

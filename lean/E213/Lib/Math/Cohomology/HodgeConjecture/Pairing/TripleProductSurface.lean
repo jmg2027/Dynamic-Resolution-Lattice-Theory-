@@ -4,7 +4,7 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.T2nInductive
 /-!
 # Σ_g × Σ_h × Σ_k Triple Product Surface (C4 Step 3)
 
-Step 3 of C4 per `research-notes/G35` §C4.
+Step 3 of C4 per `research-notes/frontiers/G35` §C4.
 
 Triple product Σ_g × Σ_h × Σ_k has dim 6, middle = H³.  Specific
 case (g, h, k) = (1, 1, 1) gives T² × T² × T² = T⁶.  By the

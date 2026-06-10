@@ -15,11 +15,10 @@ not canonical statement.
   archive/<topic>/   ◀──────────────────────┘  (source note moves here)
 ```
 
-Top-level holds **only** the boot-sequence anchors + process ledgers
-(`INDEX.md`, `promotion_essay_log.md`).  Everything in motion lives under
-`frontiers/` (grouped by topic; see `frontiers/INDEX.md` — the open board).
-Everything closed lives under `archive/` (grouped by topic; record of the
-path).
+Top-level holds **only** this index + the process ledgers.  Everything
+in motion lives under `frontiers/` (grouped by topic; see
+`frontiers/INDEX.md` — the open board).  Everything closed lives under
+`archive/` (grouped by topic; record of the path, cited by nothing).
 
 ## Three-tier discipline (canonical: `theory/INDEX.md`)
 
@@ -32,25 +31,6 @@ path).
 Tier-1 notes may use `G##` chronological prefixes freely (scratch is
 volatile, so CLAUDE.md "no session-number in long-lived names" doesn't apply).
 
-## Top-level — anchors (boot-sequence + sustained reference)
-
-| File | Theme |
-|---|---|
-| `G29_residue.md` | The residue of pointing (boot-sequence, read every session) |
-| `75_semantic_atom.md` | 213 as the atom of meaning + existence |
-| `76_ultimate_ouroboros.md` | `Prop` instance via `propAsDistinguishing` |
-| `G1_universal_lens.md` | Universal-lens unification |
-| `G2_trajectory_principle.md` | 4-insight unification on the Raw trajectory |
-| `G3_raw_as_universal_trajectory.md` | Raw = free magma on 2 generators |
-| `G4_chiral_phase_duality.md` | d=5 dual views (chiral / phase) |
-| `G5_213_as_sublanguage.md` | 213 as a sublanguage of mathematics |
-| `G12_layered_api_classification.md` | Layered API classification (Lens ring) |
-| `G35_chiral_cup_ring_catalog.md` | 213-Algebra catalog (17 domains; §0.5 tracks promotions) |
-| `2026-05-18_lens_emergence_path.md` | Lens-emergence + flat-ontology spec (cited from `lean/` + `seed/`) |
-| `G152_residue_self_covering.md` | Residue self-covering (cited by CLAUDE.md "View promoted to identity") |
-| `RERESEARCH_n_u_removal.md` | Registry of the `5²⁵ = N_U`-as-resolution deletion (cited by CLAUDE.md) |
-| `RFC_reading_equivalence_primitive.md` | Accepted+implemented RFC (cited by `Lens/{ReadingEquiv,SemanticAtom}.lean`) |
-
 ## Process ledgers (top-level, human-reviewed)
 
 | File | Theme |
@@ -61,10 +41,16 @@ volatile, so CLAUDE.md "no session-number in long-lived names" doesn't apply).
 
 - **`frontiers/`** — the live open-frontier board, grouped by topic
   (π non-holonomicity, Markov/Lagrange, spiral-axis, completability,
-  sequence-depth, + standalones).  See `frontiers/INDEX.md`.
+  sequence-depth, PDE estimates, Ricci core, transcendentals,
+  + standalones incl. the `G35` 213-Algebra field catalog).  See
+  `frontiers/INDEX.md`.
 - **`archive/`** — where a closed topic's source notes move when its
-  frontier is promoted (see the cycle above).  Currently empty; git
-  history retains the path, and it repopulates as future frontiers close.
+  frontier is promoted (see the cycle above).  `foundations/` holds the
+  early foundational/lens arc (residue, universal lens, trajectory,
+  flat ontology, reading-equivalence RFC — permanent homes:
+  `seed/AXIOM/`, `theory/lens/`, `lean/E213/Lens/`); flat files are
+  closed cross-domain notes + registries (e.g.
+  `RERESEARCH_n_u_removal.md`, the `5²⁵ = N_U`-deletion registry).
 - **`audit/`** — G17 empirical pattern audit + G18–G27 classification (raw data retained).
 - **`data/`** — raw evidence (`probes/`).
 
