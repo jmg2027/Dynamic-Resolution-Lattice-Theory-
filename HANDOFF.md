@@ -82,20 +82,40 @@ compactness** — now the sharpest single remaining wall item.
   recursive call — take the recursive IH with an **ascribed type in the unfolded form**
   (`have ihn : … binom … := gaussian_normalization t`).
 
+## Third arc (same session, "ㄱㄱ"): Bochner coupling + Real213 max principle
+
+- **Bochner-with-Ricci coupling, first rung** (`DiscreteLichnerowicz` §4, module now 18
+  PURE): `kmStep` (`P_c = c·id + L`, `τ = 1/c` numerator form) with
+  `km_gradient_contraction` — `Γ(P_c u) = (c−m)²·Γ(u)` **pointwise identity** (the
+  Bakry–Émery commutation `Γ(P_τ f) ≤ e^{−2Kτ}P_τΓ(f)`, exact on `K_m`) — and
+  `km_be_gradient_estimate`: `4·Γ(P_c u) ≤ (2c−(m+2))²·Γ(u)` for `m ≥ 2 ≤ c` — the
+  gradient estimate at the genuine `CD((m+2)/2)` curvature rate (gap beats curvature =
+  Lichnerowicz).  Plus `km_lap_sum_zero`/`km_step_mass`.  New Meta: `OrderMul.sq_le_sq_of_le`.
+- **`Real213`-cut maximum principle** (`HeatEq/MaxPrincipleReal.lean`, 2 PURE):
+  `heat_max_principle_real` — data in `[A,B]` ⟹ the averaged field `heatIter n t u x / 2ᵗ`,
+  as a `Real213` cut, satisfies `A ≤ field ≤ B` in the cut order for **all** `t`.  Generic
+  bridge: `constCut_le_constCut` (`a·d ≤ c·b`, `d>0` ⟹ cut order — the ℚ→cut order
+  embedding, division-free).
+- **`expCauchySeq` scoped honestly** (frontier note updated): needs the rational
+  convergent pair `expNum/expDen` (`d i = qⁱ·i!`) + the four `RateModulus.rate_cut_const`
+  certificates (positivity, `Htel` via cross-det from `expTail_geom_decay`, mono, strict
+  mono) — a session-scale T1→T2 marathon, **not** a 40-line brick.  Next session's prime
+  candidate.
+
 ## Open Problems (priority order)
-1. **Discrete Bochner-with-Ricci coupling** for manifold-style Li–Yau: combine
-   `BakryEmery`'s `CD(K,∞)` with the log-concavity machinery to get a curvature-dependent
-   gradient estimate (`Δlog u ≥ −K`-shaped, cleared form).
-2. **`Real213`-cut maximum principle** (carried over): promote `heatIter_range` to a
-   `cutLe` via the `RealCauchyWitness` order-squeeze idiom (~40 lines, solved pattern).
-3. **`expCauchySeq` packaging** (carried over): retire the `Core/Functions.lean`
-   transcendental stubs (template: `eulerCauchySeq`).
-4. **Compactness extraction** (the genuinely smooth remainder of wall item (iv)):
+1. **`expCauchySeq` marathon** (scoped above): build `expNum/expDen` convergents for
+   `exp(p/q)`, re-derive the cross-det certificate from `CutExpModulus`, feed
+   `RateModulus.rate_cut_const`, retire the `Core/Functions.lean` stubs.
+2. **Bochner coupling beyond the spectral case**: the gradient-commutation *inequality*
+   on a non-vertex-transitive graph (star / `K_{a,b}`, no longer exact) — the genuine
+   `CD(K,∞) ⟹ gradient estimate` implication.
+3. **Compactness extraction** (the genuinely smooth remainder of wall item (iv)):
    blow-up limits / canonical neighbourhoods / soliton classification on a manifold —
    un-discretized; record-only until a 213-native handle appears.
-5. **Promotion**: the `GeometrizationConjecture` discrete-curvature sub-tree (4 curvature
-   frames + the four wall-item files + noncollapsing/entropy) is a strong candidate for a
-   consolidated `theory/` chapter (`theory/PROMOTION_CRITERIA.md` H1–H4 + S1–S3).
+4. **Promotion**: the `GeometrizationConjecture` discrete-curvature sub-tree (4 curvature
+   frames + the four wall-item files + noncollapsing/entropy/semigroup) is a strong
+   candidate for a consolidated `theory/` chapter (`theory/PROMOTION_CRITERIA.md`
+   H1–H4 + S1–S3).
 
 ## Three-tier state
 - **Tier-2 added**: `WeightedGreen.lean`, `DiscreteGaussian.lean`, `DiscreteSurgery.lean`

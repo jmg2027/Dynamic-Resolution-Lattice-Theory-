@@ -317,8 +317,31 @@ The GENUINE residual wall was (i) the weighted **integration-by-parts** identity
 (ii) the `(4πτ)^{−n/2}e^{−f}` Gaussian normalization of the true `𝓦`, (iii) **Li–Yau Harnack**
 (nonlinear), and (iv) **κ-solution / surgery classification + no-local-collapsing compactness** —
 the last is the genuine, un-reframable century-problem core.  Reachable next bricks (all
-recorded): `expCauchySeq`, the `Real213`-cut maximum principle, the χ²-entropy descent
-(the last now ✅ closed — `ricci_chi_entropy_monotone`, see below).
+recorded): `expCauchySeq` (still open — see scoping below), the `Real213`-cut maximum
+principle (✅ closed — `HeatEq/MaxPrincipleReal.heat_max_principle_real`: data in `[A,B]`
+⟹ the averaged field `heatIter/2ᵗ`, as a `Real213` cut, stays in `[A,B]` in the cut order
+for all `t`; generic bridge `constCut_le_constCut`), and the χ²-entropy descent
+(✅ closed — `ricci_chi_entropy_monotone`, see below).
+
+**`expCauchySeq` scoping (honest)**: "packaging" understates it.  The euler template
+(`eulerCauchySeq`) rests on `RateModulus.rate_cut_const`, which consumes the *rational
+convergent* representation (`rcut a d` with `a/d = eulerNum/eulerDen`) plus four
+certificates: `d` positive, `Htel` (telescoped rate, via `Htel_of_crossdet`: cross-det
+`W i` with `i(i+1)·W i + i·d i ≤ (i+1)·d (i+1)`), monotone, strictly monotone.  For
+`exp(p/q)` one must first build the convergent pair `expNum/expDen` (`d i = qⁱ·i!`),
+re-derive the cross-det from `CutExpModulus.expTail_geom_decay`, and handle the `p/q`
+ranges — a session-scale marathon (T1→T2 bridge), not a 40-line brick.
+
+**Bochner-with-Ricci coupling** — ✅ first rung closed (`DiscreteLichnerowicz` §4):
+on `K_m` the Bakry–Émery gradient-semigroup commutation holds as an **identity** —
+`Γ(P_c u) = (c−m)²·Γ(u)` pointwise (`km_gradient_contraction`; `P_c = c·id + L`,
+`τ = 1/c` numerator form) — and since the gap `m` dominates the curvature `(m+2)/2`
+(Lichnerowicz, `m ≥ 2`), the cleared `CD((m+2)/2,∞)`-rate estimate
+`4·Γ(P_c u) ≤ (2c−(m+2))²·Γ(u)` follows (`km_be_gradient_estimate`): the curvature
+constant enters the gradient decay exactly as in the smooth Bakry–Émery/Li–Yau theory.
+**Open next rung**: the same commutation *inequality* on a non-vertex-transitive graph
+(star / `K_{a,b}`, where it is no longer exact) — the genuine `CD(K,∞) ⟹ gradient
+estimate` implication beyond the spectral case.
 
 ## The four wall items: discrete cores closed (this session)
 
