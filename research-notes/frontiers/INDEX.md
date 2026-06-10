@@ -148,6 +148,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `modulus_degree_ladder` — **grading "completes" beyond the binary**.  Closed:
+  the algebraic pillar at degrees 2 (φ form cut) and 3 (`CubeRootTwoCut`, 31
+  PURE: side-decision = `ε·k³ < d³`, total modulus `N = 3k+5`, fold lands on
+  the frozen form cut) — algebraic degree enters as the probe exponent `k^s`,
+  presentation-robust, vs the transcendental-only `W`-vs-`d` race.  Open: the
+  graded rate generator (`Dominates_s` ⟹ `N = k^s`), the conditional
+  measure-modulus schema (Wallis-π + `μ(π) ≤ 7.11` ⟹ degree-≈7), the two-real
+  separation modulus, degree-4+ form cuts.
 - `zeta3_free_modulus` — **ζ(3): built fold → free total modulus**.  The fold is
   closed (`Real213/Zeta3Cut`, 35 PURE: exact ℕ Apéry recurrence + closed-form
   Casoratian `6·(m!)⁶` + `AbCutSeq` + bracket `601/500 < ζ(3) ≤ 1203/1000`), and

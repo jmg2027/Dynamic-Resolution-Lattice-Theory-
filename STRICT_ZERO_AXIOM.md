@@ -1414,6 +1414,20 @@ the π-posture; the e-grade constructed modulus lives in the reduced presentatio
 integrality + lcm bound), a recorded frontier.  `zeta3_fold_is_apery` bundles the working
 recurrence with `apery_cubic_rung` (the degree-3 holonomic signature).
 
+`E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut` — **31 PURE / 0 DIRTY**.  ★★★ **∛2:
+the degree-3 form-margin modulus — the algebraic exit from the rate race.**  Side-decision
+against a probe `m/k` reduces to the all-additive `ε_i·k³ < d_i³` (the form margin
+`|m³−2k³| ≥ 1` arriving as `Nat` strictness `+1`; the degree enters as the probe exponent
+`k³`) — no cross-determinant race.  Dyadic bisection presentation (`cbrtNum i / 2^i`,
+cube-bracket invariant `cbrtNum_inv`, slack `ε ≤ 24·4^i` vs `d³ = 8^i`) ⟹ **total ∅-axiom
+modulus `N(m,k) = 3k+5`** (`cbrtCauchySeq`): ∛2 joins φ/e/Liouville in the unconditional
+class, the first degree-3 member, by the *form* mechanism rather than the rate certificate.
+Capstone `cbrt_limit_eq_form`: the completed fold **equals** the frozen closed-form cut
+`decide (2k³ ≤ m³)` (degree-3 analog of `cs_eq_phiCut`); `cbrt2Cut_valid`, bracket
+`5/4 < ∛2 ≤ 13/10`.  The degree-2 shadow of the same `ε·k^s < d^s` schema is
+`FibCassiniNat.qb_lt_pk` (`4k² < b²`); the rate race and its presentation-dependence
+(`Zeta3Cut`) are thereby isolated as the transcendental-only regime.
+
 `E213.Lib.Math.Analysis.Cauchy.DepthOverflowDuality` — **15 PURE / 0 DIRTY**.
 The analysis ↔ logic single engine: `Overflow bound val i := bound i <
 val i` (= `bound i + 1 ≤ val i`, the unit surplus).  `overflow_escapes`

@@ -1,6 +1,6 @@
 # Real213 — Module Index (sub-organized 2026-05-13)
 
-213-native real-number type via Dedekind cut.  167 files: 99 top-level + 68 in
+213-native real-number type via Dedekind cut.  168 files: 100 top-level + 68 in
 6 sub-clusters.
 
 ## Sub-clusters
@@ -36,6 +36,14 @@
     *proved* rate-free (`zeta3_presentation_overtakes`, `RateStratification`
     overtake at layer 9) — the constructed-modulus upgrade is the reduced
     presentation (Apéry integrality + lcm bound), a recorded frontier.
+  - `CubeRootTwoCut.lean` — ★ **∛2: the degree-3 form-margin modulus**.
+    Side-decision reduces to the all-additive `ε·k³ < d³` (the form margin
+    `|m³−2k³| ≥ 1` = `Nat` strictness `+1`); dyadic bisection presentation ⟹
+    total modulus `N(m,k) = 3k+5` (`cbrtCauchySeq`) — the first degree-3 member
+    of the unconditional class, by the *form*, not the rate race.  The fold
+    lands on the frozen closed-form cut `decide (2k³ ≤ m³)`
+    (`cbrt_limit_eq_form`); bracket `5/4 < ∛2 ≤ 13/10`.  Degree-2 shadow:
+    `FibCassiniNat.qb_lt_pk` (`4k² < b²`).
   - `MobiusProbeTwist.lean` — the cut-probe lattice `(m,k)` is twisted by the
     Möbius `P = [[2,1],[1,1]]` (`Pstep (m,k) = (2m+k, m+k)`); P preserves rational
     order (det `= NS−NT = 1`), so the twist sends cuts to cuts

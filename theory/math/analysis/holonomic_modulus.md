@@ -93,6 +93,20 @@ recurrence actually generates its convergents.
 The elementary witness form — e certified on its proven bracket `(8/3, 3)` directly
 from the bounds — is `ExpLog/EulerCertifiedBracket`.
 
+**∛2 — algebraic degree 3, the form-margin mechanism (`CubeRootTwoCut`).**  The
+algebraic instances do not need the rate race at all: the side-decision against a
+probe `m/k` reduces to the all-additive comparison `ε_i·k³ < d_i³`, where the
+degree-3 form margin `|m³ − 2k³| ≥ 1` arrives as the `+1` of `Nat` strictness and
+`ε_i` is the presentation's cube-slack.  With the dyadic bisection presentation
+(`cbrtNum i / 2^i`, slack `≤ 24·4^i` vs `d³ = 8^i`) the total modulus is
+`N(m,k) = 3k+5` (`cbrtCauchySeq`), and the completed fold lands exactly on the
+frozen closed-form cut `decide (2k³ ≤ m³)` (`cbrt_limit_eq_form`) — the degree-3
+analog of φ's `masterCut` story (`FibCassiniNat.qb_lt_pk`'s `4k² < b²` is the
+degree-2 shadow of the same `ε·k^s < d^s` schema).  The algebraic degree enters
+as the probe exponent `k^s` in the schedule, and the form makes the modulus
+presentation-robust; the rate-carrying / rate-free divide of this chapter is the
+transcendental-only regime.
+
 ## 4. Frontier
 
 **π via Wallis is rate-free.**  The Wallis partial products converge like `1/n`
