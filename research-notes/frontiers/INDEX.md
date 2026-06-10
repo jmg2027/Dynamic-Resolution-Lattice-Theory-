@@ -162,6 +162,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- **forcing chain ↔ foliation** — cross-domain note
+  (`forcing_chain_meets_foliation.md`): this branch's §3.4 "the
+  forcing chain is logical, not temporal" and main's
+  `growth_without_a_clock` essay ("the foliation is a Lens
+  convention") are one state-transition=state reading (§6.6, §5.7) at
+  the axiom scale vs. the async-run scale; the grading's
+  run-invariance (`fold_eq_depth`) witnesses why clause-order is
+  expository.  Conceptual, no open Lean obligation.
+
 - **async point–line system ≅ Raw** — CLOSED ∅-axiom (full 8-item agenda,
   74 PURE) and promoted → `theory/math/foundations/async_growth.md`
   (origin: `seed/ORIGIN_RAW.md`; note archived at
