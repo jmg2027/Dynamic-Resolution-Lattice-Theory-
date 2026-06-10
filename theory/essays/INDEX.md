@@ -100,6 +100,12 @@ on itself: the *multiplication* action `×a` forces a sign — the quadratic/Leg
 `K_p` Laplacian `λ=p` eigenspace, `km_eigenvalue`/`km_meanzero_eigen`; one cyclic group, two
 character-faces, both spectral; cross-frame with Lichnerowicz `CD(K)⟹λ₁≥K` as a third "structure ⟹
 spectrum" instance).
+`the_cauchy_schwarz_gap_is_a_square` (Cauchy–Schwarz is the READ of a gap exhibited as a square —
+A7 POSITIVITY: the 2-D gap IS the Lagrange square (`cauchy_schwarz_2d`), the power-mean gap IS the
+total pairwise distinguishing `Σ_{i<j}(a_i−a_j)²`, saturated on the diagonal; the bound is
+presentation-invariant but the *certificate* has depth — depth-0 pair-sum vs per-rung SOS folded
+along the `gridSumZ` induction (`cauchy_schwarz_gridZ`) — and the `K_{a,b}` wide/narrow curvature
+regime split (`kab_cd_wide`/`kab_cd_narrow`) is exactly that depth).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
