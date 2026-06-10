@@ -50,7 +50,7 @@ What closes here, in 213-native terms:
 | `…/RawDagSize.lean` | 8 | `dag_census`, `dag_sandwich_le3`, `sharing_starts_at_depth3` |
 | `…/RawEnumeration.lean` (honest-count section) | +8 | `enum_pairwise`, `enum_members`, `enum_complete`, `honest_count` |
 
-∅-axiom status: 0 DIRTY (`STRICT_ZERO_AXIOM.md`, 2026-06-10 entry).
+∅-axiom status: 0 DIRTY (`STRICT_ZERO_AXIOM.md`).
 A recurring landmine closed twice here: the Lean-core list-`∈`
 decidability instance leaks `propext`; membership is handled by
 explicit `Mem` constructors (`Async`) and a hand-rolled `memDec`
