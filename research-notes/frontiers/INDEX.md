@@ -149,17 +149,21 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 ## Standalone frontiers (root of `frontiers/`)
 
 - `async_pointline_raw` — **the asynchronous point–line system ≅ Raw**
-  (origin: `seed/ORIGIN_RAW.md`, the axiom rebuilt from "difference" alone).
-  The two event kinds (Pair→Line, Line→Point) are one `slash` under a
-  point/line Lens; lockstep staging is canonical only through level 2
-  (`Raw.level2_total_card = 5` = the (3,2) split); above it, per-object
-  strata survive as fold-Lenses (depth/leaves), layer width grows
-  doubly-exponentially (`T(n+1) = 2 + C(T(n),2)`: 2,3,5,12,68,…, the
-  `configCountD` shape), and the global grading is the causal poset —
-  numeric staging = a foliation Lens.  *Open*: O1 event-system confluence
-  in Lean, O2 forced-segment theorem, O3 width recursion + bound, O4 the
-  two 5s (forcing boundary vs `Theory/Atomicity` `(NS,NT,d)=(3,2,5)`,
-  touching `G121` knot M2).
+  (origin: `seed/ORIGIN_RAW.md`, the axiom rebuilt from "difference" alone;
+  revised after a four-expert + referee multi-agent debate).  The two event
+  kinds are one `slash` under a point/line Lens; semantics-tagged boundary
+  ladder (forced prefix, one swap-canonical firing, divergence; no run is
+  forced through the 5-snapshot — D₂'s distinction is **past-completeness**,
+  an order property); per-object strata = one `Raw.fold`, three algebras
+  (depth / leaves / dagSize, sharing starts at depth 3); width `rawCount`
+  (already in `UniverseChain/`) with normal form `8T' = (2T−1)² + 15`,
+  base-2 sandwich `configCountD 2 (n−2) < T(n) < configCountD 2 (n−1)`,
+  mod-5 pure 3-cycle (generic self-restart, not resonance), clause
+  fingerprint A/B/C/D; bare-Raw order-statistics dimension diverges —
+  constrains `G121` knot M2.  *Agenda* (ranked): O2-fused ladder, D₂
+  past-completeness, `two_fives` mediated via `choose2 3 = 3`, base-2
+  sandwich, mod-5 period, dagSize family, O1 reachability/joinability,
+  honest counting theorem (needs `Tree.cmp` transitivity).
 - `zolotarev_crossdomain` — **the Zolotarev / permutation-sign branch ↔ merged main**
   (converse-psign marathon).  Four bridges where this branch's closed Zolotarev
   (`psign σ_a = (a/p)`, all primes) + `InversionsAppend` combinatorics touch main's arcs:

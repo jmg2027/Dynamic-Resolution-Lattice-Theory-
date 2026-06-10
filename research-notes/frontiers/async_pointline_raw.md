@@ -1,115 +1,204 @@
-# The asynchronous point–line system ≅ Raw — staging as foliation Lens, layer scales
+# The asynchronous point–line system ≅ Raw — boundary ladder, scales, agenda
 
 **Origin.**  `seed/ORIGIN_RAW.md` (originator: Mingu Jeong) — the Raw
 axiom rebuilt from "difference" alone, then read as an asynchronous
-event system with two pure event kinds (contrast: Pair → Line;
-differentiation: Line → Point).  Closing question (§10 there): *if
-strata are assigned above level 2, which number scale (or scales) is
-appropriate?*  This note records the analysis and the Lean targets.
+event system; closing question (§10 there): *if strata are assigned
+above level 2, which number scale (or scales) is appropriate?*
+
+**Provenance.**  First draft 2026-06-10; same day revised after a
+four-expert multi-agent debate (concurrency/order theory, number
+theory, Lean formalization, physics foundations) + an adversarial
+referee round.  All numeric claims below were machine-verified twice
+(independent enumerations / exact bigint + modular tracking).  The
+first draft's errors are *corrected silently here*; the ladder in §2
+and the base-2 sandwich in §3(b) are the corrected forms.
 
 ## 1. The system is Raw
 
 The limit object of the point–line process is the direction-free,
-no-self-pair magma on two atoms — exactly `Raw`
-(`lean/E213/Theory/Raw/Core.lean`): points = Raw terms, the line
-between `x` and `y` = the pair caught, its resolving point =
-`Raw.slash x y (h : x ≠ y)`.  "Unconnected pairs only" = the
-no-duplicate + no-self-pair constraints; "no back-and-forth" = the
-slash-symmetry canonical subtype.  The two event kinds are **one
-constructor** read under a point/line Lens: the line is the
-difference noticed, the point is the same difference reified as an
-operand for further difference — splitting `slash` into two halves is
-itself a Lens choice (anticipated in the origin dialogue: the
-"difference-object Lens, `(ab) ↦ c`").
+no-self-pair magma on two atoms — `Raw`
+(`lean/E213/Theory/Raw/Core.lean`).  Canonical formalization: **state
+= points-list only** (lines derived, not stored): `State` = Nodup
+list ⊇ {a,b}, subtree-closed; one event kind
+`fire x y (h : x ≠ y)` inserting `Raw.slash x y h` when absent.  The
+line/point two-event split (origin §8) is a Lens on this one
+constructor — the line is the pair caught, the point the same pair
+reified.  Under the occurrence-net Lens the reading is conflict-free
+(points are read-arcs, lines one-shot) and coincides with its own
+unfolding; confluence is a one-step diamond — no fairness, no limit
+machinery.  Any two reachable snapshots are joinable (union of
+subtree-closed sets is subtree-closed).
 
-## 2. Where lockstep staging is canonical — the forced segment
+## 2. The boundary ladder (semantics-tagged)
 
-- **Through level 1 the run is deterministic**: from `{a, b}` the only
-  enabled event is the line `a–b`, then its resolution `a/b`.  One
-  possible history.
-- **Level 2 is canonical up to swap**: the enabled set is exactly the
-  two `a↔b`-symmetric contrasts `(a, a/b)`, `(b, a/b)`; any
-  interleaving yields the same snapshot modulo the swap involution
-  (`Raw.swap_depth` / `Raw.swap_leaves` invariance,
-  `Theory/Raw/Levels.lean`).  The level-≤2 population is a closed
-  theorem: **`Raw.level2_total_card = 5`** (`Levels.lean`) — 2 atoms +
-  3 composites, the atomicity split `(NS, NT) = (3, 2)` at `d = 5`.
-- **From level 3 staging becomes a convention**: every new pair
-  involves a branching-born element; sibling-pairing and
-  parent-pairing bookkeeping choices appear; asynchronous snapshots
-  diverge beyond the swap symmetry (e.g. a depth-3 object can exist
-  while a depth-2 object does not).  "Stage number" and "event count"
-  decouple; only per-object structure survives interleaving.
+Event-indexed boundaries depend on the split/fused Lens choice, so
+they carry tags; only the invariant clauses are residue-level.
 
-Under the strict lockstep foliation, stage = depth at every level —
-the Nat staging does not *contradict* anything; it is one linear
-extension among many.  What dies above level 2 is its *canonicity*:
-no run forces it, so adopting it is importing a global clock
-(`seed/AXIOM/05_no_exterior.md` §5.7 — no external time axis).
+- **Fused** (one fire = contrast + resolve): step 1 forced (`a/b`);
+  any two step-2 snapshots are swap-equal; step 3 reaches **4**
+  swap-inequivalent classes (the D₂-completion 5-set + three
+  depth-3-bearing snapshots).
+- **Split** (line, point separate events): reachable states mod swap
+  = 1, 1, 1, **2**, 4, 10 for events 1..6 — events 1–2 forced, event
+  3 swap-rescued, event 4 already diverges beyond swap (*within*
+  level-2 work: both-lines-pending vs drawn-and-resolved); depth-3
+  lines drawable from event 5, before D₂ completes.
+- **Semantics-invariant**: (i) determinism ends exactly at the first
+  composite; (ii) exactly one further firing is swap-canonical; the
+  next diverges beyond swap; (iii) **no run is forced through the
+  5-snapshot** — e.g. `{a,b} → ab → a(ab) → a/(a(ab))` never visits
+  it; (iv) all snapshots joinable; (v) per-object folds and the
+  ancestor order are run-invariant.
 
-## 3. The layer-scale answer — three strata
+**What distinguishes depth ≤ 2 is order-internal, not run-internal:
+past-completeness.**  D₂ (population 5, `Raw.level2_total_card`,
+`Theory/Raw/Levels.lean:133`) is the largest depth-downset in which
+every term's causal past contains the whole previous downset; at
+depth 3 this fails for 6 of 7 terms (sole exception: the full join
+`(a(ab))/(b(ab))`).  The contrast graph of any reachable snapshot
+with a composite is connected, so its coordinate count
+(`dim im δ⁰`) is `|S| − 1`; at D₂ that reads 5 − 1 = **4** — the
+same 5→4 readout as G121's chart-Lens omitting the self-pointing
+axis (knot M2), now anchored to the past-completeness boundary.  It
+is *not* an observer-independent invariant (every snapshot reads
+`|S|−1`), and "depth = the universe's resolution" stays dead twice
+over (privileged level + global depth-clock; the N_U lesson,
+`RERESEARCH_n_u_removal.md`).
 
-**(a) Per-object stratum: ℕ, but as a fold-Lens.**  An object's level
-is a function of the object (its own history tree), not of the run —
-interleaving-invariant by construction.  Two canonical folds exist as
-theorems (`Theory/Raw/Levels.lean`):
-`Raw.fold_eq_depth` — depth = `fold 0 0 (fun a b => 1 + max a b)`
-(max-plus reading); `Raw.fold_eq_leaves` — leaves = `fold 1 1 (·+·)`
-(additive reading); related by `Raw.depth_lt_leaves`.  "Level" is a
-family of fold-Lenses; depth is one member.
+## 3. Scales — the answer to origin §10
 
-**(b) Per-layer width: iterated exponential.**  Population with depth
-≤ n, `T(n)`: composites of depth ≤ n+1 = unordered pairs of distinct
-elements of depth ≤ n, so
+**(a) Per-object stratum: one fold structure, three algebras.**
+`Raw.fold` with: max-plus algebra → depth (`Raw.fold_eq_depth`),
+additive algebra → leaves (`Raw.fold_eq_leaves`), and the
+subterm-**set** algebra (union∘insert) followed by the cardinality
+Lens → `dagSize` = #distinct composite subterms.  History is a DAG,
+not a tree: each term is created once, so `leaves` has no event-cost
+meaning; the event cost of `t` is `dagSize t` (fused) / `2·dagSize t`
+(split).  Verified on all 12 depth-≤3 terms:
+`depth ≤ dagSize ≤ leaves − 1`, refining `Raw.depth_lt_leaves`;
+sharing (dagSize < composite-multiplicity) first occurs at depth 3,
+at exactly the 3 terms reusing `ab`.  The event-poset height
+recomputes the same fold: `height(pt t) = 2·depth(t) − 1` — the
+grading is order-canonical and **never dies**; what is conventional
+above the ladder is only its *simultaneity reading* ("all stage-k
+together") and run-respect of ranks.  (A grading is not a linear
+extension; runs are.)
 
-```
-T(n+1) = 2 + C(T(n), 2)
-T:  2, 3, 5, 12, 68, 2280, 2598062, …    (T(n+1) ≈ T(n)²/2)
-```
+**(b) Per-layer width: already in the repo + new structure.**  The
+recursion `T(n+1) = 2 + C(T(n),2)` exists as `rawCount`/`choose2`
+(`Lib/Math/Foundations/UniverseChain/RawRecurrence.lean`, table to
+T(5)=2280; generic-N `RawCountGeneric.lean`; depth-graded enumeration
+`RawEnumeration.lean` with `(enumTreeDepth n).length = rawCount n`;
+5-census `RawDepthCount.lean`; (3,2) split `RawBipartition.lean:46`).
+New, debate-found:
 
-`log T` doubles per level — the same `d^(d^n)` shape as the parametric
-`configCountD` (`Lib/Math/Cohomology/Fractal/ConfigCount.lean`).  New-
-at-level counts: 2, 1, 2, 7, 56, 2212, ….
+- *Normal form*: `8·T(n+1) = (2·T(n) − 1)² + 15` — conjugate to the
+  pure quadratic map `w ↦ w² + 11/16`.
+- *Asymptotics*: `T(n) ~ 2·K^(2^n)`, `K = 1.24602083298…`
+  (Aho–Sloane orbit constant; closed form unlikely).
+- *Sandwich* (the provable two-sided bound): for n ≥ 3,
+  `configCountD 2 (n−2) < T(n) < configCountD 2 (n−1)` — strict both
+  sides; **the base is 2 = NT, not d = 5** (the resemblance to
+  `d^(d^n)` is shape-only).
+- *Modular*: mod 5 purely periodic, period 3, cycle (2,3,0) — an
+  instance of the **generic self-restart** of towers
+  `f(x) = 2 + q(x)`, `q(0)=0`, mod their own depth-2 value (every
+  clause-variant does the same: B mod 17 (2,5,0), C mod 38 (2,6,0),
+  D mod 14 (2,4,0)); not a 213-specific resonance.  Variant-specific
+  and real: mod 7 fixed at 5 from n ≥ 2 (parabolic; mod 7^k period
+  7^(k−1)); 5-adic attracting 3-cycle with
+  `v₅(T(n+3) − T(n)) = ⌊(n+1)/3⌋ + 1`; mod 2 non-periodic (expanding
+  2-adic map; window evidence to n = 4000).
+- *Clause fingerprint*: from seed 2, the four pairing variants reach
+  depth-2 values A(Raw) **5** / B(self allowed) 17 / C(ordered+self)
+  38 / D(ordered) 14, with pairwise distinct growth constants —
+  the clause set is recoverable from the count sequence
+  (discrimination, not a physics falsifier).  Shift identity:
+  `T(n) − 1` satisfies the 1-atom self-pair-allowed tower's
+  recurrence (A006894 shape) — the clause *pair* (no-self, two
+  atoms) trades off against (self, one atom) at exactly +1.
+- *New-at-depth*: `newAt(n+1) = newAt(n)·T(n−1) + C(newAt(n),2)`.
 
-**(c) Global stratum: not a number — the causal partial order.**  The
-interleaving-invariant grading is the ancestor poset itself; a numeric
-staging = a linear extension = a **foliation Lens**.  Events are
-monotone and non-conflicting (a line, once drawn, stays; resolution
-only adds), so the system is confluent: every fair run converges to
-all of Raw; only finite snapshots are foliation-dependent.
+**(c) Global stratum: the ancestor order, read two ways.**  The
+interleaving-invariant content is carried by the ancestor order;
+order and grading are both Lens readings of the same terms, the
+order finer.  Numeric staging *as simultaneity* = a foliation Lens
+(`seed/AXIOM/05_no_exterior.md` §5.7).  Order statistics at D₂:
+(related, incomparable) = (8, 2), the two incomparable pairs being
+exactly the swap-orbits; the Myrheim–Meyer-type ordering fraction of
+bare Raw **diverges** (relatedPairs ≤ T(n)·2^(n+1) vs ~T(n)²/2
+total), so no finite dimension readout lives on a depth scale — if
+d = 4/5 is a counting theorem anywhere, it is at the
+past-completeness boundary or inside the (NS,NT,c) deployment Lens.
+This *constrains* G121 knot M2 rather than confirming it.
 
-**Guard (the N_U lesson, `RERESEARCH_n_u_removal.md`).**  The level-2
-boundary is where *forcing ends*, a structural property of the runs —
-not a privileged truncation depth, and its population `5` is not a
-universe constant.  No level is privileged in (b); the boundary lives
-in (c).
+## 4. The two 5s (former O4) — mediated, not identical
 
-## 4. Open items (Lean targets)
+Atomicity's 5 is a Diophantine uniqueness of **sizes**
+(`Theory/Atomicity/Five.lean:21,81,134`: `5 = 2·1 + 3·1` =
+pairSize + closureSize, unique alive decomposition); T(2) = 5 is a
+**term count** (2 atoms + C(3,2) composites).  The agreement factors
+through one fixed point: `choose2 n = n ⟺ n ∈ {0, 3}` — and 3 is
+simultaneously `closureSize` ("the pair plus their relation" —
+literally `Raw.level1_set = [a, b, a/b]`) and the level-≤1
+population.  `level2_new` is a swap-orbit pair ↔ pairSize 2.  So:
+not a one-line identity, not numerology — a short mediated theorem
+(`two_fives`, agenda #3).  The earlier "the atomicity split
+(NS,NT) = (3,2)" phrasing equivocated size with cardinality; the
+split match itself is already PURE at `RawBipartition.lean:46` and
+stays a cardinality statement.
 
-- **O1 — the event system, formally.**  A Lean structure for states
-  (points = a downset of the ancestor order, lines = pending distinct
-  pairs) + the two event steps; theorem: the reachable limit is all of
-  `Raw` (confluence / fairness), interleaving-independent.
-- **O2 — the forced-segment theorem.**  Deterministic prefix =
-  level ≤ 1; level-2 canonicity up to `Raw.swap`; from level 3 two
-  runs reach swap-inequivalent snapshots.  This makes "numeric strata
-  end at level 2" (origin §9) a theorem rather than an observation.
-- **O3 — the width recursion.**  `T : Nat → Nat`,
-  `T (n+1) = 2 + choose (T n) 2`, with `T 2 = 5` agreeing with
-  `Raw.level2_total_card`, and a double-exponential lower bound
-  (`2^(2^n) ≤ …` shape) connecting to `configCountD`.
-- **O4 — the two 5s.**  Atomicity forces `(NS, NT, d) = (3, 2, 5)`
-  (`Theory/Atomicity/`); the forcing boundary here has population
-  5 = 2 + 3 with the same split.  One theorem identifying the two
-  (or an honest separation if they differ) — touches
-  `G121_dim4_self_pointing_axis` knot M2 (the chart-Lens omitting the
-  self-pointing axis: 5 → 4 readout).
+## 5. Theorem agenda (marathon order; referee-ranked)
+
+1. **O2-fused ladder** (S–M) — `step1_forced`; `level2_canonical`
+   (any two fused step-2 states swap-equal); `level3_diverges`
+   (5-set vs `{a,b,ab,a(ab),a/(a(ab))}`); `step3_swap_classes = 4`
+   (`decide`).  → `Theory/Raw/Async/` beside `StateMachine.lean`.
+2. **D₂ past-completeness boundary** (S) — depth-≤2 terms
+   past-complete; witness `a/(a(ab))` missing `b(ab)`; `decide` on
+   the 12-term list.  → `UniverseChain/` (extends `RawDepth3`).
+3. **two_fives mediated** (S) — `choose2` fixed point (1 ≤ n ⟹
+   (choose2 n = n ↔ n = 3)); `rawCount 1 = closureSize`;
+   `rawCount 2 = pairSize + choose2 closureSize`; bundle with the
+   bipartition capstone.  → `UniverseChain/AtomicityCensusBridge`.
+4. **Base-2 sandwich** (M) — `configCountD 2 (n−2) < rawCount n ∧
+   rawCount n < configCountD 2 (n−1)` for n ≥ 3; invariant
+   `2^(2^n+1) + 1 ≤ rawCount (n+2)` closes the induction.
+   → `UniverseChain/RawRecurrence.lean` (+ Bridge to ConfigCount).
+5. **mod-5 period 3** (S) — `rawCount (n+3) % 5 = rawCount n % 5`;
+   docstring states the generic self-restart (no resonance
+   narration); optionally the B/C/D discrimination values via
+   `rawCountG`.  → `RawRecurrence.lean` / `RawCountGeneric.lean`.
+6. **dagSize fold family** (M) — subterm-closure list; `depth ≤
+   dagSize`, `dagSize ≤ leaves − 1`; sharing witness at depth 3.
+   → `Theory/Raw/DagSize.lean`.
+7. **O1 reachability** (L) — points-only `State`/`Step`/`Reach`;
+   `reach_iff_closed`, `reach_joinable`, `every_raw_reached`
+   (fairness-free).  Reuse `StateMachine.lean` descent.
+   → `Theory/Raw/Async/{System,Confluence}.lean`.
+8. **Honest counting theorem** (L) — `enumTreeDepth n` members
+   canonical + Nodup + complete, so `rawCount n` counts canonical
+   Raws of depth ≤ n; blocked on `Tree.cmp` transitivity (~150
+   lines, independently valuable infra).
+   → `Term/Internal/Tree/Cmp.lean` + `RawEnumeration.lean`.
+
+## 6. Deferred (conjectures / notes only)
+
+Order dimension of the event poset Θ(level) (incidence-poset lower
+bound; upper open); general MM-dimension readouts; the Birkhoff
+distributive-lattice structure (joinability suffices for the
+agenda); `axisCount = |S| − 1` as a one-line corollary once O1's
+connectivity lands; mod-2 aperiodicity (2-adic expanding-map
+argument; window evidence only, not a Lean priority); normal-form
+constant `K` closed form (unlikely; don't chase).
 
 ## Cross-references
 
-`seed/ORIGIN_RAW.md` (the origin dialogue, verbatim);
-`lean/E213/Theory/Raw/{Core,Levels}.lean` (Raw, level-≤2 enumeration,
-fold bridges); `seed/AXIOM/05_no_exterior.md` §5.7 (no external time
-axis); `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (parametric
-double-exponential count); `G121_dim4_self_pointing_axis.md` (the
-5 → 4 chart readout, knot M2).
+`seed/ORIGIN_RAW.md` (origin dialogue);
+`lean/E213/Theory/Raw/{Core,Levels,StateMachine}.lean`;
+`lean/E213/Lib/Math/Foundations/UniverseChain/{RawRecurrence,
+RawEnumeration,RawCountGeneric,RawDepthCount,RawBipartition}.lean`;
+`lean/E213/Theory/Atomicity/{Five,PairForcing,PrimitiveSizes}.lean`;
+`Lib/Math/Cohomology/Fractal/ConfigCount.lean`;
+`seed/AXIOM/05_no_exterior.md` §5.7;
+`G121_dim4_self_pointing_axis.md` (knot M2 — constrained by §3(c)).
