@@ -10,6 +10,7 @@ import E213.Lib.Math.Foundations.UniverseChain.RawCountQuadratic
 import E213.Lib.Math.Foundations.UniverseChain.RawDepth3
 import E213.Lib.Math.Foundations.UniverseChain.RawDepthCount
 import E213.Lib.Math.Foundations.UniverseChain.RawEnumeration
+import E213.Lib.Math.Foundations.UniverseChain.RawPastCompleteness
 import E213.Lib.Math.Foundations.UniverseChain.RawRecurrence
 import E213.Lib.Math.Foundations.UniverseChain.Recursion
 import E213.Lib.Math.Foundations.UniverseChain.Residue
