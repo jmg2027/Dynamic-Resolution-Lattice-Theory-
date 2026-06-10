@@ -7,7 +7,7 @@ modulus-degree-ladder merge.  Build clean (explicit module builds of the whole
 (`tools/scan_axioms.py`): `RateModulus` 11/0, `RateStratification` 26/0,
 `Meta.Nat.PowBasic` 6/0, `Meta.Nat.RootFloor` 11/0, `ModulusComposition` 28/0
 (was 34 — its §0 pow toolkit now lives in `Meta/Nat/PowBasic`),
-`BracketModulus` 3/0, `ExpLog.PiMeasureModulus` 11/0.
+`BracketModulus` 3/0, `ExpLog.PiMeasureModulus` 16/0.
 0 sorry / 0 axiom / 0 native_decide / 0 Classical / 0 Mathlib.
 
 ## What Was Done This Session
@@ -68,8 +68,13 @@ by one with modulus-like certificates — the conditional measure-modulus schema
   (`below_fwd` / `above_fwd`); the single hypothesis **exclusion depth** `B`
   (`Inside` at `n` ⟹ `n ≤ B k`) gives the total modulus `N(m,k) = B k + 2`
   (`bracket_total_modulus`).  Unconditional engine, no measure assumed.
-- `ExpLog/PiMeasureModulus` (11 PURE ✓) — ★★★ **π/2 and π conditionally
-  degree-`s`**.  The Wallis fold's decreasing upper companion
+- `ExpLog/PiMeasureModulus` (16 PURE ✓) — ★★★ **π/2 and π conditionally
+  degree-`s`**, plus the unconditional negative (originator's test "is π's
+  rung ∞?"): `wallis_cross_det` (`W_n = a_n·d_n`, the full product — the
+  depth-6 mechanism) ⟹ `wallis_overtakes_every_schedule` /
+  `wallis_no_graded_certificate` — **every** positive schedule is overtaken
+  at every layer ≥ 2; the Wallis pointing's rung is ∞, proved.  Rung is
+  pointing-relative; a Machin pointing would sit at rung 1.  The Wallis fold's decreasing upper companion
   `U_n = W_n·(2n+2)/(2n+1)` proved (`up_mono`, exact identity
   `4(n+1)²(2n+4)(2n+1) + 2(n+1)(2n+1) = (2n+2)(2n+1)(2n+3)²` by `ring_nat`);
   bracket width `≤ 2/(2n+1)`.  `PiHalfMeasure C s` = the effective
@@ -181,7 +186,7 @@ research-notes/frontiers/modulus_degree_ladder.md                 ← rung 1 CLO
 research-notes/frontiers/INDEX.md                                 ← ladder entry updated
 STRICT_ZERO_AXIOM.md                                              ← 6 new entries, 2 count fixes
 lean/E213/Lib/Math/NumberSystems/Real213/BracketModulus.lean      ← NEW: bracket-exclusion engine (3 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/PiMeasureModulus.lean ← NEW: π conditional degree-s (11 PURE)
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/PiMeasureModulus.lean ← NEW: π conditional degree-s + rung-∞ negative (16 PURE)
 lean/E213/Lib/Math/NumberSystems/Real213.lean                     ← aggregator += 2
 lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/INDEX.md          ← 18 files
 ```
