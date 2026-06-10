@@ -35,8 +35,8 @@ content rebuilt here is the *Raw* side, from scratch.
    when recorded: the asynchronous two-event decomposition of Raw
    growth, the explicit rejection of the global clock ("the whole
    marching in lockstep"), and the layer-scale question.  These seeded
-   an open frontier (recorded on the open-frontier board per
-   `PROCESS.md`).
+   the asynchronous-growth arc, closed ∅-axiom and narrated at
+   `theory/math/foundations/async_growth.md`.
 
 ---
 
@@ -232,7 +232,7 @@ appropriate.
 | Event 1 + Event 2 split (§8) | One constructor (`slash`) read under a point/line Lens — the line is the pair caught, the point is the pair reified |
 | No global clock; lockstep staging suspect (§6–§8) | `seed/AXIOM/05_no_exterior.md` §5.7 (no external time axis; frozen/dynamic both Lens readings) |
 | Natural-number strata reach level 2 (§9) | `Raw.level2_total_card = 5` (`lean/E213/Theory/Raw/Levels.lean`) — 2 atoms + 3 composites; the atomicity split `(NS, NT) = (3, 2)`, `d = 5` |
-| Which scale above level 2 (§10) | Open frontier (recorded on the open-frontier board): per-object strata survive as fold-Lenses (`Raw.fold_eq_depth`, `Raw.fold_eq_leaves`); layer width grows doubly-exponentially; global grading is the causal partial order, numeric staging = a foliation Lens |
+| Which scale above level 2 (§10) | Closed: `theory/math/foundations/async_growth.md` — per-object strata are fold-Lenses (depth / leaves / dagSize), layer width is doubly-exponential (base-2 sandwich), the global grading is the ancestor order; numeric staging *as simultaneity* = a foliation Lens |
 
 ---
 

@@ -42,6 +42,12 @@ leaves, fold, swap).  Public surface exposed via `API.lean`.
                         `theory/essays/foundations/the_residue_as_primitive.md`
   - `StateMachine.lean` — the FSM/RTL reading (state = transition; reachable
                         vs trace; `the_residue_as_state_machine.md`)
+  - `Async.lean`      — the asynchronous growth ladder, fused semantics
+                        (`step1_forced`, `level2_canonical`, `level3_diverges`;
+                        narr. `theory/math/foundations/async_growth.md`)
+  - `AsyncReach.lean` — reachability/closure/joinability/totality of the
+                        growth system (`reach_closed`, `reach_joinable`,
+                        `every_raw_reached`; same chapter)
   - `Odometer.lean`   — the residue unit's `+1` adding machine on the
                         bit-stream escapes: carry/escape, injective + invertible
                         (`ℤ`-action), reversibility asymmetry, `ℤ₂`-homeomorphism;

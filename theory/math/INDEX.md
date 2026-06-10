@@ -39,7 +39,7 @@ under the same thematic super-cluster as its Lean sub-tree.
 
 ### `foundations/` — meta / cross-domain anchors
 `axiom_systems`, `pattern_catalog/`, `choice`, `universe_chain`,
-`cross_domain_unification`, `algebra213_meta_theorems`.
+`async_growth`, `cross_domain_unification`, `algebra213_meta_theorems`.
 
 ### `probability/` — `probability`, `information`.
 

@@ -61,15 +61,17 @@ Unchanged — this arc is pure math (foundations).  See
   Nodup, length `rawCount n`.  The `Tree.cmp`-transitivity gate
   dissolved (strict `Pairwise` invariant + lex head structure only).
 
+## Promotion DONE (same session)
+The arc is promoted: chapter `theory/math/foundations/async_growth.md`
+(promotion log row 46); frontier note archived at
+`research-notes/archive/async_pointline_raw.md`; `seed/ORIGIN_RAW.md`
+landing table cites the chapter; INDEXes synced
+(`theory/math/INDEX.md`, `lean/E213/Theory/Raw/INDEX.md`,
+`research-notes/frontiers/INDEX.md`).
+
 ## Open Problems (Priority Order)
 
-### 1. Promote the async arc (`theory/PROMOTION_CRITERIA.md`)
-All 8 frontier agenda items closed — `Theory/Raw/{Async,AsyncReach}`
-+ the `UniverseChain` census cluster form a coherent chapter
-candidate.  Run `/process` + promotion; archive
-`research-notes/frontiers/async_pointline_raw.md` per PROCESS.md.
-
-### 2. Remaining seams (recorded in the frontier note §5)
+### 1. Remaining seams (chapter "Open frontier" §)
 - **Exact-membership converse of O1**: `Closed P ∧ Nodup P ⟹
   ∃ reachable s, MemEq s P` — argmin-by-depth fill construction +
   `List213.length_filter_lt_of_mem` measure; atoms case via
@@ -118,7 +120,8 @@ seed/INDEX.md                                               ← +ORIGIN_RAW.md r
 ```
 
 ## Next
-Items 7–8 of the frontier agenda (O1 reachability/joinability, then
-the honest counting theorem via `Tree.cmp` transitivity).  After
-both: promote the async arc to `theory/` and archive the frontier
-notes per `PROCESS.md`.
+The arc is complete (closed + promoted).  Candidate next moves:
+the chapter's open seeds (exact-membership converse; step-3 class
+census; uniform dagSize bounds; axes-of-growth definition), or an
+`/essay` on the arc ("growth without a clock" — the dialogue's §10
+answered), or merge to `main`.
