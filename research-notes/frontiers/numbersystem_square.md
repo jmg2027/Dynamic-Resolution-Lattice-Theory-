@@ -93,7 +93,22 @@ per-doubling law-loss ladder (order → commutativity → associativity →
 norm composition) is combinatorially derivable from the doubling
 formula and is partially PURE in `Lib/Math/Algebra/CayleyDickson/`
 (`CDDoubleMoufang`, `CDDoubleAlternative`, sedenion failure of
-`TraceNormed213` lift).  Open brick 4: state the collapse-vs-rigid
-criterion as a theorem schema (obstruction readout valued in old data
-⟺ the pair quotient is total) connecting the completion square to the
-CD tower.
+`TraceNormed213` lift).
+
+**First concrete witness — ★ CLOSED**
+(`Lib/Math/NumberSystems/CompletionDichotomy.lean`, 3 PURE / 0 DIRTY):
+`int_sumSq_eq_zero` (two integer squares sum to zero only at the
+origin — the `a²+b²` ℤ[i]/ℂ-norm anisotropy), `sq_eq_neg_sq_imp`
+(`a*a = −(b*b) → a = b = 0`), `no_rat_sqrt_neg_one` (no rational
+squares to −1, phrased via `Rat213.ratioEqZ`).  The ℝ→ℂ doubling
+cannot collapse: its obstruction `x²+1` reads out positive in the
+order frame for every input — invisible in sign, remainder, *and*
+order frames, unlike the collapsing extensions whose obstruction
+readouts (sign 2-valued, remainder `a`-valued) live in the old data.
+Contrast `x²=2`: order-visible (`Irrational/Sqrt2Cut`, absorbed by
+ℝ) but algebra-rigid over ℚ.
+
+Open brick 4 (remaining): the general collapse-vs-rigid criterion as
+a theorem *schema* (obstruction readout valued in old data ⟺ the pair
+quotient is total) connecting the completion square to the CD tower —
+`int_sumSq_eq_zero` is the base case (rank-1 doubling anisotropy).
