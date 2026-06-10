@@ -148,6 +148,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `async_pointline_raw` — **the asynchronous point–line system ≅ Raw**
+  (origin: `seed/ORIGIN_RAW.md`, the axiom rebuilt from "difference" alone).
+  The two event kinds (Pair→Line, Line→Point) are one `slash` under a
+  point/line Lens; lockstep staging is canonical only through level 2
+  (`Raw.level2_total_card = 5` = the (3,2) split); above it, per-object
+  strata survive as fold-Lenses (depth/leaves), layer width grows
+  doubly-exponentially (`T(n+1) = 2 + C(T(n),2)`: 2,3,5,12,68,…, the
+  `configCountD` shape), and the global grading is the causal poset —
+  numeric staging = a foliation Lens.  *Open*: O1 event-system confluence
+  in Lean, O2 forced-segment theorem, O3 width recursion + bound, O4 the
+  two 5s (forcing boundary vs `Theory/Atomicity` `(NS,NT,d)=(3,2,5)`,
+  touching `G121` knot M2).
 - `zolotarev_crossdomain` — **the Zolotarev / permutation-sign branch ↔ merged main**
   (converse-psign marathon).  Four bridges where this branch's closed Zolotarev
   (`psign σ_a = (a/p)`, all primes) + `InversionsAppend` combinatorics touch main's arcs:
