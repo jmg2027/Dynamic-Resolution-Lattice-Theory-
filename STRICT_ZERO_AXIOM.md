@@ -1428,6 +1428,20 @@ Capstone `cbrt_limit_eq_form`: the completed fold **equals** the frozen closed-f
 `FibCassiniNat.qb_lt_pk` (`4k² < b²`); the rate race and its presentation-dependence
 (`Zeta3Cut`) are thereby isolated as the transcendental-only regime.
 
+`E213.Lib.Math.NumberSystems.Real213.ModulusComposition` — **30 PURE / 0 DIRTY**.  ★★★
+**Schedules with irrational degree — receipts taking receipts.**  `powSched c B k =
+⌈k^{p/2^k}⌉` with the exponent `p = dyUp c B k` read off a *cut* `c` level by level
+(`dyUp_true`: sound from an integer witness + forward doubling `c m k → c (2m) (2k)`;
+`rootCeil_sound`/`rootCeil_least`: the exact integer root ceiling).  Calibration
+`powSched_rat`: an integer exponent returns exactly `k^s` — the functional extends the
+polynomial ladder.  Instances: degree **∛2** (`cbrtPow_at_two`: `powSched cbrt2Cut 2 2 = 3
+= ⌈2^{3/2}⌉`, soundness via `cbrt2Cut_double`) and degree **e** (`ePow_at_two`:
+`powSched eulerModCut 3 2 = 7 = ⌈2^{11/4}⌉`, where `eulerModCut` is e's limit written
+through `eulerCauchySeq.N` — the kernel runs e's constructed modulus *inside* the
+schedule).  Cascade rung 1: `reschedule` (modulus weakening, limit-preserving) +
+`eSelfScheduled` — e carrying a modulus that queries e's own modulus.  The operational
+content of "irrational degree": the receipt ladder is a call tree of folds.
+
 `E213.Lib.Math.Analysis.Cauchy.DepthOverflowDuality` — **15 PURE / 0 DIRTY**.
 The analysis ↔ logic single engine: `Overflow bound val i := bound i <
 val i` (= `bound i + 1 ≤ val i`, the unit surplus).  `overflow_escapes`

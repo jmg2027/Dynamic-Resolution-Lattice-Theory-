@@ -102,7 +102,7 @@ theorem pow_three (x : Nat) : x^3 = cube x := by
   show x^3 = x*x*x
   rw [Nat.pow_succ, Nat.pow_succ, Nat.pow_succ, Nat.pow_zero, Nat.one_mul]
 
-private theorem two_pow_pos (i : Nat) : 1 ≤ 2^i :=
+theorem two_pow_pos (i : Nat) : 1 ≤ 2^i :=
   Nat.le_trans (Nat.succ_le_succ (Nat.zero_le i)) (two_pow_ge_succ i)
 
 private theorem cube_two_pow (k : Nat) : cube ((2:Nat)^k) = 2^(3*k) := by

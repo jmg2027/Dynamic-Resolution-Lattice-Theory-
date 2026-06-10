@@ -63,7 +63,18 @@ modulus is the growth class of `N` in `k`, and it factors as
    `N(m,k) = k^e` must *call e's own modulus* to evaluate `⌈k^e⌉`, so
    irrational-degree moduli are receipts taking receipts as arguments — a
    call-tree of folds, formalizable now as a schedule functional consuming a
-   `CauchyCutSeq`.
+   `CauchyCutSeq`.  **The functional is BUILT** (`Real213/ModulusComposition`,
+   30 PURE): `powSched c B k = ⌈k^{p/2^k}⌉` with `p` read off the exponent cut
+   (`dyUp`, sound under integer witness + forward doubling; `rootCeil` exact by
+   sandwich), calibrated (`powSched_rat`: integer `s` returns exactly `k^s`),
+   instantiated at degree ∛2 (`cbrtPow_at_two = 3` — the ladder eats its own
+   degree-3 brick as an exponent) and degree e (`ePow_at_two = 7`, the kernel
+   evaluating `eulerCauchySeq.N` inside the schedule), and iterated once:
+   `eSelfScheduled` — e rescheduled by a schedule querying e's own modulus,
+   limit-preserving (`reschedule_limit_eq`).  Still open here: *tightness* of
+   `dyUp` (lower witness needs the ratio/rescale property), and a real whose
+   *intrinsic* degree is irrational (Jarník construction) rather than a
+   rescheduled presentation.
 1. **Graded rate generator** — refine the binary `Dominates`
    (`RateStratification`) with polynomial slack: `Dominates_s` forgiving an
    `i^{s−1}` factor of overtake, generalizing `rate_total_modulus` to
