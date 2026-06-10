@@ -458,4 +458,35 @@ theorem mod_eq_exists_mul_add (a b n : Nat) (hn : 0 < n) (hab : b ≤ a)
     rw [Nat.add_comm]; exact (sub_add_cancel hab).symm
   rw [h1, hq, Nat.mul_comm]
 
+/-- ★★ **The ∣-order obstruction readout is the coprime (lowest-terms)
+    reduction**: stripping the gcd from a pair leaves a coprime pair.
+    Witness form (no division): `a = g·a₁`, `b = g·b₁` with
+    `g = gcd213 a b > 0` force `gcd213 a₁ b₁ = 1`.  The ×-native
+    analog of the difference-Lens sign readout: the common part `g` is
+    the transport, the coprime pair `(a₁, b₁)` the normal form.
+    Cf. `RatioLensFounding.convergent_lowest_terms_is_det`
+    (lowest terms = `det P = 1`). -/
+theorem gcd_strip_coprime {a b g a₁ b₁ : Nat} (hg : gcd213 a b = g)
+    (hpos : 0 < g) (ha : a = g * a₁) (hb : b = g * b₁) :
+    gcd213 a₁ b₁ = 1 := by
+  obtain ⟨c1, hc1⟩ := gcd213_dvd_left a₁ b₁
+  obtain ⟨c2, hc2⟩ := gcd213_dvd_right a₁ b₁
+  have hga : g * gcd213 a₁ b₁ ∣ a :=
+    ⟨c1, calc a = g * a₁ := ha
+      _ = g * (gcd213 a₁ b₁ * c1) := congrArg (g * ·) hc1
+      _ = (g * gcd213 a₁ b₁) * c1 := (mul_assoc_213 _ _ _).symm⟩
+  have hgb : g * gcd213 a₁ b₁ ∣ b :=
+    ⟨c2, calc b = g * b₁ := hb
+      _ = g * (gcd213 a₁ b₁ * c2) := congrArg (g * ·) hc2
+      _ = (g * gcd213 a₁ b₁) * c2 := (mul_assoc_213 _ _ _).symm⟩
+  have hgg0 : g * gcd213 a₁ b₁ ∣ gcd213 a b :=
+    gcd213_greatest a b _ hga hgb
+  obtain ⟨c, hc⟩ : g * gcd213 a₁ b₁ ∣ g := hg ▸ hgg0
+  have h1 : g * 1 = g * (gcd213 a₁ b₁ * c) :=
+    calc g * 1 = g := Nat.mul_one g
+      _ = (g * gcd213 a₁ b₁) * c := hc
+      _ = g * (gcd213 a₁ b₁ * c) := mul_assoc_213 _ _ _
+  have hdc : 1 = gcd213 a₁ b₁ * c := Nat.eq_of_mul_eq_mul_left hpos h1
+  exact mul_eq_one_left _ c hdc.symm
+
 end E213.Meta.Nat.Gcd213
