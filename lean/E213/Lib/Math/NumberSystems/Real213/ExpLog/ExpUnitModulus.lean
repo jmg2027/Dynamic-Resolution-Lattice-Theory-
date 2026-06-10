@@ -1,6 +1,8 @@
 import E213.Lib.Math.NumberSystems.Real213.RateModulus
+import E213.Lib.Math.NumberSystems.Real213.RateStratification
 import E213.Lib.Math.Analysis.CauchyComplete
 import E213.Lib.Math.Analysis.Cauchy.Euler
+import E213.Meta.Nat.NatRing213
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!
@@ -24,12 +26,15 @@ improves with `q`).  So each `exp(1/q)` is a genuine `CauchyCutSeq` with the tot
 family of completed-line points — `e` (`q = 1`, agreeing with `eulerNum/eulerDen`
 definitionally: `expU_one_num/den`), `√e = exp(1/2)` (`q = 2`, `sqrtECauchySeq`), ….
 
-**Honest boundary**: general `exp(p/q)` (`p ≥ 2`) does *not* fit this generator — the
-early Taylor increments exceed the `1/i`-margin envelope `Htel` encodes, so the
-modulus must be offset past a `p/q`-dependent burn-in (the `CutExpModulus` ratio-test
-threshold `2M ≤ k+1`).  That offset generalization of `RateModulus`, or the
-multiplicative route `exp(p/q) = exp(1/q)ᵖ` through cut multiplication, is the
-remaining T2 step — recorded, not claimed.
+**Honest boundary**: general `exp(p/q)` (`p ≥ 2`) does *not* fit this generator — and
+§6 **proves** it (the ζ(3)-overtake mirror, `RateStratification`): the factorial
+presentation's cross-determinant `p^{i+1}·dᵢ` overtakes the denominator quantum at
+layer `q+9` (`exp_pq_presentation_overtakes`), so by `htel_iff_dominates` **no `Htel`
+certificate exists for it** (`exp_pq_no_htel`) — rate is a property of the pointing,
+not the real.  The completion of `exp(p/q)` therefore needs a different *presentation*
+(dyadic brackets on the `CutExpModulus` tail bound, the `CubeRootTwoCut` schedule
+pattern) or a graded margin (`modulus_degree_ladder.md`, rung 1) — recorded, not
+claimed.
 
 All zero-axiom.
 -/
@@ -188,5 +193,105 @@ theorem expU_one_den : ∀ n, expUDen 1 n = eulerDen n
   | n + 1 => by
     show (n + 1) * 1 * expUDen 1 n = (n + 1) * eulerDen n
     rw [expU_one_den n, Nat.mul_one]
+
+/-! ## §6 — the `p ≥ 2` boundary: the factorial presentation is rate-free (proven)
+
+The ζ(3) mirror (`Zeta3Cut.zeta3_presentation_overtakes`): for `exp(p/q)` with
+`p ≥ 2`, the factorial-cleared presentation `expNum p q / expUDen q` has
+cross-determinant `p^{i+1}·dᵢ`, which **overtakes** the denominator quantum
+`(i+1)·d_{i+1} = (i+1)²q·dᵢ` as soon as `(i+1)²q < p^{i+1}` — witnessed at layer
+`i = q+9` via `(q+10)²q < (q+10)³ < 2^{q+10} ≤ p^{q+10}`.  By
+`RateStratification.htel_iff_dominates`, **no `Htel` certificate exists** for this
+presentation: the `q = 1` numerator (`p = 1`, §1–§4) is exactly the boundary case
+where the factorial presentation carries its own rate.  Rate is a property of the
+pointing, not the real. -/
+
+/-- General-`p` numerator: `a_{n+1} = (n+1)·q·a_n + p^{n+1}`
+    (`a_n/dₙ = Σ_{k≤n}(p/q)ᵏ/k!`). -/
+def expNum (p q : Nat) : Nat → Nat
+  | 0 => 1
+  | n + 1 => (n + 1) * q * expNum p q n + p ^ (n + 1)
+
+/-- `p = 1` recovers the unit-fraction numerator. -/
+theorem expNum_one (q : Nat) : ∀ n, expNum 1 q n = expUNum q n
+  | 0 => rfl
+  | n + 1 => by
+    show (n + 1) * q * expNum 1 q n + 1 ^ (n + 1) = (n + 1) * q * expUNum q n + 1
+    rw [expNum_one q n, Nat.one_pow]
+
+/-- The general-`p` cross-determinant: `a_{i+1}·dᵢ = aᵢ·d_{i+1} + p^{i+1}·dᵢ`. -/
+theorem exp_pq_cross_det (p q i : Nat) :
+    expNum p q (i + 1) * expUDen q i
+      = expNum p q i * expUDen q (i + 1) + p ^ (i + 1) * expUDen q i := by
+  show ((i + 1) * q * expNum p q i + p ^ (i + 1)) * expUDen q i
+      = expNum p q i * ((i + 1) * q * expUDen q i) + p ^ (i + 1) * expUDen q i
+  ring_nat
+
+/-- Cubic growth step: `(k+1)³ ≤ 2·k³` for `k ≥ 4`. -/
+theorem cube_step (k : Nat) (hk : 4 ≤ k) :
+    (k + 1) * (k + 1) * (k + 1) ≤ 2 * (k * k * k) := by
+  obtain ⟨t, ht⟩ := Nat.le.dest hk
+  rw [← ht]
+  exact Nat.le.intro (show (4 + t + 1) * (4 + t + 1) * (4 + t + 1)
+      + (t * t * t + 9 * (t * t) + 21 * t + 3)
+      = 2 * ((4 + t) * (4 + t) * (4 + t)) from by ring_nat)
+
+/-- `k³ < 2ᵏ` for `k ≥ 10` (stated at `k = 10 + s`). -/
+theorem cube_lt_two_pow : ∀ s, (10 + s) * (10 + s) * (10 + s) < 2 ^ (10 + s)
+  | 0 => by decide
+  | s + 1 => by
+    have hstep : (10 + s + 1) * (10 + s + 1) * (10 + s + 1)
+        ≤ 2 * ((10 + s) * (10 + s) * (10 + s)) :=
+      cube_step (10 + s) (Nat.le.intro (show 4 + (6 + s) = 10 + s from by ring_nat))
+    have h2 : 2 * ((10 + s) * (10 + s) * (10 + s)) < 2 * 2 ^ (10 + s) :=
+      E213.Meta.Nat.NatRing213.nat_mul_lt_mul_left (by decide) (cube_lt_two_pow s)
+    show (10 + s + 1) * (10 + s + 1) * (10 + s + 1) < 2 ^ (10 + s + 1)
+    rw [Nat.pow_succ, Nat.mul_comm (2 ^ (10 + s)) 2]
+    exact Nat.lt_of_le_of_lt hstep h2
+
+/-- ★★★★ **The factorial presentation of `exp(p/q)` overtakes for `p ≥ 2`** (the ζ(3)
+    mirror): at layer `i = q+9` the cross-determinant `p^{i+1}·dᵢ` exceeds the
+    denominator quantum, so that layer is not dominated — the presentation is
+    rate-free. -/
+theorem exp_pq_presentation_overtakes (p q : Nat) (hp : 2 ≤ p) (hq : 1 ≤ q) :
+    ∃ i, 1 ≤ i ∧
+      ¬ E213.Lib.Math.NumberSystems.Real213.RateStratification.Dominates
+          (fun i => p ^ (i + 1) * expUDen q i) (expUDen q) i := by
+  refine ⟨q + 9, Nat.le_add_left 1 (q + 8), ?_⟩
+  apply E213.Lib.Math.NumberSystems.Real213.RateStratification.overtake_breaks_layer
+    _ (q + 9) (Nat.le_add_left 1 (q + 8))
+  show (q + 10) * expUDen q (q + 10) < p ^ (q + 10) * expUDen q (q + 9)
+  rw [show (q + 10) * expUDen q (q + 10)
+        = ((q + 10) * (q + 10) * q) * expUDen q (q + 9) from by
+        show (q + 10) * ((q + 10) * q * expUDen q (q + 9))
+            = ((q + 10) * (q + 10) * q) * expUDen q (q + 9)
+        ring_nat]
+  apply E213.Meta.Nat.NatRing213.nat_mul_lt_mul_right (expUDen_pos q hq (q + 9))
+  have h1 : (q + 10) * (q + 10) * q < (q + 10) * (q + 10) * (q + 10) :=
+    E213.Meta.Nat.NatRing213.nat_mul_lt_mul_left
+      (Nat.mul_pos (Nat.succ_pos (q + 9)) (Nat.succ_pos (q + 9)))
+      (Nat.lt_add_of_pos_right (by decide))
+  have h2 : (q + 10) * (q + 10) * (q + 10) < 2 ^ (q + 10) := by
+    have h := cube_lt_two_pow q
+    rw [Nat.add_comm 10 q] at h
+    exact h
+  have h3 : 2 ^ (q + 10) ≤ p ^ (q + 10) := Nat.pow_le_pow_left hp (q + 10)
+  exact Nat.lt_of_lt_of_le (Nat.lt_trans h1 h2) h3
+
+/-- ★★★★★ **No `Htel` certificate exists for the factorial presentation of
+    `exp(p/q)`, `p ≥ 2`** — by the stratification biconditional
+    (`htel_iff_dominates`), the overtaken layer kills every rate certificate.  The
+    unit-fraction family (§4) is exactly the regime where this presentation carries
+    its own rate; past it, completion must change the *pointing* (dyadic-bracket
+    schedule à la `CubeRootTwoCut`) — rate is presentation-dependent, not a property
+    of the real. -/
+theorem exp_pq_no_htel (p q : Nat) (hp : 2 ≤ p) (hq : 1 ≤ q) :
+    ¬ E213.Lib.Math.NumberSystems.Real213.RateModulus.Htel (expNum p q) (expUDen q) := by
+  intro h
+  obtain ⟨i, hi, hnd⟩ := exp_pq_presentation_overtakes p q hp hq
+  exact hnd
+    ((E213.Lib.Math.NumberSystems.Real213.RateStratification.htel_iff_dominates
+        (fun i => p ^ (i + 1) * expUDen q i)
+        (fun i => exp_pq_cross_det p q i)).mp h i hi)
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpUnitModulus

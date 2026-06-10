@@ -117,20 +117,44 @@ the `1/(i·dᵢ)` margin `RateModulus.Htel` hardcodes — general `exp(p/q)` nee
 **parametric-margin RateModulus** (margin `Bᵢ/(i·dᵢ)`, tail certificate from
 `CutExpModulus.expTail_geom_decay`) or the `exp(1/q)ᵖ` cut-power route.
 
+## Fifth arc: merged `claude/zeta-3-holonomic-fold-gbjygu` + the synthesis sealed
+
+The originator's modulus-degree-ladder branch merged cleanly (same fork point):
+`Zeta3Cut` (35 PURE — ζ(3) Apéry `AbCutSeq`, bracket `601/500 < ζ(3) ≤ 1203/1000`,
+`zeta3_presentation_overtakes`), `CubeRootTwoCut` (31 PURE — degree-3 form-margin
+modulus, dyadic-bisection schedule `N(m,k) = 3k+5`), `ModulusComposition` (30 PURE —
+irrational-degree schedules, receipts taking receipts; already eats `eulerCauchySeq`),
++ frontier notes `modulus_degree_ladder.md` / `zeta3_free_modulus.md`.
+
+**The synthesis (why the branch helps, now a theorem)**: `ExpUnitModulus` §6 —
+`exp_pq_presentation_overtakes` + `exp_pq_no_htel` (the `zeta3_presentation_overtakes`
+mirror): for `p ≥ 2` the factorial presentation of `exp(p/q)` has cross-det
+`p^{i+1}·dᵢ` overtaking the quantum at layer `q+9` (`(q+10)²q < (q+10)³ < 2^{q+10} ≤
+p^{q+10}`, helpers `cube_step`/`cube_lt_two_pow`), so by
+`RateStratification.htel_iff_dominates` **no Htel certificate exists** — the
+unit-fraction family (§4) is exactly the boundary where the factorial pointing
+carries its own rate.  Module now 21 PURE.  ⟹ the `exp(p/q)` completion should go
+through the branch's **dyadic-bracket schedule** (`CubeRootTwoCut` pattern, modulus
+from `CutExpModulus.expTail_geom_decay`) or the graded generator
+(`modulus_degree_ladder.md` rung 1) — `exp(2)` is the named first test case
+(recorded in the ladder note, rung 0″).
+
 ## Open Problems (priority order)
-1. **Parametric-margin `RateModulus`** (the `exp(p/q)`, `p ≥ 2` completion): generalize
-   the margin `1/(i·dᵢ)` → `Bᵢ/(i·dᵢ)` with a tail-bound certificate `Bᵢ` (geometric
-   decay from `CutExpModulus`); or build cut multiplication powers `exp(1/q)ᵖ`.
-2. **Bochner coupling beyond the spectral case**: the gradient-commutation *inequality*
-   on a non-vertex-transitive graph (star / `K_{a,b}`, no longer exact) — the genuine
+1. **`exp(p/q)`, `p ≥ 2` completion — by presentation change**: dyadic-bracket
+   schedule on the `CutExpModulus` tail bound (the `CubeRootTwoCut` pattern), OR the
+   graded rate generator (`Dominates_s`, ladder rung 1).  First test: `exp(2)`.
+   The negative direction is closed (`exp_pq_no_htel`).
+2. **ζ(3) free modulus** (merged frontier, `zeta3_free_modulus.md`): numerator
+   integrality `2·lcm(1..n)³·aₙ ∈ ℕ` + `lcm(1..n) < 3ⁿ` (Hanson) ⟹ ζ(3) joins φ/e
+   in the unconditional real API.
+3. **Bochner coupling beyond the spectral case**: the gradient-commutation
+   *inequality* on a non-vertex-transitive graph (star / `K_{a,b}`) — the genuine
    `CD(K,∞) ⟹ gradient estimate` implication.
-3. **Compactness extraction** (the genuinely smooth remainder of wall item (iv)):
-   blow-up limits / canonical neighbourhoods / soliton classification on a manifold —
-   un-discretized; record-only until a 213-native handle appears.
-4. **Promotion**: the `GeometrizationConjecture` discrete-curvature sub-tree (4 curvature
-   frames + the four wall-item files + noncollapsing/entropy/semigroup) is a strong
-   candidate for a consolidated `theory/` chapter (`theory/PROMOTION_CRITERIA.md`
-   H1–H4 + S1–S3).
+4. **Compactness extraction** (smooth remainder of wall item (iv)) — record-only.
+5. **Promotion**: the `GeometrizationConjecture` discrete-curvature sub-tree, and now
+   also the modulus-degree ladder cluster (`Zeta3Cut`/`CubeRootTwoCut`/
+   `ModulusComposition`/`ExpUnitModulus` + `RateModulus`/`RateStratification`) —
+   check `theory/PROMOTION_CRITERIA.md`.
 
 ## Three-tier state
 - **Tier-2 added**: `WeightedGreen.lean`, `DiscreteGaussian.lean`, `DiscreteSurgery.lean`

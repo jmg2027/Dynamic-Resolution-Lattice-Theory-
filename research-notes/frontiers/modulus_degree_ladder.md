@@ -75,6 +75,15 @@ modulus is the growth class of `N` in `k`, and it factors as
    `dyUp` (lower witness needs the ratio/rescale property), and a real whose
    *intrinsic* degree is irrational (Jarník construction) rather than a
    rescheduled presentation.
+0″. **The `exp(p/q)` instance of the rate-free regime** (cross-branch, proven).
+   `ExpLog/ExpUnitModulus`: the unit-fraction family `exp(1/q)` completes through
+   the e-generator verbatim (`expUnitCauchySeq`, modulus `k+2`, uniform in `q`),
+   and for `p ≥ 2` the factorial presentation provably overtakes
+   (`exp_pq_presentation_overtakes`, layer `q+9`; `exp_pq_no_htel` via
+   `htel_iff_dominates`) — the sharpest concrete boundary case for rung 1 / the
+   dyadic-bracket route: a *transcendental of measure 2* whose natural pointing is
+   rate-free.  Whoever builds rung 1 (or the `CubeRootTwoCut`-style schedule for a
+   series tail) should test it on `exp(2)` first.
 1. **Graded rate generator** — refine the binary `Dominates`
    (`RateStratification`) with polynomial slack: `Dominates_s` forgiving an
    `i^{s−1}` factor of overtake, generalizing `rate_total_modulus` to

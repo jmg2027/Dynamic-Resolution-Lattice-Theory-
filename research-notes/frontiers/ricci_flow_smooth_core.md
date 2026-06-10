@@ -337,7 +337,15 @@ hardcodes (the early Taylor increments are genuinely bigger), so the needed
 generalization is a **parametric-margin `RateModulus`** (margin `B_i/(i·d_i)` with a
 tail-bound certificate `B_i`, fed by `CutExpModulus.expTail_geom_decay`) or the
 multiplicative route `exp(p/q) = exp(1/q)ᵖ` through cut multiplication — a separate
-marathon, recorded.
+marathon, recorded.  **Upgraded after merging `claude/zeta-3-holonomic-fold-gbjygu`**
+(the modulus-degree-ladder branch): the rate-free-ness is now **proven** —
+`exp_pq_presentation_overtakes` / `exp_pq_no_htel` (`ExpUnitModulus` §6, the
+`zeta3_presentation_overtakes` mirror via `RateStratification.htel_iff_dominates`):
+the factorial presentation's cross-det `p^{i+1}·dᵢ` overtakes at layer `q+9`, so no
+`Htel` exists for it.  The constructive route is therefore the **dyadic-bracket
+schedule** (`CubeRootTwoCut` pattern: presentation change, modulus from the
+`CutExpModulus` tail bound) or the graded generator (`modulus_degree_ladder.md`
+rung 1) — exactly the merged branch's frame.
 
 **Bochner-with-Ricci coupling** — ✅ first rung closed (`DiscreteLichnerowicz` §4):
 on `K_m` the Bakry–Émery gradient-semigroup commutation holds as an **identity** —
