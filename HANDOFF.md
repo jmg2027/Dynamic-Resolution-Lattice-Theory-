@@ -1,87 +1,90 @@
-# Session Handoff — 2026-06-08 (Ricci-flow open frontier: discrete curvature → spectrum)
+# Session Handoff — 2026-06-10 (Ricci-flow frontier: discrete curvature → spectrum → smooth Perelman tensor calculus)
 
-## Branch
-`claude/rich-flow-open-frontier-WIA6l` — pushed, 19 commits ahead of `origin/main`.
-`cd lean && lake build E213.Lib.Math.Geometry.GeometrizationConjecture` ✓ clean
-(199/199).  All new theorems strict ∅-axiom PURE (`tools/scan_axioms.py`):
-`BakryEmery` 38/0, `BakryEmeryBipartite` 16/0, `DiscreteLichnerowicz` 12/0,
-`OllivierRicci` 74/0.
+## Branch & build state
+`claude/rich-flow-open-frontier-WIA6l` — pushed, ~32 commits ahead of `origin/main`.
+**Full `cd lean && lake build E213` ✓ clean (307/307)** — no downstream breakage.
+All session modules strict ∅-axiom PURE (`tools/scan_axioms.py`): `OllivierRicci` 74/0,
+`BakryEmery` 42/0, `BakryEmeryBipartite` 16/0, `DiscreteLichnerowicz` 12/0,
+`ConformalCurvature` 18/0, `TensorCalculus` 23/0.
 
-## What Was Done This Session (a long marathon)
+## What was done (a very long marathon — three arcs)
 
-The discrete Bakry–Émery / Ollivier curvature, closed **parametrically across whole
-graph families**, then the **curvature → spectrum (Lichnerowicz)** bridge opened.
+### Arc 1 — discrete curvature, parametric across all graph families
+- **Complete graph `K_m`**: Bakry–Émery `CD((m+2)/2,∞)` sharp/optimal (`BakryEmery` §3);
+  Ollivier `κ=(m−2)/(m−1)` (`OllivierRicci` §7).
+- **Star `K_{1,b}`**: centre `CD((3−b)/2,∞)`, leaf `CD((5−b)/2,∞)` (`BakryEmery` §4–§5).
+- **General bipartite `K_{a,b}`** (`BakryEmeryBipartite.lean`): 4-phase marathon →
+  `A`-vertex curvature `min(3a−b,b−a+4)/2`; DRLT core `K_{3,2} = CD(3/2)`.
+- Honest cross-frame correction: `K_{3,2}` Forman `−1` vs Bakry–Émery `+3/2` — corrected the
+  "frames cannot disagree" overclaim in `theory/essays/synthesis/curvature_as_lens_readout.md`.
 
-### 1. Complete graph `K_m` (`BakryEmery.lean` §3)
-- Bakry–Émery `CD((m+2)/2, ∞)` (`bochner_complete`/`cd_complete_graph`), **sharp +
-  optimal** (`cd_complete_graph_sharp` + `complete_graph_gammaC_witness` ⟹
-  `lin_yau_curvature_complete`): `(m+2)/2` is the exact Lin–Yau curvature.
-- Ollivier `κ = (m−2)/(m−1) > 0` (`OllivierRicci.lean` §7, `km_ollivier_optimal` +
-  `km_plan_optimal`), parametric in `m` (not `decide`).  New δ-sum infra
-  (`gridSumZ_delta`/`_zero`/`_weight`, `gridSumZ_const`/`_nonneg`).
+### Arc 2 — curvature → spectrum (Lichnerowicz) (`DiscreteLichnerowicz.lean`)
+- `km_rayleigh` (`Σ(Lf)² = m·E`), `km_eigenvalue` + eigenspaces ⟹ `K_m` Laplacian spectrum
+  `{0¹, m^{m−1}}`; `km_green` (integration-by-parts trio explicit); `lichnerowicz_abstract`
+  (`K ≤ λ`) via the new `le_of_mul_le_mul_right_pos` (Int positive cancellation).
 
-### 2. Star `K_{1,b}` (`BakryEmery.lean` §4–§5)
-- Centre `CD((3−b)/2, ∞)` (`cd_star`), negative for `b ≥ 4` (`star_negatively_curved`).
-- Leaf `CD((5−b)/2, ∞)` (`cd_star_leaf`) — vertex-type-dependent (not vertex-transitive).
+### Arc 3 — the smooth Perelman wall, attacked along the reachable routes
+- **Conformal (general `n`)** (`ConformalCurvature.lean` §S6–§S7): `confRNumN` (general-`n`
+  conformally-flat **scalar** curvature, validated `= 4·confKNum` at `n=2`, `n=3` trichotomy);
+  the conformally-flat **Ricci tensor** `confRic*` + trace consistency + Einstein-at-a-point.
+- **General-metric algebraic tensor calculus** (`Geometry/TensorCalculus.lean`, dimension-free):
+  Christoffel 1st kind (symmetry, metric compatibility) → 2nd kind + raising/lowering (the
+  inverse layer) → Riemann tensor (+ **all four** symmetries via the metric 2-jet `riemLow`) →
+  Ricci contraction + first Bianchi → scalar `R=g^{ij}Ric` + Einstein `R=λn`.
+- **Panel + consensus brick**: a 4-mathematician-agent panel explored the residual wall; built
+  `perelman_rate_nonneg` (`TensorCalculus` §7): `0 ≤ Σ_{i,j}(Ric_{ij}+∇_i∇_j f)²` — the
+  algebraic form of Perelman's `d/dt 𝓕 ≥ 0` (the SOS rate), reachable now because `Ric` exists.
 
-### 3. General bipartite `K_{a,b}` — the marathon (`BakryEmeryBipartite.lean`)
-Four phases, centred coordinates (translation-invariance kills `c`):
-`kab_bochner` (two-shell closed form) → `kab_shell_sos` (complete the square over the
-free second shell) → `kab_cd_wide` (`b ≥ 2a−2`, pure SOS) + `kab_cd_narrow`
-(`b ≤ 2a−2`, via the discrete `cauchy_schwarz_gridZ`).  `A`-vertex curvature
-`min(3a−b, b−a+4)/2`; the DRLT core `K_{3,2}` is `CD(3/2, ∞)` (`kab_K32_pos`).  A
-`B`-vertex = same theorems with `(na,nb) ↦ (b−1, a)`.
+## Architect's assessment & the org-debt (FLAG for an org-audit, not yet fixed)
+The branch is internally coherent (full build PURE).  Deferred organizational debt:
+1. **`gridSumZ` placement** — it lives in `OllivierRicci.lean` (a leaf) but is now imported by
+   `BakryEmeryBipartite`, `DiscreteLichnerowicz`, `TensorCalculus` (shared-infra-in-leaf smell).
+   A clean fix relocates `gridSumZ` + its `~15` lemmas to a shared infra module; risky refactor
+   (touches `OllivierRicci`'s 74 theorems), so deferred to a focused `/org-audit`.
+2. **`le_of_mul_le_mul_right_pos`** (`DiscreteLichnerowicz`) — a general `Int` fact, a
+   `Int213.OrderMul` (Meta) relocation candidate; kept local to avoid a full rebuild.
+3. **`kab_inner`** reused cross-file (`DiscreteLichnerowicz` imports `BakryEmeryBipartite`).
+4. **`Real213/Core/Functions.lean`** still has `exp/sin/cosCut := fun _ _ => true` stubs while
+   the real rate machinery is in `ExpLog/` — a packaging gap (see panel brick below).
 
-### 4. Honest cross-frame correction
-`K_{3,2}`: Forman `4−3−2 = −1 < 0` (`forman_K32`) vs Bakry–Émery `CD(3/2) > 0` —
-**opposite signs on the same graph**.  The earlier essay claim "the frames cannot
-disagree" was an over-extension; corrected in
-`theory/essays/synthesis/curvature_as_lens_readout.md` (promotion + correction):
-the frames cohere on the qualitative `+/0/−` trichotomy, not pointwise.
+## Lean-tooling notes (recurring, for the next session)
+- `ring_intZ` **cannot certify a zero-polynomial `= 0`** goal — use pure
+  `sub_add_cancel_int`/`sub_self_zero`/`add_neg_cancel`/`zero_mul`/`mul_one`, or state the
+  identity in moved-over (non-zero RHS) form (`riemLow_bianchi1`).
+- `omega` is **barred** (leaks `propext`+`Quot.sound`).
+- `rw [gridSumZ_* ]` often fails to key-match lambdas from `gridSumZ_congr` — use term-mode
+  `Eq.trans (congr) (lemma)` + `exact`; keep `gridSumZ_mul_left` constants **on the left**.
+- congr tactic blocks need a leading `dsimp only` to beta-reduce (omit if already reduced).
 
-### 5. Curvature → spectrum / Lichnerowicz (`DiscreteLichnerowicz.lean`, new file)
-- `km_lap_sq_sum` (`Σ(Lf)²`), `km_f_lap_sum` (`Σf·Lf`), `km_green`
-  (`Σ Γ = E = −Σf·Lf`) — the **integration-by-parts trio** for `K_m`, explicit.
-- `km_rayleigh` (`Σ(Lf)² = m·E`, all `f`): the Rayleigh quotient is identically `m`,
-  so the `K_m` Laplacian spectrum is `{0, m}`.
-- `km_eigenvalue` (`λ ∈ {0,m}`) + `km_meanzero_eigen` + `km_const_eigen`: spectrum
-  `{0¹, m^{m−1}}` fully realized (algebraic connectivity `m`).
-- `lichnerowicz_abstract` (`K·(λN) ≤ λ·(λN)`, `λ,N>0` ⟹ `K ≤ λ`) via the new
-  `le_of_mul_le_mul_right_pos` (Int positive cancellation — a Meta-layer relocation
-  candidate, kept local).  The general mechanism; for `K_m` the chain is end-to-end.
+## Open frontiers — the panel's reachable next bricks (all recorded in the notes)
+The smooth-Perelman **algebraic** core is now ∅-axiom; the residual wall is pure **analysis**.
+Per the 4-agent panel (`ricci_flow_smooth_core.md` "Panel exploration" section):
+1. **`expCauchySeq (x) : CauchyCutSeq`** — package the (already-PURE) `exp`/`sin`/`cos` series
+   rate certificates (`Real213/ExpLog/CutExpModulus`, `CutTrigModulus`) into a `CauchyCutSeq`
+   (template: `eulerCauchySeq`), retiring the `Functions.lean` stubs.  "Transcendental metrics"
+   is a packaging stub, NOT the century problem.
+2. **`Real213`-cut maximum principle** — promote the discrete `heatIter_range` to a `Real213`
+   `cutLe` via the `RealCauchyWitness` order-squeeze idiom (~40 lines, a solved pattern).
+3. **Discrete χ²-entropy descent** — `Ent(μ)=Σ μ(μ−1)` monotone under `lazyHeatStep`
+   (same shape as `ricci_energy_monotone`) — the synthetic discrete Perelman-entropy.
+The GENUINE un-reframable wall: weighted integration-by-parts (`∇𝓕 ↔ flow`), the `𝓦` Gaussian,
+Li–Yau Harnack (nonlinear, needs `Real213` division), κ-solution/surgery classification +
+no-local-collapsing compactness.
 
-## Lean-friction notes (for the next session)
-- `rw [gridSumZ_delta/_const …]` often fails to key-match the lambda from
-  `gridSumZ_congr`/lemma instantiation — use **term-mode** `Eq.trans (congr) (lemma)`
-  + `exact` (defeq), `show` to align goals.
-- `ring_intZ` fails when a side normalizes to the **bare zero polynomial** or has a
-  leading `0 −` / trailing `+ 0` / `× 1` — use pure `zero_mul`/`add_neg_cancel`/
-  `Int.add_zero`/`Order.zero_sub`/`Order.sub_self_zero`/`mul_one`/`PolyIntM.one_mulZ`.
-- congr tactic blocks need a leading `dsimp only` to beta-reduce (but it errors on
-  "no progress" — omit when the goal is already reduced).
-- Keep `gridSumZ` linearity terms **constant-on-the-left** (`c * f x`, not `f x * c`)
-  so `gridSumZ_mul_left` matches.
+## Recommendation (leading architect)
+This branch is **merge-ready** (full PURE build, internally coherent, frontier notes + one
+essay promotion + correction all in place).  Highest-value next moves, in order: (a) **merge to
+`main`** so this large body of work is integrated and reviewable; (b) a **`/org-audit`** to pay
+down the `gridSumZ`/Meta-candidate placement debt; (c) THEN the panel's reachable bricks
+(2 — the `Real213`-cut maximum principle — is the most surgical, high-confidence frontier-closer).
 
-## Open Frontiers
-1. **General-graph integration-by-parts** (`Σ Γ₂ = Σ(Lf)²`, `Σ Γ = E`) for an
-   arbitrary finite graph — the one remaining input to feed `lichnerowicz_abstract`
-   beyond `K_m`.  Needs an Int cyclic `gridSumZ` + shift-invariance (the `K_m` case is
-   degenerate/easy; the cycle/star need the edge structure).  Note: the clean
-   `Σ(Lf)²=λE` identity is special to `K_m`'s `{0,λ}` spectrum; other graphs give only
-   the Lichnerowicz *inequality*.
-2. **Relocate `le_of_mul_le_mul_right_pos` to `Int213.OrderMul`** (Meta) — genuinely
-   reusable, deferred to avoid the full-repo rebuild.
-3. Smooth general-`n` Perelman `𝓦` stays walled (`ricci_flow_smooth_core.md`).
-4. **Promote** the bipartite/spectrum arc to a `theory/math/geometry/` chapter (the
-   essay correction is done; a dedicated chapter for the parametric closures + the
-   spectral bridge is the next tier-3 step).
-
-## File Map
+## File map (new this session)
 ```
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/BakryEmery.lean          ← K_m + star (38 PURE)
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/BakryEmeryBipartite.lean ← K_{a,b} marathon (16 PURE)
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/DiscreteLichnerowicz.lean ← curvature→spectrum (12 PURE)
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/OllivierRicci.lean        ← +K_m §7 + δ-sum infra
-theory/essays/synthesis/curvature_as_lens_readout.md                          ← promoted + corrected
-research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md           ← all rungs + spectral direction
+lean/E213/Lib/Math/Geometry/TensorCalculus.lean            ← general-n tensor calculus + Perelman SOS
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/BakryEmeryBipartite.lean  ← K_{a,b}
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/DiscreteLichnerowicz.lean ← curvature→spectrum
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/{BakryEmery,OllivierRicci,ConformalCurvature}.lean ← extended
+research-notes/frontiers/ricci_flow_smooth_core.md         ← smooth-core attack + panel findings
+research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md  ← all rungs + spectral
+theory/essays/synthesis/curvature_as_lens_readout.md       ← promoted + overclaim corrected
 ```
