@@ -113,12 +113,13 @@ structure = π's continued fraction — landing back on the
 
 ## Action items
 
-1. **Build now**: the uniform period-spectrum capstone — `M : SL(2,ℤ)`,
-   `M^n = I` ⟹ order ∈ {1,2,3,4,6} (~250 lines: `|t| ≥ 3` monotone trace
-   growth generalizing `golden_trace_mono`; `t ∈ {0,±1}` periodic instances
-   exist; `t = ±2` parabolic shear; one bundle theorem, no per-level
-   enumeration).  Upgrades the range-13 `decide` census
-   (`crystallographic_restriction`) to structure.
+1. **Build now — DONE** (`Real213/FiniteOrderSpectrum.lean`, 24 PURE / 0
+   DIRTY): `finite_order_spectrum` (`M^{n+1} = I ⟹ M = I ∨ M² = I ∨ M³ = I ∨
+   M⁴ = I ∨ M⁶ = I`) + `finite_order_divides_twelve` (`⟹ M¹² = I`), via the
+   trace trichotomy (`|t| ≥ 3` growth / `t = ±2` parabolic rigidity
+   `Mᵏ = I + k(M−I)` / `t ∈ {0,±1}` Cayley–Hamilton orders).  The range-13
+   census is upgraded to the uniform structural theorem; the ∀-form's finite
+   side has its Lean anchor.
 2. **Optionally**: 2–3 trace-escape-ladder instances (k = 5, 7: effective
    Liouville escape for `2cos(2π/k)` through the measure-modulus engine as
    degree-`φ(k)/2` rungs) as existence proof; defer the family (degenerating

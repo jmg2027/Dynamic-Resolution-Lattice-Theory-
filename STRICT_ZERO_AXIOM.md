@@ -1416,6 +1416,29 @@ presentation's divergence depth is 6, ratio degree 4) — and ★★★
 `HtelS wallisNum wallisDen ρ` fails — **the Wallis pointing's rung is `∞`**,
 proved, not estimated; the rung is a property of the pointing, not of π.
 
+`E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum` — **24 PURE / 0
+DIRTY**.  ★★★ **The finite-order spectrum of `SL(2,ℤ)`, uniform** — the
+crystallographic restriction as a single structural theorem (every matrix,
+every exponent), upgrading the range-13 totient census
+(`CyclotomicTraceDegree.crystallographic_restriction`).  Trace trichotomy on
+one engine (`Mat2TraceRecurrence.trace_recurrence`): `tr ≥ 3` — strict trace
+growth from floor 2 (`trace_mono_of_ge_three`, generalizing
+`golden_trace_mono` off `t = 3`) ⟹ no return; `tr ≤ −3` — the square has
+`tr(M²) = tr² − 2 ≥ 7` (`tr_sq`) and inherits the order ⟹ no return;
+`tr = ±2` — **parabolic rigidity**: the closed form `Mᵏ = I + k·(M − I)`
+(`parabolic_pow`, componentwise ℤ induction) forces `M = I` / `M² = I`;
+`tr ∈ {0, ±1}` — unconditional elliptic orders from Cayley–Hamilton
+(`M² = −I`, `M³ = ∓I` via `cube_entries`).  Capstones ★★★
+`finite_order_spectrum` (`M^{n+1} = I ⟹ M = I ∨ M² = I ∨ M³ = I ∨ M⁴ = I ∨
+M⁶ = I`) and ★★★ `finite_order_divides_twelve` (`⟹ M¹² = I`): six is the
+last finite period of the integer rotation family; `S⁴ = I`/`U⁶ = I` realize
+the top orders, `golden_aperiodic` sits just past the wall.  The ∀-form
+debate's build item: the finite side of "whatever modulus you bring" is now
+one uniform theorem.  (Power algebra `I_mul`/`mul_I`/`pow_add`/`pow_pow`/
+`det_mul` included; `ring_intZ` does the component identities — note its
+normal form does not prune explicit `0·x`/`1·x` terms, use
+`zero_mul`/`one_mulZ`/`mul_one` first.)
+
 `E213.Lib.Math.Analysis.Cauchy.DepthAperyCubic` — **23 PURE / 0 DIRTY**.  The Apéry
 zeta coefficient-degree statistic: the minimal-holonomic recurrence coefficients
 of ζ(2) (`(n+1)²uₙ₊₁=(11n²+11n+3)uₙ+n²uₙ₋₁`, degree 2) and ζ(3)

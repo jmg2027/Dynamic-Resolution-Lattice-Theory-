@@ -1,6 +1,6 @@
 # Real213 — Module Index (sub-organized 2026-05-13)
 
-213-native real-number type via Dedekind cut.  171 files: 102 top-level + 69 in
+213-native real-number type via Dedekind cut.  172 files: 103 top-level + 69 in
 6 sub-clusters.
 
 ## Sub-clusters

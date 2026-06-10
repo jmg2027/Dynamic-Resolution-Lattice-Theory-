@@ -99,6 +99,7 @@ import E213.Lib.Math.NumberSystems.Real213.Mat2CayleyHamilton
 import E213.Lib.Math.NumberSystems.Real213.Mat2Assoc
 import E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence
 import E213.Lib.Math.NumberSystems.Real213.GoldenAperiodic
+import E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum
 import E213.Lib.Math.NumberSystems.Real213.EllipticTracePeriodic
 import E213.Lib.Math.NumberSystems.Real213.UTracePeriodic
 import E213.Lib.Math.NumberSystems.Real213.CrossDetTraceField
