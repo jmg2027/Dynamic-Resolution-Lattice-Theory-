@@ -204,4 +204,41 @@ theorem riem_bianchi1 (n : Nat) (dGamma : Nat → Nat → Nat → Nat → Int)
   rw [hdG j l i k, hdG k l i j, hdG i l j k, ← hScomb]
   ring_intZ
 
+/-! ## §5 — the metric-tied Riemann symmetries (the curvature 2-jet)
+
+The *algebraic* symmetries of the Riemann tensor are pointwise; in normal coordinates at a
+point (`Γ = 0` there, the `ΓΓ` terms drop) the lowered Riemann is the metric **2-jet** part
+
+  `2·R_{iklj} = ∂_i∂_j g_{kl} + ∂_k∂_l g_{ij} − ∂_i∂_l g_{kj} − ∂_k∂_j g_{il}`,
+
+read off `ddg a b c d = ∂_a∂_b g_{cd}` (symmetric in `(a,b)` since `∂∂` commute, `hd`; and in
+`(c,d)` since `g` is symmetric, `hg`).  Its four defining symmetries follow from `hd`/`hg`,
+dimension-free, `∅`-axiom — the metric-tied symmetries the abstract §3 `riemUp` could not see. -/
+
+/-- The lowered linearized Riemann tensor (×2) from the metric 2-jet `ddg a b c d = ∂_a∂_b g_{cd}`. -/
+def riemLow (ddg : Nat → Nat → Nat → Nat → Int) (i k l j : Nat) : Int :=
+  ddg i j k l + ddg k l i j - ddg i l k j - ddg k j i l
+
+/-- ★★★★★ **Antisymmetry in the first pair** `R_{iklj} = −R_{kilj}` — pure (`ring_intZ`). -/
+theorem riemLow_antisym_ik (ddg : Nat → Nat → Nat → Nat → Int) (i k l j : Nat) :
+    riemLow ddg i k l j = -(riemLow ddg k i l j) := by
+  unfold riemLow; ring_intZ
+
+/-- ★★★★★ **Antisymmetry in the second pair** `R_{iklj} = −R_{ikjl}` — pure (`ring_intZ`). -/
+theorem riemLow_antisym_lj (ddg : Nat → Nat → Nat → Nat → Int) (i k l j : Nat) :
+    riemLow ddg i k l j = -(riemLow ddg i k j l) := by
+  unfold riemLow; ring_intZ
+
+/-- ★★★★★ **Pair symmetry** `R_{iklj} = R_{ljik}` — needs both metric-2-jet symmetries: `∂∂`
+    commutativity (`hd`) and metric symmetry (`hg`).  The block-symmetry of the curvature
+    operator. -/
+theorem riemLow_pair_symm (ddg : Nat → Nat → Nat → Nat → Int)
+    (hd : ∀ a b c d, ddg a b c d = ddg b a c d)
+    (hg : ∀ a b c d, ddg a b c d = ddg a b d c) (i k l j : Nat) :
+    riemLow ddg i k l j = riemLow ddg l j i k := by
+  unfold riemLow
+  rw [hd l k j i, hg k l j i, hd j i l k, hg i j l k, hd l i j k, hg i l j k,
+      hd j k l i, hg k j l i]
+  ring_intZ
+
 end E213.Lib.Math.Geometry.TensorCalculus
