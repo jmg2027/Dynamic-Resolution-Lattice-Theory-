@@ -2,7 +2,7 @@
 
 Universal-AW (Alexander-Whitney) propositions in the cup-product
 ring.  Each `Prop<N>` is a numbered universal-form theorem
-catalogued in `research-notes/G35`.
+catalogued in `research-notes/frontiers/G35`.
 
 ## Files (8)
 

@@ -133,4 +133,73 @@ protected theorem Raw.slash_ne_a (x y : Raw) (h : x ≠ y) :
   · rename_i hcmp
     exact h (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
 
+-- ═══ Public API: slash value + pair injectivity ═══
+
+/-- Value of a canonical slash when `cmp` orders the inputs `lt`. -/
+protected theorem Raw.slash_val_lt (x y : Raw) (h : x ≠ y)
+    (hc : Tree.cmp x.val y.val = .lt) :
+    (Raw.slash x y h).val = Tree.slash x.val y.val := by
+  unfold Raw.slash
+  split
+  · rfl
+  · rename_i hc'
+    rw [hc] at hc'
+    exact Ordering.noConfusion hc'
+  · rename_i hc'
+    exact absurd (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hc')) h
+
+/-- Value of a canonical slash when `cmp` orders the inputs `gt`. -/
+protected theorem Raw.slash_val_gt (x y : Raw) (h : x ≠ y)
+    (hc : Tree.cmp x.val y.val = .gt) :
+    (Raw.slash x y h).val = Tree.slash y.val x.val := by
+  unfold Raw.slash
+  split
+  · rename_i hc'
+    rw [hc] at hc'
+    exact Ordering.noConfusion hc'
+  · rfl
+  · rename_i hc'
+    exact absurd (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hc')) h
+
+/-- **Pair injectivity**: equal slashes have equal unordered input
+    pairs.  The two disjuncts are the direction-free pairing's only
+    freedom (clause 3). -/
+protected theorem Raw.slash_inj {x y z w : Raw} {h1 : x ≠ y} {h2 : z ≠ w}
+    (he : Raw.slash x y h1 = Raw.slash z w h2) :
+    (x = z ∧ y = w) ∨ (x = w ∧ y = z) := by
+  have hv : (Raw.slash x y h1).val = (Raw.slash z w h2).val :=
+    congrArg Subtype.val he
+  cases hcxy : Tree.cmp x.val y.val with
+  | lt =>
+    rw [Raw.slash_val_lt x y h1 hcxy] at hv
+    cases hczw : Tree.cmp z.val w.val with
+    | lt =>
+      rw [Raw.slash_val_lt z w h2 hczw] at hv
+      injection hv with e1 e2
+      exact Or.inl ⟨Subtype.ext e1, Subtype.ext e2⟩
+    | gt =>
+      rw [Raw.slash_val_gt z w h2 hczw] at hv
+      injection hv with e1 e2
+      exact Or.inr ⟨Subtype.ext e1, Subtype.ext e2⟩
+    | eq =>
+      exact absurd
+        (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hczw)) h2
+  | gt =>
+    rw [Raw.slash_val_gt x y h1 hcxy] at hv
+    cases hczw : Tree.cmp z.val w.val with
+    | lt =>
+      rw [Raw.slash_val_lt z w h2 hczw] at hv
+      injection hv with e1 e2
+      exact Or.inr ⟨Subtype.ext e2, Subtype.ext e1⟩
+    | gt =>
+      rw [Raw.slash_val_gt z w h2 hczw] at hv
+      injection hv with e1 e2
+      exact Or.inl ⟨Subtype.ext e2, Subtype.ext e1⟩
+    | eq =>
+      exact absurd
+        (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hczw)) h2
+  | eq =>
+    exact absurd
+      (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hcxy)) h1
+
 end E213.Theory

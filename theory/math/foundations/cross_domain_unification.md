@@ -178,8 +178,7 @@ Pascal-row) counts and the **fractal configuration count**
 `d^(d^n)` family are *both* downstream of the same atomic `d = 5`.
 The configuration count is a parametric family — **no level is
 privileged** (`configCount 2 = 5^25` is one true arithmetic value
-among many, not a universe constant; the earlier "`5²⁵ = N_U`"
-reading is deleted, see `RERESEARCH_n_u_removal.md`).
+among many, not a universe constant).
 
 Numerical witnesses at `d = 5`:
 
