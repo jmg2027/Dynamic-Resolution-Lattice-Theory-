@@ -121,6 +121,20 @@ modulus is the growth class of `N` in `k`, and it factors as
    orbit needing the full rank-3 lattice.  Why the self-similar P-orbit story
    does not lift to degree 3 as binary dynamics.
 
+0‴. **The CF pointing is universally rate-carrying — packaged + first transcendental
+   instance** (cross-branch follow-up).  `cf_universal_total_modulus` (already in
+   `ContinuedFractionModulus`) is now packaged with the explicit constant into
+   `cfCauchySeq : CauchyCutSeq` (`N(m,k) = k+2`, §6), and instantiated at
+   **Lambert's `coth(1/q) = [q; 3q, 5q, …]`** (`cothUnitCFCauchySeq`, anchors
+   `21/16`, `coth(1) ∈ (5/4, 3/2]`) — the repo's first *transcendental* completed
+   through its CF, unconditionally.  The pointing dichotomy is now a theorem pair:
+   the series pointing of `exp(p/q)` (`p ≥ 2`) carries no rate (`exp_pq_no_htel`),
+   the CF pointing of the same number family carries everything.  **The weld** —
+   Lambert CF correctness (Padé/Bessel identity: the CF real = series `coth(1/q)`)
+   — is the remaining identity; once welded, `e^{2/q} = (coth(1/q)+1)/(coth(1/q)−1)`
+   is one cut-Möbius step, discharging `ExpRationalCut`'s measure hypothesis on the
+   sharpest route.
+
 ## The 213 reading
 
 The fold/residue correction refines from a dichotomy into a **filtration**:

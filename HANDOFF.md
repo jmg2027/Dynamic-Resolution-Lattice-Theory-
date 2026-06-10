@@ -166,22 +166,36 @@ the strict squeeze `d·m < a·k ≤ U·bracket < d·m`).  So `exp(p/q)` now comp
 a *constructed* modulus conditionally on `hmeas` — the π-posture upgraded.  Wallis-π
 instantiates `toCauchySep` in one line whenever its measure hypothesis is supplied.
 
+## Eighth arc: the CF pointing packaged — Lambert `coth(1/q)` completes unconditionally
+
+Repo-first catch: `cf_universal_total_modulus` (every CF with quotients `≥ 1` carries
+the free modulus `k+2`) **already existed** (`ContinuedFractionModulus`, from main's
+floor/overtake arc) — do not rebuild.  Added §6 on top: explicit packaging
+`cfCauchySeq : CauchyCutSeq` (via `rate_cut_const`; `cf_cut_at_zero`/`cf_cut_const`)
+and the first **transcendental** instance: `cothUnitCFCauchySeq q` — Lambert's
+`coth(1/q) = [q; 3q, 5q, …]` (`cothCF q n = (2n+1)·q`, all quotients ≥ 1 free), with
+`decide` anchors `21/16` and `coth(1) ∈ (5/4, 3/2]` (module 23 PURE).  The pointing
+dichotomy is now a theorem pair: series pointing of `exp(p/q)` carries no rate
+(`exp_pq_no_htel`) — CF pointing of the same family carries everything.
+
 ## Open Problems (priority order)
-1. **Discharge `hmeas` for `exp(p/q)`** (the last open piece of the chain): the
-   Padé/Hermite effective irrationality of exp at rationals, with schedule
-   `I k ≈ 2p/q + O(log k)` (bracket halves per layer).  Alternatively the Hurwitz
-   continued fraction of `e^{2/q}`.  This is genuine number-theory formalization —
-   the single hypothesis the whole constructed chain now waits on.
-2. **ζ(3) free modulus** (merged frontier, `zeta3_free_modulus.md`): numerator
-   integrality `2·lcm(1..n)³·aₙ ∈ ℕ` + `lcm(1..n) < 3ⁿ` (Hanson) ⟹ ζ(3) joins φ/e
-   in the unconditional real API; its fold can also ride `toCauchySep` once a
-   bracket-separation certificate exists.
-3. **Bochner coupling beyond the spectral case**: the gradient-commutation
-   *inequality* on a non-vertex-transitive graph (star / `K_{a,b}`).
-4. **Compactness extraction** (smooth remainder of wall item (iv)) — record-only.
+1. **The weld — Lambert CF correctness** (sharpest route to unconditional
+   `exp(p/q)`): prove the Lambert real (`cothUnitCFCauchySeq q`) equals series
+   `coth(1/q)` — the Padé/Bessel identity.  Concrete plan: the CF convergents
+   `p_n/q_n` are ratios of the Bessel-polynomial sums; the identity
+   `q_n·(series) − p_n·(series') = explicit factorial-tail` is provable by
+   induction on the three-term recurrence against the series partial sums
+   (`ExpRationalCut` brackets give the order side).  Then
+   `e^{2/q} = (coth(1/q)+1)/(coth(1/q)−1)` — one cut-Möbius step — discharges
+   `hmeas` (`expPQCauchySep` becomes unconditional for `p = 2`).
+2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
+   numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
+3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient
+   commutation inequality).
+4. **Compactness extraction** (wall (iv) smooth remainder) — record-only.
 5. **Promotion**: GeometrizationConjecture discrete-curvature sub-tree + the
-   modulus-degree ladder cluster (now incl. `ExpRationalCut` + the `toCauchySep`
-   schema) — check `theory/PROMOTION_CRITERIA.md`.
+   modulus-degree ladder cluster (now incl. `ExpRationalCut`, `toCauchySep`,
+   `ContinuedFractionModulus` §6) — `theory/PROMOTION_CRITERIA.md`.
 
 ## Three-tier state
 - **Tier-2 added**: `WeightedGreen.lean`, `DiscreteGaussian.lean`, `DiscreteSurgery.lean`
