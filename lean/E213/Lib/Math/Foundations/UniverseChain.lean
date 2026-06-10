@@ -1,4 +1,5 @@
 import E213.Lib.Math.Foundations.UniverseChain.Atomicity
+import E213.Lib.Math.Foundations.UniverseChain.AtomicityCensusBridge
 import E213.Lib.Math.Foundations.UniverseChain.BipartiteFractal
 import E213.Lib.Math.Foundations.UniverseChain.Decomposition
 import E213.Lib.Math.Foundations.UniverseChain.FiniteContainsInfinite
