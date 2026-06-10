@@ -291,18 +291,17 @@ sandwich-locatable) sits strictly between — the boundary is a
 
 ## Open bricks (theorem targets after the audit)
 
-- **T1 (square-commutes, statement ready).**  On ℕ⁴ with positive
-  denominators define
-  `qdiffEquiv ((p₁,q₁),(p₂,q₂)) ((r₁,s₁),(r₂,s₂)) :=
-  (p₁·s₂ + r₂·q₁)·(s₁·q₂) = (r₁·q₂ + p₂·s₁)·(q₁·s₂)`
-  (the cross-equation of `p₁/q₁ − p₂/q₂ = r₁/s₁ − r₂/s₂`,
-  subtraction-free) and the comparison map
-  `β (p₁,q₁,p₂,q₂) := (Int.subNatNat (p₁·q₂) (p₂·q₁), q₁·q₂)`.
-  Theorem: `qdiffEquiv P R ↔ ratioEqZ (β P) (β R)`; corollary via
-  `lowest_exists`/`lowest_unique`: both routes hit the same
-  `IsLowest` representative.  Proof content = `subNatNat_add_add` +
-  `subNatNat_mul_ofNat` + distributivity — closes bricks 1+2 and
-  makes "distributivity = the commutation law" a theorem.
+- **T1 (square-commutes) — ★ CLOSED** (`Rat213.qdiffEquiv` /
+  `square_commutes` / `ratioEqZ_trans` / `qdiff_same_lowest`, all
+  PURE; the ℤ-side keystone `Int213.subNatNat_eq_iff` — the
+  difference-pair cross-equation, the ℤ-twin of `ratioEquiv` — added
+  to Core).  `qdiffEquiv P R ↔ ratioEqZ (β P) (β R)` with
+  `β = (subNatNat (p₁·q₂) (p₂·q₁), q₁·q₂)`, no positivity needed for
+  the iff; with positive denominators both routes hit the same
+  `IsLowest` representative.  Proof content = `subNatNat_mul_ofNat` +
+  `subNatNat_eq_iff` + distributivity shuffles — bricks 1+2 closed:
+  "distributivity is the commutation law of the two Lenses" is now a
+  theorem.
 - **T2 (bottom-rung integrality / rational root).**  Witness form:
   `gcd213 p q = 1 → 0 < q → pⁿ + Σ aᵢ pⁱ q^{n−i} = Σ bⱼ pʲ q^{n−j}
   (i,j < n) → q = 1` — "ℤ is the integral closure of ℕ in ℚ", making

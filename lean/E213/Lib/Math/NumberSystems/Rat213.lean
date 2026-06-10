@@ -38,7 +38,8 @@ open E213.Meta.Nat.Gcd213
   (gcd213_dvd_left gcd213_dvd_right gcd_strip_coprime coprime_repr_unique
    mul_assoc_213)
 open E213.Meta.Int213 (mul_mul_mul_comm mul_comm)
-open E213.Meta.Int213.Order (sub_zero ofNat_succ_sub_one lt_of_sub_one_nonneg)
+open E213.Meta.Int213.Order
+  (sub_zero ofNat_succ_sub_one lt_of_sub_one_nonneg le_refl le_antisymm)
 open E213.Meta.Int213.OrderMul (mul_le_mul_right_nonneg le_of_mul_le_mul_right_pos)
 
 /-- The signed cross-equation: `a₁/b₁ = a₂/b₂` as
@@ -250,5 +251,137 @@ theorem ratioLeZ_iff {a c a' c' : Int} {b d b' d' : Nat}
     ratioLeZ a b c d ↔ ratioLeZ a' b' c' d' :=
   ⟨ratioLeZ_descends hb hd ha hc,
    ratioLeZ_descends hb' hd' ha.symm hc.symm⟩
+
+/-! ## The square commutes (frontier T1)
+
+The ℚ₊→ℚ leg (`qdiffEquiv`: difference of two positive ratio pairs,
+subtraction-free over ℕ⁴) agrees with the ℕ→ℤ→ℚ leg: the comparison
+map `(p₁,q₁,p₂,q₂) ↦ (subNatNat (p₁·q₂) (p₂·q₁), q₁·q₂)` carries
+`qdiffEquiv` exactly onto `ratioEqZ` (`square_commutes`), so both
+routes hit the same lowest-terms representative
+(`qdiff_same_lowest`).  The proof content is distributivity and the
+two cross-equations (`subNatNat_eq_iff`, `subNatNat_mul_ofNat`) —
+"distributivity is the commutation law of the two Lenses" as a
+theorem. -/
+
+/-- The ℚ₊→ℚ leg: `p₁/q₁ − p₂/q₂ = r₁/s₁ − r₂/s₂`, cleared to the
+    subtraction-free cross-equation over ℕ⁴. -/
+def qdiffEquiv (p₁ q₁ p₂ q₂ r₁ s₁ r₂ s₂ : Nat) : Prop :=
+  (p₁ * s₂ + r₂ * q₁) * (s₁ * q₂) = (r₁ * q₂ + p₂ * s₁) * (q₁ * s₂)
+
+private theorem mul_left_comm_nat (a b c : Nat) :
+    a * (b * c) = b * (a * c) := by
+  rw [← mul_assoc_213 a b c, Nat.mul_comm a b, mul_assoc_213 b a c]
+
+private theorem mul_mul_mul_comm_nat (x y z w : Nat) :
+    (x * y) * (z * w) = (x * z) * (y * w) := by
+  rw [mul_assoc_213 x y (z * w), mul_left_comm_nat y z w,
+      ← mul_assoc_213 x z (y * w)]
+
+private theorem quad_shuffle (a b c d : Nat) :
+    (a * b) * (c * d) = (a * d) * (c * b) := by
+  rw [Nat.mul_comm c d, mul_mul_mul_comm_nat a b d c, Nat.mul_comm b c]
+
+/-- ★★★★★ **The number-system square commutes**: the ℚ₊-difference
+    cross-equation holds iff the ℤ-route images are `ratioEqZ`-equal.
+    No positivity needed for the equivalence itself. -/
+theorem square_commutes (p₁ q₁ p₂ q₂ r₁ s₁ r₂ s₂ : Nat) :
+    qdiffEquiv p₁ q₁ p₂ q₂ r₁ s₁ r₂ s₂
+    ↔ ratioEqZ (Int.subNatNat (p₁ * q₂) (p₂ * q₁)) (q₁ * q₂)
+               (Int.subNatNat (r₁ * s₂) (r₂ * s₁)) (s₁ * s₂) := by
+  have e1 : Int.subNatNat (p₁ * q₂) (p₂ * q₁) * Int.ofNat (s₁ * s₂)
+      = Int.subNatNat ((p₁ * q₂) * (s₁ * s₂)) ((p₂ * q₁) * (s₁ * s₂)) :=
+    E213.Meta.Int213.subNatNat_mul_ofNat _ _ _
+  have e2 : Int.subNatNat (r₁ * s₂) (r₂ * s₁) * Int.ofNat (q₁ * q₂)
+      = Int.subNatNat ((r₁ * s₂) * (q₁ * q₂)) ((r₂ * s₁) * (q₁ * q₂)) :=
+    E213.Meta.Int213.subNatNat_mul_ofNat _ _ _
+  constructor
+  · intro h
+    show Int.subNatNat (p₁ * q₂) (p₂ * q₁) * Int.ofNat (s₁ * s₂)
+       = Int.subNatNat (r₁ * s₂) (r₂ * s₁) * Int.ofNat (q₁ * q₂)
+    rw [e1, e2]
+    apply (E213.Meta.Int213.subNatNat_eq_iff _ _ _ _).mpr
+    calc (p₁ * q₂) * (s₁ * s₂) + (r₂ * s₁) * (q₁ * q₂)
+        = (p₁ * s₂) * (s₁ * q₂) + (r₂ * q₁) * (s₁ * q₂) := by
+          rw [quad_shuffle p₁ q₂ s₁ s₂, mul_mul_mul_comm_nat r₂ s₁ q₁ q₂]
+      _ = (p₁ * s₂ + r₂ * q₁) * (s₁ * q₂) :=
+          (E213.Tactic.NatHelper.add_mul _ _ _).symm
+      _ = (r₁ * q₂ + p₂ * s₁) * (q₁ * s₂) := h
+      _ = (r₁ * q₂) * (q₁ * s₂) + (p₂ * s₁) * (q₁ * s₂) :=
+          E213.Tactic.NatHelper.add_mul _ _ _
+      _ = (r₁ * s₂) * (q₁ * q₂) + (p₂ * q₁) * (s₁ * s₂) := by
+          rw [quad_shuffle r₁ q₂ q₁ s₂, mul_mul_mul_comm_nat p₂ s₁ q₁ s₂]
+  · intro h
+    have h' : Int.subNatNat ((p₁ * q₂) * (s₁ * s₂)) ((p₂ * q₁) * (s₁ * s₂))
+        = Int.subNatNat ((r₁ * s₂) * (q₁ * q₂)) ((r₂ * s₁) * (q₁ * q₂)) := by
+      rw [← e1, ← e2]; exact h
+    have hnat : (p₁ * q₂) * (s₁ * s₂) + (r₂ * s₁) * (q₁ * q₂)
+        = (r₁ * s₂) * (q₁ * q₂) + (p₂ * q₁) * (s₁ * s₂) :=
+      (E213.Meta.Int213.subNatNat_eq_iff _ _ _ _).mp h'
+    show (p₁ * s₂ + r₂ * q₁) * (s₁ * q₂) = (r₁ * q₂ + p₂ * s₁) * (q₁ * s₂)
+    calc (p₁ * s₂ + r₂ * q₁) * (s₁ * q₂)
+        = (p₁ * s₂) * (s₁ * q₂) + (r₂ * q₁) * (s₁ * q₂) :=
+          E213.Tactic.NatHelper.add_mul _ _ _
+      _ = (p₁ * q₂) * (s₁ * s₂) + (r₂ * s₁) * (q₁ * q₂) := by
+          rw [← quad_shuffle p₁ q₂ s₁ s₂, ← mul_mul_mul_comm_nat r₂ s₁ q₁ q₂]
+      _ = (r₁ * s₂) * (q₁ * q₂) + (p₂ * q₁) * (s₁ * s₂) := hnat
+      _ = (r₁ * q₂) * (q₁ * s₂) + (p₂ * s₁) * (q₁ * s₂) := by
+          rw [quad_shuffle r₁ q₂ q₁ s₂, mul_mul_mul_comm_nat p₂ s₁ q₁ s₂]
+      _ = (r₁ * q₂ + p₂ * s₁) * (q₁ * s₂) :=
+          (E213.Tactic.NatHelper.add_mul _ _ _).symm
+
+private theorem mul_right_swap (a x y : Int) :
+    (a * x) * y = (a * y) * x := by
+  rw [E213.Meta.Int213.mul_assoc, mul_comm x y,
+      ← E213.Meta.Int213.mul_assoc]
+
+/-- Transitivity of the signed cross-equation at a positive middle
+    denominator (multiply into the common frame, cancel). -/
+theorem ratioEqZ_trans {a₁ a₂ a₃ : Int} {b₁ b₂ b₃ : Nat} (hb₂ : 0 < b₂)
+    (h₁ : ratioEqZ a₁ b₁ a₂ b₂) (h₂ : ratioEqZ a₂ b₂ a₃ b₃) :
+    ratioEqZ a₁ b₁ a₃ b₃ := by
+  have hc₁ : a₁ * Int.ofNat b₂ = a₂ * Int.ofNat b₁ := h₁
+  have hc₂ : a₂ * Int.ofNat b₃ = a₃ * Int.ofNat b₂ := h₂
+  have key : (a₁ * Int.ofNat b₃) * Int.ofNat b₂
+      = (a₃ * Int.ofNat b₁) * Int.ofNat b₂ :=
+    calc (a₁ * Int.ofNat b₃) * Int.ofNat b₂
+        = (a₁ * Int.ofNat b₂) * Int.ofNat b₃ :=
+          mul_right_swap a₁ (Int.ofNat b₃) (Int.ofNat b₂)
+      _ = (a₂ * Int.ofNat b₁) * Int.ofNat b₃ := by rw [hc₁]
+      _ = (a₂ * Int.ofNat b₃) * Int.ofNat b₁ :=
+          mul_right_swap a₂ (Int.ofNat b₁) (Int.ofNat b₃)
+      _ = (a₃ * Int.ofNat b₂) * Int.ofNat b₁ := by rw [hc₂]
+      _ = (a₃ * Int.ofNat b₁) * Int.ofNat b₂ :=
+          mul_right_swap a₃ (Int.ofNat b₂) (Int.ofNat b₁)
+  have hpos : (0 : Int) < Int.ofNat b₂ := ofNat_pos hb₂
+  have hle1 : (a₁ * Int.ofNat b₃) * Int.ofNat b₂
+      ≤ (a₃ * Int.ofNat b₁) * Int.ofNat b₂ := by
+    rw [key]; exact le_refl _
+  have hle2 : (a₃ * Int.ofNat b₁) * Int.ofNat b₂
+      ≤ (a₁ * Int.ofNat b₃) * Int.ofNat b₂ := by
+    rw [key]; exact le_refl _
+  exact le_antisymm (le_of_mul_le_mul_right_pos hle1 hpos)
+    (le_of_mul_le_mul_right_pos hle2 hpos)
+
+/-- ★★★★★ **Square-commutes, terminal form**: two `qdiffEquiv`-equal
+    ℚ₊-differences have the *same* lowest-terms representative — the
+    two bracketings of ℕ⁴ meet in one normal form. -/
+theorem qdiff_same_lowest {p₁ q₁ p₂ q₂ r₁ s₁ r₂ s₂ : Nat}
+    (hq₁ : 0 < q₁) (hq₂ : 0 < q₂) (hs₁ : 0 < s₁) (hs₂ : 0 < s₂)
+    (h : qdiffEquiv p₁ q₁ p₂ q₂ r₁ s₁ r₂ s₂)
+    {a a' : Int} {b b' : Nat}
+    (hPl : IsLowest a b)
+    (hPe : ratioEqZ (Int.subNatNat (p₁ * q₂) (p₂ * q₁)) (q₁ * q₂) a b)
+    (hRl : IsLowest a' b')
+    (hRe : ratioEqZ (Int.subNatNat (r₁ * s₂) (r₂ * s₁)) (s₁ * s₂) a' b') :
+    a = a' ∧ b = b' := by
+  have hβ := (square_commutes p₁ q₁ p₂ q₂ r₁ s₁ r₂ s₂).mp h
+  have h1 : ratioEqZ a b (Int.subNatNat (p₁ * q₂) (p₂ * q₁)) (q₁ * q₂) :=
+    hPe.symm
+  have hchain1 : ratioEqZ a b (Int.subNatNat (r₁ * s₂) (r₂ * s₁)) (s₁ * s₂) :=
+    ratioEqZ_trans (Nat.mul_pos hq₁ hq₂) h1 hβ
+  have hchain2 : ratioEqZ a b a' b' :=
+    ratioEqZ_trans (Nat.mul_pos hs₁ hs₂) hchain1 hRe
+  exact lowest_unique hchain2 hPl hRl
 
 end E213.Lib.Math.NumberSystems.Rat213

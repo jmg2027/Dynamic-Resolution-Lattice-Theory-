@@ -839,4 +839,31 @@ theorem subNatNat_of_sandwich {a b x : Nat}
     Int.subNatNat b a = Int.ofNat x :=
   (subNatNat_eq_ofNat_iff a b x).mpr (eq_of_sandwich h1 h2)
 
+/-- ★★★★ The difference-pair cross-equation: two pairs read out the
+    same integer exactly when their cross-sums agree —
+    `subNatNat A B = subNatNat C D ↔ A + D = C + B`.  The ℤ-twin of
+    the ratio-Lens cross-equation (`RatioLensFounding.ratioEquiv`):
+    the +-transport's same-solution equivalence in one Iff. -/
+theorem subNatNat_eq_iff (A B C D : Nat) :
+    Int.subNatNat A B = Int.subNatNat C D ↔ A + D = C + B := by
+  constructor
+  · intro h
+    have hA : Int.ofNat (A + D) = Int.ofNat (C + B) :=
+      calc Int.ofNat (A + D)
+          = Int.ofNat A + Int.ofNat D := rfl
+        _ = (Int.subNatNat A B + Int.ofNat B) + Int.ofNat D := by
+            rw [subNatNat_add_self]
+        _ = (Int.subNatNat C D + Int.ofNat B) + Int.ofNat D := by rw [h]
+        _ = (Int.subNatNat C D + Int.ofNat D) + Int.ofNat B :=
+            add_right_comm _ _ _
+        _ = Int.ofNat C + Int.ofNat B := by rw [subNatNat_add_self]
+        _ = Int.ofNat (C + B) := rfl
+    exact Int.ofNat.inj hA
+  · intro h
+    have h1 : Int.subNatNat (A + D) (B + D) = Int.subNatNat A B :=
+      subNatNat_add_add A B D
+    have h2 : Int.subNatNat (C + B) (D + B) = Int.subNatNat C D :=
+      subNatNat_add_add C D B
+    rw [← h1, ← h2, h, Nat.add_comm B D]
+
 end E213.Meta.Int213
