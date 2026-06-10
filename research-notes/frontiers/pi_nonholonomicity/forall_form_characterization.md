@@ -119,7 +119,11 @@ structure = π's continued fraction — landing back on the
    trace trichotomy (`|t| ≥ 3` growth / `t = ±2` parabolic rigidity
    `Mᵏ = I + k(M−I)` / `t ∈ {0,±1}` Cayley–Hamilton orders).  The range-13
    census is upgraded to the uniform structural theorem; the ∀-form's finite
-   side has its Lean anchor.
+   side has its Lean anchor.  **Two-sided now**: `no_order_five` (no five-fold
+   lattice symmetry — the pentagon-forbidden axis), `exact_order_four`/`_six`
+   (4, 6 realized exactly by `S`/`U`), capstone `crystallographic_spectrum`
+   (the spectrum is exactly `{1,2,3,4,6}`; five is the first forbidden order —
+   the golden/quasicrystal axis the lattice cannot close).
 2. **Optionally**: 2–3 trace-escape-ladder instances (k = 5, 7: effective
    Liouville escape for `2cos(2π/k)` through the measure-modulus engine as
    degree-`φ(k)/2` rungs) as existence proof; defer the family (degenerating

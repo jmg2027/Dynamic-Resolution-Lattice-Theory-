@@ -1416,7 +1416,7 @@ presentation's divergence depth is 6, ratio degree 4) — and ★★★
 `HtelS wallisNum wallisDen ρ` fails — **the Wallis pointing's rung is `∞`**,
 proved, not estimated; the rung is a property of the pointing, not of π.
 
-`E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum` — **24 PURE / 0
+`E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum` — **29 PURE / 0
 DIRTY**.  ★★★ **The finite-order spectrum of `SL(2,ℤ)`, uniform** — the
 crystallographic restriction as a single structural theorem (every matrix,
 every exponent), upgrading the range-13 totient census
@@ -1437,7 +1437,15 @@ debate's build item: the finite side of "whatever modulus you bring" is now
 one uniform theorem.  (Power algebra `I_mul`/`mul_I`/`pow_add`/`pow_pow`/
 `det_mul` included; `ring_intZ` does the component identities — note its
 normal form does not prune explicit `0·x`/`1·x` terms, use
-`zero_mul`/`one_mulZ`/`mul_one` first.)
+`zero_mul`/`one_mulZ`/`mul_one` first.)  §6, the two-sided spectrum: ★★★ `no_order_five`
+(`det M = 1`, `M⁵ = I ⟹ M = I` — **no five-fold lattice symmetry**, the
+crystallographic crown jewel / pentagon-forbidden axis) and `no_order_seven`,
+both via `finite_order_spectrum` + Bezout-free coprime collapse (each realized
+order is coprime to 5 / 7); `exact_order_four`/`exact_order_six` (`S`/`U`
+realize orders 4/6 exactly, by `decide` on the non-identity powers); capstone
+★★★ `crystallographic_spectrum` — the finite-order spectrum of `SL(2,ℤ)` is
+exactly `{1,2,3,4,6}`, five the first forbidden (so the only prime orders are
+2, 3: `PSL(2,ℤ) = ℤ₂ ∗ ℤ₃`).
 
 `E213.Lib.Math.Analysis.Cauchy.DepthAperyCubic` — **23 PURE / 0 DIRTY**.  The Apéry
 zeta coefficient-degree statistic: the minimal-holonomic recurrence coefficients

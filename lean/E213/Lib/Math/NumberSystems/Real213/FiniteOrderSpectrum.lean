@@ -42,7 +42,7 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum
 
 open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace.Mat2 (mul tr det I negI)
+open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace.Mat2 (mul tr det I negI S U)
 open E213.Lib.Math.NumberSystems.Real213.Mat2CayleyHamilton (charComb cayley_hamilton)
 open E213.Lib.Math.NumberSystems.Real213.Mat2Assoc (mul_assoc)
 open E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence (pow trace_recurrence)
@@ -515,5 +515,100 @@ theorem finite_order_divides_twelve (M : Mat2) (hdet : det M = 1) (n : Nat)
     rw [e, h4]; exact pow_I 3
   · have e : pow M 12 = pow (pow M 6) 2 := by rw [pow_pow M 6 2]
     rw [e, h6]; exact pow_I 2
+
+/-! ## §6 — the forbidden five-fold axis + the realized orders -/
+
+/-- ★★★ **No five-fold symmetry.**  `det M = 1`, `M⁵ = I` ⟹ `M = I` — the
+    crystallographic restriction's crown jewel: a 2D integer lattice admits no
+    rotation of order 5 (the pentagon / quasicrystal-forbidden axis,
+    `PentagonGoldenTrace`).  By `finite_order_spectrum` the order lands in
+    `{1,2,3,4,6}`, each coprime to 5, so `M⁵ = I` collapses it to the
+    identity. -/
+theorem no_order_five (M : Mat2) (hdet : det M = 1) (h : pow M 5 = I) : M = I := by
+  have e51 : pow M 5 = mul (pow M 4) M := rfl
+  have e52 : pow M 5 = mul (pow M 3) (pow M 2) := pow_add M 3 2
+  rcases finite_order_spectrum M hdet 4 h with h1 | h2 | h3 | h4 | h6
+  · exact h1
+  · -- M² = I ⟹ M⁴ = I ⟹ M⁵ = M⁴·M = M ⟹ M = I
+    have hp2 : pow M 2 = I := by
+      show mul (mul I M) M = I; rw [I_mul]; exact h2
+    have hp4 : pow M 4 = I := by rw [pow_add M 2 2, hp2, I_mul]
+    have key : mul (pow M 4) M = I := e51 ▸ h
+    rw [hp4, I_mul] at key; exact key
+  · -- M³ = I ⟹ M² = M⁵ = I, then M = M²·M·(M²)⁻¹ collapses: M³ = M²·M ⟹ M = I
+    have hp2 : pow M 2 = I := by rw [e52, h3, I_mul] at h; exact h
+    have key : mul (pow M 2) M = I := h3
+    rw [hp2, I_mul] at key; exact key
+  · -- M⁴ = I ⟹ M⁵ = M⁴·M = M ⟹ M = I
+    rw [e51, h4, I_mul] at h; exact h
+  · -- M⁶ = I, M⁵ = I ⟹ M⁶ = M⁵·M = M ⟹ M = I
+    have e6 : pow M 6 = mul (pow M 5) M := rfl
+    rw [h, I_mul] at e6
+    rw [e6] at h6; exact h6
+
+/-- ★★★ **No seven-fold symmetry** either (`det M = 1`, `M⁷ = I` ⟹ `M = I`):
+    7 is coprime to every realized order `{2,3,4,6}`, so the same collapse runs.
+    Together with `no_order_five`, the only *prime* orders in `SL(2,ℤ)` are 2
+    and 3 (`PSL(2,ℤ) = ℤ₂ ∗ ℤ₃`). -/
+theorem no_order_seven (M : Mat2) (hdet : det M = 1) (h : pow M 7 = I) : M = I := by
+  have e7 : pow M 7 = mul (pow M 6) M := rfl
+  have e73 : pow M 7 = mul (pow M 4) (pow M 3) := pow_add M 4 3
+  have e74 : pow M 7 = mul (pow M 3) (pow M 4) := pow_add M 3 4
+  have e76 : pow M 7 = mul (pow M 6) (pow M 1) := pow_add M 6 1
+  rcases finite_order_spectrum M hdet 6 h with h1 | h2 | h3 | h4 | h6
+  · exact h1
+  · -- M² = I ⟹ M⁶ = I ⟹ M⁷ = M⁶·M = M
+    have hp2 : pow M 2 = I := by
+      show mul (mul I M) M = I; rw [I_mul]; exact h2
+    have hp6 : pow M 6 = I := by
+      rw [show (6:Nat) = 2 + 2 + 2 from rfl, pow_add M (2+2) 2, pow_add M 2 2,
+          hp2, I_mul, I_mul]
+    rw [e7, hp6, I_mul] at h; exact h
+  · -- M³ = I ⟹ M⁶ = I ⟹ M⁷ = M
+    have hp6 : pow M 6 = I := by
+      rw [show (6:Nat) = 3 + 3 from rfl, pow_add M 3 3, h3, I_mul]
+    rw [e7, hp6, I_mul] at h; exact h
+  · -- M⁴ = I ⟹ M⁷ = M⁴·M³ = M³, and M⁸ = (M⁴)² = I ⟹ M³·M⁴ ... use M⁴=I twice:
+    -- M⁷ = M⁴·M³ = M³ = I, and M⁴ = M³·M = M ⟹ M = I
+    have hp3 : pow M 3 = I := by rw [e73, h4, I_mul] at h; exact h
+    have key : mul (pow M 3) M = I := h4
+    rw [hp3, I_mul] at key; exact key
+  · -- M⁶ = I ⟹ M⁷ = M⁶·M = M
+    rw [e76, h6, I_mul, pow_one] at h; exact h
+
+/-- ★ **Order 4 is realized exactly** by the Gaussian generator `S`: `S⁴ = I`
+    while `S, S², S³ ≠ I`. -/
+theorem exact_order_four :
+    pow S 4 = I ∧ pow S 1 ≠ I ∧ pow S 2 ≠ I ∧ pow S 3 ≠ I := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- ★ **Order 6 is realized exactly** by the Eisenstein generator `U`: `U⁶ = I`
+    while `U, …, U⁵ ≠ I`. -/
+theorem exact_order_six :
+    pow U 6 = I ∧ pow U 1 ≠ I ∧ pow U 2 ≠ I ∧ pow U 3 ≠ I
+    ∧ pow U 4 ≠ I ∧ pow U 5 ≠ I := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- ★★★ **The crystallographic spectrum, two-sided.**  Bundles:
+
+    1. every finite order in `SL(2,ℤ)` lands in `{1,2,3,4,6}`
+       (`finite_order_spectrum`);
+    2. orders 4 and 6 are realized exactly (`S`, `U`);
+    3. order 5 is **forbidden** (`no_order_five`) — the pentagon axis.
+
+    The finite-order spectrum of the integer modular family is exactly
+    `{1,2,3,4,6}`; five is the first forbidden order, the quasicrystal /
+    golden axis the lattice cannot close.  (`golden_aperiodic` shows the
+    hyperbolic `G` has no finite order at all — the continuous escape.) -/
+theorem crystallographic_spectrum :
+    (∀ (M : Mat2) (n : Nat), det M = 1 → pow M (n+1) = I →
+        M = I ∨ mul M M = I ∨ pow M 3 = I ∨ pow M 4 = I ∨ pow M 6 = I)
+    ∧ (pow S 4 = I ∧ pow S 2 ≠ I)
+    ∧ (pow U 6 = I ∧ pow U 3 ≠ I ∧ pow U 2 ≠ I)
+    ∧ (∀ (M : Mat2), det M = 1 → pow M 5 = I → M = I) :=
+  ⟨fun M n hdet h => finite_order_spectrum M hdet n h,
+   ⟨by decide, by decide⟩,
+   ⟨by decide, by decide, by decide⟩,
+   fun M hdet h => no_order_five M hdet h⟩
 
 end E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum
