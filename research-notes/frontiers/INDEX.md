@@ -162,6 +162,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `signed_rationals_normal_form` — **all of ℚ as sign × coprime pair**:
+  the composite of the difference-Lens swap readout and the ∣-order
+  lowest-terms readout (`gcd_strip_coprime`).  Why the mix is forced this
+  way is closed (`OrderMul.mul_le_mul_right_nonpos`: a nonpositive factor
+  reverses `≤`, so cross-`≤` does not descend through the sign quotient);
+  open bricks: the Euclid lemma (`gcd213 a b = 1 → a ∣ b*c → a ∣ c`,
+  Bezout-free route via `gcd213` distributivity), uniqueness of the
+  coprime representation, the signed composite with its derived order.
 - `G35_chiral_cup_ring_catalog` — **the 213-Algebra field catalog** (17 domains):
   the field-level synthesis board, broader than any single `theory/` chapter;
   §0.5 tracks per-conjecture (C1–C6) closure status + promoted chapters.  Active
