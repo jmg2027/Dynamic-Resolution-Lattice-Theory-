@@ -147,18 +147,34 @@ tower.
 ## Question tuple vs answer axes (the fold-back rule)
 
 Two different tuple counts, separated: the **question tuple** (the
-equation's coefficients — `a·xⁿ = b` is a *pair* for every degree;
-general degree n is n+1 coefficients + a root selector) and the
-**answer-system axes** (the dimension of the +,×-closure over ℚ).
+equation's data) and the **answer-system axes** (the dimension of the
++,×-closure over ℚ).  The question tuple itself has two slot types:
+`a·xⁿ = b` is `((a, b), n)` — **two operand slots** (elements of the
+system being extended; upgraded by each completion) plus **one
+counter slot** (the fold-iteration depth; stays ℕ under *every*
+completion — depth, not coordinate).  General degree n: n+1 operand
+slots + the degree counter + a root selector.
+
+The slot types explain three things at once.  (i) ℚ₊ is born twice:
+the +-fold's *counter*-question ("how many times must `a` be added to
+reach `b`") is `a·x = b`, coinciding with the ×-fold's
+*operand*-question by commutativity `n·a = a·n`.  (ii) That symmetry
+breaks one rung up (`xⁿ ≠ nˣ`): the ^-root question vacates an
+operand slot (algebraic, fold-back), the ^-log question vacates the
+counter slot.  (iii) The counter-question's tameness drops one grade
+per rung — the +-counter is linear (ℚ), the ×-counter exponential
+(`aˣ = b`, no fold-back, transcendental, sandwich-family only).  The
+hyperoperation ladder itself is "promote the previous counter slot to
+an operand slot" — iterated objectification of the fold depth.
 Adjoining α a priori creates infinitely many axes α, α², …; the
 equation `a·αⁿ = (lower terms)` is a **fold-back rule** sending the
 n-th power into the span of the first n, so the axes stop at n:
 
-| equation | question tuple | answer axes |
+| equation | operand slots + counter slots | answer axes |
 |---|---|---|
-| `a+x=b`, `a·x=b` | 2 | 1 (collapse — degree 1 folds α itself into the base) |
-| `a·xⁿ=b` | 2 | n |
-| general degree n (irreducible) | n+1 | n |
+| `a+x=b`, `a·x=b` | 2 + 0 | 1 (collapse — degree 1 folds α itself into the base) |
+| `a·xⁿ=b` | 2 + 1 | n |
+| general degree n (irreducible) | (n+1) + 1 | n |
 | k independent square roots | 2 each | 2^k (compositum doubling — the commutative twin of the CD tower; `ZSqrt*`/`ZOmega`/`ZI` the 2-axis PURE instances, `HurwitzTower` the 4-axis) |
 | no equation (transcendental) | ∞ | ∞ (sandwich-family only) |
 
