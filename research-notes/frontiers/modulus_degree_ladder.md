@@ -4,7 +4,9 @@
 degree 2, 3, … — `W ~ N(m,k)²`, `N(m1,k1)×N(m2,k2)`, or other shapes?
 
 **Status**: the algebraic pillar is **closed** at degrees 2 and 3; the graded
-transcendental generator and the two-real separation modulus are **open**.
+rate generator (rung 1) is **closed** (`RateModulus.graded_total_modulus`,
+`N = k^s + 1`); the two-real separation modulus and the measure-modulus schema
+are **open**.
 
 ## The conversion law (the frame)
 
@@ -29,7 +31,7 @@ modulus is the growth class of `N` in `k`, and it factors as
   presentation-dependence (`Zeta3Cut.zeta3_presentation_overtakes`) are the
   transcendental-only regime.
 
-## Open rungs
+## Rungs (status inline)
 
 0. **The exact degree of an arbitrary irrational** (originator, second round).
    The "tight, no-more-no-less" degree is the irrationality measure `μ(x)`,
@@ -78,12 +80,23 @@ modulus is the growth class of `N` in `k`, and it factors as
    `dyUp` (lower witness needs the ratio/rescale property), and a real whose
    *intrinsic* degree is irrational (Jarník construction) rather than a
    rescheduled presentation.
-1. **Graded rate generator** — refine the binary `Dominates`
-   (`RateStratification`) with polynomial slack: `Dominates_s` forgiving an
-   `i^{s−1}` factor of overtake, generalizing `rate_total_modulus` to
-   `N(m,k) = k^s + 2`.  Makes "rescue" graded the way `CompletabilityGrade`
-   already grades "break" (lex `(height, rate)` ordinal) — the two axes become
-   symmetric.
+1. **Graded rate generator** — **CLOSED** (`RateModulus` / `RateStratification`,
+   all ∅-axiom).  The margin telescope parametrized by a probe schedule
+   `ρ : ℕ → ℕ`: `HtelS a d ρ` (margin `e_i + 1/(ρ_i·d_i)` non-increasing) plus
+   one admitted layer (`k ≤ ρ i₀`) ⟹ cut constant past `i₀+1`
+   (`rateS_cut_const`).  `ρ = id` recovers `Htel`/`N = k+2` definitionally;
+   `ρ = rootFloor s` (new `Meta/Nat/RootFloor`, calibration
+   `rootFloor s (k^s) = k`) gives `graded_total_modulus`: **`N(m,k) = k^s + 1`**
+   (one better than the conjectured `k^s + 2`).  Per-layer form `DominatesS W d ρ`
+   with `htelS_iff_dominatesS` (characterization at every grade) and
+   `overtakeS_breaks_layer`.  The forgiven factor, measured at the admission
+   layer `i = r^s`, is `r^{s−1}` (slack defended `1/(r·d)` vs the identity
+   schedule's `1/(r^s·d)`) — the note's conjectured `i^{s−1}` reads correctly in
+   probe units, not layer units.  Strictness witnessed: `sepDen`
+   (`d_{i+1} = (⌊√i⌋+2)·d_i`, `W = d`) is root-2-dominated everywhere but breaks
+   `Dominates` at layer 4 (`graded_stratification`).  Rescue is now graded the
+   way `CompletabilityGrade` grades break.  Narrative:
+   `theory/math/analysis/holonomic_modulus.md` §4.
 2. **Conditional measure-modulus schema** — `effective measure μ + Cauchy rate
    ⟹ constructed N`.  Instance: Wallis-π with `μ(π) ≤ 7.11` would carry a
    degree-≈7 modulus; the formalization cost of the measure is thereby isolated
@@ -113,6 +126,8 @@ sits in no rung; the ladder classifies the ways of pointing at it.
 ## Pointers
 
 - Closed: `lean/E213/Lib/Math/NumberSystems/Real213/CubeRootTwoCut.lean`,
-  `PhiAsCut`/`FibCassiniNat` (degree 2), `holonomic_modulus.md` (degree-1 class)
+  `PhiAsCut`/`FibCassiniNat` (degree 2), `holonomic_modulus.md` (degree-1 class);
+  rung 1: `Real213/{RateModulus,RateStratification}.lean` (graded generator,
+  `HtelS`/`DominatesS`/`graded_total_modulus`) + `Meta/Nat/RootFloor.lean`
 - Break-grading: `CompletabilityGrade`, `RefinedCompletabilityEngine`
 - ζ(3) companion frontier: `zeta3_free_modulus.md`

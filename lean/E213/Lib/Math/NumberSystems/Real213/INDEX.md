@@ -82,20 +82,30 @@
 
 **Modulus + tower-native completeness + stratification** (narrative
 `theory/math/analysis/{holonomic_modulus, tower_native_completeness}.md`):
-  - `RateModulus.lean` — ★ the general "rate-carrying ⟹ total modulus `N=k+2`"
-    generator (`rate_total_modulus`).  A monotone convergent cut `a_i/d_i` with a
-    non-increasing margin (`Htel`, the rate certificate) completes; `Htel_of_crossdet`
-    reduces the certificate to a *smallness law* on the cross-determinant
-    `W_i = a_{i+1}d_i − a_i d_{i+1}` against the denominator's discrete growth — the
-    bridge where the divergence ladder (`W`) meets the modulus generator.
+  - `RateModulus.lean` — ★ the "rate-carrying ⟹ total modulus" generator, graded by
+    probe schedule.  A monotone convergent cut `a_i/d_i` with a non-increasing
+    scheduled margin `e_i + 1/(ρ_i·d_i)` (`HtelS`, the graded rate certificate)
+    completes past any layer admitting the probe (`rateS_total_modulus`); the
+    identity schedule is `Htel` / `rate_total_modulus` (`N=k+2`), the degree-`s`
+    root schedule (`Meta.Nat.RootFloor`) is `graded_total_modulus` (`N=k^s+1`) —
+    an `r^{s−1}` factor of overtake forgiven at the admission layer `i=r^s`, paid
+    as modulus degree.  `Htel_of_crossdet` reduces the certificate to a *smallness
+    law* on the cross-determinant `W_i = a_{i+1}d_i − a_i d_{i+1}` against the
+    denominator's discrete growth — the bridge where the divergence ladder (`W`)
+    meets the modulus generator.
   - `HolonomicReal.lean` — the `Holonomic`/`HolonomicReal` bundle (recurrence + Cauchy
     cut-sequence + valid limit); φ and e instances with constructed modulus.
   - `RateStratification.lean` — ★ the smallness law as a layer-by-layer **W-vs-d
-    comparison**.  `Dominates W d i`; `htel_iff_dominates` upgrades `Htel_of_crossdet`
-    from implication to *characterization* (`Htel` ⟺ domination at every layer);
-    `dominated_free_modulus`; `overtake_breaks_layer` (the boundary); the unimodular
-    det-1 floor (`W ≡ 1`, `T=[[2,1],[1,1]]`) is dominated against `d_i=(i+1)(i+2)`
-    everywhere (`floor_dominates_all`) — the trivially-free bottom (`tower_stratification`).
+    comparison**, graded by schedule.  `DominatesS W d ρ i` (the ladder's
+    `Dominates_s`; `Dominates` the identity instance); `htelS_iff_dominatesS`
+    upgrades `Htel_of_crossdet` from implication to *characterization* (`HtelS` ⟺
+    scheduled domination at every layer); `dominated_free_modulus` /
+    `dominatedS_graded_modulus` (`N=k+2` / `N=k^s+1`); `overtakeS_breaks_layer`
+    (the boundary); the unimodular det-1 floor (`W ≡ 1`, `T=[[2,1],[1,1]]`) is
+    dominated against `d_i=(i+1)(i+2)` everywhere (`floor_dominates_all`) — the
+    trivially-free bottom (`tower_stratification`); and the grading is **strict**:
+    `sepDen` (`d_{i+1}=(⌊√i⌋+2)·d_i`, `W=d`) is root-2-dominated everywhere yet
+    breaks `Dominates` at layer 4 (`graded_stratification`).
   - `CrossDetOvertake.lean` — ★ completability boundary: `CrossDetSmall`, below ⟹ free,
     the double-exponential overtake break.  (Companion to `RateStratification`: the same
     W-vs-d boundary, presented as a `CrossDetSmall` predicate + double-exp witness.)

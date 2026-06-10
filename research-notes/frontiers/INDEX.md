@@ -172,10 +172,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   the algebraic pillar at degrees 2 (φ form cut) and 3 (`CubeRootTwoCut`, 31
   PURE: side-decision = `ε·k³ < d³`, total modulus `N = 3k+5`, fold lands on
   the frozen form cut) — algebraic degree enters as the probe exponent `k^s`,
-  presentation-robust, vs the transcendental-only `W`-vs-`d` race.  Open: the
-  graded rate generator (`Dominates_s` ⟹ `N = k^s`), the conditional
+  presentation-robust, vs the transcendental-only `W`-vs-`d` race; and the
+  **graded rate generator** (rung 1): the margin telescope parametrized by a
+  probe schedule (`HtelS`/`DominatesS`, `RateModulus`/`RateStratification`),
+  `ρ = rootFloor s` ⟹ `N = k^s + 1`, strictness witnessed by `sepDen`
+  (root-2-rescued, identity-broken at layer 4).  Open: the conditional
   measure-modulus schema (Wallis-π + `μ(π) ≤ 7.11` ⟹ degree-≈7), the two-real
-  separation modulus, degree-4+ form cuts.
+  separation modulus, degree-4+ form cuts, `dyUp` tightness.
 - `zeta3_free_modulus` — **ζ(3): built fold → free total modulus**.  The fold is
   closed (`Real213/Zeta3Cut`, 35 PURE: exact ℕ Apéry recurrence + closed-form
   Casoratian `6·(m!)⁶` + `AbCutSeq` + bracket `601/500 < ζ(3) ≤ 1203/1000`), and

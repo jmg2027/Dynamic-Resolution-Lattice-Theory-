@@ -1324,17 +1324,50 @@ self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction 
 
 ### Real-number stratification addition (2026-06-01)
 
-`E213.Lib.Math.NumberSystems.Real213.RateStratification` — **12 PURE / 0 DIRTY**.
+`E213.Lib.Math.NumberSystems.Real213.RateStratification` — **21 PURE / 0 DIRTY**.
 The constructed-modulus generator's smallness law made a layer-by-layer
-**W-vs-d comparison**: `htel_iff_dominates` (the rate certificate `Htel`
-is *exactly* domination at every layer), `dominated_free_modulus`
-(domination everywhere ⟹ free modulus), `overtake_breaks_layer` (any
-layer where the cross-determinant overtakes the denominator quantum
-breaks it), and the unimodular det-1 floor as the trivially-free bottom
-(`floor_dominates_all` / `floor_carries_Htel` / `tower_stratification`).
-The forward additive-cancel used the PURE `NatHelper.le_of_add_le_add_left`
-(Lean-core `Nat.le_of_add_le_add_left` is propext-dirty); the floor
-polynomial identity is discharged by the `Meta.Nat.PolyNat` reflection ring.
+**W-vs-d comparison**, graded by probe schedule: `DominatesS W d ρ i` (the
+ladder note's `Dominates_s`; `Dominates` is the `ρ = id` instance),
+`htelS_iff_dominatesS` (the graded rate certificate `HtelS a d ρ` is
+*exactly* `ρ`-domination at every layer, for any schedule — `htel_iff_dominates`
+the identity instance), `dominated_free_modulus` / `dominatedS_graded_modulus`
+(domination everywhere ⟹ modulus `k+2` / `k^s+1`), `overtakeS_breaks_layer`
+(any layer where the cross-determinant overtakes the scheduled denominator
+quantum breaks it), the unimodular det-1 floor as the trivially-free bottom
+(`floor_dominates_all` / `floor_carries_Htel` / `tower_stratification`),
+and ★★★ the **strict-separation witness**: `sepDen` (`d_{i+1} = (⌊√i⌋+2)·d_i`,
+`W = d`) is root-2-dominated at *every* layer (`sep_dominatesS_all`) yet
+breaks `Dominates` at layer 4 (`sep_breaks_unit_schedule`, `1296 ≤ 1080` fails)
+— rescue is graded the way `CompletabilityGrade` grades break
+(`graded_stratification` capstone).  The forward additive-cancel used the PURE
+`NatHelper.le_of_add_le_add_left` (Lean-core `Nat.le_of_add_le_add_left` is
+propext-dirty); the floor polynomial identity is discharged by the
+`Meta.Nat.PolyNat` reflection ring.
+
+`E213.Lib.Math.NumberSystems.Real213.RateModulus` — **10 PURE / 0 DIRTY**.  ★★★
+**The graded rate generator** (modulus-degree ladder rung 1).  The margin
+telescope is parametrized by a probe schedule `ρ`: `HtelS a d ρ` (the margin
+`e_i + 1/(ρ_i·d_i)` is non-increasing) plus one admitted layer (`k ≤ ρ i₀`)
+yields the cut constant past `i₀+1` (`rateS_cut_const` / `rateS_total_modulus`).
+The identity schedule recovers `Htel` definitionally (`htelS_of_htel`) and
+`rate_total_modulus`'s `N(m,k) = k+2`; the degree-`s` root schedule
+`ρ = rootFloor s` admits `k` at layer `k^s` (`rootFloor_pow`), giving ★★★
+`graded_total_modulus`: **`N(m,k) = k^s + 1`** — at the admission layer
+`i = r^s` the schedule defends slack `1/(r·d_i)` where the identity schedule
+defends `1/(r^s·d_i)`, an `r^{s-1}` factor of overtake forgiven, paid as
+modulus degree.  `Htel_of_crossdet` (the W-smallness bridge) unchanged.
+
+`E213.Meta.Nat.PowBasic` — **6 PURE / 0 DIRTY**.  The arbitrary-base power
+toolkit (`powBase_le`, `powBase_lt`, `one_le_pow`, `self_le_pow`,
+`pow_mul_pure`, `one_pow_pure`) — Lean-core counterparts are propext-dirty;
+base-2 specializations live in `Meta.Tactic.Pow213`.
+
+`E213.Meta.Nat.RootFloor` — **11 PURE / 0 DIRTY**.  The integer `s`-th root,
+floor reading: `rootFloor s x` = largest `r ≤ x` with `r^s ≤ x` (bounded
+descent `rootFloorGo`), sandwich characterization (`rootFloor_pow_le` /
+`rootFloor_succ_pow_gt`), exact calibration on powers (`rootFloor_pow :
+rootFloor s (k^s) = k`), monotone in the radicand (`rootFloor_mono`).  The
+degree-`s` probe schedule of the graded rate generator.
 
 `E213.Lib.Math.Analysis.Cauchy.DepthAperyCubic` — **23 PURE / 0 DIRTY**.  The Apéry
 zeta coefficient-degree statistic: the minimal-holonomic recurrence coefficients
@@ -1518,7 +1551,8 @@ Capstone `cbrt_limit_eq_form`: the completed fold **equals** the frozen closed-f
 `FibCassiniNat.qb_lt_pk` (`4k² < b²`); the rate race and its presentation-dependence
 (`Zeta3Cut`) are thereby isolated as the transcendental-only regime.
 
-`E213.Lib.Math.NumberSystems.Real213.ModulusComposition` — **34 PURE / 0 DIRTY**.  ★★★
+`E213.Lib.Math.NumberSystems.Real213.ModulusComposition` — **28 PURE / 0 DIRTY**
+(the arbitrary-base power toolkit lives in `Meta.Nat.PowBasic`).  ★★★
 **Schedules with irrational degree — receipts taking receipts.**  `powSched c B k =
 ⌈k^{p/2^k}⌉` with the exponent `p = dyUp c B k` read off a *cut* `c` level by level
 (`dyUp_true`: sound from an integer witness + forward doubling `c m k → c (2m) (2k)`;

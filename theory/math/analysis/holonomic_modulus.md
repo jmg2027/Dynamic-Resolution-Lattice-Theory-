@@ -166,6 +166,38 @@ unimodular floor carries its own rate certificate unconditionally
 (`floor_carries_Htel`).  The atomic floor is the free bottom; the overtake regime is
 the genuine content above it.  `tower_stratification` bundles the three facts.
 
+**The comparison is graded, not binary — the generator takes a probe schedule.**
+The margin invariant of §2 never used the specific slack `1/(i·dᵢ)`; it used only
+that the slack telescopes and that some layer's slack absorbs the probe's `Nat`
+strictness quantum `1/(k·dᵢ)`.  Parametrize it: a **probe schedule** `ρ : ℕ → ℕ`
+carries the margin `eᵢ + 1/(ρᵢ·dᵢ)`, the graded certificate `HtelS a d ρ` says it
+is non-increasing, and probe denominator `k` is *admitted* at any layer `i₀` with
+`k ≤ ρ i₀`.  Then (`RateModulus.rateS_cut_const`, ∅-axiom) the cut is constant
+past `i₀ + 1` — the same trichotomy, pure transitivity again.  The identity
+schedule is §2 verbatim (`Htel` is definitionally `HtelS a d id`, `N = k+2`).
+The degree-`s` root schedule `ρ = rootFloor s` (`Meta/Nat/RootFloor`, the integer
+root with `rootFloor s (k^s) = k`) admits `k` at layer `k^s`, giving
+
+> **`RateModulus.graded_total_modulus`** *(∅-axiom)*.  `HtelS a d (rootFloor s)`
+> plus the monotonicity pair yields the total modulus `N(m,k) = k^s + 1`.
+
+What is bought and what is paid is visible at the admission layer `i = r^s`: the
+identity schedule defends the slack `1/(r^s·dᵢ)` there, the root schedule only
+`1/(r·dᵢ)` — an `r^{s−1}` factor of overtake forgiven per probe — and the price
+is the modulus degree `k^s`.  The per-layer form is `DominatesS W d ρ i`
+(`ρᵢ·ρ_{i+1}·W_i + ρᵢ·dᵢ ≤ ρ_{i+1}·d_{i+1}`), and the characterization persists
+at every grade: `htelS_iff_dominatesS` (the graded certificate **iff** scheduled
+domination at every layer), `overtakeS_breaks_layer` (the scheduled overtake
+boundary).  The grading is **strict**: the presentation `d_{i+1} = (⌊√i⌋+2)·dᵢ`
+with `W = d` is dominated by the root-2 schedule at every layer yet breaks the
+identity-schedule comparison at layer 4 (`sep_dominatesS_all` /
+`sep_breaks_unit_schedule`, bundled in `graded_stratification`).  So "completes
+freely" is not one comparison but a ladder of them, one per schedule — *rescue*
+is graded the way `CompletabilityGrade` grades *break*, and the modulus degree is
+the rung's price.  This is the conversion law of the modulus-degree ladder read
+inside the generator itself: degree of the modulus = (distance certificate) /
+(rate of the pointing), with the schedule the dial between the two.
+
 ## 5. The thesis, completed
 
 "Completeness is a relocated finite operation" becomes fully constructive for the
