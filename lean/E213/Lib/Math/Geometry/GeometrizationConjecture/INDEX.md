@@ -50,6 +50,9 @@ manifold (Forman / Ollivier) plus the smooth 2D-conformal sidestep.  Narrative:
 | `OllivierRicci.lean` | 5 | 29 | Optimal-transport engine (`kantorovich_weak_duality` + `ollivier_plan_optimal`, on the `gridSumZ` toolkit from `Combinatorics/IntGridSum`); full sign trichotomy: triangle `κ=½` / square `κ=0` / double-star `κ=−2/3` |
 | `BakryEmery.lean` | 6 | 6 | Fourth curvature frame: carré-du-champ `Γ`/`Γ₂`; discrete **Bochner identity** (`bochner_line`/`bochner_triangle`); `CD(0,2)` (line) + `CD(5/2,∞)` (triangle `K₃`) — synthetic `Ric ≥ K, dim ≤ N` |
 | `ConformalCurvature.lean` | S3-S5 | 6 | Smooth 2D-conformal Liouville `K=(\|∇λ\|²−λΔλ)/(2λ³)` for polynomial `λ`; `conformal_curvature_trichotomy`; flow fixed point ⟺ flat |
+| `WeightedGreen.lean` | wall (i) | 11 | **Weighted IBP**: `weighted_green` (`⟨f,g⟩_w = −2Σg·L_w f`, weight = Perelman `e^{−f}` measure); `dirichlet_gradient_identity` (the flow IS the gradient flow of `𝓕_w`); SOS descent rate; mass conservation |
+| `DiscreteGaussian.lean` | wall (ii)+(iii) | 8 | Binomial heat kernel: `gaussian_normalization` (`Σu(t,·) = 2^t` ∀t, the `(4πτ)^{−n/2}` content); `gaussian_mean`; `gaussian_li_yau` (log-concavity = Li–Yau gradient estimate, division-free); `harnack_forward` |
+| `DiscreteSurgery.lean` | wall (iv) | 15 | Surgery ledger: `gauss_bonnet_general` (any graph, handshake ⟹ `Σκ=2χ`); cut-a-neck `χ+1`/curvature `+2`; `surgery_dichotomy` (round XOR neck-bearing); A6 termination + **exact count** `= b₁`; `k32_surgery` (`−2→0→+2`) |
 
 ## Supporting infrastructure (outside sub-tree, referenced from above)
 
