@@ -81,25 +81,18 @@ landing table cites the chapter; INDEXes synced
 - **Uniform `depth ≤ dagSize ≤ leaves − 1`** by `Raw.rec` induction
   + min-run-length = dagSize.
 
-### 2. Smaller seams left by items 1/6
-- Fused step-3 swap-class census (= 4) — needs state enumeration
-  (item 7 machinery).
-- Uniform `depth ≤ dagSize ≤ leaves − 1` by `Raw.rec` induction +
-  min-run-length = dagSize.
-
-### 3. Pre-existing (unchanged)
+### 2. Pre-existing (unchanged)
 Higher `νₚ(F_n)` rungs for general `p`; the
 `legendre213 5 p = psign σ_5` morphism (see frontiers INDEX).
 
 ## Three-tier state
-- Tier-1: `async_pointline_raw.md` carries the corrected ladder +
-  agenda statuses; `seed/ORIGIN_RAW.md` is permanent (seed corpus).
-- Tier-2: 6 new PURE modules (above), registered in
-  `Theory/Raw/API.lean` + `UniverseChain.lean` aggregators;
-  `STRICT_ZERO_AXIOM.md` entry added (2026-06-10).
-- Promotion candidates: after items 7–8 close, the async arc
-  (Async + RawPastCompleteness + census structure) is a coherent
-  `theory/` chapter candidate per PROMOTION_CRITERIA.
+- Tier-1: frontier note ARCHIVED (`research-notes/archive/
+  async_pointline_raw.md`); `seed/ORIGIN_RAW.md` permanent.
+- Tier-2: 8 modules + Slash additions (74 PURE), registered in
+  `Theory/Raw/API.lean` + `UniverseChain.lean`;
+  `STRICT_ZERO_AXIOM.md` 2026-06-10 entry.
+- Tier-3: chapter `theory/math/foundations/async_growth.md`
+  (promotion log row 46).
 
 ## File Map
 ```
