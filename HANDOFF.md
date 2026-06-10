@@ -1,130 +1,107 @@
-# Session Handoff — 2026-06-10 (async growth arc: origin → debate → 8-item marathon → promotion → main merge)
+# Session Handoff — 2026-06-10 (modulus-degree ladder: ζ(3) fold → form-margin → composed degree)
 
-## Branch
-`claude/tensors-dimensional-discretization-nqb10o` — pushed; merged
-`origin/main` IN (196 commits: discrete-curvature/Lichnerowicz,
-primitive-root/Zolotarev, tensor-calculus, certificate-depth arcs);
-ready-to-merge audit GREEN (0 layer violations, fresh full build
-309/309 clean, purity 0/0/0/0, sink rule 0).  **Intended next git
-action: merge this branch → `main` (originator-authorized).**
+## Branch & build state
+`claude/zeta-3-holonomic-fold-gbjygu` — `origin/main` merged in (async-growth +
+positivity-crossdomain marathon).  **Fresh `rm -rf .lake/build && lake build` ✓ clean.**
+Kernel regression 45/45 0-axiom.  Session modules strict ∅-axiom PURE
+(`tools/scan_axioms.py`): `Zeta3Cut` 35/0, `CubeRootTwoCut` 31/0,
+`ModulusComposition` 34/0.  Purity sweep: 0 sorry / 0 axiom / 0 native_decide /
+0 Classical / 0 Mathlib.  Ready-to-merge verdict: READY.
 
-## What Was Done This Session
+## What was done (the originator's question chain, three bricks + closing marathon)
 
-### 1. Origin record (`seed/ORIGIN_RAW.md`)
-The Raw axiom rebuilt from "difference" alone — the originator's
-dialogue, Korean verbatim + English translation; axiom-side companion
-to `ORIGIN.md`'s physics descent.  New-to-corpus content: the
-asynchronous two-event reading of growth, rejection of the lockstep
-clock, the layer-scale question (§6–§10).
+Session seed: the originator's saved correction — "the weight-4 Eisenstein atom =
+ζ(3) is a **fold to construct**, not an irreducible residue."
 
-### 2. Multi-agent debate → frontier corrections
-Four experts (concurrency, number theory, Lean, physics) + an
-adversarial referee; all numerics machine-verified twice.  Standing
-corrections: the boundary ladder is semantics-tagged; **no run is
-forced through the 5-census** (its distinction is past-completeness,
-an order property); the census sandwich is **base-2 (= NT)**, not
-d = 5; the mod-5 cycle is a generic self-restart, not a resonance.
+### Brick 1 — ζ(3) as a constructed fold (`Real213/Zeta3Cut`)
+The Apéry recurrence (the `DepthAperyCubic` degree-3 coefficients), factorial-
+cleared to an exact all-ℕ orbit: growth invariant `(m+1)³·xₘ ≤ xₘ₊₁` from one
+seed condition proves the monus never truncates (`aperyOrbit_exact`); Casoratian
+in closed form `aperyCasDet m = 6·(m!)⁶` (`zeta3_cross_det`); `zeta3Ab : AbCutSeq`
+with bracket `601/500 < ζ(3) ≤ 1203/1000` (upper bounds are themselves orbits —
+`aperyOrbit_linear`); completion carries the bracket.  Honest stratum **proved**:
+`zeta3_presentation_overtakes` — this presentation is rate-free (overtake at
+layer 9), so the modulus stays a hypothesis (π-posture); the e-grade upgrade =
+the reduced presentation = classical Apéry arithmetic
+(`research-notes/frontiers/zeta3_free_modulus.md`).
 
-### 3. Marathon: full 8-item agenda CLOSED ∅-axiom (74 PURE, 0 DIRTY)
-- `Theory/Raw/Async.lean` (14) — fused ladder: `step1_forced`,
-  `level2_canonical` (exact swap-conjugate disjunction),
-  `level3_diverges` (beyond-swap divergence at step 3).
-- `Theory/Raw/AsyncReach.lean` (12) — `reach_closed`,
-  `reach_joinable` (no fairness), `every_raw_reached`,
-  `list_reached`; hand-rolled `memDec`.
-- `Theory/Raw/Slash.lean` (+3) — **`slash_inj`** pair injectivity.
-- `UniverseChain/`: `RawPastCompleteness` (6, `depth3_boundary` —
-  only the full join survives at depth 3), `AtomicityCensusBridge`
-  (8, `two_fives` mediated by `choose2 n = n ↔ n = 3`),
-  `RawCountQuadratic` (9, normal form `2T(n+1)+T(n)=T(n)²+4`, mod-5
-  pure period 3), `RawCountBounds` (6, strict
-  `2^(2^(n+1)) < rawCount(n+3) < 2^(2^(n+2))`), `RawDagSize` (8,
-  event-cost fold, sharing starts at depth 3 at `[t1,t4,t7]`),
-  `RawEnumeration` honest-count section (+8, `honest_count`:
-  soundness + completeness + Nodup — the predicted
-  `Tree.cmp`-transitivity gate dissolved; `Pairwise` + lex heads
-  sufficed).
+### Brick 2 — the degree-3 form-margin modulus (`Real213/CubeRootTwoCut`)
+The algebraic exit from the rate race: side-decision against any probe reduces
+to the all-additive `ε_i·k³ < d_i³`, the form margin `|m³−2k³| ≥ 1` arriving as
+`Nat` strictness `+1`.  Dyadic bisection presentation ⟹ **total modulus
+`N(m,k) = 3k+5`**; ∛2 joins φ/e/Liouville in the unconditional class (first
+degree-3 member).  Capstone `cbrt_limit_eq_form`: the fold lands exactly on the
+frozen closed-form cut `decide (2k³ ≤ m³)`.  Degree-2 shadow identified:
+`FibCassiniNat.qb_lt_pk`'s `4k² < b²` is the same `ε·k^s < d^s` schema.
 
-### 4. Promotion + essay
-- Chapter `theory/math/foundations/async_growth.md` (promotion log
-  row 52); frontier note archived
-  (`research-notes/archive/async_pointline_raw.md`).
-- Essay `theory/essays/foundations/growth_without_a_clock.md` (log
-  row 53): time = run / foliation / grading; only the grading is
-  run-invariant; "the stage is of the run" = the temporal instance of
-  finite-state-is-of-the-pointing.
+### Brick 3 — composed (irrational) degree (`Real213/ModulusComposition`)
+`powSched c B k = ⌈k^{p/2^k}⌉` with the exponent slot a **cut** (`dyUp` reading +
+exact `rootCeil`).  Calibration `powSched_rat` (integer `s` ⟹ exactly `k^s`);
+instances at degree ∛2 (`cbrtPow_at_two = 3`) and degree e (`ePow_at_two = 7` —
+the kernel runs `eulerCauchySeq.N` *inside* the schedule: a modulus calling
+another real\'s modulus); cascade rung 1 `eSelfScheduled` (e rescheduled through
+its own modulus, limit-preserving); `powSched_mono` — degree order transports to
+schedule order, the backbone of **degree-as-a-cut-over-exponent-cuts** (the
+exact-degree question lands inside the system; its decidability = effectivity,
+Roth-grade).
 
-### 5. Post-merge cross-domain note
-`research-notes/frontiers/async_growth_crossdomain.md`: (1)
-**orbit-LTE** — main's `ν₅(F_n)=ν₅(n)` vs the census tower's
-attracting mod-5 cycle (`v₅(T(n+3)−T(n)) = ⌊(n+1)/3⌋+1` open law);
-(2) the ancestor-order Hasse diagram as carrier for main's Forman
-curvature; (3) the census squeeze is a depth-0 positivity
-certificate.
+### Closing marathon (merge → process → promote → crossdomain → essay → org-audit → purity → ready-to-merge)
+- **/process**: sink rule 1 violation fixed (STRICT async cite → theory path);
+  promotion logged (row 54).
+- **Promotion**: `theory/math/analysis/form_margin_modulus.md` — the
+  two-mechanism divide (rate race = transcendental, presentation-dependent;
+  form margin = algebraic, presentation-robust) + the degree slot as cut.
+- **Cross-domain** (`research-notes/frontiers/modulus_degree_crossdomain.md`):
+  (1) modulus degree IS certificate depth one layer up (main\'s
+  positivity/SOS-fold note); (2) `reschedule_limit_eq` = "the stage is of the
+  run" at the real layer (async-growth arc) — the fourth scale of the
+  cover-non-surjection schema.
+- **/essay**: `theory/essays/analysis/the_degree_of_a_number.md` (log row 55).
+- **/org-audit**: 0 hygiene hits, 0 orphans, INDEX counts verified (Real213
+  169 = 101 + 68).
 
-## Current Precision Results (0 free parameters)
-Unchanged — this arc is pure math (foundations).  See
-`catalogs/physics-constants.md` (`1/α_em` 0.09 ppb, CKM `δ = 90°`,
-`R_u = 1/φ²`, …).
+## Open Problems (priority order)
+1. **Graded rate generator** — `Dominates_s` with polynomial slack ⟹
+   `N = k^s + 2`; makes "rescue" graded the way `CompletabilityGrade` grades
+   "break".  Frontier: `research-notes/frontiers/modulus_degree_ladder.md` rung 1.
+2. **dyUp tightness** — the lower witness needs the ratio/rescale property;
+   then `powSched` is two-sidedly pinned (same note, "Still open").
+3. **ζ(3) free modulus** — reduced-presentation integrality + `lcm(1..n) < 3ⁿ`
+   ⟹ `zeta3HolonomicReal` (`zeta3_free_modulus.md`).
+4. **Conditional measure-modulus schema** (Wallis-π + effective `μ` hypothesis ⟹
+   degree-≈7 schedule), **two-real separation modulus**, **Dirichlet floor
+   `μ ≥ 2`** (constructive, via `Pigeonhole`), **self-degree fixed point
+   `μ(τ) = τ`** (conjecture) — all in `modulus_degree_ladder.md` rungs 0/0′/2/3.
 
-## Open Problems (Priority Order)
-
-### 1. Async-growth open seeds
-Frontier note: `research-notes/frontiers/async_growth_seeds.md`.
-Exact-membership converse of reachability (argmin-by-depth fill);
-fused step-3 swap-class census (= 4, needs state enumeration);
-uniform `depth ≤ dagSize ≤ leaves − 1` by `Raw.rec`; axes-of-growth
-definition (constrained: bare ordering fraction diverges).
-
-### 2. Cross-domain bridges to main's arcs
-Frontier note: `research-notes/frontiers/async_growth_crossdomain.md`.
-First brick: `v₅(rawCount(n+3) − rawCount n) ≥ 1` (one subtraction
-lemma from `rawCount_mod5_cycle`), then the exact orbit-LTE law.
-Checkable: `formanEdge` on the depth-≤3 Hasse diagram (12 vertices).
-
-### 3. Pre-existing (from main, unchanged)
-Markov `H` kernel (maximally localized), π non-holonomicity, Ricci
-smooth core, νₚ(F_n) higher rungs — see
-`research-notes/frontiers/INDEX.md`.
-
-## Unresolved from This Session
-None blocking.  Landmine catalog (do not re-trip): Lean-core list-`∈`
-decidability instance leaks propext (use explicit `Mem` constructors
-/ Bool membership / hand-rolled `memDec`); `Nat.mul_assoc` and
-`Nat.pow_add` leak propext (use `NatHelper.mul_assoc`,
-`Pow213.pow_add_two`); `ac_rfl` leaks propext+Quot.sound; index
-refinement in term matches needs the variable matched alongside the
-membership proof (`match w, hw with`).
-
-## Next
-1. **Merge this branch → `main`** (authorized; ready-to-merge GREEN).
-2. Then: the orbit-LTE first brick (frontier #2) or the
-   exact-membership converse (frontier #1); both are S–M with
-   machinery in place.
+## Lean-tooling notes (recurring)
+- `decide` on two-step `| m+2 =>` recursions and structure-literal projections
+  works at small indices; `rootCeilGo` fuel-2048 needs
+  `set_option maxRecDepth 8000 in` (elaborator budget, no axiom impact).
+- And-shaped `decide` cuts (φ\'s `masterCut`) poison `of_decide_eq_true` with
+  propext — pick single-inequality cuts (∛2) for generic instances.
+- Core `Nat.pow_le_pow_right` / `Nat.pow_mul` / `Nat.mul_pos` are
+  propext-dirty — pure replacements live in `CubeRootTwoCut`
+  (`two_pow_pos`) and `ModulusComposition` (`pow_le_pow_exp`,
+  `pow_mul_pure`, `one_le_pow`, `powBase_le/lt`, `self_le_pow`).
+- `set_option ... in` goes **before** the docstring.
 
 ## Three-tier state
-- **Promotions this session**: `theory/math/foundations/
-  async_growth.md` ← async arc (row 52); essay
-  `growth_without_a_clock.md` (row 53).
-- **Promotion candidates**: none outstanding from this branch.
-- **Active scratchpad**: `frontiers/async_growth_seeds.md`,
-  `frontiers/async_growth_crossdomain.md`.
+- **Promotions this session**: `theory/math/analysis/form_margin_modulus.md`
+  (+ ζ(3)/∛2 paragraphs landed in `holonomic_modulus.md`).  Essay:
+  `theory/essays/analysis/the_degree_of_a_number.md`.
+- **Active frontiers**: `modulus_degree_ladder.md`, `zeta3_free_modulus.md`,
+  `modulus_degree_crossdomain.md` (all registered in `frontiers/INDEX.md`).
+- **Organizational note**: `Real213/` root holds 101 loose files — a genuine
+  clustering candidate for a dedicated org session (constants cuts /
+  Minkowski-modular / Markov / completability axes are visible sub-themes).
 
-## File Map
+## File map
 ```
-seed/ORIGIN_RAW.md                                   ← origin record (dialogue verbatim)
-theory/math/foundations/async_growth.md              ← NEW chapter (the arc)
-theory/essays/foundations/growth_without_a_clock.md  ← NEW essay
-lean/E213/Theory/Raw/Async.lean                      ← NEW 14 PURE (ladder)
-lean/E213/Theory/Raw/AsyncReach.lean                 ← NEW 12 PURE (reachability)
-lean/E213/Theory/Raw/Slash.lean                      ← +slash_inj, slash_val_lt/gt
-lean/E213/Lib/Math/Foundations/UniverseChain/
-  {RawPastCompleteness,AtomicityCensusBridge,
-   RawCountQuadratic,RawCountBounds,RawDagSize}.lean ← NEW 5 modules (37 PURE)
-  RawEnumeration.lean                                ← +honest_count section (8 PURE)
-research-notes/frontiers/async_growth_seeds.md       ← open seeds (4)
-research-notes/frontiers/async_growth_crossdomain.md ← bridges to main (3)
-research-notes/archive/async_pointline_raw.md        ← archived frontier
-STRICT_ZERO_AXIOM.md                                 ← 2026-06-10 entry (74 PURE)
-theory/{INDEX,math/INDEX,essays/INDEX}.md            ← counts + rows synced
+lean/E213/Lib/Math/NumberSystems/Real213/Zeta3Cut.lean            ← ζ(3) Apéry fold (35 PURE)
+lean/E213/Lib/Math/NumberSystems/Real213/CubeRootTwoCut.lean      ← ∛2 form-margin modulus (31 PURE)
+lean/E213/Lib/Math/NumberSystems/Real213/ModulusComposition.lean  ← composed degree + powSched_mono (34 PURE)
+theory/math/analysis/form_margin_modulus.md                       ← NEW chapter (promotion)
+theory/essays/analysis/the_degree_of_a_number.md                  ← NEW essay
+research-notes/frontiers/{modulus_degree_ladder,zeta3_free_modulus,modulus_degree_crossdomain}.md
+theory/math/analysis/holonomic_modulus.md                         ← ζ(3) boundary + ∛2 instance paragraphs
 ```
