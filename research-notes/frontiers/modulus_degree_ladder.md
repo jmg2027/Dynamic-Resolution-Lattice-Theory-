@@ -31,6 +31,39 @@ modulus is the growth class of `N` in `k`, and it factors as
 
 ## Open rungs
 
+0. **The exact degree of an arbitrary irrational** (originator, second round).
+   The "tight, no-more-no-less" degree is the irrationality measure `μ(x)`,
+   and it splits into three rungs of very different status: (i) the universal
+   floor `μ ≥ 2` is **constructive** (Dirichlet pigeonhole — foldable with the
+   repo's `Pigeonhole`); (ii) for algebraics the exact value is `2` regardless
+   of polynomial degree `d` (Thue–Siegel–Roth) but **ineffectively** — no
+   computable constant, no fold receipt; the degree-`d` form schedule
+   (`CubeRootTwoCut`'s `k³`) is the generic *effective* receipt, with
+   number-specific effective descents (Baker-type, ∛2 down to `≈ 2.47`) paid
+   for by transcendence-theory work; (iii) for arbitrary irrationals `x ↦ μ(x)`
+   is not computable from the pointing — receipts only squeeze it from both
+   sides (presentations witness `μ ≥`, form/measure certificates witness
+   `μ ≤`), and the meeting point is generally receipt-less.  The "next term
+   below the degree" expansion is real but lives on a **log scale**, not a
+   power scale (`|e − p/q| ≍ (log log q / log q)/q²`), matching the lex
+   `(height, rate)` ordinal of `CompletabilityGrade`: the refinement axis
+   between exponents is ordinal/scale-like.
+0′. **Irrational degree + the degree cascade** (originator, second round).
+   The degree spectrum is the full continuum: for every real `τ ≥ 2` there are
+   reals with `μ(x) = τ` exactly (Jarník; level set has Hausdorff dimension
+   `2/τ`), constructible by prescribing CF growth `a_{n+1} ≈ q_n^{τ−2}`.  So
+   `μ` is a self-map of `[2,∞]` and the cascade `x ↦ μ(x) ↦ μ(μ(x)) ↦ …` is
+   its orbit: generically it collapses (`μ = 2` a.e., then rational, end);
+   an infinite nontrivial cascade needs a chain of very-well-approximable
+   degrees.  Two 213-native objects fall out: (a) **the self-degree fixed
+   point** `μ(τ) = τ` — a number that is exactly its own cut's degree, built
+   by a self-referential CF (growth schedule read off the number's own
+   approximants); conjecture-grade, a residue-self-pointing shape on the
+   degree Lens; (b) **operational cascade = modulus composition**: a schedule
+   `N(m,k) = k^e` must *call e's own modulus* to evaluate `⌈k^e⌉`, so
+   irrational-degree moduli are receipts taking receipts as arguments — a
+   call-tree of folds, formalizable now as a schedule functional consuming a
+   `CauchyCutSeq`.
 1. **Graded rate generator** — refine the binary `Dominates`
    (`RateStratification`) with polynomial slack: `Dominates_s` forgiving an
    `i^{s−1}` factor of overtake, generalizing `rate_total_modulus` to
