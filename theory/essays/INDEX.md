@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 77 essays are grouped into ten thematic sub-directories — distinct
+The 78 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -89,6 +89,11 @@ character — `α(p) ∣ p − (5/p)`, `rank_law_dispatch` — and `(5/p) = psig
 so `α(p) ∣ p − psign(σ_5)`: the Fibonacci entry point is the parity of the `×5` permutation;
 the same Legendre character mains dispatch for the Pisano *period* the branch dispatches for the
 *entry point*, `α(p) ∣ π(p)`).
+`the_quadratic_character_is_a_discrete_log_parity` (`(a/p) = (−1)^{dlog_g(a)}` — with a primitive
+root `g` (`exists_primitive_root`), the Legendre symbol is the mod-2 readout of a unit's position
+in the single orbit `(ℤ/p)*`; Euler's `a^m ≡ (−1)^k`, the cycle sign `psign σ_a`, the determinant,
+and the discrete-log parity are four readouts of one bit `k mod 2`, forced by the orbit being
+cyclic of even order — the structural why behind the character's existence).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
