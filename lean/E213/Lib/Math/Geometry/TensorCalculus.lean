@@ -241,4 +241,16 @@ theorem riemLow_pair_symm (ddg : Nat → Nat → Nat → Nat → Int)
       hd j k l i, hg k j l i]
   ring_intZ
 
+/-- ★★★★★ **First Bianchi identity (metric form)** `R_{iklj} + R_{iljk} + R_{ijkl} = 0`,
+    stated as `R_{iklj} + R_{iljk} = −R_{ijkl}` (moved-over, non-zero both sides — sidesteps
+    `ring_intZ`'s zero-polynomial gap).  The cyclic-sum symmetry of the curvature `2`-jet,
+    from `hd`/`hg`.  Completes the **four** Riemann symmetries. -/
+theorem riemLow_bianchi1 (ddg : Nat → Nat → Nat → Nat → Int)
+    (hd : ∀ a b c d, ddg a b c d = ddg b a c d)
+    (hg : ∀ a b c d, ddg a b c d = ddg a b d c) (i k l j : Nat) :
+    riemLow ddg i k l j + riemLow ddg i l j k = -(riemLow ddg i j k l) := by
+  unfold riemLow
+  rw [hg i j l k, hd l k i j, hg i l j k, hd j k i l, hg i k j l, hd j l i k]
+  ring_intZ
+
 end E213.Lib.Math.Geometry.TensorCalculus

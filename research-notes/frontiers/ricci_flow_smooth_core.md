@@ -239,9 +239,18 @@ Riemann symmetries (first Bianchi, pair symmetry) the **Ricci tensor** `Ric_{ik}
 (`ricciFromRiem`, `ricci_flat`) and the **first Bianchi identity** `R^l_{ijk}+R^l_{jki}+
 R^l_{kij}=0` (`riem_bianchi1`, for a torsion-free `Γ`) are now ∅-axiom too (§4).  So the
 algebraic tensor calculus — Christoffel (both kinds) → Riemann → Ricci + Bianchi — stands,
-dimension-free.  The residual wall: the *metric-tied* Riemann symmetries (pair symmetry needs
-`Γ ↔ g`), the scalar `R = g^{ij}Ric_{ij}`, transcendental metrics, and the PDE a-priori
-estimates (Shi/maximum-principle/compactness) behind Perelman's `𝓦`-monotonicity.
+dimension-free.  The **metric-tied Riemann symmetries** are now closed too (`TensorCalculus.lean` §5, PURE):
+the lowered curvature 2-jet `2R_{iklj} = ∂_i∂_j g_{kl} + ∂_k∂_l g_{ij} − ∂_i∂_l g_{kj} −
+∂_k∂_j g_{il}` (`riemLow`, the Riemann tensor in normal coordinates) has **all four**
+symmetries from the 2-jet symmetries (`hd`: `∂∂` commute, `hg`: `g` symmetric): the two
+antisymmetries (`riemLow_antisym_ik/_lj`, pure `ring`), the pair/block symmetry
+(`riemLow_pair_symm`), and the first Bianchi (`riemLow_bianchi1`, moved-over form to dodge the
+zero-polynomial `ring` gap).  So the full algebraic Riemannian curvature tensor calculus —
+Christoffel (both kinds) → Riemann → Ricci → Bianchi → all curvature symmetries — stands,
+dimension-free, ∅-axiom.  The residual wall: the scalar `R = g^{ij}Ric_{ij}` (a `g^{-1}`
+double contraction), transcendental metrics, and the PDE a-priori estimates
+(Shi/maximum-principle/compactness) behind Perelman's `𝓦`-monotonicity — the last the genuine
+century-problem core.
 
   (`ring_intZ` note: its normalizer cannot certify an expression that reduces to the **zero
   polynomial** `= 0`; the Bianchi per-`m` cyclic cancellation was closed with the pure helper
