@@ -5,7 +5,7 @@ import E213.Lib.Physics.Basel.Bound
 # Fractal-Level ζ Bracket (C5 step 1)
 
 Step 1 of conjecture C5 (fractal-level ζ_K^(L) → ζ(2)
-convergence) per `research-notes/G35` §C5.
+convergence) per `research-notes/frontiers/G35` §C5.
 
 Conjecture C5 in full:
 > The sequence of finite ζ-Laplacian values on K^(L) (the

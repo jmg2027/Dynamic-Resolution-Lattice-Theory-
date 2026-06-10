@@ -98,7 +98,6 @@ Productive theorem patterns from past sessions:
 
 Look for stated-but-not-yet-proven claims in:
 
-  - `research-notes/2026-05-18_lens_emergence_path.md` §5 Options
   - `seed/AXIOM/06_lens_readings.md` §9.{1, 2, 3, 4}
   - `seed/CLOSED_FORM_SPEC.md` "Future work"
   - `STRICT_ZERO_AXIOM.md` "Future cleanup"

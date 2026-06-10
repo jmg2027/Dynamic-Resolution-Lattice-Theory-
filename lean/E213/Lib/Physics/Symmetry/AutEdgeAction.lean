@@ -3,7 +3,7 @@ import E213.Lib.Physics.Symmetry.AutAction
 /-!
 # Aut(K) acting on edge cochains (C3 Step 3)
 
-Step 3 of conjecture C3 per `research-notes/G35` §C3.
+Step 3 of conjecture C3 per `research-notes/frontiers/G35` §C3.
 
 Extends the vertex action `aut_act` to edge cochains by lifting
 the vertex permutation σ to an edge permutation σ_E (mapping
