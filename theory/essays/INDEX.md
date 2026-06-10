@@ -4,7 +4,7 @@ Cross-cutting essays: on-demand trajectories through the
 catalog/book that surface structural insights not localised to
 any single chapter.
 
-See `lean/E213/.claude/skills/essay/SKILL.md` for the
+See `.claude/skills/essay/SKILL.md` for the
 derivation+citation+dual-function+cross-frame+self-check
 +constructive-accessibility protocol.
 

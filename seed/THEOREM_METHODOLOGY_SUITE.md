@@ -163,7 +163,7 @@ derivable from the 4-clause Raw axiom alone**.
 ZOmega^× = C_6 / dual-filling χ-sum chain constructs the corpus's
 headline numbers (`α_em`, `m_t/m_c`, `η_B`, …) without invoking
 external content — verified by the substantive branches' work and
-catalogued in `catalogs/precision-results.md`.
+catalogued in `catalogs/physics-constants.md`.
 
 Reading (β) is the **structural-mathematical** version: the
 mathematics itself, not just its kernel-checkability.
