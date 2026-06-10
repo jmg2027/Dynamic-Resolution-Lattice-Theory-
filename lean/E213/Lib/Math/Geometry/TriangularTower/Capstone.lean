@@ -4,7 +4,7 @@ import E213.Lib.Math.Geometry.TriangularTower.RealAsSquashed
 import E213.Lib.Math.Geometry.TriangularTower.AbsorbedByThree
 
 /-!
-# G47 Capstone — Triangular Tower Architecture (∅-axiom)
+# Capstone — Triangular Tower Architecture (∅-axiom)
 
 5 cluster witnesses + total bundle.
 

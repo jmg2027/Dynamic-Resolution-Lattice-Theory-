@@ -3,7 +3,7 @@ import E213.Lib.Math.Geometry.GenerationRule.GenerationCount
 import E213.Lib.Math.Geometry.GenerationRule.OrthogonalDirection
 
 /-!
-# G46 Capstone — Generation Rule + Triangle Iteration (∅-axiom)
+# Capstone — Generation Rule + Triangle Iteration (∅-axiom)
 
 5 cluster witnesses + total bundle.
 

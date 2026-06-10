@@ -5,7 +5,7 @@ import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulOne
 import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumZero
 /-!
-# unitBracket cutMulOuter reduction template — G110 FLUX-1
+# unitBracket cutMulOuter reduction template — FLUX-1
 
 Extracts the recurring 6-line `cutMulOuter_congr` block from
 forward/backward MVT/fluxAlong proofs at the unit bracket.  The block

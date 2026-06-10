@@ -2,7 +2,7 @@ import E213.Lib.Physics.AlphaEM.GramStructuralNewton
 import E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp
 
 /-!
-# G131 Phase 5: precision-theorem capstone for 1/α_em
+# Phase 5: precision-theorem capstone for 1/α_em
 
 Combines the two halves of the structural derivation:
 

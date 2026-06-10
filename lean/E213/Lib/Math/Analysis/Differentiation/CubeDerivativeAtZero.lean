@@ -52,7 +52,7 @@ theorem squareDerivative_at_zero_at (m k : Nat) :
   exact cutSum_zero_zero_at m k
 
 /-- ★ d/dx [x³] at x = 0 = 0 pointwise (PURE).
-    G110 FLUX-1 templates (sum + mul). -/
+    FLUX-1 templates (sum + mul). -/
 theorem cubeDerivative_at_zero_at (m k : Nat) :
     cubeIsDifferentiable.derivative (constCut 0 1) m k = constCut 0 1 m k := by
   show cutSum (cutMul (constCut 1 1) (cutMul (constCut 0 1) (constCut 0 1)))

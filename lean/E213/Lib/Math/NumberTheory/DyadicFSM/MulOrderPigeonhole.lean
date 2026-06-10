@@ -1,7 +1,7 @@
 import E213.Meta.Nat.ModPow213
 import E213.Lib.Math.NumberTheory.DyadicFSM.Forward.ForwardPeriodicity
 /-!
-# Multiplicative order via pigeonhole — G119 Phase 2/3 prerequisite
+# Multiplicative order via pigeonhole — Phase 2/3 prerequisite
 
 For `a < p` with an explicit modular inverse witness `b` satisfying
 `(a * b) % p = 1 % p`, the multiplicative orbit `a^0, a^1, a^2, ...`
@@ -15,7 +15,7 @@ The classical Fermat's Little Theorem (FLT) `∀ a coprime to p,
 a^(p-1) ≡ 1 (mod p)` requires Lagrange's theorem on the
 multiplicative group `(Fin p)*`; this module gives the weaker
 **existential** form `∃ N ≤ p, a^N ≡ 1 mod p` which is sufficient
-for many G119 Phase 2/3 sub-goals (and is FLT-independent).
+for many Phase 2/3 sub-goals (and is FLT-independent).
 
 The link to phi: at split primes p where `phi p s = (1 + s) * inv2 p`
 is well-defined and nonzero, providing an explicit `phi^{-1} mod p`

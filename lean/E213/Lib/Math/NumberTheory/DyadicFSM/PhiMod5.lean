@@ -3,7 +3,7 @@ import E213.Meta.Nat.MulMod213
 import E213.Meta.Tactic.NatHelper
 import E213.Lib.Math.NumberTheory.DyadicFSM.MulOrderPigeonhole
 /-!
-# Golden ratio mod p — G119 Phase 3.2 algebraic foundation
+# Golden ratio mod p — Phase 3.2 algebraic foundation
 
 For odd `p > 1` and `s : Nat` with `s² ≡ 5 (mod p)`, define
 
@@ -25,7 +25,7 @@ The unscaled identity `phi² ≡ phi + 1  (mod p)` follows from
 multiplicative cancellation of 4 mod p (i.e., `gcd(4, p) = 1` for
 odd p, equivalent to existence of `4⁻¹ mod p`).  That cancellation
 requires either explicit `4⁻¹` (Bézout / xgcd) or the multiplicative
-order theory of `(Fin p)*` — both are G119 Phase 2.1 prerequisites
+order theory of `(Fin p)*` — both are Phase 2.1 prerequisites
 that remain multi-session.
 
 This file is **algebra only** — no FLT, no QR existence claim.
@@ -171,7 +171,7 @@ theorem four_phi_plus_one_eq (p s : Nat) (hp : 1 < p) (hpo : p % 2 = 1) :
 
     The unscaled `phi² ≡ phi + 1 (mod p)` follows by multiplicative
     cancellation of 4 mod p (gcd(4, p) = 1 for odd p > 1).  That
-    cancellation is G119 Phase 2.1 (FLT / xgcd) prerequisite work,
+    cancellation is Phase 2.1 (FLT / xgcd) prerequisite work,
     multi-session.
 
     PURE. -/
@@ -190,7 +190,7 @@ gives `4 * inv2² ≡ 1 mod p`.  This lets us cancel the 4 in the kernel
 and recover the **unscaled** φ recurrence `phi² ≡ phi + 1 (mod p)`.
 
 The general FLT-based cancellation infrastructure (for arbitrary
-constants coprime to p) remains G119 Phase 2.1 work, but for the
+constants coprime to p) remains Phase 2.1 work, but for the
 specific constant 4, the explicit construction is direct.
 -/
 

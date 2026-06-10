@@ -16,7 +16,7 @@ This module is a **fully Lean-free** showcase:
 `RawCut := Raw → Raw → Raw` — the cut type defined using only Raw.
 External types are pushed one layer further out.
 
-## Significance (logical endpoint of the G84 compression thesis)
+## Significance (logical endpoint of the compression thesis)
 
 > 213's fully closed universe: substantial content does *not* use
 > Lean types.  Lean types appear only at the boundary layer

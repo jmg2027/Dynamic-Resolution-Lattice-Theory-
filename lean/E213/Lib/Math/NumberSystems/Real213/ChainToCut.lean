@@ -12,7 +12,7 @@ The Method A Raw chain embeds naturally into the Real213 cut
 universe.  For chain `r`, its leaves count `n = value r` corresponds
 to the Dedekind cut of the integer `n`.
 
-This is the G84 Tier 4 bridge — evidence that the chart objects
+This is the Tier 4 bridge — evidence that the chart objects
 are usable inside Real213's actual machinery.
 
 ## Correspondence

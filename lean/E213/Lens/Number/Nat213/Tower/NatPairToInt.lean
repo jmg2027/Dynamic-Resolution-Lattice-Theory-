@@ -5,7 +5,7 @@ import E213.Meta.Tactic.NatHelper
 # Lens.Number.Nat213.Tower.NatPairToInt — orthogonal-axis projection
 
 ℕ → ℤ as **two orthogonal ℕ-axes + diagonal quotient projection**
-(orthogonal-coordinate framing — see G62 research note).
+(orthogonal-coordinate framing).
 
 A pair `(a, b) : ℕ × ℕ` represents the integer `a - b`.  Two pairs
 represent the same integer iff they differ by **diagonal translation**:

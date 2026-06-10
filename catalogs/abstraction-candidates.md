@@ -36,7 +36,7 @@ Status keys:
 |----|-------|:------:|-------|
 | L3 | Pisano Predictor extension steps | **DONE** | `pisano_period_lift {p pf N f}` PURE template absorbs per-prime `intro k; rw [h_p]; exact period_n k` boilerplate; 10 sites refactored across Predictor8/11/14/17 (commit fc105cd6). |
 | L4 | `addLDD` / `mulLDD` (Smooth.lean) | **DONE** | `ldd_branch_via_maxRange (sf cx cy M hagree S R side_chain m' hm')` PURE template (in `Real213/Core/CutFnData.lean`) absorbs the inner `apply sf.prop; intro m'' k'' hm'' hk''; apply hagree; <chain>` block; 4 branches refactored across addLDD + mulLDD (commit 7c887e23).  Parameterized helper instead of typeclass. |
-| L5 | `CDDouble.I_mul_J` / `J_mul_I` | **REMOVED** (no yield) | Per-instance numeric witnesses differ; `decide` ineffective.  Investigated in G118; not an abstraction candidate. |
+| L5 | `CDDouble.I_mul_J` / `J_mul_I` | **REMOVED** (no yield) | Per-instance numeric witnesses differ; `decide` ineffective; not an abstraction candidate. |
 | M  | `Raw.recAux` / `RawBy.recAux` pair | **DONE** | `claude/handoff-part-3-marathon-0XWmn` — refactored to use Sub-2 helpers (Tree.canonical_slash_decompose / canonicalBy_slash_decompose). |
 | E  | `sqrt{2,3,5}_no_rational_aux` ×4 | OPEN | 4 byte-identical except for the prime / perfect-square predicate.  Needs `IsPerfectSquare N` infrastructure as a prereq.  Substantial design. |
 | F  | Σ-fold cross-domain | OPEN | 5 fold + HAdd skeletons across math + physics.  Candidate `sigmaList` infrastructure. |
@@ -53,13 +53,13 @@ Status keys:
   · **§4** — M, Pell-FSM (93 sites), ModArith, L3 (Part 5 commit
     fc105cd6, 10 sites in Predictor8/11/14/17), **L4 DONE** (commit
     7c887e23 — ldd_branch_via_maxRange template); L5 deferred
-    (no consolidation possible — see G118); E/F still open.
-  · **Cross-tier (Part 5)** — G110 FLUX-1 (34 sites via
+    (no consolidation possible); E/F still open.
+  · **Cross-tier (Part 5)** — FLUX-1 (34 sites via
     CutMulOuterReduce + UnitBracketReduce/×2 + UnitBracketReduceSum),
-    G111 COH-1+2+3 (Pattern10 + InvolutionTemplate +
+    COH-1+2+3 (Pattern10 + InvolutionTemplate +
     LeibnizUniversalLift), **REAL-1+REAL-2 DONE** (commit f7f00a98 —
     BoolOrLadder.bool_or_ladder_iff template, 3 theorems refactored,
-    ~140K Expr nodes retired), TH-1/TH-4/G117 spec docs.
+    ~140K Expr nodes retired), TH-1/TH-4 spec docs.
 
 Net Lean deliverables this branch:
   · 20 new PURE helpers across 7 new modules / additions
@@ -71,7 +71,7 @@ Net Lean deliverables this branch:
   · ~200 tactic tokens retired in mechanical adoptions.
   · 130 sites absorbed via 20 PURE helpers.
 
-Doc deliverables (G107 §10):
+Doc deliverables:
   · `LESSONS_LEARNED.md` Patterns #10, #11, #12, #13 added.
   · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2 — α/β/γ readings.
   · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 — falsifier surface (quantitative §8.2).
@@ -87,13 +87,13 @@ Still open from §2: none.
 Still open from §3: none.
 Still open from §4: E (sqrtN; needs IsPerfectSquare prereq), F
 (Σ-fold; additive).  L4 **DONE** (commit 7c887e23).  L5 removed
-(no yield — see G118).
+(no yield).
 
-Part 5 closures (cross-tier): G110 FLUX-1 (34 sites),
-G111 COH-1+2+3, REAL-1+REAL-2 (commit f7f00a98),
-FSM-1 (1) generic pellFSMmod, TH-1/TH-4/G117 spec docs.
+Part 5 closures (cross-tier): FLUX-1 (34 sites),
+COH-1+2+3, REAL-1+REAL-2,
+FSM-1 (1) generic pellFSMmod, TH-1/TH-4 spec docs.
 
-Items removed from registry (no abstraction yield, see G118):
+Items removed from registry (no abstraction yield):
 CD-1+2+3 (CayleyDickson), HC-1 (Hodge capstones),
 PHYS-1 (FractalLevelZeta), PHYS-2 (bracket-containment), L5 (CDDouble).
 
@@ -108,11 +108,11 @@ content.  CL-1/CL-2 promoted to Patterns #12/#13 instead.
 
 ## Recommended next-marathon order
 
-Following G107 §7 (mass × confidence / effort):
+Ranked by mass × confidence / effort:
 
   1. **Sub-2** — finish §2 mechanical sweep.
-  2. **L1** (G106) — biggest single mass-reduction; 6-layer evidence.
-  3. **C** (G94 §7) — broadest by sibling count (8); medium marathon.
+  2. **L1** — biggest single mass-reduction; 6-layer evidence.
+  3. **C** — broadest by sibling count (8); medium marathon.
   4. **L4** / **L5** — small consolidations, low risk.
   5. **L3** — only if Pisano-step narrative reframing has been done.
   6. **E** — needs `IsPerfectSquare` predicate first.
@@ -124,11 +124,11 @@ Following G107 §7 (mass × confidence / effort):
 
 | Tool | Purpose | Re-run with |
 |------|---------|-------------|
-| `tools/syntax_tactic_scan.py` | tactic-token motifs (G91) | `python3 tools/syntax_tactic_scan.py` |
-| `tools/ast_callgraph_scan.py` | Expr-level call graph (G102) | `python3 tools/ast_callgraph_scan.py` |
-| `tools/ast_shape_scan.py` | shape density + L1 (G103) | `python3 tools/ast_shape_scan.py` |
-| `tools/syntax_rw_cascade_scan.py` | adoption-gap k-grams (G99) | `python3 tools/syntax_rw_cascade_scan.py` |
-| `tools/falsifier_mining_scan.py` | negation theorems (G100) | `python3 tools/falsifier_mining_scan.py` |
+| `tools/syntax_tactic_scan.py` | tactic-token motifs | `python3 tools/syntax_tactic_scan.py` |
+| `tools/ast_callgraph_scan.py` | Expr-level call graph | `python3 tools/ast_callgraph_scan.py` |
+| `tools/ast_shape_scan.py` | shape density + L1 | `python3 tools/ast_shape_scan.py` |
+| `tools/syntax_rw_cascade_scan.py` | adoption-gap k-grams | `python3 tools/syntax_rw_cascade_scan.py` |
+| `tools/falsifier_mining_scan.py` | negation theorems | `python3 tools/falsifier_mining_scan.py` |
 
 All TSVs gitignored; scanner code committed.  Rerun before any
 new abstraction marathon to refresh candidate rankings.

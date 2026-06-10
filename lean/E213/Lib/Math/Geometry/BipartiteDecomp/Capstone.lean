@@ -3,7 +3,7 @@ import E213.Lib.Math.Geometry.BipartiteDecomp.BinomialExpansion
 import E213.Lib.Math.Geometry.BipartiteDecomp.TernaryBinary
 
 /-!
-# G44 Capstone — Bipartite Decomposition (∅-axiom)
+# Capstone — Bipartite Decomposition (∅-axiom)
 
 5 cluster witnesses + total bundle.
 

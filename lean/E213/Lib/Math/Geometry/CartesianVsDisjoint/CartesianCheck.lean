@@ -13,11 +13,11 @@ Calculation:
   * Ratio `6²⁵ / 5²⁵ = 1.2²⁵ ≈ 95.4`
 
 The Cartesian product hypothesis is closer to right than the
-additive `3²⁵ + 2²⁵` hypothesis (off by ~10⁸ in G44), but still
+additive `3²⁵ + 2²⁵` hypothesis (off by ~10⁸), but still
 incorrect by about 2 orders of magnitude.
 
 The CORRECT decomposition remains the **binomial expansion**
-`(3 + 2)²⁵ = 5²⁵` from G44.
+`(3 + 2)²⁵ = 5²⁵`.
 
 **Why does Cartesian product fail?**
   * A Cartesian product `N_S × N_T = 3 × 2 = 6` would label

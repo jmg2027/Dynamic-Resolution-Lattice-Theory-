@@ -114,7 +114,7 @@ theorem T2n_blocks_signature (n : Nat) (hn : 1 ≤ n) :
     (T2n_blocks_inductive n hn).signature
       = (binom (2 * n) n / 2, binom (2 * n) n / 2) := rfl
 
-/-! ## §3 — Master G14 theorem -/
+/-! ## §3 — Master pattern theorem -/
 
 /-- ★★★★★ T²ⁿ Inductive Pattern Theorem (— full inductive form).
     STRICT ∅-AXIOM.

@@ -99,7 +99,7 @@ open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMulOuter)
 open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 
 /-- id-compose witness propagation at c = 1/2 (pointwise PURE).
-    G110 FLUX-1 template (unitBracket reduce).
+    FLUX-1 template (unitBracket reduce).
     For `g ∘ f` via `composeIsDifferentiable f g`, chain rule gives
     `g'(f(x))·f'(x)`.  When `g = id`, `g'(·) = 1`, so derivative = `f'(x)`. -/
 theorem id_compose_witness_propagates_at {f} (sf : IsDifferentiable f)

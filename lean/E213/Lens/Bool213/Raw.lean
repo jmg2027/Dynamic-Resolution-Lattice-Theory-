@@ -195,7 +195,7 @@ Properties (vertical-external isomorphism):
     with vertical-internal)
 
 This is the Bool case of isomorphism #3 (vertical-external,
-Raw → Lean type) among G84's four isomorphisms.  Parallel to
+Raw → Lean type) among the four isomorphisms.  Parallel to
 post-Option-C Nat213's `Raw.value` — but the Nat213 side projects
 straight to Nat without an intermediate Raw-internal step
 (`seed/CLOSED_FORM_SPEC.md`). -/

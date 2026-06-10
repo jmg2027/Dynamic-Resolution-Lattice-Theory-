@@ -2,7 +2,7 @@ import E213.Lib.Math.Geometry.CartesianVsDisjoint.CartesianCheck
 import E213.Lib.Math.Geometry.CartesianVsDisjoint.DisjointVsProduct
 
 /-!
-# G45 Capstone — Cartesian vs Disjoint (∅-axiom)
+# Capstone — Cartesian vs Disjoint (∅-axiom)
 
 5 cluster witnesses + total bundle.
 

@@ -45,7 +45,7 @@ sections containing the 213-native expression.  Examples:
 | equality | `theory/lens/algebra.md` + `theory/lens/universal.md` |
 | residue | `seed/AXIOM/01_residue.md` + `theory/math/foundations/universe_chain.md` Möbius P |
 | gauge | `theory/physics/symmetry/c3_chain.md` |
-| infinity | `seed/RESOLUTION_LIMIT_SPEC.md` |
+| infinity | `seed/AXIOM/06_lens_readings.md` §6.7 + `Lib/Math/Foundations/ResolutionLimit.lean` |
 
 If no clear chapter exists, the concept may not be promoted yet —
 flag this honestly; do not invent.

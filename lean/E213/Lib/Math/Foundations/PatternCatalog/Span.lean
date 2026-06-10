@@ -56,7 +56,7 @@ def totalCellCount : Nat := 126
 /-! ## Under-span check — escape patterns
 
 Are there codebase theorems that fit NO catalog cell?  Three
-candidate escape categories from the G17–G24 audit corpus: -/
+candidate escape categories from the empirical audit corpus: -/
 
 /-- Escape-pattern hypothesis enumerator.  Each constructor names a
     candidate codebase pattern that might NOT fit current catalog. -/

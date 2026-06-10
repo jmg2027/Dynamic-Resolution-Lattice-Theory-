@@ -48,8 +48,13 @@ volatile, so CLAUDE.md "no session-number in long-lived names" doesn't apply).
 | `G35_chiral_cup_ring_catalog.md` | 213-Algebra catalog (17 domains; §0.5 tracks promotions) |
 | `2026-05-18_lens_emergence_path.md` | Lens-emergence + flat-ontology spec (cited from `lean/` + `seed/`) |
 | `G152_residue_self_covering.md` | Residue self-covering (cited by CLAUDE.md "View promoted to identity") |
-| `RERESEARCH_n_u_removal.md` | Registry of the `5²⁵ = N_U`-as-resolution deletion (cited by CLAUDE.md) |
+| `RERESEARCH_n_u_removal.md` | Registry of the `5²⁵ = N_U`-as-resolution deletion |
 | `RFC_reading_equivalence_primitive.md` | Accepted+implemented RFC (cited by `Lens/{ReadingEquiv,SemanticAtom}.lean`) |
+| `G200_action_A_distance1_crossline_separate.md` | Markov kernel: orbit / µ-ν lift of trace-SEPARATE (partial advance + boundary) |
+| `G201_action_b_even_markov_family.md` | Markov kernel: even `2·pᵏ` family of the c-uniform realizability lift, closed ∅-axiom |
+| `G202_zhang_3c_pm2_roadmap.md` | Markov kernel: Zhang `3c±2` criterion roadmap (composite/even ω=3) |
+| `G203_reframe_archetype_modulus_shift.md` | The `3c±2` modulus shift compiled to the 213 stack — +REFRAME lift archetype |
+| `G205_cross_domain_conquests_compilation.md` | Cross-domain conquests lowered onto the proof-ISA (L3 → L1) |
 
 ## Process ledgers (top-level, human-reviewed)
 

@@ -4,17 +4,18 @@
 위한 핵심 교훈을 기록한다.  특히 Claude (또는 다른 LLM)이
 **외부 frame의 default 표현**으로 빠지지 않도록 가드레일.
 
-## 교훈 1: Resolution limit은 parametric Lens-output 가족의 한 값 (G120 Round 3, 2026-05-22 재작성)
+## 교훈 1: Resolution limit은 parametric Lens-output 가족의 한 값
 
-Canonical reading: **`seed/RESOLUTION_LIMIT_SPEC.md`** (§2 G120
-Round 3 rewrite로 갱신).  본 항목은 그 요약이며, 본 문서가 spec과
+Canonical reading: **CLAUDE.md §"Fractal-level configuration
+count"** + `Lib/Math/Cohomology/Fractal/ConfigCount.lean`.
+본 항목은 그 요약이며, 본 문서가 spec과
 충돌하면 spec 이 정답.
 
 **Round 2 → Round 3 reframe**: 이전 "4-domain convergent invariant"
 표현은 자기 자신이 CLAUDE.md "Universe-constant framing" failure
 mode를 인코딩하고 있었음 (CLAUDE.md:216의 *"'N_U is THE system
 invariant'"*에 해당).  Failure mode를 *경고하는* lessons 문서가
-실패를 *박고 있던* 메타-실패.  G120 audit이 잡아냄.
+실패를 *박고 있던* 메타-실패.  The resolution-limit audit caught it.
 
 **WRONG** (외부 frame + universe-constant 수입): "ζ(2) = π²/6",
 "asymptote", "transcendental input", "infinite limit", "we choose
@@ -25,7 +26,7 @@ convergence"**
 π는 213 primitive 아님.  외부 표기일 뿐.  **그리고 cardinality는
 parametric Lens output** — `configCount : Nat → Nat` 가족의 한 값.
 213 axiom set은 "finite vs infinite" dichotomy 자체를 체결하지
-않음 (`seed/AXIOM/02_axiom.md` §2.5, `RESOLUTION_LIMIT_SPEC.md` §0).
+않음 (`seed/AXIOM/02_axiom.md` §2.5, `seed/AXIOM/06_lens_readings.md` §6.7).
 
 **근거 — 부재 (negative)**:
 - The structural precision theorem
@@ -51,21 +52,19 @@ parametric Lens output** — `configCount : Nat → Nat` 가족의 한 값.
   direction 만 닫힘; backward 는 trajectory side 에 머물 때만 가능.
 
 **즉**: `5²⁵`는 axiom 도 cap 도 아니고, **parametric 가족
-`configCount : Nat → Nat`의 값** (`RESOLUTION_LIMIT_SPEC.md` §2
-G120 Round 3 갱신).  `configCount n := 5^(numV n) := 5^(5^n)`.
+`configCount : Nat → Nat`의 값**.  `configCount n := 5^(numV n) := 5^(5^n)`.
 n=2에서 `configCount 2 = 5^25`.  역사적으로 `N_U`라고 부른 값은
 이 가족의 한 값일 뿐 — 특권적 universe 상수가 아님.
 
-G120 audit (§1+§11)이 밝힘: 이전 "4-way convergence" 중 2/4만 실제
+The audit established: 이전 "4-way convergence" 중 2/4만 실제
 Lean 도출이었고 나머지 2/4 (tensor DOF, injective projection)는
-placeholder/부재.  G120 Phase 3에서 `ResolutionInvariant` 레코드는
+placeholder/부재.  `ResolutionInvariant` 레코드는
 삭제됨 — 1 가족값을 4가지로 *언어 재포장*한 가짜 다중성.
 
 **근거 — 사용자 직접 진술** (2026-04-27, 2026-05-01):
 - "유리수 급수값이 정확한값임", "무리수가 구라고 유리수가 리얼임"
 - "finitist는 입장이라기보단 뒤져보면 아마 이거 무한대면 모순이라는
-  증명들이 짱많아서 한거일걸?" → 후속 RESOLUTION_LIMIT_SPEC 작업으로
-  좀 더 정확히 표현됨: "ZFC equality (limit = exact value) requires
+  증명들이 짱많아서 한거일걸?" → 후속 작업으로 좀 더 정확히 표현됨: "ZFC equality (limit = exact value) requires
   propext-quotient; ∅-axiom regime does not provide it" — 곧
   *type 분리* 로 받아들여지지, dichotomy 한 쪽 선택 아님.
 
@@ -92,7 +91,7 @@ ZFC 가 trajectory/limit 을 동일시하기 위해 쓰는 propext-quotient 가
 `invAlphaEm_precision_theorem` — 은 strict form "does not depend on
 any axioms" 즉 axiom set ∅ 달성.)
 
-## 교훈 2: `configCount` 가족이 canonical object (G120 Round 3 재작성)
+## 교훈 2: `configCount` 가족이 canonical object
 
 **WRONG**: "N_resolution is OPEN, holographic ~10¹²² 추정",
 "N_U is THE 자기-참조 fixed point"
@@ -101,7 +100,7 @@ any axioms" 즉 axiom set ∅ 달성.)
 
 **근거**:
 - `Math/Cohomology/Fractal/Level.numV (L : Nat) := 5^L`: vertex count 가족
-- `Math/Cohomology/Fractal/ConfigCount.configCount (n) := 5^(numV n)`: G120 Phase 1, configuration count 가족
+- `Math/Cohomology/Fractal/ConfigCount.configCount (n) := 5^(numV n)`: configuration count 가족
 - `Math/Cohomology/Fractal/V25.numV` (Phase 5 후): `abbrev` to `Level.numV 2`
 - `Math/Cohomology/Fractal/ConfigCount.configCountD_strictMono`: `n ↦
   configCountD d n`은 strict order-embedding (`d ≥ 2`) — 어떤 level도
@@ -111,7 +110,7 @@ any axioms" 즉 axiom set ∅ 달성.)
 
 **구조적 관찰**: fractal level n = d² 지점에서 `numV (d²) = d^(d²)`라는
 family fixed-point 등식이 성립.  이는 *가족의 한 성질*이지 별도
-"self-referential framing"이 아님 (G120 Phase 4가 이 점을 명시).
+"self-referential framing"이 아님 (the spec이 이 점을 명시).
 
 ## 교훈 3: 격자 내부 frame 도구
 

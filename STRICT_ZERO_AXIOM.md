@@ -123,7 +123,7 @@ Remaining sealed module in this category:
 
 ### Net effect
 
-Scope note: until the build gate was made comprehensive (G159), only the
+Scope note: until the build gate was made comprehensive, only the
 umbrella-reachable subset was ever scanned, and that subset was fully PURE
 (non-sealed).  The comprehensive gate now scans **all 1532 modules**, which
 exposes the purity status of the previously-ungated clusters.  Current
@@ -155,7 +155,7 @@ exposes the purity status of the previously-ungated clusters.  Current
     (the `Iff`) pull `Classical.choice` → constructive `c*m+1 ≤ c*m+c ≤ c*n` helper,
     cf. `KerSizeUniversal.mul_lt_mul_left_pure`) + the Int/`same` playbooks
     (`Meta/Int213`, `ReadingEq`/`sameLens`).
-  · **Gate vindication**: closing the build-gate hole (G159) exposed a genuine
+  · **Gate vindication**: closing the build-gate hole exposed a genuine
     falsifiability violation that had been invisible — `KerSizeUniversal`'s
     `Classical.choice` (via `Nat.mul_lt_mul_left`) in an orphaned cluster, now
     fixed.  A gate that only follows umbrella imports cannot guarantee the
@@ -189,8 +189,8 @@ exposes the purity status of the previously-ungated clusters.  Current
 
 ## PURE-bounded on Lean 4 core (2026-05-22)
 
-**Verification**: G95 (dependency-purity audit) +
-`claude/subset-bijection-lemmas-w2FKf` branch's N5 + N6 closures.
+**Verification**: the dependency-purity audit (transitive Lean-core
+axiom scan) + the N5 + N6 centralisations below.
 
 Beyond avoiding `Classical.*`/`native_decide`/`sorryAx`, the DRLT
 corpus has been audited for *Lean-core* axiom dependencies (those
@@ -208,7 +208,8 @@ made this possible during the cycle:
     adoption (25 sites, Pattern #10).
 
 Future Lean-core upgrades that change axiom dependencies of
-standard-library lemmas are caught by re-running G95.
+standard-library lemmas are caught by re-running the
+dependency-purity audit (`tools/scan_all_axioms.py`).
 
 ---
 
@@ -1312,7 +1313,7 @@ the two non-trivial `SelfReferenceThreeOutcomes` readings of one object.
 
 `E213.Lib.Math.Analysis.Cauchy.CFiniteRing` — **82 PURE / 0 DIRTY**.  The **difference-operator algebra** and the **C-finite ring closure under `+`**.  `applyOp p s = Σ_i pᵢ·Δⁱs` (coefficient list low-to-high `Δ`-power); linearity (`applyOp_add`/`applyOp_smul`), `Δ`-commutation (`applyOp_diffZ`), and ★★★ `applyOp_comm` (`p(Δ)q(Δ)s = q(Δ)p(Δ)s` — difference operators commute).  `conv` (coefficient convolution = operator product) with `applyOp_conv` (`(p·q)(Δ) = p(Δ)∘q(Δ)`).  ★★★ **the ring law** `conv_annih_add`: if `p` annihilates `s` and `q` annihilates `t`, the product `conv p q` annihilates `s+t` — the constant-coefficient annihilators *multiply* (orbit dimensions add).  **Bridge** (both directions): `cfiniteZ_to_annih` (`CFiniteZ s ⟹ ∃ monic `opOf`-operator annihilating `s`, via `applyOp_opOf` evaluating `Δᵏ−ΣcᵢΔⁱ` and `opOf_getLastD` proving leading `1`) + `annih_snoc_to_cfiniteZ` (a monic `lo++[1]` annihilator *is* the orbit recurrence `Δ^{|lo|}s=ΣcᵢΔⁱs`, via `applyOp_snoc_one` + `applyOp_eq_linComb`).  So **C-finite ⟺ has a monic constant-coefficient annihilator** — the orbit-recurrence definition coincides with the standard annihilating-polynomial one.  ★★★ **the capstone** `cfiniteZ_add`: `CFiniteZ s → CFiniteZ t → CFiniteZ (s+t)` — the monic annihilators multiply (`conv_snoc`: leading coefficients multiply, `1·1=1`; `+0`/`*1` syntactic noise absorbed by an existential-value `conv_snoc`), so `polynomial ⊊ C-finite` is a genuine **ring** under `+`, with the `conv`-monic toolkit `length_snoc`/`smulL_snoc`/`addL_snoc_right`/`length_addL_right_ge`/`opOf_snoc` (all `Nat.max`-free).  `cfiniteZ_one_add_twoPow`: `1+2ⁿ` is C-finite, a concrete sequence `+` generates that is neither polynomial nor geometric.  `cfiniteZ_sub` (with `OrbitDimension`'s `cfiniteZ_zero`/`cfiniteZ_neg`) completes the **abelian group under `±`**.  **§8 the shift as a difference operator** (toward C-D): `applyOp_shift` (`applyOp [1,1] = E`, the forward shift *is* `I+Δ`), `ePow k` (= `[1,1]` convolved `k` times = `Eᵏ`), `applyOp_ePow` (`applyOp (ePow k) s n = s(n+k)` — the `k`-shift is a polynomial in `Δ`).  So a monic shift recurrence is a monic `Δ`-annihilator.  **§9 C-D reverse direction** `cfiniteZ_of_shiftRec`: a sequence satisfying a monic order-`k` shift recurrence `s(n+k)=Σ_{i<k} bᵢ s(n+i)` (`ShiftRecZ`) is C-finite (`Δ`-orbit dim ≤ k) — via `eCombo` (shift→`Δ` operator `Σ bᵢ ePow i`, no binomial sums), `ePow_eq_snoc` (`ePow k` monic degree k), `eCombo_length_le`, `addL_snoc_right`.  So the standard constant-recursive definition ⟹ the `Δ`-orbit-recurrence one; `cfiniteZ_fib_via_shift` validates it end-to-end (Fibonacci's shift recurrence ⟹ `CFiniteZ fibZ`).  **§10–§11 C-D forward** — the dual shift-operator algebra `applyShift` (`Δ = applyShift [-1,1] = E−I` via `applyShift_diffBase`; `Δᵏ` as a shift operator `applyShift_dPow`; conv = composition `applyShift_conv`), `sCombo`/`dPow_eq_snoc`, and `shiftRec_of_cfiniteZ` (`CFiniteZ ⟹ ∃ monic shift recurrence`, the exact mirror of the reverse, no binomial sums).  ★★★ `cfiniteZ_iff_shiftRec`: **`CFiniteZ s ↔ ∃ K b, ShiftRecZ K b s`** — the full **"orbit dimension = recurrence order"** equivalence; `CFiniteZ` is exactly the standard constant-recursive class.  **§12 Hadamard, geometric factor** `cfiniteZ_geomScale`: `cⁿ·s` is C-finite for every C-finite `s` (a geometric weight rescales the shift coefficients `aᵢ↦aᵢ·c^{k−i}`, via `cfiniteZ_iff_shiftRec` + `geom_shiftSum`), generalizing `cfiniteZ_geom_mul` to `cⁿ·(n²)`, `cⁿ·fib`, ….  **§13 Hadamard, explicit-spectrum factor** `cfiniteZ_geomCombo_mul`: `(Σ aᵢcᵢⁿ)·t` is C-finite for every C-finite `t` (`geomCombo` = explicit `ℤ`-combination of geometrics; via `cfiniteZ_geomScale`+`cfiniteZ_add`, no determinant) — covers `(2·3ⁿ−5·2ⁿ)·fib`, `(3ⁿ+5ⁿ)·n²`.  (The *general* product `s·t`, both factors non-split, needs the monic resultant = `det(zI−M)` — **now closed** by `CFiniteHadamard.cfiniteZ_mul` via integer Cayley–Hamilton.)
 
-`E213.Lib.Math.Analysis.Cauchy.CFiniteHadamard` — **21 PURE / 0 DIRTY**.  ★★★ **The C-finite Hadamard (pointwise) product** `cfiniteZ_mul`: `CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)` — the last open ring operation, closed via the Kronecker companion + integer Cayley–Hamilton.  **§1 grid-sum**: `append_nil'`/`append_assoc'` (clean), `iota_add`, ★ `sumZ_grid` (`sumZ` over `iota (p·q)` = the double sum over the `p×q` grid).  **§2–§3 the flat↔grid bijection** (∅-axiom, since core `Nat./`/`%` are propext/Quot-dirty): a **fuel-structural** `qof`/`rof` (`divmod` via clean `Nat.sub`), `divmod_spec` (division algorithm), `decA`/`decB`/`dec_spec`, `divmod_unique` + `decA_encode`/`decB_encode` (the encode roundtrip).  **§4 the factored Kronecker companion**: `shiftSum_eq_sumZ`, the *factored* rows `Ms`/`Mt` (s- and t-shifts are independent), `Wvec` (product vector `w(n)_J = s(n+J/q)·t(n+J%q)`), `Mmat = Ms·Mt`, `Ms_sum`/`Mt_sum` (each shift row reproduces the boundary recurrence), and ★★ `vecRec` — **`w(n+1) = M·w(n)`** (the grid sum factors into the product of the two shift sums).  **§5 the assembly** ★★★ `cfiniteZ_mul`: `CharPolyAdj.ch_recurrence` at the `(0,0)` component ⟹ `Σ_{m≤pq} c_m·(s·t)(n+m) = 0` with `c_{pq}=1` (`PolyDet.charPoly_monic`) ⟹ `ShiftRecZ pq (−c) (s·t)` ⟹ `CFiniteRing.cfiniteZ_of_shiftRec` (edge cases `p=0`/`q=0` ⟹ a zero factor ⟹ `cfiniteZ_zero`).  The full G185 program (Leibniz determinant → cofactor/adjugate → integer Cayley–Hamilton → Hadamard) closed, ∅-axiom.
+`E213.Lib.Math.Analysis.Cauchy.CFiniteHadamard` — **21 PURE / 0 DIRTY**.  ★★★ **The C-finite Hadamard (pointwise) product** `cfiniteZ_mul`: `CFiniteZ s → CFiniteZ t → CFiniteZ (s·t)` — the last open ring operation, closed via the Kronecker companion + integer Cayley–Hamilton.  **§1 grid-sum**: `append_nil'`/`append_assoc'` (clean), `iota_add`, ★ `sumZ_grid` (`sumZ` over `iota (p·q)` = the double sum over the `p×q` grid).  **§2–§3 the flat↔grid bijection** (∅-axiom, since core `Nat./`/`%` are propext/Quot-dirty): a **fuel-structural** `qof`/`rof` (`divmod` via clean `Nat.sub`), `divmod_spec` (division algorithm), `decA`/`decB`/`dec_spec`, `divmod_unique` + `decA_encode`/`decB_encode` (the encode roundtrip).  **§4 the factored Kronecker companion**: `shiftSum_eq_sumZ`, the *factored* rows `Ms`/`Mt` (s- and t-shifts are independent), `Wvec` (product vector `w(n)_J = s(n+J/q)·t(n+J%q)`), `Mmat = Ms·Mt`, `Ms_sum`/`Mt_sum` (each shift row reproduces the boundary recurrence), and ★★ `vecRec` — **`w(n+1) = M·w(n)`** (the grid sum factors into the product of the two shift sums).  **§5 the assembly** ★★★ `cfiniteZ_mul`: `CharPolyAdj.ch_recurrence` at the `(0,0)` component ⟹ `Σ_{m≤pq} c_m·(s·t)(n+m) = 0` with `c_{pq}=1` (`PolyDet.charPoly_monic`) ⟹ `ShiftRecZ pq (−c) (s·t)` ⟹ `CFiniteRing.cfiniteZ_of_shiftRec` (edge cases `p=0`/`q=0` ⟹ a zero factor ⟹ `cfiniteZ_zero`).  The full C-finite Hadamard program (Leibniz determinant → cofactor/adjugate → integer Cayley–Hamilton → Hadamard) closed, ∅-axiom.
 
 `E213.Lib.Math.Analysis.Cauchy.CasoratianRank` — **6 PURE / 0 DIRTY**.  The **forward half of "Casoratian rank = orbit dimension"**: ★★ `casoratian_det_zero` — a sequence with a monic order-`k` shift recurrence has its `(k+1)×(k+1)` Casoratian/Hankel determinant `det [s(n+i+j)]_{i,j≤k} = 0` (the bottom row `s(n+k+j)` is exactly the recurrence combination `Σ_{a<k} bₐ·s(n+a+j)` of the upper rows, so `RowDependence.det_row_combo_zero` applies after `shiftSum_eq_sumZ` + `add_right_comm` index massaging); `casoratian_det_zero_ge` (every Casoratian of size `> k` vanishes ⟹ **rank ≤ order**), `casoratian_det_zero_of_cfiniteZ` (any `CFiniteZ` sequence).  **§2 the Fibonacci witness** ★ `fib_casoratian_rank` — Fibonacci's `3×3` Casoratian `= 0` while its `2×2` is the unit `(−1)ⁿ⁺¹ ≠ 0`, so its Casoratian **rank is exactly 2 = its orbit dimension** (`fib_shiftRec` + `FibCassiniDet`).  The first reuse of the integer determinant tower beyond Cayley–Hamilton.
 
@@ -1425,7 +1426,7 @@ orbit `(c·a, c·d)` of a presentation: `scaleBy` a monoid action (`scaleBy_one`
 `scaleBy_comp`), the cut its complete invariant (`scaleBy_preserves_cut`),
 `CrossDetSmall` antitone along it (`orbit_free_implies_base_free`), and the
 `Reduced` base unique (`reduced_scaling_trivial`).  Bundled in
-`scaling_orbit_structure`.  Advances C2 (G169): the reduced base is the
+`scaling_orbit_structure`.  Advances completability direction C2: the reduced base is the
 rung-minimal presentation within a rescaling orbit (scope: rescaling sub-family,
 not all presentations).
 
@@ -1503,7 +1504,7 @@ The `−2`-character supplies the Pillar-I input the bare non-residue search lac
 
 `E213.Lib.Math.NumberSystems.Padic.TeichmullerI5` — **5 PURE / 0 DIRTY**.  ★★★★ **`i₅ = teichmuller(2-lift)`** (`i5_eq_teichmuller`): the 5-adic imaginary unit `i₅ = √(−1)` equals the Teichmüller representative of `lift2` (digit 0 = `2`) at every truncation.  `i5_pow4_mod` lifts `i_5_pow_four_trunc` (`i₅⁴ ≡ 1`) to power form `(i₅.trunc(n+1))⁴ % 5ⁿ⁺¹ = 1` (pulling the inner mods); `i5_frob_fixed` then gives `i₅⁵ ≡ i₅` cleanly via `Zp.pow_trunc` (`(pow x n).trunc m = (x.trunc m)ⁿ % pᵐ` — the whole thing in `ℤ/5ᵐ`), and `teichmuller_eq_of_fixed` (`prime_gcd_5` discharges the `p=5` coprimality) pins `i₅` as the unique Frobenius-fixed lift of its residue.  `Nat.pow_add`/`Nat.mul_assoc`'s propext sidestepped via `Nat.pow_succ` + `ring_nat`.
 
-### G122 closure addition (2026-05-22; extended through 2026-05-23)
+### p-adic library closure addition
 
 `E213.Lib.Math.NumberSystems.Padic.*` — Real213-p-adic library — adds **308 PURE
 declarations** across 8 modules (`Foundation`, `Arith`, `Pow`,
@@ -1536,7 +1537,7 @@ closures:
   · `canonical_5adic_p` — 5-adic lift of the base prime `5`,
     with digit smoke-tests.
 
-Follow-on (G123 directions A/B): the explicit Teichmüller
+Follow-on (directions A/B): the explicit Teichmüller
 representative and the unit-group decomposition, all PURE:
 
   · `Zp.teichmuller` — `ω(x)` as the diagonal of the iteration
@@ -1556,7 +1557,7 @@ representative and the unit-group decomposition, all PURE:
     (`SetoidFramework`).  Raw Lean `=` on `ZpSeq` is a Lens artifact
     (needs funext); `ZpSeqEquiv` is the equality the residue carries.
 
-Follow-on (G123 direction G): general p-adic division, all PURE:
+Follow-on (direction G): general p-adic division, all PURE:
 
   · `Zp.shiftRight` + `Zp.shiftLeft_shiftRight_digit_of_low_zero`
     (`Padic.Arith`) — the unit-part extractor and factorisation
@@ -1585,7 +1586,7 @@ scan post-seal-empty: **2491 PURE / 164 DIRTY / 0 sealed**.
 After batch 1-10 fixes (27 theorems converted): **2519 PURE / 137
 DIRTY / 0 sealed**.
 
-**2026-05-10 (continuation, Lens equality refactor / G83 marathon)**:
+**Lens-equality refactor marathon (continuation)**:
 Continuation of marathon under "Lens equality 재정의 strategy"
 directive.  Phase 1 + Phase 2 complete with eqPW infrastructure:
 
@@ -1644,7 +1645,7 @@ DIRTY breakdown (cumulative session):
   - 2   [propext, Quot.sound] (split format)
 
 The `[Quot.sound]`-only category dropped 33 → 18 (−15, ~45% reduction) —
-direct hit of the G83 Lens-equality refactor.
+direct hit of the Lens-equality refactor.
 
 **Continuation batch**: more PURE wins via the eqPW-companion + typeclass-
 bypass patterns:
@@ -1671,7 +1672,7 @@ DIRTY breakdown:
 
 The `[Quot.sound]`-only column dropping 33 → 22 (-11) is the
 direct Cat 1 conversion signal — those were genuine "Lens equality
-via funext on combine" leaks, exactly the G83 target.
+via funext on combine" leaks, exactly the refactor's target.
 
 The remaining DIRTY split:
   - Inherent Prop-codomain (`Raw → Prop` from `universalLens`):

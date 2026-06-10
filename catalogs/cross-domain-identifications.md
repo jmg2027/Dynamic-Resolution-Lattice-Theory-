@@ -1,8 +1,9 @@
 # Cross-Domain Identifications Catalog (CDI)
 
 Math ↔ Physics ↔ Cohomology decls with **byte-identical
-elaborated Expr** (post-normalisation) discovered by G109
-shape-vector grouping over `tools/_ast_shape_rows.tsv`.
+elaborated Expr** (post-normalisation) discovered by
+shape-vector grouping over `tools/_ast_shape_rows.tsv`
+(`tools/ast_shape_scan.py`).
 
 When two or more decls in distinct top-level namespaces produce
 the same 14-dimensional Expr-shape vector, they are NOT just
@@ -248,23 +249,24 @@ at atomicity-numeric instances.
 
 ## How to add a new CDI
 
-  1. Re-run G109 analysis: `python3 -c "..."` over
-     `tools/_ast_shape_rows.tsv` (G103 output) — see G109 for
-     the script.
+  1. Re-run the shape-vector grouping over
+     `tools/_ast_shape_rows.tsv` (`tools/ast_shape_scan.py`
+     output).
   2. Sort cross-namespace groups by Expr-size.
   3. Inspect top entries — if they represent a structurally
      meaningful identity, add as CDI-N here.
-  4. Cite the originating G-doc(s) for evidence.
+  4. Cite the witnessing Lean decls for evidence.
 
 ---
 
-## Pattern #15 reference (LESSONS_LEARNED candidate)
+## Methodology-pattern reference
 
-**Pattern #15 — Byte-identical Expr cross-domain bridges**:
+**Byte-identical Expr cross-domain bridges**
+(`theory/meta/methodology_patterns.md` Pattern #18):
 when two decls in distinct top-level namespaces produce
 byte-identical 14-dim Expr-shape vectors, they share an
 implicit cross-domain identification.  Quantified at 109
-cross-namespace groups in DRLT (G109).
+cross-namespace groups in DRLT.
 
 ---
 

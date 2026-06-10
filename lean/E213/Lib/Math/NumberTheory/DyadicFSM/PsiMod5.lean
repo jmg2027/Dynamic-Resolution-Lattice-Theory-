@@ -25,7 +25,7 @@ This module provides:
   · `psi` definition + recurrence + Fibonacci expansion
     (1-line corollaries of the generic theorem).
 
-For G119 Phase 3.2: combining FLT for both phi and psi gives
+For Phase 3.2: combining FLT for both phi and psi gives
 `F_{p-1} · s ≡ 0 mod p`, which (with s invertible mod p) closes
 `F_{p-1} ≡ 0 mod p` — the Fibonacci-Pisano condition for split
 primes.

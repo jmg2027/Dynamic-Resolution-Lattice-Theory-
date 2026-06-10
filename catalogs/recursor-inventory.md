@@ -8,7 +8,7 @@ totalling tens of thousands of Expr-level edges.
 
 ## Method
 
-Re-scan `_ast_callgraph_edges.tsv` (G102) for all callees ending
+Re-scan `_ast_callgraph_edges.tsv` (`tools/ast_callgraph_scan.py`) for all callees ending
 in `.rec` / `.recAux` / `.recOn` / `.brecOn` / `.casesOn`.
 Group by inductive type, count total invocations + distinct
 callers.
@@ -30,15 +30,15 @@ callers.
 | 11 |    65 | `EStateM.Result` | `casesOn` (65/22) | Metaprogramming plumbing |
 | 12 |    57 | `Ordering` | `casesOn` (57/53) | Comparator case-split |
 
-## What G90's earlier scan missed
+## What the earlier fold-scan missed
 
-G90 (`tools/ast_fold_scan_body.lean`) had a hardcoded recursor
+The earlier scan (`tools/ast_fold_scan_body.lean`) had a hardcoded recursor
 list of 5 names (`List.foldl/foldr/rec`, `Nat.recAux/brecOn`)
 yielding 720 sites.  This understated the true recursor
 landscape by **~50×**:
 
   · **`Bool.casesOn`** at 1,681 invocations is the single largest
-    recursor — G90 missed it because the name shape is `casesOn`,
+    recursor — the fold-scan missed it because the name shape is `casesOn`,
     not `.rec` / `.foldl`.
   · **`Decidable.casesOn`** at 562 invocations.
   · **Connective `casesOn`** (And/Or/Exists/Prod) at 1,202
@@ -47,7 +47,7 @@ landscape by **~50×**:
     of `rw` / `▸` rewriting.
   · **`E213.Term.Internal.Tree` recursors** at 104 invocations —
     the Expr-layer signature of the 23 `a | b | slash`
-    declarations in G94 §6.
+    declarations.
 
 ## Architecturally significant findings
 
@@ -76,11 +76,11 @@ awk -F'\t' '$2 ~ /\.(rec|recAux|recOn|brecOn|casesOn)$/ \
   _ast_callgraph_edges.tsv | sort | uniq -c | sort -rn | head -50
 ```
 
-Or re-derive from G102's atlas TSV.
+Or re-derive from the call-graph atlas TSV.
 
 ## Cross-references
 
     §2 — full data + per-type breakdown.
-    pass (corrected by G105).
+    pass (corrected by the recursor re-scan).
   · `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2 — α/β/γ context for the
     Lean-stdlib substrate finding.

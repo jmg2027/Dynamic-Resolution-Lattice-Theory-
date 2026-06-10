@@ -18,7 +18,7 @@ The two consequences captured here, both PURE:
     invertible `ArithFSM2 n` (with `1 < n`) has a period
     `N ≤ n²` with `F.run N = F.run 0`.
 
-This is the abstract version of the G119 Phase 2 existential Pisano
+This is the abstract version of the Phase 2 existential Pisano
 period closure for the Pell matrix C-H FSM.  Future invertible
 2-state FSMs (Lucas / Fib companions / arbitrary `M ∈ SL_2(𝔽_n)`
 recurrences) become 1-line corollaries: provide a `stepInv` + proof

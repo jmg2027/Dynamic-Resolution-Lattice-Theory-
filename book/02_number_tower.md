@@ -79,7 +79,8 @@ Ratios of readings give `ℚ` (with the coprimality that `det P = 1` already enc
 Cauchy trajectories whose readings narrow to a single residue give `ℝ`. Each layer wraps the
 previous; none is imported. And the tower has a finite-resolution ceiling: at any actual
 configuration the Lens outputs are exact rationals, and the transcendentals are limit *labels*, not
-primitives (`06_lens_readings` §6.7; `seed/RESOLUTION_LIMIT_SPEC.md`) — the numerical form of "no
+primitives (`06_lens_readings` §6.7;
+`Lib/Math/Foundations/ResolutionLimit.lean`) — the numerical form of "no
 exterior dialer."
 
 ## 2.6 The tower, fixed

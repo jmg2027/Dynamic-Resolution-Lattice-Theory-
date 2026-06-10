@@ -57,7 +57,7 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.TripleProductSurfacePara
                                    (½·C(2n,n), ½·C(2n,n))`,
                                   bundling all n=1, n=2 witnesses
                                   + numerical sequence for n≤5
-    * `T2nInductive`           — ★★★ **Pattern theorem (G14, full
+    * `T2nInductive`           — ★★★ **Pattern theorem (full
                                   inductive form)**: parametric
                                   `T2n_blocks_inductive n hn`
                                   closes the open follow-up from
@@ -73,7 +73,7 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.TripleProductSurfacePara
                                   Künneth rule `(p·p' + q·q',
                                   p·q' + q·p')`.  STRICT ∅-AXIOM.
     * `GenusGSurface`          — ★★★ **Σ_g surface signature
-                                  (parametric in genus)**: closes G12
+                                  (parametric in genus)**: closes the
                                   §6 follow-up `signature(Σ_g) = (g, g)`
                                   for all g ≥ 0, with connected-sum
                                   additivity `Σ_{g+h} = Σ_g # Σ_h`.

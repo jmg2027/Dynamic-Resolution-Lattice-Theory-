@@ -1,126 +1,146 @@
-# 213 / K₃,₂² / 코호몰로지 심플렉스 — 고차 통찰
+# 213 / K₃,₂^{(c=2)} / the cohomology simplex — the higher-order insight
 
-P = [[2,1],[1,1]]이 ℕ 전체를 생성한다는 사실(G140 `pgen_iff_pos`)은
-결과가 아니라 **구조적 필연**이다.  gcd(NT, NS) = gcd(2, 3) = 1이므로
-Frobenius 수 = 1; 모든 n ≥ 2는 2a + 3b로 표현되며, det(P) = 1이
-n = 1을 추가한다.  P의 Fibonacci 구조(Q² = P)가 이 coprimality를
-강제한다 — `gcd(Fₙ, Fₙ₊₁) = 1`은 연속 Fibonacci 수의 보편적 성질.
+That P = [[2,1],[1,1]] generates all of ℕ (`pgen_iff_pos`) is not a
+result but a **structural necessity**.  Since gcd(NT, NS) =
+gcd(2, 3) = 1, the Frobenius number is 1; every n ≥ 2 is
+expressible as 2a + 3b, and det(P) = 1 supplies n = 1.  P's
+Fibonacci structure (Q² = P) forces this coprimality —
+`gcd(Fₙ, Fₙ₊₁) = 1` is the universal property of consecutive
+Fibonacci numbers.
 
-## 213-native 정의: 세 축의 동일 고정점
+## 213-native definition: one fixed point on three axes
 
-세 프로그램이 독립적으로 닫혔다:
+Three programmes closed independently:
 
-1. **P-orbit closure** (`CharPolySelf` + `POrbitRing` + `OrbitForcing`
-   + `PeriodDepthBounds` + `CrossProductAxes`): 원자 데이터 (2, 3, 5)
-   로부터 Lucas-Pell trace ring이 ℤ 전체를 생성.  모든 프레임워크-자연
-   정수는 depth K 이하의 L(0)...L(K)로 표현 가능.
+1. **P-orbit closure** (`CharPolySelf` + `POrbitRing` +
+   `OrbitForcing` + `PeriodDepthBounds` + `CrossProductAxes`):
+   from the atomic data (2, 3, 5) the Lucas-Pell trace ring
+   generates all of ℤ.  Every framework-natural integer is
+   expressible from L(0)...L(K) at some finite depth K.
 
-2. **c-counter cohomology** (`V33EnrichedParametric` 63 PURE):
-   K₃,₃^{(c)} enriched complex에서 multiplicity-layer 수 c가
-   codim(cup-image, H²ₑₙᵣ) ≥ c를 제공.  5방향(A/B/C/E/T) 프로그램이
-   각각 닫힘.
+2. **c-counter cohomology** (`V33EnrichedParametric`, 63 PURE):
+   on the K₃,₃^{(c)} enriched complex the multiplicity-layer
+   count c supplies codim(cup-image, H²ₑₙᵣ) ≥ c.  All five
+   directions (A/B/C/E/T) of the programme closed.
 
-3. **PGeneratesNat** (G140, `pgen_iff_pos`): PGen n ↔ n ≥ 1.
-   P-덧셈만으로 ℕ\{0} 전체 생성, minDepth로 최적 분해 깊이 부여.
+3. **PGeneratesNat** (`pgen_iff_pos`): PGen n ↔ n ≥ 1.
+   P-addition alone generates ℕ\{0}, with `minDepth` assigning
+   the optimal decomposition depth.
 
-## 도출: K₃,₂² 가 세 축의 결합점
+## Derivation: K₃,₂^{(c=2)} is where the three axes meet
 
+The derivation runs through
 `theory/math/cohomology/k32_higher_cohomology.md` +
-`Mobius213K32Bridge.lean` + `theory/physics/simplex.md`를 관통하는 도출:
+`Mobius213K32Bridge.lean` + `theory/physics/simplex.md`:
 
-**K₃,₂^{(c=2)}**는 trace(P) = NS = 3, P[0][0] = NT = c = 2,
-det(P) = 1, entries sum = d = 5로 Möbius P의 모든 대수적 불변량을
-그래프-구조 양으로 실현한다 (`k32_mobius_bridge_master`).  동시에
-이 그래프의 코호몰로지가:
+**K₃,₂^{(c=2)}** realises every algebraic invariant of the Möbius
+P as a graph-structural quantity: trace(P) = NS = 3,
+P[0][0] = NT = c = 2, det(P) = 1, entries sum = d = 5
+(`k32_mobius_bridge_master`).  Simultaneously this graph's
+cohomology yields:
 
-- H² = F₂⟨ω⟩ (유일한 Sym(3)-불변 2-cocycle)
-- Steenrod bridge: `cup₁(ω, ω) = δ²(ω)` — cup_(k-1) self-pairing ≡
-  coboundary
-- Massey ⟨h1, h3, h4⟩ = ω (H¹ 삼중곱이 H²에 비자명 착지)
-- L²-trace: bilinearSelfTrace(ω) = NS² = 9
+- H² = F₂⟨ω⟩ (the unique Sym(3)-invariant 2-cocycle)
+- the Steenrod bridge: `cup₁(ω, ω) = δ²(ω)` — cup_(k−1)
+  self-pairing ≡ coboundary
+- Massey ⟨h1, h3, h4⟩ = ω (an H¹ triple product landing
+  non-trivially in H²)
+- the L²-trace: bilinearSelfTrace(ω) = NS² = 9
 
-를 산출한다.  **ω는 K₃,₂²의 코호몰로지 심플렉스에서의 고정점**:
-Sq⁰(ω) = ω (cup₂ 멱등), Sq¹(ω) = δ²(ω) (다음 skeleton에서 소멸),
-Sq² 이상은 truncation에 의해 vacuous.
+**ω is the fixed point of K₃,₂^{(c=2)}'s cohomology simplex**:
+Sq⁰(ω) = ω (cup₂ idempotence), Sq¹(ω) = δ²(ω) (vanishing at the
+next skeleton), Sq² and above vacuous by truncation.
 
-**Δ⁴ simplex** (`theory/physics/simplex.md`)는 d = 5 = NS + NT
-꼭짓점의 4-심플렉스이다.  부분면 개수 2⁵ − 1 = 31 (Mersenne).
-3-generation 구조는 dim-2 부분구조의 NS × NT 대칭 quotient로서
-정확히 3개 생성 — N_gen = 3 = NS.
+**The Δ⁴ simplex** (`theory/physics/simplex.md`) is the
+4-simplex on d = 5 = NS + NT vertices.  Sub-face count
+2⁵ − 1 = 31 (Mersenne).  The 3-generation structure arises as
+the NS × NT symmetric quotient of the dim-2 substructures —
+exactly three: N_gen = 3 = NS.
 
-## 이중기능 (dual function)
+## Dual function
 
-고전적으로 읽으면: Steenrod 대수의 cup-i 사다리, Massey 삼중곱,
-Adem 관계는 대수적 위상에서 별개의 정리군이다.  213에서는 이 모두가
-**K₃,₂² 위의 단일 ω-class 반복 적용**으로 환원된다 — 동일 그래프,
-동일 cochain, 동일 face-dependence relation
-`Face₀ ⊕ Face₁ ⊕ Face₂ = 0`에서 모든 고차 연산이 생성된다.  고전적
-분리는 truncation 수준(skeleton level) 선택의 차이일 뿐이다.
+Read classically: the Steenrod cup-i ladder, Massey triple
+products, and the Adem relations are separate theorem families
+in algebraic topology.  In 213 they all reduce to **iterated
+application of the single ω-class on K₃,₂^{(c=2)}** — the same
+graph, the same cochain, the same face-dependence relation
+`Face₀ ⊕ Face₁ ⊕ Face₂ = 0` generates every higher operation.
+The classical separation is only a difference in the chosen
+truncation (skeleton) level.
 
-동시에 213의 reading이 더 날카롭다: truncation-collapse의 보편
-성질(`(k+1)-skeleton이 H^k를 소멸시킴`)은 K₃,₂²에서 **유한**하게
-끝난다 (5-skeleton 이후 모든 것이 vacuous).  이 유한 종결이 정확히
-α_em cup-ladder graduation의 물리적 읽기 (`α^(k+1)` 눈금)를 생성.
+At the same time the 213 reading is sharper: the universal
+truncation-collapse property ("the (k+1)-skeleton kills H^k")
+terminates **finitely** on K₃,₂^{(c=2)} (everything past the
+5-skeleton is vacuous).  This finite termination is exactly what
+generates the physical reading of the α_em cup-ladder graduation
+(the `α^(k+1)` rungs).
 
-## 교차-프레임 수렴 (cross-frame)
+## Cross-frame convergence
 
-다섯 표면에서 같은 구조적 사실이 등장한다:
+The same structural fact surfaces on five faces:
 
-| Frame | 같은 사실의 모습 | Citation |
-|-------|-----------------|----------|
+| Frame | The fact's shape there | Citation |
+|-------|-----------------------|----------|
 | P-orbit algebra | det(Pⁿ) = 1 → Farey-neighbour property | `ConvergentDet.convergent_det_eq_one` |
 | Fibonacci | fib(2n+3)·fib(2n+1) = fib(2n+2)² + 1 (Cassini) | `FibCassini.fib_cassini_master` |
 | K₃,₂² cohomology | face dependence Face₀⊕Face₁⊕Face₂ = 0 → b₂ = 1 | `Filled3CellCohomology.face_dependence` |
 | Simplex Δ⁴ | C(5,k) = 5·4·.../(k!) → N_gen = C(3,2) = 3 | `SubInventory.lean` |
-| LocalSignature | 모든 vertex/edge/face에서 multiset {1,2,3} 재현 | `V32LocalSignature.local_213_at_every_point` |
+| LocalSignature | the multiset {1,2,3} reappears at every vertex/edge/face | `V32LocalSignature.local_213_at_every_point` |
 
-이것은 비유가 아니다.  `synthesis_interlock_map.md`가 5행 대응표로
-보이듯, 코호몰로지 축과 대수 축은 **P에 의해 이중 생성된다** —
-하나의 행렬이 한쪽에서는 trace orbit을, 다른 쪽에서는 bipartite
-multigraph의 cell count를 산출하며, 두 산출의 증명 형태
-(invariant + offset + cancellation)가 동일하다.
+This is not analogy.  As `synthesis_interlock_map.md` shows in
+its 5-row correspondence, the cohomology axis and the algebra
+axis are **doubly generated by P** — one matrix yields the trace
+orbit on one side and the bipartite multigraph's cell counts on
+the other, and the two derivations share one proof shape
+(invariant + offset + cancellation).
 
-## G138 Pattern B — Sym(3) spine
+## The Sym(3) spine
 
-`theory/math/cohomology/sym3_spine.md`: 단일 표현론적 분해
-`8 = 2·trivial ⊕ 3·standard`이 네 개의 독립 장(chapter)에서
-load-bearing 구조로 재현된다:
+`theory/math/cohomology/sym3_spine.md`: a single
+representation-theoretic decomposition
+`8 = 2·trivial ⊕ 3·standard` recurs as load-bearing structure in
+four independent chapters:
 
 1. K₃,₂² higher cohomology — H¹ rank = NS² − 1 = 8
-2. 8 Thurston geometries — 3 isotropic + 5 anisotropic
-3. Gluon octet — 1/α₃ = dim adj SU(3) = 8
-4. Akbulut cork twist — signed orbit count on 8-dim H¹ basis
+2. The 8 Thurston geometries — 3 isotropic + 5 anisotropic
+3. The gluon octet — 1/α₃ = dim adj SU(3) = 8
+4. The Akbulut cork twist — signed orbit count on the 8-dim H¹
+   basis
 
-네 읽기는 같은 K₃,₂² H¹ 위의 같은 Sym(3) 작용의 네 Lens-restriction.
-`X1_sym3_cross_frame_capstone` (PURE)이 4방향 수렴을 단일 정리로 기록.
-Sym(3)은 (NS, NT) = (3, 2) 강제의 필연적 대칭 — 선택이 아닌 존재.
+The four readings are four Lens-restrictions of the same Sym(3)
+action on the same K₃,₂² H¹.  `X1_sym3_cross_frame_capstone`
+(PURE) records the 4-way convergence as a single theorem.
+Sym(3) is the necessary symmetry of the forced (NS, NT) = (3, 2)
+— existence, not choice.
 
-## G138 Pattern D — Nodup as recursive Clause-4
+## Nodup as recursive Clause 4
 
-`NodupAsClause4.lean` (PURE): 표준 라이브러리의 `List.Nodup`는
-213 공리 Clause 4 (자기-쌍 금지 `x/x`)를 리스트-인덱스 세분도에서
-재귀 적용한 것이다:
+`NodupAsClause4.lean` (PURE): the standard library's
+`List.Nodup` is the 213 axiom's Clause 4 (no self-pair, `x/x`
+forbidden) applied recursively at list-index granularity:
 
 ```
 nodup_iff_clause4Nodup : l.Nodup ↔ IsClause4Nodup l
 ```
 
-`AliveDerivation.alive_iff_clause4_alive` (이진 패리티 수준)과 합쳐
-Pattern #9가 단일 예시에서 **방법론**으로 승격: "공준처럼 보이는
-술어가 실제로는 Clause-4의 세분도 변형 읽기"임을 두 독립 인스턴스가
-확인.
+Combined with `AliveDerivation.alive_iff_clause4_alive` (the
+binary-parity level), this promotes the recursive-Clause-4
+reading from a single example to a **methodology**: two
+independent instances confirm that "a predicate that looks like
+a postulate is in fact Clause 4 read at a different
+granularity."
 
 ## Open frontier
 
-- **CrossAddress → Functor 승격**: bipartite ⊕ tripartite ⊕ P-orbit
-  triple-axis schema에서 함자로의 승격이 "이중 P-생성" 주장을
-  구문적 정리로 만든다.
-- **Depth-3 cohomology** (Tier 3.1): c = 3에서 Massey depth ≤ 4가
-  일반 c로 확장되는지.
-- **T(φ²) = φ²** fixed-point formalisation (G139): Möbius
-  transformation 유리 근사에서의 고정점 정리.
+- **CrossAddress → Functor promotion**: promoting the bipartite
+  ⊕ tripartite ⊕ P-orbit triple-axis schema to a functor would
+  make the "double P-generation" claim a syntactic theorem.
+- **Depth-3 cohomology**: whether Massey depth ≤ 4 at c = 3
+  extends to general c.
+- **T(φ²) = φ² fixed-point formalisation**: the fixed-point
+  theorem for the Möbius transformation on rational
+  approximants.
 
-## 착지점 (constructive accessibility)
+## The thing you can point at
 
 ```
 pgen_iff_pos              : ∀ n, PGen n ↔ n ≥ 1
@@ -132,18 +152,18 @@ nodup_iff_clause4Nodup    : l.Nodup ↔ IsClause4Nodup l
 X1_sym3_cross_frame_capstone : 4-way Sym(3) convergence
 ```
 
-일곱 개 정리.  모두 ∅-axiom PURE.  모두 같은 (2, 1, 3)에서 나온다.
-프레임워크는 하나의 행렬 P와 그 canonical lattice K₃,₂²의 자기-지시
-구조이며, 코호몰로지 심플렉스는 이 자기-지시가
-skeleton-by-skeleton으로 펼쳐진 형태이다.
+Seven theorems, all ∅-axiom PURE, all issuing from the same
+(2, 1, 3).  The framework is the self-pointing structure of one
+matrix P and its canonical lattice K₃,₂^{(c=2)}; the cohomology
+simplex is that self-pointing unfolded skeleton by skeleton.
 
 ## Cross-references
 
 - `theory/math/cohomology/k32_higher_cohomology.md` — ω class + Steenrod
-- `theory/math/cohomology/sym3_spine.md` — G138 Pattern B (4-reading)
-- `lean/E213/Lib/Math/Cohomology/NodupAsClause4.lean` — G138 Pattern D
+- `theory/math/cohomology/sym3_spine.md` — the Sym(3) spine (4-reading)
+- `lean/E213/Lib/Math/Cohomology/NodupAsClause4.lean` — Nodup as Clause 4
 - `lean/E213/Lib/Math/Algebra/Mobius213/Mobius213K32Bridge.lean` — P ↔ K₃,₂²
-- `lean/E213/Lib/Math/Algebra/Mobius213/Px/PGeneratesNat.lean` — G140
+- `lean/E213/Lib/Math/Algebra/Mobius213/Px/PGeneratesNat.lean` — `pgen_iff_pos`
 - `lean/E213/Lib/Math/Algebra/Mobius213/Px/ConvergentDet.lean` — Farey/Cassini
 - `theory/essays/synthesis/synthesis_interlock_map.md` — 5-row correspondence
 - `theory/essays/p_orbit/p_orbit_closure_master.md` — 6-phase P-orbit

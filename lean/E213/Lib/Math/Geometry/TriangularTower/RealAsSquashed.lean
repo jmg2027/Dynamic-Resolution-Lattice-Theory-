@@ -18,9 +18,9 @@ extension at level 1, real line at level 1).
 So ZFC's ℝ ≈ projection that **squashes all 3-axis information
 from levels 0..25 down into a single level-2 (signed) line**.
 
-This is the G42 squashing made precise:
-  * G42: 2D SignedCut plane → 1D ℝ via gauge projection.
-  * G47 (this): 1D ℝ has accumulated ALL 3-axis information
+This is the squashing made precise:
+  * AngleStructure: 2D SignedCut plane → 1D ℝ via gauge projection.
+  * this file: 1D ℝ has accumulated ALL 3-axis information
     from higher levels (continuity = level-3 work; completeness
     = level-something work; ...).
 
