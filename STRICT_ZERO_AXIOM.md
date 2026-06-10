@@ -291,8 +291,10 @@ ranked agenda, items 1–8:
     `sharing_starts_at_depth3` filters exactly the three `a/b`-reusing
     terms.
 
-Frontier: `research-notes/frontiers/async_pointline_raw.md` (items 7–8 —
-O1 reachability/joinability, honest counting theorem — remain open).
+The async point–line arc is closed ∅-axiom and promoted to
+`theory/math/foundations/async_growth.md`; the residual open direction
+is the exact-membership converse of reachability (recorded under the
+async-growth frontier topic).
 
 ### Fibonacci 5-adic valuation `ν₅(F_n) = ν₅(n)` — FULLY CLOSED, strict ∅-axiom (2026-06-08)
 
