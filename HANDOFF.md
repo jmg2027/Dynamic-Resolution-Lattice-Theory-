@@ -107,17 +107,22 @@ The committed-to multi-session build of `(ℤ/p)*` cyclic ⟹ Zolotarev nontrivi
   even by `psign_mulPerm_qr_pred`, so `psign(mulPerm a)·(−1)=1` by `psign_mulPerm_hom`); ★★★★★
   `zolotarev_iff` — full `psign(mulPerm a p)=1 ⟺ a` QR, modulo the single odd witness.
 
-**Brick remaining (the final combinatorial witness):**
-- **brick 7 — the odd-cycle witness** `psign (mulPerm g p) = −1` for a primitive root `g`
-  (~200 lines).  `mulPerm g` (`σ(k)=g·k mod p`) is conjugate to the **cyclic shift** on
-  `{1,…,p−1}` via the discrete-log list `τ = [g⁰%p, g¹%p, …, g^{p−2}%p]`
-  (`mulPerm g ≈ τ ∘ shift ∘ τ⁻¹`, so `psign(mulPerm g) = psign(shift)` by `PermSign.psign_mul`
-  + `psign_inv`); the cyclic shift `[1,2,…,p−2,0]` has `p−2` inversions ⟹
-  `psign = (−1)^{p−2} = −1` (`p` odd).  (Or: directly show `mulPerm g` is one `(p−1)`-cycle and
-  add a "sign of an `n`-cycle = `(−1)^{n−1}`" lemma to the `psign` framework.)  `g` from
-  `PrimitiveRoot.exists_primitive_root`; a primitive root is a non-residue (`ordModP g = p−1`
-  even ⟹ `g` not a square).  Feeds `zolotarev_iff` ⟹ the full Zolotarev/Legendre identity for
-  all units.
+- **brick 7 — DONE** `ZolotarevCycle.lean` (47 PURE) — **the odd-cycle witness**, closing the
+  **FULL Zolotarev identity**.  ★★★★★ `zolotarev_full` — for an odd prime `p` (`2m=p−1`, `m≥1`),
+  unit `1≤a<p`: `psign(mulPerm a p)=1 ⟺ a` QR.  ★★★ `psign_mulPerm_primitive` —
+  `psign(mulPerm g p)=−1` for a primitive root `g`: `mulPerm g` (fixing `0`, a `(p−1)`-cycle) is
+  conjugate to the standard rotation `cycS=[0,p−1,1,…,p−2]` via the discrete-log list
+  `τ(i)=g^(p−1−i)%p` (`conj_eq` by `getD`-ext + `conj_pointwise` `g·τ(i)≡τ(S(i))`), so `psign` (a
+  class function: `psign_mul` + `±1` self-cancel) gives `psign(mulPerm g)=psign(cycS)`; `psign_cycS
+  =−1` from `inversions_cycS=p−2` (`asc` calculus) + `altSign_odd`.  `cycS`/`τ ∈ perms p`
+  (`sFun_inj`; discrete-log injectivity `pow_inj_mod` via `res_cancel`+`ord_dvd`+`pow_period`).
+  `primitive_not_qr` (`ord g=2m∤m`).  **Primitive-root marathon COMPLETE; full Zolotarev CLOSED.**
+
+## Marathon closed — Zolotarev `(a/p) = sign(x↦a·x mod p)` is ∅-axiom end-to-end
+bricks 0–7 (MulOrder → Lcm213 → OrderPow → CoprimeOrder → MaxOrder → Valuation/QPart/ValuationAlg
+→ EveryOrdDvdMax → PrimitiveRoot → ZolotarevConverse → ZolotarevCycle).  `zolotarev_full` is the
+keystone; `1/α_em`-adjacent number theory now has the Legendre character realised as a permutation
+sign, all PURE.
 
 ## Next (other threads)
 - Residue-unit decidable carry-depth (assess `Theory/Raw/Odometer`); `Zp.diagLimit` abstraction.
