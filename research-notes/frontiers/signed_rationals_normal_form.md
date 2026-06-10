@@ -30,19 +30,19 @@ must be read off *first* (Bool axis), after which cross-`≤`
 valuation `Valuation.le_vp_iff`) is orientation-blind and composes
 freely with the sign axis.
 
-## Missing bricks (open)
+## Bricks
 
-1. **Euclid lemma** (PURE): `gcd213 a b = 1 → a ∣ b * c → a ∣ c`.
-   Needs the Bezout chain — flagged "future work" at
-   `Lens/Instances/Leaves/ModNat.lean` ("Requires Bezout chain").
-   Candidate route: `gcd213` distributivity `gcd213 (k*a) (k*b) =
-   k * gcd213 a b` by `gcdFuel` induction (avoids signed Bezout
-   coefficients entirely).
-2. **Uniqueness of the coprime representation** (PURE): from
-   `p₁ * q₂ = p₂ * q₁`, `gcd213 p₁ q₁ = 1`, `gcd213 p₂ q₂ = 1`,
-   `0 < q₁`, `0 < q₂` conclude `p₁ = p₂ ∧ q₁ = q₂`.
-   Direct from brick 1 + `Gcd213.dvd_antisymm_213`.
-3. **Signed composite** (PURE): the full normal form above, with the
+1. **Euclid lemma** — ★ CLOSED (`Gcd213.coprime_dvd_of_dvd_mul`, PURE).
+   Bezout-free as planned: `gcd213_mul_left` distributivity by
+   Euclidean descent (`gcd213_rec` + the new `mul_mod_mul_left_pure`,
+   replacing propext-dirty `Nat.mul_mod_mul_left`), then
+   `a ∣ gcd213 (c·a) (c·b) = c · gcd213 a b = c`.
+2. **Uniqueness of the coprime representation** — ★ CLOSED
+   (`Gcd213.coprime_repr_unique`, PURE): `p₁·q₂ = p₂·q₁` + both pairs
+   coprime + `0 < q₁` force componentwise equality.  With
+   `gcd_strip_coprime` (existence), the ∣-order normal form of a
+   ratio pair is now exact.
+3. **Signed composite** (open): the full normal form above, with the
    derived order (sign-major, cross-`≤` on magnitudes within the
    positive sign) and its compatibility with `ratioEquiv`.
 
