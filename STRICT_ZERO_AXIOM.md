@@ -529,7 +529,7 @@ product space (`IPSpace`), gradient descent `x ↦ x − τ∇F` on `F(x)=⟪x,x
 monovariant's descent is *forced by* the gradient structure (the A6 `descent` hypothesis **derived**, not
 assumed).  **ISA insight**: gradient flow is *not* A6 — its `F` decreases geometrically (`(1−2τ)²`),
 converging asymptotically, so it compiles to **monotone + bounded-below ⟹ convergent** (completeness),
-not well-founded `ℕ`-descent.  Frontier sub-step 1 closed (`ricci_flow_smooth_core.md`).
+not well-founded `ℕ`-descent.  Frontier sub-step 1 closed (the Ricci-flow smooth-core frontier, `research-notes/frontiers/`).
 
 ### Completeness-LOOP: asymptotic convergence of the gradient value (2026-06-05)
 
@@ -774,7 +774,7 @@ three stencil sites + `Nat.pow_succ`/`ring_nat`.
 
 `E213.Lib.Math.Geometry.GeometrizationConjecture.ConformalCurvature` — **4 PURE / 0 DIRTY**.  Opens A6's
 **smooth** route (distinct from the closed discrete Forman route) via the 2D-conformal sidestep
-(`ricci_flow_smooth_core.md`): for `ds²=λ(dx²+dy²)` with polynomial `λ`, the Liouville Gauss curvature
+(the Ricci-flow smooth-core frontier, `research-notes/frontiers/`): for `ds²=λ(dx²+dy²)` with polynomial `λ`, the Liouville Gauss curvature
 `K=(|∇λ|²−λΔλ)/(2λ³)` is rational — no transcendentals.  `confKNum = |∇λ|²−λΔλ` (curvature numerator over
 ℤ); `confK_flat` (constant `λ` ⟹ `K=0`, S3), `confK_paraboloid` (`λ=x²+y²+1` ⟹ numerator `−4`, negative
 curvature), `confK_dome` (`λ=C−x²−y²` ⟹ numerator `4C`, positive curvature), `conformal_curvature_trichotomy`
@@ -788,7 +788,7 @@ curvature), `confK_dome` (`λ=C−x²−y²` ⟹ numerator `4C`, positive curvat
 (**`Σ_v κ(v)=2·χ`**, `χ=V−E` for `K_{m,n}`), `euler_eq_one_sub_b1` (`χ=1−b₁`, cyclomatic `b₁=E−V+1`),
 `totalCurv_eq` (**total curvature `=2−2·b₁`** — positive ⟺ tree `b₁=0`, negative ⟺ cyclic `b₁≥1`), and
 `curvature_sign_topology` (`K_{1,1}` `+2`/`b₁=0` vs `K_{3,2}` `−2`/`b₁=2`).  Derived by `ring_intZ`, not
-tabulated.  A6 discrete core rung 4 (`a6_ricci_core/discrete_ricci_flow_ladder.md`).
+tabulated.  A6 discrete core rung 4 (the A6 Ricci-core ladder, `research-notes/frontiers/`).
 
 ### A6 CORE TOUCHED — discrete Ricci flow as heat flow on curvature (2026-06-05)
 
@@ -802,8 +802,8 @@ the **discrete heat step** — and the heat estimates ARE the discrete Ricci-flo
 the discrete Perelman 𝓦-/entropy-monotonicity), `ricci_uniform_stationary` (uniform `K_{NS,NT}` curvature
 `4−NS−NT` is the normalized fixed point, `lazyHeatStep_const`), `ricci_total_curvature_conserved` (Σ curvature conserved, `4·Σ` — the normalised flow's volume/total-scalar preservation, from mass conservation), `ricci_flow_homogenises` (the checkerboard
 curvature field → constant curvature in one step, spread `1→0` — `lazy_checker_collapses`).  **A6 conquest
-core closed on the discrete (Forman) side** (rungs 2–3 of `a6_ricci_core/discrete_ricci_flow_ladder.md`);
-the smooth-Perelman wall stays (`ricci_flow_smooth_core.md`).  Bundled as `discrete_ricci_apriori` (one step: curvature stays in `[4A,4B]` incl. **lower-bound preserved** `ricci_lower_bound_preserved` (Perelman's key property), total curvature conserved, energy non-increasing) — the discrete analogue of Perelman's a-priori estimates.  Convergence is also a genuine **A6 FLOW (`flow_reaches`)** instance: `ricci_flow_reaches_normalized` — the curvature-spread monovariant `spreadFlow` strictly descends (by 2/step) to the normalised state `spread ≤ 1` (`spreadFlow_fixed_le_one`), realising rung 3's "drive the flow to constant curvature via A6 FLOW on a curvature-spread monovariant" (3 more PURE).
+core closed on the discrete (Forman) side** (rungs 2–3 of the A6 Ricci-core ladder, `research-notes/frontiers/`);
+the smooth-Perelman wall stays (the Ricci-flow smooth-core frontier, `research-notes/frontiers/`).  Bundled as `discrete_ricci_apriori` (one step: curvature stays in `[4A,4B]` incl. **lower-bound preserved** `ricci_lower_bound_preserved` (Perelman's key property), total curvature conserved, energy non-increasing) — the discrete analogue of Perelman's a-priori estimates.  Convergence is also a genuine **A6 FLOW (`flow_reaches`)** instance: `ricci_flow_reaches_normalized` — the curvature-spread monovariant `spreadFlow` strictly descends (by 2/step) to the normalised state `spread ≤ 1` (`spreadFlow_fixed_le_one`), realising rung 3's "drive the flow to constant curvature via A6 FLOW on a curvature-spread monovariant" (3 more PURE).
 
 ### Marathon T4 (foundation) — integer floor square root `isqrt` (2026-06-05)
 
