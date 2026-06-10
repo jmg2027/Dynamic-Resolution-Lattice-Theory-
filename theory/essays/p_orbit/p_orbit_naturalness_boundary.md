@@ -87,8 +87,8 @@ The P-orbit reading absorbs both: `7` is neither external nor
 accidental.  It is the depth-2 trace of P.  The naturalness
 boundary moves from "is in `⟨{NT, NS, d}⟩_ℤ`" (depth 0) to
 "is in `⟨{L(k)} ∪ {NT, NS, d}⟩_ℤ`" (depth ≤ ω).  The framework
-remains tight; the tightness sits one level deeper than
-previously stated.
+remains tight; the tightness sits one level deeper than the
+depth-0 form.
 
 ## Cross-frame connections
 

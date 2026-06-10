@@ -70,8 +70,7 @@ import E213.Lib.Physics.Quantum.Bell        -- CHSH ≤ 2·NS·NT = 12
 import E213.Lib.Physics.Quantum.Bekenstein  -- S_BH ∝ 1/(d-1) = 1/4
 ```
 
-Closes the previously 0% Lean coverage of blueprint 12.  All
-PURE.  The integers 4 = NS+1 = d-1 (Bekenstein), 6 = NS·NT
+All PURE.  The integers 4 = NS+1 = d-1 (Bekenstein), 6 = NS·NT
 (qubit pairs), 12 = 2·NS·NT (Bell, α_1, α_2) are cross-referenced
 in `catalogs/atomic-integers.md`.
 

@@ -193,9 +193,7 @@ New capstones from the 14-agent audit + revision pass:
   - `Lens/RawTopology.k_infty_at_raw_bundle` — K_∞ ≡ point at
     raw level (constLens bookend) plus discrete bookend (idLens
     kernel = equality) plus two-bookend bracket — §9.5 witness,
-    7 PURE.  (Previously split between `UndifferentiatedRaw` and
-    `RawTopology`; merged 2026-05-20 to remove triple-redundant
-    reformulations.)
+    7 PURE.
 
 ### §1.3 three-direction uniqueness bundle (Meta)
 

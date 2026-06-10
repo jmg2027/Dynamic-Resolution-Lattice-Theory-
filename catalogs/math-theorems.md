@@ -517,8 +517,7 @@ import E213.Lens.RawTopology
 ```
 
 The §9.5 "K_∞ ≡ point ≡ trivial-topology infinite space" content
-lives in `RawTopology.lean` (merged from the prior
-`UndifferentiatedRaw.lean` plan).  Witnesses: under the constant
+lives in `RawTopology.lean`.  Witnesses: under the constant
 Lens every Raw maps to the same value (indiscrete bookend); under
 the strict-eq Lens every distinct pair is distinguished (discrete
 bookend); both readings are valid at the raw layer.
@@ -554,10 +553,9 @@ import E213.Lib.Math.Algebra.Mobius213
 layers, witnessing det [[2,1],[1,1]] = 1.  Same algebraic content
 under frozen (fixed-point) + dynamic (iteration) readings.
 
-The ∀n form (`mobius_213_pell_unit_invariant_forall`) closes the
-deferred universal form previously blocked by lack of 213-native
-Int ring algebra; proven via `cross_step_algebra` (manual rw chain
-using `Meta.Int213.*` only — no simp, no omega, no Mathlib).
+The ∀n form (`mobius_213_pell_unit_invariant_forall`) is proven
+via `cross_step_algebra` (manual rw chain using `Meta.Int213.*`
+only — no simp, no omega, no Mathlib).
 
 ---
 
