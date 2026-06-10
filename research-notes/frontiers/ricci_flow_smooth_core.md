@@ -247,10 +247,16 @@ antisymmetries (`riemLow_antisym_ik/_lj`, pure `ring`), the pair/block symmetry
 (`riemLow_pair_symm`), and the first Bianchi (`riemLow_bianchi1`, moved-over form to dodge the
 zero-polynomial `ring` gap).  So the full algebraic Riemannian curvature tensor calculus —
 Christoffel (both kinds) → Riemann → Ricci → Bianchi → all curvature symmetries — stands,
-dimension-free, ∅-axiom.  The residual wall: the scalar `R = g^{ij}Ric_{ij}` (a `g^{-1}`
-double contraction), transcendental metrics, and the PDE a-priori estimates
-(Shi/maximum-principle/compactness) behind Perelman's `𝓦`-monotonicity — the last the genuine
-century-problem core.
+dimension-free, ∅-axiom.  The **scalar curvature** is now closed too (`TensorCalculus.lean` §6, PURE): `det·R =
+Σ_{i,j} adj^{ij}·Ric_{ij}` (`scalarFromRicci`, the `g^{-1}` double contraction over ℤ), with
+the **Einstein** relation `scalar_einstein`: `Ric = λ·g ⟹ R = λ·n` (constant scalar = Einstein
+constant × dimension, since `tr(adj·g) = n·det`).  So the **entire algebraic Riemannian
+curvature tensor calculus** — metric 2-jet / Christoffel (both kinds) + raising/lowering →
+Riemann (+ all four symmetries) → Ricci → Bianchi → scalar (+ Einstein) — now stands,
+dimension-free, ∅-axiom.  The residual wall is precisely the **analysis**: transcendental
+metrics (`sin/cos/exp/sqrt` with convergent derivative rules) and the PDE a-priori estimates
+(Shi/maximum-principle/compactness) behind Perelman's `𝓦`-monotonicity — the genuine
+century-problem core, out of ∅-axiom reach with the current toolset.
 
   (`ring_intZ` note: its normalizer cannot certify an expression that reduces to the **zero
   polynomial** `= 0`; the Bianchi per-`m` cyclic cancellation was closed with the pure helper

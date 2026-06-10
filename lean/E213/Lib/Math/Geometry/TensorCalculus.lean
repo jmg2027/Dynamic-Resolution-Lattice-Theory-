@@ -32,8 +32,8 @@ namespace E213.Lib.Math.Geometry.TensorCalculus
 
 open E213.Meta.Int213
 open E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci (gridSumZ
-  gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_fubini
-  gridSumZ_delta_weight gridSumZ_zero_fn)
+  gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_const
+  gridSumZ_fubini gridSumZ_delta_weight gridSumZ_zero_fn)
 
 /-- **Christoffel symbol of the first kind**, scaled `×2` (to stay over ℤ):
     `2·Γ_{kij} = ∂_i g_{kj} + ∂_j g_{ki} − ∂_k g_{ij}`, read off the metric-derivative tensor
@@ -252,5 +252,40 @@ theorem riemLow_bianchi1 (ddg : Nat → Nat → Nat → Nat → Int)
   unfold riemLow
   rw [hg i j l k, hd l k i j, hg i l j k, hd j k i l, hg i k j l, hd j l i k]
   ring_intZ
+
+/-! ## §6 — the scalar curvature `R = g^{ij}Ric_{ij}` (the metric trace of Ricci)
+
+The final contraction: trace the Ricci tensor with the inverse metric.  Over ℤ the inverse
+carries a `det` denominator, so `det·R = Σ_{i,j} adj^{ij}·Ric_{ij}` (`scalarFromRicci`, a
+double `gridSumZ`).  Its content for an **Einstein** metric (`Ric = λ·g`): the scalar is
+`R = λ·n` (constant), since `Σ_{i,j} adj^{ij}g_{ij} = tr(adj·g) = tr(det·I) = n·det`. -/
+
+/-- The **`det`-scaled scalar curvature** `det·R = Σ_{i,j} adj^{ij}·Ric_{ij}`. -/
+def scalarFromRicci (n : Nat) (adj Ric : Nat → Nat → Int) : Int :=
+  gridSumZ n (fun i => gridSumZ n (fun j => adj i j * Ric i j))
+
+/-- ★★★ **Ricci-flat ⟹ scalar-flat** (`R = 0`). -/
+theorem scalar_flat (n : Nat) (adj : Nat → Nat → Int) :
+    scalarFromRicci n adj (fun _ _ => 0) = 0 := by
+  unfold scalarFromRicci
+  rw [gridSumZ_congr n _ (fun _ => (0 : Int)) (fun i _ => by
+        rw [gridSumZ_congr n _ (fun _ => (0 : Int))
+              (fun j _ => by dsimp only; rw [PolyIntM.mul_zeroZ]), gridSumZ_zero_fn]),
+      gridSumZ_zero_fn]
+
+/-- ★★★★★ **Einstein metric ⟹ scalar `R = λ·n`.**  If `Ric_{ij} = λ·g_{ij}` (Einstein, `g`
+    symmetric, `adj·g = det·I`), the scalar curvature is constant `R = λ·n` (here `det`-scaled:
+    `det·R = λ·n·det`) — the dimension times the Einstein constant.  The defining property of
+    constant-curvature (Einstein) metrics, the Ricci-flow fixed points. -/
+theorem scalar_einstein (n : Nat) (adj g : Nat → Nat → Int) (lam det : Int)
+    (hg : ∀ i j, g i j = g j i)
+    (hag : ∀ i, gridSumZ n (fun j => adj i j * g j i) = det) :
+    scalarFromRicci n adj (fun i j => lam * g i j) = (n : Int) * (lam * det) := by
+  unfold scalarFromRicci
+  rw [gridSumZ_congr n _ (fun _ => lam * det) (fun i _ => by
+        rw [gridSumZ_congr n _ (fun j => lam * (adj i j * g j i))
+              (fun j _ => by dsimp only; rw [hg i j]; ring_intZ),
+            gridSumZ_mul_left, hag i]),
+      gridSumZ_const]
 
 end E213.Lib.Math.Geometry.TensorCalculus
