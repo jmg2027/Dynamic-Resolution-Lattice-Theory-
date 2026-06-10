@@ -611,8 +611,8 @@ Teichmüller representative, not a structure adjoined to `ℤ_5`.
 
 **Open frontier**.  The DRLT-specific 5-adic direction (H) is mostly
 negative.  The `5²⁵ = N_U`-resolution reading is *removed, not deferred*
-(`RERESEARCH_n_u_removal.md` — `configCount 2 = 5^25` is bare
-arithmetic, no privileged level).  The physics readings of `i₅`
+(`configCount 2 = 5^25` is bare arithmetic, no privileged level —
+`Lib/Math/Cohomology/Fractal/ConfigCount.lean`).  The physics readings of `i₅`
 (spinors / CP) and 5-adic L-values for `α_em` / `m_μ/m_e` have **no
 internal handle**: asserting them would be a forcible map onto physics,
 which the operating principles forbid.  Stated plainly per

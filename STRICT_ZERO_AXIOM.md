@@ -239,6 +239,60 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Async growth ladder + Raw census structure — strict ∅-axiom (2026-06-10)
+
+Eight closures + Slash additions, 74 PURE, 0 DIRTY
+(`tools/scan_axioms.py`); the async point–line frontier's full
+ranked agenda, items 1–8:
+
+  · **`...UniverseChain.RawEnumeration`** (+8 PURE) — the honest
+    counting theorem `honest_count`: `enumTreeDepth n` lists exactly
+    the canonical Trees of depth ≤ n (`enum_members` soundness,
+    `enum_complete` completeness), Nodup, length `rawCount n`.  The
+    anticipated `Tree.cmp`-transitivity gate dissolved — the strict
+    `Pairwise (cmp = lt)` invariant needs only the lex head
+    structure + `cmp_self_eq` + swap conversions.
+
+  · **`E213.Theory.Async` (AsyncReach.lean)** (12 PURE) — O1:
+    `reach_closed` (reachable snapshots are subterm-closed, via the
+    new `Raw.slash_inj`), `reach_extend`/`reach_joinable`
+    (conflict-freeness in finite form, no fairness),
+    `every_raw_reached` (totality by `Raw.rec` + joinability),
+    `list_reached`.  `memDec` hand-rolled (core list-`∈` instance
+    leaks propext).
+  · **`E213.Theory.Raw` (Slash.lean)** (+3 PURE) — `slash_val_lt`,
+    `slash_val_gt`, `slash_inj` (pair injectivity: equal slashes
+    have equal unordered input pairs).
+
+  · **`E213.Theory.Async`** (14 PURE) — the fused asynchronous growth
+    system (states = point lists, one `fire` event): `step1_forced`,
+    `level2_canonical` (exact swap-conjugate disjunction),
+    `level3_diverges` (depth-2 completion vs depth-3 fork disagree
+    beyond a global swap).  List-membership decidability instance
+    avoided (propext leak); explicit `Mem` constructors.
+  · **`...UniverseChain.RawPastCompleteness`** (6 PURE) — depth-≤2 terms
+    are past-complete over the previous downset; at depth 3 the filter
+    keeps exactly the full join (`depth3_boundary`).
+  · **`...UniverseChain.AtomicityCensusBridge`** (8 PURE) — the two 5s
+    mediated: `choose2_fixed` (`choose2 n = n ↔ n = 3` for `n ≥ 1`),
+    `two_fives` (census `5` = `pairSize + choose2 closureSize`, level-2
+    additions one swap orbit).
+  · **`...UniverseChain.RawCountQuadratic`** (9 PURE) — `choose2_add`
+    (Vandermonde), `choose2_double` (`2C(n,2)+n = n²`),
+    `rawCount_normal_form` (`2T(n+1)+T(n) = T(n)²+4`),
+    `rawCount_mod5_cycle`/`_table` (pure period 3, cycle `(2,3,0)`;
+    generic self-restart, no privileged level).
+  · **`...UniverseChain.RawCountBounds`** (6 PURE) — strict base-2
+    sandwich `2^(2^(n+1)) < rawCount (n+3) < 2^(2^(n+2))` (base = NT
+    = 2, not d = 5), lower bound sharp at `n = 0` (both sides 5).
+  · **`...UniverseChain.RawDagSize`** (8 PURE) — `dagSize` event-cost
+    fold; census sandwich `depth ≤ dagSize ≤ leaves − 1` over depth ≤ 3;
+    `sharing_starts_at_depth3` filters exactly the three `a/b`-reusing
+    terms.
+
+Frontier: `research-notes/frontiers/async_pointline_raw.md` (items 7–8 —
+O1 reachability/joinability, honest counting theorem — remain open).
+
 ### Fibonacci 5-adic valuation `ν₅(F_n) = ν₅(n)` — FULLY CLOSED, strict ∅-axiom (2026-06-08)
 
 `E213.Lib.Math.NumberTheory.FibZValuation` (PURE), `.FibZIdentities`
@@ -529,7 +583,7 @@ product space (`IPSpace`), gradient descent `x ↦ x − τ∇F` on `F(x)=⟪x,x
 monovariant's descent is *forced by* the gradient structure (the A6 `descent` hypothesis **derived**, not
 assumed).  **ISA insight**: gradient flow is *not* A6 — its `F` decreases geometrically (`(1−2τ)²`),
 converging asymptotically, so it compiles to **monotone + bounded-below ⟹ convergent** (completeness),
-not well-founded `ℕ`-descent.  Frontier sub-step 1 closed (`ricci_flow_smooth_core.md`).
+not well-founded `ℕ`-descent.  Frontier sub-step 1 closed (the Ricci-flow smooth-core frontier, `research-notes/frontiers/`).
 
 ### Completeness-LOOP: asymptotic convergence of the gradient value (2026-06-05)
 
@@ -684,7 +738,8 @@ field-L² companion of the energy (gradient-L²) decay.
 
 ### A6 CORE rung 5 — Ollivier–Ricci: Kantorovich weak duality + concrete triangle κ=½ (2026-06-05)
 
-`E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci` — **PURE / 0 DIRTY**.  The last discrete
+`E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci` — **60 PURE / 0 DIRTY** (§§2–6; the
+parametric `K_m` §7 is catalogued under "discrete curvature parametric closure" below).  The last discrete
 curvature rung: Ollivier–Ricci `κ(x,y)=1−W₁(m_x,m_y)/d(x,y)`, whose heart is optimal transport.  Built the
 integer grid sum `gridSumZ` (+ `_add`/`_sub`/`_mul_left`/`_le`/`_congr`/**`_fubini`** sum-swap) and proved
 **`kantorovich_weak_duality`**: for any transport plan `π ≥ 0` and `1`-Lipschitz potential `f`,
@@ -713,7 +768,8 @@ pure inequalities (core `Int.add_le_add`/`mul_le_mul_of_nonneg_right`/`sub_le_su
 
 ### A6 CORE rung 6 — Bakry–Émery curvature-dimension `CD(K,N)` + discrete Bochner (2026-06-08)
 
-`E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery` — **6 PURE / 0 DIRTY**.  The **fourth** curvature
+`E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery` — **42 PURE / 0 DIRTY** (§§1–2 here; the
+parametric §§3–5 are catalogued under "discrete curvature parametric closure" below).  The **fourth** curvature
 frame: Bakry–Émery curvature via the carré-du-champ iteration `Γ₂ = ½LΓ − Γ(f,Lf)` of the graph Laplacian,
 scaled to `ℤ` (`gammaL`/`gamma2L`, `gammaTri`/`gamma2Tri`).  **Discrete Bochner identity** — `bochner_line`:
 `4Γ₂(f)(x) = (Lf(x−1))² + 2(Lf(x))² + (Lf(x+1))²` (the flat `Ric = 0` Bochner `½Δ|∇f|² = |Hess f|² + Ric(∇f,∇f)`,
@@ -725,6 +781,39 @@ general-`n` Ricci **lower bound** even while the smooth `n`-tensor flow stays wa
 `K=0` / triangle `K=5/2>0` — same as Forman/Gauss–Bonnet/Ollivier.  Proofs `ring_intZ` (Bochner identities) +
 `int_sq_nonneg`/`add_nonneg`/`Order` (the SOS bounds), stencil-parametrised à la `ConformalCurvature` (no index
 arithmetic).
+
+### A6 CORE — discrete curvature parametric closure + Lichnerowicz spectrum + tensor calculus (2026-06-10)
+
+The Ricci-flow marathon closed the discrete-curvature ladder **parametrically across graph families**
+(strict ∅-axiom throughout; `tools/scan_axioms.py` 60/42/16/11/23/14 PURE, 0 DIRTY):
+
+- `…GeometrizationConjecture.OllivierRicci` §7 — the complete graph `K_m` for **general `m`**:
+  Ollivier `κ = (m−2)/(m−1) > 0` (`kmPi` coupling + optimality), the parametric form of the
+  triangle/square/double-star trichotomy.
+- `…GeometrizationConjecture.BakryEmery` §§3–5 — `K_m` is `CD((m+2)/2, ∞)` **sharp**
+  (`cd_complete_graph`, `cd_complete_graph_sharp`, `complete_graph_gammaC_witness`); the star
+  `K_{1,b}` centre is `CD((3−b)/2, ∞)` (`cd_star`, negative for `b ≥ 4`) and a leaf is
+  `CD((5−b)/2, ∞)` (`cd_star_leaf`) — curvature now a *function of the family parameter*.
+- `…GeometrizationConjecture.BakryEmeryBipartite` — **16 PURE / 0 DIRTY**, general bipartite
+  `K_{a,b}` at an `A`-vertex: `CD(min(3a−b, b−a+4)/2, ∞)`, split into the wide regime
+  `b ≥ 2a−2` (`kab_cd_wide`, SOS only) and the narrow regime (`kab_cd_narrow`, via the discrete
+  Cauchy–Schwarz `cauchy_schwarz_gridZ`).  DRLT core: `K_{3,2}` is `CD(3/2, ∞)` (`kab_K32_pos`)
+  — **positive** Bakry–Émery against Forman `−1`, an honest cross-frame sign divergence
+  (`theory/essays/synthesis/curvature_as_lens_readout.md`).
+- `…GeometrizationConjecture.DiscreteLichnerowicz` — **11 PURE / 0 DIRTY**, curvature → spectrum:
+  the integration-by-parts trio `km_green`/`km_rayleigh` (`Σ(Lf)² = m·E`), `km_eigenvalue` +
+  eigenspaces (`km_const_eigen`, `km_meanzero_eigen`) ⟹ the `K_m` Laplacian spectrum is
+  `{0¹, m^{m−1}}`; `lichnerowicz_abstract` (`CD(K) ⟹ K ≤ λ`, Int positive cancellation).
+- `…Geometry.TensorCalculus` — **23 PURE / 0 DIRTY**, dimension-free general-metric algebraic
+  tensor calculus: Christoffel (1st/2nd kind, symmetry, metric compatibility) → Riemann tensor
+  with **all four symmetries** (via the metric 2-jet `riemLow`) → Ricci + first Bianchi → scalar
+  `R = g^{ij}Ric` + Einstein `R = λn`; `perelman_rate_nonneg` (`0 ≤ Σ(Ric_{ij}+∇_i∇_j f)²`, the
+  algebraic Perelman `d/dt 𝓕 ≥ 0` rate).  Chapter: `theory/math/geometry/riemannian_curvature_tensor.md`.
+- `…Combinatorics.IntGridSum` — **14 PURE / 0 DIRTY**, the `gridSumZ` finite-Int-sum toolkit
+  (add/sub/mul_left/le/congr/fubini + nonneg), domain-agnostic infra relocated out of the
+  curvature leaf; 5 consumers.
+
+Chapter: `theory/math/geometry/discrete_curvature.md` (the parametric discrete-curvature closure).
 
 ### A6 CORE rung 7 — time-evolution: all-time fixed-point stability (2026-06-08)
 
@@ -739,7 +828,7 @@ three stencil sites + `Nat.pow_succ`/`ring_nat`.
 
 `E213.Lib.Math.Geometry.GeometrizationConjecture.ConformalCurvature` — **4 PURE / 0 DIRTY**.  Opens A6's
 **smooth** route (distinct from the closed discrete Forman route) via the 2D-conformal sidestep
-(`ricci_flow_smooth_core.md`): for `ds²=λ(dx²+dy²)` with polynomial `λ`, the Liouville Gauss curvature
+(the Ricci-flow smooth-core frontier, `research-notes/frontiers/`): for `ds²=λ(dx²+dy²)` with polynomial `λ`, the Liouville Gauss curvature
 `K=(|∇λ|²−λΔλ)/(2λ³)` is rational — no transcendentals.  `confKNum = |∇λ|²−λΔλ` (curvature numerator over
 ℤ); `confK_flat` (constant `λ` ⟹ `K=0`, S3), `confK_paraboloid` (`λ=x²+y²+1` ⟹ numerator `−4`, negative
 curvature), `confK_dome` (`λ=C−x²−y²` ⟹ numerator `4C`, positive curvature), `conformal_curvature_trichotomy`
@@ -753,7 +842,7 @@ curvature), `confK_dome` (`λ=C−x²−y²` ⟹ numerator `4C`, positive curvat
 (**`Σ_v κ(v)=2·χ`**, `χ=V−E` for `K_{m,n}`), `euler_eq_one_sub_b1` (`χ=1−b₁`, cyclomatic `b₁=E−V+1`),
 `totalCurv_eq` (**total curvature `=2−2·b₁`** — positive ⟺ tree `b₁=0`, negative ⟺ cyclic `b₁≥1`), and
 `curvature_sign_topology` (`K_{1,1}` `+2`/`b₁=0` vs `K_{3,2}` `−2`/`b₁=2`).  Derived by `ring_intZ`, not
-tabulated.  A6 discrete core rung 4 (`a6_ricci_core/discrete_ricci_flow_ladder.md`).
+tabulated.  A6 discrete core rung 4 (the A6 Ricci-core ladder, `research-notes/frontiers/`).
 
 ### A6 CORE TOUCHED — discrete Ricci flow as heat flow on curvature (2026-06-05)
 
@@ -767,8 +856,8 @@ the **discrete heat step** — and the heat estimates ARE the discrete Ricci-flo
 the discrete Perelman 𝓦-/entropy-monotonicity), `ricci_uniform_stationary` (uniform `K_{NS,NT}` curvature
 `4−NS−NT` is the normalized fixed point, `lazyHeatStep_const`), `ricci_total_curvature_conserved` (Σ curvature conserved, `4·Σ` — the normalised flow's volume/total-scalar preservation, from mass conservation), `ricci_flow_homogenises` (the checkerboard
 curvature field → constant curvature in one step, spread `1→0` — `lazy_checker_collapses`).  **A6 conquest
-core closed on the discrete (Forman) side** (rungs 2–3 of `a6_ricci_core/discrete_ricci_flow_ladder.md`);
-the smooth-Perelman wall stays (`ricci_flow_smooth_core.md`).  Bundled as `discrete_ricci_apriori` (one step: curvature stays in `[4A,4B]` incl. **lower-bound preserved** `ricci_lower_bound_preserved` (Perelman's key property), total curvature conserved, energy non-increasing) — the discrete analogue of Perelman's a-priori estimates.  Convergence is also a genuine **A6 FLOW (`flow_reaches`)** instance: `ricci_flow_reaches_normalized` — the curvature-spread monovariant `spreadFlow` strictly descends (by 2/step) to the normalised state `spread ≤ 1` (`spreadFlow_fixed_le_one`), realising rung 3's "drive the flow to constant curvature via A6 FLOW on a curvature-spread monovariant" (3 more PURE).
+core closed on the discrete (Forman) side** (rungs 2–3 of the A6 Ricci-core ladder, `research-notes/frontiers/`);
+the smooth-Perelman wall stays (the Ricci-flow smooth-core frontier, `research-notes/frontiers/`).  Bundled as `discrete_ricci_apriori` (one step: curvature stays in `[4A,4B]` incl. **lower-bound preserved** `ricci_lower_bound_preserved` (Perelman's key property), total curvature conserved, energy non-increasing) — the discrete analogue of Perelman's a-priori estimates.  Convergence is also a genuine **A6 FLOW (`flow_reaches`)** instance: `ricci_flow_reaches_normalized` — the curvature-spread monovariant `spreadFlow` strictly descends (by 2/step) to the normalised state `spread ≤ 1` (`spreadFlow_fixed_le_one`), realising rung 3's "drive the flow to constant curvature via A6 FLOW on a curvature-spread monovariant" (3 more PURE).
 
 ### Marathon T4 (foundation) — integer floor square root `isqrt` (2026-06-05)
 

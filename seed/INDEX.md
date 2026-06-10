@@ -126,6 +126,8 @@ name; DRLT is a physics specialization).
 seed/
 ├── INDEX.md                          ← this file (standalone entry)
 ├── ORIGIN.md                         ← DRLT origin narrative (archival)
+├── ORIGIN_RAW.md                     ← Raw-axiom origin from "difference"
+│                                       alone + async event reading (archival)
 ├── NOTATION.md                       ← symbol conventions
 ├── CLOSED_FORM_SPEC.md               ← 3-domain projection catalogue
 │                                       + Bishop subsumption + bridges

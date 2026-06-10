@@ -7,13 +7,8 @@ Centralised propext-free replacements for Lean-core `List.*` lemmas
 that import `propext` or `Quot.sound` via `simp`-based proofs.
 
 This is the **List-side companion** to `Meta/Tactic/NatHelper.lean`.
-Helpers here were promoted from:
-
-  · `Lib/Math/Cohomology/Cup/KSubsetStructural §0` (length, mem)
-  · `Lib/Math/Cohomology/Cup/FinBridgeGeneral §0` (take, drop)
-
-per  +  centralisation.  Existing call sites remain
-compatible via `@[reducible]` aliases in the original locations.
+Consumers (e.g. `Lib/Math/Cohomology/Cup/{KSubsetStructural,FinBridgeGeneral}`)
+use these directly or via `@[reducible]` aliases at their original sites.
 
 All theorems below are **PURE** (`#print axioms` reports
 "does not depend on any axioms").

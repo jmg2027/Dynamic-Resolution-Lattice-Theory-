@@ -126,7 +126,7 @@ fixed.
 ## Open frontier
 
 The smooth general-`n` Perelman `𝓦`-monotonicity stays walled
-(`ricci_flow_smooth_core.md`): the conformal frame reaches the 2D case only.  On the
+(the Ricci-flow smooth-core frontier, `research-notes/frontiers/`): the conformal frame reaches the 2D case only.  On the
 discrete side the trichotomy is closed on **four** frames (Forman, Gauss–Bonnet,
 Ollivier, Bakry–Émery) across the line, complete `K_m`, star `K_{1,b}`, and general
 bipartite `K_{a,b}` — parametrically, not just on samples.  The genuine open edge is

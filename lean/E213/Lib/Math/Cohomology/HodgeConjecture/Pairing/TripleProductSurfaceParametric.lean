@@ -4,7 +4,7 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.ProductSurfaceSignature
 /-!
 # Σ_g × Σ_h × Σ_k Triple Product Parametric (C4 Step 4)
 
-Step 4 of conjecture C4 per `research-notes/G35` §C4.
+Step 4 of conjecture C4 per `research-notes/frontiers/G35` §C4.
 
 Step 3 (`TripleProductSurface`) gave the signature (10, 10) for
 Σ_1 × Σ_1 × Σ_1 = T⁶ via T²ⁿ inductive at n=3.  Step 4 extends

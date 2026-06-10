@@ -93,6 +93,20 @@ class-number core (composite `c` with both `3c±2` composite, smallest `1325`).
   difficulty.
 - `G199_compilation_catalog_lift_archetypes` — the finite→uniform lift archetypes
   (the compilation-catalog methodology generalised).
+- `G200_action_A_distance1_crossline_separate` — action A executed: the
+  **distance-1 cross-line `SEPARATE`** closed ∅-axiom (`markovNum_children_ne`,
+  `SternBrocotMarkov` §35) — every node's two children carry distinct Markov
+  numbers; the size route localized as exhausted.
+- `G201_action_b_even_markov_family` — action (b): the **even `2·pᵏ` infinite
+  uniqueness family** closed ∅-axiom (`markov_two_prime_pow_unique`; first
+  instance `markovMaxUnique_34`).
+- `G202_zhang_3c_pm2_roadmap` — expert-agent attack on the open kernel:
+  **Zhang's `3c±2` modulus-shift criterion** — verified, formalization-ready
+  roadmap to the composite/even families, plus a sharp delineation of where
+  elementary methods provably stop.
+- `G203_reframe_archetype_modulus_shift` — the `3c±2` modulus shift compiled to
+  all four layers (Raw / Lens / proof-ISA / residue): the **REFRAME** lift
+  archetype (A4) extracted from `markov_max_unique_via_3c_minus_2`.
 
 Closure record: `theory/math/analysis/{markov_uniqueness,markov_spectrum}.md`.
 **Status of `H`**: maximally localized (terminal, `G197`) — the open residue *is*
@@ -164,6 +178,29 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (`2·lcm³·bₙ`) is rate-carrying but needs the two classical Apéry arithmetic
   inputs (reduced-numerator integrality; `lcm(1..n) < 3ⁿ`), then
   `rate_total_modulus` gives `zeta3HolonomicReal` unconditionally.
+- **async point–line system ≅ Raw** — CLOSED ∅-axiom (full 8-item agenda,
+  74 PURE) and promoted → `theory/math/foundations/async_growth.md`
+  (origin: `seed/ORIGIN_RAW.md`; note archived at
+  `archive/async_pointline_raw.md`).  Cross-domain bridges to main's
+  curvature / LTE / certificate-depth arcs: `async_growth_crossdomain.md`
+  (orbit-LTE law, Hasse-diagram curvature, depth-0 squeeze certificate).
+  *Open seeds* →
+  `async_growth_seeds.md`: exact-membership converse of reachability,
+  fused step-3 swap-class census, uniform dagSize bounds, the
+  axes-of-growth definition.
+- `G35_chiral_cup_ring_catalog` — **the 213-Algebra field catalog** (17 domains):
+  the field-level synthesis board, broader than any single `theory/` chapter;
+  §0.5 tracks per-conjecture (C1–C6) closure status + promoted chapters.  Active
+  scratch — Lean docstrings cite its §C## conjecture labels
+  (`research-notes/frontiers/G35`).
+- `inequalities_positivity_fold_crossdomain` — **the curvature arc ↔ the proof-ISA arc**:
+  A7 POSITIVITY's 2-D Cauchy–Schwarz (`cauchy_schwarz_2d`, depth-0 Lagrange square) and the
+  curvature module's n-dim power-mean Cauchy–Schwarz (`cauchy_schwarz_gridZ`, per-rung SOS
+  folded along the `gridSumZ` induction) are one instruction at two certificate depths; the
+  `K_{a,b}` wide/narrow regime split (`kab_cd_wide`/`kab_cd_narrow`) is literally certificate
+  depth.  Open: the "inequality = POSITIVITY ∘ LOOP" compilation theorem (buildable first
+  brick: the pair-sum Lagrange identity `n·Σa² − (Σa)² = Σ_{i<j}(a_i−a_j)²`), and the
+  evidence it gives on G205's POSITIVITY-vs-GAP question.
 - `curvature_spectrum_crossdomain` — **the discrete-curvature / spectrum branch ↔ merged
   main** (rich-flow-open-frontier marathon).  Three bridges where this branch's curvature
   + Lichnerowicz spectral work touches main's `(ℤ/p)*`-cyclic / character arc: (1) the `K_p`
@@ -412,7 +449,7 @@ Closure records (promoted off this board):
 - `G182_completed_system_synthesis` ("the frontier (νF) has a form") →
   `theory/essays/foundations/the_frontier_has_a_form.md`.
 
-## proof-ISA compilation series  (`G200_*`)  — ★ CLOSED
+## proof-ISA compilation series  — ★ CLOSED
 
 The experiment (reproduce *solved* hard techniques by compiling them down the
 proof-ISA, `seed/PROOF_ISA.md`) is **complete**.  Both named COUNT bounds are
@@ -426,6 +463,13 @@ könig, + the `what_is_a_proof` synthesis).
 The catalog has since grown to **seven** lift archetypes (`ProofISALifts.lean`):
 A6 FLOW + A7 POSITIVITY added (the cross-domain-conquest marathon), each driving
 real ∅-axiom conquests.
+
+- `G205_cross_domain_conquests_compilation` — the marathon's source note: the
+  standing compilation table (history's cross-domain conquests lowered onto the
+  proof-ISA; headline: cross-domain *is* REFRAME).  A6 FLOW + A7 POSITIVITY both
+  ✅ closed from its candidate list.  **Residual open**: is POSITIVITY a GAP
+  sub-mode or its own primitive; the per-conquest rows still pending ∅-axiom
+  witnesses (S2 Weil weights, A6 index, …).
 
 ## A6 FLOW core / Ricci flow  (`a6_ricci_core/`, `ricci_flow_smooth_core.md`)
 

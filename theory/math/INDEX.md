@@ -36,11 +36,11 @@ under the same thematic super-cluster as its Lean sub-tree.
 `geometry`, `topology`, `geometrization_conjecture`, `exotic_4mfd_cork`,
 `angle_structure`, `number_grid`, `generation_rule`, `triangular_tower`,
 `level_topology`, `operation_topology`, `bipartite_decomp`, `cartesian_vs_disjoint`,
-`riemannian_curvature_tensor`.
+`riemannian_curvature_tensor`, `discrete_curvature`.
 
 ### `foundations/` — meta / cross-domain anchors
 `axiom_systems`, `pattern_catalog/`, `choice`, `universe_chain`,
-`cross_domain_unification`, `algebra213_meta_theorems`.
+`async_growth`, `cross_domain_unification`, `algebra213_meta_theorems`.
 
 ### `probability/` — `probability`, `information`.
 

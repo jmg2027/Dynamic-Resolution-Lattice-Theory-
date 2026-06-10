@@ -4,8 +4,8 @@
 ∅-axiom (`lean/E213/Lib/Math/Geometry/TensorCalculus.lean`, 23 PURE / 0 DIRTY;
 `ConformalCurvature.lean` §S6–§S7, the conformal route).  The *analytic* core
 (transcendental metrics + PDE a-priori estimates behind Perelman's
-`𝓦`-monotonicity) is the open frontier, tracked in
-`research-notes/frontiers/ricci_flow_smooth_core.md`.
+`𝓦`-monotonicity) is the open frontier, tracked under
+`research-notes/frontiers/` (the Ricci-flow smooth-core topic).
 
 ## Overview
 
@@ -143,7 +143,7 @@ curvature term included, no new primitive (the `BakryEmery` SOS idiom
 ## Open frontier
 
 The *algebraic* tensor calculus is closed; the residual wall is pure
-**analysis**, tracked in `research-notes/frontiers/ricci_flow_smooth_core.md`:
+**analysis**, tracked under `research-notes/frontiers/` (Ricci-flow smooth core):
 the weighted integration-by-parts that *connects* `∇𝓕` to the flow
 `∂_t g = −2Ric` (so "Ricci flow IS the gradient flow of `𝓕`" stays a premise),
 the `(4πτ)^{−n/2}e^{−f}` Gaussian of the true `𝓦`-entropy (the transcendental
