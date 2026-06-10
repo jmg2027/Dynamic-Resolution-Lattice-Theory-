@@ -56,3 +56,44 @@ order frame → sign + integer part; ∣ frame → coprime magnitude pair.
    the proof content should be exactly distributivity.
 3. The Lens-frame reading (one fact, several frames — morphism / added
    axis / boundary): essay after the Lean closes, not before.
+
+## The equation ladder (extension of the square)
+
+Each system is the totality domain of an equation class with ℕ
+coefficients and **one unknown**:
+
+| class | completion |
+|---|---|
+| `x + b = c` (monic, +) | ℤ |
+| `a·x = b` (×) | ℚ₊ |
+| `a·x + b = c` (general degree 1) | ℚ |
+| monic polynomial | algebraic integers |
+| general polynomial | algebraic numbers |
+
+Two rules to pin: (i) class = one reversed arrow + closure under the
+available folds; degree = ×-question iterated on the unknown;
+(ii) **monic ↔ ring-like, general leading coefficient ↔ field-like**,
+persisting up the ladder.  Boundary: non-polynomial questions
+(`a^x = b`) leave equation-completion for sandwich-family completion
+(ℝ order-frame, ℚ_p ∣-frame).
+
+## Collapse vs rigid axis (the doubling dichotomy)
+
+A pair-Lens either *collapses* (quotient by the operation's action —
+ℕ→ℤ→ℚ, dimension stays 1) or stays a *rigid axis* (ℚ(√2) over ℚ;
+ℝ→ℂ→ℍ→𝕆 Cayley–Dickson, dimension 1→2→4→8).  Criterion: **per-frame
+visibility of the obstruction readout** — sign (2-valued) and
+remainder (`a`-valued) are old-data-visible → collapse; `x² = 2` is
+order-visible (sandwich locates it → absorbed by ℝ) but
+algebra-invisible (rigid 2-dim over ℚ); `x² = −1` is invisible in
+every frame (`Int213.int_sq_nonneg` is the positivity certificate)
+→ a genuinely new axis in all frames.  The CD conjugation
+`(a,b)* = (a*, −b)` is the iterated sign-swap (`neg_subNatNat`); the
+per-doubling law-loss ladder (order → commutativity → associativity →
+norm composition) is combinatorially derivable from the doubling
+formula and is partially PURE in `Lib/Math/Algebra/CayleyDickson/`
+(`CDDoubleMoufang`, `CDDoubleAlternative`, sedenion failure of
+`TraceNormed213` lift).  Open brick 4: state the collapse-vs-rigid
+criterion as a theorem schema (obstruction readout valued in old data
+⟺ the pair quotient is total) connecting the completion square to the
+CD tower.
