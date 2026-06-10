@@ -146,6 +146,27 @@ tower.
 
 ## Question tuple vs answer axes (the fold-back rule)
 
+**The representation principle.**  In a pinning question `f(x) = b`,
+the number of ℕ-slots (coefficient *or* exponent — any position a
+natural fills) **equals** the number of naturals needed to represent
+the possibly-non-natural solution: the new number *is* the question's
+parameter tuple, and the number system is the tuple space modulo the
+same-solution equivalence.  Verified across the session:
+`a+x=b` (2 → ℤ, fiber `subNatNat_add_add`), `a·x=b` (2 → ℚ₊,
+`ratioEquiv`), `x^a=b` (2 → radicals, exponent-scaling
+`(a,b)~(ka,bᵏ)`), `a·x+b=c·x+d` (4 → ℚ, `ratioEqZ`/`Rat213`),
+general irreducible degree n (coefficient slots → algebraic numbers).
+Two refinements: tuples over-name (the same-solution equivalence is
+mandatory; lowest-terms = minimal representative), and unknown
+occurrence ≥ 2 adds a finite root selector (discrete, does not change
+the freedom count).  Reversed, it stratifies numbers: **a number's
+representation cost = the ℕ-freedom of its minimal pinning question**
+(2: ℤ/ℚ₊/radicals; 4: ℚ; k: algebraic, minimal polynomial = the
+lowest-terms form of the minimal-freedom question; divergent:
+transcendental — no finite question pins it, sandwich-family only).
+The classical *height* of an algebraic number is this principle's
+shadow.
+
 Two different tuple counts, separated: the **question tuple** (the
 equation's data) and the **answer-system axes** (the dimension of the
 +,×-closure over ℚ).  The question-tuple count is governed by the
