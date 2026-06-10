@@ -1,107 +1,119 @@
-# Session Handoff — 2026-06-08 (general rank law + shared ℚ(√5) morphism + merge marathon)
+# Session Handoff — 2026-06-10
 
 ## Branch
-`claude/prime-rank-fibonacci-5adic-zohhac` — pushed, ahead of `origin/main`.
-`cd lean && lake build E213` ✓ clean (full build, 307/307).  All new theorems
-strict ∅-axiom PURE (`tools/scan_axioms.py`).  Ready-to-merge audit GREEN
-(layer 0 violations, 0 stale paths, 0 sink leaks).
+`claude/p-adic-reciprocity-topics-qBPUW` — pushed, ahead of `origin/main`.
+`origin/main` merged in this session (179 commits).  `cd lean && rm -rf
+.lake/build && lake build` ✓ clean (full fresh build, 307/307).  All new
+theorems strict ∅-axiom PURE (`tools/scan_axioms.py`).  Ready-to-merge audit
+GREEN (0 layer violations, 0 sink leaks, 0 stale refs).
 
 ## What Was Done This Session
 
-Two buildable bridges of `fibonacci_golden_prime_crossdomain` (insights 3, 5)
-closed ∅-axiom, then a full merge marathon.
+### 1. Primitive-root marathon COMPLETE — full Zolotarev closed (∅-axiom)
+The classical route to Zolotarev's lemma, end-to-end PURE.  ★★★★★
+`ZolotarevCycle.zolotarev_full` (47 PURE): for an odd prime `p` (`2m=p−1`,
+`m≥1`), unit `1≤a<p`, `psign (mulPerm a p) = 1 ⟺ a` is a QR mod `p`.
 
-### 1. General rank law `α(p) ∣ p − (5/p)` from the Legendre character (`DyadicFSM/RankApparition.lean`, 10 PURE)
-- `rankIndex p hp = p − (5/p)` — the Fibonacci entry-point index dispatched on
-  the FSM-walking quadratic character `legendre213 5 p`: split `p−1`, inert
-  `p+1`, ramified `p`.  Face lemmas `rankIndex_{ramified,split,inert}` make
-  `p − (5/p)` literal.
-- ★ `rank_law_dispatch` — `p ∣ F_{p−(5/p)}` (= `α(p) ∣ p−(5/p)` via
-  `p∣F_n ⟺ α(p)∣n`), mirroring `UniversalDispatch.universal_dispatch_pellCoeff`
-  (the Pisano-period dispatch); here the read-out is the entry point.
-- Per-prime instantiations through the *universal* machinery, not `decide`:
-  split via `binet_F_p_minus_1_zero` (`𝔽_p` Binet/FLT), inert via
-  `fpp1_eq_zero_of_frob_phi` (`𝔽_{p²}` Frobenius FLT), ramified `p=5` direct.
-  Bundled in `rank_law_table` (p ∈ {3,5,7,11}).
+- **brick 6** `ZolotarevReduction.lean` (4 PURE) — `nonqr_psign_neg` +
+  `zolotarev_iff`: given one non-residue `a₀` with `psign(mulPerm a₀)=−1`,
+  the character law (`legendre_mul` + `psign_mulPerm_hom`) forces every
+  non-residue odd; reduces full Zolotarev to one odd witness.
+- **brick 7** `ZolotarevCycle.lean` (47 PURE) — the odd witness.
+  `psign_mulPerm_primitive`: a primitive root `g` has `psign(mulPerm g p)=−1`.
+  `mulPerm g` (fixes `0`, a `(p−1)`-cycle) is conjugate to the standard
+  rotation `cycS=[0,p−1,1,…,p−2]` via the discrete-log list `τ(i)=g^{p−1−i}%p`
+  (`conj_eq`); `psign` as a class function gives `psign(mulPerm g)=psign(cycS)
+  =(−1)^{p−2}=−1` (`psign_cycS`, the `asc` ascending-block inversion calculus).
+  `cycS`/`τ ∈ perms p` (`sFun_inj`; discrete-log injectivity `pow_inj_mod` via
+  `res_cancel`+`ord_dvd`+periodicity `pow_period`).  `primitive_not_qr`
+  (`ord g = 2m ∤ m`).  `pow_split_eq` exposed in `MulOrder`.
 
-### 2. Shared ℚ(√5) morphism — cp_phase ⟷ fibonacci_5adic_valuation (`NumberTheory/GoldenFieldBridge.lean`, 10 PURE)
-- ★ `bPoly_neg_eq_gPoly` — the morphism `x ↦ −x`: the Binet polynomial `x²−x−1`
-  (Fibonacci, `FibApparitionMod5`) and the Gaussian-period polynomial `x²+x−1`
-  (`ℚ(ζ₅)⁺`, `CyclotomicFive`/cp_phase) are one `ℚ(√5)` object (`bPoly(−x)=gPoly x`).
-- `shared_discriminant_five`, `bPoly_ramified_mod5`, `gPoly_ramified_mod5`,
-  `ramified_roots_negate` — both faces share disc `5` and the single ramified
-  prime `5`, each a perfect square mod 5 (double roots `3`, `2`; negatives, `3+2≡0`).
-- ★ `shared_golden_field_morphism` — capstone bundling the morphism, the shared
-  discriminant, both ramifications, the Fibonacci `α(5)=5` signature, and the
-  cyclotomic golden subfield.
+(Bricks 0–5 — `MulOrder`, `Lcm213`, `OrderPow`, `CoprimeOrder`, `MaxOrder`,
+`Valuation`/`QPart`/`ValuationAlg`, `EveryOrdDvdMax`, `PrimitiveRoot` — closed
+in prior sessions; `exists_primitive_root` = `(ℤ/p)*` cyclic is the engine.)
 
-### 3. Merge marathon (skills)
-- `/process`: 1 → 0 sink violations (decoupled `GoldenFieldBridge` docstring
-  from the frontier note → `theory/.../the_golden_prime.md`); recorded the
-  remaining open direction (higher `νₚ(F_n)` rungs) in `frontiers/`.
-- Promotion: in-place chapter+essay upgrade (rank law → `fibonacci_5adic_valuation`
-  §; morphism → `the_golden_prime` open-frontier CLOSED).  Log row 44.
-- Cross-domain: branch×main insights 6–8 in `fibonacci_golden_prime_crossdomain`
-  (the rank character IS `psign σ_5`; rank-vs-period one character; `x↦−x` vs `σ²`).
-- `/essay`: `theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md`
-  (log row 45; essays 76 → 77).
-- `/org-audit` + `/purity-check` + `/ready-to-merge`: all GREEN.
+### 2. Merged `origin/main` (179 commits)
+Main independently closed Zolotarev via the **μ/Gauss symmetric-cross-count**
+route (`ZolotarevMuBridge.zolotarev_mu`, no primitive root) plus the rank-law /
+ℚ(√5)-morphism / CP-phase arcs.  Conflict resolution: renamed this branch's
+`ModArith.ZolotarevConverse` → `ZolotarevReduction` (main has a distinct file
+at that name); took main's parallel `PermMatrixDet`/`SetoidMul`; unioned the
+`Linalg213`/frontier-INDEX import lists.  Two independent ∅-axiom proofs of
+Zolotarev now coexist.
+
+### 3. Marathon skills (process → promote → crossdomain → essay → audit)
+- **process**: 1 sink-rule decouple (`Zolotarev.lean` docstring off the
+  deleted converse frontier note).  0 leaks remain.
+- **promote**: new chapter `theory/math/numbertheory/primitive_roots.md`
+  (the multiplicative-order + primitive-root + classical-Zolotarev sub-tree);
+  cross-referenced from `zolotarev.md`; logged (promotion_essay_log row 46).
+- **crossdomain**: `frontiers/zolotarev_crossdomain.md` addendum (insights
+  5–6): `α(p)` is a multiplicative order (`ordModP` its rational shadow);
+  `(5/p)` is the parity of `dlog_g(5)`.
+- **essay**: `theory/essays/synthesis/the_quadratic_character_is_a_discrete_log_parity.md`
+  — why `(a/p)` exists, via `(ℤ/p)*` cyclic of even order (row 47).
+- **org-audit / purity / ready-to-merge**: all GREEN.
 
 ## Current Precision Results (0 free parameters)
-Unchanged this session — both closures are pure-math (number theory), not
-physics observables.  See `catalogs/physics-constants.md` (`1/α_em` 0.09 ppb,
-CKM `δ = 90°`, `R_u = 1/φ²`, …).
+No physics constants added this session (pure number theory; primacy = breadth
+of ∅-axiom derivation, `seed/AXIOM/07_primacy.md` §7.1).  The physics precision
++ falsifier tables are current in `catalogs/physics-constants.md` /
+`catalogs/falsifiers.md` (F1–F26, 100% paired).
 
 ## Open Problems (Priority Order)
 
-### 1. Higher valuation rungs `νₚ(F_n)` for general `p`
-The rank law is the entry-point (`νₚ ≥ 1`) rung.  The all-orders lift is open
-beyond `p = 5`: needs the `p`-tupling analogue of the quintupling identity (an
-index-`α(p)`-multiplication identity with cofactor `≡ 1 mod p`), buildable from
-`fibZ_index_rec` iterated to `k = α(p)`, parametric in the rank.
-Frontier note: `research-notes/frontiers/fibonacci_golden_prime_crossdomain.md`
-("Remaining open direction").
+### 1. Dedup: `Zolotarev.lean` (`mulPerm`) ↔ main's `ZolotarevSign.lean` (`mulPermMod`)
+Byte-identical permutation definitions with parallel hom/QR lemmas — two
+encodings of one object from parallel branches.  A clean merge needs:
+exporting `res_cancel` (private as `res_cancel_le` in main), a `(a·b)` vs
+`(a·b)%p` hom-form bridge lemma, and a `length_map_pure` replacement.  Its own
+commit chain post-merge; both build PURE so not a blocker.
+Frontier note: `research-notes/frontiers/zolotarev_crossdomain.md`.
 
-### 2. The `legendre213 5 p = psign σ_5` equality morphism
-The rank-law character (FSM-walk terminal) and Zolotarev's permutation sign are
-stated equal from two proven sides; the explicit Lean morphism (modulo the
-ramified `=0` corner) would let `α(p) ∣ p − psign(σ_5)` be one theorem.
-Frontier note: `research-notes/frontiers/fibonacci_golden_prime_crossdomain.md`
-(insight 6).
+### 2. The discrete-log readout `(a/p) = (−1)^{dlog_g(a)}` as a Lean theorem
+The ripest buildable edge: ties `exists_primitive_root` to the standing
+`psign`/Euler readouts, making "the character is a discrete-log parity" a
+theorem not a reading.
+Frontier note: `research-notes/frontiers/zolotarev_crossdomain.md` (insight 6).
+
+### 3. `α(p)` as `ordModP`-in-`𝔽_{p²}` (rank law ↔ multiplicative order)
+Run the `ord_dvd` Euclidean-split argument in `FP2SqrtD` to state the rank of
+apparition as an order, unifying `ord_dvd_p_sub_one` (this branch) with
+`rank_law_dispatch` (main).
+Frontier note: `research-notes/frontiers/zolotarev_crossdomain.md` (insight 5).
 
 ## Unresolved from This Session
-None — both bridges closed cleanly.  Self-corrected dead end to NOT re-attempt:
-`ring_intZ` does **not** expand `^` (treats `x^2` as an opaque atom) — write
-polynomial identities with explicit `*` (`x*x`), as in `GoldenFieldBridge.bPoly`.
+None attempted-and-failed.  The marathon closed fully; the open items above
+are forward directions, not dead ends.  Note: `omega`, `Int.mul_one`,
+`Nat.zero_mod`, `Nat.add_left_cancel`, `Nat.sub_eq_zero_of_le`,
+`Nat.succ_ne_zero`, `Nat.sub_add_eq`, `Nat.sub_pos_of_lt` all carry propext —
+use the repo's pure replacements (`NatHelper`/`Int213` + the `*_pure`/`*213`
+families); confirmed throughout brick 6–7.
 
 ## Next
-Push and merge this branch to `main`.  After merge: attack Open Problem 2 (the
-buildable `legendre213 5 p = psign σ_5` edge) — it ties the rank law to the
-Zolotarev converse and would close insight 6 in Lean; or Open Problem 1 (the
-`p`-tupling identity for general-`p` higher valuation).
+Either (a) the discrete-log readout theorem (Open Problem 2 — one Lean edge),
+or (b) the `Zolotarev.lean`/`ZolotarevSign.lean` dedup (Open Problem 1).  Both
+are well-scoped post-merge commit chains.
 
 ## Three-tier state
-- **Promotions this session**: in-place upgrades — rank law → `theory/math/
-  numbertheory/fibonacci_5adic_valuation.md` (§ + key-results rows); morphism →
-  `theory/essays/synthesis/the_golden_prime.md` (open frontier CLOSED).  Log row 44.
-- **Essay**: `theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md`
-  (row 45).
-- **Promotion candidates**: none outstanding for this arc (closed + promoted).
-- **Active scratchpad**: `frontiers/fibonacci_golden_prime_crossdomain.md`
-  (insights 1, 6 + higher-νₚ open; 2–5 closed/proven).
+- **Promotions this session**: `theory/math/numbertheory/primitive_roots.md`
+  ← the multiplicative-order / primitive-root / classical-Zolotarev sub-tree.
+- **Promotion candidates**: none outstanding for this branch's work (all
+  closed sub-trees have chapters).
+- **Active scratchpad**: `frontiers/zolotarev_crossdomain.md` (insights 5–6 +
+  dedup target).
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberTheory/DyadicFSM/RankApparition.lean ← NEW, 10 PURE (rank law from Legendre)
-lean/E213/Lib/Math/NumberTheory/DyadicFSM.lean                ← +RankApparition import
-lean/E213/Lib/Math/NumberTheory/GoldenFieldBridge.lean        ← NEW, 10 PURE (shared ℚ(√5) morphism)
-lean/E213/Lib/Math.lean                                       ← +GoldenFieldBridge import
-theory/math/numbertheory/fibonacci_5adic_valuation.md         ← +general-p rank law §, key-results rows
-theory/essays/synthesis/the_golden_prime.md                   ← open frontier → CLOSED
-theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md ← NEW essay
-theory/essays/INDEX.md, theory/INDEX.md                       ← essays 76 → 77
-research-notes/frontiers/fibonacci_golden_prime_crossdomain.md ← insights 3,5 CLOSED; 6–8 + νₚ open recorded
-research-notes/frontiers/INDEX.md                             ← Fibonacci entry CLOSED/Open updated
-research-notes/promotion_essay_log.md                         ← rows 44 (promotion) + 45 (essay)
-STRICT_ZERO_AXIOM.md                                          ← +RankApparition + GoldenFieldBridge entry (20 PURE)
+lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevCycle.lean      ← brick 7, full Zolotarev (47 PURE, new)
+lean/E213/Lib/Math/NumberTheory/ModArith/ZolotarevReduction.lean  ← brick 6, the reduction (4 PURE, renamed from ZolotarevConverse)
+lean/E213/Lib/Math/NumberTheory/ModArith/MulOrder.lean            ← pow_split_eq made public
+lean/E213/Lib/Math/NumberTheory/ModArith/Zolotarev.lean           ← docstring decouple (homomorphism half; dedup target vs ZolotarevSign)
+lean/E213/Lib/Math/NumberTheory/ModArith.lean                     ← umbrella (ZolotarevReduction + ZolotarevCycle wired)
+theory/math/numbertheory/primitive_roots.md                       ← new chapter (promotion)
+theory/math/numbertheory/zolotarev.md                             ← cross-ref to the generator route
+theory/essays/synthesis/the_quadratic_character_is_a_discrete_log_parity.md  ← new essay
+research-notes/frontiers/zolotarev_crossdomain.md                 ← addendum (insights 5–6, dedup target)
+theory/{INDEX,math/INDEX,essays/INDEX}.md                         ← counts + listings (math 97, essays 78)
+research-notes/promotion_essay_log.md                             ← rows 46 (promote) + 47 (essay)
 ```
