@@ -1,122 +1,142 @@
-# Session Handoff — 2026-06-10 (Ricci-flow frontier: discrete curvature → spectrum → smooth Perelman tensor calculus)
+# Session Handoff — 2026-06-10 (organization marathon: research-notes root cleared + discrete-curvature promotion)
 
-## Branch & build state
-`claude/rich-flow-open-frontier-WIA6l` — `origin/main` merged in (the primitive-root /
-full-Zolotarev marathon).  **Fresh `rm -rf .lake/build && lake build` ✓ clean.**  Kernel
-regression 45/45 0-axiom; `audit_axioms.py` all ✓.  All session modules strict ∅-axiom PURE
-(`tools/scan_axioms.py`): `OllivierRicci` 60/0, `BakryEmery` 42/0, `BakryEmeryBipartite` 16/0,
-`DiscreteLichnerowicz` 11/0, `ConformalCurvature` 18/0, `TensorCalculus` 23/0,
-`IntGridSum` 14/0, `OrderMul` 10/0.
+## Branch
+`claude/research-notes-structure-dthcs9` — branched from `main` @ `6c91ffc`
+(the Ricci-flow marathon handoff), 5 commits ahead, ready-to-merge audit
+passed.  `lake build` fresh-clean; kernel regression 45/45 0-axiom;
+`scan_all_axioms` **405 PURE / 0 DIRTY**; layer audit 0 violations.
 
-## What was done (three math arcs + a closing skills marathon)
+## What Was Done This Session
 
-### Arc 1 — discrete curvature, parametric across all graph families
-- **Complete graph `K_m`**: Bakry–Émery `CD((m+2)/2,∞)` sharp/optimal (`BakryEmery` §3);
-  Ollivier `κ=(m−2)/(m−1)` (`OllivierRicci` §7).
-- **Star `K_{1,b}`**: centre `CD((3−b)/2,∞)`, leaf `CD((5−b)/2,∞)` (`BakryEmery` §4–§5).
-- **General bipartite `K_{a,b}`** (`BakryEmeryBipartite.lean`): `A`-vertex curvature
-  `min(3a−b,b−a+4)/2`, split into the wide regime `b ≥ 2a−2` (`kab_cd_wide`, SOS only) and the
-  narrow regime `b < 2a−2` (`kab_cd_narrow`, discrete Cauchy–Schwarz); DRLT core `K_{3,2} = CD(3/2)`.
-- Honest cross-frame correction: `K_{3,2}` Forman `−1` vs Bakry–Émery `+3/2` — corrected the
-  "frames cannot disagree" overclaim in `theory/essays/synthesis/curvature_as_lens_readout.md`.
+### 1. research-notes/ root cleared (the session's driving request)
+Top level now holds **only** `INDEX.md` + `promotion_essay_log.md`.
+- G200–G203 (Markov action notes) → `frontiers/markov_lagrange/` (the
+  G198/G199/G204 arc); G205 → `frontiers/` (proof-ISA arc source note);
+  G35 catalog → `frontiers/` (active per its §0.5).  All registered in
+  `frontiers/INDEX.md`; the closed proof-ISA series section retitled to
+  drop the colliding `(G200_*)` label (two G200 lineages existed).
+- Early foundational/lens arc (75, 76, G1–G5, G12, G29, G152, RFC,
+  2026-05-18 lens-emergence) → `archive/foundations/`;
+  `RERESEARCH_n_u_removal.md` → `archive/`.
+- Sink-rule decoupling: `book/foundations/01,02` (G152 refs →
+  `FlatOntologyClosure`), `theory/math/{numbersystems/padic_real213,
+  foundations/cross_domain_unification}` + CLAUDE.md (RERESEARCH refs →
+  `ConfigCount.lean` / inline), `riemannian_curvature_tensor.md` (2
+  frontier note-file refs → topic refs), `STRICT_ZERO_AXIOM.md` +
+  `curvature_as_lens_readout.md` (6 bare-name note refs → topic refs).
+  Post-state: **0 permanent-tier citations of research-notes note files**.
+- Stale-ref fixes: 8 lean docstring/INDEX paths (`research-notes/G35` →
+  `frontiers/G35`), deleted-G56 pointer dropped
+  (`AlgebraTowerCapstone.lean`), stale §5 pointer dropped
+  (autonomous-research skill), `ListHelper.lean` header rewritten
+  current-state-only.
 
-### Arc 2 — curvature → spectrum (Lichnerowicz) (`DiscreteLichnerowicz.lean`)
-- `km_rayleigh` (`Σ(Lf)² = m·E`), `km_eigenvalue` + eigenspaces ⟹ `K_m` Laplacian spectrum
-  `{0¹, m^{m−1}}`; `km_green` (integration-by-parts trio explicit); `lichnerowicz_abstract`
-  (`K ≤ λ`) via `OrderMul.le_of_mul_le_mul_right_pos` (Int positive cancellation).
+### 2. Promotion: `theory/math/geometry/discrete_curvature.md` (PURE ✓)
+The HANDOFF-flagged candidate — the discrete-curvature
+`GeometrizationConjecture/` sub-tree (`OllivierRicci` 60 / `BakryEmery`
+42 / `BakryEmeryBipartite` 16 / `DiscreteLichnerowicz` 11 PURE,
+re-verified 0 DIRTY).  Parametric curvature across graph families
+(`K_m`, `K_{1,b}`, `K_{a,b}` incl. the `K_{3,2} = CD(3/2)` core +
+Forman cross-frame divergence) + the Lichnerowicz spectrum
+(`{0¹, m^{m−1}}`, `CD(K) ⟹ K ≤ λ`).  H4 closed by a new
+`STRICT_ZERO_AXIOM.md` entry for the Ricci-marathon modules (incl.
+`TensorCalculus` 23, `IntGridSum` 14 — previously uncatalogued) + two
+stale counts corrected.  Registered in `theory/math/INDEX.md`; ledger
+row 50.
 
-### Arc 3 — the smooth Perelman wall, attacked along the reachable routes
-- **Conformal (general `n`)** (`ConformalCurvature.lean` §S6–§S7): `confRNumN` (general-`n`
-  conformally-flat **scalar** curvature, validated `= 4·confKNum` at `n=2`, `n=3` trichotomy);
-  the conformally-flat **Ricci tensor** `confRic*` + trace consistency + Einstein-at-a-point.
-- **General-metric algebraic tensor calculus** (`Geometry/TensorCalculus.lean`, dimension-free):
-  Christoffel 1st kind (symmetry, metric compatibility) → 2nd kind + raising/lowering → Riemann
-  tensor (+ **all four** symmetries via the metric 2-jet `riemLow`) → Ricci contraction + first
-  Bianchi → scalar `R=g^{ij}Ric` + Einstein `R=λn`.  Promoted to
-  `theory/math/geometry/riemannian_curvature_tensor.md`.
-- **Panel consensus brick**: `perelman_rate_nonneg` (`TensorCalculus` §7),
-  `0 ≤ Σ_{i,j}(Ric_{ij}+∇_i∇_j f)²` — the algebraic form of Perelman's `d/dt 𝓕 ≥ 0` (the SOS
-  rate), reachable now that `Ric` exists.
+### 3. Cross-domain note + essay (curvature arc × proof-ISA arc)
+- `research-notes/frontiers/inequalities_positivity_fold_crossdomain.md`:
+  A7 POSITIVITY's 2-D Cauchy–Schwarz (`cauchy_schwarz_2d`, depth-0
+  Lagrange square) and the curvature module's n-dim power-mean form
+  (`cauchy_schwarz_gridZ`, per-rung SOS `Σ_j(a_j−a_m)²` folded along the
+  `gridSumZ` induction) are **one instruction at two certificate
+  depths**; the `K_{a,b}` wide/narrow regime split
+  (`kab_cd_wide`/`kab_cd_narrow`) is exactly that depth.
+- Essay `theory/essays/synthesis/the_cauchy_schwarz_gap_is_a_square.md`:
+  the gap *is* a square; the power-mean gap = total pairwise
+  distinguishing `Σ_{i<j}(a_i−a_j)²`, saturated on the diagonal
+  (`sosGap_eq_zero_of_const` the in-repo witness); certificate depth as
+  a property of the pointing (`PresentationDependence` at the proof
+  layer).  Ledger row 51.
 
-### Closing skills marathon (process → promote → crossdomain → essay → org-audit → purity → merge)
-- **/process**: sink-rule clean (no permanent tier cites a research-notes note-file).
-- **Promotions**: `theory/math/geometry/riemannian_curvature_tensor.md` (the tensor calculus).
-- **Cross-domain**: `research-notes/frontiers/curvature_spectrum_crossdomain.md` — the `K_p`
-  Laplacian eigenbasis (additive characters of ℤ/p) dual to main's multiplicative Legendre
-  character; one cyclic group, two character-faces, both eigen-data.
-- **/essay**: `theory/essays/synthesis/the_character_is_the_groups_eigen_data.md`.
-- **/org-audit**: relocated `gridSumZ` + its 14-lemma toolkit out of the `OllivierRicci` leaf
-  into `Lib/Math/Combinatorics/IntGridSum` (domain-agnostic infra; 5 consumers repointed);
-  relocated `le_of_mul_le_mul_right_pos` into `Meta/Int213/OrderMul` next to its forward form.
-- **/purity-check + /ready-to-merge**: 0 sorry / 0 axiom / 0 native_decide / 0 Classical / 0
-  Mathlib / 0 omega; layer audit 0 violations; flagship theorems `#print axioms` = "does not
-  depend on any axioms".  **Verdict: READY TO MERGE.**
+### 4. Closing audits
+/process (sink 0 violations), /org-audit (INDEX counts ~219 chapters /
+80 essays synced; bare-name citation sweep), /purity-check (0 sorry /
+0 axiom / 0 native_decide / 0 Classical / 0 Mathlib; flagship capstones
+PURE), /ready-to-merge (fresh build, kernel regress 45/45, stale-dir
+sweep clean — verdict READY).
 
-## Lean-tooling notes (recurring, for the next session)
-- `ring_intZ` **cannot certify a zero-polynomial `= 0`** goal — use pure
-  `sub_add_cancel_int`/`sub_self_zero`/`add_neg_cancel`/`zero_mul`/`mul_one`, or state the
-  identity in moved-over (non-zero RHS) form (`riemLow_bianchi1`).
-- `omega` is **barred** (leaks `propext`+`Quot.sound`).
-- `rw [gridSumZ_* ]` often fails to key-match lambdas from `gridSumZ_congr` — use term-mode
-  `Eq.trans (congr) (lemma)` + `exact`; keep `gridSumZ_mul_left` constants **on the left**.
-- congr tactic blocks need a leading `dsimp only` to beta-reduce (omit if already reduced).
-- The `gridSumZ` toolkit now lives at `E213.Lib.Math.Combinatorics.IntGridSum` — `import` + `open`
-  it (not `OllivierRicci`) for any new finite-Int-sum work.
+## Current Precision Results (0 free parameters)
+Unchanged this session — see `catalogs/precision_results.md`
+(1/α_em 0.2 ppb structural via Step-5 cubic; m_p, m_μ/m_e, N_gen = 3,
+θ_QCD falsifier per catalogs).  No new physics numbers; this session's
+new theorems are organizational/math-side only.
 
-## Open Problems (priority order)
+## Open Problems (Priority Order)
+
 ### 1. `Real213`-cut maximum principle (most surgical)
-Promote the discrete `heatIter_range` to a `Real213` `cutLe` via the `RealCauchyWitness`
-order-squeeze idiom (~40 lines, a solved pattern).  High-confidence frontier-closer.
-Frontier note: `research-notes/frontiers/ricci_flow_smooth_core.md` (Panel exploration §, brick 2).
+Promote the discrete `heatIter_range` to a `Real213` `cutLe` via the
+`RealCauchyWitness` order-squeeze idiom (~40 lines, a solved pattern).
+Frontier note: `research-notes/frontiers/ricci_flow_smooth_core.md`
+(Panel exploration §, brick 2).
 
 ### 2. `expCauchySeq (x) : CauchyCutSeq` — retire the transcendental-metric stub
-Package the already-PURE `exp`/`sin`/`cos` series rate certificates (`Real213/ExpLog/CutExpModulus`,
-`CutTrigModulus`) into a `CauchyCutSeq` (template: `eulerCauchySeq`), retiring the
-`Real213/Core/Functions.lean` `:= fun _ _ => true` stubs.  "Transcendental metrics" is a packaging
-stub, not the century problem.
+Package the PURE `exp`/`sin`/`cos` rate certificates
+(`Real213/ExpLog/CutExpModulus`, `CutTrigModulus`) into a
+`CauchyCutSeq` (template: `eulerCauchySeq`), retiring the
+`Real213/Core/Functions.lean` `:= fun _ _ => true` stubs.
 Frontier note: `research-notes/frontiers/ricci_flow_smooth_core.md` (brick 1).
 
 ### 3. Discrete χ²-entropy descent
-`Ent(μ)=Σ μ(μ−1)` monotone under `lazyHeatStep` (same shape as `ricci_energy_monotone`) — the
-synthetic discrete Perelman-entropy.
+`Ent(μ)=Σ μ(μ−1)` monotone under `lazyHeatStep` (same shape as
+`ricci_energy_monotone`) — the synthetic discrete Perelman-entropy.
 Frontier note: `research-notes/frontiers/ricci_flow_smooth_core.md` (brick 3).
 
-### 4. The genuine un-reframable analysis wall
-Weighted integration-by-parts (`∇𝓕 ↔ flow`), the `𝓦` Gaussian, Li–Yau Harnack (nonlinear, needs
-`Real213` division), κ-solution/surgery classification + no-local-collapsing compactness.
-Frontier notes: `research-notes/frontiers/ricci_flow_smooth_core.md` +
+### 4. Pair-sum Lagrange identity (new, small)
+`n·Σa² − (Σa)² = Σ_{i<j}(a_i−a_j)²` ∅-axiom next to
+`cauchy_schwarz_gridZ`, identifying the depth-0 and folded certificates;
+then the two-sequence n-dim Cauchy–Schwarz and the equality case.
+Frontier note:
+`research-notes/frontiers/inequalities_positivity_fold_crossdomain.md`.
+
+### 5. The genuine analysis wall (unchanged)
+Weighted integration-by-parts (`∇𝓕 ↔ flow`), the `𝓦` Gaussian, Li–Yau
+Harnack, κ-solution/surgery.  Frontier notes:
+`research-notes/frontiers/ricci_flow_smooth_core.md` +
 `research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`.
 
-## Unresolved from this session
-None attempted-and-failed.  The smooth-Perelman **algebraic** core is ∅-axiom; what remains
-(Open Problem 4) is pure analysis, recorded as frontiers, not dead ends.
+## Unresolved from This Session
+None attempted-and-failed.  Informational (not blockers): 134
+pre-existing directory-level namespace conventions
+(`tools/sync_namespaces.py` dry-run; longstanding, untouched here);
+mild "previously"-phrasing in ~10 old Lean docstrings.
 
 ## Next
-After the merge to `main`: Open Problem 1 (`Real213`-cut maximum principle) — the most surgical
-high-confidence brick, then the entropy descent (3).
+After merge to `main`: Open Problem 1 (`Real213`-cut maximum principle),
+or the small new brick 4 (pair-sum Lagrange identity) as a warm-up.
 
 ## Three-tier state
-- **Promotions this session**: `theory/math/geometry/riemannian_curvature_tensor.md` ← the
-  Geometry/TensorCalculus closure.  Essay:
-  `theory/essays/synthesis/the_character_is_the_groups_eigen_data.md`.
-- **Promotion candidates**: the discrete-curvature `GeometrizationConjecture/` sub-tree
-  (Ollivier/BakryEmery/Bipartite/Lichnerowicz) is PURE-closed; a consolidated `theory/` chapter
-  mirroring it is a candidate (check `theory/PROMOTION_CRITERIA.md` H1–H4 + S1–S3).
-- **Active scratchpad**: `research-notes/frontiers/ricci_flow_smooth_core.md`,
-  `.../a6_ricci_core/discrete_ricci_flow_ladder.md`, `.../curvature_spectrum_crossdomain.md`.
+- **Promotions this session**:
+  `theory/math/geometry/discrete_curvature.md` ← the discrete-curvature
+  sub-tree.  Essay:
+  `theory/essays/synthesis/the_cauchy_schwarz_gap_is_a_square.md`.
+- **Promotion candidates**: none flagged — the Ricci-marathon backlog is
+  cleared (tensor calculus + discrete curvature both have chapters).
+- **Active scratchpad**: `research-notes/frontiers/` board (see its
+  INDEX); top-level research-notes is anchors-free by design now.
 
-## File map
+## File Map
 ```
-lean/E213/Lib/Math/Combinatorics/IntGridSum.lean           ← NEW: gridSumZ + 14-lemma Int-sum toolkit (relocated infra)
-lean/E213/Lib/Math/Geometry/TensorCalculus.lean            ← general-n tensor calculus + Perelman SOS
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/BakryEmeryBipartite.lean  ← K_{a,b} (wide/narrow split)
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/DiscreteLichnerowicz.lean ← curvature→spectrum
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/{BakryEmery,OllivierRicci,ConformalCurvature}.lean ← extended
-lean/E213/Meta/Int213/OrderMul.lean                        ← +le_of_mul_le_mul_right_pos (relocated Int order lemma)
-theory/math/geometry/riemannian_curvature_tensor.md        ← NEW: tensor-calculus chapter (promotion)
-theory/essays/synthesis/the_character_is_the_groups_eigen_data.md  ← NEW: character-as-eigen-data essay
-research-notes/frontiers/curvature_spectrum_crossdomain.md ← NEW: additive/multiplicative character cross-domain
-research-notes/frontiers/ricci_flow_smooth_core.md         ← smooth-core attack + panel findings
-research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md  ← all rungs + spectral
-theory/essays/synthesis/curvature_as_lens_readout.md       ← promoted + overclaim corrected
+research-notes/INDEX.md                                     ← rewritten (root = INDEX + ledger)
+research-notes/frontiers/markov_lagrange/G200..G203_*.md    ← moved from root
+research-notes/frontiers/{G205_*,G35_*}.md                  ← moved from root
+research-notes/frontiers/inequalities_positivity_fold_crossdomain.md ← NEW cross-domain note
+research-notes/archive/foundations/*.md (12)                ← archived foundational arc
+research-notes/archive/RERESEARCH_n_u_removal.md            ← archived registry
+theory/math/geometry/discrete_curvature.md                  ← NEW chapter (promotion)
+theory/essays/synthesis/the_cauchy_schwarz_gap_is_a_square.md ← NEW essay
+STRICT_ZERO_AXIOM.md                                        ← new A6 entry + 2 count fixes + bare-ref cleanup
+theory/{INDEX.md,math/INDEX.md,essays/INDEX.md}             ← counts + registrations
+CLAUDE.md, book/foundations/{01,02}*.md, theory/math/{numbersystems,foundations}/* ← decoupled citations
+lean/E213 (8 docstring-path fixes + ListHelper header)      ← comment-only, build green
 ```
