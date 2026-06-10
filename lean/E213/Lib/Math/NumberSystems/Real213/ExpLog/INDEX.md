@@ -3,7 +3,7 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (20)
+## Files (21)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
@@ -31,6 +31,13 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   collapse rungs (`weld_base`,
                                   `sinhNum_eq_FNum_zero`).  Stage 2 (CF convergent
                                   pairing) open.
+  - `CothSeriesCut.lean`        — weld 3b: the coth series as a fold
+                                  (`cothSeriesAb`, truncated ratio
+                                  `(2J+1)q·coshNum/sinhNum` climbs via the exact
+                                  `q²`-cancelling cross identity); the CF and
+                                  series pointings agree on the `(5/4, 3/2]`
+                                  probes (`two_pointings_agree`).  3c: ∀-probe
+                                  order transfer, open.
   - `CutTrigModulus.lean`       — `sin`/`cos` Taylor convergence modulus by
                                   comparison to `exp` (odd/even index sampling:
                                   geometric decay + antitone).  Marathon T2.

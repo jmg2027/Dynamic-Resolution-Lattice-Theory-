@@ -224,15 +224,30 @@ live in one identity system** (weld rows §5 + bridge §7).  New Lean dirt found
 core `Nat.pow_add` is `propext`-dirty — pure replacement `pow_add_two` via the
 definitional `pow_succ` chain.
 
+## Twelfth arc: weld stage 3b — the series fold + the pointings meet on probes
+
+`ExpLog/CothSeriesCut.lean` (17 PURE): the truncated coth ratio
+`T_J = (2J+1)q·coshNum_J/sinhNum_J` **climbs** — `tcross_id` shows the
+`q²`-cross-terms cancel exactly, leaving `(2J+3)sinh_J − (2J+1)cosh_J ≥ 0` (from
+the termwise `cosh_le_sinh`) — so the series pointing is a genuine fold
+`cothSeriesAb q : AbCutSeq`.  **`two_pointings_agree`**: at `q = 1` the CF fold's
+completed limit (`cothUnitCFCauchySeq`) and the series fold's layer cuts agree on
+the bracket probes — both `true` at `3/2` (series side: the uniform bound
+`2(2J+1)·coshNum + 1 ≤ 3·sinhNum`, margin recursion
+`X_{J+1} = (2J+2)(2J+3)X_J − (4J+3)` safe from `X_0 = 1`), both `false` at `5/4`
+(layer-2 witness + nesting).  Two entirely different pointings, one bracket.
+New core dirt: `Nat.le_of_add_le_add_right` is `propext`-dirty (NatHelper's left
+version + `add_comm` is the pure route).
+
 ## Open Problems (priority order)
-1. **The weld, stage 3b — order transfer (the last step)**: (i) positivity and
-   `J`-monotonicity of `FNum`/`PF` (easy inductions); (ii) from the weld rows +
-   `cf_bridge`, the cross-product comparison: `cfPn(2i)·sinhNum-side` vs
-   `coshNum-side·cfQn(2i)` differ by the bounded `2J`-tail terms ⟹ the even CF
-   convergents sit below the cosh/sinh ratio and (odd side) above ⟹
-   `cothUnitCFCauchySeq q`'s limit cut is pinned: the Lambert real IS
-   `coth(1/q)`.  Then `e^{2/q} = (coth+1)/(coth−1)` via cut-Möbius discharges
-   `hmeas` (`p = 2`) — unconditional `exp(2/q)`.
+1. **The weld, stage 3c — the ∀-probe order transfer (the last step)**: from the
+   §5 weld rows + §7 bridge, the truncated-determinant comparison
+   `cfPn-side·sinhNum` vs `coshNum·cfQn-side`: (i) the PF–dev determinant's sign
+   per parity (the cleared `F₋₁B̃ − F₀Ã = ±uⁿF`-shape), (ii) `2J`-tail bounds
+   (`FNum` positivity/monotonicity), ⟹ even CF convergents ≤ `T_J`-cofinally and
+   `T_J` ≤ odd convergents ⟹ the two folds' sups coincide ⟹ limit cuts equal
+   (both rise strictly from below — no irrationality needed at the boundary).
+   Then `e^{2/q} = (coth+1)/(coth−1)` via cut-Möbius discharges `hmeas` (`p = 2`).
 2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
    numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient

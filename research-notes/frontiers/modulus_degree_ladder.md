@@ -169,11 +169,22 @@ modulus is the growth class of `N` in `k`, and it factors as
    identities (4-way parity induction riding the `AP/BP` recursions;
    `decide`-anchored at `q = 2`).  The CF fold and the cosh/sinh partial
    numerators now live in ONE identity system (weld rows §5 + bridge §7).
-   **Stage 3b (remaining, pure order work)**: positivity/size of the `2J`-tail
-   terms in the weld rows, then order-transfer — `cothUnitCFCauchySeq q` pinned
-   between cosh/sinh partial brackets; the weld closes.  (Lean: core
-   `Nat.pow_add` is `propext`-dirty — use the definitional `pow_succ` chain,
-   `pow_add_two`.)
+   **Stage 3b — ✅ the series side is a fold and the pointings meet on probes**
+   (`CothSeriesCut.lean`, 17 PURE): the truncated coth ratio
+   `T_J = (2J+1)q·coshNum_J/sinhNum_J` climbs — the cross identity `tcross_id`
+   cancels the `q²`-terms exactly, leaving `(2J+3)sinh − (2J+1)cosh ≥ 0`
+   (`cosh_le_sinh`, termwise) — so `cothSeriesAb q : AbCutSeq`.  At `q = 1` the
+   CF fold's completed limit and the series fold's layer cuts **agree on the
+   bracket probes** `(5/4, 3/2]` (`two_pointings_agree`; series side: the
+   uniform bound `2(2J+1)coshNum + 1 ≤ 3·sinhNum`, margin recursion
+   `X_{J+1} = (2J+2)(2J+3)X_J − (4J+3)` safe from `X_0 = 1`).
+   **Stage 3c (the last step)**: ∀-probe order transfer — from the §5 weld rows
+   + §7 bridge, the cross-product comparison `cfPn·sinh-side` vs
+   `cosh-side·cfQn` (the truncated determinant's sign and the `2J`-tail bounds)
+   pins the two folds' sups equal; then `e^{2/q} = (coth+1)/(coth−1)`
+   (cut-Möbius) discharges `hmeas`.  (Lean: core `Nat.pow_add` and
+   `Nat.le_of_add_le_add_right` are `propext`-dirty — `pow_add_two` via the
+   definitional `pow_succ` chain; NatHelper's left-cancel + `add_comm`.)
    Lean note: PolyNatM's normalizer does **not** drop `0·atom` monomials and chokes
    on un-reduced `(J+1)−1` index atoms — close `J = 0` rungs by `rfl` (all-literal
    defeq) and re-ascribe IHs with reduced indices.
