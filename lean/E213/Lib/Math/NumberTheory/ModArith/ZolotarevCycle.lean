@@ -37,8 +37,17 @@ open E213.Lib.Math.Algebra.Linalg213.DetMul (funcs nodup_imp_perm mem_tuples)
 open E213.Lib.Math.Algebra.Linalg213.DetTranspose (nodup_map_restrict)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (mem_iota_of_lt)
 open E213.Tactic.List213 (getD_ge getD_map_ib list_ext_getD exists_of_mem_map)
-open E213.Lib.Math.NumberTheory.ModArith.Zolotarev (mulPerm length_map_pure)
-open E213.Tactic.NatHelper (add_sub_of_le sub_add_cancel add_sub_cancel_right)
+open E213.Lib.Math.Algebra.Linalg213.PermGroup (composeList_getD)
+open E213.Lib.Math.NumberTheory.ModArith.Zolotarev
+  (mulPerm length_map_pure mulPerm_getD mulPerm_mem_perms res_cancel mulPerm_length)
+open E213.Lib.Math.NumberTheory.ModArith.MulOrder (ordModP fermat pow_split_eq ord_dvd)
+open E213.Lib.Math.NumberTheory.ModArith.OrderPow (not_dvd_pow)
+open E213.Lib.Math.NumberTheory.ModArith.PrimitiveRoot (exists_primitive_root)
+open E213.Meta.Nat.MulMod213 (mul_mod_right_pure)
+open E213.Meta.Nat.AddMod213 (div_add_mod dvd_of_mod_eq_zero)
+open E213.Lib.Math.NumberTheory.ModArith.CubeFromFLT (pow_add_pure)
+open E213.Tactic.Pow213 (le_of_dvd_pos)
+open E213.Tactic.NatHelper (add_sub_of_le sub_add_cancel add_sub_cancel_right add_left_cancel_pure)
 
 /-! ## §1 — the ascending block and its inversion count -/
 
@@ -229,5 +238,138 @@ theorem cycS_mem_perms (p : Nat) (hp : 1 < p) : cycS p ∈ perms p := by
         rw [← hvy]; exact mem_iota_of_lt (sFun_lt p y hp (lt_of_mem_iota hy)))
     rwa [cycS_length p] at h
   exact nodup_imp_perm p (cycS p) hfuncs (nodup_map_restrict (sFun_inj p hp) (nodup_iota p))
+
+/-! ## §5 — the discrete-log conjugator `τ(i) = g^(p−1−i) mod p` (`τ(0)=0`) -/
+
+/-- The discrete-log conjugator value: `0 ↦ 0`, `i ↦ g^(p−1−i) mod p`. -/
+def tauFun (g p i : Nat) : Nat := if i = 0 then 0 else g ^ (p - 1 - i) % p
+
+def tau (g p : Nat) : List Nat := (iota p).map (tauFun g p)
+
+theorem tau_length (g p : Nat) : (tau g p).length = p := by
+  show ((iota p).map (tauFun g p)).length = p; rw [length_map_pure, length_iota]
+
+theorem tau_getD (g p i : Nat) (hi : i < p) : (tau g p).getD i 0 = tauFun g p i := by
+  show ((iota p).map (tauFun g p)).getD i 0 = tauFun g p i
+  rw [getD_map_ib (tauFun g p) 0 0 (iota p) i (by rw [length_iota]; exact hi), getD_iota p i hi]
+
+/-- `g ∤ p` (`g` a unit). -/
+theorem not_dvd_g (g p : Nat) (hg0 : 0 < g) (hglt : g < p) : ¬ p ∣ g :=
+  fun h => absurd (le_of_dvd_pos p g hg0 h) (Nat.not_le.mpr hglt)
+
+/-- `g·(g^E mod p) mod p = g^(E+1) mod p`. -/
+theorem g_mul_pow (g p E : Nat) : g * (g ^ E % p) % p = g ^ (E + 1) % p := by
+  rw [← mul_mod_right_pure g (g ^ E) p, show g * g ^ E = g ^ (E + 1) from by
+    rw [Nat.pow_succ]; exact Nat.mul_comm g (g ^ E)]
+
+theorem tauFun_lt (g p i : Nat) (hp : 1 < p) : tauFun g p i < p := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
+  show (if i = 0 then 0 else g ^ (p - 1 - i) % p) < p
+  by_cases hi : i = 0
+  · rw [if_pos hi]; exact hppos
+  · rw [if_neg hi]; exact Nat.mod_lt _ hppos
+
+/-- A nonzero index gives a unit value: `1 ≤ tauFun g p i`. -/
+theorem tauFun_pos (g p i : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hg0 : 0 < g) (hglt : g < p) (hi1 : 1 ≤ i) : 1 ≤ tauFun g p i := by
+  have hi : ¬ i = 0 := fun h => absurd (h ▸ hi1) (by decide)
+  show 1 ≤ (if i = 0 then 0 else g ^ (p - 1 - i) % p)
+  rw [if_neg hi]
+  rcases Nat.eq_zero_or_pos (g ^ (p - 1 - i) % p) with h0 | hpos
+  · exact absurd (dvd_of_mod_eq_zero h0) (not_dvd_pow g p (p - 1 - i) hp hpr (not_dvd_g g p hg0 hglt))
+  · exact hpos
+
+/-- **Periodicity**: `g^i ≡ g^(i mod ord) (mod p)`. -/
+theorem pow_period (g p i : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hg0 : 0 < g) (hglt : g < p) :
+    g ^ i % p = g ^ (i % ordModP g p) % p := by
+  have hdm := div_add_mod i (ordModP g p)
+  have h := pow_split_eq g p hp hpr hg0 hglt (i / ordModP g p) (i % ordModP g p)
+  rw [hdm] at h; exact h
+
+/-- Discrete-log injectivity (ordered): `a ≤ b < ord`, `g^a ≡ g^b` ⟹ `a = b`. -/
+theorem pow_inj_le (g p a b : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hg0 : 0 < g) (hglt : g < p) (hord : ordModP g p = p - 1)
+    (hab : a ≤ b) (hb : b < p - 1) (heq : g ^ a % p = g ^ b % p) : a = b := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
+  have hba : a + (b - a) = b := add_sub_of_le hab
+  have hpow : g ^ b = g ^ a * g ^ (b - a) := by rw [← pow_add_pure g a (b - a), hba]
+  have h2 : (g ^ a * g ^ (b - a)) % p = g ^ a % p := by rw [← hpow]; exact heq.symm
+  have hnpa : ¬ p ∣ g ^ a := not_dvd_pow g p a hp hpr (not_dvd_g g p hg0 hglt)
+  have heq3 : (g ^ a * (g ^ (b - a) % p)) % p = (g ^ a * 1) % p := by
+    rw [← mul_mod_right_pure (g ^ a) (g ^ (b - a)) p, h2, Nat.mul_one]
+  have hX1 : 1 ≤ g ^ (b - a) % p := by
+    rcases Nat.eq_zero_or_pos (g ^ (b - a) % p) with h0 | hpos
+    · exact absurd (dvd_of_mod_eq_zero h0)
+        (not_dvd_pow g p (b - a) hp hpr (not_dvd_g g p hg0 hglt))
+    · exact hpos
+  have hres : g ^ (b - a) % p = 1 :=
+    res_cancel (g ^ a) p (g ^ (b - a) % p) 1 hp hpr hnpa (Nat.mod_lt _ hppos) hX1 heq3
+  have hdvd : ordModP g p ∣ (b - a) := ord_dvd g p hp hpr hg0 hglt (b - a) hres
+  rw [hord] at hdvd
+  have hbalt : b - a < p - 1 := Nat.lt_of_le_of_lt (Nat.sub_le b a) hb
+  rcases Nat.eq_zero_or_pos (b - a) with h0 | hpos
+  · exact Nat.le_antisymm hab (Nat.le_of_sub_eq_zero h0)
+  · exact absurd (le_of_dvd_pos (p - 1) (b - a) hpos hdvd) (Nat.not_le.mpr hbalt)
+
+/-- Discrete-log injectivity: `a, b < ord`, `g^a ≡ g^b` ⟹ `a = b`. -/
+theorem pow_inj_mod (g p a b : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hg0 : 0 < g) (hglt : g < p) (hord : ordModP g p = p - 1)
+    (ha : a < p - 1) (hb : b < p - 1) (heq : g ^ a % p = g ^ b % p) : a = b := by
+  rcases Nat.le_total a b with hab | hba
+  · exact pow_inj_le g p a b hp hpr hg0 hglt hord hab hb heq
+  · exact (pow_inj_le g p b a hp hpr hg0 hglt hord hba ha heq.symm).symm
+
+/-! ## §6 — `τ` is a permutation -/
+
+theorem tauFun_zero (g p : Nat) : tauFun g p 0 = 0 := rfl
+
+theorem tauFun_succ (g p k : Nat) : tauFun g p (k + 1) = g ^ (p - 1 - (k + 1)) % p :=
+  if_neg (Nat.not_eq_zero_of_lt (Nat.succ_pos k))
+
+/-- Subtraction is injective below the cap: `x, y ≤ n`, `n − x = n − y` ⟹ `x = y`. -/
+theorem sub_inj (n x y : Nat) (hx : x ≤ n) (hy : y ≤ n) (h : n - x = n - y) : x = y := by
+  have hxx : (n - x) + x = n := sub_add_cancel hx
+  have hyy : (n - y) + y = n := sub_add_cancel hy
+  rw [h] at hxx
+  exact add_left_cancel_pure (hxx.trans hyy.symm)
+
+/-- `tauFun g p` is injective on `[0, p)`. -/
+theorem tau_inj (g p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hg0 : 0 < g) (hglt : g < p) (hord : ordModP g p = p - 1) :
+    ∀ x, x ∈ iota p → ∀ y, y ∈ iota p → tauFun g p x = tauFun g p y → x = y := by
+  have hp1pos : 0 < p - 1 := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_sub_one_of_lt hp)
+  intro x hx y hy heq
+  have hxp : x < p := lt_of_mem_iota hx
+  have hyp : y < p := lt_of_mem_iota hy
+  rcases x with _ | k
+  · rcases y with _ | j
+    · rfl
+    · rw [tauFun_zero] at heq
+      exact absurd heq.symm
+        (Nat.not_eq_zero_of_lt (tauFun_pos g p (j + 1) hp hpr hg0 hglt (Nat.succ_pos j)))
+  · rcases y with _ | j
+    · rw [tauFun_zero] at heq
+      exact absurd heq
+        (Nat.not_eq_zero_of_lt (tauFun_pos g p (k + 1) hp hpr hg0 hglt (Nat.succ_pos k)))
+    · rw [tauFun_succ, tauFun_succ] at heq
+      have hke : p - 1 - (k + 1) < p - 1 := Nat.sub_lt hp1pos (Nat.succ_pos k)
+      have hje : p - 1 - (j + 1) < p - 1 := Nat.sub_lt hp1pos (Nat.succ_pos j)
+      have hexp : p - 1 - (k + 1) = p - 1 - (j + 1) :=
+        pow_inj_mod g p (p - 1 - (k + 1)) (p - 1 - (j + 1)) hp hpr hg0 hglt hord hke hje heq
+      exact sub_inj (p - 1) (k + 1) (j + 1)
+        (Nat.le_sub_one_of_lt hxp) (Nat.le_sub_one_of_lt hyp) hexp
+
+/-- ★ **`τ g p ∈ perms p`** — the discrete-log list is a permutation of the residues. -/
+theorem tau_mem_perms (g p : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (hg0 : 0 < g) (hglt : g < p) (hord : ordModP g p = p - 1) : tau g p ∈ perms p := by
+  have hfuncs : tau g p ∈ funcs p := by
+    have h := mem_tuples (iota p) (tau g p)
+      (fun v hv => by
+        obtain ⟨y, _, hvy⟩ := exists_of_mem_map hv
+        rw [← hvy]; exact mem_iota_of_lt (tauFun_lt g p y hp))
+    rwa [tau_length g p] at h
+  exact nodup_imp_perm p (tau g p) hfuncs
+    (nodup_map_restrict (tau_inj g p hp hpr hg0 hglt hord) (nodup_iota p))
 
 end E213.Lib.Math.NumberTheory.ModArith.ZolotarevCycle
