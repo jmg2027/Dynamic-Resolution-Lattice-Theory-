@@ -1376,6 +1376,32 @@ descent `rootFloorGo`), sandwich characterization (`rootFloor_pow_le` /
 rootFloor s (k^s) = k`), monotone in the radicand (`rootFloor_mono`).  The
 degree-`s` probe schedule of the graded rate generator.
 
+`E213.Lib.Math.NumberSystems.Real213.BracketModulus` — **3 PURE / 0 DIRTY**.  ★★★
+**The conversion-law engine** (`N = rate⁻¹ ∘ distance`, ladder rung 2 form) for
+two-sided bracket presentations: strictly increasing lower fold `a/d`,
+non-increasing upper companion `A/D`, per-layer sandwich `a_n/d_n < A_n/D_n`.
+A probe not strictly `Inside` the layer-`n₀` bracket exits to one of two stable
+sides (`below_fwd`: the fold passes it, cut false forward; `above_fwd`: the
+companion caps it, cut true forward) — `bracket_cut_const`.  One hypothesis,
+the **exclusion depth** `B` (`Inside at n ⟹ n ≤ B k`), yields the total
+∅-axiom modulus `N(m,k) = B k + 2` (`bracket_total_modulus`).  Unconditional
+engine; the measure enters only through `B`.
+
+`E213.Lib.Math.NumberSystems.Real213.ExpLog.PiMeasureModulus` — **11 PURE / 0
+DIRTY**.  ★★★ **π/2 (and π) conditionally degree-`s`** — ladder rung 2, first
+named instance.  The Wallis fold gets a decreasing upper companion
+`U_n = W_n·(2n+2)/(2n+1)` (`upNum/upDen`, `up_mono` via the exact identity
+`4(n+1)²(2n+4)(2n+1) + 2(n+1)(2n+1) = (2n+2)(2n+1)(2n+3)²`, `ring_nat`),
+giving a per-layer shrinking bracket of width `W_n/(2n+1) ≤ 2/(2n+1)`.
+`PiHalfMeasure C s` — the effective irrationality measure of π/2 in pure ℕ
+bracket form (probe inside layer `n` ⟹ width ≥ `1/(C·k^s)`); classically
+`μ(π) ≤ 7.103` (Zeilberger–Zudilin 2020), not formalized — the analytic cost
+isolated in this one inequality.  `measure_exclusion` (depth `n ≤ C·k^s`, via
+`wallisNum_le_two_den` from `wallis_upper_inv`), then ★★★
+`halfPi_measure_modulus` / `pi_measure_modulus`: total modulus
+**`N(m,k) = C·k^s + 2`** (π: `C·(2k)^s + 2`).  π moves from "completion
+modulus as opaque hypothesis" to "conditional degree-`s` modulus".
+
 `E213.Lib.Math.Analysis.Cauchy.DepthAperyCubic` — **23 PURE / 0 DIRTY**.  The Apéry
 zeta coefficient-degree statistic: the minimal-holonomic recurrence coefficients
 of ζ(2) (`(n+1)²uₙ₊₁=(11n²+11n+3)uₙ+n²uₙ₋₁`, degree 2) and ζ(3)

@@ -176,9 +176,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   **graded rate generator** (rung 1): the margin telescope parametrized by a
   probe schedule (`HtelS`/`DominatesS`, `RateModulus`/`RateStratification`),
   `ρ = rootFloor s` ⟹ `N = k^s + 1`, strictness witnessed by `sepDen`
-  (root-2-rescued, identity-broken at layer 4).  Open: the conditional
-  measure-modulus schema (Wallis-π + `μ(π) ≤ 7.11` ⟹ degree-≈7), the two-real
-  separation modulus, degree-4+ form cuts, `dyUp` tightness.
+  (root-2-rescued, identity-broken at layer 4); and the **conditional
+  measure-modulus schema** (rung 2): the bracket-exclusion engine
+  (`BracketModulus`, `N = B k + 2`) + the proved-decreasing Wallis upper
+  companion `U_n = W_n·(2n+2)/(2n+1)` give **π conditionally degree-`s`**
+  (`PiMeasureModulus`: `PiHalfMeasure C s` ⟹ π modulus `C·(2k)^s + 2`).
+  Open: an actual effective `(C,s)` for π, the two-real separation modulus,
+  degree-4+ form cuts, `dyUp` tightness.
 - `zeta3_free_modulus` — **ζ(3): built fold → free total modulus**.  The fold is
   closed (`Real213/Zeta3Cut`, 35 PURE: exact ℕ Apéry recurrence + closed-form
   Casoratian `6·(m!)⁶` + `AbCutSeq` + bracket `601/500 < ζ(3) ≤ 1203/1000`), and

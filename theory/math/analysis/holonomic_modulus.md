@@ -109,12 +109,23 @@ transcendental-only regime.
 
 ## 4. Frontier
 
-**π via Wallis is rate-free.**  The Wallis partial products converge like `1/n`
-while their denominators grow fast, so `tailₙ · k · dₙ ≫ 1`: the criterion fails, and
-deciding the side needs a lower bound on `|π/2 − m/k|` — π's irrationality measure
-(`μ(π) ≤ 7.1`, genuinely hard).  A fast π series (geometric-rate, e.g. arctan/Machin)
-would meet the criterion; Wallis cannot.  This is the rate-free posture of `PiCut`,
-not a property of transcendence.
+**π via Wallis is rate-free — and conditionally priced.**  The Wallis partial
+products converge like `1/n` while their denominators grow fast, so
+`tailₙ · k · dₙ ≫ 1`: the criterion fails at *every* grade (the `1/n` tail
+overtakes every scheduled quantum), and deciding the side needs a lower bound on
+`|π/2 − m/k|` — π's irrationality measure (`μ(π) ≤ 7.1`, genuinely hard).  A
+fast π series (geometric-rate, e.g. arctan/Machin) would meet the criterion;
+Wallis cannot.  This is the rate-free posture of `PiCut`, not a property of
+transcendence.  What the conversion law *can* do is price the missing measure
+exactly (`ExpLog/PiMeasureModulus` + the engine `BracketModulus`): the Wallis
+fold has a decreasing upper companion `U_n = W_n·(2n+2)/(2n+1)` (a per-layer
+shrinking bracket, width `≤ 2/(2n+1)`), and the single hypothesis
+`PiHalfMeasure C s` — any probe still inside the layer-`n` bracket forces width
+`≥ 1/(C·k^s)`, the effective measure in pure ℕ form — yields the constructed
+total modulus `N(m,k) = C·k^s + 2` for π/2 and `C·(2k)^s + 2` for π.  π moves
+from "completion modulus as opaque hypothesis" to "conditional degree-`s`
+modulus": rate⁻¹ ∘ distance with the distance certificate named, isolated, and
+awaiting its `(C, s)` instance.
 
 **The holonomic class, via the cross-determinant.**  `Htel_of_crossdet` reduces the
 rate certificate to a smallness law on the cross-determinant `W` — exactly the object

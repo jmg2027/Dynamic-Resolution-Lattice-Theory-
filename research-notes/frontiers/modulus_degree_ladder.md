@@ -5,8 +5,9 @@ degree 2, 3, … — `W ~ N(m,k)²`, `N(m1,k1)×N(m2,k2)`, or other shapes?
 
 **Status**: the algebraic pillar is **closed** at degrees 2 and 3; the graded
 rate generator (rung 1) is **closed** (`RateModulus.graded_total_modulus`,
-`N = k^s + 1`); the two-real separation modulus and the measure-modulus schema
-are **open**.
+`N = k^s + 1`); the conditional measure-modulus schema (rung 2) is **closed**
+(`BracketModulus` + `PiMeasureModulus`: π conditionally degree-`s`); the
+two-real separation modulus is **open**.
 
 ## The conversion law (the frame)
 
@@ -108,11 +109,22 @@ modulus is the growth class of `N` in `k`, and it factors as
    solved over ℕ); its limit's classical identity (CF shape `[0; 2, 3, 3, 4, …]`
    with partial quotients `⌊√i⌋+2`-driven) is uncharacterized, only its
    degree-2-rescued completion is.
-2. **Conditional measure-modulus schema** — `effective measure μ + Cauchy rate
-   ⟹ constructed N`.  Instance: Wallis-π with `μ(π) ≤ 7.11` would carry a
-   degree-≈7 modulus; the formalization cost of the measure is thereby isolated
-   in one hypothesis.  (π moves from "hypothesis modulus" to "conditional
-   degree-7 modulus".)
+2. **Conditional measure-modulus schema** — **CLOSED**
+   (`Real213/BracketModulus` + `ExpLog/PiMeasureModulus`, all ∅-axiom).  The
+   engine: two-sided bracket (strictly increasing fold + non-increasing upper
+   companion + sandwich) + **exclusion depth** `B` ⟹ total modulus
+   `N = B k + 2` (`bracket_total_modulus`).  Wallis instance: the companion
+   `U_n = W_n·(2n+2)/(2n+1)` is proved decreasing (exact identity
+   `4(n+1)²(2n+4)(2n+1) + 2(n+1)(2n+1) = (2n+2)(2n+1)(2n+3)²`), width
+   `≤ 2/(2n+1)`; `PiHalfMeasure C s` (probe inside layer `n` ⟹ width
+   ≥ `1/(C·k^s)` — the effective measure in pure ℕ bracket form) ⟹
+   `n ≤ C·k^s` ⟹ **π/2 modulus `C·k^s + 2`, π modulus `C·(2k)^s + 2`**
+   (`halfPi_measure_modulus` / `pi_measure_modulus`).  π is now a *conditional
+   degree-`s` modulus real*; the analytic cost (`μ(π) ≤ 7.103`,
+   Zeilberger–Zudilin 2020, no effective `(C,s)` formalized) is isolated in the
+   single `PiHalfMeasure` inequality.  *Residual opening*: prove an actual
+   `(C, s)` instance — even a weak one (any effective transcendence-measure
+   bound for π) — turning the conditional modulus unconditional.
 3. **Two-real separation modulus** — the genuine `N(m1,k1)×N(m2,k2)` object:
    deciding `x ≤ y` for two folds needs a joint `|x−y|` lower bound.  The
    one-probe gap quantum `1/(k·d_i)` is already bilinear (probe × convergent,

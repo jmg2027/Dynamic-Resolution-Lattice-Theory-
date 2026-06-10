@@ -1,6 +1,6 @@
 # Real213 — Module Index (sub-organized 2026-05-13)
 
-213-native real-number type via Dedekind cut.  169 files: 101 top-level + 68 in
+213-native real-number type via Dedekind cut.  171 files: 102 top-level + 69 in
 6 sub-clusters.
 
 ## Sub-clusters
@@ -12,7 +12,7 @@
 | `Mul/` | 18 | cutMul/Inv/Pow/Poly + ConstCutScale + CutBinary/Double/Distance |
 | `Lattice/` | 5 | cutMax/Min/Mid + LatticeEq + ScaleLattice |
 | `Bisection/` | 3 | bisection + continuity (CutBisection{,Algo}, CutContinuity) |
-| `ExpLog/` | 17 | CutExp/Log series + ODE + Geom* (Cauchy convergence) + EulerCut (e) / PiCut (π) |
+| `ExpLog/` | 18 | CutExp/Log series + ODE + Geom* (Cauchy convergence) + EulerCut (e) / PiCut (π) + PiMeasureModulus |
 
 ## Top-level
 
@@ -108,6 +108,13 @@
     breaks `Dominates` at layer 4 (`graded_stratification`), and the witness is
     an actual presentation — `sepNum/sepDen` completes through the degree-2
     schedule with constructed modulus `N=k²+1` (`sep_graded_modulus`).
+  - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
+    presentations**: strictly increasing lower fold + non-increasing upper
+    companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`
+    (probe still `Inside` the layer-`n` bracket ⟹ `n ≤ B k`) — yields the total
+    modulus `N(m,k) = B k + 2` (`bracket_total_modulus`).  Where an effective
+    irrationality measure enters as `B k = C·k^s` (ladder rung 2); instance:
+    `ExpLog/PiMeasureModulus` (Wallis-π).
   - `CrossDetOvertake.lean` — ★ completability boundary: `CrossDetSmall`, below ⟹ free,
     the double-exponential overtake break.  (Companion to `RateStratification`: the same
     W-vs-d boundary, presented as a `CrossDetSmall` predicate + double-exp witness.)
