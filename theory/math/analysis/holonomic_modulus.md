@@ -113,6 +113,18 @@ remains for another fast holonomic real is just its `W` and the smallness check
 `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`; the rate-free reals (π via Wallis) are exactly
 those whose `W` grows too fast for it.
 
+**ζ(3) sits at the boundary, presentation-dependently** (`Real213/Zeta3Cut`).  The
+Apéry convergents are built as an exact ℕ orbit of the degree-3 recurrence
+(`aperyOrbit_exact`), with closed-form cross-determinant `W_m = 6·(m!)⁶`
+(`zeta3_cross_det`) and the bracket `601/500 < ζ(3) ≤ 1203/1000`; but in the
+factorial-cleared presentation that `W` *overtakes* the denominator quantum at
+layer 9 (`zeta3_presentation_overtakes`, via `overtake_breaks_layer`) — rate-free,
+so the completion modulus stays a hypothesis there, as for π/Wallis.  The
+rate-carrying ζ(3) presentation is the reduced one (`2·lcm(1..n)³·bₙ`
+denominators, tail `α⁻²ⁿ` with `α = (1+√2)⁴`, and `e³ < α` makes the criterion
+hold); its ∅-axiom construction costs exactly the classical Apéry arithmetic
+(reduced-numerator integrality, `lcm(1..n) < 3ⁿ`) and is an open frontier.
+
 **The smallness law is a stratification — `W` against `d`, layer by layer.**  Making
 the smallness condition the primitive object turns completeness into a comparison of
 two tower-internal growth axes, read at every layer

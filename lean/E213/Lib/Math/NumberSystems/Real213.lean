@@ -62,6 +62,7 @@ import E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodRelations
 import E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodPolynomial
 import E213.Lib.Math.NumberSystems.Real213.MinkowskiModularSymbol
 import E213.Lib.Math.NumberSystems.Real213.HolonomicReal
+import E213.Lib.Math.NumberSystems.Real213.Zeta3Cut
 import E213.Lib.Math.NumberSystems.Real213.RateModulus
 import E213.Lib.Math.NumberSystems.Real213.RateStratification
 import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
