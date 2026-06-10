@@ -112,3 +112,34 @@ Open brick 4 (remaining): the general collapse-vs-rigid criterion as
 a theorem *schema* (obstruction readout valued in old data ⟺ the pair
 quotient is total) connecting the completion square to the CD tower —
 `int_sumSq_eq_zero` is the base case (rank-1 doubling anisotropy).
+
+## The hyperoperation refinement (^ splits along the normal form)
+
+`^` is non-commutative, so it has **two** reverse questions: root
+(`xⁿ = b`, algebraic) and log (`aˣ = b`, outside the polynomial class
+— sandwich-family completion only).  The root-completion acts on the
+sign × magnitude normal form **factorwise**:
+
+| operation | exponent-lattice event | completion |
+|---|---|---|
+| + | ℕ → ℤ | ℤ |
+| × | per-prime exponents ℕ^ω → ℤ^ω | ℚ₊ (= the +-completion re-run inside the exponent lattice) |
+| ^ root | magnitude exponents ℤ^ω → ℚ^ω **and** sign ℤ/2 → ℚ/ℤ | radicals (order-visible, absorbed by ℝ) + roots of unity (torsion → **rigid**, first rung `i`) |
+| ^ log | leaves the lattice | sandwich-family only (the ℝ boundary) |
+
+Rule: each hyperoperation's root-completion = the previous completion
+re-applied inside the exponent lattice; **free parts collapse (or are
+absorbed by the order completion), torsion parts are rigid** — the
+collapse-vs-rigid criterion concretized as free-vs-torsion.  ℤ[i] is
+the monic/integer form of the sign-axis rung at depth 2
+(`int_sumSq_eq_zero` its rigidity certificate; `ZIUnits`:
+`ℤ[i]^× = {±1, ±i} ≅ ℤ/4` — "positive Gaussian integer" = the
+associate-class normal form, sign (2-valued) grown into phase
+(4-valued); `ImaginaryQuadraticUnitTrichotomy` 2/4/6 bounds the
+circle-torsion an integer form can hold).  Polar form `r·e^{iθ}` =
+the sign × magnitude normal form lifted through the ^-completion.
+
+Open brick 5: the magnitude side as a theorem — the ℚ₊ exponent
+lattice (`vp` valuation vectors) and its divisible hull as the
+root-completion, connecting `Valuation.le_vp_iff` to the radical
+tower.
