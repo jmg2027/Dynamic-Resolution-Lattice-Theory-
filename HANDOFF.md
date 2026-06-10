@@ -1,9 +1,20 @@
-# Session Handoff — 2026-06-10 (async point–line frontier: origin record + multi-agent debate + marathon items 1–6)
+# Session Handoff — 2026-06-10 (async point–line frontier: origin record + multi-agent debate + marathon items 1–7)
 
 ## Branch
 `claude/tensors-dimensional-discretization-nqb10o` — pushed.
 `cd lean && lake build E213` ✓ clean.  All new theorems strict
-∅-axiom PURE (51/51 across 6 new modules, `tools/scan_axioms.py`).
+∅-axiom PURE (66/66 across 7 new modules + Slash additions,
+`tools/scan_axioms.py`).
+
+## Item 7 (added after the items-1–6 wrap below)
+- `lean/E213/Theory/Raw/AsyncReach.lean` (12 PURE) — O1:
+  `reach_closed` (reachable ⟹ subterm-closed), `reach_extend` /
+  `reach_joinable` (conflict-freeness, finite, no fairness),
+  `every_raw_reached` (totality via `Raw.rec` + joinability),
+  `list_reached` (finite joint reachability), `memDec` (hand-rolled
+  decidable membership — core instance leaks propext).
+- `lean/E213/Theory/Raw/Slash.lean` (+3 PURE) — `slash_val_lt/gt`,
+  **`slash_inj`** (pair injectivity; the closure invariant's key).
 
 ## What Was Done This Session
 
@@ -46,14 +57,17 @@ Unchanged — this arc is pure math (foundations).  See
 
 ## Open Problems (Priority Order)
 
-### 1. Frontier agenda items 7–8 (`async_pointline_raw.md` §5)
-- **O1 reachability** (L): `reach_iff_closed`, `reach_joinable`,
-  `every_raw_reached` on the `Theory/Raw/Async` system.  Landmine:
-  core list-`∈` decidability instance leaks propext — use explicit
-  `Mem` constructors (see Async.lean's `notmem_cons` pattern).
+### 1. Frontier agenda item 8 (`async_pointline_raw.md` §5)
 - **Honest counting theorem** (L): `rawCount n` = #canonical Raws of
   depth ≤ n; gate is `Tree.cmp` transitivity (~150 lines infra at
-  `Term/Internal/Tree/Cmp.lean`).
+  `Term/Internal/Tree/Cmp.lean`), then sorted-invariant on
+  `enumTreeDepth` (route α of the Lean-agent design).
+- **Exact-membership converse of O1**: `Closed P ∧ Nodup P ⟹
+  ∃ reachable s, MemEq s P` — argmin-by-depth fill construction +
+  `List213.length_filter_lt_of_mem` measure; atoms case via
+  "depth 0 ⟹ ∈ {a,b}".
+- **Fused step-3 swap-class census (= 4)** — needs a state
+  enumeration function (`decide`-able once states are enumerated).
 
 ### 2. Smaller seams left by items 1/6
 - Fused step-3 swap-class census (= 4) — needs state enumeration

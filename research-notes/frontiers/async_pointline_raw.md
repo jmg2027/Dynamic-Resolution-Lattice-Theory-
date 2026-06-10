@@ -183,12 +183,19 @@ Lean anchors below.  Items 7–8 open.
    uniform ∀-bounds `depth ≤ dagSize ≤ leaves − 1` by `Raw.rec`
    induction (census closes them for depth ≤ 3 only), and the
    min-run-length theorem (run length = dagSize, fused).
-7. **O1 reachability** (L) — points-only `State`/`Step`/`Reach`;
-   `reach_iff_closed`, `reach_joinable`, `every_raw_reached`
-   (fairness-free).  Reuse `StateMachine.lean` descent; the
-   `Theory/Raw/Async.lean` system is the carrier.  Landmine note
-   from item 1: avoid the core list-`∈` decidability instance
-   (propext); use explicit `Mem` constructors / Bool membership.
+7. ✓ **O1 reachability** — `Theory/Raw/AsyncReach.lean` (12 PURE)
+   + `Slash.lean` gains `slash_val_lt/gt`, `slash_inj` (pair
+   injectivity — needed for the closure invariant):
+   `reach_closed` (reachable ⟹ subterm-closed),
+   `reach_extend`/`reach_joinable` (conflict-freeness, finite, no
+   fairness), `every_raw_reached` (totality by `Raw.rec` +
+   joinability), `list_reached` (finite joint reachability).
+   `memDec` hand-rolled (core `∈`-instance propext landmine).
+   *Still open from this item*: the exact-membership converse
+   (`Closed P ∧ Nodup P ⟹ ∃ reachable s, MemEq s P` — needs the
+   argmin-by-depth fill construction + `List213.
+   length_filter_lt_of_mem` measure), and the fused step-3
+   swap-class census (= 4) via state enumeration.
 8. **Honest counting theorem** (L) — `enumTreeDepth n` members
    canonical + Nodup + complete, so `rawCount n` counts canonical
    Raws of depth ≤ n; blocked on `Tree.cmp` transitivity (~150

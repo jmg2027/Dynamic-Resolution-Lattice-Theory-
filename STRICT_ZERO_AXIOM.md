@@ -241,8 +241,20 @@ DIRTY: every Lean-core axiom use is structurally justified per
 
 ### Async growth ladder + Raw census structure — strict ∅-axiom (2026-06-10)
 
-Six modules, 51/51 PURE, 0 DIRTY (`tools/scan_axioms.py`); the closures of
-the async point–line frontier's ranked agenda items 1–6:
+Seven modules + Slash additions, 66/66 PURE, 0 DIRTY
+(`tools/scan_axioms.py`); the closures of the async point–line
+frontier's ranked agenda items 1–7:
+
+  · **`E213.Theory.Async` (AsyncReach.lean)** (12 PURE) — O1:
+    `reach_closed` (reachable snapshots are subterm-closed, via the
+    new `Raw.slash_inj`), `reach_extend`/`reach_joinable`
+    (conflict-freeness in finite form, no fairness),
+    `every_raw_reached` (totality by `Raw.rec` + joinability),
+    `list_reached`.  `memDec` hand-rolled (core list-`∈` instance
+    leaks propext).
+  · **`E213.Theory.Raw` (Slash.lean)** (+3 PURE) — `slash_val_lt`,
+    `slash_val_gt`, `slash_inj` (pair injectivity: equal slashes
+    have equal unordered input pairs).
 
   · **`E213.Theory.Async`** (14 PURE) — the fused asynchronous growth
     system (states = point lists, one `fire` event): `step1_forced`,
