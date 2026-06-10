@@ -148,24 +148,48 @@ tower.
 
 Two different tuple counts, separated: the **question tuple** (the
 equation's data) and the **answer-system axes** (the dimension of the
-+,×-closure over ℚ).  The question tuple itself has two slot types:
-`a·xⁿ = b` is `((a, b), n)` — **two operand slots** (elements of the
-system being extended; upgraded by each completion) plus **one
-counter slot** (the fold-iteration depth; stays ℕ under *every*
-completion — depth, not coordinate).  General degree n: n+1 operand
-slots + the degree counter + a root selector.
++,×-closure over ℚ).  The question-tuple count is governed by the
+**occurrence count of the unknown in the fold**: constants fold away
+(`x + a₁ + a₂ + ⋯ = b₁ + ⋯` compresses to `x + a = b`, two slots),
+but occurrences of the unknown do not — `a·xⁿ = b` keeps `n` as
+irreducible data, `((a, b), n)`.  Three grades:
 
-The slot types explain three things at once.  (i) ℚ₊ is born twice:
-the +-fold's *counter*-question ("how many times must `a` be added to
-reach `b`") is `a·x = b`, coinciding with the ×-fold's
-*operand*-question by commutativity `n·a = a·n`.  (ii) That symmetry
-breaks one rung up (`xⁿ ≠ nˣ`): the ^-root question vacates an
-operand slot (algebraic, fold-back), the ^-log question vacates the
-counter slot.  (iii) The counter-question's tameness drops one grade
-per rung — the +-counter is linear (ℚ), the ×-counter exponential
-(`aˣ = b`, no fold-back, transcendental, sandwich-family only).  The
-hyperoperation ladder itself is "promote the previous counter slot to
-an operand slot" — iterated objectification of the fold depth.
+1. unknown occurs **once** — constants compress, 2 slots, pair
+   completion, **collapse** (ℤ, ℚ₊, ℚ);
+2. unknown occurs **n times (known n)** — `n` survives as data,
+   the answer system grows n axes, **rigid** (algebraic);
+3. **the occurrence count itself is the unknown** (`aˣ = b`) — no
+   fold-back, **transcendental** (sandwich-family only).
+
+**The mixed form and why it is 4 slots.**  ℕ has no subtraction, so
+deficits live on the other side: every fold-equation is two-sided
+(the pair `(a, b)` of `a + x = b` *is* the two sides).  Mixing the
+ℤ-equation and the ℚ₊-equation = giving each side one ×-slot and one
++-slot:
+
+```
+        a·x + b = c·x + d        (4 = 2 sides × 2 operation slots)
+```
+
+with the parents as degenerate faces — `(a,c) = (1,0)` gives
+`x + b = d` (the ℤ-pair `(b,d)`), `(b,c) = (0,0)` gives `a·x = d`
+(the ℚ₊-pair `(a,d)`).  The solution `x = (d−b)/(a−c)` exhibits the
+mix: the two +-slots form a difference pair (numerator), the two
+×-slots a difference pair (denominator), and the two a ratio pair —
+ℕ⁴, re-deriving the square's nested-pair bracketings from the
+equation side; the two signs multiply into the one sign of the
+`Rat213` normal form.
+
+**The degree-n mix, same rule**: `a·xⁿ + b = c·xⁿ + d`, data
+`((a,b,c,d), n)` — now `xⁿ = (d−b)/(a−c)` can be negative, and for
+even `n` the obstruction is the `CompletionDichotomy` rigidity
+(`int_sumSq_eq_zero` at `n = 2`, value `−1`): mixing imports the sign
+into the root-question.  Fully general:
+`Σ aᵢ x^{eᵢ} = Σ bⱼ x^{fⱼ}` — the equation data is itself a **pair
+of ℕ-polynomial folds**: the pair structure recurs one level up
+(numbers = pairs of unit-folds; algebraic numbers = pairs of
+monomial-folds), whose lowest-terms normal form is the minimal
+polynomial (open brick 6).
 Adjoining α a priori creates infinitely many axes α, α², …; the
 equation `a·αⁿ = (lower terms)` is a **fold-back rule** sending the
 n-th power into the span of the first n, so the axes stop at n:
