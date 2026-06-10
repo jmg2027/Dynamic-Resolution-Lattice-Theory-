@@ -2,29 +2,29 @@ import E213.Lib.Math.NumberSystems.Rat213
 import E213.Meta.Int213.Bound
 
 /-!
-# CompletionDichotomy — collapse vs rigid axis, the first concrete witness
+# CompletionDichotomy — collapse vs rigid axis, the archimedean witness
 
 `research-notes/frontiers/numbersystem_square.md` brick 4: a pair-Lens
 extension either **collapses** (the obstruction readout is valued in
 the old data, so the pair quotient is total — ℕ→ℤ→ℚ, dimension stays
-1) or stays a **rigid axis** (the obstruction is invisible in every
-old frame, so a genuinely new dimension appears — the ℝ→ℂ→ℍ→𝕆
-Cayley–Dickson doubling).
+1) or stays a **rigid axis** — and the dichotomy is a property of the
+**(question, frame) pair**, not of the question alone.
 
-This file pins the sharpest single instance: `x² = −1` is **invisible
-in every frame** — there is no rational solution, and the reason is
-order-positivity, not a missing rational.  Two integer squares sum to
-zero only at the origin (`int_sumSq_eq_zero`), which is exactly the
-anisotropy of the ℤ[i] / ℂ norm `a² + b²`: the first Cayley–Dickson
-doubling cannot collapse, because its obstruction (`x² + 1 = 0`) reads
-out positive in the order frame for every input.
+This file pins the archimedean side for `x² = −1`: there is no
+rational solution, and the reason is order-positivity — two integer
+squares sum to zero only at the origin (`int_sumSq_eq_zero`), the
+anisotropy of the ℤ[i] / ℂ norm `a² + b²` **at the real place**.  The
+∣-frames split: `ModArith/QRNegOne.qr_neg_one` (PURE) sees `x² = −1`
+at every prime `p ≡ 1 (mod 4)` (`2² + 1 = 5`), and the `Padic/`
+Hensel kit lifts the witness — the extension *collapses* 5-adically.
+Visibility per frame is the Legendre symbol; the rigidity below is
+the certificate at the order frame and the `p ≡ 3 (mod 4)` frames.
 
 Contrast — the *order-visible* obstruction `x² = 2`: located by a
 sandwich of rationals (absorbed by the order completion ℝ,
 `Irrational/Sqrt2Cut`), yet algebra-invisible over ℚ (rigid 2-dim
-ℚ(√2)).  So `x² = 2` collapses into ℝ but is rigid over ℚ, while
-`x² = −1` is rigid in *both* — the cleanest separation of the two
-completion types.
+ℚ(√2)).  Both questions are frame-relative; they differ in *which*
+frames see them.
 
 All ∅-axiom.
 -/
@@ -56,13 +56,14 @@ theorem sq_eq_neg_sq_imp {a b : Int} (h : a * a = -(b * b)) :
   apply int_sumSq_eq_zero
   rw [h]; exact add_left_neg (b * b)
 
-/-- ★★★★★ **No rational squares to −1** (the ℝ→ℂ rigidity witness).
-    For a rational `a/b` with `b ≠ 0`, the square `(a*a)/(b*b)` cannot
-    equal `−1 = (−1)/1`: `ratioEqZ (a*a) (b*b) (−1) 1` would force
-    `a*a = −(b*b)`, hence `b = 0` by `sq_eq_neg_sq_imp`, contradicting
-    `b ≠ 0`.  So ℂ is a genuinely new axis — the obstruction is
-    invisible in the sign frame, the remainder frame, and the order
-    frame alike. -/
+/-- ★★★★★ **No rational squares to −1** (the archimedean rigidity
+    witness).  For a rational `a/b` with `b ≠ 0`, the square
+    `(a*a)/(b*b)` cannot equal `−1 = (−1)/1`:
+    `ratioEqZ (a*a) (b*b) (−1) 1` would force `a*a = −(b*b)`, hence
+    `b = 0` by `sq_eq_neg_sq_imp`, contradicting `b ≠ 0`.  So ℂ is a
+    new axis over the sign, remainder, and order frames; the ∣-frames
+    at `p ≡ 1 (mod 4)` see the question instead
+    (`ModArith/QRNegOne.qr_neg_one`). -/
 theorem no_rat_sqrt_neg_one {a : Int} {b : Nat} (hb : 0 < b)
     (h : ratioEqZ (a * a) (b * b) (-1) 1) : False := by
   -- ratioEqZ (a*a) (b*b) (-1) 1  :  (a*a) * ofNat 1 = (-1) * ofNat (b*b)

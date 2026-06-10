@@ -1,5 +1,9 @@
 # The number-system square: two Lenses, two orders, one ℚ
 
+*Audited by a 4-expert adversarial round (algebra / logic / number
+theory / skeptic); corrections integrated in place, theorem targets
+T1–T4 below.*
+
 ## The square
 
 ```
@@ -34,6 +38,17 @@ order × sign, `OrderMul.mul_le_mul_right_nonpos` — the square does
 not close and the positive cone must be carved out first.  Same
 phenomenon, positive and negative instances.
 
+Classical home (audit): the square is "group completion commutes with
+localization" (K-theoretic commutation); categorically the right
+statement is not a Beck distributive law but that the
+group-completion monad on commutative monoids is a **commutative
+(monoidal) monad** — a rig is a monoid in (CMon, ⊗), and
+distributivity is the monoid datum the monad transports
+(`subNatNat_mul_ofNat` is its Lean shadow).  What the 213/∅-axiom
+framing adds is not the isomorphism but its **quotient-free form**:
+normal-form confluence with a computable normalizer, checkable under
+`#print axioms` (Mathlib-style proofs need `Quot.sound`).
+
 ## The detectors (judgment formulas across levels)
 
 Each rung's judgment formula becomes, one level up, the membership
@@ -46,16 +61,12 @@ detector of the old system and the normal-form selector of the new:
 
 In ℚ the two detectors are exactly the two normal-form projections:
 order frame → sign + integer part; ∣ frame → coprime magnitude pair.
-
-## Open bricks
-
-1. The ℚ₊→ℚ leg: difference pairs over positive ratio pairs, with its
-   own sandwich (cross-subtraction) — all over ℕ⁴.
-2. **Square-commutes theorem** (PURE): the ℕ→ℚ₊→ℚ composite and the
-   ℕ→ℤ→ℚ composite normal-form to the same `Rat213` representative;
-   the proof content should be exactly distributivity.
-3. The Lens-frame reading (one fact, several frames — morphism / added
-   axis / boundary): essay after the Lean closes, not before.
+Audit upgrade: the sign readout *is* the residue readout of the
+archimedean frame ({±} the "residue field" at ∞), the remainder the
+residue readout at the finite frames — one readout-per-frame schema,
+and **the frame list is exactly {order frame} ∪ {one ∣-frame per
+prime}** (Ostrowski is the classical exhaustiveness statement for
+this two-detector table).
 
 ## The equation ladder (extension of the square)
 
@@ -66,198 +77,257 @@ coefficients and **one unknown**:
 |---|---|
 | `x + b = c` (monic, +) | ℤ |
 | `a·x = b` (×) | ℚ₊ |
-| `a·x + b = c` (general degree 1) | ℚ |
+| `a·x + b = c·x + d` (two-sided degree 1) | ℚ |
 | monic polynomial | algebraic integers |
 | general polynomial | algebraic numbers |
 
 Two rules to pin: (i) class = one reversed arrow + closure under the
 available folds; degree = ×-question iterated on the unknown;
-(ii) **monic ↔ ring-like, general leading coefficient ↔ field-like**,
-persisting up the ladder.  Boundary: non-polynomial questions
-(`a^x = b`) leave equation-completion for sandwich-family completion
-(ℝ order-frame, ℚ_p ∣-frame).
+(ii) **monic ↔ ring-like, general leading coefficient ↔ field-like**
+— at the top this is "monic = integral element" (the
+leading-coefficient trick makes general = integral ∘ localization);
+at the bottom it requires a theorem, not a table row: ℤ is the
+integral closure of ℕ in ℚ **by the rational root theorem** (target
+T2 below).  Boundary: non-polynomial questions (`a^x = b`) leave
+equation-completion for sandwich-family completion (ℝ order-frame,
+ℚ_p ∣-frame); note `a^x = b` can land anywhere (2^x=8 in ℕ, 4^x=8 in
+ℚ, log₂3 transcendental) — the *class* is sandwich-only, not each
+instance.
 
-## Collapse vs rigid axis (the doubling dichotomy)
+## Collapse vs rigid axis — a property of (question, frame) pairs
 
 A pair-Lens either *collapses* (quotient by the operation's action —
 ℕ→ℤ→ℚ, dimension stays 1) or stays a *rigid axis* (ℚ(√2) over ℚ;
-ℝ→ℂ→ℍ→𝕆 Cayley–Dickson, dimension 1→2→4→8).  Criterion: **per-frame
-visibility of the obstruction readout** — sign (2-valued) and
-remainder (`a`-valued) are old-data-visible → collapse; `x² = 2` is
-order-visible (sandwich locates it → absorbed by ℝ) but
-algebra-invisible (rigid 2-dim over ℚ); `x² = −1` is invisible in
-every frame (`Int213.int_sq_nonneg` is the positivity certificate)
-→ a genuinely new axis in all frames.  The CD conjugation
-`(a,b)* = (a*, −b)` is the iterated sign-swap (`neg_subNatNat`); the
-per-doubling law-loss ladder (order → commutativity → associativity →
-norm composition) is combinatorially derivable from the doubling
-formula and is partially PURE in `Lib/Math/Algebra/CayleyDickson/`
-(`CDDoubleMoufang`, `CDDoubleAlternative`, sedenion failure of
-`TraceNormed213` lift).
+ℝ→ℂ→ℍ→𝕆 Cayley–Dickson).  **The dichotomy is frame-indexed, not
+absolute** — the repo itself proves both sides for `x² = −1`:
 
-**First concrete witness — ★ CLOSED**
-(`Lib/Math/NumberSystems/CompletionDichotomy.lean`, 3 PURE / 0 DIRTY):
-`int_sumSq_eq_zero` (two integer squares sum to zero only at the
-origin — the `a²+b²` ℤ[i]/ℂ-norm anisotropy), `sq_eq_neg_sq_imp`
-(`a*a = −(b*b) → a = b = 0`), `no_rat_sqrt_neg_one` (no rational
-squares to −1, phrased via `Rat213.ratioEqZ`).  The ℝ→ℂ doubling
-cannot collapse: its obstruction `x²+1` reads out positive in the
-order frame for every input — invisible in sign, remainder, *and*
-order frames, unlike the collapsing extensions whose obstruction
-readouts (sign 2-valued, remainder `a`-valued) live in the old data.
-Contrast `x²=2`: order-visible (`Irrational/Sqrt2Cut`, absorbed by
-ℝ) but algebra-rigid over ℚ.
+- invisible at the **archimedean** frame:
+  `CompletionDichotomy.int_sumSq_eq_zero` (the `a²+b²` anisotropy
+  certificate *at the real place*), `sq_eq_neg_sq_imp`,
+  `no_rat_sqrt_neg_one`;
+- **visible at the ∣-frame of every prime `p ≡ 1 (mod 4)`**:
+  `ModArith/QRNegOne.qr_neg_one` (`∃ x, p ∣ x²+1`, PURE; `2²+1 = 5`),
+  Hensel-liftable by the `Padic/` kit — ℚ₅(i) = ℚ₅, the extension
+  *collapses* 5-adically; and `Padic/Teichmuller` already builds
+  μ_{p−1} *inside* the ∣-frame completion.
 
-Open brick 4 (remaining): the general collapse-vs-rigid criterion as
-a theorem *schema* (obstruction readout valued in old data ⟺ the pair
-quotient is total) connecting the completion square to the CD tower —
-`int_sumSq_eq_zero` is the base case (rank-1 doubling anisotropy).
+So visibility of `x² = a` per frame **is the Legendre symbol**, the
+two supplements + `quadratic_reciprocity` (all PURE in
+`ModArith/`) are the **reciprocity law of frame-visibility**, and the
+classical local-global (Hasse) structure is what the collapse-vs-rigid
+axis becomes once "frame" is taken at its word.  Long target: the
+Hilbert-symbol product formula = "the set of frames where a binary
+quadratic question is invisible is finite and **even**" — a global
+parity constraint on visibility, equivalent over ℚ to QR + the
+supplements (no Hilbert-symbol module exists in the repo yet).
+
+Non-circular form of the criterion (audit): "obstruction readout
+valued in old data" must be a *specified equivariant map* δ from the
+pair space into old data (sign : witness side; remainder : `Fin a`),
+and the schema is **collapse-at-a-frame ⟺ δ admits an old-valued
+section splitting the solution correspondence ⟺ the same-solution
+equivalence has a PURE-constructible transversal** (existence +
+uniqueness of a normal form).  Rigidity = a nontrivial symmetry of
+the solution set survives every expansion the frame provides (±i
+conjugation; `int_sumSq_eq_zero` certifies no archimedean choice).
+Note the house discipline and this schema are one phenomenon: with
+`Quot.sound` banned, a quotient can only enter the repo *as* a proved
+transversal (`lowest_exists`/`lowest_unique`,
+`witness_total`/`witness_not_both`) — "collapse ⟺ the transversal is
+PURE-constructible" is the schema brick 4 should aim at.
+
+The CD conjugation `(a,b)* = (a*, −b)` is the iterated sign-swap
+(`neg_subNatNat`); the per-doubling law-loss ladder (order →
+commutativity → associativity → norm composition) is combinatorially
+derivable and partially PURE in `Lib/Math/Algebra/CayleyDickson/`.
+Caution (audit): the CD doubling tower (dims 2,4,8) and the
+**cyclotomic torsion tower** are distinct towers that coincide at `i`
+and diverge at `ω` — `ImaginaryQuadraticUnitTrichotomy`'s 2/4/6 is
+the crystallographic bound `φ(n) ≤ 2` (n ∈ {1,2,3,4,6}), not iterated
+doubling; ω has minimal polynomial of degree 2 but torsion order 6,
+and arises from no CD step.
 
 ## The hyperoperation refinement (^ splits along the normal form)
 
 `^` is non-commutative, so it has **two** reverse questions: root
-(`xⁿ = b`, algebraic) and log (`aˣ = b`, outside the polynomial class
-— sandwich-family completion only).  The root-completion acts on the
-sign × magnitude normal form **factorwise**:
+(`xⁿ = b`, algebraic) and log (`aˣ = b`, sandwich-family as a class).
+The root-completion acts on the sign × magnitude normal form
+**factorwise**:
 
 | operation | exponent-lattice event | completion |
 |---|---|---|
 | + | ℕ → ℤ | ℤ |
 | × | per-prime exponents ℕ^ω → ℤ^ω | ℚ₊ (= the +-completion re-run inside the exponent lattice) |
-| ^ root | magnitude exponents ℤ^ω → ℚ^ω **and** sign ℤ/2 → ℚ/ℤ | radicals (order-visible, absorbed by ℝ) + roots of unity (torsion → **rigid**, first rung `i`) |
+| ^ root | magnitude exponents ℤ^ω → ℚ^ω **and** sign torsion → μ_∞ | radicals (order-visible, absorbed by ℝ) + roots of unity (torsion → rigid *at the archimedean frame*; first rung `i`; frame-relative per the ∣-visibility above) |
 | ^ log | leaves the lattice | sandwich-family only (the ℝ boundary) |
 
-Rule: each hyperoperation's root-completion = the previous completion
-re-applied inside the exponent lattice; **free parts collapse (or are
-absorbed by the order completion), torsion parts are rigid** — the
-collapse-vs-rigid criterion concretized as free-vs-torsion.  ℤ[i] is
-the monic/integer form of the sign-axis rung at depth 2
-(`int_sumSq_eq_zero` its rigidity certificate; `ZIUnits`:
-`ℤ[i]^× = {±1, ±i} ≅ ℤ/4` — "positive Gaussian integer" = the
-associate-class normal form, sign (2-valued) grown into phase
-(4-valued); `ImaginaryQuadraticUnitTrichotomy` 2/4/6 bounds the
-circle-torsion an integer form can hold).  Polar form `r·e^{iθ}` =
-the sign × magnitude normal form lifted through the ^-completion.
+**The rule terminates at rung 3** (audit): the engine of the ×→^ step
+is the exponent-law package (`a^{m+n} = a^m·a^n`, `(a^m)^n = a^{mn}`,
+one-sided `(ab)^c = a^c b^c`), which makes exponents a
+lattice/module; tetration satisfies **no** analogous law
+(`(2↑↑2)↑↑2 = 256 ≠ 2↑↑4 = 65536`; `2⁴ = 4²` shows depth-2 fibers are
+wild), so there is no exponent lattice to re-run anything inside —
+state the rule as a rungs-1–3 theorem with the distributivity
+hypothesis explicit plus a rung-4 **no-go** (`x^x = 2` is
+transcendental: Gelfond–Schneider + unique factorization — ↑↑-roots
+land outside *all* equation completions).  The ^-level "free parts
+collapse, torsion parts rigid" survives with the frame index added.
+Polar form `r·e^{iθ}` = the sign × magnitude normal form lifted
+through the ^-completion.
 
-Open brick 5: the magnitude side as a theorem — the ℚ₊ exponent
-lattice (`vp` valuation vectors) and its divisible hull as the
-root-completion, connecting `Valuation.le_vp_iff` to the radical
-tower.
+## Question tuple vs answer axes (the representation principle, audited)
 
-## Question tuple vs answer axes (the fold-back rule)
+**The representation principle (grammar-relative form).**  Fix the
+question grammar: admissible questions are crossings of two
+**subtraction-free monotone folds** (terms of the positive signature
+(0,1,+,×,^), monotone in the unknown); slots = the ℕ-positions of the
+two terms.  This restriction is not a convention but the
+*definition of locatability*: a question is admissible iff its answer
+is pinned by a crossing sandwich (`div_sandwich_unique`,
+`affine_cross_iff_div_sandwich` are the uniqueness certificates), and
+Gödel/Cantor pairing is excluded because un-pairing is intrinsically
+non-monotone.  Then: the solution is represented by the question's
+slot tuple **modulo the same-solution equivalence, plus finite
+orientation/selector bits**, and the well-defined invariant is the
+**size of the canonical transversal** (the lowest-terms normal form),
+not the raw slot count — e.g. ℚ: 4 slots + 2 orientation bits
+pre-quotient, transversal = 2 naturals + 1 sign bit (`Rat213`);
+`affine_cross_iff_div_sandwich` *reduces* the 4-slot form to 2 slots
+(e, f) + orientation, so the 4-slot presentation is canonical-but-not
+-minimal.  The principle as stated is an **upper bound**; minimality
+lower bounds (no 1-slot monotone question pins √2) are unproved —
+open.  The shadow of slot *count* is **degree**; classical **height**
+is the slot *values*: representation cost refined =
+(transversal size, max slot value), under which Northcott becomes
+bare tuple counting (finitely many tuples below a bound; ≤ n
+solutions each by `PolyRoot/FactorTheorem`) — the principle's genuine
+content is relocating that finiteness from analysis to ℕ-counting.
 
-**The representation principle.**  In a pinning question `f(x) = b`,
-the number of ℕ-slots (coefficient *or* exponent — any position a
-natural fills) **equals** the number of naturals needed to represent
-the possibly-non-natural solution: the new number *is* the question's
-parameter tuple, and the number system is the tuple space modulo the
-same-solution equivalence.  Verified across the session:
-`a+x=b` (2 → ℤ, fiber `subNatNat_add_add`), `a·x=b` (2 → ℚ₊,
-`ratioEquiv`), `x^a=b` (2 → radicals, exponent-scaling
-`(a,b)~(ka,bᵏ)`), `a·x+b=c·x+d` (4 → ℚ, `ratioEqZ`/`Rat213`),
-general irreducible degree n (coefficient slots → algebraic numbers).
-Two refinements: tuples over-name (the same-solution equivalence is
-mandatory; lowest-terms = minimal representative), and unknown
-occurrence ≥ 2 adds a finite root selector (discrete, does not change
-the freedom count).  Reversed, it stratifies numbers: **a number's
-representation cost = the ℕ-freedom of its minimal pinning question**
-(2: ℤ/ℚ₊/radicals; 4: ℚ; k: algebraic, minimal polynomial = the
-lowest-terms form of the minimal-freedom question; divergent:
-transcendental — no finite question pins it, sandwich-family only).
-The classical *height* of an algebraic number is this principle's
-shadow.
+**Grades, corrected**: the invariant is the **×-degree of the unknown
+in the distributed, same-solution-minimized normal form** (raw
+occurrence count is presentation-dependent: `x+x=b` is degree 1,
+collapse; `(1+x)·(1+x)=b` has one syntactic occurrence but degree 2):
 
-Two different tuple counts, separated: the **question tuple** (the
-equation's data) and the **answer-system axes** (the dimension of the
-+,×-closure over ℚ).  The question-tuple count is governed by the
-**occurrence count of the unknown in the fold**: constants fold away
-(`x + a₁ + a₂ + ⋯ = b₁ + ⋯` compresses to `x + a = b`, two slots),
-but occurrences of the unknown do not — `a·xⁿ = b` keeps `n` as
-irreducible data, `((a, b), n)`.  Three grades:
-
-1. unknown occurs **once** — constants compress, 2 slots, pair
-   completion, **collapse** (ℤ, ℚ₊, ℚ);
-2. unknown occurs **n times (known n)** — `n` survives as data,
-   the answer system grows n axes, **rigid** (algebraic);
-3. **the occurrence count itself is the unknown** (`aˣ = b`) — no
-   fold-back, **transcendental** (sandwich-family only).
+1. degree 1 — definable transversal, **collapse** (ℤ, ℚ₊, ℚ);
+2. degree n ≥ 2 (irreducible after the polynomial gcd-strip) — the
+   answer system grows n axes, **rigid over the base** (frame-relative
+   absorption per the dichotomy section);
+3. unknown in an exponent slot (`aˣ = b`) — no fold-back; the *class*
+   completion is sandwich-family (instances may land low: `2^x = 8`).
 
 **The mixed form, derived from the sandwich (the crossing rule).**
-The earlier "give each side one ×-slot and one +-slot" was a
-postulate; the sandwich derivation replaces it.  **Slot attachment
-rule**: a slot may be attached wherever it preserves monotonicity of
-the fold in the unknown (+-slots, positive ×-slots, exponent slots
-all do; a subtraction slot would break it — which is why that data
-lives elsewhere, see below).  **Generalization rule**: the general
-question is not "fold = constant" but "*where do two monotone folds
-cross*"; the constant is the degenerate crossing partner.  The
-sandwich generalizes to the crossing sandwich
+Slot attachment preserves monotonicity in the unknown (+-slots,
+positive ×-slots, exponent slots; a subtraction slot would break it —
+that data lives in the crossing **orientation**).  The general
+question is "*where do two monotone folds cross*"; the constant is
+the degenerate crossing partner.  Crossing sandwich:
 
 ```
         F(x) ≤ G(x)  ∧  G(x+1) < F(x+1)
 ```
 
-and for affine folds this **reduces exactly to the ÷-sandwich of the
-slot differences** — closed PURE
-(`NatDiv213.affine_cross_iff_div_sandwich`,
-`affine_cross_eq_div`: in witness form `a = c + e`, `d = b + f`, the
-crossing sandwich of `a·x + b` vs `c·x + d` is `e·x ≤ f < e·(x+1)`,
-location `f / e`).  So the 4-slot form is forced: a crossing needs
-two folds, each with one ×-slot and one +-slot; the **sign data is
-the crossing orientation** (which fold is steeper, which starts
-higher — two swap bits multiplying to the rational's sign), which is
-where the monotonicity-breaking "subtraction slot" actually lives.
-Degree-n crossings (two polynomial folds) locate real algebraic
-numbers; refining the crossing through rational grids (clearing
-denominators returns ℕ-fold comparisons) is the `Real213` cut — a
-crossing that never lands on a lattice point at any resolution is the
-equation/sandwich boundary again.
+For affine folds this **reduces exactly to the ÷-sandwich of the slot
+differences** — closed PURE (`NatDiv213.affine_cross_iff_div_sandwich`,
+`affine_cross_eq_div`: witness form `a = c + e`, `d = b + f`, location
+`f / e`).  The reduction direction is 4 → 2 + orientation; the sign
+data is the crossing orientation (steeper / starts-higher).
+**Reach and selector (audit)**: any integer polynomial is a difference
+of two ℕ-monotone folds, and clearing denominators on ℚ-grids
+preserves this — so refined crossings reach exactly the **real
+(order-visible) algebraic numbers**, never the complex ones (for
+`x²+1` vs `0` the folds never cross: `int_sumSq_eq_zero`).  For
+degree ≥ 2 the sandwich locates *a* crossing, not *the* root
+(`x³+30` vs `20x` has two); the honest datum is (slot tuple,
+**isolating window**), and the canonical witness-form selector is a
+**Stern-Brocot path prefix** (a det-1 Farey interval certificate —
+`Real213/SternBrocotMarkov.adj`), with Sturm/Descartes as the
+decidability that a sufficient prefix exists.  The affine crossing is
+the continued-fraction step (Euclid = iterate the ÷-sandwich and
+swap), so the refined crossing *is* the repo's Stern-Brocot machinery
+and "best rational approximations = record-setting crossings" is the
+Markov-spectrum program already running in `Real213/`.
 
 **Witness-form discipline (house rule, stated).**  Constructions are
 phrased over ℕ-pairs only: extension systems are *targets being
 described*, never *tools used in the description* — no inverse
 operations or imported systems in hypotheses.  Every closed theorem
-of this arc already obeys it (`gcd_strip_coprime`'s `a = g·a₁`, not
-`a/g`; `subNatNat_eq_negSucc_iff`'s `b + (y+1) = a`, not `a − b`;
-`affine_cross`'s `a = c + e`, `d = b + f`).
+of this arc obeys it (`gcd_strip_coprime`'s `a = g·a₁`;
+`subNatNat_eq_negSucc_iff`'s `b + (y+1) = a`; `affine_cross`'s
+`a = c + e`).  Constructive content (audit): these proofs live in the
+primitive-recursive (PRA/IΣ₁) fragment — witness-form hypotheses are
+Σ₁-graph definitional extensions, so every theorem carries witness
+extraction; and `eq_of_sandwich`'s positively-witnessed equality is
+the discrete case where Bishop apartness is decidable — at the ℝ rung
+the polarity flips (equality Π₁, apartness the Σ₁ primitive), so
+lifting the dichotomy to ℝ→ℂ will need apartness-relative phrasing.
 
 **The degree-n mix, same rule**: the crossing of `a·xⁿ + b` and
-`c·xⁿ + d` in witness form (`a = c + e`, head start on either side) —
-data `((c, e, b, f), n)`.  The orientation dichotomy (which fold is
-steeper / which starts higher) is total for `n = 1`: a mismatched
-orientation moves its witness to the slot-swapped question (the
-x-reflection).  **Even folds are reflection-symmetric, so a
-mismatched orientation cannot be moved** — that is the
-`CompletionDichotomy` rigidity (`int_sumSq_eq_zero`, the
+`c·xⁿ + d` in witness form — data `((c, e, b, f), n)`.  The
+orientation dichotomy is total for `n = 1` (mismatch moves the
+witness to the slot-swapped question, the x-reflection); **even folds
+are reflection-symmetric, so a mismatched orientation cannot be
+moved** — the archimedean rigidity (`int_sumSq_eq_zero`, the
 cleared-denominator form at `n = 2`).  Fully general:
-`Σ aᵢ x^{eᵢ} = Σ bⱼ x^{fⱼ}` — the equation data is itself a **pair
-of ℕ-polynomial folds**: the pair structure recurs one level up
-(numbers = pairs of unit-folds; algebraic numbers = pairs of
-monomial-folds), whose lowest-terms normal form is the minimal
-polynomial (open brick 6).
-Adjoining α a priori creates infinitely many axes α, α², …; the
-equation `a·αⁿ = (lower terms)` is a **fold-back rule** sending the
-n-th power into the span of the first n, so the axes stop at n:
+`Σ aᵢ x^{eᵢ} = Σ bⱼ x^{fⱼ}` — the equation data is itself a **pair of
+ℕ-polynomial folds**: the pair structure recurs one level up, whose
+lowest-terms normal form is the minimal polynomial (brick 6 — and the
+precise mirror of `gcd_strip_coprime`/`coprime_repr_unique` one rung
+up is **Gauss's lemma**: content/primitive-part = gcd-strip on
+coefficient tuples, uniqueness via Euclid-for-polynomials with degree
+as the descent measure).
 
-| equation | operand slots + counter slots | answer axes |
-|---|---|---|
-| `a+x=b`, `a·x=b` | 2 + 0 | 1 (collapse — degree 1 folds α itself into the base) |
-| `a·xⁿ=b` | 2 + 1 | n |
-| general degree n (irreducible) | (n+1) + 1 | n |
-| k independent square roots | 2 each | 2^k (compositum doubling — the commutative twin of the CD tower; `ZSqrt*`/`ZOmega`/`ZI` the 2-axis PURE instances, `HurwitzTower` the 4-axis) |
-| no equation (transcendental) | ∞ | ∞ (sandwich-family only) |
+The fold-back rule: adjoining α a priori creates axes α, α², …; the
+equation sends the n-th power into the span of the first n, so the
+axes stop at n; degree 1 folds α itself into the base (collapse);
+k independent square roots give 2^k axes (compositum doubling, the
+commutative twin of the CD tower; `ZSqrt*`/`ZOmega`/`ZI` the 2-axis
+PURE instances, `HurwitzTower` the 4-axis).  **Algebraic vs
+transcendental = finite fold-back vs infinite axes**, relative to the
+polynomial grammar; with ^-slots admitted, finite-data questions pin
+some transcendentals (log₂3), and the period class (volumes of
+ℚ-semialgebraic regions — monotone under domain inclusion, hence
+sandwich-locatable) sits strictly between — the boundary is a
+**lattice of question grammars**, not a single line.
 
-So **algebraic vs transcendental = finite fold-back vs infinite
-axes = equation-completable vs sandwich-family-only** — the
-equation/sandwich split of the witness characterization, promoted to
-the classification of numbers.  Collapse-vs-rigid concretizes once
-more as degree-1 vs degree-≥2, and *irreducibility* is the
-lowest-terms criterion one rung up: a factorable equation is the
-polynomial world's gcd-strip.
+## Open bricks (theorem targets after the audit)
 
-Open brick 6: **the minimal polynomial as the next rung's
-lowest-terms normal form** — existence (every algebraic number has a
-monic minimal polynomial) + uniqueness, mirroring
-`gcd_strip_coprime` + `coprime_repr_unique` one level up; candidate
-ground: the existing `PolyRoot/` (FactorTheorem, IntEuclid) +
-`ZSqrt*` instances.
+- **T1 (square-commutes, statement ready).**  On ℕ⁴ with positive
+  denominators define
+  `qdiffEquiv ((p₁,q₁),(p₂,q₂)) ((r₁,s₁),(r₂,s₂)) :=
+  (p₁·s₂ + r₂·q₁)·(s₁·q₂) = (r₁·q₂ + p₂·s₁)·(q₁·s₂)`
+  (the cross-equation of `p₁/q₁ − p₂/q₂ = r₁/s₁ − r₂/s₂`,
+  subtraction-free) and the comparison map
+  `β (p₁,q₁,p₂,q₂) := (Int.subNatNat (p₁·q₂) (p₂·q₁), q₁·q₂)`.
+  Theorem: `qdiffEquiv P R ↔ ratioEqZ (β P) (β R)`; corollary via
+  `lowest_exists`/`lowest_unique`: both routes hit the same
+  `IsLowest` representative.  Proof content = `subNatNat_add_add` +
+  `subNatNat_mul_ofNat` + distributivity — closes bricks 1+2 and
+  makes "distributivity = the commutation law" a theorem.
+- **T2 (bottom-rung integrality / rational root).**  Witness form:
+  `gcd213 p q = 1 → 0 < q → pⁿ + Σ aᵢ pⁱ q^{n−i} = Σ bⱼ pʲ q^{n−j}
+  (i,j < n) → q = 1` — "ℤ is the integral closure of ℕ in ℚ", making
+  monic↔ring a theorem (n = 2 first; iterated
+  `coprime_dvd_of_dvd_mul`).
+- **T3 (exponent-lattice embedding).**  For prime p:
+  `vp p (m·n) = vp p m + vp p n` and separation
+  `(∀ p prime, vp p m = vp p n) → m = n` — turns "ℚ₊ = the exponent
+  lattice" into mathematics, on top of `coprime_dvd_of_dvd_mul` +
+  `le_vp_iff`.
+- **T4 (frame-visibility dichotomy).**  For odd prime p:
+  `(∃ x, p ∣ x² + 1) ↔ p % 4 = 1` — one direction is `qr_neg_one`
+  (PURE, closed); the converse (p ≡ 3 → invisible) via the repo's
+  Euler-criterion kit.  First theorem of the frame-indexed dichotomy;
+  long target: Hilbert-symbol parity (invisible-frame set is even).
+- **Brick 5 (magnitude side)**: the ℚ₊ exponent lattice and its
+  divisible hull as the ^-root completion (`le_vp_iff` → radical
+  tower); precision: the divisible hull of the *sign* factor alone is
+  ℤ(2^∞); all of μ_∞ arises because root-completion adjoins ratios of
+  solutions.
+- **Brick 6 (minimal polynomial = lowest terms, one rung up)**:
+  existence + uniqueness via Gauss's lemma as the gcd-strip mirror;
+  ground: `PolyRoot/` (FactorTheorem, IntEuclid) + `ZSqrt*`.
+- **Brick 7 (selector)**: the isolating-window selector as a
+  Stern-Brocot path prefix with `adj` certificate — the bridge
+  theorem "CF quotients of `f/e` = iterated ÷-sandwich locations =
+  run-lengths of the Stern-Brocot path".
+- The Lens-frame essay after the Lean closes, not before.
