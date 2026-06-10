@@ -88,3 +88,53 @@ closed; the bridging edges are not).  Closed cores: this branch —
 `finite_state_is_of_the_pointing`.  Insights 1–2 are the ripest (each a single
 ∅-axiom Lean edge: the `×a`/`×p` invariant-vs-escape statement, and
 `psign(cyclicShift) = altSign(n−1)` through `det_permMatrix`).
+
+---
+
+# Addendum — the primitive-root route ↔ merged main (second merge)
+
+A second branch (`p-adic-reciprocity-topics`) closes Zolotarev the **classical**
+way: `(ℤ/p)*` is cyclic (`PrimitiveRoot.exists_primitive_root`), a primitive root
+is a `(p−1)`-cycle of sign `−1` (`ZolotarevCycle.zolotarev_full`), and that single
+odd witness drives the character.  This brings the **multiplicative-order**
+infrastructure (`ordModP`, `ord_dvd`, `ord_mul_coprime`, `every_ord_dvd_maxOrd`)
+that the μ-route never builds — and that infrastructure is what bridges to main's
+golden-field / rank-of-apparition arc.
+
+## 5. ★ The rank of apparition `α(p)` is a multiplicative order — `ordModP` is its rational shadow
+
+main's rank law `α(p) ∣ p − (5/p)` (`RankApparition`) is, structurally, the
+**order of the golden ratio `φ`** in `𝔽_p[√5]`: `α(p) = ord(φ)` in the field where
+`φ` lives — `𝔽_p` when `5` splits (`(5/p)=+1`, `α(p) ∣ p−1`), `𝔽_{p²}` when `5` is
+inert (`α(p) ∣ p+1`).  This branch's `ordModP a p` with `ord_dvd_p_sub_one`
+(`ord ∣ p−1`) is **exactly the split-case shadow**: the rational-prime
+multiplicative order, of which `α(p)` is the quadratic-extension lift.  Buildable
+bridge: state `α(p)` as `ordModP`-in-`𝔽_{p²}` (the same `ord_dvd` Euclidean-split
+argument, run in `FP2SqrtD` rather than `ℤ/p`), unifying `ord_dvd_p_sub_one`
+(this branch) and `rank_law_dispatch` (main) as one "order divides the group order"
+fact across the two fields.
+
+## 6. ★ `(5/p)` is the parity of the discrete log of `5` — main's `psign σ_5` and this branch's cyclic structure are one Z/2 bit
+
+main reads `(5/p) = psign σ_5` (`zolotarev_mu`) — a permutation parity — and uses
+it as the Fibonacci rank offset (`the_fibonacci_rank_is_a_permutation_sign`).  This
+branch's `exists_primitive_root` gives the **structural** reading: with a generator
+`g`, `(5/p) = +1 ⟺ 5 ∈ ⟨g²⟩ ⟺ dlog_g(5)` is **even**.  So the rank offset
+`p − (5/p)` is the **parity of the discrete log of `5`** in the cyclic group
+`(ℤ/p)*` — the same Z/2 invariant main reads as a permutation sign, here read as
+"even/odd power of the generator."  The squares being an index-2 subgroup
+(`⟨g²⟩`, this branch, `primitive_not_qr`: the generator is a non-residue) is the
+*structural why* behind the μ-route's parity: the quadratic character is the unique
+`(ℤ/p)* ↠ {±1}`, which exists **because** the group is cyclic of even order
+`p−1 = 2m`.  Buildable: `(a/p) = (−1)^{dlog_g(a)}` as a Lean theorem, identifying
+this branch's cyclic/discrete-log reading with main's `psign σ_a` and with Euler's
+`a^m`, a fourth co-equal readout of the one quadratic character.
+
+## Status (addendum)
+
+Both 5–6 are **open synthesis directions**; the proven cores are closed on each
+side — this branch: `ModArith/{PrimitiveRoot,ZolotarevCycle,MulOrder}`
+(`theory/math/numbertheory/primitive_roots.md`); main: `RankApparition`,
+`ZolotarevMuBridge`, `the_fibonacci_rank_is_a_permutation_sign`.  Insight 6 is the
+ripest single edge: `(a/p) = (−1)^{dlog_g(a)}` ties the cyclic structure, the
+permutation sign, and Euler's power into one Z/2 readout.
