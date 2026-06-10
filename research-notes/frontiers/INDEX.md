@@ -167,6 +167,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   §0.5 tracks per-conjecture (C1–C6) closure status + promoted chapters.  Active
   scratch — Lean docstrings cite its §C## conjecture labels
   (`research-notes/frontiers/G35`).
+- `inequalities_positivity_fold_crossdomain` — **the curvature arc ↔ the proof-ISA arc**:
+  A7 POSITIVITY's 2-D Cauchy–Schwarz (`cauchy_schwarz_2d`, depth-0 Lagrange square) and the
+  curvature module's n-dim power-mean Cauchy–Schwarz (`cauchy_schwarz_gridZ`, per-rung SOS
+  folded along the `gridSumZ` induction) are one instruction at two certificate depths; the
+  `K_{a,b}` wide/narrow regime split (`kab_cd_wide`/`kab_cd_narrow`) is literally certificate
+  depth.  Open: the "inequality = POSITIVITY ∘ LOOP" compilation theorem (buildable first
+  brick: the pair-sum Lagrange identity `n·Σa² − (Σa)² = Σ_{i<j}(a_i−a_j)²`), and the
+  evidence it gives on G205's POSITIVITY-vs-GAP question.
 - `curvature_spectrum_crossdomain` — **the discrete-curvature / spectrum branch ↔ merged
   main** (rich-flow-open-frontier marathon).  Three bridges where this branch's curvature
   + Lichnerowicz spectral work touches main's `(ℤ/p)*`-cyclic / character arc: (1) the `K_p`
