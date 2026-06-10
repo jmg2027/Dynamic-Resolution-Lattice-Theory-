@@ -290,8 +290,9 @@ ranked agenda, items 1–8:
     `sharing_starts_at_depth3` filters exactly the three `a/b`-reusing
     terms.
 
-Frontier: `research-notes/frontiers/async_pointline_raw.md` (items 7–8 —
-O1 reachability/joinability, honest counting theorem — remain open).
+Closure narrative: `theory/math/foundations/async_growth.md` (items 7–8 —
+O1 reachability/joinability, honest counting theorem — remain open, tracked
+on the frontier board).
 
 ### Fibonacci 5-adic valuation `ν₅(F_n) = ν₅(n)` — FULLY CLOSED, strict ∅-axiom (2026-06-08)
 

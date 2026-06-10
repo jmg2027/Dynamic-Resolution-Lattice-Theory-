@@ -162,6 +162,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
+  modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
+  completeness-layer receipt count; both Lens-properties of the pointing, object
+  invariant); (2) `reschedule_limit_eq` is "the stage is of the run" at the real
+  layer — the modulus is of the run, the real is the run-invariant, `powSched_mono`
+  orders the runs.  Open: the four-scale cover-non-surjection schema stated once.
 - `modulus_degree_ladder` — **grading "completes" beyond the binary**.  Closed:
   the algebraic pillar at degrees 2 (φ form cut) and 3 (`CubeRootTwoCut`, 31
   PURE: side-decision = `ε·k³ < d³`, total modulus `N = 3k+5`, fold lands on
