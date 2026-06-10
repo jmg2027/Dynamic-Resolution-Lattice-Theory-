@@ -3,7 +3,7 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (19)
+## Files (20)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
@@ -25,6 +25,12 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   doubled-tail upper bracket (`upNum`, geometric
                                   halving past `2p ≤ (N+2)q`); `e² ∈ (7, 904/120]`.
                                   Free modulus open (`exp_pq_no_htel` boundary).
+  - `LambertWeld.lean`          — weld stage 1: the Lambert three-term ladder
+                                  `F_{n−1} = (2n+1)Fₙ + uF_{n+1}` division-free at
+                                  every truncation (`weld_ladder`), cosh/sinh
+                                  collapse rungs (`weld_base`,
+                                  `sinhNum_eq_FNum_zero`).  Stage 2 (CF convergent
+                                  pairing) open.
   - `CutTrigModulus.lean`       — `sin`/`cos` Taylor convergence modulus by
                                   comparison to `exp` (odd/even index sampling:
                                   geometric decay + antitone).  Marathon T2.

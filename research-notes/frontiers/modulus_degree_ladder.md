@@ -135,6 +135,23 @@ modulus is the growth class of `N` in `k`, and it factors as
    is one cut-Möbius step, discharging `ExpRationalCut`'s measure hypothesis on the
    sharpest route.
 
+0⁗. **The weld, stage 1 — the series side of the Lambert ladder is built**
+   (`ExpLog/LambertWeld.lean`, 7 PURE).  The Bessel contiguity
+   `F_{n−1} = (2n+1)Fₙ + u·F_{n+1}` (`f_n(j) = 1/((2j)!!(2n+2j+1)!!)`, coefficient
+   identity `(2n+1)+2j = 2n+2j+1`) is delivered **division-free at every truncation**:
+   `FNum q n J` (Horner: `FNum(J+1) = (2J+2)(2n+2J+3)q²·FNum(J) + 1`) with
+   `weld_ladder : (2n+2J+3)·FNum n J = (2n+3)·FNum (n+1) J + 2J·FNum (n+2) (J−1)`,
+   and the bottom rungs collapse to cosh/sinh exactly (`(2j)!!(2j−1)!! = (2j)!`):
+   `weld_base` (cosh enters at `n = −1`), `sinhNum_eq_FNum_zero` (`n = 0` IS sinh).
+   So `coth(1/q) = q·F_{−1}/F_0` and the unrolled ladder IS `[q; 3q, 5q, …]`.
+   **Stage 2 (the finite weld identity, open)**: pair with the CF convergent
+   polynomials — `F_{−1}·B̃_n − F_0·Ãₙ = ±u^{n+1}·F_{n+1}` truncated (induction on
+   `n` along `weld_ladder`), bridge `cfPn (cothCF q) n = q^{n+1}·Ãₙ(1/q²)`, then
+   order-transfer pins `cothUnitCFCauchySeq q` between the cosh/sinh brackets.
+   Lean note: PolyNatM's normalizer does **not** drop `0·atom` monomials and chokes
+   on un-reduced `(J+1)−1` index atoms — close `J = 0` rungs by `rfl` (all-literal
+   defeq) and re-ascribe IHs with reduced indices.
+
 ## The 213 reading
 
 The fold/residue correction refines from a dichotomy into a **filtration**:

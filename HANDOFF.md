@@ -178,16 +178,28 @@ and the first **transcendental** instance: `cothUnitCFCauchySeq q` — Lambert's
 dichotomy is now a theorem pair: series pointing of `exp(p/q)` carries no rate
 (`exp_pq_no_htel`) — CF pointing of the same family carries everything.
 
+## Ninth arc: the weld, stage 1 — the Lambert ladder's series side built
+
+`ExpLog/LambertWeld.lean` (7 PURE): the Bessel contiguity `F_{n−1} = (2n+1)Fₙ +
+u·F_{n+1}` (coefficients `1/((2j)!!(2n+2j+1)!!)`; the identity is `(2n+1)+2j =
+2n+2j+1`) delivered division-free at every truncation — `FNum q n J` Horner
+recursion, `weld_ladder`, and the bottom rungs collapse exactly to cosh/sinh
+(`weld_base` at `n = −1`; `sinhNum_eq_FNum_zero` at `n = 0`; `(2j)!!(2j−1)!! =
+(2j)!`).  So `coth(1/q) = q·F_{−1}/F_0` and unrolling the ladder IS the Lambert CF
+`[q; 3q, 5q, …]` — the two sides of the weld now face each other in one formalism.
+Lean lessons (recorded in the ladder note): PolyNatM doesn't drop `0·atom`
+monomials; un-reduced `(J+1)−1` IH indices become spurious atoms — `rfl` for
+all-literal rungs, re-ascribe IHs.
+
 ## Open Problems (priority order)
-1. **The weld — Lambert CF correctness** (sharpest route to unconditional
-   `exp(p/q)`): prove the Lambert real (`cothUnitCFCauchySeq q`) equals series
-   `coth(1/q)` — the Padé/Bessel identity.  Concrete plan: the CF convergents
-   `p_n/q_n` are ratios of the Bessel-polynomial sums; the identity
-   `q_n·(series) − p_n·(series') = explicit factorial-tail` is provable by
-   induction on the three-term recurrence against the series partial sums
-   (`ExpRationalCut` brackets give the order side).  Then
-   `e^{2/q} = (coth(1/q)+1)/(coth(1/q)−1)` — one cut-Möbius step — discharges
-   `hmeas` (`expPQCauchySep` becomes unconditional for `p = 2`).
+1. **The weld, stage 2 — the finite pairing identity**: define the `u`-polynomial
+   convergents `Ãₙ, B̃ₙ` (recursion `Ãₙ = (2n+1)Ã_{n−1} + u·Ã_{n−2}`), prove
+   `F_{−1}·B̃ₙ − F_0·Ãₙ = ±u^{n+1}·F_{n+1}` at truncated level by induction on `n`
+   along `weld_ladder` (subtraction-free paired-parity form like `cf_det`), the
+   bridge `cfPn (cothCF q) n = q^{n+1}·Ãₙ(1/q²)` (equivalence transform), then
+   order-transfer: `cothUnitCFCauchySeq q` is pinned between the cosh/sinh
+   brackets — the weld closes, and `e^{2/q} = (coth+1)/(coth−1)` (cut-Möbius)
+   discharges `hmeas` for `p = 2`.
 2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
    numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient
