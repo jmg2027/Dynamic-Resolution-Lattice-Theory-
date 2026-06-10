@@ -239,6 +239,40 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### Async growth ladder + Raw census structure — strict ∅-axiom (2026-06-10)
+
+Six modules, 51/51 PURE, 0 DIRTY (`tools/scan_axioms.py`); the closures of
+the async point–line frontier's ranked agenda items 1–6:
+
+  · **`E213.Theory.Async`** (14 PURE) — the fused asynchronous growth
+    system (states = point lists, one `fire` event): `step1_forced`,
+    `level2_canonical` (exact swap-conjugate disjunction),
+    `level3_diverges` (depth-2 completion vs depth-3 fork disagree
+    beyond a global swap).  List-membership decidability instance
+    avoided (propext leak); explicit `Mem` constructors.
+  · **`...UniverseChain.RawPastCompleteness`** (6 PURE) — depth-≤2 terms
+    are past-complete over the previous downset; at depth 3 the filter
+    keeps exactly the full join (`depth3_boundary`).
+  · **`...UniverseChain.AtomicityCensusBridge`** (8 PURE) — the two 5s
+    mediated: `choose2_fixed` (`choose2 n = n ↔ n = 3` for `n ≥ 1`),
+    `two_fives` (census `5` = `pairSize + choose2 closureSize`, level-2
+    additions one swap orbit).
+  · **`...UniverseChain.RawCountQuadratic`** (9 PURE) — `choose2_add`
+    (Vandermonde), `choose2_double` (`2C(n,2)+n = n²`),
+    `rawCount_normal_form` (`2T(n+1)+T(n) = T(n)²+4`),
+    `rawCount_mod5_cycle`/`_table` (pure period 3, cycle `(2,3,0)`;
+    generic self-restart, no privileged level).
+  · **`...UniverseChain.RawCountBounds`** (6 PURE) — strict base-2
+    sandwich `2^(2^(n+1)) < rawCount (n+3) < 2^(2^(n+2))` (base = NT
+    = 2, not d = 5), lower bound sharp at `n = 0` (both sides 5).
+  · **`...UniverseChain.RawDagSize`** (8 PURE) — `dagSize` event-cost
+    fold; census sandwich `depth ≤ dagSize ≤ leaves − 1` over depth ≤ 3;
+    `sharing_starts_at_depth3` filters exactly the three `a/b`-reusing
+    terms.
+
+Frontier: `research-notes/frontiers/async_pointline_raw.md` (items 7–8 —
+O1 reachability/joinability, honest counting theorem — remain open).
+
 ### Fibonacci 5-adic valuation `ν₅(F_n) = ν₅(n)` — FULLY CLOSED, strict ∅-axiom (2026-06-08)
 
 `E213.Lib.Math.NumberTheory.FibZValuation` (PURE), `.FibZIdentities`

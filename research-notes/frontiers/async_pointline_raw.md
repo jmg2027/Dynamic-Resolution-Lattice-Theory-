@@ -150,32 +150,45 @@ stays a cardinality statement.
 
 ## 5. Theorem agenda (marathon order; referee-ranked)
 
-1. **O2-fused ladder** (S–M) — `step1_forced`; `level2_canonical`
-   (any two fused step-2 states swap-equal); `level3_diverges`
-   (5-set vs `{a,b,ab,a(ab),a/(a(ab))}`); `step3_swap_classes = 4`
-   (`decide`).  → `Theory/Raw/Async/` beside `StateMachine.lean`.
-2. **D₂ past-completeness boundary** (S) — depth-≤2 terms
-   past-complete; witness `a/(a(ab))` missing `b(ab)`; `decide` on
-   the 12-term list.  → `UniverseChain/` (extends `RawDepth3`).
-3. **two_fives mediated** (S) — `choose2` fixed point (1 ≤ n ⟹
-   (choose2 n = n ↔ n = 3)); `rawCount 1 = closureSize`;
-   `rawCount 2 = pairSize + choose2 closureSize`; bundle with the
-   bipartition capstone.  → `UniverseChain/AtomicityCensusBridge`.
-4. **Base-2 sandwich** (M) — `configCountD 2 (n−2) < rawCount n ∧
-   rawCount n < configCountD 2 (n−1)` for n ≥ 3; invariant
-   `2^(2^n+1) + 1 ≤ rawCount (n+2)` closes the induction.
-   → `UniverseChain/RawRecurrence.lean` (+ Bridge to ConfigCount).
-5. **mod-5 period 3** (S) — `rawCount (n+3) % 5 = rawCount n % 5`;
-   docstring states the generic self-restart (no resonance
-   narration); optionally the B/C/D discrimination values via
-   `rawCountG`.  → `RawRecurrence.lean` / `RawCountGeneric.lean`.
-6. **dagSize fold family** (M) — subterm-closure list; `depth ≤
-   dagSize`, `dagSize ≤ leaves − 1`; sharing witness at depth 3.
-   → `Theory/Raw/DagSize.lean`.
+Items 1–6 **CLOSED** ∅-axiom (51/51 PURE, 2026-06-10 marathon);
+Lean anchors below.  Items 7–8 open.
+
+1. ✓ **O2-fused ladder** — `Theory/Raw/Async.lean` (14 PURE):
+   `step1_forced`, `level2_canonical` (exact swap-conjugate list
+   disjunction — stronger than MemEq-up-to-swap), `level3_diverges`
+   (depth-2 completion vs depth-3 fork, beyond global swap),
+   `level2_swap_partner`.  *Still open from this item*: the fused
+   step-3 swap-class census (= 4) needs a state-enumeration
+   function, deferred to item 7's machinery.
+2. ✓ **D₂ past-completeness boundary** —
+   `UniverseChain/RawPastCompleteness.lean` (6 PURE):
+   `depthLe2_past_complete`, `depth3_boundary` (filter keeps exactly
+   the full join `t1`), `past_complete_boundary_population`.
+3. ✓ **two_fives mediated** —
+   `UniverseChain/AtomicityCensusBridge.lean` (8 PURE):
+   `choose2_fixed`, `two_fives`, `mediating_fixed_point_unique`,
+   swap-orbit lemmas.
+4. ✓ **Base-2 sandwich** — `UniverseChain/RawCountBounds.lean`
+   (6 PURE): `rawCount_sandwich` (strict both sides),
+   `rawCount_lower` (sharp at base: both sides 5),
+   `census_step_lower/upper` (parametric squeeze).
+5. ✓ **mod-5 period 3** — `UniverseChain/RawCountQuadratic.lean`
+   (9 PURE): `rawCount_mod5_cycle` + `_table`, plus the quadratic
+   normal form `rawCount_normal_form` and `choose2_add`/
+   `choose2_double`.  B/C/D discrimination values via `rawCountG`
+   not yet instantiated (optional).
+6. ✓ **dagSize fold** — `UniverseChain/RawDagSize.lean` (8 PURE):
+   `dag_census`, `dag_sandwich_le3`, `sharing_starts_at_depth3`
+   (exactly `[t1, t4, t7]`).  *Still open from this item*: the
+   uniform ∀-bounds `depth ≤ dagSize ≤ leaves − 1` by `Raw.rec`
+   induction (census closes them for depth ≤ 3 only), and the
+   min-run-length theorem (run length = dagSize, fused).
 7. **O1 reachability** (L) — points-only `State`/`Step`/`Reach`;
    `reach_iff_closed`, `reach_joinable`, `every_raw_reached`
-   (fairness-free).  Reuse `StateMachine.lean` descent.
-   → `Theory/Raw/Async/{System,Confluence}.lean`.
+   (fairness-free).  Reuse `StateMachine.lean` descent; the
+   `Theory/Raw/Async.lean` system is the carrier.  Landmine note
+   from item 1: avoid the core list-`∈` decidability instance
+   (propext); use explicit `Mem` constructors / Bool membership.
 8. **Honest counting theorem** (L) — `enumTreeDepth n` members
    canonical + Nodup + complete, so `rawCount n` counts canonical
    Raws of depth ≤ n; blocked on `Tree.cmp` transitivity (~150

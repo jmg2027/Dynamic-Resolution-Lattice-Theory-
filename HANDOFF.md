@@ -1,107 +1,100 @@
-# Session Handoff — 2026-06-08 (general rank law + shared ℚ(√5) morphism + merge marathon)
+# Session Handoff — 2026-06-10 (async point–line frontier: origin record + multi-agent debate + marathon items 1–6)
 
 ## Branch
-`claude/prime-rank-fibonacci-5adic-zohhac` — pushed, ahead of `origin/main`.
-`cd lean && lake build E213` ✓ clean (full build, 307/307).  All new theorems
-strict ∅-axiom PURE (`tools/scan_axioms.py`).  Ready-to-merge audit GREEN
-(layer 0 violations, 0 stale paths, 0 sink leaks).
+`claude/tensors-dimensional-discretization-nqb10o` — pushed.
+`cd lean && lake build E213` ✓ clean.  All new theorems strict
+∅-axiom PURE (51/51 across 6 new modules, `tools/scan_axioms.py`).
 
 ## What Was Done This Session
 
-Two buildable bridges of `fibonacci_golden_prime_crossdomain` (insights 3, 5)
-closed ∅-axiom, then a full merge marathon.
+### 1. Origin record + frontier (from the originator's raw-gut dialogue)
+- `seed/ORIGIN_RAW.md` — NEW: the Raw axiom rebuilt from "difference"
+  alone (Mingu Jeong's dialogue, Korean verbatim + translation);
+  axiom-side companion to `ORIGIN.md`'s physics descent.  New content
+  vs the corpus: the asynchronous two-event reading, the rejection of
+  the lockstep clock, the layer-scale question.
+- `research-notes/frontiers/async_pointline_raw.md` — NEW frontier:
+  the async point–line system ≅ Raw; revised after a 4-expert +
+  adversarial-referee multi-agent debate (concurrency, number theory,
+  Lean, physics; all numerics machine-verified twice).  Debate
+  corrections: boundary ladder is semantics-tagged (no run is forced
+  through the 5-snapshot — D₂'s distinction is **past-completeness**,
+  an order property); width sandwich is base-2 (= NT), not d = 5;
+  mod-5 cycle is generic self-restart, not resonance.
 
-### 1. General rank law `α(p) ∣ p − (5/p)` from the Legendre character (`DyadicFSM/RankApparition.lean`, 10 PURE)
-- `rankIndex p hp = p − (5/p)` — the Fibonacci entry-point index dispatched on
-  the FSM-walking quadratic character `legendre213 5 p`: split `p−1`, inert
-  `p+1`, ramified `p`.  Face lemmas `rankIndex_{ramified,split,inert}` make
-  `p − (5/p)` literal.
-- ★ `rank_law_dispatch` — `p ∣ F_{p−(5/p)}` (= `α(p) ∣ p−(5/p)` via
-  `p∣F_n ⟺ α(p)∣n`), mirroring `UniversalDispatch.universal_dispatch_pellCoeff`
-  (the Pisano-period dispatch); here the read-out is the entry point.
-- Per-prime instantiations through the *universal* machinery, not `decide`:
-  split via `binet_F_p_minus_1_zero` (`𝔽_p` Binet/FLT), inert via
-  `fpp1_eq_zero_of_frob_phi` (`𝔽_{p²}` Frobenius FLT), ramified `p=5` direct.
-  Bundled in `rank_law_table` (p ∈ {3,5,7,11}).
-
-### 2. Shared ℚ(√5) morphism — cp_phase ⟷ fibonacci_5adic_valuation (`NumberTheory/GoldenFieldBridge.lean`, 10 PURE)
-- ★ `bPoly_neg_eq_gPoly` — the morphism `x ↦ −x`: the Binet polynomial `x²−x−1`
-  (Fibonacci, `FibApparitionMod5`) and the Gaussian-period polynomial `x²+x−1`
-  (`ℚ(ζ₅)⁺`, `CyclotomicFive`/cp_phase) are one `ℚ(√5)` object (`bPoly(−x)=gPoly x`).
-- `shared_discriminant_five`, `bPoly_ramified_mod5`, `gPoly_ramified_mod5`,
-  `ramified_roots_negate` — both faces share disc `5` and the single ramified
-  prime `5`, each a perfect square mod 5 (double roots `3`, `2`; negatives, `3+2≡0`).
-- ★ `shared_golden_field_morphism` — capstone bundling the morphism, the shared
-  discriminant, both ramifications, the Fibonacci `α(5)=5` signature, and the
-  cyclotomic golden subfield.
-
-### 3. Merge marathon (skills)
-- `/process`: 1 → 0 sink violations (decoupled `GoldenFieldBridge` docstring
-  from the frontier note → `theory/.../the_golden_prime.md`); recorded the
-  remaining open direction (higher `νₚ(F_n)` rungs) in `frontiers/`.
-- Promotion: in-place chapter+essay upgrade (rank law → `fibonacci_5adic_valuation`
-  §; morphism → `the_golden_prime` open-frontier CLOSED).  Log row 44.
-- Cross-domain: branch×main insights 6–8 in `fibonacci_golden_prime_crossdomain`
-  (the rank character IS `psign σ_5`; rank-vs-period one character; `x↦−x` vs `σ²`).
-- `/essay`: `theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md`
-  (log row 45; essays 76 → 77).
-- `/org-audit` + `/purity-check` + `/ready-to-merge`: all GREEN.
+### 2. Marathon: ranked agenda items 1–6 CLOSED ∅-axiom (51 PURE)
+- `lean/E213/Theory/Raw/Async.lean` (14) — fused growth ladder:
+  `step1_forced`, `level2_canonical` (exact swap-conjugate
+  disjunction), `level3_diverges` (depth-3 fork vs depth-2 completion
+  beyond global swap).
+- `Lib/Math/Foundations/UniverseChain/RawPastCompleteness.lean` (6) —
+  depth-≤2 past-complete; at depth 3 only the full join survives
+  (`depth3_boundary`).
+- `UniverseChain/AtomicityCensusBridge.lean` (8) — the two 5s
+  mediated by `choose2 n = n ↔ n = 3` (`two_fives`).
+- `UniverseChain/RawCountQuadratic.lean` (9) — `choose2_add`,
+  `choose2_double`, normal form `2T(n+1)+T(n) = T(n)²+4`, mod-5 pure
+  period 3 cycle `(2,3,0)`.
+- `UniverseChain/RawCountBounds.lean` (6) — strict base-2 sandwich
+  `2^(2^(n+1)) < rawCount (n+3) < 2^(2^(n+2))`, lower sharp at 5.
+- `UniverseChain/RawDagSize.lean` (8) — `dagSize` event-cost fold;
+  sharing starts at depth 3 at exactly `[t1, t4, t7]`.
 
 ## Current Precision Results (0 free parameters)
-Unchanged this session — both closures are pure-math (number theory), not
-physics observables.  See `catalogs/physics-constants.md` (`1/α_em` 0.09 ppb,
-CKM `δ = 90°`, `R_u = 1/φ²`, …).
+Unchanged — this arc is pure math (foundations).  See
+`catalogs/physics-constants.md`.
 
 ## Open Problems (Priority Order)
 
-### 1. Higher valuation rungs `νₚ(F_n)` for general `p`
-The rank law is the entry-point (`νₚ ≥ 1`) rung.  The all-orders lift is open
-beyond `p = 5`: needs the `p`-tupling analogue of the quintupling identity (an
-index-`α(p)`-multiplication identity with cofactor `≡ 1 mod p`), buildable from
-`fibZ_index_rec` iterated to `k = α(p)`, parametric in the rank.
-Frontier note: `research-notes/frontiers/fibonacci_golden_prime_crossdomain.md`
-("Remaining open direction").
+### 1. Frontier agenda items 7–8 (`async_pointline_raw.md` §5)
+- **O1 reachability** (L): `reach_iff_closed`, `reach_joinable`,
+  `every_raw_reached` on the `Theory/Raw/Async` system.  Landmine:
+  core list-`∈` decidability instance leaks propext — use explicit
+  `Mem` constructors (see Async.lean's `notmem_cons` pattern).
+- **Honest counting theorem** (L): `rawCount n` = #canonical Raws of
+  depth ≤ n; gate is `Tree.cmp` transitivity (~150 lines infra at
+  `Term/Internal/Tree/Cmp.lean`).
 
-### 2. The `legendre213 5 p = psign σ_5` equality morphism
-The rank-law character (FSM-walk terminal) and Zolotarev's permutation sign are
-stated equal from two proven sides; the explicit Lean morphism (modulo the
-ramified `=0` corner) would let `α(p) ∣ p − psign(σ_5)` be one theorem.
-Frontier note: `research-notes/frontiers/fibonacci_golden_prime_crossdomain.md`
-(insight 6).
+### 2. Smaller seams left by items 1/6
+- Fused step-3 swap-class census (= 4) — needs state enumeration
+  (item 7 machinery).
+- Uniform `depth ≤ dagSize ≤ leaves − 1` by `Raw.rec` induction +
+  min-run-length = dagSize.
 
-## Unresolved from This Session
-None — both bridges closed cleanly.  Self-corrected dead end to NOT re-attempt:
-`ring_intZ` does **not** expand `^` (treats `x^2` as an opaque atom) — write
-polynomial identities with explicit `*` (`x*x`), as in `GoldenFieldBridge.bPoly`.
-
-## Next
-Push and merge this branch to `main`.  After merge: attack Open Problem 2 (the
-buildable `legendre213 5 p = psign σ_5` edge) — it ties the rank law to the
-Zolotarev converse and would close insight 6 in Lean; or Open Problem 1 (the
-`p`-tupling identity for general-`p` higher valuation).
+### 3. Pre-existing (unchanged)
+Higher `νₚ(F_n)` rungs for general `p`; the
+`legendre213 5 p = psign σ_5` morphism (see frontiers INDEX).
 
 ## Three-tier state
-- **Promotions this session**: in-place upgrades — rank law → `theory/math/
-  numbertheory/fibonacci_5adic_valuation.md` (§ + key-results rows); morphism →
-  `theory/essays/synthesis/the_golden_prime.md` (open frontier CLOSED).  Log row 44.
-- **Essay**: `theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md`
-  (row 45).
-- **Promotion candidates**: none outstanding for this arc (closed + promoted).
-- **Active scratchpad**: `frontiers/fibonacci_golden_prime_crossdomain.md`
-  (insights 1, 6 + higher-νₚ open; 2–5 closed/proven).
+- Tier-1: `async_pointline_raw.md` carries the corrected ladder +
+  agenda statuses; `seed/ORIGIN_RAW.md` is permanent (seed corpus).
+- Tier-2: 6 new PURE modules (above), registered in
+  `Theory/Raw/API.lean` + `UniverseChain.lean` aggregators;
+  `STRICT_ZERO_AXIOM.md` entry added (2026-06-10).
+- Promotion candidates: after items 7–8 close, the async arc
+  (Async + RawPastCompleteness + census structure) is a coherent
+  `theory/` chapter candidate per PROMOTION_CRITERIA.
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberTheory/DyadicFSM/RankApparition.lean ← NEW, 10 PURE (rank law from Legendre)
-lean/E213/Lib/Math/NumberTheory/DyadicFSM.lean                ← +RankApparition import
-lean/E213/Lib/Math/NumberTheory/GoldenFieldBridge.lean        ← NEW, 10 PURE (shared ℚ(√5) morphism)
-lean/E213/Lib/Math.lean                                       ← +GoldenFieldBridge import
-theory/math/numbertheory/fibonacci_5adic_valuation.md         ← +general-p rank law §, key-results rows
-theory/essays/synthesis/the_golden_prime.md                   ← open frontier → CLOSED
-theory/essays/synthesis/the_fibonacci_rank_is_a_permutation_sign.md ← NEW essay
-theory/essays/INDEX.md, theory/INDEX.md                       ← essays 76 → 77
-research-notes/frontiers/fibonacci_golden_prime_crossdomain.md ← insights 3,5 CLOSED; 6–8 + νₚ open recorded
-research-notes/frontiers/INDEX.md                             ← Fibonacci entry CLOSED/Open updated
-research-notes/promotion_essay_log.md                         ← rows 44 (promotion) + 45 (essay)
-STRICT_ZERO_AXIOM.md                                          ← +RankApparition + GoldenFieldBridge entry (20 PURE)
+seed/ORIGIN_RAW.md                                          ← NEW origin record
+research-notes/frontiers/async_pointline_raw.md             ← NEW frontier (debate-revised, items 1-6 ✓)
+research-notes/frontiers/INDEX.md                           ← +entry
+lean/E213/Theory/Raw/Async.lean                             ← NEW 14 PURE (ladder)
+lean/E213/Theory/Raw/API.lean                               ← +Async import
+lean/E213/Lib/Math/Foundations/UniverseChain/
+  AtomicityCensusBridge.lean                                ← NEW 8 PURE (two 5s)
+  RawCountQuadratic.lean                                    ← NEW 9 PURE (normal form, mod 5)
+  RawCountBounds.lean                                       ← NEW 6 PURE (base-2 sandwich)
+  RawPastCompleteness.lean                                  ← NEW 6 PURE (D₂ boundary)
+  RawDagSize.lean                                           ← NEW 8 PURE (event-cost fold)
+lean/E213/Lib/Math/Foundations/UniverseChain.lean           ← +5 imports
+STRICT_ZERO_AXIOM.md                                        ← +2026-06-10 entry (51 PURE)
+seed/INDEX.md                                               ← +ORIGIN_RAW.md row
 ```
+
+## Next
+Items 7–8 of the frontier agenda (O1 reachability/joinability, then
+the honest counting theorem via `Tree.cmp` transitivity).  After
+both: promote the async arc to `theory/` and archive the frontier
+notes per `PROCESS.md`.
