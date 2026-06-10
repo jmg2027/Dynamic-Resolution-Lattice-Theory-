@@ -206,6 +206,85 @@ theorem binom_log_concave (n k : Nat) :
           (Nat.succ_le_succ (Nat.zero_le (k + 1))))
     exact Nat.le_of_mul_le_mul_left h5 hpos
 
+/-! ## Unimodality (rising/falling halves + central dominance) -/
+
+/-- Rising half (division-free, via absorption): `2k+1 ≤ n ⟹ C(n,k) ≤ C(n,k+1)` —
+    the kernel increases up to the middle. -/
+theorem binom_le_succ_of_le_half (n k : Nat) (h : 2 * k + 1 ≤ n) :
+    binom n k ≤ binom n (k + 1) := by
+  obtain ⟨e, he⟩ := Nat.le.dest h
+  have habs := binom_absorption n k
+  generalize hA : binom n k = A at habs ⊢
+  generalize hB : binom n (k + 1) = B at habs ⊢
+  rw [← he] at habs
+  have h1 : (k + 1) * B = (k + 1 + e) * A := by
+    rw [show (2 * k + 1 + e) * A = (k + 1 + e) * A + k * A from by ring_nat] at habs
+    exact E213.Meta.Nat.NatRing213.nat_add_right_cancel habs
+  have h2 : (k + 1) * A ≤ (k + 1) * B := by
+    rw [h1]
+    exact Nat.mul_le_mul (Nat.le_add_right (k + 1) e) (Nat.le_refl A)
+  exact Nat.le_of_mul_le_mul_left h2 (Nat.succ_pos k)
+
+/-- Falling half: `n ≤ 2k+1 ⟹ C(n,k+1) ≤ C(n,k)` — the kernel decreases past the
+    middle. -/
+theorem binom_succ_le_of_half_le (n k : Nat) (h : n ≤ 2 * k + 1) :
+    binom n (k + 1) ≤ binom n k := by
+  obtain ⟨e, he⟩ := Nat.le.dest h
+  have habs := binom_absorption n k
+  generalize hA : binom n k = A at habs ⊢
+  generalize hB : binom n (k + 1) = B at habs ⊢
+  have h2 : ((k + 1) * B + e * A) + k * A = ((k + 1) * A) + k * A := by
+    rw [show ((k + 1) * B + e * A) + k * A = ((k + 1) * B + k * A) + e * A from by
+          ring_nat,
+        habs, ← add_mul_pure n e A, he]
+    ring_nat
+  have h1 : (k + 1) * B + e * A = (k + 1) * A :=
+    E213.Meta.Nat.NatRing213.nat_add_right_cancel h2
+  have h3 : (k + 1) * B ≤ (k + 1) * A :=
+    Nat.le_trans (Nat.le_add_right _ _) (Nat.le_of_eq h1)
+  exact Nat.le_of_mul_le_mul_left h3 (Nat.succ_pos k)
+
+/-- ★★★★ **Central dominance / unimodality**: `C(2n,k) ≤ C(2n,n)` for *every* `k` — the
+    even-time kernel peaks at its centre.  Rising + falling halves chained; with
+    `binom_log_concave` this is the full unimodal profile. -/
+theorem binom_le_central (n : Nat) : ∀ k, binom (2 * n) k ≤ binom (2 * n) n := by
+  have up : ∀ g k, k + g = n → binom (2 * n) k ≤ binom (2 * n) n := by
+    intro g
+    induction g with
+    | zero =>
+      intro k h
+      have hk : k = n := h
+      subst hk
+      exact Nat.le_refl _
+    | succ g ih =>
+      intro k h
+      have hk1 : k + 1 + g = n := by
+        rw [show k + 1 + g = k + (g + 1) from by ring_nat]
+        exact h
+      have hstep : binom (2 * n) k ≤ binom (2 * n) (k + 1) := by
+        apply binom_le_succ_of_le_half
+        have hle : k + 1 ≤ n := Nat.le.intro hk1
+        have hmul : 2 * (k + 1) ≤ 2 * n := Nat.mul_le_mul (Nat.le_refl 2) hle
+        exact Nat.le_trans
+          (Nat.le.intro (show 2 * k + 1 + 1 = 2 * (k + 1) from by ring_nat)) hmul
+      exact Nat.le_trans hstep (ih (k + 1) hk1)
+  have down : ∀ d, binom (2 * n) (n + d) ≤ binom (2 * n) n := by
+    intro d
+    induction d with
+    | zero => exact Nat.le_refl _
+    | succ d ih =>
+      have hstep : binom (2 * n) (n + d + 1) ≤ binom (2 * n) (n + d) := by
+        apply binom_succ_le_of_half_le
+        exact Nat.le.intro (show 2 * n + (2 * d + 1) = 2 * (n + d) + 1 from by ring_nat)
+      exact Nat.le_trans hstep ih
+  intro k
+  rcases Nat.le_total k n with h | h
+  · obtain ⟨g, hg⟩ := Nat.le.dest h
+    exact up g k hg
+  · obtain ⟨d, hd⟩ := Nat.le.dest h
+    rw [← hd]
+    exact down d
+
 /-! ## Small-n concrete identities -/
 
 /-- ★ Pascal's row 5: 1, 5, 10, 10, 5, 1 — the d=5 simplex

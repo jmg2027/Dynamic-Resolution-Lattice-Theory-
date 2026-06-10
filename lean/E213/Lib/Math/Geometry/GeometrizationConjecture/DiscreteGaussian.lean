@@ -45,9 +45,10 @@ namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussian
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Combinatorics.Binomial
   (binom_n_0 binom_n_1 binom_vanish binom_log_concave binom_le_binom_succ
-   binom_le_binom_succ_succ)
+   binom_le_binom_succ_succ binom_le_central)
 open E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
-  (gridSum gridSum_succ gridSum_congr gridSum_add gridSum_head_shift)
+  (gridSum gridSum_succ gridSum_congr gridSum_add gridSum_head_shift gridSum_le
+   gridSum_const gridSum_term_le)
 
 /-! ## §1 — the kernel: `δ`-initial data, Pascal = heat step -/
 
@@ -167,6 +168,50 @@ theorem gaussian_li_yau (t x : Nat) :
 theorem harnack_forward (t x : Nat) :
     heatKernel t x ≤ heatKernel (t + 1) x ∧ heatKernel t x ≤ heatKernel (t + 1) (x + 1) :=
   ⟨binom_le_binom_succ t x, binom_le_binom_succ_succ t x⟩
+
+/-! ## §4 — no-local-collapsing: the kernel's central density is pinched
+
+Perelman's no-local-collapsing rules out the cigar degeneration: along the flow, mass
+cannot escape into a thin neck — volume density admits a lower bound at the curvature
+scale.  Its discrete core on the kernel: the total mass `2^t` (`gaussian_normalization`)
+lives on the support `{0,…,t}`, and **unimodality** (`binom_le_central`, from the same
+absorption identity as the Li–Yau estimate) forces the centre to carry at least the
+*average* density.  The kernel cannot flatten away (`no_local_collapsing`) nor blow up
+past its mass (`kernel_le_mass`) — the two-sided density pinch. -/
+
+/-- ★★★★★ **Discrete no-local-collapsing**: the kernel's central value dominates the
+    average density — `2^{2n} ≤ (2n+1)·u(2n,n)` (cleared form of
+    `u(2n,n) ≥ mass/support`).  Mass conservation + unimodality: the discrete reason the
+    heat kernel cannot locally collapse, with the same absorption-identity engine as the
+    Li–Yau gradient estimate (§3) — normalization + monotonicity ⟹ non-collapsing,
+    Perelman's `𝓦` ⟹ κ-noncollapsing implication in kernel form. -/
+theorem no_local_collapsing (n : Nat) :
+    2 ^ (2 * n) ≤ (2 * n + 1) * binom (2 * n) n := by
+  have hle : gridSum (2 * n + 1) (fun x => binom (2 * n) x)
+      ≤ gridSum (2 * n + 1) (fun _ => binom (2 * n) n) :=
+    gridSum_le (2 * n + 1) _ _ (fun k _ => binom_le_central n k)
+  have hnorm : gridSum (2 * n + 1) (fun x => binom (2 * n) x) = 2 ^ (2 * n) :=
+    gaussian_normalization (2 * n)
+  rw [← hnorm]
+  exact Nat.le_trans hle (Nat.le_of_eq (gridSum_const (2 * n + 1) (binom (2 * n) n)))
+
+/-- **Non-concentration** (companion upper bound): no kernel value exceeds the total
+    mass, `u(t,x) ≤ 2^t` (term ≤ sum, or vanishing off the support). -/
+theorem kernel_le_mass (t x : Nat) : binom t x ≤ 2 ^ t := by
+  rcases Nat.lt_or_ge x (t + 1) with h | h
+  · rw [← gaussian_normalization t]
+    exact gridSum_term_le (t + 1) (fun y => binom t y) x h
+  · rw [binom_vanish t x h]
+    exact Nat.zero_le _
+
+/-- ★★★★ **The κ-noncollapsing pinch**: `mass/support ≤ central value ≤ mass`, i.e.
+    `2^{2n} ≤ (2n+1)·u(2n,n)` and `u(2n,n) ≤ 2^{2n}` — the kernel's density at the
+    centre is pinched within a factor `2n+1` of the mass: neither collapse (cigar) nor
+    concentration (δ-relapse) happens along the discrete flow. -/
+theorem kernel_density_pinch (n : Nat) :
+    2 ^ (2 * n) ≤ (2 * n + 1) * binom (2 * n) n
+    ∧ binom (2 * n) n ≤ 2 ^ (2 * n) :=
+  ⟨no_local_collapsing n, kernel_le_mass (2 * n) n⟩
 
 /-- ★★★★ **The discrete `𝓦`-Gaussian package**: `δ`-initial data + Pascal heat step +
     all-time mass normalization + Li–Yau log-concavity, in one bundle — the discrete

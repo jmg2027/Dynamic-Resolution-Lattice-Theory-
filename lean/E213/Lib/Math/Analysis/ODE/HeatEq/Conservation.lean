@@ -74,6 +74,29 @@ theorem gridSum_mul_left (n c : Nat) (f : Nat → Nat) :
 theorem gridSum_two_mul (n : Nat) (f : Nat → Nat) :
     gridSum n (fun x => 2 * f x) = 2 * gridSum n f := gridSum_mul_left n 2 f
 
+/-- **Constant sum**: `Σ_{x<m} c = m·c`. -/
+theorem gridSum_const (m c : Nat) : gridSum m (fun _ => c) = m * c := by
+  induction m with
+  | zero => exact (Nat.zero_mul c).symm
+  | succ k ih =>
+    show gridSum k (fun _ => c) + c = (k + 1) * c
+    rw [ih]
+    ring_nat
+
+/-- **Term ≤ sum**: a single value is at most the whole (`Nat`) grid sum. -/
+theorem gridSum_term_le (m : Nat) (f : Nat → Nat) :
+    ∀ k, k < m → f k ≤ gridSum m f := by
+  induction m with
+  | zero => intro k hk; exact absurd hk (Nat.not_lt_zero k)
+  | succ p ih =>
+    intro k hk
+    rw [gridSum_succ]
+    rcases Nat.lt_or_ge k p with h | h
+    · exact Nat.le_trans (ih k h) (Nat.le_add_right _ _)
+    · have hkp : k = p := Nat.le_antisymm (Nat.le_of_lt_succ hk) h
+      rw [hkp]
+      exact Nat.le_add_left (f p) (gridSum p f)
+
 /-! ## §2 — cyclic-shift invariance -/
 
 /-- Head-shift: `Σ_{x<m} f(x+1) + f 0 = Σ_{x<m+1} f x`.  Moving the head term `f 0` to the
