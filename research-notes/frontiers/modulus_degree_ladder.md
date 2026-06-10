@@ -92,10 +92,13 @@ modulus is the growth class of `N` in `k`, and it factors as
    `overtakeS_breaks_layer`.  The forgiven factor, measured at the admission
    layer `i = r^s`, is `r^{s−1}` (slack defended `1/(r·d)` vs the identity
    schedule's `1/(r^s·d)`) — the note's conjectured `i^{s−1}` reads correctly in
-   probe units, not layer units.  Strictness witnessed: `sepDen`
+   probe units, not layer units.  Strictness witnessed end to end: `sepDen`
    (`d_{i+1} = (⌊√i⌋+2)·d_i`, `W = d`) is root-2-dominated everywhere but breaks
-   `Dominates` at layer 4 (`graded_stratification`).  Rescue is now graded the
-   way `CompletabilityGrade` grades break.  Narrative:
+   `Dominates` at layer 4 (`graded_stratification`), and with numerators
+   `a_{i+1} = (⌊√i⌋+2)·a_i + 1` (cross-det relation solved over ℕ) the pair
+   `sepNum/sepDen` is an actual presentation completing at `N = k²+1`
+   (`sep_graded_modulus`) — a real rescued outside the degree-1 class.  Rescue
+   is now graded the way `CompletabilityGrade` grades break.  Narrative:
    `theory/math/analysis/holonomic_modulus.md` §4.
 2. **Conditional measure-modulus schema** — `effective measure μ + Cauchy rate
    ⟹ constructed N`.  Instance: Wallis-π with `μ(π) ≤ 7.11` would carry a

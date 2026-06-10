@@ -191,7 +191,12 @@ domination at every layer), `overtakeS_breaks_layer` (the scheduled overtake
 boundary).  The grading is **strict**: the presentation `d_{i+1} = (⌊√i⌋+2)·dᵢ`
 with `W = d` is dominated by the root-2 schedule at every layer yet breaks the
 identity-schedule comparison at layer 4 (`sep_dominatesS_all` /
-`sep_breaks_unit_schedule`, bundled in `graded_stratification`).  So "completes
+`sep_breaks_unit_schedule`, bundled in `graded_stratification`) — and the
+witness is an actual real, not just a predicate pair: the numerators
+`a_{i+1} = (⌊√i⌋+2)·a_i + 1` solve the cross-det relation over ℕ exactly
+(`sep_cross_det`, `W = d`), and `sep_graded_modulus` completes `sepNum/sepDen`
+through the degree-2 schedule with the constructed modulus `N(m,k) = k² + 1`,
+its degree-1 certificate broken.  So "completes
 freely" is not one comparison but a ladder of them, one per schedule — *rescue*
 is graded the way `CompletabilityGrade` grades *break*, and the modulus degree is
 the rung's price.  This is the conversion law of the modulus-degree ladder read

@@ -41,6 +41,11 @@ The results:
     degree-2 schedule rescues what the degree-1 schedule breaks; "rescue" is
     graded the way `CompletabilityGrade` grades "break", and the two axes are
     symmetric.
+  * ★★★ `sep_graded_modulus` — the rescue end to end: `sepNum/sepDen` (the
+    numerators `a_{i+1} = (⌊√i⌋+2)·a_i + 1` realize the cross-det `W = d`
+    exactly) completes through the degree-2 schedule with the constructed
+    total modulus `N(m,k) = k² + 1` — an actual real outside the degree-1
+    class, carried by the graded generator.
 
 ## The unimodular floor sits at the bottom
 
@@ -63,7 +68,8 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberSystems.Real213.RateStratification
 
 open E213.Lib.Math.NumberSystems.Real213.RateModulus
-  (Htel HtelS rcut rate_total_modulus graded_total_modulus Htel_of_crossdet)
+  (Htel HtelS rcut rate_total_modulus graded_total_modulus Htel_of_crossdet
+   hmono_of_hmonoS)
 open E213.Meta.Nat.PolyNat (PE poly_id)
 open E213.Meta.Nat.RootFloor (rootFloor rootFloor_mono)
 open E213.Tactic.NatHelper (add_mul mul_assoc mul_mul_mul_comm_213 le_of_add_le_add_left)
@@ -275,6 +281,43 @@ theorem sep_breaks_unit_schedule : ¬ Dominates sepDen sepDen 4 := by
   intro h
   have h' : 4*(4+1)*sepDen 4 + 4*sepDen 4 ≤ (4+1)*sepDen (4+1) := h
   exact absurd h' (by decide)
+
+/-- The convergent numerators realizing `sepDen` as an actual presentation:
+    `a_{i+1} = (⌊√i⌋+2)·a_i + 1` makes the cross-determinant exactly `sepDen`
+    (no division — the recurrence is the cross-det relation solved over ℕ). -/
+def sepNum : Nat → Nat
+  | 0 => 0
+  | i+1 => (rootFloor 2 i + 2) * sepNum i + 1
+
+theorem sepDen_pos (i : Nat) : 1 ≤ sepDen i := by
+  induction i with
+  | zero => exact Nat.le_refl 1
+  | succ i ih =>
+    exact Nat.mul_pos (Nat.succ_le_succ (Nat.zero_le _)) ih
+
+/-- The presentation's cross-determinant is `sepDen` itself (`W = d`). -/
+theorem sep_cross_det (i : Nat) :
+    sepNum (i+1) * sepDen i = sepNum i * sepDen (i+1) + sepDen i := by
+  show ((rootFloor 2 i + 2) * sepNum i + 1) * sepDen i
+      = sepNum i * ((rootFloor 2 i + 2) * sepDen i) + sepDen i
+  rw [add_mul, Nat.one_mul, ← mul_assoc, Nat.mul_comm (sepNum i) (rootFloor 2 i + 2)]
+
+/-- The convergents are strictly increasing (the cross-det is positive). -/
+theorem sep_hmonoS (i : Nat) : sepNum i * sepDen (i+1) < sepNum (i+1) * sepDen i := by
+  rw [sep_cross_det i]
+  exact Nat.lt_of_lt_of_le (Nat.lt_succ_self _) (Nat.add_le_add_left (sepDen_pos i) _)
+
+/-- ★★★ **An actual real rescued at degree 2.**  The presentation
+    `sepNum/sepDen` — whose identity-schedule certificate is *broken*
+    (`sep_breaks_unit_schedule`) — completes through the degree-2 root schedule
+    with the constructed total ∅-axiom modulus `N(m,k) = k² + 1`: the graded
+    generator, end to end, on a witness outside the degree-1 class. -/
+theorem sep_graded_modulus (m k : Nat) (hk : 1 ≤ k) :
+    ∃ N, ∀ i j, i ≥ N → j ≥ N →
+      rcut sepNum sepDen i m k = rcut sepNum sepDen j m k :=
+  dominatedS_graded_modulus 2 (Nat.le_succ 1) sepDen sepDen_pos sep_cross_det
+    (fun i _ => sep_dominatesS_all i)
+    (hmono_of_hmonoS sepDen_pos sep_hmonoS) sep_hmonoS m k hk
 
 /-! ## §5 — capstones -/
 

@@ -105,7 +105,9 @@
     dominated against `d_i=(i+1)(i+2)` everywhere (`floor_dominates_all`) — the
     trivially-free bottom (`tower_stratification`); and the grading is **strict**:
     `sepDen` (`d_{i+1}=(⌊√i⌋+2)·d_i`, `W=d`) is root-2-dominated everywhere yet
-    breaks `Dominates` at layer 4 (`graded_stratification`).
+    breaks `Dominates` at layer 4 (`graded_stratification`), and the witness is
+    an actual presentation — `sepNum/sepDen` completes through the degree-2
+    schedule with constructed modulus `N=k²+1` (`sep_graded_modulus`).
   - `CrossDetOvertake.lean` — ★ completability boundary: `CrossDetSmall`, below ⟹ free,
     the double-exponential overtake break.  (Companion to `RateStratification`: the same
     W-vs-d boundary, presented as a `CrossDetSmall` predicate + double-exp witness.)

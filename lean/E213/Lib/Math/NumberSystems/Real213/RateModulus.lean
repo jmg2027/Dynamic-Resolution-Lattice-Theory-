@@ -280,6 +280,34 @@ theorem graded_total_modulus (s : Nat) (hs : 1 ≤ s)
   ⟨k^s + 1, fun i j hi hj =>
     graded_cut_const s hs hd htel hmono hmonoS m k hk i j hi hj⟩
 
+/-- Strict single-step growth of the convergents propagates to the full
+    monotonicity the generator consumes (`hmono` from `hmonoS` + positive
+    denominators) — instances need only supply the one-step strict inequality. -/
+theorem hmono_of_hmonoS (hd : ∀ i, 1 ≤ d i)
+    (hmonoS : ∀ i, a i * d (i+1) < a (i+1) * d i) :
+    ∀ N i, N ≤ i → a N * d i ≤ a i * d N := by
+  intro N i hNi
+  have aux : ∀ t, a N * d (N+t) ≤ a (N+t) * d N := by
+    intro t
+    induction t with
+    | zero => exact Nat.le_refl _
+    | succ t ih =>
+      have hstep : a (N+t) * d (N+t+1) ≤ a (N+t+1) * d (N+t) :=
+        Nat.le_of_lt (hmonoS (N+t))
+      have h1 : (a N * d (N+t+1)) * d (N+t) = (a N * d (N+t)) * d (N+t+1) := by
+        rw [mul_assoc, Nat.mul_comm (d (N+t+1)) (d (N+t)), ← mul_assoc]
+      have h3 : (a (N+t) * d N) * d (N+t+1) = (a (N+t) * d (N+t+1)) * d N := by
+        rw [mul_assoc, Nat.mul_comm (d N) (d (N+t+1)), ← mul_assoc]
+      have h5 : (a (N+t+1) * d (N+t)) * d N = (a (N+t+1) * d N) * d (N+t) := by
+        rw [mul_assoc, Nat.mul_comm (d (N+t)) (d N), ← mul_assoc]
+      have hbig : (a N * d (N+t+1)) * d (N+t) ≤ (a (N+t+1) * d N) * d (N+t) := by
+        rw [h1]
+        exact Nat.le_trans (Nat.mul_le_mul_right _ ih)
+          (Nat.le_trans (Nat.le_of_eq h3)
+            (Nat.le_trans (Nat.mul_le_mul_right _ hstep) (Nat.le_of_eq h5)))
+      exact le_of_mul_le_mul_right (hd (N+t)) hbig
+  rw [← add_sub_of_le hNi]; exact aux (i - N)
+
 /-- ★★★ **The depth-rank ⟶ rate-certificate bridge.**  The rate certificate `Htel`
     is exactly a *smallness* condition on the **cross-determinant** `W_i = a_{i+1}·d_i
     − a_i·d_{i+1}` (the divergence-ladder's central object, here given by `hW`): the
