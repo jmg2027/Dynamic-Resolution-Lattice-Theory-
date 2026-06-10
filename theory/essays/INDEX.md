@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 81 essays are grouped into ten thematic sub-directories — distinct
+The 82 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -106,6 +106,11 @@ total pairwise distinguishing `Σ_{i<j}(a_i−a_j)²`, saturated on the diagonal
 presentation-invariant but the *certificate* has depth — depth-0 pair-sum vs per-rung SOS folded
 along the `gridSumZ` induction (`cauchy_schwarz_gridZ`) — and the `K_{a,b}` wide/narrow curvature
 regime split (`kab_cd_wide`/`kab_cd_narrow`) is exactly that depth).
+`the_expository_sequence_is_a_lens_reading` (the order written across a derivation — clause-order
+in §3.4's forcing chain, stage-order in the async run — is a Lens reading of one complete object,
+never the object's succession; the state-transition=state non-separation (§6.6, §5.7) at the
+axiom-forcing scale vs the async-run scale, with the grading's run-invariance
+`Levels.fold_eq_depth` the witness that a fold sees neither the run nor the explanation's order).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
