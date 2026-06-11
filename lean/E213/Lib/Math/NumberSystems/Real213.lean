@@ -122,6 +122,7 @@ import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMinor
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMasterId
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertPoly
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius
 import E213.Lib.Math.NumberSystems.Real213.NuEscape
 
