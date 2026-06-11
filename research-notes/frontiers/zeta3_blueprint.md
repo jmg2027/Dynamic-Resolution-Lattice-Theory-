@@ -30,16 +30,17 @@ sandwich), §4 (`div_div_pure`, `sumTo_le_sumTo`); `FTALite.lean`
 (**`dvd_of_forall_prime_vp_le`** = `(∀ prime p, vₚa≤vₚb)→a∣b`, contrapositive of
 the repo's `exists_prime_vp_gt`).
 
-**All four hard gates for Brick 1 are now PURE**: `count30`, `legendre`,
-`vp_lcmUpTo`, FTA-lite.  Remaining = assembly (no new deep math):
+**All four hard gates + step 2 for Brick 1 are now PURE**: `count30`, `legendre`,
+`vp_lcmUpTo`, FTA-lite, `perLevel`, **`key_divisibility`** (`lcm(1..30m)·(15m)!(10m)!
+(6m)! ∣ (30m)!·m!·lcm(1..5m)`, §5–§7 of `LcmGrowthChebyshev.lean`).  The arithmetic
+core is done.  Remaining:
 
-  * **Step 2 (key divisibility)** — `lcm(1..30m)·(15m)!(10m)!(6m)! ∣
-    (30m)!·m!·lcm(1..5m)` via FTA-lite + `vp_mul`/`legendre`/`vp_lcmUpTo` per prime,
-    each level `d=p^{e+1}` reduced to `count30 ⌊30m/d⌋` (`div_div_pure` maps the
-    floors; `[d≤5m]=[m̃≥6]`), summed by `sumTo_le_sumTo`.  Build: sum-extension to
-    common bound; `(c·x)/(c·y)=x/y`; the `[d≤k·m]↔[m̃≥…]` mappings.
-  * Steps 3–7: factorial-ratio bound, recursion, numeral induction
-    (`37·α₃₀⁶≤10⁷⁵`), main, corollaries.
+  * **Step 3 (factorial-ratio bound)** — `(30m)!·m!/((15m)!(10m)!(6m)!) ≤ (6m+1)·α₃₀^m`
+    (cleared form in the deliverable).  The one remaining piece of real content;
+    gear: `BinomialTwoVar.binom2_theorem` (PROVEN) + `sumTo_term_le`.
+  * **Step 4 (recursion)** — `key_divisibility` as `≤` (`le_of_dvd_pos`) + step 3 +
+    cancel `(15m)!(10m)!(6m)!`.
+  * Steps 5–7: numeral induction (`37·α₃₀⁶≤10⁷⁵` decide), main, corollaries.
   * **FTA-lite** — `(∀ prime power q, q∣a → q∣b) → a∣b`, the divisibility criterion
     step 2 closes through (needs a prime-factor existence/enumeration up to `n`).
   * Steps 2–7 (key divisibility via `count30` at `m̃=⌊30m/p^{j+1}⌋`, comparing the

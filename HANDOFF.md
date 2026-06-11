@@ -78,26 +78,31 @@ minor org-audit item, not blocking.
     breaks on `+0`/`0+`/`0*`/`1*` — use explicit `Nat` lemmas for pow/factor
     reshuffles.
 
-## Remaining chain to close Brick 1 (frontier: `zeta3_blueprint.md`)
-**All four hard gates are cleared** — `count30`, `legendre`, `vp_lcmUpTo`,
-`dvd_of_forall_prime_vp_le` (FTA-lite) — plus §4 plumbing (`div_div_pure`,
-`sumTo_le_sumTo`).  What remains is assembly (no new deep math).
+9. **`LcmGrowthChebyshev.lean` §5–§7 — STEP 2 CLOSED**: pure div cancellation
+   (`mul_div_mul_left_pure`, `le_div_iff_mul_le`, `le_of_mul_le_mul_right'`),
+   `perLevel` (per-prime-power inequality = `count30` at `m̃=⌊30m/d⌋`), and
+   **`key_divisibility`**: `lcm(1..30m)·(15m)!(10m)!(6m)! ∣ (30m)!·m!·lcm(1..5m)`.
+   Via FTA-lite per prime → `vp_mul`+`legendre`+`vp_lcmUpTo` to `Σ_{e<30m}` (common
+   bound via `sumTo_extend`) → `perLevel` summed by `sumTo_le_sumTo`.  ∅-axiom.
 
-  * **Step 2 — key divisibility** (next): `lcm(1..30m)·(15m)!(10m)!(6m)! ∣
-    (30m)!·m!·lcm(1..5m)`.  Via FTA-lite, suffices `∀ prime p, vₚ(LHS) ≤ vₚ(RHS)`.
-    Expand each side with `PrimeValuation.vp_mul` (additivity; factors are
-    `lcmUpTo_pos`/`factorial_pos`), rewrite factorials by `legendre` and lcms by
-    `vp_lcmUpTo` → both sides become `Σ_e` of per-level terms.  Extend all sums to a
-    common bound `30m` (extra terms vanish — a sum-extension lemma).  Per level
-    `d=p^{e+1}`, with `m̃=⌊30m/d⌋`: `⌊15m/d⌋=⌊m̃/2⌋`, `⌊10m/d⌋=⌊m̃/3⌋`,
-    `⌊6m/d⌋=⌊m̃/5⌋`, `⌊m/d⌋=⌊m̃/30⌋` (via `div_div_pure` + `(c·x)/(c·y)=x/y`),
-    `[d≤30m]=[m̃≥1]`, `[d≤5m]=[m̃≥6]`; then per level it is exactly `count30 m̃`,
-    summed by `sumTo_le_sumTo`.  Sub-lemmas to build: sum-extension; `(c·x)/(c·y)=x/y`
-    pure; the `[d≤k·m]↔[m̃≥…]` indicator mappings.
-  * **Steps 3–7** — factorial-ratio bound (`α₃₀ = 2¹⁴3⁹5⁵`, three binomial-term
-    bounds), recursion `lcm(1..30m) ≤ (6m+1)·α₃₀^m·lcm(1..5m)` (step 2 + 3), numeral
-    induction (`37·α₃₀⁶ ≤ 10⁷⁵` by `decide`), main `lcm(1..30m) ≤ 10^{15m}`,
-    corollaries `lcm⁶ ≤ 10^{87+3n}`.
+## Remaining chain to close Brick 1 (frontier: `zeta3_blueprint.md`)
+**All four hard gates + step 2 are cleared** — `count30`, `legendre`, `vp_lcmUpTo`,
+FTA-lite, `perLevel`, `key_divisibility`.  The entire arithmetic core is ∅-axiom.
+
+  * **Step 3 — factorial-ratio bound** (next, the one remaining piece of real
+    content): `(30m)!·m!·6^{6m}15^{15m}10^{10m} ≤ (6m+1)·(15m)!(10m)!(6m)!·30^{30m}`,
+    i.e. `(30m)!·m!/((15m)!(10m)!(6m)!) ≤ (6m+1)·α₃₀^m` (`α₃₀ = 30³⁰/(6⁶15¹⁵10¹⁰) =
+    2¹⁴3⁹5⁵`; both totals degree `31m`).  **Gear**: `BinomialTwoVar.binom2_theorem`
+    (`(a+b)ⁿ=Σ C(n,k)aᵏbⁿ⁻ᵏ`, PROVEN) + `Sum.sumTo_term_le` (term ≤ sum) — the
+    blueprint's "two single-term + one max-term (unimodal at k=m)".  Reconstruct the
+    3-term decomposition.
+  * **Step 4 — recursion** `lcm(1..30m) ≤ (6m+1)·α₃₀^m·lcm(1..5m)`: from
+    `key_divisibility` as `≤` (`Pow213.le_of_dvd_pos`, RHS>0) + step 3 + cancel the
+    common `(15m)!(10m)!(6m)!` (it is `> 0`).
+  * **Steps 5–7** — numeral induction `S(m):(6m+1)α₃₀^m W^{⌈m/6⌉}≤W^m` (`W=10¹⁵`,
+    step `37·α₃₀⁶ ≤ 10⁷⁵` by `decide` on the big literal; bases S(26..31) decide),
+    main `lcm(1..30m) ≤ 10^{15m}` (strong induction + small-`m` lcm certificates via
+    `lcmUpTo_dvd`), corollaries `lcm² ≤ 10^{n+29}`, `lcm⁶ ≤ 10^{87+3n}` by padding.
 
 ## Then: Brick 2 (Apéry integrality) + assembly
 Brick 2 (`zeta3_blueprint.md` Brick 2) is "pure divisibility chains, NO p-adics"
@@ -120,7 +125,7 @@ localization `(601/500, 1203/1000]`.  See `Zeta3Cut.lean` §8–§9.
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← NEW (§1 count30; §2 lcmUpTo; §3 vp_lcmUpTo + floorLog; §4 div_div_pure, sumTo_le_sumTo)
+lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← NEW (§1 count30; §2 lcmUpTo; §3 vp_lcmUpTo+floorLog; §4 div_div_pure,sumTo_le_sumTo; §5 div-cancel; §6 perLevel; §7 key_divisibility)
 lean/E213/Lib/Math/NumberTheory/PrimeValuation.lean      ← NEW (vp_mul, prime_dvd_mul, Prime213; §3 vp_monotone, vp_gcd_min, vp_lcm_max)
 lean/E213/Lib/Math/NumberTheory/FTALite.lean             ← NEW (dvd_of_forall_prime_vp_le)
 lean/E213/Lib/Math/NumberTheory/Legendre.lean            ← NEW (legendre full formula; vp_factorial, vp_one, val_count, indLt_sum, div_succ_increment)
