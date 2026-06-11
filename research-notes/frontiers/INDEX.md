@@ -173,6 +173,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `slots_crossdomain` — **the slot programme ↔ the graded-ladder / π
+  arc** (merge note): one crystallographic restriction at two scales
+  (unit-group phase budget = finite matrix orders, both `{1,2,3,4,6}`
+  via `φ(n) ≤ 2`); escape-from-every-X theorems as one form (schedules
+  / slot grammars / moduli); modulus degree = certificate depth =
+  answer-axes (fold-back dimension), three scales of one
+  Lens-property.  Three bridge theorems named, all open.
+
 - `numbersystem_square` — **the number-system square**: ℕ→ℤ→ℚ vs
   ℕ→ℚ₊→ℚ, two Lenses (difference, ratio) applied in two orders;
   distributivity as the commutation law (the reason both routes
