@@ -758,4 +758,94 @@ theorem budgetGen (n J : Nat) : ∀ (steps cc w s : Nat),
                 Nat.mul_le_mul_left _ hW
       _ = w * ((cc - 1) * cc * wprod (cc - 2) steps) * (2 * bpF n s) := by ring_nat
 
+/-! ## §9 — F5 stabilization: the accumulators saturate at their support
+
+For `n = 2i+1` the coefficient support ends at `s = i` (the `AP/BP` lengths),
+and the weight `wprod (2N+1)` vanishes from step `N+1`; so `i+1` accumulator
+steps already give the full `Asum/Bsum` — for **every** `N`. -/
+
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMasterId
+  (Asum Bsum cfpos descFac descFac_vanish cfpos_one master_odd master_diagonal)
+
+theorem apF_vanish_ge (i j : Nat) : apF (2 * i + 1) (i + 1 + j) = 0 := by
+  rw [← AP_nth (2 * i + 1) (i + 1 + j)]
+  exact nth_ge_len _ _ (by
+    rw [(E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld.AP_BP_length i).1]
+    exact Nat.le_add_right _ _)
+
+theorem bpF_vanish_ge (i j : Nat) : bpF (2 * i + 1) (i + 1 + j) = 0 := by
+  rw [← BP_nth (2 * i + 1) (i + 1 + j)]
+  exact nth_ge_len _ _ (by
+    rw [(E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld.AP_BP_length i).2.2.1]
+    exact Nat.le_add_right _ _)
+
+theorem wprod_vanish (N : Nat) : ∀ j, wprod (2 * N + 1) (N + 1 + j) = 0
+  | 0 => by
+    show wprod (2 * N + 1) N * ((2 * N + 1 - 2 * N - 1) * (2 * N + 1 - 2 * N)) = 0
+    rw [show 2 * N + 1 = 1 + 2 * N from by ring_nat, sub_cancel_left 1]
+    rfl
+  | j + 1 => by
+    show wprod (2 * N + 1) (N + 1 + j)
+        * ((2 * N + 1 - 2 * (N + 1 + j) - 1) * (2 * N + 1 - 2 * (N + 1 + j))) = 0
+    rw [wprod_vanish N j, Nat.zero_mul]
+
+theorem AaccSum_stable (i N : Nat) : ∀ j,
+    AaccSum (2 * i + 1) N (i + 1 + j) = AaccSum (2 * i + 1) N (i + 1)
+  | 0 => rfl
+  | j + 1 => by
+    show AaccSum (2 * i + 1) N (i + 1 + j + 1) = AaccSum (2 * i + 1) N (i + 1)
+    rw [AaccSum_snoc (2 * i + 1) N (i + 1 + j), apF_vanish_ge i j, Nat.mul_zero,
+        Nat.add_zero, AaccSum_stable i N j]
+
+theorem AaccSum_stable_w (n N : Nat) : ∀ j,
+    AaccSum n N (N + 1 + j) = AaccSum n N (N + 1)
+  | 0 => rfl
+  | j + 1 => by
+    show AaccSum n N (N + 1 + j + 1) = AaccSum n N (N + 1)
+    rw [AaccSum_snoc n N (N + 1 + j), wprod_vanish N j, Nat.zero_mul,
+        Nat.add_zero, AaccSum_stable_w n N j]
+
+theorem BaccSum_stable (i N : Nat) : ∀ j,
+    BaccSum (2 * i + 1) N (i + 1 + j) = BaccSum (2 * i + 1) N (i + 1)
+  | 0 => rfl
+  | j + 1 => by
+    show BaccSum (2 * i + 1) N (i + 1 + j + 1) = BaccSum (2 * i + 1) N (i + 1)
+    rw [BaccSum_snoc (2 * i + 1) N (i + 1 + j), bpF_vanish_ge i j, Nat.mul_zero,
+        Nat.mul_zero, Nat.add_zero, BaccSum_stable i N j]
+
+theorem BaccSum_stable_w (n N : Nat) : ∀ j,
+    BaccSum n N (N + 1 + j) = BaccSum n N (N + 1)
+  | 0 => rfl
+  | j + 1 => by
+    show BaccSum n N (N + 1 + j + 1) = BaccSum n N (N + 1)
+    rw [BaccSum_snoc n N (N + 1 + j), wprod_vanish N j, Nat.zero_mul,
+        Nat.add_zero, BaccSum_stable_w n N j]
+
+/-- ★★★ **`A`-saturation**: `i+1` steps already give the whole `Asum` —
+    for every `N` (support or weight vanishes, whichever comes first). -/
+theorem AaccSum_eq_Asum (i N : Nat) :
+    AaccSum (2 * i + 1) N (i + 1) = Asum (2 * i + 1) N := by
+  show AaccSum (2 * i + 1) N (i + 1) = AaccSum (2 * i + 1) N (N + 1)
+  rcases Nat.lt_or_ge N i with h | h
+  · obtain ⟨e, he⟩ := Nat.le.dest h
+    rw [show i + 1 = N + 1 + (e + 1) from congrArg (· + 1) he.symm,
+        AaccSum_stable_w (2 * i + 1) N (e + 1)]
+  · obtain ⟨d, hd⟩ := Nat.le.dest h
+    rw [show N + 1 = i + 1 + d from
+          (congrArg (· + 1) hd.symm).trans (Nat.succ_add i d).symm,
+        AaccSum_stable i N d]
+
+/-- ★★★ **`B`-saturation** (twin). -/
+theorem BaccSum_eq_Bsum (i N : Nat) :
+    BaccSum (2 * i + 1) N (i + 1) = Bsum (2 * i + 1) N := by
+  show BaccSum (2 * i + 1) N (i + 1) = BaccSum (2 * i + 1) N (N + 1)
+  rcases Nat.lt_or_ge N i with h | h
+  · obtain ⟨e, he⟩ := Nat.le.dest h
+    rw [show i + 1 = N + 1 + (e + 1) from congrArg (· + 1) he.symm,
+        BaccSum_stable_w (2 * i + 1) N (e + 1)]
+  · obtain ⟨d, hd⟩ := Nat.le.dest h
+    rw [show N + 1 = i + 1 + d from
+          (congrArg (· + 1) hd.symm).trans (Nat.succ_add i d).symm,
+        BaccSum_stable i N d]
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
