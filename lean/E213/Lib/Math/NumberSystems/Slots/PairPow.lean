@@ -32,7 +32,7 @@ subtraction-free pair exponent
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.PairPow
+namespace E213.Lib.Math.NumberSystems.Slots.PairPow
 
 open E213.Meta.Nat.PureNat (pow_add)
 
@@ -87,4 +87,4 @@ theorem pairPow_id (p q n : Nat) :
     _ = (p ^ (n + 1) * q ^ n) * q :=
         (E213.Tactic.NatHelper.mul_assoc _ _ _).symm
 
-end E213.Lib.Math.NumberSystems.PairPow
+end E213.Lib.Math.NumberSystems.Slots.PairPow

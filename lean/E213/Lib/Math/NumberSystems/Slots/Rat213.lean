@@ -31,7 +31,7 @@ and the two halves of exactness —
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Rat213
+namespace E213.Lib.Math.NumberSystems.Slots.Rat213
 
 open E213.Tactic.NatHelper (gcd213)
 open E213.Meta.Nat.Gcd213
@@ -384,4 +384,4 @@ theorem qdiff_same_lowest {p₁ q₁ p₂ q₂ r₁ s₁ r₂ s₂ : Nat}
     ratioEqZ_trans (Nat.mul_pos hs₁ hs₂) hchain1 hRe
   exact lowest_unique hchain2 hPl hRl
 
-end E213.Lib.Math.NumberSystems.Rat213
+end E213.Lib.Math.NumberSystems.Slots.Rat213

@@ -43,7 +43,7 @@ freely with the sign axis.
    `gcd_strip_coprime` (existence), the ∣-order normal form of a
    ratio pair is now exact.
 3. **Signed composite** — ★ CLOSED for the normal form
-   (`Lib/Math/NumberSystems/Rat213.lean`, PURE): numerator `Int`
+   (`Lib/Math/NumberSystems/Slots/Rat213.lean`, PURE): numerator `Int`
    (sign carried by the constructor = the swap readout) × positive
    `Nat` denominator; `ratioEqZ` the signed cross-equation,
    `IsLowest` the lowest-terms condition; `lowest_exists`

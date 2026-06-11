@@ -31,7 +31,7 @@ readout is a Lens on the tuple, not the tuple's identity.
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.GaussTuple
+namespace E213.Lib.Math.NumberSystems.Slots.GaussTuple
 
 open E213.Meta.Int213
   (subNatNat_mul_subNatNat subNatNat_add_subNatNat neg_subNatNat)
@@ -83,4 +83,4 @@ theorem gmul_readout (a b c d e f g h : Nat) :
         subNatNat_mul_subNatNat c d e f,
         subNatNat_add_subNatNat]
 
-end E213.Lib.Math.NumberSystems.GaussTuple
+end E213.Lib.Math.NumberSystems.Slots.GaussTuple

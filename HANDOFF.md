@@ -31,17 +31,17 @@ arc in `research-notes/frontiers/signed_rationals_normal_form.md`
   `coprime_repr_unique`), `gcd_strip_coprime`.
 - `Lens/Number/RatioLensFounding.lean` (9): `ratioEquiv` completed
   (scale/trans/cross-sandwich), `ratio_mul_witness` (layer closure).
-- `Lib/Math/NumberSystems/Rat213.lean` (14): signed lowest-terms
+- `Lib/Math/NumberSystems/Slots/Rat213.lean` (14): signed lowest-terms
   normal form (`lowest_exists`/`lowest_unique`), derived order
   (`ratioLeZ_descends`/`ratioLeZ_iff`), **square-commutes**
   (`qdiffEquiv`, `square_commutes`, `qdiff_same_lowest` — bricks 1+2,
   distributivity as the commutation law).
-- `Lib/Math/NumberSystems/CompletionDichotomy.lean` (3): archimedean
+- `Lib/Math/NumberSystems/Slots/CompletionDichotomy.lean` (3): archimedean
   rigidity certificates for `x²=−1` (frame-indexed after the audit).
-- `Lib/Math/NumberSystems/GaussTuple.lean` (5): 4-axis product
+- `Lib/Math/NumberSystems/Slots/GaussTuple.lean` (5): 4-axis product
   subtraction-free, `gmul_i_i` (i⊗i = the +-inverse unit, rfl),
   `gmul_readout` (difference-Lens readout = complex product).
-- `Lib/Math/NumberSystems/PairPow.lean` (3): exponent +-fiber
+- `Lib/Math/NumberSystems/Slots/PairPow.lean` (3): exponent +-fiber
   transports to value ×-fiber (`pairPow_fiber`, `pairPow_id`).
 - `Meta/Nat/PairOp.lean` (25): **the meta-operation** — the pair layer
   of an arbitrary `f : ℕ→ℕ→ℕ`: §1 priced steps (`pairEq_trans`,

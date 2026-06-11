@@ -25,6 +25,7 @@
   - `Padic.lean`           — p-adic ℤ_p[√D] cluster (Hensel, Frobenius)
   - `Group.lean`           — group structure
   - `SignedCut.lean`       — signed-cut algebra (6 sub-dirs)
+  - `Slots.lean`           — the slot programme (signed normal form, 4-axis Gauss tuple, pair exponents, collapse-vs-rigid)
   - `Complex.lean`         — complex on Real213
   - `Irrational.lean`      — irrationality without ZFC
   - `IntSqrt.lean`         — integer square root

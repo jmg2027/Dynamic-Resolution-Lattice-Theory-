@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Rat213
+import E213.Lib.Math.NumberSystems.Slots.Rat213
 import E213.Meta.Int213.Bound
 
 /-!
@@ -29,10 +29,10 @@ frames see them.
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.CompletionDichotomy
+namespace E213.Lib.Math.NumberSystems.Slots.CompletionDichotomy
 
 open E213.Meta.Int213 (add_left_neg int_sq_nonneg)
-open E213.Lib.Math.NumberSystems.Rat213 (ratioEqZ)
+open E213.Lib.Math.NumberSystems.Slots.Rat213 (ratioEqZ)
 
 /-- ★★★★ **Two integer squares sum to zero only at the origin** — the
     anisotropy of the `a² + b²` form (the ℤ[i] / ℂ norm).  PURE via
@@ -82,4 +82,4 @@ theorem no_rat_sqrt_neg_one {a : Int} {b : Nat} (hb : 0 < b)
   rw [hbz] at hb
   exact Nat.lt_irrefl 0 hb
 
-end E213.Lib.Math.NumberSystems.CompletionDichotomy
+end E213.Lib.Math.NumberSystems.Slots.CompletionDichotomy
