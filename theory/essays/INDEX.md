@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 90 essays are grouped into ten thematic sub-directories — distinct
+The 91 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -111,6 +111,12 @@ in §3.4's forcing chain, stage-order in the async run — is a Lens reading of 
 never the object's succession; the state-transition=state non-separation (§6.6, §5.7) at the
 axiom-forcing scale vs the async-run scale, with the grading's run-invariance
 `Levels.fold_eq_depth` the witness that a fold sees neither the run nor the explanation's order).
+`equality_is_a_certificate` (two numbers are equal not by a free reflexivity but by a checkable
+certificate whose content is the number's own structure: the strict sandwich at the order floor
+(`eq_of_sandwich`/`locate_strict`), the prime-exponent-vector match at multiplication
+(`vp_separation`, `FoldCriterion.pow_eq_pow_iff_vp`), and the CF/Padé certificate for reals
+(`when_two_pointings_are_one`, size `48` at level one) — one shape at three resolutions; the
+single-schema Lean statement is open).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
