@@ -188,6 +188,17 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   membership detectors across levels.  Open: the ℚ₊→ℚ leg, the
   square-commutes theorem, the frames essay after closure.
 
+- `slot_tower_debate` — **two-round panel verdicts on the slot-tower
+  arc**: thesis/mechanism/debt triage (atom-(in)distinguishability /
+  the count-rig `iter_add`+`iter_mul` / `vp_separation`); the ^-wall is
+  two independent proof-facts until the `exp`-iso bridge closes; fold
+  criterion scoped (ℚ-exponents, `a,b≥2`; ⟹ provable now, ⟸ IS
+  separation); **genesis corrected — the primitive is binary
+  anti-reflexive `slash`, not unary `cons`** ("pointing=append=count"
+  is the tower read at its top rung); 12-item merged brick agenda
+  (keystone: `vp_separation`, whose prereq `exists_prime_factor`
+  already exists PURE in `FourSquare.lean`).
+
 - `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
   modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
   completeness-layer receipt count; both Lens-properties of the pointing, object
