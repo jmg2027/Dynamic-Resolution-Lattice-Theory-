@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (30)
+## Files (31)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -62,6 +62,11 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
                              list in a next-next gap); location works
                              because a list is linear (one tail) — branches
                              on the tree (`BinTree.node`)
+  - `CoAppend213.lean`     — the co-operation dual of append: `splits` (all
+                             cuts); `mem_splits_iff` — a split IS an
+                             append-witness, so inverse questions are
+                             co-operations, not inverse operations; co-size
+                             = `length+1`
   - `Valuation.lean`       — the `q`-adic valuation `vp q n` over ℕ
   - `VpMul.lean`           — the exponent-lattice engine (T3): `vp_mul`
                              (`vp p (m·n) = vp p m + vp p n`, prime `p`),

@@ -645,12 +645,26 @@ as commutativity/the wall.  And **discrete vs continuum is ONE sandwich**
 *limits* (continuum, `Real213` cuts, reached-by-none) — same strict form,
 finite vs infinite nesting, not two probes.
 
+**Reverse the arrows: the co-operation is splitting — ★ PROVED, and it IS
+the inverse questions** (`Meta/Nat/CoAppend213.lean`).  The dual of gluing
+`(a,b)↦c` is splitting `c↦(a,b)` — the comultiplication `splits` (all cuts
+of a list).  Key (`mem_splits_iff`): **a split *is* an append-witness** —
+`(l1,l2) ∈ splits l ↔ l1 ++ l2 = l`, i.e. the `+`-inverse question.  So the
+inverse questions that grow ℤ/ℚ (`a+x=b`, `a·x=b`) are **co-operations, not
+inverse operations** — which is *why* the slot programme's witness-form
+discipline ("`a=c+e`, never `a−c`") never imports an inverse operation: it
+works the co-operation directly.  Number growth = forcing the co-operation
+total (group completion = splitting-closure).  Co-readouts dualize: the
+co-operation's size is `length+1` (`length_splits`, dual to `count`); the
+split is functional in either part (`split_functional`).
+
 **Knobs still not turned** (each a new operation family, the open frontier):
-reverse the arrows (co-operations / splitting; convolution =
-split-then-reglue), drop finiteness (→ the cut/continuum), the topological
-(not just metric) substrate split (Betti as the readout vector).
-Open-endedness here is the **no-exterior** signature: every "floor" is a
-chart with more structure below it — "is there more?" stays *yes*.
+convolution = split-then-reglue (`splits` then `count`/glue — a new
+operation off the `+×^` diagonal), drop finiteness (→ the cut/continuum,
+the infinite-nesting sandwich), the topological (not just metric) substrate
+split (Betti as the readout vector).  Open-endedness here is the
+**no-exterior** signature: every "floor" is a chart with more structure
+below it — "is there more?" stays *yes*.
 
 ## Question tuple vs answer axes (the representation principle, audited)
 
