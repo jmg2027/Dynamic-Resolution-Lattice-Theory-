@@ -4,6 +4,7 @@ import E213.Lib.Math.NumberTheory.Lcm213
 import E213.Meta.Nat.Valuation
 import E213.Lib.Math.NumberTheory.PrimeValuation
 import E213.Lib.Math.NumberTheory.Legendre
+import E213.Lib.Math.NumberTheory.FTALite
 
 /-!
 # LcmGrowthChebyshev — the finitized Chebyshev 30-block bound for `lcm(1..n)`
@@ -36,10 +37,12 @@ open E213.Lib.Math.NumberTheory.Lcm213 (lcm213 lcm_pos dvd_lcm_left dvd_lcm_righ
 open E213.Meta.Nat.Valuation (dtrans vp le_vp_iff pow_vp_dvd)
 open E213.Meta.Nat.PureNat (lt_two_pow)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
-open E213.Lib.Math.NumberTheory.PrimeValuation (Prime213 vp_lcm_max)
-open E213.Lib.Math.NumberTheory.Legendre (indLt_sum vp_one)
+open E213.Lib.Math.NumberTheory.PrimeValuation (Prime213 vp_lcm_max vp_mul)
+open E213.Lib.Math.NumberTheory.Legendre (indLt_sum vp_one legendre)
+open E213.Lib.Math.NumberTheory.FTALite (dvd_of_forall_prime_vp_le)
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_pos)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
-open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_congr)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_congr sumTo_add_func)
 
 /-! ## §1 — the 30-periodic counting lemma -/
 
@@ -394,5 +397,71 @@ theorem perLevel (m d : Nat) (hd0 : 0 < d) :
   have hc30 := count30 (30 * m / d)
   rw [e2, e3, e5, e30, i1, i6] at hc30
   exact hc30
+
+/-! ## §7 — the key divisibility (Brick 1 step 2) -/
+
+/-- Extend a sum past its bound when the tail vanishes: `Σ_a f = Σ_B f` (`a ≤ B`,
+    `f` zero on `[a, B)`). -/
+private theorem sumTo_extend_add (a : Nat) (f : Nat → Nat) (hvan : ∀ e, a ≤ e → f e = 0) :
+    ∀ k, sumTo (a + k) f = sumTo a f
+  | 0 => by rw [Nat.add_zero]
+  | k + 1 => by
+      rw [show a + (k + 1) = (a + k) + 1 from rfl, sumTo_succ, sumTo_extend_add a f hvan k,
+          hvan (a + k) (Nat.le_add_right a k), Nat.add_zero]
+
+private theorem sumTo_extend (f : Nat → Nat) (a B : Nat) (hab : a ≤ B)
+    (hvan : ∀ e, a ≤ e → f e = 0) : sumTo B f = sumTo a f := by
+  obtain ⟨k, hk⟩ := Nat.le.dest hab
+  rw [← hk]; exact sumTo_extend_add a f hvan k
+
+/-- `vₚ(k·m)! = Σ_{e<30m} ⌊km/p^{e+1}⌋`, extended to the common bound `30m`
+    (`km ≤ 30m`; extra terms vanish: `km ≤ e → km < p^{e+1}`). -/
+private theorem fact_vp_extend {p : Nat} (hp : Prime213 p) {km B : Nat} (hkB : km ≤ B) :
+    vp p (factorial km) = sumTo B (fun e => km / p ^ (e + 1)) := by
+  rw [legendre hp km, ← sumTo_extend (fun e => km / p ^ (e + 1)) km B hkB ?_]
+  intro e he
+  exact Nat.div_eq_of_lt (Nat.lt_of_le_of_lt he
+    (Nat.lt_trans (Nat.lt_succ_self e) (lt_pow_self hp.1 (e + 1))))
+
+/-- `vₚ(lcm 1..km) = Σ_{e<30m} [p^{e+1} ≤ km]`, extended to bound `30m`. -/
+private theorem lcm_vp_extend {p : Nat} (hp : Prime213 p) {km B : Nat} (hkB : km ≤ B) :
+    vp p (lcmUpTo km) = sumTo B (fun e => if p ^ (e + 1) ≤ km then 1 else 0) := by
+  rw [vp_lcmUpTo hp km, ← sumTo_extend (fun e => if p ^ (e + 1) ≤ km then 1 else 0) km B hkB ?_]
+  intro e he
+  exact if_neg (Nat.not_le.mpr (Nat.lt_of_le_of_lt he
+    (Nat.lt_trans (Nat.lt_succ_self e) (lt_pow_self hp.1 (e + 1)))))
+
+/-- ★★★ **Key divisibility** (Brick 1 step 2):
+    `lcm(1..30m)·(15m)!(10m)!(6m)! ∣ (30m)!·m!·lcm(1..5m)`.  Via FTA-lite: per prime
+    `p`, both `vₚ` expand (`vp_mul` + `legendre`/`vp_lcmUpTo`) into `Σ_{e<30m}` of the
+    per-level terms (common bound `30m`), and the per-level inequality is `perLevel`
+    at `d = p^{e+1}`, summed by `sumTo_le_sumTo`. -/
+theorem key_divisibility (m : Nat) :
+    lcmUpTo (30 * m) * factorial (15 * m) * factorial (10 * m) * factorial (6 * m)
+    ∣ factorial (30 * m) * factorial m * lcmUpTo (5 * m) := by
+  refine dvd_of_forall_prime_vp_le
+    (Nat.mul_pos (Nat.mul_pos (Nat.mul_pos (lcmUpTo_pos _) (factorial_pos _))
+      (factorial_pos _)) (factorial_pos _))
+    (Nat.mul_pos (Nat.mul_pos (factorial_pos _) (factorial_pos _)) (lcmUpTo_pos _))
+    (fun p hp => ?_)
+  have hp0 : 0 < p := Nat.lt_of_lt_of_le (by decide) hp.1
+  rw [vp_mul hp (Nat.mul_pos (Nat.mul_pos (lcmUpTo_pos _) (factorial_pos _))
+        (factorial_pos _)) (factorial_pos _),
+      vp_mul hp (Nat.mul_pos (lcmUpTo_pos _) (factorial_pos _)) (factorial_pos _),
+      vp_mul hp (lcmUpTo_pos _) (factorial_pos _),
+      vp_mul hp (Nat.mul_pos (factorial_pos _) (factorial_pos _)) (lcmUpTo_pos _),
+      vp_mul hp (factorial_pos _) (factorial_pos _),
+      lcm_vp_extend hp (Nat.le_refl (30 * m)),
+      fact_vp_extend hp (show 15 * m ≤ 30 * m from Nat.mul_le_mul_right m (by decide)),
+      fact_vp_extend hp (show 10 * m ≤ 30 * m from Nat.mul_le_mul_right m (by decide)),
+      fact_vp_extend hp (show 6 * m ≤ 30 * m from Nat.mul_le_mul_right m (by decide)),
+      fact_vp_extend hp (Nat.le_refl (30 * m)),
+      fact_vp_extend hp (show m ≤ 30 * m from by
+        calc m = 1 * m := (Nat.one_mul m).symm
+          _ ≤ 30 * m := Nat.mul_le_mul_right m (by decide)),
+      lcm_vp_extend hp (show 5 * m ≤ 30 * m from Nat.mul_le_mul_right m (by decide)),
+      sumTo_add_func, sumTo_add_func, sumTo_add_func, sumTo_add_func, sumTo_add_func]
+  refine sumTo_le_sumTo (30 * m) _ _ (fun e _ => ?_)
+  exact perLevel m (p ^ (e + 1)) (Nat.pos_pow_of_pos _ hp0)
 
 end E213.Lib.Math.NumberTheory.LcmGrowthChebyshev
