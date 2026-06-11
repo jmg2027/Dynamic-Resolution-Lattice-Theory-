@@ -848,4 +848,183 @@ theorem BaccSum_eq_Bsum (i N : Nat) :
           (congrArg (· + 1) hd.symm).trans (Nat.succ_add i d).symm,
         BaccSum_stable i N d]
 
+/-! ## §10 — F5 mirrors: beyond the stack the convolution reads the accumulators
+
+For index `r + m` (shift `r` past the full stack `truncA n m`) the convolution
+coefficient is `wprod (2J+1) r · (saturated accumulator at level J − r)` —
+the σ/γ lists are pure `wprod` weights, and `wprod` splits multiplicatively. -/
+
+theorem sig_eq_wprod : ∀ (J t : Nat), nth (sListC J) t = wprod (2 * J + 1) t
+  | J, 0 => sListC_head J
+  | J, t + 1 => by
+    rw [sig_step J t, sig_eq_wprod J t]
+    have hf : (2 * (J - t)) * (2 * (J - t) + 1)
+        = ((2 * J + 1) - 2 * t - 1) * ((2 * J + 1) - 2 * t) := prod_match J t 0
+    rw [hf]
+    show ((2 * J + 1) - 2 * t - 1) * ((2 * J + 1) - 2 * t) * wprod (2 * J + 1) t
+        = wprod (2 * J + 1) t * ((2 * J + 1 - 2 * t - 1) * (2 * J + 1 - 2 * t))
+    ring_nat
+
+/-- The γ-side match: γ-step factor = (`wprod`-step factor) ÷ old coefficient ×
+    new coefficient, division-free (both regimes vanish together past `J`). -/
+theorem gam_match (J t : Nat) :
+    (2 * (J - t) - 1) * (2 * (J - t))
+      = ((2 * J + 1) - 2 * t - 1) * ((2 * J + 1) - 2 * (t + 1)) := by
+  rcases Nat.lt_or_ge J t with hlt | hge
+  · obtain ⟨e, he⟩ := Nat.le.dest hlt
+    have hJt : J - t = 0 := by
+      rw [← he, show J + 1 + e = J + (1 + e) from by ring_nat]
+      exact sub_vanish J (1 + e)
+    have h1 : (2 * J + 1) - 2 * t - 1 = 0 := by
+      rw [← he,
+          show 2 * (J + 1 + e) = (2 * J + 1) + (2 * e + 1) from by ring_nat,
+          sub_vanish (2 * J + 1) (2 * e + 1)]
+    rw [hJt, h1, Nat.zero_mul, Nat.zero_mul]
+  · obtain ⟨d, hd⟩ := Nat.le.dest hge
+    rw [← hd,
+        show t + d - t = d from by
+          rw [Nat.add_comm t d]; exact sub_cancel_left d,
+        show (2 * (t + d) + 1) - 2 * t = 2 * d + 1 from by
+          rw [show 2 * (t + d) + 1 = (2 * d + 1) + 2 * t from by ring_nat]
+          exact sub_cancel_left (2 * d + 1)]
+    cases d with
+    | zero =>
+      rw [show (2 * (t + 0) + 1) - 2 * (t + 1) = 0 from by
+            rw [show 2 * (t + 1) = (2 * (t + 0) + 1) + 1 from by ring_nat]
+            exact sub_vanish _ 1,
+          Nat.mul_zero]
+    | succ d' =>
+      rw [show (2 * (t + (d' + 1)) + 1) - 2 * (t + 1) = 2 * d' + 1 from by
+            rw [show 2 * (t + (d' + 1)) + 1 = (2 * d' + 1) + 2 * (t + 1) from by
+                  ring_nat]
+            exact sub_cancel_left (2 * d' + 1),
+          show 2 * (d' + 1) - 1 = 2 * d' + 1 from rfl,
+          show 2 * (d' + 1) + 1 - 1 = 2 * (d' + 1) from rfl]
+      ring_nat
+
+theorem gam_eq : ∀ (J t : Nat),
+    (2 * J + 1) * nth (cListC J) t = wprod (2 * J + 1) t * ((2 * J + 1) - 2 * t)
+  | J, 0 => by
+    rw [cListC_head J]
+    show (2 * J + 1) * 1 = 1 * ((2 * J + 1) - 2 * 0)
+    rw [show (2 * J + 1) - 2 * 0 = 2 * J + 1 from rfl, Nat.mul_one, Nat.one_mul]
+  | J, t + 1 => by
+    rw [gam_step J t,
+        show (2 * J + 1) * ((2 * (J - t) - 1) * (2 * (J - t)) * nth (cListC J) t)
+          = (2 * (J - t) - 1) * (2 * (J - t))
+            * ((2 * J + 1) * nth (cListC J) t) from by ring_nat,
+        gam_eq J t, gam_match J t]
+    show ((2 * J + 1) - 2 * t - 1) * ((2 * J + 1) - 2 * (t + 1))
+          * (wprod (2 * J + 1) t * ((2 * J + 1) - 2 * t))
+        = wprod (2 * J + 1) t * ((2 * J + 1 - 2 * t - 1) * (2 * J + 1 - 2 * t))
+          * ((2 * J + 1) - 2 * (t + 1))
+    ring_nat
+
+theorem wprod_split (K r : Nat) : ∀ s,
+    wprod (2 * (K + r) + 1) (r + s)
+      = wprod (2 * (K + r) + 1) r * wprod (2 * K + 1) s
+  | 0 => by
+    show wprod (2 * (K + r) + 1) r = wprod (2 * (K + r) + 1) r * 1
+    rw [Nat.mul_one]
+  | s + 1 => by
+    show wprod (2 * (K + r) + 1) (r + s)
+          * ((2 * (K + r) + 1 - 2 * (r + s) - 1) * (2 * (K + r) + 1 - 2 * (r + s)))
+        = wprod (2 * (K + r) + 1) r
+          * (wprod (2 * K + 1) s * ((2 * K + 1 - 2 * s - 1) * (2 * K + 1 - 2 * s)))
+    have hf : (2 * (K + r) + 1 - 2 * (r + s) - 1) * (2 * (K + r) + 1 - 2 * (r + s))
+        = (2 * K + 1 - 2 * s - 1) * (2 * K + 1 - 2 * s) := by
+      rw [show r + s = s + r from Nat.add_comm r s, ← prod_match K s r]
+      exact prod_match K s 0
+    rw [wprod_split K r s, hf]
+    ring_nat
+
+private theorem sub_shift (K r s : Nat) :
+    (2 * (K + r) + 1) - 2 * (r + s) = (2 * K + 1) - 2 * s := by
+  rcases Nat.lt_or_ge K s with hlt | hge
+  · obtain ⟨e, he⟩ := Nat.le.dest hlt
+    rw [← he,
+        show 2 * (r + (K + 1 + e)) = (2 * (K + r) + 1) + (2 * e + 1) from by ring_nat,
+        sub_vanish (2 * (K + r) + 1) (2 * e + 1),
+        show 2 * (K + 1 + e) = (2 * K + 1) + (2 * e + 1) from by ring_nat,
+        sub_vanish (2 * K + 1) (2 * e + 1)]
+  · obtain ⟨d, hd⟩ := Nat.le.dest hge
+    rw [← hd,
+        show 2 * ((s + d) + r) + 1 = (2 * d + 1) + 2 * (r + s) from by ring_nat,
+        sub_cancel_left (2 * d + 1),
+        show 2 * (s + d) + 1 = (2 * d + 1) + 2 * s from by ring_nat,
+        sub_cancel_left (2 * d + 1)]
+
+/-- ★★★★ **Mirror bridge A**: at shift `r` past the full stack, the convolution
+    coefficient is the `wprod`-weighted saturating accumulator at level `K`. -/
+theorem mirrorA (n K r : Nat) : ∀ m,
+    nth (lmulC (truncA n m) (sListC (K + r))) (r + m)
+      = wprod (2 * (K + r) + 1) r * AaccSum n K (m + 1)
+  | 0 => by
+    cases r with
+    | zero =>
+      show nth (lmulC (apF n 0 :: []) (sListC K)) 0
+          = wprod (2 * K + 1) 0 * AaccSum n K 1
+      rw [nth_lmulC_zero, sListC_head, AaccSum_snoc n K 0]
+      show apF n 0 * 1
+          = 1 * (AaccSum n K 0 + wprod (2 * K + 1) 0 * apF n 0)
+      rw [show AaccSum n K 0 = 0 from rfl, show wprod (2 * K + 1) 0 = 1 from rfl,
+          Nat.mul_one, Nat.one_mul, Nat.zero_add, Nat.one_mul]
+    | succ r' =>
+      show nth (lmulC (apF n 0 :: []) (sListC (K + (r' + 1)))) (r' + 1)
+          = wprod (2 * (K + (r' + 1)) + 1) (r' + 1) * AaccSum n K 1
+      rw [nth_lmulC_succ,
+          show nth (lmulC ([] : List Nat) (sListC (K + (r' + 1)))) r' = 0 from rfl,
+          Nat.add_zero, sig_eq_wprod (K + (r' + 1)) (r' + 1), AaccSum_snoc n K 0,
+          show AaccSum n K 0 = 0 from rfl, show wprod (2 * K + 1) 0 = 1 from rfl,
+          Nat.zero_add, Nat.one_mul]
+      ring_nat
+  | m + 1 => by
+    show nth (lmulC (apF n (m + 1) :: truncA n m) (sListC (K + r))) ((r + m) + 1)
+        = wprod (2 * (K + r) + 1) r * AaccSum n K (m + 1 + 1)
+    rw [nth_lmulC_succ, mirrorA n K r m, sig_eq_wprod (K + r) ((r + m) + 1),
+        show (r + m) + 1 = r + (m + 1) from rfl, wprod_split K r (m + 1),
+        AaccSum_snoc n K (m + 1)]
+    ring_nat
+
+/-- ★★★★ **Mirror bridge B** (the cosh side, `(2J+1)`-laden). -/
+theorem mirrorB (n K r : Nat) : ∀ m,
+    nth (lmulC (truncB n m) (lsmul (2 * (K + r) + 1) (cListC (K + r)))) (r + m)
+      = wprod (2 * (K + r) + 1) r * BaccSum n K (m + 1)
+  | 0 => by
+    cases r with
+    | zero =>
+      show nth (lmulC (bpF n 0 :: []) (lsmul (2 * K + 1) (cListC K))) 0
+          = wprod (2 * K + 1) 0 * BaccSum n K 1
+      rw [nth_lmulC_zero, nth_lsmul, cListC_head, BaccSum_snoc n K 0]
+      show bpF n 0 * ((2 * K + 1) * 1)
+          = 1 * (BaccSum n K 0
+              + wprod (2 * K + 1) 0 * ((2 * K + 1 - 2 * 0) * bpF n 0))
+      rw [show BaccSum n K 0 = 0 from rfl, show wprod (2 * K + 1) 0 = 1 from rfl,
+          show 2 * K + 1 - 2 * 0 = 2 * K + 1 from rfl,
+          Nat.mul_one, Nat.one_mul, Nat.zero_add, Nat.one_mul]
+      exact Nat.mul_comm _ _
+    | succ r' =>
+      show nth (lmulC (bpF n 0 :: [])
+              (lsmul (2 * (K + (r' + 1)) + 1) (cListC (K + (r' + 1))))) (r' + 1)
+          = wprod (2 * (K + (r' + 1)) + 1) (r' + 1) * BaccSum n K 1
+      rw [nth_lmulC_succ, nth_lsmul,
+          show nth (lmulC ([] : List Nat)
+              (lsmul (2 * (K + (r' + 1)) + 1) (cListC (K + (r' + 1))))) r' = 0
+            from rfl,
+          Nat.add_zero, gam_eq (K + (r' + 1)) (r' + 1),
+          show (2 * (K + (r' + 1)) + 1) - 2 * (r' + 1) = (2 * K + 1) - 2 * 0 from
+            sub_shift K (r' + 1) 0,
+          BaccSum_snoc n K 0,
+          show BaccSum n K 0 = 0 from rfl, show wprod (2 * K + 1) 0 = 1 from rfl,
+          Nat.zero_add, Nat.one_mul]
+      ring_nat
+  | m + 1 => by
+    show nth (lmulC (bpF n (m + 1) :: truncB n m)
+            (lsmul (2 * (K + r) + 1) (cListC (K + r)))) ((r + m) + 1)
+        = wprod (2 * (K + r) + 1) r * BaccSum n K (m + 1 + 1)
+    rw [nth_lmulC_succ, nth_lsmul, mirrorB n K r m, gam_eq (K + r) ((r + m) + 1),
+        show (r + m) + 1 = r + (m + 1) from rfl, wprod_split K r (m + 1),
+        sub_shift K r (m + 1), BaccSum_snoc n K (m + 1)]
+    ring_nat
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
