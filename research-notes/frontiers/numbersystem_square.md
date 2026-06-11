@@ -445,6 +445,65 @@ collapse, torsion parts rigid" survives with the frame index added.
 Polar form `r·e^{iθ}` = the sign × magnitude normal form lifted
 through the ^-completion.
 
+## The fold-back criterion as exponent-lattice collinearity (internal, log-free)
+
+*This-session exploration (originator's probe: "change the lattice
+unit / curvature / cell").  Restates the `^`-wall with **no imported
+logarithm** — only `vp` (a pure ℕ count, `Valuation.lean`) and the
+prime-exponent vector `exp(n) := (vp 2 n, vp 3 n, vp 5 n, …)`.*
+
+**The inverse ladder, read on the exponent lattice.**  Each rung's
+inverse is one notch heavier on the lattice `ℤ^{(primes)}`:
+
+| rung | inverse = on the lattice | total? | completion |
+|---|---|---|---|
+| `+` | difference of two **counts** (scalar subtraction, rank-1 line) | always | ℤ |
+| `×` | difference of two **`exp`-vectors** (vector subtraction; `vp_mul` makes `×` = vector `+`) | always | ℚ |
+| `^` | the **scalar `λ` with `λ·exp(a) = exp(b)`** (vector division / collinearity) | **iff `exp(a) ∥ exp(b)`** | the wall |
+
+The backbone is **proved**: `vp_pow` (`exp(aˣ) = x·exp(a)`) turns
+`aˣ = b` into the lattice equation `x·exp(a) = exp(b)`; so
+
+> **`aˣ = b` folds to a finite tuple ⟺ `exp(a)` and `exp(b)` are
+> ℚ-collinear** (∃ rational `λ`, `λ·exp(a) = exp(b)`); the fold value is
+> `λ`.
+
+`2ˣ = 8`: `exp 8 = 3·exp 2` → `λ = 3` (folds, ℕ).  `4ˣ = 8`: `λ = 3/2`
+(folds, ℚ).  `2ˣ = 3`: `exp 3 = (0,1,…) ∦ (1,0,…) = exp 2` → no `λ`
+(the cut).  The proven non-collinearity instance is
+`TwoThreeUnique.two_three_unique`; subtraction (`+`/`×` inverses) is
+always solvable, collinearity (`^` inverse) generically not — that
+asymmetry **is** the wall, with no logarithm named.
+
+**Curvature = wrapping (the originator's "non-Euclidean lattice").**
+The wall is exactly the lattice being **flat + free + ∞-rank** —
+i.e. the primes are *independent* generators (unique factorization).
+Three deformations, each a frame change, none a free breach:
+
+- **refine the unit** (`ℤ → ℚ` exponents): fills the axis points =
+  radicals/`√2 = 2^{(1/2)}` = the **divisible hull** (Brick 5, the
+  `^`-root completion).  The wall is unchanged — collinearity is
+  scale-invariant, so `2ˣ = 3` still fails.
+- **curve it** (`mod p`): the multiplicative group goes **cyclic
+  (rank 1)**, so *every* `exp`-vector becomes collinear → the discrete
+  log `2ˣ ≡ 3 (mod p)` **folds**.  Cost: this is the **wrapping
+  regime** (`PairOp §3`, periodic classes ℤ/n) — points become classes
+  and the order/archimedean frame is lost.  Repo structure:
+  `CoprimeOrder`, `Teichmuller` (the cyclic/primitive-root machinery).
+- **re-cell** (composite generators, the "3-D cell"): coarser
+  *sublattice* (folds less) or relation-bearing = curved (= wrapping).
+  No free basis is finer than the primes — **primes are the atoms**
+  (UFD = the lattice's freeness).
+
+**Frame reading.**  `log_2 3` is one object read on two lattices: a
+**cut** at the *order frame* (flat, free → wall, but order survives),
+a **folded class** at the *∣-frame* (`mod p`, cyclic → no wall, but
+order lost).  This is the same **frame-visibility dichotomy** as
+`x² = −1` (order-frame anisotropy vs `∣`-frame solvability,
+`int_sumSq_eq_zero` vs `qr_neg_one`) — one rung up.  No-exterior: the
+wall is not removed by any deformation, only relocated to a frame that
+pays in wrapping or in resolution.
+
 ## Question tuple vs answer axes (the representation principle, audited)
 
 **The representation principle (grammar-relative form).**  Fix the
@@ -603,4 +662,14 @@ sandwich-locatable) sits strictly between — the boundary is a
   Stern-Brocot path prefix with `adj` certificate — the bridge
   theorem "CF quotients of `f/e` = iterated ÷-sandwich locations =
   run-lengths of the Stern-Brocot path".
+- **Brick 8 (fold ⟺ collinear)**: formalize the exponent-lattice
+  fold criterion — `aˣ = b` has a finite-tuple (rational) answer ⟺
+  `exp(a) ∥ exp(b)` over ℚ.  Backbone proved (`vp_pow`, `vp_mul`,
+  `two_three_unique` = the rank-2 non-collinear instance); the open
+  step is the iff itself plus the **curvature theorem** — `mod p` makes
+  the multiplicative group cyclic, so all `exp`-vectors collinear and
+  the discrete log folds (ground: `CoprimeOrder`, `Teichmuller`).  The
+  `^`-root/ℚ-unit refinement (radical = divisible hull) is Brick 5; the
+  wall is the flat-free-∞-rank case.  See "The fold-back criterion as
+  exponent-lattice collinearity" above.
 - The Lens-frame essay after the Lean closes, not before.
