@@ -23,11 +23,17 @@ PURE (∅-axiom) modules landed, in dependency order:
     `Σ_{j<B}[p^{j+1}∣m]=vₚm`, no Fubini swap).  Helpers: `indLt_sum`,
     `sumTo_const_one/zero`, `lt_of_mul_lt_mul_left'`, `top_vanish`.
 
+PURE landed since: `PrimeValuation.lean` §3 — `vp_monotone`, `vp_gcd_min`,
+**`vp_lcm_max`** (`vₚ(lcm a b)=max`, via `gcd_mul_lcm`+`vp_mul`); and
+`LcmGrowthChebyshev.lean` §2 — `lcmUpTo`, `dvd_lcmUpTo`, `lcmUpTo_dvd`.
+
 Remaining chain to the deliverable `lcm⁶ ≤ 10^{87+3n}`:
 
-  * **lcm valuation** — `vₚ(lcm 1..N) = (max j with p^j ≤ N)` = `⌊log_p N⌋`, the
-    lcm-side companion to `legendre`.  Needs an iterated `lcmUpTo N` and
-    `vₚ(lcm a b) = max (vₚa) (vₚb)` (from `vp_mul`-style + `Lcm213`).
+  * **lcm valuation closed form** — `vₚ(lcmUpTo N) = #{f≥1 : p^f ≤ N}` (count
+    form, pairs with `legendre`).  Step `vₚ(lcmUpTo(N+1))=max(vₚ(N+1),vₚ(lcmUpTo N))`
+    is `vp_lcm_max`; the missing gear is the antitone-indicator-count threshold
+    facts `p^f≤N ↔ f≤S_N` (T1/T1', generalize `indLt_sum`), then split on
+    "is N+1 a p-power".
   * **FTA-lite** — `(∀ prime power q, q∣a → q∣b) → a∣b`, the divisibility criterion
     step 2 closes through (needs a prime-factor existence/enumeration up to `n`).
   * Steps 2–7 (key divisibility via `count30` at `m̃=⌊30m/p^{j+1}⌋`, comparing the

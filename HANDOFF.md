@@ -34,6 +34,16 @@ PURE individually.
    `indLt_sum` (`Σ_{j<B}[j<V]=V`), `top_vanish`, `lt_of_mul_lt_mul_left'`,
    `sumTo_const_one/zero`.
 
+4. **`PrimeValuation.lean` §3 — `vp` on gcd/lcm** (`vₚ` is a valuation):
+   `vp_monotone` (`a∣b → vₚa ≤ vₚb`); `vp_gcd_min` (`vₚ(gcd a b)=min`, explicit
+   `if`); **`vp_lcm_max`** (`vₚ(lcm a b)=max`) from `vₚ(gcd)+vₚ(lcm)=vₚ(a·b)`
+   (`gcd_mul_lcm`+`vp_mul`) cancelling `vₚ(gcd)=min` — product identity, no Nat
+   subtraction.  `add_left_cancel_pure` (core `Nat.add_left_cancel` is propext).
+
+5. **`LcmGrowthChebyshev.lean` §2 — iterated lcm**: `lcmUpTo N = lcm(1..N)`,
+   `lcmUpTo_pos`, `dvd_lcmUpTo` (`k∈[1,N] → k∣lcm`), `lcmUpTo_dvd` (universal
+   property — the step-6 divisibility certificate).
+
 ### ∅-axiom traps hit (intel for next session)
   - `Nat.div_add_mod`, `Nat.pow_add`, `Nat.mul_mul_mul_comm` all carry
     **propext** — use `NatDiv213.div_add_mod_pure`, and a pure `pow_add`/
@@ -51,21 +61,26 @@ PURE individually.
     reshuffles.
 
 ## Remaining chain to close Brick 1 (frontier: `zeta3_blueprint.md`)
-  * **lcm valuation** (next, the companion to `legendre`) — `vₚ(lcm 1..N) =
-    (max j with p^j ≤ N)`.  Build: (a) `lcmUpTo : Nat → Nat` (`lcmUpTo (n+1) =
-    lcm213 (n+1) (lcmUpTo n)`, `lcmUpTo 0 = 1`); (b) `vp_monotone`
-    (`a∣b → 0<b → vₚa ≤ vₚb`, from `le_vp_iff`); (c) `vp_gcd_min`/`vp_lcm_max`
-    via `vp_monotone` + `Lcm213.gcd_mul_lcm` + `vp_mul` (avoid vp-of-quotient by
-    using the product identity `gcd·lcm = a·b`).  **CAVEAT**: `Nat.min_eq_right`,
-    `Nat.min_zero` carry **propext** — phrase max/min explicitly (`if e ≤ f then
-    f else e`) or prove the needed `(e+f) - min e f = max e f`-shape by hand.
-  * **FTA-lite** — `(∀ prime power q, q∣a → q∣b) → a∣b` (prime-factor enumeration
-    up to `n`).
+  * **lcm valuation closed form** (next) — `vₚ(lcmUpTo N) = sumTo N (fun e =>
+    if p^{e+1} ≤ N then 1 else 0)` (the count `#{f≥1 : p^f ≤ N}`, pairing with
+    `legendre`'s `Σ_e`).  Gear in hand: `vp_lcm_max` gives the induction step
+    `vₚ(lcmUpTo (N+1)) = max(vₚ(N+1), vₚ(lcmUpTo N))`.  **Missing piece**: the
+    "count of an antitone predicate = threshold" facts —
+    `(T1) f≥1 → p^f ≤ N → f ≤ S_N` and `(T1') f≥1 → f ≤ S_N → p^f ≤ N`
+    (`S_N` := that count).  With T1+T1' the step splits on "is `N+1` a `p`-power"
+    (`P := sumTo N (fun e => if p^{e+1}=N+1 then 1 else 0) ∈ {0,1}`): `P=0 →
+    vₚ(N+1) ≤ S_N`, `P=1 → vₚ(N+1) = S_N+1`, and `S_{N+1} = S_N + P`.  T1/T1'
+    are a general antitone-indicator-count lemma (generalize `indLt_sum`); prove
+    once, reuse.
+  * **FTA-lite** — `(∀ prime p, vₚ a ≤ vₚ b) → a ∣ b` (`b>0`), the divisibility
+    criterion step 2 closes through.  Needs prime-factorization existence (smallest
+    prime factor recursion).  `Prime213` predicate is in place.
   * **Steps 2–7** — key divisibility (compare the two sides' `vₚ` via `legendre`
     + lcm valuation, folding the floor terms through `count30` at
-    `m̃=⌊30m/p^{j+1}⌋`), factorial-ratio bound (`α₃₀ = 2¹⁴3⁹5⁵`), recursion,
-    numeral induction (`37·α₃₀⁶ ≤ 10⁷⁵` by decide on the big literal), main
-    `lcm(1..30m) ≤ 10^{15m}`, corollaries `lcm⁶ ≤ 10^{87+3n}`.
+    `m̃=⌊30m/p^{j+1}⌋`; needs sum-extension to a common bound + the nested-floor
+    identity `⌊⌊n/a⌋/b⌋=⌊n/(ab)⌋`), factorial-ratio bound (`α₃₀ = 2¹⁴3⁹5⁵`),
+    recursion, numeral induction (`37·α₃₀⁶ ≤ 10⁷⁵` by decide on the big literal),
+    main `lcm(1..30m) ≤ 10^{15m}`, corollaries `lcm⁶ ≤ 10^{87+3n}`.
 
 ## Then: Brick 2 (Apéry integrality) + assembly
 Brick 2 (`zeta3_blueprint.md` Brick 2) is "pure divisibility chains, NO p-adics"
@@ -88,8 +103,8 @@ localization `(601/500, 1203/1000]`.  See `Zeta3Cut.lean` §8–§9.
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← NEW (§1 count30)
-lean/E213/Lib/Math/NumberTheory/PrimeValuation.lean      ← NEW (vp_mul, prime_dvd_mul, Prime213)
+lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← NEW (§1 count30; §2 lcmUpTo + dvd_lcmUpTo + lcmUpTo_dvd)
+lean/E213/Lib/Math/NumberTheory/PrimeValuation.lean      ← NEW (vp_mul, prime_dvd_mul, Prime213; §3 vp_monotone, vp_gcd_min, vp_lcm_max)
 lean/E213/Lib/Math/NumberTheory/Legendre.lean            ← NEW (legendre full formula; vp_factorial, vp_one, val_count, indLt_sum, div_succ_increment)
 research-notes/frontiers/zeta3_blueprint.md              ← formalization-progress section (Legendre done)
 ```
