@@ -42,9 +42,6 @@ at different resolutions, NOT two independent sources of vector-valued
 readout.  `refine_chain` gives the concrete depth-1 → depth-2 witness:
 `6` refining into its atoms `2, 3`, product fixed, dimension +1.
 
-Pin: frontier `research-notes/frontiers/numbersystem_square.md`,
-"tree ↔ wall loop".
-
 All ∅-axiom: bare recursion + bare induction, `decide`/`rfl` on closed
 concrete `Nat`/`List`, no core `List` lemmas (which carry `propext`).
 -/

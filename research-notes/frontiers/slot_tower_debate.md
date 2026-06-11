@@ -130,14 +130,19 @@ Raw-level genesis operation is withdrawn.)
    least-divisor search (a local clone, not an up-import from
    `FourSquare`, to keep `Meta` below `Lib`) + the strong-induction
    descent.  [NT, ADV, UNI all demanded — now delivered]
-2. **Fold ⟹ direction** — `a^r = b^q → ∀p prime, r·vp p a = q·vp p b`.
-   PROVABLE-NOW, 5 lines on `vp_pow`.  [NT]
-3. **`wall_is_atom_independence` (rank-2 fusion bridge)** — one theorem
-   naming both wall ingredients over `exp`; rank-2 form PROVABLE-NOW,
-   general form NEEDS(`vp_separation`).  [ADV, UNI]
-4. **`no_compatible_order_mod_p`** — no translation-invariant strict order
-   survives wrapping (`0<1<…<0` cycle).  PROVABLE-NOW ~15 lines; makes
-   "order is the price of curvature" a theorem.  [NT — cheapest item]
+2. **The fold criterion (full iff)** — ★ **CLOSED**
+   (`Meta/Nat/FoldCriterion.lean`): `pow_eq_pow_iff_vp` (both directions —
+   ⟹ on `vp_pow`, ⟸ on `vp_separation`), `fold_iff_collinear`, and
+   `prime_pow_unique` (`p^a=q^b→a=b=0`, distinct primes) with
+   `two_three_unique` recovered as the `2,3` instance.  [NT]
+3. **`wall_is_atom_independence` (fusion bridge)** — one theorem naming
+   both wall ingredients over `exp`; now PROVABLE-NOW in general (the
+   general form's `vp_separation` gate is closed).  `prime_pow_unique`
+   already delivers the prime-independence half.  [ADV, UNI]
+4. **`no_wrapping_order`** — ★ **CLOSED** (`Meta/Nat/NoOrderModP.lean`):
+   no irreflexive, `next`-preserving order with `1<2` survives folding the
+   counting line into the circle `1..p` — order is the price of wrapping,
+   now a theorem.  [NT — was the cheapest item]
 5. **`comm_from_transpose`** — the one-statement commutativity theorem
    (swap + role-forgetting readout) covering append/grid/conv.
    PROVABLE-NOW (2-line core; per-instance content = the `hR`
