@@ -148,6 +148,40 @@ the `no-exterior` / `object1_not_surjective` theme at the meta level (no single
 a naive "find the shared schema" search keeps producing forcible maps
 (`LeveledReadout`) that the structure rejects.
 
+### C4 refinement — the *shared-generator* criterion (why α works and β rarely does)
+
+Interrogating the α/β asymmetry: `OrderWrap` and `HyperLadder`, the two genuine
+β-successes, are *themselves* parametric (α) schemas — a successor-structure
+`(M,s,a)` with an orbit; the `iter` recursion.  So a genuine conceptual (β)
+unification is precisely **the discovery that two independently-motivated
+phenomena are instances of one shared GENERATOR (a common construction)** —
+upon which β *collapses into* α.  The criterion, sharp and testable:
+
+> **Genuine cross-domain unification ⟺ a shared *generator* (a common
+> construction both phenomena are built from), not a shared *slogan* or a shared
+> *number*.**
+
+Checked against the corpus:
+
+| candidate | shared generator? | outcome |
+|---|---|---|
+| ℤ-order ⟷ mod-p wrap | YES — successor map + orbit (`OrderWrap`) | β-success (→α) |
+| `+`,`×`,`^` tower | YES — `iter` against the count (`HyperLadder`) | β-success (→α) |
+| `+`-comm ⟷ `×`-comm | NO — list-append vs grid-transpose (C2) | slogan only (different proofs) |
+| cut-equality ⟷ vp-equality | NO — cut-readout vs prime-readout (C1) | pinned distinction (finite/∞) |
+| shape ⟷ curvature | NO — factorization vs degree-difference (bridge 4) | pinned distinction (vector/sign) |
+| level-2 ceiling ⟷ `^`-wall | NO — tree-depth vs operation-arity (§5b) | resonance (numeric coincidence) |
+
+The pattern: the genuine β-successes share a **combinatorial generator at the
+count/successor primitive** (ℕ-iteration); the failures sit higher (reals,
+primes, curvature, syntax) where the generators are genuinely domain-specific.
+So **unification distance grows with structural height**: the residue's
+domains share generators near the counting floor and diverge above it — they
+are re-derived, not mapped (`object1_not_surjective`).  The "generic-consumer
+test" of the decision procedure *is* the shared-generator test: a real
+generator yields theorems doing work over instances; a fake schema
+(`LeveledReadout`) has no generator, only a relabeling.
+
 The **decision procedure** that sorts a *conceptual* (β) candidate is the
 reusable tool (parametric (α) unification needs no sorting — it is shared by
 construction):
