@@ -109,11 +109,22 @@ Brick 2 = `2·lcm(1..n)³·aₙ ∈ ℕ`, "pure divisibility chains, NO p-adics"
     (additive form `n=m+a+b,k=m+b`; both sides clear by `a!(m!)²(b!)²` to
     `(2m+a+2b)!` via telescoping `choose_mul_factorials`).
   * **§2 KeyDiv** (next) — `m·C(k,m) ∣ lcm(1..k)`.  Route (no primes): the
-    partial-fraction / finite-difference identity `Σ_{j≤s}(−1)ʲC(s,j)·Π_{i≠j}(m+i)
-    = s!` (over **ℤ**, `Int213`; induction on `s` via Pascal), giving the exact
-    integer combination `lcm = m·C(k,m)·Σⱼ(−1)ʲC(k−m,j)·(lcm/(m+j))` (each
-    `lcm/(m+j)` ∈ ℕ since `m+j ≤ k`, `dvd_lcmUpTo`).  Needs a signed-sum layer over
-    `Int213` (none exists yet — fresh sub-build).
+    finite-difference identity `FD(m,s) := Σ_{j≤s}(−1)ʲC(s,j)·Π_{i≠j}(m+i) = s!`.
+    **Clean recurrence derived** (de-risks the build): from the partial-fraction
+    telescoping `T(m,s+1)=T(m,s)−T(m+1,s)` (`T(m,s)=Σⱼ(−1)ʲC(s,j)/(m+j)=s!/Π(m..m+s)`,
+    Pascal `C(s+1,j)=C(s,j)+C(s,j−1)` + reindex `j↦i+1`), clearing by `Π_{i=0}^{s+1}(m+i)`:
+    ```
+    FD(m,s+1) = (m+s+1)·FD(m,s) − m·FD(m+1,s),  FD(m,0)=1  ⟹  FD(m,s)=s!
+    (base s+1: (m+s+1)·s! − m·s! = (s+1)·s! = (s+1)!).
+    ```
+    Encode the signed `FD` as **even/odd Nat sums** `pos(m,s)=Σ_{j even}C(s,j)Q,
+    neg(m,s)=Σ_{j odd}C(s,j)Q` and prove `pos = s! + neg` (avoids `Int`); `Q(m,s,j)
+    = Π_{i≤s,i≠j}(m+i)` (product-excluding-`j`, the awkward bit — encode as
+    `Π_{i<j}(m+i)·Π_{j<i≤s}(m+i)` or `P/(m+j)` exact division).  Then KeyDiv:
+    `lcm + m·C(k,m)·negW = m·C(k,m)·posW` (`posW/negW = Σ_{even/odd j}C(k−m,j)·
+    lcm/(m+j)`, each `lcm/(m+j)∈ℕ` via `dvd_lcmUpTo`, `m+j≤k`) ⟹ `m·C(k,m) ∣ lcm`.
+    ~200-line fresh build.  Have: `aperyTrinomial`, `choose`/Pascal (`choose_succ_succ`),
+    `choose_mul_factorials`, `lcmUpTo`/`dvd_lcmUpTo`, `sumTo`.
   * **§3 Heart (L2)** — `m³C(n,m)C(n+m,m) ∣ d³·C(n,k)C(n+k,k)` (`d=lcm`): divide
     `aperyTrinomial` in; remainder `Q²·R·C(n−m,k−m)·C(n+k,n+m)`, `Q=d/(mC(k,m))`,
     `R=d/m` integers by KeyDiv.
