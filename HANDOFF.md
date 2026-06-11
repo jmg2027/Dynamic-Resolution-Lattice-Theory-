@@ -324,14 +324,31 @@ pure `add_sub_recover` via `Nat.le.dest` + NatHelper's `add_sub_cancel_right`.
   `cothSeriesCauchySepOfBase` (series fold completes, certificate `W2 ∘ W1`),
   `weld_limit_agreement` (the two pointings of `coth(1/q)` agree on EVERY probe).
 
+## Eighteenth arc (multi-agent round): LowerBase proof blueprint FOUND and verified
+
+Goal-directed multi-agent debate (4 parallel attack angles) + independent exact
+re-verification produced the complete paper proof of `LowerBase`
+(`research-notes/frontiers/lowerbase_blueprint.md`):
+- **Weld Casoratian** (own discovery): `(R_J, M_J)` evolves in `i` by a det-1
+  matrix ⟹ `R_{J+1}M_J = R_JM_{J+1} + K_J` with `K_J` = the proven `tcross_id`
+  quantity (`≥ 2c_J`).  Flip criterion + ratio descent fall out.
+- **Master identity** (two agents converged, proof checked): the untruncated
+  Padé remainder per coefficient, by the constant-weight-ratio double recursion
+  + the absorption `(2n+2m+5) = (2n+3)+(2m+2)`.  Closed forms: `devB_i[k]`,
+  slivers (`[q⁰]R_J = 2J+1−(i+1)(2i+1)`, top `= −(4i+1)!!/(2J+3)`), flip
+  leading `(4i+2)!!`.
+- **Dominance with ≥ 10× slack, t-coefficientwise** (`t = q²−1`):
+  `R_{2i+1}(i) − q^{2(i−1)}((4i+2)!!q² − (4i+1)!!) ∈ ℕ[t]`; inputs = halving
+  lemma (`2·A[s+1] ≤ A[s]`) + `(4i+1)!! ≤ (4i+2)!!/2`.  The 1.0098-tight
+  crunch of the coupling route is dissolved.
+
 ## Open Problems (priority order)
-1. **`LowerBase` — the weld's last brick**: the matched-truncation Padé flip
-   `devA(2i+1)·s_{2i+1} ≤ (4i+3)·devB(2i+1)·c_{2i+1}`.  Pre-flip deficits are exact
-   `q`-cancelled slivers (`−5, −3, −1` at level 3); needs the truncated Padé
-   remainder in closed form (PF-cross `C_J` exact evaluation) or the coupled
-   magnitude induction `R_J(i+1) = R_J(i) − (4i+5)M_J(i)`,
-   `M_J(i+1) = M_J(i) − q²(4i+7)R_J(i+1)`.  Full analysis in
-   `modulus_degree_ladder.md`.  Dedicated session.
+1. **Formalize the LowerBase blueprint** (`lowerbase_blueprint.md`, plan §Lean):
+   master_identity (double recursion over AP/BP lists) → halving → flip
+   dominance → `LowerBase` → instantiate `cothSeriesCauchySepOfBase` +
+   `weld_limit_agreement` unconditionally — **the weld closes**.  Optional
+   independent brick: `weld_casoratian` (hooks `tcross_id` + `cf_det_even_nat`).
+   Session-scale marathon, no open mathematics remaining.
 2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
    numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient

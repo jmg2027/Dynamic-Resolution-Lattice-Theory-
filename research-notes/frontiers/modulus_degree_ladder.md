@@ -245,18 +245,17 @@ modulus is the growth class of `N` in `k`, and it factors as
    (`cothSeriesCauchySepOfBase`, schedule `I k = 2(k+2)+1`, certificate
    `W2 ∘ W1`), and `weld_limit_agreement` — the two pointings of `coth(1/q)`
    agree on every probe.
-   **The open brick — `LowerBase`** (the weld's last content): below `J₀` the
-   cross deficit is an exact `q`-cancelled sliver (level 3: `−5, −3, −1`,
-   `q`-independent; level 5: `−(315q²+14), −(189q²+12), −(135q²+10),
-   −(105q²+8), −(51q²+6)`) — the Padé matching of `Ã/B̃` to order `u^{2i}`;
-   at `J₀` it flips positive forever.  `decide`-verified at `(q=1, i=1,2)`,
-   `(q=2, i=1)` (`lower_base_anchors`; margins 49, 3911, 193 — razor-thin:
-   the matched (U)-margins dip to 16–18).  A proof needs the **truncated Padé
-   remainder in closed form** (the PF-cross `C_J = Y_A X_B − Y_B X_A` exact
-   evaluation; numerically `−210, +1890, …` — no unit structure, genuine
-   double-factorial tail bookkeeping), or a coupled magnitude induction
-   `R_J(i+1) = R_J(i) − (4i+5)M_J(i)`, `M_J(i+1) = M_J(i) − q²(4i+7)R_J(i+1)`
-   tracking both margins through the dip.  Dedicated session.
+   **The open brick — `LowerBase` — now has a VERIFIED PROOF BLUEPRINT**
+   (`lowerbase_blueprint.md`): a multi-agent derivation round produced (1) the
+   **weld Casoratian** `R_{J+1}M_J = R_JM_{J+1} + K_J` with `K_J` = the
+   `tcross_id` quantity (unimodular `i`-evolution; flip criterion + ratio
+   descent), and (2) the **master identity** (the untruncated Padé remainder,
+   coefficientwise, proven by the constant-weight-ratio double recursion with
+   the absorption `(2n+2m+5) = (2n+3)+(2m+2)`), giving sliver closed forms,
+   flip leading coefficient `(4i+2)!!`, and a **t-coefficientwise dominance**
+   (`t = q²−1`) with ≥ 10× slack — the 1.0098-tight coupling crunch dissolved.
+   All claims re-verified by exact symbolic computation.  Remaining:
+   formalization only (next marathon; plan in the blueprint note).
    (Lean: core `Nat.pow_add` and `Nat.le_of_add_le_add_right` are
    `propext`-dirty — `pow_add_two` via the definitional `pow_succ` chain;
    NatHelper's left-cancel + `add_comm`.)
