@@ -83,6 +83,30 @@ denominator — the obstruction-readout ladder climbs again: sign
 (2-valued) → remainder (`a`-valued) → **exponent residues**
 (vector-valued), the `vp` ground of T3 / brick 5.
 
+**The meta-operation (the pair layer of an arbitrary operation) — ★
+first rung CLOSED** (`Meta/Nat/PairOp.lean`, 10 PURE / 0 DIRTY).  For
+*any* `f : ℕ → ℕ → ℕ` (+, ×, ^, tetration, …), the pair layer is
+built step by step, each step paying a stated price in properties of
+`f`:
+
+| step | price |
+|---|---|
+| pair `(a,b)`; relation `pairEq f := f a d = f c b`; refl, symm | **free** (any `f`) |
+| relation transitive (`pairEq_trans`) | commutativity + associativity + cancellation at the middle slot (for `×` that is `0 < q₂` — why ratio transitivity needed positive resolution) |
+| slotwise lift of `f` to pairs (`pairLift`) | free to define |
+| lift respects the relation (`pairLift_congr_*`) | commutativity + associativity (the `exchange` medial law) |
+| lifting a **different** operation onto the pairs | the interaction law between the two (distribution) — **open**, the next rung |
+
+Instantiations: `pairEq_add_iff` (= `subNatNat_eq_iff`),
+`pairEq_mul_iff` (the ratio cross-equation, definitional).  Open
+nuggets: (i) for `f = ^` the free steps stand and the priced generic
+proofs fail (no commutativity) — yet `pairEq ^` may still be
+transitive over ℕ via unique factorization: the first place where
+*holds* and *holds for the generic reason* split; (ii) the
+different-operation lift (× on +-pairs = the cross rule) should fall
+out of distribution as the lift-determining law — tetration's wall =
+no interaction law = no canonical lift, restated at the meta level.
+
 ## The square
 
 ```
