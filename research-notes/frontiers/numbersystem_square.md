@@ -664,14 +664,16 @@ f i·g j` (`natSplits` = the cuts, `sumMap` = the reglue) — the
 Cauchy/generating-function product, an operation **off the `+×^`
 diagonal** (it combines two *sequences*, not two numbers).  Concrete
 witness `(1+x)² = 1+2x+x²` by `rfl` (`conv_sq_0..3`), `natSplits_sound`
-(a cut is a `+`-witness), `length_natSplits` (`n+1`, the co-size).  **Open
-continuation**: `conv` commutative (from `natSplits`' reverse-a-cut
-symmetry — "commutativity from a swap symmetry" one level up on sequences)
-and associative (triple splits) — both need sum-permutation-invariance, a
-heavier list-sum lemma.
+(a cut is a `+`-witness), `length_natSplits` (`n+1`, the co-size).  **`conv`
+is commutative** (`conv_comm`) — the cut `(0,n)` of one order is `(n,0)` of
+the other (the reverse-a-cut symmetry of `natSplits`): peel the left end of
+`conv f g` and the right end of `conv g f`, no full permutation lemma — the
+same "commutativity from a swap symmetry" as `+`/append and `×`/grid, one
+rung up on **sequences** (`conv_peelL`/`conv_peelR`).
 
-**Knobs still not turned** (the open frontier): `conv` comm/assoc (above);
-drop finiteness (→ the cut/continuum, the infinite-nesting sandwich); the
+**Knobs still not turned** (the open frontier): `conv` **associativity**
+(the triple split — `conv (conv f g) h = conv f (conv g h)`); drop
+finiteness (→ the cut/continuum, the infinite-nesting sandwich); the
 topological (not just metric) substrate split (Betti as the readout
 vector).  Open-endedness here is the **no-exterior** signature: every
 "floor" is a chart with more structure below it — "is there more?" stays
