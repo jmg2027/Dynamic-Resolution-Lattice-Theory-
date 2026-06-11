@@ -1232,19 +1232,18 @@ theorem weld_lowerbase_reduction (q i J : Nat) (hM : ∀ j, 0 < weldM q i j)
   -- cancel the positive `M_0·M_J`
   exact nonneg_of_mul_nonneg_right h2 (mul_pos (hM 0) (hM J))
 
-/-- ★★★★★ **`LowerBase` ⟸ {M-monotonicity, Core}** (the agent's chain, theorem-backed).  Given
-    positive margins, `R_0 ≤ 0`, `0 < q²Q`, the margin non-increasing to the flip
-    (`M_{2i} ≤ M_0`), and the localized **Core** inequality `M_0·devB·M_{2i+1} ≤ q²·Q·K_{2i}`,
-    the lower cross is non-negative at the flip: `0 ≤ R_{2i+1}` (= `LowerBase`).
+/-- ★★★★★ **`LowerBase` ⟸ {M-monotonicity, Core}** (theorem-backed).  Given positive margins,
+    `0 < q²Q`, the margin non-increasing to the flip (`M_{2i} ≤ M_0`), and the localized **Core**
+    inequality `M_0·devB·M_{2i+1} ≤ q²·Q·K_{2i}`, the lower cross is non-negative at the flip:
+    `0 ≤ R_{2i+1}` (= `LowerBase`).  (No `R_0 ≤ 0` needed — the det-floor identity carries the sign.)
 
     Mechanism: the det-floor residue at `J=0` (`weldM_devB`: `M_0·devB = 1 − q²Q·R_0`) gives
-    `q²Q·(−R_0) = M_0·devB − 1 ≥ 0`; then `(−R_0)·M_{2i}·M_{2i+1}·q²Q = (M_0·devB−1)·M_{2i}·M_{2i+1}
+    `q²Q·(−R_0) = M_0·devB − 1`; then `(−R_0)·M_{2i}·M_{2i+1}·q²Q = (M_0·devB−1)·M_{2i}·M_{2i+1}
     ≤ M_0·devB·M_{2i}·M_{2i+1} ≤ M_0·devB·M_0·M_{2i+1} = (M_0·devB·M_{2i+1})·M_0 ≤ (q²Q·K)·M_0`
     (using `M_{2i} ≤ M_0` and `Core`), and cancelling `q²Q > 0` is exactly the master single
     inequality `weld_lowerbase_reduction` consumes.  Localizes `LowerBase`'s open content to the
-    two quantitative residuals M-monotonicity and Core. -/
+    two quantitative residuals M-monotonicity and Core (both bridge-equivalent). -/
 theorem weld_lowerbase_of_core (q i : Nat) (hM : ∀ j, 0 < weldM q i j)
-    (hR0 : weldR q i 0 ≤ 0)
     (hqQ : 0 < (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))
     (hmono : weldM q i (2*i) ≤ weldM q i 0)
     (hcore : weldM q i 0 * (dev q (BP (2*i+1)) : Int) * weldM q i (2*i+1)
