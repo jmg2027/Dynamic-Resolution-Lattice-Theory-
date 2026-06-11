@@ -30,8 +30,8 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose choose_succ_succ
 open E213.Tactic.NatHelper (add_mul sub_add_cancel add_right_cancel le_sub_of_add_le)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTwoVar (binomSum2 binom2_theorem)
-open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo)
-open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_term_le)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_term_le sumTo_congr)
 open E213.Tactic.NatHelper (add_sub_cancel_right)
 
 /-! ## §1 — the single-term binomial bound, in factorial form -/
@@ -182,5 +182,122 @@ theorem chooseRatioDown (m k : Nat) (hk : m ≤ k) :
   refine Nat.le_of_mul_le_mul_left ?_ (Nat.succ_pos k)
   calc (k + 1) * choose (6 * m) (k + 1) ≤ 5 * (k + 1) * choose (6 * m) k := h1
     _ = (k + 1) * (5 * choose (6 * m) k) := by ring_nat
+
+/-! ## §5 — B2: term unimodality (peak at `k=m`), the max, the sum bound -/
+
+/-- The `(1+5)^{6m}` term coefficient `t k = C(6m,k)·5^{6m−k}`. -/
+private def tcoef (m k : Nat) : Nat := choose (6 * m) k * 5 ^ (6 * m - k)
+
+private theorem tcoef_up (m k : Nat) (hk : k < m) : tcoef m k ≤ tcoef m (k + 1) := by
+  have hkN : k + 1 ≤ 6 * m :=
+    Nat.le_trans hk (Nat.le_mul_of_pos_left m (by decide))
+  show choose (6 * m) k * 5 ^ (6 * m - k) ≤ choose (6 * m) (k + 1) * 5 ^ (6 * m - (k + 1))
+  rw [show 6 * m - k = (6 * m - (k + 1)) + 1 from sub_succ_add_one hkN, Nat.pow_succ]
+  calc choose (6 * m) k * (5 ^ (6 * m - (k + 1)) * 5)
+      = 5 * choose (6 * m) k * 5 ^ (6 * m - (k + 1)) := by ring_nat
+    _ ≤ choose (6 * m) (k + 1) * 5 ^ (6 * m - (k + 1)) :=
+        Nat.mul_le_mul_right _ (chooseRatioUp m k hk)
+
+private theorem tcoef_down (m k : Nat) (hk : m ≤ k) (hk6 : k < 6 * m) :
+    tcoef m (k + 1) ≤ tcoef m k := by
+  show choose (6 * m) (k + 1) * 5 ^ (6 * m - (k + 1)) ≤ choose (6 * m) k * 5 ^ (6 * m - k)
+  rw [show 6 * m - k = (6 * m - (k + 1)) + 1 from sub_succ_add_one hk6, Nat.pow_succ]
+  calc choose (6 * m) (k + 1) * 5 ^ (6 * m - (k + 1))
+      ≤ 5 * choose (6 * m) k * 5 ^ (6 * m - (k + 1)) :=
+        Nat.mul_le_mul_right _ (chooseRatioDown m k hk)
+    _ = choose (6 * m) k * (5 ^ (6 * m - (k + 1)) * 5) := by ring_nat
+
+private theorem mono_up_chain (m : Nat) : ∀ k j, k + j ≤ m → tcoef m k ≤ tcoef m (k + j)
+  | _, 0, _ => Nat.le_refl _
+  | k, j + 1, h => by
+      have hkj : k + j ≤ m := Nat.le_of_succ_le h
+      calc tcoef m k ≤ tcoef m (k + j) := mono_up_chain m k j hkj
+        _ ≤ tcoef m (k + j + 1) := tcoef_up m (k + j) h
+        _ = tcoef m (k + (j + 1)) := by rw [Nat.add_assoc]
+
+private theorem mono_down_chain (m : Nat) : ∀ k j, m ≤ k → k + j ≤ 6 * m →
+    tcoef m (k + j) ≤ tcoef m k
+  | _, 0, _, _ => Nat.le_refl _
+  | k, j + 1, hmk, h => by
+      have hmkj : m ≤ k + j := Nat.le_trans hmk (Nat.le_add_right k j)
+      have hkj6 : k + j ≤ 6 * m := Nat.le_of_succ_le h
+      calc tcoef m (k + (j + 1)) = tcoef m (k + j + 1) := by rw [Nat.add_assoc]
+        _ ≤ tcoef m (k + j) := tcoef_down m (k + j) hmkj h
+        _ ≤ tcoef m k := mono_down_chain m k j hmk hkj6
+
+/-- The term coefficient peaks at `k=m`: `t k ≤ t m` for `k ≤ 6m`. -/
+private theorem tm_max (m k : Nat) (hk : k ≤ 6 * m) : tcoef m k ≤ tcoef m m := by
+  rcases Nat.lt_or_ge k m with hkm | hmk
+  · have heq : k + (m - k) = m := by
+      rw [Nat.add_comm]; exact sub_add_cancel (Nat.le_of_lt hkm)
+    have h := mono_up_chain m k (m - k) (Nat.le_of_eq heq)
+    rwa [heq] at h
+  · have heq : m + (k - m) = k := by rw [Nat.add_comm]; exact sub_add_cancel hmk
+    have h := mono_down_chain m m (k - m) (Nat.le_refl m) (by rw [heq]; exact hk)
+    rwa [heq] at h
+
+private theorem sumTo_le_const_mul : ∀ (N : Nat) (f : Nat → Nat) (M : Nat),
+    (∀ k, k < N → f k ≤ M) → sumTo N f ≤ N * M
+  | 0, _, M, _ => by rw [Nat.zero_mul]; exact Nat.zero_le _
+  | N + 1, f, M, h => by
+      rw [sumTo_succ, Nat.succ_mul]
+      exact Nat.add_le_add
+        (sumTo_le_const_mul N f M (fun k hk => h k (Nat.lt_succ_of_lt hk)))
+        (h N (Nat.lt_succ_self N))
+
+/-- ★★ **B2** (the unimodal max-term bound): `6^{6m}·m!·(5m)! ≤ (6m+1)·5^{5m}·(6m)!`. -/
+theorem B2 (m : Nat) :
+    6 ^ (6 * m) * factorial m * factorial (5 * m)
+    ≤ (6 * m + 1) * 5 ^ (5 * m) * factorial (6 * m) := by
+  have hsum : 6 ^ (6 * m) = sumTo (6 * m + 1) (tcoef m) := by
+    have hb := binom2_theorem 1 5 (6 * m)
+    rw [show (1 : Nat) + 5 = 6 from rfl] at hb
+    rw [hb]
+    show sumTo (6 * m + 1) (fun k => choose (6 * m) k * 1 ^ k * 5 ^ (6 * m - k))
+      = sumTo (6 * m + 1) (tcoef m)
+    refine sumTo_congr (6 * m + 1) _ (tcoef m) (fun k _ => ?_)
+    show choose (6 * m) k * 1 ^ k * 5 ^ (6 * m - k) = choose (6 * m) k * 5 ^ (6 * m - k)
+    rw [Nat.one_pow, Nat.mul_one]
+  have hbound : sumTo (6 * m + 1) (tcoef m) ≤ (6 * m + 1) * tcoef m m :=
+    sumTo_le_const_mul (6 * m + 1) (tcoef m) (tcoef m m)
+      (fun k hk => tm_max m k (Nat.le_of_lt_succ hk))
+  have htm : tcoef m m = choose (6 * m) m * 5 ^ (5 * m) := by
+    show choose (6 * m) m * 5 ^ (6 * m - m) = choose (6 * m) m * 5 ^ (5 * m)
+    rw [show 6 * m - m = 5 * m from by
+      rw [show 6 * m = 5 * m + m from by ring_nat]; exact add_sub_cancel_right (5 * m) m]
+  have hkey : 6 ^ (6 * m) ≤ (6 * m + 1) * (choose (6 * m) m * 5 ^ (5 * m)) := by
+    rw [hsum, ← htm]; exact hbound
+  have h2 := Nat.mul_le_mul_right (factorial m * factorial (5 * m)) hkey
+  rw [show 6 ^ (6 * m) * (factorial m * factorial (5 * m))
+        = 6 ^ (6 * m) * factorial m * factorial (5 * m) from by ring_nat,
+      show (6 * m + 1) * (choose (6 * m) m * 5 ^ (5 * m)) * (factorial m * factorial (5 * m))
+        = (6 * m + 1) * 5 ^ (5 * m) * (choose (6 * m) m * (factorial m * factorial (5 * m)))
+        from by ring_nat,
+      show choose (6 * m) m * (factorial m * factorial (5 * m)) = factorial (6 * m) from by
+        have hcmf := choose_mul_factorials m (5 * m)
+        rw [show m + 5 * m = 6 * m from by ring_nat] at hcmf; exact hcmf] at h2
+  exact h2
+
+/-! ## §6 — step 3: the factorial-ratio bound (`B1 · B2`, cancel `5^{5m}·(5m)!`) -/
+
+/-- ★★★ **Brick 1 step 3 — the Chebyshev factorial-ratio bound**:
+    `(30m)!·m!·6^{6m}·15^{15m}·10^{10m} ≤ (6m+1)·(15m)!(10m)!(6m)!·30^{30m}`.
+    `B1·B2`, cancelling the common `5^{5m}·(5m)!`. -/
+theorem step3 (m : Nat) :
+    factorial (30 * m) * factorial m * 6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m)
+    ≤ (6 * m + 1) * (factorial (15 * m) * factorial (10 * m) * factorial (6 * m))
+        * 30 ^ (30 * m) := by
+  have hprod := Nat.mul_le_mul (B1 m) (B2 m)
+  have hC : 0 < 5 ^ (5 * m) * factorial (5 * m) :=
+    Nat.mul_pos (Nat.pos_pow_of_pos _ (by decide)) (factorial_pos _)
+  refine le_of_mul_le_mul_right' hC ?_
+  calc (factorial (30 * m) * factorial m * 6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m))
+          * (5 ^ (5 * m) * factorial (5 * m))
+      = (factorial (30 * m) * 15 ^ (15 * m) * 10 ^ (10 * m) * 5 ^ (5 * m))
+          * (6 ^ (6 * m) * factorial m * factorial (5 * m)) := by ring_nat
+    _ ≤ (30 ^ (30 * m) * (factorial (15 * m) * factorial (10 * m) * factorial (5 * m)))
+          * ((6 * m + 1) * 5 ^ (5 * m) * factorial (6 * m)) := hprod
+    _ = ((6 * m + 1) * (factorial (15 * m) * factorial (10 * m) * factorial (6 * m))
+          * 30 ^ (30 * m)) * (5 ^ (5 * m) * factorial (5 * m)) := by ring_nat
 
 end E213.Lib.Math.NumberTheory.FactorialRatioBound
