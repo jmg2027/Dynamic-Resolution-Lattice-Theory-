@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (25)
+## Files (26)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -41,6 +41,10 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
   - `HyperAssoc.lean`      — the wall: `+`,`×` keep assoc+comm, `^` loses
                              both (`pow_not_assoc`, `pow_not_comm`); the
                              surviving ghost `(aᵇ)ᶜ = a^(b·c)`
+  - `GridReadout213.lean`  — substrate dimension as a 2nd source of
+                             vector readout: 2-D area vs perimeter
+                             independent (`readout_splits`) vs 1-D's
+                             single totally-ordered length
   - `Valuation.lean`       — the `q`-adic valuation `vp q n` over ℕ
   - `VpMul.lean`           — the exponent-lattice engine (T3): `vp_mul`
                              (`vp p (m·n) = vp p m + vp p n`, prime `p`),
