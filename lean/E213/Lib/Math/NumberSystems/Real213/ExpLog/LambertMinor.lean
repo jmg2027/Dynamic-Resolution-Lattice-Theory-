@@ -354,6 +354,137 @@ theorem minor_all (n : Nat) : ∀ (j i : Nat), i < j →
         exact ratio_chain (minor_all n j i hlt) ((minorSys n).m1 j)
           (by rw [hpiv]; exact Nat.succ_le_succ (Nat.zero_le p))
 
+/-! ## §5 — the halving system: coefficients at least halve along the lists
+
+The dominance blueprint's geometric input.  The exact strengthening
+`2·f(n+1)(s+1) + f(n)(s) ≤ f(n+1)(s)` (equality at the head: `2·420 + 105 =
+945`) is what the three-term recursion propagates — the plain halving
+`2·f(s+1) ≤ f(s)` follows. -/
+
+theorem apF_level_mono : ∀ (n s : Nat), apF n s ≤ apF (n + 1) s
+  | 0, 0 => Nat.le_refl 1
+  | 0, _ + 1 => Nat.le_refl 0
+  | n + 1, 0 => by
+    show apF (n + 1) 0 ≤ (2 * n + 3) * apF (n + 1) 0
+    exact Nat.le_mul_of_pos_left _ (Nat.succ_pos _)
+  | n + 1, s + 1 => by
+    show apF (n + 1) (s + 1) ≤ (2 * n + 3) * apF (n + 1) (s + 1) + apF n s
+    exact Nat.le_trans (Nat.le_mul_of_pos_left _ (Nat.succ_pos _))
+      (Nat.le_add_right _ _)
+
+theorem bpF_level_mono : ∀ (n s : Nat), bpF n s ≤ bpF (n + 1) s
+  | 0, _ => Nat.zero_le _
+  | n + 1, 0 => by
+    show bpF (n + 1) 0 ≤ (2 * n + 3) * bpF (n + 1) 0
+    exact Nat.le_mul_of_pos_left _ (Nat.succ_pos _)
+  | n + 1, s + 1 => by
+    show bpF (n + 1) (s + 1) ≤ (2 * n + 3) * bpF (n + 1) (s + 1) + bpF n s
+    exact Nat.le_trans (Nat.le_mul_of_pos_left _ (Nat.succ_pos _))
+      (Nat.le_add_right _ _)
+
+/-- The head recursion in closed form: `apF (n+1) 0 = (2n+1)·apF n 0`. -/
+theorem apF_head : ∀ n, apF (n + 1) 0 = (2 * n + 1) * apF n 0
+  | 0 => (Nat.one_mul 1).symm
+  | _ + 1 => rfl
+
+theorem apF_step_le : ∀ (n s : Nat),
+    apF (n + 1) (s + 1) ≤ (2 * n + 1) * apF n (s + 1) + apF n s
+  | 0, _ => Nat.zero_le _
+  | n + 1, s => by
+    show (2 * n + 3) * apF (n + 1) (s + 1) + apF n s
+        ≤ (2 * n + 3) * apF (n + 1) (s + 1) + apF (n + 1) s
+    exact Nat.add_le_add_left (apF_level_mono n s) _
+
+theorem bpF_step_le : ∀ (n s : Nat),
+    bpF (n + 1) (s + 1) ≤ (2 * n + 1) * bpF n (s + 1) + bpF n s
+  | 0, _ => Nat.zero_le _
+  | n + 1, s => by
+    show (2 * n + 3) * bpF (n + 1) (s + 1) + bpF n s
+        ≤ (2 * n + 3) * bpF (n + 1) (s + 1) + bpF (n + 1) s
+    exact Nat.add_le_add_left (bpF_level_mono n s) _
+
+/-- ★★★ **Strengthened halving, `A`-side**: `2·apF (n+1) (s+1) + apF n s ≤
+    apF (n+1) s` — the absorption `2 + (2n+1) = 2n+3` closes the head, the
+    level shift closes the tail. -/
+theorem apF_halving_strong : ∀ (n s : Nat),
+    2 * apF (n + 1) (s + 1) + apF n s ≤ apF (n + 1) s
+  | 0, 0 => by decide
+  | 0, s + 1 => by
+    show 2 * apF 1 (s + 2) + apF 0 (s + 1) ≤ apF 1 (s + 1)
+    exact Nat.le_refl 0
+  | n + 1, 0 => by
+    have ih := apF_halving_strong n 0
+    show 2 * ((2 * n + 3) * apF (n + 1) 1 + apF n 0) + apF (n + 1) 0
+        ≤ (2 * n + 3) * apF (n + 1) 0
+    calc 2 * ((2 * n + 3) * apF (n + 1) 1 + apF n 0) + apF (n + 1) 0
+        = 2 * ((2 * n + 3) * apF (n + 1) 1 + apF n 0) + (2 * n + 1) * apF n 0 := by
+          rw [apF_head n]
+      _ = (2 * n + 3) * (2 * apF (n + 1) 1 + apF n 0) := by ring_nat
+      _ ≤ (2 * n + 3) * apF (n + 1) 0 := Nat.mul_le_mul_left _ ih
+  | n + 1, s + 1 => by
+    have ih := apF_halving_strong n (s + 1)
+    show 2 * ((2 * n + 3) * apF (n + 1) (s + 2) + apF n (s + 1)) + apF (n + 1) (s + 1)
+        ≤ (2 * n + 3) * apF (n + 1) (s + 1) + apF n s
+    calc 2 * ((2 * n + 3) * apF (n + 1) (s + 2) + apF n (s + 1)) + apF (n + 1) (s + 1)
+        ≤ 2 * ((2 * n + 3) * apF (n + 1) (s + 2) + apF n (s + 1))
+          + ((2 * n + 1) * apF n (s + 1) + apF n s) :=
+          Nat.add_le_add_left (apF_step_le n s) _
+      _ = (2 * n + 3) * (2 * apF (n + 1) (s + 2) + apF n (s + 1)) + apF n s := by
+          ring_nat
+      _ ≤ (2 * n + 3) * apF (n + 1) (s + 1) + apF n s :=
+          Nat.add_le_add_right (Nat.mul_le_mul_left _ ih) _
+
+/-- ★★★ **Strengthened halving, `B`-side** (two bases: `bpF`'s head identity
+    starts one level later). -/
+theorem bpF_halving_strong : ∀ (n s : Nat),
+    2 * bpF (n + 1) (s + 1) + bpF n s ≤ bpF (n + 1) s
+  | 0, 0 => by decide
+  | 0, s + 1 => by
+    show 2 * bpF 1 (s + 2) + bpF 0 (s + 1) ≤ bpF 1 (s + 1)
+    exact Nat.le_refl 0
+  | 1, 0 => by decide
+  | 1, s + 1 => by
+    show 2 * ((2 * 0 + 3) * bpF 1 (s + 2) + bpF 0 (s + 1)) + bpF 1 (s + 1)
+        ≤ (2 * 0 + 3) * bpF 1 (s + 1) + bpF 0 s
+    exact Nat.zero_le _
+  | n + 2, 0 => by
+    have ih := bpF_halving_strong (n + 1) 0
+    show 2 * ((2 * n + 5) * bpF (n + 2) 1 + bpF (n + 1) 0) + bpF (n + 2) 0
+        ≤ (2 * n + 5) * bpF (n + 2) 0
+    calc 2 * ((2 * n + 5) * bpF (n + 2) 1 + bpF (n + 1) 0) + bpF (n + 2) 0
+        = 2 * ((2 * n + 5) * bpF (n + 2) 1 + bpF (n + 1) 0)
+          + (2 * n + 3) * bpF (n + 1) 0 := rfl
+      _ = (2 * n + 5) * (2 * bpF (n + 2) 1 + bpF (n + 1) 0) := by ring_nat
+      _ ≤ (2 * n + 5) * bpF (n + 2) 0 := Nat.mul_le_mul_left _ ih
+  | n + 2, s + 1 => by
+    have ih := bpF_halving_strong (n + 1) (s + 1)
+    show 2 * ((2 * n + 5) * bpF (n + 2) (s + 2) + bpF (n + 1) (s + 1))
+          + bpF (n + 2) (s + 1)
+        ≤ (2 * n + 5) * bpF (n + 2) (s + 1) + bpF (n + 1) s
+    calc 2 * ((2 * n + 5) * bpF (n + 2) (s + 2) + bpF (n + 1) (s + 1))
+          + bpF (n + 2) (s + 1)
+        ≤ 2 * ((2 * n + 5) * bpF (n + 2) (s + 2) + bpF (n + 1) (s + 1))
+          + ((2 * (n + 1) + 1) * bpF (n + 1) (s + 1) + bpF (n + 1) s) :=
+          Nat.add_le_add_left (bpF_step_le (n + 1) s) _
+      _ = (2 * n + 5) * (2 * bpF (n + 2) (s + 2) + bpF (n + 1) (s + 1))
+          + bpF (n + 1) s := by ring_nat
+      _ ≤ (2 * n + 5) * bpF (n + 2) (s + 1) + bpF (n + 1) s :=
+          Nat.add_le_add_right (Nat.mul_le_mul_left _ ih) _
+
+/-- Plain halving: every coefficient is at least twice its successor. -/
+theorem apF_halving : ∀ (n s : Nat), 2 * apF n (s + 1) ≤ apF n s
+  | 0, 0 => by decide
+  | 0, s + 1 => by
+    show 2 * apF 0 (s + 2) ≤ apF 0 (s + 1)
+    exact Nat.le_refl 0
+  | n + 1, s =>
+    Nat.le_trans (Nat.le_add_right _ (apF n s)) (apF_halving_strong n s)
+
+theorem bpF_halving : ∀ (n s : Nat), 2 * bpF n (s + 1) ≤ bpF n s
+  | 0, _ => Nat.zero_le _
+  | n + 1, s =>
+    Nat.le_trans (Nat.le_add_right _ (bpF n s)) (bpF_halving_strong n s)
+
 /-- Numeric anchors (level 5: `Ã₄ = [945, 420, 15]`, `B̃₄ = [945, 105, 1]`): the
     adjacent minors and cross-level families check arithmetically. -/
 theorem minor_anchors :
