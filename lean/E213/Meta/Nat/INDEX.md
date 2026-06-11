@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (23)
+## Files (24)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -34,6 +34,10 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
   - `RootFloor.lean`       — integer `s`-th root, floor reading
                              (`rootFloor_pow` calibration; the graded
                              rate generator's probe schedule)
+  - `BinTree213.lean`      — the tree floor below append: the free
+                             binary magma; append = its associativity
+                             quotient (`flatten`), `count` blind to
+                             bracketing (`node_not_assoc`)
   - `Valuation.lean`       — the `q`-adic valuation `vp q n` over ℕ
   - `VpMul.lean`           — the exponent-lattice engine (T3): `vp_mul`
                              (`vp p (m·n) = vp p m + vp p n`, prime `p`),

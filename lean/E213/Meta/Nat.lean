@@ -8,6 +8,7 @@ import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.PairOp
 import E213.Meta.Nat.UnitList
 import E213.Meta.Nat.UnitGrid
+import E213.Meta.Nat.BinTree213
 import E213.Meta.Nat.TwoThreeUnique
 import E213.Meta.Nat.Valuation
 import E213.Meta.Nat.VpMul
