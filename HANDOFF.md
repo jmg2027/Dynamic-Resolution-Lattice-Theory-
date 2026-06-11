@@ -48,16 +48,24 @@ Frontier note was stale; recorded as closed (doc-only).
   `Order.sub_self_zero` + `PolyIntM.mul_zeroZ`, and rearrange `A−(B+C)=0 ⟹ A=B+C`
   with `int_eq_of_add_neg` + `Int.add_zero`, not `ring_intZ`.
 - Cast a ℕ identity to ℤ via `congrArg Int.ofNat h` then `rw [Int.ofNat_mul,
-  Int.ofNat_add, Int.ofNat_one]`; `Int.ofNat.inj` for the reverse.
+  Int.ofNat_add, Int.ofNat_one]`; `Int.ofNat.inj` for the reverse.  For a ℕ
+  *inequality* use `OrderMul.ofNat_le_of_le`; bridge `↑(2*J+c)` to `2*↑J+c`
+  with a per-literal `have ... := by rw [Int.ofNat_add, Int.ofNat_mul]; rfl`.
+- **`calc` with mixed `=`/`≤` steps pulls in `propext`** (its `Trans`
+  instances) → the theorem scans DIRTY.  Replace with explicit
+  `Order.le_trans` + goal `rw [show … from by ring_intZ]` + `le_refl` to stay
+  ∅-axiom.  (`induction … with` and `ring_intZ` themselves are clean.)
 
 ## Open Problems (unchanged priority; footholds added)
 1. **ζ(3) formalization** — two verified blueprints, formalization marathons.
    `frontiers/zeta3_blueprint.md`, `zeta3_free_modulus.md`.
 2. **exp(p/q), p ≥ 2, free modulus** — needs unconditional `hmeas`.
    `frontiers/modulus_degree_ladder.md`.
-3. **Weld Casoratian** — flip criterion CLOSED this session; **ratio descent**
-   `|R_J|·M_0 ≤ |R_0|·M_J` and the **bridge-free `LowerBase`** remain, now
-   footed on `weld_casoratian_int` (both need a `weldM > 0` schedule).
+3. **Weld Casoratian** — items 1 (flip criterion) **and 2 (ratio descent)**
+   CLOSED this session (`weld_casoratian_int`, `weld_flip_criterion`,
+   `weldK_nonneg`, `weld_descent_step`, `weld_ratio_descent`).  Only the
+   **bridge-free `LowerBase`** (item 3) remains — research-open (its `weldM > 0`
+   schedule is what `LowerBase` itself establishes, so independence is the crux).
 4. **inequalities = POSITIVITY ∘ LOOP** — first brick (Lagrange identity)
    CLOSED; the general compilation theorem over AM-GM/Jensen/power-mean open.
 5. **Smooth Ricci core** — the standing wall (discrete side closed/promoted).
