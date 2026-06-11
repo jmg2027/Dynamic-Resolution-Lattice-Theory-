@@ -702,4 +702,93 @@ theorem weld_limit_agreement (q : Nat) (hq : 1 ≤ q) (hbase : LowerBase q)
     show (cothSeriesAb q hq).cut (2 * (k + 2) + 1) m k = false
     exact series_false_of_cf_limit_false q hq hbase m k hcf
 
+/-! ## §9 — the weld Casoratian: lower cross and upper margin are det-one coupled
+
+Write `R_J := (2J+1)·devB·c_J − devA·s_J` (the lower cross, `LowerBase`'s
+quantity) and `M_J := P·s_J − (2J+1)q²·Q·c_J` (the upper `(U)`-margin), with
+`devA/devB` the level-`2i+1` and `P/Q` the level-`2i+2` evaluations.  The pair
+`(R_J, M_J)` evolves across levels `i` by **unimodular** steps, so its
+truncation-Casoratian `R_{J+1}M_J − R_JM_{J+1}` is level-independent — and
+equals the `tcross_id` quantity `K_J = (2J+3)c_{J+1}s_J − (2J+1)c_Js_{J+1}`.
+Below in subtraction-free form (`X + K-cross = Y`): the proof is bilinearity
+plus one firing of the det-one floor (`dev_cross_det`).  Consequences (the
+blueprint's flip criterion): `K_J > |R_J|·M_{J+1} ⟹ R_{J+1} > 0`. -/
+
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut (tcross_id)
+
+/-- ★★★★ **The weld Casoratian** (subtraction-free): with
+    `X = RL·ML' + RR·MR' + RL'·MR + RR'·ML` and
+    `Y = RL·MR' + RR·ML' + RL'·ML + RR'·MR` (primes = truncation `J+1`),
+    `X + (2J+3)c_{J+1}s_J = Y + (2J+1)c_Js_{J+1}` — i.e.
+    `R_{J+1}·M_J = R_J·M_{J+1} + K_J` over `ℤ`.  One det-one firing. -/
+theorem weld_casoratian (q : Nat) (i J : Nat) :
+    (2*J+1) * dev q (BP (2*i+1)) * coshNum q J
+        * (dev q (AP (2*i+2)) * sinhNum q (J+1))
+      + dev q (AP (2*i+1)) * sinhNum q J
+        * ((2*J+3) * (q*q) * dev q (BP (2*i+2)) * coshNum q (J+1))
+      + (2*J+3) * dev q (BP (2*i+1)) * coshNum q (J+1)
+        * ((2*J+1) * (q*q) * dev q (BP (2*i+2)) * coshNum q J)
+      + dev q (AP (2*i+1)) * sinhNum q (J+1)
+        * (dev q (AP (2*i+2)) * sinhNum q J)
+      + (2*J+3) * coshNum q (J+1) * sinhNum q J
+    = (2*J+1) * dev q (BP (2*i+1)) * coshNum q J
+        * ((2*J+3) * (q*q) * dev q (BP (2*i+2)) * coshNum q (J+1))
+      + dev q (AP (2*i+1)) * sinhNum q J
+        * (dev q (AP (2*i+2)) * sinhNum q (J+1))
+      + (2*J+3) * dev q (BP (2*i+1)) * coshNum q (J+1)
+        * (dev q (AP (2*i+2)) * sinhNum q J)
+      + dev q (AP (2*i+1)) * sinhNum q (J+1)
+        * ((2*J+1) * (q*q) * dev q (BP (2*i+2)) * coshNum q J)
+      + (2*J+1) * coshNum q J * sinhNum q (J+1) := by
+  have hdet : dev q (AP (2*i+2)) * dev q (BP (2*i+1))
+      = q * q * dev q (AP (2*i+1)) * dev q (BP (2*i+2)) + 1 := by
+    calc dev q (AP (2*i+2)) * dev q (BP (2*i+1))
+        = q * dev q (AP (2*i+1)) * (q * dev q (BP (2*i+2))) + 1 :=
+          (dev_cross_det q i).symm
+      _ = q * q * dev q (AP (2*i+1)) * dev q (BP (2*i+2)) + 1 := by ring_nat
+  have h1 : (2*J+1) * (coshNum q J * sinhNum q (J+1))
+        * (dev q (AP (2*i+2)) * dev q (BP (2*i+1)))
+      = (2*J+1) * (coshNum q J * sinhNum q (J+1))
+        * (q * q * dev q (AP (2*i+1)) * dev q (BP (2*i+2)) + 1) := by
+    rw [hdet]
+  have h2 : (2*J+3) * (coshNum q (J+1) * sinhNum q J)
+        * (dev q (AP (2*i+2)) * dev q (BP (2*i+1)))
+      = (2*J+3) * (coshNum q (J+1) * sinhNum q J)
+        * (q * q * dev q (AP (2*i+1)) * dev q (BP (2*i+2)) + 1) := by
+    rw [hdet]
+  calc (2*J+1) * dev q (BP (2*i+1)) * coshNum q J
+          * (dev q (AP (2*i+2)) * sinhNum q (J+1))
+        + dev q (AP (2*i+1)) * sinhNum q J
+          * ((2*J+3) * (q*q) * dev q (BP (2*i+2)) * coshNum q (J+1))
+        + (2*J+3) * dev q (BP (2*i+1)) * coshNum q (J+1)
+          * ((2*J+1) * (q*q) * dev q (BP (2*i+2)) * coshNum q J)
+        + dev q (AP (2*i+1)) * sinhNum q (J+1)
+          * (dev q (AP (2*i+2)) * sinhNum q J)
+        + (2*J+3) * coshNum q (J+1) * sinhNum q J
+      = (2*J+1) * (coshNum q J * sinhNum q (J+1))
+          * (dev q (AP (2*i+2)) * dev q (BP (2*i+1)))
+        + (2*J+3) * (coshNum q (J+1) * sinhNum q J)
+          * (q * q * dev q (AP (2*i+1)) * dev q (BP (2*i+2)) + 1)
+        + ((2*J+1) * (2*J+3) * (q*q) * dev q (BP (2*i+1)) * dev q (BP (2*i+2))
+            * coshNum q J * coshNum q (J+1)
+          + dev q (AP (2*i+1)) * dev q (AP (2*i+2))
+            * sinhNum q J * sinhNum q (J+1)) := by ring_nat
+    _ = (2*J+1) * (coshNum q J * sinhNum q (J+1))
+          * (q * q * dev q (AP (2*i+1)) * dev q (BP (2*i+2)) + 1)
+        + (2*J+3) * (coshNum q (J+1) * sinhNum q J)
+          * (dev q (AP (2*i+2)) * dev q (BP (2*i+1)))
+        + ((2*J+1) * (2*J+3) * (q*q) * dev q (BP (2*i+1)) * dev q (BP (2*i+2))
+            * coshNum q J * coshNum q (J+1)
+          + dev q (AP (2*i+1)) * dev q (AP (2*i+2))
+            * sinhNum q J * sinhNum q (J+1)) := by rw [h1, ← h2]
+    _ = (2*J+1) * dev q (BP (2*i+1)) * coshNum q J
+          * ((2*J+3) * (q*q) * dev q (BP (2*i+2)) * coshNum q (J+1))
+        + dev q (AP (2*i+1)) * sinhNum q J
+          * (dev q (AP (2*i+2)) * sinhNum q (J+1))
+        + (2*J+3) * dev q (BP (2*i+1)) * coshNum q (J+1)
+          * (dev q (AP (2*i+2)) * sinhNum q J)
+        + dev q (AP (2*i+1)) * sinhNum q (J+1)
+          * ((2*J+1) * (q*q) * dev q (BP (2*i+2)) * coshNum q J)
+        + (2*J+1) * coshNum q J * sinhNum q (J+1) := by ring_nat
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
