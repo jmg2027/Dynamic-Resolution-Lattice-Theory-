@@ -504,6 +504,50 @@ order lost).  This is the same **frame-visibility dichotomy** as
 wall is not removed by any deformation, only relocated to a frame that
 pays in wrapping or in resolution.
 
+## Atom (in)distinguishability — the one handle (and `exp` dissolved)
+
+*This-session catch (originator: "why `exp`? what is it in this
+frame?").  `exp` was used as a primitive coordinate; it is not.*
+
+**`exp` is the ×-count-Lens** — the ×-analog of `count`/`leaves` (ℕ,
+§6.7).  It is a *vector* (not a scalar like ℕ) for exactly one reason:
+**×-atoms (primes) are distinguishable**, where **+-atoms (units) are
+not**.  So `(ℕ_{≥1}, ×)` is not one append-system but a **family of
+independent append-systems, one per distinguishable ×-atom**:
+`n ↔ (vp 2 n, vp 3 n, …)`, `×` = componentwise `+` (`vp_mul`).  Within
+one prime axis the copies are indistinguishable (it commutes/folds);
+across axes the primes are distinguishable (independent → the
+∞-rank).  `vp_mul` = the axes don't interact; `vp_separation` (open) =
+the family is faithful (UFD) — **the theorem that licenses `exp` as a
+coordinate**.  Until it closes, `exp` over "all primes" smuggles a
+pre-given chart (§6.1, §2.5) + the axis independence it was meant to
+explain (circular).
+
+**The one handle.**  Commutativity and the wall are one primitive read
+at two rungs:
+
+> **`+`-commutativity is born from the *indistinguishability* of
+> +-atoms** (units swap invisibly, `UnitList.append_comm`); **the
+> `^`-wall is born from the *distinguishability* of ×-atoms** (2-axis
+> ≠ 3-axis, no scalar carries one to the other,
+> `TwoThreeUnique.two_three_unique`).
+
+`2^x = 3` fails not because "a log isn't discrete" nor because "the
+lattice is free", but because **the ×-atom 2 and the ×-atom 3 are
+different things** — the exact dual of "two units are the same" that
+makes `+` commute.  And `exp` (= the multiplicity coordinate, built
+from `p^k` = forward `^`) shows **`^` is already latent inside `×`**:
+the ×→^ rung does not bolt on a new operation, it turns the
+always-defined forward exponent *coordinate* into an inverse
+*question*; the wall is a total coordinate asked as a partial question.
+
+**Brick 8, reframed (atom-independence form):** state the
+fold/collinearity criterion over **distinguishable ×-atoms** directly —
+"no ×-atom is a scalar-power combination of the others" — not over a
+pre-given prime basis.  This is the ×-dual of unit-indistinguishability
+and unifies `UnitList`/`UnitGrid` (commutativity) with the wall under
+one statement; closing `vp_separation` (UFD) is the licensing step.
+
 ## Question tuple vs answer axes (the representation principle, audited)
 
 **The representation principle (grammar-relative form).**  Fix the
