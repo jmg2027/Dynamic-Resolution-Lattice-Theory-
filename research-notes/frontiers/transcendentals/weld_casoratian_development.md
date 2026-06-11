@@ -44,10 +44,24 @@ The weld itself is closed without it (`theory/math/analysis/lambert_weld.md`)
    **large slack** in every evaluated case (ratio `K_{2i}M_0 / (|R_0|M_{2i}M_{2i+1})`
    ≈ 58–346× for `i ≤ 3`).  The flip criterion (item 1) is its engine — now
    *instantiated*, not decorative.
-   **Residual** (genuinely localized): prove `(−R_0)·M_{2i}·M_{2i+1} ≤ K_{2i}·M_0`
-   ∅-axiom — `K_{2i} = (4i+3)s_{2i} − (4i+1)c_{2i}` is factorially large, `−R_0` and
-   the `M`'s comparatively small; the slack suggests a crude growth bound may close
-   it (open: the growth estimate).  Plus elementary strict `0 < M_j` (det-floor `+1`).
+   **Residual** (localized but NOT lowered): the single inequality
+   `(−R_0)·M_{2i}·M_{2i+1} ≤ K_{2i}·M_0` is *not* crudely provable.  Decisive probe:
+   the obvious crude bound `M_J ≤ P·s_J` (drop the subtracted term) **fails by 10⁹–10²⁵×**,
+   because `M` is a **small near-cancellation**: `M_0 = P − q²Q` with `q²Q ≈ P` (e.g.
+   `q=2,i=1`: `P=1861, q²Q=1720, M_0=141` — 13× smaller), the det-one floor
+   (`P·devB = q²·devA·Q + 1`) being the only gap.  So the localized residue **inherits
+   the bridge's essential delicate content** — the near-cancellation in the margin — and
+   there is no internal handle that avoids it (§5.4, stated plainly).  *Net:* item 3's
+   reduction is theorem-backed (`weld_lowerbase_reduction`), and the wall is now
+   *precisely located* at the M near-cancellation = det-floor structure; it is not
+   *lowered*.  The bridge-equivalence (suspected earlier) is now evidenced, not asserted.
+
+   Related discovery: the repo already carries the **scalar** lower-cross recursion
+   `R_recursion`: `R_{J+1} = (2J+2)(2J+3)q²·R_J + ((2J+3)devB − devA)` (M-free), and
+   `lower_step`/`lower_of_base` use it for the same forward persistence — so the
+   Casoratian `weld_positivity_persists` re-derives an existing fact; the genuinely new
+   §10 content is the *named ℤ Wronskian recurrence + flip criterion + single-inequality
+   reduction*, the M-margin "second certificate" view of the same wall.
 
 Provenance: discovered in the 2026-06-11 multi-agent round (Discovery 1 of
 the archived blueprint, `archive/transcendentals/lowerbase_blueprint.md`).

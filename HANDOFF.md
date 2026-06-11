@@ -61,17 +61,22 @@ Frontier note was stale; recorded as closed (doc-only).
    `frontiers/zeta3_blueprint.md`, `zeta3_free_modulus.md`.
 2. **exp(p/q), p ≥ 2, free modulus** — needs unconditional `hmeas`.
    `frontiers/modulus_degree_ladder.md`.
-3. **Weld Casoratian** — items 1 (flip criterion) + 2 (ratio descent) CLOSED;
-   item 3's *structural* half CLOSED, *quantitative* half OPEN
-   (`weld_casoratian_int`, `weld_flip_criterion`, `weldK_nonneg`,
-   `weld_descent_step`, `weld_ratio_descent` [any anchor], `weld_positivity_persists`,
-   `weldM_nonneg`).  The ratio `R/M` climbs, so the cross **persists non-negative
-   once it gets there**; `M ≥ 0` is elementary (`series_below_odd_core`).  **But not
-   a bridge-free `LowerBase`**: the cross starts *negative* (`R_0 = dev(BP_{2i+1}) −
-   dev(AP_{2i+1}) ≤ 0`, evaluation-checked — `0` at `i=0`, `−5` at `i=1,q=2`), so a
-   genuine certificate needs the *quantitative* "ratio reaches `≥ 0` by `J = 2i+1`"
-   — the `LambertBridge` content.  (Correction of an earlier over-claim this session
-   that framed persistence as a bridge-free certificate — it is vacuous at `R_0 ≤ 0`.)
+3. **Weld Casoratian** — items 1+2 CLOSED; item 3 **reduced to one inequality +
+   wall precisely located** (multi-agent + numerical probe).  Lemmas:
+   `weld_casoratian_int`, `weld_flip_criterion`, `weldK_nonneg`, `weld_descent_step`,
+   `weld_ratio_descent` [any anchor], `weld_positivity_persists`, `weldM_nonneg`,
+   `weld_lowerbase_reduction`.  Discoveries: (i) the cross flips at **exactly one
+   step** `J=2i→2i+1` (eval `i≤3`); (ii) so LowerBase reduces *theorem-backed,
+   bridge-free* to the **single** inequality `(−R_0)·M_{2i}·M_{2i+1} ≤ K_{2i}·M_0`
+   (`weld_lowerbase_reduction`), flip criterion now instantiated; (iii) but that
+   inequality is **not crudely provable** — `M_0 = P − q²Q` is a small near-cancellation
+   (det-floor `P·devB = q²devA·Q+1` the only gap; crude `M ≤ P·s` overshoots by
+   10⁹–10²⁵×), so the residue *inherits* the bridge's delicate content (§5.4: no
+   internal handle that avoids it — bridge-equivalence now evidenced, not asserted).
+   Also: repo's `R_recursion` (`R_{J+1}=(2J+2)(2J+3)q²R_J+((2J+3)devB−devA)`, M-free)
+   already gives the persistence — Casoratian persistence is a re-derivation; the new
+   §10 content is the ℤ-Wronskian + flip + reduction (the M-margin second-certificate
+   view).  (Corrects an earlier over-claim that framed persistence as a certificate.)
 4. **inequalities = POSITIVITY ∘ LOOP** — first brick (Lagrange identity)
    CLOSED; the general compilation theorem over AM-GM/Jensen/power-mean open.
 5. **Smooth Ricci core** — the standing wall (discrete side closed/promoted).
