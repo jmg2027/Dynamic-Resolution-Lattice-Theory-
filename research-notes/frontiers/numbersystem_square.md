@@ -133,6 +133,33 @@ than the price table above:
 The interaction-law rung (different-operation lifts from
 distribution) deliberately deferred until this layer is solid.
 
+**§3 — the list picture and the wrapping boundary (★ CLOSED,
+`PairOp` §3, 22 PURE total).**  ℕ as the unit-started, unit-spaced
+ordered list; the order is itself the +-witness question, so the §1–§2
+vocabulary (commutativity, cancellation, medial, …) consists of
+ℕ-internal statements about `f` — no external algebra language.  Two
+poles:
+
+- **Progressive** ("results only move backward along the list,
+  without merging" = strict monotonicity in the unknown slot): the
+  list pays §2's price — cancellation/witness-uniqueness is free
+  (`cancel_of_strictMono`).
+- **Wrapping** (mod: results can land forward): every free §2 step
+  survives, the medial lift survives (`modAdd_medial`), and only
+  pointwise cancellation dies (`modAdd_cancel_fails`) — informatively:
+  the witness sets are arithmetic progressions, so wrapping pairs mint
+  **periodic classes** (ℤ/n) instead of points.  And the wrap is not
+  a new primitive — it is the fiber-position readout of a progressive
+  question (`div_sandwich`'s remainder), closing the loop: progressive
+  operations are primary; wrapping operations are their fiber
+  readouts.
+
+Open: the generic locating theorem (progressive + strictly monotone ⇒
+the crossing sandwich has a unique location for every reachable `b`,
+by bounded search — the `div_sandwich`/`affine_cross` pattern at full
+generality), and class-wise witness uniqueness for mod (uniqueness
+up to the progression — the ℤ/n cross-equation).
+
 ## The square
 
 ```

@@ -1,4 +1,5 @@
 import E213.Meta.Int213.Core
+import E213.Meta.Nat.AddMod213
 
 /-!
 # PairOp — the pair layer of an arbitrary (ℕ,ℕ)→ℕ operation
@@ -241,5 +242,52 @@ theorem pairLift_witness (f : Nat → Nat → Nat)
     f (pairLift f p q).1 (f x y) = (pairLift f p q).2 := by
   show f (f p.1 q.1) (f x y) = f p.2 q.2
   rw [hmedial p.1 q.1 x y, hx, hy]
+
+/-! ## §3 — the list picture: progressive vs wrapping operations
+
+ℕ as the unit-started, unit-spaced ordered list; the order itself is
+the +-witness question (`a ≤ b ↔ ∃x, a+x=b`), so everything below is
+an ℕ-internal statement about `f`.  An operation that "only moves
+backward along the list, without merging" — strictly monotone in the
+unknown slot — gets §2's cancellation **for free from the list
+structure** (`cancel_of_strictMono`): the list pays the price.  A
+*wrapping* operation (mod) keeps every free step of §2 and the medial
+lift (`modAdd_medial`), but loses pointwise cancellation
+(`modAdd_cancel_fails`): its witness sets are arithmetic
+progressions, so its pairs mint **periodic classes** (the ℤ/n world)
+rather than points — and the wrap itself is not a new primitive: it
+is the fiber-position readout of a progressive question
+(`NatDiv213.div_sandwich`'s remainder). -/
+
+/-- "Backward only, no merging" (strict monotonicity in the unknown
+    slot) yields cancellation — the §2 price, paid by the list. -/
+theorem cancel_of_strictMono (f : Nat → Nat → Nat) (a : Nat)
+    (hmono : ∀ x y, x < y → f a x < f a y) :
+    ∀ x y, f a x = f a y → x = y := by
+  intro x y h
+  rcases Nat.lt_or_ge x y with hlt | hge
+  · exact absurd (h ▸ hmono x y hlt) (Nat.lt_irrefl _)
+  · rcases Nat.lt_or_ge y x with hlt' | hge'
+    · exact absurd (h ▸ hmono y x hlt') (Nat.lt_irrefl _)
+    · exact Nat.le_antisymm hge' hge
+
+/-- Wrapping loses pointwise cancellation: mod-2 addition merges the
+    witnesses 0 and 2.  Its witness sets are arithmetic progressions —
+    the pair of a wrapping question is a periodic class, not a point. -/
+theorem modAdd_cancel_fails :
+    (0 + 0) % 2 = (0 + 2) % 2 ∧ (0 : Nat) ≠ 2 :=
+  ⟨rfl, fun h => Nat.noConfusion h⟩
+
+/-- The wrap keeps the lift: mod-addition satisfies the medial law,
+    so `pairLift_witness` applies unchanged.  Only pointwise witness
+    uniqueness is lost (it survives class-wise — the ℤ/n world). -/
+theorem modAdd_medial (n : Nat) (a b c d : Nat) :
+    ((a + b) % n + (c + d) % n) % n
+    = ((a + c) % n + (b + d) % n) % n := by
+  rw [← E213.Meta.Nat.AddMod213.add_mod_gen (a + b) (c + d) n,
+      ← E213.Meta.Nat.AddMod213.add_mod_gen (a + c) (b + d) n,
+      Nat.add_assoc a b (c + d), ← Nat.add_assoc b c d,
+      Nat.add_comm b c, Nat.add_assoc c b d,
+      ← Nat.add_assoc a c (b + d)]
 
 end E213.Meta.Nat.PairOp
