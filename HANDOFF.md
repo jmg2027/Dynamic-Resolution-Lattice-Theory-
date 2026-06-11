@@ -73,10 +73,18 @@ Frontier note was stale; recorded as closed (doc-only).
    (det-floor `P·devB = q²devA·Q+1` the only gap; crude `M ≤ P·s` overshoots by
    10⁹–10²⁵×), so the residue *inherits* the bridge's delicate content (§5.4: no
    internal handle that avoids it — bridge-equivalence now evidenced, not asserted).
-   Also: repo's `R_recursion` (`R_{J+1}=(2J+2)(2J+3)q²R_J+((2J+3)devB−devA)`, M-free)
-   already gives the persistence — Casoratian persistence is a re-derivation; the new
-   §10 content is the ℤ-Wronskian + flip + reduction (the M-margin second-certificate
-   view).  (Corrects an earlier over-claim that framed persistence as a certificate.)
+   (iv) **det-floor resolves the M near-cancellation**: `weldM_devB : M_J·devB = s_J −
+   q²Q·R_J`, hence the **M-free Wronskian** `weld_rs_wronskian : R_{J+1}s_J − R_J s_{J+1}
+   = devB·K_J` (R and explicit sinh are a Casoratian pair); cleanest reduction
+   `weld_lowerbase_reduction_rs` (`(−R_J)s_{J+1} ≤ devB·K_J ⟹ 0 ≤ R_{J+1}`, M-free).
+   (v) **Multi-agent verdict**: provable in principle, det-floor cancellation essential;
+   expert agent reduced the residue one level deeper to **Core `M_0·devB·M_{2i+1} ≤
+   q²Q·K_{2i}`** (slack grows in i, 0 violations q≤4,i≤150) via identity "(R)"=weldM_devB
+   + an unbuilt M-Wronskian "(W)" + M-monotonicity.  **Net**: item 3 = cascade of
+   bridge-free theorem-backed reductions (`LowerBase ⟸ single ineq ⟸ Core`) + clean
+   identities; open residual = ∅-axiom proof of Core (a focused marathon w/ roadmap, not
+   an asserted wall).  Module **54 PURE / 0 dirty**.  (Corrects an earlier over-claim that
+   framed persistence as a certificate.)
 4. **inequalities = POSITIVITY ∘ LOOP** — first brick (Lagrange identity)
    CLOSED; the general compilation theorem over AM-GM/Jensen/power-mean open.
 5. **Smooth Ricci core** — the standing wall (discrete side closed/promoted).

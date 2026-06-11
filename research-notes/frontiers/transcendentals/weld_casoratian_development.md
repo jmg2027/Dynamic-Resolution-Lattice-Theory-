@@ -63,5 +63,27 @@ The weld itself is closed without it (`theory/math/analysis/lambert_weld.md`)
    §10 content is the *named ℤ Wronskian recurrence + flip criterion + single-inequality
    reduction*, the M-margin "second certificate" view of the same wall.
 
+   **The det-floor resolves the near-cancellation (the cleanest reframing).** The margin
+   `M_J` is *not* independent of the cross `R_J`: the det-one floor gives
+   `weldM_devB : M_J·devB = s_J − q²·Q·R_J` (∅-axiom) — the small `M` is exactly the
+   det-floor residue against the *explicit* sinh sequence.  Substituting into the
+   Casoratian cancels the `q²Q·R_J R_{J+1}` cross-terms, leaving the **M-free Wronskian**
+   `weld_rs_wronskian : R_{J+1}·s_J − R_J·s_{J+1} = devB·K_J` — the lower cross and the
+   explicit `sinh` numerator are a Casoratian pair.  This gives the *cleanest* reduction
+   `weld_lowerbase_reduction_rs`: `0 ≤ R_{J+1}` from the **single M-free inequality**
+   `(−R_J)·s_{J+1} ≤ devB·K_J` and `s_J > 0` (no `M`, no ratio descent).
+
+   **Multi-agent verdict (2026-06-11):** the residue is *provable in principle* but the
+   det-floor cancellation must be kept (every crude double-drop crosses over at `q=1`,
+   large `i`).  An expert agent reduced the single inequality one level further — via
+   `weldM_devB` (= identity "(R)") and an `M`-Wronskian `(2J+3)c_{J+1}M_J −
+   (2J+1)c_J M_{J+1} = P·K_J` (= "(W)", unbuilt) plus `M`-monotonicity `M_{2i} ≤ M_0` — to
+   the single sub-lemma **Core: `M_0·devB·M_{2i+1} ≤ q²·Q·K_{2i}`**, whose slack *grows*
+   in `i` (verified 0 violations, `q∈{1..4}, i≤150`).  **Net status:** item 3 is a cascade
+   of bridge-free *theorem-backed* reductions (`LowerBase ⟸ single ineq ⟸ Core`) + clean
+   structural identities; the genuine open residual is the ∅-axiom proof of **Core**
+   (roadmap: build `(W)`, `M`-monotonicity, then Core — a focused formalization marathon,
+   not an asserted wall).
+
 Provenance: discovered in the 2026-06-11 multi-agent round (Discovery 1 of
 the archived blueprint, `archive/transcendentals/lowerbase_blueprint.md`).
