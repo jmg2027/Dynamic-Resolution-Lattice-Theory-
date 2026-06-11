@@ -1265,4 +1265,163 @@ theorem slack (i p g : Nat) (hpg : p + (g + 1) = i) :
           ring_nat
   exact Nat.le_of_mul_le_mul_left main hMf
 
+/-! ## §12 — F6 suffix assembly: dominance of every suffix sum
+
+Descending from the top: suffixes past the diagonal are **equal** entry-by-
+entry; the diagonal contributes the `(2n+2)`-scaled `cfpos n n` flip in `B`'s
+favour; each of the ≤ `i` sub-diagonal steps costs at most `2·bpF n 0` — and
+`2i·(4i+1)!! ≤ (4i+4)·(4i+2)!!` with room to spare. -/
+
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertPoly
+  (evc SuffDom drop_nil drop_long)
+
+theorem suffix_peel : ∀ (l : List Nat) (t : Nat),
+    evc 1 (List.drop t l) = nth l t + evc 1 (List.drop (t + 1) l)
+  | [], t => by
+    rw [drop_nil, drop_nil]
+    show (0 : Nat) = 0 + 0
+    rw [Nat.add_zero]
+  | c :: cs, 0 => by
+    show c + 1 ^ 2 * evc 1 cs = c + evc 1 cs
+    rw [show (1 : Nat) ^ 2 = 1 from rfl, Nat.one_mul]
+  | c :: cs, t + 1 => suffix_peel cs t
+
+theorem sufEq (i : Nat) : ∀ (m t : Nat), i + 1 ≤ t → 3 * i + 2 ≤ t + m →
+    evc 1 (List.drop t (LAl i)) = evc 1 (List.drop t (LBl i))
+  | 0, t, _, hlen => by
+    rw [drop_long t (LAl i) (by rw [LAl_len]; exact hlen),
+        drop_long t (LBl i) (by rw [LBl_len]; exact hlen)]
+  | m + 1, t, ht, hlen => by
+    obtain ⟨e, he⟩ := Nat.le.dest ht
+    rw [suffix_peel (LAl i) t, suffix_peel (LBl i) t,
+        sufEq i m (t + 1) (Nat.le_trans ht (Nat.le_add_right t 1)) (by
+          rw [show t + 1 + m = t + (m + 1) from by ring_nat]
+          exact hlen),
+        ← he, entry_eq i e]
+
+/-- The double-factorial diagonal recursion: `cfpos (n+1) (n+1) = (2n+2)·cfpos n n`. -/
+theorem cfpos_diag_rec (n : Nat) :
+    cfpos (n + 1) (n + 1) = (2 * n + 2) * cfpos n n := by
+  show 2 ^ n * 2 * ((n + 1) * descFac n n) = (2 * n + 2) * (2 ^ n * descFac n n)
+  ring_nat
+
+/-- The counting brick: `(4i+1)!! ≤ (4i+2)!!` levelwise — `bpF n 0 ≤ cfpos n n`. -/
+theorem bpF_le_cfpos : ∀ n, bpF n 0 ≤ cfpos n n
+  | 0 => Nat.zero_le _
+  | 1 => by
+    show 1 ≤ cfpos 1 1
+    rw [cfpos_one 1]
+    exact Nat.succ_le_succ (Nat.zero_le _)
+  | n + 2 => by
+    show (2 * n + 3) * bpF (n + 1) 0 ≤ cfpos (n + 2) (n + 2)
+    rw [show (n : Nat) + 2 = (n + 1) + 1 from rfl, cfpos_diag_rec (n + 1)]
+    exact Nat.mul_le_mul (by
+        rw [show 2 * (n + 1) + 2 = (2 * n + 3) + 1 from by ring_nat]
+        exact Nat.le_add_right _ _)
+      (bpF_le_cfpos (n + 1))
+
+/-- ★★★★ **The descent invariant**: from the diagonal down, the `(2n+2)`-scaled
+    `A`-suffix plus the scaled diagonal flip stays below the `B`-suffix plus
+    `d` slack quanta. -/
+theorem inv_descent (i : Nat) : ∀ (d t : Nat), t + d = i →
+    (2 * (2 * i + 1) + 2) * evc 1 (List.drop t (LAl i))
+        + (2 * (2 * i + 1) + 2) * cfpos (2 * i + 1) (2 * i + 1)
+      ≤ (2 * (2 * i + 1) + 2) * evc 1 (List.drop t (LBl i))
+        + d * (2 * bpF (2 * i + 1) 0)
+  | 0, t, ht => by
+    rw [show t = i from ht]
+    rw [suffix_peel (LAl i) i, suffix_peel (LBl i) i,
+        sufEq i (3 * i + 2) (i + 1) (Nat.le_refl (i + 1)) (Nat.le_add_left _ _),
+        diag i]
+    exact Nat.le_trans (Nat.le_of_eq (by ring_nat)) (Nat.le_add_right _ _)
+  | d + 1, t, ht => by
+    have ih := inv_descent i d (t + 1) ((Nat.succ_add t d).trans ht)
+    have hsl := slack i t d ht
+    rw [suffix_peel (LAl i) t, suffix_peel (LBl i) t]
+    calc (2 * (2 * i + 1) + 2) * (nth (LAl i) t + evc 1 (List.drop (t + 1) (LAl i)))
+          + (2 * (2 * i + 1) + 2) * cfpos (2 * i + 1) (2 * i + 1)
+        = (2 * (2 * i + 1) + 2) * nth (LAl i) t
+          + ((2 * (2 * i + 1) + 2) * evc 1 (List.drop (t + 1) (LAl i))
+            + (2 * (2 * i + 1) + 2) * cfpos (2 * i + 1) (2 * i + 1)) := by ring_nat
+      _ ≤ ((2 * (2 * i + 1) + 2) * nth (LBl i) t + 2 * bpF (2 * i + 1) 0)
+          + ((2 * (2 * i + 1) + 2) * evc 1 (List.drop (t + 1) (LBl i))
+            + d * (2 * bpF (2 * i + 1) 0)) := Nat.add_le_add hsl ih
+      _ = (2 * (2 * i + 1) + 2)
+            * (nth (LBl i) t + evc 1 (List.drop (t + 1) (LBl i)))
+          + (d + 1) * (2 * bpF (2 * i + 1) 0) := by ring_nat
+
+/-- ★★★★★ **General suffix dominance** — the last brick: every suffix sum of
+    `LAl i` is ≤ `LBl i`'s.  The diagonal `cfpos n n` absorbs the ≤ `i`
+    sub-diagonal slack quanta. -/
+theorem suffdom_LAl (i : Nat) : SuffDom (LAl i) (LBl i) := by
+  intro t
+  rcases Nat.lt_or_ge t (i + 1) with hlt | hge
+  · have ht : t ≤ i := Nat.le_of_lt_succ hlt
+    obtain ⟨d, hd⟩ := Nat.le.dest ht
+    have hInv := inv_descent i d t hd
+    have hdi : d ≤ i := by rw [← hd]; exact Nat.le_add_left d t
+    have hcnt : d * (2 * bpF (2 * i + 1) 0)
+        ≤ (2 * (2 * i + 1) + 2) * cfpos (2 * i + 1) (2 * i + 1) := by
+      calc d * (2 * bpF (2 * i + 1) 0)
+          = (2 * d) * bpF (2 * i + 1) 0 := by ring_nat
+        _ ≤ (2 * (2 * i + 1) + 2) * cfpos (2 * i + 1) (2 * i + 1) :=
+            Nat.mul_le_mul
+              (Nat.le_trans (Nat.mul_le_mul_left 2 hdi) (by
+                rw [show 2 * (2 * i + 1) + 2 = 2 * i + (2 * i + 4) from by ring_nat]
+                exact Nat.le_add_right _ _))
+              (bpF_le_cfpos (2 * i + 1))
+    have h2 := Nat.le_trans hInv (Nat.add_le_add_left hcnt _)
+    have h3 : (2 * (2 * i + 1) + 2) * cfpos (2 * i + 1) (2 * i + 1)
+          + (2 * (2 * i + 1) + 2) * evc 1 (List.drop t (LAl i))
+        ≤ (2 * (2 * i + 1) + 2) * cfpos (2 * i + 1) (2 * i + 1)
+          + (2 * (2 * i + 1) + 2) * evc 1 (List.drop t (LBl i)) := by
+      rw [Nat.add_comm
+            ((2 * (2 * i + 1) + 2) * cfpos (2 * i + 1) (2 * i + 1)) _,
+          Nat.add_comm
+            ((2 * (2 * i + 1) + 2) * cfpos (2 * i + 1) (2 * i + 1)) _]
+      exact h2
+    exact Nat.le_of_mul_le_mul_left
+      (E213.Tactic.NatHelper.le_of_add_le_add_left h3) (Nat.zero_lt_succ _)
+  · exact Nat.le_of_eq (sufEq i (3 * i + 2) t hge (Nat.le_add_left _ _))
+
+/-! ## §13 — F7: `LowerBase` is a theorem, the weld closes -/
+
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertPoly (lowerbase_of_suffdom)
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
+  (LowerBase cothSeriesCauchySepOfBase weld_limit_agreement)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+  (cothUnitCFCauchySeq)
+open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
+
+theorem suffdom_general (i : Nat) :
+    SuffDom (lmulC (rev (AP (2 * i + 1))) (sListC (2 * i + 1)))
+      (lmulC (rev (BP (2 * i + 1)))
+        (lsmul (2 * (2 * i + 1) + 1) (cListC (2 * i + 1)))) := by
+  rw [rev_AP_odd i, rev_BP_odd i]
+  exact suffdom_LAl i
+
+theorem lowerbase_len (i : Nat) :
+    (lmulC (rev (AP (2 * i + 1))) (sListC (2 * i + 1))).length
+      = (lmulC (rev (BP (2 * i + 1)))
+          (lsmul (2 * (2 * i + 1) + 1) (cListC (2 * i + 1)))).length := by
+  rw [rev_AP_odd i, rev_BP_odd i]
+  show (LAl i).length = (LBl i).length
+  rw [LAl_len, LBl_len]
+
+/-- ★★★★★ **THE BASE INEQUALITY**: `LowerBase` holds for every `q ≥ 1` —
+    the weld's one remaining brick is a theorem. -/
+theorem lowerBase (q : Nat) (hq : 1 ≤ q) : LowerBase q :=
+  fun i => lowerbase_of_suffdom q hq i (lowerbase_len i) (suffdom_general i)
+
+/-- ★★★★★ **The unconditional weld, Cauchy form**: the `coth(1/q)` series fold
+    completes with total modulus `k+2` — no hypotheses. -/
+def cothSeriesCauchySep (q : Nat) (hq : 1 ≤ q) : CauchyCutSeq :=
+  cothSeriesCauchySepOfBase q hq (lowerBase q hq)
+
+/-- ★★★★★ **The weld closes**: the series and CF pointings of `coth(1/q)` have
+    equal limit cuts on **every** probe, unconditionally. -/
+theorem weld_closed (q : Nat) (hq : 1 ≤ q) (m k : Nat) :
+    (cothSeriesCauchySep q hq).limit m k = (cothUnitCFCauchySeq q hq).limit m k :=
+  weld_limit_agreement q hq (lowerBase q hq) m k
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
