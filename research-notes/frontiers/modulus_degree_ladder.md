@@ -220,16 +220,46 @@ modulus is the growth class of `N` in `k`, and it factors as
    demand (`ratio_chain` through the pivot `bpF (n+1) (t+1)`, zero-pivot case
    free by prefix-support `bpF_support`) — this kills the infinite m₂/m₃/…
    ladder that a naive gap-indexed family would open.
-   **Remaining (plumbing only)**: getD-bridge `AP/BP ↔ apF/bpF` (List.getD 0
-   makes `ladd/lsmul/shift` act like the function recursions), all-gap
-   `MinorLE` from adjacent minors (chain `m₁` through positive pivots +
-   prefix-support, the same two-case shape as `e_of_sys`), then the (A′)
-   assembly: X-piece = `cross_le` at level `n+1` (BP padded `++[0]`: `dev` gains
-   `q²`, `PF` unchanged), Y-piece = `cross_le` at level `n` + the `cf_det`
-   dev-cross, then choice functions, limit-cut equality, `e^{2/q}` cut-Möbius,
-   `hmeas` discharged.  (Lean: core `Nat.pow_add` and
-   `Nat.le_of_add_le_add_right` are `propext`-dirty — `pow_add_two` via the
-   definitional `pow_succ` chain; NatHelper's left-cancel + `add_comm`.)
+   **The plumbing is CLOSED** (`LambertOrder`, 36 PURE): `minor_all` (all-gap
+   minors), `nth`-transport onto the weld lists, zero-pad lemmas, and the full
+   **(A′) assembly** — `series_le_odd`: `T_J ≤ p_{2i+1}/q_{2i+1}` for every
+   `q, i, J` (`cross_le` twice, chained through the `dev (AP (2i+1))` pivot by
+   the det-one floor `dev_cross_det`).  **W1 closed at the limit level**
+   (`cf_limit_false_of_series_false`): a strict series reading + the unit
+   odd–even gap squeeze the even convergent past the probe at the explicit
+   choice layer `L = k·s_J + k + 2`.
+   **`e^{2/q}` cut-Möbius CLOSED — `exp(2/q)` completes unconditionally**
+   (`ExpMoebius`, 20 PURE): the odd convergents under `z ↦ (z+1)/(z−1)` climb
+   with cross-det exactly `2·a_{2L+3}` (the Möbius doubles the det-one floor);
+   `dN = p − q` obeys the same three-term recurrence, so the universal rate
+   machinery applies verbatim: `expTwoOverQCFCauchySeq`, total modulus `k+2`,
+   no hypotheses beyond `q ≥ 1`.  `e² ∈ (22/3, 37/5]`, sharper than the series
+   bracket.  The *series* presentation's `hmeas` is **dodged, not assumed** —
+   rate is a property of the pointing, not the real.
+   **The weld closed modulo ONE brick** (`LambertOrder` §7–§8): the lower
+   transfer climbs in `J` for free (`lower_step`; side condition = every even
+   convergent below the first odd one), `i = 0` closed outright, so the whole
+   lower family reduces to its **matched-truncation base** `LowerBase`:
+   `devA(2i+1)·s_{2i+1} ≤ (4i+3)·devB(2i+1)·c_{2i+1}` — the Padé flip at
+   `J₀(i) = 2i+1`.  Given `LowerBase`: `W2`, the series fold completes
+   (`cothSeriesCauchySepOfBase`, schedule `I k = 2(k+2)+1`, certificate
+   `W2 ∘ W1`), and `weld_limit_agreement` — the two pointings of `coth(1/q)`
+   agree on every probe.
+   **The open brick — `LowerBase`** (the weld's last content): below `J₀` the
+   cross deficit is an exact `q`-cancelled sliver (level 3: `−5, −3, −1`,
+   `q`-independent; level 5: `−(315q²+14), −(189q²+12), −(135q²+10),
+   −(105q²+8), −(51q²+6)`) — the Padé matching of `Ã/B̃` to order `u^{2i}`;
+   at `J₀` it flips positive forever.  `decide`-verified at `(q=1, i=1,2)`,
+   `(q=2, i=1)` (`lower_base_anchors`; margins 49, 3911, 193 — razor-thin:
+   the matched (U)-margins dip to 16–18).  A proof needs the **truncated Padé
+   remainder in closed form** (the PF-cross `C_J = Y_A X_B − Y_B X_A` exact
+   evaluation; numerically `−210, +1890, …` — no unit structure, genuine
+   double-factorial tail bookkeeping), or a coupled magnitude induction
+   `R_J(i+1) = R_J(i) − (4i+5)M_J(i)`, `M_J(i+1) = M_J(i) − q²(4i+7)R_J(i+1)`
+   tracking both margins through the dip.  Dedicated session.
+   (Lean: core `Nat.pow_add` and `Nat.le_of_add_le_add_right` are
+   `propext`-dirty — `pow_add_two` via the definitional `pow_succ` chain;
+   NatHelper's left-cancel + `add_comm`.)
    Lean note: PolyNatM's normalizer does **not** drop `0·atom` monomials and chokes
    on un-reduced `(J+1)−1` index atoms — close `J = 0` rungs by `rfl` (all-literal
    defeq) and re-ascribe IHs with reduced indices.

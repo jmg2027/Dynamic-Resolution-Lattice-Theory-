@@ -2,7 +2,7 @@
 
 ## Branch & build state
 `claude/weighted-ibp-li-yau-91qefg` (continues the Ricci-flow frontier branch).  `lake build`
-✓ clean (run from `lean/`!); `scan_all_axioms.py` **2197 PURE / 0 DIRTY** (+33
+✓ clean (run from `lean/`!); `scan_all_axioms.py` **2254 PURE / 0 DIRTY** (+33
 sealed-DIRTY-by-design).  Session
 modules strict ∅-axiom (`tools/scan_axioms.py`): `WeightedGreen` 11/0, `DiscreteGaussian`
 11/0, `DiscreteSurgery` 15/0, `Binomial` 15/0, `RicciFlowDiscrete` 17/0, `IntGridSum` +1
@@ -301,16 +301,37 @@ pure `add_sub_recover` via `Nat.le.dest` + NatHelper's `add_sub_cancel_right`.
   m₁(n+2)+D(n+1); G ⟸ m₁(n+2)+E(n+1)).
 - Numeric anchors at level 5 (`Ã₄ = [945,420,15]`, `B̃₄ = [945,105,1]`) check.
 
+## Seventeenth arc (closure marathon): the weld's plumbing CLOSED, exp(2/q) unconditional
+
+- **(A′) family complete** (`LambertOrder`, 36 PURE): `minor_all` (all-gap minors,
+  pivot chaining + prefix-support), `nth`-transport of the sign system onto the weld
+  lists, zero-pad lemmas (`dev` gains `q²`, `PF` unchanged), `cf_det_even_nat` +
+  `dev_cross_det` (det-one floor through the bridge), and `series_le_odd` —
+  **`T_J ≤ p_{2i+1}/q_{2i+1}` for every `q, i, J`** (`cross_le` twice, `ratio_chain`
+  through the `dev (AP (2i+1))` pivot, `v0Fac` cancels).
+- **W1 at the limit level**: `cf_limit_false_of_series_false` — strict series reading
+  + unit odd–even gap force the CF limit `false` at choice layer `L = k·s_J + k + 2`;
+  contrapositive `series_true_of_cf_limit_true` = the universal upper agreement.
+- **`exp(2/q)` completes UNCONDITIONALLY** (`ExpMoebius`, 20 PURE): cut-Möbius —
+  odd convergents under `z ↦ (z+1)/(z−1)` climb with cross-det `2·a_{2L+3}`;
+  `dN = p − q` rides the same recurrence (invariant `dN_add`, Fibonacci growth);
+  `expTwoOverQCFCauchySeq`, total modulus `k+2`, **no measure hypothesis** —
+  the series `hmeas` dodged by presentation switch.  `e² ∈ (22/3, 37/5]`.
+- **Full weld closed modulo ONE brick** (`LambertOrder` §7–§8): lower transfer climbs
+  in `J` free (`lower_step`, side condition even < first-odd via chained dets);
+  `i = 0` closed (`lower_zero`); `LowerBase` (matched-truncation flip at `J₀ = 2i+1`)
+  isolated, `decide`-anchored at `(q=1,i=1,2), (q=2,i=1)`.  Given it: `W2`,
+  `cothSeriesCauchySepOfBase` (series fold completes, certificate `W2 ∘ W1`),
+  `weld_limit_agreement` (the two pointings of `coth(1/q)` agree on EVERY probe).
+
 ## Open Problems (priority order)
-1. **The weld's remaining plumbing** (minor sign done): (a) getD-bridge
-   `AP/BP ↔ apF/bpF` (`List.getD 0` makes `ladd/lsmul/shift` act like the
-   function recursions); (b) all-gap `MinorLE` from adjacent `m₁` (chain
-   through positive pivots + `bpF_support` zero-pivot fallback, same two-case
-   shape as `e_of_sys`); (c) the (A′) assembly: X-piece = `cross_le` at level
-   `n+1` (BP padded `++[0]`: `dev` gains `q²`, `PF` unchanged), Y-piece =
-   `cross_le` at level `n` + `cf_det` dev-cross; choice functions
-   (`t_mono_strict` increments, `cf_det` gaps); limit-cut equality; `e^{2/q}`
-   cut-Möbius; `hmeas` discharged.
+1. **`LowerBase` — the weld's last brick**: the matched-truncation Padé flip
+   `devA(2i+1)·s_{2i+1} ≤ (4i+3)·devB(2i+1)·c_{2i+1}`.  Pre-flip deficits are exact
+   `q`-cancelled slivers (`−5, −3, −1` at level 3); needs the truncated Padé
+   remainder in closed form (PF-cross `C_J` exact evaluation) or the coupled
+   magnitude induction `R_J(i+1) = R_J(i) − (4i+5)M_J(i)`,
+   `M_J(i+1) = M_J(i) − q²(4i+7)R_J(i+1)`.  Full analysis in
+   `modulus_degree_ladder.md`.  Dedicated session.
 2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
    numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient
@@ -343,6 +364,8 @@ research-notes/frontiers/ricci_flow_smooth_core.md                          ← 
 research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md        ← rungs 8–10
 lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertWeld.lean            ← weld core §1–§9 (ladder, PF/AP/BP, dev, cf_bridge, row_det, Chebyshev engine)
 lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/CothSeriesCut.lean          ← coth series fold + first-odd bound + strict climb
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertMinor.lean           ← NEW: minor-sign system (continuant total positivity)
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertMinor.lean           ← minor-sign system + minor_all (continuant total positivity)
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertOrder.lean           ← NEW: order transfer -- series_le_odd, W1, lower reduction, conditional weld
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/ExpMoebius.lean             ← NEW: exp(2/q) unconditional (cut-Moebius, e^2 in (22/3, 37/5])
 research-notes/frontiers/modulus_degree_ladder.md                           ← weld status: minor sign proven, plumbing remains
 ```

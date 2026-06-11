@@ -3,7 +3,7 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (22)
+## Files (24)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
@@ -34,14 +34,31 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   (`weight_dom`, `cross_le`: minor condition ⟹
                                   cross order transfer).
   - `LambertMinor.lean`         — the minor-sign system: coefficient functions
-                                  `apF/bpF` (totalized), prefix support, and the
+                                  `apF/bpF` (totalized), prefix support, the
                                   closed 4-family induction `minorSys` (adjacent
                                   minors + 3 cross-level families; two-apart `E`
                                   derived by `ratio_chain` with zero-pivot
-                                  fallback).  Continuant total positivity, the
-                                  input `cross_le` consumes.  Remaining: getD
-                                  bridge to `AP/BP`, all-gap chaining, (A′)
-                                  assembly.
+                                  fallback), and the all-gap form `minor_all`.
+                                  Continuant total positivity, the input
+                                  `cross_le` consumes.
+  - `LambertOrder.lean`         — **the order transfer**: `nth`-transport of the
+                                  sign system onto the weld lists; `series_le_odd`
+                                  (the series below EVERY odd convergent — the
+                                  full (A′) family, `cross_le` twice + det-one
+                                  floor pivot); `cf_limit_false_of_series_false`
+                                  (W1, choice layer `k·s_J+k+2`); the lower
+                                  transfer reduced to its matched base
+                                  (`lower_step`/`LowerBase`, `i = 0` closed);
+                                  conditional full weld: `weld_limit_agreement` +
+                                  `cothSeriesCauchySepOfBase` (modulo `LowerBase`,
+                                  the one open brick).
+  - `ExpMoebius.lean`           — **`exp(2/q)` completes unconditionally**: the
+                                  cut-Möbius step — odd Lambert convergents under
+                                  `z ↦ (z+1)/(z−1)` climb with cross-det
+                                  `2·a_{2L+3}` (doubled det-one floor); `dN =
+                                  p − q` rides the same recurrence; total modulus
+                                  `k+2`, no hypotheses (`expTwoOverQCFCauchySeq`).
+                                  `e² ∈ (22/3, 37/5]`.
   - `CothSeriesCut.lean`        — weld 3b: the coth series as a fold
                                   (`cothSeriesAb`, truncated ratio
                                   `(2J+1)q·coshNum/sinhNum` climbs via the exact
