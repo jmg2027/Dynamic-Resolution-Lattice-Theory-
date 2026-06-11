@@ -5,6 +5,7 @@ import E213.Meta.Nat.Valuation
 import E213.Lib.Math.NumberTheory.PrimeValuation
 import E213.Lib.Math.NumberTheory.Legendre
 import E213.Lib.Math.NumberTheory.FTALite
+import E213.Lib.Math.NumberTheory.FactorialRatioBound
 
 /-!
 # LcmGrowthChebyshev — the finitized Chebyshev 30-block bound for `lcm(1..n)`
@@ -41,6 +42,7 @@ open E213.Lib.Math.NumberTheory.PrimeValuation (Prime213 vp_lcm_max vp_mul)
 open E213.Lib.Math.NumberTheory.Legendre (indLt_sum vp_one legendre)
 open E213.Lib.Math.NumberTheory.FTALite (dvd_of_forall_prime_vp_le)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_pos)
+open E213.Lib.Math.NumberTheory.FactorialRatioBound (step3)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_congr sumTo_add_func)
 
@@ -463,5 +465,33 @@ theorem key_divisibility (m : Nat) :
       sumTo_add_func, sumTo_add_func, sumTo_add_func, sumTo_add_func, sumTo_add_func]
   refine sumTo_le_sumTo (30 * m) _ _ (fun e _ => ?_)
   exact perLevel m (p ^ (e + 1)) (Nat.pos_pow_of_pos _ hp0)
+
+/-! ## §8 — the recursion (Brick 1 step 4, cleared form) -/
+
+/-- ★★★ **Recursion** (cleared form): `lcm(1..30m)·6^{6m}·15^{15m}·10^{10m} ≤
+    (6m+1)·30^{30m}·lcm(1..5m)`.  From `key_divisibility` as `≤` (`le_of_dvd_pos`)
+    combined with `step3`, cancelling the common `(15m)!(10m)!(6m)!`. -/
+theorem step4_cleared (m : Nat) :
+    lcmUpTo (30 * m) * 6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m)
+    ≤ (6 * m + 1) * 30 ^ (30 * m) * lcmUpTo (5 * m) := by
+  have hkd : lcmUpTo (30 * m) * factorial (15 * m) * factorial (10 * m) * factorial (6 * m)
+      ≤ factorial (30 * m) * factorial m * lcmUpTo (5 * m) :=
+    le_of_dvd_pos _ _ (Nat.mul_pos (Nat.mul_pos (factorial_pos _) (factorial_pos _))
+      (lcmUpTo_pos _)) (key_divisibility m)
+  have hF : 0 < factorial (15 * m) * factorial (10 * m) * factorial (6 * m) :=
+    Nat.mul_pos (Nat.mul_pos (factorial_pos _) (factorial_pos _)) (factorial_pos _)
+  refine le_of_mul_le_mul_right' hF ?_
+  calc (lcmUpTo (30 * m) * 6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m))
+          * (factorial (15 * m) * factorial (10 * m) * factorial (6 * m))
+      = (lcmUpTo (30 * m) * factorial (15 * m) * factorial (10 * m) * factorial (6 * m))
+          * (6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m)) := by ring_nat
+    _ ≤ (factorial (30 * m) * factorial m * lcmUpTo (5 * m))
+          * (6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m)) := Nat.mul_le_mul_right _ hkd
+    _ = (factorial (30 * m) * factorial m * 6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m))
+          * lcmUpTo (5 * m) := by ring_nat
+    _ ≤ ((6 * m + 1) * (factorial (15 * m) * factorial (10 * m) * factorial (6 * m))
+          * 30 ^ (30 * m)) * lcmUpTo (5 * m) := Nat.mul_le_mul_right _ (step3 m)
+    _ = ((6 * m + 1) * 30 ^ (30 * m) * lcmUpTo (5 * m))
+          * (factorial (15 * m) * factorial (10 * m) * factorial (6 * m)) := by ring_nat
 
 end E213.Lib.Math.NumberTheory.LcmGrowthChebyshev
