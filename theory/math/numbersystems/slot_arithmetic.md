@@ -29,6 +29,19 @@ This ontology and the ∅-axiom discipline are one choice: total
 ℕ-operations in witness form (`a = c + e`, never `a − c`) leave no
 seam for partiality, choice, or `propext` to enter.
 
+## 1.5 The floor: append, and where commutativity is born
+
+One rung below `+` sits append (`Meta/Nat/UnitList.lean`).  The
+sorted list is the list of *units* — indistinguishable elements make
+insertion order and count order one thing, so no sorting exists or is
+needed.  Append is associative for any element type but **not
+commutative in general** (`append_not_comm_general`); on unit lists
+commutativity is **born** (`append_comm` — units bubble freely, by
+bare induction), and `+` is the count readout of append
+(`count_append`).  Hence `add_comm_from_append`: **the commutativity
+of `+` is the shadow of unit-list append commutativity** — counting
+forgets arrangement, and what survives the forgetting commutes.
+
 ## 2. The list and the sandwich
 
 ℕ is the unit-started, unit-spaced sorted list, and its order *is*
@@ -76,6 +89,19 @@ the true jobs:
 | the cross-equation is the witness relation's *shadow*, cast by action-commutation `f a (f c x) = f c (f a x)` (strictly weaker than comm+assoc, which merely supply it); faithful back with cancellation | `crossEq_of_sameWitness`, `sameWitness_of_crossEq`, `action_comm_of_comm_assoc` |
 | the slotwise lift's true actor is the **medial law alone**: the witness of the product is the product of the witnesses | `pairLift_witness` |
 | with comm+assoc(+cancellation at the middle slot) the cross-relation becomes equality-like and the lift respects it | `pairEq_trans`, `pairLift_congr_left/right`, `exchange` |
+
+**The interaction theorem** (`PairOp` §5) closes the table's last
+row in both directions.  The lift of × onto +-pairs is **forced**:
+bi-⊕-distributivity, one unit value, and three annihilation instances
+(each a single cross-equation, exactly minimal) determine the cross
+rule `(a,b) ⊗ (c,d) ≈ (ac+bd, ad+bc)` on every pair, with full
+congruence and extension as corollaries (`cross_rule_forced`).  Under
+the same selector, an operation that does not already bi-distribute
+on the base has **no lift at all**: bi-additivity over the
+difference-Lens readout admits only multiples of ×, and `2³ = 8 ≠ 6`
+kills `^`, a fortiori tetration (`pow_lift_impossible`) — though the
+selector is itself the ×-frame's law, so the native form of the wall
+is the staircase statement below, not this nonexistence.
 
 On the list, the prices localize (`PairOp` §3): a **progressive**
 operation (strictly monotone in the unknown — "backward only, no
@@ -168,11 +194,18 @@ reciprocity its reciprocity law.
   no fold-back (the unknown in an exponent slot, as a class) leaves
   finite tuples for cut data.  The boundary is grammar-relative — a
   lattice of question grammars, not one line.
-* **The interaction wall**: lifting a *different* operation onto a
-  pair layer requires an interaction law between the two operations;
-  tetration satisfies no exponent law, so the hyperoperation
-  recursion (each root-completion = the previous completion re-run
-  inside the exponent lattice, through rung 3) terminates there.
+* **The interaction wall**: with the distributive selector, lifting
+  a different operation onto +-pairs exists iff it already
+  bi-distributes on the base (`cross_rule_forced` /
+  `pow_lift_impossible`); without the selector, congruent extensions
+  abound and nothing internal selects one.  The native form: the
+  staircase ascends by iteration, pair-counted iteration consumes the
+  inverse of the previous rung's action, each pair layer manufactures
+  exactly that inverse (definitionally: the pair *is* the question's
+  answer), and `^`'s answers (logarithms) are where the chain breaks —
+  their *linear* fold-back absence is a theorem (exponent vectors /
+  unique factorization), their nonlinear fold-back absence is open
+  classically (Schanuel territory).
 * **Wrapping**: progressive operations are primary; wrapping
   operations are their fiber readouts, and their canonical-remainder
   normal form is a flattening Lens (`2 mod 2` is the class of `2`,
