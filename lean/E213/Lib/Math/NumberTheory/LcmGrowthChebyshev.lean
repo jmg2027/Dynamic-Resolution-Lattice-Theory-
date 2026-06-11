@@ -29,7 +29,9 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberTheory.LcmGrowthChebyshev
 
-open E213.Meta.Nat.NatDiv213 (add_mul_div_left_pure div_add_mod_pure)
+open E213.Meta.Nat.NatDiv213 (add_mul_div_left_pure div_add_mod_pure div_sandwich
+  div_eq_of_sandwich)
+open E213.Tactic.NatHelper (mul_assoc)
 open E213.Lib.Math.NumberTheory.Lcm213 (lcm213 lcm_pos dvd_lcm_left dvd_lcm_right lcm_dvd)
 open E213.Meta.Nat.Valuation (dtrans vp le_vp_iff pow_vp_dvd)
 open E213.Meta.Nat.PureNat (lt_two_pow)
@@ -273,5 +275,36 @@ theorem vp_lcmUpTo {p : Nat} (hp : Prime213 p) (N : Nat) :
     exact (le_vp_iff p (lcmUpTo N) (floorLog p N) hp.1 (lcmUpTo_pos N)).mp
       (dvd_lcmUpTo (Nat.pos_pow_of_pos _ (Nat.lt_of_lt_of_le (by decide) hp.1))
         (floorLog_pow_le hN))
+
+/-! ## §4 — step-2 prep: pure nested floor + termwise Σ-monotonicity
+
+Reusable plumbing for the key-divisibility assembly (step 2): the nested-floor
+identity `⌊⌊n/a⌋/b⌋ = ⌊n/(ab)⌋` (so `⌊15m/p^{e+1}⌋ = ⌊m̃/2⌋` for `m̃ = ⌊30m/p^{e+1}⌋`,
+etc.) and `Σ`-monotonicity (to sum the per-level `count30` inequalities). -/
+
+/-- Pure nested floor `n / (a·b) = n / a / b` (`a, b > 0`); `Nat.div_div_eq_div_mul`
+    carries `propext`.  Both directions pinned by the ÷-sandwich. -/
+theorem div_div_pure (n a b : Nat) (ha : 0 < a) (hb : 0 < b) :
+    n / (a * b) = n / a / b := by
+  have hab : 0 < a * b := Nat.mul_pos ha hb
+  have sy := div_sandwich a n ha
+  have sx := div_sandwich b (n / a) hb
+  refine (div_eq_of_sandwich hab ?_ ?_).symm
+  · calc a * b * (n / a / b) = a * (b * (n / a / b)) := mul_assoc a b (n / a / b)
+      _ ≤ a * (n / a) := Nat.mul_le_mul_left a sx.1
+      _ ≤ n := sy.1
+  · calc n < a * (n / a + 1) := sy.2
+      _ ≤ a * (b * (n / a / b + 1)) := Nat.mul_le_mul_left a (Nat.succ_le_of_lt sx.2)
+      _ = a * b * (n / a / b + 1) := (mul_assoc a b (n / a / b + 1)).symm
+
+/-- Termwise `Σ`-monotonicity: `(∀ k<n, f k ≤ g k) → Σ_n f ≤ Σ_n g`. -/
+theorem sumTo_le_sumTo : ∀ (n : Nat) (f g : Nat → Nat),
+    (∀ k, k < n → f k ≤ g k) → sumTo n f ≤ sumTo n g
+  | 0, _, _, _ => Nat.le_refl 0
+  | n + 1, f, g, h => by
+      rw [sumTo_succ, sumTo_succ]
+      exact Nat.add_le_add
+        (sumTo_le_sumTo n f g (fun k hk => h k (Nat.lt_succ_of_lt hk)))
+        (h n (Nat.lt_succ_self n))
 
 end E213.Lib.Math.NumberTheory.LcmGrowthChebyshev
