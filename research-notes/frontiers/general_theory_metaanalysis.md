@@ -54,6 +54,17 @@ here; closed ones promoted to `theory/`.
 
 - (init) Program opened; surveyor team dispatched on C1–C3; C4 synthesised
   from the slot-tower marathon record.
+- C2 (different mechanisms, one principle) + C3 (resonance only) returned;
+  C4/C5 drafted.
+- **C4 adversarially audited and CORRECTED**: the first "type-1 is rare" draft
+  had selection bias (ignored the polymorphic typeclass infrastructure — Lens
+  22+, ConjugationCodomain 7+, iter, Ring213 59+, all genuine type-1).  Sharper
+  result: the α/β split — *parametric* unification abundant (free, by
+  construction), *cross-domain conceptual* unification rare (the residue
+  withholds it).  This is now the program's central finding.
+- C1 (equality/readout inventory) still running — needed to finish the C5
+  2-axis readout grid (faithfulness × support-finiteness) across all number
+  systems.
 
 ## Survey results
 
@@ -100,22 +111,46 @@ subterm-closure vs orbit-wrap vs support-finiteness).  A general "ceiling
 theory" would require provably-false bridging lemmas — stereotype-matching.
 No deliverable, by design.
 
-## Emerging meta-theorem (C4) — the architecture of 213 unification
+## Meta-theorem (C4) — the architecture of 213 unification
 
-The two surveys converge on a **substantive structural claim about 213 itself**,
-corroborated by the whole slot-tower marathon (bridges 1–4, §5 a/b):
+**First draft of C4 over-claimed** ("type-1 unification is rare, essentially
+only OrderWrap + HyperLadder") and was **corrected by an adversarial audit**
+that found abundant type-1 unification the slot-tower survey had missed:
+`Lens` (22+ instances, shared polymorphic proofs `equiv_refl/symm/trans`,
+`refines_*`), `SelfRecognising.ConjugationCodomain` (7+ instances `ZI/Z2/ZOmega/
+ZSqrt D`, generic `specLens_swapMatching`), `Iterate213.iter` (polymorphic
+`iter_add/iter_mul`), `Ring213` (59+ instances).  The first draft had
+**selection bias**: it surveyed the cross-domain *narrative bridges* and
+generalised to the whole corpus.
 
-> **Genuine type-(1) unification (one schema, one shared proof, ≥2 instances)
-> is RARE in 213 — essentially `OrderWrap` and `HyperLadder`.  The corpus's
-> apparent cross-domain unity is overwhelmingly type-(2) *pinned distinction*
-> or type-(3) *resonance*.  The residue does not collapse domains into common
-> mechanisms; it reproduces them with their distinctions intact.**
+The corrected — and sharper — claim distinguishes **two kinds of unification**:
 
-This is not a defeat — it is the `no-exterior` / `object1_not_surjective`
-theme made precise at the meta level: *no single view unifies the domains*
-(the residue is outside every view's image), so most "unifications" a naive
-search proposes are forcible maps the structure rejects.  The **decision
-procedure** that sorts them is itself the reusable general tool:
+> **(α) Parametric (infrastructure) unification is ABUNDANT and free.**  One
+> proof generic over a structure; instances plug in *by construction* (every
+> new `Lens`, `ConjugationCodomain`, `Ring213` instance, every `iter` over a
+> type).  This is 213's standard tool for shared infrastructure.
+>
+> **(β) Cross-domain *conceptual* unification — two *independently motivated*
+> phenomena turning out to share one mechanism — is RARE.**  Across the
+> slot-tower marathon (bridges 1–4, §5 a/b), commutativity, and ceilings, only
+> `OrderWrap` (ℤ-order ⟷ mod-p wrap) and `HyperLadder` (the tower as one
+> `iter`-recursion) genuinely unified.  The rest are type-2 *pinned
+> distinction*, type-3 *resonance*, or type-4 *vacuous/forcible*.
+
+The sharp content: **213's abundant parametric polymorphism does not extend to
+its cross-domain phenomena.**  You cannot typeclass your way from `cutEq` to
+`vp`-equality, or from append-commutativity to grid-commutativity — these have
+*different proofs* despite the unifying slogan (C2).  Parametric unification
+works *within* a chosen structure; conceptual unification *across*
+independently-arising structures is what the residue mostly withholds —
+the `no-exterior` / `object1_not_surjective` theme at the meta level (no single
+*view* unifies the domains; each must be re-derived, not mapped).  This is why
+a naive "find the shared schema" search keeps producing forcible maps
+(`LeveledReadout`) that the structure rejects.
+
+The **decision procedure** that sorts a *conceptual* (β) candidate is the
+reusable tool (parametric (α) unification needs no sorting — it is shared by
+construction):
 
 1. propose a single schema;
 2. **generic-consumer test** — does a theorem do *generic work* over the
@@ -164,7 +199,32 @@ the slot split, faithful, non-comm).  This ties C1 (faithfulness / certificate
 size), C2 (commutativity), and the `HyperLadder` tower into one axis:
 **how much the readout forgets**.
 
-Pending C1 confirmation of the faithfulness inventory; then test whether the
-duality has a *non-vacuous* Lean core (the "faithful `R` + non-symmetric `gen`
-⇒ non-comm" direction may do genuine work, unlike the tautological forward
-direction) or is itself a type-(2) principle.
+**Refinement — TWO independent axes of a readout (not one).**  Testing the
+duality on the `HyperLadder` showed it is sharper than "one forgetting axis":
+
+- **Axis A — faithfulness ⇒ (non)commutativity.**  Forgetful readout (huge
+  fibers: `count`, `total`) ⇒ commutes; faithful readout (trivial fibers: the
+  base/exp slot split) ⇒ non-comm.  On the ladder this is a *bounded window*:
+  `hyperop k` commutes exactly for `k ∈ {1,2}` (`+`,`×`); `k=0` (successor
+  *ignores* the base) and `k=3` (`^` *distinguishes* base/exp) both fail — for
+  *different* reasons (ignore an argument vs. split roles).  So even the window
+  has no type-(1) proof (k=1, k=2 commute by different mechanisms, C2) — a
+  single `hyperop_comm_iff` would be a vacuous bundle (§5(a) lesson).  Recorded
+  as observation, not forced into one theorem.
+- **Axis B — among *faithful* readouts, support-finiteness ⇒ discrete/continuum.**
+  `vp` faithful **and** finite-support (cofinitely trivial, `vp_eq_zero_of_gt`)
+  = discrete; `cut` faithful **and** infinite-support
+  (`cut_no_finite_certificate`) = continuum.
+
+`count` is *forgetful* (off axis B entirely — it commutes, and its certificate
+question is moot).  `vp` is *faithful + finite* (discrete; and it is exactly
+`vp`'s distinguishing that makes `^` non-comm).  `cut` is *faithful + infinite*
+(continuum).  So readouts classify on a genuine **2-axis grid**
+(faithfulness × support-finiteness), and the corpus's number systems / tower
+rungs sit at distinct cells.  This is a real general *classification* (type-2
+structure), not a single forced theorem — its honesty is the point (C4).
+
+Pending C1: the faithfulness/finiteness inventory across the *other* number
+systems (Padic `ZpSeq`, `SignedCut`, `Complex`, `Hyper`) to place every cell of
+the grid and confirm it is genuinely 2-dimensional (no system is, say,
+forgetful-and-discrete in a way that breaks the axes).
