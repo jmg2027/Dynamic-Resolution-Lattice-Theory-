@@ -134,17 +134,50 @@ the original plan flagged.
     two convolution lists.  **End-to-end at `i = 1`**: `lowerbase_one` proves the
     base inequality for *every* `q ≥ 1` through the full pipeline.
 
-**Remaining — ONE brick**: general-`i` suffix dominance at `q = 1`,
+**Remaining — ONE brick, now with a COMPLETE DIVISION-FREE EXECUTION PLAN**
+(every step numerically verified, i ≤ 5; the suffix-convolution recursion
+`suf_cons` and `lmulC_length_congr` are already PURE in `LambertPoly` §7):
+
+General-`i` suffix dominance at `q = 1`:
 `SuffDom (lmulC (rev (AP (2i+1))) (sListC (2i+1)))
-        (lmulC (rev (BP (2i+1))) (lsmul (4i+3) (cListC (2i+1))))` —
-verified numerically (i ≤ 4).  Structure: suffix sums obey the clean recursion
-`Suf k (lmulC (a₀::as) b) = a₀·Suf k b + Suf (k−1) (lmulC as b)` (drop commutes
-with ladd); per-grade the difference is `(4i+2)!!` (`master_diagonal`) plus
-partial slivers, controlled by the master identity (`LambertMasterId`, proven)
-+ halving (`apF/bpF_halving_strong`, proven) at `q = 1`.  Then `LowerBase` ⟹
-`cothSeriesCauchySepOfBase` + `weld_limit_agreement` unconditional — **the weld
-closes**.  (NB the weld's *headline*, `exp(2/q)` unconditional, is **already
-closed** independently via `ExpMoebius`.)
+        (lmulC (rev (BP (2i+1))) (lsmul (4i+3) (cListC (2i+1))))`.
+
+* **(F1)** `rev (AP (2k+1)) = truncList (2k+1) k` (+ even level, + BP twins)
+  where `truncList n m = [apF n m, …, apF n 0]` (`apF n (m+1) :: truncList n m`)
+  — 4-way joint induction mirroring `AP_BP_length`'s parity structure, with
+  `rev_ladd_eq` (equal lengths), `rev_ladd_succ`
+  (`|a|+1 = |b| → rev (ladd a b) = ladd (0 :: rev a) (rev b)`), `rev_lsmul`.
+* **(F2)** `Wfac N m` (`= (2N+1)!/(2N−2m+1)!`, product recursion, vanishing for
+  `m > N`) + the **snoc lemma**
+  `AaccSum n N (m+1) = AaccSum n N m + Wfac N m·apF n m` (`AaccSum n N k :=
+  Aacc n (2N+1) 1 0 k`; induction on `m` with `Aacc_Wlin`), + support-vanishing
+  (`AaccSum n N k = Asum n N` for `k ≥ min(i, N)+1`).
+* **(F3) THE BRIDGES** (verified n, J ≤ 7, all g ≤ 3, p ≤ 6): with
+  `N̂ := J+g`, `Mf g := (2N̂+1)!/(2J+1)!` (product recursion):
+  `Mf g · nth (lmulC (truncList n (p+g)) (sListC J)) p + AaccSum n N̂ g
+     = AaccSum n N̂ (p+g+1)`
+  (B-twin with `(2N̂+1−2s)`-laden weights).  **Induction on `p` at fixed `g`**
+  — the head-peel `(m, p) → (m−1, p−1)` preserves `N̂`, and the head weight
+  `Mf g·σ_{p+1} = Wfac N̂ (p+g+1)` matches the snoc step exactly.
+  Mirror regime `p ≥ m` (`Mf` on the other side): gives the **per-coefficient
+  equalities `LA_p = LB_p` for `p > i`** (`N̂ < n ⟹ cfpos = 0`, master).
+* **(F4) division-free uniform slack** (the budget, no quotients!): per-step
+  `(2J+2)·W(N̂,s)·(2N̂+1−2s) ≤ Mf g` for `s < g` (EQUALITY at `s = g−1`:
+  both sides `= (2N̂+1)!/(2J+1)!`; smaller below), so
+  `(2J+2)·BaccHead g ≤ Mf g · PB(g−1) ≤ Mf g · 2·(4i+1)!!`
+  (prefix sums ≤ 2·head by `bpF_halving`), hence — cancelling `Mf` —
+  **`(2J+2)·LA_p ≤ (2J+2)·LB_p + 2·(4i+1)!!`** for all `p < i`.
+* **(F5)** `p = i`: `LB_i = LA_i + (4i+2)!!` (the bridges at `g = 0` +
+  `master_diagonal`).
+* **(F6) assembly**: `(2J+2)`-scaled suffix sums over `p ≥ t` via `suf_cons`;
+  the counting `2i·(4i+1)!! ≤ (4i+4)·(4i+2)!!` is trivial (slack ≥ 10×).
+* **(F7)** `SuffDom` → `lowerbase_of_suffdom` → `LowerBase` →
+  `cothSeriesCauchySepOfBase` + `weld_limit_agreement` unconditional —
+  **the weld closes**.
+
+Estimated 600–900 Lean lines, no remaining design questions.  (NB the weld's
+*headline*, `exp(2/q)` unconditional, is **already closed** independently via
+`ExpMoebius`.)
 
 Provenance: two independent derivation agents converged on §2 (one via Bessel
 polynomial / Hermite remainder theory, one via enumerative identity hunting);
