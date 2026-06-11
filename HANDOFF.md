@@ -1,142 +1,111 @@
-# Session Handoff — 2026-06-10 (organization marathon: research-notes root cleared + discrete-curvature promotion)
+# Session Handoff — 2026-06-11 (the slot programme: ℕ-pair number systems, end to end)
 
 ## Branch
-`claude/research-notes-structure-dthcs9` — branched from `main` @ `6c91ffc`
-(the Ricci-flow marathon handoff), 5 commits ahead, ready-to-merge audit
-passed.  `lake build` fresh-clean; kernel regression 45/45 0-axiom;
-`scan_all_axioms` **405 PURE / 0 DIRTY**; layer audit 0 violations.
+`claude/natural-pairs-integer-axioms-ncrtli` — branched from `main`
+@ `04940f9`, 33 commits ahead.  `lake build` clean; every new theorem
+∅-axiom PURE (no exceptions; module audits inline below).
 
 ## What Was Done This Session
 
-### 1. research-notes/ root cleared (the session's driving request)
-Top level now holds **only** `INDEX.md` + `promotion_essay_log.md`.
-- G200–G203 (Markov action notes) → `frontiers/markov_lagrange/` (the
-  G198/G199/G204 arc); G205 → `frontiers/` (proof-ISA arc source note);
-  G35 catalog → `frontiers/` (active per its §0.5).  All registered in
-  `frontiers/INDEX.md`; the closed proof-ISA series section retitled to
-  drop the colliding `(G200_*)` label (two G200 lineages existed).
-- Early foundational/lens arc (75, 76, G1–G5, G12, G29, G152, RFC,
-  2026-05-18 lens-emergence) → `archive/foundations/`;
-  `RERESEARCH_n_u_removal.md` → `archive/`.
-- Sink-rule decoupling: `book/foundations/01,02` (G152 refs →
-  `FlatOntologyClosure`), `theory/math/{numbersystems/padic_real213,
-  foundations/cross_domain_unification}` + CLAUDE.md (RERESEARCH refs →
-  `ConfigCount.lean` / inline), `riemannian_curvature_tensor.md` (2
-  frontier note-file refs → topic refs), `STRICT_ZERO_AXIOM.md` +
-  `curvature_as_lens_readout.md` (6 bare-name note refs → topic refs).
-  Post-state: **0 permanent-tier citations of research-notes note files**.
-- Stale-ref fixes: 8 lean docstring/INDEX paths (`research-notes/G35` →
-  `frontiers/G35`), deleted-G56 pointer dropped
-  (`AlgebraTowerCapstone.lean`), stale §5 pointer dropped
-  (autonomous-research skill), `ListHelper.lean` header rewritten
-  current-state-only.
+A single arc, originator-driven: number systems from ℕ-slots alone.
+**Consolidated as the book chapter
+`theory/math/numbersystems/slot_arithmetic.md`** (the new-field
+write-up; read it first — it is the conceptual map of everything
+below).  Canonical ontology + open bricks live in
+`research-notes/frontiers/numbersystem_square.md`; the closed signed-ℚ
+arc in `research-notes/frontiers/signed_rationals_normal_form.md`
+(★ all bricks closed, promotion candidate).
 
-### 2. Promotion: `theory/math/geometry/discrete_curvature.md` (PURE ✓)
-The HANDOFF-flagged candidate — the discrete-curvature
-`GeometrizationConjecture/` sub-tree (`OllivierRicci` 60 / `BakryEmery`
-42 / `BakryEmeryBipartite` 16 / `DiscreteLichnerowicz` 11 PURE,
-re-verified 0 DIRTY).  Parametric curvature across graph families
-(`K_m`, `K_{1,b}`, `K_{a,b}` incl. the `K_{3,2} = CD(3/2)` core +
-Forman cross-frame divergence) + the Lichnerowicz spectrum
-(`{0¹, m^{m−1}}`, `CD(K) ⟹ K ≤ λ`).  H4 closed by a new
-`STRICT_ZERO_AXIOM.md` entry for the Ricci-marathon modules (incl.
-`TensorCalculus` 23, `IntGridSum` 14 — previously uncatalogued) + two
-stale counts corrected.  Registered in `theory/math/INDEX.md`; ledger
-row 50.
+### Closed Lean (all PURE, by module)
+- `Meta/Int213/Core.lean` (57): witness characterization of
+  `subNatNat` (sign = witness side; sandwich = equation), the
+  cross-equation `subNatNat_eq_iff`, `subNatNat_mul_eq_iff` (two-sided
+  form = pair slots laid flat), `subNatNat_add_witness` (layer
+  closure), `mul_mul_mul_comm`.
+- `Meta/Nat/NatDiv213.lean` (21): ÷-sandwich (`div_sandwich`,
+  `div_eq_of_sandwich`, `mul_witness_iff_mod_eq_zero`), the crossing
+  sandwich (`affine_cross_iff_div_sandwich`, `affine_cross_eq_div`),
+  pure `div_add_mod_pure` etc.
+- `Meta/Nat/Gcd213.lean` (32): Bezout-free Euclid chain
+  (`gcd213_mul_left` → `coprime_dvd_of_dvd_mul` →
+  `coprime_repr_unique`), `gcd_strip_coprime`.
+- `Lens/Number/RatioLensFounding.lean` (9): `ratioEquiv` completed
+  (scale/trans/cross-sandwich), `ratio_mul_witness` (layer closure).
+- `Lib/Math/NumberSystems/Rat213.lean` (14): signed lowest-terms
+  normal form (`lowest_exists`/`lowest_unique`), derived order
+  (`ratioLeZ_descends`/`ratioLeZ_iff`), **square-commutes**
+  (`qdiffEquiv`, `square_commutes`, `qdiff_same_lowest` — bricks 1+2,
+  distributivity as the commutation law).
+- `Lib/Math/NumberSystems/CompletionDichotomy.lean` (3): archimedean
+  rigidity certificates for `x²=−1` (frame-indexed after the audit).
+- `Lib/Math/NumberSystems/GaussTuple.lean` (5): 4-axis product
+  subtraction-free, `gmul_i_i` (i⊗i = the +-inverse unit, rfl),
+  `gmul_readout` (difference-Lens readout = complex product).
+- `Lib/Math/NumberSystems/PairPow.lean` (3): exponent +-fiber
+  transports to value ×-fiber (`pairPow_fiber`, `pairPow_id`).
+- `Meta/Nat/PairOp.lean` (25): **the meta-operation** — the pair layer
+  of an arbitrary `f : ℕ→ℕ→ℕ`: §1 priced steps (`pairEq_trans`,
+  `pairLift_congr_*`, `exchange`, instantiations), §2 the witness
+  layer (everything forgotten: `question_fuse`, `sameWitness_*`,
+  `crossEq_of_sameWitness`, `action_comm_of_comm_assoc`,
+  `pairLift_witness` — medial alone), §3 the list picture
+  (`cancel_of_strictMono`; mod keeps medial, loses pointwise
+  cancellation), §4 sandwich-first (`sandwich_locates` — existence
+  needs no monotonicity; `sandwich_unique` — monotonicity only).
 
-### 3. Cross-domain note + essay (curvature arc × proof-ISA arc)
-- `research-notes/frontiers/inequalities_positivity_fold_crossdomain.md`:
-  A7 POSITIVITY's 2-D Cauchy–Schwarz (`cauchy_schwarz_2d`, depth-0
-  Lagrange square) and the curvature module's n-dim power-mean form
-  (`cauchy_schwarz_gridZ`, per-rung SOS `Σ_j(a_j−a_m)²` folded along the
-  `gridSumZ` induction) are **one instruction at two certificate
-  depths**; the `K_{a,b}` wide/narrow regime split
-  (`kab_cd_wide`/`kab_cd_narrow`) is exactly that depth.
-- Essay `theory/essays/synthesis/the_cauchy_schwarz_gap_is_a_square.md`:
-  the gap *is* a square; the power-mean gap = total pairwise
-  distinguishing `Σ_{i<j}(a_i−a_j)²`, saturated on the diagonal
-  (`sosGap_eq_zero_of_const` the in-repo witness); certificate depth as
-  a property of the pointing (`PresentationDependence` at the proof
-  layer).  Ledger row 51.
+### Key decisions (course-corrections from the originator; recorded)
+- **Tuple-tower ontology** (CLAUDE.md failure row "Quotient promoted
+  to ontology"): the tuple IS the number; cross-equations are
+  relations, not identities; reduction-application is a flattening
+  Lens, never the default; `2 mod 2` is the class of `2`, not `0`.
+- **Witness-form discipline**: no inverse operations or imported
+  systems in hypotheses (the ∅-axiom record is its consequence).
+- **One mechanism**: "rigidity" dissolved — a question whose slots sit
+  one level up, with no witness at that level (i and √2 are sibling
+  layer-constants).
+- 4-agent adversarial audit corrected: frame-indexed visibility
+  (`qr_neg_one` falsified "invisible in every frame"; Legendre = the
+  per-frame readout), occurrence→×-degree, slot grammar
+  (sandwich-locatable monotone folds), hyperoperation recursion
+  terminates at rung 3.
 
-### 4. Closing audits
-/process (sink 0 violations), /org-audit (INDEX counts ~219 chapters /
-80 essays synced; bare-name citation sweep), /purity-check (0 sorry /
-0 axiom / 0 native_decide / 0 Classical / 0 Mathlib; flagship capstones
-PURE), /ready-to-merge (fresh build, kernel regress 45/45, stale-dir
-sweep clean — verdict READY).
-
-## Current Precision Results (0 free parameters)
-Unchanged this session — see `catalogs/precision_results.md`
-(1/α_em 0.2 ppb structural via Step-5 cubic; m_p, m_μ/m_e, N_gen = 3,
-θ_QCD falsifier per catalogs).  No new physics numbers; this session's
-new theorems are organizational/math-side only.
+## Current Precision Results
+Unchanged (math-side session) — see `catalogs/precision_results.md`.
 
 ## Open Problems (Priority Order)
-
-### 1. `Real213`-cut maximum principle (most surgical)
-Promote the discrete `heatIter_range` to a `Real213` `cutLe` via the
-`RealCauchyWitness` order-squeeze idiom (~40 lines, a solved pattern).
-Frontier note: `research-notes/frontiers/ricci_flow_smooth_core.md`
-(Panel exploration §, brick 2).
-
-### 2. `expCauchySeq (x) : CauchyCutSeq` — retire the transcendental-metric stub
-Package the PURE `exp`/`sin`/`cos` rate certificates
-(`Real213/ExpLog/CutExpModulus`, `CutTrigModulus`) into a
-`CauchyCutSeq` (template: `eulerCauchySeq`), retiring the
-`Real213/Core/Functions.lean` `:= fun _ _ => true` stubs.
-Frontier note: `research-notes/frontiers/ricci_flow_smooth_core.md` (brick 1).
-
-### 3. Discrete χ²-entropy descent
-`Ent(μ)=Σ μ(μ−1)` monotone under `lazyHeatStep` (same shape as
-`ricci_energy_monotone`) — the synthetic discrete Perelman-entropy.
-Frontier note: `research-notes/frontiers/ricci_flow_smooth_core.md` (brick 3).
-
-### 4. Pair-sum Lagrange identity (new, small)
-`n·Σa² − (Σa)² = Σ_{i<j}(a_i−a_j)²` ∅-axiom next to
-`cauchy_schwarz_gridZ`, identifying the depth-0 and folded certificates;
-then the two-sequence n-dim Cauchy–Schwarz and the equality case.
-Frontier note:
-`research-notes/frontiers/inequalities_positivity_fold_crossdomain.md`.
-
-### 5. The genuine analysis wall (unchanged)
-Weighted integration-by-parts (`∇𝓕 ↔ flow`), the `𝓦` Gaussian, Li–Yau
-Harnack, κ-solution/surgery.  Frontier notes:
-`research-notes/frontiers/ricci_flow_smooth_core.md` +
-`research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md`.
-
-## Unresolved from This Session
-None attempted-and-failed.  Informational (not blockers): 134
-pre-existing directory-level namespace conventions
-(`tools/sync_namespaces.py` dry-run; longstanding, untouched here);
-mild "previously"-phrasing in ~10 old Lean docstrings.
-
-## Next
-After merge to `main`: Open Problem 1 (`Real213`-cut maximum principle),
-or the small new brick 4 (pair-sum Lagrange identity) as a warm-up.
+1. **Interaction-law rung** (PairOp next §): different-operation lifts
+   determined by distribution — the × cross-rule on +-pairs derived,
+   not postulated; tetration wall as no-law no-lift.
+2. **wrapEq** witness form (`∃ i j, a + i·n = b + j·n`) + class-wise
+   uniqueness — the ℤ/n cross-equation without normalization
+   (ground: `Gcd213.mod_eq_exists_mul_add`).
+3. **T4 visibility dichotomy** `(∃x, p ∣ x²+1) ↔ p % 4 = 1` — half is
+   `qr_neg_one`; converse via the Euler-criterion kit.
+4. **Brick 6**: minimal polynomial = next-rung lowest terms (Gauss's
+   lemma as the gcd-strip mirror; ground `PolyRoot/`).
+5. **T3**: `vp` multiplicativity + separation (exponent lattice);
+   `pairEq ^` transitivity via unique factorization (generic-vs-
+   specific reasons split).
+6. **T2**: rational-root integrality (monic ↔ ring as a theorem).
 
 ## Three-tier state
-- **Promotions this session**:
-  `theory/math/geometry/discrete_curvature.md` ← the discrete-curvature
-  sub-tree.  Essay:
-  `theory/essays/synthesis/the_cauchy_schwarz_gap_is_a_square.md`.
-- **Promotion candidates**: none flagged — the Ricci-marathon backlog is
-  cleared (tensor calculus + discrete curvature both have chapters).
-- **Active scratchpad**: `research-notes/frontiers/` board (see its
-  INDEX); top-level research-notes is anchors-free by design now.
+- **Promoted this session**:
+  `theory/math/numbersystems/slot_arithmetic.md` (sink-rule clean).
+- **Promotion candidate**: `signed_rationals_normal_form.md` arc
+  (all closed) — archive after a PROMOTION_CRITERIA pass if desired;
+  its content is now also covered by the chapter.
+- **Active scratch**: `research-notes/frontiers/numbersystem_square.md`
+  (ontology + open bricks; long — prune when bricks close).
 
-## File Map
+## File Map (new/major)
 ```
-research-notes/INDEX.md                                     ← rewritten (root = INDEX + ledger)
-research-notes/frontiers/markov_lagrange/G200..G203_*.md    ← moved from root
-research-notes/frontiers/{G205_*,G35_*}.md                  ← moved from root
-research-notes/frontiers/inequalities_positivity_fold_crossdomain.md ← NEW cross-domain note
-research-notes/archive/foundations/*.md (12)                ← archived foundational arc
-research-notes/archive/RERESEARCH_n_u_removal.md            ← archived registry
-theory/math/geometry/discrete_curvature.md                  ← NEW chapter (promotion)
-theory/essays/synthesis/the_cauchy_schwarz_gap_is_a_square.md ← NEW essay
-STRICT_ZERO_AXIOM.md                                        ← new A6 entry + 2 count fixes + bare-ref cleanup
-theory/{INDEX.md,math/INDEX.md,essays/INDEX.md}             ← counts + registrations
-CLAUDE.md, book/foundations/{01,02}*.md, theory/math/{numbersystems,foundations}/* ← decoupled citations
-lean/E213 (8 docstring-path fixes + ListHelper header)      ← comment-only, build green
+theory/math/numbersystems/slot_arithmetic.md   ← THE chapter (read first)
+research-notes/frontiers/numbersystem_square.md ← ontology + open bricks
+research-notes/frontiers/signed_rationals_normal_form.md ← closed arc
+lean/E213/Meta/Nat/PairOp.lean                 ← meta-operation §1–§4
+lean/E213/Meta/Nat/{NatDiv213,Gcd213}.lean     ← sandwich/Euclid additions
+lean/E213/Meta/Int213/Core.lean                ← witness + cross-equation kit
+lean/E213/Lib/Math/NumberSystems/{Rat213,CompletionDichotomy,GaussTuple,PairPow}.lean
+lean/E213/Lens/Number/RatioLensFounding.lean   ← ratioEquiv completed
+CLAUDE.md                                      ← new failure row (quotient/ontology)
 ```
