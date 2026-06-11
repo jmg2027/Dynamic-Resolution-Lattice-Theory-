@@ -25,7 +25,9 @@ the assembly follow.  All zero-axiom.
 namespace E213.Lib.Math.NumberTheory.FactorialRatioBound
 
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_pos)
-open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose choose_succ_succ
+  choose_one_right choose_zero_right choose_eq_zero_of_lt)
+open E213.Tactic.NatHelper (add_mul sub_add_cancel add_right_cancel le_sub_of_add_le)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTwoVar (binomSum2 binom2_theorem)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo)
@@ -107,5 +109,78 @@ theorem B1 (m : Nat) :
       _ = (30 ^ (30 * m) * (factorial (15 * m) * factorial (10 * m) * factorial (5 * m)))
             * 15 ^ (15 * m) := by ring_nat
   exact le_of_mul_le_mul_right' (Nat.pos_pow_of_pos _ (by decide)) key
+
+/-! ## §4 — B2: the absorption identity and the term-ratio bounds -/
+
+/-- `N - k = (N - (k+1)) + 1` for `k+1 ≤ N`. -/
+private theorem sub_succ_add_one {N k : Nat} (hk : k + 1 ≤ N) :
+    N - k = (N - (k + 1)) + 1 := by
+  have hk' : k ≤ N := Nat.le_trans (Nat.le_succ k) hk
+  have e1 : (N - (k + 1)) + 1 + k = N := by
+    rw [Nat.add_assoc, Nat.add_comm 1 k]; exact sub_add_cancel hk
+  have e2 : (N - k) + k = N := sub_add_cancel hk'
+  exact (add_right_cancel (e1.trans e2.symm)).symm
+
+/-- The inductive-step coefficient identity for `choose_absorb` (when the binomial
+    factor is nonzero, i.e. `k+1 ≤ N`). -/
+private theorem coeff_shift {N k : Nat} (hk : k + 1 ≤ N) :
+    (k + 2) + (N - (k + 1)) = (k + 1) + (N - k) := by
+  rw [sub_succ_add_one hk]; ring_nat
+
+/-- ★★ **Absorption**: `(k+1)·C(N,k+1) = (N−k)·C(N,k)`.  Induction on `N` + Pascal;
+    the step coefficient identity holds where `C N (k+1) ≠ 0`, else both sides `·0`. -/
+theorem choose_absorb : ∀ N k, (k + 1) * choose N (k + 1) = (N - k) * choose N k
+  | 0, k => by
+      rw [show choose 0 (k + 1) = 0 from rfl, Nat.mul_zero, Nat.zero_sub, Nat.zero_mul]
+  | N + 1, 0 => by
+      show 1 * choose (N + 1) 1 = (N + 1 - 0) * choose (N + 1) 0
+      rw [choose_one_right, choose_zero_right, Nat.one_mul, Nat.sub_zero, Nat.mul_one]
+  | N + 1, k + 1 => by
+      have ih1 := choose_absorb N k
+      have ih2 := choose_absorb N (k + 1)
+      show (k + 2) * choose (N + 1) (k + 2) = (N + 1 - (k + 1)) * choose (N + 1) (k + 1)
+      rw [choose_succ_succ N (k + 1), choose_succ_succ N k, Nat.succ_sub_succ,
+          Nat.mul_add, Nat.mul_add, ih2, ← ih1]
+      by_cases hc : choose N (k + 1) = 0
+      · rw [hc, Nat.mul_zero, Nat.mul_zero, Nat.mul_zero, Nat.mul_zero]
+      · have hkN : k + 1 ≤ N :=
+          Nat.not_lt.mp (fun hlt => hc (choose_eq_zero_of_lt N (k + 1) hlt))
+        rw [← add_mul, ← add_mul, coeff_shift hkN]
+
+/-- For `k < m`: `5·C(6m,k) ≤ C(6m,k+1)` (the up-ratio, `6m−k ≥ 5(k+1)`). -/
+theorem chooseRatioUp (m k : Nat) (hk : k < m) :
+    5 * choose (6 * m) k ≤ choose (6 * m) (k + 1) := by
+  have hab := choose_absorb (6 * m) k
+  have hge : 5 * (k + 1) ≤ 6 * m - k :=
+    le_sub_of_add_le (by
+      calc 5 * (k + 1) + k = 6 * k + 5 := by ring_nat
+        _ ≤ 6 * k + 6 := Nat.add_le_add_left (by decide) _
+        _ = 6 * (k + 1) := by ring_nat
+        _ ≤ 6 * m := Nat.mul_le_mul_left 6 hk)
+  have h1 : 5 * (k + 1) * choose (6 * m) k ≤ (6 * m - k) * choose (6 * m) k :=
+    Nat.mul_le_mul_right _ hge
+  rw [← hab] at h1
+  refine Nat.le_of_mul_le_mul_left ?_ (Nat.succ_pos k)
+  calc (k + 1) * (5 * choose (6 * m) k)
+      = 5 * (k + 1) * choose (6 * m) k := by ring_nat
+    _ ≤ (k + 1) * choose (6 * m) (k + 1) := h1
+
+/-- For `m ≤ k`: `C(6m,k+1) ≤ 5·C(6m,k)` (the down-ratio, `6m−k ≤ 5(k+1)`). -/
+theorem chooseRatioDown (m k : Nat) (hk : m ≤ k) :
+    choose (6 * m) (k + 1) ≤ 5 * choose (6 * m) k := by
+  have hab := choose_absorb (6 * m) k
+  have h6 : 6 * m ≤ 5 * (k + 1) + k := by
+    calc 6 * m ≤ 6 * k := Nat.mul_le_mul_left 6 hk
+      _ ≤ 5 * (k + 1) + k := by
+        rw [show 5 * (k + 1) + k = 6 * k + 5 from by ring_nat]; exact Nat.le_add_right _ _
+  have hle : 6 * m - k ≤ 5 * (k + 1) := by
+    calc 6 * m - k ≤ (5 * (k + 1) + k) - k := Nat.sub_le_sub_right h6 k
+      _ = 5 * (k + 1) := add_sub_cancel_right (5 * (k + 1)) k
+  have h1 : (6 * m - k) * choose (6 * m) k ≤ 5 * (k + 1) * choose (6 * m) k :=
+    Nat.mul_le_mul_right _ hle
+  rw [← hab] at h1
+  refine Nat.le_of_mul_le_mul_left ?_ (Nat.succ_pos k)
+  calc (k + 1) * choose (6 * m) (k + 1) ≤ 5 * (k + 1) * choose (6 * m) k := h1
+    _ = (k + 1) * (5 * choose (6 * m) k) := by ring_nat
 
 end E213.Lib.Math.NumberTheory.FactorialRatioBound
