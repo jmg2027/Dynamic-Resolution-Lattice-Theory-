@@ -30,6 +30,7 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factor
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTwoVar (binomSum2 binom2_theorem)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_term_le)
+open E213.Tactic.NatHelper (add_sub_cancel_right)
 
 /-! ## §1 — the single-term binomial bound, in factorial form -/
 
@@ -48,7 +49,8 @@ theorem binom_term_le (a b n k : Nat) (hk : k ≤ n) :
 theorem fact_binom_bound (a b k j : Nat) :
     factorial (k + j) * a ^ k * b ^ j ≤ (a + b) ^ (k + j) * (factorial k * factorial j) := by
   have hb := binom_term_le a b (k + j) k (Nat.le_add_right k j)
-  rw [Nat.add_sub_cancel_left] at hb
+  rw [show k + j - k = j from
+        (congrArg (· - k) (Nat.add_comm k j)).trans (add_sub_cancel_right j k)] at hb
   have h2 := Nat.mul_le_mul_right (factorial k * factorial j) hb
   rw [show choose (k + j) k * a ^ k * b ^ j * (factorial k * factorial j)
         = choose (k + j) k * (factorial k * factorial j) * (a ^ k * b ^ j) from by ring_nat,
