@@ -85,53 +85,22 @@ minor org-audit item, not blocking.
    Via FTA-lite per prime → `vp_mul`+`legendre`+`vp_lcmUpTo` to `Σ_{e<30m}` (common
    bound via `sumTo_extend`) → `perLevel` summed by `sumTo_le_sumTo`.  ∅-axiom.
 
-## Remaining chain to close Brick 1 (frontier: `zeta3_blueprint.md`)
-**All four hard gates + step 2 are cleared** — `count30`, `legendre`, `vp_lcmUpTo`,
-FTA-lite, `perLevel`, `key_divisibility`.  The entire arithmetic core is ∅-axiom.
+## ★★★ Brick 1 (the lcm race, input I2) is COMPLETE — all 7 steps PURE
+`count30` (step 1) · `key_divisibility` (step 2) · `step3` (factorial-ratio bound) ·
+`step4` (recursion `lcm(30m) ≤ (6m+1)·α₃₀^m·lcm(5m)`) · `step5` (numeral induction) ·
+**`main`** `lcm(1..30m) ≤ 10^{15m}` · **`lcmUpTo_le`** `lcm(1..n) ≤ 10^{15⌈n/30⌉} ≈
+(√10)ⁿ < 3.236ⁿ = α^{1/3·n}` — the ζ(3) lcm-race deliverable.
 
-  * **Steps 1–4 ALL CLOSED + PURE.**  `FactorialRatioBound.lean`: `binom_term_le`,
-    `fact_binom_bound`, `B1`, `choose_absorb`, `chooseRatioUp/Down`, `tcoef_up/down`,
-    `tm_max`, `B2`, **`step3`** (factorial-ratio bound, the rediscovered B1·B2
-    decomposition).  `LcmGrowthChebyshev.lean` §8–§9: **`step4_cleared`** (cleared
-    recursion) and **`step4`** (clean `lcm(30m) ≤ (6m+1)·α₃₀^m·lcm(5m)`,
-    `α₃₀ = 2¹⁴3⁹5⁵`, via `pow30_eq` `30^{30m}=α₃₀^m·6^{6m}15^{15m}10^{10m}`).
-  * **Step 5 — numeral induction** (next): `(6m+1)·α₃₀^m·W^{⌈m/6⌉} ≤ W^m`
-    (`W = 10¹⁵`), ∀ `m ≥ 26`; period-6 induction (`⌈(m+6)/6⌉=⌈m/6⌉+1`), step is the
-    single numeral `37·α₃₀⁶ ≤ 10⁷⁵` (`by decide` on the ~75-digit literal; α₃₀ is
-    `pow30_eq`'s factor), bases `S(26..31)` decide.  Pure numeral work.
-  * **Step 6 — main** `lcm(1..30m) ≤ 10^{15m}`: strong induction on `m` using
-    `step4` + lcm-monotonicity (`lcm(5m) ≤ lcm(30·⌈m/6⌉)`, `5m ≤ 30⌈m/6⌉`) +
-    step 5; bases `m ≤ 25` by explicit lcm certificates (the laborious part — bound
-    `lcmUpTo (30m)` for small `m`; `lcmUpTo_dvd` + `Nat.ble`, or a divisibility
-    certificate, since the literal `lcm(1..750)` is ~325 digits).  Needs `lcmUpTo`
-    monotonicity lemma (`a ≤ b → lcmUpTo a ∣ lcmUpTo b`, via `lcmUpTo_dvd` +
-    `dvd_lcmUpTo`).
-  * **Step 7 — corollaries** `lcm² ≤ 10^{n+29}`, `lcm⁶ ≤ 10^{87+3n}` by padding `n`
-    up to the next multiple of 30 + lcm-monotonicity.
+Modules: `LcmGrowthChebyshev.lean`, `PrimeValuation.lean`, `Legendre.lean`,
+`FTALite.lean`, `FactorialRatioBound.lean` (the rediscovered B1·B2 decomposition +
+`choose_absorb` unimodality), `LcmBoundMain.lean` (steps 5–7).
 
-  * **Step 3 — factorial-ratio bound** (DONE — see above; details retained):
-    `(30m)!·m!/((15m)!(10m)!(6m)!) ≤ (6m+1)·α₃₀^m` (`α₃₀ = 2¹⁴3⁹5⁵`).  Decomposition
-    rediscovered (`30 = 2·15 = 3·10 = 5·6`):
-    - **B1 DONE** (PURE): `(30m)!·15^{15m}·10^{10m}·5^{5m} ≤ 30^{30m}·(15m)!(10m)!(5m)!`
-      — two single-term bounds (`binom_term_le`/`fact_binom_bound`), `15^{15m}`-cancelled.
-    - **B2 TODO** (unimodal max-term): `6^{6m}·m!·(5m)! ≤ (6m+1)·5^{5m}·(6m)!`.  Full
-      plan: (i) **absorption** `(k+1)·C(N,k+1)=(N−k)·C(N,k)` (induction on N + Pascal
-      `choose_succ_succ`; step coeff identity `(k+2)+(N−(k+1))=(k+1)+(N−k)` holds when
-      `C N (k+1)≠0`, else both ·0 — `by_cases C N (k+1)=0`).  (ii) ratio bounds
-      `k<m → 5·C(6m)k ≤ C(6m)(k+1)`, `m≤k → C(6m)(k+1) ≤ 5·C(6m)k` (`6m−k ≷ 5(k+1) ⟺
-      6m ≷ 6k+5`, cancel `(k+1)`).  (iii) term mono for `t k := C(6m)k·5^{6m−k}`
-      (×`5^{6m−k−1}`).  (iv) chains → `tm_max : k≤6m → t k ≤ t m`.  (v)
-      `sumTo_le_const_mul` + `binom2_theorem 1 5 (6m)` (`6^{6m}=Σ t`, `1^k=1`) →
-      `6^{6m}≤(6m+1)C(6m,m)5^{5m}`; ×`m!(5m)!` + `choose_mul_factorials m (5m)` → B2.
-      propext traps: `Nat.add_sub_cancel*`/`sub`-lemmas dirty → `NatHelper`-pure.
-    - **S3**: `B1·B2`, cancel `5^{5m}·(5m)!` (`le_of_mul_le_mul_right'`).
-  * **Step 4 — recursion** `lcm(1..30m) ≤ (6m+1)·α₃₀^m·lcm(1..5m)`: from
-    `key_divisibility` as `≤` (`Pow213.le_of_dvd_pos`, RHS>0) + step 3 + cancel the
-    common `(15m)!(10m)!(6m)!` (it is `> 0`).
-  * **Steps 5–7** — numeral induction `S(m):(6m+1)α₃₀^m W^{⌈m/6⌉}≤W^m` (`W=10¹⁵`,
-    step `37·α₃₀⁶ ≤ 10⁷⁵` by `decide` on the big literal; bases S(26..31) decide),
-    main `lcm(1..30m) ≤ 10^{15m}` (strong induction + small-`m` lcm certificates via
-    `lcmUpTo_dvd`), corollaries `lcm² ≤ 10^{n+29}`, `lcm⁶ ≤ 10^{87+3n}` by padding.
+∅-axiom traps logged: `α₃₀` `[local irreducible]` (whnf explodes in defeq/`ring_nat`);
+`ring_nat` deep-recurses on **literal-exponent** `^` terms → prove reassoc on opaque
+variables (`re1`-style) and instantiate; base certs `decide` need `maxRecDepth`/
+`maxHeartbeats` raised (`lcmUpTo 750 ≤ 10^375` ~1s); `Nat.le_of_add_le_add_right`,
+`Nat.add_sub_cancel*`, `Nat.{pow_add,mul_pow,pow_mul,div_div_eq_div_mul}` all carry
+`propext` → pure replacements built.
 
 ## Then: Brick 2 (Apéry integrality) + assembly
 Brick 2 (`zeta3_blueprint.md` Brick 2) is "pure divisibility chains, NO p-adics"
@@ -149,15 +118,16 @@ total modulus; `aperyOrbit_geom`/`zeta3Den_geom` (28>27=3³ race margin);
 localization `(601/500, 1203/1000]`.  See `Zeta3Cut.lean` §8–§9.
 
 ## Verify
-`cd lean && lake build E213.Lib.Math.NumberTheory.{LcmGrowthChebyshev,PrimeValuation,Legendre}`;
-`python3 tools/scan_axioms.py <module>` → all PURE.
+`cd lean && lake build E213.Lib.Math.NumberTheory.LcmBoundMain` (pulls the whole
+Brick-1 chain); `python3 tools/scan_axioms.py <module>` → all PURE.
 
-## File Map
+## File Map (Brick 1 — all NEW, all PURE)
 ```
-lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← NEW (§1 count30; §2 lcmUpTo; §3 vp_lcmUpTo+floorLog; §4 div_div_pure,sumTo_le_sumTo; §5 div-cancel; §6 perLevel; §7 key_divisibility)
-lean/E213/Lib/Math/NumberTheory/PrimeValuation.lean      ← NEW (vp_mul, prime_dvd_mul, Prime213; §3 vp_monotone, vp_gcd_min, vp_lcm_max)
-lean/E213/Lib/Math/NumberTheory/FTALite.lean             ← NEW (dvd_of_forall_prime_vp_le)
-lean/E213/Lib/Math/NumberTheory/FactorialRatioBound.lean ← NEW step 3 DONE (step3 + B1/B2 + choose_absorb + tcoef machinery)
-lean/E213/Lib/Math/NumberTheory/Legendre.lean            ← NEW (legendre full formula; vp_factorial, vp_one, val_count, indLt_sum, div_succ_increment)
-research-notes/frontiers/zeta3_blueprint.md              ← formalization-progress section (Legendre done)
+lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← §1 count30; §2 lcmUpTo; §3 vp_lcmUpTo+floorLog; §4 div_div_pure,sumTo_le_sumTo; §5–§7 perLevel/key_divisibility; §8 step4_cleared; §9 alpha30,pow30_eq,step4
+lean/E213/Lib/Math/NumberTheory/PrimeValuation.lean      ← vp_mul, prime_dvd_mul, Prime213; vp_monotone, vp_gcd_min, vp_lcm_max
+lean/E213/Lib/Math/NumberTheory/Legendre.lean            ← legendre (full formula); vp_factorial, val_count, indLt_sum, div_succ_increment
+lean/E213/Lib/Math/NumberTheory/FTALite.lean             ← dvd_of_forall_prime_vp_le
+lean/E213/Lib/Math/NumberTheory/FactorialRatioBound.lean ← step3 (factorial-ratio bound) + B1/B2 + choose_absorb + tcoef machinery
+lean/E213/Lib/Math/NumberTheory/LcmBoundMain.lean        ← step5; main (lcm(1..30m)≤10^{15m}); lcmUpTo_le (the deliverable)
+research-notes/frontiers/zeta3_blueprint.md              ← Brick 1 COMPLETE marked
 ```

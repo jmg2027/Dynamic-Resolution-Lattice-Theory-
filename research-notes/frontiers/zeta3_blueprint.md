@@ -30,23 +30,22 @@ sandwich), §4 (`div_div_pure`, `sumTo_le_sumTo`); `FTALite.lean`
 (**`dvd_of_forall_prime_vp_le`** = `(∀ prime p, vₚa≤vₚb)→a∣b`, contrapositive of
 the repo's `exists_prime_vp_gt`).
 
-**All four hard gates + step 2 for Brick 1 are now PURE**: `count30`, `legendre`,
-`vp_lcmUpTo`, FTA-lite, `perLevel`, **`key_divisibility`** (`lcm(1..30m)·(15m)!(10m)!
-(6m)! ∣ (30m)!·m!·lcm(1..5m)`, §5–§7 of `LcmGrowthChebyshev.lean`).  The arithmetic
-core is done.  Remaining:
+### ★★★ Brick 1 (the lcm race, input I2) is COMPLETE — all 7 steps PURE.
 
-  * **Step 3 (factorial-ratio bound)** — `(30m)!·m!/((15m)!(10m)!(6m)!) ≤ (6m+1)·α₃₀^m`
-    (cleared form in the deliverable).  The one remaining piece of real content;
-    gear: `BinomialTwoVar.binom2_theorem` (PROVEN) + `sumTo_term_le`.
-  * **Step 4 (recursion)** — `key_divisibility` as `≤` (`le_of_dvd_pos`) + step 3 +
-    cancel `(15m)!(10m)!(6m)!`.
-  * Steps 5–7: numeral induction (`37·α₃₀⁶≤10⁷⁵` decide), main, corollaries.
-  * **FTA-lite** — `(∀ prime power q, q∣a → q∣b) → a∣b`, the divisibility criterion
-    step 2 closes through (needs a prime-factor existence/enumeration up to `n`).
-  * Steps 2–7 (key divisibility via `count30` at `m̃=⌊30m/p^{j+1}⌋`, comparing the
-    two sides' `vₚ` through `legendre` + lcm valuation; factorial-ratio bound;
-    recursion; numeral induction `37·α₃₀⁶ ≤ 10⁷⁵`; main `lcm(1..30m) ≤ 10^{15m}`;
-    corollaries).  `α₃₀ = 2¹⁴3⁹5⁵` exact.
+Modules: `LcmGrowthChebyshev.lean` (§1 `count30`; §2 `lcmUpTo`; §3 `vp_lcmUpTo`;
+§5–§7 `perLevel`/`key_divisibility`; §8 `step4_cleared`; §9 `step4`),
+`PrimeValuation.lean` (`vp_mul`, `vp_lcm_max`, …), `Legendre.lean` (`legendre`),
+`FTALite.lean` (`dvd_of_forall_prime_vp_le`), `FactorialRatioBound.lean` (`step3` =
+factorial-ratio bound, with the rediscovered B1·B2 decomposition + `choose_absorb`
+unimodality), `LcmBoundMain.lean` (`step5` numeral induction, **`main`**
+`lcm(1..30m) ≤ 10^{15m}`, **`lcmUpTo_le`** `lcm(1..n) ≤ 10^{15⌈n/30⌉} ≈ (√10)ⁿ`).
+
+The deliverable is `LcmBoundMain.lcmUpTo_le` (√10 < 3.236 = α^{1/3}).  Remaining for
+ζ(3): **Brick 2 (integrality, input I1)** + assembly into `zeta3HolonomicReal`.
+
+(Notes: `α₃₀` `[local irreducible]` to stop whnf-explosion; `ring_nat` deep-recurses
+on literal-exponent `^` → abstract reassoc lemmas; base certificates `decide` with
+`maxRecDepth`/`maxHeartbeats` raised — `lcmUpTo 750 ≤ 10^375` in ~1s.)
 
 ## Brick 1 — the lcm bound: finitized Chebyshev, NOT Hanson
 
