@@ -1,8 +1,8 @@
 # Frontier — the weld Casoratian: flip criterion + ratio descent
 
-**Status**: PARTIALLY CLOSED — the named ℤ recurrence and the flip
-criterion are now ∅-axiom (`LambertOrder` §10); ratio descent + the
-bridge-free `LowerBase` remain open.  **Tier**: 1.
+**Status**: items 1–2 CLOSED ∅-axiom (`LambertOrder` §10 — named ℤ
+recurrence, flip criterion, K-positivity, single-step + telescoped ratio
+descent); only the bridge-free `LowerBase` (item 3) remains.  **Tier**: 1.
 Anchor: `LambertOrder` §9 `weld_casoratian` (PURE) — the exact
 `i`-invariant unimodular identity on the pair `(R_J(i), M_J(i))`:
 
@@ -22,14 +22,18 @@ The weld itself is closed without it (`theory/math/analysis/lambert_weld.md`)
    sign-flip forcing by cancelling the positive margin.  (The blueprint's
    `K_J > |R_J|·M_{J+1}` is the `0 ≤ M_{J+1}` specialisation; the signed
    form is sharper.)
-2. **Ratio descent** (OPEN): pre-flip telescoping `|R_J|·M_0 ≤ |R_0|·M_J`.
-   Foothold: now stated cleanly on `weld_casoratian_int`; needs a positivity
-   schedule for `weldM` across `J`.
+2. **Ratio descent** — **CLOSED** (`LambertOrder` §10, ∅-axiom).
+   `weldK_nonneg : 0 ≤ K_J` (= `t_mono` cast to ℤ) makes the single step
+   unconditional: `weld_descent_step : R_J·M_{J+1} ≤ R_{J+1}·M_J` (the ratio
+   `R/M` climbs).  `weld_ratio_descent : (∀j, 0 < M_j) → R_0·M_J ≤ R_J·M_0`
+   telescopes it through the positive margins — i.e. pre-flip (`R<0`)
+   `|R_J|·M_0 ≤ |R_0|·M_J`, the magnitude descent.
 3. (OPEN) Whether the criterion yields an *independent* (bridge-free) proof
    of `LowerBase`, and at what slack — a second certificate of the same
-   closure, valuable as a cross-check brick.  Now has the ℤ recurrence as a
-   foothold (research-open: needs the `weldM > 0` schedule that `LowerBase`
-   itself establishes, so independence is non-trivial).
+   closure, valuable as a cross-check brick.  Has the ℤ recurrence +
+   descent as footholds (research-open: both consume the `weldM > 0`
+   schedule that `LowerBase` itself establishes, so independence is the
+   non-trivial part).
 
 Provenance: discovered in the 2026-06-11 multi-agent round (Discovery 1 of
 the archived blueprint, `archive/transcendentals/lowerbase_blueprint.md`).

@@ -947,4 +947,58 @@ theorem weld_flip_criterion (q i J : Nat) (hMJ : 0 < weldM q i J)
     exact h1
   exact pos_of_mul_pos_right hpos hMJ
 
+/-- The Casoratian constant is non-negative: `0 ≤ K_J`.  This is exactly the truncated-coth
+    monotonicity `t_mono` (`(2J+1)·c_J·s_{J+1} ≤ (2J+3)·c_{J+1}·s_J`) cast to `ℤ`. -/
+theorem weldK_nonneg (q J : Nat) : 0 ≤ weldK q J := by
+  -- cast each `ℕ` triple product into the atom-form `weldK` uses
+  have cast3 : ∀ (X c s : Nat), (↑(X * c * s) : Int) = (X : Int) * (c : Int) * (s : Int) := by
+    intro X c s; rw [Int.ofNat_mul, Int.ofNat_mul]
+  have hcoef3 : ((2 * J + 3 : Nat) : Int) = 2 * (J : Int) + 3 := by
+    rw [Int.ofNat_add, Int.ofNat_mul]; rfl
+  have hcoef1 : ((2 * J + 1 : Nat) : Int) = 2 * (J : Int) + 1 := by
+    rw [Int.ofNat_add, Int.ofNat_mul]; rfl
+  have e : weldK q J = ((2*J+3) * coshNum q (J+1) * sinhNum q J : Nat)
+                     - ((2*J+1) * coshNum q J * sinhNum q (J+1) : Nat) := by
+    unfold weldK
+    rw [cast3 (2*J+3) (coshNum q (J+1)) (sinhNum q J),
+        cast3 (2*J+1) (coshNum q J) (sinhNum q (J+1)),
+        hcoef3, hcoef1]
+  rw [e]
+  exact le_zero_of_nonneg (sub_nonneg_of_le
+    (ofNat_le_of_le (E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut.t_mono q J)))
+
+/-- ★★★ **The single descent step** (unconditional): `R_J·M_{J+1} ≤ R_{J+1}·M_J`.  From
+    `weld_casoratian_int` (`R_{J+1}·M_J = R_J·M_{J+1} + K_J`) and `0 ≤ K_J` (`weldK_nonneg`):
+    the cross strictly cannot *fall* — the ratio `R/M` climbs (pre-flip, with `R < 0`, this is
+    the magnitude `|R|` *descending*). -/
+theorem weld_descent_step (q i J : Nat) :
+    weldR q i J * weldM q i (J+1) ≤ weldR q i (J+1) * weldM q i J := by
+  rw [weld_casoratian_int]
+  have h := add_le_add_left (weldK_nonneg q J) (weldR q i J * weldM q i (J+1))
+  rwa [Int.add_zero] at h
+
+/-- ★★★★ **Ratio descent** (blueprint Discovery 1, telescoped): with positive margins
+    (`0 < M_j` for every `j`), the climbing ratio telescopes to
+    `R_0·M_J ≤ R_J·M_0` — i.e. (pre-flip, `R < 0`) `|R_J|·M_0 ≤ |R_0|·M_J`, the magnitude
+    descent.  Each rung chains the single step `weld_descent_step` through the positive
+    margins (`mul`-monotonicity up, then `M_J`-cancellation down). -/
+theorem weld_ratio_descent (q i : Nat) (hM : ∀ j, 0 < weldM q i j) (J : Nat) :
+    weldR q i 0 * weldM q i J ≤ weldR q i J * weldM q i 0 := by
+  induction J with
+  | zero => exact le_refl _
+  | succ J ih =>
+    have ih' := mul_le_mul_right_nonneg ih (weldM q i (J+1)) (le_of_lt (hM (J+1)))
+    have step' := mul_le_mul_right_nonneg (weld_descent_step q i J) (weldM q i 0) (le_of_lt (hM 0))
+    have chain : weldR q i 0 * weldM q i (J+1) * weldM q i J
+               ≤ weldR q i (J+1) * weldM q i 0 * weldM q i J := by
+      rw [show weldR q i 0 * weldM q i (J+1) * weldM q i J
+            = weldR q i 0 * weldM q i J * weldM q i (J+1) from by ring_intZ,
+          show weldR q i (J+1) * weldM q i 0 * weldM q i J
+            = weldR q i (J+1) * weldM q i J * weldM q i 0 from by ring_intZ]
+      refine le_trans ih' (le_trans ?_ step')
+      rw [show weldR q i J * weldM q i 0 * weldM q i (J+1)
+            = weldR q i J * weldM q i (J+1) * weldM q i 0 from by ring_intZ]
+      exact le_refl _
+    exact le_of_mul_le_mul_right_pos chain (hM J)
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
