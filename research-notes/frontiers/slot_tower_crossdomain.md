@@ -121,6 +121,23 @@ have async analogues, or is "operation" *definitionally* clock-dependent —
 i.e. **count-Lens = the clock**, with no async counterpart?  The latter would
 be a sharp, testable claim.
 
+Sharpened against the axiom corpus, three statements collapse to one point.
+`seed/AXIOM/10_encoding_costs.md` §10.1 (row 1) charges the `ℕ`-induction
+principle as the **order-of-construction cost** ("inductive types presuppose
+ℕ; ℕ is a Lens result of Raw, so importing it priorly is a cost").
+ORIGIN_RAW §6 names the same thing dynamically — the **lockstep clock**.  The
+`^`-essay (`theory/essays/analysis/what_is_exponentiation.md`) locates `^` as
+"where iteration becomes an *operation*".  Read together: **operation-ness
+*is* the §10.1 cost** — to run an operation you must count (the clock), and
+counting is `ℕ`-induction imported in advance.  So the number tower is the
+**cost of `ℕ` unrolled into a ladder** — `count-Lens = the clock = §10.1
+row 1`.  If this identification holds, (a) is answered negative: there is no
+asynchronous number tower, because operation *is* synchrony.  The tower
+keeps the same architectural status as the §4.3 uniqueness proofs (pure-`ℕ`,
+Raw-not-imported, conducted *inside* a `ℕ`-Lens codomain — not before/outside
+Raw).  Open: state the three-way identity as one Lean fact, or find the
+async operation that refutes it.
+
 (b) **`^`-wall ↔ ORIGIN_RAW §9 "level-2 ceiling": resonance or identity?**
 Both are "regularity runs out at a rung": §9 (sequential natural-number strata
 stop at level 2) and the `^`-wall (comm/assoc die at `^`, the log does not fold
