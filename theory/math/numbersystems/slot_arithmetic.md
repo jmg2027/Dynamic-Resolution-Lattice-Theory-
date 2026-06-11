@@ -36,11 +36,11 @@ sorted list is the list of *units* — indistinguishable elements make
 insertion order and count order one thing, so no sorting exists or is
 needed.  Append is associative for any element type but **not
 commutative in general** (`append_not_comm_general`); on unit lists
-commutativity is **born** (`append_comm` — units bubble freely, by
-bare induction), and `+` is the count readout of append
-(`count_append`).  Hence `add_comm_from_append`: **the commutativity
-of `+` is the shadow of unit-list append commutativity** — counting
-forgets arrangement, and what survives the forgetting commutes.
+commutativity is **born** (`append_comm`, by bare induction:
+indistinguishable units carry no position information), and `+` is the
+count readout of append (`count_append`).  Hence `add_comm_from_append`:
+**`+`-commutativity is unit-list append commutativity read through
+counting** — counting forgets arrangement, and what survives commutes.
 
 ## 2. The list and the sandwich
 
@@ -70,8 +70,8 @@ standard expanded form is the solution's representation budget.  A
 pair-slot's two naturals are one **orbit coordinate** (the only part
 an answer depends on) plus one **fiber coordinate** (position along
 the relation orbit) — raw ℕ-counts over-count by the fibers, and the
-fiber does not vanish but **transports**: riding the exponent orbit
-lands the value on its own ×-orbit
+fiber does not vanish but **transports**: moving along the exponent
+orbit moves the value along its own ×-orbit
 (`PairPow.pairPow_fiber`, `pairPow_id`).  A question with all orbit
 coordinates fixed has zero effective slots: its solution is a
 **constant of its layer**, as `2` is of ℕ.
@@ -146,8 +146,8 @@ Order does not descend through the sign quotient — a nonpositive
 factor reverses `≤` (`OrderMul.mul_le_mul_right_nonpos`) — so the
 signed layer reads the sign off first and runs cross-`≤` on
 magnitudes: `Rat213.lowest_exists` / `lowest_unique` (the
-sign-carrying normal form, existence and uniqueness; mixed signs die
-by constructor clash), `ratioLeZ_descends` / `ratioLeZ_iff` (the
+sign-carrying normal form, existence and uniqueness; mixed signs are
+excluded by constructor mismatch), `ratioLeZ_descends` / `ratioLeZ_iff` (the
 derived order is well-defined on the positive cone).
 
 The two routes ℕ→ℤ→ℚ and ℕ→ℚ₊→ℚ are two bracketings of ℕ⁴, and
