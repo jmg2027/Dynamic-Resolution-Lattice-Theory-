@@ -866,4 +866,16 @@ theorem subNatNat_eq_iff (A B C D : Nat) :
       subNatNat_add_add C D B
     rw [← h1, ← h2, h, Nat.add_comm B D]
 
+/-- ★★★★ **The pair-slot ×-question unfolded**: the cross-relation
+    `(A,B) ⊗ (X₁,X₂) ≈ (C,D)` is exactly the two-sided linear
+    ℕ-equation — the "two sides" of the 4-slot rational question are
+    the components of the pair slots (e.g. `2x = −5` vs `2x = 5`
+    differ only in which side the 5 sits).  Direct corollary of the
+    multiplication keystone and the cross-equation. -/
+theorem subNatNat_mul_eq_iff (A B X₁ X₂ C D : Nat) :
+    Int.subNatNat A B * Int.subNatNat X₁ X₂ = Int.subNatNat C D
+    ↔ (A * X₁ + B * X₂) + D = C + (A * X₂ + B * X₁) := by
+  rw [subNatNat_mul_subNatNat]
+  exact subNatNat_eq_iff _ _ _ _
+
 end E213.Meta.Int213

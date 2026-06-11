@@ -44,7 +44,20 @@ is *the question's slots sitting one level up, with no witness at
 that level* — the ordinary witness dichotomy applied on the upper
 layer.  The imaginary unit is the **solvability supplement for
 +-pair-coefficient equations**, born at exactly the layer where slots
-carry the +-pair structure, undefined before it.
+carry the +-pair structure, undefined before it.  And the mechanism
+is operation-uniform: `(a,b)·x = (c,d)` (e.g. `2x = −5` vs `2x = 5`)
+likewise needs four naturals — the signed rationals — while
+`(a,b)+x = (c,d)` stays at one pair (witness exists in ℤ).  Unfolding
+the pair product shows the earlier 4-slot two-sided form
+`ax₁ + bx₂ + d = c + ax₂ + bx₁` is not a postulate but the pair-slots'
+components laid flat: **the "two sides" are the two components of the
+pair slots** (`Int213.subNatNat_mul_eq_iff`, PURE).  Slot accounting
+with fibers (`PairPow`): a pair-slot = one orbit coordinate + one
+fiber coordinate; raw ℕ-counts over-count by the fibers, the fiber
+transports into the value's own ×-riding (`pairPow_fiber`,
+`pairPow_id`), and a question with all orbits fixed
+(`x^(n,n+2) = (m+1,m)`) has zero effective slots — its solution is a
+**constant of the layer**, as `2` is of ℕ.
 
 ## The square
 
