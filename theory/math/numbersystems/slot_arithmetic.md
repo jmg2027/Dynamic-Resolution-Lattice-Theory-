@@ -77,8 +77,15 @@ rung down.
 the +-witness question: `a ≤ b ↔ ∃x, a + x = b`.  Equality is
 manufactured from order — the conjunction of two strict one-sided
 bounds (`Int213.eq_of_sandwich`) — so the **sandwich, not the
-equation, is the proper probe**.  Probing with it splits what the
-equation fuses (`PairOp.sandwich_locates`, `sandwich_unique`):
+equation, is the proper probe**.  The bounds must be **strict**, never
+`≤`: since `a ≤ b ↔ a < b ∨ a = b`, a `≤`-sandwich already contains the
+`=` it would found — circular, and the sandwich pointless.  With no `=`,
+a list element is located only as "right after `a`, right before `b`",
+unique **exactly when `b` is `a`'s next-next**: `a < e < a+2 ⟹ e = a+1`
+(`StrictLocate213.locate_strict`).  `=` is the *output* of that pointing;
+`≤` is the derivative `a < b+1`; the +-witness order is itself strict at
+root (`a < b ↔ ∃x, a+(x+1)=b`).  Probing with the sandwich splits what
+the equation fuses (`PairOp.sandwich_locates`, `sandwich_unique`):
 
 * **existence** of a location needs no monotonicity — only a
   reachable start and escape (progressivity `x ≤ f x`, the list's

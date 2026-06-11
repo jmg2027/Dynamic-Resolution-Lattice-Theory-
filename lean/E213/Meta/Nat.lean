@@ -13,6 +13,7 @@ import E213.Meta.Nat.HyperAssoc
 import E213.Meta.Nat.GridReadout213
 import E213.Meta.Nat.Shape213
 import E213.Meta.Nat.Iterate213
+import E213.Meta.Nat.StrictLocate213
 import E213.Meta.Nat.TwoThreeUnique
 import E213.Meta.Nat.Valuation
 import E213.Meta.Nat.VpMul

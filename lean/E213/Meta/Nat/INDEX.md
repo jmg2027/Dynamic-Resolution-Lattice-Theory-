@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (28)
+## Files (29)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -54,6 +54,9 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
                              (`iter_mul`); `+`,`×`,`^` as `iter`; the
                              surviving ghost `(aᵇ)ᶜ=a^(b·c)` an `iter_mul`
                              instance; idempotent climb builds no tower
+  - `StrictLocate213.lean` — the strict locating primitive: `a<e<a+2 →
+                             e=a+1` (`locate_strict`); founding identity
+                             needs strict `<`, not `≤` (which contains `=`)
   - `Valuation.lean`       — the `q`-adic valuation `vp q n` over ℕ
   - `VpMul.lean`           — the exponent-lattice engine (T3): `vp_mul`
                              (`vp p (m·n) = vp p m + vp p n`, prime `p`),
