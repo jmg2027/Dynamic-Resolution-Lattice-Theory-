@@ -62,3 +62,6 @@ tools/_ast_typesig_sorts.tsv
 # after the `prompt-log` cleanup, via `git add -f`.  INDEX.md stays tracked.
 prompt-log/*.md
 !prompt-log/INDEX.md
+
+# agent worktrees (ephemeral)
+.claude/worktrees/

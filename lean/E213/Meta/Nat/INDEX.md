@@ -4,9 +4,16 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (18)
+## Files (22)
 
   - `PureNat.lean`         — pure-Nat building blocks
+  - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
+                             born as the count-shadow of unit-list append
+  - `UnitGrid.lean`        — the rung-2 sibling: `×`-commutativity born
+                             from the grid transpose double-count
+                             (`mul_comm_from_grid`, no `Nat.mul_comm`)
+  - `TwoThreeUnique.lean`  — the proven linear floor of the `^`-wall:
+                             `2^a·3^b = 2^c·3^d → a=c ∧ b=d`
   - `NatDiv213.lean`       — `Nat.div` lemmas (213-internal pattern)
   - `AddMod213.lean`       — `Nat.add` mod-arithmetic
   - `MulMod213.lean`       — `Nat.mul` mod-arithmetic
