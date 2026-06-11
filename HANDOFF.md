@@ -349,8 +349,10 @@ re-verification produced the complete paper proof of `LowerBase`
    `weld_limit_agreement` unconditionally — **the weld closes**.  Optional
    independent brick: `weld_casoratian` (hooks `tcross_id` + `cf_det_even_nat`).
    Session-scale marathon, no open mathematics remaining.
-2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
-   numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
+2. **ζ(3) free modulus — BLUEPRINT COMPLETE** (`zeta3_blueprint.md`): both bricks
+   verified — lcm bound via finitized Chebyshev 30-block recursion (c = √10,
+   7.4%/n margin; Hanson rejected), integrality via pure divisibility chains
+   (no p-adics).  Remaining: formalization (~1.2k + ~2k lines).
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient
    commutation inequality).
 4. **Compactness extraction** (wall (iv) smooth remainder) — record-only.
