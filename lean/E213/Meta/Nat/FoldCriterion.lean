@@ -10,6 +10,10 @@ match at every prime (that is `vp_separation`).  Put the two together
 and you get the whole story of when one power equals another.
 
   * ★★ `pow_eq_pow_iff_vp` — `a^r = b^q  ↔  ∀ prime p, r·vp p a = q·vp p b`.
+  * ★★ `pow_eq_pow_iff_vp_support` — the same check, but only over the
+    *finite* support `{p prime : p ∣ a ∨ p ∣ b}`: outside it both readings are
+    `0`, so the certificate has a finite size (the size half of the
+    equality-is-a-certificate bridge, power side).
   * ★ `prime_pow_unique` — for distinct primes `p ≠ q`,
     `p^a = q^b → a = 0 ∧ b = 0`.  At the prime `p`, `p`'s exponent is `1`
     and `q`'s is `0`, so `a·1 = b·0` forces `a = 0`; symmetric for `b`.
@@ -30,7 +34,7 @@ namespace E213.Meta.Nat.FoldCriterion
 
 open E213.Meta.Nat.VpMul (IsPrime213 vp_pow vp_self_pow)
 open E213.Meta.Nat.Valuation (vp)
-open E213.Meta.Nat.VpSeparation (vp_separation vp_eq_zero_of_not_dvd)
+open E213.Meta.Nat.VpSeparation (vp_separation vp_eq_zero_of_not_dvd dvd_dec)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 
 /-! ## §1 — the equality criterion -/
@@ -56,6 +60,36 @@ theorem pow_eq_pow_iff_vp {a b : Nat} (ha : 0 < a) (hb : 0 < b) (r q : Nat) :
     intro p hp
     rw [vp_pow hp ha r, vp_pow hp hb q]
     exact hmatch p hp
+
+/-- ★★ **The certificate has a finite size: only the support primes matter.**
+    `a^r = b^q` is decided by the primes that actually divide `a` or `b` — at
+    any prime dividing neither, both readings are `0` and the check is
+    automatic.  So the equality certificate is a check over the *finite*
+    support `{p prime : p ∣ a ∨ p ∣ b}`, not over all primes.
+
+    This makes the "the certificate has a *size*" half of the equality-is-a-
+    certificate bridge precise on the power side: the content of "two powers
+    are equal" is exactly the finitely-many prime exponents of `a` and `b`.
+    (The divisor primes are bounded — a prime dividing a positive `n` is `≤ n`
+    — so the support is finite.) -/
+theorem pow_eq_pow_iff_vp_support {a b : Nat} (ha : 0 < a) (hb : 0 < b)
+    (r q : Nat) :
+    a ^ r = b ^ q ↔
+      ∀ p, IsPrime213 p → (p ∣ a ∨ p ∣ b) → r * vp p a = q * vp p b := by
+  constructor
+  · intro hab p hp _
+    exact (pow_eq_pow_iff_vp ha hb r q).mp hab p hp
+  · intro hsupp
+    refine (pow_eq_pow_iff_vp ha hb r q).mpr ?_
+    intro p hp
+    have hp0 : 0 < p := Nat.lt_of_lt_of_le (by decide) hp.two_le
+    rcases dvd_dec p a hp0 with hpa | hna
+    · exact hsupp p hp (Or.inl hpa)
+    · rcases dvd_dec p b hp0 with hpb | hnb
+      · exact hsupp p hp (Or.inr hpb)
+      · -- outside the support: both readings vanish, so the check is `0 = 0`.
+        rw [vp_eq_zero_of_not_dvd hp ha hna, vp_eq_zero_of_not_dvd hp hb hnb,
+          Nat.mul_zero, Nat.mul_zero]
 
 /-! ## §2 — distinct primes never collide -/
 

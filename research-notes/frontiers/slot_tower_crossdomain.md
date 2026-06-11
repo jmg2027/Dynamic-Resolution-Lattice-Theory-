@@ -20,11 +20,26 @@ certificate for "two numbers are equal" — and its content is the prime
 structure (`vp`-vectors), licensed by `vp_separation` (the readings
 determine the number).
 
-**One shape, two domains**: equality is never free; it is a checkable
-certificate, and the certificate's content is the structure of the object
-(CF level for the weld real, prime exponents for the power).  Bridge to
-write: state "equal ⟺ certificate matches" as one schema with the weld and
-the power as two instances.
+**Size half made precise (power side).**  `FoldCriterion.pow_eq_pow_iff_vp_support`
+sharpens the iff: the check runs only over the *finite* support
+`{p prime : p ∣ a ∨ p ∣ b}` — outside it both readings vanish and the check
+is automatic.  So the power-side certificate has an explicit, finite size
+(the divisor primes, each `≤ a` or `≤ b`), matching the weld's "the
+certificate has a *size*" (per-level Padé flip).  Both certificates are a
+`∀`-over-resolution-levels local check — the weld indexed by truncation `J`
+(`weld_pair_cosh/sinh` hold at every `J`), the power by support prime `p`.
+
+**Still open — the single cross-domain schema.**  "equal ⟺ certificate
+matches" as one Lean object with the weld and the power as two instances is
+*not yet written*, and is not a quick win: the two certificates are indexed
+by **different resolution types** (truncation level `J` vs. support prime
+`p`), so the only literal shared abstraction is the near-trivial
+"`∀ level, local check`".  A non-vacuous unification needs a genuine shared
+*mechanism* (as bridge 2's orbit-walk obstruction is), not just a shared
+`structure { cert : Prop, iff : eq ↔ cert }` — writing the latter would be a
+forcible map.  The shared narrative is already carried by
+`theory/essays/synthesis/equality_is_a_certificate.md`; the open task is to
+find the mechanism, not to restate the narrative in Lean.
 
 ## 2. Order ⟺ no wrap (exact duals) — **CLOSED**, single schema written
 
@@ -167,7 +182,11 @@ ceilings coincide is open.
 ---
 
 Bridge 2 is **CLOSED** (single schema `OrderWrap.no_order_of_wrap` + two
-instances, 9 PURE).  Bridges 1, 3, 4 remain **open** main↔branch
-correspondences; §5 adds the ORIGIN_RAW relation and questions (a)/(b).  For
-the open ones the claim is plain but the single-schema Lean statement is not
-yet written.  Recorded so the correspondence is tracked, not lost to chat.
+instances, 9 PURE).  Bridge 1 is **partly advanced**: the size half is made
+precise on the power side (`pow_eq_pow_iff_vp_support`, finite support), but
+the single cross-domain schema is still open (the two certificates are
+indexed by different resolution types — no non-vacuous unifier yet).  Bridges
+3, 4 remain **open** main↔branch correspondences; §5 adds the ORIGIN_RAW
+relation and questions (a)/(b).  For the open ones the claim is plain but the
+single-schema Lean statement is not yet written.  Recorded so the
+correspondence is tracked, not lost to chat.
