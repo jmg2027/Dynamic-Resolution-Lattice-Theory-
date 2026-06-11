@@ -154,11 +154,22 @@ poles:
   operations are primary; wrapping operations are their fiber
   readouts.
 
-Open: the generic locating theorem (progressive + strictly monotone ⇒
-the crossing sandwich has a unique location for every reachable `b`,
-by bounded search — the `div_sandwich`/`affine_cross` pattern at full
-generality), and class-wise witness uniqueness for mod (uniqueness
-up to the progression — the ℤ/n cross-equation).
+**§4 — sandwich-first (★ CLOSED, `PairOp` §4, 25 PURE total).**  On
+the sorted list, order is the proper probe; equality facts are its
+shadows.  Probing with the sandwich splits its halves, a separation
+invisible from the equality side: **existence needs no monotonicity**
+— only reachable start + escape/progressivity (`sandwich_locates`,
+via the scan `locate_exists`); **uniqueness needs only monotonicity**
+(`sandwich_unique`).  `div_sandwich`/`affine_cross` are instances.
+Adopted convention (originator): the wrap layer's `2 mod 2` is the
+relation class of `2`, **not** `0` — the canonical-remainder function
+is the flattening readout (least point of the progression), one Lens,
+not the wrap's identity.
+
+Open: class-wise witness uniqueness for mod in witness form
+(`wrapEq n a b := ∃ i j, a + i·n = b + j·n`, with `% n` as its
+flattening readout — the ℤ/n cross-equation without normalization;
+ground: `Gcd213.mod_eq_exists_mul_add`).
 
 ## The square
 

@@ -290,4 +290,59 @@ theorem modAdd_medial (n : Nat) (a b c d : Nat) :
       Nat.add_comm b c, Nat.add_assoc c b d,
       ← Nat.add_assoc a c (b + d)]
 
+/-! ## §4 — sandwich-first: order is the proper probe
+
+On the sorted list, order is the primary instrument and equality
+facts are its shadows (`Int213.eq_of_sandwich` was the first
+instance; `cancel_of_strictMono` the §3 one).  Probing with the
+sandwich instead of the equation splits its two halves, each with its
+own price — a separation invisible from the equality side:
+
+* **existence** needs no monotonicity at all — only the two endpoint
+  facts, reachable start and escape (`sandwich_locates`);
+* **uniqueness** needs only monotonicity (`sandwich_unique`).
+
+`NatDiv213.div_sandwich` and `affine_cross_iff_div_sandwich` are
+instances.  The wrap layer's convention, recorded: `2 mod 2` is the
+*relation* class of `2`, not `0` — the canonical-remainder function
+is the flattening readout choosing the least point of the
+progression, one Lens among several, not the wrap's identity. -/
+
+/-- Existence scan: if `b` is reachable from the start and `f`
+    passes `b` somewhere, some rung sandwiches it — induction on the
+    passing point, **no monotonicity**. -/
+theorem locate_exists (f : Nat → Nat) {b : Nat} (hstart : f 0 ≤ b) :
+    ∀ k, b < f k → ∃ x, f x ≤ b ∧ b < f (x + 1)
+  | 0, hk => absurd (Nat.lt_of_lt_of_le hk hstart) (Nat.lt_irrefl b)
+  | k + 1, hk => by
+    rcases Nat.lt_or_ge b (f k) with h | h
+    · exact locate_exists f hstart k h
+    · exact ⟨k, h, hk⟩
+
+/-- ★★★★ **Generic sandwich existence**: progressivity (`x ≤ f x`,
+    the list's "results move backward") plus a reachable start locate
+    every `b`.  Monotonicity is *not* needed for existence. -/
+theorem sandwich_locates (f : Nat → Nat) (hprog : ∀ x, x ≤ f x)
+    {b : Nat} (hstart : f 0 ≤ b) :
+    ∃ x, f x ≤ b ∧ b < f (x + 1) :=
+  locate_exists f hstart (b + 1)
+    (Nat.lt_of_lt_of_le (Nat.lt_succ_self b) (hprog (b + 1)))
+
+/-- ★★★★ **Generic sandwich uniqueness**: monotonicity alone.  The
+    sandwich's two halves have separate prices — existence from the
+    endpoints, uniqueness from the order. -/
+theorem sandwich_unique (f : Nat → Nat)
+    (hmono : ∀ x y, x ≤ y → f x ≤ f y)
+    {b x y : Nat} (hx1 : f x ≤ b) (hx2 : b < f (x + 1))
+    (hy1 : f y ≤ b) (hy2 : b < f (y + 1)) : x = y := by
+  rcases Nat.lt_or_ge x y with h | h
+  · exact absurd
+      (Nat.lt_of_lt_of_le hx2 (Nat.le_trans (hmono (x + 1) y h) hy1))
+      (Nat.lt_irrefl b)
+  · rcases Nat.lt_or_ge y x with h' | h'
+    · exact absurd
+        (Nat.lt_of_lt_of_le hy2 (Nat.le_trans (hmono (y + 1) x h') hx1))
+        (Nat.lt_irrefl b)
+    · exact Nat.le_antisymm h' h
+
 end E213.Meta.Nat.PairOp
