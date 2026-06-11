@@ -199,8 +199,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   "방법이 하나" (method-uniqueness) as "pick one"; Raw neither splits
   nor has a first, and the originator's real point is method-uniqueness
   of *measuring* (append = the gathering-Lens) from inexhaustibility +
-  numberlessness; 12-item merged brick agenda (keystone: `vp_separation`,
-  prereq `exists_prime_factor` already PURE in `FourSquare.lean`).
+  numberlessness; 12-item merged brick agenda (keystone `vp_separation`
+  now CLOSED, `Meta/Nat/VpSeparation.lean`; the fold criterion and the
+  order-loss theorem also closed).
+
+- `slot_tower_crossdomain` — **slot tower ↔ main** (2026-06-11 merge): four
+  open bridges.  (1) equality is a certificate with a shape (weld Padé-flip
+  ↔ `FoldCriterion.pow_eq_pow_iff_vp`); (2) order ⟺ no-wrap, exact duals
+  both proved (`Int213.OrderMul` ↔ `NoOrderModP.no_wrapping_order`); (3) the
+  exp/log boundary, tame vs wild (LambertWeld `exp(2/q)` ↔ the `^`-wall
+  `fold_iff_collinear`); (4) the substrate's shape, metric vs topological
+  (`Shape213`/`GridReadout213` ↔ discrete Ricci/curvature).  Single-schema
+  Lean statements not yet written.
 
 - `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
   modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
