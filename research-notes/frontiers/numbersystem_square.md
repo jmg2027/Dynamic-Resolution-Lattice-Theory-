@@ -658,13 +658,24 @@ total (group completion = splitting-closure).  Co-readouts dualize: the
 co-operation's size is `length+1` (`length_splits`, dual to `count`); the
 split is functional in either part (`split_functional`).
 
-**Knobs still not turned** (each a new operation family, the open frontier):
-convolution = split-then-reglue (`splits` then `count`/glue — a new
-operation off the `+×^` diagonal), drop finiteness (→ the cut/continuum,
-the infinite-nesting sandwich), the topological (not just metric) substrate
-split (Betti as the readout vector).  Open-endedness here is the
-**no-exterior** signature: every "floor" is a chart with more structure
-below it — "is there more?" stays *yes*.
+**Convolution = split-then-reglue — ★ PROVED (core)** (`Meta/Nat/Convolution213.lean`).
+The composite of the co-operation and gluing: `conv f g n = Σ_{i+j=n}
+f i·g j` (`natSplits` = the cuts, `sumMap` = the reglue) — the
+Cauchy/generating-function product, an operation **off the `+×^`
+diagonal** (it combines two *sequences*, not two numbers).  Concrete
+witness `(1+x)² = 1+2x+x²` by `rfl` (`conv_sq_0..3`), `natSplits_sound`
+(a cut is a `+`-witness), `length_natSplits` (`n+1`, the co-size).  **Open
+continuation**: `conv` commutative (from `natSplits`' reverse-a-cut
+symmetry — "commutativity from a swap symmetry" one level up on sequences)
+and associative (triple splits) — both need sum-permutation-invariance, a
+heavier list-sum lemma.
+
+**Knobs still not turned** (the open frontier): `conv` comm/assoc (above);
+drop finiteness (→ the cut/continuum, the infinite-nesting sandwich); the
+topological (not just metric) substrate split (Betti as the readout
+vector).  Open-endedness here is the **no-exterior** signature: every
+"floor" is a chart with more structure below it — "is there more?" stays
+*yes*.
 
 ## Question tuple vs answer axes (the representation principle, audited)
 

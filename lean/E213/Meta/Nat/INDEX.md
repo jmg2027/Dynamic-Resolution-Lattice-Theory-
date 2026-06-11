@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (31)
+## Files (32)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -67,6 +67,9 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
                              append-witness, so inverse questions are
                              co-operations, not inverse operations; co-size
                              = `length+1`
+  - `Convolution213.lean`  — split-then-reglue: `conv f g n = Σ_{i+j=n}
+                             f i·g j` (Cauchy/polynomial product, off the
+                             `+×^` diagonal); `(1+x)²=1+2x+x²` by `rfl`
   - `Valuation.lean`       — the `q`-adic valuation `vp q n` over ℕ
   - `VpMul.lean`           — the exponent-lattice engine (T3): `vp_mul`
                              (`vp p (m·n) = vp p m + vp p n`, prime `p`),
