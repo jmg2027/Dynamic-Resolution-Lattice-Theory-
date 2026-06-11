@@ -588,20 +588,41 @@ collinearity criterion.
 **The operation space is not a line.**  "`append → ???`" ranges over the
 lattice of **what you forget** (bracketing? order? multiplicity?) crossed
 with the **climb operator** (iterate / color / convolve / idempotent).
-The `+×^` diagonal is *one corner* — forget-to-count × iterate; and
-because iteration makes the 2nd argument an application-*count* (a
-×-object), the iterate-climb is intrinsically multiplicative and can only
-hit the ×-flavoured wall.  Other climbs have other boundaries (idempotent
-`∪`: `a∪a=a`, the tower is trivial) or none.  Knobs not yet turned, each
-a new operation family: drop associativity (→ the tree, done), raise the
-substrate dimension (→ the count splits into topological invariants — a
-second source of vector-valued readout besides atom-coloring), reverse
-the arrows (co-operations / splitting; convolution = split-then-reglue),
-drop finiteness (→ the cut/continuum).  Open-endedness here is the
-**no-exterior** signature: every "floor" is a chart with more structure
-below it.  Next brick candidate: the higher-substrate readout split, and
-the explicit "iterate-climb is multiplicative" lemma (2nd argument =
-application count).
+The `+×^` diagonal is *one corner* — forget-to-count × iterate.
+
+**The iterate-climb is multiplicative — ★ PROVED** (`Meta/Nat/Iterate213.lean`).
+The climb is the single combinator `iter f n` at successive flavours of
+`f`: `a+b = iter succ b a`, `a·b = iter (·+a) b 0`, `a^b = iter (·*a) b 1`
+(`add/mul/pow_eq_iter`).  The iteration-**count** slot carries two laws —
+it **adds** under composition (`iter_add`, the counter-append shadow) and
+**multiplies** under nesting (`iter_mul`: `iter f (m·n) = iter (iter f n) m`).
+So the climb is intrinsically multiplicative: the 2nd argument is an
+application count, and nesting counts is `×`.  The surviving ghost
+`(aᵇ)ᶜ = a^(b·c)` is then *literally `iter_mul` one rung up*
+(`pow_pow_eq_pow_mul`, derived from `iter_mul`+`pow_eq_iter`, not from
+`pow_mul`) — which is why it lands on `×` (the count `b·c`), never on `^`,
+and the tower folds one rung down.  The contrast confirms necessity: an
+**idempotent** operator builds no tower — `f(f x)=f x ⟹ iter f (n+1) x =
+f x` (`iter_idem`), so the `∪`/`max` climb is trivial (`max_iter_trivial`,
+`a∪a=a`).  The diagonal is multiplicative only where the rung-operator is
+not idempotent.
+
+**Substrate dimension splits the readout — ★ PROVED** (`Meta/Nat/GridReadout213.lean`).
+`exp` was vector-valued for ONE reason (distinguishable ×-atoms); here is
+a SECOND — the substrate dimension.  1-D (list): one readout, length, on a
+total order (`oneD_readout_total`).  2-D (grid): the readout splits into
+independent coordinates — `area = a·b` vs `perimeter = 2(a+b)` are not
+mutually determined (`readout_splits`, witness `(1,6)` vs `(2,3)`: equal
+area `6`, perimeter `14 ≠ 10`), with `diagonal = min a b` a third
+(`readout_splits_three`).  Metric facet; the topological version
+(Euler/Betti) lives in `Lib/Math/Geometry/`.
+
+**Knobs still not turned** (each a new operation family, the open frontier):
+reverse the arrows (co-operations / splitting; convolution =
+split-then-reglue), drop finiteness (→ the cut/continuum), the topological
+(not just metric) substrate split (Betti as the readout vector).
+Open-endedness here is the **no-exterior** signature: every "floor" is a
+chart with more structure below it — "is there more?" stays *yes*.
 
 ## Question tuple vs answer axes (the representation principle, audited)
 
