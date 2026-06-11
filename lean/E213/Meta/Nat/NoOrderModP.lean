@@ -1,103 +1,122 @@
-import E213.Meta.Nat.AddMod213
-
 /-!
-# NoOrderModP — wrapping around mod p destroys left-to-right order
+# NoOrderModP — folding the counting line into a circle destroys order
 
-A left-to-right order needs a bottom and no loops.  On a line (ℕ, ℤ)
-that is fine.  On a circle (mod p) adding 1 eventually returns to where
-you started, so "keeps going up" would have to come back down — there
-is no consistent up.
+A left-to-right order needs a smallest thing and no loops.  On the
+counting line ℕ — `1, 2, 3, …`, the numbers you get by adding one unit
+at a time — that is fine: it never comes back on itself.
 
-This file makes that exact.  Work with the numbers `0,1,…,p−1`
-(the residues mod p) and a relation `R x y` standing for "`x` is below
-`y`".  Suppose `R`
+Fold that line into a **circle of length `p`** — the points `1, 2, …, p`
+with "after `p` comes `1` again" — and the order cannot survive.  Going
+up forever would have to come back down to where it started.
+
+This file makes that exact.  The points are `1, 2, …, p`.  "Next" is
+`next x = x + 1`, except `next p = 1` (the one wrap).  A relation `R x y`
+reads "x is below y".  Suppose `R`
 
 * never says a thing is below itself (`irrefl`),
 * is preserved by chaining (`trans`),
-* is preserved when you add 1 to both sides, taken mod p (`transl`),
-* puts 0 below 1 (`start`).
+* is preserved by `next` on both sides (`transl`),
+* puts `1` below `2` (`start`).
 
-Then there is no such `R`: the result is `False` (`no_wrapping_order`).
+Then there is no such `R` — the result is `False` (`no_wrapping_order`):
+walking `next` from `1` gives `1 < 2 < … < p < 1`, and chaining lands
+back on `1`, so `1 < 1`, which `irrefl` forbids.
 
-Why: adding 1 walks the single edges `0 < 1 < 2 < … < p−1 < 0`.
-Chaining them from the start gives `R (0 % p) (p % p)`.  But `p % p`
-and `0 % p` are the same residue, so this says `R (0 % p) (0 % p)` —
-a thing below itself, which `irrefl` forbids.
+No `0` and no `ℤ` enter.  The points start at `1` (one unit), and the
+contrast is the bare counting line ℕ, which keeps the order precisely
+because it does not wrap.
 
-This is the exact price of wrapping.  You can fold the line into a
-circle to make every power solvable (discrete logs always exist mod p),
-but you lose the order the line had.  The companion fact is that ℤ
-DOES carry such an order, precisely because ℤ does not wrap
-(`Int213.OrderMul` sign trichotomy).
-
-All decls ∅-axiom.  The only mod facts used are the PURE
-`AddMod213.mod_self` (`n % n = 0`) and `AddMod213.zero_mod`
-(`0 % n = 0`); everything else is bare induction.
+All decls ∅-axiom; bare recursion / induction + the decidable test
+`x < p` (no `%`, no `0`).
 -/
 
 namespace E213.Meta.Nat.NoOrderModP
 
-open E213.Meta.Nat.AddMod213 (mod_self zero_mod mod_add_mod)
+/-- The next point on the circle `1, 2, …, p`: `x + 1`, except `p` wraps
+    back to `1`. -/
+def next (p x : Nat) : Nat := if x < p then x + 1 else 1
 
-/-- One edge of the circle: from "0 is below 1" and "add 1 keeps the
-    order", `R (k % p) ((k+1) % p)` for every `k`.  Walk by induction
-    on `k`: the base edge is `start`; each next edge is the previous
-    one with 1 added to both sides.
+/-- The orbit of `1` under `next`: `orbit 0 = 1`, then keep applying
+    `next`.  It runs `1, 2, …, p, 1, …`. -/
+def orbit (p : Nat) : Nat → Nat
+  | 0     => 1
+  | k + 1 => next p (orbit p k)
 
-    `transl` hands back `R ((k%p + 1) % p) (((k+1)%p + 1) % p)`;
-    `mod_add_mod` (needs `0 < p`) says "adding inside a `% p` is the
-    same as adding outside", which turns both sides into the form
-    `R ((k+1) % p) ((k+1+1) % p)` we want. -/
-theorem edge (p : Nat) (hp : 0 < p)
+/-- For the first `p` steps the orbit just counts up: `orbit k = k + 1`
+    while `k < p` (so `orbit 0 = 1`, …, `orbit (p−1) = p`). -/
+theorem orbit_eq (p : Nat) : ∀ k, k < p → orbit p k = k + 1
+  | 0,     _  => rfl
+  | k + 1, hk => by
+      have hkp : k < p := Nat.lt_of_succ_lt hk
+      show next p (orbit p k) = (k + 1) + 1
+      rw [orbit_eq p k hkp]
+      show (if k + 1 < p then (k + 1) + 1 else 1) = (k + 1) + 1
+      rw [if_pos hk]
+
+/-- The orbit closes after exactly `p` steps: `orbit p = 1`.  At step
+    `p−1` the orbit is at `p`, and `next p = 1` (the wrap). -/
+theorem orbit_wrap (p : Nat) (hp : 2 ≤ p) : orbit p p = 1 := by
+  have hp0 : 0 < p := Nat.lt_of_lt_of_le (by decide) hp
+  have hp1 : (p - 1) + 1 = p := Nat.succ_pred_eq_of_pos hp0
+  have hlt : p - 1 < p := Nat.sub_lt hp0 (by decide)
+  have hprev : orbit p (p - 1) = p := by
+    rw [orbit_eq p (p - 1) hlt, hp1]
+  have key : orbit p ((p - 1) + 1) = 1 := by
+    show next p (orbit p (p - 1)) = 1
+    rw [hprev]
+    show (if p < p then p + 1 else 1) = 1
+    rw [if_neg (Nat.lt_irrefl p)]
+  rwa [hp1] at key
+
+/-- Each orbit step is one `R`-edge: `R (orbit k) (orbit (k+1))`.  The
+    first is `start`; each next edge is the previous one pushed through
+    `next` on both sides by `transl`. -/
+theorem edge (p : Nat) (hp : 2 ≤ p)
     (R : Nat → Nat → Prop)
-    (transl : ∀ x y, R x y → R ((x + 1) % p) ((y + 1) % p))
-    (start : R (0 % p) (1 % p)) :
-    ∀ k, R (k % p) ((k + 1) % p)
-  | 0 => start
-  | k + 1 => by
-      have h := transl (k % p) ((k + 1) % p) (edge p hp R transl start k)
-      rw [mod_add_mod hp k 1, mod_add_mod hp (k + 1) 1] at h
-      exact h
+    (transl : ∀ x y, R x y → R (next p x) (next p y))
+    (start : R 1 2) :
+    ∀ k, R (orbit p k) (orbit p (k + 1))
+  | 0 => by
+      have h1p : (1 : Nat) < p := hp
+      show R 1 (if 1 < p then 1 + 1 else 1)
+      rw [if_pos h1p]
+      exact start
+  | k + 1 => transl (orbit p k) (orbit p (k + 1)) (edge p hp R transl start k)
 
-/-- Chain the edges from 0: `R (0 % p) ((k+1) % p)` for every `k`.
-    Start at the first edge `R (0 % p) (1 % p)`, then glue on one more
-    edge at a time with `trans`. -/
-theorem reach (p : Nat) (hp : 0 < p)
+/-- Chain the edges from `1`: `R (orbit 0) (orbit (k+1))` for every `k`. -/
+theorem reach (p : Nat) (hp : 2 ≤ p)
     (R : Nat → Nat → Prop)
     (trans  : ∀ x y z, R x y → R y z → R x z)
-    (transl : ∀ x y, R x y → R ((x + 1) % p) ((y + 1) % p))
-    (start : R (0 % p) (1 % p)) :
-    ∀ k, R (0 % p) ((k + 1) % p)
-  | 0 => start
+    (transl : ∀ x y, R x y → R (next p x) (next p y))
+    (start : R 1 2) :
+    ∀ k, R (orbit p 0) (orbit p (k + 1))
+  | 0 => edge p hp R transl start 0
   | k + 1 =>
-      trans (0 % p) ((k + 1) % p) ((k + 1 + 1) % p)
+      trans (orbit p 0) (orbit p (k + 1)) (orbit p (k + 1 + 1))
         (reach p hp R trans transl start k)
         (edge p hp R transl start (k + 1))
 
-/-- **Wrapping destroys order.**  No relation on the residues mod p can
-    be an irreflexive, chainable, add-1-preserving order that puts 0
-    below 1.  Adding 1 walks `0 < 1 < … < p−1 < 0` and chaining lands
-    back on 0, giving `0 < 0`, which `irrefl` forbids.
+/-- **Folding the line into a circle destroys order.**  No relation on
+    the circle `1, 2, …, p` can be irreflexive, chainable,
+    `next`-preserving, and put `1` below `2`.  Walking `next` from `1`
+    gives `1 < 2 < … < p < 1`; chaining lands back on `1`, so `1 < 1`,
+    which `irrefl` forbids.
 
-    Needs `2 ≤ p` so the circle has at least two points (the claim "0
-    below 1" needs `0 ≠ 1` mod p). -/
+    Needs `2 ≤ p` so the circle has at least two points. -/
 theorem no_wrapping_order (p : Nat) (hp : 2 ≤ p)
     (R : Nat → Nat → Prop)
     (irrefl : ∀ x, ¬ R x x)
     (trans  : ∀ x y z, R x y → R y z → R x z)
-    (transl : ∀ x y, R x y → R ((x + 1) % p) ((y + 1) % p))
-    (start  : R (0 % p) (1 % p)) :
+    (transl : ∀ x y, R x y → R (next p x) (next p y))
+    (start  : R 1 2) :
     False := by
-  -- p ≥ 2 means p = (p-1) + 1, so the chain reaches index p-1 giving
-  -- `R (0 % p) ((p-1+1) % p) = R (0 % p) (p % p)`.
   have hp0 : 0 < p := Nat.lt_of_lt_of_le (by decide) hp
   have hp1 : (p - 1) + 1 = p := Nat.succ_pred_eq_of_pos hp0
-  have hloop : R (0 % p) (((p - 1) + 1) % p) :=
-    reach p hp0 R trans transl start (p - 1)
-  rw [hp1] at hloop
-  -- p % p = 0 = 0 % p, so this is `R (0 % p) (0 % p)`.
-  rw [mod_self p] at hloop
-  rw [(zero_mod p).symm] at hloop
-  exact irrefl (0 % p) hloop
+  -- reach to step p: R (orbit 0) (orbit p)
+  have hloop : R (orbit p 0) (orbit p ((p - 1) + 1)) :=
+    reach p hp R trans transl start (p - 1)
+  rw [hp1, orbit_wrap p hp] at hloop
+  -- orbit 0 = 1, so this is R 1 1
+  exact irrefl 1 hloop
 
 end E213.Meta.Nat.NoOrderModP

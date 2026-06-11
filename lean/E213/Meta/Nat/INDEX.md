@@ -85,11 +85,11 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
                              primes never collide (`prime_pow_unique`,
                              `2^a=3^b→a=b=0`); the fold criterion
                              (`fold_iff_collinear`)
-  - `NoOrderModP.lean`     — no left-to-right order survives wrapping:
-                             `no_wrapping_order` (irreflexive +
-                             add-1-mod-p-preserving + `0<1` ⟹ `False`) —
-                             the order is the price of folding the line
-                             into a circle
+  - `NoOrderModP.lean`     — folding the counting line into a circle
+                             `1..p` (`next x = x+1`, `next p = 1`) kills
+                             order: `no_wrapping_order` (irreflexive +
+                             `next`-preserving + `1<2` ⟹ `False`); no `0`,
+                             no `ℤ`, no `%` — contrast is the line ℕ
 
 ## Top-level
 
