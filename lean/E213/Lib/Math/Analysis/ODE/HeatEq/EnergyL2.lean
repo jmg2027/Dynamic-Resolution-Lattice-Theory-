@@ -16,9 +16,8 @@ These are the pointwise L²-dissipation seeds — the energy-method companion of
 maximum principle (`HeatEqDiscrete`).  Worked over ℤ (the clean ring for squares) with the
 **POSITIVITY archetype** (`Foundations/Positivity`): each gap is an explicit sum of squares,
 discharged by `ring_intZ` + `positivity_of_sq`/`positivity_of_sq3` — exactly the `amgm_2`
-pattern.  Summing over the grid (Int `gridSum`) would give the L² energy contraction; that
-summation is P3's remaining analytic step (the signed Dirichlet form, blocked on a stronger
-∅-axiom multivariate ring normalizer — see the ladder note).
+pattern.  The grid summations are closed in `EnergyDecay`: `lazy_energy_decay`
+(`E(lazy u) ≤ 16·E(u)`) and `lazy_l2_norm_bound` (`Σ(lazy u)² ≤ 16·Σu²`).
 
 All zero-axiom.
 -/

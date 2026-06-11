@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor
 import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
+import E213.Lib.Math.Analysis.CauchyComplete
 import E213.Meta.Tactic.NatHelper
 
 /-!
@@ -204,5 +205,79 @@ theorem cf_universal_total_modulus (a : Nat → Nat) (ha : ∀ i, 1 ≤ a i)
       rcut (cfEvenNum a) (cfEvenDen a) i m k = rcut (cfEvenNum a) (cfEvenDen a) j m k :=
   crossdet_small_total_modulus (fun i => a (2*i + 2))
     (cf_hd a ha) (cf_hW a) (cf_hcs a ha) (cf_hmono a ha) (cf_hmonoS a ha) m k hk
+
+
+/-! ## §6 — packaging: the `CauchyCutSeq`, and the Lambert transcendental instance
+
+`cf_universal_total_modulus` delivers the modulus existentially; here it is packaged
+with the **explicit** constant (`N(m,k) = k+2`, via `rate_cut_const`) into a genuine
+`CauchyCutSeq` — and instantiated at the first *transcendental* CF in the repo:
+Lambert's continued fraction `coth(1/q) = [q; 3q, 5q, 7q, …]` (all partial quotients
+`(2n+1)·q ≥ 1`, so the `≥ 1` hypothesis is free).  The CF pointing carries everything:
+no measure, no rate hypothesis — contrast `ExpUnitModulus.exp_pq_no_htel`, where the
+*series* pointing of `exp(p/q)` (`p ≥ 2`) provably carries nothing.
+
+**The weld (recorded open)**: that the Lambert real *equals* `coth(1/q)` as a series
+object (CF correctness — the Padé/Bessel identity) is not proven here; once welded,
+`e^{2/q} = (coth(1/q) + 1)/(coth(1/q) − 1)` is one cut-Möbius step away — the sharpest
+route to discharging `ExpRationalCut`'s measure hypothesis
+(`modulus_degree_ladder.md`). -/
+
+open E213.Lib.Math.NumberSystems.Real213.RateModulus (rate_cut_const Htel_of_crossdet)
+open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
+
+/-- Resolution-`0` probes read `true` at every layer. -/
+theorem cf_cut_at_zero (a : Nat → Nat) (i m : Nat) :
+    rcut (cfEvenNum a) (cfEvenDen a) i m 0 = true := by
+  apply decide_eq_true
+  exact Nat.le_trans (Nat.le_of_eq (Nat.mul_zero _)) (Nat.zero_le _)
+
+/-- **The CF cut is constant past `k+2`** — `cf_universal_total_modulus` with the
+    explicit constant. -/
+theorem cf_cut_const (a : Nat → Nat) (ha : ∀ i, 1 ≤ a i) (m k : Nat) (hk : 1 ≤ k)
+    (i j : Nat) (hi : k + 2 ≤ i) (hj : k + 2 ≤ j) :
+    rcut (cfEvenNum a) (cfEvenDen a) i m k = rcut (cfEvenNum a) (cfEvenDen a) j m k :=
+  rate_cut_const (cf_hd a ha)
+    (Htel_of_crossdet (fun i => a (2*i + 2)) (cf_hW a) (cf_hcs a ha))
+    (cf_hmono a ha) (cf_hmonoS a ha) m k hk i j hi hj
+
+/-- ★★★★★ **Every explicitly presented continued fraction is a `Real213` Cauchy
+    point, unconditionally**: the even-convergent cut sequence with the constructed
+    total modulus `N(m,k) = k+2`.  The CF pointing is universally rate-carrying. -/
+def cfCauchySeq (a : Nat → Nat) (ha : ∀ i, 1 ≤ a i) : CauchyCutSeq where
+  cs := fun i => rcut (cfEvenNum a) (cfEvenDen a) i
+  N := fun _ k => k + 2
+  cauchy := by
+    intro m k i j hi hj
+    cases k with
+    | zero =>
+      show rcut (cfEvenNum a) (cfEvenDen a) i m 0
+          = rcut (cfEvenNum a) (cfEvenDen a) j m 0
+      rw [cf_cut_at_zero a i m, cf_cut_at_zero a j m]
+    | succ k' =>
+      exact cf_cut_const a ha m (k' + 1) (Nat.succ_le_succ (Nat.zero_le k')) i j hi hj
+
+/-- Lambert's continued fraction of `coth(1/q)`: partial quotients `(2n+1)·q`
+    (`[q; 3q, 5q, 7q, …]`). -/
+def cothCF (q : Nat) (n : Nat) : Nat := (2 * n + 1) * q
+
+theorem cothCF_pos (q : Nat) (hq : 1 ≤ q) : ∀ n, 1 ≤ cothCF q n := fun n =>
+  Nat.le_trans hq (Nat.le_mul_of_pos_left q (Nat.succ_pos (2 * n)))
+
+/-- ★★★★ **The Lambert real `[q; 3q, 5q, …]` completes unconditionally** — the CF
+    presentation of `coth(1/q)`, a transcendental, as a genuine `CauchyCutSeq` with
+    total modulus `k+2` and no hypotheses beyond `q ≥ 1`. -/
+def cothUnitCFCauchySeq (q : Nat) (hq : 1 ≤ q) : CauchyCutSeq :=
+  cfCauchySeq (cothCF q) (cothCF_pos q hq)
+
+/-- Sanity anchors for the Lambert `coth(1)` fold `[1; 3, 5, 7, …]`
+    (`coth(1) = (e²+1)/(e²−1) ≈ 1.31303…`): the convergents run
+    `1/1, 4/3, 21/16, 151/115, …`, and the completed cut reads `true` at `3/2`
+    (`coth(1) ≤ 3/2`) and `false` at `5/4` (`coth(1) > 5/4`). -/
+theorem coth1_anchors :
+    cfPn (cothCF 1) 2 = 21 ∧ cfQn (cothCF 1) 2 = 16
+    ∧ (cothUnitCFCauchySeq 1 (Nat.le_refl 1)).limit 3 2 = true
+    ∧ (cothUnitCFCauchySeq 1 (Nat.le_refl 1)).limit 5 4 = false :=
+  ⟨by decide, by decide, by decide, by decide⟩
 
 end E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus

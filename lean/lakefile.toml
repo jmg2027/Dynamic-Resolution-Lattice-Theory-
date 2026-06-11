@@ -1,6 +1,7 @@
 name = "e213"
 version = "0.1.0"
 keywords = ["foundations", "213"]
+defaultTargets = ["E213"]
 
 [leanOptions]
 pp.unicode.fun = true

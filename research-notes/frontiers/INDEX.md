@@ -528,20 +528,33 @@ real ∅-axiom conquests.
   sub-mode or its own primitive; the per-conquest rows still pending ∅-axiom
   witnesses (S2 Weil weights, A6 index, …).
 
-## A6 FLOW core / Ricci flow  (`a6_ricci_core/`, `ricci_flow_smooth_core.md`)
+## A6 FLOW core / Ricci flow  (`ricci_flow_smooth_core.md`)
 
 - `ricci_flow_smooth_core` — the smooth-metric general Ricci-flow core
   (Perelman `𝓕/𝓦`-monotonicity, surgery): the wall (Riemannian geometry + PDE,
   Mathlib-forbidden).  *Closed sub-steps*: round-sphere finite extinction,
   Einstein trichotomy, gradient-flow descent identity + completeness-LOOP.
-- `a6_ricci_core/discrete_ricci_flow_ladder` — the 213-native route to actually
-  closing A6's conquest: **discrete (Forman/Ollivier) Ricci flow** (combinatorial
-  curvature, no smooth manifold).  Rung 1 done (`DiscreteRicci.formanEdge`,
-  curvature↔topology); next: weighted Forman + flow step + convergence via
-  `flow_reaches`.
+  The **discrete** core is fully closed and promoted — rungs 1–12 incl. the
+  four Perelman wall items, no-local-collapsing, χ²-entropy descent:
+  `theory/math/geometry/discrete_perelman_core.md` +
+  `theory/math/geometry/discrete_curvature.md` (ladder note archived to
+  `archive/a6_ricci_core/`).  Only the smooth side stays open here.
 
 ## Transcendental functions  (`transcendentals/`)
 
+- **Closure record** — the Lambert weld (`coth(1/q)` series ≡ CF, every probe,
+  total modulus `k+2`; `exp(2/q)` unconditional) is closed ∅-axiom and promoted:
+  `theory/math/analysis/lambert_weld.md` (`LambertBridge.lowerBase`,
+  `weld_closed`; blueprint archived to `archive/transcendentals/`).
+- `weld_crossdomain` — four bridges from the 2026-06-11 merge: CF
+  partial-quotient growth as the ladder-rung invariant; inverse-avoidance
+  by state-threading (the constructive response to the slot wall); the
+  exclusion-depth ≟ separation-schedule unification brick; the pair-layer
+  cross expression's three regimes (`=0` class / `=1` certificate / `≥1`
+  separation).
+- `transcendentals/weld_casoratian_development` — the proven `i`-invariant
+  unimodular identity (`weld_casoratian`): flip criterion + ratio descent as
+  theorems; a possible second, bridge-free certificate of `LowerBase`.
 - `transcendentals/transcendental_functions_ladder` — convergent `exp/sin/cos/sqrt`
   as `Real213` functions with derivative rules (current: `exp` partial sum +
   stubs).  Rungs T1 exp-modulus → T2 sin/cos series → T3 derivative rules →

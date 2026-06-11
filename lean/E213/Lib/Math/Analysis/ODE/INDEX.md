@@ -12,6 +12,7 @@ Blueprint: `blueprints/math/06_ode_pde_213.md` (retired).
 | `HeatEq/Conservation.lean` | finite-grid sum `gridSum` + cyclic-shift invariance; mass conservation `Σ heatStep = 2Σu`; Dirichlet pairing `⟨u, A u⟩`; signed energy `E(u)` + Green identity `E+2corr=2Σu²` | ∅-axiom |
 | `HeatEq/EnergyL2.lean` | pointwise L²-Jensen (convexity) bounds via POSITIVITY: `(a+b)² ≤ 2(a²+b²)`, `(a+2b+c)² ≤ 4(a²+2b²+c²)`; local energy dissipation | ∅-axiom |
 | `HeatEq/EnergyDecay.lean` | Dirichlet energy decay `E(lazy u) ≤ 16·E(u)` (P3 capstone) — `Nat`↔ℤ square cast + pointwise dissipation + shift invariance | ∅-axiom |
+| `HeatEq/MaxPrincipleReal.lean` | the maximum principle as a `Real213` cut inequality: `A ≤ heatIter/2ᵗ ≤ B` in the cut order for all `t` (`heat_max_principle_real`); generic cross-multiplied order embedding `constCut_le_constCut` | ∅-axiom |
 | `WaveEqDiscrete.lean` | 1D periodic leapfrog wave; rest field + zero field preserved | ∅-axiom |
 | `Capstone.lean` | 5 cluster witnesses + `total_witness` | ∅-axiom |
 | `ODE.lean` | umbrella | — |

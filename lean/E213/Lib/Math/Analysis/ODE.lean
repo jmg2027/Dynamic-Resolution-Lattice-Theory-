@@ -7,6 +7,7 @@ import E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
 import E213.Lib.Math.Analysis.ODE.HeatEq.Conservation
 import E213.Lib.Math.Analysis.ODE.HeatEq.EnergyL2
 import E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay
+import E213.Lib.Math.Analysis.ODE.HeatEq.MaxPrincipleReal
 import E213.Lib.Math.Analysis.ODE.WaveEqDiscrete
 import E213.Lib.Math.Analysis.ODE.Capstone
 

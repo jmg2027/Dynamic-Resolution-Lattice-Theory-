@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 89 essays are grouped into ten thematic sub-directories — distinct
+The 90 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -115,7 +115,8 @@ axiom-forcing scale vs the async-run scale, with the grading's run-invariance
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
 `real_without_completeness`, `where_commutativity_is_born`,
-`integers_as_difference_lens`, `what_is_append`, `what_is_addition`,
+`integers_as_difference_lens`, `when_two_pointings_are_one`,
+`what_is_append`, `what_is_addition`,
 `what_is_multiplication`, `what_is_exponentiation`,
 `the_modular_group_from_two_folds`, `minkowski_as_modular_cocycle`.
 
@@ -177,6 +178,7 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `c_counter_as_layer_count.md` | What is `c` in K_{NS, NT}^{(c)} cohomology? Why is the c-counter not a depth parameter? | `math/cohomology/k_nm_c_classification.md` + `V33EnrichedParametric.parametric_c_independent_h2_classes` |
 | `the_degree_of_a_number.md` | What IS the degree of a number? (degree = growth class of the pointing's receipt; form-receipt vs race-receipt; the number's own degree = a cut over exponent cuts, `powSched_mono`) | `math/analysis/form_margin_modulus.md` + `math/analysis/holonomic_modulus.md` + `Real213/{CubeRootTwoCut,ModulusComposition,Zeta3Cut}` + `essays/foundations/growth_without_a_clock.md` |
 | `pi_as_the_modulus_residue.md` | π read through the modulus family: every lattice period divides 12 (spectrum exactly `{1,2,3,4,6}`, five forbidden), every schedule overtaken (rung ∞), and the ∀-form becomes a constructor exactly when quantified into an escape modulus (`PiHalfMeasure` ⟹ `N = C·(2k)^s + 2`); π's specialness = effectivity gap, not Diophantine exoticism | `Real213/{FiniteOrderSpectrum, ExpLog/PiMeasureModulus, BracketModulus}` + `math/analysis/holonomic_modulus.md` §4 + `essays/analysis/the_modular_group_from_two_folds.md` + `seed/AXIOM/05_no_exterior.md` §5.1 |
+| `when_two_pointings_are_one.md` | **What does it mean for two pointings to point at one real?**  Probe-wise agreement of limit cuts — a theorem with a per-level price, paid in exact coin: the weld's diagonal Padé flip `cfpos n n = (4i+2)!!` absorbs all sub-diagonal slack (`weld_closed`); uniqueness-of-limits, classically free, becomes a certificate with a size (`48` at level one); the `cross =0/=1/≥1` regimes of the pair-layer expression unified | `math/analysis/lambert_weld.md` + `lens/unified_equivalence.md` + `Real213/PresentationDependence` + `object1_not_surjective` + `math/numbersystems/real213.md` |
 | `polynomial_in_213.md` | What is a **polynomial** in 213? (the meaning of "finite divergence depth = polynomial degree, exactly") | `math/analysis/divergence_depth_characterization.md` + `Cauchy/{DepthCharacterization,DepthResidueFloor,CassiniSigned}` + `seed/AXIOM/05_no_exterior.md §5.6` |
 | `disjoint_layers_as_direct_sum.md` | Why does cup-image codim grow linearly with c? | `math/cohomology/k_nm_c_classification.md` + categorical direct sum reading + `parametric_c_independent_h2_classes` |
 | `stern_brocot_as_universal_lattice.md` | Where does K_{NS, NT}^{(c)} sit, and why is (3, 2) the atomic anchor? | `math/cohomology/k_nm_c_classification.md` + `math/mobius_canonical_equivalence.md` + `BipartiteStermBrocotClassification` |

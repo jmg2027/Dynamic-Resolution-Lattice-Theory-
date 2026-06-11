@@ -93,6 +93,58 @@ def toCauchy (S : AbCutSeq) (N : Nat → Nat → Nat)
   N := N
   cauchy := hc
 
+/-! ### Separation ⟹ constructed modulus (the conditional measure-modulus schema)
+
+A total modulus is equivalent to an effective separation: the only way the cut at
+`(m,k)` can be undecided past layer `i` is for the rational `m/k` to sit between the
+layer-`i` convergent and the fold's sup.  If a **schedule** `I : Nat → Nat` is supplied
+such that any `false` reading anywhere already shows at layer `I k` (the *separation
+hypothesis* — no rational of denominator `k` lies strictly between the `I k`-th
+convergent and the sup), the fold completes with the constructed modulus
+`N(m,k) = I k`.  This isolates the entire effective-irrationality cost of a
+transcendental in the one hypothesis `hsep` (the modulus-degree ladder's
+"conditional measure-modulus schema"); rate certificates (bracket widths) reduce
+`hsep` to a per-resolution arithmetic statement about a single bracket. -/
+
+/-- Resolution-`0` probes read `true` at every layer (`a·0 = 0 ≤ b·m`). -/
+theorem cut_resolution_zero (S : AbCutSeq) (n m : Nat) : S.cut n m 0 = true := by
+  show decide ((abLens.view (S.xs n)).1 * 0 ≤ (abLens.view (S.xs n)).2 * m) = true
+  apply decide_eq_true
+  exact Nat.le_trans (Nat.le_of_eq (Nat.mul_zero _)) (Nat.zero_le _)
+
+/-- ★★★★ **Separation at the schedule ⟹ order-Cauchy with the constructed modulus.**
+    If every `false` reading at resolution `k ≥ 1` already shows at layer `I k`, the
+    cut sequence is order-Cauchy with modulus `N(m,k) = I k` — `Bool` case analysis
+    on the layer-`I k` reading plus the generic nesting (`cut_false_fwd`). -/
+theorem sep_cauchy (S : AbCutSeq) (I : Nat → Nat)
+    (hsep : ∀ m k, 1 ≤ k → ∀ i, S.cut i m k = false → S.cut (I k) m k = false) :
+    ∀ m k i j, i ≥ I k → j ≥ I k → S.cut i m k = S.cut j m k := by
+  intro m k i j hi hj
+  cases k with
+  | zero => rw [S.cut_resolution_zero i m, S.cut_resolution_zero j m]
+  | succ k' =>
+    have hk : 1 ≤ k' + 1 := Nat.succ_le_succ (Nat.zero_le k')
+    have key : ∀ n, n ≥ I (k' + 1) → S.cut n m (k' + 1) = S.cut (I (k' + 1)) m (k' + 1) := by
+      intro n hn
+      cases hI : S.cut (I (k' + 1)) m (k' + 1) with
+      | false => exact S.cut_false_fwd m (k' + 1) (I (k' + 1)) hI n hn
+      | true =>
+        cases hn' : S.cut n m (k' + 1) with
+        | true => rfl
+        | false =>
+          have hf := hsep m (k' + 1) hk n hn'
+          rw [hI] at hf
+          exact Bool.noConfusion hf
+    rw [key i hi, key j hj]
+
+/-- ★★★★ **Conditional completion**: a fold with a separation schedule completes to a
+    `CauchyCutSeq` whose modulus is the schedule itself — the transcendental's
+    effective-irrationality cost isolated in `hsep`, everything else constructed. -/
+def toCauchySep (S : AbCutSeq) (I : Nat → Nat)
+    (hsep : ∀ m k, 1 ≤ k → ∀ i, S.cut i m k = false → S.cut (I k) m k = false) :
+    CauchyCutSeq :=
+  S.toCauchy (fun _ k => I k) (S.sep_cauchy I hsep)
+
 /-- ★★★ **The completed limit is a real (`ValidCut`).**  Directly from the general
     completeness `CauchyCutSeq.limit_valid`, since every layer cut is valid.  Any
     monotone-bounded ab-sequence is a bona fide `Real213` cut wherever completed. -/

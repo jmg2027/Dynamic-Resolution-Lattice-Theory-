@@ -116,6 +116,16 @@ import E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace
 import E213.Lib.Math.NumberSystems.Real213.TowerNativeCompleteness
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCertifiedBracket
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerModulus
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpUnitModulus
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpRationalCut
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMinor
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMasterId
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertPoly
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.PiMeasureModulus
 import E213.Lib.Math.NumberSystems.Real213.NuEscape
 import E213.Lib.Math.NumberSystems.Real213.CutSumAssocB3

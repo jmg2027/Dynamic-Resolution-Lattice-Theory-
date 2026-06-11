@@ -111,6 +111,29 @@ eigenspaces (multiplicities `m−1, 1`).  The two integration inputs are now exp
 `HeatEq.Conservation`) — the one remaining input to feed `lichnerowicz_abstract` for
 non-complete graphs; the star / `K_{a,b}` spectral gaps via the same integration.
 
+## New rungs — the four Perelman wall items, discrete cores (see `ricci_flow_smooth_core.md` §"four wall items")
+
+8. **Weighted IBP / gradient-flow identity** — ✅ DONE (`WeightedGreen.lean`, 11 PURE):
+   `weighted_green` + `dirichlet_gradient_identity` — the weighted heat flow IS the gradient
+   flow of the weighted Dirichlet energy (`∇𝓕 ↔ flow`, wall item (i), discrete).
+9. **`𝓦`-Gaussian + Li–Yau** — ✅ DONE (`DiscreteGaussian.lean`, 8 PURE; `Binomial.lean`
+   `binom_absorption`/`binom_log_concave`): binomial kernel mass `= 2^t` ∀t (the
+   `(4πτ)^{−n/2}` content), first moment, log-concavity = division-free Li–Yau gradient
+   estimate, Harnack propagation (wall items (ii)+(iii), discrete).
+10. **Surgery classification** — ✅ DONE (`DiscreteSurgery.lean`, 15 PURE): general
+    Gauss–Bonnet (handshake ⟹ `Σκ = 2χ`), cut-a-neck ledger (`χ+1`, curvature `+2`),
+    round-XOR-neck dichotomy, A6 termination with **exact count `= b₁`**, `K_{3,2}` worked
+    ledger `−2→0→+2` (wall item (iv), discrete).
+11. **No-local-collapsing (kernel density pinch)** — ✅ DONE (`DiscreteGaussian.lean` §4 +
+    `Binomial.binom_le_central` unimodality): `2^{2n} ≤ (2n+1)·u(2n,n)` (central value ≥
+    average density — the cigar exclusion) + `u(t,x) ≤ 2^t` (non-concentration), the
+    two-sided `kernel_density_pinch`.  New generic infra: `gridSum_const`,
+    `gridSum_term_le` (`Conservation`).
+12. **χ²-entropy descent on curvature** — ✅ DONE (`RicciFlowDiscrete` §7,
+    `ricci_chi_entropy_monotone`): `V(K') ≤ 16·V(K)` for `V(K) = n·ΣK² − (ΣK)²` (additive
+    ledger form), from `EnergyDecay.lazy_l2_norm_bound` + total-curvature conservation —
+    the discrete Perelman entropy (divergence from the round state) is non-increasing.
+
 ## Honest boundary
 
 This closes A6's core **in the discrete (Forman/Ollivier) theory** — a genuine

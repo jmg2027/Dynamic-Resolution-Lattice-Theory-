@@ -1,144 +1,150 @@
-# Session Handoff — 2026-06-11 (the slot programme + marathon: merged, audited, READY)
+# Session Handoff — 2026-06-11
 
 ## Branch
-`claude/natural-pairs-integer-axioms-ncrtli` — pushed; **origin/main
-merged in** (`12a9844`, graded ladder + π arc; conflicts resolved).
-Ready-to-merge verdict: **READY** (fresh `lake build` clean; kernel
-regress 45/45 0-axiom; `scan_all_axioms` **1333 PURE / 0 DIRTY**;
-layer audit 0 violations; sink rule 0; purity 0 sorry / 0 axiom /
-0 native_decide / 0 Classical).
+`claude/weighted-ibp-li-yau-91qefg` — pushed, in sync with origin; main
+merged in (slot programme session absorbed); **READY TO MERGE** (full
+pre-merge audit passed; see below).  Merge to main is the next action.
 
 ## What Was Done This Session
 
-### 1. The slot programme (originator-driven, end to end — all PURE)
-ℕ-slots + total (ℕ,ℕ)→ℕ operations + witness-form hypotheses, no
-inverse ops, no quotients.  Closed Lean, by module:
-- `Meta/Int213/Core.lean` (57): witness characterization of subNatNat
-  (sign = witness side; sandwich = equation), `subNatNat_eq_iff`
-  (the +-cross-equation), `subNatNat_mul_eq_iff` (two-sided form =
-  pair slots laid flat), `subNatNat_add_witness`, `mul_mul_mul_comm`.
-- `Meta/Nat/NatDiv213.lean` (21): ÷-sandwich + crossing sandwich
-  (`affine_cross_iff_div_sandwich`) + pure div/mod kit.
-- `Meta/Nat/Gcd213.lean` (32): Bezout-free Euclid chain
-  (`gcd213_mul_left` → `coprime_dvd_of_dvd_mul` →
-  `coprime_repr_unique`), `gcd_strip_coprime`.
-- `Lens/Number/RatioLensFounding.lean` (9): `ratioEquiv` completed
-  (scale/trans/cross-sandwich), `ratio_mul_witness`.
-- `Lib/Math/NumberSystems/Slots/` (NEW cluster): `Rat213` (14, signed
-  lowest form + derived order + **square_commutes** — distributivity
-  as the commutation law of the two pair-Lenses),
-  `CompletionDichotomy` (3, frame-indexed rigidity), `GaussTuple`
-  (5, 4-axis product, `gmul_i_i` by rfl), `PairPow` (3, exponent
-  +-fiber transports to value ×-fiber).
-- `Meta/Nat/PairOp.lean` (31): **the meta-operation** — §1 priced
-  steps for arbitrary f, §2 witness layer (everything forgotten:
-  cancellation = witness uniqueness; cross-equation = the witness
-  relation's action-commutation shadow; lift = medial alone), §3 the
-  list picture (progressive vs wrapping), §4 sandwich-first
-  (existence needs no monotonicity; uniqueness only monotonicity),
-  §5 **the interaction theorem** (`cross_rule_forced` — the × lift
-  forced by bi-distributivity + unit + three annihilation instances,
-  exactly minimal; `pow_lift_impossible` — under that selector `^`
-  has no lift at all).
-- `Meta/Nat/UnitList.lean` (9): the floor — append; commutativity
-  **born** on unit lists (`append_comm`); `add_comm_from_append`
-  (+-commutativity as the count-shadow of append commutativity).
+### 1. THE WELD CLOSED — `LowerBase` proven (LambertBridge, 77 PURE ✓)
+The weld's one remaining brick is a theorem, strict ∅-axiom:
+- `lowerBase (q) (hq : 1 ≤ q) : LowerBase q` — the base inequality
+  `devA_i·s_{2i+1} ≤ (4i+3)·devB_i·c_{2i+1}` for **every** `i`.
+- `cothSeriesCauchySep q hq : CauchyCutSeq` — the `coth(1/q)` series
+  fold completes, total modulus `k+2`, **no hypotheses**.
+- `weld_closed q hq m k` — series and CF limit cuts agree on **every**
+  probe (`#print axioms → does not depend on any axioms`).
 
-### 2. Ontology + corrections (originator course-corrections, recorded)
-Tuple-tower ontology (CLAUDE.md failure row "Quotient promoted to
-ontology"): the tuple IS the number; cross-equations are relations,
-not identities; reduction-possibility = theorem, application =
-flattening Lens; `2 mod 2` = the class of 2, not 0.
-Selector-relativity: `pow_lift_impossible`'s selector is the ×-frame's
-law ("tetration is not ×"); the native wall = the escape of the
-required inverse (log — grade 3, sandwich-family).  Fold-back
-honesty: linear absence = theorem (exponent vectors / FTA), nonlinear
-= Schanuel-open (conjecture tag).  Two 4-agent panels ran (audit
-round: frame visibility = Legendre symbol, occurrence→×-degree, slot
-grammar; research round: minimal interaction-theorem hypotheses,
-which the Lean follows).
+Proof layers (all in `LambertBridge.lean`, §1–§13, executing the F1–F7
+blueprint): reversed convergent stacks (`rev_trunc`) → accumulator snoc
++ threaded weight `wprod` → the bridges (`bridgeA/B`, `N̂ = J+g`
+invariant) → division-free budget (`budgetGen`) → saturation
+(`AaccSum (2i+1) N (i+1) = Asum`, every `N`) → mirrors past the stack
+(`mirrorA/B`) → per-coefficient laws (`entry_eq` / `diag` =
+`(4i+2)!!` Padé flip / `slack`) → suffix descent (`inv_descent`,
+counting `2i·(4i+1)!! ≤ (4i+4)·(4i+2)!!`) → `SuffDom` → `lowerBase`.
 
-### 3. Marathon consolidation
-- **Chapter** `theory/math/numbersystems/slot_arithmetic.md` (now
-  incl. §1.5 floor + the interaction theorem; sink-rule clean).
-- **Book volume 3** `book/slots/` (README + 6 chapters), cross-refed
-  from `book/README.md`.
-- **Essay** `theory/essays/analysis/where_commutativity_is_born.md`
-  (ledger row 60; essay count 85).
-- **Promotion/archive**: `signed_rationals_normal_form.md` →
-  `research-notes/archive/numbersystems/` (ledger row 59); 9 Lean
-  docstring citations repointed to the chapter (sink rule → 0).
-- **Cross-domain note** `frontiers/slots_crossdomain.md`: one
-  crystallographic restriction at two scales ({1,2,3,4,6} via
-  φ(n) ≤ 2 = unit trichotomy = crystallographic spectrum);
-  escape-from-every-X as one form; modulus degree = certificate
-  depth = answer-axes.
-- **org-audit**: `NumberSystems/Slots/` cluster (4 modules, uniform
-  dotted rename, re-audited PURE); INDEX registrations.
+### 2. Main merged in (slot programme), conflicts resolved
+5 conflicts (Real213.lean imports = union; ExpLog INDEX = 28 files;
+zeta3/ladder frontier notes = both sides' closures kept; HANDOFF =
+ours).  Post-merge full build green; **2412 PURE / 0 DIRTY** (+33
+sealed-by-design).
+
+### 3. Two promotions (`/process`)
+- `theory/math/analysis/lambert_weld.md` ← the weld arc (8 modules,
+  297 PURE); `lowerbase_blueprint.md` archived to
+  `archive/transcendentals/`.
+- `theory/math/geometry/discrete_perelman_core.md` ← wall items i–iv +
+  no-local-collapsing + χ²-entropy (69 PURE across `WeightedGreen`,
+  `DiscreteGaussian`, `DiscreteSurgery`, `RicciFlowDiscrete`,
+  `Binomial`); `discrete_ricci_flow_ladder.md` (all rungs ✅) archived
+  to `archive/a6_ricci_core/`.
+- STRICT_ZERO_AXIOM: two dated entries; promotion log rows 61–62;
+  sink-rule audit: 0 violations.
+
+### 4. Cross-domain note (`weld_crossdomain.md`, 4 bridges)
+CF partial-quotient growth as the ladder-rung invariant;
+inverse-avoidance by state-threading (the response to the slot wall);
+exclusion-depth ≟ separation-schedule unification brick; the
+pair-layer cross expression's three regimes (`=0/=1/≥1`).
+
+### 5. Essay (ledger row 63)
+`theory/essays/analysis/when_two_pointings_are_one.md` — uniqueness of
+limits as a priced certificate (the `(4i+2)!!` flip; `48` at level one).
+
+### 6. Audits (`/org-audit`, `/purity-check`, `/ready-to-merge`)
+- 6 stale "stage 3c open / modulo LowerBase" docstrings repointed to
+  `weld_closed`; INDEX counts corrected (essays 86, chapters ~235).
+- Purity: 0 sorry / 0 axiom decls / 0 native_decide / 0
+  Classical/Mathlib.
+- **Forced fresh build** (`rm .lake/build && lake build E213`): clean.
+- layer_audit 0 violations; kernel_regress 45/45.
+- **Fixed a real trap**: bare `lake build` was a silent no-op (no
+  default target) — `lakefile.toml` now has `defaultTargets = ["E213"]`.
 
 ## Current Precision Results (0 free parameters)
-Unchanged (math-side session) — see `catalogs/precision_results.md`
-(1/α_em 0.2 ppb structural; m_p, m_μ/m_e, N_gen = 3, θ_QCD falsifier).
+Unchanged this session (math branch work).  See
+`catalogs/physics-constants.md`; headline rows (1/α_em ppb-class, m_p,
+m_μ/m_e) as before.
 
 ## Open Problems (Priority Order)
-1. **Staircase rebuild (native selector)**: pair-counted iteration
-   over an invertible action; the cross rule re-derived as the
-   iterated ⊕-action; the native wall theorem ("the required inverse
-   escapes"); the action-stable-layer criterion ("the rung's
-   question-answers form an action-stable layer ⟺ the staircase
-   climbs").  Frontier: `research-notes/frontiers/numbersystem_square.md`.
-2. **The proven floor of the wall** (cheap): `2^a·3^b = 2^c·3^d →
-   a=c ∧ b=d` (linear fold-back absence, `vp` ground) and
-   ×-commutativity from the grid double-count (append/count level).
-   Frontier: `frontiers/numbersystem_square.md` (the three why's).
-3. **Interaction-schema instances**: `pairPow_unique` (second
-   instance, two pair relations, E1/E2 law split) → wrap-layer ℤ/n
-   multiplication (no cancellation needed) → `gmul_unique` (the
-   self-generating tower).  Frontier: `frontiers/numbersystem_square.md`.
-4. **T2–T4**: rational-root integrality; `vp` multiplicativity +
-   separation; visibility dichotomy `(∃x, p∣x²+1) ↔ p%4=1` (half
-   closed: `qr_neg_one`).  Frontier: `frontiers/numbersystem_square.md`.
-5. **Merge bridges** (3): unit order = matrix order ({1,2,3,4,6});
-   the ∀-form measure hypothesis as a slot-grammar statement; the
-   three-way degree identification.  Frontier:
-   `frontiers/slots_crossdomain.md`.
-6. Main's carried arcs (π ∀-form build candidate, Markov `H`
-   terminal, modulus-degree ladder): `frontiers/INDEX.md` topic groups.
+
+### 1. ζ(3) formalization (two verified blueprints)
+Apéry integrality as pure divisibility chains + Chebyshev 30-block lcm
+bound.  No open mathematics — formalization marathons.
+Frontier notes: `research-notes/frontiers/zeta3_blueprint.md`,
+`research-notes/frontiers/zeta3_free_modulus.md`.
+
+### 2. exp(p/q), p ≥ 2, free modulus
+Fold built (`ExpRationalCut`); needs unconditional `hmeas`
+(Padé/Hermite effective irrationality, `I k ≈ 2p/q + O(log k)`).
+Frontier note: `research-notes/frontiers/modulus_degree_ladder.md`
+(rung 0″).
+
+### 3. Weld Casoratian development
+Flip criterion + ratio descent from the proven `i`-invariant identity;
+possible bridge-free second certificate of `LowerBase`.
+Frontier note:
+`research-notes/frontiers/transcendentals/weld_casoratian_development.md`.
+
+### 4. Cross-domain bridges (from the merge)
+(a) partial-quotient growth ⟹ ladder rung, as a theorem schema;
+(b) `bracket_total_modulus` ≟ `toCauchySep` unification (cheap brick);
+(c) cross expression `=0/=1/≥1` synthesis.
+Frontier note: `research-notes/frontiers/weld_crossdomain.md`.
+
+### 5. Smooth Ricci core (the standing wall)
+Discrete side fully closed + promoted; smooth-metric Perelman remains.
+Frontier note: `research-notes/frontiers/ricci_flow_smooth_core.md`.
 
 ## Unresolved from This Session
-- One research agent hit the account session-limit (the constructor;
-  superseded by the adversary's minimal form — no loss).
-- Pre-existing informational items untouched: WIDE layer-audit flags
-  (Math/Physics spans), legacy "Phase" wording in
-  `Real213/PhiCut.lean` + two tooling docs (historical).
+None pending in-flight — every started item closed.  Lean tactics
+intel worth keeping (recurring pitfalls):
+- `Nat.le.dest` on `a < b` yields `Nat.succ a + k`; **`ring_nat` treats
+  `Nat.succ a` as an opaque atom** — convert via `congrArg (· + 1)` /
+  `Nat.succ_add`, not `rw [← he]; ring_nat`.
+- PolyNatM does **not** normalize zero monomials / unit factors: goals
+  containing `+ 0`, `1 * _`, `0 * _` break `ring_nat` — eliminate the
+  literals first, or route junk terms through `Nat.le_add_right`.
+- `rw` finishes `[].length + (1+1) = 2`-style goals only up to
+  reducible — append explicit `rfl`.
 
 ## Next
-Merge to main (explicitly authorized this session).  Then Open
-Problem 2 (the cheap proven floor) as a warm-up, or 1 (staircase
-rebuild) as the main campaign.
+**Merge this branch to main** (explicitly authorized this session).
+Then: ζ(3) blueprint marathon (Open Problem 1) — start with the
+Chebyshev 30-block lcm brick (`zeta3_blueprint.md` brick B, smaller),
+or the Casoratian flip criterion as a light warm-up.
 
 ## Three-tier state
-- **Promotions this session**:
-  `theory/math/numbersystems/slot_arithmetic.md` (+ marathon update),
-  `book/slots/` volume, essay `where_commutativity_is_born.md`;
-  archived `signed_rationals_normal_form.md` (ledger rows 59–60).
-- **Promotion candidates**: none blocking — `numbersystem_square.md`
-  stays on the board with the open bricks above.
-- **Active scratchpad**: `frontiers/numbersystem_square.md`,
-  `frontiers/slots_crossdomain.md`, + main's carried topic groups.
+- **Promotions this session**: `theory/math/analysis/lambert_weld.md`
+  ← `frontiers/lowerbase_blueprint.md` (archived);
+  `theory/math/geometry/discrete_perelman_core.md` ←
+  `frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md` (archived).
+- **Promotion candidates**: none flagged — sweep `frontiers/` for
+  all-✅ notes at next `/process`.
+- **Active scratchpad**: `frontiers/weld_crossdomain.md` (new),
+  `frontiers/transcendentals/weld_casoratian_development.md` (new).
 
 ## File Map
 ```
-theory/math/numbersystems/slot_arithmetic.md     ← THE chapter (read first)
-book/slots/{README,01..06}.md                    ← volume 3 (treatise)
-theory/essays/analysis/where_commutativity_is_born.md ← essay (row 60)
-lean/E213/Meta/Nat/{PairOp,UnitList,NatDiv213,Gcd213}.lean ← meta layer
-lean/E213/Lib/Math/NumberSystems/Slots/          ← Rat213, CompletionDichotomy,
-                                                   GaussTuple, PairPow (+umbrella)
-lean/E213/Meta/Int213/{Core,OrderMul}.lean       ← witness + cross-equation kit
-lean/E213/Lens/Number/RatioLensFounding.lean     ← ratioEquiv completed
-research-notes/frontiers/numbersystem_square.md  ← ontology + open bricks
-research-notes/frontiers/slots_crossdomain.md    ← merge bridges
-research-notes/archive/numbersystems/signed_rationals_normal_form.md ← archived
-CLAUDE.md                                        ← failure row (quotient/ontology)
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertBridge.lean  ← §8–§13 added (F4–F7): budgetGen, saturation, mirrors, entry_eq/diag/slack, inv_descent, suffdom, lowerBase, cothSeriesCauchySep, weld_closed (77 PURE)
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertOrder.lean   ← weld_limit_agreement docstring → closure state
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/CothSeriesCut.lean  ← 5 "stage 3c" docstrings → closure state
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/INDEX.md            ← 28 files; LambertBridge entry; conflicts resolved
+lean/E213/Lib/Math/NumberSystems/Real213.lean                       ← import union (ours + PiMeasureModulus)
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/DiscreteRicci.lean      ← docstring repoint
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/DiscreteGaussBonnet.lean ← docstring repoint
+lean/lakefile.toml                                                  ← defaultTargets = ["E213"]
+theory/math/analysis/lambert_weld.md                                ← NEW chapter (promotion)
+theory/math/geometry/discrete_perelman_core.md                      ← NEW chapter (promotion)
+theory/essays/analysis/when_two_pointings_are_one.md                ← NEW essay
+theory/math/INDEX.md, theory/INDEX.md, theory/essays/INDEX.md       ← registrations + counts
+research-notes/frontiers/weld_crossdomain.md                        ← NEW cross-domain note
+research-notes/frontiers/transcendentals/weld_casoratian_development.md ← NEW frontier
+research-notes/frontiers/INDEX.md                                   ← closure records + registrations
+research-notes/archive/transcendentals/lowerbase_blueprint.md       ← archived (was frontiers/)
+research-notes/archive/a6_ricci_core/discrete_ricci_flow_ladder.md  ← archived (was frontiers/)
+research-notes/promotion_essay_log.md                               ← rows 61–63
+STRICT_ZERO_AXIOM.md                                                ← weld + Perelman-core entries
 ```

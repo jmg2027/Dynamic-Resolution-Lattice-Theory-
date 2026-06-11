@@ -198,4 +198,39 @@ theorem ricci_flow_fixed_point_stable (n c : Nat) :
     rw [ih (leftNbr n x), ih x, ih (rightNbr n x), Nat.pow_succ]
     ring_nat
 
+/-! ## §7 — χ²-entropy (variance) descent: the discrete Perelman entropy on curvature
+
+The synthetic discrete Perelman entropy is the **χ²-divergence of the curvature field from
+its mean** — the variance numerator `V(K) = n·ΣK² − (ΣK)²` (`≥ 0` by Cauchy–Schwarz; `= 0`
+exactly at constant curvature, the normalised round state).  Two ingredients already in
+hand — the L² norm contraction `Σ(K')² ≤ 16·ΣK²` (`EnergyDecay.lazy_l2_norm_bound`) and
+total-curvature conservation `ΣK' = 4·ΣK` (§2) — give `V(K') ≤ 16·V(K)`: the *averaged*
+χ²-entropy is non-increasing, i.e. the flow shrinks the divergence from the
+constant-curvature state.  Stated in additive (`Nat`-clean) ledger form.  This is the
+`Ent(μ) = Σμ(μ−1)`-entropy reading: `Ent = Σμ² − Σμ`, and with mass conserved the descent
+of `Σμ²` is the descent of the entropy / χ²-divergence. -/
+
+/-- ★★★★★ **Discrete χ²-entropy descent** (additive form of `V(K') ≤ 16·V(K)`,
+    `V(K) = n·ΣK² − (ΣK)²`): one discrete Ricci-flow step does not increase the averaged
+    χ²-divergence of curvature from its mean — the discrete Perelman-entropy
+    monotonicity, with the round (constant-curvature) state the entropy minimum
+    (`V = 0`).  From the L² contraction + mass conservation. -/
+theorem ricci_chi_entropy_monotone (n : Nat) (K : Nat → Nat) :
+    n * gridSum n (fun x => ricciFlowStep n K x * ricciFlowStep n K x)
+      + 16 * (gridSum n K * gridSum n K)
+    ≤ 16 * (n * gridSum n (fun x => K x * K x))
+      + gridSum n (ricciFlowStep n K) * gridSum n (ricciFlowStep n K) := by
+  have hl2 : gridSum n (fun x => ricciFlowStep n K x * ricciFlowStep n K x)
+      ≤ 16 * gridSum n (fun x => K x * K x) :=
+    E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay.lazy_l2_norm_bound n K
+  have hmass : gridSum n (ricciFlowStep n K) = 4 * gridSum n K :=
+    ricci_total_curvature_conserved n K
+  rw [hmass,
+      show 4 * gridSum n K * (4 * gridSum n K) = 16 * (gridSum n K * gridSum n K) from by
+        ring_nat]
+  apply Nat.add_le_add_right
+  rw [show 16 * (n * gridSum n (fun x => K x * K x))
+        = n * (16 * gridSum n (fun x => K x * K x)) from by ring_nat]
+  exact Nat.mul_le_mul (Nat.le_refl n) hl2
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete

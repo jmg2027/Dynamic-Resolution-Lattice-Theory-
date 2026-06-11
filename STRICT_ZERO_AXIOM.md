@@ -240,6 +240,54 @@ DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 DIRTY: every Lean-core axiom use is structurally justified per
 §"Sealed-by-design categories".
 
+### The Lambert weld closed — `LowerBase` proven, `coth(1/q)` series ≡ CF (2026-06-11)
+
+Eight modules, **297 PURE / 0 DIRTY** (`tools/scan_axioms.py`), under
+`Lib/Math/NumberSystems/Real213/ExpLog/`:
+
+  · `LambertWeld` 47 · `LambertMinor` 20 · `LambertOrder` 40
+  · `LambertMasterId` 37 · `LambertPoly` 34 · **`LambertBridge` 77**
+  · `CothSeriesCut` 22 · `ExpMoebius` 20
+
+Headlines (all strict ∅-axiom, hypothesis-free):
+
+  · **`LambertBridge.lowerBase (q) (hq : 1 ≤ q) : LowerBase q`** — the
+    base inequality `devA_i·s_{2i+1} ≤ (4i+3)·devB_i·c_{2i+1}` for every
+    `i`, via the convolution–master bridge (master identity over ℕ with
+    weight-threading accumulators; division-free budget; diagonal
+    `(4i+2)!!` Padé flip absorbing all sub-diagonal slack).
+  · **`weld_closed`** — the series and CF limit cuts of `coth(1/q)`
+    agree on every probe; **`cothSeriesCauchySep`** — total modulus `k+2`.
+  · **`expTwoOverQCFCauchySeq`** (`ExpMoebius`) — `exp(2/q)`
+    unconditional, modulus `k+2`; `e² ∈ (22/3, 37/5]`.
+
+Promoted: `theory/math/analysis/lambert_weld.md`.
+
+### Discrete Perelman core — four wall items + kernel pinch + entropy (2026-06-10)
+
+Five modules / sections, **69 PURE / 0 DIRTY**:
+
+  · `GeometrizationConjecture/WeightedGreen` 11 — weighted Green identity
+    + `dirichlet_gradient_identity` (the weighted heat flow IS the
+    gradient flow of `𝓕_w`; wall item (i)).
+  · `GeometrizationConjecture/DiscreteGaussian` 11 —
+    `gaussian_normalization` `Σ C(t,x) = 2^t` (the `(4πτ)^{−n/2}`
+    content), `gaussian_li_yau`, `harnack_forward`,
+    `no_local_collapsing` + `kernel_density_pinch` (wall items (ii)–(iii)
+    + cigar exclusion).
+  · `Combinatorics/Binomial` 15 — `binom_absorption`,
+    `binom_log_concave`, `binom_le_central` (division-free Li–Yau +
+    unimodality engines).
+  · `GeometrizationConjecture/DiscreteSurgery` 15 — general
+    Gauss–Bonnet, cut-a-neck ledger (`χ+1`, curvature `+2`),
+    round-XOR-neck dichotomy, termination in exactly `b₁` steps
+    (wall item (iv)).
+  · `GeometrizationConjecture/RicciFlowDiscrete` 17 — incl. §7
+    `ricci_chi_entropy_monotone` (`V(K') ≤ 16·V(K)`, the discrete
+    Perelman entropy descent).
+
+Promoted: `theory/math/geometry/discrete_perelman_core.md`.
+
 ### Async growth ladder + Raw census structure — strict ∅-axiom (2026-06-10)
 
 Eight closures + Slash additions, 74 PURE, 0 DIRTY

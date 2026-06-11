@@ -1,7 +1,9 @@
 # ζ(3): from the built fold to the free (constructed) total modulus
 
-**Status**: open at the two classical inputs (I1 integrality, I2 lcm race);
-the engine end (growth + conditional glue) is **closed** — see below.  The fold itself is **closed** —
+**Status**: blueprint complete for the two classical inputs (I1 integrality,
+I2 lcm race) — see `zeta3_blueprint.md` (both bricks verified; formalization
+plans only, no open mathematics); the engine end (growth + conditional glue)
+is **closed** — see below.  The fold itself is **closed** —
 `Real213/Zeta3Cut.lean` (35 PURE / 0 DIRTY) builds ζ(3)'s Apéry convergents as
 an `AbCutSeq` (exact ℕ recurrence via the growth-invariant engine, closed-form
 Casoratian `6·(m!)⁶`, bracket `601/500 < ζ(3) ≤ 1203/1000`, completion to a
@@ -54,6 +56,40 @@ Remaining: **only I1 and I2** — the two classical Apéry arithmetic inputs
 above.  I2's classical derivation = Hanson + `zeta3Den_geom` + the
 `Wₙ = 24·lcmₙ³lcmₙ₊₁³/(n+1)³` cross-det arithmetic; its from-layer form is
 what `zeta3_reduced_conditional` consumes.
+
+## The clearing-growth criterion (why the two bricks are necessary)
+
+For ANY series pointing `Σ pₙ/qₙ` cleared over denominators `Dₙ` with integer
+ratios `ρₙ₊₁ = Dₙ₊₁/Dₙ`, the cleared increment is `eₙ₊₁ = pₙ₊₁·Dₙ₊₁/qₙ₊₁`, the
+cross-determinant is `Wₙ = eₙ₊₁·Dₙ`, and the smallness condition collapses to
+
+  `i(i+1)·eᵢ₊₁ + i ≤ (i+1)·ρᵢ₊₁`   ⟺ roughly  **`qₙ₊₁ ≳ n·pₙ₊₁·Dₙ`** —
+
+the next term-denominator must beat (index) × (numerator) × (running clearing).
+Consequences (each verified exactly):
+  * **Engel-type series pass**: `Σ 1/(q₁⋯qₙ)` with `qᵢ ≥ i` has `e = 1`,
+    `W = Dₙ`, condition `i²+2i ≤ (i+1)qᵢ₊₁` — this is exactly why `exp(1/q)`
+    (`qᵢ = iq`) carries the free modulus (`expUnitCauchySeq`), and why
+    `exp(p/q)`, `p ≥ 2` fails (`e = pⁿ⁺¹` exponential vs linear steps —
+    `exp_pq_no_htel`).
+  * **`ζ(s)` defining series fail by factorial margin**: over the product
+    clearing `Dₙ = (n!)ˢ` the increment is `e = (n!)ˢ⁻⁰·…/(n+1)ˢ = Dₙ` (NOT 1 —
+    `1/kˢ` is not Engel), so `W = Dₙ²` and the condition needs
+    `(n+1)ˢ ≥ n·Dₙ` — hopeless.  (A first-glance "the e-pattern applies to
+    `Σ1/n³` verbatim" is a trap: the `+1` of the exp recursion is `+Dₙ` here.)
+  * **The only window is quasi-polynomial clearing**: `Dₙ` must grow slowly
+    enough that `qₙ₊₁ ≳ n·Dₙ` stays satisfiable while still clearing all
+    denominators — i.e. `Dₙ = lcm`-type (the holonomic_modulus ladder's
+    quasi-polynomial rung), which for ζ(3) forces exactly the two classical
+    bricks: numerator integrality (`2lcm³aₙ ∈ ℕ`) and the lcm growth bound
+    (Hanson `< 3ⁿ`, budget `< α^{1/3} ≈ 3.236`).  They are not artifacts of
+    Apéry's route — every series-type presentation needs them.
+
+Both bricks now have complete verified proof blueprints — `zeta3_blueprint.md`:
+brick 1 via a finitized Chebyshev 30-block recursion (`c = √10 < 3.236`; Hanson
+rejected — sub-0.5% margin, unbounded Sylvester tail), brick 2 as pure
+divisibility chains with no p-adic theory (trinomial double identity + KeyDiv
+via the finite-difference witness).
 
 ## Payoff when closed
 

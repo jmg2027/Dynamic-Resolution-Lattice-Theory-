@@ -28,7 +28,7 @@ brick) make this an actual flow; convergence/normalization is the A6 target on
 the discrete side.
 
 Scope: this is discrete Ricci flow (Forman/Ollivier), a genuine parallel theory,
-not smooth Perelman.  Ladder + status: `research-notes/frontiers/a6_ricci_core/`.
+not smooth Perelman.  Programme: `theory/math/geometry/discrete_perelman_core.md`.
 -/
 
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci
