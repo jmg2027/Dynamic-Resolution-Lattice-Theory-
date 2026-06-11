@@ -60,10 +60,19 @@ shows by layer `I k`") ⟹ modulus `N = I k` (exp(p/q) instance, and the
 weld's W2 uses the same shape with `I k = k + 2`).  These look like one
 lemma under two parametrizations.
 
-**Open brick (cheap, checkable)**: derive `bracket_total_modulus` as a
-`toCauchySep` instance (or exhibit the obstruction).  If they unify, the
-ladder's rung-2 schema and the weld's completion engine are one device,
-and π/exp/coth differ only in who supplies the schedule.
+**CLOSED** (`BracketModulus.bracket_is_sep_schedule`, ∅-axiom): the two
+schemas **unify**.  Not as a literal `toCauchySep` instance — the carriers
+sit at different abstraction levels (`bracket_total_modulus` on the bare
+`rcut a d` Nat-fold, `toCauchySep` on a `Raw`-level `AbCutSeq`) — but the
+*device* is one: the bracket's exclusion-depth hypotheses **imply
+`sep_cauchy`'s `hsep` for the lower fold**, with the separation schedule
+`I k = B k + 2`.  Any `false` reading of the lower fold anywhere shows at
+layer `B k + 2`, by two regimes meeting there: `false` at a layer
+`≤ B k + 1` propagates *forward* (`below_fwd`), `false` at a layer
+`≥ B k + 2` reflects *back* by post-exit constancy (`bracket_cut_const`).
+So the ladder's rung-2 bracket and the weld's completion engine are one
+separation-schedule device — π/exp/coth differ only in who supplies the
+schedule (two-sided shrinking bracket vs one-sided linear-pq growth).
 
 ## 4. The pair-layer cross expression: equivalence at 0, certificate at 1
 
