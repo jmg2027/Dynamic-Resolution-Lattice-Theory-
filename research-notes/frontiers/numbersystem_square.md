@@ -107,6 +107,32 @@ different-operation lift (× on +-pairs = the cross rule) should fall
 out of distribution as the lift-determining law — tetration's wall =
 no interaction law = no canonical lift, restated at the meta level.
 
+**§2 — everything forgotten (★ CLOSED, `PairOp` §2, 19 PURE total).**
+Dropping all properties and re-deriving exposes the true jobs, finer
+than the price table above:
+
+1. **The question bifurcates at step zero**: `f a x = b` vs
+   `f x a = b` are different questions — commutativity's first job is
+   fusing the two pair kinds (`question_fuse`); the `^` root/log
+   split originates *before* relations or lifts exist.
+2. **The cross-equation is not primitive**: the witness relation
+   (`sameWitness` — the questions share a solving `x`) is the
+   original, free and symmetric for any `f`; the cross-equation is
+   its shadow, cast by **action-commutation**
+   `f a (f c x) = f c (f a x)` (`crossEq_of_sameWitness`) — strictly
+   weaker than comm+assoc, which merely supply it
+   (`action_comm_of_comm_assoc`); faithful back with cancellation
+   (`sameWitness_of_crossEq`).
+3. **Cancellation's true job is witness uniqueness**: transitivity of
+   the witness relation *is* uniqueness of the middle witness
+   (`sameWitness_trans`).
+4. **The lift's true actor is the medial law alone**: "the witness of
+   the product is the product of the witnesses" (`pairLift_witness`)
+   needs neither commutativity nor associativity directly.
+
+The interaction-law rung (different-operation lifts from
+distribution) deliberately deferred until this layer is solid.
+
 ## The square
 
 ```
