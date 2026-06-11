@@ -345,4 +345,162 @@ theorem Bacc_snoc (n : Nat) : ∀ (m cc w s : Nat),
           rw [sub_two_sub cc (2 * m)]; rfl]
     ring_nat
 
+/-! ## §6 — F3 weight layer: σ/γ-steps and the product matches
+
+The `(m, p) → (m−1, p−1)` head-peel of the convolution preserves `N̂ = J + g`
+(`g = m − p` the invariant); these lemmas match the polynomial coefficient
+ratios with the accumulator's threaded-weight steps, in both regimes
+(`p ≤ J` exactly, `p > J` both sides vanish — `Nat`-subtraction is exactly
+right). -/
+
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder (nth_ladd nth_lsmul)
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertPoly (lmulC sListC cListC)
+
+def AaccSum (n N k : Nat) : Nat := Aacc n (2 * N + 1) 1 0 k
+def BaccSum (n N k : Nat) : Nat := Bacc n (2 * N + 1) 1 0 k
+
+theorem AaccSum_snoc (n N m : Nat) :
+    AaccSum n N (m + 1) = AaccSum n N m + wprod (2 * N + 1) m * apF n m := by
+  have h := Aacc_snoc n m (2 * N + 1) 1 0
+  rw [Nat.one_mul, Nat.zero_add] at h
+  exact h
+
+theorem BaccSum_snoc (n N m : Nat) :
+    BaccSum n N (m + 1)
+      = BaccSum n N m + wprod (2 * N + 1) m * ((2 * N + 1 - 2 * m) * bpF n m) := by
+  have h := Bacc_snoc n m (2 * N + 1) 1 0
+  rw [Nat.one_mul, Nat.zero_add] at h
+  exact h
+
+/-- The convolution coefficient recursions (head peel). -/
+theorem nth_lmulC_zero (a₀ : Nat) (as b : List Nat) :
+    nth (lmulC (a₀ :: as) b) 0 = a₀ * nth b 0 := by
+  show nth (ladd (lsmul a₀ b) (0 :: lmulC as b)) 0 = a₀ * nth b 0
+  rw [nth_ladd, nth_lsmul]
+  show a₀ * nth b 0 + 0 = a₀ * nth b 0
+  rw [Nat.add_zero]
+
+theorem nth_lmulC_succ (a₀ : Nat) (as b : List Nat) (p : Nat) :
+    nth (lmulC (a₀ :: as) b) (p + 1) = a₀ * nth b (p + 1) + nth (lmulC as b) p := by
+  show nth (ladd (lsmul a₀ b) (0 :: lmulC as b)) (p + 1) = _
+  rw [nth_ladd, nth_lsmul]
+  rfl
+
+theorem sListC_head : ∀ J, nth (sListC J) 0 = 1
+  | 0 => rfl
+  | _ + 1 => rfl
+
+theorem cListC_head : ∀ J, nth (cListC J) 0 = 1
+  | 0 => rfl
+  | _ + 1 => rfl
+
+/-- ★★ **The σ-step**: `σ_{p+1} = (2(J−p))·(2(J−p)+1)·σ_p` (`Nat`-subtraction
+    makes the past-the-end regime vanish on both sides). -/
+theorem sig_step : ∀ (J p : Nat),
+    nth (sListC J) (p + 1) = (2 * (J - p)) * (2 * (J - p) + 1) * nth (sListC J) p
+  | 0, 0 => rfl
+  | 0, _ + 1 => rfl
+  | J + 1, 0 => by
+    show nth (lsmul ((2 * J + 2) * (2 * J + 3)) (sListC J)) 0
+        = (2 * (J + 1 - 0)) * (2 * (J + 1 - 0) + 1) * nth (sListC (J + 1)) 0
+    rw [nth_lsmul, sListC_head J, sListC_head (J + 1), Nat.mul_one, Nat.mul_one,
+        Nat.sub_zero]
+    ring_nat
+  | J + 1, p + 1 => by
+    show nth (lsmul ((2 * J + 2) * (2 * J + 3)) (sListC J)) (p + 1)
+        = (2 * (J + 1 - (p + 1))) * (2 * (J + 1 - (p + 1)) + 1)
+          * nth (lsmul ((2 * J + 2) * (2 * J + 3)) (sListC J)) p
+    rw [nth_lsmul, nth_lsmul, sig_step J p, Nat.succ_sub_succ]
+    ring_nat
+
+/-- The γ-step: `γ_{p+1} = (2(J−p)−1)·(2(J−p))·γ_p`. -/
+theorem gam_step : ∀ (J p : Nat),
+    nth (cListC J) (p + 1)
+      = (2 * (J - p) - 1) * (2 * (J - p)) * nth (cListC J) p
+  | 0, 0 => rfl
+  | 0, _ + 1 => rfl
+  | J + 1, 0 => by
+    show nth (lsmul ((2 * J + 1) * (2 * J + 2)) (cListC J)) 0
+        = (2 * (J + 1 - 0) - 1) * (2 * (J + 1 - 0)) * nth (cListC (J + 1)) 0
+    rw [nth_lsmul, cListC_head J, cListC_head (J + 1), Nat.mul_one, Nat.mul_one,
+        Nat.sub_zero, show 2 * (J + 1) - 1 = 2 * J + 1 from rfl]
+    ring_nat
+  | J + 1, p + 1 => by
+    show nth (lsmul ((2 * J + 1) * (2 * J + 2)) (cListC J)) (p + 1)
+        = (2 * (J + 1 - (p + 1)) - 1) * (2 * (J + 1 - (p + 1)))
+          * nth (lsmul ((2 * J + 1) * (2 * J + 2)) (cListC J)) p
+    rw [nth_lsmul, nth_lsmul, gam_step J p, Nat.succ_sub_succ]
+    ring_nat
+
+private theorem sub_vanish : ∀ (a b : Nat), a - (a + b) = 0
+  | a, 0 => by rw [Nat.add_zero]; exact Nat.sub_self a
+  | a, b + 1 => by
+    show (a - (a + b)).pred = 0
+    rw [sub_vanish a b]
+    rfl
+
+private theorem sub_cancel_left {x : Nat} (k : Nat) : k + x - x = k :=
+  E213.Tactic.NatHelper.add_sub_cancel_right k x
+
+/-- ★★ **The A-side product match**: the σ-ratio equals the `wprod`-step
+    factor (both regimes; products vanish together past `J`). -/
+theorem prod_match (J p g : Nat) :
+    (2 * (J - p)) * (2 * (J - p) + 1)
+      = ((2 * (J + g) + 1) - 2 * (p + g) - 1) * ((2 * (J + g) + 1) - 2 * (p + g)) := by
+  rcases Nat.lt_or_ge J p with hlt | hge
+  · obtain ⟨e, he⟩ := Nat.le.dest hlt
+    have hJp : J - p = 0 := by
+      rw [← he, show J + 1 + e = J + (1 + e) from by ring_nat]
+      exact sub_vanish J (1 + e)
+    have hsub : (2 * (J + g) + 1) - 2 * (p + g) = 0 := by
+      rw [← he,
+          show 2 * ((J + 1 + e) + g) = (2 * (J + g) + 1) + (2 * e + 1) from by ring_nat]
+      exact sub_vanish _ _
+    rw [hJp, hsub]
+  · obtain ⟨d, hd⟩ := Nat.le.dest hge
+    rw [← hd,
+        show p + d - p = d from by
+          rw [Nat.add_comm p d]; exact sub_cancel_left d,
+        show (2 * ((p + d) + g) + 1) - 2 * (p + g) = 2 * d + 1 from by
+          rw [show 2 * ((p + d) + g) + 1 = (2 * d + 1) + (2 * (p + g)) from by ring_nat]
+          exact sub_cancel_left (2 * d + 1),
+        show 2 * d + 1 - 1 = 2 * d from rfl]
+
+/-- ★★ **The B-side product match**: γ-ratio × (old coefficient) =
+    `wprod`-step × (new coefficient). -/
+theorem prod_match_B (J p g : Nat) :
+    (2 * (J - p) - 1) * (2 * (J - p)) * ((2 * (J + g) + 1) - 2 * (p + g))
+      = ((2 * (J + g) + 1) - 2 * (p + g) - 1) * ((2 * (J + g) + 1) - 2 * (p + g))
+        * ((2 * (J + g) + 1) - 2 * (p + 1 + g)) := by
+  rcases Nat.lt_or_ge J p with hlt | hge
+  · obtain ⟨e, he⟩ := Nat.le.dest hlt
+    have hsub : (2 * (J + g) + 1) - 2 * (p + g) = 0 := by
+      rw [← he,
+          show 2 * ((J + 1 + e) + g) = (2 * (J + g) + 1) + (2 * e + 1) from by ring_nat]
+      exact sub_vanish _ _
+    rw [hsub, Nat.mul_zero,
+        show ((0 : Nat) - 1) * 0 * ((2 * (J + g) + 1) - 2 * (p + 1 + g))
+          = 0 from by rw [Nat.mul_zero, Nat.zero_mul]]
+  · obtain ⟨d, hd⟩ := Nat.le.dest hge
+    rw [← hd,
+        show p + d - p = d from by
+          rw [Nat.add_comm p d]; exact sub_cancel_left d,
+        show (2 * ((p + d) + g) + 1) - 2 * (p + g) = 2 * d + 1 from by
+          rw [show 2 * ((p + d) + g) + 1 = (2 * d + 1) + (2 * (p + g)) from by ring_nat]
+          exact sub_cancel_left (2 * d + 1)]
+    cases d with
+    | zero =>
+      rw [show (2 * ((p + 0) + g) + 1) - 2 * (p + 1 + g) = 0 from by
+            rw [show 2 * (p + 1 + g) = (2 * ((p + 0) + g) + 1) + 1 from by ring_nat]
+            exact sub_vanish _ 1,
+          Nat.mul_zero]
+    | succ d' =>
+      rw [show (2 * ((p + (d' + 1)) + g) + 1) - 2 * (p + 1 + g) = 2 * d' + 1 from by
+            rw [show 2 * ((p + (d' + 1)) + g) + 1
+                  = (2 * d' + 1) + (2 * (p + 1 + g)) from by ring_nat]
+            exact sub_cancel_left (2 * d' + 1),
+          show 2 * (d' + 1) - 1 = 2 * d' + 1 from rfl,
+          show 2 * (d' + 1) + 1 - 1 = 2 * (d' + 1) from rfl]
+      ring_nat
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
