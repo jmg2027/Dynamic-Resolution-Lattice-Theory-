@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 84 essays are grouped into ten thematic sub-directories — distinct
+The 85 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -114,7 +114,8 @@ axiom-forcing scale vs the async-run scale, with the grading's run-invariance
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
-`real_without_completeness`, `integers_as_difference_lens`,
+`real_without_completeness`, `where_commutativity_is_born`,
+`integers_as_difference_lens`,
 `the_modular_group_from_two_folds`, `minkowski_as_modular_cocycle`.
 
 **VI. `algebra/` — algebra tower & linear algebra.**
