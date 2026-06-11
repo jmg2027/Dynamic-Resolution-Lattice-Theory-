@@ -6,6 +6,31 @@ re-verified by exact integer computation** (ranges per item).  Companion to
 `zeta3_free_modulus.md` (which states the problem and the clearing-growth
 criterion forcing these two bricks).
 
+## Formalization progress (Brick 1, bottom-up)
+
+PURE (∅-axiom) modules landed, in dependency order:
+
+  * `Lib/Math/NumberTheory/LcmGrowthChebyshev.lean` §1 — **`count30`** = Brick 1
+    step 1, the 30-periodic counting lemma `[m̃≥1]+⌊m̃/2⌋+⌊m̃/3⌋+⌊m̃/5⌋ ≤
+    m̃+⌊m̃/30⌋+[m̃≥6]` for every `m̃` (30q+r split; q-coeffs 31=31 cancel).
+  * `Lib/Math/NumberTheory/PrimeValuation.lean` — **`vp_mul`** = `vₚ(a·b)=vₚa+vₚb`
+    at a prime (`Prime213`), with Euclid's lemma `prime_dvd_mul` via the
+    Bezout-free `Gcd213.coprime_dvd_of_dvd_mul`.  The gear under Legendre.
+  * `Lib/Math/NumberTheory/Legendre.lean` — **`vp_factorial`** = Legendre half 1,
+    `vₚ(n!) = Σ_{k<n} vₚ(k+1)` (additivity over the factorial product).
+
+Remaining chain to the deliverable `lcm⁶ ≤ 10^{87+3n}`:
+
+  * **Legendre half 2** — the double-counting swap `Σ_{k<n} vₚ(k+1) = Σⱼ ⌊n/pʲ⌋`
+    (`vₚ(k+1) = #{j≥1 : pʲ∣k+1}`, `Σ_{k<n}[pʲ∣k+1] = ⌊n/pʲ⌋`).  Needs `sumTo`
+    swap + the `[pʲ∣·]`-counting identity.  Then `vₚ(lcm 1..n) = max_j ⌊n/pʲ⌋`-style
+    bound for the lcm side.
+  * **FTA-lite** — `(∀ prime power q, q∣a → q∣b) → a∣b`, the divisibility criterion
+    step 2 closes through (needs a prime-factor existence/enumeration up to `n`).
+  * Steps 2–7 (key divisibility via the counting lemma at `m̃=⌊30m/pʲ⌋`;
+    factorial-ratio bound; recursion; numeral induction `37·α₃₀⁶ ≤ 10⁷⁵`; main
+    `lcm(1..30m) ≤ 10^{15m}`; corollaries).  `α₃₀ = 2¹⁴3⁹5⁵` exact.
+
 ## Brick 1 — the lcm bound: finitized Chebyshev, NOT Hanson
 
 **Deliverable**: `lcm(1..n)⁶ ≤ 10⁸⁷ · 1000ⁿ`, i.e. `lcm³ ≤ 10^{43.5}·(31.62)ⁿ`
