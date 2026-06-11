@@ -103,15 +103,29 @@ Bonus minor closed form (same-level pair, `s < t`, `k = i−position`):
   (`series_ge_even_of_base`, `cothSeriesCauchySepOfBase`, `weld_limit_agreement`)
   is conditional only on it.
 
-**Remaining — the one dedicated brick**: the base `R_{2i+1}(i) ≥ 0`, whose
-leading term is the master-identity diagonal `L(2i+1,2i+1) = (4i+2)!!` (verified;
-connection: `R_J(i) = Σ_{p} (2J+1)!/(2p+1)!·[partial-L_p]·q^{2(i+J−p)}`, the
-`p = 2i+1` term being `(4i+2)!! q^{2i}`).  Needs:
-1. `master_identity` (signed, over `Int213`) by the double recursion
-   `L_{n+2}(N) = (2n+3)L_{n+1}(N) + 2N(2N+1)L_n(N−1)`; the only friction is
-   `Nat`-subtraction in the weight `(2N−2s+1)` and the sum reindex — design over
-   `Int` with `W N (s+1) = 2N(2N+1)·W (N−1) s`.
-2. boundary partial-sum bound (halving, `apF/bpF_halving_strong` already PURE).
+**The master identity is now PROVEN** (`LambertMasterId.lean`, 37 PURE):
+entirely over `ℕ`, subtraction-free, via the weight-threading accumulators
+`Bacc/Aacc` (which carry `cc = 2N−2s+1` and `w = W(N,s)` so the `2N−2s`
+subtraction is never formed) — sidestepping the Int/Nat-subtraction friction
+the original plan flagged.
+  * `master_odd`: `Asum(2k+1,N) + cfpos(2k+1,N) = Bsum(2k+1,N)`;
+    `master_even`: `Bsum(2k,N) + cfpos(2k,N) = Asum(2k,N)`;
+    `cfpos n N = 2ⁿ·descFac N n` (`= 0` for `N < n`, the Padé cancellation).
+  * Engine `cfpos_moved` (`binom_absorption` analog):
+    `cfpos(n+2,N) + (2n+3)cfpos(n+1,N) = 2N(2N+1)cfpos(n,N−1)`, via top-peel +
+    `descFac_bottom` + `descFac_coeff` (`2(N−1−n)+(2n+3) = 2N+1`).
+  * Proof = `master_pair`, a paired two-step induction on `k` carrying the
+    `(2k, 2k+1)` block (step = `Bsum/Asum` three-term recursions + `cfpos_moved`).
+  * `master_diagonal`: `Bsum(2i+1,2i+1) = Asum(2i+1,2i+1) + cfpos(2i+1,2i+1)`,
+    the leading value `(4i+2)!!` (anchors `cfpos 3 3 = 48`, `cfpos 5 5 = 3840`).
+
+**Remaining — the connection layer** (toward `R_{2i+1}(i) ≥ 0`):
+1. the q-graded bridge `R_J(i) = Σ_p (2J+1)!/(2p+1)!·[partial-(Bsum−Asum)_p]·
+   q^{2(i+J−p)}` (convolution of `devA/devB` with the cleared `coshNum/sinhNum`),
+   whose `p = 2i+1` term is `(4i+2)!! q^{2i}` (`master_diagonal`) and whose
+   `p < 2i+1` terms vanish (`cfpos = 0`);
+2. boundary partial-sum bound for `p > J` (halving, `apF/bpF_halving_strong`
+   already PURE);
 3. assembly → `LowerBase`, then `cothSeriesCauchySepOfBase` +
    `weld_limit_agreement` unconditional — **the weld closes**.
 (NB the weld's *headline*, `exp(2/q)` unconditional, is **already closed**

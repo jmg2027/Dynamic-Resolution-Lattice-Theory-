@@ -2,7 +2,7 @@
 
 ## Branch & build state
 `claude/weighted-ibp-li-yau-91qefg` (continues the Ricci-flow frontier branch).  `lake build`
-✓ clean (run from `lean/`!); `scan_all_axioms.py` **2267 PURE / 0 DIRTY** (+33
+✓ clean (run from `lean/`!); `scan_all_axioms.py` **2304 PURE / 0 DIRTY** (+33
 sealed-DIRTY-by-design).  Session
 modules strict ∅-axiom (`tools/scan_axioms.py`): `WeightedGreen` 11/0, `DiscreteGaussian`
 11/0, `DiscreteSurgery` 15/0, `Binomial` 15/0, `RicciFlowDiscrete` 17/0, `IntGridSum` +1
