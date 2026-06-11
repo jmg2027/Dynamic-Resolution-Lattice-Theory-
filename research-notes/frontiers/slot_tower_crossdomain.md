@@ -6,7 +6,7 @@ what main brought in (LambertWeld, discrete Perelman/Ricci, `OrderMul`, the
 "two pointings are one" essay).  Plain statements; pins to the Lean both
 sides.  Open until a bridge theorem is written.
 
-## 1. Equality is a certificate, and the certificate has a shape
+## 1. Equality is a certificate — RESOLVED: its size is the discrete/continuum boundary
 
 Main's `when_two_pointings_are_one` (the weld essay): with no enclosing
 line, "two pointings name the same real" is exactly as strong as the
@@ -29,34 +29,52 @@ certificate has a *size*" (per-level Padé flip).  Both certificates are a
 `∀`-over-resolution-levels local check — the weld indexed by truncation `J`
 (`weld_pair_cosh/sinh` hold at every `J`), the power by support prime `p`.
 
-**The genuine narrative insight (kept).**  Comparing the two equalities at
-the Lean level: `cutEq cx cy := ∀ m k, cx m k = cy m k`
-(`Real213/Core/CutPoset`) *defines* real/cut equality as agreement of the
-per-level readout — a cut **is** its readout function.  On the integer side
-`vp_separation` is the *theorem* that the prime-exponent readout is faithful
-(UFD).  So **equality-as-readout-agreement is a *definition* on the continuum
-side and an *earned theorem* on the discrete side** — same shape, two
-epistemic statuses.  That is the real content of the bridge.
+**RESOLVED as a pinned distinction (both sides Lean) — the certificate's
+*size* is the discrete/continuum boundary.**  After the positive-unification
+dead end (below), the honest content is a sharp **binary partition** on one
+axis (finiteness of the certificate), pinned by a theorem on each side.  (This
+is a *distinction*, like bridge 4 — but structurally a partition, not bridge
+4's orthogonal enrichments: there the two readouts go *different directions*
+past the count (vector vs. sign); here the same `∀`-level check is finite on
+one side and unbounded on the other, and the positive unifier is rejected for
+erasing exactly that axis.)
 
-**Still open — and the obvious Lean schema is a dead end (tried, rejected).**
-The natural move — a `LeveledReadout` structure (`eq`, `readout : X→Idx→Val`,
-`sound`, `faithful`) with `eq_iff_readout : eq x y ↔ ∀ i, readout x i =
-readout y i`, instantiated by `cutEq` (definitional) and `vp_separation`
-(theorem) — was written and **adversarially rejected as vacuous** (a
-three-way debate, skeptic verdict, file deleted before commit).  Why it
-fails: `eq_iff_readout` is a one-line *tautological* unpacking of the
-`sound`/`faithful` fields (it does zero work); the structure has **no generic
-consumer** that proves anything over all faithful readouts; exposing
+- **Integer certificate is FINITE** (cofinitely-trivial readout).
+  `FoldCriterion.vp_eq_zero_of_gt`: `vp p n = 0` whenever `p > n` — a prime
+  above `n` cannot divide it, so the support `{p prime : vp p n ≠ 0}` lies in
+  `[2, n]`.  The `∀`-over-all-primes check collapses to a finite `∧`
+  (`pow_eq_pow_iff_vp_support`).  Faithfulness itself is the earned theorem
+  `vp_separation` (UFD).
+- **Cut certificate is UNBOUNDED** (full-support readout).
+  `CutNoFiniteCert.cut_no_finite_certificate`: for *every* resolution bound
+  `N`, the distinct rationals `N/(N+1)` and `(N+1)/(N+2)` have cuts that agree
+  at every level `k ≤ N` yet are not `cutEq` (they first split at the mediant
+  `(2N+1)/(2N+3)`, denominator `> N`).  No finite truncation certifies cut
+  equality.  (This is a *witness* to the unboundedness of the `cutEq`
+  definition — which already demands agreement at *every* level — not a claim
+  that every pair of reals needs unbounded resolution; one un-collapsible
+  family suffices to defeat any uniform finite bound.)
+
+So **finite-vs-unbounded certificate = discrete-vs-continuum**, read through
+the readout's support.  The shared "∀-level local check" shape is real but
+thin; the content is the size split.  And the epistemic asymmetry stands:
+equality-as-readout-agreement is a *definition* for cuts (`cutEq`) and an
+*earned theorem* for integers (`vp_separation`).
+
+**Why no single positive schema (dead end recorded, do not re-attempt).**  The
+natural `LeveledReadout` structure (`eq`, `readout : X→Idx→Val`, `sound`,
+`faithful`, with `eq_iff_readout : eq x y ↔ ∀ i, readout x i = readout y i`,
+instantiated by `cutEq` and `vp_separation`) was written, built 3 PURE, and
+**adversarially rejected as vacuous** (skeptic verdict; file deleted before
+commit).  `eq_iff_readout` is a one-line *tautological* unpacking of the
+fields (zero work); the structure has **no generic consumer**; exposing
 `readout` as a function is cosmetic over the forbidden
-`{ cert : Prop, iff : eq ↔ cert }`.  The two instances are *stapled*, not
-unified — fitting one definition and one deep theorem under a generic record
-does not explain *why* one is definitional and the other earned (that "why"
-is narrative, already in `equality_is_a_certificate.md`).  **Lesson for the
-next attempt**: a non-vacuous bridge must be a theorem that does *generic
-work* over faithful readouts (bridge 2's `no_order_of_wrap` rules witnesses
-out; this container rules nothing out) — do **not** re-write the
-`LeveledReadout`/`{cert, iff}` structure.  The mechanism remains genuinely
-unfound; the size-half (`pow_eq_pow_iff_vp_support`) is the only Lean gain.
+`{ cert : Prop, iff : eq ↔ cert }`; the two instances are *stapled*, not
+unified.  Lesson: a positive unifier must do *generic work* over faithful
+readouts (bridge 2's `no_order_of_wrap` rules witnesses out; that container
+ruled nothing out).  None found — and the distinction above shows why: the two
+certificates differ on the very axis (finite/infinite) a single schema would
+have to erase.
 
 ## 2. Order ⟺ no wrap (exact duals) — **CLOSED**, single schema written
 
@@ -313,15 +331,17 @@ Lean on both sides, not from the armchair):
 - **Bridge 2 — CLOSED.**  Single schema `OrderWrap.no_order_of_wrap` + two
   instances (ℤ, ℤ/p), 9 PURE.  A genuine shared *mechanism* (the orbit-walk
   obstruction).
-- **Bridge 1 — partly advanced; one dead end closed off.**  Size half pinned
-  on the power side (`pow_eq_pow_iff_vp_support`, finite support).  Genuine
-  narrative insight recorded: equality-as-readout-agreement is *definitional*
-  for cuts (`cutEq`) and an *earned theorem* for integers (`vp_separation`).
-  The obvious `LeveledReadout`/`{cert, iff}` Lean schema was tried and
-  **adversarially rejected as vacuous** (tautological `eq_iff_readout`, no
-  generic consumer) — file deleted pre-commit; do not re-attempt.  The
-  mechanism stays genuinely open (must do generic work over faithful readouts,
-  like bridge 2's obstruction does).
+- **Bridge 1 — RESOLVED as a pinned distinction (both sides Lean).**  Not one
+  mechanism but a genuine *difference*: the certificate's *size* is the
+  discrete/continuum boundary.  Integer cert FINITE
+  (`FoldCriterion.vp_eq_zero_of_gt`: `vp p n = 0` for `p > n`, support ⊆
+  `[2,n]`; faithfulness = `vp_separation`/UFD).  Cut cert UNBOUNDED
+  (`CutNoFiniteCert.cut_no_finite_certificate`: distinct rationals agree to any
+  resolution `N`, differ beyond).  Epistemic asymmetry kept: readout-agreement
+  is *definition* for cuts, *theorem* for integers.  The positive
+  `LeveledReadout` schema was tried and **rejected as vacuous** (deleted
+  pre-commit) — the finite/infinite split is exactly the axis a single schema
+  would have to erase.
 - **Bridge 3 — narrative only (formally disjoint).**  No shared formal
   object: "CF growth rate" is not formalised as a quantity, and it has no
   link to exponent-vector collinearity.  A single schema is intractable

@@ -283,3 +283,29 @@ do not re-write the `{cert, iff}`/`LeveledReadout` structure; a non-vacuous
 bridge 1 needs a theorem doing generic work over faithful readouts.  The
 debate method worked as intended — it caught a forcible unification before it
 was committed.
+
+---
+
+## Round 6 (later session) — bridge 1 resolved as a pinned distinction
+
+After round 5 killed the positive `LeveledReadout` unifier, bridge 1 was
+re-approached the bridge-4 way: pin the genuine *difference* with a theorem on
+each side, no container.
+
+- **Integer side (FINITE certificate)**: `FoldCriterion.vp_eq_zero_of_gt` —
+  `vp p n = 0` for prime `p > n`, so the certificate's support ⊆ `[2,n]`; the
+  `∀`-over-primes check collapses to a finite `∧`.  Faithfulness itself is
+  `vp_separation` (UFD, earned).
+- **Continuum side (UNBOUNDED certificate)**: `CutNoFiniteCert.cut_no_finite_certificate`
+  — for every `N`, the distinct rationals `N/(N+1)` and `(N+1)/(N+2)` agree at
+  every level `k ≤ N` but are not `cutEq` (split at the mediant
+  `(2N+1)/(2N+3)`).  No finite truncation certifies cut equality.
+
+**Skeptic verdict: GENUINE pinned distinction — keep, claims honest** (one
+language refinement applied: it is a *binary partition* on the finiteness
+axis, not bridge 4's orthogonal enrichments; and `cut_no_finite_certificate`
+is a *witness* to the `cutEq` definition's unboundedness, not a claim about all
+real pairs).  Both theorems PURE.  The finite-vs-unbounded split is exactly the
+axis the rejected `LeveledReadout` schema would have had to erase — which is
+why no positive single schema exists.  Bridge 1 closed as: **the equality
+certificate's size is the discrete/continuum boundary.**

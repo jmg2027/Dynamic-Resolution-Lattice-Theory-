@@ -91,6 +91,25 @@ theorem pow_eq_pow_iff_vp_support {a b : Nat} (ha : 0 < a) (hb : 0 < b)
         rw [vp_eq_zero_of_not_dvd hp ha hna, vp_eq_zero_of_not_dvd hp hb hnb,
           Nat.mul_zero, Nat.mul_zero]
 
+/-- ★ **The support is bounded — the readout is cofinitely trivial.**  A prime
+    above `n` contributes nothing: `vp p n = 0` whenever `n < p` (for `n > 0`),
+    since a prime dividing `n` is `≤ n` (`le_of_dvd_pos`), so a prime above `n`
+    cannot divide it.  Hence the certificate's support `{p prime : vp p n ≠ 0}`
+    lies in `[2, n]` — **finite**, with an explicit bound.
+
+    This is the *mechanism* behind the finite certificate
+    (`pow_eq_pow_iff_vp_support`): the prime-exponent readout is **cofinitely
+    trivial**, so the `∀`-over-all-primes check collapses to a finite `∧`.  Its
+    cut/continuum dual fails — a non-trivial Dedekind cut carries information at
+    *every* resolution (`constCut`'s readout is not eventually constant), so the
+    real certificate is unbounded.  Finite-vs-unbounded certificate is the
+    discrete-vs-continuum boundary read through the readout's support
+    (frontier `slot_tower_crossdomain.md` bridge 1). -/
+theorem vp_eq_zero_of_gt {p n : Nat} (hp : IsPrime213 p) (hn : 0 < n)
+    (hgt : n < p) : vp p n = 0 :=
+  vp_eq_zero_of_not_dvd hp hn
+    (fun hdvd => absurd hgt (Nat.not_lt.mpr (le_of_dvd_pos p n hn hdvd)))
+
 /-! ## §2 — distinct primes never collide -/
 
 /-- For a prime `p` and a prime `q ≠ p`, `p ∤ q`: `q`'s only divisors are
