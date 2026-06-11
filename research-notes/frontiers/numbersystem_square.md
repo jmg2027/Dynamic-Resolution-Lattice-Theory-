@@ -216,7 +216,22 @@ finite slot layer.  Rebuild bricks: pair-counted iteration over an
 invertible action; the cross rule re-derived as the ⊕-action iterated
 `(c,d)` times (replacing the distributive selector); the native wall
 theorem ("the required inverse escapes") in place of the
-selector-relative nonexistence.  Separation
+selector-relative nonexistence.
+**The "why", resolved to its two halves (originator's probe)**: the
+manufacture-consumption interlock is *definitional* — the pair IS the
+question's answer, the action's inverse IS the same question's
+answer-function, and pair-counted iteration IS inverse-application:
+question-answer construction and iteration construction are two faces
+of one object ("the tower is a machine that burns its questions'
+answers as the next question's fuel").  What remains genuinely open is
+the wall's why: fuel works only if the answers **form a layer on which
+the rung's action still acts** — +'s and ×'s answers fold back into
+act-able layers (the forced lifts), `^`'s answers (logs) have no
+fold-back (grade 3), so backward iteration escapes to the cut layer
+where no slot-born selector survives (classically visible as the
+non-uniqueness of real-height tetration).  Central rebuild theorem
+candidate: *the rung's question-answers form an action-stable layer ⟺
+the staircase climbs one rung*.  Separation
 discipline (originator): pair-part and operation-part must stay
 unmixed — `PairOp`'s `f`-parametrization is exactly that separation,
 and the pair-layer operations are *derived* objects
