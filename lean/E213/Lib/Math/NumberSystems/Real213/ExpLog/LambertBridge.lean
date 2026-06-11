@@ -6,7 +6,8 @@ import E213.Meta.Nat.PolyNatMTactic
 /-!
 # LambertBridge — the convolution–master bridge (the weld's last brick, F1–F7)
 
-Executes `lowerbase_blueprint.md` F1–F7: connect the suffix sums of the two
+Executes the `LowerBase` plan F1–F7 (`theory/math/analysis/lambert_weld.md`
+§6): connect the suffix sums of the two
 `LowerBase` convolutions (`LambertPoly`) to the master-identity accumulators
 (`LambertMasterId`), and close the general-`i` suffix dominance.
 

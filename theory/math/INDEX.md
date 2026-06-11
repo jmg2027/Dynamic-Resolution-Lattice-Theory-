@@ -19,7 +19,7 @@ sandwich-first, the commuting square, layer constants),
 `cf_holonomicity_hierarchy`, `newton_gregory`, `holonomic_modulus`, `form_margin_modulus`,
 `tower_native_completeness`, `refined_completability_engine`,
 `spiral_coordinate_classification`, `phi_pi_poles`, `markov_spectrum`,
-`markov_uniqueness`).
+`markov_uniqueness`, `lambert_weld`).
 
 ### `algebra/` — algebraic structures + towers
 `cayley_dickson/` (algebra tower + exceptional axes), `linalg213`, `polynomial213`,
@@ -38,7 +38,7 @@ sandwich-first, the commuting square, layer constants),
 `geometry`, `topology`, `geometrization_conjecture`, `exotic_4mfd_cork`,
 `angle_structure`, `number_grid`, `generation_rule`, `triangular_tower`,
 `level_topology`, `operation_topology`, `bipartite_decomp`, `cartesian_vs_disjoint`,
-`riemannian_curvature_tensor`, `discrete_curvature`.
+`riemannian_curvature_tensor`, `discrete_curvature`, `discrete_perelman_core`.
 
 ### `foundations/` — meta / cross-domain anchors
 `axiom_systems`, `pattern_catalog/`, `choice`, `universe_chain`,

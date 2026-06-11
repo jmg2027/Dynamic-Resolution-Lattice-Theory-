@@ -623,8 +623,9 @@ That base is the Padé-matched flip: by the **master identity**
 `Σ_{s} (2N+1)!/(2N−2s+1)!·((2N−2s+1)·bpF n s − apF n s) = (−1)^{n−1}2^n N!/(N−n)!`
 (`n = 2i+1`), the leading term of `R_{2i+1}(i)` is exactly the diagonal value
 `L(2i+1, 2i+1) = (4i+2)!!` at `q^{2i}`, and the lower-order boundary terms are
-dominated (`zeta3_blueprint.md`-style halving).  Verified; formalization of the
-master identity is the one remaining dedicated brick (`lowerbase_blueprint.md`). -/
+dominated (geometric-halving style).  The master identity and the full bridge
+are proven: `LambertMasterId` + `LambertBridge.lowerBase`
+(`theory/math/analysis/lambert_weld.md`). -/
 
 /-- ★★★ **The lower-cross linear recursion** (subtraction-free): for arbitrary
     `dA, dB`,

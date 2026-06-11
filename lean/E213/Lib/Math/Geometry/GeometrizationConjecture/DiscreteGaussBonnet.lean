@@ -20,7 +20,7 @@ Worked on the complete-bipartite `K_{m,n}` (the repo's central object): `m` vert
 
 Scope: graph (1-complex) Gauss–Bonnet; `χ`/cyclomatic `b₁` are the graph invariants (distinct from
 the cell-complex `b₁` of `Poincare.lean`).  Part of the discrete A6 core
-(`a6_ricci_core/discrete_ricci_flow_ladder.md`, rung 4).  All zero-axiom.
+(`theory/math/geometry/discrete_perelman_core.md`; ladder rung 4).  All zero-axiom.
 -/
 
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussBonnet
