@@ -4,8 +4,7 @@ import E213.Meta.Int213.Core
 # GaussTuple — the 4-axis tuple product, subtraction-free
 
 The tuple-tower answer to "which operation does the imaginary unit
-pop out of" (`research-notes/frontiers/numbersystem_square.md`
-"Ontology: the tuple tower").
+pop out of" (`theory/math/numbersystems/slot_arithmetic.md` "Ontology: the tuple tower").
 
 The inverse-marker pattern: `a+x=b` puts a `+`-inverse-marked `a` on
 a new orthogonal axis (`x = (−1)a + b`); `ax=b` a ×-inverse-marked

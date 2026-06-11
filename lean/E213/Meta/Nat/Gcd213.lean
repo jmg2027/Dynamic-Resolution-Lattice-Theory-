@@ -491,7 +491,7 @@ theorem gcd_strip_coprime {a b g a₁ b₁ : Nat} (hg : gcd213 a b = g)
 
 /-! ## Distributivity → Euclid's lemma → uniqueness of the coprime form
 
-The Bezout-free route (`research-notes/frontiers/signed_rationals_normal_form.md`):
+The Bezout-free route (`theory/math/numbersystems/slot_arithmetic.md` §4):
 `gcd213 (k·a) (k·b) = k · gcd213 a b` by Euclidean descent (no signed
 Bezout coefficients), Euclid's lemma from it, and uniqueness of the
 lowest-terms representation from Euclid + `dvd_antisymm_213`. -/
@@ -574,8 +574,7 @@ theorem coprime_dvd_of_dvd_mul {a b c : Nat}
 
 /-- ★★★★★ **Uniqueness of the lowest-terms representation**: two
     coprime, positive-denominator pairs naming the same ratio
-    (`p₁·q₂ = p₂·q₁`) are componentwise equal.  Closes brick 2 of
-    `research-notes/frontiers/signed_rationals_normal_form.md`:
+    (`p₁·q₂ = p₂·q₁`) are componentwise equal.  Closes brick 2 of the signed-rationals arc (`theory/math/numbersystems/slot_arithmetic.md` §4):
     together with `gcd_strip_coprime` (existence), the ∣-order normal
     form of a ratio pair is exact — the lowest-terms readout is
     complete. -/

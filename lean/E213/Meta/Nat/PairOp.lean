@@ -5,7 +5,7 @@ import E213.Meta.Nat.AddMod213
 # PairOp — the pair layer of an arbitrary (ℕ,ℕ)→ℕ operation
 
 The generic step-ladder
-(`research-notes/frontiers/numbersystem_square.md` "Ontology"): for
+(`theory/math/numbersystems/slot_arithmetic.md` "Ontology"): for
 **any** binary operation `f : ℕ → ℕ → ℕ` (+, ×, ^, tetration, …), the
 question `f a x = b` mints pairs, and the pair layer is built one
 step at a time, each step paying a stated price in properties of `f`:

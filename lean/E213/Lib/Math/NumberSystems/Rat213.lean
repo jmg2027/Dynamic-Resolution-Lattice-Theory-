@@ -5,7 +5,7 @@ import E213.Meta.Int213.OrderMul
 # Rat213 — the signed lowest-terms normal form of a ratio pair
 
 The signed composite of the two obstruction readouts
-(`research-notes/frontiers/signed_rationals_normal_form.md`, brick 3):
+(`theory/math/numbersystems/slot_arithmetic.md` §5, the signed composite):
 
 ```
   ratio pair  =  ( numerator : Int — sign carried by the difference-Lens )

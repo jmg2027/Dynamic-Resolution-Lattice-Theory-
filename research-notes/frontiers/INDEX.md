@@ -179,30 +179,6 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   converge to one ℚ), the judgment formulas (sandwich, coprimality) as
   membership detectors across levels.  Open: the ℚ₊→ℚ leg, the
   square-commutes theorem, the frames essay after closure.
-- `signed_rationals_normal_form` — ★ ALL BRICKS CLOSED, **promotion
-  candidate**: all of ℚ as sign × coprime pair — the composite of the
-  difference-Lens swap readout and the ∣-order lowest-terms readout.
-  Why the mix is forced (`OrderMul.mul_le_mul_right_nonpos`), Euclid's
-  lemma (`coprime_dvd_of_dvd_mul`, Bezout-free via `gcd213_mul_left`),
-  uniqueness (`coprime_repr_unique`), the signed normal form
-  (`Rat213.lowest_exists`/`lowest_unique`), and the derived order's
-  descent (`Rat213.ratioLeZ_descends`/`ratioLeZ_iff`) — all PURE.
-
-- **forcing chain ↔ foliation** — cross-domain note
-  (`forcing_chain_meets_foliation.md`): this branch's §3.4 "the
-  forcing chain is logical, not temporal" and main's
-  `growth_without_a_clock` essay ("the foliation is a Lens
-  convention") are one state-transition=state reading (§6.6, §5.7) at
-  the axiom scale vs. the async-run scale; the grading's
-  run-invariance (`fold_eq_depth`) witnesses why clause-order is
-  expository.  Third scale added (2026-06-10 merge): the **probe
-  schedule is a foliation of the approximation race** — and the
-  graded-ladder branch supplies the two theorems the foliation story
-  lacked: the foliation-freedom has a proven boundary
-  (`wallis_no_graded_certificate`: some pointings defeat every
-  schedule), and foliations are not totally ordered
-  (`schedule_comparison_needs_gap`: the ladder is not a chain).
-  Conceptual core closed; no open Lean obligation.
 
 - `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
   modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔

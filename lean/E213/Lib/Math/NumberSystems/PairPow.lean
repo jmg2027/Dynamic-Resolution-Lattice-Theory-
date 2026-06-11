@@ -5,7 +5,7 @@ import E213.Meta.Tactic.NatHelper
 # PairPow — pair exponents: slot fibers transport, they do not vanish
 
 Slot accounting for `x^(c,d) = (a,b)`
-(`research-notes/frontiers/numbersystem_square.md` "Ontology"): a
+(`theory/math/numbersystems/slot_arithmetic.md` "Ontology"): a
 pair-slot's two naturals are **one orbit coordinate** (the
 cross-equation class — the only part the answer depends on) plus
 **one fiber coordinate** (position along the orbit).  Counting raw

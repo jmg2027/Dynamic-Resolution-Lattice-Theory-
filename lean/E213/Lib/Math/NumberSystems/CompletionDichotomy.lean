@@ -4,7 +4,7 @@ import E213.Meta.Int213.Bound
 /-!
 # CompletionDichotomy — collapse vs rigid axis, the archimedean witness
 
-`research-notes/frontiers/numbersystem_square.md` brick 4: a pair-Lens
+`theory/math/numbersystems/slot_arithmetic.md` (collapse-vs-rigid): a pair-Lens
 extension either **collapses** (the obstruction readout is valued in
 the old data, so the pair quotient is total — ℕ→ℤ→ℚ, dimension stays
 1) or stays a **rigid axis** — and the dichotomy is a property of the
