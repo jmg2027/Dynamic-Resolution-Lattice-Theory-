@@ -967,6 +967,23 @@ theorem weldK_nonneg (q J : Nat) : 0 ≤ weldK q J := by
   exact le_zero_of_nonneg (sub_nonneg_of_le
     (ofNat_le_of_le (E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut.t_mono q J)))
 
+/-- The upper margin is non-negative: `0 ≤ M_J`.  This is exactly `series_below_odd_core`
+    (`(2J+1)·q²·c_J·Q ≤ s_J·P`, the upper half of the weld's order transfer) cast to `ℤ` — an
+    **elementary** fact (cross-`le` + the det-one floor `dev_cross_det`), not the `LambertBridge`
+    budget machinery.  So one of the two inputs to `weld_lowerbase_propagate` is bridge-free; the
+    residual independence question is its *strictness* `0 < M_J` and the base `0 < R_0`. -/
+theorem weldM_nonneg (q : Nat) (hq : 1 ≤ q) (i J : Nat) : 0 ≤ weldM q i J := by
+  have hcoef1 : ((2 * J + 1 : Nat) : Int) = 2 * (J : Int) + 1 := by
+    rw [Int.ofNat_add, Int.ofNat_mul]; rfl
+  have e : weldM q i J
+      = (↑(sinhNum q J * dev q (AP (2*i+2))) : Int)
+        - ↑((2 * J + 1) * (q * q * coshNum q J) * dev q (BP (2*i+2))) := by
+    unfold weldM
+    rw [Int.ofNat_mul, Int.ofNat_mul, Int.ofNat_mul, Int.ofNat_mul, Int.ofNat_mul, hcoef1]
+    ring_intZ
+  rw [e]
+  exact le_zero_of_nonneg (sub_nonneg_of_le (ofNat_le_of_le (series_below_odd_core q hq i J)))
+
 /-- ★★★ **The single descent step** (unconditional): `R_J·M_{J+1} ≤ R_{J+1}·M_J`.  From
     `weld_casoratian_int` (`R_{J+1}·M_J = R_J·M_{J+1} + K_J`) and `0 ≤ K_J` (`weldK_nonneg`):
     the cross strictly cannot *fall* — the ratio `R/M` climbs (pre-flip, with `R < 0`, this is
@@ -1000,5 +1017,22 @@ theorem weld_ratio_descent (q i : Nat) (hM : ∀ j, 0 < weldM q i j) (J : Nat) :
             = weldR q i J * weldM q i (J+1) * weldM q i 0 from by ring_intZ]
       exact le_refl _
     exact le_of_mul_le_mul_right_pos chain (hM J)
+
+/-- ★★★★★ **The bridge-free `LowerBase` skeleton** (blueprint Discovery 1, item 3).
+    Ratio descent *is* a positivity-propagation engine: once the lower cross starts positive
+    (`0 < R_0`) and the margins stay positive (`0 < M_j` for every `j`), the cross is positive
+    at **every** truncation `J` — in particular at `J = 2i+1`, which is `LowerBase` itself.
+
+    `0 < R_0·M_J ≤ R_J·M_0` (`weld_ratio_descent`), then cancel the positive `M_0`.  This is a
+    second, **bridge-free** certificate of `LowerBase`'s content `0 < R_J` — independent of the
+    `LambertBridge` budget/saturation/mirror machinery.  The residual is exactly its two inputs
+    (`0 < R_0`, `0 < M_j`); both are quantities the bridge separately establishes, so the
+    *independence* of the certificate (item 3 proper) reduces to giving those two an elementary
+    proof. -/
+theorem weld_lowerbase_propagate (q i : Nat) (hM : ∀ j, 0 < weldM q i j)
+    (hR0 : 0 < weldR q i 0) (J : Nat) : 0 < weldR q i J := by
+  have h0 : 0 < weldR q i 0 * weldM q i J := mul_pos hR0 (hM J)
+  have h1 : 0 < weldR q i J * weldM q i 0 := lt_of_lt_of_le h0 (weld_ratio_descent q i hM J)
+  exact pos_of_mul_pos_right h1 (hM 0)
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder

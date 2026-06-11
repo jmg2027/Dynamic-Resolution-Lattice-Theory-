@@ -61,11 +61,15 @@ Frontier note was stale; recorded as closed (doc-only).
    `frontiers/zeta3_blueprint.md`, `zeta3_free_modulus.md`.
 2. **exp(p/q), p ≥ 2, free modulus** — needs unconditional `hmeas`.
    `frontiers/modulus_degree_ladder.md`.
-3. **Weld Casoratian** — items 1 (flip criterion) **and 2 (ratio descent)**
-   CLOSED this session (`weld_casoratian_int`, `weld_flip_criterion`,
-   `weldK_nonneg`, `weld_descent_step`, `weld_ratio_descent`).  Only the
-   **bridge-free `LowerBase`** (item 3) remains — research-open (its `weldM > 0`
-   schedule is what `LowerBase` itself establishes, so independence is the crux).
+3. **Weld Casoratian** — items 1 (flip criterion), 2 (ratio descent), **and
+   item 3's bridge-free skeleton** CLOSED this session (`weld_casoratian_int`,
+   `weld_flip_criterion`, `weldK_nonneg`, `weld_descent_step`,
+   `weld_ratio_descent`, `weld_lowerbase_propagate`, `weldM_nonneg`).  Ratio
+   descent IS a positivity-propagation engine: `0 < R_0 ∧ (∀j, 0 < M_j) ⟹ 0 < R_J`
+   (every `J`, incl. `LowerBase` at `J=2i+1`) — a second, bridge-free certificate.
+   `M ≥ 0` shown elementary (`series_below_odd_core`).  **Residual** (item 3
+   proper): elementary *strict* `0 < M_J` (the det-one `+1` slack) + base
+   `0 < R_0 = dev(BP_{2i+1}) − dev(AP_{2i+1})`.
 4. **inequalities = POSITIVITY ∘ LOOP** — first brick (Lagrange identity)
    CLOSED; the general compilation theorem over AM-GM/Jensen/power-mean open.
 5. **Smooth Ricci core** — the standing wall (discrete side closed/promoted).

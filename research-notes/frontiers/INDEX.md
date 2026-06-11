@@ -544,10 +544,12 @@ real ∅-axiom conquests.
   separation schedule with `I k = B k + 2`); the pair-layer cross expression's
   three regimes (`=0` class / `=1` certificate / `≥1` separation).
 - `transcendentals/weld_casoratian_development` — the proven `i`-invariant
-  unimodular identity (`weld_casoratian`): items 1–2 **CLOSED** (`LambertOrder`
-  §10 — named ℤ recurrence `weld_casoratian_int`, `weld_flip_criterion`,
-  `weldK_nonneg`, `weld_descent_step` + telescoped `weld_ratio_descent`);
-  only the bridge-free `LowerBase` (item 3) open.
+  unimodular identity (`weld_casoratian`): items 1–2 **CLOSED** + item 3
+  **skeleton closed** (`LambertOrder` §10 — `weld_casoratian_int`,
+  `weld_flip_criterion`, `weldK_nonneg`, `weld_descent_step`,
+  `weld_ratio_descent`, `weld_lowerbase_propagate` [bridge-free LowerBase
+  propagation], `weldM_nonneg` [elementary `M ≥ 0`]); residual = elementary
+  *strict* `0 < M_J` + base `0 < R_0`.
 - `transcendentals/transcendental_functions_ladder` — convergent `exp/sin/cos/sqrt`
   as `Real213` functions with derivative rules (current: `exp` partial sum +
   stubs).  Rungs T1 exp-modulus → T2 sin/cos series → T3 derivative rules →
