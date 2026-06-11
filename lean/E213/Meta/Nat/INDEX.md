@@ -69,7 +69,9 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
                              = `length+1`
   - `Convolution213.lean`  — split-then-reglue: `conv f g n = Σ_{i+j=n}
                              f i·g j` (Cauchy/polynomial product, off the
-                             `+×^` diagonal); `(1+x)²=1+2x+x²` by `rfl`
+                             `+×^` diagonal); `(1+x)²`, `(1+x)³` by `rfl`;
+                             `conv_comm` (peel both ends = swap symmetry),
+                             `conv_add_left` (bilinear); assoc open
   - `Valuation.lean`       — the `q`-adic valuation `vp q n` over ℕ
   - `VpMul.lean`           — the exponent-lattice engine (T3): `vp_mul`
                              (`vp p (m·n) = vp p m + vp p n`, prime `p`),

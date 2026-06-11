@@ -159,4 +159,53 @@ theorem conv_comm : ∀ (f g : Nat → Nat) (n : Nat), conv f g n = conv g f n
       rw [conv_peelL f g n, conv_peelR g f n, conv_comm (shiftL f) g n,
           Nat.mul_comm (f 0) (g (n + 1))]
 
+/-! ## Bilinearity, and a concrete associativity witness `(1+x)³` -/
+
+/-- Pointwise sum of sequences (the additive structure conv is bilinear over). -/
+def addSeq (f g : Nat → Nat) : Nat → Nat := fun i => f i + g i
+
+private theorem add4comm (a b c d : Nat) : (a + b) + (c + d) = (a + c) + (b + d) := by
+  rw [Nat.add_assoc, Nat.add_left_comm b c d, ← Nat.add_assoc]
+
+/-- A summand `(u + v)·w` splits over the sum (`add_mul` under the reglue). -/
+theorem sumMap_add_mul (u v w : Nat × Nat → Nat) :
+    ∀ l : List (Nat × Nat),
+      sumMap (fun p => (u p + v p) * w p) l
+        = sumMap (fun p => u p * w p) l + sumMap (fun p => v p * w p) l
+  | []     => rfl
+  | p :: l => by
+      show (u p + v p) * w p + sumMap (fun q => (u q + v q) * w q) l
+         = (u p * w p + sumMap (fun q => u q * w q) l)
+         + (v p * w p + sumMap (fun q => v q * w q) l)
+      rw [E213.Meta.Nat.PureNat.add_mul, sumMap_add_mul u v w l, add4comm]
+
+/-- ★ **Convolution is left-additive** (bilinearity, one side):
+    `conv (f1 + f2) g = conv f1 g + conv f2 g` — the distributive law of the
+    sequence ring, the comultiplication respecting the pointwise sum. -/
+theorem conv_add_left (f1 f2 g : Nat → Nat) (n : Nat) :
+    conv (addSeq f1 f2) g n = conv f1 g n + conv f2 g n :=
+  sumMap_add_mul (fun p => f1 p.1) (fun p => f2 p.1) (fun p => g p.2) (natSplits n)
+
+/-- ★ **`(1+x)³ = 1 + 3x + 3x² + x³` by repeated convolution.**  The
+    left-nested triple convolution `conv (conv (1+x) (1+x)) (1+x)` reads off
+    `[1, 3, 3, 1]` (`rfl`) — split-then-reglue computing a cube, no `^`. -/
+theorem conv_cube_0 : conv (conv onePlusX onePlusX) onePlusX 0 = 1 := rfl
+theorem conv_cube_1 : conv (conv onePlusX onePlusX) onePlusX 1 = 3 := rfl
+theorem conv_cube_2 : conv (conv onePlusX onePlusX) onePlusX 2 = 3 := rfl
+theorem conv_cube_3 : conv (conv onePlusX onePlusX) onePlusX 3 = 1 := rfl
+
+/-- ★ **Associativity holds concretely**: the left- and right-nested triple
+    convolutions of `(1+x)` agree coefficient-by-coefficient — both compute
+    the `(1+x)³` coefficients `[1,3,3,1]` (`rfl`).  The general law
+    `conv (conv f g) h = conv f (conv g h)` (the triple-split reindex) is the
+    open continuation; this is its concrete witness. -/
+theorem conv_assoc_0 :
+    conv (conv onePlusX onePlusX) onePlusX 0 = conv onePlusX (conv onePlusX onePlusX) 0 := rfl
+theorem conv_assoc_1 :
+    conv (conv onePlusX onePlusX) onePlusX 1 = conv onePlusX (conv onePlusX onePlusX) 1 := rfl
+theorem conv_assoc_2 :
+    conv (conv onePlusX onePlusX) onePlusX 2 = conv onePlusX (conv onePlusX onePlusX) 2 := rfl
+theorem conv_assoc_3 :
+    conv (conv onePlusX onePlusX) onePlusX 3 = conv onePlusX (conv onePlusX onePlusX) 3 := rfl
+
 end E213.Meta.Nat.Convolution213
