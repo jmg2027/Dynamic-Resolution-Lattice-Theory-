@@ -1,7 +1,7 @@
 # The discrete Perelman core: four wall items, kernel pinch, entropy descent
 
 **Status**: closed ∅-axiom.  Five modules / module-sections, 69 PURE / 0
-DIRTY in the session scans (`WeightedGreen` 11, `DiscreteGaussian` 11,
+DIRTY (`WeightedGreen` 11, `DiscreteGaussian` 11,
 `DiscreteSurgery` 15, `RicciFlowDiscrete` 17, `Combinatorics/Binomial` 15).
 Companion chapters: `discrete_curvature.md` (the parametric curvature
 stencils this flow runs on), `geometrization_conjecture.md` (the R1

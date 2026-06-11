@@ -21,8 +21,8 @@ The weld's two sides are now both *folds*:
 at `q = 1` both read `true` at `3/2` (`coth 1 ≤ 3/2` — the series side via the
 uniform bound `2(2J+1)·coshNum + 1 ≤ 3·sinhNum`, an induction whose margin is
 `X_{J+1} = (2J+2)(2J+3)X_J − (4J+3)`, safe from `X_0 = 1`) and `false` at `5/4`
-(`coth 1 > 5/4`, layer-2 witness + nesting).  The ∀-probe agreement — the full weld —
-is stage 3c: the order transfer through the §5 weld rows + §7 bridge (recorded).
+(`coth 1 > 5/4`, layer-2 witness + nesting).  The ∀-probe agreement — the full
+weld — is closed: `LambertBridge.weld_closed` (every probe, unconditional).
 
 All zero-axiom.
 -/
@@ -150,8 +150,8 @@ theorem cothSeries_isAbPositiveB (q : Nat) (hq : 1 ≤ q) :
 /-- ★★★★ **The coth series pointing as a fold**: the truncated ratios
     `(2J+1)·q·coshNum_J / sinhNum_J` climb, so the series side of the weld is an
     `AbCutSeq` — the cut interface (layer `ValidCut`s, nesting, eventual constancy,
-    completion-given-modulus) is generic.  The weld (stage 3c) will identify its sup
-    with the CF fold's. -/
+    completion-given-modulus) is generic.  `LambertBridge.weld_closed` identifies
+    its limit cut with the CF fold's on every probe. -/
 def cothSeriesAb (q : Nat) (hq : 1 ≤ q) : AbCutSeq :=
   ⟨cothSeriesRawSeq q hq, cothSeries_isAbMonotonic q hq, cothSeries_isAbPositiveB q hq⟩
 
@@ -218,8 +218,8 @@ theorem coth1_series_at_5_4 (n : Nat) (hn : 2 ≤ n) :
     `false` at `5/4` — the Lambert real and the coth series are pinned in the same
     bracket `(5/4, 3/2]`, by two entirely different pointings (CF: unconditional
     modulus `k+2`; series: the uniform `3/2`-bound + a layer-2 witness).  The
-    ∀-probe agreement is stage 3c (the order transfer through the weld rows and the
-    evaluation bridge). -/
+    ∀-probe agreement is `LambertBridge.weld_closed` (the order transfer through
+    the weld rows and the evaluation bridge). -/
 theorem two_pointings_agree :
     ((cothUnitCFCauchySeq 1 (Nat.le_refl 1)).limit 3 2 = true
       ∧ ∀ n, (cothSeriesAb 1 (Nat.le_refl 1)).cut n 3 2 = true)
@@ -233,7 +233,7 @@ The order transfer's upper half says `T_J ≤` every odd CF convergent.  Its fir
 instance is provable now by the same margin induction as the `3/2`-bound: at `q = 1`
 the first odd convergent is `cfPn 1/cfQn 1 = 4/3`, and `T_J < 4/3` uniformly — the
 margin `X_J = 4·sinhNum − 3(2J+1)·coshNum` obeys `X_{J+1} = (2J+2)(2J+3)X_J − (6J+5)`,
-safe from `X_0 = 1`.  (The ∀-convergent version is stage 3c, through `row_det`.) -/
+safe from `X_0 = 1`.  (`LambertOrder.series_le_odd` is the ∀-convergent version.) -/
 
 /-- `T_J < 4/3` uniformly (`q = 1`): `3(2J+1)·coshNum + 1 ≤ 4·sinhNum`. -/
 theorem coth1_lt_4_3 : ∀ J, 3 * (2 * J + 1) * coshNum 1 J + 1 ≤ 4 * sinhNum 1 J
@@ -265,8 +265,8 @@ theorem coth1_lt_4_3 : ∀ J, 3 * (2 * J + 1) * coshNum 1 J + 1 ≤ 4 * sinhNum 
 
 /-- ★★★ **The series fold sits below the first odd CF convergent, uniformly**: the
     series cut reads `true` at `4/3 = cfPn 1/cfQn 1` at every layer — the first
-    instance of the upper order transfer (`T_J ≤ r₁`), by the margin induction.  The
-    ∀-convergent upper transfer is stage 3c. -/
+    instance of the upper order transfer (`T_J ≤ r₁`), by the margin induction.
+    `LambertOrder.series_le_odd` is the ∀-convergent form. -/
 theorem coth1_series_below_first_odd (n : Nat) :
     (cothSeriesAb 1 (Nat.le_refl 1)).cut n 4 3 = true := by
   rw [cothSeriesCut_eq]

@@ -749,7 +749,9 @@ def cothSeriesCauchySepOfBase (q : Nat) (hq : 1 ≤ q) (hbase : LowerBase q) :
 
 /-- ★★★★★ **Limit-cut equality**: the completed series fold and the Lambert CF
     fold agree on **every** probe — `coth(1/q)`'s two pointings (series and
-    continued fraction) are one real.  The weld, modulo `LowerBase`. -/
+    continued fraction) are one real.  Stated against an arbitrary `LowerBase`
+    witness; `LambertBridge.lowerBase` supplies it for every `q ≥ 1`
+    (`LambertBridge.weld_closed` is the hypothesis-free form). -/
 theorem weld_limit_agreement (q : Nat) (hq : 1 ≤ q) (hbase : LowerBase q)
     (m k : Nat) :
     (cothSeriesCauchySepOfBase q hq hbase).limit m k

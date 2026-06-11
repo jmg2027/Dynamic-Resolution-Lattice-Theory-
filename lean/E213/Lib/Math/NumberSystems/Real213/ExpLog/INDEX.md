@@ -89,8 +89,8 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   `(2J+1)q·coshNum/sinhNum` climbs via the exact
                                   `q²`-cancelling cross identity); the CF and
                                   series pointings agree on the `(5/4, 3/2]`
-                                  probes (`two_pointings_agree`).  3c: ∀-probe
-                                  order transfer, open.
+                                  probes (`two_pointings_agree`); the ∀-probe
+                                  transfer is closed (`LambertBridge.weld_closed`).
   - `CutTrigModulus.lean`       — `sin`/`cos` Taylor convergence modulus by
                                   comparison to `exp` (odd/even index sampling:
                                   geometric decay + antitone).  Marathon T2.
