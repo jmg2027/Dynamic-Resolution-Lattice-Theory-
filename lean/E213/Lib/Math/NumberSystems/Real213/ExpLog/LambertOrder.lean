@@ -1063,6 +1063,18 @@ theorem weld_rs_wronskian (q i J : Nat) :
       weld_casoratian_int]
   ring_intZ
 
+/-- ★★★★ **The margin Wronskian** (`M`-side, pure ring — no det-floor):
+    `(2J+3)·c_{J+1}·M_J − (2J+1)·c_J·M_{J+1} = P·K_J`.  The `q²Q·c·c` terms cancel identically;
+    the margin `M` and `cosh` are a Casoratian pair with the same source `K_J` (scaled by `P`),
+    mirroring the `R`–sinh Wronskian.  Identity "(W)" toward `Core`. -/
+theorem weldM_wronskian (q i J : Nat) :
+    (2 * (J : Int) + 3) * (coshNum q (J+1) : Int) * weldM q i J
+      - (2 * (J : Int) + 1) * (coshNum q J : Int) * weldM q i (J+1)
+    = (dev q (AP (2*i+2)) : Int) * weldK q J := by
+  have hsucc : ((J + 1 : Nat) : Int) = (J : Int) + 1 := rfl
+  unfold weldM weldK
+  rw [hsucc]; ring_intZ
+
 /-- ★★★★★ **`LowerBase` reduces to a single `M`-free inequality** (cleanest form, via the
     `R`–sinh Wronskian).  `0 ≤ R_{J+1}` follows from the *single* inequality
     `(−R_J)·s_{J+1} ≤ devB·K_J` and `sinh > 0` (trivial) — no `M`, no ratio descent.
@@ -1191,5 +1203,69 @@ theorem weld_lowerbase_reduction (q i J : Nat) (hM : ∀ j, 0 < weldM q i j)
   rw [h3] at h2
   -- cancel the positive `M_0·M_J`
   exact nonneg_of_mul_nonneg_right h2 (mul_pos (hM 0) (hM J))
+
+/-- ★★★★★ **`LowerBase` ⟸ {M-monotonicity, Core}** (the agent's chain, theorem-backed).  Given
+    positive margins, `R_0 ≤ 0`, `0 < q²Q`, the margin non-increasing to the flip
+    (`M_{2i} ≤ M_0`), and the localized **Core** inequality `M_0·devB·M_{2i+1} ≤ q²·Q·K_{2i}`,
+    the lower cross is non-negative at the flip: `0 ≤ R_{2i+1}` (= `LowerBase`).
+
+    Mechanism: the det-floor residue at `J=0` (`weldM_devB`: `M_0·devB = 1 − q²Q·R_0`) gives
+    `q²Q·(−R_0) = M_0·devB − 1 ≥ 0`; then `(−R_0)·M_{2i}·M_{2i+1}·q²Q = (M_0·devB−1)·M_{2i}·M_{2i+1}
+    ≤ M_0·devB·M_{2i}·M_{2i+1} ≤ M_0·devB·M_0·M_{2i+1} = (M_0·devB·M_{2i+1})·M_0 ≤ (q²Q·K)·M_0`
+    (using `M_{2i} ≤ M_0` and `Core`), and cancelling `q²Q > 0` is exactly the master single
+    inequality `weld_lowerbase_reduction` consumes.  Localizes `LowerBase`'s open content to the
+    two quantitative residuals M-monotonicity and Core. -/
+theorem weld_lowerbase_of_core (q i : Nat) (hM : ∀ j, 0 < weldM q i j)
+    (hR0 : weldR q i 0 ≤ 0)
+    (hqQ : 0 < (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))
+    (hmono : weldM q i (2*i) ≤ weldM q i 0)
+    (hcore : weldM q i 0 * (dev q (BP (2*i+1)) : Int) * weldM q i (2*i+1)
+             ≤ (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldK q (2*i)) :
+    0 ≤ weldR q i (2*i+1) := by
+  have hM0  : (0 : Int) ≤ weldM q i 0        := le_of_lt (hM 0)
+  have hM2i1 : (0 : Int) ≤ weldM q i (2*i+1) := le_of_lt (hM (2*i+1))
+  -- det-floor residue: `M_0·devB = 1 − q²Q·R_0`
+  have hR : weldM q i 0 * (dev q (BP (2*i+1)) : Int)
+          = 1 - (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i 0 := by
+    have h := weldM_devB q i 0
+    rwa [show (sinhNum q 0 : Int) = 1 from rfl] at h
+  -- `0 ≤ M_0·devB`
+  have hM0dB : (0 : Int) ≤ weldM q i 0 * (dev q (BP (2*i+1)) : Int) := by
+    have h := mul_le_mul_right_nonneg hM0 (dev q (BP (2*i+1)) : Int) (Int.ofNat_nonneg _)
+    rwa [E213.Meta.Int213.zero_mul] at h
+  -- `M_0·devB·(M_{2i}·M_{2i+1}) ≤ (q²Q·K)·M_0`  (via `M_{2i} ≤ M_0` then `Core ×M_0`)
+  have hbig : weldM q i 0 * (dev q (BP (2*i+1)) : Int) * (weldM q i (2*i) * weldM q i (2*i+1))
+            ≤ ((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldK q (2*i)) * weldM q i 0 := by
+    refine le_trans (mul_le_mul_left_nonneg
+      (mul_le_mul_right_nonneg hmono (weldM q i (2*i+1)) hM2i1)
+      (weldM q i 0 * (dev q (BP (2*i+1)) : Int)) hM0dB) ?_
+    rw [show weldM q i 0 * (dev q (BP (2*i+1)) : Int) * (weldM q i 0 * weldM q i (2*i+1))
+          = (weldM q i 0 * (dev q (BP (2*i+1)) : Int) * weldM q i (2*i+1)) * weldM q i 0 from by ring_intZ]
+    exact mul_le_mul_right_nonneg hcore (weldM q i 0) hM0
+  -- assemble the master single inequality, then cancel `q²Q`
+  apply weld_lowerbase_reduction q i (2*i) hM
+  refine le_of_mul_le_mul_right_pos
+    (c := (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int)) ?_ hqQ
+  rw [show -(weldR q i 0) * (weldM q i (2*i) * weldM q i (2*i+1))
+          * ((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))
+        = (weldM q i 0 * (dev q (BP (2*i+1)) : Int) - 1)
+          * (weldM q i (2*i) * weldM q i (2*i+1)) from by
+      rw [show (weldM q i 0 * (dev q (BP (2*i+1)) : Int) - 1)
+            = -((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i 0) from by
+          rw [hR]; ring_intZ]; ring_intZ,
+      show weldK q (2*i) * weldM q i 0 * ((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))
+        = ((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldK q (2*i)) * weldM q i 0 from by
+      ring_intZ]
+  -- now: `(M_0·devB−1)·(M_{2i}·M_{2i+1}) ≤ (q²Q·K)·M_0`  — subtract the nonneg `M_{2i}·M_{2i+1}`
+  refine le_trans ?_ hbig
+  rw [show (weldM q i 0 * (dev q (BP (2*i+1)) : Int) - 1) * (weldM q i (2*i) * weldM q i (2*i+1))
+        = weldM q i 0 * (dev q (BP (2*i+1)) : Int) * (weldM q i (2*i) * weldM q i (2*i+1))
+          - weldM q i (2*i) * weldM q i (2*i+1) from by ring_intZ]
+  apply le_of_sub_nonneg
+  rw [show weldM q i 0 * (dev q (BP (2*i+1)) : Int) * (weldM q i (2*i) * weldM q i (2*i+1))
+        - (weldM q i 0 * (dev q (BP (2*i+1)) : Int) * (weldM q i (2*i) * weldM q i (2*i+1))
+           - weldM q i (2*i) * weldM q i (2*i+1))
+        = weldM q i (2*i) * weldM q i (2*i+1) from by ring_intZ]
+  exact nonneg_of_le_zero (le_of_lt (mul_pos (hM (2*i)) (hM (2*i+1))))
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
