@@ -236,8 +236,8 @@ the staircase climbs one rung*.
 the start ✓; (2) + and × pattern together because their value-objects
 (segment, **grid**) carry the swap symmetry that count-forgetting
 turns into commutativity (segment: proved, `UnitList.append_comm`;
-grid: the transposition double-count — formalizable brick, ×-comm
-from append/count), and commutativity keeps the rung's action a
+grid: **proved**, `UnitGrid.mul_comm_from_grid` — ×-commutativity from
+the transpose double-count, no `Nat.mul_comm`), and commutativity keeps the rung's action a
 translation of its own operation, whose iterates stay translations
 (the fold engine `x+ab`, `x·a^b`); ^'s value-object (**tree/strings**)
 has no transposition, commutativity dies, the action splits
@@ -246,7 +246,8 @@ has no transposition, commutativity dies, the action splits
 this session): split honestly into the **proven floor** — linear
 fold-back absence = multiplicative relations among naturals =
 exponent vectors / FTA (`2^a·3^b = 2^c·3^d → a=c ∧ b=d`,
-ℕ-native, next formalizable brick, `vp` ground) — and the **open
+**proved PURE: `TwoThreeUnique.two_three_unique`** — elementary route,
+cancel the shared `2^a` then `three_pow_not_even`) — and the **open
 ceiling** — nonlinear fold-back absence is Schanuel-conjecture
 territory, classically unresolved, must carry a conjecture tag.
 "Infinitely many fold-back candidates, all to be excluded" is exactly
@@ -576,11 +577,15 @@ sandwich-locatable) sits strictly between — the boundary is a
   (i,j < n) → q = 1` — "ℤ is the integral closure of ℕ in ℚ", making
   monic↔ring a theorem (n = 2 first; iterated
   `coprime_dvd_of_dvd_mul`).
-- **T3 (exponent-lattice embedding).**  For prime p:
-  `vp p (m·n) = vp p m + vp p n` and separation
-  `(∀ p prime, vp p m = vp p n) → m = n` — turns "ℚ₊ = the exponent
-  lattice" into mathematics, on top of `coprime_dvd_of_dvd_mul` +
-  `le_vp_iff`.
+- **T3 (exponent-lattice embedding) — ★ multiplicativity CLOSED.**
+  `vp p (m·n) = vp p m + vp p n` proved PURE (`VpMul.vp_mul`, prime `p`)
+  via a 213-native minimal-divisor predicate `IsPrime213` + a derived
+  Bezout-free `euclid_lemma` + the peeling lemma `pow_dvd_mul_split`;
+  corollaries `vp_pow` (`vp p (aᵏ) = k·vp p a`) and `vp_self_pow`
+  (`vp p (pᵏ) = k`).  Built on `coprime_dvd_of_dvd_mul` + `le_vp_iff`.
+  **Still open**: separation `(∀ p prime, vp p m = vp p n) → m = n`
+  (unique factorization) — left for a future module, the bridge from
+  `vp_mul` to the full lattice isomorphism.
 - **T4 (frame-visibility dichotomy).**  For odd prime p:
   `(∃ x, p ∣ x² + 1) ↔ p % 4 = 1` — one direction is `qr_neg_one`
   (PURE, closed); the converse (p ≡ 3 → invisible) via the repo's

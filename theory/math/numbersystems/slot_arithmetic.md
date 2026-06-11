@@ -42,6 +42,20 @@ count readout of append (`count_append`).  Hence `add_comm_from_append`:
 **`+`-commutativity is unit-list append commutativity read through
 counting** — counting forgets arrangement, and what survives commutes.
 
+The same birth recurs one rung up, in 2-D.  The `a × b` unit **grid**
+(`Meta/Nat/UnitGrid.lean`) — `a` rows of `b` indistinguishable units —
+is counted row by row as `a · b` (`total_rows`) and, after the
+transpose that re-lays it as `b` rows of `a`, as `b · a`
+(`transpose_rows` then `total_rows` again).  The transpose neither
+loses nor invents a cell (`heads_tails_total`: peeling a column
+preserves the count, bare induction, because units carry no position),
+so the two counts agree and **`×`-commutativity is born from the grid
+transpose double-count** (`mul_comm_from_grid`) — no `Nat.mul_comm` in
+the proof.  Segment gives `+`-comm, grid gives `×`-comm: the swap
+symmetry that count-forgetting turns into commutativity is the
+transpose — which is also why commutativity stops being free above the
+grid, since `^`'s value-object is a tree with no transpose.
+
 ## 2. The list and the sandwich
 
 ℕ is the unit-started, unit-spaced sorted list, and its order *is*
@@ -203,9 +217,13 @@ reciprocity its reciprocity law.
   inverse of the previous rung's action, each pair layer manufactures
   exactly that inverse (definitionally: the pair *is* the question's
   answer), and `^`'s answers (logarithms) are where the chain breaks —
-  their *linear* fold-back absence is a theorem (exponent vectors /
-  unique factorization), their nonlinear fold-back absence is open
-  classically (Schanuel territory).
+  their *linear* fold-back absence is a **proved theorem**
+  (`TwoThreeUnique.two_three_unique`: `2^a·3^b = 2^c·3^d → a=c ∧ b=d`,
+  the exponent vector is unique), and the exponent lattice it lives in
+  is itself ℕ-native (`VpMul.vp_mul`: for prime `p`, `vp p (m·n) =
+  vp p m + vp p n` — the valuation is additive, the lattice's axis
+  arithmetic); their nonlinear fold-back absence is open classically
+  (Schanuel territory).
 * **Wrapping**: progressive operations are primary; wrapping
   operations are their fiber readouts, and their canonical-remainder
   normal form is a flattening Lens (`2 mod 2` is the class of `2`,
