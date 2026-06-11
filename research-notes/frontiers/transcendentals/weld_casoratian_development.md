@@ -73,17 +73,29 @@ The weld itself is closed without it (`theory/math/analysis/lambert_weld.md`)
    `weld_lowerbase_reduction_rs`: `0 ≤ R_{J+1}` from the **single M-free inequality**
    `(−R_J)·s_{J+1} ≤ devB·K_J` and `s_J > 0` (no `M`, no ratio descent).
 
-   **Multi-agent verdict (2026-06-11):** the residue is *provable in principle* but the
-   det-floor cancellation must be kept (every crude double-drop crosses over at `q=1`,
-   large `i`).  An expert agent reduced the single inequality one level further — via
-   `weldM_devB` (= identity "(R)") and an `M`-Wronskian `(2J+3)c_{J+1}M_J −
-   (2J+1)c_J M_{J+1} = P·K_J` (= "(W)", unbuilt) plus `M`-monotonicity `M_{2i} ≤ M_0` — to
-   the single sub-lemma **Core: `M_0·devB·M_{2i+1} ≤ q²·Q·K_{2i}`**, whose slack *grows*
-   in `i` (verified 0 violations, `q∈{1..4}, i≤150`).  **Net status:** item 3 is a cascade
-   of bridge-free *theorem-backed* reductions (`LowerBase ⟸ single ineq ⟸ Core`) + clean
-   structural identities; the genuine open residual is the ∅-axiom proof of **Core**
-   (roadmap: build `(W)`, `M`-monotonicity, then Core — a focused formalization marathon,
-   not an asserted wall).
+   **Core marathon (2026-06-11, two agent rounds + formalization).**  The assembly chain
+   is now theorem-backed: `weld_lowerbase_of_core` (∅-axiom) derives `LowerBase`
+   (`0 ≤ R_{2i+1}`) from positive margins, `R_0 ≤ 0`, `q²Q > 0`, **M-monotonicity**
+   `M_{2i} ≤ M_0`, and **Core** `M_0·devB·M_{2i+1} ≤ q²Q·K_{2i}` (mechanism: det-floor
+   residue `weldM_devB` at `J=0` + `M_{2i} ≤ M_0` + Core ⟹ the `weld_lowerbase_reduction`
+   master inequality).  Three Wronskians built (`weld_rs_wronskian` R·sinh,
+   `weldM_wronskian` M·cosh `= P·K_J`, `weldM_s_wronskian` M·sinh `= q²Q·K_J`).  **Honest
+   verdict on the two residuals (both bottom out in the bridge's count):**
+   - **M-monotonicity**: the M·sinh Wronskian gives `(M_J − M_{J+1})·s_J = q²Q·K_J −
+     (s_{J+1}−s_J)·M_J`, so antitone ⟺ `(s_{J+1}−s_J)·M_J ≤ q²Q·K_J` — but that is
+     *self-equivalent* to antitone (no ring discharge); the antitone fact is a genuine
+     quantitative induction, **not yet found** (the agent's "provable now" was an over-claim,
+     corrected).
+   - **Core**: the flip value `R_{2i+1}` has leading term *exactly* `(4i+2)!!` (the
+     `LambertMasterId` diagonal), and no clean `i`-induction or sufficient sub-lemma exists
+     (agent: every drop crosses over) — Core **genuinely needs the `(4i+2)!!` counting** =
+     the existing `LambertBridge` machinery.
+   **Net:** the Casoratian/Wronskian split removes the counting from the *structure*
+   (a complete, clean, ∅-axiom spine: three Wronskians + det-floor resolution + the reduction
+   cascade) but **not from the core** — `LowerBase` is bridge-*equivalent*, now demonstrated by
+   multiple independent reductions all terminating at the `(4i+2)!!` flip-timing.  Since
+   `LowerBase` is *already* closed in `LambertBridge`, this route's value is the M-free spine,
+   not a second closure.  (Originator `LowerBase`-via-bridge remains the proof of record.)
 
 Provenance: discovered in the 2026-06-11 multi-agent round (Discovery 1 of
 the archived blueprint, `archive/transcendentals/lowerbase_blueprint.md`).

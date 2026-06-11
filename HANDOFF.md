@@ -77,14 +77,20 @@ Frontier note was stale; recorded as closed (doc-only).
    q²Q·R_J`, hence the **M-free Wronskian** `weld_rs_wronskian : R_{J+1}s_J − R_J s_{J+1}
    = devB·K_J` (R and explicit sinh are a Casoratian pair); cleanest reduction
    `weld_lowerbase_reduction_rs` (`(−R_J)s_{J+1} ≤ devB·K_J ⟹ 0 ≤ R_{J+1}`, M-free).
-   (v) **Multi-agent verdict**: provable in principle, det-floor cancellation essential;
-   expert agent reduced the residue one level deeper to **Core `M_0·devB·M_{2i+1} ≤
-   q²Q·K_{2i}`** (slack grows in i, 0 violations q≤4,i≤150) via identity "(R)"=weldM_devB
-   + an unbuilt M-Wronskian "(W)" + M-monotonicity.  **Net**: item 3 = cascade of
-   bridge-free theorem-backed reductions (`LowerBase ⟸ single ineq ⟸ Core`) + clean
-   identities; open residual = ∅-axiom proof of Core (a focused marathon w/ roadmap, not
-   an asserted wall).  Module **54 PURE / 0 dirty**.  (Corrects an earlier over-claim that
-   framed persistence as a certificate.)
+   (v) **Core marathon** (2 agent rounds + formalization): assembly `weld_lowerbase_of_core`
+   (∅-axiom) derives LowerBase from {M-pos, R_0≤0, q²Q>0, **M-monotonicity** `M_{2i}≤M_0`,
+   **Core** `M_0·devB·M_{2i+1} ≤ q²Q·K_{2i}`}.  Three Wronskians built (`weld_rs_wronskian`,
+   `weldM_wronskian` M·cosh=P·K, `weldM_s_wronskian` M·sinh=q²Q·K).  **Honest verdict — both
+   residuals bottom out in the bridge:** M-monotonicity ⟺ (via M·sinh Wronskian)
+   `(s_{J+1}−s_J)M_J ≤ q²Q·K_J` which is *self-equivalent* to antitone (no ring discharge;
+   genuine induction not yet found — agent's "provable now" over-claim corrected); Core's
+   flip value `R_{2i+1} ~ (4i+2)!!` (LambertMasterId diagonal) genuinely **needs the
+   (4i+2)!! counting = LambertBridge**.  Net: the Wronskian split removes counting from the
+   *structure* (clean ∅-axiom spine) but not the *core* — LowerBase is bridge-*equivalent*,
+   now shown by multiple independent reductions all ending at the (4i+2)!! flip-timing.
+   LowerBase is already closed in LambertBridge (proof of record); this route's value is the
+   M-free spine.  Module **57 PURE / 0 dirty**.  (Corrects an earlier persistence-certificate
+   over-claim.)
 4. **inequalities = POSITIVITY ∘ LOOP** — first brick (Lagrange identity)
    CLOSED; the general compilation theorem over AM-GM/Jensen/power-mean open.
 5. **Smooth Ricci core** — the standing wall (discrete side closed/promoted).

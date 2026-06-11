@@ -1063,6 +1063,34 @@ theorem weld_rs_wronskian (q i J : Nat) :
       weld_casoratian_int]
   ring_intZ
 
+/-- ★★★★ **The margin–sinh Wronskian** (the third Casoratian pair): `s_{J+1}·M_J − s_J·M_{J+1}
+    = q²·Q·K_J`.  From `weldM_devB` (substituting `s = M·devB + q²Q·R`) the `devB·M·M` terms cancel
+    and the residue is `q²Q·(R_{J+1}·M_J − R_J·M_{J+1}) = q²Q·K_J` (`weld_casoratian_int`).  Its
+    rearrangement `(M_J − M_{J+1})·s_J = q²Q·K_J − (s_{J+1}−s_J)·M_J` shows `M`-monotonicity
+    (`M_{J+1} ≤ M_J`) is **equivalent** to `(s_{J+1}−s_J)·M_J ≤ q²Q·K_J` — exact, but self-referential
+    (no ring discharge); the antitone fact itself is a separate quantitative induction. -/
+theorem weldM_s_wronskian (q i J : Nat) :
+    (sinhNum q (J+1) : Int) * weldM q i J - (sinhNum q J : Int) * weldM q i (J+1)
+      = (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldK q J := by
+  have es : (sinhNum q J : Int)
+      = weldM q i J * (dev q (BP (2*i+1)) : Int)
+        + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i J := by
+    rw [weldM_devB]; ring_intZ
+  have es1 : (sinhNum q (J+1) : Int)
+      = weldM q i (J+1) * (dev q (BP (2*i+1)) : Int)
+        + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i (J+1) := by
+    rw [weldM_devB]; ring_intZ
+  rw [es, es1,
+      show (weldM q i (J+1) * (dev q (BP (2*i+1)) : Int)
+              + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i (J+1)) * weldM q i J
+          - (weldM q i J * (dev q (BP (2*i+1)) : Int)
+              + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i J) * weldM q i (J+1)
+          = (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * (weldR q i (J+1) * weldM q i J)
+            - (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * (weldR q i J * weldM q i (J+1))
+          from by ring_intZ,
+      weld_casoratian_int]
+  ring_intZ
+
 /-- ★★★★ **The margin Wronskian** (`M`-side, pure ring — no det-floor):
     `(2J+3)·c_{J+1}·M_J − (2J+1)·c_J·M_{J+1} = P·K_J`.  The `q²Q·c·c` terms cancel identically;
     the margin `M` and `cosh` are a Casoratian pair with the same source `K_J` (scaled by `P`),
