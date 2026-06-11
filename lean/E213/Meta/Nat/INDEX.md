@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (29)
+## Files (30)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -57,6 +57,11 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
   - `StrictLocate213.lean` — the strict locating primitive: `a<e<a+2 →
                              e=a+1` (`locate_strict`); founding identity
                              needs strict `<`, not `≤` (which contains `=`)
+  - `ListLocate213.lean`   — `locate_strict` pushed onto the list: strict
+                             proper-extension order, `locate_list` (unique
+                             list in a next-next gap); location works
+                             because a list is linear (one tail) — branches
+                             on the tree (`BinTree.node`)
   - `Valuation.lean`       — the `q`-adic valuation `vp q n` over ℕ
   - `VpMul.lean`           — the exponent-lattice engine (T3): `vp_mul`
                              (`vp p (m·n) = vp p m + vp p n`, prime `p`),

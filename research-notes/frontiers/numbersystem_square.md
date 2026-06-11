@@ -627,6 +627,24 @@ dim +1).  **Substrate dimension and atom-coloring are ONE structure — the
 sources.**  (The topological readouts Euler/Betti, `Lib/Math/Geometry/`,
 are the genuinely-invariant version of "raise the dimension".)
 
+**Strict location is the list's linearity — ★ PROVED**
+(`Meta/Nat/{StrictLocate213, ListLocate213}.lean`).  The sandwich that
+*founds* identity must be **strict** (`<`), never `≤`: `a ≤ b ↔ a < b ∨ a = b`,
+so a `≤`-sandwich presupposes the `=` it would derive (circular — the
+sandwich is then pointless).  With no `=`, a list element is located only
+as "right after `a`, right before its next-next", unique in the strict
+2-gap: `a < e < a+2 ⟹ e = a+1` (`locate_strict`), pushed onto the list as
+the proper-extension order (`locate_list`: the unique list between `la` and
+`la ++ [x,y]` is `la ++ [x]`; strict hypotheses, `=` only the output).
+Location is unique **because a list is linear — one tail per cons**
+(`cons_tail_unique`); on a **tree** (`BinTree.node`, two children) the
+successor branches and location fails — the *same* linear/branching divide
+as commutativity/the wall.  And **discrete vs continuum is ONE sandwich**
+(the "polarity-flip" was a non-issue): the gap *closes* at the next-next
+(discrete, located in one step) versus an infinite nesting that only
+*limits* (continuum, `Real213` cuts, reached-by-none) — same strict form,
+finite vs infinite nesting, not two probes.
+
 **Knobs still not turned** (each a new operation family, the open frontier):
 reverse the arrows (co-operations / splitting; convolution =
 split-then-reglue), drop finiteness (→ the cut/continuum), the topological
