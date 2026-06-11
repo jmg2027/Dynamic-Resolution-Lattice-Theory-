@@ -253,3 +253,33 @@ hold", not "same phenomenon").  Forcing a bridge ("past-completeness failure
 What is honestly shared is a *phenomenological shape* (a downward-closed
 regularity zone breaking at the third rung), not a mechanism.  §5(b) closed as
 resonance; correctly produces no file.
+
+---
+
+## Round 5 (later session) — bridge 1's `LeveledReadout`: REJECTED as vacuous
+
+Attempt + skeptic audit on bridge 1 ("equal ⟺ certificate matches" as one
+schema).  A `LeveledReadout` structure was written (`eq`, `readout : X→Idx→Val`,
+`sound`, `faithful`) with `eq_iff_readout : eq x y ↔ ∀ i, readout x i =
+readout y i`, instantiated by the real `cutEq` (definitional faithfulness) and
+the integer `vp_separation` (theorem faithfulness).  It built **3 PURE** and
+both instances were genuine.
+
+**Skeptic verdict: VACUOUS-OR-FORCIBLE — not committed; file deleted.**
+- `eq_iff_readout` is a one-line tautological unpacking of the `sound`/
+  `faithful` fields — it does zero work.
+- No generic consumer: nothing proves anything over *all* faithful readouts,
+  so the structure is a container, not a tool (contrast bridge 2's
+  `no_order_of_wrap`, which rules witnesses out).
+- The two instances are *stapled* — fitting a definition (`cutEq`) and a deep
+  theorem (`vp_separation`) under one record does not explain *why* one is
+  definitional and the other earned; that "why" is narrative.
+- Exposing `readout` as a function is cosmetic over the forbidden
+  `{ cert : Prop, iff : eq ↔ cert }` the frontier explicitly warns against.
+
+**Kept**: the narrative insight — equality-as-readout-agreement is
+*definitional* for cuts, an *earned theorem* (UFD) for integers.  **Lesson**:
+do not re-write the `{cert, iff}`/`LeveledReadout` structure; a non-vacuous
+bridge 1 needs a theorem doing generic work over faithful readouts.  The
+debate method worked as intended — it caught a forcible unification before it
+was committed.
