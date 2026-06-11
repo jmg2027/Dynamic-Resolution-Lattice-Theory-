@@ -494,4 +494,47 @@ theorem step4_cleared (m : Nat) :
     _ = ((6 * m + 1) * 30 ^ (30 * m) * lcmUpTo (5 * m))
           * (factorial (15 * m) * factorial (10 * m) * factorial (6 * m)) := by ring_nat
 
+/-! ## §9 — the clean recursion via `α₃₀ = 30³⁰/(6⁶15¹⁵10¹⁰) = 2¹⁴3⁹5⁵` -/
+
+private theorem pow_add_pure' (a x : Nat) : ∀ y, a ^ (x + y) = a ^ x * a ^ y
+  | 0 => by rw [Nat.add_zero, Nat.pow_zero, Nat.mul_one]
+  | y + 1 => by
+      rw [Nat.add_succ, Nat.pow_succ, Nat.pow_succ, pow_add_pure' a x y, mul_assoc]
+
+private theorem mul_pow_pure (a b : Nat) : ∀ n, (a * b) ^ n = a ^ n * b ^ n
+  | 0 => rfl
+  | n + 1 => by rw [Nat.pow_succ, mul_pow_pure a b n, Nat.pow_succ, Nat.pow_succ]; ring_nat
+
+private theorem pow_mul_pure (a m : Nat) : ∀ n, a ^ (m * n) = (a ^ m) ^ n
+  | 0 => by rw [Nat.mul_zero, Nat.pow_zero, Nat.pow_zero]
+  | n + 1 => by
+      rw [Nat.mul_succ, pow_add_pure' a (m * n) m, pow_mul_pure a m n, Nat.pow_succ]
+
+/-- `α₃₀ = 30³⁰/(6⁶·15¹⁵·10¹⁰) = 2¹⁴·3⁹·5⁵`, the Chebyshev 30-block per-step factor
+    (`α₃₀ < 33.97 = (1+√2)⁴`, the ζ(3) race margin). -/
+def alpha30 : Nat := 2 ^ 14 * 3 ^ 9 * 5 ^ 5
+
+/-- `30^{30m} = α₃₀^m · 6^{6m}·15^{15m}·10^{10m}` (from `30³⁰ = α₃₀·6⁶·15¹⁵·10¹⁰`). -/
+theorem pow30_eq (m : Nat) :
+    30 ^ (30 * m) = alpha30 ^ m * 6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m) := by
+  rw [pow_mul_pure 30 30 m,
+      show (30 : Nat) ^ 30 = alpha30 * 6 ^ 6 * 15 ^ 15 * 10 ^ 10 from by decide,
+      mul_pow_pure, mul_pow_pure, mul_pow_pure,
+      ← pow_mul_pure 6 6 m, ← pow_mul_pure 15 15 m, ← pow_mul_pure 10 10 m]
+
+/-- ★★★ **The clean recursion** (Brick 1 step 4): `lcm(1..30m) ≤ (6m+1)·α₃₀^m·
+    lcm(1..5m)`.  From `step4_cleared` + `pow30_eq`, cancelling `6^{6m}·15^{15m}·
+    10^{10m}`. -/
+theorem step4 (m : Nat) :
+    lcmUpTo (30 * m) ≤ (6 * m + 1) * alpha30 ^ m * lcmUpTo (5 * m) := by
+  have hC : 0 < 6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m) :=
+    Nat.mul_pos (Nat.mul_pos (Nat.pos_pow_of_pos _ (by decide)) (Nat.pos_pow_of_pos _ (by decide)))
+      (Nat.pos_pow_of_pos _ (by decide))
+  refine le_of_mul_le_mul_right' hC ?_
+  calc lcmUpTo (30 * m) * (6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m))
+      = lcmUpTo (30 * m) * 6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m) := by ring_nat
+    _ ≤ (6 * m + 1) * 30 ^ (30 * m) * lcmUpTo (5 * m) := step4_cleared m
+    _ = ((6 * m + 1) * alpha30 ^ m * lcmUpTo (5 * m))
+          * (6 ^ (6 * m) * 15 ^ (15 * m) * 10 ^ (10 * m)) := by rw [pow30_eq]; ring_nat
+
 end E213.Lib.Math.NumberTheory.LcmGrowthChebyshev
