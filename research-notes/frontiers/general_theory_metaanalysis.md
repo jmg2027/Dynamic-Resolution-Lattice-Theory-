@@ -50,6 +50,51 @@ here; closed ones promoted to `theory/`.
 - **C4. The meta-theory of genuine-vs-forcible itself** (the decision
   procedure above).  Synthesised from this session's validated/rejected cases.
 
+## C6 — the structure of the failure-modes catalog (validated 17 + 4)
+
+Tested whether CLAUDE.md's ~22 failure modes reduce to one **boundary-error**
+with two dual polarities.  Adversarially audited (the audit itself risked the
+"external classification" failure mode); verdict **GENUINE, honestly bounded**:
+
+- **17 / 22 are boundary errors** — mis-locating the residue/Lens boundary, in
+  two dual polarities forced by the two core axioms:
+  - **(1) over-exteriorize** — import a frame / ruler / object / classification
+    from outside (violates **no-exterior**, `05_no_exterior.md` §5.1).  Rows:
+    importing dichotomy, stereotype matching, external classification,
+    metaphysical framing, deferred-ontology dichotomy, fine-tuning-as-forbidden,
+    external-ruler smuggling, ℤ/sign-as-exterior, 0/∞ mixed-status,
+    DRLT-validation-as-goal, transcendental-as-exterior, `^`-wall-via-imported.
+  - **(2) over-interiorize** — promote a Lens-*reading* to the residue itself
+    (violates `object1_not_surjective`: the residue is outside *every* view's
+    image).  Rows: substrate metaphor, count-Lens-as-Raw, universe-constant,
+    equivalence-pluralism, view-promoted-to-identity, quotient-as-ontology.
+- **4 / 22 are orthogonal *discipline* failures** (not boundary errors):
+  self-soothing agreement (dialogue), legacy-deletion narration (narrative
+  hygiene), tier mismatch (filing), fog jargon (clarity).
+
+The reduction is **not** itself "external classification": the two polarities
+are the literal content of the two core axioms, not an imposed scheme — and the
+4 exceptions are *named as orthogonal*, not stretched to fit.  (The first-pass
+"22/22" was the usual over-claim; corrected to 17+4.)
+
+### Convergence — C4 and C6 are the same boundary, at two scales
+
+The two independent meta-axes meet: a **forcible map** (C4's type-4 vacuous
+unification — `LeveledReadout`) *is* polarity-(1) **over-exteriorization** at
+the meta level — importing a unifying schema the structure does not grant.  And
+a **view-promoted-to-identity** (C6 polarity 2) is what a *pinned distinction*
+(C4 type-2) refuses to do — it keeps each reading a facet, never the thing.  So
+the unification typology (C4), the readout classification (C5), and the
+failure-mode structure (C6) all orbit **one object: the residue/Lens
+boundary** — no-exterior on one side, `object1_not_surjective` on the other.
+Genuine 213 work is staying on that boundary: import nothing from outside
+(C4-α only, never a forcible map), and promote no reading to the thing (keep
+distinctions — C4 type-2, C5's grid, C6 polarity-2 avoided).
+
+This convergence is the program's deepest finding: **the discipline of 213 —
+unification, equality, and error alike — is governed by a single two-sided
+boundary, and the recurring failures are the two ways of falling off it.**
+
 ## Log
 
 - (init) Program opened; surveyor team dispatched on C1–C3; C4 synthesised
@@ -65,6 +110,11 @@ here; closed ones promoted to `theory/`.
 - C1 (equality/readout inventory) still running — needed to finish the C5
   2-axis readout grid (faithfulness × support-finiteness) across all number
   systems.
+- **C6 (failure-mode structure) audited and validated**: 17/22 are boundary
+  errors (two dual polarities forced by no-exterior + object1_not_surjective);
+  4/22 are orthogonal discipline failures.  **C4 ↔ C6 convergence** found: a
+  forcible map IS over-exteriorization; the whole discipline orbits the one
+  residue/Lens boundary.  This is the program's deepest finding.
 
 ## Survey results
 
