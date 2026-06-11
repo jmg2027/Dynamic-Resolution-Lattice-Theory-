@@ -244,7 +244,13 @@ reciprocity its reciprocity law.
   the exponent vector is unique), and the exponent lattice it lives in
   is itself ℕ-native (`VpMul.vp_mul`: for prime `p`, `vp p (m·n) =
   vp p m + vp p n` — the valuation is additive, the lattice's axis
-  arithmetic); their nonlinear fold-back absence is open classically
+  arithmetic) and **faithful** (`VpSeparation.vp_separation`: equal
+  valuations at every prime force equal numbers — unique factorization),
+  so the linear criterion is a full iff — `a^r = b^q` exactly when the
+  two exponent-vectors point the same way at every prime
+  (`FoldCriterion.pow_eq_pow_iff_vp`), with `two_three_unique` the `2,3`
+  case of "distinct primes never collide" (`FoldCriterion.prime_pow_unique`).
+  Their nonlinear fold-back absence is open classically
   (Schanuel territory).
 * **Wrapping**: progressive operations are primary; wrapping
   operations are their fiber readouts, and their canonical-remainder
