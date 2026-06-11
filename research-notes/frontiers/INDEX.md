@@ -532,6 +532,12 @@ real ∅-axiom conquests.
   total modulus `k+2`; `exp(2/q)` unconditional) is closed ∅-axiom and promoted:
   `theory/math/analysis/lambert_weld.md` (`LambertBridge.lowerBase`,
   `weld_closed`; blueprint archived to `archive/transcendentals/`).
+- `weld_crossdomain` — four bridges from the 2026-06-11 merge: CF
+  partial-quotient growth as the ladder-rung invariant; inverse-avoidance
+  by state-threading (the constructive response to the slot wall); the
+  exclusion-depth ≟ separation-schedule unification brick; the pair-layer
+  cross expression's three regimes (`=0` class / `=1` certificate / `≥1`
+  separation).
 - `transcendentals/weld_casoratian_development` — the proven `i`-invariant
   unimodular identity (`weld_casoratian`): flip criterion + ratio descent as
   theorems; a possible second, bridge-free certificate of `LowerBase`.
