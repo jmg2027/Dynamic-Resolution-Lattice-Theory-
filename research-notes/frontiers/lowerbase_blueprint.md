@@ -1,9 +1,11 @@
 # LowerBase — the verified proof blueprint (multi-agent round, 2026-06-11)
 
-Status: **OPEN in Lean, CLOSED on paper** — every identity and inequality below
-was re-verified independently by exact symbolic computation (sympy, general `q`,
-ranges noted) after a multi-agent derivation round.  This note is the
-formalization blueprint for the weld's last brick
+Status: **CLOSED in Lean** (2026-06-11) — `LambertBridge.lean` §1–§13 executes
+F1–F7 below; `lowerBase (q) (hq) : LowerBase q` is a strict ∅-axiom theorem and
+the weld is unconditional (`cothSeriesCauchySep`, `weld_closed`).  Every
+identity below was first re-verified by exact symbolic computation (sympy,
+general `q`, ranges noted) after a multi-agent derivation round.  This note was
+the formalization blueprint for the weld's last brick
 (`LambertOrder.LowerBase`): for all `i`,
 
     devA_i · s_{2i+1}  ≤  (4i+3) · devB_i · c_{2i+1}

@@ -3,7 +3,7 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (26)
+## Files (27)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
@@ -48,10 +48,9 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   floor pivot); `cf_limit_false_of_series_false`
                                   (W1, choice layer `k·s_J+k+2`); the lower
                                   transfer reduced to its matched base
-                                  (`lower_step`/`LowerBase`, `i = 0` closed);
-                                  conditional full weld: `weld_limit_agreement` +
-                                  `cothSeriesCauchySepOfBase` (modulo `LowerBase`,
-                                  the one open brick).
+                                  (`lower_step`/`LowerBase`); the weld pipeline
+                                  `weld_limit_agreement` + `cothSeriesCauchySepOfBase`
+                                  (consumes `LowerBase`, proven in `LambertBridge`).
   - `LambertMasterId.lean`      — **the master identity** (Padé-cancellation
                                   core): `Asum(2k+1,N) + cfpos(2k+1,N) =
                                   Bsum(2k+1,N)` (+ even twin), all-ℕ via the
@@ -65,8 +64,19 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   `evc_dom_joint` (the Abel transfer: suffix
                                   dominance ⟹ all-`q` dominance);
                                   `lowerbase_of_suffdom` + end-to-end `i = 1`
-                                  (`lowerbase_one`).  Remaining: general-`i`
-                                  suffix dominance at `q = 1`.
+                                  (`lowerbase_one`).  General `i`: `LambertBridge`.
+  - `LambertBridge.lean`        — **the weld closes**: `lowerBase` (the base
+                                  inequality, every `q ≥ 1`, every `i`) via the
+                                  convolution–master bridge — reversed convergent
+                                  stacks (`rev_trunc`), accumulator snoc + weight
+                                  `wprod`, the bridges (`bridgeA/B`: stack
+                                  coefficients complete the accumulators), mirrors
+                                  past the stack, saturation, the division-free
+                                  budget (`budgetGen`), diagonal flip `cfpos n n =
+                                  (4i+2)!!`, suffix descent (`inv_descent`) ⟹
+                                  `SuffDom` ⟹ `lowerBase`; `cothSeriesCauchySep` +
+                                  `weld_closed` — series ≡ CF for `coth(1/q)`,
+                                  **no hypotheses**.  77 PURE.
   - `ExpMoebius.lean`           — **`exp(2/q)` completes unconditionally**: the
                                   cut-Möbius step — odd Lambert convergents under
                                   `z ↦ (z+1)/(z−1)` climb with cross-det

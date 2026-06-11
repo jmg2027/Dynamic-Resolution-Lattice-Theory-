@@ -1,390 +1,74 @@
-# Session Handoff — 2026-06-10 (Perelman residual wall: four discrete cores + no-local-collapsing pinch + χ²-entropy)
+# Session Handoff — 2026-06-11 (THE WELD CLOSES: `LowerBase` proven, coth series ≡ CF unconditional)
 
 ## Branch & build state
-`claude/weighted-ibp-li-yau-91qefg` (continues the Ricci-flow frontier branch).  `lake build`
-✓ clean (run from `lean/`!); `scan_all_axioms.py` **2338 PURE / 0 DIRTY** (+33
-sealed-DIRTY-by-design).  Session
-modules strict ∅-axiom (`tools/scan_axioms.py`): `WeightedGreen` 11/0, `DiscreteGaussian`
-11/0, `DiscreteSurgery` 15/0, `Binomial` 15/0, `RicciFlowDiscrete` 17/0, `IntGridSum` +1
-(`gridSumZ_antisym_zero`), `OrderMul` +1 (`eq_zero_of_two_mul_eq_zero`), `Conservation` +2
-(`gridSum_const`, `gridSum_term_le`).
+`claude/weighted-ibp-li-yau-91qefg`.  `lake build` ✓ clean (run from `lean/`!);
+`scan_all_axioms.py` **2415 PURE / 0 DIRTY** (+33 sealed-DIRTY-by-design).
+Session module: `Real213/ExpLog/LambertBridge.lean` **77 PURE / 0 DIRTY**.
 
-## Follow-up arc (same session, "이어서"): no-local-collapsing + χ²-entropy closed
+## What was done — `lowerbase_blueprint.md` F1–F7, executed to the end
 
-- **No-local-collapsing, discrete core** (was Open Problem 1): `Binomial.binom_le_central`
-  (unimodality `C(2n,k) ≤ C(2n,n)` ∀k — rising/falling halves `binom_le_succ_of_le_half` /
-  `binom_succ_le_of_half_le`, division-free via the same absorption identity as Li–Yau) +
-  `gaussian_normalization` ⟹ `DiscreteGaussian.no_local_collapsing`:
-  `2^{2n} ≤ (2n+1)·u(2n,n)` — central value ≥ average density, the cigar exclusion in
-  kernel form; `kernel_le_mass` + `kernel_density_pinch` give the two-sided pinch.
-- **χ²-entropy descent** (was Open Problem 5): `RicciFlowDiscrete.ricci_chi_entropy_monotone`
-  — `V(K') ≤ 16·V(K)`, `V(K) = n·ΣK² − (ΣK)²` (additive Nat-ledger form), from the
-  **already-existing** `EnergyDecay.lazy_l2_norm_bound` (repo-first: do NOT re-prove the
-  L² contraction) + mass conservation.  EnergyL2's stale "remaining summation step"
-  docstring corrected.
+The weld's one remaining brick — `LambertOrder.LowerBase`
+(`∀ i, devA_i·s_{2i+1} ≤ (4i+3)·devB_i·c_{2i+1}`) — is now a theorem:
+`LambertBridge.lowerBase (q) (hq : 1 ≤ q) : LowerBase q`.  Consequences,
+both ∅-axiom and hypothesis-free:
 
-## What was done — the four Perelman wall items (Open Problem 4 of the previous handoff)
+  * `cothSeriesCauchySep q hq : CauchyCutSeq` — the `coth(1/q)` series fold
+    completes, total modulus `k+2`;
+  * `weld_closed q hq m k` — the series and CF limit cuts agree on **every**
+    probe: the two pointings of `coth(1/q)` are one.
 
-The previous panel pinned the GENUINE residual wall as (i) weighted IBP, (ii) the
-`(4πτ)^{−n/2}e^{−f}` Gaussian, (iii) Li–Yau Harnack, (iv) κ-solution/surgery + no-local-
-collapsing.  This session closed the **discrete core of each**, ∅-axiom:
+### The proof, layer by layer (all in `LambertBridge.lean`)
+1. **§1–§4 (F1)** reversal infra + `rev_trunc`: `rev (AP (2i+1)) = truncA (2i+1) i`
+   (4-way joint induction over the parity ladder) — the reversed convergent
+   lists ARE the coefficient stacks.
+2. **§5 (F2)** `wprod` (threaded weight) + `Aacc/Bacc` snoc (last-step peel,
+   `wprod_shift` aligning head-peel with weight threading).
+3. **§6–§7 (F3)** σ/γ-steps, `prod_match`(+`_B`), `wmatchA/B`, and the
+   **bridges**: `Mf(g)·(stack ⋆ σ/γ)_p + Acc(g) = Acc(p+g+1)` — induction on
+   `p` at fixed `g`, `N̂ = J+g` invariant.
+4. **§8 (F4)** `budgetGen`: `(2J+2)·Bacc ≤ w·wprod·(2·bpF n s)` whenever
+   `2J+1+2·steps ≤ cc` — the division-free budget (uses `bpF_halving`).
+5. **§9 (F5a)** saturation: `AaccSum/BaccSum (2i+1) N (i+1) = Asum/Bsum`,
+   **every** `N` (support vanishing `apF/bpF_vanish_ge` ∨ weight vanishing
+   `wprod_vanish`, whichever first).
+6. **§10 (F5b)** mirrors: `sig_eq_wprod`, `gam_eq`, `wprod_split`, and
+   `mirrorA/B`: past the stack, the coefficient = `wprod (2J+1) r ·`
+   (saturated accumulator at level `K = J−r`).
+7. **§11 (F5c)** per-coefficient laws of the two `LowerBase` lists `LAl/LBl`
+   (both length `3i+2`): `entry_eq` (equal past the diagonal — `cfpos` vanishes
+   below the level, the master identity is an equality), `diag`
+   (`LB_i = LA_i + cfpos n n`, the `(4i+2)!!` Padé flip), `slack`
+   (`(2n+2)·LA_p ≤ (2n+2)·LB_p + 2·bpF n 0` below it — budget, `wprod`-cancelled).
+8. **§12 (F6)** assembly: `suffix_peel`, `sufEq` (suffix equality past the
+   diagonal), `cfpos_diag_rec` + `bpF_le_cfpos` (`(4i+1)!! ≤ (4i+2)!!`,
+   counting), `inv_descent` (the descent invariant), `suffdom_LAl` — the
+   diagonal flip absorbs the ≤ `i` slack quanta (`2i·(4i+1)!! ≤ (4i+4)·(4i+2)!!`).
+9. **§13 (F7)** `suffdom_general` + `lowerbase_len` → `lowerBase` → the weld.
 
-### (i) Weighted IBP — `GeometrizationConjecture/WeightedGreen.lean`
-Arbitrary symmetric-weight finite graph (`w x y = w y x`; weight = discretized `e^{−f}dV`):
-`weighted_green` (`⟨f,g⟩_w = −2·Σ g·L_w f`; `g := μ` is Perelman's `∫Δf e^{−f} = ∫|∇f|²e^{−f}`),
-`dirichlet_first_variation` + `dirichlet_gradient_identity` (`𝓕_w(f+h) = 𝓕_w(f) − 4Σh·L_wf
-+ 𝓕_w(h)` — **the flow generated by `L_w` IS the gradient flow of `𝓕_w`**), `flow_rate_sos`
-(SOS descent rate, companion of `perelman_rate_nonneg`), `wlap_mass_conservation`,
-`wdirichlet_nonneg`.  Engine (new infra): `IntGridSum.gridSumZ_antisym_zero` — an
-antisymmetric kernel's double sum vanishes by Fubini-reflection + the new
-`OrderMul.eq_zero_of_two_mul_eq_zero` (division-free `S = −S ⟹ S = 0`).
+### Lean tactics intel (recurring pitfalls, this session)
+* `Nat.le.dest` on `a < b` yields `Nat.succ a + k = b`; **`ring_nat` treats
+  `Nat.succ a` as an opaque atom** (≠ `a + 1`) — convert via `congrArg (· + 1)`
+  / `Nat.succ_add` instead of `rw [← he]; ring_nat`.
+* PolyNatM does **not** cancel zero monomials: goals containing `+ 0` or
+  `1 * _` make `poly_idM` norms differ — eliminate the literals first
+  (`Nat.zero_mul`/`Nat.one_mul`/`Nat.zero_add` rws, or route junk terms
+  through `Nat.le_add_right` and feed `ring_nat` the clean equality).
+* `rw` finishes goals like `[].length + (1+1) = 2` only up to reducible —
+  append explicit `rfl`.
 
-### (ii) `𝓦` Gaussian — `GeometrizationConjecture/DiscreteGaussian.lean`
-Binomial kernel `u(t,x) = C(t,x)` = discrete heat fundamental solution (δ-init; Pascal =
-heat step, definitional).  `gaussian_normalization`: `Σ_x u(t,x) = 2^t` for **all** `t` —
-the exact discrete content of the `(4πτ)^{−n/2}` prefactor (kernel stays a probability
-measure along the flow).  `gaussian_mean`: `2Σ x·u = t·2^t` (centre `t/2`, the `τ`-scaling).
-De Moivre–Laplace continuum limit **not** claimed.
+## Weld arc status (the whole picture)
+* `exp(2/q)` headline: **closed** earlier via `ExpMoebius` (independent route).
+* `coth(1/q)` series ≡ CF: **closed this session** (above).
+* Open neighbours (frontiers): exp(p/q) free modulus (`exp_pq_no_htel`
+  boundary), CothSeriesCut 3c ∀-probe order transfer (superseded for
+  `coth(1/q)` by `weld_closed` — check if anything残 references it),
+  ζ(3) bricks (`zeta3_blueprint.md`, `zeta3_free_modulus.md` — verified
+  blueprints, not yet formalized).
 
-### (iii) Li–Yau — `Combinatorics/Binomial.lean` + `DiscreteGaussian.lean`
-`binom_absorption` (`(k+1)C(n,k+1) + kC(n,k) = nC(n,k)`, subtraction-free, pure Pascal
-double induction) ⟹ `binom_log_concave` (`C(n,k)C(n,k+2) ≤ C(n,k+1)²`) = `gaussian_li_yau`:
-spatial log-concavity is the **division-free cleared form of `Δlog u ≤ 0`**, the Li–Yau
-gradient estimate — the `Real213`-division wall sidestepped by cross-multiplication.
-`harnack_forward`: positivity propagates forward in time.  Also new: `binom_vanish`,
-`binom_le_binom_succ_succ`.
-
-### (iv) Surgery — `GeometrizationConjecture/DiscreteSurgery.lean`
-`gauss_bonnet_general` (ANY finite graph: handshake `Σdeg = 2E` ⟹ `Σ(2−deg) = 2χ`);
-surgery step = cut one neck edge: `χ` `+1`, total curvature `+2` exactly;
-`surgery_dichotomy` — round (`b₁=0`, curvature `+2`, terminal) XOR neck-bearing (`b₁≥1`,
-curvature `≤0`); `surgery_terminates` (A6 `flow_reaches` on the `b₁` monovariant) +
-`surgery_count` — **exactly `b₁` surgeries** to the round state; `k32_surgery` (DRLT
-`K_{3,2}`: ledger `−2 → 0 → +2` in 2 surgeries).
-
-## Honest boundaries (kept explicit in the files + frontier note)
-Smooth/manifold versions stay open: manifold Li–Yau under `Ric ≥ 0` (needs discrete
-Bochner-with-Ricci coupling), Hamilton matrix Harnack, smooth κ-solution classification
-(solitons/Bryant), canonical-neighbourhood geometry, and **no-local-collapsing
-compactness** — now the sharpest single remaining wall item.
-
-## Lean-tooling notes (recurring; add to your reflexes)
-- **`rw` with a defeq-rfl lemma (`Nat.add_zero`, `Nat.mul_zero`) can silently no-op at a
-  hypothesis** (and sometimes at goals).  Close with `exact (Nat.add_zero _).symm`-style
-  terms, or route the simplification through goal-side rewrites + a final defeq `exact`.
-- Core dirt found this session: `Nat.add_right_cancel`, `Nat.sub_sub` are `propext`-dirty.
-  Pure replacements: `Meta.Nat.NatRing213.nat_add_right_cancel`; `congrArg Nat.pred`
-  induction (`DiscreteSurgery.sub_one_sub`).
-- `ring_nat`/`ring_intZ` treat `Int.ofNat k` casts as opaque atoms — introduce ascribed
-  `have hcast : ((a + b : Nat) : Int) = (a : Int) + (b : Int) := Int.ofNat_add a b` before
-  the ring step.  `ring_intZ` still cannot certify zero-polynomial RHS (`0 − 2S = −(2S)`
-  failed; closed with `Order.zero_sub`).
-- `heatKernel`-style def wrappers break `rw`-pattern matching against the unfolded
-  recursive call — take the recursive IH with an **ascribed type in the unfolded form**
-  (`have ihn : … binom … := gaussian_normalization t`).
-
-## Third arc (same session, "ㄱㄱ"): Bochner coupling + Real213 max principle
-
-- **Bochner-with-Ricci coupling, first rung** (`DiscreteLichnerowicz` §4, module now 18
-  PURE): `kmStep` (`P_c = c·id + L`, `τ = 1/c` numerator form) with
-  `km_gradient_contraction` — `Γ(P_c u) = (c−m)²·Γ(u)` **pointwise identity** (the
-  Bakry–Émery commutation `Γ(P_τ f) ≤ e^{−2Kτ}P_τΓ(f)`, exact on `K_m`) — and
-  `km_be_gradient_estimate`: `4·Γ(P_c u) ≤ (2c−(m+2))²·Γ(u)` for `m ≥ 2 ≤ c` — the
-  gradient estimate at the genuine `CD((m+2)/2)` curvature rate (gap beats curvature =
-  Lichnerowicz).  Plus `km_lap_sum_zero`/`km_step_mass`.  New Meta: `OrderMul.sq_le_sq_of_le`.
-- **`Real213`-cut maximum principle** (`HeatEq/MaxPrincipleReal.lean`, 2 PURE):
-  `heat_max_principle_real` — data in `[A,B]` ⟹ the averaged field `heatIter n t u x / 2ᵗ`,
-  as a `Real213` cut, satisfies `A ≤ field ≤ B` in the cut order for **all** `t`.  Generic
-  bridge: `constCut_le_constCut` (`a·d ≤ c·b`, `d>0` ⟹ cut order — the ℚ→cut order
-  embedding, division-free).
-- **`expCauchySeq` scoped honestly** (frontier note updated): needs the rational
-  convergent pair `expNum/expDen` (`d i = qⁱ·i!`) + the four `RateModulus.rate_cut_const`
-  certificates (positivity, `Htel` via cross-det from `expTail_geom_decay`, mono, strict
-  mono) — a session-scale T1→T2 marathon, **not** a 40-line brick.  Next session's prime
-  candidate.
-
-## Fourth arc (same session): the expCauchySeq marathon — unit-fraction family closed
-
-`ExpLog/ExpUnitModulus.lean` (14 PURE): the euler generator extends **verbatim** to
-`exp(1/q)` for every `q ≥ 1` — convergents `a_n/(qⁿ·n!)`, cross-det `= dₙ`
-(`expU_cross_det`, the e-pattern uniform in `q`), `Htel` side condition
-`i(i+1)+i ≤ (i+1)²q` (true ∀ `q ≥ 1`).  Deliverables: `expUnitCauchySeq q` (genuine
-`CauchyCutSeq`, total modulus `N(m,k) = k+2`, uniform in `q`), `sqrtECauchySeq`
-(`√e = exp(1/2)`), `expU_one_num/den` (`q = 1` ≡ euler definitionally),
-`expUnitCauchySeq_cut_stable`.  `Core/Functions.lean`'s `expCut` placeholder retired
-(no consumers; doc now points at the genuine objects; sin/cos/π interfaces remain,
-honestly marked).  **Key discovery**: for `p ≥ 2` the cross-det `p^{i+1}·dᵢ` exceeds
-the `1/(i·dᵢ)` margin `RateModulus.Htel` hardcodes — general `exp(p/q)` needs a
-**parametric-margin RateModulus** (margin `Bᵢ/(i·dᵢ)`, tail certificate from
-`CutExpModulus.expTail_geom_decay`) or the `exp(1/q)ᵖ` cut-power route.
-
-## Fifth arc: merged `claude/zeta-3-holonomic-fold-gbjygu` + the synthesis sealed
-
-The originator's modulus-degree-ladder branch merged cleanly (same fork point):
-`Zeta3Cut` (35 PURE — ζ(3) Apéry `AbCutSeq`, bracket `601/500 < ζ(3) ≤ 1203/1000`,
-`zeta3_presentation_overtakes`), `CubeRootTwoCut` (31 PURE — degree-3 form-margin
-modulus, dyadic-bisection schedule `N(m,k) = 3k+5`), `ModulusComposition` (30 PURE —
-irrational-degree schedules, receipts taking receipts; already eats `eulerCauchySeq`),
-+ frontier notes `modulus_degree_ladder.md` / `zeta3_free_modulus.md`.
-
-**The synthesis (why the branch helps, now a theorem)**: `ExpUnitModulus` §6 —
-`exp_pq_presentation_overtakes` + `exp_pq_no_htel` (the `zeta3_presentation_overtakes`
-mirror): for `p ≥ 2` the factorial presentation of `exp(p/q)` has cross-det
-`p^{i+1}·dᵢ` overtaking the quantum at layer `q+9` (`(q+10)²q < (q+10)³ < 2^{q+10} ≤
-p^{q+10}`, helpers `cube_step`/`cube_lt_two_pow`), so by
-`RateStratification.htel_iff_dominates` **no Htel certificate exists** — the
-unit-fraction family (§4) is exactly the boundary where the factorial pointing
-carries its own rate.  Module now 21 PURE.  ⟹ the `exp(p/q)` completion should go
-through the branch's **dyadic-bracket schedule** (`CubeRootTwoCut` pattern, modulus
-from `CutExpModulus.expTail_geom_decay`) or the graded generator
-(`modulus_degree_ladder.md` rung 1) — `exp(2)` is the named first test case
-(recorded in the ladder note, rung 0″).
-
-## Sixth arc: `exp(p/q)` fold built (the ζ(3) posture, positive side of §6)
-
-`ExpLog/ExpRationalCut.lean` (18 PURE): `expPQAb p q hq : AbCutSeq` — `exp` at **every
-positive rational** now has its constructed fold (layer `ValidCut`s, nesting, eventual
-constancy, completion-given-modulus, all generic).  The analytic content:
-`exp_pq_upper_invariant` — the doubled-tail quantity `S_i + 2t_{i+1}` (cross-multiplied:
-`upNum p q i = aᵢ(i+1)q + 2p^{i+1}` over `d_{i+1}`) is non-increasing past the
-ratio-test threshold `2p ≤ (N+2)q`, by the term-halving induction — hence
-`exp_pq_le_upper`: every later convergent `≤ U_N/d_{N+1}` (the geometric tail bound as
-one `Nat` inequality), and `exp_two_localized`: **`e² ∈ (7, 904/120]`** (lower: layer-5
-convergent `872/120 > 7`, nesting-stable; upper: the `N = 4` bracket).  Together with
-`exp_pq_no_htel` this is the exact ζ(3) symmetry: fold closed + provably-rate-free
-presentation + free modulus open.
-
-## Seventh arc: the conditional measure-modulus schema (ladder rung 2) built + exp instantiated
-
-`AbCutSeq.sep_cauchy` / `toCauchySep` (+ `cut_resolution_zero`): a separation schedule
-`I` ("every `false` reading at resolution `k` already shows at layer `I k`") completes
-**any** fold with the constructed modulus `N(m,k) = I k` — `Bool` case analysis +
-generic nesting, the transcendental's effective-irrationality cost isolated in `hsep`.
-`ExpRationalCut` §5 (`exp_pq_sep`, `expPQCauchySep`, module 21 PURE): the §3 bracket
-reduces `hsep` for `exp(p/q)` to ONE arithmetic hypothesis per resolution (no
-denominator-`k` fraction in the `I k`-th bracket; the above-schedule case closes by
-the strict squeeze `d·m < a·k ≤ U·bracket < d·m`).  So `exp(p/q)` now completes with
-a *constructed* modulus conditionally on `hmeas` — the π-posture upgraded.  Wallis-π
-instantiates `toCauchySep` in one line whenever its measure hypothesis is supplied.
-
-## Eighth arc: the CF pointing packaged — Lambert `coth(1/q)` completes unconditionally
-
-Repo-first catch: `cf_universal_total_modulus` (every CF with quotients `≥ 1` carries
-the free modulus `k+2`) **already existed** (`ContinuedFractionModulus`, from main's
-floor/overtake arc) — do not rebuild.  Added §6 on top: explicit packaging
-`cfCauchySeq : CauchyCutSeq` (via `rate_cut_const`; `cf_cut_at_zero`/`cf_cut_const`)
-and the first **transcendental** instance: `cothUnitCFCauchySeq q` — Lambert's
-`coth(1/q) = [q; 3q, 5q, …]` (`cothCF q n = (2n+1)·q`, all quotients ≥ 1 free), with
-`decide` anchors `21/16` and `coth(1) ∈ (5/4, 3/2]` (module 23 PURE).  The pointing
-dichotomy is now a theorem pair: series pointing of `exp(p/q)` carries no rate
-(`exp_pq_no_htel`) — CF pointing of the same family carries everything.
-
-## Ninth arc: the weld, stage 1 — the Lambert ladder's series side built
-
-`ExpLog/LambertWeld.lean` (7 PURE): the Bessel contiguity `F_{n−1} = (2n+1)Fₙ +
-u·F_{n+1}` (coefficients `1/((2j)!!(2n+2j+1)!!)`; the identity is `(2n+1)+2j =
-2n+2j+1`) delivered division-free at every truncation — `FNum q n J` Horner
-recursion, `weld_ladder`, and the bottom rungs collapse exactly to cosh/sinh
-(`weld_base` at `n = −1`; `sinhNum_eq_FNum_zero` at `n = 0`; `(2j)!!(2j−1)!! =
-(2j)!`).  So `coth(1/q) = q·F_{−1}/F_0` and unrolling the ladder IS the Lambert CF
-`[q; 3q, 5q, …]` — the two sides of the weld now face each other in one formalism.
-Lean lessons (recorded in the ladder note): PolyNatM doesn't drop `0·atom`
-monomials; un-reduced `(J+1)−1` IH indices become spurious atoms — `rfl` for
-all-literal rungs, re-ascribe IHs.
-
-## Tenth arc: weld stage 2 — the finite weld identity PROVEN
-
-`LambertWeld` §4–§6 (module 22 PURE): the pairing functional `PF q c m J`
-(`[P(u)·F_m]|_J` cleared; the `u`-shift costs `2J(2m+2J+1)` and drops `J`), the
-**lifted ladder** `pf_ladder` (`(2n+2J+3)·[PF c n J] = (2n+3)·[PF c (n+1) J] +
-2J·[PF c (n+2) (J−1)]`, uniform in the list — its tail case reduces to itself one
-level down), the convergent polynomials `AP/BP` (`ladd`/`lsmul` list algebra), and
-the **matrix-unrolling weld rows** `weld_pair_cosh` / `weld_pair_sinh`:
-`vFac J n·coshNum q J = PF (AP (n+1)) n J + 2J·PF (AP n) (n+1) (J−1)` (and the
-sinh row with `BP`, `v0Fac`) — the CF-correctness identity
-`(F_{−1},F_0) = M₀⋯M_{n−1}(Fₙ,F_{n+1})`, exact at every truncation, division-free,
-with `decide`-checked instances at `n = 2, J = 2`.  Each induction step is one
-generic `pair_step` (ladder + linearity) matching the `AP/BP` recursion.
-Lean lessons: overlapping `match` rows (`ladd ([],l)/(l,[])`) block iota reduction
-— make patterns disjoint; `lake build` from the repo ROOT is a false success
-(must build from `lean/`).
-
-## Eleventh arc: weld stage 3a — the evaluation bridge PROVEN
-
-`LambertWeld` §7 (module 36 PURE): descending Horner evaluation `dev`/`hornEv`
-(accumulator written `c + q²·acc` for defeq-cleanliness), the list-eval algebra
-(`hornEv_acc`, `dev_cons`, `dev_lsmul`, `dev_ladd_eq`, `dev_ladd_succ` — the
-padding case costs exactly `q²` — and the parity length lemmas `AP_BP_length`),
-and **`cf_bridge`**: `cfPn (cothCF q) (2k) = q·dev(AP (2k+1))`,
-`cfPn (2k+1) = dev(AP (2k+2))`, `cfQn (2k) = dev(BP (2k+1))`,
-`cfQn (2k+1) = q·dev(BP (2k+2))` — the equivalence transform
-`[q; 3q, 5q, …] ↔ 1 + u/(3 + u/(5 + …))` as four `Nat` identities, by 4-way
-parity induction riding the `AP/BP` recursions (`decide`-anchored at `q = 2`).
-**The CF fold (`cothUnitCFCauchySeq`) and the cosh/sinh partial numerators now
-live in one identity system** (weld rows §5 + bridge §7).  New Lean dirt found:
-core `Nat.pow_add` is `propext`-dirty — pure replacement `pow_add_two` via the
-definitional `pow_succ` chain.
-
-## Twelfth arc: weld stage 3b — the series fold + the pointings meet on probes
-
-`ExpLog/CothSeriesCut.lean` (17 PURE): the truncated coth ratio
-`T_J = (2J+1)q·coshNum_J/sinhNum_J` **climbs** — `tcross_id` shows the
-`q²`-cross-terms cancel exactly, leaving `(2J+3)sinh_J − (2J+1)cosh_J ≥ 0` (from
-the termwise `cosh_le_sinh`) — so the series pointing is a genuine fold
-`cothSeriesAb q : AbCutSeq`.  **`two_pointings_agree`**: at `q = 1` the CF fold's
-completed limit (`cothUnitCFCauchySeq`) and the series fold's layer cuts agree on
-the bracket probes — both `true` at `3/2` (series side: the uniform bound
-`2(2J+1)·coshNum + 1 ≤ 3·sinhNum`, margin recursion
-`X_{J+1} = (2J+2)(2J+3)X_J − (4J+3)` safe from `X_0 = 1`), both `false` at `5/4`
-(layer-2 witness + nesting).  Two entirely different pointings, one bracket.
-New core dirt: `Nat.le_of_add_le_add_right` is `propext`-dirty (NatHelper's left
-version + `add_comm` is the pure route).
-
-## Thirteenth arc: weld 3c prep — the row determinant collapses + first upper transfer
-
-`LambertWeld` §8: **`row_det`** — multiplying the cosh weld row by the sinh pairing
-and vice versa, the head products cancel exactly:
-`(vFac·cosh)·X_B − (v0Fac·sinh)·X_A = 2J·(Y_A·X_B − Y_B·X_A)` (proven additively) —
-so the truncated-coth-vs-convergent comparison is governed **entirely by the
-`2J`-tail cross**; `vFac_eq` (`vFac = (2J+1)·v0Fac` — the link to
-`T_J = (2J+1)q·cosh/sinh`), `FNum_pos`, `PF_head_le`.  `CothSeriesCut` §5:
-`coth1_lt_4_3` (margin recursion `X_{J+1} = (2J+2)(2J+3)X_J − (6J+5)`, safe from
-`X_0 = 1`) ⟹ **`T_J` sits below the first odd CF convergent `4/3` uniformly**
-(`coth1_series_below_first_odd`) — the first instance of the upper order transfer.
-Modules: LambertWeld 41 PURE, CothSeriesCut 19 PURE (combined 59 with shared scan).
-
-## Fourteenth arc: weld 3c — base generalized to every `q`, strict climb, core scoped
-
-`CothSeriesCut` §6 (module 22 PURE): **`coth_lt_first_odd`** — `T_J` sits below the
-first odd convergent `r₁ = (3q²+1)/(3q)` for **every** `q ≥ 1` (margin recursion with
-slack `4J(J+1)q²`, exact base `X_0 = 1`; cut level `coth_series_below_r1`) — the
-`(A′)`-family's base case, now `q`-uniform; **`t_mono_strict`** — the truncated coth
-climb is strict, the explicit positive increment for the 3c choice functions.
-
-**3c core, fully scoped (the one remaining piece of the weld)**: sup-equality needs
-the two cross-system families (A′) `T_J ≤ r_{2i+1}` ∀i and (A) `r_{2k} ≤ U_J`; via
-`row_det` they reduce to the tail-cross sign = a **Chebyshev rearrangement over the
-coefficient minors of `(AP, BP)`** with the shared `R·FNum` weights (per-step weight
-ratio `[F−1]/F` is monotone for free); the naive list-induction couples the gaps
-(`QW·γ₂ ≤ F·γ₁`), so the implementation needs finite double-sum infra (list-indexed
-ΣΣ + rearrangement) + the parity minor-sign induction — a dedicated session.
-
-## Fifteenth arc: weld 3c — the Chebyshev engine BUILT (no ΣΣ infra needed)
-
-`LambertWeld` §9 (module 47 PURE): the γ-coupling that blocked the naive induction
-**dissolves** — the mixed-head terms of the cross reduce *exactly* to weight
-dominance of the pointwise gap list (`b₀·as = a₀·bs + g`):
-- `weight_dom`: `2J(2m+2J+1)·q^{2·len}·PF(c, m, J−1) ≤ FNum(m,J)·dev c` for **every**
-  list, no hypotheses — per step it is the `FNum` recursion minus its `+1`;
-- `cross_le`: `PF a·dev b ≤ dev a·PF b` for equal-length lists under `MinorLE a b`
-  (`a/b` increasing along positions) — tails by IH, mixed heads by `weight_dom`
-  on the gap (recovered via `lsub`/`ladd_lsub_recover`; `scaledLE`/`MinorLE`
-  pointwise, subtraction-free).
-New core dirt: `Nat.add_sub_cancel'`/`Nat.sub_add_cancel` are `propext`-dirty —
-pure `add_sub_recover` via `Nat.le.dest` + NatHelper's `add_sub_cancel_right`.
-
-## Sixteenth arc: weld 3c — the minor-sign system PROVEN
-
-`LambertMinor.lean` (NEW, 10 PURE): continuant total positivity at the
-**position-function level** — `apF/bpF n i` (the `i`-th coefficient of
-`Ã_{n−1}/B̃_{n−1}`, totalized by `0` off support: no list edge cases).
-- The naive gap-indexed family opens an infinite ladder (m₂ needs m₃ needs …) —
-  killed by deriving the two-apart cross `E` **on demand**: `ratio_chain` (F
-  with the next level's adjacent minor) through the pivot `bpF (n+1) (t+1)`,
-  zero-pivot case free by **prefix-support** (`bpF_support`: a zero entry kills
-  the tail).
-- The closed system is **4 families** (`MinorSys n`): `m₁` adjacent minors, `D`
-  same-position cross-level, `F` one-apart, `G` reverse one-apart; `minorSys :
-  ∀ n, MinorSys n` by two-step strong induction, every step **termwise** (no
-  cancellation) after the bilinear `ring_nat` expansion of the three-term
-  recursion (m₁(n+2) ⟸ m₁(n+1)+D(n)+E(n)+m₁(n); D ⟸ m₁(n+1)+D(n); F ⟸
-  m₁(n+2)+D(n+1); G ⟸ m₁(n+2)+E(n+1)).
-- Numeric anchors at level 5 (`Ã₄ = [945,420,15]`, `B̃₄ = [945,105,1]`) check.
-
-## Seventeenth arc (closure marathon): the weld's plumbing CLOSED, exp(2/q) unconditional
-
-- **(A′) family complete** (`LambertOrder`, 36 PURE): `minor_all` (all-gap minors,
-  pivot chaining + prefix-support), `nth`-transport of the sign system onto the weld
-  lists, zero-pad lemmas (`dev` gains `q²`, `PF` unchanged), `cf_det_even_nat` +
-  `dev_cross_det` (det-one floor through the bridge), and `series_le_odd` —
-  **`T_J ≤ p_{2i+1}/q_{2i+1}` for every `q, i, J`** (`cross_le` twice, `ratio_chain`
-  through the `dev (AP (2i+1))` pivot, `v0Fac` cancels).
-- **W1 at the limit level**: `cf_limit_false_of_series_false` — strict series reading
-  + unit odd–even gap force the CF limit `false` at choice layer `L = k·s_J + k + 2`;
-  contrapositive `series_true_of_cf_limit_true` = the universal upper agreement.
-- **`exp(2/q)` completes UNCONDITIONALLY** (`ExpMoebius`, 20 PURE): cut-Möbius —
-  odd convergents under `z ↦ (z+1)/(z−1)` climb with cross-det `2·a_{2L+3}`;
-  `dN = p − q` rides the same recurrence (invariant `dN_add`, Fibonacci growth);
-  `expTwoOverQCFCauchySeq`, total modulus `k+2`, **no measure hypothesis** —
-  the series `hmeas` dodged by presentation switch.  `e² ∈ (22/3, 37/5]`.
-- **Full weld closed modulo ONE brick** (`LambertOrder` §7–§8): lower transfer climbs
-  in `J` free (`lower_step`, side condition even < first-odd via chained dets);
-  `i = 0` closed (`lower_zero`); `LowerBase` (matched-truncation flip at `J₀ = 2i+1`)
-  isolated, `decide`-anchored at `(q=1,i=1,2), (q=2,i=1)`.  Given it: `W2`,
-  `cothSeriesCauchySepOfBase` (series fold completes, certificate `W2 ∘ W1`),
-  `weld_limit_agreement` (the two pointings of `coth(1/q)` agree on EVERY probe).
-
-## Eighteenth arc (multi-agent round): LowerBase proof blueprint FOUND and verified
-
-Goal-directed multi-agent debate (4 parallel attack angles) + independent exact
-re-verification produced the complete paper proof of `LowerBase`
-(`research-notes/frontiers/lowerbase_blueprint.md`):
-- **Weld Casoratian** (own discovery): `(R_J, M_J)` evolves in `i` by a det-1
-  matrix ⟹ `R_{J+1}M_J = R_JM_{J+1} + K_J` with `K_J` = the proven `tcross_id`
-  quantity (`≥ 2c_J`).  Flip criterion + ratio descent fall out.
-- **Master identity** (two agents converged, proof checked): the untruncated
-  Padé remainder per coefficient, by the constant-weight-ratio double recursion
-  + the absorption `(2n+2m+5) = (2n+3)+(2m+2)`.  Closed forms: `devB_i[k]`,
-  slivers (`[q⁰]R_J = 2J+1−(i+1)(2i+1)`, top `= −(4i+1)!!/(2J+3)`), flip
-  leading `(4i+2)!!`.
-- **Dominance with ≥ 10× slack, t-coefficientwise** (`t = q²−1`):
-  `R_{2i+1}(i) − q^{2(i−1)}((4i+2)!!q² − (4i+1)!!) ∈ ℕ[t]`; inputs = halving
-  lemma (`2·A[s+1] ≤ A[s]`) + `(4i+1)!! ≤ (4i+2)!!/2`.  The 1.0098-tight
-  crunch of the coupling route is dissolved.
-
-## Open Problems (priority order)
-1. **Formalize the LowerBase blueprint** (`lowerbase_blueprint.md`, plan §Lean):
-   master_identity (double recursion over AP/BP lists) → halving → flip
-   dominance → `LowerBase` → instantiate `cothSeriesCauchySepOfBase` +
-   `weld_limit_agreement` unconditionally — **the weld closes**.  Optional
-   independent brick: `weld_casoratian` (hooks `tcross_id` + `cf_det_even_nat`).
-   Session-scale marathon, no open mathematics remaining.
-2. **ζ(3) free modulus — BLUEPRINT COMPLETE** (`zeta3_blueprint.md`): both bricks
-   verified — lcm bound via finitized Chebyshev 30-block recursion (c = √10,
-   7.4%/n margin; Hanson rejected), integrality via pure divisibility chains
-   (no p-adics).  Remaining: formalization (~1.2k + ~2k lines).
-3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient
-   commutation inequality).
-4. **Compactness extraction** (wall (iv) smooth remainder) — record-only.
-5. **Promotion**: GeometrizationConjecture discrete-curvature sub-tree + the
-   modulus-degree ladder cluster (now incl. `ExpRationalCut`, `toCauchySep`,
-   `ContinuedFractionModulus` §6) — `theory/PROMOTION_CRITERIA.md`.
-
-## Three-tier state
-- **Tier-2 added**: `WeightedGreen.lean`, `DiscreteGaussian.lean`, `DiscreteSurgery.lean`
-  (GeometrizationConjecture, INDEX.md updated); `Binomial.lean` extended (absorption +
-  log-concavity); infra additions in `IntGridSum`/`OrderMul`.
-- **Frontier notes updated**: `research-notes/frontiers/ricci_flow_smooth_core.md` (new
-  §"The four wall items: discrete cores closed"), `.../a6_ricci_core/
-  discrete_ricci_flow_ladder.md` (rungs 8–10).
-- **Promotion candidate**: the `GeometrizationConjecture` discrete-curvature sub-tree
-  (now incl. the four wall-item files) for a consolidated `theory/` chapter — check
-  `theory/PROMOTION_CRITERIA.md` H1–H4 + S1–S3 next session.
-
-## File map (session)
-```
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/WeightedGreen.lean     ← NEW (i): weighted IBP + gradient-flow identity
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/DiscreteGaussian.lean  ← NEW (ii)+(iii): kernel normalization + Li–Yau + Harnack
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/DiscreteSurgery.lean   ← NEW (iv): surgery ledger + dichotomy + A6 exact count
-lean/E213/Lib/Math/Combinatorics/Binomial.lean                              ← +vanish/absorption/log-concavity
-lean/E213/Lib/Math/Combinatorics/IntGridSum.lean                            ← +gridSumZ_antisym_zero
-lean/E213/Meta/Int213/OrderMul.lean                                         ← +eq_zero_of_two_mul_eq_zero
-research-notes/frontiers/ricci_flow_smooth_core.md                          ← wall §: four discrete cores closed
-research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md        ← rungs 8–10
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertWeld.lean            ← weld core §1–§9 (ladder, PF/AP/BP, dev, cf_bridge, row_det, Chebyshev engine)
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/CothSeriesCut.lean          ← coth series fold + first-odd bound + strict climb
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertMinor.lean           ← minor-sign system + minor_all (continuant total positivity)
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertOrder.lean           ← NEW: order transfer -- series_le_odd, W1, lower reduction, conditional weld
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/ExpMoebius.lean             ← NEW: exp(2/q) unconditional (cut-Moebius, e^2 in (22/3, 37/5])
-research-notes/frontiers/modulus_degree_ladder.md                           ← weld status: minor sign proven, plumbing remains
-```
+## Next candidates
+1. **Promotion**: the Lambert weld sub-tree (Weld/Minor/Order/MasterId/Poly/
+   Bridge) is now closed — check `theory/PROMOTION_CRITERIA.md` H1–H4 + S1–S3,
+   write the `theory/` mirror chapter, archive the scratch notes.
+2. ζ(3) formalization marathon (two verified blueprints waiting).
+3. `weld_casoratian` (§9 LambertOrder) — the exact `i`-invariant identity,
+   an independent certificate brick.
