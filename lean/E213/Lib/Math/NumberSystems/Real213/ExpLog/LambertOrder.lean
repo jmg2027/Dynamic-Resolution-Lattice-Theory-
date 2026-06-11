@@ -2,6 +2,7 @@ import E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMinor
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius
 import E213.Meta.Nat.PolyNatMTactic
+import E213.Meta.Int213.OrderMul
 
 /-!
 # LambertOrder — the upper order transfer: the series sits below every odd convergent
@@ -852,5 +853,98 @@ theorem weld_casoratian (q : Nat) (i J : Nat) :
         + dev q (AP (2*i+1)) * sinhNum q (J+1)
           * ((2*J+1) * (q*q) * dev q (BP (2*i+2)) * coshNum q J)
         + (2*J+1) * coshNum q J * sinhNum q (J+1) := by ring_nat
+
+/-! ## §10 — the named ℤ Casoratian and the flip criterion
+
+`weld_casoratian` is the subtraction-free `ℕ` shadow.  Over `ℤ` the same fact is the
+clean unimodular recurrence the docstring names: with the lower cross `R_J` and the
+upper margin `M_J` as honest signed quantities, `R_{J+1}·M_J = R_J·M_{J+1} + K_J`.
+This is the foothold every consequence pivots on; the first is the **flip criterion**
+(blueprint Discovery 1): once the Casoratian constant dominates the signed lower
+contribution and the margin is positive, the next lower cross is forced positive. -/
+
+open E213.Meta.Int213.Order
+open E213.Meta.Int213.OrderMul
+
+/-- The **lower cross** `R_J(i) = (2J+1)·devB_i·c_J − devA_i·s_J` over `ℤ` (`LowerBase`'s
+    quantity, now signed — it may be negative before the flip). -/
+def weldR (q i J : Nat) : Int :=
+  (2 * (J : Int) + 1) * (dev q (BP (2*i+1)) : Int) * (coshNum q J : Int)
+    - (dev q (AP (2*i+1)) : Int) * (sinhNum q J : Int)
+
+/-- The **upper margin** `M_J(i) = P·s_J − (2J+1)q²·Q·c_J` over `ℤ`
+    (`P = devA_{i+½}`, `Q = devB_{i+½}` at level `2i+2`). -/
+def weldM (q i J : Nat) : Int :=
+  (dev q (AP (2*i+2)) : Int) * (sinhNum q J : Int)
+    - (2 * (J : Int) + 1) * ((q : Int) * (q : Int)) * (dev q (BP (2*i+2)) : Int)
+        * (coshNum q J : Int)
+
+/-- The **Casoratian constant** `K_J = (2J+3)·c_{J+1}·s_J − (2J+1)·c_J·s_{J+1}` over `ℤ`
+    (the level-independent truncation-Casoratian of the pair `(R, M)`). -/
+def weldK (q J : Nat) : Int :=
+  (2 * (J : Int) + 3) * (coshNum q (J+1) : Int) * (sinhNum q J : Int)
+    - (2 * (J : Int) + 1) * (coshNum q J : Int) * (sinhNum q (J+1) : Int)
+
+/-- ★★★★★ **The weld Casoratian, named over `ℤ`**: `R_{J+1}·M_J = R_J·M_{J+1} + K_J`.
+    One firing of the det-one floor (`dev_cross_det`, cast to `ℤ`): the whole
+    difference factors as `K_J · (detpair − detval)`, and the floor makes the second
+    factor vanish.  The clean unimodular recurrence behind the subtraction-free
+    `weld_casoratian`. -/
+theorem weld_casoratian_int (q i J : Nat) :
+    weldR q i (J+1) * weldM q i J = weldR q i J * weldM q i (J+1) + weldK q J := by
+  -- the det-one floor, cast to ℤ
+  have hdetI : (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)
+      = (q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1 := by
+    have hc : (↑(dev q (AP (2*i+2)) * dev q (BP (2*i+1))) : Int)
+        = ↑(q * dev q (AP (2*i+1)) * (q * dev q (BP (2*i+2))) + 1) :=
+      congrArg Int.ofNat (dev_cross_det q i).symm
+    rw [Int.ofNat_mul, Int.ofNat_add, Int.ofNat_one, Int.ofNat_mul, Int.ofNat_mul,
+        Int.ofNat_mul] at hc
+    rw [hc]; ring_intZ
+  -- `ring_intZ` reads `↑(J+1)` and `↑J` as unrelated atoms; bridge the successor coefficient
+  have hsucc : ((J + 1 : Nat) : Int) = (J : Int) + 1 := rfl
+  -- the difference factors through the floor; the floor kills it
+  have key : weldR q i (J+1) * weldM q i J - (weldR q i J * weldM q i (J+1) + weldK q J)
+      = weldK q J * ((dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)
+          - ((q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1)) := by
+    unfold weldR weldM weldK; rw [hsucc]; ring_intZ
+  -- the floor `detpair = detval` collapses the factor (avoiding `ring_intZ`'s `·0`/`0+` blind spot)
+  have hzero : weldR q i (J+1) * weldM q i J - (weldR q i J * weldM q i (J+1) + weldK q J) = 0 := by
+    rw [key, hdetI, E213.Meta.Int213.Order.sub_self_zero, E213.Meta.Int213.PolyIntM.mul_zeroZ]
+  -- `A − (B+C) = 0 ⟹ A = B + C` (the descent rearrangement, `int_eq_of_add_neg`)
+  have hgoal := int_eq_of_add_neg
+    (show weldR q i (J+1) * weldM q i J + -(weldR q i J * weldM q i (J+1) + weldK q J) = 0
+      from hzero)
+  rw [Int.add_zero] at hgoal
+  exact hgoal
+
+/-- `0 < x·c` with `0 < c` forces `0 < x` (right cancellation of a positive factor). -/
+private theorem pos_of_mul_pos_right {x c : Int} (h : 0 < x * c) (hc : 0 < c) : 0 < x := by
+  have hle : (0 : Int) ≤ x := by
+    refine le_of_mul_le_mul_right_pos ?_ hc
+    rw [E213.Meta.Int213.zero_mul]; exact le_of_lt h
+  rcases pos_zero_or_neg x with hx | hx | hx
+  · exact hx
+  · rw [hx, E213.Meta.Int213.zero_mul] at h; exact absurd h (int_lt_irrefl 0)
+  · exact absurd hle (not_le_of_lt hx)
+
+/-- ★★★★ **The flip criterion** (blueprint Discovery 1, signed form).  If the upper
+    margin is positive (`0 < M_J`) and the Casoratian constant outweighs the signed
+    lower contribution (`−(R_J·M_{J+1}) < K_J`), then the next lower cross is positive
+    (`0 < R_{J+1}`).  Sign-flip forcing straight from `weld_casoratian_int`:
+    `R_{J+1}·M_J = R_J·M_{J+1} + K_J > 0`, then cancel the positive `M_J`.
+
+    (The blueprint's `K_J > |R_J|·M_{J+1}` is the `0 ≤ M_{J+1}` specialisation, since
+    `−R_J ≤ |R_J|`; this signed form is sharper and hypothesis-free in the sign of `R_J`.) -/
+theorem weld_flip_criterion (q i J : Nat) (hMJ : 0 < weldM q i J)
+    (hdom : - (weldR q i J * weldM q i (J+1)) < weldK q J) :
+    0 < weldR q i (J+1) := by
+  have hpos : 0 < weldR q i (J+1) * weldM q i J := by
+    rw [weld_casoratian_int]
+    have h1 : (0 : Int) < weldK q J - (-(weldR q i J * weldM q i (J+1))) := sub_pos_of_lt hdom
+    rw [show weldK q J - (-(weldR q i J * weldM q i (J+1)))
+          = weldR q i J * weldM q i (J+1) + weldK q J from by ring_intZ] at h1
+    exact h1
+  exact pos_of_mul_pos_right hpos hMJ
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
