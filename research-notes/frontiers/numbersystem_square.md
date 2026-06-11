@@ -231,7 +231,26 @@ fold-back (grade 3), so backward iteration escapes to the cut layer
 where no slot-born selector survives (classically visible as the
 non-uniqueness of real-height tetration).  Central rebuild theorem
 candidate: *the rung's question-answers form an action-stable layer ⟺
-the staircase climbs one rung*.  Separation
+the staircase climbs one rung*.
+**The three why's (originator's probe, second round)**: (1) append is
+the start ✓; (2) + and × pattern together because their value-objects
+(segment, **grid**) carry the swap symmetry that count-forgetting
+turns into commutativity (segment: proved, `UnitList.append_comm`;
+grid: the transposition double-count — formalizable brick, ×-comm
+from append/count), and commutativity keeps the rung's action a
+translation of its own operation, whose iterates stay translations
+(the fold engine `x+ab`, `x·a^b`); ^'s value-object (**tree/strings**)
+has no transposition, commutativity dies, the action splits
+(`question_fuse` at step zero) and is a translation of nothing.
+(3) "no fold-back for logs" was an over-reduction (the fourth caught
+this session): split honestly into the **proven floor** — linear
+fold-back absence = multiplicative relations among naturals =
+exponent vectors / FTA (`2^a·3^b = 2^c·3^d → a=c ∧ b=d`,
+ℕ-native, next formalizable brick, `vp` ground) — and the **open
+ceiling** — nonlinear fold-back absence is Schanuel-conjecture
+territory, classically unresolved, must carry a conjecture tag.
+"Infinitely many fold-back candidates, all to be excluded" is exactly
+the unresolved content.  Separation
 discipline (originator): pair-part and operation-part must stay
 unmixed — `PairOp`'s `f`-parametrization is exactly that separation,
 and the pair-layer operations are *derived* objects
