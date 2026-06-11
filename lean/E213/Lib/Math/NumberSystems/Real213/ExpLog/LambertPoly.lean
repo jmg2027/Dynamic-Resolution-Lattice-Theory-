@@ -316,4 +316,95 @@ theorem lowerbase_one (q : Nat) (hq : 1 ≤ q) :
   have h := lowerbase_of_suffdom q hq 1 (by decide) suffdom_one
   exact h
 
+/-! ## §7 — the suffix–convolution recursion (toward general-`i` suffix dominance)
+
+Suffix sums of a convolution obey a clean head-peel recursion: `drop` commutes
+with `ladd` and `lsmul`, so
+
+  `Suf k (lmulC (a₀ :: as) b) = a₀·(Suf k b) + Suf (k−1) (lmulC as b)`
+
+(`Suf k l := evc 1 (l.drop k)`; `Nat`-subtraction gives exactly the right
+boundary semantics — for `k = 0` the shift contributes its full sum).  This is
+the induction vehicle for the remaining brick: the general-`i` suffix
+dominance of the two `LowerBase` convolutions. -/
+
+theorem ladd_nil : ∀ l : List Nat, ladd l [] = l
+  | [] => rfl
+  | _ :: _ => rfl
+
+theorem drop_ladd : ∀ (k : Nat) (a b : List Nat),
+    List.drop k (ladd a b) = ladd (List.drop k a) (List.drop k b)
+  | 0, _, _ => rfl
+  | k + 1, [], b => by
+    show List.drop (k + 1) b = ladd [] (List.drop (k + 1) b)
+    rfl
+  | k + 1, _ :: as, [] => by
+    show List.drop k as = ladd (List.drop k as) []
+    rw [ladd_nil]
+  | k + 1, _ :: as, _ :: bs => by
+    show List.drop k (ladd as bs) = ladd (List.drop k as) (List.drop k bs)
+    exact drop_ladd k as bs
+
+theorem drop_lsmul : ∀ (k c : Nat) (l : List Nat),
+    List.drop k (lsmul c l) = lsmul c (List.drop k l)
+  | 0, _, _ => rfl
+  | k + 1, c, [] => rfl
+  | k + 1, c, _ :: ls => by
+    show List.drop k (lsmul c ls) = lsmul c (List.drop k ls)
+    exact drop_lsmul k c ls
+
+theorem evc_one_shift (l : List Nat) : evc 1 (0 :: l) = evc 1 l := by
+  show 0 + 1 ^ 2 * evc 1 l = evc 1 l
+  rw [Nat.zero_add, show (1 : Nat) ^ 2 = 1 from rfl, Nat.one_mul]
+
+/-- ★★★ **The suffix–convolution head-peel**: `Nat`-subtraction handles the
+    boundary (`k = 0` keeps the shifted tail whole). -/
+theorem suf_cons (k a₀ : Nat) (as b : List Nat) :
+    evc 1 (List.drop k (lmulC (a₀ :: as) b))
+      = a₀ * evc 1 (List.drop k b) + evc 1 (List.drop (k - 1) (lmulC as b)) := by
+  show evc 1 (List.drop k (ladd (lsmul a₀ b) (0 :: lmulC as b))) = _
+  rw [drop_ladd, evc_ladd, drop_lsmul, evc_lsmul]
+  cases k with
+  | zero =>
+    show a₀ * evc 1 b + evc 1 (0 :: lmulC as b)
+        = a₀ * evc 1 b + evc 1 (lmulC as b)
+    rw [evc_one_shift]
+  | succ k' => rfl
+
+/-- Length congruence for `lmulC` (what `evc_dom`'s length hypothesis needs,
+    without computing the length): componentwise via `ladd`-length congruence. -/
+theorem ladd_length_congr : ∀ (a b a' b' : List Nat),
+    a.length = a'.length → b.length = b'.length →
+    (ladd a b).length = (ladd a' b').length
+  | [], b, [], b', _, hb => hb
+  | [], _, _ :: _, _, h, _ => Nat.noConfusion h
+  | _ :: _, _, [], _, h, _ => Nat.noConfusion h
+  | _ :: as, [], _ :: as', [], ha, _ => by
+    show as.length + 1 = as'.length + 1
+    exact ha
+  | _ :: _, [], _ :: _, _ :: _, _, hb => Nat.noConfusion hb
+  | _ :: _, _ :: _, _ :: _, [], _, hb => Nat.noConfusion hb
+  | _ :: as, b₀ :: bs, _ :: as', b₀' :: bs', ha, hb => by
+    show (ladd as bs).length + 1 = (ladd as' bs').length + 1
+    exact congrArg (· + 1)
+      (ladd_length_congr as bs as' bs' (Nat.succ.inj ha) (Nat.succ.inj hb))
+
+theorem lsmul_length_eq (c : Nat) (l : List Nat) : (lsmul c l).length = l.length :=
+  E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld.lsmul_length c l
+
+theorem lmulC_length_congr : ∀ (a b a' b' : List Nat),
+    a.length = a'.length → b.length = b'.length →
+    (lmulC a b).length = (lmulC a' b').length
+  | [], _, [], _, _, _ => rfl
+  | [], _, _ :: _, _, h, _ => Nat.noConfusion h
+  | _ :: _, _, [], _, h, _ => Nat.noConfusion h
+  | a₀ :: as, b, a₀' :: as', b', ha, hb => by
+    show (ladd (lsmul a₀ b) (0 :: lmulC as b)).length
+        = (ladd (lsmul a₀' b') (0 :: lmulC as' b')).length
+    refine ladd_length_congr _ _ _ _ ?_ ?_
+    · rw [lsmul_length_eq, lsmul_length_eq]; exact hb
+    · show (lmulC as b).length + 1 = (lmulC as' b').length + 1
+      exact congrArg (· + 1)
+        (lmulC_length_congr as b as' b' (Nat.succ.inj ha) hb)
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertPoly
