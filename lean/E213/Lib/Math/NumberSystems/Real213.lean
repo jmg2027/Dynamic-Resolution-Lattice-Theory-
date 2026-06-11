@@ -120,6 +120,7 @@ import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMinor
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius
 import E213.Lib.Math.NumberSystems.Real213.NuEscape
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberSystems.Real213`.
