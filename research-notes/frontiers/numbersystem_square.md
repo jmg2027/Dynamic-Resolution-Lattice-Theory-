@@ -176,6 +176,38 @@ poles:
   operations are primary; wrapping operations are their fiber
   readouts.
 
+**§ −1 — the rung below `+` (★ CLOSED, `Meta/Nat/UnitList.lean`,
+9 PURE / 0 DIRTY).**  The originator's floor: forget algebra entirely
+and start from the list and order alone.  The sorted list is the list
+of **units** — no sorting exists or is needed, since indistinguishable
+elements make insertion order and count order one thing.  `append` is
+the operation one diagonal below `+`: associative free, **not
+commutative in general** (`append_not_comm_general`), but on unit
+lists commutativity is **born** (`append_comm` — units bubble freely),
+and `+` = the count readout of append (`count_append`), so
+**the commutativity of `+` is the shadow of unit-list append
+commutativity** (`add_comm_from_append`): counting forgets
+arrangement, and what survives the forgetting commutes.  Two
+readings, both Lens choices: the completed list with operations as
+addresses, or operations as applications of append.
+
+**The staircase programme (open).**  The diagonal ascent
+`append → + → × → ^ → ↑↑` is iteration: `H_{n+1}(a,b)` = iterate `b`
+times the action `H_n(a,·)`.  Conjectured structure to derive from
+the list alone: (i) the **counter-append law**
+`f^(b+c) = f^b ∘ f^c` is *free* at every rung — it is append at the
+counter slot; (ii) each rung's interaction law (`a(b+c)=ab+ac`,
+`a^(b+c)=a^b·a^c`) requires additionally the **translation property**
+— the iterated action reads as combining-with-a-constant
+(`f^b(x) = x ⊙ f^b(e)`), an action-commutation fact; (iii) the
+translation property fails for `x ↦ a^x` (no readout linearizes it),
+which is the staircase-level *reason* for the rung-3 wall already
+proved at the pair level (`pow_lift_impossible`).  Separation
+discipline (originator): pair-part and operation-part must stay
+unmixed — `PairOp`'s `f`-parametrization is exactly that separation,
+and the pair-layer operations are *derived* objects
+(`pairLift_witness`, `cross_rule_forced`), never definitions.
+
 **§4 — sandwich-first (★ CLOSED, `PairOp` §4, 25 PURE total).**  On
 the sorted list, order is the proper probe; equality facts are its
 shadows.  Probing with the sandwich splits its halves, a separation
