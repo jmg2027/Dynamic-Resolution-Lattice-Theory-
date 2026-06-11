@@ -18,6 +18,7 @@ import E213.Lib.Physics.Atomic.IE.Period4
 import E213.Lib.Physics.Atomic.IE.PeriodClosures
 import E213.Lib.Physics.Atomic.IE.PeriodicTable
 import E213.Lib.Physics.Atomic.IE.SecondRow
+import E213.Lib.Physics.Atomic.IE
 
 /-! Spec-as-code entry point for E213.Lib.Physics.Atomic.
     Atomic-physics observables (Bohr, Bond angles, Helium, Hydrogen,

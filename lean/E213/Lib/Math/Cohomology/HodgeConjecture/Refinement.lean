@@ -7,6 +7,7 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Refinement.LefschetzHyperplane
 import E213.Lib.Math.Cohomology.HodgeConjecture.Refinement.LefschetzOneOne
 import E213.Lib.Math.Cohomology.HodgeConjecture.Refinement.StandardConjectures
 import E213.Lib.Math.Cohomology.HodgeConjecture.Refinement.Voisin
+import E213.Lib.Math.Cohomology.HodgeConjecture.Refinement.AtomicGenerationHeptad
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.HodgeConjecture.Refinement`.
 

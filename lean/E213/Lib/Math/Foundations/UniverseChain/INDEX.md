@@ -73,6 +73,8 @@ The same theorems are scattered across:
   * `Lib/Physics/Simplex/Counts.lean`
   * `Lib/Math/Cohomology/Fractal/Level.lean`
   * `Lib/Math/Foundations/ResolutionLimit.lean`
+  * `PhiThreeWayBridge.lean` — three-way φ bridge — Möbius P, algebra tower, Pell-Fib
+  * `PhysicsRigor.lean` — universe-chain physics deployment numerical bounds
 
 This sub-tree makes the deductive flow Atomicity → 5 → (3, 2) →
 parametric recursion visible without hopping through unrelated

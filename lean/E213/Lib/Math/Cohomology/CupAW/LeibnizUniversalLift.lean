@@ -5,7 +5,7 @@ import E213.Lib.Math.Cohomology.Delta.Pointwise
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Physics.Simplex.Counts
 /-!
-# Leibniz universal lift template — G111 COH-3
+# Leibniz universal lift template — the COH-3 template
 
 Captures the structural pointwise-lift pattern shared by the 5
 `leibniz_universal_*` proofs (5_1_1, 4_1_2, 4_2_2, +) in

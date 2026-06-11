@@ -1,7 +1,7 @@
 import E213.Lib.Math.NumberTheory.DyadicFSM.PhiMod5
 import E213.Lib.Math.NumberTheory.DyadicFSM.PellMatrix
 /-!
-# Pell ↔ Fibonacci bridge (mod p) — G119 Phase 3.2 reduction
+# Pell ↔ Fibonacci bridge (mod p) — the Phase 3.2 reduction
 
 The classical identity `U_k = F_{2k}` (where `U_k` is the Pell number
 satisfying `U_{k+1} = 3·U_k - U_{k-1}` and `F_n` is the standard
@@ -119,7 +119,7 @@ At split primes p (5 QR mod p), the Phase 3.2 chain requires:
 
 The universal claim follows from FLT for phi (multi-session); each
 per-prime instance is decidable.  The smokes below verify the
-condition at the 11 empirically-tight split primes from the G119
+condition at the 11 empirically-tight split primes from the
 Predictor23 chain. -/
 
 /-- Smoke at p=11 (split, predict (11-1)/2 = 5):

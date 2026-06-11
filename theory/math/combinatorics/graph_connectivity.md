@@ -33,7 +33,7 @@ The whole file is ∅-axiom.
 
 ## Bipartite instantiation
 
-`Cohomology/Bipartite/Parametric/KernelConstancyUniversal.lean`
+`Cohomology/Bipartite/Parametric/Betti/KernelConstancyUniversal.lean`
 instantiates the framework on K_{NS,NT}^{(c)}:
 
   - `bipAdj` — the S–T adjacency (S-side index `< NS`, T-side `≥ NS`).
@@ -52,7 +52,7 @@ The only graph fact special to the bipartite deployment is
 
 - `lean/E213/Lib/Math/Combinatorics/GraphConnectivity.lean` — the
   abstract framework
-- `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/KernelConstancyUniversal.lean`
+- `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/Betti/KernelConstancyUniversal.lean`
   — bipartite instantiation + the direct (division-free) kernel close
 
 ## Connection

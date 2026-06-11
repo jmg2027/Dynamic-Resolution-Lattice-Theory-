@@ -67,6 +67,13 @@ the thing is not distinguished from itself.  Allowing `x/x`
 would directly contradict the content of clause 1 (primitive
 distinction).
 
+Neither feature is a constraint imposed on a pairing mechanism
+that could have behaved otherwise.  Symmetry records an
+*absence* (no order criterion exists to separate `a/b` from
+`b/a`); anti-reflexivity records an *absence* (no operand exists
+for self-distinguishing).  Both are read off the completed act
+of §2.3, not bolted onto a machine.
+
 ---
 
 ## §3.4 The forcing chain: 1 → 2 → 3 → 4
@@ -92,6 +99,14 @@ residue, and more than four would add what is already derived
 from these.  Four is not the result of taste; it is **the**
 number that closes the operation.
 
+The arrows of the chain are **logical forcing, not temporal
+stages**.  Nothing happens "first" in the act of pointing — all
+four clauses are simultaneously present (§2.3, §5.5).  The chain
+is the order in which an *explanation* walks the one complete
+event, the same expository shadow that §2.2 notes for the
+notation `a`, `b`, `a/b`: a Lens reading of the act after the
+fact, not the act's internal sequence.
+
 ---
 
 ## §3.5 Algebraic signature — the residue has a name
@@ -108,7 +123,7 @@ with iterator `P(x) = (2x + 1) / (x + 1)` records the axiom's
 content directly.  The constant `2` is two somethings; the
 constant `1` is identity preservation (`det P = 1`).  The trace
 `2 + 1 = 3` reads as `NS`, the spatial-axis cardinality from the
-shape parameters of §1.3.  The discriminant
+shape parameters of §4.3.  The discriminant
 `trace² − 4 · det = 9 − 4 = 5` reads as `NS + NT`, the atomicity
 sum.  And the eigenvalues `(3 ± √5) / 2 = φ², 1/φ²` carry the
 golden ratio φ = (1 + √5) / 2 as the matrix's fixed point.
@@ -123,7 +138,7 @@ commitment statement; the Möbius form is their algebraic
 
 ### Fibonacci at low order — the shape was not chosen
 
-The shape parameters of §1.3 are `(NS, NT, d) = (3, 2, 5)`.
+The shape parameters of §4.3 are `(NS, NT, d) = (3, 2, 5)`.
 Read as a Fibonacci sequence, these are `(F₄, F₃, F₅)` —
 three consecutive terms.  The relation `F_{k} = F_{k−1} + F_{k−2}`
 gives `5 = 3 + 2`, which is the axiom's atomicity sum from above.

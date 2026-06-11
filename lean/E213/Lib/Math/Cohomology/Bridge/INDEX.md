@@ -4,7 +4,7 @@ Bridge layer connecting 213 cohomology to Real213 / AlphaEM /
 Paper1 chiral structure / Leibniz finding.  Anti-corruption layer
 between cohomology results and external clusters.
 
-## Files (9)
+## Files (10)
 
 ### To other Math clusters
   - `Real213Bridge.lean`           — to Real213 (cuts ↔ cohomology)
@@ -25,6 +25,7 @@ between cohomology results and external clusters.
 ### History / external
   - `Paper1Chiral.lean`            — Paper1 chiral-structure bridge
   - `LeibnizFinding.lean`          — Leibniz finding writeup
+  - `PredicateAsCochain.lean` — predicate-as-cochain closure deepening (axiom §9.3)
 
 ## Bridge discipline (CLAUDE.md)
 

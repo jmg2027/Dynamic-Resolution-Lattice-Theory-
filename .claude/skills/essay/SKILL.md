@@ -45,7 +45,7 @@ sections containing the 213-native expression.  Examples:
 | equality | `theory/lens/algebra.md` + `theory/lens/universal.md` |
 | residue | `seed/AXIOM/01_residue.md` + `theory/math/foundations/universe_chain.md` Möbius P |
 | gauge | `theory/physics/symmetry/c3_chain.md` |
-| infinity | `seed/RESOLUTION_LIMIT_SPEC.md` |
+| infinity | `seed/AXIOM/06_lens_readings.md` §6.7 + `Lib/Math/Foundations/ResolutionLimit.lean` |
 
 If no clear chapter exists, the concept may not be promoted yet —
 flag this honestly; do not invent.
@@ -147,13 +147,12 @@ Continuous essay style, not bullets.  Headers are navigation only.
 
 Don't pad.  If 300 words suffices, stop.
 
-## Saving the essay (optional, NOT default)
+## Saving the essay (DEFAULT — write the file)
 
-Default: essay lives in conversation only.
-
-Save to file ONLY if user explicitly indicates canonical-worthiness
-OR essay introduces a discovery that should be permanent.  Possible
-homes:
+Default: **write the essay to a file** in `theory/`.  An essay that
+passed the protocol (derivation through real citations, dual function,
+constructive accessibility) is permanent-tier content — save it.  Pick
+the home by facet:
 
   - `theory/<area>/<concept>.md` — canonical chapter for the concept
   - `theory/essays/<topic>.md` — cross-cutting essay
@@ -161,15 +160,26 @@ homes:
     `synthesis/` for essays that tie multiple arcs together; pick the
     sub-dir matching the essay's facet — see `theory/essays/INDEX.md`)
 
-When saving, **convert the in-conversation essay to timeless form**:
-drop session/temporal references ("this session", "just closed"),
-keep no `G##` tags or change-vocabulary (hook-enforced in `theory/`),
-keep the open-frontier section, and update the
-`promotion_essay_log.md` Outcome column from `in-conversation` to the
-written path.
+After writing, **register it**: add the one-line entry to the matching
+theme section of `theory/essays/INDEX.md` (or the area INDEX for a
+chapter), bump the essay/chapter counts in `theory/essays/INDEX.md` +
+`theory/INDEX.md`, and set the `promotion_essay_log.md` Outcome column
+to the written path.
 
-Forced essays violate "rest is taste" (round-2 agent F finding).
-Don't write chapters that weren't asked for.
+When saving, **write in timeless form from the start**: no
+session/temporal references ("this session", "just closed"), no `G##`
+tags or change-vocabulary (hook-enforced in `theory/`), keep the
+open-frontier section.
+
+**Skip the file only when** the essay is a throwaway clarification with
+no durable discovery — a re-statement of one existing chapter with no
+new cross-frame, or a quick adversarial probe the user is unlikely to
+revisit.  In that case keep it in-conversation and log it with
+Outcome = "in-conversation".  When unsure, save: a registered essay is
+cheap, a lost synthesis is not.
+
+Do not, however, write essays that weren't asked for — the trigger is a
+genuine driving question, not a quota.
 
 ## Log the event
 

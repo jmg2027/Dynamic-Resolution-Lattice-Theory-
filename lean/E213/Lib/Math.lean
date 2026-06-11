@@ -75,6 +75,16 @@ import E213.Lib.Math.NumberTheory.GoldenFieldBridge
 import E213.Lib.Math.Analysis.Cauchy
 import E213.Lib.Math.Probability.MaxEntropy
 import E213.Lib.Math.Algebra.DetSpectrumPoles
+import E213.Lib.Math.Algebra.Icosahedral
+import E213.Lib.Math.Algebra.Mobius213.Px
+import E213.Lib.Math.Algebra.Mobius213.TowerConvergence
+import E213.Lib.Math.Algebra.Mobius213GrandUnification
+import E213.Lib.Math.Algebra.Mobius213SignatureAxisCatalogPhase2
+import E213.Lib.Math.Foundations.GradedRingConfigCountBridge
+import E213.Lib.Math.Foundations.ParadigmDomainPhysics
+import E213.Lib.Math.Foundations.Search
+import E213.Lib.Math.NumberSystems.Padic
+import E213.Lib.Math.NumberTheory.IntSqrt
 
 /-! Spec-as-code entry point for `E213.Lib.Math` — full 213 mathematics library.
 

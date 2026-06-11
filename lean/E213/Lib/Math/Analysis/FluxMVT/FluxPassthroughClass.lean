@@ -79,7 +79,7 @@ def compose_id_id : Passthrough_at (id ∘ id) :=
   { left := fun _ _ => rfl, right := fun _ _ => rfl }
 
 /-- Product of passthrough_at's is passthrough_at — fully pointwise
-    via G110 FLUX-1 template `cutMulOuter_unitBracket_reduce_at`.
+    via the FLUX-1 template `cutMulOuter_unitBracket_reduce_at`.
     No funext, no propext, no Quot.sound. -/
 def mul_pass {f g} (pf : Passthrough_at f) (pg : Passthrough_at g) :
     Passthrough_at (fun x => cutMul (f x) (g x)) :=

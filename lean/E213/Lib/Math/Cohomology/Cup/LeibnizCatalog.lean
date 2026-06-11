@@ -68,7 +68,7 @@ def cupOfRecipe {k l : Nat} (r : Recipe k l)
 
     The `sym` branch's RHS literally lists both sets of side terms
     and both corrections; the `lex` and `mirror` branches each reduce
-    to G86 / `list_level_leibniz_mirror` directly.  PURE. -/
+    to `list_level_leibniz_mirror` directly.  PURE. -/
 theorem catalog_dispatch (k l : Nat) (α β : List Nat → Bool)
     (τ : List Nat) (r : Recipe k l) :
     match r with

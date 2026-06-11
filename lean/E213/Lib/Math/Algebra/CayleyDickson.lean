@@ -75,6 +75,15 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrt2Domain
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrtDomain
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ConjugationInstances
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrtProduct
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.HurwitzTower
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.UnitsToModular
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaQuadAlgebra213
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrtMinus2Algebra213
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZSqrtMinus2TowerDeep
+import E213.Lib.Math.Algebra.CayleyDickson.Levels.SedenionZeroDivisor
+import E213.Lib.Math.Algebra.CayleyDickson.Lipschitz.LipschitzMoufang
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerCapstone
+import E213.Lib.Math.Algebra.CayleyDickson.Tower.FirstSlashGrounding
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Algebra.CayleyDickson`.
 

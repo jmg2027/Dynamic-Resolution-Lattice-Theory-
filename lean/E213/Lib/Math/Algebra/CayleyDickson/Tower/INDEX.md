@@ -4,7 +4,7 @@ Generic Cayley-Dickson doubling/tower machinery: CDDouble functor
 (level n → level n+1), order-4 monopoly proofs at multiple
 levels, asymptotic + fixed-point + universal-induction structure.
 
-## Files (12)
+## Files (13)
 
 ### CD doubling core
   - `CDTower.lean`           — base CD tower carrier
@@ -25,6 +25,7 @@ levels, asymptotic + fixed-point + universal-induction structure.
   - `AlgebraTowerAsymptote.lean`  — asymptotic growth
   - `AlgebraTowerCapstone.lean`   — capstone result
   - `TowerFixedPoint.lean`        — fixed-point theorem
+  - `FirstSlashGrounding.lean` — the "disc −2 skip" descends to the residue's first distinguishing
 
 ## Structural drop pattern (CDTower.lean)
 

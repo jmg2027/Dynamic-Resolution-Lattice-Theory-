@@ -4,7 +4,7 @@ import E213.Lib.Math.Geometry.AngleStructure.GaugeDiagonal
 import E213.Lib.Math.Geometry.AngleStructure.OrthogonalDoubling
 
 /-!
-# G42 Capstone — Angle Structure & ZFC Squashing (∅-axiom)
+# Capstone — Angle Structure & ZFC Squashing (∅-axiom)
 
 5 cluster witnesses + total bundle.
 

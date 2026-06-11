@@ -5,7 +5,7 @@ import E213.Lib.Math.Geometry.LevelTopology.QuaternionTopology
 import E213.Lib.Math.Geometry.LevelTopology.TwoTowersDivergence
 
 /-!
-# G49 Capstone — Concrete topology per floor (∅-axiom)
+# Capstone — Concrete topology per floor (∅-axiom)
 
 5 cluster witnesses + total bundle.
 

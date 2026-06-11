@@ -4,9 +4,8 @@ import E213.Lib.Math.Foundations.AxiomSystems.CrossTheoryCohabit
 /-!
 # PatternCatalog — Cross-Axis (Statement-Shape × Design-Pattern)
 
-The merge of branch `claude/beilinson-conjecture-port-hg4Jf` brought in
-the G17–G29 empirical audit corpus.  Reading G24
- reveals that the audit's
+Reading the empirical audit corpus against this catalog
+reveals that the audit's
 **six functional families** classify theorems by *statement shape*,
 while `PatternCatalog.lean`'s **six atomic games + 1 composite**
 classify theorems by *codebase design pattern*.  These axes are
@@ -126,7 +125,7 @@ def specimen_F6_typeclass : CrossAxisSpecimen :=
   { cell    := { shape := .negativeExist, game := .typeclass }
     witness := "int_image_strict" }
 
-/-! ## Extended specimens — H2 composites mapped to G24 cells -/
+/-! ## Extended specimens — H2 composites mapped to the audit's cells -/
 
 /-- F2 × Lens — `succ_zero_view ∧ one_plus_one_view` style: bundles
     Lens-view equalities. -/

@@ -9,7 +9,7 @@ Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
   3 = NS, NT² - 1
   4 = d - 1, NS + 1, NT²
   5 = d, NS + NT, F_5
-  6 = NS · NT, 3!, NS·(NS-1), d + 1, |ZOmega^×| (Eisenstein units, G87 §5)
+  6 = NS · NT, 3!, NS·(NS-1), d + 1, |ZOmega^×| (Eisenstein units)
   7 = NS² - NT, prime
   8 = NS² - 1, F_6, NT³
   9 = NS²

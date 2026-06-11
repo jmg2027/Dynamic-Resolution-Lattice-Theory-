@@ -15,6 +15,13 @@ Lens-layer artifact.
                     RawCut — Lean-free cut prototype;
                     Tower/NatPairToQPos — ℚ₊ via mul-quotient).
 
+## Top-level
+
+  - `Founding.lean` — umbrella for the number-tower founding
+    sub-tree (TowerFounding, PairCompletion{,Universal}, Order,
+    SharedUnitAcrossReadings, FoundingDialUnification): the tower
+    `ℕ → ℤ → ℚ → ℝ` as a chain of Lens bundlings of the residue.
+
 ## Future
 
   - `Int213/`    — ℤ via additive-axis quotient on `Nat213 × Nat213`

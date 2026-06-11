@@ -93,14 +93,54 @@ recurrence actually generates its convergents.
 The elementary witness form — e certified on its proven bracket `(8/3, 3)` directly
 from the bounds — is `ExpLog/EulerCertifiedBracket`.
 
+**∛2 — algebraic degree 3, the form-margin mechanism (`CubeRootTwoCut`).**  The
+algebraic instances do not need the rate race at all: the side-decision against a
+probe `m/k` reduces to the all-additive comparison `ε_i·k³ < d_i³`, where the
+degree-3 form margin `|m³ − 2k³| ≥ 1` arrives as the `+1` of `Nat` strictness and
+`ε_i` is the presentation's cube-slack.  With the dyadic bisection presentation
+(`cbrtNum i / 2^i`, slack `≤ 24·4^i` vs `d³ = 8^i`) the total modulus is
+`N(m,k) = 3k+5` (`cbrtCauchySeq`), and the completed fold lands exactly on the
+frozen closed-form cut `decide (2k³ ≤ m³)` (`cbrt_limit_eq_form`) — the degree-3
+analog of φ's `masterCut` story (`FibCassiniNat.qb_lt_pk`'s `4k² < b²` is the
+degree-2 shadow of the same `ε·k^s < d^s` schema).  The algebraic degree enters
+as the probe exponent `k^s` in the schedule, and the form makes the modulus
+presentation-robust; the rate-carrying / rate-free divide of this chapter is the
+transcendental-only regime.
+
 ## 4. Frontier
 
-**π via Wallis is rate-free.**  The Wallis partial products converge like `1/n`
-while their denominators grow fast, so `tailₙ · k · dₙ ≫ 1`: the criterion fails, and
-deciding the side needs a lower bound on `|π/2 − m/k|` — π's irrationality measure
-(`μ(π) ≤ 7.1`, genuinely hard).  A fast π series (geometric-rate, e.g. arctan/Machin)
-would meet the criterion; Wallis cannot.  This is the rate-free posture of `PiCut`,
-not a property of transcendence.
+**π via Wallis is rate-free — at every grade, provably — and conditionally
+priced.**  The Wallis cross-determinant is the *full product* `W_n = a_n·d_n`
+(`wallis_cross_det`: `(2n+1)(2n+3)+1 = 4(n+1)²` — the same mechanism as the
+presentation's divergence depth 6), so scheduled domination fails at every
+layer `n ≥ 2` for **every** positive schedule
+(`PiMeasureModulus.wallis_overtakes_every_schedule`,
+`wallis_no_graded_certificate`): the Wallis pointing sits beyond every rung of
+the graded ladder — a theorem, not an estimate.  Deciding the side therefore
+needs a lower bound on
+`|π/2 − m/k|` — π's irrationality measure (`μ(π) ≤ 7.1`, genuinely hard).
+And no *known* π pointing escapes this: the margin race needs the tail to
+shrink against the **probe-weighted** quantum `1/(ρ_i·d_i)`, i.e.
+`tail_i·d_i → 0` — factorial-grade *nested* denominator growth, as in e
+(`tail·d = 1/i`).  A fixed-ratio geometric pointing has `tail·d ≈ const`
+(the race never resolves with depth), and Machin/arctan-type series
+additionally inflate the common denominator by `lcm(odd ≤ 2n+1) ≈ e²ⁿ`.  So
+"fast" alone does not buy the free modulus; what a fast pointing buys is the
+**bracket width per layer** — the rate⁻¹ factor of the *conditional* modulus
+(logarithmically many layers instead of polynomially many, for the same
+measure hypothesis).  Constructing any genuinely rate-carrying π pointing
+would yield an effective below-side separation for π — open,
+transcendence-grade.  This is the rate-free posture of `PiCut`, not a
+property of transcendence.  What the conversion law *can* do is price the missing measure
+exactly (`ExpLog/PiMeasureModulus` + the engine `BracketModulus`): the Wallis
+fold has a decreasing upper companion `U_n = W_n·(2n+2)/(2n+1)` (a per-layer
+shrinking bracket, width `≤ 2/(2n+1)`), and the single hypothesis
+`PiHalfMeasure C s` — any probe still inside the layer-`n` bracket forces width
+`≥ 1/(C·k^s)`, the effective measure in pure ℕ form — yields the constructed
+total modulus `N(m,k) = C·k^s + 2` for π/2 and `C·(2k)^s + 2` for π.  π moves
+from "completion modulus as opaque hypothesis" to "conditional degree-`s`
+modulus": rate⁻¹ ∘ distance with the distance certificate named, isolated, and
+awaiting its `(C, s)` instance.
 
 **The holonomic class, via the cross-determinant.**  `Htel_of_crossdet` reduces the
 rate certificate to a smallness law on the cross-determinant `W` — exactly the object
@@ -112,6 +152,18 @@ bespoke estimate — the depth arc and the modulus generator are one mechanism. 
 remains for another fast holonomic real is just its `W` and the smallness check
 `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`; the rate-free reals (π via Wallis) are exactly
 those whose `W` grows too fast for it.
+
+**ζ(3) sits at the boundary, presentation-dependently** (`Real213/Zeta3Cut`).  The
+Apéry convergents are built as an exact ℕ orbit of the degree-3 recurrence
+(`aperyOrbit_exact`), with closed-form cross-determinant `W_m = 6·(m!)⁶`
+(`zeta3_cross_det`) and the bracket `601/500 < ζ(3) ≤ 1203/1000`; but in the
+factorial-cleared presentation that `W` *overtakes* the denominator quantum at
+layer 9 (`zeta3_presentation_overtakes`, via `overtake_breaks_layer`) — rate-free,
+so the completion modulus stays a hypothesis there, as for π/Wallis.  The
+rate-carrying ζ(3) presentation is the reduced one (`2·lcm(1..n)³·bₙ`
+denominators, tail `α⁻²ⁿ` with `α = (1+√2)⁴`, and `e³ < α` makes the criterion
+hold); its ∅-axiom construction costs exactly the classical Apéry arithmetic
+(reduced-numerator integrality, `lcm(1..n) < 3ⁿ`) and is an open frontier.
 
 **The smallness law is a stratification — `W` against `d`, layer by layer.**  Making
 the smallness condition the primitive object turns completeness into a comparison of
@@ -139,6 +191,43 @@ The **unimodular det-1 floor** is the trivially-free bottom of this stratificati
 unimodular floor carries its own rate certificate unconditionally
 (`floor_carries_Htel`).  The atomic floor is the free bottom; the overtake regime is
 the genuine content above it.  `tower_stratification` bundles the three facts.
+
+**The comparison is graded, not binary — the generator takes a probe schedule.**
+The margin invariant of §2 never used the specific slack `1/(i·dᵢ)`; it used only
+that the slack telescopes and that some layer's slack absorbs the probe's `Nat`
+strictness quantum `1/(k·dᵢ)`.  Parametrize it: a **probe schedule** `ρ : ℕ → ℕ`
+carries the margin `eᵢ + 1/(ρᵢ·dᵢ)`, the graded certificate `HtelS a d ρ` says it
+is non-increasing, and probe denominator `k` is *admitted* at any layer `i₀` with
+`k ≤ ρ i₀`.  Then (`RateModulus.rateS_cut_const`, ∅-axiom) the cut is constant
+past `i₀ + 1` — the same trichotomy, pure transitivity again.  The identity
+schedule is §2 verbatim (`Htel` is definitionally `HtelS a d id`, `N = k+2`).
+The degree-`s` root schedule `ρ = rootFloor s` (`Meta/Nat/RootFloor`, the integer
+root with `rootFloor s (k^s) = k`) admits `k` at layer `k^s`, giving
+
+> **`RateModulus.graded_total_modulus`** *(∅-axiom)*.  `HtelS a d (rootFloor s)`
+> plus the monotonicity pair yields the total modulus `N(m,k) = k^s + 1`.
+
+What is bought and what is paid is visible at the admission layer `i = r^s`: the
+identity schedule defends the slack `1/(r^s·dᵢ)` there, the root schedule only
+`1/(r·dᵢ)` — an `r^{s−1}` factor of overtake forgiven per probe — and the price
+is the modulus degree `k^s`.  The per-layer form is `DominatesS W d ρ i`
+(`ρᵢ·ρ_{i+1}·W_i + ρᵢ·dᵢ ≤ ρ_{i+1}·d_{i+1}`), and the characterization persists
+at every grade: `htelS_iff_dominatesS` (the graded certificate **iff** scheduled
+domination at every layer), `overtakeS_breaks_layer` (the scheduled overtake
+boundary).  The grading is **strict**: the presentation `d_{i+1} = (⌊√i⌋+2)·dᵢ`
+with `W = d` is dominated by the root-2 schedule at every layer yet breaks the
+identity-schedule comparison at layer 4 (`sep_dominatesS_all` /
+`sep_breaks_unit_schedule`, bundled in `graded_stratification`) — and the
+witness is an actual real, not just a predicate pair: the numerators
+`a_{i+1} = (⌊√i⌋+2)·a_i + 1` solve the cross-det relation over ℕ exactly
+(`sep_cross_det`, `W = d`), and `sep_graded_modulus` completes `sepNum/sepDen`
+through the degree-2 schedule with the constructed modulus `N(m,k) = k² + 1`,
+its degree-1 certificate broken.  So "completes
+freely" is not one comparison but a ladder of them, one per schedule — *rescue*
+is graded the way `CompletabilityGrade` grades *break*, and the modulus degree is
+the rung's price.  This is the conversion law of the modulus-degree ladder read
+inside the generator itself: degree of the modulus = (distance certificate) /
+(rate of the pointing), with the schedule the dial between the two.
 
 ## 5. The thesis, completed
 

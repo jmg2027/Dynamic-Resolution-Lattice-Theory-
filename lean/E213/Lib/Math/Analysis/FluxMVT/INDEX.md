@@ -4,7 +4,7 @@
 Tracks *flux through endpoints* instead of tangent slopes — works
 in the 213 substrate (no exact derivatives, only bracketed cuts).
 
-## Files (22)
+## Files (23)
 
 ### Flux core (5)
   - `FluxCut.lean`        — flux as a cut-level value
@@ -39,6 +39,7 @@ in the 213 substrate (no exact derivatives, only bracketed cuts).
 ## Top-level
 
   - `FluxMVT.lean` (aggregator) — see for full per-section docstring
+  - `QuintupleTelescope.lean` — quintuple MVT chain at d-depth 5
 
 ## Where to add new files
 

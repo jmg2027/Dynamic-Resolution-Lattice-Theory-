@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberSystems.SignedCut.Bridge.FanoPlaneStructure
 import E213.Lib.Math.NumberSystems.SignedCut.Bridge.FanoK32Bridge
 
 /-!
-# G39 Capstone — Octonion Non-Associativity + Fano-K32 Bridge
+# Capstone — Octonion Non-Associativity + Fano-K32 Bridge
 
 5 cluster witnesses + total bundle.
 

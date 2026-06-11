@@ -10,7 +10,7 @@ The cluster is organised around two `research-notes/frontiers/G35` conjectures:
   - **C1** — pure cup-ring 1/α_em formula (no SO(10), no Dyson)
   - **C5** — fractal-level ζ_K^{(L)} → ζ(2) convergence
 
-## Files (23)
+## Files (24)
 
 ### Core / atomic
   - `Bare.lean`                    — atomic integers + lattice
@@ -56,6 +56,7 @@ The cluster is organised around two `research-notes/frontiers/G35` conjectures:
 ## Top-level
 
   - `AlphaEM.lean` — aggregator (imports all 23 files)
+  - `MaxAlphaPowerBound.lean` — max α-power bounded by truncation dimension
 
 ## Axiom status
 

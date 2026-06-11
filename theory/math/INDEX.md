@@ -16,7 +16,7 @@ sandwich-first, the commuting square, layer constants),
 `cauchy`, `measure`, `multivariable`, `functional`, `modulus`, `modulus_structure`,
 `cascade_calculus`, `ode`, plus the depth / continued-fraction arc
 (`divergence_depth_characterization`, `cfinite_orbit_dimension`,
-`cf_holonomicity_hierarchy`, `newton_gregory`, `holonomic_modulus`,
+`cf_holonomicity_hierarchy`, `newton_gregory`, `holonomic_modulus`, `form_margin_modulus`,
 `tower_native_completeness`, `refined_completability_engine`,
 `spiral_coordinate_classification`, `phi_pi_poles`, `markov_spectrum`,
 `markov_uniqueness`).
@@ -42,7 +42,7 @@ sandwich-first, the commuting square, layer constants),
 
 ### `foundations/` — meta / cross-domain anchors
 `axiom_systems`, `pattern_catalog/`, `choice`, `universe_chain`,
-`cross_domain_unification`, `algebra213_meta_theorems`.
+`async_growth`, `cross_domain_unification`, `algebra213_meta_theorems`.
 
 ### `probability/` — `probability`, `information`.
 

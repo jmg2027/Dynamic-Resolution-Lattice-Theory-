@@ -29,7 +29,7 @@ bisection, given a locally-determined cut function `f`.
 
 `monotonicConsistentOracle` — combine sign-change preservation with
 `dyadic_bracket_cauchy_modulus` to construct the full
-`ConsistentOracle db`, yielding the IVTRoot via the G31 readout.
+`ConsistentOracle db`, yielding the IVTRoot via the readout.
 -/
 
 namespace E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLensMonotone

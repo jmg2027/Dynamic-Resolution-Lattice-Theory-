@@ -3,7 +3,7 @@ import E213.Meta.Nat.MulMod213
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Tactic.NatHelper
 /-!
-# Pell matrix step invertibility — G119 Phase 2
+# Pell matrix step invertibility — Phase 2
 
 The pellCoeff step `(a, b) → (3a + b mod p, -a mod p)` is invertible.
 The inverse `stepInv (a, b) = (-b mod p, (a + 3b) mod p)` satisfies

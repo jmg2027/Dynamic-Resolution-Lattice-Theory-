@@ -1,4 +1,5 @@
 import E213.Lens.AxiomLenses.Core
+import E213.Lens.AxiomLenses.Bridges
 
 /-! Spec-as-code entry point for `E213.Lens.AxiomLenses`.
 

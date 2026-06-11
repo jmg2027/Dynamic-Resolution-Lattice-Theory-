@@ -4,6 +4,8 @@ import E213.Lib.Physics.Cosmology.GravityShadow
 import E213.Lib.Physics.Cosmology.HorizonInformation
 import E213.Lib.Physics.Cosmology.HubbleConstant
 import E213.Lib.Physics.Cosmology.NeffDerivation
+import E213.Lib.Physics.Cosmology.EfoldsFalsifier
+import E213.Lib.Physics.Cosmology.EtaBFalsifier
 
 /-! Spec-as-code entry point for `E213.Lib.Physics.Cosmology`.
 

@@ -2,6 +2,7 @@ import E213.Lib.Physics.Capstones.MasterCatalog
 import E213.Lib.Physics.Capstones.NSNTPi5Block
 import E213.Lib.Physics.Capstones.PhysicsTrackComplete
 import E213.Lib.Physics.Capstones.PureAtomicObservables
+import E213.Lib.Physics.Capstones.PhiUnification
 
 /-! Spec-as-code entry point for `E213.Lib.Physics.Capstones`.
 

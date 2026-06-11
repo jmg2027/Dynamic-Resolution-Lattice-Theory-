@@ -2,6 +2,8 @@ import E213.Theory.Atomicity
 import E213.Theory.CDDouble
 import E213.Theory.Raw.API
 import E213.Theory.RawCmpIndependence
+import E213.Theory.API
+import E213.Theory.Raw.Demo
 
 /-! Spec-as-code entry point for `E213.Theory`.
 

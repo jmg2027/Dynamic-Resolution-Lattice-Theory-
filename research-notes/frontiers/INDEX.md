@@ -43,6 +43,17 @@ non-Hurwitzian yet holonomic, as `2ⁿ` shows).
 - `G174_pi_residue_continuous_symmetry` — conjectural: π as the
   continuous-symmetry image of the residue (φ/π two-faces).  Conceptual, not
   a theorem; flags one category error to avoid.
+- `forall_form_characterization` — ★ the originator's **∀-form**: π as the
+  universal escape-residue of the modulus family ("whatever modulus you bring,
+  what remains"), debate-audited (3 rounds, critic web-verified).  Verdict:
+  characterization + correctly-typed program, not a definition — quantified
+  form = the measure hypothesis (`PiHalfMeasure`), sole honest instantiation
+  **Mahler 1953 `(C,s) = (1,42)`** (only published explicit measure for π);
+  place/character/number separation (solenoid theorem / forced `e^{±2πix}` /
+  series anchor); the algebraic→transcendental wall discontinuity; genericity
+  tension (μ(π) = 2 conjectured — specialness lives in effectivity).  Build
+  candidate: uniform period-spectrum capstone (`M^n = I ⟹ ord ∈ {1,2,3,4,6}`,
+  ~250 lines).
 
 Closure record (the proven side of this arc):
 `theory/math/analysis/{cf_holonomicity_hierarchy,phi_pi_poles}.md`.
@@ -176,6 +187,66 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   uniqueness (`coprime_repr_unique`), the signed normal form
   (`Rat213.lowest_exists`/`lowest_unique`), and the derived order's
   descent (`Rat213.ratioLeZ_descends`/`ratioLeZ_iff`) — all PURE.
+
+- **forcing chain ↔ foliation** — cross-domain note
+  (`forcing_chain_meets_foliation.md`): this branch's §3.4 "the
+  forcing chain is logical, not temporal" and main's
+  `growth_without_a_clock` essay ("the foliation is a Lens
+  convention") are one state-transition=state reading (§6.6, §5.7) at
+  the axiom scale vs. the async-run scale; the grading's
+  run-invariance (`fold_eq_depth`) witnesses why clause-order is
+  expository.  Third scale added (2026-06-10 merge): the **probe
+  schedule is a foliation of the approximation race** — and the
+  graded-ladder branch supplies the two theorems the foliation story
+  lacked: the foliation-freedom has a proven boundary
+  (`wallis_no_graded_certificate`: some pointings defeat every
+  schedule), and foliations are not totally ordered
+  (`schedule_comparison_needs_gap`: the ladder is not a chain).
+  Conceptual core closed; no open Lean obligation.
+
+- `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
+  modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
+  completeness-layer receipt count; both Lens-properties of the pointing, object
+  invariant); (2) `reschedule_limit_eq` is "the stage is of the run" at the real
+  layer — the modulus is of the run, the real is the run-invariant, `powSched_mono`
+  orders the runs.  Open: the four-scale cover-non-surjection schema stated once.
+- `modulus_degree_ladder` — **grading "completes" beyond the binary**.  Closed:
+  the algebraic pillar at degrees 2 (φ form cut) and 3 (`CubeRootTwoCut`, 31
+  PURE: side-decision = `ε·k³ < d³`, total modulus `N = 3k+5`, fold lands on
+  the frozen form cut) — algebraic degree enters as the probe exponent `k^s`,
+  presentation-robust, vs the transcendental-only `W`-vs-`d` race; and the
+  **graded rate generator** (rung 1): the margin telescope parametrized by a
+  probe schedule (`HtelS`/`DominatesS`, `RateModulus`/`RateStratification`),
+  `ρ = rootFloor s` ⟹ `N = k^s + 1`, strictness witnessed by `sepDen`
+  (root-2-rescued, identity-broken at layer 4); and the **conditional
+  measure-modulus schema** (rung 2): the bracket-exclusion engine
+  (`BracketModulus`, `N = B k + 2`) + the proved-decreasing Wallis upper
+  companion `U_n = W_n·(2n+2)/(2n+1)` give **π conditionally degree-`s`**
+  (`PiMeasureModulus`: `PiHalfMeasure C s` ⟹ π modulus `C·(2k)^s + 2`).
+  Schedule comparison law closed (`dominatesS_schedule_mono`: the gap law is
+  the exact extra condition; pointwise the ladder is not a chain).  ζ(3)
+  engine end closed (`aperyOrbit_geom` 28-growth + `zeta3_reduced_conditional`).
+  Open: an actual effective `(C,s)` for π, ζ(3)'s I1/I2 (Apéry integrality +
+  Hanson lcm), the two-real separation modulus, degree-4+ form cuts, `dyUp`
+  tightness.
+- `zeta3_free_modulus` — **ζ(3): built fold → free total modulus**.  The fold is
+  closed (`Real213/Zeta3Cut`, 35 PURE: exact ℕ Apéry recurrence + closed-form
+  Casoratian `6·(m!)⁶` + `AbCutSeq` + bracket `601/500 < ζ(3) ≤ 1203/1000`), and
+  the built presentation is *proved* rate-free (`zeta3_presentation_overtakes`,
+  overtake at layer 9).  Open: the e-grade upgrade — the reduced presentation
+  (`2·lcm³·bₙ`) is rate-carrying but needs the two classical Apéry arithmetic
+  inputs (reduced-numerator integrality; `lcm(1..n) < 3ⁿ`), then
+  `rate_total_modulus` gives `zeta3HolonomicReal` unconditionally.
+- **async point–line system ≅ Raw** — CLOSED ∅-axiom (full 8-item agenda,
+  74 PURE) and promoted → `theory/math/foundations/async_growth.md`
+  (origin: `seed/ORIGIN_RAW.md`; note archived at
+  `archive/async_pointline_raw.md`).  Cross-domain bridges to main's
+  curvature / LTE / certificate-depth arcs: `async_growth_crossdomain.md`
+  (orbit-LTE law, Hasse-diagram curvature, depth-0 squeeze certificate).
+  *Open seeds* →
+  `async_growth_seeds.md`: exact-membership converse of reachability,
+  fused step-3 swap-class census, uniform dagSize bounds, the
+  axes-of-growth definition.
 - `G35_chiral_cup_ring_catalog` — **the 213-Algebra field catalog** (17 domains):
   the field-level synthesis board, broader than any single `theory/` chapter;
   §0.5 tracks per-conjecture (C1–C6) closure status + promoted chapters.  Active

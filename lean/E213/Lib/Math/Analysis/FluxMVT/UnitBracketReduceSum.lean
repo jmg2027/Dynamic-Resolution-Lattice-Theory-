@@ -2,7 +2,7 @@ import E213.Lib.Math.NumberSystems.Real213.Sum.CutSum
 import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumDetermined
 import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
-# cutSumAux reduce template — G110 FLUX-1 sum companion
+# cutSumAux reduce template — FLUX-1 sum companion
 
 Parallel to `UnitBracketReduce.cutMulOuter_unitBracket_reduce_at`,
 this template extracts the recurring `cutSumAux_congr` step that

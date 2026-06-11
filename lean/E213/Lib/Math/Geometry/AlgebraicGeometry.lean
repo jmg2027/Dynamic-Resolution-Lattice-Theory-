@@ -16,7 +16,7 @@ Three key connections:
     2I.
 
 (2) K_{3,2}^{(2)} Betti numbers: b_0 = 1, b_1 = 8.
-    χ = b_0 - b_1 = -7 (consistent with G77 Euler char).
+    χ = b_0 - b_1 = -7 (consistent with the Euler char).
     H^0 = ℤ, H^1 = ℤ^8.
 
 (3) Type D (Hurwitz, 24 units = 2T) is the ℤ-base level.

@@ -66,7 +66,12 @@ Operationally:
     distinction between a *temporary obstacle* (we have not yet
     found the right Lens) and a *permanent wall* (we have
     exhausted Lens choices) made explicit.  A permanent wall is
-    a theory failure.
+    a theory failure.  This distinction is the §5.3 balance
+    doing falsifiability work: no exterior does not promise
+    automatic location — a proof-residue not yet pointed at is
+    open, not falsifying — and no-automatic-location does not
+    excuse a wall — a structural obstruction, once shown, is
+    not reclassified as "hard to locate."
   - Lean's verification is the **mechanical auditor** of the
     rule.
 
@@ -140,7 +145,7 @@ condition if the measurement comes in differently.
 | Magic numbers | already measured | {2, 8, 20, …} | already verified |
 
 The full quantitative profile of the falsifier surface — the
-26 manually-curated entries `F1`–`F26` in
+27 manually-curated entries `F1`–`F27` in
 `catalogs/falsifiers.md`, plus the 135 auto-discovered entries
 in `catalogs/falsifier-roster.md` — is catalogued in
 `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3.
@@ -152,11 +157,17 @@ in `catalogs/falsifier-roster.md` — is catalogued in
 The same atomic shape that supplies the falsifiers supplies
 the precision results:
 
-  - Phase 3 falsifier capstone: `phase3_falsifiers`, 19-conjunct,
-    0 axioms.
-  - Phase 1 precision quantities: `1/α_em = 137.036` (ppm-level
+  - Forced-roster super-theorem: `falsifier_roster_forced`
+    (`Lib/Physics/Foundations/FalsifierRosterForced.lean`,
+    ∅-axiom) — one theorem binding the forced triple
+    `(NS, NT, d) = (3, 2, 5)` (via `atomic_iff_five` and
+    `pair_forcing`) to the headline falsifier integers as
+    polynomials in that triple; measuring any of them outside
+    its bracket refutes the *triple*, not a retunable parameter.
+  - Precision quantities: `1/α_em = 137.036` (ppm-level
     agreement); `m_μ/m_e` at 0.48 ppb; `m_p` at lattice
-    precision; `Ω_Λ` to 0.0008 %.
+    precision; `Ω_Λ` to 0.0008 %.  Catalogue:
+    `catalogs/physics-constants.md`.
 
 The precision side and the falsifier side share the same Lean
 infrastructure — the same atomic primitives, the same Lens

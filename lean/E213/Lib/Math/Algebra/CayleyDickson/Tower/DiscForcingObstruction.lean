@@ -1,6 +1,7 @@
 import E213.Lib.Physics.Simplex.Counts
 import E213.Meta.Int213.Core
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.PureNat
 
 /-!
 # The disc-forcing obstruction: `√2` is not a matrix discriminant
@@ -86,13 +87,8 @@ theorem four_mul_ne_two (X : Int) : 4 * X ≠ 2 := by
 
 /-! ## Pure square parity in `Nat` -/
 
-/-- Every `Nat` is even or odd (∅-axiom, structural recursion). -/
-theorem nat_even_or_odd : ∀ n : Nat, (∃ k, n = 2 * k) ∨ (∃ k, n = 2 * k + 1)
-  | 0     => Or.inl ⟨0, rfl⟩
-  | n + 1 =>
-      match nat_even_or_odd n with
-      | Or.inl ⟨k, hk⟩ => Or.inr ⟨k, by rw [hk]⟩
-      | Or.inr ⟨k, hk⟩ => Or.inl ⟨k + 1, by rw [hk, Nat.mul_succ]⟩
+/-- Every `Nat` is even or odd — `Meta.Nat.PureNat.nat_dichotomy`. -/
+abbrev nat_even_or_odd := E213.Meta.Nat.PureNat.nat_dichotomy
 
 /-- `(2j+1)² = 4(j²+j)+1` (∅-axiom). -/
 theorem odd_sq (j : Nat) : (2 * j + 1) * (2 * j + 1) = 4 * (j * j + j) + 1 := by

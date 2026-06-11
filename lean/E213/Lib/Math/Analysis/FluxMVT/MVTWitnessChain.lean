@@ -39,7 +39,7 @@ open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulDetermined (cutMulOuter_congr
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 
 /-- ★ id ∘ x² derivative at c = 1/2 = 1 — pointwise (∅-axiom).
-    G110 FLUX-1 template. -/
+    FLUX-1 template. -/
 theorem id_compose_square_derivative_at_half_at (m k : Nat) :
     (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable).derivative
         (constCut 1 2) m k = constCut 1 1 m k := by

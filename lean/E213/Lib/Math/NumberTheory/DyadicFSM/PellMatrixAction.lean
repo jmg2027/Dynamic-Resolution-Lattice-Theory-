@@ -3,7 +3,7 @@ import E213.Meta.Nat.MulMod213
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Tactic.NatHelper
 /-!
-# Pell matrix action formula — G119 Phase 1 bridge
+# Pell matrix action formula — Phase 1 bridge
 
 Connects `pellCoeff p hp k` to `(pellFSMmod p hp).run k`.
 

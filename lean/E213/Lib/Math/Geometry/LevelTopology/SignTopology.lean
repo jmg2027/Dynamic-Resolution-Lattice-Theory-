@@ -17,7 +17,7 @@ made visible as a graph:
 two-node graph, where:
   * Pos = first component active
   * Neg = second component active
-  * sign flip = swap the two components (cdNeg in G37)
+  * sign flip = swap the two components (`cdNeg`)
 
 Atomic content:
   * `SignNode := Bool` (true = Pos, false = Neg)

@@ -9,6 +9,8 @@ import E213.Meta.Nat.PairOp
 import E213.Meta.Nat.UnitList
 import E213.Meta.Nat.PureNat
 import E213.Meta.Nat.PolyNat
+import E213.Meta.Nat.PowBasic
+import E213.Meta.Nat.RootFloor
 
 /-! Spec-as-code entry point for `E213.Meta.Nat`.
 
@@ -27,4 +29,6 @@ import E213.Meta.Nat.PolyNat
     * `PolyNat`      — ∅-axiom reflection prover for univariate `Nat`
                        polynomial identities (`poly_id`; replaces hand
                        `ring`-style expansion)
+    * `PowBasic`     — `Nat.pow` comparison toolkit, arbitrary base
+    * `RootFloor`    — integer `s`-th root, floor reading
 -/

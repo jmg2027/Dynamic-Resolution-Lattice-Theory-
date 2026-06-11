@@ -3,7 +3,7 @@ import E213.Lib.Math.Geometry.NumberGrid.HorizontalAxis
 import E213.Lib.Math.Geometry.NumberGrid.TwoDimGrid
 
 /-!
-# G41 Capstone — 2D Number-System Grid (∅-axiom)
+# Capstone — 2D Number-System Grid (∅-axiom)
 
 5 cluster witnesses + total bundle.
 

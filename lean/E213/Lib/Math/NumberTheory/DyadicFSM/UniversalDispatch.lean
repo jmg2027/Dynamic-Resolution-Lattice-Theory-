@@ -28,7 +28,7 @@ Lifted to FSM bit-period via `pellCoeff_period_implies_pellFSMmod_bits_period`:
   `(pellFSMmod p hp).bits (k + pisano_predict p hp)
    = (pellFSMmod p hp).bits k`
 
-This is **G119's terminal universal closure**.  All declarations PURE.
+This is **the campaign's terminal universal closure**.  All declarations PURE.
 -/
 
 namespace E213.Lib.Math.NumberTheory.DyadicFSM.UniversalDispatch
@@ -107,7 +107,7 @@ theorem universal_dispatch_pellCoeff
     Conclusion: `(pellFSMmod p hp).bits (k + pisano_predict p hp)
                  = (pellFSMmod p hp).bits k`.
 
-    **This is the G119 campaign's terminal universal closure.**  PURE. -/
+    **This is the campaign's terminal universal closure.**  PURE. -/
 theorem universal_dispatch_FSM
     (p : Nat) (hp : 1 < p)
     (h_ramified : (legendre213 5 p hp).val = 0 →

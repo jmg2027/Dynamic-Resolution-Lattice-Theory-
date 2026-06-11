@@ -12,73 +12,86 @@ methodology — the *human-side* heuristics that guide closure work.
 
 ---
 
-## Reduction patterns (2026-05-20)
+## Reduction patterns
 
-**원칙**: 정리 숫자나 줄 수가 아니라 *내용 밀도와 가독성*이 목표.
-많이 쌓이면 인지적 부하가 늘어나서 새 통찰이 안 나온다.  
-"줄이라"는 무작정 삭제가 아니라 *방향성·가독성·통찰 친화도*를
-높이는 작업.
+**Principle**: the target is *content density and readability*, not
+theorem count or line count.  Accumulation raises cognitive load
+until new insight stops emerging.  "Reduce" does not mean blind
+deletion; it means raising directionality, readability, and
+insight-friendliness.
 
 ### Smell #1: layer-by-layer enumeration
 
-증상: `_layer0`, `_layer1`, ..., `_layerN` 형태의 정리 N개 +
-선택적으로 `_bundle_Nlayer` 형태의 묶음.
+Symptom: N theorems of the form `_layer0`, `_layer1`, ...,
+`_layerN`, optionally plus a `_bundle_Nlayer` bundle.
 
-원인: 일반 ∀-form이 증명 도구 부족 (e.g. `ring`/`linarith` 없음) 또는
-미완성이라 layer-by-layer 검증으로 회피.
+Cause: the general ∀-form was dodged via layer-by-layer
+verification — proof tooling was missing (e.g. no
+`ring`/`linarith`) or the general form was unfinished.
 
-처리:
-- 묶음만 남기고 개별 layer 삭제.
-- 구조적 이유 (recurrence-uniqueness 등) 식별 → 별도 lemma로 추출.
-- 예: `Mobius213.pell_recurrence_unique` — 2nd-order recurrence + 
-  initial values 일치 ⟹ 두 sequence 일치.  16-conjunct bundle을
-  단일 uniqueness lemma + recurrence/initial 확인으로 대체 가능.
+Treatment:
+- Keep only the bundle; delete the individual layers.
+- Identify the structural reason (recurrence-uniqueness etc.) →
+  extract it as its own lemma.
+- Example: `Mobius213.pell_recurrence_unique` — a 2nd-order
+  recurrence + matching initial values ⟹ the two sequences agree.
+  A 16-conjunct bundle is replaceable by a single uniqueness lemma
+  + recurrence/initial checks.
 
 ### Smell #2: same-content reformulation across files
 
-증상: `Lens/UndifferentiatedRaw.constLens_collapses`,
+Symptom: `Lens/UndifferentiatedRaw.constLens_collapses`,
 `Lens/RawTopology.indiscrete_kernel_total`,
-`Lens/RawTopology.indiscrete_globally_collapsed` — 모두 같은 사실
-"`(constLens e).view r = (constLens e).view s` for all r, s"의 
-다른 표현 (view 형 / kernel 형 / globally-collapsed 형).
+`Lens/RawTopology.indiscrete_globally_collapsed` — all expressing
+the same fact "`(constLens e).view r = (constLens e).view s` for
+all r, s" in different shapes (view form / kernel form /
+globally-collapsed form).
 
-처리: 한 파일에 통합, canonical name 하나 + 필요시 view↔equiv 형
-대응 lemma 1개.  Triple-redundancy → 2개로 축소.
+Treatment: merge into one file, one canonical name, plus at most
+one view↔equiv correspondence lemma.  Triple-redundancy → two
+declarations.
 
 ### Smell #3: incremental scaffold theorems
 
-증상: 마스터 정리에 도달하기 위한 단일 등식 검증 정리들
-(`gap_e7_eq_5443`, `pi5_gap_e7_eq_5446`, `..._distance_eq_3`)이
-모두 마스터의 conjunct로 그대로 들어 있음.
+Symptom: single-equation stepping-stone theorems toward a master
+theorem (`gap_e7_eq_5443`, `pi5_gap_e7_eq_5446`,
+`..._distance_eq_3`) that all appear verbatim as conjuncts of the
+master.
 
-처리: 외부에서 직접 참조되지 않는 incremental은 삭제.  
-마스터의 conjunct로 충분.  외부 caller 있는 incremental만 유지.
+Treatment: delete incrementals not referenced from outside — the
+master's conjunct suffices.  Keep only incrementals with external
+callers.
 
-### Smell #4: cluster + atomic + bundle 패턴의 중복
+### Smell #4: cluster + atomic + bundle duplication
 
-증상: 한 파일에 atomic_a, atomic_b 정리 + atomic_bundle (= atomic_a
-∧ atomic_b) + slash 정리 + full_bundle (= atomic_a ∧ atomic_b ∧
-slash).  atomic_bundle은 full_bundle의 부분 형식.
+Symptom: one file holding `atomic_a`, `atomic_b`, plus
+`atomic_bundle` (= atomic_a ∧ atomic_b), plus a `slash` theorem,
+plus `full_bundle` (= atomic_a ∧ atomic_b ∧ slash); the
+`atomic_bundle` is a sub-form of `full_bundle`.
 
-처리: 미세한 redundancy.  파일 narrative가 atomic vs slash 구별을
-교육적으로 강조한다면 둘 다 유지 가능.  단순 alias라면 atomic_bundle
-삭제.  `Lens/SelfCompletion`은 narrative 가치로 6개 유지함.
+Treatment: minor redundancy.  If the file's narrative emphasises
+the atomic-vs-slash distinction pedagogically, both may stay; if
+`atomic_bundle` is a bare alias, delete it.  `Lens/SelfCompletion`
+keeps all six for narrative value.
 
-### 적용 결과 (2026-05-20)
+### Measured outcomes (witness sweep)
 
-session-added 파일들에 적용:
-- Mobius213: 21 → 13 (8개 layer 삭제 + 2개 structural insight 추가)
-- FibonacciExtended: 16 → 9 (개별 F_N 5개 삭제, bridge 16-conjunct 1개로 통합)
-- PiFiveGap: 20 → 14 (incremental 6개 삭제)
-- PureAtomicObservables: 17 → 14 conjuncts (중복 3개 제거 + 구조별 grouping)
-- RawTopology+UndifferentiatedRaw: 12 → 7 + 파일 1개 통합 삭제
+Applied to one session's added files:
+- Mobius213: 21 → 13 (8 layer theorems deleted + 2 structural
+  insights added)
+- FibonacciExtended: 16 → 9 (5 individual F_N deleted, bridge
+  merged into one 16-conjunct)
+- PiFiveGap: 20 → 14 (6 incrementals deleted)
+- PureAtomicObservables: 17 → 14 conjuncts (3 duplicates removed +
+  structural grouping)
+- RawTopology+UndifferentiatedRaw: 12 → 7, one file merged away
 
-순 reduction: 86 → 57 theorems, ~500줄, 파일 1개.  
-*같은 수학적 content, 더 적은 cognitive surface*.
+Net reduction: 86 → 57 theorems, ~500 lines, one file.
+*Same mathematical content, smaller cognitive surface.*
 
 ---
 
-## Reduction patterns (2026-05-20, expanded after lean/-tree sweep)
+## Reduction patterns — lean/-tree sweep refinements
 
 After the second sweep (lean/ tree, 4 parallel audit agents +
 ~10 hand-applied reductions), the pattern catalog is enriched
@@ -197,7 +210,7 @@ cleanups — each needs structural thinking similar to the
 
 ---
 
-## Hero-session methodological patterns (2026-05-21)
+## Hero-session methodological patterns
 
 Patterns surfaced during the Phase 1 hero target push (Möbius
 213-tower L_∞).  These are not domain-specific; they apply
@@ -422,12 +435,12 @@ sequences) — define a List-level abstraction, prove there, transfer.
 
 ---
 
-## Pattern #7: 3-way partition strategy — CLOSED at ∀(k,l) (2026-05-22)
+## Pattern #7: 3-way partition strategy — CLOSED at ∀(k,l)
 
 **Problem**: at the cochain level, `δ(α ⌣ β)(τ)` is a foldl-XOR
 sum over face removals.  Standard Leibniz captures faces at
-"endpoint" positions but may miss "interior" positions (per
-G85/G86's lex-projection cup finding).
+"endpoint" positions but may miss "interior" positions (the
+lex-projection cup finding — see Pattern #20).
 
 **Solution** (user's 3-way partition strategy):
 - Partition the foldl XOR over `[0..k+l]` at position k into:
@@ -451,7 +464,7 @@ ring operations, K_{m,n}^{(c)} bipartite cup channels.  The
 **self-referential Leibniz** (correction = operation at face)
 is structurally similar across these contexts.
 
-**Closure status** (2026-05-22): the ∀(k,l) symbolic twisted
+**Closure status**: the ∀(k,l) symbolic twisted
 Leibniz is PROVED PURE at the list level in
 `Cohomology/Cup/LeibnizLexListLevel.list_level_leibniz_general`.
 Required additional infrastructure beyond Pattern #7's structural
@@ -585,22 +598,23 @@ Pattern #8 with a Lib/-side Int-rewrite extension.
 
 ## Pattern #9 — Clause-4 recursive Lens application closes postulate gaps
 
-**Discovered**: 2026-05-22 session 2 (alive gap closure, G87 §11).
-
 ### Problem
 
 The atomicity proof's `IsAlive` predicate (both decomposition parts
 have odd parity) was historically **postulated, not derived from Raw**
 — "the exterior-algebra / fermion-statistics pattern, natural partner
-to Raw's binary structure but postulated" (`Atomicity/Alive.lean`
-pre-2026-05-22 docstring).  This was identified as the single largest
-gap in the Raw → 5 inevitability chain (G87 §2.2).
+to Raw's binary structure but postulated".  This was the single
+largest gap in the Raw → 5 inevitability chain.
 
 ### Solution: Clause 4 applies recursively at every granularity
 
-User insight (2026-05-22):
+Originator insight (Mingu Jeong):
   > "Raw는 트리 형태가 아니다.  모든 Raw는 연산이기도 하고 객체이기도
   >  하기 때문 — 즉 애초에 연산과 객체도 정의되지 않은 상태이다."
+
+(Translation: "Raw is not tree-shaped.  Every Raw is at once
+operation and object — that is, operation and object were never
+defined apart in the first place.")
 
 If every Raw event is simultaneously operation and object — with no
 a-priori distinction — then Clause 4 of the 213 axiom (`x/x` forbidden,
@@ -652,10 +666,10 @@ content to count-Lens groups, type objects, group objects, etc.
 
 ---
 
-## Pattern #10 — Adoption-gap detection via k-gram cascade scan (2026-05-22)
+## Pattern #10 — Adoption-gap detection via k-gram cascade scan
 
-**Source**: G99 (k-gram cascade scanner) → N8/N9 batch execution this
-session.
+**Source**: the k-gram cascade scanner
+(`tools/syntax_rw_cascade_scan.py`).
 
 **Statement**: When a PURE helper lemma already exists in the codebase
 but the corpus shadows it via manual 2-3 step `rw` chains, the gap
@@ -673,7 +687,7 @@ helper mechanically; the corpus shrinks without any new mathematics.
     Adopted across 7 files; one site (LeibnizLexListLevel) collapsed
     to plain `rfl` once redundancy was stripped.
 
-**Diagnostic step**: `tools/syntax_rw_cascade_scan.py` (G99) ranks
+**Diagnostic step**: `tools/syntax_rw_cascade_scan.py` ranks
 adjacent `rw` k-grams by frequency.  Top entries that aren't already
 named lemmas are adoption candidates.
 
@@ -689,10 +703,9 @@ scan is the periodic-audit antidote.
 
 ---
 
-## Pattern #11 — Pointwise dichotomy collapse for Cup-Leibniz lifts (2026-05-22)
+## Pattern #11 — Pointwise dichotomy collapse for Cup-Leibniz lifts
 
-**Source**: G91 / G94 §8.1 L2
-(`LeibnizDecomp.lean`).
+**Source**: `Lib/Math/Cohomology/CupAW/LeibnizDecomp.lean`.
 
 **Statement**: When a basis-component family `bz5_X β k j` has the
 two-case pointwise shape
@@ -733,9 +746,10 @@ plumbing.
 
 ---
 
-## Pattern #12 — Meta-scan archetype catalog (2026-05-22)
+## Pattern #12 — Meta-scan archetype catalog
 
-**Source**: G101 §6 + G107 §6 tool inventory.
+**Source**: `seed/META_SCAN_ARCHETYPES.md` (the canonical archetype
+catalog; this pattern is its methodology summary).
 
 **Statement**: When the corpus needs static-analysis investigation,
 pick a scanner from the 6 established archetypes rather than
@@ -746,30 +760,28 @@ question; together they triangulate.
 
 | # | Archetype | Question answered | Reference tools |
 |---|-----------|-------------------|-----------------|
-| 1 | **AST motif scan** | Which fold/recursor primitives are used and where? | `tools/ast_fold_scan.py` (G90) |
-| 2 | **Syntax skeleton scan** | Which tactic-token sequences repeat? | `tools/syntax_tactic_scan.py` (G91) |
-| 3 | **Citation graph** | Who depends on whom at the lemma surface? | `tools/syntax_arg_scan.py` (G92) |
-| 4 | **Context dumper** | What surrounds each cite of a key lemma? | `tools/syntax_arg_scan.py --context-target` (G94, G96) |
-| 5 | **Co-occurrence chunk** | Which tactic sub-sequences cluster together? | `tools/syntax_unfold_scan.py` (G98) |
-| 6 | **k-gram cascade** | Which manual sub-rewrites shadow existing helpers? | `tools/syntax_rw_cascade_scan.py` (G99, Pattern #10) |
+| 1 | **AST motif scan** | Which fold/recursor primitives are used and where? | `tools/ast_fold_scan.py` |
+| 2 | **Syntax skeleton scan** | Which tactic-token sequences repeat? | `tools/syntax_tactic_scan.py` |
+| 3 | **Citation graph** | Who depends on whom at the lemma surface? | `tools/syntax_arg_scan.py` |
+| 4 | **Context dumper** | What surrounds each cite of a key lemma? | `tools/syntax_arg_scan.py --context-target` |
+| 5 | **Co-occurrence chunk** | Which tactic sub-sequences cluster together? | `tools/syntax_unfold_scan.py` |
+| 6 | **k-gram cascade** | Which manual sub-rewrites shadow existing helpers? | `tools/syntax_rw_cascade_scan.py` (Pattern #10) |
 
 Plus two Expr-level scanners:
 
-| 7 | **Expr-level call graph** | Same as #3 but at elaboration layer | `tools/ast_callgraph_scan.py` (G102) |
-| 8 | **Expr-shape density** | What's the proof-shape fingerprint per namespace? | `tools/ast_shape_scan.py` (G103) |
+| 7 | **Expr-level call graph** | Same as #3 but at elaboration layer | `tools/ast_callgraph_scan.py` |
+| 8 | **Expr-shape density** | What's the proof-shape fingerprint per namespace? | `tools/ast_shape_scan.py` |
 
 **Usage rule**: before writing a new scanner, check if one of the
 8 covers the question.  If yes, run it (TSV is gitignored;
 regenerate on demand).  If no, write a new one and add it to the
 archetype list.
 
-**Status**: SURFACED; CL-1 of G107 §10.5.
+**Status**: SURFACED; canonical catalog at `seed/META_SCAN_ARCHETYPES.md`.
 
 ---
 
-## Pattern #13 — Process model: meta surfaces, substantive executes (2026-05-22)
-
-**Source**: G97 §6 + G107 §0 (cross-branch handshake documentation).
+## Pattern #13 — Process model: meta surfaces, substantive executes
 
 **Statement**: For static-analysis-heavy tasks, run two branches in
 parallel:
@@ -779,30 +791,20 @@ parallel:
   · **substantive branch** — PURE theorem additions, abstraction
     execution, math marathons.
 
-The two branches communicate via numbered research-notes
-(`research-notes/G##*.md`) acting as handshake documents.  Each
-handshake doc references the G-IDs it consumes / produces.
+The two branches communicate via handshake notes in
+`research-notes/` (volatile tier), each referencing the items it
+consumes / produces.
 
-**Witness**: G93 → G96 → G94 → G97 handshake loop closed across
-this pattern.  The substantive branch (PR #90) closed 6 meta-surfaced
-items in cycle (C1 / C2 / C3 / C5 / N5 / N6).
-
-**This branch's adoption**: G107's open registry was the executor
-entry-point for the `claude/handoff-part-3-marathon-0XWmn` branch's
-sweep, which closed:
-
-  · §2: L2 + N7 + N8 + N9 + Sub-2 (5 of 5 mechanical-immediate).
-  · §3: L1 β-side (2 of 4 L1 siblings) + C deferred.
-  · §4: M + Pell-FSM (full sweep) + ModArith (3 of 8).
-
-49 Pell-FSM family sites + 12 mathematical sites + 25 mechanical
-adoptions = 86 sites absorbed via 18 PURE helpers.
+**Witness**: a full meta→substantive handshake cycle closed: the
+meta branch surfaced the candidate registry, the substantive branch
+absorbed 86 sites (49 Pell-FSM family + 12 mathematical + 25
+mechanical adoptions) via 18 PURE helpers.
 
 **Rule for future cycles**: if the next investigation is
 static-analysis-heavy and likely to surface many candidate items,
 spin up a meta branch.  Otherwise stay on one branch.
 
-**Status**: VALIDATED across one full cycle; CL-2 of G107 §10.5.
+**Status**: VALIDATED across one full cycle.
 
 ---
 
@@ -828,9 +830,6 @@ cross-branch workflow.
 
 ## Pattern #14 — Triple-layer (n-layer) agreement = abstraction inevitability
 
-**Discovered**: 2026-05-21 meta-analysis (G91 L1 + G94 §1 +
-G103 §3 + G106 + G108-G112 consistent observations).
-
 ### Problem
 
 When sibling theorems share elaborated proof structure across
@@ -843,12 +842,12 @@ Expr-node count / Expr-string length — abstraction is no longer
 
 | Layer | Measure | All 4 siblings |
 |-------|---------|----------------|
-| AST G90 | recursor-tag profile | identical |
-| Syntax G91 | tactic-token count | 48 each |
-| Citation G92 | cite multiset | 43 each |
-| Expr G102 | const-invocations | 206,914 each |
-| Expr G103 | total Expr-node count | 628,271 each |
-| Expr G106 | normalised string length | 3,309,145 chars each |
+| AST recursor scan | recursor-tag profile | identical |
+| Syntax token scan | tactic-token count | 48 each |
+| Citation scan | cite multiset | 43 each |
+| Expr call graph | const-invocations | 206,914 each |
+| Expr shape scan | total Expr-node count | 628,271 each |
+| Expr string norm | normalised string length | 3,309,145 chars each |
 
 Six independent measurements agree byte-identical across 4
 siblings.  The only difference is the α/β factor knob (0.1 % at
@@ -857,7 +856,7 @@ position 30 of 48 tactic-tokens).
 ### Solution
 
 Use n-layer agreement as **abstraction-priority ordering**.  Pairs
-agreeing at one layer (G92 cite identity) are candidates; pairs
+agreeing at one layer (cite identity) are candidates; pairs
 agreeing at 3+ layers are high-confidence; pairs agreeing at 6
 layers are **overdetermined**.
 
@@ -872,12 +871,11 @@ abstraction target in the corpus**.
 
 ### Where applied
 
-  · G106 §3 sketches L1's parametric form.
-  · G114 §4 — CayleyDickson `*.ext` / `conj_ne_id` byte-
-    identical pairs (smaller scale).
-  · G110 §5 — FluxMVT forward/backward byte-identical pairs.
-  · G111 §4 — Cohomology Universal Prop52/53 + Hodge Prop 5_k
-    quartet.
+  · the L1 LeibnizAlgLift parametric form (CupAW).
+  · CayleyDickson `*.ext` / `conj_ne_id` byte-identical pairs
+    (smaller scale).
+  · FluxMVT forward/backward byte-identical pairs.
+  · Cohomology Universal Prop52/53 + Hodge Prop 5_k quartet.
 
 ### Generalisation
 
@@ -889,7 +887,7 @@ ranking metric.
 ---
 
 
-## Pattern #15 — Three-level "Derived from Raw" distinction (G104)
+## Pattern #15 — Three-level "Derived from Raw" distinction
 
 **Reference**: full spec in `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2.
 
@@ -909,18 +907,18 @@ Full text + worked examples (Real213, FluxMVT, Cohomology):
 `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-2.
 
 
-## Pattern #16 — Decide-finitism quantitative profile (G100)
+## Pattern #16 — Decide-finitism quantitative profile
 
 **Reference**: full spec in `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3.
 
 **Summary**: Pattern #2 (decide-finitism) has measurable footprint:
 
-  · **36 % of theorems** are pure `[decide]` proofs (G91).
+  · **36 % of theorems** are pure `[decide]` proofs.
   · **8 % of theorems** are decide-verified negative claims
-    (135 falsifiers from G100).
+    (135 falsifiers, `catalogs/falsifier-roster.md`).
   · Combined **~44 % decide-routed** at one polarity or the other.
   · `Bool.casesOn` is the corpus's largest recursor (1,681 invocations
-    / 634 callers; G105).
+    / 634 callers; `catalogs/recursor-inventory.md`).
 
 Distinguishability (`≠`) dominates negation (78 % of falsifiers) —
 consistent with Raw's distinguishability primitive in operational form.
@@ -932,15 +930,13 @@ Full quantitative profile + falsifier catalog references:
 
 ## Pattern #17 — Framework-internal subsumption (Bishop / classical)
 
-**Discovered**: 2026-05-21 meta-analysis (G108).
-
 ### Problem
 
 Constructing ℝ classically requires ε-N moduli (Bishop's
 constructive ℝ) or Cauchy quotients (Cauchy's ℝ).  Both involve
 non-trivial machinery.
 
-### DRLT reframe (`AsLensOutput.lean`, user 2026-04-26 insight)
+### DRLT reframe (`AsLensOutput.lean`, originator insight)
 
 > "Aren't there infinitely many different ways to extract natural
 > numbers from 213? Of course reals exist then. Computation? You
@@ -967,28 +963,24 @@ def cutMul : RealAsLensOutput → RealAsLensOutput → RealAsLensOutput
 
 ### Where applied
 
-  · G108 §2 — articulates the subsumption.
-  · G108 §3 layer hierarchy — shows the layered architecture
-    that operationalises the doctrine.
-  · G110 §"213-native vs classical" — analytic analogue:
-    derivative = localDivergence, FTC = dyadic Stokes, MVT =
-    cohomological balance.  Subsumes classical limit-based
-    analysis.
+  · `Real213` — the AsLensOutput carrier and its layered
+    architecture operationalise the doctrine.
+  · FluxMVT — the analytic analogue: derivative =
+    localDivergence, FTC = dyadic Stokes, MVT = cohomological
+    balance.  Subsumes classical limit-based analysis.
 
 ### Generalisation
 
 When a classical concept (real number, derivative, integral,
 cup product, etc.) requires a non-trivial construction
 externally, look for whether the **Lens-output space already
-contains it** as a choice of operation.  Real213 (G108) and
-FluxMVT (G110) demonstrate the pattern.
+contains it** as a choice of operation.  Real213 and FluxMVT
+demonstrate the pattern.
 
 ---
 
 
 ## Pattern #18 — Byte-identical Expr cross-domain bridges
-
-**Discovered**: 2026-05-22 meta-analysis (G109).
 
 ### Problem
 
@@ -999,7 +991,7 @@ literally identical terms post-normalisation.
 ### Discovery method
 
 Group all decls by 14-dimensional `Expr`-shape vector
-(`tools/_ast_shape_rows.tsv` from G103).  Filter to vectors
+(`tools/_ast_shape_rows.tsv` from `tools/ast_shape_scan.py`).  Filter to vectors
 shared by ≥ 2 decls across distinct top-level namespaces.
 
 ### Quantification
@@ -1007,14 +999,14 @@ shared by ≥ 2 decls across distinct top-level namespaces.
   · 109 cross-namespace byte-identical groups in DRLT.
   · 25 of these span Math ↔ Physics (substantive bridges).
   · 5-way structural identities: K_5 / K_25 first Betti ≡
-    inverse-α₃ ≡ SU(NS) adjoint, etc. (G109 ★ Bridges 20-25).
+    inverse-α₃ ≡ SU(NS) adjoint, etc.
 
 ### Where applied
 
-  · G109 — full scan and characterisation.
-  · `catalogs/cross-domain-identifications.md` — 10 named CDIs.
-  · G111 §5 / G112 §6 / others — Cohomology +
-    HodgeConjecture's role as math-side anchor for the bridges.
+  · `catalogs/cross-domain-identifications.md` — the named CDIs
+    (the scan's full characterisation distilled there).
+  · Cohomology + HodgeConjecture as the math-side anchor for the
+    bridges.
 
 ### Generalisation
 
@@ -1027,9 +1019,6 @@ math-physics connections, not analogies.
 
 
 ## Pattern #19 — Forward/backward (α/β) factor-knob byte-identical pair
-
-**Discovered**: 2026-05-21 meta-analysis (G106 L1, G110 FluxMVT,
-G114 CayleyDickson).
 
 ### Problem
 
@@ -1077,10 +1066,9 @@ form.
 
 ### Where applied
 
-  · G106 §3 — L1 LeibnizAlgLift refined signature.
-  · G110 §5 — FluxMVT forward/backward pairs.
-  · G111 + G114 — Cohomology + CayleyDickson byte-identical
-    pair groups.
+  · the L1 LeibnizAlgLift refined signature (CupAW).
+  · FluxMVT forward/backward pairs.
+  · Cohomology + CayleyDickson byte-identical pair groups.
 
 ### Generalisation
 
@@ -1094,9 +1082,6 @@ likely produce byte-identical pairs at the Expr level.
 
 ## Pattern #20 — Multiple Lens choices for the same categorical concept
 
-**Discovered**: 2026-05-22 meta-analysis (G108 + G110 + G111
-G85 disclosure).
-
 ### Problem
 
 A categorical concept (cup product, derivative, integral, cut
@@ -1106,14 +1091,14 @@ distinct Lens choices preserves freedom.
 
 ### Examples discovered
 
-**Cup product** (G85, G111 §6): two distinct cups coexist in
+**Cup product**: two distinct cups coexist in
 Cohomology:
   · `cupAW` — Alexander-Whitney standard form
   · `cup` (lex-projection) — boundary-endpoint correction form
 
 Both ∀(n, k, l) proven PURE.  Both serve distinct roles.
 
-**Derivative** (G110 §2): three forms:
+**Derivative**: three forms:
   · classical limit (not used in DRLT)
   · `localDivergence` (213-native: flux × 2^expE)
   · `IsDifferentiable` (`Differentiation/`, explicit derivative
@@ -1121,7 +1106,7 @@ Both ∀(n, k, l) proven PURE.  Both serve distinct roles.
 
 DRLT formalises ALL three as framework-internal choices.
 
-**Cut function** (G108 §1): three carriers for real numbers:
+**Cut function**: three carriers for real numbers:
   · `Real213` struct (Raw sequence + modulus)
   · `RealAsLensOutput := Nat → Nat → Bool` (Lens output abbrev)
   · `DyadicBracket` (Analysis-time finite data structure)
@@ -1137,9 +1122,9 @@ Lens output of the underlying Raw structure.
 
 ### Where applied
 
-  · G108 §2 (AsLensOutput doctrine).
-  · G110 §2 + §6 (three derivative forms).
-  · G111 §6 (cup vs cupAW, G85 self-correction).
+  · the AsLensOutput doctrine (`Real213`).
+  · the three derivative forms (FluxMVT / Differentiation).
+  · cup vs cupAW (`theory/math/cohomology/{cup,cupaw}.md`).
 
 ### Generalisation
 
