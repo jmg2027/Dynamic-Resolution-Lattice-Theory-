@@ -503,4 +503,176 @@ theorem prod_match_B (J p g : Nat) :
           show 2 * (d' + 1) + 1 - 1 = 2 * (d' + 1) from rfl]
       ring_nat
 
+
+
+/-! ## §7 — F3: the bridges proper -/
+
+/-- ★★★ **A-side weight match**: `Mf(g)·σ_p = wprod (p+g)` — the fixed-`g`
+    multiplier converts the sinh-coefficients into the accumulator weights. -/
+theorem wmatchA (J g : Nat) : ∀ p,
+    wprod (2 * (J + g) + 1) g * nth (sListC J) p = wprod (2 * (J + g) + 1) (p + g)
+  | 0 => by
+    rw [sListC_head J, Nat.mul_one, Nat.zero_add]
+  | p + 1 => by
+    rw [sig_step J p,
+        show wprod (2 * (J + g) + 1) g
+            * ((2 * (J - p)) * (2 * (J - p) + 1) * nth (sListC J) p)
+          = (2 * (J - p)) * (2 * (J - p) + 1)
+            * (wprod (2 * (J + g) + 1) g * nth (sListC J) p) from by ring_nat,
+        wmatchA J g p,
+        show p + 1 + g = (p + g) + 1 from Nat.succ_add p g,
+        show wprod (2 * (J + g) + 1) ((p + g) + 1)
+          = wprod (2 * (J + g) + 1) (p + g)
+            * (((2 * (J + g) + 1) - 2 * (p + g) - 1)
+              * ((2 * (J + g) + 1) - 2 * (p + g))) from rfl,
+        ← prod_match J p g]
+    ring_nat
+
+/-- ★★★ **B-side weight match**: `Mf(g)·(2J+1)·γ_p = wprod (p+g) ·
+    ((2(J+g)+1) − 2(p+g))` — the cosh side carries the running coefficient. -/
+theorem wmatchB (J g : Nat) : ∀ p,
+    wprod (2 * (J + g) + 1) g * ((2 * J + 1) * nth (cListC J) p)
+      = wprod (2 * (J + g) + 1) (p + g) * ((2 * (J + g) + 1) - 2 * (p + g))
+  | 0 => by
+    rw [cListC_head J, Nat.mul_one, Nat.zero_add,
+        show (2 * (J + g) + 1) - 2 * g = 2 * J + 1 from by
+          rw [show 2 * (J + g) + 1 = (2 * J + 1) + 2 * g from by ring_nat]
+          exact sub_cancel_left (2 * J + 1)]
+  | p + 1 => by
+    rw [gam_step J p,
+        show wprod (2 * (J + g) + 1) g
+            * ((2 * J + 1) * ((2 * (J - p) - 1) * (2 * (J - p)) * nth (cListC J) p))
+          = (2 * (J - p) - 1) * (2 * (J - p))
+            * (wprod (2 * (J + g) + 1) g * ((2 * J + 1) * nth (cListC J) p)) from by
+          ring_nat,
+        wmatchB J g p,
+        show p + 1 + g = (p + g) + 1 from Nat.succ_add p g,
+        show wprod (2 * (J + g) + 1) ((p + g) + 1)
+          = wprod (2 * (J + g) + 1) (p + g)
+            * (((2 * (J + g) + 1) - 2 * (p + g) - 1)
+              * ((2 * (J + g) + 1) - 2 * (p + g))) from rfl,
+        show (2 * (J - p) - 1) * (2 * (J - p))
+            * (wprod (2 * (J + g) + 1) (p + g) * ((2 * (J + g) + 1) - 2 * (p + g)))
+          = wprod (2 * (J + g) + 1) (p + g)
+            * ((2 * (J - p) - 1) * (2 * (J - p)) * ((2 * (J + g) + 1) - 2 * (p + g)))
+          from by ring_nat,
+        prod_match_B J p g,
+        show p + 1 + g = (p + g) + 1 from Nat.succ_add p g]
+    ring_nat
+
+/-- ★★★★★ **BRIDGE A**: the `Mf(g)`-scaled convolution coefficient of
+    `(rev A-stack) ⋆ (sinh list)` at `p` completes the `g`-headed accumulator
+    to `p+g+1` steps — `N̂ = J+g` is invariant along the head-peel, and the
+    weight match aligns each peel with the snoc. -/
+theorem bridgeA (n J g : Nat) : ∀ p,
+    wprod (2 * (J + g) + 1) g * nth (lmulC (truncA n (p + g)) (sListC J)) p
+        + AaccSum n (J + g) g
+      = AaccSum n (J + g) (p + g + 1)
+  | 0 => by
+    cases g with
+    | zero =>
+      show wprod (2 * (J + 0) + 1) 0 * nth (lmulC (truncA n 0) (sListC J)) 0
+            + AaccSum n (J + 0) 0
+          = AaccSum n (J + 0) 1
+      rw [show truncA n 0 = [apF n 0] from rfl, nth_lmulC_zero, sListC_head J,
+          AaccSum_snoc n (J + 0) 0,
+          show wprod (2 * (J + 0) + 1) 0 = 1 from rfl]
+      show 1 * (apF n 0 * 1) + AaccSum n (J + 0) 0
+          = AaccSum n (J + 0) 0 + 1 * apF n 0
+      ring_nat
+    | succ g' =>
+      show wprod (2 * (J + (g' + 1)) + 1) (g' + 1)
+            * nth (lmulC (apF n (0 + (g' + 1)) :: truncA n (0 + g')) (sListC J)) 0
+            + AaccSum n (J + (g' + 1)) (g' + 1)
+          = AaccSum n (J + (g' + 1)) (0 + (g' + 1) + 1)
+      rw [nth_lmulC_zero, sListC_head J, Nat.zero_add,
+          AaccSum_snoc n (J + (g' + 1)) (g' + 1)]
+      ring_nat
+  | p + 1 => by
+    rw [show p + 1 + g = (p + g) + 1 from Nat.succ_add p g,
+        show truncA n ((p + g) + 1) = apF n ((p + g) + 1) :: truncA n (p + g) from rfl,
+        nth_lmulC_succ,
+        show wprod (2 * (J + g) + 1) g
+            * (apF n ((p + g) + 1) * nth (sListC J) (p + 1)
+              + nth (lmulC (truncA n (p + g)) (sListC J)) p)
+          = wprod (2 * (J + g) + 1) g * nth (sListC J) (p + 1) * apF n ((p + g) + 1)
+            + wprod (2 * (J + g) + 1) g
+              * nth (lmulC (truncA n (p + g)) (sListC J)) p from by ring_nat,
+        wmatchA J g (p + 1),
+        show p + 1 + g = (p + g) + 1 from Nat.succ_add p g]
+    rw [show wprod (2 * (J + g) + 1) ((p + g) + 1) * apF n ((p + g) + 1)
+          + wprod (2 * (J + g) + 1) g * nth (lmulC (truncA n (p + g)) (sListC J)) p
+          + AaccSum n (J + g) g
+        = (wprod (2 * (J + g) + 1) g * nth (lmulC (truncA n (p + g)) (sListC J)) p
+            + AaccSum n (J + g) g)
+          + wprod (2 * (J + g) + 1) ((p + g) + 1) * apF n ((p + g) + 1) from by
+          ring_nat,
+        bridgeA n J g p,
+        ← AaccSum_snoc n (J + g) ((p + g) + 1)]
+
+/-- ★★★★★ **BRIDGE B** (the cosh side, with the `(2J+1)`-laden list). -/
+theorem bridgeB (n J g : Nat) : ∀ p,
+    wprod (2 * (J + g) + 1) g
+        * nth (lmulC (truncB n (p + g)) (lsmul (2 * J + 1) (cListC J))) p
+        + BaccSum n (J + g) g
+      = BaccSum n (J + g) (p + g + 1)
+  | 0 => by
+    cases g with
+    | zero =>
+      show wprod (2 * (J + 0) + 1) 0
+            * nth (lmulC (truncB n 0) (lsmul (2 * J + 1) (cListC J))) 0
+            + BaccSum n (J + 0) 0
+          = BaccSum n (J + 0) 1
+      rw [show truncB n 0 = [bpF n 0] from rfl, nth_lmulC_zero, nth_lsmul,
+          cListC_head J, BaccSum_snoc n (J + 0) 0,
+          show wprod (2 * (J + 0) + 1) 0 = 1 from rfl,
+          show (2 * (J + 0) + 1) - 2 * 0 = 2 * (J + 0) + 1 from Nat.sub_zero _]
+      show 1 * (bpF n 0 * ((2 * J + 1) * 1)) + BaccSum n (J + 0) 0
+          = BaccSum n (J + 0) 0 + 1 * ((2 * (J + 0) + 1) * bpF n 0)
+      ring_nat
+    | succ g' =>
+      show wprod (2 * (J + (g' + 1)) + 1) (g' + 1)
+            * nth (lmulC (bpF n (0 + (g' + 1)) :: truncB n (0 + g'))
+                (lsmul (2 * J + 1) (cListC J))) 0
+            + BaccSum n (J + (g' + 1)) (g' + 1)
+          = BaccSum n (J + (g' + 1)) (0 + (g' + 1) + 1)
+      rw [nth_lmulC_zero, nth_lsmul, Nat.zero_add,
+          BaccSum_snoc n (J + (g' + 1)) (g' + 1)]
+      have hw := wmatchB J (g' + 1) 0
+      rw [cListC_head J, Nat.mul_one, Nat.zero_add] at hw
+      rw [show wprod (2 * (J + (g' + 1)) + 1) (g' + 1)
+            * (bpF n (g' + 1) * ((2 * J + 1) * nth (cListC J) 0))
+          = wprod (2 * (J + (g' + 1)) + 1) (g' + 1) * (2 * J + 1)
+            * bpF n (g' + 1) from by
+            rw [cListC_head J]; ring_nat,
+          hw]
+      ring_nat
+  | p + 1 => by
+    rw [show p + 1 + g = (p + g) + 1 from Nat.succ_add p g,
+        show truncB n ((p + g) + 1) = bpF n ((p + g) + 1) :: truncB n (p + g) from rfl,
+        nth_lmulC_succ, nth_lsmul,
+        show wprod (2 * (J + g) + 1) g
+            * (bpF n ((p + g) + 1) * ((2 * J + 1) * nth (cListC J) (p + 1))
+              + nth (lmulC (truncB n (p + g)) (lsmul (2 * J + 1) (cListC J))) p)
+          = wprod (2 * (J + g) + 1) g * ((2 * J + 1) * nth (cListC J) (p + 1))
+              * bpF n ((p + g) + 1)
+            + wprod (2 * (J + g) + 1) g
+              * nth (lmulC (truncB n (p + g)) (lsmul (2 * J + 1) (cListC J))) p
+          from by ring_nat,
+        wmatchB J g (p + 1),
+        show p + 1 + g = (p + g) + 1 from Nat.succ_add p g]
+    rw [show wprod (2 * (J + g) + 1) ((p + g) + 1)
+            * ((2 * (J + g) + 1) - 2 * ((p + g) + 1)) * bpF n ((p + g) + 1)
+          + wprod (2 * (J + g) + 1) g
+            * nth (lmulC (truncB n (p + g)) (lsmul (2 * J + 1) (cListC J))) p
+          + BaccSum n (J + g) g
+        = (wprod (2 * (J + g) + 1) g
+            * nth (lmulC (truncB n (p + g)) (lsmul (2 * J + 1) (cListC J))) p
+            + BaccSum n (J + g) g)
+          + wprod (2 * (J + g) + 1) ((p + g) + 1)
+            * (((2 * (J + g) + 1) - 2 * ((p + g) + 1)) * bpF n ((p + g) + 1)) from by
+          ring_nat,
+        bridgeB n J g p,
+        ← BaccSum_snoc n (J + g) ((p + g) + 1)]
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
