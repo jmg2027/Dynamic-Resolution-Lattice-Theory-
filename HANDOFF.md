@@ -24,9 +24,15 @@ PURE individually.
    through the Bezout-free `Gcd213.coprime_dvd_of_dvd_mul`.  The gear Legendre
    turns on.
 
-3. **`Lib/Math/NumberTheory/Legendre.lean` — `vp_factorial`**
-   Legendre half 1: `vₚ(n!) = Σ_{k<n} vₚ(k+1)` (additivity over the factorial
-   product, by induction through `vp_mul`; `vₚ1 = 0`).
+3. **`Lib/Math/NumberTheory/Legendre.lean` — `legendre`** (full formula)
+   **`vₚ(n!) = Σ_{j<n} ⌊n/p^{j+1}⌋`** (`p` prime), ∅-axiom — the crux of Brick 1.
+   Half 1 `vp_factorial` (`vₚ(n!) = Σ_{k<n} vₚ(k+1)`, additivity via `vp_mul`) +
+   half 2 by the **increment route, no Fubini**: induction on `n`, LHS gains
+   `vₚ(n+1)`, RHS gains `Σⱼ[p^{j+1}∣n+1] = vₚ(n+1)`.  Helpers (all PURE):
+   `div_succ_increment` (`⌊(n+1)/d⌋=⌊n/d⌋+[d∣n+1]` via `div_eq_of_sandwich`),
+   `val_count` (`Σ_{j<B}[p^{j+1}∣m]=vₚm` via `le_vp_iff`+`indLt_sum`),
+   `indLt_sum` (`Σ_{j<B}[j<V]=V`), `top_vanish`, `lt_of_mul_lt_mul_left'`,
+   `sumTo_const_one/zero`.
 
 ### ∅-axiom traps hit (intel for next session)
   - `Nat.div_add_mod`, `Nat.pow_add`, `Nat.mul_mul_mul_comm` all carry
@@ -45,15 +51,21 @@ PURE individually.
     reshuffles.
 
 ## Remaining chain to close Brick 1 (frontier: `zeta3_blueprint.md`)
-  * **Legendre half 2** — double-counting swap `Σ_{k<n} vₚ(k+1) = Σⱼ ⌊n/pʲ⌋`
-    (`vₚ(k+1) = #{j≥1 : pʲ∣k+1}`, `Σ_{k<n}[pʲ∣k+1] = ⌊n/pʲ⌋`).  Then the lcm-side
-    valuation `vₚ(lcm 1..n) = max_j ⌊n/pʲ⌋`-style.
+  * **lcm valuation** (next, the companion to `legendre`) — `vₚ(lcm 1..N) =
+    (max j with p^j ≤ N)`.  Build: (a) `lcmUpTo : Nat → Nat` (`lcmUpTo (n+1) =
+    lcm213 (n+1) (lcmUpTo n)`, `lcmUpTo 0 = 1`); (b) `vp_monotone`
+    (`a∣b → 0<b → vₚa ≤ vₚb`, from `le_vp_iff`); (c) `vp_gcd_min`/`vp_lcm_max`
+    via `vp_monotone` + `Lcm213.gcd_mul_lcm` + `vp_mul` (avoid vp-of-quotient by
+    using the product identity `gcd·lcm = a·b`).  **CAVEAT**: `Nat.min_eq_right`,
+    `Nat.min_zero` carry **propext** — phrase max/min explicitly (`if e ≤ f then
+    f else e`) or prove the needed `(e+f) - min e f = max e f`-shape by hand.
   * **FTA-lite** — `(∀ prime power q, q∣a → q∣b) → a∣b` (prime-factor enumeration
     up to `n`).
-  * **Steps 2–7** — key divisibility (`count30` at `m̃=⌊30m/pʲ⌋`),
-    factorial-ratio bound (`α₃₀ = 2¹⁴3⁹5⁵`), recursion, numeral induction
-    (`37·α₃₀⁶ ≤ 10⁷⁵` by decide on the big literal), main `lcm(1..30m) ≤ 10^{15m}`,
-    corollaries `lcm⁶ ≤ 10^{87+3n}`.
+  * **Steps 2–7** — key divisibility (compare the two sides' `vₚ` via `legendre`
+    + lcm valuation, folding the floor terms through `count30` at
+    `m̃=⌊30m/p^{j+1}⌋`), factorial-ratio bound (`α₃₀ = 2¹⁴3⁹5⁵`), recursion,
+    numeral induction (`37·α₃₀⁶ ≤ 10⁷⁵` by decide on the big literal), main
+    `lcm(1..30m) ≤ 10^{15m}`, corollaries `lcm⁶ ≤ 10^{87+3n}`.
 
 ## Then: Brick 2 (Apéry integrality) + assembly
 Brick 2 (`zeta3_blueprint.md` Brick 2) is "pure divisibility chains, NO p-adics"
@@ -78,6 +90,6 @@ localization `(601/500, 1203/1000]`.  See `Zeta3Cut.lean` §8–§9.
 ```
 lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← NEW (§1 count30)
 lean/E213/Lib/Math/NumberTheory/PrimeValuation.lean      ← NEW (vp_mul, prime_dvd_mul, Prime213)
-lean/E213/Lib/Math/NumberTheory/Legendre.lean            ← NEW (vp_factorial, vp_one)
-research-notes/frontiers/zeta3_blueprint.md              ← formalization-progress section added
+lean/E213/Lib/Math/NumberTheory/Legendre.lean            ← NEW (legendre full formula; vp_factorial, vp_one, val_count, indLt_sum, div_succ_increment)
+research-notes/frontiers/zeta3_blueprint.md              ← formalization-progress section (Legendre done)
 ```

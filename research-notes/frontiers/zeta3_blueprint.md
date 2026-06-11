@@ -16,20 +16,24 @@ PURE (∅-axiom) modules landed, in dependency order:
   * `Lib/Math/NumberTheory/PrimeValuation.lean` — **`vp_mul`** = `vₚ(a·b)=vₚa+vₚb`
     at a prime (`Prime213`), with Euclid's lemma `prime_dvd_mul` via the
     Bezout-free `Gcd213.coprime_dvd_of_dvd_mul`.  The gear under Legendre.
-  * `Lib/Math/NumberTheory/Legendre.lean` — **`vp_factorial`** = Legendre half 1,
-    `vₚ(n!) = Σ_{k<n} vₚ(k+1)` (additivity over the factorial product).
+  * `Lib/Math/NumberTheory/Legendre.lean` — **`legendre`** = the full factorial
+    formula `vₚ(n!) = Σ_{j<n} ⌊n/p^{j+1}⌋` (`p` prime).  Half 1 (`vp_factorial`,
+    additivity over the product) + half 2 (the double-counting, via the increment
+    route — `div_succ_increment` `⌊(n+1)/d⌋=⌊n/d⌋+[d∣n+1]` summed + `val_count`
+    `Σ_{j<B}[p^{j+1}∣m]=vₚm`, no Fubini swap).  Helpers: `indLt_sum`,
+    `sumTo_const_one/zero`, `lt_of_mul_lt_mul_left'`, `top_vanish`.
 
 Remaining chain to the deliverable `lcm⁶ ≤ 10^{87+3n}`:
 
-  * **Legendre half 2** — the double-counting swap `Σ_{k<n} vₚ(k+1) = Σⱼ ⌊n/pʲ⌋`
-    (`vₚ(k+1) = #{j≥1 : pʲ∣k+1}`, `Σ_{k<n}[pʲ∣k+1] = ⌊n/pʲ⌋`).  Needs `sumTo`
-    swap + the `[pʲ∣·]`-counting identity.  Then `vₚ(lcm 1..n) = max_j ⌊n/pʲ⌋`-style
-    bound for the lcm side.
+  * **lcm valuation** — `vₚ(lcm 1..N) = (max j with p^j ≤ N)` = `⌊log_p N⌋`, the
+    lcm-side companion to `legendre`.  Needs an iterated `lcmUpTo N` and
+    `vₚ(lcm a b) = max (vₚa) (vₚb)` (from `vp_mul`-style + `Lcm213`).
   * **FTA-lite** — `(∀ prime power q, q∣a → q∣b) → a∣b`, the divisibility criterion
     step 2 closes through (needs a prime-factor existence/enumeration up to `n`).
-  * Steps 2–7 (key divisibility via the counting lemma at `m̃=⌊30m/pʲ⌋`;
-    factorial-ratio bound; recursion; numeral induction `37·α₃₀⁶ ≤ 10⁷⁵`; main
-    `lcm(1..30m) ≤ 10^{15m}`; corollaries).  `α₃₀ = 2¹⁴3⁹5⁵` exact.
+  * Steps 2–7 (key divisibility via `count30` at `m̃=⌊30m/p^{j+1}⌋`, comparing the
+    two sides' `vₚ` through `legendre` + lcm valuation; factorial-ratio bound;
+    recursion; numeral induction `37·α₃₀⁶ ≤ 10⁷⁵`; main `lcm(1..30m) ≤ 10^{15m}`;
+    corollaries).  `α₃₀ = 2¹⁴3⁹5⁵` exact.
 
 ## Brick 1 — the lcm bound: finitized Chebyshev, NOT Hanson
 
