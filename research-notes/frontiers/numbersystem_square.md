@@ -31,6 +31,21 @@ Everything below that speaks of "normal forms" is to be read in this
 register: the normal form is the distinguished point of a relation
 orbit, and naming the orbit by it is the *flattened* reading.
 
+**One mechanism, not two (the imaginary unit dissolved).**  Over
+ℕ-slots no imaginary number can arise: `f(x) = b` with ℕ coefficients
+and ℕ right-hand side never needs one (the folds never cross in that
+direction — the ℕ-witness form of `int_sumSq_eq_zero`).  "`x² = −1`"
+is not an ℕ-question at all; it is a question **whose slots are
+already +-pairs**: `x^(n,n+2) = (m+1,m)`.  By the same slot-tuple
+rule that built everything else, its solution is a number with two
+pair-slots — four naturals, exactly `GaussTuple`'s 4-axis object.  So
+there is no second "rigid axis" mechanism: what was called rigidity
+is *the question's slots sitting one level up, with no witness at
+that level* — the ordinary witness dichotomy applied on the upper
+layer.  The imaginary unit is the **solvability supplement for
++-pair-coefficient equations**, born at exactly the layer where slots
+carry the +-pair structure, undefined before it.
+
 ## The square
 
 ```
