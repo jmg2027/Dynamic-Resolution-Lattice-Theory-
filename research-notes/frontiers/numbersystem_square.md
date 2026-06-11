@@ -6,6 +6,16 @@ T1–T4 below.*
 
 ## Ontology: the tuple tower (the no-quotient reading is primary)
 
+> "연산(자연수,자연수) → 자연수 인 연산들로 결합된 자연수 슬롯들로
+> 자연수 자유도를 통해 수체계를 만든다" — *number systems are built
+> from ℕ-slots combined by (ℕ,ℕ)→ℕ operations, through ℕ degrees of
+> freedom alone.*  (Mingu Jeong, 2026-06-11.)  No inverse operation,
+> no partial operation, no new primitive object ever enters; negatives,
+> fractions, and the imaginary unit are **addresses in slot space**,
+> not new kinds of number — which is also why every theorem of this
+> arc carries the empty axiom set: total ℕ-operations leave no seam
+> for partiality, choice, or `propext` to enter.
+
 Numbers are nested ℕ-tuples, and **the tuple is the number**: the
 nesting is the axis structure.  `(1,3)` is a two-axis number; a
 Gaussian-type number is `(p,q)` when the components are naturals,
