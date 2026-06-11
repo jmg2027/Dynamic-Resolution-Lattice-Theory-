@@ -1,5 +1,6 @@
 import E213.Meta.Nat.Valuation
 import E213.Meta.Nat.Gcd213
+import E213.Lib.Math.NumberTheory.Lcm213
 
 /-!
 # PrimeValuation — `vₚ` is additive over products, ∅-axiom
@@ -29,8 +30,9 @@ namespace E213.Lib.Math.NumberTheory.PrimeValuation
 open E213.Meta.Nat.Valuation (vp pow_vp_dvd vp_not_dvd_succ le_vp_iff pow_dvd_of_le dtrans
   mod_zero_of_dvd)
 open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
-open E213.Meta.Nat.Gcd213 (gcd213_dvd_left gcd213_dvd_right coprime_dvd_of_dvd_mul)
-open E213.Tactic.NatHelper (gcd213 mul_assoc mul_left_comm)
+open E213.Meta.Nat.Gcd213 (gcd213_dvd_left gcd213_dvd_right gcd213_greatest coprime_dvd_of_dvd_mul)
+open E213.Lib.Math.NumberTheory.Lcm213 (lcm213 gcd_pos lcm_pos gcd_mul_lcm)
+open E213.Tactic.NatHelper (gcd213 mul_assoc mul_left_comm add_left_cancel_pure)
 
 /-! ## §0 — pure arithmetic helpers (the core analogues carry `propext`) -/
 
@@ -123,5 +125,54 @@ theorem vp_mul {p a b : Nat} (hp : Prime213 p) (ha : 0 < a) (hb : 0 < b) :
   refine Nat.le_antisymm ?_ ((le_vp_iff p (a * b) _ hq hab).mp hlow)
   exact Nat.le_of_lt_succ (Nat.lt_of_not_le
     (mt (le_vp_iff p (a * b) (vp p a + vp p b + 1) hq hab).mpr hhigh))
+
+/-! ## §3 — `vₚ` on gcd / lcm: monotone, `min`, `max`
+
+The lcm-side companion to Legendre.  `vₚ` is monotone under `∣` (from `le_vp_iff`),
+`vₚ(gcd) = min` and `vₚ(lcm) = max` (the latter from the former + the product
+identity `gcd·lcm = a·b`, dodging Nat subtraction).  `min`/`max` are written as
+explicit `if` to avoid the `propext`-carrying `Nat.min_*`/`Nat.max_*` lemmas. -/
+
+/-- `vₚ` is monotone under divisibility: `a ∣ b → vₚ a ≤ vₚ b` (`b > 0`). -/
+theorem vp_monotone {p a b : Nat} (hp : Prime213 p) (hb : 0 < b) (hdvd : a ∣ b) :
+    vp p a ≤ vp p b :=
+  (le_vp_iff p b (vp p a) hp.1 hb).mp (dtrans (pow_vp_dvd p a) hdvd)
+
+/-- `vₚ(gcd a b) = min (vₚ a) (vₚ b)` (`a, b > 0`), `min` as explicit `if`. -/
+theorem vp_gcd_min {p a b : Nat} (hp : Prime213 p) (ha : 0 < a) (hb : 0 < b) :
+    vp p (gcd213 a b) = if vp p a ≤ vp p b then vp p a else vp p b := by
+  have hg : 0 < gcd213 a b := gcd_pos a b ha
+  have h1 : vp p (gcd213 a b) ≤ vp p a := vp_monotone hp ha (gcd213_dvd_left a b)
+  have h2 : vp p (gcd213 a b) ≤ vp p b := vp_monotone hp hb (gcd213_dvd_right a b)
+  by_cases hab : vp p a ≤ vp p b
+  · rw [if_pos hab]
+    refine Nat.le_antisymm h1 ?_
+    exact (le_vp_iff p (gcd213 a b) (vp p a) hp.1 hg).mp
+      (gcd213_greatest a b _ (pow_vp_dvd p a) ((le_vp_iff p b (vp p a) hp.1 hb).mpr hab))
+  · rw [if_neg hab]
+    refine Nat.le_antisymm h2 ?_
+    have hvba : vp p b ≤ vp p a := Nat.le_of_lt (Nat.lt_of_not_le hab)
+    exact (le_vp_iff p (gcd213 a b) (vp p b) hp.1 hg).mp
+      (gcd213_greatest a b _ ((le_vp_iff p a (vp p b) hp.1 ha).mpr hvba) (pow_vp_dvd p b))
+
+/-- ★★ **`vₚ(lcm a b) = max (vₚ a) (vₚ b)`** (`a, b > 0`), `max` as explicit `if`.
+    From `vₚ(gcd)+vₚ(lcm) = vₚ(a·b) = vₚa+vₚb` (the product identity `gcd·lcm=a·b`
+    + `vp_mul`) and `vₚ(gcd) = min`, cancelling. -/
+theorem vp_lcm_max {p a b : Nat} (hp : Prime213 p) (ha : 0 < a) (hb : 0 < b) :
+    vp p (lcm213 a b) = if vp p a ≤ vp p b then vp p b else vp p a := by
+  have hg : 0 < gcd213 a b := gcd_pos a b ha
+  have hl : 0 < lcm213 a b := lcm_pos a b ha hb
+  have hmul : vp p (gcd213 a b) + vp p (lcm213 a b) = vp p a + vp p b := by
+    calc vp p (gcd213 a b) + vp p (lcm213 a b)
+        = vp p (gcd213 a b * lcm213 a b) := (vp_mul hp hg hl).symm
+      _ = vp p (a * b) := by rw [gcd_mul_lcm a b ha]
+      _ = vp p a + vp p b := vp_mul hp ha hb
+  have hgmin := vp_gcd_min hp ha hb
+  by_cases hab : vp p a ≤ vp p b
+  · rw [if_pos hab]; rw [if_pos hab] at hgmin; rw [hgmin] at hmul
+    exact add_left_cancel_pure hmul
+  · rw [if_neg hab]; rw [if_neg hab] at hgmin; rw [hgmin] at hmul
+    rw [Nat.add_comm (vp p a) (vp p b)] at hmul
+    exact add_left_cancel_pure hmul
 
 end E213.Lib.Math.NumberTheory.PrimeValuation
