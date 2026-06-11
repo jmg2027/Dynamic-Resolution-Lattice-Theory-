@@ -336,6 +336,24 @@ theorem minor_e (n t : Nat) :
     apF n t * bpF (n + 1) (t + 2) ≤ bpF n t * apF (n + 1) (t + 2) :=
   e_of_sys (minorSys n) (minorSys (n + 1)) t
 
+/-- ★★★★ **All-gap minors**: the coefficient ratios increase across *every* gap,
+    not just adjacent positions — chain the adjacent minors through positive
+    pivots (`ratio_chain`); a vanishing pivot kills the tail (`bpF_support`). -/
+theorem minor_all (n : Nat) : ∀ (j i : Nat), i < j →
+    apF n i * bpF n j ≤ bpF n i * apF n j
+  | 0, _, h => absurd h (Nat.not_lt_zero _)
+  | j + 1, i, h => by
+    rcases Nat.eq_or_lt_of_le (Nat.le_of_lt_succ h) with heq | hlt
+    · rw [heq]
+      exact (minorSys n).m1 j
+    · cases hpiv : bpF n j with
+      | zero =>
+        rw [bpF_support n j hpiv, Nat.mul_zero]
+        exact Nat.zero_le _
+      | succ p =>
+        exact ratio_chain (minor_all n j i hlt) ((minorSys n).m1 j)
+          (by rw [hpiv]; exact Nat.succ_le_succ (Nat.zero_le p))
+
 /-- Numeric anchors (level 5: `Ã₄ = [945, 420, 15]`, `B̃₄ = [945, 105, 1]`): the
     adjacent minors and cross-level families check arithmetically. -/
 theorem minor_anchors :
