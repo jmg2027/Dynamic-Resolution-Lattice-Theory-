@@ -1041,4 +1041,54 @@ theorem weld_positivity_persists (q i : Nat) (hM : ∀ j, 0 < weldM q i j) (J0 :
     lt_of_lt_of_le h0 (weld_ratio_descent q i hM J0 d)
   exact pos_of_mul_pos_right h1 (hM J0)
 
+/-- `0 ≤ x·c` with `0 < c` forces `0 ≤ x` (non-strict right cancellation). -/
+private theorem nonneg_of_mul_nonneg_right {x c : Int} (h : 0 ≤ x * c) (hc : 0 < c) : 0 ≤ x := by
+  refine le_of_mul_le_mul_right_pos ?_ hc
+  rw [E213.Meta.Int213.zero_mul]; exact h
+
+/-- ★★★★★ **`LowerBase` reduces to a single last-step inequality** (the empirically-discovered
+    flip structure, item 3 sharpened).  The lower cross flips from negative to non-negative at
+    **one** step `J → J+1` (evaluation shows it flips at exactly `J = 2i`, the last step before
+    `N = 2i+1`).  So `LowerBase`'s content `0 ≤ R_{J+1}` follows — **bridge-free** — from positive
+    margins plus the *single* inequality
+
+      `(−R_0)·M_J·M_{J+1} ≤ K_J·M_0`.
+
+    Proof: ratio descent (`R_0·M_J ≤ R_J·M_0`, free) scaled by `M_{J+1}`, the single inequality
+    (`0 ≤ R_0·M_J·M_{J+1} + K_J·M_0`), and the Casoratian (`R_{J+1}·M_J = R_J·M_{J+1} + K_J`)
+    assemble to `0 ≤ M_0·(R_{J+1}·M_J)`; cancel the positive `M_0·M_J`.  This is the flip
+    criterion run at the last step — no `LambertBridge` machinery.  It converts the open item 3
+    from "reach `≥ 0` by `J = 2i+1`" (the whole telescoped sum) into **one** ℤ-native inequality,
+    which holds with large slack in every evaluated case (`i ≤ 3`): the genuine, localized residue
+    is `(−R_0)·M_{2i}·M_{2i+1} ≤ K_{2i}·M_0` (`K_{2i}` is factorially large; `−R_0`, the `M`'s are
+    comparatively small). -/
+theorem weld_lowerbase_reduction (q i J : Nat) (hM : ∀ j, 0 < weldM q i j)
+    (hsingle : -(weldR q i 0) * (weldM q i J * weldM q i (J+1)) ≤ weldK q J * weldM q i 0) :
+    0 ≤ weldR q i (J+1) := by
+  -- ratio descent at anchor 0, scaled by the non-negative margin `M_{J+1}`
+  have hrd : weldR q i 0 * weldM q i J ≤ weldR q i J * weldM q i 0 := by
+    have h := weld_ratio_descent q i hM 0 J; rwa [Nat.zero_add] at h
+  have hi : weldR q i 0 * weldM q i J * weldM q i (J+1)
+          ≤ weldR q i J * weldM q i 0 * weldM q i (J+1) :=
+    mul_le_mul_right_nonneg hrd (weldM q i (J+1)) (le_of_lt (hM (J+1)))
+  -- the single inequality, rearranged to `0 ≤ R_0·M_J·M_{J+1} + K_J·M_0`
+  have hLHS : 0 ≤ weldR q i 0 * weldM q i J * weldM q i (J+1) + weldK q J * weldM q i 0 := by
+    have h := sub_nonneg_of_le hsingle
+    rw [show weldK q J * weldM q i 0 - -(weldR q i 0) * (weldM q i J * weldM q i (J+1))
+          = weldR q i 0 * weldM q i J * weldM q i (J+1) + weldK q J * weldM q i 0 from by ring_intZ] at h
+    exact le_zero_of_nonneg h
+  -- add `K_J·M_0` across the descent, chain past `0`
+  have h2 : 0 ≤ weldR q i J * weldM q i 0 * weldM q i (J+1) + weldK q J * weldM q i 0 :=
+    le_trans hLHS (add_le_add_right hi (weldK q J * weldM q i 0))
+  -- the right side is `R_{J+1}·(M_0·M_J)` by the Casoratian
+  have h3 : weldR q i J * weldM q i 0 * weldM q i (J+1) + weldK q J * weldM q i 0
+          = weldR q i (J+1) * (weldM q i 0 * weldM q i J) := by
+    rw [show weldR q i J * weldM q i 0 * weldM q i (J+1) + weldK q J * weldM q i 0
+          = weldM q i 0 * (weldR q i J * weldM q i (J+1) + weldK q J) from by ring_intZ,
+        ← weld_casoratian_int q i J]
+    ring_intZ
+  rw [h3] at h2
+  -- cancel the positive `M_0·M_J`
+  exact nonneg_of_mul_nonneg_right h2 (mul_pos (hM 0) (hM J))
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder

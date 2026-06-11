@@ -29,22 +29,25 @@ The weld itself is closed without it (`theory/math/analysis/lambert_weld.md`)
    `R/M` climbs).  `weld_ratio_descent : (∀j, 0 < M_j) → R_0·M_J ≤ R_J·M_0`
    telescopes it through the positive margins — i.e. pre-flip (`R<0`)
    `|R_J|·M_0 ≤ |R_0|·M_J`, the magnitude descent.
-3. **Bridge-free certificate** — *structural* half closed, *quantitative*
-   half OPEN (`LambertOrder` §10, ∅-axiom).  The structural facts: the ratio
-   `R/M` is non-decreasing forward (`weld_ratio_descent`, any anchor `J₀`:
-   `R_{J₀}·M_{J₀+d} ≤ R_{J₀+d}·M_{J₀}`), so **once non-negative the cross stays
-   non-negative** (`weld_positivity_persists`); and `weldM_nonneg : 0 ≤ M_J` is
-   **elementary** (`series_below_odd_core`, cross-`le` + det-one floor, *not* the
-   bridge).
-   **But this is *not* (yet) a bridge-free `LowerBase`.**  `LowerBase` is
-   `0 ≤ R_{2i+1}`, and the cross starts **negative** —
-   `R_0 = dev(BP_{2i+1}) − dev(AP_{2i+1}) ≤ 0` (`= 0` at `i=0`, `< 0` for `i ≥ 1`;
-   evaluation-checked, e.g. `i=1,q=2`: `61 − 66 = −5`).  Persistence has no positive
-   anchor at `J₀ = 0`.  A genuine second certificate would still have to certify the
-   climbing ratio reaches `≥ 0` **by** `J = 2i+1` — the *quantitative flip-timing*
-   that is exactly the `LambertBridge` content.  So the structural half (climb +
-   persistence + flip criterion) is bridge-free; the quantitative "flips by `2i+1`"
-   half is the open, genuinely bridge-equivalent residue.
+3. **Bridge-free certificate** — *reduced to a single last-step inequality*
+   (`LambertOrder` §10, ∅-axiom; found via multi-agent + numerical probe).
+   The structural facts hold (ratio `R/M` climbs, `weld_positivity_persists`,
+   `weldM_nonneg`).  **Key discovery** (evaluation `i ≤ 3`, all `q`): the cross
+   flips negative→non-negative at **exactly one** step, `J = 2i → 2i+1` (the last
+   step before `N`); `|R_J|` descends monotonically, then jumps.  So the Casoratian
+   at that step + ratio descent give a *theorem-backed* reduction
+   (`weld_lowerbase_reduction`):
+   > `0 ≤ R_{J+1}` follows (bridge-free) from `0 < M_j` (∀j) and the **single
+   > inequality** `(−R_0)·M_J·M_{J+1} ≤ K_J·M_0`.
+   This converts item 3 from "the whole telescoped sum reaches `≥0` by `J=2i+1`"
+   (≡ the bridge) into **one** ℤ-native inequality at `J = 2i`, which holds with
+   **large slack** in every evaluated case (ratio `K_{2i}M_0 / (|R_0|M_{2i}M_{2i+1})`
+   ≈ 58–346× for `i ≤ 3`).  The flip criterion (item 1) is its engine — now
+   *instantiated*, not decorative.
+   **Residual** (genuinely localized): prove `(−R_0)·M_{2i}·M_{2i+1} ≤ K_{2i}·M_0`
+   ∅-axiom — `K_{2i} = (4i+3)s_{2i} − (4i+1)c_{2i}` is factorially large, `−R_0` and
+   the `M`'s comparatively small; the slack suggests a crude growth bound may close
+   it (open: the growth estimate).  Plus elementary strict `0 < M_j` (det-floor `+1`).
 
 Provenance: discovered in the 2026-06-11 multi-agent round (Discovery 1 of
 the archived blueprint, `archive/transcendentals/lowerbase_blueprint.md`).
