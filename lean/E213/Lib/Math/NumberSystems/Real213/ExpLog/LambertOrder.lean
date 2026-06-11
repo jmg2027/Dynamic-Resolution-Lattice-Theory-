@@ -994,45 +994,51 @@ theorem weld_descent_step (q i J : Nat) :
   have h := add_le_add_left (weldK_nonneg q J) (weldR q i J * weldM q i (J+1))
   rwa [Int.add_zero] at h
 
-/-- ★★★★ **Ratio descent** (blueprint Discovery 1, telescoped): with positive margins
-    (`0 < M_j` for every `j`), the climbing ratio telescopes to
-    `R_0·M_J ≤ R_J·M_0` — i.e. (pre-flip, `R < 0`) `|R_J|·M_0 ≤ |R_0|·M_J`, the magnitude
-    descent.  Each rung chains the single step `weld_descent_step` through the positive
-    margins (`mul`-monotonicity up, then `M_J`-cancellation down). -/
-theorem weld_ratio_descent (q i : Nat) (hM : ∀ j, 0 < weldM q i j) (J : Nat) :
-    weldR q i 0 * weldM q i J ≤ weldR q i J * weldM q i 0 := by
-  induction J with
+/-- ★★★★ **Ratio descent** (blueprint Discovery 1, telescoped, any anchor `J₀`): with positive
+    margins (`0 < M_j` for every `j`), the climbing single step telescopes forward to
+    `R_{J₀}·M_{J₀+d} ≤ R_{J₀+d}·M_{J₀}` — the ratio `R/M` is non-decreasing.  At `J₀ = 0`
+    (pre-flip, `R < 0`) this reads `|R_d|·M_0 ≤ |R_0|·M_d`, a magnitude descent.  Each rung
+    chains `weld_descent_step` through the positive margins (`mul`-monotonicity up, `M`-cancel
+    down). -/
+theorem weld_ratio_descent (q i : Nat) (hM : ∀ j, 0 < weldM q i j) (J0 : Nat) :
+    ∀ d, weldR q i J0 * weldM q i (J0 + d) ≤ weldR q i (J0 + d) * weldM q i J0 := by
+  intro d
+  induction d with
   | zero => exact le_refl _
-  | succ J ih =>
-    have ih' := mul_le_mul_right_nonneg ih (weldM q i (J+1)) (le_of_lt (hM (J+1)))
-    have step' := mul_le_mul_right_nonneg (weld_descent_step q i J) (weldM q i 0) (le_of_lt (hM 0))
-    have chain : weldR q i 0 * weldM q i (J+1) * weldM q i J
-               ≤ weldR q i (J+1) * weldM q i 0 * weldM q i J := by
-      rw [show weldR q i 0 * weldM q i (J+1) * weldM q i J
-            = weldR q i 0 * weldM q i J * weldM q i (J+1) from by ring_intZ,
-          show weldR q i (J+1) * weldM q i 0 * weldM q i J
-            = weldR q i (J+1) * weldM q i J * weldM q i 0 from by ring_intZ]
+  | succ d ih =>
+    have ih' := mul_le_mul_right_nonneg ih (weldM q i (J0+d+1)) (le_of_lt (hM (J0+d+1)))
+    have step' := mul_le_mul_right_nonneg (weld_descent_step q i (J0+d)) (weldM q i J0)
+      (le_of_lt (hM J0))
+    have chain : weldR q i J0 * weldM q i (J0+d+1) * weldM q i (J0+d)
+               ≤ weldR q i (J0+d+1) * weldM q i J0 * weldM q i (J0+d) := by
+      rw [show weldR q i J0 * weldM q i (J0+d+1) * weldM q i (J0+d)
+            = weldR q i J0 * weldM q i (J0+d) * weldM q i (J0+d+1) from by ring_intZ,
+          show weldR q i (J0+d+1) * weldM q i J0 * weldM q i (J0+d)
+            = weldR q i (J0+d+1) * weldM q i (J0+d) * weldM q i J0 from by ring_intZ]
       refine le_trans ih' (le_trans ?_ step')
-      rw [show weldR q i J * weldM q i 0 * weldM q i (J+1)
-            = weldR q i J * weldM q i (J+1) * weldM q i 0 from by ring_intZ]
+      rw [show weldR q i (J0+d) * weldM q i J0 * weldM q i (J0+d+1)
+            = weldR q i (J0+d) * weldM q i (J0+d+1) * weldM q i J0 from by ring_intZ]
       exact le_refl _
-    exact le_of_mul_le_mul_right_pos chain (hM J)
+    exact le_of_mul_le_mul_right_pos chain (hM (J0+d))
 
-/-- ★★★★★ **The bridge-free `LowerBase` skeleton** (blueprint Discovery 1, item 3).
-    Ratio descent *is* a positivity-propagation engine: once the lower cross starts positive
-    (`0 < R_0`) and the margins stay positive (`0 < M_j` for every `j`), the cross is positive
-    at **every** truncation `J` — in particular at `J = 2i+1`, which is `LowerBase` itself.
+/-- ★★★★ **Forward positivity persistence.**  Once the lower cross is positive at some
+    truncation `J₀` (`0 < R_{J₀}`) and the margins stay positive, it is positive at every later
+    truncation `J₀ + d` — the climbing ratio cannot return below `0`.  `0 < R_{J₀}·M_{J₀+d} ≤
+    R_{J₀+d}·M_{J₀}` (`weld_ratio_descent`), then cancel `M_{J₀}`.
 
-    `0 < R_0·M_J ≤ R_J·M_0` (`weld_ratio_descent`), then cancel the positive `M_0`.  This is a
-    second, **bridge-free** certificate of `LowerBase`'s content `0 < R_J` — independent of the
-    `LambertBridge` budget/saturation/mirror machinery.  The residual is exactly its two inputs
-    (`0 < R_0`, `0 < M_j`); both are quantities the bridge separately establishes, so the
-    *independence* of the certificate (item 3 proper) reduces to giving those two an elementary
-    proof. -/
-theorem weld_lowerbase_propagate (q i : Nat) (hM : ∀ j, 0 < weldM q i j)
-    (hR0 : 0 < weldR q i 0) (J : Nat) : 0 < weldR q i J := by
-  have h0 : 0 < weldR q i 0 * weldM q i J := mul_pos hR0 (hM J)
-  have h1 : 0 < weldR q i J * weldM q i 0 := lt_of_lt_of_le h0 (weld_ratio_descent q i hM J)
-  exact pos_of_mul_pos_right h1 (hM 0)
+    **Note (why this is *not* a bridge-free `LowerBase`):** `LowerBase` is `0 ≤ R_{2i+1}`, and the
+    cross starts *negative* — `R_0 = dev(BP_{2i+1}) − dev(AP_{2i+1}) ≤ 0` (`= 0` at `i=0`, `< 0`
+    for `i ≥ 1`; checked by evaluation).  So persistence has no positive anchor at `J₀ = 0`; a
+    bridge-free `LowerBase` would still have to certify that the climbing ratio reaches `≥ 0`
+    *by* `J = 2i+1` — the quantitative flip-timing that is exactly the `LambertBridge` content.
+    Persistence + the flip criterion are the structural half (the cross, once non-negative, stays
+    so); the quantitative half stays open (item 3). -/
+theorem weld_positivity_persists (q i : Nat) (hM : ∀ j, 0 < weldM q i j) (J0 : Nat)
+    (hR : 0 < weldR q i J0) : ∀ d, 0 < weldR q i (J0 + d) := by
+  intro d
+  have h0 : 0 < weldR q i J0 * weldM q i (J0+d) := mul_pos hR (hM (J0+d))
+  have h1 : 0 < weldR q i (J0+d) * weldM q i J0 :=
+    lt_of_lt_of_le h0 (weld_ratio_descent q i hM J0 d)
+  exact pos_of_mul_pos_right h1 (hM J0)
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder

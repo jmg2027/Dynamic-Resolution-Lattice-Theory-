@@ -1,10 +1,9 @@
 # Frontier — the weld Casoratian: flip criterion + ratio descent
 
-**Status**: items 1–2 CLOSED ∅-axiom; item 3 SKELETON closed + residual
-pinned (`LambertOrder` §10 — named ℤ recurrence, flip criterion,
-K-positivity, single-step + telescoped ratio descent, bridge-free
-LowerBase propagation, elementary `M ≥ 0`).  Only the certificate's two
-inputs' *elementary strict* proofs (`0 < M_J`, `0 < R_0`) remain.  **Tier**: 1.
+**Status**: items 1–2 CLOSED ∅-axiom; item 3's *structural* half closed,
+the *quantitative* half open (`LambertOrder` §10 — named ℤ recurrence, flip
+criterion, K-positivity, single-step + telescoped ratio descent at any
+anchor, forward positivity persistence, elementary `M ≥ 0`).  **Tier**: 1.
 Anchor: `LambertOrder` §9 `weld_casoratian` (PURE) — the exact
 `i`-invariant unimodular identity on the pair `(R_J(i), M_J(i))`:
 
@@ -30,18 +29,22 @@ The weld itself is closed without it (`theory/math/analysis/lambert_weld.md`)
    `R/M` climbs).  `weld_ratio_descent : (∀j, 0 < M_j) → R_0·M_J ≤ R_J·M_0`
    telescopes it through the positive margins — i.e. pre-flip (`R<0`)
    `|R_J|·M_0 ≤ |R_0|·M_J`, the magnitude descent.
-3. **Bridge-free certificate** — SKELETON CLOSED, residual characterized
-   (`LambertOrder` §10, ∅-axiom).  Ratio descent *is* a positivity-propagation
-   engine: `weld_lowerbase_propagate : (∀j, 0 < M_j) → 0 < R_0 → 0 < R_J`
-   (every `J`, incl. `J = 2i+1` = `LowerBase`) — `0 < R_0·M_J ≤ R_J·M_0`, cancel
-   `M_0`.  This is a **second, bridge-free certificate** of `LowerBase`'s content,
-   independent of the `LambertBridge` budget/saturation/mirror machinery.  Its two
-   inputs are now pinned: `weldM_nonneg : 0 ≤ M_J` is **elementary**
-   (`series_below_odd_core`, cross-`le` + det-one floor — *not* the bridge), so the
-   residual independence question is exactly (a) the *strictness* `0 < M_J` (the
-   det-one `+1` slack, untracked here) and (b) the base `0 < R_0 = dev(BP_{2i+1}) −
-   dev(AP_{2i+1})`.  The certificate *structure* is bridge-free; closing (a)+(b)
-   elementarily would make the whole second proof bridge-free.
+3. **Bridge-free certificate** — *structural* half closed, *quantitative*
+   half OPEN (`LambertOrder` §10, ∅-axiom).  The structural facts: the ratio
+   `R/M` is non-decreasing forward (`weld_ratio_descent`, any anchor `J₀`:
+   `R_{J₀}·M_{J₀+d} ≤ R_{J₀+d}·M_{J₀}`), so **once non-negative the cross stays
+   non-negative** (`weld_positivity_persists`); and `weldM_nonneg : 0 ≤ M_J` is
+   **elementary** (`series_below_odd_core`, cross-`le` + det-one floor, *not* the
+   bridge).
+   **But this is *not* (yet) a bridge-free `LowerBase`.**  `LowerBase` is
+   `0 ≤ R_{2i+1}`, and the cross starts **negative** —
+   `R_0 = dev(BP_{2i+1}) − dev(AP_{2i+1}) ≤ 0` (`= 0` at `i=0`, `< 0` for `i ≥ 1`;
+   evaluation-checked, e.g. `i=1,q=2`: `61 − 66 = −5`).  Persistence has no positive
+   anchor at `J₀ = 0`.  A genuine second certificate would still have to certify the
+   climbing ratio reaches `≥ 0` **by** `J = 2i+1` — the *quantitative flip-timing*
+   that is exactly the `LambertBridge` content.  So the structural half (climb +
+   persistence + flip criterion) is bridge-free; the quantitative "flips by `2i+1`"
+   half is the open, genuinely bridge-equivalent residue.
 
 Provenance: discovered in the 2026-06-11 multi-agent round (Discovery 1 of
 the archived blueprint, `archive/transcendentals/lowerbase_blueprint.md`).
