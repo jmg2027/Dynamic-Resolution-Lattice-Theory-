@@ -268,4 +268,81 @@ theorem rev_AP_odd (i : Nat) : rev (AP (2 * i + 1)) = truncA (2 * i + 1) i :=
 theorem rev_BP_odd (i : Nat) : rev (BP (2 * i + 1)) = truncB (2 * i + 1) i :=
   (rev_trunc i).2.2.1
 
+/-! ## §5 — F2: the accumulator snoc (last-step peel)
+
+The bridges walk the convolution from the polynomial's head (`s = i` end) while
+`Aacc/Bacc` recurse from `s = 0`; the snoc lemmas peel the accumulators' LAST
+step.  `wprod cc m` is the threaded weight after `m` steps
+(`= Π_{j<m}(cc−2j−1)(cc−2j)`; at `cc = 2N+1` this is `W(N,m) =
+(2N+1)!/(2N−2m+1)!`), with the **shift identity**
+`wprod cc (m+1) = (cc−1)·cc·wprod (cc−2) m` aligning head-peel and threading. -/
+
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMasterId
+  (Aacc Bacc sub_one_sub)
+
+/-- The threaded weight after `m` accumulator steps. -/
+def wprod (cc : Nat) : Nat → Nat
+  | 0 => 1
+  | m + 1 => wprod cc m * ((cc - 2 * m - 1) * (cc - 2 * m))
+
+private theorem sub_two_sub (a b : Nat) : a - 2 - b = a - (b + 2) := by
+  calc a - 2 - b = a - 1 - 1 - b := rfl
+    _ = a - 1 - (b + 1) := sub_one_sub (a - 1) b
+    _ = a - ((b + 1) + 1) := sub_one_sub a (b + 1)
+
+/-- ★★ **The threading shift**: one head-step trades for the `(cc−1)·cc` factor. -/
+theorem wprod_shift : ∀ (cc m : Nat),
+    wprod cc (m + 1) = (cc - 1) * cc * wprod (cc - 2) m
+  | cc, 0 => by
+    show wprod cc 0 * ((cc - 2 * 0 - 1) * (cc - 2 * 0)) = (cc - 1) * cc * wprod (cc - 2) 0
+    show 1 * ((cc - 0 - 1) * (cc - 0)) = (cc - 1) * cc * 1
+    rw [Nat.sub_zero, Nat.one_mul, Nat.mul_one]
+  | cc, m + 1 => by
+    show wprod cc (m + 1) * ((cc - 2 * (m + 1) - 1) * (cc - 2 * (m + 1)))
+        = (cc - 1) * cc * (wprod (cc - 2) m * ((cc - 2 - 2 * m - 1) * (cc - 2 - 2 * m)))
+    rw [wprod_shift cc m,
+        show cc - 2 - 2 * m = cc - 2 * (m + 1) from by
+          rw [sub_two_sub cc (2 * m)]
+          rfl,
+        show cc - 2 * (m + 1) - 1 = cc - 2 * (m + 1) - 1 from rfl]
+    ring_nat
+
+/-- ★★★ **The `Aacc` snoc**: peel the LAST step with its threaded weight. -/
+theorem Aacc_snoc (n : Nat) : ∀ (m cc w s : Nat),
+    Aacc n cc w s (m + 1) = Aacc n cc w s m + w * wprod cc m * apF n (s + m)
+  | 0, cc, w, s => by
+    show w * apF n s + 0 = 0 + w * wprod cc 0 * apF n (s + 0)
+    rw [Nat.add_zero, Nat.zero_add]
+    show w * apF n s = w * 1 * apF n s
+    rw [Nat.mul_one]
+  | m + 1, cc, w, s => by
+    show w * apF n s + Aacc n (cc - 2) (w * (cc - 1) * cc) (s + 1) (m + 1)
+        = (w * apF n s + Aacc n (cc - 2) (w * (cc - 1) * cc) (s + 1) m)
+          + w * wprod cc (m + 1) * apF n (s + (m + 1))
+    rw [Aacc_snoc n m (cc - 2) (w * (cc - 1) * cc) (s + 1), wprod_shift cc m,
+        show s + 1 + m = s + (m + 1) from by
+          rw [Nat.succ_add s m]
+          rfl]
+    ring_nat
+
+/-- ★★★ **The `Bacc` snoc** (the term carries the running coefficient `cc−2m`). -/
+theorem Bacc_snoc (n : Nat) : ∀ (m cc w s : Nat),
+    Bacc n cc w s (m + 1)
+      = Bacc n cc w s m + w * wprod cc m * ((cc - 2 * m) * bpF n (s + m))
+  | 0, cc, w, s => by
+    show w * cc * bpF n s + 0 = 0 + w * wprod cc 0 * ((cc - 2 * 0) * bpF n (s + 0))
+    rw [Nat.add_zero, Nat.zero_add]
+    show w * cc * bpF n s = w * 1 * ((cc - 0) * bpF n s)
+    rw [Nat.mul_one, Nat.sub_zero]
+    ring_nat
+  | m + 1, cc, w, s => by
+    show w * cc * bpF n s + Bacc n (cc - 2) (w * (cc - 1) * cc) (s + 1) (m + 1)
+        = (w * cc * bpF n s + Bacc n (cc - 2) (w * (cc - 1) * cc) (s + 1) m)
+          + w * wprod cc (m + 1) * ((cc - 2 * (m + 1)) * bpF n (s + (m + 1)))
+    rw [Bacc_snoc n m (cc - 2) (w * (cc - 1) * cc) (s + 1), wprod_shift cc m,
+        show s + 1 + m = s + (m + 1) from by rw [Nat.succ_add s m]; rfl,
+        show cc - 2 - 2 * m = cc - 2 * (m + 1) from by
+          rw [sub_two_sub cc (2 * m)]; rfl]
+    ring_nat
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
