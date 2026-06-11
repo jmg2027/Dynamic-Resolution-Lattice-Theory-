@@ -89,7 +89,27 @@ minor org-audit item, not blocking.
 **All four hard gates + step 2 are cleared** — `count30`, `legendre`, `vp_lcmUpTo`,
 FTA-lite, `perLevel`, `key_divisibility`.  The entire arithmetic core is ∅-axiom.
 
-  * **Step 3 — factorial-ratio bound** (IN PROGRESS, `FactorialRatioBound.lean`):
+  * **Steps 1–4 ALL CLOSED + PURE.**  `FactorialRatioBound.lean`: `binom_term_le`,
+    `fact_binom_bound`, `B1`, `choose_absorb`, `chooseRatioUp/Down`, `tcoef_up/down`,
+    `tm_max`, `B2`, **`step3`** (factorial-ratio bound, the rediscovered B1·B2
+    decomposition).  `LcmGrowthChebyshev.lean` §8–§9: **`step4_cleared`** (cleared
+    recursion) and **`step4`** (clean `lcm(30m) ≤ (6m+1)·α₃₀^m·lcm(5m)`,
+    `α₃₀ = 2¹⁴3⁹5⁵`, via `pow30_eq` `30^{30m}=α₃₀^m·6^{6m}15^{15m}10^{10m}`).
+  * **Step 5 — numeral induction** (next): `(6m+1)·α₃₀^m·W^{⌈m/6⌉} ≤ W^m`
+    (`W = 10¹⁵`), ∀ `m ≥ 26`; period-6 induction (`⌈(m+6)/6⌉=⌈m/6⌉+1`), step is the
+    single numeral `37·α₃₀⁶ ≤ 10⁷⁵` (`by decide` on the ~75-digit literal; α₃₀ is
+    `pow30_eq`'s factor), bases `S(26..31)` decide.  Pure numeral work.
+  * **Step 6 — main** `lcm(1..30m) ≤ 10^{15m}`: strong induction on `m` using
+    `step4` + lcm-monotonicity (`lcm(5m) ≤ lcm(30·⌈m/6⌉)`, `5m ≤ 30⌈m/6⌉`) +
+    step 5; bases `m ≤ 25` by explicit lcm certificates (the laborious part — bound
+    `lcmUpTo (30m)` for small `m`; `lcmUpTo_dvd` + `Nat.ble`, or a divisibility
+    certificate, since the literal `lcm(1..750)` is ~325 digits).  Needs `lcmUpTo`
+    monotonicity lemma (`a ≤ b → lcmUpTo a ∣ lcmUpTo b`, via `lcmUpTo_dvd` +
+    `dvd_lcmUpTo`).
+  * **Step 7 — corollaries** `lcm² ≤ 10^{n+29}`, `lcm⁶ ≤ 10^{87+3n}` by padding `n`
+    up to the next multiple of 30 + lcm-monotonicity.
+
+  * **Step 3 — factorial-ratio bound** (DONE — see above; details retained):
     `(30m)!·m!/((15m)!(10m)!(6m)!) ≤ (6m+1)·α₃₀^m` (`α₃₀ = 2¹⁴3⁹5⁵`).  Decomposition
     rediscovered (`30 = 2·15 = 3·10 = 5·6`):
     - **B1 DONE** (PURE): `(30m)!·15^{15m}·10^{10m}·5^{5m} ≤ 30^{30m}·(15m)!(10m)!(5m)!`
@@ -137,7 +157,7 @@ localization `(601/500, 1203/1000]`.  See `Zeta3Cut.lean` §8–§9.
 lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← NEW (§1 count30; §2 lcmUpTo; §3 vp_lcmUpTo+floorLog; §4 div_div_pure,sumTo_le_sumTo; §5 div-cancel; §6 perLevel; §7 key_divisibility)
 lean/E213/Lib/Math/NumberTheory/PrimeValuation.lean      ← NEW (vp_mul, prime_dvd_mul, Prime213; §3 vp_monotone, vp_gcd_min, vp_lcm_max)
 lean/E213/Lib/Math/NumberTheory/FTALite.lean             ← NEW (dvd_of_forall_prime_vp_le)
-lean/E213/Lib/Math/NumberTheory/FactorialRatioBound.lean ← NEW step 3 (binom_term_le, fact_binom_bound, B1; B2/S3 TODO)
+lean/E213/Lib/Math/NumberTheory/FactorialRatioBound.lean ← NEW step 3 DONE (step3 + B1/B2 + choose_absorb + tcoef machinery)
 lean/E213/Lib/Math/NumberTheory/Legendre.lean            ← NEW (legendre full formula; vp_factorial, vp_one, val_count, indLt_sum, div_succ_increment)
 research-notes/frontiers/zeta3_blueprint.md              ← formalization-progress section (Legendre done)
 ```
