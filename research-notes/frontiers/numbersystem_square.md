@@ -202,7 +202,21 @@ counter slot; (ii) each rung's interaction law (`a(b+c)=ab+ac`,
 (`f^b(x) = x ⊙ f^b(e)`), an action-commutation fact; (iii) the
 translation property fails for `x ↦ a^x` (no readout linearizes it),
 which is the staircase-level *reason* for the rung-3 wall already
-proved at the pair level (`pow_lift_impossible`).  Separation
+proved at the pair level (`pow_lift_impossible`).
+**Selector-relativity caution (originator)**: `pow_lift_impossible`'s
+selector (bi-⊕-distributivity) is the ×-frame's own law — the theorem
+says "tetration is not multiplication", frame-laden.  The native
+selector is **staircase coherence**: the lift of rung n+1 = the
+pair-counted iteration of rung n's action; pair counters need the
+action's inverse, and each pair layer manufactures the inverse of the
+*previous* rung's action (+-pairs invert `+a` → × on ℤ; ×-pairs
+invert `×a` → `pairPow` on the ratio layer); the inverse of `a^·` is
+the logarithm — grade 3, sandwich-family only — so it escapes every
+finite slot layer.  Rebuild bricks: pair-counted iteration over an
+invertible action; the cross rule re-derived as the ⊕-action iterated
+`(c,d)` times (replacing the distributive selector); the native wall
+theorem ("the required inverse escapes") in place of the
+selector-relative nonexistence.  Separation
 discipline (originator): pair-part and operation-part must stay
 unmixed — `PairOp`'s `f`-parametrization is exactly that separation,
 and the pair-layer operations are *derived* objects

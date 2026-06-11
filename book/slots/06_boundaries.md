@@ -30,7 +30,10 @@ volume once stated as a slogan is now two separate theorems
   selector an operation that does not already bi-distribute on the
   base has **no lift at all**: bi-additivity over the readout admits
   only multiples of ×, and `2³ = 8 ≠ 2·3` kills `^` (a fortiori
-  tetration) — nonexistence, not non-canonicity.
+  tetration) — nonexistence, not non-canonicity.  One caution the
+  originator caught: the selector itself is the ×-frame's own law, so
+  this theorem says "tetration is not multiplication" — true, but
+  frame-laden; the list-native wall is stated below.
 * **Without the selector**, congruent extensions are plentiful
   (flatten and apply) and nothing internal selects one — *that* is
   the genuinely canonical-less regime.
@@ -42,8 +45,21 @@ cannot even be stated on pairs — `(2↑↑2)↑↑2 = 256` while
 `2↑↑4 = 65536`, and `2⁴ = 4²` shows depth-2 fibers are wild.  So the
 recursion "each root-completion is the previous completion re-run
 inside the exponent lattice" runs for exactly three rungs and
-terminates — and the wall is a proved absence, which is more
-informative than the false unbounded ladder.
+terminates.
+
+**The native wall (the rebuild target).**  Forget distribution; the
+staircase's own coherence is the natural selector: each rung is the
+*iteration* of the previous rung's action, and a pair-counted
+iteration (`(c,d)` times = `c` forward, `d` backward) requires the
+**inverse of the action**.  Each pair layer manufactures the inverse
+of the *previous* rung's action — the +-pairs invert `+a` (the swap),
+so × lifts to ℤ; the ×-pairs invert `×a`, so `^` takes pair
+exponents on the ratio layer (`pairPow`'s home); but the inverse of
+`a^·` is the logarithm — an exponent-slot unknown, sandwich-family
+only — so it escapes **every** finite slot layer.  The wall, stated
+natively: **not nonexistence under an imported law, but the escape of
+the required inverse** — the staircase's next counter-layer asks for
+an inverse no slot layer can mint.
 
 ## Wrapping, again
 
