@@ -117,6 +117,8 @@ Brick 2 = `2·lcm(1..n)³·aₙ ∈ ℕ`, "pure divisibility chains, NO p-adics"
     FD(m,s+1) = (m+s+1)·FD(m,s) − m·FD(m+1,s),  FD(m,0)=1  ⟹  FD(m,s)=s!
     (base s+1: (m+s+1)·s! − m·s! = (s+1)·s! = (s+1)!).
     ```
+    (Lean `Int` is **unusable** — `Int.{add,mul,add_mul,sub_self}_*` all carry
+    `propext`; so use `Int213` or the even/odd Nat split below.)
     Encode the signed `FD` as **even/odd Nat sums** `pos(m,s)=Σ_{j even}C(s,j)Q,
     neg(m,s)=Σ_{j odd}C(s,j)Q` and prove `pos = s! + neg` (avoids `Int`); `Q(m,s,j)
     = Π_{i≤s,i≠j}(m+i)` (product-excluding-`j`, the awkward bit — encode as
