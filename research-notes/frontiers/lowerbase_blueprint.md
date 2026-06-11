@@ -88,20 +88,35 @@ Bonus minor closed form (same-level pair, `s < t`, `k = i−position`):
 `b_s a_t − a_s b_t = (t−s)·[(2i+1)(2i+2) + (2k_s+1)(2k_t+1)]·devB[k_s]devB[k_t]/((2k_s+1)(2k_t+1))`
 — manifestly positive; re-proves `minor_all` with exact values.
 
-## Lean formalization plan (next marathon)
+## Lean formalization plan (status)
 
-1. `master_identity` — per-coefficient list statement; double recursion
-   (`n` outer via the AP/BP recursion, `N` inner with constant factor
-   `2N(2N+1)`); signed → split odd/even `n` in subtraction-free pairs.
-   Hooks: `AP/BP`, `nth` (LambertOrder), absorption is `ring_nat`-trivial.
-2. `halving` — list induction on the AP/BP recursion (or from the closed forms).
-3. `flip_dominance` — assemble 1+2 into
-   `(4i+2)!!·q^{2i} ≤ R_{2i+1}(i) + (4i+1)!!·q^{2(i−1)}`-form (subtraction-free),
-   then `LowerBase` for `q ≥ 1`.
-4. (Independent brick) `weld_casoratian` — Discovery 1; hooks `tcross_id`,
-   `cf_det_even_nat`; gives the flip criterion + ratio descent as corollaries.
-5. `LowerBase` ⟹ instantiate `cothSeriesCauchySepOfBase` + `weld_limit_agreement`
-   unconditionally — **the weld closes**.
+**Backbone formalized** (LambertOrder §10, all PURE):
+  * `R_recursion` — `R_{J+1} = (2J+2)(2J+3)q²·R_J + ((2J+3)dB − dA)`,
+    subtraction-free, straight from the `coshNum`/`sinhNum` recursions; ✅
+  * `E_nonneg` — `dA ≤ (2j+1)dB` for `j ≥ 1` (from `devA_le_three_devB`); ✅
+  * `weld_casoratian` — Discovery 1, the `R/M` det-one coupling (LambertOrder §9); ✅
+  * `master_diagonal_anchor` — `L(3,3) = 48 = 6!!` machine-checked; ✅
+  * `lower_base_anchors` — base verified at `(q,i) = (1,1),(1,2),(2,1),(1,3)`. ✅
+  Together with the **already-proven** `lower_of_base` (J-propagation) and
+  `devA_le_three_devB` (side condition), this reduces `LowerBase q` to **exactly
+  the base family `R_{2i+1}(i) ≥ 0`** — everything downstream
+  (`series_ge_even_of_base`, `cothSeriesCauchySepOfBase`, `weld_limit_agreement`)
+  is conditional only on it.
+
+**Remaining — the one dedicated brick**: the base `R_{2i+1}(i) ≥ 0`, whose
+leading term is the master-identity diagonal `L(2i+1,2i+1) = (4i+2)!!` (verified;
+connection: `R_J(i) = Σ_{p} (2J+1)!/(2p+1)!·[partial-L_p]·q^{2(i+J−p)}`, the
+`p = 2i+1` term being `(4i+2)!! q^{2i}`).  Needs:
+1. `master_identity` (signed, over `Int213`) by the double recursion
+   `L_{n+2}(N) = (2n+3)L_{n+1}(N) + 2N(2N+1)L_n(N−1)`; the only friction is
+   `Nat`-subtraction in the weight `(2N−2s+1)` and the sum reindex — design over
+   `Int` with `W N (s+1) = 2N(2N+1)·W (N−1) s`.
+2. boundary partial-sum bound (halving, `apF/bpF_halving_strong` already PURE).
+3. assembly → `LowerBase`, then `cothSeriesCauchySepOfBase` +
+   `weld_limit_agreement` unconditional — **the weld closes**.
+(NB the weld's *headline*, `exp(2/q)` unconditional, is **already closed**
+independently via `ExpMoebius`; `LowerBase` gates only the secondary
+series=CF pointing-agreement.)
 
 Provenance: two independent derivation agents converged on §2 (one via Bessel
 polynomial / Hermite remainder theory, one via enumerative identity hunting);
