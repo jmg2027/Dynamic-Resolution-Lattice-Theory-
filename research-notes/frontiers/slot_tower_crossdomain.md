@@ -26,7 +26,7 @@ certificate, and the certificate's content is the structure of the object
 write: state "equal ⟺ certificate matches" as one schema with the weld and
 the power as two instances.
 
-## 2. Order ⟺ no wrap (exact duals, both now proved)
+## 2. Order ⟺ no wrap (exact duals) — **CLOSED**, single schema written
 
 Main's `Int213.OrderMul` (sign trichotomy): ℤ carries a translation-
 invariant order — every nonzero integer is `> 0` or `< 0`.  This branch's
@@ -39,8 +39,27 @@ counting line extended by sign and keeps the order; `mod p` folds the line
 into a circle and loses it.  This is the price the `^`-wall's escape route
 pays: you *can* fold into `mod p` to make every power solvable (discrete
 logs always exist on a cyclic group), but the order the line had is gone.
-Bridge: "order on `M` ⟺ `M` is wrap-free", with ℤ (yes) and `ℤ/p` (no) the
-two instances.
+
+**Bridge written** (`lean/E213/Meta/OrderWrap.lean`, 9 PURE).  A successor
+structure `(M, s, a)` carries an `OrderWitness` (irreflexive + transitive +
+`s`-equivariant + seed edge `a < s a`).  The single schema is the
+obstruction:
+
+* `no_order_of_wrap` — if the orbit `a, s a, s²a, …` returns to `a` after
+  `n > 0` steps, **no** `OrderWitness` exists (walking the seed edge reaches
+  `a < a`).
+
+Two instances of the one schema:
+
+* **ℤ** (`s = (·+1)`, `a = 0`): `intOrderWitness` exhibits the order, and
+  `int_orbit_no_wrap` shows `orbit n = n ≠ 0` for `n > 0` — no wrap, so the
+  schema produces no contradiction and the order survives.
+* **ℤ/p** (`s = next p`, `a = 1`): `modp_no_order` — the orbit wraps
+  (`orbit p = 1`), so the schema rules out every witness, re-deriving
+  `no_wrapping_order` as a corollary.
+
+So "order on `M` ⟺ `M` is wrap-free" is now one Lean object with ℤ (yes) and
+`ℤ/p` (no) as the two readings.
 
 ## 3. The exp / log boundary: tame one way, wild the other
 
@@ -147,7 +166,8 @@ ceilings coincide is open.
 
 ---
 
-Bridges 1–4 are **open** main↔branch correspondences; §5 adds the ORIGIN_RAW
-relation and questions (a)/(b).  In every case the claim is plain; the
-single-schema Lean statement is not yet written.  Recorded so the
-correspondence is tracked, not lost to chat.
+Bridge 2 is **CLOSED** (single schema `OrderWrap.no_order_of_wrap` + two
+instances, 9 PURE).  Bridges 1, 3, 4 remain **open** main↔branch
+correspondences; §5 adds the ORIGIN_RAW relation and questions (a)/(b).  For
+the open ones the claim is plain but the single-schema Lean statement is not
+yet written.  Recorded so the correspondence is tracked, not lost to chat.
