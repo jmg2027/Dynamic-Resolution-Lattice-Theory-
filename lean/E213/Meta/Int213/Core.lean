@@ -866,6 +866,18 @@ theorem subNatNat_eq_iff (A B C D : Nat) :
       subNatNat_add_add C D B
     rw [← h1, ← h2, h, Nat.add_comm B D]
 
+/-- ★★★ **The difference layer is +-witness-closed**: `(A,B)+x = (C,D)`
+    always has the pair witness `x = (C+B, D+A)`, on the nose.  Each
+    layer is closed under its own operation's slot-questions; new
+    numbers come only from *other* operations' questions. -/
+theorem subNatNat_add_witness (A B C D : Nat) :
+    Int.subNatNat A B + Int.subNatNat (C + B) (D + A) = Int.subNatNat C D := by
+  rw [subNatNat_add_subNatNat,
+      ← Nat.add_assoc A C B, Nat.add_comm A C, Nat.add_assoc C A B,
+      ← Nat.add_assoc B D A, Nat.add_comm B D, Nat.add_assoc D B A,
+      Nat.add_comm B A]
+  exact subNatNat_add_add C D (A + B)
+
 /-- ★★★★ **The pair-slot ×-question unfolded**: the cross-relation
     `(A,B) ⊗ (X₁,X₂) ≈ (C,D)` is exactly the two-sided linear
     ℕ-equation — the "two sides" of the 4-slot rational question are

@@ -71,6 +71,19 @@ theorem ratioEquiv_of_cross_sandwich {p q : Nat × Nat}
     ratioEquiv p q :=
   Nat.le_antisymm (Nat.le_of_lt_succ h1) (Nat.le_of_lt_succ h2)
 
+/-- ★★★ **The ratio layer is ×-witness-closed**: `(a/b)·x = c/d`
+    always has the ratio-pair witness `x = (b·c, a·d)` — the
+    componentwise product `(a·(b·c), b·(a·d))` cross-relates to
+    `(c,d)`.  Slot-layer reading: ×-questions with ratio-pair slots
+    mint no new numbers (each layer is closed under its own
+    operation's slot-questions); the ^-question over the same slots
+    is what mints the radicals. -/
+theorem ratio_mul_witness (a b c d : Nat) :
+    ratioEquiv (a * (b * c), b * (a * d)) (c, d) := by
+  show (a * (b * c)) * d = c * (b * (a * d))
+  rw [← mul_assoc a b c, ← mul_assoc b a d, Nat.mul_comm b a,
+      ← mul_assoc c (a * b) d, Nat.mul_comm c (a * b)]
+
 /-- ★★★ Transitivity of the ratio identity — the coherence of the
     ×-transport.  Cancelling the middle reading `q.2` needs `0 < q.2`:
     two transports compose only at positive resolution. -/

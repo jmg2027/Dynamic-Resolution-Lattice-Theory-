@@ -69,6 +69,20 @@ transports into the value's own ×-riding (`pairPow_fiber`,
 (`x^(n,n+2) = (m+1,m)`) has zero effective slots — its solution is a
 **constant of the layer**, as `2` is of ℕ.
 
+**Each layer is closed under its own operation's slot-questions**
+(PURE: `subNatNat_add_witness` — `(A,B)+x=(C,D)` has the on-the-nose
+pair witness `(C+B, D+A)`; `ratio_mul_witness` — `(a/b)·x = c/d` has
+the ratio witness `(b·c, a·d)`); new numbers come only from *other*
+operations' questions.  Hence the sibling constants: **i is to
++-pair slots what √2 is to ×-pair slots** — both are 4-natural
+addresses of pair-slot ^-questions, `√2 = ((2,1),(2,1))` and
+`i = ((n,n+2),(m+1,m))`, differing only in which pair layer the slots
+come from.  The witness criterion for `x^(a/b) = c/d` over ℚ₊ is
+divisibility of the prime-exponent (valuation) vector by the exponent
+denominator — the obstruction-readout ladder climbs again: sign
+(2-valued) → remainder (`a`-valued) → **exponent residues**
+(vector-valued), the `vp` ground of T3 / brick 5.
+
 ## The square
 
 ```
