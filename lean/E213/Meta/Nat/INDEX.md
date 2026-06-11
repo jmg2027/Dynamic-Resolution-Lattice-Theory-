@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (33)
+## Files (35)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -80,6 +80,16 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
                              (`(∀p prime, vp p m = vp p n) → m = n`) =
                              unique factorization / `exp` is a faithful
                              coordinate; `exists_prime_factor` + descent
+  - `FoldCriterion.lean`   — two powers are equal iff their prime-exponent
+                             readings match (`pow_eq_pow_iff_vp`); distinct
+                             primes never collide (`prime_pow_unique`,
+                             `2^a=3^b→a=b=0`); the fold criterion
+                             (`fold_iff_collinear`)
+  - `NoOrderModP.lean`     — no left-to-right order survives wrapping:
+                             `no_wrapping_order` (irreflexive +
+                             add-1-mod-p-preserving + `0<1` ⟹ `False`) —
+                             the order is the price of folding the line
+                             into a circle
 
 ## Top-level
 
