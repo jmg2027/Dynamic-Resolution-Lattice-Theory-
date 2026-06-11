@@ -149,7 +149,7 @@ shape collision with a degree-sum/curvature collision) would import a *false*
 lemma.  The honest bridge is the corrected distinction above, now pinned to
 Lean on both sides.
 
-## 5. ↔ ORIGIN_RAW (genesis record): the tower is the clocked foliation Lens — (a) resolved
+## 5. ↔ ORIGIN_RAW (genesis record): the tower is the clocked foliation Lens — (a)/(b) resolved
 
 `seed/ORIGIN_RAW.md` rebuilds Raw from "difference" alone and, in §6–§8,
 flags a **lockstep tension**: proceeding stage-by-stage ("now that stage 1
@@ -181,7 +181,7 @@ Two sub-correspondences land cleanly:
   tower locates the exact rung at which the genesis primitive (다름) returns to
   the readout.
 
-### Open questions seeded here
+### Questions seeded here (both now resolved by debate)
 
 (a) **Is there an asynchronous number tower?**  The slot tower is the
 synchronous version (iter against the clock); ORIGIN_RAW's async two-event
@@ -250,12 +250,43 @@ theorem).
   simultaneous), not as *forward-counting alone* — the original phrasing
   over-narrowed.
 
-(b) **`^`-wall ↔ ORIGIN_RAW §9 "level-2 ceiling": resonance or identity?**
-Both are "regularity runs out at a rung": §9 (sequential natural-number strata
-stop at level 2) and the `^`-wall (comm/assoc die at `^`, the log does not fold
-back — `two_three_unique`, `fold_iff_collinear`).  The resonance is plain;
-asserting the *same* ceiling would be stereotype-matching.  Whether the two
-ceilings coincide is open.
+(b) **`^`-wall ↔ ORIGIN_RAW §9 "level-2 ceiling": RESONANCE, not identity**
+(two-agent debate — proponent / skeptic; both converged).  Both are
+"regularity runs out at a rung": §9 (sequential natural-number strata stop at
+level 2; `depthLe2_past_complete`/`depth3_boundary`, `level3_diverges`) and
+the `^`-wall (comm/assoc die at `^` = `hyperop 3`; `pow_not_comm`/
+`pow_not_assoc`).  The proponent's best line — "the order-2 swap symmetry is
+adequate through level 2, insufficient at level 3" — does *not* survive: the
+two boundaries are pinned by **different objects, swaps, predicates, and
+mechanisms**, so asserting the *same* ceiling is exactly the named
+stereotype-matching failure mode.
+
+- **Different objects.**  Raw "level" = *tree depth* (nesting of `Raw.slash`;
+  census `2,3,5,12,68`).  Tower "level" = *operation arity* (`hyperop` index:
+  succ/`+`/`×`/`^`).  Incommensurable indices; the shared "2/3" is two
+  countings, not one.
+- **Different swaps.**  `level3_diverges` uses the *global* `Raw.swap` (an
+  involution on the Raw *type*, `a↔b` relabel).  `pow_not_comm` is
+  *argument*-swap of a `Nat→Nat→Nat` function.  Involution-on-trees ≠
+  symmetry-of-a-Nat-operation.
+- **Different predicates.**  The Raw ceiling is pinned by *past-completeness*
+  (subterm/causal closure: depth-≤2 terms carry their whole past, depth-3
+  miss a partner) — an *order* property.  The `^`-wall is comm/assoc loss —
+  an *algebraic* property.  No shared Lean statement unifies them.
+- **Different mechanisms.**  Raw: "subterm closure fails at depth 3" (slash-DAG
+  reachability).  Tower: "the exponent becomes an *operation*, not a length"
+  (`what_is_exponentiation.md`, type-promotion).  Two independent causal
+  stories landing near the same number.
+
+**Verdict: resonance, not identity — no Lean deliverable, by design.**  The
+only formalizable statements are the *vacuous conjunction* of the two existing
+facts (`level3_diverges ∧ pow_not_comm`) — which asserts "both hold", not
+"same phenomenon" — so no file is written.  What *is* honestly shared is a
+**phenomenological shape**: a downward-closed zone where some regularity is
+total, then a boundary at the third rung where it fails.  Same shape, two
+mechanisms.  Upgrading to identity would need a genuine bridge theorem
+("past-completeness failure ⟺ commutativity loss"), which does not exist and
+would be forced.  Closed as resonance.
 
 ---
 
@@ -288,8 +319,13 @@ Lean on both sides, not from the armchair):
   is clocked (sequential `iter` or simultaneous grid/convolution); only events
   (`fire`) are clock-free.  The philosophical three-way identity stays gloss,
   not theorem.  Funext landmine avoided via `iter_congr`.
-- **§5 (b) — still open.**  `^`-wall ↔ ORIGIN_RAW §9 level-2 ceiling:
-  resonance plain, identity unproven (asserting it would be stereotype-match).
+- **§5 (b) — RESOLVED as RESONANCE** (proponent/skeptic debate, converged).
+  `^`-wall ↔ ORIGIN_RAW §9 level-2 ceiling is *not* identity: different
+  objects (tree depth vs operation arity), swaps (`Raw.swap` vs argument-comm),
+  predicates (past-completeness vs comm/assoc), and mechanisms.  Only the
+  vacuous conjunction is Lean-statable, so no file — forcing a unifier would be
+  the stereotype-matching failure mode.  Shared content is a phenomenological
+  shape (regularity total below, breaks at the third rung), not a mechanism.
 
 The net lesson: of the four bridges, only bridge 2 had a genuine shared
 mechanism; 1 and 4 yield partial/negative Lean facts, 3 is narrative; §5(a)

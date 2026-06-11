@@ -223,3 +223,33 @@ as one recursion turning the count-clock (`hyperop 1/2/3 = +`/`×`/`^`),
 funext-free via `iter_congr`.  The philosophical three-way identity
 (`Nat`-clock = §10.1 ℕ-induction cost = lockstep clock) is left as narrative
 gloss — stating it as a Lean equation would be the vacuous move.
+
+---
+
+## Round 4 (later session) — the level-2 ceiling vs ^-wall (§5(b))
+
+Two-agent panel (identity proponent / skeptic) on `slot_tower_crossdomain.md`
+§5(b): is the ORIGIN_RAW §9 "level-2 ceiling" the SAME fact as the `^`-wall,
+or a resonance?
+
+- **Proponent** (identity): best line — "the order-2 swap symmetry is
+  adequate through level 2, insufficient at level 3" (`level3_diverges` is
+  literally "beyond swap"; `pow_not_comm` is argument-swap failure).  Honest
+  self-verdict: **defensible but NOT formalizable** — the only Lean statements
+  are the vacuous conjunction; recommended following §5(a)'s precedent (leave
+  as gloss).
+- **Skeptic** (resonance, the CLAUDE.md default): four-attack refutation —
+  the two boundaries are pinned by **different objects** (tree depth vs
+  operation arity), **different swaps** (`Raw.swap` involution on the Raw type
+  vs argument-commutativity of a `Nat→Nat→Nat` function), **different
+  predicates** (past-completeness / subterm closure vs comm/assoc), and
+  **different mechanisms** (slash-DAG reachability vs exponent-becomes-an-
+  operation).  The shared "2/3" is two incommensurable countings.
+
+**Both converged: RESONANCE, NOT IDENTITY.**  No Lean deliverable — the only
+formalizable statement is `level3_diverges ∧ pow_not_comm` (vacuous: "both
+hold", not "same phenomenon").  Forcing a bridge ("past-completeness failure
+⟺ commutativity loss") would be the named stereotype-matching failure mode.
+What is honestly shared is a *phenomenological shape* (a downward-closed
+regularity zone breaking at the third rung), not a mechanism.  §5(b) closed as
+resonance; correctly produces no file.
