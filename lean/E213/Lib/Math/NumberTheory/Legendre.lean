@@ -80,7 +80,7 @@ private theorem lt_of_mul_lt_mul_left' {a b c : Nat} (h : a * b < a * c) : b < c
   · exact absurd (Nat.mul_le_mul_left a hge) (Nat.not_le.mpr h)
 
 /-- `Σ_{j<B} [j < V] = V` when `V ≤ B`: the indicator is `1` exactly on `[0, V)`. -/
-private theorem indLt_sum : ∀ B V, V ≤ B →
+theorem indLt_sum : ∀ B V, V ≤ B →
     sumTo B (fun j => if j < V then 1 else 0) = V
   | 0, V, hV => by
       have hV0 : V = 0 := Nat.le_antisymm hV (Nat.zero_le V)
