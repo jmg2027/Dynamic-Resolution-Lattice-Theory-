@@ -130,8 +130,30 @@ than the price table above:
    the product is the product of the witnesses" (`pairLift_witness`)
    needs neither commutativity nor associativity directly.
 
-The interaction-law rung (different-operation lifts from
-distribution) deliberately deferred until this layer is solid.
+**The interaction-law rung — ★ CLOSED** (`PairOp` §5, 31 PURE
+total, panel-designed minimal form).  `cross_rule_forced`:
+bi-⊕-distributivity + the unit `M(1,0)(1,0) ≈ (1,0)` + three
+annihilation instances (A1–A3, exactly minimal by dimension count —
+4 corner readouts, one linear equation each) force
+`M (a,b) (c,d) ≈ (ac+bd, ad+bc)` for every pair; full congruence and
+extension are corollaries.  `pow_lift_impossible`: under the same
+selector, `^` (a fortiori `↑↑`) has **no lift at all** — bi-additivity
+over the readout admits only multiples of × (`2³ = 8 ≠ 6`).  The old
+slogan "no interaction law → no canonical lift" split into two
+theorems: with the selector, nonexistence; without it, abundant
+extensions and no selector (e.g. flatten-and-apply via truncated
+subtraction).  Panel corrections recorded: the adversary's
+counterexamples show full congruence (H1) is *not* a needed
+hypothesis (three instances suffice) and one-sided distributivity is
+strictly weaker (counterexamples both ways); the 213-native reading —
+a second lift would be a function-valued dial no internal datum
+selects (§5.1) — may now be asserted since the uniqueness is proved.
+Follow-on targets queued: `pairPow_unique` (the ^-lift onto exponent
++-pairs — second instance, two pair relations, E1/E2 law split),
+wrap-layer ℤ/n multiplication (no cancellation needed), `gmul_unique`
+(the self-generating tower: level n+1 arithmetic = level n + one
+fold-back equation), and the retroactive naming of
+`ratioLeZ_descends` as the relational instance of the schema.
 
 **§3 — the list picture and the wrapping boundary (★ CLOSED,
 `PairOp` §3, 22 PURE total).**  ℕ as the unit-started, unit-spaced

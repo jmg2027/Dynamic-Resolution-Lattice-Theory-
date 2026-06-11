@@ -18,16 +18,32 @@ grammar*, not absolutely.
 
 Lifting an operation onto its *own* pairs is slotwise and costs only
 the medial law (chapter 3).  Lifting a **different** operation onto a
-pair layer — × onto +-pairs, with its cross rule
-`(ac+bd, ad+bc)` — is determined by the *interaction law* between
-the two operations: distributivity.  Where no interaction law exists,
-no canonical lift exists.  Tetration satisfies no exponent law —
-`(2↑↑2)↑↑2 = 256` while `2↑↑4 = 65536`, and `2⁴ = 4²` shows even
-depth-2 fibers are wild — so the recursion "each root-completion is
-the previous completion re-run inside the exponent lattice" runs for
-exactly three rungs (`+`, `×`, `^`) and terminates.  The wall is not
-a failure of technique; it is the absence of a law, and proving the
-absence is more informative than the false unbounded ladder.
+pair layer is governed by the interaction law, and the wall this
+volume once stated as a slogan is now two separate theorems
+(`PairOp.cross_rule_forced`, `pow_lift_impossible`):
+
+* **With the distributive selector** (bi-distributivity over the
+  pair addition), the lift of × is *forced* — one unit value and
+  three annihilation instances, each a single cross-equation,
+  determine the cross rule `(ac+bd, ad+bc)` on every pair, with full
+  congruence and extension as corollaries.  And under the same
+  selector an operation that does not already bi-distribute on the
+  base has **no lift at all**: bi-additivity over the readout admits
+  only multiples of ×, and `2³ = 8 ≠ 2·3` kills `^` (a fortiori
+  tetration) — nonexistence, not non-canonicity.
+* **Without the selector**, congruent extensions are plentiful
+  (flatten and apply) and nothing internal selects one — *that* is
+  the genuinely canonical-less regime.
+
+The deeper rung-3 wall is that `^`'s own exponent law admits no
+congruent pair extension (a negative exponent would need
+`2¹·2^{(0,1)} ≈ 1` among the readouts), and `↑↑`'s defining recursion
+cannot even be stated on pairs — `(2↑↑2)↑↑2 = 256` while
+`2↑↑4 = 65536`, and `2⁴ = 4²` shows depth-2 fibers are wild.  So the
+recursion "each root-completion is the previous completion re-run
+inside the exponent lattice" runs for exactly three rungs and
+terminates — and the wall is a proved absence, which is more
+informative than the false unbounded ladder.
 
 ## Wrapping, again
 
