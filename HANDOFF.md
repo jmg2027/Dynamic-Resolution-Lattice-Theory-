@@ -102,15 +102,34 @@ variables (`re1`-style) and instantiate; base certs `decide` need `maxRecDepth`/
 `Nat.add_sub_cancel*`, `Nat.{pow_add,mul_pow,pow_mul,div_div_eq_div_mul}` all carry
 `propext` → pure replacements built.
 
-## Then: Brick 2 (Apéry integrality) + assembly
-Brick 2 (`zeta3_blueprint.md` Brick 2) is "pure divisibility chains, NO p-adics"
-— trinomial double identity + KeyDiv via the finite-difference witness — likely
-**more** ∅-axiom-tractable than Brick 1 (no prime infra), despite more lines.
-Assembly: feed I1 (integrality factorization `zeta3Num = c·p`, `zeta3Den = c·q`)
-and I2 (the `htel` margin from `lcm < α^{1/3}ⁿ` vs the orbit's `28`-geometric
-growth `zeta3Den_geom`) into `Zeta3Cut.zeta3_reduced_conditional`, then build the
-`CauchyCutSeq` (modulus `N(m,k)=k+n₀+2`) and the `HolonomicReal` (template:
-`ExpLog/EulerModulus.eHolonomicReal`).
+## Next: Brick 2 (Apéry integrality, input I1) — STARTED
+Brick 2 = `2·lcm(1..n)³·aₙ ∈ ℕ`, "pure divisibility chains, NO p-adics".
+  * **§1 DONE + PURE** — `AperyIntegrality.lean` `aperyTrinomial`: the trinomial
+    double identity `C(n,k)C(n+k,k)C(k,m)² = C(n,m)C(n+m,m)C(n−m,k−m)C(n+k,n+m)`
+    (additive form `n=m+a+b,k=m+b`; both sides clear by `a!(m!)²(b!)²` to
+    `(2m+a+2b)!` via telescoping `choose_mul_factorials`).
+  * **§2 KeyDiv** (next) — `m·C(k,m) ∣ lcm(1..k)`.  Route (no primes): the
+    partial-fraction / finite-difference identity `Σ_{j≤s}(−1)ʲC(s,j)·Π_{i≠j}(m+i)
+    = s!` (over **ℤ**, `Int213`; induction on `s` via Pascal), giving the exact
+    integer combination `lcm = m·C(k,m)·Σⱼ(−1)ʲC(k−m,j)·(lcm/(m+j))` (each
+    `lcm/(m+j)` ∈ ℕ since `m+j ≤ k`, `dvd_lcmUpTo`).  Needs a signed-sum layer over
+    `Int213` (none exists yet — fresh sub-build).
+  * **§3 Heart (L2)** — `m³C(n,m)C(n+m,m) ∣ d³·C(n,k)C(n+k,k)` (`d=lcm`): divide
+    `aperyTrinomial` in; remainder `Q²·R·C(n−m,k−m)·C(n+k,n+m)`, `Q=d/(mC(k,m))`,
+    `R=d/m` integers by KeyDiv.
+  * **§4 Assembly** — termwise with the `C(n,k)²C(n+k,k)²` prefactor; the `2`
+    cancels `2m³` → `2·lcm³·aₙ ∈ ℕ`.
+
+## Then: the final assembly → `zeta3HolonomicReal`
+Feed **I1** (integrality) and **I2** (= the new `LcmBoundMain.lcmUpTo_le` against
+the orbit growth `Zeta3Cut.zeta3Den_geom`, as the `htel` margin) into
+`Zeta3Cut.zeta3_reduced_conditional`, then build the `CauchyCutSeq` (modulus
+`N(m,k)=k+n₀+2`) and `HolonomicReal` (template: `ExpLog/EulerModulus.eHolonomicReal`).
+**Clearing-bridge subtlety** (flagged turn 1): the conditional needs
+`zeta3Num = c·p`, `zeta3Den = c·q` ∀ n with `(p,q)=(Aₙ,dₙ)=(2lcm³aₙ,2lcm³bₙ)`;
+`c n = (n!)³/(2lcm³)` is integral only for `n ≥ 4` (`2lcm³ ∣ (n!)³` ⟺ `n!/lcm`
+even, holds `n≥4`), so define `(c,p,q)` **piecewise** (`n≤3`: `c=1,p=zeta3Num,
+q=zeta3Den`; `n≥4`: the reduced pair) and take the `htel` from `n₀ ≥ 4`.
 
 ## Engine end (already closed, prior session)
 `Zeta3Cut.zeta3_reduced_conditional` consumes I1+I2 and yields the constructed
@@ -128,6 +147,7 @@ lean/E213/Lib/Math/NumberTheory/PrimeValuation.lean      ← vp_mul, prime_dvd_m
 lean/E213/Lib/Math/NumberTheory/Legendre.lean            ← legendre (full formula); vp_factorial, val_count, indLt_sum, div_succ_increment
 lean/E213/Lib/Math/NumberTheory/FTALite.lean             ← dvd_of_forall_prime_vp_le
 lean/E213/Lib/Math/NumberTheory/FactorialRatioBound.lean ← step3 (factorial-ratio bound) + B1/B2 + choose_absorb + tcoef machinery
-lean/E213/Lib/Math/NumberTheory/LcmBoundMain.lean        ← step5; main (lcm(1..30m)≤10^{15m}); lcmUpTo_le (the deliverable)
-research-notes/frontiers/zeta3_blueprint.md              ← Brick 1 COMPLETE marked
+lean/E213/Lib/Math/NumberTheory/LcmBoundMain.lean        ← step5; main (lcm(1..30m)≤10^{15m}); lcmUpTo_le (Brick 1 deliverable)
+lean/E213/Lib/Math/NumberTheory/AperyIntegrality.lean    ← Brick 2 §1: aperyTrinomial (trinomial double identity)
+research-notes/frontiers/zeta3_blueprint.md              ← Brick 1 COMPLETE; Brick 2 §1 done
 ```
