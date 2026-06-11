@@ -1,6 +1,6 @@
 # ζ(3): from the built fold to the free (constructed) total modulus
 
-**Status**: open.  The fold itself is **closed** —
+**Status**: blueprint complete — see `zeta3_blueprint.md` (both bricks verified; formalization plans only, no open mathematics).  The fold itself is **closed** —
 `Real213/Zeta3Cut.lean` (35 PURE / 0 DIRTY) builds ζ(3)'s Apéry convergents as
 an `AbCutSeq` (exact ℕ recurrence via the growth-invariant engine, closed-form
 Casoratian `6·(m!)⁶`, bracket `601/500 < ζ(3) ≤ 1203/1000`, completion to a
@@ -67,13 +67,11 @@ Consequences (each verified exactly):
     (Hanson `< 3ⁿ`, budget `< α^{1/3} ≈ 3.236`).  They are not artifacts of
     Apéry's route — every series-type presentation needs them.
 
-(A multi-agent derivation round on the two bricks was cut short by session
-limits; the criterion above and the necessity statement were derived and
-exactly verified in-session.  Hanson route candidates: Sylvester-sequence
-multinomials (original), or primorial-style induction — needs `< 3.236ⁿ`,
-so Erdős `4ⁿ` is insufficient; integrality route: van der Poorten's binomial
-compensation as explicit divisibility chains.  Both remain the recorded open
-content.)
+Both bricks now have complete verified proof blueprints — `zeta3_blueprint.md`:
+brick 1 via a finitized Chebyshev 30-block recursion (`c = √10 < 3.236`; Hanson
+rejected — sub-0.5% margin, unbounded Sylvester tail), brick 2 as pure
+divisibility chains with no p-adic theory (trinomial double identity + KeyDiv
+via the finite-difference witness).
 
 ## Payoff when closed
 
