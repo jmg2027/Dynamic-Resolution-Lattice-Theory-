@@ -1027,4 +1027,242 @@ theorem mirrorB (n K r : Nat) : ∀ m,
         sub_shift K r (m + 1), BaccSum_snoc n K (m + 1)]
     ring_nat
 
+/-! ## §11 — F5 per-coefficient laws of the two `LowerBase` convolution lists
+
+`LAl i = (rev A-stack) ⋆ (sinh list)`, `LBl i = (rev B-stack) ⋆ ((2J+1)·cosh)`
+at the matched level `J = n = 2i+1`.  Entry-by-entry: equal past the diagonal
+(`entry_eq`), flipped by exactly `cfpos n n` at it (`diag`), and below it the
+`(2n+2)`-scaled `A` entry exceeds `B`'s by at most `2·bpF n 0` (`slack`). -/
+
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld (lsmul_length)
+
+theorem truncA_len (n : Nat) : ∀ m, (truncA n m).length = m + 1
+  | 0 => rfl
+  | m + 1 => congrArg (· + 1) (truncA_len n m)
+
+theorem truncB_len (n : Nat) : ∀ m, (truncB n m).length = m + 1
+  | 0 => rfl
+  | m + 1 => congrArg (· + 1) (truncB_len n m)
+
+theorem sListC_len : ∀ J, (sListC J).length = J + 1
+  | 0 => rfl
+  | J + 1 => by
+    show (lsmul ((2 * J + 2) * (2 * J + 3)) (sListC J)).length + 1 = (J + 1) + 1
+    rw [lsmul_length, sListC_len J]
+
+theorem cListC_len : ∀ J, (cListC J).length = J + 1
+  | 0 => rfl
+  | J + 1 => by
+    show (lsmul ((2 * J + 1) * (2 * J + 2)) (cListC J)).length + 1 = (J + 1) + 1
+    rw [lsmul_length, cListC_len J]
+
+theorem ladd_length_le : ∀ (a b : List Nat), a.length ≤ b.length →
+    (ladd a b).length = b.length
+  | [], _, _ => rfl
+  | _ :: _, [], h => absurd h (Nat.not_succ_le_zero _)
+  | _ :: as, _ :: bs, h => by
+    show (ladd as bs).length + 1 = bs.length + 1
+    rw [ladd_length_le as bs (Nat.le_of_succ_le_succ h)]
+
+theorem ladd_length_ge : ∀ (a b : List Nat), b.length ≤ a.length →
+    (ladd a b).length = a.length
+  | [], [], _ => rfl
+  | [], _ :: _, h => absurd h (Nat.not_succ_le_zero _)
+  | _ :: _, [], _ => rfl
+  | _ :: as, _ :: bs, h => by
+    show (ladd as bs).length + 1 = as.length + 1
+    rw [ladd_length_ge as bs (Nat.le_of_succ_le_succ h)]
+
+theorem lmulC_len : ∀ (as : List Nat) (a₀ : Nat) (b : List Nat), 1 ≤ b.length →
+    (lmulC (a₀ :: as) b).length = as.length + b.length
+  | [], a₀, b, hb => by
+    show (ladd (lsmul a₀ b) (0 :: lmulC [] b)).length = List.length [] + b.length
+    rw [show lmulC ([] : List Nat) b = [] from rfl,
+        ladd_length_ge (lsmul a₀ b) [0] (by
+          show 1 ≤ (lsmul a₀ b).length
+          rw [lsmul_length]
+          exact hb),
+        lsmul_length]
+    show b.length = 0 + b.length
+    rw [Nat.zero_add]
+  | a₁ :: as, a₀, b, hb => by
+    show (ladd (lsmul a₀ b) (0 :: lmulC (a₁ :: as) b)).length
+        = (as.length + 1) + b.length
+    rw [ladd_length_le (lsmul a₀ b) (0 :: lmulC (a₁ :: as) b) (by
+          show (lsmul a₀ b).length ≤ (lmulC (a₁ :: as) b).length + 1
+          rw [lsmul_length, lmulC_len as a₁ b hb]
+          exact Nat.le_trans (Nat.le_add_left _ _) (Nat.le_add_right _ _))]
+    show (lmulC (a₁ :: as) b).length + 1 = (as.length + 1) + b.length
+    rw [lmulC_len as a₁ b hb]
+    ring_nat
+
+/-- The `LowerBase` left list at level `i`: `(rev A-stack) ⋆ (sinh list)`. -/
+def LAl (i : Nat) : List Nat := lmulC (truncA (2 * i + 1) i) (sListC (2 * i + 1))
+
+/-- The `LowerBase` right list: `(rev B-stack) ⋆ ((2J+1)·cosh list)`. -/
+def LBl (i : Nat) : List Nat :=
+  lmulC (truncB (2 * i + 1) i) (lsmul (2 * (2 * i + 1) + 1) (cListC (2 * i + 1)))
+
+theorem LAl_len (i : Nat) : (LAl i).length = 3 * i + 2 := by
+  show (lmulC (truncA (2 * i + 1) i) (sListC (2 * i + 1))).length = 3 * i + 2
+  cases i with
+  | zero =>
+    show (lmulC (apF 1 0 :: []) (sListC 1)).length = 2
+    rw [lmulC_len [] (apF 1 0) (sListC 1) (by
+          rw [sListC_len]
+          exact Nat.succ_le_succ (Nat.zero_le _)),
+        sListC_len]
+    rfl
+  | succ i' =>
+    show (lmulC (apF (2 * (i' + 1) + 1) (i' + 1) :: truncA (2 * (i' + 1) + 1) i')
+            (sListC (2 * (i' + 1) + 1))).length = 3 * (i' + 1) + 2
+    rw [lmulC_len (truncA (2 * (i' + 1) + 1) i') _ _ (by
+          rw [sListC_len]
+          exact Nat.succ_le_succ (Nat.zero_le _)),
+        truncA_len, sListC_len]
+    ring_nat
+
+theorem LBl_len (i : Nat) : (LBl i).length = 3 * i + 2 := by
+  show (lmulC (truncB (2 * i + 1) i)
+        (lsmul (2 * (2 * i + 1) + 1) (cListC (2 * i + 1)))).length = 3 * i + 2
+  cases i with
+  | zero =>
+    show (lmulC (bpF 1 0 :: []) (lsmul 3 (cListC 1))).length = 2
+    rw [lmulC_len [] (bpF 1 0) (lsmul 3 (cListC 1)) (by
+          rw [lsmul_length, cListC_len]
+          exact Nat.succ_le_succ (Nat.zero_le _)),
+        lsmul_length, cListC_len]
+    rfl
+  | succ i' =>
+    show (lmulC (bpF (2 * (i' + 1) + 1) (i' + 1) :: truncB (2 * (i' + 1) + 1) i')
+            (lsmul (2 * (2 * (i' + 1) + 1) + 1) (cListC (2 * (i' + 1) + 1)))).length
+        = 3 * (i' + 1) + 2
+    rw [lmulC_len (truncB (2 * (i' + 1) + 1) i') _ _ (by
+          rw [lsmul_length, cListC_len]
+          exact Nat.succ_le_succ (Nat.zero_le _)),
+        truncB_len, lsmul_length, cListC_len]
+    ring_nat
+
+/-- ★★★ Past the diagonal the two lists agree entry-by-entry: the mirrors read
+    saturated accumulators at level `K < n`, where `cfpos (2i+1) K = 0` and the
+    master identity is an **equality**. -/
+theorem entry_eq (i e : Nat) : nth (LAl i) (i + 1 + e) = nth (LBl i) (i + 1 + e) := by
+  rcases Nat.lt_or_ge e (2 * i + 1) with hlt | hge
+  · have he' : e ≤ 2 * i := Nat.le_of_lt_succ hlt
+    obtain ⟨c, hc⟩ := Nat.le.dest he'
+    have hKr : c + (e + 1) = 2 * i + 1 := by
+      rw [show c + (e + 1) = (e + c) + 1 from by ring_nat, hc]
+    have hA : nth (lmulC (truncA (2 * i + 1) i) (sListC (2 * i + 1))) ((e + 1) + i)
+        = wprod (2 * (2 * i + 1) + 1) (e + 1) * AaccSum (2 * i + 1) c (i + 1) := by
+      have h := mirrorA (2 * i + 1) c (e + 1) i
+      rw [hKr] at h
+      exact h
+    have hB : nth (lmulC (truncB (2 * i + 1) i)
+            (lsmul (2 * (2 * i + 1) + 1) (cListC (2 * i + 1)))) ((e + 1) + i)
+        = wprod (2 * (2 * i + 1) + 1) (e + 1) * BaccSum (2 * i + 1) c (i + 1) := by
+      have h := mirrorB (2 * i + 1) c (e + 1) i
+      rw [hKr] at h
+      exact h
+    rw [show lmulC (truncA (2 * i + 1) i) (sListC (2 * i + 1)) = LAl i from rfl] at hA
+    rw [show lmulC (truncB (2 * i + 1) i)
+          (lsmul (2 * (2 * i + 1) + 1) (cListC (2 * i + 1))) = LBl i from rfl] at hB
+    have hcf : cfpos (2 * i + 1) c = 0 := by
+      show 2 ^ (2 * i + 1) * descFac c (2 * i + 1) = 0
+      rw [descFac_vanish c (2 * i + 1) (Nat.lt_succ_of_le (by
+            rw [← hc]; exact Nat.le_add_left c e)),
+          Nat.mul_zero]
+    have hAB : AaccSum (2 * i + 1) c (i + 1) = BaccSum (2 * i + 1) c (i + 1) := by
+      rw [AaccSum_eq_Asum i c, BaccSum_eq_Bsum i c]
+      have h := master_odd i c
+      rw [hcf, Nat.add_zero] at h
+      exact h
+    rw [show i + 1 + e = (e + 1) + i from by ring_nat, hA, hB, hAB]
+  · obtain ⟨f, hf⟩ := Nat.le.dest hge
+    have hlen : 3 * i + 2 ≤ i + 1 + e := by
+      rw [← hf, show i + 1 + (2 * i + 1 + f) = (3 * i + 2) + f from by ring_nat]
+      exact Nat.le_add_right _ _
+    rw [nth_ge_len (LAl i) (i + 1 + e) (by rw [LAl_len]; exact hlen),
+        nth_ge_len (LBl i) (i + 1 + e) (by rw [LBl_len]; exact hlen)]
+
+/-- ★★★★ **The diagonal flip**: at `p = i` the `B` side exceeds the `A` side by
+    exactly `cfpos n n = (4i+2)!!` — the master identity's Padé remainder. -/
+theorem diag (i : Nat) :
+    nth (LBl i) i = nth (LAl i) i + cfpos (2 * i + 1) (2 * i + 1) := by
+  have hA : 1 * nth (LAl i) i + AaccSum (2 * i + 1) (2 * i + 1) 0
+      = AaccSum (2 * i + 1) (2 * i + 1) (i + 1) :=
+    bridgeA (2 * i + 1) (2 * i + 1) 0 i
+  have hB : 1 * nth (LBl i) i + BaccSum (2 * i + 1) (2 * i + 1) 0
+      = BaccSum (2 * i + 1) (2 * i + 1) (i + 1) :=
+    bridgeB (2 * i + 1) (2 * i + 1) 0 i
+  rw [Nat.one_mul, show AaccSum (2 * i + 1) (2 * i + 1) 0 = 0 from rfl,
+      Nat.add_zero, AaccSum_eq_Asum i (2 * i + 1)] at hA
+  rw [Nat.one_mul, show BaccSum (2 * i + 1) (2 * i + 1) 0 = 0 from rfl,
+      Nat.add_zero, BaccSum_eq_Bsum i (2 * i + 1)] at hB
+  rw [hA, hB]
+  exact master_diagonal i
+
+/-- ★★★★ **The uniform sub-diagonal slack**: below the diagonal, after scaling
+    by `2n+2 = 4i+4`, the `A` entry exceeds the `B` entry by at most
+    `2·bpF n 0` — the budget pays the gap out of the threaded weight, and the
+    weight cancels (division-free). -/
+theorem slack (i p g : Nat) (hpg : p + (g + 1) = i) :
+    (2 * (2 * i + 1) + 2) * nth (LAl i) p
+      ≤ (2 * (2 * i + 1) + 2) * nth (LBl i) p + 2 * bpF (2 * i + 1) 0 := by
+  have hA := bridgeA (2 * i + 1) (2 * i + 1) (g + 1) p
+  have hB := bridgeB (2 * i + 1) (2 * i + 1) (g + 1) p
+  rw [hpg] at hA hB
+  rw [show lmulC (truncA (2 * i + 1) i) (sListC (2 * i + 1)) = LAl i from rfl,
+      AaccSum_eq_Asum i ((2 * i + 1) + (g + 1))] at hA
+  rw [show lmulC (truncB (2 * i + 1) i)
+        (lsmul (2 * (2 * i + 1) + 1) (cListC (2 * i + 1))) = LBl i from rfl,
+      BaccSum_eq_Bsum i ((2 * i + 1) + (g + 1))] at hB
+  have hM := master_odd i ((2 * i + 1) + (g + 1))
+  have hEq : wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1) * nth (LAl i) p
+        + AaccSum (2 * i + 1) ((2 * i + 1) + (g + 1)) (g + 1)
+        + cfpos (2 * i + 1) ((2 * i + 1) + (g + 1))
+      = wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1) * nth (LBl i) p
+        + BaccSum (2 * i + 1) ((2 * i + 1) + (g + 1)) (g + 1) := by
+    rw [hA, hB, hM]
+  have hyp : 2 * (2 * i + 1) + 1 + 2 * (g + 1) ≤ 2 * ((2 * i + 1) + (g + 1)) + 1 :=
+    Nat.le_of_eq (by ring_nat)
+  have hBud := budgetGen (2 * i + 1) (2 * i + 1) (g + 1)
+    (2 * ((2 * i + 1) + (g + 1)) + 1) 1 0 hyp
+  rw [Nat.one_mul] at hBud
+  have hMf : 1 ≤ wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1) :=
+    wprod_pos _ _ (by
+      rw [show 2 * ((2 * i + 1) + (g + 1)) + 1
+            = (2 * (g + 1) + 1) + 2 * (2 * i + 1) from by ring_nat]
+      exact Nat.le_add_right _ _)
+  have main : wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1)
+        * ((2 * (2 * i + 1) + 2) * nth (LAl i) p)
+      ≤ wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1)
+        * ((2 * (2 * i + 1) + 2) * nth (LBl i) p + 2 * bpF (2 * i + 1) 0) := by
+    calc wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1)
+          * ((2 * (2 * i + 1) + 2) * nth (LAl i) p)
+        = (2 * (2 * i + 1) + 2)
+            * (wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1) * nth (LAl i) p) := by
+          ring_nat
+      _ ≤ (2 * (2 * i + 1) + 2)
+            * (wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1) * nth (LAl i) p
+              + AaccSum (2 * i + 1) ((2 * i + 1) + (g + 1)) (g + 1)
+              + cfpos (2 * i + 1) ((2 * i + 1) + (g + 1))) :=
+          Nat.mul_le_mul_left _
+            (Nat.le_trans (Nat.le_add_right _ _) (Nat.le_add_right _ _))
+      _ = (2 * (2 * i + 1) + 2)
+            * (wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1) * nth (LBl i) p
+              + BaccSum (2 * i + 1) ((2 * i + 1) + (g + 1)) (g + 1)) := by
+          rw [hEq]
+      _ = (2 * (2 * i + 1) + 2)
+            * (wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1) * nth (LBl i) p)
+          + (2 * (2 * i + 1) + 2)
+            * BaccSum (2 * i + 1) ((2 * i + 1) + (g + 1)) (g + 1) := by ring_nat
+      _ ≤ (2 * (2 * i + 1) + 2)
+            * (wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1) * nth (LBl i) p)
+          + wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1)
+            * (2 * bpF (2 * i + 1) 0) := Nat.add_le_add_left hBud _
+      _ = wprod (2 * ((2 * i + 1) + (g + 1)) + 1) (g + 1)
+            * ((2 * (2 * i + 1) + 2) * nth (LBl i) p + 2 * bpF (2 * i + 1) 0) := by
+          ring_nat
+  exact Nat.le_of_mul_le_mul_left main hMf
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
