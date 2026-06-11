@@ -342,4 +342,132 @@ theorem series_le_odd_anchors :
     ∧ cfPn (cothCF 1) 3 = 151 :=
   ⟨by decide, by decide, by decide, by decide, by decide⟩
 
+/-! ## §6 — the choice function: a series `false` forces the CF limit `false`
+
+The upper transfer at the **limit** level.  A strict series reading (`T_J > m/k`,
+margin `≥ 1` in `Nat`) cannot coexist with *all* even convergents at-or-below
+`m/k`: by `series_le_odd`, `m/k < T_J ≤ r_{2L+1}`, and the det-one floor makes the
+odd–even gap at layer `L` exactly `1/(q_{2L}q_{2L+1})` — so once
+`q_{2L}·q_{2L+1} > k·s_J` (the **choice function**, reached at
+`L = k·s_J + k + 2` by the Fibonacci floor `q_n ≥ n`), the even convergent is
+strictly past the probe and the CF limit reads `false`.  No measure, no LEM:
+the schedule is explicit. -/
+
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+  (cothUnitCFCauchySeq cfEvenNum cfEvenDen cfQn_ge_self cfPn_pos)
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut (cothSeriesAb)
+
+private theorem le_of_add_le_add_left' {c a b : Nat} (h : c + a ≤ c + b) : a ≤ b :=
+  E213.Tactic.NatHelper.le_of_add_le_add_left h
+
+/-- ★★★★ **The squeeze**: a strict series reading at `(m, k)` together with
+    `q_{2L}·q_{2L+1} > k·s_J` forces the layer-`L` even convergent strictly past
+    the probe.  Chain: probe `< T_J ≤ r_{2L+1}` (`series_le_odd`), and the
+    det-one floor `p_{2L+1}q_{2L} = p_{2L}q_{2L+1} + 1` converts the unit gap
+    into the bound — were `r_{2L} ≤ m/k`, the gap `q_{2L}q_{2L+1} ≤ k·s_J`
+    would follow, contradiction. -/
+theorem even_past_probe (q : Nat) (hq : 1 ≤ q) (m k J L : Nat)
+    (hser : sinhNum q J * m + 1 ≤ TNum q J * k)
+    (hbig : k * sinhNum q J + 1
+      ≤ cfQn (cothCF q) (2 * L) * cfQn (cothCF q) (2 * L + 1)) :
+    cfQn (cothCF q) (2 * L) * m + 1 ≤ cfPn (cothCF q) (2 * L) * k := by
+  rcases Nat.lt_or_ge (cfQn (cothCF q) (2 * L) * m) (cfPn (cothCF q) (2 * L) * k)
+    with hlt | hge
+  · exact hlt
+  · exfalso
+    have hU := series_le_odd q hq L J
+    have hdet := cf_det_even_nat (cothCF q) L
+    have key : sinhNum q J * m * (cfQn (cothCF q) (2*L) * cfQn (cothCF q) (2*L+1))
+          + cfQn (cothCF q) (2*L) * cfQn (cothCF q) (2*L+1)
+        ≤ sinhNum q J * m * (cfQn (cothCF q) (2*L) * cfQn (cothCF q) (2*L+1))
+          + k * sinhNum q J := by
+      calc sinhNum q J * m * (cfQn (cothCF q) (2*L) * cfQn (cothCF q) (2*L+1))
+            + cfQn (cothCF q) (2*L) * cfQn (cothCF q) (2*L+1)
+          = (sinhNum q J * m + 1)
+            * (cfQn (cothCF q) (2*L) * cfQn (cothCF q) (2*L+1)) := by ring_nat
+        _ ≤ TNum q J * k * (cfQn (cothCF q) (2*L) * cfQn (cothCF q) (2*L+1)) :=
+            Nat.mul_le_mul hser (Nat.le_refl _)
+        _ = k * cfQn (cothCF q) (2*L) * (TNum q J * cfQn (cothCF q) (2*L+1)) := by
+            ring_nat
+        _ ≤ k * cfQn (cothCF q) (2*L) * (sinhNum q J * cfPn (cothCF q) (2*L+1)) :=
+            Nat.mul_le_mul_left _ hU
+        _ = k * sinhNum q J * (cfPn (cothCF q) (2*L+1) * cfQn (cothCF q) (2*L)) := by
+            ring_nat
+        _ = k * sinhNum q J * (cfPn (cothCF q) (2*L) * cfQn (cothCF q) (2*L+1) + 1) := by
+            rw [hdet]
+        _ = sinhNum q J * cfQn (cothCF q) (2*L+1) * (cfPn (cothCF q) (2*L) * k)
+            + k * sinhNum q J := by ring_nat
+        _ ≤ sinhNum q J * cfQn (cothCF q) (2*L+1) * (cfQn (cothCF q) (2*L) * m)
+            + k * sinhNum q J :=
+            Nat.add_le_add_right (Nat.mul_le_mul_left _ hge) _
+        _ = sinhNum q J * m * (cfQn (cothCF q) (2*L) * cfQn (cothCF q) (2*L+1))
+            + k * sinhNum q J := by ring_nat
+    have hqq : cfQn (cothCF q) (2*L) * cfQn (cothCF q) (2*L+1) ≤ k * sinhNum q J :=
+      le_of_add_le_add_left' key
+    exact Nat.not_succ_le_self _ (Nat.le_trans hbig hqq)
+
+/-- ★★★★★ **A series `false` reading forces the CF limit `false`** — the upper
+    transfer at the limit level, with the explicit choice layer
+    `L = k·s_J + k + 2`.  Together with `series_le_odd` this is the closed upper
+    half of the weld: the series fold can never exceed the Lambert real. -/
+theorem cf_limit_false_of_series_false (q : Nat) (hq : 1 ≤ q) (m k J : Nat)
+    (hser : (cothSeriesAb q hq).cut J m k = false) :
+    (cothUnitCFCauchySeq q hq).limit m k = false := by
+  cases k with
+  | zero =>
+    rw [(cothSeriesAb q hq).cut_resolution_zero J m] at hser
+    exact Bool.noConfusion hser
+  | succ k' =>
+    rw [cothSeriesCut_eq] at hser
+    have hser' : sinhNum q J * m + 1 ≤ TNum q J * (k' + 1) :=
+      Nat.lt_of_not_le (of_decide_eq_false hser)
+    have ha : ∀ i, 1 ≤ cothCF q (i + 1) := fun i => cothCF_pos q hq (i + 1)
+    -- the choice layer
+    have hbig : (k' + 1) * sinhNum q J + 1
+        ≤ cfQn (cothCF q) (2 * ((k' + 1) * sinhNum q J + k' + 3))
+          * cfQn (cothCF q) (2 * ((k' + 1) * sinhNum q J + k' + 3) + 1) := by
+      have h2L : (k' + 1) * sinhNum q J + 1
+          ≤ 2 * ((k' + 1) * sinhNum q J + k' + 3) := by
+        refine Nat.le.intro (k := (k' + 1) * sinhNum q J + 2 * k' + 5) ?_
+        ring_nat
+      have hgrow := cfQn_ge_self (cothCF q) ha (2 * ((k' + 1) * sinhNum q J + k' + 3))
+      have hone : 1 ≤ cfQn (cothCF q) (2 * ((k' + 1) * sinhNum q J + k' + 3) + 1) :=
+        cfQn_pos (cothCF q) ha _
+      calc (k' + 1) * sinhNum q J + 1
+          ≤ 2 * ((k' + 1) * sinhNum q J + k' + 3) := h2L
+        _ ≤ cfQn (cothCF q) (2 * ((k' + 1) * sinhNum q J + k' + 3)) := hgrow
+        _ ≤ cfQn (cothCF q) (2 * ((k' + 1) * sinhNum q J + k' + 3))
+            * cfQn (cothCF q) (2 * ((k' + 1) * sinhNum q J + k' + 3) + 1) :=
+            Nat.le_mul_of_pos_right _ hone
+    have hpast := even_past_probe q hq m (k' + 1) J
+      ((k' + 1) * sinhNum q J + k' + 3) hser' hbig
+    -- the layer-L cut reads false
+    have hcsL : (cothUnitCFCauchySeq q hq).cs
+        ((k' + 1) * sinhNum q J + k' + 3) m (k' + 1) = false := by
+      apply decide_eq_false
+      intro hcon
+      exact Nat.not_succ_le_self _ (Nat.le_trans hpast hcon)
+    -- transport to the modulus layer
+    have heq := (cothUnitCFCauchySeq q hq).cauchy m (k' + 1) (k' + 1 + 2)
+      ((k' + 1) * sinhNum q J + k' + 3)
+      (Nat.le_refl _)
+      (show (k' + 1) * sinhNum q J + k' + 3 ≥ k' + 1 + 2 from
+        Nat.le_add_left (k' + 3) ((k' + 1) * sinhNum q J))
+    show (cothUnitCFCauchySeq q hq).cs (k' + 1 + 2) m (k' + 1) = false
+    rw [heq]
+    exact hcsL
+
+/-- The contrapositive packaging: wherever the CF limit reads `true`, the series
+    fold reads `true` at **every** layer — the ∀-probe upper agreement
+    (`two_pointings_agree`'s `3/2`-instance, now universal). -/
+theorem series_true_of_cf_limit_true (q : Nat) (hq : 1 ≤ q) (m k : Nat)
+    (hcf : (cothUnitCFCauchySeq q hq).limit m k = true) :
+    ∀ J, (cothSeriesAb q hq).cut J m k = true := by
+  intro J
+  cases hs : (cothSeriesAb q hq).cut J m k with
+  | true => rfl
+  | false =>
+    rw [cf_limit_false_of_series_false q hq m k J hs] at hcf
+    exact Bool.noConfusion hcf
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
