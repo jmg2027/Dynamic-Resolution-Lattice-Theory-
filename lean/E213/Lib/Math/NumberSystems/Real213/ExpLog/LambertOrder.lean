@@ -604,13 +604,72 @@ def LowerBase (q : Nat) : Prop :=
   ∀ i, dev q (AP (2 * i + 1)) * sinhNum q (2 * i + 1)
     ≤ (2 * (2 * i + 1) + 1) * dev q (BP (2 * i + 1)) * coshNum q (2 * i + 1)
 
-/-- The base family holds on the accessible instances (`q = 1`: levels 3, 5 with
-    margins 49, 3911; `q = 2`: level 3, margin 193). -/
+/-! ## §10 — the lower-cross recursion backbone (toward `LowerBase`)
+
+The quantity `R_J := (2J+1)·dB·c_J − dA·s_J` (with `dA = devA`, `dB = devB`,
+`c = coshNum`, `s = sinhNum`) is the `LowerBase` cross: `LowerBase q ⟺ ∀ i,
+R_{2i+1}(i) ≥ 0`.  Two structural facts close everything **except** the base
+`R_{2i+1}(i) ≥ 0`:
+
+  * the **linear recursion** `R_{J+1} = (2J+2)(2J+3)q²·R_J + E_{J+1}`, where
+    `E_j := (2j+1)·dB − dA` — direct from the `coshNum`/`sinhNum` recursions
+    (`R_recursion` below, subtraction-free form);
+  * **`E_j ≥ 0` for `j ≥ 1`** (`E_nonneg`), since `dA ≤ 3·dB ≤ (2j+1)·dB`
+    (`devA_le_three_devB`).
+
+So `R_J` is nondecreasing-into-positivity past the matched depth, and the whole
+`LowerBase` family reduces to the single base inequality `R_{2i+1}(i) ≥ 0`.
+That base is the Padé-matched flip: by the **master identity**
+`Σ_{s} (2N+1)!/(2N−2s+1)!·((2N−2s+1)·bpF n s − apF n s) = (−1)^{n−1}2^n N!/(N−n)!`
+(`n = 2i+1`), the leading term of `R_{2i+1}(i)` is exactly the diagonal value
+`L(2i+1, 2i+1) = (4i+2)!!` at `q^{2i}`, and the lower-order boundary terms are
+dominated (`zeta3_blueprint.md`-style halving).  Verified; formalization of the
+master identity is the one remaining dedicated brick (`lowerbase_blueprint.md`). -/
+
+/-- ★★★ **The lower-cross linear recursion** (subtraction-free): for arbitrary
+    `dA, dB`,
+    `(2J+3)·dB·c_{J+1} + (2J+2)(2J+3)q²·(dA·s_J) + dA
+       = (2J+2)(2J+3)q²·((2J+1)·dB·c_J) + (2J+3)·dB + dA·s_{J+1}` —
+    i.e. `R_{J+1} = (2J+2)(2J+3)q²·R_J + ((2J+3)dB − dA)`, straight from the
+    `coshNum`/`sinhNum` recursions. -/
+theorem R_recursion (q J dA dB : Nat) :
+    (2 * J + 3) * dB * coshNum q (J + 1)
+        + (2 * J + 2) * (2 * J + 3) * q ^ 2 * (dA * sinhNum q J) + dA
+      = (2 * J + 2) * (2 * J + 3) * q ^ 2 * ((2 * J + 1) * dB * coshNum q J)
+        + (2 * J + 3) * dB + dA * sinhNum q (J + 1) := by
+  show (2 * J + 3) * dB * ((2 * J + 1) * (2 * J + 2) * q ^ 2 * coshNum q J + 1)
+        + (2 * J + 2) * (2 * J + 3) * q ^ 2 * (dA * sinhNum q J) + dA
+      = (2 * J + 2) * (2 * J + 3) * q ^ 2 * ((2 * J + 1) * dB * coshNum q J)
+        + (2 * J + 3) * dB
+        + dA * ((2 * J + 2) * (2 * J + 3) * q ^ 2 * sinhNum q J + 1)
+  ring_nat
+
+/-- ★★★ **`E_j ≥ 0` for `j ≥ 1`**: `dev (AP (2i+1)) ≤ (2j+1)·dev (BP (2i+1))`
+    (the lower-cross forcing term is nonnegative past the head) — from
+    `devA_le_three_devB` and `3 ≤ 2j+1`. -/
+theorem E_nonneg (q : Nat) (hq : 1 ≤ q) (i j : Nat) (hj : 1 ≤ j) :
+    dev q (AP (2 * i + 1)) ≤ (2 * j + 1) * dev q (BP (2 * i + 1)) := by
+  have h3 : 3 ≤ 2 * j + 1 :=
+    Nat.add_le_add_right (Nat.mul_le_mul_left 2 hj) 1
+  exact Nat.le_trans (devA_le_three_devB q hq i) (Nat.mul_le_mul_right _ h3)
+
+/-- The master-identity diagonal value, machine-checked at level `n = N = 3`
+    (`i = 1`): the moved (subtraction-free) form
+    `W(3,0)·7·bpF 3 0 + W(3,1)·5·bpF 3 1 = 48 + W(3,0)·apF 3 0 + W(3,1)·apF 3 1`
+    (`315 = 48 + 315 − 48`), i.e. `L(3,3) = 48 = 6!!` — the leading coefficient of
+    `R_3(1) = 48q² + 1`. -/
+theorem master_diagonal_anchor :
+    1 * (7 * bpF 3 0) + 42 * (5 * bpF 3 1) = 48 + 1 * apF 3 0 + 42 * apF 3 1 := by
+  decide
+
+/-- The base family holds on the accessible instances (`q = 1`: levels 3, 5, 7 with
+    margins 49, 3911, 655502; `q = 2`: level 3, margin 193). -/
 theorem lower_base_anchors :
     dev 1 (AP 3) * sinhNum 1 3 ≤ 7 * dev 1 (BP 3) * coshNum 1 3
     ∧ dev 1 (AP 5) * sinhNum 1 5 ≤ 11 * dev 1 (BP 5) * coshNum 1 5
-    ∧ dev 2 (AP 3) * sinhNum 2 3 ≤ 7 * dev 2 (BP 3) * coshNum 2 3 :=
-  ⟨by decide, by decide, by decide⟩
+    ∧ dev 2 (AP 3) * sinhNum 2 3 ≤ 7 * dev 2 (BP 3) * coshNum 2 3
+    ∧ dev 1 (AP 7) * sinhNum 1 7 ≤ 15 * dev 1 (BP 7) * coshNum 1 7 :=
+  ⟨by decide, by decide, by decide, by decide⟩
 
 /-- ★★★★ **The lower transfer, reduced to its base**: given `LowerBase q`, the
     series sits above every even convergent from the matched depth on. -/
