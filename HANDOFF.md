@@ -89,13 +89,22 @@ minor org-audit item, not blocking.
 **All four hard gates + step 2 are cleared** — `count30`, `legendre`, `vp_lcmUpTo`,
 FTA-lite, `perLevel`, `key_divisibility`.  The entire arithmetic core is ∅-axiom.
 
-  * **Step 3 — factorial-ratio bound** (next, the one remaining piece of real
-    content): `(30m)!·m!·6^{6m}15^{15m}10^{10m} ≤ (6m+1)·(15m)!(10m)!(6m)!·30^{30m}`,
-    i.e. `(30m)!·m!/((15m)!(10m)!(6m)!) ≤ (6m+1)·α₃₀^m` (`α₃₀ = 30³⁰/(6⁶15¹⁵10¹⁰) =
-    2¹⁴3⁹5⁵`; both totals degree `31m`).  **Gear**: `BinomialTwoVar.binom2_theorem`
-    (`(a+b)ⁿ=Σ C(n,k)aᵏbⁿ⁻ᵏ`, PROVEN) + `Sum.sumTo_term_le` (term ≤ sum) — the
-    blueprint's "two single-term + one max-term (unimodal at k=m)".  Reconstruct the
-    3-term decomposition.
+  * **Step 3 — factorial-ratio bound** (IN PROGRESS, `FactorialRatioBound.lean`):
+    `(30m)!·m!/((15m)!(10m)!(6m)!) ≤ (6m+1)·α₃₀^m` (`α₃₀ = 2¹⁴3⁹5⁵`).  Decomposition
+    rediscovered (`30 = 2·15 = 3·10 = 5·6`):
+    - **B1 DONE** (PURE): `(30m)!·15^{15m}·10^{10m}·5^{5m} ≤ 30^{30m}·(15m)!(10m)!(5m)!`
+      — two single-term bounds (`binom_term_le`/`fact_binom_bound`), `15^{15m}`-cancelled.
+    - **B2 TODO** (unimodal max-term): `6^{6m}·m!·(5m)! ≤ (6m+1)·5^{5m}·(6m)!`.  Full
+      plan: (i) **absorption** `(k+1)·C(N,k+1)=(N−k)·C(N,k)` (induction on N + Pascal
+      `choose_succ_succ`; step coeff identity `(k+2)+(N−(k+1))=(k+1)+(N−k)` holds when
+      `C N (k+1)≠0`, else both ·0 — `by_cases C N (k+1)=0`).  (ii) ratio bounds
+      `k<m → 5·C(6m)k ≤ C(6m)(k+1)`, `m≤k → C(6m)(k+1) ≤ 5·C(6m)k` (`6m−k ≷ 5(k+1) ⟺
+      6m ≷ 6k+5`, cancel `(k+1)`).  (iii) term mono for `t k := C(6m)k·5^{6m−k}`
+      (×`5^{6m−k−1}`).  (iv) chains → `tm_max : k≤6m → t k ≤ t m`.  (v)
+      `sumTo_le_const_mul` + `binom2_theorem 1 5 (6m)` (`6^{6m}=Σ t`, `1^k=1`) →
+      `6^{6m}≤(6m+1)C(6m,m)5^{5m}`; ×`m!(5m)!` + `choose_mul_factorials m (5m)` → B2.
+      propext traps: `Nat.add_sub_cancel*`/`sub`-lemmas dirty → `NatHelper`-pure.
+    - **S3**: `B1·B2`, cancel `5^{5m}·(5m)!` (`le_of_mul_le_mul_right'`).
   * **Step 4 — recursion** `lcm(1..30m) ≤ (6m+1)·α₃₀^m·lcm(1..5m)`: from
     `key_divisibility` as `≤` (`Pow213.le_of_dvd_pos`, RHS>0) + step 3 + cancel the
     common `(15m)!(10m)!(6m)!` (it is `> 0`).
@@ -128,6 +137,7 @@ localization `(601/500, 1203/1000]`.  See `Zeta3Cut.lean` §8–§9.
 lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← NEW (§1 count30; §2 lcmUpTo; §3 vp_lcmUpTo+floorLog; §4 div_div_pure,sumTo_le_sumTo; §5 div-cancel; §6 perLevel; §7 key_divisibility)
 lean/E213/Lib/Math/NumberTheory/PrimeValuation.lean      ← NEW (vp_mul, prime_dvd_mul, Prime213; §3 vp_monotone, vp_gcd_min, vp_lcm_max)
 lean/E213/Lib/Math/NumberTheory/FTALite.lean             ← NEW (dvd_of_forall_prime_vp_le)
+lean/E213/Lib/Math/NumberTheory/FactorialRatioBound.lean ← NEW step 3 (binom_term_le, fact_binom_bound, B1; B2/S3 TODO)
 lean/E213/Lib/Math/NumberTheory/Legendre.lean            ← NEW (legendre full formula; vp_factorial, vp_one, val_count, indLt_sum, div_succ_increment)
 research-notes/frontiers/zeta3_blueprint.md              ← formalization-progress section (Legendre done)
 ```
