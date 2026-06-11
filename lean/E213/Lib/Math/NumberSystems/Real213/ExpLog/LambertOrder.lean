@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMinor
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!
@@ -469,5 +470,236 @@ theorem series_true_of_cf_limit_true (q : Nat) (hq : 1 ≤ q) (m k : Nat)
   | false =>
     rw [cf_limit_false_of_series_false q hq m k J hs] at hcf
     exact Bool.noConfusion hcf
+
+/-! ## §7 — the lower transfer: propagation, the `i = 0` instance, the matched base
+
+The lower half (`r_{2i} ≤ T_J`) climbs for free: one `J`-step costs only the side
+condition `devA ≤ 3·devB` (every even convergent sits below the first odd one),
+so the whole family reduces to its **matched-truncation base** `J₀(i) = 2i + 1` —
+the Padé phenomenon (the convergent matches the series to order `u^{2i}`, so the
+cross deficit stays a `q`-cancelled sliver `(−5, −3, −1, …)` until exactly the
+matched depth, then flips positive forever).  The `i = 0` instance closes
+outright; the base family for `i ≥ 1` (`LowerBase`) is the isolated remaining
+content of the weld, `decide`-verified on the accessible instances. -/
+
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius (det2_odd_nat)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor (cfQn_pos)
+
+/-- One `J`-step of the lower transfer: needs only `A ≤ 3B`. -/
+theorem lower_step (q : Nat) {A B J : Nat} (hside : A ≤ 3 * B)
+    (h : A * sinhNum q J ≤ (2 * J + 1) * B * coshNum q J) :
+    A * sinhNum q (J + 1) ≤ (2 * (J + 1) + 1) * B * coshNum q (J + 1) := by
+  show A * ((2 * J + 2) * (2 * J + 3) * q ^ 2 * sinhNum q J + 1)
+      ≤ (2 * (J + 1) + 1) * B * ((2 * J + 1) * (2 * J + 2) * q ^ 2 * coshNum q J + 1)
+  calc A * ((2 * J + 2) * (2 * J + 3) * q ^ 2 * sinhNum q J + 1)
+      = (2 * J + 2) * (2 * J + 3) * q ^ 2 * (A * sinhNum q J) + A := by ring_nat
+    _ ≤ (2 * J + 2) * (2 * J + 3) * q ^ 2 * ((2 * J + 1) * B * coshNum q J) + A :=
+        Nat.add_le_add_right (Nat.mul_le_mul_left _ h) A
+    _ ≤ (2 * J + 2) * (2 * J + 3) * q ^ 2 * ((2 * J + 1) * B * coshNum q J)
+        + 3 * B := Nat.add_le_add_left hside _
+    _ ≤ (2 * J + 2) * (2 * J + 3) * q ^ 2 * ((2 * J + 1) * B * coshNum q J)
+        + (2 * J + 3) * B :=
+        Nat.add_le_add_left (Nat.mul_le_mul_right B (Nat.le_add_left 3 (2 * J))) _
+    _ = (2 * (J + 1) + 1) * B
+        * ((2 * J + 1) * (2 * J + 2) * q ^ 2 * coshNum q J + 1) := by ring_nat
+
+/-- The lower transfer propagates from any base layer. -/
+theorem lower_of_base (q : Nat) {A B J0 : Nat} (hside : A ≤ 3 * B)
+    (hbase : A * sinhNum q J0 ≤ (2 * J0 + 1) * B * coshNum q J0) :
+    ∀ J, J0 ≤ J → A * sinhNum q J ≤ (2 * J + 1) * B * coshNum q J := by
+  intro J hJ
+  obtain ⟨t, rfl⟩ := Nat.le.dest hJ
+  clear hJ
+  induction t with
+  | zero => exact hbase
+  | succ s ih => exact lower_step q hside ih
+
+/-- The odd convergents descend below the first one (`mono_of_step` on the
+    reciprocal system, fed by the odd two-step determinant). -/
+theorem odd_le_first (q : Nat) (hq : 1 ≤ q) (i : Nat) :
+    cfPn (cothCF q) (2 * i + 1) * cfQn (cothCF q) 1
+      ≤ cfPn (cothCF q) 1 * cfQn (cothCF q) (2 * i + 1) := by
+  have ha : ∀ j, 1 ≤ cothCF q (j + 1) := fun j => cothCF_pos q hq (j + 1)
+  have h := E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus.mono_of_step
+    (a := fun L => cfQn (cothCF q) (2 * L + 1))
+    (d := fun L => cfPn (cothCF q) (2 * L + 1))
+    (fun L => Nat.mul_pos (cfQn_pos (cothCF q) ha (2 * L + 1))
+      (cfPn_pos (cothCF q) (cothCF_pos q hq) (2 * L + 1)))
+    (fun n => by
+      show cfQn (cothCF q) (2 * n + 1) * cfPn (cothCF q) (2 * (n + 1) + 1)
+          ≤ cfQn (cothCF q) (2 * (n + 1) + 1) * cfPn (cothCF q) (2 * n + 1)
+      calc cfQn (cothCF q) (2 * n + 1) * cfPn (cothCF q) (2 * (n + 1) + 1)
+          = cfPn (cothCF q) (2 * n + 3) * cfQn (cothCF q) (2 * n + 1) :=
+            Nat.mul_comm _ _
+        _ ≤ cfPn (cothCF q) (2 * n + 3) * cfQn (cothCF q) (2 * n + 1)
+            + cothCF q (2 * n + 3) := Nat.le_add_right _ _
+        _ = cfPn (cothCF q) (2 * n + 1) * cfQn (cothCF q) (2 * n + 3) :=
+            (det2_odd_nat (cothCF q) n).symm
+        _ = cfQn (cothCF q) (2 * (n + 1) + 1) * cfPn (cothCF q) (2 * n + 1) :=
+            Nat.mul_comm _ _)
+    0 i (Nat.zero_le i)
+  calc cfPn (cothCF q) (2 * i + 1) * cfQn (cothCF q) 1
+      = cfQn (cothCF q) (2 * 0 + 1) * cfPn (cothCF q) (2 * i + 1) := by
+        rw [Nat.mul_comm]
+    _ ≤ cfQn (cothCF q) (2 * i + 1) * cfPn (cothCF q) (2 * 0 + 1) := h
+    _ = cfPn (cothCF q) 1 * cfQn (cothCF q) (2 * i + 1) := by rw [Nat.mul_comm]
+
+/-- Every even convergent sits below the first odd one (chain the adjacent
+    det-one step through the odd pivot). -/
+theorem even_le_first_odd (q : Nat) (hq : 1 ≤ q) (i : Nat) :
+    cfPn (cothCF q) (2 * i) * cfQn (cothCF q) 1
+      ≤ cfQn (cothCF q) (2 * i) * cfPn (cothCF q) 1 := by
+  have ha : ∀ j, 1 ≤ cothCF q (j + 1) := fun j => cothCF_pos q hq (j + 1)
+  refine ratio_chain (u := cfPn (cothCF q) (2 * i + 1))
+    (v := cfQn (cothCF q) (2 * i + 1)) ?_ ?_ (cfQn_pos (cothCF q) ha (2 * i + 1))
+  · refine Nat.le.intro (k := 1) ?_
+    rw [Nat.mul_comm (cfQn (cothCF q) (2 * i)) (cfPn (cothCF q) (2 * i + 1))]
+    exact (cf_det_even_nat (cothCF q) i).symm
+  · calc cfPn (cothCF q) (2 * i + 1) * cfQn (cothCF q) 1
+        ≤ cfPn (cothCF q) 1 * cfQn (cothCF q) (2 * i + 1) := odd_le_first q hq i
+      _ = cfQn (cothCF q) (2 * i + 1) * cfPn (cothCF q) 1 := Nat.mul_comm _ _
+
+/-- The side condition at the `dev` level: `devA ≤ 3·devB` at every odd index. -/
+theorem devA_le_three_devB (q : Nat) (hq : 1 ≤ q) (i : Nat) :
+    dev q (AP (2 * i + 1)) ≤ 3 * dev q (BP (2 * i + 1)) := by
+  have h := even_le_first_odd q hq i
+  rw [(cf_bridge q i).1, (cf_bridge q i).2.2.1] at h
+  -- h : q·devA·q₁ ≤ devB·p₁ with q₁ = 3q, p₁ = 3q·q + 1 (surface forms)
+  have h2 : 3 * (q * q) * dev q (AP (2 * i + 1))
+      ≤ 3 * (q * q) * (3 * dev q (BP (2 * i + 1))) := by
+    have hqq : 1 ≤ q * q := by
+      calc 1 = 1 * 1 := rfl
+        _ ≤ q * q := Nat.mul_le_mul hq hq
+    calc 3 * (q * q) * dev q (AP (2 * i + 1))
+        = q * dev q (AP (2 * i + 1)) * ((2 * 1 + 1) * q) := by ring_nat
+      _ ≤ dev q (BP (2 * i + 1)) * ((2 * 1 + 1) * q * ((2 * 0 + 1) * q) + 1) := h
+      _ = (3 * (q * q) + 1) * dev q (BP (2 * i + 1)) := by ring_nat
+      _ ≤ (3 * (q * q) + 6 * (q * q)) * dev q (BP (2 * i + 1)) :=
+          Nat.mul_le_mul_right _ (Nat.add_le_add_left
+            (Nat.le_trans hqq (Nat.le_mul_of_pos_left (q * q) (by decide))) _)
+      _ = 3 * (q * q) * (3 * dev q (BP (2 * i + 1))) := by ring_nat
+  exact Nat.le_of_mul_le_mul_left h2
+    (Nat.lt_of_lt_of_le (by decide)
+      (Nat.le_mul_of_pos_right 3 (Nat.lt_of_lt_of_le (by decide)
+        (Nat.mul_le_mul hq hq))))
+
+/-- The `i = 0` lower transfer, closed outright: `s_J ≤ (2J+1)·c_J` at every `J`
+    (the fold never drops below the zeroth convergent `r₀ = q`). -/
+theorem lower_zero (q : Nat) : ∀ J, sinhNum q J ≤ (2 * J + 1) * coshNum q J := by
+  intro J
+  have h := lower_of_base q (A := 1) (B := 1) (J0 := 0)
+    (by decide) (Nat.le_refl _) J (Nat.zero_le J)
+  calc sinhNum q J = 1 * sinhNum q J := (Nat.one_mul _).symm
+    _ ≤ (2 * J + 1) * 1 * coshNum q J := h
+    _ = (2 * J + 1) * coshNum q J := by rw [Nat.mul_one]
+
+/-- **The matched-truncation lower base** — the weld's one remaining brick: at
+    `J₀(i) = 2i + 1` (and only from there) the truncated series captures the
+    `2i`-th convergent.  The cross deficit below `J₀` is an exact `q`-cancelled
+    sliver (level 3: `−5, −3, −1`, `q`-independent; level 5: `−(315q²+14), …,
+    −(51q²+6)`) — the Padé matching of `Ã/B̃` to order `u^{2i}`; the flip at the
+    matched depth is `decide`-verified on the accessible instances
+    (`lower_base_anchors`) and open in general. -/
+def LowerBase (q : Nat) : Prop :=
+  ∀ i, dev q (AP (2 * i + 1)) * sinhNum q (2 * i + 1)
+    ≤ (2 * (2 * i + 1) + 1) * dev q (BP (2 * i + 1)) * coshNum q (2 * i + 1)
+
+/-- The base family holds on the accessible instances (`q = 1`: levels 3, 5 with
+    margins 49, 3911; `q = 2`: level 3, margin 193). -/
+theorem lower_base_anchors :
+    dev 1 (AP 3) * sinhNum 1 3 ≤ 7 * dev 1 (BP 3) * coshNum 1 3
+    ∧ dev 1 (AP 5) * sinhNum 1 5 ≤ 11 * dev 1 (BP 5) * coshNum 1 5
+    ∧ dev 2 (AP 3) * sinhNum 2 3 ≤ 7 * dev 2 (BP 3) * coshNum 2 3 :=
+  ⟨by decide, by decide, by decide⟩
+
+/-- ★★★★ **The lower transfer, reduced to its base**: given `LowerBase q`, the
+    series sits above every even convergent from the matched depth on. -/
+theorem series_ge_even_of_base (q : Nat) (hq : 1 ≤ q) (hbase : LowerBase q)
+    (i J : Nat) (hJ : 2 * i + 1 ≤ J) :
+    cfPn (cothCF q) (2 * i) * sinhNum q J ≤ cfQn (cothCF q) (2 * i) * TNum q J := by
+  have h := lower_of_base q (devA_le_three_devB q hq i) (hbase i) J hJ
+  rw [(cf_bridge q i).1, (cf_bridge q i).2.2.1]
+  show q * dev q (AP (2 * i + 1)) * sinhNum q J
+      ≤ dev q (BP (2 * i + 1)) * ((2 * J + 1) * q * coshNum q J)
+  calc q * dev q (AP (2 * i + 1)) * sinhNum q J
+      = q * (dev q (AP (2 * i + 1)) * sinhNum q J) := by ring_nat
+    _ ≤ q * ((2 * J + 1) * dev q (BP (2 * i + 1)) * coshNum q J) :=
+        Nat.mul_le_mul_left q h
+    _ = dev q (BP (2 * i + 1)) * ((2 * J + 1) * q * coshNum q J) := by ring_nat
+
+/-! ## §8 — the weld, conditional on the base: limit-cut equality and completion
+
+`W1` (§6, unconditional) and `W2` (below, from the base) compose into the
+separation schedule `I k = 2(k+2) + 1`: any series `false` shows at `I k`.  The
+series fold then completes through `AbCutSeq.toCauchySep`, and its limit agrees
+with the Lambert CF limit on **every** probe — the weld.  The entire remaining
+content is `LowerBase`. -/
+
+open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+  (cfEvenNum cfEvenDen)
+open E213.Meta.Nat.NatRing213 (nat_mul_lt_mul_left)
+open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
+
+/-- `W2` (conditional): a `false` CF limit forces the series `false` at the
+    explicit layer `2(k+2)+1` — the modulus-layer even convergent is strictly
+    past the probe, and from the matched depth the series has caught it. -/
+theorem series_false_of_cf_limit_false (q : Nat) (hq : 1 ≤ q)
+    (hbase : LowerBase q) (m k : Nat)
+    (hcf : (cothUnitCFCauchySeq q hq).limit m k = false) :
+    (cothSeriesAb q hq).cut (2 * (k + 2) + 1) m k = false := by
+  have hcf' : rcut (cfEvenNum (cothCF q)) (cfEvenDen (cothCF q)) (k + 2) m k
+      = false := hcf
+  have hlt : cfQn (cothCF q) (2 * (k + 2)) * m
+      < cfPn (cothCF q) (2 * (k + 2)) * k :=
+    Nat.lt_of_not_le (of_decide_eq_false hcf')
+  have hT := series_ge_even_of_base q hq hbase (k + 2) (2 * (k + 2) + 1)
+    (Nat.le_refl _)
+  rw [cothSeriesCut_eq]
+  apply decide_eq_false
+  intro hcon
+  have hs1 : 1 ≤ sinhNum q (2 * (k + 2) + 1) :=
+    E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut.sinhNum_pos q _
+  have hcycle : cfQn (cothCF q) (2 * (k + 2)) * (TNum q (2 * (k + 2) + 1) * k)
+      < cfQn (cothCF q) (2 * (k + 2)) * (TNum q (2 * (k + 2) + 1) * k) := by
+    calc cfQn (cothCF q) (2 * (k + 2)) * (TNum q (2 * (k + 2) + 1) * k)
+        ≤ cfQn (cothCF q) (2 * (k + 2)) * (sinhNum q (2 * (k + 2) + 1) * m) :=
+          Nat.mul_le_mul_left _ hcon
+      _ = sinhNum q (2 * (k + 2) + 1) * (cfQn (cothCF q) (2 * (k + 2)) * m) := by
+          ring_nat
+      _ < sinhNum q (2 * (k + 2) + 1) * (cfPn (cothCF q) (2 * (k + 2)) * k) :=
+          nat_mul_lt_mul_left hs1 hlt
+      _ = cfPn (cothCF q) (2 * (k + 2)) * sinhNum q (2 * (k + 2) + 1) * k := by
+          ring_nat
+      _ ≤ cfQn (cothCF q) (2 * (k + 2)) * TNum q (2 * (k + 2) + 1) * k :=
+          Nat.mul_le_mul_right k hT
+      _ = cfQn (cothCF q) (2 * (k + 2)) * (TNum q (2 * (k + 2) + 1) * k) := by
+          ring_nat
+  exact absurd hcycle (Nat.lt_irrefl _)
+
+/-- ★★★★★ **The weld, conditional on the base**: the coth series fold completes
+    through the separation schedule `I k = 2(k+2)+1` — the schedule's
+    certificate is `W2 ∘ W1`, both halves of the order transfer composed. -/
+def cothSeriesCauchySepOfBase (q : Nat) (hq : 1 ≤ q) (hbase : LowerBase q) :
+    CauchyCutSeq :=
+  (cothSeriesAb q hq).toCauchySep (fun k => 2 * (k + 2) + 1)
+    (fun m k _ i hf =>
+      series_false_of_cf_limit_false q hq hbase m k
+        (cf_limit_false_of_series_false q hq m k i hf))
+
+/-- ★★★★★ **Limit-cut equality**: the completed series fold and the Lambert CF
+    fold agree on **every** probe — `coth(1/q)`'s two pointings (series and
+    continued fraction) are one real.  The weld, modulo `LowerBase`. -/
+theorem weld_limit_agreement (q : Nat) (hq : 1 ≤ q) (hbase : LowerBase q)
+    (m k : Nat) :
+    (cothSeriesCauchySepOfBase q hq hbase).limit m k
+      = (cothUnitCFCauchySeq q hq).limit m k := by
+  cases hcf : (cothUnitCFCauchySeq q hq).limit m k with
+  | true =>
+    show (cothSeriesAb q hq).cut (2 * (k + 2) + 1) m k = true
+    exact series_true_of_cf_limit_true q hq m k hcf _
+  | false =>
+    show (cothSeriesAb q hq).cut (2 * (k + 2) + 1) m k = false
+    exact series_false_of_cf_limit_false q hq hbase m k hcf
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
