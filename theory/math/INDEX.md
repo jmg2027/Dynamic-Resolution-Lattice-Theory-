@@ -6,6 +6,8 @@ under the same thematic super-cluster as its Lean sub-tree.
 ## Clusters (mirror of `Lib/Math/`)
 
 ### `numbersystems/` — the number tower
+`slot_arithmetic` (the slot programme: tuple-tower ontology, witness layer,
+sandwich-first, the commuting square, layer constants),
 `real213`, `padic_real213`, `signed_cut`, `complex`, `hyper`, `irrational`,
 `completeness_relocated`, `completeness_without_completeness`, `probe_twist_conic`.
 
