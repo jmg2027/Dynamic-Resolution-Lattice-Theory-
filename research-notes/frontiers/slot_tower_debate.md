@@ -182,3 +182,44 @@ keeps comm+assoc through `×` and loses both at `^` (PROVED).
 facts** (role-asymmetry + prime-independence) whose fusion over a faithful
 `exp` awaits `vp_separation` (OPEN).  Thesis: atom-(in)distinguishability.
 Mechanism: the count-rig.  Debt: `vp_separation`.
+
+---
+
+## Round 3 (later session) — the async-tower question (§5(a))
+
+Three-agent panel (affirmative / adversary / formalist) on
+`slot_tower_crossdomain.md` §5(a): "is there an asynchronous number tower,
+or is operation-ness definitionally clock-dependent (count-Lens = the
+clock)?"
+
+- **Affirmative** (synchrony thesis): every tower rung factors through
+  `iter : (α→α) → Nat → α → α` against the one count-slot
+  (`add_eq_iter`/`mul_eq_iter`/`pow_eq_iter`); `fire` has no count slot.
+  Strongest self-identified weak point: the link from `iter_mul` (order of
+  operations) to *synchrony* (a dynamic property) is not itself a theorem.
+- **Adversary** (async-operation seeker): the thesis HOLDS for the tower but
+  the *universal* "operation = forward-counting" is refuted by
+  `Convolution213.conv` — a genuine commutative operation defined by
+  `natSplits` (all `(i,j)`, `i+j=n`), a decomposition *constraint*, not a
+  forward count.  "uses `Nat`" ≠ "forward-counts".
+- **Formalist** (Lean spine): the three `*_eq_iter` theorems are the spine;
+  their conjunction is **vacuous**.  No hyperoperation ladder existed in the
+  repo.  A non-vacuous unifier *does* exist and is buildable ∅-axiom — the
+  single recursion `hyperop (k+1) a b = iter (hyperop k a) b (seed k a)` —
+  **provided** flavour-matching avoids `funext` (which pulls `Quot.sound`)
+  by a pointwise `iter_congr`.
+
+**Judge synthesis (acted on).**  The adversary's `conv` is not async: its
+all-pairs-at-once is §6's *simultaneous* lockstep, a second **clocked**
+foliation, not a clock-free one.  So there are two clocked readings —
+sequential (`iter`, the tower) and simultaneous (grid/convolution) —
+matching ORIGIN_RAW's two events; only `fire` is clock-free (an *event*, not
+an operation).  Refined verdict: **every number operation is clocked; only
+events are clock-free** — "operation-ness is synchrony" survives once
+"synchrony" = *clocked* (either foliation), not *forward-counting alone*.
+
+**Deliverable**: `lean/E213/Meta/Nat/HyperLadder.lean` (8 PURE) — the tower
+as one recursion turning the count-clock (`hyperop 1/2/3 = +`/`×`/`^`),
+funext-free via `iter_congr`.  The philosophical three-way identity
+(`Nat`-clock = §10.1 ℕ-induction cost = lockstep clock) is left as narrative
+gloss — stating it as a Lean equation would be the vacuous move.

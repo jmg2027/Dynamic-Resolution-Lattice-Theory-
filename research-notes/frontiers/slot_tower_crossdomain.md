@@ -149,7 +149,7 @@ shape collision with a degree-sum/curvature collision) would import a *false*
 lemma.  The honest bridge is the corrected distinction above, now pinned to
 Lean on both sides.
 
-## 5. ↔ ORIGIN_RAW (genesis record): the tower is the synchronous foliation Lens
+## 5. ↔ ORIGIN_RAW (genesis record): the tower is the clocked foliation Lens — (a) resolved
 
 `seed/ORIGIN_RAW.md` rebuilds Raw from "difference" alone and, in §6–§8,
 flags a **lockstep tension**: proceeding stage-by-stage ("now that stage 1
@@ -204,8 +204,51 @@ row 1`.  If this identification holds, (a) is answered negative: there is no
 asynchronous number tower, because operation *is* synchrony.  The tower
 keeps the same architectural status as the §4.3 uniqueness proofs (pure-`ℕ`,
 Raw-not-imported, conducted *inside* a `ℕ`-Lens codomain — not before/outside
-Raw).  Open: state the three-way identity as one Lean fact, or find the
-async operation that refutes it.
+Raw).
+
+**Verdict (three-agent debate — affirmative / adversary / formalist).**  The
+formal core is now **pinned in Lean** and the "async tower" question
+**answered**, with the philosophical identity left as gloss (not forced into a
+theorem).
+
+- **The tower is one recursion turning the count-clock.**
+  `Meta/Nat/HyperLadder.hyperop` (8 PURE): `hyperop (k+1) a b =
+  iter (hyperop k a) b (seed k a)`, with `hyperop 1/2/3 = +`/`×`/`^`
+  (`hyperop_one/two/three`).  This is the genuine single Lean fact the open
+  question asked for — *not* the vacuous conjunction `add_eq_iter ∧
+  mul_eq_iter ∧ pow_eq_iter`, but one `Nat`-recursion (the level `k`) whose
+  only body is one `Nat`-iteration (the count `b` through `iter`).  Both
+  indices are the *same* count-Lens: "operation-ness = iteration against the
+  one count-clock".  The formalist confirmed **no hyperoperation ladder
+  existed** in the repo (a real gap, now filled), and flagged the **funext
+  landmine**: matching the rung flavours by `funext`/`rw`-on-functions pulls
+  `Quot.sound` (axiom-dirty); the file stays PURE only via the pointwise
+  `iter_congr` (induction, no funext).
+
+- **The philosophical three-way identity stays gloss, not theorem.**  "the
+  `Nat`-clock = the §10.1 ℕ-induction cost = ORIGIN_RAW's lockstep clock" is a
+  *reading* of the count slot, not a Lean-statable equation; stating it as a
+  theorem would be the vacuous/forcible move.  The honest formal content is
+  the ladder; the identity is its narrative.
+
+- **No async number *operation* — refined, survives.**  The adversary's
+  hardest strike: `Convolution213.conv` is a genuine commutative operation
+  that is *not* `iter`-shaped — it uses `natSplits n` (all `(i,j)` with
+  `i+j=n`) as a *decomposition constraint*, not a forward count.  This shows
+  "uses `Nat`" ≠ "forward-counts".  But the correction is that `conv` is **not
+  async**: `natSplits`' all-pairs-at-once is precisely §6's **lockstep
+  simultaneity** (the grid, `mul_comm_from_grid`), a *second* clocked
+  foliation, not a clock-free one.  So there are two clocked readings —
+  *sequential* (forward `iter`: the tower) and *simultaneous* (all-at-once:
+  convolution/grid) — matching ORIGIN_RAW's two events (Event 1 sequential
+  differentiation / Event 2 simultaneous contrast) and the
+  commutativity ⟺ simultaneity handle above.  The only **clock-free**
+  generator is `fire` (`Theory/Raw/Async`), which is an *event*, not an
+  *operation*.  Refined answer: **every number operation is clocked** (in one
+  of the two foliations); only events are clock-free.  "operation-ness is
+  synchrony" holds once "synchrony" is read as *clocked* (sequential or
+  simultaneous), not as *forward-counting alone* — the original phrasing
+  over-narrowed.
 
 (b) **`^`-wall ↔ ORIGIN_RAW §9 "level-2 ceiling": resonance or identity?**
 Both are "regularity runs out at a rung": §9 (sequential natural-number strata
@@ -239,9 +282,18 @@ Lean on both sides, not from the armchair):
   count, different curvature" unifier.  They share only the negative claim,
   unified at `Lens.refines`.
 
-§5 adds the ORIGIN_RAW relation and questions (a)/(b) (still open).  The net
-lesson: of the four, only bridge 2 had a genuine shared mechanism; 1 and 4
-yield partial/negative Lean facts, and 3 is narrative.  Forcing the rest into
-single schemas would be the forcible-map failure mode (and bridge 4's naive
-unifier carried a *false* lemma).  Recorded so the correspondence — and the
-verdicts — are tracked, not lost to chat.
+- **§5 (a) — RESOLVED** (three-agent debate).  The tower is one recursion
+  turning the count-clock: `Meta/Nat/HyperLadder.hyperop` (8 PURE),
+  `hyperop 1/2/3 = +`/`×`/`^`.  No async number *operation* — every operation
+  is clocked (sequential `iter` or simultaneous grid/convolution); only events
+  (`fire`) are clock-free.  The philosophical three-way identity stays gloss,
+  not theorem.  Funext landmine avoided via `iter_congr`.
+- **§5 (b) — still open.**  `^`-wall ↔ ORIGIN_RAW §9 level-2 ceiling:
+  resonance plain, identity unproven (asserting it would be stereotype-match).
+
+The net lesson: of the four bridges, only bridge 2 had a genuine shared
+mechanism; 1 and 4 yield partial/negative Lean facts, 3 is narrative; §5(a)
+yields a genuine single Lean object (the hyperoperation ladder).  Forcing the
+others into single schemas would be the forcible-map failure mode (and bridge
+4's naive unifier carried a *false* lemma).  Recorded so the correspondence —
+and the verdicts — are tracked, not lost to chat.
