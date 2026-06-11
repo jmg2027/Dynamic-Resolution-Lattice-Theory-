@@ -119,18 +119,32 @@ the original plan flagged.
   * `master_diagonal`: `Bsum(2i+1,2i+1) = Asum(2i+1,2i+1) + cfpos(2i+1,2i+1)`,
     the leading value `(4i+2)!!` (anchors `cfpos 3 3 = 48`, `cfpos 5 5 = 3840`).
 
-**Remaining — the connection layer** (toward `R_{2i+1}(i) ≥ 0`):
-1. the q-graded bridge `R_J(i) = Σ_p (2J+1)!/(2p+1)!·[partial-(Bsum−Asum)_p]·
-   q^{2(i+J−p)}` (convolution of `devA/devB` with the cleared `coshNum/sinhNum`),
-   whose `p = 2i+1` term is `(4i+2)!! q^{2i}` (`master_diagonal`) and whose
-   `p < 2i+1` terms vanish (`cfpos = 0`);
-2. boundary partial-sum bound for `p > J` (halving, `apF/bpF_halving_strong`
-   already PURE);
-3. assembly → `LowerBase`, then `cothSeriesCauchySepOfBase` +
-   `weld_limit_agreement` unconditional — **the weld closes**.
-(NB the weld's *headline*, `exp(2/q)` unconditional, is **already closed**
-independently via `ExpMoebius`; `LowerBase` gates only the secondary
-series=CF pointing-agreement.)
+**The connection layer is now FORMALIZED** (`LambertPoly.lean`, 26 PURE):
+  * `evc` (constant-first evaluation) + `lmulC` (convolution) — length-condition-
+    free polynomial layer; `dev_eq_evc_rev` bridges the weld's `dev` world in;
+    `cListC/sListC` (coefficient lists of the cleared cosh/sinh partials);
+    `conn_A/conn_B`: both `LowerBase` sides are `evc`s of explicit convolutions.
+  * **`evc_dom_joint` — the Abel transfer**: equal-length *suffix dominance*
+    (every suffix coefficient-sum of `A` ≤ `B`'s) ⟹ `evc q A ≤ evc q B` for all
+    `q ≥ 1`, by a joint induction carrying the cross-statement
+    `evc q a + evc 1 b ≤ evc q b + evc 1 a` (cons-heads cancel; `q² = 1+e`).
+    **This eliminates the `q`-dependence entirely** — the remaining content is a
+    `q = 1` statement.
+  * `lowerbase_of_suffdom`: `LowerBase` at level `i` ⟸ suffix dominance of the
+    two convolution lists.  **End-to-end at `i = 1`**: `lowerbase_one` proves the
+    base inequality for *every* `q ≥ 1` through the full pipeline.
+
+**Remaining — ONE brick**: general-`i` suffix dominance at `q = 1`,
+`SuffDom (lmulC (rev (AP (2i+1))) (sListC (2i+1)))
+        (lmulC (rev (BP (2i+1))) (lsmul (4i+3) (cListC (2i+1))))` —
+verified numerically (i ≤ 4).  Structure: suffix sums obey the clean recursion
+`Suf k (lmulC (a₀::as) b) = a₀·Suf k b + Suf (k−1) (lmulC as b)` (drop commutes
+with ladd); per-grade the difference is `(4i+2)!!` (`master_diagonal`) plus
+partial slivers, controlled by the master identity (`LambertMasterId`, proven)
++ halving (`apF/bpF_halving_strong`, proven) at `q = 1`.  Then `LowerBase` ⟹
+`cothSeriesCauchySepOfBase` + `weld_limit_agreement` unconditional — **the weld
+closes**.  (NB the weld's *headline*, `exp(2/q)` unconditional, is **already
+closed** independently via `ExpMoebius`.)
 
 Provenance: two independent derivation agents converged on §2 (one via Bessel
 polynomial / Hermite remainder theory, one via enumerative identity hunting);

@@ -3,7 +3,7 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (24)
+## Files (26)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
@@ -52,6 +52,21 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   conditional full weld: `weld_limit_agreement` +
                                   `cothSeriesCauchySepOfBase` (modulo `LowerBase`,
                                   the one open brick).
+  - `LambertMasterId.lean`      — **the master identity** (Padé-cancellation
+                                  core): `Asum(2k+1,N) + cfpos(2k+1,N) =
+                                  Bsum(2k+1,N)` (+ even twin), all-ℕ via the
+                                  weight-threading accumulators `Bacc/Aacc`;
+                                  engine `cfpos_moved` (the `binom_absorption`
+                                  analog); `master_diagonal` = the `(4i+2)!!`
+                                  flip value `LowerBase` consumes.
+  - `LambertPoly.lean`          — the graded connection layer: `evc`
+                                  (constant-first evaluation, length-condition-
+                                  free) + `lmulC` convolution + `dev`-bridge;
+                                  `evc_dom_joint` (the Abel transfer: suffix
+                                  dominance ⟹ all-`q` dominance);
+                                  `lowerbase_of_suffdom` + end-to-end `i = 1`
+                                  (`lowerbase_one`).  Remaining: general-`i`
+                                  suffix dominance at `q = 1`.
   - `ExpMoebius.lean`           — **`exp(2/q)` completes unconditionally**: the
                                   cut-Möbius step — odd Lambert convergents under
                                   `z ↦ (z+1)/(z−1)` climb with cross-det
