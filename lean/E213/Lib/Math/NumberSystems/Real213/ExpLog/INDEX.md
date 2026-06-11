@@ -3,7 +3,7 @@
 Exponential and logarithm on Real213 cuts via power-series + ODE.
 Plus geometric series identity and Cauchy convergence proofs.
 
-## Files (21)
+## Files (22)
 
 ### Exp
   - `CutExpSeries.lean`         — `exp` Taylor series
@@ -25,12 +25,23 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   doubled-tail upper bracket (`upNum`, geometric
                                   halving past `2p ≤ (N+2)q`); `e² ∈ (7, 904/120]`.
                                   Free modulus open (`exp_pq_no_htel` boundary).
-  - `LambertWeld.lean`          — weld stage 1: the Lambert three-term ladder
-                                  `F_{n−1} = (2n+1)Fₙ + uF_{n+1}` division-free at
-                                  every truncation (`weld_ladder`), cosh/sinh
-                                  collapse rungs (`weld_base`,
-                                  `sinhNum_eq_FNum_zero`).  Stage 2 (CF convergent
-                                  pairing) open.
+  - `LambertWeld.lean`          — the weld core: Lambert three-term ladder
+                                  (`weld_ladder`), pairing functional `PF` +
+                                  convergent lists `AP/BP` (`weld_pair_cosh/sinh`),
+                                  descending evaluation `dev` + `cf_bridge` (CF
+                                  convergents = `dev` of the lists), `row_det`
+                                  collapse, and the Chebyshev engine
+                                  (`weight_dom`, `cross_le`: minor condition ⟹
+                                  cross order transfer).
+  - `LambertMinor.lean`         — the minor-sign system: coefficient functions
+                                  `apF/bpF` (totalized), prefix support, and the
+                                  closed 4-family induction `minorSys` (adjacent
+                                  minors + 3 cross-level families; two-apart `E`
+                                  derived by `ratio_chain` with zero-pivot
+                                  fallback).  Continuant total positivity, the
+                                  input `cross_le` consumes.  Remaining: getD
+                                  bridge to `AP/BP`, all-gap chaining, (A′)
+                                  assembly.
   - `CothSeriesCut.lean`        — weld 3b: the coth series as a fold
                                   (`cothSeriesAb`, truncated ratio
                                   `(2J+1)q·coshNum/sinhNum` climbs via the exact

@@ -2,7 +2,8 @@
 
 ## Branch & build state
 `claude/weighted-ibp-li-yau-91qefg` (continues the Ricci-flow frontier branch).  `lake build`
-✓ clean; `scan_all_axioms.py` **654 PURE / 0 DIRTY**; `audit_axioms.py` all ✓.  Session
+✓ clean (run from `lean/`!); `scan_all_axioms.py` **2197 PURE / 0 DIRTY** (+33
+sealed-DIRTY-by-design).  Session
 modules strict ∅-axiom (`tools/scan_axioms.py`): `WeightedGreen` 11/0, `DiscreteGaussian`
 11/0, `DiscreteSurgery` 15/0, `Binomial` 15/0, `RicciFlowDiscrete` 17/0, `IntGridSum` +1
 (`gridSumZ_antisym_zero`), `OrderMul` +1 (`eq_zero_of_two_mul_eq_zero`), `Conservation` +2
@@ -282,17 +283,34 @@ dominance of the pointwise gap list (`b₀·as = a₀·bs + g`):
 New core dirt: `Nat.add_sub_cancel'`/`Nat.sub_add_cancel` are `propext`-dirty —
 pure `add_sub_recover` via `Nat.le.dest` + NatHelper's `add_sub_cancel_right`.
 
+## Sixteenth arc: weld 3c — the minor-sign system PROVEN
+
+`LambertMinor.lean` (NEW, 10 PURE): continuant total positivity at the
+**position-function level** — `apF/bpF n i` (the `i`-th coefficient of
+`Ã_{n−1}/B̃_{n−1}`, totalized by `0` off support: no list edge cases).
+- The naive gap-indexed family opens an infinite ladder (m₂ needs m₃ needs …) —
+  killed by deriving the two-apart cross `E` **on demand**: `ratio_chain` (F
+  with the next level's adjacent minor) through the pivot `bpF (n+1) (t+1)`,
+  zero-pivot case free by **prefix-support** (`bpF_support`: a zero entry kills
+  the tail).
+- The closed system is **4 families** (`MinorSys n`): `m₁` adjacent minors, `D`
+  same-position cross-level, `F` one-apart, `G` reverse one-apart; `minorSys :
+  ∀ n, MinorSys n` by two-step strong induction, every step **termwise** (no
+  cancellation) after the bilinear `ring_nat` expansion of the three-term
+  recursion (m₁(n+2) ⟸ m₁(n+1)+D(n)+E(n)+m₁(n); D ⟸ m₁(n+1)+D(n); F ⟸
+  m₁(n+2)+D(n+1); G ⟸ m₁(n+2)+E(n+1)).
+- Numeric anchors at level 5 (`Ã₄ = [945,420,15]`, `B̃₄ = [945,105,1]`) check.
+
 ## Open Problems (priority order)
-1. **The weld's last piece — the minor sign**: `MinorLE (AP k) (BPpad k)` (the
-   `Ã/B̃` coefficient ratios increase, universal orientation; heads are equal
-   `(2n+1)!!`).  Proof plan: `cf_det`-style paired induction on the `AP/BP`
-   recursion with the mixed-pair auxiliary families (orientation flips on the
-   mixed pairs — the bilinear expansion of `minor(n+1)` in terms of `minor(n)`,
-   `minor(n−1)`, and the two mixed crosses; verify the auxiliary family closure
-   numerically first).  Then the (A′) assembly: X-piece = `cross_le` at level
-   `n+1` (padded), Y-piece = `cross_le` at level `n` + `cf_det` dev-cross;
-   choice functions (`t_mono_strict` increments, `cf_det` gaps); limit-cut
-   equality; `e^{2/q}` cut-Möbius; `hmeas` discharged.
+1. **The weld's remaining plumbing** (minor sign done): (a) getD-bridge
+   `AP/BP ↔ apF/bpF` (`List.getD 0` makes `ladd/lsmul/shift` act like the
+   function recursions); (b) all-gap `MinorLE` from adjacent `m₁` (chain
+   through positive pivots + `bpF_support` zero-pivot fallback, same two-case
+   shape as `e_of_sys`); (c) the (A′) assembly: X-piece = `cross_le` at level
+   `n+1` (BP padded `++[0]`: `dev` gains `q²`, `PF` unchanged), Y-piece =
+   `cross_le` at level `n` + `cf_det` dev-cross; choice functions
+   (`t_mono_strict` increments, `cf_det` gaps); limit-cut equality; `e^{2/q}`
+   cut-Möbius; `hmeas` discharged.
 2. **ζ(3) free modulus** (`zeta3_free_modulus.md`): Hanson `lcm(1..n) < 3ⁿ` +
    numerator integrality; or ride `toCauchySep` with a bracket-separation certificate.
 3. **Bochner coupling beyond the spectral case** (star / `K_{a,b}` gradient
@@ -323,4 +341,8 @@ lean/E213/Lib/Math/Combinatorics/IntGridSum.lean                            ← 
 lean/E213/Meta/Int213/OrderMul.lean                                         ← +eq_zero_of_two_mul_eq_zero
 research-notes/frontiers/ricci_flow_smooth_core.md                          ← wall §: four discrete cores closed
 research-notes/frontiers/a6_ricci_core/discrete_ricci_flow_ladder.md        ← rungs 8–10
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertWeld.lean            ← weld core §1–§9 (ladder, PF/AP/BP, dev, cf_bridge, row_det, Chebyshev engine)
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/CothSeriesCut.lean          ← coth series fold + first-odd bound + strict climb
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertMinor.lean           ← NEW: minor-sign system (continuant total positivity)
+research-notes/frontiers/modulus_degree_ladder.md                           ← weld status: minor sign proven, plumbing remains
 ```

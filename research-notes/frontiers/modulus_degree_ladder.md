@@ -210,12 +210,24 @@ modulus is the growth class of `N` in `k`, and it factors as
    step it is the `FNum` recursion minus its `+1`; holds for every list, no
    hypotheses) + `cross_le` (`PF a·dev b ≤ dev a·PF b` under `MinorLE a b`,
    two list inductions; gap recovery via `lsub`/`ladd_lsub_recover`).
-   **Remaining (the last piece)**: the minor sign `MinorLE (AP n) (BP n-pad)`
-   (universal orientation — `Ã/B̃` coefficient ratios increase; `cf_det`-style
-   paired induction with the mixed-pair auxiliary families), then the (A′)
-   assembly: X-piece = `cross_le` at level `n+1`, Y-piece = `cross_le` at level
-   `n` + the `cf_det` dev-cross, then choice functions, limit-cut equality,
-   `e^{2/q}` cut-Möbius, `hmeas` discharged.  (Lean: core `Nat.pow_add` and
+   **The minor sign is now PROVEN** (`LambertMinor`, 10 PURE): at the
+   position-function level (`apF/bpF`, totalized by `0` off support — no list
+   edge cases), the closed **4-family system** `minorSys n = {m₁ adjacent
+   minors, D same-position cross-level, F one-apart, G reverse one-apart}`
+   closes by two-step strong induction, every step **termwise** (no
+   cancellation) after the bilinear `ring_nat` expansion of the three-term
+   recursion; the two-apart cross `E` that `m₁`'s step needs is *derived* on
+   demand (`ratio_chain` through the pivot `bpF (n+1) (t+1)`, zero-pivot case
+   free by prefix-support `bpF_support`) — this kills the infinite m₂/m₃/…
+   ladder that a naive gap-indexed family would open.
+   **Remaining (plumbing only)**: getD-bridge `AP/BP ↔ apF/bpF` (List.getD 0
+   makes `ladd/lsmul/shift` act like the function recursions), all-gap
+   `MinorLE` from adjacent minors (chain `m₁` through positive pivots +
+   prefix-support, the same two-case shape as `e_of_sys`), then the (A′)
+   assembly: X-piece = `cross_le` at level `n+1` (BP padded `++[0]`: `dev` gains
+   `q²`, `PF` unchanged), Y-piece = `cross_le` at level `n` + the `cf_det`
+   dev-cross, then choice functions, limit-cut equality, `e^{2/q}` cut-Möbius,
+   `hmeas` discharged.  (Lean: core `Nat.pow_add` and
    `Nat.le_of_add_le_add_right` are `propext`-dirty — `pow_add_two` via the
    definitional `pow_succ` chain; NatHelper's left-cancel + `add_comm`.)
    Lean note: PolyNatM's normalizer does **not** drop `0·atom` monomials and chokes
