@@ -193,11 +193,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   the count-rig `iter_add`+`iter_mul` / `vp_separation`); the ^-wall is
   two independent proof-facts until the `exp`-iso bridge closes; fold
   criterion scoped (ℚ-exponents, `a,b≥2`; ⟹ provable now, ⟸ IS
-  separation); **genesis corrected — the primitive is binary
-  anti-reflexive `slash`, not unary `cons`** ("pointing=append=count"
-  is the tower read at its top rung); 12-item merged brick agenda
-  (keystone: `vp_separation`, whose prereq `exists_prime_factor`
-  already exists PURE in `FourSquare.lean`).
+  separation); **genesis verdicts RETRACTED** — the panel's "binary
+  `slash` genesis / Raw bifurcates / *first* distinguishing" read the
+  Lean encoding as Raw ontology (the §6.1/§6.2 failure) and misquoted
+  "방법이 하나" (method-uniqueness) as "pick one"; Raw neither splits
+  nor has a first, and the originator's real point is method-uniqueness
+  of *measuring* (append = the gathering-Lens) from inexhaustibility +
+  numberlessness; 12-item merged brick agenda (keystone: `vp_separation`,
+  prereq `exists_prime_factor` already PURE in `FourSquare.lean`).
 
 - `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
   modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔

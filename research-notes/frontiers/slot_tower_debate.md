@@ -55,52 +55,49 @@ strong-induction descent (`vp_div_prime` is a one-line `vp_mul` corollary).
 forces `a=b=0` by the same vp-collision; `two_three_unique` was one
 instance of a family.  The wall is ∞-fold, not the `{2,3}` corner.
 
-## Verdict B — the genesis (Raw → ℕ), corrected
+## Verdict B — the genesis (Raw → ℕ): the panel's genesis story was RETRACTED
 
-Skeptic's four verdicts, cross-examined by the 213-native defender:
+**Originator correction (post-debate).**  Round 2's "genesis" verdicts were
+built on two agent errors and one misquotation, and are withdrawn:
 
-1. **"Pick one, append one" is petitio AS PHRASED** (ACCEPT) — "one" imports
-   the cardinal it claims absent (CLAUDE.md "Count-Lens import as Raw").
-   Fix is **theorem-backed, not lexical**: the act/readout separation is
-   already `fromNat` (constructor) vs `count` (separate readout) with
-   `count_fromNat` the recovery theorem; `1` is `count`'s readout of a
-   single pointing, downstream, never an input.
-2. **Succession**: §6.2's cascade ("and so on") question-begs as a
-   *derivation* of succession (skeptic right to demote it) — but the right
-   citation is **§5.7 + §6.6 non-separation** (the distinguishing event and
-   its nesting trace are one residue read by two Lenses, neither prior),
-   NOT "intrinsic nesting read dynamically" (which would make the frozen
-   list prior — a Platonist import no-exterior equally bans).
-3. **★ THE CENTERPIECE — the genesis primitive is `slash`, not `cons`.**
-   Raw's sole referring mechanism is **binary, anti-reflexive,
-   directionless** (`Raw.slash : Raw → Raw → (x ≠ y) → Raw`; `slash_comm`;
-   no privileged operand, §6.1 chart-locality).  The first distinguishing
-   is a *pair coming apart*, never a unary increment onto a privileged
-   atom.  Iterating `slash` builds the **bracketed tree** (bracketing
-   *forced into existence* — `parenthesisation_distinct`,
-   `no_universal_slash_assoc`); the list/`cons` lives **two forgettings
-   downstream**: `flatten` (drops bracketing — the *chosen* forgetting)
-   then `count`/`append_comm` (drops order — *forced* by unit
-   indistinguishability).  "Pointing = append = count = ℕ" reads the tower
-   only at its top rung and back-projects onto the floor; the floor
-   bifurcates, it does not increment.  The graded genesis
-   `slash-distinguishing → BinTree → List → ℕ` (each arrow a named Lens,
-   tagged forced/chosen) is already the existing Lean architecture.
-   **Consequence for the essays**: `what_is_append.md`'s closing "below
-   `append` there is only the single distinguishing act" is one rung too
-   high — below `append` is the *binary* `slash`; the unary
-   "single-distinguishing" reading is itself the count-Lens image.
-4. **Completing vs never-finishing is NOT a forced choice** (defender
-   refutes the skeptic's horn): completion is **per-pointing** (`Raw.fold`
-   total, `count_fromNat` — Lambek-style), inexhaustibility is **of the
-   residue** (`object1_not_surjective`) — two theorems about two objects,
-   no contradiction.  "Never finishes" is true of the residue, false of
-   any pointing; only the conflation is an error.
+- **The "genesis primitive is binary `slash`, Raw bifurcates, the *first*
+  distinguishing is a pair coming apart" centerpiece is WRONG — it reads the
+  Lean *encoding* as Raw's ontology, the exact failure §6.1/§6.2 name.**
+  §6.1: "The Lean encoding `inductive Tree | a | b | slash` therefore
+  hardcodes one chart."  §6.2: "The `inductive Tree` shape forces a
+  node/arrow separation that the axiom does not impose.  This separation
+  lives in the labelling, **not in Raw**."  So `slash`'s binary
+  anti-reflexive shape is a writing artifact of the inductive type, not a
+  claim that Raw "splits."  **Raw does not bifurcate.**
+- **There is no "first" distinguishing in Raw.**  §5.5: pointing is already
+  complete, the §2.4 clause numbering is "a notational decomposition for
+  readability," no ordering is available.  §6.5: "'Raw has two atoms a, b'
+  is *already* a count-Lens reading; at pre-Lens level point and K_∞ are
+  indistinguishable" — even a "first colour" is a Lens reading, not a Raw
+  event.  The defender's reified "first distinguishing" imported a sequence
+  Raw does not have.
+- **The "pick ONE, append ONE → cardinal-1 petitio" critique attacked a
+  paraphrase the originator never wrote.**  The actual words contain no
+  cardinal "one": *"원시 구별된 것들만 있는 곳에서는 어차피 방법이
+  하나밖에 없어 …숫자도 없으니 여러개의 뭉탱이로 나눠서 줏어담을 수도 없고.
+  pointing이라는 건 append로도 표현이 되는구나."*  The only "하나" is
+  *"방법이 하나"* — the **measuring method is unique**, not "grab one item."
 
-Comparative location (skeptic): the construction is **initial-algebra
-(type-theoretic, Lambek)** with finitist-flavored prose and Benacerraf
-supplying the individuation half; where prose and Lean conflict, the Lean
-(completing, per-pointing) wins.
+**The originator's actual claim, stated correctly (count-Lens level, no Raw
+mis-projection).**  This is a claim about **measuring / gathering** (a Lens
+act), not about how Raw is built.  In a place carrying only mutual
+distinction and **no numbers**, the method of gathering the distinguished
+into a measurable form is **unique** — because (i) gathering always leaves
+residue and re-gathering leaves residue again (inexhaustibility,
+`object1_not_surjective`), and (ii) with no numbers you cannot parametrise
+the gathering by a bundle-count (no k-at-a-time).  Method-uniqueness, from
+inexhaustibility + numberlessness — *not* from "increment by one."  Hence
+**pointing is expressible as `append`**: append is the one available
+gathering-Lens, and ℕ is its count-readout.  No "first," no "one," no
+"bifurcation" enters.  (The `fromNat`/`count` separation and the
+per-pointing-completion-vs-residue-inexhaustibility distinction the panel
+found are the genuine technical points and survive; everything framed as a
+Raw-level genesis operation is withdrawn.)
 
 ## Merged brick agenda (ranked; provenance = which panelist)
 
