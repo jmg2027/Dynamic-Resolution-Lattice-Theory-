@@ -23,17 +23,23 @@ PURE (∅-axiom) modules landed, in dependency order:
     `Σ_{j<B}[p^{j+1}∣m]=vₚm`, no Fubini swap).  Helpers: `indLt_sum`,
     `sumTo_const_one/zero`, `lt_of_mul_lt_mul_left'`, `top_vanish`.
 
-PURE landed since: `PrimeValuation.lean` §3 — `vp_monotone`, `vp_gcd_min`,
-**`vp_lcm_max`** (`vₚ(lcm a b)=max`, via `gcd_mul_lcm`+`vp_mul`); and
-`LcmGrowthChebyshev.lean` §2 — `lcmUpTo`, `dvd_lcmUpTo`, `lcmUpTo_dvd`.
+PURE landed since: `PrimeValuation.lean` §3 (`vp_monotone`, `vp_gcd_min`,
+`vp_lcm_max`); `LcmGrowthChebyshev.lean` §2 (`lcmUpTo` + universal property), §3
+(**`vp_lcmUpTo`** = `vₚ(lcm 1..N) = Σ_{e<N}[p^{e+1}≤N]`, via the `floorLog`
+sandwich), §4 (`div_div_pure`, `sumTo_le_sumTo`); `FTALite.lean`
+(**`dvd_of_forall_prime_vp_le`** = `(∀ prime p, vₚa≤vₚb)→a∣b`, contrapositive of
+the repo's `exists_prime_vp_gt`).
 
-Remaining chain to the deliverable `lcm⁶ ≤ 10^{87+3n}`:
+**All four hard gates for Brick 1 are now PURE**: `count30`, `legendre`,
+`vp_lcmUpTo`, FTA-lite.  Remaining = assembly (no new deep math):
 
-  * **lcm valuation closed form** — `vₚ(lcmUpTo N) = #{f≥1 : p^f ≤ N}` (count
-    form, pairs with `legendre`).  Step `vₚ(lcmUpTo(N+1))=max(vₚ(N+1),vₚ(lcmUpTo N))`
-    is `vp_lcm_max`; the missing gear is the antitone-indicator-count threshold
-    facts `p^f≤N ↔ f≤S_N` (T1/T1', generalize `indLt_sum`), then split on
-    "is N+1 a p-power".
+  * **Step 2 (key divisibility)** — `lcm(1..30m)·(15m)!(10m)!(6m)! ∣
+    (30m)!·m!·lcm(1..5m)` via FTA-lite + `vp_mul`/`legendre`/`vp_lcmUpTo` per prime,
+    each level `d=p^{e+1}` reduced to `count30 ⌊30m/d⌋` (`div_div_pure` maps the
+    floors; `[d≤5m]=[m̃≥6]`), summed by `sumTo_le_sumTo`.  Build: sum-extension to
+    common bound; `(c·x)/(c·y)=x/y`; the `[d≤k·m]↔[m̃≥…]` mappings.
+  * Steps 3–7: factorial-ratio bound, recursion, numeral induction
+    (`37·α₃₀⁶≤10⁷⁵`), main, corollaries.
   * **FTA-lite** — `(∀ prime power q, q∣a → q∣b) → a∣b`, the divisibility criterion
     step 2 closes through (needs a prime-factor existence/enumeration up to `n`).
   * Steps 2–7 (key divisibility via `count30` at `m̃=⌊30m/p^{j+1}⌋`, comparing the

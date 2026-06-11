@@ -44,6 +44,24 @@ PURE individually.
    `lcmUpTo_pos`, `dvd_lcmUpTo` (`k∈[1,N] → k∣lcm`), `lcmUpTo_dvd` (universal
    property — the step-6 divisibility certificate).
 
+6. **`LcmGrowthChebyshev.lean` §3 — lcm valuation as a count**: **`vp_lcmUpTo`**
+   (`vₚ(lcm 1..N) = Σ_{e<N}[p^{e+1}≤N]`, `p` prime) — the lcm-side companion to
+   `legendre`.  Built on the `floorLog` theory (mirror of `vpSearch`): the sandwich
+   `p^{floorLog}≤N<p^{floorLog+1}`, the bridge `p^{e+1}≤N ↔ e<floorLog`
+   (`pow_le_iff_lt_floorLog`), `lcmExpCount_eq_floorLog`, pure pow strict-mono.
+
+7. **`FTALite.lean` — `dvd_of_forall_prime_vp_le`**: **`(∀ prime p, vₚa≤vₚb) →
+   a∣b`** (`a,b>0`) — contrapositive of the existing `ModArith.ValuationAlg.
+   exists_prime_vp_gt` (same `vp`; `Prime213` matches its prime predicate).
+
+8. **`LcmGrowthChebyshev.lean` §4 prep**: `div_div_pure` (`n/(a·b)=n/a/b`, pure
+   nested floor) + `sumTo_le_sumTo` (termwise Σ-monotonicity).
+
+### Note: pre-existing `vp_mul` in `ModArith/ValuationAlg.lean`
+`ValuationAlg.vp_mul` (unbundled `hpr` arg) duplicates `PrimeValuation.vp_mul`
+(bundled `Prime213`).  Mine is the clean bundled API used downstream; the dup is a
+minor org-audit item, not blocking.
+
 ### ∅-axiom traps hit (intel for next session)
   - `Nat.div_add_mod`, `Nat.pow_add`, `Nat.mul_mul_mul_comm` all carry
     **propext** — use `NatDiv213.div_add_mod_pure`, and a pure `pow_add`/
@@ -61,26 +79,25 @@ PURE individually.
     reshuffles.
 
 ## Remaining chain to close Brick 1 (frontier: `zeta3_blueprint.md`)
-  * **lcm valuation closed form** (next) — `vₚ(lcmUpTo N) = sumTo N (fun e =>
-    if p^{e+1} ≤ N then 1 else 0)` (the count `#{f≥1 : p^f ≤ N}`, pairing with
-    `legendre`'s `Σ_e`).  Gear in hand: `vp_lcm_max` gives the induction step
-    `vₚ(lcmUpTo (N+1)) = max(vₚ(N+1), vₚ(lcmUpTo N))`.  **Missing piece**: the
-    "count of an antitone predicate = threshold" facts —
-    `(T1) f≥1 → p^f ≤ N → f ≤ S_N` and `(T1') f≥1 → f ≤ S_N → p^f ≤ N`
-    (`S_N` := that count).  With T1+T1' the step splits on "is `N+1` a `p`-power"
-    (`P := sumTo N (fun e => if p^{e+1}=N+1 then 1 else 0) ∈ {0,1}`): `P=0 →
-    vₚ(N+1) ≤ S_N`, `P=1 → vₚ(N+1) = S_N+1`, and `S_{N+1} = S_N + P`.  T1/T1'
-    are a general antitone-indicator-count lemma (generalize `indLt_sum`); prove
-    once, reuse.
-  * **FTA-lite** — `(∀ prime p, vₚ a ≤ vₚ b) → a ∣ b` (`b>0`), the divisibility
-    criterion step 2 closes through.  Needs prime-factorization existence (smallest
-    prime factor recursion).  `Prime213` predicate is in place.
-  * **Steps 2–7** — key divisibility (compare the two sides' `vₚ` via `legendre`
-    + lcm valuation, folding the floor terms through `count30` at
-    `m̃=⌊30m/p^{j+1}⌋`; needs sum-extension to a common bound + the nested-floor
-    identity `⌊⌊n/a⌋/b⌋=⌊n/(ab)⌋`), factorial-ratio bound (`α₃₀ = 2¹⁴3⁹5⁵`),
-    recursion, numeral induction (`37·α₃₀⁶ ≤ 10⁷⁵` by decide on the big literal),
-    main `lcm(1..30m) ≤ 10^{15m}`, corollaries `lcm⁶ ≤ 10^{87+3n}`.
+**All four hard gates are cleared** — `count30`, `legendre`, `vp_lcmUpTo`,
+`dvd_of_forall_prime_vp_le` (FTA-lite) — plus §4 plumbing (`div_div_pure`,
+`sumTo_le_sumTo`).  What remains is assembly (no new deep math).
+
+  * **Step 2 — key divisibility** (next): `lcm(1..30m)·(15m)!(10m)!(6m)! ∣
+    (30m)!·m!·lcm(1..5m)`.  Via FTA-lite, suffices `∀ prime p, vₚ(LHS) ≤ vₚ(RHS)`.
+    Expand each side with `PrimeValuation.vp_mul` (additivity; factors are
+    `lcmUpTo_pos`/`factorial_pos`), rewrite factorials by `legendre` and lcms by
+    `vp_lcmUpTo` → both sides become `Σ_e` of per-level terms.  Extend all sums to a
+    common bound `30m` (extra terms vanish — a sum-extension lemma).  Per level
+    `d=p^{e+1}`, with `m̃=⌊30m/d⌋`: `⌊15m/d⌋=⌊m̃/2⌋`, `⌊10m/d⌋=⌊m̃/3⌋`,
+    `⌊6m/d⌋=⌊m̃/5⌋`, `⌊m/d⌋=⌊m̃/30⌋` (via `div_div_pure` + `(c·x)/(c·y)=x/y`),
+    `[d≤30m]=[m̃≥1]`, `[d≤5m]=[m̃≥6]`; then per level it is exactly `count30 m̃`,
+    summed by `sumTo_le_sumTo`.  Sub-lemmas to build: sum-extension; `(c·x)/(c·y)=x/y`
+    pure; the `[d≤k·m]↔[m̃≥…]` indicator mappings.
+  * **Steps 3–7** — factorial-ratio bound (`α₃₀ = 2¹⁴3⁹5⁵`, three binomial-term
+    bounds), recursion `lcm(1..30m) ≤ (6m+1)·α₃₀^m·lcm(1..5m)` (step 2 + 3), numeral
+    induction (`37·α₃₀⁶ ≤ 10⁷⁵` by `decide`), main `lcm(1..30m) ≤ 10^{15m}`,
+    corollaries `lcm⁶ ≤ 10^{87+3n}`.
 
 ## Then: Brick 2 (Apéry integrality) + assembly
 Brick 2 (`zeta3_blueprint.md` Brick 2) is "pure divisibility chains, NO p-adics"
@@ -103,8 +120,9 @@ localization `(601/500, 1203/1000]`.  See `Zeta3Cut.lean` §8–§9.
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← NEW (§1 count30; §2 lcmUpTo + dvd_lcmUpTo + lcmUpTo_dvd)
+lean/E213/Lib/Math/NumberTheory/LcmGrowthChebyshev.lean  ← NEW (§1 count30; §2 lcmUpTo; §3 vp_lcmUpTo + floorLog; §4 div_div_pure, sumTo_le_sumTo)
 lean/E213/Lib/Math/NumberTheory/PrimeValuation.lean      ← NEW (vp_mul, prime_dvd_mul, Prime213; §3 vp_monotone, vp_gcd_min, vp_lcm_max)
+lean/E213/Lib/Math/NumberTheory/FTALite.lean             ← NEW (dvd_of_forall_prime_vp_le)
 lean/E213/Lib/Math/NumberTheory/Legendre.lean            ← NEW (legendre full formula; vp_factorial, vp_one, val_count, indLt_sum, div_succ_increment)
 research-notes/frontiers/zeta3_blueprint.md              ← formalization-progress section (Legendre done)
 ```
