@@ -33,9 +33,39 @@ not smooth Perelman.  Programme: `theory/math/geometry/discrete_perelman_core.md
 
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci
 
+open E213.Meta.Int213 (neg_add add_assoc)
+
 /-- Forman–Ricci curvature of a triangle-free unweighted edge with endpoint
     degrees `du`, `dv`: `F = 4 − du − dv` (over `ℤ`, since it can be negative). -/
 def formanEdge (du dv : Nat) : Int := 4 - (du : Int) - (dv : Int)
+
+/-- ★★ **Forman curvature is determined by the degree-*sum*.**  Two edges with
+    the same `du + dv` carry the same curvature: `4 − du − dv` factors through
+    `du + dv`.
+
+    This pins the cross-domain bridge (frontier `slot_tower_crossdomain.md`
+    §4) honestly.  The metric readout (`Shape213.shape_splits`) is *under-
+    determined* by its count: distinct shapes share an area, so a richer
+    *vector* (the dimension axis) is needed.  Curvature is **not** under-
+    determined by the degree-sum — the degree-sum fixes it completely.  Its
+    "beyond a count" is not a second coordinate but a **sign**: `4 − du − dv`
+    lives in `ℤ`, so it reads the difference-Lens (count + sign), not a
+    longer count-vector.  Shape and curvature therefore enrich the bare count
+    in *different* directions (a vector vs. a sign); they share only the
+    negative claim "a single `ℕ` count is not the terminal readout once the
+    substrate has structure", unified at the level of `Lens.refines`, not by a
+    common positive mechanism.  (In particular a "same degree-sum, different
+    curvature" collision is impossible — exactly what this theorem rules out.) -/
+theorem forman_determined_by_degree_sum {du dv du' dv' : Nat}
+    (h : du + dv = du' + dv') : formanEdge du dv = formanEdge du' dv' := by
+  have key : ∀ a b : Int, (4 : Int) - a - b = 4 - (a + b) := by
+    intro a b
+    show (4 + -a) + -b = 4 + -(a + b)
+    rw [neg_add a b]
+    exact add_assoc 4 (-a) (-b)
+  show (4 : Int) - (du : Int) - (dv : Int) = 4 - (du' : Int) - (dv' : Int)
+  rw [key (du : Int) (dv : Int), key (du' : Int) (dv' : Int),
+    ← Int.ofNat_add, ← Int.ofNat_add, h]
 
 /-- Every edge of complete bipartite `K_{NS,NT}` carries curvature `4 − NS − NT`
     (an `S`-endpoint has degree `NT`, a `T`-endpoint degree `NS`). -/

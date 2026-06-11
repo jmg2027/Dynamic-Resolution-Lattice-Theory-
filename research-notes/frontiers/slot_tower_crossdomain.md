@@ -76,7 +76,7 @@ Two instances of the one schema:
 So "order on `M` ⟺ `M` is wrap-free" is now one Lean object with ℤ (yes) and
 `ℤ/p` (no) as the two readings.
 
-## 3. The exp / log boundary: tame one way, wild the other
+## 3. The exp / log boundary: tame one way, wild the other — narrative only (formally disjoint)
 
 Main's LambertWeld: `exp(2/q)` and `coth(1/q)` of a rational are reachable
 as tame cuts — the Lambert continued fraction has *linear* partial-quotient
@@ -95,7 +95,22 @@ not (the wall) — and ask what exactly separates the tame cuts from the wild
 ones (CF growth rate vs exponent-vector independence; the weld essay's
 "linear partial-quotient growth" is the tame marker).
 
-## 4. The substrate's shape: metric facet vs topological facet
+**Verdict (this session): no single schema — narrative only, formally
+disjoint.**  The tame side has *no formalised "growth rate" object*: the
+linear partial-quotient growth `(2n+1)q` is baked into the fixed arithmetic
+coefficients of the weld recursion (`weld_ladder`, `cf_bridge`), not a
+studied quantity.  The wild side (`fold_iff_collinear`) is exponent-vector
+collinearity over primes — a finite-support existence check with no
+continued-fraction structure.  No theorem links a CF partial-quotient growth
+rate to prime-exponent collinearity, and the two objects live in disjoint
+parts of the build (Real213 cuts vs Meta/Nat valuations).  A unifying Lean
+statement would pair CF-recursion depth with a factorization existence check
+with no shared proof mechanism — a forcible map.  The correspondence stays a
+genuine *narrative* (exp tame / log wild), carried by the essays; the
+single-schema task is **not tractable** without first formalising "CF growth
+rate" as an object, which is its own open problem.
+
+## 4. The substrate's shape: metric facet vs topological facet — distinction pinned
 
 This branch's `Shape213` / `GridReadout213`: raising the substrate
 dimension makes the readout vector-valued — but the honest internal readout
@@ -107,12 +122,32 @@ curvature stencils): the genuinely presentation-invariant version of "the
 substrate has structure beyond a single count" is *topological* —
 curvature, Euler characteristic, the Ricci flow programme.
 
-**One knob, two readings**: "the substrate has shape" is read *metrically*
-by the factorization/grid (this branch) and *topologically* by curvature
-(main).  The curvature-as-Lens-readout essay (synthesis IV) already says
-curvature is a difference-Lens count + sign; the bridge here is that the
-factorization-shape and the curvature-shape are two readouts of the same
-"a count is not enough once the substrate has more than one axis".
+**Two readings — but two *different* enrichments, not one mechanism**
+(refined this session; the earlier "two readouts of the same thing" framing
+over-claimed).  Both go beyond a bare `ℕ` count, but in orthogonal
+directions:
+
+- **Shape = a vector.**  `Shape213.shape_splits`: the area
+  (`shapeProduct`) is *under-determined* — distinct shapes share an area
+  (`[1,6] ≠ [2,3]`, both product `6`), so a second coordinate (the
+  `dimension` axis, `refine_increases_dimension`) is needed.  The count is
+  non-injective; the fix is *more coordinates*.
+- **Curvature = a sign.**  `DiscreteRicci.forman_determined_by_degree_sum`:
+  the Forman curvature `4 − du − dv` is **fully determined** by the
+  degree-sum — *not* under-determined.  Its "beyond a count" is that it
+  lives in `ℤ`: a **difference-Lens** reading (count + sign), not a longer
+  count-vector.  (A "same degree-sum, different curvature" collision — the
+  shape-style under-determination — is provably impossible.)
+
+So shape enriches the count into a **vector** and curvature into a **signed
+difference**: two distinct moves past `ℕ`, sharing only the *negative* claim
+"a single `ℕ` count is not the terminal readout once the substrate has
+structure".  They unify at the level of `Lens.refines` (both are the
+count-Lens refined), not by a common positive mechanism — so a single
+non-vacuous schema is **not** available, and forcing one (e.g. pairing the
+shape collision with a degree-sum/curvature collision) would import a *false*
+lemma.  The honest bridge is the corrected distinction above, now pinned to
+Lean on both sides.
 
 ## 5. ↔ ORIGIN_RAW (genesis record): the tower is the synchronous foliation Lens
 
@@ -181,12 +216,32 @@ ceilings coincide is open.
 
 ---
 
-Bridge 2 is **CLOSED** (single schema `OrderWrap.no_order_of_wrap` + two
-instances, 9 PURE).  Bridge 1 is **partly advanced**: the size half is made
-precise on the power side (`pow_eq_pow_iff_vp_support`, finite support), but
-the single cross-domain schema is still open (the two certificates are
-indexed by different resolution types — no non-vacuous unifier yet).  Bridges
-3, 4 remain **open** main↔branch correspondences; §5 adds the ORIGIN_RAW
-relation and questions (a)/(b).  For the open ones the claim is plain but the
-single-schema Lean statement is not yet written.  Recorded so the
-correspondence is tracked, not lost to chat.
+Status after this session (each verdict reached by inspecting the actual
+Lean on both sides, not from the armchair):
+
+- **Bridge 2 — CLOSED.**  Single schema `OrderWrap.no_order_of_wrap` + two
+  instances (ℤ, ℤ/p), 9 PURE.  A genuine shared *mechanism* (the orbit-walk
+  obstruction).
+- **Bridge 1 — partly advanced.**  Size half pinned on the power side
+  (`pow_eq_pow_iff_vp_support`, finite support).  The single cross-domain
+  schema stays open: the weld and power certificates are indexed by
+  different resolution types (truncation level vs support prime), so the only
+  literal shared abstraction is the near-trivial "∀ level, local check".
+  Needs a mechanism, not a `{cert, iff}` structure.
+- **Bridge 3 — narrative only (formally disjoint).**  No shared formal
+  object: "CF growth rate" is not formalised as a quantity, and it has no
+  link to exponent-vector collinearity.  A single schema is intractable
+  without first making "CF growth rate" an object.
+- **Bridge 4 — distinction pinned (no single schema, by design).**  The two
+  sides enrich the count in *different* directions (shape → vector,
+  curvature → sign); `DiscreteRicci.forman_determined_by_degree_sum` (PURE)
+  proves curvature is sum-determined, refuting the tempting (false) "same
+  count, different curvature" unifier.  They share only the negative claim,
+  unified at `Lens.refines`.
+
+§5 adds the ORIGIN_RAW relation and questions (a)/(b) (still open).  The net
+lesson: of the four, only bridge 2 had a genuine shared mechanism; 1 and 4
+yield partial/negative Lean facts, and 3 is narrative.  Forcing the rest into
+single schemas would be the forcible-map failure mode (and bridge 4's naive
+unifier carried a *false* lemma).  Recorded so the correspondence — and the
+verdicts — are tracked, not lost to chat.

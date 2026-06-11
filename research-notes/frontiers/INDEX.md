@@ -204,15 +204,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   order-loss theorem also closed).
 
 - `slot_tower_crossdomain` — **slot tower ↔ main** (2026-06-11 merge): four
-  bridges.  (1) equality is a certificate with a shape (weld Padé-flip
-  ↔ `FoldCriterion.pow_eq_pow_iff_vp`); (2) **CLOSED** — order ⟺ no-wrap as a
-  single schema `Meta/OrderWrap.no_order_of_wrap` (`OrderWitness` obstruction)
-  with ℤ (`intOrderWitness`, no wrap) and `ℤ/p` (`modp_no_order`, wraps) as
-  the two instances, 9 PURE; (3) the exp/log boundary, tame vs wild
-  (LambertWeld `exp(2/q)` ↔ the `^`-wall `fold_iff_collinear`); (4) the
-  substrate's shape, metric vs topological (`Shape213`/`GridReadout213` ↔
-  discrete Ricci/curvature).  Single-schema Lean statements for 1, 3, 4 not
-  yet written.
+  bridges, verdicts reached by inspecting both sides' Lean.  (1) equality is a
+  certificate — size half pinned (`FoldCriterion.pow_eq_pow_iff_vp_support`,
+  finite support); cross-domain schema open.  (2) **CLOSED** — order ⟺ no-wrap
+  as a single schema `Meta/OrderWrap.no_order_of_wrap` (`OrderWitness`
+  obstruction) with ℤ (`intOrderWitness`, no wrap) and `ℤ/p` (`modp_no_order`,
+  wraps), 9 PURE.  (3) exp/log tame-vs-wild — **narrative only** (formally
+  disjoint: no formalised "CF growth rate" object linking to exponent-vector
+  collinearity).  (4) substrate shape, metric vs topological — **distinction
+  pinned**: shape enriches the count into a vector, curvature into a sign;
+  `DiscreteRicci.forman_determined_by_degree_sum` (PURE) refutes the false
+  "same count, different curvature" unifier.  Only bridge 2 had a genuine
+  shared mechanism.
 
 - `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
   modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
