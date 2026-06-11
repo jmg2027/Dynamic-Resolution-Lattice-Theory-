@@ -9,6 +9,30 @@ Round 1: adversary / unifier / number theorist / foundations skeptic
 least one panelist.  This note records the **surviving verdicts** and the
 **merged brick agenda**; it is the debate's record, not a chapter.
 
+## ★ Post-debate UPDATE — the keystone (DEBT) is CLOSED
+
+`vp_separation` — `(∀ p prime, vp p m = vp p n) → m = n`, the unique-
+factorization faithfulness the whole triage called the DEBT — is now a
+PURE theorem (`lean/E213/Meta/Nat/VpSeparation.lean`, 8 PURE: a local
+`exists_prime_factor` least-divisor search + the strong-induction descent
+`vp_div_prime`/`vp_div_prime_other`).  Consequences the debate predicted,
+now unblocked / discharged:
+
+- **The DEBT axis is paid.**  `exp(n) = (vp 2 n, …)` is now a *faithful*
+  coordinate (a monoid iso `(ℕ₊,×) ≅ ⊕_p ℕ`), not a promissory note.
+- **The fold criterion's ⟸ direction** (sufficiency, "IS `vp_separation`")
+  is now provable — fold ⟺ collinearity can be stated as a full iff.
+- **The fusion bridge** (wall = role-asymmetry + prime-independence as two
+  named hypotheses over a faithful `exp`) drops from NEEDS(`vp_separation`)
+  to PROVABLE-NOW.
+- **The `log_q p` irrational family** (general, all prime pairs) is now
+  provable, not gated.
+- The **two-fact split stands** (it never depended on UFD being open):
+  `pow_not_comm` and `two_three_unique` still share no lemma; UFD fuses
+  them as two hypotheses of one theorem, exactly as the judge said.
+
+Brick-agenda item 1 below is therefore DONE; items 2/3/5 are unblocked.
+
 ## Verdict A — thesis / mechanism / debt (the handle triage)
 
 Three round-1 positions collided ("one handle = atom (in)distinguishability"
@@ -101,10 +125,11 @@ Raw-level genesis operation is withdrawn.)
 
 ## Merged brick agenda (ranked; provenance = which panelist)
 
-1. **`vp_separation`** — the keystone.  Prereq `exists_prime_factor`
-   already PURE (`FourSquare.lean:543`); remaining = strong-induction
-   descent via `vp_div_prime` (= one-line `vp_mul` corollary).  [NT, ADV,
-   UNI all demanded]
+1. **`vp_separation`** — the keystone.  ★ **CLOSED**
+   (`Meta/Nat/VpSeparation.lean`, 8 PURE): own `exists_prime_factor`
+   least-divisor search (a local clone, not an up-import from
+   `FourSquare`, to keep `Meta` below `Lib`) + the strong-induction
+   descent.  [NT, ADV, UNI all demanded — now delivered]
 2. **Fold ⟹ direction** — `a^r = b^q → ∀p prime, r·vp p a = q·vp p b`.
    PROVABLE-NOW, 5 lines on `vp_pow`.  [NT]
 3. **`wall_is_atom_independence` (rank-2 fusion bridge)** — one theorem

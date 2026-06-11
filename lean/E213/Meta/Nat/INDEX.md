@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (32)
+## Files (33)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -76,6 +76,10 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
   - `VpMul.lean`           — the exponent-lattice engine (T3): `vp_mul`
                              (`vp p (m·n) = vp p m + vp p n`, prime `p`),
                              `vp_pow`, `vp_self_pow`, Euclid's lemma
+  - `VpSeparation.lean`    — the keystone: `vp_separation`
+                             (`(∀p prime, vp p m = vp p n) → m = n`) =
+                             unique factorization / `exp` is a faithful
+                             coordinate; `exists_prime_factor` + descent
 
 ## Top-level
 

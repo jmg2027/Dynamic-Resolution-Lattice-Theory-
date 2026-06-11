@@ -62,12 +62,13 @@ grid count *is* addition-on-exponents *is* how-many-times-divides *is* a
 factorization.  The same convergence `+` has, one rung up, with the unit
 replaced by the prime.
 
-## Open frontier
+## The faithful coordinate
 
 `vp_separation` — `(∀ p prime, vp p m = vp p n) → m = n` (unique
-factorization) — is **open**.  It is what *licenses* `exp` as a faithful
-coordinate, i.e. "`×` = the free commutative monoid on the primes".  So
-"`×` is `+` on the exponent lattice" is multiplicativity-*proved*
-(`vp_mul`) but faithfulness-*open*: the additive structure of the upper
-rung is established; that its axes are genuinely independent (the primes
-free) is the remaining brick.
+factorization, `Meta/Nat/VpSeparation.lean`) — *licenses* `exp` as a
+faithful coordinate: "`×` = the free commutative monoid on the primes".
+So "`×` is `+` on the exponent lattice" is both multiplicativity
+(`vp_mul`) and faithfulness (`vp_separation`): the additive structure of
+the upper rung holds and its axes are genuinely independent (the primes
+free), so `exp : (ℕ₊, ×) ≅ (⊕_p ℕ, +)` is an injective monoid
+homomorphism — no open brick remains at this rung.

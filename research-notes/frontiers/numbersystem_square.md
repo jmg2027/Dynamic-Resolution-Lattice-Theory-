@@ -517,9 +517,10 @@ independent append-systems, one per distinguishable ×-atom**:
 `n ↔ (vp 2 n, vp 3 n, …)`, `×` = componentwise `+` (`vp_mul`).  Within
 one prime axis the copies are indistinguishable (it commutes/folds);
 across axes the primes are distinguishable (independent → the
-∞-rank).  `vp_mul` = the axes don't interact; `vp_separation` (open) =
-the family is faithful (UFD) — **the theorem that licenses `exp` as a
-coordinate**.  Until it closes, `exp` over "all primes" smuggles a
+∞-rank).  `vp_mul` = the axes don't interact; **`vp_separation` (★ CLOSED,
+`Meta/Nat/VpSeparation.lean`)** = the family is faithful (UFD) — **the
+theorem that licenses `exp` as a coordinate**.  Before it closed, `exp`
+over "all primes" smuggled a
 pre-given chart (§6.1, §2.5) + the axis independence it was meant to
 explain (circular).
 
@@ -546,7 +547,9 @@ fold/collinearity criterion over **distinguishable ×-atoms** directly —
 "no ×-atom is a scalar-power combination of the others" — not over a
 pre-given prime basis.  This is the ×-dual of unit-indistinguishability
 and unifies `UnitList`/`UnitGrid` (commutativity) with the wall under
-one statement; closing `vp_separation` (UFD) is the licensing step.
+one statement; the licensing step `vp_separation` (UFD) is now ★ CLOSED
+(`Meta/Nat/VpSeparation.lean`), so this fusion is PROVABLE-NOW, no longer
+gated.
 
 ## The tree ↔ wall loop: associativity is the bracketing the floor forgot
 
