@@ -1,5 +1,7 @@
 import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.PolyNatMTactic
+import E213.Lib.Math.NumberTheory.Lcm213
+import E213.Meta.Nat.Valuation
 
 /-!
 # LcmGrowthChebyshev — the finitized Chebyshev 30-block bound for `lcm(1..n)`
@@ -26,6 +28,8 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberTheory.LcmGrowthChebyshev
 
 open E213.Meta.Nat.NatDiv213 (add_mul_div_left_pure div_add_mod_pure)
+open E213.Lib.Math.NumberTheory.Lcm213 (lcm213 lcm_pos dvd_lcm_left dvd_lcm_right lcm_dvd)
+open E213.Meta.Nat.Valuation (dtrans)
 
 /-! ## §1 — the 30-periodic counting lemma -/
 
@@ -85,5 +89,36 @@ theorem count30 (t : Nat) :
     rw [eL, eR]
     exact Nat.add_le_add_left
       (Nat.add_le_add_left (count30_residue_pos r hr) 1) (31 * q)
+
+/-! ## §2 — the iterated lcm `lcm(1..N)` -/
+
+/-- `lcmUpTo N = lcm(1, 2, …, N)` (empty product `lcmUpTo 0 = 1`). -/
+def lcmUpTo : Nat → Nat
+  | 0 => 1
+  | n + 1 => lcm213 (n + 1) (lcmUpTo n)
+
+/-- `lcm(1..N) > 0`. -/
+theorem lcmUpTo_pos : ∀ N, 0 < lcmUpTo N
+  | 0 => Nat.zero_lt_one
+  | n + 1 => lcm_pos (n + 1) (lcmUpTo n) (Nat.succ_pos n) (lcmUpTo_pos n)
+
+/-- Every `k ∈ [1, N]` divides `lcm(1..N)`. -/
+theorem dvd_lcmUpTo : ∀ {k N : Nat}, 0 < k → k ≤ N → k ∣ lcmUpTo N
+  | _, 0,     hk, hkN => absurd hk (Nat.not_lt.mpr hkN)
+  | k, n + 1, hk, hkN => by
+      rcases Nat.lt_or_eq_of_le hkN with hlt | heq
+      · exact dtrans (dvd_lcmUpTo hk (Nat.le_of_lt_succ hlt))
+          (dvd_lcm_right (n + 1) (lcmUpTo n) (lcmUpTo_pos n))
+      · rw [heq]
+        exact dvd_lcm_left (n + 1) (lcmUpTo n) (Nat.succ_pos n)
+
+/-- ★★ **Universal property of `lcm(1..N)`**: any common multiple of `1, …, N` is a
+    multiple of `lcm(1..N)` — the divisibility certificate step 6 closes through. -/
+theorem lcmUpTo_dvd : ∀ {N m : Nat}, (∀ k, 0 < k → k ≤ N → k ∣ m) → lcmUpTo N ∣ m
+  | 0,     m, _ => Nat.one_dvd m
+  | n + 1, m, h => by
+      refine lcm_dvd (n + 1) (lcmUpTo n) m (Nat.succ_pos n) (lcmUpTo_pos n)
+        (h (n + 1) (Nat.succ_pos n) (Nat.le_refl _))
+        (lcmUpTo_dvd (fun k hk hkn => h k hk (Nat.le_succ_of_le hkn)))
 
 end E213.Lib.Math.NumberTheory.LcmGrowthChebyshev
