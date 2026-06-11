@@ -675,4 +675,87 @@ theorem bridgeB (n J g : Nat) : ∀ p,
         bridgeB n J g p,
         ← BaccSum_snoc n (J + g) ((p + g) + 1)]
 
+/-! ## §8 — F4: the division-free budget -/
+
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMinor (bpF_halving)
+
+private theorem le_sub_of_add_le {k a b : Nat} (h : b + k ≤ a) : k ≤ a - b := by
+  obtain ⟨e, he⟩ := Nat.le.dest h
+  rw [← he, show b + k + e = (k + e) + b from by ring_nat, sub_cancel_left (k + e)]
+  exact Nat.le_add_right k e
+
+theorem wprod_pos : ∀ (cc m : Nat), 2 * m + 1 ≤ cc → 1 ≤ wprod cc m
+  | _, 0, _ => Nat.le_refl 1
+  | cc, m + 1, h => by
+    show 1 ≤ wprod cc m * ((cc - 2 * m - 1) * (cc - 2 * m))
+    obtain ⟨e, he⟩ := Nat.le.dest h
+    have hyp' : 2 * m + 1 ≤ cc := by
+      rw [← he, show 2 * (m + 1) + 1 + e = (2 * m + 1) + (e + 2) from by ring_nat]
+      exact Nat.le_add_right _ _
+    have hsub : cc - 2 * m = e + 3 := by
+      rw [← he, show 2 * (m + 1) + 1 + e = (e + 3) + 2 * m from by ring_nat,
+          sub_cancel_left (e + 3)]
+    have h1 : 1 ≤ cc - 2 * m - 1 := by
+      rw [hsub, show e + 3 = (e + 2) + 1 from rfl, sub_cancel_left (e + 2)]
+      exact Nat.succ_le_succ (Nat.zero_le _)
+    have h2 : 1 ≤ cc - 2 * m := by
+      rw [hsub]; exact Nat.succ_le_succ (Nat.zero_le _)
+    calc 1 = 1 * (1 * 1) := rfl
+      _ ≤ wprod cc m * ((cc - 2 * m - 1) * (cc - 2 * m)) :=
+          Nat.mul_le_mul (wprod_pos cc m hyp') (Nat.mul_le_mul h1 h2)
+
+/-- ★★★★ **The state-general budget**: along the accumulator the head coefficient
+    stays below the threaded weight by at least the `(2J+2)`-factor, so —
+    with halving — the whole `Bacc` is bounded by `2·(head value)·(final
+    weight)`, division-free. -/
+theorem budgetGen (n J : Nat) : ∀ (steps cc w s : Nat),
+    2 * J + 1 + 2 * steps ≤ cc →
+    (2 * J + 2) * Bacc n cc w s steps ≤ w * wprod cc steps * (2 * bpF n s)
+  | 0, _, w, s, _ => by
+    show (2 * J + 2) * 0 ≤ w * 1 * (2 * bpF n s)
+    rw [Nat.mul_zero]
+    exact Nat.zero_le _
+  | steps + 1, cc, w, s, h => by
+    have hyp' : 2 * J + 1 + 2 * steps ≤ cc - 2 := le_sub_of_add_le (by
+      rw [show 2 + (2 * J + 1 + 2 * steps) = 2 * J + 1 + 2 * (steps + 1) from by
+            ring_nat]
+      exact h)
+    have ih := budgetGen n J steps (cc - 2) (w * (cc - 1) * cc) (s + 1) hyp'
+    have hhalf : 2 * bpF n (s + 1) ≤ bpF n s := bpF_halving n s
+    have hccbig : 2 * J + 3 ≤ cc := Nat.le_trans (by
+      rw [show 2 * J + 1 + 2 * (steps + 1) = (2 * J + 3) + 2 * steps from by ring_nat]
+      exact Nat.le_add_right _ _) h
+    have hcc1 : 2 * J + 2 ≤ cc - 1 := le_sub_of_add_le (by
+      rw [Nat.add_comm 1 (2 * J + 2)]
+      exact hccbig)
+    have hW : 1 ≤ wprod (cc - 2) steps :=
+      wprod_pos (cc - 2) steps (Nat.le_trans (by
+        rw [show 2 * J + 1 + 2 * steps = (2 * steps + 1) + 2 * J from by ring_nat]
+        exact Nat.le_add_right _ _) hyp')
+    show (2 * J + 2) * (w * cc * bpF n s
+          + Bacc n (cc - 2) (w * (cc - 1) * cc) (s + 1) steps)
+        ≤ w * wprod cc (steps + 1) * (2 * bpF n s)
+    rw [wprod_shift cc steps]
+    calc (2 * J + 2) * (w * cc * bpF n s
+          + Bacc n (cc - 2) (w * (cc - 1) * cc) (s + 1) steps)
+        = (2 * J + 2) * (w * cc * bpF n s)
+          + (2 * J + 2) * Bacc n (cc - 2) (w * (cc - 1) * cc) (s + 1) steps := by
+          ring_nat
+      _ ≤ (2 * J + 2) * (w * cc * bpF n s)
+          + w * (cc - 1) * cc * wprod (cc - 2) steps * (2 * bpF n (s + 1)) :=
+          Nat.add_le_add_left ih _
+      _ ≤ (2 * J + 2) * (w * cc * bpF n s)
+          + w * (cc - 1) * cc * wprod (cc - 2) steps * bpF n s :=
+          Nat.add_le_add_left (Nat.mul_le_mul_left _ hhalf) _
+      _ ≤ (cc - 1) * (w * cc * bpF n s) * wprod (cc - 2) steps
+          + w * (cc - 1) * cc * wprod (cc - 2) steps * bpF n s := by
+          refine Nat.add_le_add_right ?_ _
+          calc (2 * J + 2) * (w * cc * bpF n s)
+              ≤ (cc - 1) * (w * cc * bpF n s) :=
+                Nat.mul_le_mul_right _ hcc1
+            _ = (cc - 1) * (w * cc * bpF n s) * 1 := (Nat.mul_one _).symm
+            _ ≤ (cc - 1) * (w * cc * bpF n s) * wprod (cc - 2) steps :=
+                Nat.mul_le_mul_left _ hW
+      _ = w * ((cc - 1) * cc * wprod (cc - 2) steps) * (2 * bpF n s) := by ring_nat
+
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
