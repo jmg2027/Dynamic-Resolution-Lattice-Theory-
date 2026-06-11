@@ -56,6 +56,21 @@ symmetry that count-forgetting turns into commutativity is the
 transpose — which is also why commutativity stops being free above the
 grid, since `^`'s value-object is a tree with no transpose.
 
+One rung *below* append the same theme appears from the other side.
+The free binary magma (`Meta/Nat/BinTree213.lean`) remembers its
+bracketing (`node_not_assoc`); `append` is that tree **quotiented by
+associativity** (`flatten_assoc_collapse` *is* `append_assoc`), and
+`count` forgets even that.  So the floor hands the tower two forgettings
+— bracketing (associativity, free) and order-on-units (commutativity).
+The tower keeps both through `×`, and `^` loses **both at once**:
+non-commutative (`HyperAssoc.pow_not_comm`, `2^3 ≠ 3^2`) and
+non-associative (`pow_not_assoc`, `(2^2)^3 = 64 ≠ 256 = 2^(2^3)` — the
+bracketing the floor discarded, back as information).  `×` is the last
+assoc+comm rung; the only law `^` keeps, `(aᵇ)ᶜ = a^(b·c)`
+(`pow_surviving`), linearizes `^` back down to `×` on the exponent
+rather than closing `^` over itself — which is why the tower folds one
+rung down.
+
 ## 2. The list and the sandwich
 
 ℕ is the unit-started, unit-spaced sorted list, and its order *is*

@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (24)
+## Files (25)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -38,6 +38,9 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
                              binary magma; append = its associativity
                              quotient (`flatten`), `count` blind to
                              bracketing (`node_not_assoc`)
+  - `HyperAssoc.lean`      — the wall: `+`,`×` keep assoc+comm, `^` loses
+                             both (`pow_not_assoc`, `pow_not_comm`); the
+                             surviving ghost `(aᵇ)ᶜ = a^(b·c)`
   - `Valuation.lean`       — the `q`-adic valuation `vp q n` over ℕ
   - `VpMul.lean`           — the exponent-lattice engine (T3): `vp_mul`
                              (`vp p (m·n) = vp p m + vp p n`, prime `p`),

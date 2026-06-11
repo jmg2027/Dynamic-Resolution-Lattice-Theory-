@@ -548,6 +548,61 @@ pre-given prime basis.  This is the ×-dual of unit-indistinguishability
 and unifies `UnitList`/`UnitGrid` (commutativity) with the wall under
 one statement; closing `vp_separation` (UFD) is the licensing step.
 
+## The tree ↔ wall loop: associativity is the bracketing the floor forgot
+
+*This-session marathon (originator: "the diagonal climb is
+multiplicative — is that why `×` is the boundary? what else is buildable
+from append?").  Two PURE bricks, `Meta/Nat/{BinTree213, HyperAssoc}`.*
+
+**Below append sits the tree.**  The append-floor (`UnitList`) is not
+the bottom: below it is the **free binary magma** `BinTree213.BinTree`,
+where gluing remembers its bracketing (`node_not_assoc`, by
+`noConfusion` — non-associative).  `append` is exactly this tree
+**quotiented by associativity**: `flatten` collapses the two distinct
+bracketings to one list (`flatten_assoc_collapse` = the PURE
+`List213.append_assoc`), and `count` forgets even that.  So the floor's
+gifts are two *forgettings* — `append` forgets **bracketing**
+(associativity, free for any element) and, on units, forgets **order**
+(commutativity, `append_comm`).  The two forgetting-generators have a
+second branch already in the repo: mod commutativity (keep bracketing,
+forget order) is `Raw.slash` (`ParenthesizationDistinct`).
+
+**The wall is both gifts dying at once.**  The tower keeps associativity
+*and* commutativity through `×` (`HyperAssoc.{add,mul}_is_{assoc,comm}` —
+`mul_is_comm` = the grid transpose `mul_comm_from_grid`).  `^` is the
+**first rung that loses both**: non-commutative (`pow_not_comm`,
+`2^3 ≠ 3^2` = ×-atom distinguishability) and non-associative
+(`pow_not_assoc`, `(2^2)^3 = 64 ≠ 256 = 2^(2^3)` = the bracketing/tree
+the floor discarded, returning).  So **`×` is the last assoc+comm rung**,
+and the loop closes: the structure the floor forgot at the bottom is the
+obstruction at the top.
+
+**The surviving ghost.**  The only associativity-shaped law `^` keeps is
+`(aᵇ)ᶜ = a^(b·c)` (`pow_surviving` = `pow_mul_pure`) — it does **not**
+close `^` over itself (`≠ a^(bᶜ)`); it linearizes `^` down to `×` on the
+exponent.  That is *why the tower flattens one rung down*: when
+associativity survives at all it survives only as a law dropping `^` to
+`×`, never `^` to `^` — the same "fold-back is one rung down" seen in the
+collinearity criterion.
+
+**The operation space is not a line.**  "`append → ???`" ranges over the
+lattice of **what you forget** (bracketing? order? multiplicity?) crossed
+with the **climb operator** (iterate / color / convolve / idempotent).
+The `+×^` diagonal is *one corner* — forget-to-count × iterate; and
+because iteration makes the 2nd argument an application-*count* (a
+×-object), the iterate-climb is intrinsically multiplicative and can only
+hit the ×-flavoured wall.  Other climbs have other boundaries (idempotent
+`∪`: `a∪a=a`, the tower is trivial) or none.  Knobs not yet turned, each
+a new operation family: drop associativity (→ the tree, done), raise the
+substrate dimension (→ the count splits into topological invariants — a
+second source of vector-valued readout besides atom-coloring), reverse
+the arrows (co-operations / splitting; convolution = split-then-reglue),
+drop finiteness (→ the cut/continuum).  Open-endedness here is the
+**no-exterior** signature: every "floor" is a chart with more structure
+below it.  Next brick candidate: the higher-substrate readout split, and
+the explicit "iterate-climb is multiplicative" lemma (2nd argument =
+application count).
+
 ## Question tuple vs answer axes (the representation principle, audited)
 
 **The representation principle (grammar-relative form).**  Fix the
