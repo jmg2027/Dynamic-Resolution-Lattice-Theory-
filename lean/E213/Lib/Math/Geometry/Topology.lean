@@ -6,6 +6,7 @@ import E213.Lib.Math.Geometry.Topology.Connectedness
 import E213.Lib.Math.Geometry.Topology.EulerChi
 import E213.Lib.Math.Geometry.Topology.ModulusStructure
 import E213.Lib.Math.Geometry.Topology.Capstone
+import E213.Lib.Math.Geometry.Topology.ModulusStructureAdjunction
 
 /-!
 # Topology 213 — umbrella

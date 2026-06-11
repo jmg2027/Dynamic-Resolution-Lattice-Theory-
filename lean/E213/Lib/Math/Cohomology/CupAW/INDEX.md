@@ -4,7 +4,7 @@ The `cupAW` cup product on the 213-native cochain complex:
 homotopy-coherent variant that survives the algebraic-lift
 constructions (companion to `Cup/`, the strict cup product).
 
-## Files (21)
+## Files (22)
 
 ### Core (5)
   - `Core.lean`         — `cupAW p q : Cochain n p → Cochain n q
@@ -39,6 +39,7 @@ constructions (companion to `Cup/`, the strict cup product).
 ## Top-level
 
   - `CupAW.lean` aggregator
+  - `UniversalFamilyCapstone.lean` — CupAW universal-Leibniz family closure capstone
 
 ## Status
 

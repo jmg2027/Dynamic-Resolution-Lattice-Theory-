@@ -135,7 +135,7 @@ open E213.Lib.Math.NumberSystems.Real213.Mul.CutPow (cutScale)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-- LocallyDeterminedData for cutScale a b (via cutMul_locallyDetermined).
-    G110 FLUX-1 template (upstream variant). -/
+    the FLUX-1 template (upstream variant). -/
 def cutScaleLDD (a b : Nat) : LocallyDeterminedData (cutScale a b) where
   N := fun m k => (m + 1) * (k + 1)
   prop := by

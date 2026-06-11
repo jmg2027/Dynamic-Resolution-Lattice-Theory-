@@ -19,7 +19,7 @@ removes a conditional or stated-but-unproved gap.
   · **Status**: BOTH DIRECTIONS CLOSED
     unconditionally at every c.
       · EASY (`InPrimary ⊆ joint ψ-kernel`):
-        `primary_cup_span_soundness_all_c` — closed previously by
+        `primary_cup_span_soundness_all_c` — closed by
         chaining `primary_cup_span_soundness_on_layer` with
         Direction B's `parametric_arbitrary_m_full_kill_capstone`.
       · HARD (`joint ψ-kernel ⊆ InPrimary`):

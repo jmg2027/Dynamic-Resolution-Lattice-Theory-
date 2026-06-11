@@ -13,7 +13,7 @@ All zero-axiom.
 
 namespace E213.Meta.Int213.OrderMul
 
-open E213.Meta.Int213 (mul_nonneg sub_mul mul_neg mul_comm mul_one)
+open E213.Meta.Int213 (mul_nonneg sub_mul mul_neg mul_comm mul_one neg_add add_comm)
 open E213.Meta.Int213.Order
   (le_of_sub_nonneg sub_nonneg_of_le le_zero_of_nonneg nonneg_of_le_zero
    lt_of_sub_one_nonneg zero_sub ofNat_succ_sub_one le_of_lt lt_of_lt_of_le lt_of_le_of_lt)
@@ -51,6 +51,26 @@ theorem mul_nonpos_of_nonneg_of_nonpos {a b : Int} (ha : 0 ≤ a) (hb : b ≤ 0)
   rw [mul_neg] at h
   -- 0 ≤ -(a*b) ⟹ a*b ≤ 0
   exact le_of_sub_nonneg (nonneg_of_le_zero (zero_sub (a * b) ▸ h))
+
+/-- ★★ **A nonpositive factor reverses the order** — the torsion between
+    the sign axis and `≤`: `≤` is ×-equivariant only on the nonneg cone.
+    Operationally: an order-presented (cross-`≤`) ratio reading does not
+    descend through the sign quotient — the sign must be read off first
+    (Bool swap-readout), after which cross-`≤` runs on magnitudes; the
+    ∣-order data (gcd / lowest terms, `Gcd213.gcd_strip_coprime`) is
+    orientation-blind and needs no such split. -/
+theorem mul_le_mul_right_nonpos {a b : Int} (hab : a ≤ b) (c : Int) (hc : c ≤ 0) :
+    b * c ≤ a * c := by
+  have h0 : 0 ≤ b - a := le_zero_of_nonneg (sub_nonneg_of_le hab)
+  have h1 : (b - a) * c ≤ 0 := mul_nonpos_of_nonneg_of_nonpos h0 hc
+  rw [sub_mul] at h1
+  have h2 : (0 : Int) ≤ -(b * c - a * c) :=
+    le_zero_of_nonneg (zero_sub (b * c - a * c) ▸ sub_nonneg_of_le h1)
+  have hneg : -(b * c - a * c) = a * c - b * c := by
+    show -(b * c + -(a * c)) = a * c + -(b * c)
+    rw [neg_add, Int.neg_neg, add_comm]
+  rw [hneg] at h2
+  exact le_of_sub_nonneg (nonneg_of_le_zero h2)
 
 /-! ## §2 — `ℕ → ℤ` cast lemmas (pure replacements for `propext`-dirty core) -/
 

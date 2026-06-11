@@ -196,7 +196,7 @@ falsifier in Lean.
 1. [ERROR] theory/THEORY_BOOK.md — GRA/HoTTEnrichment.lean → GRA/HoTT.lean
 2. ...
 ### Remaining / Surfaced (needs user decision)
-1. [ERROR] seed/RESOLUTION_LIMIT_SPEC.md cited by ~20 files but never committed
+1. [ERROR] <spec>.md cited by many files but never committed
 ```
 
 ---

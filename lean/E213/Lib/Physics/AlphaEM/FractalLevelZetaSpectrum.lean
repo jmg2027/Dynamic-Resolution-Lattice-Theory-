@@ -4,7 +4,7 @@ import E213.Lib.Physics.AlphaEM.FractalLevelLift
 /-!
 # Fractal Level ζ Spectrum (C5 Step 3)
 
-Step 3 of conjecture C5 per `research-notes/G35` §C5.
+Step 3 of conjecture C5 per `research-notes/frontiers/G35` §C5.
 
 Computes ζ_K(s) for s ∈ {0, 1, 2, 3, 4} at L=1 (single
 K_{3,2}^{(c=2)}), giving a richer spectral fingerprint.

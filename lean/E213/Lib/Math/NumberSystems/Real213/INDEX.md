@@ -1,6 +1,6 @@
-# Real213 — Module Index (sub-organized 2026-05-13)
+# Real213 — Module Index
 
-213-native real-number type via Dedekind cut.  169 files: 101 top-level + 68 in
+213-native real-number type via Dedekind cut.  172 files: 103 top-level + 69 in
 6 sub-clusters.
 
 ## Sub-clusters
@@ -12,7 +12,7 @@
 | `Mul/` | 18 | cutMul/Inv/Pow/Poly + ConstCutScale + CutBinary/Double/Distance |
 | `Lattice/` | 5 | cutMax/Min/Mid + LatticeEq + ScaleLattice |
 | `Bisection/` | 3 | bisection + continuity (CutBisection{,Algo}, CutContinuity) |
-| `ExpLog/` | 17 | CutExp/Log series + ODE + Geom* (Cauchy convergence) + EulerCut (e) / PiCut (π) |
+| `ExpLog/` | 18 | CutExp/Log series + ODE + Geom* (Cauchy convergence) + EulerCut (e) / PiCut (π) + PiMeasureModulus |
 
 ## Top-level
 
@@ -26,7 +26,7 @@
   - `PhiAbCut.lean` — φ as an `AbCutSeq`; the algebraic/transcendental split as a
     theorem (φ completes with closed-form modulus `N=2k`, e/π take it as a
     hypothesis — algebraicity *is* the closed-form modulus).
-  - `Zeta3Cut.lean` — ★ **ζ(3) as a constructed fold**: the Apéry recurrence
+  - `Zeta3Cut.lean` — ★ **ζ(3) as a constructed fold + the reduced-route engine**: the Apéry recurrence
     (the `DepthAperyCubic` degree-3 coefficients) made exact over ℕ by a
     growth-invariant engine (`aperyOrbit_exact`), the Casoratian in closed form
     (`zeta3_cross_det`: cross-det `= aperyCasDet m = 6·(m!)⁶`), the convergents
@@ -35,7 +35,11 @@
     `ValidCut` limit.  Honest stratum: the factorial-cleared presentation is
     *proved* rate-free (`zeta3_presentation_overtakes`, `RateStratification`
     overtake at layer 9) — the constructed-modulus upgrade is the reduced
-    presentation (Apéry integrality + lcm bound), a recorded frontier.
+    presentation, whose **engine end is done**: `aperyOrbit_geom` (orbit grows
+    `≥ 28·(m+1)³` per layer from layer 7; `28 > 27 = 3³` = the Hanson race
+    margin) + `zeta3_reduced_conditional` (I1 integrality + I2 reduced
+    smallness ⟹ total modulus `N = k+n₀+2` for the original cut).  The two
+    classical Apéry inputs (I1, I2) are the recorded frontier.
   - `CubeRootTwoCut.lean` — ★ **∛2: the degree-3 form-margin modulus**.
     Side-decision reduces to the all-additive `ε·k³ < d³` (the form margin
     `|m³−2k³| ≥ 1` = `Nat` strictness `+1`); dyadic bisection presentation ⟹
@@ -82,20 +86,43 @@
 
 **Modulus + tower-native completeness + stratification** (narrative
 `theory/math/analysis/{holonomic_modulus, tower_native_completeness}.md`):
-  - `RateModulus.lean` — ★ the general "rate-carrying ⟹ total modulus `N=k+2`"
-    generator (`rate_total_modulus`).  A monotone convergent cut `a_i/d_i` with a
-    non-increasing margin (`Htel`, the rate certificate) completes; `Htel_of_crossdet`
-    reduces the certificate to a *smallness law* on the cross-determinant
-    `W_i = a_{i+1}d_i − a_i d_{i+1}` against the denominator's discrete growth — the
-    bridge where the divergence ladder (`W`) meets the modulus generator.
+  - `RateModulus.lean` — ★ the "rate-carrying ⟹ total modulus" generator, graded by
+    probe schedule.  A monotone convergent cut `a_i/d_i` with a non-increasing
+    scheduled margin `e_i + 1/(ρ_i·d_i)` (`HtelS`, the graded rate certificate)
+    completes past any layer admitting the probe (`rateS_total_modulus`); the
+    identity schedule is `Htel` / `rate_total_modulus` (`N=k+2`), the degree-`s`
+    root schedule (`Meta.Nat.RootFloor`) is `graded_total_modulus` (`N=k^s+1`) —
+    an `r^{s−1}` factor of overtake forgiven at the admission layer `i=r^s`, paid
+    as modulus degree.  `Htel_of_crossdet` reduces the certificate to a *smallness
+    law* on the cross-determinant `W_i = a_{i+1}d_i − a_i d_{i+1}` against the
+    denominator's discrete growth — the bridge where the divergence ladder (`W`)
+    meets the modulus generator.
   - `HolonomicReal.lean` — the `Holonomic`/`HolonomicReal` bundle (recurrence + Cauchy
     cut-sequence + valid limit); φ and e instances with constructed modulus.
   - `RateStratification.lean` — ★ the smallness law as a layer-by-layer **W-vs-d
-    comparison**.  `Dominates W d i`; `htel_iff_dominates` upgrades `Htel_of_crossdet`
-    from implication to *characterization* (`Htel` ⟺ domination at every layer);
-    `dominated_free_modulus`; `overtake_breaks_layer` (the boundary); the unimodular
-    det-1 floor (`W ≡ 1`, `T=[[2,1],[1,1]]`) is dominated against `d_i=(i+1)(i+2)`
-    everywhere (`floor_dominates_all`) — the trivially-free bottom (`tower_stratification`).
+    comparison**, graded by schedule.  `DominatesS W d ρ i` (the ladder's
+    `Dominates_s`; `Dominates` the identity instance); `htelS_iff_dominatesS`
+    upgrades `Htel_of_crossdet` from implication to *characterization* (`HtelS` ⟺
+    scheduled domination at every layer); `dominated_free_modulus` /
+    `dominatedS_graded_modulus` (`N=k+2` / `N=k^s+1`); `overtakeS_breaks_layer`
+    (the boundary); the unimodular det-1 floor (`W ≡ 1`, `T=[[2,1],[1,1]]`) is
+    dominated against `d_i=(i+1)(i+2)` everywhere (`floor_dominates_all`) — the
+    trivially-free bottom (`tower_stratification`); and the grading is **strict**:
+    `sepDen` (`d_{i+1}=(⌊√i⌋+2)·d_i`, `W=d`) is root-2-dominated everywhere yet
+    breaks `Dominates` at layer 4 (`graded_stratification`), and the witness is
+    an actual presentation — `sepNum/sepDen` completes through the degree-2
+    schedule with constructed modulus `N=k²+1` (`sep_graded_modulus`).  The
+    **schedule comparison law**: `dominatesS_schedule_mono` (slower schedule
+    inherits domination under the cross-multiplied **gap law**
+    `1/ρ' − 1/ρ` non-increasing) + `schedule_comparison_needs_gap` (the gap
+    law is indispensable — pointwise the ladder is not a chain).
+  - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
+    presentations**: strictly increasing lower fold + non-increasing upper
+    companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`
+    (probe still `Inside` the layer-`n` bracket ⟹ `n ≤ B k`) — yields the total
+    modulus `N(m,k) = B k + 2` (`bracket_total_modulus`).  Where an effective
+    irrationality measure enters as `B k = C·k^s` (ladder rung 2); instance:
+    `ExpLog/PiMeasureModulus` (Wallis-π).
   - `CrossDetOvertake.lean` — ★ completability boundary: `CrossDetSmall`, below ⟹ free,
     the double-exponential overtake break.  (Companion to `RateStratification`: the same
     W-vs-d boundary, presented as a `CrossDetSmall` predicate + double-exp witness.)
@@ -179,6 +206,17 @@
   - `ModularGeodesicLens.lean` — ★ the geodesic engine as a Raw-Lens:
     `mediantLens` + `mediantLens_view_reachable` (mediant-Lens view ⊆
     `SternBrocotReachable`, ∅-axiom) — the residue read at `ℍ/PSL(2,ℤ)`.
+
+**`cutSumN` associativity closures + named-`b` cut bundles**:
+  - `ThirdValidCut.lean` / `FifthValidCut.lean` / `HalfValidCut.lean` —
+    bundled `b = 3 / 5 / 2` cuts, explicit `ValidCutN` instances closing
+    `cutSumN` associativity at their denominators.
+  - `CutSumAssocB3.lean` — `cutSum_assoc` at `b ≥ 3`, the
+    precision-artifact honest closure.
+  - `PellFibCutBridge.lean` — the Pell convergents ARE the Fibonacci
+    convergents (∀n, PURE).
+  - `OracleContinuity.lean` — oracle-based continuity, eliminating the
+    ε-δ residue from `Real213`.
 
 ## Architecture notes
 

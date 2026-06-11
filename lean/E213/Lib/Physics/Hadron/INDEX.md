@@ -3,7 +3,7 @@
 Hadronic-scale physics: quark mass hierarchy, proton mass, neutron-
 proton ratio, proton g-factor, proton-electron mass ratio.
 
-## Files (8)
+## Files (9)
 
   - `Masses.lean`              — generic hadron mass formulas
   - `QuarkHierarchy.lean`      — quark mass hierarchy
@@ -17,6 +17,7 @@ proton ratio, proton g-factor, proton-electron mass ratio.
 ## Top-level
 
   - `Hadron.lean` aggregator
+  - `MtOverMc.lean` — m_t/m_c falsifier bracket pairing for the 1/α_em atomic match
 
 ## Where to add new files
 

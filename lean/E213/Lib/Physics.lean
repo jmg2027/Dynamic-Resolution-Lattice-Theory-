@@ -15,6 +15,7 @@ import E213.Lib.Physics.Simplex
 import E213.Lib.Physics.AtomicBase
 import E213.Lib.Physics.Symmetry
 import E213.Lib.Physics.YangMills
+import E213.Lib.Physics.Quantum
 
 /-! E213.Lib.Physics — DRLT physics deployment of the 213 axiom.
 

@@ -101,7 +101,7 @@ If neither the number tower nor (qua number tower) Cayley–Dickson runs endless
 
 This is the diagonal/cardinality axis, not the number axis.  It has no top, and the act
 of *naming* its top is the Cantor self-cover — which lands back on the residue of
-pointing (`05_no_exterior.md`, `G152_residue_self_covering`).  So the only thing endless
+pointing (`05_no_exterior.md`, `Lens/FlatOntologyClosure.lean`).  So the only thing endless
 above `ℝ` is the residue re-covering itself; the *number* content closes at `ℝ`.
 
 ## 2.4 The finite-config reconciliation: rationals below, `ℝ` as a label rung
@@ -125,11 +125,6 @@ So genuine finite-config content stops at `ℚ`; `ℝ` is genuine as the **closu
 rung** over `ℚ`-trajectories.  Both §6.7 sentences are true at once — the §6.5/§6.6
 frozen-vs-dynamic pattern again: "is the limit-cut the trajectory or its value?" is the
 malformed dichotomy; the cut *is* the narrowing.
-
-**Flag (broken pointer).**  §6.7 line 294 cites `seed/RESOLUTION_LIMIT_SPEC.md`, which
-does not exist.  The resolution-ceiling content lives in
-`Lib/Math/Cohomology/Fractal/ConfigCount.lean` (`configCountD d n = d^(d^n)`) and
-`Lib/Math/Foundations/ResolutionLimit.lean`.  The pointer should be corrected.
 
 ## 2.5 Summary
 

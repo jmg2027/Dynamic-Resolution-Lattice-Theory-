@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerModulus
+import E213.Meta.Nat.PowBasic
 
 /-!
 # ModulusComposition — schedules with irrational degree: receipts taking receipts
@@ -46,49 +47,9 @@ open E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut (cube cbrt2Cut cube_doub
 open E213.Lib.Math.Analysis.Cauchy.EulerSeq (eulerNum eulerDen)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerModulus (eulerCauchySeq)
 open E213.Meta.Nat.PureNat (pow_add)
-open E213.Meta.Nat.NatRing213 (nat_mul_lt_mul_left)
+open E213.Meta.Nat.PowBasic
+  (powBase_le one_pow_pure one_le_pow powBase_lt self_le_pow pow_mul_pure)
 open E213.Tactic.NatHelper (mul_assoc mul_left_comm lt_of_le_lt)
-
-/-! ## §0 — pure power toolkit -/
-
-theorem powBase_le {m M : Nat} (h : m ≤ M) : ∀ q, m^q ≤ M^q
-  | 0 => Nat.le_refl 1
-  | q+1 => by
-      rw [Nat.pow_succ, Nat.pow_succ]
-      exact Nat.mul_le_mul (powBase_le h q) h
-
-theorem one_pow_pure : ∀ q, (1:Nat)^q = 1
-  | 0 => rfl
-  | q+1 => by rw [Nat.pow_succ, one_pow_pure q]
-
-theorem one_le_pow {M : Nat} (h : 1 ≤ M) (q : Nat) : 1 ≤ M^q := by
-  have h1 := powBase_le h q
-  rwa [one_pow_pure q] at h1
-
-theorem powBase_lt {m M : Nat} (h : m < M) {q : Nat} (hq : 1 ≤ q) : m^q < M^q := by
-  match q, hq with
-  | t+1, _ =>
-    rw [Nat.pow_succ, Nat.pow_succ]
-    have h1 : m^t * m ≤ M^t * m := Nat.mul_le_mul_right m (powBase_le (Nat.le_of_lt h) t)
-    have hMt : 0 < M^t := one_le_pow (Nat.lt_of_le_of_lt (Nat.zero_le m) h) t
-    exact lt_of_le_lt h1 (nat_mul_lt_mul_left hMt h)
-
-theorem self_le_pow (x : Nat) {q : Nat} (hq : 1 ≤ q) : x ≤ x^q := by
-  match q, hq with
-  | t+1, _ =>
-    match x with
-    | 0 => exact Nat.zero_le _
-    | y+1 =>
-      rw [Nat.pow_succ]
-      have h1 : 1 * (y+1) ≤ (y+1)^t * (y+1) :=
-        Nat.mul_le_mul_right (y+1) (one_le_pow (Nat.succ_le_succ (Nat.zero_le y)) t)
-      rw [Nat.one_mul] at h1
-      exact h1
-
-theorem pow_mul_pure (x a : Nat) : ∀ b, x^(a*b) = (x^a)^b
-  | 0 => by rw [Nat.mul_zero, Nat.pow_zero, Nat.pow_zero]
-  | b+1 => by
-      rw [Nat.mul_succ, pow_add x (a*b) a, pow_mul_pure x a b, Nat.pow_succ]
 
 /-! ## §1 — `rootCeil`: the exact integer `q`-th root ceiling -/
 
@@ -300,5 +261,75 @@ def eSelfScheduled : CauchyCutSeq :=
 theorem eSelfScheduled_limit_eq (m k : Nat) :
     eSelfScheduled.limit m k = eulerCauchySeq.limit m k :=
   reschedule_limit_eq eulerCauchySeq _ _ m k
+
+/-! ## §8 — degree order transports to schedule order (the degree-as-cut backbone)
+
+Exponent cuts are ordered by `τ₁ ≤ τ₂ ⟺ (τ₂'s true-set ⊆ τ₁'s)` (a larger real
+affirms fewer probes).  The schedule functional is **monotone** along this
+order: a larger degree never yields a smaller schedule.  This is what makes
+"the degree of a real" a *cut-shaped* threshold over exponent cuts — the
+predicate "a degree-τ schedule suffices for `x`" is monotone in τ, so its
+threshold is a cut one level up.  (Whether that threshold is *decidable* is
+exactly the effectivity question of the exact degree — Roth-grade content,
+recorded on the frontier board, not claimed here.) -/
+
+theorem pow_le_pow_exp {k : Nat} (hk : 1 ≤ k) {a b : Nat} (h : a ≤ b) :
+    k^a ≤ k^b := by
+  rw [← E213.Tactic.NatHelper.add_sub_of_le h, pow_add k a (b-a)]
+  have h1 : k^a * 1 ≤ k^a * k^(b-a) := Nat.mul_le_mul_left _ (one_le_pow hk (b-a))
+  rwa [Nat.mul_one] at h1
+
+theorem rootCeil_mono (q : Nat) (hq : 1 ≤ q) {x₁ x₂ : Nat} (h : x₁ ≤ x₂) :
+    rootCeil q x₁ ≤ rootCeil q x₂ := by
+  refine Nat.le_of_not_lt (fun hlt => ?_)
+  have hless : (rootCeil q x₂)^q < x₁ := rootCeil_least q x₁ _ hlt
+  exact Nat.lt_irrefl _
+    (Nat.lt_of_le_of_lt (Nat.le_trans h (rootCeil_sound q x₂ hq)) hless)
+
+/-- ★★ **Degree order ⟹ dyadic-reading order**: if every probe `τ₂` affirms,
+    `τ₁` affirms too (`τ₁ ≤ τ₂`), then the upper readings stay ordered at every
+    precision. -/
+theorem dyUp_mono (c₁ c₂ : Nat → Nat → Bool) (B : Nat)
+    (hle : ∀ m k, c₂ m k = true → c₁ m k = true) :
+    ∀ j, dyUp c₁ B j ≤ dyUp c₂ B j
+  | 0 => Nat.le_refl B
+  | j+1 => by
+      have ih := dyUp_mono c₁ c₂ B hle j
+      show (cond (c₁ (2 * dyUp c₁ B j - 1) (2^(j+1)))
+              (2 * dyUp c₁ B j - 1) (2 * dyUp c₁ B j))
+         ≤ (cond (c₂ (2 * dyUp c₂ B j - 1) (2^(j+1)))
+              (2 * dyUp c₂ B j - 1) (2 * dyUp c₂ B j))
+      have hLub : (cond (c₁ (2 * dyUp c₁ B j - 1) (2^(j+1)))
+              (2 * dyUp c₁ B j - 1) (2 * dyUp c₁ B j)) ≤ 2 * dyUp c₁ B j := by
+        cases c₁ (2 * dyUp c₁ B j - 1) (2^(j+1)) with
+        | true => exact Nat.sub_le _ _
+        | false => exact Nat.le_refl _
+      cases hc2 : c₂ (2 * dyUp c₂ B j - 1) (2^(j+1)) with
+      | false => exact Nat.le_trans hLub (Nat.mul_le_mul_left 2 ih)
+      | true =>
+        by_cases heq : dyUp c₁ B j = dyUp c₂ B j
+        · rw [heq]
+          cases hc1 : c₁ (2 * dyUp c₂ B j - 1) (2^(j+1)) with
+          | true => exact Nat.le_refl _
+          | false => rw [hle _ _ hc2] at hc1; exact absurd hc1 (by decide)
+        · have hlt : dyUp c₁ B j < dyUp c₂ B j := Nat.lt_of_le_of_ne ih heq
+          refine Nat.le_trans hLub (E213.Tactic.NatHelper.le_sub_of_add_le ?_)
+          have h2 : 2 * (dyUp c₁ B j + 1) ≤ 2 * dyUp c₂ B j :=
+            Nat.mul_le_mul_left 2 hlt
+          rw [Nat.mul_add, Nat.mul_one] at h2
+          exact Nat.le_trans (Nat.add_le_add_left (by decide) (2 * dyUp c₁ B j)) h2
+
+/-- ★★★ **Degree order ⟹ schedule order**: the composed schedule is monotone
+    in the exponent cut.  The backbone of "degree is a cut over exponent cuts":
+    the threshold of "a degree-τ schedule suffices" is a monotone boundary. -/
+theorem powSched_mono (c₁ c₂ : Nat → Nat → Bool) (B : Nat)
+    (hle : ∀ m k, c₂ m k = true → c₁ m k = true) (k : Nat) :
+    powSched c₁ B k ≤ powSched c₂ B k := by
+  match k with
+  | 0 => exact Nat.le_refl _
+  | t+1 =>
+    exact rootCeil_mono (2^(t+1))
+      (E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut.two_pow_pos (t+1))
+      (pow_le_pow_exp (Nat.succ_le_succ (Nat.zero_le t)) (dyUp_mono c₁ c₂ B hle (t+1)))
 
 end E213.Lib.Math.NumberSystems.Real213.ModulusComposition

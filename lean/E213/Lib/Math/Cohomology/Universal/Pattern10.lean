@@ -1,6 +1,6 @@
 import E213.Meta.Tactic.NatHelper
 /-!
-# Universal Δ⁴ 10-stratum Bool pattern — G111 COH-1 template
+# Universal Δ⁴ 10-stratum Bool pattern — the COH-1 template
 
 `pattern10` and `pattern10_eq_at` consolidate the byte-identical
 content of `Prop52.pattern` / `Prop53.pattern` (10-component pattern

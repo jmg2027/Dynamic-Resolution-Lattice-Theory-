@@ -5,7 +5,7 @@ import E213.Lib.Math.NumberSystems.SignedCut.CD.CDTowerLevel
 /-!
 # SignedCut — CD Tower Capstone (∅-axiom)
 
-4 cluster witnesses + total bundle for the G36 marathon.
+4 cluster witnesses + total bundle for the marathon.
 
 Closes the two PR #61 honest-residual items + delivers the
 generalised CD tower skeleton (formalisation):

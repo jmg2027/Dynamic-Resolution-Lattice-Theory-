@@ -8,7 +8,7 @@ Mingu's chain step:
 > "관계도 또 다른 관계 ⇒ 2+1 규칙 (둘 + 짝)
 >  ⇒ a_{n+1} = a_n + C(a_n, 2)"
 
-This file bridges G46's existing `triIter 2 n` sequence
+This file bridges the existing `triIter 2 n` sequence
 (2, 3, 6, 21, 231, …) to the chain's named pair `(NT, NS)`
 from `PairAxes`.
 

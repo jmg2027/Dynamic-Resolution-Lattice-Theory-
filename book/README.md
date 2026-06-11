@@ -81,6 +81,16 @@ Where this book *applies* the number tower `ℕ → ℤ → ℚ → ℝ`, the co
 It is a draft, not a closed chapter: five load-bearing open problems are listed at its close
 (`foundations/05_open_frontier.md`).
 
+## Companion volume: `slots/` (working draft)
+
+The third volume (준-책) `slots/` — *Slot Arithmetic* — **rebuilds the tower from below**:
+number systems from ℕ-slots combined by total `(ℕ,ℕ)→ℕ` operations alone, with no inverse
+operation, no quotient, and no axiom.  Pairs *are* the numbers (relations, not identities);
+sign and remainder are witness readouts; the two routes to ℚ commute because distributivity
+is the commutation law of the two pair-Lenses; `√2` and `i` are sibling layer-constants.
+Where this book applies the tower and `foundations/` interrogates it, `slots/` makes its
+object exist without ever having been postulated.
+
 ---
 
 ## Acknowledgments

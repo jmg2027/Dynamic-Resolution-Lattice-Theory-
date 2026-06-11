@@ -4,7 +4,7 @@ Multiplication on Real213 cuts: `cutMul`, `cutInv`, `cutPow`, plus
 auxiliary scaling, doubling, distance, polynomial, and binary
 operations.  Companion to `Sum/` (addition).
 
-## Files (15)
+## Files (16)
 
 ### Core multiplication
   - `CutMul.lean`               — base `cutMul` definition
@@ -32,6 +32,7 @@ operations.  Companion to `Sum/` (addition).
 ## Top-level
 
   - `Real213.lean` umbrella (no `Mul.lean` aggregator — files are
+  - `Mobius213CutMulNPhase3.lean` — cutMulN closure via the 5th pattern
     directly imported by sibling sub-clusters)
 
 ## Where to add new files

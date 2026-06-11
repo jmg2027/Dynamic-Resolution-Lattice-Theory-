@@ -5,7 +5,7 @@ Cayley (octonions, level 4), Sedenion (level 5), Pathion (level 6),
 Trigintaduonion (level 7).  Each comes in a Lite + Heavy variant
 plus order-4 monopoly results.
 
-## Files (10)
+## Files (11)
 
 ### Cayley (level 4 — octonion-like)
   - `Cayley.lean`               — Cayley structure (lite)
@@ -31,6 +31,7 @@ Each level follows:
   - `<Level>.lean`              — lite (base structure + axioms)
   - `<Level>Heavy.lean`         — full proofs (long arithmetic)
   - `<Level>Order4Monopoly.lean`— order-4 monopoly (where applicable)
+  - `SedenionZeroDivisor.lean` — sedenion zero divisors — the composition boundary made concrete
 
 ## Companion clusters
 

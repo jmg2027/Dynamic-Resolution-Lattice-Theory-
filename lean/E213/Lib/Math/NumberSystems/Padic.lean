@@ -10,6 +10,11 @@ import E213.Lib.Math.NumberSystems.Padic.DRLT
 import E213.Lib.Math.NumberSystems.Padic.NuEscape
 import E213.Lib.Math.NumberSystems.Padic.SetoidMul
 import E213.Lib.Math.NumberSystems.Padic.TeichmullerI5
+import E213.Lib.Math.NumberSystems.Padic.DRLTIntegration
+import E213.Lib.Math.NumberSystems.Padic.HenselResidual
+import E213.Lib.Math.NumberSystems.Padic.ZpSqrtDFrobRigor
+import E213.Lib.Math.NumberSystems.Padic.ZpSqrtDRing
+import E213.Lib.Math.NumberSystems.Padic.ZpSqrtDSetoid
 /-!
 # Real213-p-adic — umbrella import
 

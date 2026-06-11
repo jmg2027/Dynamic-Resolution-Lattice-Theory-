@@ -5,8 +5,8 @@ import E213.Theory.Atomicity.PairForcing
 /-!
 # Mobius213.Px.NaturalnessClosure — 213-internal naturalness predicate
 
-This file formalises the 213-native answer to the G142
-research note's "Limit 1 — naturalness is informal":
+This file formalises the 213-native answer to the recorded
+limit "Limit 1 — naturalness is informal":
 
 > *"There is no algorithm for 'all natural preservation
 >  frames' because *naturalness* has no formal definition."*
@@ -139,7 +139,7 @@ theorem mod_7_modulus_not_atomic :
 /-! ## §5 — Naturalness closure master -/
 
 /-- ★★★★★★★★★ **Naturalness closure master**: 213-internal
-    formalisation of "naturalness", closing the G142 §4
+    formalisation of "naturalness", closing
     Limit 1 ("naturalness is informal").
 
     A symmetry-revealing decomposition of P is **213-natural**

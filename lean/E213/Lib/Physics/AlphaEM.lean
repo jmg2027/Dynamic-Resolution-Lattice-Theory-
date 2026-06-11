@@ -27,6 +27,7 @@ import E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 import E213.Lib.Physics.AlphaEM.PiFiveGap
 import E213.Lib.Physics.AlphaEM.ProjectionRatios
 import E213.Lib.Physics.AlphaEM.StructuralGap
+import E213.Lib.Physics.AlphaEM.MaxAlphaPowerBound
 
 /-! Spec-as-code entry point for E213.Lib.Physics.AlphaEM.
 

@@ -4,7 +4,7 @@ import E213.Lens.Number.Nat213.Order
 /-!
 # Lens.Number.Nat213.Tower.NatPairToQPos — ℚ_+ via multiplicative quotient
 
-Following G73, demonstrates that ℚ_+ has the **same syntactic form**
+Demonstrates that ℚ_+ has the **same syntactic form**
 as ℤ at the `(Nat213 × Nat213)` level, differing only in the
 quotient relation:
 
@@ -14,7 +14,7 @@ quotient relation:
 | ℚ_+  | multiplicative: `(a, b) ~ (c, d) ⟺ a · d = b · c` |
 
 Both project from `Nat213 × Nat213` (same syntactic container).
-Only the AXIS-GENERATOR fold differs (G72: `-` vs `/`).
+Only the AXIS-GENERATOR fold differs (`-` vs `/`).
 
 This file provides the multiplicative-quotient counterpart at the
 notation level — concrete witnesses (no commutativity proof of
@@ -35,7 +35,7 @@ abbrev QPair : Type := Nat213 × Nat213
 /-- Multiplicative-diagonal equivalence: `(a, b) ~ (c, d) ⟺
     a · d = b · c`.  This is the Q-quotient relation, parallel to
     the Z-quotient `a + d = b + c`.  The "comma" is the
-    axis-generator (G72: `/` for ℚ_+). -/
+    axis-generator (`/` for ℚ_+). -/
 def qpairEquiv (p q : QPair) : Prop :=
   Nat213.mul p.1 q.2 = Nat213.mul p.2 q.1
 
@@ -59,7 +59,7 @@ theorem natToQPair_one : natToQPair Nat213.one = qOne := rfl
 /-- ★★★ SYNTACTIC IDENTITY WITH ℤ: both ℤ and ℚ_+ pairs are
     Nat213-pair-shaped.  The structural notation `((a), (b))` is
     SHARED — only the quotient relation (axis-generator fold)
-    differs.  This is G73's "looks identical to Int213". -/
+    differs.  It "looks identical to Int213". -/
 theorem qpair_is_nat_pair_shaped :
     QPair = (Nat213 × Nat213) := rfl
 

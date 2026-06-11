@@ -4,7 +4,7 @@ Cross-cutting essays: on-demand trajectories through the
 catalog/book that surface structural insights not localised to
 any single chapter.
 
-See `lean/E213/.claude/skills/essay/SKILL.md` for the
+See `.claude/skills/essay/SKILL.md` for the
 derivation+citation+dual-function+cross-frame+self-check
 +constructive-accessibility protocol.
 
@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 78 essays are grouped into ten thematic sub-directories — distinct
+The 85 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -26,7 +26,7 @@ others together):
 `the_residue_as_state_machine`, `the_upper_fold_pattern`,
 `the_frontier_has_a_form`, `the_residue_unit_odometer`, `the_unit`,
 `reached_by_none`, `the_breadth_signature`, `the_reference_claim`,
-`the_one_diagonal`, `the_one_carrier`.
+`the_one_diagonal`, `the_one_carrier`, `growth_without_a_clock`.
 
 **II. `cohomology/` — the c-counter programme.**
 `c_counter_as_layer_count`, `disjoint_layers_as_direct_sum`,
@@ -100,10 +100,22 @@ on itself: the *multiplication* action `×a` forces a sign — the quadratic/Leg
 `K_p` Laplacian `λ=p` eigenspace, `km_eigenvalue`/`km_meanzero_eigen`; one cyclic group, two
 character-faces, both spectral; cross-frame with Lichnerowicz `CD(K)⟹λ₁≥K` as a third "structure ⟹
 spectrum" instance).
+`the_cauchy_schwarz_gap_is_a_square` (Cauchy–Schwarz is the READ of a gap exhibited as a square —
+A7 POSITIVITY: the 2-D gap IS the Lagrange square (`cauchy_schwarz_2d`), the power-mean gap IS the
+total pairwise distinguishing `Σ_{i<j}(a_i−a_j)²`, saturated on the diagonal; the bound is
+presentation-invariant but the *certificate* has depth — depth-0 pair-sum vs per-rung SOS folded
+along the `gridSumZ` induction (`cauchy_schwarz_gridZ`) — and the `K_{a,b}` wide/narrow curvature
+regime split (`kab_cd_wide`/`kab_cd_narrow`) is exactly that depth).
+`the_expository_sequence_is_a_lens_reading` (the order written across a derivation — clause-order
+in §3.4's forcing chain, stage-order in the async run — is a Lens reading of one complete object,
+never the object's succession; the state-transition=state non-separation (§6.6, §5.7) at the
+axiom-forcing scale vs the async-run scale, with the grading's run-invariance
+`Levels.fold_eq_depth` the witness that a fold sees neither the run nor the explanation's order).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
-`real_without_completeness`, `integers_as_difference_lens`,
+`real_without_completeness`, `where_commutativity_is_born`,
+`integers_as_difference_lens`,
 `the_modular_group_from_two_folds`, `minkowski_as_modular_cocycle`.
 
 **VI. `algebra/` — algebra tower & linear algebra.**
@@ -146,6 +158,7 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `the_residue_as_primitive.md` | The **inversion**: take the self-pointing act as primitive — Raw = µF, the residue-escape = νF.  How is the exact slash-νF built ∅-axiom, no coinduction? | `Theory/Raw/{MuNuMirror,CoResidue}` (the M-type final coalgebra) + `Theory/Raw/{Lambek,PrimitiveTower}` |
 | `the_unit.md` | What is the **unit `1`** in 213?  One *value*, not one operator: the residue's single distinguishing read as ascent-rung / descent-drop / `det P` / glue `NS−NT` / carry / Cassini `W` / reciprocal — byte-identical (`unit_bridges_dynamics_and_readings`, `the_unit_is_one_across_readings`).  The agreement is downward (identity of value); no operator monoid unifies the readings (the `ResidueForm` category error). | `Lens/Number/SharedUnitAcrossReadings` + `Cauchy/ReentryUnit` + `Mobius213OneAsGlue` + `CassiniUnimodular` + `Theory/Raw/{Odometer,MuNuMirror,Lambek}` + `Real213/ZeckendorfCarry` + `the_form_of_the_residue.md` + `the_residue_unit_odometer.md` |
 | `the_residue_unit_odometer.md` | What is the `+1` of 213, **dynamically**?  The residue unit (the act of pointing / glue / det) is an **odometer** on the escape space: the `ℤ₂`-successor homeomorphism — injective (`odo_injective` = `tower_no_cycle`), invertible (`odo_unit_action`, a `ℤ`-action via the predecessor `−1`), reversible where the descent forgets (`descent_forgets_ascent_remembers`), continuous (`odo_homeomorphism`); the canonical escape `spineL` is its overflow; carries in the residue's own golden base (`golden_adic_carry`).  The arithmetic face of no-exterior. | `Theory/Raw/Odometer` (38 PURE) + `Real213/ZeckendorfCarry` (7 PURE) + `Theory/Raw/CoResidue` + `Lens/Number/SharedUnitAcrossReadings` + `the_residue_as_primitive.md` + `the_frontier_has_a_form.md` |
+| `growth_without_a_clock.md` | What is **time** in a system with no clock?  Three separable readings of growth — run / foliation / grading — and only the grading is run-invariant: determinism ends at the first composite (`Async.step1_forced`/`level2_canonical`/`level3_diverges`), divergent presents always re-join (`AsyncReach.reach_joinable`, no fairness), the census boundary is past-completeness (a place in the order, not a date in a run), and "proper time" is a fold of the object (`dagSize` the honest event cost, splitting from `leaves` at depth 3).  The temporal instance of "finite-state is of the pointing". | `theory/math/foundations/async_growth.md` + `Theory/Raw/{Async,AsyncReach}` + `UniverseChain/{RawPastCompleteness,RawDagSize}` + `seed/ORIGIN_RAW.md` §6–§10 + `seed/AXIOM/05_no_exterior.md` §5.7 + `finite_state_is_of_the_pointing.md` |
 | `the_frontier_has_a_form.md` | What does 213 do for the **frontier of mathematics**?  The split is not structured-floor vs formless-sea but **µF inductive-complete (crank) vs νF coinductive-complete (map)**: no-exterior forces the escape to *be* the residue shape — self-similar (`spineL_unique`), populated (`nu_population_capstone`), acted on *freely* by the lone symmetry (`coSwap_boolSpine_free_action`).  The frontier is charted, not removed; summits stay open. | `Theory/Raw/CoResidue` (`nu_population_capstone`, `coSwap_boolSpine_free_action`, `spineL_unique`) + `Theory/Raw/{MuNuMirror,Lambek}` + `Lib/Math/Foundations/ResidueForm` + `seed/AXIOM/05_no_exterior.md §5.1` + `the_residue_as_primitive.md` |
 | `the_one_carrier.md` | Are König, `ℤ_p`, and `ℝ` three separate "reached by none" escapes, or **one**?  One: each is a stream presented over an alphabet, and every such stream rides the *same* νF carrier — the binary König spine, leaf-labelled by the alphabet (`gspine : (Nat→L) → GCoShape L`; König = `L=Bool`/all-`true`, `ℤ_p` = `L=Fin p`/digits, `ℝ` = `L=Bool`/cut-bits).  The branch structure and the Bernoulli shift (`gspine_shift_dynamics`, self-similarity = shift-periodicity) are shared; only the leaf alphabet and the stream change.  So the classical number-system hierarchy is one residue-escape read at different leaf-resolutions.  Honest: shared at the carrier + shift level, not the arithmetic; `cutBits` is presentation-dependent (the LPO-costed limit stays external). | `Theory/Raw/CoResidue` §20–21 (`gspine`, `gspine_escapes`, `gspine_one_carrier`, `gspine_shift_dynamics`, `boolSpine_eq_gspine`) + `Padic/NuEscape` (`padic_is_nu_escape`, `padic_shift_dynamics`) + `Real213/NuEscape` (`real_is_nu_escape`, `real_one_carrier`) + `Combinatorics/KonigConditional` + `the_residue_as_primitive.md` + `the_frontier_has_a_form.md` + `seed/AXIOM/05_no_exterior.md §5.1` |
 | `minkowski_as_modular_cocycle.md` | Is the analytic Minkowski **`?`** merely a reached-by-none escape, or does it carry a *positive* modular structure?  It is the residue's **Markov-valued 1-cocycle** on the Stern-Brocot tree: defect = bounding Markov number (Frobenius cross-determinant), twist = `SL(2,ℤ)` Cayley–Hamilton/Vieta jump, weight-2 Eichler–Shimura period = the `√(−1)` congruence `m∣u²+1`, and `φ` (Lagrange floor `√5`) = the extremal instance along the Fibonacci spine.  `?`/Markov/Lagrange/golden are one residue cocycle.  Open: full `SL(2,ℤ)` / higher-weight (needs analysis) / multifractal spectrum. | `Real213/{MinkowskiCocycle,MinkowskiGoldenExtremal,SternBrocotMarkov,OdometerSternBrocotUnit}` (`minkowski_is_markov_valued_cocycle`, `minkowski_cocycle_twist`, `cocycle_defect_general`, `minkowski_weight2_period_relation`, `golden_is_extremal_weight2_period`) + `reached_by_none.md` + `markov_spectrum.md` |
@@ -161,6 +174,8 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `cup_ladder_cork_h1_bridge.md` | How do cup-ladder α²/d² Gram and cork +4 share the same H¹ basis? | `math/cohomology/cup_ladder_graduation.md` + `math/exotic_4mfd_cork.md` + `lean/E213/Lib/Math/Geometry/AkbulutCork/CrossFrame.lean` |
 | `cut_equality_and_atomicity.md` | 213에서 두 cut이 같다는 게 뭐야? Why does one matrix carry both atomicity and cut equality? | `math/mobius_canonical_equivalence.md` + `math/universe_chain.md` + `Theory.Atomicity.Five.atomic_iff_five` |
 | `c_counter_as_layer_count.md` | What is `c` in K_{NS, NT}^{(c)} cohomology? Why is the c-counter not a depth parameter? | `math/cohomology/k_nm_c_classification.md` + `V33EnrichedParametric.parametric_c_independent_h2_classes` |
+| `the_degree_of_a_number.md` | What IS the degree of a number? (degree = growth class of the pointing's receipt; form-receipt vs race-receipt; the number's own degree = a cut over exponent cuts, `powSched_mono`) | `math/analysis/form_margin_modulus.md` + `math/analysis/holonomic_modulus.md` + `Real213/{CubeRootTwoCut,ModulusComposition,Zeta3Cut}` + `essays/foundations/growth_without_a_clock.md` |
+| `pi_as_the_modulus_residue.md` | π read through the modulus family: every lattice period divides 12 (spectrum exactly `{1,2,3,4,6}`, five forbidden), every schedule overtaken (rung ∞), and the ∀-form becomes a constructor exactly when quantified into an escape modulus (`PiHalfMeasure` ⟹ `N = C·(2k)^s + 2`); π's specialness = effectivity gap, not Diophantine exoticism | `Real213/{FiniteOrderSpectrum, ExpLog/PiMeasureModulus, BracketModulus}` + `math/analysis/holonomic_modulus.md` §4 + `essays/analysis/the_modular_group_from_two_folds.md` + `seed/AXIOM/05_no_exterior.md` §5.1 |
 | `polynomial_in_213.md` | What is a **polynomial** in 213? (the meaning of "finite divergence depth = polynomial degree, exactly") | `math/analysis/divergence_depth_characterization.md` + `Cauchy/{DepthCharacterization,DepthResidueFloor,CassiniSigned}` + `seed/AXIOM/05_no_exterior.md §5.6` |
 | `disjoint_layers_as_direct_sum.md` | Why does cup-image codim grow linearly with c? | `math/cohomology/k_nm_c_classification.md` + categorical direct sum reading + `parametric_c_independent_h2_classes` |
 | `stern_brocot_as_universal_lattice.md` | Where does K_{NS, NT}^{(c)} sit, and why is (3, 2) the atomic anchor? | `math/cohomology/k_nm_c_classification.md` + `math/mobius_canonical_equivalence.md` + `BipartiteStermBrocotClassification` |
@@ -179,7 +194,7 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `representation_theorems_one_counting_bound.md` | Why are `p = a²−ab+b²` (disc −3), `p = a²+b²` (disc −4), and the `ℤ[√−D]` family all one theorem? | `PolyRoot/RootBound.eval_zero` + `NonFixedExists.exists_nonfixed_gen` + `Integer/{EisensteinSplit,GaussianSplit,ZSqrtNegSplit}.split_form` + `Integer/ZSqrtNegSharp.descent_false_at_three` |
 | `four_square_additive_pigeonhole.md` | Why is every `n = a²+b²+c²+d²`, and why does this need a *different* engine than the disc-`−D` representation theorems? | `NumberTheory/FourSquare.{four_sq_id,isSum4_mul,descent_core,odd_descent,halve_step,descent_rec,seed_multiple,exists_prime_factor,prime_isSum4,nat_isSum4}` + `FourSquareSeed.four_square_seed` + `Combinatorics/Pigeonhole.no_inj_lt` |
 | `curvature_as_lens_readout.md` | What is curvature, in 213? Why do Forman, Gauss–Bonnet, Ollivier, Bakry–Émery, and conformal give the same sign↔topology trichotomy? | `Geometry/GeometrizationConjecture/{DiscreteRicci,DiscreteGaussBonnet,OllivierRicci,BakryEmery,ConformalCurvature}` + `seed/AXIOM/06_lens_readings.md` §6.7 |
-| `k32_cohomology_simplex_higher_insight.md` | 213/K₃,₂²/코호몰로지 심플렉스 고차 통찰 — G140 + G138 B/D 프로모션 연결 | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
+| `k32_cohomology_simplex_higher_insight.md` | The K_{3,2}^{(c=2)} cohomology simplex, read one level up — `PGeneratesNat` + the Sym(3) spine + Nodup-as-Clause-4 tied together | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
 | `mobius_self_form_fixed_point.md` | 모습 자체가 뫼비우스 행렬 — P는 왜 자기 설명 함자의 고정점인가? | `Px/MobiusSelfForm` + `Px/CharPolySelf` + `Px/PnFibonacciUniversal` + `math/mobius213_p_orbit_closure.md` |
 | `gra_universality_one_principle.md` | Walk-length, cup-length, truncation, chromatic height, resolution exponent — why are these the same? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/` umbrella + `GRA/Translation.lean` |
 | `gra_as_substrate_of_cat_hott.md` | Could GRA play the role Category theory / HoTT normally occupy, but from a more fundamental position? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/LensBridge.lean` (Phase 16: `Raw.fold 2 3 (· + ·)` as canonical grade map; `truncation_operad_grade_agree` as the HoTT ↔ Higher Algebra Lens equation) |

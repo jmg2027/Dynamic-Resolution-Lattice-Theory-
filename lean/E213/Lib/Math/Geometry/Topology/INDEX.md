@@ -40,6 +40,7 @@ Blueprint: `blueprints/math/03_topology_213.md` (retired).
     `IsSmooth.linearityModulus` (continuity proper).
   * `Lib/Physics/Simplex/Counts.lean` — `binom`, face counts.
   * `Lib/Math/Cohomology/CutExpFiniteTruncation.lean` — Grade-N
+  * `ModulusStructureAdjunction.lean` — modulus structure adjunction — left ⊣ right adjoints on ModHom
     nilpotency (parallel structural truncation).
 
 ## Out of scope (separate continuation)

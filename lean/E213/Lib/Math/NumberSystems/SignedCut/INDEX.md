@@ -1,18 +1,19 @@
-# SignedCut — Module Index (sub-organized 2026-05-13)
+# SignedCut — Module Index
 
 213-native signed Cut layer via `SignedCut := Cut × Cut` pair.
-30 files in 6 sub-clusters.
+35 files: 6 sub-clusters + top-level `DichotomyLadder.lean`
+(Cayley-Dickson dichotomy ladder strict ordering).
 
 ## Sub-clusters
 
 | Dir | Files | Topic |
 |---|---|---|
-| `Core/` | 9 | Core/Algebra/Inv/UnifiedGenericInv/Equivalence/Capstones |
+| `Core/` | 10 | Core/Algebra/Inv/UnifiedGenericInv/Equivalence/Capstones (incl. MathClosureCapstone, MulRuleCapstone) |
 | `CD/` | 6 | CD-doubling (Conjugation/LevelOps/MulRule/Norm/Tower{Capstone,Level}) |
 | `Hurwitz/` | 4 | HurwitzDichotomy/ExactL1/Failure/NormProduct |
 | `Level/` | 2 | G38/G39 CD-tower capstones |
 | `Bridge/` | 5 | Bridge/Capstone + FanoK32Bridge/FanoPlane + GenericGeomBridge |
-| `Octonion/` | 6 | Octonion + Quaternion mul rules + tables + NonAssociativity |
+| `Octonion/` | 7 | Octonion + Quaternion mul rules + tables + NonAssociativity |
 
 ## 213-native paradigm
 

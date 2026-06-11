@@ -67,6 +67,7 @@ import E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut
 import E213.Lib.Math.NumberSystems.Real213.ModulusComposition
 import E213.Lib.Math.NumberSystems.Real213.RateModulus
 import E213.Lib.Math.NumberSystems.Real213.RateStratification
+import E213.Lib.Math.NumberSystems.Real213.BracketModulus
 import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
 import E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
 import E213.Lib.Math.NumberSystems.Real213.CrossDetEqDenom
@@ -98,6 +99,7 @@ import E213.Lib.Math.NumberSystems.Real213.Mat2CayleyHamilton
 import E213.Lib.Math.NumberSystems.Real213.Mat2Assoc
 import E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence
 import E213.Lib.Math.NumberSystems.Real213.GoldenAperiodic
+import E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum
 import E213.Lib.Math.NumberSystems.Real213.EllipticTracePeriodic
 import E213.Lib.Math.NumberSystems.Real213.UTracePeriodic
 import E213.Lib.Math.NumberSystems.Real213.CrossDetTraceField
@@ -124,7 +126,22 @@ import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMasterId
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertPoly
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.PiMeasureModulus
 import E213.Lib.Math.NumberSystems.Real213.NuEscape
+import E213.Lib.Math.NumberSystems.Real213.CutSumAssocB3
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpConvergents
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutLogCauchyConvCapstone
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.PiCut
+import E213.Lib.Math.NumberSystems.Real213.FifthValidCut
+import E213.Lib.Math.NumberSystems.Real213.HalfValidCut
+import E213.Lib.Math.NumberSystems.Real213.Mul.Mobius213CutMulNPhase3
+import E213.Lib.Math.NumberSystems.Real213.OracleContinuity
+import E213.Lib.Math.NumberSystems.Real213.PellFibCutBridge
+import E213.Lib.Math.NumberSystems.Real213.ProbeTwistDynamics
+import E213.Lib.Math.NumberSystems.Real213.ProbeTwistFixedPoint
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumNMixed
+import E213.Lib.Math.NumberSystems.Real213.ThirdValidCut
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberSystems.Real213`.
 

@@ -458,4 +458,143 @@ theorem mod_eq_exists_mul_add (a b n : Nat) (hn : 0 < n) (hab : b ≤ a)
     rw [Nat.add_comm]; exact (sub_add_cancel hab).symm
   rw [h1, hq, Nat.mul_comm]
 
+/-- ★★ **The ∣-order obstruction readout is the coprime (lowest-terms)
+    reduction**: stripping the gcd from a pair leaves a coprime pair.
+    Witness form (no division): `a = g·a₁`, `b = g·b₁` with
+    `g = gcd213 a b > 0` force `gcd213 a₁ b₁ = 1`.  The ×-native
+    analog of the difference-Lens sign readout: the common part `g` is
+    the transport, the coprime pair `(a₁, b₁)` the normal form.
+    Cf. `RatioLensFounding.convergent_lowest_terms_is_det`
+    (lowest terms = `det P = 1`). -/
+theorem gcd_strip_coprime {a b g a₁ b₁ : Nat} (hg : gcd213 a b = g)
+    (hpos : 0 < g) (ha : a = g * a₁) (hb : b = g * b₁) :
+    gcd213 a₁ b₁ = 1 := by
+  obtain ⟨c1, hc1⟩ := gcd213_dvd_left a₁ b₁
+  obtain ⟨c2, hc2⟩ := gcd213_dvd_right a₁ b₁
+  have hga : g * gcd213 a₁ b₁ ∣ a :=
+    ⟨c1, calc a = g * a₁ := ha
+      _ = g * (gcd213 a₁ b₁ * c1) := congrArg (g * ·) hc1
+      _ = (g * gcd213 a₁ b₁) * c1 := (mul_assoc_213 _ _ _).symm⟩
+  have hgb : g * gcd213 a₁ b₁ ∣ b :=
+    ⟨c2, calc b = g * b₁ := hb
+      _ = g * (gcd213 a₁ b₁ * c2) := congrArg (g * ·) hc2
+      _ = (g * gcd213 a₁ b₁) * c2 := (mul_assoc_213 _ _ _).symm⟩
+  have hgg0 : g * gcd213 a₁ b₁ ∣ gcd213 a b :=
+    gcd213_greatest a b _ hga hgb
+  obtain ⟨c, hc⟩ : g * gcd213 a₁ b₁ ∣ g := hg ▸ hgg0
+  have h1 : g * 1 = g * (gcd213 a₁ b₁ * c) :=
+    calc g * 1 = g := Nat.mul_one g
+      _ = (g * gcd213 a₁ b₁) * c := hc
+      _ = g * (gcd213 a₁ b₁ * c) := mul_assoc_213 _ _ _
+  have hdc : 1 = gcd213 a₁ b₁ * c := Nat.eq_of_mul_eq_mul_left hpos h1
+  exact mul_eq_one_left _ c hdc.symm
+
+/-! ## Distributivity → Euclid's lemma → uniqueness of the coprime form
+
+The Bezout-free route (`theory/math/numbersystems/slot_arithmetic.md` §4):
+`gcd213 (k·a) (k·b) = k · gcd213 a b` by Euclidean descent (no signed
+Bezout coefficients), Euclid's lemma from it, and uniqueness of the
+lowest-terms representation from Euclid + `dvd_antisymm_213`. -/
+
+/-- `gcd213 0 b = b` (definitional: the fuel pattern reduces). -/
+theorem gcd213_zero_left (b : Nat) : gcd213 0 b = b := rfl
+
+/-- `(k·b) % (k·a) = k · (b % a)` for `0 < k`, `0 < a`.  ∅-axiom
+    replacement for `Nat.mul_mod_mul_left` (Lean-core brings
+    `propext`).  Strong recursion on `b` along the Euclidean descent. -/
+theorem mul_mod_mul_left_pure (k : Nat) (hk : 0 < k) :
+    ∀ (b a : Nat), 0 < a → (k * b) % (k * a) = k * (b % a) := fun b =>
+  Nat.strongRecOn b
+    (motive := fun b => ∀ a, 0 < a → (k * b) % (k * a) = k * (b % a))
+    fun b ih a ha => by
+    show (k * b) % (k * a) = k * (b % a)
+    by_cases hab : a ≤ b
+    · have hb_pos : 0 < b := Nat.lt_of_lt_of_le ha hab
+      have hsub_lt : b - a < b := Nat.sub_lt hb_pos ha
+      have hm : b % a = (b - a) % a := by
+        rw [Nat.mod_eq b a]; rw [if_pos ⟨ha, hab⟩]
+      have hkab : k * a ≤ k * b := Nat.mul_le_mul_left k hab
+      have hka_pos : 0 < k * a := Nat.mul_pos hk ha
+      have hM : (k * b) % (k * a) = (k * b - k * a) % (k * a) := by
+        rw [Nat.mod_eq (k * b) (k * a)]; rw [if_pos ⟨hka_pos, hkab⟩]
+      have hdist : k * b - k * a = k * (b - a) :=
+        (E213.Tactic.NatHelper.mul_sub_distrib hab).symm
+      rw [hM, hdist, ih (b - a) hsub_lt a ha, hm]
+    · have hba : b < a := Nat.lt_of_not_le hab
+      have hkba : k * b < k * a := by
+        have h1 : k * (b + 1) ≤ k * a := Nat.mul_le_mul_left k hba
+        have h2 : k * b < k * (b + 1) := by
+          rw [Nat.mul_succ]
+          have h3 : k * b + 0 < k * b + k := Nat.add_lt_add_left hk (k * b)
+          rw [Nat.add_zero] at h3
+          exact h3
+        exact Nat.lt_of_lt_of_le h2 h1
+      rw [Nat.mod_eq_of_lt hkba, Nat.mod_eq_of_lt hba]
+
+/-- ★★★★ **gcd distributivity** `gcd213 (k·a) (k·b) = k · gcd213 a b` —
+    the Bezout-free keystone, by Euclidean descent on the first
+    argument (`gcd213_rec` + `mul_mod_mul_left_pure`). -/
+theorem gcd213_mul_left (k : Nat) :
+    ∀ (a b : Nat), gcd213 (k * a) (k * b) = k * gcd213 a b := fun a =>
+  Nat.strongRecOn a
+    (motive := fun a => ∀ b, gcd213 (k * a) (k * b) = k * gcd213 a b)
+    fun a ih b => by
+    show gcd213 (k * a) (k * b) = k * gcd213 a b
+    cases a with
+    | zero =>
+      rw [Nat.mul_zero]
+      rw [gcd213_zero_left, gcd213_zero_left]
+    | succ a' =>
+      by_cases hk : 0 < k
+      · have ha : 0 < a' + 1 := Nat.succ_pos a'
+        have hka : 0 < k * (a' + 1) := Nat.mul_pos hk ha
+        have hmod_lt : b % (a' + 1) < a' + 1 := Nat.mod_lt b ha
+        rw [gcd213_rec (k * (a' + 1)) (k * b) hka]
+        rw [mul_mod_mul_left_pure k hk b (a' + 1) ha]
+        rw [ih (b % (a' + 1)) hmod_lt (a' + 1)]
+        rw [← gcd213_rec (a' + 1) b ha]
+      · have hk0 : k = 0 := by
+          cases k with
+          | zero => rfl
+          | succ k' => exact absurd (Nat.succ_pos k') hk
+        rw [hk0, Nat.zero_mul, Nat.zero_mul, Nat.zero_mul, gcd213_zero_left]
+
+/-- ★★★★ **Euclid's lemma** (Bezout-free): a divisor coprime to one
+    factor divides the other — `gcd213 a b = 1 → a ∣ b·c → a ∣ c`.
+    Via `a ∣ gcd213 (c·a) (c·b) = c · gcd213 a b = c`. -/
+theorem coprime_dvd_of_dvd_mul {a b c : Nat}
+    (hco : gcd213 a b = 1) (h : a ∣ b * c) : a ∣ c := by
+  have h2 : a ∣ c * a := ⟨c, Nat.mul_comm c a⟩
+  have h3 : a ∣ c * b := by
+    obtain ⟨w, hw⟩ := h
+    exact ⟨w, (Nat.mul_comm c b).trans hw⟩
+  have h4 : a ∣ gcd213 (c * a) (c * b) := gcd213_greatest (c * a) (c * b) a h2 h3
+  rw [gcd213_mul_left c a b, hco, Nat.mul_one] at h4
+  exact h4
+
+/-- ★★★★★ **Uniqueness of the lowest-terms representation**: two
+    coprime, positive-denominator pairs naming the same ratio
+    (`p₁·q₂ = p₂·q₁`) are componentwise equal.  Closes brick 2 of the signed-rationals arc (`theory/math/numbersystems/slot_arithmetic.md` §4):
+    together with `gcd_strip_coprime` (existence), the ∣-order normal
+    form of a ratio pair is exact — the lowest-terms readout is
+    complete. -/
+theorem coprime_repr_unique {p₁ q₁ p₂ q₂ : Nat}
+    (h : p₁ * q₂ = p₂ * q₁)
+    (h₁ : gcd213 p₁ q₁ = 1) (h₂ : gcd213 p₂ q₂ = 1)
+    (hq₁ : 0 < q₁) :
+    p₁ = p₂ ∧ q₁ = q₂ := by
+  have hd1 : q₁ ∣ p₁ * q₂ := ⟨p₂, by rw [h, Nat.mul_comm]⟩
+  have hco1 : gcd213 q₁ p₁ = 1 := (gcd213_comm q₁ p₁).trans h₁
+  have hq12 : q₁ ∣ q₂ := coprime_dvd_of_dvd_mul hco1 hd1
+  have hd2 : q₂ ∣ p₂ * q₁ := ⟨p₁, by rw [← h, Nat.mul_comm]⟩
+  have hco2 : gcd213 q₂ p₂ = 1 := (gcd213_comm q₂ p₂).trans h₂
+  have hq21 : q₂ ∣ q₁ := coprime_dvd_of_dvd_mul hco2 hd2
+  have hq : q₁ = q₂ := dvd_antisymm_213 q₁ q₂ hq12 hq21
+  refine ⟨?_, hq⟩
+  have hp : q₁ * p₁ = q₁ * p₂ := by
+    rw [Nat.mul_comm q₁ p₁, Nat.mul_comm q₁ p₂]
+    calc p₁ * q₁ = p₁ * q₂ := congrArg (p₁ * ·) hq
+      _ = p₂ * q₁ := h
+  exact Nat.eq_of_mul_eq_mul_left hq₁ hp
+
 end E213.Meta.Nat.Gcd213

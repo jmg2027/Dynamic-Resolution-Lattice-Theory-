@@ -3,7 +3,7 @@ import E213.Lib.Math.Foundations.CrossDomainUnification
 /-!
 # ParadigmDomain typeclass (C6 Step 3)
 
-Step 3 of conjecture C6 per `research-notes/G35` §C6.
+Step 3 of conjecture C6 per `research-notes/frontiers/G35` §C6.
 
 Defines an abstract typeclass `ParadigmDomain` capturing the
 shared 213-native paradigm: each paradigm domain instantiates

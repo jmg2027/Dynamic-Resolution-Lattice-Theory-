@@ -44,6 +44,30 @@ operator that wants this group, `diffZ s n = s(n+1) − s n`, reads the count-Le
 the readout group in which `Δ` closes under iteration
 (`theory/math/analysis/newton_gregory.md`).
 
+## The order presentation: sign = witness side
+
+The pair has a second, order-side presentation.  Over `ℕ` the equation
+`a + x = b` is *partial*: solvable only when the pair is oriented one way.  Present
+the same difference as a strict sandwich instead — `a + x < b + 1` together with
+`b < a + x + 1` — and nothing is lost: over `ℕ` the sandwich **is** the equation
+(`eq_of_sandwich`), and the witness is unique (`witness_unique`).  What the sandwich
+exposes is the degenerate behavior at the boundary.  When the pair is mis-oriented
+(`a > b`), the upper inequality goes vacuous and the lower one collapses to the
+diagonal from above; oriented the other way, the roles swap.  Which inequality
+survives is not noise — it is the sign being read out.
+
+`Int213` states this exactly: `subNatNat b a` reads out the natural `x` **iff** `x`
+witnesses `a + x = b` (`subNatNat_eq_ofNat_iff`), and reads out `negSucc y` **iff**
+the *swapped* equation `b + (y + 1) = a` is witnessed (`subNatNat_eq_negSucc_iff`).
+Every oriented pair is witnessed from one side (`witness_total`) and never from both
+(`witness_not_both`).  So the unsolvability of `a + x = b` over `ℕ` is not a defect
+the integers repair from outside — it is the solvability of the swap, and **sign is
+the readout of which orientation carries the ℕ-witness**: the order-side statement
+of the pair-swap `neg_subNatNat`.  The diagonal `(n, n)` sits on the boundary,
+witnessed by `x = 0` on the `ofNat` side only — the negative side demands a witness
+of size at least `1`, so `0` is the unique orientation-free reading
+(`Int.subNatNat_self`), consistent with §6.9's diagonal-as-`0`.
+
 ## Dual function
 
 The classical `ℤ = ℕ×ℕ/~` (the Grothendieck group of `(ℕ, +)`, "formally adjoin

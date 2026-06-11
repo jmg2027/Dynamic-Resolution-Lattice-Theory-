@@ -4,7 +4,7 @@ import E213.Theory.Raw.API
 /-!
 # Lens.Number.Nat213.Lenses — characterization of Raw → Nat213 lenses
 
-Following G66 research note, this file formalizes:
+This file formalizes:
 
 1. **Definition**: A `Nat213Lens` is a triple `(ba, bb, combine)`
    inducing `Raw.fold ba bb combine : Raw → Nat213`.

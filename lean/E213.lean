@@ -1,5 +1,5 @@
 -- Layered entry point for 213.
--- Canonical layer architecture: lean/E213/ARCHITECTURE.md (2026-05-12).
+-- Canonical layer architecture: lean/E213/ARCHITECTURE.md.
 --
 -- 4 ring + Meta (each ring uses immediate-below ring's API + Meta):
 --
@@ -20,8 +20,3 @@ import E213.Meta
 
 -- Universal Math infrastructure used at this top level.
 import E213.Lib.Math.Combinatorics.Pigeonhole
-
--- App/ legacy tier removed 2026-05-13 Session H — its sole member
--- (App/Simplex.lean) moved to `Lib/Math/Combinatorics/Simplex5.lean`
--- since its content (block-pair classification on Fin 5, S_3 × S_2
--- invariance) is math combinatorics, not user-facing executable.

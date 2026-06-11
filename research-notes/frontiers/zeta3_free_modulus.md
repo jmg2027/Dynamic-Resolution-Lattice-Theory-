@@ -1,6 +1,9 @@
 # ζ(3): from the built fold to the free (constructed) total modulus
 
-**Status**: blueprint complete — see `zeta3_blueprint.md` (both bricks verified; formalization plans only, no open mathematics).  The fold itself is **closed** —
+**Status**: blueprint complete for the two classical inputs (I1 integrality,
+I2 lcm race) — see `zeta3_blueprint.md` (both bricks verified; formalization
+plans only, no open mathematics); the engine end (growth + conditional glue)
+is **closed** — see below.  The fold itself is **closed** —
 `Real213/Zeta3Cut.lean` (35 PURE / 0 DIRTY) builds ζ(3)'s Apéry convergents as
 an `AbCutSeq` (exact ℕ recurrence via the growth-invariant engine, closed-form
 Casoratian `6·(m!)⁶`, bracket `601/500 < ζ(3) ≤ 1203/1000`, completion to a
@@ -33,11 +36,26 @@ arithmetic inputs, both unformalized here:
    per step works).  Elementary but a genuine formalization project
    (multinomial / primorial route).
 
-Supporting (easy once 1–2 exist): `bₙ ≥ 32ⁿ`-type growth from the recurrence
-(the `Zeta3Cut` growth invariant already gives `bₙ₊₁ ≥ (n+1)³·…`-style bounds;
-a geometric lower bound is a small variant), then `Htel` via
-`RateModulus.Htel_of_crossdet` on the reduced cross-determinant
-`Wₙ = 6·(2·lcm(1..n)³)²/n³·…` smallness, and `rate_total_modulus` instantiates.
+**Engine end: DONE** (2026-06-10, `Zeta3Cut` §8, all ∅-axiom):
+
+- `aperyOrbit_geom` — the geometric growth `xₘ₊₁ ≥ 28·(m+1)³·xₘ` from layer 7
+  (`zeta3Den_geom`/`zeta3Num_geom`; the base layer is sharp — layer-6 ratio
+  `≈ 27.2 < 28`).  The constant `28 > 27 = 3³` is the whole `e³ < α` race in
+  per-step ℕ form: Hanson contributes at most `27` per layer on the
+  denominator side.
+- `zeta3_reduced_conditional` — given **I1** (integrality, as the factoring
+  `zeta3Num = c·p`, `zeta3Den = c·q` through the reduced pair) and **I2** (the
+  reduced pair's margin smallness law from a layer `n₀`), the *original* ζ(3)
+  cut carries the constructed total modulus `N(m,k) = k + n₀ + 2` — the
+  from-layer graded generator runs on `(p,q)` (monotonicity derived from the
+  Casoratian surviving reduction), and `rcut` transfers through the common
+  factor.  An eventual-only certificate suffices (the engine was generalized
+  to from-layer certificates for exactly this).
+
+Remaining: **only I1 and I2** — the two classical Apéry arithmetic inputs
+above.  I2's classical derivation = Hanson + `zeta3Den_geom` + the
+`Wₙ = 24·lcmₙ³lcmₙ₊₁³/(n+1)³` cross-det arithmetic; its from-layer form is
+what `zeta3_reduced_conditional` consumes.
 
 ## The clearing-growth criterion (why the two bricks are necessary)
 

@@ -2,7 +2,7 @@ import E213.Lib.Math.Geometry.OperationTopology.OperationLevels
 import E213.Lib.Math.Geometry.OperationTopology.TopologicalComplexity
 
 /-!
-# G48 Capstone — Operation × Topology Synthesis (∅-axiom)
+# Capstone — Operation × Topology Synthesis (∅-axiom)
 
 5 cluster witnesses + total bundle.
 

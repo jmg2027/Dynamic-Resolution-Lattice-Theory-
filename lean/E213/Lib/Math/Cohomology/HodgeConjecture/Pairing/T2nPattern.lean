@@ -40,7 +40,7 @@ A truly general inductive proof on `n` would require:
      explicit sign tracking (Koszul).
   3. Inductive enumeration of the C(2n, n)/2 ortho-pair witnesses.
 
-This is a substantial generalization left as G13 follow-up.
+This is a substantial generalization left as follow-up.
 
 STRICT ∅-AXIOM (all by `decide` on the binomial computations and
 the existing capstones).
@@ -114,7 +114,7 @@ private theorem T2squared_signature_eq_predicted :
     H^n(T²ⁿ) decompose into C(2n, n)/2 disjoint such pairs under
     the wedge-to-volume Künneth structure.
 
-    **Open: G13 inductive form.**  A general proof for arbitrary
+    **Open: the inductive form.**  A general proof for arbitrary
     n would inductively define T²ⁿ via Künneth product and chain
     the pair-witness construction across the recursion.  The two
     base cases (n = 1, 2) below already exhibit the pattern.

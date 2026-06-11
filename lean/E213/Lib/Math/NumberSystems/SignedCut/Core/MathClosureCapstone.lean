@@ -6,7 +6,7 @@ import E213.Lib.Math.NumberSystems.SignedCut.Octonion.OctonionMulTable
 # Math-side closure of the CD-tower marathon (∅-axiom)
 
 5 cluster witnesses + total bundle.  Closes the math-track residuals
-of the G36/37/38 stack (PRs #62/#63/#64/#65):
+of the SignedCut / CD-tower stack:
 
   * **Brahmagupta-Fibonacci concrete witnesses** at numerical
     `(a, b, c, d)` triples → exact Hurwitz preservation at level 1

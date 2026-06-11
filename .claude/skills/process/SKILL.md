@@ -76,7 +76,7 @@ be promoted); the note is recoverable from git.
   destroys Lean indentation and breaks the build.
 - **NEVER** strip directory/INDEX refs (Step-1 rule already excludes them).
 - Boot anchors (CLAUDE.md) repoint to the permanent home, e.g.
-  `research-notes/G29_residue.md` → `seed/AXIOM/01_residue.md`.
+  `research-notes/archive/foundations/G29_residue.md` → `seed/AXIOM/01_residue.md`.
 
 Safe automation for the mechanical subset (bullets + multi-line pure-cite
 parentheticals only; never whitespace-collapse): adapt the verified script

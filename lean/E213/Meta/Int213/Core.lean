@@ -640,6 +640,11 @@ theorem mul_assoc (a b c : Int) : a * b * c = a * (b * c) := by
 theorem mul_left_comm (a b c : Int) : a * (b * c) = b * (a * c) := by
   rw [← mul_assoc, mul_comm a b, mul_assoc]
 
+/-- ∅-axiom: `(x·y)·(z·w) = (x·z)·(y·w)` — the middle-swap shuffle. -/
+theorem mul_mul_mul_comm (x y z w : Int) :
+    (x * y) * (z * w) = (x * z) * (y * w) := by
+  rw [mul_assoc x y (z * w), mul_left_comm y z w, ← mul_assoc x z (y * w)]
+
 /-- ∅-axiom: `Int.zero_add` (Lean-core is propext). -/
 theorem zero_add (a : Int) : 0 + a = a := by
   rw [add_comm, Int.add_zero]
@@ -734,5 +739,155 @@ theorem int_eq_zero_of_eq_neg {x : Int} (h : x = -x) : x = 0 := by
   | negSucc m =>
     rw [show Int.negSucc m + Int.negSucc m = Int.negSucc (m + m + 1) from rfl] at hxx
     exact Int.noConfusion hxx
+
+/-! ## Witness characterization — the order presentation of the difference-Lens
+
+The pair `(a, b)` can name its difference two ways: by the equation
+`a + x = b`, or by the sandwich `a + x < b + 1 ∧ b < a + x + 1`.  Over `ℕ`
+the two presentations coincide (`eq_of_sandwich`), the witness is unique
+(`witness_unique`), and the equation is solvable for **exactly one
+orientation** of the pair: `subNatNat b a` reads out `ofNat x` precisely
+when `x` witnesses `a + x = b` (`subNatNat_eq_ofNat_iff`), and `negSucc y`
+precisely when the *swapped* equation `b + (y + 1) = a` is witnessed
+(`subNatNat_eq_negSucc_iff`); the two sides are total (`witness_total`)
+and exclusive (`witness_not_both`).  Sign = which orientation carries the
+ℕ-witness — the order-side statement of the pair-swap `neg_subNatNat`.
+The diagonal `(n, n)` is the boundary case: witnessed by `x = 0` on the
+`ofNat` side only (`Int.subNatNat_self`).  Narrative:
+`theory/essays/analysis/integers_as_difference_lens.md`. -/
+
+/-- The sandwich pins the equation: `a + x < b + 1` and `b < a + x + 1`
+    force `a + x = b`.  The strict-inequality pair is not a weaker
+    presentation of the difference — over `ℕ` it is the same one. -/
+theorem eq_of_sandwich {a b x : Nat}
+    (h1 : a + x < b + 1) (h2 : b < a + x + 1) : a + x = b :=
+  Nat.le_antisymm (Nat.le_of_lt_succ h1) (Nat.le_of_lt_succ h2)
+
+/-- Witness uniqueness: `a + x = b` has at most one solution `x`. -/
+theorem witness_unique {a b x y : Nat} (hx : a + x = b) (hy : a + y = b) :
+    x = y :=
+  add_left_cancel (hx.trans hy.symm)
+
+/-- Witness reading, positive side: `subNatNat b a` reads out the natural
+    `x` exactly when `x` witnesses `a + x = b`. -/
+theorem subNatNat_eq_ofNat_iff (a b x : Nat) :
+    Int.subNatNat b a = Int.ofNat x ↔ a + x = b := by
+  constructor
+  · intro h
+    rcases Nat.lt_or_ge b a with hba | hba
+    · rw [subNatNat_of_lt hba] at h
+      exact Int.noConfusion h
+    · rw [subNatNat_of_le hba] at h
+      have hx : b - a = x := Int.ofNat.inj h
+      rw [← hx]
+      exact add_sub_of_le hba
+  · intro h
+    have h1 : Int.subNatNat (x + a) (0 + a) = Int.subNatNat x 0 :=
+      subNatNat_add_add x 0 a
+    rw [Nat.zero_add] at h1
+    rw [← h, Nat.add_comm a x, h1, subNatNat_zero]
+
+/-- Witness reading, negative side: `subNatNat b a` reads out `negSucc y`
+    exactly when the *swapped* equation `b + (y + 1) = a` is witnessed.
+    The unsolvability of `a + x = b` is not a failure of the pair — it is
+    the solvability of its swap, read through `neg_subNatNat`. -/
+theorem subNatNat_eq_negSucc_iff (a b y : Nat) :
+    Int.subNatNat b a = Int.negSucc y ↔ b + (y + 1) = a := by
+  constructor
+  · intro h
+    rcases Nat.lt_or_ge b a with hba | hba
+    · rw [subNatNat_of_lt hba] at h
+      have hk : a - b - 1 = y := Int.negSucc.inj h
+      have h2 : (a - b - 1) + 1 = a - b :=
+        Nat.sub_one_add_one_eq_of_pos (sub_pos_of_lt hba)
+      rw [hk] at h2
+      rw [h2]
+      exact add_sub_of_le (Nat.le_of_lt hba)
+    · rw [subNatNat_of_le hba] at h
+      exact Int.noConfusion h
+  · intro h
+    have h1 : Int.subNatNat (0 + b) ((y + 1) + b) = Int.subNatNat 0 (y + 1) :=
+      subNatNat_add_add 0 (y + 1) b
+    rw [Nat.zero_add] at h1
+    rw [← h, Nat.add_comm b (y + 1), h1, subNatNat_zero_succ]
+
+/-- Witness totality: every oriented pair is witnessed from one side —
+    `a + x = b` solvable, or the swap `b + (y + 1) = a` solvable. -/
+theorem witness_total (a b : Nat) :
+    (∃ x, a + x = b) ∨ (∃ y, b + (y + 1) = a) := by
+  rcases Nat.lt_or_ge b a with hba | hba
+  · exact Or.inr ⟨a - b - 1,
+      (subNatNat_eq_negSucc_iff a b _).mp (subNatNat_of_lt hba)⟩
+  · exact Or.inl ⟨b - a, add_sub_of_le hba⟩
+
+/-- Witness exclusivity: no pair is witnessed from both orientations.
+    Together with `witness_total`: sign is a readout, not a choice. -/
+theorem witness_not_both {a b x y : Nat}
+    (hx : a + x = b) (hy : b + (y + 1) = a) : False := by
+  have h : a + (x + (y + 1)) = a := by
+    rw [← Nat.add_assoc, hx]; exact hy
+  have h0 : x + (y + 1) = 0 :=
+    add_left_cancel (h.trans (Nat.add_zero a).symm)
+  rw [← Nat.add_assoc] at h0
+  have h1 : (x + y).succ = 0 := h0
+  exact Nat.noConfusion h1
+
+/-- The sandwich presentation reads out through the difference-Lens:
+    the strict-inequality pair determines `subNatNat b a = ofNat x`. -/
+theorem subNatNat_of_sandwich {a b x : Nat}
+    (h1 : a + x < b + 1) (h2 : b < a + x + 1) :
+    Int.subNatNat b a = Int.ofNat x :=
+  (subNatNat_eq_ofNat_iff a b x).mpr (eq_of_sandwich h1 h2)
+
+/-- ★★★★ The difference-pair cross-equation: two pairs read out the
+    same integer exactly when their cross-sums agree —
+    `subNatNat A B = subNatNat C D ↔ A + D = C + B`.  The ℤ-twin of
+    the ratio-Lens cross-equation (`RatioLensFounding.ratioEquiv`):
+    the +-transport's same-solution equivalence in one Iff. -/
+theorem subNatNat_eq_iff (A B C D : Nat) :
+    Int.subNatNat A B = Int.subNatNat C D ↔ A + D = C + B := by
+  constructor
+  · intro h
+    have hA : Int.ofNat (A + D) = Int.ofNat (C + B) :=
+      calc Int.ofNat (A + D)
+          = Int.ofNat A + Int.ofNat D := rfl
+        _ = (Int.subNatNat A B + Int.ofNat B) + Int.ofNat D := by
+            rw [subNatNat_add_self]
+        _ = (Int.subNatNat C D + Int.ofNat B) + Int.ofNat D := by rw [h]
+        _ = (Int.subNatNat C D + Int.ofNat D) + Int.ofNat B :=
+            add_right_comm _ _ _
+        _ = Int.ofNat C + Int.ofNat B := by rw [subNatNat_add_self]
+        _ = Int.ofNat (C + B) := rfl
+    exact Int.ofNat.inj hA
+  · intro h
+    have h1 : Int.subNatNat (A + D) (B + D) = Int.subNatNat A B :=
+      subNatNat_add_add A B D
+    have h2 : Int.subNatNat (C + B) (D + B) = Int.subNatNat C D :=
+      subNatNat_add_add C D B
+    rw [← h1, ← h2, h, Nat.add_comm B D]
+
+/-- ★★★ **The difference layer is +-witness-closed**: `(A,B)+x = (C,D)`
+    always has the pair witness `x = (C+B, D+A)`, on the nose.  Each
+    layer is closed under its own operation's slot-questions; new
+    numbers come only from *other* operations' questions. -/
+theorem subNatNat_add_witness (A B C D : Nat) :
+    Int.subNatNat A B + Int.subNatNat (C + B) (D + A) = Int.subNatNat C D := by
+  rw [subNatNat_add_subNatNat,
+      ← Nat.add_assoc A C B, Nat.add_comm A C, Nat.add_assoc C A B,
+      ← Nat.add_assoc B D A, Nat.add_comm B D, Nat.add_assoc D B A,
+      Nat.add_comm B A]
+  exact subNatNat_add_add C D (A + B)
+
+/-- ★★★★ **The pair-slot ×-question unfolded**: the cross-relation
+    `(A,B) ⊗ (X₁,X₂) ≈ (C,D)` is exactly the two-sided linear
+    ℕ-equation — the "two sides" of the 4-slot rational question are
+    the components of the pair slots (e.g. `2x = −5` vs `2x = 5`
+    differ only in which side the 5 sits).  Direct corollary of the
+    multiplication keystone and the cross-equation. -/
+theorem subNatNat_mul_eq_iff (A B X₁ X₂ C D : Nat) :
+    Int.subNatNat A B * Int.subNatNat X₁ X₂ = Int.subNatNat C D
+    ↔ (A * X₁ + B * X₂) + D = C + (A * X₂ + B * X₁) := by
+  rw [subNatNat_mul_subNatNat]
+  exact subNatNat_eq_iff _ _ _ _
 
 end E213.Meta.Int213

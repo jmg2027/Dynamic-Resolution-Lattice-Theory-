@@ -1,250 +1,269 @@
-# LESSONS_LEARNED.md — 213 framework 핵심 교훈
+# LESSONS_LEARNED.md — core lessons of the 213 framework
 
-이 문서는 새 세션 또는 외부 검증자가 213을 빠르게 정확히 이해하기
-위한 핵심 교훈을 기록한다.  특히 Claude (또는 다른 LLM)이
-**외부 frame의 default 표현**으로 빠지지 않도록 가드레일.
+This document records the core lessons a new session (or an external
+verifier) needs to understand 213 quickly and correctly.  In
+particular it is a guardrail against Claude (or any LLM) sliding
+into **the default expressions of an external frame**.
 
-## 교훈 1: Resolution limit은 parametric Lens-output 가족의 한 값 (G120 Round 3, 2026-05-22 재작성)
+## Lesson 1: the resolution limit is one value of a parametric Lens-output family
 
-Canonical reading: **`seed/RESOLUTION_LIMIT_SPEC.md`** (§2 G120
-Round 3 rewrite로 갱신).  본 항목은 그 요약이며, 본 문서가 spec과
-충돌하면 spec 이 정답.
+Canonical reading: **CLAUDE.md §"Fractal-level configuration
+count"** + `Lib/Math/Cohomology/Fractal/ConfigCount.lean`.
+This entry is a summary; where this document conflicts with the
+spec, the spec wins.
 
-**Round 2 → Round 3 reframe**: 이전 "4-domain convergent invariant"
-표현은 자기 자신이 CLAUDE.md "Universe-constant framing" failure
-mode를 인코딩하고 있었음 (CLAUDE.md:216의 *"'N_U is THE system
-invariant'"*에 해당).  Failure mode를 *경고하는* lessons 문서가
-실패를 *박고 있던* 메타-실패.  G120 audit이 잡아냄.
+**The reframe**: the earlier "4-domain convergent invariant"
+phrasing itself encoded the CLAUDE.md "Universe-constant framing"
+failure mode (the very *"N_U is THE system invariant"* row).  A
+lessons document that *warns* about a failure mode had the failure
+*baked in* — a meta-failure.  The resolution-limit audit caught it.
 
-**WRONG** (외부 frame + universe-constant 수입): "ζ(2) = π²/6",
-"asymptote", "transcendental input", "infinite limit", "we choose
-to be finitist", "finitism is forced", "completed infinity
+**WRONG** (external frame + universe-constant import): "ζ(2) =
+π²/6", "asymptote", "transcendental input", "infinite limit", "we
+choose to be finitist", "finitism is forced", "completed infinity
 rejected", **"N_U is THE system invariant", "N_U as four-Lens
 convergence"**
-**RIGHT** (213-internal): ζ(2) = S(N_U) at SPECIFIC finite N_U.
-π는 213 primitive 아님.  외부 표기일 뿐.  **그리고 cardinality는
-parametric Lens output** — `configCount : Nat → Nat` 가족의 한 값.
-213 axiom set은 "finite vs infinite" dichotomy 자체를 체결하지
-않음 (`seed/AXIOM/02_axiom.md` §2.5, `RESOLUTION_LIMIT_SPEC.md` §0).
+**RIGHT** (213-internal): ζ(2) = S(N_U) at a SPECIFIC finite N_U.
+π is not a 213 primitive — external notation only.  **And
+cardinality is a parametric Lens output** — one value of the
+family `configCount : Nat → Nat`.  The 213 axiom set does not
+commit to the "finite vs infinite" dichotomy at all
+(`seed/AXIOM/02_axiom.md` §2.5, `seed/AXIOM/06_lens_readings.md` §6.7).
 
-**근거 — 부재 (negative)**:
+**Evidence — absence (negative)**:
 - The structural precision theorem
   (`AlphaEM/GramStructuralCapstone.invAlphaEm_precision_theorem`)
   takes π² as a literal input (`pi2_e12`); π is never a 213 primitive.
 - `CLAUDE.md` "Implications of Finite Discrete Lattice":
   "π, e, ζ(2) → bounded rational interval suffices".
 
-**근거 — 구조적 불일등 보존 (∅-axiom 하 type-preservation)**:
+**Evidence — structural non-identification preserved (type preservation under ∅-axiom)**:
 - `Real213DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`
-  (∅-axiom): Cauchy trajectory와 putative exact value는 다른 type
-  의 객체 — ZFC는 propext + Quot.sound로 quotient하여 동일시,
-  ∅-axiom regime은 propext/Quot.sound 부재로 truncation 발생하지
-  않음.  Witness at (m=0, k=1): limit = false, exact = true.
+  (∅-axiom): a Cauchy trajectory and a putative exact value are
+  objects of different type — ZFC identifies them by quotienting
+  through propext + Quot.sound; the ∅-axiom regime has neither, so
+  the truncation never happens.  Witness at (m=0, k=1): limit =
+  false, exact = true.
 - `Real213DyadicTrajectory.zero_plus_gap_below_zero_exact`
-  (∅-axiom): trajectory가 모든 (0, k≥1) query에서 exact 와 다름 —
-  `InfinitesimalGap` 은 type-level *structural*, 외부 numerical
-  rejection 아님.
-- `Real213.CutInv.cutDiv` 주석: cutMul + cutInv 결합 시
-  *boundary precision artifact* — 같은 type-distinction 의
-  계산-층 표현.
-- `Real213.CutMulConstSum`, `Real213.CutSumGeneral`: forward
-  direction 만 닫힘; backward 는 trajectory side 에 머물 때만 가능.
+  (∅-axiom): the trajectory differs from exact at every (0, k≥1)
+  query — `InfinitesimalGap` is type-level *structural*, not an
+  external numerical rejection.
+- The `Real213.CutInv.cutDiv` comment: combining cutMul + cutInv
+  produces a *boundary precision artifact* — the computation-layer
+  face of the same type distinction.
+- `Real213.CutMulConstSum`, `Real213.CutSumGeneral`: only the
+  forward direction closes; backward holds only while staying on
+  the trajectory side.
 
-**즉**: `5²⁵`는 axiom 도 cap 도 아니고, **parametric 가족
-`configCount : Nat → Nat`의 값** (`RESOLUTION_LIMIT_SPEC.md` §2
-G120 Round 3 갱신).  `configCount n := 5^(numV n) := 5^(5^n)`.
-n=2에서 `configCount 2 = 5^25`.  역사적으로 `N_U`라고 부른 값은
-이 가족의 한 값일 뿐 — 특권적 universe 상수가 아님.
+**In short**: `5²⁵` is neither an axiom nor a cap; it is **a value
+of the parametric family `configCount : Nat → Nat`**.
+`configCount n := 5^(numV n) := 5^(5^n)`; at n=2,
+`configCount 2 = 5^25`.  The value historically called `N_U` is
+one value of this family — not a privileged universe constant.
 
-G120 audit (§1+§11)이 밝힘: 이전 "4-way convergence" 중 2/4만 실제
-Lean 도출이었고 나머지 2/4 (tensor DOF, injective projection)는
-placeholder/부재.  G120 Phase 3에서 `ResolutionInvariant` 레코드는
-삭제됨 — 1 가족값을 4가지로 *언어 재포장*한 가짜 다중성.
+The audit established: of the earlier "4-way convergence", only
+2/4 were actual Lean derivations; the other 2/4 (tensor DOF,
+injective projection) were placeholders/absent.  The
+`ResolutionInvariant` record is deleted — a fake multiplicity that
+*linguistically repackaged* one family value four ways.
 
-**근거 — 사용자 직접 진술** (2026-04-27, 2026-05-01):
-- "유리수 급수값이 정확한값임", "무리수가 구라고 유리수가 리얼임"
+**Evidence — originator's direct statements**:
+- "유리수 급수값이 정확한값임" (the rational series value IS the
+  exact value), "무리수가 구라고 유리수가 리얼임" (the irrational
+  is the fiction; the rational is the real)
 - "finitist는 입장이라기보단 뒤져보면 아마 이거 무한대면 모순이라는
-  증명들이 짱많아서 한거일걸?" → 후속 RESOLUTION_LIMIT_SPEC 작업으로
-  좀 더 정확히 표현됨: "ZFC equality (limit = exact value) requires
-  propext-quotient; ∅-axiom regime does not provide it" — 곧
-  *type 분리* 로 받아들여지지, dichotomy 한 쪽 선택 아님.
+  증명들이 짱많아서 한거일걸?" (finitism is less a stance than the
+  likely outcome of the many proofs that this-at-infinity is
+  contradictory) → later sharpened to: "ZFC equality (limit =
+  exact value) requires propext-quotient; the ∅-axiom regime does
+  not provide it" — i.e. received as a *type separation*, not as
+  picking one side of a dichotomy.
 
-**가드레일**: Claude 가 "asymptote", "5.4×10⁻⁴ structural gap",
-"ζ(2) = π²/6 외부 input", "transcendental import 1개", "we choose
-finitism", "finitist framing accepted then...", "ZFC fiction",
-"completed infinity rejected" 같은 표현을 쓰면 즉시 외부 frame 으로
-빠진 것.  213-internal 표현은: "specific finite rational at N_U",
-"finite-N residual 36/N_U", "S(N_U) at universe lattice depth",
-"trajectory ≠ exact value at type level under ∅-axiom".
+**Guardrail**: if Claude writes "asymptote", "5.4×10⁻⁴ structural
+gap", "ζ(2) = π²/6 external input", "one transcendental import",
+"we choose finitism", "finitist framing accepted then...", "ZFC
+fiction", "completed infinity rejected" — it has slid into an
+external frame.  The 213-internal expressions are: "specific
+finite rational at N_U", "finite-N residual 36/N_U", "S(N_U) at
+universe lattice depth", "trajectory ≠ exact value at type level
+under ∅-axiom".
 
-**Skeptic 대응**: "왜 항상 N_U 까지인가?" → 답:
+**Answering the skeptic**: "why always up to N_U?" → answer:
 `#print axioms alwaysTrueUnit_limit_distinct_from_zero` →
-"depends on axioms: [propext, Quot.sound]" — Lean kernel base.
-ZFC 가 trajectory/limit 을 동일시하기 위해 쓰는 propext-quotient 가
-∅-axiom regime 에서는 적용되지 않으므로 type 분리가 보존됨.  그리고
-"N_U까지"라는 표현 자체가 frame-creep 위험 — 정확히는 *parametric
-가족 `configCount`를 level 2에서 evaluate한 결과* 라는 family-point
-관찰. 다른 level (n = 0, 1, 3, ...)도 동일 가족의 값으로 의미가
-있음; level 2가 *특권적*인 게 아니라 physics observable과 짝지어
-사용되는 경험적 evaluation point.
+"depends on axioms: [propext, Quot.sound]" — the Lean kernel
+base.  The propext-quotient ZFC uses to identify trajectory with
+limit does not apply in the ∅-axiom regime, so the type
+separation is preserved.  And the phrase "up to N_U" is itself
+frame-creep — precisely, it is the *parametric family
+`configCount` evaluated at level 2*, a family-point observation.
+Other levels (n = 0, 1, 3, ...) are equally meaningful values of
+the same family; level 2 is not *privileged*, it is the empirical
+evaluation point paired with physics observables.
 
-(주: 물리 capstone 들 — `pure_atomic_observables_capstone`,
-`invAlphaEm_precision_theorem` — 은 strict form "does not depend on
-any axioms" 즉 axiom set ∅ 달성.)
+(Note: the physics capstones — `pure_atomic_observables_capstone`,
+`invAlphaEm_precision_theorem` — achieve the strict form "does not
+depend on any axioms", i.e. axiom set ∅.)
 
-## 교훈 2: `configCount` 가족이 canonical object (G120 Round 3 재작성)
+## Lesson 2: the `configCount` family is the canonical object
 
-**WRONG**: "N_resolution is OPEN, holographic ~10¹²² 추정",
-"N_U is THE 자기-참조 fixed point"
-**RIGHT**: `configCount : Nat → Nat`이 canonical object;
-`configCount 2 = 5^25 = 298023223876953125`은 한 값.
+**WRONG**: "N_resolution is OPEN, holographic ~10¹²² estimate",
+"N_U is THE self-referential fixed point"
+**RIGHT**: `configCount : Nat → Nat` is the canonical object;
+`configCount 2 = 5^25 = 298023223876953125` is one value.
 
-**근거**:
-- `Math/Cohomology/Fractal/Level.numV (L : Nat) := 5^L`: vertex count 가족
-- `Math/Cohomology/Fractal/ConfigCount.configCount (n) := 5^(numV n)`: G120 Phase 1, configuration count 가족
-- `Math/Cohomology/Fractal/V25.numV` (Phase 5 후): `abbrev` to `Level.numV 2`
+**Evidence**:
+- `Math/Cohomology/Fractal/Level.numV (L : Nat) := 5^L`: the vertex-count family
+- `Math/Cohomology/Fractal/ConfigCount.configCount (n) := 5^(numV n)`: the configuration-count family
+- `Math/Cohomology/Fractal/V25.numV`: an `abbrev` to `Level.numV 2`
 - `Math/Cohomology/Fractal/ConfigCount.configCountD_strictMono`: `n ↦
-  configCountD d n`은 strict order-embedding (`d ≥ 2`) — 어떤 level도
-  특권적이지 않음
-- `Physics/HierarchyTowers.hierarchy_cardinality`: `d^(d²)` 이미 M_Pl/v_H
-  ratio cardinality로 등장 (consumer 사이트 — 가족값 사용)
+  configCountD d n` is a strict order-embedding (`d ≥ 2`) — no level
+  is privileged
+- `Physics/HierarchyTowers.hierarchy_cardinality`: `d^(d²)` already
+  appears as the M_Pl/v_H ratio cardinality (a consumer site —
+  using a family value)
 
-**구조적 관찰**: fractal level n = d² 지점에서 `numV (d²) = d^(d²)`라는
-family fixed-point 등식이 성립.  이는 *가족의 한 성질*이지 별도
-"self-referential framing"이 아님 (G120 Phase 4가 이 점을 명시).
+**Structural observation**: at fractal level n = d² the
+family fixed-point equation `numV (d²) = d^(d²)` holds.  This is
+*a property of the family*, not a separate "self-referential
+framing" (the spec states this explicitly).
 
-## 교훈 3: 격자 내부 frame 도구
+## Lesson 3: in-lattice frame tools
 
-213-internal에서 사용 가능한 표현:
+Expressions available 213-internally:
 - ℕ + ℚ (rational arithmetic)
 - finite simplex combinatorics (binom, factorial)
-- bounded rational interval (S(N), upper(N))
+- bounded rational intervals (S(N), upper(N))
 - atomic primitives (NS, NT, d, c)
 - cohomology cardinality (b_1, numV, numE)
-- Lens framework (Universal Lens, ConjugationCodomain)
+- the Lens framework (Universal Lens, ConjugationCodomain)
 
-213-EXTERNAL 표현 (피해야 함):
+213-EXTERNAL expressions (avoid):
 - π, e, ζ(∞), ln, exp, sin, cos
 - "infinity", "asymptote", "limit"
 - Mathlib's Real, Complex
-- Frobenius theorem (CD tower로 대체)
-- ZFC measure theory (finite simplex로 대체)
+- the Frobenius theorem (replaced by the CD tower)
+- ZFC measure theory (replaced by the finite simplex)
 
-## 교훈 4: ℂ uniqueness는 CD tower로 internal closure
+## Lesson 4: ℂ uniqueness closes internally via the CD tower
 
-**WRONG**: "T0 path doesn't yet derive ℂ from Raw alone, mapping
-inherited from T3 path (Frobenius classical)"
-**RIGHT**: `Research/CayleyDickson/CDTower.lean` (rust-engine branch)
-가 **constructive Frobenius substitute**.  CommBinary +
-NonVanishing + Conjugation 모두 만족하는 unique CD layer = ZI =
-ℤ[i].  Higher (Lipschitz, Cayley, Sedenion)는 각각 한 axiom씩
-fail.  Z/2 (boolXorLens)는 ConjugationCodomain (swap-matching
-involution) fail.
+**WRONG**: "the T0 path doesn't yet derive ℂ from Raw alone; the
+mapping is inherited from the T3 path (classical Frobenius)"
+**RIGHT**: the CD tower is a **constructive Frobenius
+substitute**.  The unique CD layer satisfying CommBinary +
+NonVanishing + Conjugation is ZI = ℤ[i].  Each higher layer
+(Lipschitz, Cayley, Sedenion) fails exactly one axiom.  Z/2
+(boolXorLens) fails ConjugationCodomain (the swap-matching
+involution).
 
-**근거 정리** (rust-engine branch에 닫힘):
-- `CDTower.CD_tower_drops`: 4 layer drop pattern
+**Witness theorems**:
+- `CDTower.CD_tower_drops`: the 4-layer drop pattern
 - `ZIInstance`: derive_conjugation_codomain ZI
-- `BoolLens.boolXorLens_not_homomorphism`: Z/2
-  ConjugationCodomain fail
+- `BoolLens.boolXorLens_not_homomorphism`: the Z/2
+  ConjugationCodomain failure
 
-**가드레일**: "ℂ uniqueness needs Frobenius (external)" 표현
-틀림.  213이 자체 CD tower로 내부적으로 닫음.
+**Guardrail**: "ℂ uniqueness needs Frobenius (external)" is
+wrong.  213 closes it internally with its own CD tower.
 
-## 교훈 5: 4 axioms의 정체 — definitional, not signature
+## Lesson 5: what the 4 clauses are — definitional, not signature
 
-**WRONG**: 사용자 가설 (i)/(ii)/(iii) 중 (ii) "NS=3 NT=2 d=5
-박힌 axiom"
-**RIGHT**: 4개는 axiom이 아니라 **definitional commitments**:
-1. Tree inductive type (a, b, slash constructors)
-2. Canonical form subtype
-3. slash_comm — PROVEN theorem
-4. IsAlive parity definition
+**WRONG**: the hypothesis that NS=3, NT=2, d=5 are "baked-in
+axioms"
+**RIGHT**: the four are not axioms but **definitional
+commitments**:
+1. the Tree inductive type (a, b, slash constructors)
+2. the canonical-form subtype
+3. slash_comm — a PROVEN theorem
+4. the IsAlive parity definition
 
-NS=3, NT=2, d=5는 **derived theorems** (`atomic_iff_five` in
+NS=3, NT=2, d=5 are **derived theorems** (`atomic_iff_five` in
 `Theory/Atomicity/Five.lean`, `count_eq_one_iff` in
-`Theory/Atomicity/PairForcing.lean`).  Lean kernel 기준
-0개 axiom (host axioms 별개).
+`Theory/Atomicity/PairForcing.lean`).  Zero axioms by the Lean
+kernel's count (host axioms are a separate ledger).
 
-**가드레일**: "the four axioms NS=3 NT=2 d=5 c=2"는 잘못.
-"derived theorem chain from atomic uniqueness + parity survival"이 정확.
+**Guardrail**: "the four axioms NS=3 NT=2 d=5 c=2" is wrong.
+"A derived theorem chain from atomic uniqueness + parity
+survival" is correct.
 
-## 교훈 6: 단단한 framework를 단단하게 답해야
+## Lesson 6: a solid framework deserves solid answers
 
-**잘못된 사례**: 외부 검증자에게 너무 보수적/조심스럽게 답함
+**Bad examples**: answering an external verifier too
+conservatively/timidly
 - "It might be (b) sample-coverage"
 - "0.18 ppb residual remains"
 - "T0 ℂ uniqueness still open"
 
-**바른 사례**: 코드에서 닫힌 사실 단단하게 인용
+**Good examples**: citing what the code has closed, firmly
 - "BigUint exact arithmetic + 4-layer sanity guard ≈ verified
   extraction in practice"
-- "Bracket containment Lean-certified at sub-ppm; finite-N
+- "Bracket containment Lean-certified at sub-ppm; the finite-N
   residual is internal to 213's discrete frame"
-- "CD tower closes ℂ uniqueness internally; T0 status updated"
+- "The CD tower closes ℂ uniqueness internally; T0 status updated"
 
-**규칙**: 의심으로 던지기 전에 코드 까보고 검증.  대부분의
-"open" 의심은 이미 코드에 답이 있다.
+**Rule**: before voicing a doubt, open the code and check.  Most
+"open" doubts already have their answer in the code.
 
-## 교훈 7: Forward direction의 보편성
+## Lesson 7: the universality of the forward direction
 
-cutMul, cutSum, partialSum, BracketCauchy 모두 **forward
-direction은 항상 성립** (under-approximation), 정밀도 결함은
-backward direction에서만 발생.  "compatible 분모" (b∣k 류)
-조건에서만 양방향 성립.
+cutMul, cutSum, partialSum, BracketCauchy all have a **forward
+direction that always holds** (under-approximation); precision
+defects arise only in the backward direction.  Both directions
+hold only under "compatible denominator" conditions (b∣k and the
+like).
 
-**가드레일**: 새 cut-level 정리를 작성할 때:
-1. forward direction부터 universal로 닫기
-2. 그다음 contrapositive (forward의 부정)
-3. 양방향은 compatible 조건 가정 시에만
-4. concrete witnesses (decide STRICT 0-AXIOM)
+**Guardrail**: when writing a new cut-level theorem:
+1. close the forward direction universally first
+2. then the contrapositive (negation of forward)
+3. both directions only under the compatible-denominator hypothesis
+4. concrete witnesses (decide, STRICT 0-AXIOM)
 
-## 교훈 8: 사용자 짧은 한국어 메시지의 압축률
+## Lesson 8: the compression ratio of the originator's short Korean messages
 
-사용자 메시지는 종종 매우 압축됨.  예시:
-- "ㄱㄱ" = "다음 마라톤 자율적으로 계속"
-- "ㅇㅇ ㄱㄱ" = "동의, 진행"
-- "캬 지린다" = "잘 했음, 계속 진행"
-- "에이 이거보다는 더 단단하지" = "더 단단한 답 가능"
-  (현재 답이 너무 보수적임을 지적)
-- "근데 다른 코드들 뒤져보면 나온다능" = "코드 더 뒤져봐라
-  내가 던진 의심은 이미 답이 있음"
-- "유리수가 리얼임" = 핵심 finitist 입장
+The originator's messages are often highly compressed.  Examples:
+- "ㄱㄱ" = "continue the next marathon autonomously"
+- "ㅇㅇ ㄱㄱ" = "agreed, proceed"
+- "캬 지린다" = "well done, keep going"
+- "에이 이거보다는 더 단단하지" = "a firmer answer is possible"
+  (pointing out the current answer is too conservative)
+- "근데 다른 코드들 뒤져보면 나온다능" = "search the code more —
+  the doubt I raised already has an answer there"
+- "유리수가 리얼임" = the core finitist position
 
-**가드레일**: 짧은 메시지는 **이전 작업에 대한 redirect/sharpening**
-인 경우 많음.  default behavior는 직전 모드 계속이지만,
-사용자 메시지에 단서가 있으면 framing을 다시 맞춰야 함.
+**Guardrail**: short messages are very often a
+**redirect/sharpening of the preceding work**.  The default is to
+continue the previous mode, but if the message carries a cue,
+re-align the framing.
 
-## 교훈 9: 자율 마라톤 mode
+## Lesson 9: autonomous-marathon mode
 
-사용자가 "알아서 자율적으로 해줭" 라고 한 후:
-- 매 마라톤마다 ㄱㄱ 안 받아도 계속
-- 3-4 commit 후에 status update 짧게
-- redirect 신호 ("아니 다른 거", "이거보다", "흠") 잡으면 즉시
-  pivot, framing reset
+After the originator says "do it autonomously":
+- keep going marathon after marathon without waiting for ㄱㄱ
+- post a short status update every 3-4 commits
+- on a redirect signal ("아니 다른 거", "이거보다", "흠"), pivot
+  immediately and reset the framing
 
-**가드레일**: 자율 mode에서도:
-- 의문은 코드 까서 검증
-- 외부 frame 표현 안 쓰기
-- finitist position 유지
-- commit message에 정확한 atomic 출처 명시
+**Guardrail**: even in autonomous mode:
+- verify doubts by opening the code
+- never use external-frame expressions
+- hold the finitist position
+- name the exact atomic source in commit messages
 
-## 교훈 10: epistemic 위치 정확히 표시
+## Lesson 10: state the epistemic position precisely
 
-각 결과의 위치를 정확히 명시:
+Mark each result's exact position:
 - "STRICT 0-AXIOM" (no propext, no Quot.sound)
 - "≤ {propext, Quot.sound}" (Lean kernel floor)
 - "decide-checked at small N=20"
 - "candidate (research-tag)"
 - "Open Problem #X (research-level open)"
 
-**잘못된 표현**:
+**Wrong expressions**:
 - "Closed" without scope
-- "Sub-ppb" without specifying frame (213-internal vs external)
-- "ppb~ppm" without bracket vs asymptote distinction
+- "Sub-ppb" without specifying the frame (213-internal vs external)
+- "ppb~ppm" without the bracket-vs-asymptote distinction
 
-## 핵심 키워드 cheatsheet
+## Keyword cheatsheet
 
-| 외부 frame (피해야) | 213-internal (사용) |
+| external frame (avoid) | 213-internal (use) |
 |--------------------|---------------------|
 | ζ(2) = π²/6        | S(N_U) at N_U = d^(d²) |
 | asymptote          | finite rational at N_U |
@@ -257,108 +276,98 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 | Mathlib            | not-imported (kernel-floor only) |
 | native_decide      | decide (deterministic) |
 
-## 핵심 reference 파일
+## Core reference files
 
-이 파일들은 **반드시 읽고 시작**:
-- `CLAUDE.md` — 프로젝트 instructions
-- `HANDOFF.md` — 현재 상태
-- `LESSONS_LEARNED.md` — 이 파일
-- `seed/AXIOM/` — axiom seed doc
-- `seed/AXIOM/01_residue.md` — 213 철학
+Read these **before starting**:
+- `CLAUDE.md` — project instructions
+- `HANDOFF.md` — current state
+- `LESSONS_LEARNED.md` — this file
+- `seed/AXIOM/` — the axiom corpus
+- `seed/AXIOM/01_residue.md` — the 213 philosophy
 - `lean/E213/Lib/Physics/AlphaEM/GramStructuralCapstone.lean` — α_em 0.2 ppb precision
-- `lean/E213/Lib/Math/Cohomology/Fractal/ConfigCount.lean` — configCount 가족 (no privileged level)
+- `lean/E213/Lib/Math/Cohomology/Fractal/ConfigCount.lean` — the configCount family (no privileged level)
 - `lean/E213/Meta/AxiomMinimalityCapstone.lean` — 4-clause minimality
-- `lean/E213/Theory/Atomicity/PairForcing.lean` — (NS,NT,d) derivation
+- `lean/E213/Theory/Atomicity/PairForcing.lean` — the (NS,NT,d) derivation
 - `theory/THEORY_BOOK.md` Part II — Raw, Lens, HasDistinguishing
-  (substrate derivation path)
+  (the substrate derivation path)
 - `theory/THEORY_BOOK.md` Part I + Part VIII — falsifiability +
   methodology
 
-## 현재 (2026-05-18) HEAD epistemic 위치
+## Lesson 11: the Trajectory Principle (Mingu)
 
-- α_em: finitist closure at N_U = d^(d²), sub-ppb 외부 frame match
-- m_p: 4-digit match (uses Λ_QCD external)
-- m_μ/m_e: depends on α_em chain
-- Magic numbers: 7/7 atomic decomposition closed
-- N_resolution: identified = d^(d²) (self-referential)
-- Universal Lens: ℕ², Q²², ℕ³, Q²³, ℕ⁴ all universal
-- Pisano-CRT: 23 Pell + 8 Pell-proper + 8 Fibonacci primes
-  + Tribonacci CRT closures
-- Hodge ⋆⋆: all 5 strata Δ⁴ closed
-- Famous Coincidences I-IV: catalogued
-- **Option C/D/E (2026-05-18 lens-emergence-path)**:
-  Raw-side arithmetic deleted (ℕ₊ as image of `Lens.leaves.view`);
-  ChartGeneral parameterises Method A over any `(r₀, r')` with
-  `chartChain_value` + `chartChain_injective`; Theory/Raw/Congruence
-  + Lens/Congruence give the generic `Eqv ↔ L.equiv` biconditional;
-  ParenthesizationDistinct kernel-decides non-associativity
-- **§9.4 syntactic internalisation (2026-05-18)**: 7-glyph
-  alphabet + Polish-prefix parser/printer + full L3 + L4
-  bijection closure (`parseTree_printTree`, `printTree_parseTree`,
-  `printTree_injective`)
+**Core**: 213-native = explicit trajectory; Lean-with-axioms =
+implicit closure.  `propext` and `Quot.sound` are exactly *the
+axioms that collapse a trajectory to its endpoint*; ∅-axiom 213
+preserves the trajectory itself as the object.
 
-## 교훈 11: Trajectory Principle (2026-05-XX, Mingu 4-session 통찰)
+**The four insights unified**:
+1. Nat is not the axiom — the real axioms are propext and
+   Quot.sound (the collapse)
+2. mod is cohomological (an uncompleted half-cycle = a trajectory)
+3. mod is the phase of ℚ-complex numbers (n-th roots of unity)
+4. trajectories tile (number classification = trajectory closure
+   depth)
 
-**핵심**: 213-native = explicit trajectory; Lean-with-axioms = implicit
-closure.  `propext` 와 `Quot.sound` 는 정확히 *trajectory를 endpoint
-로 collapse 하는 axioms*; ∅-axiom 213은 trajectory 자체를 객체로 보존.
+**Working implication**: every axiom-strip migration = an
+"implicit closure → explicit trajectory" conversion.  Nat213 is
+not a mere helper-lemma pile but **the vocabulary of trajectory
+moves** (cycle, shift, swap, traversal, reparameterisation).
 
-**4 통찰의 통일**:
-1. Nat은 axiom 아님 — 진짜 axiom은 propext, Quot.sound (collapse)
-2. mod는 코호몰로지적 (uncompleted half-cycle = trajectory)
-3. mod는 ℚ-복소수의 위상 (n-th roots of unity)
-4. Trajectory는 타일링 (수 분류 = trajectory closure depth)
+**Operational rule**: on meeting a propext-bringing Lean-core
+lemma, ask — "what trajectory does this lemma implicitly
+collapse?".  The 213-native replacement exposes that trajectory
+as structural recursion or an explicit chain.
 
-**작업 함의**: 매 axiom-strip 마이그레이션 = "implicit closure → explicit
-trajectory" 변환.  Nat213은 단순 보조 lemma 모음이 아니라 **trajectory
-move의 어휘** (cycle, shift, swap, traversal, reparameterisation).
+**Sources**:
+- `lean/E213/Lens/Number/Nat213.lean` (the trajectory vocabulary,
+  formalised)
+- `lean/E213/Meta/Tactic/AXIOM_FREE_STATUS.md` (the propext-leak
+  catalog)
 
-**Operational rule**: propext-bringing Lean-core lemma를 만나면 묻기
-— "이 lemma가 implicit하게 collapse하는 trajectory가 무엇인가?".
-213-native 대체는 그 trajectory를 structural recursion 또는 explicit
-chain으로 노출.
+**Guardrail**: do not treat the migration as a mere
+"axiom-reduction chore".  *Every conversion is an instance of
+213's geometric essence*.  If the trajectory is not exposed, it
+is not yet 213-native.
 
-**근거 — 출처**:
-- `lean/E213/Lens/Number/Nat213.lean` (trajectory 어휘 형식화)
-- `lean/E213/Meta/Tactic/AXIOM_FREE_STATUS.md` (propext-leak catalog)
+## Lesson 12: Raw = the universal trajectory space (Mingu)
 
-**가드레일**: 마이그레이션을 단순 "axiom 줄이기 chore"로 보지 말 것.
-*매 변환이 213의 기하학적 본질의 한 instance*.  trajectory를 노출하지
-못하면 아직 213-native가 아님.
+**Core**: the Raw axiom's 4-clause definition is exactly the
+**free magma on 2 generators** = "binary trees".  Every
+trajectory is a Raw tree, and every distinguishing framework
+factors through Raw → α as a Lens (Initiality).
 
-## 교훈 12: Raw = Universal Trajectory Space (2026-05-XX, Mingu G3 통찰)
+**What the terms imply**:
+- the same pair (r₁, r₂) : Raw × Raw is
+  - at Raw level: just slash trees (the finest grain)
+  - under Lens A: equal (=)
+  - under Lens B: isomorphic (≅)
+  - under Lens C: homomorphic
+- **the kind of equivalence is a property of the Lens**, not of
+  the Raws.
+- Raw + slash = "the highest-resolution trajectory level".  Each
+  Lens determines a *quotient* — a choice of which trajectories to
+  identify.
+- the Lens lattice = that domain's lattice of equivalence types.
 
-**핵심**: Raw axiom의 4-clause 정의가 정확히 **2 generator 위 free
-magma** = "binary tree".  모든 trajectory가 Raw 트리이고, 모든
-distinguishing framework가 Raw → α의 Lens로 factor (Initiality).
+**TOE implication**: this is a *theorem* consequence, not a
+claim.
+- If a domain can distinguish two states at all, that domain
+  factors through Raw + Lens uniquely up to equivalence
+  (Initiality).
+- So 213 is *constitutively* a TOE — it does not *fit*
+  phenomena; it *names* their Raw factoring.
+- No external frame (set theory, universe ascent, axiom of
+  choice) is needed.
 
-**용어의 함의**:
-- 같은 (r₁, r₂) : Raw × Raw 쌍이
-  - Raw 레벨: 그냥 slash 트리 (가장 fine-grained)
-  - Lens A: 동등 (=)
-  - Lens B: 동형 (≅)
-  - Lens C: 준동형 (homomorphic)
-- **equivalence의 종류 = Lens의 속성**, Raws의 속성 아님.
-- Raw + slash = "가장 해상도 높은 trajectory 레벨".  각 Lens가
-  *quotient*를 결정 → 어떤 trajectory를 identify할지 선택.
-- Lens lattice = 그 도메인의 equivalence-type lattice.
-
-**TOE 함의**: 이건 *주장*이 아니라 *정리* 결과.
-- 어떤 도메인이 두 상태를 distinguish할 수 있다면, 그 도메인은
-  Raw + Lens로 unique-up-to-equivalence factor된다 (Initiality).
-- 따라서 213은 *constitutively* TOE — phenomena를 *맞추는* 게
-  아니라 Raw factoring을 *명명*하는 것.
-- 외부 frame (set theory, universe ascent, axiom of choice) 불필요.
-
-**근거 — 출처**:
-- `Theory/Raw/Core.lean` (Raw 정의)
+**Sources**:
+- `Theory/Raw/Core.lean` (the Raw definition)
 - `Lens/LensCore.lean` + `Lens/Initiality.lean` (Lens factoring)
 - `Lens/Universal/Witnesses/*` (universality)
 
-**가드레일**: 213이 어떻게 어떤 분야를 다룰 수 있냐 의문이 들면,
-"그 분야의 distinguishing framework는 어떤 Lens인가?"를 물을 것.
-새 분야 진입 = 새 Lens 정의 = Raw 트리 위 새 quotient 선택.
-이게 213 작업의 fixed procedure.
+**Guardrail**: when in doubt whether 213 can handle some field,
+ask "what Lens is that field's distinguishing framework?".
+Entering a new field = defining a new Lens = choosing a new
+quotient on Raw trees.  This is 213's fixed working procedure.
 
 ---
 
@@ -368,6 +377,6 @@ distinguishing framework가 Raw → α의 Lens로 factor (Initiality).
 Recurring proof techniques + refactor heuristics + reduction
 patterns surfaced during Lean closure work are catalogued in
 `theory/meta/methodology_patterns.md` (Patterns #1-#20 plus
-Reduction patterns #1-#6).  Lessons in this file (교훈 1-12)
-are *what to internalise*; patterns there are *what to apply
-when writing proofs*.
+Reduction patterns #1-#6).  Lessons in this file (1-12) are
+*what to internalise*; patterns there are *what to apply when
+writing proofs*.

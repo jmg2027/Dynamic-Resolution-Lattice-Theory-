@@ -4,7 +4,10 @@
 degree 2, 3, … — `W ~ N(m,k)²`, `N(m1,k1)×N(m2,k2)`, or other shapes?
 
 **Status**: the algebraic pillar is **closed** at degrees 2 and 3; the graded
-transcendental generator and the two-real separation modulus are **open**.
+rate generator (rung 1) is **closed** (`RateModulus.graded_total_modulus`,
+`N = k^s + 1`); the conditional measure-modulus schema (rung 2) is **closed**
+(`BracketModulus` + `PiMeasureModulus`: π conditionally degree-`s`); the
+two-real separation modulus is **open**.
 
 ## The conversion law (the frame)
 
@@ -29,7 +32,7 @@ modulus is the growth class of `N` in `k`, and it factors as
   presentation-dependence (`Zeta3Cut.zeta3_presentation_overtakes`) are the
   transcendental-only regime.
 
-## Open rungs
+## Rungs (status inline)
 
 0. **The exact degree of an arbitrary irrational** (originator, second round).
    The "tight, no-more-no-less" degree is the irrationality measure `μ(x)`,
@@ -71,7 +74,10 @@ modulus is the growth class of `N` in `k`, and it factors as
    degree-3 brick as an exponent) and degree e (`ePow_at_two = 7`, the kernel
    evaluating `eulerCauchySeq.N` inside the schedule), and iterated once:
    `eSelfScheduled` — e rescheduled by a schedule querying e's own modulus,
-   limit-preserving (`reschedule_limit_eq`).  Still open here: *tightness* of
+   limit-preserving (`reschedule_limit_eq`).  **And the degree-as-cut backbone is LANDED** (`powSched_mono`: exponent-cut
+   order transports to schedule order, so the threshold "a degree-τ schedule
+   suffices for x" is monotone — a cut one level up; its decidability = the
+   effective-μ question, Roth-grade).  Still open here: *tightness* of
    `dyUp` (lower witness needs the ratio/rescale property), and a real whose
    *intrinsic* degree is irrational (Jarník construction) rather than a
    rescheduled presentation.
@@ -88,27 +94,77 @@ modulus is the growth class of `N` in `k`, and it factors as
    (`q ≥ 1`), with the doubled-tail upper bracket `S_{N+j} ≤ (a_N(N+1)q + 2p^{N+1})/d_{N+1}`
    past the threshold `2p ≤ (N+2)q` (the geometric halving as one Nat invariant), and
    `e²` localized in `(7, 904/120]` — the ζ(3) posture (fold closed, free modulus
-   open) now holds for all rational exp arguments.
-1. **Graded rate generator** — refine the binary `Dominates`
-   (`RateStratification`) with polynomial slack: `Dominates_s` forgiving an
-   `i^{s−1}` factor of overtake, generalizing `rate_total_modulus` to
-   `N(m,k) = k^s + 2`.  Makes "rescue" graded the way `CompletabilityGrade`
-   already grades "break" (lex `(height, rate)` ordinal) — the two axes become
-   symmetric.
-2. **Conditional measure-modulus schema** — ✅ **the schema is BUILT**
-   (`AbCutSeq.sep_cauchy` / `toCauchySep`): a separation schedule `I : Nat → Nat`
-   ("every `false` reading at resolution `k` already shows at layer `I k`")
-   completes any fold with the constructed modulus `N(m,k) = I k` — the
-   effective-irrationality cost isolated in the one hypothesis `hsep`.
-   **Instantiated at `exp(p/q)`** (`ExpRationalCut` §5, `expPQCauchySep`): the §3
-   bracket reduces `hsep` to *one arithmetic statement per resolution* ("no
-   fraction of denominator `k` lies in the `I k`-th bracket"), with the strict
-   squeeze `d·m < a·k ≤ U-bracket < d·m` closing the above-schedule case.  What
-   remains open is supplying `hmeas` unconditionally (Padé/Hermite effective
-   irrationality of exp, `I k ≈ 2p/q + O(log k)`); Wallis-π instantiates the same
-   `toCauchySep` in one line whenever its `μ(π) ≤ 7.11`-grade separation
-   hypothesis is supplied (π moves from "hypothesis modulus" to "conditional
-   degree-7 modulus").
+   open) now holds for all rational exp arguments.  The conditional schema is
+   instantiated here too (`ExpRationalCut` §5, `expPQCauchySep`): the §3 bracket
+   reduces `hsep` to one arithmetic statement per resolution, the strict squeeze
+   closing the above-schedule case; open piece = unconditional `hmeas`
+   (Padé/Hermite effective irrationality, `I k ≈ 2p/q + O(log k)`).
+1. **Graded rate generator** — **CLOSED** (`RateModulus` / `RateStratification`,
+   all ∅-axiom).  The margin telescope parametrized by a probe schedule
+   `ρ : ℕ → ℕ`: `HtelS a d ρ` (margin `e_i + 1/(ρ_i·d_i)` non-increasing) plus
+   one admitted layer (`k ≤ ρ i₀`) ⟹ cut constant past `i₀+1`
+   (`rateS_cut_const`).  `ρ = id` recovers `Htel`/`N = k+2` definitionally;
+   `ρ = rootFloor s` (new `Meta/Nat/RootFloor`, calibration
+   `rootFloor s (k^s) = k`) gives `graded_total_modulus`: **`N(m,k) = k^s + 1`**
+   (one better than the conjectured `k^s + 2`).  Per-layer form `DominatesS W d ρ`
+   with `htelS_iff_dominatesS` (characterization at every grade) and
+   `overtakeS_breaks_layer`.  The forgiven factor, measured at the admission
+   layer `i = r^s`, is `r^{s−1}` (slack defended `1/(r·d)` vs the identity
+   schedule's `1/(r^s·d)`) — the note's conjectured `i^{s−1}` reads correctly in
+   probe units, not layer units.  Strictness witnessed end to end: `sepDen`
+   (`d_{i+1} = (⌊√i⌋+2)·d_i`, `W = d`) is root-2-dominated everywhere but breaks
+   `Dominates` at layer 4 (`graded_stratification`), and with numerators
+   `a_{i+1} = (⌊√i⌋+2)·a_i + 1` (cross-det relation solved over ℕ) the pair
+   `sepNum/sepDen` is an actual presentation completing at `N = k²+1`
+   (`sep_graded_modulus`) — a real rescued outside the degree-1 class.  Rescue
+   is now graded the way `CompletabilityGrade` grades break.  Narrative:
+   `theory/math/analysis/holonomic_modulus.md` §4.
+   *Post-closure sub-questions*: (a) **schedule comparison law — CLOSED**
+   (`dominatesS_schedule_mono` + `schedule_comparison_needs_gap`): a slower
+   schedule inherits domination iff, beyond `d` non-decreasing and `ρ' ≤ ρ`,
+   the **gap law** holds — `1/ρ'_i − 1/ρ_i ≥ 1/ρ'_{i+1} − 1/ρ_{i+1}`
+   (cross-multiplied ℕ form); and the gap law is indispensable (`W≡1, d≡6`,
+   layer 2: identity `18 ≤ 18` ✓, root-2 `7 ≤ 6` ✗).  Pointwise the ladder is
+   **not a chain**; rungs are independent comparisons, ordered only where the
+   gap law holds (it fails inside root-schedule stretches).  (b) **what
+   real is `sepNum/sepDen`?** — the witness is synthetic (cross-det relation
+   solved over ℕ); its limit's classical identity (CF shape `[0; 2, 3, 3, 4, …]`
+   with partial quotients `⌊√i⌋+2`-driven) is uncharacterized, only its
+   degree-2-rescued completion is.
+2. **Conditional measure-modulus schema** — **CLOSED**
+   (`Real213/BracketModulus` + `ExpLog/PiMeasureModulus`, all ∅-axiom).  The
+   engine: two-sided bracket (strictly increasing fold + non-increasing upper
+   companion + sandwich) + **exclusion depth** `B` ⟹ total modulus
+   `N = B k + 2` (`bracket_total_modulus`).  Wallis instance: the companion
+   `U_n = W_n·(2n+2)/(2n+1)` is proved decreasing (exact identity
+   `4(n+1)²(2n+4)(2n+1) + 2(n+1)(2n+1) = (2n+2)(2n+1)(2n+3)²`), width
+   `≤ 2/(2n+1)`; `PiHalfMeasure C s` (probe inside layer `n` ⟹ width
+   ≥ `1/(C·k^s)` — the effective measure in pure ℕ bracket form) ⟹
+   `n ≤ C·k^s` ⟹ **π/2 modulus `C·k^s + 2`, π modulus `C·(2k)^s + 2`**
+   (`halfPi_measure_modulus` / `pi_measure_modulus`).  π is now a *conditional
+   degree-`s` modulus real*; the analytic cost (`μ(π) ≤ 7.103`,
+   Zeilberger–Zudilin 2020, no effective `(C,s)` formalized) is isolated in the
+   single `PiHalfMeasure` inequality.  The conditionality is now proved
+   **necessary for this pointing**: `wallis_cross_det` (`W_n = a_n·d_n`, the
+   full product — the depth-6 mechanism) ⟹ `wallis_overtakes_every_schedule`
+   / `wallis_no_graded_certificate`: domination fails at every layer ≥ 2 for
+   **every** positive schedule — the Wallis pointing's **rung is ∞**
+   (originator's test question, answered).  Rung is pointing-relative
+   (`depth_is_intensional`) — but **no known π pointing sits at a finite
+   rung** (corrected 2026-06-10: the earlier "Machin/arctan would sit at
+   rung 1" was wrong).  The race needs `tail_i·d_i → 0` (nested
+   factorial-grade denominators, e-style); a fixed-ratio geometric pointing
+   has `tail·d ≈ const` and never resolves, and Machin-type series inflate
+   the common denominator by `lcm(odds) ≈ e²ⁿ`.  A fast pointing improves
+   only the **rate⁻¹ factor of the conditional modulus** (log-many layers
+   for the same measure hypothesis — e.g. a geometric-width bracket like the
+   Catalan/BBP series `π = 3·Σ Catₙ/16ⁿ`, blocked for now on the
+   series-limit = Wallis-limit identification, a real-analysis bridge).
+   Constructing any rate-carrying π pointing = an effective below-side
+   separation for π, transcendence-grade open.  *Residual opening*: prove an
+   actual `(C, s)` instance — even a weak one (any effective
+   transcendence-measure bound for π) — turning the conditional modulus
+   unconditional.
 3. **Two-real separation modulus** — the genuine `N(m1,k1)×N(m2,k2)` object:
    deciding `x ≤ y` for two folds needs a joint `|x−y|` lower bound.  The
    one-probe gap quantum `1/(k·d_i)` is already bilinear (probe × convergent,
@@ -275,6 +331,8 @@ sits in no rung; the ladder classifies the ways of pointing at it.
 ## Pointers
 
 - Closed: `lean/E213/Lib/Math/NumberSystems/Real213/CubeRootTwoCut.lean`,
-  `PhiAsCut`/`FibCassiniNat` (degree 2), `holonomic_modulus.md` (degree-1 class)
+  `PhiAsCut`/`FibCassiniNat` (degree 2), `holonomic_modulus.md` (degree-1 class);
+  rung 1: `Real213/{RateModulus,RateStratification}.lean` (graded generator,
+  `HtelS`/`DominatesS`/`graded_total_modulus`) + `Meta/Nat/RootFloor.lean`
 - Break-grading: `CompletabilityGrade`, `RefinedCompletabilityEngine`
 - ζ(3) companion frontier: `zeta3_free_modulus.md`

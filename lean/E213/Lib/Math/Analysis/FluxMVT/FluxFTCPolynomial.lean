@@ -62,7 +62,7 @@ theorem fluxAlong_square_unitBracket_backward_at (m k : Nat) :
   cutMul_zero_zero_at m k
 
 /-- fluxAlong x³ at unitBracket forward, pointwise (∅-axiom).
-    G110 FLUX-1 template. -/
+    the FLUX-1 template. -/
 theorem fluxAlong_cube_unitBracket_forward_at (m k : Nat) :
     (fluxAlong (fun x => cutMul x (cutMul x x)) unitBracket).forward m k
       = (ofCut (constCut 1 1) : FluxCut).forward m k := by
@@ -74,7 +74,7 @@ theorem fluxAlong_cube_unitBracket_forward_at (m k : Nat) :
   exact cutMul_one_one_at m k
 
 /-- fluxAlong x³ at unitBracket backward, pointwise (∅-axiom).
-    G110 FLUX-1 template. -/
+    the FLUX-1 template. -/
 theorem fluxAlong_cube_unitBracket_backward_at (m k : Nat) :
     (fluxAlong (fun x => cutMul x (cutMul x x)) unitBracket).backward m k
       = (ofCut (constCut 1 1) : FluxCut).backward m k := by

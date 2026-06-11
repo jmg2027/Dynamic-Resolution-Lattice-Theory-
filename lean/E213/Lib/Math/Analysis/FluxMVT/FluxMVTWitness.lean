@@ -68,7 +68,7 @@ open E213.Lib.Math.Analysis.FluxMVT.FluxMVTPolynomial.FluxCut
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq)
 
 /-- d/dx [x²] at x = 1/2 = 1 (pointwise, ∅-axiom).
-    G110 FLUX-1 sum template. -/
+    FLUX-1 sum template. -/
 theorem squareDerivative_at_half_at (m k : Nat) :
     squareIsDifferentiable.derivative (constCut 1 2) m k = constCut 1 1 m k := by
   show cutSum (cutMul (constCut 1 1) (constCut 1 2))

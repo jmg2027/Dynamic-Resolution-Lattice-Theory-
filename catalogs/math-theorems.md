@@ -517,8 +517,7 @@ import E213.Lens.RawTopology
 ```
 
 The §9.5 "K_∞ ≡ point ≡ trivial-topology infinite space" content
-lives in `RawTopology.lean` (merged from the prior
-`UndifferentiatedRaw.lean` plan).  Witnesses: under the constant
+lives in `RawTopology.lean`.  Witnesses: under the constant
 Lens every Raw maps to the same value (indiscrete bookend); under
 the strict-eq Lens every distinct pair is distinguished (discrete
 bookend); both readings are valid at the raw layer.
@@ -554,18 +553,17 @@ import E213.Lib.Math.Algebra.Mobius213
 layers, witnessing det [[2,1],[1,1]] = 1.  Same algebraic content
 under frozen (fixed-point) + dynamic (iteration) readings.
 
-The ∀n form (`mobius_213_pell_unit_invariant_forall`) closes the
-deferred universal form previously blocked by lack of 213-native
-Int ring algebra; proven via `cross_step_algebra` (manual rw chain
-using `Meta.Int213.*` only — no simp, no omega, no Mathlib).
+The ∀n form (`mobius_213_pell_unit_invariant_forall`) is proven
+via `cross_step_algebra` (manual rw chain using `Meta.Int213.*`
+only — no simp, no omega, no Mathlib).
 
 ---
 
-## M. 213-tower L_∞ structural closure (G61, Phase 1 hero)
+## M. 213-tower L_∞ structural closure
 
 ```lean
 import E213.Lib.Math.Algebra.Mobius213.TowerLInfty
--- theorem tower_trajectory_unique          ★ G61 Q1: deterministic P-iter
+-- theorem tower_trajectory_unique          ★ Q1: deterministic P-iter
 -- theorem tower_growth_phi_squared_bracket ★ φ² ∈ (2, 3) at layers 1..7
 -- theorem pell_unit_constant_under_iteration ★★★ tower invariant -1
 -- theorem g61_partial_capstone             ★★★ Q1 + Q5(part) + L_∞
@@ -582,19 +580,19 @@ import E213.Lib.Math.NumberSystems.Real213.PhiCut
 -- theorem phi_cut_capstone            ★★★ Phase 1b closure (7-conjunct)
 ```
 
-Closes three of the five G61 structural questions (Q1, Q5 partial,
+Closes three of the five tower-L∞ structural questions (Q1, Q5 partial,
 L_∞ existence).  Q2 + Q3 (213-internal L0 via swap-as-negation) and
 Q4 (3-side extension) remain research-thread follow-ups.
 
 ---
 
-## N. Minimal Root Lens IVT certificate (G31, Phase 4)
+## N. Minimal Root Lens IVT certificate
 
 ```lean
 import E213.Lib.Math.Analysis.DyadicSearch.MinimalRootCapstone
 -- def ivt_root_certificate     ★★★ 4-input typed-witness IVT root
 -- theorem ivt_four_axis_correspondence  modulus/trajectory/structure/residue
--- theorem g31_phase4_closure   ★★ G31 design realised
+-- theorem g31_phase4_closure   ★★ the certificate design realised
 ```
 
 213-native locatedness as four typed data witnesses, no classical
@@ -619,8 +617,8 @@ content imported.  Pairs with the existing
 | J. Flat ontology + closure | 3 | 22+ |
 | K. Three-direction uniqueness | 1 | 1 unified |
 | L. Möbius frozen+dynamic | 1 | 8 |
-| M. Tower L_∞ closure (G61, Phase 1) | 3 | 14 |
-| N. Minimal Root IVT cert (G31, Phase 4) | 1 | 3 |
+| M. Tower L_∞ closure | 3 | 14 |
+| N. Minimal Root IVT cert | 1 | 3 |
 | **Total** | **96+** (core of 178+ total modules) | **354+ theorems** |
 
 STRICT ∅-AXIOM · 0 sorry · Mathlib-free · 0 Classical · 0 native_decide

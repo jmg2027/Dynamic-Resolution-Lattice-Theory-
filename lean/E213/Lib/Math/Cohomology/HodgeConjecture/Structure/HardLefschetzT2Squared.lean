@@ -3,7 +3,7 @@ import E213.Lib.Math.Cohomology.Surfaces.T2Squared.HardLefschetz
 /-!
 # Hard Lefschetz²¹³ on T² × T² — non-vacuous form
 
-G10 Phase 2 follow-up.  The base `Structure/HardLefschetz.lean`
+Phase 2 follow-up.  The base `Structure/HardLefschetz.lean`
 fires on Δ⁴ where `⋆⋆ = id` IS Hard Lefschetz in ℤ/2 (eigenspace
 collapse).  This file lifts to a **213-canonical 4-fold** with
 genuine non-zero middle cohomology — the minimal CW of T² × T²
@@ -15,7 +15,7 @@ isomorphisms are non-trivial:
     matrix (det = +1 ⟹ iso ℤ)
 
 These match the standard Hard Lefschetz prediction at complex
-dim 2.  Realises G10 Phase 2 closure summary's third deferred
+dim 2.  Realises the Phase 2 closure summary's third deferred
 follow-up:
 
   > "Hard Lefschetz on a T²×T² shadow with non-zero middle

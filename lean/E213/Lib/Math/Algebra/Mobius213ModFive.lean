@@ -92,7 +92,7 @@ theorem neg_one_sq : ((-1 : Int)) * (-1) = 1 := by decide
 
 /-- ★★★★ **P^10 ≡ +I (mod 5)** — matrix square of `-I` (mod 5) is `I`.
 
-    The c = 2 binary cover doubling of pentagonal closure (G80
+    The c = 2 binary cover doubling of pentagonal closure (the
     §"Why c=2"): 5 = half-period, 10 = full-period, c = 10/5 = 2 = NT. -/
 theorem P_pow_10_eq_I_mod_5 :
     -- (-1) * (-1) = 1 (diagonal entries restore +1)

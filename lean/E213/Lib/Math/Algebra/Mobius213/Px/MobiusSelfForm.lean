@@ -21,7 +21,7 @@ The form itself IS the Möbius matrix: P = [[2,1],[1,1]] is a
        (CharPolySelf) with uniqueness, P is a fixed point of
        describe-then-reconstruct.
 
-## Conceptual content (G139)
+## Conceptual content
 
 The identity `det = 1` manifests simultaneously as:
   (a) Matrix determinant preservation under P-iteration.
@@ -243,7 +243,7 @@ P is a fixed point of its own description functor.
 
 "모습 자체가 뫼비우스 행렬이네" — the form itself IS the matrix. -/
 
-/-- ★★★★★★★★★★★★ **Self-reconstruction master (G139 capstone)**.
+/-- ★★★★★★★★★★★★ **Self-reconstruction master**.
 
     P is a fixed point of the describe-reconstruct cycle:
 

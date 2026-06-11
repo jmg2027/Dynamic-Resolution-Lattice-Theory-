@@ -3,7 +3,7 @@
 Refinement-side machinery: Lefschetz (hyperplane / (1,1)), standard
 conjectures, Voisin's refinement, generalized Hodge.
 
-## Files (6)
+## Files (7)
 
   - `LefschetzHyperplane.lean`    — Lefschetz hyperplane theorem
   - `LefschetzOneOne.lean`        — Lefschetz (1,1) theorem
@@ -11,6 +11,7 @@ conjectures, Voisin's refinement, generalized Hodge.
   - `Voisin.lean`                 — Voisin's refinement
   - `GeneralizedHodge.lean`       — generalized Hodge conjecture
   - `CupAtomicGeneration.lean`    — cup-atomic generation refinement
+  - `AtomicGenerationHeptad.lean` — HC²¹³ atomic-generation heptad capstone
 
 ## Where to add new files
 
