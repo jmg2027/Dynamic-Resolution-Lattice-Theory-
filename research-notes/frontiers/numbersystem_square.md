@@ -607,15 +607,25 @@ f x` (`iter_idem`), so the `∪`/`max` climb is trivial (`max_iter_trivial`,
 `a∪a=a`).  The diagonal is multiplicative only where the rung-operator is
 not idempotent.
 
-**Substrate dimension splits the readout — ★ PROVED** (`Meta/Nat/GridReadout213.lean`).
-`exp` was vector-valued for ONE reason (distinguishable ×-atoms); here is
-a SECOND — the substrate dimension.  1-D (list): one readout, length, on a
-total order (`oneD_readout_total`).  2-D (grid): the readout splits into
-independent coordinates — `area = a·b` vs `perimeter = 2(a+b)` are not
-mutually determined (`readout_splits`, witness `(1,6)` vs `(2,3)`: equal
-area `6`, perimeter `14 ≠ 10`), with `diagonal = min a b` a third
-(`readout_splits_three`).  Metric facet; the topological version
-(Euler/Betti) lives in `Lib/Math/Geometry/`.
+**Substrate dimension = `exp`'s axis at coarser resolution — ★ PROVED, with
+a self-catch** (`Meta/Nat/{GridReadout213, Shape213}.lean`).  First take
+(`GridReadout213`): "raise the substrate to 2-D and the readout splits into
+`area = a·b` vs `perimeter = 2(a+b)`" — claimed a *second, independent*
+source of vector readout besides atom-coloring.  **Caught (originator):
+`perimeter` is an imported Euclidean readout** — an abstract unit-grid has
+no boundary; `2(a+b)` needs the embedding in the plane.  The import created
+the illusion of independence.  Corrected (`Shape213`): the internal readout
+is the **shape** = an ordered factorization (`[1,6] ≠ [2,3]` already splits,
+no perimeter — `shape_splits`); `area = shapeProduct` is its
+**product-collapse**; **dimension = #factors** (`dimension`); refining a
+factor splits one dimension while fixing the area
+(`refine_preserves_product` + `refine_increases_dimension`).  So a `d`-grid
+is a `d`-factor factorization and the prime factorization (`exp`, `VpMul`)
+is the **maximal-dimension** one (`refine_chain`: `[6]→[2,3]`, area fixed,
+dim +1).  **Substrate dimension and atom-coloring are ONE structure — the
+×-atom / factorization — at different resolutions, not two independent
+sources.**  (The topological readouts Euler/Betti, `Lib/Math/Geometry/`,
+are the genuinely-invariant version of "raise the dimension".)
 
 **Knobs still not turned** (each a new operation family, the open frontier):
 reverse the arrows (co-operations / splitting; convolution =

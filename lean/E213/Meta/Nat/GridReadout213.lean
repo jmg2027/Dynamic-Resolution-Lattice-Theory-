@@ -2,56 +2,38 @@ import E213.Meta.Nat.PureNat
 import E213.Meta.Nat.UnitList
 
 /-!
-# GridReadout213 — a SECOND source of vector-valued readout: substrate dimension
+# GridReadout213 — substrate dimension and the readout split (corrected: see `Shape213`)
 
-`exp` (the `×`-count-Lens) is vector-valued for ONE reason: the
-multiplicative atoms (primes) are **distinguishable**, so the `×`-count
-splits into one coordinate per prime axis — **atom-coloring**.  This file
-pins a *second*, independent reason a readout becomes vector-valued — the
-originator's "what if 3-D cells / higher substrate?" probe: the
-**dimension of the substrate** the units sit on.
+The originator's "what if 3-D cells / higher substrate?" probe.  An `a × b`
+grid of indistinguishable units carries an internal `area = a * b` (the
+bulk cell-count, `UnitGrid.total`).  This file also records a `perimeter`
+readout and shows area does not determine it — but **`perimeter` is not
+internal**: an abstract unit-grid has no boundary; `perimeter = 2*(a+b)`
+imports the **Euclidean embedding** of the rectangle in the plane.  So the
+perimeter-based `readout_splits` is a *metric/imported* witness, kept here
+only as the entry rung; the **import-free** statement lives in `Shape213`,
+where the honest internal readout is the **shape** `(a,b)` itself (which
+already distinguishes `1×6` from `2×3` with no boundary needed).
 
-* On a **1-D** substrate (`UnitList`) the only readout is the **length**
-  (= `count`): one `Nat`, living on a total order
-  (`oneD_readout_total`).  One number suffices; nothing to split.
-* On a **2-D** substrate (`UnitGrid`) the readout **splits**.  An `a × b`
-  grid of the same indistinguishable units carries an `area = a * b` (the
-  bulk cell-count, `UnitGrid.total`) *and* a boundary readout
-  `perimeter = 2 * (a + b)`.  These are **independent coordinates**: area
-  does not determine perimeter (`readout_splits`★★), so no single number
-  captures the 2-D cell-set.
+**Correction (originator catch).**  `perimeter` made it *look* as if
+substrate dimension were a **second, independent** source of vector-valued
+readout besides atom-coloring (`exp`).  It is not.  The internal readout is
+the shape = an **ordered factorization**; `area` is its product-collapse;
+the **dimension = the number of factors**.  A `d`-grid is a `d`-factor
+factorization, and the prime factorization (`exp`, `VpMul`) is the
+**maximal-dimension** one — so substrate dimension and atom-coloring are
+**ONE structure** (the ×-atom / factorization) at different resolutions,
+not two independent sources.  See `Shape213` for the corrected, import-free
+formalization, and `numbersystem_square.md` "tree ↔ wall loop".
 
-The independence witness is `(1,6)` vs `(2,3)`:
-
-  `area 1 6 = 1*6 = 6 = 2*3 = area 2 3`   (same area)
-  `perimeter 1 6 = 2*(1+6) = 14 ≠ 10 = 2*(2+3) = perimeter 2 3`.
-
-Sharpened to the bare coordinates (`area_eq_sum_differ`): the
-multiplicative readout (`1*6 = 2*3`) and the additive readout
-(`1+6 ≠ 2+3`, the semiperimeter) are independent axes of the *same*
-2-D cell-set — the product agrees while the sum differs.  And the 2-D
-readout is **≥2-dimensional, not exactly 2**: the diagonal-cell count
-`diagonal = min a b` is a *third* coordinate, again undetermined by area
-(`readout_splits_three`).
-
-So "vector-valued readout" has (at least) two sources: **atom-coloring**
-(distinguishable `×`-atoms → the prime axes of `exp`) and **substrate
-dimension** (raise the grid dimension → the count splits into geometric
-readouts).  That answers the "3-D cells?" probe directly: more substrate
-dimensions ⇒ more independent readout components, none collapsible to the
-1-D length.
-
-Honesty note: the split formalized here is **metric** (area / perimeter /
-diagonal — extensive Euclidean readouts of a uniform grid).  The deeper,
-presentation-invariant version of "the count splits into invariants when
-you raise the substrate dimension" is **topological** — the Euler
-characteristic / Betti numbers, which live in the repo's
-`Lib/Math/Geometry/`.  This module pins the elementary metric facet, the
-entry rung of the same knob.
-
-Pin: frontier `research-notes/frontiers/numbersystem_square.md`,
-"tree ↔ wall loop" — the "raise the substrate dimension → the count
-splits into invariants" knob.
+What survives here (all true, all ∅-axiom):
+* `oneD_readout_total` — the 1-D substrate has a single readout (length) on
+  a total order;
+* `area` / `readout_splits` — area does not determine the perimeter readout
+  (witness `(1,6)` vs `(2,3)`, area `6`, perimeter `14 ≠ 10`), with the
+  caveat above that `perimeter` is the imported reading;
+* `area_eq_sum_differ`, `diagonal` / `readout_splits_three` — further
+  metric readouts, likewise imported dressings of the internal shape.
 
 All ∅-axiom: witnesses closed by `decide` / `rfl` on concrete `Nat`, and
 the 1-D total-order lemma by bare `Nat` induction.

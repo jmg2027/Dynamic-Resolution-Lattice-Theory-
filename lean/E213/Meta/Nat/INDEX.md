@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (27)
+## Files (28)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -41,10 +41,14 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
   - `HyperAssoc.lean`      — the wall: `+`,`×` keep assoc+comm, `^` loses
                              both (`pow_not_assoc`, `pow_not_comm`); the
                              surviving ghost `(aᵇ)ᶜ = a^(b·c)`
-  - `GridReadout213.lean`  — substrate dimension as a 2nd source of
-                             vector readout: 2-D area vs perimeter
-                             independent (`readout_splits`) vs 1-D's
-                             single totally-ordered length
+  - `GridReadout213.lean`  — substrate dimension + the readout split
+                             (corrected: `perimeter` is an imported
+                             Euclidean readout — see `Shape213`)
+  - `Shape213.lean`        — the internal readout is the shape (an ordered
+                             factorization): area = product-collapse,
+                             dimension = #factors, `refine` splits a
+                             dimension fixing area; substrate dimension =
+                             `exp`'s axis at coarser resolution, ONE source
   - `Iterate213.lean`      — the diagonal climb is iteration; the count
                              slot adds (`iter_add`) and **multiplies**
                              (`iter_mul`); `+`,`×`,`^` as `iter`; the
