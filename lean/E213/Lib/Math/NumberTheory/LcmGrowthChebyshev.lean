@@ -307,4 +307,92 @@ theorem sumTo_le_sumTo : ∀ (n : Nat) (f g : Nat → Nat),
         (sumTo_le_sumTo n f g (fun k hk => h k (Nat.lt_succ_of_lt hk)))
         (h n (Nat.lt_succ_self n))
 
+/-! ## §5 — pure mul/div cancellation (the core analogues carry `propext`/full axioms) -/
+
+private theorem mul_lt_mul_right_pure {a b k : Nat} (hk : 0 < k) (h : b < a) : b * k < a * k :=
+  Nat.lt_of_lt_of_le
+    (by rw [Nat.succ_mul]; exact Nat.lt_add_of_pos_right hk)
+    (Nat.mul_le_mul_right k (Nat.succ_le_of_lt h))
+
+private theorem mul_lt_mul_left_pure {c x z : Nat} (hc : 0 < c) (h : x < z) : c * x < c * z :=
+  Nat.lt_of_lt_of_le
+    (by rw [Nat.mul_succ]; exact Nat.lt_add_of_pos_right hc)
+    (Nat.mul_le_mul_left c (Nat.succ_le_of_lt h))
+
+private theorem le_of_mul_le_mul_right' {a b k : Nat} (hk : 0 < k) (h : a * k ≤ b * k) :
+    a ≤ b := by
+  rcases Nat.lt_or_ge b a with hba | hab
+  · exact absurd h (Nat.not_le.mpr (mul_lt_mul_right_pure hk hba))
+  · exact hab
+
+/-- Pure `(c·n)/(c·k) = n/k` (`c, k > 0`); `Nat.mul_div_mul_left` carries `propext`. -/
+theorem mul_div_mul_left_pure (c n k : Nat) (hc : 0 < c) (hk : 0 < k) :
+    c * n / (c * k) = n / k := by
+  have hck : 0 < c * k := Nat.mul_pos hc hk
+  have sw := div_sandwich k n hk
+  refine (div_eq_of_sandwich hck ?_ ?_).symm
+  · calc c * k * (n / k) = c * (k * (n / k)) := mul_assoc c k (n / k)
+      _ ≤ c * n := Nat.mul_le_mul_left c sw.1
+  · calc c * n < c * (k * (n / k + 1)) := mul_lt_mul_left_pure hc sw.2
+      _ = c * k * (n / k + 1) := (mul_assoc c k (n / k + 1)).symm
+
+/-- Pure `k ≤ n/d ↔ d·k ≤ n` (`d > 0`); `Nat.le_div_iff_mul_le` carries `propext`. -/
+theorem le_div_iff_mul_le {k n d : Nat} (hd : 0 < d) : k ≤ n / d ↔ d * k ≤ n := by
+  constructor
+  · intro h
+    calc d * k ≤ d * (n / d) := Nat.mul_le_mul_left d h
+      _ ≤ n := (div_sandwich d n hd).1
+  · intro h
+    rcases Nat.lt_or_ge (n / d) k with hlt | hge
+    · exact absurd
+        (Nat.le_trans (Nat.mul_le_mul_left d (Nat.succ_le_of_lt hlt)) h)
+        (Nat.not_le.mpr (div_sandwich d n hd).2)
+    · exact hge
+
+/-! ## §6 — the per-level inequality (count30 at `m̃ = ⌊30m/d⌋`) -/
+
+/-- ★★ **Per prime-power level**: for every `d ≥ 1`,
+    `[d≤30m] + ⌊15m/d⌋ + ⌊10m/d⌋ + ⌊6m/d⌋ ≤ ⌊30m/d⌋ + ⌊m/d⌋ + [d≤5m]`.
+    This is `count30` at `m̃ = ⌊30m/d⌋`: the floors map by `div_div_pure` +
+    `(c·x)/(c·y)=x/y` (`⌊15m/d⌋=⌊m̃/2⌋`, …, `⌊m/d⌋=⌊m̃/30⌋`), and the thresholds
+    by `le_div_iff_mul_le` (`d≤30m ⟺ 1≤m̃`, `d≤5m ⟺ 6≤m̃`). -/
+theorem perLevel (m d : Nat) (hd0 : 0 < d) :
+    (if d ≤ 30 * m then 1 else 0) + 15 * m / d + 10 * m / d + 6 * m / d
+      ≤ 30 * m / d + m / d + (if d ≤ 5 * m then 1 else 0) := by
+  have e2 : 30 * m / d / 2 = 15 * m / d := by
+    rw [← div_div_pure (30 * m) d 2 hd0 (by decide), Nat.mul_comm d 2,
+        show 30 * m = 2 * (15 * m) from by ring_nat]
+    exact mul_div_mul_left_pure 2 (15 * m) d (by decide) hd0
+  have e3 : 30 * m / d / 3 = 10 * m / d := by
+    rw [← div_div_pure (30 * m) d 3 hd0 (by decide), Nat.mul_comm d 3,
+        show 30 * m = 3 * (10 * m) from by ring_nat]
+    exact mul_div_mul_left_pure 3 (10 * m) d (by decide) hd0
+  have e5 : 30 * m / d / 5 = 6 * m / d := by
+    rw [← div_div_pure (30 * m) d 5 hd0 (by decide), Nat.mul_comm d 5,
+        show 30 * m = 5 * (6 * m) from by ring_nat]
+    exact mul_div_mul_left_pure 5 (6 * m) d (by decide) hd0
+  have e30 : 30 * m / d / 30 = m / d := by
+    rw [← div_div_pure (30 * m) d 30 hd0 (by decide), Nat.mul_comm d 30]
+    exact mul_div_mul_left_pure 30 m d (by decide) hd0
+  have i1 : (if 1 ≤ 30 * m / d then (1 : Nat) else 0) = (if d ≤ 30 * m then 1 else 0) := by
+    by_cases h : d ≤ 30 * m
+    · rw [if_pos h, if_pos (show 1 ≤ 30 * m / d from
+        (le_div_iff_mul_le hd0).mpr (by rw [Nat.mul_one]; exact h))]
+    · rw [if_neg h, if_neg (show ¬ 1 ≤ 30 * m / d from fun hc =>
+        h (by rw [← Nat.mul_one d]; exact (le_div_iff_mul_le hd0).mp hc))]
+  have i6 : (if 6 ≤ 30 * m / d then (1 : Nat) else 0) = (if d ≤ 5 * m then 1 else 0) := by
+    by_cases h : d ≤ 5 * m
+    · rw [if_pos h, if_pos (show 6 ≤ 30 * m / d from (le_div_iff_mul_le hd0).mpr
+        (show d * 6 ≤ 30 * m from by
+          have hh := Nat.mul_le_mul_right 6 h
+          rw [show 5 * m * 6 = 30 * m from by ring_nat] at hh; exact hh))]
+    · rw [if_neg h, if_neg (show ¬ 6 ≤ 30 * m / d from fun hc =>
+        h (le_of_mul_le_mul_right' (show 0 < 6 by decide)
+          (show d * 6 ≤ 5 * m * 6 from by
+            rw [show 5 * m * 6 = 30 * m from by ring_nat]
+            exact (le_div_iff_mul_le hd0).mp hc)))]
+  have hc30 := count30 (30 * m / d)
+  rw [e2, e3, e5, e30, i1, i6] at hc30
+  exact hc30
+
 end E213.Lib.Math.NumberTheory.LcmGrowthChebyshev
