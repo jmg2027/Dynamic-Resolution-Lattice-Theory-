@@ -173,6 +173,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `multiplicative_count_pnt` — **multiplicative count → PNT horizon**
+  (`MultSystem`/`MultSystemValue`).  CLOSED ∅-axiom: free count
+  `C(N+k,k)`, central-binomial double sum, distinct-naturals (unique
+  factorization), `fromVec` factorization, exp/log skeleton
+  `Ω(n) ≤ log₂ n`, and `factorization_bounded` (naturals ≤ N use only
+  primes ≤ N, so `k = π(N)`).  OPEN: `primePi` counting function (blocked
+  on a decidable `IsPrime213` from `searchDiv`); value-bounded count = N;
+  PNT `π(N) ~ N/ln N` as the asymptotic horizon (pointing, not target).
+  `ln` = continuous shadow of the discrete `exp = Nat.pow` depth.
+
 - `slots_crossdomain` — **the slot programme ↔ the graded-ladder / π
   arc** (merge note): one crystallographic restriction at two scales
   (unit-group phase budget = finite matrix orders, both `{1,2,3,4,6}`
