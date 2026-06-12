@@ -29,7 +29,7 @@ in `π(N)`, is case B, deliberately not here.)
 
 namespace E213.Lens.Number.Nat213.MultSystemValue
 
-open E213.Meta.Nat.VpMul (IsPrime213 vp_mul vp_pow vp_self_pow)
+open E213.Meta.Nat.VpMul (IsPrime213 vp_mul vp_pow vp_self_pow euclid_lemma)
 open E213.Meta.Nat.Valuation (vp pow_vp_dvd mod_zero_of_dvd)
 open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
 open E213.Meta.Nat.VpSeparation (vp_eq_zero_of_not_dvd exists_prime_factor)
@@ -380,6 +380,18 @@ theorem dvd_fact {k : Nat} (hk : 0 < k) : ∀ {n : Nat}, k ≤ n → k ∣ fact 
         rw [hc]; exact E213.Tactic.NatHelper.mul_left_comm (n + 1) k c
       · have heq : k = n + 1 := Nat.le_antisymm h hge
         exact ⟨fact n, by show (n + 1) * fact n = k * fact n; rw [heq]⟩
+
+/-- **`p ∤ n!` for a prime `p > n`** (= `vp_p(n!) = 0`): no factor `1..n` is a
+    multiple of `p`, and a prime dividing a product divides a factor (`euclid_lemma`).
+    The denominator side of "every prime in `(n,2n]` divides `C(2n,n)`". -/
+theorem prime_not_dvd_fact {p : Nat} (hp : IsPrime213 p) :
+    ∀ {n : Nat}, n < p → ¬ p ∣ fact n
+  | 0,     _,   h => not_dvd_one hp.two_le h
+  | n + 1, hlt, h => by
+      rcases euclid_lemma hp h with h1 | h2
+      · exact Nat.lt_irrefl p
+          (Nat.lt_of_le_of_lt (le_of_dvd_pos p (n + 1) (Nat.succ_pos n) h1) hlt)
+      · exact prime_not_dvd_fact hp (Nat.lt_of_succ_lt hlt) h2
 
 /-- **Infinitude of primes** (Euclid).  For every `N` there is a prime `> N`:
     a prime factor of `N! + 1` cannot be `≤ N` (it would divide both `N!` and
