@@ -11,6 +11,15 @@ import E213.Meta.Nat.HyperLadder
 the **exponent lattice**: numbers as prime-indexed exponent vectors, with `×`
 as `+` and `^` as scalar `·`.  This file builds it.
 
+`vp` is the **arithmetic logarithm**: it *demotes* each rung to the previous one
+(`× → +` via `vp_mul`, `^ → scalar·` via `vp_pow`) — the discrete shadow of
+`log(a·b)=log a+log b`, `log(a^b)=b·log a`.  The lattice it lands on is the
+log-coordinate, whose dimension jumps `1 → ∞` (count's single unit-axis → the
+prime axes; atom-indistinguishability vs -distinguishability = lattice
+dimension).  See frontier `general_theory_metaanalysis.md` finding G for the full
+capstone (the demotion holds at every rung; canonical/flat through `^`,
+gauge-dependent/holonomic above — holonomy being the gauge of the demotion).
+
 The catch, and why it is a **setoid** not a quotient type: proving two exponent
 vectors *equal as functions* needs `funext`, which is `Quot.sound`-dirty.  So
 the system carries **pointwise equality** `vecEq` (a `Prop`, exactly the

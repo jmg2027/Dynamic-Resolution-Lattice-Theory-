@@ -356,6 +356,54 @@ No Lean here (conceptual); the genuine core rides existing theorems
 (`hyperop_climb`, `rcut_rescale`, the C2 commutativity proofs, `toVec_pow`/
 `toVec_tetration`).
 
+## G — the tower is one operation under level-appropriate logarithms (capstone; unifies D/E/F)
+
+The conceptual thread (originator-driven) closed on a single organizing
+principle that subsumes D (property→number-system), E (vertical/horizontal),
+and F (holonomy).  The **logarithm demotes each rung to the previous one**:
+`log(a·b)=log a+log b` (`× → +`), `log(a^b)=b·log a` (`^ → ×`).  So each
+operation *is* the previous one, read in a **log-coordinate** — "the previous
+operation on a different lattice" (the originator's phrasing).
+
+- **The lattice that changes = the log-coordinate hierarchy** (the originator's
+  *"most important concept"*).  `+` lives on the **1-axis** count `ℕ`; `×` on the
+  **∞-axis** prime lattice `⊕_p ℕ` (one axis per prime).  The jump `1 → ∞` is
+  driven by **atom (in)distinguishability = lattice dimension**: units are
+  indistinguishable → one generator → 1 axis; primes are distinguishable
+  (independent: `prime_pow_unique`) → ∞ generators → ∞ axes.  So `+` and `×` are
+  *not* "the same operation at two resolutions" — they are addition on lattices
+  of **different dimension** (1 vs ∞).  This sharpens C2: atom-distinguishability
+  is fundamentally a *dimension* fact, not (only) a commutativity one.
+- **`vp` is the arithmetic logarithm** that performs the demotion, ∅-axiom:
+  `VpMul.vp_mul` (`× → +`), `vp_pow` (`^ → scalar·`).  `ExpVector` is the
+  resulting lattice; the staircase is *translation `{+,×}` → scaling `{^}`*
+  (different *dimension* lattices, same `+`).
+- **The break that isn't — holonomy is the *gauge of the demotion*.**  At `↑↑`
+  the demotion needs the **super-log / Abel function** `α` (`α(a^z)=α(z)+1`, so
+  `α(a↑↑b)=α(1)+b` — iteration *becomes addition*).  It **does** hold — in the
+  holonomy-transformed coordinate.  What changes at `^` is that the demotion
+  coordinate goes from *canonical* (ordinary `log`, flat, zero holonomy) to
+  *gauge-dependent* (Abel `α`, non-unique up to a 1-periodic function = nonzero
+  holonomy).  **Holonomy = the gauge group of the demotion, not an obstruction.**
+  (Earlier "↑↑ breaks the pattern" was too strong — corrected by the originator:
+  it holds with a gauge.)
+
+**Scope / honesty.**  The *algebraic* half (`× → +`, `^ → scalar·`, the lattice,
+the dimension jump) is ∅-axiom (`vp_mul`/`vp_pow`/`prime_pow_unique`/
+`toVec_tetration`).  The *analytic* half (the Abel/super-log demotion of `↑↑`,
+its 1-periodic gauge, Kneser's solution) is **standard iteration theory, beyond
+∅-axiom** — recorded as gloss, not Lean.  One-line capstone:
+
+> **The number tower is one operation (addition) seen under level-appropriate
+> logarithms; the demotion always holds; the lattice it lives on is the
+> log-coordinate (dimension `1 → ∞ → …`); the coordinate is canonical (flat)
+> through `^` and gauge-dependent (holonomic) above — holonomy being the gauge
+> of the demotion.**
+
+This is the collaborative capstone of the slot-tower dialogue (the originator
+supplied every load-bearing reframe — `iter`-as-clock, slot-not-ℤ, lists/ℕ⁺,
+`×` is a *different* lattice, holonomy-transformed restores the pattern).
+
 ## C9 — is there a third (temporal/process) axis? → NO: the temporal FACE of object1_not_surjective
 
 Tested whether the recurring "process is of the *pointing* (the approximant
