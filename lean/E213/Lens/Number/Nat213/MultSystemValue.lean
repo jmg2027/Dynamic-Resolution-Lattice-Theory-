@@ -42,7 +42,8 @@ open E213.Meta.Nat.VpSeparation
   (vp_eq_zero_of_not_dvd exists_prime_factor dvd_of_forall_vp_le dvd_iff_one_le_vp)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
-open E213.Meta.Nat.FloorLog (floorLog floorLog_ge floorLog_le_of_lt_pow pow_lt_pow_of_lt)
+open E213.Meta.Nat.FloorLog
+  (floorLog floorLog_ge floorLog_le_of_lt_pow pow_lt_pow_of_lt floorLog_pow_le lt_pow_floorLog_succ)
 open E213.Lens.Number.Nat213.MultSystem
   (totalCount binom totalCount_closed binom_succ binom_self binom_zero central_binom_le)
 
@@ -1085,5 +1086,55 @@ theorem chebBound_mul_le : ∀ m,
 theorem primePi_le_chebBound_of_le {N m : Nat} (h : N ≤ 2 ^ m) :
     primePi N ≤ chebBound m :=
   Nat.le_trans (primePi_monotone h) (primePi_pow_two_le_chebBound m)
+
+/-- `a < b → a·c < b·c` for `c > 0` (pure; avoids `Nat.mul_lt_mul_right`'s axioms). -/
+theorem mul_lt_mul_right_pure {a b c : Nat} (hc : 0 < c) (h : a < b) : a * c < b * c :=
+  calc a * c < a * c + c := Nat.lt_add_of_pos_right hc
+    _ = (a + 1) * c := by ring_nat
+    _ ≤ b * c := Nat.mul_le_mul h (Nat.le_refl c)
+
+/-- `a·c < b·c → a < b` (pure; avoids `Nat.lt_of_mul_lt_mul_right`'s axioms). -/
+theorem lt_of_mul_lt_mul_right_pure {a b c : Nat} (h : a * c < b * c) : a < b := by
+  rcases Nat.lt_or_ge a b with hlt | hge
+  · exact hlt
+  · exact absurd (Nat.mul_le_mul hge (Nat.le_refl c)) (Nat.not_le.mpr h)
+
+/-- The density-cut arithmetic at a fixed dyadic level `m = ⌊log₂ N⌋`: from
+    `π(N) ≤ chebBound (m+1)`, `12k ≤ m`, `2^m ≤ N`, derive `π(N)·k < N`.  Uses
+    `chebBound_mul_le`: `chebBound (m+1)·k·(m+1) ≤ 12k·2^m < (m+1)·2^m`. -/
+theorem density_cert_aux {N k m : Nat} (hpi : primePi N ≤ chebBound (m + 1))
+    (hm12 : 12 * k ≤ m) (h2mN : 2 ^ m ≤ N) : primePi N * k < N := by
+  have hcb := (chebBound_mul_le m).1
+  have h2pos : 0 < 2 ^ m := Nat.pos_pow_of_pos m (by decide)
+  have e1 : 6 * 2 ^ (m + 1) * k = 12 * k * 2 ^ m := by rw [Nat.pow_succ]; ring_nat
+  have hle : chebBound (m + 1) * (m + 1) * k ≤ 12 * k * 2 ^ m := by
+    rw [← e1]; exact Nat.mul_le_mul hcb (Nat.le_refl k)
+  have hmul : 12 * k * 2 ^ m < (m + 1) * 2 ^ m :=
+    mul_lt_mul_right_pure h2pos (Nat.lt_succ_of_le hm12)
+  have hchain : chebBound (m + 1) * (m + 1) * k < (m + 1) * 2 ^ m :=
+    Nat.lt_of_le_of_lt hle hmul
+  have hrw1 : chebBound (m + 1) * (m + 1) * k = chebBound (m + 1) * k * (m + 1) := by ring_nat
+  have hrw2 : (m + 1) * 2 ^ m = 2 ^ m * (m + 1) := by ring_nat
+  rw [hrw1, hrw2] at hchain
+  exact Nat.lt_of_le_of_lt (Nat.mul_le_mul hpi (Nat.le_refl k))
+    (Nat.lt_of_lt_of_le (lt_of_mul_lt_mul_right_pure hchain) h2mN)
+
+/-- **`PrimeDensityToZero` INHABITED** — prime density `π(N)/N → 0` certified
+    ∅-axiom.  The modulus is `M(k) = 2^{12k}`: for `N ≥ 2^{12k}`, let `m = ⌊log₂ N⌋`
+    (so `2^m ≤ N < 2^{m+1}` and `m ≥ 12k`).  Then `π(N) ≤ chebBound (m+1)` (dyadic
+    interpolation) and `chebBound (m+1)·(m+1) ≤ 6·2^{m+1}` (`chebBound_mul_le`) give
+    `π(N)·k < N` (`density_cert_aux`).  This **closes the PNT density cut** — the
+    "open analytic core" the scaffolding isolated is now filled by the
+    elementary-Chebyshev bound.  (`RatTendsToZero.below` then gives convergence
+    under every positive rational for free.) -/
+def primeDensityToZero : PrimeDensityToZero where
+  M := fun k => 2 ^ (12 * k)
+  cert := by
+    intro k _ N hN
+    have hN1 : 1 ≤ N := Nat.le_trans (Nat.pos_pow_of_pos (12 * k) (by decide)) hN
+    exact density_cert_aux
+      (primePi_le_chebBound_of_le (Nat.le_of_lt (lt_pow_floorLog_succ (by decide))))
+      (floorLog_ge (by decide) hN)
+      (floorLog_pow_le hN1)
 
 end E213.Lens.Number.Nat213.MultSystemValue
