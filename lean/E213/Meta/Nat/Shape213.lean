@@ -144,4 +144,46 @@ theorem refine_chain :
   · -- `dimension [2,3] = dimension (2*3 :: []) + 1 = dimension [6] + 1`
     exact refine_increases_dimension 2 3 []
 
+/-! ### ★ `×` is **append**, one rung up — the multiplicative number as a *list* -/
+
+/-- ★★ **`×` is list append.**  `shapeProduct (l ++ m) = shapeProduct l ·
+    shapeProduct m`: concatenating two factor-lists multiplies their products.
+    This is the exact dual of `UnitList.count_append` (`count (l++m) =
+    count l + count m`, "`+` is unit-list append read by counting"): one rung
+    up, with *number* atoms instead of indistinguishable units, **`×` is
+    factor-list append read by the product**.
+
+    So the multiplicative number is *natively a list of factors* (the
+    factorization), with `×` = concatenation and `^k` = the list repeated `k`
+    times — described with **lists and ℕ⁺**, no `0`, no `−`, no quotient.  (The
+    prime-exponent vector `ExpVector.toVec` is the *count-by-prime readout* of
+    this list, one Lens up; the list is the more primitive append-floor form.) -/
+theorem shapeProduct_append : ∀ (l m : List Nat),
+    shapeProduct (l ++ m) = shapeProduct l * shapeProduct m
+  | [],     m => by
+      show shapeProduct m = 1 * shapeProduct m
+      rw [Nat.one_mul]
+  | a :: l, m => by
+      show a * shapeProduct (l ++ m) = (a * shapeProduct l) * shapeProduct m
+      rw [shapeProduct_append l m, PureNat.mul_assoc]
+
+/-- Repeat a factor-list `k` times (concatenated) — the `^` constructor on
+    lists, one rung up from append. -/
+def lrepeat (l : List Nat) : Nat → List Nat
+  | 0     => []
+  | k + 1 => l ++ lrepeat l k
+
+/-- ★★ **`^` is list-repeat.**  `shapeProduct (lrepeat l k) = (shapeProduct l)^k`:
+    concatenating `k` copies of a factor-list raises its product to the `k`.  So
+    the list-form of the whole tower is uniform — `+` = unit-list **append**
+    (`UnitList.count_append`), `×` = factor-list **append**
+    (`shapeProduct_append`), `^` = factor-list **repeat** (here) — all on lists
+    and ℕ⁺, no `0`, no `−`, no quotient. -/
+theorem shapeProduct_lrepeat (l : List Nat) :
+    ∀ k, shapeProduct (lrepeat l k) = (shapeProduct l) ^ k
+  | 0     => rfl
+  | k + 1 => by
+      show shapeProduct (l ++ lrepeat l k) = (shapeProduct l) ^ (k + 1)
+      rw [shapeProduct_append, shapeProduct_lrepeat l k, Nat.pow_succ, Nat.mul_comm]
+
 end E213.Meta.Nat.Shape213

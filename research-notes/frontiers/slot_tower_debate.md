@@ -182,3 +182,130 @@ keeps comm+assoc through `×` and loses both at `^` (PROVED).
 facts** (role-asymmetry + prime-independence) whose fusion over a faithful
 `exp` awaits `vp_separation` (OPEN).  Thesis: atom-(in)distinguishability.
 Mechanism: the count-rig.  Debt: `vp_separation`.
+
+---
+
+## Round 3 (later session) — the async-tower question (§5(a))
+
+Three-agent panel (affirmative / adversary / formalist) on
+`slot_tower_crossdomain.md` §5(a): "is there an asynchronous number tower,
+or is operation-ness definitionally clock-dependent (count-Lens = the
+clock)?"
+
+- **Affirmative** (synchrony thesis): every tower rung factors through
+  `iter : (α→α) → Nat → α → α` against the one count-slot
+  (`add_eq_iter`/`mul_eq_iter`/`pow_eq_iter`); `fire` has no count slot.
+  Strongest self-identified weak point: the link from `iter_mul` (order of
+  operations) to *synchrony* (a dynamic property) is not itself a theorem.
+- **Adversary** (async-operation seeker): the thesis HOLDS for the tower but
+  the *universal* "operation = forward-counting" is refuted by
+  `Convolution213.conv` — a genuine commutative operation defined by
+  `natSplits` (all `(i,j)`, `i+j=n`), a decomposition *constraint*, not a
+  forward count.  "uses `Nat`" ≠ "forward-counts".
+- **Formalist** (Lean spine): the three `*_eq_iter` theorems are the spine;
+  their conjunction is **vacuous**.  No hyperoperation ladder existed in the
+  repo.  A non-vacuous unifier *does* exist and is buildable ∅-axiom — the
+  single recursion `hyperop (k+1) a b = iter (hyperop k a) b (seed k a)` —
+  **provided** flavour-matching avoids `funext` (which pulls `Quot.sound`)
+  by a pointwise `iter_congr`.
+
+**Judge synthesis (acted on).**  The adversary's `conv` is not async: its
+all-pairs-at-once is §6's *simultaneous* lockstep, a second **clocked**
+foliation, not a clock-free one.  So there are two clocked readings —
+sequential (`iter`, the tower) and simultaneous (grid/convolution) —
+matching ORIGIN_RAW's two events; only `fire` is clock-free (an *event*, not
+an operation).  Refined verdict: **every number operation is clocked; only
+events are clock-free** — "operation-ness is synchrony" survives once
+"synchrony" = *clocked* (either foliation), not *forward-counting alone*.
+
+**Deliverable**: `lean/E213/Meta/Nat/HyperLadder.lean` (8 PURE) — the tower
+as one recursion turning the count-clock (`hyperop 1/2/3 = +`/`×`/`^`),
+funext-free via `iter_congr`.  The philosophical three-way identity
+(`Nat`-clock = §10.1 ℕ-induction cost = lockstep clock) is left as narrative
+gloss — stating it as a Lean equation would be the vacuous move.
+
+---
+
+## Round 4 (later session) — the level-2 ceiling vs ^-wall (§5(b))
+
+Two-agent panel (identity proponent / skeptic) on `slot_tower_crossdomain.md`
+§5(b): is the ORIGIN_RAW §9 "level-2 ceiling" the SAME fact as the `^`-wall,
+or a resonance?
+
+- **Proponent** (identity): best line — "the order-2 swap symmetry is
+  adequate through level 2, insufficient at level 3" (`level3_diverges` is
+  literally "beyond swap"; `pow_not_comm` is argument-swap failure).  Honest
+  self-verdict: **defensible but NOT formalizable** — the only Lean statements
+  are the vacuous conjunction; recommended following §5(a)'s precedent (leave
+  as gloss).
+- **Skeptic** (resonance, the CLAUDE.md default): four-attack refutation —
+  the two boundaries are pinned by **different objects** (tree depth vs
+  operation arity), **different swaps** (`Raw.swap` involution on the Raw type
+  vs argument-commutativity of a `Nat→Nat→Nat` function), **different
+  predicates** (past-completeness / subterm closure vs comm/assoc), and
+  **different mechanisms** (slash-DAG reachability vs exponent-becomes-an-
+  operation).  The shared "2/3" is two incommensurable countings.
+
+**Both converged: RESONANCE, NOT IDENTITY.**  No Lean deliverable — the only
+formalizable statement is `level3_diverges ∧ pow_not_comm` (vacuous: "both
+hold", not "same phenomenon").  Forcing a bridge ("past-completeness failure
+⟺ commutativity loss") would be the named stereotype-matching failure mode.
+What is honestly shared is a *phenomenological shape* (a downward-closed
+regularity zone breaking at the third rung), not a mechanism.  §5(b) closed as
+resonance; correctly produces no file.
+
+---
+
+## Round 5 (later session) — bridge 1's `LeveledReadout`: REJECTED as vacuous
+
+Attempt + skeptic audit on bridge 1 ("equal ⟺ certificate matches" as one
+schema).  A `LeveledReadout` structure was written (`eq`, `readout : X→Idx→Val`,
+`sound`, `faithful`) with `eq_iff_readout : eq x y ↔ ∀ i, readout x i =
+readout y i`, instantiated by the real `cutEq` (definitional faithfulness) and
+the integer `vp_separation` (theorem faithfulness).  It built **3 PURE** and
+both instances were genuine.
+
+**Skeptic verdict: VACUOUS-OR-FORCIBLE — not committed; file deleted.**
+- `eq_iff_readout` is a one-line tautological unpacking of the `sound`/
+  `faithful` fields — it does zero work.
+- No generic consumer: nothing proves anything over *all* faithful readouts,
+  so the structure is a container, not a tool (contrast bridge 2's
+  `no_order_of_wrap`, which rules witnesses out).
+- The two instances are *stapled* — fitting a definition (`cutEq`) and a deep
+  theorem (`vp_separation`) under one record does not explain *why* one is
+  definitional and the other earned; that "why" is narrative.
+- Exposing `readout` as a function is cosmetic over the forbidden
+  `{ cert : Prop, iff : eq ↔ cert }` the frontier explicitly warns against.
+
+**Kept**: the narrative insight — equality-as-readout-agreement is
+*definitional* for cuts, an *earned theorem* (UFD) for integers.  **Lesson**:
+do not re-write the `{cert, iff}`/`LeveledReadout` structure; a non-vacuous
+bridge 1 needs a theorem doing generic work over faithful readouts.  The
+debate method worked as intended — it caught a forcible unification before it
+was committed.
+
+---
+
+## Round 6 (later session) — bridge 1 resolved as a pinned distinction
+
+After round 5 killed the positive `LeveledReadout` unifier, bridge 1 was
+re-approached the bridge-4 way: pin the genuine *difference* with a theorem on
+each side, no container.
+
+- **Integer side (FINITE certificate)**: `FoldCriterion.vp_eq_zero_of_gt` —
+  `vp p n = 0` for prime `p > n`, so the certificate's support ⊆ `[2,n]`; the
+  `∀`-over-primes check collapses to a finite `∧`.  Faithfulness itself is
+  `vp_separation` (UFD, earned).
+- **Continuum side (UNBOUNDED certificate)**: `CutNoFiniteCert.cut_no_finite_certificate`
+  — for every `N`, the distinct rationals `N/(N+1)` and `(N+1)/(N+2)` agree at
+  every level `k ≤ N` but are not `cutEq` (split at the mediant
+  `(2N+1)/(2N+3)`).  No finite truncation certifies cut equality.
+
+**Skeptic verdict: GENUINE pinned distinction — keep, claims honest** (one
+language refinement applied: it is a *binary partition* on the finiteness
+axis, not bridge 4's orthogonal enrichments; and `cut_no_finite_certificate`
+is a *witness* to the `cutEq` definition's unboundedness, not a claim about all
+real pairs).  Both theorems PURE.  The finite-vs-unbounded split is exactly the
+axis the rejected `LeveledReadout` schema would have had to erase — which is
+why no positive single schema exists.  Bridge 1 closed as: **the equality
+certificate's size is the discrete/continuum boundary.**

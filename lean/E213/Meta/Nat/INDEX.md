@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (35)
+## Files (37)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -44,16 +44,32 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
   - `GridReadout213.lean`  — substrate dimension + the readout split
                              (corrected: `perimeter` is an imported
                              Euclidean readout — see `Shape213`)
-  - `Shape213.lean`        — the internal readout is the shape (an ordered
-                             factorization): area = product-collapse,
-                             dimension = #factors, `refine` splits a
-                             dimension fixing area; substrate dimension =
-                             `exp`'s axis at coarser resolution, ONE source
+  - `Shape213.lean`        — the multiplicative number as a factor-LIST:
+                             area = product-collapse, dimension = #factors,
+                             `refine` splits a dimension fixing area;
+                             **`×` = list append** (`shapeProduct_append`),
+                             **`^` = list repeat** (`shapeProduct_lrepeat`) —
+                             the list-form tower (dual of `count_append`)
   - `Iterate213.lean`      — the diagonal climb is iteration; the count
                              slot adds (`iter_add`) and **multiplies**
                              (`iter_mul`); `+`,`×`,`^` as `iter`; the
                              surviving ghost `(aᵇ)ᶜ=a^(b·c)` an `iter_mul`
                              instance; idempotent climb builds no tower
+  - `HyperLadder.lean`     — the tower as ONE recursion: `hyperop (k+1) a b =
+                             iter (hyperop k a) b (seed k a)`, so `+`,`×`,`^` =
+                             `hyperop 1/2/3`; §4 the commutativity window `{1,2}`
+                             (dies at `^`, both boundaries); §5 the **vertical
+                             (iter-recursion) laws** that survive *every* level
+                             past `^` (`hyperop_climb`/`right_one`/`arg_two`/
+                             `base_one`), generic in `k`; funext-free via `iter_congr`
+  - `ExpVector.lean`       — the tower's vector-linear system: numbers as
+                             prime-exponent vectors with `×`=`vecAdd`,
+                             `^`=`vecSmul` (`toVec_mul`/`toVec_pow`), faithful
+                             (`toVec_faithful`) + finite-support; a **setoid**
+                             (`vecEq`, no funext).  Flat `^` (`vp_pow_geodesic`,
+                             constant increment) vs curved `↑↑` (`toVec_tetration`/
+                             `vp_tetration_curved`, scalar = tower-value) = the
+                             holonomy boundary.  Realises frontier D′
   - `StrictLocate213.lean` — the strict locating primitive: `a<e<a+2 →
                              e=a+1` (`locate_strict`); founding identity
                              needs strict `<`, not `≤` (which contains `=`)

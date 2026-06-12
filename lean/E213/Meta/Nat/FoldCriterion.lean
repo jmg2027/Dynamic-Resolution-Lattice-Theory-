@@ -1,4 +1,5 @@
 import E213.Meta.Nat.VpSeparation
+import E213.Meta.Nat.Iterate213
 
 /-!
 # FoldCriterion — when two powers are equal (∅-axiom)
@@ -10,6 +11,10 @@ match at every prime (that is `vp_separation`).  Put the two together
 and you get the whole story of when one power equals another.
 
   * ★★ `pow_eq_pow_iff_vp` — `a^r = b^q  ↔  ∀ prime p, r·vp p a = q·vp p b`.
+  * ★★ `pow_eq_pow_iff_vp_support` — the same check, but only over the
+    *finite* support `{p prime : p ∣ a ∨ p ∣ b}`: outside it both readings are
+    `0`, so the certificate has a finite size (the size half of the
+    equality-is-a-certificate bridge, power side).
   * ★ `prime_pow_unique` — for distinct primes `p ≠ q`,
     `p^a = q^b → a = 0 ∧ b = 0`.  At the prime `p`, `p`'s exponent is `1`
     and `q`'s is `0`, so `a·1 = b·0` forces `a = 0`; symmetric for `b`.
@@ -30,7 +35,7 @@ namespace E213.Meta.Nat.FoldCriterion
 
 open E213.Meta.Nat.VpMul (IsPrime213 vp_pow vp_self_pow)
 open E213.Meta.Nat.Valuation (vp)
-open E213.Meta.Nat.VpSeparation (vp_separation vp_eq_zero_of_not_dvd)
+open E213.Meta.Nat.VpSeparation (vp_separation vp_eq_zero_of_not_dvd dvd_dec)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 
 /-! ## §1 — the equality criterion -/
@@ -56,6 +61,55 @@ theorem pow_eq_pow_iff_vp {a b : Nat} (ha : 0 < a) (hb : 0 < b) (r q : Nat) :
     intro p hp
     rw [vp_pow hp ha r, vp_pow hp hb q]
     exact hmatch p hp
+
+/-- ★★ **The certificate has a finite size: only the support primes matter.**
+    `a^r = b^q` is decided by the primes that actually divide `a` or `b` — at
+    any prime dividing neither, both readings are `0` and the check is
+    automatic.  So the equality certificate is a check over the *finite*
+    support `{p prime : p ∣ a ∨ p ∣ b}`, not over all primes.
+
+    This makes the "the certificate has a *size*" half of the equality-is-a-
+    certificate bridge precise on the power side: the content of "two powers
+    are equal" is exactly the finitely-many prime exponents of `a` and `b`.
+    (The divisor primes are bounded — a prime dividing a positive `n` is `≤ n`
+    — so the support is finite.) -/
+theorem pow_eq_pow_iff_vp_support {a b : Nat} (ha : 0 < a) (hb : 0 < b)
+    (r q : Nat) :
+    a ^ r = b ^ q ↔
+      ∀ p, IsPrime213 p → (p ∣ a ∨ p ∣ b) → r * vp p a = q * vp p b := by
+  constructor
+  · intro hab p hp _
+    exact (pow_eq_pow_iff_vp ha hb r q).mp hab p hp
+  · intro hsupp
+    refine (pow_eq_pow_iff_vp ha hb r q).mpr ?_
+    intro p hp
+    have hp0 : 0 < p := Nat.lt_of_lt_of_le (by decide) hp.two_le
+    rcases dvd_dec p a hp0 with hpa | hna
+    · exact hsupp p hp (Or.inl hpa)
+    · rcases dvd_dec p b hp0 with hpb | hnb
+      · exact hsupp p hp (Or.inr hpb)
+      · -- outside the support: both readings vanish, so the check is `0 = 0`.
+        rw [vp_eq_zero_of_not_dvd hp ha hna, vp_eq_zero_of_not_dvd hp hb hnb,
+          Nat.mul_zero, Nat.mul_zero]
+
+/-- ★ **The support is bounded — the readout is cofinitely trivial.**  A prime
+    above `n` contributes nothing: `vp p n = 0` whenever `n < p` (for `n > 0`),
+    since a prime dividing `n` is `≤ n` (`le_of_dvd_pos`), so a prime above `n`
+    cannot divide it.  Hence the certificate's support `{p prime : vp p n ≠ 0}`
+    lies in `[2, n]` — **finite**, with an explicit bound.
+
+    This is the *mechanism* behind the finite certificate
+    (`pow_eq_pow_iff_vp_support`): the prime-exponent readout is **cofinitely
+    trivial**, so the `∀`-over-all-primes check collapses to a finite `∧`.  Its
+    cut/continuum dual fails — a non-trivial Dedekind cut carries information at
+    *every* resolution (`constCut`'s readout is not eventually constant), so the
+    real certificate is unbounded.  Finite-vs-unbounded certificate is the
+    discrete-vs-continuum boundary read through the readout's support
+    (frontier `slot_tower_crossdomain.md` bridge 1). -/
+theorem vp_eq_zero_of_gt {p n : Nat} (hp : IsPrime213 p) (hn : 0 < n)
+    (hgt : n < p) : vp p n = 0 :=
+  vp_eq_zero_of_not_dvd hp hn
+    (fun hdvd => absurd hgt (Nat.not_lt.mpr (le_of_dvd_pos p n hn hdvd)))
 
 /-! ## §2 — distinct primes never collide -/
 
@@ -144,5 +198,43 @@ theorem fold_iff_collinear {a b : Nat} (ha : 0 < a) (hb : 0 < b) :
     exact ⟨r, q, hq, (pow_eq_pow_iff_vp ha hb r q).mp hab⟩
   · rintro ⟨r, q, hq, hmatch⟩
     exact ⟨r, q, hq, (pow_eq_pow_iff_vp ha hb r q).mpr hmatch⟩
+
+/-! ## §4 — `^`'s two inverses genuinely differ (the non-commutative split) -/
+
+/-- ★★ **The `^`-inverse splits.**  Because `^` is *non-commutative* (base and
+    exponent are different slots, `a^b ≠ b^a`), inverting it is **two different
+    problems**, and they have **different solvability**:
+
+      * the **root** (solve the *base*, `xⁿ = b`) — here `x³ = 8` has the
+        natural-number answer `x = 2`;
+      * the **logarithm** (solve the *exponent*, `aˣ = b`) — here `3ˣ = 8` has
+        **no rational answer at all** (no `r, q` with `q > 0` and `3^r = 8^q`),
+        because `8 = 2³` and `2, 3` are independent primes
+        (`two_three_unique` via the fold criterion).
+
+    This is the precise sense in which `^` is the rung where the inverse parts
+    company: a commutative rung (`+`, `×`) has *one* inverse (subtraction,
+    division), so *one* number system (`ℤ`, `ℚ`); the non-commutative `^` has
+    *two*, and they land in different places — the root in an *algebraic*
+    extension (a real-closure cut, e.g. `SqrtPure`/`CubeRootTwoCut`), the
+    logarithm generically *transcendental* (a non-folding `Real213` cut).
+
+    What 213 proves ∅-axiom is exactly the *non-folding* half — that the
+    log-inverse escapes `ℚ` (this theorem, on the fold criterion).  That the
+    log is moreover *transcendental* (not merely irrational) is a real-analysis
+    fact (Gelfond–Schneider/Baker) **beyond** the ∅-axiom reach — the honest
+    boundary.  (Commutativity governs *one-vs-two* inverses; *associativity*
+    governs *algebraic-vs-analytic* completion — two different properties doing
+    two different jobs, both lost at `^`.) -/
+theorem pow_inverse_splits :
+    (∃ x, x ^ 3 = 8) ∧ ¬ ∃ r q, 0 < q ∧ (3 : Nat) ^ r = 8 ^ q := by
+  refine ⟨⟨2, by decide⟩, ?_⟩
+  rintro ⟨r, q, hq, h⟩
+  rw [show (8 : Nat) = 2 ^ 3 from by decide,
+    E213.Meta.Nat.Iterate213.pow_pow_eq_pow_mul] at h
+  obtain ⟨h3q, _hr⟩ := two_three_unique h.symm
+  have h3le : 3 ≤ 3 * q := Nat.le_mul_of_pos_right 3 hq
+  rw [h3q] at h3le
+  exact absurd h3le (by decide)
 
 end E213.Meta.Nat.FoldCriterion

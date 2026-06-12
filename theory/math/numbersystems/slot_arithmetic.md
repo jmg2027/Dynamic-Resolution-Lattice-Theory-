@@ -71,6 +71,21 @@ assoc+comm rung; the only law `^` keeps, `(aᵇ)ᶜ = a^(b·c)`
 rather than closing `^` over itself — which is why the tower folds one
 rung down.
 
+The floor's "operation = append" reading is uniform up the tower: `+` is
+unit-list append read by counting (`count_append`); `×` is **factor-list
+append** read by the product (`Shape213.shapeProduct_append`:
+`shapeProduct (l ++ m) = shapeProduct l · shapeProduct m`) — the same `append`,
+one rung up, with *number* atoms instead of indistinguishable units; and `^` is
+**factor-list repeat** (`Shape213.shapeProduct_lrepeat`:
+`shapeProduct (lrepeat l k) = (shapeProduct l)^k`).  So the whole tower is
+list-native (append / append / repeat), on lists and ℕ⁺ — no `0`, no `−`, no
+quotient.  And the laws split by **direction**: the *vertical* (recursion-
+structural) laws — generic in the level `k`, properties of the `iter` recursion
+itself — survive *every* rung past `^` (`HyperLadder.{hyperop_climb,
+hyperop_right_one, hyperop_arg_two, hyperop_base_one}`), while the *horizontal*
+(algebraic) laws comm/assoc are the ones that die at `^`; the surviving
+`(aᵇ)ᶜ = a^(b·c)` is one vertical law.
+
 ## 2. The list and the sandwich
 
 ℕ is the unit-started, unit-spaced sorted list, and its order *is*

@@ -204,13 +204,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   order-loss theorem also closed).
 
 - `slot_tower_crossdomain` — **slot tower ↔ main** (2026-06-11 merge): four
-  open bridges.  (1) equality is a certificate with a shape (weld Padé-flip
-  ↔ `FoldCriterion.pow_eq_pow_iff_vp`); (2) order ⟺ no-wrap, exact duals
-  both proved (`Int213.OrderMul` ↔ `NoOrderModP.no_wrapping_order`); (3) the
-  exp/log boundary, tame vs wild (LambertWeld `exp(2/q)` ↔ the `^`-wall
-  `fold_iff_collinear`); (4) the substrate's shape, metric vs topological
-  (`Shape213`/`GridReadout213` ↔ discrete Ricci/curvature).  Single-schema
-  Lean statements not yet written.
+  bridges, verdicts reached by inspecting both sides' Lean.  (1) equality is a
+  certificate — size half pinned (`FoldCriterion.pow_eq_pow_iff_vp_support`,
+  finite support); cross-domain schema open.  (2) **CLOSED** — order ⟺ no-wrap
+  as a single schema `Meta/OrderWrap.no_order_of_wrap` (`OrderWitness`
+  obstruction) with ℤ (`intOrderWitness`, no wrap) and `ℤ/p` (`modp_no_order`,
+  wraps), 9 PURE.  (3) exp/log tame-vs-wild — **narrative only** (formally
+  disjoint: no formalised "CF growth rate" object linking to exponent-vector
+  collinearity).  (4) substrate shape, metric vs topological — **distinction
+  pinned**: shape enriches the count into a vector, curvature into a sign;
+  `DiscreteRicci.forman_determined_by_degree_sum` (PURE) refutes the false
+  "same count, different curvature" unifier.  Only bridge 2 had a genuine
+  shared mechanism.
 
 - `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
   modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
@@ -425,6 +430,41 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `theory/essays/foundations/{the_one_diagonal,the_reference_claim}.md`.  *Still open:*
   general-`p` one-carrier νF spine, ℝ one-carrier with König, and the next deep-dives
   (limit/completion, quotient/equivalence-class, actual-vs-potential infinity).
+
+- `rule_finding_method` — **the discovery method** (the *generative* half): the
+  reusable engine that *finds* general rules of a structure-with-a-generating-step
+  — eight moves (find the generator; seek the demotion/log; watch the substrate's
+  dimension; split laws vertical/horizontal; at a wall don't stop — `∞/0→finite`
+  via `0≡∞`, non-uniqueness = gauge, seek the gauge-invariant; separate
+  canonical/holonomic; witness-or-tag; run the skeptic; iterate).  Worked example:
+  the engine producing `R1–R8` (table).  Complement to
+  `theory/meta/boundary_discipline.md` (the *validation* half).  Output:
+  `number_tower_theory.md`.
+
+- `number_tower_theory` — **the number tower, as general rules** (the cleaned
+  statement of the slot-tower dialogue, not the discovery path).  R0 slot
+  ontology (tuple is the number; ℤ/ℚ/ℝ = flattening readouts; list-form tower) →
+  R1 one generator `iter` → R2 vertical/horizontal laws → R3 log demotes each
+  rung (`vp` = arithmetic log) → R4 the lattice's *dimension* is the changing
+  invariant (`1→∞`, atom-distinguishability) → R5 algebraic through `^` /
+  holonomic above (inverse splits root/log) → R6 holonomy = gauge of the
+  demotion → R7 each level's invariant is its **valuation** (size→`vp`→cut→
+  growth-rank) → R8 the `∞/0→finite` move (`0≡∞`, §6.5/§6.9).  Every claim tagged
+  `[∅]`/`[ax]`/`[std]`/`[spec]`; Lean anchor index + open problems included.
+  Discovery path: `general_theory_metaanalysis.md` findings D/E/F/G/G′.
+
+- `general_theory_metaanalysis` — **meta-analysis program** (corpus-wide, ongoing):
+  discovers genuine general theoretical structures via deep + meta analysis,
+  filtered by the adversarial debate method.  Validated core **PROMOTED** to
+  `theory/meta/boundary_discipline.md`: the residue/Lens boundary behind
+  unification, equality, and error (the α/β split + the *shared-generator
+  criterion*, sharpened to **`iter` is the site of genuine β-unification** —
+  Lean witness `OrbitIsIter.orbit_eq_iter`, survived a falsification sweep; the
+  2-polarity failure structure; the matched pair of instruments; framework
+  *completeness* (two sides; the temporal "third axis" is a face of
+  `object1_not_surjective`); the ℤ-unique-faithful-finite corollary witnessed by
+  `vp_eq_zero_of_gt` vs `cut`/`zpseq_no_finite_certificate`).  *Open:* C7 (the
+  physics closure-form question — for the originator).
 
 - `pure_lean_calibration_synthesis` — **infra frontier** (cross-campaign: determinant/sign +
   Reverse Math 213): the recurring core-`Decidable`/core-lemma **propext leak + hand-rolled-pure
