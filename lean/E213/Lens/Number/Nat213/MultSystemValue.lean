@@ -999,4 +999,41 @@ theorem floorLog_window_term_le {k : Nat} (hk : 1 ≤ k) :
     _ = (2 ^ k) ^ (2 ^ (k + 1) / k + 1) := pow_mul_pure 2 k (2 ^ (k + 1) / k + 1)
     _ ≤ (2 ^ k + 1) ^ (2 ^ (k + 1) / k + 1) := Nat.pow_le_pow_left (Nat.le_succ _) _
 
+/-- The per-window bound for the dyadic ladder: `2` at `k = 0` (`floorLog 2 4 = 2`),
+    and `2^{k+1}/k` for `k ≥ 1`.  Pattern-matched (no `ite`) to stay ∅-axiom. -/
+def windowBound : Nat → Nat
+  | 0     => 2
+  | k + 1 => 2 ^ (k + 2) / (k + 1)
+
+/-- The explicit closed Chebyshev upper bound: `chebBound m = Σ_{k<m} windowBound k`
+    `= 2 + Σ_{k=1}^{m-1} 2^{k+1}/k = O(2^m/m)`. -/
+def chebBound : Nat → Nat
+  | 0     => 0
+  | m + 1 => chebBound m + windowBound m
+
+/-- Each `chebSum` term is bounded by the corresponding `windowBound`
+    (`floorLog_window_term_le` for `k ≥ 1`; explicit `floorLog 2 4 = 2` at `k = 0`). -/
+theorem term_le_windowBound (m : Nat) :
+    floorLog (2 ^ m + 1) (2 ^ (2 * 2 ^ m)) ≤ windowBound m := by
+  cases m with
+  | zero =>
+      have hlt : 2 ^ (2 * 2 ^ 0) < (2 ^ 0 + 1) ^ (2 + 1) := by decide
+      exact floorLog_le_of_lt_pow (by decide) (by decide) hlt
+  | succ k => exact floorLog_window_term_le (Nat.succ_le_succ (Nat.zero_le k))
+
+/-- `chebSum m ≤ chebBound m` — replace each `floorLog` term by its explicit bound. -/
+theorem chebSum_le_chebBound : ∀ m, chebSum m ≤ chebBound m
+  | 0     => Nat.le_refl 0
+  | m + 1 => Nat.add_le_add (chebSum_le_chebBound m) (term_le_windowBound m)
+
+/-- **The explicit ∅-axiom Chebyshev upper bound: `π(2^m) ≤ chebBound m`** where
+    `chebBound m = 2 + Σ_{k=1}^{m-1} 2^{k+1}/k = O(2^m/m)`.  Composes the telescoped
+    `primePi_pow_two_le_chebSum` with the per-window estimate `chebSum_le_chebBound`.
+    This is the Erdős elementary-Chebyshev `π(N) = O(N/ln N)` as a *finite,
+    computable, axiom-free* bound — the `1/k` denominators (from the growing dyadic
+    base `2^k+1`) are the discrete `1/ln N`.  PNT proper (the `~ N/ln N` limit, with
+    constant `1`) stays the asymptotic horizon (a `Real213` pointing). -/
+theorem primePi_pow_two_le_chebBound (m : Nat) : primePi (2 ^ m) ≤ chebBound m :=
+  Nat.le_trans (primePi_pow_two_le_chebSum m) (chebSum_le_chebBound m)
+
 end E213.Lens.Number.Nat213.MultSystemValue
