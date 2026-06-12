@@ -30,7 +30,8 @@ in `π(N)`, is case B, deliberately not here.)
 namespace E213.Lens.Number.Nat213.MultSystemValue
 
 open E213.Meta.Nat.VpMul (IsPrime213 vp_mul vp_pow vp_self_pow)
-open E213.Meta.Nat.Valuation (vp pow_vp_dvd)
+open E213.Meta.Nat.Valuation (vp pow_vp_dvd mod_zero_of_dvd)
+open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
 open E213.Meta.Nat.VpSeparation (vp_eq_zero_of_not_dvd exists_prime_factor)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
@@ -246,5 +247,15 @@ theorem factorization_bounded (n : Nat) (hn : 0 < n) :
       ∧ (∀ p, p ∈ ps → p ≤ n) := by
   obtain ⟨ps, hps, hprod⟩ := factorization_exists n n (Nat.le_refl n) hn
   exact ⟨ps, hps, hprod, fun p hp => le_of_dvd_pos p n hn (hprod ▸ dvd_listProd ps p hp)⟩
+
+/-- **Pure decidable divisibility.**  `Decidable (k ∣ n)` for `k > 0`, ∅-axiom via
+    `n % k` (Lean-core `Nat.decidable_dvd` carries `propext`).  This is the
+    propext-free divisibility decision the `π(N)` prime counter needs — the
+    blocker that the bounded-search route hit (`Nat.decidable_dvd`, `Bool`
+    reflection lemmas are all propext-tainted). -/
+def decDvd (k n : Nat) (hk : 0 < k) : Decidable (k ∣ n) :=
+  match h : n % k with
+  | 0     => isTrue (dvd_of_mod_eq_zero h)
+  | _ + 1 => isFalse (fun hd => Nat.noConfusion ((mod_zero_of_dvd hk hd).symm.trans h))
 
 end E213.Lens.Number.Nat213.MultSystemValue
