@@ -31,7 +31,7 @@ namespace E213.Lens.Number.Nat213.MultSystemValue
 
 open E213.Meta.Nat.VpMul (IsPrime213 vp_mul vp_pow vp_self_pow)
 open E213.Meta.Nat.Valuation (vp pow_vp_dvd)
-open E213.Meta.Nat.VpSeparation (vp_eq_zero_of_not_dvd)
+open E213.Meta.Nat.VpSeparation (vp_eq_zero_of_not_dvd exists_prime_factor)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Lens.Number.Nat213.MultSystem (totalCount binom totalCount_closed)
@@ -141,9 +141,80 @@ fact (no transcendental: `exp` here is `Nat.pow` = iterated `×`). -/
     (the `p`-axis exponent) sits *under the logarithm* of the value,
     `vp p n ≤ log_p n`.  The value `n` is the *exponential* of the depth, so the
     depth is *logarithmic* in the value — the structural reason `ln` appears in
-    `π(N)`.  (Per-axis; the total `Ω(n) ≤ log₂ n` sums these but needs
-    factorization reconstruction `Π p^{vp} = n`, a separate piece.) -/
+    `π(N)`.  (Per-axis; the total `Ω(n) ≤ log₂ n` is `omega_le_log` below.) -/
 theorem vp_pow_le_self (p n : Nat) (hn : 0 < n) : p ^ (vp p n) ≤ n :=
   le_of_dvd_pos _ n hn (pow_vp_dvd p n)
+
+/-! ## Factorization reconstruction ⇒ the total `Ω(n) ≤ log₂ n`
+
+The per-axis bridge summed: every `n > 0` is a product of primes (`fromVec`, the
+inverse of `toVec`), so the total factor count `Ω(n) = #primes` satisfies
+`2^{Ω(n)} ≤ n`, i.e. `Ω(n) ≤ log₂ n`. -/
+
+/-- Product of a list of naturals (∅-axiom local; avoids `List.prod`'s imports). -/
+def listProd : List Nat → Nat
+  | []      => 1
+  | x :: xs => x * listProd xs
+
+/-- **Factorization reconstruction (`fromVec`).**  Every `n > 0` is the product
+    of a list of primes — the existence half of unique factorization (the
+    uniqueness half is `vp_separation`).  Peels one prime factor at a time. -/
+theorem factorization_exists : ∀ (fuel n : Nat), n ≤ fuel → 0 < n →
+    ∃ ps : List Nat, (∀ p, p ∈ ps → IsPrime213 p) ∧ listProd ps = n := by
+  intro fuel
+  induction fuel with
+  | zero => intro n hn hpos; exact absurd (Nat.lt_of_lt_of_le hpos hn) (Nat.lt_irrefl 0)
+  | succ f ih =>
+      intro n hn hpos
+      rcases Nat.lt_or_ge n 2 with h1 | h2
+      · have hn1 : n = 1 := Nat.le_antisymm (Nat.le_of_lt_succ h1) hpos
+        refine ⟨[], ?_, ?_⟩
+        · intro p hp; nomatch hp
+        · exact hn1.symm
+      · obtain ⟨q, hq, hqn⟩ := exists_prime_factor n n (Nat.le_refl n) h2
+        obtain ⟨c, hc⟩ := hqn
+        have hcpos : 0 < c := by
+          rcases Nat.eq_zero_or_pos c with h0 | hp
+          · rw [h0, Nat.mul_zero] at hc; rw [hc] at hpos; exact absurd hpos (Nat.lt_irrefl 0)
+          · exact hp
+        have hcc : c < c + c := by
+          have := Nat.add_lt_add_left hcpos c; rwa [Nat.add_zero] at this
+        have hclt : c < n := by
+          rw [hc]
+          have h2c : c + c ≤ q * c := by
+            rw [← Nat.two_mul]; exact Nat.mul_le_mul hq.two_le (Nat.le_refl c)
+          exact Nat.lt_of_lt_of_le hcc h2c
+        obtain ⟨ps, hps, hprod⟩ :=
+          ih c (Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hclt hn)) hcpos
+        refine ⟨q :: ps, ?_, ?_⟩
+        · intro p hp
+          cases hp with
+          | head => exact hq
+          | tail _ h => exact hps p h
+        · show q * listProd ps = n
+          rw [hprod, ← hc]
+
+/-- Each prime factor is `≥ 2`, so `2^{#factors} ≤ product`. -/
+theorem two_pow_length_le_prod : ∀ ps : List Nat, (∀ p, p ∈ ps → 2 ≤ p) →
+    2 ^ ps.length ≤ listProd ps
+  | [],      _ => Nat.le_refl 1
+  | p :: ps, h => by
+      have hp : 2 ≤ p := h p (List.Mem.head ps)
+      have ih := two_pow_length_le_prod ps (fun q hq => h q (List.Mem.tail p hq))
+      show 2 ^ (ps.length + 1) ≤ p * listProd ps
+      calc 2 ^ (ps.length + 1) = 2 * 2 ^ ps.length := by rw [Nat.pow_succ, Nat.mul_comm]
+        _ ≤ p * listProd ps := Nat.mul_le_mul hp ih
+
+/-- **The total exp/log bridge: `Ω(n) ≤ log₂ n`.**  Every `n > 0` factors into
+    `ps` primes with `2^{Ω(n)} ≤ n` (`Ω(n) = ps.length` = factor count) — the
+    aggregate of `vp_pow_le_self` over all axes.  This is the finite ∅-axiom
+    skeleton under the `ln` of the prime number theorem. -/
+theorem omega_le_log (n : Nat) (hn : 0 < n) :
+    ∃ ps : List Nat, (∀ p, p ∈ ps → IsPrime213 p) ∧ listProd ps = n
+      ∧ 2 ^ ps.length ≤ n := by
+  obtain ⟨ps, hps, hprod⟩ := factorization_exists n n (Nat.le_refl n) hn
+  refine ⟨ps, hps, hprod, ?_⟩
+  have hb := two_pow_length_le_prod ps (fun p hp => (hps p hp).two_le)
+  rwa [hprod] at hb
 
 end E213.Lens.Number.Nat213.MultSystemValue
