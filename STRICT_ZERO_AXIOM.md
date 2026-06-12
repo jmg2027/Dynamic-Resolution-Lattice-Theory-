@@ -1510,6 +1510,25 @@ difference identities discharged by the `Meta.Nat.PolyNat` reflection ring; lowe
 by `decide`.  Degree is *incidental to irrationality* (ζ(4) order 2, Catalan β(2) open) —
 ζ(3) degree 3 is the exception above the order-2 degree-2 Apéry-like family.
 
+`E213.Lib.Math.NumberTheory.{AperyRecurrence, AperyIntegrality, FactorialLcmDvd,
+LcmGrowthChebyshev, Legendre, PrimeValuation, FTALite, FactorialRatioBound,
+LcmBoundMain}` + `E213.Lib.Math.NumberSystems.Real213.Zeta3Apery` — **140 PURE / 0
+DIRTY** (the ζ(3) Apéry arithmetic; narrative
+`theory/math/numbertheory/apery_zeta3_arithmetic.md`).  **The nucleus**:
+`AperyRecurrence.apery_recurrence` (Apéry's recurrence `(j+2)³B(j+2)+(j+1)³B(j)=
+aperyLead(j)B(j+1)` for `B(n)=ΣC(n,k)²C(n+k,k)²`, the WZ/creative-telescoping
+identity, found by exact interpolation then re-derived: `reduced_wz_identity`
+polynomial core in `j=k+d`, `colrec`/`lowrec` + `R0/R1/R2/G1` `W`-factoring,
+`redid_eq`, `per_k`, `sumTo_shift_eq` telescope).  `Zeta3Apery.zeta3Den_eq`
+(`zeta3Den n=(n!)³B(n)`, denominator orbit↔sum bridge).  **I2 (lcm race)**:
+`LcmBoundMain.lcmUpTo_le` (`lcm(1..n)≤10^{15⌈n/30⌉}≈√10ⁿ`) via `legendre`
+(`vₚ(n!)`), `vp_lcmUpTo`, `count30`, `key_divisibility`, `step3`.  **I1 (Brick 2)**:
+`keydiv` (KeyDiv `m·C(k,m)∣lcm`, via the even/odd-ℕ finite-difference identity, no
+ord_p), `heart` (L2), `heart_lcm`/`cube_dvd_lcm_cube`, `two_lcmCube_dvd_factCube`
+(`2lcm³∣(n!)³`).  All-`ℕ` throughout (no `ℚ`, no `Int`); `ring_nat` kept additive
+(`Q>0` in range).  Open: numerator integrality (harmonic, no clean certificate;
+`Zeta3Numerator.harmonic_part_recurrence` lands the `H₃` part).
+
 `E213.Lib.Math.Analysis.Cauchy.DepthSelfReference` — **3 PURE / 0 DIRTY**.  The `diff` ladder
 realises self-reference's Converge / Escape outcomes (`Lens.SelfReferenceThreeOutcomes`) on
 `Nat` sequences: `floor_converges` (`W` `reachesFloor`, settles at the unit `1 = det P =
