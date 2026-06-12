@@ -22,6 +22,54 @@ a candidate "general structure" earns the label only if it is one of —
 Every Lean claim must be ∅-axiom (`tools/scan_axioms.py`).  Findings recorded
 here; closed ones promoted to `theory/`.
 
+## Synthesis — validated results so far (the deliverables)
+
+Five genuine, adversarially-audited general-theoretical findings, all orbiting
+**one object: the residue/Lens boundary** (`no-exterior` §5.1 on one side,
+`object1_not_surjective` on the other):
+
+1. **The α/β unification split + shared-generator criterion (C4).**  213
+   unifies *abundantly* by parametric polymorphism (α: typeclasses — `Lens`,
+   `ConjugationCodomain`, `iter`, `Ring213` — one proof, instances plug in) but
+   *rarely* across independently-motivated phenomena (β).  **Genuine β-unification
+   ⟺ a shared GENERATOR** (a common construction), not a shared slogan or number.
+   Only `OrderWrap` (successor/orbit) and `HyperLadder` (`iter`) qualify; they sit
+   at the count/successor floor.  Slogans (comm) and resonances (ceilings) fail
+   for lack of a generator.
+
+2. **The genuine-vs-forcible decision procedure (C4).**  generic-consumer test
+   (does a theorem do work over the schema, or is it a tautological container?) +
+   four-axis test (same objects/symmetry/predicate/mechanism, or coincidence?).
+   It killed `LeveledReadout` and sorted every slot-tower bridge.
+
+3. **The 2-axis readout classification + ℤ-uniqueness (C5).**  A readout has two
+   independent axes: *faithfulness* (forgetful `count`/`Hyper` commute; faithful
+   `vp`/`cut` don't) × *support-finiteness among faithful* (finite = discrete;
+   infinite = continuum).  **ℤ/ℕ is the unique faithful-finite number system** —
+   the only one with a finite equality certificate; every completion (real,
+   `p`-adic, complex, signed) trades finiteness for infinite resolution.  Witnessed
+   in Lean by `vp_eq_zero_of_gt` vs `cut_no_finite_certificate`.
+
+4. **The failure-mode structure (C6).**  17/22 of CLAUDE.md's failure modes are
+   *boundary errors* in two dual polarities (over-exteriorize / over-interiorize,
+   forced by the two core axioms); 4/22 are orthogonal *discipline* failures
+   (dialogue/hygiene/filing/clarity).
+
+5. **The convergence (C4 ↔ C5 ↔ C6).**  A *forcible map* (C4 type-4) **is**
+   *over-exteriorization* (C6 polarity 1); a *view-promoted-to-identity* (C6
+   polarity 2) is what a *pinned distinction* (C4 type-2) refuses.  Unification,
+   equality, and error are governed by **one two-sided boundary; the recurring
+   failures are the two ways of falling off it.**
+
+Method note: every one of these was *sharpened by an adversarial audit that
+caught an over-claim* (C4's first "type-1 rare" draft; C6's "22/22"; C7's
+"falsifies C4"; the deleted `LeveledReadout`).  The debate method is not
+decoration — it is the load-bearing instrument, and it is itself an instance of
+the decision procedure (β-candidates must survive the skeptic to count).
+
+**Open / flagged**: C7 (physics closure form) — a sharpened *question* for the
+originator, not a verdict (below).
+
 ## Candidate general structures under investigation
 
 (Each gets: survey → debate → formalize-or-reject → record.)
