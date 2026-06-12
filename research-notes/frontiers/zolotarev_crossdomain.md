@@ -44,11 +44,14 @@ instance: `psign σ_a = det(permMatrix σ_a) = (a/p)` (`zolotarev_mu` +
 | Casoratian (main) | the shift cycle of a `k`-recurrence | `psign` = `det(companion)` = `altSign(k−1)` |
 
 Both rest on the *same* engine `PermMatrixDet.det_permMatrix` (`det = psign`).
-Buildable bridge: `psign (cyclicShift n) = altSign (n−1)` as a Lean theorem
-mirroring `psign (mulPermMod a p) = (a/p)` — the cyclic-shift companion sign read
-through the same `det_permMatrix`, making "permutation under three readouts" a
-*shared theorem family* across number theory and the determinantal recurrence
-ladder, not two pictures.
+**CLOSED** (`Cauchy.CasoratianPermSign`, ∅-axiom): `det_permMatrix_cycShift :
+det(permMatrix (cycShift m)) = altSign m` routes the cyclic shift through
+`det_permMatrix` (just like `psign(mulPermMod a p) = (a/p)`), and
+`companion_det_eq_permMatrix_det : det(companion a (m+1)) = det(permMatrix
+(cycShift m))·a 0` makes the Casoratian depth multiplier *literally* a
+permutation-matrix determinant.  "Permutation under three readouts" is now a
+**shared theorem family** across number theory and the determinantal recurrence
+ladder, both on the one `det_permMatrix` engine — not two pictures.
 
 ## 3. `crossInv` (inversions cross-term) ↔ the determinant's multilinear cross-terms
 
@@ -80,14 +83,14 @@ the parity that decides whether the order-4 lift exists.
 
 ## Status
 
-All four are **open synthesis directions** (the proven cores on each side are
-closed; the bridging edges are not).  Closed cores: this branch —
-`ModArith/ZolotarevMuBridge.zolotarev_mu`, `Linalg213/InversionsAppend` (28 PURE),
-`theory/math/numbertheory/zolotarev.md`; main — `one_carrier`,
-`casoratian`/`spiral_coordinate_classification`, `cp_phase`/`the_i_point...`,
-`finite_state_is_of_the_pointing`.  Insights 1–2 are the ripest (each a single
-∅-axiom Lean edge: the `×a`/`×p` invariant-vs-escape statement, and
-`psign(cyclicShift) = altSign(n−1)` through `det_permMatrix`).
+Edge **(2) is CLOSED** (`Cauchy.CasoratianPermSign`, 4 PURE — `det_permMatrix_cycShift`,
+`companion_det_eq_permMatrix_det`); (1), (3), (4) remain open synthesis directions
+(the proven cores on each side are closed; the bridging edges are not).  Closed
+cores: this branch — `ModArith/ZolotarevMuBridge.zolotarev_mu`,
+`Linalg213/InversionsAppend` (28 PURE), `theory/math/numbertheory/zolotarev.md`;
+main — `one_carrier`, `casoratian`/`spiral_coordinate_classification`,
+`cp_phase`/`the_i_point...`, `finite_state_is_of_the_pointing`.  Insight 1 is now
+the ripest open edge (the `×a`/`×p` invariant-vs-escape statement on one carrier).
 
 ---
 

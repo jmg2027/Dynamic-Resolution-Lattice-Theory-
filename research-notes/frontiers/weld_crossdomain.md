@@ -60,10 +60,19 @@ shows by layer `I k`") ⟹ modulus `N = I k` (exp(p/q) instance, and the
 weld's W2 uses the same shape with `I k = k + 2`).  These look like one
 lemma under two parametrizations.
 
-**Open brick (cheap, checkable)**: derive `bracket_total_modulus` as a
-`toCauchySep` instance (or exhibit the obstruction).  If they unify, the
-ladder's rung-2 schema and the weld's completion engine are one device,
-and π/exp/coth differ only in who supplies the schedule.
+**CLOSED** (`BracketModulus.bracket_is_sep_schedule`, ∅-axiom): the two
+schemas **unify**.  Not as a literal `toCauchySep` instance — the carriers
+sit at different abstraction levels (`bracket_total_modulus` on the bare
+`rcut a d` Nat-fold, `toCauchySep` on a `Raw`-level `AbCutSeq`) — but the
+*device* is one: the bracket's exclusion-depth hypotheses **imply
+`sep_cauchy`'s `hsep` for the lower fold**, with the separation schedule
+`I k = B k + 2`.  Any `false` reading of the lower fold anywhere shows at
+layer `B k + 2`, by two regimes meeting there: `false` at a layer
+`≤ B k + 1` propagates *forward* (`below_fwd`), `false` at a layer
+`≥ B k + 2` reflects *back* by post-exit constancy (`bracket_cut_const`).
+So the ladder's rung-2 bracket and the weld's completion engine are one
+separation-schedule device — π/exp/coth differ only in who supplies the
+schedule (two-sided shrinking bracket vs one-sided linear-pq growth).
 
 ## 4. The pair-layer cross expression: equivalence at 0, certificate at 1
 
@@ -83,3 +92,55 @@ expression as the one object, with `= 0` (class), `= 1` (unimodular
 certificate), `≥ 1` (separation) as its three working regimes — and
 whether the slot witness layer reconstructs the det-one floor when the
 pair carries an order (directed pair = difference-Lens, §6.7).
+
+---
+
+# Addendum — weld bilinear Casoratian ↔ main's slot-tower / convolution arc (2026-06-11 merge)
+
+After the weld's §10 Casoratian development (the bilinear unification, three
+Wronskians, det-floor `+1` residue unit) met main's number-systems-weaving arc
+(convolution, the `+`/`×`/`^` operation quartet, `vp_separation`, `NoOrderModP`).
+Four genuine bridges:
+
+## 1. ★ The Casoratian and convolution are the alternating / symmetric halves of one bilinear
+
+Main's `conv` (`Convolution213`) is a **symmetric** bilinear product on sequences
+(`conv_comm`, commutativity-from-swap); the weld's `weld_bilinear_casoratian` is an
+**alternating** bilinear form — the cross-determinant `X_{J+1}Y_J − X_J Y_{J+1}`,
+antisymmetric under `X↔Y`.  Both are bilinear functionals on pairs drawn from one
+2-component linear structure; the Casoratian is the *unique* alternating invariant of
+a 2-D solution space (why all weld crosses collapse to one `K_J`), convolution the
+symmetric product.  They are the antisymmetric/symmetric decomposition of "bilinear on
+sequences" — the same rank-2 floor the operation tower (`+` count-shadow, `×` distinguishable
+atoms) and the weld (`(ĉ,s)` pair) both sit on.  **Buildable**: state the cross-determinant
+as the `n=2` antisymmetrization next to `conv` as the symmetrization, both `∅`-axiom ring.
+
+## 2. ★ The det-floor `+1` unit ↔ `NoOrderModP`'s no-zero circle / the indistinguishable unit
+
+The weld's det-one floor `P·devB − q²·devA·Q = 1` is a unit that **never vanishes** — the CF
+convergent matrix determinant, the residue unit the whole Casoratian collapse rests on (every
+cross `= det·K`, the fundamental coupling `= 1`).  Main's `NoOrderModP` (the circle `1..p`, no
+`0`, no `ℤ`, no `%`) and the slot tower's unit handling (units = *indistinguishable* scalars,
+the `×`-essay handle) are the same "the unit is what the structure cannot reduce away" — no
+exterior dialer sets it (§5.1).  Speculative bridge: the det-floor `+1` is the multiplicative
+unit of the convergent `SL(2)` action, mirroring the unit-circle's no-zero closure.
+
+## 3. ★ Subtraction-free weight-threading ↔ ζ(3) Apéry integrality (the actionable one)
+
+Both the weld (`cfpos_moved`'s `Bacc/Aacc` carrying `cc = 2N−2s+1` so the subtraction `2N−2s`
+never forms) and main's `conv` are **subtraction-free ℕ weight-threading** of a Padé/recurrence
+quantity.  The `(2n+1)!!`/`2^n n!` double-factorial machinery the weld telescopes (Bessel/Padé of
+`coth`) is *structurally* the same shifted-factorial weight stream the **ζ(3) Apéry integrality**
+blueprint needs (divisibility chains; `zeta3_blueprint` frontier).  Not a `(4i+2)!! → ζ(3)` identity
+(ζ(3) is Hermite–Padé / *simultaneous* approximation, not one CF) — but the weight-threading *technique*
+(`master_pair` two-step induction, subtraction-free) is the right tool for the Apéry-integrality
+divisibility chains.  **Buildable**: port the `cfpos_moved`/`master_pair` threading pattern to the
+Apéry numerator integrality (the `zeta3_blueprint` brick I), the Hermite–Padé analog of `master_pair`.
+
+## 4. Unimodular convergent transform ↔ the modular group from two folds
+
+The CF convergent matrix is unimodular (`[[a_n,1],[1,0]]`, `det = −1`), and the weld's
+`(R,M) ↔ (ĉ,s)` transform is one such `SL(2,ℤ)` element (`weld_cosh_RM` + `weldM_devB`, det `−1`).
+Main's `the_modular_group_from_two_folds` derives `SL(2)` from two folds; the CF step *is* such a
+fold composition.  Conceptual: the weld's unimodular Casoratian-preserving transform and the
+modular group are the same `SL(2)`-from-folds object, the det-floor `+1` its determinant.

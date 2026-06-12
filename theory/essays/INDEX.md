@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 91 essays are grouped into ten thematic sub-directories — distinct
+The 93 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -124,7 +124,8 @@ single-schema Lean statement is open).
 `integers_as_difference_lens`, `when_two_pointings_are_one`,
 `what_is_append`, `what_is_addition`,
 `what_is_multiplication`, `what_is_exponentiation`, `what_is_tetration`,
-`the_modular_group_from_two_folds`, `minkowski_as_modular_cocycle`.
+`the_modular_group_from_two_folds`, `minkowski_as_modular_cocycle`,
+`bessel_polynomials_are_the_lambert_convergents`, `the_form_forced_by_two`.
 
 **VI. `algebra/` — algebra tower & linear algebra.**
 `cd_tower_polarization`, `exceptional_seeds_are_forced`,
@@ -186,6 +187,8 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `pi_as_the_modulus_residue.md` | π read through the modulus family: every lattice period divides 12 (spectrum exactly `{1,2,3,4,6}`, five forbidden), every schedule overtaken (rung ∞), and the ∀-form becomes a constructor exactly when quantified into an escape modulus (`PiHalfMeasure` ⟹ `N = C·(2k)^s + 2`); π's specialness = effectivity gap, not Diophantine exoticism | `Real213/{FiniteOrderSpectrum, ExpLog/PiMeasureModulus, BracketModulus}` + `math/analysis/holonomic_modulus.md` §4 + `essays/analysis/the_modular_group_from_two_folds.md` + `seed/AXIOM/05_no_exterior.md` §5.1 |
 | `when_two_pointings_are_one.md` | **What does it mean for two pointings to point at one real?**  Probe-wise agreement of limit cuts — a theorem with a per-level price, paid in exact coin: the weld's diagonal Padé flip `cfpos n n = (4i+2)!!` absorbs all sub-diagonal slack (`weld_closed`); uniqueness-of-limits, classically free, becomes a certificate with a size (`48` at level one); the `cross =0/=1/≥1` regimes of the pair-layer expression unified | `math/analysis/lambert_weld.md` + `lens/unified_equivalence.md` + `Real213/PresentationDependence` + `object1_not_surjective` + `math/numbersystems/real213.md` |
 | `polynomial_in_213.md` | What is a **polynomial** in 213? (the meaning of "finite divergence depth = polynomial degree, exactly") | `math/analysis/divergence_depth_characterization.md` + `Cauchy/{DepthCharacterization,DepthResidueFloor,CassiniSigned}` + `seed/AXIOM/05_no_exterior.md §5.6` |
+| `bessel_polynomials_are_the_lambert_convergents.md` | The Lambert CF convergent coefficient arrays `apF`/`bpF` **are the reversed Bessel polynomials** (in `u=z²`): the three-term ladder is the Bessel recurrence, constant term `(2n−1)!!`, leading coeff the Padé flip `cfpos = 2^n·descFac = (4i+2)!!`, `minor_all` = Bessel total positivity; the weld = the two Bessel families (denominator `θ_n` = convergents, numerator `F_n` = series) meeting at the double-factorial flip | `ExpLog/{LambertMinor (apF/bpF, minor_all), LambertMasterId (cfpos, master_odd), LambertWeld §1 (Bessel ladder F_n), ContinuedFractionModulus (cothCF)}` + `math/analysis/lambert_weld.md` + `essays/analysis/when_two_pointings_are_one.md` + `weld_casoratian_development.md` (bilinear unification) |
+| `the_form_forced_by_two.md` | Why is the weld's shape forced? The solution space is **exactly 2-dimensional** (`coth = cosh/sinh`, two solutions of `y''=y`), and rank-2 forces everything: the unique alternating form (Casoratian `K`), the bilinear collapse (every cross = `det(coeff)·K`, `weld_bilinear_casoratian`), the unimodular CF-determinant transform (`weld_cosh_RM`, det `−1`), the det-floor `+1` as residue unit, the double-factorial flip as the accumulated determinant; no exterior dialer chooses the form, "two" forces it (rank 1 = rational, rank 3+ = more than one invariant) | `math/analysis/lambert_weld.md` §9 + `ExpLog/LambertOrder` (`weld_bilinear_casoratian`, `weld_cosh_RM`, `*_basis`) + `seed/AXIOM/{05_no_exterior.md §5.1, 06_lens_readings.md}` + `essays/analysis/bessel_polynomials_are_the_lambert_convergents.md` |
 | `disjoint_layers_as_direct_sum.md` | Why does cup-image codim grow linearly with c? | `math/cohomology/k_nm_c_classification.md` + categorical direct sum reading + `parametric_c_independent_h2_classes` |
 | `stern_brocot_as_universal_lattice.md` | Where does K_{NS, NT}^{(c)} sit, and why is (3, 2) the atomic anchor? | `math/cohomology/k_nm_c_classification.md` + `math/mobius_canonical_equivalence.md` + `BipartiteStermBrocotClassification` |
 | `bipartite_tripartite_self_containment.md` | Why is the framework called 2-1-3 but the cohomology programme bipartite? | `math/mobius213_p_orbit_closure.md` + `TripartiteK213` + Lean-deferred Option I (V32LocalSignature) |

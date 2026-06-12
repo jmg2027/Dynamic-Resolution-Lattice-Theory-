@@ -219,6 +219,67 @@ theorem cauchy_schwarz_gridZ (n : Nat) (a : Nat → Int) :
       (Order.le_zero_of_nonneg (Order.sub_nonneg_of_le ih))
       (gridSumZ_nonneg m _ (fun _ _ => int_sq_nonneg _)))
 
+/-! ### The pair-sum Lagrange identity — the depth-0 certificate
+
+`cauchy_schwarz_gridZ` proves `(Σa)² ≤ n·Σa²` by induction, **folding** the gap onto its
+spine: rung `m` contributes the per-rung SOS `Σ_{i<m}(a_i − a_m)²`.  The same bound has a
+*closed* (depth-0) certificate — the gap **is** the triangular pair-sum of squares
+`Σ_{i<j}(a_i − a_j)²`.  This section states that closed form and proves the two
+certificates equal (`lagrange_pair_identity`): one residue (`n·Σa² − (Σa)²`), two
+pointings (folded along the LOOP vs the depth-0 pair-sum), one A7 POSITIVITY instruction —
+the certificate-level instance of `PresentationDependence` (depth is of the pointing).  At
+`n = 2` it collapses to the single square `(a₀ − a₁)²` of `Foundations.Positivity.
+cauchy_schwarz_2d` (`lagrange_pair_two`). -/
+
+/-- The triangular **pair-sum of squares** `Σ_{j<n} Σ_{i<j} (a_i − a_j)²` — the closed
+    (depth-0) form of the Cauchy–Schwarz gap, enumerating each unordered pair `{i,j}` once. -/
+def lagrangePairSumZ (n : Nat) (a : Nat → Int) : Int :=
+  gridSumZ n (fun j => gridSumZ j (fun i => (a i - a j) * (a i - a j)))
+
+/-- ★★★★★ **The pair-sum Lagrange identity** `n·Σa² − (Σa)² = Σ_{i<j}(a_i − a_j)²`.  The
+    Cauchy–Schwarz gap in closed form.  Inductively, rung `m` of the outer sum is exactly the
+    per-rung SOS `Σ_{i<m}(a_i − a_m)²` that `cauchy_schwarz_gridZ` folds in (same `kab_inner`
+    expansion) — so the folded and depth-0 certificates are literally one quantity. -/
+theorem lagrange_pair_identity (n : Nat) (a : Nat → Int) :
+    (n : Int) * gridSumZ n (fun i => a i * a i) - gridSumZ n a * gridSumZ n a
+      = lagrangePairSumZ n a := by
+  induction n with
+  | zero => rfl
+  | succ m ih =>
+    show ((m + 1 : Nat) : Int) * gridSumZ (m + 1) (fun i => a i * a i)
+           - gridSumZ (m + 1) a * gridSumZ (m + 1) a
+         = lagrangePairSumZ (m + 1) a
+    rw [gridSumZ_succ, gridSumZ_succ]
+    show ((m + 1 : Nat) : Int) * (gridSumZ m (fun i => a i * a i) + a m * a m)
+           - (gridSumZ m a + a m) * (gridSumZ m a + a m)
+         = lagrangePairSumZ m a + gridSumZ m (fun i => (a i - a m) * (a i - a m))
+    rw [← ih]
+    have hcast : (((m + 1 : Nat)) : Int) = (m : Int) + 1 := rfl
+    rw [hcast, kab_inner m a a m]; ring_intZ
+
+/-- The closed gap is non-negative because it is a pair-sum of squares — the **depth-0**
+    certificate (vs the folded one inside `cauchy_schwarz_gridZ`). -/
+theorem lagrange_pair_nonneg (n : Nat) (a : Nat → Int) : 0 ≤ lagrangePairSumZ n a :=
+  gridSumZ_nonneg n _ (fun _ _ => gridSumZ_nonneg _ _ (fun _ _ => int_sq_nonneg _))
+
+/-- Cauchy–Schwarz `(Σa)² ≤ n·Σa²` re-derived from the closed certificate: the bound is
+    presentation-invariant — provable either by folding (`cauchy_schwarz_gridZ`) or from the
+    depth-0 pair-sum (`lagrange_pair_identity` + `lagrange_pair_nonneg`). -/
+theorem cauchy_schwarz_via_lagrange (n : Nat) (a : Nat → Int) :
+    gridSumZ n a * gridSumZ n a ≤ (n : Int) * gridSumZ n (fun i => a i * a i) := by
+  apply Order.le_of_sub_nonneg
+  rw [lagrange_pair_identity]; exact Order.nonneg_of_le_zero (lagrange_pair_nonneg n a)
+
+/-- At `n = 2` the pair-sum collapses to the single square `(a₀ − a₁)²` — the depth-0
+    2-D gap of `Foundations.Positivity.cauchy_schwarz_2d`: `2·(a₀²+a₁²) − (a₀+a₁)² =
+    (a₀ − a₁)²`.  The general identity's first non-trivial rung. -/
+theorem lagrange_pair_two (a : Nat → Int) :
+    (2 : Int) * gridSumZ 2 (fun i => a i * a i) - gridSumZ 2 a * gridSumZ 2 a
+      = (a 0 - a 1) * (a 0 - a 1) := by
+  show (2 : Int) * ((0 + a 0 * a 0) + a 1 * a 1) - ((0 + a 0) + a 1) * ((0 + a 0) + a 1)
+       = (a 0 - a 1) * (a 0 - a 1)
+  ring_intZ
+
 /-- ★★★★★ **`K_{a,b}` is `CD((b−a+4)/2, ∞)` at an `A`-vertex when `b ≤ 2a−2`** (`b`-scaled:
     `b·gamma2 ≥ b(b−a+4)·gammaC`, `b−a+4 = nb−na+3`).  In this "narrow" regime the
     `X²`-coefficient `2b−4a+4 ≤ 0`; the difference `b·gamma2 − b(b−a+4)·gammaC` rearranges

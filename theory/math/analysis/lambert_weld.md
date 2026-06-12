@@ -170,6 +170,40 @@ a uniform `k+2` modulus on both sides.  The mechanism is the Padé
 remainder reorganized as ℕ-combinatorics: one diagonal double-factorial
 flip per level, paying for all sub-diagonal slack with tenfold room.
 
+### 9. The Casoratian development and the bilinear unification (`LambertOrder` §10)
+
+The weld Casoratian (§9, `weld_casoratian`) is lifted to the named ℤ
+recurrence `weld_casoratian_int`: `R_{J+1}·M_J = R_J·M_{J+1} + K_J` on the
+lower cross `R_J` and upper margin `M_J`, with constant `K_J`.  From it:
+
+- **Flip criterion + ratio descent** (`weld_flip_criterion`,
+  `weld_ratio_descent` at any anchor, `weld_positivity_persists`): the ratio
+  `R/M` climbs, and the cross persists non-negative once it gets there.
+- **The det-floor resolves the margin's near-cancellation**
+  (`weldM_devB`: `M_J·devB = s_J − q²Q·R_J`), giving the **M-free Wronskian**
+  `weld_rs_wronskian`: `R_{J+1}·s_J − R_J·s_{J+1} = devB·K_J` — the lower cross
+  and the explicit sinh numerator are a Casoratian pair.
+- **The bilinear unification.**  With the weight-normalized cosh
+  `ĉ_J := (2J+1)·c_J`, the pair `(ĉ, s)` has Casoratian `K_J`, and both
+  residuals are constant-coefficient combinations of it
+  (`weldR_basis`, `weldM_basis`, `weldK_basis`): `(s, ĉ)` is the image of
+  `(R, M)` under the CF-determinant matrix, **unimodular** (`det = −1`, the
+  det-one floor `dev_cross_det`; `weld_cosh_RM`).  Hence the *single* ring
+  identity `weld_bilinear_casoratian` subsumes all four residual crosses as
+  `det(coeff)·K_J` (`weld_casoratian_bilinear` re-derives `weld_casoratian`
+  with coupling `1`).  The convergent arrays `apF`/`bpF` are the reversed
+  **Bessel polynomials** of this pair (essay
+  `essays/analysis/bessel_polynomials_are_the_lambert_convergents.md`); the
+  det-floor `+1` is the residue unit organizing the whole structure.
+- **`LowerBase` localized.**  The flip happens at exactly one step (`J = 2i`),
+  so `LowerBase` reduces theorem-backed to a single inequality
+  (`weld_lowerbase_reduction`, and the cleanest M-free form
+  `weld_lowerbase_reduction_rs`), and via M-monotonicity + a `Core` inequality
+  (`weld_lowerbase_of_core`).  Both residuals bottom out in the same
+  `(4i+2)!!` flip value (`master_diagonal`) the bridge already supplies — so
+  this Casoratian route is a clean, M-free *second spine*, not a counting-free
+  re-closure; `LowerBase` stays closed in `LambertBridge` (proof of record).
+
 ## Open frontier
 
 - `exp(p/q)`, `p ≥ 2`, **free** modulus: the factorial presentation
@@ -180,6 +214,9 @@ flip per level, paying for all sub-diagonal slack with tenfold room.
   divisibility chains; Chebyshev 30-block lcm bound), formalization
   pending (tracked in the `zeta3_free_modulus` / `zeta3_blueprint`
   frontier notes).
-- The weld Casoratian (`LambertOrder` §9, `weld_casoratian`): the exact
-  `i`-invariant unimodular identity — proven, but its flip-criterion
-  consequences are not yet developed.
+- The weld Casoratian's flip-criterion + bilinear unification are now
+  developed (§9 above); the residual *open* directions are tracked in the
+  `transcendentals/weld_casoratian_development` frontier: a bridge-free
+  quantitative induction for **M-monotonicity**, and the general CF-vs-series
+  bilinear instantiation for `exp(2/q)` / `tan(1/q)` (same
+  `weld_bilinear_casoratian`, coupling = the CF determinant).
