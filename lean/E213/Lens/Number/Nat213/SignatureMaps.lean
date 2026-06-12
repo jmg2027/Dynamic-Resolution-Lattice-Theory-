@@ -351,4 +351,118 @@ theorem tri_not_constInterval : ¬ ∃ d, ∀ n, tri (n + 1) = tri n + d := by
   have h21 : (2 : Nat) = 1 := E213.Tactic.NatHelper.add_left_cancel e1
   exact Nat.noConfusion (Nat.succ.inj h21)
 
+/-! ## Full rigidity — every order-automorphism of ℕ is the identity
+
+`affine_surj_id` proved rigidity *within* the affine family.  Here it is
+proved over **arbitrary** maps: a strictly monotone surjection (an
+order-automorphism of `(ℕ, ≤)`) is forced to be the identity.  Two
+ingredients: a strictly monotone map dominates its index (`strictMono_ge`,
+`n ≤ f n`), and strict monotonicity is monotone (`strictMono_mono`).  The
+apex of the tower with no affine assumption: `Aut(ℕ⁺, ≤) = {id}`. -/
+
+/-- A strictly monotone `f : ℕ → ℕ` dominates the index: `n ≤ f n`. -/
+theorem strictMono_ge (f : Nat → Nat) (hmono : ∀ {a b}, a < b → f a < f b) :
+    ∀ n, n ≤ f n := by
+  intro n
+  induction n with
+  | zero => exact Nat.zero_le _
+  | succ k ih =>
+      exact Nat.succ_le_of_lt (Nat.lt_of_le_of_lt ih (hmono (Nat.lt_succ_self k)))
+
+/-- Strict monotonicity is monotonicity: `a ≤ b → f a ≤ f b`. -/
+theorem strictMono_mono (f : Nat → Nat)
+    (hmono : ∀ {a b}, a < b → f a < f b) {a b : Nat} (h : a ≤ b) :
+    f a ≤ f b := by
+  rcases Nat.eq_or_lt_of_le h with he | hl
+  · exact Nat.le_of_eq (congrArg f he)
+  · exact Nat.le_of_lt (hmono hl)
+
+/-- **Full order rigidity.**  A strictly monotone surjection of ℕ — an
+    order-automorphism of `(ℕ, ≤)` — is the identity.  No affine
+    hypothesis: `Aut(ℕ⁺, ≤) = {id}`. -/
+theorem orderAuto_id (f : Nat → Nat)
+    (hmono : ∀ {a b}, a < b → f a < f b)
+    (hsurj : ∀ y, ∃ x, f x = y) : ∀ n, f n = n := by
+  intro n
+  induction n using Nat.strongRecOn with
+  | ind n ih =>
+      have hge : n ≤ f n := strictMono_ge f hmono n
+      obtain ⟨k, hk⟩ := hsurj n
+      rcases Nat.lt_or_ge k n with hlt | hge2
+      · -- k < n: by IH f k = k, but f k = n ⟹ k = n, contradiction
+        have hkn : k = n := (ih k hlt).symm.trans hk
+        exact absurd (hkn ▸ hlt) (Nat.lt_irrefl n)
+      · -- n ≤ k ⟹ f n ≤ f k = n; with n ≤ f n ⟹ f n = n
+        have hle : f n ≤ f k := strictMono_mono f hmono hge2
+        rw [hk] at hle
+        exact Nat.le_antisymm hle hge
+
+/-! ## Classification of the order layer — the gap / partial-sum normal form
+
+What form does an order-preserving map take?  Just as a *constant*
+interval reconstructs an affine map (`constInterval_affine`), an
+*arbitrary* gap sequence reconstructs a monotone map.  Every monotone
+`f` is its first value plus the running sum of its forward gaps
+(`monotone_eq_first_add_psum_gap`):
+
+```
+f n = f 0 + Σ_{i<n} (f(i+1) − f i).
+```
+
+So the order-only class is parameterised by `(f 0, gap f)` — a starting
+value and a whole **gap sequence** `gap f : ℕ → ℕ`.  The sub-classes are
+cut by the gap sequence:
+
+  - **gap constant `≡ d`** → affine `n ↦ f 0 + d·n` (`affine_gap`
+    computes `gap (affine a d) = d`; the converse is `constInterval_affine`);
+  - **gap pointwise `≥ 1`** → strictly monotone / order-embedding
+    (`gap_pos_of_step`; converse via `strictMono_of_step`);
+  - **gap pointwise `≥ 0`** → weakly monotone (non-decreasing).
+
+This is the precise sense of "infinite-dimensional" at the base: the
+affine layer fixes the gap to a single number, the order layer lets it be
+an arbitrary sequence.  (Equivalently, an order-embedding ↔ its image, an
+infinite subset of ℕ enumerated increasingly — the same data as a
+pointwise-`≥1` gap sequence with a starting value.) -/
+
+/-- The forward gap of a map at `n`. -/
+def gap (f : Nat → Nat) (n : Nat) : Nat := f (n + 1) - f n
+
+/-- The running (partial) sum of a gap sequence. -/
+def psum (g : Nat → Nat) : Nat → Nat
+  | 0     => 0
+  | n + 1 => psum g n + g n
+
+/-- **Order-layer normal form.**  Every monotone map is its first value
+    plus the partial sum of its gaps: `f n = f 0 + Σ_{i<n} gap f i`.  The
+    sequence-parameterised analogue of `constInterval_affine`. -/
+theorem monotone_eq_first_add_psum_gap (f : Nat → Nat)
+    (hmono : ∀ n, f n ≤ f (n + 1)) :
+    ∀ n, f n = f 0 + psum (gap f) n := by
+  intro n
+  induction n with
+  | zero =>
+      show f 0 = f 0 + 0
+      rw [Nat.add_zero]
+  | succ k ih =>
+      have hstep : f (k + 1) = f k + gap f k := by
+        show f (k + 1) = f k + (f (k + 1) - f k)
+        rw [E213.Tactic.NatHelper.add_sub_of_le (hmono k)]
+      show f (k + 1) = f 0 + (psum (gap f) k + gap f k)
+      rw [hstep, ih, Nat.add_assoc]
+
+/-- **Affine ⟺ constant gap.**  An affine map has constant gap `d`
+    (recovering the affine slice of the normal form; converse is
+    `constInterval_affine`). -/
+theorem affine_gap (a d n : Nat) : gap (affine a d) n = d := by
+  show (a + d * (n + 1)) - (a + d * n) = d
+  rw [Nat.mul_succ, ← Nat.add_assoc, Nat.add_comm (a + d * n) d]
+  exact E213.Tactic.NatHelper.add_sub_cancel_right d (a + d * n)
+
+/-- **Strictly monotone ⟹ gaps `≥ 1`.**  An order-embedding has positive
+    gaps everywhere (converse: positive gaps give `strictMono_of_step`). -/
+theorem gap_pos_of_step (f : Nat → Nat) (n : Nat) (h : f n < f (n + 1)) :
+    1 ≤ gap f n :=
+  E213.Tactic.NatHelper.sub_pos_of_lt h
+
 end E213.Lens.Number.Nat213
