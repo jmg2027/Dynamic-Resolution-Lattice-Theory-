@@ -1,113 +1,129 @@
-# Session Handoff — 2026-06-11 (closing-open-programs)
+# Session Handoff — 2026-06-11 (closing-open-programs + weld structure)
 
 ## Branch
-`claude/closing-open-programs-0qzj2c` — cheap-brick sweep across the open
-frontier board.  Full `lake build E213` green; touched modules 0 DIRTY.
+`claude/closing-open-programs-0qzj2c` — pushed, in sync with origin; **main
+merged in** (33 commits: slot tower / number-systems-weaving). Full forced
+`rm -rf .lake/build && lake build E213` clean (383/383); `layer_audit` 0
+violations; `kernel_regress` 45/45 0-axiom; touched modules 0 DIRTY.
+**READY TO MERGE** (full pre-merge audit passed). Merge to main is the next action.
 
-## What Was Done This Session — four "cheap brick" frontier closures
+## What Was Done This Session
 
-### 1. Pair-sum Lagrange identity (`inequalities_positivity` #1) — CLOSED
-`BakryEmeryBipartite` §5.5 (5 PURE): the depth-0 closed certificate of the
-Cauchy–Schwarz gap, next to the folded `cauchy_schwarz_gridZ`.
-- `lagrangePairSumZ` — triangular `Σ_{j<n}Σ_{i<j}(a_i−a_j)²`
-- `lagrange_pair_identity` — `n·Σa² − (Σa)² = lagrangePairSumZ`
-- `cauchy_schwarz_via_lagrange` (re-derive the bound), `lagrange_pair_two`
-  (`n=2` collapse to `(a₀−a₁)²`, ties to `Foundations.Positivity.cauchy_schwarz_2d`)
-The folded per-rung and depth-0 certificates proved equal — one A7 POSITIVITY.
+### 1. Four "cheap brick" frontier closures (all PURE)
+- **Pair-sum Lagrange identity** (`BakryEmeryBipartite` §5.5, 5 PURE): the
+  depth-0 closed certificate `n·Σa² − (Σa)² = Σ_{i<j}(a_i−a_j)²`
+  (`lagrange_pair_identity`), next to the folded `cauchy_schwarz_gridZ`; one A7
+  POSITIVITY (`inequalities_positivity` brick 1).
+- **Bracket = separation schedule** (`BracketModulus.bracket_is_sep_schedule`):
+  exclusion-depth ⟹ `sep_cauchy`'s `hsep`, schedule `I k = B k + 2`
+  (`weld_crossdomain` insight 3).
+- **Zolotarev edge 2** (`CasoratianPermSign`, already in Lean): the cyclic-shift
+  companion sign through `det_permMatrix` (note was stale; recorded closed).
+- **Weld Casoratian flip criterion + ratio descent** — see §2.
 
-### 2. Weld Casoratian flip criterion (`weld_casoratian_development` #1) — CLOSED
-`LambertOrder` §10 (5 PURE): lift the subtraction-free ℕ `weld_casoratian`
-to the named ℤ recurrence.
-- `weldR/weldM/weldK` — lower cross `R_J`, upper margin `M_J`, constant `K_J`
-  as signed ℤ quantities
-- `weld_casoratian_int : R_{J+1}·M_J = R_J·M_{J+1} + K_J` — difference factors
-  as `K_J·(detpair−detval)`; one det-one floor firing (`dev_cross_det` cast to
-  ℤ) kills it
-- `weld_flip_criterion : 0 < M_J → −(R_J·M_{J+1}) < K_J → 0 < R_{J+1}`
-Added `import E213.Meta.Int213.OrderMul` (brings `ring_intZ` + order API).
+### 2. The weld Casoratian: full structural development (`LambertOrder` §10, 64 PURE)
+Lifted the subtraction-free ℕ `weld_casoratian` to a complete ℤ spine:
+- `weld_casoratian_int`, `weld_flip_criterion`, `weldK_nonneg`,
+  `weld_descent_step`, `weld_ratio_descent` (any anchor), `weld_positivity_persists`,
+  `weldM_nonneg` — flip criterion + ratio descent (items 1+2).
+- **det-floor resolves the margin's near-cancellation**: `weldM_devB`
+  (`M_J·devB = s_J − q²Q·R_J`), `weld_cosh_RM` (`(2J+1)c_J = P·R_J + devA·M_J`) —
+  the **unimodular transform** `(R,M) ↔ (s, (2J+1)c)` (det `−1` = det-one floor).
+- **Three Wronskians** (`weld_rs_wronskian`, `weldM_wronskian`, `weldM_s_wronskian`),
+  all `K_J`-proportional, collapsed to ONE master ring identity
+  **`weld_bilinear_casoratian`** (every residual cross = `det(coeff)·K_J`);
+  `weld_casoratian_bilinear` re-derives `weld_casoratian` with coupling `1`.
+- **LowerBase localized** (`weld_lowerbase_reduction`, `..._rs` M-free,
+  `weld_lowerbase_of_core`): the cross flips at exactly one step (`J=2i`), so
+  LowerBase reduces theorem-backed to a single inequality / to {M-monotonicity, Core}.
 
-### 3. Bracket engine = separation schedule (`weld_crossdomain` insight 3) — CLOSED
-`BracketModulus.bracket_is_sep_schedule` (PURE): the two-sided exclusion-depth
-hypotheses imply `AbCutSeq.sep_cauchy`'s one-sided `hsep` for the lower fold,
-with schedule `I k = B k + 2`.  Forward (`below_fwd`) + backward (post-exit
-constancy) regimes meet at `B k + 2`.  Ladder rung-2 bracket and weld
-completion engine are one device.
+### 3. Honest verdict on LowerBase — bridge-equivalent (multi-agent + numerical)
+Both residuals (M-monotonicity, Core) bottom out in the **same `(4i+2)!!` flip
+value** (`master_diagonal`) the existing `LambertBridge` already supplies:
+- **Core** needs the `(4i+2)!!` counting (the flip value `R_{2i+1} ~ (4i+2)!!`).
+- **M-monotonicity** ⟺ (via the M·sinh Wronskian) a `(s_{J+1}−s_J)M_J ≤ q²Q·K_J`
+  that is *self-equivalent* to antitone — a genuine quantitative induction, not
+  yet found (an agent's "provable now" was an over-claim, corrected).
+Net: the Casoratian/Wronskian split is a clean M-free **second spine**, not a
+counting-free re-closure. `LowerBase` stays closed in `LambertBridge` (proof of
+record). (Also corrected an earlier over-claim that framed forward persistence
+as a bridge-free certificate — it is vacuous at `R_0 ≤ 0`.)
 
-### 4. Zolotarev "three readouts" edge 2 (`zolotarev_crossdomain`) — already in Lean
-`CasoratianPermSign.{det_permMatrix_cycShift, companion_det_eq_permMatrix_det}`
-(4 PURE) already route the cyclic-shift companion sign through `det_permMatrix`.
-Frontier note was stale; recorded as closed (doc-only).
+### 4. Classical identification + 2 essays
+- **Lambert/Padé/Bessel**: the convergent arrays `apF`/`bpF` ARE the reversed
+  Bessel polynomials (essay `bessel_polynomials_are_the_lambert_convergents.md`);
+  `(4i+2)!! = 2^{2i+1}(2i+1)!` is the Padé remainder leading coefficient;
+  `minor_all` = Bessel total positivity.
+- **The form is forced by two** (essay `the_form_forced_by_two.md`): rank-2
+  (coth = ratio of two solutions of `y''=y`) forces the unique alternating form
+  `K`, the bilinear collapse, the unimodular `±1`, the det-floor `+1` residue
+  unit, and the double-factorial flip — no exterior dialer chooses the shape.
 
-## Lean tactic intel (this session's pitfalls)
-- **`ring_intZ` reads `↑(J+1)` and `↑J` as unrelated atoms** — a coefficient
-  identity like `2(J+1)+1 = 2J+3` is invisible.  Bridge with
-  `have hsucc : ((J+1:Nat):Int) = (J:Int)+1 := rfl; rw [hsucc]` before `ring_intZ`
-  (one `rw` replaces all occurrences — `hsucc` has no metavariable).
-- **`ring_intZ` does not normalize `·0` / `0+` forms** (same as `ring_nat`,
-  per prior HANDOFF).  Route around: collapse `detval−detval` with
-  `Order.sub_self_zero` + `PolyIntM.mul_zeroZ`, and rearrange `A−(B+C)=0 ⟹ A=B+C`
-  with `int_eq_of_add_neg` + `Int.add_zero`, not `ring_intZ`.
-- Cast a ℕ identity to ℤ via `congrArg Int.ofNat h` then `rw [Int.ofNat_mul,
-  Int.ofNat_add, Int.ofNat_one]`; `Int.ofNat.inj` for the reverse.  For a ℕ
-  *inequality* use `OrderMul.ofNat_le_of_le`; bridge `↑(2*J+c)` to `2*↑J+c`
-  with a per-literal `have ... := by rw [Int.ofNat_add, Int.ofNat_mul]; rfl`.
-- **`calc` with mixed `=`/`≤` steps pulls in `propext`** (its `Trans`
-  instances) → the theorem scans DIRTY.  Replace with explicit
-  `Order.le_trans` + goal `rw [show … from by ring_intZ]` + `le_refl` to stay
-  ∅-axiom.  (`induction … with` and `ring_intZ` themselves are clean.)
+### 5. Merge + process + promotion + cross-domain
+Merged main; `/process` (sink rule 0 violations); promoted the §10 development to
+`lambert_weld.md` §9 + logged rows 70–72; wrote 4 cross-domain bridges (weld
+bilinear Casoratian ↔ main's convolution / NoOrderModP / ζ(3)-Apéry / modular group).
 
-## Open Problems (unchanged priority; footholds added)
-1. **ζ(3) formalization** — two verified blueprints, formalization marathons.
+## Current Precision Results (0 free parameters)
+Unchanged this session (math-branch work — transcendental tower / weld structure).
+See `catalogs/physics-constants.md`; headline rows (1/α_em ppb-class, m_p, m_μ/m_e)
+as before.
+
+## Open Problems (Priority Order)
+1. **Weld LowerBase — bridge-free M-monotonicity induction**: the cleanest open
+   residual. M-monotonicity `M_{2i} ≤ M_0` reduces to itself via the M·sinh
+   Wronskian; a genuine quantitative ℤ-native induction would leave **Core** as
+   the only bridge-dependent piece. Frontier note:
+   `research-notes/frontiers/transcendentals/weld_casoratian_development.md`.
+2. **General CF-weld bilinear instantiation** for `exp(2/q)` / `tan(1/q)`: the
+   abstract `weld_bilinear_casoratian` applies with coupling = the CF determinant
+   (coth `1`, exp(2/q) Möbius fold `2·a_n`); needs their normalized pairs built.
+   Frontier note: same `weld_casoratian_development.md`.
+3. **ζ(3) formalization** — two verified blueprints; the weld's subtraction-free
+   weight-threading (`cfpos_moved`/`master_pair`) is the right tool for the Apéry
+   integrality divisibility chains (cross-domain bridge 3). Frontier notes:
    `frontiers/zeta3_blueprint.md`, `zeta3_free_modulus.md`.
-2. **exp(p/q), p ≥ 2, free modulus** — needs unconditional `hmeas`.
+4. **exp(p/q), p ≥ 2, free modulus** — needs unconditional `hmeas`.
    `frontiers/modulus_degree_ladder.md`.
-3. **Weld Casoratian** — items 1+2 CLOSED; item 3 **reduced to one inequality +
-   wall precisely located** (multi-agent + numerical probe).  Lemmas:
-   `weld_casoratian_int`, `weld_flip_criterion`, `weldK_nonneg`, `weld_descent_step`,
-   `weld_ratio_descent` [any anchor], `weld_positivity_persists`, `weldM_nonneg`,
-   `weld_lowerbase_reduction`.  Discoveries: (i) the cross flips at **exactly one
-   step** `J=2i→2i+1` (eval `i≤3`); (ii) so LowerBase reduces *theorem-backed,
-   bridge-free* to the **single** inequality `(−R_0)·M_{2i}·M_{2i+1} ≤ K_{2i}·M_0`
-   (`weld_lowerbase_reduction`), flip criterion now instantiated; (iii) but that
-   inequality is **not crudely provable** — `M_0 = P − q²Q` is a small near-cancellation
-   (det-floor `P·devB = q²devA·Q+1` the only gap; crude `M ≤ P·s` overshoots by
-   10⁹–10²⁵×), so the residue *inherits* the bridge's delicate content (§5.4: no
-   internal handle that avoids it — bridge-equivalence now evidenced, not asserted).
-   (iv) **det-floor resolves the M near-cancellation**: `weldM_devB : M_J·devB = s_J −
-   q²Q·R_J`, hence the **M-free Wronskian** `weld_rs_wronskian : R_{J+1}s_J − R_J s_{J+1}
-   = devB·K_J` (R and explicit sinh are a Casoratian pair); cleanest reduction
-   `weld_lowerbase_reduction_rs` (`(−R_J)s_{J+1} ≤ devB·K_J ⟹ 0 ≤ R_{J+1}`, M-free).
-   (v) **Core marathon** (2 agent rounds + formalization): assembly `weld_lowerbase_of_core`
-   (∅-axiom) derives LowerBase from {M-pos, R_0≤0, q²Q>0, **M-monotonicity** `M_{2i}≤M_0`,
-   **Core** `M_0·devB·M_{2i+1} ≤ q²Q·K_{2i}`}.  Three Wronskians built (`weld_rs_wronskian`,
-   `weldM_wronskian` M·cosh=P·K, `weldM_s_wronskian` M·sinh=q²Q·K).  **Honest verdict — both
-   residuals bottom out in the bridge:** M-monotonicity ⟺ (via M·sinh Wronskian)
-   `(s_{J+1}−s_J)M_J ≤ q²Q·K_J` which is *self-equivalent* to antitone (no ring discharge;
-   genuine induction not yet found — agent's "provable now" over-claim corrected); Core's
-   flip value `R_{2i+1} ~ (4i+2)!!` (LambertMasterId diagonal) genuinely **needs the
-   (4i+2)!! counting = LambertBridge**.  Net: the Wronskian split removes counting from the
-   *structure* (clean ∅-axiom spine) but not the *core* — LowerBase is bridge-*equivalent*,
-   now shown by multiple independent reductions all ending at the (4i+2)!! flip-timing.
-   LowerBase is already closed in LambertBridge (proof of record); this route's value is the
-   M-free spine.  Module **57 PURE / 0 dirty**.  (Corrects an earlier persistence-certificate
-   over-claim.)
-4. **inequalities = POSITIVITY ∘ LOOP** — first brick (Lagrange identity)
-   CLOSED; the general compilation theorem over AM-GM/Jensen/power-mean open.
-5. **Smooth Ricci core** — the standing wall (discrete side closed/promoted).
+5. **inequalities = POSITIVITY ∘ LOOP** — brick 1 (Lagrange) closed; the general
+   compilation theorem open. `frontiers/inequalities_positivity_fold_crossdomain.md`.
+6. **Smooth Ricci core** — the standing wall (discrete side closed/promoted).
+   `frontiers/ricci_flow_smooth_core.md`.
+
+## Unresolved from This Session
+- A bridge-free quantitative induction for M-monotonicity (and Core) was not
+  found — multiple independent reductions (M-Casoratian, R-sinh Wronskian, scalar
+  R-recursion) all terminate at the `(4i+2)!!` flip-timing (bridge-equivalent).
+- Crude bounds on the LowerBase single inequality fail by 10⁹–10²⁵× (the margin
+  `M_0 = P − q²Q` is a det-floor near-cancellation) — the delicate content is
+  irreducible.
 
 ## Next
-Either continue the cheap-brick sweep (curvature_spectrum bridge 1 `K_p`
-Laplacian = additive character; selfref_matrix unimodularity note) or start
-the ζ(3) Chebyshev-lcm marathon (Open Problem 1).
+Either (1) attempt the M-monotonicity bridge-free induction (frontier 1), or
+(2) start the ζ(3) Apéry-integrality marathon using the weld's weight-threading
+technique (frontier 3 / cross-domain bridge), or (3) merge this branch to main
+and pick a fresh frontier.
+
+## Three-tier state
+- **Promotions this session**: `theory/math/analysis/lambert_weld.md` §9 ←
+  the closed `LambertOrder` §10 Casoratian development (log row 71); essays
+  `bessel_polynomials_are_the_lambert_convergents.md` (row 70),
+  `the_form_forced_by_two.md` (row 72).
+- **Promotion candidates**: none flagged new — the weld chapter now reflects §10;
+  the frontier stays open for the residuals.
+- **Active scratchpad**: `frontiers/transcendentals/weld_casoratian_development.md`
+  (the structural unification + the two open residuals);
+  `frontiers/weld_crossdomain.md` (the 4-bridge addendum).
 
 ## File Map
 ```
-lean/E213/Lib/Math/Geometry/GeometrizationConjecture/BakryEmeryBipartite.lean  ← §5.5 Lagrange identity (5 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/BracketModulus.lean                   ← §3 bracket_is_sep_schedule (PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertOrder.lean              ← §10 named ℤ Casoratian + flip (5 PURE); +OrderMul import
-research-notes/frontiers/inequalities_positivity_fold_crossdomain.md           ← brick 1 closed
-research-notes/frontiers/weld_crossdomain.md                                   ← insight 3 closed
-research-notes/frontiers/zolotarev_crossdomain.md                              ← edge 2 closed (was stale)
-research-notes/frontiers/transcendentals/weld_casoratian_development.md        ← item 1 closed
-research-notes/frontiers/INDEX.md                                              ← four closure records
+lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/LambertOrder.lean  ← §10: full Casoratian spine (64 PURE)
+lean/E213/Lib/Math/NumberSystems/Real213/BracketModulus.lean       ← bracket_is_sep_schedule (PURE)
+lean/E213/Lib/Math/Geometry/GeometrizationConjecture/BakryEmeryBipartite.lean ← §5.5 Lagrange identity (5 PURE)
+theory/math/analysis/lambert_weld.md                               ← NEW §9 (Casoratian development promotion)
+theory/essays/analysis/bessel_polynomials_are_the_lambert_convergents.md ← NEW essay
+theory/essays/analysis/the_form_forced_by_two.md                   ← NEW essay
+theory/essays/INDEX.md, research-notes/promotion_essay_log.md      ← registrations (essays 93; rows 70–72)
+research-notes/frontiers/transcendentals/weld_casoratian_development.md ← structural unification + open residuals
+research-notes/frontiers/weld_crossdomain.md                       ← 4 cross-domain bridges (merge addendum)
 ```
