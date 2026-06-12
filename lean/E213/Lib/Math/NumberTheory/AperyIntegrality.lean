@@ -25,6 +25,7 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_pos
   factorial_succ)
+open E213.Tactic.NatHelper (sub_add_cancel add_right_cancel)
 
 /-! ## §1 — the trinomial double identity -/
 
@@ -145,5 +146,33 @@ theorem rprod_one (len : Nat) : rprod 1 len = factorial len := by
 theorem rprod_pos {m : Nat} (hm : 1 ≤ m) : ∀ len, 0 < rprod m len
   | 0 => Nat.zero_lt_one
   | len + 1 => Nat.mul_pos (rprod_pos hm len) (Nat.le_trans hm (Nat.le_add_right m len))
+
+/-- Pure `(s+1) − j = (s−j) + 1` for `j ≤ s` (`Nat.succ_sub` carries `propext`). -/
+private theorem succ_sub_pure {s j : Nat} (hj : j ≤ s) : (s + 1) - j = (s - j) + 1 := by
+  have e1 : ((s - j) + 1) + j = s + 1 := by rw [Nat.add_right_comm, sub_add_cancel hj]
+  have e2 : ((s + 1) - j) + j = s + 1 := sub_add_cancel (Nat.le_succ_of_le hj)
+  exact add_right_cancel (e2.trans e1.symm)
+
+/-- The product `Π_{i∈[0,s], i≠j}(m+i)` (meaningful for `j ≤ s`). -/
+def Qex (m s j : Nat) : Nat := rprod m j * rprod (m + j + 1) (s - j)
+
+/-- Back recurrence: extending the range by `m+s+1`.  `Qex m (s+1) j = (m+s+1)·Qex m s j`
+    for `j ≤ s` (the new factor `m+s+1` joins the product). -/
+theorem Qex_back {s j : Nat} (hj : j ≤ s) (m : Nat) :
+    Qex m (s + 1) j = (m + s + 1) * Qex m s j := by
+  show rprod m j * rprod (m + j + 1) ((s + 1) - j)
+    = (m + s + 1) * (rprod m j * rprod (m + j + 1) (s - j))
+  rw [succ_sub_pure hj, rprod_back,
+      show m + j + 1 + (s - j) = m + s + 1 from by
+        rw [show m + j + 1 + (s - j) = (m + 1) + (j + (s - j)) from by ring_nat,
+            Nat.add_comm j (s - j), sub_add_cancel hj]; ring_nat]
+  ring_nat
+
+/-- Front recurrence: peeling the first factor `m`.  `Qex m (s+1) (j+1) = m·Qex (m+1) s j`. -/
+theorem Qex_front (m s j : Nat) : Qex m (s + 1) (j + 1) = m * Qex (m + 1) s j := by
+  show rprod m (j + 1) * rprod (m + (j + 1) + 1) ((s + 1) - (j + 1))
+    = m * (rprod (m + 1) j * rprod (m + 1 + j + 1) (s - j))
+  rw [rprod_front m j, Nat.succ_sub_succ, show m + (j + 1) + 1 = m + 1 + j + 1 from by ring_nat]
+  ring_nat
 
 end E213.Lib.Math.NumberTheory.AperyIntegrality
