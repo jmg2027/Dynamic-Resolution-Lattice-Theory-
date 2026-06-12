@@ -195,6 +195,50 @@ Casoratian, Euler).  Note `decide`/`rfl` proofs store *small* terms (the decisio
 kernel-check, not in the term) — which is precisely *why* the syntax-level `[decide]`
 clusters are huge while the corpus median node-count stays modest.
 
+## 7. The compositional backbone, and the marathon anatomy
+
+**The citation hubs** (`catalogs/internal-hubs.md`, surface + Expr call-graph).  What the
+14k proofs are built *from* — the highest-blast-radius names:
+
+| internal hub | cites | callers | external hub | cites |
+|---|---:|---:|---|---:|
+| `Tactic.NatHelper.mul_assoc` | 174 | 58 | `absurd` | 177 |
+| `Tactic.NatHelper.add_mul` | 45 | 27 | `Nat.mul_comm` | 165 |
+| `Meta.Int213.mul_comm` | 20 | 6 | `Nat.add_assoc` | 149 |
+| `Meta.Int213.{neg_mul,neg_add,add_comm,mul_neg}` | 10–14 | | `Nat.add_comm` | 145 |
+| `NatHelper.add_sub_cancel_right` | 12 | 12 | `decide_eq_true` | 84 |
+| `Term.Internal.Tree.noConfusion` | 7 | 5 | `Nat.one_mul` / `Nat.mul_add` | 71–82 |
+
+5 of the top-10 internal hubs are **`NatHelper.*`** (the propext-free `Nat.*` replacement
+layer), second tier **`Int213.*`**.  The external backbone is the **semiring axioms** + the
+**decide bridge** (`decide_eq_true`) + **`absurd`** (the negation/`≠` closer).  This is the
+*same* finding as §1 (the hand-rolled simp-set) and §6 (the Bool/Eq/Decidable recursor
+substrate), now from the dependency-hub angle.
+
+**Triple convergence (the structural conclusion).**  Three independent measurements —
+the most-`rw`'d lemmas (§1), the dominant recursors (§6), the citation hubs (§7) — all name
+the *same* small kernel:
+
+> 213's 14k proofs compose from a **thin, hand-rolled, ∅-axiom-clean arithmetic + decision
+> kernel** (`NatHelper`/`Int213` + the semiring axioms + `Bool`/`Eq`/`Decidable` +
+> `decide_eq_true`/`absurd`), massively reused.  The mathematical richness lives in the
+> **statements and the `def` layer**, *not* in the proof-recursion — the proofs are
+> overwhelmingly *compute* (`decide`) and *rewrite* (`rw`/`Eq.rec`) over that kernel.
+
+This is the structural complement to §5: not only is each proof an explicit trajectory
+(no black-box tactic) — the *whole corpus* is a trajectory built on one small, explicit,
+re-explicitated base (`NatHelper` is to 213 what `Mathlib.Algebra` is to a Mathlib proof,
+but ∅-axiom and ~200 lemmas instead of ~10⁵).
+
+**Marathon anatomy** (the 59 files > 500 lines — where the *hard* content lives).  Dominant
+proof style, classified: **20 `rw`-dominant** (algebraic / p-adic rewrite-chains —
+`Padic/Hensel` 213 rw, `Padic/Arith`), **18 `have`-dominant** (number-theory forward
+reasoning — `MarkovUniqueness`, `SternBrocotMarkov`; some are def-heavy `PatternCatalog`
+files), **17 `decide`-dominant** (geometry / cohomology enumeration — `Geometrization/*`,
+`Cohomology/Bipartite/*`), 2 `cases`-bundle, 1 `show`.  So the hard proofs split ~evenly
+into three camps **by domain** — the per-layer style law (§3) extends to the marathon tail:
+algebra rewrites, number-theory chains forward, geometry/combinatorics enumerates.
+
 ---
 
 ## Regeneration (the numbers drift; the structure should not)
