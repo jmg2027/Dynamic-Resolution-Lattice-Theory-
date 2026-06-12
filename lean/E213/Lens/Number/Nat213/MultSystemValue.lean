@@ -2,6 +2,7 @@ import E213.Lens.Number.Nat213.MultSystem
 import E213.Meta.Nat.FoldCriterion
 import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Nat.FloorLog
+import E213.Meta.Nat.PowBasic
 
 /-!
 # Lens.Number.Nat213.MultSystemValue — the prime-valued instance (case A)
@@ -33,12 +34,13 @@ namespace E213.Lens.Number.Nat213.MultSystemValue
 
 open E213.Meta.Nat.VpMul (IsPrime213 vp_mul vp_pow vp_self_pow euclid_lemma)
 open E213.Meta.Nat.Valuation (vp pow_vp_dvd mod_zero_of_dvd le_vp_iff)
-open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
+open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero div_add_mod)
+open E213.Meta.Nat.PowBasic (pow_mul_pure)
 open E213.Meta.Nat.VpSeparation
   (vp_eq_zero_of_not_dvd exists_prime_factor dvd_of_forall_vp_le dvd_iff_one_le_vp)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
-open E213.Meta.Nat.FloorLog (floorLog floorLog_ge)
+open E213.Meta.Nat.FloorLog (floorLog floorLog_ge floorLog_le_of_lt_pow pow_lt_pow_of_lt)
 open E213.Lens.Number.Nat213.MultSystem
   (totalCount binom totalCount_closed binom_succ binom_self binom_zero central_binom_le)
 
@@ -956,9 +958,7 @@ theorem primePi_two_mul_le_floorLog {n : Nat} (hn : 1 ≤ n) :
     doubling-step `floorLog` terms over the dyadic ladder `1, 2, 4, …, 2^m`. -/
 def chebSum : Nat → Nat
   | 0     => 0
-  | m + 1 => chebSum m + floorLog (2 ^ m + 1) (2 ^ (2 * 2 ^ m))
-
-/-- **Telescoped Chebyshev upper bound**: `π(2^m) ≤ chebSum m`.  Iterate the
+  | m + 1 => chebSum m + floorLog (2 ^ m + 1) (2 ^ (2 * 2 ^ m))/-- **Telescoped Chebyshev upper bound**: `π(2^m) ≤ chebSum m`.  Iterate the
     doubling step `primePi_two_mul_le_floorLog` up the dyadic ladder `2^k → 2^{k+1}`.
     `chebSum` is the finite ∅-axiom skeleton whose per-step term
     `floorLog (2^k+1) (4^{2^k}) ≈ 2^{k+1} / k` is the `O(N/ln N)` of the prime
@@ -973,5 +973,30 @@ theorem primePi_pow_two_le_chebSum : ∀ m, primePi (2 ^ m) ≤ chebSum m
       rw [he]
       exact Nat.le_trans hstep
         (Nat.add_le_add_right (primePi_pow_two_le_chebSum m) _)
+
+/-- `a < k · (a/k + 1)` for `k > 0` (the floor-division overshoots by `< k`). -/
+theorem lt_mul_div_succ (a k : Nat) (hk : 0 < k) : a < k * (a / k + 1) := by
+  calc a = k * (a / k) + a % k := (div_add_mod a k).symm
+    _ < k * (a / k) + k := Nat.add_lt_add_left (Nat.mod_lt a hk) _
+    _ = k * (a / k + 1) := (Nat.mul_succ k (a / k)).symm
+
+/-- **Per-window Chebyshev term bound: `floorLog (2^k+1) (4^{2^k}) ≤ 2^{k+1}/k`**
+    (`k ≥ 1`).  The `k`-th `chebSum` term — the number of primes in the dyadic
+    window `(2^k, 2^{k+1}]` is at most `2^{k+1}/k`.  Apply `floorLog_le_of_lt_pow`:
+    `4^{2^k} = 2^{2^{k+1}} < (2^k)^{M+1} ≤ (2^k+1)^{M+1}` with `M = 2^{k+1}/k`,
+    since `2^{k+1} < k·(M+1)` (`lt_mul_div_succ`).  The growing base `2^k+1`
+    supplies the `1/k = 1/log₂(base)` denominator — this is the `O(N/ln N)`. -/
+theorem floorLog_window_term_le {k : Nat} (hk : 1 ≤ k) :
+    floorLog (2 ^ k + 1) (2 ^ (2 * 2 ^ k)) ≤ 2 ^ (k + 1) / k := by
+  have hp : 2 ≤ 2 ^ k + 1 := Nat.succ_le_succ (Nat.pos_pow_of_pos k (by decide))
+  have hN : 1 ≤ 2 ^ (2 * 2 ^ k) := Nat.pos_pow_of_pos _ (by decide)
+  have hak : 2 * 2 ^ k = 2 ^ (k + 1) := by rw [Nat.pow_succ, Nat.mul_comm]
+  apply floorLog_le_of_lt_pow hp hN
+  have hexp : 2 * 2 ^ k < k * (2 ^ (k + 1) / k + 1) := by
+    rw [hak]; exact lt_mul_div_succ (2 ^ (k + 1)) k hk
+  calc 2 ^ (2 * 2 ^ k)
+      < 2 ^ (k * (2 ^ (k + 1) / k + 1)) := pow_lt_pow_of_lt (by decide) hexp
+    _ = (2 ^ k) ^ (2 ^ (k + 1) / k + 1) := pow_mul_pure 2 k (2 ^ (k + 1) / k + 1)
+    _ ≤ (2 ^ k + 1) ^ (2 ^ (k + 1) / k + 1) := Nat.pow_le_pow_left (Nat.le_succ _) _
 
 end E213.Lens.Number.Nat213.MultSystemValue
