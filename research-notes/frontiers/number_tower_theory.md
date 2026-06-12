@@ -169,6 +169,25 @@ flattening readouts; R0) and respects the residue/Lens boundary
 (`boundary_discipline.md`): the readouts are Lenses, the invariants are faithful
 valuations, the holonomy is presentation-dependence — never the residue itself.
 
+## Cross-domain (main ↔ branch): tower-holonomy is a third "of-the-pointing" instance
+
+`R6`'s **tower-holonomy** (the Abel/super-log gauge above `^` — holonomicity in
+the *value*, presentation-dependent) is a new instance of the principle that
+`theory/essays/synthesis/finite_state_is_of_the_pointing.md` (merged from main)
+already states as a **branch×main cross-scale synthesis**: *holonomic depth is a
+property of the pointing, not the value/residue*.  That essay reads one
+`escape_by_invariant` non-surjection at two scales — a number's arithmetic
+(`Padic.mulCarry_unbounded` / `carry_is_nu_escape`: `(−1)²=1` with an unbounded
+`×`-carry) and a sequence's recurrence (`cas_neg_unit_no_finite_depth`: the weld
+Casoratian `q=−1` with no finite holonomic depth).  `R6` adds the **third scale —
+the operation tower**: real-height `↑↑` has no finite/canonical Abel depth, so its
+value is of the pointing.  All three are `object1_not_surjective` at the *process*
+scale (this note's C9 / `boundary_discipline.md` §5): the residue is reached by no
+finite stage; the holonomic/recurrence/iteration *depth* is the gauge, never the
+thing.  (Genuine shared mechanism — same non-surjection, three readouts — not a
+slogan; it is the merge-side extension of the existing essay, recorded, not a new
+unifier to force.)
+
 ## Scope, what is closed, and what is not
 
 - **∅-axiom-closed (this repo)**: R0 list-form (`count_append`,
