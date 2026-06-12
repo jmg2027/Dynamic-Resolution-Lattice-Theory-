@@ -195,6 +195,32 @@ witnesses do *not* share a generator — `p`-adics are a free function-space
 decision-procedure surfaced when a "shared generator" claim was tested and
 retracted.)
 
+## 7. Scope and limits
+
+This chapter is a claim about the **discipline of 213 work** — how unification
+candidates are sorted, how equality stratifies, why errors recur — *not* a
+claim about the residue's nature (the residue is `01_residue.md`'s, untouched
+here).  Honest bounds:
+
+- **Validated on the math/meta corpus** (eight surveys: the slot-tower bridges,
+  commutativity, the regularity ceilings, the readout/number-system inventory,
+  the failure-mode catalog, the cohomology/cardinality-cutoff machinery, the
+  temporal/process axis, and a falsification sweep).  **One physics-branch
+  question is open** — whether the DRLT closure form's atomic search space is
+  structurally forced (a generator) or generically matchable (a fit);
+  `research-notes/frontiers/general_theory_metaanalysis.md` C7, held for the
+  originator.  It does not threaten the framework either way (a forcible
+  template would *instantiate* the rarity of high-level β-unification).
+- **The framework predicts nothing about *which* mathematics gets derived** —
+  it sorts candidates and diagnoses errors; it is a lint, not a generator of
+  results.  (Consistent with its own descriptive-scale finding: the discipline
+  is re-enacted, not cached — `why_the_reframing_recurs.md`.)
+- **"`iter` is the site of β-unification"** is the sharpest, most falsifiable
+  claim, and the one most worth attacking: a single genuine non-`iter`
+  cross-domain unification (two independently-motivated phenomena, one shared
+  generator, generic theorem over ≥2 instances) refutes it.  None found in a
+  determined sweep; that is corroboration, not proof.
+
 ---
 
 The single sentence: **213 has one boundary, two sides, two failure-polarities,
