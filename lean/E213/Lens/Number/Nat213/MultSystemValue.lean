@@ -941,4 +941,15 @@ theorem windowCount_eq (n : Nat) : primePi n + windowCount n = primePi (2 * n) :
   have h : n ≤ 2 * n := by rw [Nat.two_mul]; exact Nat.le_add_right n n
   exact primePi_add_primesIn_length h
 
+/-- **The Chebyshev recurrence bound: `π(2n) ≤ π(n) + ⌊log_{n+1} 2^{2n}⌋`** (`n ≥ 1`).
+    Combine `windowCount_eq` (`π(2n) = π(n) + windowCount n`) with
+    `windowCount_le_floorLog`.  This is the ∅-axiom doubling step of the
+    elementary Chebyshev upper bound `π(N) = O(N/ln N)`: each doubling adds at most
+    `⌊log_{n+1} 2^{2n}⌋ ≈ 2n·ln2/ln(n+1)` primes.  Summing over dyadic windows
+    (the asymptotic horizon, a pointing) gives `π(N) = O(N/ln N)`. -/
+theorem primePi_two_mul_le_floorLog {n : Nat} (hn : 1 ≤ n) :
+    primePi (2 * n) ≤ primePi n + floorLog (n + 1) (2 ^ (2 * n)) := by
+  rw [← windowCount_eq n]
+  exact Nat.add_le_add_left (windowCount_le_floorLog hn) (primePi n)
+
 end E213.Lens.Number.Nat213.MultSystemValue
