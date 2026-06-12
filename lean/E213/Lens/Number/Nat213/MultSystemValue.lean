@@ -1036,4 +1036,13 @@ theorem chebSum_le_chebBound : ∀ m, chebSum m ≤ chebBound m
 theorem primePi_pow_two_le_chebBound (m : Nat) : primePi (2 ^ m) ≤ chebBound m :=
   Nat.le_trans (primePi_pow_two_le_chebSum m) (chebSum_le_chebBound m)
 
+/-- **Dyadic interpolation of the Chebyshev bound to all `N`**: `π(N) ≤ chebBound m`
+    whenever `N ≤ 2^m`.  `π` monotone composed with `primePi_pow_two_le_chebBound` —
+    every `N` sits under a dyadic ceiling, so the explicit bound applies to all `N`,
+    not just powers of `2`.  The ingredient that lifts the bound to the general
+    density statement (`PrimeDensityToZero`): pick `m = ⌈log₂ N⌉`. -/
+theorem primePi_le_chebBound_of_le {N m : Nat} (h : N ≤ 2 ^ m) :
+    primePi N ≤ chebBound m :=
+  Nat.le_trans (primePi_monotone h) (primePi_pow_two_le_chebBound m)
+
 end E213.Lens.Number.Nat213.MultSystemValue
