@@ -29,18 +29,18 @@ the prime number theorem, rather than collapsing it to a limit.
 
 ### Open
 
-1. **`primePi N` (= π(N), # primes ≤ N) as a counting function.**
-   **Propext minefield discovered**: `Nat.decidable_dvd`, `Nat.mul_assoc`,
-   `Nat.dvd_trans`, `Nat.le_of_dvd`, and `Bool` `_eq_true` reflection lemmas are
-   ALL propext-tainted; and a Prop `∨` (e.g. `searchDiv`'s output) cannot
-   eliminate into the `Decidable` Type.  **DONE**: `decDvd (k n)(0<k) :
-   Decidable (k ∣ n)` — pure, via `n % k` (`dvd_of_mod_eq_zero` /
-   `mod_zero_of_dvd`), matching on the Nat value.  **Remaining**: a recursive
-   bounded-divisor `Decidable (∀ d, 2≤d → d<n → ¬d∣n)` over `d ∈ [2,n)` built on
-   `decDvd` (don't use core `Nat.decidableBallLT` until its purity is checked);
-   then `decPrime n : Decidable (IsPrime213 n)` (via the divisor-dichotomy iff +
-   `decidable_of_iff`, which IS pure); then `primePi n = Σ_{m≤n} [decPrime m]`,
-   `primePi_le_self`, monotonicity.
+1. **`primePi N` (= π(N), # primes ≤ N) as a counting function.** — **CLOSED**
+   (`MultSystemValue.lean`, all ∅-axiom).  Route: `decDvd` (pure `Decidable (k∣n)`
+   via `n % k`, avoiding propext-tainted `Nat.decidable_dvd`) → `decNoFactor`
+   (recursive `Decidable (∀ d, 2≤d → d<b → ¬d∣n)` on bound `b`) → `isPrime_iff`
+   (divisor dichotomy) → `decPrime : Decidable (IsPrime213 n)` (matched directly,
+   no `decidable_of_iff` instance search) → `primeIndicator` (+ `_eq_one_iff`),
+   `primePi`, `primePi_le_self`, `primePi_monotone`.  Verified computing:
+   `primePi [10,20,30,100] = [4,8,10,25]`.
+   **Propext minefield recorded**: `Nat.decidable_dvd`, `Nat.mul_assoc`,
+   `Nat.dvd_trans`, `Nat.le_of_dvd`, `Bool` `_eq_true` reflection are
+   propext-tainted; a Prop `∨` cannot eliminate into the `Decidable` Type (branch
+   on Nat values / decidable instances instead).
 
 2. **Value-bounded count = N.**  `#{naturals ≤ N} = N` (trivial) realized as
    monomials over the `π(N)` primes with *value* (not degree) `≤ N`.  The
@@ -63,5 +63,9 @@ depth), no transcendental.  `log` = the inverse depth count.  `value = exp(depth
 
 ## Next concrete step
 
-Build `decPrime` (decidable `IsPrime213`) from `searchDiv`, then `primePi` +
-`primePi_le_self` + `primePi_monotone`.  That opens item 2.
+`primePi` (item 1) is CLOSED.  Next: **item 2** — value-bounded count.  Concrete
+targets: (a) `2 ≤ primePi n` for `n ≥ 3` and lower bounds on `π` (infinitude /
+growth); (b) a Chebyshev-type *finite* bound `primePi n ≤ c · n / something`
+pointing at PNT; (c) tie `factorization_bounded`'s basis to `primePi` (the prime
+list for naturals ≤ N has length ≤ π(N)).  PNT itself stays the asymptotic
+horizon.

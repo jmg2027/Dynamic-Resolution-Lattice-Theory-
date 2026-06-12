@@ -35,15 +35,18 @@ of the discrete `Ω ≤ log₂` skeleton.  Also: corrected stale CLAUDE.md note 
 `vp_separation` is proven & ∅-axiom (not "open").
 
 Also: `factorization_bounded` (prime factors of n are ≤ n ⇒ naturals ≤ N use
-only primes ≤ N, so k = π(N)) and `decDvd` (pure `Decidable (k∣n)`, k>0, via
-`n % k`).
+only primes ≤ N, so k = π(N)); `decDvd` (pure `Decidable (k∣n)`, k>0, via
+`n % k`); and **π(N) CLOSED**: `decNoFactor` → `isPrime_iff` → `decPrime`
+(pure `Decidable (IsPrime213 n)`) → `primeIndicator` (+ `_eq_one_iff`) →
+`primePi`, `primePi_le_self`, `primePi_monotone`.  Verified: `primePi
+[10,20,30,100] = [4,8,10,25]`.
 
 ## Open thread (frontier: `research-notes/frontiers/multiplicative_count_pnt.md`)
-**Next concrete step** (`decDvd` now DONE): build a recursive bounded-divisor
-`Decidable (∀ d, 2≤d → d<n → ¬d∣n)` over `d ∈ [2,n)` on top of `decDvd`, then
-`decPrime n : Decidable (IsPrime213 n)` (divisor-dichotomy iff + the pure
-`decidable_of_iff`), then `primePi n` + `primePi_le_self`.  Opens value-bounded
-count = N.  PNT `π(N) ~ N/ln N` = asymptotic horizon (pointing), not a target.
+**Next concrete step** (π(N) item 1 now CLOSED): **item 2** — value-bounded count.
+Targets: lower bounds on `π` (e.g. `2 ≤ primePi n` for `n ≥ 3`, infinitude /
+growth); a Chebyshev-type *finite* bound pointing at PNT; tie
+`factorization_bounded`'s prime list length to `primePi`.  PNT `π(N) ~ N/ln N` =
+asymptotic horizon (pointing), not a ∅-axiom target.
 
 ## Propext-avoidance learned this branch (IMPORTANT)
 Carry **propext**: `Nat.mul_assoc`, `Nat.dvd_trans`, `Nat.le_of_dvd`,

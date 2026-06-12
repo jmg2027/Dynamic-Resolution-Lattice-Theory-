@@ -346,4 +346,10 @@ theorem primePi_le_self : ∀ n, primePi n ≤ n
   | 0     => Nat.le_refl 0
   | n + 1 => Nat.add_le_add (primePi_le_self n) (primeIndicator_le_one (n + 1))
 
+/-- `π` is monotone. -/
+theorem primePi_monotone {m n : Nat} (h : m ≤ n) : primePi m ≤ primePi n := by
+  induction h with
+  | refl => exact Nat.le_refl _
+  | step _ ih => exact Nat.le_trans ih (Nat.le_add_right _ _)
+
 end E213.Lens.Number.Nat213.MultSystemValue
