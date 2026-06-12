@@ -24,13 +24,23 @@
     (`Nat.pow_succ`×2 + `Nat.pow_one`); rewrite all `^3/^2` to products first.
   * `m+(s+1)` vs `m+s+1` not closed by `rw`'s rfl → `Nat.add_succ` to normalise.
 
-### §4 REMAINING (the ÷-free alternating-sum assembly) + FINAL assembly
-See `research-notes/frontiers/zeta3_blueprint.md` "Brick 2 … §4 REMAINING".
-Short form: define `Aₙ = 2·lcm³·aₙ`, `Bₙ` as Nat/signed sums; harmonic terms clear
-by `cube_dvd_lcm_cube`, kernel terms by `heart_lcm`; signs ⟹ pos/neg Nat split
-(`Int` banned).  Then connect `(Aₙ,Bₙ)`↔`zeta3Num/zeta3Den` (recurrence ↔ sum),
-`2lcm³∣(n!)³` (`n≥4`), piecewise `(c,p,q)`, `htel` from `lcmUpTo_le` vs
-`zeta3Den_geom` ⟹ `zeta3_reduced_conditional` ⟹ `zeta3HolonomicReal`.
+### §4 reduced-presentation inputs landed (`FactorialLcmDvd.lean`, 11 PURE)
+`dvd_factorial` (`k∣n!`), `lcmUpTo_dvd_factorial` (`lcm∣n!`),
+**`two_lcmCube_dvd_factCube`** (`2·lcm³∣(n!)³`, `n≥4` ⟹ `c n=(n!)³/(2lcm³)∈ℕ`).
+The `2` from distinct factors `2`, `2^{⌊log₂n⌋}` ≤ n (`mul_dvd_factorial`) ⟹
+`v₂(n!)≥v₂(lcm)+1` (`v2_fact_gt_lcm`).  Helpers: `prime2`, `vp_pow3`, `vp_two_two`,
+`vp_two_eq_zero`, `vp_two_lcmUpTo`, `le_of_dvd_pos`.
+
+### ★ THE NUCLEUS — what remains, precisely isolated
+`zeta3_reduced_conditional` needs `(n!)³ ∣ zeta3Den n`.  By the cleared recurrence
+(`aperyBot m = (m+1)³`, `((m+1)!)³=(m+1)³(m!)³`) this reduces **exactly** to
+**`(m+2)³ ∣ aperyLead m·B_{m+1} − (m+1)³·B_m`** (`Bₙ = zeta3Den n/(n!)³`).  That IS
+**Apéry's recurrence for the binomial sums `Bₙ=Σ_k C(n,k)²C(n+k,k)²`** — the WZ /
+creative-telescoping identity.  **Unavoidable for every route** (recurrence alone
+doesn't imply it).  This is the research-scale ∅-axiom frontier nucleus.  Once it
+lands: `Bₙ`∈ℕ trivial; `Aₙ` via Brick-2 engines; piecewise `(c,p,q)` + `htel`
+(`lcmUpTo_le` vs `zeta3Den_geom`, 28>27) ⟹ `zeta3HolonomicReal`.
+See `research-notes/frontiers/zeta3_blueprint.md` "THE NUCLEUS".
 
 ---
 

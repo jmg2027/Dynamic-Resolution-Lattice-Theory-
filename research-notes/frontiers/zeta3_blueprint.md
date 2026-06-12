@@ -67,18 +67,34 @@ All in `Lib/Math/NumberTheory/AperyIntegrality.lean` (31 PURE / 0 dirty):
     part) and `heart_lcm : m³·C(n,m)·C(n+m,m) ∣ lcm(1..n)³·C(n,k)·C(n+k,k)` (`1≤m`,
     Heart at `d=lcm(1..n)` via KeyDiv + `lcmUpTo` monotonicity).
 
-**§4 REMAINING** (the ÷-free alternating-sum assembly): define the cleared Apéry
-numbers `Bₙ = Σ_k C(n,k)²C(n+k,k)²` and `Aₙ = 2·lcm³·aₙ` directly as Nat/signed
-expressions —
-`Aₙ = Σ_k C(n,k)²C(n+k,k)²·[2·lcm³·H₃(n) + Σ_{m=1}^k (−1)^{m−1}·lcm³/(m³C(n,m)C(n+m,m))]`
-— with `lcm³/j³ ∈ ℕ` (`cube_dvd_lcm_cube`) and `C(n,k)²C(n+k,k)²·lcm³/(m³C(n,m)
-C(n+m,m)) = C(n,k)C(n+k,k)·(lcm³C(n,k)C(n+k,k)/(m³C(n,m)C(n+m,m)))` integral
-(`heart_lcm`).  The signs force a positive/negative Nat split (the `Int` ban);
-this is the flagged 400–600-line ÷-free bookkeeping.  **Then the FINAL assembly**:
-connect `(Aₙ,Bₙ)` to the recurrence pair `zeta3Num/zeta3Den` (the Apéry
-recurrence ↔ sum-formula identity), `2lcm³∣(n!)³` for `n≥4`, piecewise `(c,p,q)`,
-`htel` margin from `lcmUpTo_le` vs `zeta3Den_geom` (28>27) ⟹
-`zeta3_reduced_conditional` ⟹ `zeta3HolonomicReal`.
+**§4 reduced-presentation inputs landed** (`FactorialLcmDvd.lean`, 11 PURE):
+`dvd_factorial` (`k∣n!`), `lcmUpTo_dvd_factorial` (`lcm∣n!`), and
+**`two_lcmCube_dvd_factCube`** (`2·lcm(1..n)³ ∣ (n!)³` for `n≥4`) — so the common
+factor `c n = (n!)³/(2·lcm³)` is an integer for `n≥4`.  The `2` comes from `2` and
+`2^{⌊log₂n⌋}` being distinct factors `≤ n` (`mul_dvd_factorial`) ⟹ `v₂(n!)≥
+v₂(lcm)+1` (`v2_fact_gt_lcm`).  Helpers: `prime2`, `vp_pow3`, `vp_two_two`,
+`vp_two_eq_zero`, `vp_two_lcmUpTo`, `le_of_dvd_pos`.
+
+### ★ THE NUCLEUS (what every route reduces to)
+
+The consumer `zeta3_reduced_conditional` needs `zeta3Den n = c n · q n`, i.e.
+**`(n!)³ ∣ zeta3Den n`** (then `q n = zeta3Den n/c n = 2lcm³·Bₙ`, `Bₙ = zeta3Den
+n/(n!)³`).  By the cleared recurrence `x_{m+2} = aperyLead m·x_{m+1} −
+(m+1)⁶·x_m` (`aperyBot m = (m+1)³`), with `((m+1)!)³ = (m+1)³(m!)³`, this reduces
+**exactly** to the congruence
+
+> **`(m+2)³ ∣ aperyLead m · B_{m+1} − (m+1)³ · B_m`**  (subtraction exact).
+
+This is **Apéry's recurrence for the binomial sums** `Bₙ = Σ_k C(n,k)²C(n+k,k)²`
+(equivalently: `(m!)³·Bₙ` satisfies the orbit recurrence) — the **WZ /
+creative-telescoping identity**.  It is unavoidable: the recurrence alone does not
+imply it; it is a special arithmetic property of these particular sequences.  Both
+the "recurrence-divisibility" and "binomial-sum" routes collapse to this one
+identity.  **This is the true remaining frontier nucleus** — a research-scale
+∅-axiom WZ formalization.  Once it lands: `Bₙ`-integrality is immediate (sum form);
+the numerator `Aₙ`-integrality uses the Brick-2 engines (`heart_lcm`,
+`cube_dvd_lcm_cube`); then piecewise `(c,p,q)` (`n≤3` trivial, `n≥4` reduced) +
+`htel` from `lcmUpTo_le` vs `zeta3Den_geom` (28>27) ⟹ `zeta3HolonomicReal`.
 
 (Notes: `α₃₀` `[local irreducible]` to stop whnf-explosion; `ring_nat` deep-recurses
 on literal-exponent `^` → abstract reassoc lemmas; base certificates `decide` with
