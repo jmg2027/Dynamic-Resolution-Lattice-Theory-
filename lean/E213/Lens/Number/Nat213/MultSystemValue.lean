@@ -859,4 +859,31 @@ theorem window_prod_le (n : Nat) :
     (le_of_dvd_pos _ _ (central_binom_pos n) (window_prod_dvd_central_binom n))
     (central_binom_le n)
 
+/-- A product of factors each `≥ lo` is `≥ lo^{length}` (generalises
+    `two_pow_length_le_prod` from `lo = 2`). -/
+theorem pow_length_le_prod (lo : Nat) : ∀ ps : List Nat, (∀ p, p ∈ ps → lo ≤ p) →
+    lo ^ ps.length ≤ listProd ps
+  | [],      _ => Nat.le_refl 1
+  | p :: ps, h => by
+      have hp : lo ≤ p := h p (List.Mem.head ps)
+      have ih := pow_length_le_prod lo ps (fun q hq => h q (List.Mem.tail p hq))
+      show lo ^ (ps.length + 1) ≤ p * listProd ps
+      calc lo ^ (ps.length + 1) = lo * lo ^ ps.length := by rw [Nat.pow_succ, Nat.mul_comm]
+        _ ≤ p * listProd ps := Nat.mul_le_mul hp ih
+
+/-- The number of primes in `(n, 2n]` (the Chebyshev window count =
+    `π(2n) − π(n)`). -/
+def windowCount (n : Nat) : Nat := (primesIn n (2 * n)).length
+
+/-- **The Chebyshev count bound: `(n+1)^{#primes in (n,2n]} ≤ 2^{2n}`.**  Each of
+    the `windowCount n` primes in `(n, 2n]` is `> n` (so `≥ n+1`), and their
+    product is `≤ 2^{2n}` (`window_prod_le`).  Taking the logarithm, this caps the
+    count: `windowCount n ≤ 2n / log₂(n+1)` — the finite ∅-axiom skeleton under
+    `π(N) = O(N/ln N)`.  (The `ln` is the inverse of the `(n+1)^•` exponential, per
+    the exp/log bridge `omega_le_log`.) -/
+theorem windowCount_pow_le (n : Nat) : (n + 1) ^ windowCount n ≤ 2 ^ (2 * n) :=
+  Nat.le_trans
+    (pow_length_le_prod (n + 1) (primesIn n (2 * n)) (fun _ hp => mem_primesIn_gt hp))
+    (window_prod_le n)
+
 end E213.Lens.Number.Nat213.MultSystemValue
