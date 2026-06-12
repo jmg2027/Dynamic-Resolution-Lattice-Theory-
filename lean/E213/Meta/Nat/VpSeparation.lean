@@ -244,4 +244,62 @@ theorem vp_separation {m n : Nat} (hm : 0 < m) (hn : 0 < n)
         ih cm cn hcle hcm_pos hcn_pos (by rw [← hmdiv, ← hndiv]; exact hvp')
       rw [hcm, hcn, hceq]
 
+/-- **Divisibility from valuations** (the order companion of `vp_separation`):
+    for `a, b > 0`, if `vp q a ≤ vp q b` at every prime `q` then `a ∣ b`.  Same
+    peel-a-prime strong induction on `a`. -/
+theorem dvd_of_forall_vp_le {a b : Nat} (ha : 0 < a) (hb : 0 < b)
+    (h : ∀ p, IsPrime213 p → vp p a ≤ vp p b) : a ∣ b := by
+  suffices H : ∀ s, ∀ a b : Nat, a ≤ s → 0 < a → 0 < b →
+      (∀ p, IsPrime213 p → vp p a ≤ vp p b) → a ∣ b by
+    exact H a a b (Nat.le_refl _) ha hb h
+  intro s
+  induction s with
+  | zero =>
+      intro a b hle ha _ _
+      exact absurd (Nat.lt_of_lt_of_le ha hle) (Nat.lt_irrefl 0)
+  | succ s ih =>
+      intro a b hle ha hb hvp
+      rcases Nat.lt_or_ge a 2 with ha2 | ha2
+      · have ha1 : a = 1 := Nat.le_antisymm (Nat.le_of_lt_succ ha2) ha
+        rw [ha1]; exact ⟨b, (Nat.one_mul b).symm⟩
+      · obtain ⟨p, hp, hpa⟩ := exists_prime_factor a a (Nat.le_refl a) ha2
+        have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) hp.two_le
+        have hpva : 1 ≤ vp p a := (dvd_iff_one_le_vp hp ha).mp hpa
+        have hpb : p ∣ b := (dvd_iff_one_le_vp hp hb).mpr (Nat.le_trans hpva (hvp p hp))
+        obtain ⟨ca, hca⟩ := hpa
+        obtain ⟨cb, hcb⟩ := hpb
+        have hadiv : a / p = ca := by rw [hca]; exact mul_div_cancel_left_pure p ca hppos
+        have hbdiv : b / p = cb := by rw [hcb]; exact mul_div_cancel_left_pure p cb hppos
+        have hca_pos : 0 < ca := by
+          rcases Nat.eq_zero_or_pos ca with h0 | hpos
+          · exfalso; rw [h0, Nat.mul_zero] at hca; rw [hca] at ha; exact Nat.lt_irrefl 0 ha
+          · exact hpos
+        have hcb_pos : 0 < cb := by
+          rcases Nat.eq_zero_or_pos cb with h0 | hpos
+          · exfalso; rw [h0, Nat.mul_zero] at hcb; rw [hcb] at hb; exact Nat.lt_irrefl 0 hb
+          · exact hpos
+        have hvp' : ∀ q, IsPrime213 q → vp q ca ≤ vp q cb := by
+          intro q hq
+          by_cases hqp : q = p
+          · subst hqp
+            have ea : vp q (a / q) + 1 = vp q a := vp_div_prime hq ha ⟨ca, hca⟩
+            have eb : vp q (b / q) + 1 = vp q b := vp_div_prime hq hb ⟨cb, hcb⟩
+            rw [hadiv] at ea; rw [hbdiv] at eb
+            have hsucc : vp q ca + 1 ≤ vp q cb + 1 := by rw [ea, eb]; exact hvp q hq
+            exact Nat.le_of_succ_le_succ hsucc
+          · have ea : vp q (a / p) = vp q a := vp_div_prime_other hp hq hqp ha ⟨ca, hca⟩
+            have eb : vp q (b / p) = vp q b := vp_div_prime_other hp hq hqp hb ⟨cb, hcb⟩
+            rw [hadiv] at ea; rw [hbdiv] at eb
+            rw [ea, eb]; exact hvp q hq
+        have hca_lt : ca < a := by
+          rw [hca]
+          have hp2 : 2 * ca ≤ p * ca := Nat.mul_le_mul_right ca hp.two_le
+          have hlt2 : ca < 2 * ca := by rw [Nat.two_mul]; exact Nat.lt_add_of_pos_left hca_pos
+          exact Nat.lt_of_lt_of_le hlt2 hp2
+        have hcle : ca ≤ s := Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hca_lt hle)
+        obtain ⟨d, hd⟩ := ih ca cb hcle hca_pos hcb_pos hvp'
+        refine ⟨d, ?_⟩
+        rw [hca, hcb, hd]
+        exact (E213.Tactic.NatHelper.mul_assoc p ca d).symm
+
 end E213.Meta.Nat.VpSeparation
