@@ -58,6 +58,22 @@ This is the van-der-Poorten / Beukers algebraic route, a multi-session ∅-axiom
 formalization (the hardest remaining piece of the whole ζ(3) program).  No CAS
 shortcut exists — the next phase is the hand-derived kernel telescoping.
 
+## Progress (2026-06-12, opened in Lean)
+
+  * **`harmonic_part_recurrence` PURE** (`Zeta3Numerator.lean`): the cleared `H₃`
+    part `(j+2)³HL(j+2)B(j+2)+(j+1)³HL(j)B(j)+ℓB(j)=aperyLead(j)HL(j+1)B(j+1)+ℓB(j+2)`
+    (`HL ℓ n=Σℓ/i³`, `ℓ` a cube-multiple), from `apery_recurrence`×`HL(j+1)` +
+    harmonic telescoping `HL_step`.  First numerator theorem.
+  * **Abel form** (verified `numerator_plan` check): `K(n) = Σ_{m=1}^n δ(n,m)·
+    Btail(n,m)`, `δ(n,m)=(−1)^{m−1}/(2m³C(n,m)C(n+m,m))`, `Btail(n,m)=Σ_{k≥m}b(n,k)`
+    — a **single** sum (no inner `κ`).  Cleaner target for the K inhomog recurrence.
+  * Kernel integrality `b(n,k)·lcm³/(m³C(n,m)C(n+m,m)) ∈ ℕ` reconfirmed (`heart_lcm`).
+
+  **Next (the deep core)**: the K inhomogeneous recurrence via the Abel single-sum
+  form — the explicit kernel telescoping (`δ`/`Btail` cross-`n` structure).  Then
+  `A`-recurrence ⟹ `zeta3Num=(n!)³A` (induction, à la `zeta3Den_eq`), and the §4
+  integrality assembly ⟹ the goal.
+
 ## Reusable (all PURE, done)
 `apery_recurrence`, `B`, `zeta3Den_eq`, `heart_lcm`, `cube_dvd_lcm_cube`,
 `keydiv`/`heart` (KeyDiv), `two_lcmCube_dvd_factCube`, `sumTo_shift_eq`,
