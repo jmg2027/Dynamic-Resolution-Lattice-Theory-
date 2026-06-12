@@ -952,4 +952,26 @@ theorem primePi_two_mul_le_floorLog {n : Nat} (hn : 1 ≤ n) :
   rw [← windowCount_eq n]
   exact Nat.add_le_add_left (windowCount_le_floorLog hn) (primePi n)
 
+/-- The explicit telescoped Chebyshev upper-bound sum: `chebSum m` accumulates the
+    doubling-step `floorLog` terms over the dyadic ladder `1, 2, 4, …, 2^m`. -/
+def chebSum : Nat → Nat
+  | 0     => 0
+  | m + 1 => chebSum m + floorLog (2 ^ m + 1) (2 ^ (2 * 2 ^ m))
+
+/-- **Telescoped Chebyshev upper bound**: `π(2^m) ≤ chebSum m`.  Iterate the
+    doubling step `primePi_two_mul_le_floorLog` up the dyadic ladder `2^k → 2^{k+1}`.
+    `chebSum` is the finite ∅-axiom skeleton whose per-step term
+    `floorLog (2^k+1) (4^{2^k}) ≈ 2^{k+1} / k` is the `O(N/ln N)` of the prime
+    number theorem (the `ln` denominator = the floor-log of the growing base). -/
+theorem primePi_pow_two_le_chebSum : ∀ m, primePi (2 ^ m) ≤ chebSum m
+  | 0     => by decide
+  | m + 1 => by
+      have hstep : primePi (2 * 2 ^ m)
+          ≤ primePi (2 ^ m) + floorLog (2 ^ m + 1) (2 ^ (2 * 2 ^ m)) :=
+        primePi_two_mul_le_floorLog (Nat.pos_pow_of_pos m (by decide))
+      have he : 2 ^ (m + 1) = 2 * 2 ^ m := by rw [Nat.pow_succ, Nat.mul_comm]
+      rw [he]
+      exact Nat.le_trans hstep
+        (Nat.add_le_add_right (primePi_pow_two_le_chebSum m) _)
+
 end E213.Lens.Number.Nat213.MultSystemValue
