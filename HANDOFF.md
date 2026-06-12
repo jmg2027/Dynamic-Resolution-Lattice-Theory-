@@ -40,9 +40,12 @@ The prime-valued instance — abstract monomials ARE distinct naturals.
 The PNT horizon should be issued as a **Real213 cut + modulus certificate** =
 213's ε-δ.  `AbCutSeq.toCauchy (S)(N)(hc)` completes a cut given a modulus
 `N(m,k)`; transcendentals (Wallis-π, Euler-e) supply the modulus as `hsep`.
-`primePi_unbounded` is the first such certificate (divergence).  PNT proper:
-frame `π(N)·ln N/N → 1` as a cut at `1` with a modulus hypothesis isolating the
-analytic core — see frontier "Certificate approach".
+`primePi_unbounded` is the divergence certificate.  **PNT cut framework DONE**:
+`RatTendsToZero` (ε-δ modulus for `a N/b N → 0`) + `.below` (soundness) +
+`oneOverN` (validation `1/N→0`) + `PrimeDensityToZero := RatTendsToZero primePi
+id`.  Scaffolding ∅-axiom; **inhabiting `PrimeDensityToZero` = the open analytic
+core** (Chebyshev/PNT).  Next: a real density bound (e.g. `π(N) ≤ N/2 + 1` from
+"only 2 is an even prime") → `π(N)=o(N)` to inhabit the certificate.
 
 ## Why ln (pinned)
 `exp` = `Nat.pow` = iterated `×` = binary-op tower depth (no transcendental).

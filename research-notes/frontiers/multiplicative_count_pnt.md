@@ -73,16 +73,19 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
 
   - **DONE (divergence certificate)**: `primePi_unbounded : ∀ k, ∃ N,
     k ≤ primePi N` — the ε-N modulus for `π(N) → ∞` (no analytic input needed).
-  - **Convergence certificate (PNT proper)**: frame `π(N) · ln N / N → 1` (or
-    `π(N)/(N/ln N) → 1`) as a cut at `1` with a supplied modulus, isolating the
-    entire analytic content into one `hsep`-style hypothesis — mirroring
-    `AbCutSeq.toCauchy`.  Needs: `ln` as a `Real213` cut (exists:
-    `Real213.ExpLog`), the ratio sequence as an `AbCutSeq` (monotone? or a
-    `CauchyCutSeq` directly), and the modulus hypothesis.  PNT then = "the
-    certificate exists" — provable bound work feeds the modulus; the theorem
-    statement is ∅-axiom-clean (conditional on the modulus), the way the repo
-    states transcendental cuts.  This isolates exactly the irreducible analytic
-    cost, with everything else (the ε-δ scaffolding) ∅-axiom.
+  - **DONE (PNT cut framework)**: `RatTendsToZero a b` (ε-δ modulus for
+    `a N / b N → 0`, division-free) + `RatTendsToZero.below` (soundness: under
+    every positive rational) + `oneOverN` (validation: `1/N → 0` certified) +
+    `PrimeDensityToZero := RatTendsToZero primePi id` (the PNT density cut).  The
+    scaffolding + soundness are ∅-axiom; **inhabiting `PrimeDensityToZero` is the
+    open analytic core** (Chebyshev/PNT-strength) — the single isolated
+    hypothesis, transcendental-cut style.
+  - **Remaining (the analytic core)**: a real density bound feeding the modulus.
+    First ∅-axiom ingredient: a Chebyshev-flavored upper bound on `primePi`
+    (e.g. only `2` is an even prime ⇒ `π(N) ≤ N/2 + 1`), then sharper
+    `π(N) = o(N)` to actually inhabit `PrimeDensityToZero`.  PNT proper
+    (`π(N)·ln N/N → 1`) needs `ln` as a `Real213` cut (in `ExpLog`) and the ratio
+    sequence — same certificate shape at the `1`-cut.
 
 ## Next concrete step
 
