@@ -31,16 +31,28 @@ The `2` from distinct factors `2`, `2^{⌊log₂n⌋}` ≤ n (`mul_dvd_factorial
 `v₂(n!)≥v₂(lcm)+1` (`v2_fact_gt_lcm`).  Helpers: `prime2`, `vp_pow3`, `vp_two_two`,
 `vp_two_eq_zero`, `vp_two_lcmUpTo`, `le_of_dvd_pos`.
 
-### ★ THE NUCLEUS — what remains, precisely isolated
-`zeta3_reduced_conditional` needs `(n!)³ ∣ zeta3Den n`.  By the cleared recurrence
-(`aperyBot m = (m+1)³`, `((m+1)!)³=(m+1)³(m!)³`) this reduces **exactly** to
-**`(m+2)³ ∣ aperyLead m·B_{m+1} − (m+1)³·B_m`** (`Bₙ = zeta3Den n/(n!)³`).  That IS
-**Apéry's recurrence for the binomial sums `Bₙ=Σ_k C(n,k)²C(n+k,k)²`** — the WZ /
-creative-telescoping identity.  **Unavoidable for every route** (recurrence alone
-doesn't imply it).  This is the research-scale ∅-axiom frontier nucleus.  Once it
-lands: `Bₙ`∈ℕ trivial; `Aₙ` via Brick-2 engines; piecewise `(c,p,q)` + `htel`
-(`lcmUpTo_le` vs `zeta3Den_geom`, 28>27) ⟹ `zeta3HolonomicReal`.
-See `research-notes/frontiers/zeta3_blueprint.md` "THE NUCLEUS".
+### ★★★ THE NUCLEUS — CLOSED (Apéry's recurrence, ∅-axiom)
+**`AperyRecurrence.lean` (45 PURE): `apery_recurrence` —
+`(j+2)³B(j+2)+(j+1)³B(j) = aperyLead(j)·B(j+1)`** for `B(n)=Σ_k C(n,k)²C(n+k,k)²`.
+The WZ / creative-telescoping identity is now a 0-axiom theorem.  Full machinery
+PURE: `reduced_wz_identity` (polynomial core, `j=k+d`) · `colrec`/`lowrec` +
+contiguity · `R0/R1/R2/G1` (`W`-factoring) · `redid_eq` · `per_k` (per-`k`
+summand) · `sumTo_shift_eq` (telescope) · sum→cancel.  Certificate found+verified
+in `research-notes/frontiers/zeta3_wz/`.
+
+**Denominator bridge DONE** (`Zeta3Apery.lean`, 4 PURE): **`zeta3Den n = (n!)³·B(n)`**
+(`zeta3Den_eq`) — 2-step induction, both sides satisfy the same recurrence
+(`aperyOrbit_exact` ↔ `P_recurrence`), seeds `1,5`.
+
+### Remaining for `zeta3HolonomicReal`
+  * **Numerator integrality** `(n!)³ ∣ 2·lcm³·zeta3Num n` (orbit `aperyOrbit 0 6`):
+    Brick-2 engines prove it for the explicit `aₙ` *sum*; connecting to the orbit
+    needs the numerator integrality assembly (Brick 2 §4) / recurrence-divisibility.
+    `2lcm³∣(n!)³` (`n≥4`) already PURE (`FactorialLcmDvd`).
+  * **Piecewise `(c,p,q)`**: `c n=(n!)³/(2lcm³)` (`n≥4`; `n≤3` trivial),
+    `q n=2lcm³B(n)` (`hqe` from `zeta3Den_eq`+`two_lcmCube_dvd_factCube`), `p n=2lcm³aₙ`.
+  * **`htel`** from `lcmUpTo_le` vs `zeta3Den_geom` (28>27) ⟹
+    `zeta3_reduced_conditional` ⟹ `zeta3HolonomicReal`.
 
 ---
 
