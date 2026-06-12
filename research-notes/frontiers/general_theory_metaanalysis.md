@@ -238,6 +238,41 @@ survives is **sharper**: two properties do two *different* jobs.
 resonance, no shared generator.  **Kept:** the two-properties-two-jobs structure
 + the split witness.  Both agents converged.
 
+### D′ — the structural root: `^` is **scalar multiplication on the prime-exponent lattice**
+
+One level deeper, fully Lean-grounded, the two jobs have a *single* precise
+source.  `^` is not an operation closed in one monoid — it is the **exp
+homomorphism `(ℕ,+) → (ℕ,×)`**: `pow_add_from_iter` (`a^(b+c) = a^b · a^c`)
+takes `+` in the exponent to `×` of values.  Read on the **faithful**
+prime-exponent coordinate (`vp_separation` makes `vp` faithful), `vp_pow` says
+exactly `vp_p(a^k) = k · vp_p(a)`, i.e. **`^` is *scalar multiplication*
+`(k, v) ↦ k·v`** — the exponent `k` is a *scalar*, the base contributes the
+*vector* `v = (vp_p a)_p`.  From this one fact both jobs of finding D drop out,
+*exactly*:
+
+- **non-commutativity = scalar ≠ vector.**  `a^k` reads `k·vp(a)`, `k^a` reads
+  `a·vp(k)` — different vectors; equal only in degenerate cases.  Base and
+  exponent are *different-typed* (vector vs scalar) — that *is* the comm-death
+  (witnessed `2^3≠3^2`), now with its structural reason.
+- **the inverse split = solve-the-scalar vs solve-the-vector.**
+  - **log** = "given target vector `w`, find the *scalar* `k` with `k·v = w`" —
+    solvable (rational `k`) **iff `v ∥ w` (collinear)**, which is *precisely*
+    `fold_iff_collinear`.  Non-collinear ⇒ no scalar exists ⇒ the log is a
+    limiting cut (generically transcendental).
+  - **root** = "find the *vector* `v` with `n·v = w`", i.e. divide the vector by
+    `n` (perfect-power ⇒ exact; else an algebraic irrational like `∛2`).
+
+So finding D's "two properties, two jobs" is the **scalar/vector decomposition
+of `^` on the faithful `vp`-coordinate**: commutativity-death = scalar-vs-vector
+typing; the inverse-split = solving the scalar (collinearity / the fold
+criterion) vs solving the vector (algebraic).  This is a genuine *shared
+generator* (the linear structure `vp_pow`), not a narrative — every step is an
+existing ∅-axiom theorem (`pow_add_from_iter`, `vp_pow`, `vp_separation`,
+`fold_iff_collinear`, `pow_inverse_splits`).  It re-grounds `C5`: the same
+faithful `vp`-coordinate that makes ℤ the unique faithful-finite system is the
+lattice on which `^` acts linearly — the readout classification and the tower's
+wall are *one* structure (the prime-exponent lattice), read two ways.
+
 ## C9 — is there a third (temporal/process) axis? → NO: the temporal FACE of object1_not_surjective
 
 Tested whether the recurring "process is of the *pointing* (the approximant
