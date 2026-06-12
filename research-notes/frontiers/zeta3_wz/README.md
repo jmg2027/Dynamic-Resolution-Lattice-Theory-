@@ -80,20 +80,32 @@ No `Int`, no `fdPos/fdNeg` split — structurally **identical to
 `AperyIntegrality.aperyTrinomial`, just larger**.  (Nat truncation of `Q` is safe:
 where `Q` would go `<0`, `C(j+2,k)=0`.)
 
-## Then the Lean formalization (mechanical)
+## Lean formalization — STATUS
 
-  1. **Per-`k` ℕ identity** (above) — clear every binomial to factorials
-     (`choose_mul_factorials`, Pascal) → `ring_nat`.  ~8 distinct binomials
-     (squared) × degree-≤7 coeffs ⇒ the bulk (~several hundred lines), but a single
-     `ring_nat`-shaped goal once cleared.
-  2. **Sum over `k`** (`sumTo` to `j+3`): the `Gmag` terms telescope
-     (`Σ_k Gmag(j,k+1) = Σ Gmag(j,k) + Gmag(top) − Gmag(0)`, both boundaries `0`);
-     `a(n,k)=0` for `k>n` via `choose_eq_zero_of_lt`.
-  3. ⇒ `(j+1)²(j+2)²·[(j+2)³B(j+2)+(j+1)³B(j)] = (j+1)²(j+2)²·aperyLead(j)·B(j+1)`;
-     cancel `(j+1)²(j+2)² > 0`.
-  4. **Induction** `zeta3Den n = (n!)³·B(n)` (seeds match; recurrence matches the
-     factorial-cleared orbit) — closes the recurrence-divisibility route.
+The two hardest pieces are **DONE + PURE** in `AperyRecurrence.lean`:
 
-Estimate: a dedicated formalization session, but **no open math** — every step is
-verified.  Verify all of it: `python3 verify_certificate.py` (+ the per-`k` ℕ
-identity check in this session's log).
+  * ★ **`reduced_wz_identity`** — the polynomial core (above), in the additive
+    `j=k+d` form, closed by `ring_nat` (after expanding `^` to products, which
+    `ring_nat` requires).  **This is the mathematical heart of Apéry's recurrence.**
+  * ★ **`colrec`** — `(n+1−k)·C(n+1,k) = (n+1)·C(n,k)`, the binomial `W`-factoring
+    building block (via `choose_mul_factorials`).  Helpers `succ_sub_of_le`,
+    `nat_sub_eq_zero` (pure).
+  * **`sumTo_shift_eq`** — the telescoping lemma (pure-ℕ additive form).
+
+Remaining (mechanical binomial plumbing, no open math):
+  1. **Contiguity `W`-relations** (`R0,R1,R2,G0,G1`) — via `colrec`:
+     `a(j,k)·(j+1)²(j+2)² = W·(j+2−k)²(j+1−k)²`,
+     `a(j+1,k)·(j+1)²(j+2)² = W·(j+2−k)²(j+k+1)²`,
+     `a(j+2,k)·(j+1)²(j+2)² = W·(j+k+1)²(j+k+2)²`,
+     `Gmag(j,k) = 4k⁴(2j+3)Q(j,k)·W`,
+     `Gmag(j,k+1) = 4(2j+3)Q(j,k+1)(j+2−k)²(j+k+1)²·W`
+     (`W = C(j+2,k)²C(j+k,k)²`).
+  2. **Per-`k` identity** — substitute (1) into the per-`k` statement, factor `W`,
+     apply `reduced_wz_identity`.  Note `reduced_wz_identity` is stated in `j=k+d`
+     (`k≤j`); for `k>j` the binomials vanish (handle separately).
+  3. **Sum over `k`** — telescope the `Gmag` terms via `sumTo_shift_eq`; boundaries
+     `0`; `a(n,k)=0` for `k>n` via `choose_eq_zero_of_lt`.
+  4. ⇒ recurrence (cancel `(j+1)²(j+2)²>0`), then **induct** `zeta3Den n = (n!)³·B(n)`.
+
+Verify the math: `python3 verify_certificate.py`.  **No open math remains** — every
+identity is verified; the rest is Lean labor.
