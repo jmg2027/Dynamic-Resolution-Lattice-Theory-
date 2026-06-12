@@ -88,11 +88,14 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     `0` (density `≥ φ(m)/m > 0`); needs the central-binomial route.
     **Ingredient DONE**: `MultSystem.central_binom_le : C(2n,n) ≤ 4^n`
     (`binom_le_two_pow`); `prime_not_dvd_fact : p ∤ n!` for prime `p > n`
-    (`vp_p(n!)=0`, the denominator side).  **Next ingredient**: the
-    factorial-binom identity `binom (2n) n · (fact n)² = fact (2n)` (induction on
-    Pascal + factorial recursion), then `vp_p(C(2n,n)) ≥ 1` for `n < p ≤ 2n`
-    (`p ∣ (2n)!`, `p ∤ (n!)²`), giving `∏_{n<p≤2n} p ∣ C(2n,n) ≤ 4^n` ⇒ Chebyshev
-    `π(N)=O(N/ln N)` ⇒ density `→ 0`.  Erdős elementary-Chebyshev (multi-step).
+    (`vp_p(n!)=0`, the denominator side); **`central_binom_factorial :
+    C(2n,n)·(n!)² = (2n)!`** (the factorial-binom identity, via nested induction
+    + `ring_nat` — the hard gate, DONE).  **Next ingredient**: `vp_p(C(2n,n)) ≥ 1`
+    for `n < p ≤ 2n` — from `central_binom_factorial` + `vp_mul`: `vp_p((2n)!) =
+    vp_p(C(2n,n)) + 2·vp_p(n!) = vp_p(C(2n,n))` (since `vp_p(n!)=0`), and
+    `vp_p((2n)!) ≥ 1` (`p ∣ (2n)!`, `p ≤ 2n`).  Then `p ∣ C(2n,n)`, so
+    `∏_{n<p≤2n} p ∣ C(2n,n) ≤ 4^n` ⇒ Chebyshev `π(N)=O(N/ln N)` ⇒ density `→ 0`.
+    Erdős elementary-Chebyshev (the prime-product bound is the remaining chunk).
     PNT proper (`·ln N` at the `1`-cut) needs `ln` (`Real213.ExpLog`) + the ratio
     sequence — same certificate shape.
 
