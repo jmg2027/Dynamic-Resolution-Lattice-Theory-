@@ -96,6 +96,15 @@ the numerator `Aₙ`-integrality uses the Brick-2 engines (`heart_lcm`,
 `cube_dvd_lcm_cube`); then piecewise `(c,p,q)` (`n≤3` trivial, `n≥4` reduced) +
 `htel` from `lcmUpTo_le` vs `zeta3Den_geom` (28>27) ⟹ `zeta3HolonomicReal`.
 
+**Worked sub-frontier** → `zeta3_wz/` (Lean anchor `AperyRecurrence.lean`: `B(n)`
+def + seeds + base-layer validation, PURE).  Verified there (CAS, reproducible):
+the recurrence holds; the WZ combination `F(j,k)` sums to `0` (so a certificate
+exists); the exact rational reduction
+`R_F = −4(2j+3)·P₆(j,k)/[(j-k+1)²(j-k+2)²]` (`P₆` sextic).  Immediate next step:
+extract the Gosper certificate (sympy `gosper_term` chokes on the binomials; the
+GP obstruction is `P₆` at shift `h=j` → high-degree certificate).  See
+`zeta3_wz/README.md`.
+
 (Notes: `α₃₀` `[local irreducible]` to stop whnf-explosion; `ring_nat` deep-recurses
 on literal-exponent `^` → abstract reassoc lemmas; base certificates `decide` with
 `maxRecDepth`/`maxHeartbeats` raised — `lcmUpTo 750 ≤ 10^375` in ~1s.)
