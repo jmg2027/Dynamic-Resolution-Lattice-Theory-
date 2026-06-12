@@ -1,4 +1,5 @@
 import E213.Meta.Nat.VpSeparation
+import E213.Meta.Nat.Iterate213
 
 /-!
 # FoldCriterion — when two powers are equal (∅-axiom)
@@ -197,5 +198,43 @@ theorem fold_iff_collinear {a b : Nat} (ha : 0 < a) (hb : 0 < b) :
     exact ⟨r, q, hq, (pow_eq_pow_iff_vp ha hb r q).mp hab⟩
   · rintro ⟨r, q, hq, hmatch⟩
     exact ⟨r, q, hq, (pow_eq_pow_iff_vp ha hb r q).mpr hmatch⟩
+
+/-! ## §4 — `^`'s two inverses genuinely differ (the non-commutative split) -/
+
+/-- ★★ **The `^`-inverse splits.**  Because `^` is *non-commutative* (base and
+    exponent are different slots, `a^b ≠ b^a`), inverting it is **two different
+    problems**, and they have **different solvability**:
+
+      * the **root** (solve the *base*, `xⁿ = b`) — here `x³ = 8` has the
+        natural-number answer `x = 2`;
+      * the **logarithm** (solve the *exponent*, `aˣ = b`) — here `3ˣ = 8` has
+        **no rational answer at all** (no `r, q` with `q > 0` and `3^r = 8^q`),
+        because `8 = 2³` and `2, 3` are independent primes
+        (`two_three_unique` via the fold criterion).
+
+    This is the precise sense in which `^` is the rung where the inverse parts
+    company: a commutative rung (`+`, `×`) has *one* inverse (subtraction,
+    division), so *one* number system (`ℤ`, `ℚ`); the non-commutative `^` has
+    *two*, and they land in different places — the root in an *algebraic*
+    extension (a real-closure cut, e.g. `SqrtPure`/`CubeRootTwoCut`), the
+    logarithm generically *transcendental* (a non-folding `Real213` cut).
+
+    What 213 proves ∅-axiom is exactly the *non-folding* half — that the
+    log-inverse escapes `ℚ` (this theorem, on the fold criterion).  That the
+    log is moreover *transcendental* (not merely irrational) is a real-analysis
+    fact (Gelfond–Schneider/Baker) **beyond** the ∅-axiom reach — the honest
+    boundary.  (Commutativity governs *one-vs-two* inverses; *associativity*
+    governs *algebraic-vs-analytic* completion — two different properties doing
+    two different jobs, both lost at `^`.) -/
+theorem pow_inverse_splits :
+    (∃ x, x ^ 3 = 8) ∧ ¬ ∃ r q, 0 < q ∧ (3 : Nat) ^ r = 8 ^ q := by
+  refine ⟨⟨2, by decide⟩, ?_⟩
+  rintro ⟨r, q, hq, h⟩
+  rw [show (8 : Nat) = 2 ^ 3 from by decide,
+    E213.Meta.Nat.Iterate213.pow_pow_eq_pow_mul] at h
+  obtain ⟨h3q, _hr⟩ := two_three_unique h.symm
+  have h3le : 3 ≤ 3 * q := Nat.le_mul_of_pos_right 3 hq
+  rw [h3q] at h3le
+  exact absurd h3le (by decide)
 
 end E213.Meta.Nat.FoldCriterion

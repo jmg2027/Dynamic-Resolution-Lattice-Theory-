@@ -189,6 +189,55 @@ of instruments, one per polarity.  **The convergence finding survives a
 genuinely independent domain and gains a second tool — strong evidence it
 organises the corpus, not just the slot-tower region.**
 
+## D — the number-tower's property → number-system structure (two-agent deep study)
+
+A deep study (number-theorist + skeptic) of how the hyperoperation tower's
+algebraic properties force the number-system ladder `ℕ→ℤ→ℚ→ℝ`.  A tempting neat
+story — *"the tower's property ladder ALIGNS with the number-system ladder; the
+`^`-wall IS the algebraic→analytic divide"* — was **adversarially cut down**
+(stereotype-matching: the `^`-wall and the classical Grothendieck/Cauchy divide
+share no generator — different mechanisms; the windows do not coincide).  What
+survives is **sharper**: two properties do two *different* jobs.
+
+- **Associativity gate-keeps *algebraic-vs-analytic* completion.**  An
+  *associative* operation is a monoid → its inverse-completion is the
+  **algebraic** Grothendieck construction (formal pairs; the pair-equivalence is
+  transitive *because* associative).  `append` (non-commutative but associative)
+  → free group, still algebraic; `+`→`ℤ`, `×`→`ℚ`.  At `^` associativity dies
+  (`HyperAssoc.pow_not_assoc`) → the formal pair-construction fails → the
+  inverse must be a **limit** (a cut) = **analytic**.  So *associativity*, not
+  commutativity, is the algebraic/analytic gate (append disproves commutativity:
+  non-comm yet algebraic).
+- **Commutativity governs *single-vs-split* inverse.**  A *commutative* rung has
+  *one* inverse (`+`→subtraction→`ℤ`; `×`→division→`ℚ`).  The *non-commutative*
+  `^` (base ≠ exponent) **splits** into two: the **root** (solve the base,
+  `xⁿ=b`, *algebraic* — a real-closure cut, `SqrtPure`/`CubeRootTwoCut`) and the
+  **logarithm** (solve the exponent, `aˣ=b`, generically *transcendental* — a
+  non-folding `Real213` cut).  Concrete ∅-axiom witness:
+  `FoldCriterion.pow_inverse_splits` — `x³=8` has `x=2 ∈ ℕ`, but `3ˣ=8` has no
+  rational answer (`two_three_unique`/fold criterion).
+- **So `^` is the wall for TWO reasons, not one.**  Associativity-death ⟹
+  analytic completion enters; commutativity-death ⟹ the inverse splits.  Both
+  happen at `^`, but they are *distinct* events (the C2 lesson: comm and assoc
+  die together but by different proofs).  The fold criterion
+  (`fold_iff_collinear`) is precisely the **log-inverse solvability test**
+  (rational `x` ⟺ exponent-vectors collinear).
+- **The ∅-axiom barrier is exactly transcendence.**  213 proves the
+  *non-folding* half (the log escapes `ℚ`, fold criterion) and the algebraic
+  root-cuts; that the log is *transcendental* (not merely irrational —
+  Gelfond–Schneider/Baker) is beyond ∅-axiom.  The honest boundary.
+- **Above `^`: no completion.**  Fractional tetration solves the Abel equation
+  `F(x+1)=a^{F(x)}`, which has a 1-parameter family of smooth solutions, no
+  canonical one → the value is a presentation-dependent germ, not a number =
+  `object1_not_surjective` at the analytic scale (`rcut_rescale`,
+  `PresentationDependence`).  The number-system ladder therefore *terminates* at
+  `ℝ`/`ℂ` (the `^`-completion); above it the demand is a choice-of-section, and
+  the magnitudes' canonical home is the surreals/transseries (not built in 213).
+
+**Deleted (over-reach):** "the `^`-wall IS the algebraic/analytic divide" —
+resonance, no shared generator.  **Kept:** the two-properties-two-jobs structure
++ the split witness.  Both agents converged.
+
 ## C9 — is there a third (temporal/process) axis? → NO: the temporal FACE of object1_not_surjective
 
 Tested whether the recurring "process is of the *pointing* (the approximant
