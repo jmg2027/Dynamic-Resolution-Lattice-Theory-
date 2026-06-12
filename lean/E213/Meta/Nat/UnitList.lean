@@ -15,7 +15,8 @@ Derived here from list induction alone, no algebra remembered:
   commutative in general (`append_not_comm_general`: `[a]++[b] ≠
   [b]++[a]` for distinguishable elements);
 * on unit lists commutativity is **born**
-  (`append_comm`): indistinguishable elements bubble freely;
+  (`append_comm`): indistinguishable elements carry no position
+  information, so arrangement is no information to forget;
 * `+` is the count-readout of append (`count_append`), and the
   commutativity of `+` is then the **shadow** of unit-list append
   commutativity (`add_comm_from_append`) — counting forgets

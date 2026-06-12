@@ -36,11 +36,40 @@ sorted list is the list of *units* — indistinguishable elements make
 insertion order and count order one thing, so no sorting exists or is
 needed.  Append is associative for any element type but **not
 commutative in general** (`append_not_comm_general`); on unit lists
-commutativity is **born** (`append_comm` — units bubble freely, by
-bare induction), and `+` is the count readout of append
-(`count_append`).  Hence `add_comm_from_append`: **the commutativity
-of `+` is the shadow of unit-list append commutativity** — counting
-forgets arrangement, and what survives the forgetting commutes.
+commutativity is **born** (`append_comm`, by bare induction:
+indistinguishable units carry no position information), and `+` is the
+count readout of append (`count_append`).  Hence `add_comm_from_append`:
+**`+`-commutativity is unit-list append commutativity read through
+counting** — counting forgets arrangement, and what survives commutes.
+
+The same birth recurs one rung up, in 2-D.  The `a × b` unit **grid**
+(`Meta/Nat/UnitGrid.lean`) — `a` rows of `b` indistinguishable units —
+is counted row by row as `a · b` (`total_rows`) and, after the
+transpose that re-lays it as `b` rows of `a`, as `b · a`
+(`transpose_rows` then `total_rows` again).  The transpose neither
+loses nor invents a cell (`heads_tails_total`: peeling a column
+preserves the count, bare induction, because units carry no position),
+so the two counts agree and **`×`-commutativity is born from the grid
+transpose double-count** (`mul_comm_from_grid`) — no `Nat.mul_comm` in
+the proof.  Segment gives `+`-comm, grid gives `×`-comm: the swap
+symmetry that count-forgetting turns into commutativity is the
+transpose — which is also why commutativity stops being free above the
+grid, since `^`'s value-object is a tree with no transpose.
+
+One rung *below* append the same theme appears from the other side.
+The free binary magma (`Meta/Nat/BinTree213.lean`) remembers its
+bracketing (`node_not_assoc`); `append` is that tree **quotiented by
+associativity** (`flatten_assoc_collapse` *is* `append_assoc`), and
+`count` forgets even that.  So the floor hands the tower two forgettings
+— bracketing (associativity, free) and order-on-units (commutativity).
+The tower keeps both through `×`, and `^` loses **both at once**:
+non-commutative (`HyperAssoc.pow_not_comm`, `2^3 ≠ 3^2`) and
+non-associative (`pow_not_assoc`, `(2^2)^3 = 64 ≠ 256 = 2^(2^3)` — the
+bracketing the floor discarded, back as information).  `×` is the last
+assoc+comm rung; the only law `^` keeps, `(aᵇ)ᶜ = a^(b·c)`
+(`pow_surviving`), linearizes `^` back down to `×` on the exponent
+rather than closing `^` over itself — which is why the tower folds one
+rung down.
 
 ## 2. The list and the sandwich
 
@@ -48,8 +77,15 @@ forgets arrangement, and what survives the forgetting commutes.
 the +-witness question: `a ≤ b ↔ ∃x, a + x = b`.  Equality is
 manufactured from order — the conjunction of two strict one-sided
 bounds (`Int213.eq_of_sandwich`) — so the **sandwich, not the
-equation, is the proper probe**.  Probing with it splits what the
-equation fuses (`PairOp.sandwich_locates`, `sandwich_unique`):
+equation, is the proper probe**.  The bounds must be **strict**, never
+`≤`: since `a ≤ b ↔ a < b ∨ a = b`, a `≤`-sandwich already contains the
+`=` it would found — circular, and the sandwich pointless.  With no `=`,
+a list element is located only as "right after `a`, right before `b`",
+unique **exactly when `b` is `a`'s next-next**: `a < e < a+2 ⟹ e = a+1`
+(`StrictLocate213.locate_strict`).  `=` is the *output* of that pointing;
+`≤` is the derivative `a < b+1`; the +-witness order is itself strict at
+root (`a < b ↔ ∃x, a+(x+1)=b`).  Probing with the sandwich splits what
+the equation fuses (`PairOp.sandwich_locates`, `sandwich_unique`):
 
 * **existence** of a location needs no monotonicity — only a
   reachable start and escape (progressivity `x ≤ f x`, the list's
@@ -70,8 +106,8 @@ standard expanded form is the solution's representation budget.  A
 pair-slot's two naturals are one **orbit coordinate** (the only part
 an answer depends on) plus one **fiber coordinate** (position along
 the relation orbit) — raw ℕ-counts over-count by the fibers, and the
-fiber does not vanish but **transports**: riding the exponent orbit
-lands the value on its own ×-orbit
+fiber does not vanish but **transports**: moving along the exponent
+orbit moves the value along its own ×-orbit
 (`PairPow.pairPow_fiber`, `pairPow_id`).  A question with all orbit
 coordinates fixed has zero effective slots: its solution is a
 **constant of its layer**, as `2` is of ℕ.
@@ -146,8 +182,8 @@ Order does not descend through the sign quotient — a nonpositive
 factor reverses `≤` (`OrderMul.mul_le_mul_right_nonpos`) — so the
 signed layer reads the sign off first and runs cross-`≤` on
 magnitudes: `Rat213.lowest_exists` / `lowest_unique` (the
-sign-carrying normal form, existence and uniqueness; mixed signs die
-by constructor clash), `ratioLeZ_descends` / `ratioLeZ_iff` (the
+sign-carrying normal form, existence and uniqueness; mixed signs are
+excluded by constructor mismatch), `ratioLeZ_descends` / `ratioLeZ_iff` (the
 derived order is well-defined on the positive cone).
 
 The two routes ℕ→ℤ→ℚ and ℕ→ℚ₊→ℚ are two bracketings of ℕ⁴, and
@@ -203,9 +239,19 @@ reciprocity its reciprocity law.
   inverse of the previous rung's action, each pair layer manufactures
   exactly that inverse (definitionally: the pair *is* the question's
   answer), and `^`'s answers (logarithms) are where the chain breaks —
-  their *linear* fold-back absence is a theorem (exponent vectors /
-  unique factorization), their nonlinear fold-back absence is open
-  classically (Schanuel territory).
+  their *linear* fold-back absence is a **proved theorem**
+  (`TwoThreeUnique.two_three_unique`: `2^a·3^b = 2^c·3^d → a=c ∧ b=d`,
+  the exponent vector is unique), and the exponent lattice it lives in
+  is itself ℕ-native (`VpMul.vp_mul`: for prime `p`, `vp p (m·n) =
+  vp p m + vp p n` — the valuation is additive, the lattice's axis
+  arithmetic) and **faithful** (`VpSeparation.vp_separation`: equal
+  valuations at every prime force equal numbers — unique factorization),
+  so the linear criterion is a full iff — `a^r = b^q` exactly when the
+  two exponent-vectors point the same way at every prime
+  (`FoldCriterion.pow_eq_pow_iff_vp`), with `two_three_unique` the `2,3`
+  case of "distinct primes never collide" (`FoldCriterion.prime_pow_unique`).
+  Their nonlinear fold-back absence is open classically
+  (Schanuel territory).
 * **Wrapping**: progressive operations are primary; wrapping
   operations are their fiber readouts, and their canonical-remainder
   normal form is a flattening Lens (`2 mod 2` is the class of `2`,

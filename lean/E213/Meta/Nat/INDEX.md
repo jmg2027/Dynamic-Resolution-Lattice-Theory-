@@ -4,9 +4,16 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (18)
+## Files (35)
 
   - `PureNat.lean`         — pure-Nat building blocks
+  - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
+                             born as the count-shadow of unit-list append
+  - `UnitGrid.lean`        — the rung-2 sibling: `×`-commutativity born
+                             from the grid transpose double-count
+                             (`mul_comm_from_grid`, no `Nat.mul_comm`)
+  - `TwoThreeUnique.lean`  — the proven linear floor of the `^`-wall:
+                             `2^a·3^b = 2^c·3^d → a=c ∧ b=d`
   - `NatDiv213.lean`       — `Nat.div` lemmas (213-internal pattern)
   - `AddMod213.lean`       — `Nat.add` mod-arithmetic
   - `MulMod213.lean`       — `Nat.mul` mod-arithmetic
@@ -27,7 +34,62 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
   - `RootFloor.lean`       — integer `s`-th root, floor reading
                              (`rootFloor_pow` calibration; the graded
                              rate generator's probe schedule)
+  - `BinTree213.lean`      — the tree floor below append: the free
+                             binary magma; append = its associativity
+                             quotient (`flatten`), `count` blind to
+                             bracketing (`node_not_assoc`)
+  - `HyperAssoc.lean`      — the wall: `+`,`×` keep assoc+comm, `^` loses
+                             both (`pow_not_assoc`, `pow_not_comm`); the
+                             surviving ghost `(aᵇ)ᶜ = a^(b·c)`
+  - `GridReadout213.lean`  — substrate dimension + the readout split
+                             (corrected: `perimeter` is an imported
+                             Euclidean readout — see `Shape213`)
+  - `Shape213.lean`        — the internal readout is the shape (an ordered
+                             factorization): area = product-collapse,
+                             dimension = #factors, `refine` splits a
+                             dimension fixing area; substrate dimension =
+                             `exp`'s axis at coarser resolution, ONE source
+  - `Iterate213.lean`      — the diagonal climb is iteration; the count
+                             slot adds (`iter_add`) and **multiplies**
+                             (`iter_mul`); `+`,`×`,`^` as `iter`; the
+                             surviving ghost `(aᵇ)ᶜ=a^(b·c)` an `iter_mul`
+                             instance; idempotent climb builds no tower
+  - `StrictLocate213.lean` — the strict locating primitive: `a<e<a+2 →
+                             e=a+1` (`locate_strict`); founding identity
+                             needs strict `<`, not `≤` (which contains `=`)
+  - `ListLocate213.lean`   — `locate_strict` pushed onto the list: strict
+                             proper-extension order, `locate_list` (unique
+                             list in a next-next gap); location works
+                             because a list is linear (one tail) — branches
+                             on the tree (`BinTree.node`)
+  - `CoAppend213.lean`     — the co-operation dual of append: `splits` (all
+                             cuts); `mem_splits_iff` — a split IS an
+                             append-witness, so inverse questions are
+                             co-operations, not inverse operations; co-size
+                             = `length+1`
+  - `Convolution213.lean`  — split-then-reglue: `conv f g n = Σ_{i+j=n}
+                             f i·g j` (Cauchy/polynomial product, off the
+                             `+×^` diagonal); `(1+x)²`, `(1+x)³` by `rfl`;
+                             `conv_comm` (peel both ends = swap symmetry),
+                             `conv_add_left` (bilinear); assoc open
   - `Valuation.lean`       — the `q`-adic valuation `vp q n` over ℕ
+  - `VpMul.lean`           — the exponent-lattice engine (T3): `vp_mul`
+                             (`vp p (m·n) = vp p m + vp p n`, prime `p`),
+                             `vp_pow`, `vp_self_pow`, Euclid's lemma
+  - `VpSeparation.lean`    — the keystone: `vp_separation`
+                             (`(∀p prime, vp p m = vp p n) → m = n`) =
+                             unique factorization / `exp` is a faithful
+                             coordinate; `exists_prime_factor` + descent
+  - `FoldCriterion.lean`   — two powers are equal iff their prime-exponent
+                             readings match (`pow_eq_pow_iff_vp`); distinct
+                             primes never collide (`prime_pow_unique`,
+                             `2^a=3^b→a=b=0`); the fold criterion
+                             (`fold_iff_collinear`)
+  - `NoOrderModP.lean`     — folding the counting line into a circle
+                             `1..p` (`next x = x+1`, `next p = 1`) kills
+                             order: `no_wrapping_order` (irreflexive +
+                             `next`-preserving + `1<2` ⟹ `False`); no `0`,
+                             no `ℤ`, no `%` — contrast is the line ℕ
 
 ## Top-level
 
