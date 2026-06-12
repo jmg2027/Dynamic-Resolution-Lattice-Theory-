@@ -168,6 +168,34 @@ the algebra into a datatype, *computes* the normal form, and lets `rfl` certify 
 both sides to the same monomial-list and `rfl`.  The hand-rolled ring is "truth = computation"
 applied to its own automation.
 
+## Part VII — the capstone-bundle template, the ★ grading, and Fin-encoding transfer
+
+**The capstone is a ~7-fact conjunction** (284 capstone theorems, mean **7.1 conjuncts**,
+max 38).  The file-closing template is: bundle the file's results into one citable
+`theorem …_capstone : A ∧ B ∧ … := ⟨pa, pb, …⟩`.  This single convention *generates* two
+census-level facts: the corpus's `∧` count (10,781) and the ≈one-anonymous-`⟨⟩`-per-theorem
+ratio (the capstone tuple).  Distribution: most capstones bundle 3–8 facts; the long tail
+(20–38 conjuncts) are the big "pure observables" / "tower-drops" capstones.  A capstone is
+how a 213 file says "here is everything this file established, in one handle."
+
+**The ★ grading is a 3-tier importance convention** — 15,265 ★ characters corpus-wide, in
+`★` (supporting) / `★★` (major) / `★★★` (load-bearing / the capstone).  It is documentation,
+not Lean, but it is *pervasive and consistent* (≈8 ★ per file), and it is how a reader (or
+the next session) navigates a file to its load-bearing result without reading every proof.
+
+**A fifth enabling move — Fin-encoding transfer.**  Beyond `deriving DecidableEq` (Part I
+move 2), finite structured types borrow decidability by being made defeq to `Fin n`:
+`instance : DecidableEq Sym3 := inferInstanceAs (DecidableEq (Fin 6))`,
+`… Sym2 := … (Fin 2)`, `C2_6 := … (Fin 64)`, `Vertex := … (Fin 5)`,
+`Aut_K := … (Sym3 × Sym2 × C2_6)` (`Lib/Physics/Symmetry/AutKType.lean`,
+`AtomicBase/Existence.lean`).  Encode a finite group/index type as `Fin n` (or a product of
+them) and *all* of `DecidableEq` + decidable-∀ + enumeration transfer for free — so claims
+over them are `decide`.  The *only* genuinely hand-written `DecidableEq` in the corpus is
+**`Raw`** itself (`Theory/Raw/Core.lean:28`, because Raw is a `Subtype { t : Tree // canonical }`)
+and its `RawBy cmp` variant; the p-adic `Zp.unit0_decidable` is the one notable hand-written
+non-finite `Decidable`.  So decidability has exactly three sources: hand-write it once for
+`Raw`, `deriving` it for data types (80), or transfer it from `Fin n` for finite structures.
+
 ## The one-line synthesis
 
 > 213 is engineered so that **truth is computation**: objects are Bool-valued and
