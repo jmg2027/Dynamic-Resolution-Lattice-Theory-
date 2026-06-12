@@ -172,6 +172,108 @@ theorem G1b (j k : Nat) :
     (k + 1) * choose (j + k + 1) (k + 1) = (j + k + 1) * choose (j + k) k :=
   choose_succ_mul (j + k) k
 
+/-- The Apéry summand `C(n,k)²·C(n+k,k)²` (squares as explicit products). -/
+def aperySummand (n k : Nat) : Nat :=
+  choose n k * choose n k * (choose (n + k) k * choose (n + k) k)
+
+/-- The common factor `W = C(j+2,k)²·C(j+k,k)²`. -/
+def Wfac (j k : Nat) : Nat :=
+  choose (j + 2) k * choose (j + 2) k * (choose (j + k) k * choose (j + k) k)
+
+/-- `R0`: `a(j,k)·(j+1)²(j+2)² = W·(j+2−k)²(j+1−k)²`. -/
+theorem R0 (j k : Nat) :
+    aperySummand j k * ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+    = Wfac j k * ((j + 2 - k) * (j + 2 - k)) * ((j + 1 - k) * (j + 1 - k)) := by
+  have hsq : ((j + 1) * (j + 2) * choose j k) * ((j + 1) * (j + 2) * choose j k)
+           = ((j + 1 - k) * (j + 2 - k) * choose (j + 2) k)
+               * ((j + 1 - k) * (j + 2 - k) * choose (j + 2) k) := by rw [colA]
+  unfold aperySummand Wfac
+  calc choose j k * choose j k * (choose (j + k) k * choose (j + k) k)
+          * ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+      = ((j + 1) * (j + 2) * choose j k) * ((j + 1) * (j + 2) * choose j k)
+          * (choose (j + k) k * choose (j + k) k) := by ring_nat
+    _ = ((j + 1 - k) * (j + 2 - k) * choose (j + 2) k)
+          * ((j + 1 - k) * (j + 2 - k) * choose (j + 2) k)
+          * (choose (j + k) k * choose (j + k) k) := by rw [hsq]
+    _ = choose (j + 2) k * choose (j + 2) k * (choose (j + k) k * choose (j + k) k)
+          * ((j + 2 - k) * (j + 2 - k)) * ((j + 1 - k) * (j + 1 - k)) := by ring_nat
+
+/-- `R1`: `a(j+1,k)·(j+1)²(j+2)² = W·(j+2−k)²(j+k+1)²`. -/
+theorem R1 (j k : Nat) :
+    aperySummand (j + 1) k * ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+    = Wfac j k * ((j + 2 - k) * (j + 2 - k)) * ((j + k + 1) * (j + k + 1)) := by
+  have hsqAB : ((j + 2) * choose (j + 1) k) * ((j + 2) * choose (j + 1) k)
+             = ((j + 2 - k) * choose (j + 2) k) * ((j + 2 - k) * choose (j + 2) k) := by rw [colAB]
+  have hsqB : ((j + 1) * choose (j + k + 1) k) * ((j + 1) * choose (j + k + 1) k)
+            = ((j + k + 1) * choose (j + k) k) * ((j + k + 1) * choose (j + k) k) := by rw [colB]
+  unfold aperySummand Wfac
+  rw [show j + 1 + k = j + k + 1 from by ring_nat]
+  calc choose (j + 1) k * choose (j + 1) k
+          * (choose (j + k + 1) k * choose (j + k + 1) k)
+          * ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+      = ((j + 2) * choose (j + 1) k) * ((j + 2) * choose (j + 1) k)
+          * (((j + 1) * choose (j + k + 1) k) * ((j + 1) * choose (j + k + 1) k)) := by ring_nat
+    _ = ((j + 2 - k) * choose (j + 2) k) * ((j + 2 - k) * choose (j + 2) k)
+          * (((j + k + 1) * choose (j + k) k) * ((j + k + 1) * choose (j + k) k)) := by
+        rw [hsqAB, hsqB]
+    _ = choose (j + 2) k * choose (j + 2) k * (choose (j + k) k * choose (j + k) k)
+          * ((j + 2 - k) * (j + 2 - k)) * ((j + k + 1) * (j + k + 1)) := by ring_nat
+
+/-- `R2`: `a(j+2,k)·(j+1)²(j+2)² = W·(j+k+1)²(j+k+2)²`. -/
+theorem R2 (j k : Nat) :
+    aperySummand (j + 2) k * ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+    = Wfac j k * ((j + k + 1) * (j + k + 1)) * ((j + k + 2) * (j + k + 2)) := by
+  have hsqC : ((j + 1) * (j + 2) * choose (j + k + 2) k) * ((j + 1) * (j + 2) * choose (j + k + 2) k)
+            = ((j + k + 1) * (j + k + 2) * choose (j + k) k)
+                * ((j + k + 1) * (j + k + 2) * choose (j + k) k) := by rw [colC]
+  unfold aperySummand Wfac
+  rw [show j + 2 + k = j + k + 2 from by ring_nat]
+  calc choose (j + 2) k * choose (j + 2) k
+          * (choose (j + k + 2) k * choose (j + k + 2) k)
+          * ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+      = choose (j + 2) k * choose (j + 2) k
+          * (((j + 1) * (j + 2) * choose (j + k + 2) k) * ((j + 1) * (j + 2) * choose (j + k + 2) k)) := by
+        ring_nat
+    _ = choose (j + 2) k * choose (j + 2) k
+          * (((j + k + 1) * (j + k + 2) * choose (j + k) k)
+              * ((j + k + 1) * (j + k + 2) * choose (j + k) k)) := by rw [hsqC]
+    _ = choose (j + 2) k * choose (j + 2) k * (choose (j + k) k * choose (j + k) k)
+          * ((j + k + 1) * (j + k + 1)) * ((j + k + 2) * (j + k + 2)) := by ring_nat
+
+/-- `Q(j,k) = 4j²+12j+3k+8 − 2k²` (the certificate's polynomial factor; `>0` in the
+    summation range, ℕ-truncation safe outside it since `C(j+2,k)=0` there). -/
+def Qpoly (j k : Nat) : Nat := 4 * j * j + 12 * j + 3 * k + 8 - 2 * (k * k)
+
+/-- The cleared certificate magnitude `Gmag(j,k) = 4k⁴(2j+3)·Q(j,k)·W`. -/
+def Gmag (j k : Nat) : Nat := 4 * (k * k * k * k) * (2 * j + 3) * Qpoly j k * Wfac j k
+
+/-- `G1`: `Gmag(j,k+1) = 4(2j+3)·Q(j,k+1)·(j+2−k)²(j+k+1)²·W`. -/
+theorem G1 (j k : Nat) :
+    Gmag j (k + 1)
+    = 4 * (2 * j + 3) * Qpoly j (k + 1)
+        * ((j + 2 - k) * (j + 2 - k)) * ((j + k + 1) * (j + k + 1)) * Wfac j k := by
+  have hsqa : ((k + 1) * choose (j + 2) (k + 1)) * ((k + 1) * choose (j + 2) (k + 1))
+            = ((j + 2 - k) * choose (j + 2) k) * ((j + 2 - k) * choose (j + 2) k) := by rw [G1a]
+  have hsqb : ((k + 1) * choose (j + k + 1) (k + 1)) * ((k + 1) * choose (j + k + 1) (k + 1))
+            = ((j + k + 1) * choose (j + k) k) * ((j + k + 1) * choose (j + k) k) := by rw [G1b]
+  unfold Gmag Wfac
+  rw [show j + (k + 1) = j + k + 1 from by ring_nat]
+  calc 4 * ((k + 1) * (k + 1) * (k + 1) * (k + 1)) * (2 * j + 3) * Qpoly j (k + 1)
+          * (choose (j + 2) (k + 1) * choose (j + 2) (k + 1)
+              * (choose (j + k + 1) (k + 1) * choose (j + k + 1) (k + 1)))
+      = 4 * (2 * j + 3) * Qpoly j (k + 1)
+          * (((k + 1) * choose (j + 2) (k + 1)) * ((k + 1) * choose (j + 2) (k + 1)))
+          * (((k + 1) * choose (j + k + 1) (k + 1)) * ((k + 1) * choose (j + k + 1) (k + 1))) := by
+        ring_nat
+    _ = 4 * (2 * j + 3) * Qpoly j (k + 1)
+          * (((j + 2 - k) * choose (j + 2) k) * ((j + 2 - k) * choose (j + 2) k))
+          * (((j + k + 1) * choose (j + k) k) * ((j + k + 1) * choose (j + k) k)) := by
+        rw [hsqa, hsqb]
+    _ = 4 * (2 * j + 3) * Qpoly j (k + 1)
+          * ((j + 2 - k) * (j + 2 - k)) * ((j + k + 1) * (j + k + 1))
+          * (choose (j + 2) k * choose (j + 2) k * (choose (j + k) k * choose (j + k) k)) := by
+        ring_nat
+
 /-! ## Telescoping infrastructure (pure ℕ, no subtraction)
 
 The WZ proof sums the cleared per-`k` identity over `k`; the certificate's
@@ -188,10 +290,6 @@ theorem sumTo_shift_eq (g : Nat → Nat) :
     show sumTo n (fun k => g (k + 1)) + g (n + 1) + g 0 = sumTo n g + g n + g (n + 1)
     rw [Nat.add_right_comm (sumTo n (fun k => g (k + 1))) (g (n + 1)) (g 0),
         sumTo_shift_eq g n]
-
-/-- The Apéry summand `C(n,k)²·C(n+k,k)²` (squares as explicit products). -/
-def aperySummand (n k : Nat) : Nat :=
-  choose n k * choose n k * (choose (n + k) k * choose (n + k) k)
 
 /-- The denominator Apéry number `Bₙ = Σ_{k=0}^n C(n,k)²·C(n+k,k)²`. -/
 def B (n : Nat) : Nat := sumTo (n + 1) (aperySummand n)
