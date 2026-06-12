@@ -425,4 +425,49 @@ theorem primePi_unbounded : ∀ k, ∃ N, k ≤ primePi N
           rw [h1]
           exact Nat.add_le_add (Nat.le_trans hN h2) (Nat.le_refl 1)
 
+/-! ## The PNT cut — convergence to `0` as a 213 ε-δ certificate
+
+The prime number theorem's content is a *convergence*: prime density
+`π(N)/N → 0`.  213-natively (cf. `AbCutSeq.toCauchy`) the certificate IS a
+**modulus** — for each resolution `k`, a threshold past which `π(N)/N < 1/k`,
+written division-free as `π(N)·k < N`.  `RatTendsToZero` packages this ε-δ.  Its
+soundness (`below`: eventually under *every* positive rational) is ∅-axiom; the
+PNT certificate's *existence* (`PrimeDensityToZero`) is the open analytic core —
+the single `hsep`-style hypothesis, exactly as transcendental cuts isolate their
+modulus. -/
+
+/-- ε-δ certificate that the rational sequence `a N / b N` converges to `0`:
+    a modulus `M` with `a N · k < b N` (i.e. `a N / b N < 1/k`) for `N ≥ M k`. -/
+structure RatTendsToZero (a b : Nat → Nat) where
+  M : Nat → Nat
+  cert : ∀ k, 1 ≤ k → ∀ N, M k ≤ N → a N * k < b N
+
+/-- **Soundness**: the certificate forces `a N / b N` eventually below *every*
+    positive rational `c/d` (`c ≥ 1`) — genuine convergence to `0`. -/
+theorem RatTendsToZero.below {a b : Nat → Nat} (h : RatTendsToZero a b)
+    (c d : Nat) (hc : 1 ≤ c) : ∃ Th, ∀ N, Th ≤ N → a N * d < c * b N := by
+  refine ⟨h.M (d + 1), fun N hN => ?_⟩
+  have key : a N * (d + 1) < b N :=
+    h.cert (d + 1) (Nat.succ_le_succ (Nat.zero_le d)) N hN
+  calc a N * d ≤ a N * (d + 1) := Nat.mul_le_mul (Nat.le_refl _) (Nat.le_succ d)
+    _ < b N := key
+    _ ≤ c * b N := by
+        have h' := Nat.mul_le_mul hc (Nat.le_refl (b N)); rwa [Nat.one_mul] at h'
+
+/-- **Framework validation**: `1/N → 0` carries an explicit certificate
+    (`M k = k + 1`).  Confirms the ε-δ notion is inhabited and correct. -/
+def oneOverN : RatTendsToZero (fun _ => 1) (fun N => N) where
+  M := fun k => k + 1
+  cert := fun k _ N hN => by
+    show 1 * k < N
+    rw [Nat.one_mul]
+    exact Nat.lt_of_lt_of_le (Nat.lt_succ_self k) hN
+
+/-- **The PNT density cut certificate.**  Prime density `π(N)/N → 0` as a 213
+    ε-δ.  Its inhabitation is the open analytic core (Chebyshev/PNT-strength) —
+    the one hypothesis isolated, with `RatTendsToZero.below` giving the usable
+    consequence for free.  (`π(N) → ∞` is already certified, `primePi_unbounded`;
+    this is the dual density side.) -/
+abbrev PrimeDensityToZero : Type := RatTendsToZero primePi (fun N => N)
+
 end E213.Lens.Number.Nat213.MultSystemValue
