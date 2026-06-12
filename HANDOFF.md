@@ -1,4 +1,4 @@
-# Session Handoff — 2026-06-12 (Chebyshev: π(2n) ≤ π(n) + ⌊log_{n+1} 2^{2n}⌋)
+# Session Handoff — 2026-06-12 (Chebyshev upper bound π(2^m)=O(2^m/m) CLOSED)
 
 ## Branch
 `claude/autonomous-marathon-vp-listprod-imkycf` — the system `×` makes (monomials
@@ -34,13 +34,23 @@ Closed the Erdős elementary-Chebyshev numerator + count bound in
   **`primePi_pow_two_le_chebSum : π(2^m) ≤ chebSum m`** (iterate the doubling step).
   `chebSum` = the exact finite ∅-axiom Chebyshev upper-bound skeleton.  Verified
   `π(8)=4 ≤ chebSum 3=7, π(16)=6 ≤ chebSum 4=12`.
-- **`floorLog` upper-bound infra** (`Meta/Nat/FloorLog`): `floorLog_le_iff`
-  (`floorLog p N ≤ e ↔ N < p^{e+1}`), `floorLog_le_of_lt_pow`,
-  `floorLog_antitone_base` (bigger base ⇒ smaller log), `floorLog_pow_self`.
+- **`floorLog` upper-bound infra** (`Meta/Nat/FloorLog`): `floorLog_le_iff`,
+  `floorLog_le_of_lt_pow`, `floorLog_antitone_base`, `floorLog_pow_self`.
+- **Per-window term** `floorLog_window_term_le : 1≤k → floorLog (2^k+1)(4^{2^k}) ≤
+  2^{k+1}/k` (via `floorLog_le_of_lt_pow` + `lt_mul_div_succ`; the growing base
+  `2^k+1` supplies the `1/k = 1/ln(base)` denominator — propext dodged with pure
+  `div_add_mod`/`pow_mul_pure`).
+- **THE CAPSTONE** `primePi_pow_two_le_chebBound : π(2^m) ≤ chebBound m`
+  (`= 2 + Σ_{k=1}^{m-1} 2^{k+1}/k = O(2^m/m)`) — the explicit, computable,
+  axiom-free Erdős elementary-Chebyshev `π(N)=O(N/ln N)`.  Via `windowBound`
+  (pattern-matched, no `ite`) + `term_le_windowBound` + `chebSum_le_chebBound` ∘
+  `primePi_pow_two_le_chebSum`.  Verified `π(8)=4≤10, π(1024)=172≤chebBound 10=269`.
+  In `CAPSTONE_INDEX.md` (new "Prime counting" section).
 
-**Next** (frontier `multiplicative_count_pnt.md`): the per-term division estimate
-`floorLog (2^k+1) (4^{2^k}) ≤ ⌈2^{k+1}/k⌉` (via `floorLog_le_of_lt_pow`), summed ⇒
-`chebSum m = O(2^m/m)` ⇒ `π(N)=O(N/ln N)` ⇒ inhabit `PrimeDensityToZero`.
+**Next** (frontier): inhabit `PrimeDensityToZero` — translate `chebBound m =
+O(2^m/m)` into the `RatTendsToZero primePi id` modulus (`Real213` ε-δ): needs
+`chebBound m ≤ C·2^m/m` partial-sum bound + monotone interpolation
+`π(N) ≤ π(2^{⌈log₂N⌉})`.  PNT `~N/ln N` (constant 1) stays the asymptotic horizon.
 
 ## Prior session (n-plus-signature-mappings branch)
 

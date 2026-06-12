@@ -42,6 +42,20 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
   — CRT closures
 - Cross-recurrence: `Lib/Math/NumberTheory/DyadicFSM/Fib/PellRelation.fib_predict_eq_two_pell_predict`
 
+## Prime counting — elementary Chebyshev (multiplicative count)
+
+The `×`-system route (`Lens/Number/Nat213/MultSystemValue`): central binomial ⇒
+prime window ⇒ `π(N) = O(N/ln N)`, all ∅-axiom.
+
+- `Lens/Number/Nat213/MultSystemValue.primePi_pow_two_le_chebBound`
+  — **explicit Chebyshev upper bound** `π(2^m) ≤ chebBound m = 2 + Σ_{k=1}^{m-1}
+  2^{k+1}/k = O(2^m/m)` (computable, axiom-free Erdős elementary-Chebyshev)
+- `…window_prod_dvd_central_binom` (`∏_{n<p≤2n} p ∣ C(2n,n)`) +
+  `…window_prod_le` (`∏ ≤ 2^{2n}`) — the numerator divisibility/bound
+- `…windowCount_eq` (`π n + #primes(n,2n] = π(2n)`) +
+  `…primePi_two_mul_le_floorLog` (the doubling step) — the recurrence
+- supporting `Meta/Nat/FloorLog` — generic floor-log `⌊log_p N⌋` + sandwich
+
 ## proof-ISA COUNT closures (combinatorics)
 
 The two named bounds of the COUNT instruction — union bound and its

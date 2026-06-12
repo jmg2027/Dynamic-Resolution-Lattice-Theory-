@@ -1,8 +1,10 @@
 # Frontier — multiplicative count → PNT horizon (`MultSystem` / `MultSystemValue`)
 
-**Branch**: `claude/n-plus-signature-mappings-7yrrk3`.
-**Status**: A-region + exp/log skeleton CLOSED (∅-axiom); B (π counting) + PNT
-horizon OPEN.
+**Branch**: `claude/autonomous-marathon-vp-listprod-imkycf`.
+**Status**: A-region + exp/log skeleton CLOSED; B (π counting) CLOSED; **Chebyshev
+upper bound `π(2^m) = O(2^m/m)` CLOSED** (`primePi_pow_two_le_chebBound`, ∅-axiom).
+Remaining OPEN: inhabit `PrimeDensityToZero` (translate `chebBound` growth into the
+`RatTendsToZero` modulus) + the PNT `~ N/ln N` asymptotic horizon.
 
 ## The trajectory
 
@@ -139,14 +141,15 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
 
 ## Next concrete step
 
-The telescoped bound is closed (`primePi_pow_two_le_chebSum : π(2^m) ≤ chebSum m`,
-∅-axiom), with the `floorLog` upper-bound infra (`floorLog_le_of_lt_pow` etc.) in
-`Meta/Nat/FloorLog`.  **Next** (the single remaining open piece): the per-term
-division estimate `floorLog (2^k+1) (2^{2^{k+1}}) ≤ M_k` with `M_k = ⌈2^{k+1}/k⌉`
-— apply `floorLog_le_of_lt_pow`, reducing to `2^{2^{k+1}} < (2^k+1)^{M_k+1}`
-(prove via `(2^k+1)^{M_k+1} > (2^k)^{M_k+1} = 2^{k(M_k+1)}` and `k(M_k+1) > 2^{k+1}`).
-Sum the `M_k` ⇒ `chebSum m = O(2^m/m)` ⇒ `π(N) = O(N/ln N)` ⇒ inhabit
-`PrimeDensityToZero`.  PNT proper stays the asymptotic horizon.
+The Chebyshev **upper bound is closed**: `primePi_pow_two_le_chebBound : π(2^m) ≤
+chebBound m` with `chebBound m = 2 + Σ_{k=1}^{m-1} 2^{k+1}/k = O(2^m/m)` (∅-axiom,
+computable; via `windowBound`/`term_le_windowBound`/`floorLog_window_term_le` +
+`lt_mul_div_succ`).  **Next**: (a) inhabit `PrimeDensityToZero` — translate
+`chebBound m = O(2^m/m)` into the `RatTendsToZero primePi id` modulus (a `Real213`
+ε-δ certificate: for resolution `r`, threshold `N(r)` past which `π(N)/N < 1/r`);
+needs `chebBound m ≤ C·2^m/m` for explicit `C` (a `Σ 2^{k+1}/k` partial-sum bound)
+and the monotone interpolation `π(N) ≤ π(2^{⌈log₂N⌉})`.  (b) The PNT `~ N/ln N`
+limit (constant `1`) stays the asymptotic horizon (a `Real213` pointing).
 
 Loose secondary targets still open: tie `factorization_bounded`'s prime-list
 length to `primePi`; a Chebyshev *lower* bound (`π(2n) − π(n) ≥ …`) for the
