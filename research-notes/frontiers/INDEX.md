@@ -461,6 +461,17 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `[∅]`/`[ax]`/`[std]`/`[spec]`; Lean anchor index + open problems included.
   Discovery path: `general_theory_metaanalysis.md` findings D/E/F/G/G′.
 
+- `proof_engineering_templates` — **the craft layer** (companion to the census): how
+  213 makes everything `rfl`/`decide`-able.  Four enabling moves — Bool-valued reflection
+  (1899 `→Bool` defs: predicates are computable functions, so truth = computation),
+  closed-universe encoding (`instDecidableEqRaw` 4459 + `deriving DecidableEq` 80),
+  definitional-match design (`cases <;> rfl`, no funext/Quot.sound), finite enumeration;
+  the reshape→close reduction templates (`show`/`unfold`/`rw`/`ring_nat` → `rfl`/`decide`,
+  `<;> decide`/`<;> rfl`); the propext-free structural closers (`noConfusion` 489,
+  `Int.NonNeg` 82, `of_decide_eq_true` 97); and the near-universal file template (docstring
+  99.9% → `/-! ## §` sections 3814 → ★-graded lemmas 15,265 ★ → ★★★ capstone, 466 files).
+  Thesis: making everything rfl/decide-able is a *design discipline at the definition
+  layer* (truth = computation), of which the proof distribution is the downstream shadow.
 - `proof_pattern_census` — **empirical code-level proof-pattern analysis** (the
   Lean corpus itself, not the prose): the distribution + structure of how the
   14,058 theorems are proved.  Findings: proof style is the *shadow of the

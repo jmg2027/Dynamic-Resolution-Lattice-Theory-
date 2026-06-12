@@ -1,0 +1,154 @@
+# Proof-engineering templates — how 213 makes everything `rfl`/`decide`-able
+
+The companion to `proof_pattern_census.md`.  The census measured *what* the proof
+distribution is (decide+rw dominant, residue-rooted, form-converges/content-diverges).
+This file reverse-engineers the *craft*: the design techniques that make claims close by
+`rfl`/`decide`, the reduction templates that massage a goal into closeable shape, and the
+near-universal **code-structure template** every file is written to.
+
+One discipline underlies all of it: **push every claim down to a *computation*** — make the
+objects Bool-valued, closed-universe, and definitionally-matching, so the proof is a
+*reduction* (`rfl`) or a *finite decision* (`decide`); and where a black-box closer would
+pull `propext`/`Quot.sound`, replace it with a *structural* one.  This is the engineering
+form of the proof-level Trajectory Principle (`census §5`): nothing collapses to a black box.
+
+All counts are corpus-wide (`lean/E213`, 1980 files); regenerable like the census.
+
+---
+
+## Part I — the four enabling moves (make `rfl`/`decide` *applicable*)
+
+**1. Bool-valued reflection — the central move (1,899 `→ Bool` / `: Bool` defs).**
+Predicates are written as *computable `Bool` functions*, not `Prop`.  Then a claim `P x` is
+stated as `P x = true`, which the kernel *computes* — closed by `rfl` (if it reduces) or
+`decide` (finite search).  Canonical: `Lens/Bool213/Raw.lean` encodes truth itself as
+computation — `T := Raw.a`, `F := Raw.b`, `isBool : Raw → Bool`, `booleanProj` (the
+`Raw.fold T F and` catamorphism).  Because the predicate *is* a function, "proving" it is
+*running* it.  (This is why §6 of the census found `Bool.casesOn` the #1 recursor at 1,681
+and `Decidable.casesOn` #4 at 562 — Bool-reflection is the substrate.)
+
+**2. Closed-universe encoding (no external types → everything computes).**  External
+objects are encoded as `Raw` shapes so operations stay `Raw → Raw` and *evaluate*: Bool as
+two atoms (move 1), `Nat213` as a count-Lens, cohomology cochains as `Fin n → Bool`.  The
+decidability that powers `decide` comes from **`Theory.instDecidableEqRaw` (4,459 cites)** +
+**`deriving DecidableEq` (80)** — not hand-written instances (only 8).  Once a type has
+decidable equality (Raw does, structurally, via `Tree`), every finite proposition over it is
+`decide`-able for free.  (`deriving` is the lever; `deriving Repr` (50) is the debug
+companion.)
+
+**3. Definitional-match design (engineer the def so `rfl`/`cases <;> rfl` closes).**  The
+defs are *shaped* so the cases reduce definitionally.  `Cohomology/Infrastructure/BoolXORFold`
+is the exemplar: its recursive `psiNatPos` uses base case `v 0` (**"not `false`** — keeps
+definitional match with the `Fin (n+1)`-cochain lifts"), so the AC identity closes by
+`cases a <;> cases b <;> cases c <;> cases d <;> rfl` — pure finite enumeration, *"without
+needing `funext` (and thus without `Quot.sound`)"* (its own docstring).  `abbrev` (207) and
+`@[reducible]` (22) keep definitions transparent so `rfl`/`decide` reduce *through* them;
+`@[simp]` is barely used (24) — normalization is by design, not by a simp-set.
+
+**4. Finite enumeration (quantify over a finite domain so the closer can sweep).**  ∀-claims
+are pushed onto finite domains (`Bool`, `Fin n`, Bool-tuples) so `decide`/`cases <;> rfl`
+enumerates.  `cases _ <;> ... <;> rfl` is the bounded-enumeration closer; `<;> decide` (514)
+and `<;> rfl` (347) close case-bundles uniformly.  (Methodology Pattern #2: where Lean-core
+won't synthesise `Decidable (∀ f : Fin n → Bool, P f)`, lift via an explicit pointwise
+`mkFn b0 … b_{n-1}` and `decide` over the `2^n` Bool tuple — equivalent by elementwise
+`rfl`.)
+
+## Part II — the reduction templates (massage a goal into closeable shape)
+
+When a goal is not *yet* `rfl`/`decide`-shaped, a small fixed set of moves reshapes it:
+
+| template | count | what it does |
+|---|---:|---|
+| `show …` / `change …` → `rfl`/`decide` | 6,212 `show` | restate the goal as the defeq *computable* form the kernel can reduce |
+| `unfold …` → `decide` | exposes the computable core of a `def` so `decide` can run |
+| `rw [chain]` / `ring_nat`/`ring_intZ` → `rfl` | 793 `…; rfl` | normalize (hand-rolled ring, §1 census) until both sides are defeq |
+| `cases`/`rcases` … `<;> rfl` \| `<;> decide` | 861 | split a finite goal, close every branch by the same closer |
+
+The skeleton is always *reshape → reduce/decide* — never an opaque `simp`/`ring`/`omega`
+(suppressed: 158 / 0 / 116).  This is the surface form of the census's `have→show→rw→exact`
+forward-explicit skeleton.
+
+## Part III — the propext-free closers (the ∅-axiom substitutes)
+
+The naive `rfl`/`decide`/`simp` often pull `propext` or `Quot.sound` through
+`DecidableEq`-iff lemmas or `funext`.  The corpus systematically replaces them with
+*structural* closers that stay strict ∅-axiom — this is the discipline that keeps `decide`
+honest:
+
+| ∅-axiom closer | count | replaces |
+|---|---:|---|
+| `noConfusion` (constructor disjointness) | 489 | `decide`/`simp` for `≠` and constructor-contradiction (e.g. `T_ne_F` via `congrArg Subtype.val` + `Tree.noConfusion`) |
+| `decide_eq_true` / `of_decide_eq_true` | 251 / 97 | the `Bool`↔`Prop` bridge used *forward* (avoids `decide_eq_true_eq`, which is propext) |
+| `Int.NonNeg` constructor inversion (Pattern #8) | 82 | Lean-core `Int` ordering lemmas (all propext-tainted) |
+| `congrArg Subtype.val` | 25 | unwrap the canonical-form `Subtype` to its `Tree`, then `noConfusion` |
+
+So even the "trivial" closers are hand-chosen for axiom-cleanliness: `noConfusion` not
+`decide` for `≠`; `of_decide_eq_true` not `decide_eq_true_eq`; `Int.NonNeg` `cases` not
+`omega`.  The strict-∅-axiom regime is enforced *at the closer level*.
+
+## Part IV — the code-structure template (how files are written)
+
+Near-universal, enforced by convention (and the org-audit skill):
+
+```
+import E213.<API surface>                    -- never reach into Theory.Raw.* submodules; use .API
+/-!
+# <Namespace> — <one-line what>
+<prose: the Lens meaning; STRICT ∅-AXIOM tag; cites to seed/AXIOM/§ where relevant>
+-/
+namespace E213.<Path.Matching.Namespace>     -- path = namespace
+open E213.<deps> (selective)                 -- one open block, top of file
+/-! ## §1 — <section> -/
+def …                                         -- Bool-valued / closed-universe (Part I)
+/-- <docstring> -/ theorem foo … := by <reshape → decide/rfl>
+/-! ## §2 — … -/
+…
+/-- ★★★ **<capstone>.** <bundles the file's results> -/
+theorem …_capstone : <A ∧ B ∧ …> := ⟨…⟩      -- the conjunction capstone
+end E213.<Path>
+```
+
+Measured adherence:
+- **1,978 / 1,980 files** open with a module docstring `/-!` (99.9 %).
+- **3,814** `/-! ## §` section markers (avg ~2/file); the section-graded layout is standard.
+- **15,265 ★** importance-grade markers — the pervasive `★ / ★★ / ★★★` convention ranks
+  theorems (★★★ = the file's load-bearing / capstone result, ★ = supporting).
+- **466 files** carry a `capstone` decl — a conjunction theorem (`⟨…, …, …⟩`) bundling the
+  file's results into one citable statement (this is *why* `∧` is 10,781 in the census and
+  anonymous `⟨⟩` ≈ one per theorem: the capstone-bundle convention).
+- **1,847** open a namespace matching their path; **74** cite `seed/AXIOM` in the docstring.
+- Docstring tags: `STRICT ∅-AXIOM`, the `Lens meaning:` line, and a `theory/<mirror>` or
+  `seed/AXIOM/§` reference are the standard prose furniture.
+
+## The one-line synthesis
+
+> 213 is engineered so that **truth is computation**: objects are Bool-valued and
+> closed-universe, defs are shaped to reduce definitionally, quantifiers are pushed onto
+> finite domains — so a proof is a *reduction* (`rfl`) or a *finite decision* (`decide`),
+> and the few non-trivial closers are hand-chosen *structural* ones (`noConfusion`,
+> `Int.NonNeg`, `Subtype.val`) to stay strict ∅-axiom.  The file template (docstring → `§`
+> sections → ★-graded lemmas → ★★★ capstone) is the human-navigability layer over that one
+> uniform computational substrate.  *Making everything `rfl`/`decide`-able is not a proof
+> style — it is a design discipline applied at the definition layer*, and the proof layer
+> (census) is its downstream shadow.
+
+---
+
+## Regeneration
+
+```sh
+rg -c 'deriving DecidableEq' lean/E213 -g '*.lean' | awk -F: '{s+=$2}END{print s}'   # 80
+rg -c '→ Bool|: Bool\b' lean/E213 -g '*.lean' | awk -F: '{s+=$2}END{print s}'        # ~1899
+rg -o '★' lean/E213 -g '*.lean' | wc -l                                              # 15265
+rg -l '^/-!' lean/E213 -g '*.lean' | wc -l                                           # 1978
+for c in noConfusion of_decide_eq_true Int.NonNeg; do printf "%-18s " $c; rg -o "$c" lean/E213 -g '*.lean'|wc -l; done
+```
+
+## Open threads
+
+- **Quantify the reshape→close templates per layer** — does Physics (55 % decide) use
+  `show→decide` more than Meta (rw-engine)?  (Pairs with census §3.)
+- **The capstone-bundle anatomy** — average conjunct count of the 466 capstones; do they
+  cite only same-file lemmas (true bundles) or pull cross-file (synthesis capstones)?
+- **`deriving DecidableEq` coverage** — which inductive types *lack* it and therefore force
+  hand-written `decide`-substitutes (the 8 manual `Decidable` instances).
