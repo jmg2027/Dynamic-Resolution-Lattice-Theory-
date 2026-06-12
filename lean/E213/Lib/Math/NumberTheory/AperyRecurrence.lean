@@ -36,11 +36,11 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberTheory.AperyRecurrence
 
-open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose choose_eq_zero_of_lt)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose choose_eq_zero_of_lt choose_succ_mul)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_succ factorial_pos)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
-open E213.Tactic.NatHelper (add_sub_of_le add_left_cancel mul_left_cancel_pos)
+open E213.Tactic.NatHelper (add_sub_of_le add_left_cancel mul_left_cancel_pos add_sub_cancel_right)
 
 /-! ## Column recurrence (the binomial `W`-factoring building block) -/
 
@@ -113,6 +113,64 @@ theorem lowrec (n k : Nat) : (k + 1) * choose n (k + 1) = (n - k) * choose n k :
       _ = factorial k * factorial (n - (k + 1)) * ((n - k) * choose n k) := by ring_nat
   · rw [choose_eq_zero_of_lt n (k + 1) (Nat.lt_succ_of_le hkge), Nat.mul_zero,
         show n - k = 0 from nat_sub_eq_zero hkge, Nat.zero_mul]
+
+/-! ## §contiguity — the `W`-factoring product identities (from `colrec`/`lowrec`)
+
+`W = C(j+2,k)²·C(j+k,k)²` is the common factor.  These express each `a(n,k)` and
+`Gmag` factor as `W · polynomial`, via the (squared) column/lower recurrences. -/
+
+/-- `(j+1)(j+2)·C(j,k) = (j+1−k)(j+2−k)·C(j+2,k)` (raise the lower row twice). -/
+theorem colA (j k : Nat) :
+    (j + 1) * (j + 2) * choose j k = (j + 1 - k) * (j + 2 - k) * choose (j + 2) k := by
+  have h1 : (j + 1 - k) * choose (j + 1) k = (j + 1) * choose j k := colrec j k
+  have h2 : (j + 2 - k) * choose (j + 2) k = (j + 2) * choose (j + 1) k := colrec (j + 1) k
+  calc (j + 1) * (j + 2) * choose j k
+      = (j + 2) * ((j + 1) * choose j k) := by ring_nat
+    _ = (j + 2) * ((j + 1 - k) * choose (j + 1) k) := by rw [← h1]
+    _ = (j + 1 - k) * ((j + 2) * choose (j + 1) k) := by ring_nat
+    _ = (j + 1 - k) * ((j + 2 - k) * choose (j + 2) k) := by rw [← h2]
+    _ = (j + 1 - k) * (j + 2 - k) * choose (j + 2) k := by ring_nat
+
+/-- `(j+2)·C(j+1,k) = (j+2−k)·C(j+2,k)`. -/
+theorem colAB (j k : Nat) :
+    (j + 2) * choose (j + 1) k = (j + 2 - k) * choose (j + 2) k :=
+  (colrec (j + 1) k).symm
+
+/-- `(j+1)·C(j+k+1,k) = (j+k+1)·C(j+k,k)` (raise the upper index once). -/
+theorem colB (j k : Nat) :
+    (j + 1) * choose (j + k + 1) k = (j + k + 1) * choose (j + k) k := by
+  have h := colrec (j + k) k
+  rw [show j + k + 1 - k = j + 1 from by
+        rw [Nat.add_right_comm j k 1, add_sub_cancel_right (j + 1) k]] at h
+  exact h
+
+/-- `(j+2)·C(j+k+2,k) = (j+k+2)·C(j+k+1,k)`. -/
+theorem colC1 (j k : Nat) :
+    (j + 2) * choose (j + k + 2) k = (j + k + 2) * choose (j + k + 1) k := by
+  have h := colrec (j + k + 1) k
+  rw [show j + k + 1 + 1 - k = j + 2 from by
+        rw [show j + k + 1 + 1 = j + 2 + k from by ring_nat, add_sub_cancel_right (j + 2) k]] at h
+  exact h
+
+/-- `(j+1)(j+2)·C(j+k+2,k) = (j+k+1)(j+k+2)·C(j+k,k)` (raise the upper index twice). -/
+theorem colC (j k : Nat) :
+    (j + 1) * (j + 2) * choose (j + k + 2) k = (j + k + 1) * (j + k + 2) * choose (j + k) k := by
+  calc (j + 1) * (j + 2) * choose (j + k + 2) k
+      = (j + 1) * ((j + 2) * choose (j + k + 2) k) := by ring_nat
+    _ = (j + 1) * ((j + k + 2) * choose (j + k + 1) k) := by rw [colC1]
+    _ = (j + k + 2) * ((j + 1) * choose (j + k + 1) k) := by ring_nat
+    _ = (j + k + 2) * ((j + k + 1) * choose (j + k) k) := by rw [colB]
+    _ = (j + k + 1) * (j + k + 2) * choose (j + k) k := by ring_nat
+
+/-- `(k+1)·C(j+2,k+1) = (j+2−k)·C(j+2,k)` (lower-index step on row `j+2`). -/
+theorem G1a (j k : Nat) :
+    (k + 1) * choose (j + 2) (k + 1) = (j + 2 - k) * choose (j + 2) k :=
+  lowrec (j + 2) k
+
+/-- `(k+1)·C(j+k+1,k+1) = (j+k+1)·C(j+k,k)` (diagonal step). -/
+theorem G1b (j k : Nat) :
+    (k + 1) * choose (j + k + 1) (k + 1) = (j + k + 1) * choose (j + k) k :=
+  choose_succ_mul (j + k) k
 
 /-! ## Telescoping infrastructure (pure ℕ, no subtraction)
 
