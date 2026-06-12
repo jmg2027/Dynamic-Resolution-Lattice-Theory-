@@ -16,6 +16,87 @@ All counts are corpus-wide (`lean/E213`, 1980 files); regenerable like the censu
 
 ---
 
+## Part 0 — WHY this shape is *forced* (not "∅-axiom so explicit")
+
+The thesis "truth = computation" is a re-description; here is the *mechanism* that forces it.
+
+**What `rfl`/`decide` actually are.**  `rfl` closes a goal iff the two sides are
+**definitionally equal** — the kernel reduces both to the same normal form using only
+**beta** (apply λ), **iota** (recursor/`match` on a *constructor*), and **delta** (unfold a
+*reducible* def).  `decide` closes `p` iff `Decidable.decide p` *iota-reduces* to `isTrue`.
+Both are *pure kernel reduction*.  Nothing else is available — and crucially, the ∅-axiom
+contract removes exactly three things the kernel would otherwise lean on: **`propext`**,
+**`Quot.sound`**, **`Classical.choice`**.  Each removal deletes one capability, and **each
+pattern in Parts I–IX is the constructive rebuild of the deleted capability out of bare
+constructor-reduction.**  That is the whole "why".
+
+**Removal 1 — no `Quot.sound` ⇒ the canonical-form Subtype (the Raw architecture).**
+The axiom needs `a/b = b/a` (clause 3) — quotient behaviour.  The normal tool is `Quot`, but
+`Quot.sound` is an axiom (not ∅).  So a quotient cannot be *formed*; it must be **emulated by
+choosing one representative per class**.  `Theory/Raw/Core.lean` does exactly this — its own
+docstring: *"the canonical-form subtype is the **quotient emulation** … Lean 4 has no
+primitive quotient; `Tree.cmp` selects one representative per slash-symmetry equivalence
+class."*  `Raw := {t : Tree // canonical t = true}`; the `slash` **smart constructor**
+canonicalises child order (`Tree.cmp` → swap if needed), so `a/b` and `b/a` *reduce to the
+same canonical `Tree`*, and equality is **decidable `Tree`-equality** (`instDecidableEqRaw`
+via `decEq` + `Subtype.ext`).  This single removal *forces*: the Subtype type, the smart
+constructor, the one hand-written `DecidableEq` (Part VII), and every `congrArg Subtype.val`
+/ `Subtype.ext` at the Raw↔Tree boundary (Part III).  Equality computes *because* the
+representatives are canonical — that is why `rfl`/`decide` work on Raw at all.
+
+**Removal 2 — no `propext` ⇒ Bool-reflection + `noConfusion` + forward-only bridge.**
+`propext` is what lets you treat `P ↔ Q` as `P = Q`; and the standard Bool→Prop bridge
+`decide_eq_true_eq : (decide p = true) = p` *is* `propext`.  Without it you cannot freely move
+between `Bool` computation and `Prop` truth.  Forced workarounds: **(a)** state predicates
+**`Bool`-valued** (Part I move 1, 1,899 defs) so a claim is `f x = true`, closed by *iota/delta
+reduction of `f`* with no bridge needed; **(b)** when you must cross Bool→Prop, use
+`of_decide_eq_true` (the *forward* implication, propext-free) — never the iff; **(c)** for
+`≠` / contradiction, use **`noConfusion`** (constructor disjointness, pure *iota*) — *not*
+`decide`, which routes through `DecidableEq`'s propext bridge.  The repo says this in-line:
+`a_ne_b` is proved *"propext-free (`Tree.noConfusion`, **not** `decide` which pulls `propext`
+through `DecidableEq Raw`)"*.  This removal *forces*: the 1,899 Bool defs, `noConfusion` (489),
+`of_decide_eq_true` (97) — the entire Part III closer set.
+
+**Removal 3 — no `Classical.choice`, and decidability is finite-only ⇒ enumeration,
+Fin-encoding, reflection.**  The kernel can decide `∀ x : X, P x` only when `X` is *finite and
+enumerable* (it iota-reduces over the `Fintype`/`DecidableEq` enumeration); an infinite `∀`,
+or a non-constructive instance, has nothing to reduce.  Forced workarounds: **(a)** push `∀`
+onto **finite domains** (`Fin n`, Bool tuples) so `decide`/`cases <;> rfl` can sweep (Part I
+move 4); **(b)** **Fin-encode** finite structures (`Sym3 := Fin 6`, Part VII) to transfer the
+enumeration; **(c)** when the goal is **symbolic** — variables, not concrete values, so there
+is *nothing to enumerate* (`(a+b)*c = a*c+b*c`) — **reify it into data** (`ring_nat`, Part VI):
+turn the symbolic expression into a `PE` datatype whose normal form the kernel *can* compute,
+`rfl` on the data, transport back.  This removal *forces*: finite-enumeration, Fin-encoding,
+and the reflection tactics.
+
+**Two reduction-mechanics facts (not axiom-bans, but they shape the proofs too).**
+- Kernel reduction is **directed**: `delta` only unfolds *reducible* defs, and `rfl` needs
+  both sides to *reach* the same whnf.  So you must sometimes **present the defeq form by
+  hand** — this is exactly the `show`/`change`/`unfold` reshape dance (Part II), and why
+  `abbrev`/`@[reducible]` exist (mark defs for automatic delta).  The per-layer reshape
+  signature (Part VIII) is how much hand-presenting each layer's goals need.
+- `rfl` needs *definitional*, not propositional, equality — so defs are **shaped so cases
+  match definitionally** (Part I move 3; `BoolXORFold`'s "base `v 0`, **not** `false`"), and
+  you `cases <;> rfl` over the finite shape instead of proving a general lemma.
+
+**The forcing, in one table:**
+
+| removed axiom | lost capability | forced rebuild (the pattern) |
+|---|---|---|
+| `Quot.sound` | form a quotient (`a/b=b/a`) | canonical-form **Subtype** + smart constructor (the Raw architecture); `Subtype.val`/`ext` |
+| `propext` | `Bool`↔`Prop`, `P↔Q ⇒ P=Q` | **Bool-valued** everything; `noConfusion` for `≠`; `of_decide_eq_true` forward-only |
+| `Classical.choice` / finite-only decide | decide infinite `∀`; non-constructive instances | **finite enumeration**; **Fin-encoding**; **reflection** (`ring_nat`) for symbolic goals |
+| *(directed reduction)* | auto-reach the same whnf | `show`/`unfold` reshape; `abbrev`/`@[reducible]` |
+
+So the shape is **not** chosen for explicitness — it is the **unique constructive image of the
+kernel's bare reduction once the three axioms are gone**.  Remove `Quot.sound` and you *must*
+emulate quotients by representatives; remove `propext` and you *must* compute in `Bool` and
+close `≠` by `noConfusion`; remove `choice` and you *must* finitise or reflect.  The decide+rfl
+distribution (census) and the templates (Parts I–IX) are what is *left* when those three
+shortcuts are unavailable and the goal must still bottom out in beta/iota/delta.
+
+---
+
 ## Part I — the four enabling moves (make `rfl`/`decide` *applicable*)
 
 **1. Bool-valued reflection — the central move (1,899 `→ Bool` / `: Bool` defs).**
