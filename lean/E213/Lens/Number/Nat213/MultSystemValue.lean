@@ -470,4 +470,46 @@ def oneOverN : RatTendsToZero (fun _ => 1) (fun N => N) where
     this is the dual density side.) -/
 abbrev PrimeDensityToZero : Type := RatTendsToZero primePi (fun N => N)
 
+/-! ## Chebyshev start — `π(2n) ≤ n` (density `≤ 1/2`)
+
+The first real density bound feeding the certificate: every even number `≥ 4`
+has `2` as a nontrivial divisor, so only `2` is an even prime.  Hence each pair
+`(2m+1, 2m+2)` holds at most one prime, giving `π(2n) ≤ n` — prime density
+`≤ 1/2`.  (Not yet `→ 0`; that needs sharper Chebyshev work to inhabit
+`PrimeDensityToZero`.) -/
+
+/-- Even numbers `≥ 4` are not prime (`2` is a nontrivial divisor). -/
+theorem not_prime_two_mul (k : Nat) : ¬ IsPrime213 (2 * (k + 2)) := by
+  intro hp
+  rcases hp.2 2 ⟨k + 2, rfl⟩ with h1 | h2
+  · exact absurd h1 (by decide)
+  · have h4 : (4 : Nat) ≤ 2 * (k + 2) := Nat.mul_le_mul (Nat.le_refl 2) (Nat.le_add_left 2 k)
+    rw [← h2] at h4
+    exact absurd h4 (by decide)
+
+theorem primeIndicator_two_mul (k : Nat) : primeIndicator (2 * (k + 2)) = 0 := by
+  unfold primeIndicator
+  cases decPrime (2 * (k + 2)) with
+  | isTrue hp => exact absurd hp (not_prime_two_mul k)
+  | isFalse _ => rfl
+
+/-- Each `(2m+1, 2m+2)` pair holds at most one prime. -/
+theorem pair_bound : ∀ m, primeIndicator (2 * m + 1) + primeIndicator (2 * m + 2) ≤ 1
+  | 0     => by decide
+  | m + 1 => by
+      have h0 : primeIndicator (2 * (m + 1) + 2) = 0 := primeIndicator_two_mul m
+      rw [h0, Nat.add_zero]
+      exact primeIndicator_le_one (2 * (m + 1) + 1)
+
+/-- **Chebyshev start**: `π(2n) ≤ n` — prime density `≤ 1/2`. -/
+theorem primePi_two_mul_le : ∀ n, primePi (2 * n) ≤ n
+  | 0     => Nat.le_refl 0
+  | m + 1 => by
+      have ih : primePi (2 * m) ≤ m := primePi_two_mul_le m
+      have e : 2 * (m + 1) = 2 * m + 1 + 1 := by rw [Nat.mul_succ]
+      rw [e]
+      show primePi (2 * m) + primeIndicator (2 * m + 1) + primeIndicator (2 * m + 1 + 1) ≤ m + 1
+      rw [Nat.add_assoc]
+      exact Nat.add_le_add ih (pair_bound m)
+
 end E213.Lens.Number.Nat213.MultSystemValue
