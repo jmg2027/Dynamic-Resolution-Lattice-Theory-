@@ -375,4 +375,57 @@ theorem reduced_wz_identity (k d : Nat) :
           * (4 * (d * d) + 8 * d * k + 12 * d + 2 * (k * k) + 15 * k + 8) := by
   ring_nat
 
+/-- `Q(j,j+1) = 2j²+11j+9`. -/
+theorem Qpoly_at_jp1 (j : Nat) : Qpoly j (j + 1) = 2 * j * j + 11 * j + 9 := by
+  unfold Qpoly
+  rw [show 4 * j * j + 12 * j + 3 * (j + 1) + 8 = (2 * j * j + 11 * j + 9) + 2 * ((j + 1) * (j + 1))
+        from by ring_nat, add_sub_cancel_right]
+
+/-- `Q(j,j+2) = 2j²+7j+6`. -/
+theorem Qpoly_at_jp2 (j : Nat) : Qpoly j (j + 2) = 2 * j * j + 7 * j + 6 := by
+  unfold Qpoly
+  rw [show 4 * j * j + 12 * j + 3 * (j + 2) + 8 = (2 * j * j + 7 * j + 6) + 2 * ((j + 2) * (j + 2))
+        from by ring_nat, add_sub_cancel_right]
+
+/-- ★ **The reduced identity** `redLHS = redRHS` for `k ≤ j+2` — the polynomial core
+    in the exact form the `W`-relations produce.  Cases: `k≤j` (bridge to
+    `reduced_wz_identity` via `j=k+d`, `Qpoly_brk`, `aperyLead_prod`), `k=j+1`,
+    `k=j+2` (subtractions resolve to `1`/`0`, `Qpoly` to `Qpoly_at_*`). -/
+theorem redid_eq {j k : Nat} (h : k ≤ j + 2) :
+    (j + 2) * (j + 2) * (j + 2) * ((j + k + 1) * (j + k + 1)) * ((j + k + 2) * (j + k + 2))
+      + (j + 1) * (j + 1) * (j + 1) * ((j + 2 - k) * (j + 2 - k)) * ((j + 1 - k) * (j + 1 - k))
+      + 4 * (2 * j + 3) * Qpoly j (k + 1) * ((j + 2 - k) * (j + 2 - k)) * ((j + k + 1) * (j + k + 1))
+    = aperyLead j * ((j + 2 - k) * (j + 2 - k)) * ((j + k + 1) * (j + k + 1))
+      + 4 * (k * k * k * k) * (2 * j + 3) * Qpoly j k := by
+  rcases Nat.lt_or_ge k (j + 1) with hkj | hkge
+  · -- k ≤ j
+    have hkjle : k ≤ j := Nat.le_of_lt_succ hkj
+    obtain ⟨d, hd⟩ : ∃ d, j = k + d := ⟨j - k, (add_sub_of_le hkjle).symm⟩
+    subst hd
+    rw [Qpoly_brk1 (Nat.le_add_right k d), Qpoly_brk (Nat.le_add_right k d), aperyLead_prod,
+        show k + d + 2 - k = d + 2 from by
+          rw [show k + d + 2 = (d + 2) + k from by ring_nat, add_sub_cancel_right],
+        show k + d + 1 - k = d + 1 from by
+          rw [show k + d + 1 = (d + 1) + k from by ring_nat, add_sub_cancel_right],
+        show k + d - k = d from by rw [Nat.add_comm k d, add_sub_cancel_right]]
+    ring_nat
+  · -- j+1 ≤ k ≤ j+2 : k = j+1 or k = j+2
+    rcases Nat.lt_or_ge k (j + 2) with hk2 | hk2ge
+    · -- k = j+1
+      have hk : k = j + 1 := Nat.le_antisymm (Nat.le_of_lt_succ hk2) hkge
+      subst hk
+      rw [show j + 1 + 1 = j + 2 from rfl, Qpoly_at_jp2, Qpoly_at_jp1, aperyLead_prod,
+          show j + 2 - (j + 1) = 1 from by
+            rw [show j + 2 = 1 + (j + 1) from by ring_nat, add_sub_cancel_right],
+          show j + 1 - (j + 1) = 0 from nat_sub_eq_zero (Nat.le_refl _)]
+      ring_nat
+    · -- k = j+2
+      have hk : k = j + 2 := Nat.le_antisymm h hk2ge
+      subst hk
+      rw [Qpoly_at_jp2,
+          show j + 2 - (j + 2) = 0 from nat_sub_eq_zero (Nat.le_refl _),
+          show j + 1 - (j + 2) = 0 from nat_sub_eq_zero (Nat.le_succ (j + 1))]
+      simp only [Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add]
+      ring_nat
+
 end E213.Lib.Math.NumberTheory.AperyRecurrence
