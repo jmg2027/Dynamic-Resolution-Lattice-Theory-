@@ -31,27 +31,48 @@ Once proven `∀ j`, `zeta3Den n = (n!)³·B(n)` follows by induction (seeds
     `b(j+2,k)/b(j,k) = ((j+k+1)(j+k+2))²/((j+1-k)(j+2-k))²`,
     `b(j,k-1)/b(j,k) = k⁴/((j-k+1)²(j+k)²)`).
 
-## The remaining sub-problem (immediate next step)
+## ★★★ THE CERTIFICATE — FOUND + VERIFIED (`verify_certificate.py`)
 
-Find the Gosper certificate `cert(j,k)` (rational) with
-`G(j,k) = cert(j,k)·b(j,k)` and `F(j,k) = G(j,k) − G(j,k−1)`.  Equivalently solve
-the Gosper equation `cert(k) − cert(k−1)·k⁴/((j-k+1)²(j+k)²) = R_F`.
+Closed form (exact bivariate fit, 0 error; cleared telescoping verified on 400
+random `(j,k)`):
 
-**CAS status**: `sympy 1.14` `gosper_term` returns `None`/hangs on the binomial
-form (it mishandles the `j`-shifted binomials and `expand_func` → Γ).  The
-certificate *exists* (Σ F = 0).  The Gosper-Petkovšek obstruction is the sextic
-`P₆`: at shift `h=j` the numerator/denominator share `(j+k+1)²`, so the GP peel is
-non-trivial → the certificate is **high-degree** (this is why the naïve ansatz
-spaces and `gosper_term` failed).  Next attempt: implement Gosper-Petkovšek by
-hand peeling `h=j` (or sample `cert` at many numeric `j` via a numeric Gosper that
-avoids symbolic `cancel`, then interpolate the `j`-dependence).
+```
+cert(j,k) = -4k⁴(2j+3)(4j²+12j-2k²+3k+8) / ((j-k+1)²(j-k+2)²)        # G = cert·a(j,k)
+```
 
-## Then the Lean formalization (the marathon)
+The denominators clear via the binomial shift identity
+`C(j,k)²/((j-k+1)²(j-k+2)²) = C(j+2,k)²/((j+1)²(j+2)²)`
+(from `C(j,k)/(j+1-k) = C(j+1,k)/(j+1)`, twice).  Define the **cleared certificate**
 
-With `cert` in hand, the ∅-axiom Lean proof is: (1) the **summand identity**
-`(j+2)³b(j+2,k)+(j+1)³b(j,k) + [neg part of G] = aperyLead(j)b(j+1,k) + [pos part]`
-as a Nat additive identity (clear all binomials to factorials à la
-`AperyIntegrality.aperyTrinomial`, `ring_nat`) — large, the sextic certificate
-makes this the bulk; (2) sum over `k` with `sumTo`, telescoping `G` to boundary
-terms; (3) boundary vanishing (`C(n,k)=0` for `k>n`); (4) induction
-`zeta3Den n = (n!)³·B(n)`.  Estimate: a dedicated multi-session effort.
+```
+Ĝ(j,k) := (j+1)²(j+2)²·G(j,k)
+        = -4·k⁴·(2j+3)·(4j²+12j-2k²+3k+8)·C(j+2,k)²·C(j+k,k)²
+```
+
+Then the **verified all-polynomial telescoping identity** (no division) is
+
+> **`(j+1)²(j+2)²·F(j,k) = Ĝ(j,k+1) − Ĝ(j,k)`**,  forward difference,
+
+with `F(j,k) = (j+2)³a(j+2,k) + (j+1)³a(j,k) − aperyLead(j)·a(j+1,k)`,
+`a(n,k)=C(n,k)²C(n+k,k)²`.  Boundary (verified): `Ĝ(j,0)=0` (`k⁴` factor),
+`Ĝ(j,k)=0` for `k>j+2` (`C(j+2,k)=0`).  Summing `k=0…` telescopes to
+`(j+1)²(j+2)²·Σ_k F = Ĝ(top) − Ĝ(0) = 0`, hence `Σ_k F = 0` = the recurrence.
+
+## Then the Lean formalization (the marathon, now mechanical)
+
+The nucleus is now a **mechanical** (large) ∅-axiom task — no open mathematics:
+  1. **Per-`k` cleared identity** `(j+1)²(j+2)²·F(j,k) = Ĝ(j,k+1) − Ĝ(j,k)` as a
+     Nat identity.  Sign care: `F` has a `−aperyLead` term and `Ĝ`'s factor
+     `(4j²+12j−2k²+3k+8)` changes sign, so split into pos/neg parts and prove the
+     all-additive form (move negatives across).  Clear every binomial to factorials
+     (à la `AperyIntegrality.aperyTrinomial`/`choose_mul_factorials`) → `ring_nat`.
+     ~6 distinct binomials (squared) × degree-≤7 coeffs ⇒ the bulk (~several hundred
+     lines).
+  2. **Telescoping sum** over `k` with `sumTo` (`sumTo_succ`, the difference
+     telescopes); boundary terms vanish (`Ĝ(j,0)=0`, top via `choose_eq_zero_of_lt`).
+  3. ⇒ `(j+2)³B(j+2) + (j+1)³B(j) = aperyLead(j)·B(j+1)` (cancel `(j+1)²(j+2)²>0`).
+  4. **Induction** `zeta3Den n = (n!)³·B(n)` (seeds match; recurrence matches the
+     factorial-cleared orbit) — closes the recurrence-divisibility route.
+
+Estimate: a dedicated multi-session formalization, but **no certificate hunting
+and no open math remain** — every step above is verified numerically/symbolically.

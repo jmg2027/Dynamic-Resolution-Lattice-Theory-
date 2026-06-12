@@ -15,8 +15,19 @@ creative-telescoping identity; once proven, `zeta3Den n = (n!)³·B(n)` follows 
 induction (seeds `B 0 = 1`, `B 1 = 5` match), closing the recurrence-divisibility
 route to `zeta3HolonomicReal`.
 
-This file pins the *definition* and validates the recurrence on base layers; the
-general identity is the recorded research frontier.
+**The WZ certificate is found + verified** (see `research-notes/frontiers/zeta3_wz`).
+With `a n k = C(n,k)²C(n+k,k)²` and the cleared certificate
+`Ĝ(j,k) = −4·k⁴·(2j+3)·(4j²+12j−2k²+3k+8)·C(j+2,k)²·C(j+k,k)²`, the verified
+all-polynomial telescoping identity is
+
+  `(j+1)²·(j+2)²·[(j+2)³·a(j+2,k) + (j+1)³·a(j,k) − aperyLead(j)·a(j+1,k)]
+      = Ĝ(j,k+1) − Ĝ(j,k)`
+
+(boundary `Ĝ(j,0)=0`, `Ĝ(j,k)=0` for `k>j+2`).  Summing over `k` telescopes to
+`0`, giving the recurrence.  The Lean proof of this per-`k` identity (clear
+binomials → `ring_nat`) + telescoping is the recorded mechanical frontier.
+
+This file pins the *definition* and validates the recurrence on base layers.
 
 All zero-axiom.
 -/

@@ -97,13 +97,16 @@ the numerator `Aₙ`-integrality uses the Brick-2 engines (`heart_lcm`,
 `htel` from `lcmUpTo_le` vs `zeta3Den_geom` (28>27) ⟹ `zeta3HolonomicReal`.
 
 **Worked sub-frontier** → `zeta3_wz/` (Lean anchor `AperyRecurrence.lean`: `B(n)`
-def + seeds + base-layer validation, PURE).  Verified there (CAS, reproducible):
-the recurrence holds; the WZ combination `F(j,k)` sums to `0` (so a certificate
-exists); the exact rational reduction
-`R_F = −4(2j+3)·P₆(j,k)/[(j-k+1)²(j-k+2)²]` (`P₆` sextic).  Immediate next step:
-extract the Gosper certificate (sympy `gosper_term` chokes on the binomials; the
-GP obstruction is `P₆` at shift `h=j` → high-degree certificate).  See
-`zeta3_wz/README.md`.
+def + seeds + base-layer validation, PURE).  **The WZ certificate is now FOUND +
+VERIFIED** (exact bivariate fit, cleared telescoping checked on 400 random `(j,k)`):
+
+> `Ĝ(j,k) = −4·k⁴·(2j+3)·(4j²+12j−2k²+3k+8)·C(j+2,k)²·C(j+k,k)²`,
+> `(j+1)²(j+2)²·[(j+2)³a(j+2,k)+(j+1)³a(j,k)−aperyLead(j)a(j+1,k)] = Ĝ(j,k+1)−Ĝ(j,k)`
+
+(`a n k = C(n,k)²C(n+k,k)²`; boundary `Ĝ(j,0)=0`, `Ĝ(j,k>j+2)=0`).  The nucleus is
+thereby reduced to a **mechanical** (no-open-math) ∅-axiom formalization: prove the
+per-`k` identity (clear binomials → `ring_nat`), telescope the `sumTo`, cancel
+`(j+1)²(j+2)²`, then induct `zeta3Den n = (n!)³·B(n)`.  See `zeta3_wz/README.md`.
 
 (Notes: `α₃₀` `[local irreducible]` to stop whnf-explosion; `ring_nat` deep-recurses
 on literal-exponent `^` → abstract reassoc lemmas; base certificates `decide` with
