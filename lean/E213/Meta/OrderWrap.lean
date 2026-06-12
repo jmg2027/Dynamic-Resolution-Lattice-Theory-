@@ -145,6 +145,43 @@ theorem int_orbit_no_wrap : ∀ n : Nat, 0 < n → orbit isucc 0 n ≠ 0
       intro h
       exact Nat.noConfusion (Int.ofNat.inj (h : Int.ofNat (n + 1) = Int.ofNat 0))
 
+/-! ## §3b — instance ℕ: the same, more primitively ("why ℤ and not ℕ?")
+
+ℤ is **not** forced for the order-surviving side — `ℕ` is an equally valid (and
+more primitive) instance: `(ℕ, +1, 0)` with `<` keeps the order and never wraps.
+ℤ was chosen for the *bridge* for two reasons, neither a necessity:
+  * the matching main-branch theorem is the **sign trichotomy** (`Int213`'s
+    `int_sign`: every nonzero integer is `> 0` or `< 0`) — a *richer* `ℤ`
+    statement (about sign, the difference-Lens readout) than `ℕ`'s bare
+    count-order;
+  * the wrapping circle `ℤ/p` is *literally* folded `ℤ` (`mod p` is the quotient
+    `ℤ ↠ ℤ/pℤ`), so `ℤ` is the natural un-folded partner of `ℤ/p` — `ℕ` is not
+    what you fold to get the circle.
+The schema itself is generic; `ℕ` witnesses the order-side just as well. -/
+
+/-- The successor on ℕ adds one. -/
+private def nsucc (x : Nat) : Nat := x + 1
+
+/-- ℕ's strict order is a translation-invariant order witness on `(ℕ, +1, 0)` —
+    the order-surviving side without `ℤ`'s sign. -/
+def natOrderWitness : OrderWitness Nat nsucc 0 where
+  R x y := x < y
+  irrefl := Nat.lt_irrefl
+  trans  := fun _ _ _ h1 h2 => Nat.lt_trans h1 h2
+  transl := fun _ _ h => Nat.succ_lt_succ h
+  start  := Nat.zero_lt_one
+
+/-- The ℕ orbit of `0` under `+1` is the counting line: `orbit n = n`. -/
+theorem nat_orbit_eq : ∀ k : Nat, orbit nsucc 0 k = k
+  | 0     => rfl
+  | k + 1 => by show (orbit nsucc 0 k) + 1 = k + 1; rw [nat_orbit_eq k]
+
+/-- ★ **ℕ never wraps either.**  `orbit n = n ≠ 0` for `n > 0`, so the order
+    `natOrderWitness` survives — the same fact as ℤ, without sign. -/
+theorem nat_orbit_no_wrap : ∀ n : Nat, 0 < n → orbit nsucc 0 n ≠ 0
+  | 0,     hn => absurd hn (Nat.lt_irrefl 0)
+  | n + 1, _  => by rw [nat_orbit_eq]; exact fun h => Nat.noConfusion h
+
 /-! ## §4 — instance ℤ/p: the circle wraps, so no witness exists -/
 
 open E213.Meta.Nat.NoOrderModP (next orbit_wrap)
