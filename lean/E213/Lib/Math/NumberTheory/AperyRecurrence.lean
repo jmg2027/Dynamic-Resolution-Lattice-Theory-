@@ -82,6 +82,38 @@ theorem colrec (n k : Nat) : (n + 1 - k) * choose (n + 1) k = (n + 1) * choose n
   · rw [choose_eq_zero_of_lt n k hkge, Nat.mul_zero,
         show n + 1 - k = 0 from nat_sub_eq_zero hkge, Nat.zero_mul]
 
+/-- `(n − (k+1)) + 1 = n − k` for `k < n`. -/
+theorem sub_succ_add_one {n k : Nat} (h : k < n) : (n - (k + 1)) + 1 = n - k := by
+  have e1 : k + ((n - (k + 1)) + 1) = n := by
+    rw [Nat.add_comm (n - (k + 1)) 1, ← Nat.add_assoc]
+    exact add_sub_of_le h
+  have e2 : k + (n - k) = n := add_sub_of_le (Nat.le_of_lt h)
+  exact add_left_cancel (e1.trans e2.symm)
+
+/-- ★★ **Lower-index recurrence**: `(k+1)·C(n,k+1) = (n−k)·C(n,k)` (all `k` in ℕ).
+    Clears via `choose_mul_factorials`; the `(n−k)·(n−k−1)! = (n−k)!` step cancels. -/
+theorem lowrec (n k : Nat) : (k + 1) * choose n (k + 1) = (n - k) * choose n k := by
+  rcases Nat.lt_or_ge k n with hkn | hkge
+  · have hcf1 : choose n (k + 1) * (factorial (k + 1) * factorial (n - (k + 1))) = factorial n := by
+      have h := choose_mul_factorials (k + 1) (n - (k + 1))
+      rwa [add_sub_of_le hkn] at h
+    have hcf0 : choose n k * (factorial k * factorial (n - k)) = factorial n := by
+      have h := choose_mul_factorials k (n - k)
+      rwa [add_sub_of_le (Nat.le_of_lt hkn)] at h
+    have hfk1 : factorial (k + 1) = (k + 1) * factorial k := factorial_succ k
+    have hfnk : factorial (n - k) = (n - k) * factorial (n - (k + 1)) := by
+      rw [← sub_succ_add_one hkn, factorial_succ, sub_succ_add_one hkn]
+    apply mul_left_cancel_pos (Nat.mul_pos (factorial_pos k) (factorial_pos (n - (k + 1))))
+    calc factorial k * factorial (n - (k + 1)) * ((k + 1) * choose n (k + 1))
+        = choose n (k + 1) * (((k + 1) * factorial k) * factorial (n - (k + 1))) := by ring_nat
+      _ = choose n (k + 1) * (factorial (k + 1) * factorial (n - (k + 1))) := by rw [← hfk1]
+      _ = factorial n := hcf1
+      _ = choose n k * (factorial k * factorial (n - k)) := hcf0.symm
+      _ = choose n k * (factorial k * ((n - k) * factorial (n - (k + 1)))) := by rw [hfnk]
+      _ = factorial k * factorial (n - (k + 1)) * ((n - k) * choose n k) := by ring_nat
+  · rw [choose_eq_zero_of_lt n (k + 1) (Nat.lt_succ_of_le hkge), Nat.mul_zero,
+        show n - k = 0 from nat_sub_eq_zero hkge, Nat.zero_mul]
+
 /-! ## Telescoping infrastructure (pure ℕ, no subtraction)
 
 The WZ proof sums the cleared per-`k` identity over `k`; the certificate's
