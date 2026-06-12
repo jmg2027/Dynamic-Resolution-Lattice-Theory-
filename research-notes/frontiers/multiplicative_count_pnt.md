@@ -63,9 +63,10 @@ depth), no transcendental.  `log` = the inverse depth count.  `value = exp(depth
 
 ## Next concrete step
 
-`primePi` (item 1) is CLOSED.  Next: **item 2** — value-bounded count.  Concrete
-targets: (a) `2 ≤ primePi n` for `n ≥ 3` and lower bounds on `π` (infinitude /
-growth); (b) a Chebyshev-type *finite* bound `primePi n ≤ c · n / something`
-pointing at PNT; (c) tie `factorization_bounded`'s basis to `primePi` (the prime
-list for naturals ≤ N has length ≤ π(N)).  PNT itself stays the asymptotic
-horizon.
+`primePi` (item 1) CLOSED.  **Infinitude DONE**: `exists_prime_gt` (∀ N, ∃ prime
+> N, Euclid via N!+1; local `fact`, `dvd_fact`) — the qualitative `π(N) → ∞` as a
+pointing.  Remaining item-2 targets: (a) `π` unboundedness as a Nat statement
+(`∀ k, ∃ n, k ≤ primePi n` — from `exists_prime_gt` + `primeIndicator_eq_one_iff`
++ monotonicity); (b) a Chebyshev-type *finite* upper/lower bound pointing at PNT;
+(c) tie `factorization_bounded`'s prime-list length to `primePi`.  PNT itself
+stays the asymptotic horizon.
