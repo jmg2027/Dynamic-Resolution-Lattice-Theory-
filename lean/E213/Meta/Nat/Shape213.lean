@@ -144,4 +144,27 @@ theorem refine_chain :
   · -- `dimension [2,3] = dimension (2*3 :: []) + 1 = dimension [6] + 1`
     exact refine_increases_dimension 2 3 []
 
+/-! ### ★ `×` is **append**, one rung up — the multiplicative number as a *list* -/
+
+/-- ★★ **`×` is list append.**  `shapeProduct (l ++ m) = shapeProduct l ·
+    shapeProduct m`: concatenating two factor-lists multiplies their products.
+    This is the exact dual of `UnitList.count_append` (`count (l++m) =
+    count l + count m`, "`+` is unit-list append read by counting"): one rung
+    up, with *number* atoms instead of indistinguishable units, **`×` is
+    factor-list append read by the product**.
+
+    So the multiplicative number is *natively a list of factors* (the
+    factorization), with `×` = concatenation and `^k` = the list repeated `k`
+    times — described with **lists and ℕ⁺**, no `0`, no `−`, no quotient.  (The
+    prime-exponent vector `ExpVector.toVec` is the *count-by-prime readout* of
+    this list, one Lens up; the list is the more primitive append-floor form.) -/
+theorem shapeProduct_append : ∀ (l m : List Nat),
+    shapeProduct (l ++ m) = shapeProduct l * shapeProduct m
+  | [],     m => by
+      show shapeProduct m = 1 * shapeProduct m
+      rw [Nat.one_mul]
+  | a :: l, m => by
+      show a * shapeProduct (l ++ m) = (a * shapeProduct l) * shapeProduct m
+      rw [shapeProduct_append l m, PureNat.mul_assoc]
+
 end E213.Meta.Nat.Shape213
