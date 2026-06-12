@@ -228,4 +228,34 @@ theorem fdNeg_zero (m : Nat) : fdNeg m 0 = 0 := by
   show (if (0 : Nat) % 2 = 1 then choose 0 0 * Qex m 0 0 else 0) = 0
   rw [if_neg (by decide)]
 
+/-- The crux pointwise split for `(P)`: the shifted even-term `g(j+1)` splits (via
+    Pascal + `Qex_front` on `C(s,j)`, `Qex_back` on `C(s,j+1)`, parity flip) into the
+    `m·fdNeg(m+1,·)` and `(m+s+1)·fdPos(m,·)` contributions. -/
+private theorem term_split (m s j : Nat) :
+    (if (j + 1) % 2 = 0 then choose (s + 1) (j + 1) * Qex m (s + 1) (j + 1) else 0)
+    = m * (if j % 2 = 1 then choose s j * Qex (m + 1) s j else 0)
+      + (m + s + 1) * (if (j + 1) % 2 = 0 then choose s (j + 1) * Qex m s (j + 1) else 0) := by
+  rcases mod2_cases j with hj | hj
+  · have h1 : (j + 1) % 2 = 1 := by rw [succ_mod2 j, if_pos hj]
+    rw [if_neg (show ¬ (j + 1) % 2 = 0 from by rw [h1]; decide),
+        if_neg (show ¬ j % 2 = 1 from by rw [hj]; decide),
+        if_neg (show ¬ (j + 1) % 2 = 0 from by rw [h1]; decide),
+        Nat.mul_zero, Nat.mul_zero, Nat.add_zero]
+  · have h1 : (j + 1) % 2 = 0 := by
+      rw [succ_mod2 j, if_neg (show ¬ j % 2 = 0 from by rw [hj]; decide)]
+    rw [if_pos h1, if_pos hj, if_pos h1, choose_succ_succ s j]
+    rcases Nat.lt_or_ge s (j + 1) with hlt | hge
+    · rw [choose_eq_zero_of_lt s (j + 1) hlt, Qex_front m s j, Nat.add_zero (choose s j),
+          Nat.zero_mul (Qex m s (j + 1)), Nat.mul_zero (m + s + 1),
+          Nat.add_zero (m * (choose s j * Qex (m + 1) s j))]
+      ring_nat
+    · have hfront : Qex m (s + 1) (j + 1) = m * Qex (m + 1) s j := Qex_front m s j
+      have hback : Qex m (s + 1) (j + 1) = (m + s + 1) * Qex m s (j + 1) := Qex_back hge m
+      rw [show m * (choose s j * Qex (m + 1) s j) = choose s j * (m * Qex (m + 1) s j) from by
+            ring_nat,
+          show (m + s + 1) * (choose s (j + 1) * Qex m s (j + 1))
+            = choose s (j + 1) * ((m + s + 1) * Qex m s (j + 1)) from by ring_nat,
+          ← hfront, ← hback]
+      ring_nat
+
 end E213.Lib.Math.NumberTheory.AperyIntegrality
