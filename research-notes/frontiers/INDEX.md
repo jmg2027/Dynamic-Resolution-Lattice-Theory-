@@ -461,6 +461,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `[∅]`/`[ax]`/`[std]`/`[spec]`; Lean anchor index + open problems included.
   Discovery path: `general_theory_metaanalysis.md` findings D/E/F/G/G′.
 
+- `holonomy_lattice` — **holonomy of the lattice, open extensions**.  Closed core
+  (`Real213/HolonomyLattice`, 25 PURE + chapter `holonomy_of_the_lattice.md`): holonomy =
+  net transition around a loop of state-transitions; functoriality + flatness (`det=1=NS−NT`)
+  + the ℕ⁺ sector is loop-free (Stern–Brocot tree) + holonomy born from the negation fold
+  (`[S,S]=−I`, order 4).  Open: (1) full freeness of `⟨L,R⟩` (unique-word, via CF/odometer);
+  (2) general order law `holonomy_pow` (lift `FiniteOrderSpectrum` to the fold); (3) the
+  holonomy group as π₁ of the modular orbifold (`PSL(2,ℤ)=ℤ₂*ℤ₃`).
+
 - `simplicial_operation_tower` — **the operation tower builds simplices** (raw gut,
   originator: Mingu Jeong).  The *generative* face of `number_tower_theory` (R4): each
   layer's axis = the whole previous layer (free **semigroup**, no identity), built by a
