@@ -84,10 +84,15 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     only `2` is even-prime, `not_prime_two_mul`; each `(2m+1,2m+2)` pair holds
     ≤ 1 prime, `pair_bound`).  Density `≤ 1/2`.
   - **Remaining (the analytic core)**: sharpen to `π(N) = o(N)` (density `→ 0`)
-    to actually *inhabit* `PrimeDensityToZero` — needs a genuine Chebyshev bound
-    (`π(N) = O(N/ln N)`), the irreducible analytic cost.  PNT proper
-    (`π(N)·ln N/N → 1`) needs `ln` as a `Real213` cut (in `ExpLog`) + the ratio
-    sequence — same certificate shape at the `1`-cut.
+    to actually *inhabit* `PrimeDensityToZero`.  Fixed-modulus sieves can't reach
+    `0` (density `≥ φ(m)/m > 0`); needs the central-binomial route.
+    **Ingredient DONE**: `MultSystem.central_binom_le : C(2n,n) ≤ 4^n`
+    (`binom_le_two_pow`).  **Next ingredient**: `∏_{n<p≤2n} p ∣ C(2n,n)` (each
+    prime in `(n,2n]` divides the central binomial exactly once — via `vp`),
+    giving `∏_{n<p≤2n} p ≤ 4^n` ⇒ Chebyshev `θ`/`π` upper bound ⇒ `π(N)=O(N/ln N)`
+    ⇒ density `→ 0`.  This is the Erdős elementary-Chebyshev development (a
+    multi-step project).  PNT proper (`·ln N` at the `1`-cut) needs `ln`
+    (`Real213.ExpLog`) + the ratio sequence — same certificate shape.
 
 ## Next concrete step
 

@@ -45,8 +45,10 @@ The PNT horizon should be issued as a **Real213 cut + modulus certificate** =
 `oneOverN` (validation `1/N→0`) + `PrimeDensityToZero := RatTendsToZero primePi
 id`.  Scaffolding ∅-axiom; **inhabiting `PrimeDensityToZero` = the open analytic
 core** (Chebyshev/PNT).  **Density ≤ 1/2 DONE**: `primePi_two_mul_le : π(2n) ≤ n`
-(only 2 is even-prime, `not_prime_two_mul` + `pair_bound`).  Next: sharpen to
-`π(N)=o(N)` (genuine Chebyshev `O(N/ln N)`) to inhabit `PrimeDensityToZero`.
+(only 2 is even-prime, `not_prime_two_mul` + `pair_bound`).  Chebyshev ingredient
+DONE: `MultSystem.central_binom_le : C(2n,n) ≤ 4^n` (`binom_le_two_pow`).  Next:
+`∏_{n<p≤2n} p ∣ C(2n,n)` ⇒ `∏ p ≤ 4^n` ⇒ Chebyshev `π(N)=O(N/ln N)` ⇒ density→0
+(inhabits `PrimeDensityToZero`).  Erdős elementary-Chebyshev (multi-step).
 
 ## Why ln (pinned)
 `exp` = `Nat.pow` = iterated `×` = binary-op tower depth (no transcendental).
