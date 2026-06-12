@@ -252,4 +252,78 @@ theorem doubleTotal_closed (N : Nat) : doubleTotal N = binom (2 * N + 1) N := by
   rw [sumf_congr (fun k => totalCount k N) (fun k => binom (N + k) k)
         (fun k => totalCount_closed k N) N, hockeyDiag N N, Nat.two_mul]
 
+/-! ### Strictly-positive (1-indexed) double sum
+
+The user's sum ranges `k, n ∈ {1,…,N}` (no `0` row/column).  `sumf1 g n =
+Σ_{i=1}^{n} g i`.  The strictly-positive double sum `doubleSumPos N` then
+satisfies `doubleSumPos N + N + 1 = C(2N+1, N)` — i.e. `#(Nmul) + (N+1) = #ℕ`-cap
+in the additive (subtraction-free) form, so `#(Nmul) = C(2N+1,N) − N − 1`. -/
+
+/-- `sumf1 g n = Σ_{i=1}^{n} g i` (starts at `1`, excludes the `0` term). -/
+def sumf1 (g : Nat → Nat) : Nat → Nat
+  | 0     => 0
+  | n + 1 => sumf1 g n + g (n + 1)
+
+/-- Split off the `0` term: `Σ_{i=0}^n = g 0 + Σ_{i=1}^n`. -/
+theorem sumf_split (f : Nat → Nat) : ∀ n, sumf f n = f 0 + sumf1 f n
+  | 0     => by show f 0 = f 0 + 0; rw [Nat.add_zero]
+  | n + 1 => by
+      show sumf f n + f (n + 1) = f 0 + (sumf1 f n + f (n + 1))
+      rw [sumf_split f n, Nat.add_assoc]
+
+/-- `Σ_{i=0}^n (1 + h i) = (n+1) + Σ_{i=0}^n h i`. -/
+theorem sumf_one_add (h : Nat → Nat) :
+    ∀ n, sumf (fun k => 1 + h k) n = (n + 1) + sumf h n
+  | 0     => rfl
+  | n + 1 => by
+      show sumf (fun k => 1 + h k) n + (1 + h (n + 1))
+            = ((n + 1) + 1) + (sumf h n + h (n + 1))
+      rw [sumf_one_add h n, Nat.add_add_add_comm]
+
+/-- The `k = 0` (no-base) column sums to `0` over strictly-positive degrees. -/
+theorem sumf1_monoCount0 : ∀ N, sumf1 (fun n => monoCount 0 n) N = 0
+  | 0     => rfl
+  | N + 1 => by
+      show sumf1 (fun n => monoCount 0 n) N + 0 = 0
+      rw [Nat.add_zero, sumf1_monoCount0 N]
+
+/-- Every base count has exactly one degree-`0` monomial (the unit). -/
+theorem monoCount_col0 : ∀ k, monoCount k 0 = 1
+  | 0     => rfl
+  | k + 1 => monoCount_col0 k
+
+/-- `totalCount` with the degree-`0` term split off: `= 1 + Σ_{n=1}^N`. -/
+theorem totalCount_split (k N : Nat) :
+    totalCount k N = 1 + sumf1 (fun n => monoCount k n) N := by
+  show sumf (fun n => monoCount k n) N = 1 + sumf1 (fun n => monoCount k n) N
+  rw [sumf_split (fun n => monoCount k n) N]
+  show monoCount k 0 + sumf1 (fun n => monoCount k n) N
+        = 1 + sumf1 (fun n => monoCount k n) N
+  rw [monoCount_col0]
+
+/-- Strictly-positive double sum `Σ_{k=1}^{N} Σ_{n=1}^{N} monoCount k n`. -/
+def doubleSumPos (N : Nat) : Nat :=
+  sumf1 (fun k => sumf1 (fun n => monoCount k n) N) N
+
+/-- **The user's count** (1-indexed), subtraction-free: `#(Nmul) + (N+1) = C(2N+1,N)`,
+    i.e. `Σ_{k=1}^N Σ_{n=1}^N monoCount k n = C(2N+1, N) − N − 1`.  Cutting both
+    axes at `N`, the strictly-positive multiplicative count is the central
+    binomial minus the `(N+1)` boundary. -/
+theorem doubleSumPos_closed (N : Nat) :
+    doubleSumPos N + N + 1 = binom (2 * N + 1) N := by
+  have step : binom (2 * N + 1) N
+      = sumf (fun k => 1 + sumf1 (fun n => monoCount k n) N) N := by
+    rw [← doubleTotal_closed]
+    exact sumf_congr (fun k => totalCount k N)
+      (fun k => 1 + sumf1 (fun n => monoCount k n) N)
+      (fun k => totalCount_split k N) N
+  rw [sumf_one_add (fun k => sumf1 (fun n => monoCount k n) N) N,
+      sumf_split (fun k => sumf1 (fun n => monoCount k n) N) N] at step
+  show doubleSumPos N + N + 1 = binom (2 * N + 1) N
+  rw [step]
+  show doubleSumPos N + N + 1
+        = (N + 1) + (sumf1 (fun n => monoCount 0 n) N + doubleSumPos N)
+  rw [sumf1_monoCount0 N, Nat.zero_add, Nat.add_comm (N + 1) (doubleSumPos N),
+      Nat.add_assoc]
+
 end E213.Lens.Number.Nat213.MultSystem
