@@ -2,6 +2,7 @@ import E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMinor
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius
 import E213.Meta.Nat.PolyNatMTactic
+import E213.Meta.Int213.OrderMul
 
 /-!
 # LambertOrder — the upper order transfer: the series sits below every odd convergent
@@ -852,5 +853,563 @@ theorem weld_casoratian (q : Nat) (i J : Nat) :
         + dev q (AP (2*i+1)) * sinhNum q (J+1)
           * ((2*J+1) * (q*q) * dev q (BP (2*i+2)) * coshNum q J)
         + (2*J+1) * coshNum q J * sinhNum q (J+1) := by ring_nat
+
+/-! ## §10 — the named ℤ Casoratian and the flip criterion
+
+`weld_casoratian` is the subtraction-free `ℕ` shadow.  Over `ℤ` the same fact is the
+clean unimodular recurrence the docstring names: with the lower cross `R_J` and the
+upper margin `M_J` as honest signed quantities, `R_{J+1}·M_J = R_J·M_{J+1} + K_J`.
+This is the foothold every consequence pivots on; the first is the **flip criterion**
+(blueprint Discovery 1): once the Casoratian constant dominates the signed lower
+contribution and the margin is positive, the next lower cross is forced positive. -/
+
+open E213.Meta.Int213.Order
+open E213.Meta.Int213.OrderMul
+
+/-- The **lower cross** `R_J(i) = (2J+1)·devB_i·c_J − devA_i·s_J` over `ℤ` (`LowerBase`'s
+    quantity, now signed — it may be negative before the flip). -/
+def weldR (q i J : Nat) : Int :=
+  (2 * (J : Int) + 1) * (dev q (BP (2*i+1)) : Int) * (coshNum q J : Int)
+    - (dev q (AP (2*i+1)) : Int) * (sinhNum q J : Int)
+
+/-- The **upper margin** `M_J(i) = P·s_J − (2J+1)q²·Q·c_J` over `ℤ`
+    (`P = devA_{i+½}`, `Q = devB_{i+½}` at level `2i+2`). -/
+def weldM (q i J : Nat) : Int :=
+  (dev q (AP (2*i+2)) : Int) * (sinhNum q J : Int)
+    - (2 * (J : Int) + 1) * ((q : Int) * (q : Int)) * (dev q (BP (2*i+2)) : Int)
+        * (coshNum q J : Int)
+
+/-- The **Casoratian constant** `K_J = (2J+3)·c_{J+1}·s_J − (2J+1)·c_J·s_{J+1}` over `ℤ`
+    (the level-independent truncation-Casoratian of the pair `(R, M)`). -/
+def weldK (q J : Nat) : Int :=
+  (2 * (J : Int) + 3) * (coshNum q (J+1) : Int) * (sinhNum q J : Int)
+    - (2 * (J : Int) + 1) * (coshNum q J : Int) * (sinhNum q (J+1) : Int)
+
+/-- ★★★★★ **The weld Casoratian, named over `ℤ`**: `R_{J+1}·M_J = R_J·M_{J+1} + K_J`.
+    One firing of the det-one floor (`dev_cross_det`, cast to `ℤ`): the whole
+    difference factors as `K_J · (detpair − detval)`, and the floor makes the second
+    factor vanish.  The clean unimodular recurrence behind the subtraction-free
+    `weld_casoratian`. -/
+theorem weld_casoratian_int (q i J : Nat) :
+    weldR q i (J+1) * weldM q i J = weldR q i J * weldM q i (J+1) + weldK q J := by
+  -- the det-one floor, cast to ℤ
+  have hdetI : (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)
+      = (q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1 := by
+    have hc : (↑(dev q (AP (2*i+2)) * dev q (BP (2*i+1))) : Int)
+        = ↑(q * dev q (AP (2*i+1)) * (q * dev q (BP (2*i+2))) + 1) :=
+      congrArg Int.ofNat (dev_cross_det q i).symm
+    rw [Int.ofNat_mul, Int.ofNat_add, Int.ofNat_one, Int.ofNat_mul, Int.ofNat_mul,
+        Int.ofNat_mul] at hc
+    rw [hc]; ring_intZ
+  -- `ring_intZ` reads `↑(J+1)` and `↑J` as unrelated atoms; bridge the successor coefficient
+  have hsucc : ((J + 1 : Nat) : Int) = (J : Int) + 1 := rfl
+  -- the difference factors through the floor; the floor kills it
+  have key : weldR q i (J+1) * weldM q i J - (weldR q i J * weldM q i (J+1) + weldK q J)
+      = weldK q J * ((dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)
+          - ((q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1)) := by
+    unfold weldR weldM weldK; rw [hsucc]; ring_intZ
+  -- the floor `detpair = detval` collapses the factor (avoiding `ring_intZ`'s `·0`/`0+` blind spot)
+  have hzero : weldR q i (J+1) * weldM q i J - (weldR q i J * weldM q i (J+1) + weldK q J) = 0 := by
+    rw [key, hdetI, E213.Meta.Int213.Order.sub_self_zero, E213.Meta.Int213.PolyIntM.mul_zeroZ]
+  -- `A − (B+C) = 0 ⟹ A = B + C` (the descent rearrangement, `int_eq_of_add_neg`)
+  have hgoal := int_eq_of_add_neg
+    (show weldR q i (J+1) * weldM q i J + -(weldR q i J * weldM q i (J+1) + weldK q J) = 0
+      from hzero)
+  rw [Int.add_zero] at hgoal
+  exact hgoal
+
+/-- `0 < x·c` with `0 < c` forces `0 < x` (right cancellation of a positive factor). -/
+private theorem pos_of_mul_pos_right {x c : Int} (h : 0 < x * c) (hc : 0 < c) : 0 < x := by
+  have hle : (0 : Int) ≤ x := by
+    refine le_of_mul_le_mul_right_pos ?_ hc
+    rw [E213.Meta.Int213.zero_mul]; exact le_of_lt h
+  rcases pos_zero_or_neg x with hx | hx | hx
+  · exact hx
+  · rw [hx, E213.Meta.Int213.zero_mul] at h; exact absurd h (int_lt_irrefl 0)
+  · exact absurd hle (not_le_of_lt hx)
+
+/-- `0 ≤ x·c` with `0 < c` forces `0 ≤ x` (non-strict right cancellation). -/
+private theorem nonneg_of_mul_nonneg_right {x c : Int} (h : 0 ≤ x * c) (hc : 0 < c) : 0 ≤ x := by
+  refine le_of_mul_le_mul_right_pos ?_ hc
+  rw [E213.Meta.Int213.zero_mul]; exact h
+
+/-- ★★★★ **The flip criterion** (blueprint Discovery 1, signed form).  If the upper
+    margin is positive (`0 < M_J`) and the Casoratian constant outweighs the signed
+    lower contribution (`−(R_J·M_{J+1}) < K_J`), then the next lower cross is positive
+    (`0 < R_{J+1}`).  Sign-flip forcing straight from `weld_casoratian_int`:
+    `R_{J+1}·M_J = R_J·M_{J+1} + K_J > 0`, then cancel the positive `M_J`.
+
+    (The blueprint's `K_J > |R_J|·M_{J+1}` is the `0 ≤ M_{J+1}` specialisation, since
+    `−R_J ≤ |R_J|`; this signed form is sharper and hypothesis-free in the sign of `R_J`.) -/
+theorem weld_flip_criterion (q i J : Nat) (hMJ : 0 < weldM q i J)
+    (hdom : - (weldR q i J * weldM q i (J+1)) < weldK q J) :
+    0 < weldR q i (J+1) := by
+  have hpos : 0 < weldR q i (J+1) * weldM q i J := by
+    rw [weld_casoratian_int]
+    have h1 : (0 : Int) < weldK q J - (-(weldR q i J * weldM q i (J+1))) := sub_pos_of_lt hdom
+    rw [show weldK q J - (-(weldR q i J * weldM q i (J+1)))
+          = weldR q i J * weldM q i (J+1) + weldK q J from by ring_intZ] at h1
+    exact h1
+  exact pos_of_mul_pos_right hpos hMJ
+
+/-- The Casoratian constant is non-negative: `0 ≤ K_J`.  This is exactly the truncated-coth
+    monotonicity `t_mono` (`(2J+1)·c_J·s_{J+1} ≤ (2J+3)·c_{J+1}·s_J`) cast to `ℤ`. -/
+theorem weldK_nonneg (q J : Nat) : 0 ≤ weldK q J := by
+  -- cast each `ℕ` triple product into the atom-form `weldK` uses
+  have cast3 : ∀ (X c s : Nat), (↑(X * c * s) : Int) = (X : Int) * (c : Int) * (s : Int) := by
+    intro X c s; rw [Int.ofNat_mul, Int.ofNat_mul]
+  have hcoef3 : ((2 * J + 3 : Nat) : Int) = 2 * (J : Int) + 3 := by
+    rw [Int.ofNat_add, Int.ofNat_mul]; rfl
+  have hcoef1 : ((2 * J + 1 : Nat) : Int) = 2 * (J : Int) + 1 := by
+    rw [Int.ofNat_add, Int.ofNat_mul]; rfl
+  have e : weldK q J = ((2*J+3) * coshNum q (J+1) * sinhNum q J : Nat)
+                     - ((2*J+1) * coshNum q J * sinhNum q (J+1) : Nat) := by
+    unfold weldK
+    rw [cast3 (2*J+3) (coshNum q (J+1)) (sinhNum q J),
+        cast3 (2*J+1) (coshNum q J) (sinhNum q (J+1)),
+        hcoef3, hcoef1]
+  rw [e]
+  exact le_zero_of_nonneg (sub_nonneg_of_le
+    (ofNat_le_of_le (E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut.t_mono q J)))
+
+/-- The upper margin is non-negative: `0 ≤ M_J`.  This is exactly `series_below_odd_core`
+    (`(2J+1)·q²·c_J·Q ≤ s_J·P`, the upper half of the weld's order transfer) cast to `ℤ` — an
+    **elementary** fact (cross-`le` + the det-one floor `dev_cross_det`), not the `LambertBridge`
+    budget machinery.  So one of the two inputs to `weld_lowerbase_propagate` is bridge-free; the
+    residual independence question is its *strictness* `0 < M_J` and the base `0 < R_0`. -/
+theorem weldM_nonneg (q : Nat) (hq : 1 ≤ q) (i J : Nat) : 0 ≤ weldM q i J := by
+  have hcoef1 : ((2 * J + 1 : Nat) : Int) = 2 * (J : Int) + 1 := by
+    rw [Int.ofNat_add, Int.ofNat_mul]; rfl
+  have e : weldM q i J
+      = (↑(sinhNum q J * dev q (AP (2*i+2))) : Int)
+        - ↑((2 * J + 1) * (q * q * coshNum q J) * dev q (BP (2*i+2))) := by
+    unfold weldM
+    rw [Int.ofNat_mul, Int.ofNat_mul, Int.ofNat_mul, Int.ofNat_mul, Int.ofNat_mul, hcoef1]
+    ring_intZ
+  rw [e]
+  exact le_zero_of_nonneg (sub_nonneg_of_le (ofNat_le_of_le (series_below_odd_core q hq i J)))
+
+/-! ### The det-floor resolves the margin's near-cancellation (the `R`–`sinh` Wronskian)
+
+The upper margin `M_J = P·s_J − (2J+1)q²·Q·c_J` is a **small near-cancellation** (`M_0 = P − q²Q`
+with `q²Q ≈ P`).  The det-one floor (`dev_cross_det`: `P·devB = q²·devA·Q + 1`) resolves it
+*exactly* into the explicit sinh sequence:
+
+  `M_J · devB = s_J − q²·Q·R_J`   (`weldM_devB`),
+
+and substituting into the Casoratian collapses the `q²Q·R_J R_{J+1}` cross-terms, leaving the
+**`M`-free Wronskian of the lower cross and `sinh`**:
+
+  `R_{J+1}·s_J − R_J·s_{J+1} = devB·K_J`   (`weld_rs_wronskian`).
+
+So the lower cross `R` and the *explicit* sinh numerator form a Casoratian pair with multiplier
+`devB·K_J` — a cleaner spine than the `M`-margin view, and the structural reason `M > 0` is free
+pre-flip (`s_J > q²Q·R_J` whenever `R_J ≤ 0`). -/
+
+/-- ★★★★ **The margin is the det-floor residue against `sinh`**: `M_J·devB = s_J − q²·Q·R_J`.
+    Resolves the `M`-near-cancellation exactly (one firing of `dev_cross_det`). -/
+theorem weldM_devB (q i J : Nat) :
+    weldM q i J * (dev q (BP (2*i+1)) : Int)
+      = (sinhNum q J : Int)
+        - (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i J := by
+  have hdetI : (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)
+      = (q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1 := by
+    have hc : (↑(dev q (AP (2*i+2)) * dev q (BP (2*i+1))) : Int)
+        = ↑(q * dev q (AP (2*i+1)) * (q * dev q (BP (2*i+2))) + 1) :=
+      congrArg Int.ofNat (dev_cross_det q i).symm
+    rw [Int.ofNat_mul, Int.ofNat_add, Int.ofNat_one, Int.ofNat_mul, Int.ofNat_mul,
+        Int.ofNat_mul] at hc
+    rw [hc]; ring_intZ
+  have key : weldM q i J * (dev q (BP (2*i+1)) : Int)
+        - ((sinhNum q J : Int) - (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i J)
+      = (sinhNum q J : Int)
+        * ((dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)
+           - ((q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1)) := by
+    unfold weldM weldR; ring_intZ
+  have hzero : weldM q i J * (dev q (BP (2*i+1)) : Int)
+        - ((sinhNum q J : Int) - (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i J) = 0 := by
+    rw [key, hdetI, E213.Meta.Int213.Order.sub_self_zero, E213.Meta.Int213.PolyIntM.mul_zeroZ]
+  have hgoal := int_eq_of_add_neg
+    (show weldM q i J * (dev q (BP (2*i+1)) : Int)
+        + -((sinhNum q J : Int) - (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i J) = 0
+      from hzero)
+  rw [Int.add_zero] at hgoal
+  exact hgoal
+
+/-- ★★★★★ **The cosh companion of `weldM_devB`** — the det-floor *unimodular transform*.
+    `(2J+1)·c_J = P·R_J + devA·M_J`.  With `weldM_devB` (`s_J = q²Q·R_J + devB·M_J`) this exhibits
+    the **convergent/series pair** `(s_J, (2J+1)·c_J)` as the image of the **residual pair**
+    `(R_J, M_J)` under the CF-determinant matrix `[[q²Q, devB],[P, devA]]`, whose determinant is
+    `q²Q·devA − P·devB = −1` (the det-one floor `dev_cross_det`) — *unimodular*.  Consequence: the
+    three Wronskians (`weld_rs_wronskian` R·sinh, `weldM_s_wronskian` M·sinh, `weldM_wronskian`
+    M·cosh) are **one** Casoratian `K_J` (`weld_casoratian_int`, the `[R,M]` step-determinant) read
+    in the two bases; the coupling constants `devB, q²Q, P` are exactly the transform's entries. -/
+theorem weld_cosh_RM (q i J : Nat) :
+    (2 * (J : Int) + 1) * (coshNum q J : Int)
+      = (dev q (AP (2*i+2)) : Int) * weldR q i J + (dev q (AP (2*i+1)) : Int) * weldM q i J := by
+  have hdetI : (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)
+      = (q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1 := by
+    have hc : (↑(dev q (AP (2*i+2)) * dev q (BP (2*i+1))) : Int)
+        = ↑(q * dev q (AP (2*i+1)) * (q * dev q (BP (2*i+2))) + 1) :=
+      congrArg Int.ofNat (dev_cross_det q i).symm
+    rw [Int.ofNat_mul, Int.ofNat_add, Int.ofNat_one, Int.ofNat_mul, Int.ofNat_mul,
+        Int.ofNat_mul] at hc
+    rw [hc]; ring_intZ
+  have key : (2 * (J : Int) + 1) * (coshNum q J : Int)
+        - ((dev q (AP (2*i+2)) : Int) * weldR q i J + (dev q (AP (2*i+1)) : Int) * weldM q i J)
+      = (coshNum q J : Int) * (2 * (J : Int) + 1)
+        * (((q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1)
+           - (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)) := by
+    unfold weldR weldM; ring_intZ
+  have hzero : (2 * (J : Int) + 1) * (coshNum q J : Int)
+        - ((dev q (AP (2*i+2)) : Int) * weldR q i J + (dev q (AP (2*i+1)) : Int) * weldM q i J) = 0 := by
+    rw [key, hdetI, E213.Meta.Int213.Order.sub_self_zero, E213.Meta.Int213.PolyIntM.mul_zeroZ]
+  have hgoal := int_eq_of_add_neg
+    (show (2 * (J : Int) + 1) * (coshNum q J : Int)
+        + -((dev q (AP (2*i+2)) : Int) * weldR q i J + (dev q (AP (2*i+1)) : Int) * weldM q i J) = 0
+      from hzero)
+  rw [Int.add_zero] at hgoal
+  exact hgoal
+
+/-- ★★★★★ **The `R`–`sinh` Wronskian** (`M`-free): `R_{J+1}·s_J − R_J·s_{J+1} = devB·K_J`.  The
+    lower cross and the explicit sinh numerator are a Casoratian pair — the det-floor having
+    eliminated the upper margin and its near-cancellation.  Derived from `weld_casoratian_int`
+    and `weldM_devB` (the `q²Q·R_J·R_{J+1}` cross-terms cancel). -/
+theorem weld_rs_wronskian (q i J : Nat) :
+    weldR q i (J+1) * (sinhNum q J : Int) - weldR q i J * (sinhNum q (J+1) : Int)
+      = (dev q (BP (2*i+1)) : Int) * weldK q J := by
+  have es : (sinhNum q J : Int)
+      = weldM q i J * (dev q (BP (2*i+1)) : Int)
+        + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i J := by
+    rw [weldM_devB]; ring_intZ
+  have es1 : (sinhNum q (J+1) : Int)
+      = weldM q i (J+1) * (dev q (BP (2*i+1)) : Int)
+        + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i (J+1) := by
+    rw [weldM_devB]; ring_intZ
+  rw [es, es1,
+      show weldR q i (J+1)
+            * (weldM q i J * (dev q (BP (2*i+1)) : Int)
+               + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i J)
+          - weldR q i J
+            * (weldM q i (J+1) * (dev q (BP (2*i+1)) : Int)
+               + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i (J+1))
+          = (dev q (BP (2*i+1)) : Int) * (weldR q i (J+1) * weldM q i J)
+            - (dev q (BP (2*i+1)) : Int) * (weldR q i J * weldM q i (J+1)) from by ring_intZ,
+      weld_casoratian_int]
+  ring_intZ
+
+/-- ★★★★ **The margin–sinh Wronskian** (the third Casoratian pair): `s_{J+1}·M_J − s_J·M_{J+1}
+    = q²·Q·K_J`.  From `weldM_devB` (substituting `s = M·devB + q²Q·R`) the `devB·M·M` terms cancel
+    and the residue is `q²Q·(R_{J+1}·M_J − R_J·M_{J+1}) = q²Q·K_J` (`weld_casoratian_int`).  Its
+    rearrangement `(M_J − M_{J+1})·s_J = q²Q·K_J − (s_{J+1}−s_J)·M_J` shows `M`-monotonicity
+    (`M_{J+1} ≤ M_J`) is **equivalent** to `(s_{J+1}−s_J)·M_J ≤ q²Q·K_J` — exact, but self-referential
+    (no ring discharge); the antitone fact itself is a separate quantitative induction. -/
+theorem weldM_s_wronskian (q i J : Nat) :
+    (sinhNum q (J+1) : Int) * weldM q i J - (sinhNum q J : Int) * weldM q i (J+1)
+      = (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldK q J := by
+  have es : (sinhNum q J : Int)
+      = weldM q i J * (dev q (BP (2*i+1)) : Int)
+        + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i J := by
+    rw [weldM_devB]; ring_intZ
+  have es1 : (sinhNum q (J+1) : Int)
+      = weldM q i (J+1) * (dev q (BP (2*i+1)) : Int)
+        + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i (J+1) := by
+    rw [weldM_devB]; ring_intZ
+  rw [es, es1,
+      show (weldM q i (J+1) * (dev q (BP (2*i+1)) : Int)
+              + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i (J+1)) * weldM q i J
+          - (weldM q i J * (dev q (BP (2*i+1)) : Int)
+              + (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i J) * weldM q i (J+1)
+          = (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * (weldR q i (J+1) * weldM q i J)
+            - (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * (weldR q i J * weldM q i (J+1))
+          from by ring_intZ,
+      weld_casoratian_int]
+  ring_intZ
+
+/-- ★★★★ **The margin Wronskian** (`M`-side, pure ring — no det-floor):
+    `(2J+3)·c_{J+1}·M_J − (2J+1)·c_J·M_{J+1} = P·K_J`.  The `q²Q·c·c` terms cancel identically;
+    the margin `M` and `cosh` are a Casoratian pair with the same source `K_J` (scaled by `P`),
+    mirroring the `R`–sinh Wronskian.  Identity "(W)" toward `Core`. -/
+theorem weldM_wronskian (q i J : Nat) :
+    (2 * (J : Int) + 3) * (coshNum q (J+1) : Int) * weldM q i J
+      - (2 * (J : Int) + 1) * (coshNum q J : Int) * weldM q i (J+1)
+    = (dev q (AP (2*i+2)) : Int) * weldK q J := by
+  have hsucc : ((J + 1 : Nat) : Int) = (J : Int) + 1 := rfl
+  unfold weldM weldK
+  rw [hsucc]; ring_intZ
+
+/-- ★★★★★ **The master bilinear Casoratian** (pure ℤ ring — the one identity behind *all* weld
+    Wronskians).  For any constants `a₁ a₂ b₁ b₂` and any pair `(x_J, y_J)` with step values
+    `x0,x1,y0,y1`, the cross-determinant of the two linear combinations `X = a₁x+a₂y`,
+    `Y = b₁x+b₂y` is the `(a₁b₂−a₂b₁)`-multiple of the pair's own Casoratian `x1·y0 − x0·y1`:
+
+      `(a₁x1+a₂y1)(b₁x0+b₂y0) − (a₁x0+a₂y0)(b₁x1+b₂y1) = (a₁b₂−a₂b₁)(x1·y0 − x0·y1)`.
+
+    With the **weight-normalized cosh** `ĉ_J := (2J+1)c_J`, the weld's clean pair is `(ĉ, s)` and
+    `K_J = ĉ_{J+1}s_J − ĉ_J s_{J+1}` (= `weldK`, the `q²`-cancelled Casoratian).  `R_J = devB·ĉ_J −
+    devA·s_J` and `M_J = −q²Q·ĉ_J + P·s_J` are constant-coefficient combinations of that one pair, so
+    **every** residual cross is `det(coeff-rows)·K_J`: `R×ĉ = devA·K`, `R×s = devB·K`, `M×ĉ = P·K`,
+    `M×s = q²Q·K`, and `R×M = (P·devB − q²·devA·Q)·K = 1·K` — the last coupling being the **det-one
+    floor** (`dev_cross_det`), the unimodularity that makes `weld_casoratian_int`'s RHS *exactly*
+    `K_J` with no lower-order correction.  This single ring identity subsumes `weld_casoratian_int`,
+    `weld_rs_wronskian`, `weldM_s_wronskian`, `weldM_wronskian` (and the once-"anomalous" `R×c`,
+    clean as `R×ĉ`).  Classical underpinning: the CF-convergent matrix is unimodular; the genuinely
+    213-native content is the weight `ĉ` collapsing all crosses to one bilinear, with the `+1`
+    residue unit as the determinant. -/
+theorem weld_bilinear_casoratian (a₁ a₂ b₁ b₂ x0 x1 y0 y1 : Int) :
+    (a₁ * x1 + a₂ * y1) * (b₁ * x0 + b₂ * y0) - (a₁ * x0 + a₂ * y0) * (b₁ * x1 + b₂ * y1)
+      = (a₁ * b₂ - a₂ * b₁) * (x1 * y0 - x0 * y1) := by
+  ring_intZ
+
+/-! ### The weld is one instance of the master bilinear (coth in the `(ĉ, s)` basis)
+
+The coth weld is `weld_bilinear_casoratian` specialized to the normalized pair `(ĉ, s)` and the
+unimodular coefficient rows.  The same `weld_bilinear_casoratian` applies to **any** CF-vs-series
+weld — `exp(2/q)`, `tan(1/q)`, any holonomic ratio — once its normalized pair and (constant) CF
+coefficient rows are supplied; only the *coupling* `a₁b₂−a₂b₁` changes (it is the CF determinant,
+`= 1` for coth's unimodular convergents, `= 2·a_n` for the `exp(2/q)` Möbius fold). -/
+
+/-- The **weight-normalized cosh** `ĉ_J = (2J+1)·c_J` — the slot making `(ĉ, s)` the weld's clean
+    Casoratian pair. -/
+def weldCh (q J : Nat) : Int := (2 * (J : Int) + 1) * (coshNum q J : Int)
+
+/-- `R_J = devB·ĉ_J + (−devA)·s_J` in the normalized basis. -/
+theorem weldR_basis (q i J : Nat) :
+    weldR q i J = (dev q (BP (2*i+1)) : Int) * weldCh q J
+      + (-(dev q (AP (2*i+1)) : Int)) * (sinhNum q J : Int) := by
+  unfold weldR weldCh; ring_intZ
+
+/-- `M_J = (−q²Q)·ĉ_J + P·s_J` in the normalized basis. -/
+theorem weldM_basis (q i J : Nat) :
+    weldM q i J = (-((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))) * weldCh q J
+      + (dev q (AP (2*i+2)) : Int) * (sinhNum q J : Int) := by
+  unfold weldM weldCh; ring_intZ
+
+/-- `K_J = ĉ_{J+1}·s_J − ĉ_J·s_{J+1}` — the Casoratian of the normalized pair `(ĉ, s)`. -/
+theorem weldK_basis (q J : Nat) :
+    weldK q J = weldCh q (J+1) * (sinhNum q J : Int) - weldCh q J * (sinhNum q (J+1) : Int) := by
+  have hsucc : ((J + 1 : Nat) : Int) = (J : Int) + 1 := rfl
+  unfold weldK weldCh; rw [hsucc]; ring_intZ
+
+/-- ★★★★★ **The weld Casoratian as a bilinear instance** (the unification, as a theorem).
+    `R_{J+1}·M_J − R_J·M_{J+1} = K_J` follows from `weld_bilinear_casoratian` with rows
+    `R = (devB, −devA)`, `M = (−q²Q, P)` against the pair `(ĉ, s)`: the coupling
+    `devB·P − (−devA)(−q²Q) = P·devB − q²·devA·Q` equals `1` by the det-one floor
+    (`dev_cross_det`), so the cross is exactly `K_J`. -/
+theorem weld_casoratian_bilinear (q i J : Nat) :
+    weldR q i (J+1) * weldM q i J - weldR q i J * weldM q i (J+1) = weldK q J := by
+  rw [weldR_basis q i (J+1), weldR_basis q i J, weldM_basis q i J, weldM_basis q i (J+1),
+      weld_bilinear_casoratian (dev q (BP (2*i+1)) : Int) (-(dev q (AP (2*i+1)) : Int))
+        (-((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))) (dev q (AP (2*i+2)) : Int)
+        (weldCh q J) (weldCh q (J+1)) (sinhNum q J : Int) (sinhNum q (J+1) : Int),
+      ← weldK_basis]
+  -- coupling = P·devB − q²·devA·Q = 1 (det-one floor)
+  have hdetI : (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)
+      = (q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1 := by
+    have hc : (↑(dev q (AP (2*i+2)) * dev q (BP (2*i+1))) : Int)
+        = ↑(q * dev q (AP (2*i+1)) * (q * dev q (BP (2*i+2))) + 1) :=
+      congrArg Int.ofNat (dev_cross_det q i).symm
+    rw [Int.ofNat_mul, Int.ofNat_add, Int.ofNat_one, Int.ofNat_mul, Int.ofNat_mul,
+        Int.ofNat_mul] at hc
+    rw [hc]; ring_intZ
+  rw [show (dev q (BP (2*i+1)) : Int) * (dev q (AP (2*i+2)) : Int)
+        - -(dev q (AP (2*i+1)) : Int) * -((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))
+        = 1 from by
+      rw [show (dev q (BP (2*i+1)) : Int) * (dev q (AP (2*i+2)) : Int)
+            = (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int) from by ring_intZ, hdetI]
+      ring_intZ,
+    E213.Meta.Int213.PolyIntM.one_mulZ]
+
+/-- ★★★★★ **`LowerBase` reduces to a single `M`-free inequality** (cleanest form, via the
+    `R`–sinh Wronskian).  `0 ≤ R_{J+1}` follows from the *single* inequality
+    `(−R_J)·s_{J+1} ≤ devB·K_J` and `sinh > 0` (trivial) — no `M`, no ratio descent.
+    Directly from `weld_rs_wronskian` (`R_{J+1}·s_J = R_J·s_{J+1} + devB·K_J`): the right side
+    is `≥ 0` by the hypothesis, and `s_J > 0` cancels.  At `J = 2i` this is the bridge-free
+    last-step certificate of `LowerBase`, stated in the explicit sinh sequence. -/
+theorem weld_lowerbase_reduction_rs (q i J : Nat)
+    (hsingle : -(weldR q i J) * (sinhNum q (J+1) : Int) ≤ (dev q (BP (2*i+1)) : Int) * weldK q J) :
+    0 ≤ weldR q i (J+1) := by
+  have hsJ : (0 : Int) < (sinhNum q J : Int) :=
+    ofNat_le_of_le (E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut.sinhNum_pos q J)
+  have h1 : 0 ≤ weldR q i (J+1) * (sinhNum q J : Int) := by
+    have heq : weldR q i (J+1) * (sinhNum q J : Int)
+        = weldR q i J * (sinhNum q (J+1) : Int) + (dev q (BP (2*i+1)) : Int) * weldK q J := by
+      have hw := weld_rs_wronskian q i J
+      rw [show weldR q i (J+1) * (sinhNum q J : Int)
+            = (weldR q i (J+1) * (sinhNum q J : Int) - weldR q i J * (sinhNum q (J+1) : Int))
+              + weldR q i J * (sinhNum q (J+1) : Int) from by ring_intZ, hw]
+      ring_intZ
+    rw [heq]
+    have h2 := sub_nonneg_of_le hsingle
+    rw [show (dev q (BP (2*i+1)) : Int) * weldK q J - -(weldR q i J) * (sinhNum q (J+1) : Int)
+          = weldR q i J * (sinhNum q (J+1) : Int) + (dev q (BP (2*i+1)) : Int) * weldK q J
+          from by ring_intZ] at h2
+    exact le_zero_of_nonneg h2
+  exact nonneg_of_mul_nonneg_right h1 hsJ
+
+/-- ★★★ **The single descent step** (unconditional): `R_J·M_{J+1} ≤ R_{J+1}·M_J`.  From
+    `weld_casoratian_int` (`R_{J+1}·M_J = R_J·M_{J+1} + K_J`) and `0 ≤ K_J` (`weldK_nonneg`):
+    the cross strictly cannot *fall* — the ratio `R/M` climbs (pre-flip, with `R < 0`, this is
+    the magnitude `|R|` *descending*). -/
+theorem weld_descent_step (q i J : Nat) :
+    weldR q i J * weldM q i (J+1) ≤ weldR q i (J+1) * weldM q i J := by
+  rw [weld_casoratian_int]
+  have h := add_le_add_left (weldK_nonneg q J) (weldR q i J * weldM q i (J+1))
+  rwa [Int.add_zero] at h
+
+/-- ★★★★ **Ratio descent** (blueprint Discovery 1, telescoped, any anchor `J₀`): with positive
+    margins (`0 < M_j` for every `j`), the climbing single step telescopes forward to
+    `R_{J₀}·M_{J₀+d} ≤ R_{J₀+d}·M_{J₀}` — the ratio `R/M` is non-decreasing.  At `J₀ = 0`
+    (pre-flip, `R < 0`) this reads `|R_d|·M_0 ≤ |R_0|·M_d`, a magnitude descent.  Each rung
+    chains `weld_descent_step` through the positive margins (`mul`-monotonicity up, `M`-cancel
+    down). -/
+theorem weld_ratio_descent (q i : Nat) (hM : ∀ j, 0 < weldM q i j) (J0 : Nat) :
+    ∀ d, weldR q i J0 * weldM q i (J0 + d) ≤ weldR q i (J0 + d) * weldM q i J0 := by
+  intro d
+  induction d with
+  | zero => exact le_refl _
+  | succ d ih =>
+    have ih' := mul_le_mul_right_nonneg ih (weldM q i (J0+d+1)) (le_of_lt (hM (J0+d+1)))
+    have step' := mul_le_mul_right_nonneg (weld_descent_step q i (J0+d)) (weldM q i J0)
+      (le_of_lt (hM J0))
+    have chain : weldR q i J0 * weldM q i (J0+d+1) * weldM q i (J0+d)
+               ≤ weldR q i (J0+d+1) * weldM q i J0 * weldM q i (J0+d) := by
+      rw [show weldR q i J0 * weldM q i (J0+d+1) * weldM q i (J0+d)
+            = weldR q i J0 * weldM q i (J0+d) * weldM q i (J0+d+1) from by ring_intZ,
+          show weldR q i (J0+d+1) * weldM q i J0 * weldM q i (J0+d)
+            = weldR q i (J0+d+1) * weldM q i (J0+d) * weldM q i J0 from by ring_intZ]
+      refine le_trans ih' (le_trans ?_ step')
+      rw [show weldR q i (J0+d) * weldM q i J0 * weldM q i (J0+d+1)
+            = weldR q i (J0+d) * weldM q i (J0+d+1) * weldM q i J0 from by ring_intZ]
+      exact le_refl _
+    exact le_of_mul_le_mul_right_pos chain (hM (J0+d))
+
+/-- ★★★★ **Forward positivity persistence.**  Once the lower cross is positive at some
+    truncation `J₀` (`0 < R_{J₀}`) and the margins stay positive, it is positive at every later
+    truncation `J₀ + d` — the climbing ratio cannot return below `0`.  `0 < R_{J₀}·M_{J₀+d} ≤
+    R_{J₀+d}·M_{J₀}` (`weld_ratio_descent`), then cancel `M_{J₀}`.
+
+    **Note (why this is *not* a bridge-free `LowerBase`):** `LowerBase` is `0 ≤ R_{2i+1}`, and the
+    cross starts *negative* — `R_0 = dev(BP_{2i+1}) − dev(AP_{2i+1}) ≤ 0` (`= 0` at `i=0`, `< 0`
+    for `i ≥ 1`; checked by evaluation).  So persistence has no positive anchor at `J₀ = 0`; a
+    bridge-free `LowerBase` would still have to certify that the climbing ratio reaches `≥ 0`
+    *by* `J = 2i+1` — the quantitative flip-timing that is exactly the `LambertBridge` content.
+    Persistence + the flip criterion are the structural half (the cross, once non-negative, stays
+    so); the quantitative half stays open (item 3). -/
+theorem weld_positivity_persists (q i : Nat) (hM : ∀ j, 0 < weldM q i j) (J0 : Nat)
+    (hR : 0 < weldR q i J0) : ∀ d, 0 < weldR q i (J0 + d) := by
+  intro d
+  have h0 : 0 < weldR q i J0 * weldM q i (J0+d) := mul_pos hR (hM (J0+d))
+  have h1 : 0 < weldR q i (J0+d) * weldM q i J0 :=
+    lt_of_lt_of_le h0 (weld_ratio_descent q i hM J0 d)
+  exact pos_of_mul_pos_right h1 (hM J0)
+
+/-- ★★★★★ **`LowerBase` reduces to a single last-step inequality** (the empirically-discovered
+    flip structure, item 3 sharpened).  The lower cross flips from negative to non-negative at
+    **one** step `J → J+1` (evaluation shows it flips at exactly `J = 2i`, the last step before
+    `N = 2i+1`).  So `LowerBase`'s content `0 ≤ R_{J+1}` follows — **bridge-free** — from positive
+    margins plus the *single* inequality
+
+      `(−R_0)·M_J·M_{J+1} ≤ K_J·M_0`.
+
+    Proof: ratio descent (`R_0·M_J ≤ R_J·M_0`, free) scaled by `M_{J+1}`, the single inequality
+    (`0 ≤ R_0·M_J·M_{J+1} + K_J·M_0`), and the Casoratian (`R_{J+1}·M_J = R_J·M_{J+1} + K_J`)
+    assemble to `0 ≤ M_0·(R_{J+1}·M_J)`; cancel the positive `M_0·M_J`.  This is the flip
+    criterion run at the last step — no `LambertBridge` machinery.  It converts the open item 3
+    from "reach `≥ 0` by `J = 2i+1`" (the whole telescoped sum) into **one** ℤ-native inequality,
+    which holds with large slack in every evaluated case (`i ≤ 3`): the genuine, localized residue
+    is `(−R_0)·M_{2i}·M_{2i+1} ≤ K_{2i}·M_0` (`K_{2i}` is factorially large; `−R_0`, the `M`'s are
+    comparatively small). -/
+theorem weld_lowerbase_reduction (q i J : Nat) (hM : ∀ j, 0 < weldM q i j)
+    (hsingle : -(weldR q i 0) * (weldM q i J * weldM q i (J+1)) ≤ weldK q J * weldM q i 0) :
+    0 ≤ weldR q i (J+1) := by
+  -- ratio descent at anchor 0, scaled by the non-negative margin `M_{J+1}`
+  have hrd : weldR q i 0 * weldM q i J ≤ weldR q i J * weldM q i 0 := by
+    have h := weld_ratio_descent q i hM 0 J; rwa [Nat.zero_add] at h
+  have hi : weldR q i 0 * weldM q i J * weldM q i (J+1)
+          ≤ weldR q i J * weldM q i 0 * weldM q i (J+1) :=
+    mul_le_mul_right_nonneg hrd (weldM q i (J+1)) (le_of_lt (hM (J+1)))
+  -- the single inequality, rearranged to `0 ≤ R_0·M_J·M_{J+1} + K_J·M_0`
+  have hLHS : 0 ≤ weldR q i 0 * weldM q i J * weldM q i (J+1) + weldK q J * weldM q i 0 := by
+    have h := sub_nonneg_of_le hsingle
+    rw [show weldK q J * weldM q i 0 - -(weldR q i 0) * (weldM q i J * weldM q i (J+1))
+          = weldR q i 0 * weldM q i J * weldM q i (J+1) + weldK q J * weldM q i 0 from by ring_intZ] at h
+    exact le_zero_of_nonneg h
+  -- add `K_J·M_0` across the descent, chain past `0`
+  have h2 : 0 ≤ weldR q i J * weldM q i 0 * weldM q i (J+1) + weldK q J * weldM q i 0 :=
+    le_trans hLHS (add_le_add_right hi (weldK q J * weldM q i 0))
+  -- the right side is `R_{J+1}·(M_0·M_J)` by the Casoratian
+  have h3 : weldR q i J * weldM q i 0 * weldM q i (J+1) + weldK q J * weldM q i 0
+          = weldR q i (J+1) * (weldM q i 0 * weldM q i J) := by
+    rw [show weldR q i J * weldM q i 0 * weldM q i (J+1) + weldK q J * weldM q i 0
+          = weldM q i 0 * (weldR q i J * weldM q i (J+1) + weldK q J) from by ring_intZ,
+        ← weld_casoratian_int q i J]
+    ring_intZ
+  rw [h3] at h2
+  -- cancel the positive `M_0·M_J`
+  exact nonneg_of_mul_nonneg_right h2 (mul_pos (hM 0) (hM J))
+
+/-- ★★★★★ **`LowerBase` ⟸ {M-monotonicity, Core}** (theorem-backed).  Given positive margins,
+    `0 < q²Q`, the margin non-increasing to the flip (`M_{2i} ≤ M_0`), and the localized **Core**
+    inequality `M_0·devB·M_{2i+1} ≤ q²·Q·K_{2i}`, the lower cross is non-negative at the flip:
+    `0 ≤ R_{2i+1}` (= `LowerBase`).  (No `R_0 ≤ 0` needed — the det-floor identity carries the sign.)
+
+    Mechanism: the det-floor residue at `J=0` (`weldM_devB`: `M_0·devB = 1 − q²Q·R_0`) gives
+    `q²Q·(−R_0) = M_0·devB − 1`; then `(−R_0)·M_{2i}·M_{2i+1}·q²Q = (M_0·devB−1)·M_{2i}·M_{2i+1}
+    ≤ M_0·devB·M_{2i}·M_{2i+1} ≤ M_0·devB·M_0·M_{2i+1} = (M_0·devB·M_{2i+1})·M_0 ≤ (q²Q·K)·M_0`
+    (using `M_{2i} ≤ M_0` and `Core`), and cancelling `q²Q > 0` is exactly the master single
+    inequality `weld_lowerbase_reduction` consumes.  Localizes `LowerBase`'s open content to the
+    two quantitative residuals M-monotonicity and Core (both bridge-equivalent). -/
+theorem weld_lowerbase_of_core (q i : Nat) (hM : ∀ j, 0 < weldM q i j)
+    (hqQ : 0 < (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))
+    (hmono : weldM q i (2*i) ≤ weldM q i 0)
+    (hcore : weldM q i 0 * (dev q (BP (2*i+1)) : Int) * weldM q i (2*i+1)
+             ≤ (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldK q (2*i)) :
+    0 ≤ weldR q i (2*i+1) := by
+  have hM0  : (0 : Int) ≤ weldM q i 0        := le_of_lt (hM 0)
+  have hM2i1 : (0 : Int) ≤ weldM q i (2*i+1) := le_of_lt (hM (2*i+1))
+  -- det-floor residue: `M_0·devB = 1 − q²Q·R_0`
+  have hR : weldM q i 0 * (dev q (BP (2*i+1)) : Int)
+          = 1 - (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i 0 := by
+    have h := weldM_devB q i 0
+    rwa [show (sinhNum q 0 : Int) = 1 from rfl] at h
+  -- `0 ≤ M_0·devB`
+  have hM0dB : (0 : Int) ≤ weldM q i 0 * (dev q (BP (2*i+1)) : Int) := by
+    have h := mul_le_mul_right_nonneg hM0 (dev q (BP (2*i+1)) : Int) (Int.ofNat_nonneg _)
+    rwa [E213.Meta.Int213.zero_mul] at h
+  -- `M_0·devB·(M_{2i}·M_{2i+1}) ≤ (q²Q·K)·M_0`  (via `M_{2i} ≤ M_0` then `Core ×M_0`)
+  have hbig : weldM q i 0 * (dev q (BP (2*i+1)) : Int) * (weldM q i (2*i) * weldM q i (2*i+1))
+            ≤ ((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldK q (2*i)) * weldM q i 0 := by
+    refine le_trans (mul_le_mul_left_nonneg
+      (mul_le_mul_right_nonneg hmono (weldM q i (2*i+1)) hM2i1)
+      (weldM q i 0 * (dev q (BP (2*i+1)) : Int)) hM0dB) ?_
+    rw [show weldM q i 0 * (dev q (BP (2*i+1)) : Int) * (weldM q i 0 * weldM q i (2*i+1))
+          = (weldM q i 0 * (dev q (BP (2*i+1)) : Int) * weldM q i (2*i+1)) * weldM q i 0 from by ring_intZ]
+    exact mul_le_mul_right_nonneg hcore (weldM q i 0) hM0
+  -- assemble the master single inequality, then cancel `q²Q`
+  apply weld_lowerbase_reduction q i (2*i) hM
+  refine le_of_mul_le_mul_right_pos
+    (c := (q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int)) ?_ hqQ
+  rw [show -(weldR q i 0) * (weldM q i (2*i) * weldM q i (2*i+1))
+          * ((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))
+        = (weldM q i 0 * (dev q (BP (2*i+1)) : Int) - 1)
+          * (weldM q i (2*i) * weldM q i (2*i+1)) from by
+      rw [show (weldM q i 0 * (dev q (BP (2*i+1)) : Int) - 1)
+            = -((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldR q i 0) from by
+          rw [hR]; ring_intZ]; ring_intZ,
+      show weldK q (2*i) * weldM q i 0 * ((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))
+        = ((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int) * weldK q (2*i)) * weldM q i 0 from by
+      ring_intZ]
+  -- now: `(M_0·devB−1)·(M_{2i}·M_{2i+1}) ≤ (q²Q·K)·M_0`  — subtract the nonneg `M_{2i}·M_{2i+1}`
+  refine le_trans ?_ hbig
+  rw [show (weldM q i 0 * (dev q (BP (2*i+1)) : Int) - 1) * (weldM q i (2*i) * weldM q i (2*i+1))
+        = weldM q i 0 * (dev q (BP (2*i+1)) : Int) * (weldM q i (2*i) * weldM q i (2*i+1))
+          - weldM q i (2*i) * weldM q i (2*i+1) from by ring_intZ]
+  apply le_of_sub_nonneg
+  rw [show weldM q i 0 * (dev q (BP (2*i+1)) : Int) * (weldM q i (2*i) * weldM q i (2*i+1))
+        - (weldM q i 0 * (dev q (BP (2*i+1)) : Int) * (weldM q i (2*i) * weldM q i (2*i+1))
+           - weldM q i (2*i) * weldM q i (2*i+1))
+        = weldM q i (2*i) * weldM q i (2*i+1) from by ring_intZ]
+  exact nonneg_of_le_zero (le_of_lt (mul_pos (hM (2*i)) (hM (2*i+1))))
 
 end E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder

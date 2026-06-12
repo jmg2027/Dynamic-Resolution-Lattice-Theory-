@@ -167,4 +167,38 @@ theorem bracket_total_modulus (hD : ∀ n, 1 ≤ D n)
       (fun hin => absurd (hexcl m k (B k + 1) hk hin) (Nat.not_succ_le_self (B k)))
       i j hi hj⟩
 
+/-! ## §3 — the bracket engine IS a separation schedule (weld/exp unification) -/
+
+/-- ★★★★ **Exclusion depth ⟹ separation schedule.**  The two-sided exclusion-depth
+    hypotheses yield exactly the *one-sided* separation property that drives
+    `AbCutSeq.sep_cauchy` (the `coth`/`exp` completion engine): any `false` reading
+    of the lower fold anywhere already shows at the single layer `B k + 2`.  Hence
+    the modulus-degree ladder's rung-2 bracket schema and the weld's separation
+    schedule are **one device** — the bracket's exclusion depth `B` *is* the
+    separation schedule `I k = B k + 2`, the lower fold supplying it two-sided
+    (shrinking bracket) where `exp(p/q)` supplies it one-sided (linear-pq growth).
+
+    Two regimes meet: `false` at a layer `≤ B k + 1` propagates **forward** to
+    `B k + 2` (`below_fwd`); `false` at a layer `≥ B k + 2` reflects **back** to
+    `B k + 2` by post-exit constancy (`bracket_cut_const`).  Mirrors the shape of
+    `AbCutSeq.sep_cauchy`'s `hsep` for `rcut a d`. -/
+theorem bracket_is_sep_schedule (hD : ∀ n, 1 ≤ D n)
+    (hWmono : ∀ n, a n * d (n+1) < a (n+1) * d n)
+    (hUmono : ∀ n, A (n+1) * D n ≤ A n * D (n+1))
+    (hsand : ∀ n, a n * D n < A n * d n)
+    (B : Nat → Nat)
+    (hexcl : ∀ m k n, 1 ≤ k → Inside a d A D m k n → n ≤ B k)
+    (m k : Nat) (hk : 1 ≤ k) (i : Nat) (hf : rcut a d i m k = false) :
+    rcut a d (B k + 2) m k = false := by
+  -- a `false` reading means the strictly-increasing lower endpoint has passed `m/k`
+  have hbase : d i * m ≤ a i * k := Nat.le_of_lt (Nat.not_le.mp (of_decide_eq_false hf))
+  rcases Nat.lt_or_ge i (B k + 2) with hlt | hge
+  · -- forward: `below_fwd` from layer `i` reaches `B k + 2` (`i + 1 ≤ B k + 2` is `hlt`)
+    exact below_fwd hWmono m k i hk hbase (B k + 2) hlt
+  · -- backward: past the exit layer `B k + 1` the cut is constant, so it equals `cut i`
+    have hconst := bracket_cut_const hD hWmono hUmono hsand m k hk (B k + 1)
+      (fun hin => absurd (hexcl m k (B k + 1) hk hin) (Nat.not_succ_le_self (B k)))
+      (B k + 2) i (Nat.le_refl _) hge
+    rw [hconst]; exact hf
+
 end E213.Lib.Math.NumberSystems.Real213.BracketModulus

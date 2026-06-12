@@ -188,6 +188,30 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   membership detectors across levels.  Open: the ℚ₊→ℚ leg, the
   square-commutes theorem, the frames essay after closure.
 
+- `slot_tower_debate` — **two-round panel verdicts on the slot-tower
+  arc**: thesis/mechanism/debt triage (atom-(in)distinguishability /
+  the count-rig `iter_add`+`iter_mul` / `vp_separation`); the ^-wall is
+  two independent proof-facts until the `exp`-iso bridge closes; fold
+  criterion scoped (ℚ-exponents, `a,b≥2`; ⟹ provable now, ⟸ IS
+  separation); **genesis verdicts RETRACTED** — the panel's "binary
+  `slash` genesis / Raw bifurcates / *first* distinguishing" read the
+  Lean encoding as Raw ontology (the §6.1/§6.2 failure) and misquoted
+  "방법이 하나" (method-uniqueness) as "pick one"; Raw neither splits
+  nor has a first, and the originator's real point is method-uniqueness
+  of *measuring* (append = the gathering-Lens) from inexhaustibility +
+  numberlessness; 12-item merged brick agenda (keystone `vp_separation`
+  now CLOSED, `Meta/Nat/VpSeparation.lean`; the fold criterion and the
+  order-loss theorem also closed).
+
+- `slot_tower_crossdomain` — **slot tower ↔ main** (2026-06-11 merge): four
+  open bridges.  (1) equality is a certificate with a shape (weld Padé-flip
+  ↔ `FoldCriterion.pow_eq_pow_iff_vp`); (2) order ⟺ no-wrap, exact duals
+  both proved (`Int213.OrderMul` ↔ `NoOrderModP.no_wrapping_order`); (3) the
+  exp/log boundary, tame vs wild (LambertWeld `exp(2/q)` ↔ the `^`-wall
+  `fold_iff_collinear`); (4) the substrate's shape, metric vs topological
+  (`Shape213`/`GridReadout213` ↔ discrete Ricci/curvature).  Single-schema
+  Lean statements not yet written.
+
 - `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
   modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
   completeness-layer receipt count; both Lens-properties of the pointing, object
@@ -241,8 +265,11 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   curvature module's n-dim power-mean Cauchy–Schwarz (`cauchy_schwarz_gridZ`, per-rung SOS
   folded along the `gridSumZ` induction) are one instruction at two certificate depths; the
   `K_{a,b}` wide/narrow regime split (`kab_cd_wide`/`kab_cd_narrow`) is literally certificate
-  depth.  Open: the "inequality = POSITIVITY ∘ LOOP" compilation theorem (buildable first
-  brick: the pair-sum Lagrange identity `n·Σa² − (Σa)² = Σ_{i<j}(a_i−a_j)²`), and the
+  depth.  First brick **CLOSED** (`BakryEmeryBipartite` §5.5, ∅-axiom): the pair-sum
+  Lagrange identity `n·Σa² − (Σa)² = Σ_{i<j}(a_i−a_j)²` (`lagrange_pair_identity`) stated
+  next to `cauchy_schwarz_gridZ`, the two certificates proved equal (`cauchy_schwarz_via_lagrange`),
+  `n=2` collapse to the single square (`lagrange_pair_two`).  Open: the **general**
+  "inequality = POSITIVITY ∘ LOOP" compilation theorem over the rest of the family, and the
   evidence it gives on G205's POSITIVITY-vs-GAP question.
 - `curvature_spectrum_crossdomain` — **the discrete-curvature / spectrum branch ↔ merged
   main** (rich-flow-open-frontier marathon).  Three bridges where this branch's curvature
@@ -258,9 +285,10 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (`psign σ_a = (a/p)`, all primes) + `InversionsAppend` combinatorics touch main's arcs:
   (1) `σ_a` is the finite-state side of the `×unit`/`×p` finite-state-vs-escape split —
   `(a/p)` is the Z/2 invariant the finite pointing carries and the νF escape lacks;
-  (2) Zolotarev `psign σ_a = det(permMatrix) = (a/p)` and main's companion-determinant sign
-  `altSign(k−1) = psign(shift cycle)` are two closed instances of one "three readouts" schema
-  (shared engine `det_permMatrix`); buildable `psign(cyclicShift n) = altSign(n−1)`;
+  (2) **CLOSED** (`CasoratianPermSign`, 4 PURE): Zolotarev `psign σ_a = det(permMatrix) = (a/p)`
+  and main's companion-determinant sign `altSign(k−1) = psign(shift cycle)` are two instances of
+  one "three readouts" schema (shared engine `det_permMatrix`) — `det_permMatrix_cycShift` +
+  `companion_det_eq_permMatrix_det` route the cyclic-shift companion sign through `det_permMatrix`;
   (3) `crossInv` antisymmetry (off-diagonal pairs cancel mod 2) ↔ det's repeated-row vanishing;
   (4) ★ `psign σ_{−1} = (−1/p) = +1 ⟺ p≡1 mod4 ⟺ i∈ℤ/p` ties the order-2 negation-permutation
   sign to main's order-4 spiral-axis point `ℤ[i]^×=C₄`.
@@ -535,12 +563,18 @@ real ∅-axiom conquests.
 - `weld_crossdomain` — four bridges from the 2026-06-11 merge: CF
   partial-quotient growth as the ladder-rung invariant; inverse-avoidance
   by state-threading (the constructive response to the slot wall); the
-  exclusion-depth ≟ separation-schedule unification brick; the pair-layer
-  cross expression's three regimes (`=0` class / `=1` certificate / `≥1`
-  separation).
+  exclusion-depth ≟ separation-schedule unification brick (**CLOSED** —
+  `BracketModulus.bracket_is_sep_schedule`, the bracket engine *is* a
+  separation schedule with `I k = B k + 2`); the pair-layer cross expression's
+  three regimes (`=0` class / `=1` certificate / `≥1` separation).
 - `transcendentals/weld_casoratian_development` — the proven `i`-invariant
-  unimodular identity (`weld_casoratian`): flip criterion + ratio descent as
-  theorems; a possible second, bridge-free certificate of `LowerBase`.
+  unimodular identity (`weld_casoratian`): items 1–2 **CLOSED** + item 3's
+  *structural* half (`LambertOrder` §10 — `weld_casoratian_int`,
+  `weld_flip_criterion`, `weldK_nonneg`, `weld_descent_step`,
+  `weld_ratio_descent` [any anchor], `weld_positivity_persists`, `weldM_nonneg`
+  [elementary `M ≥ 0`]).  Item 3 **still open**: the cross starts negative
+  (`R_0 ≤ 0`), so a bridge-free `LowerBase` needs the *quantitative* "ratio
+  reaches `≥ 0` by `J = 2i+1`" — the `LambertBridge` content itself.
 - `transcendentals/transcendental_functions_ladder` — convergent `exp/sin/cos/sqrt`
   as `Real213` functions with derivative rules (current: `exp` partial sum +
   stubs).  Rungs T1 exp-modulus → T2 sin/cos series → T3 derivative rules →

@@ -51,10 +51,18 @@ via POSITIVITY") — convexity bounds as the same instruction.
    repo carries (full two-sequence Cauchy–Schwarz, AM-GM, Jensen,
    power-mean family) an A7 fold with an explicit per-rung SOS — i.e. does
    "inequality" = "POSITIVITY ∘ LOOP" hold as a compilation theorem, the
-   way A5 COUNT composes with union-bound/double-counting?  Buildable
-   first brick: state the pair-sum Lagrange identity
-   `n·Σa² − (Σa)² = Σ_{i<j}(a_i−a_j)²` ∅-axiom next to
-   `cauchy_schwarz_gridZ` and prove the two certificates equal.
+   way A5 COUNT composes with union-bound/double-counting?  **First brick
+   CLOSED** (`BakryEmeryBipartite` §5.5, ∅-axiom): the pair-sum Lagrange
+   identity `n·Σa² − (Σa)² = Σ_{i<j}(a_i−a_j)²`
+   (`lagrange_pair_identity`, with `lagrangePairSumZ` the triangular
+   double-sum) stated next to `cauchy_schwarz_gridZ`, and the two
+   certificates proved equal — rung `m` of the closed sum is literally the
+   per-rung SOS the fold folds in (same `kab_inner`), and Cauchy–Schwarz
+   re-derives from the depth-0 form (`cauchy_schwarz_via_lagrange`).  The
+   2-D collapse to the single square `(a₀−a₁)²` (`lagrange_pair_two`) ties
+   it to `Foundations.Positivity.cauchy_schwarz_2d` (A7's conquest).  *Still
+   open*: the **general** "inequality = POSITIVITY ∘ LOOP" compilation
+   theorem over the rest of the family (AM-GM, Jensen, power-mean).
 2. **Bearing on G205's open question** (POSITIVITY = GAP sub-mode or own
    primitive): the fold-depth axis is evidence for the sub-mode reading —
    POSITIVITY composes with LOOP exactly as COUNT does, suggesting one

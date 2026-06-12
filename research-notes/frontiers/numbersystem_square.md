@@ -236,8 +236,8 @@ the staircase climbs one rung*.
 the start ✓; (2) + and × pattern together because their value-objects
 (segment, **grid**) carry the swap symmetry that count-forgetting
 turns into commutativity (segment: proved, `UnitList.append_comm`;
-grid: the transposition double-count — formalizable brick, ×-comm
-from append/count), and commutativity keeps the rung's action a
+grid: **proved**, `UnitGrid.mul_comm_from_grid` — ×-commutativity from
+the transpose double-count, no `Nat.mul_comm`), and commutativity keeps the rung's action a
 translation of its own operation, whose iterates stay translations
 (the fold engine `x+ab`, `x·a^b`); ^'s value-object (**tree/strings**)
 has no transposition, commutativity dies, the action splits
@@ -246,7 +246,8 @@ has no transposition, commutativity dies, the action splits
 this session): split honestly into the **proven floor** — linear
 fold-back absence = multiplicative relations among naturals =
 exponent vectors / FTA (`2^a·3^b = 2^c·3^d → a=c ∧ b=d`,
-ℕ-native, next formalizable brick, `vp` ground) — and the **open
+**proved PURE: `TwoThreeUnique.two_three_unique`** — elementary route,
+cancel the shared `2^a` then `three_pow_not_even`) — and the **open
 ceiling** — nonlinear fold-back absence is Schanuel-conjecture
 territory, classically unresolved, must carry a conjecture tag.
 "Infinitely many fold-back candidates, all to be excluded" is exactly
@@ -444,6 +445,243 @@ collapse, torsion parts rigid" survives with the frame index added.
 Polar form `r·e^{iθ}` = the sign × magnitude normal form lifted
 through the ^-completion.
 
+## The fold-back criterion as exponent-lattice collinearity (internal, log-free)
+
+*This-session exploration (originator's probe: "change the lattice
+unit / curvature / cell").  Restates the `^`-wall with **no imported
+logarithm** — only `vp` (a pure ℕ count, `Valuation.lean`) and the
+prime-exponent vector `exp(n) := (vp 2 n, vp 3 n, vp 5 n, …)`.*
+
+**The inverse ladder, read on the exponent lattice.**  Each rung's
+inverse is one notch heavier on the lattice `ℤ^{(primes)}`:
+
+| rung | inverse = on the lattice | total? | completion |
+|---|---|---|---|
+| `+` | difference of two **counts** (scalar subtraction, rank-1 line) | always | ℤ |
+| `×` | difference of two **`exp`-vectors** (vector subtraction; `vp_mul` makes `×` = vector `+`) | always | ℚ |
+| `^` | the **scalar `λ` with `λ·exp(a) = exp(b)`** (vector division / collinearity) | **iff `exp(a) ∥ exp(b)`** | the wall |
+
+The backbone is **proved**: `vp_pow` (`exp(aˣ) = x·exp(a)`) turns
+`aˣ = b` into the lattice equation `x·exp(a) = exp(b)`; so
+
+> **`aˣ = b` folds to a finite tuple ⟺ `exp(a)` and `exp(b)` are
+> ℚ-collinear** (∃ rational `λ`, `λ·exp(a) = exp(b)`); the fold value is
+> `λ`.
+
+`2ˣ = 8`: `exp 8 = 3·exp 2` → `λ = 3` (folds, ℕ).  `4ˣ = 8`: `λ = 3/2`
+(folds, ℚ).  `2ˣ = 3`: `exp 3 = (0,1,…) ∦ (1,0,…) = exp 2` → no `λ`
+(the cut).  The proven non-collinearity instance is
+`TwoThreeUnique.two_three_unique`; subtraction (`+`/`×` inverses) is
+always solvable, collinearity (`^` inverse) generically not — that
+asymmetry **is** the wall, with no logarithm named.
+
+**Curvature = wrapping (the originator's "non-Euclidean lattice").**
+The wall is exactly the lattice being **flat + free + ∞-rank** —
+i.e. the primes are *independent* generators (unique factorization).
+Three deformations, each a frame change, none a free breach:
+
+- **refine the unit** (`ℤ → ℚ` exponents): fills the axis points =
+  radicals/`√2 = 2^{(1/2)}` = the **divisible hull** (Brick 5, the
+  `^`-root completion).  The wall is unchanged — collinearity is
+  scale-invariant, so `2ˣ = 3` still fails.
+- **curve it** (`mod p`): the multiplicative group goes **cyclic
+  (rank 1)**, so *every* `exp`-vector becomes collinear → the discrete
+  log `2ˣ ≡ 3 (mod p)` **folds**.  Cost: this is the **wrapping
+  regime** (`PairOp §3`, periodic classes ℤ/n) — points become classes
+  and the order/archimedean frame is lost.  Repo structure:
+  `CoprimeOrder`, `Teichmuller` (the cyclic/primitive-root machinery).
+- **re-cell** (composite generators, the "3-D cell"): coarser
+  *sublattice* (folds less) or relation-bearing = curved (= wrapping).
+  No free basis is finer than the primes — **primes are the atoms**
+  (UFD = the lattice's freeness).
+
+**Frame reading.**  `log_2 3` is one object read on two lattices: a
+**cut** at the *order frame* (flat, free → wall, but order survives),
+a **folded class** at the *∣-frame* (`mod p`, cyclic → no wall, but
+order lost).  This is the same **frame-visibility dichotomy** as
+`x² = −1` (order-frame anisotropy vs `∣`-frame solvability,
+`int_sumSq_eq_zero` vs `qr_neg_one`) — one rung up.  No-exterior: the
+wall is not removed by any deformation, only relocated to a frame that
+pays in wrapping or in resolution.
+
+## Atom (in)distinguishability — the one handle (and `exp` dissolved)
+
+*This-session catch (originator: "why `exp`? what is it in this
+frame?").  `exp` was used as a primitive coordinate; it is not.*
+
+**`exp` is the ×-count-Lens** — the ×-analog of `count`/`leaves` (ℕ,
+§6.7).  It is a *vector* (not a scalar like ℕ) for exactly one reason:
+**×-atoms (primes) are distinguishable**, where **+-atoms (units) are
+not**.  So `(ℕ_{≥1}, ×)` is not one append-system but a **family of
+independent append-systems, one per distinguishable ×-atom**:
+`n ↔ (vp 2 n, vp 3 n, …)`, `×` = componentwise `+` (`vp_mul`).  Within
+one prime axis the copies are indistinguishable (it commutes/folds);
+across axes the primes are distinguishable (independent → the
+∞-rank).  `vp_mul` = the axes don't interact; **`vp_separation` (★ CLOSED,
+`Meta/Nat/VpSeparation.lean`)** = the family is faithful (UFD) — **the
+theorem that licenses `exp` as a coordinate**.  Before it closed, `exp`
+over "all primes" smuggled a
+pre-given chart (§6.1, §2.5) + the axis independence it was meant to
+explain (circular).
+
+**The one handle.**  Commutativity and the wall are one primitive read
+at two rungs:
+
+> **`+`-commutativity is born from the *indistinguishability* of
+> +-atoms** (units swap invisibly, `UnitList.append_comm`); **the
+> `^`-wall is born from the *distinguishability* of ×-atoms** (2-axis
+> ≠ 3-axis, no scalar carries one to the other,
+> `TwoThreeUnique.two_three_unique`).
+
+`2^x = 3` fails not because "a log isn't discrete" nor because "the
+lattice is free", but because **the ×-atom 2 and the ×-atom 3 are
+different things** — the exact dual of "two units are the same" that
+makes `+` commute.  And `exp` (= the multiplicity coordinate, built
+from `p^k` = forward `^`) shows **`^` is already latent inside `×`**:
+the ×→^ rung does not bolt on a new operation, it turns the
+always-defined forward exponent *coordinate* into an inverse
+*question*; the wall is a total coordinate asked as a partial question.
+
+**Brick 8, reframed (atom-independence form):** state the
+fold/collinearity criterion over **distinguishable ×-atoms** directly —
+"no ×-atom is a scalar-power combination of the others" — not over a
+pre-given prime basis.  This is the ×-dual of unit-indistinguishability
+and unifies `UnitList`/`UnitGrid` (commutativity) with the wall under
+one statement; the licensing step `vp_separation` (UFD) is now ★ CLOSED
+(`Meta/Nat/VpSeparation.lean`), so this fusion is PROVABLE-NOW, no longer
+gated.
+
+## The tree ↔ wall loop: associativity is the bracketing the floor forgot
+
+*This-session marathon (originator: "the diagonal climb is
+multiplicative — is that why `×` is the boundary? what else is buildable
+from append?").  Two PURE bricks, `Meta/Nat/{BinTree213, HyperAssoc}`.*
+
+**Below append sits the tree.**  The append-floor (`UnitList`) is not
+the bottom: below it is the **free binary magma** `BinTree213.BinTree`,
+where gluing remembers its bracketing (`node_not_assoc`, by
+`noConfusion` — non-associative).  `append` is exactly this tree
+**quotiented by associativity**: `flatten` collapses the two distinct
+bracketings to one list (`flatten_assoc_collapse` = the PURE
+`List213.append_assoc`), and `count` forgets even that.  So the floor's
+gifts are two *forgettings* — `append` forgets **bracketing**
+(associativity, free for any element) and, on units, forgets **order**
+(commutativity, `append_comm`).  The two forgetting-generators have a
+second branch already in the repo: mod commutativity (keep bracketing,
+forget order) is `Raw.slash` (`ParenthesizationDistinct`).
+
+**The wall is both gifts dying at once.**  The tower keeps associativity
+*and* commutativity through `×` (`HyperAssoc.{add,mul}_is_{assoc,comm}` —
+`mul_is_comm` = the grid transpose `mul_comm_from_grid`).  `^` is the
+**first rung that loses both**: non-commutative (`pow_not_comm`,
+`2^3 ≠ 3^2` = ×-atom distinguishability) and non-associative
+(`pow_not_assoc`, `(2^2)^3 = 64 ≠ 256 = 2^(2^3)` = the bracketing/tree
+the floor discarded, returning).  So **`×` is the last assoc+comm rung**,
+and the loop closes: the structure the floor forgot at the bottom is the
+obstruction at the top.
+
+**The surviving ghost.**  The only associativity-shaped law `^` keeps is
+`(aᵇ)ᶜ = a^(b·c)` (`pow_surviving` = `pow_mul_pure`) — it does **not**
+close `^` over itself (`≠ a^(bᶜ)`); it linearizes `^` down to `×` on the
+exponent.  That is *why the tower flattens one rung down*: when
+associativity survives at all it survives only as a law dropping `^` to
+`×`, never `^` to `^` — the same "fold-back is one rung down" seen in the
+collinearity criterion.
+
+**The operation space is not a line.**  "`append → ???`" ranges over the
+lattice of **what you forget** (bracketing? order? multiplicity?) crossed
+with the **climb operator** (iterate / color / convolve / idempotent).
+The `+×^` diagonal is *one corner* — forget-to-count × iterate.
+
+**The iterate-climb is multiplicative — ★ PROVED** (`Meta/Nat/Iterate213.lean`).
+The climb is the single combinator `iter f n` at successive flavours of
+`f`: `a+b = iter succ b a`, `a·b = iter (·+a) b 0`, `a^b = iter (·*a) b 1`
+(`add/mul/pow_eq_iter`).  The iteration-**count** slot carries two laws —
+it **adds** under composition (`iter_add`, the counter-append shadow) and
+**multiplies** under nesting (`iter_mul`: `iter f (m·n) = iter (iter f n) m`).
+So the climb is intrinsically multiplicative: the 2nd argument is an
+application count, and nesting counts is `×`.  The surviving ghost
+`(aᵇ)ᶜ = a^(b·c)` is then *literally `iter_mul` one rung up*
+(`pow_pow_eq_pow_mul`, derived from `iter_mul`+`pow_eq_iter`, not from
+`pow_mul`) — which is why it lands on `×` (the count `b·c`), never on `^`,
+and the tower folds one rung down.  The contrast confirms necessity: an
+**idempotent** operator builds no tower — `f(f x)=f x ⟹ iter f (n+1) x =
+f x` (`iter_idem`), so the `∪`/`max` climb is trivial (`max_iter_trivial`,
+`a∪a=a`).  The diagonal is multiplicative only where the rung-operator is
+not idempotent.
+
+**Substrate dimension = `exp`'s axis at coarser resolution — ★ PROVED, with
+a self-catch** (`Meta/Nat/{GridReadout213, Shape213}.lean`).  First take
+(`GridReadout213`): "raise the substrate to 2-D and the readout splits into
+`area = a·b` vs `perimeter = 2(a+b)`" — claimed a *second, independent*
+source of vector readout besides atom-coloring.  **Caught (originator):
+`perimeter` is an imported Euclidean readout** — an abstract unit-grid has
+no boundary; `2(a+b)` needs the embedding in the plane.  The import created
+the illusion of independence.  Corrected (`Shape213`): the internal readout
+is the **shape** = an ordered factorization (`[1,6] ≠ [2,3]` already splits,
+no perimeter — `shape_splits`); `area = shapeProduct` is its
+**product-collapse**; **dimension = #factors** (`dimension`); refining a
+factor splits one dimension while fixing the area
+(`refine_preserves_product` + `refine_increases_dimension`).  So a `d`-grid
+is a `d`-factor factorization and the prime factorization (`exp`, `VpMul`)
+is the **maximal-dimension** one (`refine_chain`: `[6]→[2,3]`, area fixed,
+dim +1).  **Substrate dimension and atom-coloring are ONE structure — the
+×-atom / factorization — at different resolutions, not two independent
+sources.**  (The topological readouts Euler/Betti, `Lib/Math/Geometry/`,
+are the genuinely-invariant version of "raise the dimension".)
+
+**Strict location is the list's linearity — ★ PROVED**
+(`Meta/Nat/{StrictLocate213, ListLocate213}.lean`).  The sandwich that
+*founds* identity must be **strict** (`<`), never `≤`: `a ≤ b ↔ a < b ∨ a = b`,
+so a `≤`-sandwich presupposes the `=` it would derive (circular — the
+sandwich is then pointless).  With no `=`, a list element is located only
+as "right after `a`, right before its next-next", unique in the strict
+2-gap: `a < e < a+2 ⟹ e = a+1` (`locate_strict`), pushed onto the list as
+the proper-extension order (`locate_list`: the unique list between `la` and
+`la ++ [x,y]` is `la ++ [x]`; strict hypotheses, `=` only the output).
+Location is unique **because a list is linear — one tail per cons**
+(`cons_tail_unique`); on a **tree** (`BinTree.node`, two children) the
+successor branches and location fails — the *same* linear/branching divide
+as commutativity/the wall.  And **discrete vs continuum is ONE sandwich**
+(the "polarity-flip" was a non-issue): the gap *closes* at the next-next
+(discrete, located in one step) versus an infinite nesting that only
+*limits* (continuum, `Real213` cuts, reached-by-none) — same strict form,
+finite vs infinite nesting, not two probes.
+
+**Reverse the arrows: the co-operation is splitting — ★ PROVED, and it IS
+the inverse questions** (`Meta/Nat/CoAppend213.lean`).  The dual of gluing
+`(a,b)↦c` is splitting `c↦(a,b)` — the comultiplication `splits` (all cuts
+of a list).  Key (`mem_splits_iff`): **a split *is* an append-witness** —
+`(l1,l2) ∈ splits l ↔ l1 ++ l2 = l`, i.e. the `+`-inverse question.  So the
+inverse questions that grow ℤ/ℚ (`a+x=b`, `a·x=b`) are **co-operations, not
+inverse operations** — which is *why* the slot programme's witness-form
+discipline ("`a=c+e`, never `a−c`") never imports an inverse operation: it
+works the co-operation directly.  Number growth = forcing the co-operation
+total (group completion = splitting-closure).  Co-readouts dualize: the
+co-operation's size is `length+1` (`length_splits`, dual to `count`); the
+split is functional in either part (`split_functional`).
+
+**Convolution = split-then-reglue — ★ PROVED (core)** (`Meta/Nat/Convolution213.lean`).
+The composite of the co-operation and gluing: `conv f g n = Σ_{i+j=n}
+f i·g j` (`natSplits` = the cuts, `sumMap` = the reglue) — the
+Cauchy/generating-function product, an operation **off the `+×^`
+diagonal** (it combines two *sequences*, not two numbers).  Concrete
+witness `(1+x)² = 1+2x+x²` by `rfl` (`conv_sq_0..3`), `natSplits_sound`
+(a cut is a `+`-witness), `length_natSplits` (`n+1`, the co-size).  **`conv`
+is commutative** (`conv_comm`) — the cut `(0,n)` of one order is `(n,0)` of
+the other (the reverse-a-cut symmetry of `natSplits`): peel the left end of
+`conv f g` and the right end of `conv g f`, no full permutation lemma — the
+same "commutativity from a swap symmetry" as `+`/append and `×`/grid, one
+rung up on **sequences** (`conv_peelL`/`conv_peelR`).
+
+**Knobs still not turned** (the open frontier): `conv` **associativity**
+(the triple split — `conv (conv f g) h = conv f (conv g h)`); drop
+finiteness (→ the cut/continuum, the infinite-nesting sandwich); the
+topological (not just metric) substrate split (Betti as the readout
+vector).  Open-endedness here is the **no-exterior** signature: every
+"floor" is a chart with more structure below it — "is there more?" stays
+*yes*.
+
 ## Question tuple vs answer axes (the representation principle, audited)
 
 **The representation principle (grammar-relative form).**  Fix the
@@ -576,11 +814,15 @@ sandwich-locatable) sits strictly between — the boundary is a
   (i,j < n) → q = 1` — "ℤ is the integral closure of ℕ in ℚ", making
   monic↔ring a theorem (n = 2 first; iterated
   `coprime_dvd_of_dvd_mul`).
-- **T3 (exponent-lattice embedding).**  For prime p:
-  `vp p (m·n) = vp p m + vp p n` and separation
-  `(∀ p prime, vp p m = vp p n) → m = n` — turns "ℚ₊ = the exponent
-  lattice" into mathematics, on top of `coprime_dvd_of_dvd_mul` +
-  `le_vp_iff`.
+- **T3 (exponent-lattice embedding) — ★ multiplicativity CLOSED.**
+  `vp p (m·n) = vp p m + vp p n` proved PURE (`VpMul.vp_mul`, prime `p`)
+  via a 213-native minimal-divisor predicate `IsPrime213` + a derived
+  Bezout-free `euclid_lemma` + the peeling lemma `pow_dvd_mul_split`;
+  corollaries `vp_pow` (`vp p (aᵏ) = k·vp p a`) and `vp_self_pow`
+  (`vp p (pᵏ) = k`).  Built on `coprime_dvd_of_dvd_mul` + `le_vp_iff`.
+  **Still open**: separation `(∀ p prime, vp p m = vp p n) → m = n`
+  (unique factorization) — left for a future module, the bridge from
+  `vp_mul` to the full lattice isomorphism.
 - **T4 (frame-visibility dichotomy).**  For odd prime p:
   `(∃ x, p ∣ x² + 1) ↔ p % 4 = 1` — one direction is `qr_neg_one`
   (PURE, closed); the converse (p ≡ 3 → invisible) via the repo's
@@ -598,4 +840,14 @@ sandwich-locatable) sits strictly between — the boundary is a
   Stern-Brocot path prefix with `adj` certificate — the bridge
   theorem "CF quotients of `f/e` = iterated ÷-sandwich locations =
   run-lengths of the Stern-Brocot path".
+- **Brick 8 (fold ⟺ collinear)**: formalize the exponent-lattice
+  fold criterion — `aˣ = b` has a finite-tuple (rational) answer ⟺
+  `exp(a) ∥ exp(b)` over ℚ.  Backbone proved (`vp_pow`, `vp_mul`,
+  `two_three_unique` = the rank-2 non-collinear instance); the open
+  step is the iff itself plus the **curvature theorem** — `mod p` makes
+  the multiplicative group cyclic, so all `exp`-vectors collinear and
+  the discrete log folds (ground: `CoprimeOrder`, `Teichmuller`).  The
+  `^`-root/ℚ-unit refinement (radical = divisible hull) is Brick 5; the
+  wall is the flat-free-∞-rank case.  See "The fold-back criterion as
+  exponent-lattice collinearity" above.
 - The Lens-frame essay after the Lean closes, not before.
