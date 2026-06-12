@@ -37,7 +37,17 @@ readouts; `ℤ` is the difference-Lens readout, itself non-faithful.)
 **What this answers** (frontier `general_theory_metaanalysis.md` D′).  The
 vector-linear system *exists* and is exactly the faithful, finite-support slot
 that makes the **prime-exponent (multiplicative) slot the unique faithful-finite
-readout** (C5).  In it the tower is linear: `×` = `+`, `^` = scalar `·`.  The
+readout** (C5).  In it the tower is linear: `×` = `+`, `^` = scalar `·`.
+
+**Why `+` and `×` sit on the *same* floor** (the commutativity/flat window
+`{1,2}`, §4 / the C2 survey): in this lattice `×` *is* addition — `toVec_mul`
+makes `×` the **vector `+`** on the prime axes, so `+` (unit atoms) and `×`
+(prime atoms) are the *same operation-type* (translation) at two resolutions,
+hence one flat/commutative floor.  `^` is the **first non-addition**
+(`toVec_pow`: scalar `·` = scaling), which is exactly where the floor — and the
+commutativity — changes.  So the tower's "staircase" is by *operation type*:
+translation `{+,×}` → scaling `{^}` → iterated scaling `{↑↑}` (the last is still
+scalar `·`, but the scalar becomes a tower-germ — `toVec_tetration`).  The
 `^`-**wall dissolves into
 linear algebra**: `logₐ b` is "find the scalar `k` with `vecSmul k (toVec a) =
 toVec b`", solvable iff the two vectors are **collinear** (`FoldCriterion.
