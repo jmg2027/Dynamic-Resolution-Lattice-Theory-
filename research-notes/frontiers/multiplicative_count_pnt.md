@@ -93,9 +93,14 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     + `ring_nat` — the hard gate, DONE).  **Next ingredient**: `vp_p(C(2n,n)) ≥ 1`
     for `n < p ≤ 2n` — from `central_binom_factorial` + `vp_mul`: `vp_p((2n)!) =
     vp_p(C(2n,n)) + 2·vp_p(n!) = vp_p(C(2n,n))` (since `vp_p(n!)=0`), and
-    `vp_p((2n)!) ≥ 1` (`p ∣ (2n)!`, `p ≤ 2n`).  Then `p ∣ C(2n,n)`, so
-    `∏_{n<p≤2n} p ∣ C(2n,n) ≤ 4^n` ⇒ Chebyshev `π(N)=O(N/ln N)` ⇒ density `→ 0`.
-    Erdős elementary-Chebyshev (the prime-product bound is the remaining chunk).
+    `vp_p((2n)!) ≥ 1`.  **DONE**: `prime_dvd_central_binom : n<p≤2n ⇒ p ∣ C(2n,n)`.
+    **Remaining chunk**: assemble the *product* `∏_{n<p≤2n} p ∣ C(2n,n)` (pairwise
+    coprime primes each dividing ⇒ product divides — needs a "list of distinct
+    primes, each ∣ m ⇒ listProd ∣ m" lemma via coprimality / `vp`), then
+    `∏_{n<p≤2n} p ≤ C(2n,n) ≤ 4^n`; bound `#{primes in (n,2n]}` by taking `log`
+    (each prime `> n`, so `n^(count) < ∏ p ≤ 4^n` ⇒ `count·ln n < 2n ln 2`
+    ⇒ `count = O(n/ln n)`); sum the dyadic windows ⇒ `π(N)=O(N/ln N)` ⇒ density
+    `→ 0` ⇒ inhabit `PrimeDensityToZero`.  Erdős elementary-Chebyshev.
     PNT proper (`·ln N` at the `1`-cut) needs `ln` (`Real213.ExpLog`) + the ratio
     sequence — same certificate shape.
 

@@ -48,10 +48,12 @@ core** (Chebyshev/PNT).  **Density ≤ 1/2 DONE**: `primePi_two_mul_le : π(2n) 
 (only 2 is even-prime, `not_prime_two_mul` + `pair_bound`).  Chebyshev ingredients
 DONE: `central_binom_le : C(2n,n) ≤ 4^n` (MultSystem), `prime_not_dvd_fact :
 p ∤ n!` for p>n, and **`central_binom_factorial : C(2n,n)·(n!)² = (2n)!`** (the
-hard gate, nested induction + `ring_nat`).  Next: `vp_p(C(2n,n)) ≥ 1` for n<p≤2n
-(from central_binom_factorial + vp_mul: vp_p((2n)!) = vp_p(C(2n,n)) + 2·vp_p(n!),
-vp_p(n!)=0, vp_p((2n)!)≥1) ⇒ `∏_{n<p≤2n} p ∣ C(2n,n) ≤ 4^n` ⇒ `π(N)=O(N/ln N)` ⇒
-density→0 (inhabits `PrimeDensityToZero`).  (propext-tainted: also `Nat.add_mul`.)
+hard gate, nested induction + `ring_nat`).  **`prime_dvd_central_binom : n<p≤2n ⇒ p ∣ C(2n,n)`** DONE
+(vp of central_binom_factorial + vp_p(n!)=0).  Next: assemble the product
+`∏_{n<p≤2n} p ∣ C(2n,n) ≤ 4^n` (distinct-primes-each-divide ⇒ product divides),
+bound `#{primes in (n,2n]}` via `n^count < ∏ p ≤ 4^n`, sum dyadic windows ⇒
+`π(N)=O(N/ln N)` ⇒ density→0 (inhabits `PrimeDensityToZero`).  (propext-tainted:
+also `Nat.add_mul`.)
 
 ## Why ln (pinned)
 `exp` = `Nat.pow` = iterated `×` = binary-op tower depth (no transcendental).
