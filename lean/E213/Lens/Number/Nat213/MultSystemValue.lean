@@ -30,9 +30,11 @@ in `π(N)`, is case B, deliberately not here.)
 namespace E213.Lens.Number.Nat213.MultSystemValue
 
 open E213.Meta.Nat.VpMul (IsPrime213 vp_mul vp_pow vp_self_pow)
-open E213.Meta.Nat.Valuation (vp)
+open E213.Meta.Nat.Valuation (vp pow_vp_dvd)
 open E213.Meta.Nat.VpSeparation (vp_eq_zero_of_not_dvd)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
+open E213.Tactic.Pow213 (le_of_dvd_pos)
+open E213.Lens.Number.Nat213.MultSystem (totalCount binom totalCount_closed)
 
 /-- `p ≥ 2` divides no unit (pure; avoids `Nat.le_of_dvd`'s `propext`). -/
 theorem not_dvd_one {p : Nat} (hp : 2 ≤ p) : ¬ p ∣ 1 := by
@@ -115,5 +117,33 @@ theorem expVal_inj (pr : Nat → Nat) (hpr : ∀ i, IsPrime213 (pr i))
       rw [expVal_inj (fun i => pr (i + 1)) (fun i => hpr (i + 1))
             (fun i j e => Nat.succ.inj (hinj (i + 1) (j + 1) e))
             as bs (Nat.succ.inj h) hcancel]
+
+/-! ## Case A — closed -/
+
+/-- **Case A (closed).**  For a pairwise-distinct prime basis: the abstract
+    degree-`≤N` monomial count `C(N+k,k)` (`totalCount_closed`) together with
+    value-map injectivity (`expVal_inj`) say the `C(N+k,k)` degree-`≤N` monomials
+    over `k` primes are `C(N+k,k)` **distinct natural numbers** (the free
+    combinatorial count is a count of genuine numbers). -/
+theorem caseA_distinct_naturals (pr : Nat → Nat) (hpr : ∀ i, IsPrime213 (pr i))
+    (hinj : ∀ i j, pr i = pr j → i = j) (k N : Nat) :
+    totalCount k N = binom (N + k) k
+    ∧ (∀ e1 e2 : List Nat, e1.length = e2.length →
+        expVal pr e1 = expVal pr e2 → e1 = e2) :=
+  ⟨totalCount_closed k N, expVal_inj pr hpr hinj⟩
+
+/-! ## The exp/log bridge — value is the exponential of the depth
+
+Where `ln` comes from on the prime-number-theorem path, as a *finite ∅-axiom*
+fact (no transcendental: `exp` here is `Nat.pow` = iterated `×`). -/
+
+/-- **exp/log bridge.**  `p^(vp p n) ≤ n` for `n > 0`: the factor-depth `vp p n`
+    (the `p`-axis exponent) sits *under the logarithm* of the value,
+    `vp p n ≤ log_p n`.  The value `n` is the *exponential* of the depth, so the
+    depth is *logarithmic* in the value — the structural reason `ln` appears in
+    `π(N)`.  (Per-axis; the total `Ω(n) ≤ log₂ n` sums these but needs
+    factorization reconstruction `Π p^{vp} = n`, a separate piece.) -/
+theorem vp_pow_le_self (p n : Nat) (hn : 0 < n) : p ^ (vp p n) ≤ n :=
+  le_of_dvd_pos _ n hn (pow_vp_dvd p n)
 
 end E213.Lens.Number.Nat213.MultSystemValue
