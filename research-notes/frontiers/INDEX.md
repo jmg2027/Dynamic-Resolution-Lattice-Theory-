@@ -461,6 +461,17 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `[∅]`/`[ax]`/`[std]`/`[spec]`; Lean anchor index + open problems included.
   Discovery path: `general_theory_metaanalysis.md` findings D/E/F/G/G′.
 
+- `proof_pattern_census` — **empirical code-level proof-pattern analysis** (the
+  Lean corpus itself, not the prose): the distribution + structure of how the
+  14,058 theorems are proved.  Findings: proof style is the *shadow of the
+  ∅-axiom constraint* (`simp`=158/`ring`=0/`omega`=116 suppressed → 12,961 `rw`
+  over hand-listed semiring axioms + a hand-built tactic stack `ring_nat`/`ring_intZ`/
+  `omega213`); ~32% literal one-line `decide`/`rfl`; proof style is a **lawful
+  function of layer** (Meta = rw-engine-room, Physics = 55% `decide`, Theory/Lens =
+  induction-on-Raw); forward-explicit skeleton (`have→have→rw→exact`, no black-box
+  closure).  Capstone insight: the corpus is the **proof-level Trajectory Principle**
+  — Mathlib-free keeps the *proof's* trajectory explicit, as ∅-axiom keeps the
+  *object's*.  Multi-phase empirical census + regeneration recipe + open threads.
 - `reflexivity_gap` — **C11: the reflexivity gap** (extends the meta-analysis
   program).  The boundary discipline is applied to mathematical *objects* but not
   reflexively to the framework's own *evidence*; turned on the evidence, three
