@@ -1,73 +1,119 @@
-# Session Handoff — 2026-06-12 (ℕ⁺-based holonomy: the dynamic read as a loop)
+# Session Handoff — 2026-06-12 (ℕ⁺ holonomy + the operation-tower simplex gut)
 
 ## Branch
-`claude/n-plus-holonomy-y89v3s` — new ∅-axiom module + theory note, build clean,
-25 PURE / 0 DIRTY.
-
-## Task
-"N+기반 홀로노미를 유도" — derive ℕ⁺-based holonomy.  Idea: read the "dynamic" as a
-lattice; bridge = the objects where *state* and *state-transition* have the same
-representation (modulus / Möbius matrix).
+`claude/n-plus-holonomy-y89v3s` — pushed, ahead of `origin/main` by 6 commits,
+**ready to merge** (`/ready-to-merge` passed: 0 layer violations, build clean,
+0 forbidden constructs, 0 sink-rule leaks, INDEX accurate).
 
 ## What Was Done This Session
 
-### ★★★ New module: `Real213/HolonomyLattice.lean` (25 PURE / 0 DIRTY)
-**Holonomy = the net transition around a closed loop of state-transitions**,
-realizing §6.6 (state-transition = state) and §5.7 (frozen/dynamic) as a
-*computational* object.  `holonomy : List Mat2 → Mat2` is the ordered fold-product
-of a path — well-posed precisely because the modular/Möbius matrix is the
-representation in which the operator (transition) is an object (state) of the same
-kind, so a loop of transitions composes to a single state.
+### 1. ℕ⁺-based holonomy — new ∅-axiom module (`Real213/HolonomyLattice.lean`, 25 PURE / 0 DIRTY)
+Holonomy = the net transition around a closed loop of state-transitions,
+realizing §6.6 (state-transition = state) computationally: `holonomy : List Mat2
+→ Mat2`, the ordered fold-product, well-posed because the modular/Möbius matrix is
+the representation where operator (transition) is an object (state) of the same
+kind.
+- ★ `holonomy_append` — **functoriality** (monoid hom from the free path monoid
+  `(List Mat2, ++)` to `(Mat2, ·)`); a loop of transitions composes to one state.
+- ★ `det_holonomy_eq_one` — **flatness**: every step `det=1` ⟹ holonomy `det=1`
+  around the whole loop. `det = 1 = NS − NT` (founding unit) is the conserved
+  invariant (`det_mul` = Cauchy–Binet).
+- ★ `positive_loop_trivial` — **the ℕ⁺ sector is loop-free**: no non-empty word in
+  the Stern–Brocot generators `L=[[1,0],[1,1]]`, `R=[[1,1],[0,1]]` returns to `I`
+  (strictly-growing entry-sum on the positive interior); `⟨L,R⟩` is a tree.
+- ★ `first_loop_is_the_fold` — holonomy **born from the negation fold**:
+  `holonomy [S,S] = −I ≠ I` (order 4) appears exactly when `S = N·R` (`S.b = −1`,
+  the sign ℕ⁺ excludes) is admitted.
+- **Promoted**: chapter `theory/math/analysis/holonomy_of_the_lattice.md`,
+  STRICT_ZERO_AXIOM row, essay `theory/essays/analysis/what_is_holonomy.md`
+  (97 essays).
 
-Three faces, all ∅-axiom:
-  1. ★ `holonomy_append` — **functoriality**: `holonomy (p++q) = holonomy p ·
-     holonomy q`, a monoid hom from the free path monoid `(List Mat2, ++)` to
-     `(Mat2, ·)`.  (Proof: `Mat2Assoc.mul_assoc` + `one_mul`.)
-  2. ★ `det_holonomy_eq_one` — **flatness**: every step `det = 1` ⟹ holonomy
-     `det = 1` around the whole loop.  `det = 1 = NS − NT` (founding shared unit,
-     `FoundingDynamicBridge`) is the conserved transport invariant — the same
-     thing `Mobius213`'s cross-determinant reads as constant `−1`.  (`det_mul` =
-     Cauchy–Binet `2×2`.)
-  3. ★ `positive_loop_trivial` — **the ℕ⁺ sector is loop-free**: no non-empty word
-     in the Stern–Brocot generators `L = [[1,0],[1,1]]`, `R = [[1,1],[0,1]]`
-     returns to `I`.  Engine: the entry-sum length functional strictly grows on
-     the positive interior `Pos` (`pos_mul_{L,R}`, `entrySum_lt_{L,R}` ⟹
-     `positiveWord_entrySum_gt_two`).  The positive monoid `⟨L,R⟩` is a tree.
-  4. ★ `first_loop_is_the_fold` — holonomy is **born from the fold**: the first
-     non-trivial loop appears exactly when the negation-fold composite `S = N·R`
-     (carrying `S.b = −1`, the sign ℕ⁺ excludes) is admitted: `holonomy [S,S] =
-     −I ≠ I`, `holonomy [S,S,S,S] = I` (order 4, elliptic Gaussian period), while
-     `holonomy [L,R] ≠ I`.  Holonomy = the residue-internal signature of the sign
-     fold ℕ⁺ → ℤ (§6.7).
+### 2. The operation-tower → simplex gut (frontier, originator: Mingu Jeong)
+A long dialogue produced the **generative** layer rule that
+`number_tower_theory.md` (demotion/valuation view) did not contain, recorded in
+`research-notes/frontiers/simplicial_operation_tower.md`:
+- **L1** each layer's axis = the whole previous layer (free **semigroup**), built
+  by a diagonal degree-enumeration; numerals are a forgetful readout.
+- **L2** no identity is natural; the identity (0 for +, 1 for ×) is an
+  *exception/patch* — semigroup, not monoid; natural ×-system = `{2,3,4,…}`.
+- **L3 (empirically checked)** the ×-enumeration count is `C(n+k−1,k)` = Pascal =
+  lattice points of the `k`-dilated `(n−1)`-simplex (`n=3` → 3,6,10); iterating a
+  commutative binary op = symmetric powers = a **simplicial cone** —
+  reconstructing the `(NS,NT,d)` simplex from a new road.
+- **L4** the per-degree count is the **commutativity dial** (simplex/polynomial =
+  commutative; cube/`nᵏ` = non-commutative; conjecture: count jumps to exponential
+  at `^`).
+- **L5** geometric twist (point→line→plane→solid; operand dimension-mismatch =
+  non-commutativity; "1-unit" defect rhyming with the `−1` cross-determinant).
 
-### Theory note
-`theory/math/analysis/holonomy_of_the_lattice.md` (Closed) — mirrors the module,
-anchored to §6.6/§6.7/§5.7 + `the_modular_group_from_two_folds.md` +
-`FoundingDynamicBridge`.  Indexed in `theory/math/INDEX.md`.
+### 3. Marathon (merge → process → promote → crossdomain → essay → audits)
+Main fully contained (merge no-op). `/process`: sink rule 0, recorded the
+holonomy open frontiers (`holonomy_lattice.md`). Promotions logged (row 77
+holonomy, row 78 essay). Cross-domain note
+`holonomy_simplex_crossdomain.md` (det=1 ↔ the ±1 cross-determinant family;
+holonomy's birth = ℤ's birth via the negation fold; the simplex ↔ `(NS,NT,d)`;
+the count-dial ↔ `where_commutativity_is_born`). `/org-audit` clean,
+`/purity-check` 0 forbidden, `/ready-to-merge` READY.
 
-### Catalog
-`STRICT_ZERO_AXIOM.md` — `HolonomyLattice` row added (25 PURE / 0 DIRTY).
+## Current Precision Results
+No physics observables changed this session (all work is the math branch). The
+constants/precision table is unchanged — see `catalogs/physics-constants.md`.
 
-## Verification
-- `lake build E213.Lib.Math.NumberSystems.Real213` — clean (567 modules).
-- `tools/scan_axioms.py …HolonomyLattice` — 25 pure / 0 dirty.
+## Open Problems (Priority Order)
 
-## Open Problems / Next
-- **Full freeness of `⟨L,R⟩`** (the Stern–Brocot bijection): proven here only as
-  no-return (`positive_loop_trivial`); the unique-word / faithful-monoid statement
-  is a natural strengthening (entry-sum gives no-return; uniqueness needs the
-  CF/odometer digit extraction — see `OdometerSternBrocotUnit`).
-- **General `holonomy_pow` / order law**: `holonomy (List.replicate n S)` cycling
-  with period 4 ties directly into `FiniteOrderSpectrum` (`{1,2,3,4,6}`).
-- **Holonomy group as π₁ of the modular orbifold**: the loop classes around the
-  elliptic points `S` (order 4) and `U` (order 6) — connect to
-  `the_modular_geodesic_lens`.
+### 1. The commutativity count-dial (measure the `^`-wall by counting)
+Build the `^`-layer enumeration ∅-axiom and verify the per-degree count's growth
+class jumps polynomial(simplex) → exponential(`nᵏ`) at the non-commutative rung.
+Frontier: `research-notes/frontiers/simplicial_operation_tower.md` (L4).
+
+### 2. The simplex theorem
+Formalize "commutative binary iteration = symmetric power = `k`-dilated
+`(n−1)`-simplex" (`C(n+k−1,k)` multiset count) ∅-axiom; tie to `(NS,NT,d)`.
+Frontier: `simplicial_operation_tower.md` (L3) + cross-domain bridge in
+`holonomy_simplex_crossdomain.md` §3.
+
+### 3. Holonomy extensions
+Full freeness of `⟨L,R⟩` (unique-word, via CF/odometer); general order law
+`holonomy_pow` (lift `FiniteOrderSpectrum`); the holonomy group as π₁ of the
+modular orbifold `PSL(2,ℤ)=ℤ₂*ℤ₃`. Frontier:
+`research-notes/frontiers/holonomy_lattice.md`.
+
+### 4. The twist dimension + the no-identity criterion
+Pin which dimension drives the non-commutativity (built-object vs operand
+mismatch); formalize "natural layer = semigroup, identity = exception". Frontier:
+`simplicial_operation_tower.md` (L2, L5).
+
+## Unresolved from This Session
+The operation-tower gut (L1–L6) is a raw conjecture with one empirically-checked
+core (L3 Pascal/simplex); L4/L5 are unverified intuitions, deliberately kept in
+`frontiers/` (not promoted). The earlier conversational detours (group/Grothendieck
+framing, "λ below + = successor") were **wrong** and corrected in-dialogue — do not
+re-attempt them: the demotion/log `vp` bottoms at `+` (no "+→succ" log step), and
+the inverse-completion/group view is explicitly *not* the originator's frame.
+
+## Next
+Pick up Open Problem #1 (the count-dial) or #2 (the simplex theorem) — both are
+∅-axiom-reachable and the cleanest continuations of the originator's gut.
+
+## Three-tier state
+- **Promotions this session**: `theory/math/analysis/holonomy_of_the_lattice.md`
+  + `theory/essays/analysis/what_is_holonomy.md` ← the closed `HolonomyLattice`.
+- **Promotion candidates**: none outstanding (HolonomyLattice promoted; the
+  operation-tower gut is open and stays in `frontiers/`).
+- **Active scratchpad**: `research-notes/frontiers/{simplicial_operation_tower,
+  holonomy_lattice, holonomy_simplex_crossdomain}.md`.
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberSystems/Real213/HolonomyLattice.lean  ← holonomy (25 PURE) [new]
-lean/E213/Lib/Math/NumberSystems/Real213.lean                  ← +import [edit]
-theory/math/analysis/holonomy_of_the_lattice.md                ← theory note [new]
-theory/math/INDEX.md                                           ← +index [edit]
-STRICT_ZERO_AXIOM.md                                           ← +catalog row [edit]
+lean/E213/Lib/Math/NumberSystems/Real213/HolonomyLattice.lean   ← holonomy (25 PURE) [new]
+lean/E213/Lib/Math/NumberSystems/Real213.lean                   ← +import [edit]
+theory/math/analysis/holonomy_of_the_lattice.md                 ← chapter [new]
+theory/essays/analysis/what_is_holonomy.md                      ← essay [new]
+STRICT_ZERO_AXIOM.md                                            ← HolonomyLattice row [edit]
+research-notes/frontiers/simplicial_operation_tower.md          ← the simplex gut [new]
+research-notes/frontiers/holonomy_lattice.md                    ← holonomy open extensions [new]
+research-notes/frontiers/holonomy_simplex_crossdomain.md        ← cross-domain note [new]
+research-notes/frontiers/INDEX.md                               ← +3 entries [edit]
+research-notes/promotion_essay_log.md                           ← rows 77–78 [edit]
+theory/{essays/INDEX.md, INDEX.md, math/INDEX.md}               ← counts + entries [edit]
 ```
