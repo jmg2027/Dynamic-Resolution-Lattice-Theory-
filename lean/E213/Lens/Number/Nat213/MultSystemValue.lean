@@ -258,4 +258,92 @@ def decDvd (k n : Nat) (hk : 0 < k) : Decidable (k ∣ n) :=
   | 0     => isTrue (dvd_of_mod_eq_zero h)
   | _ + 1 => isFalse (fun hd => Nat.noConfusion ((mod_zero_of_dvd hk hd).symm.trans h))
 
+/-- Decidable "no nontrivial divisor below `b`" (recursion on the bound `b`,
+    using `decDvd` at each `d`). -/
+def decNoFactor (n : Nat) : (b : Nat) → Decidable (∀ d, 2 ≤ d → d < b → ¬ d ∣ n)
+  | 0     => isTrue (fun d _ hlt => absurd hlt (Nat.not_lt_zero d))
+  | b + 1 =>
+      match decNoFactor n b with
+      | isFalse hf =>
+          isFalse (fun hall => hf (fun d h2 hlt => hall d h2 (Nat.lt_succ_of_lt hlt)))
+      | isTrue ht =>
+          if hb2 : 2 ≤ b then
+            match decDvd b n (Nat.lt_of_lt_of_le (by decide) hb2) with
+            | isTrue hbn => isFalse (fun hall => hall b hb2 (Nat.lt_succ_self b) hbn)
+            | isFalse hbn => isTrue (fun d h2 hlt => by
+                rcases Nat.lt_or_ge d b with hdb | hdb
+                · exact ht d h2 hdb
+                · have hde : d = b := Nat.le_antisymm (Nat.le_of_lt_succ hlt) hdb
+                  rw [hde]; exact hbn)
+          else
+            isTrue (fun d h2 hlt => by
+              rcases Nat.lt_or_ge d b with hdb | hdb
+              · exact ht d h2 hdb
+              · have hde : d = b := Nat.le_antisymm (Nat.le_of_lt_succ hlt) hdb
+                rw [hde] at h2; exact absurd h2 hb2)
+
+/-- Primality as `2 ≤ n` plus a *bounded* no-divisor check (divisor dichotomy). -/
+theorem isPrime_iff (n : Nat) :
+    IsPrime213 n ↔ (2 ≤ n ∧ ∀ d, 2 ≤ d → d < n → ¬ d ∣ n) := by
+  constructor
+  · intro hp
+    refine ⟨hp.1, fun d h2 hlt hdvd => ?_⟩
+    rcases hp.2 d hdvd with h1 | he
+    · rw [h1] at h2; exact absurd h2 (by decide)
+    · rw [he] at hlt; exact Nat.lt_irrefl n hlt
+  · intro h
+    obtain ⟨h2n, hnf⟩ := h
+    refine ⟨h2n, fun d hdvd => ?_⟩
+    have hnpos : 0 < n := Nat.lt_of_lt_of_le (by decide) h2n
+    have hdle : d ≤ n := le_of_dvd_pos d n hnpos hdvd
+    cases d with
+    | zero =>
+        obtain ⟨c, hc⟩ := hdvd; rw [Nat.zero_mul] at hc
+        exact absurd (hc ▸ hnpos) (Nat.lt_irrefl 0)
+    | succ d' =>
+        cases d' with
+        | zero => exact Or.inl rfl
+        | succ d'' =>
+            rcases Nat.lt_or_ge (Nat.succ (Nat.succ d'')) n with hdn | hdn
+            · exact absurd hdvd (hnf _ (Nat.le_add_left 2 d'') hdn)
+            · exact Or.inr (Nat.le_antisymm hdle hdn)
+
+/-- **Decidable `IsPrime213`** (∅-axiom): `2 ≤ n` and the bounded no-divisor check
+    (`decNoFactor n n`), transported by `isPrime_iff`.  No `Classical`, no
+    propext (uses `decDvd`, not core `Nat.decidable_dvd`). -/
+def decPrime (n : Nat) : Decidable (IsPrime213 n) :=
+  match Nat.decLe 2 n, decNoFactor n n with
+  | isTrue h2,  isTrue hnf  => isTrue ((isPrime_iff n).mpr ⟨h2, hnf⟩)
+  | isFalse h2, _           => isFalse (fun hp => h2 ((isPrime_iff n).mp hp).1)
+  | _,          isFalse hnf => isFalse (fun hp => hnf ((isPrime_iff n).mp hp).2)
+
+/-- Prime indicator: `1` if `n` is prime, else `0`. -/
+def primeIndicator (n : Nat) : Nat :=
+  match decPrime n with
+  | isTrue _  => 1
+  | isFalse _ => 0
+
+theorem primeIndicator_le_one (n : Nat) : primeIndicator n ≤ 1 := by
+  unfold primeIndicator
+  cases decPrime n with
+  | isTrue _  => exact Nat.le_refl 1
+  | isFalse _ => exact Nat.zero_le 1
+
+theorem primeIndicator_eq_one_iff (n : Nat) : primeIndicator n = 1 ↔ IsPrime213 n := by
+  unfold primeIndicator
+  cases decPrime n with
+  | isTrue h  => exact ⟨fun _ => h, fun _ => rfl⟩
+  | isFalse h => exact ⟨fun he => Nat.noConfusion he, fun hp => absurd hp h⟩
+
+/-- **`π(N)`** — the number of primes `≤ N` (= the base count needed to build
+    every natural `≤ N`, by `factorization_bounded`). -/
+def primePi : Nat → Nat
+  | 0     => 0
+  | n + 1 => primePi n + primeIndicator (n + 1)
+
+/-- `π(N) ≤ N` (at most one prime per number). -/
+theorem primePi_le_self : ∀ n, primePi n ≤ n
+  | 0     => Nat.le_refl 0
+  | n + 1 => Nat.add_le_add (primePi_le_self n) (primeIndicator_le_one (n + 1))
+
 end E213.Lens.Number.Nat213.MultSystemValue
