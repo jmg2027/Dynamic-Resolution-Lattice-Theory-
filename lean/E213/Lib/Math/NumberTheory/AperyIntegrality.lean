@@ -31,7 +31,7 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose_succ_succ choose_
   choose_eq_zero_of_lt)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_split_first sumTo_congr
-  sumTo_add_func)
+  sumTo_add_func sumTo_mul_left)
 open E213.Meta.Nat.NatDiv213 (add_mod_right_pos)
 open E213.Tactic.NatHelper (sub_add_cancel add_right_cancel)
 
@@ -257,5 +257,50 @@ private theorem term_split (m s j : Nat) :
             = choose s (j + 1) * ((m + s + 1) * Qex m s (j + 1)) from by ring_nat,
           ← hfront, ← hback]
       ring_nat
+
+/-! ## §4 — the recurrence system (P)/(N) and the FD identity `fdPos = s! + fdNeg` -/
+
+/-- The `j = s` term of the `B`-sum vanishes (`C(s,s+1) = 0`). -/
+private theorem Bterm_top (m s : Nat) :
+    (if (s + 1) % 2 = 0 then choose s (s + 1) * Qex m s (s + 1) else 0) = 0 := by
+  rw [choose_eq_zero_of_lt s (s + 1) (Nat.lt_succ_self s), Nat.zero_mul]
+  by_cases hc : (s + 1) % 2 = 0
+  · rw [if_pos hc]
+  · rw [if_neg hc]
+
+/-- The additive closure `Qex m s 0 + Σⱼ[(j+1)%2=0]C(s,j+1)Qex m s(j+1) = fdPos m s`. -/
+private theorem fdPos_closure (m s : Nat) :
+    Qex m s 0 + sumTo (s + 1) (fun j => if (j + 1) % 2 = 0
+        then choose s (j + 1) * Qex m s (j + 1) else 0) = fdPos m s := by
+  show Qex m s 0 + sumTo (s + 1) (fun j => if (j + 1) % 2 = 0
+      then choose s (j + 1) * Qex m s (j + 1) else 0)
+    = sumTo (s + 1) (fun i => if i % 2 = 0 then choose s i * Qex m s i else 0)
+  rw [sumTo_succ, Bterm_top m s, Nat.add_zero,
+      sumTo_split_first s (fun i => if i % 2 = 0 then choose s i * Qex m s i else 0)]
+  congr 1
+  show Qex m s 0 = (if (0 : Nat) % 2 = 0 then choose s 0 * Qex m s 0 else 0)
+  rw [if_pos (by decide), choose_zero_right, Nat.one_mul]
+
+/-- ★★ **(P)**: `fdPos(m,s+1) = (m+s+1)·fdPos(m,s) + m·fdNeg(m+1,s)`. -/
+theorem fdPos_succ (m s : Nat) :
+    fdPos m (s + 1) = (m + s + 1) * fdPos m s + m * fdNeg (m + 1) s := by
+  show sumTo (s + 2) (fun j => if j % 2 = 0 then choose (s + 1) j * Qex m (s + 1) j else 0)
+    = (m + s + 1) * fdPos m s + m * fdNeg (m + 1) s
+  rw [sumTo_split_first (s + 1)
+        (fun j => if j % 2 = 0 then choose (s + 1) j * Qex m (s + 1) j else 0),
+      show (if (0 : Nat) % 2 = 0 then choose (s + 1) 0 * Qex m (s + 1) 0 else 0)
+        = (m + s + 1) * Qex m s 0 from by
+          rw [if_pos (by decide), choose_zero_right, Nat.one_mul, Qex_back (Nat.zero_le s) m],
+      sumTo_congr (s + 1) _
+        (fun j => m * (if j % 2 = 1 then choose s j * Qex (m + 1) s j else 0)
+          + (m + s + 1) * (if (j + 1) % 2 = 0 then choose s (j + 1) * Qex m s (j + 1) else 0))
+        (fun j _ => term_split m s j),
+      ← sumTo_add_func, ← sumTo_mul_left, ← sumTo_mul_left]
+  show (m + s + 1) * Qex m s 0
+      + (m * fdNeg (m + 1) s + (m + s + 1) * sumTo (s + 1) (fun j => if (j + 1) % 2 = 0
+          then choose s (j + 1) * Qex m s (j + 1) else 0))
+    = (m + s + 1) * fdPos m s + m * fdNeg (m + 1) s
+  rw [← fdPos_closure m s]
+  ring_nat
 
 end E213.Lib.Math.NumberTheory.AperyIntegrality
