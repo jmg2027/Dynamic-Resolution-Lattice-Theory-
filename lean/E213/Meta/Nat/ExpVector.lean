@@ -24,10 +24,20 @@ the system carries **pointwise equality** `vecEq` (a `Prop`, exactly the
   * `toVec_finite_support` — every vector is **finitely supported**
     (`vp_eq_zero_of_gt`: zero at primes `> n`).
 
+**Ontology note** (`theory/math/numbersystems/slot_arithmetic.md` §1).  In 213
+**the tuple *is* the number**; the exponent vector is not a *readout of a primary
+`ℕ`* but the **slot-presentation** of the multiplicative number itself (UFD makes
+it faithful = canonical, `toVec_faithful`).  `toVec` is therefore the *iso*
+between the `ℕ`-presentation and the slot-presentation of one number — not a
+projection of a more-real `ℕ`.  ("`ℤ/ℚ/ℝ` are number systems" is *not* the 213
+view — they name the operation-history of the axes / are flattening Lens
+readouts; `ℤ` is the difference-Lens readout, itself non-faithful.)
+
 **What this answers** (frontier `general_theory_metaanalysis.md` D′).  The
-vector-linear system *exists* and is exactly the faithful, finite-support
-readout that makes `ℤ/ℕ` the unique discrete number system (C5).  In it the
-tower is linear: `×` = `+`, `^` = scalar `·`.  The `^`-**wall dissolves into
+vector-linear system *exists* and is exactly the faithful, finite-support slot
+that makes the **prime-exponent (multiplicative) slot the unique faithful-finite
+readout** (C5).  In it the tower is linear: `×` = `+`, `^` = scalar `·`.  The
+`^`-**wall dissolves into
 linear algebra**: `logₐ b` is "find the scalar `k` with `vecSmul k (toVec a) =
 toVec b`", solvable iff the two vectors are **collinear** (`FoldCriterion.
 fold_iff_collinear`) — no transcendence here; that **migrates to the
@@ -96,9 +106,9 @@ theorem toVec_faithful {a b : Nat} (ha : 0 < a) (hb : 0 < b)
   vp_separation ha hb (fun p hp => h ⟨p, hp⟩)
 
 /-- **Every vector is finitely supported.**  `toVec n` is `0` at each prime
-    above `n` (`vp_eq_zero_of_not_dvd`: a prime `> n` cannot divide it).  So the
-    readout lands in the **faithful + finite** cell — the C5 reason `ℤ/ℕ` is the
-    unique discrete number system. -/
+    above `n` (`vp_eq_zero_of_not_dvd`: a prime `> n` cannot divide it).  So this
+    slot lands in the **faithful + finite** cell — the C5 reason the
+    prime-exponent (multiplicative) slot is the unique faithful-finite readout. -/
 theorem toVec_finite_support {n : Nat} (hn : 0 < n) (p : Prime213)
     (hlt : n < p.val) : toVec n p = 0 :=
   vp_eq_zero_of_not_dvd p.property hn

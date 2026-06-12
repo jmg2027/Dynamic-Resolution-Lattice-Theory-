@@ -45,10 +45,15 @@ Five genuine, adversarially-audited general-theoretical findings, all orbiting
 3. **The 2-axis readout classification + ℤ-uniqueness (C5).**  A readout has two
    independent axes: *faithfulness* (forgetful `count`/`Hyper` commute; faithful
    `vp`/`cut` don't) × *support-finiteness among faithful* (finite = discrete;
-   infinite = continuum).  **ℤ/ℕ is the unique faithful-finite number system** —
-   the only one with a finite equality certificate; every completion (real,
-   `p`-adic, complex, signed) trades finiteness for infinite resolution.  Witnessed
-   in Lean by `vp_eq_zero_of_gt` vs `cut_no_finite_certificate`.
+   infinite = continuum).  **The prime-exponent slot — 213's *multiplicative
+   number as a tuple* — is the unique faithful-finite readout** (the only one
+   with a finite equality certificate); every completion (real, `p`-adic,
+   complex, signed) trades finiteness for infinite resolution.  Witnessed in Lean
+   by `vp_eq_zero_of_gt` vs `cut_no_finite_certificate`.  *(213-native caveat: a
+   "number" is a nested ℕ-tuple/slot; `ℤ/ℚ/ℝ` are operation-history names /
+   flattening Lens readouts, **not** number systems — `ℤ` is the difference-Lens
+   readout, itself non-faithful.  Earlier drafts said "ℤ/ℕ number system" — the
+   over-interiorization C6 names; corrected here.)*
 
 4. **The failure-mode structure (C6).**  17/22 of CLAUDE.md's failure modes are
    *boundary errors* in two dual polarities (over-exteriorize / over-interiorize,

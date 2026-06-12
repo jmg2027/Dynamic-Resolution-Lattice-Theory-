@@ -175,21 +175,29 @@ the framework (a forcible template is an instance of the rarity of genuine
 high-level unification, not a counterexample).
 
 A concrete, ∅-axiom corollary anchors the equality side (the readout
-classification, `general_theory_metaanalysis.md` C5).  A number system's
-equality is *readout-agreement*; the readout has two independent axes —
-*faithfulness* and, among faithful readouts, *support-finiteness* — and:
+classification, `general_theory_metaanalysis.md` C5).  *Caveat on words*: in
+213 the **number is the nested ℕ-tuple** (the slot), and "ℤ/ℚ/ℝ" name the
+*operation-history of the axes*, not kinds of number — `ℤ` is the
+*difference-Lens readout* of a count-pair, not a number system
+(`theory/math/numbersystems/slot_arithmetic.md` §1; calling it "the number
+system" is the over-interiorization this very chapter names).  Stated on the
+**slots/readouts** (where it belongs):
 
-> **ℤ/ℕ is the unique faithful-finite number system: the only one whose
-> equality has a *finite* certificate.**  Every completion trades finiteness
-> for faithful-at-every-level (infinite resolution).
+> **The prime-exponent slot — 213's multiplicative number *as a tuple* — is the
+> unique *faithful + finite* readout: the only one whose equality has a *finite*
+> certificate** (`vp_separation` faithful by UFD, `vp_eq_zero_of_gt` finite
+> support).  Every completion (cut, `p`-adic) is faithful but *infinite*; and
+> the additive `ℤ` (difference-Lens) is *non-faithful* (a flattening:
+> `(1,3),(2,4) ↦ −2`), so it is not in the faithful classification at all.
 
 Witnessed on three sides in Lean: `FoldCriterion.vp_eq_zero_of_gt` (ℤ —
 `vp p n = 0` for `p > n`, support ⊆ `[2,n]`, finite) against two *independent*
 continuum witnesses, `Real213.Core.CutNoFiniteCert.cut_no_finite_certificate`
 (reals, archimedean) and `Padic.NoFiniteCert.zpseq_no_finite_certificate`
 (`p`-adics, non-archimedean).  The discrete/continuum boundary is precisely
-"reconstructible from *finitely* many readouts", and it cuts the number tower
-at exactly one place — between ℤ/ℕ and its completions.  (The two continuum
+"reconstructible from *finitely* many readouts", and it cuts the slot tower
+at exactly one place — between the multiplicative (prime-exponent) slot and its
+completions.  (The two continuum
 witnesses do *not* share a generator — `p`-adics are a free function-space
 `∏ Fin p`, reals a monotone-constrained sub-object of `2^ℚ` — a distinction the
 decision-procedure surfaced when a "shared generator" claim was tested and
