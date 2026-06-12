@@ -184,6 +184,22 @@ theorem binom_self : ∀ n, binom n n = 1
       show binom n n + binom n (n + 1) = 1
       rw [binom_self n, binom_zero_of_lt (Nat.lt_succ_self n)]
 
+/-- **Row bound**: `C(n,k) ≤ 2^n` (every binomial is at most the row sum). -/
+theorem binom_le_two_pow : ∀ (n k : Nat), binom n k ≤ 2 ^ n
+  | 0,     0     => Nat.le_refl 1
+  | 0,     _ + 1 => Nat.zero_le _
+  | n + 1, 0     => by rw [binom_zero]; exact Nat.pos_pow_of_pos (n + 1) (by decide)
+  | n + 1, k + 1 => by
+      show binom n k + binom n (k + 1) ≤ 2 ^ (n + 1)
+      calc binom n k + binom n (k + 1)
+            ≤ 2 ^ n + 2 ^ n := Nat.add_le_add (binom_le_two_pow n k) (binom_le_two_pow n (k + 1))
+        _ = 2 ^ (n + 1) := by rw [Nat.pow_succ, Nat.mul_two]
+
+/-- **Central binomial bound** `C(2n,n) ≤ 4^n` (= `2^{2n}`) — the Chebyshev
+    upper-estimate ingredient (every prime in `(n,2n]` divides `C(2n,n) ≤ 4^n`). -/
+theorem central_binom_le (n : Nat) : binom (2 * n) n ≤ 2 ^ (2 * n) :=
+  binom_le_two_pow (2 * n) n
+
 /-- Pointwise-equal summands give equal sums. -/
 theorem sumf_congr (f g : Nat → Nat) (h : ∀ i, f i = g i) :
     ∀ n, sumf f n = sumf g n
