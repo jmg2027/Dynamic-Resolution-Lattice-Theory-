@@ -308,7 +308,30 @@ question is moot).  `vp` is *faithful + finite* (discrete; and it is exactly
 rungs sit at distinct cells.  This is a real general *classification* (type-2
 structure), not a single forced theorem — its honesty is the point (C4).
 
-Pending C1: the faithfulness/finiteness inventory across the *other* number
-systems (Padic `ZpSeq`, `SignedCut`, `Complex`, `Hyper`) to place every cell of
-the grid and confirm it is genuinely 2-dimensional (no system is, say,
-forgetful-and-discrete in a way that breaks the axes).
+**The grid, completed** (equality definitions surveyed directly):
+
+| readout / equality | faithful? | support | cell |
+|---|---|---|---|
+| `count` (ℕ via `UnitList`) | **no** (forgets order) | — | forgetful → `+` commutes |
+| `Hyper.cofiniteEquiv` (`∃N ∀n≥N`) | **no** (forgets finite prefix) | — | forgetful (cofinite quotient) |
+| `vp` (ℤ/ℕ prime-exponent) | yes (UFD, `vp_separation`) | **FINITE** (`vp_eq_zero_of_gt`) | faithful + finite = **discrete** |
+| `cutEq` (reals) | yes (definitional) | infinite | faithful + ∞ = continuum |
+| `ZpSeqEquiv` (`p`-adics, `∀k digits`) | yes (definitional) | infinite (all digits) | faithful + ∞ = continuum |
+| `Complex` (cut pair) | yes | infinite (per component) | faithful + ∞ = continuum |
+| `SignedCut` (cut + sign) | yes | infinite | faithful + ∞ = continuum |
+
+Two genuinely independent axes confirmed, and a **clean novel corollary**:
+
+> **ℤ/ℕ (the `vp` readout) is the *unique* faithful-finite number system — the
+> only one with a finite equality certificate.  Every completion (real,
+> `p`-adic, complex, signed/quaternion/octonion) is faithful-at-every-level but
+> *infinite*: it trades finiteness for unbounded resolution.  The forgetful
+> readouts (`count`, `Hyper`'s cofinite quotient) lie off the discrete/continuum
+> axis entirely — they *identify* (large fibers), which is why `count` yields
+> commutativity and `Hyper` is a quotient.**
+
+So the discrete/continuum boundary is precisely **"reconstructible from
+*finitely* many readouts"**, and it cuts the number tower at exactly one place:
+between ℤ/ℕ and its completions.  Bridge 1's `cut_no_finite_certificate` vs
+`vp_eq_zero_of_gt` is the *witness* of this single cut.  (C1 surveyor, when it
+returns, corroborates the inventory.)
