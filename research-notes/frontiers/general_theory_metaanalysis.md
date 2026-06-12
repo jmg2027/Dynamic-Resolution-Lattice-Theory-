@@ -203,7 +203,7 @@ non-surjectivity ⟹ no finite stage reaches the residue ⟹ all process is
 approach-from-a-view.  The over-interiorize axiom thus reads at **three scales**
 — logic (`object1_not_surjective`), process (`rcut_rescale`,
 `reschedule_limit_eq`, async `level3_diverges`, `HyperLadder` count-clock),
-descriptive (`mul_carry_unbounded` vs `add_carry_le_one`; the reframing essay) —
+descriptive (`mul_carry_nu_residue` (`add_carry_le_one` vs `mulCarry_unbounded`); the reframing essay) —
 unifying presentation-dependence, async determinism, finite-state, and the weld
 as one face.  Genuine deepening, no new primitive.  Promoted into
 `theory/meta/boundary_discipline.md` §5.

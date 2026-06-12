@@ -142,9 +142,10 @@ discovered phenomena as one face:
   the first composite; the order is invariant), `HyperLadder` (the count is the
   clock — a view, not the tower).
 - **descriptive scale** — no finite catalog covers its own diagonal:
-  `Padic.NuEscape.mul_carry_unbounded` vs `add_carry_le_one` (the *same* value
-  `(-1)²=1` carries a bounded and an unbounded process — finite-state is of the
-  operation, not the value); `theory/essays/methodology/why_the_reframing_recurs.md`.
+  `Padic.NuEscape.mul_carry_nu_residue` (`add_carry_le_one` finite vs
+  `mulCarry_unbounded` — the *same* value `(-1)²=1` carries a bounded and an
+  unbounded process, so finite-state is a property of the *pointing*, not the
+  number); `theory/essays/methodology/why_the_reframing_recurs.md`.
 
 This is genuine *deepening* (the unification of presentation-dependence, async
 determinism, finite-state, and the weld under one face was a discovery), but it
