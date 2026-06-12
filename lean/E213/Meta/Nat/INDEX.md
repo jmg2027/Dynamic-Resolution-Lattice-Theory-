@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (36)
+## Files (37)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -59,6 +59,11 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
                              so `+`,`×`,`^` = `hyperop 1/2/3`; the single
                              clock (`iter`/`Nat`) iterating on itself
                              (frontier §5(a)); funext-free via `iter_congr`
+  - `ExpVector.lean`       — the tower's vector-linear system: numbers as
+                             prime-exponent vectors with `×`=`vecAdd`,
+                             `^`=`vecSmul` (`toVec_mul`/`toVec_pow`), faithful
+                             (`toVec_faithful`) + finite-support; a **setoid**
+                             (`vecEq`, no funext).  Realises frontier D′
   - `StrictLocate213.lean` — the strict locating primitive: `a<e<a+2 →
                              e=a+1` (`locate_strict`); founding identity
                              needs strict `<`, not `≤` (which contains `=`)
