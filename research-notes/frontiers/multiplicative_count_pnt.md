@@ -94,9 +94,13 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     for `n < p ≤ 2n` — from `central_binom_factorial` + `vp_mul`: `vp_p((2n)!) =
     vp_p(C(2n,n)) + 2·vp_p(n!) = vp_p(C(2n,n))` (since `vp_p(n!)=0`), and
     `vp_p((2n)!) ≥ 1`.  **DONE**: `prime_dvd_central_binom : n<p≤2n ⇒ p ∣ C(2n,n)`.
-    **Remaining chunk**: assemble the *product* `∏_{n<p≤2n} p ∣ C(2n,n)` (pairwise
-    coprime primes each dividing ⇒ product divides — needs a "list of distinct
-    primes, each ∣ m ⇒ listProd ∣ m" lemma via coprimality / `vp`), then
+    `prime_not_dvd_listProd` (prime ∉ prime-list ⇒ ∤ product, the coprimality
+    core) DONE.  **Remaining chunk**: the *product* `∏_{n<p≤2n} p ∣ C(2n,n)`.
+    Needs a **`dvd_of_forall_vp_le : (∀ prime q, vp q a ≤ vp q b) → a ∣ b`** (a,b>0)
+    — a `vp_separation`-flavored peel-a-prime induction; OR a Gauss lemma
+    (`coprime c p, c ∣ p·a ⇒ c ∣ a`).  With it: `listProd (distinct primes each
+    ∣ m) ∣ m` (each prime q∈ps has `vp q (listProd ps)=1 ≤ vp q m`, others 0),
+    then
     `∏_{n<p≤2n} p ≤ C(2n,n) ≤ 4^n`; bound `#{primes in (n,2n]}` by taking `log`
     (each prime `> n`, so `n^(count) < ∏ p ≤ 4^n` ⇒ `count·ln n < 2n ln 2`
     ⇒ `count = O(n/ln n)`); sum the dyadic windows ⇒ `π(N)=O(N/ln N)` ⇒ density
