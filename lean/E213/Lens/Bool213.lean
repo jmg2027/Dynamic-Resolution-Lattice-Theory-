@@ -1,6 +1,7 @@
 import E213.Lens.Bool213.Raw
 import E213.Lens.Bool213.System
 import E213.Lens.Bool213.SelfReferenceForms
+import E213.Lens.Bool213.SelfReferenceEscapeBridge
 
 /-! Spec-as-code entry point for `E213.Lens.Bool213`.
 

@@ -7,10 +7,13 @@ import E213.Lens.ResidueReentry
 `seed/AXIOM/05_no_exterior.md` §5.2 + §5.5 read the residue's self-reference as one event
 seen several ways.  Three structurally distinct outcomes are now each closed ∅-axiom in
 their *sharp* form, and this file bundles them.  The bundle is a conjunction of three
-independent facts about three *different* objects (`not` on Raw values, the peel relation on
+facts about three *different* objects (`not` on Raw values, the peel relation on
 Raw, re-pointing on predicates) — the "same self-pointing read three ways" is the §5.2
-reading, not part of the Lean (no operator unifies the three types, and none reduces to
-another):
+reading, not part of the Lean (no *single* operator unifies all three types).  The escape
+and oscillate outcomes are **not** independent, though: `Bool213.SelfReferenceEscapeBridge`
+shows the escape (the Bool-modifier diagonal) reduces to the oscillation's no-fixed-point
+through `CoResidue.diag_via_modifier`, with the convergence as that schema's fixed-point
+pole.  So the three are not mutually independent:
 
   * **Oscillate** (Bool / liar, bounded loop).  On a Bool value, `not` has minimal period
     **exactly 2** (`SelfReferenceForms.bool_min_period_two`): never period 1 (no fixed
@@ -50,10 +53,13 @@ open E213.Lens.PredicateSelfEncoding (predicateToRaw)
     3. **escape** — re-pointing the encoded residue never closes the cover: the unbounded
        residue ascent.
 
-    A conjunction of three independent sharp results about three *different* objects (`not`
+    A conjunction of three sharp results about three *different* objects (`not`
     on Bool-valued Raws, the peel relation on Raw, re-pointing on predicates).  That they are
     "one self-pointing read three ways" is the §5.2 reading, not part of the Lean: no
-    operator is forced across the three types, and none of the three reduces to another. -/
+    *single* operator is forced across all three types.  (The escape and oscillate outcomes
+    do share one schema — `Bool213.SelfReferenceEscapeBridge` reduces the escape to the
+    oscillation's no-fixed-point via `diag_via_modifier` — so the three are not mutually
+    independent.) -/
 theorem self_reference_three_outcomes (n : Nat) :
     -- OSCILLATE (bounded): minimal period exactly 2 on the Bool values
     (∀ r : Raw, isBool r = true →

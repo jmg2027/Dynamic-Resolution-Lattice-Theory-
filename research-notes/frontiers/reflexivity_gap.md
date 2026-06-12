@@ -223,14 +223,24 @@ originator's metaphysics, only the framework's own ∅-axiom standard.
    φ across Raw/Moufang/CKM/neutrino as "the same Lens result"; the Lean is 1 PURE
    cut + 1 `decide` eigenvalue + 4 analogies.  Per the repo's own Fog-jargon
    discipline, tag accordingly.
-6. **Name the separator-self-reference bifurcation, and wire it to §5.2.**  The
-   residue escapes any cover in two modes distinguished by *one bit* — whether the
-   separating predicate mentions the cover: cover-independent ⇒ a **namable**
-   residue (`undifferentiated`); cover-dependent ⇒ the **diagonal, reached-by-none**
-   (`CoResidue.diag_via_modifier`, constant vs non-constant modifier).  This bit
-   *is* §5.2's Bool-style (oscillation) vs Nat-style (unreached fixed-point)
-   self-reference — the falsifiability discriminator §5.2 gestures at but never
-   connects.  Unnamed in the meta-layer; PURE; the cleanest *new positive* result.
+6. **Name the separator-self-reference bifurcation, and wire it to §5.2.** — ✅
+   **CLOSED this session** (`lean/E213/Lens/Bool213/SelfReferenceEscapeBridge.lean`,
+   6 PURE, build-verified, `scan_axioms` 6 pure / 0 dirty).  Repo-first caveat: the
+   §5.2 Bool-vs-Nat dichotomy was *already* fully formalized
+   (`SelfReferenceForms.{bool_not_no_fixed_point, self_reference_two_forms}`, period
+   exactly 2), and the three outcomes already bundled
+   (`SelfReferenceThreeOutcomes`) — so the agents over-stated novelty on that side.
+   The genuine gap was the **bridge** to `CoResidue.diag_via_modifier` (§22), which
+   `SelfReferenceThreeOutcomes` explicitly disclaimed ("no operator unifies the
+   three types, and none reduces to another").  That disclaimer was **too strong**:
+   `bool_diagonal_escapes` shows the escape (Bool-modifier diagonal) reduces to the
+   oscillation's no-fixed-point — `diag_via_modifier`'s fixpoint-free hypothesis *is*
+   `bool_not_no_fixed_point`, verbatim — and `escape_converge_is_bool_nat_bit` shows
+   the schema's one bit (fixed point at the diagonal?) is the §5.2 Bool/Nat bit
+   (no fixed point ⇒ escape; fixed point ⇒ reached).  `bool_cantor_via_modifier`
+   confirms the schema subsumes the canonical Bool-valued Cantor.  The over-cautious
+   disclaimer in `SelfReferenceThreeOutcomes` was corrected accordingly (reflexive
+   discipline on the positive side — the dual of this note's critical findings).
 7. **Purity re-audit.**  `Initiality.view_unique`'s `funext` form pulls
    `Quot.sound`; the pointwise `SemanticAtom` twin is the clean ∅-axiom one.
    Cite the pointwise form where ∅-axiom is claimed.
