@@ -24,11 +24,12 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberTheory.AperyIntegrality
 
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
-open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials choose_symm)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose_succ_mul)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_pos
   factorial_succ)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose_succ_succ choose_zero_right
-  choose_eq_zero_of_lt)
+  choose_eq_zero_of_lt choose_self)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_split_first sumTo_congr
   sumTo_add_func sumTo_mul_left)
@@ -382,5 +383,42 @@ theorem fd_identity (m s : Nat) : fdPos m s = factorial s + fdNeg m s := by
   | succ s ih =>
     rw [fdPos_succ, fdNeg_succ, ih m, ih (m + 1), factorial_succ]
     ring_nat
+
+/-! ## §5 — KeyDiv: `m·C(k,m) ∣ lcm(1..k)`
+
+The finite-difference identity, read as a divisibility, gives `m·C(k,m) ∣ lcm(1..k)`.
+The bridge is the *product* identity `P(m,s) = s!·m·C(m+s,m) = rprod m (s+1)`: the
+rising product `m(m+1)…(m+s)` equals `s!` times `m·C(m+s,m)`.  Every factor `(m+j)`
+of the product divides `lcm(1..m+s)` (when `m+j ≤ k`), and the alternating sum
+collapses to `s!·m·C(m+s,m)`, so the common refinement divides `lcm`. -/
+
+/-- ★★ **Bridge identity**: `m · C(m+s, m) · s! = rprod m (s+1)`, i.e. the rising product
+    `m(m+1)…(m+s)` equals `s!·m·C(m+s,m)`.  Induction on `s`; the step reduces to
+    `(s+1)·C(m+s+1, s+1) = (m+s+1)·C(m+s, s)` (`choose_succ_mul`), with `choose_symm`
+    converting the binomial lower indices. -/
+theorem keydiv_prod (m s : Nat) :
+    m * choose (m + s) m * factorial s = rprod m (s + 1) := by
+  induction s with
+  | zero =>
+    show m * choose (m + 0) m * factorial 0 = rprod m 1
+    rw [Nat.add_zero, choose_self m, show factorial 0 = 1 from rfl, Nat.mul_one,
+        Nat.mul_one, rprod_back, show rprod m 0 = 1 from rfl, Nat.one_mul, Nat.add_zero]
+  | succ s ih =>
+    -- RHS: rprod m (s+2) = rprod m (s+1) * (m+s+1)
+    rw [rprod_back, ← ih, factorial_succ]
+    -- Goal: m * C(m+(s+1), m) * ((s+1)*s!) = (m * C(m+s, m) * s!) * (m+s+0+1)
+    -- Reduce binomials by symmetry, then apply choose_succ_mul.
+    have hkey : (s + 1) * choose (m + s + 1) (s + 1) = (m + s + 1) * choose (m + s) s :=
+      choose_succ_mul (m + s) s
+    have hsym1 : choose (m + (s + 1)) m = choose (m + s + 1) (s + 1) := by
+      rw [choose_symm m (s + 1), Nat.add_succ]
+    have hsym2 : choose (m + s) m = choose (m + s) s := choose_symm m s
+    rw [hsym1, hsym2, Nat.add_succ m s]
+    -- Now: m * C(m+s+1)(s+1) * ((s+1)*s!) = (m * C(m+s) s * s!) * (m+s+1)
+    rw [show m * choose (m + s + 1) (s + 1) * ((s + 1) * factorial s)
+          = m * factorial s * ((s + 1) * choose (m + s + 1) (s + 1)) from by ring_nat,
+        hkey,
+        show m * factorial s * ((m + s + 1) * choose (m + s) s)
+          = m * choose (m + s) s * factorial s * (m + s + 1) from by ring_nat]
 
 end E213.Lib.Math.NumberTheory.AperyIntegrality
