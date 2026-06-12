@@ -8,11 +8,13 @@ The integrality `2·lcm(1..n)³·aₙ ∈ ℕ` of the reduced Apéry numerators,
 divisibility chains (no `ord_p`, no Legendre, no primes — the heart collapses to
 exact cofactor equations).
 
-  * **§1 — the trinomial double identity** (this file): in the subtraction-free
-    additive parametrisation `n = m+a+b`, `k = m+b` (so `n−k = a`, `k−m = b`),
-    `C(n,k)·C(n+k,k)·C(k,m)² = C(n,m)·C(n+m,m)·C(n−m,k−m)·C(n+k,n+m)`, i.e.
-    `aperyTrinomial`.  Both sides clear to `(2m+a+2b)! / (a!·(m!)²·(b!)²)` — proved
-    by telescoping `choose_mul_factorials` and cancelling.
+  * **§1 — the trinomial double identity** (`aperyTrinomial`): in the
+    subtraction-free additive parametrisation `n = m+a+b`, `k = m+b`,
+    `C(n,k)·C(n+k,k)·C(k,m)² = C(n,m)·C(n+m,m)·C(n−m,k−m)·C(n+k,n+m)`.  Both sides
+    clear to `(2m+a+2b)! / (a!·(m!)²·(b!)²)`.
+  * **§2 — KeyDiv** (in progress): `m·C(k,m) ∣ lcm(1..k)`, via the finite-difference
+    identity `Σⱼ(−1)ʲC(s,j)·Πᵢ≠ⱼ(m+i) = s!`.  Foundations here: the rising
+    factorial `rprod`.
 
 All zero-axiom.
 -/
@@ -21,7 +23,8 @@ namespace E213.Lib.Math.NumberTheory.AperyIntegrality
 
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
-open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_pos)
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_pos
+  factorial_succ)
 
 /-! ## §1 — the trinomial double identity -/
 
@@ -113,5 +116,34 @@ theorem aperyTrinomial (m a b : Nat) :
     Nat.mul_pos (Nat.mul_pos (Nat.mul_pos (Nat.mul_pos (factorial_pos a) (factorial_pos m))
       (factorial_pos m)) (factorial_pos b)) (factorial_pos b)
   exact Nat.eq_of_mul_eq_mul_right hD ((lhs_clear m a b).trans (rhs_clear m a b).symm)
+
+/-! ## §2 — KeyDiv foundations: the rising factorial -/
+
+/-- Rising factorial `(m)(m+1)···(m+len−1)`, `len` factors (`rprod m 0 = 1`). -/
+def rprod (m : Nat) : Nat → Nat
+  | 0 => 1
+  | len + 1 => rprod m len * (m + len)
+
+/-- Back factor: `rprod m (len+1) = rprod m len · (m+len)`. -/
+theorem rprod_back (m len : Nat) : rprod m (len + 1) = rprod m len * (m + len) := rfl
+
+/-- Front factor: `rprod m (len+1) = m · rprod (m+1) len`. -/
+theorem rprod_front (m : Nat) : ∀ len, rprod m (len + 1) = m * rprod (m + 1) len
+  | 0 => by show 1 * (m + 0) = m * 1; rw [Nat.one_mul, Nat.add_zero, Nat.mul_one]
+  | len + 1 => by
+      show rprod m (len + 1) * (m + (len + 1)) = m * (rprod (m + 1) len * (m + 1 + len))
+      rw [rprod_front m len, show m + (len + 1) = m + 1 + len from by ring_nat]
+      ring_nat
+
+/-- `rprod 1 len = len!`. -/
+theorem rprod_one (len : Nat) : rprod 1 len = factorial len := by
+  induction len with
+  | zero => rfl
+  | succ len ih => rw [rprod_back, ih, factorial_succ, Nat.add_comm 1 len, Nat.mul_comm]
+
+/-- `rprod m len > 0` when `m ≥ 1` (every factor `m+i ≥ 1`). -/
+theorem rprod_pos {m : Nat} (hm : 1 ≤ m) : ∀ len, 0 < rprod m len
+  | 0 => Nat.zero_lt_one
+  | len + 1 => Nat.mul_pos (rprod_pos hm len) (Nat.le_trans hm (Nat.le_add_right m len))
 
 end E213.Lib.Math.NumberTheory.AperyIntegrality
