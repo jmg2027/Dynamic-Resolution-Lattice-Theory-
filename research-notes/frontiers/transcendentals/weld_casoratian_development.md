@@ -14,7 +14,12 @@ i.e. `(R, M)` is the image of `(ĉ, s)` under the CF-determinant matrix `[[devB,
 transform is `ĉ_J = P·R_J + devA·M_J` (`weld_cosh_RM`) and `s_J = q²Q·R_J + devB·M_J` (`weldM_devB`).
 
 `weld_bilinear_casoratian` (pure ℤ ring) is the single source: for `X = a₁ĉ+a₂s`, `Y = b₁ĉ+b₂s`,
-`X_{J+1}Y_J − X_J Y_{J+1} = (a₁b₂−a₂b₁)·K_J`.  Hence **every** residual cross = `det(coeff)·K_J`:
+`X_{J+1}Y_J − X_J Y_{J+1} = (a₁b₂−a₂b₁)·K_J`.  The unification is now a **Lean theorem, not
+narrative**: `weldR_basis`/`weldM_basis`/`weldK_basis` put `R,M,K` in the `(ĉ,s)` basis (`weldCh`),
+and `weld_casoratian_bilinear` *derives* `weld_casoratian` from `weld_bilinear_casoratian` with
+coupling `= 1` (det-floor).  The same lemma generalizes to **any** CF-vs-series weld with its own
+coupling = CF determinant (coth: `1`; `exp(2/q)` Möbius fold: `2·a_n`) — only the normalized pair +
+constant coefficient rows change.  Hence **every** residual cross = `det(coeff)·K_J`:
 `R×ĉ = devA·K`, `R×s = devB·K`, `M×ĉ = P·K`, `M×s = q²Q·K`, and `R×M = 1·K` (det-floor) =
 `weld_casoratian_int`.  The once-"anomalous" 4th cross `R×c` was merely *unnormalized* — `R×ĉ` is
 clean.  `K`'s own (inhomogeneous) recurrence `K_{J+1} = (2J+2)(2J+3)q²·K_J + 2·s_{J+1}` carries the

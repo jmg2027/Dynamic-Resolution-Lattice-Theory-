@@ -1161,6 +1161,65 @@ theorem weld_bilinear_casoratian (a₁ a₂ b₁ b₂ x0 x1 y0 y1 : Int) :
       = (a₁ * b₂ - a₂ * b₁) * (x1 * y0 - x0 * y1) := by
   ring_intZ
 
+/-! ### The weld is one instance of the master bilinear (coth in the `(ĉ, s)` basis)
+
+The coth weld is `weld_bilinear_casoratian` specialized to the normalized pair `(ĉ, s)` and the
+unimodular coefficient rows.  The same `weld_bilinear_casoratian` applies to **any** CF-vs-series
+weld — `exp(2/q)`, `tan(1/q)`, any holonomic ratio — once its normalized pair and (constant) CF
+coefficient rows are supplied; only the *coupling* `a₁b₂−a₂b₁` changes (it is the CF determinant,
+`= 1` for coth's unimodular convergents, `= 2·a_n` for the `exp(2/q)` Möbius fold). -/
+
+/-- The **weight-normalized cosh** `ĉ_J = (2J+1)·c_J` — the slot making `(ĉ, s)` the weld's clean
+    Casoratian pair. -/
+def weldCh (q J : Nat) : Int := (2 * (J : Int) + 1) * (coshNum q J : Int)
+
+/-- `R_J = devB·ĉ_J + (−devA)·s_J` in the normalized basis. -/
+theorem weldR_basis (q i J : Nat) :
+    weldR q i J = (dev q (BP (2*i+1)) : Int) * weldCh q J
+      + (-(dev q (AP (2*i+1)) : Int)) * (sinhNum q J : Int) := by
+  unfold weldR weldCh; ring_intZ
+
+/-- `M_J = (−q²Q)·ĉ_J + P·s_J` in the normalized basis. -/
+theorem weldM_basis (q i J : Nat) :
+    weldM q i J = (-((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))) * weldCh q J
+      + (dev q (AP (2*i+2)) : Int) * (sinhNum q J : Int) := by
+  unfold weldM weldCh; ring_intZ
+
+/-- `K_J = ĉ_{J+1}·s_J − ĉ_J·s_{J+1}` — the Casoratian of the normalized pair `(ĉ, s)`. -/
+theorem weldK_basis (q J : Nat) :
+    weldK q J = weldCh q (J+1) * (sinhNum q J : Int) - weldCh q J * (sinhNum q (J+1) : Int) := by
+  have hsucc : ((J + 1 : Nat) : Int) = (J : Int) + 1 := rfl
+  unfold weldK weldCh; rw [hsucc]; ring_intZ
+
+/-- ★★★★★ **The weld Casoratian as a bilinear instance** (the unification, as a theorem).
+    `R_{J+1}·M_J − R_J·M_{J+1} = K_J` follows from `weld_bilinear_casoratian` with rows
+    `R = (devB, −devA)`, `M = (−q²Q, P)` against the pair `(ĉ, s)`: the coupling
+    `devB·P − (−devA)(−q²Q) = P·devB − q²·devA·Q` equals `1` by the det-one floor
+    (`dev_cross_det`), so the cross is exactly `K_J`. -/
+theorem weld_casoratian_bilinear (q i J : Nat) :
+    weldR q i (J+1) * weldM q i J - weldR q i J * weldM q i (J+1) = weldK q J := by
+  rw [weldR_basis q i (J+1), weldR_basis q i J, weldM_basis q i J, weldM_basis q i (J+1),
+      weld_bilinear_casoratian (dev q (BP (2*i+1)) : Int) (-(dev q (AP (2*i+1)) : Int))
+        (-((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))) (dev q (AP (2*i+2)) : Int)
+        (weldCh q J) (weldCh q (J+1)) (sinhNum q J : Int) (sinhNum q (J+1) : Int),
+      ← weldK_basis]
+  -- coupling = P·devB − q²·devA·Q = 1 (det-one floor)
+  have hdetI : (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)
+      = (q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1 := by
+    have hc : (↑(dev q (AP (2*i+2)) * dev q (BP (2*i+1))) : Int)
+        = ↑(q * dev q (AP (2*i+1)) * (q * dev q (BP (2*i+2))) + 1) :=
+      congrArg Int.ofNat (dev_cross_det q i).symm
+    rw [Int.ofNat_mul, Int.ofNat_add, Int.ofNat_one, Int.ofNat_mul, Int.ofNat_mul,
+        Int.ofNat_mul] at hc
+    rw [hc]; ring_intZ
+  rw [show (dev q (BP (2*i+1)) : Int) * (dev q (AP (2*i+2)) : Int)
+        - -(dev q (AP (2*i+1)) : Int) * -((q : Int) * (q : Int) * (dev q (BP (2*i+2)) : Int))
+        = 1 from by
+      rw [show (dev q (BP (2*i+1)) : Int) * (dev q (AP (2*i+2)) : Int)
+            = (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int) from by ring_intZ, hdetI]
+      ring_intZ,
+    E213.Meta.Int213.PolyIntM.one_mulZ]
+
 /-- ★★★★★ **`LowerBase` reduces to a single `M`-free inequality** (cleanest form, via the
     `R`–sinh Wronskian).  `0 ≤ R_{J+1}` follows from the *single* inequality
     `(−R_J)·s_{J+1} ≤ devB·K_J` and `sinh > 0` (trivial) — no `M`, no ratio descent.
