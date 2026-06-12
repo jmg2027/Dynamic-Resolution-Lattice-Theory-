@@ -312,6 +312,50 @@ the whole tower is list-native — `+` = unit-list append (`count_append`),
 ontology slip "ℤ is the number system" was corrected to "ℤ = difference-Lens
 readout"; the faithful-finite object is the prime-exponent **slot**, not ℤ.)
 
+## F — the holonomy / path-memory lens on the tower (conceptual; genuine core + fenced speculation)
+
+A conceptual thread (with the originator) reframed the tower through **holonomy
+= path-memory** (how much the order/path is remembered).  Sorting genuine from
+speculative by the decision procedure:
+
+**GENUINE (defensible):**
+- **Holonomy is a *continuum* artifact, not the tower's.**  The 1-periodic
+  interpolation freedom (Abel non-uniqueness) only exists *between* integer
+  heights; on the **discrete ℕ⁺ tower** there is **none** — `hyperop_climb`
+  determines it completely.  So the curvature above `^` is *ℝ's curvature*,
+  the cost of importing the continuum — matching the slot-native principle
+  (ℝ/ℤ are Lens imports; the ℕ⁺ tower is clean).  (Holonomy also needs *loops*;
+  ℕ⁺ has only successor, no inverse → no loop → no holonomy, dual to
+  `OrderWrap` "ℕ doesn't wrap".)
+- **Commutativity = flat = zero holonomy** — the holonomy-language name for C2
+  (commutativity = order-forgetting).  The tower is a **forget→re-remember
+  journey of path-memory**: `append` records (free monoid, `[a,b]≠[b,a]`) →
+  `+`,`×` *forget* (count/product Lens quotients order → commutative → flat) →
+  `^` *returns* (prime axes distinguishable, base≠exponent → non-comm; flattened
+  by the log-lattice, so holonomy in the *modulus* only, `rcut_rescale`) → `↑↑`
+  *curves* (holonomy reaches the *value*, the 1-periodic freedom).  ("non-comm =
+  path-dependence" is group-theoretically exact; "geometric curvature" is the
+  stronger claim, reserved for `↑↑`'s value-holonomy.)
+- **Holonomy is intrinsically a *group*** (the holonomy group; abelian — 1-periodic
+  functions under `+` — for tetration), and the **root/log split** is Galois
+  *solvability* (root = solvable-by-radicals, log = beyond).  So the "keeps
+  feeling group-theoretic" instinct is correct on two fronts (holonomy group;
+  Galois solvable group).
+
+**SPECULATIVE — flagged, do NOT force (forcible-map risk):**
+- "the hyperoperation tower = a stack of *higher* holonomies (2-holonomy /
+  gerbes, each level's continuum-freedom over the previous)" — suggestive only;
+  no shared generator established.
+- "tetration's curvature = a literal Ricci tensor / = the repo's discrete-Forman
+  `DiscreteRicci`" — **rejected** (bridge 4 ruled shape↔curvature a *pinned
+  distinction*, no shared generator; same word, different mechanisms).  The
+  defensible object is *holonomy/connection*, which the repo already names
+  `holonomic` (`holonomic_modulus`, `PresentationDependence`).
+
+No Lean here (conceptual); the genuine core rides existing theorems
+(`hyperop_climb`, `rcut_rescale`, the C2 commutativity proofs, `toVec_pow`/
+`toVec_tetration`).
+
 ## C9 — is there a third (temporal/process) axis? → NO: the temporal FACE of object1_not_surjective
 
 Tested whether the recurring "process is of the *pointing* (the approximant
