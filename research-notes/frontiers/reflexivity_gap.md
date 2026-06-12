@@ -237,6 +237,36 @@ originator's metaphysics, only the framework's own ∅-axiom standard.
 
 ---
 
+## Verified test (this session) — the CDI-5 group splits into two opposite kinds
+
+Action item 2's prediction was tested directly (no rebuild needed) by reading the
+proof bodies of the eight CDI-5 "byte-identical" decls.  Result, sharper than
+predicted: the group conflates **two epistemically opposite** proof kinds that a
+name-blind shape vector collides into one "structural identity":
+
+- **Vacuous tautology-brackets** — `lit < lit ∧ lit < lit := by decide`, the
+  *observed* value a bare numeral, **no** derived quantity in the proposition:
+  `Cosmology.Bridge.omega_lambda_atomic : 684 < 685 ∧ 685 < 686`,
+  `DeuteronBinding.E_d_bracket : 2000 < 2224 ∧ 2224 < 2500`,
+  `Helium.he_IE_in_bracket : 24500 < 24587 ∧ 24587 < 24700`,
+  `NeutronProton.dmnp_bracket : 120 < 127 ∧ 127 < 135`,
+  `Hydrogen.H_E1_bracket : 1340 < 1361 ∧ 1361 < 1380`.  (`omega_lambda` is a
+  width-2 bracket around the observed literal — near-vacuous as "containment".)
+- **Structural-bound containments** — endpoints *derived*, observed cross-tested:
+  `StructuralGap.n50_bracket_contains_candidate` (`inv_lower_tight 50`/`inv_upper`),
+  `WZBosons.cos2_W_in_75_78` (`cos2_W_lower/upper 10`),
+  `Augmented.aug_bracket_contains_observed_high_precision` (`inv_lower_aug 20`).
+  Here the proposition contains derived bounds + `let` + multiplication — a
+  *genuine* bracket prediction.
+
+So the 14-dim shape vector does not merely collide "same tactic" — it collides
+the **exact distinction the falsifiability audit most needs** (tested-against-
+derived-bounds vs tautology-on-literal).  This confirms Master II faces 2 and 3
+at once: the name-retaining re-run (action 2) will at minimum split this group,
+and the tautology subset (action 3) tests Lean arithmetic, not DRLT.  The
+prediction survives — refined: *the collapse is not uniform shrinkage but a
+split along the genuine/vacuous line the scanner is blind to.*
+
 ## Scope and limits (the discipline, turned on this note)
 
 - This note is a claim about the framework's **evidence-handling**, not about the
