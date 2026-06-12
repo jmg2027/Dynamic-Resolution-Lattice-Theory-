@@ -80,11 +80,13 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     scaffolding + soundness are ∅-axiom; **inhabiting `PrimeDensityToZero` is the
     open analytic core** (Chebyshev/PNT-strength) — the single isolated
     hypothesis, transcendental-cut style.
-  - **Remaining (the analytic core)**: a real density bound feeding the modulus.
-    First ∅-axiom ingredient: a Chebyshev-flavored upper bound on `primePi`
-    (e.g. only `2` is an even prime ⇒ `π(N) ≤ N/2 + 1`), then sharper
-    `π(N) = o(N)` to actually inhabit `PrimeDensityToZero`.  PNT proper
-    (`π(N)·ln N/N → 1`) needs `ln` as a `Real213` cut (in `ExpLog`) and the ratio
+  - **DONE (density ≤ 1/2)**: `primePi_two_mul_le : π(2n) ≤ n` (Chebyshev start —
+    only `2` is even-prime, `not_prime_two_mul`; each `(2m+1,2m+2)` pair holds
+    ≤ 1 prime, `pair_bound`).  Density `≤ 1/2`.
+  - **Remaining (the analytic core)**: sharpen to `π(N) = o(N)` (density `→ 0`)
+    to actually *inhabit* `PrimeDensityToZero` — needs a genuine Chebyshev bound
+    (`π(N) = O(N/ln N)`), the irreducible analytic cost.  PNT proper
+    (`π(N)·ln N/N → 1`) needs `ln` as a `Real213` cut (in `ExpLog`) + the ratio
     sequence — same certificate shape at the `1`-cut.
 
 ## Next concrete step
