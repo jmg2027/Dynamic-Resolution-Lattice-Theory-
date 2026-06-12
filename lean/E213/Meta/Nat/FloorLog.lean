@@ -115,4 +115,37 @@ theorem pow_le_iff_lt_floorLog {p N : Nat} (hp : 2 ≤ p) (hN : 1 ≤ N) (e : Na
     exact Nat.le_trans
       (Nat.pow_le_pow_right (Nat.lt_of_lt_of_le (by decide) hp) h) (floorLog_pow_le hN)
 
+/-- The upper bridge: `floorLog p N ≤ e ↔ N < p^{e+1}` (`p ≥ 2`, `N ≥ 1`).
+    The negation of `pow_le_iff_lt_floorLog`. -/
+theorem floorLog_le_iff {p N : Nat} (hp : 2 ≤ p) (hN : 1 ≤ N) (e : Nat) :
+    floorLog p N ≤ e ↔ N < p ^ (e + 1) := by
+  constructor
+  · intro hle
+    rcases Nat.lt_or_ge N (p ^ (e + 1)) with h | h
+    · exact h
+    · exact absurd ((pow_le_iff_lt_floorLog hp hN e).mp h) (Nat.not_lt.mpr hle)
+  · intro hlt
+    rcases Nat.lt_or_ge e (floorLog p N) with h | h
+    · exact absurd ((pow_le_iff_lt_floorLog hp hN e).mpr h) (Nat.not_le.mpr hlt)
+    · exact h
+
+/-- `N < p^{M+1} → floorLog p N ≤ M` (`p ≥ 2`, `N ≥ 1`).  The upper-bound tool. -/
+theorem floorLog_le_of_lt_pow {p N M : Nat} (hp : 2 ≤ p) (hN : 1 ≤ N)
+    (h : N < p ^ (M + 1)) : floorLog p N ≤ M :=
+  (floorLog_le_iff hp hN M).mpr h
+
+/-- Floor-log is antitone in the base: a bigger base gives a smaller log
+    (`2 ≤ p ≤ q ⇒ floorLog q N ≤ floorLog p N`, `N ≥ 1`). -/
+theorem floorLog_antitone_base {p q N : Nat} (hp : 2 ≤ p) (hpq : p ≤ q) (hN : 1 ≤ N) :
+    floorLog q N ≤ floorLog p N :=
+  floorLog_ge hp
+    (Nat.le_trans (Nat.pow_le_pow_left hpq (floorLog q N)) (floorLog_pow_le hN))
+
+/-- `floorLog p (pʲ) = j` (`p ≥ 2`) — floor-log is the exact inverse of `pow` on
+    powers of the base. -/
+theorem floorLog_pow_self {p : Nat} (hp : 2 ≤ p) (j : Nat) : floorLog p (p ^ j) = j := by
+  have hpos : 1 ≤ p ^ j := Nat.pos_pow_of_pos j (Nat.lt_of_lt_of_le (by decide) hp)
+  refine Nat.le_antisymm ?_ (floorLog_ge hp (Nat.le_refl _))
+  exact floorLog_le_of_lt_pow hp hpos (pow_lt_pow_of_lt hp (Nat.lt_succ_self j))
+
 end E213.Meta.Nat.FloorLog
