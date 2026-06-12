@@ -274,6 +274,32 @@ theorem G1 (j k : Nat) :
           * (choose (j + 2) k * choose (j + 2) k * (choose (j + k) k * choose (j + k) k)) := by
         ring_nat
 
+/-- `Qpoly` additive bridge: for `k ≤ j` (so the `−2k²` truncation resolves),
+    `Q(j,k) = 4(j−k)²+8(j−k)k+12(j−k)+2k²+15k+8`. -/
+theorem Qpoly_brk {j k : Nat} (h : k ≤ j) :
+    Qpoly j k = 4 * ((j - k) * (j - k)) + 8 * ((j - k) * k) + 12 * (j - k) + 2 * (k * k)
+      + 15 * k + 8 := by
+  obtain ⟨d, hd⟩ : ∃ d, j = k + d := ⟨j - k, (add_sub_of_le h).symm⟩
+  subst hd
+  rw [show k + d - k = d from by rw [Nat.add_comm k d, add_sub_cancel_right]]
+  unfold Qpoly
+  rw [show 4 * (k + d) * (k + d) + 12 * (k + d) + 3 * k + 8
+        = (4 * (d * d) + 8 * (d * k) + 12 * d + 2 * (k * k) + 15 * k + 8) + 2 * (k * k) from by
+        ring_nat, add_sub_cancel_right]
+
+/-- `Qpoly` additive bridge at `k+1`: for `k ≤ j`,
+    `Q(j,k+1) = 4(j−k)²+8(j−k)k+12(j−k)+2k²+11k+9`. -/
+theorem Qpoly_brk1 {j k : Nat} (h : k ≤ j) :
+    Qpoly j (k + 1) = 4 * ((j - k) * (j - k)) + 8 * ((j - k) * k) + 12 * (j - k) + 2 * (k * k)
+      + 11 * k + 9 := by
+  obtain ⟨d, hd⟩ : ∃ d, j = k + d := ⟨j - k, (add_sub_of_le h).symm⟩
+  subst hd
+  rw [show k + d - k = d from by rw [Nat.add_comm k d, add_sub_cancel_right]]
+  unfold Qpoly
+  rw [show 4 * (k + d) * (k + d) + 12 * (k + d) + 3 * (k + 1) + 8
+        = (4 * (d * d) + 8 * (d * k) + 12 * d + 2 * (k * k) + 11 * k + 9) + 2 * ((k + 1) * (k + 1))
+        from by ring_nat, add_sub_cancel_right]
+
 /-! ## Telescoping infrastructure (pure ℕ, no subtraction)
 
 The WZ proof sums the cleared per-`k` identity over `k`; the certificate's
@@ -297,6 +323,13 @@ def B (n : Nat) : Nat := sumTo (n + 1) (aperySummand n)
 /-- `aperyLead j = 34j³+153j²+231j+117` — the leading Apéry polynomial (matches
     `DepthAperyCubic.aperyLead` as a polynomial in `j`). -/
 def aperyLead (j : Nat) : Nat := 34 * j ^ 3 + 153 * j ^ 2 + 231 * j + 117
+
+/-- `aperyLead` in `^`-free product form (for `ring_nat`). -/
+theorem aperyLead_prod (j : Nat) :
+    aperyLead j = 34 * (j * j * j) + 153 * (j * j) + 231 * j + 117 := by
+  unfold aperyLead
+  rw [show j ^ 3 = j * j * j from by rw [Nat.pow_succ, Nat.pow_succ, Nat.pow_one],
+      show j ^ 2 = j * j from by rw [Nat.pow_succ, Nat.pow_one]]
 
 /-- Seeds: `B 0 = 1`, `B 1 = 5` (match `zeta3Den 0, zeta3Den 1`). -/
 theorem B_zero : B 0 = 1 := by decide
