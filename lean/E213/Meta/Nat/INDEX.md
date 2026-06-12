@@ -44,21 +44,24 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
   - `GridReadout213.lean`  — substrate dimension + the readout split
                              (corrected: `perimeter` is an imported
                              Euclidean readout — see `Shape213`)
-  - `Shape213.lean`        — the internal readout is the shape (an ordered
-                             factorization): area = product-collapse,
-                             dimension = #factors, `refine` splits a
-                             dimension fixing area; substrate dimension =
-                             `exp`'s axis at coarser resolution, ONE source
+  - `Shape213.lean`        — the multiplicative number as a factor-LIST:
+                             area = product-collapse, dimension = #factors,
+                             `refine` splits a dimension fixing area;
+                             **`×` = list append** (`shapeProduct_append`),
+                             **`^` = list repeat** (`shapeProduct_lrepeat`) —
+                             the list-form tower (dual of `count_append`)
   - `Iterate213.lean`      — the diagonal climb is iteration; the count
                              slot adds (`iter_add`) and **multiplies**
                              (`iter_mul`); `+`,`×`,`^` as `iter`; the
                              surviving ghost `(aᵇ)ᶜ=a^(b·c)` an `iter_mul`
                              instance; idempotent climb builds no tower
-  - `HyperLadder.lean`     — the tower as ONE recursion: `hyperop` with
-                             `hyperop (k+1) a b = iter (hyperop k a) b (seed k a)`,
-                             so `+`,`×`,`^` = `hyperop 1/2/3`; the single
-                             clock (`iter`/`Nat`) iterating on itself
-                             (frontier §5(a)); funext-free via `iter_congr`
+  - `HyperLadder.lean`     — the tower as ONE recursion: `hyperop (k+1) a b =
+                             iter (hyperop k a) b (seed k a)`, so `+`,`×`,`^` =
+                             `hyperop 1/2/3`; §4 the commutativity window `{1,2}`
+                             (dies at `^`, both boundaries); §5 the **vertical
+                             (iter-recursion) laws** that survive *every* level
+                             past `^` (`hyperop_climb`/`right_one`/`arg_two`/
+                             `base_one`), generic in `k`; funext-free via `iter_congr`
   - `ExpVector.lean`       — the tower's vector-linear system: numbers as
                              prime-exponent vectors with `×`=`vecAdd`,
                              `^`=`vecSmul` (`toVec_mul`/`toVec_pow`), faithful
