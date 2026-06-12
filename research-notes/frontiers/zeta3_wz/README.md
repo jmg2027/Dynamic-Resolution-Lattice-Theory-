@@ -31,6 +31,25 @@ Once proven `∀ j`, `zeta3Den n = (n!)³·B(n)` follows by induction (seeds
     `b(j+2,k)/b(j,k) = ((j+k+1)(j+k+2))²/((j+1-k)(j+2-k))²`,
     `b(j,k-1)/b(j,k) = k⁴/((j-k+1)²(j+k)²)`).
 
+## STATUS (2026-06-12): DENOMINATOR DONE — numerator is the remaining half
+
+  * **`apery_recurrence` PURE** (`AperyRecurrence.lean`, 45 PURE): the denominator
+    recurrence `(j+2)³B(j+2)+(j+1)³B(j)=aperyLead(j)B(j+1)`, via the certificate below.
+  * **`zeta3Den_eq` PURE** (`Zeta3Apery.lean`): `zeta3Den n = (n!)³·B(n)`.
+  * **Remaining: numerator integrality** `(n!)³ ∣ 2lcm³·zeta3Num n`.  Verified
+    (`verify_numerator.py`): `zeta3Num n = (n!)³·aₙ` (orbit `0,6,702,375186,…`),
+    `aₙ = Σ_k C(n,k)²C(n+k,k)²·c_{n,k}` with `c_{n,k}=Σ_{j≤n}1/j³ +
+    Σ_{m≤k}(−1)^{m−1}/(2m³C(n,m)C(n+m,m))` (rational, harmonic denominators);
+    `aₙ` satisfies the **same** Apéry recurrence; `2lcm³aₙ ∈ ℤ`.  Needs:
+    (i) the **numerator WZ** (the *harmonic* summand satisfies the recurrence —
+    harder than the `B` certificate below: `c_{n,k}` adds partial-fraction terms),
+    giving `zeta3Num=(n!)³·aₙ`; (ii) the **ℚ-free §4 assembly** `2lcm³aₙ∈ℕ` via
+    `heart_lcm` (kernel) + `cube_dvd_lcm_cube` (harmonic) + pos/neg Nat split.
+    Recurrence-divisibility does **not** shortcut it (the `(m+2)³` in `((m+2)!)³`
+    won't match — same wall the `B`-sum route resolved).  This is a fresh marathon
+    comparable to the denominator nucleus.  Then piecewise `(c,p,q)` ⟹
+    `zeta3_reduced_conditional` ⟹ `zeta3HolonomicReal`.
+
 ## ★★★ THE CERTIFICATE — FOUND + VERIFIED (`verify_certificate.py`)
 
 Closed form (exact bivariate fit, 0 error; cleared telescoping verified on 400
