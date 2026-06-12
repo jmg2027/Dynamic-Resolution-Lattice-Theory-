@@ -141,6 +141,60 @@ of the µF/νF split — `decide` (terminating, µF-like) vs an *unbounded* tact
 trajectory (νF-like) that no finite `decide` closes?  The `DECIDE`-wall at König
 (`theory/essays/proof_isa/konig_boundary.md`) is a candidate instance.)
 
+## 6. Skeleton convergence + the Expr-level (elaborated) substrate
+
+**Syntax-level skeleton convergence** (`tools/syntax_tactic_scan.py`, comment-stripped,
+9,992 tactic-bodied decls — the rest are term-mode).  The proofs collapse to a *tiny*
+micro-skeleton vocabulary:
+
+| tactic-name sequence | count | share |
+|---|---:|---:|
+| `[decide]` | 2,980 | **30 %** |
+| `[refine, decide]` | 462 | |
+| `[rw]` | 337 | |
+| `[show, rw]` | 229 | |
+| `[rw, exact]` | 121 | |
+| `[show, rw, exact]` | 96 | |
+| `[show, exact]` / `[apply,rw,exact]` / `[intro,exact]` / `[have,rw,exact]` | ~265 | |
+
+Sequence-length distribution is a steep decay off a single-tactic spike:
+**len=1: 3,418 (34 %)**, len=2: 1,374, len=3: 988, … long thin marathon tail (len > 30).
+Dominant (first→last) pairs: `decide→decide` 2,996, `have→exact` 692, `refine→decide`
+666, `intro→exact` 568, `rw→rw` 524, `show→rw` 413.  So the answer to "how many
+distinct skeletons do the proofs collapse to" is: **a handful cover the bulk** — a single
+`decide` alone is ~30 %, and the top ~12 micro-skeletons dominate.
+
+**Expr-level recursor substrate** (`catalogs/recursor-inventory.md`,
+`tools/ast_callgraph_scan.py`; 185 inductive types with recursor edges).  The proofs
+recurse, at the kernel level, almost entirely on **ambient logical types**, not on
+domain structures:
+
+| rank | recursor | invocations | role |
+|---:|---|---:|---|
+| 1 | `Bool.casesOn` | 1,681 | case-split on `decide` outputs |
+| 2 | `Nat` (`brecOn`/`casesOn`/`recAux`) | 803 | arithmetic induction |
+| 3 | `Eq` (`rec`/`casesOn`) | 572 | **the elaborated `rw` mechanism** |
+| 4 | `Decidable.casesOn` | 562 | split on `Decidable` instances |
+| 5–8 | `And`/`Exists`/`Or`/`Prod` `casesOn` | 1,202 | hypothesis destructuring |
+| 10 | **`Term.Internal.Tree`** | 104 | **the Raw substrate — the *only* E213-internal type in the top 11** |
+
+This is the decide+rw character confirmed at the kernel-recursion level: the proof
+machinery is **decision (`Bool`/`Decidable`) + equality (`Eq`) + logical destructuring
+(`And`/`Or`/`Exists`)** over a *thin* Raw (`Tree`) layer.  Domain richness lives in the
+*statements* and the *`def` layer*, not in the proof-recursion.
+
+**Expr complex-end** (`tools/ast_shape_scan.py`, boilerplate-filtered, 4,430 real decls):
+median 112 elaborated nodes, mean 1,184 (heavy right-skew).  The structural cost
+concentrates in three places: (a) the **hand-rolled tactic engine** is the *depth* peak
+(`omega213` 356, `ring_nat`/`ring_intZ` reifiers, `elabDeriveConjugation` — the engine
+room is literally the deepest code); (b) **foundational lemmas proved by brute structural
+expansion** are *node-count* peaks (`Raw.swap_slash` 66k, `Raw.slash_comm` 32k,
+`Int213.mul_assoc` 38k); (c) the **hard analysis / Cayley-Dickson tail**
+(`WallisSeq.wallis_upper_inv` 102k, `QuadIdentities.int_quad_diophantus*` 52–86k,
+Casoratian, Euler).  Note `decide`/`rfl` proofs store *small* terms (the decision runs at
+kernel-check, not in the term) — which is precisely *why* the syntax-level `[decide]`
+clusters are huge while the corpus median node-count stays modest.
+
 ---
 
 ## Regeneration (the numbers drift; the structure should not)
