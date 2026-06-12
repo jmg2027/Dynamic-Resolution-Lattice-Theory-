@@ -427,6 +427,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   general-`p` one-carrier νF spine, ℝ one-carrier with König, and the next deep-dives
   (limit/completion, quotient/equivalence-class, actual-vs-potential infinity).
 
+- `rule_finding_method` — **the discovery method** (the *generative* half): the
+  reusable engine that *finds* general rules of a structure-with-a-generating-step
+  — eight moves (find the generator; seek the demotion/log; watch the substrate's
+  dimension; split laws vertical/horizontal; at a wall don't stop — `∞/0→finite`
+  via `0≡∞`, non-uniqueness = gauge, seek the gauge-invariant; separate
+  canonical/holonomic; witness-or-tag; run the skeptic; iterate).  Worked example:
+  the engine producing `R1–R8` (table).  Complement to
+  `theory/meta/boundary_discipline.md` (the *validation* half).  Output:
+  `number_tower_theory.md`.
+
 - `number_tower_theory` — **the number tower, as general rules** (the cleaned
   statement of the slot-tower dialogue, not the discovery path).  R0 slot
   ontology (tuple is the number; ℤ/ℚ/ℝ = flattening readouts; list-form tower) →
