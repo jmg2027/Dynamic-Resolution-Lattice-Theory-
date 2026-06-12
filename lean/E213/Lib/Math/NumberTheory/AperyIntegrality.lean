@@ -551,4 +551,40 @@ theorem keydiv {m k : Nat} (hm : 1 ≤ m) (hmk : m ≤ k) :
   rw [hms] at hdvd
   exact hdvd
 
+/-! ## §3 — the Heart (L2)
+
+`m³·C(n,m)·C(n+m,m) ∣ d³·C(n,k)·C(n+k,k)` (additive form `n = m+a+b`, `k = m+b`).
+Substitute `d = m·C(k,m)·Q` (KeyDiv quotient) into the cube and apply the trinomial
+double identity to the resulting `C(k,m)²·C(n,k)·C(n+k,k)` factor: it collapses to
+`C(n,m)·C(n+m,m)·C(n−m,k−m)·C(n+k,n+m)`, leaving the explicit integer witness
+`Q³·C(k,m)·C(n−m,k−m)·C(n+k,n+m)`. -/
+
+/-- `x³ = x·x·x`, ∅-axiom (keeps `ring_nat` off literal-exponent `^`). -/
+private theorem cube (x : Nat) : x ^ 3 = x * x * x := by
+  rw [Nat.pow_succ, Nat.pow_succ, Nat.pow_one]
+
+/-- ★★★ **The Heart (L2)**: `m³·C(n,m)·C(n+m,m) ∣ d³·C(n,k)·C(n+k,k)` whenever
+    `m·C(k,m) ∣ d` (KeyDiv supplies this with `d = lcm(1..n)`).  Witness:
+    `Q³·C(k,m)·C(n−m,k−m)·C(n+k,n+m)` with `Q = d/(m·C(k,m))`; the trinomial identity
+    `aperyTrinomial` collapses the `C(k,m)²·C(n,k)·C(n+k,k)` block. -/
+theorem heart {m a b d : Nat} (hQ : m * choose (m + b) m ∣ d) :
+    m ^ 3 * (choose (m + a + b) m * choose (2 * m + a + b) m)
+      ∣ d ^ 3 * (choose (m + a + b) (m + b) * choose (2 * m + a + 2 * b) (m + b)) := by
+  rcases hQ with ⟨Q, hQd⟩    -- hQd : d = m * choose (m+b) m * Q
+  refine ⟨Q ^ 3 * choose (m + b) m * choose (a + b) b
+            * choose (2 * m + a + 2 * b) (2 * m + a + b), ?_⟩
+  have hT := aperyTrinomial m a b
+  rw [cube d, cube m, cube Q, hQd]
+  calc (m * choose (m + b) m * Q) * (m * choose (m + b) m * Q) * (m * choose (m + b) m * Q)
+          * (choose (m + a + b) (m + b) * choose (2 * m + a + 2 * b) (m + b))
+      = m * m * m * (Q * Q * Q) * choose (m + b) m
+          * (choose (m + a + b) (m + b) * choose (2 * m + a + 2 * b) (m + b)
+             * (choose (m + b) m * choose (m + b) m)) := by ring_nat
+    _ = m * m * m * (Q * Q * Q) * choose (m + b) m
+          * (choose (m + a + b) m * choose (2 * m + a + b) m * choose (a + b) b
+             * choose (2 * m + a + 2 * b) (2 * m + a + b)) := by rw [hT]
+    _ = m * m * m * (choose (m + a + b) m * choose (2 * m + a + b) m)
+          * (Q * Q * Q * choose (m + b) m * choose (a + b) b
+             * choose (2 * m + a + 2 * b) (2 * m + a + b)) := by ring_nat
+
 end E213.Lib.Math.NumberTheory.AperyIntegrality
