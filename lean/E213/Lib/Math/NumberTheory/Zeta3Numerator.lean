@@ -3,11 +3,9 @@ import E213.Lib.Math.NumberTheory.AperyRecurrence
 /-!
 # Zeta3Numerator — the cleared harmonic part of the numerator recurrence
 
-Opening of the numerator marathon (see `research-notes/frontiers/zeta3_wz/
-numerator_plan.md`).  The numerator Apéry number `A(n) = H₃(n)·B(n) + K(n)`
-satisfies Apéry's recurrence iff the kernel `K` satisfies an inhomogeneous one;
-the `H₃` (harmonic) part follows from `apery_recurrence` (DONE) plus the harmonic
-telescoping `H₃(n)−H₃(n−1)=1/n³`.
+The numerator Apéry number `A(n) = H₃(n)·B(n) + K(n)` satisfies Apéry's recurrence
+iff the kernel `K` satisfies an inhomogeneous one; the `H₃` (harmonic) part follows
+from `apery_recurrence` plus the harmonic telescoping `H₃(n)−H₃(n−1)=1/n³`.
 
 This file lands that harmonic part, ∅-axiom, in cleared form: with `ℓ` a common
 multiple of the cubes `1³…N³` (later `ℓ=lcm(1..N)³`), `HL ℓ n = Σ_{i=1}^n ℓ/i³`
