@@ -352,4 +352,56 @@ theorem primePi_monotone {m n : Nat} (h : m ≤ n) : primePi m ≤ primePi n := 
   | refl => exact Nat.le_refl _
   | step _ ih => exact Nat.le_trans ih (Nat.le_add_right _ _)
 
+/-! ## Infinitude of primes — the finite skeleton of `π(N) → ∞`
+
+`π` is unbounded: for every `N` there is a prime `> N` (Euclid, via `N! + 1`).
+This is the qualitative content under the PNT horizon — `π(N) → ∞` as a
+*pointing* (each `N` exhibits a next prime), never a completed limit.  Uses a
+local minimal factorial (`fact`); the repo's `factorial` sits in `Real213.ExpLog`,
+a layer above this `Nat`-level file. -/
+
+/-- Local minimal factorial (avoids importing `Real213.ExpLog`). -/
+def fact : Nat → Nat
+  | 0     => 1
+  | n + 1 => (n + 1) * fact n
+
+theorem fact_pos : ∀ n, 0 < fact n
+  | 0     => Nat.one_pos
+  | n + 1 => Nat.mul_pos (Nat.succ_pos n) (fact_pos n)
+
+/-- `k ∣ N!` for `0 < k ≤ N`. -/
+theorem dvd_fact {k : Nat} (hk : 0 < k) : ∀ {n : Nat}, k ≤ n → k ∣ fact n
+  | 0,     h => absurd (Nat.lt_of_lt_of_le hk h) (Nat.lt_irrefl 0)
+  | n + 1, h => by
+      rcases Nat.lt_or_ge k (n + 1) with hlt | hge
+      · obtain ⟨c, hc⟩ := dvd_fact hk (Nat.le_of_lt_succ hlt)
+        refine ⟨(n + 1) * c, ?_⟩
+        show (n + 1) * fact n = k * ((n + 1) * c)
+        rw [hc]; exact E213.Tactic.NatHelper.mul_left_comm (n + 1) k c
+      · have heq : k = n + 1 := Nat.le_antisymm h hge
+        exact ⟨fact n, by show (n + 1) * fact n = k * fact n; rw [heq]⟩
+
+/-- **Infinitude of primes** (Euclid).  For every `N` there is a prime `> N`:
+    a prime factor of `N! + 1` cannot be `≤ N` (it would divide both `N!` and
+    `N! + 1`, hence `1`). -/
+theorem exists_prime_gt (N : Nat) : ∃ p, IsPrime213 p ∧ N < p := by
+  have hM2 : 2 ≤ fact N + 1 := Nat.succ_le_succ (fact_pos N)
+  obtain ⟨q, hq, hqM⟩ := exists_prime_factor (fact N + 1) (fact N + 1) (Nat.le_refl _) hM2
+  refine ⟨q, hq, ?_⟩
+  rcases Nat.lt_or_ge N q with hlt | hle
+  · exact hlt
+  · exfalso
+    have hqpos : 0 < q := Nat.lt_of_lt_of_le (by decide) hq.two_le
+    obtain ⟨a, ha⟩ := dvd_fact hqpos hle
+    obtain ⟨b, hb⟩ := hqM
+    have hb' : q * b = q * a + 1 := by rw [← hb, ha]
+    rcases Nat.lt_or_ge a b with hab | hab
+    · have h1 : q * (a + 1) ≤ q * b := Nat.mul_le_mul (Nat.le_refl q) hab
+      rw [hb', Nat.mul_succ] at h1
+      exact absurd (Nat.le_trans hq.two_le
+        (E213.Meta.Nat.NatDiv213.le_of_add_le_add_left_pure h1)) (by decide)
+    · have h1 : q * b ≤ q * a := Nat.mul_le_mul (Nat.le_refl q) hab
+      rw [hb'] at h1
+      exact absurd h1 (Nat.not_succ_le_self (q * a))
+
 end E213.Lens.Number.Nat213.MultSystemValue
