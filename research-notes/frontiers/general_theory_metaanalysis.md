@@ -189,6 +189,25 @@ of instruments, one per polarity.  **The convergence finding survives a
 genuinely independent domain and gains a second tool — strong evidence it
 organises the corpus, not just the slot-tower region.**
 
+## C9 — is there a third (temporal/process) axis? → NO: the temporal FACE of object1_not_surjective
+
+Tested whether the recurring "process is of the *pointing* (the approximant
+run), never of the *residue* (presentation-invariant, reached by none)" theme is
+a genuinely new third element the two-sided boundary misses.  Verdict: **it is
+the temporal face of `object1_not_surjective`, not a third axis** — so the
+framework is **complete (two sides)**.
+
+Derivation: instantiate the views as pointings (runs/schedules/truncation
+levels) and the non-image as the residue (limit/real/invariant value);
+non-surjectivity ⟹ no finite stage reaches the residue ⟹ all process is
+approach-from-a-view.  The over-interiorize axiom thus reads at **three scales**
+— logic (`object1_not_surjective`), process (`rcut_rescale`,
+`reschedule_limit_eq`, async `level3_diverges`, `HyperLadder` count-clock),
+descriptive (`mul_carry_unbounded` vs `add_carry_le_one`; the reframing essay) —
+unifying presentation-dependence, async determinism, finite-state, and the weld
+as one face.  Genuine deepening, no new primitive.  Promoted into
+`theory/meta/boundary_discipline.md` §5.
+
 ## C7 — does C4 hold in the physics branch? (a sharpened question, NOT a verdict)
 
 Tested the shared-generator criterion on the DRLT **closure form**
@@ -262,6 +281,10 @@ the-goal" lurks if a math-side critic grades it by an external bar).
   framework organises a genuinely independent domain, and gains a *second*
   instrument — the literal→refined diagnosis (dual to the unification
   decision-procedure; catches over-interiorization of a Lens-parametric readout).
+- **C9 (temporal/process axis) → NO third axis**: the "process is of the
+  pointing, not the residue" theme is the temporal FACE of object1_not_surjective
+  (three scales: logic/process/descriptive).  Framework confirmed COMPLETE (two
+  sides).  Core promoted to theory/meta/boundary_discipline.md.
 - **C7 (physics cross-branch) — OPEN, flagged to originator.**  Surveyor's
   "closure form is a fit / falsifies C4" verdict was *logic-corrected* (a
   forcible template would *corroborate* C4, not falsify it) and reduced to a

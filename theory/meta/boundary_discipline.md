@@ -117,7 +117,40 @@ The decision-procedure catches **over-exteriorization** (a forcible schema);
 the literal→refined diagnosis catches **over-interiorization** (a parametric
 readout frozen into a constant).  One instrument per polarity.
 
-## 5. Corroboration, and a Lean-backed corollary
+## 5. The framework is complete (two sides) — and `object1_not_surjective` reads at three scales
+
+A natural worry: is there a *third* axis the two-sided boundary misses — a
+**temporal / process / convergence** structure?  The corpus says, recurrently,
+that *process is a property of the pointing (the approximant run), never of the
+residue* (presentation-invariant, "reached by none, only converged to").  Tested
+directly: this is **not** a third axis — it is the **temporal face of
+`object1_not_surjective`**.  Instantiate the views as *pointings* (runs,
+schedules, truncation levels) and the non-image as the *residue* (the limit, the
+real, the invariant value): non-surjectivity says no finite stage reaches the
+residue, so all process is approach-from-a-view — exactly the recurring shape.
+
+So the over-interiorize axiom reads at **three scales**, unifying independently
+discovered phenomena as one face:
+
+- **logic scale** — `FlatOntologyClosure.object1_not_surjective`: `Raw ↛`
+  predicates; the residue is the non-image of the self-cover.
+- **process scale** — the residue is invariant under the run:
+  `Real213.PresentationDependence.rcut_rescale` (the real is rescaling-invariant;
+  modulus / holonomicity / certificate-depth are of the *pointing*),
+  `Real213.ModulusComposition.reschedule_limit_eq` (rescheduling does not move
+  the limit), `Theory.Raw.Async.level3_diverges` (the run is underdetermined past
+  the first composite; the order is invariant), `HyperLadder` (the count is the
+  clock — a view, not the tower).
+- **descriptive scale** — no finite catalog covers its own diagonal:
+  `Padic.NuEscape.mul_carry_unbounded` vs `add_carry_le_one` (the *same* value
+  `(-1)²=1` carries a bounded and an unbounded process — finite-state is of the
+  operation, not the value); `theory/essays/methodology/why_the_reframing_recurs.md`.
+
+This is genuine *deepening* (the unification of presentation-dependence, async
+determinism, finite-state, and the weld under one face was a discovery), but it
+adds **no new primitive** — confirming the boundary has exactly two sides.
+
+## 6. Corroboration, and a Lean-backed corollary
 
 The boundary framework has been tested in six independent regions of the
 corpus and corroborated in every math/meta one (the slot-tower bridges,
