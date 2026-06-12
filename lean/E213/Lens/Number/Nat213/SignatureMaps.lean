@@ -497,15 +497,19 @@ theorem step_iff_gap_pos (f : Nat → Nat) (hmono : ∀ n, f n ≤ f (n + 1))
     have hlt : f n < f n + gap f n := Nat.lt_add_of_pos_right hpos
     rwa [he] at hlt
 
-/-! ## Order-embedding ↔ infinite subset of ℕ
+/-! ## Order-embedding ⟹ infinite subset of ℕ (image side only)
 
-An order-embedding is the increasing enumeration of its image, which is an
-**infinite subset of ℕ**.  The two defining properties of that image are
-proved directly: the embedding is injective (`strictMono_injective` — the
-enumeration is faithful, hits each image point once) and its image is
-unbounded (`strictMono_unbounded` — meets every threshold, since
-`N ≤ f N`).  Injective + unbounded = the image is an infinite subset; the
-order-embedding *is* its increasing enumeration. -/
+An order-embedding maps onto an **infinite subset of ℕ**.  This direction
+is proved: the embedding is injective (`strictMono_injective` — a faithful
+enumeration, hits each image point once) and its image is unbounded
+(`strictMono_unbounded` — meets every threshold, since `N ≤ f N`).
+Injective + unbounded = the image is an infinite subset.
+
+The **reverse** direction — every infinite subset of ℕ arises as the image
+of a unique increasing enumeration, making this a bijection (↔) — is
+**not** formalized here.  It needs an enumerator built by bounded search
+("least `n ≥ k` in the subset") with termination from unboundedness;
+recorded as open, not claimed. -/
 
 /-- A strictly monotone map is injective (faithful enumeration). -/
 theorem strictMono_injective (f : Nat → Nat)
