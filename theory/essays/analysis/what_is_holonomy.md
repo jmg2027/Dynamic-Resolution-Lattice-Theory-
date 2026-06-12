@@ -80,6 +80,6 @@ The ℕ⁺ loop-freeness is proven here only as *no-return*
 matrix is a unique `L,R` word) needs the continued-fraction / odometer digit
 extraction. The general order law (a loop's holonomy has finite order ∈ `{1,2,3,4,6}`
 by its trace) and the holonomy group as π₁ of the modular orbifold
-`PSL(2,ℤ) = ℤ₂ * ℤ₃` are short bridges to `FiniteOrderSpectrum` and
-`the_modular_geodesic_lens`, not yet written
-(`research-notes/frontiers/holonomy_lattice.md`).
+`PSL(2,ℤ) = ℤ₂ * ℤ₃` are short bridges to
+`lean/E213/Lib/Math/NumberSystems/Real213/FiniteOrderSpectrum.lean` and
+`theory/essays/p_orbit/the_modular_geodesic_lens.md`, not yet written.
