@@ -41,7 +41,13 @@ The criterion that separates a genuine β-discovery from a forcible map:
 A genuine β-discovery *is* the recognition that two phenomena are instances of
 one parametric (α) schema, upon which β collapses into α (`OrderWrap` and
 `HyperLadder` are themselves parametric schemas).  The genuine β-successes share
-a **combinatorial generator at the count/successor floor** (ℕ-iteration); the
+a **combinatorial generator at the count/successor floor** (ℕ-iteration) — and,
+sharpened, it is *literally one generator*: `OrbitIsIter.orbit_eq_iter` proves
+`OrderWrap`'s orbit **is** `Iterate213.iter` (the count iterating the
+successor), and `HyperLadder.hyperop_succ` is `iter` iterating the rung below.
+So the two β-successes are two deployments of **the** count-floor generator,
+`iter`, whose second argument *is* the count-Lens `ℕ` — falsifiable form: *any
+future β-success will be `iter`-derived*.  The
 failures sit higher — `+`-comm vs `×`-comm (append vs grid, no shared proof),
 cut-equality vs `vp`-equality (different readouts), shape vs curvature
 (factorization vs degree-difference).  **Unification distance grows with
