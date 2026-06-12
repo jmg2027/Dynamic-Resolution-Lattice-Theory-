@@ -504,6 +504,32 @@ verdict that the physics is overfitted.  Pursuing it needs the originator's
 steer (it is their core deployment, and the failure mode "DRLT-validation-as-
 the-goal" lurks if a math-side critic grades it by an external bar).
 
+**Advanced by C11** (`reflexivity_gap.md`).  The "corroborates either way"
+resolution above (also `boundary_discipline.md` §6) is itself the open item's
+*tell*: a meta-claim that no outcome can disconfirm relocates confirmation out
+of falsifiability's reach — the meta-scale of a bracket-falsifier that is a
+`decide`-tautology on the observed value.  C11 does **not** grade the physics by
+an external bar; it de-self-seals C7 into a test using 213's *own* ∅-axiom
+standard: freeze the κ-catalog as pre-registered, log any observable needing a
+κ outside it (as `g_n` already is).  See `reflexivity_gap.md` action register.
+
+## C11 — the reflexivity gap (the discipline, turned on the evidence)
+
+Full note: `reflexivity_gap.md`.  Six adversarial audits (foundations,
+number-systems, algebra/cohomology, physics, discovery-engine, meta), three crux
+claims re-verified in source.  One-line statement: **the two-sided boundary sorts
+mathematical objects and narrator errors but has not been turned reflexively on
+the framework's own corroboration** — and when it is, three confirmation-claims
+are method-guaranteed rather than risked (no-exterior *forces* the diagonal to
+reappear, so breadth/primacy partly double-counts; the CDI byte-identity rests on
+a name-blind scanner, `tools/ast_shape_body.lean` `walk` discards `const` names;
+bracket-falsifiers `decide` an inequality on the *observed* literal, the derived
+value absent).  The genuine positive twin: **"declined identification"** — 213's
+load-bearing PURE results are the un-flattened version of a construction the
+exterior pre-quotients (`26=25+1`, the cup-correction, `cutEq` finer than Cauchy,
+the residue as non-collapsed predicate surplus).  This *accepts* C4/C6 and the
+α/β rarity thesis; it adds the reflexive move §5 ("complete, two sides") omits.
+
 ## Log
 
 - (init) Program opened; surveyor team dispatched on C1–C3; C4 synthesised

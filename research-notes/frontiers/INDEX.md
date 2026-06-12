@@ -461,6 +461,20 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `[∅]`/`[ax]`/`[std]`/`[spec]`; Lean anchor index + open problems included.
   Discovery path: `general_theory_metaanalysis.md` findings D/E/F/G/G′.
 
+- `reflexivity_gap` — **C11: the reflexivity gap** (extends the meta-analysis
+  program).  The boundary discipline is applied to mathematical *objects* but not
+  reflexively to the framework's own *evidence*; turned on the evidence, three
+  confirmation-claims are method-guaranteed rather than risked (no-exterior
+  guarantees the diagonal reappears; the CDI shape-vector is name-blind —
+  `tools/ast_shape_body.lean` `walk` discards `const` names, verified;
+  bracket-falsifiers are `decide`-tautologies on the observed literal —
+  `E_d_bracket`, verified).  Advances the **open C7** (de-self-seals the
+  "corroborates either way" framing into decidable tests); refines the
+  *equivalence-pluralism* guard (it over-collapses `cutEq`-vs-Cauchy and
+  iso-vs-homomorphism — load-bearing grade / map distinctions); names the genuine
+  positive core ("declined identification" = the un-flattened quotient) and a new
+  PURE result (separator-self-reference bifurcation ↔ §5.2).  Six adversarial
+  audits, three crux claims re-verified in source.  Action register included.
 - `general_theory_metaanalysis` — **meta-analysis program** (corpus-wide, ongoing):
   discovers genuine general theoretical structures via deep + meta analysis,
   filtered by the adversarial debate method.  Validated core **PROMOTED** to
