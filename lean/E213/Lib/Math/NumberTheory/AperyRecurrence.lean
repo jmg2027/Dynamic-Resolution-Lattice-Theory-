@@ -1,6 +1,7 @@
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!
@@ -40,6 +41,8 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose choose_eq_zero_of
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_succ factorial_pos)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_congr sumTo_add_func
+  sumTo_mul_left)
 open E213.Tactic.NatHelper (add_sub_of_le add_left_cancel mul_left_cancel_pos add_sub_cancel_right)
 
 /-! ## Column recurrence (the binomial `W`-factoring building block) -/
@@ -492,5 +495,40 @@ theorem per_k (j k : Nat) :
       unfold Wfac
       rw [choose_eq_zero_of_lt (j + 2) k hgt, show (0 : Nat) * 0 = 0 from rfl, Nat.zero_mul]
     rw [hw, Nat.zero_mul, Nat.zero_mul]
+
+/-! ## §recurrence — sum the per-`k` identity over `k`, telescope, cancel -/
+
+/-- `a(n,k) = 0` for `k > n`. -/
+theorem aperySummand_zero {n k : Nat} (h : n < k) : aperySummand n k = 0 := by
+  unfold aperySummand
+  rw [choose_eq_zero_of_lt n k h, show (0 : Nat) * 0 = 0 from rfl, Nat.zero_mul]
+
+/-- `Gmag j 0 = 0` (the `k⁴` factor vanishes). -/
+theorem Gmag_zero (j : Nat) : Gmag j 0 = 0 := by
+  unfold Gmag
+  rw [show 4 * (0 * 0 * 0 * 0) = 0 from rfl, Nat.zero_mul, Nat.zero_mul, Nat.zero_mul]
+
+/-- `Gmag j (j+3) = 0` (`Wfac` vanishes: `C(j+2,j+3)=0`). -/
+theorem Gmag_top (j : Nat) : Gmag j (j + 3) = 0 := by
+  unfold Gmag
+  rw [show Wfac j (j + 3) = 0 from by
+        unfold Wfac
+        rw [choose_eq_zero_of_lt (j + 2) (j + 3) (Nat.lt_succ_self (j + 2)),
+            show (0 : Nat) * 0 = 0 from rfl, Nat.zero_mul],
+      Nat.mul_zero]
+
+/-- Extend the `B(j)`-sum to upper bound `j+3` (tail `k∈{j+1,j+2}` vanishes). -/
+theorem sumExt_j (j : Nat) : sumTo (j + 3) (aperySummand j) = B j := by
+  show sumTo (j + 1 + 1 + 1) (aperySummand j) = sumTo (j + 1) (aperySummand j)
+  rw [sumTo_succ, sumTo_succ, aperySummand_zero (Nat.lt_succ_self j),
+      aperySummand_zero (Nat.lt_succ_of_lt (Nat.lt_succ_self j)), Nat.add_zero, Nat.add_zero]
+
+/-- Extend the `B(j+1)`-sum to upper bound `j+3` (tail `k=j+2` vanishes). -/
+theorem sumExt_j1 (j : Nat) : sumTo (j + 3) (aperySummand (j + 1)) = B (j + 1) := by
+  show sumTo (j + 1 + 1 + 1) (aperySummand (j + 1)) = sumTo (j + 1 + 1) (aperySummand (j + 1))
+  rw [sumTo_succ, aperySummand_zero (Nat.lt_succ_self (j + 1)), Nat.add_zero]
+
+/-- `B(j+2)`-sum already has upper bound `j+3`. -/
+theorem sumExt_j2 (j : Nat) : sumTo (j + 3) (aperySummand (j + 2)) = B (j + 2) := rfl
 
 end E213.Lib.Math.NumberTheory.AperyRecurrence
