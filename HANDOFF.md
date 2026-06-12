@@ -1,9 +1,34 @@
-# Session Handoff — 2026-06-12 (MultSystem: multiplicative count → PNT trajectory)
+# Session Handoff — 2026-06-12 (Chebyshev: prime window (n,2n] → count bound)
 
 ## Branch
-`claude/n-plus-signature-mappings-7yrrk3` — the system `×` makes (monomials
+`claude/autonomous-marathon-vp-listprod-imkycf` — the system `×` makes (monomials
 over a base set, graded by count) and its trajectory toward the prime number
 theorem.  All ∅-axiom (0 dirty).  Pushed.
+
+## This session (autonomous marathon, from `vp_listProd_le_one`)
+Closed the Erdős elementary-Chebyshev numerator + count bound in
+`E213/Lens/Number/Nat213/MultSystemValue.lean` (all ∅-axiom):
+
+- **`listProd_dvd`**: distinct primes each `∣ m` ⇒ `∏ ps ∣ m` (via
+  `dvd_of_forall_vp_le`).  Support: `listProd_pos`; **`vp_listProd_le_one`**
+  (Nodup prime list ⇒ `vp q (∏ ps) ≤ 1`, squarefree); `prime_dvd_listProd_mem`
+  (`q ∣ ∏ primes ⇒ q ∈ ps`, Euclid list form, decidability-free).
+- **Prime window `(n,2n]`**: `primesIn lo hi` = primes in `(lo,hi]`, built
+  counting `hi` down with decidability-free `Nat.decLt`/`decPrime` splits;
+  unfolding lemmas `primesIn_cons/_skip/_empty` (`simp only [primesIn]` + goal-
+  side `cases`, pure) drive `mem_primesIn_{le,prime,gt}` + `primesIn_nodup`.
+  `central_binom_pos`; **`window_prod_dvd_central_binom`** (`∏_{n<p≤2n} p ∣
+  C(2n,n)`); **`window_prod_le`** (`∏ ≤ 2^{2n}`).
+- **`windowCount_pow_le : (n+1)^{windowCount n} ≤ 2^{2n}`** — the finite ∅-axiom
+  Chebyshev count skeleton (`windowCount n = π(2n)−π(n)`; each window prime `>n`;
+  `pow_length_le_prod`).  Verified `windowCount 4=2, 10=4, 50=10`.
+
+**Next** (frontier `multiplicative_count_pnt.md`): ∅-axiom floor-`log₂` on `Nat`
+to make `windowCount_pow_le` additive (`windowCount n · log₂(n+1) ≤ 2n`), tie
+`windowCount` to `primePi`, sum dyadic windows ⇒ `π(N)=O(N/ln N)` ⇒ inhabit
+`PrimeDensityToZero`.
+
+## Prior session (n-plus-signature-mappings branch)
 
 ## What this branch built
 

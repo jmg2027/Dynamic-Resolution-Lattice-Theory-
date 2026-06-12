@@ -97,26 +97,40 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     `prime_not_dvd_listProd` (prime ∉ prime-list ⇒ ∤ product, the coprimality
     core) DONE.  **`dvd_of_forall_vp_le : (∀ prime q, vp q a ≤ vp q b) → a ∣ b`**
     (a,b>0; the order companion of `vp_separation`, `Meta/Nat/VpSeparation`) DONE.
-    **Remaining chunk**: `listProd_dvd` — distinct primes each `∣ m` ⇒ `listProd ps
-    ∣ m`, via `dvd_of_forall_vp_le`.  Only one lemma left: **`vp_listProd_le_one :
-    q prime, ps nodup primes ⇒ vp q (listProd ps) ≤ 1`** (induction: `vp q (p·rest)
-    = vp q p + vp q (listProd rest)`; `q=p` ⇒ `1+0` via `prime_not_dvd_listProd`,
-    `q≠p` ⇒ `0+(≤1)`).  Then for prime `q`: `q∈ps` ⇒ `vp q (listProd ps) ≤ 1 ≤ vp q
-    m` (since `q∣m`); `q∉ps` ⇒ `vp q (listProd ps)=0` (`prime_not_dvd_listProd`).
-    Needs `listProd_pos` (all factors ≥2>0).  Then
-    `∏_{n<p≤2n} p ≤ C(2n,n) ≤ 4^n`; bound `#{primes in (n,2n]}` by taking `log`
-    (each prime `> n`, so `n^(count) < ∏ p ≤ 4^n` ⇒ `count·ln n < 2n ln 2`
-    ⇒ `count = O(n/ln n)`); sum the dyadic windows ⇒ `π(N)=O(N/ln N)` ⇒ density
-    `→ 0` ⇒ inhabit `PrimeDensityToZero`.  Erdős elementary-Chebyshev.
-    PNT proper (`·ln N` at the `1`-cut) needs `ln` (`Real213.ExpLog`) + the ratio
-    sequence — same certificate shape.
+    **`listProd_dvd`** (distinct primes each `∣ m` ⇒ `listProd ps ∣ m`, via
+    `dvd_of_forall_vp_le`) **DONE**, with `listProd_pos`, **`vp_listProd_le_one`**
+    (Nodup prime list ⇒ `vp q (∏ ps) ≤ 1`, squarefree) and `prime_dvd_listProd_mem`
+    (`q ∣ ∏ primes ⇒ q ∈ ps`, Euclid list form, decidability-free).  **Prime
+    window `(n,2n]` DONE**: `primesIn lo hi` (primes in `(lo,hi]`, decidability-free
+    `Nat.decLt`/`decPrime` splits + unfolding lemmas `primesIn_cons/_skip/_empty`
+    via `simp only [primesIn]`), `mem_primesIn_{le,prime,gt}` + `primesIn_nodup`,
+    `central_binom_pos`, **`window_prod_dvd_central_binom`** (`∏_{n<p≤2n} p ∣
+    C(2n,n)`), **`window_prod_le`** (`∏ ≤ 2^{2n}`).  **Count bound DONE**:
+    `pow_length_le_prod` (`lo^{len} ≤ ∏` when each factor `≥ lo`), `windowCount n`
+    (`= π(2n)−π(n)`), **`windowCount_pow_le : (n+1)^{windowCount n} ≤ 2^{2n}`** —
+    the finite ∅-axiom Chebyshev count skeleton (each window prime `> n`).
+
+    **Remaining chunk**: convert `windowCount_pow_le` (multiplicative) to additive
+    via a ℕ floor-`log₂`: `windowCount n · log₂(n+1) ≤ 2n`, i.e.
+    `windowCount n ≤ 2n / log₂(n+1)`.  Then sum dyadic windows
+    `(2^k, 2^{k+1}]` (telescoping `π`) ⇒ `π(N) = O(N/ln N)` ⇒ density `→ 0` ⇒
+    inhabit `PrimeDensityToZero`.  Erdős elementary-Chebyshev.  Needs a ∅-axiom
+    floor-`log₂` (`Nat`, `2^k ≤ n < 2^{k+1}`) — likely already partially in
+    `MultSystemValue` (`omega_le_log` gives `2^{Ω n} ≤ n`).  PNT proper (`·ln N` at
+    the `1`-cut) needs `ln` (`Real213.ExpLog`) + the ratio sequence — same
+    certificate shape.
 
 ## Next concrete step
 
-`primePi` (item 1) CLOSED.  **Infinitude DONE**: `exists_prime_gt` (∀ N, ∃ prime
-> N, Euclid via N!+1; local `fact`, `dvd_fact`) — the qualitative `π(N) → ∞` as a
-pointing.  Remaining item-2 targets: (a) `π` unboundedness as a Nat statement
-(`∀ k, ∃ n, k ≤ primePi n` — from `exists_prime_gt` + `primeIndicator_eq_one_iff`
-+ monotonicity); (b) a Chebyshev-type *finite* upper/lower bound pointing at PNT;
-(c) tie `factorization_bounded`'s prime-list length to `primePi`.  PNT itself
-stays the asymptotic horizon.
+The Chebyshev numerator + count bound are now closed (`window_prod_le`,
+`windowCount_pow_le : (n+1)^{windowCount n} ≤ 2^{2n}`).  **Next**: a ∅-axiom
+floor-`log₂` on `Nat` (`log2 n` with `2^{log2 n} ≤ n < 2^{log2 n + 1}` for
+`n ≥ 1`) to turn `windowCount_pow_le` additive — `windowCount n · log₂(n+1) ≤ 2n`
+— giving the explicit `windowCount n ≤ 2n / log₂(n+1)` count cap.  Then tie
+`windowCount` to `primePi` (`windowCount n = primePi (2n) − primePi n`, a `primePi`
+telescoping over `primesIn`) and sum dyadic windows to reach `π(N) = O(N/ln N)`,
+inhabiting `PrimeDensityToZero`.  PNT proper stays the asymptotic horizon.
+
+Loose secondary targets still open: tie `factorization_bounded`'s prime-list
+length to `primePi`; a Chebyshev *lower* bound (`π(2n) − π(n) ≥ …`) for the
+matching direction.
