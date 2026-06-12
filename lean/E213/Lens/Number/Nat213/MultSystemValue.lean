@@ -1,6 +1,7 @@
 import E213.Lens.Number.Nat213.MultSystem
 import E213.Meta.Nat.FoldCriterion
 import E213.Meta.Nat.PolyNatMTactic
+import E213.Meta.Nat.FloorLog
 
 /-!
 # Lens.Number.Nat213.MultSystemValue — the prime-valued instance (case A)
@@ -37,6 +38,7 @@ open E213.Meta.Nat.VpSeparation
   (vp_eq_zero_of_not_dvd exists_prime_factor dvd_of_forall_vp_le dvd_iff_one_le_vp)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
+open E213.Meta.Nat.FloorLog (floorLog floorLog_ge)
 open E213.Lens.Number.Nat213.MultSystem
   (totalCount binom totalCount_closed binom_succ binom_self binom_zero central_binom_le)
 
@@ -885,5 +887,16 @@ theorem windowCount_pow_le (n : Nat) : (n + 1) ^ windowCount n ≤ 2 ^ (2 * n) :
   Nat.le_trans
     (pow_length_le_prod (n + 1) (primesIn n (2 * n)) (fun _ hp => mem_primesIn_gt hp))
     (window_prod_le n)
+
+/-- **The Chebyshev count cap (additive form): `#{primes in (n,2n]} ≤ ⌊log_{n+1}
+    2^{2n}⌋`** for `n ≥ 1`.  Apply `floorLog_ge` to `windowCount_pow_le`: the
+    multiplicative bound `(n+1)^{windowCount n} ≤ 2^{2n}` is exactly the statement
+    that `windowCount n` does not exceed the floor-logarithm of `2^{2n}` base
+    `n+1`.  This is the discrete `π(2n) − π(n) ≤ 2n·ln 2 / ln(n+1)`, the finite
+    ∅-axiom skeleton of the Chebyshev/PNT count estimate (`floorLog` = the
+    ∅-axiom inverse of the `(n+1)^•` exponential). -/
+theorem windowCount_le_floorLog {n : Nat} (hn : 1 ≤ n) :
+    windowCount n ≤ floorLog (n + 1) (2 ^ (2 * n)) :=
+  floorLog_ge (Nat.succ_le_succ hn) (windowCount_pow_le n)
 
 end E213.Lens.Number.Nat213.MultSystemValue
