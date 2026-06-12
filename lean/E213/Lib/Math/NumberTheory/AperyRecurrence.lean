@@ -43,7 +43,8 @@ open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factoria
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_congr sumTo_add_func
   sumTo_mul_left)
-open E213.Tactic.NatHelper (add_sub_of_le add_left_cancel mul_left_cancel_pos add_sub_cancel_right)
+open E213.Tactic.NatHelper (add_sub_of_le add_left_cancel add_right_cancel mul_left_cancel_pos
+  add_sub_cancel_right)
 
 /-! ## Column recurrence (the binomial `W`-factoring building block) -/
 
@@ -530,5 +531,71 @@ theorem sumExt_j1 (j : Nat) : sumTo (j + 3) (aperySummand (j + 1)) = B (j + 1) :
 
 /-- `B(j+2)`-sum already has upper bound `j+3`. -/
 theorem sumExt_j2 (j : Nat) : sumTo (j + 3) (aperySummand (j + 2)) = B (j + 2) := rfl
+
+/-- ★★★ **Apéry's recurrence** for the binomial sums `Bₙ`:
+    `(j+2)³·B(j+2) + (j+1)³·B(j) = aperyLead(j)·B(j+1)`.  Sum `per_k` over `k<j+3`:
+    the `Gmag` terms telescope (`sumTo_shift_eq`, boundaries `0`); the `a`-sums
+    extend to `B`; cancel `(j+1)²(j+2)²`. -/
+theorem apery_recurrence (j : Nat) :
+    (j + 2) * (j + 2) * (j + 2) * B (j + 2) + (j + 1) * (j + 1) * (j + 1) * B j
+      = aperyLead j * B (j + 1) := by
+  -- the Gmag telescoping sums are equal
+  have hSQ : sumTo (j + 3) (fun k => Gmag j (k + 1)) = sumTo (j + 3) (Gmag j) := by
+    have h := sumTo_shift_eq (Gmag j) (j + 3)
+    rw [Gmag_zero, Gmag_top, Nat.add_zero, Nat.add_zero] at h
+    exact h
+  -- LHS sum of per_k (keep C = (j+1)²(j+2)² factored out)
+  have hF : sumTo (j + 3) (fun k =>
+        ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+            * (((j + 2) * (j + 2) * (j + 2)) * aperySummand (j + 2) k
+                + ((j + 1) * (j + 1) * (j + 1)) * aperySummand j k)
+          + Gmag j (k + 1))
+      = ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+          * ((j + 2) * (j + 2) * (j + 2) * B (j + 2) + (j + 1) * (j + 1) * (j + 1) * B j)
+        + sumTo (j + 3) (fun k => Gmag j (k + 1)) := by
+    rw [← sumTo_add_func (j + 3)
+          (fun k => ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+            * (((j + 2) * (j + 2) * (j + 2)) * aperySummand (j + 2) k
+                + ((j + 1) * (j + 1) * (j + 1)) * aperySummand j k))
+          (fun k => Gmag j (k + 1)),
+        ← sumTo_mul_left (((j + 1) * (j + 1)) * ((j + 2) * (j + 2))) (j + 3)
+          (fun k => ((j + 2) * (j + 2) * (j + 2)) * aperySummand (j + 2) k
+            + ((j + 1) * (j + 1) * (j + 1)) * aperySummand j k),
+        ← sumTo_add_func (j + 3)
+          (fun k => ((j + 2) * (j + 2) * (j + 2)) * aperySummand (j + 2) k)
+          (fun k => ((j + 1) * (j + 1) * (j + 1)) * aperySummand j k),
+        ← sumTo_mul_left ((j + 2) * (j + 2) * (j + 2)) (j + 3) (aperySummand (j + 2)),
+        ← sumTo_mul_left ((j + 1) * (j + 1) * (j + 1)) (j + 3) (aperySummand j),
+        sumExt_j2, sumExt_j]
+  -- RHS sum of per_k (E = C·aperyLead j factored as the multiplier)
+  have hG : sumTo (j + 3) (fun k =>
+        ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)) * aperyLead j * aperySummand (j + 1) k
+          + Gmag j k)
+      = ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)) * aperyLead j * B (j + 1)
+        + sumTo (j + 3) (Gmag j) := by
+    rw [← sumTo_add_func (j + 3)
+          (fun k => ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)) * aperyLead j * aperySummand (j + 1) k)
+          (fun k => Gmag j k),
+        ← sumTo_mul_left (((j + 1) * (j + 1)) * ((j + 2) * (j + 2)) * aperyLead j) (j + 3)
+          (aperySummand (j + 1)),
+        sumExt_j1]
+  -- combine
+  have hcong : sumTo (j + 3) (fun k =>
+        ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+            * (((j + 2) * (j + 2) * (j + 2)) * aperySummand (j + 2) k
+                + ((j + 1) * (j + 1) * (j + 1)) * aperySummand j k)
+          + Gmag j (k + 1))
+      = sumTo (j + 3) (fun k =>
+        ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)) * aperyLead j * aperySummand (j + 1) k
+          + Gmag j k) :=
+    sumTo_congr (j + 3) _ _ (fun k _ => per_k j k)
+  rw [hF, hG, hSQ] at hcong
+  have summed := add_right_cancel hcong
+  have hC : 0 < ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)) :=
+    Nat.mul_pos (Nat.mul_pos (Nat.succ_pos j) (Nat.succ_pos j))
+      (Nat.mul_pos (Nat.succ_pos (j + 1)) (Nat.succ_pos (j + 1)))
+  apply mul_left_cancel_pos hC
+  rw [summed]
+  ring_nat
 
 end E213.Lib.Math.NumberTheory.AperyRecurrence
