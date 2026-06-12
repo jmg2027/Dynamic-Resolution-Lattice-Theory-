@@ -465,4 +465,61 @@ theorem gap_pos_of_step (f : Nat → Nat) (n : Nat) (h : f n < f (n + 1)) :
     1 ≤ gap f n :=
   E213.Tactic.NatHelper.sub_pos_of_lt h
 
+/-! ## Weakly monotone — the staircase (repeats allowed)
+
+A non-decreasing map is a *staircase*: where its gap is `0` it repeats the
+previous value (a plateau), where the gap is `≥ 1` it steps strictly up.
+The two characterizations below cleanly split the strict from the weak:
+gap `= 0` ⟺ a repeat, gap `≥ 1` ⟺ a strict step.  So a weakly monotone
+map is strictly monotone *exactly* when it has no plateaus (no zero gap),
+and a genuine staircase otherwise. -/
+
+/-- **Plateau ⟺ zero gap.**  For a non-decreasing map, a repeated value is
+    exactly a zero gap. -/
+theorem gap_zero_iff_repeat (f : Nat → Nat) (hmono : ∀ n, f n ≤ f (n + 1))
+    (n : Nat) : gap f n = 0 ↔ f (n + 1) = f n := by
+  constructor
+  · intro hg
+    exact Nat.le_antisymm (Nat.le_of_sub_eq_zero hg) (hmono n)
+  · intro he
+    show f (n + 1) - f n = 0
+    rw [he, Nat.sub_self]
+
+/-- **Strict step ⟺ positive gap.**  For a non-decreasing map, a strict
+    increase at `n` is exactly a gap `≥ 1`. -/
+theorem step_iff_gap_pos (f : Nat → Nat) (hmono : ∀ n, f n ≤ f (n + 1))
+    (n : Nat) : f n < f (n + 1) ↔ 1 ≤ gap f n := by
+  constructor
+  · exact gap_pos_of_step f n
+  · intro hpos
+    have he : f n + gap f n = f (n + 1) :=
+      E213.Tactic.NatHelper.add_sub_of_le (hmono n)
+    have hlt : f n < f n + gap f n := Nat.lt_add_of_pos_right hpos
+    rwa [he] at hlt
+
+/-! ## Order-embedding ↔ infinite subset of ℕ
+
+An order-embedding is the increasing enumeration of its image, which is an
+**infinite subset of ℕ**.  The two defining properties of that image are
+proved directly: the embedding is injective (`strictMono_injective` — the
+enumeration is faithful, hits each image point once) and its image is
+unbounded (`strictMono_unbounded` — meets every threshold, since
+`N ≤ f N`).  Injective + unbounded = the image is an infinite subset; the
+order-embedding *is* its increasing enumeration. -/
+
+/-- A strictly monotone map is injective (faithful enumeration). -/
+theorem strictMono_injective (f : Nat → Nat)
+    (hmono : ∀ {a b}, a < b → f a < f b) {a b : Nat} (h : f a = f b) :
+    a = b := by
+  rcases Nat.lt_trichotomy a b with hl | he | hg
+  · exact absurd h (Nat.ne_of_lt (hmono hl))
+  · exact he
+  · exact absurd h.symm (Nat.ne_of_lt (hmono hg))
+
+/-- The image of a strictly monotone map is unbounded — meets every
+    threshold `N` (since `N ≤ f N`).  Hence the image is infinite. -/
+theorem strictMono_unbounded (f : Nat → Nat)
+    (hmono : ∀ {a b}, a < b → f a < f b) (N : Nat) : ∃ n, N ≤ f n :=
+  ⟨N, strictMono_ge f hmono N⟩
+
 end E213.Lens.Number.Nat213
