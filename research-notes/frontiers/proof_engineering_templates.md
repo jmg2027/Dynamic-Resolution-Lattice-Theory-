@@ -228,6 +228,57 @@ by definitional `rfl` (0.68, the highest).  The closer (`decide` vs `rfl`) and t
 (`show`/`unfold`) together are a per-layer signature — the template specialises to the
 concreteness of each layer's goals.
 
+## Part IX — worked walkthroughs (the templates composing)
+
+The catalog above is concrete in real proofs.  Three end-to-end traces, each labelled with
+the Parts it composes:
+
+**(1) `Bool213.Raw.and_truth_table` — Bool-reflection + bundle + reshape + decide, one line.**
+```lean
+theorem and_truth_table :
+    and T T = T ∧ and T F = F ∧ and F T = F ∧ and F F = F := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> (unfold and; decide)
+```
+- statement is a 4-fact conjunction (Part VII capstone-bundle, small scale);
+- `and` is a *closed Raw→Raw→Raw* Bool function (Part I move 1–2), so each equation is a
+  *computation*;
+- `refine ⟨?_,?_,?_,?_⟩` splits the bundle, `<;>` applies one tactic to all four goals
+  (Part II case-bundle);
+- `unfold and` reshapes to the computable core (Part II), `decide` closes (Part I move 4).
+  Four "facts" proved by one composed line — *truth is computation*.
+
+**(2) `Cohomology/Surfaces/T2Squared/HodgeIndex` — the enumeration archetype.**
+```lean
+… : cup … = 0 ∧ cup … = 0 ∧ … (6 cup-product values) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+```
+- cochains are `Fin (binom n k) → Bool`, cup is a closed computation (Part I, Part V
+  cohomology archetype);
+- bundle the 6 cup-values (Part VII), `<;> decide` enumerates each over the finite cochain
+  space.  No reshaping needed — the cup is already concrete (Part VIII: cohomology/Math
+  decides directly).
+
+**(3) `Bool213.Raw.and_comm` — the case-analysis fallback when `decide` can't see the input.**
+```lean
+theorem and_comm (x y : Raw) : and x y = and y x := by
+  unfold and
+  by_cases hxT : x = T
+  · subst hxT; by_cases hyT : y = T  …
+```
+- the input `x y : Raw` is *arbitrary* (not a concrete value), so `decide` cannot enumerate;
+- `unfold and` exposes the `if`-structure (Part II), then `by_cases` on the Bool values
+  reduces to finitely many concrete sub-goals (Part I move 4, manual), each closing by the
+  `if`-branch reduction.  The definitional-match design (Part I move 3) makes each branch
+  `rfl`-close.  This is the template for "Bool-reflection over a *variable* of a
+  closed-universe type": case-split to concrete values, then compute.
+
+The seam across all three: **`decide`/`rfl` is the close; the work is engineering the goal
+(closed-universe defs, conjunction-bundles, reshape, case-split) so that the close
+applies.**  When the input is concrete → `decide` directly (1,2); when it is a variable of a
+finite/closed type → `by_cases`/`cases` to concrete, then compute (3); when it is a `Nat`
+polynomial → `ring_nat` reflects to a normal form and `rfl` certifies (Part VI).  Three faces
+of one move: *reduce the goal to a computation the kernel can run.*
+
 ## The one-line synthesis
 
 > 213 is engineered so that **truth is computation**: objects are Bool-valued and
