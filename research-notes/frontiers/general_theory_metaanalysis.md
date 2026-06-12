@@ -436,7 +436,18 @@ sides — `vp_eq_zero_of_gt` (ℤ, finite) vs two *independent* continuum witnes
 `cut_no_finite_certificate` (reals) and `zpseq_no_finite_certificate`
 (`p`-adics, added this session) — so axis B is confirmed real across genuinely
 different completions (an archimedean and a non-archimedean one), not an
-artifact of the reals.  The construction is the same both times (two objects
-agreeing to depth `N`, differing beyond), which is itself a small *shared
-generator* (C4): the continuum-witness is one schema, instantiated at ℝ and at
-ℚ_p — a genuine α-unification of the two completions' infinitude.
+artifact of the reals.
+
+(*Decision procedure applied reflexively — a tempting "shared generator" claim
+here does **not** survive, and the reason is itself a finding.*  The two
+witnesses are **not** the same construction: the `p`-adic one is a **single-digit
+flip** (valid because *any* digit sequence `ℕ → Fin p` is a genuine `p`-adic — a
+**free** function-space), while the real one needs two **close rationals**
+(`N/(N+1)`, `(N+1)/(N+2)`) — a single-flip Bool function is not monotone, so not
+a valid Dedekind cut; reals are a **monotone-constrained** function-space.  So
+only the no-finite-certificate *statement* is shared (type-(3)/(2)); the
+witnesses differ in kind.  The genuine content is the **free vs constrained
+completion** distinction: `ℚ_p` is the unconstrained product `∏ Fin p`, `ℝ` the
+monotone sub-object of `2^(ℚ)` — both infinite-certificate, but for different
+structural reasons.  The decision procedure catching the author mid-celebration
+is the discipline working as designed.)
