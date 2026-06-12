@@ -3,8 +3,8 @@ import E213.Lib.Math.NumberSystems.Padic.SetoidFramework
 /-!
 # NoFiniteCert — p-adic equality has no finite certificate (a second continuum witness)
 
-The meta-analysis grid (`research-notes/frontiers/general_theory_metaanalysis.md`,
-C5) classifies a number system's equality readout on two axes — *faithfulness*
+The meta-analysis readout grid (program finding C5) classifies a number
+system's equality readout on two axes — *faithfulness*
 and, among faithful readouts, *support-finiteness*.  ℤ/ℕ (the `vp` readout) is
 the unique **faithful + finite** cell (a finite equality certificate,
 `FoldCriterion.vp_eq_zero_of_gt`); every completion is **faithful + infinite**.

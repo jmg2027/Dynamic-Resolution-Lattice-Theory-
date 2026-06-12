@@ -10,10 +10,10 @@ view's image, on the other).  The recurring failures are the two ways of
 falling off that boundary, and there is a matched pair of instruments — one per
 side — for staying on it.
 
-Working log + open threads: `research-notes/frontiers/general_theory_metaanalysis.md`.
-Method: each claim below was sharpened by an adversarial audit that caught an
-over-claim (several retractions, one reflexive) — the debate discipline of
-`research-notes/frontiers/slot_tower_debate.md`, applied to the corpus itself.
+Working log + open threads live in the meta-analysis program (the open board
+under `research-notes/frontiers/`).  Method: each claim below was sharpened by
+an adversarial audit that caught an over-claim (several retractions, one
+reflexive) — the slot-tower debate discipline, applied to the corpus itself.
 
 ## 1. Two kinds of unification (α and β), and the shared-generator criterion
 
@@ -215,9 +215,9 @@ here).  Honest bounds:
   the failure-mode catalog, the cohomology/cardinality-cutoff machinery, the
   temporal/process axis, and a falsification sweep).  **One physics-branch
   question is open** — whether the DRLT closure form's atomic search space is
-  structurally forced (a generator) or generically matchable (a fit);
-  `research-notes/frontiers/general_theory_metaanalysis.md` C7, held for the
-  originator.  It does not threaten the framework either way (a forcible
+  structurally forced (a generator) or generically matchable (a fit) — the
+  physics-branch question (C7), held for the originator.  It does not threaten
+  the framework either way (a forcible
   template would *instantiate* the rarity of high-level β-unification).
 - **The framework predicts nothing about *which* mathematics gets derived** —
   it sorts candidates and diagnoses errors; it is a lint, not a generator of

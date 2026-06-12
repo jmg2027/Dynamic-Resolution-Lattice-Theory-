@@ -24,7 +24,7 @@ this is the **destination-variant** form of Pattern 1.
 | [`methodology_patterns.md`](methodology_patterns.md) | Closure-work methodology: Patterns #1-#20 + Reduction patterns #1-#6 |
 | [`multiplicity_doctrine.md`](multiplicity_doctrine.md) | Patterns #17 + #20 + four canonical instances (Real213, Derivative, Cup, Modulus) |
 | [`pure_lean_patterns.md`](pure_lean_patterns.md) | PURE Lean funext-avoidance pattern catalog (State Accumulator, Bundled Subtype, Setoid Category, Residual Induction) |
-| [`boundary_discipline.md`](boundary_discipline.md) | The residue/Lens boundary behind unification, equality, and error: the α/β split + shared-generator criterion, the 2-polarity failure structure, the matched pair of instruments, and the ℤ-uniqueness corollary (`vp_eq_zero_of_gt` vs `cut`/`zpseq_no_finite_certificate`).  Working log: `research-notes/frontiers/general_theory_metaanalysis.md` |
+| [`boundary_discipline.md`](boundary_discipline.md) | The residue/Lens boundary behind unification, equality, and error: the α/β split + shared-generator criterion, the 2-polarity failure structure, the matched pair of instruments, and the ℤ-uniqueness corollary (`vp_eq_zero_of_gt` vs `cut`/`zpseq_no_finite_certificate`).  Working log: the meta-analysis program in `research-notes/frontiers/`. |
 
 ## Action-items registry
 
