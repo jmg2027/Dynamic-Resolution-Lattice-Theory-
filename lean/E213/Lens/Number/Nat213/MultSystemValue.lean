@@ -33,7 +33,8 @@ namespace E213.Lens.Number.Nat213.MultSystemValue
 open E213.Meta.Nat.VpMul (IsPrime213 vp_mul vp_pow vp_self_pow euclid_lemma)
 open E213.Meta.Nat.Valuation (vp pow_vp_dvd mod_zero_of_dvd le_vp_iff)
 open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
-open E213.Meta.Nat.VpSeparation (vp_eq_zero_of_not_dvd exists_prime_factor)
+open E213.Meta.Nat.VpSeparation
+  (vp_eq_zero_of_not_dvd exists_prime_factor dvd_of_forall_vp_le dvd_iff_one_le_vp)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Lens.Number.Nat213.MultSystem
@@ -487,6 +488,92 @@ theorem prime_not_dvd_listProd {p : Nat} (hp : IsPrime213 p) :
         · subst hpq; exact hpmem (List.Mem.head rest)
       · exact ih (fun r hr => hps r (List.Mem.tail q hr))
           (fun hm => hpmem (List.Mem.tail q hm)) h2
+
+/-- A product of positive factors is positive. -/
+theorem listProd_pos {ps : List Nat} (h : ∀ p, p ∈ ps → 0 < p) : 0 < listProd ps := by
+  induction ps with
+  | nil => exact Nat.one_pos
+  | cons x xs ih =>
+      exact Nat.mul_pos (h x (List.Mem.head xs))
+        (ih (fun p hp => h p (List.Mem.tail x hp)))
+
+/-- **Squarefree product of distinct primes.**  For a `Nodup` list of primes, the
+    valuation of the product at any prime `q` is `≤ 1`: each prime appears at most
+    once, so it contributes exponent `0` or `1`.  Induction on the list — the head
+    `p` contributes `vp q p ∈ {0,1}`, and when `q = p` the tail contributes `0`
+    (`prime_not_dvd_listProd`, since `q ∉ rest` by `Nodup`). -/
+theorem vp_listProd_le_one {q : Nat} (hq : IsPrime213 q) :
+    ∀ {ps : List Nat}, (∀ p, p ∈ ps → IsPrime213 p) → ps.Nodup →
+      vp q (listProd ps) ≤ 1 := by
+  intro ps
+  induction ps with
+  | nil =>
+      intro _ _
+      show vp q 1 ≤ 1
+      rw [vp_eq_zero_of_not_dvd hq Nat.one_pos (not_dvd_one hq.two_le)]
+      exact Nat.zero_le 1
+  | cons p rest ih =>
+      intro hps hnd
+      have hpprime : IsPrime213 p := hps p (List.Mem.head rest)
+      have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) hpprime.two_le
+      have hrestprime : ∀ r, r ∈ rest → IsPrime213 r := fun r hr => hps r (List.Mem.tail p hr)
+      have hrestpos : 0 < listProd rest :=
+        listProd_pos (fun r hr => Nat.lt_of_lt_of_le (by decide) (hrestprime r hr).two_le)
+      cases hnd with
+      | cons hhead htail =>
+          show vp q (p * listProd rest) ≤ 1
+          rw [vp_mul hq hppos hrestpos]
+          by_cases hqp : q = p
+          · have hself : vp q p = 1 := by
+              rw [hqp]
+              have := vp_self_pow hpprime 1; rwa [Nat.pow_one] at this
+            have hnotin : q ∉ rest := fun hm => (hhead q hm) hqp.symm
+            have hzero : vp q (listProd rest) = 0 :=
+              vp_eq_zero_of_not_dvd hq hrestpos (prime_not_dvd_listProd hq hrestprime hnotin)
+            rw [hself, hzero, Nat.add_zero]
+            exact Nat.le_refl 1
+          · have hzero : vp q p = 0 :=
+              vp_eq_zero_of_not_dvd hq hppos (prime_not_dvd_prime hq hpprime hqp)
+            rw [hzero, Nat.zero_add]
+            exact ih hrestprime htail
+
+/-- **A prime dividing a product of primes is one of them** (Euclid, list form).
+    `q ∣ ∏ ps` ⇒ `q ∈ ps` — by `euclid_lemma` and a prime dividing a prime
+    forcing equality.  The membership companion of `prime_not_dvd_listProd`, kept
+    decidability-free (no `Decidable (q ∈ ps)`) to stay ∅-axiom. -/
+theorem prime_dvd_listProd_mem {q : Nat} (hq : IsPrime213 q) :
+    ∀ {ps : List Nat}, (∀ p, p ∈ ps → IsPrime213 p) → q ∣ listProd ps → q ∈ ps := by
+  intro ps
+  induction ps with
+  | nil => intro _ h; exact absurd h (not_dvd_one hq.two_le)
+  | cons p rest ih =>
+      intro hps h
+      rcases euclid_lemma hq h with h1 | h2
+      · have hpprime : IsPrime213 p := hps p (List.Mem.head rest)
+        rcases hpprime.2 q h1 with hq1 | hqp
+        · exact absurd (hq1 ▸ hq.two_le) (by decide)
+        · rw [hqp]; exact List.Mem.head rest
+      · exact List.Mem.tail p (ih (fun r hr => hps r (List.Mem.tail p hr)) h2)
+
+/-- **Distinct primes each dividing `m` ⇒ their product divides `m`.**  Via
+    `dvd_of_forall_vp_le`: at every prime `q`, either `vp q (listProd ps) = 0`
+    (nothing to show) or it is positive — then `q ∣ listProd ps`, so `q ∈ ps`
+    (`prime_dvd_listProd_mem`) and `vp q (listProd ps) ≤ 1 ≤ vp q m`
+    (`vp_listProd_le_one` + `q ∣ m`).  This is the coprimality core for
+    `∏_{n<p≤2n} p ∣ C(2n,n)`. -/
+theorem listProd_dvd {ps : List Nat} (hps : ∀ p, p ∈ ps → IsPrime213 p)
+    (hnd : ps.Nodup) {m : Nat} (hm : 0 < m) (hdvd : ∀ p, p ∈ ps → p ∣ m) :
+    listProd ps ∣ m := by
+  have hprodpos : 0 < listProd ps :=
+    listProd_pos (fun p hp => Nat.lt_of_lt_of_le (by decide) (hps p hp).two_le)
+  refine dvd_of_forall_vp_le hprodpos hm (fun q hq => ?_)
+  rcases Nat.eq_zero_or_pos (vp q (listProd ps)) with h0 | hpos
+  · rw [h0]; exact Nat.zero_le _
+  · have hqdvd : q ∣ listProd ps := (dvd_iff_one_le_vp hq hprodpos).mpr hpos
+    have hqin : q ∈ ps := prime_dvd_listProd_mem hq hps hqdvd
+    have h1 : vp q (listProd ps) ≤ 1 := vp_listProd_le_one hq hps hnd
+    have h2 : 1 ≤ vp q m := (dvd_iff_one_le_vp hq hm).mp (hdvd q hqin)
+    exact Nat.le_trans h1 h2
 
 /-- **Infinitude of primes** (Euclid).  For every `N` there is a prime `> N`:
     a prime factor of `N! + 1` cannot be `≤ N` (it would divide both `N!` and
