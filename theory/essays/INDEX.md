@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 95 essays are grouped into ten thematic sub-directories — distinct
+The 96 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -126,7 +126,8 @@ single-schema Lean statement is open).
 `what_is_multiplication`, `what_is_exponentiation`, `what_is_tetration`,
 `what_is_a_logarithm`,
 `the_modular_group_from_two_folds`, `minkowski_as_modular_cocycle`,
-`bessel_polynomials_are_the_lambert_convergents`, `the_form_forced_by_two`.
+`bessel_polynomials_are_the_lambert_convergents`, `the_form_forced_by_two`,
+`the_certificate_boundary`.
 
 **VI. `algebra/` — algebra tower & linear algebra.**
 `cd_tower_polarization`, `exceptional_seeds_are_forced`,
@@ -190,6 +191,7 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `polynomial_in_213.md` | What is a **polynomial** in 213? (the meaning of "finite divergence depth = polynomial degree, exactly") | `math/analysis/divergence_depth_characterization.md` + `Cauchy/{DepthCharacterization,DepthResidueFloor,CassiniSigned}` + `seed/AXIOM/05_no_exterior.md §5.6` |
 | `bessel_polynomials_are_the_lambert_convergents.md` | The Lambert CF convergent coefficient arrays `apF`/`bpF` **are the reversed Bessel polynomials** (in `u=z²`): the three-term ladder is the Bessel recurrence, constant term `(2n−1)!!`, leading coeff the Padé flip `cfpos = 2^n·descFac = (4i+2)!!`, `minor_all` = Bessel total positivity; the weld = the two Bessel families (denominator `θ_n` = convergents, numerator `F_n` = series) meeting at the double-factorial flip | `ExpLog/{LambertMinor (apF/bpF, minor_all), LambertMasterId (cfpos, master_odd), LambertWeld §1 (Bessel ladder F_n), ContinuedFractionModulus (cothCF)}` + `math/analysis/lambert_weld.md` + `essays/analysis/when_two_pointings_are_one.md` + `weld_casoratian_development.md` (bilinear unification) |
 | `the_form_forced_by_two.md` | Why is the weld's shape forced? The solution space is **exactly 2-dimensional** (`coth = cosh/sinh`, two solutions of `y''=y`), and rank-2 forces everything: the unique alternating form (Casoratian `K`), the bilinear collapse (every cross = `det(coeff)·K`, `weld_bilinear_casoratian`), the unimodular CF-determinant transform (`weld_cosh_RM`, det `−1`), the det-floor `+1` as residue unit, the double-factorial flip as the accumulated determinant; no exterior dialer chooses the form, "two" forces it (rank 1 = rational, rank 3+ = more than one invariant) | `math/analysis/lambert_weld.md` §9 + `ExpLog/LambertOrder` (`weld_bilinear_casoratian`, `weld_cosh_RM`, `*_basis`) + `seed/AXIOM/{05_no_exterior.md §5.1, 06_lens_readings.md}` + `essays/analysis/bessel_polynomials_are_the_lambert_convergents.md` |
+| `the_certificate_boundary.md` | When does a holonomic recurrence carry its own proof? A **certificate** `Ĝ(j,k)` with `F(j,k)=Ĝ(j,k+1)−Ĝ(j,k)` (a finite telescoping witness) exists exactly when the summand is **proper hypergeometric** (rational term ratio); Apéry's denominator `B=ΣC(n,k)²C(n+k,k)²` is certifiable (clean `Ĝ`, found+verified), the harmonic numerator `A=H₃B+K` satisfies the **same** recurrence but has **no clean certificate** — certifiability ends precisely at the hypergeometric/harmonic = algebraic/archimedean-log boundary (the same divide as `vp` vs `ln`); shape is forced by rank-2, certifiability by the term class | `math/numbertheory/apery_zeta3_arithmetic.md` + `NumberTheory/AperyRecurrence` (`per_k`, `sumTo_shift_eq`, `colrec`/`lowrec`) + `NumberTheory/Zeta3Numerator` (`harmonic_part_recurrence`) + `essays/synthesis/equality_is_a_certificate.md` + `essays/analysis/what_is_a_logarithm.md` + `essays/analysis/the_form_forced_by_two.md` |
 | `disjoint_layers_as_direct_sum.md` | Why does cup-image codim grow linearly with c? | `math/cohomology/k_nm_c_classification.md` + categorical direct sum reading + `parametric_c_independent_h2_classes` |
 | `stern_brocot_as_universal_lattice.md` | Where does K_{NS, NT}^{(c)} sit, and why is (3, 2) the atomic anchor? | `math/cohomology/k_nm_c_classification.md` + `math/mobius_canonical_equivalence.md` + `BipartiteStermBrocotClassification` |
 | `bipartite_tripartite_self_containment.md` | Why is the framework called 2-1-3 but the cohomology programme bipartite? | `math/mobius213_p_orbit_closure.md` + `TripartiteK213` + Lean-deferred Option I (V32LocalSignature) |
