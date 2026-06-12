@@ -427,6 +427,19 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   general-`p` one-carrier νF spine, ℝ one-carrier with König, and the next deep-dives
   (limit/completion, quotient/equivalence-class, actual-vs-potential infinity).
 
+- `general_theory_metaanalysis` — **meta-analysis program** (corpus-wide, ongoing):
+  discovers genuine general theoretical structures via deep + meta analysis,
+  filtered by the adversarial debate method.  Validated core **PROMOTED** to
+  `theory/meta/boundary_discipline.md`: the residue/Lens boundary behind
+  unification, equality, and error (the α/β split + the *shared-generator
+  criterion*, sharpened to **`iter` is the site of genuine β-unification** —
+  Lean witness `OrbitIsIter.orbit_eq_iter`, survived a falsification sweep; the
+  2-polarity failure structure; the matched pair of instruments; framework
+  *completeness* (two sides; the temporal "third axis" is a face of
+  `object1_not_surjective`); the ℤ-unique-faithful-finite corollary witnessed by
+  `vp_eq_zero_of_gt` vs `cut`/`zpseq_no_finite_certificate`).  *Open:* C7 (the
+  physics closure-form question — for the originator).
+
 - `pure_lean_calibration_synthesis` — **infra frontier** (cross-campaign: determinant/sign +
   Reverse Math 213): the recurring core-`Decidable`/core-lemma **propext leak + hand-rolled-pure
   workaround** is now consolidated enough that a **`Meta/` propext-trap catalog** (which core

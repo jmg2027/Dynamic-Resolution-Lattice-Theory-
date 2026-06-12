@@ -285,6 +285,14 @@ the-goal" lurks if a math-side critic grades it by an external bar).
   pointing, not the residue" theme is the temporal FACE of object1_not_surjective
   (three scales: logic/process/descriptive).  Framework confirmed COMPLETE (two
   sides).  Core promoted to theory/meta/boundary_discipline.md.
+- C4 sharpened: the two β-successes share ONE generator, `iter`
+  (`OrbitIsIter.orbit_eq_iter`: orbit = iter; `hyperop_succ`: tower = iter).
+  Falsifiable form "any β-success is iter-derived".
+- **C10 (falsification sweep) → CLAIM SURVIVES**: a determined hunt across
+  geometry/cohomology/algebra/analysis found no non-iter genuine β-unification
+  (Cayley-Dickson, cup, Möbius capstone all α-parametric same-theory; five-floor
+  a non-shared-generator convergence).  The sharpened central claim is
+  stress-tested.  Core promoted; frontier registered in INDEX.
 - **C7 (physics cross-branch) — OPEN, flagged to originator.**  Surveyor's
   "closure form is a fit / falsifies C4" verdict was *logic-corrected* (a
   forcible template would *corroborate* C4, not falsify it) and reduced to a

@@ -47,7 +47,12 @@ sharpened, it is *literally one generator*: `OrbitIsIter.orbit_eq_iter` proves
 successor), and `HyperLadder.hyperop_succ` is `iter` iterating the rung below.
 So the two β-successes are two deployments of **the** count-floor generator,
 `iter`, whose second argument *is* the count-Lens `ℕ` — falsifiable form: *any
-future β-success will be `iter`-derived*.  The
+future β-success will be `iter`-derived*.  (This survived a determined
+falsification sweep across geometry, cohomology, algebra, and analysis: every
+candidate non-`iter` unifier — Cayley-Dickson doubling, cup products, the
+Möbius `Mobius213UnificationCapstone` — is α-parametric, *same-theory*, not an
+independently-motivated β-pair; the five-floor `disc = 5` is an explicit
+non-shared-generator convergence.)  The
 failures sit higher — `+`-comm vs `×`-comm (append vs grid, no shared proof),
 cut-equality vs `vp`-equality (different readouts), shape vs curvature
 (factorization vs degree-difference).  **Unification distance grows with
