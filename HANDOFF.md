@@ -33,6 +33,16 @@ The prime-valued instance — abstract monomials ARE distinct naturals.
     `primePi_monotone`.  Verified: `primePi [10,20,30,100] = [4,8,10,25]`.
   - **`exists_prime_gt`** : ∀ N, ∃ prime > N (infinitude, Euclid via N!+1;
     local `fact`, `dvd_fact`) = `π(N) → ∞` as a pointing.
+  - **`primePi_unbounded`** : ∀ k, ∃ N, k ≤ primePi N — the divergence
+    *certificate* (213-native ε-N modulus for π → ∞).
+
+## Certificate idea (originator, this branch)
+The PNT horizon should be issued as a **Real213 cut + modulus certificate** =
+213's ε-δ.  `AbCutSeq.toCauchy (S)(N)(hc)` completes a cut given a modulus
+`N(m,k)`; transcendentals (Wallis-π, Euler-e) supply the modulus as `hsep`.
+`primePi_unbounded` is the first such certificate (divergence).  PNT proper:
+frame `π(N)·ln N/N → 1` as a cut at `1` with a modulus hypothesis isolating the
+analytic core — see frontier "Certificate approach".
 
 ## Why ln (pinned)
 `exp` = `Nat.pow` = iterated `×` = binary-op tower depth (no transcendental).

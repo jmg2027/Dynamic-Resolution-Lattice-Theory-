@@ -61,6 +61,29 @@ depth), no transcendental.  `log` = the inverse depth count.  `value = exp(depth
 `e^x`/`ln` are the continuous completion (`Real213` cuts = pointings).  `ln` in
 `π(N)` is the continuous shadow of the discrete `Ω ≤ log₂` skeleton.
 
+## Certificate approach (Real213) — the 213-native ε-δ
+
+The PNT "horizon" should not stay narrative.  **The modulus IS 213's ε-δ
+certificate.**  `AbCutSeq.toCauchy (S) (N : Nat → Nat → Nat) (hc)` completes a
+climbing rational sequence to a real cut *given a modulus* `N(m,k)` = "to resolve
+bit `(m,k)`, go to layer `N(m,k)`".  For transcendentals (π via Wallis, e via
+Euler) the modulus is a **hypothesis** (`hsep` / the "conditional measure-modulus
+schema"), and rate certificates (bracket widths) reduce it to per-resolution
+arithmetic.  This is exactly how to treat PNT 213-natively:
+
+  - **DONE (divergence certificate)**: `primePi_unbounded : ∀ k, ∃ N,
+    k ≤ primePi N` — the ε-N modulus for `π(N) → ∞` (no analytic input needed).
+  - **Convergence certificate (PNT proper)**: frame `π(N) · ln N / N → 1` (or
+    `π(N)/(N/ln N) → 1`) as a cut at `1` with a supplied modulus, isolating the
+    entire analytic content into one `hsep`-style hypothesis — mirroring
+    `AbCutSeq.toCauchy`.  Needs: `ln` as a `Real213` cut (exists:
+    `Real213.ExpLog`), the ratio sequence as an `AbCutSeq` (monotone? or a
+    `CauchyCutSeq` directly), and the modulus hypothesis.  PNT then = "the
+    certificate exists" — provable bound work feeds the modulus; the theorem
+    statement is ∅-axiom-clean (conditional on the modulus), the way the repo
+    states transcendental cuts.  This isolates exactly the irreducible analytic
+    cost, with everything else (the ε-δ scaffolding) ∅-axiom.
+
 ## Next concrete step
 
 `primePi` (item 1) CLOSED.  **Infinitude DONE**: `exists_prime_gt` (∀ N, ∃ prime
