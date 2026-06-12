@@ -99,6 +99,7 @@ import E213.Lib.Math.NumberSystems.Real213.ParabolicTranslation
 import E213.Lib.Math.NumberSystems.Real213.Mat2CayleyHamilton
 import E213.Lib.Math.NumberSystems.Real213.Mat2Assoc
 import E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence
+import E213.Lib.Math.NumberSystems.Real213.HolonomyLattice
 import E213.Lib.Math.NumberSystems.Real213.GoldenAperiodic
 import E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum
 import E213.Lib.Math.NumberSystems.Real213.EllipticTracePeriodic

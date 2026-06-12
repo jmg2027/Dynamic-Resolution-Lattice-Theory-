@@ -1,95 +1,73 @@
-# Session Handoff — 2026-06-12 (ζ(3): nucleus CLOSED + denominator bridged; numerator opened)
+# Session Handoff — 2026-06-12 (ℕ⁺-based holonomy: the dynamic read as a loop)
 
 ## Branch
-`claude/zeta3-apery-integrality-y9jy1x` — main merged in (clean), pushed,
-**ready to merge to main** (full `/ready-to-merge` audit passed; verdict below).
-The ζ(3) `HolonomicReal` route: discharge the two classical inputs of
-`Zeta3Cut.zeta3_reduced_conditional` (I1 integrality, I2 lcm race).
+`claude/n-plus-holonomy-y89v3s` — new ∅-axiom module + theory note, build clean,
+25 PURE / 0 DIRTY.
+
+## Task
+"N+기반 홀로노미를 유도" — derive ℕ⁺-based holonomy.  Idea: read the "dynamic" as a
+lattice; bridge = the objects where *state* and *state-transition* have the same
+representation (modulus / Möbius matrix).
 
 ## What Was Done This Session
 
-### ★★★ THE NUCLEUS — CLOSED: Apéry's recurrence, ∅-axiom (`AperyRecurrence.lean`, 45 PURE)
-`apery_recurrence` — **`(j+2)³B(j+2)+(j+1)³B(j)=aperyLead(j)·B(j+1)`** for
-`B(n)=Σ_k C(n,k)²C(n+k,k)²`.  The WZ / creative-telescoping identity — the thing the
-whole program reduces to — is a 0-axiom theorem.  **No clean certificate was
-available a priori**: the certificate `Ĝ(j,k)=−4k⁴(2j+3)(4j²+12j−2k²+3k+8)C(j+2,k)²
-C(j+k,k)²` was *found* by exact bivariate interpolation, verified, then re-derived
-bottom-up: `reduced_wz_identity` (polynomial core, subtraction-free in `j=k+d`),
-`colrec`/`lowrec` + `R0/R1/R2/G1` (`W`-factoring), `redid_eq`, `per_k`,
-`sumTo_shift_eq` (telescope), sum→cancel `(j+1)²(j+2)²`.  All-`ℕ` (no `Int`; `Q>0`
-in range keeps `ring_nat` additive).
+### ★★★ New module: `Real213/HolonomyLattice.lean` (25 PURE / 0 DIRTY)
+**Holonomy = the net transition around a closed loop of state-transitions**,
+realizing §6.6 (state-transition = state) and §5.7 (frozen/dynamic) as a
+*computational* object.  `holonomy : List Mat2 → Mat2` is the ordered fold-product
+of a path — well-posed precisely because the modular/Möbius matrix is the
+representation in which the operator (transition) is an object (state) of the same
+kind, so a loop of transitions composes to a single state.
 
-### Denominator bridge (`Zeta3Apery.lean`, 4 PURE)
-`zeta3Den_eq` — **`zeta3Den n = (n!)³·B(n)`** (2-step induction; orbit
-`aperyOrbit_exact` ↔ `P_recurrence` for `(n!)³B`, seeds `1,5`).  Identifies the
-recurrence-orbit denominator with the explicit binomial sums.
+Three faces, all ∅-axiom:
+  1. ★ `holonomy_append` — **functoriality**: `holonomy (p++q) = holonomy p ·
+     holonomy q`, a monoid hom from the free path monoid `(List Mat2, ++)` to
+     `(Mat2, ·)`.  (Proof: `Mat2Assoc.mul_assoc` + `one_mul`.)
+  2. ★ `det_holonomy_eq_one` — **flatness**: every step `det = 1` ⟹ holonomy
+     `det = 1` around the whole loop.  `det = 1 = NS − NT` (founding shared unit,
+     `FoundingDynamicBridge`) is the conserved transport invariant — the same
+     thing `Mobius213`'s cross-determinant reads as constant `−1`.  (`det_mul` =
+     Cauchy–Binet `2×2`.)
+  3. ★ `positive_loop_trivial` — **the ℕ⁺ sector is loop-free**: no non-empty word
+     in the Stern–Brocot generators `L = [[1,0],[1,1]]`, `R = [[1,1],[0,1]]`
+     returns to `I`.  Engine: the entry-sum length functional strictly grows on
+     the positive interior `Pos` (`pos_mul_{L,R}`, `entrySum_lt_{L,R}` ⟹
+     `positiveWord_entrySum_gt_two`).  The positive monoid `⟨L,R⟩` is a tree.
+  4. ★ `first_loop_is_the_fold` — holonomy is **born from the fold**: the first
+     non-trivial loop appears exactly when the negation-fold composite `S = N·R`
+     (carrying `S.b = −1`, the sign ℕ⁺ excludes) is admitted: `holonomy [S,S] =
+     −I ≠ I`, `holonomy [S,S,S,S] = I` (order 4, elliptic Gaussian period), while
+     `holonomy [L,R] ≠ I`.  Holonomy = the residue-internal signature of the sign
+     fold ℕ⁺ → ℤ (§6.7).
 
-### Numerator marathon opened (`Zeta3Numerator.lean`, 3 PURE)
-`harmonic_part_recurrence` — the cleared `H₃` part of the numerator recurrence,
-from `apery_recurrence` + harmonic telescoping (`HL_step`).  Verified structure:
-`A(n)=H₃(n)B(n)+K(n)`, `A` satisfies the same recurrence iff the kernel `K`
-satisfies an inhomogeneous one; Abel single-sum form `K=Σ_m δ(n,m)Btail(n,m)`.
-**KEY NEGATIVE FINDING**: the numerator has **no clean WZ certificate** (`cert_A`,
-`cert_K`, `cert_A−cert_B·c` all messy) — the explicit Apéry kernel telescoping is
-mandatory.
+### Theory note
+`theory/math/analysis/holonomy_of_the_lattice.md` (Closed) — mirrors the module,
+anchored to §6.6/§6.7/§5.7 + `the_modular_group_from_two_folds.md` +
+`FoundingDynamicBridge`.  Indexed in `theory/math/INDEX.md`.
 
-### Marathon (merge + skills)
-Merged main (53 commits: weld/Bessel, slot-tower, vp essays).  `/process` (sink
-clean, frontier INDEX updated).  **Promotion**: the closed ζ(3) Apéry arithmetic
-(140 PURE) → `theory/math/numbertheory/apery_zeta3_arithmetic.md` + STRICT_ZERO_AXIOM
-catalog + log row 75.  Cross-domain note (Apéry Casoratian = weld's "forced by
-two"; lcm race = `vp`-log bound; certificate dichotomy = hypergeometric/harmonic
-boundary).  `/essay`: `the_certificate_boundary` (essay 96).  `/org-audit`,
-`/purity-check` (0 forbidden), `/ready-to-merge` (READY).
+### Catalog
+`STRICT_ZERO_AXIOM.md` — `HolonomyLattice` row added (25 PURE / 0 DIRTY).
 
-## Open Problems (Priority Order)
+## Verification
+- `lake build E213.Lib.Math.NumberSystems.Real213` — clean (567 modules).
+- `tools/scan_axioms.py …HolonomyLattice` — 25 pure / 0 dirty.
 
-### 1. Numerator integrality `(n!)³ ∣ 2·lcm³·zeta3Num n` — the remaining half
-The numerator `A=H₃B+K` is harmonic; `2lcm³A∈ℤ` and `zeta3Num=(n!)³A`, but **no
-clean certificate** (research-grade, no CAS shortcut).  Needs: (a) the kernel
-inhomogeneous recurrence via **explicit Apéry kernel telescoping** (Abel form
-`K=Σ_m δ·Btail`; `δ`/`Btail` cross-`n` structure) ⟹ `A`-recurrence ⟹
-`zeta3Num=(n!)³A`; (b) the §4 ℚ-free integrality assembly (`heart_lcm` kernel +
-`cube_dvd_lcm_cube` harmonic + pos/neg split).  `H₃` part already cleared
-(`harmonic_part_recurrence`).  Then piecewise `(c,p,q)` (`c n=(n!)³/(2lcm³)`,
-`q n=2lcm³B(n)` from `zeta3Den_eq`+`two_lcmCube_dvd_factCube`) + `htel`
-(`lcmUpTo_le` vs `zeta3Den_geom`, 28>27) ⟹ `zeta3HolonomicReal` unconditional.
-Frontier: `research-notes/frontiers/zeta3_wz/numerator_plan.md` (+ `zeta3_blueprint`,
-`zeta3_free_modulus`); registered in `frontiers/INDEX.md`.
-
-### 2. vp namespace dedup (informational)
-`Meta/Nat/VpMul.vp_pow` (`IsPrime213`) vs `PrimeValuation.vp_mul` /
-`FactorialLcmDvd.vp_pow3` (`Prime213`) — two prime predicates; a dedicated
-consolidation.  Recorded in `research-notes/frontiers/zeta3_crossdomain.md`.
-
-## Unresolved from This Session
-The numerator WZ certificate hunt was a **confirmed dead end** (no clean
-certificate exists — verified three ways via `numcert2.py`).  The next session
-should NOT re-attempt certificate fitting; the explicit kernel-telescoping route is
-the only path.
-
-## Next
-Open the kernel inhomogeneous recurrence: formalize the Abel single-sum
-`K=Σ_m δ(n,m)·Btail(n,m)` and its cross-`n` telescoping (the explicit Apéry / van
-der Poorten kernel identity).  Target file: `lean/E213/Lib/Math/NumberTheory/
-Zeta3Numerator.lean` (extend).
-
-## Three-tier state
-- **Promotions this session**: `theory/math/numbertheory/apery_zeta3_arithmetic.md`
-  ← the closed ζ(3) Apéry arithmetic (140 PURE).
-- **Promotion candidates**: none outstanding (the closed sub-tree is promoted; the
-  numerator is open and stays in `frontiers/`).
-- **Active scratchpad**: `research-notes/frontiers/zeta3_wz/` (numerator marathon).
+## Open Problems / Next
+- **Full freeness of `⟨L,R⟩`** (the Stern–Brocot bijection): proven here only as
+  no-return (`positive_loop_trivial`); the unique-word / faithful-monoid statement
+  is a natural strengthening (entry-sum gives no-return; uniqueness needs the
+  CF/odometer digit extraction — see `OdometerSternBrocotUnit`).
+- **General `holonomy_pow` / order law**: `holonomy (List.replicate n S)` cycling
+  with period 4 ties directly into `FiniteOrderSpectrum` (`{1,2,3,4,6}`).
+- **Holonomy group as π₁ of the modular orbifold**: the loop classes around the
+  elliptic points `S` (order 4) and `U` (order 6) — connect to
+  `the_modular_geodesic_lens`.
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberTheory/AperyRecurrence.lean   ← nucleus: apery_recurrence (45 PURE)
-lean/E213/Lib/Math/NumberSystems/Real213/Zeta3Apery.lean ← zeta3Den_eq bridge (4 PURE)
-lean/E213/Lib/Math/NumberTheory/Zeta3Numerator.lean    ← numerator H₃ part (3 PURE)
-lean/E213/Lib/Math/NumberTheory/AperyIntegrality.lean  ← Brick 2: KeyDiv, Heart (31 PURE)
-lean/E213/Lib/Math/NumberTheory/FactorialLcmDvd.lean   ← 2lcm³∣(n!)³ (11 PURE)
-theory/math/numbertheory/apery_zeta3_arithmetic.md     ← promotion chapter (new)
-theory/essays/analysis/the_certificate_boundary.md     ← essay (new)
-research-notes/frontiers/zeta3_wz/                      ← numerator frontier + verify scripts
-research-notes/frontiers/zeta3_crossdomain.md          ← cross-domain note (new)
+lean/E213/Lib/Math/NumberSystems/Real213/HolonomyLattice.lean  ← holonomy (25 PURE) [new]
+lean/E213/Lib/Math/NumberSystems/Real213.lean                  ← +import [edit]
+theory/math/analysis/holonomy_of_the_lattice.md                ← theory note [new]
+theory/math/INDEX.md                                           ← +index [edit]
+STRICT_ZERO_AXIOM.md                                           ← +catalog row [edit]
 ```
