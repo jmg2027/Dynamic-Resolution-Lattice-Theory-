@@ -149,4 +149,73 @@ theorem totalCount_base_increment (k N : Nat) :
     totalCount (k + 1) (N + 1) = totalCount k (N + 1) + totalCount (k + 1) N :=
   monoCount_pascal (k + 1) N
 
+/-! ### Closed form — the count formula `C(N+k, k)`
+
+The running total over `k` bases up to degree `N` is the binomial coefficient
+`binom (N+k) k`.  Proof: hockey-stick on Pascal's triangle. -/
+
+/-- Binomial coefficient via Pascal recursion (repo-native, `GenerationCount`
+    carries the same; local copy keeps this file dependency-light). -/
+def binom : Nat → Nat → Nat
+  | _,     0     => 1
+  | 0,     _ + 1 => 0
+  | n + 1, k + 1 => binom n k + binom n (k + 1)
+
+/-- `binom n 0 = 1` for every `n` (the def splits on the first argument, so this
+    is not definitional for a variable `n`). -/
+theorem binom_zero (n : Nat) : binom n 0 = 1 := by cases n <;> rfl
+
+/-- `binom n m = 0` when `n < m`. -/
+theorem binom_zero_of_lt : ∀ {n m : Nat}, n < m → binom n m = 0
+  | n,     0,     h => absurd h (Nat.not_lt_zero n)
+  | 0,     _ + 1, _ => rfl
+  | n + 1, m + 1, h => by
+      show binom n m + binom n (m + 1) = 0
+      rw [binom_zero_of_lt (Nat.lt_of_succ_lt_succ h),
+          binom_zero_of_lt (Nat.lt_succ_of_lt (Nat.lt_of_succ_lt_succ h))]
+
+/-- `binom n n = 1` (the diagonal). -/
+theorem binom_self : ∀ n, binom n n = 1
+  | 0     => rfl
+  | n + 1 => by
+      show binom n n + binom n (n + 1) = 1
+      rw [binom_self n, binom_zero_of_lt (Nat.lt_succ_self n)]
+
+/-- Pointwise-equal summands give equal sums. -/
+theorem sumf_congr (f g : Nat → Nat) (h : ∀ i, f i = g i) :
+    ∀ n, sumf f n = sumf g n
+  | 0     => h 0
+  | n + 1 => by
+      show sumf f n + f (n + 1) = sumf g n + g (n + 1)
+      rw [sumf_congr f g h n, h (n + 1)]
+
+/-- **Hockey-stick**: `Σ_{i=0}^{n} C(i+k, k) = C(n+k+1, k+1)`. -/
+theorem hockey : ∀ (k n : Nat),
+    sumf (fun i => binom (i + k) k) n = binom (n + k + 1) (k + 1)
+  | k, 0     => by
+      show binom (0 + k) k = binom (0 + k + 1) (k + 1)
+      rw [Nat.zero_add, binom_self, binom_self]
+  | k, n + 1 => by
+      show sumf (fun i => binom (i + k) k) n + binom ((n + 1) + k) k
+            = binom ((n + 1) + k + 1) (k + 1)
+      rw [hockey k n, Nat.succ_add n k]
+      show binom ((n + k) + 1) (k + 1) + binom ((n + k) + 1) k
+            = binom ((n + k) + 1) k + binom ((n + k) + 1) (k + 1)
+      exact Nat.add_comm _ _
+
+/-- **Count formula** for the per-degree count: `monoCount (k+1) N = C(N+k, k)`. -/
+theorem monoCount_closed : ∀ (k N : Nat), monoCount (k + 1) N = binom (N + k) k
+  | 0,     N => by rw [monoCount_one, binom_zero]
+  | k + 1, N => by
+      show sumf (fun i => monoCount (k + 1) i) N = binom (N + (k + 1)) (k + 1)
+      rw [sumf_congr (fun i => monoCount (k + 1) i) (fun i => binom (i + k) k)
+            (fun i => monoCount_closed k i) N, hockey k N, Nat.add_assoc N k 1]
+
+/-- **The count formula** (the user's "공식"): the total number of monomials of
+    degree ≤ `N` over `k` bases is `C(N+k, k)`.  `totalCount k N = binom (N+k) k`.
+    With `totalCount_base_increment`, the per-base increase `C(N+k+1, k+1) −
+    C(N+k, k) = C(N+k, k+1)` is Pascal's identity. -/
+theorem totalCount_closed (k N : Nat) : totalCount k N = binom (N + k) k :=
+  monoCount_closed k N
+
 end E213.Lens.Number.Nat213.MultSystem
