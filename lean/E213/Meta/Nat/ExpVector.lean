@@ -1,5 +1,6 @@
 import E213.Meta.Nat.VpSeparation
 import E213.Meta.Nat.VpMul
+import E213.Meta.Nat.HyperLadder
 
 /-!
 # ExpVector — the number system that fits the tower's vector-linear structure
@@ -113,5 +114,39 @@ theorem toVec_finite_support {n : Nat} (hn : 0 < n) (p : Prime213)
     (hlt : n < p.val) : toVec n p = 0 :=
   vp_eq_zero_of_not_dvd p.property hn
     (fun hdvd => absurd hlt (Nat.not_lt.mpr (le_of_dvd_pos p.val n hn hdvd)))
+
+/-! ### `^` acts linearly on the lattice — and `↑↑` does not (where the algebra stops)
+
+`toVec_pow` recovers the algebra `^` lost at the wall: in the exponent lattice
+`^` *is* scalar multiplication, `toVec (a^k) = k · toVec a` — the scalar is the
+**exponent `k`** (linear in the height).  This is why the lattice is the
+"algebra above `×`": `×`=`+`, `^`=scalar`·`, clean ℤ-module linear algebra.
+
+One rung up it **breaks**: tetration acts on the lattice as scalar
+multiplication too, but the scalar is the **tower-value below, not the height** —
+so it is *not* linear in `b`, and there is no clean module / no canonical algebra
+(matching the Abel-equation non-uniqueness, frontier D).  This is the lattice
+witness of "the algebra recovers through `^`, and only through `^`". -/
+
+open E213.Meta.Nat.HyperLadder (hyperop hyperop_climb hyperop_three)
+
+/-- ★★ **`↑↑` is non-linear on the lattice: its scalar is the tower-value.**
+    `toVec (a↑↑(b+1)) = (a↑↑b) · toVec a` — tetration scales `toVec a` by the
+    *previous tower value* `hyperop 4 a b`, not by the height `b+1` (contrast
+    `toVec_pow`, where `^` scales by the exponent itself).  So `^` is the last
+    rung acting *linearly* on the exponent lattice; above it the "scalar" is a
+    tower-germ, and the module structure (the recovered algebra) ends. -/
+theorem toVec_tetration {a : Nat} (ha : 0 < a) (b : Nat) :
+    vecEq (toVec (hyperop 4 a (b + 1))) (vecSmul (hyperop 4 a b) (toVec a)) := by
+  have h : hyperop 4 a (b + 1) = a ^ (hyperop 4 a b) := by
+    have hc := hyperop_climb 3 a b
+    rwa [hyperop_three] at hc
+  rw [h]
+  exact toVec_pow ha (hyperop 4 a b)
+
+/-- The contrast, concretely: `2^3` scales by `3` (the exponent), but `2↑↑3`
+    scales by `4 = 2↑↑2` (the tower value, ≠ the height `3`). -/
+theorem tetration_scalar_concrete :
+    vp 2 (2 ^ 3) = 3 ∧ vp 2 (hyperop 4 2 3) = 4 := by decide
 
 end E213.Meta.Nat.ExpVector
