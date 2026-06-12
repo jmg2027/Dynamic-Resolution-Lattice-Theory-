@@ -27,14 +27,20 @@ Closed the Erdős elementary-Chebyshev numerator + count bound in
 - **`windowCount_le_floorLog : 1≤n → windowCount n ≤ floorLog (n+1) (2^{2n})`** —
   the additive count cap (`floorLog_ge` on `windowCount_pow_le`).
 - **`primePi` tie**: `primePi_add_primesIn_length` (`lo≤hi → π lo + #primes(lo,hi]
-  = π hi`), `windowCount_eq` (`π n + windowCount n = π(2n)`), and the headline
+  = π hi`), `windowCount_eq` (`π n + windowCount n = π(2n)`), and
   **`primePi_two_mul_le_floorLog : π(2n) ≤ π(n) + floorLog (n+1) (2^{2n})`** — the
   ∅-axiom Chebyshev doubling step.  Verified `π(8)=4, windowCount 8=2, π(16)=6`.
+- **Dyadic telescoping**: `def chebSum m = Σ_{k<m} floorLog(2^k+1)(4^{2^k})` +
+  **`primePi_pow_two_le_chebSum : π(2^m) ≤ chebSum m`** (iterate the doubling step).
+  `chebSum` = the exact finite ∅-axiom Chebyshev upper-bound skeleton.  Verified
+  `π(8)=4 ≤ chebSum 3=7, π(16)=6 ≤ chebSum 4=12`.
+- **`floorLog` upper-bound infra** (`Meta/Nat/FloorLog`): `floorLog_le_iff`
+  (`floorLog p N ≤ e ↔ N < p^{e+1}`), `floorLog_le_of_lt_pow`,
+  `floorLog_antitone_base` (bigger base ⇒ smaller log), `floorLog_pow_self`.
 
-**Next** (frontier `multiplicative_count_pnt.md`): a `floorLog` *upper* estimate
-(via `lt_pow_floorLog_succ`) to bound each dyadic-window term, then telescope
-`primePi_two_mul_le_floorLog` over `n=2^k` ⇒ `π(N)=O(N/ln N)` ⇒ inhabit
-`PrimeDensityToZero`.
+**Next** (frontier `multiplicative_count_pnt.md`): the per-term division estimate
+`floorLog (2^k+1) (4^{2^k}) ≤ ⌈2^{k+1}/k⌉` (via `floorLog_le_of_lt_pow`), summed ⇒
+`chebSum m = O(2^m/m)` ⇒ `π(N)=O(N/ln N)` ⇒ inhabit `PrimeDensityToZero`.
 
 ## Prior session (n-plus-signature-mappings branch)
 

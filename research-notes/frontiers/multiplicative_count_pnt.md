@@ -120,24 +120,33 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     **`primePi_two_mul_le_floorLog : π(2n) ≤ π(n) + floorLog (n+1) (2^{2n})`** —
     the ∅-axiom Chebyshev doubling step.
 
-    **Remaining chunk**: sum the doubling step over dyadic windows
-    `(2^k, 2^{k+1}]` (telescoping `primePi_two_mul_le_floorLog` at `n=2^k`) ⇒
-    `π(N) = O(N/ln N)` ⇒ density `→ 0` ⇒ inhabit `PrimeDensityToZero`.  The
-    per-window `floorLog (2^k+1) (2^{2^{k+1}})` needs a `floorLog` *upper* bound
-    (`floorLog p N ≤ …` against `p^{floorLog+1} > N`, i.e. `lt_pow_floorLog_succ`)
-    to extract the `≈ 2^{k+1}/k` growth.  PNT proper (`·ln N` at the `1`-cut) needs
-    `ln` (`Real213.ExpLog`) + the ratio sequence — same certificate shape.
+    **Dyadic telescoping DONE**: `chebSum m = Σ_{k<m} floorLog(2^k+1)(4^{2^k})`
+    (`def chebSum`) + **`primePi_pow_two_le_chebSum : π(2^m) ≤ chebSum m`**
+    (induction iterating the doubling step up `1,2,4,…,2^m`).  `chebSum` is the
+    exact finite ∅-axiom Chebyshev upper-bound skeleton.  **`floorLog` upper-bound
+    infra DONE** (`Meta/Nat/FloorLog`): `floorLog_le_iff` (`floorLog p N ≤ e ↔
+    N < p^{e+1}`), `floorLog_le_of_lt_pow`, `floorLog_antitone_base` (bigger base ⇒
+    smaller log), `floorLog_pow_self` (`floorLog p pʲ = j`).
+
+    **Remaining chunk**: estimate the per-window term
+    `floorLog (2^k+1) (2^{2^{k+1}}) ≈ 2^{k+1}/k` (via `floorLog_le_of_lt_pow`:
+    show `2^{2^{k+1}} < (2^k+1)^{M+1}` for `M = ⌈2^{k+1}/k⌉` — the fiddly Nat
+    division/ceiling against the growing base `2^k+1`, **not** collapsible to base
+    `2` by `floorLog_antitone_base` since that discards the `ln` denominator).  Sum
+    ⇒ `chebSum m = O(2^m/m)` ⇒ `π(N) = O(N/ln N)` ⇒ density `→ 0` ⇒ inhabit
+    `PrimeDensityToZero`.  PNT proper (`·ln N` at the `1`-cut) needs `ln`
+    (`Real213.ExpLog`) + the ratio sequence — same certificate shape.
 
 ## Next concrete step
 
-The Chebyshev doubling step is closed (`primePi_two_mul_le_floorLog : π(2n) ≤ π(n)
-+ floorLog (n+1) (2^{2n})`, ∅-axiom).  **Next**: a `floorLog` *upper* estimate
-(from `lt_pow_floorLog_succ`, now in `Meta/Nat/FloorLog`) to bound each dyadic
-window's `floorLog` term, then sum `π(2^{k+1}) ≤ π(2^k) + floorLog(...)` over `k`
-(telescoping) to a closed `π(2^m) ≤ Σ …` ⇒ `π(N) = O(N/ln N)`.  Tie to
-`primePi` already DONE (`windowCount_eq`); the open piece is the dyadic
-floor-log sum estimate, then `π(N) = O(N/ln N)` ⇒ inhabit `PrimeDensityToZero`.
-PNT proper stays the asymptotic horizon.
+The telescoped bound is closed (`primePi_pow_two_le_chebSum : π(2^m) ≤ chebSum m`,
+∅-axiom), with the `floorLog` upper-bound infra (`floorLog_le_of_lt_pow` etc.) in
+`Meta/Nat/FloorLog`.  **Next** (the single remaining open piece): the per-term
+division estimate `floorLog (2^k+1) (2^{2^{k+1}}) ≤ M_k` with `M_k = ⌈2^{k+1}/k⌉`
+— apply `floorLog_le_of_lt_pow`, reducing to `2^{2^{k+1}} < (2^k+1)^{M_k+1}`
+(prove via `(2^k+1)^{M_k+1} > (2^k)^{M_k+1} = 2^{k(M_k+1)}` and `k(M_k+1) > 2^{k+1}`).
+Sum the `M_k` ⇒ `chebSum m = O(2^m/m)` ⇒ `π(N) = O(N/ln N)` ⇒ inhabit
+`PrimeDensityToZero`.  PNT proper stays the asymptotic horizon.
 
 Loose secondary targets still open: tie `factorization_bounded`'s prime-list
 length to `primePi`; a Chebyshev *lower* bound (`π(2n) − π(n) ≥ …`) for the
