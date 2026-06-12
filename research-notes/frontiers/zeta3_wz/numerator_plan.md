@@ -44,13 +44,19 @@ Then `(n!)³A` satisfies the orbit recurrence (seeds `0,6`) ⟹ `zeta3Num=(n!)³
 
 Unlike the denominator (clean `Ĝ(j,k)=−4k⁴(2j+3)(…)C(j+2,k)²C(j+k,k)²`), the
 numerator/kernel certificates `cert_A`, `cert_K` are **harmonic-kernel-laden**
-(messy rationals: `cert_K(6,2)=−24859/11760`, no fixed closed form).  So the
-certificate-verification route used for `apery_recurrence` does **not** transfer.
+(messy rationals: `cert_K(6,2)=−24859/11760`, no fixed closed form).  Checked
+(`numcert2.py`): even `cert_A − cert_B·c` (subtracting the denominator certificate
+times the harmonic coefficient) is **still messy** — so there is no clean
+certificate decomposition at all; the harmonic structure is irreducible to
+certificate form.  The certificate-verification route used for `apery_recurrence`
+does **not** transfer.
+
 The K inhomogeneous recurrence must be proven by the **explicit Apéry algebraic
 identities** — the kernel's partial-fraction telescoping across `n`
 (`κ(n,k)` difference structure + `m³C(n,m)C(n+m,m)` ↔ `lcm` via `KeyDiv`/`Heart`).
 This is the van-der-Poorten / Beukers algebraic route, a multi-session ∅-axiom
-formalization (the hardest remaining piece of the whole ζ(3) program).
+formalization (the hardest remaining piece of the whole ζ(3) program).  No CAS
+shortcut exists — the next phase is the hand-derived kernel telescoping.
 
 ## Reusable (all PURE, done)
 `apery_recurrence`, `B`, `zeta3Den_eq`, `heart_lcm`, `cube_dvd_lcm_cube`,
