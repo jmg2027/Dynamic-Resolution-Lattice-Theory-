@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem
+import E213.Lib.Math.NumberTheory.LcmGrowthChebyshev
 import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.PolyNatMTactic
 
@@ -33,8 +34,10 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose_succ_succ choose_
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_split_first sumTo_congr
   sumTo_add_func sumTo_mul_left)
-open E213.Meta.Nat.NatDiv213 (add_mod_right_pos)
-open E213.Tactic.NatHelper (sub_add_cancel add_right_cancel)
+open E213.Meta.Nat.NatDiv213 (add_mod_right_pos div_add_mod_pure mul_witness_iff_mod_eq_zero)
+open E213.Tactic.NatHelper (sub_add_cancel add_right_cancel add_sub_of_le add_sub_cancel_right
+  mul_sub mul_left_cancel_pos)
+open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (lcmUpTo dvd_lcmUpTo)
 
 /-! ## §0 — pure mod-2 parity (standard `Nat.{mod_two_eq_zero_or_one,add_mod}` are propext) -/
 
@@ -420,5 +423,132 @@ theorem keydiv_prod (m s : Nat) :
         hkey,
         show m * factorial s * ((m + s + 1) * choose (m + s) s)
           = m * choose (m + s) s * factorial s * (m + s + 1) from by ring_nat]
+
+/-- Splitting the rising product at length `a`: `rprod m (a+b) = rprod m a · rprod (m+a) b`. -/
+theorem rprod_split (m a : Nat) : ∀ b, rprod m (a + b) = rprod m a * rprod (m + a) b
+  | 0 => by rw [Nat.add_zero, show rprod (m + a) 0 = 1 from rfl, Nat.mul_one]
+  | b + 1 => by
+    rw [show a + (b + 1) = (a + b) + 1 from rfl, rprod_back, rprod_split m a b,
+        rprod_back (m + a) b]
+    ring_nat
+
+/-- `(m+j)·Qex m s j = rprod m (s+1)` for `j ≤ s` — the excluded factor `(m+j)` restored,
+    rebuilding the full rising product `m(m+1)…(m+s)`. -/
+theorem Qex_mul {m s j : Nat} (hj : j ≤ s) : (m + j) * Qex m s j = rprod m (s + 1) := by
+  have hjs : j ≤ s + 1 := Nat.le_trans hj (Nat.le_succ s)
+  have hsum : j + (s + 1 - j) = s + 1 := add_sub_of_le hjs
+  unfold Qex
+  rw [show rprod m (s + 1) = rprod m (j + (s + 1 - j)) from by rw [hsum],
+      rprod_split m j (s + 1 - j), succ_sub_pure hj, rprod_front (m + j) (s - j)]
+  ring_nat
+
+/-- `a ∣ d → a·(d/a) = d`, ∅-axiom (the divisibility witness restored from the quotient). -/
+private theorem dvd_mul_div {a d : Nat} (h : a ∣ d) : a * (d / a) = d := by
+  rcases h with ⟨c, hc⟩
+  have hmod : d % a = 0 := (mul_witness_iff_mod_eq_zero a d).mp ⟨c, hc.symm⟩
+  have hdm := div_add_mod_pure d a
+  rw [hmod, Nat.add_zero] at hdm
+  exact hdm
+
+/-- Even-indexed quotient sum `Σ_{even j} C(s,j)·(d/(m+j))`. -/
+def LPos (m s d : Nat) : Nat :=
+  sumTo (s + 1) (fun j => if j % 2 = 0 then choose s j * (d / (m + j)) else 0)
+
+/-- Odd-indexed quotient sum `Σ_{odd j} C(s,j)·(d/(m+j))`. -/
+def LNeg (m s d : Nat) : Nat :=
+  sumTo (s + 1) (fun j => if j % 2 = 1 then choose s j * (d / (m + j)) else 0)
+
+/-- Pointwise (even): `d·[C(s,j)·Qex] = rprod·[C(s,j)·(d/(m+j))]` for `j ≤ s`, `(m+j)∣d`. -/
+private theorem dfd_term_pos {m s j d : Nat} (hj : j ≤ s) (hd : (m + j) ∣ d) :
+    d * (if j % 2 = 0 then choose s j * Qex m s j else 0)
+    = rprod m (s + 1) * (if j % 2 = 0 then choose s j * (d / (m + j)) else 0) := by
+  rcases mod2_cases j with hpar | hpar
+  · rw [if_pos hpar, if_pos hpar,
+        show d * (choose s j * Qex m s j) = choose s j * (d * Qex m s j) from by ring_nat,
+        show rprod m (s + 1) * (choose s j * (d / (m + j)))
+          = choose s j * (rprod m (s + 1) * (d / (m + j))) from by ring_nat,
+        show d * Qex m s j = (m + j) * (d / (m + j)) * Qex m s j from by rw [dvd_mul_div hd],
+        show (m + j) * (d / (m + j)) * Qex m s j = (d / (m + j)) * ((m + j) * Qex m s j) from by
+          ring_nat,
+        Qex_mul hj]
+    ring_nat
+  · rw [if_neg (show ¬ j % 2 = 0 from by rw [hpar]; decide),
+        if_neg (show ¬ j % 2 = 0 from by rw [hpar]; decide), Nat.mul_zero, Nat.mul_zero]
+
+/-- Pointwise (odd): `d·[C(s,j)·Qex] = rprod·[C(s,j)·(d/(m+j))]` for `j ≤ s`, `(m+j)∣d`. -/
+private theorem dfd_term_neg {m s j d : Nat} (hj : j ≤ s) (hd : (m + j) ∣ d) :
+    d * (if j % 2 = 1 then choose s j * Qex m s j else 0)
+    = rprod m (s + 1) * (if j % 2 = 1 then choose s j * (d / (m + j)) else 0) := by
+  rcases mod2_cases j with hpar | hpar
+  · rw [if_neg (show ¬ j % 2 = 1 from by rw [hpar]; decide),
+        if_neg (show ¬ j % 2 = 1 from by rw [hpar]; decide), Nat.mul_zero, Nat.mul_zero]
+  · rw [if_pos hpar, if_pos hpar,
+        show d * (choose s j * Qex m s j) = choose s j * (d * Qex m s j) from by ring_nat,
+        show rprod m (s + 1) * (choose s j * (d / (m + j)))
+          = choose s j * (rprod m (s + 1) * (d / (m + j))) from by ring_nat,
+        show d * Qex m s j = (m + j) * (d / (m + j)) * Qex m s j from by rw [dvd_mul_div hd],
+        show (m + j) * (d / (m + j)) * Qex m s j = (d / (m + j)) * ((m + j) * Qex m s j) from by
+          ring_nat,
+        Qex_mul hj]
+    ring_nat
+
+/-- `d·fdPos m s = rprod m (s+1)·LPos m s d` when every `(m+j)` (`j ≤ s`) divides `d`. -/
+theorem dfd_pos {m s d : Nat} (hd : ∀ j, j ≤ s → (m + j) ∣ d) :
+    d * fdPos m s = rprod m (s + 1) * LPos m s d := by
+  show d * sumTo (s + 1) (fun j => if j % 2 = 0 then choose s j * Qex m s j else 0)
+    = rprod m (s + 1)
+      * sumTo (s + 1) (fun j => if j % 2 = 0 then choose s j * (d / (m + j)) else 0)
+  rw [sumTo_mul_left, sumTo_mul_left]
+  exact sumTo_congr (s + 1) _ _
+    (fun j hj => dfd_term_pos (Nat.le_of_lt_succ hj) (hd j (Nat.le_of_lt_succ hj)))
+
+/-- `d·fdNeg m s = rprod m (s+1)·LNeg m s d` when every `(m+j)` (`j ≤ s`) divides `d`. -/
+theorem dfd_neg {m s d : Nat} (hd : ∀ j, j ≤ s → (m + j) ∣ d) :
+    d * fdNeg m s = rprod m (s + 1) * LNeg m s d := by
+  show d * sumTo (s + 1) (fun j => if j % 2 = 1 then choose s j * Qex m s j else 0)
+    = rprod m (s + 1)
+      * sumTo (s + 1) (fun j => if j % 2 = 1 then choose s j * (d / (m + j)) else 0)
+  rw [sumTo_mul_left, sumTo_mul_left]
+  exact sumTo_congr (s + 1) _ _
+    (fun j hj => dfd_term_neg (Nat.le_of_lt_succ hj) (hd j (Nat.le_of_lt_succ hj)))
+
+/-- ★★★ **KeyDiv (generic)**: if every `(m+j)` for `j ≤ s` divides `d`, then
+    `m·C(m+s, m) ∣ d`.  Proof: `fd_identity` (`fdPos = s! + fdNeg`) times `d`, with
+    `dfd_pos`/`dfd_neg` and `keydiv_prod` (`rprod m (s+1) = m·C(m+s,m)·s!`), collapses
+    after cancelling `s!` to `P·LPos = d + P·LNeg` (`P = m·C(m+s,m)`); so `d = P·(LPos−LNeg)`. -/
+theorem keydiv_dvd {m s d : Nat} (hd : ∀ j, j ≤ s → (m + j) ∣ d) :
+    m * choose (m + s) m ∣ d := by
+  have hA : d * fdPos m s = rprod m (s + 1) * LPos m s d := dfd_pos hd
+  have hB : d * fdNeg m s = rprod m (s + 1) * LNeg m s d := dfd_neg hd
+  have hP : rprod m (s + 1) = m * choose (m + s) m * factorial s := (keydiv_prod m s).symm
+  -- multiply fd_identity by d and substitute the two quotient-sum identities
+  have e1 : d * fdPos m s = d * factorial s + d * fdNeg m s := by
+    rw [fd_identity m s, Nat.mul_add]
+  rw [hA, hB, hP] at e1
+  -- e1 : (P·s!)·LPos = d·s! + (P·s!)·LNeg ;  cancel s! to get  P·LPos = d + P·LNeg
+  have hcancel : m * choose (m + s) m * LPos m s d
+               = d + m * choose (m + s) m * LNeg m s d := by
+    apply mul_left_cancel_pos (factorial_pos s)
+    calc factorial s * (m * choose (m + s) m * LPos m s d)
+        = m * choose (m + s) m * factorial s * LPos m s d := by ring_nat
+      _ = d * factorial s + m * choose (m + s) m * factorial s * LNeg m s d := e1
+      _ = factorial s * (d + m * choose (m + s) m * LNeg m s d) := by ring_nat
+  -- d = P·LPos − P·LNeg = P·(LPos − LNeg)
+  refine ⟨LPos m s d - LNeg m s d, ?_⟩
+  rw [mul_sub, hcancel, add_sub_cancel_right]
+
+/-- **KeyDiv**: `m·C(k, m) ∣ lcm(1..k)` for `1 ≤ m ≤ k` — every `(m+j)` up to `k` divides
+    `lcm(1..k)`, so the finite-difference common refinement does too. -/
+theorem keydiv {m k : Nat} (hm : 1 ≤ m) (hmk : m ≤ k) :
+    m * choose k m ∣ lcmUpTo k := by
+  have hms : m + (k - m) = k := add_sub_of_le hmk
+  have hd : ∀ j, j ≤ k - m → (m + j) ∣ lcmUpTo k := by
+    intro j hj
+    refine dvd_lcmUpTo (Nat.lt_of_lt_of_le hm (Nat.le_add_right m j)) ?_
+    calc m + j ≤ m + (k - m) := Nat.add_le_add_left hj m
+      _ = k := hms
+  have hdvd := keydiv_dvd (m := m) (s := k - m) hd
+  rw [hms] at hdvd
+  exact hdvd
 
 end E213.Lib.Math.NumberTheory.AperyIntegrality
