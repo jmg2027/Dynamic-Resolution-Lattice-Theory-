@@ -45,10 +45,12 @@ The PNT horizon should be issued as a **Real213 cut + modulus certificate** =
 `oneOverN` (validation `1/N→0`) + `PrimeDensityToZero := RatTendsToZero primePi
 id`.  Scaffolding ∅-axiom; **inhabiting `PrimeDensityToZero` = the open analytic
 core** (Chebyshev/PNT).  **Density ≤ 1/2 DONE**: `primePi_two_mul_le : π(2n) ≤ n`
-(only 2 is even-prime, `not_prime_two_mul` + `pair_bound`).  Chebyshev ingredient
-DONE: `MultSystem.central_binom_le : C(2n,n) ≤ 4^n` (`binom_le_two_pow`).  Next:
-`∏_{n<p≤2n} p ∣ C(2n,n)` ⇒ `∏ p ≤ 4^n` ⇒ Chebyshev `π(N)=O(N/ln N)` ⇒ density→0
-(inhabits `PrimeDensityToZero`).  Erdős elementary-Chebyshev (multi-step).
+(only 2 is even-prime, `not_prime_two_mul` + `pair_bound`).  Chebyshev ingredients
+DONE: `central_binom_le : C(2n,n) ≤ 4^n` (MultSystem) + `prime_not_dvd_fact :
+p ∤ n!` for prime p>n (vp_p(n!)=0).  Next: factorial-binom identity
+`C(2n,n)·(n!)² = (2n)!` ⇒ `vp_p(C(2n,n))≥1` for n<p≤2n ⇒ `∏_{n<p≤2n} p ∣ C(2n,n)
+≤ 4^n` ⇒ `π(N)=O(N/ln N)` ⇒ density→0 (inhabits `PrimeDensityToZero`).  Erdős
+elementary-Chebyshev (multi-step).
 
 ## Why ln (pinned)
 `exp` = `Nat.pow` = iterated `×` = binary-op tower depth (no transcendental).

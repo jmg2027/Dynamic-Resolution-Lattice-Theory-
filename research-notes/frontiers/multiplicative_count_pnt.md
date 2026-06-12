@@ -87,12 +87,14 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     to actually *inhabit* `PrimeDensityToZero`.  Fixed-modulus sieves can't reach
     `0` (density `≥ φ(m)/m > 0`); needs the central-binomial route.
     **Ingredient DONE**: `MultSystem.central_binom_le : C(2n,n) ≤ 4^n`
-    (`binom_le_two_pow`).  **Next ingredient**: `∏_{n<p≤2n} p ∣ C(2n,n)` (each
-    prime in `(n,2n]` divides the central binomial exactly once — via `vp`),
-    giving `∏_{n<p≤2n} p ≤ 4^n` ⇒ Chebyshev `θ`/`π` upper bound ⇒ `π(N)=O(N/ln N)`
-    ⇒ density `→ 0`.  This is the Erdős elementary-Chebyshev development (a
-    multi-step project).  PNT proper (`·ln N` at the `1`-cut) needs `ln`
-    (`Real213.ExpLog`) + the ratio sequence — same certificate shape.
+    (`binom_le_two_pow`); `prime_not_dvd_fact : p ∤ n!` for prime `p > n`
+    (`vp_p(n!)=0`, the denominator side).  **Next ingredient**: the
+    factorial-binom identity `binom (2n) n · (fact n)² = fact (2n)` (induction on
+    Pascal + factorial recursion), then `vp_p(C(2n,n)) ≥ 1` for `n < p ≤ 2n`
+    (`p ∣ (2n)!`, `p ∤ (n!)²`), giving `∏_{n<p≤2n} p ∣ C(2n,n) ≤ 4^n` ⇒ Chebyshev
+    `π(N)=O(N/ln N)` ⇒ density `→ 0`.  Erdős elementary-Chebyshev (multi-step).
+    PNT proper (`·ln N` at the `1`-cut) needs `ln` (`Real213.ExpLog`) + the ratio
+    sequence — same certificate shape.
 
 ## Next concrete step
 
