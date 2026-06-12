@@ -182,6 +182,59 @@ theorem nat_orbit_no_wrap : ∀ n : Nat, 0 < n → orbit nsucc 0 n ≠ 0
   | 0,     hn => absurd hn (Nat.lt_irrefl 0)
   | n + 1, _  => by rw [nat_orbit_eq]; exact fun h => Nat.noConfusion h
 
+/-! ## §3c — instance `List` (the slot-tower `append` floor): also works, via length
+
+Yes — `append`/`List`, the slot-tower floor *above* `+` (richer: `+` is its
+count-shadow), also instantiates the schema and never wraps.  The successor is
+`u :: ·` (stitch one more), the orbit is `[u, u, …]`, and the order is the
+**length order** `l < m  ↔  l.length < m.length`.
+
+But note *what carries it*: the length order is just `ℕ`'s order pulled back
+through `length`.  For **unit-lists** (one indistinguishable letter — the literal
+slot-tower `append`), `List ≅ ℕ` via `length`, so this *is* the `ℕ` instance.
+The append-floor's extra richness (non-commutativity, multi-letter element
+order) is **not needed** for the bare order-witness — the schema only walks the
+single-letter orbit `[u^k]`, where length suffices.  (The richer fact — a full
+translation-invariant order on the whole free monoid on ≥2 letters — is *also*
+true, free monoids being bi-orderable, but that is a stronger statement than the
+witness needs.)
+
+The unifying point: `orbit (u :: ·) [] = iter (u :: ·)` — yet another `iter`
+deployment.  `OrderWrap` captures `List` / `+`(ℕ) / sign(ℤ) / circle(ℤ/p)
+uniformly *because* the orbit is `iter` regardless of carrier (cf.
+`OrbitIsIter.orbit_eq_iter`); the one obstruction `no_order_of_wrap` is
+carrier-blind. -/
+
+/-- Prepend a fixed letter — the `List` successor. -/
+private def lcons {α : Type} (u : α) (l : List α) : List α := u :: l
+
+/-- `List`'s length order is a translation-invariant order witness on
+    `(List α, u :: ·, [])` — the slot-tower `append` floor, ordered by length. -/
+def listOrderWitness {α : Type} (u : α) : OrderWitness (List α) (lcons u) [] where
+  R l m := l.length < m.length
+  irrefl := fun l => Nat.lt_irrefl l.length
+  trans  := fun _ _ _ h1 h2 => Nat.lt_trans h1 h2
+  transl := fun l m h => by show l.length + 1 < m.length + 1; exact Nat.succ_lt_succ h
+  start  := Nat.zero_lt_one
+
+/-- The `List` orbit of `[]` under `u :: ·` has length `k`: `[u, …, u]`. -/
+theorem list_orbit_len {α : Type} (u : α) :
+    ∀ k, (orbit (lcons u) [] k).length = k
+  | 0     => rfl
+  | k + 1 => by show (orbit (lcons u) [] k).length + 1 = k + 1; rw [list_orbit_len u k]
+
+/-- ★ **Stitching never wraps.**  `orbit n` has length `n ≠ 0` for `n > 0`, so it
+    is never `[]` — the order `listOrderWitness` survives, same as ℕ/ℤ. -/
+theorem list_orbit_no_wrap {α : Type} (u : α) :
+    ∀ n, 0 < n → orbit (lcons u) [] n ≠ [] := by
+  intro n hn h
+  have hlen : n = 0 := by
+    have e := congrArg List.length h
+    rw [list_orbit_len u n] at e
+    exact e
+  subst hlen
+  exact Nat.lt_irrefl 0 hn
+
 /-! ## §4 — instance ℤ/p: the circle wraps, so no witness exists -/
 
 open E213.Meta.Nat.NoOrderModP (next orbit_wrap)
