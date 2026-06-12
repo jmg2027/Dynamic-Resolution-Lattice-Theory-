@@ -95,12 +95,15 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     vp_p(C(2n,n)) + 2·vp_p(n!) = vp_p(C(2n,n))` (since `vp_p(n!)=0`), and
     `vp_p((2n)!) ≥ 1`.  **DONE**: `prime_dvd_central_binom : n<p≤2n ⇒ p ∣ C(2n,n)`.
     `prime_not_dvd_listProd` (prime ∉ prime-list ⇒ ∤ product, the coprimality
-    core) DONE.  **Remaining chunk**: the *product* `∏_{n<p≤2n} p ∣ C(2n,n)`.
-    Needs a **`dvd_of_forall_vp_le : (∀ prime q, vp q a ≤ vp q b) → a ∣ b`** (a,b>0)
-    — a `vp_separation`-flavored peel-a-prime induction; OR a Gauss lemma
-    (`coprime c p, c ∣ p·a ⇒ c ∣ a`).  With it: `listProd (distinct primes each
-    ∣ m) ∣ m` (each prime q∈ps has `vp q (listProd ps)=1 ≤ vp q m`, others 0),
-    then
+    core) DONE.  **`dvd_of_forall_vp_le : (∀ prime q, vp q a ≤ vp q b) → a ∣ b`**
+    (a,b>0; the order companion of `vp_separation`, `Meta/Nat/VpSeparation`) DONE.
+    **Remaining chunk**: `listProd_dvd` — distinct primes each `∣ m` ⇒ `listProd ps
+    ∣ m`, via `dvd_of_forall_vp_le`.  Only one lemma left: **`vp_listProd_le_one :
+    q prime, ps nodup primes ⇒ vp q (listProd ps) ≤ 1`** (induction: `vp q (p·rest)
+    = vp q p + vp q (listProd rest)`; `q=p` ⇒ `1+0` via `prime_not_dvd_listProd`,
+    `q≠p` ⇒ `0+(≤1)`).  Then for prime `q`: `q∈ps` ⇒ `vp q (listProd ps) ≤ 1 ≤ vp q
+    m` (since `q∣m`); `q∉ps` ⇒ `vp q (listProd ps)=0` (`prime_not_dvd_listProd`).
+    Needs `listProd_pos` (all factors ≥2>0).  Then
     `∏_{n<p≤2n} p ≤ C(2n,n) ≤ 4^n`; bound `#{primes in (n,2n]}` by taking `log`
     (each prime `> n`, so `n^(count) < ∏ p ≤ 4^n` ⇒ `count·ln n < 2n ln 2`
     ⇒ `count = O(n/ln n)`); sum the dyadic windows ⇒ `π(N)=O(N/ln N)` ⇒ density

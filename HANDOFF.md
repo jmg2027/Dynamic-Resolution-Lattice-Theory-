@@ -49,10 +49,12 @@ core** (Chebyshev/PNT).  **Density ≤ 1/2 DONE**: `primePi_two_mul_le : π(2n) 
 DONE: `central_binom_le : C(2n,n) ≤ 4^n` (MultSystem), `prime_not_dvd_fact :
 p ∤ n!` for p>n, and **`central_binom_factorial : C(2n,n)·(n!)² = (2n)!`** (the
 hard gate, nested induction + `ring_nat`).  **`prime_dvd_central_binom : n<p≤2n ⇒ p ∣ C(2n,n)`** + **`prime_not_dvd_listProd`**
-(prime ∉ prime-list ⇒ ∤ product, the coprimality core) DONE.  Next infra to build:
-**`dvd_of_forall_vp_le : (∀ prime q, vp q a ≤ vp q b) → a ∣ b`** (a,b>0; a
-vp_separation-style peel-a-prime induction) — then `listProd(distinct primes each
-∣ m) ∣ m`, the product `∏_{n<p≤2n} p ∣ C(2n,n) ≤ 4^n`,
+(prime ∉ prime-list ⇒ ∤ product, the coprimality core) DONE.
+**`dvd_of_forall_vp_le : (∀ prime q, vp q a ≤ vp q b) → a ∣ b`** (a,b>0; order
+companion of vp_separation, in Meta/Nat/VpSeparation) DONE.  Next: `listProd_dvd`
+(distinct primes each ∣ m ⇒ listProd ∣ m) via dvd_of_forall_vp_le — needs only
+`vp_listProd_le_one` (q prime, nodup primes ⇒ vp q (listProd ps) ≤ 1) + a
+case-split + `listProd_pos`.  Then the product `∏_{n<p≤2n} p ∣ C(2n,n) ≤ 4^n`,
 bound `#{primes in (n,2n]}` via `n^count < ∏ p ≤ 4^n`, sum dyadic windows ⇒
 `π(N)=O(N/ln N)` ⇒ density→0 (inhabits `PrimeDensityToZero`).  (propext-tainted:
 also `Nat.add_mul`.)
