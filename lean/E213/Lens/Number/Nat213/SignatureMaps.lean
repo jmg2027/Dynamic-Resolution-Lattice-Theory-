@@ -526,4 +526,76 @@ theorem strictMono_unbounded (f : Nat → Nat)
     (hmono : ∀ {a b}, a < b → f a < f b) (N : Nat) : ∃ n, N ≤ f n :=
   ⟨N, strictMono_ge f hmono N⟩
 
+/-! ## ℕ⁺ on the Raw readout — the tower anchored where `0` cannot occur
+
+The theorems above run over Lean `Nat = {0, 1, 2, …}` as the *underlying
+arithmetic*.  But ℕ⁺ is the **Raw readout**: `Raw.value : Raw → Nat` lands
+in `{1, 2, 3, …}` (`value_pos : 1 ≤ Raw.value r`), and hits every positive
+value (`Raw.value_numeral_pred`).  So ℕ⁺ is exactly the image of the
+readout — `natPlus_iff_value` — and `0` structurally cannot occur.  This
+section re-anchors the signature tower there, so positivity is carried by
+the residue, not assumed:
+
+  - canonical ℕ⁺ object `1, 2, 3, …` = the readout of the atom chart
+    (`canonical_natPlus`);
+  - **order** — the readout is strictly increasing
+    (`chartChain_readout_strictMono`, interval `value r' ≥ 1`);
+  - **constant interval ⟹ affine** on the readout (`chartChain_is_affine`,
+    above; `value r₀`, `value r'` both `≥ 1`);
+  - **first = interval ⟹ scaling** on the readout
+    (`chartChain_firstEqInterval`, above);
+  - **rigidity** — the *only* strictly increasing enumeration of ℕ⁺
+    (starting at the floor `1`, onto all of ℕ⁺) is `n ↦ n + 1`
+    (`natPlus_enum_unique`); proved by shifting to `orderAuto_id` at the
+    ℕ⁺ floor instead of `0`. -/
+
+/-- **ℕ⁺ = the readout image.**  A value is positive iff it is some Raw's
+    `value`.  `⟸` is `value_pos`; `⟹` is the numeral section
+    `value_numeral_pred`.  So the readout codomain is exactly ℕ⁺. -/
+theorem natPlus_iff_value (v : Nat) : 1 ≤ v ↔ ∃ r : Raw, Raw.value r = v := by
+  constructor
+  · intro hv; exact ⟨Raw.numeral (v - 1), Raw.value_numeral_pred v hv⟩
+  · rintro ⟨r, hr⟩; rw [← hr]; exact value_pos r
+
+/-- **Canonical ℕ⁺ object.**  The atom chart `(a, b)` reads out as
+    `1, 2, 3, …` — first term `1`, interval `1`, the first = interval
+    coincidence at the floor. -/
+theorem canonical_natPlus (h : Raw.a ≠ Raw.b) (n : Nat) :
+    Raw.value (chartChain Raw.a Raw.b h n) = n + 1 := by
+  rw [chartChain_value, Raw.value_a, Raw.value_b, Nat.mul_one, Nat.add_comm]
+
+/-- **Order on the readout.**  Every chart's ℕ⁺ readout is strictly
+    increasing (its interval `value r' ≥ 1` by `value_pos`). -/
+theorem chartChain_readout_strictMono (r₀ r' : Raw) (h : r₀ ≠ r')
+    {m n : Nat} (hmn : m < n) :
+    Raw.value (chartChain r₀ r' h m) < Raw.value (chartChain r₀ r' h n) := by
+  rw [chartChain_is_affine, chartChain_is_affine]
+  exact affine_strictMono (Raw.value r₀) (Raw.value r') (value_pos r') hmn
+
+/-- **ℕ⁺ rigidity.**  A strictly increasing map starting at the ℕ⁺ floor
+    (`1 ≤ g 0`) and surjecting onto ℕ⁺ (`∀ v ≥ 1, ∃ n, g n = v`) is the
+    canonical enumeration `n ↦ n + 1`.  The genuine ℕ⁺ apex: the only
+    increasing enumeration of ℕ⁺ is `1, 2, 3, …`.  Proved by shifting
+    `g − 1` to `orderAuto_id` (floor `1`, not `0`). -/
+theorem natPlus_enum_unique (g : Nat → Nat)
+    (hmono : ∀ {a b}, a < b → g a < g b) (hstart : 1 ≤ g 0)
+    (hsurj : ∀ v, 1 ≤ v → ∃ n, g n = v) : ∀ n, g n = n + 1 := by
+  have hpos : ∀ n, 1 ≤ g n := fun n =>
+    Nat.le_trans hstart (strictMono_mono g hmono (Nat.zero_le n))
+  have hmono_f : ∀ {a b}, a < b → g a - 1 < g b - 1 := by
+    intro a b hab
+    exact E213.Tactic.NatHelper.sub_lt_sub_right 1 (hpos a) (hmono hab)
+  have hsurj_f : ∀ y, ∃ n, g n - 1 = y := by
+    intro y
+    obtain ⟨n, hn⟩ := hsurj (y + 1) (Nat.succ_le_succ (Nat.zero_le y))
+    exact ⟨n, by rw [hn]; exact E213.Tactic.NatHelper.add_sub_cancel_right y 1⟩
+  intro n
+  have hfn : g n - 1 = n := orderAuto_id (fun m => g m - 1) hmono_f hsurj_f n
+  have hne : g n ≠ 0 := by
+    intro he
+    have h10 : (1 : Nat) ≤ 0 := he ▸ hpos n
+    exact Nat.not_succ_le_zero 0 h10
+  have hstep : g n - 1 + 1 = n + 1 := congrArg (· + 1) hfn
+  rwa [E213.Tactic.NatHelper.sub_one_add_one hne] at hstep
+
 end E213.Lens.Number.Nat213
