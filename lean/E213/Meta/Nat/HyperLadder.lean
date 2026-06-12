@@ -114,4 +114,31 @@ theorem hyperop_three (a b : Nat) : hyperop 3 a b = a ^ b := by
   rw [pow_eq_iter a b]
   exact iter_congr (fun x => by rw [hyperop_two]; exact Nat.mul_comm a x) b 1
 
+/-! ## §4 — the commutativity window {1, 2}, and its lower boundary
+
+`hyperop 1` (`+`) and `hyperop 2` (`×`) are commutative (`Nat.add_comm`,
+`Nat.mul_comm`); they commute *by different proofs* (`+` from unit
+indistinguishability, `×` from the grid transpose — see
+`theory/meta/boundary_discipline.md` §1 / the C2 survey), so a single
+`hyperop_comm_iff` would be a vacuous bundle and is deliberately **not** stated.
+What *is* worth pinning is that the window has two failing boundaries, for two
+*different* reasons:
+
+  * upper boundary `k = 3` (`^`): non-commutative because base and exponent are
+    *distinguishable roles* (`HyperAssoc.pow_not_comm`);
+  * lower boundary `k = 0` (successor / zeration): non-commutative because it
+    *ignores the base entirely* (`hyperop_zero_not_comm` below).
+
+Both edges fail; only the interior `{1,2}` commutes — the concrete shape of the
+faithfulness ⟂ commutativity duality (forgetful-of-the-right-thing commutes;
+forgetful-of-an-argument, or faithful-to-the-roles, does not). -/
+
+/-- ★ **The window's lower boundary: zeration is non-commutative.**  `hyperop 0
+    a b = b + 1` ignores `a`, so `hyperop 0 0 1 = 2 ≠ 1 = hyperop 0 1 0`.  The
+    dual failure to `^`'s upper boundary: `^` distinguishes its two arguments;
+    zeration *erases* one of them — opposite ends of "the readout does not treat
+    the two arguments symmetrically". -/
+theorem hyperop_zero_not_comm : ∃ a b, hyperop 0 a b ≠ hyperop 0 b a :=
+  ⟨0, 1, by decide⟩
+
 end E213.Meta.Nat.HyperLadder
