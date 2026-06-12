@@ -404,4 +404,25 @@ theorem exists_prime_gt (N : Nat) : ∃ p, IsPrime213 p ∧ N < p := by
       rw [hb'] at h1
       exact absurd h1 (Nat.not_succ_le_self (q * a))
 
+/-- **Divergence certificate for `π`** (the 213-native ε-δ for `π(N) → ∞`):
+    for every target `k` there is an explicit threshold `N` with `k ≤ primePi N`.
+    Built from `exists_prime_gt` + monotonicity — each step a fresh prime above
+    the previous threshold bumps the count.  This is the *modulus* witnessing the
+    pointing `π → ∞` (cf. `AbCutSeq.toCauchy`'s `N`), the finite certificate the
+    asymptotic horizon reduces to. -/
+theorem primePi_unbounded : ∀ k, ∃ N, k ≤ primePi N
+  | 0     => ⟨0, Nat.zero_le _⟩
+  | k + 1 => by
+      obtain ⟨N, hN⟩ := primePi_unbounded k
+      obtain ⟨p, hp, hpN⟩ := exists_prime_gt N
+      cases p with
+      | zero => exact absurd hp.two_le (by decide)
+      | succ q =>
+          refine ⟨q + 1, ?_⟩
+          have h1 : primeIndicator (q + 1) = 1 := (primeIndicator_eq_one_iff (q + 1)).mpr hp
+          have h2 : primePi N ≤ primePi q := primePi_monotone (Nat.le_of_lt_succ hpN)
+          show k + 1 ≤ primePi q + primeIndicator (q + 1)
+          rw [h1]
+          exact Nat.add_le_add (Nat.le_trans hN h2) (Nat.le_refl 1)
+
 end E213.Lens.Number.Nat213.MultSystemValue
