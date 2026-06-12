@@ -29,13 +29,18 @@ the prime number theorem, rather than collapsing it to a limit.
 
 ### Open
 
-1. **`primePi N` (= π(N), # primes ≤ N) as a counting function.**  Blocked on a
-   **decidable primality test** for `IsPrime213` — not in `Meta/Nat` yet.  The
-   pieces exist (`Valuation.dvd_dec`, `VpSeparation.searchDiv` = bounded divisor
-   search): `IsPrime213 n ↔ 2 ≤ n ∧ no divisor in [2,n)`.  Build
-   `decPrime : (n : Nat) → Decidable (IsPrime213 n)` (or `isPrimeB : Nat → Bool`
-   + correctness), then `primePi n = Σ_{m≤n} [isPrimeB m]`.  Then: `primePi`
-   monotone, `primePi n ≤ n`, and the value-bounded count facts.
+1. **`primePi N` (= π(N), # primes ≤ N) as a counting function.**
+   **Propext minefield discovered**: `Nat.decidable_dvd`, `Nat.mul_assoc`,
+   `Nat.dvd_trans`, `Nat.le_of_dvd`, and `Bool` `_eq_true` reflection lemmas are
+   ALL propext-tainted; and a Prop `∨` (e.g. `searchDiv`'s output) cannot
+   eliminate into the `Decidable` Type.  **DONE**: `decDvd (k n)(0<k) :
+   Decidable (k ∣ n)` — pure, via `n % k` (`dvd_of_mod_eq_zero` /
+   `mod_zero_of_dvd`), matching on the Nat value.  **Remaining**: a recursive
+   bounded-divisor `Decidable (∀ d, 2≤d → d<n → ¬d∣n)` over `d ∈ [2,n)` built on
+   `decDvd` (don't use core `Nat.decidableBallLT` until its purity is checked);
+   then `decPrime n : Decidable (IsPrime213 n)` (via the divisor-dichotomy iff +
+   `decidable_of_iff`, which IS pure); then `primePi n = Σ_{m≤n} [decPrime m]`,
+   `primePi_le_self`, monotonicity.
 
 2. **Value-bounded count = N.**  `#{naturals ≤ N} = N` (trivial) realized as
    monomials over the `π(N)` primes with *value* (not degree) `≤ N`.  The
