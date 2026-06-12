@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem
+import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!
@@ -31,7 +32,26 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose_succ_succ choose_
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_split_first sumTo_congr
   sumTo_add_func)
+open E213.Meta.Nat.NatDiv213 (add_mod_right_pos)
 open E213.Tactic.NatHelper (sub_add_cancel add_right_cancel)
+
+/-! ## §0 — pure mod-2 parity (standard `Nat.{mod_two_eq_zero_or_one,add_mod}` are propext) -/
+
+/-- `j % 2` is `0` or `1`. -/
+theorem mod2_cases (j : Nat) : j % 2 = 0 ∨ j % 2 = 1 := by
+  have h : j % 2 < 2 := Nat.mod_lt j (by decide)
+  rcases Nat.lt_or_ge (j % 2) 1 with h0 | h1
+  · exact Or.inl (Nat.le_antisymm (Nat.le_of_lt_succ h0) (Nat.zero_le _))
+  · exact Or.inr (Nat.le_antisymm (Nat.le_of_lt_succ h) h1)
+
+/-- `(j+1) % 2 = 1 − j%2`, as `if`: flips parity. -/
+theorem succ_mod2 : ∀ j, (j + 1) % 2 = if j % 2 = 0 then 1 else 0
+  | 0 => by decide
+  | 1 => by decide
+  | j + 2 => by
+      rw [show j + 2 + 1 = (j + 1) + 2 from by ring_nat, add_mod_right_pos (by decide) (j + 1),
+          add_mod_right_pos (by decide) j]
+      exact succ_mod2 j
 
 /-! ## §1 — the trinomial double identity -/
 
