@@ -318,6 +318,38 @@ Nat.mul_comm → NatHelper.mul_assoc` (27) — exactly the assoc/comm reshufflin
 `rw`-cascades).  (`if_pos/if_neg` cascades = decision-tree normalization; `h_lhs/h_rhs/ih`
 = hypothesis-rewriting in the Markov/recurrence marathons.)
 
+## 10. Form converges, content diverges — the name-aware skeleton count
+
+§4/§6 clustered proofs by *form* (tactic sequence / name-blind Expr shape).  Here the
+**name-aware** clustering: each decl's citation-signature = the *set of lemmas it actually
+cites* (`tools/_ast_callgraph_edges.tsv`, names retained, 4,757 decls).
+
+| clustering | compression | singletons | top-100 coverage |
+|---|---:|---:|---:|
+| name-blind structural shape (§6) | 1.44× | 87 % | 25 % |
+| **name-aware citation-signature** | **1.14×** | **92 %** | **9 %** |
+
+Retaining names collapses the clustering *far less*: by what each proof actually cites,
+**92 % of proofs are unique** and the largest semantic cluster is 12 decls.  So the
+convergence seen at the skeleton level (§4: `[decide]` = 30 %) is a convergence of **form,
+not content** — the proofs share a tiny *tactic-skeleton* vocabulary but each composes a
+*different* lemma-set.  213's proofs rhyme; they do not repeat.
+
+Two consequences:
+
+- **The only genuine semantic clusters are α-parametric typeclass-instance families** —
+  the top citation-signature clusters are `Meta.Algebra213.{Ring213, IntegerNormed213,
+  NonAssocRing213, CommIntegerNormed213, MoufangIntegerNormed213}` instance projections and
+  `Convolution213`/`PairCompletionUniversal` families: decls that cite the *same parent
+  class*.  This is `boundary_discipline.md`'s "α-parametric unification is abundant, β-
+  conceptual is rare" — seen from the citation angle: the *only* repeated proof-content is
+  the parametric infrastructure; everything else is one-off.
+- **Corroborates `reflexivity_gap.md` (C11) action 2**: name-blind structural grouping
+  over-merges relative to name-aware grouping (1.44× → 1.14×; top-100 25 % → 9 %), i.e. the
+  "byte-identical Expr shape" CDIs over-read *tactic-template collisions* as semantic
+  identity.  (Corpus-wide corroboration; the exact CDI cross-namespace re-run with a
+  name-retaining `ast_shape_scan` is still the pending precise test.)
+
 ---
 
 ## Synthesis — the proof-structure of 213 in one picture
@@ -344,7 +376,10 @@ Eight phases, one coherent structure:
 
 The corpus is, structurally, **one small explicit kernel rooted at the residue, deployed at
 every scale, with `decide` as its one permitted finite collapse** — the code-level image of
-the framework's own claim that everything is the residue read under a Lens.
+the framework's own claim that everything is the residue read under a Lens.  And (§10) the
+proofs **rhyme but do not repeat**: a tiny shared *skeleton* (form) over 92 %-unique
+*lemma-content* — the only repeated content being the α-parametric typeclass infrastructure.
+Form is the kernel; content is the breadth.
 
 ---
 

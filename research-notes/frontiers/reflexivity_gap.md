@@ -293,3 +293,9 @@ split along the genuine/vacuous line the scanner is blind to.*
 - **Most falsifiable sub-claim** (attack this first): action item 2's prediction —
   that a name-retaining CDI re-run collapses the bridge count.  If it does *not*,
   Master II face 2 is wrong and the CDIs are semantic after all.
+  **Corpus-wide corroboration (see `proof_pattern_census.md` §10)**: name-aware
+  citation-signature clustering collapses far less than name-blind structural-shape
+  clustering (1.14× vs 1.44× compression; top-100 coverage 9 % vs 25 %; 92 % vs 87 %
+  singletons) — the name-blind shape grouping demonstrably over-merges
+  tactic-template collisions.  The *exact* CDI cross-namespace re-run with a
+  name-retaining `ast_shape_scan` remains the precise pending test.
