@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum
+import E213.Meta.Nat.PolyNatMTactic
 
 /-!
 # AperyRecurrence — the binomial Apéry numbers `Bₙ = Σ_k C(n,k)²C(n+k,k)²`
@@ -79,5 +80,34 @@ theorem apery_recurrence_at1 :
     (1 + 2) ^ 3 * B (1 + 2) + (1 + 1) ^ 3 * B 1 = aperyLead 1 * B (1 + 1) := by decide
 theorem apery_recurrence_at2 :
     (2 + 2) ^ 3 * B (2 + 2) + (2 + 1) ^ 3 * B 2 = aperyLead 2 * B (2 + 1) := by decide
+
+/-! ## §WZ — the reduced polynomial core of the WZ telescoping identity
+
+The per-`k` WZ identity (see `research-notes/frontiers/zeta3_wz`), after expressing
+every term as `W·(polynomial)` via the column recurrence `(n+1−k)·C(n+1,k) =
+(n+1)·C(n,k)` (so `W = C(j+2,k)²·C(j+k,k)²` factors out), collapses to a single
+polynomial identity in `(j,k)`.  In the additive parametrisation `j = k + d`
+(`d = j−k`, the `aperyTrinomial` trick) it becomes a **subtraction-free ℕ
+identity** — `j+2−k = d+2`, `j+1−k = d+1`, `j+k+1 = 2k+d+1`, etc. — closed by
+`ring_nat`.  Coefficients: `Q(j,k) = 4j²+12j−2k²+3k+8 = 4d²+8dk+12d+2k²+15k+8`,
+`Q(j,k+1) = 4d²+8dk+12d+2k²+11k+9`, `aperyLead(k+d) = 34(k+d)³+…`. -/
+
+/-- ★★ **The reduced WZ polynomial identity** (the cleared certificate core), in the
+    additive `j = k+d` form.  Verified ∅-axiom via `ring_nat`.  This is the
+    mathematical heart of Apéry's recurrence; the remaining work is the binomial
+    `W`-factoring (`colrec` + the contiguity relations) that reduces the per-`k`
+    identity to this. -/
+theorem reduced_wz_identity (k d : Nat) :
+    (k + d + 2) * (k + d + 2) * (k + d + 2) * ((2 * k + d + 1) * (2 * k + d + 1))
+        * ((2 * k + d + 2) * (2 * k + d + 2))
+      + (k + d + 1) * (k + d + 1) * (k + d + 1) * ((d + 2) * (d + 2)) * ((d + 1) * (d + 1))
+      + 4 * (2 * k + 2 * d + 3)
+          * (4 * (d * d) + 8 * d * k + 12 * d + 2 * (k * k) + 11 * k + 9)
+          * ((d + 2) * (d + 2)) * ((2 * k + d + 1) * (2 * k + d + 1))
+    = (34 * ((k + d) * (k + d) * (k + d)) + 153 * ((k + d) * (k + d)) + 231 * (k + d) + 117)
+          * ((d + 2) * (d + 2)) * ((2 * k + d + 1) * (2 * k + d + 1))
+      + 4 * (k * k * k * k) * (2 * k + 2 * d + 3)
+          * (4 * (d * d) + 8 * d * k + 12 * d + 2 * (k * k) + 15 * k + 8) := by
+  ring_nat
 
 end E213.Lib.Math.NumberTheory.AperyRecurrence
