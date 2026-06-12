@@ -110,26 +110,34 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     (`= π(2n)−π(n)`), **`windowCount_pow_le : (n+1)^{windowCount n} ≤ 2^{2n}`** —
     the finite ∅-axiom Chebyshev count skeleton (each window prime `> n`).
 
-    **Remaining chunk**: convert `windowCount_pow_le` (multiplicative) to additive
-    via a ℕ floor-`log₂`: `windowCount n · log₂(n+1) ≤ 2n`, i.e.
-    `windowCount n ≤ 2n / log₂(n+1)`.  Then sum dyadic windows
-    `(2^k, 2^{k+1}]` (telescoping `π`) ⇒ `π(N) = O(N/ln N)` ⇒ density `→ 0` ⇒
-    inhabit `PrimeDensityToZero`.  Erdős elementary-Chebyshev.  Needs a ∅-axiom
-    floor-`log₂` (`Nat`, `2^k ≤ n < 2^{k+1}`) — likely already partially in
-    `MultSystemValue` (`omega_le_log` gives `2^{Ω n} ≤ n`).  PNT proper (`·ln N` at
-    the `1`-cut) needs `ln` (`Real213.ExpLog`) + the ratio sequence — same
-    certificate shape.
+    **Additive count cap DONE**: the generic floor-log `floorLog p N` (largest `f`
+    with `pᶠ ≤ N`, sandwich `p^{floorLog} ≤ N < p^{floorLog+1}`) was **relocated
+    from `LcmGrowthChebyshev` to `Meta/Nat/FloorLog`** (generic Nat infra; `Lens/`
+    can now import it).  **`windowCount_le_floorLog : 1≤n → windowCount n ≤ floorLog
+    (n+1) (2^{2n})`** (= `floorLog_ge` on `windowCount_pow_le`).  **`primePi` tie
+    DONE**: `primePi_add_primesIn_length` (`lo≤hi → π lo + #primes(lo,hi] = π hi`),
+    `windowCount_eq` (`π n + windowCount n = π(2n)`), and the headline
+    **`primePi_two_mul_le_floorLog : π(2n) ≤ π(n) + floorLog (n+1) (2^{2n})`** —
+    the ∅-axiom Chebyshev doubling step.
+
+    **Remaining chunk**: sum the doubling step over dyadic windows
+    `(2^k, 2^{k+1}]` (telescoping `primePi_two_mul_le_floorLog` at `n=2^k`) ⇒
+    `π(N) = O(N/ln N)` ⇒ density `→ 0` ⇒ inhabit `PrimeDensityToZero`.  The
+    per-window `floorLog (2^k+1) (2^{2^{k+1}})` needs a `floorLog` *upper* bound
+    (`floorLog p N ≤ …` against `p^{floorLog+1} > N`, i.e. `lt_pow_floorLog_succ`)
+    to extract the `≈ 2^{k+1}/k` growth.  PNT proper (`·ln N` at the `1`-cut) needs
+    `ln` (`Real213.ExpLog`) + the ratio sequence — same certificate shape.
 
 ## Next concrete step
 
-The Chebyshev numerator + count bound are now closed (`window_prod_le`,
-`windowCount_pow_le : (n+1)^{windowCount n} ≤ 2^{2n}`).  **Next**: a ∅-axiom
-floor-`log₂` on `Nat` (`log2 n` with `2^{log2 n} ≤ n < 2^{log2 n + 1}` for
-`n ≥ 1`) to turn `windowCount_pow_le` additive — `windowCount n · log₂(n+1) ≤ 2n`
-— giving the explicit `windowCount n ≤ 2n / log₂(n+1)` count cap.  Then tie
-`windowCount` to `primePi` (`windowCount n = primePi (2n) − primePi n`, a `primePi`
-telescoping over `primesIn`) and sum dyadic windows to reach `π(N) = O(N/ln N)`,
-inhabiting `PrimeDensityToZero`.  PNT proper stays the asymptotic horizon.
+The Chebyshev doubling step is closed (`primePi_two_mul_le_floorLog : π(2n) ≤ π(n)
++ floorLog (n+1) (2^{2n})`, ∅-axiom).  **Next**: a `floorLog` *upper* estimate
+(from `lt_pow_floorLog_succ`, now in `Meta/Nat/FloorLog`) to bound each dyadic
+window's `floorLog` term, then sum `π(2^{k+1}) ≤ π(2^k) + floorLog(...)` over `k`
+(telescoping) to a closed `π(2^m) ≤ Σ …` ⇒ `π(N) = O(N/ln N)`.  Tie to
+`primePi` already DONE (`windowCount_eq`); the open piece is the dyadic
+floor-log sum estimate, then `π(N) = O(N/ln N)` ⇒ inhabit `PrimeDensityToZero`.
+PNT proper stays the asymptotic horizon.
 
 Loose secondary targets still open: tie `factorization_bounded`'s prime-list
 length to `primePi`; a Chebyshev *lower* bound (`π(2n) − π(n) ≥ …`) for the

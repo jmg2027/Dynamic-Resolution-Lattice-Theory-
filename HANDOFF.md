@@ -1,4 +1,4 @@
-# Session Handoff — 2026-06-12 (Chebyshev: prime window (n,2n] → count bound)
+# Session Handoff — 2026-06-12 (Chebyshev: π(2n) ≤ π(n) + ⌊log_{n+1} 2^{2n}⌋)
 
 ## Branch
 `claude/autonomous-marathon-vp-listprod-imkycf` — the system `×` makes (monomials
@@ -20,12 +20,20 @@ Closed the Erdős elementary-Chebyshev numerator + count bound in
   `central_binom_pos`; **`window_prod_dvd_central_binom`** (`∏_{n<p≤2n} p ∣
   C(2n,n)`); **`window_prod_le`** (`∏ ≤ 2^{2n}`).
 - **`windowCount_pow_le : (n+1)^{windowCount n} ≤ 2^{2n}`** — the finite ∅-axiom
-  Chebyshev count skeleton (`windowCount n = π(2n)−π(n)`; each window prime `>n`;
-  `pow_length_le_prod`).  Verified `windowCount 4=2, 10=4, 50=10`.
+  Chebyshev count skeleton (`pow_length_le_prod`; each window prime `>n`).
+- **`floorLog` relocated** `LcmGrowthChebyshev` → **`Meta/Nat/FloorLog`** (generic
+  Nat infra: floor-log `⌊log_p N⌋` + sandwich + general-base pow monotonicity;
+  `Lens/` can now import it; consumers open+re-export, `FactorialLcmDvd` untouched).
+- **`windowCount_le_floorLog : 1≤n → windowCount n ≤ floorLog (n+1) (2^{2n})`** —
+  the additive count cap (`floorLog_ge` on `windowCount_pow_le`).
+- **`primePi` tie**: `primePi_add_primesIn_length` (`lo≤hi → π lo + #primes(lo,hi]
+  = π hi`), `windowCount_eq` (`π n + windowCount n = π(2n)`), and the headline
+  **`primePi_two_mul_le_floorLog : π(2n) ≤ π(n) + floorLog (n+1) (2^{2n})`** — the
+  ∅-axiom Chebyshev doubling step.  Verified `π(8)=4, windowCount 8=2, π(16)=6`.
 
-**Next** (frontier `multiplicative_count_pnt.md`): ∅-axiom floor-`log₂` on `Nat`
-to make `windowCount_pow_le` additive (`windowCount n · log₂(n+1) ≤ 2n`), tie
-`windowCount` to `primePi`, sum dyadic windows ⇒ `π(N)=O(N/ln N)` ⇒ inhabit
+**Next** (frontier `multiplicative_count_pnt.md`): a `floorLog` *upper* estimate
+(via `lt_pow_floorLog_succ`) to bound each dyadic-window term, then telescope
+`primePi_two_mul_le_floorLog` over `n=2^k` ⇒ `π(N)=O(N/ln N)` ⇒ inhabit
 `PrimeDensityToZero`.
 
 ## Prior session (n-plus-signature-mappings branch)
