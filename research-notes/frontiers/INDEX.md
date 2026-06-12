@@ -427,6 +427,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   general-`p` one-carrier νF spine, ℝ one-carrier with König, and the next deep-dives
   (limit/completion, quotient/equivalence-class, actual-vs-potential infinity).
 
+- `number_tower_theory` — **the number tower, as general rules** (the cleaned
+  statement of the slot-tower dialogue, not the discovery path).  R0 slot
+  ontology (tuple is the number; ℤ/ℚ/ℝ = flattening readouts; list-form tower) →
+  R1 one generator `iter` → R2 vertical/horizontal laws → R3 log demotes each
+  rung (`vp` = arithmetic log) → R4 the lattice's *dimension* is the changing
+  invariant (`1→∞`, atom-distinguishability) → R5 algebraic through `^` /
+  holonomic above (inverse splits root/log) → R6 holonomy = gauge of the
+  demotion → R7 each level's invariant is its **valuation** (size→`vp`→cut→
+  growth-rank) → R8 the `∞/0→finite` move (`0≡∞`, §6.5/§6.9).  Every claim tagged
+  `[∅]`/`[ax]`/`[std]`/`[spec]`; Lean anchor index + open problems included.
+  Discovery path: `general_theory_metaanalysis.md` findings D/E/F/G/G′.
+
 - `general_theory_metaanalysis` — **meta-analysis program** (corpus-wide, ongoing):
   discovers genuine general theoretical structures via deep + meta analysis,
   filtered by the adversarial debate method.  Validated core **PROMOTED** to
