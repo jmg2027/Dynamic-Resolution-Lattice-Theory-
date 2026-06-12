@@ -165,6 +165,9 @@ def binom : Nat → Nat → Nat
     is not definitional for a variable `n`). -/
 theorem binom_zero (n : Nat) : binom n 0 = 1 := by cases n <;> rfl
 
+/-- Pascal step (the defining recursion). -/
+theorem binom_succ (n k : Nat) : binom (n + 1) (k + 1) = binom n k + binom n (k + 1) := rfl
+
 /-- `binom n m = 0` when `n < m`. -/
 theorem binom_zero_of_lt : ∀ {n m : Nat}, n < m → binom n m = 0
   | n,     0,     h => absurd h (Nat.not_lt_zero n)
@@ -217,5 +220,36 @@ theorem monoCount_closed : ∀ (k N : Nat), monoCount (k + 1) N = binom (N + k) 
     C(N+k, k) = C(N+k, k+1)` is Pascal's identity. -/
 theorem totalCount_closed (k N : Nat) : totalCount k N = binom (N + k) k :=
   monoCount_closed k N
+
+/-! ### Cutting both axes at `N` — the double sum collapses to a central binomial
+
+Capping *both* the number of bases `k` and the degree `n` at `N` and summing all
+the monomial counts gives a single central binomial coefficient `C(2N+1, N)`.
+Needs the **diagonal** hockey-stick `Σ_{k=0}^{M} C(N+k, k) = C(N+M+1, M)` (the
+previous `hockey` sums the top index; this sums the bottom). -/
+
+/-- Diagonal hockey-stick: `Σ_{k=0}^{M} C(N+k, k) = C(N+M+1, M)`. -/
+theorem hockeyDiag : ∀ (N M : Nat),
+    sumf (fun k => binom (N + k) k) M = binom (N + M + 1) M
+  | N, 0     => by
+      show binom (N + 0) 0 = binom (N + 0 + 1) 0
+      rw [binom_zero, binom_zero]
+  | N, M + 1 => by
+      show sumf (fun k => binom (N + k) k) M + binom (N + (M + 1)) (M + 1)
+            = binom (N + (M + 1) + 1) (M + 1)
+      rw [hockeyDiag N M, binom_succ (N + (M + 1)) M, Nat.add_assoc N M 1]
+
+/-- Sum of every monomial count with both `k ≤ N` and `n ≤ N`:
+    `Σ_{k=0}^{N} totalCount k N = Σ_{k=0}^{N} Σ_{n=0}^{N} monoCount k n`. -/
+def doubleTotal (N : Nat) : Nat := sumf (fun k => totalCount k N) N
+
+/-- **Both axes cut at `N` ⇒ central binomial.**  `doubleTotal N = C(2N+1, N)`.
+    The user's strictly-positive sum `Σ_{k=1}^{N} Σ_{n=1}^{N} monoCount k n` is
+    this minus the `0`-boundary (`k=0` row contributes `1`, `n=0` column another
+    `N`), i.e. `C(2N+1, N) − N − 1`. -/
+theorem doubleTotal_closed (N : Nat) : doubleTotal N = binom (2 * N + 1) N := by
+  show sumf (fun k => totalCount k N) N = binom (2 * N + 1) N
+  rw [sumf_congr (fun k => totalCount k N) (fun k => binom (N + k) k)
+        (fun k => totalCount_closed k N) N, hockeyDiag N N, Nat.two_mul]
 
 end E213.Lens.Number.Nat213.MultSystem
