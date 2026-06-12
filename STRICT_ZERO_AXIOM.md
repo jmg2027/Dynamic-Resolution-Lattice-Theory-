@@ -1346,6 +1346,24 @@ dynamic (elliptic bounded/periodic, hyperbolic growing).  Golden boost: `golden_
 strictly increasing, so `G` is aperiodic — the hyperbolic infinite order, dynamic shadow of
 `disc = 5 > 0`).  `pow` matrix power; `tr_mul_charComb` trace-linearity over the CH combination.
 
+`E213.Lib.Math.NumberSystems.Real213.HolonomyLattice` — **25 PURE / 0 DIRTY**.  Holonomy of a loop of
+state-transitions: `holonomy : List Mat2 → Mat2`, the ordered fold-product of a path — the §6.6
+collapse (state-transition = state) made computational, since a loop of *transitions* composes to a
+*state* of the same kind (the modular/Möbius matrix is the representation in which the two readings
+coincide).  Three faces: ★ `holonomy_append` (**functoriality** — `holonomy (p++q) = holonomy p ·
+holonomy q`, a monoid hom from the free path monoid to `(Mat2,·)`); ★ `det_holonomy_eq_one`
+(**flatness** — every step `det = 1` ⟹ holonomy `det = 1` around the whole loop; `det = 1 = NS − NT`
+the founding shared unit, the conserved invariant); ★ `positive_loop_trivial` (**the ℕ⁺ sector is
+loop-free** — no non-empty word in the Stern–Brocot generators `L = [[1,0],[1,1]]`, `R = [[1,1],[0,1]]`
+returns to `I`, via the strictly-growing entry-sum `positiveWord_entrySum_gt_two` on the positive
+interior `Pos`; the positive monoid `⟨L,R⟩` is a tree).  ★ `first_loop_is_the_fold` — the first
+non-trivial loop appears **exactly when the negation-fold composite `S` is admitted**: `holonomy
+[S,S] = −I ≠ I` (order 4, the elliptic Gaussian period), `S.b = −1` the sign the ℕ⁺ sector excludes —
+holonomy is the residue-internal signature of the fold ℕ⁺ → ℤ (the sign-Lens of §6.7).  Supporting:
+`one_mul` (Mat2 left identity), `det_mul` (Cauchy–Binet `2×2`, `ring_intZ`), `mul_{L,R}_eq`,
+`pos_mul_{L,R}`, `entrySum_{mul_L,mul_R,lt_L,lt_R,ge_two}`, `holonomy_pos`.  Builds on
+`HyperbolicEllipticTrace` (`Mat2`) + `Mat2Assoc` (`mul_assoc`) + `Int213.Order`.
+
 `E213.Lib.Math.NumberSystems.Real213.GoldenAperiodic` — **3 PURE**.  The hyperbolic infinite order made a theorem:
 `golden_trace_mono` (the Lucas trace is monotone above `2` — `2 ≤ tr(Gⁿ) < tr(Gⁿ⁺¹)`, induction on
 the recurrence with the `Int213.Order` inequalities), `golden_trace_gt_two` (`tr(Gⁿ⁺¹) > 2 = tr I`),

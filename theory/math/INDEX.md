@@ -19,7 +19,7 @@ sandwich-first, the commuting square, layer constants),
 `cf_holonomicity_hierarchy`, `newton_gregory`, `holonomic_modulus`, `form_margin_modulus`,
 `tower_native_completeness`, `refined_completability_engine`,
 `spiral_coordinate_classification`, `phi_pi_poles`, `markov_spectrum`,
-`markov_uniqueness`, `lambert_weld`).
+`markov_uniqueness`, `lambert_weld`, `holonomy_of_the_lattice`).
 
 ### `algebra/` — algebraic structures + towers
 `cayley_dickson/` (algebra tower + exceptional axes), `linalg213`, `polynomial213`,
