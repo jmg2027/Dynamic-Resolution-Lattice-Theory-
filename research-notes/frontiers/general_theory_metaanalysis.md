@@ -95,6 +95,51 @@ This convergence is the program's deepest finding: **the discipline of 213 —
 unification, equality, and error alike — is governed by a single two-sided
 boundary, and the recurring failures are the two ways of falling off it.**
 
+## C7 — does C4 hold in the physics branch? (a sharpened question, NOT a verdict)
+
+Tested the shared-generator criterion on the DRLT **closure form**
+`O = R(NS,NT,d,c) · Π(1 + κ_i·α_i^{n_i})` (`rust-engine/docs/closure-algorithm.md`).
+The surveyor returned a strong "fitted template" verdict; **two corrections are
+required before recording anything**, because this touches the originator's
+core physics and the verdict's *logic* was inverted:
+
+1. **Logic correction.**  Even *if* the closure form were a per-observable fit
+   rather than a genuine generator, that would **corroborate** C4 (apparent
+   high-level unifications are usually forcible / not genuine shared
+   generators — exactly C4's thesis), **not falsify** it.  C4 is a claim about
+   the *rarity* of genuine generators at height; a forcible physics template is
+   an *instance* of that rarity, not a counterexample.  (The surveyor's
+   "falsifies C4" verdict is rejected on this ground.)
+
+2. **Contested premise — left open for the originator.**  Whether the form is
+   0-parameter (CLAUDE.md: "0 free parameters = structural absence") or a
+   structurally-constrained *fit* hinges on **one precise question**: is the
+   atomic-integer search space (κ ∈ combinations of `NS,NT,d,c`, bounded) tight
+   enough that a per-`O` match is *forced*, or loose enough that *some* match is
+   generically findable (numerology)?  This is the originator's physics; it is
+   not mine to adjudicate.  Genuine data the survey did surface (worth keeping):
+   - the κ_i/n_i are **discovered by exhaustive search** (`atomic_hunter.rs`)
+     over a structurally-bounded set, not derived top-down — documented openly;
+   - the repo **self-flags `g_n`** (needs coefficient `19`, prime, *not*
+     decomposable into `NS,NT,d,c`) as a candidate **falsifier** — honest
+     engagement, not hiding (cf. the *deleted* `5²⁵=N_U` claim: the repo already
+     self-corrects numerology);
+   - observables nearest the **counting floor** (`N_gen=3=NS²−1`, `1/α_3=8`,
+     `m_p/m_e≈6·π⁵`) are bare / 0-correction; the precision constants take 2–3
+     nested α-corrections.  This is the *opposite* slope to the math branch
+     (where the floor unifies and height diverges) — in physics the floor is
+     bare and **height needs more correction terms** — which is itself a
+     genuine, interesting cross-branch contrast worth understanding, **not**
+     evidence either way on the fit question.
+
+**Status: OPEN, flagged to the originator.**  The right framing is a question —
+*"is the atomic search space structurally forced (0-parameter) or generically
+matchable (numerology), and what distinguishes the genuine-generator observables
+(`N_gen`, `1/α_3`) from the correction-heavy ones (`g_p`, `1/α_em`)?"* — not a
+verdict that the physics is overfitted.  Pursuing it needs the originator's
+steer (it is their core deployment, and the failure mode "DRLT-validation-as-
+the-goal" lurks if a math-side critic grades it by an external bar).
+
 ## Log
 
 - (init) Program opened; surveyor team dispatched on C1–C3; C4 synthesised
@@ -115,6 +160,12 @@ boundary, and the recurring failures are the two ways of falling off it.**
   4/22 are orthogonal discipline failures.  **C4 ↔ C6 convergence** found: a
   forcible map IS over-exteriorization; the whole discipline orbits the one
   residue/Lens boundary.  This is the program's deepest finding.
+- C5 grid completed by direct survey (ℤ unique faithful-finite).
+- **C7 (physics cross-branch) — OPEN, flagged to originator.**  Surveyor's
+  "closure form is a fit / falsifies C4" verdict was *logic-corrected* (a
+  forcible template would *corroborate* C4, not falsify it) and reduced to a
+  precise open question about the structural-forcing of the atomic search space.
+  Touches core physics — needs the originator's steer; not adjudicated here.
 
 ## Survey results
 
