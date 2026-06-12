@@ -899,4 +899,46 @@ theorem windowCount_le_floorLog {n : Nat} (hn : 1 ≤ n) :
     windowCount n ≤ floorLog (n + 1) (2 ^ (2 * n)) :=
   floorLog_ge (Nat.succ_le_succ hn) (windowCount_pow_le n)
 
+/-- **`primesIn` interpolates `primePi`**: for `lo ≤ hi`,
+    `primePi lo + #{primes in (lo,hi]} = primePi hi`.  Induction peeling `hi`:
+    the head `hi` contributes its `primeIndicator` to both `primePi` and the list
+    length in lockstep (`primesIn_cons`/`_skip`). -/
+theorem primePi_add_primesIn_length {lo : Nat} : ∀ {hi : Nat}, lo ≤ hi →
+    primePi lo + (primesIn lo hi).length = primePi hi := by
+  intro hi
+  induction hi with
+  | zero =>
+      intro hle
+      have h0 : lo = 0 := Nat.le_antisymm hle (Nat.zero_le _)
+      subst h0; rfl
+  | succ k ih =>
+      intro hle
+      rcases Nat.lt_or_ge lo (k + 1) with hlt | hge
+      · have hlok : lo ≤ k := Nat.le_of_lt_succ hlt
+        show primePi lo + (primesIn lo (k + 1)).length = primePi k + primeIndicator (k + 1)
+        cases decPrime (k + 1) with
+        | isTrue hp =>
+            rw [primesIn_cons hlt hp]
+            have hpi : primeIndicator (k + 1) = 1 := (primeIndicator_eq_one_iff (k + 1)).mpr hp
+            show primePi lo + ((primesIn lo k).length + 1) = primePi k + primeIndicator (k + 1)
+            rw [hpi, ← Nat.add_assoc, ih hlok]
+        | isFalse hp =>
+            rw [primesIn_skip hlt hp]
+            have hpi : primeIndicator (k + 1) = 0 := by
+              unfold primeIndicator
+              cases decPrime (k + 1) with
+              | isTrue h => exact absurd h hp
+              | isFalse _ => rfl
+            rw [hpi, Nat.add_zero]; exact ih hlok
+      · have heq : lo = k + 1 := Nat.le_antisymm hle hge
+        subst heq
+        rw [primesIn_empty (fun hc => absurd hc (Nat.lt_irrefl (k + 1)))]; rfl
+
+/-- **`windowCount n = π(2n) − π(n)`** (additive form, `Nat`-subtraction-free):
+    `primePi n + windowCount n = primePi (2n)`.  The window `(n, 2n]` is exactly
+    the primes counted by `π(2n)` but not `π(n)`. -/
+theorem windowCount_eq (n : Nat) : primePi n + windowCount n = primePi (2 * n) := by
+  have h : n ≤ 2 * n := by rw [Nat.two_mul]; exact Nat.le_add_right n n
+  exact primePi_add_primesIn_length h
+
 end E213.Lens.Number.Nat213.MultSystemValue
