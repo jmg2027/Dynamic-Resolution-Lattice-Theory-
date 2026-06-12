@@ -285,6 +285,39 @@ in 290k lines, and the top-10 sinks are its primitives.  The TOE claim has a cod
 shadow: not "213 can encode any domain" as rhetoric, but **the dependency DAG of the entire
 formalization converges, with 64 % of its weight, onto the residue and its four moves.**
 
+## 9. The statement→proof law, and the `ring_nat` adoption gap
+
+**Goal shape predicts proof skeleton** (paired theorem-statement → proof-entry, ~14k
+theorems).  The proof's opening move is largely a function of the goal's dominant
+logical connective:
+
+| goal shape | n | dominant proof entries |
+|---|---:|---|
+| `= eq` | 11,081 | term 28 %, **decide 22 %**, show 7 %, refine 7 %, rw 6 % |
+| `≠ ne` | 814 | term 21 %, **decide 15 %, intro 14 %, ⟨⟩ 13 %**, refine 12 % |
+| `↔ iff` | 323 | **constructor 24 %, ⟨⟩ 21 %** (split into two directions), term 16 % |
+| `∧ and` | 157 | **⟨⟩ 35 %, refine 29 %** (anonymous-constructor bundling) |
+| `∀ forall` | 183 | **intro 36 %**, term 30 % |
+| `∃ exists` | 59 | **⟨witness⟩ 23 %**, intro 16 %, refine 15 % |
+| `< order` | 780 | term 28 %, have 20 %, decide 9 % |
+
+So there is a clean `goal-shape ⇒ skeleton` map: equalities *compute* (`decide`) or
+*rewrite*; distinguishings (`≠`) `decide` or `intro`-to-`False`; `↔` splits (constructor /
+⟨fwd,bwd⟩); `∧` bundles (⟨…⟩); `∀` introduces; `∃` supplies a witness.  The proof skeleton
+is the goal's logical shape + a domain-specific middle — which is *why* the skeleton
+vocabulary (§4) is so small.
+
+**The `ring_nat` adoption gap** (`tools/syntax_rw_cascade_scan.py`: 4,113 decls with `rw`,
+16,973 `rw`-occurrences).  The most frequent `rw` 3-grams are pure semiring-normalization
+cascades — `Nat.add_assoc → add_comm → add_assoc` (65 decls), `mul_assoc → Nat.mul_comm →
+mul_assoc` (37), `Nat.add_assoc → add_assoc → add_comm` (32), `NatHelper.mul_assoc →
+Nat.mul_comm → NatHelper.mul_assoc` (27) — exactly the assoc/comm reshuffling that
+**`ring_nat`/`ring_intZ` already discharge in one token**.  The hand-rolled ring exists
+(714 + 720 uses) yet a measurable slice of the 16,973 `rw`-sites still hand-roll its job
+(methodology Pattern #10, the adoption gap, here quantified at the corpus's most common
+`rw`-cascades).  (`if_pos/if_neg` cascades = decision-tree normalization; `h_lhs/h_rhs/ih`
+= hypothesis-rewriting in the Markov/recurrence marathons.)
+
 ---
 
 ## Synthesis — the proof-structure of 213 in one picture
