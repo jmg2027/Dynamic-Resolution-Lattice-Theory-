@@ -1,3 +1,39 @@
+# Session Handoff — 2026-06-12 (ζ(3) Brick 2: KeyDiv + Heart CLOSED)
+
+## This session (2026-06-12): Brick 2 §2–§4 — all PURE
+`AperyIntegrality.lean` now **31 PURE / 0 dirty**.  Landed, in order:
+
+  * **§2 KeyDiv COMPLETE** — `keydiv : m·C(k,m) ∣ lcm(1..k)` (`1≤m≤k`).
+    `keydiv_prod` (`m·C(m+s,m)·s! = rprod m (s+1)`, bridge) · `rprod_split` ·
+    `Qex_mul` (`(m+j)·Qex m s j = rprod m (s+1)`) · `LPos`/`LNeg` (even/odd
+    quotient sums) · `dfd_pos`/`dfd_neg` (`d·fdPos = rprod·LPos`) · `keydiv_dvd`
+    (generic `(∀j≤s,(m+j)∣d) → m·C(m+s,m)∣d`; `fd_identity`×`d`, cancel `s!` ⟹
+    `P·LPos = d + P·LNeg` ⟹ `d = P·(LPos−LNeg)`).  Built on the prior-session
+    `fd_identity` (the FD identity, even/odd Nat, no `Int`).
+  * **§3 Heart (L2) COMPLETE** — `heart : m·C(k,m)∣d → m³·C(n,m)·C(n+m,m) ∣
+    d³·C(n,k)·C(n+k,k)`.  `d = m·C(k,m)·Q` into the cube; `aperyTrinomial`
+    collapses `C(k,m)²·C(n,k)·C(n+k,k)`; witness `Q³·C(k,m)·C(n−m,k−m)·C(n+k,n+m)`
+    (needs only KeyDiv — simpler than the `Q²·R` blueprint sketch).
+  * **§4 engines** — `cube_dvd_lcm_cube` (`j³∣lcm(1..n)³`, harmonic) + `heart_lcm`
+    (`m³C(n,m)C(n+m,m) ∣ lcm³C(n,k)C(n+k,k)`, Heart at `d=lcm(1..n)`).
+
+### Traps hit this session
+  * `Nat.dvd_trans` carries **propext** → inline transitivity via the two dvd
+    witnesses (`rcases ⟨u,hu⟩, ⟨v,hv⟩; exact ⟨u*v, by rw…; ring_nat⟩`).
+  * `ring_nat` on literal-exponent `^` → local `cube x : x^3 = x*x*x`
+    (`Nat.pow_succ`×2 + `Nat.pow_one`); rewrite all `^3/^2` to products first.
+  * `m+(s+1)` vs `m+s+1` not closed by `rw`'s rfl → `Nat.add_succ` to normalise.
+
+### §4 REMAINING (the ÷-free alternating-sum assembly) + FINAL assembly
+See `research-notes/frontiers/zeta3_blueprint.md` "Brick 2 … §4 REMAINING".
+Short form: define `Aₙ = 2·lcm³·aₙ`, `Bₙ` as Nat/signed sums; harmonic terms clear
+by `cube_dvd_lcm_cube`, kernel terms by `heart_lcm`; signs ⟹ pos/neg Nat split
+(`Int` banned).  Then connect `(Aₙ,Bₙ)`↔`zeta3Num/zeta3Den` (recurrence ↔ sum),
+`2lcm³∣(n!)³` (`n≥4`), piecewise `(c,p,q)`, `htel` from `lcmUpTo_le` vs
+`zeta3Den_geom` ⟹ `zeta3_reduced_conditional` ⟹ `zeta3HolonomicReal`.
+
+---
+
 # Session Handoff — 2026-06-11 (ζ(3) Brick 1 marathon, opened)
 
 ## Branch

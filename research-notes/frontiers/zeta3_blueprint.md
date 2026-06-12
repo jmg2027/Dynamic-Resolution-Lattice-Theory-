@@ -43,6 +43,43 @@ unimodality), `LcmBoundMain.lean` (`step5` numeral induction, **`main`**
 The deliverable is `LcmBoundMain.lcmUpTo_le` (√10 < 3.236 = α^{1/3}).  Remaining for
 ζ(3): **Brick 2 (integrality, input I1)** + assembly into `zeta3HolonomicReal`.
 
+### ★★★ Brick 2 (integrality, input I1) — §1–§3 COMPLETE + PURE; §4 engines landed
+
+All in `Lib/Math/NumberTheory/AperyIntegrality.lean` (31 PURE / 0 dirty):
+
+  * **§1 `aperyTrinomial`** — the trinomial double identity (both sides clear to
+    `(2m+a+2b)!`).
+  * **§2 KeyDiv COMPLETE** — `keydiv : m·C(k,m) ∣ lcm(1..k)` (`1≤m≤k`).  Built from
+    the finite-difference identity `fd_identity : fdPos m s = s! + fdNeg m s`
+    (i.e. `Σⱼ(−1)ʲC(s,j)·Πᵢ≠ⱼ(m+i) = s!`, even/odd Nat split, induction via the
+    `(P)/(N)` recurrences `fdPos_succ`/`fdNeg_succ`).  Bridge `keydiv_prod :
+    m·C(m+s,m)·s! = rprod m (s+1)`.  Then `rprod_split`, `Qex_mul` (excluded factor
+    restored), `LPos`/`LNeg` (even/odd quotient sums `ΣC(s,j)(d/(m+j))`),
+    `dfd_pos`/`dfd_neg` (`d·fdPos = rprod·LPos`), `keydiv_dvd` (generic: `(∀j≤s,
+    (m+j)∣d) → m·C(m+s,m)∣d`, by `fd_identity`×`d`, cancel `s!` ⟹ `P·LPos = d +
+    P·LNeg` ⟹ `d = P·(LPos−LNeg)`).  **No `Int`, no p-adics** — even/odd Nat throughout.
+  * **§3 Heart (L2) COMPLETE** — `heart : m·C(k,m)∣d → m³·C(n,m)·C(n+m,m) ∣
+    d³·C(n,k)·C(n+k,k)`.  Substitute `d = m·C(k,m)·Q` into the cube; `aperyTrinomial`
+    collapses the `C(k,m)²·C(n,k)·C(n+k,k)` block; witness `Q³·C(k,m)·C(n−m,k−m)·
+    C(n+k,n+m)` (needs only KeyDiv, **not** a separate `d/m` — simpler than the
+    `Q²·R` route this doc first sketched).
+  * **§4 engines landed** — `cube_dvd_lcm_cube : j³ ∣ lcm(1..n)³` (`1≤j≤n`, harmonic
+    part) and `heart_lcm : m³·C(n,m)·C(n+m,m) ∣ lcm(1..n)³·C(n,k)·C(n+k,k)` (`1≤m`,
+    Heart at `d=lcm(1..n)` via KeyDiv + `lcmUpTo` monotonicity).
+
+**§4 REMAINING** (the ÷-free alternating-sum assembly): define the cleared Apéry
+numbers `Bₙ = Σ_k C(n,k)²C(n+k,k)²` and `Aₙ = 2·lcm³·aₙ` directly as Nat/signed
+expressions —
+`Aₙ = Σ_k C(n,k)²C(n+k,k)²·[2·lcm³·H₃(n) + Σ_{m=1}^k (−1)^{m−1}·lcm³/(m³C(n,m)C(n+m,m))]`
+— with `lcm³/j³ ∈ ℕ` (`cube_dvd_lcm_cube`) and `C(n,k)²C(n+k,k)²·lcm³/(m³C(n,m)
+C(n+m,m)) = C(n,k)C(n+k,k)·(lcm³C(n,k)C(n+k,k)/(m³C(n,m)C(n+m,m)))` integral
+(`heart_lcm`).  The signs force a positive/negative Nat split (the `Int` ban);
+this is the flagged 400–600-line ÷-free bookkeeping.  **Then the FINAL assembly**:
+connect `(Aₙ,Bₙ)` to the recurrence pair `zeta3Num/zeta3Den` (the Apéry
+recurrence ↔ sum-formula identity), `2lcm³∣(n!)³` for `n≥4`, piecewise `(c,p,q)`,
+`htel` margin from `lcmUpTo_le` vs `zeta3Den_geom` (28>27) ⟹
+`zeta3_reduced_conditional` ⟹ `zeta3HolonomicReal`.
+
 (Notes: `α₃₀` `[local irreducible]` to stop whnf-explosion; `ring_nat` deep-recurses
 on literal-exponent `^` → abstract reassoc lemmas; base certificates `decide` with
 `maxRecDepth`/`maxHeartbeats` raised — `lcmUpTo 750 ≤ 10^375` in ~1s.)
