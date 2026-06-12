@@ -1,4 +1,5 @@
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!
@@ -25,6 +26,11 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_pos
   factorial_succ)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose_succ_succ choose_zero_right
+  choose_eq_zero_of_lt)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_split_first sumTo_congr
+  sumTo_add_func)
 open E213.Tactic.NatHelper (sub_add_cancel add_right_cancel)
 
 /-! ## §1 — the trinomial double identity -/
@@ -174,5 +180,32 @@ theorem Qex_front (m s j : Nat) : Qex m (s + 1) (j + 1) = m * Qex (m + 1) s j :=
     = m * (rprod (m + 1) j * rprod (m + 1 + j + 1) (s - j))
   rw [rprod_front m j, Nat.succ_sub_succ, show m + (j + 1) + 1 = m + 1 + j + 1 from by ring_nat]
   ring_nat
+
+/-- Excluding the last index leaves the all-before product: `Qex m s s = rprod m s`. -/
+theorem Qex_self (m s : Nat) : Qex m s s = rprod m s := by
+  show rprod m s * rprod (m + s + 1) (s - s) = rprod m s
+  rw [Nat.sub_self]; show rprod m s * 1 = rprod m s; rw [Nat.mul_one]
+
+/-! ## §3 — the even/odd finite-difference sums -/
+
+/-- Even-indexed part of the signed sum `Σⱼ(−1)ʲC(s,j)·Qex m s j`. -/
+def fdPos (m s : Nat) : Nat :=
+  sumTo (s + 1) (fun j => if j % 2 = 0 then choose s j * Qex m s j else 0)
+
+/-- Odd-indexed part. -/
+def fdNeg (m s : Nat) : Nat :=
+  sumTo (s + 1) (fun j => if j % 2 = 1 then choose s j * Qex m s j else 0)
+
+theorem fdPos_zero (m : Nat) : fdPos m 0 = 1 := by
+  show sumTo 1 (fun j => if j % 2 = 0 then choose 0 j * Qex m 0 j else 0) = 1
+  rw [sumTo_succ, sumTo_zero, Nat.zero_add]
+  show (if (0 : Nat) % 2 = 0 then choose 0 0 * Qex m 0 0 else 0) = 1
+  rw [if_pos (by decide), choose_zero_right, Qex_self, show rprod m 0 = 1 from rfl, Nat.mul_one]
+
+theorem fdNeg_zero (m : Nat) : fdNeg m 0 = 0 := by
+  show sumTo 1 (fun j => if j % 2 = 1 then choose 0 j * Qex m 0 j else 0) = 0
+  rw [sumTo_succ, sumTo_zero, Nat.zero_add]
+  show (if (0 : Nat) % 2 = 1 then choose 0 0 * Qex m 0 0 else 0) = 0
+  rw [if_neg (by decide)]
 
 end E213.Lib.Math.NumberTheory.AperyIntegrality
