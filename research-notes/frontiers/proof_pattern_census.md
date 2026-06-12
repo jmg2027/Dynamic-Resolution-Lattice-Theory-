@@ -350,6 +350,40 @@ Two consequences:
   identity.  (Corpus-wide corroboration; the exact CDI cross-namespace re-run with a
   name-retaining `ast_shape_scan` is still the pending precise test.)
 
+## 11. The definitional / type architecture (the layer the proofs operate over)
+
+§8/§10 found the mathematical content lives in the *definitional* layer, not the proofs.
+Its structure (92 `inductive`, 41 `class`, 231 `structure`, 4,640 `def`):
+
+**A thin residue core that everything hangs off.**  The type-level hubs are the same
+primitives as the proof-citation hubs (§8): `Term.Internal.Tree` (24,926 cites) → `Theory.Raw`
+(26,347) → `Lens.Number.Nat213` (7,830) + `Lens.Lens` (1,988) — and crucially
+**`Theory.instDecidableEqRaw` (4,459 cites)**, the decidable-equality instance on Raw that
+*enables the entire `decide` regime* (you can `decide` on Raw, hence on everything built from
+it, precisely because Raw carries decidable equality).  The 92 inductives are domain data
+types (cohomology `Cell0–4`, the `PE` polynomial-expression trees that power `ring_nat`,
+number-system carriers, `Glyph`/`OpWord`) rooted at `Tree`.
+
+**A clean algebraic typeclass tower** — the structural backbone of the algebra deployment,
+a genuine inheritance DAG:
+
+```
+Add ─► Ring213 ─┬─► CommRing213 ─► CommStarRing213 ─► CommIntegerNormed213
+                └─► StarRing213  ─► IntegerNormed213 ─► TraceNormed213
+Add ─► NonAssocRing213 ─► NonAssocStarRing213 ─► MoufangIntegerNormed213 ◄─ FlexAlt213
+CommBinaryCodomain ─► NonVanishingCodomain ─► ConjugationCodomain   (the ℂ-uniqueness ladder)
+```
+
+**The two layers meet here.**  This typeclass tower *is* the α-parametric infrastructure that
+§10 identified as the **only locus of repeated proof-content** — every `Ring213`/`Normed213`
+instance shares the parent class's proofs (`StarRing213.toRing213` 888 cites,
+`NonAssocStarRing213.toNonAssocRing213` 651, the `instNonAssocRing213OfRing213` bridges).  So
+the proof-layer finding (form converges, content diverges, *except* the α-parametric families)
+and the type-layer finding (a normed-ring class tower) are the **same fact seen from two
+sides**: the class tower is where — and the only place — proof-content is shared, because the
+tower *is* the shared-construction (α) infrastructure.  Everything else is a one-off proof
+over the thin residue core.
+
 ---
 
 ## Synthesis — the proof-structure of 213 in one picture
