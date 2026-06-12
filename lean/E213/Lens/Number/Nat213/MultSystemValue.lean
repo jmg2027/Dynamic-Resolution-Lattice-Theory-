@@ -31,7 +31,7 @@ in `π(N)`, is case B, deliberately not here.)
 namespace E213.Lens.Number.Nat213.MultSystemValue
 
 open E213.Meta.Nat.VpMul (IsPrime213 vp_mul vp_pow vp_self_pow euclid_lemma)
-open E213.Meta.Nat.Valuation (vp pow_vp_dvd mod_zero_of_dvd)
+open E213.Meta.Nat.Valuation (vp pow_vp_dvd mod_zero_of_dvd le_vp_iff)
 open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
 open E213.Meta.Nat.VpSeparation (vp_eq_zero_of_not_dvd exists_prime_factor)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
@@ -442,6 +442,33 @@ theorem central_binom_factorial (n : Nat) :
     binom (2 * n) n * (fact n * fact n) = fact (2 * n) := by
   have h := binom_factorial n n
   rwa [show n + n = 2 * n from by ring_nat] at h
+
+/-- **Every prime in `(n, 2n]` divides `C(2n,n)`.**  Read `central_binom_factorial`
+    through `vp`: `vp_p((2n)!) = vp_p(C(2n,n)) + 2·vp_p(n!) = vp_p(C(2n,n))` (since
+    `vp_p(n!)=0` for `p > n`), and `vp_p((2n)!) ≥ 1` (`p ∣ (2n)!`, `p ≤ 2n`).  The
+    numerator side of the Chebyshev product bound. -/
+theorem prime_dvd_central_binom {p n : Nat} (hp : IsPrime213 p) (hlt : n < p)
+    (hle : p ≤ 2 * n) : p ∣ binom (2 * n) n := by
+  have hfn : 0 < fact n := fact_pos n
+  have hf2 : 0 < fact (2 * n) := fact_pos (2 * n)
+  have hcbf := central_binom_factorial n
+  have hbpos : 0 < binom (2 * n) n := by
+    rcases Nat.eq_zero_or_pos (binom (2 * n) n) with h0 | h
+    · exfalso; rw [h0, Nat.zero_mul] at hcbf; rw [← hcbf] at hf2
+      exact absurd hf2 (Nat.lt_irrefl 0)
+    · exact h
+  have hvpn : vp p (fact n) = 0 := vp_eq_zero_of_not_dvd hp hfn (prime_not_dvd_fact hp hlt)
+  have hvp := congrArg (vp p) hcbf
+  rw [vp_mul hp hbpos (Nat.mul_pos hfn hfn), vp_mul hp hfn hfn, hvpn,
+      Nat.add_zero] at hvp
+  have hp1 : p ^ 1 ∣ fact (2 * n) := by
+    rw [Nat.pow_one]
+    exact dvd_fact (Nat.lt_of_lt_of_le (by decide) hp.two_le) hle
+  have hge1 : 1 ≤ vp p (binom (2 * n) n) := by
+    rw [hvp]; exact (le_vp_iff p (fact (2 * n)) 1 hp.two_le hf2).mp hp1
+  have hdvd : p ^ 1 ∣ binom (2 * n) n :=
+    (le_vp_iff p (binom (2 * n) n) 1 hp.two_le hbpos).mpr hge1
+  rwa [Nat.pow_one] at hdvd
 
 /-- **Infinitude of primes** (Euclid).  For every `N` there is a prime `> N`:
     a prime factor of `N! + 1` cannot be `≤ N` (it would divide both `N!` and
