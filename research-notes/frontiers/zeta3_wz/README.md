@@ -92,20 +92,31 @@ The two hardest pieces are **DONE + PURE** in `AperyRecurrence.lean`:
     `nat_sub_eq_zero` (pure).
   * **`sumTo_shift_eq`** — the telescoping lemma (pure-ℕ additive form).
 
-Remaining (mechanical binomial plumbing, no open math):
-  1. **Contiguity `W`-relations** (`R0,R1,R2,G0,G1`) — via `colrec`:
-     `a(j,k)·(j+1)²(j+2)² = W·(j+2−k)²(j+1−k)²`,
-     `a(j+1,k)·(j+1)²(j+2)² = W·(j+2−k)²(j+k+1)²`,
-     `a(j+2,k)·(j+1)²(j+2)² = W·(j+k+1)²(j+k+2)²`,
-     `Gmag(j,k) = 4k⁴(2j+3)Q(j,k)·W`,
-     `Gmag(j,k+1) = 4(2j+3)Q(j,k+1)(j+2−k)²(j+k+1)²·W`
-     (`W = C(j+2,k)²C(j+k,k)²`).
-  2. **Per-`k` identity** — substitute (1) into the per-`k` statement, factor `W`,
-     apply `reduced_wz_identity`.  Note `reduced_wz_identity` is stated in `j=k+d`
-     (`k≤j`); for `k>j` the binomials vanish (handle separately).
-  3. **Sum over `k`** — telescope the `Gmag` terms via `sumTo_shift_eq`; boundaries
-     `0`; `a(n,k)=0` for `k>n` via `choose_eq_zero_of_lt`.
-  4. ⇒ recurrence (cancel `(j+1)²(j+2)²>0`), then **induct** `zeta3Den n = (n!)³·B(n)`.
+  * ★ **Contiguity `W`-relations DONE + PURE** (`colA/colAB/colB/colC1/colC/G1a/G1b`
+    and `R0/R1/R2/G1`, defs `Wfac/Qpoly/Gmag`).  `R0: a(j,k)·(j+1)²(j+2)² =
+    W·(j+2−k)²(j+1−k)²`; `R1: …=W·(j+2−k)²(j+k+1)²`; `R2: …=W·(j+k+1)²(j+k+2)²`;
+    `G1: Gmag(j,k+1)=4(2j+3)Q(j,k+1)(j+2−k)²(j+k+1)²·W`; `G0 = Gmag` def.
 
-Verify the math: `python3 verify_certificate.py`.  **No open math remains** — every
-identity is verified; the rest is Lean labor.
+`AperyRecurrence.lean` now **31 PURE / 0 dirty**.  Remaining = the final assembly:
+
+  1. **Per-`k` identity** `(j+1)²(j+2)²[(j+2)³a(j+2,k)+(j+1)³a(j,k)] + Gmag(j,k+1) =
+     (j+1)²(j+2)²·aperyLead(j)·a(j+1,k) + Gmag(j,k)`.  Substitute `R2,R0,G1` (LHS) and
+     `R1,G0` (RHS) ⇒ both sides `= Wfac · (reduced)`.  Then `reduced LHS = reduced
+     RHS` is `reduced_wz_identity`.  **Bridge** (verified): for `k≤j`, set `d=j−k`;
+     `reduced_wz_identity k (j−k)` matches term-for-term after `k+(j−k)=j`
+     (`add_sub_of_le`), `(j−k)+2=j+2−k`, `(j−k)+1=j+1−k` (`succ_sub_of_le`), and
+     `Qpoly j (k+1) = 4d²+8dk+12d+2k²+11k+9` (resolve the `−2(k+1)²` truncation,
+     valid since `k+1≤j+2`).  **Boundary** `k∈{j+1,j+2}`: `reduced_wz_identity`
+     (`d=j−k`) does not apply, but REDID still holds (verified `k≤j+2`); prove these
+     two by substituting `k=j+1`/`k=j+2`, resolving `j+2−k`/`j+1−k` to `1`/`0`
+     (`add_sub_cancel_left`), then `ring_nat`.  For `k>j+2`, `Wfac=0` (both sides `0`).
+  2. **Sum** `k=0…j+2` (`sumTo (j+3)`): `Gmag` telescopes via `sumTo_shift_eq`
+     (boundaries `Gmag(j,0)=0`, `Gmag(j,j+3)=0`); `a(j,k)=0` for `k>j` via
+     `choose_eq_zero_of_lt` connects the partial sums to `B(j),B(j+1),B(j+2)`.
+  3. ⇒ recurrence (cancel `(j+1)²(j+2)²>0` with `mul_left_cancel_pos`).
+  4. **Induct** `zeta3Den n = (n!)³·B(n)` (seeds match; recurrence matches the
+     `(n!)³`-cleared orbit `aperyOrbit`).
+
+REDID-range fact (verified): the reduced identity holds for **all `k≤j+2`** (Nat-
+trunc), fails only for `k>j+2` (where `Wfac=0`).  Verify: `python3
+verify_certificate.py`.  **No open math remains** — the rest is Lean labor.
