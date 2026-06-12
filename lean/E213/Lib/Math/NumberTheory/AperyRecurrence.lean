@@ -1,4 +1,5 @@
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum
 import E213.Meta.Nat.PolyNatMTactic
 
@@ -35,8 +36,51 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberTheory.AperyRecurrence
 
-open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose choose_eq_zero_of_lt)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
+open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factorial_succ factorial_pos)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
+open E213.Tactic.NatHelper (add_sub_of_le add_left_cancel mul_left_cancel_pos)
+
+/-! ## Column recurrence (the binomial `W`-factoring building block) -/
+
+/-- `a − b = 0` for `a ≤ b`, ∅-axiom (`Nat.sub_eq_zero_of_le` carries propext). -/
+theorem nat_sub_eq_zero : ∀ {a b : Nat}, a ≤ b → a - b = 0
+  | 0, b, _ => Nat.zero_sub b
+  | _ + 1, 0, h => absurd h (Nat.not_succ_le_zero _)
+  | a + 1, b + 1, h => by
+    rw [Nat.succ_sub_succ]; exact nat_sub_eq_zero (Nat.le_of_succ_le_succ h)
+
+/-- `n + 1 − k = (n − k) + 1` for `k ≤ n`. -/
+theorem succ_sub_of_le {n k : Nat} (h : k ≤ n) : n + 1 - k = (n - k) + 1 := by
+  have e1 : k + (n + 1 - k) = n + 1 := add_sub_of_le (Nat.le_succ_of_le h)
+  have e2 : k + ((n - k) + 1) = n + 1 := by rw [← Nat.add_assoc, add_sub_of_le h]
+  exact add_left_cancel (e1.trans e2.symm)
+
+/-- ★★ **Column recurrence**: `(n+1−k)·C(n+1,k) = (n+1)·C(n,k)` (the upper-index
+    recurrence; all `k` in ℕ).  Clears via `choose_mul_factorials`; the
+    `(n+1−k)·(n−k)! = (n+1−k)!` step makes the factorials cancel. -/
+theorem colrec (n k : Nat) : (n + 1 - k) * choose (n + 1) k = (n + 1) * choose n k := by
+  rcases Nat.lt_or_ge k (n + 1) with hklt | hkge
+  · have hkn : k ≤ n := Nat.le_of_lt_succ hklt
+    have hcf1 : choose (n + 1) k * (factorial k * factorial (n + 1 - k)) = factorial (n + 1) := by
+      have h := choose_mul_factorials k (n + 1 - k)
+      rwa [add_sub_of_le (Nat.le_succ_of_le hkn)] at h
+    have hcf0 : choose n k * (factorial k * factorial (n - k)) = factorial n := by
+      have h := choose_mul_factorials k (n - k)
+      rwa [add_sub_of_le hkn] at h
+    have hfs : factorial (n + 1 - k) = (n + 1 - k) * factorial (n - k) := by
+      rw [succ_sub_of_le hkn, factorial_succ]
+    apply mul_left_cancel_pos (Nat.mul_pos (factorial_pos k) (factorial_pos (n - k)))
+    calc factorial k * factorial (n - k) * ((n + 1 - k) * choose (n + 1) k)
+        = choose (n + 1) k * (factorial k * ((n + 1 - k) * factorial (n - k))) := by ring_nat
+      _ = choose (n + 1) k * (factorial k * factorial (n + 1 - k)) := by rw [hfs]
+      _ = factorial (n + 1) := hcf1
+      _ = (n + 1) * factorial n := factorial_succ n
+      _ = (n + 1) * (choose n k * (factorial k * factorial (n - k))) := by rw [hcf0]
+      _ = factorial k * factorial (n - k) * ((n + 1) * choose n k) := by ring_nat
+  · rw [choose_eq_zero_of_lt n k hkge, Nat.mul_zero,
+        show n + 1 - k = 0 from nat_sub_eq_zero hkge, Nat.zero_mul]
 
 /-! ## Telescoping infrastructure (pure ℕ, no subtraction)
 
