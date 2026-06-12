@@ -38,7 +38,7 @@ open E213.Meta.Nat.VpSeparation
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Lens.Number.Nat213.MultSystem
-  (totalCount binom totalCount_closed binom_succ binom_self binom_zero)
+  (totalCount binom totalCount_closed binom_succ binom_self binom_zero central_binom_le)
 
 /-- `p ≥ 2` divides no unit (pure; avoids `Nat.le_of_dvd`'s `propext`). -/
 theorem not_dvd_one {p : Nat} (hp : 2 ≤ p) : ¬ p ∣ 1 := by
@@ -705,5 +705,158 @@ theorem primePi_two_mul_le : ∀ n, primePi (2 * n) ≤ n
       show primePi (2 * m) + primeIndicator (2 * m + 1) + primeIndicator (2 * m + 1 + 1) ≤ m + 1
       rw [Nat.add_assoc]
       exact Nat.add_le_add ih (pair_bound m)
+
+/-! ## The prime window `(n, 2n]` — Chebyshev numerator bound
+
+`∏_{n < p ≤ 2n} p ∣ C(2n,n) ≤ 2^{2n}`: each prime in `(n, 2n]` divides the
+central binomial (`prime_dvd_central_binom`) and they are distinct, so their
+product divides it (`listProd_dvd`) — and `C(2n,n) ≤ 2^{2n}` (`central_binom_le`)
+caps the product.  The Erdős elementary-Chebyshev numerator: a small product cap
+forces few primes in the window. -/
+
+/-- The list of primes `p` with `lo < p ≤ hi` (built by counting `hi` down).
+    Decidability-free splits (`Nat.decLt`, `decPrime`) keep it ∅-axiom. -/
+def primesIn (lo : Nat) : Nat → List Nat
+  | 0      => []
+  | hi + 1 =>
+      match Nat.decLt lo (hi + 1) with
+      | isFalse _ => []
+      | isTrue _  =>
+          match decPrime (hi + 1) with
+          | isTrue _  => (hi + 1) :: primesIn lo hi
+          | isFalse _ => primesIn lo hi
+
+/-- Unfolding (cons): when `lo < k+1` and `k+1` is prime, `k+1` heads the list. -/
+theorem primesIn_cons {lo k : Nat} (hlt : lo < k + 1) (hp : IsPrime213 (k + 1)) :
+    primesIn lo (k + 1) = (k + 1) :: primesIn lo k := by
+  simp only [primesIn]
+  cases Nat.decLt lo (k + 1) with
+  | isFalse hf => exact absurd hlt hf
+  | isTrue _ =>
+      cases decPrime (k + 1) with
+      | isTrue _ => rfl
+      | isFalse hf => exact absurd hp hf
+
+/-- Unfolding (skip): when `lo < k+1` but `k+1` is not prime, the list is unchanged. -/
+theorem primesIn_skip {lo k : Nat} (hlt : lo < k + 1) (hp : ¬ IsPrime213 (k + 1)) :
+    primesIn lo (k + 1) = primesIn lo k := by
+  simp only [primesIn]
+  cases Nat.decLt lo (k + 1) with
+  | isFalse hf => exact absurd hlt hf
+  | isTrue _ =>
+      cases decPrime (k + 1) with
+      | isTrue hf => exact absurd hf hp
+      | isFalse _ => rfl
+
+/-- Unfolding (empty): when `k+1 ≤ lo` the window from `k+1` is empty. -/
+theorem primesIn_empty {lo k : Nat} (hge : ¬ lo < k + 1) : primesIn lo (k + 1) = [] := by
+  simp only [primesIn]
+  cases Nat.decLt lo (k + 1) with
+  | isFalse _ => rfl
+  | isTrue hf => exact absurd hf hge
+
+/-- Every member of `primesIn lo hi` is `≤ hi`. -/
+theorem mem_primesIn_le {lo : Nat} : ∀ {hi p : Nat}, p ∈ primesIn lo hi → p ≤ hi := by
+  intro hi
+  induction hi with
+  | zero => intro p h; nomatch h
+  | succ k ih =>
+      intro p h
+      rcases Nat.lt_or_ge lo (k + 1) with hlt | hge
+      · cases decPrime (k + 1) with
+        | isTrue hp =>
+            rw [primesIn_cons hlt hp] at h
+            cases h with
+            | head => exact Nat.le_refl (k + 1)
+            | tail _ h' => exact Nat.le_trans (ih h') (Nat.le_succ k)
+        | isFalse hp => rw [primesIn_skip hlt hp] at h; exact Nat.le_trans (ih h) (Nat.le_succ k)
+      · rw [primesIn_empty (fun hc => absurd (Nat.lt_of_lt_of_le hc hge) (Nat.lt_irrefl lo))] at h
+        nomatch h
+
+/-- Every member of `primesIn lo hi` is prime. -/
+theorem mem_primesIn_prime {lo : Nat} : ∀ {hi p : Nat}, p ∈ primesIn lo hi → IsPrime213 p := by
+  intro hi
+  induction hi with
+  | zero => intro p h; nomatch h
+  | succ k ih =>
+      intro p h
+      rcases Nat.lt_or_ge lo (k + 1) with hlt | hge
+      · cases decPrime (k + 1) with
+        | isTrue hp =>
+            rw [primesIn_cons hlt hp] at h
+            cases h with
+            | head => exact hp
+            | tail _ h' => exact ih h'
+        | isFalse hp => rw [primesIn_skip hlt hp] at h; exact ih h
+      · rw [primesIn_empty (fun hc => absurd (Nat.lt_of_lt_of_le hc hge) (Nat.lt_irrefl lo))] at h
+        nomatch h
+
+/-- Every member of `primesIn lo hi` is `> lo`. -/
+theorem mem_primesIn_gt {lo : Nat} : ∀ {hi p : Nat}, p ∈ primesIn lo hi → lo < p := by
+  intro hi
+  induction hi with
+  | zero => intro p h; nomatch h
+  | succ k ih =>
+      intro p h
+      rcases Nat.lt_or_ge lo (k + 1) with hlt | hge
+      · cases decPrime (k + 1) with
+        | isTrue hp =>
+            rw [primesIn_cons hlt hp] at h
+            cases h with
+            | head => exact hlt
+            | tail _ h' => exact ih h'
+        | isFalse hp => rw [primesIn_skip hlt hp] at h; exact ih h
+      · rw [primesIn_empty (fun hc => absurd (Nat.lt_of_lt_of_le hc hge) (Nat.lt_irrefl lo))] at h
+        nomatch h
+
+/-- `primesIn lo hi` has no duplicates — the head value `hi+1` exceeds every
+    tail member (all `≤ hi`, `mem_primesIn_le`). -/
+theorem primesIn_nodup {lo : Nat} : ∀ {hi : Nat}, (primesIn lo hi).Nodup := by
+  intro hi
+  induction hi with
+  | zero => exact List.Pairwise.nil
+  | succ k ih =>
+      rcases Nat.lt_or_ge lo (k + 1) with hlt | hge
+      · cases decPrime (k + 1) with
+        | isTrue hp =>
+            rw [primesIn_cons hlt hp]
+            refine List.Pairwise.cons ?_ ih
+            intro a ha he
+            have hak : a ≤ k := mem_primesIn_le ha
+            rw [← he] at hak
+            exact absurd hak (Nat.not_succ_le_self k)
+        | isFalse hp => rw [primesIn_skip hlt hp]; exact ih
+      · rw [primesIn_empty (fun hc => absurd (Nat.lt_of_lt_of_le hc hge) (Nat.lt_irrefl lo))]
+        exact List.Pairwise.nil
+
+/-- `0 < C(2n,n)` (from `central_binom_factorial`: the product equals `(2n)! > 0`). -/
+theorem central_binom_pos (n : Nat) : 0 < binom (2 * n) n := by
+  have hf2 : 0 < fact (2 * n) := fact_pos (2 * n)
+  have hcbf := central_binom_factorial n
+  rcases Nat.eq_zero_or_pos (binom (2 * n) n) with h0 | h
+  · exfalso; rw [h0, Nat.zero_mul] at hcbf; rw [← hcbf] at hf2; exact Nat.lt_irrefl 0 hf2
+  · exact h
+
+/-- **The Chebyshev numerator divisibility: `∏_{n<p≤2n} p ∣ C(2n,n)`.**  Each
+    prime in `(n, 2n]` divides `C(2n,n)` (`prime_dvd_central_binom`) and they are
+    distinct (`primesIn_nodup`), so their product divides it (`listProd_dvd`). -/
+theorem window_prod_dvd_central_binom (n : Nat) :
+    listProd (primesIn n (2 * n)) ∣ binom (2 * n) n :=
+  listProd_dvd
+    (fun _ hp => mem_primesIn_prime hp)
+    primesIn_nodup
+    (central_binom_pos n)
+    (fun _ hp => prime_dvd_central_binom (mem_primesIn_prime hp)
+      (mem_primesIn_gt hp) (mem_primesIn_le hp))
+
+/-- **The Chebyshev numerator bound: `∏_{n<p≤2n} p ≤ 2^{2n}`.**  The product of
+    the primes in `(n, 2n]` divides `C(2n,n) ≤ 2^{2n}`, hence is `≤ 2^{2n}`.  Each
+    factor is `> n`, so this caps `#{primes in (n,2n]}` (the elementary-Chebyshev
+    count bound, the finite skeleton under `π(N) = O(N/ln N)`). -/
+theorem window_prod_le (n : Nat) :
+    listProd (primesIn n (2 * n)) ≤ 2 ^ (2 * n) :=
+  Nat.le_trans
+    (le_of_dvd_pos _ _ (central_binom_pos n) (window_prod_dvd_central_binom n))
+    (central_binom_le n)
 
 end E213.Lens.Number.Nat213.MultSystemValue
