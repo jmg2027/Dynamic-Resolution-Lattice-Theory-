@@ -404,6 +404,42 @@ This is the collaborative capstone of the slot-tower dialogue (the originator
 supplied every load-bearing reframe — `iter`-as-clock, slot-not-ℤ, lists/ℕ⁺,
 `×` is a *different* lattice, holonomy-transformed restores the pattern).
 
+### G′ — the *invariant* side: each level's invariant is its valuation (and the ∞/0 → finite move)
+
+If the value above `^` is gauge-dependent (holonomic), its **gauge-invariant**
+must be the coarser data that survives the 1-periodic freedom.  Level by level
+that invariant is a **valuation** — and a valuation *is* the demotion (G) plus
+the `∞/0 → finite` taming the originator named (basis: §6.9 `0 ≡ ∞` at residue
+level; a valuation's defining laws are `v(ab)=v(a)+v(b)` — the log — and
+`v(0)=∞`):
+
+- `+` : the size `n` (trivial valuation); its limit ∞ is the point (§6.5
+  `K_∞ ≡ point`).
+- `×` : **`vp`, the `p`-adic valuation** — the invariant.  `vp_mul` is `v(ab)=
+  v(a)+v(b)` (the log); `vp_eq_zero_of_gt` is the `∞`-axis lattice **tamed to
+  finite support** per number.  (The Nat-realised `vp 2 0 = 0` picks the "0"
+  reading of the `0 ≡ ∞` residue; the valuation-theoretic `vp(0)=∞` is the dual
+  reading — §6.9, *one residue, two Lens-readings*, not a Lean value.)
+- `^` : the archimedean valuation (the size `ln|·|`, a `Real213` cut); `∞`-
+  precision (transcendence) **tamed to a finite cut** (convergent approximants).
+- `↑↑` : the **growth RANK** (level in the fast-growing / Hardy hierarchy).  The
+  1-periodic gauge moves the value and even the fine growth-rate, but not the
+  *rank* (a bounded height-reparametrisation is invisible to "which tower
+  level") — so the rank is the gauge-invariant: `∞`-growth **tamed to a finite
+  coordinate** (`ω` = `∞`-as-a-finite-surreal).  *The exact GR analogy*:
+  value/coordinate wobble (gauge), the valuation/rank is the curvature-scalar
+  invariant.
+
+So **the invariant tower is a valuation tower** (size → `vp` → cut → growth-rank),
+each step taming the next `∞/0` to a finite coordinate — the originator's "don't
+stop at ∞/0; make it finite; basis `0 ≡ ∞`" *is* the construction of the next
+valuation.  **Scope**: `+`,`×` ∅-axiom (`vp_mul`, `vp_eq_zero_of_gt`) + §6.5/§6.9
+(axioms); `^` cut ∅-axiom / archimedean transcendence beyond; `↑↑` growth-rank is
+**standard** Hardy-field/valuation theory (genuine — bounded perturbation leaves
+the rank invariant — but not built in 213).  Not forced: `vp` *is* a valuation
+and G's demotion *is* `v(ab)=v(a)+v(b)`, so the structure flows into valuations
+on its own.
+
 ## C9 — is there a third (temporal/process) axis? → NO: the temporal FACE of object1_not_surjective
 
 Tested whether the recurring "process is of the *pointing* (the approximant
