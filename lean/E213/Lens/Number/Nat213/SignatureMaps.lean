@@ -266,4 +266,89 @@ theorem chartChain_firstEqInterval (r₀ r' : Raw) (h : r₀ ≠ r')
   rw [chartChain_value, hval, Nat.mul_succ, Nat.mul_comm (Raw.value r') n,
       Nat.add_comm]
 
+/-! ## Exhaustiveness — where "nothing else" is proven, and where others provably exist
+
+The natural follow-up: *are these the only maps?*  The answer is
+layer-dependent and now made precise.
+
+**Tight layers (iff — nothing else).**
+
+  - **Constant interval ⟺ affine.**  `constInterval_affine` (⟹) and
+    `affine_constInterval` (⟸) together say a map has a constant interval
+    *iff* it is affine.  No constant-interval map escapes the affine
+    normal form.
+  - **Additive hom ⟺ `×d`.**  `additiveHom_is_mul` (⟹) and
+    `mul_is_additiveHom` (⟸) give `Hom(ℕ,+) = {×d}` exactly.
+  - **(Constant interval ∧ first = interval) ⟺ scaling.**
+    `firstEqInterval_scaling` (⟹) and `scaling_is_constInterval_firstEq`
+    (⟸, below) close layer 3 as an iff.
+
+**The order layer is *not* tight — and provably so.**
+
+At the base, `affine_strictMono` shows affine maps with `d ≥ 1` preserve
+order, but the converse is **false**: there are order-embeddings that are
+not affine.  `tri_strictMono` + `tri_not_constInterval` exhibit one — the
+triangular-number map `tri` is strictly increasing yet has no constant
+interval (hence is not affine).  So "그 외가 없다" *fails* at the order
+layer; the order-only class is irreducibly infinite, which is the
+structural content of order being the weakest signature datum. -/
+
+/-- **Converse of `firstEqInterval_scaling`** (closes layer 3 to an iff):
+    the scaling `n ↦ d·(n+1)` has constant interval `d` and first term
+    `= d` — i.e. it satisfies the first = interval signature. -/
+theorem scaling_is_constInterval_firstEq (d : Nat) :
+    (∀ n, d * ((n + 1) + 1) = d * (n + 1) + d) ∧ (d * (0 + 1) = d) := by
+  refine ⟨fun n => ?_, ?_⟩
+  · rw [Nat.mul_succ]
+  · rw [Nat.zero_add, Nat.mul_one]
+
+/-- The triangular-number map `tri n = 0 + 1 + … + n`.  A strictly
+    increasing sequence whose forward interval at `n` is `n + 1` — not
+    constant.  Witness that the order layer admits non-affine maps. -/
+def tri : Nat → Nat
+  | 0     => 0
+  | n + 1 => tri n + (n + 1)
+
+/-- One step of `tri` strictly increases (interval `n + 1 ≥ 1 > 0`). -/
+theorem tri_step_lt (n : Nat) : tri n < tri (n + 1) :=
+  Nat.lt_add_of_pos_right (Nat.succ_pos n)
+
+/-- A map increasing at every step is strictly monotone — the
+    order-embedding criterion, stated in the `m + (j+1)` form. -/
+private theorem strictMono_of_step (g : Nat → Nat)
+    (hstep : ∀ k, g k < g (k + 1)) : ∀ m j, g m < g (m + (j + 1)) := by
+  intro m j
+  induction j with
+  | zero => exact hstep m
+  | succ i ih =>
+      have hnext : g (m + (i + 1)) < g (m + (i + 1 + 1)) := by
+        have hs := hstep (m + (i + 1))
+        rwa [Nat.add_assoc m (i + 1) 1] at hs
+      exact Nat.lt_trans ih hnext
+
+/-- **`tri` preserves order** (is a strict order-embedding). -/
+theorem tri_strictMono {m n : Nat} (h : m < n) : tri m < tri n := by
+  have hpos : n - m ≠ 0 :=
+    fun he => Nat.lt_irrefl 0 (he ▸ E213.Tactic.NatHelper.sub_pos_of_lt h)
+  have hj : m + ((n - m - 1) + 1) = n := by
+    rw [E213.Tactic.NatHelper.sub_one_add_one hpos,
+        E213.Tactic.NatHelper.add_sub_of_le (Nat.le_of_lt h)]
+  have key := strictMono_of_step tri tri_step_lt m (n - m - 1)
+  rwa [hj] at key
+
+/-- **`tri` has no constant interval** — hence is not affine, yet (by
+    `tri_strictMono`) preserves order.  This proves the order-only class
+    contains maps *outside* the affine family: "그 외가 있다". -/
+theorem tri_not_constInterval : ¬ ∃ d, ∀ n, tri (n + 1) = tri n + d := by
+  intro h
+  obtain ⟨d, hd⟩ := h
+  -- step 0: tri 1 = tri 0 + 1, and = tri 0 + d  ⟹  d = 1
+  have e0 : tri 0 + 1 = tri 0 + d := hd 0
+  have hd1 : d = 1 := (E213.Tactic.NatHelper.add_left_cancel e0).symm
+  -- step 1: tri 2 = tri 1 + 2, and = tri 1 + d = tri 1 + 1  ⟹  2 = 1
+  have e1 : tri 1 + 2 = tri 1 + d := hd 1
+  rw [hd1] at e1
+  have h21 : (2 : Nat) = 1 := E213.Tactic.NatHelper.add_left_cancel e1
+  exact Nat.noConfusion (Nat.succ.inj h21)
+
 end E213.Lens.Number.Nat213
