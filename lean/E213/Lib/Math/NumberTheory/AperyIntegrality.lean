@@ -303,4 +303,84 @@ theorem fdPos_succ (m s : Nat) :
   rw [← fdPos_closure m s]
   ring_nat
 
+/-- The `j=s` top term vanishes for any condition (`C(s,s+1) = 0`). -/
+private theorem choose_top_term (m s : Nat) (P : Prop) [Decidable P] :
+    (if P then choose s (s + 1) * Qex m s (s + 1) else 0) = 0 := by
+  rw [choose_eq_zero_of_lt s (s + 1) (Nat.lt_succ_self s), Nat.zero_mul]
+  by_cases hc : P
+  · rw [if_pos hc]
+  · rw [if_neg hc]
+
+/-- The `(N)` pointwise split (odd-indexed). -/
+private theorem term_split_neg (m s j : Nat) :
+    (if (j + 1) % 2 = 1 then choose (s + 1) (j + 1) * Qex m (s + 1) (j + 1) else 0)
+    = m * (if j % 2 = 0 then choose s j * Qex (m + 1) s j else 0)
+      + (m + s + 1) * (if (j + 1) % 2 = 1 then choose s (j + 1) * Qex m s (j + 1) else 0) := by
+  rcases mod2_cases j with hj | hj
+  · have h1 : (j + 1) % 2 = 1 := by rw [succ_mod2 j, if_pos hj]
+    rw [if_pos h1, if_pos hj, if_pos h1, choose_succ_succ s j]
+    rcases Nat.lt_or_ge s (j + 1) with hlt | hge
+    · rw [choose_eq_zero_of_lt s (j + 1) hlt, Qex_front m s j, Nat.add_zero (choose s j),
+          Nat.zero_mul (Qex m s (j + 1)), Nat.mul_zero (m + s + 1),
+          Nat.add_zero (m * (choose s j * Qex (m + 1) s j))]
+      ring_nat
+    · have hfront : Qex m (s + 1) (j + 1) = m * Qex (m + 1) s j := Qex_front m s j
+      have hback : Qex m (s + 1) (j + 1) = (m + s + 1) * Qex m s (j + 1) := Qex_back hge m
+      rw [show m * (choose s j * Qex (m + 1) s j) = choose s j * (m * Qex (m + 1) s j) from by
+            ring_nat,
+          show (m + s + 1) * (choose s (j + 1) * Qex m s (j + 1))
+            = choose s (j + 1) * ((m + s + 1) * Qex m s (j + 1)) from by ring_nat,
+          ← hfront, ← hback]
+      ring_nat
+  · have h1 : (j + 1) % 2 = 0 := by
+      rw [succ_mod2 j, if_neg (show ¬ j % 2 = 0 from by rw [hj]; decide)]
+    rw [if_neg (show ¬ (j + 1) % 2 = 1 from by rw [h1]; decide),
+        if_neg (show ¬ j % 2 = 0 from by rw [hj]; decide),
+        if_neg (show ¬ (j + 1) % 2 = 1 from by rw [h1]; decide),
+        Nat.mul_zero, Nat.mul_zero, Nat.add_zero]
+
+/-- The `fdNeg` closure: `Σⱼ[(j+1)%2=1]C(s,j+1)Qex m s(j+1) = fdNeg m s` (no offset —
+    `fdNeg`'s `j=0` term is `0`). -/
+private theorem fdNeg_closure (m s : Nat) :
+    sumTo (s + 1) (fun j => if (j + 1) % 2 = 1 then choose s (j + 1) * Qex m s (j + 1) else 0)
+    = fdNeg m s := by
+  show sumTo (s + 1) (fun j => if (j + 1) % 2 = 1 then choose s (j + 1) * Qex m s (j + 1) else 0)
+    = sumTo (s + 1) (fun i => if i % 2 = 1 then choose s i * Qex m s i else 0)
+  rw [sumTo_succ, choose_top_term m s ((s + 1) % 2 = 1), Nat.add_zero,
+      sumTo_split_first s (fun i => if i % 2 = 1 then choose s i * Qex m s i else 0),
+      show (if (0 : Nat) % 2 = 1 then choose s 0 * Qex m s 0 else 0) = 0 from by
+        rw [if_neg (by decide)],
+      Nat.zero_add]
+
+/-- ★★ **(N)**: `fdNeg(m,s+1) = (m+s+1)·fdNeg(m,s) + m·fdPos(m+1,s)`. -/
+theorem fdNeg_succ (m s : Nat) :
+    fdNeg m (s + 1) = (m + s + 1) * fdNeg m s + m * fdPos (m + 1) s := by
+  show sumTo (s + 2) (fun j => if j % 2 = 1 then choose (s + 1) j * Qex m (s + 1) j else 0)
+    = (m + s + 1) * fdNeg m s + m * fdPos (m + 1) s
+  rw [sumTo_split_first (s + 1)
+        (fun j => if j % 2 = 1 then choose (s + 1) j * Qex m (s + 1) j else 0),
+      show (if (0 : Nat) % 2 = 1 then choose (s + 1) 0 * Qex m (s + 1) 0 else 0) = 0 from by
+        rw [if_neg (by decide)],
+      Nat.zero_add,
+      sumTo_congr (s + 1) _
+        (fun j => m * (if j % 2 = 0 then choose s j * Qex (m + 1) s j else 0)
+          + (m + s + 1) * (if (j + 1) % 2 = 1 then choose s (j + 1) * Qex m s (j + 1) else 0))
+        (fun j _ => term_split_neg m s j),
+      ← sumTo_add_func, ← sumTo_mul_left, ← sumTo_mul_left]
+  show m * fdPos (m + 1) s
+      + (m + s + 1) * sumTo (s + 1) (fun j => if (j + 1) % 2 = 1
+          then choose s (j + 1) * Qex m s (j + 1) else 0)
+    = (m + s + 1) * fdNeg m s + m * fdPos (m + 1) s
+  rw [fdNeg_closure m s]
+  ring_nat
+
+/-- ★★★ **The finite-difference identity** (additive form): `fdPos m s = s! + fdNeg m s`,
+    i.e. `Σⱼ(−1)ʲC(s,j)·Qex m s j = s!`.  Induction on `s` via `(P)/(N)`. -/
+theorem fd_identity (m s : Nat) : fdPos m s = factorial s + fdNeg m s := by
+  induction s generalizing m with
+  | zero => rw [fdPos_zero, fdNeg_zero]; rfl
+  | succ s ih =>
+    rw [fdPos_succ, fdNeg_succ, ih m, ih (m + 1), factorial_succ]
+    ring_nat
+
 end E213.Lib.Math.NumberTheory.AperyIntegrality
