@@ -58,21 +58,42 @@ with `F(j,k) = (j+2)³a(j+2,k) + (j+1)³a(j,k) − aperyLead(j)·a(j+1,k)`,
 `Ĝ(j,k)=0` for `k>j+2` (`C(j+2,k)=0`).  Summing `k=0…` telescopes to
 `(j+1)²(j+2)²·Σ_k F = Ĝ(top) − Ĝ(0) = 0`, hence `Σ_k F = 0` = the recurrence.
 
-## Then the Lean formalization (the marathon, now mechanical)
+## ★ KEY SIMPLIFICATION — the proof stays in pure ℕ (no `Int`, no sign split)
 
-The nucleus is now a **mechanical** (large) ∅-axiom task — no open mathematics:
-  1. **Per-`k` cleared identity** `(j+1)²(j+2)²·F(j,k) = Ĝ(j,k+1) − Ĝ(j,k)` as a
-     Nat identity.  Sign care: `F` has a `−aperyLead` term and `Ĝ`'s factor
-     `(4j²+12j−2k²+3k+8)` changes sign, so split into pos/neg parts and prove the
-     all-additive form (move negatives across).  Clear every binomial to factorials
-     (à la `AperyIntegrality.aperyTrinomial`/`choose_mul_factorials`) → `ring_nat`.
-     ~6 distinct binomials (squared) × degree-≤7 coeffs ⇒ the bulk (~several hundred
-     lines).
-  2. **Telescoping sum** over `k` with `sumTo` (`sumTo_succ`, the difference
-     telescopes); boundary terms vanish (`Ĝ(j,0)=0`, top via `choose_eq_zero_of_lt`).
-  3. ⇒ `(j+2)³B(j+2) + (j+1)³B(j) = aperyLead(j)·B(j+1)` (cancel `(j+1)²(j+2)²>0`).
+The certificate factor `Q(j,k) = 4j²+12j−2k²+3k+8` is **`> 0` for all `0 ≤ k ≤
+j+2`** (verified `j<200`; min at `k=j+2` is `(2j+3)(j+2)`), i.e. throughout the
+summation range; outside it `C(j+2,k)=0` kills the term.  So `Ĝ` is sign-definite
+(`≤ 0`) in range, and the whole identity is an **all-additive ℕ identity** with the
+*magnitude*
+
+```
+Gmag(j,k) := 4·k⁴·(2j+3)·((4j²+12j+3k+8) − 2k²)·C(j+2,k)²·C(j+k,k)²      -- ℕ subtraction OK
+```
+
+**The per-`k` identity — VERIFIED as an exact `ℕ` identity for ALL `k`** (Nat-
+truncated `Q`; `a n k = C(n,k)²C(n+k,k)²`):
+
+> `(j+1)²(j+2)²·[(j+2)³·a(j+2,k) + (j+1)³·a(j,k)]  +  Gmag(j,k+1)`
+> `   =  (j+1)²(j+2)²·aperyLead(j)·a(j+1,k)  +  Gmag(j,k)`
+
+No `Int`, no `fdPos/fdNeg` split — structurally **identical to
+`AperyIntegrality.aperyTrinomial`, just larger**.  (Nat truncation of `Q` is safe:
+where `Q` would go `<0`, `C(j+2,k)=0`.)
+
+## Then the Lean formalization (mechanical)
+
+  1. **Per-`k` ℕ identity** (above) — clear every binomial to factorials
+     (`choose_mul_factorials`, Pascal) → `ring_nat`.  ~8 distinct binomials
+     (squared) × degree-≤7 coeffs ⇒ the bulk (~several hundred lines), but a single
+     `ring_nat`-shaped goal once cleared.
+  2. **Sum over `k`** (`sumTo` to `j+3`): the `Gmag` terms telescope
+     (`Σ_k Gmag(j,k+1) = Σ Gmag(j,k) + Gmag(top) − Gmag(0)`, both boundaries `0`);
+     `a(n,k)=0` for `k>n` via `choose_eq_zero_of_lt`.
+  3. ⇒ `(j+1)²(j+2)²·[(j+2)³B(j+2)+(j+1)³B(j)] = (j+1)²(j+2)²·aperyLead(j)·B(j+1)`;
+     cancel `(j+1)²(j+2)² > 0`.
   4. **Induction** `zeta3Den n = (n!)³·B(n)` (seeds match; recurrence matches the
      factorial-cleared orbit) — closes the recurrence-divisibility route.
 
-Estimate: a dedicated multi-session formalization, but **no certificate hunting
-and no open math remain** — every step above is verified numerically/symbolically.
+Estimate: a dedicated formalization session, but **no open math** — every step is
+verified.  Verify all of it: `python3 verify_certificate.py` (+ the per-`k` ℕ
+identity check in this session's log).
