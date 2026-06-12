@@ -3,6 +3,7 @@ import E213.Meta.Nat.FoldCriterion
 import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Nat.FloorLog
 import E213.Meta.Nat.PowBasic
+import E213.Meta.Nat.NatDiv213
 
 /-!
 # Lens.Number.Nat213.MultSystemValue — the prime-valued instance (case A)
@@ -36,6 +37,7 @@ open E213.Meta.Nat.VpMul (IsPrime213 vp_mul vp_pow vp_self_pow euclid_lemma)
 open E213.Meta.Nat.Valuation (vp pow_vp_dvd mod_zero_of_dvd le_vp_iff)
 open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero div_add_mod)
 open E213.Meta.Nat.PowBasic (pow_mul_pure)
+open E213.Meta.Nat.NatDiv213 (div_mul_le_self)
 open E213.Meta.Nat.VpSeparation
   (vp_eq_zero_of_not_dvd exists_prime_factor dvd_of_forall_vp_le dvd_iff_one_le_vp)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
@@ -1035,6 +1037,45 @@ theorem chebSum_le_chebBound : ∀ m, chebSum m ≤ chebBound m
     constant `1`) stays the asymptotic horizon (a `Real213` pointing). -/
 theorem primePi_pow_two_le_chebBound (m : Nat) : primePi (2 ^ m) ≤ chebBound m :=
   Nat.le_trans (primePi_pow_two_le_chebSum m) (chebSum_le_chebBound m)
+
+/-- `a / M ≤ a` for `M ≥ 1` (pure; avoids `Nat.div_le_self`'s `propext`). -/
+theorem div_le_self_pure (a : Nat) {M : Nat} (hM : 1 ≤ M) : a / M ≤ a := by
+  have h1 : a / M * 1 ≤ a / M * M := Nat.mul_le_mul (Nat.le_refl _) hM
+  rw [Nat.mul_one] at h1
+  exact Nat.le_trans h1 (div_mul_le_self a M)
+
+/-- **The partial-sum bound (cleared-denominator form): `chebBound(m+1)·(m+1) ≤
+    6·2^{m+1}`** (with the crude companion `chebBound(m+1) ≤ 2^{m+2}`).  This is
+    `chebBound m = O(2^m/m)` stated division-free — multiplying through by `m`
+    dodges the floor-division non-additivity that blocks a direct
+    `chebBound m ≤ C·2^m/m` induction.  Step: `cb·(m+2) = cb·(m+1)+cb ≤ 6·2^{m+1}+
+    2^{m+2}` and `wb·(m+2) = wb·(m+1)+wb ≤ 2·2^{m+2}` (`div_mul_le_self`,
+    `div_le_self_pure`), summing to `6·2^{m+2}`. -/
+theorem chebBound_mul_le : ∀ m,
+    chebBound (m + 1) * (m + 1) ≤ 6 * 2 ^ (m + 1) ∧ chebBound (m + 1) ≤ 2 ^ (m + 2) := by
+  intro m
+  induction m with
+  | zero => exact ⟨by decide, by decide⟩
+  | succ m ih =>
+      obtain ⟨ih1, ih2⟩ := ih
+      have hcbdef : chebBound (m + 1 + 1) = chebBound (m + 1) + windowBound (m + 1) := rfl
+      have hA : windowBound (m + 1) * (m + 1) ≤ 2 ^ (m + 2) :=
+        div_mul_le_self (2 ^ (m + 2)) (m + 1)
+      have hB : windowBound (m + 1) ≤ 2 ^ (m + 2) :=
+        div_le_self_pure (2 ^ (m + 2)) (Nat.succ_le_succ (Nat.zero_le m))
+      have hps : 2 ^ (m + 2) = 2 ^ (m + 1) * 2 := Nat.pow_succ 2 (m + 1)
+      have hps3 : 2 ^ (m + 1 + 2) = 2 ^ (m + 2) * 2 := Nat.pow_succ 2 (m + 2)
+      refine ⟨?_, ?_⟩
+      · calc chebBound (m + 1 + 1) * (m + 1 + 1)
+            = chebBound (m + 1) * (m + 1) + chebBound (m + 1)
+              + (windowBound (m + 1) * (m + 1) + windowBound (m + 1)) := by rw [hcbdef]; ring_nat
+          _ ≤ 6 * 2 ^ (m + 1) + 2 ^ (m + 2) + (2 ^ (m + 2) + 2 ^ (m + 2)) :=
+              Nat.add_le_add (Nat.add_le_add ih1 ih2) (Nat.add_le_add hA hB)
+          _ = 6 * 2 ^ (m + 1 + 1) := by rw [hps]; ring_nat
+      · calc chebBound (m + 1 + 1)
+            = chebBound (m + 1) + windowBound (m + 1) := hcbdef
+          _ ≤ 2 ^ (m + 2) + 2 ^ (m + 2) := Nat.add_le_add ih2 hB
+          _ = 2 ^ (m + 1 + 2) := by rw [hps3]; ring_nat
 
 /-- **Dyadic interpolation of the Chebyshev bound to all `N`**: `π(N) ≤ chebBound m`
     whenever `N ≤ 2^m`.  `π` monotone composed with `primePi_pow_two_le_chebBound` —
