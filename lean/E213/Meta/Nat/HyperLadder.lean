@@ -42,7 +42,7 @@ All decls ∅-axiom: bare recursion + induction on `Nat`, the `iter` engine of
 
 namespace E213.Meta.Nat.HyperLadder
 
-open E213.Meta.Nat.Iterate213 (iter iter_succ add_eq_iter mul_eq_iter pow_eq_iter)
+open E213.Meta.Nat.Iterate213 (iter iter_succ iter_succ_outside add_eq_iter mul_eq_iter pow_eq_iter)
 
 /-! ## §1 — pointwise iteration congruence (the funext-free keystone) -/
 
@@ -140,5 +140,83 @@ forgetful-of-an-argument, or faithful-to-the-roles, does not). -/
     the two arguments symmetrically". -/
 theorem hyperop_zero_not_comm : ∃ a b, hyperop 0 a b ≠ hyperop 0 b a :=
   ⟨0, 1, by decide⟩
+
+/-! ## §5 — the uniform (vertical) laws: what holds from `+` all the way up, past `^`
+
+The tower's laws split in two, by **direction**:
+
+  * **Horizontal (algebraic) laws** — commutativity, associativity,
+    distributivity — are properties of the *specific operation*.  They hold only
+    on the window `{1,2}` (`+`, `×`) and **die at `^`** (§4): the moment the two
+    arguments become distinguishable roles, they break.  These do **not** extend
+    above `^`.
+  * **Vertical (recursion-structural) laws** are properties of the `iter`
+    recursion *itself* (`hyperop_succ`).  Because every rung *is* the previous
+    one iterated, these hold at **every** level — `+`, `×`, `^`, `↑↑`, `↑↑↑`, … —
+    by the same proof, generic in the level `k`.  This is the family that holds
+    "consistently from `+` upward, past `^`":
+
+  - ★★★ `hyperop_climb` — `H_{n+1}(a, b+1) = H_n(a, H_{n+1}(a, b))`: one step
+    further up the count applies the **previous** operation once more.  The
+    single law the whole tower runs on (`a+(b+1)=(a+b)+1`; `a·(b+1)=a+a·b`;
+    `a^(b+1)=a·a^b`; `a↑↑(b+1)=a^(a↑↑b)`; …).
+  - `hyperop_right_zero` — `H_{n+1}(a, 0) = seed` (the right base, `rfl`).
+  - ★ `hyperop_right_one` — `H_n(a, 1) = a` for `n ≥ 2` (`a·1=a`, `a^1=a`,
+    `a↑↑1=a`, …): `1` is a right unit from `×` up.
+  - `hyperop_seed_self` — `H_{n}(a, seed_n) = a`: the level's seed is its right
+    unit (`a+0=a` for `+`, `a·1=a`/`a^1=a`/… above).
+  - ★ `hyperop_arg_two` — `H_n(a, 2) = H_{n-1}(a, a)` for `n ≥ 2`: argument `2`
+    drops one rung and feeds `a` to itself (`a·2=a+a`, `a^2=a·a`, `a↑↑2=a^a`, …).
+  - ★ `hyperop_base_one` — `H_n(1, b) = 1` for `n ≥ 3`: base `1` is absorbing
+    from `^` up (`1^b=1`, `1↑↑b=1`, …).
+
+So the **conjecture, now proved**: above `^` the surviving laws are exactly the
+vertical (iter-recursion) ones; the horizontal (algebra) ones are gone.  All
+∅-axiom, generic in `k`. -/
+
+/-- ★★★ **The climbing law (every level).**  `H_{n+1}(a, b+1) = H_n(a,
+    H_{n+1}(a, b))` — going one further up the count applies the previous
+    operation once more.  `iter_succ_outside` on `hyperop_succ`; generic in `k`. -/
+theorem hyperop_climb (k a b : Nat) :
+    hyperop (k + 1) a (b + 1) = hyperop k a (hyperop (k + 1) a b) := by
+  show iter (hyperop k a) (b + 1) (seed k a)
+       = hyperop k a (iter (hyperop k a) b (seed k a))
+  exact iter_succ_outside (hyperop k a) b (seed k a)
+
+/-- The right base: `H_{n+1}(a, 0) = seed` (zero iterations). -/
+theorem hyperop_right_zero (k a : Nat) : hyperop (k + 1) a 0 = seed k a := rfl
+
+/-- ★ **`1` is a right unit from `×` up.**  `H_n(a, 1) = a` for `n ≥ 2`
+    (`a·1=a`, `a^1=a`, `a↑↑1=a`, …).  Induction in `k`: each level passes its
+    seed (`= 1`) to the one below, which returns `a`. -/
+theorem hyperop_right_one : ∀ (k a : Nat), hyperop (k + 2) a 1 = a
+  | 0,     a => by rw [hyperop_two]; exact Nat.mul_one a
+  | k + 1, a => by show hyperop (k + 2) a 1 = a; exact hyperop_right_one k a
+
+/-- The level's **seed is its right unit**: `H_{k+1}(a, seed_{k+1}) = a`
+    (`a+0=a` at `+`; `a·1=a` / `a^1=a` / … above). -/
+theorem hyperop_seed_self : ∀ (k a : Nat), hyperop (k + 1) a (seed (k + 1) a) = a
+  | 0,     a => by show hyperop 1 a 0 = a; rw [hyperop_one]; exact Nat.add_zero a
+  | k + 1, a => by show hyperop (k + 2) a 1 = a; exact hyperop_right_one k a
+
+/-- ★ **Argument `2` drops one rung.**  `H_n(a, 2) = H_{n-1}(a, a)` for `n ≥ 2`
+    (`a·2=a+a`, `a^2=a·a`, `a↑↑2=a^a`, …): two iterations from the seed feed `a`
+    to itself once (`hyperop_seed_self`). -/
+theorem hyperop_arg_two (k a : Nat) : hyperop (k + 2) a 2 = hyperop (k + 1) a a := by
+  show hyperop (k + 1) a (hyperop (k + 1) a (seed (k + 1) a)) = hyperop (k + 1) a a
+  rw [hyperop_seed_self k a]
+
+/-- A fixed point of `f` is fixed by every iterate: `f x = x → iter f n x = x`. -/
+theorem iter_fixed {α : Type _} (f : α → α) (x : α) (h : f x = x) :
+    ∀ n, iter f n x = x
+  | 0     => rfl
+  | n + 1 => by rw [iter_succ_outside, iter_fixed f x h n, h]
+
+/-- ★ **Base `1` is absorbing from `^` up.**  `H_n(1, b) = 1` for `n ≥ 3`
+    (`1^b=1`, `1↑↑b=1`, …): `1` is a fixed point of `H_{n-1}(1, ·)`
+    (`hyperop_right_one`), so iterating it `b` times stays at `1`. -/
+theorem hyperop_base_one (k b : Nat) : hyperop (k + 3) 1 b = 1 := by
+  show iter (hyperop (k + 2) 1) b (seed (k + 2) 1) = 1
+  exact iter_fixed _ 1 (hyperop_right_one k 1) b
 
 end E213.Meta.Nat.HyperLadder

@@ -167,4 +167,23 @@ theorem shapeProduct_append : ∀ (l m : List Nat),
       show a * shapeProduct (l ++ m) = (a * shapeProduct l) * shapeProduct m
       rw [shapeProduct_append l m, PureNat.mul_assoc]
 
+/-- Repeat a factor-list `k` times (concatenated) — the `^` constructor on
+    lists, one rung up from append. -/
+def lrepeat (l : List Nat) : Nat → List Nat
+  | 0     => []
+  | k + 1 => l ++ lrepeat l k
+
+/-- ★★ **`^` is list-repeat.**  `shapeProduct (lrepeat l k) = (shapeProduct l)^k`:
+    concatenating `k` copies of a factor-list raises its product to the `k`.  So
+    the list-form of the whole tower is uniform — `+` = unit-list **append**
+    (`UnitList.count_append`), `×` = factor-list **append**
+    (`shapeProduct_append`), `^` = factor-list **repeat** (here) — all on lists
+    and ℕ⁺, no `0`, no `−`, no quotient. -/
+theorem shapeProduct_lrepeat (l : List Nat) :
+    ∀ k, shapeProduct (lrepeat l k) = (shapeProduct l) ^ k
+  | 0     => rfl
+  | k + 1 => by
+      show shapeProduct (l ++ lrepeat l k) = (shapeProduct l) ^ (k + 1)
+      rw [shapeProduct_append, shapeProduct_lrepeat l k, Nat.pow_succ, Nat.mul_comm]
+
 end E213.Meta.Nat.Shape213
