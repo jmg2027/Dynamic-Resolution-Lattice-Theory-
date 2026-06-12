@@ -414,8 +414,8 @@ structure), not a single forced theorem — its honesty is the point (C4).
 | `count` (ℕ via `UnitList`) | **no** (forgets order) | — | forgetful → `+` commutes |
 | `Hyper.cofiniteEquiv` (`∃N ∀n≥N`) | **no** (forgets finite prefix) | — | forgetful (cofinite quotient) |
 | `vp` (ℤ/ℕ prime-exponent) | yes (UFD, `vp_separation`) | **FINITE** (`vp_eq_zero_of_gt`) | faithful + finite = **discrete** |
-| `cutEq` (reals) | yes (definitional) | infinite | faithful + ∞ = continuum |
-| `ZpSeqEquiv` (`p`-adics, `∀k digits`) | yes (definitional) | infinite (all digits) | faithful + ∞ = continuum |
+| `cutEq` (reals) | yes (definitional) | infinite (**`cut_no_finite_certificate`**) | faithful + ∞ = continuum |
+| `ZpSeqEquiv` (`p`-adics, `∀k digits`) | yes (definitional) | infinite (**`zpseq_no_finite_certificate`**) | faithful + ∞ = continuum |
 | `Complex` (cut pair) | yes | infinite (per component) | faithful + ∞ = continuum |
 | `SignedCut` (cut + sign) | yes | infinite | faithful + ∞ = continuum |
 
@@ -431,6 +431,12 @@ Two genuinely independent axes confirmed, and a **clean novel corollary**:
 
 So the discrete/continuum boundary is precisely **"reconstructible from
 *finitely* many readouts"**, and it cuts the number tower at exactly one place:
-between ℤ/ℕ and its completions.  Bridge 1's `cut_no_finite_certificate` vs
-`vp_eq_zero_of_gt` is the *witness* of this single cut.  (C1 surveyor, when it
-returns, corroborates the inventory.)
+between ℤ/ℕ and its completions.  The cut is now witnessed in Lean on **three**
+sides — `vp_eq_zero_of_gt` (ℤ, finite) vs two *independent* continuum witnesses,
+`cut_no_finite_certificate` (reals) and `zpseq_no_finite_certificate`
+(`p`-adics, added this session) — so axis B is confirmed real across genuinely
+different completions (an archimedean and a non-archimedean one), not an
+artifact of the reals.  The construction is the same both times (two objects
+agreeing to depth `N`, differing beyond), which is itself a small *shared
+generator* (C4): the continuum-witness is one schema, instantiated at ℝ and at
+ℚ_p — a genuine α-unification of the two completions' infinitude.
