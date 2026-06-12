@@ -1,5 +1,6 @@
 import E213.Lens.Number.Nat213.MultSystem
 import E213.Meta.Nat.FoldCriterion
+import E213.Meta.Nat.PolyNatMTactic
 
 /-!
 # Lens.Number.Nat213.MultSystemValue — the prime-valued instance (case A)
@@ -35,7 +36,8 @@ open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
 open E213.Meta.Nat.VpSeparation (vp_eq_zero_of_not_dvd exists_prime_factor)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
-open E213.Lens.Number.Nat213.MultSystem (totalCount binom totalCount_closed)
+open E213.Lens.Number.Nat213.MultSystem
+  (totalCount binom totalCount_closed binom_succ binom_self binom_zero)
 
 /-- `p ≥ 2` divides no unit (pure; avoids `Nat.le_of_dvd`'s `propext`). -/
 theorem not_dvd_one {p : Nat} (hp : 2 ≤ p) : ¬ p ∣ 1 := by
@@ -392,6 +394,54 @@ theorem prime_not_dvd_fact {p : Nat} (hp : IsPrime213 p) :
       · exact Nat.lt_irrefl p
           (Nat.lt_of_le_of_lt (le_of_dvd_pos p (n + 1) (Nat.succ_pos n) h1) hlt)
       · exact prime_not_dvd_fact hp (Nat.lt_of_succ_lt hlt) h2
+
+/-- **Factorial–binomial identity**: `C(n+k, k) · (n! · k!) = (n+k)!`
+    (subtraction-free two-index form).  Nested induction (outer `n`, inner `k`)
+    on Pascal + the factorial recursion; the algebra is `ring_nat`. -/
+theorem binom_factorial : ∀ n k, binom (n + k) k * (fact n * fact k) = fact (n + k) := by
+  intro n
+  induction n with
+  | zero =>
+      intro k
+      rw [Nat.zero_add, binom_self, Nat.one_mul]
+      exact Nat.one_mul (fact k)
+  | succ n ihn =>
+      intro k
+      induction k with
+      | zero =>
+          rw [Nat.add_zero, binom_zero, Nat.one_mul]
+          exact Nat.mul_one (fact (n + 1))
+      | succ j ihk =>
+          have e1 : n + 1 + j = n + j + 1 := by ring_nat
+          have e2 : n + (j + 1) = n + j + 1 := by ring_nat
+          have e3 : n + 1 + (j + 1) = n + j + 1 + 1 := by ring_nat
+          rw [e1] at ihk
+          have ihnj := ihn (j + 1)
+          rw [e2] at ihnj
+          rw [e3, binom_succ (n + j + 1) j]
+          have hA : binom (n + j + 1) j * (fact (n + 1) * fact (j + 1))
+              = (j + 1) * fact (n + j + 1) := by
+            rw [show fact (j + 1) = (j + 1) * fact j from rfl,
+                show binom (n + j + 1) j * (fact (n + 1) * ((j + 1) * fact j))
+                  = (j + 1) * (binom (n + j + 1) j * (fact (n + 1) * fact j)) from by ring_nat,
+                ihk]
+          have hB : binom (n + j + 1) (j + 1) * (fact (n + 1) * fact (j + 1))
+              = (n + 1) * fact (n + j + 1) := by
+            rw [show fact (n + 1) = (n + 1) * fact n from rfl,
+                show binom (n + j + 1) (j + 1) * (((n + 1) * fact n) * fact (j + 1))
+                  = (n + 1) * (binom (n + j + 1) (j + 1) * (fact n * fact (j + 1))) from by ring_nat,
+                ihnj]
+          rw [show (binom (n + j + 1) j + binom (n + j + 1) (j + 1)) * (fact (n + 1) * fact (j + 1))
+                = binom (n + j + 1) j * (fact (n + 1) * fact (j + 1))
+                  + binom (n + j + 1) (j + 1) * (fact (n + 1) * fact (j + 1)) from by ring_nat,
+              hA, hB, show fact (n + j + 1 + 1) = (n + j + 1 + 1) * fact (n + j + 1) from rfl]
+          ring_nat
+
+/-- **Central binomial via factorials**: `C(2n,n) · (n!)² = (2n)!`. -/
+theorem central_binom_factorial (n : Nat) :
+    binom (2 * n) n * (fact n * fact n) = fact (2 * n) := by
+  have h := binom_factorial n n
+  rwa [show n + n = 2 * n from by ring_nat] at h
 
 /-- **Infinitude of primes** (Euclid).  For every `N` there is a prime `> N`:
     a prime factor of `N! + 1` cannot be `≤ N` (it would divide both `N!` and
