@@ -2,9 +2,10 @@
 
 **Branch**: `claude/autonomous-marathon-vp-listprod-imkycf`.
 **Status**: A-region + exp/log skeleton CLOSED; B (π counting) CLOSED; **Chebyshev
-upper bound `π(2^m) = O(2^m/m)` CLOSED** (`primePi_pow_two_le_chebBound`, ∅-axiom).
-Remaining OPEN: inhabit `PrimeDensityToZero` (translate `chebBound` growth into the
-`RatTendsToZero` modulus) + the PNT `~ N/ln N` asymptotic horizon.
+upper bound `π(2^m)=O(2^m/m)` CLOSED**; **`PrimeDensityToZero` INHABITED ∅-axiom
+(`primeDensityToZero`) — prime density `π(N)/N → 0` certified, the PNT density cut
+CLOSED**.  Remaining OPEN: only the PNT `~ N/ln N` asymptotic (constant `1`), a
+`Real213` pointing horizon — not ∅-axiom reachable.
 
 ## The trajectory
 
@@ -130,27 +131,25 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     N < p^{e+1}`), `floorLog_le_of_lt_pow`, `floorLog_antitone_base` (bigger base ⇒
     smaller log), `floorLog_pow_self` (`floorLog p pʲ = j`).
 
-    **Remaining chunk**: estimate the per-window term
-    `floorLog (2^k+1) (2^{2^{k+1}}) ≈ 2^{k+1}/k` (via `floorLog_le_of_lt_pow`:
-    show `2^{2^{k+1}} < (2^k+1)^{M+1}` for `M = ⌈2^{k+1}/k⌉` — the fiddly Nat
-    division/ceiling against the growing base `2^k+1`, **not** collapsible to base
-    `2` by `floorLog_antitone_base` since that discards the `ln` denominator).  Sum
-    ⇒ `chebSum m = O(2^m/m)` ⇒ `π(N) = O(N/ln N)` ⇒ density `→ 0` ⇒ inhabit
-    `PrimeDensityToZero`.  PNT proper (`·ln N` at the `1`-cut) needs `ln`
-    (`Real213.ExpLog`) + the ratio sequence — same certificate shape.
+    **All chunks CLOSED**: per-window term `floorLog_window_term_le`
+    (`floorLog (2^k+1)(4^{2^k}) ≤ 2^{k+1}/k`, via `floorLog_le_of_lt_pow` +
+    `lt_mul_div_succ`); `chebBound` + `primePi_pow_two_le_chebBound`
+    (`π(2^m) ≤ chebBound m`); `primePi_le_chebBound_of_le` (dyadic interpolation to
+    all `N`); the division-free partial-sum bound `chebBound_mul_le`
+    (`chebBound(m+1)·(m+1) ≤ 6·2^{m+1}`, clearing denominators to dodge floor-div
+    non-additivity); and the keystone **`primeDensityToZero : PrimeDensityToZero`**
+    (modulus `M(k)=2^{12k}`, via `density_cert_aux`).  PNT proper (`·ln N` at the
+    `1`-cut, constant `1`) needs `ln` (`Real213.ExpLog`) + the ratio sequence — the
+    asymptotic horizon, not ∅-axiom reachable.
 
 ## Next concrete step
 
-The Chebyshev **upper bound is closed**: `primePi_pow_two_le_chebBound : π(2^m) ≤
-chebBound m` with `chebBound m = 2 + Σ_{k=1}^{m-1} 2^{k+1}/k = O(2^m/m)` (∅-axiom,
-computable; via `windowBound`/`term_le_windowBound`/`floorLog_window_term_le` +
-`lt_mul_div_succ`).  **Next**: (a) inhabit `PrimeDensityToZero` — translate
-`chebBound m = O(2^m/m)` into the `RatTendsToZero primePi id` modulus (a `Real213`
-ε-δ certificate: for resolution `r`, threshold `N(r)` past which `π(N)/N < 1/r`);
-needs `chebBound m ≤ C·2^m/m` for explicit `C` (a `Σ 2^{k+1}/k` partial-sum bound)
-and the monotone interpolation `π(N) ≤ π(2^{⌈log₂N⌉})`.  (b) The PNT `~ N/ln N`
-limit (constant `1`) stays the asymptotic horizon (a `Real213` pointing).
-
-Loose secondary targets still open: tie `factorization_bounded`'s prime-list
-length to `primePi`; a Chebyshev *lower* bound (`π(2n) − π(n) ≥ …`) for the
-matching direction.
+The whole Chebyshev/density branch is **CLOSED**: `primeDensityToZero :
+PrimeDensityToZero` certifies `π(N)/N → 0` ∅-axiom.  No open ∅-axiom step remains
+on this trajectory.  Possible follow-ups (new directions, not this frontier):
+(a) a Chebyshev **lower** bound `π(N) ≥ c·N/ln N` (the matching direction, for the
+density's two-sided shape); (b) PNT proper `π(N) ~ N/ln N` (constant `1`) as a
+`Real213` cut + ratio-sequence pointing — the asymptotic horizon; (c) connect
+`primeDensityToZero`'s modulus to the lcm-growth route (`LcmGrowthChebyshev`) for a
+cross-check.  Loose secondary: tie `factorization_bounded`'s prime-list length to
+`primePi`.

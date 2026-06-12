@@ -1,4 +1,4 @@
-# Session Handoff — 2026-06-12 (Chebyshev upper bound π(2^m)=O(2^m/m) CLOSED)
+# Session Handoff — 2026-06-12 (PNT density cut π(N)/N→0 INHABITED ∅-axiom)
 
 ## Branch
 `claude/autonomous-marathon-vp-listprod-imkycf` — the system `×` makes (monomials
@@ -47,10 +47,20 @@ Closed the Erdős elementary-Chebyshev numerator + count bound in
   `primePi_pow_two_le_chebSum`.  Verified `π(8)=4≤10, π(1024)=172≤chebBound 10=269`.
   In `CAPSTONE_INDEX.md` (new "Prime counting" section).
 
-**Next** (frontier): inhabit `PrimeDensityToZero` — translate `chebBound m =
-O(2^m/m)` into the `RatTendsToZero primePi id` modulus (`Real213` ε-δ): needs
-`chebBound m ≤ C·2^m/m` partial-sum bound + monotone interpolation
-`π(N) ≤ π(2^{⌈log₂N⌉})`.  PNT `~N/ln N` (constant 1) stays the asymptotic horizon.
+- **`chebBound_mul_le`** — division-free partial-sum bound `chebBound(m+1)·(m+1) ≤
+  6·2^{m+1}` (= `chebBound m = O(2^m/m)`; multiplying through dodges floor-div
+  non-additivity; paired crude `chebBound(m+1) ≤ 2^{m+2}`).
+- **THE KEYSTONE** `primeDensityToZero : PrimeDensityToZero` — **`π(N)/N → 0`
+  certified ∅-axiom**, the PNT density cut (the scaffolding's "open analytic core")
+  CLOSED.  Modulus `M(k)=2^{12k}`; `density_cert_aux` does the arithmetic at level
+  `m=⌊log₂N⌋`.  Pure cancellation helpers `mul_lt_mul_right_pure` /
+  `lt_of_mul_lt_mul_right_pure` (avoid `Nat.*`'s Classical axioms).  In
+  `CAPSTONE_INDEX.md`.
+
+**Next** (frontier): no open ∅-axiom step remains on this trajectory.  Follow-ups
+(new directions): Chebyshev *lower* bound `π(N) ≥ c·N/ln N`; PNT proper `~N/ln N`
+(constant 1) as a `Real213` pointing (asymptotic horizon); cross-check vs the
+lcm-growth route (`LcmGrowthChebyshev`).
 
 ## Prior session (n-plus-signature-mappings branch)
 
