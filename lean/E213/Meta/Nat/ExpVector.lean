@@ -149,4 +149,36 @@ theorem toVec_tetration {a : Nat} (ha : 0 < a) (b : Nat) :
 theorem tetration_scalar_concrete :
     vp 2 (2 ^ 3) = 3 ∧ vp 2 (hyperop 4 2 3) = 4 := by decide
 
+/-! ### Flat (`^`, geodesic) vs curved (`↑↑`, holonomic) — the precise sense
+
+The exponent reading of the height moves at **constant velocity** for `^` and
+**accelerates** for `↑↑`.  In the geometric reading (the originator's intuition
+that the lattice "becomes curvature-like" above `^`), the defensible core is:
+`^` is a **flat connection** (the per-step increment is *constant* — a geodesic
+in log-space, zero curvature), `↑↑` a **non-flat (holonomic)** one (the
+increment *grows* — nonzero second difference).  The genuine invariant is the
+**holonomy** (the global non-flattenability = Abel-germ = presentation-
+dependence, the repo's `holonomic_modulus` regime), *not* the intrinsic Ricci
+tensor (over-specific) and *not* the discrete-Forman curvature of
+`DiscreteRicci` (bridge 4 = a pinned distinction, no shared generator — forcing
+that identity would be a forcible map). -/
+
+/-- ★ **`^` is a geodesic (flat): the exponent increment is constant.**
+    `vp p (a^(b+1)) = vp p (a^b) + vp p a` — going one step up the height adds a
+    *fixed* `vp p a` each time (`vp(a^b) = b·vp p a` is an arithmetic
+    progression).  Constant velocity in log-space, zero curvature. -/
+theorem vp_pow_geodesic {p a : Nat} (hp : IsPrime213 p) (ha : 0 < a) (b : Nat) :
+    vp p (a ^ (b + 1)) = vp p (a ^ b) + vp p a := by
+  rw [vp_pow hp ha (b + 1), vp_pow hp ha b]
+  exact Nat.succ_mul b (vp p a)
+
+/-- ★ **`↑↑` is curved: the increment is not constant.**  The first differences
+    of `vp 2 (2↑↑b)` are `1, 2, 12, …` — `vp 2 (2↑↑·) = 1, 2, 4, 16, …` — so the
+    second difference is nonzero (`2↑↑2 − 2↑↑1 = 1 ≠ 2 = 2↑↑3 − 2↑↑2`).  Unlike
+    `^`'s constant-velocity geodesic, tetration *accelerates* — the holonomic
+    (presentation-dependent) regime above the flat lattice. -/
+theorem vp_tetration_curved :
+    vp 2 (hyperop 4 2 2) - vp 2 (hyperop 4 2 1)
+      ≠ vp 2 (hyperop 4 2 3) - vp 2 (hyperop 4 2 2) := by decide
+
 end E213.Meta.Nat.ExpVector
