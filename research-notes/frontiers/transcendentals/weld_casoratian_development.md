@@ -1,5 +1,35 @@
 # Frontier — the weld Casoratian: flip criterion + ratio descent
 
+## ★ Structural unification (2026-06-11, two research agents) — the master bilinear Casoratian
+
+The "three Wronskians" are **one** identity.  With the **weight-normalized cosh**
+`ĉ_J := (2J+1)·c_J`, the weld's clean pair is `(ĉ, s)`, whose Casoratian is exactly
+`K_J = ĉ_{J+1}·s_J − ĉ_J·s_{J+1}` (= `weldK`, the `q²`-cancelled cross).  The two residuals are
+*constant-coefficient* combinations of this one pair:
+
+  `R_J = devB·ĉ_J − devA·s_J`,   `M_J = −q²Q·ĉ_J + P·s_J`,
+
+i.e. `(R, M)` is the image of `(ĉ, s)` under the CF-determinant matrix `[[devB,−devA],[−q²Q,P]]`,
+**unimodular** (`det = P·devB − q²·devA·Q = 1`, the det-one floor `dev_cross_det`).  The inverse
+transform is `ĉ_J = P·R_J + devA·M_J` (`weld_cosh_RM`) and `s_J = q²Q·R_J + devB·M_J` (`weldM_devB`).
+
+`weld_bilinear_casoratian` (pure ℤ ring) is the single source: for `X = a₁ĉ+a₂s`, `Y = b₁ĉ+b₂s`,
+`X_{J+1}Y_J − X_J Y_{J+1} = (a₁b₂−a₂b₁)·K_J`.  Hence **every** residual cross = `det(coeff)·K_J`:
+`R×ĉ = devA·K`, `R×s = devB·K`, `M×ĉ = P·K`, `M×s = q²Q·K`, and `R×M = 1·K` (det-floor) =
+`weld_casoratian_int`.  The once-"anomalous" 4th cross `R×c` was merely *unnormalized* — `R×ĉ` is
+clean.  `K`'s own (inhomogeneous) recurrence `K_{J+1} = (2J+2)(2J+3)q²·K_J + 2·s_{J+1}` carries the
+same `+1` unit forcing as `(c,s)`: the **det-floor `+1` and `K`'s inhomogeneity are one residue unit**.
+
+**Classical vs new** (agent-verified): the math is the classical Lambert/Padé theory of `coth`
+(convergents = diagonal Padé, denominators = **Bessel polynomials**, the `(4i+2)!! = 2^{2i+1}(2i+1)!`
+flip = the Padé remainder leading coefficient, irrationality-measure-2).  Genuinely 213-native:
+(i) the weight `ĉ` collapsing all crosses to **one** recurrence-free bilinear; (ii) the `+1` det-floor
+as a named *residue unit*; (iii) the zero-axiom subtraction-free constructive form.  Lean:
+`weld_bilinear_casoratian`, `weld_cosh_RM`, `weldM_devB`, three Wronskians (59 PURE).  Generalizes to
+any CF-vs-series weld with a unimodular CF determinant (exp(p/q), tan(1/q), holonomic ratios).
+
+---
+
 **Status**: items 1–2 CLOSED ∅-axiom; item 3's *structural* half closed,
 the *quantitative* half open (`LambertOrder` §10 — named ℤ recurrence, flip
 criterion, K-positivity, single-step + telescoped ratio descent at any

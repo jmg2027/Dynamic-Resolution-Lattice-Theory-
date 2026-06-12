@@ -1036,6 +1036,41 @@ theorem weldM_devB (q i J : Nat) :
   rw [Int.add_zero] at hgoal
   exact hgoal
 
+/-- ★★★★★ **The cosh companion of `weldM_devB`** — the det-floor *unimodular transform*.
+    `(2J+1)·c_J = P·R_J + devA·M_J`.  With `weldM_devB` (`s_J = q²Q·R_J + devB·M_J`) this exhibits
+    the **convergent/series pair** `(s_J, (2J+1)·c_J)` as the image of the **residual pair**
+    `(R_J, M_J)` under the CF-determinant matrix `[[q²Q, devB],[P, devA]]`, whose determinant is
+    `q²Q·devA − P·devB = −1` (the det-one floor `dev_cross_det`) — *unimodular*.  Consequence: the
+    three Wronskians (`weld_rs_wronskian` R·sinh, `weldM_s_wronskian` M·sinh, `weldM_wronskian`
+    M·cosh) are **one** Casoratian `K_J` (`weld_casoratian_int`, the `[R,M]` step-determinant) read
+    in the two bases; the coupling constants `devB, q²Q, P` are exactly the transform's entries. -/
+theorem weld_cosh_RM (q i J : Nat) :
+    (2 * (J : Int) + 1) * (coshNum q J : Int)
+      = (dev q (AP (2*i+2)) : Int) * weldR q i J + (dev q (AP (2*i+1)) : Int) * weldM q i J := by
+  have hdetI : (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)
+      = (q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1 := by
+    have hc : (↑(dev q (AP (2*i+2)) * dev q (BP (2*i+1))) : Int)
+        = ↑(q * dev q (AP (2*i+1)) * (q * dev q (BP (2*i+2))) + 1) :=
+      congrArg Int.ofNat (dev_cross_det q i).symm
+    rw [Int.ofNat_mul, Int.ofNat_add, Int.ofNat_one, Int.ofNat_mul, Int.ofNat_mul,
+        Int.ofNat_mul] at hc
+    rw [hc]; ring_intZ
+  have key : (2 * (J : Int) + 1) * (coshNum q J : Int)
+        - ((dev q (AP (2*i+2)) : Int) * weldR q i J + (dev q (AP (2*i+1)) : Int) * weldM q i J)
+      = (coshNum q J : Int) * (2 * (J : Int) + 1)
+        * (((q : Int) * (q : Int) * (dev q (AP (2*i+1)) : Int) * (dev q (BP (2*i+2)) : Int) + 1)
+           - (dev q (AP (2*i+2)) : Int) * (dev q (BP (2*i+1)) : Int)) := by
+    unfold weldR weldM; ring_intZ
+  have hzero : (2 * (J : Int) + 1) * (coshNum q J : Int)
+        - ((dev q (AP (2*i+2)) : Int) * weldR q i J + (dev q (AP (2*i+1)) : Int) * weldM q i J) = 0 := by
+    rw [key, hdetI, E213.Meta.Int213.Order.sub_self_zero, E213.Meta.Int213.PolyIntM.mul_zeroZ]
+  have hgoal := int_eq_of_add_neg
+    (show (2 * (J : Int) + 1) * (coshNum q J : Int)
+        + -((dev q (AP (2*i+2)) : Int) * weldR q i J + (dev q (AP (2*i+1)) : Int) * weldM q i J) = 0
+      from hzero)
+  rw [Int.add_zero] at hgoal
+  exact hgoal
+
 /-- ★★★★★ **The `R`–`sinh` Wronskian** (`M`-free): `R_{J+1}·s_J − R_J·s_{J+1} = devB·K_J`.  The
     lower cross and the explicit sinh numerator are a Casoratian pair — the det-floor having
     eliminated the upper margin and its near-cancellation.  Derived from `weld_casoratian_int`
@@ -1102,6 +1137,29 @@ theorem weldM_wronskian (q i J : Nat) :
   have hsucc : ((J + 1 : Nat) : Int) = (J : Int) + 1 := rfl
   unfold weldM weldK
   rw [hsucc]; ring_intZ
+
+/-- ★★★★★ **The master bilinear Casoratian** (pure ℤ ring — the one identity behind *all* weld
+    Wronskians).  For any constants `a₁ a₂ b₁ b₂` and any pair `(x_J, y_J)` with step values
+    `x0,x1,y0,y1`, the cross-determinant of the two linear combinations `X = a₁x+a₂y`,
+    `Y = b₁x+b₂y` is the `(a₁b₂−a₂b₁)`-multiple of the pair's own Casoratian `x1·y0 − x0·y1`:
+
+      `(a₁x1+a₂y1)(b₁x0+b₂y0) − (a₁x0+a₂y0)(b₁x1+b₂y1) = (a₁b₂−a₂b₁)(x1·y0 − x0·y1)`.
+
+    With the **weight-normalized cosh** `ĉ_J := (2J+1)c_J`, the weld's clean pair is `(ĉ, s)` and
+    `K_J = ĉ_{J+1}s_J − ĉ_J s_{J+1}` (= `weldK`, the `q²`-cancelled Casoratian).  `R_J = devB·ĉ_J −
+    devA·s_J` and `M_J = −q²Q·ĉ_J + P·s_J` are constant-coefficient combinations of that one pair, so
+    **every** residual cross is `det(coeff-rows)·K_J`: `R×ĉ = devA·K`, `R×s = devB·K`, `M×ĉ = P·K`,
+    `M×s = q²Q·K`, and `R×M = (P·devB − q²·devA·Q)·K = 1·K` — the last coupling being the **det-one
+    floor** (`dev_cross_det`), the unimodularity that makes `weld_casoratian_int`'s RHS *exactly*
+    `K_J` with no lower-order correction.  This single ring identity subsumes `weld_casoratian_int`,
+    `weld_rs_wronskian`, `weldM_s_wronskian`, `weldM_wronskian` (and the once-"anomalous" `R×c`,
+    clean as `R×ĉ`).  Classical underpinning: the CF-convergent matrix is unimodular; the genuinely
+    213-native content is the weight `ĉ` collapsing all crosses to one bilinear, with the `+1`
+    residue unit as the determinant. -/
+theorem weld_bilinear_casoratian (a₁ a₂ b₁ b₂ x0 x1 y0 y1 : Int) :
+    (a₁ * x1 + a₂ * y1) * (b₁ * x0 + b₂ * y0) - (a₁ * x0 + a₂ * y0) * (b₁ * x1 + b₂ * y1)
+      = (a₁ * b₂ - a₂ * b₁) * (x1 * y0 - x0 * y1) := by
+  ring_intZ
 
 /-- ★★★★★ **`LowerBase` reduces to a single `M`-free inequality** (cleanest form, via the
     `R`–sinh Wronskian).  `0 ≤ R_{J+1}` follows from the *single* inequality
