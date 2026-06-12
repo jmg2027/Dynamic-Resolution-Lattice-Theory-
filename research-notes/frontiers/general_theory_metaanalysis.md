@@ -143,6 +143,52 @@ This convergence is the program's deepest finding: **the discipline of 213 —
 unification, equality, and error alike — is governed by a single two-sided
 boundary, and the recurring failures are the two ways of falling off it.**
 
+## C8 — convergence tested in the cohomology/cardinality-cutoff domain → CORROBORATES + EXTENDS
+
+Probed a major unexamined domain (the cardinality-cutoff principle +
+`Cohomology/Fractal`) to test whether the residue/Lens boundary organises the
+*whole* corpus or only where the program had looked.  Verdict: **corroborates,
+and adds one genuinely new structural element.**
+
+- **Orthogonal to the unification typology (C4), not captured *or* refuted by
+  it.**  The cutoff makes **no** unification claim — it is a *scale-matching*
+  methodology: an external sequence `f` (Aurifeuillean) and an internal
+  complexity class `H_k` (Hunter depth ≤ k) are *deliberately different*
+  construction trees, and the content is precisely that they **coincide at
+  small `k`, then separate forever**.  No shared generator is claimed (so not
+  type-1); the coincidences (`29 = L_1 = P_5 = Lucas L_7`) are type-3
+  resonances; the asymptotic separation is a type-2 distinction *refined*.
+- **Sits exactly on the boundary.**  `H_k`, `M_k = max H_k` are **Lens-
+  parametric readouts** (a truncation = a resolution = a view;
+  `ConfigCount.lean`: "numerical readouts are Lens outputs, parametric in base
+  and level").  The **deleted `5²⁵ = N_U`** claim is textbook
+  *over-interiorization* (C6 polarity 2 / "universe-constant framing"):
+  promoting the count-Lens readout `configCount 2 = 5²⁵` to a residue constant
+  `N_U`.  The principle's own structure *catches* this.
+
+**The extension — a second boundary-respecting instrument.**  Beyond the
+unification decision-procedure (for cross-domain *schema* candidates), the
+cutoff exhibits the **literal→refined diagnosis** for *Lens-parametric*
+candidates (a universal claim over a truncation/level):
+
+  1. **locate** — a Lens-slice (fixed small `k`) where external and internal
+     measures coincide;
+  2. **diagnose** — prove the *literal* `∀k ∀m` form **false** (no fixed
+     Lens-level `k` captures the asymptotics — this *is* `object1_not_surjective`:
+     no single view surjects onto the whole);
+  3. **refine** — requantify with the level **first** (`∀k ∃m₀ ∀m≥m₀`),
+     acknowledging the truncation index is a *parametric axis*, never a fixed
+     residue property.
+
+This is the methodological **dual** of the unification procedure: the procedure
+catches *over-exteriorization* (a forcible cross-domain schema); the
+literal→refined diagnosis catches *over-interiorization* (a Lens-parametric
+readout frozen into a constant / a naive universal).  Both are tools for
+staying on the one boundary — so the boundary framework now has a matched pair
+of instruments, one per polarity.  **The convergence finding survives a
+genuinely independent domain and gains a second tool — strong evidence it
+organises the corpus, not just the slot-tower region.**
+
 ## C7 — does C4 hold in the physics branch? (a sharpened question, NOT a verdict)
 
 Tested the shared-generator criterion on the DRLT **closure form**
@@ -208,7 +254,14 @@ the-goal" lurks if a math-side critic grades it by an external bar).
   4/22 are orthogonal discipline failures.  **C4 ↔ C6 convergence** found: a
   forcible map IS over-exteriorization; the whole discipline orbits the one
   residue/Lens boundary.  This is the program's deepest finding.
-- C5 grid completed by direct survey (ℤ unique faithful-finite).
+- C5 grid completed by direct survey (ℤ unique faithful-finite); strengthened
+  with `zpseq_no_finite_certificate` (p-adic continuum witness) + the free-vs-
+  constrained completion sub-axis (a "shared generator" bonus claim was made
+  and then *retracted reflexively* — the discipline working on the author).
+- **C8 (cohomology/cardinality-cutoff) → CORROBORATES + EXTENDS**: the boundary
+  framework organises a genuinely independent domain, and gains a *second*
+  instrument — the literal→refined diagnosis (dual to the unification
+  decision-procedure; catches over-interiorization of a Lens-parametric readout).
 - **C7 (physics cross-branch) — OPEN, flagged to originator.**  Surveyor's
   "closure form is a fit / falsifies C4" verdict was *logic-corrected* (a
   forcible template would *corroborate* C4, not falsify it) and reduced to a
