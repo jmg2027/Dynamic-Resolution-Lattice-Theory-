@@ -37,7 +37,7 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_split_first
 open E213.Meta.Nat.NatDiv213 (add_mod_right_pos div_add_mod_pure mul_witness_iff_mod_eq_zero)
 open E213.Tactic.NatHelper (sub_add_cancel add_right_cancel add_sub_of_le add_sub_cancel_right
   mul_sub mul_left_cancel_pos)
-open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (lcmUpTo dvd_lcmUpTo)
+open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (lcmUpTo dvd_lcmUpTo lcmUpTo_dvd)
 
 /-! ## §0 — pure mod-2 parity (standard `Nat.{mod_two_eq_zero_or_one,add_mod}` are propext) -/
 
@@ -586,5 +586,38 @@ theorem heart {m a b d : Nat} (hQ : m * choose (m + b) m ∣ d) :
     _ = m * m * m * (choose (m + a + b) m * choose (2 * m + a + b) m)
           * (Q * Q * Q * choose (m + b) m * choose (a + b) b
              * choose (2 * m + a + 2 * b) (2 * m + a + b)) := by ring_nat
+
+/-! ## §4 — assembly engines (per-term divisibilities)
+
+The two divisibilities the ℚ-free assembly of `2·lcm³·aₙ` consumes term by term:
+the harmonic part `Σ_j 1/j³` clears against `lcm³` (`cube_dvd_lcm_cube`), and the
+Apéry kernel part `Σ_m (−1)^{m−1}/(2m³C(n,m)C(n+m,m))` clears via the Heart with
+`d = lcm(1..n)` (`heart_lcm`, KeyDiv supplying the quotient). -/
+
+/-- Harmonic clearing: `j³ ∣ lcm(1..n)³` for `1 ≤ j ≤ n`. -/
+theorem cube_dvd_lcm_cube {j n : Nat} (hj : 1 ≤ j) (hjn : j ≤ n) :
+    j ^ 3 ∣ lcmUpTo n ^ 3 := by
+  rcases dvd_lcmUpTo hj hjn with ⟨c, hc⟩
+  refine ⟨c ^ 3, ?_⟩
+  rw [cube (lcmUpTo n), hc, cube j, cube c]
+  ring_nat
+
+/-- ★★ **The Heart, on `lcm(1..n)`** (KeyDiv-supplied quotient): for `1 ≤ m`,
+    `m³·C(n,m)·C(n+m,m) ∣ lcm(1..n)³·C(n,k)·C(n+k,k)` (additive `n = m+a+b`, `k = m+b`).
+    `m·C(k,m) ∣ lcm(1..k) ∣ lcm(1..n)` (KeyDiv + monotonicity) feeds `heart`. -/
+theorem heart_lcm {m a b : Nat} (hm : 1 ≤ m) :
+    m ^ 3 * (choose (m + a + b) m * choose (2 * m + a + b) m)
+      ∣ lcmUpTo (m + a + b) ^ 3
+        * (choose (m + a + b) (m + b) * choose (2 * m + a + 2 * b) (m + b)) := by
+  have hkn : m + b ≤ m + a + b := by
+    rw [show m + a + b = m + b + a from by ring_nat]
+    exact Nat.le_add_right (m + b) a
+  have hmono : lcmUpTo (m + b) ∣ lcmUpTo (m + a + b) :=
+    lcmUpTo_dvd (fun j hj0 hjN => dvd_lcmUpTo hj0 (Nat.le_trans hjN hkn))
+  have hQ : m * choose (m + b) m ∣ lcmUpTo (m + a + b) := by
+    rcases keydiv hm (Nat.le_add_right m b) with ⟨u, hu⟩
+    rcases hmono with ⟨v, hv⟩
+    exact ⟨u * v, by rw [hv, hu]; ring_nat⟩
+  exact heart hQ
 
 end E213.Lib.Math.NumberTheory.AperyIntegrality
