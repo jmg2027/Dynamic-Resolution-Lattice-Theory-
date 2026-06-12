@@ -35,7 +35,24 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberTheory.AperyRecurrence
 
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
-open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
+
+/-! ## Telescoping infrastructure (pure ℕ, no subtraction)
+
+The WZ proof sums the cleared per-`k` identity over `k`; the certificate's
+`Ĝ(j,k+1)`/`Ĝ(j,k)` terms then telescope.  The repo had no telescoping lemma —
+this is the additive (subtraction-free) form `Σ_{k<n} g(k+1) + g 0 = Σ_{k<n} g k +
+g n`, i.e. `Σ(g(k+1)−g(k)) = g(n)−g(0)` rearranged to stay in ℕ. -/
+
+/-- Shift-telescoping in ℕ: `Σ_{k<n} g(k+1) + g 0 = Σ_{k<n} g k + g n`. -/
+theorem sumTo_shift_eq (g : Nat → Nat) :
+    ∀ n, sumTo n (fun k => g (k + 1)) + g 0 = sumTo n g + g n
+  | 0 => rfl
+  | n + 1 => by
+    rw [sumTo_succ, sumTo_succ]
+    show sumTo n (fun k => g (k + 1)) + g (n + 1) + g 0 = sumTo n g + g n + g (n + 1)
+    rw [Nat.add_right_comm (sumTo n (fun k => g (k + 1))) (g (n + 1)) (g 0),
+        sumTo_shift_eq g n]
 
 /-- The Apéry summand `C(n,k)²·C(n+k,k)²` (squares as explicit products). -/
 def aperySummand (n k : Nat) : Nat :=
