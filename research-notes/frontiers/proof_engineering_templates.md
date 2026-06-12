@@ -120,6 +120,54 @@ Measured adherence:
 - Docstring tags: `STRICT ∅-AXIOM`, the `Lens meaning:` line, and a `theory/<mirror>` or
   `seed/AXIOM/§` reference are the standard prose furniture.
 
+## Part V — domain file archetypes (the recurring per-domain templates)
+
+Each domain has a stereotyped file shape, all bottoming out in `decide`/`rfl`:
+
+**Physics — the atomic-bracket archetype** (`Lib/Physics/Nuclear/DeuteronBinding.lean`,
+exemplar): docstring gives the DRLT formula + observed value + atomic decomposition; then
+`def E_d_num := NS * NT` (the observable as an *atomic-primitive expression*),
+`theorem E_d_num_eq_6 := by decide` (verify it computes to the atom),
+`theorem E_d_bracket : 2000 < 2224 ∧ 2224 < 2500 := by decide` (the prediction bracket — all
+concrete `Nat`), `theorem …_simplicial : … ∧ NS=3 ∧ NT=2 ∧ d=5 := by decide` (the
+atomic-source capstone).  *Everything is concrete `Nat` arithmetic, so every line is
+`decide`* — this is precisely why Physics is 55 % `by decide` (census §3).  (The bracket is on
+the observed literal — the `reflexivity_gap.md` caveat — but the *template* is the point here.)
+
+**Number systems — the approximant-sequence archetype** (`Real213/PhiConvergence.lean`):
+build the approximant sequence (`pellDen…`), then `…_strictly_increasing` →
+`bracket_width_shrinks` → `convergents_nest` → `…_is_unique_nested_limit`.  The template is
+*monotone + nested + shrinking → unique limit*, with the **forward direction closing
+universally** and the backward only under compatible-denominator hypotheses (Lesson 7).  Cut
+predicates are `Nat → Nat → Bool` (Part I move 1), so per-level checks are `decide`.
+
+**Atomicity — the pure-ℕ forcing archetype** (`Theory/Atomicity/PairForcing.lean`): define
+the arithmetic predicates (`Decomp`, `IsAlive`, `Atomic`, `half`, `count` — `Prop`/`Nat`,
+*never touching Raw*), prove small `private` helper iffs by `cases`/induction
+(`half_eq_one_iff : half p = 1 ↔ p = 2 ∨ p = 3`), assemble the forcing iff
+(`count_eq_one_iff`).  The forcing chain (NS,NT,d)=(3,2,5) lives entirely in computable ℕ
+(census foundations finding) so the leaves are `decide`/`rfl`.
+
+**Cohomology — the enumeration archetype**: define the complex / cochain space as
+`Fin (binom n k) → Bool`, compute Betti numbers, close by `decide` / `cases <;> decide` over
+the finite cochain space (the marathon-anatomy `decide`/`cases`-dominant cluster, census §7).
+
+## Part VI — the deepest move: algebra automation that *bottoms out in `rfl`*
+
+`ring_nat`/`ring_intZ` (714 + 720 uses) are not Mathlib's `ring`; they are **reflection
+tactics** (`Meta/Nat/PolyNatMTactic.lean`).  The `elab` (1) reads the goal `lhs = rhs : Nat`,
+(2) **reifies** both sides into a `PE` polynomial-expression AST over a shared atom list, (3)
+computes a canonical normal form `PE.norm` (sorted monomial list), and (4) closes with
+**`mkEqRefl (PE.norm peL)`** — the two reified normal forms are equal *by `rfl`* exactly when
+the identity holds — then `poly_idM` transports that `rfl` back to the original goal.
+
+So even ring-equality is reduced to **`rfl` on a reified normal form**.  This is the purest
+instance of the whole discipline: rather than trust an opaque `ring`, the corpus *reflects*
+the algebra into a datatype, *computes* the normal form, and lets `rfl` certify it — strict
+∅-axiom, decidable, transparent.  `(a+b)*(a+b) = a*a + 2*(a*b) + b*b` is proved by reifying
+both sides to the same monomial-list and `rfl`.  The hand-rolled ring is "truth = computation"
+applied to its own automation.
+
 ## The one-line synthesis
 
 > 213 is engineered so that **truth is computation**: objects are Bool-valued and
