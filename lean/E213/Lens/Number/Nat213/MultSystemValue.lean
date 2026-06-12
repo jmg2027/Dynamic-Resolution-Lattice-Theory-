@@ -217,4 +217,34 @@ theorem omega_le_log (n : Nat) (hn : 0 < n) :
   have hb := two_pow_length_le_prod ps (fun p hp => (hps p hp).two_le)
   rwa [hprod] at hb
 
+/-! ## B-entry — `π(N)` bound: naturals `≤ N` use only primes `≤ N`
+
+The prime bases needed to build every natural `≤ N` are exactly the `π(N)`
+primes `≤ N` — so the relevant base count is `k = π(N)`.  (Defining `π(N)` as a
+counting function needs a decidable primality test, recorded as a frontier.) -/
+
+/-- A list member divides the list product. -/
+theorem dvd_listProd (ps : List Nat) (p : Nat) : p ∈ ps → p ∣ listProd ps := by
+  induction ps with
+  | nil => intro hp; nomatch hp
+  | cons x xs ih =>
+      intro hp
+      cases hp with
+      | head => exact ⟨listProd xs, rfl⟩
+      | tail _ h =>
+          obtain ⟨c, hc⟩ := ih h
+          refine ⟨x * c, ?_⟩
+          show x * listProd xs = p * (x * c)
+          rw [hc]
+          exact E213.Tactic.NatHelper.mul_left_comm x p c
+
+/-- **`π(N)` bound.**  Every `n > 0` factors into primes that are all `≤ n`: to
+    build the naturals up to `n` you only need primes `≤ n`, so `k = π(n)` bases
+    suffice (a prime factor divides `n`, hence is `≤ n`). -/
+theorem factorization_bounded (n : Nat) (hn : 0 < n) :
+    ∃ ps : List Nat, (∀ p, p ∈ ps → IsPrime213 p) ∧ listProd ps = n
+      ∧ (∀ p, p ∈ ps → p ≤ n) := by
+  obtain ⟨ps, hps, hprod⟩ := factorization_exists n n (Nat.le_refl n) hn
+  exact ⟨ps, hps, hprod, fun p hp => le_of_dvd_pos p n hn (hprod ▸ dvd_listProd ps p hp)⟩
+
 end E213.Lens.Number.Nat213.MultSystemValue
