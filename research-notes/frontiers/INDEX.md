@@ -242,14 +242,22 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   Open: an actual effective `(C,s)` for π, ζ(3)'s I1/I2 (Apéry integrality +
   Hanson lcm), the two-real separation modulus, degree-4+ form cuts, `dyUp`
   tightness.
-- `zeta3_free_modulus` — **ζ(3): built fold → free total modulus**.  The fold is
-  closed (`Real213/Zeta3Cut`, 35 PURE: exact ℕ Apéry recurrence + closed-form
-  Casoratian `6·(m!)⁶` + `AbCutSeq` + bracket `601/500 < ζ(3) ≤ 1203/1000`), and
-  the built presentation is *proved* rate-free (`zeta3_presentation_overtakes`,
-  overtake at layer 9).  Open: the e-grade upgrade — the reduced presentation
-  (`2·lcm³·bₙ`) is rate-carrying but needs the two classical Apéry arithmetic
-  inputs (reduced-numerator integrality; `lcm(1..n) < 3ⁿ`), then
-  `rate_total_modulus` gives `zeta3HolonomicReal` unconditionally.
+- `zeta3_free_modulus` / `zeta3_blueprint` / `zeta3_wz/` — **ζ(3): built fold →
+  free total modulus**.  Fold closed (`Real213/Zeta3Cut`, 35 PURE).  The two
+  classical Apéry inputs are now largely discharged ∅-axiom:
+  **I2 (lcm race)** CLOSED — `LcmBoundMain.lcmUpTo_le` (`lcm(1..n) ≤ 10^{15⌈n/30⌉}
+  ≈ √10ⁿ < 3.236ⁿ`), the finitized-Chebyshev chain (`count30`, `legendre`,
+  `vp_lcmUpTo`, `key_divisibility`, `step3`–`main`).
+  **I1 (integrality)** — Brick 2 KeyDiv (`keydiv`) + Heart (`heart`) + engines
+  (`heart_lcm`, `cube_dvd_lcm_cube`) PURE; **the nucleus is CLOSED** —
+  `AperyRecurrence.apery_recurrence` (Apéry's recurrence for `Bₙ=ΣC(n,k)²C(n+k,k)²`,
+  the WZ identity, 45 PURE), and **`Zeta3Apery.zeta3Den_eq`** (`zeta3Den n=(n!)³B(n)`,
+  the denominator orbit↔sum bridge).
+  **Open (the remaining half)**: numerator integrality `(n!)³ ∣ 2lcm³·zeta3Num n`
+  — the harmonic-kernel Apéry numerator, **no clean WZ certificate** (the explicit
+  Apéry kernel telescoping route).  First piece landed (`Zeta3Numerator.
+  harmonic_part_recurrence`).  Full roadmap + de-risking in `zeta3_wz/numerator_plan.md`.
+  Then piecewise `(c,p,q)` + `htel` ⟹ `zeta3HolonomicReal` unconditional.
 - **async point–line system ≅ Raw** — CLOSED ∅-axiom (full 8-item agenda,
   74 PURE) and promoted → `theory/math/foundations/async_growth.md`
   (origin: `seed/ORIGIN_RAW.md`; note archived at

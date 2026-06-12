@@ -8,8 +8,7 @@ import E213.Meta.Nat.PolyNatMTactic
 # AperyRecurrence — the binomial Apéry numbers `Bₙ = Σ_k C(n,k)²C(n+k,k)²`
 
 The denominator Apéry numbers as an explicit binomial sum (manifestly `ℕ`).  The
-**nucleus** of the ζ(3) program (see `research-notes/frontiers/zeta3_blueprint.md`,
-"THE NUCLEUS") is the recurrence
+**nucleus** of the ζ(3) program is the recurrence
 
   `(j+2)³·B(j+2) + (j+1)³·B(j) = aperyLead(j)·B(j+1)`,   `aperyLead j = 34j³+153j²+231j+117`
 
