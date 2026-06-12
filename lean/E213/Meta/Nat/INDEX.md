@@ -66,7 +66,10 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
                              prime-exponent vectors with `×`=`vecAdd`,
                              `^`=`vecSmul` (`toVec_mul`/`toVec_pow`), faithful
                              (`toVec_faithful`) + finite-support; a **setoid**
-                             (`vecEq`, no funext).  Realises frontier D′
+                             (`vecEq`, no funext).  Flat `^` (`vp_pow_geodesic`,
+                             constant increment) vs curved `↑↑` (`toVec_tetration`/
+                             `vp_tetration_curved`, scalar = tower-value) = the
+                             holonomy boundary.  Realises frontier D′
   - `StrictLocate213.lean` — the strict locating primitive: `a<e<a+2 →
                              e=a+1` (`locate_strict`); founding identity
                              needs strict `<`, not `≤` (which contains `=`)
