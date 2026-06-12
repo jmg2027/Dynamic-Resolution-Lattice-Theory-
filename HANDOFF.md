@@ -108,7 +108,30 @@ Brick 2 = `2·lcm(1..n)³·aₙ ∈ ℕ`, "pure divisibility chains, NO p-adics"
     double identity `C(n,k)C(n+k,k)C(k,m)² = C(n,m)C(n+m,m)C(n−m,k−m)C(n+k,n+m)`
     (additive form `n=m+a+b,k=m+b`; both sides clear by `a!(m!)²(b!)²` to
     `(2m+a+2b)!` via telescoping `choose_mul_factorials`).
-  * **§2 KeyDiv** (next) — `m·C(k,m) ∣ lcm(1..k)`.  Route (no primes): the
+  * **§2 KeyDiv** (IN PROGRESS, `AperyIntegrality.lean` §2–§3 — 14 PURE atoms built)
+    — `m·C(k,m) ∣ lcm(1..k)` via `FD(m,s) := Σ_{j≤s}(−1)ʲC(s,j)·Qex m s j = s!`.
+    **Built**: `rprod` (rising factorial) + `rprod_front/back/one/pos`; `Qex m s j =
+    rprod m j·rprod (m+j+1)(s−j)` (= `Π_{i∈[0,s],i≠j}(m+i)`) + **`Qex_back`**
+    (`Qex m (s+1) j = (m+s+1)Qex m s j`, `j≤s`), **`Qex_front`** (`Qex m (s+1)(j+1) =
+    m·Qex (m+1) s j`), `Qex_self` (`Qex m s s = rprod m s`); even/odd sums
+    **`fdPos/fdNeg m s = Σ_{j even/odd,≤s} C(s,j)Qex m s j`** + base (`fdPos m 0=1,
+    fdNeg m 0=0`).
+    **REMAINING — the recurrence system** `(P) fdPos(m,s+1)=(m+s+1)fdPos(m,s)+
+    m·fdNeg(m+1,s)`, `(N) fdNeg(m,s+1)=(m+s+1)fdNeg(m,s)+m·fdPos(m+1,s)`.
+    **Fully-derived additive proof of (P)** (no Nat subtraction): `sumTo_split_first`
+    peels `j=0`: `fdPos(m,s+1) = g 0 + Σ_j g(j+1)`, `g 0 = (m+s+1)·Qex m s 0`
+    (`Qex_back`, `C(s+1,0)=1`); pointwise `g(j+1) = m·[j%2=1]C(s,j)Qex(m+1)s j +
+    (m+s+1)·[(j+1)%2=0]C(s,j+1)Qex m s(j+1)` (Pascal `choose_succ_succ` + `Qex_front`
+    on the `C(s,j)` part, `Qex_back` on the `C(s,j+1)` part; the `(j+1)%2=0`-case needs
+    a sub-case `j+1≤s` vs `j=s` where `C(s,s+1)=0` & `Qex_self`+`rprod_front`);
+    `sumTo_add_func` ⟹ `Σ g(j+1) = m·fdNeg(m+1,s) + (m+s+1)·S2`, and `S2 + Qex m s 0
+    = fdPos(m,s)` (`sumTo_split_first`, the `j=s` term of `S2` is 0).  Then induction
+    `fdPos = s! + fdNeg` (from (P)−(N), the `fdNeg` terms cancel: `(m+s+1)s!−m·s!=
+    (s+1)!`).  **CAVEAT**: pure mod-2 needed — `Nat.{mod_two_eq_zero_or_one,add_mod}`
+    carry propext; build `(j+1)%2=0 ↔ j%2=1` from `Nat.mod_lt`+`div_add_mod_pure`.
+    Then KeyDiv from FD via the lcm combination (next).
+    --- (original route note) ---
+    Route (no primes): the
     finite-difference identity `FD(m,s) := Σ_{j≤s}(−1)ʲC(s,j)·Π_{i≠j}(m+i) = s!`.
     **Clean recurrence derived** (de-risks the build): from the partial-fraction
     telescoping `T(m,s+1)=T(m,s)−T(m+1,s)` (`T(m,s)=Σⱼ(−1)ʲC(s,j)/(m+j)=s!/Π(m..m+s)`,
