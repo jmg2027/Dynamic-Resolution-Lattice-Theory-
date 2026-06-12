@@ -598,4 +598,99 @@ theorem natPlus_enum_unique (g : Nat → Nat)
   have hstep : g n - 1 + 1 = n + 1 := congrArg (· + 1) hfn
   rwa [E213.Tactic.NatHelper.sub_one_add_one hne] at hstep
 
+/-! ### Every layer, 0-free on ℕ⁺
+
+The remaining tower theorems above are stated over `Nat` (with `0`) as the
+underlying arithmetic.  Here is each layer's statement made genuinely ℕ⁺ —
+positivity carried, `0` never used in the conclusion:
+
+  - **order normal form** — `monotone_eq_first_add_psum_gap` reconstructs
+    any monotone `f`; `monotone_pos` certifies `1 ≤ f n` once `1 ≤ f 0`, so
+    the reconstruction lives in ℕ⁺;
+  - **order "others exist"** — `triPos` (= `tri + 1`) is a strictly
+    increasing ℕ⁺-valued, non-affine map (`triPos_pos`,
+    `triPos_strictMono`, `triPos_not_constInterval`);
+  - **constant interval ⟹ affine** — `constInterval_affine` + `affine_pos`
+    (`1 ≤ a ⟹ 1 ≤ affine a d n`);
+  - **first = interval ⟹ scaling / the (ℕ⁺,·) monoid** —
+    `additiveHom_natPlus` is the multiplicative collapse proved **without
+    `0`** (induction from the floor `1`, not the additive identity);
+    `mul_natPlus_pos`, `scale_comp_natPlus`, `scale_id_natPlus` realise the
+    multiplicative monoid `(ℕ⁺, ·, 1)` acting on ℕ⁺ values;
+  - **rigidity** — `natPlus_enum_unique` (above). -/
+
+/-- Monotone from a ℕ⁺ floor stays in ℕ⁺: `1 ≤ f 0 ⟹ 1 ≤ f n`. -/
+theorem monotone_pos (f : Nat → Nat) (h0 : 1 ≤ f 0)
+    (hmono : ∀ n, f n ≤ f (n + 1)) : ∀ n, 1 ≤ f n := by
+  intro n
+  induction n with
+  | zero => exact h0
+  | succ k ih => exact Nat.le_trans ih (hmono k)
+
+/-- An affine map with positive first term stays in ℕ⁺. -/
+theorem affine_pos (a d n : Nat) (ha : 1 ≤ a) : 1 ≤ affine a d n :=
+  Nat.le_trans ha (Nat.le_add_right a (d * n))
+
+/-- **Multiplicative collapse on ℕ⁺ — no `0`.**  A map additive on ℕ⁺
+    (`F (a+b) = F a + F b` for `a, b ≥ 1`) is `F n = F 1 · n`.  Proved by
+    induction from the floor `1` — the `f 0 = 0` step of `additiveHom_is_mul`
+    is not available on ℕ⁺ and not needed. -/
+theorem additiveHom_natPlus (F : Nat → Nat)
+    (hadd : ∀ a b, 1 ≤ a → 1 ≤ b → F (a + b) = F a + F b) :
+    ∀ n, 1 ≤ n → F n = F 1 * n := by
+  intro n
+  induction n with
+  | zero => intro h; exact absurd h (Nat.not_succ_le_zero 0)
+  | succ k ih =>
+      intro _
+      cases k with
+      | zero =>
+          show F 1 = F 1 * 1
+          rw [Nat.mul_one]
+      | succ j =>
+          have hk1 : 1 ≤ j + 1 := Nat.succ_le_succ (Nat.zero_le j)
+          have hrec : F ((j + 1) + 1) = F (j + 1) + F 1 :=
+            hadd (j + 1) 1 hk1 (Nat.le_refl 1)
+          rw [hrec, ih hk1, Nat.mul_succ (F 1) (j + 1)]
+
+/-- Multiplication by `d ≥ 1` keeps ℕ⁺ values in ℕ⁺. -/
+theorem mul_natPlus_pos (d v : Nat) (hd : 1 ≤ d) (hv : 1 ≤ v) : 1 ≤ d * v :=
+  Nat.mul_pos hd hv
+
+/-- The `(ℕ⁺,·)` action composes: `(×d) ∘ (×d') = ×(d·d')`. -/
+theorem scale_comp_natPlus (d d' v : Nat) : d * (d' * v) = (d * d') * v :=
+  (E213.Meta.Nat.PureNat.mul_assoc d d' v).symm
+
+/-- `×1` is the unit of the `(ℕ⁺,·)` action. -/
+theorem scale_id_natPlus (v : Nat) : 1 * v = v := Nat.one_mul v
+
+/-- ℕ⁺ witness that the order layer admits non-affine maps: `tri + 1`. -/
+def triPos (n : Nat) : Nat := tri n + 1
+
+/-- `triPos` is ℕ⁺-valued. -/
+theorem triPos_pos (n : Nat) : 1 ≤ triPos n := Nat.le_add_left 1 (tri n)
+
+/-- `triPos` preserves order (strict order-embedding on ℕ⁺). -/
+theorem triPos_strictMono {m n : Nat} (h : m < n) : triPos m < triPos n :=
+  Nat.add_lt_add_right (tri_strictMono h) 1
+
+/-- One step of `triPos` adds `n + 1` (same non-constant gaps as `tri`). -/
+theorem triPos_step (n : Nat) : triPos (n + 1) = triPos n + (n + 1) := by
+  show tri n + (n + 1) + 1 = tri n + 1 + (n + 1)
+  rw [Nat.add_right_comm]
+
+/-- **`triPos` has no constant interval** — a ℕ⁺-valued order-embedding
+    outside the affine family.  "그 외가 있다", entirely on ℕ⁺. -/
+theorem triPos_not_constInterval :
+    ¬ ∃ d, ∀ n, triPos (n + 1) = triPos n + d := by
+  intro h
+  obtain ⟨d, hd⟩ := h
+  have e0 : triPos 0 + 1 = triPos 0 + d := by
+    have h0 := hd 0; rw [triPos_step 0] at h0; exact h0
+  have hd1 : d = 1 := (E213.Tactic.NatHelper.add_left_cancel e0).symm
+  have e1 : triPos 1 + 2 = triPos 1 + d := by
+    have h1 := hd 1; rw [triPos_step 1] at h1; exact h1
+  rw [hd1] at e1
+  exact Nat.noConfusion (Nat.succ.inj (E213.Tactic.NatHelper.add_left_cancel e1))
+
 end E213.Lens.Number.Nat213
