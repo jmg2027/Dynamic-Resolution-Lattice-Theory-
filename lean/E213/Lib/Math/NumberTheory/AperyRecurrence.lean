@@ -428,4 +428,69 @@ theorem redid_eq {j k : Nat} (h : k ≤ j + 2) :
       simp only [Nat.mul_zero, Nat.zero_mul, Nat.add_zero, Nat.zero_add]
       ring_nat
 
+/-- ★★★ **The per-`k` WZ identity** (the cleared telescoping summand, all-ℕ):
+    `(j+1)²(j+2)²[(j+2)³a(j+2,k)+(j+1)³a(j,k)] + Gmag(j,k+1)
+       = (j+1)²(j+2)²·aperyLead(j)·a(j+1,k) + Gmag(j,k)`.
+    Both sides `= W · (reduced)` via `R0/R1/R2/G1`; then `redid_eq` (`k≤j+2`) or
+    `W=0` (`k>j+2`). -/
+theorem per_k (j k : Nat) :
+    ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+        * (((j + 2) * (j + 2) * (j + 2)) * aperySummand (j + 2) k
+            + ((j + 1) * (j + 1) * (j + 1)) * aperySummand j k)
+      + Gmag j (k + 1)
+    = ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)) * aperyLead j * aperySummand (j + 1) k
+      + Gmag j k := by
+  have hL :
+      ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+          * (((j + 2) * (j + 2) * (j + 2)) * aperySummand (j + 2) k
+              + ((j + 1) * (j + 1) * (j + 1)) * aperySummand j k)
+        + Gmag j (k + 1)
+      = Wfac j k *
+          ((j + 2) * (j + 2) * (j + 2) * ((j + k + 1) * (j + k + 1)) * ((j + k + 2) * (j + k + 2))
+            + (j + 1) * (j + 1) * (j + 1) * ((j + 2 - k) * (j + 2 - k)) * ((j + 1 - k) * (j + 1 - k))
+            + 4 * (2 * j + 3) * Qpoly j (k + 1) * ((j + 2 - k) * (j + 2 - k))
+                * ((j + k + 1) * (j + k + 1))) := by
+    calc ((j + 1) * (j + 1)) * ((j + 2) * (j + 2))
+            * (((j + 2) * (j + 2) * (j + 2)) * aperySummand (j + 2) k
+                + ((j + 1) * (j + 1) * (j + 1)) * aperySummand j k)
+          + Gmag j (k + 1)
+        = ((j + 2) * (j + 2) * (j + 2))
+              * (aperySummand (j + 2) k * ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)))
+            + ((j + 1) * (j + 1) * (j + 1))
+              * (aperySummand j k * ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)))
+            + Gmag j (k + 1) := by ring_nat
+      _ = ((j + 2) * (j + 2) * (j + 2))
+              * (Wfac j k * ((j + k + 1) * (j + k + 1)) * ((j + k + 2) * (j + k + 2)))
+            + ((j + 1) * (j + 1) * (j + 1))
+              * (Wfac j k * ((j + 2 - k) * (j + 2 - k)) * ((j + 1 - k) * (j + 1 - k)))
+            + Gmag j (k + 1) := by rw [R2, R0]
+      _ = ((j + 2) * (j + 2) * (j + 2))
+              * (Wfac j k * ((j + k + 1) * (j + k + 1)) * ((j + k + 2) * (j + k + 2)))
+            + ((j + 1) * (j + 1) * (j + 1))
+              * (Wfac j k * ((j + 2 - k) * (j + 2 - k)) * ((j + 1 - k) * (j + 1 - k)))
+            + 4 * (2 * j + 3) * Qpoly j (k + 1) * ((j + 2 - k) * (j + 2 - k))
+                * ((j + k + 1) * (j + k + 1)) * Wfac j k := by rw [G1]
+      _ = _ := by ring_nat
+  have hR :
+      ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)) * aperyLead j * aperySummand (j + 1) k + Gmag j k
+      = Wfac j k *
+          (aperyLead j * ((j + 2 - k) * (j + 2 - k)) * ((j + k + 1) * (j + k + 1))
+            + 4 * (k * k * k * k) * (2 * j + 3) * Qpoly j k) := by
+    calc ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)) * aperyLead j * aperySummand (j + 1) k + Gmag j k
+        = aperyLead j * (aperySummand (j + 1) k * ((j + 1) * (j + 1)) * ((j + 2) * (j + 2)))
+            + Gmag j k := by ring_nat
+      _ = aperyLead j * (Wfac j k * ((j + 2 - k) * (j + 2 - k)) * ((j + k + 1) * (j + k + 1)))
+            + Gmag j k := by rw [R1]
+      _ = aperyLead j * (Wfac j k * ((j + 2 - k) * (j + 2 - k)) * ((j + k + 1) * (j + k + 1)))
+            + 4 * (k * k * k * k) * (2 * j + 3) * Qpoly j k * Wfac j k := by
+          rw [show Gmag j k = 4 * (k * k * k * k) * (2 * j + 3) * Qpoly j k * Wfac j k from rfl]
+      _ = _ := by ring_nat
+  rw [hL, hR]
+  rcases Nat.lt_or_ge k (j + 2 + 1) with hle | hgt
+  · rw [redid_eq (Nat.le_of_lt_succ hle)]
+  · have hw : Wfac j k = 0 := by
+      unfold Wfac
+      rw [choose_eq_zero_of_lt (j + 2) k hgt, show (0 : Nat) * 0 = 0 from rfl, Nat.zero_mul]
+    rw [hw, Nat.zero_mul, Nat.zero_mul]
+
 end E213.Lib.Math.NumberTheory.AperyRecurrence
