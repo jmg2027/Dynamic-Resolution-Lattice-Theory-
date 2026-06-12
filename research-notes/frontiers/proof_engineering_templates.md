@@ -196,6 +196,38 @@ and its `RawBy cmp` variant; the p-adic `Zp.unit0_decidable` is the one notable 
 non-finite `Decidable`.  So decidability has exactly three sources: hand-write it once for
 `Raw`, `deriving` it for data types (80), or transfer it from `Fin n` for finite structures.
 
+## Part VIII — capstone locality, and the per-layer reshape signature
+
+**Capstones are local bundles, not cross-file synthesis.**  Of the capstone callers with
+internal lemma-cites (call graph), **18 are local bundles (≥ 60 % same-namespace cites) vs 3
+cross-file synthesis**, mean same-namespace-cite fraction **0.82**.  So the ★★★ capstone
+conjoins the *file's own* results ("the file in one handle", Part VII); genuine cross-file
+*synthesis* capstones are the rare minority — consistent with `theory/INDEX.md`'s note that
+synthesis chapters (e.g. `lens/unified_equivalence`) are the exception, not the rule.
+
+**The reshape signature sharpens the layer-law** (census §3): the amount of *reshaping*
+(`show`/`unfold`) a layer does *before* its closer is inversely proportional to how concrete
+its goals are born.  Per-theorem rates:
+
+| layer | `show`/thm | `unfold`/thm | `decide`/thm | `rfl`/thm | `<;>`/thm | reads as |
+|---|---:|---:|---:|---:|---:|---|
+| Theory | 0.18 | 0.17 | 0.35 | **0.68** | 0.08 | **unfold Raw + definitional `rfl`** |
+| Lens | 0.39 | 0.10 | 0.46 | 0.55 | 0.10 | balanced structural |
+| Meta | **0.63** | 0.00 | 0.15 | 0.51 | 0.01 | **reshape-heavy, decide-light** (the `show→rw` algebra engine) |
+| Lib/Math | 0.47 | 0.04 | 1.02 | 0.51 | 0.11 | balanced (≈1 `decide`/thm) |
+| Lib/Physics | 0.06 | 0.02 | **1.71** | 0.28 | 0.15 | **pure `decide`, no reshape** (goals born concrete) |
+
+So each layer has a distinct *reshape→close fingerprint*: **Physics** goals are born concrete
+`Nat` (the atomic-bracket archetype, Part V) so they `decide` directly with almost no `show`
+(0.06) — and at 1.71 `decide`/thm, *several* decides per theorem (the bracket + atomic-source
++ simplicial capstone pattern).  **Meta** goals need constant reshaping into defeq form
+(`show` 0.63, the highest) and then `rfl` — it is the algebra engine room (census §3), so it
+reshapes rather than decides (`decide` 0.15, the lowest; `unfold` 0.00 — it works on already-
+unfolded `Int213`/`Nat` terms).  **Theory** unfolds Raw definitions (`unfold` 0.17) and closes
+by definitional `rfl` (0.68, the highest).  The closer (`decide` vs `rfl`) and the reshaper
+(`show`/`unfold`) together are a per-layer signature — the template specialises to the
+concreteness of each layer's goals.
+
 ## The one-line synthesis
 
 > 213 is engineered so that **truth is computation**: objects are Bool-valued and
