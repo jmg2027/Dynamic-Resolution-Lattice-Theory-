@@ -470,6 +470,24 @@ theorem prime_dvd_central_binom {p n : Nat} (hp : IsPrime213 p) (hlt : n < p)
     (le_vp_iff p (binom (2 * n) n) 1 hp.two_le hbpos).mpr hge1
   rwa [Nat.pow_one] at hdvd
 
+/-- **A prime not in a list of primes does not divide their product** (the
+    coprimality core for `∏_{n<p≤2n} p ∣ C(2n,n)`).  `euclid_lemma` + a prime
+    dividing a prime forces equality. -/
+theorem prime_not_dvd_listProd {p : Nat} (hp : IsPrime213 p) :
+    ∀ {ps : List Nat}, (∀ q, q ∈ ps → IsPrime213 q) → p ∉ ps → ¬ p ∣ listProd ps := by
+  intro ps
+  induction ps with
+  | nil => intro _ _ h; exact not_dvd_one hp.two_le h
+  | cons q rest ih =>
+      intro hps hpmem h
+      rcases euclid_lemma hp h with h1 | h2
+      · have hq : IsPrime213 q := hps q (List.Mem.head rest)
+        rcases hq.2 p h1 with hp1 | hpq
+        · exact absurd (hp1 ▸ hp.two_le) (by decide)
+        · subst hpq; exact hpmem (List.Mem.head rest)
+      · exact ih (fun r hr => hps r (List.Mem.tail q hr))
+          (fun hm => hpmem (List.Mem.tail q hm)) h2
+
 /-- **Infinitude of primes** (Euclid).  For every `N` there is a prime `> N`:
     a prime factor of `N! + 1` cannot be `≤ N` (it would divide both `N!` and
     `N! + 1`, hence `1`). -/
