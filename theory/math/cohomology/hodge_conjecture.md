@@ -164,7 +164,7 @@ non-vacuous lift lives on the **T² minimal CW substrate**:
 - `Pairing/HodgeRiemannT2.lean` — Kähler class ω with cup(ω, ω) > 0
 - Both with explicit signature decomposition
 
-These were the 2026-05 follow-up closures of post-Hodge programme Phase 2.
+These close the post-Hodge programme's second stage.
 
 ### 5. Motivic + Cross-discipline bridges
 
