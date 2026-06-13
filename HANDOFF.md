@@ -73,9 +73,12 @@ grouping done inductively by peeling full `p`-powers, no product-FTA object) +
 `central_binom_le_pow_primePi`.  **Both halves of Chebyshev's theorem
 `c·N/ln N ≤ π(N) ≤ C·N/ln N` are now ∅-axiom.**  In `CAPSTONE_INDEX.md`.
 
-**Next** (no open ∅-axiom step on this trajectory): the Chebyshev frontier is
-promotion-eligible (→ `theory/`).  Remaining horizons: PNT proper `~N/ln N`
-(constant 1, a `Real213` pointing); cross-check vs the lcm-growth route
+**Promoted** → `theory/math/numbertheory/chebyshev_prime_counting.md` (whole arc:
+upper bound + density cut + lower bound); registered in `theory/math/INDEX`; closed
+`chebyshev_lower_bound` frontier archived → `research-notes/archive/chebyshev/`.
+
+**Next** (no open ∅-axiom step on this trajectory): remaining horizons are PNT
+proper `~N/ln N` (constant 1, a `Real213` pointing) and the lcm-growth cross-check
 (`LcmGrowthChebyshev`).  Or pick a fresh field via the autonomous-research menu.
 
 ## Prior session (n-plus-signature-mappings branch)
