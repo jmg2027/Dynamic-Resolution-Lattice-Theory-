@@ -74,7 +74,7 @@ dim.  Non-vacuous Adem/Cartan require complex extensions.
 
 ## The Steenrod-Whitehead bridge `cup_1(ω, ω) = δ²(ω)`
 
-The structurally most important identity proved in the marathon:
+The structurally most important identity:
 
 ```
 Sq¹(ω)(σ³) = (ω ⌣_1 ω)(σ³)
@@ -200,10 +200,10 @@ The framework's TRUNCATION-DEPENDENT bound is structural; the
 PER-LAYER COUPLING `α/d` decomposition assumes the 5-layer base
 structure of 213; the `(k+1) = filtration + top eval`
 decomposition is a structural posit (not derived from a deeper
-axiom).  The marathon DERIVED the bound `max α-power = top dim + 1`
+axiom).  The derivation gives the bound `max α-power = top dim + 1`
 from cohomology axioms but `(k+1)` itself remains a structural
 identification rather than a first-principles theorem.
 
 The framework's COMPLETION at non-vacuous higher-cup operations
 (general cup_i, non-vacuous Adem, Cartan with non-trivial output)
-remains the continuing multi-session marathon scope.
+remains open scope.

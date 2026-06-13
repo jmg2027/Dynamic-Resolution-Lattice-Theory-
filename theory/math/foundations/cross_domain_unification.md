@@ -112,7 +112,7 @@ constructions, they are 9 instantiations of one graded ring.
 
 Per Mingu's framing (chiral cup ring catalog §4 C6): *"closing C6 would be the final
 structural confirmation that 213-Algebra is internally coherent —
-the four marathon domains and the cup-ring core are facets of one
+the four domains and the cup-ring core are facets of one
 mathematical object, not parallel constructions."*
 
 ## Key results

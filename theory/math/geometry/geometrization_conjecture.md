@@ -380,4 +380,4 @@ open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
 ```
 
 the chapter stays active per Pattern 3 (mixed-status): chapter handles R1
-closure, dim-4 self-pointing closure hosts the open marathon front.
+closure, dim-4 self-pointing closure hosts the open research front.

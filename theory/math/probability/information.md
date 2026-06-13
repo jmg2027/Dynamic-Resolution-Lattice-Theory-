@@ -1,6 +1,6 @@
 # Information 213
 
-**Status**: Closed (8 files; marathon-completed).
+**Status**: Closed (8 files).
 
 ## Overview
 

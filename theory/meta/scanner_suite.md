@@ -187,7 +187,7 @@ that the scanners surfaced have all been resolved:
     `sigmaList` over `List` in `Meta.Tactic.ListHelper`, the
     `DescentBase N` parametric for √N infinite descent, and the
     `bool_or_ladder_iff_with_pack` composer in `BoolOrLadder`.
-  · Mid-marathons that initially looked open turned out to be
+  · Mid-investigations that initially looked open turned out to be
     substantively closed already (4-sibling Leibniz collapse with
     α / β parametric helpers + four thin corollaries; CutSumOne
     3-component `cutSum_constCut_at` template + eight sibling

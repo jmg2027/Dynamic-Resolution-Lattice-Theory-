@@ -350,7 +350,7 @@ Two instances close the chapter:
 
 This single typeclass subsumes the three exploratory variants
 (`HasDistinguishingU`, `HasDistinguishingW`, `HasDistinguishingWFull`)
-that the marathon used to find the right shape.
+that preceded the unified form.
 
 ### II.6 Raw topology bookends + Bool213
 

@@ -107,7 +107,7 @@ them in two distinct hierarchies, meeting only at realizability models.  Claimin
 
 ## Research-note provenance
 
-Marathon field 17 (`blueprints/math/17_reverse_math_213.md`); readable book
+Field 17 (`blueprints/math/17_reverse_math_213.md`); readable book
 `books/math/reverse-math-213.md`; methodology essay
 `theory/essays/methodology/the_omniscience_ledger.md`.  No open field-17 source
 note remains in `research-notes/`.

@@ -131,4 +131,4 @@ resolution dimension `d = 5`.
   via `TelescopingConservation.lean` (6 PURE) above.
 - ~~MVT chain at higher depth (d-depth-5)~~ — CLOSED via
   `QuintupleTelescope.lean` (3 PURE) above.
-- Per marathon deferred-items log REAL-RES4 follow-ups in deeper FluxMVT analysis.
+- Deferred REAL-RES4 follow-ups in deeper FluxMVT analysis.

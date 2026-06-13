@@ -772,7 +772,7 @@ a step down the other.
 
 ## Appendix B — Lean File Cross-Reference
 
-### B.1 GRA sub-tree (post-Marathon 16, primary)
+### B.1 GRA sub-tree (primary)
 
 | Book Section | Lean Module | Content |
 |---|---|---|

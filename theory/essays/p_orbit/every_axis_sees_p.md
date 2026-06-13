@@ -169,7 +169,7 @@ indices) provides the structural *lifting* of P: every CD-
 doubled algebra at every layer inherits P-signature data via
 the universal transient law `rat_{n+3} = 14·rat_{n+2} - 56·
 rat_{n+1} + 64·rat_n + d_Type` with eigenvalues `(2, 4, 8)`.
-Marathon 4's `cd_mobius_bridge_master` formalises this for
+Arc 4's `cd_mobius_bridge_master` formalises this for
 rank 1 and rank 2.
 
 The "viewer-independence at the writing level" the user's

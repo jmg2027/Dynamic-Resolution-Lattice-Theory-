@@ -491,8 +491,7 @@ enumeration over the (α, β) parameter space.
 
 ## Pattern #8 — `Int.NonNeg` constructor inversion bypasses Int-ordering propext
 
-**Discovered**: 2026-05-22 session 2 (6-theorem marathon, Diophantine
-completeness sub-task).
+**Context**: the Diophantine-completeness sub-task.
 
 ### Problem
 
@@ -789,7 +788,7 @@ parallel:
   · **meta branch** — pattern surfacing, scanner tooling, research
     notes.  No PURE theorems added on this side; analysis only.
   · **substantive branch** — PURE theorem additions, abstraction
-    execution, math marathons.
+    execution, math derivations.
 
 The two branches communicate via handshake notes in
 `research-notes/` (volatile tier), each referencing the items it

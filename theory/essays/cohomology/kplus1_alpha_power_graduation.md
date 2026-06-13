@@ -105,8 +105,7 @@ answering it.  General Steenrod cup_i for arbitrary `i ≥ 2` with
 the full Alexander-Whitney face-pair formula, non-vacuous Adem
 and Cartan formulas at higher-skeleton extensions, and extension
 to non-`K_{3,2}^{(c=2)}` cohomology complexes carrying different
-physical observables — all remain the continuing multi-session
-marathon.  The framework's TRUNCATION-DEPENDENT bound is proved;
+physical observables — all remain open.  The framework's TRUNCATION-DEPENDENT bound is proved;
 its full Steenrod-algebra closure is not.
 
 The thing you can point at: `cup_1(ω, ω) σ³ = δ²(ω) σ³ = 1`.

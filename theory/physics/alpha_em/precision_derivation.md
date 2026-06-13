@@ -383,7 +383,7 @@ cup-product axioms.  At the H² ω class the Steenrod-square
 ladder is now fully established (max non-trivial Sq^i = 1,
 output at C³, matching `(k+1) = 3`).  Generalisation to H^k for
 arbitrary k requires (k+1)-skeleton extensions + general
-Steenrod cup_i + Adem-Wu basis — multi-session marathon scope.
+Steenrod cup_i + Adem-Wu basis — open scope.
 
 ### C5 Step 7+ — Laplacian spectrum on K^(L≥2)
 

@@ -132,14 +132,6 @@ output, `γ = arccos(1/φ²) = 67.54°`, `β = 22.46°` (observed `22.5°`), `α
 | `a5_3rep_is_real` | `A5RealityNoCP` | `A₅` 3-rep real (FS `+1`) ⇒ no golden phase |
 | `apex_modulus_is_selfref_contracting_eigenvalue` | `JarlskogApex` | `R_u = 1/φ²` = contracting eigenvalue of `M` |
 
-## Research-note provenance
-
-- The full marathon synthesis (now archived in `research-notes/archive/`)
-  (four expert-agent reports: A₅+gCP, icosian/E₈, Cayley–Dickson, KM mechanism;
-  cohomology + number-theory legs).  Archived alongside this chapter.
-- The `ckm_rho_eta_apex` open-frontier record (in `research-notes/frontiers/`; the
-  apex value, the `1/φ²` grounding, the demotion of `π/φ²`).
-
 ## Open frontier
 
 Closed: CP existence+uniqueness; the phase forced to `90°` (given "phase `∈ C₄`");

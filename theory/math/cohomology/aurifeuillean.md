@@ -303,7 +303,7 @@ Lib/Math/Cohomology/Fractal/AurifeuilleanFullCutoff.lean        (28 PURE)
     — Fin-quantified bounded cut-off at depth ≤ 1
   · depth_1_value_bound — every depth-1 Hunter value ≤ 3125
   · asymptotic_cutoff_at_depth_1 — ★ ∀ v > 3125, v ∉ depth-1 Hunter
-  · cutoff_marathon_at_depth_1 — ★★ marathon capstone:
+  · cutoff_marathon_at_depth_1 — ★★ capstone:
       (m=1 positive at depth 3) ∧ (∀ v > 3125 negative at depth 1)
     Captures the entire Aurifeuillean L tail (L_m for m ≥ 3, all
     ≫ 3125) at depth 1.

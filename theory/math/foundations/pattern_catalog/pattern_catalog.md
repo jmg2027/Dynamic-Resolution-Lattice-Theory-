@@ -67,7 +67,7 @@ Other sub-trees cite the catalog rather than reinventing patterns:
 - `Lib/Math/Algebra/CayleyDickson/` instantiates `Algebra` for CD-doubling
 - `Lib/Physics/AlphaEM/` uses `CrossAxis` for NS × NT decompositions
 - `Lib/Math/Cohomology/` uses `Span` for cup-product spans
-- Marathon domain capstones use `Instance` for the paradigm
+- Domain capstones use `Instance` for the paradigm
   typeclass scaffolding (companion to C6 cross-domain unification)
 
 ## Key results

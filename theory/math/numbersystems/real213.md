@@ -68,7 +68,7 @@ is `cutEq`: same lower set.
   addition by elementwise sum on representative dyadic brackets.
   Closure-form: bracket(a + b, n) ⊂ bracket(a, n) + bracket(b, n)
   with explicit modulus.  BoolOrLadder is a generic ladder template
-  for bool-or sums (REAL-2 per marathon deferred-items log).
+  for bool-or sums (REAL-2 deferred-items).
 - **`cutMul`** (Mul/,):
   multiplication via 4-quadrant case decomposition (sign of a, sign
   of b).  CutMulOuterReduce is the outer-reduce refactor enabling

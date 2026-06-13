@@ -1,6 +1,6 @@
 # Combinatorics 213
 
-**Status**: Closed (7 files; marathon-completed; blueprint retired).
+**Status**: Closed (7 files).
 
 ## Overview
 

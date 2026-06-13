@@ -120,7 +120,7 @@ than the input cohomology degree.
 
 ## The Steenrod-Whitehead bridge: cup_1(ω, ω) = δ²(ω)
 
-The marathon's structurally most striking identity:
+The structurally most striking identity:
 
       face_cup_1(ω, ω) = δ²(ω)
 

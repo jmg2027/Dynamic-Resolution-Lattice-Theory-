@@ -1,6 +1,6 @@
 # Logic 213
 
-**Status**: Closed (5 files; marathon-completed; blueprint retired).
+**Status**: Closed (5 files).
 
 ## Overview
 

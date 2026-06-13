@@ -4,8 +4,7 @@ Reusable architectural patterns for closing sequence-level
 identities in PURE Lean (∅-axiom, no Mathlib, no propext / Quot.sound
 / Classical / native_decide / funext).
 
-Crystallized during the Math — Algebra / Analysis marathon
-(2026-05; branch `claude/math-algebra-analysis-marathon-*`).
+Crystallized in the Math Algebra / Analysis work.
 External LLM (Gemini Pro) consultation surfaced the four patterns
 in response to a 5-blocker advice prompt; each was implemented in
 Lean directly, all PURE.
@@ -176,4 +175,4 @@ python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Padic.NegInvolutionPres
 
   · `theory/essays/methodology/pure_funext_avoidance.md` (essay-side narrative)
   · This chapter (catalog-side reference)
-  · `HANDOFF.md` (current marathon state)
+  · `HANDOFF.md` (current session state)

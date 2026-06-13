@@ -28,7 +28,7 @@ most forced "discoveries".
   polymorphic), `Ring213` (59+ instances).
 - **β — cross-domain conceptual unification — rare.**  Two *independently
   motivated* phenomena turning out to share one mechanism.  Across the
-  slot-tower marathon, commutativity, and the regularity ceilings, only
+  slot-tower work, commutativity, and the regularity ceilings, only
   **`OrderWrap`** (ℤ-order ⟷ mod-`p` wrap, via a successor structure + orbit)
   and **`HyperLadder`** (`+,×,^` as one `iter`-recursion) genuinely unify.
 

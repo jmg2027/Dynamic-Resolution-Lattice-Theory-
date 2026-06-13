@@ -147,7 +147,7 @@ non-trivial functor rather than the identity map on `Nat`.  This
 is the categorical-enrichment programme, deliberately deferred so the
 five-Reading skeleton would compile and the translation theorems
 would land first.  The depth-level universality is closed; the
-carrier-level universality is the open marathon front.
+carrier-level universality is the open research front.
 
 The narrative chapter `theory/math/algebra/gra_book.md` Ch. 7 lists the
 formalization gaps that would close at carrier enrichment; the

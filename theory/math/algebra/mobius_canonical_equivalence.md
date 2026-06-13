@@ -1,7 +1,7 @@
 # Möbius Canonical Equivalence on Cuts
 
 **Status**: Closed across 5 distinct equality domains + 4
-sequential marathons + 11-domain signature axis catalog
+sequential closure arcs + 11-domain signature axis catalog
 (~26 files, 191 PURE / 0 DIRTY).  Grand unification master at
 `Lib/Math/Mobius213GrandUnification.grand_unification` bundles
 ten distinct readings of `P = [[2,1],[1,1]]`; signature axis
@@ -309,12 +309,12 @@ the canonical Möbius-orbit equivalence is determined by the
 Every framework-internal equality definition factors through the
 appropriate Möbius-orbit reading on its coordinate shape.
 
-## Marathon closures
+## Closure arcs
 
-Four sequential marathons extend the canonical-equivalence work
+Four closure arcs extend the canonical-equivalence work
 along axes that the original closure left open:
 
-  · **Marathon 1** (`cutMulN N` parametric, 14 PURE) —
+  · **Arc 1** (`cutMulN N` parametric, 14 PURE) —
     cut-level forward closure `cutMulN N (constCut a N)
     (constCut c N) m k = true → constCut (a · c) (N · N) m k =
     true` (`Real213/Mul/CutMulN`), plus bundled
@@ -322,19 +322,19 @@ along axes that the original closure left open:
     (`Real213/NValidCutMul`) bypassing the precision artifact
     via direct algebraic numerator + commutativity at the
     bundled level.
-  · **Marathon 2** (K_{3,2}^(c=2) ↔ P state classes, 21 PURE) —
+  · **Arc 2** (K_{3,2}^(c=2) ↔ P state classes, 21 PURE) —
     numerical signature bridge (`Mobius213/Mobius213K32Bridge`)
     identifying every K-graph count (5 vertices, 12 edges,
     6 pairs) with a Möbius P invariant or entry, plus
     categorical state-class structure
     (`Cohomology/Bipartite/Mobius213K32StateClass`) with
     `vertexCount allTrueV = (NS, NT) = Pseq seedZero 2`.
-  · **Marathon 3** (CF ↔ Pseq, 5 PURE) — the standard CF
+  · **Arc 3** (CF ↔ Pseq, 5 PURE) — the standard CF
     [2; 1, 1, 1, ...] convergent recurrence
     `a(n+2) + a(n) = 3 · a(n+1)` realised in Nat form on both
     P-orbits, both components
     (`Real213/Mobius213ContinuedFraction`).
-  · **Marathon 4** (CD-doubling ↔ P iteration, 5 PURE) —
+  · **Arc 4** (CD-doubling ↔ P iteration, 5 PURE) —
     `CayleyDickson/Tower/Mobius213CDBridge` recording that the
     Type C asymptote `(5, −1)` IS `(disc P, Pell unit)` and the
     Type D asymptote `(1, 1)` is two copies of `det P`.
@@ -348,7 +348,7 @@ admits.
 
 ## Signature axis catalog (55 PURE across 11 domains)
 
-Beyond the four marathons, the signature axis catalog
+Beyond the four arcs, the signature axis catalog
 (`Lib/Math/Mobius213SignatureAxisCatalog*`) systematically
 enumerates every framework-internal reading where the atomic
 signature `(NS, NT, det) = (3, 2, 1)` is visible.  Modeled on
