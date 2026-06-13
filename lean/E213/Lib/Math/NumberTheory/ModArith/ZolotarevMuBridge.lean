@@ -24,14 +24,15 @@ open E213.Lib.Math.Algebra.Linalg213.PermClosure (length_iota)
 open E213.Lib.Math.Algebra.Linalg213.PermMatrixDet (permMatrix det_permMatrix)
 open E213.Lib.Math.Algebra.Linalg213.ProdLperm (prodZ)
 open E213.Lib.Math.Algebra.Linalg213.InversionsAppend
-  (revL crossInv diagCount revL_getD revL_length getD_append_left getD_append_right
-   length_append_pure psign_blockForm altSign_crossInv_map_psub sub_one_sub
+  (revL crossInv diagCount revL_getD revL_length
+   psign_blockForm altSign_crossInv_map_psub sub_one_sub
    crossInv_lperm_right revL_lperm)
 open E213.Lib.Math.NumberTheory.ModArith.ZolotarevSign
   (mulPermMod mulPermMod_getD mulPermMod_length mulPermMod_mem_perms)
 open E213.Lib.Math.NumberTheory.ModArith.GaussLemma (seg seg_length sgFn gauss_qr)
 open E213.Tactic.List213 (exists_of_mem_map)
-open E213.Tactic.List213 (list_ext_getD getD_ge getD_map_ib length_map)
+open E213.Tactic.List213 (list_ext_getD getD_ge getD_map_ib length_map
+   length_append getD_append_left getD_append_right)
 open E213.Tactic.NatHelper
   (add_sub_of_le sub_add_cancel add_sub_cancel_right le_sub_of_add_le sub_le_sub_left)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
@@ -108,7 +109,7 @@ theorem mulPermMod_block (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d 
   refine list_ext_getD 0 ?_ ?_
   · rw [mulPermMod_length]
     show p = (fhList a p m ++ (revL (fhList a p m)).map (fun w => p - w)).length + 1
-    rw [length_append_pure, fhList_length, hshlen]; exact hpval
+    rw [length_append, fhList_length, hshlen]; exact hpval
   · intro i
     rcases Nat.lt_or_ge i p with hi | hi
     · rw [mulPermMod_getD a p i hi]
@@ -148,7 +149,7 @@ theorem mulPermMod_block (a p m : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d 
     · rw [getD_ge 0 (by rw [mulPermMod_length]; exact hi),
           getD_ge 0 (show (0 :: (fhList a p m ++ (revL (fhList a p m)).map (fun w => p - w))).length ≤ i from by
             show (fhList a p m ++ (revL (fhList a p m)).map (fun w => p - w)).length + 1 ≤ i
-            rw [length_append_pure, fhList_length, hshlen, ← hpval]; exact hi)]
+            rw [length_append, fhList_length, hshlen, ← hpval]; exact hi)]
 
 /-! ## §3 — the bridge `psign σ_a = altSign (diagCount p fh)` -/
 

@@ -185,6 +185,23 @@ theorem getD_ge {α : Type _} (d : α) :
   | _ :: _, 0, h => absurd h (Nat.not_succ_le_zero _)
   | _ :: t, i + 1, h => getD_ge d (l := t) (Nat.le_of_succ_le_succ h)
 
+/-- `getD` into the left summand of an append (in-bounds index). -/
+theorem getD_append_left {α : Type _} (d : α) :
+    ∀ (A B : List α) (i : Nat), i < A.length → (A ++ B).getD i d = A.getD i d
+  | [],      _, i,     h => absurd h (Nat.not_lt_zero i)
+  | _ :: _,  _, 0,     _ => rfl
+  | _ :: A', B, i + 1, h => getD_append_left d A' B i (Nat.lt_of_succ_lt_succ h)
+
+/-- `getD` into the right summand of an append (index shifted past the left). -/
+theorem getD_append_right {α : Type _} (d : α) :
+    ∀ (A B : List α) (j : Nat), (A ++ B).getD (A.length + j) d = B.getD j d
+  | [],      B, j => by show B.getD (0 + j) d = B.getD j d; rw [Nat.zero_add]
+  | a :: A', B, j => by
+      show (a :: (A' ++ B)).getD (A'.length + 1 + j) d = B.getD j d
+      rw [Nat.add_right_comm]
+      show (A' ++ B).getD (A'.length + j) d = B.getD j d
+      exact getD_append_right d A' B j
+
 /-- `getD` of `map` in bounds. -/
 theorem getD_map_ib {α β : Type _} (f : α → β) (d' : α) (d : β) :
     ∀ (l : List α) (i : Nat), i < l.length → (l.map f).getD i d = f (l.getD i d')

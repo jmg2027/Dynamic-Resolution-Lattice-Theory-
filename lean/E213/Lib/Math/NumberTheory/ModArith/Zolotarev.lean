@@ -37,24 +37,19 @@ open E213.Lib.Math.Algebra.Linalg213.PermClosure (lt_of_mem_iota length_iota nod
 open E213.Lib.Math.Algebra.Linalg213.DetMul (funcs nodup_imp_perm mem_tuples)
 open E213.Lib.Math.Algebra.Linalg213.DetTranspose (nodup_map_restrict)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (mem_iota_of_lt)
-open E213.Tactic.List213 (getD_ge getD_map_ib list_ext_getD exists_of_mem_map)
+open E213.Tactic.List213 (getD_ge getD_map_ib list_ext_getD exists_of_mem_map length_map)
 open E213.Lib.Math.NumberTheory.FourSquareSeed (nat_prime_dvd_mul)
 open E213.Meta.Nat.Gcd213 (mod_eq_dvd_sub)
 open E213.Tactic.NatHelper (mul_sub)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Meta.Nat.MulMod213 (mul_mod_left_pure mul_mod_right_pure)
 
-/-- Pure `length_map` (core `List.length_map` carries `propext`). -/
-theorem length_map_pure {α β : Type _} (f : α → β) : ∀ l : List α, (l.map f).length = l.length
-  | []     => rfl
-  | _ :: l => congrArg (· + 1) (length_map_pure f l)
-
 /-- The multiplication-by-`a` value-list mod `p`: `[a·0 % p, …, a·(p−1) % p]`. -/
 def mulPerm (a p : Nat) : List Nat := (iota p).map (fun x => (a * x) % p)
 
 theorem mulPerm_length (a p : Nat) : (mulPerm a p).length = p := by
   show ((iota p).map (fun x => (a * x) % p)).length = p
-  rw [length_map_pure, length_iota]
+  rw [length_map, length_iota]
 
 /-- `getD` of `mulPerm` in range: `(mulPerm a p).getD i 0 = (a·i) % p` for `i < p`. -/
 theorem mulPerm_getD (a p i : Nat) (hi : i < p) : (mulPerm a p).getD i 0 = (a * i) % p := by
@@ -113,7 +108,7 @@ theorem mulPerm_comp (a b p : Nat) :
   apply list_ext_getD 0
   · show ((mulPerm b p).map (fun t => (mulPerm a p).getD t 0)).length
        = (mulPerm ((a * b) % p) p).length
-    rw [length_map_pure, mulPerm_length, mulPerm_length]
+    rw [length_map, mulPerm_length, mulPerm_length]
   · intro i
     rcases Nat.lt_or_ge i p with hi | hi
     · show ((mulPerm b p).map (fun t => (mulPerm a p).getD t 0)).getD i 0
@@ -127,7 +122,7 @@ theorem mulPerm_comp (a b p : Nat) :
           show a * (b * i) = a * b * i from by ring_nat]
     · show ((mulPerm b p).map (fun t => (mulPerm a p).getD t 0)).getD i 0
          = (mulPerm ((a * b) % p) p).getD i 0
-      rw [getD_ge 0 (by rw [length_map_pure, mulPerm_length]; exact hi),
+      rw [getD_ge 0 (by rw [length_map, mulPerm_length]; exact hi),
           getD_ge 0 (by rw [mulPerm_length]; exact hi)]
 
 /-! ## §3 — the sign homomorphism + the residue direction -/

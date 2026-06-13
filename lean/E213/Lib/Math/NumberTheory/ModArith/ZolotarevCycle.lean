@@ -36,10 +36,10 @@ open E213.Lib.Math.Algebra.Linalg213.DetN (altSign altSign_add)
 open E213.Lib.Math.Algebra.Linalg213.DetMul (funcs nodup_imp_perm mem_tuples)
 open E213.Lib.Math.Algebra.Linalg213.DetTranspose (nodup_map_restrict)
 open E213.Lib.Math.Algebra.Linalg213.Laplace (mem_iota_of_lt)
-open E213.Tactic.List213 (getD_ge getD_map_ib list_ext_getD exists_of_mem_map)
+open E213.Tactic.List213 (getD_ge getD_map_ib list_ext_getD exists_of_mem_map length_map)
 open E213.Lib.Math.Algebra.Linalg213.PermGroup (composeList_getD composeList_length)
 open E213.Lib.Math.NumberTheory.ModArith.Zolotarev
-  (mulPerm length_map_pure mulPerm_getD mulPerm_mem_perms res_cancel mulPerm_length)
+  (mulPerm mulPerm_getD mulPerm_mem_perms res_cancel mulPerm_length)
 open E213.Lib.Math.NumberTheory.ModArith.MulOrder (ordModP fermat pow_split_eq ord_dvd)
 open E213.Lib.Math.NumberTheory.ModArith.OrderPow (not_dvd_pow)
 open E213.Lib.Math.NumberTheory.ModArith.PrimitiveRoot (exists_primitive_root)
@@ -117,7 +117,7 @@ def sFun (p i : Nat) : Nat := if i = 0 then 0 else if i = 1 then p - 1 else i - 
 def cycS (p : Nat) : List Nat := (iota p).map (sFun p)
 
 theorem cycS_length (p : Nat) : (cycS p).length = p := by
-  show ((iota p).map (sFun p)).length = p; rw [length_map_pure, length_iota]
+  show ((iota p).map (sFun p)).length = p; rw [length_map, length_iota]
 
 theorem cycS_getD (p i : Nat) (hi : i < p) : (cycS p).getD i 0 = sFun p i := by
   show ((iota p).map (sFun p)).getD i 0 = sFun p i
@@ -250,7 +250,7 @@ def tauFun (g p i : Nat) : Nat := if i = 0 then 0 else g ^ (p - 1 - i) % p
 def tau (g p : Nat) : List Nat := (iota p).map (tauFun g p)
 
 theorem tau_length (g p : Nat) : (tau g p).length = p := by
-  show ((iota p).map (tauFun g p)).length = p; rw [length_map_pure, length_iota]
+  show ((iota p).map (tauFun g p)).length = p; rw [length_map, length_iota]
 
 theorem tau_getD (g p i : Nat) (hi : i < p) : (tau g p).getD i 0 = tauFun g p i := by
   show ((iota p).map (tauFun g p)).getD i 0 = tauFun g p i
