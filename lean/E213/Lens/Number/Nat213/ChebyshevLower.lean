@@ -22,7 +22,8 @@ are imported in the allowed `Lens → Lib` direction.  All ∅-axiom.
 
 namespace E213.Lens.Number.Nat213.ChebyshevLower
 
-open E213.Meta.Nat.NatDiv213 (div_add_mod_pure add_mul_div_left_pure div_lt_of_lt_mul)
+open E213.Meta.Nat.NatDiv213
+  (div_add_mod_pure add_mul_div_left_pure div_lt_of_lt_mul le_of_add_le_add_left_pure)
 open E213.Meta.Nat.Valuation (vp)
 open E213.Meta.Nat.PureNat (lt_two_pow)
 open E213.Lib.Math.NumberTheory.PrimeValuation (Prime213 vp_mul)
@@ -86,5 +87,67 @@ theorem sumTo_extend_vanish {f : Nat → Nat} {a : Nat} (hvan : ∀ j, a ≤ j �
       · have hak : a ≤ k := Nat.le_of_lt_succ hlt
         rw [sumTo_succ, ← ih hak, hvan k hak, Nat.add_zero]
       · rw [Nat.le_antisymm hab hge]
+
+open E213.Lens.Number.Nat213.MultSystemValue (central_binom_pos)
+
+/-- **Kummer's prime-power bound**: `vp_p(C(2n,n)) ≤ ⌊log_p(2n)⌋` (`p` prime,
+    `n ≥ 1`).  From `vp_p(C(2n,n)) + 2·vp_p(n!) = vp_p((2n)!)` (`central_binom_factorial`
+    + `vp_mul`), Legendre `vp_p(m!) = Σ_{j} ⌊m/p^{j+1}⌋`, and the per-term bound
+    `⌊2n/p^{j+1}⌋ ≤ 2⌊n/p^{j+1}⌋ + [p^{j+1} ≤ 2n]` summed (`lcmExpCount_eq_floorLog`
+    gives the indicator sum `= ⌊log_p(2n)⌋`).  No Nat subtraction: cancel `2·vp_p(n!)`
+    additively. -/
+theorem vp_central_binom_le_floorLog {p n : Nat} (hp : Prime213 p) (hn : 1 ≤ n) :
+    vp p (binom (2 * n) n) ≤ floorLog p (2 * n) := by
+  have hp0 : 0 < p := Nat.lt_of_lt_of_le (by decide) hp.1
+  have h2npos : 1 ≤ 2 * n := Nat.le_trans hn (by rw [Nat.two_mul]; exact Nat.le_add_left n n)
+  have hbpos : 0 < binom (2 * n) n := central_binom_pos n
+  have hfpos : 0 < factorial n := factorial_pos n
+  -- factorial form of the central-binomial identity
+  have hcbf : binom (2 * n) n * (factorial n * factorial n) = factorial (2 * n) := by
+    have h := central_binom_factorial n
+    rw [fact_eq_factorial n, fact_eq_factorial (2 * n)] at h
+    exact h
+  -- vp relation (additive, subtraction-free)
+  have hvp : vp p (binom (2 * n) n) + (vp p (factorial n) + vp p (factorial n))
+      = vp p (factorial (2 * n)) := by
+    have h := congrArg (vp p) hcbf
+    rw [vp_mul hp hbpos (Nat.mul_pos hfpos hfpos), vp_mul hp hfpos hfpos] at h
+    exact h
+  -- Legendre on both factorials
+  have hlegn : vp p (factorial n) = sumTo n (fun j => n / p ^ (j + 1)) := legendre hp n
+  rw [legendre hp (2 * n), hlegn] at hvp
+  -- extend the `n!` sums to range `2n`
+  have hvan : ∀ j, n ≤ j → (fun j => n / p ^ (j + 1)) j = 0 := by
+    intro j hj
+    show n / p ^ (j + 1) = 0
+    apply Nat.div_eq_of_lt
+    calc n < 2 ^ (n + 1) := Nat.lt_trans (Nat.lt_succ_self n) (lt_two_pow (n + 1))
+      _ ≤ 2 ^ (j + 1) := Nat.pow_le_pow_right (by decide) (Nat.succ_le_succ hj)
+      _ ≤ p ^ (j + 1) := Nat.pow_le_pow_left hp.1 (j + 1)
+  have hext : sumTo n (fun j => n / p ^ (j + 1)) = sumTo (2 * n) (fun j => n / p ^ (j + 1)) :=
+    sumTo_extend_vanish hvan (2 * n) (by rw [Nat.two_mul]; exact Nat.le_add_left n n)
+  rw [hext] at hvp
+  -- the summed per-term bound
+  have hsumbound : sumTo (2 * n) (fun j => 2 * n / p ^ (j + 1))
+      ≤ 2 * sumTo (2 * n) (fun j => n / p ^ (j + 1)) + floorLog p (2 * n) := by
+    have hterm : sumTo (2 * n) (fun j => 2 * n / p ^ (j + 1))
+        ≤ sumTo (2 * n)
+            (fun j => 2 * (n / p ^ (j + 1)) + (if p ^ (j + 1) ≤ 2 * n then 1 else 0)) := by
+      apply sumTo_le_sumTo
+      exact fun k _ => floor_two_mul_div_le n (p ^ (k + 1)) (Nat.pos_pow_of_pos (k + 1) hp0)
+    rw [← sumTo_add_func (2 * n) (fun j => 2 * (n / p ^ (j + 1)))
+          (fun j => if p ^ (j + 1) ≤ 2 * n then 1 else 0),
+        ← sumTo_two_mul (2 * n) (fun j => n / p ^ (j + 1)),
+        lcmExpCount_eq_floorLog hp.1 h2npos] at hterm
+    exact hterm
+  -- combine + cancel 2·vp_p(n!)
+  have hSS : sumTo (2 * n) (fun j => n / p ^ (j + 1)) + sumTo (2 * n) (fun j => n / p ^ (j + 1))
+      = 2 * sumTo (2 * n) (fun j => n / p ^ (j + 1)) := (Nat.two_mul _).symm
+  rw [hSS] at hvp
+  have hcomb : vp p (binom (2 * n) n) + 2 * sumTo (2 * n) (fun j => n / p ^ (j + 1))
+      ≤ 2 * sumTo (2 * n) (fun j => n / p ^ (j + 1)) + floorLog p (2 * n) := by
+    rw [hvp]; exact hsumbound
+  rw [Nat.add_comm (vp p (binom (2 * n) n)) (2 * sumTo (2 * n) (fun j => n / p ^ (j + 1)))] at hcomb
+  exact le_of_add_le_add_left_pure hcomb
 
 end E213.Lens.Number.Nat213.ChebyshevLower
