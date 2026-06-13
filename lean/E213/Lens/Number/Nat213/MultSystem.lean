@@ -315,6 +315,35 @@ theorem sumf_congr (f g : Nat → Nat) (h : ∀ i, f i = g i) :
       show sumf f n + f (n + 1) = sumf g n + g (n + 1)
       rw [sumf_congr f g h n, h (n + 1)]
 
+/-! #### `Σ^k` builds the rung from `1` — the dual of `Δ^k` annihilating
+
+The pole-order / generating-function content `monoCount(k+1) ↔ (1−x)^{−(k+1)}`,
+computed **without formal power series**: applying the partial sum `Σ` (`sumf`)
+`k` times to the constant sequence `1` *builds* the rung-`(k+1)` count
+(`sumfIter_const_one`).  Each `Σ` is one `×(1−x)^{−1}` = one pole-order = one
+dimension, so `Σ^k 1 = monoCount(k+1)` is the `(1−x)^{−(k+1)}` expansion as
+iterated summation — the exact dual of `Δ^{k+1}` annihilating it
+(`diffIter_dim_zero`). -/
+
+/-- The iterated partial sum `Σ^k`. -/
+def sumfIter (f : Nat → Nat) : Nat → (Nat → Nat)
+  | 0     => f
+  | k + 1 => sumf (sumfIter f k)
+
+/-- ★★ **`Σ^k 1 = monoCount(k+1)`** — the rung built from the constant by iterated
+    summation (the `(1−x)^{−(k+1)}` Hilbert series, computed).  Each `Σ` raises the
+    rung by one (`totalCount_eq`); `k` of them build rung `k+1` from rung `1` (`=
+    ℕ⁺ =` the constant `1`, `monoCount_one`).  Pointwise (no `funext`); the dual of
+    `diffIter_dim_zero`. -/
+theorem sumfIter_const_one : ∀ (k d : Nat),
+    sumfIter (fun _ => 1) k d = monoCount (k + 1) d
+  | 0,     d => (monoCount_one d).symm
+  | k + 1, d => by
+      show sumf (sumfIter (fun _ => 1) k) d = monoCount (k + 1 + 1) d
+      rw [sumf_congr (sumfIter (fun _ => 1) k) (monoCount (k + 1))
+            (fun i => sumfIter_const_one k i) d]
+      exact totalCount_eq (k + 1) d
+
 /-- **Hockey-stick**: `Σ_{i=0}^{n} C(i+k, k) = C(n+k+1, k+1)`. -/
 theorem hockey : ∀ (k n : Nat),
     sumf (fun i => binom (i + k) k) n = binom (n + k + 1) (k + 1)

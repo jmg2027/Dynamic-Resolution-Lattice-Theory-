@@ -612,10 +612,13 @@ to test*, not asserted identities.
    ∅-axiom, `#eval`-verified): `diff`/`diffIter` (`Δ^j`), `diffIter_monoCount` (`Δ^j` peels
    `j` rungs), `diffIter_dim_const` (`Δ^k = 1`), `diffIter_dim_zero` (`Δ^{k+1} = 0`) — the
    dimension is **computed** as the least annihilation depth (e.g. `monoCount 3 =
-   [1,3,6,10,15,…]` → `Δ²=[1,1,…]` → `Δ³=[0,0,…]` ⇒ dim 3), no cardinal `∞`.  *Open*:
-   (b) the **`ζ`-tower** — `^`'s shape as a `ζ`-of-`ζ` iterate, pinned against
-   `ChebyshevLower`/`primeDensityToZero`; (c) closing the band's width to a constant *is*
-   PNT (the open analytic core).
+   [1,3,6,10,15,…]` → `Δ²=[1,1,…]` → `Δ³=[0,0,…]` ⇒ dim 3), no cardinal `∞`.  The **dual
+   (build) operator is also BUILT** (`sumfIter_const_one`: `Σ^k 1 = monoCount(k+1)`, the
+   `(1−x)^{−(k+1)}` Hilbert series as iterated summation — `Σ` raises dimension, `Δ`
+   lowers it, `diff_sumf` the discrete FTC).  *Open*: (b) the **`ζ`-tower** — `^`'s shape
+   as a `ζ`-of-`ζ` iterate (`Σ` iterated *unboundedly* = the essential singularity =
+   `ζ`), pinned against `ChebyshevLower`/`primeDensityToZero`; (c) closing the band's
+   width to a constant *is* PNT (the open analytic core).
 
 ## Anchors
 

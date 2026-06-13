@@ -61,9 +61,13 @@ L3‴):
   2. **growth degree** — `monoCount (k+1) d = C(d+k,k)` is a degree-`k` polynomial
      (`monoCount_closed`, bound `monoCount_le_succ_pow`); dimension = growth degree `+1`;
      `∞` = super-polynomial (no finite Hilbert polynomial).
-  3. **pole order** — differencing ↔ `×(1−x)` (`totalCount_eq`); the Hilbert series is
-     `(1−x)^{−k}`, dimension = pole order at `x = 1`; `∞` = an essential singularity =
-     the Euler product `∏_p` = `ζ`.
+  3. **pole order (computed by iterated summation, no power series)** —
+     `MultSystem.sumfIter_const_one`: applying `Σ` (`sumf`) `k` times to the constant `1`
+     *builds* rung `k+1` (`Σ^k 1 = monoCount(k+1)`, `#eval`: `Σ⁴1 = [1,5,15,35,70,126] =
+     monoCount 5`).  Each `Σ` = one `×(1−x)^{−1}` = one pole-order = one dimension, so the
+     Hilbert series `(1−x)^{−(k+1)}` *is* `Σ^k 1` — the dual of `Δ^{k+1}` annihilating it.
+     `∞` = an essential singularity = the Euler product `∏_p` = `ζ`, reached by iterating
+     `Σ` without bound.
 
 The three agree (`= generator count = vertex count`, `monoCount_vertices`).  Each is a
 **finite, constructive handle**; `∞` is never a label but a *mode of non-termination*.
