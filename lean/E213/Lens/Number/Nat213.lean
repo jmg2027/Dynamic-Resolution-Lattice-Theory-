@@ -5,6 +5,9 @@ import E213.Lens.Number.Nat213.ChainCoreBridge
 import E213.Lens.Number.Nat213.ChartGeneral
 import E213.Lens.Number.Nat213.Core
 import E213.Lens.Number.Nat213.Lenses
+import E213.Lens.Number.Nat213.MultSystem
+import E213.Lens.Number.Nat213.MultSystemValue
+import E213.Lens.Number.Nat213.ChebyshevLower
 import E213.Lens.Number.Nat213.NumberingSystem
 import E213.Lens.Number.Nat213.Peano
 import E213.Lens.Number.Nat213.Raw
