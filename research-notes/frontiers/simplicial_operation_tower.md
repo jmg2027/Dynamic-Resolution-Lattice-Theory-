@@ -221,13 +221,18 @@ not — that is L5, and **genuinely open**:
 > the *number of axes* explodes (`+`: 1 → `×`: `C(N+k,k)` → `^`: `C(d+M−1,M−1)` → …)
 > but the **shape is invariantly the simplex** — nothing becomes a cube.  (Verified:
 > `×` over 2 `+`-gens, deg ≤2 = 6 `×`-monomials; `^` deg 1,2,3 = 6, 21, 56 = `C(M,1),
-> C(M+1,2), C(M+2,3)`.)  **Still open (the twist):** the base/exponent asymmetry /
-> the new degree-of-freedom is extra *positive* structure **on** this simplex (the
-> dimension/`−1`-cross-determinant content of L5) — `hyperCount` is the *symmetric*
-> skeleton (multisets, which alone would read as commutative); the asymmetry that
-> makes `^` its own rung sits on top of it, still to be built.  Whether that lands
-> the rung in a 3- or 4-simplex (the originator's "초위상" question) is the next
-> positive target.
+> C(M+1,2), C(M+2,3)`.)  **The twist, now stated positively (∅-axiom):** the
+> base/exponent asymmetry is the **new dilation degree-of-freedom**, not "loss of
+> commutativity".  In the `×`-cone, `^` is *scalar multiplication* — `m^b` is
+> **parallel** to `m` (same direction, scaled by the exponent):
+> `MultSystemValue.hyper_parallel : vp_p(m^b)·vp_q m = vp_q(m^b)·vp_p m` (both
+> `= b·vp_p m·vp_q m`, `vp_pow`).  So the exponent is a radial **scalar** (the
+> `+`-line), the base a **vector** (the `×`-cone direction): the operands are
+> different *types*, and the rung adjoins the **dilation axis** (base picks the ray,
+> exponent the position along it).  **Still open:** the precise dimension this lands
+> the rung in — a 3- vs 4-simplex (the originator's "초위상" question) — i.e. count
+> the dimension the dilation-axis adds to the `hyperCount` simplex; and the
+> `−1`-cross-determinant shadow of the twist (L5).
 
 ## L5 — The geometric picture: dimension and the twist
 
