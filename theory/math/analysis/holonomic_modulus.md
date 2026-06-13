@@ -257,6 +257,47 @@ the rung's price.  This is the conversion law of the modulus-degree ladder read
 inside the generator itself: degree of the modulus = (distance certificate) /
 (rate of the pointing), with the schedule the dial between the two.
 
+### 4.1 The modulus-degree calculus (closed)
+
+The ladder is now a small calculus, four facts pinning what the degree *is* and
+how it behaves.
+
+**What fixes the degree** (`DegreeCriterion`).  Dividing the degree-`s` domination
+by `ρ_{i+1}` (the schedule monotone) brackets it between two clean inequalities
+differing only by the single term `d_i`: it is **sufficient** that the probed
+cross-determinant fit under the denominator *increment*,
+`⌊i^{1/s}⌋·W_i + d_i ≤ d_{i+1}` (`dominatesS_of_scheduled_increment`), and
+**necessary** that it fit under the *next denominator*, `⌊i^{1/s}⌋·W_i ≤ d_{i+1}`
+(`scheduled_le_of_dominatesS`).  So the degree is exactly the race between the
+*probed* cross-determinant `⌊i^{1/s}⌋·W_i` and the denominator's growth — not the
+size of `W`.  The criterion is monotone in the degree (`rootFloor_antitone_degree`:
+a larger `s` is a slower probe; hence `increment_criterion_mono`), so the degree
+ceiling is well-defined and upward-closed, and the degree-1 boundary
+`i·W_i + d_i = d_{i+1}` is saturated exactly by `fastDen` and e.
+
+**Comparing two reals** (`RateComparison`).  Promoting the rational probe `m/k` to
+a second convergent, the joint comparison `a_i/d_i ⋚ b_j/e_j` is the
+**two-convergent cross-determinant** `a_i·e_j − b_j·d_i` (the single-probe
+Farey/SL₂ determinant, doubled).  Given an apartness witness `m/k` — a rational the
+first cut sits below and the second above — the comparison is settled for all
+`i, j ≥ k+2` (`two_real_separation_modulus`), the two single moduli composing by
+`max`.
+
+**Arithmetic** (`RateArithmetic`).  The cross-determinant factors through the
+summands: `W^{x+y}_i = W^x_i·e_i e_{i+1} + W^y_i·d_i d_{i+1}` (`sum_cross_det`),
+`W^{xy}_i = a_i d_{i+1}·W^y_i + b_i e_{i+1}·W^x_i + W^x_i W^y_i` (`prod_cross_det`).
+Read off these, degree is **not additive**: the naive common-denominator sum carries
+the *other* denominator quadratically, so mismatched growth (`d_{i+1} < e_i`) makes
+it rate-free at *every* degree (`sum_naive_not_dominatesS`) even when both summands
+are degree 1 (`e + e` over `(i!)²` is rate-free, though `2e` is degree 1 by
+scaling).  The clean closure is on a **shared denominator**, where the
+cross-determinants simply **add** (`matched_sum_cross_det`: `W^{x+y} = W^x + W^y`, no
+inflation) and `x + y` is degree ≤ `s` exactly when the probed cross-determinants
+*jointly* fit the shared increment (`matched_sum_dominated`) — "each summand at
+degree `s`" being a factor of 2 short.  Degree, throughout, is a property of the
+*pointing*, not of the real: the same lesson as `object1_not_surjective`, now
+quantified.
+
 ## 5. The thesis, completed
 
 "Completeness is a relocated finite operation" becomes fully constructive for the
