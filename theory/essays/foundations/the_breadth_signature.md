@@ -2,7 +2,7 @@
 
 > ∅-axiom — `#print axioms` empty — keeps reaching further: number systems through
 > `ℂ`/p-adic/octonion, a full analysis stack, cohomology, the Standard-Model
-> constants, and (this session) a classical theorem of modular forms.  Why does
+> constants, and a classical theorem of modular forms.  Why does
 > assuming *nothing* reach *everything*?
 
 ## 213-native answer

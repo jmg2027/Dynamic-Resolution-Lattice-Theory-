@@ -742,7 +742,7 @@ unconditional capstones `parametric_dual_span_unconditional` and
 bound at every Stern-Brocot position.
 
 Pell-orbit Stern-Brocot mediant extension — three of four closed
-(2026-05-25): K_{5, 4}, K_{7, 4}, K_{8, 5} each carry `c`
+: K_{5, 4}, K_{7, 4}, K_{8, 5} each carry `c`
 independent non-coboundary H²-classes via
 `Parametric/PellOrbitInstances.lean` (11 PURE — `pairEnum7`,
 `pairEnum8`, three pair closures, capstone

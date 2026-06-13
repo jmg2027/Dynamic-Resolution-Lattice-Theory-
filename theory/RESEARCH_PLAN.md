@@ -55,7 +55,7 @@ removes a conditional or stated-but-unproved gap.
   · **Status**: CLOSED.
     `lean/E213/Theory/Atomicity/CombinatorialArity.lean` (5 PURE)
     proves the **uniform pigeonhole** `pigeonhole_fin_to_fin2`:
-    any function `f : Fin k → Fin 2` with `k ≥ 3` has a collision.
+    any function `f: Fin k → Fin 2` with `k ≥ 3` has a collision.
     Generic parametric `Raw k` and `Reachable k` (with Fin-k arity
     `rel` requiring pairwise-distinct args) define a uniform family;
     `reachable_only_object` shows that for every `k ≥ 3`, the
@@ -75,7 +75,7 @@ removes a conditional or stated-but-unproved gap.
   · **What**: verify `master_Knn_c_counter_resolved`'s universal
     framework transports to (8, 5), (5, 4), (7, 4), (13, 8) —
     the next Stern-Brocot layer.
-  · **Status (2026-05-26)**: ALL FOUR CLOSED.
+  · **Status**: ALL FOUR CLOSED.
       · **K_{5, 4}** — closed via `K54_c_independent_h2_classes_via_framework`
         (NT=5 odd) and re-exported `K54_via_KNS4` (NT=4 even).
       · **K_{8, 5}** — closed via `kills_delta1_KNS5 8 c pairEnum8`
@@ -123,7 +123,7 @@ chapter section, not a missing theorem.
 
 ### 2.1 Hodge involution ↔ universe-chain self-pointing — **CLOSED**
 
-  · **Resolved 2026-05-26**: Cross-references added in both
+  · **Resolved**: Cross-references added in both
     `hodge_conjecture.md` (§(iii) HC_Involution) and
     `universe_chain.md` (§Eisenstein discovery).  The duality
     between `⋆⋆ = id` and `1 + ω + ω² = 0` is now explicitly
@@ -132,7 +132,7 @@ chapter section, not a missing theorem.
 
 ### 2.2 Cayley-Dickson Type C ↔ Möbius P mod-3 — **CLOSED**
 
-  · **Resolved 2026-05-26**: Cross-references added in both
+  · **Resolved**: Cross-references added in both
     `mobius213_p_orbit_closure.md` (after P-orbit table) and
     `algebra_tower.md` (after Type C row).  The factorisation
     `L(3) = 18 = NS · |ℤ[ω]×|` and the mod-3 period `4 = NT²`
@@ -185,7 +185,7 @@ narrative.  Readers can verify but not understand.
 
 ### 3.1 ψ-discriminator WHY (Cohomology) — **CLOSED**
 
-  · **Resolved 2026-05-26**: `k_nm_c_classification.md`
+  · **Resolved**: `k_nm_c_classification.md`
     now leads the c-counter narrative with the enriched
     direct-sum decomposition
     `C¹_enr = ⊕_{m ∈ Fin c} C¹_simple_m`,
@@ -196,7 +196,7 @@ narrative.  Readers can verify but not understand.
 
 ### 3.2 PRIMARY cup-image naturality — **CLOSED**
 
-  · **Resolved 2026-05-26**: `k_nm_c_classification.md`
+  · **Resolved**: `k_nm_c_classification.md`
     §"Why PRIMARY (not FULL) cup-image" was rewritten to drop the
     unsupported naturality/maximality framing and present PRIMARY as
     an explicit design boundary for the ψ-kill/soundness pipeline.
@@ -208,7 +208,7 @@ narrative.  Readers can verify but not understand.
 
 ### 4.1 Catalog ↔ Lean parity audit — **CLOSED**
 
-  · **Resolved 2026-05-26**: All 6 "remaining" observables
+  · **Resolved**: All 6 "remaining" observables
     (Koide, m_p/m_e, M_Pl/v_H, muon 192, m_t/m_c, η_B)
     confirmed to have PURE falsifiers in Lean (F21–F26).
     `catalogs/physics-constants.md`: 23/23 paired = 100% coverage.
@@ -270,7 +270,7 @@ narrative.  Readers can verify but not understand.
     contexts; the pattern is established but unevenly applied —
     many Math files still import `E213.Lib.Physics.*` directly
     without going through a Bridge shim.
-  · **Progress (2026-05-26)**: added
+  · **Progress**: added
     `lean/E213/Lib/Math/Foundations/SimplexCountsBridge.lean` and migrated
     three Math files (`ParadigmDomainGraded`,
     `Mobius213/Px/IterationSpecies`,
@@ -330,7 +330,7 @@ narrative.  Readers can verify but not understand.
 ## Priority ranking (one-shot session leverage)
 
 All Tier 1 items are CLOSED (1.1, 1.2, 1.3, 1.4).
-Tier 2.1, 2.2, Tier 3.1, Tier 3.2, and Tier 4.1 are CLOSED (2026-05-26).
+Tier 2.1, 2.2, Tier 3.1, Tier 3.2, and Tier 4.1 are CLOSED .
 The next-shot focus should be one of:
 
   · **Tier 2.3 p-adic_real213 ↔ Möbius P mod-p periods** — MED
@@ -341,7 +341,7 @@ The next-shot focus should be one of:
 
 ## Inter-item dependencies
 
-  · **1.1 SATISFIED (closed 2026-05-25)**: `codim = c` is now
+  · **1.1 SATISFIED (closed)**: `codim = c` is now
     unconditional at every c via
     `joint_psi_kernel_subset_primary` +
     `parametric_dual_span_unconditional`.  Downstream updates
@@ -350,21 +350,21 @@ The next-shot focus should be one of:
     row.  Follow-on essay update in
     `theory/essays/cohomology/c_counter_programme_closure.md` still
     pending.
-  · **1.2 SATISFIED (closed 2026-05-25)**: atomic forcing chain
+  · **1.2 SATISFIED (closed)**: atomic forcing chain
     (NS, NT, d, c) = (3, 2, 5, 2) is now fully Lean-formalised
     via `CombinatorialArity.arity_2_unique_via_k_ge_3_vacuous`
     (parametric ∀ k ≥ 3 pigeonhole over `Fin 2` base).  Downstream
     update applied to `STATE.md` Closed table; chapter
     `physics/foundations/atomic_constants.md` already noted "all
     four forced" via the narrative chain.
-  · **1.3 SATISFIED (closed 2026-05-26)**: all four Pell-orbit
+  · **1.3 SATISFIED (closed)**: all four Pell-orbit
     pairs closed — K_{5, 4}, K_{7, 4}, K_{8, 5}, K_{13, 8} via
     KNS4 / KNS5 / KNS8 routes.  The NT=8 `psi_excl_T0_NT8`
     family + `pairEnum13` completed the extension.  Capstone
     `pell_orbit_stern_brocot_extension_capstone` bundles 4/4.
-  · **Tier 2.1 CLOSED (2026-05-26)**: Hodge ↔ universe-chain.
-  · **Tier 2.2 CLOSED (2026-05-26)**: Cayley-Dickson ↔ Möbius.
-  · **Tier 4.1 CLOSED (2026-05-26)**: catalog 23/23 paired.
+  · **Tier 2.1 CLOSED**: Hodge ↔ universe-chain.
+  · **Tier 2.2 CLOSED**: Cayley-Dickson ↔ Möbius.
+  · **Tier 4.1 CLOSED**: catalog 23/23 paired.
   · **2.4 (Sym(3)-spine unification) needs** a new bridge file
     if the gluon-octet ↔ 8-geometries isomorphism is to live in
     Lean rather than only narrative — likely under

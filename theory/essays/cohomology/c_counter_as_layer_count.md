@@ -131,7 +131,7 @@ synthesis.  In summary:
     `9·m` cancellation absorbs the layer offset uniformly.
     See `multiplicity_layer_uniformity.md`.
   · **Direction C** (cup-image codim upper bound):
-    **UNCONDITIONAL at every c (2026-05-25)**.  Both directions
+    **UNCONDITIONAL at every c**.  Both directions
     closed: EASY (`InPrimary ⊆ joint ψ-kernel`) via
     `primary_cup_span_soundness_all_c`; HARD (`joint ψ-kernel
     ⊆ InPrimary`) via `joint_psi_kernel_subset_primary` (c=1

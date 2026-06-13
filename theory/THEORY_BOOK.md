@@ -3,9 +3,9 @@
 **A self-contained walk from the residue of pointing to the GRA
 universality capstone.**
 
-Status: v1 (2026-05-28).  Promoted from the per-area chapter
-catalog (`theory/{lens, math, physics, meta, essays}/`) into a
-single linearised reading path.  148 theory chapters + 22k
+A single linearised reading path assembled from the per-area
+chapter catalog (`theory/{lens, math, physics, meta, essays}/`).
+148 theory chapters + 22k
 lines of narrative + ~50k lines of `lean/E213/` source are
 *referenced* here, not replicated.  The book provides:
 
@@ -1225,17 +1225,13 @@ Part VIII → `STRICT_ZERO_AXIOM.md` → `tools/scan_axioms.py`
 
 ---
 
-## Versioning
+## Scope
 
-  · **v1** (2026-05-28) — initial linearisation of theory/
-    catalog + Lean docstring sweep.  The GRA programme
-    consolidated.  Mathematics-only scope.  Status: stable v1.
-
-A *physics-deployment* part will be added once the
+Mathematics-only.  A *physics-deployment* part will be added once the
 mathematical derivation programme closes completely.  Until
 then this book stops at Part VIII (Methodology).
 
-Future versions of the mathematics-only book:
+Future content of the mathematics-only book:
   · Pull additional content from Lean docstrings not yet
     surfaced in theory/
   · Expand Part VII as more Foundational-as-Reading

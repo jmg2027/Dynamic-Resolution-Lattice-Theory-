@@ -80,7 +80,7 @@ K_{3,3}.  `primary_cup_span_soundness_all_c` extends EASY to
 every c by chaining with Direction B's
 `parametric_arbitrary_m_full_kill_capstone`.
 
-**Per-layer completeness closed (2026-05-25)** at every c via
+**Per-layer completeness closed** at every c via
 `V33EnrichedParametricDualSpanHard` + `…Lift`: 8 explicit
 primary cup-product generators (`g_1 … g_8`) span the dim-8
 ψ-kernel at single-layer K_{3,3}; `promote_face`/`promote_edge`
@@ -185,7 +185,7 @@ face of that single structural object.
 
 ## Open frontier (residual)
 
-Per-layer completeness — closed (2026-05-25): the last piece
+Per-layer completeness — closed: the last piece
 for unconditional Direction C is discharged at every c by
 `joint_psi_kernel_subset_primary`.  Remaining items:
 

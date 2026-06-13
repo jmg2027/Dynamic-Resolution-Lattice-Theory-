@@ -83,8 +83,8 @@ collapses to the proven bottom-layer kill, and
 every layer, giving `primary_cup_span_soundness_all_c` —
 **EASY direction closed unconditionally at every c**.
 
-The HARD direction (joint ψ-kernel ⊆ `InPrimary`) is closed too
-(2026-05-25).  At c = 1, `joint_psi_kernel_subset_primary_c1`
+The HARD direction (joint ψ-kernel ⊆ `InPrimary`) is closed too.
+At c = 1, `joint_psi_kernel_subset_primary_c1`
 exhibits 8 explicit primary cup-product generators
 `g_1, …, g_8` spanning the dim-8 ψ-kernel (6 row pair-differences
 from `cupOpp(starS i 0, e_edge ⋯)` + 2 column pair-differences

@@ -378,7 +378,7 @@ The algebraic backdrop — Möbius `P = [[2,1],[1,1]]` with
     symmetric `R^{sym}`, multilinear `R^{lin}`, bipartite-supported)
     are enumerable with cardinalities `5^k` for various `k ≤ 25`.
     Closure requires `F_q` polynomial-ring infrastructure not yet
-    present in `lean/E213/` — substantive multi-session addition
+    present in `lean/E213/` — substantive addition
     on the scale of the Real213-p-adic infrastructure.
 
   · **Cross-field cross-imports at `(d, n) = (5, 2)`** — the

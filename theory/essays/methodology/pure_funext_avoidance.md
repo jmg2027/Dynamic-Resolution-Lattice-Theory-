@@ -65,7 +65,7 @@
 
 ## Provenance
 
-이 네 패턴은 external LLM (Gemini Pro) 자문에서 *architectural-level 처방*으로 제안됐고, PURE Lean에서 그대로 구현됐다.  자문 프롬프트는 5개 블로커를 구체적 Lean 파일 / 정리 / 시도-실패 경로와 함께 명시; 응답은 패턴 4개 + 한 multi-session 항목 (higher cohomology).  46 chapter closure / 550 PURE / 0 DIRTY가 이 한 자문 cycle의 결과.
+이 네 패턴은 external LLM (Gemini Pro) 자문에서 *architectural-level 처방*으로 제안됐고, PURE Lean에서 그대로 구현됐다.  자문 프롬프트는 5개 블로커를 구체적 Lean 파일 / 정리 / 시도-실패 경로와 함께 명시; 응답은 패턴 4개 + 장기 항목 1개 (higher cohomology).  46 chapter closure / 550 PURE / 0 DIRTY가 이 한 자문 cycle의 결과.
 
 | 패턴 | Lean 실현 | 블로커 |
 |---|---|---|
