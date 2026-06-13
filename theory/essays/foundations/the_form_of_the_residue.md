@@ -130,7 +130,12 @@ limit is never the operand.  A transcendental real is its `AbCutSeq` convergent 
 narrowing interval*: the PNT-direction constant `log₂ e` is trapped in `[(m+1)/(2(m+2)), 6]`
 by `Lens/Number/Nat213/ChebyshevLower.chebyshev_constant_interval` — evaluable at every `m`,
 narrowing from below, ∅-axiom.  Sharpening that bracket *is* the mathematics; "reaching the
-limit" was never a separate computational act, only the bracket's name.
+limit" was never a separate computational act, only the bracket's name.  And where the limit
+*looks* irreducibly analytic, the computation is a shared discrete skeleton read two ways:
+`e`'s two homes — the factorial (`Σ 1/k!`) and the lcm (`lcm(1..N) ~ eᴺ`, PNT's `ψ`-form) —
+are one prime-power structure, `vₚ(N!) = Σ_{i=1}^N vₚ(lcm(1..⌊N/i⌋))`
+(`NumberTheory/FactorialLcmIdentity.vp_factorial_eq_sum_vp_lcm`, Legendre as a Fubini count),
+so `e` is computed from the structure, not approached as a target.
 
 ## Self-standing means self-justified, not bounded
 

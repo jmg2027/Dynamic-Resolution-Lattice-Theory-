@@ -145,6 +145,7 @@ intermediate one-sided dyadic bounds `two_pow_le_succ_primePi`
 | `ChebyshevLower.chebyshev_constant_interval` | the constant `log₂e` as a **computable narrowing interval** `[(m+1)/(2(m+2)), 6]` |
 | `ChebyshevLower.central_binom_dvd_lcm` | `C(2n,n) ∣ lcm(1..2n)` (central-binomial ↔ lcm-growth bridge) |
 | `ChebyshevLower.two_pow_le_lcm` | **lcm-form (ψ) lower** `2^n ≤ lcm(1..2n)`, i.e. `ψ(2n) ≥ n·ln2` |
+| `FactorialLcmIdentity.vp_factorial_eq_sum_vp_lcm` | **factorial ↔ lcm bridge** `vₚ(N!) = Σ_{i=1}^N vₚ(lcm(1..⌊N/i⌋))` (Legendre as a Fubini count) |
 
 ## What is reached and what is not
 
