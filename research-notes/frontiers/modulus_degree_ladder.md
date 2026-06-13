@@ -5,9 +5,14 @@ degree 2, 3, … — `W ~ N(m,k)²`, `N(m1,k1)×N(m2,k2)`, or other shapes?
 
 **Status**: the algebraic pillar is **closed** at degrees 2 and 3; the graded
 rate generator (rung 1) is **closed** (`RateModulus.graded_total_modulus`,
-`N = k^s + 1`); the conditional measure-modulus schema (rung 2) is **closed**
-(`BracketModulus` + `PiMeasureModulus`: π conditionally degree-`s`); the
-two-real separation modulus is **open**.
+`N = k^s + 1`); the **schedule-degree hierarchy is now closed as infinite and
+strict** (`RateHierarchy.strict_modulus_hierarchy`: for every `t`, the family
+`sepDenS (t+1)` separates rung `t` from `t+1`, via the cross-degree power gap
+`PowBernoulli.pow_pred_lt`) — the lone degree-2 witness `sepDen` is now one rung
+of a full ladder, each occupied by an actual real (`sepS_graded_modulus`); the
+conditional measure-modulus schema (rung 2) is **closed** (`BracketModulus` +
+`PiMeasureModulus`: π conditionally degree-`s`); the two-real separation modulus
+is **open**.
 
 ## The conversion law (the frame)
 

@@ -29,6 +29,7 @@ import E213.Meta.Nat.PureNat
 import E213.Meta.Nat.PolyNat
 import E213.Meta.Nat.PowBasic
 import E213.Meta.Nat.RootFloor
+import E213.Meta.Nat.PowBernoulli
 
 /-! Spec-as-code entry point for `E213.Meta.Nat`.
 

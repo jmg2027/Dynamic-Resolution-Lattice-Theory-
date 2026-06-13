@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
 (Session E) — these were ring-independent and belonged in Meta.
 
-## Files (37)
+## Files (38)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -34,6 +34,12 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
   - `RootFloor.lean`       — integer `s`-th root, floor reading
                              (`rootFloor_pow` calibration; the graded
                              rate generator's probe schedule)
+  - `PowBernoulli.lean`    — additive Bernoulli bounds (`bernoulli_upper`/
+                             `bernoulli_lower`) + the **cross-degree power
+                             gap** `pow_pred_lt` (`(K+1)^e < K^(e+1)` once
+                             `e+2 ≤ K`): the degree axis outruns the base
+                             axis — arithmetic crux of the strict
+                             modulus-degree hierarchy (`Real213/RateHierarchy`)
   - `BinTree213.lean`      — the tree floor below append: the free
                              binary magma; append = its associativity
                              quotient (`flatten`), `count` blind to

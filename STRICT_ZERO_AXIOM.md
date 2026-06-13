@@ -1423,6 +1423,31 @@ comparisons.  The forward additive-cancel used the PURE
 propext-dirty); the floor polynomial identity is discharged by the
 `Meta.Nat.PolyNat` reflection ring.
 
+### Strict infinite modulus-degree hierarchy (2026-06-13)
+
+`E213.Meta.Nat.PowBernoulli` — **4 PURE / 0 DIRTY**.  Additive Bernoulli
+bounds `bernoulli_upper` (`(N+1)^(s+1) ≤ N^(s+1) + (s+1)·(N+1)^s`) and
+`bernoulli_lower` (the reverse), proven by additive induction (no truncated
+subtraction); their consequence the ★★★ **cross-degree power gap**
+`pow_pred_lt` (`(K+1)^e < K^(e+1)` once `e+2 ≤ K` — the degree axis outruns
+the base axis); and the read-back calibration `succ_pow_lt_succ_pow`
+(`K^t+1 < (K+1)^t` for `t≥2`).  Lean-core `Nat.add_mul` is propext-dirty, so
+the PURE `NatHelper.add_mul` is used.
+
+`E213.Lib.Math.NumberSystems.Real213.RateHierarchy` — **8 PURE / 0 DIRTY**.
+★★★ The lone degree-2 witness promoted to a **uniform parametric family**
+`sepDenS s` (`d_{i+1} = (⌊i^{1/s}⌋+2)·d_i`, `W = d`; `sepDenS 2 = sepDen`):
+`sepDenS_dominatesS_all` (degree-`s` rescue at every layer — the
+uniform-in-`s` `sep_dominatesS_all`), `rootFloor_succ_eq` (read-back at the
+perfect-power layer), and ★★★ `sepDenS_breaks` (for every `t ≥ 2`,
+`sepDenS (t+1)` is *not* `rootFloor t`-dominated at layer `(t+3)^t`, forced by
+`pow_pred_lt`).  Together: ★★★ `strict_modulus_hierarchy` — every consecutive
+integer rung `(t, t+1)` is separated by an explicit presentation, so the ladder
+is **infinite and strict**.  ★★ `sepS_graded_modulus` occupies each rung with an
+actual real (`sepNumS s / sepDenS s`, `sep_cross_detS`: `W = d` exactly,
+modulus `N = k^s+1` via `graded_total_modulus`) — modulus degree exactly `t+1`
+for every `t`.
+
 `E213.Lib.Math.NumberSystems.Real213.RateModulus` — **11 PURE / 0 DIRTY**.  ★★★
 **The graded rate generator** (modulus-degree ladder rung 1).  The margin
 telescope is parametrized by a probe schedule `ρ`: `HtelS a d ρ` (the margin

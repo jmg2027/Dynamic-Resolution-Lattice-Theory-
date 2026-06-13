@@ -222,7 +222,22 @@ witness is an actual real, not just a predicate pair: the numerators
 `a_{i+1} = (⌊√i⌋+2)·a_i + 1` solve the cross-det relation over ℕ exactly
 (`sep_cross_det`, `W = d`), and `sep_graded_modulus` completes `sepNum/sepDen`
 through the degree-2 schedule with the constructed modulus `N(m,k) = k² + 1`,
-its degree-1 certificate broken.  So "completes
+its degree-1 certificate broken.
+
+This lone degree-2 witness is not the ceiling: `RateHierarchy` promotes it to a
+**uniform family** `sepDenS s` (`d_{i+1} = (⌊i^{1/s}⌋+2)·dᵢ`, `W = d`;
+`sepDenS 2 = sepDen`).  `sepDenS_dominatesS_all` is the degree-`s` rescue at
+every layer — the *same* root-monotonicity argument, now parametric.  The break
+generalizes too: `sepDenS_breaks` shows that for every `t ≥ 2`, the
+degree-`(t+1)` presentation fails the degree-`t` schedule at the perfect
+`t`-th-power layer `(t+3)^t` — there both schedule probes read `t+3` while the
+denominator's growth coefficient is pinned below `t+1` by the **cross-degree
+power gap** `(t+3)^t < (t+2)^{t+1}` (`Meta.Nat.PowBernoulli.pow_pred_lt`, an
+additive-Bernoulli consequence: the degree axis genuinely outruns the base
+axis).  Together (`strict_modulus_hierarchy`) every consecutive integer rung
+`(t, t+1)` is separated by an explicit presentation, so the ladder is **infinite
+and strict**; `sepS_graded_modulus` occupies each rung with an actual real of
+modulus degree exactly `t+1`.  So "completes
 freely" is not one comparison but a ladder of them, one per schedule — *rescue*
 is graded the way `CompletabilityGrade` grades *break*, and the modulus degree is
 the rung's price.  This is the conversion law of the modulus-degree ladder read

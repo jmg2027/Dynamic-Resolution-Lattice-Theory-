@@ -116,6 +116,15 @@
     inherits domination under the cross-multiplied **gap law**
     `1/ρ' − 1/ρ` non-increasing) + `schedule_comparison_needs_gap` (the gap
     law is indispensable — pointwise the ladder is not a chain).
+  - `RateHierarchy.lean` — ★ the lone degree-2 witness promoted to a **uniform
+    family** `sepDenS s` (`d_{i+1}=(⌊i^{1/s}⌋+2)·d_i`, `W=d`; `sepDenS 2 = sepDen`).
+    `sepDenS_dominatesS_all` (degree-`s` rescue at every layer) +
+    `sepDenS_breaks` (degree-`t` schedule fails at the perfect power layer
+    `(t+3)^t`, via the cross-degree gap `Meta.Nat.PowBernoulli.pow_pred_lt`) give
+    `strict_modulus_hierarchy`: every consecutive rung `(t,t+1)` is separated, so
+    the modulus-degree ladder is **infinite and strict**.  `sepS_graded_modulus`
+    occupies each rung with an actual real (`sepNumS s / sepDenS s`, modulus
+    `N=k^s+1`) — degree exactly `t+1` for every `t`.
   - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
     presentations**: strictly increasing lower fold + non-increasing upper
     companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`

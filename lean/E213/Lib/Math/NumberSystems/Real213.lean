@@ -68,6 +68,7 @@ import E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut
 import E213.Lib.Math.NumberSystems.Real213.ModulusComposition
 import E213.Lib.Math.NumberSystems.Real213.RateModulus
 import E213.Lib.Math.NumberSystems.Real213.RateStratification
+import E213.Lib.Math.NumberSystems.Real213.RateHierarchy
 import E213.Lib.Math.NumberSystems.Real213.BracketModulus
 import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
 import E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
