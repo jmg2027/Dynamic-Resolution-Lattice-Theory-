@@ -86,10 +86,38 @@ description of the character: it is forced by the orbit being cyclic of even
 order, the same `object1_not_surjective` shape that makes the residue reachable
 by no single view (`seed/AXIOM/05_no_exterior.md` §5.1).
 
-## Open frontier
+## The theorem
 
-The equality `(a/p) = (−1)^{dlog_g(a)}` as a single Lean theorem — tying
-`exists_primitive_root` to the standing `psign`/Euler readouts — is buildable
-and not yet built (the ripest edge in the Zolotarev cross-domain board).  Once
-landed it makes "the character is a discrete-log parity" a theorem, not a
-reading.
+The equality `(a/p) = (−1)^{dlog_g(a)}` is now a single ∅-axiom theorem
+(`ModArith/DiscreteLogParity.lean`), tying `exists_primitive_root` to Euler's
+criterion `qr_iff_pow_one` exactly as the derivation above:
+
+```
+QR(g^k % p) ⟺ (g^k)^m ≡ 1 ⟺ g^{km} ≡ 1 ⟺ ord g ∣ km ⟺ 2m ∣ km ⟺ 2 ∣ k.
+```
+
+- ★ `qr_pow_iff_even_exp` — for a primitive root `g`, `QR(g^k % p) ⟺ 2 ∣ k`
+  (the parity core: even orbit-position ⟺ square).  The middle equivalences are
+  `pow_one_iff_ord_dvd` (`g^j ≡ 1 ⟺ ord g ∣ j`, `ord_dvd` + its converse
+  `pow_dvd_one`) and `two_mul_dvd_iff` (`2m ∣ km ⟺ 2 ∣ k`, cancel the positive
+  half-order `m`).
+- `dlog_exists` — the discrete log is defined on *every* unit: the primitive
+  root generates, so `tau` (the discrete-log list) is a permutation of the
+  residues (`tau_mem_perms`) and every unit is some `g^k % p`.
+- ★ `qr_iff_even_dlog` / `qr_iff_even_dlog_exists` — the per-unit and
+  fully-internal forms: for every unit `a` there exist a primitive root `g` and
+  a discrete log `k` with `a = g^k % p` and `QR(a) ⟺ 2 ∣ k`.
+
+So "the character is a discrete-log parity" is a theorem, not a reading: `2 ∣ k`
+is the count-Lens of the orbit position read `mod 2` — the `(−1)^k` above.
+
+The **permutation-sign face** is a theorem too: composing the discrete-log parity
+with `ZolotarevMuBridge.zolotarev_mu` (`psign σ_a = 1 ⟺ QR(a)`, every odd prime),
+
+- `psign_pow_iff_even_exp` — `psign σ_{g^k} = 1 ⟺ 2 ∣ k`;
+- `psign_iff_even_dlog_exists` — the per-unit form.
+
+So the **Euler power**, the **permutation sign**, and the **discrete-log parity**
+are now one bit `k mod 2` read three ways as actual ∅-axiom theorems (with the
+**determinant** following from `det_permMatrix`); the orbit position is the source
+they all read.
