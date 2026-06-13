@@ -4,10 +4,13 @@
 **Status**: A-region + exp/log skeleton CLOSED; B (π counting) CLOSED; **Chebyshev
 upper bound `π(2^m)=O(2^m/m)` CLOSED**; **`PrimeDensityToZero` INHABITED ∅-axiom
 (`primeDensityToZero`) — prime density `π(N)/N → 0` certified, the PNT density cut
-CLOSED**; **Chebyshev lower bound `n ≤ (⌊log₂2n⌋+1)·π(2n)` CLOSED** (`chebyshev_lower`);
-**two-sided order `π(2^{m+1})=Θ(2^{m+1}/m)` CLOSED** (`chebyshev_order`, explicit
-constants).  Remaining OPEN: only the PNT `~ N/ln N` asymptotic (constant `1`), a
-`Real213` pointing horizon — not ∅-axiom reachable.
+CLOSED**; **Chebyshev LOWER bound + two-sided band/order CLOSED**: `chebyshev_lower`
+(`n ≤ (⌊log₂2n⌋+1)·π(2n)`), the band `chebyshev_defect` (`n/(⌊log₂(2n)⌋+1) ≤ π(2n) ≤ n`,
+the doctrine D5 defect), and the sharp order `chebyshev_order`
+(`π(2^{m+1})=Θ(2^{m+1}/m)`, explicit constants) + `chebyshev_constant_interval`
+(`log₂e ∈ [(m+1)/(2(m+2)),6]`, the constant as a computable narrowing interval).
+Remaining OPEN: only the PNT `~ N/ln N` asymptotic (constant `1`, = closing the band's
+width to a point), a `Real213` pointing horizon — not ∅-axiom reachable.
 
 ## The trajectory
 
@@ -144,7 +147,16 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     `1`-cut, constant `1`) needs `ln` (`Real213.ExpLog`) + the ratio sequence — the
     asymptotic horizon, not ∅-axiom reachable.
 
-## Next concrete step
+## The two-sided shape: the band IS the residue-shape (`residue_shape_doctrine.md` D5)
+
+**The band as the doctrine's worked defect** (`residue_shape_doctrine.md` D5;
+`simplicial_operation_tower.md` L3‴a): the pivot `C(2n,n)` is the cone's value-cut
+(`doubleTotal_closed`); the **support → shape** arrow `A` is *exact* (factorization,
+`2^n ≤ C(2n,n)`), the **shape → support** arrow `B` is a *lossy* size-squeeze, and
+`B ∘ A ≠ id` — so `π(2n)` is pinned to the band `n/(⌊log₂(2n)⌋+1) ≤ π(2n) ≤ n`
+(`ChebyshevLower.chebyshev_defect`) whose *width* is the prime-counting content, not a
+transcendent `∞`.  The sharp dyadic form of the same band is `chebyshev_order` /
+`chebyshev_constant_interval` below.
 
 The whole Chebyshev/density branch is **CLOSED**, both directions: the density cut
 `primeDensityToZero : PrimeDensityToZero` (`π(N)/N → 0`), the lower bound

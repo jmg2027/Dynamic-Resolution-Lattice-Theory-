@@ -8,12 +8,14 @@ import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.PairOp
 import E213.Meta.Nat.UnitList
 import E213.Meta.Nat.UnitGrid
+import E213.Meta.Nat.UnitHyper
 import E213.Meta.Nat.BinTree213
 import E213.Meta.Nat.HyperAssoc
 import E213.Meta.Nat.GridReadout213
 import E213.Meta.Nat.Shape213
 import E213.Meta.Nat.Iterate213
 import E213.Meta.Nat.HyperLadder
+import E213.Meta.Nat.UnitTetra
 import E213.Meta.Nat.ExpVector
 import E213.Meta.Nat.StrictLocate213
 import E213.Meta.Nat.ListLocate213

@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.UnitHyper
 
 /-!
 # CrossDetOvertake — completability is a comparison of two growth-axes
@@ -188,5 +189,47 @@ theorem const_crossdet_small : CrossDetSmall (fun _ => 1) denomExp := by
 theorem completability_boundary :
     CrossDetSmall (fun _ => 1) denomExp ∧ ¬ CrossDetSmall crossW denomExp :=
   ⟨const_crossdet_small, dexp_overtakes_denom⟩
+
+/-! ## §6 — the cross-determinant axis is operation-tower-graded (`UnitHyper`)
+
+The two boundary regimes are not arbitrary growth rates: read through the
+`^`-object `Meta/Nat/UnitHyper` (`count (hcube a b) = a^b`, `count_hcube`), the
+cross-determinant axis `W` is **graded by the operation tower**, and the
+completability boundary is the rung at which `W`'s grade overtakes the
+denominator's.
+
+  * **Floor** `W_i = 1` (`const_crossdet_small`, the **|det| = 1** unit — the
+    magnitude of the Pell/Cassini invariant `mobius_213_pell_unit_invariant_forall
+    = −1`) is the **point**, the dimension-`0` cube (`crossdet_floor_eq_point`).
+    The symplectic unit *is* the bottom of the `^`-tower.
+  * **Ceiling** `W_i = 2^{2^i}` (`dexp_overtakes_denom`) is the cell count of the
+    `^`-object whose *dimension* is itself a `^`-count (`crossW_eq_hcube_count`):
+    `2^{2^i} = count (hcube 2 (2^i))`, the `^`-applied-to-`^` (tetration-shaped)
+    rung — `^` nested once more.
+
+So the "1 unit of twist" the `^`-rung adjoins (`simplicial_operation_tower.md` L5,
+`UnitHyper.dim_hcube_succ`) and the "|det| = 1 floor" of the cross-determinant are
+the **same bottom-of-tower object** (the unit / the point); the cross-determinant's
+*growth* up to the double exponential is literally **climbing the `^`-tower**, with
+`UnitHyper.count` the grading map.  This upgrades the L5 "`+1` DOF rhymes with `−1`
+cross-determinant" resonance from numerology to a structural identification: the
+shared `1` is the det-one floor = the unit = the operation tower's bottom rung. -/
+
+/-- The **det-one floor is the point**: the constant cross-determinant `W_i = 1`
+    (the |det| = 1 unit, magnitude of the Pell invariant `= −1`) is the cell count
+    of the dimension-`0` unit cube (`hcube a 0` = a single cell), for any side `a`. -/
+theorem crossdet_floor_eq_point (a : Nat) :
+    (1 : Nat) = E213.Meta.Nat.UnitHyper.count (E213.Meta.Nat.UnitHyper.hcube a 0) := rfl
+
+/-- ★★ **The double-exponential ceiling is a nested `^`-cube.**  The cross-determinant
+    `W_i = 2^{2^i}` is the cell count of the `^`-object `hcube 2 (2^i)` — the
+    `b`-dimensional unit cube of side `2` whose dimension `b = 2^i` is *itself* a
+    `^`-count (`count (hcube 2 i)`).  So the completability ceiling is `^` nested
+    once more (the tetration-shaped rung), and `UnitHyper.count` grades the
+    cross-determinant axis by the operation tower. -/
+theorem crossW_eq_hcube_count (i : Nat) :
+    crossW i = E213.Meta.Nat.UnitHyper.count (E213.Meta.Nat.UnitHyper.hcube 2 (2 ^ i)) := by
+  show 2 ^ (2 ^ i) = E213.Meta.Nat.UnitHyper.count (E213.Meta.Nat.UnitHyper.hcube 2 (2 ^ i))
+  rw [E213.Meta.Nat.UnitHyper.count_hcube]
 
 end E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake

@@ -119,6 +119,121 @@ theorem monoCount_pascal (k n : Nat) :
     monoCount (k + 1) (n + 1) = monoCount k (n + 1) + monoCount (k + 1) n :=
   Nat.add_comm _ _
 
+/-! ### Dimension without ∞ — the finite-difference depth
+
+The "dimension" of the rung need not be written as a cardinal (`+`:1, `×`:∞).
+Read it off **how the graded count moves under degree-differencing**: the
+degree-difference of rung `k+1` is rung `k` (`diff_drops_rung`), so each
+difference **drops the dimension by one**.  Hence the dimension is the number of
+differences that annihilate the count: `+` (rung 1) is constant already
+(`monoCount 1 = 1`, 0 differences → 1-dimensional); `×` (the `∞`-generator
+limit) is the count whose difference-tower **never terminates** — "infinite
+dimension" as a *non-terminating finite-difference tower*, not a cardinal.  (The
+generating-function dual: differencing ↔ multiplying by `(1−x)`; the rung's
+Hilbert series is `(1−x)^{−k}`, dimension = pole order at `x=1`, and `×`'s
+essential singularity there is the Euler product `∏_p` = `ζ`.) -/
+
+/-- The graded count is non-decreasing in the degree (Pascal: each step adds the
+    next-lower rung). -/
+theorem monoCount_mono_deg (k d : Nat) :
+    monoCount (k + 1) d ≤ monoCount (k + 1) (d + 1) := by
+  rw [monoCount_pascal]
+  exact Nat.le_add_left _ _
+
+/-- ★ **The degree-difference drops the rung by one** — the dimension step,
+    subtraction-free-grounded.  `monoCount (k+1)(d+1) − monoCount (k+1) d =
+    monoCount k (d+1)`: differencing the graded count in the degree returns the
+    next-lower rung (`monoCount_pascal` then cancel).  So the dimension is the
+    finite-difference depth — `k+1` differences send rung `k+1` to the zero rung
+    (`monoCount 0`), the constructive reading of "dimension" with no cardinal `∞`. -/
+theorem diff_drops_rung (k d : Nat) :
+    monoCount (k + 1) (d + 1) - monoCount (k + 1) d = monoCount k (d + 1) := by
+  rw [monoCount_pascal]
+  exact E213.Tactic.NatHelper.add_sub_cancel_right (monoCount k (d + 1)) (monoCount (k + 1) d)
+
+/-! #### The finite-difference dimension detector (computational)
+
+This is the corpus's divergence-depth ladder (`Analysis/Cauchy/DivergenceLadder`:
+`diff`, `liftK`, `reachesFloor` — depth = iterations to a constant, `∞` for
+super-polynomial growth) read on the **graded count**: the dimension of the
+rung-`(k+1)` structure is the depth at which its count `monoCount (k+1)` floors.
+(The operator is re-stated locally to keep this counting file free of the analysis
+import; relocating `diff`/iterate to `Meta/Nat` is the standing dedup, recorded in
+`research-notes/frontiers/`.)
+
+Dimension is **computed**, not posited.  The forward difference `Δf(d) =
+f(d+1) − f(d)`, iterated, peels one rung per step (`diffIter_monoCount`), so
+`Δ^{k+1}` annihilates the rung-`(k+1)` count (`diffIter_dim_zero`) while `Δ^k`
+leaves the constant `1` (`diffIter_dim_const`).  The **dimension `= k+1` = the
+least difference-depth that annihilates** — read off by finite arithmetic, no
+cardinal `∞`.  (On the non-decreasing `monoCount` sequences every intermediate
+difference is again a `monoCount`, so the `Nat`-truncated subtraction is exact
+throughout.) -/
+
+/-- Forward difference of a sequence (pointwise; exact on non-decreasing seqs). -/
+def diff (f : Nat → Nat) : Nat → Nat := fun d => f (d + 1) - f d
+
+/-- The iterated forward difference `Δ^j`. -/
+def diffIter (f : Nat → Nat) : Nat → (Nat → Nat)
+  | 0     => f
+  | j + 1 => diff (diffIter f j)
+
+/-- ★ **`Δ^j` peels `j` rungs (shifted).**  For `j < N`, `Δ^j (monoCount N)(d) =
+    monoCount (N−j)(d+j)` — each difference drops the rung by one
+    (`diff_drops_rung`), `j` of them drop `j`.  Pointwise (no `funext`), induction
+    on `j` with `N` fixed. -/
+theorem diffIter_monoCount : ∀ (N j : Nat), j < N → ∀ d,
+    diffIter (monoCount N) j d = monoCount (N - j) (d + j)
+  | _, 0,     _,  d => by
+      show monoCount _ d = monoCount _ (d + 0)
+      rw [Nat.sub_zero, Nat.add_zero]
+  | N, j + 1, hj, d => by
+      have hjN : j < N := Nat.lt_of_succ_lt hj
+      have hsub : (N - (j + 1)) + 1 = N - j := by
+        rw [Nat.sub_succ]
+        exact Nat.succ_pred_eq_of_pos (E213.Tactic.NatHelper.sub_pos_of_lt hjN)
+      show (diffIter (monoCount N) j) (d + 1) - (diffIter (monoCount N) j) d
+            = monoCount (N - (j + 1)) (d + (j + 1))
+      rw [diffIter_monoCount N j hjN (d + 1), diffIter_monoCount N j hjN d,
+          ← hsub, Nat.add_right_comm d 1 j, diff_drops_rung (N - (j + 1)) (d + j),
+          Nat.add_assoc d j 1]
+
+/-- ★ **`Δ^k` lands on the constant `1`** (the dimension-`(k+1)` floor): `Δ^k
+    (monoCount (k+1))(d) = 1`.  After `k` differences the rung-`(k+1)` count has
+    been peeled down to rung `1` = `ℕ⁺` = the constant sequence `1`
+    (`monoCount_one`). -/
+theorem diffIter_dim_const (k d : Nat) : diffIter (monoCount (k + 1)) k d = 1 := by
+  rw [diffIter_monoCount (k + 1) k (Nat.lt_succ_self k) d,
+      show (k + 1) - k = 1 by rw [Nat.add_comm k 1]; exact E213.Tactic.NatHelper.add_sub_cancel_right 1 k]
+  exact monoCount_one (d + k)
+
+/-- ★★ **`Δ^{k+1}` annihilates the rung — the computed dimension.**  `Δ^{k+1}
+    (monoCount (k+1))(d) = 0`: one difference past the constant floor kills it
+    (`1 − 1 = 0`).  So the dimension of the rung-`(k+1)` count *is* `k+1` =
+    the least difference-depth at which it vanishes — `∞` for the `×`-limit
+    becomes "the depth never reached", computed, not enshrined. -/
+theorem diffIter_dim_zero (k d : Nat) : diffIter (monoCount (k + 1)) (k + 1) d = 0 := by
+  show (diffIter (monoCount (k + 1)) k) (d + 1) - (diffIter (monoCount (k + 1)) k) d = 0
+  rw [diffIter_dim_const k (d + 1), diffIter_dim_const k d]
+
+/-! #### `Δ` and `Σ` are the dimension ∓1 operators (the discrete calculus)
+
+The difference `Δ` (lowers the rung, `diff_drops_rung`) and the partial sum `Σ`
+(`sumf`, raises it, `totalCount_eq`) are an **inverse pair** on the dimension
+tower — the discrete derivative/integral.  `Σ` adds a generator (rung `k → k+1`,
+`+1` dimension); `Δ` removes one (`k+1 → k`).  Their composite is the **discrete
+fundamental theorem** `Δ(Σf) = shift` (`diff_sumf`), the telescoping identity. -/
+
+/-- ★ **Discrete fundamental theorem: `Δ ∘ Σ = shift`.**  `diff (sumf f) d =
+    f (d+1)` — differencing the running sum returns the summand (telescoping).
+    With `totalCount_eq` (`Σ` raises the rung) and `diff_drops_rung` (`Δ` lowers
+    it), `Δ`/`Σ` move ∓1 along the dimension tower: the finite-calculus pair that
+    computes dimension up and down with no cardinal `∞`. -/
+theorem diff_sumf (f : Nat → Nat) (d : Nat) : diff (sumf f) d = f (d + 1) := by
+  show (sumf f d + f (d + 1)) - sumf f d = f (d + 1)
+  rw [Nat.add_comm]
+  exact E213.Tactic.NatHelper.add_sub_cancel_right (f (d + 1)) (sumf f d)
+
 /-! ### Cumulative total — "all the monomials up to degree N" (the summation)
 
 The increase from adding a base is **not** a per-degree comparison; it is the
@@ -207,6 +322,35 @@ theorem sumf_congr (f g : Nat → Nat) (h : ∀ i, f i = g i) :
   | n + 1 => by
       show sumf f n + f (n + 1) = sumf g n + g (n + 1)
       rw [sumf_congr f g h n, h (n + 1)]
+
+/-! #### `Σ^k` builds the rung from `1` — the dual of `Δ^k` annihilating
+
+The pole-order / generating-function content `monoCount(k+1) ↔ (1−x)^{−(k+1)}`,
+computed **without formal power series**: applying the partial sum `Σ` (`sumf`)
+`k` times to the constant sequence `1` *builds* the rung-`(k+1)` count
+(`sumfIter_const_one`).  Each `Σ` is one `×(1−x)^{−1}` = one pole-order = one
+dimension, so `Σ^k 1 = monoCount(k+1)` is the `(1−x)^{−(k+1)}` expansion as
+iterated summation — the exact dual of `Δ^{k+1}` annihilating it
+(`diffIter_dim_zero`). -/
+
+/-- The iterated partial sum `Σ^k`. -/
+def sumfIter (f : Nat → Nat) : Nat → (Nat → Nat)
+  | 0     => f
+  | k + 1 => sumf (sumfIter f k)
+
+/-- ★★ **`Σ^k 1 = monoCount(k+1)`** — the rung built from the constant by iterated
+    summation (the `(1−x)^{−(k+1)}` Hilbert series, computed).  Each `Σ` raises the
+    rung by one (`totalCount_eq`); `k` of them build rung `k+1` from rung `1` (`=
+    ℕ⁺ =` the constant `1`, `monoCount_one`).  Pointwise (no `funext`); the dual of
+    `diffIter_dim_zero`. -/
+theorem sumfIter_const_one : ∀ (k d : Nat),
+    sumfIter (fun _ => 1) k d = monoCount (k + 1) d
+  | 0,     d => (monoCount_one d).symm
+  | k + 1, d => by
+      show sumf (sumfIter (fun _ => 1) k) d = monoCount (k + 1 + 1) d
+      rw [sumf_congr (sumfIter (fun _ => 1) k) (monoCount (k + 1))
+            (fun i => sumfIter_const_one k i) d]
+      exact totalCount_eq (k + 1) d
 
 /-- **Hockey-stick**: `Σ_{i=0}^{n} C(i+k, k) = C(n+k+1, k+1)`. -/
 theorem hockey : ∀ (k n : Nat),
@@ -307,6 +451,20 @@ theorem sumf1_monoCount0 : ∀ N, sumf1 (fun n => monoCount 0 n) N = 0
 theorem monoCount_col0 : ∀ k, monoCount k 0 = 1
   | 0     => rfl
   | k + 1 => monoCount_col0 k
+
+/-- ★ **Vertices = generators = axes** — the unifying anchor.  `monoCount k 1 = k`:
+    the degree-`1` elements are exactly the `k` generators (each base once), so the
+    rung over `k` bases is the cone over the **`(k−1)`-simplex** — `k` vertices.  This
+    pins the *generative* simplex (L3) to the *demotion* lattice (R4,
+    `number_tower_theory.md`): the `k` simplex vertices **are** the `k` independent
+    lattice axes.  Hence `+` (`k = 1`, `monoCount 1 1 = 1`) is the cone over a single
+    vertex (the 0-simplex = the point, the ray ℕ⁺); `×` (`k → ∞`, the prime axes) is
+    the cone over the **∞-simplex** — already infinite-dimensional, no finite figure. -/
+theorem monoCount_vertices : ∀ k, monoCount k 1 = k
+  | 0     => rfl
+  | k + 1 => by
+      show monoCount k 0 + monoCount k 1 = k + 1
+      rw [monoCount_col0, monoCount_vertices k, Nat.add_comm]
 
 /-- **A calculation bound: sorted-readings ≤ ordered-readings**, `monoCount t d ≤
     t^d`.  `monoCount t d` = the *sorted* readings (multisets = the simplex slice
@@ -483,7 +641,15 @@ as axes.  The `×`-monomials of degree `≤ N` over `k` `+`-bases number
 multiset count — built directly. -/
 
 /-- The `^`-rung built by the layer rule: degree-`d` multisets of `×`-monomials
-    (the `×`-monomials of degree `≤ N` over `k` `+`-bases as the axis set). -/
+    (the `×`-monomials of degree `≤ N` over `k` `+`-bases as the axis set).
+
+    This is the **abstract axis-count** reading of the `^`-rung (the symmetric
+    skeleton, which stays simplicial — `hyperCount_simplex`).  Its **geometric
+    value** sibling is the object `Meta/Nat/UnitHyper`: `count (hcube a b) =
+    a^b = side ^ dim`, where the base/exponent twist (here folded away as the
+    symmetric multiset count) is carried *positively* as the side-vs-dimension
+    type-asymmetry (`UnitHyper.count_eq_side_pow_dim`).  Two readouts of one
+    `^`-rung (`simplicial_operation_tower.md` L4/L5). -/
 def hyperCount (k N d : Nat) : Nat := monoCount (totalCount k N) d
 
 /-- **The tower stays simplicial.**  Stacking the rule again, the `^`-rung is *again*

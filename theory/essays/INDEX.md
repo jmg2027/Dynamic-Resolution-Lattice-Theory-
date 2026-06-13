@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 101 essays are grouped into ten thematic sub-directories — distinct
+The 103 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -26,7 +26,10 @@ others together):
 `the_residue_as_state_machine`, `the_upper_fold_pattern`,
 `the_frontier_has_a_form`, `the_residue_unit_odometer`, `the_unit`,
 `reached_by_none`, `the_breadth_signature`, `the_reference_claim`,
-`the_one_diagonal`, `the_one_carrier`, `growth_without_a_clock`.
+`the_one_diagonal`, `the_one_carrier`, `growth_without_a_clock`,
+`imagining_infinity` (conceiving ∞ is a discrete pointing: the limit-value is
+reached by no convergent yet every cut is decided in finite — `PointingLimit`,
+`BestApproximation`; the residue's shape characterises ∞ without deifying it).
 
 **II. `cohomology/` — the c-counter programme.**
 `c_counter_as_layer_count`, `disjoint_layers_as_direct_sum`,
@@ -59,6 +62,13 @@ homomorphism under all three),
 *count* never climbs the tower while the *base* does, so at `^` a dilation axis
 opens — the "comm/assoc die" facts are its 1-D shadow; the count itself stays
 simplicial, `hyperCount_simplex`),
+`dimension_is_a_computed_depth` (dimension is not a cardinal but the **annihilation
+depth** of the forward difference on the graded count: `Δ^{k+1}` kills rung `k+1`
+(`diffIter_dim_zero`), `Σ^k 1` builds it (`sumfIter_const_one`, the `(1−x)^{−k}`
+Hilbert series as iterated summation), `Δ`/`Σ` the dimension `∓1` operators —
+`∞` = the count whose difference tower never terminates (`= ζ`); the additive twin
+of the Casoratian depth, the same `+1` as the cup-ladder graduation and the
+cross-determinant det-one floor),
 `the_cp_phase_as_one_imaginary_unit` (the CKM CP phase = the signed Hodge `⋆` on
 `H*(Δ⁴)`, `arg = 90°` = the generator of `ℤ[i]^× = C₄`; one imaginary unit in four
 frames — `ℤ[i]` / `Gal(ℚ(ζ₅))≅C₄` + golden real subfield / Hodge `⋆` / the

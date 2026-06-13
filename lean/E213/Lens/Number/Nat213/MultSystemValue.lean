@@ -4,6 +4,7 @@ import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Nat.FloorLog
 import E213.Meta.Nat.PowBasic
 import E213.Meta.Nat.NatDiv213
+import E213.Meta.Nat.UnitHyper
 
 /-!
 # Lens.Number.Nat213.MultSystemValue — the prime-valued instance (case A)
@@ -1278,5 +1279,36 @@ vector in the cone). -/
 theorem hyper_parallel {p q m b : Nat} (hp : IsPrime213 p) (hq : IsPrime213 q)
     (hm : 0 < m) : vp p (m ^ b) * vp q m = vp q (m ^ b) * vp p m := by
   rw [vp_pow hp hm b, vp_pow hq hm b]; ring_nat
+
+/-! ### The dilation readout, anchored to the geometric object (`UnitHyper`)
+
+`hyper_parallel` reads the `^`-twist as a *radial scalar* in the `×`-cone (the
+exponent dilates the base).  The geometric `^`-object `Meta/Nat/UnitHyper` carries
+the **same** dilation as a *cell count*: `count (hcube a b) = a^b` (`count_hcube`),
+multiplying by `a` at each dimension (`count_hcube_succ`).  The two readings are one
+fact — the geometric per-dimension `×a` *is* the vp-cone's radial `b·vp_p a`. -/
+
+/-- **The geometric cube's cell count dilates its side, on every prime axis.**
+    `vp_p (count (hcube a b)) = b · vp_p a` — the cell count of the `b`-dimensional
+    unit cube of side `a` (`UnitHyper`), read through the prime-`p` valuation, is the
+    dimension `b` times the side's `p`-component: the **dimension is the radial
+    scalar**, `vp(a)` the cone direction (`count_hcube` + `vp_pow`).  This is the
+    geometric per-dimension `×a` (`UnitHyper.count_hcube_succ`) seen as the vp-cone
+    dilation. -/
+theorem hcube_vp_radial {p a : Nat} (hp : IsPrime213 p) (ha : 0 < a) (b : Nat) :
+    vp p (E213.Meta.Nat.UnitHyper.count (E213.Meta.Nat.UnitHyper.hcube a b)) = b * vp p a := by
+  rw [E213.Meta.Nat.UnitHyper.count_hcube]; exact vp_pow hp ha b
+
+/-- ★ **The geometric cube is parallel to its side in the `×`-cone** —
+    `hyper_parallel` anchored to the object.  `vp_p(count (hcube a b))·vp_q a =
+    vp_q(count (hcube a b))·vp_p a`: the cell count `a^b` points the same cone ray as
+    the side `a`, scaled by the dimension.  So the `UnitHyper` dilation axis (the
+    geometric `+1`-dimension DOF) and the `hyper_parallel` radial scalar are the
+    **same** dilation, read geometrically vs in vp-coordinates. -/
+theorem hcube_hyper_parallel {p q a b : Nat} (hp : IsPrime213 p) (hq : IsPrime213 q)
+    (ha : 0 < a) :
+    vp p (E213.Meta.Nat.UnitHyper.count (E213.Meta.Nat.UnitHyper.hcube a b)) * vp q a
+      = vp q (E213.Meta.Nat.UnitHyper.count (E213.Meta.Nat.UnitHyper.hcube a b)) * vp p a := by
+  rw [E213.Meta.Nat.UnitHyper.count_hcube]; exact hyper_parallel hp hq ha
 
 end E213.Lens.Number.Nat213.MultSystemValue

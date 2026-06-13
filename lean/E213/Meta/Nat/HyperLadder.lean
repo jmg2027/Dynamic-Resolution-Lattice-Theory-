@@ -1,4 +1,6 @@
 import E213.Meta.Nat.Iterate213
+import E213.Meta.Nat.HyperAssoc
+import E213.Meta.Tactic.NatHelper
 
 /-!
 # HyperLadder — the number tower is one recursion turning the count-clock
@@ -43,6 +45,8 @@ All decls ∅-axiom: bare recursion + induction on `Nat`, the `iter` engine of
 namespace E213.Meta.Nat.HyperLadder
 
 open E213.Meta.Nat.Iterate213 (iter iter_succ iter_succ_outside add_eq_iter mul_eq_iter pow_eq_iter)
+open E213.Meta.Nat.HyperAssoc (Comm mul_is_comm pow_not_comm)
+open E213.Tactic.NatHelper (add_sub_cancel_right sub_add_cancel)
 
 /-! ## §1 — pointwise iteration congruence (the funext-free keystone) -/
 
@@ -218,5 +222,61 @@ theorem iter_fixed {α : Type _} (f : α → α) (x : α) (h : f x = x) :
 theorem hyperop_base_one (k b : Nat) : hyperop (k + 3) 1 b = 1 := by
   show iter (hyperop (k + 2) 1) b (seed (k + 2) 1) = 1
   exact iter_fixed _ 1 (hyperop_right_one k 1) b
+
+/-! ## §6 — the degree-of-freedom of a rung: `DOF = rung − 2`
+
+`simplicial_operation_tower.md` L5 / the re-foundation blueprint state the
+asymmetry generatively: the **count** (the iteration count `b` fed to `iter`)
+never climbs the tower — it stays at the `+`-level — while the **base** `a`
+climbs (it is fed to the *previous* rung, `hyperop k`, one level down).  The two
+operands therefore span `(base level) − (count level) = (k) − 2` non-pinned
+axes at rung `k` (counting from `×` = rung 2 upward): `×`:0, `^`:1
+(the dilation/dimension axis of `UnitHyper`), `↑↑`:2.
+
+The DOF is not asserted by fiat — it is pinned to the **operand
+interchangeability** of the actual rungs: `DOF = 0` is exactly the
+*commutative* rung (operands swap freely), and the first `DOF = 1` is the first
+*non-commutative* rung, whose obstruction is the side-vs-dimension type-mismatch
+(`UnitHyper.swap_changes_dim`).  The objects certify the two low rungs;
+`dofOfRung_succ` carries the `+1`-per-rung climb in general. -/
+
+/-- The degree-of-freedom of rung `k`: **`DOF = rung − 2`** (Nat-truncated; the
+    tower from `×` = rung 2 upward).  `dofOfRung 2 = 0` (`×`), `dofOfRung 3 = 1`
+    (`^`), `dofOfRung 4 = 2` (`↑↑`).  This is the number of axes the two operands
+    span beyond the shared `+`-level count — the dilation degrees-of-freedom the
+    rung adjoins. -/
+def dofOfRung (k : Nat) : Nat := k - 2
+
+/-- ★★ **One dilation axis arises per rung climbed** (`k ≥ 2`): `DOF(k+1) =
+    DOF(k) + 1`.  The general layer-gap law — the base climbs exactly one further
+    level above the pinned count at each rung (the `UnitHyper.dim_hcube_succ`
+    `+1`-dimension, lifted to the abstract ladder). -/
+theorem dofOfRung_succ (k : Nat) (hk : 2 ≤ k) :
+    dofOfRung (k + 1) = dofOfRung k + 1 := by
+  obtain ⟨m, rfl⟩ : ∃ m, k = m + 2 := ⟨k - 2, (sub_add_cancel hk).symm⟩
+  show (m + 2 + 1) - 2 = (m + 2 - 2) + 1
+  rw [add_sub_cancel_right m 2, Nat.add_right_comm m 2 1, add_sub_cancel_right (m + 1) 2]
+
+/-- ★★ **Rung 2 (`×`): DOF 0, and exactly the commutative rung.**  `dofOfRung 2 =
+    0`, and `hyperop 2` (= `×`, `hyperop_two`) commutes — its two operands
+    interchange freely (the grid transpose, `UnitGrid.mul_comm_from_grid` behind
+    `mul_is_comm`).  `DOF = 0 ⟺ the operands carry no distinguished axis`. -/
+theorem dof_two_comm : dofOfRung 2 = 0 ∧ Comm (hyperop 2) := by
+  refine ⟨rfl, fun a b => ?_⟩
+  rw [hyperop_two a b, hyperop_two b a]
+  exact mul_is_comm a b
+
+/-- ★★★ **Rung 3 (`^`): DOF 1, the first non-commutative rung.**  `dofOfRung 3 =
+    1 ≠ 0`, and `hyperop 3` (= `^`, `hyperop_three`) does **not** commute — base
+    and exponent are *different types* (a side/length vs a dimension/axis count,
+    `UnitHyper.swap_changes_dim`), so they do not interchange.  The first
+    dilation axis (`DOF 0 → 1`) is exactly where commutativity stops: the rung
+    adjoins one non-pinned axis. -/
+theorem dof_three_not_comm : dofOfRung 3 = 1 ∧ ¬ Comm (hyperop 3) := by
+  refine ⟨rfl, fun h => pow_not_comm ?_⟩
+  intro a b
+  show a ^ b = b ^ a
+  rw [← hyperop_three a b, ← hyperop_three b a]
+  exact h a b
 
 end E213.Meta.Nat.HyperLadder
