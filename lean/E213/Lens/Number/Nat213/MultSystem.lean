@@ -151,6 +151,63 @@ theorem diff_drops_rung (k d : Nat) :
   rw [monoCount_pascal]
   exact E213.Tactic.NatHelper.add_sub_cancel_right (monoCount k (d + 1)) (monoCount (k + 1) d)
 
+/-! #### The finite-difference dimension detector (computational)
+
+Dimension is **computed**, not posited.  The forward difference `Δf(d) =
+f(d+1) − f(d)`, iterated, peels one rung per step (`diffIter_monoCount`), so
+`Δ^{k+1}` annihilates the rung-`(k+1)` count (`diffIter_dim_zero`) while `Δ^k`
+leaves the constant `1` (`diffIter_dim_const`).  The **dimension `= k+1` = the
+least difference-depth that annihilates** — read off by finite arithmetic, no
+cardinal `∞`.  (On the non-decreasing `monoCount` sequences every intermediate
+difference is again a `monoCount`, so the `Nat`-truncated subtraction is exact
+throughout.) -/
+
+/-- Forward difference of a sequence (pointwise; exact on non-decreasing seqs). -/
+def diff (f : Nat → Nat) : Nat → Nat := fun d => f (d + 1) - f d
+
+/-- The iterated forward difference `Δ^j`. -/
+def diffIter (f : Nat → Nat) : Nat → (Nat → Nat)
+  | 0     => f
+  | j + 1 => diff (diffIter f j)
+
+/-- ★ **`Δ^j` peels `j` rungs (shifted).**  For `j < N`, `Δ^j (monoCount N)(d) =
+    monoCount (N−j)(d+j)` — each difference drops the rung by one
+    (`diff_drops_rung`), `j` of them drop `j`.  Pointwise (no `funext`), induction
+    on `j` with `N` fixed. -/
+theorem diffIter_monoCount : ∀ (N j : Nat), j < N → ∀ d,
+    diffIter (monoCount N) j d = monoCount (N - j) (d + j)
+  | _, 0,     _,  d => by
+      show monoCount _ d = monoCount _ (d + 0)
+      rw [Nat.sub_zero, Nat.add_zero]
+  | N, j + 1, hj, d => by
+      have hjN : j < N := Nat.lt_of_succ_lt hj
+      have hsub : (N - (j + 1)) + 1 = N - j := by
+        rw [Nat.sub_succ]
+        exact Nat.succ_pred_eq_of_pos (E213.Tactic.NatHelper.sub_pos_of_lt hjN)
+      show (diffIter (monoCount N) j) (d + 1) - (diffIter (monoCount N) j) d
+            = monoCount (N - (j + 1)) (d + (j + 1))
+      rw [diffIter_monoCount N j hjN (d + 1), diffIter_monoCount N j hjN d,
+          ← hsub, Nat.add_right_comm d 1 j, diff_drops_rung (N - (j + 1)) (d + j),
+          Nat.add_assoc d j 1]
+
+/-- ★ **`Δ^k` lands on the constant `1`** (the dimension-`(k+1)` floor): `Δ^k
+    (monoCount (k+1))(d) = 1`.  After `k` differences the rung-`(k+1)` count has
+    been peeled down to rung `1` = `ℕ⁺` = the constant sequence `1`
+    (`monoCount_one`). -/
+theorem diffIter_dim_const (k d : Nat) : diffIter (monoCount (k + 1)) k d = 1 := by
+  rw [diffIter_monoCount (k + 1) k (Nat.lt_succ_self k) d,
+      show (k + 1) - k = 1 by rw [Nat.add_comm k 1]; exact E213.Tactic.NatHelper.add_sub_cancel_right 1 k]
+  exact monoCount_one (d + k)
+
+/-- ★★ **`Δ^{k+1}` annihilates the rung — the computed dimension.**  `Δ^{k+1}
+    (monoCount (k+1))(d) = 0`: one difference past the constant floor kills it
+    (`1 − 1 = 0`).  So the dimension of the rung-`(k+1)` count *is* `k+1` =
+    the least difference-depth at which it vanishes — `∞` for the `×`-limit
+    becomes "the depth never reached", computed, not enshrined. -/
+theorem diffIter_dim_zero (k d : Nat) : diffIter (monoCount (k + 1)) (k + 1) d = 0 := by
+  show (diffIter (monoCount (k + 1)) k) (d + 1) - (diffIter (monoCount (k + 1)) k) d = 0
+  rw [diffIter_dim_const k (d + 1), diffIter_dim_const k d]
+
 /-! ### Cumulative total — "all the monomials up to degree N" (the summation)
 
 The increase from adding a base is **not** a per-degree comparison; it is the

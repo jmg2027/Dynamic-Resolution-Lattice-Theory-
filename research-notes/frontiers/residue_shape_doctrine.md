@@ -48,11 +48,13 @@ behaves**, never off a cardinal.  Three equivalent finite handles (the `×`-cone
 multiplicative number system as the worked instance, `simplicial_operation_tower.md`
 L3‴):
 
-  1. **finite-difference depth** — `MultSystem.diff_drops_rung`: differencing the graded
-     count in the degree drops the rung by one (`monoCount (k+1)(d+1) − monoCount (k+1) d
-     = monoCount k (d+1)`); dimension = how many differences annihilate the count.  `×`
-     (the `∞`-generator limit) = the count whose difference-tower **never terminates** —
-     `∞` as a *non-terminating finite process*, not a cardinal.
+  1. **finite-difference depth (a computing detector, not a metaphor)** —
+     `MultSystem.{diff,diffIter}` is the actual operator `Δ^j`; `diffIter_dim_const`
+     (`Δ^k = 1`) and `diffIter_dim_zero` (`Δ^{k+1} = 0`) **compute** the dimension as the
+     least annihilation depth (`#eval`-verified: `monoCount 3 = [1,3,6,10,…]` → `Δ²=[1,1,…]`
+     → `Δ³=[0,…]` ⇒ dim 3).  `×` (the `∞`-generator limit) = the count whose
+     difference-tower **never terminates** — `∞` as a *non-terminating finite computation*,
+     not a cardinal.
   2. **growth degree** — `monoCount (k+1) d = C(d+k,k)` is a degree-`k` polynomial
      (`monoCount_closed`, bound `monoCount_le_succ_pow`); dimension = growth degree `+1`;
      `∞` = super-polynomial (no finite Hilbert polynomial).

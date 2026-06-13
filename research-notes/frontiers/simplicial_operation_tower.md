@@ -608,10 +608,14 @@ to test*, not asserted identities.
    an **exact-construct (A) / lossy-readout (B)** pair through the pivot `C(2n,n)`
    (= `doubleTotal` value-cut), whose **non-invertibility = prime counting**, **named as one `∅`-axiom object**
    (`ChebyshevLower.chebyshev_defect`: the band `n/(⌊log₂(2n)⌋+1) ≤ π(2n) ≤ n`, the gap =
-   the residue-shape).  *Open*: (a) a Lean object for the **iterated** finite-difference
-   tower (`Δ^{k+1}` annihilates rung `k+1`); (b) the **`ζ`-tower** — `^`'s shape as a
-   `ζ`-of-`ζ` iterate, pinned against `ChebyshevLower`/`primeDensityToZero`; (c) closing
-   the band's width to a constant *is* PNT (the open analytic core).
+   the residue-shape).  The **iterated finite-difference detector is BUILT** (`MultSystem`,
+   ∅-axiom, `#eval`-verified): `diff`/`diffIter` (`Δ^j`), `diffIter_monoCount` (`Δ^j` peels
+   `j` rungs), `diffIter_dim_const` (`Δ^k = 1`), `diffIter_dim_zero` (`Δ^{k+1} = 0`) — the
+   dimension is **computed** as the least annihilation depth (e.g. `monoCount 3 =
+   [1,3,6,10,15,…]` → `Δ²=[1,1,…]` → `Δ³=[0,0,…]` ⇒ dim 3), no cardinal `∞`.  *Open*:
+   (b) the **`ζ`-tower** — `^`'s shape as a `ζ`-of-`ζ` iterate, pinned against
+   `ChebyshevLower`/`primeDensityToZero`; (c) closing the band's width to a constant *is*
+   PNT (the open analytic core).
 
 ## Anchors
 
