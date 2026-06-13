@@ -555,15 +555,19 @@ this branch; *resonances to test*, not asserted identities.
    the same certificate-is-a-modulus pattern as `AbCutSeq.toCauchy` and the WZ
    certificates of `the_certificate_boundary.md`.  Density convergence sits on the
    certifiability boundary that essay draws.
-6. **The finite-difference dimension detector ↔ the Casoratian / depth-order duality.**
-   `Δ^{k+1}` annihilating rung `k+1` (`diffIter_dim_zero`) detects a **polynomial**
-   (C-finite, all-roots-`1`) sequence by its **additive** annihilation depth; the
-   corpus's `sequence_depth/` Casoratian-rank machinery detects a **holonomic**
-   sequence by its **multiplicative/Wronskian** depth.  Difference-depth (additive) ↔
-   Casoratian-depth (multiplicative) is the `G188_depth_order_duality` invert-twin one
-   scale down — the `Δ`-detector is the *degree-0-pole (polynomial) floor* of the
-   holonomic-depth hierarchy.  To test: does `Σ`/`Δ` (additive) match `mconv`/Casoratian
-   (multiplicative) as the same depth operator at two resolutions?
+6. **The dimension detector IS the corpus's divergence-depth ladder (not new).**
+   `MultSystem.{diff,diffIter}` re-states `Analysis/Cauchy/DivergenceLadder.{diff,liftK}`,
+   and `diffIter_dim_zero` (rung `k+1` floors at depth `k+1`) is an instance of
+   `reachesFloor`; the "`∞` = the difference tower never terminates" reading is exactly
+   `DivergenceLadder.infinite_depth` (super-polynomial growth = Liouville depth `∞`).
+   So the dimension detector is the **already-built depth ladder applied to the graded
+   count** — the genuinely new pieces are the *tower instance* (`monoCount` floors at
+   depth = rung) and the **`Σ`-builder dual** (`sumfIter_const_one`, the `(1−x)^{−k}`
+   Hilbert series) + the discrete FTC (`diff_sumf`).  Its additive depth is the
+   `CFiniteRing`/`DetSpectrumPoles` C-finite-vs-holonomic depth one resolution down; the
+   multiplicative twin is the Casoratian/Wronskian depth (`DepthPRecursive`).  *Org dedup
+   pending*: relocate `diff`/iterate to `Meta/Nat/FiniteDiff` so the tower and the
+   `Cauchy/Depth*` cluster share one operator.
 7. **`Σ` raises dimension `+1` ↔ the cup-ladder graduation `+1` = the residue unit.**
    Each partial sum `Σ` (`sumfIter`) raises the rung by one (one `×(1−x)^{−1}` = one
    pole-order = one dimension); the corpus's cohomology cup-ladder graduates by `+1` per

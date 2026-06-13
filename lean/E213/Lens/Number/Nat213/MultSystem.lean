@@ -153,6 +153,14 @@ theorem diff_drops_rung (k d : Nat) :
 
 /-! #### The finite-difference dimension detector (computational)
 
+This is the corpus's divergence-depth ladder (`Analysis/Cauchy/DivergenceLadder`:
+`diff`, `liftK`, `reachesFloor` — depth = iterations to a constant, `∞` for
+super-polynomial growth) read on the **graded count**: the dimension of the
+rung-`(k+1)` structure is the depth at which its count `monoCount (k+1)` floors.
+(The operator is re-stated locally to keep this counting file free of the analysis
+import; relocating `diff`/iterate to `Meta/Nat` is the standing dedup, recorded in
+`research-notes/frontiers/`.)
+
 Dimension is **computed**, not posited.  The forward difference `Δf(d) =
 f(d+1) − f(d)`, iterated, peels one rung per step (`diffIter_monoCount`), so
 `Δ^{k+1}` annihilates the rung-`(k+1)` count (`diffIter_dim_zero`) while `Δ^k`

@@ -126,10 +126,12 @@ at the `+`-level — the dilation readout `hyper_parallel` seen geometrically as
 cube's per-dimension `×a` (`MultSystemValue.hcube_vp_radial`).
 
 **Dimension is computed, not a cardinal.**  Each rung's graded count `monoCount k`
-carries its dimension as a *finite signature*: the forward difference drops the rung by
+carries its dimension as a *finite signature* — the corpus's divergence-depth ladder
+(`Analysis/Cauchy/DivergenceLadder`: `diff`/`liftK`/`reachesFloor`, depth `∞` for
+super-polynomial growth) read on the count.  The forward difference drops the rung by
 one (`diff_drops_rung`), so the iterated `Δ^{k+1}` **annihilates** rung `k+1`
 (`diffIter_dim_zero`; `Δ^k` lands on the constant `1`, `diffIter_dim_const`) — the
-dimension is the least annihilation depth, no cardinal `∞`.  Its inverse is the partial
+dimension is the depth at which the count floors, no cardinal `∞`.  Its inverse is the partial
 sum: `Σ^k 1 = monoCount(k+1)` (`sumfIter_const_one`, the Hilbert series `(1−x)^{−(k+1)}`
 as iterated summation), with `Δ`/`Σ` the dimension ∓1 operators (`diff_sumf`: `Δ∘Σ =
 shift`, the discrete fundamental theorem).  (The conceptual reading of this — `∞`/the
