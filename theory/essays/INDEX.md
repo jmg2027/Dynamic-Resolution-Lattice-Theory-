@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 99 essays are grouped into ten thematic sub-directories — distinct
+The 100 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -103,6 +103,12 @@ cyclic generator — the same object `vp` is per prime and `ln` is at the archim
 has a *single* atom `g` so its logarithm is valued in `ℤ/(p−1)`; the quadratic character is the
 count-Lens reading that coordinate at resolution 2 — the lowest digit — unifying the log-essay's
 `vp`/`ln` family with the character's discrete log, with order-`d` characters the higher rungs).
+`the_prime_constant_is_archimedean` (the PNT constant `1`/`e` has no ∅-axiom value because it is
+the slope at the *single archimedean place*: every reachable handle on `π` — Kummer, the lcm
+bridge, `vp_factorial_eq_sum_vp_lcm` — is a pure identity at the algebraic `vp` places, while
+`ψ(N) = Σ vp_p(lcm)·ln p` weights them by the archimedean `ln`, so the constant is what only that
+weighting fixes; it stays a computed *interval* `[(m+1)/(2(m+2)),6]` not a point — the same
+`vp`/`ln` = algebraic/archimedean = certifiable/explicit seam `the_certificate_boundary` drew).
 `the_character_is_the_groups_eigen_data` (a character of `ℤ/p` is eigen-data of the group acting
 on itself: the *multiplication* action `×a` forces a sign — the quadratic/Legendre character
 `(a/p) = psign σ_a` — and the *shift* action forces an eigenbasis — the additive characters as the
