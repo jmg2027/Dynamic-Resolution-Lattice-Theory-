@@ -57,15 +57,21 @@ Closed the Erdős elementary-Chebyshev numerator + count bound in
   `lt_of_mul_lt_mul_right_pure` (avoid `Nat.*`'s Classical axioms).  In
   `CAPSTONE_INDEX.md`.
 
-**Next** (frontier): no open ∅-axiom step remains on the density trajectory.
-**New direction started**: Chebyshev *lower* bound `π(N) ≥ c·N/ln N`
-(`frontiers/chebyshev_lower_bound.md`) via `2^n ≤ C(2n,n) ≤ (2n)^{π(2n)}`.
-**DONE**: `central_binom_ge_two_pow` (`2^n ≤ C(2n,n)`, cleared recurrence).
-**OPEN**: the Kummer bound `vp_p(C(2n,n)) ≤ floorLog p (2n)` via `Legendre.legendre`
-(`Lib/Math`; `Prime213 ≡ IsPrime213` definitionally) ⇒ `C(2n,n) ≤ (2n)^{π(2n)}` ⇒
-the bound.  Layering: needs a file above both `Legendre` (Lib/Math) and the
-central binom (`Lens`).  Other follow-ups: PNT `~N/ln N` (constant 1) horizon;
-lcm-route cross-check.
+**Chebyshev lower bound** `π(N) ≥ c·N/ln N` (`frontiers/chebyshev_lower_bound.md`,
+new file `Lens/Number/Nat213/ChebyshevLower.lean`) — via `2^n ≤ C(2n,n) ≤
+(2n)^{π(2n)}`.  **DONE ∅-axiom**: `central_binom_ge_two_pow` (`2^n ≤ C(2n,n)`);
+`floor_two_mul_div_le` (per-term `⌊2n/d⌋ ≤ 2⌊n/d⌋ + [d≤2n]`); **the Kummer bound
+`vp_central_binom_le_floorLog : vp_p(C(2n,n)) ≤ ⌊log_p(2n)⌋`** (Legendre + per-term
+sum, the hard analytic core); `prime_pow_vp_central_binom_le : p^{vp_p(C)} ≤ 2n`.
+File under `Lens/` (layer guard blocks `Lib/Math` ← `MultSystemValue`); reuses
+`Legendre`/`LcmGrowthChebyshev` (`Lib`) via `Lens → Lib`.  Bridge `fact_eq_factorial`.
+
+**Next** (frontier): the single remaining gap is the **product bound `C(2n,n) ≤
+(2n)^{π(2n)}`** — needs a *product-over-distinct-primes* (radical-support)
+representation `m = ∏_{p≤N, prime} p^{vp_p m}` (FTA grouping), not yet built
+(`factorization_exists` gives primes *with multiplicity*).  Then the cleared-form
+final assembly `n ≤ π(2n)·⌊log₂(2n)⌋`.  Other follow-ups: PNT `~N/ln N` (constant
+1) horizon; lcm-route cross-check.
 
 ## Prior session (n-plus-signature-mappings branch)
 

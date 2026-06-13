@@ -1,7 +1,8 @@
 # Frontier — Chebyshev lower bound `π(N) ≥ c·N/ln N`
 
 **Branch**: `claude/autonomous-marathon-vp-listprod-imkycf`.
-**Status**: OPEN.  The matching direction to the now-closed upper bound /
+**Status**: OPEN (Kummer analytic core DONE; only the prime-power *product* bound
++ final assembly remain).  The matching direction to the now-closed upper bound /
 density cut (`multiplicative_count_pnt`, `primeDensityToZero`).  Completing it
 gives both halves of Chebyshev's theorem `c·N/ln N ≤ π(N) ≤ C·N/ln N`.
 
@@ -14,11 +15,43 @@ gives both halves of Chebyshev's theorem `c·N/ln N ≤ π(N) ≤ C·N/ln N`.
 Take `log₂`: `n ≤ π(2n)·log₂(2n)`, i.e. **`π(2n) ≥ n / log₂(2n)`** — a lower
 bound of the right order `N/ln N`.
 
-### Done (∅-axiom, `Lens/Number/Nat213/MultSystemValue`)
+### Done (∅-axiom)
 
-- **`central_binom_ge_two_pow : 2^n ≤ C(2n,n)`** — the left inequality.
-  Induction via the cleared recurrence `C(2n+2,n+1)·(n+1) = 2(2n+1)·C(2n,n)`
-  (from `central_binom_factorial`, cancelling `(n!)²` and one `(n+1)`).
+- **`central_binom_ge_two_pow : 2^n ≤ C(2n,n)`** (`MultSystemValue`) — the left
+  inequality.  Cleared recurrence `C(2n+2,n+1)·(n+1) = 2(2n+1)·C(2n,n)`.
+- **`ChebyshevLower.floor_two_mul_div_le`** — per-term `⌊2n/d⌋ ≤ 2⌊n/d⌋ + [d≤2n]`.
+- **`ChebyshevLower.vp_central_binom_le_floorLog`** — **the Kummer bound**
+  `vp_p(C(2n,n)) ≤ ⌊log_p(2n)⌋` (Legendre + per-term sum, subtraction-free).
+  The hard analytic core, DONE.  (File lives under `Lens/` — layer guard blocks
+  `Lib/Math` from importing `MultSystemValue`; imports `Legendre`/`LcmGrowth` in
+  the allowed `Lens → Lib` direction.  Bridge `fact_eq_factorial`, helpers
+  `sumTo_two_mul`/`sumTo_extend_vanish`.)
+- **`ChebyshevLower.prime_pow_vp_central_binom_le`** — `p^{vp_p(C(2n,n))} ≤ 2n`
+  (Kummer + `floorLog` sandwich).  The per-factor bound.
+
+### Open — the product bound `C(2n,n) ≤ (2n)^{π(2n)}` + final assembly
+
+The single remaining structural gap: `C(2n,n) = ∏_{distinct primes p ≤ 2n}
+p^{vp_p(C(2n,n))}`, each factor `≤ 2n` (`prime_pow_vp_central_binom_le`), with
+`#{distinct primes} ≤ π(2n)`, so the product is `≤ (2n)^{π(2n)}`.
+
+**The missing machinery**: a *product-over-distinct-primes* representation.
+`MultSystemValue.factorization_exists` gives `m = listProd ps` with `ps` primes
+*with multiplicity* (`length = Ω(m)`, not `π`); grouping into `∏ p^{vp_p}` over
+*distinct* primes (the radical-support form) is not yet built.  Options:
+  (a) build `primePowerProd N m = ∏_{p ≤ N, prime} p^{vp_p m}` and prove
+      `m = primePowerProd N m` for `m` whose primes are `≤ N` (FTA, distinct-prime
+      grouping) + `primePowerProd N m ≤ N^{(count of p≤N with vp_p m > 0)} ≤ N^{π(N)}`;
+  (b) route through `lcm`: `C(2n,n) ∣ lcm(1..2n)` (via `dvd_of_forall_vp_le` +
+      `vp_central_binom_le_floorLog = vp_p(lcm)` from `LcmGrowthChebyshev`), then
+      `lcm(1..2n) ≤ (2n)^{π(2n)}` — but the lcm product bound has the *same*
+      distinct-prime-product gap.  (a) is the honest core.
+
+Then the **final assembly** (cleared-denominator, like `chebBound_mul_le`):
+`2^n ≤ C(2n,n) ≤ (2n)^{π(2n)}` ⇒ `n ≤ π(2n)·⌊log₂(2n)⌋` (via `lt_of_pow_lt_pow`
+/ `floorLog` on base 2) — the Chebyshev lower bound.
+
+### (historical sketch — superseded by the above)
 
 ### Open — the right inequality `C(2n,n) ≤ (2n)^{π(2n)}`
 
