@@ -44,8 +44,9 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberSystems.Real213.RateHierarchy
 
-open E213.Lib.Math.NumberSystems.Real213.RateStratification (DominatesS dominatedS_graded_modulus)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut hmono_of_hmonoS)
+open E213.Lib.Math.NumberSystems.Real213.RateStratification
+  (DominatesS Dominates dominatedS_graded_modulus htel_of_dominates_all)
+open E213.Lib.Math.NumberSystems.Real213.RateModulus (Htel rcut hmono_of_hmonoS)
 open E213.Meta.Nat.RootFloor
   (rootFloor rootFloor_mono rootFloor_pow rootFloor_pos rootFloor_pow_le)
 open E213.Meta.Nat.PowBasic (powBase_le one_le_pow)
@@ -213,5 +214,42 @@ theorem sepS_graded_modulus (s : Nat) (hs : 1 ≤ s) (m k : Nat) (hk : 1 ≤ k) 
   dominatedS_graded_modulus s hs (sepDenS s) (sepDenS_pos s) (sep_cross_detS s)
     (fun i _ => sepDenS_dominatesS_all s i)
     (hmono_of_hmonoS (sepDenS_pos s) (sep_hmonoS_S s)) (sep_hmonoS_S s) m k hk
+
+/-! ## §6 — the dual: degree 1 is generously inhabited (any cross-determinant) -/
+
+/-- The fast denominator taming an arbitrary cross-determinant `W`:
+    `d_{i+1} = i·W_i + d_i` (`d_0 = 1`).  Built so the identity schedule's
+    per-layer budget always clears `W`, no matter how large. -/
+def fastDen (W : Nat → Nat) : Nat → Nat
+  | 0 => 1
+  | i+1 => i * W i + fastDen W i
+
+/-- ★★★ **Any cross-determinant is degree-1 with a fast-enough denominator.**
+    For *every* `W` — however large, even unbounded — `fastDen W` is dominated by
+    the identity (degree-1) schedule at every layer.  So the free, linear-modulus
+    class is *not* the unimodular `W ≡ 1` floor alone: a presentation with a huge
+    cross-determinant is still degree 1 once its denominators outpace `W` per
+    layer.  The race is `W`-growth vs `d`-growth, not the size of `W` itself.
+
+    The actual-real witness with **unbounded** `W` is already in the repo: e's
+    factorial presentation (`d_i = i!`) has `W_i = i!` yet completes at `N = k+2`
+    (`HolonomicReal.euler_total_modulus`).  The "good news": a cheap (term-count)
+    modulus needs only fast denominators, not the optimal continued fraction —
+    though the cost relocates into the *size* of each term, not vanishing. -/
+theorem fastDen_dominates (W : Nat → Nat) (i : Nat) : Dominates W (fastDen W) i := by
+  show i*(i+1)*W i + i*(fastDen W i) ≤ (i+1)*(fastDen W (i+1))
+  have hd : fastDen W (i+1) = i * W i + fastDen W i := rfl
+  rw [hd]
+  calc i*(i+1)*W i + i*(fastDen W i)
+      ≤ i*(i+1)*W i + (i+1)*(fastDen W i) :=
+        Nat.add_le_add_left (Nat.mul_le_mul_right _ (Nat.le_succ i)) _
+    _ = (i+1)*(i * W i + fastDen W i) := by ring_nat
+
+/-- Any presentation realizing `(W, fastDen W)` carries the rate certificate, so
+    it completes freely (`N(m,k) = k+2`) — regardless of how large `W` grows. -/
+theorem fastDen_carries_Htel (W a : Nat → Nat)
+    (hW : ∀ i, a (i+1) * fastDen W i = a i * fastDen W (i+1) + W i) :
+    Htel a (fastDen W) :=
+  htel_of_dominates_all W hW (fun i _ => fastDen_dominates W i)
 
 end E213.Lib.Math.NumberSystems.Real213.RateHierarchy

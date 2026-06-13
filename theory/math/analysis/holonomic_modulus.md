@@ -237,7 +237,20 @@ additive-Bernoulli consequence: the degree axis genuinely outruns the base
 axis).  Together (`strict_modulus_hierarchy`) every consecutive integer rung
 `(t, t+1)` is separated by an explicit presentation, so the ladder is **infinite
 and strict**; `sepS_graded_modulus` occupies each rung with an actual real of
-modulus degree exactly `t+1`.  So "completes
+modulus degree exactly `t+1`.
+
+The bottom rung, dually, is **generously inhabited**: degree 1 is not the
+unimodular `W ≡ 1` floor alone.  `RateHierarchy.fastDen_dominates` shows that for
+*any* cross-determinant `W` — however large, even unbounded — the denominator
+`d_{i+1} = i·W_i + d_i` is degree-1 dominated at every layer.  What decides the
+degree is the **race between `W`-growth and `d`-growth per layer**, not the size
+of `W`.  The concrete witness is e: its factorial presentation has cross-determinant
+`W = eulerDen = i!` (unbounded) yet completes at `N = k+2` (`EulerModulus`), because
+the per-step denominator ratio `(i+1)` outruns it — where `sepDen`'s slower ratio
+`⌊√i⌋+2` against the same `W = d` lands at degree 2.  This is good news for
+*constructing* reals — a cheap term-count modulus needs only fast denominators,
+not the optimal continued fraction — with the honest caveat that the cost does
+not vanish but relocates into the *size* of each term (`d_i = i!`).  So "completes
 freely" is not one comparison but a ladder of them, one per schedule — *rescue*
 is graded the way `CompletabilityGrade` grades *break*, and the modulus degree is
 the rung's price.  This is the conversion law of the modulus-degree ladder read

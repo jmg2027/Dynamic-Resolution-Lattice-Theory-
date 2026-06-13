@@ -124,7 +124,10 @@
     `strict_modulus_hierarchy`: every consecutive rung `(t,t+1)` is separated, so
     the modulus-degree ladder is **infinite and strict**.  `sepS_graded_modulus`
     occupies each rung with an actual real (`sepNumS s / sepDenS s`, modulus
-    `N=k^s+1`) — degree exactly `t+1` for every `t`.
+    `N=k^s+1`) — degree exactly `t+1` for every `t`.  §6 the dual:
+    `fastDen_dominates` — *any* cross-determinant `W` is degree-1 with the
+    fast denominator `d_{i+1}=i·W_i+d_i` (the bottom rung is generously
+    inhabited; the race is `W`-vs-`d` growth, witnessed by e's `W=i!` at `N=k+2`).
   - `RateComparison.lean` — ★ the **two-real joint cut** (open frontier closed):
     deciding `a_i/d_i ⋚ b_j/e_j` between two rate-carrying reals via the
     two-convergent cross-determinant `a_i·e_j − b_j·d_i` (the single-probe

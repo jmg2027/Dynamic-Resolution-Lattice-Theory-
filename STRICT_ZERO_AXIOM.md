@@ -1434,7 +1434,7 @@ the base axis); and the read-back calibration `succ_pow_lt_succ_pow`
 (`K^t+1 < (K+1)^t` for `t≥2`).  Lean-core `Nat.add_mul` is propext-dirty, so
 the PURE `NatHelper.add_mul` is used.
 
-`E213.Lib.Math.NumberSystems.Real213.RateHierarchy` — **8 PURE / 0 DIRTY**.
+`E213.Lib.Math.NumberSystems.Real213.RateHierarchy` — **13 PURE / 0 DIRTY**.
 ★★★ The lone degree-2 witness promoted to a **uniform parametric family**
 `sepDenS s` (`d_{i+1} = (⌊i^{1/s}⌋+2)·d_i`, `W = d`; `sepDenS 2 = sepDen`):
 `sepDenS_dominatesS_all` (degree-`s` rescue at every layer — the
@@ -1446,7 +1446,13 @@ integer rung `(t, t+1)` is separated by an explicit presentation, so the ladder
 is **infinite and strict**.  ★★ `sepS_graded_modulus` occupies each rung with an
 actual real (`sepNumS s / sepDenS s`, `sep_cross_detS`: `W = d` exactly,
 modulus `N = k^s+1` via `graded_total_modulus`) — modulus degree exactly `t+1`
-for every `t`.
+for every `t`.  §6 the **dual** (degree 1 is generously inhabited): ★★★
+`fastDen_dominates` — for *any* cross-determinant `W`, the denominator
+`d_{i+1} = i·W_i + d_i` is degree-1 dominated at every layer, so a huge `W` is
+still free once `d` outpaces it per layer (the race is `W`-vs-`d` growth, not
+`W`'s size); `fastDen_carries_Htel` carries the certificate.  The in-repo
+actual-real witness is e (`EulerModulus`): cross-determinant `W = eulerDen = i!`
+(unbounded) yet `N = k+2`.
 
 ### Two-real joint comparison modulus (2026-06-13)
 
