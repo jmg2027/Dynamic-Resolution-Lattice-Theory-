@@ -490,10 +490,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   powers = a **simplicial cone**.  **L3′ `+`/`×` bridge + prime-counting payoff built**:
   one cone, two cuts (degree = Pascal vs value = ℕ); their discrepancy = prime counting
   (window `(N/2,N]` = supercritical axes) ⇒ both halves of Chebyshev (`MultSystemValue` +
-  `ChebyshevLower`; mirror `theory/math/numbertheory/chebyshev_prime_counting.md`).  Still
-  open `[gut]`: **L4** the count is the *commutativity dial* (simplex/polynomial = comm,
-  cube/`nᵏ` = non-comm — conjecture: count jumps to exponential at `^`); **L5** the geometric
-  twist; **L2** no-identity criterion; tie the abstract cone to the `(NS,NT,d)` simplex.
+  `ChebyshevLower`; mirror `theory/math/numbertheory/chebyshev_prime_counting.md`).  **L4
+  commutativity dial static comparison CLOSED ∅-axiom** (`monoCount_le_succ_pow` ≤ (d+1)^t
+  poly-in-degree; `monoCount_lt_pow` < t^d exp — simplex=poly vs cube=exp, sharp).  **L2
+  concrete content CLOSED ∅-axiom** (`monoCountPos_closed` semigroup+1=monoid;
+  `two_le_nonempty_prime_prod` × system = {2,3,…}).  Still open `[gut]`: **L4** *dynamic* —
+  build the `^`-layer enumeration, watch the count escape poly→exp at `^`; **L5** the
+  geometric twist; **L2** the cross-layer meta-criterion; tie the cone to `(NS,NT,d)`.
 
 - `general_theory_metaanalysis` — **meta-analysis program** (corpus-wide, ongoing):
   discovers genuine general theoretical structures via deep + meta analysis,

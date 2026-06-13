@@ -93,9 +93,10 @@ poly-in-degree, non-commutative = cube = exp-in-degree.  Theory mirror:
 
 **Next**: (L4) build the `^`-layer enumeration and show its per-degree count escapes
 poly(simplex)→exp(cube) at the non-commutative rung (measures the `^`-wall by
-counting); (L2) formalize "natural layer = semigroup, identity = exception"; tie the
-abstract cone to the `(NS,NT,d)` simplex.  Chebyshev trajectory itself: only PNT
-`~N/ln N` (constant 1) horizon remains.
+counting); (L2) the cross-layer **meta-criterion** remains `[gut]` (concrete content
+CLOSED: `monoCountPos_closed` semigroup+1=monoid, `two_le_nonempty_prime_prod` ×
+system = {2,3,…}); tie the abstract cone to the `(NS,NT,d)` simplex.  Chebyshev
+trajectory itself: only PNT `~N/ln N` (constant 1) horizon remains.
 
 ## Prior session (n-plus-signature-mappings branch)
 
