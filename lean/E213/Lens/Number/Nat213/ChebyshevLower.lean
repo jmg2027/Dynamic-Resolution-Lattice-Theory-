@@ -32,6 +32,7 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_add_func sumTo_congr)
 open E213.Lib.Math.NumberTheory.Legendre (legendre)
 open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (sumTo_le_sumTo lcmExpCount_eq_floorLog floorLog)
+open E213.Meta.Nat.FloorLog (floorLog_pow_le)
 open E213.Lens.Number.Nat213.MultSystem (binom)
 open E213.Lens.Number.Nat213.MultSystemValue (fact fact_pos central_binom_factorial primePi)
 
@@ -149,5 +150,16 @@ theorem vp_central_binom_le_floorLog {p n : Nat} (hp : Prime213 p) (hn : 1 ≤ n
     rw [hvp]; exact hsumbound
   rw [Nat.add_comm (vp p (binom (2 * n) n)) (2 * sumTo (2 * n) (fun j => n / p ^ (j + 1)))] at hcomb
   exact le_of_add_le_add_left_pure hcomb
+
+/-- **Each prime power dividing `C(2n,n)` is `≤ 2n`** (`p` prime, `n ≥ 1`).  The
+    Kummer bound `vp_p(C(2n,n)) ≤ ⌊log_p(2n)⌋` exponentiated against the `floorLog`
+    sandwich `p^{⌊log_p(2n)⌋} ≤ 2n`.  The factor bound for `C(2n,n) ≤ (2n)^{π(2n)}`. -/
+theorem prime_pow_vp_central_binom_le {p n : Nat} (hp : Prime213 p) (hn : 1 ≤ n) :
+    p ^ vp p (binom (2 * n) n) ≤ 2 * n := by
+  have h2n : 1 ≤ 2 * n := Nat.le_trans hn (by rw [Nat.two_mul]; exact Nat.le_add_left n n)
+  exact Nat.le_trans
+    (Nat.pow_le_pow_right (Nat.lt_of_lt_of_le (by decide) hp.1)
+      (vp_central_binom_le_floorLog hp hn))
+    (floorLog_pow_le h2n)
 
 end E213.Lens.Number.Nat213.ChebyshevLower
