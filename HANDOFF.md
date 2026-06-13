@@ -71,6 +71,21 @@ no precision constants changed.
   since those name the long-deleted old monograph.  Rewrote books/README
   (it had listed a nonexistent analysis213.md).
 
+### 8. Swept process vocabulary from theory/ chapters
+- Removed build/session `Phase N` labels across 22 chapters (GRA Phase
+  7/16/17/18/19/22 → capstone names `GRACat`/`LensBridge`/`CarrierRealization`/
+  `Universality23`/`HasDistinguishing213`/`LensIsoCapstone`; `### Phase N`
+  headers → `### N.`; parenthetical build-refs dropped).
+- Removed unnecessary `marathon` references (status tags, prose, `Marathon
+  1–4` → `Arc 1–4`) and two `Research-note provenance` sections that also
+  broke the sink rule by citing `research-notes/` from a permanent chapter
+  (cp_phase, exceptional_axes).  Kept legitimate physics `phase` (CP phase),
+  the Lean theorem name `..._phase18_capstone` / `cutoff_marathon_at_depth_1`,
+  and the named essay `cut_off_marathon.md`.
+- Noted but not swept: `methodology_patterns.md` / `pure_lean_patterns.md`
+  retain broader session-narration (`this session`, dated `2026-05-..`,
+  `session 1/2`) — a separate larger cleanup.
+
 ## Current Precision Results (0 free parameters)
 **Unchanged this session** (no physics work).  Canonical table:
 `catalogs/physics-constants.md`.  Headline: `1/α_em ≈ 137.036` (ppm
