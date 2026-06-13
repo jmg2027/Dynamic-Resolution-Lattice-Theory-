@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 97 essays are grouped into ten thematic sub-directories — distinct
+The 98 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -55,6 +55,10 @@ via inversions and the determinant of the permutation matrix are one
 antisymmetric readout; Zolotarev adds the Legendre symbol `(a/p)` as a third on
 the `×a mod p` permutation, with `psign_mul` / `det_mul` / `legendre_mul` the one
 homomorphism under all three),
+`the_count_never_climbs` (the operation tower's degree of freedom = `rung − 2`: the
+*count* never climbs the tower while the *base* does, so at `^` a dilation axis
+opens — the "comm/assoc die" facts are its 1-D shadow; the count itself stays
+simplicial, `hyperCount_simplex`),
 `the_cp_phase_as_one_imaginary_unit` (the CKM CP phase = the signed Hodge `⋆` on
 `H*(Δ⁴)`, `arg = 90°` = the generator of `ℤ[i]^× = C₄`; one imaginary unit in four
 frames — `ℤ[i]` / `Gal(ℚ(ζ₅))≅C₄` + golden real subfield / Hodge `⋆` / the
