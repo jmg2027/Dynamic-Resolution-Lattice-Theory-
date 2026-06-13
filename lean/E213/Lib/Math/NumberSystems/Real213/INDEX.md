@@ -1,6 +1,6 @@
 # Real213 — Module Index
 
-213-native real-number type via Dedekind cut.  185 files: 13 top-level + 172 in
+213-native real-number type via Dedekind cut.  191 files: 13 top-level + 178 in
 20 sub-clusters.
 
 Path = namespace: each module's namespace carries its cluster segment (e.g.
@@ -41,7 +41,7 @@ Approximation / completeness:
 | `ValidCut/` | 7 | rational instances (½, ⅓, ⅕, ℤ, ℕ, ℕ-mul) + framework |
 | `CrossDet/` | 4 | cross-determinant overtake / const-denom / eq-denom / trace-field |
 | `ContinuedFraction/` | 3 | continuant + continued-fraction floor / modulus |
-| `Modulus/` | 5 | convergence-rate moduli (bracket, Liouville, rate, stratification, composition) |
+| `Modulus/` | 11 | convergence-rate moduli + the modulus-degree calculus (bracket, Liouville, rate, stratification, composition; hierarchy, comparison, degree-criterion, arithmetic, pointing-limit, best-approximation) |
 | `Completability/` | 6 | completability grade, intensional/refined/tower completion, geometric threshold |
 
 ## Module notes (by topic)

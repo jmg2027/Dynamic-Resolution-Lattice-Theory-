@@ -5,7 +5,7 @@
 > 게 의미 있는 거지. … 사실은 그 잔여의 모습으로 무한이나 연속이나 추상 같은 것들을
 > 캐릭터라이즈 한 거구나 라고, 그걸 신격화하지 않고 올바르게 이해할 수 있는 토대가
 > 되는 거임. 이건 단순 해석이나 프레이밍이 아니라 실제 계산 및 수학용으로 말한 거임."*
-> — Mingu Jeong, 2026-06-13
+> — Mingu Jeong
 
 > *(That one can conceive "infinity" in any case at all is already evidence that it is a
 > discrete object. … What is meaningful is to analyse how the conceiving of infinity is
