@@ -1,99 +1,137 @@
 # Session Handoff — 2026-06-13
 
 ## Branch
-`claude/real213-root-clustering-y1pl8s` — pushed, working tree clean,
-`lake build E213` green, ∅-axiom intact.  Merged `origin/main`
-(discrete-log parity / quadratic character work).  **READY TO MERGE.**
+`claude/p2-exploration-ihs798` — pushed, working tree clean, merged with
+`origin/main`, forced fresh `lake build` (`rm -rf .lake/build`) green, all session
+modules strict ∅-axiom.  **Pre-merge audit: READY TO MERGE** (marathon ran
+merge → /process → promote → cross-domain → /essay → /org-audit → /purity-check →
+/ready-to-merge → this handoff; final step is push+merge to main).
 
 ## What Was Done This Session
 
-### 1. Real213 root clustering — 92 files into 14 new + 2 existing sub-clusters
-The `Real213/` tree had 105 files flat in the root beside 6 existing
-sub-clusters.  Relocated 92 into thematic clusters; 13 foundational /
-cross-cutting singletons stay at the top level.
+The operation-tower object re-foundation (blueprint P1–P4) + the
+dimension-without-`∞` computational machinery + the de-deification frame.  All
+in the `simplicial_operation_tower` frontier; no physics constants touched.
 
-  - **Phi/** (14): golden ratio φ as cut, Fibonacci, Zeckendorf, Pell, Pentagon
-  - **ModularGeometry/** (12): elliptic/hyperbolic/parabolic traces, geodesic
-    lens, holonomy, finite-order spectrum, Lagrange extremes
-  - **Mobius/** (10) · **Markov/** (9) · **Minkowski/** (7) · **ValidCut/** (7)
-    · **Completability/** (6) · **Modulus/** (5) · **CrossDet/** (4) ·
-    **Spiral/** (4) · **Mat2/** (3) · **ProbeTwist/** (3) ·
-    **ContinuedFraction/** (3) · **Calculus/** (3) · **Sum/** (+2)
+### 1. The object tower `+ → × → ^ → ↑↑`, built (Meta/Nat, all PURE)
+- **`UnitHyper`** (14 PURE) — the `^`-object: `hcube a b` = the `b`-dimensional
+  unit cube of side `a`, `count (hcube a b) = a^b` (`count_hcube`), and the
+  positive law `count = side ^ dim` (`count_eq_side_pow_dim`) — base = a *length*,
+  exponent = a *dimension* (axis count); swapping changes the object's dimension
+  (`swap_changes_dim`, the positive form of `2^3 ≠ 3^2`).
+- **`UnitTetra`** (9 PURE) — the `↑↑`-object: `tetra a b`, a cube whose dimension
+  is *itself a tower count*, `count (tetra a b) = hyperop 4 a b` (`count_tetra`),
+  `dim_tetra_succ` (the second dilation axis).
+- **`HyperLadder` §6** (DOF) — `dofOfRung k = k − 2`, pinned non-vacuously to
+  operand commutativity: `dof_two_comm` (`×`:0 comm), `dof_three_not_comm`
+  (`^`:1, first non-comm), `dof_four` (`↑↑`:2, +1-climb twice from the base).
+- **`HyperAssoc`** reframed positively (P1): `^` *adjoins the dimension axis*; the
+  algebra defects are its count shadows (`pow_not_comm_is_dim_shadow` bridges to
+  `swap_changes_dim`).
 
-### 2. Path = namespace enforced for the whole reorg
-Each relocated module's namespace carries its cluster segment
-(`…Real213.PhiCut` → `…Real213.Phi.PhiCut`), matching the repo convention the
-existing sub-clusters already follow.  Cross-cluster references that resolved
-via the shared `Real213` parent (partial-qualified `Module.decl`) were fixed
-with a cluster-parent `open` (e.g. `open …Real213.Mobius`) — 29 added across
-29 real sites; 13 comment-only false positives left as prose.  Verified by
-building the **entire** Real213 tree (every module, not just the `E213`
-closure) → 0 errors.  `tools/sync_namespaces.py`: 0 Real213 mismatches.
+### 2. Dimension is COMPUTED, not a cardinal (MultSystem, all PURE)
+- **`diff`/`diffIter`** + `diffIter_dim_zero` (`Δ^{k+1}` annihilates rung `k+1`),
+  `diffIter_dim_const` (`Δ^k = 1`) — dimension = the finite-difference annihilation
+  depth, `#eval`-verified (`monoCount 3=[1,3,6,10,…] → Δ³=[0,…] ⇒ dim 3`).
+- **`sumfIter_const_one`** — `Σ^k 1 = monoCount(k+1)`, the `(1−x)^{−k}` Hilbert
+  series as iterated summation (no formal power series); **`diff_sumf`** the
+  discrete FTC (`Δ∘Σ = shift`).  `Δ`/`Σ` = the dimension `∓1` operators.
+- **`monoCount_vertices`** (`monoCount k 1 = k`) — vertex = generator = lattice
+  axis, unifying the generative simplex (L3) and the demotion lattice (R4).
+- ⚠ **This re-states the corpus's existing depth ladder** (`Analysis/Cauchy/
+  DivergenceLadder.{diff,liftK,reachesFloor}`, `infinite_depth` = the same
+  "`∞` = never floors"); the genuinely new pieces are the *tower instance* +
+  the `Σ`-builder dual.  Org dedup pending (relocate `diff` to `Meta/Nat`).
 
-### 3. Essay #99 — "The discrete logarithm is the same logarithm"
-`theory/essays/synthesis/the_discrete_log_is_the_same_logarithm.md`.  Ties the
-merged discrete-log-parity proof to the corpus: `ind_g` on `(ℤ/p)*` is the
-same demotion coordinate as `vp` (per prime) and `ln` (archimedean) — the
-additive coordinate of a cyclic generator, finite case (single atom = the
-generator, valued in `ℤ/(p−1)`); the quadratic character is the count-Lens
-reading it at resolution 2 (the lowest digit).  Registered in essays INDEX
-(98→99), logged (#81).
+### 3. The cross-determinant ↔ tower + the defect band (PURE)
+- `CrossDet/CrossDetOvertake §6` — the cross-determinant axis `W` is
+  operation-tower-graded by `UnitHyper.count`: floor `|det|=1` = the point
+  (`crossdet_floor_eq_point`), ceiling `2^{2^i}` = `count (hcube 2 (2^i))`
+  (`crossW_eq_hcube_count`).
+- `MultSystemValue.hcube_vp_radial`/`hcube_hyper_parallel` — the geometric
+  dilation = the vp-cone radial scalar (`hyper_parallel` anchored to the cube).
+- **`ChebyshevLower.chebyshev_defect`** — the exact-construct/lossy-readout defect
+  as one object: `n/(⌊log₂(2n)⌋+1) ≤ π(2n) ≤ n`; the band width is prime counting.
 
-### 4. Marathon hygiene
-`/process` (0 sink-rule violations, no homeless frontiers) · promotion (none —
-branch is refactoring + merge) · cross-domain (terrain already covered by
-`permutation_three_readouts`/`zolotarev_crossdomain`, nothing sharp to add) ·
-`/org-audit` (Real213 INDEX = 20 clusters, counts match; narrative clean) ·
-`/purity-check` (0 sorry/axiom/native_decide/Mathlib/Classical) ·
-`/ready-to-merge` (READY).  All Real213 doc references repointed to cluster
-paths across catalogs/books/blueprints/theory/seed/lean — 0 stale.
+### 4. The de-deification frame (frontier + CLAUDE.md rule)
+- New CLAUDE.md failure-mode "**Deifying the residue / `∞`**": `∞`/continuity are
+  construction-produced *shapes* with finite signatures, not a transcendent
+  beyond; the residue arises *because the concept was posed to leave one*.
+- New canonical note `research-notes/frontiers/residue_shape_doctrine.md` (D1–D6);
+  the `simplicial_operation_tower` frontier carries L3″/L3‴/L3‴a (the firm `+/×`
+  foundation, dimension-without-`∞`, the discrete↔continuous spiral).
 
-## Current Precision Results (0 free parameters)
-Unchanged this session (no physics constants touched — refactoring + merge).
-  - `α_em ≈ 1/137.036` (Phase 1, ppm)
-  - `m_μ/m_e = 206.768` (NS·137/NT, 0.48 ppb)
-See `catalogs/physics-constants.md`.
+### 5. Marathon wrap
+merge main · /process (sink clean) · promote #82 (object tower + Δ/Σ calculus →
+`slot_arithmetic.md` §1.5) · 3 cross-domain resonances · /essay #83
+(`dimension_is_a_computed_depth.md`) · /org-audit (caught the DivergenceLadder
+false-novelty, corrected) · /purity-check (224 PURE / 0 dirty) · /ready-to-merge
+(READY).
+
+## Current Precision Results
+Unchanged this session (pure number-theory / foundations; no physics constants
+touched).  See `catalogs/physics-constants.md`.
 
 ## Open Problems (Priority Order)
-Carried forward, unchanged this session (no new gaps from refactoring/merge):
+### 1. The `ζ`-tower — `^`'s shape as a `ζ`-iterate
+`×`'s shape is `ζ` (the Euler product = the `(1−x)^{−∞}` essential singularity =
+the non-terminating difference tower); whether `^`'s shape is a `ζ`-of-`ζ` iterate
+is open, to be pinned against the prime-counting machinery.
+Frontier: `research-notes/frontiers/simplicial_operation_tower.md` (open #5).
 
-### 1. The operation-tower object re-foundation — build `UnitHyper`
-The generative `^`-object (free semigroup over the `×`-cone) is unbuilt.
-Frontier: `research-notes/frontiers/simplicial_operation_tower.md`.
+### 2. Org dedup — relocate `diff`/iterate to `Meta/Nat/FiniteDiff`
+`MultSystem.{diff,diffIter}` duplicate `Analysis/Cauchy/DivergenceLadder.{diff,
+liftK}`; relocate the generic operator to `Meta/Nat` so the operation tower and
+the `Cauchy/Depth*` cluster share one operator (and prove `reachesFloor (monoCount
+(k+1))` directly).
+Frontier: `research-notes/frontiers/simplicial_operation_tower.md` (resonance #6).
 
-### 2. PNT proper `π(N) ~ N/ln N` (constant 1)
-A `Real213` pointing (ratio sequence `π(N)·ln N/N → 1`).
+### 3. The topological figure (L5) + the de-deification interpretation
+The "3- vs 4-simplex" was dissolved (L3″: three conflated dimensions separated);
+the precise topological figure for one `^` step, and the conceptual reading of
+`∞`/continuous as construction-shapes, remain open (the narrative was reshaped
+repeatedly — kept in the frontier, not enshrined).
+Frontier: `research-notes/frontiers/{simplicial_operation_tower,residue_shape_doctrine}.md`.
+
+### 4. PNT proper `π(N) ~ N/ln N` (closing the band width to constant 1)
+The asymptotic horizon — a `Real213` pointing, not ∅-axiom reachable.
 Frontier: `research-notes/frontiers/multiplicative_count_pnt.md`.
 
-### 3. Order-`d` power-residue characters on `(ℤ/p)*` beyond `d = 2`
-The full count-Lens resolution ladder (the new essay reads only the
-resolution-2 digit closed).  Cyclic infrastructure (`primitive_roots.md`)
-supports them.  Frontier: `research-notes/frontiers/zolotarev_crossdomain.md`.
-
 ## Unresolved from This Session
-- Pre-existing `path ≠ namespace` mismatches elsewhere (135, e.g.
-  `Lens/Cardinality`, `Lens/Number/Nat213`) — out of scope for this branch;
-  a `tools/sync_namespaces.py --apply` cleanup is its own future task.
+- Newton forward-difference reconstruction (`f(d) = Σ C(d,j)·Δ^j f(0)`, exact for
+  finite-dimension) was flagged as the next computational object but **not built**
+  (proof heavier; deferred).
+- The phase-1→2 / 2→3 transforms (Mellin / Perron) were reconnoitred and found to
+  be an exact/lossy *non-inverse* pair (the defect = prime counting), not named as
+  composable arrows — the honest finding, recorded.
 
 ## Next
-Land this merge to main, then either pick up frontier #1 (`UnitHyper`) or run
-the `sync_namespaces --apply` cleanup for the 135 pre-existing mismatches as a
-dedicated branch.
+Pick up open #1 (the `ζ`-tower) or open #2 (the `Meta/Nat/FiniteDiff` dedup, the
+most tractable — wire the operation tower to the existing `Cauchy/Depth*` ladder).
 
 ## Three-tier state
-- **Promotions this session**: none (branch is refactoring + merge).
-- **Promotion candidates**: none newly closed this session.
-- **Active scratchpad**: unchanged; frontiers as listed above.
+- **Promotions this session**: `slot_arithmetic.md` §1.5 ← the object tower +
+  DOF + Δ/Σ calculus (clause upgrade, log #82); essay
+  `dimension_is_a_computed_depth.md` (log #83).
+- **Promotion candidates**: none pending — the tower's conceptual re-foundation
+  (de-deification, the spiral) is an *open* frontier, deliberately not promoted.
+- **Active scratchpad**: `frontiers/simplicial_operation_tower.md` (the tower),
+  `frontiers/residue_shape_doctrine.md` (the de-deify doctrine),
+  `frontiers/multiplicative_count_pnt.md` (PNT horizon).
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberSystems/Real213/{Phi,Markov,Mobius,Minkowski,
-  ModularGeometry,ValidCut,Completability,Modulus,CrossDet,Spiral,Mat2,
-  ProbeTwist,ContinuedFraction,Calculus}/   ← 92 relocated modules (path=namespace)
-lean/E213/Lib/Math/NumberSystems/Real213.lean       ← aggregator docstring: new cluster layout
-lean/E213/Lib/Math/NumberSystems/Real213/INDEX.md   ← 20-cluster table, counts, path=namespace note
-theory/essays/synthesis/the_discrete_log_is_the_same_logarithm.md ← new essay #99
-theory/essays/INDEX.md, theory/INDEX.md             ← essay count 98→99
-research-notes/promotion_essay_log.md               ← essay log #81
-(≈140 files repointed: import paths, namespaces, opens, doc references)
+lean/E213/Meta/Nat/UnitHyper.lean                     ← the ^-object (hcube, count=side^dim)
+lean/E213/Meta/Nat/UnitTetra.lean                     ← the ↑↑-object (tetra, dim=tower count)
+lean/E213/Meta/Nat/HyperLadder.lean                   ← +§6: dofOfRung = rung−2 (DOF spec)
+lean/E213/Meta/Nat/HyperAssoc.lean                    ← reframed positively (dimension axis)
+lean/E213/Lens/Number/Nat213/MultSystem.lean          ← Δ/Σ dimension calculus + monoCount_vertices
+lean/E213/Lens/Number/Nat213/MultSystemValue.lean     ← +hcube_vp_radial / hcube_hyper_parallel
+lean/E213/Lens/Number/Nat213/ChebyshevLower.lean      ← +chebyshev_defect (the band)
+lean/E213/Lib/Math/NumberSystems/Real213/CrossDet/CrossDetOvertake.lean ← §6 tower-grading
+theory/math/numbersystems/slot_arithmetic.md §1.5     ← promoted: object tower + Δ/Σ calculus
+theory/essays/synthesis/dimension_is_a_computed_depth.md ← essay (dimension = computed depth)
+research-notes/frontiers/residue_shape_doctrine.md    ← the de-deification doctrine (canonical)
+research-notes/frontiers/simplicial_operation_tower.md ← the tower frontier (L1–L6, P1–P4 done)
+research-notes/frontiers/multiplicative_count_pnt.md  ← the two-sided band = the defect
 ```
