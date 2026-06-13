@@ -1198,4 +1198,26 @@ def primeDensityToZero : PrimeDensityToZero where
       (floorLog_ge (by decide) hN)
       (floorLog_pow_le hN1)
 
+/-! ## The `^`-twist, stated positively (the new dilation axis)
+
+`hyperCount` (`MultSystem`) showed the `^`-rung's generative skeleton stays a
+*simplex* (multisets of `×`-monomials).  What makes `^` its own rung is the
+**base/exponent asymmetry** — and read positively it is a **new degree of freedom,
+the dilation axis**, not "loss of commutativity".  In the `×`-cone (exp-coordinates)
+`^` is *scalar multiplication*: `vp_p(m^b) = b · vp_p m` (`vp_pow`); the exponent `b`
+(from the `+`-line) is a **radial scalar**, the base `m` is the **direction** (a
+vector in the cone). -/
+
+/-- **The `^`-twist as dilation: `m^b` is parallel to `m` in the `×`-cone.**  Same
+    direction, scaled by the exponent: `vp_p(m^b)·vp_q m = vp_q(m^b)·vp_p m` for all
+    primes `p,q` (both sides `= b·vp_p m·vp_q m`, `vp_pow`).  So the exponent is a
+    pure radial **scalar** (the `+`-line) and the base a **vector** (the `×`-cone
+    direction): the two operands are different *types*, which is the twist — read as
+    the new **dilation degree-of-freedom** the `^`-rung adjoins to the cone (`^`
+    demoted to scalar `·`: `where_commutativity_is_born.md`, `what_is_a_logarithm.md`).
+    The base picks the ray; the exponent the position along it. -/
+theorem hyper_parallel {p q m b : Nat} (hp : IsPrime213 p) (hq : IsPrime213 q)
+    (hm : 0 < m) : vp p (m ^ b) * vp q m = vp q (m ^ b) * vp p m := by
+  rw [vp_pow hp hm b, vp_pow hq hm b]; ring_nat
+
 end E213.Lens.Number.Nat213.MultSystemValue
