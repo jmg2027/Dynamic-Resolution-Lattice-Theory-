@@ -71,20 +71,28 @@ no precision constants changed.
   since those name the long-deleted old monograph.  Rewrote books/README
   (it had listed a nonexistent analysis213.md).
 
-### 8. Swept process vocabulary from theory/ chapters
-- Removed build/session `Phase N` labels across 22 chapters (GRA Phase
-  7/16/17/18/19/22 → capstone names `GRACat`/`LensBridge`/`CarrierRealization`/
-  `Universality23`/`HasDistinguishing213`/`LensIsoCapstone`; `### Phase N`
-  headers → `### N.`; parenthetical build-refs dropped).
-- Removed unnecessary `marathon` references (status tags, prose, `Marathon
-  1–4` → `Arc 1–4`) and two `Research-note provenance` sections that also
-  broke the sink rule by citing `research-notes/` from a permanent chapter
-  (cp_phase, exceptional_axes).  Kept legitimate physics `phase` (CP phase),
-  the Lean theorem name `..._phase18_capstone` / `cutoff_marathon_at_depth_1`,
-  and the named essay `cut_off_marathon.md`.
-- Noted but not swept: `methodology_patterns.md` / `pure_lean_patterns.md`
-  retain broader session-narration (`this session`, dated `2026-05-..`,
-  `session 1/2`) — a separate larger cleanup.
+### 8. Swept process vocabulary from the permanent + derived tiers
+- **theory/**: removed build/session `Phase N` labels across 22 chapters
+  (GRA Phase 7/16/17/18/19/22 → capstone names `GRACat`/`LensBridge`/
+  `CarrierRealization`/`Universality23`/`HasDistinguishing213`/
+  `LensIsoCapstone`; `### Phase N` headers → `### N.`); removed `marathon`
+  references (`Marathon 1–4` → `Arc 1–4`); stripped resolution dates
+  (RESEARCH_PLAN, STATE, c-counter essays), `this session` / `multi-session`,
+  and two `Research-note provenance` sections that broke the sink rule
+  (cp_phase, exceptional_axes); cleaned residual session narration in
+  methodology_patterns / pure_lean_patterns; converted THEORY_BOOK's dated
+  `## Versioning` changelog to a `## Scope` note.
+- **seed/**: `marathon`/branch/date/session narration out of
+  THEOREM_METHODOLOGY_SUITE, PROOF_ISA, META_SCAN_ARCHETYPES, CLOSED_FORM_SPEC.
+- **catalogs/**: commit hashes, branch names, `Part 5`, `marathon`, process
+  dates out of the derived indices (abstraction-candidates tables kept).
+- **Kept** (legitimate): physics `phase` (CP phase), the Lean theorem names
+  `..._phase18_capstone` / `cutoff_marathon_at_depth_1`, the named essay
+  `cut_off_marathon.md`, dated originator quote attributions, and the
+  genesis/history docs `ORIGIN.md` / `ORIGIN_RAW.md` / `99_history.md`.
+- **Reported, not swept** (judgment item): the physics `Phase 1/2/3`
+  precision-derivation roadmap tiers in correspondences/falsifiers/
+  physics-constants (a consistent domain classification, not session markers).
 
 ## Current Precision Results (0 free parameters)
 **Unchanged this session** (no physics work).  Canonical table:
