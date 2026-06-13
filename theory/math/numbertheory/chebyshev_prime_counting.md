@@ -104,6 +104,23 @@ Taking `log₂` of `2^n ≤ (2n)^{π(2n)} ≤ (2^{⌊log₂2n⌋+1})^{π(2n)}`:
    ⟺  π(2n) ≥ n / (⌊log₂(2n)⌋ + 1) ≈ n / log₂(2n).
 ```
 
+### The two-sided order theorem `π(N) = Θ(N/log₂N)`
+
+Both halves cut cleanest at the dyadic points `N = 2^{m+1}`, where
+`⌊log₂N⌋ = m+1` (`floorLog_pow_self`).  There `chebyshev_lower` (at `n = 2^m`)
+and the upper bound (`chebBound` via `chebBound_mul_le`) line up into one
+statement (`chebyshev_order`), explicit constants, division-free:
+
+```
+   2^{m+1} ≤ 2·(m+2)·π(2^{m+1})        (lower:  π ≥ N / (2·(log₂N + 1)))
+   (m+1)·π(2^{m+1}) ≤ 6·2^{m+1}        (upper:  π ≤ 6·N / log₂N)
+```
+
+So `π(N) = Θ(N/log₂N)` — Chebyshev's theorem in its *order* form.  The
+intermediate one-sided dyadic bounds `two_pow_le_succ_primePi`
+(`2^m ≤ (m+2)·π(2^{m+1})`) and `succ_mul_primePi_pow_two_le`
+(`(m+1)·π(2^{m+1}) ≤ 6·2^{m+1}`) are the two factors.
+
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lens/Number/Nat213/` — `MultSystem`, `MultSystemValue`
@@ -124,13 +141,41 @@ Taking `log₂` of `2^n ≤ (2n)^{π(2n)} ≤ (2^{⌊log₂2n⌋+1})^{π(2n)}`:
 | `ChebyshevLower.le_pow_primePi` | `m ≤ B^{π(N)}` from per-prime-power bounds |
 | `ChebyshevLower.central_binom_le_pow_primePi` | `C(2n,n) ≤ (2n)^{π(2n)}` |
 | `ChebyshevLower.chebyshev_lower` | **lower bound** `n ≤ (⌊log₂(2n)⌋+1)·π(2n)` |
+| `ChebyshevLower.chebyshev_order` | **two-sided order** `π(2^{m+1}) = Θ(2^{m+1}/m)` (both halves, explicit constants) |
+| `ChebyshevLower.chebyshev_constant_interval` | the constant `log₂e` as a **computable narrowing interval** `[(m+1)/(2(m+2)), 6]` |
+| `ChebyshevLower.central_binom_dvd_lcm` | `C(2n,n) ∣ lcm(1..2n)` (central-binomial ↔ lcm-growth bridge) |
+| `ChebyshevLower.two_pow_le_lcm` | **lcm-form (ψ) lower** `2^n ≤ lcm(1..2n)`, i.e. `ψ(2n) ≥ n·ln2` |
+| `FactorialLcmIdentity.vp_factorial_eq_sum_vp_lcm` | **factorial ↔ lcm bridge** `vₚ(N!) = Σ_{i=1}^N vₚ(lcm(1..⌊N/i⌋))` (Legendre as a Fubini count) |
 
 ## What is reached and what is not
 
 Both halves of Chebyshev's theorem `c·N/ln N ≤ π(N) ≤ C·N/ln N` and the density
 `π(N)/N → 0` are **finite, computable, ∅-axiom**.  The prime number theorem proper
-— `π(N) ~ N/ln N` with constant `1` — stays an **asymptotic horizon**: it is a
-`Real213` pointing (the ratio sequence `π(N)·ln N / N → 1`), reached by no finite
-certificate, only approximated.  This is not a gap in a derivation but the
-`object1_not_surjective` signature: the limit is the convergence, and the
-convergence *is* the modulus we built.
+— `π(N) ~ N/ln N` with constant `1` — stays an **asymptotic horizon** — but
+"horizon" is not a place beyond the finite.  PNT is a `Real213` pointing: the ratio
+sequence `π(N)·ln N / N`, and naming its limit `1` (equivalently `e` via the lcm
+form) names the *shape* of that climbing certificate, nothing farther.  The constant
+`1`/`e` is not a transcendent value the modulus forever approximates: the
+convergence *is* the modulus we build, and `object1_not_surjective` is a theorem
+about that construction, not a report of a thing that eluded capture (cf.
+`theory/essays/foundations/the_form_of_the_residue.md` "Infinity is the residue's
+shape, not a god above it").
+
+And this is **for calculation**, not framing: the constant is a *computable,
+narrowing interval*.  `chebyshev_constant_interval` traps the normalized count's
+constant `log₂e ≈ 1.4427` (the `ln`-base shadow of PNT's `1`) in
+`[(m+1)/(2(m+2)), 6]` — evaluable at every `m`, narrowing from below.  Sharpening
+that bracket is the work; "reaching `1`" was only the bracket's name.
+
+**Order vs constant — why the horizon is `Real213`, not `ℕ`.**  The density
+collapse (`→ 0`) and the order theorem (`Θ`, the *interval* `[c,C]` with `c≈1/2`,
+`C=6`) both live in pure `ℕ`; neither pins a transcendental.  PNT differs *in
+kind*: it collapses that interval to the **single point `1`**, and pinning the
+constant to exactly `1` *is* a claim about `e`/`ln` — base-dependent
+(`π(N)·log₂N/N → log₂e`; `ln` is the unique base giving `1`), equivalently
+`lcm(1..N) ~ eᴺ` (the elementary `2^{N−1} ≤ lcm(1..N)` sharpening its base from `2`
+to `e`).  So no pure-`ℕ` ratio realizes PNT.  The two-sided shape of the pointing is
+recorded ∅-axiom as `MultSystemValue.RatTendsToOne` (the `→ 1` companion of
+`RatTendsToZero`) with soundness `RatTendsToOne.within` and validation
+`succOverSelf`; inhabiting it for `π`/`ψ`/`lcm` is the open analytic core
+(PNT-strength), the transcendental-cut `hsep` pattern.

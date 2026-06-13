@@ -39,7 +39,7 @@ The deepest reading the tower supports is that the residue is *what the dynamic 
 golden ratio φ has two faces — frozen (the algebraic fixed point, the characteristic relation of
 `P`) and dynamic (the limit of the Pell convergents). They are one object:
 
-> `Real213.PhiFrozenDynamic.frozen_eq_dynamic_phi`: the convergent Cauchy limit *is* the closed-form
+> `Real213.Phi.PhiFrozenDynamic.frozen_eq_dynamic_phi`: the convergent Cauchy limit *is* the closed-form
 > φ cut; and the convergent stays exactly the unit `1` off the frozen relation
 > (`fib_cassini_norm`), never reaching it (`convergent_never_frozen`); the frozen φ's discriminant
 > is `P`'s characteristic discriminant (`phi_discriminant_is_P_charpoly`).

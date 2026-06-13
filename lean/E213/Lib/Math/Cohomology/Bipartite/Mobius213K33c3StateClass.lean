@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Bipartite.V33c3
-import E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv
 
 /-!
 # Mobius213K33c3StateClass — K_{3,3}^(c=3) edge cochains under Möbius P

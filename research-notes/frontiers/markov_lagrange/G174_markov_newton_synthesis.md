@@ -3,7 +3,7 @@
 **Tier 1 (volatile).**  After merging `main` (NewtonGregory, FiniteDepthAlgebra, CasoratianSigned,
 StateMachine FSM, ℤ-difference-Lens), this note records the *conceptual* — not merely tactical —
 points where that work touches the Markov uniqueness arc (`G173`,
-`Real213/MarkovUniqueness` + `ModArith/MarkovPrimeFactor`).  One concrete anchor is proven
+`Real213/Markov/MarkovUniqueness` + `ModArith/MarkovPrimeFactor`).  One concrete anchor is proven
 (`fib_spine_recurrence`); the rest are framings, the most useful being the Myhill–Nerode reading
 of the open crux.
 

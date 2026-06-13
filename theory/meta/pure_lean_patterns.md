@@ -46,8 +46,8 @@ extra field carrying its proof, so downstream consumers receive
 it implicitly.  Stronger: bundle a **representation witness** that
 collapses the structure into a simpler algebraic class.
 
-**Witness**: `Lib/Math/NumberSystems/Real213/ValidCutFramework.lean` (weak) +
-`Lib/Math/NumberSystems/Real213/IntValidCut.lean` (strong).
+**Witness**: `Lib/Math/NumberSystems/Real213/ValidCut/ValidCutFramework.lean` (weak) +
+`Lib/Math/NumberSystems/Real213/ValidCut/IntValidCut.lean` (strong).
 
   `IntValidCut := { cut, represents : Nat, is_integer : cutEq cut
   (constCut represents 1) }` carries "represents an integer" as a
@@ -164,7 +164,7 @@ operations beyond K_{3,2}^{(c=2)} k = 2).
 ```bash
 cd lean
 lake build E213.Lib.Math.NumberSystems.Padic.NegInvolutionPreserve  # Pattern 1
-lake build E213.Lib.Math.NumberSystems.Real213.IntValidCut           # Pattern 2
+lake build E213.Lib.Math.NumberSystems.Real213.ValidCut.IntValidCut           # Pattern 2
 lake build E213.Lib.Math.NumberSystems.Padic.SetoidFramework         # Pattern 3
 lake build E213.Lib.Math.NumberSystems.Padic.HenselResidual          # Pattern 4
 

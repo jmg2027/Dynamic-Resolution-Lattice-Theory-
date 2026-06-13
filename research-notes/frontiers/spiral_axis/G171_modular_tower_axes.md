@@ -16,7 +16,7 @@ which rows are proven (in this repo), which are a real pattern, and which are sp
 ### The spine (rows 1–2) = what the repo already closed
 
 Decisive classical fact: **`ℤ₂ * ℤ₃ ≅ PSL(2,ℤ)`** (the modular group).  Verified ∅-axiom in
-`Real213/ModularElliptic` (`modular_generator_orders`): the elliptic generators
+`Real213/ModularGeometry/ModularElliptic` (`modular_generator_orders`): the elliptic generators
 `S = [[0,−1],[1,0]]` (`S² = −I`, `S⁴ = I`, **order 4**) and `U = [[0,−1],[1,1]]`
 (`U³ = −I`, `U⁶ = I`, **order 6**), `det = 1`.  Then:
 
@@ -71,7 +71,7 @@ knot-equilibrium as conjecture.
 
 ## Lean anchors (this note's solid content)
 
-- `Real213/ModularElliptic.modular_generator_orders` — `S` order 4, `U` order 6, `det 1`;
+- `Real213/ModularGeometry/ModularElliptic.modular_generator_orders` — `S` order 4, `U` order 6, `det 1`;
   `PSL(2,ℤ) = ℤ₂*ℤ₃`, the `{4,6}` axis with `−I` central.
 - `ImaginaryQuadraticUnitTrichotomy.axis_binary_cover` — `{4,6} = 2·{2,3}`, midpoint `−1`.
 - `CayleyDickson/Tower/SpiralAxisCrystallographic` — `{2,4,6}` = even half of `{1,2,3,4,6}`.

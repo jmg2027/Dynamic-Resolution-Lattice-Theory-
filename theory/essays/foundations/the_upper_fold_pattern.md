@@ -12,7 +12,7 @@ To prove `MarkovMaxUnique c` (Frobenius 1913: each Markov number is the maximum 
 triple) you do not enumerate triples.  You fold.  The roots of `x² ≡ −1 (mod c)` carry the
 involution `σ(u) = c − u` (`neg_root_is_root`); the window `0 < u < c/2` is its **transversal** —
 one representative per `{u, c−u}` pair (`window_fold_transversal`, §20 of
-`Real213/SternBrocotMarkov`).  Uniqueness becomes: *fold by `σ`, then the realised fold-point is
+`Real213/Markov/SternBrocotMarkov`).  Uniqueness becomes: *fold by `σ`, then the realised fold-point is
 unique* (`WindowRealizedUnique`).  That is the whole shape; everything after is the same fold seen
 closer.
 

@@ -41,6 +41,7 @@ import E213.Lib.Math.NumberTheory.ModArith.QPart
 import E213.Lib.Math.NumberTheory.ModArith.ValuationAlg
 import E213.Lib.Math.NumberTheory.ModArith.EveryOrdDvdMax
 import E213.Lib.Math.NumberTheory.ModArith.PrimitiveRoot
+import E213.Lib.Math.NumberTheory.ModArith.DiscreteLogParity
 import E213.Lib.Math.NumberTheory.Lcm213
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.

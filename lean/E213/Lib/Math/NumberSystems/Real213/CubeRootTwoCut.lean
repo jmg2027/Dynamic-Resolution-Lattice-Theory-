@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Real213.AbCutSeq
-import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
+import E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake
 import E213.Lib.Math.Analysis.Cauchy.PellSeq
 import E213.Meta.Nat.PolyNat
 import E213.Meta.Nat.PureNat
@@ -57,7 +57,7 @@ open E213.Lib.Math.Analysis.Cauchy.PellSeq (abLens_witness)
 open E213.Lib.Math.Analysis.Cauchy.MonotonicBounded (IsAbMonotonic IsAbPositiveB)
 open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut)
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (two_pow_ge_succ two_pow_ge_self)
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake (two_pow_ge_succ two_pow_ge_self)
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Meta.Nat.PureNat (pow_add)

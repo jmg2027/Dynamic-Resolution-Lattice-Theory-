@@ -100,7 +100,7 @@ sequences.  φ, e, π are then three instances of one structure.
 
 ### 3.2 Algebraic — completion is unconditional and redundant
 
-`Real213/PhiAbCut.lean` makes φ an `AbCutSeq` (the even-indexed Fibonacci
+`Real213/Phi/PhiAbCut.lean` makes φ an `AbCutSeq` (the even-indexed Fibonacci
 convergents `fib(2n+2)/fib(2n+1)`; the monotonicity step **is** the
 Cassini norm, `fib(2n+2)·fib(2n+3) + 1 = fib(2n+4)·fib(2n+1)` —
 `cassini_mono_step`).  Because φ is algebraic, its order-Cauchy modulus
@@ -334,14 +334,14 @@ means, now a theorem.
     as a constructed convergence rate: the general generator
     (`RateModulus.rate_total_modulus`) and the `HolonomicReal` instances (φ, e); the
     rate-carrying/rate-free divide made into a theorem
-  - `lean/E213/Lib/Math/NumberSystems/Real213/RateModulus.lean` — `rate_total_modulus` (the general
+  - `lean/E213/Lib/Math/NumberSystems/Real213/Modulus/RateModulus.lean` — `rate_total_modulus` (the general
     generator), `HolonomicReal.lean` — the bundled type, `ExpLog/EulerModulus.lean` —
     e's total modulus `N=k+2` + `eHolonomicReal`
   - `lean/E213/Lib/Math/NumberSystems/Real213/AbCutSeq.lean` — the shared carrier
-  - `lean/E213/Lib/Math/NumberSystems/Real213/PhiAbCut.lean` — algebraic case
+  - `lean/E213/Lib/Math/NumberSystems/Real213/Phi/PhiAbCut.lean` — algebraic case
   - `lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/{EulerCut,PiCut}.lean` —
     transcendental case
-  - `lean/E213/Lib/Math/NumberSystems/Real213/PhiAsCut.lean` — φ closed-form cut
+  - `lean/E213/Lib/Math/NumberSystems/Real213/Phi/PhiAsCut.lean` — φ closed-form cut
   - `lean/E213/Lib/Math/Analysis/CauchyComplete{,Valid}.lean` — the
     completeness operation and its closure under valid cuts
   - `lean/E213/Lib/Math/Analysis/CompletionTower.lean` — grouping the

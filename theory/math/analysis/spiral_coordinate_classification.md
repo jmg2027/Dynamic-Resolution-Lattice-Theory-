@@ -28,8 +28,8 @@ together with the top-less depth tower.
 
 | File | PURE / dirty | Content |
 |---|---|---|
-| `Real213/SpiralLayer.lean` | 2 / 0 | the layer is intensional (`depth_is_intensional`); spectrum is all of `ℕ` (`depth_spectrum_unrestricted`) |
-| `Real213/SpiralCoordinate.lean` | 1 / 0 | `spiral_coordinate`: the two orthogonal counts bundled |
+| `Real213/Spiral/SpiralLayer.lean` | 2 / 0 | the layer is intensional (`depth_is_intensional`); spectrum is all of `ℕ` (`depth_spectrum_unrestricted`) |
+| `Real213/Spiral/SpiralCoordinate.lean` | 1 / 0 | `spiral_coordinate`: the two orthogonal counts bundled |
 | `CayleyDickson/Integer/ZIUnits.lean` | 6 / 0 | the Gaussian 4-theorem (`ZI_units_exact_four`, `\|ℤ[i]^×\| = 4`) |
 | `CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.lean` | 7 / 0 | the axis is exhaustively `{2,4,6}` (`unitForm_generic_axis`: `d ≥ 2 ⇒` only `±1`; `imaginary_quadratic_unit_trichotomy`; `maximal_order_no_complex_unit`; `axis_binary_cover`) |
 | `CayleyDickson/Tower/SpiralAxisCrystallographic.lean` | 1 / 0 | verified bridge: `{2,4,6}` = even half of crystallographic `{1,2,3,4,6}` = `2·{1,2,3}` |
@@ -60,7 +60,7 @@ Two facts pin this coordinate honestly.
     sequence) — the regular CF collapses every real to depth 1.  The depths 3 and 6 live in
     the *series* presentations (e: factorial; π: Wallis).  So the layer classifies the
     holonomic presentation, not the bare real; the cut is the gauge-invariant
-    (`depth_is_intensional`, matching `Real213/IntensionalCompletability`).
+    (`depth_is_intensional`, matching `Real213/Completability/IntensionalCompletability`).
   - **Its spectrum is all of `ℕ`.**  Every finite depth `d` is realized *exactly* by the
     binomial-column generator `genExp d` (`depth_spectrum_unrestricted`,
     `genExp_depth_exact`).  The values `{1, 3, 6}` of `{φ, e, π}` are a selection — the
@@ -235,8 +235,8 @@ cd lean
 lake build E213.Lib.Math.NumberSystems.Real213 E213.Lib.Math.Algebra.CayleyDickson
 cd ..
 for M in \
-  E213.Lib.Math.NumberSystems.Real213.SpiralLayer \
-  E213.Lib.Math.NumberSystems.Real213.SpiralCoordinate \
+  E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralLayer \
+  E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralCoordinate \
   E213.Lib.Math.Algebra.CayleyDickson.Integer.ZIUnits \
   E213.Lib.Math.Algebra.CayleyDickson.Integer.GaussianCrossDet \
   E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCompletion \

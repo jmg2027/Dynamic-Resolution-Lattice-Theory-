@@ -3,6 +3,7 @@ import E213.Meta.Nat.PolyNatMTactic
 import E213.Lens.Number.Nat213.MultSystemValue
 import E213.Lib.Math.NumberTheory.Legendre
 import E213.Lib.Math.NumberTheory.LcmGrowthChebyshev
+import E213.Lib.Math.NumberTheory.FactorialLcmIdentity
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem
 
 /-!
@@ -34,18 +35,20 @@ open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factoria
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_add_func sumTo_congr)
 open E213.Lib.Math.NumberTheory.Legendre (legendre)
-open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (sumTo_le_sumTo lcmExpCount_eq_floorLog floorLog)
-open E213.Meta.Nat.FloorLog (floorLog_pow_le lt_pow_floorLog_succ pow_lt_pow_of_lt)
+open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (sumTo_le_sumTo lcmExpCount_eq_floorLog floorLog lcmUpTo lcmUpTo_pos vp_lcmUpTo)
+open E213.Meta.Nat.FloorLog (floorLog_pow_le lt_pow_floorLog_succ pow_lt_pow_of_lt floorLog_pow_self)
 open E213.Meta.Nat.PowBasic (pow_mul_pure)
+open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Lens.Number.Nat213.MultSystemValue (central_binom_ge_two_pow prime_not_dvd_fact)
 open E213.Meta.Nat.Valuation (pow_vp_dvd)
 open E213.Meta.Nat.VpMul (IsPrime213 vp_pow vp_self_pow)
-open E213.Meta.Nat.VpSeparation (exists_prime_factor vp_eq_zero_of_not_dvd dvd_iff_one_le_vp)
+open E213.Meta.Nat.VpSeparation (exists_prime_factor vp_eq_zero_of_not_dvd dvd_iff_one_le_vp dvd_of_forall_vp_le)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
 open E213.Lens.Number.Nat213.MultSystemValue
   (primePi primeIndicator primeIndicator_eq_one_iff primeIndicator_le_one decPrime)
 open E213.Lens.Number.Nat213.MultSystem (binom)
 open E213.Lens.Number.Nat213.MultSystemValue (fact fact_pos central_binom_factorial primePi)
+open E213.Lens.Number.Nat213.MultSystemValue (chebBound primePi_pow_two_le_chebBound chebBound_mul_le)
 
 /-- **The per-term Kummer inequality**: `⌊2n/d⌋ ≤ 2⌊n/d⌋ + [d ≤ 2n]` (`d > 0`).
     For `d ≤ 2n`: `⌊2n/d⌋ ≤ 2⌊n/d⌋ + 1` (the floor of a doubled quotient gains at
@@ -298,5 +301,106 @@ theorem chebyshev_lower {n : Nat} (hn : 1 ≤ n) :
   rcases Nat.lt_or_ge ((floorLog 2 (2 * n) + 1) * primePi (2 * n)) n with hlt | hge
   · exact absurd hchain (Nat.not_le.mpr (pow_lt_pow_of_lt (by decide) hlt))
   · exact hge
+
+/-! ## The two-sided Chebyshev order theorem — `π(2^m) = Θ(2^m/m)`
+
+Both halves cut at the dyadic points `N = 2^{m+1}`, where the lower bound
+(`chebyshev_lower`) and the upper bound (`chebBound`) line up cleanly with
+`floorLog 2 N = m+1`.  The result is the genuine *order* statement
+`c·N/log₂N ≤ π(N) ≤ C·N/log₂N` with explicit constants — Chebyshev's theorem
+proper, the precise finite ∅-axiom content that *points at* PNT (the `~ N/ln N`
+limit with constant `1`, a `Real213` pointing horizon reached by none). -/
+
+/-- **Dyadic Chebyshev lower bound**: `2^m ≤ (m+2)·π(2^{m+1})` (all `m`), i.e.
+    `π(2^{m+1}) ≥ 2^m/(m+2) ≈ N/(2·log₂N)`.  `chebyshev_lower` at `n = 2^m`:
+    `2*2^m = 2^{m+1}` and `floorLog 2 (2^{m+1}) = m+1` (`floorLog_pow_self`). -/
+theorem two_pow_le_succ_primePi (m : Nat) :
+    2 ^ m ≤ (m + 2) * primePi (2 ^ (m + 1)) := by
+  have hpow : 2 * 2 ^ m = 2 ^ (m + 1) := by rw [Nat.pow_succ]; ring_nat
+  have hflog : floorLog 2 (2 * 2 ^ m) = m + 1 := by
+    rw [hpow]; exact floorLog_pow_self (by decide) (m + 1)
+  have h := chebyshev_lower (n := 2 ^ m) (Nat.pos_pow_of_pos m (by decide))
+  rw [hflog, hpow] at h
+  exact h
+
+/-- **Dyadic Chebyshev upper bound (cleared-denominator)**: `(m+1)·π(2^{m+1}) ≤
+    6·2^{m+1}`, i.e. `π(2^{m+1}) ≤ 6·2^{m+1}/(m+1) ≈ 6·N/log₂N`.  `π(2^{m+1}) ≤
+    chebBound(m+1)` (`primePi_pow_two_le_chebBound`) times the partial-sum bound
+    `chebBound(m+1)·(m+1) ≤ 6·2^{m+1}` (`chebBound_mul_le`). -/
+theorem succ_mul_primePi_pow_two_le (m : Nat) :
+    (m + 1) * primePi (2 ^ (m + 1)) ≤ 6 * 2 ^ (m + 1) := by
+  calc (m + 1) * primePi (2 ^ (m + 1))
+      = primePi (2 ^ (m + 1)) * (m + 1) := Nat.mul_comm _ _
+    _ ≤ chebBound (m + 1) * (m + 1) :=
+        Nat.mul_le_mul (primePi_pow_two_le_chebBound (m + 1)) (Nat.le_refl _)
+    _ ≤ 6 * 2 ^ (m + 1) := (chebBound_mul_le m).1
+
+/-- **Chebyshev's theorem (order form), `π(N) = Θ(N/log₂N)` at dyadic `N = 2^{m+1}`**:
+    `2^{m+1} ≤ 2·(m+2)·π(2^{m+1})` (lower, `π ≥ N/(2(L+1))`) and `(m+1)·π(2^{m+1}) ≤
+    6·2^{m+1}` (upper, `π ≤ 6·N/L`), where `L = floorLog 2 N = m+1`.  Both halves
+    of Chebyshev's theorem in one statement, explicit constants, ∅-axiom — the
+    finite skeleton of which PNT (`π(N)·ln N/N → 1`) is the asymptotic horizon. -/
+theorem chebyshev_order (m : Nat) :
+    2 ^ (m + 1) ≤ 2 * (m + 2) * primePi (2 ^ (m + 1)) ∧
+      (m + 1) * primePi (2 ^ (m + 1)) ≤ 6 * 2 ^ (m + 1) := by
+  refine ⟨?_, succ_mul_primePi_pow_two_le m⟩
+  calc 2 ^ (m + 1) = 2 * 2 ^ m := by rw [Nat.pow_succ]; ring_nat
+    _ ≤ 2 * ((m + 2) * primePi (2 ^ (m + 1))) :=
+        Nat.mul_le_mul (Nat.le_refl 2) (two_pow_le_succ_primePi m)
+    _ = 2 * (m + 2) * primePi (2 ^ (m + 1)) := by ring_nat
+
+/-- **The PNT-direction constant is a *computable interval*, computed — not a
+    deified point.**  Write `C(m) = (m+1)·π(2^{m+1})` (the order theorem's
+    normalized count).  The proven bounds trap the constant `C(m)/2^{m+1}` in the
+    rational interval `[(m+1)/(2(m+2)), 6]`:
+      `(m+1)·2^{m+1} ≤ 2·(m+2)·C(m)`   (lower endpoint `(m+1)/(2(m+2)) → 1/2`)
+      `C(m) ≤ 6·2^{m+1}`               (upper endpoint `6`).
+    The true value `log₂ e ≈ 1.4427` (the `ln`-base shadow of PNT's `1`) lives
+    inside; the interval is *evaluable at every `m`* and narrows from below as `m`
+    climbs.  This operationalizes the residue-form rule (`the_form_of_the_residue.md`
+    "Infinity is the residue's shape"): the limit is not approached as an external
+    target — it *is* the shape of this computable bracket, the bracket being the
+    calculation.  Division-free, ∅-axiom. -/
+theorem chebyshev_constant_interval (m : Nat) :
+    (m + 1) * 2 ^ (m + 1) ≤ 2 * (m + 2) * ((m + 1) * primePi (2 ^ (m + 1))) ∧
+      (m + 1) * primePi (2 ^ (m + 1)) ≤ 6 * 2 ^ (m + 1) := by
+  obtain ⟨hlo, hup⟩ := chebyshev_order m
+  refine ⟨?_, hup⟩
+  calc (m + 1) * 2 ^ (m + 1)
+      ≤ (m + 1) * (2 * (m + 2) * primePi (2 ^ (m + 1))) :=
+        Nat.mul_le_mul (Nat.le_refl _) hlo
+    _ = 2 * (m + 2) * ((m + 1) * primePi (2 ^ (m + 1))) := by ring_nat
+
+/-! ## The lcm-form (ψ) lower bound — cross-link to the lcm-growth route
+
+The same central-binomial machinery that gave the `π`-form lower bound also lands
+the **`ψ`-form** (`ψ(N) = ln·lcm(1..N)`), the cleanest PNT shape: every prime power
+`p^{vp_p C(2n,n)} ≤ 2n` (`vp_central_binom_le_floorLog`) so `vp_p C(2n,n) ≤
+⌊log_p 2n⌋ = vp_p(lcm(1..2n))` (`vp_lcmUpTo` + `lcmExpCount_eq_floorLog`), hence
+`C(2n,n) ∣ lcm(1..2n)` (`dvd_of_forall_vp_le`).  This is the concrete (c)
+cross-link to `LcmGrowthChebyshev`, whose 30-block gives the matching *upper*
+`lcm(1..N) ≤ C·base^N` (base `≈ 3.16`). -/
+
+/-- **`C(2n,n) ∣ lcm(1..2n)`** (`n ≥ 1`) — the central binomial divides the lcm of
+    its range: at every prime `q`, `vp_q C(2n,n) ≤ ⌊log_q 2n⌋ = vp_q(lcm(1..2n))`.
+    The bridge from the central-binomial route (`Lens/`) to the lcm-growth route
+    (`Lib/Math/NumberTheory/LcmGrowthChebyshev`). -/
+theorem central_binom_dvd_lcm {n : Nat} (hn : 1 ≤ n) :
+    binom (2 * n) n ∣ lcmUpTo (2 * n) := by
+  have h2n : 1 ≤ 2 * n := Nat.le_trans hn (by rw [Nat.two_mul]; exact Nat.le_add_left n n)
+  refine dvd_of_forall_vp_le (central_binom_pos n) (lcmUpTo_pos _) (fun q hq => ?_)
+  rw [vp_lcmUpTo hq (2 * n), lcmExpCount_eq_floorLog hq.1 h2n]
+  exact vp_central_binom_le_floorLog hq hn
+
+/-- **`2^n ≤ lcm(1..2n)`** (`n ≥ 1`) — the lcm-form (`ψ`) lower bound.  `C(2n,n) ∣
+    lcm(1..2n)` (`central_binom_dvd_lcm`) and `2^n ≤ C(2n,n)`
+    (`central_binom_ge_two_pow`).  Equivalently `ψ(2n) = ln·lcm(1..2n) ≥ n·ln2`, a
+    linear lower bound on Chebyshev's `ψ` — the lcm-form companion of
+    `chebyshev_order`, and a computable base-`√2` lower for the `lcm ~ eᴺ` constant
+    (the sharper base-`2` is the max-binomial sharpening; the upper base `≈ 3.16` is
+    `LcmGrowthChebyshev`'s 30-block). -/
+theorem two_pow_le_lcm {n : Nat} (hn : 1 ≤ n) : 2 ^ n ≤ lcmUpTo (2 * n) :=
+  Nat.le_trans (central_binom_ge_two_pow n)
+    (le_of_dvd_pos _ _ (lcmUpTo_pos _) (central_binom_dvd_lcm hn))
 
 end E213.Lens.Number.Nat213.ChebyshevLower

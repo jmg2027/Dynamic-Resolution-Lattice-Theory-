@@ -27,10 +27,10 @@ is the residue.
 
 | File | PURE / dirty | Content |
 |---|---|---|
-| `Real213/CompletabilityGrade.lean` | 7 / 0 | the lex `(height, rate)` grade; height an `ω`-coordinate over the exponential tower |
-| `Real213/IntensionalCompletability.lean` | 3 / 0 | the test antitone under rescaling (reduced canonical); completion gauge-invariant |
-| `Real213/RefinedCompletabilityEngine.lean` | 1 / 0 | both axes bundled as one engine |
-| `Real213/HeightTowerResidue.lean` | 2 / 0 | the height tower has no top; its diagonal is the residue |
+| `Real213/Completability/CompletabilityGrade.lean` | 7 / 0 | the lex `(height, rate)` grade; height an `ω`-coordinate over the exponential tower |
+| `Real213/Completability/IntensionalCompletability.lean` | 3 / 0 | the test antitone under rescaling (reduced canonical); completion gauge-invariant |
+| `Real213/Completability/RefinedCompletabilityEngine.lean` | 1 / 0 | both axes bundled as one engine |
+| `Real213/Completability/HeightTowerResidue.lean` | 2 / 0 | the height tower has no top; its diagonal is the residue |
 
 Builds under the `E213.Lib.Math.NumberSystems.Real213` umbrella.
 
@@ -125,10 +125,10 @@ cd lean
 lake build E213.Lib.Math.NumberSystems.Real213
 cd ..
 for M in \
-  E213.Lib.Math.NumberSystems.Real213.CompletabilityGrade \
-  E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability \
-  E213.Lib.Math.NumberSystems.Real213.RefinedCompletabilityEngine \
-  E213.Lib.Math.NumberSystems.Real213.HeightTowerResidue ; do
+  E213.Lib.Math.NumberSystems.Real213.Completability.CompletabilityGrade \
+  E213.Lib.Math.NumberSystems.Real213.Completability.IntensionalCompletability \
+  E213.Lib.Math.NumberSystems.Real213.Completability.RefinedCompletabilityEngine \
+  E213.Lib.Math.NumberSystems.Real213.Completability.HeightTowerResidue ; do
     python3 tools/scan_axioms.py $M
 done
 ```

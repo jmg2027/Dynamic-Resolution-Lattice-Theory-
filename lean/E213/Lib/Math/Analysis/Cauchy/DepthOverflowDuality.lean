@@ -1,5 +1,5 @@
 import E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue
-import E213.Lib.Math.NumberSystems.Real213.RateStratification
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
 
 /-!
 # DepthOverflowDuality — the diagonalisation residue and the completeness-break are one operation
@@ -52,7 +52,7 @@ All zero-axiom.
 namespace E213.Lib.Math.Analysis.Cauchy.DepthOverflowDuality
 
 open E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue (diag diag_exceeds)
-open E213.Lib.Math.NumberSystems.Real213.RateStratification (Dominates overtake_breaks_layer)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification (Dominates overtake_breaks_layer)
 
 /-! ## §1 — the shared operation: strict overflow at the diagonal index -/
 

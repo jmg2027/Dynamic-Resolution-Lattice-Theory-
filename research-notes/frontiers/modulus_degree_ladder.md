@@ -98,7 +98,7 @@ numerators — so a clean product closure remains open.)
    `N(m,k) = k^e` must *call e's own modulus* to evaluate `⌈k^e⌉`, so
    irrational-degree moduli are receipts taking receipts as arguments — a
    call-tree of folds, formalizable now as a schedule functional consuming a
-   `CauchyCutSeq`.  **The functional is BUILT** (`Real213/ModulusComposition`,
+   `CauchyCutSeq`.  **The functional is BUILT** (`Real213/Modulus/ModulusComposition`,
    30 PURE): `powSched c B k = ⌈k^{p/2^k}⌉` with `p` read off the exponent cut
    (`dyUp`, sound under integer witness + forward doubling; `rootCeil` exact by
    sandwich), calibrated (`powSched_rat`: integer `s` returns exactly `k^s`),
@@ -164,7 +164,7 @@ numerators — so a clean product closure remains open.)
    with partial quotients `⌊√i⌋+2`-driven) is uncharacterized, only its
    degree-2-rescued completion is.
 2. **Conditional measure-modulus schema** — **CLOSED**
-   (`Real213/BracketModulus` + `ExpLog/PiMeasureModulus`, all ∅-axiom).  The
+   (`Real213/Modulus/BracketModulus` + `ExpLog/PiMeasureModulus`, all ∅-axiom).  The
    engine: two-sided bracket (strictly increasing fold + non-increasing upper
    companion + sandwich) + **exclusion depth** `B` ⟹ total modulus
    `N = B k + 2` (`bracket_total_modulus`).  Wallis instance: the companion

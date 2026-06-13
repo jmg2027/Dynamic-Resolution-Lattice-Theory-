@@ -1,7 +1,7 @@
 # G189 — The geodesic-Lens view of the Markov frontier: where stable-norm / Christoffel sits
 
 Tier-1 frontier analysis (not a closed result).  Applies the Raw/Lens + mediant-engine viewpoint
-(`theory/essays/p_orbit/the_modular_geodesic_lens.md`, `Real213/ModularGeodesicLens`) to the open Markov
+(`theory/essays/p_orbit/the_modular_geodesic_lens.md`, `Real213/ModularGeometry/ModularGeodesicLens`) to the open Markov
 uniqueness kernel `H` (`markovMaxUnique_iff_orbitRealizabilityH`, the frontier `(C)` of
 `theory/math/analysis/markov_uniqueness.md`).  Goal: locate *exactly* which part of the classical
 stable-norm / Christoffel route is `∅`-axiom-reachable and which is genuine import, by reading the
@@ -172,8 +172,8 @@ domain supplies it, and the discrete-Wronskian machinery is likely the wrong sha
 merely *unaimed*.
 
 ### Pointers
-- engine: `Real213/ModularGeodesicLens` (`mediantLens`, `mediantLens_view_reachable`)
-- slope reading closed: `Real213/SternBrocotMarkov` `slope_path_inj`, `§6–§8` (`markovRes_cross` = the tree Casoratian)
+- engine: `Real213/ModularGeometry/ModularGeodesicLens` (`mediantLens`, `mediantLens_view_reachable`)
+- slope reading closed: `Real213/Markov/SternBrocotMarkov` `slope_path_inj`, `§6–§8` (`markovRes_cross` = the tree Casoratian)
 - size reading: `markovNum`, `§30` (`markovNum_lt_extend`, `markovNum_lt_append`, descent done), open kernel
   `markovMaxUnique_iff_orbitRealizabilityH`, `OrbitRealizabilityH`
 - within-recurrence Casoratian (NOT cross-node, corrected): `Cauchy/{CasoratianStep, SecondCasoratian,

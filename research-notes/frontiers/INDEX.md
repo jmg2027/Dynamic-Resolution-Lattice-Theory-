@@ -83,7 +83,7 @@ class-number core (composite `c` with both `3c±2` composite, smallest `1325`).
   where the Markov `H` kernel sits in the foundation's breakthrough backlog.
 - `G191_continuant_aigner_program` — the continuant / Aigner program: where
   modern Markov theory meets the repo, and what it can(not) close (the
-  ranked-next attack on `H`; `Real213/Continuant.lean` tool built).
+  ranked-next attack on `H`; `Real213/ContinuedFraction/Continuant.lean` tool built).
 - `G192_markov_kernel_raw_lens_native` — the kernel in Raw/Lens-native terms:
   where the geodesic engine reaches and where it structurally stops.
 - `G193_axioms_against_markov_kernel` — the 213 axiom corpus read against the
@@ -138,7 +138,7 @@ depth; axis = unit-group order `{2,4,6}`), and its tower extension.
 
 Closure record: `theory/math/analysis/spiral_coordinate_classification.md`.
 `G181_atomic_spiral_adic` (the variable-base adic / carry = the residue unit) is
-**closed**, built as `Theory/Raw/{Odometer,OdometerValue}` + `Real213/ZeckendorfCarry`,
+**closed**, built as `Theory/Raw/{Odometer,OdometerValue}` + `Real213/Phi/ZeckendorfCarry`,
 narrated in `theory/essays/foundations/the_residue_unit_odometer.md` +
 `theory/math/algebra/phi_self_similarity.md` §3.7.
 
@@ -176,9 +176,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - `multiplicative_count_pnt` — **multiplicative count → PNT density**
   (`MultSystem`/`MultSystemValue`).  Upper bound + density cut CLOSED ∅-axiom
   (prime window `(n,2n]`, Chebyshev doubling, telescoped `π(2^m) ≤ chebBound m =
-  O(2^m/m)`, keystone **`primeDensityToZero`** = `π(N)/N → 0` certified).
-  **Promoted** → `theory/math/numbertheory/chebyshev_prime_counting.md`.  OPEN
-  (retained here): only PNT `~ N/ln N` (constant `1`, asymptotic horizon).
+  O(2^m/m)`, keystone **`primeDensityToZero`** = `π(N)/N → 0` certified).  Also
+  CLOSED: two-sided order `chebyshev_order` (`π(2^{m+1}) = Θ(2^{m+1}/m)`) + the
+  constant as a computable interval `chebyshev_constant_interval`; the `→1`
+  pointing shape `RatTendsToOne`; the `ψ`-form lower `two_pow_le_lcm`; and the
+  structural **`vp_factorial_eq_sum_vp_lcm`** (`N! = Π_{i≤N} lcm(1..⌊N/i⌋)`, the
+  factorial↔lcm `e`-bridge, `FactorialLcmIdentity`).  **Promoted** →
+  `theory/math/numbertheory/chebyshev_prime_counting.md`.  OPEN (retained here):
+  only PNT `~ N/ln N` (constant `1`, asymptotic horizon) + the interval sharpening
+  (base-`2` lower, base-`≈3.16` upper).
 - `chebyshev_lower_bound` — **Chebyshev lower bound `π(N) ≥ c·N/ln N`**.  ✅
   CLOSED ∅-axiom (`chebyshev_lower : n ≤ (⌊log₂(2n)⌋+1)·π(2n)`, via Kummer
   `vp_central_binom_le_floorLog` + `le_pow_primePi`).  **Promoted** →
@@ -474,7 +480,7 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   Discovery path: `general_theory_metaanalysis.md` findings D/E/F/G/G′.
 
 - `holonomy_lattice` — **holonomy of the lattice, open extensions**.  Closed core
-  (`Real213/HolonomyLattice`, 25 PURE + chapter `holonomy_of_the_lattice.md`): holonomy =
+  (`Real213/ModularGeometry/HolonomyLattice`, 25 PURE + chapter `holonomy_of_the_lattice.md`): holonomy =
   net transition around a loop of state-transitions; functoriality + flatness (`det=1=NS−NT`)
   + the ℕ⁺ sector is loop-free (Stern–Brocot tree) + holonomy born from the negation fold
   (`[S,S]=−I`, order 4).  Open: (1) full freeness of `⟨L,R⟩` (unique-word, via CF/odometer);

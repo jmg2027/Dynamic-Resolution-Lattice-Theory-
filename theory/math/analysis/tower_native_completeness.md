@@ -29,17 +29,17 @@ top-lessness of the tower to the residue of pointing.
 
 | File | PURE / dirty | Content |
 |---|---|---|
-| `Real213/CrossDetOvertake.lean` | 11 / 0 | the boundary: `CrossDetSmall`, below ⟹ free, the overtake break |
-| `Real213/LiouvilleModulus.lean` | 13 / 0 | Liouville: `W = d`, factorial denominator dominates ⟹ free modulus |
-| `Real213/CrossDetEqDenom.lean` | 3 / 0 | the `W = d` rung: one theorem behind both e and Liouville |
+| `Real213/CrossDet/CrossDetOvertake.lean` | 11 / 0 | the boundary: `CrossDetSmall`, below ⟹ free, the overtake break |
+| `Real213/Modulus/LiouvilleModulus.lean` | 13 / 0 | Liouville: `W = d`, factorial denominator dominates ⟹ free modulus |
+| `Real213/CrossDet/CrossDetEqDenom.lean` | 3 / 0 | the `W = d` rung: one theorem behind both e and Liouville |
 | `Real213/ReciprocalSeries.lean` | 12 / 0 | the `W = d` line as a ratio-parametrized reciprocal-series reference family (`Σ 1/d`); e = linear-ratio point |
-| `Real213/CrossDetConstDenom.lean` | 13 / 0 | the `W = const` rung + φ (Fibonacci convergents) as its named instance |
-| `Real213/ContinuedFractionFloor.lean` | 17 / 0 | the universal det-one floor: any partial-quotient sequence's convergent cross-determinant is a unit (`cf_det_sq`, `W² = 1`); even two-step `W'_{2n} = a_{2n+2}` |
-| `Real213/ContinuedFractionModulus.lean` | 16 / 0 | every real `≥ 1` completes through its continued fraction (`cf_universal_total_modulus`); the `W = const` φ-rung over an arbitrary partial-quotient sequence |
-| `Real213/GeometricThreshold.lean` | 6 / 0 | the exact growth-rate boundary: geometric `W=r^i` over `d=q^i` free **iff** `r < q` |
+| `Real213/CrossDet/CrossDetConstDenom.lean` | 13 / 0 | the `W = const` rung + φ (Fibonacci convergents) as its named instance |
+| `Real213/ContinuedFraction/ContinuedFractionFloor.lean` | 17 / 0 | the universal det-one floor: any partial-quotient sequence's convergent cross-determinant is a unit (`cf_det_sq`, `W² = 1`); even two-step `W'_{2n} = a_{2n+2}` |
+| `Real213/ContinuedFraction/ContinuedFractionModulus.lean` | 16 / 0 | every real `≥ 1` completes through its continued fraction (`cf_universal_total_modulus`); the `W = const` φ-rung over an arbitrary partial-quotient sequence |
+| `Real213/Completability/GeometricThreshold.lean` | 6 / 0 | the exact growth-rate boundary: geometric `W=r^i` over `d=q^i` free **iff** `r < q` |
 | `Real213/PresentationDependence.lean` | 6 / 0 | `CrossDetSmall` reads the representation, not the real (`rcut` rescaling-invariant) |
-| `Real213/IntensionalCompletability.lean` | 3 / 0 | the test is presentation-relative, the completion presentation-invariant |
-| `Real213/ScalingOrbit.lean` | 7 / 0 | the rescaling orbit is one cut; `CrossDetSmall` antitone; unique reduced base |
+| `Real213/Completability/IntensionalCompletability.lean` | 3 / 0 | the test is presentation-relative, the completion presentation-invariant |
+| `Real213/Spiral/ScalingOrbit.lean` | 7 / 0 | the rescaling orbit is one cut; `CrossDetSmall` antitone; unique reduced base |
 | `Cauchy/DepthClosure.lean` | 16 / 0 | finite-coordinate class closed under `×` and the exponent axis |
 | `Cauchy/DepthCoordGenerator.lean` | 10 / 0 | the tower as a coordinate system, generated top-down |
 | `Real213/FloorReferenceForm.lean` | 2 / 0 | the det-one floor's golden form is indefinite (the completing line) |
@@ -47,7 +47,7 @@ top-lessness of the tower to the residue of pointing.
 | `CayleyDickson/Integer/ParabolicSignature.lean` | 4 / 0 | the disc-`0` parabolic cusp completes the line / cusp / curve trichotomy |
 | `FiveFloorUnification.lean` | 1 / 0 | the completability floor `P` = the McKay E₈ endpoint mod `5 = NS+NT` |
 | `Cauchy/DepthCeilingResidue.lean` | — | the tower has no top = the residue of pointing |
-| `Real213/TowerNativeCompleteness.lean` | — | `tower_native_completeness_program`, the five bundled |
+| `Real213/Completability/TowerNativeCompleteness.lean` | — | `tower_native_completeness_program`, the five bundled |
 
 Builds under the `E213.Lib.Math.NumberSystems.Real213` and `E213.Lib.Math.Analysis.Cauchy` umbrellas.
 
@@ -368,19 +368,19 @@ cd lean
 lake build E213.Lib.Math
 cd ..
 for M in \
-  E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake \
-  E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus \
-  E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor \
-  E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus \
-  E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability \
-  E213.Lib.Math.NumberSystems.Real213.ScalingOrbit \
+  E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake \
+  E213.Lib.Math.NumberSystems.Real213.Modulus.LiouvilleModulus \
+  E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor \
+  E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus \
+  E213.Lib.Math.NumberSystems.Real213.Completability.IntensionalCompletability \
+  E213.Lib.Math.NumberSystems.Real213.Spiral.ScalingOrbit \
   E213.Lib.Math.NumberSystems.Real213.FloorReferenceForm \
   E213.Lib.Math.Analysis.Cauchy.DepthClosure \
   E213.Lib.Math.Analysis.Cauchy.DepthCoordGenerator \
   E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSignature \
   E213.Lib.Math.Algebra.CayleyDickson.Integer.ParabolicSignature \
   E213.Lib.Math.FiveFloorUnification \
-  E213.Lib.Math.NumberSystems.Real213.TowerNativeCompleteness ; do
+  E213.Lib.Math.NumberSystems.Real213.Completability.TowerNativeCompleteness ; do
     python3 tools/scan_axioms.py $M
 done
 ```

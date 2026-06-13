@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
+import E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake
 import E213.Lib.Math.Analysis.Cauchy.EulerDivergenceForm
 import E213.Lib.Math.Analysis.Cauchy.Euler
 import E213.Meta.Nat.PolyNat
@@ -34,8 +34,8 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberSystems.Real213.PresentationDependence
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake (CrossDetSmall)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut)
 open E213.Lib.Math.Analysis.Cauchy.EulerSeq (eulerNum eulerDen)
 open E213.Lib.Math.Analysis.Cauchy.EulerDivergenceForm (euler_cross_det)
 open E213.Meta.Nat.PolyNat (poly_id)

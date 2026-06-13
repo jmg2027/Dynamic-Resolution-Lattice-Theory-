@@ -46,82 +46,82 @@ import E213.Lib.Math.NumberSystems.Real213.Core.ValidCut
 import E213.Lib.Math.NumberSystems.Real213.Core.ValidCutOps
 import E213.Lib.Math.NumberSystems.Real213.ChainToCut
 import E213.Lib.Math.NumberSystems.Real213.ObjectIsReadingScaleInvariant
-import E213.Lib.Math.NumberSystems.Real213.PhiConvergence
-import E213.Lib.Math.NumberSystems.Real213.PhiAsCut
-import E213.Lib.Math.NumberSystems.Real213.PhiCutConvergents
-import E213.Lib.Math.NumberSystems.Real213.PhiNormInvariant
-import E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
-import E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
-import E213.Lib.Math.NumberSystems.Real213.PhiFrozenDynamic
-import E213.Lib.Math.NumberSystems.Real213.ZeckendorfCarry
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiConvergence
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiCutConvergents
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiNormInvariant
+import E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiCauchyLimit
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiFrozenDynamic
+import E213.Lib.Math.NumberSystems.Real213.Phi.ZeckendorfCarry
 import E213.Lib.Math.NumberSystems.Real213.OdometerSternBrocotUnit
-import E213.Lib.Math.NumberSystems.Real213.MinkowskiCocycle
-import E213.Lib.Math.NumberSystems.Real213.MinkowskiGoldenExtremal
-import E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodIntegral
-import E213.Lib.Math.NumberSystems.Real213.MinkowskiHigherWeightPeriod
-import E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodRelations
-import E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodPolynomial
-import E213.Lib.Math.NumberSystems.Real213.MinkowskiModularSymbol
+import E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiCocycle
+import E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiGoldenExtremal
+import E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiPeriodIntegral
+import E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiHigherWeightPeriod
+import E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiPeriodRelations
+import E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiPeriodPolynomial
+import E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiModularSymbol
 import E213.Lib.Math.NumberSystems.Real213.HolonomicReal
 import E213.Lib.Math.NumberSystems.Real213.Zeta3Cut
 import E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut
-import E213.Lib.Math.NumberSystems.Real213.ModulusComposition
-import E213.Lib.Math.NumberSystems.Real213.RateModulus
-import E213.Lib.Math.NumberSystems.Real213.RateStratification
-import E213.Lib.Math.NumberSystems.Real213.RateHierarchy
-import E213.Lib.Math.NumberSystems.Real213.RateComparison
-import E213.Lib.Math.NumberSystems.Real213.DegreeCriterion
-import E213.Lib.Math.NumberSystems.Real213.RateArithmetic
-import E213.Lib.Math.NumberSystems.Real213.PointingLimit
-import E213.Lib.Math.NumberSystems.Real213.BestApproximation
-import E213.Lib.Math.NumberSystems.Real213.BracketModulus
-import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
-import E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
-import E213.Lib.Math.NumberSystems.Real213.CrossDetEqDenom
+import E213.Lib.Math.NumberSystems.Real213.Modulus.ModulusComposition
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateHierarchy
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateComparison
+import E213.Lib.Math.NumberSystems.Real213.Modulus.DegreeCriterion
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateArithmetic
+import E213.Lib.Math.NumberSystems.Real213.Modulus.PointingLimit
+import E213.Lib.Math.NumberSystems.Real213.Modulus.BestApproximation
+import E213.Lib.Math.NumberSystems.Real213.Modulus.BracketModulus
+import E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake
+import E213.Lib.Math.NumberSystems.Real213.Modulus.LiouvilleModulus
+import E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetEqDenom
 import E213.Lib.Math.NumberSystems.Real213.ReciprocalSeries
-import E213.Lib.Math.NumberSystems.Real213.CrossDetConstDenom
-import E213.Lib.Math.NumberSystems.Real213.GeometricThreshold
-import E213.Lib.Math.NumberSystems.Real213.CompletabilityGrade
+import E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetConstDenom
+import E213.Lib.Math.NumberSystems.Real213.Completability.GeometricThreshold
+import E213.Lib.Math.NumberSystems.Real213.Completability.CompletabilityGrade
 import E213.Lib.Math.NumberSystems.Real213.PresentationDependence
-import E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability
-import E213.Lib.Math.NumberSystems.Real213.RefinedCompletabilityEngine
-import E213.Lib.Math.NumberSystems.Real213.HeightTowerResidue
-import E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor
-import E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
-import E213.Lib.Math.NumberSystems.Real213.SpiralLayer
-import E213.Lib.Math.NumberSystems.Real213.SpiralCoordinate
-import E213.Lib.Math.NumberSystems.Real213.ScalingOrbit
+import E213.Lib.Math.NumberSystems.Real213.Completability.IntensionalCompletability
+import E213.Lib.Math.NumberSystems.Real213.Completability.RefinedCompletabilityEngine
+import E213.Lib.Math.NumberSystems.Real213.Completability.HeightTowerResidue
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus
+import E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralLayer
+import E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralCoordinate
+import E213.Lib.Math.NumberSystems.Real213.Spiral.ScalingOrbit
 import E213.Lib.Math.NumberSystems.Real213.FloorReferenceForm
-import E213.Lib.Math.NumberSystems.Real213.SpiralRotationInvariant
-import E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov
-import E213.Lib.Math.NumberSystems.Real213.MarkovTree
-import E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness
-import E213.Lib.Math.NumberSystems.Real213.MarkovCassiniBridge
-import E213.Lib.Math.NumberSystems.Real213.ModularElliptic
-import E213.Lib.Math.NumberSystems.Real213.FoldReflections
-import E213.Lib.Math.NumberSystems.Real213.EllipticCycleFixtures
-import E213.Lib.Math.NumberSystems.Real213.HyperbolicBoost
-import E213.Lib.Math.NumberSystems.Real213.ParabolicTranslation
-import E213.Lib.Math.NumberSystems.Real213.Mat2CayleyHamilton
-import E213.Lib.Math.NumberSystems.Real213.Mat2Assoc
-import E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence
-import E213.Lib.Math.NumberSystems.Real213.HolonomyLattice
-import E213.Lib.Math.NumberSystems.Real213.GoldenAperiodic
-import E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum
-import E213.Lib.Math.NumberSystems.Real213.EllipticTracePeriodic
-import E213.Lib.Math.NumberSystems.Real213.UTracePeriodic
-import E213.Lib.Math.NumberSystems.Real213.CrossDetTraceField
-import E213.Lib.Math.NumberSystems.Real213.MarkovModularBridge
-import E213.Lib.Math.NumberSystems.Real213.MarkovInjectivity
-import E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
-import E213.Lib.Math.NumberSystems.Real213.Continuant
-import E213.Lib.Math.NumberSystems.Real213.ContinuantMarkov
-import E213.Lib.Math.NumberSystems.Real213.MarkovUniquenessRaw
-import E213.Lib.Math.NumberSystems.Real213.ModularGeodesicLens
-import E213.Lib.Math.NumberSystems.Real213.LagrangeExtremes
-import E213.Lib.Math.NumberSystems.Real213.PentagonGoldenTrace
-import E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace
-import E213.Lib.Math.NumberSystems.Real213.TowerNativeCompleteness
+import E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralRotationInvariant
+import E213.Lib.Math.NumberSystems.Real213.Markov.GoldenFormMarkov
+import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree
+import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness
+import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovCassiniBridge
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FoldReflections
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticCycleFixtures
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicBoost
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ParabolicTranslation
+import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2CayleyHamilton
+import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc
+import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice
+import E213.Lib.Math.NumberSystems.Real213.Phi.GoldenAperiodic
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FiniteOrderSpectrum
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticTracePeriodic
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.UTracePeriodic
+import E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetTraceField
+import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovModularBridge
+import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovInjectivity
+import E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.Continuant
+import E213.Lib.Math.NumberSystems.Real213.Markov.ContinuantMarkov
+import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniquenessRaw
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularGeodesicLens
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.LagrangeExtremes
+import E213.Lib.Math.NumberSystems.Real213.Phi.PentagonGoldenTrace
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace
+import E213.Lib.Math.NumberSystems.Real213.Completability.TowerNativeCompleteness
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCertifiedBracket
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerModulus
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpUnitModulus
@@ -136,20 +136,20 @@ import E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertBridge
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.PiMeasureModulus
 import E213.Lib.Math.NumberSystems.Real213.NuEscape
-import E213.Lib.Math.NumberSystems.Real213.CutSumAssocB3
+import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumAssocB3
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpConvergents
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutLogCauchyConvCapstone
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.PiCut
-import E213.Lib.Math.NumberSystems.Real213.FifthValidCut
-import E213.Lib.Math.NumberSystems.Real213.HalfValidCut
+import E213.Lib.Math.NumberSystems.Real213.ValidCut.FifthValidCut
+import E213.Lib.Math.NumberSystems.Real213.ValidCut.HalfValidCut
 import E213.Lib.Math.NumberSystems.Real213.Mul.Mobius213CutMulNPhase3
 import E213.Lib.Math.NumberSystems.Real213.OracleContinuity
-import E213.Lib.Math.NumberSystems.Real213.PellFibCutBridge
-import E213.Lib.Math.NumberSystems.Real213.ProbeTwistDynamics
-import E213.Lib.Math.NumberSystems.Real213.ProbeTwistFixedPoint
+import E213.Lib.Math.NumberSystems.Real213.Phi.PellFibCutBridge
+import E213.Lib.Math.NumberSystems.Real213.ProbeTwist.ProbeTwistDynamics
+import E213.Lib.Math.NumberSystems.Real213.ProbeTwist.ProbeTwistFixedPoint
 import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumNMixed
-import E213.Lib.Math.NumberSystems.Real213.ThirdValidCut
+import E213.Lib.Math.NumberSystems.Real213.ValidCut.ThirdValidCut
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberSystems.Real213`.
 
@@ -164,20 +164,47 @@ import E213.Lib.Math.NumberSystems.Real213.ThirdValidCut
   Cauchy completeness, Series) lives in a separate sibling tree:
   `Math/Analysis.lean`.
 
-  ## Sub-clusters
+  ## Sub-clusters (directory layout)
 
-    * **Type-level foundation**: `Real213` type + `Equiv` + `MinimumProposition`
-    * **Cut algebra**: `cutSum`, `cutMul`, `cutPow`, `cutInv`, `cutBisection`,
-      `cutPoset` (lattice ops), and their commutativity / determinism /
-      pointwise lemmas
-    * **Validation**: `ValidCut`, `ValidCutOps`
-    * **Signed cuts**: `Signed`, `SignedSum`
-    * **Dyadic representation**: `Dyadic` (basic; bracket/Riemann/trajectory
-      live in `Math/Analysis/`)
-    * **Lens output**: `AsLensOutput`, `Functions`
+  Foundation / cut algebra:
+    * **`Core/`** — `Real213` type + `Equiv` + `MinimumProposition`,
+      `ValidCut`/`ValidCutOps`, `Dyadic`, `AsLensOutput`, `Functions`
+    * **`Sum/`** / **`Mul/`** — additive / multiplicative cut algebra
+      (`cutSum`, `cutMul`, `cutPow`, `cutInv`, signed cuts, associativity)
+    * **`Lattice/`** — `cutPoset` lattice ops (max/min/mid)
+    * **`Bisection/`** — bisection algorithm + continuity
+    * **`Calculus/`** — cut integration + differentiation-with-modulus
+    * **`ExpLog/`** — exp/log/trig cuts, Lambert, Euler, π
+
+  Specific reals / dynamics:
+    * **`Phi/`** — golden ratio φ as cut, Fibonacci, Zeckendorf, Pell
+    * **`Markov/`** — Markov spectrum, triple, uniqueness, Cassini bridges
+    * **`Mobius/`** — Möbius transformations on cuts, Stern–Brocot, setoid
+    * **`Minkowski/`** — Minkowski `?`, modular symbols, period polynomials
+    * **`ModularGeometry/`** — elliptic / hyperbolic / parabolic traces,
+      geodesic lens, holonomy, finite-order spectrum, Lagrange extremes
+    * **`Mat2/`** — 2×2 matrix algebra (assoc, Cayley–Hamilton, trace)
+    * **`ProbeTwist/`** — probe-twist dynamics + fixed points
+    * **`Spiral/`** — spiral coordinate / scaling-orbit invariants
+
+  Approximation / completeness:
+    * **`ValidCut/`** — rational instances (½, ⅓, ⅕, ℤ, ℕ) + framework
+    * **`CrossDet/`** — cross-determinant overtake / trace-field bounds
+    * **`ContinuedFraction/`** — continuant + continued-fraction floor/modulus
+    * **`Modulus/`** — convergence-rate moduli (bracket, Liouville, rate)
+    * **`Completability/`** — completability grade, intensional/tower completion
+
+  Root-level (foundational / cross-cutting singletons): `AbCutSeq`,
+  `ChainToCut`, `NuEscape`, `ObjectIsReadingScaleInvariant`,
+  `OracleContinuity`, `PresentationDependence`, `ReciprocalSeries`,
+  `CubeRootTwoCut`, `HolonomicReal`, `OdometerSternBrocotUnit`,
+  `Zeta3Apery`, `Zeta3Cut`, `FloorReferenceForm`.
+
+  Path = namespace: each module's namespace carries its cluster segment
+  (e.g. `…Real213.Phi.PhiCut`).  Cross-cluster references resolve via a
+  cluster-parent `open` (e.g. `open …Real213.Mobius`).
 
   ## Status
 
-  ∅-axiom standard on the production critical path.  44 files post
-  M5b split.
+  ∅-axiom standard on the production critical path.
 -/

@@ -16,7 +16,7 @@ a theorem: degree 0 — the form is the cut, no layers at all (φ's `masterCut`;
 degree 1 — the rate is its own receipt (`N = k+2` for e and the Liouville
 constant, `N = 2k` for φ, `N = 3k+5` for ∛2's bisection); composed degree —
 the exponent slot itself holds a cut, and the schedule queries that cut's
-modulus to evaluate (`Real213/ModulusComposition.powSched`, with `ePow_at_two`
+modulus to evaluate (`Real213/Modulus/ModulusComposition.powSched`, with `ePow_at_two`
 running e's modulus inside the schedule); no finite degree — the pointing's
 cross-determinant overtakes its denominator and the modulus stays a
 hypothesis (`Zeta3Cut.zeta3_presentation_overtakes`, the π-posture).
@@ -72,7 +72,7 @@ same reached-by-its-pointings status as the real itself.
 The same cover-non-surjection appears at four scales: the stage is of the run
 (`theory/essays/foundations/growth_without_a_clock.md`), finite-state is of
 the pointing (`theory/essays/synthesis/finite_state_is_of_the_pointing.md`),
-completability is of the presentation (`Real213/IntensionalCompletability`),
+completability is of the presentation (`Real213/Completability/IntensionalCompletability`),
 and now the modulus is of the schedule with the limit invariant
 (`reschedule_limit_eq`).  And the grading of *breaks* was already ordinal
 (`CompletabilityGrade`'s lex `(height, rate)`); the degree ladder is the
