@@ -31,7 +31,8 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberSystems.Real213.RateArithmetic
 
 open E213.Lib.Math.NumberSystems.Real213.RateStratification (DominatesS)
-open E213.Lib.Math.NumberSystems.Real213.DegreeCriterion (not_dominatesS_of_overtake)
+open E213.Lib.Math.NumberSystems.Real213.DegreeCriterion
+  (not_dominatesS_of_overtake degree_le_of_increment)
 open E213.Meta.Nat.RootFloor (rootFloor rootFloor_pos)
 
 /-! ## §1 — the sum/product convergents and their cross-determinants -/
@@ -107,5 +108,43 @@ theorem sum_naive_not_dominatesS (d e Wa Wb : Nat → Nat) (s i : Nat)
     _ ≤ Wa i * (e i * e (i+1)) + Wb i * (d i * d (i+1)) := Nat.le_add_right _ _
     _ ≤ rootFloor s i * (Wa i * (e i * e (i+1)) + Wb i * (d i * d (i+1))) :=
         Nat.le_mul_of_pos_left _ hrs
+
+/-! ## §3 — matched denominators: the clean additive closure -/
+
+/-- The matched-denominator sum numerator.  When `x = a/d` and `y = b/d` share the
+    denominator `d`, the sum is `(a+b)/d` (no denominator inflation — the naive
+    `(a·d + b·d)/d²` cancels to this). -/
+def matchedSumNum (a b : Nat → Nat) (i : Nat) : Nat := a i + b i
+
+/-- ★★★ **Cross-determinants add under matched denominators.**  With a shared
+    denominator `d`, the sum `(a+b)/d` has cross-determinant `W^x_i + W^y_i` —
+    exactly additive, mirroring `x + y` itself.  No denominator inflation, no
+    quadratic blow-up: this is the clean closure structure the naive
+    common-denominator sum (`sum_naive_not_dominatesS`) lacks. -/
+theorem matched_sum_cross_det (a b d Wa Wb : Nat → Nat)
+    (hWa : ∀ i, a (i+1) * d i = a i * d (i+1) + Wa i)
+    (hWb : ∀ i, b (i+1) * d i = b i * d (i+1) + Wb i) (i : Nat) :
+    matchedSumNum a b (i+1) * d i
+      = matchedSumNum a b i * d (i+1) + (Wa i + Wb i) := by
+  show (a (i+1) + b (i+1)) * d i = (a i + b i) * d (i+1) + (Wa i + Wb i)
+  have key : (a (i+1) + b (i+1)) * d i = a (i+1) * d i + b (i+1) * d i := by ring_nat
+  rw [key, hWa i, hWb i]; ring_nat
+
+/-- ★★★ **Matched-denominator sum closure.**  If the two probed cross-determinants
+    *jointly* fit under the shared denominator increment
+    (`⌊i^{1/s}⌋·(W^x_i + W^y_i) + d_i ≤ d_{i+1}`), then `x + y` is dominated at
+    degree `s` at every layer.  This is the precise closure: cross-determinants add
+    (`matched_sum_cross_det`), so the sum's degree is governed by `W^x + W^y` against
+    the *same* increment — no quadratic penalty.
+
+    The honest caveat: "each summand degree `s`" does **not** give "sum degree `s`".
+    Each gives `⌊i^{1/s}⌋·W^x ≤ Δd_i` and `⌊i^{1/s}⌋·W^y ≤ Δd_i`, so jointly only
+    `⌊i^{1/s}⌋·(W^x+W^y) ≤ 2·Δd_i` — a factor of 2 over budget.  Closure needs the
+    *joint* budget, not two separate ones; the degree is set by the combined
+    cross-determinant, not the max. -/
+theorem matched_sum_dominated (d Wa Wb : Nat → Nat) (s : Nat)
+    (hbudget : ∀ i, rootFloor s i * (Wa i + Wb i) + d i ≤ d (i+1)) (i : Nat) :
+    DominatesS (fun j => Wa j + Wb j) d (rootFloor s) i :=
+  degree_le_of_increment s (fun j => Wa j + Wb j) d hbudget i
 
 end E213.Lib.Math.NumberSystems.Real213.RateArithmetic

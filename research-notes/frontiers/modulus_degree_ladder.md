@@ -40,7 +40,13 @@ other denominator quadratically, so a mismatched `e ≫ d` makes the naive sum
 rate-free at every degree (`sum_naive_not_dominatesS`), even with both summands
 degree 1.  Degree is a property of the *pointing*; closure of the completable
 class needs a good presentation (e.g. scaling for `x+x`), not the common-denominator
-one.  A clean degree-bounded closure on matched presentations remains **open**.
+one.  The clean matched closure is **now closed** (`RateArithmetic.matched_sum_*`):
+on a *shared* denominator the cross-determinants **add** (`W^{x+y}=W^x+W^y`, no
+inflation), and `x+y` is degree ≤ s exactly when the probed cross-determinants
+*jointly* fit the shared increment `⌊i^{1/s}⌋(W^x+W^y)+d_i ≤ d_{i+1}` — "each at
+degree s" is a factor of 2 short, so degree is set by `W^x+W^y`, not the max.
+(Product on shared denominators still inflates — `prod_cross_det` carries the
+numerators — so a clean product closure remains open.)
 
 ## Closed (the algebraic pillar)
 

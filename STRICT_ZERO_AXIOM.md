@@ -1485,7 +1485,7 @@ saturated exactly by `RateHierarchy.fastDen` and e's factorial presentation
 
 ### Cross-determinant under sum/product; degree is not additive (2026-06-13)
 
-`E213.Lib.Math.NumberSystems.Real213.RateArithmetic` — **6 PURE / 0 DIRTY**.
+`E213.Lib.Math.NumberSystems.Real213.RateArithmetic` — **9 PURE / 0 DIRTY**.
 ★★★ `sum_cross_det` — the sum convergent `(a_i e_i + b_i d_i)/(d_i e_i)` has
 cross-determinant `W^{x+y}_i = W^x_i·e_i e_{i+1} + W^y_i·d_i d_{i+1}`; ★★★
 `prod_cross_det` — `W^{xy}_i = a_i d_{i+1}·W^y_i + b_i e_{i+1}·W^x_i + W^x_i W^y_i`
@@ -1496,6 +1496,13 @@ cross-determinant overtakes the naive denominator and the naive sum is *not
 dominated at any degree* — even when both summands are degree 1 (`e + e` over
 `(i!)²` is rate-free, though `2e` is trivially degree 1 by scaling).  Modulus
 degree is a property of the pointing, not of `x+y`; via `not_dominatesS_of_overtake`.
+The clean matched closure: ★★★ `matched_sum_cross_det` — with a *shared*
+denominator the sum `(a+b)/d` has cross-determinant `W^x + W^y` (exactly additive,
+no inflation); ★★★ `matched_sum_dominated` — the sum is degree ≤ s exactly when the
+probed cross-determinants *jointly* fit the shared increment
+`⌊i^{1/s}⌋·(W^x + W^y) + d_i ≤ d_{i+1}`.  Honest caveat: "each summand degree s"
+gives only `≤ 2·Δd_i` (factor of 2), so closure needs the *joint* budget, not two
+separate ones — the sum's degree is set by `W^x + W^y`, not the max.
 
 `E213.Lib.Math.NumberSystems.Real213.RateModulus` — **11 PURE / 0 DIRTY**.  ★★★
 **The graded rate generator** (modulus-degree ladder rung 1).  The margin

@@ -152,7 +152,11 @@
     the sum carries the *other* denominator quadratically, so naive convergent
     addition breaks the rate at *any* degree when denominators are mismatched
     (`d_{i+1}<e_i`) — degree is a property of the pointing, not of `x+y`; closure
-    holds only with a good presentation.
+    holds only with a good presentation.  The clean matched closure:
+    `matched_sum_cross_det` (shared denominator ⟹ cross-determinants *add*,
+    `W^x+W^y`, no inflation) + `matched_sum_dominated` (sum degree ≤ s iff the
+    probed cross-determinants *jointly* fit the shared increment; "each at degree s"
+    is a factor of 2 short — degree is set by `W^x+W^y`, not the max).
   - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
     presentations**: strictly increasing lower fold + non-increasing upper
     companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`
