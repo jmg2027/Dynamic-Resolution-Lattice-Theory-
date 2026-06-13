@@ -11,8 +11,11 @@ strict** (`RateHierarchy.strict_modulus_hierarchy`: for every `t`, the family
 `PowBernoulli.pow_pred_lt`) — the lone degree-2 witness `sepDen` is now one rung
 of a full ladder, each occupied by an actual real (`sepS_graded_modulus`); the
 conditional measure-modulus schema (rung 2) is **closed** (`BracketModulus` +
-`PiMeasureModulus`: π conditionally degree-`s`); the two-real separation modulus
-is **open**.
+`PiMeasureModulus`: π conditionally degree-`s`); the **two-real separation
+modulus is now closed** (`RateComparison.two_real_separation_modulus`: given an
+apartness witness `m/k`, the joint cut `a_i·e_j < b_j·d_i` — the two-convergent
+cross-determinant — is settled for all `i,j ≥ k+2`; the two single moduli
+compose by `max`).
 
 ## The conversion law (the frame)
 

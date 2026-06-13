@@ -125,6 +125,14 @@
     the modulus-degree ladder is **infinite and strict**.  `sepS_graded_modulus`
     occupies each rung with an actual real (`sepNumS s / sepDenS s`, modulus
     `N=k^s+1`) — degree exactly `t+1` for every `t`.
+  - `RateComparison.lean` — ★ the **two-real joint cut** (open frontier closed):
+    deciding `a_i/d_i ⋚ b_j/e_j` between two rate-carrying reals via the
+    two-convergent cross-determinant `a_i·e_j − b_j·d_i` (the single-probe
+    Farey/SL₂ `det` with `m/k` promoted to a second convergent).  `two_cut_decided`
+    (a separating rational forces the joint sign) + `two_real_separation_modulus`
+    (given an apartness witness `m/k`, the comparison is settled for all
+    `i,j ≥ k+2` — the two single moduli compose by `max`); `rcut2_const_true` the
+    decided-Bool form.
   - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
     presentations**: strictly increasing lower fold + non-increasing upper
     companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`

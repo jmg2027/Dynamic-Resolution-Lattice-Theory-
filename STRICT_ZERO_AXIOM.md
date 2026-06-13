@@ -1448,6 +1448,19 @@ actual real (`sepNumS s / sepDenS s`, `sep_cross_detS`: `W = d` exactly,
 modulus `N = k^s+1` via `graded_total_modulus`) — modulus degree exactly `t+1`
 for every `t`.
 
+### Two-real joint comparison modulus (2026-06-13)
+
+`E213.Lib.Math.NumberSystems.Real213.RateComparison` — **3 PURE / 0 DIRTY**.
+The two-real separation frontier closed.  ★★ `two_cut_decided`: a separating
+rational `m/k` (`A·k ≤ D·m` and `E·m < B·k`) forces the **two-convergent
+cross-determinant** `a_i·e_j − b_j·d_i` positive (the single-probe Farey det
+with the rational promoted to a second convergent), pure ℕ cross-multiplication.
+★★★ `two_real_separation_modulus`: two monotone rate-carrying presentations plus
+an apartness witness `m/k` (read at layer `k+2`) settle `a_i·e_j < b_j·d_i` for
+all `i,j ≥ k+2` — a constructed total modulus, the two single moduli composed by
+`max`.  `rcut2_const_true` the decided-Bool form.  Uses the blessed
+`decide_eq_true`/`decide_eq_false`/`of_decide_eq_*`/`Nat.not_le` pattern.
+
 `E213.Lib.Math.NumberSystems.Real213.RateModulus` — **11 PURE / 0 DIRTY**.  ★★★
 **The graded rate generator** (modulus-degree ladder rung 1).  The margin
 telescope is parametrized by a probe schedule `ρ`: `HtelS a d ρ` (the margin
