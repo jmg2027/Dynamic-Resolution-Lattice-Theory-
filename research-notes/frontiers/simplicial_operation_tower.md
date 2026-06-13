@@ -212,14 +212,22 @@ monoCount t d ≤ (d+1)^t` (polynomial-in-degree).  These compare the two *readi
 they say nothing about whether the `^`-**rung**'s own structure is simplicial or
 not — that is L5, and **genuinely open**:
 
-> **The open question, stated positively.**  Does the `^`-rung's intrinsic
-> structure stay **simplicial** (a higher-dimensional simplex — the originator's
-> view: point→line→plane→**tetrahedron**, the structure *continues*, a new
-> *degree-of-freedom/twist* appears at dim 3), or not?  The proven inequalities do
-> **not** settle this (they bracket a *reading*, not the rung).  Nobody has built
-> the `^`-rung's own enumeration.  Note that even "poly vs exp count" is a
-> 1-D-shadow question; the *positive* question is the rung's **dimension + twist**
-> (L5).
+> **The positive construction — DONE for the generative skeleton.**  Apply the
+> layer rule (L1) once more, *positively*: `^` takes the `×`-rung's elements (the
+> `×`-monomials, count `totalCount k N = C(N+k,k)`) as its axis set and forms their
+> degree-`d` multisets.  `MultSystem.hyperCount k N d := monoCount (totalCount k N)
+> d`, and **`hyperCount_simplex` proves it is AGAIN a simplex** (`= C(d+M−1, M−1)`,
+> `M = totalCount k N`).  So **the originator's "stays simplicial" is confirmed**:
+> the *number of axes* explodes (`+`: 1 → `×`: `C(N+k,k)` → `^`: `C(d+M−1,M−1)` → …)
+> but the **shape is invariantly the simplex** — nothing becomes a cube.  (Verified:
+> `×` over 2 `+`-gens, deg ≤2 = 6 `×`-monomials; `^` deg 1,2,3 = 6, 21, 56 = `C(M,1),
+> C(M+1,2), C(M+2,3)`.)  **Still open (the twist):** the base/exponent asymmetry /
+> the new degree-of-freedom is extra *positive* structure **on** this simplex (the
+> dimension/`−1`-cross-determinant content of L5) — `hyperCount` is the *symmetric*
+> skeleton (multisets, which alone would read as commutative); the asymmetry that
+> makes `^` its own rung sits on top of it, still to be built.  Whether that lands
+> the rung in a 3- or 4-simplex (the originator's "초위상" question) is the next
+> positive target.
 
 ## L5 — The geometric picture: dimension and the twist
 
