@@ -118,7 +118,6 @@ For a *5-second* entry into any sub-area, read its `INDEX.md`:
 | `catalogs/` | `catalogs/README.md` | grep-able lookup tables |
 | `research-notes/` | `research-notes/INDEX.md` | numbered exploratory notes |
 | `blueprints/` | `blueprints/INDEX.md` | math/physics/meta blueprints |
-| `papers/` | `papers/README.md` | ⚠ DELETED ARCHIVE (see README for git recovery) |
 | `rust-engine/` | `rust-engine/docs/architecture.md` | runtime + binaries |
 
 Top-level Lean theorem index: `CAPSTONE_INDEX.md`.
@@ -141,8 +140,7 @@ Agent guardrails: `LESSONS_LEARNED.md`.
 seed/            axioms + philosophy + falsifiability
 lean/E213/       Lean 4 formal library (~1139 files)
                  — see `lean/E213/ARCHITECTURE.md` for canonical
-                   theoretical layer definitions (4 ring + Meta
-                   since 2026-05-12)
+                   theoretical layer definitions (4 ring + Meta)
   ├── Term/      17 files — Raw 의 구현체 (deep-embedded Tree
   │              substrate + ∅-axiom Bool comparators / soundness
   │              bridges / Demo / MonomialAxioms).  Theory 가
@@ -151,8 +149,8 @@ lean/E213/       Lean 4 formal library (~1139 files)
   │              definitional commitments) + Atomicity (forced
   │              d=5, (NS,NT)=(3,2)) + CDDouble + Congruence
   │              + ParenthesizationDistinct.  Term API 만 사용.
-  │              (Bool213 / Nat213 / RawCut migrated to Lens
-  │              2026-05-14 as Lens-layer catamorphism artifacts.)
+  │              (Bool213 / Nat213 / RawCut are Lens-layer
+  │              catamorphism artifacts.)
   ├── Lens/      148 files — Lens framework (catamorphism Raw → α)
   │              + Algebra/AxiomLenses/Bool213/Cardinality/Compose/
   │              Congruence/Instances/Lattice/Number/Properties/
@@ -176,8 +174,8 @@ lean/E213/       Lean 4 formal library (~1139 files)
                  BitPatternUniqueness + Tactic/ (Nat213, Mod213,
                  Fin213, Pow213, Omega213, QuadNorm, PureGuard,
                  NativeGuard, List213, …) + Nat/Int213/Algebra213
-                 helpers.  Universal-Lens witnesses moved to
-                 `Lens/Universal/Witnesses/` 2026-05-13.
+                 helpers.  Universal-Lens witnesses live in
+                 `Lens/Universal/Witnesses/`.
 rust-engine/     Independent ℕ-only verification (53 binaries,
                  184 tests, 94 citations)
 blueprints/      math/14 + physics/14 + meta/2 (status snapshots)
@@ -185,8 +183,6 @@ books/           narrative hierarchy
   └── math/      analysis213 + number-theory-213 + cohomology-213
                  + linalg-213 + probability-213 + universal-lens-213
   └── physics/   periodic-table + diamond crystal narrative
-papers/          ⚠ DELETED ARCHIVE (papers/README.md only; recoverable
-                  from git history at commit a02b751)
 catalogs/        lookup tables (atomic integers, constants,
                  periodic table, falsifiers)
 tools/           automation (audit, regress, FORBIDDEN)
@@ -241,7 +237,7 @@ Check the license before use.
 | Scope | License | Meaning |
 |---|---|---|
 | `lean/`, `tools/`, `.claude/`, `rust-engine/` (code) | **PolyForm Noncommercial 1.0.0** | Free academic/non-commercial use & modification; commercial use *prohibited* |
-| `books/`, `papers/`, `blueprints/`, `seed/`, `catalogs/`, `research-notes/` (prose) | **CC BY-NC-ND 4.0** | Attribution + non-commercial + *no derivatives* |
+| `book/`, `books/`, `blueprints/`, `seed/`, `catalogs/`, `research-notes/` (prose) | **CC BY-NC-ND 4.0** | Attribution + non-commercial + *no derivatives* |
 
 Details: [`LICENSE`](LICENSE) (code) · [`LICENSE-DOCS`](LICENSE-DOCS) (prose)
 

@@ -102,7 +102,7 @@ and both are now built ∅-axiom, so Sperner's named upper bound holds
 **unconditionally** (`SpernerChains.sperner`, `sperner_theorem`):
 
   1. `#chains = n!` — the maximal chains are the orderings of `[n]`
-     (`Permutations.perms_length`, the enumeration the repo previously lacked);
+     (`Permutations.perms_length`);
   2. `#chains through a size-k set A ≥ k!·(n−k)!` — the family
      `{σ ++ τ : σ ∈ perms(truePos A), τ ∈ perms(falsePos A)}` is duplicate-free
      (`perms_nodup` + append-injectivity), each member incident to `A`

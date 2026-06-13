@@ -14,7 +14,7 @@ operating manual that runs it.
 | `theory/` | **Narrative book** — human-readable exposition, mirrors `lean/E213/Lib/` by path.  One chapter per closed Lean sub-tree. | Permanent |
 | `theory/essays/` | **Cross-cutting insight** — derivation-quality answers to 213-concept questions, spanning chapters. | Permanent |
 | `catalogs/` | **Derived indices** — constants, precision results, falsifiers, hubs, recursor inventory.  Distilled from the permanent tiers. | Permanent (regenerated) |
-| `book/`, `books/`, `papers/` | **Standalone treatises** — long-form readings assembled from the permanent tiers for a specific audience. | Permanent |
+| `book/`, `books/` | **Standalone treatises** — long-form readings assembled from the permanent tiers for a specific audience. | Permanent |
 | `rust-engine/` | **Numerical companion** — the calculator/search engine; every result points back to a Lean theorem. | Permanent |
 | `blueprints/` | **Marathon plans** — forward-looking field plans that seed new work. | Permanent (plan), consumed by frontiers |
 | `research-notes/` | **Volatile scratchpad** — the working memory of the research.  `frontiers/` = the live open agenda; `archive/` = record of the path. | **Volatile** |

@@ -3,9 +3,8 @@
 ## Audit & verification
 
   - `kernel_regress.sh` — verify `E213.Term.*` theorems remain
-    literally 0-axiom.  Hook-invoked on Term-ring edits.  (Named
-    "kernel" for legacy reasons; the ring was renamed Kernel →
-    Term in the 2026-05-12 layer-architecture reorganisation.)
+    literally 0-axiom.  Hook-invoked on Term-ring edits.  (The
+    script name predates the Term ring's current name.)
   - `full_build.sh` — `lake build E213` (framework rings, fast)
     followed by `lake build E213.Lib.Math E213.Lib.Physics`
     (content, slow).  Required check after any refactor touching

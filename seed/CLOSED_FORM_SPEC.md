@@ -38,8 +38,8 @@ Lean locations:
 The Raw-side projection `leavesCountRaw` is absent.  ℕ₊ is the *image* of
 `Lens.leaves.view : Raw → Nat`, a *projection to Nat*, not a
 Raw-internal projection.  Conceptually this is the same
-`projection r ∈ image` shape, but the codomain has moved from Raw
-to Nat — the Raw side carries only the chart representative
+`projection r ∈ image` shape, but the codomain is Nat rather than
+Raw — the Raw side carries only the chart representative
 (`Raw.numeral`).
 
 ## ChainToCut bridge — ℕ₊ chain ↔ Real213 cut

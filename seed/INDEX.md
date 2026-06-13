@@ -159,9 +159,6 @@ seed/
   and Lean disagree, Lean wins.
 - **NOT a reading order for the mathematics.**  See
   `theory/THEORY_BOOK.md` (deductively-ordered narrative).
-- **NOT a paper draft.**  `papers/` was deleted (commit
-  a02b751); only `papers/README.md` retained as historical
-  marker.
 
 ## Quick cross-references
 

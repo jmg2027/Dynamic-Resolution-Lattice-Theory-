@@ -1,10 +1,8 @@
 # Gaps & TODOs — Rust Engine Cleanup Notes
 
-Surfaced during the 2026-04 reorganization that promoted what was
-once `papers/PAPER5_DRAFT.md` to `docs/precision-matrix.md`
-(papers/ has since been deleted, commit a02b751).  These are *not*
-bugs in the verified 0-axiom Lean theorems; they are loose ends in
-the Rust verification layer or pending Lean formalizations.
+These are *not* bugs in the verified 0-axiom Lean theorems; they are
+loose ends in the Rust verification layer or pending Lean
+formalizations.
 
 ## 1.  Loose whitelist citations  ✅ RESOLVED 2026-04-30
 
