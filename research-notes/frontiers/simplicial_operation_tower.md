@@ -321,6 +321,38 @@ K_{3,2} link).  Two independent derivations landing on the same simplex is the
 operational signature of "no exterior" (`[ax]` §6.8): the same residue read by two
 Lenses.  That makes the gut worth closing.
 
+## Cross-domain resonances (this branch ↔ corpus) — recorded, to test
+
+Five links surfaced while building the tower + Chebyshev this branch; *resonances
+to test*, not asserted identities.
+
+1. **Tower simplex ↔ the `(NS,NT,d)` physics simplex.**  The operation-iteration
+   road (`monoCount_closed`/`hyperCount_simplex`) lands on the *same* simplicial
+   object the physics branch reaches via the `K_{3,2}` link — two independent roads
+   to one simplex (the "Why this matters" point), the `[ax]` §6.8 no-exterior
+   signature.
+2. **The `^`-twist (dilation, `+1` DOF) ↔ the `−1` cross-determinant / Pell unit.**
+   The `^`-rung adjoins one dilation degree-of-freedom (`hyper_parallel`); L5 records
+   its "1 unit of twist" rhyming with `num·den' − num'·den = −1`
+   (`Mobius213.mobius_213_pell_unit_invariant_forall`) — the symplectic defect of two
+   convergent paths.  Same "+1" in two frames.
+3. **Chebyshev (central binomial) ↔ ζ(3) Apéry (lcm growth) — shared floor-log/Legendre.**
+   This branch's prime counting (`vp_central_binom_le_floorLog`) and the corpus's
+   ζ(3) Brick 1 (`LcmGrowthChebyshev.lcmUpTo_le`) are **two consumers of one core**:
+   `Legendre.legendre` + the floor-log (which this branch *relocated* to
+   `Meta/Nat/FloorLog` precisely so both routes share it).  `vp_p(C(2n,n))` and
+   `vp_p(lcm 1..N)` are the same `floorLog` valuation read on two objects.
+4. **`DOF = rung − 2` (positive) ↔ the Cayley-Dickson law-dropping (negative).**  The
+   CD algebra tower (`theory/.../cayley_dickson/`) reads the climb as *dropping*
+   comm→assoc→alternativity; the tower's `DOF = rung − 2` is the *positive* form of
+   the same climb (a DOF *arising*, not a law lost) — a candidate re-read of the CD
+   tower in the no-negative-framing discipline.
+5. **`primeDensityToZero` modulus ↔ the certificate-as-modulus boundary.**  Prime
+   density `π(N)/N → 0` is certified as a `RatTendsToZero` *modulus* = 213's ε-δ —
+   the same certificate-is-a-modulus pattern as `AbCutSeq.toCauchy` and the WZ
+   certificates of `the_certificate_boundary.md`.  Density convergence sits on the
+   certifiability boundary that essay draws.
+
 ## Open problems / next steps
 
 1. **The `^`-rung's intrinsic structure (L4 reframed → L5)** — the two-readings
