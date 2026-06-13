@@ -340,6 +340,53 @@ theorem monoCount_le_pow : ∀ d t, monoCount t d ≤ t ^ d := by
                   rw [Nat.pow_succ, Nat.mul_succ, Nat.mul_comm t ((t + 1) ^ d)]
           exact Nat.le_trans (Nat.add_le_add iht (ihd (t + 1))) hstep
 
+/-- Base-strict power monotonicity: `sᵉ⁺¹ < (s+1)ᵉ⁺¹` (pure; no
+    `Nat.pow_lt_pow_left` in core). -/
+theorem pow_succ_lt_pow_succ (s : Nat) : ∀ e, s ^ (e + 1) < (s + 1) ^ (e + 1)
+  | 0     => by rw [Nat.pow_one, Nat.pow_one]; exact Nat.lt_succ_self s
+  | e + 1 => by
+      have ih := pow_succ_lt_pow_succ s e
+      have hrw : (s + 1) ^ (e + 1 + 1) = (s + 1) ^ (e + 1) * s + (s + 1) ^ (e + 1) := by
+        rw [Nat.pow_succ, Nat.mul_succ]
+      rw [Nat.pow_succ, hrw]
+      calc s ^ (e + 1) * s ≤ (s + 1) ^ (e + 1) * s := Nat.mul_le_mul (Nat.le_of_lt ih) (Nat.le_refl s)
+        _ < (s + 1) ^ (e + 1) * s + (s + 1) ^ (e + 1) :=
+            Nat.lt_add_of_pos_right (Nat.pos_pow_of_pos (e + 1) (Nat.succ_pos s))
+
+/-- `sᵉ < (s+1)ᵉ` for `e ≥ 1`. -/
+theorem pow_lt_pow_base (s : Nat) {e : Nat} (he : 1 ≤ e) : s ^ e < (s + 1) ^ e := by
+  obtain ⟨e', rfl⟩ : ∃ e', e = e' + 1 := ⟨e - 1, (Nat.succ_pred_eq_of_pos he).symm⟩
+  exact pow_succ_lt_pow_succ s e'
+
+/-- **The commutativity dial is strict**: for `t ≥ 2` types and degree `d ≥ 2`, the
+    commutative (multiset/simplex) count is *strictly* below the free (string/cube)
+    count, `monoCount t d < t^d`.  Sorting genuinely identifies distinct strings
+    (e.g. `ab`/`ba ↦ {a,b}`) once there are two distinguishable atoms used twice —
+    so the collapse is real, not an edge case.  (`monoCount_le_pow` for the `≤`;
+    the strict step is `sᵈ < (s+1)ᵈ`, `pow_lt_pow_base`.) -/
+theorem monoCount_lt_pow {t d : Nat} (ht : 2 ≤ t) (hd : 2 ≤ d) : monoCount t d < t ^ d := by
+  cases t with
+  | zero => exact absurd ht (by decide)
+  | succ s =>
+      cases d with
+      | zero => exact absurd hd (by decide)
+      | succ e =>
+          have hs : 1 ≤ s := Nat.le_of_succ_le_succ ht
+          have he : 1 ≤ e := Nat.le_of_succ_le_succ hd
+          rw [monoCount_pascal s e]
+          have hbase : s ^ e + 1 ≤ (s + 1) ^ e := pow_lt_pow_base s he
+          have hle : (s ^ e + 1) * s ≤ (s + 1) ^ e * s := Nat.mul_le_mul hbase (Nat.le_refl s)
+          rw [Nat.succ_mul] at hle
+          have hpe1 : s ^ (e + 1) < (s + 1) ^ e * s := by
+            rw [Nat.pow_succ]
+            exact Nat.lt_of_lt_of_le (Nat.lt_add_of_pos_right hs) hle
+          have hrw : (s + 1) ^ (e + 1) = (s + 1) ^ e * s + (s + 1) ^ e := by
+            rw [Nat.pow_succ, Nat.mul_succ]
+          have hstrict : s ^ (e + 1) + (s + 1) ^ e < (s + 1) ^ (e + 1) := by
+            rw [hrw]; exact Nat.add_lt_add_right hpe1 _
+          exact Nat.lt_of_le_of_lt
+            (Nat.add_le_add (monoCount_le_pow (e + 1) s) (monoCount_le_pow e (s + 1))) hstrict
+
 /-- `totalCount` with the degree-`0` term split off: `= 1 + Σ_{n=1}^N`. -/
 theorem totalCount_split (k N : Nat) :
     totalCount k N = 1 + sumf1 (fun n => monoCount k n) N := by
