@@ -484,16 +484,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - `simplicial_operation_tower` — **the operation tower builds simplices** (raw gut,
   originator: Mingu Jeong).  The *generative* face of `number_tower_theory` (R4): each
   layer's axis = the whole previous layer (free **semigroup**, no identity), built by a
-  **diagonal** degree-enumeration.  Core *empirically checked*: the `×`-enumeration count
-  is `C(n+k−1,k)` = Pascal = lattice points of the `k`-dilated `(n−1)`-simplex (`n=3` →
-  `3,6,10,…`) — iterating a *commutative* binary op = symmetric powers = a **simplicial
-  cone**, reconstructing the repo's `(NS,NT,d)` simplex from a new road.  Three sharp
-  handles: **L2** no-identity-is-natural / identity = exception (↔ §6.9); **L4** the count
-  is the *commutativity dial* (simplex/polynomial = commutative, cube/`nᵏ` = non-comm —
-  conjecture: count jumps to exponential at `^`); **L5** the geometric twist (point→line→
-  plane→solid, operand dimension-mismatch = non-commutativity, "1-unit" defect rhyming with
-  the `−1` cross-determinant).  Open: build the `^`-enumeration to *measure* the wall; the
-  simplex theorem; the twist dimension; the no-identity criterion.
+  **diagonal** degree-enumeration.  **L3 core CLOSED ∅-axiom** (`MultSystem.monoCount_closed`):
+  the `×`-enumeration count is `C(n+k−1,k)` = Pascal = lattice points of the `k`-dilated
+  `(n−1)`-simplex (`n=3` → `3,6,10,…`) — a *commutative* binary op iterated = symmetric
+  powers = a **simplicial cone**.  **L3′ `+`/`×` bridge + prime-counting payoff built**:
+  one cone, two cuts (degree = Pascal vs value = ℕ); their discrepancy = prime counting
+  (window `(N/2,N]` = supercritical axes) ⇒ both halves of Chebyshev (`MultSystemValue` +
+  `ChebyshevLower`; mirror `theory/math/numbertheory/chebyshev_prime_counting.md`).  Still
+  open `[gut]`: **L4** the count is the *commutativity dial* (simplex/polynomial = comm,
+  cube/`nᵏ` = non-comm — conjecture: count jumps to exponential at `^`); **L5** the geometric
+  twist; **L2** no-identity criterion; tie the abstract cone to the `(NS,NT,d)` simplex.
 
 - `general_theory_metaanalysis` — **meta-analysis program** (corpus-wide, ongoing):
   discovers genuine general theoretical structures via deep + meta analysis,
