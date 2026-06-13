@@ -29,7 +29,7 @@ reorganization (out of scope).
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.IntValidCut
+namespace E213.Lib.Math.NumberSystems.Real213.ValidCut.IntValidCut
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq cutEq_refl cutEq_symm cutEq_trans)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
@@ -192,4 +192,4 @@ theorem intvalidcut_full_assoc_capstone (vx vy vz : IntValidCut) :
   · exact cutSum_assoc_intValidCut vx vy vz
   · exact cutSum_comm_intValidCut vx vy
 
-end E213.Lib.Math.NumberSystems.Real213.IntValidCut
+end E213.Lib.Math.NumberSystems.Real213.ValidCut.IntValidCut

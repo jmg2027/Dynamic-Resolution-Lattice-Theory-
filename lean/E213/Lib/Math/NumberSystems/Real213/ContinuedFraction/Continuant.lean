@@ -29,9 +29,10 @@ continued fraction of the Christoffel word.  Even with the full bridge, Aigner m
 necessary-not-sufficient for uniqueness; the cross-node kernel `OrbitRealizabilityH` is untouched.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Continuant
+namespace E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.Continuant
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry
 
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 mul)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 mul)
 
 /-- The continuant **pair** `(K[a₁,…,aₙ], K[a₁,…,aₙ₋₁])` carried as a state, so Euler's two-term
     recurrence becomes a one-step structural recursion on the list head.  Convention: `K[] = 1`, and
@@ -138,7 +139,7 @@ Each continuant matrix `[[aᵢ,1],[1,0]]` is **symmetric**, so `(∏ M(aᵢ))ᵀ
 `K[a₁,…,aₙ] = K[aₙ,…,a₁]`.  This unlocks monotonicity in the *last* quotient (hence, with the head case,
 in any position) — the technical core of the Aigner orderings. -/
 
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (I2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (I2)
 
 /-- Transpose of a `Mat2`. -/
 def transp (M : Mat2) : Mat2 := ⟨M.a, M.c, M.b, M.d⟩
@@ -283,4 +284,4 @@ theorem cohn_trace_examples :
     ∧ (contMatProd ([1, 1] ++ [2, 2])).a + (contMatProd ([1, 1] ++ [2, 2])).d = 15 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.NumberSystems.Real213.Continuant
+end E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.Continuant

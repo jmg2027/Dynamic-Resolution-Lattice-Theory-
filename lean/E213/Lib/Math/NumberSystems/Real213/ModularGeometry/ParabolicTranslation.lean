@@ -24,11 +24,11 @@ both involutions with `det = −1`.  So the entire `SL(2,ℤ)` order-2 trichotom
 The reflection decomposition is the common frame for all three; `tr² − 4` is the dial.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ParabolicTranslation
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ParabolicTranslation
 
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 mul I2 S)
-open E213.Lib.Math.NumberSystems.Real213.FoldReflections (N R)
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicBoost (A B G)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 mul I2 S)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FoldReflections (N R)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicBoost (A B G)
 
 /-- The parabolic translation `T = [[1,1],[0,1]]` (`det = 1`, `trace = 2`, `disc = 0`). -/
 def T : Mat2 := ⟨1, 1, 0, 1⟩
@@ -66,4 +66,4 @@ theorem sl2_trichotomy_as_two_reflections :
     ∧ (mul A B = G ∧ (G.a + G.d) * (G.a + G.d) - 4 = 5) := by
   refine ⟨⟨?_, ?_⟩, ⟨?_, ?_⟩, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.NumberSystems.Real213.ParabolicTranslation
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ParabolicTranslation

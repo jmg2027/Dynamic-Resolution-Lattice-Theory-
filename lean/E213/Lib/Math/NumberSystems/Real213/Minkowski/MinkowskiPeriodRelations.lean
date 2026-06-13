@@ -22,12 +22,13 @@ What remains for the *higher-weight* relations is the **slash action on the poly
 algebra over the generators built here, not a purity or integration obstruction.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodRelations
+namespace E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiPeriodRelations
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry
 
-open E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+open E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
   (markovNum markovRes markovNum_dvd_res_sq_succ)
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 S)
-open E213.Lib.Math.NumberSystems.Real213.MarkovModularBridge (S_eigenvector_of_dvd)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 S)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovModularBridge (S_eigenvector_of_dvd)
 
 /-- ★★★ **The weight-2 period is the eigenvalue of the order-4 elliptic generator `S` — the `(1+S)`
     period relation's generator.**  Two conjuncts:
@@ -49,4 +50,4 @@ theorem weight2_period_is_S_eigenvalue :
         c ∣ (S.a * a + S.b * b - u * a) ∧ c ∣ (S.c * a + S.d * b - u * b)) :=
   ⟨markovNum_dvd_res_sq_succ, S_eigenvector_of_dvd⟩
 
-end E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodRelations
+end E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiPeriodRelations

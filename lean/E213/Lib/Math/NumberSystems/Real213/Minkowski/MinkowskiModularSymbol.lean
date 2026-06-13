@@ -21,7 +21,7 @@ symbol* (the analytic atom) — the combinatorial decomposition into those atoms
 Manin trick realised on the residue's own Stern-Brocot tree.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiModularSymbol
+namespace E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiModularSymbol
 
 /-- The determinant of the modular symbol `{p/q, r/s}` — the intersection / period pairing
     `q·r − p·s`.  It is `±1` exactly when the two cusps are **Farey-unimodular** neighbours. -/
@@ -58,4 +58,4 @@ theorem manin_unimodular_decomposition (p q r s : Int) :
     unimodular (`det = 1`), the seed the Stern-Brocot decomposition refines. -/
 theorem root_symbol_unimodular : symbolDet 0 1 1 0 = 1 := by decide
 
-end E213.Lib.Math.NumberSystems.Real213.MinkowskiModularSymbol
+end E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiModularSymbol

@@ -45,10 +45,10 @@ tensor construction.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mobius213CDTensor
+namespace E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213CDTensor
 
-open E213.Lib.Math.NumberSystems.Real213.NValidCut (ValidCutN ofValidCutN)
-open E213.Lib.Math.NumberSystems.Real213.NValidCutMul (mulN mulN_represents mulN_cut)
+open E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut (ValidCutN ofValidCutN)
+open E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCutMul (mulN mulN_represents mulN_cut)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 
 /-! ## §1 — The MobiusTensor structure -/
@@ -179,4 +179,4 @@ theorem MobiusTensor_master
   · exact fromPair_commutes_at_cut hN a c
   · exact three_factor_represents_assoc a.represents c.represents c.represents
 
-end E213.Lib.Math.NumberSystems.Real213.Mobius213CDTensor
+end E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213CDTensor

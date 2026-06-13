@@ -58,6 +58,7 @@ All zero-axiom.
 -/
 
 namespace E213.Lib.Math.NumberSystems.Real213.Zeta3Cut
+open E213.Lib.Math.NumberSystems.Real213.Modulus
 
 open E213.Theory (Raw)
 open E213.Lens.Instances.AB (abLens)
@@ -68,8 +69,8 @@ open E213.Lib.Math.Analysis.Cauchy.DepthAperyCubic (aperyLead aperyTop aperyBot 
 open E213.Lib.Math.Analysis.Cauchy.DepthPRecursive (polyDepth)
 open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut)
-open E213.Lib.Math.NumberSystems.Real213.RateStratification (Dominates overtake_breaks_layer)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut rateS_cut_const hmono_of_hmonoS)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification (Dominates overtake_breaks_layer)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut rateS_cut_const hmono_of_hmonoS)
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Tactic.NatHelper (add_mul mul_assoc mul_left_comm sub_add_cancel
   le_sub_of_add_le add_right_cancel le_of_mul_le_mul_right le_of_add_le_add_left)

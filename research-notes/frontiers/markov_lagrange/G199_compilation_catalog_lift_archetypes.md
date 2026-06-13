@@ -122,7 +122,7 @@ probe the orbit/µ-ν lift of the trace-`SEPARATE`, the one archetype with a sam
 ### Pointers (all `∅`-axiom)
 - A1 DIAGONAL: `Lens.Cardinality.cantor_general`, `FlatOntologyClosure.object1_not_surjective`
 - A2 LOOP: `NumberTheory.DyadicFSM.FLT.flt_primary`, `…FLT.freshman_dream`
-- A3 ORBIT: `NumberSystems.Real213.SternBrocotMarkov.{markov_max_unique_of_orbit, root_orbit_inj,
+- A3 ORBIT: `NumberSystems.Real213.Markov.SternBrocotMarkov.{markov_max_unique_of_orbit, root_orbit_inj,
   markov_max_unique_1325_via_orbit, markov_max_unique_985_via_orbit}`
 - `H` forms: `ContinuantMarkov.markovNum_injective_pathsUpTo_4` (trace `SEPARATE`),
   `markov_max_unique_of_orbit`'s `H` (orbit realizability); `G196`, `G197`

@@ -18,12 +18,12 @@ own `ValidCutN p` self-algebra automatically.
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.FifthValidCut
+namespace E213.Lib.Math.NumberSystems.Real213.ValidCut.FifthValidCut
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumN (cutSumN)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.NumberSystems.Real213.NValidCut
+open E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut
   (ValidCutN ofValidCutN addN cutSumN_assoc_valid cutSumN_comm_valid
    nvalidcut_all_naturals_capstone)
 
@@ -104,4 +104,4 @@ theorem fifthValidCut_closure_capstone (vx vy vz : FifthValidCut) :
     ∧ cutEq (cutSumN 5 vx.cut vy.cut) (cutSumN 5 vy.cut vx.cut) :=
   nvalidcut_all_naturals_capstone 5 (by decide) vx vy vz
 
-end E213.Lib.Math.NumberSystems.Real213.FifthValidCut
+end E213.Lib.Math.NumberSystems.Real213.ValidCut.FifthValidCut

@@ -131,10 +131,10 @@ abbrev lift_loop_step := @E213.Lib.Math.NumberTheory.DyadicFSM.FLT.FreshmanDream
 
 /-- **A3 ORBIT** — the solved free-action lift, *in `H`'s own family*: composite Markov uniqueness from
     one realizability check per phantom orbit. -/
-abbrev lift_orbit := @E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov.markov_max_unique_of_orbit
+abbrev lift_orbit := @E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov.markov_max_unique_of_orbit
 
 /-- **A3 free action** — the cancellation that collapses the orbit: `e·u ≡ u (mod c) ⟹ e ≡ 1`. -/
-abbrev lift_orbit_freeaction := @E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov.root_orbit_inj
+abbrev lift_orbit_freeaction := @E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov.root_orbit_inj
 
 /-- **A4 REFRAME (CRT form)** — factor the modulus and read through the prime-power factor: the even
     `2·pᵏ` two-roots count by CRT recombination (`2·pᵏ = 2 × pᵏ`). -/
@@ -145,7 +145,7 @@ abbrev lift_reframe := @E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor.tw
     `4`-root reading to `2` roots: composite Markov uniqueness, structurally (Zhang's full `3c±2`
     criterion). -/
 abbrev lift_reframe_modulus :=
-  @E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_max_unique_via_3c_pm2
+  @E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_max_unique_via_3c_pm2
 
 /-- **A4 (the fiber collapse)** — the prime-power square collapse the reframed reading invokes:
     `x² ≡ y² (mod pᵏ)` with `p∤x,y` ⟹ `x = y ∨ x+y = pᵏ`. -/

@@ -70,7 +70,7 @@ Both are framework-level redesigns, not missing theorems.
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.CutSumAssocB3
+namespace E213.Lib.Math.NumberSystems.Real213.Sum.CutSumAssocB3
 
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
@@ -188,4 +188,4 @@ theorem b_ge_3_assoc_meta :
   · exact backward_counter_example_b5
   · exact eventual_agreement_b3_m10
 
-end E213.Lib.Math.NumberSystems.Real213.CutSumAssocB3
+end E213.Lib.Math.NumberSystems.Real213.Sum.CutSumAssocB3

@@ -23,11 +23,12 @@ engine *feeds* the cluster; it does not exhaust it — and the unimodular floor 
 property of the interval/path structure, not of arbitrary mediants.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ModularGeodesicLens
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularGeodesicLens
+open E213.Lib.Math.NumberSystems.Real213.Mobius
 
 open E213.Theory (Raw)
 open E213.Lens (Lens)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot (SternBrocotReachable)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot (SternBrocotReachable)
 
 /-- The **modular-geodesic Lens**: the Raw-`Lens` whose two atoms are the Farey seeds `0/1` and `1/0`,
     and whose `combine` is the **mediant** `(a,b) ⊕ (c,d) = (a+c, b+d)`.  `mediantLens.view : Raw → ℕ×ℕ`
@@ -72,4 +73,4 @@ theorem mediantLens_view_reachable (r : Raw) :
       rw [mediantLens_view_slash x y h]
       exact SternBrocotReachable.mediant ihx ihy
 
-end E213.Lib.Math.NumberSystems.Real213.ModularGeodesicLens
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularGeodesicLens

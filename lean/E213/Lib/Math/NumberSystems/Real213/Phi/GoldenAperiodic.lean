@@ -12,11 +12,11 @@ dynamic shadow of the discriminant sign: `disc < 0` ⇒ periodic floor, `disc > 
 iterator never comes back; its trace is the unbounded Lucas sequence.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.GoldenAperiodic
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.GoldenAperiodic
 
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace.Mat2 (tr I G)
-open E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence (pow golden_trace_recurrence golden_trace_seed)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace.Mat2 (tr I G)
+open E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence (pow golden_trace_recurrence golden_trace_seed)
 open E213.Meta.Int213.Order
 open E213.Meta.Int213 (zero_add)
 
@@ -63,4 +63,4 @@ theorem golden_aperiodic (n : Nat) : pow G (n + 1) ≠ I := by
   rw [htr] at hgt
   exact lt_irrefl 2 hgt
 
-end E213.Lib.Math.NumberSystems.Real213.GoldenAperiodic
+end E213.Lib.Math.NumberSystems.Real213.Phi.GoldenAperiodic

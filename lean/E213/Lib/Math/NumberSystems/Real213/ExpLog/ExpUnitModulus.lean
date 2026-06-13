@@ -40,10 +40,11 @@ All zero-axiom.
 -/
 
 namespace E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpUnitModulus
+open E213.Lib.Math.NumberSystems.Real213.Modulus
 
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
 open E213.Lib.Math.Analysis.Cauchy.EulerSeq (eulerNum eulerDen)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus
   (rcut Htel Htel_of_crossdet rate_cut_const)
 
 /-! ## §1 — the convergents of `exp(1/q)` -/
@@ -255,10 +256,10 @@ theorem cube_lt_two_pow : ∀ s, (10 + s) * (10 + s) * (10 + s) < 2 ^ (10 + s)
     rate-free. -/
 theorem exp_pq_presentation_overtakes (p q : Nat) (hp : 2 ≤ p) (hq : 1 ≤ q) :
     ∃ i, 1 ≤ i ∧
-      ¬ E213.Lib.Math.NumberSystems.Real213.RateStratification.Dominates
+      ¬ E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification.Dominates
           (fun i => p ^ (i + 1) * expUDen q i) (expUDen q) i := by
   refine ⟨q + 9, Nat.le_add_left 1 (q + 8), ?_⟩
-  apply E213.Lib.Math.NumberSystems.Real213.RateStratification.overtake_breaks_layer
+  apply E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification.overtake_breaks_layer
     _ (q + 9) (Nat.le_add_left 1 (q + 8))
   show (q + 10) * expUDen q (q + 10) < p ^ (q + 10) * expUDen q (q + 9)
   rw [show (q + 10) * expUDen q (q + 10)
@@ -286,11 +287,11 @@ theorem exp_pq_presentation_overtakes (p q : Nat) (hp : 2 ≤ p) (hq : 1 ≤ q) 
     schedule à la `CubeRootTwoCut`) — rate is presentation-dependent, not a property
     of the real. -/
 theorem exp_pq_no_htel (p q : Nat) (hp : 2 ≤ p) (hq : 1 ≤ q) :
-    ¬ E213.Lib.Math.NumberSystems.Real213.RateModulus.Htel (expNum p q) (expUDen q) := by
+    ¬ E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus.Htel (expNum p q) (expUDen q) := by
   intro h
   obtain ⟨i, hi, hnd⟩ := exp_pq_presentation_overtakes p q hp hq
   exact hnd
-    ((E213.Lib.Math.NumberSystems.Real213.RateStratification.htel_iff_dominates
+    ((E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification.htel_iff_dominates
         (fun i => p ^ (i + 1) * expUDen q i)
         (fun i => exp_pq_cross_det p q i)).mp h i hi)
 

@@ -13,9 +13,9 @@ monoid; associativity is what makes `Mⁿ` well-defined and the trace recurrence
 `tr(Mⁿ⁺¹) = tr·tr(Mⁿ) − det·tr(Mⁿ⁻¹)` (Cayley–Hamilton iterated) available.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mat2Assoc
+namespace E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc
 
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace (Mat2)
 
 /-- ★★★★ **`Mat2` multiplication is associative.**  `(M · N) · P = M · (N · P)` — the monoid law,
     proved generally by `ring_intZ` (propext-free via explicit entry rewrites). -/
@@ -41,4 +41,4 @@ theorem mul_assoc (M N P : Mat2) : Mat2.mul (Mat2.mul M N) P = Mat2.mul M (Mat2.
         (c * (e * j + f * l) + d * (g * j + h * l))
   rw [h1, h2, h3, h4]
 
-end E213.Lib.Math.NumberSystems.Real213.Mat2Assoc
+end E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc

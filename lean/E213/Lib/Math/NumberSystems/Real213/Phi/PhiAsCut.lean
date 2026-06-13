@@ -24,7 +24,7 @@ deferred step — the residue's irrational signature is a single 213-native Cut,
 built with no completion machinery.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PhiAsCut
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut
 
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut)
 
@@ -97,4 +97,4 @@ theorem phiCut_false_of_norm (m k : Nat)
     rw [← hid]; exact Nat.lt_add_of_pos_right (by decide)
   exact Nat.not_lt.mpr hle hlt
 
-end E213.Lib.Math.NumberSystems.Real213.PhiAsCut
+end E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut

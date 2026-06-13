@@ -29,7 +29,7 @@ Cauchy sequence of *valid* cuts is itself a valid cut — is `Analysis/CauchyCom
 namespace E213.Lens.Number.CauchyLensFounding
 
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
-open E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
 
 /-- ★★★ **`ℝ` is the Cauchy rung — trajectories narrow to a single cut, and `ℚ` completes into it.**
     Two facts close the number tower at `ℝ`:
@@ -47,7 +47,7 @@ open E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit (phiConvergentSeq phiCau
 theorem cauchy_lens_founds_on_ratio :
     (∀ (ccs : CauchyCutSeq) (m k i : Nat), i ≥ ccs.N m k → ccs.limit m k = ccs.cs i m k)
     ∧ (∀ m k : Nat,
-        phiConvergentSeq.limit m k = E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut m k) :=
+        phiConvergentSeq.limit m k = E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut m k) :=
   ⟨CauchyCutSeq.limit_eq_at, phiCauchy_limit_eq_phiCut⟩
 
 end E213.Lens.Number.CauchyLensFounding

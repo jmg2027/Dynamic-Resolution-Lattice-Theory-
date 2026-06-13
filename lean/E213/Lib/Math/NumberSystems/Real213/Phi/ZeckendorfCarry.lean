@@ -22,10 +22,10 @@ reading is that its carry IS the residue unit `+1` and its base IS the self-poin
 ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ZeckendorfCarry
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.ZeckendorfCarry
 
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
-open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (fib_cassini_norm)
+open E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat (fib_cassini_norm)
 
 /-- The Fibonacci recurrence — the carry identity (rung `n+2` is the sum of `n+1` and `n`). -/
 theorem fib_rec (n : Nat) : fib (n + 2) = fib (n + 1) + fib n := rfl
@@ -85,4 +85,4 @@ theorem golden_adic_carry :
         = fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1)) :=
   ⟨zeck_carry_weight, fibValFrom_carry, by decide, fib_cassini_norm⟩
 
-end E213.Lib.Math.NumberSystems.Real213.ZeckendorfCarry
+end E213.Lib.Math.NumberSystems.Real213.Phi.ZeckendorfCarry

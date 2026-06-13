@@ -27,9 +27,9 @@ Instance: `ExpLog/PiMeasureModulus` (Wallis-π/2, conditional degree `s`).
 No measure is assumed here; the engine itself is unconditional.  All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.BracketModulus
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.BracketModulus
 
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut)
 open E213.Tactic.NatHelper (le_of_mul_le_mul_right add_sub_of_le)
 
 variable {a d A D : Nat → Nat}
@@ -201,4 +201,4 @@ theorem bracket_is_sep_schedule (hD : ∀ n, 1 ≤ D n)
       (B k + 2) i (Nat.le_refl _) hge
     rw [hconst]; exact hf
 
-end E213.Lib.Math.NumberSystems.Real213.BracketModulus
+end E213.Lib.Math.NumberSystems.Real213.Modulus.BracketModulus

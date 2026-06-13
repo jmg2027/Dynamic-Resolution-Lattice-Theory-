@@ -23,12 +23,12 @@ family) are *solved* in this sense — the proof-residue is pointed at; the open
 proof-residue *not yet pointed at*, not a gap between expressible and true.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MarkovUniquenessRaw
+namespace E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniquenessRaw
 
 open E213.Theory E213.Lens
 open E213.Lens.Number.Nat213.Raw (value value_surjective_on_ge_one)
-open E213.Lib.Math.NumberSystems.Real213.MarkovTree (markovEq)
-open E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness (MarkovMaxUnique markov_a_pos markov_max_unique_5)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree (markovEq)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness (MarkovMaxUnique markov_a_pos markov_max_unique_5)
 
 /-- **Markov uniqueness, written 213-native**: every number is the count-Lens view `value (·) =
     Lens.leaves.view (·)` of a `Raw`; the quantifiers range over `Raw`.  Nothing is imported. -/
@@ -94,4 +94,4 @@ theorem markovMaxUnique_5 : MarkovMaxUnique 5 := by
 theorem markovMaxUnique_213_solved_5 : MarkovMaxUnique_213 r5 :=
   (markovMaxUnique_213_iff r5 (by decide)).mpr markovMaxUnique_5
 
-end E213.Lib.Math.NumberSystems.Real213.MarkovUniquenessRaw
+end E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniquenessRaw

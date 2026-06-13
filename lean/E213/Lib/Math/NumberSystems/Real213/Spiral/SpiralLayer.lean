@@ -36,9 +36,9 @@ quotients is observed, not proved.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.SpiralLayer
+namespace E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralLayer
 
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor (cfDet cf_det_sq)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor (cfDet cf_det_sq)
 open E213.Lib.Math.Analysis.Cauchy.DivergenceDepth (ratio depth_three)
 open E213.Lib.Math.Analysis.Cauchy.DepthPiQuartic (piRatio piRatio_polyDepth)
 open E213.Lib.Math.Analysis.Cauchy.DepthPRecursive (polyDepth)
@@ -66,4 +66,4 @@ theorem depth_spectrum_unrestricted (d : Nat) :
       (E213.Lib.Math.Analysis.Cauchy.DepthTower.diffN j (genExp d)) :=
   genExp_depth_exact d
 
-end E213.Lib.Math.NumberSystems.Real213.SpiralLayer
+end E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralLayer

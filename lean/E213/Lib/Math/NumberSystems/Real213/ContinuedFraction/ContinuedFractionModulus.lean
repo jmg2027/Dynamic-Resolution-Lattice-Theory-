@@ -34,12 +34,13 @@ real to a `≥ 1` representative, so "≥ 1" costs no generality.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+namespace E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus
+open E213.Lib.Math.NumberSystems.Real213.CrossDet
 
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor
   (cfP cfQ cfDet2 cfDet2_even cfQ_eq_cast cfQn cfQn_pos cfQn_fib)
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall crossdet_small_total_modulus)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake (CrossDetSmall crossdet_small_total_modulus)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut)
 open E213.Tactic.NatHelper (mul_assoc le_of_mul_le_mul_right mul_mul_mul_comm_213)
 
 /-! ## §1 — the convergent numerators as `ℕ` -/
@@ -223,7 +224,7 @@ object (CF correctness — the Padé/Bessel identity) is not proven here; once w
 route to discharging `ExpRationalCut`'s measure hypothesis
 (`modulus_degree_ladder.md`). -/
 
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rate_cut_const Htel_of_crossdet)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rate_cut_const Htel_of_crossdet)
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
 
 /-- Resolution-`0` probes read `true` at every layer. -/
@@ -280,4 +281,4 @@ theorem coth1_anchors :
     ∧ (cothUnitCFCauchySeq 1 (Nat.le_refl 1)).limit 5 4 = false :=
   ⟨by decide, by decide, by decide, by decide⟩
 
-end E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+end E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus

@@ -44,11 +44,12 @@ All zero-axiom.
 -/
 
 namespace E213.Lib.Math.NumberSystems.Real213
+open E213.Lib.Math.NumberSystems.Real213.Phi
 
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut)
-open E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
-open E213.Lib.Math.NumberSystems.Real213.PhiAsCut (phiCut phiCut_valid)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut (phiCut phiCut_valid)
 
 /-- A **holonomic (P-recursive) recurrence specification** of order `order`: the
     convergent data satisfies `Σ_{i<order} coeff i · s(n+i) = 0` with polynomial

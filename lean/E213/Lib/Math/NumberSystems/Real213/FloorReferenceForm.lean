@@ -31,8 +31,9 @@ All zero-axiom.
 -/
 
 namespace E213.Lib.Math.NumberSystems.Real213.FloorReferenceForm
+open E213.Lib.Math.NumberSystems.Real213.ProbeTwist
 
-open E213.Lib.Math.NumberSystems.Real213.ProbeTwistConic (Q_preserved)
+open E213.Lib.Math.NumberSystems.Real213.ProbeTwist.ProbeTwistConic (Q_preserved)
 
 /-- ★★ **The golden form `m² − mk − k²` is indefinite over `ℕ`.**  It takes both signs:
     `Q(2,1) = +1` (the `(2,1)`-orbit branch, `mk+k² < m²`) and `Q(1,1) = −1` (the

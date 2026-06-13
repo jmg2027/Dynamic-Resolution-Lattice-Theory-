@@ -47,9 +47,9 @@ scale of divergence-complexity.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
+namespace E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake
 
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut Htel_of_crossdet rate_total_modulus)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut Htel_of_crossdet rate_total_modulus)
 open E213.Tactic.NatHelper (mul_assoc)
 
 /-! ## §0 — the smallness condition: the bridge's currency -/
@@ -189,4 +189,4 @@ theorem completability_boundary :
     CrossDetSmall (fun _ => 1) denomExp ∧ ¬ CrossDetSmall crossW denomExp :=
   ⟨const_crossdet_small, dexp_overtakes_denom⟩
 
-end E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
+end E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake

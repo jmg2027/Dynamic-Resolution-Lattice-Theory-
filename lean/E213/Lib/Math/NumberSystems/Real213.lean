@@ -194,8 +194,9 @@ import E213.Lib.Math.NumberSystems.Real213.ValidCut.ThirdValidCut
   `CubeRootTwoCut`, `HolonomicReal`, `OdometerSternBrocotUnit`,
   `Zeta3Apery`, `Zeta3Cut`, `FloorReferenceForm`.
 
-  Note: file relocation only — module namespaces remain `…Real213.<Module>`
-  (the shared `Real213` parent keeps every cross-reference resolvable).
+  Path = namespace: each module's namespace carries its cluster segment
+  (e.g. `…Real213.Phi.PhiCut`).  Cross-cluster references resolve via a
+  cluster-parent `open` (e.g. `open …Real213.Mobius`).
 
   ## Status
 

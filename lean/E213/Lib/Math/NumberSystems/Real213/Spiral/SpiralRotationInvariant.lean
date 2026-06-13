@@ -28,10 +28,12 @@ Q(m,k)` with subtractions moved across), so no `Int` is needed.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.SpiralRotationInvariant
+namespace E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralRotationInvariant
+open E213.Lib.Math.NumberSystems.Real213.ProbeTwist
+open E213.Lib.Math.NumberSystems.Real213.Mobius
 
-open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv (Pstep Pseq)
-open E213.Lib.Math.NumberSystems.Real213.ProbeTwistConic (Q_preserved)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv (Pstep Pseq)
+open E213.Lib.Math.NumberSystems.Real213.ProbeTwist.ProbeTwistConic (Q_preserved)
 
 /-! ## §1 — pure additive transitivity of hyperbola membership -/
 
@@ -90,4 +92,4 @@ theorem Q_iterate_preserved (m k : Nat) : ∀ n,
   | succ i ih =>
     exact qinv_step m k (Pseq (m,k) i).1 (Pseq (m,k) i).2 ih
 
-end E213.Lib.Math.NumberSystems.Real213.SpiralRotationInvariant
+end E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralRotationInvariant

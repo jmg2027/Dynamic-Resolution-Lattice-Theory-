@@ -24,12 +24,12 @@ tr(I)` for `n ≥ 1` — `G` is aperiodic, the hyperbolic face's infinite order,
 `disc = 5 > 0`.  φ's iterator never returns; the Lucas numbers are its trace.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence
+namespace E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence
 
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace.Mat2 (mul tr det I G)
-open E213.Lib.Math.NumberSystems.Real213.Mat2CayleyHamilton (charComb cayley_hamilton)
-open E213.Lib.Math.NumberSystems.Real213.Mat2Assoc (mul_assoc)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace.Mat2 (mul tr det I G)
+open E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2CayleyHamilton (charComb cayley_hamilton)
+open E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc (mul_assoc)
 
 /-- Matrix power `Mⁿ` (right-multiplication). -/
 def pow (M : Mat2) : Nat → Mat2
@@ -76,4 +76,4 @@ theorem golden_trace_recurrence (n : Nat) :
 theorem golden_trace_seed : Mat2.tr (pow G 0) = 2 ∧ Mat2.tr (pow G 1) = 3 := by
   refine ⟨?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence
+end E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence

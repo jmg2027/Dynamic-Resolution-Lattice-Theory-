@@ -24,7 +24,7 @@ single layer rather than across adjacent ones.  This upgrades the layers-0..8
 rewrites, no `ring`/`omega`/Mathlib).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PhiNormInvariant
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PhiNormInvariant
 
 open E213.Meta.Int213
 open E213.Lib.Math.Algebra.Mobius213 (P_numerator P_denominator pell_unit_at)
@@ -187,4 +187,4 @@ theorem seq_den_le (n : Nat) : P_denominator.seq n ≤ 2 * P_numerator.seq n := 
     rw [Int.sub_eq_add_neg, add_assoc, add_left_neg, Int.add_zero]
   exact E213.Meta.Int213.le_of_add_eq_of_nonneg hsum (gap_nonneg n)
 
-end E213.Lib.Math.NumberSystems.Real213.PhiNormInvariant
+end E213.Lib.Math.NumberSystems.Real213.Phi.PhiNormInvariant

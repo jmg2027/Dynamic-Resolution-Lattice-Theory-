@@ -39,7 +39,7 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.UnitsToModular
 
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZI (ZI)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 S U I2 negI2 mul)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 S U I2 negI2 mul)
 open E213.Lib.Math.Algebra.CassiniUnimodular (det det_step)
 
 /-! ## §1 — Gaussian `ℤ[i]`: the regular representation sends `i` to `S` (literally) -/

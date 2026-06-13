@@ -29,17 +29,18 @@ root-counting — not the injectivity of `triple ↦ u` — is the open content 
 conjecture.  (Our per-`c` `decide` certificates do this counting concretely up to `c = 1325`.)
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MarkovInjectivity
+namespace E213.Lib.Math.NumberSystems.Real213.Markov.MarkovInjectivity
+open E213.Lib.Math.NumberSystems.Real213.Mobius
 
-open E213.Lib.Math.NumberSystems.Real213.MarkovTree (markovEq)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree (markovEq)
 open E213.Tactic.NatHelper (gcd213 add_sub_cancel_right mul_mod_right)
 open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
-open E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness
   (SqrtNegOneTwoRoots sqrtNegOneTwoRoots_prime_pow markov_ordered_coprime markov_a_pos
    MarkovMaxUnique markov_mid_lt_max markov_root_recovery dvd_mul_right_213 eq_one_of_dvd_one)
 open E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor (euclid_of_coprime le_of_dvd_loc)
 open E213.Meta.Nat.Gcd213 (gcd213_comm gcd213_dvd_left gcd213_dvd_right dvd_sub_213 dvd_add_213)
-open E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov (add_left_cancel_pure)
+open E213.Lib.Math.NumberSystems.Real213.Markov.GoldenFormMarkov (add_left_cancel_pure)
 
 /-! ## §1 — the parallel reduction (true, but does not self-close) -/
 
@@ -303,4 +304,4 @@ theorem farey_mediant_adjacent (p q r s : Nat) (hdet : p * s = q * r + 1) :
   · rw [show (p + r) * s = p * s + r * s from by ring_nat, hdet,
         show (q + s) * r = q * r + s * r from by ring_nat]; ring_nat
 
-end E213.Lib.Math.NumberSystems.Real213.MarkovInjectivity
+end E213.Lib.Math.NumberSystems.Real213.Markov.MarkovInjectivity

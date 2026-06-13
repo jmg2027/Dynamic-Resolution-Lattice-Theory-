@@ -40,9 +40,9 @@ namespace E213.Lib.Math.Cohomology.Bipartite.Mobius213K32StateClass
 
 open E213.Lib.Math.Cohomology.Bipartite.V32
   (CochV CochE allTrueV zeroV)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv
   (Pseq seedZero seedInf Pstep)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213ContinuedFraction
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213ContinuedFraction
   (Pseq_seedZero_fst_recurrence Pseq_seedZero_snd_recurrence)
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
 

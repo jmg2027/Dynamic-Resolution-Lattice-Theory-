@@ -1025,7 +1025,7 @@ Forman + a discrete Ricci-flow step driven to its normalized fixed point via `fl
 The cross-determinant's number-field reading, promoted to
 `theory/math/numbertheory/eisenstein_period_arithmetic.md` — **38 PURE / 0 DIRTY** across:
 
-- `Real213.CrossDetTraceField` (**20 PURE**) — `fixForm_disc_eq_traceDisc`: the fixed-point
+- `Real213.CrossDet.CrossDetTraceField` (**20 PURE**) — `fixForm_disc_eq_traceDisc`: the fixed-point
   form `(c, d−a, −b)` of a Möbius `M` has discriminant `tr²−4` (ring identity, ∀ `M`);
   `crossdet_number_field_is_trace_field` (golden `+5` / cusp `0` / Eisenstein `−3` faces);
   `fixForm_automorph` (monodromy preserves its form up to `det`); `disc_sign_is_line_cusp_curve`.

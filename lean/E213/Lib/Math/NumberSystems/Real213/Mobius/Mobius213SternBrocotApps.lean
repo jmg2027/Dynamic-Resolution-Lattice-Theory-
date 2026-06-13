@@ -22,16 +22,16 @@ equivalence IS the cut framework's notion of equality.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocotApps
+namespace E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocotApps
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
   (sternBrocotEq cutEq_of_sternBrocotEq cutEq_iff_sternBrocotEq_and_zero
    sternBrocotEq_of_cutEq)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumN
   (cutSumN cutSumN_cutEq_left cutSumN_cutEq_right)
-open E213.Lib.Math.NumberSystems.Real213.NValidCut (ValidCutN ofValidCutN addN)
+open E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut (ValidCutN ofValidCutN addN)
 
 /-! ## §1 — The canonical (0, 0) constant -/
 
@@ -182,4 +182,4 @@ theorem addN_sternBrocotEq_right
   addN_sternBrocotEq hN (sternBrocotEq_of_cutEq vx.cut vx.cut
     (fun _ _ => rfl)) hy
 
-end E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocotApps
+end E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocotApps

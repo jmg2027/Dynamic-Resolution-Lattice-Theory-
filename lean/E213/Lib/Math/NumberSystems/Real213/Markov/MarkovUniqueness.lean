@@ -44,17 +44,17 @@ Contents (all ∅-axiom):
     Cayley–Hamilton): the order-4 modular generator `S` survives mod every Markov number.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness
+namespace E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness
 
-open E213.Lib.Math.NumberSystems.Real213.MarkovTree (markovEq markov_symm)
-open E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov (add_left_cancel_pure)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree (markovEq markov_symm)
+open E213.Lib.Math.NumberSystems.Real213.Markov.GoldenFormMarkov (add_left_cancel_pure)
 open E213.Tactic.NatHelper (add_sub_cancel_right mul_sub_distrib mul_assoc mul_mul_mul_comm_213)
 open E213.Meta.Nat.Gcd213 (dvd_sub_213 dvd_add_213)
 open E213.Tactic.NatHelper (gcd213)
 open E213.Meta.Nat.Gcd213
   (gcd213_dvd_left gcd213_dvd_right gcd213_greatest gcd213_comm mul_eq_one_left)
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
-open E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov (golden_min_attained_on_fib)
+open E213.Lib.Math.NumberSystems.Real213.Markov.GoldenFormMarkov (golden_min_attained_on_fib)
 
 /-- `c ∣ m → c ∣ k·m`.  ∅-axiom — explicit witness `k·t`. -/
 theorem dvd_mul_left_213 (c k m : Nat) (h : c ∣ m) : c ∣ (k * m) := by
@@ -83,7 +83,7 @@ theorem markov_le_3mul (a b c : Nat) (hc : 0 < c) (h : markovEq a b c) : c ≤ 3
     step toward the root `(1,1,1)`. -/
 theorem markov_partner_is_triple (a b c : Nat) (hc : c ≤ 3 * a * b) (h : markovEq a b c) :
     markovEq a b (3 * a * b - c) :=
-  E213.Lib.Math.NumberSystems.Real213.MarkovTree.markov_vieta a b c (3 * a * b - c)
+  E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.markov_vieta a b c (3 * a * b - c)
     (E213.Tactic.NatHelper.add_sub_of_le hc) h
 
 /-- ★★★ **The Vieta jump is the difference reflection** (the ℤ-difference-Lens reading of the
@@ -1010,18 +1010,18 @@ theorem fib_spine_recurrence (n : Nat) :
     of the silver square / Cohn `B`).  The second C-finite Markov spine, companion to the golden
     `fib_spine_recurrence`. -/
 theorem pell_spine_recurrence (n : Nat) :
-    E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 1)
-      + E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 5)
-    = 6 * E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 3) := by
-  have h5 : E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 5)
-    = 2 * E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 4)
-      + E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 3) := rfl
-  have h4 : E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 4)
-    = 2 * E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 3)
-      + E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 2) := rfl
-  have h3 : E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 3)
-    = 2 * E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 2)
-      + E213.Lib.Math.NumberSystems.Real213.MarkovTree.pell (2 * n + 1) := rfl
+    E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 1)
+      + E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 5)
+    = 6 * E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 3) := by
+  have h5 : E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 5)
+    = 2 * E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 4)
+      + E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 3) := rfl
+  have h4 : E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 4)
+    = 2 * E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 3)
+      + E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 2) := rfl
+  have h3 : E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 3)
+    = 2 * E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 2)
+      + E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.pell (2 * n + 1) := rfl
   rw [h5, h4, h3]; ring_nat
 
 /-! ## §9 — the Cohn-matrix form: `C² ≡ −I (mod c)` (the order-4 generator survives mod c)
@@ -1149,7 +1149,7 @@ theorem markov_reachable_coprime {a b c : Nat} (h : MarkovReachable a b c) :
 theorem markov_reachable_is_triple {a b c : Nat} (h : MarkovReachable a b c) : markovEq a b c := by
   induction h with
   | root => decide
-  | @jump a b c c' hr hcc ih => exact E213.Lib.Math.NumberSystems.Real213.MarkovTree.markov_vieta a b c c' hcc ih
+  | @jump a b c c' hr hcc ih => exact E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree.markov_vieta a b c c' hcc ih
   | @swap12 a b c hr ih =>
     -- markovEq a b c → markovEq b a c
     show b * b + a * a + c * c = 3 * b * a * c
@@ -1598,4 +1598,4 @@ set_option maxRecDepth 40000 in
 theorem markov_max_unique_194 : MarkovMaxUnique 194 :=
   markov_max_unique_of_2roots 194 5 13 75 119 (by decide) (by decide) (by decide) (by decide)
 
-end E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness
+end E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness

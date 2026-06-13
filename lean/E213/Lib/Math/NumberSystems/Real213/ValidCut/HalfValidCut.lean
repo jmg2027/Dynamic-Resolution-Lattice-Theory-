@@ -23,7 +23,7 @@ reorganization theorem (open).
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.HalfValidCut
+namespace E213.Lib.Math.NumberSystems.Real213.ValidCut.HalfValidCut
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq cutEq_refl)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
@@ -153,4 +153,4 @@ theorem halfvalidcut_full_assoc_capstone (vx vy vz : HalfValidCut) :
   · exact cutSum_assoc_halfValidCut vx vy vz
   · exact cutSum_comm_halfValidCut vx vy
 
-end E213.Lib.Math.NumberSystems.Real213.HalfValidCut
+end E213.Lib.Math.NumberSystems.Real213.ValidCut.HalfValidCut

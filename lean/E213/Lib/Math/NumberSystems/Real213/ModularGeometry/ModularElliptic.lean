@@ -26,7 +26,7 @@ Eisenstein/π rotation period (`EisensteinCompletion.eisenstein_floor_rotation`,
     restriction `{1,2,3,4,6}`.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ModularElliptic
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic
 
 /-- Integer `2×2` matrices. -/
 structure Mat2 where
@@ -66,4 +66,4 @@ theorem modular_generator_orders :
 theorem modular_generators_in_SL2 :
     S.a * S.d - S.b * S.c = 1 ∧ U.a * U.d - U.b * U.c = 1 := by decide
 
-end E213.Lib.Math.NumberSystems.Real213.ModularElliptic
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic

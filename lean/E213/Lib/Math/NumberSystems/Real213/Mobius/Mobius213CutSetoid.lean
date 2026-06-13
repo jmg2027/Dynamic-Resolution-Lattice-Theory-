@@ -20,11 +20,11 @@ structures (analogous to `LensMap` in
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mobius213CutSetoid
+namespace E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213CutSetoid
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset
   (cutEq cutEq_refl cutEq_symm cutEq_trans)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
   (sternBrocotEq cutEq_of_sternBrocotEq sternBrocotEq_of_cutEq
    cutEq_iff_sternBrocotEq_and_zero)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumN
@@ -157,4 +157,4 @@ theorem canonical_setoid_law :
    cutMul_morphism.respects,
    fun f g _ _ h => (f.comp g).respects _ _ h⟩
 
-end E213.Lib.Math.NumberSystems.Real213.Mobius213CutSetoid
+end E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213CutSetoid

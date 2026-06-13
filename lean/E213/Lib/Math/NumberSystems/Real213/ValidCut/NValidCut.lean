@@ -36,7 +36,7 @@ N at once.  No new theorem per prime.
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.NValidCut
+namespace E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq cutEq_refl)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumN
@@ -194,4 +194,4 @@ theorem nvalidcut_all_naturals_capstone
   · exact cutSumN_assoc_valid N hN vx vy vz
   · exact cutSumN_comm_valid N hN vx vy
 
-end E213.Lib.Math.NumberSystems.Real213.NValidCut
+end E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut

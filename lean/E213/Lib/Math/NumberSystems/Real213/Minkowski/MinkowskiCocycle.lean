@@ -23,12 +23,12 @@ Stern-Brocot tree** (the `L/R` sub-semigroup of `SL(2,ℤ)`); the extension to a
 ∅-axiom (composes existing PURE Frobenius identities).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiCocycle
+namespace E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiCocycle
 
-open E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+open E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
   (det2 mInterval mNode markovRes markovNum markovRes_cross markovRes_cross_left mInterval_det
    markoff_vieta markoff_vieta_R mInterval_shape markovRes_sq markovNum_dvd_res_sq_succ)
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 mul)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 mul)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
 /-- ★★★ **The Minkowski `?` defect is a Markov-valued, unimodular 1-cocycle.**  At every
@@ -131,4 +131,4 @@ theorem minkowski_weight2_period_relation (path : List Bool) :
         = ((mNode path).c + (mNode path).d - (mNode path).b) * (mNode path).c) :=
   ⟨markovNum_dvd_res_sq_succ path, markovRes_sq path⟩
 
-end E213.Lib.Math.NumberSystems.Real213.MinkowskiCocycle
+end E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiCocycle

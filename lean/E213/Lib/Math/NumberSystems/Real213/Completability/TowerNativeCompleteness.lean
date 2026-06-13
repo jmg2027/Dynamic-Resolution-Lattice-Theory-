@@ -34,11 +34,13 @@ hold together.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.TowerNativeCompleteness
+namespace E213.Lib.Math.NumberSystems.Real213.Completability.TowerNativeCompleteness
+open E213.Lib.Math.NumberSystems.Real213.Modulus
+open E213.Lib.Math.NumberSystems.Real213.CrossDet
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake
   (CrossDetSmall denomExp crossW completability_boundary)
-open E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
+open E213.Lib.Math.NumberSystems.Real213.Modulus.LiouvilleModulus
   (liouNum liouDen liouville_W_eq_denom_coordinate)
 open E213.Lib.Math.Analysis.Cauchy.DepthLiouvilleCoord (fact)
 open E213.Lib.Math.Analysis.Cauchy.DepthTower (ratioLift diffN)
@@ -88,4 +90,4 @@ theorem tower_native_completeness_program :
    tower_is_coordinate_system,
    ceiling_residue_is_pointing_residue⟩
 
-end E213.Lib.Math.NumberSystems.Real213.TowerNativeCompleteness
+end E213.Lib.Math.NumberSystems.Real213.Completability.TowerNativeCompleteness

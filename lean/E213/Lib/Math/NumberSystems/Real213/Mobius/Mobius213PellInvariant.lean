@@ -36,11 +36,11 @@ quadratic ring `ℤ[φ²]` whose discriminant is `5 = NS + NT`.
 The Pell unit value `-1` reads in 213 terms as `NT - NS = 2 - 3`.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant
+namespace E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213PellInvariant
 
-open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv
   (Pstep Pseq seedZero seedInf)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
   (Pseq_seedInf_components)
 
 /-! ## §1 — Inductive step (pure Nat arithmetic) -/
@@ -122,4 +122,4 @@ theorem Pseq_cross_pell_invariant (n : Nat) :
   rw [Nat.mul_comm (Pseq seedZero n).2 (Pseq seedZero n).1]
   exact Pseq_seedZero_pell_invariant n
 
-end E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant
+end E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213PellInvariant

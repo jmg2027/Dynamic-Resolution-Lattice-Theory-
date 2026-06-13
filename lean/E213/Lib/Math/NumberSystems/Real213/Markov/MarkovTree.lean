@@ -27,9 +27,9 @@ Lagrange values `√5, √8, √(221)/5, …` build the bottom of the approximat
 single atomic coefficient `NS = 3`.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MarkovTree
+namespace E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree
 
-open E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov (add_left_cancel_pure)
+open E213.Lib.Math.NumberSystems.Real213.Markov.GoldenFormMarkov (add_left_cancel_pure)
 open E213.Lib.Physics.Simplex.Counts (NS)
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 
@@ -143,4 +143,4 @@ theorem markov_fork_pell : markovEq 2 5 29 :=
 theorem markov_first_fork : markovEq 1 5 13 ∧ markovEq 2 5 29 :=
   ⟨markov_fork_fibonacci, markov_fork_pell⟩
 
-end E213.Lib.Math.NumberSystems.Real213.MarkovTree
+end E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree

@@ -22,7 +22,7 @@ generators, unifying the repo's golden form (disc `5`, `GoldenFormMarkov`) and e
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace
 
 /-- A `2×2` integer matrix `[[a,b],[c,d]]`. -/
 structure Mat2 where
@@ -102,4 +102,4 @@ theorem wick_discriminant_split :
 theorem golden_trace_disc_numerics : tr G = 3 ∧ disc G = 5 := by
   refine ⟨?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace

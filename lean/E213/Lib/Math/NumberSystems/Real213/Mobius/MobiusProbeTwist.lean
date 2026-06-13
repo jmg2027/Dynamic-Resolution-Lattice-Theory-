@@ -42,9 +42,9 @@ by the `(NS,NT)` matrix, order-preserving by its `NS−NT` determinant.
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MobiusProbeTwist
+namespace E213.Lib.Math.NumberSystems.Real213.Mobius.MobiusProbeTwist
 
-open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv (Pstep)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv (Pstep)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (RatioCut)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc)
 
@@ -125,4 +125,4 @@ theorem cutThroughP_ratio (c : Nat → Nat → Bool) (hc : RatioCut c) :
   · exact P_preserves_order m1 k1 m2 k2 hratio
   · exact hcut
 
-end E213.Lib.Math.NumberSystems.Real213.MobiusProbeTwist
+end E213.Lib.Math.NumberSystems.Real213.Mobius.MobiusProbeTwist

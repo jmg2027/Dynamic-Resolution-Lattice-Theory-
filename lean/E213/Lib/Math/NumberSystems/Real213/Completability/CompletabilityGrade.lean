@@ -32,11 +32,11 @@ rate (the finite part within a height).
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.CompletabilityGrade
+namespace E213.Lib.Math.NumberSystems.Real213.Completability.CompletabilityGrade
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake
   (CrossDetSmall overtake_breaks_at two_pow_ge_succ two_pow_ge_self)
-open E213.Lib.Math.NumberSystems.Real213.GeometricThreshold (geom_boundary_iff)
+open E213.Lib.Math.NumberSystems.Real213.Completability.GeometricThreshold (geom_boundary_iff)
 open E213.Meta.Nat.PureNat (pow_add)
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Tactic.NatHelper (add_mul mul_assoc)
@@ -173,4 +173,4 @@ theorem height_is_omega_coordinate (q : Nat) (hq : 2 ≤ q) :
     ∀ r, ¬ CrossDetSmall (expTower q (r+2)) (expTower q (r+1)) :=
   fun r => height_succ_overtakes q r hq
 
-end E213.Lib.Math.NumberSystems.Real213.CompletabilityGrade
+end E213.Lib.Math.NumberSystems.Real213.Completability.CompletabilityGrade

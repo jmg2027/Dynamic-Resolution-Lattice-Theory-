@@ -66,9 +66,9 @@ Narrative: `theory/math/analysis/holonomic_modulus.md` §4.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.RateStratification
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
 
-open E213.Lib.Math.NumberSystems.Real213.RateModulus
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus
   (Htel HtelS rcut rate_total_modulus graded_total_modulus Htel_of_crossdet
    hmono_of_hmonoS)
 open E213.Meta.Nat.PolyNat (PE poly_id)
@@ -460,4 +460,4 @@ theorem graded_stratification :
    sep_dominatesS_all,
    sep_breaks_unit_schedule⟩
 
-end E213.Lib.Math.NumberSystems.Real213.RateStratification
+end E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification

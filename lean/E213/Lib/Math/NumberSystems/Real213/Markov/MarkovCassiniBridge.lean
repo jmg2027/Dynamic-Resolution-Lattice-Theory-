@@ -33,11 +33,11 @@ instance of `CassiniUnimodular.cassini_law_one_at_two_multipliers`.  Both proofs
 norm `fib_cassini_norm` (`a² + ab = b² + 1`, `a = fib(2n+1)`, `b = fib(2n+2)`).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MarkovCassiniBridge
+namespace E213.Lib.Math.NumberSystems.Real213.Markov.MarkovCassiniBridge
 
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
-open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (fib_cassini_norm)
-open E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov (add_left_cancel_pure)
+open E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat (fib_cassini_norm)
+open E213.Lib.Math.NumberSystems.Real213.Markov.GoldenFormMarkov (add_left_cancel_pure)
 
 /-- ★★★★ **`q = −1` reading: the `√(−1)` of a Fibonacci-spine Markov number is the Cassini value.**
     `fib(2n+3) ∣ fib(2n+2)² + 1`, because `fib(2n+2)² + 1 = fib(2n+1)·fib(2n+3)` is precisely
@@ -116,4 +116,4 @@ theorem spine_residue_strict_mono (n : Nat) :
     fib (2 * n) * fib (2 * n + 3) < fib (2 * n + 1) * fib (2 * n + 2) := by
   rw [spine_residue_farey n]; exact Nat.lt_succ_self _
 
-end E213.Lib.Math.NumberSystems.Real213.MarkovCassiniBridge
+end E213.Lib.Math.NumberSystems.Real213.Markov.MarkovCassiniBridge

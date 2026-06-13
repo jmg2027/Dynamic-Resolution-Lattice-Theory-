@@ -25,9 +25,9 @@ fraction ↔ Pseq path connection on the Stern-Brocot orbit side.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mobius213ContinuedFraction
+namespace E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213ContinuedFraction
 
-open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv (Pseq seedZero seedInf Pstep)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv (Pseq seedZero seedInf Pstep)
 open E213.Tactic.NatHelper (add_swap_two_mul)
 
 /-- The arithmetic core of the Pell-Fibonacci recurrence:
@@ -139,4 +139,4 @@ theorem pell_fibonacci_capstone (n : Nat) :
    Pseq_seedInf_fst_recurrence n,
    Pseq_seedInf_snd_recurrence n⟩
 
-end E213.Lib.Math.NumberSystems.Real213.Mobius213ContinuedFraction
+end E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213ContinuedFraction

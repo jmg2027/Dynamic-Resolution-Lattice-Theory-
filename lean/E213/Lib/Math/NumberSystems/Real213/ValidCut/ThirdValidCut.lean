@@ -28,7 +28,8 @@ but as the **right operation** for the b = 3 atom.
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ThirdValidCut
+namespace E213.Lib.Math.NumberSystems.Real213.ValidCut.ThirdValidCut
+open E213.Lib.Math.NumberSystems.Real213.Sum
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq cutEq_refl)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumN
@@ -181,4 +182,4 @@ theorem thirdvalidcut_full_assoc_capstone (vx vy vz : ThirdValidCut) :
   · exact cutSumN_assoc_thirdValidCut vx vy vz
   · exact cutSumN_comm_thirdValidCut vx vy
 
-end E213.Lib.Math.NumberSystems.Real213.ThirdValidCut
+end E213.Lib.Math.NumberSystems.Real213.ValidCut.ThirdValidCut

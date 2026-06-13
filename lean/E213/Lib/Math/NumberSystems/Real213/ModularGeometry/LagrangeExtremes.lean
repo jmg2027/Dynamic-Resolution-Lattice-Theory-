@@ -28,7 +28,8 @@ quotients), exactly where they sit at opposite extremes of the *CF-holonomicity*
 (periodic tier 0 vs conjecturally non-Hurwitzian) — the same spiral coordinate read two ways.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.LagrangeExtremes
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.LagrangeExtremes
+open E213.Lib.Math.NumberSystems.Real213.Markov
 
 open E213.Lib.Math.Analysis.Cauchy.HurwitzianCF (Periodic QuasiPolyCF periodic_quasipoly)
 
@@ -58,4 +59,4 @@ theorem phi_is_spectrum_floor :
     ∧ (∀ (a : Nat → Nat), (∀ i, 1 ≤ a i) → ∀ i, (fun _ => (1 : Nat)) i ≤ a i) :=
   ⟨phi_cf_quasipoly, phi_pq_minimal⟩
 
-end E213.Lib.Math.NumberSystems.Real213.LagrangeExtremes
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.LagrangeExtremes

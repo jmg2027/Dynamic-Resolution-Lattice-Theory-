@@ -50,11 +50,11 @@ geodesic — the **curve** / torus `ℂ/ℤ[ω]`).
 All zero-axiom (`ring_intZ` for the structural identity, `decide` for the instances).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.CrossDetTraceField
+namespace E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetTraceField
 
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 S U)
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicBoost (G)
-open E213.Lib.Math.NumberSystems.Real213.ParabolicTranslation (T)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 S U)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicBoost (G)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ParabolicTranslation (T)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSignature (goldenForm eisForm)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ParabolicSignature (parabForm)
 
@@ -249,4 +249,4 @@ theorem disc_sign_is_line_cusp_curve :
     traceDisc G > 0 ∧ traceDisc T = 0 ∧ traceDisc U < 0 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.NumberSystems.Real213.CrossDetTraceField
+end E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetTraceField

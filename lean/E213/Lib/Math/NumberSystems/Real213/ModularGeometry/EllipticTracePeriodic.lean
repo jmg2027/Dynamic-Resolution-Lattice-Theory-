@@ -17,11 +17,11 @@ opposite the hyperbolic unbounded Lucas growth (`disc > 0`).  The matrix itself 
 periodic-vs-aperiodic off the sign of `disc`.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.EllipticTracePeriodic
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticTracePeriodic
 
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace.Mat2 (tr det S)
-open E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence (pow trace_recurrence)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace.Mat2 (tr det S)
+open E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence (pow trace_recurrence)
 open E213.Meta.Int213 (zero_mul)
 open E213.Meta.Int213.PolyIntM (one_mulZ)
 open E213.Meta.Int213.Order (zero_sub)
@@ -59,4 +59,4 @@ theorem elliptic_trace_periodic :
         ∧ Mat2.tr (pow S 2) = -2 ∧ Mat2.tr (pow S 3) = 0) :=
   ⟨S_trace_recurrence, S_trace_period4, S_trace_seed⟩
 
-end E213.Lib.Math.NumberSystems.Real213.EllipticTracePeriodic
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticTracePeriodic

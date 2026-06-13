@@ -38,11 +38,11 @@ All zero-axiom.
 
 namespace E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius
 
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus
   (cfPn cfPn_pos cfP_eq_cast cothCF cothCF_pos mono_of_step)
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor
   (cfP cfQ cfQn cfQn_pos cfQ_eq_cast cfDet cfDet2 cfDet2_eq cf_det_even cf_det_step)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus
   (rcut rate_cut_const Htel_of_crossdet)
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
 open E213.Meta.Nat.NatRing213 (nat_add_right_cancel)

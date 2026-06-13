@@ -30,7 +30,7 @@ namespace E213.Lib.Math.Algebra.Mobius213.TowerConvergence
 
 open E213.Lib.Math.Algebra.Mobius213
 open E213.Lib.Math.Algebra.Mobius213.TowerLInfty
-open E213.Lib.Math.NumberSystems.Real213.PhiCut
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut
 
 /-! ## §1.  Structural L_∞ existence witness
 

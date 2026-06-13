@@ -39,13 +39,14 @@ it.  All zero-axiom (conditionally on nothing — the hypothesis is a binder).
 -/
 
 namespace E213.Lib.Math.NumberSystems.Real213.ExpLog.PiMeasureModulus
+open E213.Lib.Math.NumberSystems.Real213.Modulus
 
 open E213.Lib.Math.Analysis.Cauchy.WallisSeq
   (wallisNum wallisDen wallisNum_pos wallisDen_pos kk_lt_4_kp1_sq wallis_upper_inv)
-open E213.Lib.Math.NumberSystems.Real213.BracketModulus (Inside bracket_total_modulus)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.BracketModulus (Inside bracket_total_modulus)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.PiCut (halfPiCut halfPiCut_eq piCut)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (HtelS)
-open E213.Lib.Math.NumberSystems.Real213.RateStratification
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (HtelS)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
   (DominatesS htelS_iff_dominatesS)
 open E213.Meta.Nat.NatRing213 (nat_mul_lt_mul_left)
 open E213.Tactic.NatHelper (le_of_mul_le_mul_right)

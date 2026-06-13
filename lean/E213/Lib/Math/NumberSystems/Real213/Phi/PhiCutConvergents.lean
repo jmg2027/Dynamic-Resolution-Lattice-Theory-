@@ -19,10 +19,10 @@ general `∀ n` form is the quadratic-invariant induction left open
 (`HANDOFF.md`).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PhiCutConvergents
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PhiCutConvergents
 
-open E213.Lib.Math.NumberSystems.Real213.PhiCut (pellNum pellDen)
-open E213.Lib.Math.NumberSystems.Real213.PhiAsCut (phiCut)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut (pellNum pellDen)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut (phiCut)
 
 /-- **Every Pell convergent is below φ** (layers 0..8): `phiCut` reads each
     convergent `pellNum n / pellDen n` as strictly less than φ.  The convergents
@@ -76,4 +76,4 @@ theorem convergents_approach_phiCut :
     ∧ (pellDen 1 * pellDen 2 < pellDen 2 * pellDen 3) := by
   refine ⟨⟨?_, ?_⟩, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.NumberSystems.Real213.PhiCutConvergents
+end E213.Lib.Math.NumberSystems.Real213.Phi.PhiCutConvergents

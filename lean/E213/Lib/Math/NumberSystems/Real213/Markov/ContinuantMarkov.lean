@@ -28,14 +28,15 @@ records that boundary precisely, with the one clean continuant-native generator 
 machine-checked obstruction (`genR`).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ContinuantMarkov
+namespace E213.Lib.Math.NumberSystems.Real213.Markov.ContinuantMarkov
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction
 
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 mul)
-open E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov (genL genR markovNum mInterval mInterval_det
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 mul)
+open E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov (genL genR markovNum mInterval mInterval_det
   det2 det2_mul mInterval_shape markoff_vieta_trace markoff_vieta_trace_R
   sbInterval sbInterval_mediant_coprime)
 open E213.Tactic.NatHelper (gcd213)
-open E213.Lib.Math.NumberSystems.Real213.Continuant (contMat contMatProd continuant continuant_eq_contMatProd
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.Continuant (contMat contMatProd continuant continuant_eq_contMatProd
   continuant_cons2 contMatProd_b contMatProd_eq contMatProd_append contMatProd_trace_cons
   one_le_continuant)
 
@@ -426,4 +427,4 @@ theorem fixed_numerator_one (n : Nat) : cohnTrace (anB n) < cohnTrace (anB (n + 
         = true :: (List.replicate n true ++ [false]) from rfl]
   exact cohnTrace_lt_true (List.replicate n true ++ [false])
 
-end E213.Lib.Math.NumberSystems.Real213.ContinuantMarkov
+end E213.Lib.Math.NumberSystems.Real213.Markov.ContinuantMarkov

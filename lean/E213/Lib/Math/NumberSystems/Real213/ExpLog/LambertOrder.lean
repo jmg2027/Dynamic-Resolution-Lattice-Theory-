@@ -36,9 +36,9 @@ open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertMinor
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut
   (TNum cothSeriesAb cothSeriesCut_eq)
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus
   (cfPn cothCF cothCF_pos cfP_eq_cast)
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor
   (cfP cfQ cfQn cfQn_pos cfQ_eq_cast cfDet cf_det_even)
 open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
 
@@ -220,7 +220,7 @@ private theorem pos_of_mul_pos {a b : Nat} (h : 1 ≤ a * b) : 1 ≤ b := by
 /-- The `ratio_chain` pivot is positive: `dev (AP (2i+1)) ≥ 1` (`q ≥ 1`), from the
     bridge and the positivity of the convergent numerators. -/
 theorem dev_AP_odd_pos (q : Nat) (hq : 1 ≤ q) (i : Nat) : 1 ≤ dev q (AP (2 * i + 1)) := by
-  have h := E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus.cfPn_pos
+  have h := E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus.cfPn_pos
     (cothCF q) (cothCF_pos q hq) (2 * i)
   rw [(cf_bridge q i).1] at h
   exact pos_of_mul_pos h
@@ -355,7 +355,7 @@ odd–even gap at layer `L` exactly `1/(q_{2L}q_{2L+1})` — so once
 strictly past the probe and the CF limit reads `false`.  No measure, no LEM:
 the schedule is explicit. -/
 
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus
   (cothUnitCFCauchySeq cfEvenNum cfEvenDen cfQn_ge_self cfPn_pos)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CothSeriesCut (cothSeriesAb)
 
@@ -484,7 +484,7 @@ outright; the base family for `i ≥ 1` (`LowerBase`) is the isolated remaining
 content of the weld, `decide`-verified on the accessible instances. -/
 
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.ExpMoebius (det2_odd_nat)
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor (cfQn_pos)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor (cfQn_pos)
 
 /-- One `J`-step of the lower transfer: needs only `A ≤ 3B`. -/
 theorem lower_step (q : Nat) {A B J : Nat} (hside : A ≤ 3 * B)
@@ -521,7 +521,7 @@ theorem odd_le_first (q : Nat) (hq : 1 ≤ q) (i : Nat) :
     cfPn (cothCF q) (2 * i + 1) * cfQn (cothCF q) 1
       ≤ cfPn (cothCF q) 1 * cfQn (cothCF q) (2 * i + 1) := by
   have ha : ∀ j, 1 ≤ cothCF q (j + 1) := fun j => cothCF_pos q hq (j + 1)
-  have h := E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus.mono_of_step
+  have h := E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus.mono_of_step
     (a := fun L => cfQn (cothCF q) (2 * L + 1))
     (d := fun L => cfPn (cothCF q) (2 * L + 1))
     (fun L => Nat.mul_pos (cfQn_pos (cothCF q) ha (2 * L + 1))
@@ -696,8 +696,8 @@ series fold then completes through `AbCutSeq.toCauchySep`, and its limit agrees
 with the Lambert CF limit on **every** probe — the weld.  The entire remaining
 content is `LowerBase`. -/
 
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus
   (cfEvenNum cfEvenDen)
 open E213.Meta.Nat.NatRing213 (nat_mul_lt_mul_left)
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)

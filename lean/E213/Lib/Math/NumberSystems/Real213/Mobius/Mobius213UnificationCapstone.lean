@@ -24,21 +24,21 @@ This file recombines the existing bridges into a single capstone.
 All ingredients PURE (∅-axiom) — see the parent modules.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mobius213UnificationCapstone
+namespace E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213UnificationCapstone
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv (Pseq seedZero seedInf)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv (Pseq seedZero seedInf)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
   (sternBrocotEq cutEq_iff_sternBrocotEq_and_zero reachable_of_pos)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocotApps
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocotApps
   (validCutN_cutEq_iff_sternBrocotEq addN_sternBrocotEq)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213PellInvariant
   (Pseq_cross_pell_invariant Pseq_seedZero_pell_invariant)
 open E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge
   (signedEq signedEq_iff_sternBrocotEq_and_zero)
 open E213.Lib.Math.NumberSystems.SignedCut.Core.Core (SignedCut pos neg)
-open E213.Lib.Math.NumberSystems.Real213.NValidCut (ValidCutN)
+open E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut (ValidCutN)
 
 /-! ## §1 — Bundled unification capstone -/
 
@@ -69,7 +69,7 @@ theorem unification_capstone :
             ∧ cutSum (pos s) (neg t) 0 0 = cutSum (pos t) (neg s) 0 0)
     -- (d) Stern-Brocot covers ℕ × ℕ \ {(0, 0)}
     ∧ (∀ (m k : Nat), 1 ≤ m + k →
-        E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot.SternBrocotReachable (m, k))
+        E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot.SternBrocotReachable (m, k))
     -- (e) Pell identity on the seedZero orbit
     ∧ (∀ n : Nat,
         (Pseq seedZero n).1 * (Pseq seedZero n).1 + 1
@@ -99,12 +99,12 @@ capstone) to Stern-Brocot-orbit form. -/
     inside the Stern-Brocot equivalence class. -/
 theorem algebra_preservation_capstone
     {N : Nat} (hN : 0 < N) {vx vx' vy vy' :
-      E213.Lib.Math.NumberSystems.Real213.NValidCut.ValidCutN N}
+      E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut.ValidCutN N}
     (hx : sternBrocotEq vx.cut vx'.cut)
     (hy : sternBrocotEq vy.cut vy'.cut) :
     sternBrocotEq
-      (E213.Lib.Math.NumberSystems.Real213.NValidCut.addN N hN vx vy).cut
-      (E213.Lib.Math.NumberSystems.Real213.NValidCut.addN N hN vx' vy').cut :=
+      (E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut.addN N hN vx vy).cut
+      (E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut.addN N hN vx' vy').cut :=
   addN_sternBrocotEq hN hx hy
 
 /-! ## §3 — Atomic-five / discriminant cross-reference
@@ -123,4 +123,4 @@ theorem disc_P_eq_five : 3 * 3 = 4 * 1 + 5 := by decide
 /-- `5 = NS + NT = d` in 213 signature terms (NS = 3, NT = 2). -/
 theorem disc_P_eq_NS_plus_NT : 3 * 3 - 4 * 1 = 3 + 2 := by decide
 
-end E213.Lib.Math.NumberSystems.Real213.Mobius213UnificationCapstone
+end E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213UnificationCapstone

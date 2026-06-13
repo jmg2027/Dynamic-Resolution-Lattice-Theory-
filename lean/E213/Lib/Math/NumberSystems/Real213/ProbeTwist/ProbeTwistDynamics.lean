@@ -42,9 +42,9 @@ toward it — consistent with this exact identity.
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ProbeTwistDynamics
+namespace E213.Lib.Math.NumberSystems.Real213.ProbeTwist.ProbeTwistDynamics
 
-open E213.Lib.Math.NumberSystems.Real213.MobiusProbeTwist (cutThroughP)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.MobiusProbeTwist (cutThroughP)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc)
 
@@ -110,4 +110,4 @@ theorem twist_undoes_step (p q m k : Nat) :
   · rw [decide_eq_false (fun hc => h ((prop_equiv_pq p q m k).mp hc)),
         decide_eq_false h]
 
-end E213.Lib.Math.NumberSystems.Real213.ProbeTwistDynamics
+end E213.Lib.Math.NumberSystems.Real213.ProbeTwist.ProbeTwistDynamics

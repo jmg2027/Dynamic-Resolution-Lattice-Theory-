@@ -21,7 +21,7 @@ It is the `−1`-eigenvector of `S` (the `(1+S)` relation) and is cycled with or
 gap (the remaining residual being only the complex `ℍ`-contour for the analytic period integral).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodPolynomial
+namespace E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiPeriodPolynomial
 
 open E213.Meta.Int213 (add_neg_cancel add_comm mul_neg)
 open E213.Meta.Int213.Order (sub_zero)
@@ -93,4 +93,4 @@ theorem period_line_in_kernel (t : Int) :
   · rw [hS, add_neg_cancel t]
   · rw [hU, sub_zero, mul_neg, add_neg_cancel]
 
-end E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodPolynomial
+end E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiPeriodPolynomial

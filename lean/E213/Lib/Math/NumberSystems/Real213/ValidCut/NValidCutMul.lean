@@ -32,11 +32,11 @@ algebraic numerator directly.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.NValidCutMul
+namespace E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCutMul
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq cutEq_refl)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
-open E213.Lib.Math.NumberSystems.Real213.NValidCut (ValidCutN ofValidCutN)
+open E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut (ValidCutN ofValidCutN)
 open E213.Lib.Math.NumberSystems.Real213.Mul.CutMulN
   (cutMulN cutMulN_const_const_forward)
 
@@ -92,4 +92,4 @@ theorem mulN_represents_assoc
       = va.represents * (vc.represents * ve.represents) :=
   E213.Tactic.NatHelper.mul_assoc _ _ _
 
-end E213.Lib.Math.NumberSystems.Real213.NValidCutMul
+end E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCutMul

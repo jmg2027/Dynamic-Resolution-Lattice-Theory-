@@ -21,12 +21,12 @@ the `?`-cocycle's period runs along the residue's own golden spine, the `inf|Q| 
 residue unit `NS − NT = 1`.  All ∅-axiom (composes existing PURE lemmas across both pillars).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiGoldenExtremal
+namespace E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiGoldenExtremal
 
-open E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+open E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
   (markovNum markovRes markovNum_dvd_res_sq_succ)
-open E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness (fib_spine_sqrt_neg_one)
-open E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness (fib_spine_sqrt_neg_one)
+open E213.Lib.Math.NumberSystems.Real213.Markov.GoldenFormMarkov
   (golden_anisotropic golden_min_attained_on_fib)
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 
@@ -57,4 +57,4 @@ theorem golden_is_extremal_weight2_period :
   ⟨markovNum_dvd_res_sq_succ, fib_spine_sqrt_neg_one, golden_anisotropic,
    golden_min_attained_on_fib⟩
 
-end E213.Lib.Math.NumberSystems.Real213.MinkowskiGoldenExtremal
+end E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiGoldenExtremal

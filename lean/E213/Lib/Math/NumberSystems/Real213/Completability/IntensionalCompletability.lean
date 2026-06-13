@@ -30,10 +30,10 @@ two come apart exactly along the rescaling action, and the cut is the invariant.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability
+namespace E213.Lib.Math.NumberSystems.Real213.Completability.IntensionalCompletability
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake (CrossDetSmall)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut)
 open E213.Lib.Math.NumberSystems.Real213.PresentationDependence (rcut_rescale)
 open E213.Tactic.NatHelper (mul_left_comm mul_assoc)
 
@@ -105,4 +105,4 @@ theorem completability_is_intensional :
   ⟨fun W d c hc => crossDetSmall_rescale_antitone W d c hc,
    fun a d c hc m k => modulus_rescale_invariant c hc a d m k⟩
 
-end E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability
+end E213.Lib.Math.NumberSystems.Real213.Completability.IntensionalCompletability

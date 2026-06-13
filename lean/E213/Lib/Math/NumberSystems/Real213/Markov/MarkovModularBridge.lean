@@ -28,13 +28,13 @@ that consumes exactly those two divisibilities.  (The only formality between the
 cast of the divisibilities; the content is identical.)
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MarkovModularBridge
+namespace E213.Lib.Math.NumberSystems.Real213.Markov.MarkovModularBridge
 
-open E213.Lib.Math.NumberSystems.Real213.MarkovTree (markovEq)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree (markovEq)
 open E213.Tactic.NatHelper (gcd213)
-open E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness
 open E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor (euclid_of_coprime)
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (S)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (S)
 open E213.Meta.Int213 (zero_mul zero_add)
 
 /-- ★★★★ **The Markov pair `(a,b)` satisfies the `S`-eigenvector congruences mod `c`.**  For a
@@ -81,4 +81,4 @@ theorem S_eigenvector_of_dvd (a b u c : Int)
       ring_intZ
     rw [heq]; obtain ⟨k, hk⟩ := h2; exact ⟨-k, by rw [hk]; ring_intZ⟩
 
-end E213.Lib.Math.NumberSystems.Real213.MarkovModularBridge
+end E213.Lib.Math.NumberSystems.Real213.Markov.MarkovModularBridge

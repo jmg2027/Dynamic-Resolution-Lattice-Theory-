@@ -35,7 +35,7 @@ reached, ∅-axiom, here.
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PentagonGoldenTrace
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PentagonGoldenTrace
 
 /-- A **golden integer** `a + b·φ` in `ℤ[φ] = ℤ[(1+√5)/2]`, with `φ² = φ + 1`. -/
 structure GoldenInt where
@@ -109,4 +109,4 @@ theorem phi_norm : phi * conj phi = ⟨-1, 0⟩ := by decide
     5-fold trace sits on the same det-`(−1)` golden axis whose convergent descent brackets it. -/
 theorem pentagon_trace_norm : psi * conj psi = ⟨-1, 0⟩ := by decide
 
-end E213.Lib.Math.NumberSystems.Real213.PentagonGoldenTrace
+end E213.Lib.Math.NumberSystems.Real213.Phi.PentagonGoldenTrace

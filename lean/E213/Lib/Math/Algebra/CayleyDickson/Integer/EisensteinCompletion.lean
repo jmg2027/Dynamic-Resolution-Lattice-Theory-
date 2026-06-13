@@ -37,8 +37,8 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCompletion
 
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCrossDet
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor (cfQn cfQn_pos)
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus (cfPn cfQn_ge_self)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor (cfQn cfQn_pos)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus (cfPn cfQn_ge_self)
 
 /-! ## §1 — the gap scale factors into the integer norm product -/
 

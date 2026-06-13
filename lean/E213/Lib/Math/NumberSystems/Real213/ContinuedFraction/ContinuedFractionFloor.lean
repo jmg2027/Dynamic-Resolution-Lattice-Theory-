@@ -36,7 +36,7 @@ not space filled, with no exterior slot to leave empty.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor
+namespace E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor
 
 open E213.Meta.Algebra213 (Ring213 CommRing213)
 open E213.Meta.Algebra213.Ring213
@@ -190,4 +190,4 @@ theorem cfDet2_even (a : Nat → Nat) (n : Nat) :
     cfDet2 a (2*n) = (a (2*n + 2) : Int) := by
   rw [cfDet2_eq, cf_det_even, mul_one]
 
-end E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor
+end E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor

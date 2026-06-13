@@ -28,9 +28,9 @@ construction; this is the rational nested-interval characterisation that fixes
 the value.)
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PhiConvergence
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PhiConvergence
 
-open E213.Lib.Math.NumberSystems.Real213.PhiCut (pellNum pellDen)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut (pellNum pellDen)
 
 /-- **Denominators strictly increase** — the descent makes progress, so brackets
     can shrink.  (Concrete layers 1..8; the pattern is the P-recurrence
@@ -79,7 +79,7 @@ theorem phi_is_unique_nested_limit :
     ( 3 * pellDen 2 < 2 * pellNum 2 ∧ 3 * pellNum 2 < 5 * pellDen 2 ) :=
   ⟨⟨convergents_nest.1, convergents_nest.2.1⟩,
    ⟨bracket_width_shrinks.1, bracket_width_shrinks.2.1⟩,
-   ⟨(E213.Lib.Math.NumberSystems.Real213.PhiCut.phi_bracket_via_pell).1,
-    (E213.Lib.Math.NumberSystems.Real213.PhiCut.phi_bracket_via_pell).2.1⟩⟩
+   ⟨(E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut.phi_bracket_via_pell).1,
+    (E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut.phi_bracket_via_pell).2.1⟩⟩
 
-end E213.Lib.Math.NumberSystems.Real213.PhiConvergence
+end E213.Lib.Math.NumberSystems.Real213.Phi.PhiConvergence

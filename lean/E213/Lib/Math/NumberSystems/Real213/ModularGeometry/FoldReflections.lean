@@ -27,9 +27,9 @@ which acts trivially on the projective line — so `{I, N, R, S}` is Klein four 
 witness of the fixture's `klein_four_group`.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.FoldReflections
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FoldReflections
 
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 mul I2 negI2 S)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 mul I2 negI2 S)
 
 /-- Negation `z ↦ −z` as a matrix — the additive fold (a reflection, `det = −1`). -/
 def N : Mat2 := ⟨-1, 0, 0, 1⟩
@@ -74,4 +74,4 @@ theorem two_reflections_compose_to_founding_swap :
     ∧ mul S S = negI2 := by
   refine ⟨⟨?_, ?_⟩, ⟨?_, ?_, ?_⟩, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.NumberSystems.Real213.FoldReflections
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FoldReflections

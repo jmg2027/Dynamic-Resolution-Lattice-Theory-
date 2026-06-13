@@ -25,10 +25,10 @@ So §5.7 is *closed*: frozen and dynamic φ are identified, with the residue uni
 (the convergent never lands on the fixed-point relation — `convergent_never_frozen`).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PhiFrozenDynamic
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PhiFrozenDynamic
 
-open E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
-open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (fib_cassini_norm convergent_never_frozen)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
+open E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat (fib_cassini_norm convergent_never_frozen)
 open E213.Lib.Math.Algebra.Mobius213.Px.POrbitClosure (L)
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 
@@ -56,7 +56,7 @@ theorem phi_discriminant_is_P_charpoly : ((L 1) ^ 2 - 4 : Int) = 5 := by decide
     the limit.  ∅-axiom (the identification (2) is the 213 real layer's, not a foreign reals'). -/
 theorem frozen_eq_dynamic_phi (m k n : Nat) :
     ((L 1) ^ 2 - 4 : Int) = 5
-    ∧ phiConvergentSeq.limit m k = E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut m k
+    ∧ phiConvergentSeq.limit m k = E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut m k
     ∧ (fib (2 * n + 2) * fib (2 * n + 2) + 1
           = fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1)
         ∧ fib (2 * n + 2) * fib (2 * n + 2)
@@ -65,4 +65,4 @@ theorem frozen_eq_dynamic_phi (m k n : Nat) :
    phiCauchy_limit_eq_phiCut m k,
    ⟨fib_cassini_norm n, convergent_never_frozen n⟩⟩
 
-end E213.Lib.Math.NumberSystems.Real213.PhiFrozenDynamic
+end E213.Lib.Math.NumberSystems.Real213.Phi.PhiFrozenDynamic

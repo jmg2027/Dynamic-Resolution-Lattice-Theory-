@@ -1390,7 +1390,7 @@ theorem suffdom_LAl (i : Nat) : SuffDom (LAl i) (LBl i) := by
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertPoly (lowerbase_of_suffdom)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertOrder
   (LowerBase cothSeriesCauchySepOfBase weld_limit_agreement)
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus
   (cothUnitCFCauchySeq)
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
 

@@ -41,7 +41,7 @@ with `mobiusEq` weaker than `sternBrocotEq` weaker than `cutEq`.
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
+namespace E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
 
@@ -148,4 +148,4 @@ theorem mobiusEq_of_cutEq (cx cy : Nat → Nat → Bool) :
   exact ⟨h (Pseq seedZero n).1 (Pseq seedZero n).2,
          h (Pseq seedInf  n).1 (Pseq seedInf  n).2⟩
 
-end E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
+end E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv

@@ -32,7 +32,7 @@ for polynomial-like smooth functions on dyadic cuts).
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.DiffCutModulus
+namespace E213.Lib.Math.NumberSystems.Real213.Calculus.DiffCutModulus
 
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
@@ -191,4 +191,4 @@ theorem diffcut_modulus_capstone :
   intro k
   rfl
 
-end E213.Lib.Math.NumberSystems.Real213.DiffCutModulus
+end E213.Lib.Math.NumberSystems.Real213.Calculus.DiffCutModulus

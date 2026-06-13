@@ -26,7 +26,8 @@ the repo's PURE replacements `Meta/Nat/PureNat.{add_mul, mul_assoc, even_sq}` an
 `Lib/Math/NatRing.{two_mul_eq, three_mul_eq}`.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat
+open E213.Lib.Math.NumberSystems.Real213.Mobius
 
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc even_sq)
@@ -125,7 +126,7 @@ private theorem den_le (n : Nat) : fib (2 * n + 1) ≤ 2 * fib (2 * n + 2) := by
     ∀n) → `phiform` (norm → `(2a−b)²+4 = 5·b²`, with `den_le` giving the faithful
     Nat subtraction `p+b = 2a`) → `PhiAsCut.phiCut_false_of_norm`.  All ∅-axiom. -/
 theorem fib_convergent_below_phi (n : Nat) :
-    E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut (fib (2 * n + 2)) (fib (2 * n + 1)) = false := by
+    E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut (fib (2 * n + 2)) (fib (2 * n + 1)) = false := by
   have hpk : (2 * fib (2 * n + 2) - fib (2 * n + 1)) + fib (2 * n + 1)
            = 2 * fib (2 * n + 2) :=
     E213.Meta.Nat.NatRing213.nat_sub_add_cancel (den_le n)
@@ -135,7 +136,7 @@ theorem fib_convergent_below_phi (n : Nat) :
       hpk (fib_cassini_norm n)
   -- `phiCut_false_of_norm` wants `5 * k * k` (= `(5*k)*k`); `hform` has `5 * (k*k)`.
   rw [← mul_assoc 5 (fib (2 * n + 1)) (fib (2 * n + 1))] at hform
-  exact E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut_false_of_norm
+  exact E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut_false_of_norm
     (fib (2 * n + 2)) (fib (2 * n + 1)) hform
 
 /-! ## The dynamic orbit approaches φ but never satisfies the frozen relation
@@ -180,7 +181,7 @@ theorem convergent_never_frozen (n : Nat) :
     of three `Nat` facts, not an identification of frozen with dynamic (the latter needs the
     real limit, outside the ∅-axiom `Nat` reach). -/
 theorem dynamic_approaches_never_reaches_frozen (n : Nat) :
-    E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut (fib (2 * n + 2)) (fib (2 * n + 1)) = false
+    E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut (fib (2 * n + 2)) (fib (2 * n + 1)) = false
     ∧ fib (2 * n + 2) * fib (2 * n + 2) + 1
         = fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1)
     ∧ fib (2 * n + 2) * fib (2 * n + 2)
@@ -490,8 +491,8 @@ private theorem cs_false_of_below (i m k : Nat) (hik : 2 * k ≤ i)
     ∅-axiom.  The bridge from the rational convergent sequence to φ-as-one-Cut. -/
 theorem cs_eq_phiCut (i m k : Nat) (hik : 2 * k ≤ i) :
     decide (fib (2 * i + 2) * k ≤ fib (2 * i + 1) * m)
-    = E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut m k := by
-  unfold E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut
+    = E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut m k := by
+  unfold E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut
   by_cases hcut : k ≤ 2 * m ∧ 5 * k * k ≤ (2 * m - k) * (2 * m - k)
   · -- target ≥ φ: cut true at every layer
     obtain ⟨hk2m, hhigh⟩ := hcut
@@ -511,4 +512,4 @@ theorem cs_eq_phiCut (i m k : Nat) (hik : 2 * k ≤ i) :
     · -- target < 1/2: false at every layer
       exact cs_false_of_small i m k (Nat.lt_of_not_le hk2m)
 
-end E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
+end E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat

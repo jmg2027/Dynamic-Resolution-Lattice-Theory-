@@ -34,9 +34,9 @@ spectrum; the axis spectrum is exactly `{2,4,6}` with the order-6 rotation reali
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.SpiralCoordinate
+namespace E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralCoordinate
 
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor (cfDet cf_det_sq)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor (cfDet cf_det_sq)
 open E213.Lib.Math.Analysis.Cauchy.DepthPRecursive (polyDepth)
 open E213.Lib.Math.Analysis.Cauchy.DepthCoordGenerator (genExp genExp_depth_exact)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ImaginaryQuadraticUnitTrichotomy (unitForm_generic_axis)
@@ -76,4 +76,4 @@ theorem spiral_coordinate :
     E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.units_count_eq_NSNT⟩,
    fun d hd a b => unitForm_generic_axis d hd a b⟩
 
-end E213.Lib.Math.NumberSystems.Real213.SpiralCoordinate
+end E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralCoordinate

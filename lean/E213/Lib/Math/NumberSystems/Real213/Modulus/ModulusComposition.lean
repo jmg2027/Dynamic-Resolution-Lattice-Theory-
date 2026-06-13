@@ -40,7 +40,7 @@ receipt ladder becomes a call tree of folds.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ModulusComposition
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.ModulusComposition
 
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut (cube cbrt2Cut cube_double)
@@ -332,4 +332,4 @@ theorem powSched_mono (c₁ c₂ : Nat → Nat → Bool) (B : Nat)
       (E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut.two_pow_pos (t+1))
       (pow_le_pow_exp (Nat.succ_le_succ (Nat.zero_le t)) (dyUp_mono c₁ c₂ B hle (t+1)))
 
-end E213.Lib.Math.NumberSystems.Real213.ModulusComposition
+end E213.Lib.Math.NumberSystems.Real213.Modulus.ModulusComposition

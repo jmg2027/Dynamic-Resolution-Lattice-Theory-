@@ -31,12 +31,13 @@ rungs `{W const (φ), W = d (e, Liouville)} ⊆ CrossDetSmall` are all free; the
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.CrossDetConstDenom
+namespace E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetConstDenom
+open E213.Lib.Math.NumberSystems.Real213.Phi
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall crossdet_small_total_modulus)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake (CrossDetSmall crossdet_small_total_modulus)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut)
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
-open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (fib_odd_pos fib_lb conv_mono convergent_cross)
+open E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat (fib_odd_pos fib_lb conv_mono convergent_cross)
 open E213.Tactic.NatHelper (mul_assoc le_of_mul_le_mul_right mul_mul_mul_comm_213)
 
 /-! ## §1 — the `W = const` rung -/
@@ -153,4 +154,4 @@ theorem phi_total_modulus_via_const (m k : Nat) (hk : 1 ≤ k) :
     ∃ N, ∀ i j, i ≥ N → j ≥ N → rcut aPhi dPhi i m k = rcut aPhi dPhi j m k :=
   crossdet_const_total_modulus 1 phi_hd phi_hWconst phi_hgrow phi_hmono phi_hmonoS m k hk
 
-end E213.Lib.Math.NumberSystems.Real213.CrossDetConstDenom
+end E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetConstDenom

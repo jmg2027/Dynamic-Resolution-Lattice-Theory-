@@ -45,7 +45,7 @@ Narrative: `theory/math/analysis/holonomic_modulus.md`.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.RateModulus
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus
 
 open E213.Tactic.NatHelper
   (add_mul mul_assoc le_of_mul_le_mul_right add_sub_of_le lt_of_lt_le mul_mul_mul_comm_213)
@@ -339,4 +339,4 @@ theorem Htel_of_crossdet (W : Nat → Nat)
   rw [hLHS, hRHS, hW i, Nat.mul_add, Nat.add_assoc]
   exact Nat.add_le_add_left (hcond i hi) _
 
-end E213.Lib.Math.NumberSystems.Real213.RateModulus
+end E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus

@@ -20,7 +20,7 @@ namespace E213.Lib.Math.Analysis.FluxMVT.AdjacentSternBrocotBridge
 open E213.Lib.Math.Analysis.FluxMVT.TelescopingConservation
   (Adjacent adjacent_walls_match)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
   (sternBrocotEq sternBrocotEq_refl)
 
 /-- ★★ **Adjacency ⇒ Stern-Brocot equivalence on walls**:

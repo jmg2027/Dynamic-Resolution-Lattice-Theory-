@@ -21,7 +21,7 @@ precision artifacts; the integer-class result is the rigor stake.
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.CutSumAssocInt
+namespace E213.Lib.Math.NumberSystems.Real213.Sum.CutSumAssocInt
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
@@ -117,4 +117,4 @@ theorem cutSum_assoc_int_capstone (a b c : Nat) :
   · exact cutSum_assoc_int_at a b c 1 1
   · exact cutSum_assoc_int_smoke_1_2_3
 
-end E213.Lib.Math.NumberSystems.Real213.CutSumAssocInt
+end E213.Lib.Math.NumberSystems.Real213.Sum.CutSumAssocInt

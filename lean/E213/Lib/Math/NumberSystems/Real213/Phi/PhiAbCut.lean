@@ -31,11 +31,11 @@ closed-form modulus.
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PhiAbCut
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PhiAbCut
 
 open E213.Theory (Raw)
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
-open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (fib_cassini_norm fib_odd_pos cs_eq_phiCut)
+open E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat (fib_cassini_norm fib_odd_pos cs_eq_phiCut)
 open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
 open E213.Lib.Math.Analysis.Cauchy.PellSeq (abLens_witness)
 open E213.Lens.Instances.AB (abLens)
@@ -129,9 +129,9 @@ theorem phiCompletion_limit_valid : ValidCut phiCompletion.limit :=
     recovers exactly `PhiAsCut.phiCut` — algebraicity = the limit is already a
     decidable closed-form cut, reached unconditionally. -/
 theorem phiCompletion_limit_eq_phiCut (m k : Nat) :
-    phiCompletion.limit m k = E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut m k := by
-  show phiAb.cut (2*k) m k = E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut m k
+    phiCompletion.limit m k = E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut m k := by
+  show phiAb.cut (2*k) m k = E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut m k
   rw [phiAb_cut_eq]
   exact cs_eq_phiCut (2*k) m k (Nat.le_refl _)
 
-end E213.Lib.Math.NumberSystems.Real213.PhiAbCut
+end E213.Lib.Math.NumberSystems.Real213.Phi.PhiAbCut

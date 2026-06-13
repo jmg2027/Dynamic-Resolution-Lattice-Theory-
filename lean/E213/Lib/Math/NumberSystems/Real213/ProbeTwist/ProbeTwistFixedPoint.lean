@@ -30,12 +30,13 @@ made — only the exact fixed/non-fixed dichotomy, which is clean.)
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ProbeTwistFixedPoint
+namespace E213.Lib.Math.NumberSystems.Real213.ProbeTwist.ProbeTwistFixedPoint
+open E213.Lib.Math.NumberSystems.Real213.Phi
 
-open E213.Lib.Math.NumberSystems.Real213.PhiAsCut (phiCut)
-open E213.Lib.Math.NumberSystems.Real213.PhiProbeFixed (phi_is_probe_twist_fixed)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut (phiCut)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiProbeFixed (phi_is_probe_twist_fixed)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCut (eulerCut eulerCut_eq)
-open E213.Lib.Math.NumberSystems.Real213.MobiusProbeTwist (cutThroughP)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.MobiusProbeTwist (cutThroughP)
 open E213.Lib.Math.Analysis.Cauchy.EulerSeq (eulerNum eulerDen)
 
 set_option maxRecDepth 4000
@@ -65,4 +66,4 @@ theorem fixed_iff_phi_contrast :
     ∧ (cutThroughP (eulerCut 4) 3 1 ≠ eulerCut 4 3 1) :=
   ⟨phi_fixed, e_not_fixed⟩
 
-end E213.Lib.Math.NumberSystems.Real213.ProbeTwistFixedPoint
+end E213.Lib.Math.NumberSystems.Real213.ProbeTwist.ProbeTwistFixedPoint

@@ -25,11 +25,11 @@ directly into the second column of its Stern-Brocot path from
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
+namespace E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213AtomicityAnchor
 
-open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv
   (Pseq seedZero seedInf orbits_hit_atoms_at_depth_2)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
   (SternBrocotReachable reachable_3_2 reachable_2_1)
 open E213.Theory.Atomicity.Five (Atomic atomic_five atomic_iff_five)
 open E213.Lib.Physics.Simplex.Counts (NS NT d partition_sum)
@@ -105,4 +105,4 @@ theorem pseq_seedInf_2_eq_atomic :
   · show Atomic 5
     exact atomic_five
 
-end E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
+end E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213AtomicityAnchor

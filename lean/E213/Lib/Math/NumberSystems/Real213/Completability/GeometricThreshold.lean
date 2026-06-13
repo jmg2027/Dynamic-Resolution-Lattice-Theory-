@@ -32,9 +32,10 @@ exponential rate is not enough; the cross-determinant must grow *strictly slower
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.GeometricThreshold
+namespace E213.Lib.Math.NumberSystems.Real213.Completability.GeometricThreshold
+open E213.Lib.Math.NumberSystems.Real213.CrossDet
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall)
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake (CrossDetSmall)
 open E213.Tactic.NatHelper (mul_assoc add_mul)
 
 /-- ★ **The polynomial-into-geometric engine.**  `r^{n+1} + (n+1)·r^n ≤ (r+1)^{n+1}` —
@@ -155,4 +156,4 @@ theorem geom_boundary_iff {q r : Nat} (hq : 2 ≤ q) :
       | Or.inr hge => absurd hcs (geom_crossdet_overtake_sharp hq hge),
    fun hlt => geom_crossdet_small (Nat.succ_le_of_lt hlt)⟩
 
-end E213.Lib.Math.NumberSystems.Real213.GeometricThreshold
+end E213.Lib.Math.NumberSystems.Real213.Completability.GeometricThreshold

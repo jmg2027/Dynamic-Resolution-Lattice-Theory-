@@ -42,6 +42,7 @@ All zero-axiom.
 -/
 
 namespace E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction
 
 /-! ## §1 — the cleared truncated ladder series -/
 
@@ -556,8 +557,8 @@ theorem AP_BP_length : ∀ k : Nat,
       show (BP (2 * k + 2)).length + 1 = k + 2
       rw [h4]
 
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus (cfPn cothCF)
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionFloor (cfQn)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus (cfPn cothCF)
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionFloor (cfQn)
 
 /-- ★★★★★ **The evaluation bridge**: the regular-CF convergents of the Lambert fold
     (`cothUnitCFCauchySeq`'s carrier, partial quotients `(2n+1)q`) are **exactly** the

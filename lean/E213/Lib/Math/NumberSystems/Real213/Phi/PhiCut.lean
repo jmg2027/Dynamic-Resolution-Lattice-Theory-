@@ -44,7 +44,7 @@ as the explicit 213-native witness that φ exists at L_∞.
 PURE: all theorems strict ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PhiCut
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut
 
 open E213.Lib.Math.Algebra.Mobius213
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
@@ -136,4 +136,4 @@ theorem phi_cut_capstone :
     (try exact ⟨by decide, by decide⟩) <;>
     decide
 
-end E213.Lib.Math.NumberSystems.Real213.PhiCut
+end E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut

@@ -40,9 +40,9 @@ negative term to the other side,
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ProbeTwistConic
+namespace E213.Lib.Math.NumberSystems.Real213.ProbeTwist.ProbeTwistConic
 
-open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv (Pstep)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv (Pstep)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc)
 
 /-! ## §1 — square / product expansions (PURE) -/
@@ -119,4 +119,4 @@ theorem Pstep_conserves_Q (m k : Nat) :
   show (2*m+k)*(2*m+k) + m*k + k*k = (2*m+k)*(m+k) + (m+k)*(m+k) + m*m
   exact Q_preserved m k
 
-end E213.Lib.Math.NumberSystems.Real213.ProbeTwistConic
+end E213.Lib.Math.NumberSystems.Real213.ProbeTwist.ProbeTwistConic

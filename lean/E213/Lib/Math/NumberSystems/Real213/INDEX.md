@@ -3,9 +3,9 @@
 213-native real-number type via Dedekind cut.  185 files: 13 top-level + 172 in
 20 sub-clusters.
 
-File relocation only: module namespaces stay `…Real213.<Module>` (the shared
-`Real213` parent keeps every cross-reference resolvable); the directory is the
-classification.
+Path = namespace: each module's namespace carries its cluster segment (e.g.
+`…Real213.Phi.PhiCut`); cross-cluster references resolve via a cluster-parent
+`open` (e.g. `open …Real213.Mobius`).
 
 ## Sub-clusters
 

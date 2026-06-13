@@ -32,7 +32,7 @@ the canonical `PhiCut.pellConvergentCut` inherit everything proved natively on
 limit), retiring the native-Nat twin's "no PURE bridge" caveat.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PellFibCutBridge
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PellFibCutBridge
 
 open E213.Lib.Math.Algebra.Mobius213 (P_numerator P_denominator)
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
@@ -128,14 +128,14 @@ private theorem den_pair (n : Nat) :
     even-index Fibonacci.  The `toNat` collapses by `rfl` once the `Int` seq is
     pinned to a `natCast` (`num_pair`). -/
 theorem pellNum_eq_fib (n : Nat) :
-    E213.Lib.Math.NumberSystems.Real213.PhiCut.pellNum n = fib (2*n+2) := by
+    E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut.pellNum n = fib (2*n+2) := by
   show (P_numerator.seq n).toNat = fib (2*n+2)
   rw [(num_pair n).1]; rfl
 
 /-- ★★★ **`pellDen n = fib(2n+1)`, ∀n** — the Pell denominator read-out equals the
     odd-index Fibonacci. -/
 theorem pellDen_eq_fib (n : Nat) :
-    E213.Lib.Math.NumberSystems.Real213.PhiCut.pellDen n = fib (2*n+1) := by
+    E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut.pellDen n = fib (2*n+1) := by
   show (P_denominator.seq n).toNat = fib (2*n+1)
   rw [(den_pair n).1]; rfl
 
@@ -152,13 +152,13 @@ longer only the native-Nat twin. -/
     closed-form golden-ratio cut.  The bridge (`pellNum_eq_fib`/`pellDen_eq_fib`)
     transports `FibCassiniNat.cs_eq_phiCut` onto the canonical object.  PURE. -/
 theorem pellConvergentCut_eq_phiCut (i m k : Nat) (hik : 2 * k ≤ i) :
-    E213.Lib.Math.NumberSystems.Real213.PhiCut.pellConvergentCut i m k
-    = E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut m k := by
+    E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut.pellConvergentCut i m k
+    = E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut m k := by
   show decide
-      (E213.Lib.Math.NumberSystems.Real213.PhiCut.pellNum i * k
-        ≤ E213.Lib.Math.NumberSystems.Real213.PhiCut.pellDen i * m)
-    = E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut m k
+      (E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut.pellNum i * k
+        ≤ E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut.pellDen i * m)
+    = E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut m k
   rw [pellNum_eq_fib, pellDen_eq_fib]
-  exact E213.Lib.Math.NumberSystems.Real213.FibCassiniNat.cs_eq_phiCut i m k hik
+  exact E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat.cs_eq_phiCut i m k hik
 
-end E213.Lib.Math.NumberSystems.Real213.PellFibCutBridge
+end E213.Lib.Math.NumberSystems.Real213.Phi.PellFibCutBridge

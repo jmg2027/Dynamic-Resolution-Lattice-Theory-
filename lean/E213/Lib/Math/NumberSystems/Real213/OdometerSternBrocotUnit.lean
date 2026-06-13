@@ -24,9 +24,10 @@ begins at (`theory/essays/foundations/the_unit.md`).  All ∅-axiom.
 -/
 
 namespace E213.Lib.Math.NumberSystems.Real213.OdometerSternBrocotUnit
+open E213.Lib.Math.NumberSystems.Real213.Markov
 
 open E213.Theory.Raw.Odometer (carry carry_zero odo dec dec_odo)
-open E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+open E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
   (det2 genL mInterval mInterval_det sbStep sbInterval adj sbInterval_adj)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 open E213.Meta.Nat.PureNat (add_left_cancel)

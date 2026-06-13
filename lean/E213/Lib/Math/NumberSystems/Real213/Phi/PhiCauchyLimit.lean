@@ -27,11 +27,11 @@ signature is the *same* 213-native object whether pinned closed-form or built by
 completion.  All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PhiCauchyLimit
 
 open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 open E213.Lib.Math.Analysis.CauchyComplete (CauchyCutSeq)
-open E213.Lib.Math.NumberSystems.Real213.FibCassiniNat (cs_eq_phiCut)
+open E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat (cs_eq_phiCut)
 
 /-- **The convergent cut sequence**: layer `i` reads the Pell convergent
     `fib(2i+2)/fib(2i+1)` as a Cut, `decide (fib(2i+2)·k ≤ fib(2i+1)·m)`.  The
@@ -64,9 +64,9 @@ def phiConvergentSeq : CauchyCutSeq where
     `Quot.sound`; the pointwise statement is the ∅-axiom form and carries the
     same content for a `Nat → Nat → Bool` cut.)  PURE. -/
 theorem phiCauchy_limit_eq_phiCut (m k : Nat) :
-    phiConvergentSeq.limit m k = E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut m k := by
-  show convergentCS (2 * k) m k = E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut m k
+    phiConvergentSeq.limit m k = E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut m k := by
+  show convergentCS (2 * k) m k = E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut m k
   unfold convergentCS
   exact cs_eq_phiCut (2 * k) m k (Nat.le_refl _)
 
-end E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
+end E213.Lib.Math.NumberSystems.Real213.Phi.PhiCauchyLimit

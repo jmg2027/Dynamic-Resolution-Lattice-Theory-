@@ -39,13 +39,13 @@ measure hypothesis, `ExpLog/PiMeasureModulus.PiHalfMeasure`).
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FiniteOrderSpectrum
 
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace.Mat2 (mul tr det I negI S U)
-open E213.Lib.Math.NumberSystems.Real213.Mat2CayleyHamilton (charComb cayley_hamilton)
-open E213.Lib.Math.NumberSystems.Real213.Mat2Assoc (mul_assoc)
-open E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence (pow trace_recurrence)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace.Mat2 (mul tr det I negI S U)
+open E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2CayleyHamilton (charComb cayley_hamilton)
+open E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc (mul_assoc)
+open E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence (pow trace_recurrence)
 open E213.Meta.Int213.Order
 open E213.Meta.Int213 (zero_add add_comm zero_mul mul_one mul_eq_zero mul_nonneg)
 open E213.Meta.Int213.PolyIntM (one_mulZ mul_zeroZ)
@@ -611,4 +611,4 @@ theorem crystallographic_spectrum :
    ⟨by decide, by decide, by decide⟩,
    fun M hdet h => no_order_five M hdet h⟩
 
-end E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FiniteOrderSpectrum

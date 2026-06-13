@@ -54,10 +54,10 @@ the fold that turns ℕ⁺ into ℤ.
 All theorems ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.HolonomyLattice
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice
 
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
-open E213.Lib.Math.NumberSystems.Real213.Mat2Assoc (mul_assoc)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc (mul_assoc)
 open E213.Meta.Int213.Order
 
 /-! ## §1 — coefficient collapses + `Mat2` identity laws (the monoid units)
@@ -318,4 +318,4 @@ theorem first_loop_is_the_fold :
     ∧ holonomy [L, R] ≠ Mat2.I := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.NumberSystems.Real213.HolonomyLattice
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice

@@ -24,9 +24,9 @@ the central value `2` — the same `tr² − 4` discriminant that runs the order
 face.  φ lives on the boost; π lives on the rotation taken to an irrational angle.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.HyperbolicBoost
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicBoost
 
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 mul I2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 mul I2)
 
 /-- The golden iterator `G = [[2,1],[1,1]]` — φ's Möbius map, `det = 1`, hyperbolic. -/
 def G : Mat2 := ⟨2, 1, 1, 1⟩
@@ -69,4 +69,4 @@ theorem two_reflections_compose_to_golden_boost :
     ∧ (G.a * G.d - G.b * G.c = 1 ∧ G.a + G.d = 3 ∧ (G.a + G.d) * (G.a + G.d) - 4 = 5) := by
   refine ⟨⟨?_, ?_⟩, ⟨?_, ?_⟩, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.NumberSystems.Real213.HyperbolicBoost
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicBoost

@@ -19,9 +19,9 @@ because the central `−I` (the Cassini sign) acts trivially on the projective l
 order-reduction the fold fixture sees.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.EllipticCycleFixtures
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticCycleFixtures
 
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 mul I2 negI2 S U)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 mul I2 negI2 S U)
 
 /-- The order-3 fixture `{∞, 0, −1}` — the support of `U`'s Möbius 3-cycle `z ↦ −1/(z+1)`. -/
 inductive T3 where
@@ -71,4 +71,4 @@ theorem elliptic_generators_are_two_and_three :
     ∧ (∀ x, uCyc (uCyc x) ≠ x) :=
   ⟨by decide, by decide, uCyc_cube, uCyc_no_fixed, uCyc_sq_no_fixed⟩
 
-end E213.Lib.Math.NumberSystems.Real213.EllipticCycleFixtures
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticCycleFixtures

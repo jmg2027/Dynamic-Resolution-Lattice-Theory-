@@ -39,11 +39,12 @@ denominator axis a Liouville number is no worse than e.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.LiouvilleModulus
+open E213.Lib.Math.NumberSystems.Real213.CrossDet
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake
   (CrossDetSmall crossdet_small_total_modulus two_pow_ge_succ)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut)
 open E213.Lib.Math.Analysis.Cauchy.DepthLiouvilleCoord (fact fact_pos fact_succ ratioLift_fact)
 open E213.Lib.Math.Analysis.Cauchy.DepthTower (ratioLift)
 open E213.Tactic.NatHelper (mul_assoc add_mul add_sub_of_le)
@@ -195,4 +196,4 @@ theorem liouville_W_eq_denom_coordinate (c : Nat) :
     ∧ (∀ n, ratioLift fact n = n + 1) :=
   ⟨liou_cross_det c, liouDen_closed c, ratioLift_fact⟩
 
-end E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
+end E213.Lib.Math.NumberSystems.Real213.Modulus.LiouvilleModulus

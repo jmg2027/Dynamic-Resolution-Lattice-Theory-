@@ -17,13 +17,13 @@ of `cutSum`s with the integral over `t` at the tail.
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.CutIntegralLinearity
+namespace E213.Lib.Math.NumberSystems.Real213.Calculus.CutIntegralLinearity
 
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
-open E213.Lib.Math.NumberSystems.Real213.CutIntegral (cutIntegralOver)
+open E213.Lib.Math.NumberSystems.Real213.Calculus.CutIntegral (cutIntegralOver)
 open E213.Lib.Math.Analysis.Measure.MeasurableSet
   (DyadicMeasurableSet emptySet singleton union)
 
@@ -124,4 +124,4 @@ theorem cut_integral_linearity_capstone
   · intros; rfl
   · intros; rfl
 
-end E213.Lib.Math.NumberSystems.Real213.CutIntegralLinearity
+end E213.Lib.Math.NumberSystems.Real213.Calculus.CutIntegralLinearity

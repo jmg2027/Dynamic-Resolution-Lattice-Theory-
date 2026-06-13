@@ -28,12 +28,12 @@ read at the scale of divergence-complexity.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.HeightTowerResidue
+namespace E213.Lib.Math.NumberSystems.Real213.Completability.HeightTowerResidue
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall)
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake (CrossDetSmall)
 open E213.Lib.Math.Analysis.Cauchy.DepthOmegaTower (expTower)
 open E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue (diag diag_not_in_seq ceiling_reference_leaves_residue)
-open E213.Lib.Math.NumberSystems.Real213.CompletabilityGrade (height_is_omega_coordinate)
+open E213.Lib.Math.NumberSystems.Real213.Completability.CompletabilityGrade (height_is_omega_coordinate)
 
 /-- ★★ **The height tower has no top.**  The diagonal of the exponential height tower,
     `diag (expTower q) n = expTower q n n + 1`, is not any level `expTower q r` — naming
@@ -56,4 +56,4 @@ theorem height_tower_residue (q : Nat) (hq : 2 ≤ q) :
   ⟨height_is_omega_coordinate q hq, diag_not_in_seq (expTower q),
    ceiling_reference_leaves_residue⟩
 
-end E213.Lib.Math.NumberSystems.Real213.HeightTowerResidue
+end E213.Lib.Math.NumberSystems.Real213.Completability.HeightTowerResidue

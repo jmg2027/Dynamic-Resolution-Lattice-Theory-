@@ -45,10 +45,10 @@ fails for general cuts).
 All declarations PURE (∅-axiom).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+namespace E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv (Pstep Pseq seedZero seedInf mobiusEq)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv (Pstep Pseq seedZero seedInf mobiusEq)
 open E213.Tactic.NatHelper (add_swap_two_mul)
 
 /-! ## §1 — SternBrocotReachable inductive predicate -/
@@ -345,4 +345,4 @@ theorem cutEq_iff_sternBrocotEq_and_zero (cx cy : Nat → Nat → Bool) :
   ⟨fun h => ⟨sternBrocotEq_of_cutEq cx cy h, h 0 0⟩,
    fun ⟨hSB, h00⟩ => cutEq_of_sternBrocotEq cx cy hSB h00⟩
 
-end E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+end E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot

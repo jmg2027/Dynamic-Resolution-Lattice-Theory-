@@ -22,9 +22,9 @@ Cayley–Hamilton, not the trichotomy, is the primitive: the trichotomy is the s
 discriminant.  Proved generally (`ring_intZ`), not per matrix.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.Mat2CayleyHamilton
+namespace E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2CayleyHamilton
 
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace (Mat2)
 
 /-- The characteristic combination `tr(M) · M − det(M) · I`, written out (the off-diagonal entries of
     `det · I` are `0`, so only the diagonal carries the `det` term). -/
@@ -59,4 +59,4 @@ theorem dial_is_char_discriminant (m : Mat2) :
     ∧ Mat2.disc m = Mat2.tr m * Mat2.tr m - 4 * Mat2.det m :=
   ⟨cayley_hamilton m, char_poly_discriminant m⟩
 
-end E213.Lib.Math.NumberSystems.Real213.Mat2CayleyHamilton
+end E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2CayleyHamilton

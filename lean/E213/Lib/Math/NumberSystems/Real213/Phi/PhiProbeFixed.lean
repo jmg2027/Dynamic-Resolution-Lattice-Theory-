@@ -31,10 +31,10 @@ through one **subtraction-free master invariant**
 All ∅-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PhiProbeFixed
+namespace E213.Lib.Math.NumberSystems.Real213.Phi.PhiProbeFixed
 
-open E213.Lib.Math.NumberSystems.Real213.PhiAsCut (phiCut)
-open E213.Lib.Math.NumberSystems.Real213.MobiusProbeTwist (cutThroughP)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut (phiCut)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.MobiusProbeTwist (cutThroughP)
 open E213.Meta.Nat.PureNat (add_mul mul_assoc)
 
 /-! ## §1 — square expansions (PURE 2-variable algebra) -/
@@ -221,4 +221,4 @@ theorem phi_is_probe_twist_fixed (m k : Nat) :
     cutThroughP phiCut m k = phiCut m k := by
   rw [ctp_eq_master, phiCut_eq_master]
 
-end E213.Lib.Math.NumberSystems.Real213.PhiProbeFixed
+end E213.Lib.Math.NumberSystems.Real213.Phi.PhiProbeFixed

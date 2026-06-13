@@ -28,12 +28,12 @@ left open.)
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ScalingOrbit
+namespace E213.Lib.Math.NumberSystems.Real213.Spiral.ScalingOrbit
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake (CrossDetSmall)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut)
 open E213.Lib.Math.NumberSystems.Real213.PresentationDependence (rcut_rescale)
-open E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability (crossDetSmall_rescale_antitone)
+open E213.Lib.Math.NumberSystems.Real213.Completability.IntensionalCompletability (crossDetSmall_rescale_antitone)
 open E213.Tactic.NatHelper (mul_assoc)
 
 /-! ## §1 — the rescaling action -/
@@ -112,4 +112,4 @@ theorem scaling_orbit_structure :
    fun c hc a d i m k => scaleBy_preserves_cut c hc a d i m k,
    fun W d c hc h => orbit_free_implies_base_free W d c hc h⟩
 
-end E213.Lib.Math.NumberSystems.Real213.ScalingOrbit
+end E213.Lib.Math.NumberSystems.Real213.Spiral.ScalingOrbit

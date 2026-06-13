@@ -12,12 +12,12 @@ periods `4` and `6` — the orders `|ℤ[i]^×| = 4` and `|ℤ[ω]^×| = 6`, the
 axis — both bounded (`disc < 0`), against the hyperbolic unbounded growth (`GoldenAperiodic`).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.UTracePeriodic
+namespace E213.Lib.Math.NumberSystems.Real213.ModularGeometry.UTracePeriodic
 
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace.Mat2 (tr det U S)
-open E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence (pow trace_recurrence)
-open E213.Lib.Math.NumberSystems.Real213.EllipticTracePeriodic (S_trace_period4)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace.Mat2 (tr det U S)
+open E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence (pow trace_recurrence)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticTracePeriodic (S_trace_period4)
 open E213.Meta.Int213.PolyIntM (one_mulZ)
 
 /-- `− − x = x` (constructor-matched, ∅-axiom). -/
@@ -63,4 +63,4 @@ theorem elliptic_orders_four_and_six :
     ∧ (∀ n, Mat2.tr (pow U (n + 6)) = Mat2.tr (pow U n)) :=
   ⟨S_trace_period4, U_trace_period6⟩
 
-end E213.Lib.Math.NumberSystems.Real213.UTracePeriodic
+end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.UTracePeriodic

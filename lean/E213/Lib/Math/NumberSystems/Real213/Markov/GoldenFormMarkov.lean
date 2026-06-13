@@ -23,7 +23,8 @@ the approximation spectrum, read off the spiral invariant.  (The Markov-value fo
 `inf|Q| = 1`.)
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov
+namespace E213.Lib.Math.NumberSystems.Real213.Markov.GoldenFormMarkov
+open E213.Lib.Math.NumberSystems.Real213.Phi
 
 /-! ## §0 — pure square-monotonicity (core `Nat.mul_lt_mul_right` is an `Iff` that leaks
 `propext`/`Classical.choice`/`Quot.sound`) -/
@@ -132,7 +133,7 @@ open E213.Lib.Math.Algebra.Mobius213.Px.FibonacciAtomicLock (fib)
 theorem golden_min_attained_on_fib (n : Nat) :
     fib (2 * n + 2) * fib (2 * n + 2) + 1
     = fib (2 * n + 2) * fib (2 * n + 1) + fib (2 * n + 1) * fib (2 * n + 1) :=
-  E213.Lib.Math.NumberSystems.Real213.FibCassiniNat.fib_cassini_norm n
+  E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat.fib_cassini_norm n
 
 /-! ## §3 — the second Markov value `√8`: the `√2` form `x² − 2y²` (disc 8) -/
 
@@ -160,4 +161,4 @@ theorem silver_second_markov_form :
     ∧ (1 : Nat) * 1 = 2 * (0 * 0) + 1 :=
   ⟨silver_anisotropic, by decide⟩
 
-end E213.Lib.Math.NumberSystems.Real213.GoldenFormMarkov
+end E213.Lib.Math.NumberSystems.Real213.Markov.GoldenFormMarkov

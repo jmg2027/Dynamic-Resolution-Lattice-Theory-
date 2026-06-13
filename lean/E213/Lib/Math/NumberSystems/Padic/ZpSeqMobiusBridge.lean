@@ -38,7 +38,7 @@ namespace E213.Lib.Math.NumberSystems.Padic.ZpSeqMobiusBridge
 
 open E213.Lib.Math.NumberSystems.Padic (ZpSeq ZpDigit)
 open E213.Lib.Math.NumberSystems.Padic.SetoidFramework (ZpSeqEquiv)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
   (SternBrocotReachable reachable_of_pos reachable_succ_zero
    reachable_zero_succ)
 

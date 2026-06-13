@@ -23,13 +23,13 @@ grade.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.RefinedCompletabilityEngine
+namespace E213.Lib.Math.NumberSystems.Real213.Completability.RefinedCompletabilityEngine
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake (CrossDetSmall)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut)
 open E213.Lib.Math.Analysis.Cauchy.DepthOmegaTower (expTower)
-open E213.Lib.Math.NumberSystems.Real213.CompletabilityGrade (completability_grade height_is_omega_coordinate)
-open E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability (completability_is_intensional)
+open E213.Lib.Math.NumberSystems.Real213.Completability.CompletabilityGrade (completability_grade height_is_omega_coordinate)
+open E213.Lib.Math.NumberSystems.Real213.Completability.IntensionalCompletability (completability_is_intensional)
 
 /-- ★★★ **The refined real completability engine.**  Four facts, one engine:
 
@@ -67,4 +67,4 @@ theorem refined_completability_engine :
    completability_is_intensional.1,
    completability_is_intensional.2⟩
 
-end E213.Lib.Math.NumberSystems.Real213.RefinedCompletabilityEngine
+end E213.Lib.Math.NumberSystems.Real213.Completability.RefinedCompletabilityEngine

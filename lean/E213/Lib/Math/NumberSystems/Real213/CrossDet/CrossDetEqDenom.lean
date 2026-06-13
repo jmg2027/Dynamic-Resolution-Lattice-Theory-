@@ -30,10 +30,11 @@ collapsing (`i(i+1)+i = i(i+2)`) to the growth condition.
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.CrossDetEqDenom
+namespace E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetEqDenom
+open E213.Lib.Math.NumberSystems.Real213.Modulus
 
-open E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake (CrossDetSmall crossdet_small_total_modulus)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (rcut)
+open E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake (CrossDetSmall crossdet_small_total_modulus)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (rcut)
 open E213.Meta.Nat.PolyNat (poly_id)
 open E213.Tactic.NatHelper (add_mul mul_assoc)
 
@@ -90,7 +91,7 @@ theorem euler_total_modulus_via_eq_denom (m k : Nat) (hk : 1 ≤ k) :
 
 /-! ## the Liouville constant is a one-line instance -/
 
-open E213.Lib.Math.NumberSystems.Real213.LiouvilleModulus
+open E213.Lib.Math.NumberSystems.Real213.Modulus.LiouvilleModulus
   (liouNum liouDen g liou_hd liou_cross_det liou_hmono liou_hmonoS succ_le_g)
 
 /-- The Liouville constant's total modulus, through `crossdet_eq_denom_total_modulus`:
@@ -118,4 +119,4 @@ theorem liouville_total_modulus_via_eq_denom (c : Nat) (hc : 2 ≤ c) (m k : Nat
         _ = (i + 1) * (g c i * liouDen c i) := by rw [mul_assoc])
     (liou_hmono c hc1) (liou_hmonoS c hc1) m k hk
 
-end E213.Lib.Math.NumberSystems.Real213.CrossDetEqDenom
+end E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetEqDenom

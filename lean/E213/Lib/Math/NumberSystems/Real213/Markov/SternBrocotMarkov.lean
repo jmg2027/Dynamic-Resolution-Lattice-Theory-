@@ -25,9 +25,11 @@ pair) are the Layer-1 foundation; the Markov/residue functions + Frobenius ident
 (Zhang Lemma 2 = `SamePairInjective`) build on top.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+namespace E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry
+open E213.Lib.Math.NumberSystems.Real213.Mobius
 
-open E213.Lib.Math.NumberSystems.Real213.MarkovInjectivity (farey_mediant_coprime)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovInjectivity (farey_mediant_coprime)
 open E213.Tactic.NatHelper (gcd213)
 
 /-- A Farey interval `((p,q),(r,s))` is *adjacent* when `q·r = p·s + 1` — the Stern-Brocot det-1
@@ -92,7 +94,7 @@ residue `u_t` along the tree is the **Markoff matrix** `M_t ∈ SL₂(ℤ)`, mul
 determinant identities (the engine of monotonicity / `SamePairInjective`) then become a one-multiply
 entry read-off using `det = 1`.  The backbone is **determinant multiplicativity**: -/
 
-open E213.Lib.Math.NumberSystems.Real213.ModularElliptic (Mat2 mul I2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 mul I2)
 
 /-- The `2×2` determinant on `Mat2`. -/
 def det2 (M : Mat2) : Int := M.a * M.d - M.b * M.c
@@ -818,7 +820,7 @@ theorem markov_window (path : List Bool) :
   matched to the `jump` constructor after reordering by `swap`s.  Bridges ℤ→ℕ via `Int.toNat` (entries
   are positive, `mInterval_pos`). -/
 
-open E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness (MarkovReachable)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness (MarkovReachable)
 
 private theorem toNat_of_nonneg : ∀ {a : Int}, 0 ≤ a → Int.ofNat a.toNat = a
   | .ofNat _, _ => rfl
@@ -899,9 +901,9 @@ theorem mInterval_reachable (path : List Bool) :
     `MarkovUniqueness.markov_reachable_coprime` via the forward bridge `mInterval_reachable`.  A
     demonstration that the matrix-tree nodes pick up the full reachable-triple theory. -/
 theorem mNode_triple_coprime (path : List Bool) :
-    E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovPairwiseCoprime
+    E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovPairwiseCoprime
       (mInterval path).1.c.toNat (mInterval path).2.c.toNat (mNode path).c.toNat :=
-  E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_reachable_coprime (mInterval_reachable path)
+  E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_reachable_coprime (mInterval_reachable path)
 
 /-! ## §11 — global slope injectivity (the genuine crux for `SamePairInjective`)
 
@@ -1214,8 +1216,8 @@ theorem descent_step {a b c c' : Nat} (hcc : c' + c = 3 * a * b)
     have hcd : c = d := E213.Tactic.NatHelper.add_left_cancel_pure (hcc.trans hjd.symm)
     exact Or.inr (by rw [hcd]; exact hd)
 
-open E213.Lib.Math.NumberSystems.Real213.MarkovTree (markovEq markov_symm)
-open E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree (markovEq markov_symm)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness
   (markov_le_3mul markov_mid_lt_max markov_partner_is_triple markov_vieta_partner_le
    markovEq_perm_cab markov_max_unique_5 markov_neighbor_eq)
 
@@ -1293,8 +1295,8 @@ theorem reverse_bridge (a b c : Nat) (h : markovEq a b c) (ha : 1 ≤ a) (hab : 
   `√(−1)` mod `c` (`markov_window` + `markovNum_dvd_res_sq_succ`, converted ℤ→ℕ); `root_unique`
   collapses them to one value ⟹ same slope ⟹ (`slope_path_inj`) same node ⟹ same triple. -/
 
-open E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness (MarkovMaxUnique SqrtNegOneTwoRoots)
-open E213.Lib.Math.NumberSystems.Real213.MarkovInjectivity (root_unique_below_half)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness (MarkovMaxUnique SqrtNegOneTwoRoots)
+open E213.Lib.Math.NumberSystems.Real213.Markov.MarkovInjectivity (root_unique_below_half)
 
 /-- For nonneg `x < y` (ℤ), `x.toNat < y.toNat`.  Via `y = (x+1) + (y−(x+1))` and `toNat_add`. -/
 private theorem int_toNat_lt {x y : Int} (hx : 0 ≤ x) (h : x < y) : x.toNat < y.toNat := by
@@ -1364,8 +1366,8 @@ theorem markov_max_unique_tree (c : Nat) (hc5 : 5 ≤ c) (h2 : SqrtNegOneTwoRoot
     MarkovMaxUnique c := by
   intro a₁ b₁ a₂ b₂ hab1 hb1c hab2 hb2c hm1 hm2
   have hc2 : 2 ≤ c := Nat.le_trans (by decide) hc5
-  have ha1 : 1 ≤ a₁ := E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_a_pos hc2 hm1
-  have ha2 : 1 ≤ a₂ := E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_a_pos hc2 hm2
+  have ha1 : 1 ≤ a₁ := E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_a_pos hc2 hm1
+  have ha2 : 1 ≤ a₂ := E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_a_pos hc2 hm2
   obtain ⟨p1, hc1, hpair1⟩ := node_data (reverse_bridge a₁ b₁ c hm1 ha1 hab1 hb1c hc5)
   obtain ⟨p2, hc2', hpair2⟩ := node_data (reverse_bridge a₂ b₂ c hm2 ha2 hab2 hb2c hc5)
   obtain ⟨hlo1, hhi1, hmod1⟩ := node_window_nat p1
@@ -1405,7 +1407,7 @@ theorem markov_prime_pow_unique (p k : Nat) (hp3 : 3 ≤ p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h5 : 5 ≤ p ^ (k + 1)) :
     MarkovMaxUnique (p ^ (k + 1)) :=
   markov_max_unique_tree (p ^ (k + 1)) h5
-    (E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.sqrtNegOneTwoRoots_prime_pow p k hp3 hpr)
+    (E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.sqrtNegOneTwoRoots_prime_pow p k hp3 hpr)
 
 /-- ★★★★★ **Markov uniqueness on the even `2·pᵏ` family (∅-axiom).**  For an odd prime `p` and
     `5 ≤ 2·p^(k+1)`, the ordered Markov triple with maximum `2·p^(k+1)` is unique.  Extends Button's
@@ -1416,7 +1418,7 @@ theorem markov_two_prime_pow_unique (p k : Nat) (hp3 : 3 ≤ p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h5 : 5 ≤ 2 * p ^ (k + 1)) :
     MarkovMaxUnique (2 * p ^ (k + 1)) :=
   markov_max_unique_tree (2 * p ^ (k + 1)) h5
-    (E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.sqrtNegOneTwoRoots_two_prime_pow p k hp3 hpr)
+    (E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.sqrtNegOneTwoRoots_two_prime_pow p k hp3 hpr)
 
 /-- `MarkovMaxUnique 34` — the smallest **even** Markov number (`34 = 2·17`), the first instance of the
     `2·pᵏ` family. -/
@@ -1584,7 +1586,7 @@ theorem node_realized (p : List Bool) :
   refine ⟨(mInterval p).1.c.toNat,
     int_toNat_lt (nonneg_of_one_le (mInterval_pos p).1.2.2.1) (mNode_max p).1, ?_⟩
   rw [node_recovery_nat p]
-  have ht := E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_reachable_is_triple (mInterval_reachable p)
+  have ht := E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_reachable_is_triple (mInterval_reachable p)
   show (mInterval p).2.c.toNat * (mInterval p).2.c.toNat
        + (mInterval p).1.c.toNat * (mInterval p).1.c.toNat
        + (mNode p).c.toNat * (mNode p).c.toNat
@@ -1617,8 +1619,8 @@ theorem markov_max_unique_of_window_realized_unique
     (c : Nat) (hc5 : 5 ≤ c) (h : WindowRealizedUnique c) : MarkovMaxUnique c := by
   intro a₁ b₁ a₂ b₂ hab1 hb1c hab2 hb2c hm1 hm2
   have hc2 : 2 ≤ c := Nat.le_trans (by decide) hc5
-  have ha1 : 1 ≤ a₁ := E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_a_pos hc2 hm1
-  have ha2 : 1 ≤ a₂ := E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_a_pos hc2 hm2
+  have ha1 : 1 ≤ a₁ := E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_a_pos hc2 hm1
+  have ha2 : 1 ≤ a₂ := E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_a_pos hc2 hm2
   obtain ⟨p1, hcp1, hpair1⟩ := node_data (reverse_bridge a₁ b₁ c hm1 ha1 hab1 hb1c hc5)
   obtain ⟨p2, hcp2, hpair2⟩ := node_data (reverse_bridge a₂ b₂ c hm2 ha2 hab2 hb2c hc5)
   obtain ⟨hlo1, hhi1, hmod1⟩ := node_window_nat p1
@@ -1683,21 +1685,21 @@ theorem window_realized_unique_of_one_phantom (c P Q : Nat)
 set_option maxRecDepth 400000 in
 /-- `MarkovMaxUnique 65` (= 5·13, `SqrtNegOneTwoRoots` **false**, non-Markov): windowed `{8,18}`. -/
 theorem markov_max_unique_65 :
-    E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique 65 :=
+    E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique 65 :=
   markov_max_unique_of_window_realized_unique 65 (by decide)
     (window_realized_unique_of_one_phantom 65 8 18 (by decide) (by decide))
 
 set_option maxRecDepth 400000 in
 /-- ★★★★★ **`MarkovMaxUnique 610`** (= 2·5·61 = F₁₅): windowed `{133,233}`, `233` realized `(1,233,610)`. -/
 theorem markov_max_unique_610 :
-    E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique 610 :=
+    E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique 610 :=
   markov_max_unique_of_window_realized_unique 610 (by decide)
     (window_realized_unique_of_one_phantom 610 133 233 (by decide) (by decide))
 
 set_option maxRecDepth 400000 in
 /-- ★★★★★ **`MarkovMaxUnique 985`** (= 5·197): windowed `{183,408}`, `408` realized. -/
 theorem markov_max_unique_985 :
-    E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique 985 :=
+    E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique 985 :=
   markov_max_unique_of_window_realized_unique 985 (by decide)
     (window_realized_unique_of_one_phantom 985 183 408 (by decide) (by decide))
 
@@ -1705,7 +1707,7 @@ set_option maxRecDepth 400000 in
 /-- ★★★★★ **`MarkovMaxUnique 1325`** (= 5²·53), first composite Markov number with the `2^ω=4` root
     explosion: windowed `{182,507}`, `507` realized `(13,34,1325)`, `182` phantom. -/
 theorem markov_max_unique_1325 :
-    E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique 1325 :=
+    E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique 1325 :=
   markov_max_unique_of_window_realized_unique 1325 (by decide)
     (window_realized_unique_of_one_phantom 1325 182 507 (by decide) (by decide))
 
@@ -1747,7 +1749,7 @@ theorem window_excludes_partner (c r : Nat) (hrw : 2 * r < c) : c < 2 * (c - r) 
 theorem window_fold_transversal (c r : Nat) (hrc : r < c)
     (hroot : (r * r + 1) % c = 0) (hrw : 2 * r < c) :
     ((c - r) * (c - r) + 1) % c = 0 ∧ ¬ (2 * (c - r) < c) :=
-  ⟨E213.Lib.Math.NumberSystems.Real213.MarkovInjectivity.neg_root_is_root c r (Nat.le_of_lt hrc) hroot,
+  ⟨E213.Lib.Math.NumberSystems.Real213.Markov.MarkovInjectivity.neg_root_is_root c r (Nat.le_of_lt hrc) hroot,
    fun hcon => Nat.lt_irrefl c (Nat.lt_trans (window_excludes_partner c r hrw) hcon)⟩
 
 /-! ## §21 — the next fold: the `√(−1)` root set is a torsor under the unit-root group, and §20's
@@ -2166,7 +2168,7 @@ set_option maxRecDepth 400000 in
     (§24, free action), contradicting `e ∉ {1, c−1}`.  So the full §20–§26 tower closes a real
     `ω = 2` composite the structural way (not only via the `decide`-wall reducer §19). -/
 theorem markov_max_unique_1325_via_orbit :
-    E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique 1325 := by
+    E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique 1325 := by
   apply markov_max_unique_of_orbit 1325 (by decide)
   intro u₁ u₂ e _hu1pos hu1lt hu1w hr1 hu2lt hu2w hr2 he1 _hec he_eq hreal1 hreal2
   have hroots : ∀ u, u < 1325 → (u * u + 1) % 1325 = 0 → 2 * u < 1325 → u = 182 ∨ u = 507 := by
@@ -2188,7 +2190,7 @@ set_option maxRecDepth 400000 in
     `root_orbit_inj` (§24 free action), not by `decide`.  A new ∅-axiom verified composite at the next
     `ω = 2` Markov number, extending the structural-tower closure beyond `1325`. -/
 theorem markov_max_unique_985_via_orbit :
-    E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique 985 := by
+    E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique 985 := by
   apply markov_max_unique_of_orbit 985 (by decide)
   intro u₁ u₂ e _hu1pos hu1lt hu1w hr1 hu2lt hu2w hr2 he1 _hec he_eq hreal1 hreal2
   have hroots : ∀ u, u < 985 → (u * u + 1) % 985 = 0 → 2 * u < 985 → u = 183 ∨ u = 408 := by
@@ -2259,7 +2261,7 @@ private theorem markovEq_swap12 (x y z : Nat) (h : markovEq x y z) : markovEq y 
     residue map `triple ↦ windowed root` is injective on realised roots (cancel the unit middle
     entry), so uniqueness of triples gives uniqueness of realised windowed roots. -/
 theorem markovMaxUnique_to_windowRealizedUnique (c : Nat) (hc5 : 5 ≤ c)
-    (hmu : E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique c) : WindowRealizedUnique c := by
+    (hmu : E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique c) : WindowRealizedUnique c := by
   intro u₁ u₂ h1 h2 hw1 hw2 hr1 hr2 hreal1 hreal2
   obtain ⟨b₁, hb1, hmk1⟩ := hreal1
   obtain ⟨b₂, hb2, hmk2⟩ := hreal2
@@ -2271,11 +2273,11 @@ theorem markovMaxUnique_to_windowRealizedUnique (c : Nat) (hc5 : 5 ≤ c)
   -- coprimality of the divisors b₁, b₂ (whatever the orientation)
   have hb1c : gcd213 b₁ c = 1 := by
     rcases Nat.le_total ((u₁ * b₁) % c) b₁ with h | h
-    · exact (E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_ordered_coprime _ b₁ c hmk1
-        (E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_a_pos hc2 hmk1) h (Nat.le_of_lt hb1)).2.2
-    · exact (E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_ordered_coprime b₁ _ c
+    · exact (E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_ordered_coprime _ b₁ c hmk1
+        (E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_a_pos hc2 hmk1) h (Nat.le_of_lt hb1)).2.2
+    · exact (E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_ordered_coprime b₁ _ c
         (markovEq_swap12 _ _ _ hmk1)
-        (E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_a_pos hc2 (markovEq_swap12 _ _ _ hmk1)) h
+        (E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_a_pos hc2 (markovEq_swap12 _ _ _ hmk1)) h
         (Nat.le_of_lt ha1lt)).2.1
   -- MarkovMaxUnique forces the unordered pair {a₁,b₁} = {a₂,b₂}
   have pairEq : ((u₁ * b₁) % c = (u₂ * b₂) % c ∧ b₁ = b₂)
@@ -2327,7 +2329,7 @@ theorem markovMaxUnique_to_windowRealizedUnique (c : Nat) (hc5 : 5 ≤ c)
     the realisability hypothesis `H` is therefore exactly the Frobenius conjecture at `c`, named in the
     repo's orbit language. -/
 theorem markovMaxUnique_iff_windowRealizedUnique (c : Nat) (hc5 : 5 ≤ c) :
-    E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique c ↔ WindowRealizedUnique c :=
+    E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique c ↔ WindowRealizedUnique c :=
   ⟨markovMaxUnique_to_windowRealizedUnique c hc5,
    markov_max_unique_of_window_realized_unique c hc5⟩
 
@@ -2373,7 +2375,7 @@ theorem windowRealizedUnique_iff_orbitRealizabilityH (c : Nat) (hc5 : 5 ≤ c) :
     `c` is *equivalent* to the orbit-realizability hypothesis — `H` is exactly the Frobenius conjecture
     at `c`, with root-count, group structure, free action, and recovery all stripped off ∅-axiom. -/
 theorem markovMaxUnique_iff_orbitRealizabilityH (c : Nat) (hc5 : 5 ≤ c) :
-    E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique c ↔ OrbitRealizabilityH c :=
+    E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique c ↔ OrbitRealizabilityH c :=
   (markovMaxUnique_iff_windowRealizedUnique c hc5).trans
     (windowRealizedUnique_iff_orbitRealizabilityH c hc5)
 
@@ -2484,11 +2486,11 @@ identification is now literal: `markovMaxUnique_iff_markovNum_injective`.) -/
     `MarkovMaxUnique c` (`c ≥ 5`) holds: two ordered triples at `c` are nodes (`reverse_bridge`) of equal
     `markovNum`, which injectivity collapses to one path and hence one triple. -/
 theorem markov_max_unique_of_markovNum_injective (hinj : Function.Injective markovNum)
-    (c : Nat) (hc5 : 5 ≤ c) : E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique c := by
+    (c : Nat) (hc5 : 5 ≤ c) : E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique c := by
   intro a₁ b₁ a₂ b₂ hab1 hb1c hab2 hb2c hm1 hm2
   have hc2 : 2 ≤ c := Nat.le_trans (by decide) hc5
-  have ha1 : 1 ≤ a₁ := E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_a_pos hc2 hm1
-  have ha2 : 1 ≤ a₂ := E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.markov_a_pos hc2 hm2
+  have ha1 : 1 ≤ a₁ := E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_a_pos hc2 hm1
+  have ha2 : 1 ≤ a₂ := E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.markov_a_pos hc2 hm2
   obtain ⟨p1, hc1, hpair1⟩ := node_data (reverse_bridge a₁ b₁ c hm1 ha1 hab1 hb1c hc5)
   obtain ⟨p2, hc2', hpair2⟩ := node_data (reverse_bridge a₂ b₂ c hm2 ha2 hab2 hb2c hc5)
   have hcc : (mNode p1).c = (mNode p2).c := by
@@ -2534,7 +2536,7 @@ theorem mNode_ge_5 (p : List Bool) : (5 : Int) ≤ (mNode p).c := by
     equal Markov number `c` have, via `WindowRealizedUnique` (`markovMaxUnique_to_windowRealizedUnique`),
     the same windowed residue `markovRes`, hence the same slope, hence (`slope_path_inj`) the same path. -/
 theorem markovNum_injective_of_markovMaxUnique
-    (hmu : ∀ c : Nat, 5 ≤ c → E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique c) :
+    (hmu : ∀ c : Nat, 5 ≤ c → E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique c) :
     Function.Injective markovNum := by
   intro p1 p2 hpq
   have hcZ : (mNode p1).c = (mNode p2).c := hpq
@@ -2569,7 +2571,7 @@ theorem markovNum_injective_of_markovMaxUnique
     not a proof of either. -/
 theorem markovMaxUnique_iff_markovNum_injective :
     Function.Injective markovNum
-      ↔ ∀ c : Nat, 5 ≤ c → E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness.MarkovMaxUnique c :=
+      ↔ ∀ c : Nat, 5 ≤ c → E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness.MarkovMaxUnique c :=
   ⟨fun hinj c hc5 => markov_max_unique_of_markovNum_injective hinj c hc5,
    markovNum_injective_of_markovMaxUnique⟩
 
@@ -2794,4 +2796,4 @@ theorem markovNum_subtree_size_interleaves :
     markovNum [true] < markovNum [false] ∧ markovNum [false] < markovNum [true, true] := by
   refine ⟨?_, ?_⟩ <;> decide
 
-end E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+end E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov

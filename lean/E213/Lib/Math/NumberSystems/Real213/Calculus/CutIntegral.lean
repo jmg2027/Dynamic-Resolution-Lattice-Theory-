@@ -29,7 +29,7 @@ dyadic brackets).
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.CutIntegral
+namespace E213.Lib.Math.NumberSystems.Real213.Calculus.CutIntegral
 
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
@@ -128,4 +128,4 @@ theorem cut_integral_capstone
         = cutSum (riemannSampleSum f brkt n) (cutIntegralOver f T n)) := by
   refine ⟨rfl, ?_, ?_⟩ <;> intros <;> rfl
 
-end E213.Lib.Math.NumberSystems.Real213.CutIntegral
+end E213.Lib.Math.NumberSystems.Real213.Calculus.CutIntegral

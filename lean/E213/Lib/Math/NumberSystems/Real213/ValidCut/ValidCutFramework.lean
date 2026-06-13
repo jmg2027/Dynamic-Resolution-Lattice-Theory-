@@ -34,7 +34,7 @@ needs proof.
 All declarations PURE.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.ValidCutFramework
+namespace E213.Lib.Math.NumberSystems.Real213.ValidCut.ValidCutFramework
 
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
@@ -167,4 +167,4 @@ theorem valid_cut_framework_capstone :
   · intros; rfl
   · exact validCutSum_int_eq
 
-end E213.Lib.Math.NumberSystems.Real213.ValidCutFramework
+end E213.Lib.Math.NumberSystems.Real213.ValidCut.ValidCutFramework

@@ -20,7 +20,7 @@ real-variable polynomial integration the period needs is already a closed theore
 `MinkowskiPeriodIntegral.sqPeriodModulus` — the modulus side and the FTC side meet on the same `z²`.)
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiHigherWeightPeriod
+namespace E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiHigherWeightPeriod
 
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
@@ -42,4 +42,4 @@ theorem higher_weight_period_integrands_integrate (m k : Nat) :
     ∧ ((integralCC cube_calc unitBracket).forward m k = (ofCut (constCut 1 1)).forward m k) :=
   ⟨integralCC_square_unit_forward_at m k, integralCC_cube_unit_forward_at m k⟩
 
-end E213.Lib.Math.NumberSystems.Real213.MinkowskiHigherWeightPeriod
+end E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiHigherWeightPeriod

@@ -19,19 +19,19 @@ the modular-form contour over `ℍ` is a frontier to build, not a purity wall (t
 rule `∫ z^{k−2} dz` itself is closed — `MinkowskiHigherWeightPeriod`).
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodIntegral
+namespace E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiPeriodIntegral
 
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 open E213.Lib.Math.NumberSystems.Real213.Bisection.CutContinuity (constCutFn)
-open E213.Lib.Math.NumberSystems.Real213.CutIntegral (cutIntegralOver)
-open E213.Lib.Math.NumberSystems.Real213.CutIntegralLinearity (cutIntegralOver_cons_append)
+open E213.Lib.Math.NumberSystems.Real213.Calculus.CutIntegral (cutIntegralOver)
+open E213.Lib.Math.NumberSystems.Real213.Calculus.CutIntegralLinearity (cutIntegralOver_cons_append)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
   (riemannSampleSum fundamental_dyadic_calculus_const no_pi_in_finite_riemann)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.Measure.MeasurableSet (DyadicMeasurableSet)
-open E213.Lib.Math.NumberSystems.Real213.DiffCutModulus
+open E213.Lib.Math.NumberSystems.Real213.Calculus.DiffCutModulus
   (DiffCutModulus idDiffCutModulus mulDiffCutModulus)
 open E213.Lib.Math.NumberSystems.Real213.Mul.CutMul (cutMul)
 
@@ -122,4 +122,4 @@ theorem period_integrand_modulus_explicit :
     ∧ (∀ k : Nat, cubePeriodModulus.inputModulus k = k + (k + k)) :=
   ⟨fun _ => rfl, fun _ => rfl⟩
 
-end E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodIntegral
+end E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiPeriodIntegral
