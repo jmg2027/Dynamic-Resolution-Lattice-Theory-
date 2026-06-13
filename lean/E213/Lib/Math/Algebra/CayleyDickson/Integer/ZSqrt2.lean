@@ -11,8 +11,7 @@ and `normSq(a + b√-2) = a² + 2 b²`.
 Together with `ZI`, `ZOmega`, and the parametric `ZSqrt D`
 family, `ℤ[√-2]` confirms that the three-tier codomain spec
 (`CommBinaryCodomain` + `NonVanishingCodomain` +
-`ConjugationCodomain` — formerly "R1–R4" in the deprecated
-R1–R5 judgment-game frame) does NOT pin the codomain to ℂ:
+`ConjugationCodomain`) does NOT pin the codomain to ℂ:
 multiple non-isomorphic countable quadratic extensions all
 satisfy it.
 -/

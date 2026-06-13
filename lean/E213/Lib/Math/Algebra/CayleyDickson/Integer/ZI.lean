@@ -6,10 +6,8 @@ typeclass (`Meta/SelfRecognising.lean`).  Defines `ZI = ℤ[i]`,
 its arithmetic, and complex conjugation.
 
 Used as a counter-example showing that `CommBinaryCodomain` +
-`NonVanishingCodomain` + `ConjugationCodomain` (formerly the
-"R1–R4" axiom set in the deprecated R1–R5 judgment-game frame)
-do **not** force the codomain to be ℂ — `ℤ[i]` already
-satisfies all three.  Sibling examples: `Z2 = ℤ[√-2]`,
+`NonVanishingCodomain` + `ConjugationCodomain` do **not** force the
+codomain to be ℂ — `ℤ[i]` already satisfies all three.  Sibling examples: `Z2 = ℤ[√-2]`,
 `ZOmega = ℤ[ω]`, parametric `ZSqrt D` family.
 
 Pure Lean 4 core; no Mathlib, no `ring`.

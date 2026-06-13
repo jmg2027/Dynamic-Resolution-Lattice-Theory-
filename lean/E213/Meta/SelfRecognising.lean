@@ -18,15 +18,9 @@ NonVanishingCodomain ← + no zero divisors
 ConjugationCodomain  ← + nontrivial swap-matching involution
 ```
 
-Historical note: prior names `R12Codomain` / `R3Codomain` /
-`R4Codomain` came from an R1–R5 judgment-game frame (now
-deprecated — see `seed/AXIOM/99_history.md` §9 "Naturalness of Lens choice
-(deprecated R1–R5 frame)" and
-). The
-*content* (commutative combine, no-zero-divisors, swap-matching
-involution) is independent of that frame and is used as a
-generic codomain spec; the typeclasses are renamed here per
-AXIOM.md §9.1 audit recommendation.
+The three typeclasses are a generic codomain spec — commutative
+combine, no zero divisors, nontrivial swap-matching involution —
+independent of any particular carrier.
 -/
 
 namespace E213.Meta.SelfRecognising

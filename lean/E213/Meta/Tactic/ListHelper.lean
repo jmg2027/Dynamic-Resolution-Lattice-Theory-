@@ -260,8 +260,8 @@ theorem sigmaList_nil {α : Type u} (f : α → Nat) :
     sigmaList ([] : List α) f = 0 := rfl
 
 /-- `sigmaList` over `range (n+1)` indexed by `r : Nat → Nat`
-    matches the bare `foldl (fun acc k => acc + r k) 0` shape that
-    `PhaseRouting.routeSum` previously inlined. -/
+    matches the bare `foldl (fun acc k => acc + r k) 0` shape used by
+    accumulator-style routing sums. -/
 theorem sigmaList_range_eq_foldl_acc (n : Nat) (r : Nat → Nat) :
     sigmaList (List.range (n+1)) r
       = (List.range (n+1)).foldl (fun acc k => acc + r k) 0 := by

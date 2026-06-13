@@ -25,8 +25,7 @@ Two number-theoretic facts frame this:
 at 6).  This file constructs `ℤ[φ]` and the `ℤ[φ]`-coordinate quaternions
 (scaled-by-2, exactly as Hurwitz over `ℤ`), and exhibits an explicit
 **order-5 icosian unit** — the executable witness of the golden /
-pentagonal branch, which the repo previously only named textually
-(`SL(2,𝔽₅) ≅ 2I`).
+pentagonal branch (`SL(2,𝔽₅) ≅ 2I`).
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Tower.TypeEIcosian

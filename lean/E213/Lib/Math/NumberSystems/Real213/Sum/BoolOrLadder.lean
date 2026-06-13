@@ -11,8 +11,8 @@ bounded-search definitions.  The associated existence iff
 
     ladder n = true ↔ ∃ i ≤ n, P i = true
 
-was previously hand-rolled per call site (~50-70 lines each, 4+ sites
-in Real213).  This template extracts the inductive proof once.
+is the recurring obligation across these bounded-search definitions;
+this template proves the inductive pattern once for all of them.
 
 Lives in `Real213/Sum/` so it's upstream of FluxMVT and downstream of
 core Nat/Bool.  Companion to `Mul/CutMulOuterReduce.lean` (FLUX-1

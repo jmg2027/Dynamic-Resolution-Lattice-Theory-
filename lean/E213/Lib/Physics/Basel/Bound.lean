@@ -86,7 +86,7 @@ theorem bracket_width_3 :
 theorem bracket_endpoints_3 :
     S 3 = (49, 36) ∧ upper 3 = (183, 108) := by decide
 
--- ═══ Tight two-sided bracket (formerly BoundTight.lean) ═══
+-- ═══ Tight two-sided bracket ═══
 
 /-- Tight lower bound: S(N) + 1/(N+1) as `(num, den)`. -/
 def lower_tight (N : Nat) : (Nat × Nat) :=

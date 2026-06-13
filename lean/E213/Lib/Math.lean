@@ -143,6 +143,5 @@ The directory tree is the spec; this file is the top-level entry.
 
 ## Status
 
-∅-axiom standard on the production critical path.  All formerly-
-deferred files now build clean .
+∅-axiom standard on the production critical path.
 -/

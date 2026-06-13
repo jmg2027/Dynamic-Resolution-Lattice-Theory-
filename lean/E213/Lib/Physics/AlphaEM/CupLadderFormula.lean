@@ -87,7 +87,7 @@ theorem omega_trace_eq_cup_ladder_k2 :
 
     The structural denominator d² = 25 is shared across every
     cohomology degree.  The α-power scales as `cohomology_degree
-    + 1` — the cup-ladder rule promoted from analogy to identity.
+    + 1` — the cup-ladder rule, a proven identity.
 
     Residual decomposition (post-cup-ladder):
       · k = 1 (H¹ Gram):   −2130 × 10⁻⁹  (precision-theorem tier)
