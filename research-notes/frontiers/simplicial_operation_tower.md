@@ -101,9 +101,14 @@ dimension-setting axis*; nothing is "lost".
       `count = side ^ dim` the value sibling — two readouts of the one `^`-rung.
       (Remaining: thread the same readout/shadow framing through `MultSystemValue`
       / the Chebyshev mirror if it recurs — deferred, not a rushed sweep.)
-  P4. Carry the `DOF = rung − 2` (layer-gap) statement as the precise spec; tie its
-      `^`-value to `hyper_parallel` (the dilation readout) and the `−1`
-      cross-determinant (L5).
+  P4. **Partial** (the `−1` cross-determinant tie is DONE; the cross-layer
+      `DOF = rung − 2` spec remains open).  The `−1` cross-determinant ↔ `^`-twist
+      link is now structural, not a rhyme (`CrossDetOvertake §6`, ∅-axiom): `W`'s
+      `|det|=1` floor = the point (`crossdet_floor_eq_point`), its `2^{2^i}` ceiling =
+      `count (hcube 2 (2^i))` (`crossW_eq_hcube_count`), so `UnitHyper.count` grades
+      the cross-determinant axis by the `^`-tower.  *Still open*: the cross-layer
+      `DOF = rung − 2` as a HyperLadder-level spec, and the `hyper_parallel` (dilation
+      readout) tie — deferred (overlaps L5's 3- vs 4-simplex question).
 
 ## L1 — The layer rule: each layer's axis = the *whole previous layer*
 
@@ -310,11 +315,15 @@ defect**:
 > - The "two operands in different dimensions" reading is the **geometric form of
 >   the scalar-vs-vector type asymmetry** that `number_tower_theory.md` R5 / the
 >   `^`-wall already locates — same wall, geometric language.
-> - "Two trajectories to one destination differ by **1 integer unit**" *rhymes
->   with* the cross-determinant invariant `num·den' − num'·den = −1`
->   (`Mobius213.mobius_213_pell_unit_invariant_forall`, `[∅]`) — the symplectic
->   defect of two convergent paths.  Flagged as a form-resonance to test, not a
->   proven bridge.
+> - "Two trajectories to one destination differ by **1 integer unit**" is no longer
+>   only a rhyme with `num·den' − num'·den = −1`
+>   (`Mobius213.mobius_213_pell_unit_invariant_forall`, `[∅]`): the cross-determinant
+>   axis `W` is **operation-tower-graded** (`CrossDetOvertake §6`, `[∅]`) — its
+>   `|det|=1` **floor** is the **point** (dimension-`0` cube, `crossdet_floor_eq_point`)
+>   and its `2^{2^i}` **ceiling** is the tetration-shaped `^`-cube
+>   (`crossW_eq_hcube_count`).  The shared `1` is the det-one floor = the unit = the
+>   `^`-tower's bottom rung; the symplectic defect's *growth* climbs the tower.  See
+>   resonance #2 below.
 > - **Open ambiguity to pin**: which "dimension" drives the twist — the *built
 >   object's* dimension (line/plane/solid) or the *operand-type-mismatch*?  The
 >   standard "dimension ↔ commutativity" phenomenon (`Eₙ` operads: more sliding-
@@ -352,11 +361,19 @@ to test*, not asserted identities.
    object the physics branch reaches via the `K_{3,2}` link — two independent roads
    to one simplex (the "Why this matters" point), the `[ax]` §6.8 no-exterior
    signature.
-2. **The `^`-twist (dilation, `+1` DOF) ↔ the `−1` cross-determinant / Pell unit.**
-   The `^`-rung adjoins one dilation degree-of-freedom (`hyper_parallel`); L5 records
-   its "1 unit of twist" rhyming with `num·den' − num'·den = −1`
-   (`Mobius213.mobius_213_pell_unit_invariant_forall`) — the symplectic defect of two
-   convergent paths.  Same "+1" in two frames.
+2. **The `^`-twist (dilation, `+1` DOF) ↔ the `−1` cross-determinant / Pell unit —
+   UPGRADED from rhyme to a structural identification (∅-axiom).**  The
+   cross-determinant axis `W` of `CrossDetOvertake` is **operation-tower-graded by
+   `UnitHyper.count`**: its **floor** `W_i = 1` (`const_crossdet_small`, the `|det|=1`
+   unit = magnitude of `mobius_213_pell_unit_invariant_forall = −1`) is the **point**,
+   the dimension-`0` cube (`CrossDetOvertake.crossdet_floor_eq_point`); its **ceiling**
+   `W_i = 2^{2^i}` (`dexp_overtakes_denom`) is `count (hcube 2 (2^i))`
+   (`crossW_eq_hcube_count`) — the `^`-object whose dimension is itself a `^`-count,
+   the tetration-shaped rung.  So the "1 unit of twist" the `^`-rung adjoins and the
+   det-one floor are the **same bottom-of-tower object** (unit = point); the
+   cross-determinant's growth to the double exponential *is* climbing the `^`-tower.
+   The completability boundary (`completability_boundary`) is the rung where `W`'s
+   tower-grade overtakes the denominator's.
 3. **Chebyshev (central binomial) ↔ ζ(3) Apéry (lcm growth) — shared floor-log/Legendre.**
    This branch's prime counting (`vp_central_binom_le_floorLog`) and the corpus's
    ζ(3) Brick 1 (`LcmGrowthChebyshev.lcmUpTo_le`) are **two consumers of one core**:
