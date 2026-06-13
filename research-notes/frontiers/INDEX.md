@@ -173,15 +173,23 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
-- `multiplicative_count_pnt` — **multiplicative count → PNT horizon**
-  (`MultSystem`/`MultSystemValue`).  CLOSED ∅-axiom: free count
-  `C(N+k,k)`, central-binomial double sum, distinct-naturals (unique
-  factorization), `fromVec` factorization, exp/log skeleton
-  `Ω(n) ≤ log₂ n`, and `factorization_bounded` (naturals ≤ N use only
-  primes ≤ N, so `k = π(N)`).  OPEN: `primePi` counting function (blocked
-  on a decidable `IsPrime213` from `searchDiv`); value-bounded count = N;
-  PNT `π(N) ~ N/ln N` as the asymptotic horizon (pointing, not target).
-  `ln` = continuous shadow of the discrete `exp = Nat.pow` depth.
+- `multiplicative_count_pnt` — **multiplicative count → PNT density**
+  (`MultSystem`/`MultSystemValue`).  **CLOSED ∅-axiom through the PNT density
+  cut**: free count `C(N+k,k)`, distinct-naturals factorization, exp/log
+  skeleton `Ω(n) ≤ log₂ n`, `primePi` (decidable `IsPrime213`), prime window
+  `(n,2n]` (`∏ p ∣ C(2n,n) ≤ 4^n`), Chebyshev doubling `π(2n) ≤ π(n) +
+  ⌊log_{n+1}4^n⌋`, telescoped `π(2^m) ≤ chebBound m = O(2^m/m)`, partial-sum
+  bound `chebBound_mul_le`, and the keystone **`primeDensityToZero :
+  PrimeDensityToZero`** (`π(N)/N → 0` certified).  Generic `floorLog` relocated
+  to `Meta/Nat/FloorLog`.  OPEN: only PNT `~ N/ln N` (constant `1`, asymptotic
+  horizon).
+- `chebyshev_lower_bound` — **Chebyshev lower bound `π(N) ≥ c·N/ln N`** (the
+  matching direction).  Route: `2^n ≤ C(2n,n) ≤ (2n)^{π(2n)}`.  DONE:
+  `central_binom_ge_two_pow` (`2^n ≤ C(2n,n)`).  OPEN: the Kummer prime-power
+  bound `p^{vp_p(C(2n,n))} ≤ 2n` (via `Legendre.legendre`, already in
+  `Lib/Math/NumberTheory`; `Prime213 ≡ IsPrime213` definitionally) ⇒
+  `C(2n,n) ≤ (2n)^{π(2n)}` ⇒ the lower bound.  Layering: needs a file above both
+  `Legendre` (Lib/Math) and central-binom (`Lens`).
 
 - `slots_crossdomain` — **the slot programme ↔ the graded-ladder / π
   arc** (merge note): one crystallographic restriction at two scales

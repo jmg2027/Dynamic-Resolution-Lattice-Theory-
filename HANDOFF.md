@@ -57,10 +57,15 @@ Closed the Erdős elementary-Chebyshev numerator + count bound in
   `lt_of_mul_lt_mul_right_pure` (avoid `Nat.*`'s Classical axioms).  In
   `CAPSTONE_INDEX.md`.
 
-**Next** (frontier): no open ∅-axiom step remains on this trajectory.  Follow-ups
-(new directions): Chebyshev *lower* bound `π(N) ≥ c·N/ln N`; PNT proper `~N/ln N`
-(constant 1) as a `Real213` pointing (asymptotic horizon); cross-check vs the
-lcm-growth route (`LcmGrowthChebyshev`).
+**Next** (frontier): no open ∅-axiom step remains on the density trajectory.
+**New direction started**: Chebyshev *lower* bound `π(N) ≥ c·N/ln N`
+(`frontiers/chebyshev_lower_bound.md`) via `2^n ≤ C(2n,n) ≤ (2n)^{π(2n)}`.
+**DONE**: `central_binom_ge_two_pow` (`2^n ≤ C(2n,n)`, cleared recurrence).
+**OPEN**: the Kummer bound `vp_p(C(2n,n)) ≤ floorLog p (2n)` via `Legendre.legendre`
+(`Lib/Math`; `Prime213 ≡ IsPrime213` definitionally) ⇒ `C(2n,n) ≤ (2n)^{π(2n)}` ⇒
+the bound.  Layering: needs a file above both `Legendre` (Lib/Math) and the
+central binom (`Lens`).  Other follow-ups: PNT `~N/ln N` (constant 1) horizon;
+lcm-route cross-check.
 
 ## Prior session (n-plus-signature-mappings branch)
 
