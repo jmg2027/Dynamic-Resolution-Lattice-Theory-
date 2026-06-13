@@ -10,8 +10,10 @@ Chebyshev).  The **generative `^`-object is BUILT** (P2, `Meta/Nat/UnitHyper`,
 (no-identity criterion) remain `[gut]`.  Complements `number_tower_theory.md`
 (demotion/valuation view, R0–R8);
 this note records the **generative** view — the layer as construction, the
-no-identity principle, the **simplicial-cone finding**, and (§L3′ below) the precise
-`+`/`×` bridge.
+no-identity principle, the **simplicial-cone finding**, (§L3′) the precise `+`/`×`
+bridge, and (§L3″) the firm `+`/`×` foundation that dissolves the "3- vs 4-simplex"
+conflation (vertex ≡ axis, `monoCount_vertices`; three distinct "dimensions"
+separated).
 
 Tagging as in `number_tower_theory.md`: `[∅]` ∅-axiom Lean here, `[std]` standard
 math, `[ax]` a 213 axiom, `[gut]` the originator's raw intuition (recorded, not
@@ -265,6 +267,50 @@ of the cone's degree-count vs its value-count across resolutions IS Chebyshev/PN
 > the limit (`object1_not_surjective`), and the *rate* of that agreement is prime
 > counting.  Promotable mirror: `theory/math/numbertheory/chebyshev_prime_counting.md`.
 
+## L3″ — What `+` and `×` *precisely* are (the firm foundation for reading `^`)
+
+`[∅]`+`[ax]`  Originator directive (2026-06-13): the "3- vs 4-simplex" figure is
+**not literal** — `×` is *already infinite-dimensional* — so before reading `^`,
+pin exactly what `+` and `×` are.  Two precise views coincide on one anchor:
+
+**The anchor: vertices = generators = lattice axes** (`MultSystem.monoCount_vertices`,
+`[∅]`): `monoCount k 1 = k`.  The degree-`1` elements are exactly the `k` generators
+(each base once), so the rung over `k` bases is the cone over the **`(k−1)`-simplex**
+(`k` vertices), graded by degree, with the `d`-dilate carrying `C(d+k−1,k−1)` lattice
+points (`monoCount_closed`).  And those `k` vertices **are** the `k` independent
+lattice axes of the demotion view (R4, `number_tower_theory.md`: `+` = 1-axis ℕ, `×`
+= ∞-axis `⊕_p ℕ`).  Generative simplex (L3) and demotion lattice (R4) are **one
+object**, vertex ≡ axis.  So, precisely:
+
+  - **`+`** = the cone over the **0-simplex** (a single vertex): `monoCount 1 1 = 1`,
+    one generator (the unit) — the ray `ℕ⁺`.
+  - **`×`** = the cone over the **∞-simplex**: `k → ∞` (one vertex per prime),
+    **already infinite-dimensional** — there is *no finite figure*.
+
+**The three "dimensions" the cartoon conflates** (the source of the 3-/4-simplex
+confusion), now separated:
+
+  | axis | what it counts | `+` | `×` | `^` | behaviour |
+  |---|---|---|---|---|---|
+  | (A) **simplex / lattice dim** | vertices − 1 = generators − 1 | `0` | `∞` | `∞` (bigger) | **jumps** `0→∞→…` (R4's `1→∞`), *never* `+1` |
+  | (B) **grading / degree** | the radial cone axis (the count `d`) | `1` | `1` | `1` | universal `+`-line, every rung |
+  | (C) **operand-DOF** | base level − count level = rung − 2 | — | `0` | `1` | `+1` per rung (`dofOfRung_succ`) |
+
+**The raw gut resolved.**  "point→line→plane→solid, `+1` dimension per rung" reads
+axis **(C)** (the finite operand-DOF, `dofOfRung`), *not* axis (A): (A) is already
+`∞` at `×`, so it cannot be the thing incrementing by `1`.  The cartoon mislabels
+(C) with (A)'s geometric words.  Holding the two apart is the whole point: the
+*generator/vertex/axis* count (A) **jumps** (each rung's generators = the **entire
+previous rung's object** — `+`: 1 unit → `×`: all of `ℕ⁺` → `^`: all `C(N+k,k)`
+cone points, `hyperCount`), while the *operand type-gap* (C) **climbs by 1**.
+
+**Reading `^` on this base.**  `^` takes **all** the `×`-cone's points (not just its
+`∞` axes) as new vertices → the cone over a `(C(N+k,k)−1)`-simplex
+(`hyperCount_simplex`): axis (A) explodes *again* (the "axis = previous layer" rule,
+L1), staying simplicial; axis (C) goes `0→1` (the dilation type-gap,
+`UnitHyper.swap_changes_dim`).  So "what `^` is" = (A) explodes + (C) `+1` — two
+different motions, and the gut's single word "dimension" was pointing at (C).
+
 ## L4 — Two readings of one generating set (a calculation cross-section, **not** the rung mechanism)
 
 `[∅]`  The sorted/ordered comparison below is a *calculation* cross-section — a
@@ -434,8 +480,13 @@ to test*, not asserted identities.
    ∅-axiom): `hcube_vp_radial : vp_p (count (hcube a b)) = b · vp_p a` and
    `hcube_hyper_parallel` — the geometric per-dimension `×a`
    (`UnitHyper.count_hcube_succ`) *is* the vp-cone radial scalar `b·vp` (the cube's
-   cell count is parallel to its side in the `×`-cone).  *Still open*: only the
-   **topological figure** for one `^` step (3- vs 4-simplex, L5's "초위상").
+   cell count is parallel to its side in the `×`-cone).  **The "3- vs 4-simplex"
+   confusion is DISSOLVED** (L3″, originator directive): it conflated three distinct
+   "dimensions" — the simplex/lattice dim (A, already `∞` at `×`), the grading (B),
+   and the operand-DOF (C, `= rung − 2`).  The cartoon's "`+1` per rung" reads (C),
+   not (A); (A) *jumps* (`1→∞→…`).  *Still open*: whether `^`'s structure carries a
+   *further* finite invariant beyond (C) — but the literal small-simplex question is
+   answered: it was a mislabelling, now firmly separated on the `+`/`×` foundation.
 4. **No-identity formalization (L2)** — concrete content **CLOSED ∅-axiom**
    (`MultSystem.monoCountPos_closed` = semigroup count `+ 1` = monoid count, the
    `+1` = the identity; `MultSystemValue.two_le_nonempty_prime_prod` = the natural

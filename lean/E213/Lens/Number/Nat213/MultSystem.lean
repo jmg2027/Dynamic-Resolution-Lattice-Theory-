@@ -308,6 +308,20 @@ theorem monoCount_col0 : ∀ k, monoCount k 0 = 1
   | 0     => rfl
   | k + 1 => monoCount_col0 k
 
+/-- ★ **Vertices = generators = axes** — the unifying anchor.  `monoCount k 1 = k`:
+    the degree-`1` elements are exactly the `k` generators (each base once), so the
+    rung over `k` bases is the cone over the **`(k−1)`-simplex** — `k` vertices.  This
+    pins the *generative* simplex (L3) to the *demotion* lattice (R4,
+    `number_tower_theory.md`): the `k` simplex vertices **are** the `k` independent
+    lattice axes.  Hence `+` (`k = 1`, `monoCount 1 1 = 1`) is the cone over a single
+    vertex (the 0-simplex = the point, the ray ℕ⁺); `×` (`k → ∞`, the prime axes) is
+    the cone over the **∞-simplex** — already infinite-dimensional, no finite figure. -/
+theorem monoCount_vertices : ∀ k, monoCount k 1 = k
+  | 0     => rfl
+  | k + 1 => by
+      show monoCount k 0 + monoCount k 1 = k + 1
+      rw [monoCount_col0, monoCount_vertices k, Nat.add_comm]
+
 /-- **A calculation bound: sorted-readings ≤ ordered-readings**, `monoCount t d ≤
     t^d`.  `monoCount t d` = the *sorted* readings (multisets = the simplex slice
     over `t` generators at degree `d`); `t^d` = the *ordered* readings (length-`d`
