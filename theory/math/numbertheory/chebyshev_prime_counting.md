@@ -152,3 +152,16 @@ Both halves of Chebyshev's theorem `c·N/ln N ≤ π(N) ≤ C·N/ln N` and the d
 certificate, only approximated.  This is not a gap in a derivation but the
 `object1_not_surjective` signature: the limit is the convergence, and the
 convergence *is* the modulus we built.
+
+**Order vs constant — why the horizon is `Real213`, not `ℕ`.**  The density
+collapse (`→ 0`) and the order theorem (`Θ`, the *interval* `[c,C]` with `c≈1/2`,
+`C=6`) both live in pure `ℕ`; neither pins a transcendental.  PNT differs *in
+kind*: it collapses that interval to the **single point `1`**, and pinning the
+constant to exactly `1` *is* a claim about `e`/`ln` — base-dependent
+(`π(N)·log₂N/N → log₂e`; `ln` is the unique base giving `1`), equivalently
+`lcm(1..N) ~ eᴺ` (the elementary `2^{N−1} ≤ lcm(1..N)` sharpening its base from `2`
+to `e`).  So no pure-`ℕ` ratio realizes PNT.  The two-sided shape of the pointing is
+recorded ∅-axiom as `MultSystemValue.RatTendsToOne` (the `→ 1` companion of
+`RatTendsToZero`) with soundness `RatTendsToOne.within` and validation
+`succOverSelf`; inhabiting it for `π`/`ψ`/`lcm` is the open analytic core
+(PNT-strength), the transcendental-cut `hsep` pattern.

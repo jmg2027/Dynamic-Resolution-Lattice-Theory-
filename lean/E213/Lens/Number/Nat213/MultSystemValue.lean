@@ -731,6 +731,66 @@ def oneOverN : RatTendsToZero (fun _ => 1) (fun N => N) where
     this is the dual density side.) -/
 abbrev PrimeDensityToZero : Type := RatTendsToZero primePi (fun N => N)
 
+/-! ## The PNT-proper horizon — `→ 1` is a *constant*, not an *order*
+
+The density cut (`RatTendsToZero`, `→ 0`) and the order theorem
+(`ChebyshevLower.chebyshev_order`, `Θ(N/log₂N)`) both live in pure `ℕ`: a
+one-sided collapse to `0`, and a two-sided *interval* `[c, C]` with `c < C`
+(explicit `c ≈ 1/2`, `C = 6`).  Neither pins a transcendental.
+
+PNT proper is different *in kind*: `π(N)·ln N / N → 1` collapses that interval
+to the **single point `1`**.  Pinning the constant to exactly `1` is precisely
+where the transcendental becomes unavoidable:
+  - in the `π` form the limiting constant is base-dependent
+    (`π(N)·log₂N/N → log₂ e`); `ln` (base `e`) is the unique base making it `1`;
+  - equivalently `ψ(N) = ln·lcm(1..N) ~ N`, i.e. `lcm(1..N) ~ eᴺ` — the
+    elementary `2^{N−1} ≤ lcm(1..N)` (a Chebyshev lower bound, `LcmGrowthChebyshev`)
+    sharpens its base from `2` to `e`.
+So **no pure-`ℕ` `a, b : Nat → Nat` realize PNT's ratio** (unlike `→ 0` / the
+order interval): the constant `1` *is* a claim about `e`/`ln`, a `Real213` cut
+(`EulerCut`/`ExpLog`).  PNT is the pointing `lim = 1`, reached by no finite
+certificate (`object1_not_surjective`); its modulus is the open analytic core
+(PNT-strength — far past central-binomial Chebyshev), the transcendental-cut
+`hsep` pattern (`Real213/ExpLog/INDEX`: "the completion modulus is a hypothesis").
+
+`RatTendsToOne` records the two-sided *shape* of that pointing — the `→ 1`
+companion of the one-sided `RatTendsToZero`. -/
+
+/-- ε-δ certificate that `a N / b N → 1`: a modulus `M` with the two-sided band
+    `k·a N < (k+1)·b N` and `k·b N < (k+1)·a N` (i.e. `|a N / b N − 1| < 1/k`)
+    for `N ≥ M k`.  The `→ 1` companion of `RatTendsToZero`. -/
+structure RatTendsToOne (a b : Nat → Nat) where
+  M : Nat → Nat
+  cert : ∀ k, 1 ≤ k → ∀ N, M k ≤ N →
+    k * a N < (k + 1) * b N ∧ k * b N < (k + 1) * a N
+
+/-- **Soundness**: the certificate forces `a N / b N` eventually within *every*
+    positive rational `c/d` of `1` (both sides) — genuine convergence to `1`. -/
+theorem RatTendsToOne.within {a b : Nat → Nat} (h : RatTendsToOne a b)
+    (c d : Nat) (hc : 1 ≤ c) (hd : 1 ≤ d) :
+    ∃ Th, ∀ N, Th ≤ N → d * a N < (d + c) * b N ∧ d * b N < (d + c) * a N := by
+  refine ⟨h.M d, fun N hN => ?_⟩
+  obtain ⟨hup, hlo⟩ := h.cert d hd N hN
+  have hband : d + 1 ≤ d + c := Nat.add_le_add_left hc d
+  exact ⟨Nat.lt_of_lt_of_le hup (Nat.mul_le_mul hband (Nat.le_refl _)),
+         Nat.lt_of_lt_of_le hlo (Nat.mul_le_mul hband (Nat.le_refl _))⟩
+
+/-- **Framework validation**: `(N+1)/N → 1` carries an explicit certificate
+    (`M k = k + 1`).  Confirms the two-sided `→ 1` ε-δ is inhabited and correct. -/
+def succOverSelf : RatTendsToOne (fun N => N + 1) (fun N => N) where
+  M := fun k => k + 1
+  cert := fun k _ N hN => by
+    have hkN : k < N := Nat.lt_of_lt_of_le (Nat.lt_succ_self k) hN
+    refine ⟨?_, ?_⟩
+    · show k * (N + 1) < (k + 1) * N
+      calc k * (N + 1) = k * N + k := by ring_nat
+        _ < k * N + N := Nat.add_lt_add_left hkN _
+        _ = (k + 1) * N := by ring_nat
+    · show k * N < (k + 1) * (N + 1)
+      have heq : (k + 1) * (N + 1) = k * N + (k + N + 1) := by ring_nat
+      rw [heq]
+      exact Nat.lt_add_of_pos_right (Nat.succ_pos _)
+
 /-! ## Chebyshev start — `π(2n) ≤ n` (density `≤ 1/2`)
 
 The first real density bound feeding the certificate: every even number `≥ 4`

@@ -154,7 +154,17 @@ The whole Chebyshev/density branch is **CLOSED**, both directions: the density c
 `two_pow_le_succ_primePi` / `succ_mul_primePi_pow_two_le`.  No open ∅-axiom step
 remains on this trajectory.  Possible follow-ups (new directions, not this frontier):
 (b) PNT proper `π(N) ~ N/ln N` (constant `1`) as a `Real213` cut + ratio-sequence
-pointing — the asymptotic horizon (needs `Real213.ExpLog`'s `ln` + the ratio
-sequence); (c) connect `primeDensityToZero`'s modulus to the lcm-growth route
-(`LcmGrowthChebyshev`) for a cross-check.  Loose secondary: tie
-`factorization_bounded`'s prime-list length to `primePi`.
+pointing — the asymptotic horizon.  **Framework shape recorded** (`MultSystemValue`):
+`RatTendsToOne` (two-sided `→ 1` ε-δ modulus, the companion of `RatTendsToZero`'s
+one-sided `→ 0`) + `RatTendsToOne.within` (soundness, ∅-axiom) + `succOverSelf`
+(`(N+1)/N → 1` validation).  **The honest difference, pinned**: `→ 0` and the order
+*interval* `[c,C]` (`c≈1/2, C=6`) live in pure `ℕ`; PNT collapses that interval to
+the *single point* `1`, and pinning the constant to exactly `1` is a claim about
+`e`/`ln` (base-dependent: `π·log₂N/N → log₂e`; equivalently `lcm(1..N) ~ eᴺ`,
+sharpening the elementary `2^{N−1} ≤ lcm` base from `2` to `e`).  So **no pure-`ℕ`
+`a,b` realize PNT's ratio** — it must be `Real213`-valued (`EulerCut`/`ExpLog`); the
+modulus is the open analytic core (PNT-strength), not central-binomial reachable.
+(c) connect `primeDensityToZero`'s modulus to the lcm-growth route
+(`LcmGrowthChebyshev`) for a cross-check — now doubly motivated: `lcm(1..N) ~ eᴺ` is
+PNT's `ψ`-form.  Loose secondary: tie `factorization_bounded`'s prime-list length to
+`primePi`.
