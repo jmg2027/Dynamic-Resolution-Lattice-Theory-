@@ -475,4 +475,35 @@ theorem doubleSumPos_closed (N : Nat) :
   rw [sumf1_monoCount0 N, Nat.zero_add, Nat.add_comm (N + 1) (doubleSumPos N),
       Nat.add_assoc]
 
+/-! ## Stacking the next rung — the layer rule applied directly (L1)
+
+`×` took the `+`-rung's **elements** as axes and stacked their degree-graded
+multisets.  Apply the *same* rule one more time: `^` takes the `×`-rung's elements
+as axes.  The `×`-monomials of degree `≤ N` over `k` `+`-bases number
+`totalCount k N`; the `^`-rung over them, at degree `d`, is their degree-`d`
+multiset count.  Building it directly (`research-notes/frontiers/simplicial_operation_tower.md`
+L4-positive). -/
+
+/-- The `^`-rung built by the layer rule: degree-`d` multisets of `×`-monomials
+    (the `×`-monomials of degree `≤ N` over `k` `+`-bases as the axis set). -/
+def hyperCount (k N d : Nat) : Nat := monoCount (totalCount k N) d
+
+/-- **The tower stays simplicial.**  Stacking the rule again, the `^`-rung is *again*
+    a simplex: its count is the multiset coefficient over `totalCount k N` axes,
+    `hyperCount k N d = C(d + (M−1), M−1)` with `M = totalCount k N = C(N+k, k)`.  The
+    **number of axes explodes** (`+`: 1 → `×`: `C(N+k,k)` → `^`: `C(d+M−1,M−1)` → …)
+    but the **shape is invariantly the simplex** — nothing becomes a cube.  (The
+    base/exponent asymmetry — the twist — is extra positive structure *on* this
+    simplex, the dimensional/`−1`-cross-determinant content of L5, not a change of
+    its combinatorial shape.) -/
+theorem hyperCount_simplex (k N d : Nat) :
+    hyperCount k N d = binom (d + (totalCount k N - 1)) (totalCount k N - 1) := by
+  have hpos : 1 ≤ totalCount k N := by
+    rw [totalCount_split]; exact Nat.le_add_right 1 _
+  obtain ⟨m, hm⟩ : ∃ m, totalCount k N = m + 1 :=
+    ⟨totalCount k N - 1, (Nat.succ_pred_eq_of_pos hpos).symm⟩
+  show monoCount (totalCount k N) d = binom (d + (totalCount k N - 1)) (totalCount k N - 1)
+  rw [hm]
+  exact monoCount_closed m d
+
 end E213.Lens.Number.Nat213.MultSystem
