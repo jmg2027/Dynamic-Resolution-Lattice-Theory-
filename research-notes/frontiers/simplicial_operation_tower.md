@@ -16,6 +16,28 @@ asserted).
 
 ---
 
+## Methodological principle (originator, 2026-06-13) — describe rungs *positively*
+
+`[ax]`+`[gut]`  **Algebraic properties like commutativity are one-dimensional
+cross-sections of the real structure, not the structure.**  Algebra is written *in a
+line*, so it can only display 1-D shadows of a rung; commutativity is one such shadow
+(`where_commutativity_is_born.md`: it is "what arrangement-forgetting leaves behind").
+Two consequences, load-bearing here:
+
+  1. **Describe a new rung by what *arises* (positive), never by what it "loses"
+     (negative).**  "`^` loses commutativity / `aᵇ ≠ bᵃ`" is the negative framing; it
+     stops inquiry at the boundary.  The positive content is the *new* structure —
+     the added dimension, the degree-of-freedom, the twist (L5).  Name that.
+  2. **Keep the 1-D shadows for *calculation*, out of the *theory*.**  Commutativity
+     is useful as a fast-calc bookkeeping flag; it is not an organizing concept.  The
+     proven `monoCount ≤/< t^d` bounds (L4) are exactly such a calculation
+     cross-section — kept, but demoted from "the mechanism."  (If even calculation
+     resists the shadow, unfold the calculation fully rather than re-import the bias.)
+
+This is the residue stance applied to the tower: *assume nothing, give meaning to
+nothing* — and in particular do not let a negative, line-shaped projection
+(`¬comm`) stand in for the rung's own (higher-dimensional) form.
+
 ## L1 — The layer rule: each layer's axis = the *whole previous layer*
 
 `[gut]`  The hyperoperation tower is read **generatively**, not as numbers.  Each
@@ -120,10 +142,10 @@ ways**, and the gap between the two readings *is* prime counting.
 **Up (generative).**  `+` is the free semigroup on **one** axis (`a, aa, …`) — the
 line ℕ⁺.  `×` takes the entire `+`-layer as its **axis set** (`a, b, c, …`) and
 forms the free **commutative** semigroup on them = the ∞-dim simplicial cone graded
-by degree (L1+L3).  Commutative — hence *sorted multisets*, count `C(n+k−1,k)`
-(`monoCount_closed`), **not** ordered strings `nᵏ` — because the new rung iterates a
-**symmetric** binary composition (the grid transpose; `UnitGrid.mul_comm_from_grid`,
-`where_commutativity_is_born.md`).  This is L4's dial read forward.
+by degree (L1+L3).  The intrinsic count is the simplex slice `C(n+k−1,k)`
+(`monoCount_closed`); `×` *is* the symmetric/transpose rung (the grid transpose;
+`UnitGrid.mul_comm_from_grid`, `where_commutativity_is_born.md`) — stated as a
+positive property of `×`, not as something a later rung "lacks" (cf. L4 reframe).
 
 **Down (demotion).**  On each axis, `×` *is* `+`: `vp_p(m·n) = vp_p m + vp_p n`
 (`Meta/Nat/VpMul.vp_mul`), `vp_p(aᵏ) = k·vp_p a` (`vp_pow`).  The cone's coordinate
@@ -162,32 +184,42 @@ of the cone's degree-count vs its value-count across resolutions IS Chebyshev/PN
 > the limit (`object1_not_surjective`), and the *rate* of that agreement is prime
 > counting.  Promotable mirror: `theory/math/numbertheory/chebyshev_prime_counting.md`.
 
-## L4 — The count is the commutativity dial (simplex vs cube)
+## L4 — Two reference readings of one generating set (a calculation cross-section, **not** the rung mechanism)
 
-`[gut]`+`[std]`  L3 gives a sharp, checkable criterion for *where the algebra
-breaks* (the question `number_tower_theory.md` R2 answers by `pow_not_comm`, here
-seen by **counting**):
+> **Reframed (originator, 2026-06-13).**  The earlier version of L4 read this as
+> "the count is the *commutativity dial* (simplex/commutative vs cube/non-commutative),
+> and the per-degree count *jumps* poly→exp at `^`."  That is the **negative /
+> one-dimensional-shadow framing** — describing a rung by what it "loses"
+> (commutativity).  Per the originator: *commutativity is a 1-D cross-section of the
+> real structure* (`where_commutativity_is_born.md`: arrangement-forgetting is a
+> *shadow*); algebra, written in a line, only ever shows such 1-D shadows, and using
+> them as the organizing concept (esp. the **negative** "loses commutativity") halts
+> progress.  So L4 is demoted to what it actually is: a **calculation comparison of
+> two readings**, not the rung's mechanism (which is L5: dimension + twist, read
+> *positively*).
 
-| enumeration | count | structure | commutativity |
-|---|---|---|---|
-| sorted multiset (`aba=aab`) | `C(n+k−1,k)` (polynomial) | **simplex** | **commutative** |
-| ordered string (`aba≠aab`) | `nᵏ` (exponential) | **cube / tree** | **non-commutative** |
+`[∅]`  Two **readings** of one generating set, of `t` generators at degree `d`:
 
-So: **simplex/polynomial count ⟺ commutative; cube/exponential count ⟺
-non-commutative.**  **The two rows' inequality is now CLOSED ∅-axiom** (strict, and **sharp as a
-polynomial-vs-exponential sandwich**): the commutative count is squeezed
-`monoCount t d ≤ (d+1)^t` (**polynomial in the degree `d`**,
-`MultSystem.monoCount_le_succ_pow`) and `monoCount t d < t^d` (strictly below the
-**exponential** free/cube count, `monoCount_lt_pow`, `2≤t,2≤d`); the bare bound
-`monoCount_le_pow : monoCount t d ≤ t^d` underlies both.  So the dichotomy is exact:
-**commutative = simplex = polynomial-in-degree; non-commutative = cube =
-exponential-in-degree.**  Sorting `aba ↦ aab` surjects strings ↠ multisets — the
-collapse is real (`ab`/`ba ↦ {a,b}`); the gap (`t^d − monoCount t d`: `1, 4, 17,
-66, …`) grows exponentially.  Conjecture still `[gut]`: going up the tower, the per-degree count
-**jumps from polynomial (simplicial) to exponential (`nᵏ`)** exactly at the rung
-where commutativity dies (`^`).  The *count* would then *measure* the wall —
-remaining step: build the `^`-layer enumeration and show its per-degree count
-escapes the polynomial (simplex) class to the exponential (cube) class.
+| reading | count | what it is |
+|---|---|---|
+| sorted (`aba=aab`) | `C(d+t−1,t−1)` | the simplex slice (`monoCount_closed`) — the *intrinsic* count |
+| ordered (`aba≠aab`) | `t^d` | a *reference* reading that keeps arrangement |
+
+**Proven ∅-axiom** (a fast-calculation bracket on the *sorted* count, not a claim
+about any rung): `MultSystem.monoCount_le_pow : monoCount t d ≤ t^d`;
+`monoCount_lt_pow : 2≤t→2≤d→ monoCount t d < t^d`; `monoCount_le_succ_pow :
+monoCount t d ≤ (d+1)^t` (polynomial-in-degree).  These compare the two *readings*;
+they say nothing about whether the `^`-**rung**'s own structure is simplicial or
+not — that is L5, and **genuinely open**:
+
+> **The open question, stated positively.**  Does the `^`-rung's intrinsic
+> structure stay **simplicial** (a higher-dimensional simplex — the originator's
+> view: point→line→plane→**tetrahedron**, the structure *continues*, a new
+> *degree-of-freedom/twist* appears at dim 3), or not?  The proven inequalities do
+> **not** settle this (they bracket a *reading*, not the rung).  Nobody has built
+> the `^`-rung's own enumeration.  Note that even "poly vs exp count" is a
+> 1-D-shadow question; the *positive* question is the rung's **dimension + twist**
+> (L5).
 
 ## L5 — The geometric picture: dimension and the twist
 
@@ -241,14 +273,16 @@ Lenses.  That makes the gut worth closing.
 
 ## Open problems / next steps
 
-1. **The commutativity dial (L4)** — static comparison **CLOSED ∅-axiom**, the full
-   polynomial-vs-exponential sandwich: `monoCount t d ≤ (d+1)^t`
-   (`monoCount_le_succ_pow`, poly-in-degree) and `monoCount t d < t^d`
-   (`monoCount_lt_pow`, `2≤t,2≤d`, strictly below exp).  *Remaining*: build the
-   `^`-layer enumeration ∅-axiom and verify
-   its per-degree count *escapes* the polynomial (simplex) class into the
-   exponential (cube) class at the non-commutative rung — *measuring* the `^`-wall
-   by counting.
+1. **The `^`-rung's intrinsic structure (L4 reframed → L5)** — the two-readings
+   comparison is **CLOSED ∅-axiom** (`monoCount_le_pow`/`monoCount_lt_pow`/
+   `monoCount_le_succ_pow`: sorted-reading bracketed `≤ (d+1)^t` and `< t^d`), but
+   that is a *calculation cross-section*, not the rung's mechanism.  *Open
+   (positive)*: build the `^`-rung's **own** enumeration and find its **dimension +
+   twist** — testing the originator's prediction that the structure stays
+   *simplicial* (point→line→plane→tetrahedron, a new degree-of-freedom at dim 3),
+   read positively (not "loses commutativity").  Anchors for the twist: the `−1`
+   cross-determinant (`Mobius213.mobius_213_pell_unit_invariant_forall`, `[∅]`),
+   `PairOp.pow_lift_impossible` (L5).
 2. **Simplex theorem (L3)** — count half **CLOSED** (`MultSystem.monoCount_closed`,
    `C(n+k−1,k)` = degree-`k` multiset count, ∅-axiom).  The `+`/`×` bridge and its
    prime-counting payoff (L3′) are **built** (`MultSystemValue` + `ChebyshevLower`;

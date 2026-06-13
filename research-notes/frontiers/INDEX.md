@@ -491,12 +491,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   one cone, two cuts (degree = Pascal vs value = ℕ); their discrepancy = prime counting
   (window `(N/2,N]` = supercritical axes) ⇒ both halves of Chebyshev (`MultSystemValue` +
   `ChebyshevLower`; mirror `theory/math/numbertheory/chebyshev_prime_counting.md`).  **L4
-  commutativity dial static comparison CLOSED ∅-axiom** (`monoCount_le_succ_pow` ≤ (d+1)^t
-  poly-in-degree; `monoCount_lt_pow` < t^d exp — simplex=poly vs cube=exp, sharp).  **L2
-  concrete content CLOSED ∅-axiom** (`monoCountPos_closed` semigroup+1=monoid;
-  `two_le_nonempty_prime_prod` × system = {2,3,…}).  Still open `[gut]`: **L4** *dynamic* —
-  build the `^`-layer enumeration, watch the count escape poly→exp at `^`; **L5** the
-  geometric twist; **L2** the cross-layer meta-criterion; tie the cone to `(NS,NT,d)`.
+  reframed** (originator): commutativity is a 1-D *shadow*, not the mechanism — describe
+  rungs *positively*.  The two-readings comparison is CLOSED ∅-axiom (`monoCount_le_pow`/
+  `_lt_pow`/`_le_succ_pow`: sorted-reading bracketed `< t^d`, `≤ (d+1)^t`) but is a
+  *calculation cross-section*.  **L2 concrete content CLOSED ∅-axiom** (`monoCountPos_closed`
+  semigroup+1=monoid; `two_le_nonempty_prime_prod` × system = {2,3,…}).  **Methodological
+  principle pinned**: describe new rungs by what *arises* (dimension/twist), never by what
+  they "lose" (¬comm).  Still open: the **`^`-rung's intrinsic dimension+twist** (L5,
+  positive; anchors `−1` cross-det, `pow_lift_impossible`); **L2** meta-criterion; tie cone
+  to `(NS,NT,d)`.
 
 - `general_theory_metaanalysis` — **meta-analysis program** (corpus-wide, ongoing):
   discovers genuine general theoretical structures via deep + meta analysis,

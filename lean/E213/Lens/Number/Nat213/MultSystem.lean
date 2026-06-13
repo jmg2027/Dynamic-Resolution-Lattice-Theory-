@@ -308,14 +308,17 @@ theorem monoCount_col0 : ∀ k, monoCount k 0 = 1
   | 0     => rfl
   | k + 1 => monoCount_col0 k
 
-/-- **The commutativity dial (simplex ≤ cube)**: the *commutative* enumeration —
-    sorted multisets, `monoCount t d` (Pascal/simplex, polynomial in `t`) — is
-    bounded by the *free/non-commutative* enumeration — ordered length-`d` strings
-    over `t` symbols, `t^d` (cube, exponential).  `monoCount t d ≤ t^d`.  Sorting
-    `aba ↦ aab` is a surjection strings ↠ multisets, so the commutative count can
-    only drop; the *size* of the drop measures commutativity (L4 of
-    `research-notes/frontiers/simplicial_operation_tower.md`).  Nested induction on
-    `(d, t)` via the Pascal step `monoCount (t+1)(d+1) = monoCount t (d+1) +
+/-- **A calculation bound: sorted-readings ≤ ordered-readings**, `monoCount t d ≤
+    t^d`.  `monoCount t d` = the *sorted* readings (multisets = the simplex slice
+    over `t` generators at degree `d`); `t^d` = the *ordered* readings (length-`d`
+    strings over `t` symbols).  Sorting `aba ↦ aab` surjects strings ↠ multisets, so
+    sorted never exceeds ordered.  **NB (framing):** these are two *reference
+    readings* of one generating set — a fast-calculation comparison, a
+    one-dimensional cross-section (arrangement-forgetting is a *shadow*,
+    `theory/essays/analysis/where_commutativity_is_born.md`).  It does **not** assert
+    a higher rung 'is' the ordered/`t^d` structure; a rung's intrinsic form is its
+    own (higher-dimensional) simplex + twist (`simplicial_operation_tower.md` L5).
+    Nested induction on `(d,t)` via `monoCount (t+1)(d+1) = monoCount t (d+1) +
     monoCount (t+1) d`: `≤ t^{d+1} + (t+1)^d ≤ (t+1)^{d+1}` (since `t^d ≤ (t+1)^d`). -/
 theorem monoCount_le_pow : ∀ d t, monoCount t d ≤ t ^ d := by
   intro d
@@ -358,12 +361,11 @@ theorem pow_lt_pow_base (s : Nat) {e : Nat} (he : 1 ≤ e) : s ^ e < (s + 1) ^ e
   obtain ⟨e', rfl⟩ : ∃ e', e = e' + 1 := ⟨e - 1, (Nat.succ_pred_eq_of_pos he).symm⟩
   exact pow_succ_lt_pow_succ s e'
 
-/-- **The commutativity dial is strict**: for `t ≥ 2` types and degree `d ≥ 2`, the
-    commutative (multiset/simplex) count is *strictly* below the free (string/cube)
-    count, `monoCount t d < t^d`.  Sorting genuinely identifies distinct strings
-    (e.g. `ab`/`ba ↦ {a,b}`) once there are two distinguishable atoms used twice —
-    so the collapse is real, not an edge case.  (`monoCount_le_pow` for the `≤`;
-    the strict step is `sᵈ < (s+1)ᵈ`, `pow_lt_pow_base`.) -/
+/-- **Strict form: sorted-readings `<` ordered-readings** for `t ≥ 2`, `d ≥ 2`:
+    `monoCount t d < t^d`.  Sorting genuinely identifies distinct strings
+    (`ab`/`ba ↦ {a,b}`) once two distinguishable atoms each appear, so the two
+    reference readings differ.  (Same NB as `monoCount_le_pow`: a cross-section
+    comparison, not a claim about a higher rung's intrinsic structure.) -/
 theorem monoCount_lt_pow {t d : Nat} (ht : 2 ≤ t) (hd : 2 ≤ d) : monoCount t d < t ^ d := by
   cases t with
   | zero => exact absurd ht (by decide)
@@ -402,13 +404,13 @@ theorem sumf_le_bound {f : Nat → Nat} {c : Nat} :
               (h (n + 1) (Nat.le_refl _))
         _ = (n + 1 + 1) * c := (Nat.succ_mul (n + 1) c).symm
 
-/-- **The simplex count is polynomial in the degree** (the other half of the dial):
-    `monoCount t d ≤ (d+1)^t` — for a fixed number of generators `t`, the
-    commutative count is bounded by a *polynomial* in the degree `d` (degree `t`),
-    where the free count `t^d` is *exponential* in `d`.  So the dichotomy is sharp:
-    commutative = simplex = polynomial-in-degree (`≤ (d+1)^t`), non-commutative =
-    cube = exponential-in-degree (`t^d`).  Induction on `t`: `monoCount (t+1) d =
-    Σ_{i≤d} monoCount t i ≤ (d+1)·(d+1)^t`. -/
+/-- **The simplex slice count is polynomial in the degree**: `monoCount t d ≤
+    (d+1)^t` — for a fixed generator count `t`, the count grows as a *polynomial* in
+    the degree `d` (degree `t`).  A positive fact about the simplex's own growth
+    (its intrinsic value is the multiset coefficient `C(d+t−1,t−1)`,
+    `monoCount_closed`); with `monoCount_le_pow` it brackets the count `≤ (d+1)^t`
+    and `≤ t^d`.  Induction on `t`: `monoCount (t+1) d = Σ_{i≤d} monoCount t i ≤
+    (d+1)·(d+1)^t`. -/
 theorem monoCount_le_succ_pow : ∀ t d, monoCount t d ≤ (d + 1) ^ t := by
   intro t
   induction t with
