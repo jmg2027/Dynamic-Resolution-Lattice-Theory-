@@ -421,6 +421,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   seed:* relocate the constructive pigeonhole (`firstDup`/`mem_of_card_le`/`cnt_filter_le`) to
   `Meta` (a cleanup, not a closure).
 
+- `residue_shape_doctrine` — ★ **the content canonical statement** (the missing third leg,
+  originator 2026-06-13): what the residue / `∞` / continuity / abstraction **are** —
+  *construction-produced shapes*, characterized by finite signatures (difference-depth /
+  pole-order / a two-sided defect band), never deified as a cardinal `∞` or a continuous
+  "beyond".  D1 thesis → D2 causal reversal (residue = the construction's shadow,
+  `object1_not_surjective` is about the view-setup) → D3 dimension-without-`∞` → D4 the
+  discrete↔continuous spiral (no phase "more real") → D5 the irreducible content = a finite
+  *defect band* (`chebyshev_defect`) → D6 where already enacted.  Pairs with the CLAUDE.md
+  "Deifying the residue/`∞`" failure-mode + §0 residue-lint.  Worked instance:
+  `simplicial_operation_tower.md` L3‴/L3‴a.
 - `the_reframing_conquest` — **the standing target**: every agent (and most humans) re-imports a
   residue dichotomy, is corrected, repeats.  *Closed*: the root cause = the Lawvere–Cantor diagonal at
   the description scale (`why_the_reframing_recurs.md` essay + CLAUDE.md Residue-lint).  *Open*: the

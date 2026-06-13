@@ -1,5 +1,11 @@
 # Residue-expression atlas — the residue is expressed multi-directionally (OPEN)
 
+> **Companion**: this atlas catalogs *how* the residue is expressed (the mechanisms).
+> The *content doctrine* — what the residue / `∞` / continuity **are** (construction-
+> produced shapes, not a transcendent beyond) — is `residue_shape_doctrine.md`.  The
+> "it is a **fold, not the residue**" correction below is that doctrine's deification
+> guard (D6) applied to modular periods.
+
 **Frontier, not a closed classification.**  "How do you express the essential residue?" is *not*
 one phenomenon (Cantor non-surjection / the diagonal).  The residue is given form across the repo by
 **structurally distinct mechanisms**, and along **several orthogonal directions at once**.  Two

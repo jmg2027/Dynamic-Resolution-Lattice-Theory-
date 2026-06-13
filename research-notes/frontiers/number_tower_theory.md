@@ -81,6 +81,13 @@ commutativity fact to a *dimension* fact.)
 staircase is *translation* `{+,×}` → *scaling* `{^}` → *iterated scaling*
 `{↑↑}`.
 
+> The `1 → ∞` jump is read **without a cardinal `∞`** (`residue_shape_doctrine.md`
+> D3; `simplicial_operation_tower.md` L3‴): the `×`-lattice's "infinite dimension" is
+> a *mode of non-termination* — the graded count's finite-difference tower never dies
+> (`MultSystem.diff_drops_rung`), equivalently the Hilbert series' essential
+> singularity = `ζ`.  Dimension is a finite handle (growth-degree / difference-depth /
+> pole-order), not an enshrined `∞`.
+
 ## R5 — Algebraic structure: canonical through `^`, holonomic above
 
 `[∅]`+`[std]` (`FoldCriterion`, finding D).  *Associativity* gates **algebraic**

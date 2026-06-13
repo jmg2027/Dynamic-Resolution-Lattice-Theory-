@@ -4,8 +4,11 @@
 **Status**: A-region + exp/log skeleton CLOSED; B (π counting) CLOSED; **Chebyshev
 upper bound `π(2^m)=O(2^m/m)` CLOSED**; **`PrimeDensityToZero` INHABITED ∅-axiom
 (`primeDensityToZero`) — prime density `π(N)/N → 0` certified, the PNT density cut
-CLOSED**.  Remaining OPEN: only the PNT `~ N/ln N` asymptotic (constant `1`), a
-`Real213` pointing horizon — not ∅-axiom reachable.
+CLOSED**; **Chebyshev LOWER bound + the two-sided band CLOSED**
+(`ChebyshevLower.chebyshev_lower`, `chebyshev_defect`: `n/(⌊log₂(2n)⌋+1) ≤ π(2n) ≤ n`
+— the doctrine D5 defect, `residue_shape_doctrine.md`).  Remaining OPEN: only the PNT
+`~ N/ln N` asymptotic (constant `1`, = closing the band's width), a `Real213` pointing
+horizon — not ∅-axiom reachable.
 
 ## The trajectory
 
@@ -142,14 +145,24 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     `1`-cut, constant `1`) needs `ln` (`Real213.ExpLog`) + the ratio sequence — the
     asymptotic horizon, not ∅-axiom reachable.
 
-## Next concrete step
+## The two-sided shape: the band IS the residue-shape (`residue_shape_doctrine.md` D5)
 
-The whole Chebyshev/density branch is **CLOSED**: `primeDensityToZero :
-PrimeDensityToZero` certifies `π(N)/N → 0` ∅-axiom.  No open ∅-axiom step remains
-on this trajectory.  Possible follow-ups (new directions, not this frontier):
-(a) a Chebyshev **lower** bound `π(N) ≥ c·N/ln N` (the matching direction, for the
-density's two-sided shape); (b) PNT proper `π(N) ~ N/ln N` (constant `1`) as a
-`Real213` cut + ratio-sequence pointing — the asymptotic horizon; (c) connect
-`primeDensityToZero`'s modulus to the lcm-growth route (`LcmGrowthChebyshev`) for a
-cross-check.  Loose secondary: tie `factorization_bounded`'s prime-list length to
-`primePi`.
+Both halves are now **CLOSED ∅-axiom**, and together they *are* the doctrine's worked
+defect (`residue_shape_doctrine.md` D5; `simplicial_operation_tower.md` L3‴a):
+
+  - upper: `primeDensityToZero` (`π(N)/N → 0`) — from `window_prod_le` ≤ `C(2n,n)` ≤ `4^n`.
+  - lower: **`ChebyshevLower.chebyshev_lower`** (`n ≤ (⌊log₂(2n)⌋+1)·π(2n)`) — from the
+    *exact* `2^n ≤ C(2n,n)` (`central_binom_ge_two_pow`) read back lossily through
+    `C(2n,n) ≤ (2n)^{π(2n)}`.
+  - the band, as one object: **`ChebyshevLower.chebyshev_defect`** — `n/(⌊log₂(2n)⌋+1) ≤
+    π(2n) ≤ n`.  The pivot `C(2n,n)` is the cone's value-cut (`doubleTotal_closed`); the
+    **support → shape** arrow is exact (factorization), the **shape → support** arrow is
+    a size-squeeze, and `B∘A ≠ id` — the band's *width* is prime counting, not a
+    transcendent `∞`.  PNT proper (closing the width to constant `1`, via `Real213.ExpLog`
+    + the ratio-sequence pointing) is the **open analytic horizon**, not a target.
+
+So PNT here is not a limit chased and missed — it is `∞`/the-continuous **characterized
+as a finite two-sided band** (the doctrine D5), whose irreducible width is the
+prime-counting content.  Loose secondary: connect the band's modulus to the lcm-growth
+route (`LcmGrowthChebyshev`) for a cross-check; tie `factorization_bounded`'s prime-list
+length to `primePi`.
