@@ -147,11 +147,15 @@ intermediate one-sided dyadic bounds `two_pow_le_succ_primePi`
 
 Both halves of Chebyshev's theorem `c·N/ln N ≤ π(N) ≤ C·N/ln N` and the density
 `π(N)/N → 0` are **finite, computable, ∅-axiom**.  The prime number theorem proper
-— `π(N) ~ N/ln N` with constant `1` — stays an **asymptotic horizon**: it is a
-`Real213` pointing (the ratio sequence `π(N)·ln N / N → 1`), reached by no finite
-certificate, only approximated.  This is not a gap in a derivation but the
-`object1_not_surjective` signature: the limit is the convergence, and the
-convergence *is* the modulus we built.
+— `π(N) ~ N/ln N` with constant `1` — stays an **asymptotic horizon** — but
+"horizon" is not a place beyond the finite.  PNT is a `Real213` pointing: the ratio
+sequence `π(N)·ln N / N`, and naming its limit `1` (equivalently `e` via the lcm
+form) names the *shape* of that climbing certificate, nothing farther.  The constant
+`1`/`e` is not a transcendent value the modulus forever approximates: the
+convergence *is* the modulus we build, and `object1_not_surjective` is a theorem
+about that construction, not a report of a thing that eluded capture (cf.
+`theory/essays/foundations/the_form_of_the_residue.md` "Infinity is the residue's
+shape, not a god above it").
 
 **Order vs constant — why the horizon is `Real213`, not `ℕ`.**  The density
 collapse (`→ 0`) and the order theorem (`Θ`, the *interval* `[c,C]` with `c≈1/2`,
