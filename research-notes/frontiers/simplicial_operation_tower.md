@@ -38,6 +38,52 @@ This is the residue stance applied to the tower: *assume nothing, give meaning t
 nothing* — and in particular do not let a negative, line-shaped projection
 (`¬comm`) stand in for the rung's own (higher-dimensional) form.
 
+## The re-foundation blueprint — object, not readout (originator, 2026-06-13)
+
+`[ax]`+`[gut]`  The whole tower is to be built (descriptions *and* proofs) in the
+**object** language — free **semigroups** (no identity, no numbers) — with `ℕ`/`0`/
+`1` kept strictly as the **forgetful readout** (the count-shadow), never as the
+construction.  The exact generative rule, no numbers, no identity:
+
+  - **`+`** : one base `a` → the free semigroup `a, aa, aaa, …` (starts at `a`; *no
+    empty/identity*).  Object: `UnitList` (`Meta/Nat/UnitList`).  `ℕ⁺` is its count
+    readout, the numeral a forgetful shadow.
+  - **`×`** : the `+`-layer's *elements* `{a, aa, …}` become distinguishable **axes**
+    → free *commutative* semigroup (their multisets).  An *entirely different
+    object* from the `+`-line.  Object: `UnitGrid` (`Meta/Nat/UnitGrid`).
+  - **`^`** : the `×`-layer's *elements* (the cone's points) become the **axes** →
+    the next free semigroup.  **Object: to build** ("UnitHyper" — the `b`-dimensional
+    unit grid).  Currently only `HyperAssoc` exists, and it frames `^`
+    *negatively* ("assoc AND comm **die**") — **to be replaced** by the positive form.
+
+**Where the asymmetry comes from, generatively (no numbers).**  The "how-many-times"
+(the *count*) is *always a `+`-level thing* — it never climbs the tower.  The
+"thing-iterated" (the *base*) does climb.  So:
+
+  - `×` = iterate `+`: base is a `+`-element = *same level as the count* → transpose
+    symmetry → **DOF 0**.
+  - `^` = iterate `×`: base is a `×`-element = *one level above the count* → no
+    transpose → **DOF 1** (the new dilation/dimension axis).
+  - in general **`DOF = (base level) − (count level) = (rung level) − 2`** — `×`:0,
+    `^`:1 (tetrahedron), `↑↑`:2 (matches L5's "tetration: 2 DOF").
+
+The base sets each axis (a cone *direction*); the count sets *how many axes* (= the
+*dimension*).  `a^b` = a `b`-dimensional unit grid of side `a`: **base = side,
+exponent = dimension** — they are different *types* (a length vs a dimension-count),
+which is why they do not swap.  Read positively: the rung *adjoins the
+dimension-setting axis*; nothing is "lost".
+
+**Program (large; deliberate, not a rushed mass edit):**
+  P1. Reframe the negative descriptions (`HyperAssoc` headline, any "loses comm/assoc"
+      docstring) → positive (the arising DOF / dimension axis).
+  P2. Build the positive `^`-object generatively (`UnitHyper` = the `b`-dimensional
+      unit grid; base sets side, exponent sets dimension; the layer-gap DOF).
+  P3. Re-anchor descriptions to objects; keep the Nat results (`MultSystem`/
+      `MultSystemValue`/Chebyshev) explicitly *as readouts/shadows*.
+  P4. Carry the `DOF = rung − 2` (layer-gap) statement as the precise spec; tie its
+      `^`-value to `hyper_parallel` (the dilation readout) and the `−1`
+      cross-determinant (L5).
+
 ## L1 — The layer rule: each layer's axis = the *whole previous layer*
 
 `[gut]`  The hyperoperation tower is read **generatively**, not as numbers.  Each
