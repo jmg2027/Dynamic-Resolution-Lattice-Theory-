@@ -1,197 +1,124 @@
-# Session Handoff — 2026-06-13 (operation tower: generative re-foundation blueprint pinned)
+# Session Handoff — 2026-06-13
 
 ## Branch
-`claude/autonomous-marathon-vp-listprod-imkycf` — the system `×` makes (monomials
-over a base set, graded by count); this marathon closed Chebyshev/PNT-density
-(below) and then turned to the **operation-tower frame** and its re-foundation.
-All ∅-axiom (0 dirty).  Pushed.
+`claude/autonomous-marathon-vp-listprod-imkycf` — fully pushed, working tree clean,
+`lake build` (full project) green, 0-axiom intact.  Pre-merge audit: **READY TO MERGE**.
 
-## ⚑ NEXT SESSION — start here: the generative re-foundation
+## ⚑ NEXT SESSION — start here: the operation-tower generative re-foundation
 
-**Governing spec**: `research-notes/frontiers/simplicial_operation_tower.md` —
-read "**Methodological principle**" + "**The re-foundation blueprint — object, not
-readout**" first.  The directive (originator): build the tower (descriptions *and*
-proofs) in the **object** language — free **semigroups**, *no identity, no numbers*
-— with `ℕ`/`0`/`1` strictly the **forgetful readout** (shadow).  Key facts already
+**Governing spec**: `research-notes/frontiers/simplicial_operation_tower.md` — read
+"**Methodological principle**" + "**The re-foundation blueprint — object, not
+readout**" first.  Originator directive: build the operation tower (descriptions
+*and* proofs) in the **object** language — free **semigroups**, *no identity, no
+numbers* — with `ℕ`/`0`/`1` strictly the **forgetful readout** (shadow).  Key facts
 pinned there:
-  - generative rule per rung: `+`→`UnitList`, `×`→`UnitGrid`, `^`→**`UnitHyper`
-    (to build)**; the object layer for `+`,`×` already exists (`Meta/Nat/UnitList`,
-    `Meta/Nat/UnitGrid`); `HyperAssoc` exists but frames `^` *negatively* ("die").
-  - the asymmetry, generatively: the *count* is pinned at the `+`-level; the *base*
-    climbs; so **`DOF = (rung level) − 2`** (`×`:0, `^`:1 = tetrahedron, `↑↑`:2).
-    `a^b` = a `b`-dimensional unit grid: **base = side, exponent = dimension**.
-  - the existing Nat results (`MultSystem`/`MultSystemValue`/`ChebyshevLower`) are
-    valid **readouts** (shadows), not the objects.
+  - generative rule per rung: `+`→`UnitList`, `×`→`UnitGrid` (both already exist,
+    `Meta/Nat/`), `^`→**`UnitHyper` (to build)**.  `HyperAssoc` exists but frames `^`
+    *negatively* ("assoc AND comm die") — to be reframed.
+  - the asymmetry, generatively: the *count* ("how many times") is pinned at the
+    `+`-level and never climbs; the *base* climbs; so **`DOF = (rung level) − 2`**
+    (`×`:0, `^`:1 = tetrahedron, `↑↑`:2).  `a^b` = a `b`-dimensional unit grid:
+    **base = side, exponent = dimension**.
+  - existing Nat results (`MultSystem`/`MultSystemValue`/`ChebyshevLower`) are valid
+    **readouts** (shadows), not the objects.
 
 **P2 is the real work** (genuinely hard, originator-confirmed): build the positive
 `^`-object **`UnitHyper`** generatively (`×`-cone points as axes → next free
-semigroup; base sets each axis's side, exponent sets the number of axes = the
-dimension; the layer-gap DOF).  P1 (reframe `HyperAssoc`'s "die" → positive), P3
-(re-anchor descriptions to objects), P4 (`DOF = rung−2` as spec; tie `^`-value to
-`hyper_parallel` + the `−1` cross-determinant).  **Do it deliberately, bottom-up —
-not a rushed mass edit.**
+semigroup; base sets each axis's side, exponent the number of axes = the dimension;
+the layer-gap DOF), bottom-up — **not a rushed mass edit**.  P1 (reframe `HyperAssoc`
+positively), P3 (re-anchor descriptions to objects), P4 (`DOF = rung−2` as spec; tie
+the `^`-value to `hyper_parallel` + the `−1` cross-determinant).
 
-Tower frame already ∅-axiom (valid as the simplicial *skeleton* / readouts):
-`MultSystem.{monoCount_closed, monoCount_pascal, totalCount_closed, monoCountPos_closed
-(L2: semigroup+1=monoid), hyperCount/hyperCount_simplex (^-skeleton stays simplicial),
-monoCount_le_pow/_lt_pow/_le_succ_pow (a calculation cross-section, NOT the rung)}`,
-`MultSystemValue.{two_le_nonempty_prime_prod (× system={2,3,…}), hyper_parallel
-(^-twist = dilation axis, positive)}`.
+## What Was Done This Session
 
-## This session (autonomous marathon, from `vp_listProd_le_one`)
-Closed the Erdős elementary-Chebyshev numerator + count bound in
-`E213/Lens/Number/Nat213/MultSystemValue.lean` (all ∅-axiom):
+### 1. Chebyshev's theorem — both halves + PNT density cut, all ∅-axiom
+`Lens/Number/Nat213/MultSystemValue.lean` + `ChebyshevLower.lean`.  Promoted last
+session to `theory/math/numbertheory/chebyshev_prime_counting.md` (in `CAPSTONE_INDEX`).
+- **Upper bound**: prime window `(n,2n]` (`window_prod_dvd_central_binom`,
+  `window_prod_le`), doubling step `primePi_two_mul_le_floorLog`, telescoped
+  `primePi_pow_two_le_chebBound : π(2^m) ≤ chebBound m = O(2^m/m)`,
+  `chebBound_mul_le` (division-free partial-sum bound).
+- **Density cut INHABITED**: **`primeDensityToZero : PrimeDensityToZero`** —
+  `π(N)/N → 0` certified, modulus `M(k)=2^{12k}` (`density_cert_aux`).
+- **Lower bound**: `central_binom_ge_two_pow` (`2^n ≤ C(2n,n)`), the **Kummer bound**
+  `vp_central_binom_le_floorLog` (via `Legendre.legendre` + per-term `floor_two_mul_div_le`),
+  `le_pow_primePi` (distinct-prime grouping inductively), `central_binom_le_pow_primePi`,
+  **`chebyshev_lower : n ≤ (⌊log₂(2n)⌋+1)·π(2n)`**.
+- `floorLog` relocated to **`Meta/Nat/FloorLog`** (generic infra; shared by the
+  central-binomial route here and the lcm-growth route `LcmGrowthChebyshev`/ζ(3)).
 
-- **`listProd_dvd`**: distinct primes each `∣ m` ⇒ `∏ ps ∣ m` (via
-  `dvd_of_forall_vp_le`).  Support: `listProd_pos`; **`vp_listProd_le_one`**
-  (Nodup prime list ⇒ `vp q (∏ ps) ≤ 1`, squarefree); `prime_dvd_listProd_mem`
-  (`q ∣ ∏ primes ⇒ q ∈ ps`, Euclid list form, decidability-free).
-- **Prime window `(n,2n]`**: `primesIn lo hi` = primes in `(lo,hi]`, built
-  counting `hi` down with decidability-free `Nat.decLt`/`decPrime` splits;
-  unfolding lemmas `primesIn_cons/_skip/_empty` (`simp only [primesIn]` + goal-
-  side `cases`, pure) drive `mem_primesIn_{le,prime,gt}` + `primesIn_nodup`.
-  `central_binom_pos`; **`window_prod_dvd_central_binom`** (`∏_{n<p≤2n} p ∣
-  C(2n,n)`); **`window_prod_le`** (`∏ ≤ 2^{2n}`).
-- **`windowCount_pow_le : (n+1)^{windowCount n} ≤ 2^{2n}`** — the finite ∅-axiom
-  Chebyshev count skeleton (`pow_length_le_prod`; each window prime `>n`).
-- **`floorLog` relocated** `LcmGrowthChebyshev` → **`Meta/Nat/FloorLog`** (generic
-  Nat infra: floor-log `⌊log_p N⌋` + sandwich + general-base pow monotonicity;
-  `Lens/` can now import it; consumers open+re-export, `FactorialLcmDvd` untouched).
-- **`windowCount_le_floorLog : 1≤n → windowCount n ≤ floorLog (n+1) (2^{2n})`** —
-  the additive count cap (`floorLog_ge` on `windowCount_pow_le`).
-- **`primePi` tie**: `primePi_add_primesIn_length` (`lo≤hi → π lo + #primes(lo,hi]
-  = π hi`), `windowCount_eq` (`π n + windowCount n = π(2n)`), and
-  **`primePi_two_mul_le_floorLog : π(2n) ≤ π(n) + floorLog (n+1) (2^{2n})`** — the
-  ∅-axiom Chebyshev doubling step.  Verified `π(8)=4, windowCount 8=2, π(16)=6`.
-- **Dyadic telescoping**: `def chebSum m = Σ_{k<m} floorLog(2^k+1)(4^{2^k})` +
-  **`primePi_pow_two_le_chebSum : π(2^m) ≤ chebSum m`** (iterate the doubling step).
-  `chebSum` = the exact finite ∅-axiom Chebyshev upper-bound skeleton.  Verified
-  `π(8)=4 ≤ chebSum 3=7, π(16)=6 ≤ chebSum 4=12`.
-- **`floorLog` upper-bound infra** (`Meta/Nat/FloorLog`): `floorLog_le_iff`,
-  `floorLog_le_of_lt_pow`, `floorLog_antitone_base`, `floorLog_pow_self`.
-- **Per-window term** `floorLog_window_term_le : 1≤k → floorLog (2^k+1)(4^{2^k}) ≤
-  2^{k+1}/k` (via `floorLog_le_of_lt_pow` + `lt_mul_div_succ`; the growing base
-  `2^k+1` supplies the `1/k = 1/ln(base)` denominator — propext dodged with pure
-  `div_add_mod`/`pow_mul_pure`).
-- **THE CAPSTONE** `primePi_pow_two_le_chebBound : π(2^m) ≤ chebBound m`
-  (`= 2 + Σ_{k=1}^{m-1} 2^{k+1}/k = O(2^m/m)`) — the explicit, computable,
-  axiom-free Erdős elementary-Chebyshev `π(N)=O(N/ln N)`.  Via `windowBound`
-  (pattern-matched, no `ite`) + `term_le_windowBound` + `chebSum_le_chebBound` ∘
-  `primePi_pow_two_le_chebSum`.  Verified `π(8)=4≤10, π(1024)=172≤chebBound 10=269`.
-  In `CAPSTONE_INDEX.md` (new "Prime counting" section).
+### 2. The operation-tower frame (simplex-count) — ∅-axiom readout skeleton
+`MultSystem.lean` + `MultSystemValue.lean`.  Promoted to `slot_arithmetic.md` §1.5.
+- `monoCount_closed`/`monoCount_pascal`/`totalCount_closed` — each rung's degree-count
+  = the multiset coefficient `C(n+k−1,k)` (Pascal = a simplicial cone).
+- **`hyperCount`/`hyperCount_simplex`** — applying the layer rule to `^` (×-monomials
+  as axes) keeps it a **simplex**; axes explode, shape invariant ("stays simplicial").
+- `monoCount_le_pow`/`_lt_pow`/`_le_succ_pow` — a *calculation cross-section* (sorted
+  ≤ ordered), **not** the rung mechanism.
+- `monoCountPos_closed` (L2: semigroup `+1` = monoid, the identity is the isolated
+  exception), `two_le_nonempty_prime_prod` (the `×` system is `{2,3,…}`).
+- **`hyper_parallel`** — the `^`-twist, positively: `vp_p(m^b) = b·vp_p m`, `m^b`
+  parallel to `m` (exponent = radial scalar, base = vector direction = the dilation axis).
 
-- **`chebBound_mul_le`** — division-free partial-sum bound `chebBound(m+1)·(m+1) ≤
-  6·2^{m+1}` (= `chebBound m = O(2^m/m)`; multiplying through dodges floor-div
-  non-additivity; paired crude `chebBound(m+1) ≤ 2^{m+2}`).
-- **THE KEYSTONE** `primeDensityToZero : PrimeDensityToZero` — **`π(N)/N → 0`
-  certified ∅-axiom**, the PNT density cut (the scaffolding's "open analytic core")
-  CLOSED.  Modulus `M(k)=2^{12k}`; `density_cert_aux` does the arithmetic at level
-  `m=⌊log₂N⌋`.  Pure cancellation helpers `mul_lt_mul_right_pure` /
-  `lt_of_mul_lt_mul_right_pure` (avoid `Nat.*`'s Classical axioms).  In
-  `CAPSTONE_INDEX.md`.
+### 3. Reframe + re-foundation blueprint
+Per the originator: commutativity is a 1-D *shadow*, not the mechanism — describe
+rungs by what *arises* (dimension/DOF), never by what they "lose".  Softened the
+`monoCount_*` docstrings; pinned the methodological principle + the object/readout
+re-foundation blueprint (P1–P4) in the frontier note.
 
-**Chebyshev lower bound** `π(N) ≥ c·N/ln N` (`frontiers/chebyshev_lower_bound.md`,
-new file `Lens/Number/Nat213/ChebyshevLower.lean`) — via `2^n ≤ C(2n,n) ≤
-(2n)^{π(2n)}`.  **DONE ∅-axiom**: `central_binom_ge_two_pow` (`2^n ≤ C(2n,n)`);
-`floor_two_mul_div_le` (per-term `⌊2n/d⌋ ≤ 2⌊n/d⌋ + [d≤2n]`); **the Kummer bound
-`vp_central_binom_le_floorLog : vp_p(C(2n,n)) ≤ ⌊log_p(2n)⌋`** (Legendre + per-term
-sum, the hard analytic core); `prime_pow_vp_central_binom_le : p^{vp_p(C)} ≤ 2n`.
-File under `Lens/` (layer guard blocks `Lib/Math` ← `MultSystemValue`); reuses
-`Legendre`/`LcmGrowthChebyshev` (`Lib`) via `Lens → Lib`.  Bridge `fact_eq_factorial`.
+### 4. Marathon wrap (skill sequence)
+merge main (no-op) · `/process` (decoupled 3 lean→frontier citations, 0 sink
+violations) · promotion (`slot_arithmetic` §1.5 clause, log #79) · 5 cross-domain
+resonances · `/essay` (`the_count_never_climbs.md`, essays 97→98, log #80) ·
+`/org-audit` (**wired the orphaned `MultSystem` family into the Nat213 aggregator** —
+it was never in the root `lake build E213` / CI) · `/purity-check` (strict ∅-axiom) ·
+`/ready-to-merge` (READY).
 
-**✅ Chebyshev lower bound CLOSED** (`ChebyshevLower.chebyshev_lower : n ≤
-(⌊log₂(2n)⌋+1)·π(2n)`).  The product bound `C(2n,n) ≤ (2n)^{π(2n)}` was done via
-**`le_pow_primePi`** (`m ≤ B^{π(N)}` from per-prime-power bounds — distinct-prime
-grouping done inductively by peeling full `p`-powers, no product-FTA object) +
-`central_binom_le_pow_primePi`.  **Both halves of Chebyshev's theorem
-`c·N/ln N ≤ π(N) ≤ C·N/ln N` are now ∅-axiom.**  In `CAPSTONE_INDEX.md`.
+## Current Precision Results
+Unchanged this session (pure number-theory / foundations work; no physics constants
+touched).  See `catalogs/physics-constants.md`.
 
-**Promoted** → `theory/math/numbertheory/chebyshev_prime_counting.md` (whole arc:
-upper bound + density cut + lower bound); registered in `theory/math/INDEX`; closed
-`chebyshev_lower_bound` frontier archived → `research-notes/archive/chebyshev/`.
+## Open Problems (each with a frontier note)
+### 1. The operation-tower object re-foundation — build `UnitHyper` (P2)
+The generative `^`-object (free semigroup over the `×`-cone, no identity/number, the
+dilation/dimension axis) is unbuilt; the precise dimension it adds (3- vs 4-simplex)
+is open.  Frontier: `research-notes/frontiers/simplicial_operation_tower.md` (blueprint
+P1–P4).
 
-## Prior session (n-plus-signature-mappings branch)
+### 2. PNT proper `π(N) ~ N/ln N` (constant 1) — the asymptotic horizon
+A `Real213` pointing (the ratio sequence `π(N)·ln N/N → 1`), reached by no finite
+certificate.  Frontier: `research-notes/frontiers/multiplicative_count_pnt.md`.
 
-## What this branch built
+## Unresolved from This Session
+- The `^`-enumeration "poly vs cube" count question was *reframed*, not answered: the
+  symmetric skeleton (`hyperCount`) stays simplicial; the base/exponent twist is the
+  open positive structure (frontier #1).
+- A full "싹 갈아치우기" object-rebuild was deliberately *not* rushed — blueprint
+  pinned, build deferred to a clean session (correct call given the scope).
 
-### `E213/Lens/Number/Nat213/MultSystem.lean` (34 PURE)
-The structure `×` generates — not "ℕ⁺ with × bolted on" but monomials over a
-base set, graded by total count.  Carrier = exponent vector (`Mono`); `×` =
-exponent-wise add; `deg` = total count = the projection to ℕ (`deg_mul`: × → +;
-`deg_unit`: bases are count-1 atoms).
-  - `totalCount_closed` : `Σ_{n≤N} monoCount k n = C(N+k, k)` (free count).
-  - `doubleTotal_closed` : both axes cut at N ⇒ `C(2N+1, N)` (central binomial).
-  - `doubleSumPos_closed` : 1-indexed `Σ_{k=1}^N Σ_{n=1}^N = C(2N+1,N) − N − 1`.
-  - per-base increment, hockey-stick (`hockey`, `hockeyDiag`), `binom` + Pascal.
+## Next
+Pick up frontier #1: build `UnitHyper` bottom-up (the `^`-object) per the blueprint.
 
-### `E213/Lens/Number/Nat213/MultSystemValue.lean` (28 PURE)
-The prime-valued instance — abstract monomials ARE distinct naturals.
-  - `expVal` + `expVal_inj` / `caseA_distinct_naturals` : `C(N+k,k)` degree-≤N
-    monomials over k primes are `C(N+k,k)` DISTINCT naturals (unique
-    factorization, `vp_separation`).
-  - `factorization_exists` (`fromVec`): every n>0 = product of primes.
-  - `vp_pow_le_self` : `p^(vp p n) ≤ n` (per-axis exp/log).
-  - `omega_le_log` : `2^(Ω n) ≤ n`, i.e. `Ω(n) ≤ log₂ n` (total exp/log skeleton).
-  - `factorization_bounded` : prime factors of n are ≤ n ⇒ naturals ≤ N use only
-    primes ≤ N, so `k = π(N)` bases suffice.
-  - `decDvd` (pure `Decidable (k∣n)`) → `decNoFactor` → `isPrime_iff` →
-    `decPrime` (pure `Decidable (IsPrime213 n)`) → `primeIndicator`
-    (+ `_eq_one_iff`), **`primePi`** (= π(N)), `primePi_le_self`,
-    `primePi_monotone`.  Verified: `primePi [10,20,30,100] = [4,8,10,25]`.
-  - **`exists_prime_gt`** : ∀ N, ∃ prime > N (infinitude, Euclid via N!+1;
-    local `fact`, `dvd_fact`) = `π(N) → ∞` as a pointing.
-  - **`primePi_unbounded`** : ∀ k, ∃ N, k ≤ primePi N — the divergence
-    *certificate* (213-native ε-N modulus for π → ∞).
+## Three-tier state
+- **Promotions this session**: `slot_arithmetic.md` §1.5 ← the tower simplex-count
+  (clause upgrade, log #79); essay `the_count_never_climbs.md` (log #80).  (Chebyshev
+  → `chebyshev_prime_counting.md` was promoted last session.)
+- **Promotion candidates**: none pending — the tower's object re-foundation is an
+  *open* frontier (not categorically closed), deliberately not promoted.
+- **Active scratchpad**: `frontiers/simplicial_operation_tower.md` (re-foundation),
+  `frontiers/multiplicative_count_pnt.md` (PNT horizon).
 
-## Certificate idea (originator, this branch)
-The PNT horizon should be issued as a **Real213 cut + modulus certificate** =
-213's ε-δ.  `AbCutSeq.toCauchy (S)(N)(hc)` completes a cut given a modulus
-`N(m,k)`; transcendentals (Wallis-π, Euler-e) supply the modulus as `hsep`.
-`primePi_unbounded` is the divergence certificate.  **PNT cut framework DONE**:
-`RatTendsToZero` (ε-δ modulus for `a N/b N → 0`) + `.below` (soundness) +
-`oneOverN` (validation `1/N→0`) + `PrimeDensityToZero := RatTendsToZero primePi
-id`.  Scaffolding ∅-axiom; **inhabiting `PrimeDensityToZero` = the open analytic
-core** (Chebyshev/PNT).  **Density ≤ 1/2 DONE**: `primePi_two_mul_le : π(2n) ≤ n`
-(only 2 is even-prime, `not_prime_two_mul` + `pair_bound`).  Chebyshev ingredients
-DONE: `central_binom_le : C(2n,n) ≤ 4^n` (MultSystem), `prime_not_dvd_fact :
-p ∤ n!` for p>n, and **`central_binom_factorial : C(2n,n)·(n!)² = (2n)!`** (the
-hard gate, nested induction + `ring_nat`).  **`prime_dvd_central_binom : n<p≤2n ⇒ p ∣ C(2n,n)`** + **`prime_not_dvd_listProd`**
-(prime ∉ prime-list ⇒ ∤ product, the coprimality core) DONE.
-**`dvd_of_forall_vp_le : (∀ prime q, vp q a ≤ vp q b) → a ∣ b`** (a,b>0; order
-companion of vp_separation, in Meta/Nat/VpSeparation) DONE.  Next: `listProd_dvd`
-(distinct primes each ∣ m ⇒ listProd ∣ m) via dvd_of_forall_vp_le — needs only
-`vp_listProd_le_one` (q prime, nodup primes ⇒ vp q (listProd ps) ≤ 1) + a
-case-split + `listProd_pos`.  Then the product `∏_{n<p≤2n} p ∣ C(2n,n) ≤ 4^n`,
-bound `#{primes in (n,2n]}` via `n^count < ∏ p ≤ 4^n`, sum dyadic windows ⇒
-`π(N)=O(N/ln N)` ⇒ density→0 (inhabits `PrimeDensityToZero`).  (propext-tainted:
-also `Nat.add_mul`.)
-
-## Why ln (pinned)
-`exp` = `Nat.pow` = iterated `×` = binary-op tower depth (no transcendental).
-`value = exp(depth)` ⇒ `depth = log(value)`.  `ln` in π(N) = continuous shadow
-of the discrete `Ω ≤ log₂` skeleton.  Also: corrected stale CLAUDE.md note —
-`vp_separation` is proven & ∅-axiom (not "open").
-
-Also: `factorization_bounded` (prime factors of n are ≤ n ⇒ naturals ≤ N use
-only primes ≤ N, so k = π(N)); `decDvd` (pure `Decidable (k∣n)`, k>0, via
-`n % k`); and **π(N) CLOSED**: `decNoFactor` → `isPrime_iff` → `decPrime`
-(pure `Decidable (IsPrime213 n)`) → `primeIndicator` (+ `_eq_one_iff`) →
-`primePi`, `primePi_le_self`, `primePi_monotone`.  Verified: `primePi
-[10,20,30,100] = [4,8,10,25]`.
-
-## Open thread (frontier: `research-notes/frontiers/multiplicative_count_pnt.md`)
-**Next concrete step** (π(N) item 1 now CLOSED): **item 2** — value-bounded count.
-Infinitude (`exists_prime_gt`) DONE.  Remaining: `π` unboundedness as a Nat
-statement (`∀ k, ∃ n, k ≤ primePi n`); a Chebyshev-type *finite* bound pointing
-at PNT; tie `factorization_bounded`'s prime list length to `primePi`.  PNT
-`π(N) ~ N/ln N` = asymptotic horizon (pointing), not a ∅-axiom target.
-
-## Propext-avoidance learned this branch (IMPORTANT)
-Carry **propext**: `Nat.mul_assoc`, `Nat.dvd_trans`, `Nat.le_of_dvd`,
-`Nat.decidable_dvd`, `Nat.le_of_add_le_add_left`, `Bool` `_eq_true` reflection.
-Pure: `Nat.add_assoc`, `Nat.mul_comm`, `Nat.mul_le_mul`, `Nat.mul_succ`,
-`Nat.le_antisymm`, `Nat.lt_or_ge`, `Nat.decLe`, `searchDiv`.  Use
-`NatHelper.mul_assoc`/`mul_left_comm`, `Pow213.le_of_dvd_pos`, `decDvd`,
-`NatDiv213.le_of_add_le_add_left_pure`.  Note: a Prop `∨` cannot eliminate into a
-`Decidable`/Type goal — branch on Nat values or decidable instances, not Prop
-disjunctions.
+## File Map
+```
+lean/E213/Lens/Number/Nat213/MultSystem.lean        ← simplex-count + hyperCount + the dial cross-section
+lean/E213/Lens/Number/Nat213/MultSystemValue.lean   ← Chebyshev upper/density + hyper_parallel + L2
+lean/E213/Lens/Number/Nat213/ChebyshevLower.lean    ← Kummer + le_pow_primePi + chebyshev_lower
+lean/E213/Lens/Number/Nat213.lean                   ← aggregator (family wired into the root build)
+lean/E213/Meta/Nat/FloorLog.lean                    ← generic floor-log (relocated; shared infra)
+theory/math/numbertheory/chebyshev_prime_counting.md ← Chebyshev/PNT-density chapter
+theory/math/numbersystems/slot_arithmetic.md §1.5    ← tower simplex-count clause (promotion)
+theory/essays/synthesis/the_count_never_climbs.md    ← essay (DOF = rung − 2)
+research-notes/frontiers/simplicial_operation_tower.md ← re-foundation blueprint (P1–P4) + L1–L6
+research-notes/frontiers/multiplicative_count_pnt.md ← PNT horizon
+research-notes/archive/chebyshev/                    ← closed chebyshev_lower_bound frontier
+```
