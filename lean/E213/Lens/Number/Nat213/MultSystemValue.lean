@@ -555,8 +555,7 @@ theorem listProd_pos {ps : List Nat} (h : ∀ p, p ∈ ps → 0 < p) : 0 < listP
     multiplicative identity) is **not** a nonempty prime-monomial — it is the
     adjoined *exception*; the self-contained semigroup of prime-monomials is exactly
     `ℕ_{≥2}` (`factorization_exists` factors every `n ≥ 2` nonemptily).  The value
-    reading of `monoCountPos_closed`'s "+1 = the identity" (L2 of
-    `research-notes/frontiers/simplicial_operation_tower.md`). -/
+    reading of `monoCountPos_closed`'s "+1 = the identity". -/
 theorem two_le_nonempty_prime_prod {p : Nat} {rest : List Nat} (hp : IsPrime213 p)
     (hrest : ∀ q, q ∈ rest → IsPrime213 q) : 2 ≤ listProd (p :: rest) := by
   show 2 ≤ p * listProd rest

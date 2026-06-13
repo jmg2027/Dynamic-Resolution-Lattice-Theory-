@@ -442,8 +442,7 @@ theorem totalCount_split (k N : Nat) :
     `(bases, ×)` alone) — and the full **monoid** count is exactly that **plus one**:
     `Σ_{n=1}^N monoCount k n + 1 = C(N+k, k)`.  The `+1` is the single degree-`0`
     monomial (the empty product = the identity, `monoCount_col0`), adjoined as an
-    *exception* to the otherwise self-contained semigroup (L2 of
-    `research-notes/frontiers/simplicial_operation_tower.md`). -/
+    *exception* to the otherwise self-contained semigroup. -/
 theorem monoCountPos_closed (k N : Nat) :
     sumf1 (fun n => monoCount k n) N + 1 = binom (N + k) k := by
   have h := totalCount_split k N
@@ -481,8 +480,7 @@ theorem doubleSumPos_closed (N : Nat) :
 multisets.  Apply the *same* rule one more time: `^` takes the `×`-rung's elements
 as axes.  The `×`-monomials of degree `≤ N` over `k` `+`-bases number
 `totalCount k N`; the `^`-rung over them, at degree `d`, is their degree-`d`
-multiset count.  Building it directly (`research-notes/frontiers/simplicial_operation_tower.md`
-L4-positive). -/
+multiset count — built directly. -/
 
 /-- The `^`-rung built by the layer rule: degree-`d` multisets of `×`-monomials
     (the `×`-monomials of degree `≤ N` over `k` `+`-bases as the axis set). -/
