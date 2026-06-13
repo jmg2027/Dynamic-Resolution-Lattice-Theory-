@@ -101,14 +101,18 @@ dimension-setting axis*; nothing is "lost".
       `count = side ^ dim` the value sibling — two readouts of the one `^`-rung.
       (Remaining: thread the same readout/shadow framing through `MultSystemValue`
       / the Chebyshev mirror if it recurs — deferred, not a rushed sweep.)
-  P4. **Partial** (the `−1` cross-determinant tie is DONE; the cross-layer
-      `DOF = rung − 2` spec remains open).  The `−1` cross-determinant ↔ `^`-twist
-      link is now structural, not a rhyme (`CrossDetOvertake §6`, ∅-axiom): `W`'s
-      `|det|=1` floor = the point (`crossdet_floor_eq_point`), its `2^{2^i}` ceiling =
-      `count (hcube 2 (2^i))` (`crossW_eq_hcube_count`), so `UnitHyper.count` grades
-      the cross-determinant axis by the `^`-tower.  *Still open*: the cross-layer
-      `DOF = rung − 2` as a HyperLadder-level spec, and the `hyper_parallel` (dilation
-      readout) tie — deferred (overlaps L5's 3- vs 4-simplex question).
+  P4. **DONE** (modulo the `hyper_parallel` tie).  Two ∅-axiom pieces:
+      (a) the cross-layer `DOF = rung − 2` spec at the **HyperLadder** level
+      (`HyperLadder §6`): `dofOfRung k = k − 2`, `dofOfRung_succ` (the `+1`-per-rung
+      climb, `k ≥ 2`), pinned **non-vacuously** to operand interchangeability —
+      `dof_two_comm` (`×`: DOF 0 ⟺ commutes, grid transpose) and `dof_three_not_comm`
+      (`^`: DOF 1 = first non-commutative, obstruction = `UnitHyper.swap_changes_dim`);
+      (b) the `−1` cross-determinant ↔ `^`-twist link, now structural
+      (`CrossDetOvertake §6`): `W`'s `|det|=1` floor = the point
+      (`crossdet_floor_eq_point`), its `2^{2^i}` ceiling = `count (hcube 2 (2^i))`
+      (`crossW_eq_hcube_count`), so `UnitHyper.count` grades the cross-determinant
+      axis by the `^`-tower.  *Still open*: the `hyper_parallel` (dilation readout)
+      tie and L5's 3- vs 4-simplex "초위상" figure (rung ≥ 4 needs a tetration object).
 
 ## L1 — The layer rule: each layer's axis = the *whole previous layer*
 
@@ -413,9 +417,12 @@ to test*, not asserted identities.
    mirror `theory/math/numbertheory/chebyshev_prime_counting.md`).  *Remaining*: tie
    the abstract cone to the `(NS,NT,d)` simplex objects (the physics-branch
    combinatorics) — the "two independent roads to one simplex" of §"Why this matters".
-3. **The twist dimension (L5)** — pin which dimension drives the non-commutativity
-   (built-object vs operand-mismatch); decide the topological figure for one `^`
-   step, then picture the `↑↑` two-DOF case.
+3. **The twist dimension (L5)** — the DOF is now pinned to the **operand-mismatch**
+   reading (`HyperLadder.dof_three_not_comm`: the `^`-non-commutativity's obstruction
+   is the side-vs-dimension type-mismatch, `UnitHyper.swap_changes_dim`), with
+   `dofOfRung = rung − 2` the spec.  *Still open*: the **topological figure** for one
+   `^` step (3- vs 4-simplex), and the `↑↑` two-DOF case (needs a tetration object,
+   rung 4) — `dofOfRung 4 = 2` is stated but uncertified by an object.
 4. **No-identity formalization (L2)** — concrete content **CLOSED ∅-axiom**
    (`MultSystem.monoCountPos_closed` = semigroup count `+ 1` = monoid count, the
    `+1` = the identity; `MultSystemValue.two_le_nonempty_prime_prod` = the natural
