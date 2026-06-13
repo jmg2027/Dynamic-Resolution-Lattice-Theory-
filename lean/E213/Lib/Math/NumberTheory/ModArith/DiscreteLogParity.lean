@@ -1,4 +1,5 @@
 import E213.Lib.Math.NumberTheory.ModArith.ZolotarevCycle
+import E213.Lib.Math.NumberTheory.ModArith.ZolotarevMuBridge
 
 /-!
 # DiscreteLogParity — the quadratic character IS the discrete-log parity
@@ -45,6 +46,9 @@ open E213.Lib.Math.Algebra.Linalg213
 open E213.Lib.Math.Algebra.Linalg213.Permutation (iota perms)
 open E213.Lib.Math.Algebra.Linalg213.PermClosure (permsOf_sound mem_map')
 open E213.Lib.Math.Algebra.Linalg213.Laplace (mem_iota_of_lt)
+open E213.Lib.Math.NumberTheory.ModArith.ZolotarevMuBridge (zolotarev_mu)
+open E213.Lib.Math.NumberTheory.ModArith.ZolotarevSign (mulPermMod)
+open E213.Lib.Math.Algebra.Linalg213.Permutation (psign)
 open E213.Meta.Nat.ModPow213 (pow_mod_base)
 open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
 
@@ -162,5 +166,43 @@ theorem qr_iff_even_dlog_exists (p m a : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p
   obtain ⟨g, hg1, hgle, hord⟩ := exists_primitive_root p hp hpr
   obtain ⟨k, hak, hiff⟩ := qr_iff_even_dlog p m g a hp hpr h2m hm1 hg1 hgle hord ha1 halt
   exact ⟨g, k, ⟨hg1, hgle, hord⟩, hak, hiff⟩
+
+/-! ## §4 — the permutation-sign face: `psign σ_a = (−1)^{dlog}`
+
+`zolotarev_mu` pins the multiply-by-`a` permutation sign to the quadratic
+character for *every* odd prime (`psign σ_a = 1 ⟺ QR(a)`).  Composing it with the
+discrete-log parity above gives the sign as the exponent parity directly — the
+permutation-sign readout of `the_quadratic_character_is_a_discrete_log_parity.md`
+made a theorem alongside the Euler readout. -/
+
+/-- ★★★★★ **Permutation sign = discrete-log parity.**  For a primitive root `g`,
+    the sign of multiply-by-`g^k` is `+1` exactly when the exponent is even:
+    `psign σ_{g^k} = 1 ⟺ 2 ∣ k`.  (`zolotarev_mu` ∘ `qr_pow_iff_even_exp`.) -/
+theorem psign_pow_iff_even_exp (p m g : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (hg1 : 1 ≤ g) (hgle : g ≤ p - 1)
+    (hord : ordModP g p = p - 1) (k : Nat) :
+    psign (mulPermMod (g ^ k % p) p) = 1 ↔ 2 ∣ k := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
+  have hglt : g < p := Nat.lt_of_le_of_lt hgle (Nat.sub_lt hppos Nat.zero_lt_one)
+  have hnpgk : ¬ p ∣ g ^ k := not_dvd_pow g p k hp hpr (not_dvd_g g p hg1 hglt)
+  have ha1 : 1 ≤ g ^ k % p := Nat.pos_of_ne_zero (fun h0 => hnpgk (dvd_of_mod_eq_zero h0))
+  have halt : g ^ k % p < p := Nat.mod_lt _ hppos
+  exact (zolotarev_mu (g ^ k % p) p m hp hpr h2m hm1 ha1 halt).trans
+    (qr_pow_iff_even_exp p m g hp hpr h2m hm1 hg1 hgle hord k)
+
+/-- **Permutation-sign face, per unit.**  For every unit `a`, a primitive root `g`
+    and discrete log `k` (`a = g^k % p`) exist with `psign σ_a = 1 ⟺ 2 ∣ k` —
+    the `psign`/Euler/discrete-log readouts of one bit `k mod 2`, all theorems. -/
+theorem psign_iff_even_dlog_exists (p m a : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h2m : 2 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) :
+    ∃ g k, (1 ≤ g ∧ g ≤ p - 1 ∧ ordModP g p = p - 1) ∧ a = g ^ k % p ∧
+      (psign (mulPermMod a p) = 1 ↔ 2 ∣ k) := by
+  obtain ⟨g, hg1, hgle, hord⟩ := exists_primitive_root p hp hpr
+  have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
+  have hglt : g < p := Nat.lt_of_le_of_lt hgle (Nat.sub_lt hppos Nat.zero_lt_one)
+  obtain ⟨k, hak⟩ := dlog_exists p g a hp hpr hg1 hglt hord ha1 halt
+  refine ⟨g, k, ⟨hg1, hgle, hord⟩, hak.symm, ?_⟩
+  rw [← hak]
+  exact psign_pow_iff_even_exp p m g hp hpr h2m hm1 hg1 hgle hord k
 
 end E213.Lib.Math.NumberTheory.ModArith.DiscreteLogParity
