@@ -84,8 +84,11 @@ upper bound + density cut + lower bound); registered in `theory/math/INDEX`; clo
 hand-check); wrote **§L3′ — the precise +/× bridge** (one simplicial cone, two cuts:
 degree=Pascal vs value=ℕ; `+`/`×` = same rung shifted by `vp`, `exp:(ℕ₊,×)≅⊕_p(ℕ,+)`;
 count discrepancy = prime counting = the window ⇒ this session's Chebyshev).  **L4
-dial half CLOSED**: `MultSystem.monoCount_le_pow : monoCount t d ≤ t^d` (commutative-
-simplex ≤ free-cube; gap = commutativity collapse).  Theory mirror:
+dial static comparison CLOSED** as a sharp polynomial-vs-exponential sandwich:
+`MultSystem.monoCount_le_succ_pow : monoCount t d ≤ (d+1)^t` (poly-in-degree) and
+`monoCount_lt_pow : 2≤t→2≤d→ monoCount t d < t^d` (strictly below the exponential
+free-cube count); `monoCount_le_pow` underlies both.  So commutative = simplex =
+poly-in-degree, non-commutative = cube = exp-in-degree.  Theory mirror:
 `theory/math/numbertheory/chebyshev_prime_counting.md`.
 
 **Next**: (L4) build the `^`-layer enumeration and show its per-degree count escapes

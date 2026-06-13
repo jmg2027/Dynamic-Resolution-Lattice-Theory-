@@ -167,14 +167,16 @@ seen by **counting**):
 | ordered string (`aba≠aab`) | `nᵏ` (exponential) | **cube / tree** | **non-commutative** |
 
 So: **simplex/polynomial count ⟺ commutative; cube/exponential count ⟺
-non-commutative.**  **The two rows' inequality is now CLOSED ∅-axiom** (and **strict**):
-`MultSystem.monoCount_le_pow : monoCount t d ≤ t^d` — the commutative count
-(sorted multisets) is bounded by the free count (ordered strings), since sorting
-`aba ↦ aab` surjects strings ↠ multisets — sharpened to **strict**
-`monoCount_lt_pow : 2≤t → 2≤d → monoCount t d < t^d` (the collapse is *real*, not an
-edge case: `ab`/`ba ↦ {a,b}` identifies distinct strings).  The gap
-(`t^d − monoCount t d`: `1, 4, 17, 66, …` for `(2,2),(2,3),(3,3),(3,4)`) *is* the
-commutativity collapse, growing exponentially.  Conjecture still `[gut]`: going up the tower, the per-degree count
+non-commutative.**  **The two rows' inequality is now CLOSED ∅-axiom** (strict, and **sharp as a
+polynomial-vs-exponential sandwich**): the commutative count is squeezed
+`monoCount t d ≤ (d+1)^t` (**polynomial in the degree `d`**,
+`MultSystem.monoCount_le_succ_pow`) and `monoCount t d < t^d` (strictly below the
+**exponential** free/cube count, `monoCount_lt_pow`, `2≤t,2≤d`); the bare bound
+`monoCount_le_pow : monoCount t d ≤ t^d` underlies both.  So the dichotomy is exact:
+**commutative = simplex = polynomial-in-degree; non-commutative = cube =
+exponential-in-degree.**  Sorting `aba ↦ aab` surjects strings ↠ multisets — the
+collapse is real (`ab`/`ba ↦ {a,b}`); the gap (`t^d − monoCount t d`: `1, 4, 17,
+66, …`) grows exponentially.  Conjecture still `[gut]`: going up the tower, the per-degree count
 **jumps from polynomial (simplicial) to exponential (`nᵏ`)** exactly at the rung
 where commutativity dies (`^`).  The *count* would then *measure* the wall —
 remaining step: build the `^`-layer enumeration and show its per-degree count
@@ -232,10 +234,11 @@ Lenses.  That makes the gut worth closing.
 
 ## Open problems / next steps
 
-1. **The commutativity dial (L4)** — static comparison **CLOSED ∅-axiom**, strict
-   (`MultSystem.monoCount_le_pow : monoCount t d ≤ t^d`; `monoCount_lt_pow :
-   2≤t→2≤d→ monoCount t d < t^d`, commutative-simplex `<` free-cube).  *Remaining*:
-   build the `^`-layer enumeration ∅-axiom and verify
+1. **The commutativity dial (L4)** — static comparison **CLOSED ∅-axiom**, the full
+   polynomial-vs-exponential sandwich: `monoCount t d ≤ (d+1)^t`
+   (`monoCount_le_succ_pow`, poly-in-degree) and `monoCount t d < t^d`
+   (`monoCount_lt_pow`, `2≤t,2≤d`, strictly below exp).  *Remaining*: build the
+   `^`-layer enumeration ∅-axiom and verify
    its per-degree count *escapes* the polynomial (simplex) class into the
    exponential (cube) class at the non-commutative rung — *measuring* the `^`-wall
    by counting.
