@@ -518,8 +518,8 @@ Lenses.  That makes the gut worth closing.
 
 ## Cross-domain resonances (this branch ↔ corpus) — recorded, to test
 
-Five links surfaced while building the tower + Chebyshev this branch; *resonances
-to test*, not asserted identities.
+Eight links surfaced while building the tower + Chebyshev + the dimension calculus
+this branch; *resonances to test*, not asserted identities.
 
 1. **Tower simplex ↔ the `(NS,NT,d)` physics simplex.**  The operation-iteration
    road (`monoCount_closed`/`hyperCount_simplex`) lands on the *same* simplicial
@@ -555,6 +555,30 @@ to test*, not asserted identities.
    the same certificate-is-a-modulus pattern as `AbCutSeq.toCauchy` and the WZ
    certificates of `the_certificate_boundary.md`.  Density convergence sits on the
    certifiability boundary that essay draws.
+6. **The finite-difference dimension detector ↔ the Casoratian / depth-order duality.**
+   `Δ^{k+1}` annihilating rung `k+1` (`diffIter_dim_zero`) detects a **polynomial**
+   (C-finite, all-roots-`1`) sequence by its **additive** annihilation depth; the
+   corpus's `sequence_depth/` Casoratian-rank machinery detects a **holonomic**
+   sequence by its **multiplicative/Wronskian** depth.  Difference-depth (additive) ↔
+   Casoratian-depth (multiplicative) is the `G188_depth_order_duality` invert-twin one
+   scale down — the `Δ`-detector is the *degree-0-pole (polynomial) floor* of the
+   holonomic-depth hierarchy.  To test: does `Σ`/`Δ` (additive) match `mconv`/Casoratian
+   (multiplicative) as the same depth operator at two resolutions?
+7. **`Σ` raises dimension `+1` ↔ the cup-ladder graduation `+1` = the residue unit.**
+   Each partial sum `Σ` (`sumfIter`) raises the rung by one (one `×(1−x)^{−1}` = one
+   pole-order = one dimension); the corpus's cohomology cup-ladder graduates by `+1` per
+   degree (`CupLadderResidueUnit`, `H^k → α^{k+1}`), *proven* to be the residue unit
+   `NS − NT = 1` (`cup_ladder_graduation_is_residue_unit`).  Candidate: the
+   dimension-raising `Σ`'s `+1` is the **same unit** as the cup-ladder `+1` and the
+   cross-determinant det-one floor (resonance #2) — one `+1`-graduation, three frames
+   (summation / cohomology / symplectic).
+8. **The `chebyshev_defect` band (exact `A` / lossy `B`) ↔ the certificate boundary.**
+   The support→shape arrow `A` is an *exact* factorization (`C(2n,n)=∏p^{vp}`, a
+   certifiable telescoping); the shape→support arrow `B` is a *lossy* size-squeeze
+   (explicit bounds only).  `B∘A ≠ id`, and the band width is prime counting — the same
+   **certifiable vs explicit-only** split `the_certificate_boundary.md` draws
+   (hypergeometric/algebraic vs harmonic/archimedean).  The PNT-constant gap sits on
+   that certifiability boundary, the exact/lossy non-invertibility being its signature.
 
 ## Open problems / next steps
 
