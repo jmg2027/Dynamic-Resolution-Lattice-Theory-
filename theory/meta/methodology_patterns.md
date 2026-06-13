@@ -76,7 +76,7 @@ keeps all six for narrative value.
 
 ### Measured outcomes (witness sweep)
 
-Applied to one session's added files:
+Applied to a batch of added files:
 - Mobius213: 21 → 13 (8 layer theorems deleted + 2 structural
   insights added)
 - FibonacciExtended: 16 → 9 (5 individual F_N deleted, bridge
@@ -306,12 +306,12 @@ preceding prose first.
 
 ### Pattern #4: Catalog misclaim self-correction
 
-**Problem**: prior-session HANDOFF.md / catalog files advertise
+**Problem**: HANDOFF.md / catalog files advertise
 a file at path X with theorem names {A, B, C}, but the actual
 file tree has no such file — the content was merged into a
 neighbouring file or never made it to commit.  Silent staleness.
 
-**This session's instance** (commit 7a3e6e6e):
+**Worked instance**:
   · `catalogs/math-theorems.md §J.3` advertised
     `Lens/UndifferentiatedRaw.lean` with `constLens_collapses`,
     `pre_lens_singleton`, `constLens_kernel_total`.
@@ -324,7 +324,7 @@ neighbouring file or never made it to commit.  Silent staleness.
 not the file."  If the catalog advertises X but reality is Y,
 update the catalog to advertise Y at its current path with
 current theorem names.  Do NOT recreate the phantom file unless
-the original session-snapshot really intended it.
+the original snapshot really intended it.
 
 **Detection heuristic**: in `ready-to-merge` audit, extract every
 `import E213.<module>` from catalog files and verify the
@@ -383,14 +383,14 @@ identities being mechanically *checked* (not just stated) is
 the only protection against silent drift.  The Pattern #2 +
 Pattern #5 combo (parameterise → decide) is the cheap insurance.
 
-**Action for next session**: replicate Pattern #5 across other
+**Follow-up**: replicate Pattern #5 across other
 "obvious" universal claims in `Cohomology/`, `HodgeConjecture/`,
 `Linalg213/`.  Each parameterisation is ~20 lines but can surface
 unknown drift.
 
 ---
 
-## Cumulative pattern summary (post-2026-05-21)
+## Cumulative pattern summary
 
 | Pattern | Domain | Reusability |
 |---|---|---|
@@ -576,7 +576,7 @@ constraints narrow the field:
 The realistic Pattern #8 yield in Lib/ is **single-digit**, not the
 ~50 originally estimated.  The denser refactor strategy must combine
 Pattern #8 with a separate Int-rewrite-replacement (analogue of the
-`Int213` axiom set lifted to Lib/) — multi-session work, not a
+`Int213` axiom set lifted to Lib/) — larger work, not a
 one-pass mechanical sweep.
 
 Open candidates (verified):
@@ -590,7 +590,7 @@ Open candidates (verified):
     `slash_ne_b_via_depth`, but downstream DIRTY items derive from
     iff/propext, not the helper.
 
-These remain Open Frontier for a dedicated session that pairs
+These remain Open Frontier for dedicated work that pairs
 Pattern #8 with a Lib/-side Int-rewrite extension.
 
 ---
@@ -809,12 +809,12 @@ spin up a meta branch.  Otherwise stay on one branch.
 
 ## Pattern composition update
 
-The original 7 patterns (Cup-Leibniz session 1) + Pattern #8 (Int.NonNeg
-bypass, session 2) + Pattern #9 (Clause-4 recursive Lens) + Pattern #10
+The first 7 patterns (Cup-Leibniz) + Pattern #8 (Int.NonNeg
+bypass) + Pattern #9 (Clause-4 recursive Lens) + Pattern #10
 (adoption-gap k-gram) + Pattern #11 (Cup-Leibniz dichotomy collapse)
 + Pattern #12 (meta-scan archetypes) + Pattern #13 (cross-branch
-process model) form the 2026-05-22 composition table.  Patterns
-#14-#20 (this commit) extend the table with meta-scan branch
+process model) form the composition table.  Patterns
+#14-#20 extend the table with meta-scan branch
 findings: n-layer agreement, three-level Raw-derivation
 (→ seed/THEOREM_METHODOLOGY_SUITE.md §TH-2), decide-finitism
 (→ seed/THEOREM_METHODOLOGY_SUITE.md §TH-3), framework-internal
