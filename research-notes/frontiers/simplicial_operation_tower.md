@@ -51,8 +51,15 @@ axes.
 
 ## L2 — No identity is natural; the identity is an *exception/patch*
 
-`[gut]`  The load-bearing principle.  A layer defined purely from `(base,
-operation)` has **no identity element**, and that is the *natural* state:
+`[∅]`+`[gut]`  The load-bearing principle.  A layer defined purely from `(base,
+operation)` has **no identity element**, and that is the *natural* state.  **The
+concrete content is CLOSED ∅-axiom**: the natural **semigroup** (degree `≥1`)
+count plus *exactly one* (the identity) is the monoid count —
+`MultSystem.monoCountPos_closed : Σ_{n=1}^N monoCount k n + 1 = C(N+k, k)` (the `+1`
+is the unique degree-`0` empty product, `monoCount_col0`).  The value reading:
+`MultSystemValue.two_le_nonempty_prime_prod` — a nonempty prime product is `≥ 2`,
+so the natural `×` system is exactly `{2, 3, …}` and the unit `1` is the adjoined
+exception (`[gut]` example below confirmed):
 
   - `+` from base `a` gives `a, aa, aaa, …` cleanly.  Introduce `0` and you must
     *define `0` from `a` and `+` alone* and relate it back — which is not
@@ -251,9 +258,12 @@ Lenses.  That makes the gut worth closing.
 3. **The twist dimension (L5)** — pin which dimension drives the non-commutativity
    (built-object vs operand-mismatch); decide the topological figure for one `^`
    step, then picture the `↑↑` two-DOF case.
-4. **No-identity formalization (L2)** — state "the natural layer is a semigroup;
-   the identity is an exception" as a precise criterion (a construction is natural
-   iff its identity need not be defined as a special case).
+4. **No-identity formalization (L2)** — concrete content **CLOSED ∅-axiom**
+   (`MultSystem.monoCountPos_closed` = semigroup count `+ 1` = monoid count, the
+   `+1` = the identity; `MultSystemValue.two_le_nonempty_prime_prod` = the natural
+   `×` system is `{2,3,…}`).  *Remaining* `[gut]`: the **meta-criterion** itself —
+   "a construction is natural iff its identity need not be a special case" — as a
+   precise (cross-layer) statement, not just the per-layer decomposition.
 
 ## Anchors
 
