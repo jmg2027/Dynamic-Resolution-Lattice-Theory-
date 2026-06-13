@@ -435,6 +435,19 @@ theorem totalCount_split (k N : Nat) :
         = 1 + sumf1 (fun n => monoCount k n) N
   rw [monoCount_col0]
 
+/-- **The no-identity decomposition (L2)**: the *natural* object is the **semigroup**
+    — the degree-`≥1` monomials, count `Σ_{n=1}^N monoCount k n` (built from
+    `(bases, ×)` alone) — and the full **monoid** count is exactly that **plus one**:
+    `Σ_{n=1}^N monoCount k n + 1 = C(N+k, k)`.  The `+1` is the single degree-`0`
+    monomial (the empty product = the identity, `monoCount_col0`), adjoined as an
+    *exception* to the otherwise self-contained semigroup (L2 of
+    `research-notes/frontiers/simplicial_operation_tower.md`). -/
+theorem monoCountPos_closed (k N : Nat) :
+    sumf1 (fun n => monoCount k n) N + 1 = binom (N + k) k := by
+  have h := totalCount_split k N
+  rw [totalCount_closed k N] at h
+  rw [h]; exact Nat.add_comm _ _
+
 /-- Strictly-positive double sum `Σ_{k=1}^{N} Σ_{n=1}^{N} monoCount k n`. -/
 def doubleSumPos (N : Nat) : Nat :=
   sumf1 (fun k => sumf1 (fun n => monoCount k n) N) N

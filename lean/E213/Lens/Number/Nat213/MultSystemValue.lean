@@ -550,6 +550,21 @@ theorem listProd_pos {ps : List Nat} (h : ∀ p, p ∈ ps → 0 < p) : 0 < listP
       exact Nat.mul_pos (h x (List.Mem.head xs))
         (ih (fun p hp => h p (List.Mem.tail x hp)))
 
+/-- **The natural multiplicative system is `{2, 3, …}` (L2 for `×`)**: a *nonempty*
+    product of primes is `≥ 2`.  So the unit `1` (the empty product = the
+    multiplicative identity) is **not** a nonempty prime-monomial — it is the
+    adjoined *exception*; the self-contained semigroup of prime-monomials is exactly
+    `ℕ_{≥2}` (`factorization_exists` factors every `n ≥ 2` nonemptily).  The value
+    reading of `monoCountPos_closed`'s "+1 = the identity" (L2 of
+    `research-notes/frontiers/simplicial_operation_tower.md`). -/
+theorem two_le_nonempty_prime_prod {p : Nat} {rest : List Nat} (hp : IsPrime213 p)
+    (hrest : ∀ q, q ∈ rest → IsPrime213 q) : 2 ≤ listProd (p :: rest) := by
+  show 2 ≤ p * listProd rest
+  have hrpos : 0 < listProd rest :=
+    listProd_pos (fun q hq => Nat.lt_of_lt_of_le (by decide) (hrest q hq).two_le)
+  calc (2 : Nat) = 2 * 1 := by rw [Nat.mul_one]
+    _ ≤ p * listProd rest := Nat.mul_le_mul hp.two_le hrpos
+
 /-- **Squarefree product of distinct primes.**  For a `Nodup` list of primes, the
     valuation of the product at any prime `q` is `≤ 1`: each prime appears at most
     once, so it contributes exponent `0` or `1`.  Induction on the list — the head
