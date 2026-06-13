@@ -351,6 +351,35 @@ deeper (axes = all `C(N+k,k)` cone points), and the `^`-shape's series is the
 **`ζ`-of-`ζ`** direction — the tower of shapes is the tower of `ζ`-iterates, the next
 frontier to make precise.
 
+### L3‴a — Synthesis: the tower is a discrete ↔ continuous **spiral** (originator)
+
+`[ax]`+`[gut]`  Originator (2026-06-13): "in a way it feels like discrete lattice →
+continuous → discrete lattice."  It is — and the reading **unifies this branch's
+results** into one spiral spine.  Each rung runs three phases:
+
+  1. **Discrete lattice** — the rung's simplicial cone (`monoCount`, `⊕_p ℕ`): the
+     generators / axes / vertices (`monoCount_vertices`).  `[∅]`
+  2. **Continuous shape (a pointing)** — its Hilbert series / `ζ`: the limit **reached
+     by no finite stage** (`FlatOntologyClosure.object1_not_surjective`), the density
+     cut `primeDensityToZero` (a `RatTendsToZero` modulus), the Euler-product essential
+     singularity (L3‴).  `[∅]`
+  3. **Back to discrete (the support)** — the continuous shape's arithmetic content:
+     the primes (Euler factors), the cut's **convergents** (`Mobius213.P_numerator`/
+     `P_denominator`, cross-det `−1` = `SL₂(ℤ)`, `pell_unit_at_succ`), the prime counts
+     (`chebyshev_lower`).  `[∅]`
+
+The crux: **phase-3's discrete support is phase-1 of the *next* rung** ("axis =
+previous layer", L1) — so it is a **spiral, not a circle**: each return to the discrete
+lands one rung up.  This is exactly why this branch's three sub-results sit together —
+they are the three phases of one turn: L3‴ (the continuous `ζ`-shape, phase 2),
+`CrossDetOvertake §6` (the cut's discrete convergents graded by the `^`-tower, phase 3),
+L1 (the support seeding the next axes, phase 1′).  It also re-reads R5
+(`number_tower_theory.md`): the algebraic completions (`+→ℤ`, `×→ℚ`, discrete) vs the
+analytic cuts (roots/logs at `^`, continuous) are the same discrete↔continuous
+alternation, one rung apart.  *Open*: pin the **transform** taking phase 1→2 (a
+Mellin/generating-function map: `monoCount` ↦ Hilbert series ↦ `ζ`) and 2→3 (its
+inverse, the coefficient/Perron reading = prime counting) as named `∅`-axiom arrows.
+
 ## L4 — Two readings of one generating set (a calculation cross-section, **not** the rung mechanism)
 
 `[∅]`  The sorted/ordered comparison below is a *calculation* cross-section — a
