@@ -2,8 +2,7 @@
 
 Reference document for static-analysis tasks on the E213 corpus.
 Pointed-to from `CLAUDE.md`.  Produced by the meta-analysis
-branch `claude/analyze-lean4-ast-patterns-49Rh2` through
-2026-05-22.
+of the E213 Lean corpus.
 
 ---
 
@@ -45,7 +44,7 @@ collaborative pattern:
     notes + cross-references.  Does NOT execute substantive
     PURE-theorem changes.
   · **Substantive branch** — PURE theorem additions, abstraction
-    execution, math marathons.  Uses meta-branch findings as
+    execution, math derivations.  Uses meta-branch findings as
     input.
   · **Handshake docs** — the handshake research notes research notes
     explicitly addressed cross-branch.  Format: §C1..§Cn proposal

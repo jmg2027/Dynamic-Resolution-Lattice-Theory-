@@ -69,8 +69,8 @@ Lean: `lean/E213/Lib/Math/Analysis/ChainCauchy.lean`.
 
 ## Propext-avoidance trick set
 
-Patterns to keep theorems PURE (reusable).  When a future session
-hits a propext leak, apply these in order:
+Patterns to keep theorems PURE (reusable).  When you hit a
+propext leak, apply these in order:
 
   1. **`rw [Iff_lemma]`** → `Iff.trans (lemma) ?_`.  Iff rewrite
      carries propext.
@@ -199,7 +199,7 @@ Formalised:
     `cutMul_one_const_at`).
   · Algebraic structure (CutPoset, lattice, dyadic completeness).
 
-Bridge work (multi-session):
+Bridge work:
 
   · Bishop ↔ DRLT formal equivalence — Bishop's `CauchyReal` ≃
     `Real213` modulo equivalence; Bishop's operations ↔ DRLT's cut

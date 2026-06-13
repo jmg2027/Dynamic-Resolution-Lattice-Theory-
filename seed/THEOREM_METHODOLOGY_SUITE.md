@@ -13,8 +13,8 @@ into one read-through:
   · **§TH-3** Falsifiability surface — the quantitative profile
     that operationalises `seed/AXIOM/08_falsifiability.md` §8.2.
   · **§TH-4** L1 4-sibling parametric methodology — the closure
-    pattern that absorbed Part 3 + Part 5 of the Cup-AW Leibniz
-    marathon into 2 parametric helpers.
+    pattern that absorbed Part 3 + Part 5 of the Cup-AW Leibniz work
+    into 2 parametric helpers.
 
 Together: TH-1 surfaces a cluster, TH-2 verifies the cluster is
 genuinely Raw-derivable, TH-3 confirms the abstraction preserves
@@ -74,7 +74,7 @@ The canonical fingerprint inventory is split across:
 
 **Consolidation candidates.**  When N proofs share fingerprint,
 an abstraction is warranted.  The Part 3 + Part 4 + Part 5
-marathon absorbed 280+ sites across 12 templates (L1, L2, C,
+work absorbed 280+ sites across 12 templates (L1, L2, C,
 FLUX-1, COH-1/2/3, L3, L4, Pell-FSM, ModArith, M-recursor,
 Pattern10, InvolutionTemplate).  Each template was surfaced by a
 fingerprint-cluster scan.
@@ -106,7 +106,7 @@ Each scanner writes a cached TSV to `tools/_<scan_name>_rows.tsv`
 
 ### When this spec is reused
 
-When a future marathon surfaces a new fingerprint cluster, follow
+When future work surfaces a new fingerprint cluster, follow
 the TH-1 → TH-4 chain:
 
   1. **§TH-1**: run scanners, identify cluster.

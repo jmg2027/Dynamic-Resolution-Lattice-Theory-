@@ -55,7 +55,7 @@ Research an open problem by **compiling it down the layers** (`L3 → L2 → L1`
 *composition of ISA operations* — the proof-residue — by systematic exploration of the operation space
 that is **shared across all infinite-abstract reasoning**, not by problem-specific genius.
 
-The Markov marathon was already this, implicitly:
+The Markov work was already this, implicitly:
 
   - Markov numbers = **READ** (count-Lens, `value`); `markovNum = continuant` bridge = **FOLD / COMPILE**.
   - `slope_path_inj` = **SEPARATE** (non-constructive separation, the `DIAGONALIZE` family).
