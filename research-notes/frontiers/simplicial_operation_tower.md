@@ -376,9 +376,21 @@ they are the three phases of one turn: L3‴ (the continuous `ζ`-shape, phase 2
 L1 (the support seeding the next axes, phase 1′).  It also re-reads R5
 (`number_tower_theory.md`): the algebraic completions (`+→ℤ`, `×→ℚ`, discrete) vs the
 analytic cuts (roots/logs at `^`, continuous) are the same discrete↔continuous
-alternation, one rung apart.  *Open*: pin the **transform** taking phase 1→2 (a
-Mellin/generating-function map: `monoCount` ↦ Hilbert series ↦ `ζ`) and 2→3 (its
-inverse, the coefficient/Perron reading = prime counting) as named `∅`-axiom arrows.
+alternation, one rung apart.
+
+**De-deifying caveat** (originator, 2026-06-13; CLAUDE.md "Deifying the residue/`∞`").
+Phase 2 ("continuous") is **not** a transcendent target the discrete converges *toward*,
+nor "where the real content lives" — that re-privileges one Lens and deifies `∞`.  No
+phase is "more real"; arguing discrete-vs-continuous-vs-limit "which is real" is empty.
+The capacity to *imagine* `∞` is a discrete posit; `∞`/continuity are **residue-shapes**
+the construction produces (`object1_not_surjective` is a theorem about the *view-setup*,
+not an external excess — the residue arises *because the concept was posed to leave
+one*).  So the meaningful object is the **constitution** of phase 2 (how the residue-
+shape is produced), and L3‴'s finite signatures (difference-depth, pole-order, `ζ`) **are
+that constitution made explicit** — `∞` characterized, not enshrined.  *Open*: pin the
+**transform** taking phase 1→2 (a Mellin/generating-function map: `monoCount` ↦ Hilbert
+series ↦ `ζ`) and 2→3 (its inverse, the coefficient/Perron reading = prime counting) as
+named `∅`-axiom arrows — i.e. *constitute* the residue-shape constructively, end to end.
 
 ## L4 — Two readings of one generating set (a calculation cross-section, **not** the rung mechanism)
 
