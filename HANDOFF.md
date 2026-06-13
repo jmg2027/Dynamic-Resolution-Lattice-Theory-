@@ -1,9 +1,42 @@
-# Session Handoff — 2026-06-12 (PNT density cut π(N)/N→0 INHABITED ∅-axiom)
+# Session Handoff — 2026-06-13 (operation tower: generative re-foundation blueprint pinned)
 
 ## Branch
 `claude/autonomous-marathon-vp-listprod-imkycf` — the system `×` makes (monomials
-over a base set, graded by count) and its trajectory toward the prime number
-theorem.  All ∅-axiom (0 dirty).  Pushed.
+over a base set, graded by count); this marathon closed Chebyshev/PNT-density
+(below) and then turned to the **operation-tower frame** and its re-foundation.
+All ∅-axiom (0 dirty).  Pushed.
+
+## ⚑ NEXT SESSION — start here: the generative re-foundation
+
+**Governing spec**: `research-notes/frontiers/simplicial_operation_tower.md` —
+read "**Methodological principle**" + "**The re-foundation blueprint — object, not
+readout**" first.  The directive (originator): build the tower (descriptions *and*
+proofs) in the **object** language — free **semigroups**, *no identity, no numbers*
+— with `ℕ`/`0`/`1` strictly the **forgetful readout** (shadow).  Key facts already
+pinned there:
+  - generative rule per rung: `+`→`UnitList`, `×`→`UnitGrid`, `^`→**`UnitHyper`
+    (to build)**; the object layer for `+`,`×` already exists (`Meta/Nat/UnitList`,
+    `Meta/Nat/UnitGrid`); `HyperAssoc` exists but frames `^` *negatively* ("die").
+  - the asymmetry, generatively: the *count* is pinned at the `+`-level; the *base*
+    climbs; so **`DOF = (rung level) − 2`** (`×`:0, `^`:1 = tetrahedron, `↑↑`:2).
+    `a^b` = a `b`-dimensional unit grid: **base = side, exponent = dimension**.
+  - the existing Nat results (`MultSystem`/`MultSystemValue`/`ChebyshevLower`) are
+    valid **readouts** (shadows), not the objects.
+
+**P2 is the real work** (genuinely hard, originator-confirmed): build the positive
+`^`-object **`UnitHyper`** generatively (`×`-cone points as axes → next free
+semigroup; base sets each axis's side, exponent sets the number of axes = the
+dimension; the layer-gap DOF).  P1 (reframe `HyperAssoc`'s "die" → positive), P3
+(re-anchor descriptions to objects), P4 (`DOF = rung−2` as spec; tie `^`-value to
+`hyper_parallel` + the `−1` cross-determinant).  **Do it deliberately, bottom-up —
+not a rushed mass edit.**
+
+Tower frame already ∅-axiom (valid as the simplicial *skeleton* / readouts):
+`MultSystem.{monoCount_closed, monoCount_pascal, totalCount_closed, monoCountPos_closed
+(L2: semigroup+1=monoid), hyperCount/hyperCount_simplex (^-skeleton stays simplicial),
+monoCount_le_pow/_lt_pow/_le_succ_pow (a calculation cross-section, NOT the rung)}`,
+`MultSystemValue.{two_le_nonempty_prime_prod (× system={2,3,…}), hyper_parallel
+(^-twist = dilation axis, positive)}`.
 
 ## This session (autonomous marathon, from `vp_listProd_le_one`)
 Closed the Erdős elementary-Chebyshev numerator + count bound in
@@ -76,27 +109,6 @@ grouping done inductively by peeling full `p`-powers, no product-FTA object) +
 **Promoted** → `theory/math/numbertheory/chebyshev_prime_counting.md` (whole arc:
 upper bound + density cut + lower bound); registered in `theory/math/INDEX`; closed
 `chebyshev_lower_bound` frontier archived → `research-notes/archive/chebyshev/`.
-
-## Simplicial operation tower (the +/× frame; originator's foundation)
-`research-notes/frontiers/simplicial_operation_tower.md` — the generative tower
-(append→+→×→^).  This session: **L3 core marked CLOSED ∅-axiom**
-(`MultSystem.monoCount_closed` = `C(n+k−1,k)` multiset/simplex count, not the n=3
-hand-check); wrote **§L3′ — the precise +/× bridge** (one simplicial cone, two cuts:
-degree=Pascal vs value=ℕ; `+`/`×` = same rung shifted by `vp`, `exp:(ℕ₊,×)≅⊕_p(ℕ,+)`;
-count discrepancy = prime counting = the window ⇒ this session's Chebyshev).  **L4
-dial static comparison CLOSED** as a sharp polynomial-vs-exponential sandwich:
-`MultSystem.monoCount_le_succ_pow : monoCount t d ≤ (d+1)^t` (poly-in-degree) and
-`monoCount_lt_pow : 2≤t→2≤d→ monoCount t d < t^d` (strictly below the exponential
-free-cube count); `monoCount_le_pow` underlies both.  So commutative = simplex =
-poly-in-degree, non-commutative = cube = exp-in-degree.  Theory mirror:
-`theory/math/numbertheory/chebyshev_prime_counting.md`.
-
-**Next**: (L4) build the `^`-layer enumeration and show its per-degree count escapes
-poly(simplex)→exp(cube) at the non-commutative rung (measures the `^`-wall by
-counting); (L2) the cross-layer **meta-criterion** remains `[gut]` (concrete content
-CLOSED: `monoCountPos_closed` semigroup+1=monoid, `two_le_nonempty_prime_prod` ×
-system = {2,3,…}); tie the abstract cone to the `(NS,NT,d)` simplex.  Chebyshev
-trajectory itself: only PNT `~N/ln N` (constant 1) horizon remains.
 
 ## Prior session (n-plus-signature-mappings branch)
 

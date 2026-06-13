@@ -230,21 +230,12 @@ of the cone's degree-count vs its value-count across resolutions IS Chebyshev/PN
 > the limit (`object1_not_surjective`), and the *rate* of that agreement is prime
 > counting.  Promotable mirror: `theory/math/numbertheory/chebyshev_prime_counting.md`.
 
-## L4 — Two reference readings of one generating set (a calculation cross-section, **not** the rung mechanism)
+## L4 — Two readings of one generating set (a calculation cross-section, **not** the rung mechanism)
 
-> **Reframed (originator, 2026-06-13).**  The earlier version of L4 read this as
-> "the count is the *commutativity dial* (simplex/commutative vs cube/non-commutative),
-> and the per-degree count *jumps* poly→exp at `^`."  That is the **negative /
-> one-dimensional-shadow framing** — describing a rung by what it "loses"
-> (commutativity).  Per the originator: *commutativity is a 1-D cross-section of the
-> real structure* (`where_commutativity_is_born.md`: arrangement-forgetting is a
-> *shadow*); algebra, written in a line, only ever shows such 1-D shadows, and using
-> them as the organizing concept (esp. the **negative** "loses commutativity") halts
-> progress.  So L4 is demoted to what it actually is: a **calculation comparison of
-> two readings**, not the rung's mechanism (which is L5: dimension + twist, read
-> *positively*).
-
-`[∅]`  Two **readings** of one generating set, of `t` generators at degree `d`:
+`[∅]`  The sorted/ordered comparison below is a *calculation* cross-section — a
+fast-count bracket — **not** the `^`-rung's mechanism (that is L5: the dimension +
+DOF, read positively).  Two **readings** of one generating set, `t` generators at
+degree `d`:
 
 | reading | count | what it is |
 |---|---|---|
@@ -255,8 +246,7 @@ of the cone's degree-count vs its value-count across resolutions IS Chebyshev/PN
 about any rung): `MultSystem.monoCount_le_pow : monoCount t d ≤ t^d`;
 `monoCount_lt_pow : 2≤t→2≤d→ monoCount t d < t^d`; `monoCount_le_succ_pow :
 monoCount t d ≤ (d+1)^t` (polynomial-in-degree).  These compare the two *readings*;
-they say nothing about whether the `^`-**rung**'s own structure is simplicial or
-not — that is L5, and **genuinely open**:
+they say nothing about the `^`-**rung**'s own structure — that is L5:
 
 > **The positive construction — DONE for the generative skeleton.**  Apply the
 > layer rule (L1) once more, *positively*: `^` takes the `×`-rung's elements (the
@@ -288,11 +278,12 @@ destination).  As the dimension rises there is room for two trajectories to the
 *same* destination to differ — and that difference shows up as the **algebraic
 defect**:
 
-  - at `^` (solid), the two operands live in **different dimensions** (base ~
-    plane-side, exponent ~ line/count-side); they cannot be swapped → **non-
-    commutativity** — the "**1 unit of twist**" ("2로 3에 맵핑하는 꼴이니 꼬인다").
-  - tetration: **2 degrees of freedom** (the cardinality axis already doubled) —
-    harder to picture.
+  - at `^` (solid), the two operands live in **different dimensions** — the *count*
+    pins at the `+`-line while the *base* climbs to the `×`-plane — so the rung
+    **adjoins a new dilation degree-of-freedom**, the "**1 unit of twist**"
+    (`DOF = rung − 2`, blueprint above; "2로 3에 맵핑하는 꼴이니 꼬인다").
+  - tetration: **2 degrees of freedom** (the base climbs two levels above the
+    count) — harder to picture.
 
 > Connections (recorded as *resonances*, not asserted identities):
 > - The "two operands in different dimensions" reading is the **geometric form of
