@@ -1504,6 +1504,18 @@ probed cross-determinants *jointly* fit the shared increment
 gives only `≤ 2·Δd_i` (factor of 2), so closure needs the *joint* budget, not two
 separate ones — the sum's degree is set by `W^x + W^y`, not the max.
 
+### The conceived limit is a pointing (2026-06-13)
+
+`E213.Lib.Math.NumberSystems.Real213.PointingLimit` — **3 PURE / 0 DIRTY**.
+The originator's thesis made computational: conceiving ∞ is a discrete act, and the
+limit-value never enters a computation.  ★★★ `conv_strict_increase` — the convergent
+values strictly advance across *every* gap (`i<j ⟹ a_i·d_j < a_j·d_i`; lifts one-step
+`hmonoS` by fraction-`<` transitivity `cross_trans`), so the limit is reached by no
+term; ★★★ `limit_unreached_but_decided` — reached by no value *and* every cut `x ⋚ m/k`
+constant past `N=k+2` (`rate_total_modulus`): the infinity enters only as the discrete
+modulus — the residue's shape (`DegreeCriterion`), never as a value.  Narrative:
+`theory/essays/foundations/imagining_infinity.md`.
+
 `E213.Lib.Math.NumberSystems.Real213.RateModulus` — **11 PURE / 0 DIRTY**.  ★★★
 **The graded rate generator** (modulus-degree ladder rung 1).  The margin
 telescope is parametrized by a probe schedule `ρ`: `HtelS a d ρ` (the margin

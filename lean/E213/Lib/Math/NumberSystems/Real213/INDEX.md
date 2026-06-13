@@ -157,6 +157,12 @@
     `W^x+W^y`, no inflation) + `matched_sum_dominated` (sum degree ≤ s iff the
     probed cross-determinants *jointly* fit the shared increment; "each at degree s"
     is a factor of 2 short — degree is set by `W^x+W^y`, not the max).
+  - `PointingLimit.lean` — ★ the conceived limit is a **pointing**, not a value.
+    `conv_strict_increase` (convergent values strictly advance across every gap —
+    the limit is reached by no term) + `limit_unreached_but_decided` (reached by no
+    value, yet every cut decided past a finite layer): the infinity enters
+    computation only as the discrete modulus, never as a value.  Narrative:
+    `theory/essays/foundations/imagining_infinity.md`.
   - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
     presentations**: strictly increasing lower fold + non-increasing upper
     companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`

@@ -8,9 +8,10 @@ intact across all new work.
 ## What was done this session — the modulus-degree calculus (closed chapter)
 
 From a one-line note (`graded rate generator (Dominates_s → N = K^s)`), the
-modulus-degree story was closed into one coherent sub-theory.  Five new modules,
-**37 new theorems/defs, all strict ∅-axiom** (`#print axioms` → "does not depend on
-any axioms"; verified by `tools/scan_axioms.py`).
+modulus-degree story was closed into one coherent sub-theory, then anchored to the
+originator's infinity-as-pointing thesis.  Six new modules, **40 new theorems/defs, all
+strict ∅-axiom** (`#print axioms` → "does not depend on any axioms"; verified by
+`tools/scan_axioms.py`).
 
 1. **`Meta/Nat/PowBernoulli.lean`** (4 PURE) — reusable infra.  Additive Bernoulli
    bounds `bernoulli_upper`/`bernoulli_lower` (no truncated subtraction) and their
@@ -42,6 +43,14 @@ any axioms"; verified by `tools/scan_axioms.py`).
    `sum_naive_not_dominatesS` (degree **not additive** — naive sum rate-free under
    mismatched growth); `matched_sum_cross_det` (shared denominator ⟹ cross-dets **add**)
    + `matched_sum_dominated` (clean matched closure — joint budget, not each-separately).
+
+6. **`Real213/PointingLimit.lean`** (3 PURE) — the conceived limit is a **pointing**, not
+   a value (originator's thesis made computational).  `conv_strict_increase` (convergent
+   values strictly advance across every gap — limit reached by no term) +
+   `limit_unreached_but_decided` (reached by no value, yet every cut decided in finite):
+   ∞ enters computation only as the discrete modulus.  Narrative essay:
+   `theory/essays/foundations/imagining_infinity.md` (the residue's shape characterises
+   ∞/continuity/abstraction without deifying them).
 
 Registered in aggregators (`Meta/Nat.lean`, `Real213.lean`); synced `INDEX.md` (both),
 `STRICT_ZERO_AXIOM.md`, `theory/math/analysis/holonomic_modulus.md` (§4 + new §4.1 "the
