@@ -387,10 +387,32 @@ the construction produces (`object1_not_surjective` is a theorem about the *view
 not an external excess — the residue arises *because the concept was posed to leave
 one*).  So the meaningful object is the **constitution** of phase 2 (how the residue-
 shape is produced), and L3‴'s finite signatures (difference-depth, pole-order, `ζ`) **are
-that constitution made explicit** — `∞` characterized, not enshrined.  *Open*: pin the
-**transform** taking phase 1→2 (a Mellin/generating-function map: `monoCount` ↦ Hilbert
-series ↦ `ζ`) and 2→3 (its inverse, the coefficient/Perron reading = prime counting) as
-named `∅`-axiom arrows — i.e. *constitute* the residue-shape constructively, end to end.
+that constitution made explicit** — `∞` characterized, not enshrined.
+
+**Reconnaissance (2026-06-13): the two arrows are NOT an inverse pair — and that is the
+point.**  Scouting the built phase-1↔3 maps (pivot = the central binomial `C(2n,n)`,
+which *is* the cone's both-axes value-cut, `doubleTotal_closed : doubleTotal N =
+C(2N+1,N)`):
+
+  - **Arrow A** (support → shape, *exact*): the primes **build** `C(2n,n)` by exact
+    factorization — `C(2n,n) = ∏_p p^{vp_p}` (`central_binom_factorial`,
+    `factorization_bounded`), with `∏_{p∈(n,2n]} p ∣ C(2n,n)`
+    (`window_prod_dvd_central_binom`).  An **equality**.
+  - **Arrow B** (shape → support, *lossy*): the *size* of `C(2n,n)` reads `π` back only
+    as a **squeeze** `2^n ≤ C(2n,n) ≤ 2^{2n}` (`central_binom_ge_two_pow`,
+    `central_binom_le`) and `C(2n,n) ≤ (2n)^{π(2n)}` (`central_binom_le_pow_primePi`) ⇒
+    `chebyshev_lower` / `primeDensityToZero`.  An **inequality**.
+
+`B ∘ A ≠ id`: the support → shape arrow is an exact construction, the shape → support
+arrow is a lossy readout, and **their failure to compose to the identity IS prime
+counting** — exactly L3′'s "the cone and its value-shadow only agree in the limit, the
+*rate* is prime counting" (`object1_not_surjective`).  This **vindicates the
+de-deifying view**: there is no pre-existing `∞` both arrows faithfully represent —
+there is an *exact-construct* one way and a *lossy-readout* the other, and the
+irreducible content is precisely their **defect** (the prime-counting / PNT-constant
+gap), not a transcendent infinity.  *Open*: name the defect itself as an `∅`-axiom
+object (the `A`/`B` non-invertibility = the Chebyshev-to-PNT constant gap) — the
+honest residue-shape, end to end.
 
 ## L4 — Two readings of one generating set (a calculation cross-section, **not** the rung mechanism)
 
@@ -575,15 +597,16 @@ to test*, not asserted identities.
    "a construction is natural iff its identity need not be a special case" — as a
    precise (cross-layer) statement, not just the per-layer decomposition.
 
-5. **The shape framework — dimension without `∞` (L3‴)** — the three finite handles
-   are anchored (`diff_drops_rung`, `monoCount_le_succ_pow`, `totalCount_eq` =
-   `×(1−x)^{−1}`).  *Open*: (a) a Lean object for the **iterated** finite-difference
-   tower (`Δ^{k+1}` annihilates rung `k+1`), making "difference-depth = dimension" a
-   single theorem rather than a per-step one; (b) the **`ζ`-tower** — `×`'s shape is
-   `ζ` (Euler product = the `(1−x)^{−∞}` essential singularity); `^`'s shape is the
-   *next* iterate (a `ζ`-of-`ζ`), the precise analytic object for the `^`-rung, to be
-   pinned against the existing prime-counting machinery (`ChebyshevLower`,
-   `primeDensityToZero`).
+5. **The shape framework — dimension without `∞` (L3‴, L3‴a)** — the three finite
+   handles are anchored (`diff_drops_rung`, `monoCount_le_succ_pow`, `totalCount_eq` =
+   `×(1−x)^{−1}`), and the discrete↔continuous spiral + de-deifying reading are pinned
+   (L3‴a).  **Reconnaissance done**: the phase-1↔3 arrows are *not* an inverse pair but
+   an **exact-construct (A) / lossy-readout (B)** pair through the pivot `C(2n,n)`
+   (= `doubleTotal` value-cut), whose **non-invertibility = prime counting**.  *Open*:
+   (a) a Lean object for the **iterated** finite-difference tower (`Δ^{k+1}` annihilates
+   rung `k+1`); (b) **name the `A`/`B` defect** (the Chebyshev-to-PNT constant gap) as a
+   single `∅`-axiom object — the honest residue-shape; (c) the **`ζ`-tower** — `^`'s
+   shape as a `ζ`-of-`ζ` iterate, pinned against `ChebyshevLower`/`primeDensityToZero`.
 
 ## Anchors
 
