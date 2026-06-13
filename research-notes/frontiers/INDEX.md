@@ -174,22 +174,16 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 ## Standalone frontiers (root of `frontiers/`)
 
 - `multiplicative_count_pnt` — **multiplicative count → PNT density**
-  (`MultSystem`/`MultSystemValue`).  **CLOSED ∅-axiom through the PNT density
-  cut**: free count `C(N+k,k)`, distinct-naturals factorization, exp/log
-  skeleton `Ω(n) ≤ log₂ n`, `primePi` (decidable `IsPrime213`), prime window
-  `(n,2n]` (`∏ p ∣ C(2n,n) ≤ 4^n`), Chebyshev doubling `π(2n) ≤ π(n) +
-  ⌊log_{n+1}4^n⌋`, telescoped `π(2^m) ≤ chebBound m = O(2^m/m)`, partial-sum
-  bound `chebBound_mul_le`, and the keystone **`primeDensityToZero :
-  PrimeDensityToZero`** (`π(N)/N → 0` certified).  Generic `floorLog` relocated
-  to `Meta/Nat/FloorLog`.  OPEN: only PNT `~ N/ln N` (constant `1`, asymptotic
-  horizon).
-- `chebyshev_lower_bound` — **Chebyshev lower bound `π(N) ≥ c·N/ln N`** (the
-  matching direction).  Route: `2^n ≤ C(2n,n) ≤ (2n)^{π(2n)}`.  DONE:
-  `central_binom_ge_two_pow` (`2^n ≤ C(2n,n)`).  OPEN: the Kummer prime-power
-  bound `p^{vp_p(C(2n,n))} ≤ 2n` (via `Legendre.legendre`, already in
-  `Lib/Math/NumberTheory`; `Prime213 ≡ IsPrime213` definitionally) ⇒
-  `C(2n,n) ≤ (2n)^{π(2n)}` ⇒ the lower bound.  Layering: needs a file above both
-  `Legendre` (Lib/Math) and central-binom (`Lens`).
+  (`MultSystem`/`MultSystemValue`).  Upper bound + density cut CLOSED ∅-axiom
+  (prime window `(n,2n]`, Chebyshev doubling, telescoped `π(2^m) ≤ chebBound m =
+  O(2^m/m)`, keystone **`primeDensityToZero`** = `π(N)/N → 0` certified).
+  **Promoted** → `theory/math/numbertheory/chebyshev_prime_counting.md`.  OPEN
+  (retained here): only PNT `~ N/ln N` (constant `1`, asymptotic horizon).
+- `chebyshev_lower_bound` — **Chebyshev lower bound `π(N) ≥ c·N/ln N`**.  ✅
+  CLOSED ∅-axiom (`chebyshev_lower : n ≤ (⌊log₂(2n)⌋+1)·π(2n)`, via Kummer
+  `vp_central_binom_le_floorLog` + `le_pow_primePi`).  **Promoted** →
+  `theory/math/numbertheory/chebyshev_prime_counting.md`; note **archived** →
+  `research-notes/archive/chebyshev/`.  Both halves of Chebyshev's theorem ∅-axiom.
 
 - `slots_crossdomain` — **the slot programme ↔ the graded-ladder / π
   arc** (merge note): one crystallographic restriction at two scales

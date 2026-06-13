@@ -1,9 +1,12 @@
-# Frontier — Chebyshev lower bound `π(N) ≥ c·N/ln N`
+# Frontier — Chebyshev lower bound `π(N) ≥ c·N/ln N`  (ARCHIVED — promoted)
+
+> **PROMOTED** → `theory/math/numbertheory/chebyshev_prime_counting.md` (covers
+> both halves + the density cut).  This note is the record of the path.
 
 **Branch**: `claude/autonomous-marathon-vp-listprod-imkycf`.
 **Status**: ✅ **CLOSED ∅-axiom** (`chebyshev_lower : n ≤ (⌊log₂(2n)⌋+1)·π(2n)`).
 Both halves of Chebyshev's theorem `c·N/ln N ≤ π(N) ≤ C·N/ln N` are now done.
-Promotion-eligible (→ `theory/`).
+
 
 ## The route (elementary, via the central binomial)
 

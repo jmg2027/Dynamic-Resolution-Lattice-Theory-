@@ -18,6 +18,9 @@ This file builds the **Kummer prime-power bound** `vp_p(C(2n,n)) ≤ ⌊log_p(2n
 Lives under `Lens/` (not `Lib/Math/`) because it builds on the central-binomial
 machinery in `MultSystemValue` (`Lens/`); `Legendre`/`LcmGrowthChebyshev` (`Lib/`)
 are imported in the allowed `Lens → Lib` direction.  All ∅-axiom.
+
+Narrative: `theory/math/numbertheory/chebyshev_prime_counting.md` (both halves of
+Chebyshev's theorem + the PNT density cut).
 -/
 
 namespace E213.Lens.Number.Nat213.ChebyshevLower
