@@ -420,16 +420,16 @@ to test*, not asserted identities.
    mirror `theory/math/numbertheory/chebyshev_prime_counting.md`).  *Remaining*: tie
    the abstract cone to the `(NS,NT,d)` simplex objects (the physics-branch
    combinatorics) — the "two independent roads to one simplex" of §"Why this matters".
-3. **The twist dimension (L5)** — the DOF is now pinned to the **operand-mismatch**
-   reading (`HyperLadder.dof_three_not_comm`: the `^`-non-commutativity's obstruction
-   is the side-vs-dimension type-mismatch, `UnitHyper.swap_changes_dim`), with
-   `dofOfRung = rung − 2` the spec.  The **rung-4 object is built**
-   (`Meta/Nat/UnitTetra`, ∅-axiom): `tetra a b` = a cube whose dimension is itself a
-   tower count, `count_tetra : count = hyperop 4` (the object *is* tetration),
-   `dof_four : dofOfRung 4 = 2` derived by the `+1`-climb twice from the `×`-base,
-   `hyperop_four_not_comm` (`2↑↑3 = 16 ≠ 27 = 3↑↑2`).  *Still open*: the **topological
-   figure** for one `^` step (3- vs 4-simplex), and a **direct two-distinguished-axes
-   witness** on `tetra` (the rung-4 analogue of `swap_changes_dim`).
+3. **The twist dimension (L5)** — the DOF is pinned to the **operand-mismatch**
+   reading (`HyperLadder.dof_three_not_comm`; `dofOfRung = rung − 2`), and **both
+   `^` and `↑↑` carry a direct object witness**: rung 3 = `UnitHyper.swap_changes_dim`
+   (one distinguished axis: dimension reads the exponent, side the base — different
+   types); rung 4 = `UnitTetra.dim_tetra_succ` (the **second** axis: the dimension is
+   no longer a bare height but **itself a tower count**, `dim (tetra (a+1)(b+1)) =
+   count (tetra (a+1) b)`), so `count = side ^ (a tower count)` (`count_tetra_pow`)
+   vs `^`'s `count = side ^ (bare height)` — the dimension-clock lifted twice.
+   *Still open*: the **topological figure** for one `^` step (3- vs 4-simplex), and the
+   `hyper_parallel` (dilation readout) tie.
 4. **No-identity formalization (L2)** — concrete content **CLOSED ∅-axiom**
    (`MultSystem.monoCountPos_closed` = semigroup count `+ 1` = monoid count, the
    `+1` = the identity; `MultSystemValue.two_le_nonempty_prime_prod` = the natural
