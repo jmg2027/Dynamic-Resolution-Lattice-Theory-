@@ -11,9 +11,10 @@ Chebyshev).  The **generative `^`-object is BUILT** (P2, `Meta/Nat/UnitHyper`,
 (demotion/valuation view, R0–R8);
 this note records the **generative** view — the layer as construction, the
 no-identity principle, the **simplicial-cone finding**, (§L3′) the precise `+`/`×`
-bridge, and (§L3″) the firm `+`/`×` foundation that dissolves the "3- vs 4-simplex"
+bridge, (§L3″) the firm `+`/`×` foundation that dissolves the "3- vs 4-simplex"
 conflation (vertex ≡ axis, `monoCount_vertices`; three distinct "dimensions"
-separated).
+separated), and (§L3‴) the **dimension-without-`∞` framework** (finite-difference
+depth = pole order = growth degree; `×`'s shape = `ζ`).
 
 Tagging as in `number_tower_theory.md`: `[∅]` ∅-axiom Lean here, `[std]` standard
 math, `[ax]` a 213 axiom, `[gut]` the originator's raw intuition (recorded, not
@@ -311,6 +312,45 @@ L1), staying simplicial; axis (C) goes `0→1` (the dilation type-gap,
 `UnitHyper.swap_changes_dim`).  So "what `^` is" = (A) explodes + (C) `+1` — two
 different motions, and the gut's single word "dimension" was pointing at (C).
 
+## L3‴ — Dimension *without* ∞: the shape framework (originator request)
+
+`[∅]`+`[ax]`+`[gut]`  Originator (2026-06-13): "don't write `∞` as `∞` — is there
+a math frame, or make one."  There is, and it is **native + finite**: read the
+shape's dimension off the **graded count `monoCount k d`**, never off a cardinal.
+Three equivalent readings, all `∅`-axiom-anchored:
+
+  1. **Finite-difference depth** (the cleanest).  Differencing the graded count in
+     the degree **drops the rung by one**: `monoCount (k+1)(d+1) − monoCount (k+1) d
+     = monoCount k (d+1)` (`MultSystem.diff_drops_rung`, the monotonicity
+     `monoCount_mono_deg` making the subtraction exact).  So **dimension = how many
+     differences annihilate the count**: `+` (rung 1) is *already constant*
+     (`monoCount 1 = 1`) → dimension 1; rung `k+1` needs `k+1` differences to reach
+     the zero rung.  `×` = the `∞`-generator limit = the count whose difference-tower
+     **never terminates** — "infinite-dimensional" becomes a *non-terminating finite
+     process*, not a cardinal `∞`.
+  2. **Hilbert-function growth degree.**  `monoCount (k+1) d = C(d+k,k)`
+     (`monoCount_closed`) is a **degree-`k` polynomial in `d`**; the polynomial bound
+     `monoCount t d ≤ (d+1)^t` (`monoCount_le_succ_pow`) is its envelope.  Dimension =
+     the polynomial growth-degree `+1`; `×` = **super-polynomial** (no finite Hilbert
+     polynomial), the growth-rate reading of `∞`.
+  3. **Generating-function pole order.**  Differencing ↔ multiplying by `(1−x)`
+     (adding a generator ↔ dividing by `(1−x)`, exactly `totalCount_eq`: the
+     partial-sum operator).  The rung's Hilbert series is `(1−x)^{−k}`; **dimension =
+     pole order at `x=1`**.  `×` (`k→∞`) = an **essential singularity / natural
+     boundary** at `x=1` — and that singularity is the **Euler product `∏_p`** = the
+     **zeta function `ζ`**.  So *"the shape of `×`" is `ζ`*: the `∞`-dimensional cone,
+     written without `∞`, is `ζ`'s region/Euler-product, and the repo's prime counting
+     (`ChebyshevLower`, `primeDensityToZero`) is the analytic reading of that shape.
+
+The three agree: difference-depth = pole-order = growth-degree`+1` = generator count =
+**vertex count** (`monoCount_vertices`, L3″) = lattice-axis count (R4).  Each gives a
+**finite, constructive handle** on the dimension; `∞` is never a label but a *mode of
+non-termination* (the difference-tower never dies / the series has a natural boundary /
+the growth is super-polynomial).  Reading `^` here: its difference-tower is even
+deeper (axes = all `C(N+k,k)` cone points), and the `^`-shape's series is the
+**`ζ`-of-`ζ`** direction — the tower of shapes is the tower of `ζ`-iterates, the next
+frontier to make precise.
+
 ## L4 — Two readings of one generating set (a calculation cross-section, **not** the rung mechanism)
 
 `[∅]`  The sorted/ordered comparison below is a *calculation* cross-section — a
@@ -493,6 +533,16 @@ to test*, not asserted identities.
    `×` system is `{2,3,…}`).  *Remaining* `[gut]`: the **meta-criterion** itself —
    "a construction is natural iff its identity need not be a special case" — as a
    precise (cross-layer) statement, not just the per-layer decomposition.
+
+5. **The shape framework — dimension without `∞` (L3‴)** — the three finite handles
+   are anchored (`diff_drops_rung`, `monoCount_le_succ_pow`, `totalCount_eq` =
+   `×(1−x)^{−1}`).  *Open*: (a) a Lean object for the **iterated** finite-difference
+   tower (`Δ^{k+1}` annihilates rung `k+1`), making "difference-depth = dimension" a
+   single theorem rather than a per-step one; (b) the **`ζ`-tower** — `×`'s shape is
+   `ζ` (Euler product = the `(1−x)^{−∞}` essential singularity); `^`'s shape is the
+   *next* iterate (a `ζ`-of-`ζ`), the precise analytic object for the `^`-rung, to be
+   pinned against the existing prime-counting machinery (`ChebyshevLower`,
+   `primeDensityToZero`).
 
 ## Anchors
 

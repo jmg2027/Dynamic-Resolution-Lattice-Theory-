@@ -119,6 +119,38 @@ theorem monoCount_pascal (k n : Nat) :
     monoCount (k + 1) (n + 1) = monoCount k (n + 1) + monoCount (k + 1) n :=
   Nat.add_comm _ _
 
+/-! ### Dimension without ∞ — the finite-difference depth
+
+The "dimension" of the rung need not be written as a cardinal (`+`:1, `×`:∞).
+Read it off **how the graded count moves under degree-differencing**: the
+degree-difference of rung `k+1` is rung `k` (`diff_drops_rung`), so each
+difference **drops the dimension by one**.  Hence the dimension is the number of
+differences that annihilate the count: `+` (rung 1) is constant already
+(`monoCount 1 = 1`, 0 differences → 1-dimensional); `×` (the `∞`-generator
+limit) is the count whose difference-tower **never terminates** — "infinite
+dimension" as a *non-terminating finite-difference tower*, not a cardinal.  (The
+generating-function dual: differencing ↔ multiplying by `(1−x)`; the rung's
+Hilbert series is `(1−x)^{−k}`, dimension = pole order at `x=1`, and `×`'s
+essential singularity there is the Euler product `∏_p` = `ζ`.) -/
+
+/-- The graded count is non-decreasing in the degree (Pascal: each step adds the
+    next-lower rung). -/
+theorem monoCount_mono_deg (k d : Nat) :
+    monoCount (k + 1) d ≤ monoCount (k + 1) (d + 1) := by
+  rw [monoCount_pascal]
+  exact Nat.le_add_left _ _
+
+/-- ★ **The degree-difference drops the rung by one** — the dimension step,
+    subtraction-free-grounded.  `monoCount (k+1)(d+1) − monoCount (k+1) d =
+    monoCount k (d+1)`: differencing the graded count in the degree returns the
+    next-lower rung (`monoCount_pascal` then cancel).  So the dimension is the
+    finite-difference depth — `k+1` differences send rung `k+1` to the zero rung
+    (`monoCount 0`), the constructive reading of "dimension" with no cardinal `∞`. -/
+theorem diff_drops_rung (k d : Nat) :
+    monoCount (k + 1) (d + 1) - monoCount (k + 1) d = monoCount k (d + 1) := by
+  rw [monoCount_pascal]
+  exact E213.Tactic.NatHelper.add_sub_cancel_right (monoCount k (d + 1)) (monoCount (k + 1) d)
+
 /-! ### Cumulative total — "all the monomials up to degree N" (the summation)
 
 The increase from adding a base is **not** a per-degree comparison; it is the
