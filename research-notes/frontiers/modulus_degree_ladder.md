@@ -32,6 +32,16 @@ the denominator increment, gap exactly `d_i`.  The criterion is upward-closed in
 the race between `W`-growth and `d`-growth, not `W`'s size.  Degree-1 boundary
 `i·W_i + d_i = d_{i+1}` is saturated by `fastDen` and e (`W = i!`).
 
+**Sum/product closure (clarified, `RateArithmetic`)**: the arithmetic
+cross-determinants factor — `W^{x+y} = W^x·e_i e_{i+1} + W^y·d_i d_{i+1}`,
+`W^{xy} = a_i d_{i+1}W^y + b_i e_{i+1}W^x + W^x W^y`.  The honest finding:
+degree is **not additive** under naive convergent arithmetic — the sum carries the
+other denominator quadratically, so a mismatched `e ≫ d` makes the naive sum
+rate-free at every degree (`sum_naive_not_dominatesS`), even with both summands
+degree 1.  Degree is a property of the *pointing*; closure of the completable
+class needs a good presentation (e.g. scaling for `x+x`), not the common-denominator
+one.  A clean degree-bounded closure on matched presentations remains **open**.
+
 ## Closed (the algebraic pillar)
 
 - **Degree 2** — φ: the form `m²−mk−k²`, `|Q| ≥ 1`; closed-form cut

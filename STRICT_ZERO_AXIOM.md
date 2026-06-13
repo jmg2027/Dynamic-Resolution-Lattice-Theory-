@@ -1483,6 +1483,20 @@ degree ceiling is well-defined.  The degree-1 boundary `i·W_i + d_i = d_{i+1}` 
 saturated exactly by `RateHierarchy.fastDen` and e's factorial presentation
 (`W = eulerDen = i!`).
 
+### Cross-determinant under sum/product; degree is not additive (2026-06-13)
+
+`E213.Lib.Math.NumberSystems.Real213.RateArithmetic` — **6 PURE / 0 DIRTY**.
+★★★ `sum_cross_det` — the sum convergent `(a_i e_i + b_i d_i)/(d_i e_i)` has
+cross-determinant `W^{x+y}_i = W^x_i·e_i e_{i+1} + W^y_i·d_i d_{i+1}`; ★★★
+`prod_cross_det` — `W^{xy}_i = a_i d_{i+1}·W^y_i + b_i e_{i+1}·W^x_i + W^x_i W^y_i`
+(both pure ℕ, via `ring_nat` after substituting the cross-det relations).  ★★ the
+honest finding `sum_naive_not_dominatesS`: the sum carries the *other* denominator
+quadratically (`e_i e_{i+1}`), so when `d_{i+1} < e_i` (mismatched growth) the sum's
+cross-determinant overtakes the naive denominator and the naive sum is *not
+dominated at any degree* — even when both summands are degree 1 (`e + e` over
+`(i!)²` is rate-free, though `2e` is trivially degree 1 by scaling).  Modulus
+degree is a property of the pointing, not of `x+y`; via `not_dominatesS_of_overtake`.
+
 `E213.Lib.Math.NumberSystems.Real213.RateModulus` — **11 PURE / 0 DIRTY**.  ★★★
 **The graded rate generator** (modulus-degree ladder rung 1).  The margin
 telescope is parametrized by a probe schedule `ρ`: `HtelS a d ρ` (the margin

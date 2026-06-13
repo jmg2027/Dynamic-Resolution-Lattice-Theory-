@@ -145,6 +145,14 @@
     `increment_criterion_mono` (the criterion is upward-closed in degree, so the
     ceiling is well-defined).  The degree-1 boundary `i·W_i + d_i = d_{i+1}` is
     saturated by `RateHierarchy.fastDen` and e (`W=i!`).
+  - `RateArithmetic.lean` — ★ the cross-determinant under **sum/product**, and why
+    degree is not additive.  `sum_cross_det` (`W^{x+y}=W^x·e_i e_{i+1}+W^y·d_i d_{i+1}`)
+    and `prod_cross_det` (`W^{xy}=a_i d_{i+1}W^y+b_i e_{i+1}W^x+W^x W^y`) factor the
+    arithmetic cross-determinants through the summands'.  `sum_naive_not_dominatesS`:
+    the sum carries the *other* denominator quadratically, so naive convergent
+    addition breaks the rate at *any* degree when denominators are mismatched
+    (`d_{i+1}<e_i`) — degree is a property of the pointing, not of `x+y`; closure
+    holds only with a good presentation.
   - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
     presentations**: strictly increasing lower fold + non-increasing upper
     companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`
