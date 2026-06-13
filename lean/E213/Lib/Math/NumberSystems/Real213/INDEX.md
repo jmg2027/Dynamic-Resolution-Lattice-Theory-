@@ -163,6 +163,12 @@
     value, yet every cut decided past a finite layer): the infinity enters
     computation only as the discrete modulus, never as a value.  Narrative:
     `theory/essays/foundations/imagining_infinity.md`.
+  - `BestApproximation.lean` — ★ the cross-determinant **is** the Diophantine
+    approximation deficiency.  `denominator_lower_bound` (a rational strictly between
+    consecutive convergents has `k·W_i ≥ d_i + d_{i+1}` — interposing costs denominator
+    `≥ (d_i+d_{i+1})/W_i`) + `unimodular_best_approximation` (`W=1` ⟹ `k ≥ d_i+d_{i+1}`,
+    the convergents are optimal — constructive core of `μ ≥ 2`).  The residue's shape
+    `W` measures distance from optimal approximation — the `μ`-content, no `limsup`.
   - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
     presentations**: strictly increasing lower fold + non-increasing upper
     companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`

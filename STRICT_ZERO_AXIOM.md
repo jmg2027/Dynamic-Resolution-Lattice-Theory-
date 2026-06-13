@@ -1504,6 +1504,18 @@ probed cross-determinants *jointly* fit the shared increment
 gives only `≤ 2·Δd_i` (factor of 2), so closure needs the *joint* budget, not two
 separate ones — the sum's degree is set by `W^x + W^y`, not the max.
 
+### The cross-determinant is the Diophantine deficiency (2026-06-13)
+
+`E213.Lib.Math.NumberSystems.Real213.BestApproximation` — **2 PURE / 0 DIRTY**.
+The rigorous bridge residue-shape ↔ irrationality measure (without the `μ = degree`
+overclaim — `μ` is a `limsup`/boundary cut).  ★★★ `denominator_lower_bound` — a rational
+`p/k` strictly between consecutive convergents (`a_i·k < p·d_i`, `p·d_{i+1} < a_{i+1}·k`)
+satisfies `d_i + d_{i+1} ≤ k·W` (the two integer-strictness `+1`s carried onto `k·W` by
+the additive identity `(p d_i − a_i k)d_{i+1} + (a_{i+1}k − p d_{i+1})d_i = kW`); so
+interposing costs denominator `≥ (d_i+d_{i+1})/W` — `W` is the best-approximation
+deficiency.  ★★★ `unimodular_best_approximation` — `W=1` ⟹ `k ≥ d_i + d_{i+1}` (convergents
+optimal; constructive core of `μ ≥ 2`).  Pure ℕ, no division, no reals, no `limsup`.
+
 ### The conceived limit is a pointing (2026-06-13)
 
 `E213.Lib.Math.NumberSystems.Real213.PointingLimit` — **3 PURE / 0 DIRTY**.

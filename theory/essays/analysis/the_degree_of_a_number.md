@@ -46,6 +46,16 @@ and the algebraic case states the gap exactly: the receipt in hand is the
 form's `k^s`, the receipt-less truth is exponent 2 — the distance between
 them is what non-constructivity costs, measured in degree.
 
+The bridge to the measure is not metaphor: the **cross-determinant is the
+best-approximation deficiency**.  `BestApproximation.denominator_lower_bound`
+proves that a rational `p/k` strictly between consecutive convergents satisfies
+`d_i + d_{i+1} ≤ k·W_i` — to interpose costs denominator `≥ (d_i+d_{i+1})/W_i`.
+At the unimodular floor `W_i = 1` (`unimodular_best_approximation`) this is
+`k ≥ d_i + d_{i+1}`: the convergents are optimal, the constructive core of the
+universal `μ ≥ 2`.  So the residue's shape `W` is the `μ`-content read off the
+recurrence with no `limsup` — the boundary cut `μ` is the reached-by-none limit
+of this discrete, decidable deficiency.
+
 ## Dual function
 
 Stripped of packaging, this is the irrationality-measure hierarchy — Liouville

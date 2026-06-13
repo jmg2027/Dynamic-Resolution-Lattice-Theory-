@@ -9,8 +9,8 @@ intact across all new work.
 
 From a one-line note (`graded rate generator (Dominates_s → N = K^s)`), the
 modulus-degree story was closed into one coherent sub-theory, then anchored to the
-originator's infinity-as-pointing thesis.  Six new modules, **40 new theorems/defs, all
-strict ∅-axiom** (`#print axioms` → "does not depend on any axioms"; verified by
+originator's infinity-as-pointing thesis, and bridged to the irrationality measure.
+Seven new modules, **42 new theorems/defs, all strict ∅-axiom** (`#print axioms` → "does not depend on any axioms"; verified by
 `tools/scan_axioms.py`).
 
 1. **`Meta/Nat/PowBernoulli.lean`** (4 PURE) — reusable infra.  Additive Bernoulli
@@ -52,6 +52,12 @@ strict ∅-axiom** (`#print axioms` → "does not depend on any axioms"; verifie
    `theory/essays/foundations/imagining_infinity.md` (the residue's shape characterises
    ∞/continuity/abstraction without deifying them).
 
+7. **`Real213/BestApproximation.lean`** (2 PURE) — the cross-determinant **is** the
+   Diophantine approximation deficiency.  `denominator_lower_bound` (a rational strictly
+   between consecutive convergents has `d_i + d_{i+1} ≤ k·W_i`) + `unimodular_best_approximation`
+   (`W=1` ⟹ `k ≥ d_i+d_{i+1}`, convergents optimal — constructive core of `μ ≥ 2`).  The
+   rigorous residue-shape ↔ irrationality-measure bridge (no `μ = degree` overclaim).
+
 Registered in aggregators (`Meta/Nat.lean`, `Real213.lean`); synced `INDEX.md` (both),
 `STRICT_ZERO_AXIOM.md`, `theory/math/analysis/holonomic_modulus.md` (§4 + new §4.1 "the
 modulus-degree calculus (closed)"), and `research-notes/frontiers/modulus_degree_ladder.md`.
@@ -64,9 +70,10 @@ modulus-degree calculus (closed)"), and `research-notes/frontiers/modulus_degree
 - **Integer-degree refinement of the matched sum**: `matched_sum_dominated` needs the
   joint budget; "each summand degree `s` ⟹ sum degree `s + c`" for an explicit constant
   `c` is blocked at small layers by the floor-2 interaction — is there a clean `c`?
-- **Tie to irrationality measure**: the degree criterion (`⌊i^{1/s}⌋W_i` vs `d`-growth)
-  is the discrete shadow of the Diophantine approximation exponent — a precise bridge to
-  `μ(x)` would connect this chapter to `the_degree_of_a_number.md`.
+- **Full `μ(x)` identity**: `BestApproximation` pins the rigorous core (cross-determinant
+  `W` = best-approximation deficiency; `W=1` ⟹ optimal, `μ ≥ 2`).  Open: the full `μ` as
+  the `limsup` boundary cut (reached-by-none) of the discrete deficiency — make the
+  `μ = 2 + limsup(log a_{n+1})/(log q_n)` correspondence a `Real213` cut statement.
 
 ## Verify
 `cd lean && lake build E213.Lib.Math.NumberSystems.Real213` (green, 598 modules).
