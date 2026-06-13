@@ -148,7 +148,7 @@ open Frobenius conjecture coincide, it does not prove either, and it does not to
 unbuilt, with no ready tool, per `G189`).
 
 ### Pointers
-- frontier: `research-notes/G189_geodesic_lens_markov_frontier.md`, `§30` of `Real213/SternBrocotMarkov`
+- frontier: `research-notes/G189_geodesic_lens_markov_frontier.md`, `§30` of `Real213/Markov/SternBrocotMarkov`
 - Lens lattice: `Lens/Lattice/{Preorder,Meet,Join,Lattice}.lean`, `Lens/ReadingEquiv.lean`
 - νF / FSM: `Theory/Raw/{CoResidue,StateMachine,Lambek,MuNuMirror}.lean`
 - kernel ↔ congruence: `Lens/Algebra/Corresp.lean`

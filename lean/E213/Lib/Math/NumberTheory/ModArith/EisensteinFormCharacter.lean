@@ -24,7 +24,7 @@ constraint**, i.e. *which residues the form can represent*.
     it represents only the residues `{0, 1}` mod 3.  This is the `χ₋₃` fingerprint: the
     Loeschian numbers (values of the form) avoid the non-residue class `2 mod 3` exactly as
     sums of two squares avoid `3 mod 4`.  `a² + ab + b²` is `formEval (fixForm U)` — the
-    fixed-point form of the order-6 elliptic generator `U` (`Real213.CrossDetTraceField`),
+    fixed-point form of the order-6 elliptic generator `U` (`Real213.CrossDet.CrossDetTraceField`),
     so the period's governing form is the elliptic CM point's own form.
 
   * `mod3_add` / `mod3_mul` — the custom `mod3` is a ring homomorphism (additive and

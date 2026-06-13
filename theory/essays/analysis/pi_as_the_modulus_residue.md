@@ -16,7 +16,7 @@ the modulus family makes this quantitative in two registers, both ∅-axiom:
 **The finite side is a closed spectrum.**  Every integer rotation of finite
 order has order in `{1, 2, 3, 4, 6}` — for every `M ∈ SL(2,ℤ)` and every
 exponent, `M^{n+1} = I` forces `M¹² = I`
-(`Real213/FiniteOrderSpectrum.finite_order_spectrum`,
+(`Real213/ModularGeometry/FiniteOrderSpectrum.finite_order_spectrum`,
 `finite_order_divides_twelve`), orders 4 and 6 realized exactly by the
 Gaussian and Eisenstein generators (`exact_order_four`, `exact_order_six`),
 order 5 forbidden (`no_order_five` — no five-fold lattice symmetry; the

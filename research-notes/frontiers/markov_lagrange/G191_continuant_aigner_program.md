@@ -13,7 +13,7 @@ arXiv:2512.04026, 2025) is: there is a natural map `ℚ∩[0,1] → {Markov numb
 
 In the repo this map is `slope ↦ markovNum` (the rational `p/q` = the Stern-Brocot slope = the `List Bool`
 path; `markovNum p = (mNode p).c`).  Its injectivity is exactly `Function.Injective markovNum`, and
-`markovMaxUnique_iff_markovNum_injective` (`Real213/SternBrocotMarkov` §34, ∅-axiom) shows it `↔ ∀ c≥5,
+`markovMaxUnique_iff_markovNum_injective` (`Real213/Markov/SternBrocotMarkov` §34, ∅-axiom) shows it `↔ ∀ c≥5,
 MarkovMaxUnique c`.  **So the repo's §34 iff is the modern statement of Frobenius verbatim.**  Confirmed
 open as of 2026 — no claim of resolution in either source.
 
@@ -57,7 +57,7 @@ adjacency `sbInterval_adj` + `sbInterval_mediant_coprime`; Vandermonde-2 mediant
 
 **Missing — the Aigner core:**
   - **The isolated continuant `K[a₁..aₙ]` recurrence + monotonicity** — was only *implicit* in `mInterval`.
-    **Now built** (`Real213/Continuant.lean`, ∅-axiom, this round): `continuant`/`contPair`,
+    **Now built** (`Real213/ContinuedFraction/Continuant.lean`, ∅-axiom, this round): `continuant`/`contPair`,
     `continuant_cons2` (Euler recurrence, `rfl`), `one_le_continuant`, `continuant_head_strict_mono`,
     `continuant_lt_prepend`.  This is the technical-core tool of the proven orderings.
   - **The Frobenius continuant formula** `markovNum p = K(CF-shape of slope p)` — the bridge from the
@@ -69,11 +69,11 @@ adjacency `sbInterval_adj` + `sbInterval_mediant_coprime`; Vandermonde-2 mediant
 
 ## E. The honest program for (b), in order
 
-  1. ✅ **Continuant primitive + monotonicity** (`Real213/Continuant.lean`) — done, ∅-axiom.
+  1. ✅ **Continuant primitive + monotonicity** (`Real213/ContinuedFraction/Continuant.lean`) — done, ∅-axiom.
   2. ✅ **Continuant ↔ matrix-product entry**: `K[a₁..aₙ] = (∏[[aᵢ,1],[1,0]]).(1,1)`
      (`contMatProd_eq`, `continuant_eq_contMatProd`, ∅-axiom) — the continuant now lives inside the repo's
      `Mat2` algebra (the same `mul` carrying `genL`/`genR`/`mInterval`).
-  3. ⚠️ **Path → CF / basis change — OBSTRUCTED as a naive basis change** (`Real213/ContinuantMarkov`,
+  3. ⚠️ **Path → CF / basis change — OBSTRUCTED as a naive basis change** (`Real213/Markov/ContinuantMarkov`,
      ∅-axiom).  Asymmetric result: `genL = [[2,1],[1,1]] = M(1)² = contMatProd [1,1]` is continuant-native
      (the Fibonacci/φ spine — `genL_eq_contMatProd`), and it equals the *standard Cohn `A`*.  But
      `genR = [[3,4],[2,3]]` has `(1,1)=3 < 4=(1,2)` (`genR_a_lt_b`), impossible for a positive continuant
@@ -82,7 +82,7 @@ adjacency `sbInterval_adj` + `sbInterval_mediant_coprime`; Vandermonde-2 mediant
      *conjugate* of `B` — same trace `6`, different basis.)  So the obstruction is the repo's `genR`
      normalisation, not the math: rewriting `genL/genR` words as `[[a,1],[1,0]]` words fails because one
      generator is not a continuant matrix.
-  4. ✅ **Cohn/Frobenius trace identity — BUILT** (`Real213/Continuant`, ∅-axiom).  The universal side of
+  4. ✅ **Cohn/Frobenius trace identity — BUILT** (`Real213/ContinuedFraction/Continuant`, ∅-axiom).  The universal side of
      the Frobenius formula: `contMatProd_b`/`contMatProd_d_cons` (the `(1,2)`/`(2,2)` entries as reversed/
      middle continuants), `contMatProd_trace_cons` (`tr(∏[[aᵢ,1],[1,0]]) = K[a₁..aₙ] + K[a₂..aₙ₋₁]`), and
      `cohn_trace_examples` (`tr(A)/3=1, tr(B)/3=2, tr(AB)/3=5` — the Markov numbers `1,2,5` as `tr/3` of
@@ -112,8 +112,8 @@ is orthogonal to the slope-ordering and remains the open core.  No surveyed doma
 technique, supplies it.
 
 ### Pointers
-- repo conjecture statement: `Real213/SternBrocotMarkov` §34 `markovMaxUnique_iff_markovNum_injective`
-- new tool: `Real213/Continuant.lean`
+- repo conjecture statement: `Real213/Markov/SternBrocotMarkov` §34 `markovMaxUnique_iff_markovNum_injective`
+- new tool: `Real213/ContinuedFraction/Continuant.lean`
 - arsenal: `HyperbolicEllipticTrace` (trace), `MarkovUniqueness` §9 (`cohn_sq_neg_one_mod`), `SternBrocotMarkov` (`mInterval`, `slope_path_inj`, `mInterval_markov`), `DyadicFSM/ContinuedFraction` (`cfCoeff`)
 - kernel: `OrbitRealizabilityH`, `markovMaxUnique_iff_orbitRealizabilityH`; passing-pattern prose in `theory/math/analysis/markov_uniqueness.md`
 - sources: Rabideau–Schiffler arXiv:1801.07155 (*Adv. Math.* 370, 2020); Banaian et al. arXiv:2512.04026 (2025); McShane (stable-norm unified proof of Aigner)

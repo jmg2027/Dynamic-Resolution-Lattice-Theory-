@@ -116,7 +116,7 @@ shape, so it **is** the shape, recursively.  Three consequences, all proven:
     difference-Lens generators (`integers_as_difference_lens.md`): the no-exterior signature made a
     group action, never collapsing, always undoable.  The residue's *own* base — the Fibonacci
     spiral — carries the same
-    `+1` as the golden/Zeckendorf adic (`Real213/ZeckendorfCarry`, `011 → 100` = the Fibonacci
+    `+1` as the golden/Zeckendorf adic (`Real213/Phi/ZeckendorfCarry`, `011 → 100` = the Fibonacci
     recurrence, value-preserving), so the unit `+1` runs through both the binary and the golden
     odometer.
 
@@ -226,7 +226,7 @@ md`, `phi_pi_poles.md`).
 | `successor_dynamics` | `Theory/Raw/Odometer` | the `+1` is injective (never returns) and interlocks with the descent-shift by the adding-machine recursion |
 | `odo_unit_action` | `Theory/Raw/Odometer` | the `+1` is invertible (inverse = the predecessor `−1`/borrow); the residue unit generates a `ℤ`-action on the escapes |
 | `descent_forgets_ascent_remembers` | `Theory/Raw/Odometer` | reversibility asymmetry: the descent-shift is surjective-not-injective (forgetful), the ascent-unit `+1` is bijective (reversible) |
-| `golden_adic_carry` | `Real213/ZeckendorfCarry` | the residue's own base (Fibonacci spiral): the golden/Zeckendorf carry `011→100` = the Fibonacci recurrence, value-preserving |
+| `golden_adic_carry` | `Real213/Phi/ZeckendorfCarry` | the residue's own base (Fibonacci spiral): the golden/Zeckendorf carry `011→100` = the Fibonacci recurrence, value-preserving |
 | `ascent_unbounded` | `Theory/Raw/MuNuMirror` | the frontier recedes forever (no finite Raw caps the ascent) |
 | `no_exterior_source_without_enclosure` | `Lib/Math/Foundations/ResidueForm` | no-exterior: the escape *is* the shape, recursively |
 

@@ -747,7 +747,7 @@ degree ≥ 2 the sandwich locates *a* crossing, not *the* root
 (`x³+30` vs `20x` has two); the honest datum is (slot tuple,
 **isolating window**), and the canonical witness-form selector is a
 **Stern-Brocot path prefix** (a det-1 Farey interval certificate —
-`Real213/SternBrocotMarkov.adj`), with Sturm/Descartes as the
+`Real213/Markov/SternBrocotMarkov.adj`), with Sturm/Descartes as the
 decidability that a sufficient prefix exists.  The affine crossing is
 the continued-fraction step (Euclid = iterate the ÷-sandwich and
 swap), so the refined crossing *is* the repo's Stern-Brocot machinery

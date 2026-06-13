@@ -106,7 +106,7 @@ Plus geometric series identity and Cauchy convergence proofs.
                                   makes a per-layer shrinking bracket;
                                   `PiHalfMeasure C s` (effective measure, one ℕ
                                   inequality) ⟹ total modulus `N = C·k^s + 2`
-                                  via `Real213/BracketModulus` (ladder rung 2);
+                                  via `Real213/Modulus/BracketModulus` (ladder rung 2);
                                   and the unconditional negative: `W_n = a_n·d_n`
                                   (`wallis_cross_det`) overtakes **every**
                                   schedule — the Wallis pointing's rung is ∞

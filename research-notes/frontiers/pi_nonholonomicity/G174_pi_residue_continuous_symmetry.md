@@ -116,7 +116,7 @@ continuous Lens (cosine / Wick rotation `cos(iθ)=cosh θ`), with the φ↔π sp
 hyperbolic↔elliptic conjugacy split in `SL(2,ℝ)` (golden Möbius `[[2,1],[1,1]]` hyperbolic,
 `ModularElliptic` orders `{4,6}` elliptic).
 
-**New ∅-axiom anchor** (`Real213/PentagonGoldenTrace.lean`, 4 PURE): the algebraic skeleton of
+**New ∅-axiom anchor** (`Real213/Phi/PentagonGoldenTrace.lean`, 4 PURE): the algebraic skeleton of
 `φ = 2cos(π/5)`.  In `ℤ[φ]`: `phi_quad` (`φ²=φ+1`), `pentagon_trace_quad`
 (`(φ−1)²+(φ−1)=1` — the pentagon trace `2cos(2π/5)` is the conjugate golden root),
 `pentagon_trace_unit` (`φ·(φ−1)=1` — the pentagon trace is `1/φ`).  This certifies the
@@ -154,7 +154,7 @@ The "det만큼의 차이를 계속 찾아들어가는" is precise: a real is bra
 **cross-determinant is the unit `±1`** (`ContinuedFractionFloor.cf_det_sq`, `W² = 1` for *every*
 real, π included); the gap between consecutive (upper/lower) convergents is exactly
 `|det|/(qₙqₙ₊₁) = 1/(qₙqₙ₊₁)`.  On the golden axis this det-1 is **Cassini's identity**
-(`Real213/FibCassiniNat`), and `φ`, the pentagon trace `ψ` are the **norm `−1` units**
+(`Real213/Phi/FibCassiniNat`), and `φ`, the pentagon trace `ψ` are the **norm `−1` units**
 (`PentagonGoldenTrace.phi_norm`, `pentagon_trace_norm`) whose power-ladder carries the
 alternating `(−1)ⁿ` determinant.
 
@@ -248,17 +248,17 @@ projection-value of operation=object" is its accurate form.
 
   - `Mobius213` — `P(φ)=φ`, the self-reference fixed point (φ face).
   - `CayleyDickson/Integer/ImaginaryQuadraticUnitTrichotomy.crystallographic_cosines` —
-    `2cos(2πk/6)`; `Real213/ModularElliptic` — elliptic orders `{4,6}` (π / rotation face).
-  - `Real213/LagrangeExtremes` — φ floor / π pole, the two CF poles, already side by side.
+    `2cos(2πk/6)`; `Real213/ModularGeometry/ModularElliptic` — elliptic orders `{4,6}` (π / rotation face).
+  - `Real213/ModularGeometry/LagrangeExtremes` — φ floor / π pole, the two CF poles, already side by side.
   - `Cauchy/NonHolonomicWitness.superFact_nonHolonomic` — the genuine non-holonomic tier
     (the pole is now an inhabited tier, with π conjectured to share it).
   - `Lens.FlatOntologyClosure.{object1_not_surjective, self_covering_closure}`,
     `ResolutionLimit.cantor_general` — residue = outside every view = diagonalisation.
-  - `Real213/PentagonGoldenTrace.{phi_quad, pentagon_trace_quad, pentagon_trace_unit,
+  - `Real213/Phi/PentagonGoldenTrace.{phi_quad, pentagon_trace_quad, pentagon_trace_unit,
     phi_norm, pentagon_trace_norm, golden_axis_reciprocal}` — the golden value of the forbidden
     5-fold rotational trace (`φ = 2cos(π/5)` algebraic skeleton) and the norm-`−1` golden units
     that carry the det-1 descent; the φ-half of the φ↔π continuous-Lens bridge, ∅-axiom.
-  - `ContinuedFractionFloor.cf_det_sq` (`W² = 1` det-1 floor, every real), `Real213/FibCassiniNat`
+  - `ContinuedFractionFloor.cf_det_sq` (`W² = 1` det-1 floor, every real), `Real213/Phi/FibCassiniNat`
     (Cassini det-1), `PhiCauchyLimit` (Fibonacci convergents → φ) — the det-1 squeeze mechanism.
   - `Cauchy/DepthPiQuartic.liftK4_piRatio` (π's Wallis ratio, finite depth 4), `Real213/
     PresentationDependence` — π's *reachable* (bracketed, holonomic-via-Wallis) face.

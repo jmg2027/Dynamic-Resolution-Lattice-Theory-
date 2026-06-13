@@ -219,7 +219,7 @@ an equivalence.
   periodic floor nor the `2ⁿ` gap.  New conjectures C8 (boundedness *localization*, modest),
   C9 (proven nucleus), C10 (Klazar super-`(n!)^d` route to a true non-holonomic witness — next
   target).  See `research-notes/G173_pi_cf_boundedness_frontier.md`.
-- **Markov-spectrum thread — DONE ∅-axiom** (`Real213/GoldenFormMarkov`, 8 PURE).  The
+- **Markov-spectrum thread — DONE ∅-axiom** (`Real213/Markov/GoldenFormMarkov`, 8 PURE).  The
   repo's golden form `Q=m²−mk−k²` (P-spiral invariant, disc 5) is the **first Markov form**:
   `golden_anisotropic` (Vieta descent `(m,k)↦(k,m−k)`, no mod-5/omega — cleaner than the
   √2 mod-2 descent) proves `Q=0` only at the origin, so `inf|Q|=1` (attained at `(1,0)`),

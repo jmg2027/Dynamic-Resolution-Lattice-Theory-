@@ -10,7 +10,7 @@
 
 **State Accumulator** (`lean/E213/Lib/Math/NumberSystems/Padic/NegInvolutionFull.lean` + `NegInvolutionPreserve.lean`).  `Zp.neg ∘ Zp.neg = id`의 carry-chain은 polynomially blow up하는 것처럼 보였다.  단일 Bool `all_zero_below x k`로 압축하니 매 단계 분기가 2개로 고정됐다.  `neg_carry_eq_state`가 carry를 state로 환원하고, `neg_preserves_state`가 `Zp.neg`가 state를 보존함을 보이고, `zp_neg_neg_digit_at`이 모든 k에서 `((Zp.neg(Zp.neg x)).digits k).val = (x.digits k).val`을 증명한다.  Trajectory의 *기억해야 할 부분*이 항상 1 bit라는 발견 — 이것이 carry chain의 213-native 핵심.
 
-**Bundled Subtype** (`lean/E213/Lib/Math/NumberSystems/Real213/IntValidCut.lean`).  `cutSum_assoc`의 precision-doubling artifact (`cutSum (cutSum cx cy) cz`가 cx를 `4k`에서 읽고, `cutSum cx (cutSum cy cz)`는 `2k`에서 읽음)는 일반 cut에서는 막힌다.  `IntValidCut := { cut, represents, is_integer }`로 cut에 "정수를 represent한다"는 cutEq 증명을 같이 묶으면, 두 association이 모두 `constCut ((a+b)+c) 1`로 환원돼 `Nat.add_assoc`이 마무리.  Invariant를 hypothesis로 들고 다니지 않고 *구조 안에* 묶는다 — 동일성의 trajectory를 type-level에서 폐쇄.
+**Bundled Subtype** (`lean/E213/Lib/Math/NumberSystems/Real213/ValidCut/IntValidCut.lean`).  `cutSum_assoc`의 precision-doubling artifact (`cutSum (cutSum cx cy) cz`가 cx를 `4k`에서 읽고, `cutSum cx (cutSum cy cz)`는 `2k`에서 읽음)는 일반 cut에서는 막힌다.  `IntValidCut := { cut, represents, is_integer }`로 cut에 "정수를 represent한다"는 cutEq 증명을 같이 묶으면, 두 association이 모두 `constCut ((a+b)+c) 1`로 환원돼 `Nat.add_assoc`이 마무리.  Invariant를 hypothesis로 들고 다니지 않고 *구조 안에* 묶는다 — 동일성의 trajectory를 type-level에서 폐쇄.
 
 **Setoid Category** (`lean/E213/Lib/Math/NumberSystems/Padic/SetoidFramework.lean` + `SetoidAlgebra.lean` + `ZpSqrtDSetoid.lean`).  `ZpSeqEquiv x y := ∀ k, x.digits k = y.digits k`는 pointwise 일치를 *함수의 동치*로 부르기로 한 결정이다.  `Setoid (ZpSeq p)` 인스턴스가 이 결정을 type-level에서 명시하고, `LensMap`이 *동치를 보존하는* morphism을 묶는다.  `zp_neg_neg_equiv_id`는 `Zp.neg ∘ Zp.neg`와 `id`가 *함수로서 동치*임을 funext 없이 진술한다.  함수 동일성이 `Eq`가 아니라 *명시적 동치 관계*로 환원.
 
@@ -46,11 +46,11 @@
 
   - **가환환까지 — 곱셈 Setoid 항등식** (`SetoidMul.lean`, 7 PURE).  같은 `of_trunc_all` lift를 곱셈의 ring-quotient 정리(`Zp.mul_trunc_comm`/`mul_trunc_assoc`/`mul_add_trunc`/`add_mul_trunc`, 그리고 `mul_trunc_one_left`)에 적용해 `zp_mul_comm_equiv`/`zp_mul_assoc_equiv`/`zp_mul_one_left_equiv`(곱셈 가환 monoid) + 좌·우 분배(`zp_mul_add_distrib_equiv`/`zp_add_mul_distrib_equiv`)를 Setoid 레벨에서 닫음.  `zp_setoid_commRing_capstone`이 가법 아벨군 + 곱셈 monoid + 분배를 한 정리로 묶어 **`(ZpSeq p, ZpSeqEquiv)`가 가환환**임을 funext·propext 없이 진술.  곱셈 자체가 `ZpSeqEquiv`를 보존한다는 `SetoidAlgebra.mul_respects`와 합치면 몫 위의 환 구조 전체.
 
-- **`cutSum_assoc`을 integer-extended 너머로** — `Lib/Math/NumberSystems/Real213/HalfValidCut.lean` (11 PURE).  IntValidCut(b=1)을 HalfValidCut(b=2)로 확장.  `cutSum_half_general`이 b=2에서도 bidirectional cutEq를 제공하므로 same pattern (bundled subtype + Nat.add_assoc)이 closure.
+- **`cutSum_assoc`을 integer-extended 너머로** — `Lib/Math/NumberSystems/Real213/ValidCut/HalfValidCut.lean` (11 PURE).  IntValidCut(b=1)을 HalfValidCut(b=2)로 확장.  `cutSum_half_general`이 b=2에서도 bidirectional cutEq를 제공하므로 same pattern (bundled subtype + Nat.add_assoc)이 closure.
 
 ## b ≥ 3 cutSum_assoc — 진단의 진행
 
-원래 "새 정리 작성"으로 분류했던 `b ≥ 3` 의 backward direction은 *cutSum 구현의 hardcode artifact*.  `Lib/Math/NumberSystems/Real213/CutSumAssocB3.lean` (7 PURE)이 현상을 문서화:
+원래 "새 정리 작성"으로 분류했던 `b ≥ 3` 의 backward direction은 *cutSum 구현의 hardcode artifact*.  `Lib/Math/NumberSystems/Real213/Sum/CutSumAssocB3.lean` (7 PURE)이 현상을 문서화:
 
   · **Forward universal**: `cutSum_same_denom_forward`가 임의 `b ≥ 1`에서 성립.
   · **Backward 반례** at `b ∈ {3, 4, 5}`: 예를 들어 `a = 2, c = 1, b = 3, m = 1, k = 1`에서 `constCut 3 3 1 1 = true`이지만 `cutSum (constCut 2 3) (constCut 1 3) 1 1 = false` (decide-검증).
@@ -59,7 +59,7 @@
 
 상세 분석은 `essays/bool_assoc_failure_meaning.md`.  핵심: `cutSum`의 factor-2 hardcode가 (NS, NT) = (3, 2) atom 중 NT만 반영하고 NS를 빠뜨림.  framework "바깥"의 문제가 아니라 *cutSum 구현이 213의 (3, 2) commitment를 under-realize* 한 것 — `Physics/Foundations/AtomicConstantsParametricFullIff.lean` `c2b_full_iff` + `Theory/Atomicity/Five.lean` `atomic_iff_five`가 (3, 2) → 모든 real 판정 chain을 이미 증명.
 
-**Closure 진척**: `Lib/Math/NumberSystems/Real213/Sum/CutSumN.lean` (6 PURE)이 parametric `cutSumN N` (factor-N search granularity) 정의 + 임의 N > 0에서 `cutSumN_same_denom` bidirectional 증명.  `Lib/Math/NumberSystems/Real213/ThirdValidCut.lean` (15 PURE)이 b = 3 결합법칙을 IntValidCut/HalfValidCut 패턴으로 닫음 — `cutSumN_assoc_thirdValidCut` (full assoc), `cutSumN_comm_thirdValidCut`, `thirdvalidcut_full_assoc_capstone`.  CutSumAssocB3의 반례 (a=2, c=1, m=1, k=1)가 `cutSumN 3`에서는 true임을 `cutSumN_3_2_1_at_1_1`이 decide-검증.
+**Closure 진척**: `Lib/Math/NumberSystems/Real213/Sum/CutSumN.lean` (6 PURE)이 parametric `cutSumN N` (factor-N search granularity) 정의 + 임의 N > 0에서 `cutSumN_same_denom` bidirectional 증명.  `Lib/Math/NumberSystems/Real213/ValidCut/ThirdValidCut.lean` (15 PURE)이 b = 3 결합법칙을 IntValidCut/HalfValidCut 패턴으로 닫음 — `cutSumN_assoc_thirdValidCut` (full assoc), `cutSumN_comm_thirdValidCut`, `thirdvalidcut_full_assoc_capstone`.  CutSumAssocB3의 반례 (a=2, c=1, m=1, k=1)가 `cutSumN 3`에서는 true임을 `cutSumN_3_2_1_at_1_1`이 decide-검증.
 
 미완: `is_native` wrapper (`b ∈ ⟨2, 3⟩` multiplicative monoid 게이트) — b ∈ {1, 2, 3} 각각의 closure는 닫혔으나 일반 multiplicative composite (b = 6, 9, 12, ...)의 통합 wrapper는 follow-up.
 

@@ -83,7 +83,7 @@ supplies the instruction set and the compiled target; the search for the one mis
 work.
 
 ### Pointers
-- compiled target: `Real213/SternBrocotMarkov` §34 (`markovMaxUnique_iff_markovNum_injective`), `Real213/ContinuantMarkov` (`markovNum_eq_chrNode_trace`, `chrNode`)
+- compiled target: `Real213/Markov/SternBrocotMarkov` §34 (`markovMaxUnique_iff_markovNum_injective`), `Real213/Markov/ContinuantMarkov` (`markovNum_eq_chrNode_trace`, `chrNode`)
 - instructions: SEPARATE `slope_path_inj`; READ `markovNum_eq_chrNode_trace`; LOOP `Continuant.continuant_*_strict_mono`; reversal `Continuant.continuant_reverse`
 - ISA + workflow: `seed/PROOF_ISA.md`, `lean/E213/Lens/ProofISA.lean`
 - the gap, prior framings: `G189` (Casoratian), `G192` (geodesic boundary), `G194` (locality), `G195` (cohomology)

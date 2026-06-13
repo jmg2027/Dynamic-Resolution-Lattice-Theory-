@@ -281,7 +281,7 @@ object encodes:
   (the originating conjecture note; archived after closure).
 - Wave 13 cutSumN parametric closure
   (`Lib/Math/NumberSystems/Real213/Sum/CutSumN.lean`,
-  `Lib/Math/NumberSystems/Real213/NValidCut.lean`) provided the `cutEq`-side
+  `Lib/Math/NumberSystems/Real213/ValidCut/NValidCut.lean`) provided the `cutEq`-side
   algebra that this chapter lifts to Stern-Brocot form.
 - `Lib/Math/Algebra/Mobius213.lean`,
   `Lib/Math/Mobius213OneAsGlue.lean`,
@@ -319,7 +319,7 @@ along axes that the original closure left open:
     (constCut c N) m k = true → constCut (a · c) (N · N) m k =
     true` (`Real213/Mul/CutMulN`), plus bundled
     `mulN : ValidCutN N × ValidCutN N → ValidCutN (N · N)`
-    (`Real213/NValidCutMul`) bypassing the precision artifact
+    (`Real213/ValidCut/NValidCutMul`) bypassing the precision artifact
     via direct algebraic numerator + commutativity at the
     bundled level.
   · **Marathon 2** (K_{3,2}^(c=2) ↔ P state classes, 21 PURE) —
@@ -333,7 +333,7 @@ along axes that the original closure left open:
     [2; 1, 1, 1, ...] convergent recurrence
     `a(n+2) + a(n) = 3 · a(n+1)` realised in Nat form on both
     P-orbits, both components
-    (`Real213/Mobius213ContinuedFraction`).
+    (`Real213/Mobius/Mobius213ContinuedFraction`).
   · **Marathon 4** (CD-doubling ↔ P iteration, 5 PURE) —
     `CayleyDickson/Tower/Mobius213CDBridge` recording that the
     Type C asymptote `(5, −1)` IS `(disc P, Pell unit)` and the
@@ -419,16 +419,16 @@ occurrences, coefficient extraction).  Companion essay:
 ## How to verify
 
 ```bash
-cd lean && lake build E213.Lib.Math.NumberSystems.Real213.Mobius213UnificationCapstone
-cd lean && lake build E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
+cd lean && lake build E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213UnificationCapstone
+cd lean && lake build E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213AtomicityAnchor
 cd lean && lake build E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge
 
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocotApps
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213UnificationCapstone
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocotApps
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213PellInvariant
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213UnificationCapstone
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213AtomicityAnchor
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge
 ```
 

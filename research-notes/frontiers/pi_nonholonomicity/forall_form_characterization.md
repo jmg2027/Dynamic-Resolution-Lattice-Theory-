@@ -113,7 +113,7 @@ structure = π's continued fraction — landing back on the
 
 ## Action items
 
-1. **Build now — DONE** (`Real213/FiniteOrderSpectrum.lean`, 24 PURE / 0
+1. **Build now — DONE** (`Real213/ModularGeometry/FiniteOrderSpectrum.lean`, 24 PURE / 0
    DIRTY): `finite_order_spectrum` (`M^{n+1} = I ⟹ M = I ∨ M² = I ∨ M³ = I ∨
    M⁴ = I ∨ M⁶ = I`) + `finite_order_divides_twelve` (`⟹ M¹² = I`), via the
    trace trichotomy (`|t| ≥ 3` growth / `t = ±2` parabolic rigidity
@@ -142,7 +142,7 @@ crystallographic-6 derivation (alignment only, blocked by
 ## Pointers
 
 - Engine: `Real213/ExpLog/PiMeasureModulus.lean` (conditional modulus,
-  rung-∞ negative), `Real213/BracketModulus.lean`
+  rung-∞ negative), `Real213/Modulus/BracketModulus.lean`
 - Period pieces: `Mat2TraceRecurrence`, `HyperbolicEllipticTrace`,
   `EllipticTracePeriodic`, `UTracePeriodic`, `GoldenAperiodic`,
   `PentagonGoldenTrace`, `CyclotomicTraceDegree.crystallographic_restriction`

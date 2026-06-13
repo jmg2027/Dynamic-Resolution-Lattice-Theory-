@@ -221,14 +221,14 @@ require.
 
 ```bash
 cd lean
-lake build E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace \
-           E213.Lib.Math.NumberSystems.Real213.PentagonGoldenTrace \
+lake build E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace \
+           E213.Lib.Math.NumberSystems.Real213.Phi.PentagonGoldenTrace \
            E213.Lib.Math.Analysis.Cauchy.NonHolonomicWitness \
            E213.Lib.Math.Analysis.Cauchy.PositiveFloorUnbounded \
            E213.Lib.Math.Analysis.Cauchy.EllipticPeriodicTier \
            E213.Lib.Math.Analysis.Cauchy.CFiniteHomogRec
 cd ..
-for m in Real213.HyperbolicEllipticTrace Real213.PentagonGoldenTrace \
+for m in Real213.ModularGeometry.HyperbolicEllipticTrace Real213.Phi.PentagonGoldenTrace \
          Cauchy.NonHolonomicWitness Cauchy.PositiveFloorUnbounded \
          Cauchy.EllipticPeriodicTier Cauchy.CFiniteHomogRec; do
   python3 tools/scan_axioms.py E213.Lib.Math.$m

@@ -83,7 +83,7 @@ class-number core (composite `c` with both `3c±2` composite, smallest `1325`).
   where the Markov `H` kernel sits in the foundation's breakthrough backlog.
 - `G191_continuant_aigner_program` — the continuant / Aigner program: where
   modern Markov theory meets the repo, and what it can(not) close (the
-  ranked-next attack on `H`; `Real213/Continuant.lean` tool built).
+  ranked-next attack on `H`; `Real213/ContinuedFraction/Continuant.lean` tool built).
 - `G192_markov_kernel_raw_lens_native` — the kernel in Raw/Lens-native terms:
   where the geodesic engine reaches and where it structurally stops.
 - `G193_axioms_against_markov_kernel` — the 213 axiom corpus read against the
@@ -138,7 +138,7 @@ depth; axis = unit-group order `{2,4,6}`), and its tower extension.
 
 Closure record: `theory/math/analysis/spiral_coordinate_classification.md`.
 `G181_atomic_spiral_adic` (the variable-base adic / carry = the residue unit) is
-**closed**, built as `Theory/Raw/{Odometer,OdometerValue}` + `Real213/ZeckendorfCarry`,
+**closed**, built as `Theory/Raw/{Odometer,OdometerValue}` + `Real213/Phi/ZeckendorfCarry`,
 narrated in `theory/essays/foundations/the_residue_unit_odometer.md` +
 `theory/math/algebra/phi_self_similarity.md` §3.7.
 
@@ -484,7 +484,7 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   Discovery path: `general_theory_metaanalysis.md` findings D/E/F/G/G′.
 
 - `holonomy_lattice` — **holonomy of the lattice, open extensions**.  Closed core
-  (`Real213/HolonomyLattice`, 25 PURE + chapter `holonomy_of_the_lattice.md`): holonomy =
+  (`Real213/ModularGeometry/HolonomyLattice`, 25 PURE + chapter `holonomy_of_the_lattice.md`): holonomy =
   net transition around a loop of state-transitions; functoriality + flatness (`det=1=NS−NT`)
   + the ℕ⁺ sector is loop-free (Stern–Brocot tree) + holonomy born from the negation fold
   (`[S,S]=−I`, order 4).  Open: (1) full freeness of `⟨L,R⟩` (unique-word, via CF/odometer);

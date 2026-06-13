@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.SignedCut.Core.Equivalence
-import E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocotApps
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocotApps
 
 /-!
 # SignedCut Stern-Brocot bridge
@@ -29,7 +29,7 @@ open E213.Lib.Math.NumberSystems.SignedCut.Core.Core (SignedCut pos neg)
 open E213.Lib.Math.NumberSystems.SignedCut.Core.Equivalence (signedEqAt)
 open E213.Lib.Math.NumberSystems.Real213.Sum.CutSum (cutSum)
 open E213.Lib.Math.NumberSystems.Real213.Core.CutPoset (cutEq)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
   (sternBrocotEq cutEq_iff_sternBrocotEq_and_zero)
 
 /-! ## §1 — Full signed equivalence -/

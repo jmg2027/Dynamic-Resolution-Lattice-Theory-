@@ -37,11 +37,11 @@ namespace E213.Lens.Number.FoundingDialUnification
 
 open E213.Lib.Math.Analysis.Cauchy.EllipticPeriodicTier (comp comp_tr comp_det comp_disc parabolic_iff_depth1)
 open E213.Lib.Math.Analysis.Cauchy.NewtonGregory (polyDepthZ liftKZ)
-open E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace (Mat2)
+open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace (Mat2)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 open E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal (Q00 Q01 Q11)
 open E213.Lens.Number.RatioLensFounding (convergent_lowest_terms_is_det)
-open E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiCauchyLimit (phiConvergentSeq phiCauchy_limit_eq_phiCut)
 
 /-- ★★★★★ **The founding unit floors the dial; the trace runs the tiers.**  The number-tower
     founding and the discriminant dial are one order-2 companion `comp p q` split along its two
@@ -105,7 +105,7 @@ theorem hyperbolic_at_NS_is_ratio_cauchy_rung :
     ∧ Mat2.det (comp (NS : Int) 1) = (NS : Int) - NT
     ∧ Mat2.disc (comp (NS : Int) 1) = (NS : Int) + NT
     ∧ (∀ n, Q00 n * Q11 n = Q01 n * Q01 n + (NS - NT))
-    ∧ (∀ m k, phiConvergentSeq.limit m k = E213.Lib.Math.NumberSystems.Real213.PhiAsCut.phiCut m k) :=
+    ∧ (∀ m k, phiConvergentSeq.limit m k = E213.Lib.Math.NumberSystems.Real213.Phi.PhiAsCut.phiCut m k) :=
   ⟨comp_tr (NS : Int) 1, by rw [comp_det]; decide, by rw [comp_disc]; decide,
    convergent_lowest_terms_is_det, phiCauchy_limit_eq_phiCut⟩
 

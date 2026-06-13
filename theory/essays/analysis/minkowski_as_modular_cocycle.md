@@ -21,7 +21,7 @@ Eichler–Shimura.  Three facts, all ∅-axiom, fix this:
 > the period relation is the `√(−1)` congruence `m ∣ u² + 1`.
 
 The "twisted additivity" of a 1-cocycle, `c(gh) = c(g) + g·c(h)`, is exactly the
-content already proved in `Real213/SternBrocotMarkov`; `Real213/MinkowskiCocycle`
+content already proved in `Real213/Markov/SternBrocotMarkov`; `Real213/Minkowski/MinkowskiCocycle`
 reads it as the cocycle it is.
 
 ## Derivation
@@ -104,7 +104,7 @@ generators; the **higher-weight** period integrals and the analytic
 `H^1(SL(2,ℤ), V_k)` identification; and the multifractal Hölder spectrum of `?`.
 These obstructions are **constructive, not axiom-cost** — and narrower than first
 thought.  Integration is ∅-axiom-native here: the repo builds its own dyadic
-Riemann integral (`Real213/CutIntegral`, `DyadicRiemann`) *and* a
+Riemann integral (`Real213/Calculus/CutIntegral`, `DyadicRiemann`) *and* a
 fundamental-theorem-of-calculus / antiderivative integral on the flux formalism
 (`Lib/Math/Analysis/Integration/{Antiderivative,IntegralViaAnti,ClassicAnti}`,
 `FluxMVT`).  The **polynomial power rule is already closed**: the period

@@ -116,7 +116,7 @@ witness without changing the structural content.
 
 ## DiffCut differentiation with modulus tracking — closed (DiffCutModulus.lean, 12 PURE)
 
-`Lib/Math/NumberSystems/Real213/DiffCutModulus.lean` adds explicit modulus
+`Lib/Math/NumberSystems/Real213/Calculus/DiffCutModulus.lean` adds explicit modulus
 tracking to the existing `IsDifferentiable` infrastructure:
 
   `DiffCutModulus f` extends `IsDifferentiable f` with
@@ -136,7 +136,7 @@ existentials, no `limit`.
 
 ## Cut integration over DyadicMeasurableSet — closed (CutIntegral + Linearity, 14 PURE)
 
-`Lib/Math/NumberSystems/Real213/CutIntegral.lean` lifts the per-bracket
+`Lib/Math/NumberSystems/Real213/Calculus/CutIntegral.lean` lifts the per-bracket
 `riemannSampleSum` to a measure-theoretic integral over a
 `DyadicMeasurableSet`:
 
@@ -150,7 +150,7 @@ existentials, no `limit`.
 Reading: finite-list recursion replaces σ-algebra; no Lebesgue
 measure machinery, no Choice.  Real213 integration is finitary.
 
-`Lib/Math/NumberSystems/Real213/CutIntegralLinearity.lean` (6 PURE) adds
+`Lib/Math/NumberSystems/Real213/Calculus/CutIntegralLinearity.lean` (6 PURE) adds
 structural additivity over `S ++ T`: `cutIntegralOver_nil_append`,
 `cutIntegralOver_cons_append`, `cutIntegralOver_singleton_append_at`,
 `cutIntegralOver_triple_at`, and `cut_integral_linearity_capstone`
@@ -159,7 +159,7 @@ pointwise — `rfl`-level identities, no σ-additivity machinery.
 
 ## cutSum associativity for integer cuts (5 PURE)
 
-`Lib/Math/NumberSystems/Real213/CutSumAssocInt.lean` closes a **special case**
+`Lib/Math/NumberSystems/Real213/Sum/CutSumAssocInt.lean` closes a **special case**
 of the open `cutSum_assoc` frontier:
 
   `cutSum (cutSum (constCut a 1) (constCut b 1)) (constCut c 1)`

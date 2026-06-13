@@ -37,7 +37,7 @@ open E213.Lib.Math.Analysis.Cauchy.MonotonicBounded (IsAbMonotonic IsAbPositiveB
 open E213.Lib.Math.NumberSystems.Real213 (AbCutSeq)
 open E213.Lib.Math.NumberSystems.Real213.Core.ValidCut (ValidCut)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.LambertWeld (coshNum sinhNum)
-open E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+open E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus
   (cothCF cothUnitCFCauchySeq)
 
 private theorem le_of_add_le_add_right' {a b k : Nat} (h : a + k ≤ b + k) : a ≤ b :=

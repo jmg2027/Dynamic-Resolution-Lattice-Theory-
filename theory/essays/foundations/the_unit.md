@@ -27,7 +27,7 @@ well-foundedness distinguishes the *direction*, not the unit.
 The same `1` is the **carry**.  The odometer starts at it (`Theory/Raw/Odometer.carry_zero`) and
 generates a free `ℤ`-action with it (`Odometer.odo_unit_action`); in the residue's own Fibonacci
 base the carry `011 → 100` *is* the unit lifting one spiral rung
-(`Real213/ZeckendorfCarry.zeck_carry_weight`: `fib(i+2) + fib(i+3) = fib(i+4)`, ground case
+(`Real213/Phi/ZeckendorfCarry.zeck_carry_weight`: `fib(i+2) + fib(i+3) = fib(i+4)`, ground case
 `1 + 2 = 3`).  And it is the **Cassini** `W = ±1` (`FibCassiniNat.fib_cassini_norm`): the gap
 between frozen and dynamic φ that the convergent never closes
 (`theory/math/algebra/phi_self_similarity.md` §3.6) is exactly this `1`.
