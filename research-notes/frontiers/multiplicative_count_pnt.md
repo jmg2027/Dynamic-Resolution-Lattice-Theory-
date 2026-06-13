@@ -185,3 +185,31 @@ the max-binomial `4^n ≤ (2n+1)·C(2n,n)` (`C(2n,n) ≥ 4^n/(2n+1)`); (ii) the 
 (`step4`, `alpha30`) to a closed `lcm(1..N) ≤ C·base^N` — together trapping `e` in a
 computable `[2, 3.16]`.  Loose secondary: tie `factorization_bounded`'s prime-list
 length to `primePi`.
+
+## Cross-domain resonances (with merged main — the logarithm-family essays)
+
+Main brought the discrete-log layer (`ModArith/DiscreteLogParity`, essays
+`what_is_a_logarithm` + `the_discrete_log_is_the_same_logarithm`): the logarithm
+is the **valuation family** — `ind_g` (finite-cyclic coordinate on `(ℤ/p)*`,
+valued in `ℤ/(p−1)`), `vp` (algebraic, per prime, finite-support), `ln`
+(archimedean).  Two resonances with this PNT trajectory:
+
+- **R1 — PNT's constant lives at the *archimedean* place; the whole ∅-axiom layer
+  lives at the *algebraic* `vp` places.**  `vp_factorial_eq_sum_vp_lcm` is a pure
+  identity at the algebraic `vp` places (both the factorial side, Legendre `= Σ vp`,
+  and the lcm side, `vp_lcm = floorLog`, are `vp`-readouts).  `ψ(N) = Σ_{p≤N}
+  vp_p(lcm(1..N))·ln p` weights that algebraic data by the **archimedean** `ln p`.
+  So PNT's constant `1` is unreachable *exactly because* it sits at the single
+  archimedean place, while everything ∅-axiom-reachable here (the identity, the
+  order bounds, the `ψ`-lower) lives at the algebraic places — the SAME
+  algebraic/archimedean line `the_certificate_boundary` drew (hypergeometric =
+  algebraic = certifiable vs harmonic = archimedean = explicit-only).
+
+- **R2 — the logarithm family is one *computed coordinate* with three value-space
+  shapes; "the constant `e`" is the bracket-shape's name.**  `ind_g` valued in a
+  *finite cycle* (fully computed), `vp` a *finite-support vector* (computed), `ln`
+  a *never-closing bracket* (the horizon).  The de-deification calculation rule
+  (`the_form_of_the_residue.md` "Infinity is the residue's shape") applies across
+  the whole family: all three are computed coordinates; they differ only in whether
+  the value-space is a finite cycle, a finite-support vector, or a never-closing
+  modulus — and "reaching `e`/the limit" is just naming the bracket case.
