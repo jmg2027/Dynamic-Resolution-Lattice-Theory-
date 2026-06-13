@@ -368,3 +368,32 @@ sits in no rung; the ladder classifies the ways of pointing at it.
   `HtelS`/`DominatesS`/`graded_total_modulus`) + `Meta/Nat/RootFloor.lean`
 - Break-grading: `CompletabilityGrade`, `RefinedCompletabilityEngine`
 - ζ(3) companion frontier: `zeta3_free_modulus.md`
+
+## Cross-domain resonances (this branch × merged main, 2026-06-13)
+
+Two genuine convergences with main's parallel PNT/logarithm session:
+
+- **R1 — de-deification, independently doubled.**  Main's session added the
+  calculation rule "conceiving infinity is a discrete pointing; the limit is the
+  *computed bracket*, not a target" to `the_form_of_the_residue.md` (+ a CLAUDE.md
+  failure row).  This branch proved the same thesis ∅-axiom:
+  `PointingLimit.limit_unreached_but_decided` (the limit-value is reached by no
+  convergent yet every cut is decided in finite) + `imagining_infinity.md`.  The
+  de-deification is now both **stated as a rule** (main) and **carried by theorems**
+  (here) — the two halves of one principle, arrived at from two directions.
+
+- **R2 — the archimedean/limsup boundary of an algebraic skeleton.**  Main's
+  `the_prime_constant_is_archimedean`: PNT's constant `1` has no ∅-axiom value
+  because it is the slope at the single *archimedean* place (`ln`), kept as a
+  computed interval.  This branch's `BestApproximation`/μ-bridge: `μ(x)` has no
+  clean value because it is the **`limsup` boundary cut (reached-by-none)** of the
+  discrete deficiency `W`.  Same shape — a classical real (PNT's `1`, the measure
+  `μ`) is the reached-by-none boundary of an algebraic/discrete skeleton
+  (`vp`-identities; the cross-determinant `W`), honest as an interval/threshold,
+  never deified.  R2 is R1 specialised to a named constant.
+
+- **R3 (moderate) — the growth race.**  Main's Chebyshev lower (`C(2n,n) ∣
+  lcm(1..2n)` ⟹ `2^n ≤ lcm`) and ζ(3)'s Hanson lcm-race are the same *growth-race*
+  genre as the `W`-vs-`d` criterion (`DegreeCriterion`); they meet concretely at
+  ζ(3), whose factorial-cleared presentation is `RateStratification`-overtaking
+  (rate-free) — the lcm race and the degree race are one race read in two domains.
