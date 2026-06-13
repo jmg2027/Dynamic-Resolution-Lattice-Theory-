@@ -83,16 +83,24 @@ which is why they do not swap.  Read positively: the rung *adjoins the
 dimension-setting axis*; nothing is "lost".
 
 **Program (large; deliberate, not a rushed mass edit):**
-  P1. Reframe the negative descriptions (`HyperAssoc` headline, any "loses comm/assoc"
-      docstring) → positive (the arising DOF / dimension axis).
+  P1. **DONE** (`Meta/Nat/HyperAssoc`).  Headline + docstrings reframed positively:
+      `^` *adjoins the dimension axis* (anchored in `UnitHyper`); the algebra
+      defects (`pow_not_comm`, `pow_not_assoc`) are now stated as the **count
+      shadows** of the side-vs-dimension type-asymmetry, with the Lean bridge
+      `pow_not_comm_is_dim_shadow` (`count (hcube 2 3) ≠ count (hcube 3 2)`, the
+      object form of `2^3 ≠ 3^2`).
   P2. **DONE** (`Meta/Nat/UnitHyper`, ∅-axiom).  The positive `^`-object built
       generatively: `hcube a b` (`b`-dim unit grid, side `a`), `count_hcube : count
       = a^b` (the readout shadow), `count_hcube_succ`/`dim_hcube_succ` (the climb +
       the `+1` DOF axis arising), `count_eq_side_pow_dim` (base=side length,
       exponent=dim count — the positive twist), `count_hcube_two_eq_grid` (dim-2
       cube = the `×`-square, the two-roads bridge).
-  P3. Re-anchor descriptions to objects; keep the Nat results (`MultSystem`/
-      `MultSystemValue`/Chebyshev) explicitly *as readouts/shadows*.
+  P3. **DONE** (`MultSystem.hyperCount` docstring).  The abstract axis-count
+      reading (`hyperCount`/`hyperCount_simplex`, symmetric skeleton) is now
+      explicitly cross-referenced as one readout, with `UnitHyper`'s geometric
+      `count = side ^ dim` the value sibling — two readouts of the one `^`-rung.
+      (Remaining: thread the same readout/shadow framing through `MultSystemValue`
+      / the Chebyshev mirror if it recurs — deferred, not a rushed sweep.)
   P4. Carry the `DOF = rung − 2` (layer-gap) statement as the precise spec; tie its
       `^`-value to `hyper_parallel` (the dilation readout) and the `−1`
       cross-determinant (L5).

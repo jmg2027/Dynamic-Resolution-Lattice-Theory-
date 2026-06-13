@@ -483,7 +483,15 @@ as axes.  The `×`-monomials of degree `≤ N` over `k` `+`-bases number
 multiset count — built directly. -/
 
 /-- The `^`-rung built by the layer rule: degree-`d` multisets of `×`-monomials
-    (the `×`-monomials of degree `≤ N` over `k` `+`-bases as the axis set). -/
+    (the `×`-monomials of degree `≤ N` over `k` `+`-bases as the axis set).
+
+    This is the **abstract axis-count** reading of the `^`-rung (the symmetric
+    skeleton, which stays simplicial — `hyperCount_simplex`).  Its **geometric
+    value** sibling is the object `Meta/Nat/UnitHyper`: `count (hcube a b) =
+    a^b = side ^ dim`, where the base/exponent twist (here folded away as the
+    symmetric multiset count) is carried *positively* as the side-vs-dimension
+    type-asymmetry (`UnitHyper.count_eq_side_pow_dim`).  Two readouts of one
+    `^`-rung (`simplicial_operation_tower.md` L4/L5). -/
 def hyperCount (k N d : Nat) : Nat := monoCount (totalCount k N) d
 
 /-- **The tower stays simplicial.**  Stacking the rule again, the `^`-rung is *again*
