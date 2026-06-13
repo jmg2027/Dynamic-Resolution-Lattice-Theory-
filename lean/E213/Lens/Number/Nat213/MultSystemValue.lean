@@ -451,6 +451,52 @@ theorem central_binom_factorial (n : Nat) :
   have h := binom_factorial n n
   rwa [show n + n = 2 * n from by ring_nat] at h
 
+/-- `a·c ≤ b·c → a ≤ b` for `c > 0` (pure; no `Nat.le_of_mul_le_mul_right` in core). -/
+theorem le_of_mul_le_mul_right_pure {a b c : Nat} (hc : 0 < c) (h : a * c ≤ b * c) : a ≤ b := by
+  rcases Nat.lt_or_ge b a with hlt | hge
+  · have hlt' : b * c < a * c :=
+      calc b * c < b * c + c := Nat.lt_add_of_pos_right hc
+        _ = (b + 1) * c := by ring_nat
+        _ ≤ a * c := Nat.mul_le_mul hlt (Nat.le_refl c)
+    exact absurd h (Nat.not_le.mpr hlt')
+  · exact hge
+
+/-- **Central binomial lower bound: `2^n ≤ C(2n,n)`.**  Induction via the cleared
+    recurrence `C(2n+2,n+1)·(n+1) = 2(2n+1)·C(2n,n)` (from `central_binom_factorial`,
+    cancelling `(n!)²` and one `(n+1)`): since `2n+1 ≥ n+1`, `C(2n+2,n+1) ≥
+    2·C(2n,n) ≥ 2·2^n`.  The denominator side of the Chebyshev lower bound
+    (`C(2n,n) ≥ 2^n` against `C(2n,n) ≤ (2n)^{π(2n)}` gives `π(2n) ≥ n/log₂(2n)`). -/
+theorem central_binom_ge_two_pow : ∀ n, 2 ^ n ≤ binom (2 * n) n
+  | 0     => by decide
+  | n + 1 => by
+      have ih := central_binom_ge_two_pow n
+      have hF : 0 < fact n := fact_pos n
+      have cbn := central_binom_factorial n
+      have cbn1 := central_binom_factorial (n + 1)
+      have hfn1 : fact (n + 1) = (n + 1) * fact n := rfl
+      have hfac : fact (2 * (n + 1)) = (2 * n + 1 + 1) * ((2 * n + 1) * fact (2 * n)) := by
+        rw [show 2 * (n + 1) = 2 * n + 1 + 1 from by ring_nat]; rfl
+      rw [hfn1, hfac, ← cbn] at cbn1
+      have hpos : 0 < (n + 1) * (fact n * fact n) :=
+        Nat.mul_pos (Nat.succ_pos n) (Nat.mul_pos hF hF)
+      have hrec : binom (2 * (n + 1)) (n + 1) * (n + 1) = 2 * (2 * n + 1) * binom (2 * n) n := by
+        apply Nat.eq_of_mul_eq_mul_right hpos
+        calc binom (2 * (n + 1)) (n + 1) * (n + 1) * ((n + 1) * (fact n * fact n))
+            = binom (2 * (n + 1)) (n + 1) * ((n + 1) * fact n * ((n + 1) * fact n)) := by ring_nat
+          _ = (2 * n + 1 + 1) * ((2 * n + 1) * (binom (2 * n) n * (fact n * fact n))) := cbn1
+          _ = 2 * (2 * n + 1) * binom (2 * n) n * ((n + 1) * (fact n * fact n)) := by ring_nat
+      have hn2n : n ≤ 2 * n := by rw [Nat.two_mul]; exact Nat.le_add_left n n
+      have hstep : 2 * binom (2 * n) n ≤ binom (2 * (n + 1)) (n + 1) := by
+        apply le_of_mul_le_mul_right_pure (Nat.succ_pos n)
+        rw [hrec]
+        calc 2 * binom (2 * n) n * (n + 1) = 2 * (n + 1) * binom (2 * n) n := by ring_nat
+          _ ≤ 2 * (2 * n + 1) * binom (2 * n) n :=
+              Nat.mul_le_mul (Nat.mul_le_mul (Nat.le_refl 2) (Nat.add_le_add_right hn2n 1))
+                (Nat.le_refl _)
+      calc 2 ^ (n + 1) = 2 * 2 ^ n := by rw [Nat.pow_succ]; ring_nat
+        _ ≤ 2 * binom (2 * n) n := Nat.mul_le_mul (Nat.le_refl 2) ih
+        _ ≤ binom (2 * (n + 1)) (n + 1) := hstep
+
 /-- **Every prime in `(n, 2n]` divides `C(2n,n)`.**  Read `central_binom_factorial`
     through `vp`: `vp_p((2n)!) = vp_p(C(2n,n)) + 2·vp_p(n!) = vp_p(C(2n,n))` (since
     `vp_p(n!)=0` for `p > n`), and `vp_p((2n)!) ≥ 1` (`p ∣ (2n)!`, `p ≤ 2n`).  The
