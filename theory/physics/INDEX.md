@@ -2,7 +2,7 @@
 
 Physics chapters.  Mirrors `lean/E213/Lib/Physics/`.
 
-## Closed chapters (18)
+## Closed chapters (19)
 
 | Chapter | Lean sub-tree |
 |---|---|

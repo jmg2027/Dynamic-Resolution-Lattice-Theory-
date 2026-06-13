@@ -1,8 +1,8 @@
 # `Meta/Nat/` — ring-independent Nat helper lemmas
 
 Pure-Nat helper lemmas that don't depend on the Theory / Lens
-ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
-(Session E) — these were ring-independent and belonged in Meta.
+ring distinction — ring-independent infrastructure shared across
+the library.
 
 ## Files (37)
 

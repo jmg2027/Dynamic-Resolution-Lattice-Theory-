@@ -64,6 +64,7 @@ import E213.Lib.Math.NumberSystems.Real213.MinkowskiPeriodPolynomial
 import E213.Lib.Math.NumberSystems.Real213.MinkowskiModularSymbol
 import E213.Lib.Math.NumberSystems.Real213.HolonomicReal
 import E213.Lib.Math.NumberSystems.Real213.Zeta3Cut
+import E213.Lib.Math.NumberSystems.Real213.Zeta3Apery
 import E213.Lib.Math.NumberSystems.Real213.CubeRootTwoCut
 import E213.Lib.Math.NumberSystems.Real213.ModulusComposition
 import E213.Lib.Math.NumberSystems.Real213.RateModulus

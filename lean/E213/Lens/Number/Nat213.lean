@@ -17,6 +17,7 @@ import E213.Lens.Number.Nat213.Tower.NatPairToInt
 import E213.Lens.Number.Nat213.Tower.NatPairToQPos
 import E213.Lens.Number.Nat213.Tower.NatTripleToZ2
 import E213.Lens.Number.Nat213.Tower.PairCompletion
+import E213.Lens.Number.Nat213.SignatureMaps
 
 /-! Spec-as-code entry point for `E213.Lens.Number.Nat213`.
 
