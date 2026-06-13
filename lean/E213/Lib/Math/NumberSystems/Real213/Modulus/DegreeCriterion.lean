@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.RateStratification
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
 import E213.Meta.Nat.RootFloor
 
 /-!
@@ -37,9 +37,9 @@ Two readings of the boundary:
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.DegreeCriterion
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.DegreeCriterion
 
-open E213.Lib.Math.NumberSystems.Real213.RateStratification (DominatesS)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification (DominatesS)
 open E213.Meta.Nat.RootFloor
   (rootFloor rootFloor_mono rootFloor_pos rootFloor_pow_le rootFloor_le le_rootFloorGo)
 open E213.Meta.Nat.PowBasic (one_le_pow)
@@ -144,4 +144,4 @@ theorem increment_criterion_mono {s s' : Nat} (hss : s ≤ s')
     (Nat.add_le_add_right (Nat.mul_le_mul_right (W i) (rootFloor_antitone_degree hss i)) (d i))
     h
 
-end E213.Lib.Math.NumberSystems.Real213.DegreeCriterion
+end E213.Lib.Math.NumberSystems.Real213.Modulus.DegreeCriterion

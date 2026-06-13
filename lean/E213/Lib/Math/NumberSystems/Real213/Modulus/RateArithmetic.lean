@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.DegreeCriterion
+import E213.Lib.Math.NumberSystems.Real213.Modulus.DegreeCriterion
 
 /-!
 # RateArithmetic — the cross-determinant under sum/product, and why degree is not additive
@@ -28,10 +28,10 @@ the completable class holds only with a *good* presentation, not the naive one
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.RateArithmetic
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.RateArithmetic
 
-open E213.Lib.Math.NumberSystems.Real213.RateStratification (DominatesS)
-open E213.Lib.Math.NumberSystems.Real213.DegreeCriterion
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification (DominatesS)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.DegreeCriterion
   (not_dominatesS_of_overtake degree_le_of_increment)
 open E213.Meta.Nat.RootFloor (rootFloor rootFloor_pos)
 
@@ -147,4 +147,4 @@ theorem matched_sum_dominated (d Wa Wb : Nat → Nat) (s : Nat)
     DominatesS (fun j => Wa j + Wb j) d (rootFloor s) i :=
   degree_le_of_increment s (fun j => Wa j + Wb j) d hbudget i
 
-end E213.Lib.Math.NumberSystems.Real213.RateArithmetic
+end E213.Lib.Math.NumberSystems.Real213.Modulus.RateArithmetic

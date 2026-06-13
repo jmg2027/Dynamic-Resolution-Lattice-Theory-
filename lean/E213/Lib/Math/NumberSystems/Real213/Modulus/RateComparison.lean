@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.RateModulus
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus
 
 /-!
 # RateComparison — the two-real joint cut has a constructed separation modulus
@@ -32,9 +32,9 @@ Narrative: `theory/math/analysis/holonomic_modulus.md` (the comparison generator
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.RateComparison
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.RateComparison
 
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (Htel rcut rate_cut_const)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (Htel rcut rate_cut_const)
 open E213.Tactic.NatHelper (mul_assoc)
 
 /-- The two-convergent joint cut: `a_i/d_i ≤ b_j/e_j`, cross-multiplied to ℕ. -/
@@ -124,4 +124,4 @@ theorem rcut2_const_true
     hdb htelb hmonob hmonoSb m k hk hsa hsb
   exact ⟨N, fun i j hi hj => decide_eq_true (Nat.le_of_lt (hN i j hi hj))⟩
 
-end E213.Lib.Math.NumberSystems.Real213.RateComparison
+end E213.Lib.Math.NumberSystems.Real213.Modulus.RateComparison

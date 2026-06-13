@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.RateModulus
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus
 
 /-!
 # PointingLimit — the conceived limit is a pointing: reached by no value, decided in finite
@@ -30,9 +30,9 @@ image — reached by none); `DegreeCriterion` (the residue's shape *is* the modu
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.PointingLimit
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.PointingLimit
 
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (Htel rcut rate_total_modulus)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (Htel rcut rate_total_modulus)
 open E213.Tactic.NatHelper (mul_assoc)
 
 variable {a d : Nat → Nat}
@@ -100,4 +100,4 @@ theorem limit_unreached_but_decided
   ⟨fun _ _ hij => conv_strict_increase hd hmonoS hij,
    fun m k hk => rate_total_modulus hd htel hmono hmonoS m k hk⟩
 
-end E213.Lib.Math.NumberSystems.Real213.PointingLimit
+end E213.Lib.Math.NumberSystems.Real213.Modulus.PointingLimit

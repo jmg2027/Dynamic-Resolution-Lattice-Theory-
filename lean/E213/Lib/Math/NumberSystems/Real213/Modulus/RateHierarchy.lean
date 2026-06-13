@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.RateStratification
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
 import E213.Meta.Nat.PowBernoulli
 
 /-!
@@ -42,11 +42,11 @@ is `theory/math/analysis` infra (`Meta/Nat/PowBernoulli`).
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.RateHierarchy
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.RateHierarchy
 
-open E213.Lib.Math.NumberSystems.Real213.RateStratification
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
   (DominatesS Dominates dominatedS_graded_modulus htel_of_dominates_all)
-open E213.Lib.Math.NumberSystems.Real213.RateModulus (Htel rcut hmono_of_hmonoS)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus (Htel rcut hmono_of_hmonoS)
 open E213.Meta.Nat.RootFloor
   (rootFloor rootFloor_mono rootFloor_pow rootFloor_pos rootFloor_pow_le)
 open E213.Meta.Nat.PowBasic (powBase_le one_le_pow)
@@ -252,4 +252,4 @@ theorem fastDen_carries_Htel (W a : Nat → Nat)
     Htel a (fastDen W) :=
   htel_of_dominates_all W hW (fun i _ => fastDen_dominates W i)
 
-end E213.Lib.Math.NumberSystems.Real213.RateHierarchy
+end E213.Lib.Math.NumberSystems.Real213.Modulus.RateHierarchy

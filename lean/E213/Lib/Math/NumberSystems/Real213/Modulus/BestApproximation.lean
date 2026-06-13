@@ -27,7 +27,7 @@ no `limsup`.  Pure ℕ cross-multiplication (no division, no reals).
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.NumberSystems.Real213.BestApproximation
+namespace E213.Lib.Math.NumberSystems.Real213.Modulus.BestApproximation
 
 open E213.Tactic.NatHelper (le_of_add_le_add_left)
 
@@ -78,4 +78,4 @@ theorem unimodular_best_approximation {ai di ai1 di1 p k : Nat}
   have h := denominator_lower_bound hW h1 h2
   rwa [Nat.mul_one] at h
 
-end E213.Lib.Math.NumberSystems.Real213.BestApproximation
+end E213.Lib.Math.NumberSystems.Real213.Modulus.BestApproximation
