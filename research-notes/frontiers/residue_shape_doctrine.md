@@ -54,7 +54,10 @@ L3‴):
      least annihilation depth (`#eval`-verified: `monoCount 3 = [1,3,6,10,…]` → `Δ²=[1,1,…]`
      → `Δ³=[0,…]` ⇒ dim 3).  `×` (the `∞`-generator limit) = the count whose
      difference-tower **never terminates** — `∞` as a *non-terminating finite computation*,
-     not a cardinal.
+     not a cardinal.  Its inverse partner is the partial sum `Σ` (`sumf`, raises the
+     rung `k→k+1`, `totalCount_eq`); `Δ`/`Σ` are the **dimension ∓1 operators** (the
+     discrete calculus, `diff_sumf : Δ(Σf)=shift`) — dimension computed up *and* down,
+     finitely.
   2. **growth degree** — `monoCount (k+1) d = C(d+k,k)` is a degree-`k` polynomial
      (`monoCount_closed`, bound `monoCount_le_succ_pow`); dimension = growth degree `+1`;
      `∞` = super-polynomial (no finite Hilbert polynomial).

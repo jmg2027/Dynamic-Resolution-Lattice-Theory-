@@ -208,6 +208,24 @@ theorem diffIter_dim_zero (k d : Nat) : diffIter (monoCount (k + 1)) (k + 1) d =
   show (diffIter (monoCount (k + 1)) k) (d + 1) - (diffIter (monoCount (k + 1)) k) d = 0
   rw [diffIter_dim_const k (d + 1), diffIter_dim_const k d]
 
+/-! #### `Δ` and `Σ` are the dimension ∓1 operators (the discrete calculus)
+
+The difference `Δ` (lowers the rung, `diff_drops_rung`) and the partial sum `Σ`
+(`sumf`, raises it, `totalCount_eq`) are an **inverse pair** on the dimension
+tower — the discrete derivative/integral.  `Σ` adds a generator (rung `k → k+1`,
+`+1` dimension); `Δ` removes one (`k+1 → k`).  Their composite is the **discrete
+fundamental theorem** `Δ(Σf) = shift` (`diff_sumf`), the telescoping identity. -/
+
+/-- ★ **Discrete fundamental theorem: `Δ ∘ Σ = shift`.**  `diff (sumf f) d =
+    f (d+1)` — differencing the running sum returns the summand (telescoping).
+    With `totalCount_eq` (`Σ` raises the rung) and `diff_drops_rung` (`Δ` lowers
+    it), `Δ`/`Σ` move ∓1 along the dimension tower: the finite-calculus pair that
+    computes dimension up and down with no cardinal `∞`. -/
+theorem diff_sumf (f : Nat → Nat) (d : Nat) : diff (sumf f) d = f (d + 1) := by
+  show (sumf f d + f (d + 1)) - sumf f d = f (d + 1)
+  rw [Nat.add_comm]
+  exact E213.Tactic.NatHelper.add_sub_cancel_right (f (d + 1)) (sumf f d)
+
 /-! ### Cumulative total — "all the monomials up to degree N" (the summation)
 
 The increase from adding a base is **not** a per-degree comparison; it is the
