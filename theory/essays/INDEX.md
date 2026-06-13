@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 100 essays are grouped into ten thematic sub-directories — distinct
+The 101 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -79,6 +79,12 @@ value: `(-1)²=1` with an unbounded `×`-carry (`mulCarry_unbounded`/`carry_is_n
 Casoratian `q=−1` with no finite holonomic depth (`cas_neg_unit_no_finite_depth`); one
 `escape_by_invariant` non-surjection read on a number's arithmetic, a sequence's recurrence, and a
 reasoner's framings — the branch×main cross-scale synthesis).
+`no_view_is_final` (readings differ by view yet it is not relativism: degree is a Lens-output of
+the pointing (`finite_state_is_of_the_pointing`, `PresentationDependence`, `DegreeCriterion`), the
+residue is reached by no view (`object1_not_surjective`) so the search has no last view (the
+unbounded ladder `strict_modulus_hierarchy`, no top rung), yet the cut is invariant under
+rescheduling (`reschedule_limit_eq`) — facet-relativity, the differing structured not arbitrary;
+the breadth of readings IS the work, §7.1).
 `the_legendre_symbol_is_the_sign_of_a_pointing` (the Legendre symbol `(a/p)` is `psign σ_a`,
 the parity of the multiply-by-`a` permutation — `zolotarev_mu`, all odd primes: one count read
 as inversion sign = `det(permMatrix)` = half-system `∏ sgFn`; and `(a/p)` is the Z/2 invariant
