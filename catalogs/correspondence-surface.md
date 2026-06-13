@@ -17,7 +17,7 @@ below — those theorems exist to say "this 213 object, read classically,
 Current state (`tools/scan_all_axioms.py` for the live count): the 213-math core
 is ∅-axiom; the non-sealed `propext`/`Quot.sound` that remain are the `Prop`-atom
 thesis surface (category B).  The CayleyDickson category-D backlog is closed
-(2026-06-01: `Trig.conj_mul_anti` + `SedenionHeavy.flexible` both strict ∅-axiom).
+(`Trig.conj_mul_anti` + `SedenionHeavy.flexible` both strict ∅-axiom).
 The Lens ring is 0 real DIRTY.
 Tag in source: `grep -rn "classical-correspondence surface" lean/`.
 
@@ -82,18 +82,18 @@ Remaining `propext` here is **category (B)**, not (C): `propAsDistinguishing*` /
 
 Real theorems whose DIRTY is inherited from `propext`-carrying Nat/Int
 core lemmas or structure-`ext`, not from correspondence.  Purifiable by
-the swap playbook (cf. `KerSizeUniversal`, 2026-06-01: `Nat.{mul_assoc,
+the swap playbook (cf. `KerSizeUniversal`, `Nat.{mul_assoc,
 mul_div_cancel_left, add_mul_div_left, add_mul_mod_self_left,
-add_sub_cancel'}` → PURE infra; `CayleyHeavy`, 2026-06-01: `omega` /
+add_sub_cancel'}` → PURE infra; `CayleyHeavy`, `omega` /
 `Int.mul_eq_zero` → `Int213.{add_nonneg, add_eq_zero_of_nonneg,
 mul_eq_zero}`).
 
 PURE now: `Levels.CayleyHeavy` (`normSq_eq_zero_iff`, `no_zero_div`),
 `Tower.CDTower` (`CD_tower_full` — cascaded from `CayleyHeavy.no_zero_div`),
-`Levels.TrigintaduoionionHeavy.conj_mul_anti` (2026-06-01: `NonAssocStarRing213
+`Levels.TrigintaduoionionHeavy.conj_mul_anti` (`NonAssocStarRing213
 Sedenion` algebra bridge in `SedenionAlgebra213` — componentwise structural proof,
 verbatim analog of `SedenionHeavy.conj_mul_anti`, replacing `hurwitz_ring`),
-`Levels.SedenionHeavy.flexible` (2026-06-01: the **CDDoubleFlexible cross-pair**
+`Levels.SedenionHeavy.flexible` (the **CDDoubleFlexible cross-pair**
 closed — `FlexAlt213.flex_cross_pair` from the alternating associator + central
 trace; `FlexAlt213 Cayley` registered via generic CDDouble nuclearity/trace/
 reverse-norm; `Sedenion = CDDouble Cayley` flexibility assembled componentwise

@@ -160,7 +160,7 @@ the framework.
   triple is the unique atomic one, so each integer is a consequence, not a
   free dial — measure any outside its bracket and the triple is refuted.
 
-## ★ 213 Kernel axiom-free closure (KH marathon)
+## ★ 213 Kernel axiom-free closure (KH)
 
 The following falsifiers are formalized with *literally* 0 Lean axioms
 (`E213.Term.Cap_PhysicsFalsifiers` etc.):

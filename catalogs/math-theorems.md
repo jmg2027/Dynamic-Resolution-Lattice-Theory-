@@ -470,7 +470,7 @@ axioms").
 
 ## J. Flat ontology + self-reference (§9.3 + §9.5 realisation)
 
-Added 2026-05-20.  Closes the residue framework's self-reference
+Closes the residue framework's self-reference
 loop within the Lean tree.
 
 ### J.1 `Lens/FlatOntology` — §9.3 forward direction

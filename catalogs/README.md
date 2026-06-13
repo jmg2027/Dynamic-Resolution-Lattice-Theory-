@@ -37,4 +37,4 @@ catalogs/physics-constants.md
   Books = narrative
   Catalogs = lookup
 
-  Three sources synchronized (updated at each marathon completion).
+  Three sources synchronized (updated at each derivation cycle).
