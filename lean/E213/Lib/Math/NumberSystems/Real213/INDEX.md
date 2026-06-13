@@ -136,6 +136,15 @@
     (given an apartness witness `m/k`, the comparison is settled for all
     `i,j ≥ k+2` — the two single moduli compose by `max`); `rcut2_const_true` the
     decided-Bool form.
+  - `DegreeCriterion.lean` — ★ **what fixes the degree**: the two-sided
+    `W`-vs-`d`-increment criterion.  `dominatesS_of_scheduled_increment`
+    (sufficient: `ρ_i·W_i + d_i ≤ d_{i+1}`) and `scheduled_le_of_dominatesS`
+    (necessary: domination ⟹ `ρ_i·W_i ≤ d_{i+1}`) bracket domination, gap exactly
+    `d_i`; `degree_le_of_increment` / `not_dominatesS_of_overtake` the `rootFloor s`
+    readings.  `rootFloor_antitone_degree` (bigger `s` = slower probe) ⟹
+    `increment_criterion_mono` (the criterion is upward-closed in degree, so the
+    ceiling is well-defined).  The degree-1 boundary `i·W_i + d_i = d_{i+1}` is
+    saturated by `RateHierarchy.fastDen` and e (`W=i!`).
   - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
     presentations**: strictly increasing lower fold + non-increasing upper
     companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`

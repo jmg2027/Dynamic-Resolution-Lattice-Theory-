@@ -1467,6 +1467,22 @@ all `i,j ≥ k+2` — a constructed total modulus, the two single moduli compose
 `max`.  `rcut2_const_true` the decided-Bool form.  Uses the blessed
 `decide_eq_true`/`decide_eq_false`/`of_decide_eq_*`/`Nat.not_le` pattern.
 
+### The cross-determinant ↔ degree criterion (2026-06-13)
+
+`E213.Lib.Math.NumberSystems.Real213.DegreeCriterion` — **8 PURE / 0 DIRTY**.
+What fixes the degree, two-sidedly.  Dividing degree-`s` domination by `ρ_{i+1}`
+(schedule monotone) brackets it: ★★★ `dominatesS_of_scheduled_increment`
+(sufficient — the probed cross-determinant fits under the denominator increment
+`ρ_i·W_i + d_i ≤ d_{i+1}`) and ★★★ `scheduled_le_of_dominatesS` (necessary —
+domination forces `ρ_i·W_i ≤ d_{i+1}`); the gap is exactly the single term `d_i`
+(`degree_criterion_bracket`).  `rootFloor s` readings: `degree_le_of_increment`,
+`not_dominatesS_of_overtake` (`d_{i+1} < ⌊i^{1/s}⌋·W_i` breaks it).  The criterion
+is **upward-closed in degree** (`increment_criterion_mono` via
+`rootFloor_antitone_degree` — bigger `s` = slower probe; `pow_le_pow_exp`), so the
+degree ceiling is well-defined.  The degree-1 boundary `i·W_i + d_i = d_{i+1}` is
+saturated exactly by `RateHierarchy.fastDen` and e's factorial presentation
+(`W = eulerDen = i!`).
+
 `E213.Lib.Math.NumberSystems.Real213.RateModulus` — **11 PURE / 0 DIRTY**.  ★★★
 **The graded rate generator** (modulus-degree ladder rung 1).  The margin
 telescope is parametrized by a probe schedule `ρ`: `HtelS a d ρ` (the margin

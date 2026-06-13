@@ -24,6 +24,14 @@ lower bound composed with the inverse convergence rate.  The "degree" of the
 modulus is the growth class of `N` in `k`, and it factors as
 (degree of the distance certificate) / (rate exponent of the pointing).
 
+**Precise W↔degree relationship (closed, `RateComparison`→`DegreeCriterion`)**:
+degree-`s` domination is bracketed by `⌊i^{1/s}⌋·W_i + d_i ≤ d_{i+1}` (sufficient)
+and `⌊i^{1/s}⌋·W_i ≤ d_{i+1}` (necessary) — the probed cross-determinant against
+the denominator increment, gap exactly `d_i`.  The criterion is upward-closed in
+`s` (`increment_criterion_mono`), so the degree is a well-defined ceiling: it is
+the race between `W`-growth and `d`-growth, not `W`'s size.  Degree-1 boundary
+`i·W_i + d_i = d_{i+1}` is saturated by `fastDen` and e (`W = i!`).
+
 ## Closed (the algebraic pillar)
 
 - **Degree 2** — φ: the form `m²−mk−k²`, `|Q| ≥ 1`; closed-form cut
