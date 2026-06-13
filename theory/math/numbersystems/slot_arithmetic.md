@@ -86,6 +86,24 @@ hyperop_right_one, hyperop_arg_two, hyperop_base_one}`), while the *horizontal*
 (algebraic) laws comm/assoc are the ones that die at `^`; the surviving
 `(aᵇ)ᶜ = a^(b·c)` is one vertical law.
 
+**Counted** rather than appended, the same tower is the **simplex**.  Each rung's
+degree-graded count is the multiset coefficient `C(n+k−1, k)` — Pascal's triangle
+(`MultSystem.monoCount_closed`; `monoCount_pascal`, `totalCount_closed`) — the
+lattice points of a simplicial cone (the `+`-line's elements become the `×`-axes,
+their degree-`d` multisets the cone).  Stacking the rule once more — the `^`-rung
+over the `×`-monomials as axes — keeps it a simplex: `hyperCount_simplex :
+monoCount (totalCount k N) d = C(d + M−1, M−1)` (`M = totalCount k N`), the number of
+axes exploding (`1 → C(N+k,k) → …`) while the shape stays invariant.  The natural
+object is the **semigroup** (degree `≥ 1`); the identity is the isolated `+1`
+(`monoCountPos_closed : Σ_{n=1}^N monoCount k n + 1 = C(N+k, k)`), and the
+prime-valued `×`-system is exactly `{2,3,…}` (`MultSystemValue.two_le_nonempty_prime_prod`).
+The gap between this *degree*-count and the prime *value*-count is prime counting
+(`chebyshev_prime_counting.md`); the `^`-rung's base/exponent asymmetry is the new
+*dilation* degree-of-freedom, `m^b` parallel to `m` in the cone
+(`MultSystemValue.hyper_parallel`, `vp_p(m^b) = b·vp_p m`).  (The object-level
+free-semigroup re-foundation — each rung's *object*, not its Nat readout — is an open
+frontier.)
+
 ## 2. The list and the sandwich
 
 ℕ is the unit-started, unit-spaced sorted list, and its order *is*
