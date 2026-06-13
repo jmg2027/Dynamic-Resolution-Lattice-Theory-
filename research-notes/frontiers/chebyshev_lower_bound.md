@@ -1,10 +1,9 @@
 # Frontier — Chebyshev lower bound `π(N) ≥ c·N/ln N`
 
 **Branch**: `claude/autonomous-marathon-vp-listprod-imkycf`.
-**Status**: OPEN (Kummer analytic core DONE; only the prime-power *product* bound
-+ final assembly remain).  The matching direction to the now-closed upper bound /
-density cut (`multiplicative_count_pnt`, `primeDensityToZero`).  Completing it
-gives both halves of Chebyshev's theorem `c·N/ln N ≤ π(N) ≤ C·N/ln N`.
+**Status**: ✅ **CLOSED ∅-axiom** (`chebyshev_lower : n ≤ (⌊log₂(2n)⌋+1)·π(2n)`).
+Both halves of Chebyshev's theorem `c·N/ln N ≤ π(N) ≤ C·N/ln N` are now done.
+Promotion-eligible (→ `theory/`).
 
 ## The route (elementary, via the central binomial)
 
@@ -29,27 +28,19 @@ bound of the right order `N/ln N`.
 - **`ChebyshevLower.prime_pow_vp_central_binom_le`** — `p^{vp_p(C(2n,n))} ≤ 2n`
   (Kummer + `floorLog` sandwich).  The per-factor bound.
 
-### Open — the product bound `C(2n,n) ≤ (2n)^{π(2n)}` + final assembly
+### Product bound `C(2n,n) ≤ (2n)^{π(2n)}` — DONE (no product-FTA object needed)
 
-The single remaining structural gap: `C(2n,n) = ∏_{distinct primes p ≤ 2n}
-p^{vp_p(C(2n,n))}`, each factor `≤ 2n` (`prime_pow_vp_central_binom_le`), with
-`#{distinct primes} ≤ π(2n)`, so the product is `≤ (2n)^{π(2n)}`.
-
-**The missing machinery**: a *product-over-distinct-primes* representation.
-`MultSystemValue.factorization_exists` gives `m = listProd ps` with `ps` primes
-*with multiplicity* (`length = Ω(m)`, not `π`); grouping into `∏ p^{vp_p}` over
-*distinct* primes (the radical-support form) is not yet built.  Options:
-  (a) build `primePowerProd N m = ∏_{p ≤ N, prime} p^{vp_p m}` and prove
-      `m = primePowerProd N m` for `m` whose primes are `≤ N` (FTA, distinct-prime
-      grouping) + `primePowerProd N m ≤ N^{(count of p≤N with vp_p m > 0)} ≤ N^{π(N)}`;
-  (b) route through `lcm`: `C(2n,n) ∣ lcm(1..2n)` (via `dvd_of_forall_vp_le` +
-      `vp_central_binom_le_floorLog = vp_p(lcm)` from `LcmGrowthChebyshev`), then
-      `lcm(1..2n) ≤ (2n)^{π(2n)}` — but the lcm product bound has the *same*
-      distinct-prime-product gap.  (a) is the honest core.
-
-Then the **final assembly** (cleared-denominator, like `chebBound_mul_le`):
-`2^n ≤ C(2n,n) ≤ (2n)^{π(2n)}` ⇒ `n ≤ π(2n)·⌊log₂(2n)⌋` (via `lt_of_pow_lt_pow`
-/ `floorLog` on base 2) — the Chebyshev lower bound.
+The distinct-prime grouping was done **inductively** via
+**`le_pow_primePi : m ≤ B^{π(N)}`** (when every prime factor of `m` is `≤ N` and
+every prime power `p^{vp_p m} ≤ B`): induction on the prime range `N`, peeling the
+full `p`-power `(N+1)^{vp}·m'` at each prime (`pow_vp_dvd`; `m'` coprime to `N+1`
+by `vp` cancellation), the IH handling `m'` (primes `≤ N`) and `(N+1)^{vp} ≤ B`
+bumping `π(N)→π(N)+1`.  No explicit `∏_{distinct p} p^{vp_p}` object — the count
+is tracked by the `primePi` recurrence.  `central_binom_le_pow_primePi` instantiates
+it (`B = N = 2n`; prime factors `≤ 2n` via `prime_not_dvd_fact`; factor bound via
+`prime_pow_vp_central_binom_le`).  Then `chebyshev_lower` takes `log₂` of
+`2^n ≤ C(2n,n) ≤ (2n)^{π(2n)} ≤ (2^{⌊log₂2n⌋+1})^{π(2n)}` (`pow_lt_pow_of_lt`
+inverse on base 2).
 
 ### (historical sketch — superseded by the above)
 

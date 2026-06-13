@@ -55,6 +55,11 @@ prime window ⇒ `π(N) = O(N/ln N)` ⇒ density `→ 0`, all ∅-axiom.
   — **explicit Chebyshev upper bound** `π(2^m) ≤ chebBound m = 2 + Σ_{k=1}^{m-1}
   2^{k+1}/k = O(2^m/m)` (computable, axiom-free Erdős elementary-Chebyshev);
   `chebBound_mul_le` = the division-free `O(2^m/m)` partial-sum bound
+- `Lens/Number/Nat213/ChebyshevLower.chebyshev_lower`
+  — **Chebyshev lower bound** `n ≤ (⌊log₂(2n)⌋+1)·π(2n)`, i.e. `π(2n) ≥
+  n/(⌊log₂(2n)⌋+1) ≈ n/log₂(2n)`.  Via `2^n ≤ C(2n,n) ≤ (2n)^{π(2n)}`
+  (`central_binom_ge_two_pow`, the Kummer bound `vp_central_binom_le_floorLog`,
+  `le_pow_primePi`).  **Both halves of Chebyshev's theorem now ∅-axiom.**
 - `…window_prod_dvd_central_binom` (`∏_{n<p≤2n} p ∣ C(2n,n)`) +
   `…window_prod_le` (`∏ ≤ 2^{2n}`) — the numerator divisibility/bound
 - `…windowCount_eq` (`π n + #primes(n,2n] = π(2n)`) +

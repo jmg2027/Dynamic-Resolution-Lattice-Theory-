@@ -66,12 +66,17 @@ sum, the hard analytic core); `prime_pow_vp_central_binom_le : p^{vp_p(C)} ≤ 2
 File under `Lens/` (layer guard blocks `Lib/Math` ← `MultSystemValue`); reuses
 `Legendre`/`LcmGrowthChebyshev` (`Lib`) via `Lens → Lib`.  Bridge `fact_eq_factorial`.
 
-**Next** (frontier): the single remaining gap is the **product bound `C(2n,n) ≤
-(2n)^{π(2n)}`** — needs a *product-over-distinct-primes* (radical-support)
-representation `m = ∏_{p≤N, prime} p^{vp_p m}` (FTA grouping), not yet built
-(`factorization_exists` gives primes *with multiplicity*).  Then the cleared-form
-final assembly `n ≤ π(2n)·⌊log₂(2n)⌋`.  Other follow-ups: PNT `~N/ln N` (constant
-1) horizon; lcm-route cross-check.
+**✅ Chebyshev lower bound CLOSED** (`ChebyshevLower.chebyshev_lower : n ≤
+(⌊log₂(2n)⌋+1)·π(2n)`).  The product bound `C(2n,n) ≤ (2n)^{π(2n)}` was done via
+**`le_pow_primePi`** (`m ≤ B^{π(N)}` from per-prime-power bounds — distinct-prime
+grouping done inductively by peeling full `p`-powers, no product-FTA object) +
+`central_binom_le_pow_primePi`.  **Both halves of Chebyshev's theorem
+`c·N/ln N ≤ π(N) ≤ C·N/ln N` are now ∅-axiom.**  In `CAPSTONE_INDEX.md`.
+
+**Next** (no open ∅-axiom step on this trajectory): the Chebyshev frontier is
+promotion-eligible (→ `theory/`).  Remaining horizons: PNT proper `~N/ln N`
+(constant 1, a `Real213` pointing); cross-check vs the lcm-growth route
+(`LcmGrowthChebyshev`).  Or pick a fresh field via the autonomous-research menu.
 
 ## Prior session (n-plus-signature-mappings branch)
 
