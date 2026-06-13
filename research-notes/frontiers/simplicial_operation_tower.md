@@ -6,8 +6,11 @@ merely the `n=3` hand-check), and its **prime-counting payoff is built**
 (`MultSystemValue` + `ChebyshevLower`: value-count → window → both halves of
 Chebyshev).  The **generative `^`-object is BUILT** (P2, `Meta/Nat/UnitHyper`,
 ∅-axiom): `hcube a b` = the `b`-dim unit grid, `count = side ^ dim` positively
-(base=length, exponent=axis count).  L4 (commutativity dial at `^`) and L2
-(no-identity criterion) remain `[gut]`.  Complements `number_tower_theory.md`
+(base=length, exponent=axis count).  **Promoted** (the *stable closed math* — the
+object tower `+→×→^→↑↑`, `DOF = rung−2`, and the `Δ`/`Σ` dimension calculus) →
+`theory/math/numbersystems/slot_arithmetic.md` §1.5; the *conceptual* reading
+(de-deification, the spiral) stays here, still in flux.  L4 (commutativity dial at
+`^`) and L2 (no-identity criterion) remain `[gut]`.  Complements `number_tower_theory.md`
 (demotion/valuation view, R0–R8);
 this note records the **generative** view — the layer as construction, the
 no-identity principle, the **simplicial-cone finding**, (§L3′) the precise `+`/`×`
