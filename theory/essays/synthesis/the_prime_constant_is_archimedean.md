@@ -80,4 +80,5 @@ The interval is not yet sharp: the base-`2` lower (via the max-binomial
 `4^n ≤ (2n+1)·C(2n,n)`) and the base-`≈3.16` upper (unwinding
 `LcmGrowthChebyshev`'s 30-block) would trap `e` in a computable `[2, 3.16]`,
 and narrowing it further is open ∅-axiom work; the constant `1` itself stays
-the asymptotic horizon (`research-notes/frontiers/multiplicative_count_pnt.md`).
+the asymptotic horizon — a `Real213` pointing (the ratio `π(N)·ln N/N → 1`)
+reached by no finite certificate.

@@ -257,9 +257,20 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   Schedule comparison law closed (`dominatesS_schedule_mono`: the gap law is
   the exact extra condition; pointwise the ladder is not a chain).  ζ(3)
   engine end closed (`aperyOrbit_geom` 28-growth + `zeta3_reduced_conditional`).
-  Open: an actual effective `(C,s)` for π, ζ(3)'s I1/I2 (Apéry integrality +
-  Hanson lcm), the two-real separation modulus, degree-4+ form cuts, `dyUp`
-  tightness.
+  **Closed 2026-06-13** (`Real213/Modulus/`): the **infinite strict hierarchy**
+  (`RateHierarchy.strict_modulus_hierarchy` — `sepDenS (t+1)` separates rung `t`
+  from `t+1` for every `t`, via `PowBernoulli.pow_pred_lt`; each rung occupied);
+  **degree-1 is generous** (`fastDen` — any `W` is degree 1 with fast enough `d`);
+  the **two-real separation modulus** (`RateComparison`); the **two-sided W↔degree
+  criterion** (`DegreeCriterion`); the **matched-denominator sum closure**
+  (`RateArithmetic.matched_sum_*` — cross-determinants add); and the **μ-bridge
+  core** (`BestApproximation`: `W` is the best-approximation deficiency; `W=1` ⟹
+  optimal, the constructive `μ ≥ 2`).  Open: an actual effective `(C,s)` for π,
+  ζ(3)'s I1/I2 (Apéry integrality + Hanson lcm), `dyUp` tightness; **clean product
+  closure** (the product carries the numerators, `prod_cross_det`); **integer-degree
+  refinement of the matched sum** ("each summand degree `s` ⟹ sum degree `s+c`"
+  for explicit `c`, blocked at small layers by a factor-2); the **full `μ(x)` as the
+  `limsup` boundary cut** of the discrete deficiency (reached-by-none).
 - `zeta3_free_modulus` / `zeta3_blueprint` / `zeta3_wz/` — **ζ(3): built fold →
   free total modulus**.  Fold closed (`Real213/Zeta3Cut`, 35 PURE).  The two
   classical Apéry inputs are now largely discharged ∅-axiom:
