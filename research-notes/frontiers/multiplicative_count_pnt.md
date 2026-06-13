@@ -1,10 +1,12 @@
 # Frontier — multiplicative count → PNT horizon (`MultSystem` / `MultSystemValue`)
 
-**Branch**: `claude/autonomous-marathon-vp-listprod-imkycf`.
+**Branch**: `claude/pnt-continuation-k1eerf`.
 **Status**: A-region + exp/log skeleton CLOSED; B (π counting) CLOSED; **Chebyshev
 upper bound `π(2^m)=O(2^m/m)` CLOSED**; **`PrimeDensityToZero` INHABITED ∅-axiom
 (`primeDensityToZero`) — prime density `π(N)/N → 0` certified, the PNT density cut
-CLOSED**.  Remaining OPEN: only the PNT `~ N/ln N` asymptotic (constant `1`), a
+CLOSED**; **Chebyshev lower bound `n ≤ (⌊log₂2n⌋+1)·π(2n)` CLOSED** (`chebyshev_lower`);
+**two-sided order `π(2^{m+1})=Θ(2^{m+1}/m)` CLOSED** (`chebyshev_order`, explicit
+constants).  Remaining OPEN: only the PNT `~ N/ln N` asymptotic (constant `1`), a
 `Real213` pointing horizon — not ∅-axiom reachable.
 
 ## The trajectory
@@ -144,12 +146,15 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
 
 ## Next concrete step
 
-The whole Chebyshev/density branch is **CLOSED**: `primeDensityToZero :
-PrimeDensityToZero` certifies `π(N)/N → 0` ∅-axiom.  No open ∅-axiom step remains
-on this trajectory.  Possible follow-ups (new directions, not this frontier):
-(a) a Chebyshev **lower** bound `π(N) ≥ c·N/ln N` (the matching direction, for the
-density's two-sided shape); (b) PNT proper `π(N) ~ N/ln N` (constant `1`) as a
-`Real213` cut + ratio-sequence pointing — the asymptotic horizon; (c) connect
-`primeDensityToZero`'s modulus to the lcm-growth route (`LcmGrowthChebyshev`) for a
-cross-check.  Loose secondary: tie `factorization_bounded`'s prime-list length to
-`primePi`.
+The whole Chebyshev/density branch is **CLOSED**, both directions: the density cut
+`primeDensityToZero : PrimeDensityToZero` (`π(N)/N → 0`), the lower bound
+`chebyshev_lower` (`n ≤ (⌊log₂2n⌋+1)·π(2n)`), and now the **two-sided order theorem**
+`chebyshev_order` — `π(2^{m+1}) = Θ(2^{m+1}/m)` with explicit constants
+(`2^{m+1} ≤ 2(m+2)·π`, `(m+1)·π ≤ 6·2^{m+1}`), the dyadic factors
+`two_pow_le_succ_primePi` / `succ_mul_primePi_pow_two_le`.  No open ∅-axiom step
+remains on this trajectory.  Possible follow-ups (new directions, not this frontier):
+(b) PNT proper `π(N) ~ N/ln N` (constant `1`) as a `Real213` cut + ratio-sequence
+pointing — the asymptotic horizon (needs `Real213.ExpLog`'s `ln` + the ratio
+sequence); (c) connect `primeDensityToZero`'s modulus to the lcm-growth route
+(`LcmGrowthChebyshev`) for a cross-check.  Loose secondary: tie
+`factorization_bounded`'s prime-list length to `primePi`.

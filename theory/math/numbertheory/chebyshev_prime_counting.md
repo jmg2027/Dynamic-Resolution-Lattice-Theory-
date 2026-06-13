@@ -104,6 +104,23 @@ Taking `log₂` of `2^n ≤ (2n)^{π(2n)} ≤ (2^{⌊log₂2n⌋+1})^{π(2n)}`:
    ⟺  π(2n) ≥ n / (⌊log₂(2n)⌋ + 1) ≈ n / log₂(2n).
 ```
 
+### The two-sided order theorem `π(N) = Θ(N/log₂N)`
+
+Both halves cut cleanest at the dyadic points `N = 2^{m+1}`, where
+`⌊log₂N⌋ = m+1` (`floorLog_pow_self`).  There `chebyshev_lower` (at `n = 2^m`)
+and the upper bound (`chebBound` via `chebBound_mul_le`) line up into one
+statement (`chebyshev_order`), explicit constants, division-free:
+
+```
+   2^{m+1} ≤ 2·(m+2)·π(2^{m+1})        (lower:  π ≥ N / (2·(log₂N + 1)))
+   (m+1)·π(2^{m+1}) ≤ 6·2^{m+1}        (upper:  π ≤ 6·N / log₂N)
+```
+
+So `π(N) = Θ(N/log₂N)` — Chebyshev's theorem in its *order* form.  The
+intermediate one-sided dyadic bounds `two_pow_le_succ_primePi`
+(`2^m ≤ (m+2)·π(2^{m+1})`) and `succ_mul_primePi_pow_two_le`
+(`(m+1)·π(2^{m+1}) ≤ 6·2^{m+1}`) are the two factors.
+
 ## Lean source
 
 - **Sub-tree**: `lean/E213/Lens/Number/Nat213/` — `MultSystem`, `MultSystemValue`
@@ -124,6 +141,7 @@ Taking `log₂` of `2^n ≤ (2n)^{π(2n)} ≤ (2^{⌊log₂2n⌋+1})^{π(2n)}`:
 | `ChebyshevLower.le_pow_primePi` | `m ≤ B^{π(N)}` from per-prime-power bounds |
 | `ChebyshevLower.central_binom_le_pow_primePi` | `C(2n,n) ≤ (2n)^{π(2n)}` |
 | `ChebyshevLower.chebyshev_lower` | **lower bound** `n ≤ (⌊log₂(2n)⌋+1)·π(2n)` |
+| `ChebyshevLower.chebyshev_order` | **two-sided order** `π(2^{m+1}) = Θ(2^{m+1}/m)` (both halves, explicit constants) |
 
 ## What is reached and what is not
 

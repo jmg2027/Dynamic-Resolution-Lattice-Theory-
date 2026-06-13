@@ -35,7 +35,7 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_add_func sumTo_congr)
 open E213.Lib.Math.NumberTheory.Legendre (legendre)
 open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (sumTo_le_sumTo lcmExpCount_eq_floorLog floorLog)
-open E213.Meta.Nat.FloorLog (floorLog_pow_le lt_pow_floorLog_succ pow_lt_pow_of_lt)
+open E213.Meta.Nat.FloorLog (floorLog_pow_le lt_pow_floorLog_succ pow_lt_pow_of_lt floorLog_pow_self)
 open E213.Meta.Nat.PowBasic (pow_mul_pure)
 open E213.Lens.Number.Nat213.MultSystemValue (central_binom_ge_two_pow prime_not_dvd_fact)
 open E213.Meta.Nat.Valuation (pow_vp_dvd)
@@ -46,6 +46,7 @@ open E213.Lens.Number.Nat213.MultSystemValue
   (primePi primeIndicator primeIndicator_eq_one_iff primeIndicator_le_one decPrime)
 open E213.Lens.Number.Nat213.MultSystem (binom)
 open E213.Lens.Number.Nat213.MultSystemValue (fact fact_pos central_binom_factorial primePi)
+open E213.Lens.Number.Nat213.MultSystemValue (chebBound primePi_pow_two_le_chebBound chebBound_mul_le)
 
 /-- **The per-term Kummer inequality**: `⌊2n/d⌋ ≤ 2⌊n/d⌋ + [d ≤ 2n]` (`d > 0`).
     For `d ≤ 2n`: `⌊2n/d⌋ ≤ 2⌊n/d⌋ + 1` (the floor of a doubled quotient gains at
@@ -298,5 +299,52 @@ theorem chebyshev_lower {n : Nat} (hn : 1 ≤ n) :
   rcases Nat.lt_or_ge ((floorLog 2 (2 * n) + 1) * primePi (2 * n)) n with hlt | hge
   · exact absurd hchain (Nat.not_le.mpr (pow_lt_pow_of_lt (by decide) hlt))
   · exact hge
+
+/-! ## The two-sided Chebyshev order theorem — `π(2^m) = Θ(2^m/m)`
+
+Both halves cut at the dyadic points `N = 2^{m+1}`, where the lower bound
+(`chebyshev_lower`) and the upper bound (`chebBound`) line up cleanly with
+`floorLog 2 N = m+1`.  The result is the genuine *order* statement
+`c·N/log₂N ≤ π(N) ≤ C·N/log₂N` with explicit constants — Chebyshev's theorem
+proper, the precise finite ∅-axiom content that *points at* PNT (the `~ N/ln N`
+limit with constant `1`, a `Real213` pointing horizon reached by none). -/
+
+/-- **Dyadic Chebyshev lower bound**: `2^m ≤ (m+2)·π(2^{m+1})` (all `m`), i.e.
+    `π(2^{m+1}) ≥ 2^m/(m+2) ≈ N/(2·log₂N)`.  `chebyshev_lower` at `n = 2^m`:
+    `2*2^m = 2^{m+1}` and `floorLog 2 (2^{m+1}) = m+1` (`floorLog_pow_self`). -/
+theorem two_pow_le_succ_primePi (m : Nat) :
+    2 ^ m ≤ (m + 2) * primePi (2 ^ (m + 1)) := by
+  have hpow : 2 * 2 ^ m = 2 ^ (m + 1) := by rw [Nat.pow_succ]; ring_nat
+  have hflog : floorLog 2 (2 * 2 ^ m) = m + 1 := by
+    rw [hpow]; exact floorLog_pow_self (by decide) (m + 1)
+  have h := chebyshev_lower (n := 2 ^ m) (Nat.pos_pow_of_pos m (by decide))
+  rw [hflog, hpow] at h
+  exact h
+
+/-- **Dyadic Chebyshev upper bound (cleared-denominator)**: `(m+1)·π(2^{m+1}) ≤
+    6·2^{m+1}`, i.e. `π(2^{m+1}) ≤ 6·2^{m+1}/(m+1) ≈ 6·N/log₂N`.  `π(2^{m+1}) ≤
+    chebBound(m+1)` (`primePi_pow_two_le_chebBound`) times the partial-sum bound
+    `chebBound(m+1)·(m+1) ≤ 6·2^{m+1}` (`chebBound_mul_le`). -/
+theorem succ_mul_primePi_pow_two_le (m : Nat) :
+    (m + 1) * primePi (2 ^ (m + 1)) ≤ 6 * 2 ^ (m + 1) := by
+  calc (m + 1) * primePi (2 ^ (m + 1))
+      = primePi (2 ^ (m + 1)) * (m + 1) := Nat.mul_comm _ _
+    _ ≤ chebBound (m + 1) * (m + 1) :=
+        Nat.mul_le_mul (primePi_pow_two_le_chebBound (m + 1)) (Nat.le_refl _)
+    _ ≤ 6 * 2 ^ (m + 1) := (chebBound_mul_le m).1
+
+/-- **Chebyshev's theorem (order form), `π(N) = Θ(N/log₂N)` at dyadic `N = 2^{m+1}`**:
+    `2^{m+1} ≤ 2·(m+2)·π(2^{m+1})` (lower, `π ≥ N/(2(L+1))`) and `(m+1)·π(2^{m+1}) ≤
+    6·2^{m+1}` (upper, `π ≤ 6·N/L`), where `L = floorLog 2 N = m+1`.  Both halves
+    of Chebyshev's theorem in one statement, explicit constants, ∅-axiom — the
+    finite skeleton of which PNT (`π(N)·ln N/N → 1`) is the asymptotic horizon. -/
+theorem chebyshev_order (m : Nat) :
+    2 ^ (m + 1) ≤ 2 * (m + 2) * primePi (2 ^ (m + 1)) ∧
+      (m + 1) * primePi (2 ^ (m + 1)) ≤ 6 * 2 ^ (m + 1) := by
+  refine ⟨?_, succ_mul_primePi_pow_two_le m⟩
+  calc 2 ^ (m + 1) = 2 * 2 ^ m := by rw [Nat.pow_succ]; ring_nat
+    _ ≤ 2 * ((m + 2) * primePi (2 ^ (m + 1))) :=
+        Nat.mul_le_mul (Nat.le_refl 2) (two_pow_le_succ_primePi m)
+    _ = 2 * (m + 2) * primePi (2 ^ (m + 1)) := by ring_nat
 
 end E213.Lens.Number.Nat213.ChebyshevLower
