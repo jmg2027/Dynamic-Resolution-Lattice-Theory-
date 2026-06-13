@@ -167,11 +167,16 @@ seen by **counting**):
 | ordered string (`aba≠aab`) | `nᵏ` (exponential) | **cube / tree** | **non-commutative** |
 
 So: **simplex/polynomial count ⟺ commutative; cube/exponential count ⟺
-non-commutative.**  Conjecture `[gut]`: going up the tower, the per-degree count
+non-commutative.**  **The two rows' inequality is now CLOSED ∅-axiom**:
+`MultSystem.monoCount_le_pow : monoCount t d ≤ t^d` — the commutative count
+(sorted multisets) is bounded by the free count (ordered strings), since sorting
+`aba ↦ aab` surjects strings ↠ multisets; the gap (`t^d − monoCount t d`: `1, 4,
+17, 66, …` for `(2,2),(2,3),(3,3),(3,4)`) *is* the commutativity collapse, growing
+exponentially.  Conjecture still `[gut]`: going up the tower, the per-degree count
 **jumps from polynomial (simplicial) to exponential (`nᵏ`)** exactly at the rung
-where commutativity dies (`^`).  The *count* would then *measure* the wall — a
-testable next step (build the `^`-layer enumeration and watch the count's growth
-class).
+where commutativity dies (`^`).  The *count* would then *measure* the wall —
+remaining step: build the `^`-layer enumeration and show its per-degree count
+escapes the polynomial (simplex) class to the exponential (cube) class.
 
 ## L5 — The geometric picture: dimension and the twist
 
@@ -225,9 +230,12 @@ Lenses.  That makes the gut worth closing.
 
 ## Open problems / next steps
 
-1. **The commutativity dial (L4)** — build the `^`-layer enumeration ∅-axiom and
-   verify the per-degree count's growth class jumps polynomial → exponential at
-   the non-commutative rung.  This *measures* the `^`-wall by counting.
+1. **The commutativity dial (L4)** — static comparison **CLOSED ∅-axiom**
+   (`MultSystem.monoCount_le_pow : monoCount t d ≤ t^d`, commutative-simplex ≤
+   free-cube).  *Remaining*: build the `^`-layer enumeration ∅-axiom and verify
+   its per-degree count *escapes* the polynomial (simplex) class into the
+   exponential (cube) class at the non-commutative rung — *measuring* the `^`-wall
+   by counting.
 2. **Simplex theorem (L3)** — count half **CLOSED** (`MultSystem.monoCount_closed`,
    `C(n+k−1,k)` = degree-`k` multiset count, ∅-axiom).  The `+`/`×` bridge and its
    prime-counting payoff (L3′) are **built** (`MultSystemValue` + `ChebyshevLower`;
