@@ -32,7 +32,9 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_add_func sumTo_congr)
 open E213.Lib.Math.NumberTheory.Legendre (legendre)
 open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (sumTo_le_sumTo lcmExpCount_eq_floorLog floorLog)
-open E213.Meta.Nat.FloorLog (floorLog_pow_le)
+open E213.Meta.Nat.FloorLog (floorLog_pow_le lt_pow_floorLog_succ pow_lt_pow_of_lt)
+open E213.Meta.Nat.PowBasic (pow_mul_pure)
+open E213.Lens.Number.Nat213.MultSystemValue (central_binom_ge_two_pow prime_not_dvd_fact)
 open E213.Meta.Nat.Valuation (pow_vp_dvd)
 open E213.Meta.Nat.VpMul (IsPrime213 vp_pow vp_self_pow)
 open E213.Meta.Nat.VpSeparation (exists_prime_factor vp_eq_zero_of_not_dvd dvd_iff_one_le_vp)
@@ -252,5 +254,46 @@ theorem le_pow_primePi (B : Nat) (hB : 1 ≤ B) : ∀ N m, 0 < m →
           show primePi N + primeIndicator (N + 1) = primePi N
           rw [hind0, Nat.add_zero]
         rw [hpi]; exact ih m hm hdvd' hpow
+
+/-- **`C(2n,n) ≤ (2n)^{π(2n)}`** (`n ≥ 1`).  `le_pow_primePi` at `B = N = 2n`:
+    every prime factor of `C(2n,n)` is `≤ 2n` (it divides `(2n)!`,
+    `prime_not_dvd_fact`), and every prime power `p^{vp_p(C(2n,n))} ≤ 2n`
+    (`prime_pow_vp_central_binom_le`). -/
+theorem central_binom_le_pow_primePi {n : Nat} (hn : 1 ≤ n) :
+    binom (2 * n) n ≤ (2 * n) ^ primePi (2 * n) := by
+  have h2n : 1 ≤ 2 * n := Nat.le_trans hn (by rw [Nat.two_mul]; exact Nat.le_add_left n n)
+  refine le_pow_primePi (2 * n) h2n (2 * n) (binom (2 * n) n) (central_binom_pos n) ?_ ?_
+  · intro p hp hpdvd
+    obtain ⟨c, hc⟩ := hpdvd
+    have hpfact : p ∣ fact (2 * n) :=
+      ⟨c * (fact n * fact n), by rw [← central_binom_factorial n, hc]; ring_nat⟩
+    rcases Nat.lt_or_ge (2 * n) p with hlt | hge
+    · exact absurd hpfact (prime_not_dvd_fact hp hlt)
+    · exact hge
+  · exact fun q hq => prime_pow_vp_central_binom_le hq hn
+
+/-- **`2^n ≤ (2n)^{π(2n)}`** (`n ≥ 1`) — the cleared-denominator Chebyshev lower
+    bound: `central_binom_ge_two_pow` ∘ `central_binom_le_pow_primePi`. -/
+theorem two_pow_le_pow_primePi {n : Nat} (hn : 1 ≤ n) :
+    2 ^ n ≤ (2 * n) ^ primePi (2 * n) :=
+  Nat.le_trans (central_binom_ge_two_pow n) (central_binom_le_pow_primePi hn)
+
+/-- **The Chebyshev lower bound**: `n ≤ (⌊log₂(2n)⌋ + 1) · π(2n)` (`n ≥ 1`), i.e.
+    `π(2n) ≥ n / (⌊log₂(2n)⌋ + 1) ≈ n / log₂(2n)`.  Take `log₂` of `2^n ≤
+    (2n)^{π(2n)} ≤ (2^{⌊log₂(2n)⌋+1})^{π(2n)}` (`2n < 2^{⌊log₂(2n)⌋+1}`).  Together
+    with the upper bound (`primeDensityToZero`/`chebBound`), this is both halves of
+    Chebyshev's theorem `c·N/ln N ≤ π(N) ≤ C·N/ln N`. -/
+theorem chebyshev_lower {n : Nat} (hn : 1 ≤ n) :
+    n ≤ (floorLog 2 (2 * n) + 1) * primePi (2 * n) := by
+  have hbase : 2 * n ≤ 2 ^ (floorLog 2 (2 * n) + 1) :=
+    Nat.le_of_lt (lt_pow_floorLog_succ (by decide))
+  have hchain : (2 : Nat) ^ n ≤ 2 ^ ((floorLog 2 (2 * n) + 1) * primePi (2 * n)) :=
+    calc (2 : Nat) ^ n ≤ (2 * n) ^ primePi (2 * n) := two_pow_le_pow_primePi hn
+      _ ≤ (2 ^ (floorLog 2 (2 * n) + 1)) ^ primePi (2 * n) := Nat.pow_le_pow_left hbase _
+      _ = 2 ^ ((floorLog 2 (2 * n) + 1) * primePi (2 * n)) :=
+          (pow_mul_pure 2 (floorLog 2 (2 * n) + 1) (primePi (2 * n))).symm
+  rcases Nat.lt_or_ge ((floorLog 2 (2 * n) + 1) * primePi (2 * n)) n with hlt | hge
+  · exact absurd hchain (Nat.not_le.mpr (pow_lt_pow_of_lt (by decide) hlt))
+  · exact hge
 
 end E213.Lens.Number.Nat213.ChebyshevLower
