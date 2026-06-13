@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 98 essays are grouped into ten thematic sub-directories — distinct
+The 99 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -121,6 +121,11 @@ certificate whose content is the number's own structure: the strict sandwich at 
 (`vp_separation`, `FoldCriterion.pow_eq_pow_iff_vp`), and the CF/Padé certificate for reals
 (`when_two_pointings_are_one`, size `48` at level one) — one shape at three resolutions; the
 single-schema Lean statement is open).
+`the_minus_one_under_three_lenses` (`b₁ = NS² − 1 = 1/α₃ = 8` is one residue's lone constant
+mode counted once — `bcount_const = 2`, `isKer_iff_const` — read as the cohomology `b₀`
+subtracted (`im_count_inj_complement`, field-free via an involution), the `SU(NS)` adjoint's
+removed trace (`c3_chain`), and the chart's self-pointing axis `d_M = d−1`
+(`forcedKChartLens`); none of the three is what the `−1` IS).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
