@@ -176,9 +176,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 - `multiplicative_count_pnt` — **multiplicative count → PNT density**
   (`MultSystem`/`MultSystemValue`).  Upper bound + density cut CLOSED ∅-axiom
   (prime window `(n,2n]`, Chebyshev doubling, telescoped `π(2^m) ≤ chebBound m =
-  O(2^m/m)`, keystone **`primeDensityToZero`** = `π(N)/N → 0` certified).
-  **Promoted** → `theory/math/numbertheory/chebyshev_prime_counting.md`.  OPEN
-  (retained here): only PNT `~ N/ln N` (constant `1`, asymptotic horizon).
+  O(2^m/m)`, keystone **`primeDensityToZero`** = `π(N)/N → 0` certified).  Also
+  CLOSED: two-sided order `chebyshev_order` (`π(2^{m+1}) = Θ(2^{m+1}/m)`) + the
+  constant as a computable interval `chebyshev_constant_interval`; the `→1`
+  pointing shape `RatTendsToOne`; the `ψ`-form lower `two_pow_le_lcm`; and the
+  structural **`vp_factorial_eq_sum_vp_lcm`** (`N! = Π_{i≤N} lcm(1..⌊N/i⌋)`, the
+  factorial↔lcm `e`-bridge, `FactorialLcmIdentity`).  **Promoted** →
+  `theory/math/numbertheory/chebyshev_prime_counting.md`.  OPEN (retained here):
+  only PNT `~ N/ln N` (constant `1`, asymptotic horizon) + the interval sharpening
+  (base-`2` lower, base-`≈3.16` upper).
 - `chebyshev_lower_bound` — **Chebyshev lower bound `π(N) ≥ c·N/ln N`**.  ✅
   CLOSED ∅-axiom (`chebyshev_lower : n ≤ (⌊log₂(2n)⌋+1)·π(2n)`, via Kummer
   `vp_central_binom_le_floorLog` + `le_pow_primePi`).  **Promoted** →
