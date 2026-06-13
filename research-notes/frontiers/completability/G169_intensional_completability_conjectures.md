@@ -90,7 +90,7 @@ analytic side now has its canonical witness too: the gcd-reduced presentation
 
 ## C2 — first step closed (the rescaling orbit)
 
-`Real213/ScalingOrbit` (7 PURE) gives C2 its first ∅-axiom backing, scoped to the
+`Real213/Spiral/ScalingOrbit` (7 PURE) gives C2 its first ∅-axiom backing, scoped to the
 **rescaling** sub-family of presentations.  The presentations `(c·a, c·d)`, `c ≥ 1`, of
 one cut form a monoid-action orbit (`scaleBy_one`, `scaleBy_comp`); the cut is the
 complete orbit invariant (`scaleBy_preserves_cut`); `CrossDetSmall` is antitone along the

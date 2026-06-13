@@ -97,11 +97,11 @@ reach limit** structurally (direction-freedom), without pretending to cross it.
 
 The boundary says the kernel needs an *oriented* argument; the cheapest oriented apparatus is the
 continuant/Christoffel program (`G191` E2–E5).  The next clean ∅-axiom code step remains **E2**:
-`continuant K[a₁..aₙ] = (∏[[aᵢ,1],[1,0]]).(1,1)` — connecting the new `Real213/Continuant` to `Mat2`
+`continuant K[a₁..aₙ] = (∏[[aᵢ,1],[1,0]]).(1,1)` — connecting the new `Real213/ContinuedFraction/Continuant` to `Mat2`
 products — the first rung of the oriented bridge `markovNum p = K(CF-shape of slope p)`.
 
 ### Pointers
-- frontier objects: `Real213/SternBrocotMarkov` (`mediantLens`/`slope_path_inj`/`markovGen_noncommutative`/`SqrtUnity`/`OrbitRealizabilityH`/§34 iff)
+- frontier objects: `Real213/Markov/SternBrocotMarkov` (`mediantLens`/`slope_path_inj`/`markovGen_noncommutative`/`SqrtUnity`/`OrbitRealizabilityH`/§34 iff)
 - Raw/Lens native: `Lens/FlatOntologyClosure` (`object1_not_surjective`), `Lens/Number/DifferenceLensFounding` + `Int213/Raw` (`signedLens`), `Lens/Algebra/Corresp` (`kernel_correspondence`), `Lens/DirectionFree`, `Theory/Raw/{Slash,Fold}`, `seed/AXIOM/05_no_exterior.md` §5.1
 - cohomology rhyme: `Cohomology/{Delta,Cochain}/Core` (ℤ/2 δ²=0)
 - classical companion: `research-notes/G191_continuant_aigner_program.md`

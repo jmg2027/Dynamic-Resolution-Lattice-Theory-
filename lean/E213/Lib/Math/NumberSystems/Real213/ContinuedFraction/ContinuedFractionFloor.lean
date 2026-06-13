@@ -4,7 +4,7 @@ import E213.Meta.Algebra213.Core
 /-!
 # ContinuedFractionFloor — every real's continued fraction sits on the det-one floor
 
-`Cauchy/DepthFloorDetOne` and `Real213/CrossDetConstDenom` put the det-one floor
+`Cauchy/DepthFloorDetOne` and `Real213/CrossDet/CrossDetConstDenom` put the det-one floor
 (cross-determinant `W = ±1`) under the *algebraic* φ, via the Fibonacci convergents
 (`FibCassiniNat`).  But the φ-Cassini identity is just the all-`1`s case of a universal
 fact: **for *any* partial-quotient sequence, the continued-fraction convergents'

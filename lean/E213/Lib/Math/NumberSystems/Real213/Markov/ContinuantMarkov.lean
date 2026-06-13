@@ -4,7 +4,7 @@ import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.Continuant
 /-!
 # The continuant ↔ Markov-generator bridge (and its obstruction)
 
-`Real213/Continuant` placed the continuant `K[a₁,…,aₙ]` inside the `Mat2` algebra as the `(1,1)`-entry
+`Real213/ContinuedFraction/Continuant` placed the continuant `K[a₁,…,aₙ]` inside the `Mat2` algebra as the `(1,1)`-entry
 of `∏ᵢ [[aᵢ,1],[1,0]]` (`contMatProd`).  This file tests the next rung toward `markovNum p = (mNode p).c`:
 can the Markov tree's generators `genL`, `genR` be written as continuant-matrix words?
 

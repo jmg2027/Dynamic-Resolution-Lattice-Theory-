@@ -8,7 +8,7 @@ import E213.Lib.Math.NumberSystems.Real213.Calculus.DiffCutModulus
 
 Integration is ∅-axiom-native here: the repository builds its **own** integral — the dyadic Riemann
 sample sum `riemannSampleSum` lifted to `cutIntegralOver` over `DyadicMeasurableSet`s
-(`Real213/CutIntegral`, `Real213/CutIntegralLinearity`, `Analysis/DyadicSearch/DyadicRiemann`), with
+(`Real213/Calculus/CutIntegral`, `Real213/Calculus/CutIntegralLinearity`, `Analysis/DyadicSearch/DyadicRiemann`), with
 linearity, additivity, the constant fundamental theorem, and `no_pi_in_finite_riemann`, **all PURE**.
 
 So the weight-2 period of the `?`-cocycle (`MinkowskiCocycle.minkowski_weight2_period_relation`) has,

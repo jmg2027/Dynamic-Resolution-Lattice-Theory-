@@ -26,7 +26,7 @@ converge at this capstone:
       (`Real213/Mul/CutMulN`)
   (D) **Bundled multiplication to N²-fiber** — algebraic product
       structure on bundled ValidCutN cuts
-      (`Real213/NValidCutMul`)
+      (`Real213/ValidCut/NValidCutMul`)
   (E) **K_{3,2}^(c=2) numerical signature** — P matrix entries
       and invariants encode every K-graph count (vertices,
       edges, pairs, discriminant)
@@ -38,17 +38,17 @@ converge at this capstone:
   (G) **Pell-Fibonacci continued-fraction recurrence** — both
       P-orbits satisfy the standard CF [2; 1, 1, 1, ...]
       recurrence `a(n+2) + a(n) = 3 · a(n+1)`
-      (`Real213/Mobius213ContinuedFraction`)
+      (`Real213/Mobius/Mobius213ContinuedFraction`)
   (H) **Cayley-Dickson 2-doubling bridge** — the rank-1 Type C
       asymptote `(5, -1)` IS `(disc P, Pell unit)`
       (`CayleyDickson/Tower/Mobius213CDBridge`)
   (I) **Atomicity ↔ discriminant ↔ orbit anchor** — the integer
       `5 = NS + NT = d = disc P = unique atomic Nat = (Pseq
       seedInf 2).1`
-      (`Real213/Mobius213AtomicityAnchor`)
+      (`Real213/Mobius/Mobius213AtomicityAnchor`)
   (J) **Pell unit symplectic invariant** — the cross-product
       `a · k' + 1 = b · m'` on consecutive P-orbit pairs
-      (`Real213/Mobius213PellInvariant`)
+      (`Real213/Mobius/Mobius213PellInvariant`)
 
 The grand master records that every per-domain capstone holds
 simultaneously — establishing the matrix `P` as the single

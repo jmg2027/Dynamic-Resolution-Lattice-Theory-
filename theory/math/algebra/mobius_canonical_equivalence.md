@@ -319,7 +319,7 @@ along axes that the original closure left open:
     (constCut c N) m k = true → constCut (a · c) (N · N) m k =
     true` (`Real213/Mul/CutMulN`), plus bundled
     `mulN : ValidCutN N × ValidCutN N → ValidCutN (N · N)`
-    (`Real213/NValidCutMul`) bypassing the precision artifact
+    (`Real213/ValidCut/NValidCutMul`) bypassing the precision artifact
     via direct algebraic numerator + commutativity at the
     bundled level.
   · **Marathon 2** (K_{3,2}^(c=2) ↔ P state classes, 21 PURE) —
@@ -333,7 +333,7 @@ along axes that the original closure left open:
     [2; 1, 1, 1, ...] convergent recurrence
     `a(n+2) + a(n) = 3 · a(n+1)` realised in Nat form on both
     P-orbits, both components
-    (`Real213/Mobius213ContinuedFraction`).
+    (`Real213/Mobius/Mobius213ContinuedFraction`).
   · **Marathon 4** (CD-doubling ↔ P iteration, 5 PURE) —
     `CayleyDickson/Tower/Mobius213CDBridge` recording that the
     Type C asymptote `(5, −1)` IS `(disc P, Pell unit)` and the

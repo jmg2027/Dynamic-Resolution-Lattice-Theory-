@@ -104,7 +104,7 @@ to an outside, but the framework auditing itself.  The restraint (G192 §D: no m
 ## Part 3 — Live directions, ranked (for the next attempts)
 
 1. **E2 (concrete, cheap, on-path)**: `continuant K[a₁..aₙ] = (∏[[aᵢ,1],[1,0]]).(1,1)` — connect
-   `Real213/Continuant` to `Mat2`.  First rung of the oriented bridge `markovNum = K(CF-shape of slope)`.
+   `Real213/ContinuedFraction/Continuant` to `Mat2`.  First rung of the oriented bridge `markovNum = K(CF-shape of slope)`.
    ∅-axiom, non-cross-node.  *Then* E3 (path → Christoffel run-lengths → CF quotients; genL/genR vs
    `[[a,1],[1,0]]` basis change), E4 (the Frobenius formula — substantial), E5 (one Aigner ordering = the
    first genuine cross-node ∅-axiom Markov ordering, necessary-not-sufficient).
@@ -132,8 +132,8 @@ fully pinned, the **realizability selection is the sole open freedom**, and it i
 direction has crossed it; directions 1–4 are how we keep attacking.
 
 ### Pointers
-- iff (= Frobenius): `Real213/SternBrocotMarkov` §34 `markovMaxUnique_iff_markovNum_injective`
+- iff (= Frobenius): `Real213/Markov/SternBrocotMarkov` §34 `markovMaxUnique_iff_markovNum_injective`
 - continuant tool: `Real213/ContinuedFraction/Continuant.lean`
 - companions: `research-notes/G191_continuant_aigner_program.md` (classical), `research-notes/G192_markov_kernel_raw_lens_native.md` (Raw/Lens), `G189` (Casoratian correction)
 - axioms read: `seed/AXIOM/{01_residue, 04_uniqueness §4.3, 05_no_exterior §5.2/§5.6, 06_lens_readings §6.7/§6.8, 08_falsifiability §8.2/§8.4}`
-- φ engine: `Mobius213` (`P(x)=(2x+1)/(x+1)→φ`), `Real213/CrossDetConstDenom`/`FibCassiniNat` (Fibonacci spine)
+- φ engine: `Mobius213` (`P(x)=(2x+1)/(x+1)→φ`), `Real213/CrossDet/CrossDetConstDenom`/`FibCassiniNat` (Fibonacci spine)

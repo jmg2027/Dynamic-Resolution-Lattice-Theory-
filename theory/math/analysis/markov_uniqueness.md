@@ -276,7 +276,7 @@ order-4 modular generator survives reduction mod every Markov number, along any 
 
 The conjecture at fixed `c` reduces to **injectivity of the residue map** `triple ↦ u`.  Following
 the classical literature (Frobenius 1913; Baragar, Button, Lang–Tan, Zhang; Aigner), the analysis
-(`Real213/MarkovInjectivity`) separates the elementary from the open:
+(`Real213/Markov/MarkovInjectivity`) separates the elementary from the open:
 
   * **The classical reduction, formalised** (`markov_max_unique_of_same_pair_injective`):
     `MarkovMaxUnique c ⟸ SqrtNegOneTwoRoots c ∧ SamePairInjective c`, where `SamePairInjective` is
@@ -306,7 +306,7 @@ the classical literature (Frobenius 1913; Baragar, Button, Lang–Tan, Zhang; Ai
     neighbors (`fib(2n+1)·fib(2n+2) = fib(2n)·fib(2n+3) + 1`), so `u_n/m_n` is a strictly monotone
     convergent sequence — Zhang Lemma 2 on the spine.
 
-This size-bound dead end is **closed by a different route** in `Real213/SternBrocotMarkov`: the
+This size-bound dead end is **closed by a different route** in `Real213/Markov/SternBrocotMarkov`: the
 recovery injectivity is supplied not by a local determinant bound but by the tree's **global slope
 monotonicity** `slope_path_inj` (the path is recovered from the slope `u/c`).  Two ordered triples at
 `c` are both Stern-Brocot nodes (`reverse_bridge`); equal windowed residue ⟹ equal slope ⟹ equal path
@@ -379,7 +379,7 @@ to Markov uniqueness.
 
 The composite case (`ω ≥ 2`) is closed structurally down to a single residual statement by a tower
 of six folds, each the same `±` self-pointing read at a finer resolution
-(`Real213/SternBrocotMarkov`, §20–§29).  The method is uniform: every wall, when templatised, is
+(`Real213/Markov/SternBrocotMarkov`, §20–§29).  The method is uniform: every wall, when templatised, is
 again a fold.
 
   * **The window is the `±`-fold transversal** (`window_fold_transversal`, §20).  The roots of

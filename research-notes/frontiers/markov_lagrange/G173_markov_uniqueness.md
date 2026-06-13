@@ -137,7 +137,7 @@ spine; no modular inversion is needed (the convergent IS the root, by Cassini). 
 realisation of the encoding: the Markov spine, the golden form's `−1`-minimum, and the `√(−1)`
 root all coincide on the Fibonacci convergents.
 
-## Injectivity analysis (`Real213/MarkovInjectivity`, marathon + literature deep-dive)
+## Injectivity analysis (`Real213/Markov/MarkovInjectivity`, marathon + literature deep-dive)
 
 A literature deep-dive (Zhang 2007 `math/0606283`; Lang–Tan `math/0508443`; Baragar 1996; Button
 1998; Aigner's book) **recalibrated** the open locus.  The classical reduction is:
@@ -178,7 +178,7 @@ Two deep literature agents (Lang–Tan elementary route; Zhang CF blueprint) con
 Mathlib-free-friendly plan.  **The Markoff-matrix carrier is the recommended vehicle** (makes the
 Frobenius identities a one-multiply entry read-off; avoids modular inverses).
 
-**Foundations DONE** (`Real213/SternBrocotMarkov`, 16 PURE):
+**Foundations DONE** (`Real213/Markov/SternBrocotMarkov`, 16 PURE):
   * proper det-1 Stern-Brocot tree `sbInterval` + invariant `sbInterval_adj` (`q·r=p·s+1`) +
     `sbInterval_mediant_coprime` (the repo's `SternBrocotReachable` is all-pairs, NOT this);
   * Markoff-matrix tree: `det2`, **`det2_mul`** (det multiplicative, the backbone), generators
@@ -228,13 +228,13 @@ Re-merging `origin/main` brought the **Cassini-unimodular / orbit-depth** thread
   multiplier `q`.  The Markov–Fibonacci spine carries both unimodular readings:
   `q=−1` (standard Cassini, alternating) gives the √(−1) — `fib(2n+2)²+1 = fib(2n+1)·fib(2n+3)`
   (= `fib_cassini_norm`), so `fib(2n+3) ∣ fib(2n+2)²+1`; `q=+1` (index-gap-2, conserved) gives the
-  unit — `fib(2n+1)·fib(2n+5) = fib(2n+3)²+1`.  Both ∅-axiom in `Real213/MarkovCassiniBridge`
+  unit — `fib(2n+1)·fib(2n+5) = fib(2n+3)²+1`.  Both ∅-axiom in `Real213/Markov/MarkovCassiniBridge`
   (`markov_spine_{sqrt_neg_one_cassini, fib_second_cassini, cassini_dichotomy}`).  This grounds
   G174's "Casoratian = Cassini = √(−1)" as Lean, and places the Markov spine on the depth-0
   Cassini floor (`CassiniDepthFloor`).
 
 - **The √(−1)-residue = the Gaussian unit `i` = `S`, reduced mod `c`** — now **Lean**
-  (`Real213/MarkovModularBridge`, 2 PURE).  `UnitsToModular.repI i = S` (`S = [[0,-1],[1,0]]`,
+  (`Real213/Markov/MarkovModularBridge`, 2 PURE).  `UnitsToModular.repI i = S` (`S = [[0,-1],[1,0]]`,
   order 4, `S²=−I`).  `markov_pair_eigen`: for a Markov triple the residue `u=(a·b⁻¹)%c` satisfies
   `(u·b)%c=a` (recovery) and `(u·a+b)%c=0` (neighbor congruence `a²+b²≡0` + Euclid) — these ARE
   `S·(a,b)≡u·(a,b) (mod c)` (since `S·(a,b)=(−b,a)`).  `S_eigenvector_of_dvd` (ℤ, `ring_intZ`) is

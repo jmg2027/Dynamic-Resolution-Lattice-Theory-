@@ -8,7 +8,7 @@ import E213.Meta.Int213.PolyIntMTactic
 # UnitsToModular — the modular generators `S, U` are regular-representation images of the units
 
 The genuine bridge between the **spiral-axis unit groups** (`ℤ[i]^×` order 4, `ℤ[ω]^×` order 6)
-and the **modular elliptic generators** `S` (order 4) `U` (order 6) of `Real213.ModularElliptic`:
+and the **modular elliptic generators** `S` (order 4) `U` (order 6) of `Real213.ModularGeometry.ModularElliptic`:
 the *regular representation* `ℤ[i] → M₂(ℤ)` (multiplication-by-`u` in the basis `{1, i}`) is a ring
 homomorphism, and it sends the Gaussian unit `i` to **`S` exactly**.  So `S⁴ = I` is *literally
 the image of* `i⁴ = 1` under a real morphism — not two coincidental order-4 facts.

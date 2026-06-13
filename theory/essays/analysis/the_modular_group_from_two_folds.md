@@ -12,7 +12,7 @@ dynamics. The whole order-2 story is one fold-pair, read statically and then in 
 
 The additive fold is the integer matrix `N = [[−1,0],[0,1]]` (negation `z ↦ −z`); the multiplicative
 fold is `R = [[0,1],[1,0]]` (reciprocal `z ↦ 1/z`). Both are **involutive reflections** —
-`N² = R² = I`, `det N = det R = −1` (`Real213/FoldReflections.{N_involutive, R_involutive, N_det,
+`N² = R² = I`, `det N = det R = −1` (`Real213/ModularGeometry/FoldReflections.{N_involutive, R_involutive, N_det,
 R_det}`). On the four-point fixture `{∞, 0, +1, −1}` the additive fold **fixes** the `0`/`∞` pair and
 **swaps** the units, the multiplicative fold the mirror (`FoldDuality.two_folds_dual_on_pairs`); each
 ℤ/2 fixes the orbit the other swaps, and their composite is fixed-point-free — `{id, N, R, N·R}` is a
@@ -70,7 +70,7 @@ sign of one discriminant is the dividing line.
 
 ### The finite-order spectrum is exactly `{1, 2, 3, 4, 6}` — uniform, two-sided
 
-The trichotomy closes into a single structural theorem (`Real213/FiniteOrderSpectrum`, 29 PURE).
+The trichotomy closes into a single structural theorem (`Real213/ModularGeometry/FiniteOrderSpectrum`, 29 PURE).
 For **every** `M ∈ SL(2, ℤ)` and **every** exponent, `M^{n+1} = I` forces
 `M = I ∨ M² = I ∨ M³ = I ∨ M⁴ = I ∨ M⁶ = I` (`finite_order_spectrum`), hence `M¹² = I`
 (`finite_order_divides_twelve`) — every period of the integer modular family divides 12.  The

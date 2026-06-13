@@ -94,7 +94,7 @@ theorem golden_axis_reciprocal : phi * psi = one ∧ psi * phi = one :=
 
 A real is squeezed between its convergents, whose cross-determinant is the unit `±1`
 (`ContinuedFractionFloor.cf_det_sq`); for the golden axis this det-1 is **Cassini's identity**
-(`Real213/FibCassiniNat`), and the Fibonacci convergents tighten to `φ` (`PhiCauchyLimit`).
+(`Real213/Phi/FibCassiniNat`), and the Fibonacci convergents tighten to `φ` (`PhiCauchyLimit`).
 Algebraically the engine is that `φ` and the pentagon trace `ψ` are **norm `−1` units** of
 `ℤ[φ]`: their power-ladder carries the alternating `(−1)ⁿ` Cassini determinant.  So the
 forbidden 5-fold value is not skipped but *approached* — bracketed, upper/lower, by the det-1

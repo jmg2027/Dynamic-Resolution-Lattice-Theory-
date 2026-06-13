@@ -19,7 +19,7 @@ shape of the rational `p/q` (its Christoffel word).  The proven Aigner orderings
 (Fixed Numerator / Denominator / Sum, Lee–Li–Rabideau–Schiffler 2018-20; McShane via the stable norm)
 reduce to **continuant inequalities** — exactly the monotonicity here.  Those orderings are *necessary
 conditions* for the Markov uniqueness (Frobenius) conjecture, which in the repo is
-`markovMaxUnique_iff_markovNum_injective` (`Real213/SternBrocotMarkov` §34) — confirmed open: "Frobenius'
+`markovMaxUnique_iff_markovNum_injective` (`Real213/Markov/SternBrocotMarkov` §34) — confirmed open: "Frobenius'
 conjecture is equivalent to stating that [the rational → Markov] map is injective."
 
 **Scope (honest).**  This is the *combinatorial core tool* of the Aigner program, not the bridge to

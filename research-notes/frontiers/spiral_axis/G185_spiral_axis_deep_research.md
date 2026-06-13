@@ -54,7 +54,7 @@ ring homomorphism (NOT glyph-reuse):
 ## Open / next (ranked, from the conjecture agent)
 
   - **A1** ✓ **CLOSED**: the modular generators `S,U` are trace-orbits — `trace(Mⁿ)` satisfies
-    `t(n+2)=tr·t(n+1)−det·t(n)` (Cayley–Hamilton iterated).  `Real213/Mat2CayleyHamilton.cayley_hamilton`
+    `t(n+2)=tr·t(n+1)−det·t(n)` (Cayley–Hamilton iterated).  `Real213/Mat2/Mat2CayleyHamilton.cayley_hamilton`
     + `Mat2TraceRecurrence.trace_recurrence`; the elliptic orders read off as trace periods 4/6
     (`UTracePeriodic.elliptic_orders_four_and_six`), the hyperbolic Lucas growth
     (`golden_trace_recurrence`).  The modular↔Cassini bridge is a theorem.

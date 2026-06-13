@@ -219,7 +219,7 @@ The irrationality measure `μ(x) = 2 + limsupₙ (ln a_{n+1} / ln qₙ)` is a co
 number — a limsup that sees only the worst-case partial quotients.  Three different things
 sit in this framework:
 
-  - the **rate modulus** `N(m,k)` (`Real213/RateModulus`) is the irrationality-measure
+  - the **rate modulus** `N(m,k)` (`Real213/Modulus/RateModulus`) is the irrationality-measure
     *function* `ψ(q)`, of which μ is the limsup-collapse — genuinely **finer** than μ (φ with
     `N = 2k` and e with `N = k+2` share `μ = 2` but have different moduli);
   - the **divergence depth** is the order of the holonomic recurrence of a *presentation* —
