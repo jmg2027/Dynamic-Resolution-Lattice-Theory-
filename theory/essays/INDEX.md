@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 98 essays are grouped into ten thematic sub-directories — distinct
+The 99 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -98,6 +98,11 @@ root `g` (`exists_primitive_root`), the Legendre symbol is the mod-2 readout of 
 in the single orbit `(ℤ/p)*`; Euler's `a^m ≡ (−1)^k`, the cycle sign `psign σ_a`, the determinant,
 and the discrete-log parity are four readouts of one bit `k mod 2`, forced by the orbit being
 cyclic of even order — the structural why behind the character's existence).
+`the_discrete_log_is_the_same_logarithm` (the discrete log `ind_g` is the additive coordinate of a
+cyclic generator — the same object `vp` is per prime and `ln` is at the archimedean place; `(ℤ/p)*`
+has a *single* atom `g` so its logarithm is valued in `ℤ/(p−1)`; the quadratic character is the
+count-Lens reading that coordinate at resolution 2 — the lowest digit — unifying the log-essay's
+`vp`/`ln` family with the character's discrete log, with order-`d` characters the higher rungs).
 `the_character_is_the_groups_eigen_data` (a character of `ℤ/p` is eigen-data of the group acting
 on itself: the *multiplication* action `×a` forces a sign — the quadratic/Legendre character
 `(a/p) = psign σ_a` — and the *shift* action forces an eigenbasis — the additive characters as the
