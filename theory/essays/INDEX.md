@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 99 essays are grouped into ten thematic sub-directories — distinct
+The 100 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -59,6 +59,13 @@ homomorphism under all three),
 *count* never climbs the tower while the *base* does, so at `^` a dilation axis
 opens — the "comm/assoc die" facts are its 1-D shadow; the count itself stays
 simplicial, `hyperCount_simplex`),
+`dimension_is_a_computed_depth` (dimension is not a cardinal but the **annihilation
+depth** of the forward difference on the graded count: `Δ^{k+1}` kills rung `k+1`
+(`diffIter_dim_zero`), `Σ^k 1` builds it (`sumfIter_const_one`, the `(1−x)^{−k}`
+Hilbert series as iterated summation), `Δ`/`Σ` the dimension `∓1` operators —
+`∞` = the count whose difference tower never terminates (`= ζ`); the additive twin
+of the Casoratian depth, the same `+1` as the cup-ladder graduation and the
+cross-determinant det-one floor),
 `the_cp_phase_as_one_imaginary_unit` (the CKM CP phase = the signed Hodge `⋆` on
 `H*(Δ⁴)`, `arg = 90°` = the generator of `ℤ[i]^× = C₄`; one imaginary unit in four
 frames — `ℤ[i]` / `Gal(ℚ(ζ₅))≅C₄` + golden real subfield / Hodge `⋆` / the
