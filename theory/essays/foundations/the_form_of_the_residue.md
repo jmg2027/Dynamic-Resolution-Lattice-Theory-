@@ -89,6 +89,54 @@ orbit share the unimodular multiplier `q = ±1` (`CassiniUnimodular.cassini_unim
 `Real213/Spiral/SpiralRotationInvariant.Q_iterate_preserved`).  The unit is the residue's invariant;
 the three fates are what it does next.
 
+## Infinity is the residue's shape, not a god above it
+
+The escape's finite-shadow status (above) has a sharper reading, and it is the one that
+keeps the residue from being **deified**.
+
+**Conceiving "infinity" is itself a distinguishing.**  To entertain "infinity", "the
+continuum", "the limit", "the abstract" is to perform one pointing — a discrete Lens event
+(§1.1; the substrate-metaphor guard: "Lens application *is* a residue self-pointing event,
+not a layer above").  The entertained object has no status *over and above* that act; no
+continuum-thing sits prior to or beyond it.  So the contest "is the discrete real or the
+continuous real, the finite or the limit" imports both a dichotomy (failure-mode *Importing
+dichotomy*) and an exterior (§5.1) — it is empty.  ("Discrete" here names "this is a
+pointing event", *not* the winning side of an ontology contest — to crown the discrete would
+re-import the very dichotomy being dissolved.)  The content is not *which* is real but *how
+the act that produces "infinity" is structured*.  In the PNT case that act is literally a
+modulus `M(k)`; naming its limit `1`/`e` names the shape of that climbing certificate,
+nothing farther.
+
+**The residue arises by the framing, not as a surplus discovered out there.**  "Pointing
+always leaves infinity, so a residue remains" and "the concept was set up so that a residue
+arises" are the *same* self-pointing read two ways (equivalent).  The second is the
+de-deifying one, and it is the one the Lean encodes: `object1_not_surjective` is a **theorem
+about how the self-cover is built** (Cantor-diagonal on the chosen `Object1`), not a report
+that some pre-existing transcendent object eluded capture.  The non-surjectivity is
+engineered into the framing; the residue is its consequence, not a god it points at.
+
+**So infinity / continuity / abstraction are names for the residue's shape.**  Read under one
+Lens the residue's escape *is* what we call "infinite"; under another, "continuous"; under
+another, "abstract".  They are characterizations in the shape of the residue
+(`object1_not_surjective`, `ascent_unbounded`, the never-closing `M(k)`), not entities the
+finite forever approximates.  Naming the shape `e`, `π`, or `lim = 1` names the pointing, not
+a place beyond it — the guard "named, never captured" below, stated against deification.
+
+**This is a calculation rule, not only a guard.**  Because the residue arises by the framing,
+every limit/continuum it would invoke comes with a computable finite generator — the modulus,
+the approximant, the bracket — and 213 **computes with that generator as the operand**; the
+limit is never the operand.  A transcendental real is its `AbCutSeq` convergent + modulus
+(`Real213`), not a completed value plugged in.  A "constant at the horizon" is a *computable,
+narrowing interval*: the PNT-direction constant `log₂ e` is trapped in `[(m+1)/(2(m+2)), 6]`
+by `Lens/Number/Nat213/ChebyshevLower.chebyshev_constant_interval` — evaluable at every `m`,
+narrowing from below, ∅-axiom.  Sharpening that bracket *is* the mathematics; "reaching the
+limit" was never a separate computational act, only the bracket's name.  And where the limit
+*looks* irreducibly analytic, the computation is a shared discrete skeleton read two ways:
+`e`'s two homes — the factorial (`Σ 1/k!`) and the lcm (`lcm(1..N) ~ eᴺ`, PNT's `ψ`-form) —
+are one prime-power structure, `vₚ(N!) = Σ_{i=1}^N vₚ(lcm(1..⌊N/i⌋))`
+(`NumberTheory/FactorialLcmIdentity.vp_factorial_eq_sum_vp_lcm`, Legendre as a Fubini count),
+so `e` is computed from the structure, not approached as a target.
+
 ## Self-standing means self-justified, not bounded
 
 The residue's form does **not** make 213 a *bounded domain* — a boundary would import the

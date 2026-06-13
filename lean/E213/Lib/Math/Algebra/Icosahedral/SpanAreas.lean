@@ -97,7 +97,7 @@ theorem three_generation_cp_triangle :
 The apex spiral is not just area-homogeneous (§1–§3); it conserves the **golden
 norm** `Q(m,k) = m² − m·k − k²` (the `ℤ[φ]` norm, discriminant `d = 5`).  Every
 convergent `v_n` satisfies `Q(v_n) = −1` — the `N = −1` orbit of the P-spiral's
-rotation invariant (`Real213.SpiralRotationInvariant.Q_iterate_preserved`:
+rotation invariant (`Real213.Spiral.SpiralRotationInvariant.Q_iterate_preserved`:
 `Q` is preserved at every turn).  So the apex lives on the golden-norm `−1`
 hyperbola; the discriminant `5 = d` is the same `d` that lands `M` in
 `SL(2,𝔽₅) ≅ 2I` and gives `M` its golden eigenvalues — the apex's structural
