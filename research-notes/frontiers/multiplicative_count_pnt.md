@@ -164,6 +164,12 @@ the *single point* `1`, and pinning the constant to exactly `1` is a claim about
 sharpening the elementary `2^{N−1} ≤ lcm` base from `2` to `e`).  So **no pure-`ℕ`
 `a,b` realize PNT's ratio** — it must be `Real213`-valued (`EulerCut`/`ExpLog`); the
 modulus is the open analytic core (PNT-strength), not central-binomial reachable.
+**For calculation (not framing)**: the constant is a *computable narrowing
+interval*, not a deified point — `ChebyshevLower.chebyshev_constant_interval` traps
+`log₂e ≈ 1.4427` in `[(m+1)/(2(m+2)), 6]`, evaluable at every `m`, narrowing from
+below.  Sharpening that bracket (e.g. via the lcm 30-block upper `base ≤ 31.62^{1/3}
+≈ 3.16` and a matching lower) is the concrete next computation — the limit is the
+bracket's shape, computed, not approached.
 (c) connect `primeDensityToZero`'s modulus to the lcm-growth route
 (`LcmGrowthChebyshev`) for a cross-check — now doubly motivated: `lcm(1..N) ~ eᴺ` is
 PNT's `ψ`-form.  Loose secondary: tie `factorization_bounded`'s prime-list length to

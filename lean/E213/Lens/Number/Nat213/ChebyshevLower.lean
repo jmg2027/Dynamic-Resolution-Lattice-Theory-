@@ -347,4 +347,26 @@ theorem chebyshev_order (m : Nat) :
         Nat.mul_le_mul (Nat.le_refl 2) (two_pow_le_succ_primePi m)
     _ = 2 * (m + 2) * primePi (2 ^ (m + 1)) := by ring_nat
 
+/-- **The PNT-direction constant is a *computable interval*, computed — not a
+    deified point.**  Write `C(m) = (m+1)·π(2^{m+1})` (the order theorem's
+    normalized count).  The proven bounds trap the constant `C(m)/2^{m+1}` in the
+    rational interval `[(m+1)/(2(m+2)), 6]`:
+      `(m+1)·2^{m+1} ≤ 2·(m+2)·C(m)`   (lower endpoint `(m+1)/(2(m+2)) → 1/2`)
+      `C(m) ≤ 6·2^{m+1}`               (upper endpoint `6`).
+    The true value `log₂ e ≈ 1.4427` (the `ln`-base shadow of PNT's `1`) lives
+    inside; the interval is *evaluable at every `m`* and narrows from below as `m`
+    climbs.  This operationalizes the residue-form rule (`the_form_of_the_residue.md`
+    "Infinity is the residue's shape"): the limit is not approached as an external
+    target — it *is* the shape of this computable bracket, the bracket being the
+    calculation.  Division-free, ∅-axiom. -/
+theorem chebyshev_constant_interval (m : Nat) :
+    (m + 1) * 2 ^ (m + 1) ≤ 2 * (m + 2) * ((m + 1) * primePi (2 ^ (m + 1))) ∧
+      (m + 1) * primePi (2 ^ (m + 1)) ≤ 6 * 2 ^ (m + 1) := by
+  obtain ⟨hlo, hup⟩ := chebyshev_order m
+  refine ⟨?_, hup⟩
+  calc (m + 1) * 2 ^ (m + 1)
+      ≤ (m + 1) * (2 * (m + 2) * primePi (2 ^ (m + 1))) :=
+        Nat.mul_le_mul (Nat.le_refl _) hlo
+    _ = 2 * (m + 2) * ((m + 1) * primePi (2 ^ (m + 1))) := by ring_nat
+
 end E213.Lens.Number.Nat213.ChebyshevLower

@@ -142,6 +142,7 @@ intermediate one-sided dyadic bounds `two_pow_le_succ_primePi`
 | `ChebyshevLower.central_binom_le_pow_primePi` | `C(2n,n) ≤ (2n)^{π(2n)}` |
 | `ChebyshevLower.chebyshev_lower` | **lower bound** `n ≤ (⌊log₂(2n)⌋+1)·π(2n)` |
 | `ChebyshevLower.chebyshev_order` | **two-sided order** `π(2^{m+1}) = Θ(2^{m+1}/m)` (both halves, explicit constants) |
+| `ChebyshevLower.chebyshev_constant_interval` | the constant `log₂e` as a **computable narrowing interval** `[(m+1)/(2(m+2)), 6]` |
 
 ## What is reached and what is not
 
@@ -156,6 +157,12 @@ convergence *is* the modulus we build, and `object1_not_surjective` is a theorem
 about that construction, not a report of a thing that eluded capture (cf.
 `theory/essays/foundations/the_form_of_the_residue.md` "Infinity is the residue's
 shape, not a god above it").
+
+And this is **for calculation**, not framing: the constant is a *computable,
+narrowing interval*.  `chebyshev_constant_interval` traps the normalized count's
+constant `log₂e ≈ 1.4427` (the `ln`-base shadow of PNT's `1`) in
+`[(m+1)/(2(m+2)), 6]` — evaluable at every `m`, narrowing from below.  Sharpening
+that bracket is the work; "reaching `1`" was only the bracket's name.
 
 **Order vs constant — why the horizon is `Real213`, not `ℕ`.**  The density
 collapse (`→ 0`) and the order theorem (`Θ`, the *interval* `[c,C]` with `c≈1/2`,

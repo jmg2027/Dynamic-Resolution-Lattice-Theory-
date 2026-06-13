@@ -122,6 +122,16 @@ another, "abstract".  They are characterizations in the shape of the residue
 finite forever approximates.  Naming the shape `e`, `π`, or `lim = 1` names the pointing, not
 a place beyond it — the guard "named, never captured" below, stated against deification.
 
+**This is a calculation rule, not only a guard.**  Because the residue arises by the framing,
+every limit/continuum it would invoke comes with a computable finite generator — the modulus,
+the approximant, the bracket — and 213 **computes with that generator as the operand**; the
+limit is never the operand.  A transcendental real is its `AbCutSeq` convergent + modulus
+(`Real213`), not a completed value plugged in.  A "constant at the horizon" is a *computable,
+narrowing interval*: the PNT-direction constant `log₂ e` is trapped in `[(m+1)/(2(m+2)), 6]`
+by `Lens/Number/Nat213/ChebyshevLower.chebyshev_constant_interval` — evaluable at every `m`,
+narrowing from below, ∅-axiom.  Sharpening that bracket *is* the mathematics; "reaching the
+limit" was never a separate computational act, only the bracket's name.
+
 ## Self-standing means self-justified, not bounded
 
 The residue's form does **not** make 213 a *bounded domain* — a boundary would import the
