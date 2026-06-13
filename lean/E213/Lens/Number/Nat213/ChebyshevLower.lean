@@ -299,4 +299,25 @@ theorem chebyshev_lower {n : Nat} (hn : 1 ≤ n) :
   · exact absurd hchain (Nat.not_le.mpr (pow_lt_pow_of_lt (by decide) hlt))
   · exact hge
 
+/-- ★★★ **The Chebyshev defect — the `A`/`B` non-invertibility as one object.**
+    The discrete↔continuous spiral's two phase-1↔3 arrows through the shape `C(2n,n)`
+    do **not** compose to the identity (`simplicial_operation_tower.md` L3‴a):
+
+      * **`A` (support → shape, exact)** guarantees the *lower* end —
+        `2^n ≤ C(2n,n)` (`central_binom_ge_two_pow`, the support's exact product),
+        which forces `n ≤ (⌊log₂(2n)⌋+1)·π(2n)` (`chebyshev_lower`);
+      * **`B` (shape → support, lossy)** gives only the *upper* end —
+        `π(2n) ≤ n` (`primePi_two_mul_le`, the size readout).
+
+    So `π(2n)` is pinned to a **band** `n/(⌊log₂(2n)⌋+1) ≤ π(2n) ≤ n`, and the
+    **defect = the multiplicative gap `(⌊log₂(2n)⌋+1) ≈ log₂(2n)`** between the two
+    ends.  That gap is the irreducible residue-shape — the exact construction and the
+    lossy readout *agree only up to it* (`object1_not_surjective`); shrinking it to a
+    single constant is **PNT**, the open analytic core (not `∅`-axiom-built).  This is
+    `∞`/the-continuous **characterized, not deified**: a finite, two-sided, `∅`-axiom
+    band whose width *is* the prime-counting content. -/
+theorem chebyshev_defect {n : Nat} (hn : 1 ≤ n) :
+    n ≤ (floorLog 2 (2 * n) + 1) * primePi (2 * n) ∧ primePi (2 * n) ≤ n :=
+  ⟨chebyshev_lower hn, E213.Lens.Number.Nat213.MultSystemValue.primePi_two_mul_le n⟩
+
 end E213.Lens.Number.Nat213.ChebyshevLower

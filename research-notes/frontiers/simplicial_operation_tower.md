@@ -410,9 +410,13 @@ counting** — exactly L3′'s "the cone and its value-shadow only agree in the 
 de-deifying view**: there is no pre-existing `∞` both arrows faithfully represent —
 there is an *exact-construct* one way and a *lossy-readout* the other, and the
 irreducible content is precisely their **defect** (the prime-counting / PNT-constant
-gap), not a transcendent infinity.  *Open*: name the defect itself as an `∅`-axiom
-object (the `A`/`B` non-invertibility = the Chebyshev-to-PNT constant gap) — the
-honest residue-shape, end to end.
+gap), not a transcendent infinity.  **The defect is now one `∅`-axiom object**
+(`ChebyshevLower.chebyshev_defect`): `π(2n)` pinned to the band `n/(⌊log₂(2n)⌋+1) ≤
+π(2n) ≤ n` — the lower end from `A` (exact, `2^n ≤ C(2n,n)` → `chebyshev_lower`), the
+upper from `B` (lossy, `primePi_two_mul_le`); the **multiplicative gap `(⌊log₂(2n)⌋+1)`
+is the residue-shape**, the width that is the prime-counting content, finite and
+two-sided.  Shrinking it to one constant is PNT (the open analytic core).  `∞`
+characterized, not deified — a band, not a beyond.
 
 ## L4 — Two readings of one generating set (a calculation cross-section, **not** the rung mechanism)
 
@@ -602,11 +606,12 @@ to test*, not asserted identities.
    `×(1−x)^{−1}`), and the discrete↔continuous spiral + de-deifying reading are pinned
    (L3‴a).  **Reconnaissance done**: the phase-1↔3 arrows are *not* an inverse pair but
    an **exact-construct (A) / lossy-readout (B)** pair through the pivot `C(2n,n)`
-   (= `doubleTotal` value-cut), whose **non-invertibility = prime counting**.  *Open*:
-   (a) a Lean object for the **iterated** finite-difference tower (`Δ^{k+1}` annihilates
-   rung `k+1`); (b) **name the `A`/`B` defect** (the Chebyshev-to-PNT constant gap) as a
-   single `∅`-axiom object — the honest residue-shape; (c) the **`ζ`-tower** — `^`'s
-   shape as a `ζ`-of-`ζ` iterate, pinned against `ChebyshevLower`/`primeDensityToZero`.
+   (= `doubleTotal` value-cut), whose **non-invertibility = prime counting**, **named as one `∅`-axiom object**
+   (`ChebyshevLower.chebyshev_defect`: the band `n/(⌊log₂(2n)⌋+1) ≤ π(2n) ≤ n`, the gap =
+   the residue-shape).  *Open*: (a) a Lean object for the **iterated** finite-difference
+   tower (`Δ^{k+1}` annihilates rung `k+1`); (b) the **`ζ`-tower** — `^`'s shape as a
+   `ζ`-of-`ζ` iterate, pinned against `ChebyshevLower`/`primeDensityToZero`; (c) closing
+   the band's width to a constant *is* PNT (the open analytic core).
 
 ## Anchors
 
