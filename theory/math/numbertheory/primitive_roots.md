@@ -166,12 +166,23 @@ EveryOrdDvdMax → PrimitiveRoot → ZolotarevReduction → ZolotarevCycle`.  Th
 Zolotarev converse it establishes is also closed independently by the
 symmetric-cross-count route of `zolotarev.md`.
 
+## Discrete-log readout of the quadratic character
+
+The `(ℤ/p)*`-cyclic infrastructure pays off again in
+`ModArith/DiscreteLogParity.lean`: the Legendre symbol is the **parity of the
+discrete logarithm**.  For a primitive root `g`, `QR(g^k % p) ⟺ 2 ∣ k`
+(`qr_pow_iff_even_exp`) — even orbit-position ⟺ square — via Euler's criterion
+and `g^j ≡ 1 ⟺ ord g ∣ j` (`pow_one_iff_ord_dvd`, the `ord_dvd` of this chapter
+plus its converse `pow_dvd_one`).  Because the powers `g⁰,…,g^{p−2}` exhaust the
+units (`tau_mem_perms` ⇒ `dlog_exists`), every unit has a discrete log, giving
+`qr_iff_even_dlog`: `∃ k, a = g^k % p ∧ (QR(a) ⟺ 2 ∣ k)`.  Narrative:
+`theory/essays/synthesis/the_quadratic_character_is_a_discrete_log_parity.md`.
+
 ## Open frontier
 
-None for cyclicity or the classical Zolotarev route (both closed, all odd
-primes).  The `(ℤ/p)*`-cyclic infrastructure (order arithmetic, primitive
-roots) is reusable for any later discrete-log / character-sum direction; no
-such direction is currently an active frontier.
+None for cyclicity, the classical Zolotarev route, or the discrete-log parity
+(all closed, all odd primes).  The `(ℤ/p)*`-cyclic infrastructure (order
+arithmetic, primitive roots) is reusable for any later character-sum direction.
 
 ## How to verify
 
