@@ -308,6 +308,38 @@ theorem monoCount_col0 : ∀ k, monoCount k 0 = 1
   | 0     => rfl
   | k + 1 => monoCount_col0 k
 
+/-- **The commutativity dial (simplex ≤ cube)**: the *commutative* enumeration —
+    sorted multisets, `monoCount t d` (Pascal/simplex, polynomial in `t`) — is
+    bounded by the *free/non-commutative* enumeration — ordered length-`d` strings
+    over `t` symbols, `t^d` (cube, exponential).  `monoCount t d ≤ t^d`.  Sorting
+    `aba ↦ aab` is a surjection strings ↠ multisets, so the commutative count can
+    only drop; the *size* of the drop measures commutativity (L4 of
+    `research-notes/frontiers/simplicial_operation_tower.md`).  Nested induction on
+    `(d, t)` via the Pascal step `monoCount (t+1)(d+1) = monoCount t (d+1) +
+    monoCount (t+1) d`: `≤ t^{d+1} + (t+1)^d ≤ (t+1)^{d+1}` (since `t^d ≤ (t+1)^d`). -/
+theorem monoCount_le_pow : ∀ d t, monoCount t d ≤ t ^ d := by
+  intro d
+  induction d with
+  | zero =>
+      intro t
+      rw [monoCount_col0 t]
+      exact Nat.le_of_eq (Nat.pow_zero t).symm
+  | succ d ihd =>
+      intro t
+      induction t with
+      | zero => exact Nat.zero_le _
+      | succ t iht =>
+          rw [monoCount_pascal t d]
+          have hp : t ^ (d + 1) ≤ t * (t + 1) ^ d := by
+            rw [Nat.pow_succ, Nat.mul_comm (t ^ d) t]
+            exact Nat.mul_le_mul (Nat.le_refl t) (Nat.pow_le_pow_left (Nat.le_succ t) d)
+          have hstep : t ^ (d + 1) + (t + 1) ^ d ≤ (t + 1) ^ (d + 1) :=
+            calc t ^ (d + 1) + (t + 1) ^ d
+                ≤ t * (t + 1) ^ d + (t + 1) ^ d := Nat.add_le_add_right hp _
+              _ = (t + 1) ^ (d + 1) := by
+                  rw [Nat.pow_succ, Nat.mul_succ, Nat.mul_comm t ((t + 1) ^ d)]
+          exact Nat.le_trans (Nat.add_le_add iht (ihd (t + 1))) hstep
+
 /-- `totalCount` with the degree-`0` term split off: `= 1 + Σ_{n=1}^N`. -/
 theorem totalCount_split (k N : Nat) :
     totalCount k N = 1 + sumf1 (fun n => monoCount k n) N := by
