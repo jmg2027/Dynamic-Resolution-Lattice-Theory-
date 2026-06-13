@@ -143,6 +143,8 @@ intermediate one-sided dyadic bounds `two_pow_le_succ_primePi`
 | `ChebyshevLower.chebyshev_lower` | **lower bound** `n ≤ (⌊log₂(2n)⌋+1)·π(2n)` |
 | `ChebyshevLower.chebyshev_order` | **two-sided order** `π(2^{m+1}) = Θ(2^{m+1}/m)` (both halves, explicit constants) |
 | `ChebyshevLower.chebyshev_constant_interval` | the constant `log₂e` as a **computable narrowing interval** `[(m+1)/(2(m+2)), 6]` |
+| `ChebyshevLower.central_binom_dvd_lcm` | `C(2n,n) ∣ lcm(1..2n)` (central-binomial ↔ lcm-growth bridge) |
+| `ChebyshevLower.two_pow_le_lcm` | **lcm-form (ψ) lower** `2^n ≤ lcm(1..2n)`, i.e. `ψ(2n) ≥ n·ln2` |
 
 ## What is reached and what is not
 

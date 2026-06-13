@@ -34,13 +34,14 @@ open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial factoria
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ sumTo_zero)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_add_func sumTo_congr)
 open E213.Lib.Math.NumberTheory.Legendre (legendre)
-open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (sumTo_le_sumTo lcmExpCount_eq_floorLog floorLog)
+open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (sumTo_le_sumTo lcmExpCount_eq_floorLog floorLog lcmUpTo lcmUpTo_pos vp_lcmUpTo)
 open E213.Meta.Nat.FloorLog (floorLog_pow_le lt_pow_floorLog_succ pow_lt_pow_of_lt floorLog_pow_self)
 open E213.Meta.Nat.PowBasic (pow_mul_pure)
+open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Lens.Number.Nat213.MultSystemValue (central_binom_ge_two_pow prime_not_dvd_fact)
 open E213.Meta.Nat.Valuation (pow_vp_dvd)
 open E213.Meta.Nat.VpMul (IsPrime213 vp_pow vp_self_pow)
-open E213.Meta.Nat.VpSeparation (exists_prime_factor vp_eq_zero_of_not_dvd dvd_iff_one_le_vp)
+open E213.Meta.Nat.VpSeparation (exists_prime_factor vp_eq_zero_of_not_dvd dvd_iff_one_le_vp dvd_of_forall_vp_le)
 open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
 open E213.Lens.Number.Nat213.MultSystemValue
   (primePi primeIndicator primeIndicator_eq_one_iff primeIndicator_le_one decPrime)
@@ -368,5 +369,37 @@ theorem chebyshev_constant_interval (m : Nat) :
       ≤ (m + 1) * (2 * (m + 2) * primePi (2 ^ (m + 1))) :=
         Nat.mul_le_mul (Nat.le_refl _) hlo
     _ = 2 * (m + 2) * ((m + 1) * primePi (2 ^ (m + 1))) := by ring_nat
+
+/-! ## The lcm-form (ψ) lower bound — cross-link to the lcm-growth route
+
+The same central-binomial machinery that gave the `π`-form lower bound also lands
+the **`ψ`-form** (`ψ(N) = ln·lcm(1..N)`), the cleanest PNT shape: every prime power
+`p^{vp_p C(2n,n)} ≤ 2n` (`vp_central_binom_le_floorLog`) so `vp_p C(2n,n) ≤
+⌊log_p 2n⌋ = vp_p(lcm(1..2n))` (`vp_lcmUpTo` + `lcmExpCount_eq_floorLog`), hence
+`C(2n,n) ∣ lcm(1..2n)` (`dvd_of_forall_vp_le`).  This is the concrete (c)
+cross-link to `LcmGrowthChebyshev`, whose 30-block gives the matching *upper*
+`lcm(1..N) ≤ C·base^N` (base `≈ 3.16`). -/
+
+/-- **`C(2n,n) ∣ lcm(1..2n)`** (`n ≥ 1`) — the central binomial divides the lcm of
+    its range: at every prime `q`, `vp_q C(2n,n) ≤ ⌊log_q 2n⌋ = vp_q(lcm(1..2n))`.
+    The bridge from the central-binomial route (`Lens/`) to the lcm-growth route
+    (`Lib/Math/NumberTheory/LcmGrowthChebyshev`). -/
+theorem central_binom_dvd_lcm {n : Nat} (hn : 1 ≤ n) :
+    binom (2 * n) n ∣ lcmUpTo (2 * n) := by
+  have h2n : 1 ≤ 2 * n := Nat.le_trans hn (by rw [Nat.two_mul]; exact Nat.le_add_left n n)
+  refine dvd_of_forall_vp_le (central_binom_pos n) (lcmUpTo_pos _) (fun q hq => ?_)
+  rw [vp_lcmUpTo hq (2 * n), lcmExpCount_eq_floorLog hq.1 h2n]
+  exact vp_central_binom_le_floorLog hq hn
+
+/-- **`2^n ≤ lcm(1..2n)`** (`n ≥ 1`) — the lcm-form (`ψ`) lower bound.  `C(2n,n) ∣
+    lcm(1..2n)` (`central_binom_dvd_lcm`) and `2^n ≤ C(2n,n)`
+    (`central_binom_ge_two_pow`).  Equivalently `ψ(2n) = ln·lcm(1..2n) ≥ n·ln2`, a
+    linear lower bound on Chebyshev's `ψ` — the lcm-form companion of
+    `chebyshev_order`, and a computable base-`√2` lower for the `lcm ~ eᴺ` constant
+    (the sharper base-`2` is the max-binomial sharpening; the upper base `≈ 3.16` is
+    `LcmGrowthChebyshev`'s 30-block). -/
+theorem two_pow_le_lcm {n : Nat} (hn : 1 ≤ n) : 2 ^ n ≤ lcmUpTo (2 * n) :=
+  Nat.le_trans (central_binom_ge_two_pow n)
+    (le_of_dvd_pos _ _ (lcmUpTo_pos _) (central_binom_dvd_lcm hn))
 
 end E213.Lens.Number.Nat213.ChebyshevLower

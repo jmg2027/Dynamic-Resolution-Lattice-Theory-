@@ -170,7 +170,13 @@ interval*, not a deified point — `ChebyshevLower.chebyshev_constant_interval` 
 below.  Sharpening that bracket (e.g. via the lcm 30-block upper `base ≤ 31.62^{1/3}
 ≈ 3.16` and a matching lower) is the concrete next computation — the limit is the
 bracket's shape, computed, not approached.
-(c) connect `primeDensityToZero`'s modulus to the lcm-growth route
-(`LcmGrowthChebyshev`) for a cross-check — now doubly motivated: `lcm(1..N) ~ eᴺ` is
-PNT's `ψ`-form.  Loose secondary: tie `factorization_bounded`'s prime-list length to
-`primePi`.
+(c) connect the central-binomial route to the lcm-growth route
+(`LcmGrowthChebyshev`) — **started**: `central_binom_dvd_lcm` (`C(2n,n) ∣
+lcm(1..2n)`, via `dvd_of_forall_vp_le` + `vp_lcmUpTo`) ⟹ `two_pow_le_lcm` (`2^n ≤
+lcm(1..2n)`, the `ψ`-form lower `ψ(2n) ≥ n·ln2`, computable base-`√2` lower for
+`lcm ~ eᴺ`).  **Next sharpening of the constant interval**: (i) base-`2` lower via
+the max-binomial `4^n ≤ (2n+1)·C(2n,n)` (`C(2n,n) ≥ 4^n/(2n+1)`); (ii) the matching
+*upper* base `≈ 3.16` by unwinding `LcmGrowthChebyshev`'s 30-block recurrence
+(`step4`, `alpha30`) to a closed `lcm(1..N) ≤ C·base^N` — together trapping `e` in a
+computable `[2, 3.16]`.  Loose secondary: tie `factorization_bounded`'s prime-list
+length to `primePi`.
