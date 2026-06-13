@@ -168,7 +168,7 @@ hold); its ∅-axiom construction costs exactly the classical Apéry arithmetic
 **The smallness law is a stratification — `W` against `d`, layer by layer.**  Making
 the smallness condition the primitive object turns completeness into a comparison of
 two tower-internal growth axes, read at every layer
-(`Real213/RateStratification.lean`).  Write `Dominates W d i` for "the
+(`Real213/Modulus/RateStratification.lean`).  Write `Dominates W d i` for "the
 cross-determinant stays below the denominator's growth quantum at layer `i`":
 `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`.  Then
 

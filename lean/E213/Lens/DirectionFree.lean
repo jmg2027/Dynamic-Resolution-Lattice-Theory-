@@ -11,7 +11,7 @@ orientation-dependent reading, whose combine is non-symmetric on its image, is *
 it lives on the oriented free monoid above the residue.
 
 This is the foundation behind the slope/size asymmetry of the Markov tree
-(`Real213/SternBrocotMarkov` §31): the mediant (slope) combine is commutative, so the slope reading is
+(`Real213/Markov/SternBrocotMarkov` §31): the mediant (slope) combine is commutative, so the slope reading is
 a genuine Raw-`Lens`; the Markov size combine is the non-commutative matrix product, so it is not, and
 the size reading lives one structural level above the direction-free residue.
 -/

@@ -86,7 +86,7 @@ Raw floor.
 The unit by which they move is one: the convergence step and the escape surplus are the
 *same* `Nat` `1` (`Cauchy/ReentryUnit.peel_overflow_is_unit`); the oscillation and the golden
 orbit share the unimodular multiplier `q = ±1` (`CassiniUnimodular.cassini_unimodular_dichotomy`,
-`Real213/SpiralRotationInvariant.Q_iterate_preserved`).  The unit is the residue's invariant;
+`Real213/Spiral/SpiralRotationInvariant.Q_iterate_preserved`).  The unit is the residue's invariant;
 the three fates are what it does next.
 
 ## Infinity is the residue's shape, not a god above it

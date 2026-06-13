@@ -87,7 +87,7 @@ theorem); #4 (cohomology δ over the ω primes) is the one *local* object that i
 and so might evade the locality obstruction — flagged as the speculative exception.
 
 ### Pointers
-- forced tower (maximal reduction): `Real213/SternBrocotMarkov` §20–§26 (`windowRealizedUnique_of_orbit`,
+- forced tower (maximal reduction): `Real213/Markov/SternBrocotMarkov` §20–§26 (`windowRealizedUnique_of_orbit`,
   `markov_max_unique_of_orbit`, `window_excludes_partner`, `root_orbit_inj`)
 - new case: `markov_max_unique_985_via_orbit` (and `markov_max_unique_1325_via_orbit`)
 - companions: `G193` (axiom attack map), `G192` (Raw/Lens boundary), `G191` (continuant program)

@@ -25,7 +25,7 @@ So the temptation is overwhelming: **213 contains the imaginary quadratic fields
 curve.** And one can make the temptation rigorous — every identity above is `∅`-axiom provable in
 Lean. The orders are real (`ImaginaryQuadraticUnitTrichotomy.imaginary_quadratic_unit_trichotomy`),
 the determinant law is real (`CassiniUnimodular.det_step`), the modular generator orders are real
-(`Real213.ModularElliptic.modular_generator_orders`).
+(`Real213.ModularGeometry.ModularElliptic.modular_generator_orders`).
 
 ## 1.2 Why the temptation must be resisted
 

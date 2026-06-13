@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
 import E213.Lib.Math.Cohomology.BipartiteStermBrocotClassification
 import E213.Lib.Math.Combinatorics.Binomial
 import E213.Lib.Physics.Simplex.Counts
@@ -70,7 +70,7 @@ namespace E213.Lib.Math.Cohomology.MediantCohomologyFunctor
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Combinatorics.Binomial
   (binom_n_0 binom_n_1 binom_succ_2 add_mul_pure binom_add_2)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
   (SternBrocotReachable reachable_1_1 reachable_3_2 reachable_of_pos)
 
 /-! ## §1 — Cell-count functions for `K_{NS, NT}^{(c)}`

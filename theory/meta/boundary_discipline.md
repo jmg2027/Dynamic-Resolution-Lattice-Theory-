@@ -148,7 +148,7 @@ discovered phenomena as one face:
 - **process scale** — the residue is invariant under the run:
   `Real213.PresentationDependence.rcut_rescale` (the real is rescaling-invariant;
   modulus / holonomicity / certificate-depth are of the *pointing*),
-  `Real213.ModulusComposition.reschedule_limit_eq` (rescheduling does not move
+  `Real213.Modulus.ModulusComposition.reschedule_limit_eq` (rescheduling does not move
   the limit), `Theory.Raw.Async.level3_diverges` (the run is underdetermined past
   the first composite; the order is invariant), `HyperLadder` (the count is the
   clock — a view, not the tower).

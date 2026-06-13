@@ -1,22 +1,58 @@
 # Real213 — Module Index
 
-213-native real-number type via Dedekind cut.  172 files: 103 top-level + 69 in
-6 sub-clusters.
+213-native real-number type via Dedekind cut.  185 files: 13 top-level + 172 in
+20 sub-clusters.
+
+Path = namespace: each module's namespace carries its cluster segment (e.g.
+`…Real213.Phi.PhiCut`); cross-cluster references resolve via a cluster-parent
+`open` (e.g. `open …Real213.Mobius`).
 
 ## Sub-clusters
 
+Foundation / cut algebra:
+
 | Dir | Files | Topic |
 |---|---|---|
-| `Core/` | 11 | type + Equiv + ValidCut + Dyadic + Functions + Poset |
-| `Sum/` | 14 | cutSum + signedSum family |
+| `Core/` | 12 | type + Equiv + ValidCut + Dyadic + Functions + Poset |
+| `Sum/` | 16 | cutSum + signedSum family + assoc (B3, Int) |
 | `Mul/` | 18 | cutMul/Inv/Pow/Poly + ConstCutScale + CutBinary/Double/Distance |
 | `Lattice/` | 5 | cutMax/Min/Mid + LatticeEq + ScaleLattice |
 | `Bisection/` | 3 | bisection + continuity (CutBisection{,Algo}, CutContinuity) |
-| `ExpLog/` | 18 | CutExp/Log series + ODE + Geom* (Cauchy convergence) + EulerCut (e) / PiCut (π) + PiMeasureModulus |
+| `Calculus/` | 3 | cut integration (CutIntegral{,Linearity}) + DiffCutModulus |
+| `ExpLog/` | 28 | CutExp/Log series + ODE + Geom* + EulerCut (e) / PiCut (π) + Lambert |
 
-## Top-level
+Specific reals / dynamics:
+
+| Dir | Files | Topic |
+|---|---|---|
+| `Phi/` | 14 | golden ratio φ as cut, Fibonacci, Zeckendorf, Pell, Pentagon |
+| `Markov/` | 9 | Markov spectrum/triple/uniqueness + Cassini/SternBrocot/Continuant bridges |
+| `Mobius/` | 10 | Möbius transforms on cuts, Stern–Brocot, setoid, Pell invariant |
+| `Minkowski/` | 7 | Minkowski `?`, modular symbols, period integrals/polynomials |
+| `ModularGeometry/` | 12 | elliptic/hyperbolic/parabolic traces, geodesic lens, holonomy, finite-order spectrum, Lagrange extremes |
+| `Mat2/` | 3 | 2×2 matrix algebra (assoc, Cayley–Hamilton, trace recurrence) |
+| `ProbeTwist/` | 3 | probe-twist dynamics, conic, fixed point |
+| `Spiral/` | 4 | spiral coordinate/layer/rotation invariant + scaling orbit |
+
+Approximation / completeness:
+
+| Dir | Files | Topic |
+|---|---|---|
+| `ValidCut/` | 7 | rational instances (½, ⅓, ⅕, ℤ, ℕ, ℕ-mul) + framework |
+| `CrossDet/` | 4 | cross-determinant overtake / const-denom / eq-denom / trace-field |
+| `ContinuedFraction/` | 3 | continuant + continued-fraction floor / modulus |
+| `Modulus/` | 5 | convergence-rate moduli (bracket, Liouville, rate, stratification, composition) |
+| `Completability/` | 6 | completability grade, intensional/refined/tower completion, geometric threshold |
+
+## Module notes (by topic)
 
 `Real213.lean` — umbrella aggregator.
+
+The thematic notes below correspond to the directories in the table above
+(13 modules stay at the top level: `AbCutSeq`, `ChainToCut`, `CubeRootTwoCut`,
+`FloorReferenceForm`, `HolonomicReal`, `NuEscape`,
+`ObjectIsReadingScaleInvariant`, `OdometerSternBrocotUnit`, `OracleContinuity`,
+`PresentationDependence`, `ReciprocalSeries`, `Zeta3Apery`, `Zeta3Cut`).
 
 **Named-constant cuts via `AbCutSeq`**:
   - `AbCutSeq.lean` — ★ every monotone-bounded ab-sequence is a `Real213` cut

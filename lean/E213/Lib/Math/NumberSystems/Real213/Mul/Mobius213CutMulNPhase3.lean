@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulN
-import E213.Lib.Math.NumberSystems.Real213.Mobius213CDTensor
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213CDTensor
 import E213.Meta.Tactic.NatHelper
 
 /-!

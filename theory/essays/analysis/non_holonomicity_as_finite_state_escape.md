@@ -337,7 +337,7 @@ eventually-monotone bridge, the popcount ring-escape, and the ∅-axiom `Int` or
 characterization); `Cauchy/CFiniteHomogRec` (C-finite ⊆ P-recursive: `order2/order3_homogRec`,
 `trib_homogRec`); `Cauchy/{CassiniDepthFloor, SecondCasoratian, PolynomialDepth}` (the Casoratian
 order-detector and the depth ring); `Cauchy/EllipticPeriodicTier` +
-`Real213/HyperbolicEllipticTrace` (the order-2 companion discriminant `p²−4q` = the φ/π
+`Real213/ModularGeometry/HyperbolicEllipticTrace` (the order-2 companion discriminant `p²−4q` = the φ/π
 hyperbolic/elliptic split = periodic-floor-vs-growing dial);
 `Theory/Raw/{CoResidue, StateMachine}` (the foundational residue-as-machine);
 `Cauchy/{NewtonGregory, FiniteDepthAlgebra, PolynomialDepth, DepthCharacterization}` (the

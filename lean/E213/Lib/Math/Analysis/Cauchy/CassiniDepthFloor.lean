@@ -173,7 +173,7 @@ order-`k` → genus `k−1` — is **wrong, a stereotype-match, not a conjecture
   * **the shift is the Pell *unit* group, not the modular group.**  The `q=1` shift is a single
     *hyperbolic* element of `SL₂(ℤ)` generating the rank-1 Pell unit group `⟨ε⟩ ≅ ℤ×ℤ/2` (the
     conic's automorphisms) — **not** the rank-2 free-product modular group `PSL₂(ℤ)=ℤ/2*ℤ/3`
-    (`Real213.ModularElliptic`, whose generators are the *elliptic* `S, U` of finite order, which
+    (`Real213.ModularGeometry.ModularElliptic`, whose generators are the *elliptic* `S, U` of finite order, which
     the hyperbolic shift is not).  They share the ambient `SL₂(ℤ)`; they are different groups.
   * **Apéry/ζ(3) is a different category.**  The Apéry recurrence is order-2 **holonomic**
     (polynomial-coefficient), not order-3 const-coeff; Beukers' modularity is a **K3-surface /

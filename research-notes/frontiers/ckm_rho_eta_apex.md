@@ -160,7 +160,7 @@ the physical `η̄ ≈ 0.356` is `F₄ = NS` dressed by the λ-hierarchy and the
 **The apex's spiral home (`SpanAreas` §4).** The apex convergent orbit sits on
 the conserved **golden-norm hyperbola** `Q(m,k) = m²−m·k−k² = −1` (the `ℤ[φ]`
 norm, discriminant `d = 5`) — the rotation invariant of the 213 P-spiral
-(`Real213.SpiralRotationInvariant.Q_iterate_preserved`, conserved at every
+(`Real213.Spiral.SpiralRotationInvariant.Q_iterate_preserved`, conserved at every
 turn). So the apex `z = r·e^{iπr}` is a point on the **self-reference P-spiral**,
 whose `π` (half-period rotation, `M⁵ = −I`) is 213's own `PiCut` `π` and whose
 golden-norm discriminant `5 = d` is the same `d` placing `M` in `SL(2,𝔽₅) ≅ 2I`.

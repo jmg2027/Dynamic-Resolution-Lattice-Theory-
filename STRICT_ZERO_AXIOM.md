@@ -489,7 +489,7 @@ the antichain cap swapped for the cross-intersection cap.  Essay:
 
 ### Markov composite uniqueness: prime-power-neighbour families addition (2026-06-04)
 
-`E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness` + `…SternBrocotMarkov` +
+`E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness` + `…SternBrocotMarkov` +
 `E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor` — **all PURE / 0 DIRTY**.  Composite Markov
 uniqueness (`MarkovMaxUnique c`) closed unconditionally for two further infinite families beyond Button's
 odd prime powers: the **even `2·pᵏ`** family (`markov_two_prime_pow_unique`, via CRT recombination
@@ -1025,7 +1025,7 @@ Forman + a discrete Ricci-flow step driven to its normalized fixed point via `fl
 The cross-determinant's number-field reading, promoted to
 `theory/math/numbertheory/eisenstein_period_arithmetic.md` — **38 PURE / 0 DIRTY** across:
 
-- `Real213.CrossDetTraceField` (**20 PURE**) — `fixForm_disc_eq_traceDisc`: the fixed-point
+- `Real213.CrossDet.CrossDetTraceField` (**20 PURE**) — `fixForm_disc_eq_traceDisc`: the fixed-point
   form `(c, d−a, −b)` of a Möbius `M` has discriminant `tr²−4` (ring identity, ∀ `M`);
   `crossdet_number_field_is_trace_field` (golden `+5` / cusp `0` / Eisenstein `−3` faces);
   `fixForm_automorph` (monodromy preserves its form up to `det`); `disc_sign_is_line_cusp_curve`.
@@ -1285,7 +1285,7 @@ bundles the full `ℤ/2 × ℤ/2` table (each involutive + the three pairwise pr
 multiplicative fold, and their antipode product exhaust the involutive symmetries of the hole/unit
 fixture.  All by `rfl` / `decide`.
 
-`E213.Lib.Math.NumberSystems.Real213.FoldReflections` — **11 PURE**.  The matrix witness of `FoldKlein`: the two
+`E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FoldReflections` — **11 PURE**.  The matrix witness of `FoldKlein`: the two
 folds are the integer matrices `N = [[−1,0],[0,1]]` (negation) and `R = [[0,1],[1,0]]` (reciprocal),
 both **involutive reflections** (`N_involutive`, `R_involutive`; `N_det = R_det = −1`), and their
 product is the founding elliptic swap `N · R = S` (`negation_recip_eq_swap`, `ModularElliptic.S`,
@@ -1295,7 +1295,7 @@ halving to projective order `2`; the folds commute only projectively (`recip_neg
 `two_reflections_compose_to_founding_swap`.  All by `decide`.  Closes the cross-frame link
 `FoldKlein` left narrative.
 
-`E213.Lib.Math.NumberSystems.Real213.EllipticCycleFixtures` — **7 PURE**.  The two elliptic generators of
+`E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticCycleFixtures` — **7 PURE**.  The two elliptic generators of
 `PSL(2,ℤ) = ℤ₂ * ℤ₃` as cyclic fixtures.  `S` (the folds' product, `FoldReflections`) has projective
 order 2 (`S_proj_order_2`, `S² = −I`) — the 영무한대 swap.  `U = [[0,−1],[1,1]]` has projective
 order 3 (`U_proj_order_3`, `U³ = −I`): its Möbius action `z ↦ −1/(z+1)` is a fixed-point-free
@@ -1304,7 +1304,7 @@ order 3 (`U_proj_order_3`, `U³ = −I`): its Möbius action `z ↦ −1/(z+1)` 
 orders `2, 3` are the free factors of the modular group; the matrix orders `4, 6` reduce through the
 central `−I`.  All by `rfl` / `decide`.
 
-`E213.Lib.Math.NumberSystems.Real213.HyperbolicBoost` — **11 PURE**.  The hyperbolic face of "product of two
+`E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicBoost` — **11 PURE**.  The hyperbolic face of "product of two
 reflections": the golden iterator `G = [[2,1],[1,1]]` (φ's Möbius map, `det = 1`) factors as
 `A · B` (`golden_boost_eq`) with `A = [[1,0],[−1,−1]]`, `B = [[2,1],[−3,−2]]` both involutive
 reflections (`A_involutive`, `B_involutive`; `A_det = B_det = −1`).  `G` is **hyperbolic**
@@ -1314,7 +1314,7 @@ periodic floor), the boost to the elliptic `S = N·R`'s rotation (`FoldReflectio
 `|trace|` against `2` selects rotation (elliptic, periodic) vs boost (hyperbolic, aperiodic) — the
 same `tr²−4` dial.  All by `decide`.
 
-`E213.Lib.Math.NumberSystems.Real213.ParabolicTranslation` — **10 PURE**.  Completes the trichotomy's third face:
+`E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ParabolicTranslation` — **10 PURE**.  Completes the trichotomy's third face:
 the parabolic translation `T = [[1,1],[0,1]]` (`det = 1`, `trace = 2`, `disc = 0`, `T_parabolic`)
 factors as `Aₚ · Bₚ` (`parabolic_translation_eq`) with `Aₚ = [[1,0],[0,−1]]`, `Bₚ = [[1,1],[0,−1]]`
 both involutive reflections in **parallel** mirrors.  Capstone `sl2_trichotomy_as_two_reflections`:
@@ -1323,7 +1323,7 @@ selecting the face: elliptic `S = N·R` (`disc = −4`, rotation), parabolic `T 
 translation, the difference-Lens depth-1 rung), hyperbolic `G = A·B` (`disc = 5`, boost).  All by
 `decide`.
 
-`E213.Lib.Math.NumberSystems.Real213.Mat2CayleyHamilton` — **4 PURE**.  The root of the dial:
+`E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2CayleyHamilton` — **4 PURE**.  The root of the dial:
 `cayley_hamilton` — every `Mat2` satisfies `M² = tr(M)·M − det(M)·I` (`= charComb`), proved
 **generally** by `ring_intZ` (not `decide`).  `char_poly_discriminant`: `disc = tr²−4·det` is the
 discriminant of the characteristic quadratic `λ² − tr·λ + det`; `dial_is_char_discriminant` bundles
@@ -1331,13 +1331,13 @@ the two — Cayley–Hamilton is the primitive, the elliptic/parabolic/hyperboli
 of its discriminant.  (`S²=−I`, `U²=U−I`, `T²=2T−I`, `G²=3G−I` are the `(tr,det)` specializations.)
 Proved propext-free via `show` + entry `rw` (`Mat2.mk.injEq` / `simp` pulls `propext`).
 
-`E213.Lib.Math.NumberSystems.Real213.Mat2Assoc` — **1 PURE**.  `mul_assoc` — `Mat2` multiplication is associative,
+`E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc` — **1 PURE**.  `mul_assoc` — `Mat2` multiplication is associative,
 `(M·N)·P = M·(N·P)`, proved **generally** by `ring_intZ` (propext-free, `show` + entry `rw`).  The
 monoid law the dial's readings presuppose: with `I2` it makes `Mⁿ` well-defined and the
 Cayley–Hamilton trace recurrence `tr(Mⁿ⁺¹) = tr·tr(Mⁿ) − det·tr(Mⁿ⁻¹)` available — the bridge from
 the static dial to iteration dynamics (elliptic orders, hyperbolic growth).
 
-`E213.Lib.Math.NumberSystems.Real213.Mat2TraceRecurrence` — **5 PURE**.  The trace recurrence, Cayley–Hamilton
+`E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence` — **5 PURE**.  The trace recurrence, Cayley–Hamilton
 iterated: `trace_recurrence` — `tr(Mⁿ⁺²) = tr(M)·tr(Mⁿ⁺¹) − det(M)·tr(Mⁿ)` (via `mul_assoc` +
 `cayley_hamilton` + `tr_mul_charComb`).  The matrix powers' traces are a constant-coefficient
 recurrence whose characteristic discriminant is the dial `disc = tr²−4·det` — the trichotomy made
@@ -1346,7 +1346,7 @@ dynamic (elliptic bounded/periodic, hyperbolic growing).  Golden boost: `golden_
 strictly increasing, so `G` is aperiodic — the hyperbolic infinite order, dynamic shadow of
 `disc = 5 > 0`).  `pow` matrix power; `tr_mul_charComb` trace-linearity over the CH combination.
 
-`E213.Lib.Math.NumberSystems.Real213.HolonomyLattice` — **25 PURE / 0 DIRTY**.  Holonomy of a loop of
+`E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice` — **25 PURE / 0 DIRTY**.  Holonomy of a loop of
 state-transitions: `holonomy : List Mat2 → Mat2`, the ordered fold-product of a path — the §6.6
 collapse (state-transition = state) made computational, since a loop of *transitions* composes to a
 *state* of the same kind (the modular/Möbius matrix is the representation in which the two readings
@@ -1364,21 +1364,21 @@ holonomy is the residue-internal signature of the fold ℕ⁺ → ℤ (the sign-
 `pos_mul_{L,R}`, `entrySum_{mul_L,mul_R,lt_L,lt_R,ge_two}`, `holonomy_pos`.  Builds on
 `HyperbolicEllipticTrace` (`Mat2`) + `Mat2Assoc` (`mul_assoc`) + `Int213.Order`.
 
-`E213.Lib.Math.NumberSystems.Real213.GoldenAperiodic` — **3 PURE**.  The hyperbolic infinite order made a theorem:
+`E213.Lib.Math.NumberSystems.Real213.Phi.GoldenAperiodic` — **3 PURE**.  The hyperbolic infinite order made a theorem:
 `golden_trace_mono` (the Lucas trace is monotone above `2` — `2 ≤ tr(Gⁿ) < tr(Gⁿ⁺¹)`, induction on
 the recurrence with the `Int213.Order` inequalities), `golden_trace_gt_two` (`tr(Gⁿ⁺¹) > 2 = tr I`),
 and ★ `golden_aperiodic` (`Gⁿ⁺¹ ≠ I` for every `n` — the trace exceeds `tr I`, so `G` never returns).
 The golden boost has **infinite order**, the dynamic signature of `disc = 5 > 0` (contrast the
 elliptic `S⁴ = I`, `U⁶ = I`); φ's iterator never comes back.
 
-`E213.Lib.Math.NumberSystems.Real213.EllipticTracePeriodic` — **4 PURE**.  The mirror of `GoldenAperiodic`: the
+`E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticTracePeriodic` — **4 PURE**.  The mirror of `GoldenAperiodic`: the
 elliptic trace recurrence collapses to `tr(Sⁿ⁺²) = − tr(Sⁿ)` (`S_trace_recurrence`, `tr S = 0`,
 `det S = 1`), so the trace is **period 4** (`S_trace_period4`) and **bounded**, cycling `2, 0, −2, 0`
 (`S_trace_seed`).  Boundedness is the `disc < 0` elliptic signature, opposite the `disc > 0`
 hyperbolic unbounded Lucas growth.  Capstone `elliptic_trace_periodic`.  (Local ∅-axiom `nneg`
 `− −x = x`; `zero_mul` / `one_mulZ` / `Order.zero_sub` collapse the recurrence.)
 
-`E213.Lib.Math.NumberSystems.Real213.UTracePeriodic` — **5 PURE**.  The second elliptic generator `U` (`tr 1`,
+`E213.Lib.Math.NumberSystems.Real213.ModularGeometry.UTracePeriodic` — **5 PURE**.  The second elliptic generator `U` (`tr 1`,
 `det 1`, `disc = −3`) carries the period-6 trace: `U_trace_recurrence` (`tr(Uⁿ⁺²) = tr(Uⁿ⁺¹) −
 tr(Uⁿ)`) → `U_trace_step3` (`tr(Uⁿ⁺³) = −tr(Uⁿ)`) → `U_trace_period6` (period 6), cycling
 `2,1,−1,−2,−1,1` (`U_trace_seed`).  Capstone `elliptic_orders_four_and_six`: `S` (period 4,
@@ -1392,7 +1392,7 @@ self-similarity, witness unification `isPow2_eq_s2_one`, the continued fraction 
 
 ### Real-number stratification addition (2026-06-01)
 
-`E213.Lib.Math.NumberSystems.Real213.RateStratification` — **28 PURE / 0 DIRTY**.
+`E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification` — **28 PURE / 0 DIRTY**.
 The constructed-modulus generator's smallness law made a layer-by-layer
 **W-vs-d comparison**, graded by probe schedule: `DominatesS W d ρ i` (the
 ladder note's `Dominates_s`; `Dominates` is the `ρ = id` instance),
@@ -1423,7 +1423,7 @@ comparisons.  The forward additive-cancel used the PURE
 propext-dirty); the floor polynomial identity is discharged by the
 `Meta.Nat.PolyNat` reflection ring.
 
-`E213.Lib.Math.NumberSystems.Real213.RateModulus` — **11 PURE / 0 DIRTY**.  ★★★
+`E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus` — **11 PURE / 0 DIRTY**.  ★★★
 **The graded rate generator** (modulus-degree ladder rung 1).  The margin
 telescope is parametrized by a probe schedule `ρ`: `HtelS a d ρ` (the margin
 `e_i + 1/(ρ_i·d_i)` is non-increasing) plus one admitted layer (`k ≤ ρ i₀`)
@@ -1450,7 +1450,7 @@ descent `rootFloorGo`), sandwich characterization (`rootFloor_pow_le` /
 rootFloor s (k^s) = k`), monotone in the radicand (`rootFloor_mono`).  The
 degree-`s` probe schedule of the graded rate generator.
 
-`E213.Lib.Math.NumberSystems.Real213.BracketModulus` — **3 PURE / 0 DIRTY**.  ★★★
+`E213.Lib.Math.NumberSystems.Real213.Modulus.BracketModulus` — **3 PURE / 0 DIRTY**.  ★★★
 **The conversion-law engine** (`N = rate⁻¹ ∘ distance`, ladder rung 2 form) for
 two-sided bracket presentations: strictly increasing lower fold `a/d`,
 non-increasing upper companion `A/D`, per-layer sandwich `a_n/d_n < A_n/D_n`.
@@ -1484,7 +1484,7 @@ presentation's divergence depth is 6, ratio degree 4) — and ★★★
 `HtelS wallisNum wallisDen ρ` fails — **the Wallis pointing's rung is `∞`**,
 proved, not estimated; the rung is a property of the pointing, not of π.
 
-`E213.Lib.Math.NumberSystems.Real213.FiniteOrderSpectrum` — **29 PURE / 0
+`E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FiniteOrderSpectrum` — **29 PURE / 0
 DIRTY**.  ★★★ **The finite-order spectrum of `SL(2,ℤ)`, uniform** — the
 crystallographic restriction as a single structural theorem (every matrix,
 every exponent), upgrading the range-13 totient census
@@ -1727,7 +1727,7 @@ Capstone `cbrt_limit_eq_form`: the completed fold **equals** the frozen closed-f
 `FibCassiniNat.qb_lt_pk` (`4k² < b²`); the rate race and its presentation-dependence
 (`Zeta3Cut`) are thereby isolated as the transcendental-only regime.
 
-`E213.Lib.Math.NumberSystems.Real213.ModulusComposition` — **28 PURE / 0 DIRTY**
+`E213.Lib.Math.NumberSystems.Real213.Modulus.ModulusComposition` — **28 PURE / 0 DIRTY**
 (the arbitrary-base power toolkit lives in `Meta.Nat.PowBasic`).  ★★★
 **Schedules with irrational degree — receipts taking receipts.**  `powSched c B k =
 ⌈k^{p/2^k}⌉` with the exponent `p = dyUp c B k` read off a *cut* `c` level by level
@@ -1760,7 +1760,7 @@ unique (`minOverflow_unique`, the honest universal property), and the surplus
 is the conserved quantity under shift (`gap_shift_invariant`, via the PURE
 `NatHelper.add_sub_add_right`).
 
-`E213.Lib.Math.NumberSystems.Real213.IntensionalCompletability` — **3 PURE / 0 DIRTY**.
+`E213.Lib.Math.NumberSystems.Real213.Completability.IntensionalCompletability` — **3 PURE / 0 DIRTY**.
 The intensional reduction of completability: `crossDetSmall_rescale_antitone`
 (the sufficient bridge `CrossDetSmall (c²·W) (c·d) → CrossDetSmall W d` — rescaling
 up only loses it, so the gcd-reduced presentation is canonical; `Nat.mul_assoc` is
@@ -1768,7 +1768,7 @@ propext-dirty, used the PURE `NatHelper.mul_assoc`), `modulus_rescale_invariant`
 (the completion is presentation-invariant, via `rcut_rescale`), bundled in
 `completability_is_intensional`.  The test is presentation-relative; the truth is not.
 
-`E213.Lib.Math.NumberSystems.Real213.ScalingOrbit` — **7 PURE / 0 DIRTY**.  The rescaling
+`E213.Lib.Math.NumberSystems.Real213.Spiral.ScalingOrbit` — **7 PURE / 0 DIRTY**.  The rescaling
 orbit `(c·a, c·d)` of a presentation: `scaleBy` a monoid action (`scaleBy_one`,
 `scaleBy_comp`), the cut its complete invariant (`scaleBy_preserves_cut`),
 `CrossDetSmall` antitone along it (`orbit_free_implies_base_free`), and the
@@ -1790,7 +1790,7 @@ form `m²−mk−k²` (`ProbeTwistConic.Q_preserved`) is indefinite (`golden_ind
 `Q(2,1)=+1`, `Q(1,1)=−1`) → unbounded → convergent line → the completing bottom rung
 (`floor_reference_is_indefinite`).
 
-`E213.Lib.Math.NumberSystems.Real213.SpiralRotationInvariant` — **3 PURE / 0 DIRTY**.  The
+`E213.Lib.Math.NumberSystems.Real213.Spiral.SpiralRotationInvariant` — **3 PURE / 0 DIRTY**.  The
 spiral rotation invariant conserved at every turn: `Q_iterate_preserved` —
 `Q(Pseq (m,k) n) = Q(m,k)` (sign-free golden form `a²+mk+k² = ab+b²+m²`) for all `n`,
 by induction on the one-step `ProbeTwistConic.Q_preserved` chained through the pure

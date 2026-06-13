@@ -79,11 +79,11 @@ Every attack converges: **structure fully pinned (count, group, free action, win
 cohomological space-identification), selection is the sole open freedom, and the selection is global in
 `c`.**  The local routes (forcing #2, prime-δ #4) provably cannot select; the cross-`c` routes (continuant
 #1, stable norm, tree-δ) are where `H` lives — all necessary-not-sufficient at the proven frontier
-(Aigner).  Recorded down-payments this branch: §34 iff (= Frobenius), `Real213/Continuant` (E1),
+(Aigner).  Recorded down-payments this branch: §34 iff (= Frobenius), `Real213/ContinuedFraction/Continuant` (E1),
 `MarkovMaxUnique 985`, the relative-sign counterexample — plus the obstruction map (`G192`/`G194`) and the
 attack map (`G193`).
 
 ### Pointers
-- counterexample: `Real213/SternBrocotMarkov.realized_root_relative_sign_not_uniform`
+- counterexample: `Real213/Markov/SternBrocotMarkov.realized_root_relative_sign_not_uniform`
 - δ apparatus: `Cohomology/{Delta,Cochain}/Core` (ℤ/2, `δ²=0`)
 - companions: `G194` (locality obstruction), `G193` (axiom attack map), `G192` (Raw/Lens boundary), `G191` (continuant)

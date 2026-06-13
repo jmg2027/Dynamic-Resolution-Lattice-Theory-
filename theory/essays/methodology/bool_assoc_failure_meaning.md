@@ -82,9 +82,9 @@ is_native : cutEq cut (constCut a b) ∧ b ∈ ⟨2, 3⟩  (multiplicative monoi
 2. **`cutSumN_mixed_denom`** — `Sum/CutSumNMixed.lean` (3 PURE).  Cross-denominator closure: for `b₁·q₁ = N`, `b₂·q₂ = N`,
    `cutSumN N (constCut a b₁) (constCut c b₂) ≡ constCut (a·q₁ + c·q₂) N`.  N의 약수 b 쌍이 모두 algebraically 닫힘.  예: `cutSumN 6 (1/2) (1/3) ≡ 5/6` (`cutSumN_six_half_third`).
 
-3. **`ThirdValidCut` (b = 3)** — `Lib/Math/NumberSystems/Real213/ThirdValidCut.lean` (15 PURE).  IntValidCut/HalfValidCut 패턴; `cutSumN 3` 기반.  `cutSumN_3_2_1_at_1_1`이 CutSumAssocB3 반례가 `cutSumN 3`에서는 true임을 decide-검증.
+3. **`ThirdValidCut` (b = 3)** — `Lib/Math/NumberSystems/Real213/ValidCut/ThirdValidCut.lean` (15 PURE).  IntValidCut/HalfValidCut 패턴; `cutSumN 3` 기반.  `cutSumN_3_2_1_at_1_1`이 CutSumAssocB3 반례가 `cutSumN 3`에서는 true임을 decide-검증.
 
-4. **`NValidCut N` parametric — 모든 자연수 N의 통합 closure** — `Lib/Math/NumberSystems/Real213/NValidCut.lean` (14 PURE).  `ValidCutN N` 구조 (cut + represents + is_at_denom), `addN N hN`, `cutSumN_assoc_valid N hN`, `cutSumN_comm_valid N hN`, `nvalidcut_all_naturals_capstone`.  Per-N 별 증명 불필요 — 임의 N ≥ 1에서 한 번에 닫힘.  Smoke: N = 5, 7, 11에서 결합법칙 검증 (`fifth_assoc_1_2_1`, `seventh_assoc_2_3_5`, `eleventh_assoc_1_4_6`).
+4. **`NValidCut N` parametric — 모든 자연수 N의 통합 closure** — `Lib/Math/NumberSystems/Real213/ValidCut/NValidCut.lean` (14 PURE).  `ValidCutN N` 구조 (cut + represents + is_at_denom), `addN N hN`, `cutSumN_assoc_valid N hN`, `cutSumN_comm_valid N hN`, `nvalidcut_all_naturals_capstone`.  Per-N 별 증명 불필요 — 임의 N ≥ 1에서 한 번에 닫힘.  Smoke: N = 5, 7, 11에서 결합법칙 검증 (`fifth_assoc_1_2_1`, `seventh_assoc_2_3_5`, `eleventh_assoc_1_4_6`).
 
 ## 5와 모든 자연수: layered closure
 
