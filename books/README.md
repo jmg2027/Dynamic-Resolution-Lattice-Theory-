@@ -1,37 +1,30 @@
-# 213 Books — 213-Internal Narrative
+# 213 Books — standalone treatises
 
-The *readable book* form of Lean theorems + catalogs, written in
+Long-form readings assembled from the permanent tiers, written in
 **213-internal vocabulary** (Raw, swap, Cut, FluxCut, atomicity,
-codomain typeclass tower, etc.).
+codomain typeclass tower, etc.).  Every claim cites a PURE Lean theorem
+in `lean/E213/`.
 
-## Structure
+## Volumes
 
-  math/        mathematics narrative
-  physics/     physics narrative
+### `lens-tower/` — The Lens Tower
+*From the Residue to the Discriminant, and the Descent Home.*  A six-chapter
+treatise reading the orbit / axis / discriminant structure in 213's own
+primitives, with two companion volumes:
+  - `lens-tower/` (chapters 01–06) — the number tower as Lens bundlings,
+    the Cassini readout layer, the native/imported axis separation, the descent.
+  - `lens-tower/foundations/` — *The Founding of the Number Tower* (the three
+    questions, completeness, one-axis-or-many, forced-or-chosen, open frontier).
+  - `lens-tower/slots/` — the slot programme (the list and the question, pairs
+    as numbers, the witness layer, the two transports, layer constants, boundaries).
 
-## Current (written books)
+### `math/`
+  - `reverse-math-213.md` — reverse mathematics / omniscience ledger.
 
-### math/
-  - analysis213.md  undergraduate year-1 calculus 100% complete
-  - reverse-math-213.md  reverse mathematics / omniscience ledger (field 17)
-
-### physics/
-  - periodic-table.md  periodic table 213 version
-
-## Future (following blueprints)
-
-### math/
-  probability213, multivariable213, topology213, ...
-
-### physics/
-  atomic.md, hadron.md, nuclear.md, cosmology.md,
-  gauge.md, qg.md, yang-mills.md, sm.md, particle.md,
-  falsifier.md, astrophysics.md, qinfo.md, bsm.md, condensed.md
+### `physics/`
+  - `periodic-table.md` — the periodic table, 213 version.
+  - `diamond.md` — diamond crystal narrative (`figures/diamond.svg`).
 
 ## Book ↔ Lean ↔ Catalog synchronization
 
-  Lean theorems = ground truth
-  Book = narrative
-  Catalog = lookup
-
-  All three updated at each marathon completion.
+  Lean theorems = ground truth · Book = narrative · Catalog = lookup.

@@ -121,7 +121,7 @@ bundling but one of a family, used in the repo as a *counter-example*:
 > three, with sibling witnesses `ℤ[√−2]` (`i² = −2`), `ℤ[ω]`, parametric `ℤ[√D]`.
 
 So `i² = −1` is one choice among `ℤ[√D]`; introducing `i` is closer to **imported
-decoration** (the `book/` Chapter 4 caution) than to a forced residue bundling.  The
+decoration** (the `books/lens-tower/` Chapter 4 caution) than to a forced residue bundling.  The
 213-native status of `ℂ`: the unique *commutative* endpoint of the conjugation-codomain
 hierarchy (`CDDouble.lean:28`) — a different classification axis, not a number-tower
 rung.

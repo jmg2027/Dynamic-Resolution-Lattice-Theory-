@@ -42,7 +42,7 @@ sequence.)
 
 The textbook staircase keeps climbing past `ℝ`.  Is Cayley–Dickson doubling a fifth,
 sixth, seventh rung of *this* tower?  No — and the codebase is unusually explicit, in
-exactly the register of `book/`'s warning that imported decoration must be stripped.
+exactly the register of `books/lens-tower/`'s warning that imported decoration must be stripped.
 
 **The doubling exits the world the number tower lives in.**  Every number-tower rung is
 a *commutative* readout — its codomain is a `CommBinaryCodomain` (the count, the
@@ -76,7 +76,7 @@ spends a whole floor on the sign-axis that CD folds into `ℝ`.
 **The doubling has the opposite character.**  Each number-tower rung *gains* structure
 while staying commutative (a group, then a field, then completeness).  Each CD doubling
 *drops* an algebraic law (commutativity, then associativity, then alternativity) —
-subtractive dimension-doubling, `1 → 2 → 4 → 8`.  This is the same caution `book/`
+subtractive dimension-doubling, `1 → 2 → 4 → 8`.  This is the same caution `books/lens-tower/`
 Chapter 4 makes about the disc axis: the dimension sequence `{1, 2, 4, 8}` is **not**
 the readout axis.  Cayley–Dickson is the *grade / algebra* reading of the orbit
 (`theory/essays/tower_atlas.md:54`), a sibling of the number reading under one orbit —

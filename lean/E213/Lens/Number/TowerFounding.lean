@@ -20,7 +20,7 @@ theorem chain, each rung a construction on the previous and all grounded in the 
     (`CauchyLensFounding`, `PhiCauchyLimit.phiCauchy_limit_eq_phiCut`).
 
 No rung is imported; each is what the residue produces under one more Lens application.  This is the
-foundational counterpart to `book/` (which *applies* the tower): here the tower itself is *founded*,
+foundational counterpart to `books/lens-tower/` (which *applies* the tower): here the tower itself is *founded*,
 rung by rung, as a single theorem.
 -/
 

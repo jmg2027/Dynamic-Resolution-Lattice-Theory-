@@ -9,5 +9,5 @@ The signed lowest-terms normal form and derived order (`Rat213`), the
 frame-indexed collapse-vs-rigid witnesses (`CompletionDichotomy`), the
 4-axis tuple product (`GaussTuple`), and the pair-exponent fiber
 transport (`PairPow`).  Narrative:
-`theory/math/numbersystems/slot_arithmetic.md`; volume `book/slots/`.
+`theory/math/numbersystems/slot_arithmetic.md`; volume `books/lens-tower/slots/`.
 Generic pair-layer infrastructure lives in `Meta/Nat/{PairOp,UnitList}`. -/

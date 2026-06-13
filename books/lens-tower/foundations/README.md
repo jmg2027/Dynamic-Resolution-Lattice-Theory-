@@ -10,13 +10,13 @@ Claude (Anthropic); see Acknowledgments.
 
 ## What this is, and why it is a draft
 
-The companion volume `book/` (six chapters, `The Lens Tower`) *applies* the number
+The companion volume `books/lens-tower/` (six chapters, `The Lens Tower`) *applies* the number
 tower: it reads the order-2 orbit, the Cassini unit, and the disc edifice as a
 readout three Lens-steps above the residue, and separates the native kernel from the
 imported decoration.  It takes the tower `ℕ → ℤ → ℚ → ℝ` as given.
 
 This volume asks whether that tower is *well-founded as a tower at all*.  Three
-questions, none of which `book/` settled:
+questions, none of which `books/lens-tower/` settled:
 
 1. **Is it complete?**  Does the chain terminate at `ℝ`, or continue — to
    `ℝ → ℂ → ℍ → 𝕆`, or upward without end?
@@ -42,7 +42,7 @@ period-2 is forced by `NT = 2` (`PairCompletion.swap_order_eq_NT`); `ℚ` is a L
 not an obligation (no exterior dialer); and the axis-vocabularies unify *downward* to one
 shared unit, not upward into an operator monoid.  What remains genuinely open is left as
 such and flagged.  When the build-side promotion gates are met, this is promoted to
-`book/` proper per `theory/PROMOTION_CRITERIA.md`.
+`books/lens-tower/` proper per `theory/PROMOTION_CRITERIA.md`.
 
 ---
 

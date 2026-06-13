@@ -14,7 +14,7 @@ operating manual that runs it.
 | `theory/` | **Narrative book** — human-readable exposition, mirrors `lean/E213/Lib/` by path.  One chapter per closed Lean sub-tree. | Permanent |
 | `theory/essays/` | **Cross-cutting insight** — derivation-quality answers to 213-concept questions, spanning chapters. | Permanent |
 | `catalogs/` | **Derived indices** — constants, precision results, falsifiers, hubs, recursor inventory.  Distilled from the permanent tiers. | Permanent (regenerated) |
-| `book/`, `books/` | **Standalone treatises** — long-form readings assembled from the permanent tiers for a specific audience. | Permanent |
+| `books/` | **Standalone treatises** — long-form readings assembled from the permanent tiers for a specific audience (`lens-tower/`, `math/`, `physics/`). | Permanent |
 | `rust-engine/` | **Numerical companion** — the calculator/search engine; every result points back to a Lean theorem. | Permanent |
 | `blueprints/` | **Marathon plans** — forward-looking field plans that seed new work. | Permanent (plan), consumed by frontiers |
 | `research-notes/` | **Volatile scratchpad** — the working memory of the research.  `frontiers/` = the live open agenda; `archive/` = record of the path. | **Volatile** |
@@ -26,7 +26,7 @@ operating manual that runs it.
 
 Rationale: research notes are *volatile* — they get archived, renamed,
 consolidated, or deleted as the work matures.  A permanent document
-(`seed/`, `lean/`, `theory/`, `catalogs/`, `book/`) that depends on a
+(`seed/`, `lean/`, `theory/`, `catalogs/`, `books/`) that depends on a
 scratch file inverts the dependency: the stable thing now rests on the
 unstable thing.  The moment a research note carries content a permanent
 tier needs, that content must be **promoted** into the permanent tier; the

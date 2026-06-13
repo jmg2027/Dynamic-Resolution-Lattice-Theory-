@@ -37,6 +37,6 @@ citable as one unit (and promotable per `theory/PROMOTION_CRITERIA.md`).
     tiers, and the atomic counts land on the boundaries — `p = NT` parabolic, `p = NS` hyperbolic
     (golden, `disc = d`), `p = 0` the elliptic founding swap (`founding_unit_floors_dial_trace_runs_tiers`).
 
-Full narrative: `book/foundations/` (working treatise) and the classification frame in
+Full narrative: `books/lens-tower/foundations/` (working treatise) and the classification frame in
 `theory/lens/number_systems.md`.  ∅-axiom throughout.
 -/

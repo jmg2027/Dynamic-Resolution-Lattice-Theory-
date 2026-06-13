@@ -10,7 +10,7 @@ bundlings of one residue under different Lens choices**:
 > readings, their lowest-terms condition the unit `det P = NS − NT = 1`, give `ℚ`;
 > Cauchy trajectories of those readings, narrowing to a single cut, give `ℝ`.
 
-`book/` took that staircase and *climbed* it — read the orbit, the Cassini unit, the
+`books/lens-tower/` took that staircase and *climbed* it — read the orbit, the Cassini unit, the
 disc edifice as a readout sitting three Lens-steps up.  This volume turns around and
 looks *down* at the staircase itself.  Three questions.
 

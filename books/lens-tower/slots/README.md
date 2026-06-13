@@ -51,7 +51,7 @@ proposition-extensionality to enter.
 
 ## How this volume relates to the other two
 
-`book/` (The Lens Tower) *applies* the tower; `book/foundations/`
+`books/lens-tower/` (The Lens Tower) *applies* the tower; `books/lens-tower/foundations/`
 asks whether the tower is well-founded *as a tower*.  This volume
 **rebuilds the tower from below**, so that the other two volumes'
 object exists without ever having been postulated.

@@ -61,6 +61,16 @@ no precision constants changed.
   provenance" section listing raw git branch names + S3 session labels,
   and volatile HANDOFF.md citations from this permanent chapter.
 
+### 7. Consolidated `book/` into `books/lens-tower/`
+- The top-level `book/` (The Lens Tower treatise + foundations/ + slots/
+  companion volumes) moved under `books/`, making `books/` the single
+  standalone-treatise directory.  Repointed all *live* references
+  (theory/INDEX, theory/lens/number_systems, 4 Lean docstrings, PROCESS,
+  process skill, READMEs); left the *historical* `book/chapters/*.tex` /
+  `book/ch##` mentions (seed/ORIGIN, 99_history, CONSOLIDATION_PROTOCOL)
+  since those name the long-deleted old monograph.  Rewrote books/README
+  (it had listed a nonexistent analysis213.md).
+
 ## Current Precision Results (0 free parameters)
 **Unchanged this session** (no physics work).  Canonical table:
 `catalogs/physics-constants.md`.  Headline: `1/α_em ≈ 137.036` (ppm
@@ -90,14 +100,10 @@ dead ends):
   provenance by source code (`deuteron_binding.rs §5`, `mb_mc_sweep.rs
   §7c`, `binary_smoke/snapshots.rs §6`) and `math-branch-physics-notes.md`
   (~11 refs).  Deleting it would orphan those.
-- **`book/` vs `books/` naming clash** — `book/` = the single "Lens Tower"
-  treatise, `books/` = a collection (reverse-math, periodic-table,
-  diamond).  A rename needs an author-chosen name; left as-is.
+- (resolved this session: `book/` consolidated into `books/lens-tower/`.)
 
 ## Next
-Resume the research agenda: frontier #1 (`UnitHyper`).  Or pick up an
-audit recommendation above if the author chooses a direction (e.g. the
-`book/` rename name).
+Resume the research agenda: frontier #1 (`UnitHyper`).
 
 ## Three-tier state
 - **Promotions this session**: `theory/essays/synthesis/the_minus_one_under_three_lenses.md`
@@ -120,5 +126,7 @@ lean/E213/Lib/Math/Algebra/Linalg213/InversionsAppend.lean ← deduped to List21
 lean/E213/Lib/Math/NumberTheory/ModArith/{Zolotarev,ZolotarevMuBridge,ZolotarevCycle}.lean ← deduped to List213
 theory/physics/symmetry/c3_chain.md                  ← process narration stripped
 theory/INDEX.md, theory/physics/INDEX.md, theory/essays/INDEX.md ← corrected counts
+books/lens-tower/                                    ← MOVED from top-level book/ (treatise + foundations/ + slots/)
+books/README.md                                      ← rewritten (accurate volume list)
 research-notes/promotion_essay_log.md                ← + entry #81
 ```

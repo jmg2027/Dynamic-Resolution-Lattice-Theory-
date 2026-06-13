@@ -4,7 +4,7 @@ import E213.Meta.Nat.PureNat
 # UnitList — the rung below `+`: append, and where commutativity is born
 
 The slot programme's floor, one diagonal below `+`
-(`theory/math/numbersystems/slot_arithmetic.md`, `book/slots/01`): the sorted list is the list of **units** — elements
+(`theory/math/numbersystems/slot_arithmetic.md`, `books/lens-tower/slots/01`): the sorted list is the list of **units** — elements
 with no distinguishing marks, so "insertion order" and "sorted order"
 coincide and no sorting is ever needed: the order *is* the element
 count.

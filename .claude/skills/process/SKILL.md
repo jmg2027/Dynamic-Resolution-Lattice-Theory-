@@ -14,7 +14,7 @@ the one rule below.
 **Sink rule (closing side):**
 
 > **No permanent tier cites a `research-notes/` file.**
-> `seed/`, `lean/`, `theory/`, `catalogs/`, `book/` are permanent and may
+> `seed/`, `lean/`, `theory/`, `catalogs/`, `books/` are permanent and may
 > cite each other; `research-notes/` is a volatile sink — it cites anything,
 > nothing canonical cites into it.
 

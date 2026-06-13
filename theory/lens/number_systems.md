@@ -44,11 +44,11 @@ bundlings, with its closure properties.  Key results:
 
 The standalone treatise reading these as one structure — complete at `ℝ`
 (fixpoint), hybrid as axes (one unit, many readings), forced only at its
-seams — is `book/foundations/`.
+seams — is `books/lens-tower/foundations/`.
 
 ## Connection
 
-- `book/foundations/` — the standalone founding treatise (the three
+- `books/lens-tower/foundations/` — the standalone founding treatise (the three
   questions: complete tower? one axis? forced?)
 - `theory/math/foundations/universe_chain.md` — Nat213 sub-tree narrative
 - `lean/E213/ARCHITECTURE.md` — catamorphism = Lens artifact
