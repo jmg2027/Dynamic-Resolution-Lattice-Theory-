@@ -111,8 +111,11 @@ dimension-setting axis*; nothing is "lost".
       (`CrossDetOvertake §6`): `W`'s `|det|=1` floor = the point
       (`crossdet_floor_eq_point`), its `2^{2^i}` ceiling = `count (hcube 2 (2^i))`
       (`crossW_eq_hcube_count`), so `UnitHyper.count` grades the cross-determinant
-      axis by the `^`-tower.  *Still open*: the `hyper_parallel` (dilation readout)
-      tie and L5's 3- vs 4-simplex "초위상" figure (rung ≥ 4 needs a tetration object).
+      axis by the `^`-tower.  The **rung-4 object** is also built
+      (`Meta/Nat/UnitTetra`): `count_tetra : count (tetra a b) = hyperop 4 a b`,
+      `dof_four : dofOfRung 4 = 2` (the `+1`-climb twice from the `×`-base).  *Still
+      open*: the `hyper_parallel` (dilation readout) tie, L5's 3- vs 4-simplex "초위상"
+      figure, and a direct two-axes witness on `tetra`.
 
 ## L1 — The layer rule: each layer's axis = the *whole previous layer*
 
@@ -420,9 +423,13 @@ to test*, not asserted identities.
 3. **The twist dimension (L5)** — the DOF is now pinned to the **operand-mismatch**
    reading (`HyperLadder.dof_three_not_comm`: the `^`-non-commutativity's obstruction
    is the side-vs-dimension type-mismatch, `UnitHyper.swap_changes_dim`), with
-   `dofOfRung = rung − 2` the spec.  *Still open*: the **topological figure** for one
-   `^` step (3- vs 4-simplex), and the `↑↑` two-DOF case (needs a tetration object,
-   rung 4) — `dofOfRung 4 = 2` is stated but uncertified by an object.
+   `dofOfRung = rung − 2` the spec.  The **rung-4 object is built**
+   (`Meta/Nat/UnitTetra`, ∅-axiom): `tetra a b` = a cube whose dimension is itself a
+   tower count, `count_tetra : count = hyperop 4` (the object *is* tetration),
+   `dof_four : dofOfRung 4 = 2` derived by the `+1`-climb twice from the `×`-base,
+   `hyperop_four_not_comm` (`2↑↑3 = 16 ≠ 27 = 3↑↑2`).  *Still open*: the **topological
+   figure** for one `^` step (3- vs 4-simplex), and a **direct two-distinguished-axes
+   witness** on `tetra` (the rung-4 analogue of `swap_changes_dim`).
 4. **No-identity formalization (L2)** — concrete content **CLOSED ∅-axiom**
    (`MultSystem.monoCountPos_closed` = semigroup count `+ 1` = monoid count, the
    `+1` = the identity; `MultSystemValue.two_le_nonempty_prime_prod` = the natural

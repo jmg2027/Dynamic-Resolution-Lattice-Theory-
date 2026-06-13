@@ -15,6 +15,7 @@ import E213.Meta.Nat.GridReadout213
 import E213.Meta.Nat.Shape213
 import E213.Meta.Nat.Iterate213
 import E213.Meta.Nat.HyperLadder
+import E213.Meta.Nat.UnitTetra
 import E213.Meta.Nat.ExpVector
 import E213.Meta.Nat.StrictLocate213
 import E213.Meta.Nat.ListLocate213

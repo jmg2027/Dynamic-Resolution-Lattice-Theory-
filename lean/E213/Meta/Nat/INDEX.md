@@ -16,6 +16,9 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
                              grid for `^`; `count = side ^ dim` positively
                              (base=length, exponent=axis count;
                              `count_eq_side_pow_dim`, no "comm lost")
+  - `UnitTetra.lean`       — the rung-4 sibling: tetration `↑↑` as a cube
+                             whose dimension is a tower count
+                             (`count_tetra = hyperop 4`; `dof_four = 2`)
   - `TwoThreeUnique.lean`  — the proven linear floor of the `^`-wall:
                              `2^a·3^b = 2^c·3^d → a=c ∧ b=d`
   - `NatDiv213.lean`       — `Nat.div` lemmas (213-internal pattern)
