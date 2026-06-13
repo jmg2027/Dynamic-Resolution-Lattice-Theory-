@@ -113,9 +113,11 @@ dimension-setting axis*; nothing is "lost".
       (`crossW_eq_hcube_count`), so `UnitHyper.count` grades the cross-determinant
       axis by the `^`-tower.  The **rung-4 object** is also built
       (`Meta/Nat/UnitTetra`): `count_tetra : count (tetra a b) = hyperop 4 a b`,
-      `dof_four : dofOfRung 4 = 2` (the `+1`-climb twice from the `×`-base).  *Still
-      open*: the `hyper_parallel` (dilation readout) tie, L5's 3- vs 4-simplex "초위상"
-      figure, and a direct two-axes witness on `tetra`.
+      `dof_four : dofOfRung 4 = 2` (the `+1`-climb twice from the `×`-base), with a
+      direct two-axes witness `UnitTetra.dim_tetra_succ`.  The **`hyper_parallel` tie
+      is DONE** (`MultSystemValue.hcube_vp_radial`/`hcube_hyper_parallel`): the
+      geometric per-dimension `×a` *is* the vp-cone radial scalar `b·vp`.  *Still
+      open*: only L5's 3- vs 4-simplex "초위상" figure.
 
 ## L1 — The layer rule: each layer's axis = the *whole previous layer*
 
@@ -428,8 +430,12 @@ to test*, not asserted identities.
    no longer a bare height but **itself a tower count**, `dim (tetra (a+1)(b+1)) =
    count (tetra (a+1) b)`), so `count = side ^ (a tower count)` (`count_tetra_pow`)
    vs `^`'s `count = side ^ (bare height)` — the dimension-clock lifted twice.
-   *Still open*: the **topological figure** for one `^` step (3- vs 4-simplex), and the
-   `hyper_parallel` (dilation readout) tie.
+   The **`hyper_parallel` (dilation readout) tie is DONE** (`MultSystemValue`,
+   ∅-axiom): `hcube_vp_radial : vp_p (count (hcube a b)) = b · vp_p a` and
+   `hcube_hyper_parallel` — the geometric per-dimension `×a`
+   (`UnitHyper.count_hcube_succ`) *is* the vp-cone radial scalar `b·vp` (the cube's
+   cell count is parallel to its side in the `×`-cone).  *Still open*: only the
+   **topological figure** for one `^` step (3- vs 4-simplex, L5's "초위상").
 4. **No-identity formalization (L2)** — concrete content **CLOSED ∅-axiom**
    (`MultSystem.monoCountPos_closed` = semigroup count `+ 1` = monoid count, the
    `+1` = the identity; `MultSystemValue.two_le_nonempty_prime_prod` = the natural
