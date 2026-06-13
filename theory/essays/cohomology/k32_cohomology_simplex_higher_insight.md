@@ -166,6 +166,6 @@ simplex is that self-pointing unfolded skeleton by skeleton.
 - `lean/E213/Lib/Math/Algebra/Mobius213/Px/PGeneratesNat.lean` — `pgen_iff_pos`
 - `lean/E213/Lib/Math/Algebra/Mobius213/Px/ConvergentDet.lean` — Farey/Cassini
 - `theory/essays/synthesis/synthesis_interlock_map.md` — 5-row correspondence
-- `theory/essays/p_orbit/p_orbit_closure_master.md` — 6-phase P-orbit
+- `theory/essays/p_orbit/p_orbit_closure_master.md` — 6-stage P-orbit
 - `theory/physics/simplex.md` — Δ⁴ + 3-generation
   LocalSignature self-containment

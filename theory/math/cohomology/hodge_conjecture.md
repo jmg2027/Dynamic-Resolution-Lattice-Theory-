@@ -168,7 +168,7 @@ These close the post-Hodge programme's second stage.
 
 ### 5. Motivic + Cross-discipline bridges
 
-Six motivic-cohomology counterparts (post-Hodge programme Phase 3) and eleven
+Six motivic-cohomology counterparts (post-Hodge programme, third stage) and eleven
 cross-discipline bridges (statistical mechanics, ML, CS, physics)
 are closed in `MotivicBridge/` and `Bridge/`.  Highlights:
 

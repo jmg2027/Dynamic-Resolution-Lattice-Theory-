@@ -54,12 +54,12 @@ The R₂ reading interprets the unified `BipartiteCarrier` as
 This is *exactly* the data of a *symmetric monoidal category*
 of `E_n`-algebras: composition associative + unital, tensor
 sub-grade, two distinguished objects (read as `E_2`, `E_3`).
-Phase 15 `Monoidal.product` gives the categorical product
+`Monoidal.product` gives the categorical product
 `⊗_GRA` on these objects.  What category theory calls "the
 category of `E_n`-algebras with coherence isos" is the R₂
 Reading of the (2, 3)-arithmetic, with the coherence isos
-being instances of `GRAIso.refl` / `GRAIso.trans` laws (Phase 7
-`Category.GRAIso_id_comp` / `_comp_id` / `_comp_assoc`).
+being instances of `GRAIso.refl` / `GRAIso.trans` laws
+(`Category.GRAIso_id_comp` / `_comp_id` / `_comp_assoc`).
 
 ### §3 HoTT as Reading R₃ — and the Lens-isomorphism formulation
 
@@ -96,7 +96,7 @@ Raw  →  Enriched Carrier  →  Nat
 
 where the first arrow is the canonical map from
 `HasDistinguishing` instances (`SemanticAtom.universalMorphism`).
-Phase 16 (forthcoming) constructs the grade-Lens for each of
+The grade-Lens construction gives a grade-Lens for each of
 the five enrichments and proves all five are pairwise `LensIso`.
 The HoTT-as-Reading statement is then:
 
@@ -159,7 +159,7 @@ Four resolutions of the same self-forcing pattern:
 
 Same fact, four resolutions.
 
-## Open frontier — closed in Phase 17
+## Open frontier — closed by `CarrierRealization`
 
 The originally-queued open frontier was the carrier-level
 equation: prove that the enriched `Raw → BipartiteCarrier → Nat`
@@ -169,7 +169,7 @@ composite equals `canonicalGradeMap` PURE.  Going through
 constraint field (`n = 0 ∨ n ≥ 2`) and the usual route brings
 `propext`.
 
-Phase 17 (`CarrierRealization.lean`) closes this frontier by
+`CarrierRealization.lean` closes this frontier by
 *bypassing* the `Raw.fold` route.  Key observation:
 `canonicalGradeMap r ≥ 2` for every `r : Raw` (Raw.a → 2, Raw.b
 → 3, slash → sum of two ≥-2 values).  So we can build the
@@ -185,14 +185,14 @@ follows by `rfl`.  Because the five domain Readings (Walk /
 Cochain / Truncation / Operad / Resolution) all read the same
 `BipartiteCarrier`, the headline HoTT ↔ Higher Algebra equation
 holds at the carrier level by definition, with no further
-proof obligation.  All Phase 17 theorems are kernel-decidable
+proof obligation.  All carrier-realization theorems are kernel-decidable
 PURE.
 
-Phase 18 (`Universality23.lean`) addresses the next frontier
+`Universality23.lean` addresses the next frontier
 via the 1-categorical proxy.  The `canonicalGradeMap_universal`
 theorem proves: any `f : Raw → Nat` satisfying `f Raw.a = 2`,
 `f Raw.b = 3`, and `f (slash x y h) = f x + f y` equals
-`canonicalGradeMap` pointwise.  Combined with Phase 16/17, this
+`canonicalGradeMap` pointwise.  Combined with the grade-Lens and carrier realization, this
 says: ANY structure (`Cat`-object included) whose grade map
 satisfies the (2, 3)-profile *is forced* to read the canonical
 arithmetic.  "Cat is a Reading of GRA" becomes the assertion
@@ -201,7 +201,7 @@ generators) has this profile — and the universal property does
 the rest.  `canonical_arithmetic_forced` is the parameterless
 capstone.
 
-Phases 19–21 (`HasDistinguishing213.lean`, unified) address the
+`HasDistinguishing213.lean` (unified) addresses the
 strict 2-categorical universe-lifting + iso-symmetric combine +
 categorical-distinctness picture in a single typeclass.
 `HasDistinguishing213.{u, v} α` is the universe-polymorphic
@@ -241,17 +241,17 @@ Reading of GRA" — strict universe lifting, natural iso-
 symmetric combine, and categorical distinctness — is one Lean
 theorem at `Type 1`.
 
-Phase 22 (`LensIsoCapstone.lean`) closes the loop back to Raw.
+`LensIsoCapstone.lean` closes the loop back to Raw.
 `gradeLens : Lens Nat := ⟨2, 3, (· + ·)⟩` is the canonical 213
 Lens; by definition `gradeLens.view r = Raw.fold 2 3 (· + ·) r =
-canonicalGradeMap r`.  Phase 18's universal property lifts to
+canonicalGradeMap r`.  the universal property lifts to
 Lens vocabulary as `profile_view_eq_canonical`: any Lens whose
 view obeys the (2, 3)-profile coincides pointwise with
 `gradeLens.view`.  Hence by `Lens.Unified.lensIso_iff_kernel_eq`,
 **every (2, 3)-profile Lens is `LensIso` to `gradeLens`** —
 `profile_lens_LensIso_gradeLens`.  The five Reading Lenses are
 explicit class members (definitionally `gradeLens`); the five
-Phase 17 realizations project to `gradeLens.view` by `rfl`.
+The carrier realizations project to `gradeLens.view` by `rfl`.
 
 This is the deepest 213-native statement of GRA's content: the
 (2, 3) arithmetic forced by atomic distinguishing IS a single

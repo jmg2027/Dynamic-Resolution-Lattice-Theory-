@@ -10,7 +10,7 @@ lines of narrative + ~50k lines of `lean/E213/` source are
 *referenced* here, not replicated.  The book provides:
 
   · A single reading order from axioms (`seed/AXIOM/`) to
-    GRA Phase 22's `Lens.Unified` capstone
+    GRA's `Lens.Unified` capstone (`LensIsoCapstone`)
   · Synthesis paragraphs at each part boundary
   · Lean theorem anchors as forcing-chain citations
   · Cross-frame syntheses already captured in
@@ -276,7 +276,7 @@ Lean: `lean/E213/Lens/Unified.lean` —
   · `lensIso_iff_kernel_eq` — the characterisation theorem
 
 This is the *single concept* under which all four classical
-notions are special cases.  Phase 22 (`LensIsoCapstone`) makes
+notions are special cases.  `LensIsoCapstone` makes
 the GRA-`Lens.Unified` bridge formal.
 
 ### II.4 HasDistinguishing — the universal-morphism shape
@@ -315,16 +315,16 @@ confirms applying twice yields the same kernel.
 Factoring}.lean` — α-side morphisms `α → β` lift to Lens-level
 arrows; `refines_of_morphism` is the canonical witness.  These
 turn Lens-on-α into a *category* (not just a preorder).
-Phase 7's `GRACat` is one instance.
+GRA's `GRACat` is one instance.
 
 **Lens.Algebra + Lens.Lattice** —
 `lean/E213/Lens/Algebra.lean` + `Lattice/IndexedJoin.lean`
 give the lattice structure on Lens-kernels (refinement order;
 joins for indexed Lens families).  The `LensIso` equivalence
-class (Part VI.9, Phase 22) sits as a single point in this
+class (Part VI.9) sits as a single point in this
 lattice.
 
-### II.5 Universe-polymorphic version (Phases 19–21, unified)
+### II.5 Universe-polymorphic version (unified)
 
 `lean/E213/Lib/Math/Algebra/GRA/HasDistinguishing213.lean` —
 `HasDistinguishing213.{u, v} α` is the unified universe-
@@ -672,7 +672,7 @@ independent closure routes, each ∅-axiom:
 Companion essays:
 `essays/c_counter_programme_closure.md` (5-direction synthesis),
 `essays/synthesis_interlock_map.md` (parallel with P-orbit's
-6-phase closure), `essays/layer_multiplication_pattern.md`
+6-stage closure), `essays/layer_multiplication_pattern.md`
 (the shared proof-shape: invariant + offset + cancellation).
 
 **Cross-graph universality**.
@@ -779,7 +779,7 @@ filling.
 
 ---
 
-## Part VI — GRA universality (Phases 1–22)
+## Part VI — GRA universality
 
 GRA — Graded Residue Arithmetic — is the *universal meta-
 structure* of 213: the (2, 3)-graded arithmetic forced by
@@ -788,7 +788,7 @@ for the textbook treatment, including (post-consolidation)
 the master statement, the algebraic-tower / dimensional-
 proliferation / Adelic frontiers (Ch. 8–9).
 
-### VI.1 The 7 axioms — Phase 1
+### VI.1 The 7 axioms
 
 A `GRAModel` (`lean/E213/Lib/Math/Algebra/GRA/GRAModel.lean`) has:
 
@@ -809,7 +809,7 @@ Lean-core `Nat.gcd`).
 `reach_23`, `depth_formula`, `ceil3_le_ceil2` — all PURE, all
 the 5 Readings share these.
 
-### VI.3 Five Readings — Phases 1–5
+### VI.3 Five Readings
 
 Each Reading is a `GRAModel` instance:
 
@@ -822,7 +822,7 @@ Each Reading is a `GRAModel` instance:
 `gra_universality_witness` proves all five pairwise GRAIso via
 the NT hub.
 
-### VI.4 Translation programme — Phase 6
+### VI.4 Translation programme
 
 `lean/E213/Lib/Math/Algebra/GRA/Translation.lean` —
 `master_translation_from_any` shows any depth-property holds
@@ -830,7 +830,7 @@ in all 5 Readings; `graph_distance_implies_cup_length` etc.
 demonstrate "Langlands-style" translation.  Universal depth
 comparison `⌈n/3⌉ ≤ (n+1)/2` proved once, valid in all 5.
 
-### VI.5 Category theory — Phases 7–11
+### VI.5 Category theory
 
   · `Category.lean` — 213-native `Cat` typeclass + `GRACat` +
     `ReadingCat` (connected groupoid)
@@ -840,7 +840,7 @@ comparison `⌈n/3⌉ ≤ (n+1)/2` proved once, valid in all 5.
   · `DepthFunctor.lean` — depth as constant functor on
     `ReadingCat`
 
-### VI.6 Bipartite enrichment + naturality + monoidal — Phases 11–15
+### VI.6 Bipartite enrichment + naturality + monoidal
 
   · `Enrichment.lean` — the unified `BipartiteCarrier` enrichment
     (a `Nat` tagged with `n = 0 ∨ n ≥ 2`).  `GRA23_Bipartite` is
@@ -858,7 +858,7 @@ comparison `⌈n/3⌉ ≤ (n+1)/2` proved once, valid in all 5.
   · `Monoidal.lean` — `product M₁ M₂` is the monoidal product;
     `trivial23` is unit; unit isos `leftUnitHom` / `rightUnitHom`.
 
-### VI.7 Lens bridge + universal property — Phases 16–18
+### VI.7 Lens bridge + universal property
 
   · `LensBridge.lean` — `canonicalGradeMap := Raw.fold 2 3 (· + ·)`;
     `bipartiteGradeMap` is `rfl`-equal to it.
@@ -869,7 +869,7 @@ comparison `⌈n/3⌉ ≤ (n+1)/2` proved once, valid in all 5.
   · `Universality23.lean` — `canonicalGradeMap_universal`:
     any (2, 3)-profile function = `canonicalGradeMap` pointwise
 
-### VI.8 Universe lifting + iso-symmetric combine — Phases 19–21 (unified)
+### VI.8 Universe lifting + iso-symmetric combine (unified)
 
   · `HasDistinguishing213.lean` — unified universe-polymorphic
     typeclass `HasDistinguishing213.{u, v} α`.  Two closed
@@ -880,14 +880,14 @@ comparison `⌈n/3⌉ ≤ (n+1)/2` proved once, valid in all 5.
     `productSwapIso` as combine_sym, `trivial23_not_iso_NT` as
     categorical distinctness).  Subsumes the former
     `HasDistinguishingU`, `HasDistinguishingW`,
-    `HasDistinguishingWFull` variants from the marathon.
+    `HasDistinguishingWFull` variants.
 
-### VI.9 Lens.Unified × GRA capstone — Phase 22
+### VI.9 Lens.Unified × GRA capstone
 
 `LensIsoCapstone.lean` — the deepest 213-native statement.
 
 `gradeLens : Lens Nat := ⟨2, 3, (· + ·)⟩`.  By definitional
-unfolding `gradeLens.view = canonicalGradeMap`.  Phase 18's
+unfolding `gradeLens.view = canonicalGradeMap`.  The
 universal property lifts to Lens vocabulary; every
 (2, 3)-profile Lens on Nat is `Lens.Unified.LensIso` to
 `gradeLens`.
@@ -936,18 +936,18 @@ multiple frameworks cohabit a single Raw via different Lenses.
 No framework is privileged; each reads off the same residue
 through its chart.
 
-### VII.5 HoTT as a Reading (Phase 12.2 / 22)
+### VII.5 HoTT as a Reading
 
 `lean/E213/Lib/Math/Algebra/GRA/HoTT.lean` + `LensIsoCapstone`
 make this explicit.  HoTT's truncation hierarchy is the R₃
-Reading of GRA; combined with Phase 22, HoTT's grade structure
+Reading of GRA; combined with `LensIsoCapstone`, HoTT's grade structure
 on Raw is `LensIso` to `gradeLens`.
 
-### VII.6 Category theory as a Reading (Phase 7 + 22)
+### VII.6 Category theory as a Reading
 
-Phase 7's `GRACat` is itself a `Cat`; Phase 22 puts the GRA
+`GRACat` is itself a `Cat`; `LensIsoCapstone` puts the GRA
 grade structure on Raw in the LensIso class with `gradeLens`.
-Combined with Phase 20's symmetric monoidal structure
+Combined with the symmetric monoidal structure
 (`productSwapIso`), Cat at the (2, 3)-graded level is a
 Reading.
 
@@ -964,9 +964,9 @@ Per the essay `theory/essays/gra/gra_as_substrate_of_cat_hott.md`:
 > distinguishing without choice.  Hence GRA → Cat/HoTT in the
 > forcing chain, not the reverse.
 
-The full Lean realisation is Phases 17–22 (carrier realization,
+The full Lean realisation spans the carrier realization,
 universal property, universe lifting, iso-symmetric combine,
-full categorical instance, LensIso class).
+full categorical instance, and LensIso class.
 
 ---
 
@@ -1055,7 +1055,7 @@ consult the trick set in order:
   11. structural induction on enumerated finite types
       (`cases r <;> rfl` for `Reading`-style enums)
   12. Tier 5.1 omega → kernel-Nat-lemma migration
-      (the Tier 5.1 backlog migration pattern from GRA Phase 1)
+      (the Tier 5.1 backlog migration pattern)
 
 ### VIII.6 Pattern Catalog — atomic games
 
@@ -1073,7 +1073,7 @@ Plus the composite games:
   · `CataForcedForm` for forced catamorphic instances
   · 4 + 6 = 10 distinct patterns total
 
-This is the *methodology counterpart* of GRA Phase 12's five
+This is the *methodology counterpart* of GRA's five
 Readings — at the proof level rather than the data level.
 
 ### VIII.7 Proof-shape fingerprinting + parametric extraction
@@ -1228,7 +1228,7 @@ Part VIII → `STRICT_ZERO_AXIOM.md` → `tools/scan_axioms.py`
 ## Versioning
 
   · **v1** (2026-05-28) — initial linearisation of theory/
-    catalog + Lean docstring sweep.  Phases 1–22 of GRA
+    catalog + Lean docstring sweep.  The GRA programme
     consolidated.  Mathematics-only scope.  Status: stable v1.
 
 A *physics-deployment* part will be added once the

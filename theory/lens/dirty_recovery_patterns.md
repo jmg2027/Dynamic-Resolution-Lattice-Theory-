@@ -302,8 +302,8 @@ theorem L_alt_kernel_eq_idLens : LensIso L_alt idLens :=
 
 The PURE form delivers the same operational content for any
 downstream caller that uses the Lens via `view` / `equiv` /
-`refines`.  Cat-1 conversions during the marathon (Phase 2 in
-`STRICT_ZERO_AXIOM.md`) replaced ≈ 11 DIRTY theorems with the
+`refines`.  The Cat-1 conversions catalogued in
+`STRICT_ZERO_AXIOM.md` replaced ≈ 11 DIRTY theorems with the
 eqPW companion; LensIso extends the same template to Lenses
 of differing codomain α, β.
 

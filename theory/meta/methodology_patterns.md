@@ -210,10 +210,10 @@ cleanups — each needs structural thinking similar to the
 
 ---
 
-## Hero-session methodological patterns
+## Methodological patterns (enumeration)
 
-Patterns surfaced during the Phase 1 hero target push (Möbius
-213-tower L_∞).  These are not domain-specific; they apply
+Patterns from the Möbius 213-tower L_∞ work.  These are not
+domain-specific; they apply
 whenever 213-native PURE statements meet limitations of Lean 4
 core (no Mathlib).
 
@@ -278,7 +278,7 @@ extensionality on `Fin n → Bool`, which is `rfl` elementwise.
 finite function space (cochains, characters, indicator vectors)
 that you want to prove by exhaustive enumeration.
 
-**Caveat (Phase 2 finding)**: this pattern *also exposed a bug*
+**Caveat**: this pattern *also exposed a bug*
 in `Cohomology/Cup/Core.lean` — see "Pattern #5" below.  The
 finer the decide-enumeration, the more likely you surface
 implementation issues that 4 hand-picked concrete cases missed.
@@ -354,7 +354,7 @@ in the code's docstrings but the actual `def` may diverge from
 the standard convention.  Hand-picked concrete tests using
 highly-symmetric inputs miss the divergence.
 
-**This session's instance** (Phase 2):
+**Worked instance**:
   · `Cup/Core.lean` docstring: "Cup product (Alexander–Whitney)"
   · `Cup/Core.lean` implementation: `(α ⌣ β)(τ) = α(τ.take k) ·
     β(τ.drop k)` — this is the **concatenation cup**, not AW
@@ -373,7 +373,7 @@ via Pattern #2.  If decide refutes, you've found either:
   (a) an implementation divergence from the standard convention
       (docstring claims X, code implements Y), OR
   (b) a sign / ordering / index off-by-one in a supporting def
-      (in Phase 2: cup's no-shared-vertex convention requires a
+      (cup's no-shared-vertex convention requires a
       twisted Leibniz, not the standard one).
 
 **Why this matters strategically**: 213's "no Mathlib, all

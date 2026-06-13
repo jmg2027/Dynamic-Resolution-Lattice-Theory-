@@ -2,16 +2,16 @@
 
 **A Textbook Treatment of the Universal Meta-Structure of 213**
 
-Status: CLOSED (Marathon 16 — GRA Universality, all 6 phases)
+Status: CLOSED (GRA Universality)
 Lean source: `lean/E213/Lib/Math/Algebra/GRA/` (8 files, ~1400 lines, 0 sorry)
 Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and resolution lattice.
 
-> **Closure note.** The marathon establishes a Lean-verified
+> **Closure note.** The GRA programme establishes a Lean-verified
 > typeclass `GRAModel` with five instances (NumberTheory, Graph,
 > Analysis, Cohomology, HoTT, HigherAlgebra), pairwise isos via the
 > NT hub, and a translation programme including the universal
 > depth-comparison theorem `⌈n/3⌉ ≤ (n+1)/2` valid in all five
-> Readings simultaneously.  Phases 7–16 add the category-theoretic
+> Readings simultaneously.  Later stages add the category-theoretic
 > envelope: a 213-native `Cat` typeclass, `GRACat` / `ReadingCat`,
 > the connected-groupoid witness, `GRAHom` (general morphism), the
 > depth functor (constant on the (2, 3)-sub-category), the unified
@@ -20,28 +20,28 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > length / Cochain-degree / Truncation-level / Operad-level /
 > Resolution-exponent), naturality of translation, the retract-pair
 > structure, the monoidal product `M₁ ⊗_GRA M₂` with `trivial23`
-> as unit, and (Phase 16) the Lens-bridge:
+> as unit, and the Lens-bridge:
 > `canonicalGradeMap := Raw.fold 2 3 (· + ·)` is the canonical
 > Raw-level grade map, and `bipartiteGradeMap` reduces to it.
 > The HoTT ↔ Higher Algebra Lens-level equation — that the
 > truncation hierarchy and the `E_n` ladder *are* the same
 > Raw-projection, hence the same Reading under different
 > vocabularies — follows by `rfl` (companion essay:
-> `theory/essays/gra/gra_as_substrate_of_cat_hott.md`).  Phase 17
-> closes the essay's open frontier: `canonical_ge_2` enables
+> `theory/essays/gra/gra_as_substrate_of_cat_hott.md`).  The
+> carrier realization closes the essay's open frontier: `canonical_ge_2` enables
 > direct construction of `bipartiteRealize : Raw →
 > BipartiteCarrier`, bypassing `Raw.fold_slash` on the enriched
 > type; the realization's grade projection equals
 > `canonicalGradeMap` by `rfl`; the headline HoTT ↔ Higher
-> Algebra equation holds at the carrier level.  Phase 18 closes
-> the next frontier via the 1-categorical proxy:
+> Algebra equation holds at the carrier level.  The universal
+> property closes the next frontier via the 1-categorical proxy:
 > `canonicalGradeMap_universal` proves any `f : Raw → Nat` with
 > `f Raw.a = 2`, `f Raw.b = 3`, and slash-additive equals
 > `canonicalGradeMap` pointwise.  ANY structure (`Cat`-object
 > included) whose grade map satisfies the (2, 3)-profile is
-> *forced* to read the canonical arithmetic.  Phase 19 then
-> meets the strict 2-categorical universe-lifting requirement
-> with a single unified typeclass `HasDistinguishing213.{u, v}`
+> *forced* to read the canonical arithmetic.  The unified
+> typeclass `HasDistinguishing213.{u, v}` then meets the strict
+> 2-categorical universe-lifting requirement
 > (`HasDistinguishing213.lean`, consolidating the exploratory
 > `HasDistinguishingU`/`W`/`WFull` triple).  Two closed
 > instances: `liftedReadingHasDistinguishing213` (strict case,
@@ -51,7 +51,7 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 > `productSwapIso` as combine_sym, `trivial23_not_iso_NT` as
 > categorical distinctness via cardinality).  Together these
 > close the 2-categorical reading and complete `GRACat` as a
-> symmetric monoidal category.  Phase 22 (`LensIsoCapstone`) connects the
+> symmetric monoidal category.  `LensIsoCapstone` connects the
 > whole chain back to Raw: `gradeLens : Lens Nat := ⟨2, 3, (· + ·)⟩`
 > has view `= canonicalGradeMap` by `rfl`, and any (2, 3)-profile
 > Lens on Nat is proven `Lens.Unified.LensIso` to `gradeLens`.

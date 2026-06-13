@@ -181,8 +181,8 @@ verified ∅-axiom.
 
   · **Higher-coverage extension**: the current catalog spans
     11 domains; reaching to ~70+ axes could include rep theory
-    of Sym(3), the gluon octet's 8-fold decomposition (Marathon
-    2 Phase 2), more Padic constructions, Hodge cohomology
+    of Sym(3), the gluon octet's 8-fold decomposition, more
+    Padic constructions, Hodge cohomology
     pairing, additional physics constants (ν mass ratios, CKM
     Cabibbo).  Diminishing returns; current catalog already
     operationalises the "every axis" claim.

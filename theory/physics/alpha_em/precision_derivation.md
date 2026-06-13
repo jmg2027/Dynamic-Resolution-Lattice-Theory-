@@ -343,7 +343,7 @@ differentials is the open frontier.
     at base arities (toward Steenrod cup-i derivation of `(k+1)`)
   · `Math/Cohomology/Bipartite/FaceCupHigher.lean` (10 PURE)
     — face_cup_2 on K_{3,2}^{(c=2)} face cochains; ω idempotent
-    under face_cup_2; trace matches Phase 6 bilinearSelfTrace = NS²
+    under face_cup_2; trace matches bilinearSelfTrace = NS²
   · `Math/Cohomology/Bipartite/Filled3CellExtension.lean` (10 PURE)
     — 3-skeleton extension; δ² coboundary; ω trivialises at full
     3-cell attaching (H² drops to 0); δ²∘δ¹ = 0
@@ -376,9 +376,9 @@ differentials is the open frontier.
 Step 6 closure satisfies DRLT Validation Standard at the sub-1·10⁻⁹
 tier; 0.2 ppb tier already satisfied via Step 5 alone.
 
-Phases 9-13 (cup-i framework + Steenrod squares + 3-skeleton
-extension + Adem at truncation) constitute the multi-phase
-marathon toward deriving the `(k+1)` α-power graduation from
+The cup-i framework, Steenrod squares, 3-skeleton
+extension, and Adem at truncation constitute the programme
+toward deriving the `(k+1)` α-power graduation from
 cup-product axioms.  At the H² ω class the Steenrod-square
 ladder is now fully established (max non-trivial Sq^i = 1,
 output at C³, matching `(k+1) = 3`).  Generalisation to H^k for

@@ -4,7 +4,7 @@
 and their quadratic seeds `{√−NS, √NT, √(NS+NT)} = {√−3, √2, √5}` are
 derived end-to-end — `∅`-axiom — from the atomic pair `{NS, NT} = {3, 2}`
 and the single integer map `D(x) = x² − NT`.  13 Lean files, ~65 PURE
-theorems (Tower Phases 15–27).
+theorems.
 
 ## Overview
 
@@ -54,11 +54,11 @@ structural proof.
 
 - **Umbrella**: `lean/E213/Lib/Math/Algebra/CayleyDickson.lean` (imports all
   Tower files)
-- **Sub-tree**: `lean/E213/Lib/Math/Algebra/CayleyDickson/Tower/` (Phases 15–27)
+- **Sub-tree**: `lean/E213/Lib/Math/Algebra/CayleyDickson/Tower/`
 - **∅-axiom status**: **0 DIRTY** — every master theorem reports
   `#print axioms … → "does not depend on any axioms"`.
 
-| Phase | File | Lines | Capstone theorem |
+| # | File | Lines | Capstone theorem |
 |---|---|---:|---|
 | 15 | `DiscForcingObstruction.lean` | 130 | `disc_forcing_splits_at_E7` |
 | 16 | `ExceptionalTraceSeed.lean` | 110 | `exceptional_trace_seeds` |
@@ -76,7 +76,7 @@ structural proof.
 
 ## Narrative
 
-### 1. The disc-forcing obstruction (Phase 15)
+### 1. The disc-forcing obstruction
 
 The `E₈` seed is *forced*: `√5 = √(disc P)`, `disc P = trace² − 4·det =
 9 − 4 = 5 = NS+NT`.  The Eisenstein `E₆` seed `√−3` is likewise a
@@ -95,7 +95,7 @@ even/odd of `|t|` forces `4·X = 2` resp. `4·X = 1`, both impossible since
 discriminant; `disc_forcing_splits_at_E7` records that `E₈`(`5`) and
 `E₆`(`−3`) are discriminants while `E₇`(`2`) is not.
 
-### 2. The seed is a trace, not a discriminant (Phases 16–17)
+### 2. The seed is a trace, not a discriminant
 
 If the discriminant misses `E₇`, what *is* the mechanism?  The seed of
 each rung is the **trace** (`= 2·Re = 2cos θ`) of its defining rotation —
@@ -116,7 +116,7 @@ rotations, `E₆` among them).  Quadratic trace first appears at `φ(n) = 4`
 `φ(5) = φ(8) = 4 = 2²` is exactly the quaternion dimension, which is why
 `E₇/E₈` sit one Cayley–Dickson doubling above the 2D matrix layer.
 
-### 3. Why exactly three (Phase 18)
+### 3. Why exactly three
 
 The `φ`-census admits four quadratic orders `{5,8,10,12}` into 4D, but
 there are only three exceptional rungs.  The cut to three is the
@@ -132,7 +132,7 @@ Five Platonic solids collapse (by duality) to three rotation groups
 (`{4,4},{3,6},{6,3}`, i.e. `1/2+1/3+1/6 = 1`) is the Euclidean affine `Ê`
 edge where finiteness ends.
 
-### 4. Seed re-entry and the unit's residue (Phases 19–21)
+### 4. Seed re-entry and the unit's residue
 
 The number `NS+NT = 5` re-enters as its own operand at three scales — the
 213 expansion engine (`diag_self_applies`) at the seed-number level:
@@ -154,7 +154,7 @@ order-`3`/`E₆` trace `−1` as the *odd* fixed point:
 
 > `unit_is_fixed_core`:  `trace(g²) = D(trace g)`,  `D(NT) = NT`,  fixed points `{−1, NT}`.
 
-### 5. Two engines, one map (Phase 22)
+### 5. Two engines, one map
 
 `D(x) = x² − NT` drives the `P`-engine too: `trace P = NS`, and
 `D(trace P) = NS² − NT = 7 = trace(P²)`.  But `|trace P| = NS > NT`, so
@@ -167,7 +167,7 @@ The two seeds are the residues of the two regimes of the one map, split
 at the unit trace `NT`; `NS = NT + 1` places `P` exactly one step into the
 hyperbolic side.
 
-### 6. The axis trichotomy and composition (Phases 23–24)
+### 6. The axis trichotomy and composition
 
 The three atomic quantities index three axes, three algebraic numbers,
 three dynamical types:
@@ -188,7 +188,7 @@ the prime-axis ones (`φ(6)=φ(2)φ(3)`, `φ(15)=φ(3)φ(5)`, …):
 
 > `axes_from_three_components` — the three generate the whole axis structure.
 
-### 7. Over ℕ the surds dissolve (Phases 25–27)
+### 7. Over ℕ the surds dissolve
 
 The `√D` are artifacts of the `ℤ`/`ℝ` frame.  Over `ℕ` each seed is a
 **recurrence** (companion matrix), surd-free; the surd is the
@@ -228,11 +228,10 @@ square root `ℕ` does not contain.  The exact form is the integer matrix;
 | `axes_from_three_components` | `AxisComposition` | `{2,3,5}`-smooth; higher axes are composites |
 | `three_axes_surd_free` | `ThreeAxisRecurrence` | 3 integer matrices; `disc`-sign = field type |
 
-## Research-note provenance
+## Companion chapter
 
-  — the full marathon journal (Phases 1–27).  Phases 1–14 (meta-CD-tower,
-  A-D-E census, binary polyhedral groups) feed `algebra_tower.md`;
-  Phases 15–27 (this chapter) derive the exceptional axes.
+The meta-CD-tower, A-D-E census, and binary-polyhedral-group material
+feed `algebra_tower.md`; this chapter derives the exceptional axes.
 
 ## Open frontier
 

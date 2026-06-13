@@ -32,7 +32,7 @@ offset.  Stack the copies, count the summands — that is the
 closure.  See `theory/essays/synthesis/layer_multiplication_pattern.md`
 for the shape and `theory/essays/synthesis/synthesis_interlock_map.md`
 for the explicit correspondence between c-counter directions
-and P-orbit phases.
+and P-orbit stages.
 
 ## Genuinely open
 

@@ -144,7 +144,7 @@ The full content of the GRA universality conjecture is that the
 isos lift to actual Walk objects, Cochain complexes, n-truncated
 types, and operad algebras — at which point the iso is a
 non-trivial functor rather than the identity map on `Nat`.  This
-is the Phase 7 enrichment programme, deliberately deferred so the
+is the categorical-enrichment programme, deliberately deferred so the
 five-Reading skeleton would compile and the translation theorems
 would land first.  The depth-level universality is closed; the
 carrier-level universality is the open marathon front.

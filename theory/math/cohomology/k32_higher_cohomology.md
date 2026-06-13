@@ -270,11 +270,11 @@ would land in `H^(2 + 2 + 2 - 1) = H⁵`.  At the 5-skeleton
 extension, `H⁵ = 0` makes the Massey class VACUOUSLY trivial
 regardless of cobounding-chain choice.
 
-`Filled5CellMultiExtension.lean` (Phase 9) shipped a multi-cell
+`Filled5CellMultiExtension.lean` shipped a multi-cell
 5-skeleton with `H⁵ ≅ ℤ/2 ≠ 0`, providing a non-vacuous landing
 substrate for Massey.
 
-`MasseyTripleOmega.lean` (Phase 12) computes Massey ⟨ω, ω, ω⟩
+`MasseyTripleOmega.lean` computes Massey ⟨ω, ω, ω⟩
 explicitly under the outermost-faces AW cup extension and finds
 the class is ZERO at the chain level — the Massey representative
 is the all-false 5-cochain = `δ⁴_multi(false-4cochain)`.

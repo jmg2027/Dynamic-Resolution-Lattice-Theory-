@@ -211,8 +211,7 @@ narrative.  Readers can verify but not understand.
   · **Resolved 2026-05-26**: All 6 "remaining" observables
     (Koide, m_p/m_e, M_Pl/v_H, muon 192, m_t/m_c, η_B)
     confirmed to have PURE falsifiers in Lean (F21–F26).
-    `catalogs/physics-constants.md` updated: Phase 5 → Phase 6,
-    23/23 paired = 100% coverage.
+    `catalogs/physics-constants.md`: 23/23 paired = 100% coverage.
 
 ### 4.2 Hadron baryon spectrum
 

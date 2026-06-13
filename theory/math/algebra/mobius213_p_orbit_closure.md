@@ -382,7 +382,7 @@ the P-orbit level, not the atomic level.
     (avoiding Nat subtraction) and the IH-driven polynomial
     helper `Q00² = Q00·Q01 + Q01² + 1`.
 
-See `theory/essays/p_orbit/p_orbit_closure_master.md` for the 11-phase
+See `theory/essays/p_orbit/p_orbit_closure_master.md` for the 11-stage
 synthesis and `theory/essays/methodology/pure_nat_ring_methodology.md` for the
 PURE ring discovery + closure pattern.
 

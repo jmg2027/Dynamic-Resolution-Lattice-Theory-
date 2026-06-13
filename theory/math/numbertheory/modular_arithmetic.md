@@ -9,15 +9,15 @@ algorithm, modular inverse, Chinese Remainder Theorem.  All
 **explicit-witness** (no existential) — Bézout coefficients are
 computed, GCD has explicit step bound.
 
-Universal-Pisano marathon (Phase 3.2/3.3 marathon) extends the chapter with:
+The universal-Pisano work extends the chapter with:
 - An explicit-Nat Bezout via xgcd that universalises modular inverse
 - Fermat's Little Theorem (FLT) universal in the prime p, derived
   from a 213-native binomial theorem
 - The quadratic field extension `F_{p²} = F_p[√5]` with Frobenius
 
 These three are the algebraic substrate for the Pell-Fibonacci
-universal-prime closures in `theory/math/numbertheory/dyadic_fsm.md` (universal-Pisano marathon
-Phase 3.2/3.3/4).
+universal-prime closures in `theory/math/numbertheory/dyadic_fsm.md` (the
+universal-Pisano programme).
 
 ## Lean source
 
@@ -30,11 +30,11 @@ Phase 3.2/3.3/4).
 | Bezout / GCD / Euclidean | 6 | `JoinGCD`, `JoinBezout`, `JoinEuclidean`, `JoinCoprime`, `JoinEquivGCD`, `JoinExample` |
 | CRT (Lens) | 1 | `LensCRT` |
 | Per-modulus PureNat | 2 | `PureNatMod3`, `PureNatMod5` |
-| universal-Pisano marathon Bezout / FLT / F_{p²} | 4 | `ModBezout`, `ModBezoutInvariant`, `UniversalFLT`, `FP2Sqrt5` |
+| universal-Pisano programme Bezout / FLT / F_{p²} | 4 | `ModBezout`, `ModBezoutInvariant`, `UniversalFLT`, `FP2Sqrt5` |
 
 ## Narrative
 
-### Core (pre-universal-Pisano marathon)
+### Core (pre-universal-Pisano programme)
 
 Standard `Nat.gcd` uses Lean's well-founded recursion.  213's
 `GCD` is dyadic-FSM-style: explicit step-count bound (≤ log_2 of
@@ -43,7 +43,7 @@ the GCD output (not Skolemized).
 
 CRT is used in the universe chain (Step 12: lcm(5, 2) = 30).
 
-### universal-Pisano marathon — Bezout, FLT, F_{p²}
+### universal-Pisano programme — Bezout, FLT, F_{p²}
 
 **Explicit-Nat Bezout (`ModBezout`, `ModBezoutInvariant`).** The
 extended Euclidean algorithm is reformulated as a `Nat`-valued
@@ -52,7 +52,7 @@ xgcd: rather than `(s, t) ∈ ℤ × ℤ`, the algorithm produces
 `u · a = v · b + gcd a b`  or  `v · b = u · a + gcd a b`.
 This makes Bezout decidable without any signed-integer machinery
 and gives a `modInverseFromBezout : (a p : ℕ) → coprime a p → ℕ`
-that the rest of universal-Pisano marathon builds on.
+that the rest of universal-Pisano programme builds on.
 
 **Universal FLT (`UniversalFLT`).** The chain:
 
@@ -96,12 +96,12 @@ mod `p`.  Key results:
 
 The 5 in `F_p[√5]` is forced by `φ = (1 + √5)/2` (golden ratio,
 the Pell-matrix eigenvalue from `theory/math/numbertheory/dyadic_fsm.md`'s
-Pell story).  Phase 3.3 in DyadicFSM lifts this into the
+Pell story).  DyadicFSM lifts this into the
 universal-prime closure of the Pisano-period theorem for Pell.
 
 ## F_p[√D] universal in D — closed (FP2SqrtD)
 
-`Lib/Math/NumberTheory/ModArith/FP2SqrtD.lean` lifts the Phase 3.3 D=5 algebra
+`Lib/Math/NumberTheory/ModArith/FP2SqrtD.lean` lifts the D=5 algebra
 to **arbitrary** `D : Nat`.  32 PURE theorems:
 
   · Operations parametric in `(D, p)`: `fp2dAdd, fp2dSub, fp2dMul,
@@ -123,7 +123,7 @@ to **arbitrary** `D : Nat`.  32 PURE theorems:
 
 The Frobenius FLT chain `x^(p² − 1) = 1` in `F_{p²}` and the
 Legendre dispatch `√D ↦ (D/p) · √D` are now uniform in D; the
-Pell-Fibonacci split / inert structure (Phase 3.3) reads as the
+Pell-Fibonacci split / inert structure reads as the
 D=5 specialisation of one general theorem.
 
 ## Hensel bridge — closed (HenselBridge.lean, 8 PURE)
@@ -287,6 +287,6 @@ re-proved locally via direct induction.
 
 - `theory/math/foundations/universe_chain.md` — CRT decomposition (mod 5, mod 2)
 - `theory/math/numbertheory/dyadic_fsm.md` — Pell-Fibonacci universal closures
-  (Phase 3.2/3.3/4) consume `UniversalFLT` and `FP2Sqrt5`
+  consume `UniversalFLT` and `FP2Sqrt5`
 - `theory/physics/foundations/atomic_constants.md` — C2 uses
   `Nat.lt` + `Nat.sub` bridges similar to ModArith

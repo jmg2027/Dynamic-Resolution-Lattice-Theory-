@@ -35,8 +35,8 @@ The Group axioms (associativity, identity, inverses) are
 synthesis machinery that pulls in `Classical` in Lean.
 
 Used downstream by:
-- `Lib/Physics/Symmetry/Sym3Group.lean` (C3 chain Phase 11)
-- `Lib/Physics/Symmetry/AutKGroup.lean` (C3 chain Phase 12)
+- `Lib/Physics/Symmetry/Sym3Group.lean` (C3 chain)
+- `Lib/Physics/Symmetry/AutKGroup.lean` (C3 chain)
 - `Lib/Math/Algebra/Mobius213/` (Möbius P-matrix order)
 
 ## Connection

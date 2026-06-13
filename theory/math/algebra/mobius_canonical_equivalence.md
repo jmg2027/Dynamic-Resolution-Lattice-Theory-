@@ -355,7 +355,7 @@ signature `(NS, NT, det) = (3, 2, 1)` is visible.  Modeled on
 `Theory.SixTheorem` (10 readings of `6 = NS·NT`) but extended
 to the full signature across all math/physics domains.
 
-**Phase 1** (29 PURE, 20-conjunct master) covers 6 domains:
+**The first master** (29 PURE, 20-conjunct) covers 6 domains:
 
 | Domain | Axes | Examples |
 |---|---:|---|
@@ -366,7 +366,7 @@ to the full signature across all math/physics domains.
 | Resolution-limit | 3 | d² = 25, N_U = 5²⁵, fractal level = NT |
 | Atomicity-anchor | 1 | 6-conjunct cross-frame from `Mobius213AtomicityAnchor` |
 
-**Phase 2** (26 PURE, 23-conjunct master) covers 5 more domains:
+**The second master** (26 PURE, 23-conjunct) covers 5 more domains:
 
 | Domain | Axes | Examples |
 |---|---:|---|
@@ -402,7 +402,7 @@ occurrences, coefficient extraction).  Companion essay:
     §2 as the structurally honest limit case.  The pair-
     projection reading (`ZpMobiusPairEq`) is the canonical
     bidirectional form.
-  · **`cutMulN N` Phase 3**: bidirectional closure under the
+  · **`cutMulN N` bidirectional closure**: under the
     divisibility hypothesis `N ∣ k` (the precision artifact
     direction), Stern-Brocot congruence on bundled `mulN`,
     and N⁴-fiber higher-order product structures.
