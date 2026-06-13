@@ -33,6 +33,12 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem (sumTo_add_func su
 open E213.Lib.Math.NumberTheory.Legendre (legendre)
 open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (sumTo_le_sumTo lcmExpCount_eq_floorLog floorLog)
 open E213.Meta.Nat.FloorLog (floorLog_pow_le)
+open E213.Meta.Nat.Valuation (pow_vp_dvd)
+open E213.Meta.Nat.VpMul (IsPrime213 vp_pow vp_self_pow)
+open E213.Meta.Nat.VpSeparation (exists_prime_factor vp_eq_zero_of_not_dvd dvd_iff_one_le_vp)
+open E213.Meta.Nat.FoldCriterion (prime_not_dvd_prime)
+open E213.Lens.Number.Nat213.MultSystemValue
+  (primePi primeIndicator primeIndicator_eq_one_iff primeIndicator_le_one decPrime)
 open E213.Lens.Number.Nat213.MultSystem (binom)
 open E213.Lens.Number.Nat213.MultSystemValue (fact fact_pos central_binom_factorial primePi)
 
@@ -161,5 +167,90 @@ theorem prime_pow_vp_central_binom_le {p n : Nat} (hp : Prime213 p) (hn : 1 ≤ 
     (Nat.pow_le_pow_right (Nat.lt_of_lt_of_le (by decide) hp.1)
       (vp_central_binom_le_floorLog hp hn))
     (floorLog_pow_le h2n)
+
+/-- **`m ≤ B^{π(N)}`** when every prime factor of `m` is `≤ N` and every prime
+    power `p^{vp_p m} ≤ B` (`m > 0`, `B ≥ 1`).  Induction on the prime range `N`:
+    at a prime `N+1`, peel its full power `(N+1)^{vp}·m'` (`pow_vp_dvd`; `m'`
+    coprime to `N+1`), apply the IH to `m'` (primes `≤ N`), and `(N+1)^{vp} ≤ B`
+    bumps the bound by one factor (`π(N+1) = π(N)+1`).  The distinct-prime grouping
+    done inductively — no explicit product-over-primes object. -/
+theorem le_pow_primePi (B : Nat) (hB : 1 ≤ B) : ∀ N m, 0 < m →
+    (∀ p, IsPrime213 p → p ∣ m → p ≤ N) →
+    (∀ q, IsPrime213 q → q ^ vp q m ≤ B) →
+    m ≤ B ^ primePi N := by
+  intro N
+  induction N with
+  | zero =>
+      intro m hm hdvd _
+      have hm1 : m ≤ 1 := by
+        rcases Nat.lt_or_ge m 2 with h2 | h2
+        · exact Nat.le_of_lt_succ h2
+        · obtain ⟨q, hq, hqm⟩ := exists_prime_factor m m (Nat.le_refl m) h2
+          exact absurd (hdvd q hq hqm)
+            (Nat.not_le.mpr (Nat.lt_of_lt_of_le (by decide) hq.two_le))
+      show m ≤ B ^ primePi 0
+      rw [show primePi 0 = 0 from rfl, Nat.pow_zero]; exact hm1
+  | succ N ih =>
+      intro m hm hdvd hpow
+      haveI : Decidable (IsPrime213 (N + 1)) := decPrime (N + 1)
+      by_cases hpp : IsPrime213 (N + 1)
+      · obtain ⟨m', hm'⟩ := pow_vp_dvd (N + 1) m
+        have hpe_pos : 0 < (N + 1) ^ vp (N + 1) m := Nat.pos_pow_of_pos _ (Nat.succ_pos N)
+        have hm'pos : 0 < m' := by
+          rcases Nat.eq_zero_or_pos m' with h0 | h
+          · rw [h0, Nat.mul_zero] at hm'; rw [hm'] at hm; exact absurd hm (Nat.lt_irrefl 0)
+          · exact h
+        have hself : vp (N + 1) (N + 1) = 1 := by
+          have := vp_self_pow hpp 1; rwa [Nat.pow_one] at this
+        have hvpm' : vp (N + 1) m' = 0 := by
+          have hc := congrArg (vp (N + 1)) hm'
+          rw [vp_mul hpp hpe_pos hm'pos, vp_pow hpp (Nat.succ_pos N), hself, Nat.mul_one] at hc
+          have hle : vp (N + 1) m + vp (N + 1) m' ≤ vp (N + 1) m + 0 := by
+            rw [Nat.add_zero]; exact Nat.le_of_eq hc.symm
+          exact Nat.le_antisymm (le_of_add_le_add_left_pure hle) (Nat.zero_le _)
+        have hdvd' : ∀ p, IsPrime213 p → p ∣ m' → p ≤ N := by
+          intro q hq hqm'
+          obtain ⟨c1, hc1⟩ := hqm'
+          have aux : ∀ e, m = (N + 1) ^ e * m' → q ∣ m := fun e h1 =>
+            ⟨(N + 1) ^ e * c1, by rw [h1, hc1]; ring_nat⟩
+          have hqm : q ∣ m := aux (vp (N + 1) m) hm'
+          rcases Nat.lt_or_ge q (N + 1) with h | h
+          · exact Nat.le_of_lt_succ h
+          · have hqeq : q = N + 1 := Nat.le_antisymm (hdvd q hq hqm) h
+            have hge1 : 1 ≤ vp (N + 1) m' :=
+              (dvd_iff_one_le_vp hpp hm'pos).mp (hqeq ▸ ⟨c1, hc1⟩)
+            rw [hvpm'] at hge1; exact absurd hge1 (by decide)
+        have hpow' : ∀ q, IsPrime213 q → q ^ vp q m' ≤ B := by
+          intro q hq
+          by_cases hqp : q = N + 1
+          · subst hqp; rw [hvpm', Nat.pow_zero]; exact hB
+          · have hvpq : vp q m' = vp q m := by
+              have hc := congrArg (vp q) hm'
+              rw [vp_mul hq hpe_pos hm'pos, vp_pow hq (Nat.succ_pos N),
+                  vp_eq_zero_of_not_dvd hq (Nat.succ_pos N) (prime_not_dvd_prime hq hpp hqp),
+                  Nat.mul_zero, Nat.zero_add] at hc
+              exact hc.symm
+            rw [hvpq]; exact hpow q hq
+        have hpi : primePi (N + 1) = primePi N + 1 := by
+          show primePi N + primeIndicator (N + 1) = primePi N + 1
+          rw [(primeIndicator_eq_one_iff (N + 1)).mpr hpp]
+        rw [hm', hpi, Nat.pow_succ]
+        calc (N + 1) ^ vp (N + 1) m * m' ≤ B * B ^ primePi N :=
+              Nat.mul_le_mul (hpow (N + 1) hpp) (ih m' hm'pos hdvd' hpow')
+          _ = B ^ primePi N * B := Nat.mul_comm _ _
+      · have hdvd' : ∀ p, IsPrime213 p → p ∣ m → p ≤ N := by
+          intro q hq hqm
+          rcases Nat.lt_or_ge q (N + 1) with h | h
+          · exact Nat.le_of_lt_succ h
+          · exact absurd ((Nat.le_antisymm (hdvd q hq hqm) h) ▸ hq) hpp
+        have hind0 : primeIndicator (N + 1) = 0 := by
+          rcases Nat.eq_zero_or_pos (primeIndicator (N + 1)) with h0 | h
+          · exact h0
+          · exact absurd ((primeIndicator_eq_one_iff (N + 1)).mp
+              (Nat.le_antisymm (primeIndicator_le_one (N + 1)) h)) hpp
+        have hpi : primePi (N + 1) = primePi N := by
+          show primePi N + primeIndicator (N + 1) = primePi N
+          rw [hind0, Nat.add_zero]
+        rw [hpi]; exact ih m hm hdvd' hpow
 
 end E213.Lens.Number.Nat213.ChebyshevLower
