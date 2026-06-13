@@ -387,6 +387,45 @@ theorem monoCount_lt_pow {t d : Nat} (ht : 2 ≤ t) (hd : 2 ≤ d) : monoCount t
           exact Nat.lt_of_le_of_lt
             (Nat.add_le_add (monoCount_le_pow (e + 1) s) (monoCount_le_pow e (s + 1))) hstrict
 
+/-- `Σ_{i≤n} f i ≤ (n+1)·c` when each summand `≤ c`. -/
+theorem sumf_le_bound {f : Nat → Nat} {c : Nat} :
+    ∀ n, (∀ i, i ≤ n → f i ≤ c) → sumf f n ≤ (n + 1) * c
+  | 0,     h => by
+      show f 0 ≤ (0 + 1) * c
+      calc f 0 ≤ c := h 0 (Nat.le_refl 0)
+        _ = (0 + 1) * c := by rw [Nat.succ_mul, Nat.zero_mul, Nat.zero_add]
+  | n + 1, h => by
+      show sumf f n + f (n + 1) ≤ (n + 1 + 1) * c
+      calc sumf f n + f (n + 1)
+          ≤ (n + 1) * c + c :=
+            Nat.add_le_add (sumf_le_bound n (fun i hi => h i (Nat.le_succ_of_le hi)))
+              (h (n + 1) (Nat.le_refl _))
+        _ = (n + 1 + 1) * c := (Nat.succ_mul (n + 1) c).symm
+
+/-- **The simplex count is polynomial in the degree** (the other half of the dial):
+    `monoCount t d ≤ (d+1)^t` — for a fixed number of generators `t`, the
+    commutative count is bounded by a *polynomial* in the degree `d` (degree `t`),
+    where the free count `t^d` is *exponential* in `d`.  So the dichotomy is sharp:
+    commutative = simplex = polynomial-in-degree (`≤ (d+1)^t`), non-commutative =
+    cube = exponential-in-degree (`t^d`).  Induction on `t`: `monoCount (t+1) d =
+    Σ_{i≤d} monoCount t i ≤ (d+1)·(d+1)^t`. -/
+theorem monoCount_le_succ_pow : ∀ t d, monoCount t d ≤ (d + 1) ^ t := by
+  intro t
+  induction t with
+  | zero =>
+      intro d
+      cases d with
+      | zero => exact Nat.le_refl 1
+      | succ e => exact Nat.zero_le _
+  | succ t iht =>
+      intro d
+      show sumf (fun i => monoCount t i) d ≤ (d + 1) ^ (t + 1)
+      have hbound : ∀ i, i ≤ d → monoCount t i ≤ (d + 1) ^ t := fun i hi =>
+        Nat.le_trans (iht i) (Nat.pow_le_pow_left (Nat.succ_le_succ hi) t)
+      calc sumf (fun i => monoCount t i) d
+          ≤ (d + 1) * (d + 1) ^ t := sumf_le_bound d hbound
+        _ = (d + 1) ^ (t + 1) := by rw [Nat.pow_succ]; exact Nat.mul_comm (d + 1) ((d + 1) ^ t)
+
 /-- `totalCount` with the degree-`0` term split off: `= 1 + Σ_{n=1}^N`. -/
 theorem totalCount_split (k N : Nat) :
     totalCount k N = 1 + sumf1 (fun n => monoCount k n) N := by
