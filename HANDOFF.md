@@ -77,9 +77,22 @@ grouping done inductively by peeling full `p`-powers, no product-FTA object) +
 upper bound + density cut + lower bound); registered in `theory/math/INDEX`; closed
 `chebyshev_lower_bound` frontier archived → `research-notes/archive/chebyshev/`.
 
-**Next** (no open ∅-axiom step on this trajectory): remaining horizons are PNT
-proper `~N/ln N` (constant 1, a `Real213` pointing) and the lcm-growth cross-check
-(`LcmGrowthChebyshev`).  Or pick a fresh field via the autonomous-research menu.
+## Simplicial operation tower (the +/× frame; originator's foundation)
+`research-notes/frontiers/simplicial_operation_tower.md` — the generative tower
+(append→+→×→^).  This session: **L3 core marked CLOSED ∅-axiom**
+(`MultSystem.monoCount_closed` = `C(n+k−1,k)` multiset/simplex count, not the n=3
+hand-check); wrote **§L3′ — the precise +/× bridge** (one simplicial cone, two cuts:
+degree=Pascal vs value=ℕ; `+`/`×` = same rung shifted by `vp`, `exp:(ℕ₊,×)≅⊕_p(ℕ,+)`;
+count discrepancy = prime counting = the window ⇒ this session's Chebyshev).  **L4
+dial half CLOSED**: `MultSystem.monoCount_le_pow : monoCount t d ≤ t^d` (commutative-
+simplex ≤ free-cube; gap = commutativity collapse).  Theory mirror:
+`theory/math/numbertheory/chebyshev_prime_counting.md`.
+
+**Next**: (L4) build the `^`-layer enumeration and show its per-degree count escapes
+poly(simplex)→exp(cube) at the non-commutative rung (measures the `^`-wall by
+counting); (L2) formalize "natural layer = semigroup, identity = exception"; tie the
+abstract cone to the `(NS,NT,d)` simplex.  Chebyshev trajectory itself: only PNT
+`~N/ln N` (constant 1) horizon remains.
 
 ## Prior session (n-plus-signature-mappings branch)
 
