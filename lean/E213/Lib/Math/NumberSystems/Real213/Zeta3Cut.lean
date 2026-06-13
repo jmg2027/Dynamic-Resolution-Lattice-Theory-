@@ -1,6 +1,6 @@
 import E213.Lib.Math.Analysis.Cauchy.DepthAperyCubic
 import E213.Lib.Math.NumberSystems.Real213.AbCutSeq
-import E213.Lib.Math.NumberSystems.Real213.RateStratification
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
 import E213.Meta.Nat.PolyNat
 import E213.Meta.Nat.PolyNatMTactic
 

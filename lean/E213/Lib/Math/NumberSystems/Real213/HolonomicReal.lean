@@ -1,5 +1,5 @@
 import E213.Lib.Math.Analysis.CauchyCompleteValid
-import E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiCauchyLimit
 
 /-!
 # HolonomicReal — a real presented by a P-recursive recurrence with its modulus as data

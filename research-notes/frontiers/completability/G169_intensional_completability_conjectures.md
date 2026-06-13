@@ -1,7 +1,7 @@
 # G169 — intensional completability: the presentation/real split, and the conjectures it opens
 
 **Date**: 2026-06-01.  **Status**: research directions + supporting ∅-axiom lemmas.
-**Source of truth**: `lean/E213/Lib/Math/Real213/IntensionalCompletability.lean`
+**Source of truth**: `lean/E213/Lib/Math/Real213/Completability/IntensionalCompletability.lean`
 (3 PURE / 0 DIRTY).  **Anchors**: `Real213/{PresentationDependence, CrossDetOvertake,
 CrossDetEqDenom, CrossDetConstDenom, GeometricThreshold, RateStratification}`,
 `Cauchy/DepthOverflowDuality`, the original transfinite-ordinals proposal ("내포적 환원").

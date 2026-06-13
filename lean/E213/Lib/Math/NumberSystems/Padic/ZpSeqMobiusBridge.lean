@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Padic.SetoidFramework
-import E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
 
 /-!
 # ZpSeqMobiusBridge — ZpSeqEquiv and the Möbius reading

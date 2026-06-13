@@ -1,6 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.PiCut
-import E213.Lib.Math.NumberSystems.Real213.BracketModulus
-import E213.Lib.Math.NumberSystems.Real213.RateStratification
+import E213.Lib.Math.NumberSystems.Real213.Modulus.BracketModulus
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!

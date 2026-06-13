@@ -36,7 +36,7 @@ Open frontier section.
 
 | Module | Lean path | ∅-axiom |
 |---|---|---:|
-| `CrossDetTraceField` | `Lib/Math/NumberSystems/Real213/CrossDetTraceField.lean` | 20 PURE |
+| `CrossDetTraceField` | `Lib/Math/NumberSystems/Real213/CrossDet/CrossDetTraceField.lean` | 20 PURE |
 | `EisensteinFormCharacter` | `Lib/Math/NumberTheory/ModArith/EisensteinFormCharacter.lean` | 11 PURE |
 | `EisensteinSplitting` | `Lib/Math/Algebra/CayleyDickson/Integer/EisensteinSplitting.lean` | 5 PURE |
 | `EisensteinClassNumber` | `Lib/Math/Algebra/CayleyDickson/Integer/EisensteinClassNumber.lean` | 1 PURE |
@@ -146,7 +146,7 @@ Live in the frontier note under `research-notes/frontiers/`:
 
 ```bash
 cd lean && lake build E213
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.CrossDetTraceField
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetTraceField
 python3 tools/scan_axioms.py E213.Lib.Math.NumberTheory.ModArith.EisensteinFormCharacter
 python3 tools/scan_axioms.py E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitting
 python3 tools/scan_axioms.py E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinClassNumber

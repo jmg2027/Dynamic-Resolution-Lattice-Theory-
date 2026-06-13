@@ -57,7 +57,7 @@ adjacency `sbInterval_adj` + `sbInterval_mediant_coprime`; Vandermonde-2 mediant
 
 **Missing — the Aigner core:**
   - **The isolated continuant `K[a₁..aₙ]` recurrence + monotonicity** — was only *implicit* in `mInterval`.
-    **Now built** (`Real213/Continuant.lean`, ∅-axiom, this round): `continuant`/`contPair`,
+    **Now built** (`Real213/ContinuedFraction/Continuant.lean`, ∅-axiom, this round): `continuant`/`contPair`,
     `continuant_cons2` (Euler recurrence, `rfl`), `one_le_continuant`, `continuant_head_strict_mono`,
     `continuant_lt_prepend`.  This is the technical-core tool of the proven orderings.
   - **The Frobenius continuant formula** `markovNum p = K(CF-shape of slope p)` — the bridge from the
@@ -69,7 +69,7 @@ adjacency `sbInterval_adj` + `sbInterval_mediant_coprime`; Vandermonde-2 mediant
 
 ## E. The honest program for (b), in order
 
-  1. ✅ **Continuant primitive + monotonicity** (`Real213/Continuant.lean`) — done, ∅-axiom.
+  1. ✅ **Continuant primitive + monotonicity** (`Real213/ContinuedFraction/Continuant.lean`) — done, ∅-axiom.
   2. ✅ **Continuant ↔ matrix-product entry**: `K[a₁..aₙ] = (∏[[aᵢ,1],[1,0]]).(1,1)`
      (`contMatProd_eq`, `continuant_eq_contMatProd`, ∅-axiom) — the continuant now lives inside the repo's
      `Mat2` algebra (the same `mul` carrying `genL`/`genR`/`mInterval`).
@@ -113,7 +113,7 @@ technique, supplies it.
 
 ### Pointers
 - repo conjecture statement: `Real213/SternBrocotMarkov` §34 `markovMaxUnique_iff_markovNum_injective`
-- new tool: `Real213/Continuant.lean`
+- new tool: `Real213/ContinuedFraction/Continuant.lean`
 - arsenal: `HyperbolicEllipticTrace` (trace), `MarkovUniqueness` §9 (`cohn_sq_neg_one_mod`), `SternBrocotMarkov` (`mInterval`, `slope_path_inj`, `mInterval_markov`), `DyadicFSM/ContinuedFraction` (`cfCoeff`)
 - kernel: `OrbitRealizabilityH`, `markovMaxUnique_iff_orbitRealizabilityH`; passing-pattern prose in `theory/math/analysis/markov_uniqueness.md`
 - sources: Rabideau–Schiffler arXiv:1801.07155 (*Adv. Math.* 370, 2020); Banaian et al. arXiv:2512.04026 (2025); McShane (stable-norm unified proof of Aigner)

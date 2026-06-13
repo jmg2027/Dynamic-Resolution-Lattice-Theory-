@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.SignedCut.Core.Equivalence
-import E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocotApps
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocotApps
 
 /-!
 # SignedCut Stern-Brocot bridge

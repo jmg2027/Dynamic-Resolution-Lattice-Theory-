@@ -59,7 +59,7 @@ because the per-step relation closes a recurrence (`(a+1)`-case reduces to `a`-c
 
 ## Archetype 3 — ORBIT / free-action lift (finite representatives + a free symmetry collapse) — *in `H`'s own family*
 
-**Solved theorem.**  `markov_max_unique_of_orbit` (`NumberSystems/Real213/SternBrocotMarkov.lean:2135`)
+**Solved theorem.**  `markov_max_unique_of_orbit` (`NumberSystems/Real213/Markov/SternBrocotMarkov.lean:2135`)
 + its discharged composites `markov_max_unique_1325_via_orbit`, `markov_max_unique_985_via_orbit`
 (`ω = 2` composite Markov numbers `1325 = 25·53`, `985 = 5·197`).  **`∅`-axiom.**
 

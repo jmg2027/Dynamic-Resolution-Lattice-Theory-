@@ -9,7 +9,7 @@ the negation fold has been admitted.
 
 A path is a list of state-transitions `w : List Mat2`; its **holonomy** is the
 ordered fold-product `holonomy w = g₀ · g₁ · … · gₙ · I`
-(`lean/E213/Lib/Math/NumberSystems/Real213/HolonomyLattice.lean`, `holonomy`). The
+(`lean/E213/Lib/Math/NumberSystems/Real213/ModularGeometry/HolonomyLattice.lean`, `holonomy`). The
 fold is well-posed because a `2×2` integer matrix is the object in which the
 *frozen* reading (a configuration, four counts) and the *dynamic* reading (the map
 `x ↦ M·x`) coincide: without an external time axis a transition is not separable
@@ -81,5 +81,5 @@ matrix is a unique `L,R` word) needs the continued-fraction / odometer digit
 extraction. The general order law (a loop's holonomy has finite order ∈ `{1,2,3,4,6}`
 by its trace) and the holonomy group as π₁ of the modular orbifold
 `PSL(2,ℤ) = ℤ₂ * ℤ₃` are short bridges to
-`lean/E213/Lib/Math/NumberSystems/Real213/FiniteOrderSpectrum.lean` and
+`lean/E213/Lib/Math/NumberSystems/Real213/ModularGeometry/FiniteOrderSpectrum.lean` and
 `theory/essays/p_orbit/the_modular_geodesic_lens.md`, not yet written.

@@ -1,6 +1,6 @@
 import E213.Lib.Math.Algebra.Mobius213
 import E213.Lib.Math.Algebra.Mobius213.TowerLInfty
-import E213.Lib.Math.NumberSystems.Real213.PhiCut
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut
 
 /-!
 # Mobius213.TowerConvergence — L_∞ existence witness in Cut (Phase 1c)

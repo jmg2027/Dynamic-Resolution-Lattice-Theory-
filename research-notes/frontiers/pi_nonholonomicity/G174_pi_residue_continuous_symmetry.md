@@ -116,7 +116,7 @@ continuous Lens (cosine / Wick rotation `cos(iθ)=cosh θ`), with the φ↔π sp
 hyperbolic↔elliptic conjugacy split in `SL(2,ℝ)` (golden Möbius `[[2,1],[1,1]]` hyperbolic,
 `ModularElliptic` orders `{4,6}` elliptic).
 
-**New ∅-axiom anchor** (`Real213/PentagonGoldenTrace.lean`, 4 PURE): the algebraic skeleton of
+**New ∅-axiom anchor** (`Real213/Phi/PentagonGoldenTrace.lean`, 4 PURE): the algebraic skeleton of
 `φ = 2cos(π/5)`.  In `ℤ[φ]`: `phi_quad` (`φ²=φ+1`), `pentagon_trace_quad`
 (`(φ−1)²+(φ−1)=1` — the pentagon trace `2cos(2π/5)` is the conjugate golden root),
 `pentagon_trace_unit` (`φ·(φ−1)=1` — the pentagon trace is `1/φ`).  This certifies the

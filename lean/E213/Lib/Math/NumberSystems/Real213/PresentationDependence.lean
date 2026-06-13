@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
+import E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake
 import E213.Lib.Math.Analysis.Cauchy.EulerDivergenceForm
 import E213.Lib.Math.Analysis.Cauchy.Euler
 import E213.Meta.Nat.PolyNat

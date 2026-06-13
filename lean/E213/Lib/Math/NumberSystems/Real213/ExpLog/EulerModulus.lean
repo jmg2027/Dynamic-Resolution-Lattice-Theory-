@@ -1,6 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.EulerCut
 import E213.Lib.Math.NumberSystems.Real213.HolonomicReal
-import E213.Lib.Math.NumberSystems.Real213.RateModulus
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus
 import E213.Lib.Math.Analysis.Cauchy.EulerDivergenceForm
 import E213.Meta.Nat.PolyNat
 

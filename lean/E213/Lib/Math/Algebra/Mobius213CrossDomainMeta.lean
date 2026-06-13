@@ -1,6 +1,6 @@
-import E213.Lib.Math.NumberSystems.Real213.Mobius213UnificationCapstone
-import E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
-import E213.Lib.Math.NumberSystems.Real213.Mobius213CutSetoid
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213UnificationCapstone
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213AtomicityAnchor
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213CutSetoid
 import E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge
 import E213.Lib.Math.NumberSystems.Padic.ZpSeqMobiusBridge
 import E213.Lib.Math.Analysis.FluxMVT.AdjacentSternBrocotBridge

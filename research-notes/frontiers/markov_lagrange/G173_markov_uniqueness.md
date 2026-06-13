@@ -3,7 +3,7 @@
 **Tier 1 (volatile).**  Marathon working note for the Markov uniqueness conjecture
 (Frobenius 1913), continuing the Markov arc (`theory/math/analysis/markov_spectrum.md`,
 `Real213/{GoldenFormMarkov, MarkovTree}`).  Source of truth for the closed part:
-`lean/E213/Lib/Math/Real213/MarkovUniqueness.lean` (80 PURE / 0 dirty).  Promoted narrative:
+`lean/E213/Lib/Math/Real213/Markov/MarkovUniqueness.lean` (80 PURE / 0 dirty).  Promoted narrative:
 `theory/math/analysis/markov_uniqueness.md`.
 
 ## The conjecture

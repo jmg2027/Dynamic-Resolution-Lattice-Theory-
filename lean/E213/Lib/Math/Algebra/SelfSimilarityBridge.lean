@@ -1,8 +1,8 @@
 import E213.Theory.Raw.API
 import E213.Lib.Math.Foundations.UniverseChain.Recursion
 import E213.Lib.Math.Algebra.Mobius213.TowerLInfty
-import E213.Lib.Math.NumberSystems.Real213.PhiCut
-import E213.Lib.Math.NumberSystems.Real213.PhiConvergence
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiConvergence
 import E213.Meta.Nat.PureNat
 
 /-!

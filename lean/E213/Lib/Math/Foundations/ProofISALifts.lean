@@ -4,8 +4,8 @@ import E213.Lens.ProofISA
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.FLTPrimary
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.FreshmanDream
 import E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
-import E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness
-import E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness
+import E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
 import E213.Lib.Math.Combinatorics.CountExistence
 import E213.Lib.Math.Combinatorics.RamseyLowerBound
 import E213.Lib.Math.Foundations.MonovariantFlow

@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.HyperbolicEllipticTrace
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace
 import E213.Lib.Math.Analysis.Cauchy.CFiniteHomogRec
 import E213.Lib.Math.Analysis.Cauchy.NewtonGregory
 import E213.Lib.Math.Analysis.Cauchy.PolyDepthMonotone

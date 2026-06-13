@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Bipartite.V32
-import E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
-import E213.Lib.Math.NumberSystems.Real213.Mobius213ContinuedFraction
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213ContinuedFraction
 import E213.Lib.Physics.Simplex.Counts
 
 /-!

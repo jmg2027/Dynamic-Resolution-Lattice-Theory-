@@ -281,7 +281,7 @@ object encodes:
   (the originating conjecture note; archived after closure).
 - Wave 13 cutSumN parametric closure
   (`Lib/Math/NumberSystems/Real213/Sum/CutSumN.lean`,
-  `Lib/Math/NumberSystems/Real213/NValidCut.lean`) provided the `cutEq`-side
+  `Lib/Math/NumberSystems/Real213/ValidCut/NValidCut.lean`) provided the `cutEq`-side
   algebra that this chapter lifts to Stern-Brocot form.
 - `Lib/Math/Algebra/Mobius213.lean`,
   `Lib/Math/Mobius213OneAsGlue.lean`,
@@ -419,16 +419,16 @@ occurrences, coefficient extraction).  Companion essay:
 ## How to verify
 
 ```bash
-cd lean && lake build E213.Lib.Math.NumberSystems.Real213.Mobius213UnificationCapstone
-cd lean && lake build E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
+cd lean && lake build E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213UnificationCapstone
+cd lean && lake build E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213AtomicityAnchor
 cd lean && lake build E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge
 
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocotApps
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213UnificationCapstone
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocotApps
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213PellInvariant
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213UnificationCapstone
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213AtomicityAnchor
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge
 ```
 

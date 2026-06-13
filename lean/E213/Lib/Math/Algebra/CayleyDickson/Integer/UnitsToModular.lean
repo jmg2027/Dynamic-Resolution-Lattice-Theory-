@@ -1,6 +1,6 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZI
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega
-import E213.Lib.Math.NumberSystems.Real213.ModularElliptic
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic
 import E213.Lib.Math.Algebra.CassiniUnimodular
 import E213.Meta.Int213.PolyIntMTactic
 

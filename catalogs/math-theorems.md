@@ -573,7 +573,7 @@ import E213.Lib.Math.Algebra.Mobius213.TowerConvergence
                                     witness via (Pell-unit ∀n,
                                     φ-bracket, trajectory uniqueness)
 
-import E213.Lib.Math.NumberSystems.Real213.PhiCut
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut
 -- def pellConvergentCut (n : Nat)  φ approximant Cut at layer n
 -- theorem pell_bracket_width_witness  Pell-unit invariant in Nat form
 -- theorem phi_bracket_via_pell        concrete φ ∈ (3/2, 5/3)

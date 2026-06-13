@@ -1,5 +1,5 @@
 import E213.Lib.Math.NumberSystems.Real213.AbCutSeq
-import E213.Lib.Math.NumberSystems.Real213.CrossDetOvertake
+import E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetOvertake
 import E213.Lib.Math.Analysis.Cauchy.PellSeq
 import E213.Meta.Nat.PolyNat
 import E213.Meta.Nat.PureNat

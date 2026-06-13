@@ -1,5 +1,5 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCrossDet
-import E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus
 
 /-!
 # EisensteinCompletion — the 3-axis continued fraction: floor rotation + completion

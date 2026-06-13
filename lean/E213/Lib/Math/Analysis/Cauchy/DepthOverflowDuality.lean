@@ -1,5 +1,5 @@
 import E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue
-import E213.Lib.Math.NumberSystems.Real213.RateStratification
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
 
 /-!
 # DepthOverflowDuality — the diagonalisation residue and the completeness-break are one operation

@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.Mobius213
 import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Lib.Math.Algebra.Mobius213ModFive
 import E213.Lib.Math.Algebra.Mobius213.Mobius213K32Bridge
-import E213.Lib.Math.NumberSystems.Real213.Mobius213AtomicityAnchor
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213AtomicityAnchor
 import E213.Lib.Math.Algebra.CayleyDickson.Tower.Mobius213CDBridge
 import E213.Theory.Atomicity
 import E213.Lib.Physics.Simplex.Counts

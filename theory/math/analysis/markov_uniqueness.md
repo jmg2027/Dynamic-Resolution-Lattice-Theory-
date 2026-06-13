@@ -475,11 +475,11 @@ decides it; doing `(B′)` first cleans `(C)`'s input but does not make `(C)` ch
 
 ```bash
 cd lean
-lake build E213.Lib.Math.NumberSystems.Real213.MarkovUniqueness \
-           E213.Lib.Math.NumberSystems.Real213.MarkovCassiniBridge \
-           E213.Lib.Math.NumberSystems.Real213.MarkovModularBridge \
-           E213.Lib.Math.NumberSystems.Real213.MarkovInjectivity \
-           E213.Lib.Math.NumberSystems.Real213.SternBrocotMarkov
+lake build E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness \
+           E213.Lib.Math.NumberSystems.Real213.Markov.MarkovCassiniBridge \
+           E213.Lib.Math.NumberSystems.Real213.Markov.MarkovModularBridge \
+           E213.Lib.Math.NumberSystems.Real213.Markov.MarkovInjectivity \
+           E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
 cd ..
 for m in MarkovUniqueness MarkovCassiniBridge MarkovModularBridge MarkovInjectivity SternBrocotMarkov; do
   python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.$m

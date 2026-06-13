@@ -83,7 +83,7 @@ class-number core (composite `c` with both `3c±2` composite, smallest `1325`).
   where the Markov `H` kernel sits in the foundation's breakthrough backlog.
 - `G191_continuant_aigner_program` — the continuant / Aigner program: where
   modern Markov theory meets the repo, and what it can(not) close (the
-  ranked-next attack on `H`; `Real213/Continuant.lean` tool built).
+  ranked-next attack on `H`; `Real213/ContinuedFraction/Continuant.lean` tool built).
 - `G192_markov_kernel_raw_lens_native` — the kernel in Raw/Lens-native terms:
   where the geodesic engine reaches and where it structurally stops.
 - `G193_axioms_against_markov_kernel` — the 213 axiom corpus read against the

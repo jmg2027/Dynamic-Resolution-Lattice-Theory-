@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Bipartite.V33
-import E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv
-import E213.Lib.Math.NumberSystems.Real213.Mobius213ContinuedFraction
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213ContinuedFraction
 
 /-!
 # Mobius213K33StateClass — K_{3,3}^(c=2) vertex cochains under Möbius P

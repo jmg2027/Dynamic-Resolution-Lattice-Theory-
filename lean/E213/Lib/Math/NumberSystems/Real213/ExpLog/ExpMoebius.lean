@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.ContinuedFractionModulus
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuedFractionModulus
 import E213.Meta.Nat.NatRing213
 import E213.Meta.Nat.PolyNatMTactic
 

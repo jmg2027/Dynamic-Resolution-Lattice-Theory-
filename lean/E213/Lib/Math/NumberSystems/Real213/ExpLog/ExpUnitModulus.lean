@@ -1,5 +1,5 @@
-import E213.Lib.Math.NumberSystems.Real213.RateModulus
-import E213.Lib.Math.NumberSystems.Real213.RateStratification
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateModulus
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification
 import E213.Lib.Math.Analysis.CauchyComplete
 import E213.Lib.Math.Analysis.Cauchy.Euler
 import E213.Meta.Nat.NatRing213

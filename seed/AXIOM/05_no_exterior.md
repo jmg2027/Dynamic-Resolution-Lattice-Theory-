@@ -143,7 +143,7 @@ solved" as a falsification of the reference claim.  The reference
 claim is that every referent — proofs included — is a `Raw`; it is
 intact, and demonstrated even on an open conjecture: a proposition is
 written `Raw`-native and its closed cases are solved by exhibiting the
-proof-residue (`lean/E213/Lib/Math/NumberSystems/Real213/MarkovUniquenessRaw.lean`:
+proof-residue (`lean/E213/Lib/Math/NumberSystems/Real213/Markov/MarkovUniquenessRaw.lean`:
 `markovMaxUnique_213_iff` writes Markov uniqueness with every number a
 `Lens.view` of `Raw`; `markovMaxUnique_213_solved_5` exhibits the
 inhabitant for `c = 5`).  What 213 does **not** claim is the

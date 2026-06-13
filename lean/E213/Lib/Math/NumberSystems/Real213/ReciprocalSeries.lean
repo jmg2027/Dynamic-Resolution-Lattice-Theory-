@@ -1,4 +1,4 @@
-import E213.Lib.Math.NumberSystems.Real213.CrossDetEqDenom
+import E213.Lib.Math.NumberSystems.Real213.CrossDet.CrossDetEqDenom
 import E213.Lib.Math.Analysis.Cauchy.DepthLiouvilleCoord
 import E213.Meta.Nat.PolyNat
 import E213.Meta.Tactic.NatHelper

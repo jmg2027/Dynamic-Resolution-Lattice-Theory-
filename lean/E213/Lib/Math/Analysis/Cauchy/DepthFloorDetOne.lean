@@ -1,5 +1,5 @@
 import E213.Lib.Math.Analysis.Cauchy.DivergenceLadder
-import E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
+import E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat
 
 /-!
 # Depth-floor = det 1 (forward direction) — ∅-axiom

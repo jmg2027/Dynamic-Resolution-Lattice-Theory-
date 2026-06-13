@@ -1,7 +1,7 @@
 import E213.Lib.Math.Analysis.Cauchy.DepthFloorDetOne
 import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Lib.Math.Algebra.Mobius213.Px.PnFibonacciUniversal
-import E213.Lib.Math.NumberSystems.Real213.PhiFrozenDynamic
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiFrozenDynamic
 
 /-!
 # Cauchy.PhiResidueGlue — the orbit determinant `det Pⁿ` IS the atomic glue `NS − NT`

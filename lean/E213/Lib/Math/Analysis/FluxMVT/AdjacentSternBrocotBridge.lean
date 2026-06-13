@@ -1,5 +1,5 @@
 import E213.Lib.Math.Analysis.FluxMVT.TelescopingConservation
-import E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
 
 /-!
 # AdjacentSternBrocotBridge — Adjacent ⇒ sternBrocotEq on walls

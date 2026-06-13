@@ -1,5 +1,5 @@
 import E213.Lib.Math.Analysis.CauchyComplete
-import E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiCauchyLimit
 
 /-!
 # CauchyLensFounding — `ℝ` is the Cauchy rung, closing the number tower

@@ -93,7 +93,7 @@ to an outside, but the framework auditing itself.  The restraint (G192 §D: no m
 | 2 | Forward bridge: size-injective ⟹ uniqueness | §33 `markov_max_unique_of_markovNum_injective` | ✅ ∅-axiom. |
 | 3 | **Reverse bridge: uniqueness ⟹ size-injective; the literal iff** | §34 `markovNum_injective_of_markovMaxUnique`, `markovMaxUnique_iff_markovNum_injective` | ✅ ∅-axiom.  **Sourced**: this iff *is* the modern Frobenius statement (map injectivity).  Perimeter (formulation-equivalence). |
 | 4 | Casoratian / discrete-Wronskian as cross-node tool | `G189` (corrected) | ❌ within-recurrence only; wrong shape for two incomparable transfer products. |
-| 5 | Continuant / Aigner-ordering program (classical core) | `G191`, **`Real213/Continuant.lean`** (E1 ✅) | ✅ E1 ∅-axiom (continuant + monotonicity).  Aigner = necessary-not-sufficient; E2–E5 unbuilt; Frobenius continuant formula (E4) is the substantial bridge. |
+| 5 | Continuant / Aigner-ordering program (classical core) | `G191`, **`Real213/ContinuedFraction/Continuant.lean`** (E1 ✅) | ✅ E1 ∅-axiom (continuant + monotonicity).  Aigner = necessary-not-sufficient; E2–E5 unbuilt; Frobenius continuant formula (E4) is the substantial bridge. |
 | 6 | Raw/Lens-native reading; the geodesic-engine boundary | `G192` | ✅ analysis.  **Boundary result**: geodesic (`mediantLens`) closes the direction-free layer (slope injective) and *structurally stops* at the orientation (size not direction-free).  All hard 213 constraints fix structure, none selects realization. |
 | 7 | Cluster algebra / snake graph / frieze (LLRS route) | survey | ❌ entirely absent in repo; from scratch; CF/continuant route cheaper. |
 | 8 | Cohomological gluing (ℤ/2 sign-cochain over ω primes ↔ `H¹(torus)`) | `G192` §B, `Cohomology/{Delta,Cochain}` | ⚠ structural rhyme only; realizability-map-as-δ unbuilt; not yet a constraint. |
@@ -133,7 +133,7 @@ direction has crossed it; directions 1–4 are how we keep attacking.
 
 ### Pointers
 - iff (= Frobenius): `Real213/SternBrocotMarkov` §34 `markovMaxUnique_iff_markovNum_injective`
-- continuant tool: `Real213/Continuant.lean`
+- continuant tool: `Real213/ContinuedFraction/Continuant.lean`
 - companions: `research-notes/G191_continuant_aigner_program.md` (classical), `research-notes/G192_markov_kernel_raw_lens_native.md` (Raw/Lens), `G189` (Casoratian correction)
 - axioms read: `seed/AXIOM/{01_residue, 04_uniqueness §4.3, 05_no_exterior §5.2/§5.6, 06_lens_readings §6.7/§6.8, 08_falsifiability §8.2/§8.4}`
 - φ engine: `Mobius213` (`P(x)=(2x+1)/(x+1)→φ`), `Real213/CrossDetConstDenom`/`FibCassiniNat` (Fibonacci spine)
