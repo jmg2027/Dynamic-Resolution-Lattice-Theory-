@@ -1,14 +1,7 @@
 # C3 Chain — Gauge Emergence from K_{3,2}^{(c=2)}
 
 **Status**: Closed in `lean/E213/Lib/Physics/Symmetry/`
-(24 .lean files; 18 phase capstones + master, all strict ∅-axiom).
-
-This is a distinct shape of promotion vs. The Hodge chapter: there
-are **no source research-notes** to absorb.  The 12-phase chain (plus
-6 extension phases) was developed directly in Lean across three
-sub-sessions of the `claude/subset-bijection-lemmas-w2FKf` branch,
-with HANDOFF.md as the only contemporaneous narrative.  This chapter
-recovers the narrative by reading the Lean tree.
+(24 .lean files; 18 module capstones + master, all strict ∅-axiom).
 
 ## Overview
 
@@ -39,10 +32,10 @@ The single citable Lean theorem is `c3_chain_master` ∈
 - **Sub-tree**: `lean/E213/Lib/Physics/Symmetry/`
 - **Master theorem**: `C3ChainCapstone.c3_chain_master`
 - **Tree INDEX**: `lean/E213/Lib/Physics/Symmetry/INDEX.md`
-- **File count**: 24 .lean files (6 pre-C3 + 18 new phase files + 1 INDEX)
-- **∅-axiom status**: all 18 phase capstones + master PURE
+- **File count**: 24 .lean files (6 pre-C3 substrate + 18 chain modules + 1 INDEX)
+- **∅-axiom status**: all 18 module capstones + master PURE
 
-### Phase architecture (12 core + 6 extensions)
+### Module architecture (12 core + 6 extensions)
 
 | # | Module | What it gives |
 |---|---|---|
@@ -97,16 +90,16 @@ with cardinality `6 · 2 · 64 = 768`.  The Sym(NS) × Sym(NT) part is
 the *external* symmetry (vertex relabeling); C_2^6 is the *internal*
 symmetry (per-edge-pair multiplicity swap).
 
-**Phases 1, 12, 15, 18** establish this group structure in Lean:
-- Phase 1 (`AutKType`): Aut_K as a Type with cardinality 768
-- Phase 12 (`AutKGroup`): Group axioms via direct product
-- Phase 15 (`AutKSemidirect`): non-trivial semidirect twist sample
-- Phase 18 (`AutKSemidirectFull`): full semidirect Group axioms
+The group structure is established in Lean by:
+- `AutKType`: Aut_K as a Type with cardinality 768
+- `AutKGroup`: Group axioms via direct product
+- `AutKSemidirect`: non-trivial semidirect twist sample
+- `AutKSemidirectFull`: full semidirect Group axioms
 
 ### 2. H¹(K) and the Sym(3) action
 
 The first cohomology of K over ℤ/2 is rank-8: `H¹(K) := Fin 8 → Bool`
-(Phase 2, `Cohomology/Bipartite/H1K`).  Equivalently, |H¹(K)| = 2⁸ = 256.
+(`Cohomology/Bipartite/H1K`).  Equivalently, |H¹(K)| = 2⁸ = 256.
 
 The rank equals `NS² − 1 = 9 − 1 = 8`, which is the adjoint
 representation dimension of SU(NS) = SU(3).  This is **not** a
@@ -114,22 +107,22 @@ coincidence: the 8 topological holes in K_{3,2}^{(c=2)} are forced
 by χ(K) = 1 − 8 = −7 (Euler characteristic), and 8 is also `adj SU(3)`,
 the gluon count.
 
-The Sym(3) external symmetry acts on edges (Phase 3, `Sym3OnKEdges`)
+The Sym(3) external symmetry acts on edges (`Sym3OnKEdges`)
 via two transposition generators σ_S01, σ_S12.  This action **descends
-to H¹(K)** via δ⁰-equivariance (Phase 4, `Sym3OnH1K`): if
+to H¹(K)** via δ⁰-equivariance (`Sym3OnH1K`): if
 `σ ∈ Sym(3)` is an edge-permutation, then `σ⋆[c] = [σ⋆c]` in
 cohomology, where the brackets are cohomology classes.
 
-Phase 5 (`Sym3OnH1KMatrix`) gives the **explicit 8×8 matrix M_S01**
+`Sym3OnH1KMatrix` gives the **explicit 8×8 matrix M_S01**
 of σ_S01 on H¹(K) via a tree-decomposition witness (the 4 non-tree
-edges form the cycle generators).  Phase 6 (`Sym3OnH1KCayley`)
+edges form the cycle generators).  `Sym3OnH1KCayley`
 verifies the Sym(3) presentation `⟨s, t | s² = t² = (st)³ = e⟩`
 at the matrix level.
 
 ### 3. The embedding ι: K ↪ Δ⁴ and the gluon octet
 
 K_{3,2}^{(c=2)} embeds into the 4-simplex Δ⁴ via the canonical
-map ι_edge: Fin 12 → (edges of Δ⁴).  Phase 7 (`IotaKToDelta4`) shows:
+map ι_edge: Fin 12 → (edges of Δ⁴).  `IotaKToDelta4` shows:
 
 1. **ι is non-injective**: two K-edges can map to the same Δ⁴-edge
    (multiplicity collapse).  Witnessed by `ι_edge ⟨0⟩ = ι_edge ⟨1⟩`.
@@ -147,14 +140,14 @@ gluon octet := coker(ι*: H¹(Δ⁴) → H¹(K))
             ≃  (F_2)^8
 ```
 
-Phase 8 (`IotaSym3Equivariance`) verifies Sym(3)-equivariance of ι:
+`IotaSym3Equivariance` verifies Sym(3)-equivariance of ι:
 `ι_edge ∘ σ_K = σ_Δ⁴ ∘ ι_edge`.  The Sym(3) action is preserved by
 the embedding — so the gluon octet inherits the Sym(3) representation
 structure.
 
 ### 4. Irrep decomposition (the master result)
 
-Phase 9 (`Sym3IrrepDecomp`) closes the decomposition:
+`Sym3IrrepDecomp` closes the decomposition:
 
 ```
 H¹(K) = 2 · trivial ⊕ 3 · standard  (over F_2)
@@ -166,22 +159,22 @@ The decomposition is verified by:
 - Cardinality bridge: 4 = 2², matching the multiplicity-2 trivial.
 - Remaining 8 − 2 = 6 dimensions form 3 copies of the 2-dim standard.
 
-Phase 10 (`Sym3StandardReps`) gives two **explicit** standard 2-rep
-basis pairs, and Phase 14 (`Sym3StandardRepThird`) the third —
+`Sym3StandardReps` gives two **explicit** standard 2-rep
+basis pairs, and `Sym3StandardRepThird` the third —
 collectively a full explicit basis of the 6-dim non-trivial part.
 
-Phase 17 (`Sym3BlockDiagonal`) verifies that M_S01 and M_S12 are
+`Sym3BlockDiagonal` verifies that M_S01 and M_S12 are
 fully block-diagonal in the 8-dim basis {2·trivial ⊕ 3·standard}.
 
-Phase 11 (`Sym3Group`) closes Sym(3) as a proper Lean Group on Fin 6
+`Sym3Group` closes Sym(3) as a proper Lean Group on Fin 6
 via explicit Cayley table — non-abelian (`mul a b ≠ mul b a`).
 
-### 5. Internal C_2^6 structure (Phases 13, 16)
+### 5. Internal C_2^6 structure
 
 The C_2^6 internal symmetry acts trivially on H¹(K) coboundaries
-(Phase 13, `C2_6OnH1K`).  The 4 "mixed" generators (those that twist
+(`C2_6OnH1K`).  The 4 "mixed" generators (those that twist
 between different (s, t) pairs) have explicit H¹(K) matrices given
-in Phase 16 (`C2_6MixedMatrices`).  Together with the 6 "clean"
+in `C2_6MixedMatrices`.  Together with the 6 "clean"
 generators these form 6 commuting involutions on H¹(K).
 
 ### 6. The master theorem
@@ -237,29 +230,13 @@ What this **does not** give (open frontier, §below):
 - Full SU(3) (not just the Weyl group Sym(3))
 - Continuous gauge transformations
 
-## Research-note provenance
-
-**None.**  Unlike the Hodge chapter (six absorbed G-notes), the C3
-chain has no contemporaneous research-notes.  The work was developed
-directly in Lean across three sub-sessions:
-
-| Sub-session | Branch context | Deliverable |
-|---|---|---|
-| S3 main | `claude/subset-bijection-lemmas-w2FKf` | Phases 1-12 + master (173 PURE) |
-| S3 fup A | same branch | Phases 13-15 (C_2^6 + 3rd standard + semidirect sample) |
-| S3 fup B | same branch | Phases 16-18 (mixed C_2^6 + block-diag + full semidirect) |
-
-This narrative was recovered by reading the Lean tree directly +
-HANDOFF.md Part 1 §S3 (commit `4020261f`).  No archive move is
-needed.
-
 ## Open frontier
 
 The C3 chain closes the **structural** picture.  Open extensions:
 
-1. **C3 chain v2 master** — a single capstone incorporating Phases
-   13-18 (current `c3_chain_master` only references Phases 1-12).
-   Pure consolidation, no new math.  See HANDOFF Part 2 §B3.
+1. **C3 chain v2 master** — a single capstone incorporating the
+   extension modules 13-18 (`c3_chain_master` bundles the 12 core
+   results).  Pure consolidation, no new math.
 
 2. **C3 ↔ α_3** — connect the explicit Sym(3) rep to the strong
    coupling `α_3 = NS² − 1 = 8` in
@@ -271,11 +248,10 @@ The C3 chain closes the **structural** picture.  Open extensions:
    continuous-group machinery (currently scattered across
    `Math/Trajectory/` and `Math/Analysis213/`).
 
-4. **Inverse-pullback / hom-direction documentation** — Phase 18
-   uses `bit_act_of` with inverse-pullback to recover true group hom
-   direction (pullback gives anti-hom, push-forward gives hom).
-   A short research note on this convention would help future
-   contributors.  See HANDOFF Part 2 §B1.
+4. **Inverse-pullback / hom-direction documentation** —
+   `AutKSemidirectFull` uses `bit_act_of` with inverse-pullback to
+   recover the true group hom direction (pullback gives anti-hom,
+   push-forward gives hom); the convention deserves a short note.
 
 ## How to verify
 
@@ -285,7 +261,7 @@ lake build E213.Lib.Physics.Symmetry            # build clean
 python3 tools/scan_axioms.py Lib/Physics/Symmetry  # PURE/DIRTY tally
 ```
 
-Expected: build succeeds, every phase capstone + master reports
+Expected: build succeeds, every module capstone + master reports
 "does not depend on any axioms", scan reports 0 DIRTY in Symmetry/.
 
 The single citable theorem from elsewhere:
@@ -309,5 +285,4 @@ theorem + this chapter:
 `Lib/Physics/Symmetry/C3ChainCapstone.c3_chain_master` (theorem)
 ```
 
-For deep dives into specific phases, cite the individual phase file
-+ this chapter §<phase>.
+For deep dives, cite the individual module file + this chapter.
