@@ -12,6 +12,10 @@ ring distinction.  Promoted from `Lib/Math/NatHelpers/` 2026-05-13
   - `UnitGrid.lean`        — the rung-2 sibling: `×`-commutativity born
                              from the grid transpose double-count
                              (`mul_comm_from_grid`, no `Nat.mul_comm`)
+  - `UnitHyper.lean`       — the rung-3 sibling: the `b`-dimensional unit
+                             grid for `^`; `count = side ^ dim` positively
+                             (base=length, exponent=axis count;
+                             `count_eq_side_pow_dim`, no "comm lost")
   - `TwoThreeUnique.lean`  — the proven linear floor of the `^`-wall:
                              `2^a·3^b = 2^c·3^d → a=c ∧ b=d`
   - `NatDiv213.lean`       — `Nat.div` lemmas (213-internal pattern)

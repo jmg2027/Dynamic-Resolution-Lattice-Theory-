@@ -4,8 +4,11 @@
 core (Pascal/simplex count) is CLOSED ∅-axiom** (`MultSystem.monoCount_closed`, not
 merely the `n=3` hand-check), and its **prime-counting payoff is built**
 (`MultSystemValue` + `ChebyshevLower`: value-count → window → both halves of
-Chebyshev).  L4 (commutativity dial at `^`) and L2 (no-identity criterion) remain
-`[gut]`.  Complements `number_tower_theory.md` (demotion/valuation view, R0–R8);
+Chebyshev).  The **generative `^`-object is BUILT** (P2, `Meta/Nat/UnitHyper`,
+∅-axiom): `hcube a b` = the `b`-dim unit grid, `count = side ^ dim` positively
+(base=length, exponent=axis count).  L4 (commutativity dial at `^`) and L2
+(no-identity criterion) remain `[gut]`.  Complements `number_tower_theory.md`
+(demotion/valuation view, R0–R8);
 this note records the **generative** view — the layer as construction, the
 no-identity principle, the **simplicial-cone finding**, and (§L3′ below) the precise
 `+`/`×` bridge.
@@ -52,9 +55,15 @@ construction.  The exact generative rule, no numbers, no identity:
     → free *commutative* semigroup (their multisets).  An *entirely different
     object* from the `+`-line.  Object: `UnitGrid` (`Meta/Nat/UnitGrid`).
   - **`^`** : the `×`-layer's *elements* (the cone's points) become the **axes** →
-    the next free semigroup.  **Object: to build** ("UnitHyper" — the `b`-dimensional
-    unit grid).  Currently only `HyperAssoc` exists, and it frames `^`
-    *negatively* ("assoc AND comm **die**") — **to be replaced** by the positive form.
+    the next free semigroup.  **Object: `UnitHyper` (`Meta/Nat/UnitHyper`, BUILT
+    ∅-axiom)** — the `b`-dimensional unit grid: indistinguishable unit cells nested
+    into boxes (`HCube`/`Forest`), `hcube a b` = `a` copies of the dimension-`b`
+    cube glued along a new axis.  Carries **two different-typed readouts** — `side`
+    (a length = the base) and `dim` (an axis count = the exponent) — with
+    **`count_eq_side_pow_dim : count = side ^ dim`** as the positive law, and the
+    swap `swap_changes_dim` (`dim (hcube 2 3) = 3 ≠ 2 = dim (hcube 3 2)`) as the
+    *positive* reason `2^3 ≠ 3^2` (a type-mismatch, not "comm lost").  `HyperAssoc`'s
+    negative framing ("assoc AND comm **die**") is now the count *shadow* of this.
 
 **Where the asymmetry comes from, generatively (no numbers).**  The "how-many-times"
 (the *count*) is *always a `+`-level thing* — it never climbs the tower.  The
@@ -76,8 +85,12 @@ dimension-setting axis*; nothing is "lost".
 **Program (large; deliberate, not a rushed mass edit):**
   P1. Reframe the negative descriptions (`HyperAssoc` headline, any "loses comm/assoc"
       docstring) → positive (the arising DOF / dimension axis).
-  P2. Build the positive `^`-object generatively (`UnitHyper` = the `b`-dimensional
-      unit grid; base sets side, exponent sets dimension; the layer-gap DOF).
+  P2. **DONE** (`Meta/Nat/UnitHyper`, ∅-axiom).  The positive `^`-object built
+      generatively: `hcube a b` (`b`-dim unit grid, side `a`), `count_hcube : count
+      = a^b` (the readout shadow), `count_hcube_succ`/`dim_hcube_succ` (the climb +
+      the `+1` DOF axis arising), `count_eq_side_pow_dim` (base=side length,
+      exponent=dim count — the positive twist), `count_hcube_two_eq_grid` (dim-2
+      cube = the `×`-square, the two-roads bridge).
   P3. Re-anchor descriptions to objects; keep the Nat results (`MultSystem`/
       `MultSystemValue`/Chebyshev) explicitly *as readouts/shadows*.
   P4. Carry the `DOF = rung − 2` (layer-gap) statement as the precise spec; tie its
@@ -357,14 +370,18 @@ to test*, not asserted identities.
 
 1. **The `^`-rung's intrinsic structure (L4 reframed → L5)** — the two-readings
    comparison is **CLOSED ∅-axiom** (`monoCount_le_pow`/`monoCount_lt_pow`/
-   `monoCount_le_succ_pow`: sorted-reading bracketed `≤ (d+1)^t` and `< t^d`), but
-   that is a *calculation cross-section*, not the rung's mechanism.  *Open
-   (positive)*: build the `^`-rung's **own** enumeration and find its **dimension +
-   twist** — testing the originator's prediction that the structure stays
-   *simplicial* (point→line→plane→tetrahedron, a new degree-of-freedom at dim 3),
-   read positively (not "loses commutativity").  Anchors for the twist: the `−1`
-   cross-determinant (`Mobius213.mobius_213_pell_unit_invariant_forall`, `[∅]`),
-   `PairOp.pow_lift_impossible` (L5).
+   `monoCount_le_succ_pow`: sorted-reading bracketed `≤ (d+1)^t` and `< t^d`), and
+   the **geometric `^`-object is now built** (P2 / `Meta/Nat/UnitHyper`, ∅-axiom):
+   `hcube a b` = the `b`-dim unit grid, with `count = side ^ dim`
+   (`count_eq_side_pow_dim`), the per-rung `+1` dimension axis (`dim_hcube_succ`),
+   and the climb `count (hcube a (b+1)) = a · count (hcube a b)` (`^` *as*
+   `×`-iteration).  The base/exponent asymmetry is captured *positively* as a
+   length-vs-dimension type-mismatch (`swap_changes_dim`).  *Still open*: the
+   precise topological figure for one `^` step — a **3- vs 4-simplex** (the
+   originator's "초위상" question) — i.e. the dimension the dilation axis adds to the
+   `hyperCount` simplex; and the `−1` cross-determinant shadow of the twist (L5).
+   Anchors: `Mobius213.mobius_213_pell_unit_invariant_forall` (`[∅]`),
+   `PairOp.pow_lift_impossible`.
 2. **Simplex theorem (L3)** — count half **CLOSED** (`MultSystem.monoCount_closed`,
    `C(n+k−1,k)` = degree-`k` multiset count, ∅-axiom).  The `+`/`×` bridge and its
    prime-counting payoff (L3′) are **built** (`MultSystemValue` + `ChebyshevLower`;
