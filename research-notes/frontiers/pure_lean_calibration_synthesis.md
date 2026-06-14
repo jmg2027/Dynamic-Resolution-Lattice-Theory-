@@ -40,3 +40,13 @@ they share two structural patterns worth recording.
 `theory/essays/algebra/permutation_sign_as_homomorphism.md`,
 `theory/essays/methodology/{the_omniscience_ledger,pure_funext_avoidance,pure_nat_ring_methodology,bool_assoc_failure_meaning}.md`,
 `books/math/reverse-math-213.md` (Pure-Lean notes), `STRICT_ZERO_AXIOM.md`.
+
+## propext-trap data point (2026-06-14, T4/SqPlusOneFrame)
+
+Confirmed by `#print axioms` bisection: **`Nat.succ_ne_zero` is propext-tainted**
+(`fun h => Nat.noConfusion h` is the PURE replacement).  Also confirmed: `rw … at h`
+in a hypothesis can leak propext where the term-mode `(eq).symm.trans h` does not
+(seen rewriting a `%`-equation into a hypothesis).  PURE-confirmed (no replacement
+needed): `Nat.mod_lt`, `Nat.mod_eq_of_lt`, `Nat.pow_two`, `Nat.succ_le_of_lt`,
+`Nat.le_antisymm`, `Nat.lt_or_ge`, `Nat.le_of_sub_eq_zero`, `add_sub_cancel_right`,
+`mod_add_mod`/`div_add_mod` (AddMod213).  Feeds the unbuilt `Meta/` propext-trap catalog.

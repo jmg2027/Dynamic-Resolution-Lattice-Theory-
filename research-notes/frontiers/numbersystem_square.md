@@ -829,11 +829,15 @@ sandwich-locatable) sits strictly between — the boundary is a
   Separation `(∀ p prime, vp p m = vp p n) → m = n` (unique factorization)
   is **CLOSED** — `Meta/Nat/VpSeparation.vp_separation` (and re-expressed as a
   descent-schema instance, `Foundations/VpSeparationDescent.vp_separation_via_schema`).
-- **T4 (frame-visibility dichotomy).**  For odd prime p:
-  `(∃ x, p ∣ x² + 1) ↔ p % 4 = 1` — one direction is `qr_neg_one`
-  (PURE, closed); the converse (p ≡ 3 → invisible) via the repo's
-  Euler-criterion kit.  First theorem of the frame-indexed dichotomy;
-  long target: Hilbert-symbol parity (invisible-frame set is even).
+- **T4 (frame-visibility dichotomy) — ★ CLOSED.**  For odd prime p:
+  `(∃ x, p ∣ x² + 1) ↔ p % 4 = 1` (`ModArith/SqPlusOneFrame.sq_plus_one_dvd_iff`,
+  2 PURE) — the first supplement to QR / Fermat's two-square criterion in clean
+  reducibility form.  Assembled from `qr_neg_one` (← direction, the Gaussian
+  pillar) + `neg_one_qr_iff` (Euler-criterion iff) bridged by `root_mod_P` (reduce
+  an unbounded root `x` to the bounded witness `x % p`) + `mod_pred_of_succ_mod_zero`.
+  Long target (still open): Hilbert-symbol parity (invisible-frame set is even).
+  *Propext landmine logged*: `Nat.succ_ne_zero` is propext-tainted — use
+  `fun h => Nat.noConfusion h`.
 - **Brick 5 (magnitude side)**: the ℚ₊ exponent lattice and its
   divisible hull as the ^-root completion (`le_vp_iff` → radical
   tower); precision: the divisible hull of the *sign* factor alone is
