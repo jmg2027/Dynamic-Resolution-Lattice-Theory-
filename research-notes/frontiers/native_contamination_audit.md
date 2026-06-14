@@ -62,3 +62,30 @@ clean) — the high-yield target is **Lean docstrings that drifted from the
 narrative tier**, since the org discipline keeps `theory/` clean but docstrings
 are edited per-PR and can lag.  Re-run focused on `lean/E213/**` docstrings
 against their `theory/` mirror when a number-system or quotient sub-tree changes.
+
+## Round 2 — Lean-docstring-vs-narrative drift sweep
+
+Ran the high-yield target above (Lean docstrings under `Lib/Math`, `Lens`,
+`Theory`, `Meta` vs their `theory/` mirrors).  **Verdict: held up — one
+low-severity register drift, fixed; everything else clean.**
+
+- **Fixed**: `Real213/PresentationDependence.lean:12` — "the **underlying real**
+  (the decidable cut) is invariant under a common rescaling" made *the real* the
+  subject with "underlying" (substrate register), where line 30 of the *same
+  file* and the canonical mirror (`tower_native_completeness.md:204`) make **the
+  cut** the rescaling-invariant subject.  Rewrote to "the **cut** (the decidable
+  real) is invariant …".  One-clause edit; the file is otherwise rigorously
+  presentation-relative.
+- **Confirmed clean** (smell-phrase hits that are *not* contamination):
+  `GaugeDiagonal.lean:57` ("in ZFC … equivalence class" — tagged as the flattened
+  Lens-image); `IntFoldForms.lean` ("adjoined ∞" — the §6.9 compactification, anti-
+  stratum); `Cardinality.lean:20` / `Theory/Raw/Core.lean:12` ("not a substrate" /
+  "quotient emulation" as a Lean encoding-cost); `RatioLensFounding.lean:17`
+  ("lowest terms" as the unimodular *theorem* `det P = 1`); `ChebyshevLower.lean:380`
+  ("true value log₂e" — immediately qualified as the ln-base shadow, anti-
+  deification); all DyadicSearch decision-"oracle" files (round-1 pre-cleared).
+
+Net across both rounds: the corpus is disciplined; docstring drift is real but
+rare (round 1: SignedCut oracle/value-layer cluster; round 2: one word in one
+file).  The per-PR-lag risk is genuine — keep re-running this sweep when a
+number-system / quotient / completeness sub-tree changes.

@@ -9,10 +9,10 @@ import E213.Meta.Tactic.NatHelper
 
 The completability bridge `CrossDetSmall ⟹ free modulus` is a *sufficient* condition on
 a num/den presentation `a_i/d_i`.  This file makes precise that it reads the
-**representation**, not the real: the underlying real (the decidable cut) is invariant
+**representation**, not the real: the **cut** (the decidable real) is invariant
 under a common rescaling `(a, d) ↦ (c·a, c·d)`, while `CrossDetSmall` is not — the
 cross-determinant scales by `c²` against a denominator scaling by `c`, so the smallness
-condition is strictly harder for `c ≥ 2` and can fail though the real is unchanged.
+condition is strictly harder for `c ≥ 2` and can fail though the cut is unchanged.
 
   * ★ `rcut_rescale` — the real is rescaling-invariant: `rcut (c·a) (c·d) = rcut a d`
     (the cut cancels the common factor, `c ≥ 1`).
