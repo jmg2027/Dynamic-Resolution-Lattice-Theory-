@@ -809,20 +809,25 @@ sandwich-locatable) sits strictly between — the boundary is a
   `subNatNat_eq_iff` + distributivity shuffles — bricks 1+2 closed:
   "distributivity is the commutation law of the two Lenses" is now a
   theorem.
-- **T2 (bottom-rung integrality / rational root).**  Witness form:
-  `gcd213 p q = 1 → 0 < q → pⁿ + Σ aᵢ pⁱ q^{n−i} = Σ bⱼ pʲ q^{n−j}
-  (i,j < n) → q = 1` — "ℤ is the integral closure of ℕ in ℚ", making
-  monic↔ring a theorem (n = 2 first; iterated
-  `coprime_dvd_of_dvd_mul`).
+- **T2 (bottom-rung integrality / rational root) — ★ degree 2 CLOSED.**
+  `Meta/Nat/RationalRoot.rational_root_monic_deg2` (4 PURE): `gcd213 p q = 1 →
+  0 < q → p² + (a₁pq + a₀q²) = c₁pq + c₀q² → q = 1` — "ℤ is the integral
+  closure of ℕ in ℚ" at degree 2, ℕ-native (subtraction-free two-sided form, the
+  `a`-terms positive coefficients, `c`-terms negative).  Engine: every term but
+  `p²` carries a `q` ⟹ `q ∣ p²` (`dvd_of_add_dvd_right`, subtraction-free) ⟹
+  `q ∣ p` (`coprime_dvd_of_dvd_mul`) ⟹ `q ∣ gcd213 p q = 1`.  **Still open**: the
+  general degree `n` (`pⁿ + Σ aᵢ pⁱ q^{n−i} = Σ bⱼ pʲ q^{n−j}`) — needs one new
+  lemma `coprime_dvd_of_dvd_pow` (coprime + `q ∣ pⁿ` ⟹ `q ∣ p`, an induction on
+  `coprime_dvd_of_dvd_mul`) + a `List`/`Finset` polynomial-sum encoding.
 - **T3 (exponent-lattice embedding) — ★ multiplicativity CLOSED.**
   `vp p (m·n) = vp p m + vp p n` proved PURE (`VpMul.vp_mul`, prime `p`)
   via a 213-native minimal-divisor predicate `IsPrime213` + a derived
   Bezout-free `euclid_lemma` + the peeling lemma `pow_dvd_mul_split`;
   corollaries `vp_pow` (`vp p (aᵏ) = k·vp p a`) and `vp_self_pow`
   (`vp p (pᵏ) = k`).  Built on `coprime_dvd_of_dvd_mul` + `le_vp_iff`.
-  **Still open**: separation `(∀ p prime, vp p m = vp p n) → m = n`
-  (unique factorization) — left for a future module, the bridge from
-  `vp_mul` to the full lattice isomorphism.
+  Separation `(∀ p prime, vp p m = vp p n) → m = n` (unique factorization)
+  is **CLOSED** — `Meta/Nat/VpSeparation.vp_separation` (and re-expressed as a
+  descent-schema instance, `Foundations/VpSeparationDescent.vp_separation_via_schema`).
 - **T4 (frame-visibility dichotomy).**  For odd prime p:
   `(∃ x, p ∣ x² + 1) ↔ p % 4 = 1` — one direction is `qr_neg_one`
   (PURE, closed); the converse (p ≡ 3 → invisible) via the repo's

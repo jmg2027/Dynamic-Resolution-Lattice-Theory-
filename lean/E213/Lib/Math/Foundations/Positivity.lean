@@ -79,6 +79,20 @@ theorem amgm_2 (a b : Int) : 4 * (a * b) ≤ (a + b) * (a + b) := by
   have hpos : 0 ≤ (a + b) * (a + b) - 4 * (a * b) := positivity_of_sq _ _ hgap
   exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero hpos)
 
+/-- ★★★★★ **A7 POSITIVITY (doubling form)**: a bound forced because **twice** its
+    gap is a sum of squares.  The distinctive move for ℤ forms that are not a
+    single SOS — `a²−ab+b²` is not, but `2(a²−ab+b²) = a²+b²+(a−b)²` is, so double
+    and halve.  This is the shared skeleton re-derived inline in the Eisenstein
+    norm forms (`CayleyDickson/.../EisensteinSignature`, `ZOmegaDomain`); named
+    here as the compile-down target (`research-notes/frontiers/
+    inequalities_positivity_fold_crossdomain.md`). -/
+theorem positivity_of_sq_double (gap s t u : Int)
+    (h : 2 * gap = s * s + t * t + u * u) : 0 ≤ gap := by
+  apply nonneg_of_add_self
+  have h2 : gap + gap = s * s + t * t + u * u := by rw [← h]; ring_intZ
+  rw [h2]
+  exact add_nonneg (add_nonneg (int_sq_nonneg s) (int_sq_nonneg t)) (int_sq_nonneg u)
+
 /-- **Lagrange identity (3-D)**: the Cauchy–Schwarz gap is a sum of three
     squares. -/
 theorem lagrange_3d (a0 a1 a2 b0 b1 b2 : Int) :

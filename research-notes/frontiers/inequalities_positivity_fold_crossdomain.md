@@ -68,3 +68,20 @@ via POSITIVITY") — convexity bounds as the same instruction.
    POSITIVITY composes with LOOP exactly as COUNT does, suggesting one
    GAP primitive with two faces (cardinality / norm) and a depth
    parameter, not two primitives.
+
+## A7 under-application + the named doubling form (2026-06-14)
+
+Meta-analysis (rejection-filtered hunt) found **A7 POSITIVITY is under-applied**:
+the "gap = sum-of-squares ⟹ bound" skeleton is re-derived *inline* in ≥3
+import-independent files that do not cite `Foundations.Positivity` —
+`NumberTheory/FourSquare` (`four_sq_id`/`isSum4_mul`), `CayleyDickson/.../
+EisensteinEuclidean` (`covering_bound`), and the **doubling** variant in
+`EisensteinSignature`/`ZOmegaDomain` (`2N = a²+b²+(a−b)²` then halve, because
+`a²−ab+b²` is not a single ℤ-SOS).  The doubling move had no named home; now
+added: **`Positivity.positivity_of_sq_double`** (`2·gap = s²+t²+u² ⟹ 0 ≤ gap`,
+via `nonneg_of_add_self`), PURE.  *Open (compile-down opportunity, not done —
+regression risk on big files)*: rewire FourSquare / Eisenstein-Euclidean /
+Eisenstein-norm to cite `positivity_of_sq` / `positivity_of_sq_double` instead of
+re-deriving the skeleton.  Honest scope: A7 is an *already-catalogued* archetype
+(`ProofISALifts.lift_positivity`), so this is an under-application surfaced (like
+A6 FLOW / descent), not a newly-hidden schema.
