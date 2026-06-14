@@ -509,9 +509,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (`holonomy (replicate n g) = pow g n`, via `pow_succ_comm`); `holonomy_pow_order`
   lifts the crystallographic restriction (`order ∣ 12`) onto holonomy loops; the
   `S`-loop closing at 4 is now a *corollary* (`holonomy_S_loop_closes`, not a bare
-  `decide`), and `L` never closes (`holonomy_L_loop_never_closes`).  Open: (1) full
-  freeness of `⟨L,R⟩` (unique-word — the tractable sub-step is first-letter
-  determinacy + well-founded `entrySum` descent); (3) the holonomy group as π₁ of
+  `decide`), and `L` never closes (`holonomy_L_loop_never_closes`).  **(1) full
+  freeness of `⟨L,R⟩` CLOSED** (`HolonomyFreeness`, 4 PURE): `holonomy_injective_positive`
+  — `holonomy` is injective on positive words, the unique-word property (the
+  Stern–Brocot monoid is free).  Crux `L_head_ne_R_head` (first-letter determinacy:
+  an `L`-headed positive matrix ≠ an `R`-headed one, forcing `a'=0` against `Pos`) +
+  left-cancellation `mul_L_inj`/`mul_R_inj`, by induction on the word.  Open: (3) the
+  holonomy group as π₁ of
   the modular orbifold (`PSL(2,ℤ)=ℤ₂*ℤ₃`) — a wall (no Mathlib-free free-product
   infrastructure; the realizable residue, orders 4,6 generate / 5,7 forbidden, is
   already proven).
