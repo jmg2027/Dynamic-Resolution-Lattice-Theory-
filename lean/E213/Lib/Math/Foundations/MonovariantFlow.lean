@@ -263,4 +263,22 @@ theorem euclid_flow_normal_form (a b : Nat) :
   rw [hfst, gcd213_zero_left] at hinv
   exact ⟨n, hfst, hinv⟩
 
+/-- **The canonical instance through the general invariant schema.**  The GCD flow
+    is `descent_invariant` on the graph relation `fun x y => euclidStep x = y` with
+    invariant `I = fun p => gcd213 p.1 p.2`: the reached normal form `p`
+    (`euclidStep p = p`) carries the gcd, `gcd213 p.1 p.2 = gcd213 a b`.  Witness
+    that the invariant-carrying schema (not just `flow_reaches`) reproduces the
+    canonical result — *the answer is the invariant the descent preserves.* -/
+theorem euclid_via_descent_invariant (a b : Nat) :
+    ∃ p, euclidStep p = p ∧ Reaches (fun x y => euclidStep x = y) (a, b) p
+       ∧ gcd213 p.1 p.2 = gcd213 a b := by
+  refine descent_invariant (fun x y => euclidStep x = y) (fun p => p.1)
+    (fun p => euclidStep p = p) (fun p => gcd213 p.1 p.2) ?_ ?_ (a, b)
+  · intro x
+    cases euclid_descent x with
+    | inl hlt  => exact Or.inr ⟨euclidStep x, rfl, hlt⟩
+    | inr hfix => exact Or.inl hfix
+  · intro x y hxy
+    rw [← hxy]; exact (euclid_invariant x).symm
+
 end E213.Lib.Math.Foundations.MonovariantFlow

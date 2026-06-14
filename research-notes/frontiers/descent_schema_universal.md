@@ -44,21 +44,44 @@ The common generator, all PURE (`tools/scan_axioms.py` → 18/18 pure):
 
 ## Open seed (the work)
 
-1. **Re-wire the three number-theory instances** as `descent_invariant`
-   applications (`I = gcd / "vp-agree" / markovEq / Decomp`).  Each instance's
-   local descent + invariant-preservation lemma is already proven; the task is
-   to expose its step as an `R` and apply the schema, deleting the re-rolled
-   fuel recursion.  Low-risk for vp/atomicity; see the subtlety for Markov.
-2. **Markov permutation subtlety** (the one genuine open question before a
-   clean 5-way unification).  Markov's `μ = max` descends only *after* re-sorting
-   (`swap12/swap23`), so the step must be `jump ∘ sort` for `μ` to descend
-   monotonically.  If that swap folds into a single relation `R` while keeping
-   `μ` strictly monovariant, the unification is 5-way; if it cannot, Markov is a
-   distinct *descent-up-to-permutation* schema and the union is only 4-way
-   (gcd / Ricci / vp / atomicity).  **Check this before any promotion.**
-3. **Promotion gate.**  `descent_invariant` is ∅-axiom and categorically the
-   generator, but promotion (per `theory/PROMOTION_CRITERIA.md`) waits on the
-   re-wirings landing (the instances *being* corollaries, not just claimed so).
+1. **Re-wire the three number-theory instances** as schema applications.
+   **Two landed this pass** (both PURE):
+   - `MonovariantFlow.euclid_via_descent_invariant` — the GCD flow through the
+     *invariant-carrying* `descent_invariant` (`I = gcd213`): the reached normal
+     form carries the gcd.  Witness that the invariant schema (not just
+     `flow_reaches`) reproduces the canonical result.
+   - `Real213/Markov/MarkovDescentSchema` (`markov_descends_to_root`,
+     `markov_descends_to_one`) — **the first genuinely relational (non-self-map)
+     instance**: Markov's descent is `descent_reaches` on the nondeterministic
+     `Down = Vieta-jump ∘ re-sort` relation; every ordered triple descends to the
+     root `(1,1,1)`.  Reuses `markov_mid_lt_max` / `markov_partner_is_triple` /
+     `markov_vieta_partner_le` etc.; the schema supplies the recursion.
+   **Still open:** UFD separation (`vp_separation`) through the schema (moderate —
+   the relation is inlined in a strong-induction-on-`m+n`; package `R` + fold the
+   valuation-equality hypothesis into the carrier).
+2. **Markov permutation subtlety — RESOLVED (the fold is clean, 5-way confirmed).**
+   `μ = max` is *permutation-invariant*, so the re-sort (a permutation of the
+   triple) does not change `μ`, and the Vieta jump strictly drops it
+   (`markov_mid_lt_max : b < c` + the sorted target's max is `b`).  The bundled
+   `Down = jump ∘ sort` therefore strictly descends in the *same* schema — no
+   quotient-by-symmetry.  Constructively branched (`Nat.lt_or_ge`, no `Classical`).
+   Witnessed end-to-end by the PURE `MarkovDescentSchema` above.
+3. **Honest nuance — atomicity is a *degenerate* member, not a genuine iterated
+   descent.**  `atomic_implies_five` uses a *single* bounded Bézout shift as a
+   contradiction generator (`μ = a` bounded `< 3`), not an iteration to a fixed
+   point; it fits the schema's *shape* (`μ`/`NF`/invariant) but not its *spirit*,
+   so re-expressing it buys little (it would be a re-proof).  The clean unification
+   is therefore **4 iterated descents (GCD / Ricci / UFD / Markov)** + atomicity as
+   a boundary single-step case — recorded plainly, not inflated to "5 instances".
+4. **`propext` caveat for Prop-invariants.**  Carrying a *Prop* invariant (markovEq,
+   coprimality) through `descent_invariant`'s `I y = I x` needs `propext` (equality
+   of `Prop`s) — forbidden.  So Markov's coprimality reproduction stays the
+   *reachability* (`descent_reaches`, no `I`) plus the existing up-direction
+   `markov_reachable_coprime`; only `Nat`/data-valued invariants (gcd) ride
+   `descent_invariant` cleanly.
+5. **Promotion gate.**  `descent_invariant` is ∅-axiom and categorically the
+   generator; with the GCD + Markov instances landed and UFD the one remaining,
+   promotion (per `theory/PROMOTION_CRITERIA.md`) is within reach once UFD lands.
 
 ## Resonance — LOOP/FLOW and the residue unit (honestly: a confirmation, not a new unification)
 

@@ -547,8 +547,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   **Closed ∅-axiom** (`MonovariantFlow.lean`, 18/18 pure): the relation-form
   generator `descent_reaches` / `descent_invariant` (`Reaches` r.t. closure +
   fuel recursion + transported invariant) with `flow_reaches_of_relation` proving
-  A6's self-map form is subsumed.  *Open*: re-wire the 3 instances as corollaries
-  (the Markov permutation subtlety = the one check before a clean 5-way union).
+  A6's self-map form is subsumed.  **Instances landed** (PURE): GCD via the
+  invariant-carrying `descent_invariant` (`euclid_via_descent_invariant`) and the
+  **first relational/nondeterministic** instance `MarkovDescentSchema`
+  (`markov_descends_to_root` — Markov descent on `Down = jump ∘ resort`).  Markov
+  permutation subtlety **resolved** (`μ=max` permutation-invariant ⟹ clean fold);
+  atomicity is a *degenerate* boundary case, not a genuine iterated descent (so 4
+  iterated + 1 boundary, not "5"); `propext` blocks Prop-invariants.  *Open*: UFD
+  (`vp_separation`) through the schema → then promote.
 - `native_contamination_audit` — **standard-common-sense re-examination** (math/
   foundations/lens/meta): corpus is unusually disciplined; one real fix landed —
   the SignedCut "oracle / underlying-real / value-layer" substrate metaphor
