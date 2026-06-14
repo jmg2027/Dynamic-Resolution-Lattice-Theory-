@@ -809,16 +809,17 @@ sandwich-locatable) sits strictly between — the boundary is a
   `subNatNat_eq_iff` + distributivity shuffles — bricks 1+2 closed:
   "distributivity is the commutation law of the two Lenses" is now a
   theorem.
-- **T2 (bottom-rung integrality / rational root) — ★ degree 2 CLOSED.**
-  `Meta/Nat/RationalRoot.rational_root_monic_deg2` (4 PURE): `gcd213 p q = 1 →
-  0 < q → p² + (a₁pq + a₀q²) = c₁pq + c₀q² → q = 1` — "ℤ is the integral
-  closure of ℕ in ℚ" at degree 2, ℕ-native (subtraction-free two-sided form, the
-  `a`-terms positive coefficients, `c`-terms negative).  Engine: every term but
-  `p²` carries a `q` ⟹ `q ∣ p²` (`dvd_of_add_dvd_right`, subtraction-free) ⟹
-  `q ∣ p` (`coprime_dvd_of_dvd_mul`) ⟹ `q ∣ gcd213 p q = 1`.  **Still open**: the
-  general degree `n` (`pⁿ + Σ aᵢ pⁱ q^{n−i} = Σ bⱼ pʲ q^{n−j}`) — needs one new
-  lemma `coprime_dvd_of_dvd_pow` (coprime + `q ∣ pⁿ` ⟹ `q ∣ p`, an induction on
-  `coprime_dvd_of_dvd_mul`) + a `List`/`Finset` polynomial-sum encoding.
+- **T2 (bottom-rung integrality / rational root) — ★ CLOSED (all degrees).**
+  `Meta/Nat/RationalRoot` (7 PURE): the structural heart abstracted —
+  `rational_root_monic` (`gcd213 p q = 1 → 0 < q → q ∣ A → q ∣ C →
+  pⁿ⁺¹ + A = C → q = 1`), where `A`, `C` are the lower-degree parts, each a
+  multiple of `q` (every lower term carries `q^{≥1}`).  "ℤ is the integral closure
+  of ℕ in ℚ", every degree, ℕ-native.  Lifting lemma `coprime_dvd_of_dvd_pow`
+  (coprime + `q ∣ pⁿ⁺¹` ⟹ `q ∣ p`, induction on `coprime_dvd_of_dvd_mul`).  The
+  degree-2 explicit form `rational_root_monic_deg2` and its general-instance
+  witness `rational_root_monic_deg2_via_general` (the `n=1` case with
+  `A = a₁pq+a₀q²`, `C = c₁pq+c₀q²`, `q`-divisible via `dvd_mul_q`/`dvd_mul_qq`).
+  Subtraction-free two-sided form; propext landmines avoided.
 - **T3 (exponent-lattice embedding) — ★ multiplicativity CLOSED.**
   `vp p (m·n) = vp p m + vp p n` proved PURE (`VpMul.vp_mul`, prime `p`)
   via a 213-native minimal-divisor predicate `IsPrime213` + a derived
