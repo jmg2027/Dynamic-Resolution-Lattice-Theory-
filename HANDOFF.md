@@ -1,92 +1,185 @@
-# Session Handoff — 2026-06-14
+# Session Handoff — 2026-06-14 (multi-agent math research)
 
 ## Branch
-`claude/docs-codebase-audit-uvww7p` — merged with `origin/main` (63 commits
-in), ahead of main by 19, working tree clean.  Full `lake build E213` +
-`E213.Lib.Math` + `E213.Lib.Physics` green (1975/1975).  Strict ∅-axiom
-intact (0 sorry / native_decide / Classical / Mathlib / external axiom).
-**READY TO MERGE.**
+`claude/multi-agent-math-research-n68ovi` — pushed, **127 ahead of main / 156
+behind**.  Working tree clean.  Full `lake build E213.Lib.Math` green
+(**1815/1815**).  Strict ∅-axiom intact for all new work (every new theorem
+PURE-verified with `tools/scan_axioms.py`).
+
+> NOTE on the divergence: this branch was **not** re-synced with `main` this
+> session (156 behind).  All session work is additive new modules, so no
+> conflicts created — but a merge marathon with `origin/main` is still owed
+> before this branch lands.  Do that first if integrating.
 
 ## What Was Done This Session
-A documentation/codebase **audit + hygiene** pass, then a merge marathon.
+A **multi-agent autonomous research marathon** — 10 iterations, each: parallel
+deep-recon agents → adversarial synthesis/verification → ∅-axiom Lean closure →
+full build + commit.  **~63 new PURE theorems across 5 math areas.**  No physics
+(by request: "math first; physics follows when math completes").
 
-### 1. Repo audit + narrative hygiene (pre-merge)
-- Deleted the `papers/` tombstone; repointed its stale references.
-- Stripped process/changelog narration from Lean docstrings + permanent-tier
-  md (dated migration lines, deprecated R1–R5 frame refs, a malformed
-  citation).
-- **Wired 6 orphaned ∅-axiom modules into CI** (`SignatureMaps`, `Zeta3Apery`,
-  `AperyIntegrality`, `FactorialLcmDvd`, `LcmBoundMain`, `Zeta3Numerator`) —
-  they built individually but entered no aggregator.
-- **Relocated generic list plumbing** (`getD_append_left/right`) to
-  `Meta/Tactic/List213`; deduped local re-proofs of `length_append`/`length_map`
-  across InversionsAppend / Zolotarev{,MuBridge,Cycle}.  All PURE.
-- Promoted the betti "−1 under three Lenses" synthesis essay.
-- **Process-vocabulary sweep** across theory/ + seed/ + catalogs/: removed
-  build/session `Phase N` labels (→ capstone names / ordinals), `marathon`
-  (→ `Arc`/`work`), resolution dates, `this session`/`multi-session`, and two
-  sink-rule-violating `Research-note provenance` sections.
-- Consolidated `book/` → `books/lens-tower/` (single treatise directory).
+### 1. Universal descent schema (Foundations/meta) — PROMOTED ✓
+`Lib/Math/Foundations/MonovariantFlow.lean` (19 PURE).  A6 FLOW widened from a
+self-map to a **reduction relation** `R` carrying an invariant: `Reaches`,
+`descent_reaches`, `descent_invariant`, `flow_reaches_of_relation` (self-map case
+subsumed).  **All 4 iterated-descent instances landed PURE**: GCD
+(`euclid_via_descent_invariant`), UFD (`Foundations/VpSeparationDescent`,
+`vp_separation_via_schema`), Markov (the first *relational/nondeterministic*
+instance, `Real213/Markov/MarkovDescentSchema.markov_descends_to_root`), + Ricci
+(pre-existing).  Markov permutation subtlety **resolved** (`μ=max` is
+permutation-invariant ⟹ clean fold).  **Promoted** →
+`theory/math/foundations/universal_descent_schema.md`.  Honest scope: atomicity is
+a *degenerate* boundary case (4 iterated + 1 boundary, not "5"); `propext` blocks
+Prop-invariants through `descent_invariant`.
 
-### 2. Merge marathon (main → branch)
-- Merged 63 main commits (modulus-degree calculus, PNT continuation, the
-  object tower `UnitHyper`/`UnitTetra`, Δ/Σ dimension calculus, discrete-log
-  essays, Real213 sub-clustering).  Resolved 5 conflicts keeping both sides
-  (my Phase/marathon sweep + betti essay alongside main's content + updated
-  Real213 paths).  Recomputed counts (essays 104, total 252).
-- `/process`: 0 sink violations; frontier board intact (49 notes).
-- Promotion: none new (branch work was audit/infra; both sides' closed arcs
-  already promoted).
-- Cross-domain (branch↔main): recorded one resonance "to test" — the betti
-  `−1` (= `b₀`, subtracted constant mode) ↔ main's Δ-annihilated degree-0
-  floor (`diffIter_dim_zero`).
-- `/essay`: none (closed arcs already essayed; the resonance is conjectural).
-- `/org-audit`: 0 orphans, INDEX counts accurate, no process narration.
-- `/purity-check` + `/ready-to-merge`: green.
+### 2. Stabilization map (Finding I) — scoped, cross-domain claim REJECTED
+`Meta/StagedLimit.lean` + `Lib/Math/Analysis/StagedLimitCauchy.lean` (PURE).  The
+forward/convergence dual of descent: `StagedLimit.limit_eq_late` (read off the
+modulus stage = every late stage), the internal-reach complement to
+`object1_not_surjective`.  `CauchyCutSeq` routes its real theorem through it
+(generic-consumer PASS).  **Honest rejection**: the hoped Padic⊥Real213 unification
+does NOT hold — the p-adic diagonal's content (`diagLimit_trunc_succ`, trunc-fold)
+does not reduce to the per-coordinate map; so Finding I is the Real213 modulus-limit
+abstracted, not a cross-domain schema (`research-notes/frontiers/stabilization_schema.md`).
+
+### 3. Rational root theorem — all degrees (number theory)
+`Meta/Nat/RationalRoot.lean` (7 PURE).  "ℤ is the integral closure of ℕ in ℚ",
+ℕ-native subtraction-free.  `rational_root_monic` (abstract: `q∣A → q∣C → pⁿ⁺¹+A=C
+→ q=1` — no polynomial-sum encoding needed, the "lower terms carry q" fact IS
+`q∣A,q∣C`); `coprime_dvd_of_dvd_pow`; degree-2 explicit + `_via_general` subsumption
+witness.  Closes `numbersystem_square` T2.
+
+### 4. T4 — Fermat / QR first supplement (number theory)
+`Real213/Markov`-adjacent `ModArith/SqPlusOneFrame.lean` (2 PURE).
+`sq_plus_one_dvd_iff`: for odd prime p, `(∃x, p∣x²+1) ↔ p%4=1`.  Assembled from
+`qr_neg_one` + `neg_one_qr_iff` bridged by `root_mod_P` (de-privated from
+MarkovPrimeFactor) + `mod_pred_of_succ_mod_zero`.  Closes `numbersystem_square` T4.
+
+### 5. L5 `^`-twist measured (combinatorics)
+`Meta/Nat/UnitHyper.pow_twist_is_one_rung_shear` + `MultSystem.hyperCount_lt_pow`
+(PURE).  The operation tower's `^`-rung is a **one-rung shear** (two operand-axes
+transport one rung apart: exponent by `×`, base by `^`); companion sorted-vs-ordered
+config-face gap.  `simplicial_operation_tower` L5 updated.
+
+### 6. A7 POSITIVITY doubling lemma (under-application surfaced)
+`Foundations/Positivity.positivity_of_sq_double` (PURE).  The `2·gap=SOS`-then-halve
+move (re-derived inline in 2 Eisenstein-norm files) now named.  A7 is an
+*already-catalogued* archetype, under-applied — recorded honestly.
+
+### 7. Holonomy order law + freeness (modular geometry)
+`ModularGeometry/HolonomyOrderLaw.lean` (6 PURE) — `holonomy_replicate` bridges the
+right-fold `holonomy` and left-fold `pow`; `holonomy_pow_order` lifts the
+crystallographic restriction (`order∣12`) onto loops; S-loop closing at 4 is now a
+corollary.  `ModularGeometry/HolonomyFreeness.lean` (4 PURE) —
+`holonomy_injective_positive`: **⟨L,R⟩ is free** (unique-word), crux
+`L_head_ne_R_head`.  Closes `holonomy_lattice` items (1) and (2).
+
+### 8. Exp Taylor series differentiation (constructive analysis)
+`Real213/ExpLog/CutExpDerivative.lean` (3 PURE).  `expPartialSumIsDifferentiable` —
+the exp Taylor partial sum is differentiable *as a function of the cut* for every N
+(first function-space differentiation of a *series*); `expPartialSum_derivative_termwise`
+(`rfl`).  Dodges the sin/cos signed-cut wall + the `cutSum`-assoc `b≥3` wall.
+
+### 9. Standard-common-sense contamination re-examination (2 rounds)
+`research-notes/frontiers/native_contamination_audit.md`.  Corpus confirmed
+disciplined; 2 real fixes: SignedCut docstrings ("oracle / underlying-real /
+value-layer" substrate → difference-Lens reading) and `PresentationDependence`
+("the underlying real" → "the cut" subject, matching the canonical mirror).
+
+### ★ Propext-landmine catalog (recorded for reuse)
+`#print axioms` bisection confirmed these core lemmas are **propext-tainted** (need
+pure replacements): **`Nat.succ_ne_zero`** (use `fun h => Nat.noConfusion h`),
+**`Int.add_left_cancel`** / **`Int.add_le_add`** (use ring+congrArg cancellation /
+the `Int213.Order` NonNeg helpers `one_le_add_of`), **`Nat.mul_assoc`**,
+**`Nat.dvd_refl`/`dvd_one`**, **`omega`**; **`rw … at h`** in a hypothesis can leak
+propext where term-mode `(eq).symm.trans h` does not.  PURE-confirmed: `Nat.mod_lt`,
+`Nat.mod_eq_of_lt`, `Nat.pow_two`, `Nat.le_antisymm`, `Nat.lt_or_ge`,
+`add_sub_cancel_right`, `AddMod213.{mod_add_mod,div_add_mod}`.  Logged in
+`research-notes/frontiers/pure_lean_calibration_synthesis.md`.
 
 ## Current Precision Results (0 free parameters)
-**Unchanged this session** (no physics work).  Canonical:
-`catalogs/physics-constants.md`.  `1/α_em ≈ 137.036` (ppm), `m_μ/m_e = 206.768`
-(0.48 ppb), `m_p/m_e ≈ 6π⁵`, `R∞` (4.3 ppb).  Falsifiers F21–F26 intact.
+**Unchanged this session** (no physics work).  Canonical
+`catalogs/physics-constants.md`: `1/α_em ≈ 137.036` (ppm), `m_μ/m_e = 206.768`
+(0.48 ppb), `m_p/m_e ≈ 6π⁵`, `R∞` (4.3 ppb).  All falsifiers intact.
 
 ## Open Problems (Priority Order)
-### 1. PNT proper `π(N) ~ N/ln N` (constant 1)
-The asymptotic constant is the slope at the single archimedean place; no
-∅-axiom value, kept as a computed interval.
-Frontier: `research-notes/frontiers/multiplicative_count_pnt.md`.
+### 1. Merge `origin/main` into this branch (156 behind)
+Owed before integration; all session work is additive so expect few conflicts.
+Frontier: n/a (process task) — but check `research-notes/frontiers/INDEX.md` after.
 
-### 2. Modulus-degree calculus residue
-Product-closure, integer-degree refinement, full μ-limsup.
-Frontier: `research-notes/frontiers/modulus_degree_crossdomain.md`.
+### 2. Descent-schema atomicity + the exp T3 capstone
+`descent_invariant` is promoted; the atomicity instance stays a *degenerate* boundary
+case (recorded).  Exp T3 open seed: the factorial-shift `expTerm_derivative_shift`
+(`d/dx[xⁿ/n!] ≡ xⁿ⁻¹/(n-1)!` as `cutEq`) — needs the cut-level power rule first.
+Frontiers: `research-notes/frontiers/{descent_schema_universal (archived),
+transcendentals/transcendental_functions_ladder}.md`.
 
-### 3. The betti `−1` ↔ dimension-calculus link
-Whether `b₀` is literally the Δ-floor (`Σ⁰ 1`) of the cohomology graded count
-— a candidate fourth Lens on the dimension residue.
-Frontier: `research-notes/frontiers/betti_alpha_one_raw_lens.md`.
+### 3. Holonomy π₁ (the genuine wall)
+Item (3): holonomy group = π₁ of the modular orbifold (`PSL(2,ℤ)=ℤ₂*ℤ₃`).  A WALL —
+no Mathlib-free free-product / orbifold-π₁ infrastructure; the realizable residue
+(orders 4,6 generate / 5,7 forbidden) is already proven.  Frontier:
+`research-notes/frontiers/INDEX.md` "holonomy_lattice".
+
+### 4. sin/cos cut-level (T2) — blocked upstream
+`sinCut`/`cosCut` stay true-stubs until the signed-cut **cross-sign subtraction**
+(`Sum/SignedSum.cutSignedSum`) closes its deliberate boundary stub.  Frontier:
+`research-notes/frontiers/transcendentals/transcendental_functions_ladder.md`.
+
+### 5. Vetted next-target list (survey, non-number-theory, for breadth)
+A read-only survey ranked tractable non-NT targets: order-embedding ↔ infinite-subset
+bijection (needs a custom fuel-search — `Nat.find` is NOT available, Mathlib-only),
+cup-i Steenrod (placeholder framework; real Alexander-Whitney is a wall),
+Lipschitz/CD associativity (needs a pure 12-var tactic; `omega` is propext-tainted).
+Frontier: none yet — record before pursuing.
 
 ## Unresolved from This Session
-- Audit recommendations deliberately not executed (compact-by-design
-  probability/cohomology chapters; physics `Phase 1/2/3` precision-tier labels
-  in catalogs kept as a domain classification).
+- The order-embedding bijection was scoped but **not built**: `Nat.find` is
+  unavailable (Mathlib-only), so the reverse enumerator needs custom fuel-search
+  machinery — a real rabbit hole, deferred.
+- Finding I cross-domain claim was **tested and rejected** (not a Padic⊥Real213
+  schema) — a precise negative result, not a gap.
 
 ## Next
-Merge this branch to main (marathon's final step), then resume the open
-frontiers above.
+Either (a) merge `origin/main` then continue breadth, or (b) keep closing
+buildable targets — the cleanest remaining are the exp T3 power-rule → factorial
+shift, or a fresh non-NT frontier deep-dive (the survey list above, minus the
+walls).  The multi-agent loop (parallel recon → adversarial synthesis → ∅-axiom
+closure → full build → commit) is the proven cadence.
 
-## Three-tier state
-- **Promotions this session**: `the_minus_one_under_three_lenses.md` (essay,
-  log #88) ← `betti_alpha_one_raw_lens` frontier (closed half).
-- **Promotion candidates**: none pending.
-- **Active scratchpad**: `frontiers/{multiplicative_count_pnt,
-  modulus_degree_crossdomain, betti_alpha_one_raw_lens}.md`.
+## Three-tier state (per CLAUDE.md "Three-tier discipline")
+- **Promotions this session**: `theory/math/foundations/universal_descent_schema.md`
+  ← `research-notes/frontiers/descent_schema_universal.md` (archived to
+  `research-notes/archive/foundations/`).
+- **Promotion candidates**: the holonomy order-law + freeness sub-tree (closed,
+  PURE) could mirror into the existing `holonomy_of_the_lattice.md` chapter; the
+  rational-root / T4 / L5 results are frontier-recorded, not yet chaptered.
+- **Active scratchpad**: `frontiers/{stabilization_schema, native_contamination_audit,
+  pure_lean_calibration_synthesis, numbersystem_square, simplicial_operation_tower,
+  transcendentals/*, inequalities_positivity_fold_crossdomain}.md`.
 
 ## File Map
 ```
-papers/                                              ← DELETED (tombstone)
-books/lens-tower/                                    ← MOVED from book/
-theory/essays/synthesis/the_minus_one_under_three_lenses.md ← NEW essay
-lean/E213/Meta/Tactic/List213.lean                   ← + getD_append_left/right (infra)
-lean/E213/{Lens/Number/Nat213,Lib/Math,Lib/Math/NumberSystems/Real213}.lean ← orphans wired
-theory/ + seed/ + catalogs/                          ← process-vocabulary sweep
-research-notes/frontiers/betti_alpha_one_raw_lens.md ← + branch×main resonance
+NEW Lean (all PURE):
+ lean/E213/Lib/Math/Foundations/MonovariantFlow.lean       ← +relation descent schema (was 12→19 PURE)
+ lean/E213/Lib/Math/Foundations/VpSeparationDescent.lean   ← UFD as descent instance
+ lean/E213/Lib/Math/NumberSystems/Real213/Markov/MarkovDescentSchema.lean ← relational Markov instance
+ lean/E213/Meta/StagedLimit.lean + Analysis/StagedLimitCauchy.lean ← stabilization map
+ lean/E213/Meta/Nat/RationalRoot.lean                      ← rational root theorem, all degrees
+ lean/E213/Lib/Math/NumberTheory/ModArith/SqPlusOneFrame.lean ← T4 Fermat / first supplement
+ lean/E213/Meta/Nat/UnitHyper.lean                         ← +pow_twist_is_one_rung_shear (L5)
+ lean/E213/Lens/Number/Nat213/MultSystem.lean              ← +hyperCount_lt_pow
+ lean/E213/Lib/Math/Foundations/Positivity.lean            ← +positivity_of_sq_double (A7)
+ lean/E213/Lib/Math/NumberSystems/Real213/ModularGeometry/HolonomyOrderLaw.lean ← holonomy order law
+ lean/E213/Lib/Math/NumberSystems/Real213/ModularGeometry/HolonomyFreeness.lean ← ⟨L,R⟩ free
+ lean/E213/Lib/Math/NumberSystems/Real213/ExpLog/CutExpDerivative.lean ← exp series differentiation
+MODIFIED Lean:
+ SignedCut/Core/{Core,Equivalence}.lean, Real213/PresentationDependence.lean ← contamination fixes
+ MarkovPrimeFactor.lean ← de-privated root_mod_P / dvd_sq_sub_mod_sq (reusable)
+ aggregators: Lib/Math.lean, Meta/Nat.lean, Real213.lean, Analysis.lean, ModArith.lean
+ STRICT_ZERO_AXIOM.md ← descent-schema entries
+NEW theory:
+ theory/math/foundations/universal_descent_schema.md       ← promoted chapter
+NEW/UPDATED frontiers:
+ research-notes/frontiers/{descent_schema_universal(→archive),stabilization_schema,
+   native_contamination_audit}.md + INDEX/numbersystem_square/simplicial_operation_tower/
+   transcendentals/pure_lean_calibration_synthesis/inequalities_positivity_fold_crossdomain updates
 ```
