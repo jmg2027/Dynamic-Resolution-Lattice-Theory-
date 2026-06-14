@@ -68,4 +68,25 @@ theorem lpo_imp_llpo (hlpo : LPO) : LLPO :=
             even_ne_odd k j (Eq.trans (hone (2 * k) n0 hev2 hn0) hj)))))))
     (fun hall => Or.inl (fun k => hall (2 * k)))
 
+/-- ★★ **WLPO ⟹ LLPO**, ∅-axiom — the middle strut of the omniscience diagram,
+    completing `LPO ⟹ WLPO ⟹ LLPO`.  Apply WLPO to the even substream
+    `fun k => f (2*k)`.  If it is everywhere false, output the left half.  If WLPO
+    returns its *negative* alternative `¬(∀ k, f(2*k)=false)`, the odd half is
+    everywhere false — **without extracting any witness** (no Markov): were
+    `f(2k+1)=true`, the at-most-one hypothesis would force every even index false
+    (`even_ne_odd`), refuting the negative alternative by *constructing*
+    `∀ j, f(2*j)=false`.  The parity verdict costs only firing-*decidability*, never
+    the firing-*location* — the residue's even/odd readout is strictly cheaper than
+    its witness readout. -/
+theorem wlpo_imp_llpo (hwlpo : WLPO) : LLPO :=
+  fun f hone =>
+    (hwlpo (fun k => f (2 * k))).elim
+      (fun hall => Or.inl hall)
+      (fun hnot =>
+        Or.inr (fun k =>
+          ne_true_imp_false (f (2 * k + 1)) (fun hodd =>
+            hnot (fun j =>
+              ne_true_imp_false (f (2 * j)) (fun hev =>
+                even_ne_odd j k (hone (2 * j) (2 * k + 1) hev hodd))))))
+
 end E213.Lib.Math.Logic
