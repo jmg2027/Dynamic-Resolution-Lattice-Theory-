@@ -1,5 +1,6 @@
 import E213.Lib.Math.Probability.Information.Entropy
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Tactic.Pow213
 
 /-!
 # Information — Joint entropy + mutual information (atomic)
@@ -53,6 +54,29 @@ def mutualInfoBits (h_x h_y h_joint : Nat) : Nat :=
     sum. -/
 theorem mutualInfo_clamped (h_x h_y h_joint : Nat) :
     mutualInfoBits h_x h_y h_joint ≥ 0 := Nat.zero_le _
+
+/-- `2^a ≤ 2^b ⟹ a ≤ b` — the dyadic exponential reflects order (strict
+    monotonicity reversed). -/
+theorem exp_le_of_pow_le {a b : Nat} (h : 2 ^ a ≤ 2 ^ b) : a ≤ b := by
+  rcases Nat.lt_or_ge b a with hlt | hge
+  · exact absurd h (Nat.not_le.mpr (E213.Tactic.Pow213.pow_lt_pow_two b a hlt))
+  · exact hge
+
+/-- ★★ **Subadditivity of dyadic entropy.**  If the joint source has `2^j`
+    equiprobable outcomes embedded in the product space `2^n × 2^m = 2^(n+m)`
+    (`2^j ≤ 2^n · 2^m`), then `H(X,Y) = j ≤ n + m = H(X) + H(Y)`.  The joint cannot
+    carry more bits than its marginals together — the content that makes mutual
+    information *non-vacuously* non-negative (the `Nat.sub` does not clamp). -/
+theorem entropy_subadditive (n m j : Nat) (h : 2 ^ j ≤ 2 ^ n * 2 ^ m) : j ≤ n + m :=
+  exp_le_of_pow_le ((E213.Tactic.Pow213.pow_add_two n m).symm ▸ h)
+
+/-- ★ **Mutual information is genuine redundancy** under subadditivity:
+    `I(X;Y) + H(X,Y) = H(X) + H(Y)` exactly (`(n+m−j) + j = n+m`, no `Nat.sub`
+    clamp), so `I ≥ 0` reflects real shared description length.  `I = 0` iff the
+    joint fills the whole product (`j = n+m`, independence). -/
+theorem mutualInfo_genuine (n m j : Nat) (h : 2 ^ j ≤ 2 ^ n * 2 ^ m) :
+    mutualInfoBits n m j + j = n + m :=
+  E213.Tactic.NatHelper.sub_add_cancel (entropy_subadditive n m j h)
 
 /-- Identical dyadic distributions: `I(X; X) = H(X)` (full
     self-information).  H(X,X) = H(X) (joint of identical = the
