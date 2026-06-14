@@ -5,9 +5,17 @@ degree 2, 3, … — `W ~ N(m,k)²`, `N(m1,k1)×N(m2,k2)`, or other shapes?
 
 **Status**: the algebraic pillar is **closed** at degrees 2 and 3; the graded
 rate generator (rung 1) is **closed** (`RateModulus.graded_total_modulus`,
-`N = k^s + 1`); the conditional measure-modulus schema (rung 2) is **closed**
-(`BracketModulus` + `PiMeasureModulus`: π conditionally degree-`s`); the
-two-real separation modulus is **open**.
+`N = k^s + 1`); the **schedule-degree hierarchy is now closed as infinite and
+strict** (`RateHierarchy.strict_modulus_hierarchy`: for every `t`, the family
+`sepDenS (t+1)` separates rung `t` from `t+1`, via the cross-degree power gap
+`PowBernoulli.pow_pred_lt`) — the lone degree-2 witness `sepDen` is now one rung
+of a full ladder, each occupied by an actual real (`sepS_graded_modulus`); the
+conditional measure-modulus schema (rung 2) is **closed** (`BracketModulus` +
+`PiMeasureModulus`: π conditionally degree-`s`); the **two-real separation
+modulus is now closed** (`RateComparison.two_real_separation_modulus`: given an
+apartness witness `m/k`, the joint cut `a_i·e_j < b_j·d_i` — the two-convergent
+cross-determinant — is settled for all `i,j ≥ k+2`; the two single moduli
+compose by `max`).
 
 ## The conversion law (the frame)
 
@@ -15,6 +23,30 @@ A total cut modulus is always `N(m,k) = rate⁻¹(distance(m,k))` — a distance
 lower bound composed with the inverse convergence rate.  The "degree" of the
 modulus is the growth class of `N` in `k`, and it factors as
 (degree of the distance certificate) / (rate exponent of the pointing).
+
+**Precise W↔degree relationship (closed, `RateComparison`→`DegreeCriterion`)**:
+degree-`s` domination is bracketed by `⌊i^{1/s}⌋·W_i + d_i ≤ d_{i+1}` (sufficient)
+and `⌊i^{1/s}⌋·W_i ≤ d_{i+1}` (necessary) — the probed cross-determinant against
+the denominator increment, gap exactly `d_i`.  The criterion is upward-closed in
+`s` (`increment_criterion_mono`), so the degree is a well-defined ceiling: it is
+the race between `W`-growth and `d`-growth, not `W`'s size.  Degree-1 boundary
+`i·W_i + d_i = d_{i+1}` is saturated by `fastDen` and e (`W = i!`).
+
+**Sum/product closure (clarified, `RateArithmetic`)**: the arithmetic
+cross-determinants factor — `W^{x+y} = W^x·e_i e_{i+1} + W^y·d_i d_{i+1}`,
+`W^{xy} = a_i d_{i+1}W^y + b_i e_{i+1}W^x + W^x W^y`.  The honest finding:
+degree is **not additive** under naive convergent arithmetic — the sum carries the
+other denominator quadratically, so a mismatched `e ≫ d` makes the naive sum
+rate-free at every degree (`sum_naive_not_dominatesS`), even with both summands
+degree 1.  Degree is a property of the *pointing*; closure of the completable
+class needs a good presentation (e.g. scaling for `x+x`), not the common-denominator
+one.  The clean matched closure is **now closed** (`RateArithmetic.matched_sum_*`):
+on a *shared* denominator the cross-determinants **add** (`W^{x+y}=W^x+W^y`, no
+inflation), and `x+y` is degree ≤ s exactly when the probed cross-determinants
+*jointly* fit the shared increment `⌊i^{1/s}⌋(W^x+W^y)+d_i ≤ d_{i+1}` — "each at
+degree s" is a factor of 2 short, so degree is set by `W^x+W^y`, not the max.
+(Product on shared denominators still inflates — `prod_cross_det` carries the
+numerators — so a clean product closure remains open.)
 
 ## Closed (the algebraic pillar)
 
@@ -66,7 +98,7 @@ modulus is the growth class of `N` in `k`, and it factors as
    `N(m,k) = k^e` must *call e's own modulus* to evaluate `⌈k^e⌉`, so
    irrational-degree moduli are receipts taking receipts as arguments — a
    call-tree of folds, formalizable now as a schedule functional consuming a
-   `CauchyCutSeq`.  **The functional is BUILT** (`Real213/ModulusComposition`,
+   `CauchyCutSeq`.  **The functional is BUILT** (`Real213/Modulus/ModulusComposition`,
    30 PURE): `powSched c B k = ⌈k^{p/2^k}⌉` with `p` read off the exponent cut
    (`dyUp`, sound under integer witness + forward doubling; `rootCeil` exact by
    sandwich), calibrated (`powSched_rat`: integer `s` returns exactly `k^s`),
@@ -132,7 +164,7 @@ modulus is the growth class of `N` in `k`, and it factors as
    with partial quotients `⌊√i⌋+2`-driven) is uncharacterized, only its
    degree-2-rescued completion is.
 2. **Conditional measure-modulus schema** — **CLOSED**
-   (`Real213/BracketModulus` + `ExpLog/PiMeasureModulus`, all ∅-axiom).  The
+   (`Real213/Modulus/BracketModulus` + `ExpLog/PiMeasureModulus`, all ∅-axiom).  The
    engine: two-sided bracket (strictly increasing fold + non-increasing upper
    companion + sandwich) + **exclusion depth** `B` ⟹ total modulus
    `N = B k + 2` (`bracket_total_modulus`).  Wallis instance: the companion
@@ -336,3 +368,32 @@ sits in no rung; the ladder classifies the ways of pointing at it.
   `HtelS`/`DominatesS`/`graded_total_modulus`) + `Meta/Nat/RootFloor.lean`
 - Break-grading: `CompletabilityGrade`, `RefinedCompletabilityEngine`
 - ζ(3) companion frontier: `zeta3_free_modulus.md`
+
+## Cross-domain resonances (this branch × merged main, 2026-06-13)
+
+Two genuine convergences with main's parallel PNT/logarithm session:
+
+- **R1 — de-deification, independently doubled.**  Main's session added the
+  calculation rule "conceiving infinity is a discrete pointing; the limit is the
+  *computed bracket*, not a target" to `the_form_of_the_residue.md` (+ a CLAUDE.md
+  failure row).  This branch proved the same thesis ∅-axiom:
+  `PointingLimit.limit_unreached_but_decided` (the limit-value is reached by no
+  convergent yet every cut is decided in finite) + `imagining_infinity.md`.  The
+  de-deification is now both **stated as a rule** (main) and **carried by theorems**
+  (here) — the two halves of one principle, arrived at from two directions.
+
+- **R2 — the archimedean/limsup boundary of an algebraic skeleton.**  Main's
+  `the_prime_constant_is_archimedean`: PNT's constant `1` has no ∅-axiom value
+  because it is the slope at the single *archimedean* place (`ln`), kept as a
+  computed interval.  This branch's `BestApproximation`/μ-bridge: `μ(x)` has no
+  clean value because it is the **`limsup` boundary cut (reached-by-none)** of the
+  discrete deficiency `W`.  Same shape — a classical real (PNT's `1`, the measure
+  `μ`) is the reached-by-none boundary of an algebraic/discrete skeleton
+  (`vp`-identities; the cross-determinant `W`), honest as an interval/threshold,
+  never deified.  R2 is R1 specialised to a named constant.
+
+- **R3 (moderate) — the growth race.**  Main's Chebyshev lower (`C(2n,n) ∣
+  lcm(1..2n)` ⟹ `2^n ≤ lcm`) and ζ(3)'s Hanson lcm-race are the same *growth-race*
+  genre as the `W`-vs-`d` criterion (`DegreeCriterion`); they meet concretely at
+  ζ(3), whose factorial-cleared presentation is `RateStratification`-overtaking
+  (rate-free) — the lcm race and the degree race are one race read in two domains.

@@ -1,11 +1,16 @@
 # Frontier — multiplicative count → PNT horizon (`MultSystem` / `MultSystemValue`)
 
-**Branch**: `claude/autonomous-marathon-vp-listprod-imkycf`.
+**Branch**: `claude/pnt-continuation-k1eerf`.
 **Status**: A-region + exp/log skeleton CLOSED; B (π counting) CLOSED; **Chebyshev
 upper bound `π(2^m)=O(2^m/m)` CLOSED**; **`PrimeDensityToZero` INHABITED ∅-axiom
 (`primeDensityToZero`) — prime density `π(N)/N → 0` certified, the PNT density cut
-CLOSED**.  Remaining OPEN: only the PNT `~ N/ln N` asymptotic (constant `1`), a
-`Real213` pointing horizon — not ∅-axiom reachable.
+CLOSED**; **Chebyshev LOWER bound + two-sided band/order CLOSED**: `chebyshev_lower`
+(`n ≤ (⌊log₂2n⌋+1)·π(2n)`), the band `chebyshev_defect` (`n/(⌊log₂(2n)⌋+1) ≤ π(2n) ≤ n`,
+the doctrine D5 defect), and the sharp order `chebyshev_order`
+(`π(2^{m+1})=Θ(2^{m+1}/m)`, explicit constants) + `chebyshev_constant_interval`
+(`log₂e ∈ [(m+1)/(2(m+2)),6]`, the constant as a computable narrowing interval).
+Remaining OPEN: only the PNT `~ N/ln N` asymptotic (constant `1`, = closing the band's
+width to a point), a `Real213` pointing horizon — not ∅-axiom reachable.
 
 ## The trajectory
 
@@ -142,14 +147,81 @@ arithmetic.  This is exactly how to treat PNT 213-natively:
     `1`-cut, constant `1`) needs `ln` (`Real213.ExpLog`) + the ratio sequence — the
     asymptotic horizon, not ∅-axiom reachable.
 
-## Next concrete step
+## The two-sided shape: the band IS the residue-shape (`residue_shape_doctrine.md` D5)
 
-The whole Chebyshev/density branch is **CLOSED**: `primeDensityToZero :
-PrimeDensityToZero` certifies `π(N)/N → 0` ∅-axiom.  No open ∅-axiom step remains
-on this trajectory.  Possible follow-ups (new directions, not this frontier):
-(a) a Chebyshev **lower** bound `π(N) ≥ c·N/ln N` (the matching direction, for the
-density's two-sided shape); (b) PNT proper `π(N) ~ N/ln N` (constant `1`) as a
-`Real213` cut + ratio-sequence pointing — the asymptotic horizon; (c) connect
-`primeDensityToZero`'s modulus to the lcm-growth route (`LcmGrowthChebyshev`) for a
-cross-check.  Loose secondary: tie `factorization_bounded`'s prime-list length to
-`primePi`.
+**The band as the doctrine's worked defect** (`residue_shape_doctrine.md` D5;
+`simplicial_operation_tower.md` L3‴a): the pivot `C(2n,n)` is the cone's value-cut
+(`doubleTotal_closed`); the **support → shape** arrow `A` is *exact* (factorization,
+`2^n ≤ C(2n,n)`), the **shape → support** arrow `B` is a *lossy* size-squeeze, and
+`B ∘ A ≠ id` — so `π(2n)` is pinned to the band `n/(⌊log₂(2n)⌋+1) ≤ π(2n) ≤ n`
+(`ChebyshevLower.chebyshev_defect`) whose *width* is the prime-counting content, not a
+transcendent `∞`.  The sharp dyadic form of the same band is `chebyshev_order` /
+`chebyshev_constant_interval` below.
+
+The whole Chebyshev/density branch is **CLOSED**, both directions: the density cut
+`primeDensityToZero : PrimeDensityToZero` (`π(N)/N → 0`), the lower bound
+`chebyshev_lower` (`n ≤ (⌊log₂2n⌋+1)·π(2n)`), and now the **two-sided order theorem**
+`chebyshev_order` — `π(2^{m+1}) = Θ(2^{m+1}/m)` with explicit constants
+(`2^{m+1} ≤ 2(m+2)·π`, `(m+1)·π ≤ 6·2^{m+1}`), the dyadic factors
+`two_pow_le_succ_primePi` / `succ_mul_primePi_pow_two_le`.  No open ∅-axiom step
+remains on this trajectory.  Possible follow-ups (new directions, not this frontier):
+(b) PNT proper `π(N) ~ N/ln N` (constant `1`) as a `Real213` cut + ratio-sequence
+pointing — the asymptotic horizon.  **Framework shape recorded** (`MultSystemValue`):
+`RatTendsToOne` (two-sided `→ 1` ε-δ modulus, the companion of `RatTendsToZero`'s
+one-sided `→ 0`) + `RatTendsToOne.within` (soundness, ∅-axiom) + `succOverSelf`
+(`(N+1)/N → 1` validation).  **The honest difference, pinned**: `→ 0` and the order
+*interval* `[c,C]` (`c≈1/2, C=6`) live in pure `ℕ`; PNT collapses that interval to
+the *single point* `1`, and pinning the constant to exactly `1` is a claim about
+`e`/`ln` (base-dependent: `π·log₂N/N → log₂e`; equivalently `lcm(1..N) ~ eᴺ`,
+sharpening the elementary `2^{N−1} ≤ lcm` base from `2` to `e`).  So **no pure-`ℕ`
+`a,b` realize PNT's ratio** — it must be `Real213`-valued (`EulerCut`/`ExpLog`); the
+modulus is the open analytic core (PNT-strength), not central-binomial reachable.
+**For calculation (not framing)**: the constant is a *computable narrowing
+interval*, not a deified point — `ChebyshevLower.chebyshev_constant_interval` traps
+`log₂e ≈ 1.4427` in `[(m+1)/(2(m+2)), 6]`, evaluable at every `m`, narrowing from
+below.  Sharpening that bracket (e.g. via the lcm 30-block upper `base ≤ 31.62^{1/3}
+≈ 3.16` and a matching lower) is the concrete next computation — the limit is the
+bracket's shape, computed, not approached.
+(c) connect the central-binomial route to the lcm-growth route
+(`LcmGrowthChebyshev`) — **started**: `central_binom_dvd_lcm` (`C(2n,n) ∣
+lcm(1..2n)`, via `dvd_of_forall_vp_le` + `vp_lcmUpTo`) ⟹ `two_pow_le_lcm` (`2^n ≤
+lcm(1..2n)`, the `ψ`-form lower `ψ(2n) ≥ n·ln2`, computable base-`√2` lower for
+`lcm ~ eᴺ`).  **Structural one-shot DONE** (`FactorialLcmIdentity`, 7 PURE):
+**`vp_factorial_eq_sum_vp_lcm`** — `vₚ(N!) = Σ_{i=1}^N vₚ(lcm(1..⌊N/i⌋))`, the
+exponent form of `N! = Π_{i=1}^N lcm(1..⌊N/i⌋)`.  Legendre read as a Fubini count
+on `{(i,j): i·pʲ ≤ N}` (reusable `sumTo_fubini` + column-count `count_div`), so the
+two homes of `e` — factorial (`Σ1/k!`) and lcm (`ψ`/PNT) — are one prime-power
+skeleton, two readouts; `e` is *computed* from the structure, not approached.  **Next sharpening of the constant interval**: (i) base-`2` lower via
+the max-binomial `4^n ≤ (2n+1)·C(2n,n)` (`C(2n,n) ≥ 4^n/(2n+1)`); (ii) the matching
+*upper* base `≈ 3.16` by unwinding `LcmGrowthChebyshev`'s 30-block recurrence
+(`step4`, `alpha30`) to a closed `lcm(1..N) ≤ C·base^N` — together trapping `e` in a
+computable `[2, 3.16]`.  Loose secondary: tie `factorization_bounded`'s prime-list
+length to `primePi`.
+
+## Cross-domain resonances (with merged main — the logarithm-family essays)
+
+Main brought the discrete-log layer (`ModArith/DiscreteLogParity`, essays
+`what_is_a_logarithm` + `the_discrete_log_is_the_same_logarithm`): the logarithm
+is the **valuation family** — `ind_g` (finite-cyclic coordinate on `(ℤ/p)*`,
+valued in `ℤ/(p−1)`), `vp` (algebraic, per prime, finite-support), `ln`
+(archimedean).  Two resonances with this PNT trajectory:
+
+- **R1 — PNT's constant lives at the *archimedean* place; the whole ∅-axiom layer
+  lives at the *algebraic* `vp` places.**  `vp_factorial_eq_sum_vp_lcm` is a pure
+  identity at the algebraic `vp` places (both the factorial side, Legendre `= Σ vp`,
+  and the lcm side, `vp_lcm = floorLog`, are `vp`-readouts).  `ψ(N) = Σ_{p≤N}
+  vp_p(lcm(1..N))·ln p` weights that algebraic data by the **archimedean** `ln p`.
+  So PNT's constant `1` is unreachable *exactly because* it sits at the single
+  archimedean place, while everything ∅-axiom-reachable here (the identity, the
+  order bounds, the `ψ`-lower) lives at the algebraic places — the SAME
+  algebraic/archimedean line `the_certificate_boundary` drew (hypergeometric =
+  algebraic = certifiable vs harmonic = archimedean = explicit-only).
+
+- **R2 — the logarithm family is one *computed coordinate* with three value-space
+  shapes; "the constant `e`" is the bracket-shape's name.**  `ind_g` valued in a
+  *finite cycle* (fully computed), `vp` a *finite-support vector* (computed), `ln`
+  a *never-closing bracket* (the horizon).  The de-deification calculation rule
+  (`the_form_of_the_residue.md` "Infinity is the residue's shape") applies across
+  the whole family: all three are computed coordinates; they differ only in whether
+  the value-space is a finite cycle, a finite-support vector, or a never-closing
+  modulus — and "reaching `e`/the limit" is just naming the bracket case.

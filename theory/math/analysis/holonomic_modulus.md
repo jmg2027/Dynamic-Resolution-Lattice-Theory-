@@ -168,7 +168,7 @@ hold); its ∅-axiom construction costs exactly the classical Apéry arithmetic
 **The smallness law is a stratification — `W` against `d`, layer by layer.**  Making
 the smallness condition the primitive object turns completeness into a comparison of
 two tower-internal growth axes, read at every layer
-(`Real213/RateStratification.lean`).  Write `Dominates W d i` for "the
+(`Real213/Modulus/RateStratification.lean`).  Write `Dominates W d i` for "the
 cross-determinant stays below the denominator's growth quantum at layer `i`":
 `i(i+1)·W_i + i·d_i ≤ (i+1)·d_{i+1}`.  Then
 
@@ -222,12 +222,81 @@ witness is an actual real, not just a predicate pair: the numerators
 `a_{i+1} = (⌊√i⌋+2)·a_i + 1` solve the cross-det relation over ℕ exactly
 (`sep_cross_det`, `W = d`), and `sep_graded_modulus` completes `sepNum/sepDen`
 through the degree-2 schedule with the constructed modulus `N(m,k) = k² + 1`,
-its degree-1 certificate broken.  So "completes
+its degree-1 certificate broken.
+
+This lone degree-2 witness is not the ceiling: `RateHierarchy` promotes it to a
+**uniform family** `sepDenS s` (`d_{i+1} = (⌊i^{1/s}⌋+2)·dᵢ`, `W = d`;
+`sepDenS 2 = sepDen`).  `sepDenS_dominatesS_all` is the degree-`s` rescue at
+every layer — the *same* root-monotonicity argument, now parametric.  The break
+generalizes too: `sepDenS_breaks` shows that for every `t ≥ 2`, the
+degree-`(t+1)` presentation fails the degree-`t` schedule at the perfect
+`t`-th-power layer `(t+3)^t` — there both schedule probes read `t+3` while the
+denominator's growth coefficient is pinned below `t+1` by the **cross-degree
+power gap** `(t+3)^t < (t+2)^{t+1}` (`Meta.Nat.PowBernoulli.pow_pred_lt`, an
+additive-Bernoulli consequence: the degree axis genuinely outruns the base
+axis).  Together (`strict_modulus_hierarchy`) every consecutive integer rung
+`(t, t+1)` is separated by an explicit presentation, so the ladder is **infinite
+and strict**; `sepS_graded_modulus` occupies each rung with an actual real of
+modulus degree exactly `t+1`.
+
+The bottom rung, dually, is **generously inhabited**: degree 1 is not the
+unimodular `W ≡ 1` floor alone.  `RateHierarchy.fastDen_dominates` shows that for
+*any* cross-determinant `W` — however large, even unbounded — the denominator
+`d_{i+1} = i·W_i + d_i` is degree-1 dominated at every layer.  What decides the
+degree is the **race between `W`-growth and `d`-growth per layer**, not the size
+of `W`.  The concrete witness is e: its factorial presentation has cross-determinant
+`W = eulerDen = i!` (unbounded) yet completes at `N = k+2` (`EulerModulus`), because
+the per-step denominator ratio `(i+1)` outruns it — where `sepDen`'s slower ratio
+`⌊√i⌋+2` against the same `W = d` lands at degree 2.  This is good news for
+*constructing* reals — a cheap term-count modulus needs only fast denominators,
+not the optimal continued fraction — with the honest caveat that the cost does
+not vanish but relocates into the *size* of each term (`d_i = i!`).  So "completes
 freely" is not one comparison but a ladder of them, one per schedule — *rescue*
 is graded the way `CompletabilityGrade` grades *break*, and the modulus degree is
 the rung's price.  This is the conversion law of the modulus-degree ladder read
 inside the generator itself: degree of the modulus = (distance certificate) /
 (rate of the pointing), with the schedule the dial between the two.
+
+### 4.1 The modulus-degree calculus (closed)
+
+The ladder is now a small calculus, four facts pinning what the degree *is* and
+how it behaves.
+
+**What fixes the degree** (`DegreeCriterion`).  Dividing the degree-`s` domination
+by `ρ_{i+1}` (the schedule monotone) brackets it between two clean inequalities
+differing only by the single term `d_i`: it is **sufficient** that the probed
+cross-determinant fit under the denominator *increment*,
+`⌊i^{1/s}⌋·W_i + d_i ≤ d_{i+1}` (`dominatesS_of_scheduled_increment`), and
+**necessary** that it fit under the *next denominator*, `⌊i^{1/s}⌋·W_i ≤ d_{i+1}`
+(`scheduled_le_of_dominatesS`).  So the degree is exactly the race between the
+*probed* cross-determinant `⌊i^{1/s}⌋·W_i` and the denominator's growth — not the
+size of `W`.  The criterion is monotone in the degree (`rootFloor_antitone_degree`:
+a larger `s` is a slower probe; hence `increment_criterion_mono`), so the degree
+ceiling is well-defined and upward-closed, and the degree-1 boundary
+`i·W_i + d_i = d_{i+1}` is saturated exactly by `fastDen` and e.
+
+**Comparing two reals** (`RateComparison`).  Promoting the rational probe `m/k` to
+a second convergent, the joint comparison `a_i/d_i ⋚ b_j/e_j` is the
+**two-convergent cross-determinant** `a_i·e_j − b_j·d_i` (the single-probe
+Farey/SL₂ determinant, doubled).  Given an apartness witness `m/k` — a rational the
+first cut sits below and the second above — the comparison is settled for all
+`i, j ≥ k+2` (`two_real_separation_modulus`), the two single moduli composing by
+`max`.
+
+**Arithmetic** (`RateArithmetic`).  The cross-determinant factors through the
+summands: `W^{x+y}_i = W^x_i·e_i e_{i+1} + W^y_i·d_i d_{i+1}` (`sum_cross_det`),
+`W^{xy}_i = a_i d_{i+1}·W^y_i + b_i e_{i+1}·W^x_i + W^x_i W^y_i` (`prod_cross_det`).
+Read off these, degree is **not additive**: the naive common-denominator sum carries
+the *other* denominator quadratically, so mismatched growth (`d_{i+1} < e_i`) makes
+it rate-free at *every* degree (`sum_naive_not_dominatesS`) even when both summands
+are degree 1 (`e + e` over `(i!)²` is rate-free, though `2e` is degree 1 by
+scaling).  The clean closure is on a **shared denominator**, where the
+cross-determinants simply **add** (`matched_sum_cross_det`: `W^{x+y} = W^x + W^y`, no
+inflation) and `x + y` is degree ≤ `s` exactly when the probed cross-determinants
+*jointly* fit the shared increment (`matched_sum_dominated`) — "each summand at
+degree `s`" being a factor of 2 short.  Degree, throughout, is a property of the
+*pointing*, not of the real: the same lesson as `object1_not_surjective`, now
+quantified.
 
 ## 5. The thesis, completed
 

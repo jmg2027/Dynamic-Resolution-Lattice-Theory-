@@ -1,155 +1,121 @@
 # Session Handoff — 2026-06-13
 
 ## Branch
-`claude/docs-codebase-audit-uvww7p` — pushed, working tree clean, full
-`lake build E213` green, all touched modules ∅-axiom verified
-(`scan_axioms.py` → 0 DIRTY).  This was a **documentation + codebase
-audit** session (org-audit / process / essay), not a physics session —
-no precision constants changed.
+`claude/graded-rate-generator-i7iufz` — main merged in, working tree clean,
+`lake build E213` green, strict ∅-axiom intact across all new work.  Marathon
+complete; **READY TO MERGE** to main (push + merge is the final step).
 
-## What Was Done This Session
+## What Was Done This Session — the modulus-degree calculus
 
-### 1. Narrative hygiene — markdown bodies (`43068e6`)
-- Deleted the `papers/` directory: its sole content was a "REMOVED
-  ARCHIVE" tombstone README (the *Legacy-deletion narration* failure
-  mode).  Git history retains the deleted `.tex`/monograph sources.
-  Repointed the 7 stale references that named it (README, PROCESS,
-  seed/INDEX, lean/E213/INDEX, CONSOLIDATION_PROTOCOL, rust-engine docs).
-- Stripped dated migration narration from permanent docs ("since
-  2026-05-12", "migrated to Lens 2026-05-14", "moved to … 2026-05-13",
-  "the codomain has moved from", "the enumeration the repo previously
-  lacked") → current-state prose.
+From a one-line note (`graded rate generator (Dominates_s → N = K^s)`), the
+modulus-degree story was closed into one coherent sub-theory, anchored to the
+originator's infinity-as-pointing thesis, and bridged to the irrationality
+measure.  Seven new modules, **42 new theorems/defs, all strict ∅-axiom**
+(`#print axioms` → "does not depend on any axioms").  After merging main (which
+had reclustered the modulus files into `Real213/Modulus/`), the six Real213
+modules live in that cluster.
 
-### 2. Narrative hygiene — Lean docstrings (`9161b4a`)
-- Rewrote process narration to current-state: "previously hand-rolled /
-  inlined", "formerly BoundTight.lean", "All formerly-deferred files now
-  build clean", "promoted from analogy to identity", the deprecated
-  R1–R5 frame references (`ZI`, `ZSqrt2`, `SelfRecognising`), and a
-  malformed dangling historical-note citation in `SelfRecognising`.
+1. **`Meta/Nat/PowBernoulli.lean`** (4 PURE) — additive Bernoulli bounds
+   (`bernoulli_upper`/`bernoulli_lower`, no truncated subtraction) and the
+   **cross-degree power gap** `pow_pred_lt` (`(K+1)^e < K^(e+1)` once `e+2 ≤ K`);
+   `succ_pow_lt_succ_pow`.  Lean-core `Nat.add_mul` is propext-dirty → used
+   `NatHelper.add_mul`.
 
-### 3. Wired 6 orphaned ∅-axiom modules into CI + fixed INDEX counts (`58b8958`)
-- Six modules built individually but were imported by **nothing**, so the
-  root `lake build E213` / CI never compiled them (silent-regression
-  blind spot).  All build clean + ∅-axiom; wired into their aggregators:
-  `Lens/Number/Nat213/SignatureMaps`, `Real213/Zeta3Apery`,
-  `NumberTheory/{AperyIntegrality, FactorialLcmDvd, LcmBoundMain,
-  Zeta3Numerator}`.  The ζ(3)/Apéry ones were **already promoted** to
-  `theory/.../apery_zeta3_arithmetic.md` while their Lean source sat
-  outside the build.
-- Corrected INDEX counts: `theory/INDEX` (math 100→107, meta 7→8, essays
-  95→99, total 247), `theory/physics/INDEX` (18→19), and a dated note in
-  `Meta/Nat/INDEX`.
+2. **`Real213/Modulus/RateHierarchy.lean`** (13 PURE) — the ladder is **infinite
+   and strict**.  `sepDenS s` family; `sepDenS_dominatesS_all` (degree-`s` rescue),
+   `sepDenS_breaks` (degree-`t` fails at `(t+3)^t` via `pow_pred_lt`),
+   `strict_modulus_hierarchy` (every rung `(t,t+1)` separated), `sepS_graded_modulus`
+   (each rung an actual real, `N=k^s+1`).  §6 dual: `fastDen_dominates` — any `W`
+   is degree 1 with fast enough `d` (e's `W=i!` witness).
 
-### 4. Relocated generic list plumbing to Meta + deduped (`546a23f`)
-- Promoted `getD_append_left` / `getD_append_right` (generic, only in
-  `Linalg213/InversionsAppend`) to canonical `Meta/Tactic/List213`.
-- Removed duplicated local re-proofs of `length_append` (InversionsAppend)
-  and `length_map` (Zolotarev) — both already canonical in List213 — and
-  repointed all 4 consumers (InversionsAppend, Zolotarev,
-  ZolotarevMuBridge, ZolotarevCycle).  All ∅-axiom; build green.
+3. **`Real213/Modulus/RateComparison.lean`** (3 PURE) — two-real joint cut.
+   `two_cut_decided` + `two_real_separation_modulus` (apartness witness ⟹ comparison
+   settled past `k+2`, moduli compose by `max`).
 
-### 5. Promoted the betti "−1" cross-domain pattern to an essay (`968417b`)
-- `theory/essays/synthesis/the_minus_one_under_three_lenses.md`:
-  `b₁ = NS²−1 = 1/α₃ = 8` is one residue's lone constant mode counted
-  once (`bcount_const = 2`, `isKer_iff_const`), read by the cohomology-Lens
-  (`b₀` subtracted, field-free via `im_count_inj_complement`), gauge-Lens
-  (`SU(NS)` adjoint trace), chart-Lens (`forcedKChartLens`, `d_M = d−1`).
-  Registered in essays INDEX + `promotion_essay_log.md` #81.
+4. **`Real213/Modulus/DegreeCriterion.lean`** (8 PURE) — what fixes the degree,
+   two-sided: `dominatesS_of_scheduled_increment` (sufficient) +
+   `scheduled_le_of_dominatesS` (necessary), gap exactly `d_i`;
+   `rootFloor_antitone_degree` + `increment_criterion_mono` (degree well-defined).
 
-### 6. Narrative hygiene — c3_chain chapter (`2cf7b14`)
-- Removed pervasive "Phase N (Module)" labels, a "Research-note
-  provenance" section listing raw git branch names + S3 session labels,
-  and volatile HANDOFF.md citations from this permanent chapter.
+5. **`Real213/Modulus/RateArithmetic.lean`** (9 PURE) — `sum_cross_det`,
+   `prod_cross_det`; `sum_naive_not_dominatesS` (degree not additive);
+   `matched_sum_cross_det` (shared denominator ⟹ cross-dets add) +
+   `matched_sum_dominated` (matched closure, joint budget).
 
-### 7. Consolidated `book/` into `books/lens-tower/`
-- The top-level `book/` (The Lens Tower treatise + foundations/ + slots/
-  companion volumes) moved under `books/`, making `books/` the single
-  standalone-treatise directory.  Repointed all *live* references
-  (theory/INDEX, theory/lens/number_systems, 4 Lean docstrings, PROCESS,
-  process skill, READMEs); left the *historical* `book/chapters/*.tex` /
-  `book/ch##` mentions (seed/ORIGIN, 99_history, CONSOLIDATION_PROTOCOL)
-  since those name the long-deleted old monograph.  Rewrote books/README
-  (it had listed a nonexistent analysis213.md).
+6. **`Real213/Modulus/PointingLimit.lean`** (3 PURE) — the conceived limit is a
+   **pointing**: `conv_strict_increase` (values strictly advance, limit reached by
+   no term) + `limit_unreached_but_decided` (reached by no value, every cut decided
+   in finite).  Essay: `theory/essays/foundations/imagining_infinity.md`.
 
-### 8. Swept process vocabulary from the permanent + derived tiers
-- **theory/**: removed build/session `Phase N` labels across 22 chapters
-  (GRA Phase 7/16/17/18/19/22 → capstone names `GRACat`/`LensBridge`/
-  `CarrierRealization`/`Universality23`/`HasDistinguishing213`/
-  `LensIsoCapstone`; `### Phase N` headers → `### N.`); removed `marathon`
-  references (`Marathon 1–4` → `Arc 1–4`); stripped resolution dates
-  (RESEARCH_PLAN, STATE, c-counter essays), `this session` / `multi-session`,
-  and two `Research-note provenance` sections that broke the sink rule
-  (cp_phase, exceptional_axes); cleaned residual session narration in
-  methodology_patterns / pure_lean_patterns; converted THEORY_BOOK's dated
-  `## Versioning` changelog to a `## Scope` note.
-- **seed/**: `marathon`/branch/date/session narration out of
-  THEOREM_METHODOLOGY_SUITE, PROOF_ISA, META_SCAN_ARCHETYPES, CLOSED_FORM_SPEC.
-- **catalogs/**: commit hashes, branch names, `Part 5`, `marathon`, process
-  dates out of the derived indices (abstraction-candidates tables kept).
-- **Kept** (legitimate): physics `phase` (CP phase), the Lean theorem names
-  `..._phase18_capstone` / `cutoff_marathon_at_depth_1`, the named essay
-  `cut_off_marathon.md`, dated originator quote attributions, and the
-  genesis/history docs `ORIGIN.md` / `ORIGIN_RAW.md` / `99_history.md`.
-- **Reported, not swept** (judgment item): the physics `Phase 1/2/3`
-  precision-derivation roadmap tiers in correspondences/falsifiers/
-  physics-constants (a consistent domain classification, not session markers).
+7. **`Real213/Modulus/BestApproximation.lean`** (2 PURE) — the cross-determinant
+   **is** the Diophantine deficiency: `denominator_lower_bound` (`d_i+d_{i+1} ≤ k·W_i`)
+   + `unimodular_best_approximation` (`W=1` ⟹ optimal, constructive `μ ≥ 2`).
 
-## Current Precision Results (0 free parameters)
-**Unchanged this session** (no physics work).  Canonical table:
-`catalogs/physics-constants.md`.  Headline: `1/α_em ≈ 137.036` (ppm
-bracket), `m_μ/m_e = 206.768` (NS·137/NT, 0.48 ppb), `m_p/m_e ≈ 6π⁵`,
-`R∞` (H 4.3 ppb).  Falsifiers F21–F26 intact.
+**Promotion / narrative**: `theory/math/analysis/holonomic_modulus.md` §4.1 (the
+calculus), `the_degree_of_a_number.md` (μ-bridge), two essays
+(`imagining_infinity.md`, `synthesis/no_view_is_final.md`).  Catalog rows in
+`STRICT_ZERO_AXIOM.md`; promotion log #84/#85.
+
+**Marathon (this session, after the math)**: merge main + align modules to the
+`Modulus.*` namespace · `/process` (1 sink citation decoupled → 0; frontier
+closures/openings recorded) · promotion #84 + cross-domain resonances R1/R2/R3 ·
+`/essay` #85 (`no_view_is_final`) · `/org-audit` (INDEX counts; timeless quote) ·
+`/purity-check` (strict ∅-axiom, all clean) · `/ready-to-merge` (READY).
+
+## Current Precision Results
+Unchanged this session (pure analysis / foundations; no physics constants touched).
+See `catalogs/physics-constants.md`.
 
 ## Open Problems (Priority Order)
-### 1. The operation-tower object re-foundation — build `UnitHyper`
-Build the generative `^`-object (free semigroup over the `×`-cone, no
-identity/number) bottom-up; the precise dimension it adds is open.
-Frontier: `research-notes/frontiers/simplicial_operation_tower.md`.
+All recorded in `research-notes/frontiers/modulus_degree_ladder.md` (registered in
+`frontiers/INDEX.md`).
 
-### 2. PNT proper `π(N) ~ N/ln N` (constant 1)
-A `Real213` pointing (the ratio sequence `π(N)·ln N/N → 1`), reached by
-no finite certificate.
-Frontier: `research-notes/frontiers/multiplicative_count_pnt.md`.
+### 1. Clean product closure
+`prod_cross_det` shows the product convergent carries the *numerators*
+(`a_i d_{i+1}`, `b_i e_{i+1}`), so even on a shared denominator `x·y` inflates.
+Find a presentation class where `x·y` has a bounded degree in terms of `x`, `y`.
+Frontier: `research-notes/frontiers/modulus_degree_ladder.md` (Sum/product closure).
+
+### 2. Integer-degree refinement of the matched sum
+`matched_sum_dominated` needs the joint budget; "each summand degree `s` ⟹ sum
+degree `s+c`" for an explicit constant `c` is blocked at small layers by a factor-2.
+Find a clean `c` (or prove none exists).
+Frontier: `research-notes/frontiers/modulus_degree_ladder.md`.
+
+### 3. Full `μ(x)` as the limsup boundary cut
+`BestApproximation` pins the rigorous core (`W` = best-approximation deficiency;
+`W=1` ⟹ optimal). Open: the full `μ = 2 + limsup(log a_{n+1})/(log q_n)` as a
+`Real213` cut — the reached-by-none boundary of the discrete deficiency.
+Frontier: `research-notes/frontiers/modulus_degree_ladder.md` + `the_degree_of_a_number.md`.
 
 ## Unresolved from This Session
-Audit recommendations deliberately **not** executed (with rationale, not
-dead ends):
-- **probability / cohomology chapter expansion** — declined.  The repo's
-  convention is compact chapter + Lean detail (`probability.md` is a
-  47-line survey of 25 files; the cohomology stubs accurately mirror small
-  closed subtrees).  Splitting/expanding would pad against house style.
-- **`rust-engine/docs/gaps-and-todos.md` deletion** — declined.  Despite
-  reading as a resolved changelog, it is cited as live design-rationale
-  provenance by source code (`deuteron_binding.rs §5`, `mb_mc_sweep.rs
-  §7c`, `binary_smoke/snapshots.rs §6`) and `math-branch-physics-notes.md`
-  (~11 refs).  Deleting it would orphan those.
-- (resolved this session: `book/` consolidated into `books/lens-tower/`.)
+None attempted-and-failed.  The μ-identity was deliberately scoped to its rigorous
+core (`BestApproximation`) rather than overclaiming `μ = degree` (μ is a `limsup`).
 
 ## Next
-Resume the research agenda: frontier #1 (`UnitHyper`).
+Pick up Open Problem #1 (product closure) or #3 (μ-limsup cut).  Both are
+∅-axiom-reachable in the existing `Real213/Modulus/` framework; #3 connects the
+chapter to the classical irrationality-measure literature.
 
 ## Three-tier state
-- **Promotions this session**: `theory/essays/synthesis/the_minus_one_under_three_lenses.md`
-  ← `frontiers/betti_alpha_one_raw_lens.md` (closed half; open questions
-  stay in the frontier).  Log #81.
-- **Promotion candidates**: none pending — the surviving open frontiers
-  (operation-tower, PNT) are not categorically closed.
-- **Active scratchpad**: `frontiers/simplicial_operation_tower.md`,
-  `frontiers/multiplicative_count_pnt.md`.
+- **Promotions this session**: `holonomic_modulus.md` §4.1 ← the modulus-degree
+  calculus (log #84); essays `imagining_infinity.md`, `no_view_is_final.md`
+  (log #85).  Frontier `modulus_degree_ladder.md` updated (closures + openings).
+- **Promotion candidates**: none pending — the closed pieces are narrated; the
+  residual is open frontier (product closure, μ-limsup).
+- **Active scratchpad**: `frontiers/modulus_degree_ladder.md` (the three open items).
 
 ## File Map
 ```
-papers/                                              ← DELETED (tombstone; git retains sources)
-theory/essays/synthesis/the_minus_one_under_three_lenses.md ← NEW betti cross-domain essay
-lean/E213/Meta/Tactic/List213.lean                   ← + getD_append_left/right (relocated infra)
-lean/E213/Lens/Number/Nat213.lean                    ← + SignatureMaps import (orphan wired)
-lean/E213/Lib/Math/NumberSystems/Real213.lean        ← + Zeta3Apery import (orphan wired)
-lean/E213/Lib/Math.lean                              ← + 4 ζ(3)/Apéry NumberTheory imports (orphans wired)
-lean/E213/Lib/Math/Algebra/Linalg213/InversionsAppend.lean ← deduped to List213
-lean/E213/Lib/Math/NumberTheory/ModArith/{Zolotarev,ZolotarevMuBridge,ZolotarevCycle}.lean ← deduped to List213
-theory/physics/symmetry/c3_chain.md                  ← process narration stripped
-theory/INDEX.md, theory/physics/INDEX.md, theory/essays/INDEX.md ← corrected counts
-books/lens-tower/                                    ← MOVED from top-level book/ (treatise + foundations/ + slots/)
-books/README.md                                      ← rewritten (accurate volume list)
-research-notes/promotion_essay_log.md                ← + entry #81
+lean/E213/Meta/Nat/PowBernoulli.lean                         ← Bernoulli bounds + cross-degree gap (infra)
+lean/E213/Lib/Math/NumberSystems/Real213/Modulus/RateHierarchy.lean   ← infinite strict ladder + degree-1 generous
+lean/E213/Lib/Math/NumberSystems/Real213/Modulus/RateComparison.lean  ← two-real joint comparison modulus
+lean/E213/Lib/Math/NumberSystems/Real213/Modulus/DegreeCriterion.lean ← the W↔degree two-sided criterion
+lean/E213/Lib/Math/NumberSystems/Real213/Modulus/RateArithmetic.lean  ← sum/product cross-det + closure
+lean/E213/Lib/Math/NumberSystems/Real213/Modulus/PointingLimit.lean   ← the conceived limit is a pointing
+lean/E213/Lib/Math/NumberSystems/Real213/Modulus/BestApproximation.lean ← cross-determinant = Diophantine deficiency
+theory/math/analysis/holonomic_modulus.md §4.1               ← the modulus-degree calculus (narrative)
+theory/essays/foundations/imagining_infinity.md             ← infinity as a discrete pointing
+theory/essays/synthesis/no_view_is_final.md                 ← degree relativity without relativism
+research-notes/frontiers/modulus_degree_ladder.md           ← frontier status + the three open items
 ```

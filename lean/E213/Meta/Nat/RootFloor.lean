@@ -15,7 +15,7 @@ the sandwich
 
 Companion to `ModulusComposition.rootCeil` (the ceiling reading); this floor
 reading is the probe schedule of the graded rate generator
-(`Real213/RateModulus.graded_total_modulus`): probe denominator `k` is admitted
+(`Real213/Modulus/RateModulus.graded_total_modulus`): probe denominator `k` is admitted
 at schedule layer `k^s`, and `rootFloor s` is that schedule read back from the
 layer index.
 

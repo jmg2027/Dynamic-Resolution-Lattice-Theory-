@@ -4,7 +4,7 @@ Pure-Nat helper lemmas that don't depend on the Theory / Lens
 ring distinction — ring-independent infrastructure shared across
 the library.
 
-## Files (37)
+## Files (38)
 
   - `PureNat.lean`         — pure-Nat building blocks
   - `UnitList.lean`        — the rung below `+`: append; `+`-commutativity
@@ -12,6 +12,13 @@ the library.
   - `UnitGrid.lean`        — the rung-2 sibling: `×`-commutativity born
                              from the grid transpose double-count
                              (`mul_comm_from_grid`, no `Nat.mul_comm`)
+  - `UnitHyper.lean`       — the rung-3 sibling: the `b`-dimensional unit
+                             grid for `^`; `count = side ^ dim` positively
+                             (base=length, exponent=axis count;
+                             `count_eq_side_pow_dim`, no "comm lost")
+  - `UnitTetra.lean`       — the rung-4 sibling: tetration `↑↑` as a cube
+                             whose dimension is a tower count
+                             (`count_tetra = hyperop 4`; `dof_four = 2`)
   - `TwoThreeUnique.lean`  — the proven linear floor of the `^`-wall:
                              `2^a·3^b = 2^c·3^d → a=c ∧ b=d`
   - `NatDiv213.lean`       — `Nat.div` lemmas (213-internal pattern)
@@ -34,6 +41,12 @@ the library.
   - `RootFloor.lean`       — integer `s`-th root, floor reading
                              (`rootFloor_pow` calibration; the graded
                              rate generator's probe schedule)
+  - `PowBernoulli.lean`    — additive Bernoulli bounds (`bernoulli_upper`/
+                             `bernoulli_lower`) + the **cross-degree power
+                             gap** `pow_pred_lt` (`(K+1)^e < K^(e+1)` once
+                             `e+2 ≤ K`): the degree axis outruns the base
+                             axis — arithmetic crux of the strict
+                             modulus-degree hierarchy (`Real213/RateHierarchy`)
   - `BinTree213.lean`      — the tree floor below append: the free
                              binary magma; append = its associativity
                              quotient (`flatten`), `count` blind to

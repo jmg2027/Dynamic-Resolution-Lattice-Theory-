@@ -88,6 +88,13 @@ minimizable-not-eliminable boundary).
    `object1_not_surjective` / `residue_reentry` core already is that anchor; the open work is the
    *operational* gate (hook/lint/type), not more Lean.
 
+**Note (2026-06-13): the *content* canonical statement is now written** —
+`residue_shape_doctrine.md` (the de-deified frame: `∞`/continuity/abstraction as
+construction-produced residue-shapes, characterized not enshrined).  This note's scope
+is the **cognitive recurrence** of the dichotomy (why agents re-import it); the doctrine
+states **what the residue is**, the missing third leg beside `residue_expression_atlas.md`
+(how it is expressed).
+
 ## Cross-references
 `theory/essays/methodology/why_the_reframing_recurs.md`, `CLAUDE.md` self-check §0 (Residue-lint),
 `Lens/{FlatOntologyClosure,ResidueReentry}`, `seed/AXIOM/{01_residue §1.4, 05_no_exterior §5.1,

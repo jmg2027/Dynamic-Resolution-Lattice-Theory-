@@ -22,7 +22,7 @@ extreme Stern-Brocot spines (`0/1 → 1/n` and `1/1 → n/1`).  **Open**: a clea
 the full indexing is the continuation.  (Famous *Markov uniqueness conjecture* = injectivity of
 this indexing — classically open.)
 
-## Thread B — φ/π extremes (∅-axiom anchor: `Real213/LagrangeExtremes`)
+## Thread B — φ/π extremes (∅-axiom anchor: `Real213/ModularGeometry/LagrangeExtremes`)
 
 The two poles of the spectrum, in 213-native terms:
 
@@ -58,7 +58,7 @@ tying the `2cos` values to the spectrum structure — the continuation of thread
 
 ## ∅-axiom anchors added (this note)
 
-- `Real213/LagrangeExtremes` (4 PURE) — φ as the minimal-CF spectrum floor.
+- `Real213/ModularGeometry/LagrangeExtremes` (4 PURE) — φ as the minimal-CF spectrum floor.
 - `ImaginaryQuadraticUnitTrichotomy.{ztrace, crystallographic_cosines}` — the crystallographic
   integer cosines as Eisenstein traces.
 - (pre-existing, reused) `markov_fibonacci_branch`, `markov_pell_branch` (Stern-Brocot spines),

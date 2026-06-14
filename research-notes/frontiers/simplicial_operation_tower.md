@@ -4,11 +4,20 @@
 core (Pascal/simplex count) is CLOSED ∅-axiom** (`MultSystem.monoCount_closed`, not
 merely the `n=3` hand-check), and its **prime-counting payoff is built**
 (`MultSystemValue` + `ChebyshevLower`: value-count → window → both halves of
-Chebyshev).  L4 (commutativity dial at `^`) and L2 (no-identity criterion) remain
-`[gut]`.  Complements `number_tower_theory.md` (demotion/valuation view, R0–R8);
+Chebyshev).  The **generative `^`-object is BUILT** (P2, `Meta/Nat/UnitHyper`,
+∅-axiom): `hcube a b` = the `b`-dim unit grid, `count = side ^ dim` positively
+(base=length, exponent=axis count).  **Promoted** (the *stable closed math* — the
+object tower `+→×→^→↑↑`, `DOF = rung−2`, and the `Δ`/`Σ` dimension calculus) →
+`theory/math/numbersystems/slot_arithmetic.md` §1.5; the *conceptual* reading
+(de-deification, the spiral) stays here, still in flux.  L4 (commutativity dial at
+`^`) and L2 (no-identity criterion) remain `[gut]`.  Complements `number_tower_theory.md`
+(demotion/valuation view, R0–R8);
 this note records the **generative** view — the layer as construction, the
-no-identity principle, the **simplicial-cone finding**, and (§L3′ below) the precise
-`+`/`×` bridge.
+no-identity principle, the **simplicial-cone finding**, (§L3′) the precise `+`/`×`
+bridge, (§L3″) the firm `+`/`×` foundation that dissolves the "3- vs 4-simplex"
+conflation (vertex ≡ axis, `monoCount_vertices`; three distinct "dimensions"
+separated), and (§L3‴) the **dimension-without-`∞` framework** (finite-difference
+depth = pole order = growth degree; `×`'s shape = `ζ`).
 
 Tagging as in `number_tower_theory.md`: `[∅]` ∅-axiom Lean here, `[std]` standard
 math, `[ax]` a 213 axiom, `[gut]` the originator's raw intuition (recorded, not
@@ -52,9 +61,15 @@ construction.  The exact generative rule, no numbers, no identity:
     → free *commutative* semigroup (their multisets).  An *entirely different
     object* from the `+`-line.  Object: `UnitGrid` (`Meta/Nat/UnitGrid`).
   - **`^`** : the `×`-layer's *elements* (the cone's points) become the **axes** →
-    the next free semigroup.  **Object: to build** ("UnitHyper" — the `b`-dimensional
-    unit grid).  Currently only `HyperAssoc` exists, and it frames `^`
-    *negatively* ("assoc AND comm **die**") — **to be replaced** by the positive form.
+    the next free semigroup.  **Object: `UnitHyper` (`Meta/Nat/UnitHyper`, BUILT
+    ∅-axiom)** — the `b`-dimensional unit grid: indistinguishable unit cells nested
+    into boxes (`HCube`/`Forest`), `hcube a b` = `a` copies of the dimension-`b`
+    cube glued along a new axis.  Carries **two different-typed readouts** — `side`
+    (a length = the base) and `dim` (an axis count = the exponent) — with
+    **`count_eq_side_pow_dim : count = side ^ dim`** as the positive law, and the
+    swap `swap_changes_dim` (`dim (hcube 2 3) = 3 ≠ 2 = dim (hcube 3 2)`) as the
+    *positive* reason `2^3 ≠ 3^2` (a type-mismatch, not "comm lost").  `HyperAssoc`'s
+    negative framing ("assoc AND comm **die**") is now the count *shadow* of this.
 
 **Where the asymmetry comes from, generatively (no numbers).**  The "how-many-times"
 (the *count*) is *always a `+`-level thing* — it never climbs the tower.  The
@@ -74,15 +89,41 @@ which is why they do not swap.  Read positively: the rung *adjoins the
 dimension-setting axis*; nothing is "lost".
 
 **Program (large; deliberate, not a rushed mass edit):**
-  P1. Reframe the negative descriptions (`HyperAssoc` headline, any "loses comm/assoc"
-      docstring) → positive (the arising DOF / dimension axis).
-  P2. Build the positive `^`-object generatively (`UnitHyper` = the `b`-dimensional
-      unit grid; base sets side, exponent sets dimension; the layer-gap DOF).
-  P3. Re-anchor descriptions to objects; keep the Nat results (`MultSystem`/
-      `MultSystemValue`/Chebyshev) explicitly *as readouts/shadows*.
-  P4. Carry the `DOF = rung − 2` (layer-gap) statement as the precise spec; tie its
-      `^`-value to `hyper_parallel` (the dilation readout) and the `−1`
-      cross-determinant (L5).
+  P1. **DONE** (`Meta/Nat/HyperAssoc`).  Headline + docstrings reframed positively:
+      `^` *adjoins the dimension axis* (anchored in `UnitHyper`); the algebra
+      defects (`pow_not_comm`, `pow_not_assoc`) are now stated as the **count
+      shadows** of the side-vs-dimension type-asymmetry, with the Lean bridge
+      `pow_not_comm_is_dim_shadow` (`count (hcube 2 3) ≠ count (hcube 3 2)`, the
+      object form of `2^3 ≠ 3^2`).
+  P2. **DONE** (`Meta/Nat/UnitHyper`, ∅-axiom).  The positive `^`-object built
+      generatively: `hcube a b` (`b`-dim unit grid, side `a`), `count_hcube : count
+      = a^b` (the readout shadow), `count_hcube_succ`/`dim_hcube_succ` (the climb +
+      the `+1` DOF axis arising), `count_eq_side_pow_dim` (base=side length,
+      exponent=dim count — the positive twist), `count_hcube_two_eq_grid` (dim-2
+      cube = the `×`-square, the two-roads bridge).
+  P3. **DONE** (`MultSystem.hyperCount` docstring).  The abstract axis-count
+      reading (`hyperCount`/`hyperCount_simplex`, symmetric skeleton) is now
+      explicitly cross-referenced as one readout, with `UnitHyper`'s geometric
+      `count = side ^ dim` the value sibling — two readouts of the one `^`-rung.
+      (Remaining: thread the same readout/shadow framing through `MultSystemValue`
+      / the Chebyshev mirror if it recurs — deferred, not a rushed sweep.)
+  P4. **DONE** (modulo the `hyper_parallel` tie).  Two ∅-axiom pieces:
+      (a) the cross-layer `DOF = rung − 2` spec at the **HyperLadder** level
+      (`HyperLadder §6`): `dofOfRung k = k − 2`, `dofOfRung_succ` (the `+1`-per-rung
+      climb, `k ≥ 2`), pinned **non-vacuously** to operand interchangeability —
+      `dof_two_comm` (`×`: DOF 0 ⟺ commutes, grid transpose) and `dof_three_not_comm`
+      (`^`: DOF 1 = first non-commutative, obstruction = `UnitHyper.swap_changes_dim`);
+      (b) the `−1` cross-determinant ↔ `^`-twist link, now structural
+      (`CrossDetOvertake §6`): `W`'s `|det|=1` floor = the point
+      (`crossdet_floor_eq_point`), its `2^{2^i}` ceiling = `count (hcube 2 (2^i))`
+      (`crossW_eq_hcube_count`), so `UnitHyper.count` grades the cross-determinant
+      axis by the `^`-tower.  The **rung-4 object** is also built
+      (`Meta/Nat/UnitTetra`): `count_tetra : count (tetra a b) = hyperop 4 a b`,
+      `dof_four : dofOfRung 4 = 2` (the `+1`-climb twice from the `×`-base), with a
+      direct two-axes witness `UnitTetra.dim_tetra_succ`.  The **`hyper_parallel` tie
+      is DONE** (`MultSystemValue.hcube_vp_radial`/`hcube_hyper_parallel`): the
+      geometric per-dimension `×a` *is* the vp-cone radial scalar `b·vp`.  *Still
+      open*: only L5's 3- vs 4-simplex "초위상" figure.
 
 ## L1 — The layer rule: each layer's axis = the *whole previous layer*
 
@@ -230,6 +271,156 @@ of the cone's degree-count vs its value-count across resolutions IS Chebyshev/PN
 > the limit (`object1_not_surjective`), and the *rate* of that agreement is prime
 > counting.  Promotable mirror: `theory/math/numbertheory/chebyshev_prime_counting.md`.
 
+## L3″ — What `+` and `×` *precisely* are (the firm foundation for reading `^`)
+
+`[∅]`+`[ax]`  Originator directive (2026-06-13): the "3- vs 4-simplex" figure is
+**not literal** — `×` is *already infinite-dimensional* — so before reading `^`,
+pin exactly what `+` and `×` are.  Two precise views coincide on one anchor:
+
+**The anchor: vertices = generators = lattice axes** (`MultSystem.monoCount_vertices`,
+`[∅]`): `monoCount k 1 = k`.  The degree-`1` elements are exactly the `k` generators
+(each base once), so the rung over `k` bases is the cone over the **`(k−1)`-simplex**
+(`k` vertices), graded by degree, with the `d`-dilate carrying `C(d+k−1,k−1)` lattice
+points (`monoCount_closed`).  And those `k` vertices **are** the `k` independent
+lattice axes of the demotion view (R4, `number_tower_theory.md`: `+` = 1-axis ℕ, `×`
+= ∞-axis `⊕_p ℕ`).  Generative simplex (L3) and demotion lattice (R4) are **one
+object**, vertex ≡ axis.  So, precisely:
+
+  - **`+`** = the cone over the **0-simplex** (a single vertex): `monoCount 1 1 = 1`,
+    one generator (the unit) — the ray `ℕ⁺`.
+  - **`×`** = the cone over the **∞-simplex**: `k → ∞` (one vertex per prime),
+    **already infinite-dimensional** — there is *no finite figure*.
+
+**The three "dimensions" the cartoon conflates** (the source of the 3-/4-simplex
+confusion), now separated:
+
+  | axis | what it counts | `+` | `×` | `^` | behaviour |
+  |---|---|---|---|---|---|
+  | (A) **simplex / lattice dim** | vertices − 1 = generators − 1 | `0` | `∞` | `∞` (bigger) | **jumps** `0→∞→…` (R4's `1→∞`), *never* `+1` |
+  | (B) **grading / degree** | the radial cone axis (the count `d`) | `1` | `1` | `1` | universal `+`-line, every rung |
+  | (C) **operand-DOF** | base level − count level = rung − 2 | — | `0` | `1` | `+1` per rung (`dofOfRung_succ`) |
+
+**The raw gut resolved.**  "point→line→plane→solid, `+1` dimension per rung" reads
+axis **(C)** (the finite operand-DOF, `dofOfRung`), *not* axis (A): (A) is already
+`∞` at `×`, so it cannot be the thing incrementing by `1`.  The cartoon mislabels
+(C) with (A)'s geometric words.  Holding the two apart is the whole point: the
+*generator/vertex/axis* count (A) **jumps** (each rung's generators = the **entire
+previous rung's object** — `+`: 1 unit → `×`: all of `ℕ⁺` → `^`: all `C(N+k,k)`
+cone points, `hyperCount`), while the *operand type-gap* (C) **climbs by 1**.
+
+**Reading `^` on this base.**  `^` takes **all** the `×`-cone's points (not just its
+`∞` axes) as new vertices → the cone over a `(C(N+k,k)−1)`-simplex
+(`hyperCount_simplex`): axis (A) explodes *again* (the "axis = previous layer" rule,
+L1), staying simplicial; axis (C) goes `0→1` (the dilation type-gap,
+`UnitHyper.swap_changes_dim`).  So "what `^` is" = (A) explodes + (C) `+1` — two
+different motions, and the gut's single word "dimension" was pointing at (C).
+
+## L3‴ — Dimension *without* ∞: the shape framework (originator request)
+
+`[∅]`+`[ax]`+`[gut]`  Originator (2026-06-13): "don't write `∞` as `∞` — is there
+a math frame, or make one."  There is, and it is **native + finite**: read the
+shape's dimension off the **graded count `monoCount k d`**, never off a cardinal.
+Three equivalent readings, all `∅`-axiom-anchored:
+
+  1. **Finite-difference depth** (the cleanest).  Differencing the graded count in
+     the degree **drops the rung by one**: `monoCount (k+1)(d+1) − monoCount (k+1) d
+     = monoCount k (d+1)` (`MultSystem.diff_drops_rung`, the monotonicity
+     `monoCount_mono_deg` making the subtraction exact).  So **dimension = how many
+     differences annihilate the count**: `+` (rung 1) is *already constant*
+     (`monoCount 1 = 1`) → dimension 1; rung `k+1` needs `k+1` differences to reach
+     the zero rung.  `×` = the `∞`-generator limit = the count whose difference-tower
+     **never terminates** — "infinite-dimensional" becomes a *non-terminating finite
+     process*, not a cardinal `∞`.
+  2. **Hilbert-function growth degree.**  `monoCount (k+1) d = C(d+k,k)`
+     (`monoCount_closed`) is a **degree-`k` polynomial in `d`**; the polynomial bound
+     `monoCount t d ≤ (d+1)^t` (`monoCount_le_succ_pow`) is its envelope.  Dimension =
+     the polynomial growth-degree `+1`; `×` = **super-polynomial** (no finite Hilbert
+     polynomial), the growth-rate reading of `∞`.
+  3. **Generating-function pole order.**  Differencing ↔ multiplying by `(1−x)`
+     (adding a generator ↔ dividing by `(1−x)`, exactly `totalCount_eq`: the
+     partial-sum operator).  The rung's Hilbert series is `(1−x)^{−k}`; **dimension =
+     pole order at `x=1`**.  `×` (`k→∞`) = an **essential singularity / natural
+     boundary** at `x=1` — and that singularity is the **Euler product `∏_p`** = the
+     **zeta function `ζ`**.  So *"the shape of `×`" is `ζ`*: the `∞`-dimensional cone,
+     written without `∞`, is `ζ`'s region/Euler-product, and the repo's prime counting
+     (`ChebyshevLower`, `primeDensityToZero`) is the analytic reading of that shape.
+
+The three agree: difference-depth = pole-order = growth-degree`+1` = generator count =
+**vertex count** (`monoCount_vertices`, L3″) = lattice-axis count (R4).  Each gives a
+**finite, constructive handle** on the dimension; `∞` is never a label but a *mode of
+non-termination* (the difference-tower never dies / the series has a natural boundary /
+the growth is super-polynomial).  Reading `^` here: its difference-tower is even
+deeper (axes = all `C(N+k,k)` cone points), and the `^`-shape's series is the
+**`ζ`-of-`ζ`** direction — the tower of shapes is the tower of `ζ`-iterates, the next
+frontier to make precise.
+
+### L3‴a — Synthesis: the tower is a discrete ↔ continuous **spiral** (originator)
+
+`[ax]`+`[gut]`  Originator (2026-06-13): "in a way it feels like discrete lattice →
+continuous → discrete lattice."  It is — and the reading **unifies this branch's
+results** into one spiral spine.  Each rung runs three phases:
+
+  1. **Discrete lattice** — the rung's simplicial cone (`monoCount`, `⊕_p ℕ`): the
+     generators / axes / vertices (`monoCount_vertices`).  `[∅]`
+  2. **Continuous shape (a pointing)** — its Hilbert series / `ζ`: the limit **reached
+     by no finite stage** (`FlatOntologyClosure.object1_not_surjective`), the density
+     cut `primeDensityToZero` (a `RatTendsToZero` modulus), the Euler-product essential
+     singularity (L3‴).  `[∅]`
+  3. **Back to discrete (the support)** — the continuous shape's arithmetic content:
+     the primes (Euler factors), the cut's **convergents** (`Mobius213.P_numerator`/
+     `P_denominator`, cross-det `−1` = `SL₂(ℤ)`, `pell_unit_at_succ`), the prime counts
+     (`chebyshev_lower`).  `[∅]`
+
+The crux: **phase-3's discrete support is phase-1 of the *next* rung** ("axis =
+previous layer", L1) — so it is a **spiral, not a circle**: each return to the discrete
+lands one rung up.  This is exactly why this branch's three sub-results sit together —
+they are the three phases of one turn: L3‴ (the continuous `ζ`-shape, phase 2),
+`CrossDetOvertake §6` (the cut's discrete convergents graded by the `^`-tower, phase 3),
+L1 (the support seeding the next axes, phase 1′).  It also re-reads R5
+(`number_tower_theory.md`): the algebraic completions (`+→ℤ`, `×→ℚ`, discrete) vs the
+analytic cuts (roots/logs at `^`, continuous) are the same discrete↔continuous
+alternation, one rung apart.
+
+**De-deifying caveat** (originator, 2026-06-13; CLAUDE.md "Deifying the residue/`∞`").
+Phase 2 ("continuous") is **not** a transcendent target the discrete converges *toward*,
+nor "where the real content lives" — that re-privileges one Lens and deifies `∞`.  No
+phase is "more real"; arguing discrete-vs-continuous-vs-limit "which is real" is empty.
+The capacity to *imagine* `∞` is a discrete posit; `∞`/continuity are **residue-shapes**
+the construction produces (`object1_not_surjective` is a theorem about the *view-setup*,
+not an external excess — the residue arises *because the concept was posed to leave
+one*).  So the meaningful object is the **constitution** of phase 2 (how the residue-
+shape is produced), and L3‴'s finite signatures (difference-depth, pole-order, `ζ`) **are
+that constitution made explicit** — `∞` characterized, not enshrined.
+
+**Reconnaissance (2026-06-13): the two arrows are NOT an inverse pair — and that is the
+point.**  Scouting the built phase-1↔3 maps (pivot = the central binomial `C(2n,n)`,
+which *is* the cone's both-axes value-cut, `doubleTotal_closed : doubleTotal N =
+C(2N+1,N)`):
+
+  - **Arrow A** (support → shape, *exact*): the primes **build** `C(2n,n)` by exact
+    factorization — `C(2n,n) = ∏_p p^{vp_p}` (`central_binom_factorial`,
+    `factorization_bounded`), with `∏_{p∈(n,2n]} p ∣ C(2n,n)`
+    (`window_prod_dvd_central_binom`).  An **equality**.
+  - **Arrow B** (shape → support, *lossy*): the *size* of `C(2n,n)` reads `π` back only
+    as a **squeeze** `2^n ≤ C(2n,n) ≤ 2^{2n}` (`central_binom_ge_two_pow`,
+    `central_binom_le`) and `C(2n,n) ≤ (2n)^{π(2n)}` (`central_binom_le_pow_primePi`) ⇒
+    `chebyshev_lower` / `primeDensityToZero`.  An **inequality**.
+
+`B ∘ A ≠ id`: the support → shape arrow is an exact construction, the shape → support
+arrow is a lossy readout, and **their failure to compose to the identity IS prime
+counting** — exactly L3′'s "the cone and its value-shadow only agree in the limit, the
+*rate* is prime counting" (`object1_not_surjective`).  This **vindicates the
+de-deifying view**: there is no pre-existing `∞` both arrows faithfully represent —
+there is an *exact-construct* one way and a *lossy-readout* the other, and the
+irreducible content is precisely their **defect** (the prime-counting / PNT-constant
+gap), not a transcendent infinity.  **The defect is now one `∅`-axiom object**
+(`ChebyshevLower.chebyshev_defect`): `π(2n)` pinned to the band `n/(⌊log₂(2n)⌋+1) ≤
+π(2n) ≤ n` — the lower end from `A` (exact, `2^n ≤ C(2n,n)` → `chebyshev_lower`), the
+upper from `B` (lossy, `primePi_two_mul_le`); the **multiplicative gap `(⌊log₂(2n)⌋+1)`
+is the residue-shape**, the width that is the prime-counting content, finite and
+two-sided.  Shrinking it to one constant is PNT (the open analytic core).  `∞`
+characterized, not deified — a band, not a beyond.
+
 ## L4 — Two readings of one generating set (a calculation cross-section, **not** the rung mechanism)
 
 `[∅]`  The sorted/ordered comparison below is a *calculation* cross-section — a
@@ -289,11 +480,15 @@ defect**:
 > - The "two operands in different dimensions" reading is the **geometric form of
 >   the scalar-vs-vector type asymmetry** that `number_tower_theory.md` R5 / the
 >   `^`-wall already locates — same wall, geometric language.
-> - "Two trajectories to one destination differ by **1 integer unit**" *rhymes
->   with* the cross-determinant invariant `num·den' − num'·den = −1`
->   (`Mobius213.mobius_213_pell_unit_invariant_forall`, `[∅]`) — the symplectic
->   defect of two convergent paths.  Flagged as a form-resonance to test, not a
->   proven bridge.
+> - "Two trajectories to one destination differ by **1 integer unit**" is no longer
+>   only a rhyme with `num·den' − num'·den = −1`
+>   (`Mobius213.mobius_213_pell_unit_invariant_forall`, `[∅]`): the cross-determinant
+>   axis `W` is **operation-tower-graded** (`CrossDetOvertake §6`, `[∅]`) — its
+>   `|det|=1` **floor** is the **point** (dimension-`0` cube, `crossdet_floor_eq_point`)
+>   and its `2^{2^i}` **ceiling** is the tetration-shaped `^`-cube
+>   (`crossW_eq_hcube_count`).  The shared `1` is the det-one floor = the unit = the
+>   `^`-tower's bottom rung; the symplectic defect's *growth* climbs the tower.  See
+>   resonance #2 below.
 > - **Open ambiguity to pin**: which "dimension" drives the twist — the *built
 >   object's* dimension (line/plane/solid) or the *operand-type-mismatch*?  The
 >   standard "dimension ↔ commutativity" phenomenon (`Eₙ` operads: more sliding-
@@ -323,19 +518,27 @@ Lenses.  That makes the gut worth closing.
 
 ## Cross-domain resonances (this branch ↔ corpus) — recorded, to test
 
-Five links surfaced while building the tower + Chebyshev this branch; *resonances
-to test*, not asserted identities.
+Eight links surfaced while building the tower + Chebyshev + the dimension calculus
+this branch; *resonances to test*, not asserted identities.
 
 1. **Tower simplex ↔ the `(NS,NT,d)` physics simplex.**  The operation-iteration
    road (`monoCount_closed`/`hyperCount_simplex`) lands on the *same* simplicial
    object the physics branch reaches via the `K_{3,2}` link — two independent roads
    to one simplex (the "Why this matters" point), the `[ax]` §6.8 no-exterior
    signature.
-2. **The `^`-twist (dilation, `+1` DOF) ↔ the `−1` cross-determinant / Pell unit.**
-   The `^`-rung adjoins one dilation degree-of-freedom (`hyper_parallel`); L5 records
-   its "1 unit of twist" rhyming with `num·den' − num'·den = −1`
-   (`Mobius213.mobius_213_pell_unit_invariant_forall`) — the symplectic defect of two
-   convergent paths.  Same "+1" in two frames.
+2. **The `^`-twist (dilation, `+1` DOF) ↔ the `−1` cross-determinant / Pell unit —
+   UPGRADED from rhyme to a structural identification (∅-axiom).**  The
+   cross-determinant axis `W` of `CrossDetOvertake` is **operation-tower-graded by
+   `UnitHyper.count`**: its **floor** `W_i = 1` (`const_crossdet_small`, the `|det|=1`
+   unit = magnitude of `mobius_213_pell_unit_invariant_forall = −1`) is the **point**,
+   the dimension-`0` cube (`CrossDetOvertake.crossdet_floor_eq_point`); its **ceiling**
+   `W_i = 2^{2^i}` (`dexp_overtakes_denom`) is `count (hcube 2 (2^i))`
+   (`crossW_eq_hcube_count`) — the `^`-object whose dimension is itself a `^`-count,
+   the tetration-shaped rung.  So the "1 unit of twist" the `^`-rung adjoins and the
+   det-one floor are the **same bottom-of-tower object** (unit = point); the
+   cross-determinant's growth to the double exponential *is* climbing the `^`-tower.
+   The completability boundary (`completability_boundary`) is the rung where `W`'s
+   tower-grade overtakes the denominator's.
 3. **Chebyshev (central binomial) ↔ ζ(3) Apéry (lcm growth) — shared floor-log/Legendre.**
    This branch's prime counting (`vp_central_binom_le_floorLog`) and the corpus's
    ζ(3) Brick 1 (`LcmGrowthChebyshev.lcmUpTo_le`) are **two consumers of one core**:
@@ -352,34 +555,101 @@ to test*, not asserted identities.
    the same certificate-is-a-modulus pattern as `AbCutSeq.toCauchy` and the WZ
    certificates of `the_certificate_boundary.md`.  Density convergence sits on the
    certifiability boundary that essay draws.
+6. **The dimension detector IS the corpus's divergence-depth ladder (not new).**
+   `MultSystem.{diff,diffIter}` re-states `Analysis/Cauchy/DivergenceLadder.{diff,liftK}`,
+   and `diffIter_dim_zero` (rung `k+1` floors at depth `k+1`) is an instance of
+   `reachesFloor`; the "`∞` = the difference tower never terminates" reading is exactly
+   `DivergenceLadder.infinite_depth` (super-polynomial growth = Liouville depth `∞`).
+   So the dimension detector is the **already-built depth ladder applied to the graded
+   count** — the genuinely new pieces are the *tower instance* (`monoCount` floors at
+   depth = rung) and the **`Σ`-builder dual** (`sumfIter_const_one`, the `(1−x)^{−k}`
+   Hilbert series) + the discrete FTC (`diff_sumf`).  Its additive depth is the
+   `CFiniteRing`/`DetSpectrumPoles` C-finite-vs-holonomic depth one resolution down; the
+   multiplicative twin is the Casoratian/Wronskian depth (`DepthPRecursive`).  *Org dedup
+   pending*: relocate `diff`/iterate to `Meta/Nat/FiniteDiff` so the tower and the
+   `Cauchy/Depth*` cluster share one operator.
+7. **`Σ` raises dimension `+1` ↔ the cup-ladder graduation `+1` = the residue unit.**
+   Each partial sum `Σ` (`sumfIter`) raises the rung by one (one `×(1−x)^{−1}` = one
+   pole-order = one dimension); the corpus's cohomology cup-ladder graduates by `+1` per
+   degree (`CupLadderResidueUnit`, `H^k → α^{k+1}`), *proven* to be the residue unit
+   `NS − NT = 1` (`cup_ladder_graduation_is_residue_unit`).  Candidate: the
+   dimension-raising `Σ`'s `+1` is the **same unit** as the cup-ladder `+1` and the
+   cross-determinant det-one floor (resonance #2) — one `+1`-graduation, three frames
+   (summation / cohomology / symplectic).
+8. **The `chebyshev_defect` band (exact `A` / lossy `B`) ↔ the certificate boundary.**
+   The support→shape arrow `A` is an *exact* factorization (`C(2n,n)=∏p^{vp}`, a
+   certifiable telescoping); the shape→support arrow `B` is a *lossy* size-squeeze
+   (explicit bounds only).  `B∘A ≠ id`, and the band width is prime counting — the same
+   **certifiable vs explicit-only** split `the_certificate_boundary.md` draws
+   (hypergeometric/algebraic vs harmonic/archimedean).  The PNT-constant gap sits on
+   that certifiability boundary, the exact/lossy non-invertibility being its signature.
 
 ## Open problems / next steps
 
 1. **The `^`-rung's intrinsic structure (L4 reframed → L5)** — the two-readings
    comparison is **CLOSED ∅-axiom** (`monoCount_le_pow`/`monoCount_lt_pow`/
-   `monoCount_le_succ_pow`: sorted-reading bracketed `≤ (d+1)^t` and `< t^d`), but
-   that is a *calculation cross-section*, not the rung's mechanism.  *Open
-   (positive)*: build the `^`-rung's **own** enumeration and find its **dimension +
-   twist** — testing the originator's prediction that the structure stays
-   *simplicial* (point→line→plane→tetrahedron, a new degree-of-freedom at dim 3),
-   read positively (not "loses commutativity").  Anchors for the twist: the `−1`
-   cross-determinant (`Mobius213.mobius_213_pell_unit_invariant_forall`, `[∅]`),
-   `PairOp.pow_lift_impossible` (L5).
+   `monoCount_le_succ_pow`: sorted-reading bracketed `≤ (d+1)^t` and `< t^d`), and
+   the **geometric `^`-object is now built** (P2 / `Meta/Nat/UnitHyper`, ∅-axiom):
+   `hcube a b` = the `b`-dim unit grid, with `count = side ^ dim`
+   (`count_eq_side_pow_dim`), the per-rung `+1` dimension axis (`dim_hcube_succ`),
+   and the climb `count (hcube a (b+1)) = a · count (hcube a b)` (`^` *as*
+   `×`-iteration).  The base/exponent asymmetry is captured *positively* as a
+   length-vs-dimension type-mismatch (`swap_changes_dim`).  *Still open*: the
+   precise topological figure for one `^` step — a **3- vs 4-simplex** (the
+   originator's "초위상" question) — i.e. the dimension the dilation axis adds to the
+   `hyperCount` simplex; and the `−1` cross-determinant shadow of the twist (L5).
+   Anchors: `Mobius213.mobius_213_pell_unit_invariant_forall` (`[∅]`),
+   `PairOp.pow_lift_impossible`.
 2. **Simplex theorem (L3)** — count half **CLOSED** (`MultSystem.monoCount_closed`,
    `C(n+k−1,k)` = degree-`k` multiset count, ∅-axiom).  The `+`/`×` bridge and its
    prime-counting payoff (L3′) are **built** (`MultSystemValue` + `ChebyshevLower`;
    mirror `theory/math/numbertheory/chebyshev_prime_counting.md`).  *Remaining*: tie
    the abstract cone to the `(NS,NT,d)` simplex objects (the physics-branch
    combinatorics) — the "two independent roads to one simplex" of §"Why this matters".
-3. **The twist dimension (L5)** — pin which dimension drives the non-commutativity
-   (built-object vs operand-mismatch); decide the topological figure for one `^`
-   step, then picture the `↑↑` two-DOF case.
+3. **The twist dimension (L5)** — the DOF is pinned to the **operand-mismatch**
+   reading (`HyperLadder.dof_three_not_comm`; `dofOfRung = rung − 2`), and **both
+   `^` and `↑↑` carry a direct object witness**: rung 3 = `UnitHyper.swap_changes_dim`
+   (one distinguished axis: dimension reads the exponent, side the base — different
+   types); rung 4 = `UnitTetra.dim_tetra_succ` (the **second** axis: the dimension is
+   no longer a bare height but **itself a tower count**, `dim (tetra (a+1)(b+1)) =
+   count (tetra (a+1) b)`), so `count = side ^ (a tower count)` (`count_tetra_pow`)
+   vs `^`'s `count = side ^ (bare height)` — the dimension-clock lifted twice.
+   The **`hyper_parallel` (dilation readout) tie is DONE** (`MultSystemValue`,
+   ∅-axiom): `hcube_vp_radial : vp_p (count (hcube a b)) = b · vp_p a` and
+   `hcube_hyper_parallel` — the geometric per-dimension `×a`
+   (`UnitHyper.count_hcube_succ`) *is* the vp-cone radial scalar `b·vp` (the cube's
+   cell count is parallel to its side in the `×`-cone).  **The "3- vs 4-simplex"
+   confusion is DISSOLVED** (L3″, originator directive): it conflated three distinct
+   "dimensions" — the simplex/lattice dim (A, already `∞` at `×`), the grading (B),
+   and the operand-DOF (C, `= rung − 2`).  The cartoon's "`+1` per rung" reads (C),
+   not (A); (A) *jumps* (`1→∞→…`).  *Still open*: whether `^`'s structure carries a
+   *further* finite invariant beyond (C) — but the literal small-simplex question is
+   answered: it was a mislabelling, now firmly separated on the `+`/`×` foundation.
 4. **No-identity formalization (L2)** — concrete content **CLOSED ∅-axiom**
    (`MultSystem.monoCountPos_closed` = semigroup count `+ 1` = monoid count, the
    `+1` = the identity; `MultSystemValue.two_le_nonempty_prime_prod` = the natural
    `×` system is `{2,3,…}`).  *Remaining* `[gut]`: the **meta-criterion** itself —
    "a construction is natural iff its identity need not be a special case" — as a
    precise (cross-layer) statement, not just the per-layer decomposition.
+
+5. **The shape framework — dimension without `∞` (L3‴, L3‴a)** — the three finite
+   handles are anchored (`diff_drops_rung`, `monoCount_le_succ_pow`, `totalCount_eq` =
+   `×(1−x)^{−1}`), and the discrete↔continuous spiral + de-deifying reading are pinned
+   (L3‴a).  **Reconnaissance done**: the phase-1↔3 arrows are *not* an inverse pair but
+   an **exact-construct (A) / lossy-readout (B)** pair through the pivot `C(2n,n)`
+   (= `doubleTotal` value-cut), whose **non-invertibility = prime counting**, **named as one `∅`-axiom object**
+   (`ChebyshevLower.chebyshev_defect`: the band `n/(⌊log₂(2n)⌋+1) ≤ π(2n) ≤ n`, the gap =
+   the residue-shape).  The **iterated finite-difference detector is BUILT** (`MultSystem`,
+   ∅-axiom, `#eval`-verified): `diff`/`diffIter` (`Δ^j`), `diffIter_monoCount` (`Δ^j` peels
+   `j` rungs), `diffIter_dim_const` (`Δ^k = 1`), `diffIter_dim_zero` (`Δ^{k+1} = 0`) — the
+   dimension is **computed** as the least annihilation depth (e.g. `monoCount 3 =
+   [1,3,6,10,15,…]` → `Δ²=[1,1,…]` → `Δ³=[0,0,…]` ⇒ dim 3), no cardinal `∞`.  The **dual
+   (build) operator is also BUILT** (`sumfIter_const_one`: `Σ^k 1 = monoCount(k+1)`, the
+   `(1−x)^{−(k+1)}` Hilbert series as iterated summation — `Σ` raises dimension, `Δ`
+   lowers it, `diff_sumf` the discrete FTC).  *Open*: (b) the **`ζ`-tower** — `^`'s shape
+   as a `ζ`-of-`ζ` iterate (`Σ` iterated *unboundedly* = the essential singularity =
+   `ζ`), pinned against `ChebyshevLower`/`primeDensityToZero`; (c) closing the band's
+   width to a constant *is* PNT (the open analytic core).
 
 ## Anchors
 

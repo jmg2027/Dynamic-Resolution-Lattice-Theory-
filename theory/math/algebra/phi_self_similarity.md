@@ -56,7 +56,7 @@ The scale factor is the rational `d = 5`, the discriminant of `P`
 The ratio of consecutive terms of the P-orbit does not settle on an integer but
 on the irrational fixed point of `P`.  This reading is closed in four steps.
 
-### 3.1 The norm invariant (`Lib/Math/NumberSystems/Real213/PhiNormInvariant.lean`)
+### 3.1 The norm invariant (`Lib/Math/NumberSystems/Real213/Phi/PhiNormInvariant.lean`)
 
 The P-orbit numerator/denominator follow the matrix action of `P`:
 
@@ -75,7 +75,7 @@ Positivity facts the rational comparison needs, all ∅-axiom via the repo's
 `Int213.{add_nonneg, mul_nonneg, le_of_add_eq_of_nonneg}` (Lean-core `Int` `≤`
 pulls `propext`): `seq_nonneg`, `gap_nonneg`, `seq_den_le` (`den_n ≤ 2·num_n`).
 
-### 3.2 φ is the unique nested-bracket limit (`Lib/Math/NumberSystems/Real213/PhiConvergence.lean`)
+### 3.2 φ is the unique nested-bracket limit (`Lib/Math/NumberSystems/Real213/Phi/PhiConvergence.lean`)
 
 The convergents form a *nested, shrinking* sequence of rational brackets, so they
 pin a unique value:
@@ -88,7 +88,7 @@ pin a unique value:
     `[3/2, 5/3]` pin the value: it is φ.  `self_similar_ratio_pins_phi` exposes
     this as the strengthened limit-ratio reading.
 
-### 3.3 φ as a single ValidCut (`Lib/Math/NumberSystems/Real213/PhiAsCut.lean`)
+### 3.3 φ as a single ValidCut (`Lib/Math/NumberSystems/Real213/Phi/PhiAsCut.lean`)
 
 φ is not only bracketed; it is a concrete 213-native Cut object, built directly
 from `x² = x + 1` with no Cauchy-completion machinery:
@@ -101,7 +101,7 @@ from `x² = x + 1` with no Cauchy-completion machinery:
     (`m/k` below φ): the single-layer mechanism behind "a convergent reads below
     φ".
 
-### 3.4 The Fibonacci convergents lie below φ, ∀n (`Lib/Math/NumberSystems/Real213/FibCassiniNat.lean`)
+### 3.4 The Fibonacci convergents lie below φ, ∀n (`Lib/Math/NumberSystems/Real213/Phi/FibCassiniNat.lean`)
 
 The Pell convergents are the consecutive Fibonacci pair
 `(pellNum n, pellDen n) = (fib(2n+2), fib(2n+1))`.  Their below-φ property is
@@ -120,7 +120,7 @@ repo's PURE Nat-polynomial tools (`Meta/Nat/PureNat`, `Meta/Nat/NatRing213`):
     φ" (`PhiCutConvergents.convergents_below_phi` had only layers 0..8 by
     `decide`).
 
-### 3.5 φ as the Cauchy-complete limit object (`Lib/Math/NumberSystems/Real213/PhiCauchyLimit.lean`)
+### 3.5 φ as the Cauchy-complete limit object (`Lib/Math/NumberSystems/Real213/Phi/PhiCauchyLimit.lean`)
 
 §3.3 pins φ as one closed-form cut; §3.4 shows every convergent sits below it.
 The remaining direction — φ built **as** the limit of the convergent sequence —
@@ -158,7 +158,7 @@ Pell convergents (§3.5) — on **both** the native-`fib` sequence and the canon
 `pellConvergentCut`.  The residue's irrational limit-ratio signature is one
 213-native Cut, however it is approached.
 
-### 3.6 frozen = dynamic φ, with the residue unit between (`Real213/PhiFrozenDynamic.lean`)
+### 3.6 frozen = dynamic φ, with the residue unit between (`Real213/Phi/PhiFrozenDynamic.lean`)
 
 `seed/AXIOM/05_no_exterior.md` §5.7 names the two readings §3.3/§3.5 build and
 states they are one object — **closed** by `PhiFrozenDynamic.frozen_eq_dynamic_phi`
@@ -185,7 +185,7 @@ identical across the ascent/descent dynamics and the glue/determinant readings. 
 shared unit: the residue between a fixed point and its convergents *is* the residue
 unit.
 
-### 3.7 φ as a numeration base — the golden (Zeckendorf) adic carry (`Real213/ZeckendorfCarry.lean`)
+### 3.7 φ as a numeration base — the golden (Zeckendorf) adic carry (`Real213/Phi/ZeckendorfCarry.lean`)
 
 φ is not only a cut and a limit; it is the residue's own **numeration base**.  The Fibonacci
 place values `fib 2, fib 3, fib 4, … = 1, 2, 3, 5, 8, …` (the `P`-orbit, §"count" reading) give
@@ -239,11 +239,11 @@ refinement" is the experience of that single self-fixed-point, now a theorem.
 ```bash
 cd lean
 lake build E213.Lib.Math.NumberSystems.Real213 E213.Lib.Math.SelfSimilarityBridge E213.Theory.Raw.Lambek
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.FibCassiniNat
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PhiCauchyLimit
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PellFibCutBridge
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.PhiFrozenDynamic
-python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.ZeckendorfCarry
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Phi.FibCassiniNat
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Phi.PhiCauchyLimit
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Phi.PellFibCutBridge
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Phi.PhiFrozenDynamic
+python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Phi.ZeckendorfCarry
 python3 tools/scan_axioms.py E213.Lib.Math.SelfSimilarityBridge
 ```
 

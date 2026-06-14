@@ -10,7 +10,7 @@ import E213.Lib.Math.NumberTheory.ModArith.UniversalFLT
 /-!
 # MarkovPrimeFactor — `x² ≡ −1 (mod p)` is unsolvable for `p ≡ 3 (mod 4)`
 
-The Markov uniqueness arc (`Real213/MarkovUniqueness`) showed every Markov number `c` carries a
+The Markov uniqueness arc (`Real213/Markov/MarkovUniqueness`) showed every Markov number `c` carries a
 square root of `−1` mod `c`.  A prime `p ∣ c` then has `x² ≡ −1 (mod p)` solvable.  But this is
 **unsolvable when `p ≡ 3 (mod 4)`** — so no prime `≡ 3 (mod 4)` divides a Markov number; every
 odd prime factor is `≡ 1 (mod 4)` (Zhang 2007).

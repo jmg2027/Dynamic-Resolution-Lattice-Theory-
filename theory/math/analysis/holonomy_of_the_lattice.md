@@ -1,7 +1,7 @@
 # Holonomy of the lattice — the dynamic read as a loop, and why ℕ⁺ has none
 
 **Status**: Closed.  Source of truth:
-`lean/E213/Lib/Math/NumberSystems/Real213/HolonomyLattice.lean` (25 PURE / 0
+`lean/E213/Lib/Math/NumberSystems/Real213/ModularGeometry/HolonomyLattice.lean` (25 PURE / 0
 DIRTY).  Anchor: `seed/AXIOM/06_lens_readings.md` §6.6 (state-transition = state)
 + §5.7 (frozen/dynamic) + `theory/essays/analysis/the_modular_group_from_two_folds.md`.
 
@@ -117,7 +117,7 @@ non-trivial holonomy is the negation fold `S`, order 4.
 
 ---
 
-**Lean**: `Real213/HolonomyLattice` (all ∅-axiom).
+**Lean**: `Real213/ModularGeometry/HolonomyLattice` (all ∅-axiom).
 **Anchors**: `seed/AXIOM/06_lens_readings.md` §6.6 + §6.7; §5.7;
 `theory/essays/analysis/the_modular_group_from_two_folds.md`;
 `lean/E213/Lens/Number/FoundingDynamicBridge.lean`.

@@ -199,7 +199,7 @@ verified ∅-axiom.
     within-fiber operational content; a sixth pattern
     (CD-Tensor Bundling) for fiber-changing operations is
     formalised in
-    `lean/E213/Lib/Math/NumberSystems/Real213/Mobius213CDTensor.lean`:
+    `lean/E213/Lib/Math/NumberSystems/Real213/Mobius/Mobius213CDTensor.lean`:
     `MobiusTensor N₁ N₂` structure bundling factor pair +
     canonical product, with `fromPair` constructor +
     represents-level and cut-level commutativity +

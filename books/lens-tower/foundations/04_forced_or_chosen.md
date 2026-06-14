@@ -89,7 +89,7 @@ condition," a `Nat`-level fact.)
 Two things are true at once:
 
 - **The presentation is a choice.**  The repo carries both a cut-shaped form
-  (`Real213/PhiAsCut`, `Nat → Nat → Bool`) and a Cauchy-modulus completion
+  (`Real213/Phi/PhiAsCut`, `Nat → Nat → Bool`) and a Cauchy-modulus completion
   (`Analysis/CauchyComplete`).  Cut-completion vs. Cauchy-completion is a *presentation
   choice*; no theorem declares one the forced completion.
 - **The rung is a fixpoint.**  This is the decisive forcedness fact at the top:

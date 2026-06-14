@@ -100,9 +100,44 @@ prime-valued `×`-system is exactly `{2,3,…}` (`MultSystemValue.two_le_nonempt
 The gap between this *degree*-count and the prime *value*-count is prime counting
 (`chebyshev_prime_counting.md`); the `^`-rung's base/exponent asymmetry is the new
 *dilation* degree-of-freedom, `m^b` parallel to `m` in the cone
-(`MultSystemValue.hyper_parallel`, `vp_p(m^b) = b·vp_p m`).  (The object-level
-free-semigroup re-foundation — each rung's *object*, not its Nat readout — is an open
-frontier.)
+(`MultSystemValue.hyper_parallel`, `vp_p(m^b) = b·vp_p m`).
+
+**The object tower, built.**  The re-foundation reads each rung as its own *object*
+(free nesting, no numbers), with `ℕ` the forgetful count-readout — and the objects
+now run the full `+ → × → ^ → ↑↑`:
+
+- `+` = the 1-D unit **list** (`UnitList`); `×` = the 2-D unit **grid** (`UnitGrid`);
+- `^` = the `b`-dimensional unit **cube** `hcube a b` (`Meta/Nat/UnitHyper`): `a`
+  translated copies of the dimension-`b` cube glued along a new axis, with
+  `count (hcube a b) = a^b` (`count_hcube`) and **`count = side ^ dim`**
+  (`count_eq_side_pow_dim`) — base read as a *side* (a length), exponent as a
+  *dimension* (an axis count), two different-typed readouts whose swap changes the
+  object's dimension (`swap_changes_dim`: the positive form of `2^3 ≠ 3^2`);
+- `↑↑` = a cube whose *dimension is itself a tower count* (`Meta/Nat/UnitTetra`):
+  `count (tetra a b) = hyperop 4 a b` (`count_tetra`), `dim (tetra (a+1)(b+1)) =
+  count (tetra (a+1) b)` (`dim_tetra_succ`) — the dimension-clock lifted a second time.
+
+The asymmetry is the **degree-of-freedom `DOF = rung − 2`** (`HyperLadder.dofOfRung`),
+pinned non-vacuously to operand interchangeability: `×` (rung 2) commutes, `DOF = 0`
+(`dof_two_comm`); `^` (rung 3) is the first non-commutative rung, `DOF = 1`
+(`dof_three_not_comm`); `↑↑` (rung 4), `DOF = 2` (`dof_four`, the `+1`-climb twice from
+the commutative base).  The base climbs one tower-level per rung while the count stays
+at the `+`-level — the dilation readout `hyper_parallel` seen geometrically as the
+cube's per-dimension `×a` (`MultSystemValue.hcube_vp_radial`).
+
+**Dimension is computed, not a cardinal.**  Each rung's graded count `monoCount k`
+carries its dimension as a *finite signature* — the corpus's divergence-depth ladder
+(`Analysis/Cauchy/DivergenceLadder`: `diff`/`liftK`/`reachesFloor`, depth `∞` for
+super-polynomial growth) read on the count.  The forward difference drops the rung by
+one (`diff_drops_rung`), so the iterated `Δ^{k+1}` **annihilates** rung `k+1`
+(`diffIter_dim_zero`; `Δ^k` lands on the constant `1`, `diffIter_dim_const`) — the
+dimension is the depth at which the count floors, no cardinal `∞`.  Its inverse is the partial
+sum: `Σ^k 1 = monoCount(k+1)` (`sumfIter_const_one`, the Hilbert series `(1−x)^{−(k+1)}`
+as iterated summation), with `Δ`/`Σ` the dimension ∓1 operators (`diff_sumf`: `Δ∘Σ =
+shift`, the discrete fundamental theorem).  (The conceptual reading of this — `∞`/the
+continuous as construction-produced *shapes* characterized by finite signatures, and
+the discrete↔continuous spiral — is tracked as an active frontier in
+`research-notes/frontiers/`.)
 
 ## 2. The list and the sandwich
 

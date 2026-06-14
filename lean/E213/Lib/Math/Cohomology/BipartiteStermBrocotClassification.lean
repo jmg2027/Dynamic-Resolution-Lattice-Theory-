@@ -1,5 +1,5 @@
-import E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
-import E213.Lib.Math.NumberSystems.Real213.Mobius213PellInvariant
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
+import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213PellInvariant
 import E213.Lib.Math.Cohomology.Bipartite.Mobius213K33StateClass
 
 /-!
@@ -68,9 +68,9 @@ STRICT ∅-AXIOM.
 
 namespace E213.Lib.Math.Cohomology.BipartiteStermBrocotClassification
 
-open E213.Lib.Math.NumberSystems.Real213.Mobius213SternBrocot
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocot
   (SternBrocotReachable reachable_1_1 reachable_2_1 reachable_3_2)
-open E213.Lib.Math.NumberSystems.Real213.Mobius213Equiv (Pseq seedZero seedInf)
+open E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv (Pseq seedZero seedInf)
 
 /-! ## §1 — K_{NS, NT} graph Stern-Brocot positions -/
 

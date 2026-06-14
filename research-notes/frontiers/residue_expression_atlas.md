@@ -1,5 +1,11 @@
 # Residue-expression atlas — the residue is expressed multi-directionally (OPEN)
 
+> **Companion**: this atlas catalogs *how* the residue is expressed (the mechanisms).
+> The *content doctrine* — what the residue / `∞` / continuity **are** (construction-
+> produced shapes, not a transcendent beyond) — is `residue_shape_doctrine.md`.  The
+> "it is a **fold, not the residue**" correction below is that doctrine's deification
+> guard (D6) applied to modular periods.
+
 **Frontier, not a closed classification.**  "How do you express the essential residue?" is *not*
 one phenomenon (Cantor non-surjection / the diagonal).  The residue is given form across the repo by
 **structurally distinct mechanisms**, and along **several orthogonal directions at once**.  Two
@@ -75,7 +81,7 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
 ### Deep probes (agent teams, 2026-06-04) — results
 
 - **`?` as a modular 1-cocycle — LANDED (tree-restricted).**
-  `Real213/MinkowskiCocycle.minkowski_is_markov_valued_cocycle` (PURE): the analytic `?`'s failure to
+  `Real213/Minkowski/MinkowskiCocycle.minkowski_is_markov_valued_cocycle` (PURE): the analytic `?`'s failure to
   be additive under the L/R generators is a **1-cocycle whose defect is the bounding Markov number** —
   the two Frobenius cross-determinants `u_r·m_t − u_t·m_r = m_l` (`markovRes_cross`) and
   `u_t·m_l − u_l·m_t = m_r` (`markovRes_cross_left`), unimodular (`det = 1`, the residue unit).  The

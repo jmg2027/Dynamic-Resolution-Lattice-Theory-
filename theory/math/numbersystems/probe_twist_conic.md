@@ -425,11 +425,11 @@ transcendentals is a separate, higher theory this construction does not reach.
 
 ## Anchors
 
-  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistConic.lean` — `Q_preserved` (the conic)
-  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistDynamics.lean` — `twist_undoes_step` (`f⁻¹`)
-  - `lean/E213/Lib/Math/NumberSystems/Real213/PhiProbeFixed.lean` — φ twist-fixed
-  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistFixedPoint.lean` — e not fixed
-  - `lean/E213/Lib/Math/NumberSystems/Real213/MobiusProbeTwist.lean` — `P ∈ SL₂(ℤ)`, order-preserving
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwist/ProbeTwistConic.lean` — `Q_preserved` (the conic)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwist/ProbeTwistDynamics.lean` — `twist_undoes_step` (`f⁻¹`)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/Phi/PhiProbeFixed.lean` — φ twist-fixed
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwist/ProbeTwistFixedPoint.lean` — e not fixed
+  - `lean/E213/Lib/Math/NumberSystems/Real213/Mobius/MobiusProbeTwist.lean` — `P ∈ SL₂(ℤ)`, order-preserving
   - `lean/E213/Lib/Math/Analysis/Cauchy/PellSeq.lean` — `pell_invariant` (√2 keeps `x²=2y²+1`)
   - `lean/E213/Lib/Math/Analysis/Cauchy/EulerDivergenceForm.lean` — `euler_cross_det_is_factorial`
     (e's divergence form `|W_n| = n!`)

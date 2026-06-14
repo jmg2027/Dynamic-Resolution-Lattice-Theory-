@@ -1,22 +1,58 @@
 # Real213 — Module Index
 
-213-native real-number type via Dedekind cut.  172 files: 103 top-level + 69 in
-6 sub-clusters.
+213-native real-number type via Dedekind cut.  191 files: 13 top-level + 178 in
+20 sub-clusters.
+
+Path = namespace: each module's namespace carries its cluster segment (e.g.
+`…Real213.Phi.PhiCut`); cross-cluster references resolve via a cluster-parent
+`open` (e.g. `open …Real213.Mobius`).
 
 ## Sub-clusters
 
+Foundation / cut algebra:
+
 | Dir | Files | Topic |
 |---|---|---|
-| `Core/` | 11 | type + Equiv + ValidCut + Dyadic + Functions + Poset |
-| `Sum/` | 14 | cutSum + signedSum family |
+| `Core/` | 12 | type + Equiv + ValidCut + Dyadic + Functions + Poset |
+| `Sum/` | 16 | cutSum + signedSum family + assoc (B3, Int) |
 | `Mul/` | 18 | cutMul/Inv/Pow/Poly + ConstCutScale + CutBinary/Double/Distance |
 | `Lattice/` | 5 | cutMax/Min/Mid + LatticeEq + ScaleLattice |
 | `Bisection/` | 3 | bisection + continuity (CutBisection{,Algo}, CutContinuity) |
-| `ExpLog/` | 18 | CutExp/Log series + ODE + Geom* (Cauchy convergence) + EulerCut (e) / PiCut (π) + PiMeasureModulus |
+| `Calculus/` | 3 | cut integration (CutIntegral{,Linearity}) + DiffCutModulus |
+| `ExpLog/` | 28 | CutExp/Log series + ODE + Geom* + EulerCut (e) / PiCut (π) + Lambert |
 
-## Top-level
+Specific reals / dynamics:
+
+| Dir | Files | Topic |
+|---|---|---|
+| `Phi/` | 14 | golden ratio φ as cut, Fibonacci, Zeckendorf, Pell, Pentagon |
+| `Markov/` | 9 | Markov spectrum/triple/uniqueness + Cassini/SternBrocot/Continuant bridges |
+| `Mobius/` | 10 | Möbius transforms on cuts, Stern–Brocot, setoid, Pell invariant |
+| `Minkowski/` | 7 | Minkowski `?`, modular symbols, period integrals/polynomials |
+| `ModularGeometry/` | 12 | elliptic/hyperbolic/parabolic traces, geodesic lens, holonomy, finite-order spectrum, Lagrange extremes |
+| `Mat2/` | 3 | 2×2 matrix algebra (assoc, Cayley–Hamilton, trace recurrence) |
+| `ProbeTwist/` | 3 | probe-twist dynamics, conic, fixed point |
+| `Spiral/` | 4 | spiral coordinate/layer/rotation invariant + scaling orbit |
+
+Approximation / completeness:
+
+| Dir | Files | Topic |
+|---|---|---|
+| `ValidCut/` | 7 | rational instances (½, ⅓, ⅕, ℤ, ℕ, ℕ-mul) + framework |
+| `CrossDet/` | 4 | cross-determinant overtake / const-denom / eq-denom / trace-field |
+| `ContinuedFraction/` | 3 | continuant + continued-fraction floor / modulus |
+| `Modulus/` | 11 | convergence-rate moduli + the modulus-degree calculus (bracket, Liouville, rate, stratification, composition; hierarchy, comparison, degree-criterion, arithmetic, pointing-limit, best-approximation) |
+| `Completability/` | 6 | completability grade, intensional/refined/tower completion, geometric threshold |
+
+## Module notes (by topic)
 
 `Real213.lean` — umbrella aggregator.
+
+The thematic notes below correspond to the directories in the table above
+(13 modules stay at the top level: `AbCutSeq`, `ChainToCut`, `CubeRootTwoCut`,
+`FloorReferenceForm`, `HolonomicReal`, `NuEscape`,
+`ObjectIsReadingScaleInvariant`, `OdometerSternBrocotUnit`, `OracleContinuity`,
+`PresentationDependence`, `ReciprocalSeries`, `Zeta3Apery`, `Zeta3Cut`).
 
 **Named-constant cuts via `AbCutSeq`**:
   - `AbCutSeq.lean` — ★ every monotone-bounded ab-sequence is a `Real213` cut
@@ -116,6 +152,59 @@
     inherits domination under the cross-multiplied **gap law**
     `1/ρ' − 1/ρ` non-increasing) + `schedule_comparison_needs_gap` (the gap
     law is indispensable — pointwise the ladder is not a chain).
+  - `RateHierarchy.lean` — ★ the lone degree-2 witness promoted to a **uniform
+    family** `sepDenS s` (`d_{i+1}=(⌊i^{1/s}⌋+2)·d_i`, `W=d`; `sepDenS 2 = sepDen`).
+    `sepDenS_dominatesS_all` (degree-`s` rescue at every layer) +
+    `sepDenS_breaks` (degree-`t` schedule fails at the perfect power layer
+    `(t+3)^t`, via the cross-degree gap `Meta.Nat.PowBernoulli.pow_pred_lt`) give
+    `strict_modulus_hierarchy`: every consecutive rung `(t,t+1)` is separated, so
+    the modulus-degree ladder is **infinite and strict**.  `sepS_graded_modulus`
+    occupies each rung with an actual real (`sepNumS s / sepDenS s`, modulus
+    `N=k^s+1`) — degree exactly `t+1` for every `t`.  §6 the dual:
+    `fastDen_dominates` — *any* cross-determinant `W` is degree-1 with the
+    fast denominator `d_{i+1}=i·W_i+d_i` (the bottom rung is generously
+    inhabited; the race is `W`-vs-`d` growth, witnessed by e's `W=i!` at `N=k+2`).
+  - `RateComparison.lean` — ★ the **two-real joint cut** (open frontier closed):
+    deciding `a_i/d_i ⋚ b_j/e_j` between two rate-carrying reals via the
+    two-convergent cross-determinant `a_i·e_j − b_j·d_i` (the single-probe
+    Farey/SL₂ `det` with `m/k` promoted to a second convergent).  `two_cut_decided`
+    (a separating rational forces the joint sign) + `two_real_separation_modulus`
+    (given an apartness witness `m/k`, the comparison is settled for all
+    `i,j ≥ k+2` — the two single moduli compose by `max`); `rcut2_const_true` the
+    decided-Bool form.
+  - `DegreeCriterion.lean` — ★ **what fixes the degree**: the two-sided
+    `W`-vs-`d`-increment criterion.  `dominatesS_of_scheduled_increment`
+    (sufficient: `ρ_i·W_i + d_i ≤ d_{i+1}`) and `scheduled_le_of_dominatesS`
+    (necessary: domination ⟹ `ρ_i·W_i ≤ d_{i+1}`) bracket domination, gap exactly
+    `d_i`; `degree_le_of_increment` / `not_dominatesS_of_overtake` the `rootFloor s`
+    readings.  `rootFloor_antitone_degree` (bigger `s` = slower probe) ⟹
+    `increment_criterion_mono` (the criterion is upward-closed in degree, so the
+    ceiling is well-defined).  The degree-1 boundary `i·W_i + d_i = d_{i+1}` is
+    saturated by `RateHierarchy.fastDen` and e (`W=i!`).
+  - `RateArithmetic.lean` — ★ the cross-determinant under **sum/product**, and why
+    degree is not additive.  `sum_cross_det` (`W^{x+y}=W^x·e_i e_{i+1}+W^y·d_i d_{i+1}`)
+    and `prod_cross_det` (`W^{xy}=a_i d_{i+1}W^y+b_i e_{i+1}W^x+W^x W^y`) factor the
+    arithmetic cross-determinants through the summands'.  `sum_naive_not_dominatesS`:
+    the sum carries the *other* denominator quadratically, so naive convergent
+    addition breaks the rate at *any* degree when denominators are mismatched
+    (`d_{i+1}<e_i`) — degree is a property of the pointing, not of `x+y`; closure
+    holds only with a good presentation.  The clean matched closure:
+    `matched_sum_cross_det` (shared denominator ⟹ cross-determinants *add*,
+    `W^x+W^y`, no inflation) + `matched_sum_dominated` (sum degree ≤ s iff the
+    probed cross-determinants *jointly* fit the shared increment; "each at degree s"
+    is a factor of 2 short — degree is set by `W^x+W^y`, not the max).
+  - `PointingLimit.lean` — ★ the conceived limit is a **pointing**, not a value.
+    `conv_strict_increase` (convergent values strictly advance across every gap —
+    the limit is reached by no term) + `limit_unreached_but_decided` (reached by no
+    value, yet every cut decided past a finite layer): the infinity enters
+    computation only as the discrete modulus, never as a value.  Narrative:
+    `theory/essays/foundations/imagining_infinity.md`.
+  - `BestApproximation.lean` — ★ the cross-determinant **is** the Diophantine
+    approximation deficiency.  `denominator_lower_bound` (a rational strictly between
+    consecutive convergents has `k·W_i ≥ d_i + d_{i+1}` — interposing costs denominator
+    `≥ (d_i+d_{i+1})/W_i`) + `unimodular_best_approximation` (`W=1` ⟹ `k ≥ d_i+d_{i+1}`,
+    the convergents are optimal — constructive core of `μ ≥ 2`).  The residue's shape
+    `W` measures distance from optimal approximation — the `μ`-content, no `limsup`.
   - `BracketModulus.lean` — ★ the conversion-law engine for **two-sided bracket
     presentations**: strictly increasing lower fold + non-increasing upper
     companion + per-layer sandwich; one hypothesis — the **exclusion depth** `B`

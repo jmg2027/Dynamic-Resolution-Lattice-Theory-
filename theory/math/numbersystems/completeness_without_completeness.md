@@ -548,11 +548,11 @@ the Lean disagree, the Lean wins.
   - `lean/E213/Lib/Math/Analysis/Cauchy/PellSeq.lean` — `√2` closed-form (`pell_invariant`)
 
 **Part II — the probe-twist conic**
-  - `lean/E213/Lib/Math/NumberSystems/Real213/MobiusProbeTwist.lean` — `P ∈ SL₂(ℤ)`, order-preserving
-  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistConic.lean` — `Q_preserved` (the conic)
-  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistDynamics.lean` — `twist_undoes_step` (`f⁻¹`)
-  - `lean/E213/Lib/Math/NumberSystems/Real213/PhiProbeFixed.lean` — `φ` twist-fixed
-  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwistFixedPoint.lean` — `e` not fixed
+  - `lean/E213/Lib/Math/NumberSystems/Real213/Mobius/MobiusProbeTwist.lean` — `P ∈ SL₂(ℤ)`, order-preserving
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwist/ProbeTwistConic.lean` — `Q_preserved` (the conic)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwist/ProbeTwistDynamics.lean` — `twist_undoes_step` (`f⁻¹`)
+  - `lean/E213/Lib/Math/NumberSystems/Real213/Phi/PhiProbeFixed.lean` — `φ` twist-fixed
+  - `lean/E213/Lib/Math/NumberSystems/Real213/ProbeTwist/ProbeTwistFixedPoint.lean` — `e` not fixed
 
 **Part III — cross-determinant and depth**
   - `lean/E213/Lib/Math/Algebra/Mobius213/Px/ConvergentDet.lean` — `φ`'s `Wₙ = ±1` (Cassini)

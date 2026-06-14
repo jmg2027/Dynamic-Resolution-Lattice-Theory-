@@ -1,6 +1,6 @@
 import E213.Lib.Math.Algebra.Mobius213
 import E213.Lib.Math.Algebra.Mobius213.TowerLInfty
-import E213.Lib.Math.NumberSystems.Real213.PhiCut
+import E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut
 
 /-!
 # Mobius213.TowerConvergence — L_∞ existence witness in Cut (Phase 1c)
@@ -30,7 +30,7 @@ namespace E213.Lib.Math.Algebra.Mobius213.TowerConvergence
 
 open E213.Lib.Math.Algebra.Mobius213
 open E213.Lib.Math.Algebra.Mobius213.TowerLInfty
-open E213.Lib.Math.NumberSystems.Real213.PhiCut
+open E213.Lib.Math.NumberSystems.Real213.Phi.PhiCut
 
 /-! ## §1.  Structural L_∞ existence witness
 
