@@ -504,9 +504,17 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (`Real213/ModularGeometry/HolonomyLattice`, 25 PURE + chapter `holonomy_of_the_lattice.md`): holonomy =
   net transition around a loop of state-transitions; functoriality + flatness (`det=1=NS−NT`)
   + the ℕ⁺ sector is loop-free (Stern–Brocot tree) + holonomy born from the negation fold
-  (`[S,S]=−I`, order 4).  Open: (1) full freeness of `⟨L,R⟩` (unique-word, via CF/odometer);
-  (2) general order law `holonomy_pow` (lift `FiniteOrderSpectrum` to the fold); (3) the
-  holonomy group as π₁ of the modular orbifold (`PSL(2,ℤ)=ℤ₂*ℤ₃`).
+  (`[S,S]=−I`, order 4).  **(2) general order law CLOSED** (`HolonomyOrderLaw`, 6 PURE):
+  `holonomy_replicate` bridges the right-fold `holonomy` and left-fold `pow`
+  (`holonomy (replicate n g) = pow g n`, via `pow_succ_comm`); `holonomy_pow_order`
+  lifts the crystallographic restriction (`order ∣ 12`) onto holonomy loops; the
+  `S`-loop closing at 4 is now a *corollary* (`holonomy_S_loop_closes`, not a bare
+  `decide`), and `L` never closes (`holonomy_L_loop_never_closes`).  Open: (1) full
+  freeness of `⟨L,R⟩` (unique-word — the tractable sub-step is first-letter
+  determinacy + well-founded `entrySum` descent); (3) the holonomy group as π₁ of
+  the modular orbifold (`PSL(2,ℤ)=ℤ₂*ℤ₃`) — a wall (no Mathlib-free free-product
+  infrastructure; the realizable residue, orders 4,6 generate / 5,7 forbidden, is
+  already proven).
 
 - `simplicial_operation_tower` — **the operation tower builds simplices** (raw gut,
   originator: Mingu Jeong).  The *generative* face of `number_tower_theory` (R4): each
