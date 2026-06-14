@@ -540,6 +540,22 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `object1_not_surjective`); the ℤ-unique-faithful-finite corollary witnessed by
   `vp_eq_zero_of_gt` vs `cut`/`zpseq_no_finite_certificate`).  *Open:* C7 (the
   physics closure-form question — for the originator).
+- `descent_schema_universal` — **Finding H** (meta-analysis continuation): the
+  A6 FLOW archetype, stated for self-maps and narrated as geometry-specific, is
+  the **universal descent/normal-form lift** re-proven from scratch in 3 unrelated
+  number-theory domains (`vp_separation`, Markov reachability, `atomic_implies_five`).
+  **Closed ∅-axiom** (`MonovariantFlow.lean`, 18/18 pure): the relation-form
+  generator `descent_reaches` / `descent_invariant` (`Reaches` r.t. closure +
+  fuel recursion + transported invariant) with `flow_reaches_of_relation` proving
+  A6's self-map form is subsumed.  *Open*: re-wire the 3 instances as corollaries
+  (the Markov permutation subtlety = the one check before a clean 5-way union).
+- `native_contamination_audit` — **standard-common-sense re-examination** (math/
+  foundations/lens/meta): corpus is unusually disciplined; one real fix landed —
+  the SignedCut "oracle / underlying-real / value-layer" substrate metaphor
+  (`SignedCut/Core/{Core,Equivalence}.lean` docstrings) corrected to the
+  difference-Lens reading ("the tuple is the number").  Two minor candidates
+  retained (the `topology.md` `N_U`-ordering smell; the benign DyadicSearch
+  decision-"oracle" recorded as *not* contamination).
 
 - `pure_lean_calibration_synthesis` — **infra frontier** (cross-campaign: determinant/sign +
   Reverse Math 213): the recurring core-`Decidable`/core-lemma **propext leak + hand-rolled-pure

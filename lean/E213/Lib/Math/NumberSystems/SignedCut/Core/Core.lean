@@ -6,8 +6,14 @@ import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 # SignedCut — signed Cut layer (213-native, ∅-axiom)
 
 213-native paradigm: a *signed* `Cut` is a pair `(positive,
-negative) : Cut × Cut` where the represented value is
-`positive − negative` at the underlying real.  This is the
+negative) : Cut × Cut`.  The pair **is** the signed object — the
+difference-Lens applied to a directed cut-pair (`06_lens_readings.md`
+§6.7; `theory/essays/analysis/integers_as_difference_lens.md`):
+magnitude read Nat-style, sign Bool-style via the pair-swap
+`−(a,b) = (b,a)`.  `positive − negative` is one *flattening* readout
+of the pair, not the recovery of a value that lives at some exterior
+layer — there is none (`05_no_exterior.md` §5.1; the tuple is the
+number, `theory/math/numbersystems/slot_arithmetic.md`).  This is the
 **Cayley-Dickson level-0 sign extension**, exactly mirroring
 the `ComplexCut := (re, im)` pair from `Lib/Math/NumberSystems/Complex`.
 
@@ -18,8 +24,8 @@ Operations follow the additive group structure on pairs:
   `(a, b) · (c, d) = (a·c + b·d, a·d + b·c)`
 
 No subtraction primitive on `Cut` is needed; sign tracking is
-purely *structural* via the pair.  The "value" is recovered by
-`positive − negative` at the oracle interpretation.
+purely *structural* via the pair — `positive − negative` reads it
+out, it does not name a value the pair stands in for.
 -/
 
 namespace E213.Lib.Math.NumberSystems.SignedCut.Core.Core

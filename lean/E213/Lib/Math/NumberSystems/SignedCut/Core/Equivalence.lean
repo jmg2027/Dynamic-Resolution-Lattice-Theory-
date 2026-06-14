@@ -5,23 +5,23 @@ import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest
 /-!
 # SignedCut — Cancellation equivalence (∅-axiom)
 
-Closes residual from PR #61:
-  "Magnitude-sign reduction `(a+c, b+c) → (a, b)` cancellation —
-   oracle layer 위임 중"
-
-213-native paradigm: the standard ℤ-from-ℕ construction.  Two
-signed cuts `(p, n)` and `(p', n')` represent the same value iff
-they are **cross-additive equal**:
+213-native paradigm: the difference-Lens readout (`(m,n) ↦ m−n`),
+of which the classical Grothendieck ℤ-from-ℕ quotient is the
+flattened image (`06_lens_readings.md` §6.7;
+`theory/essays/analysis/integers_as_difference_lens.md`).  Two
+signed cuts `(p, n)` and `(p', n')` are identified by the
+difference-Lens iff they are **cross-additive equal**:
 
   `(p, n) ~ (p', n')`  ⟺  `cutSum p n' = cutSum p' n` (pointwise)
 
 This captures cancellation: `(a+c, b+c) ~ (a, b)` because
 `cutSum (a+c) b = cutSum (b+c) a` (sum is commutative).
 
-The equivalence is an *internal structural relation*, not a
-quotient — no `Quot.sound` leak.  At the value layer (oracle),
-representatives are interchangeable; at the cut layer they
-remain distinct types.
+The equivalence is an *internal structural relation* among pairs,
+not a quotient — no `Quot.sound` leak, and no exterior value-layer
+at which representatives secretly coincide (`05_no_exterior.md`
+§5.1; the tuple is the number).  Interchangeability **is** this
+relation; at the cut layer the pairs remain distinct types.
 -/
 
 namespace E213.Lib.Math.NumberSystems.SignedCut.Core.Equivalence
