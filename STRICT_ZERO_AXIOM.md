@@ -591,15 +591,32 @@ Propext-avoidance throughout: `two_prime` pure (no `decide`-on-`∣`), `Iff.tran
 
 ### A6 FLOW — monovariant normal-form lift archetype (2026-06-05)
 
-`E213.Lib.Math.Foundations.MonovariantFlow` — **12 PURE / 0 DIRTY**.  The sixth proof-ISA lift
+`E213.Lib.Math.Foundations.MonovariantFlow` — **19 PURE / 0 DIRTY**.  The sixth proof-ISA lift
 archetype, the well-founded sibling of A2 LOOP: a self-map `f` with a `Nat`-monovariant that strictly
 descends off fixed points converges to a normal form (`flow_reaches`; the descent disjunction is
 `Prop`-data so the split is constructive — no decidable equality, no `Classical`).  Canonical instance:
 the **Euclidean GCD flow** `(a,b) ↦ (b%a,a)` converging to `(0, gcd a b)` (`euclid_flow_normal_form`),
-the gcd the invariant the descent preserves (`gcd213_rec`).  The discrete realization of the Ricci-flow
-shape `GeometrizationConjecture/Ricci.lean` recorded as open (monovariant in place of Perelman's
-entropy).  Pinned in `Foundations.ProofISALifts` as `lift_flow` / `lift_flow_gcd`; registered in
-`seed/PROOF_ISA.md`.  `#print axioms` clean on all 12.
+the gcd the invariant the descent preserves (`gcd213_rec`).  **Widened to the universal descent schema**:
+the step generalises from a self-map to a reduction **relation** `R` (`Reaches` r.t. closure +
+`descent_reaches`/`descent_reaches_fueled`), the conclusion carries any step-invariant `I`
+(`descent_invariant`), and `flow_reaches_of_relation` proves the self-map archetype is the special case —
+so A6 FLOW is the universal descent/normal-form lift, not a geometry instrument.  The discrete
+realization of the Ricci-flow shape `GeometrizationConjecture/Ricci.lean` recorded as open (monovariant
+in place of Perelman's entropy).  Pinned in `Foundations.ProofISALifts` as `lift_flow` / `lift_flow_gcd`;
+registered in `seed/PROOF_ISA.md`.  `#print axioms` clean on all 19.
+
+### The universal descent schema's number-theory instances
+
+`E213.Lib.Math.Foundations.VpSeparationDescent` — **6 PURE** — and
+`E213.Lib.Math.NumberSystems.Real213.Markov.MarkovDescentSchema` — **4 PURE**.  Two of the three
+number-theory descents re-expressed as `descent_reaches` instances (the third, GCD, is
+`MonovariantFlow.euclid_via_descent_invariant`).  **UFD separation** (`vp_separation_via_schema`): a
+valuation-equal pair `(m,n)` peels shared primes to `(1,1)`, equality lifting back up the `Reaches` chain
+(`reaches_eq_back`) — carrier-borne valuation-equality avoids the `propext` a `Prop`-invariant would need.
+**Markov descent** (`markov_descends_to_root`/`_to_one`): the first genuinely *relational* (non-self-map)
+instance — every ordered Markov triple descends to the root `(1,1,1)` via the nondeterministic
+`Down = Vieta-jump ∘ re-sort` relation; `μ = max` is permutation-invariant so the re-sort folds into the
+bundled step (no quotient-by-symmetry).  Narrative: `theory/math/foundations/universal_descent_schema.md`.
 
 ### A6 FLOW drives the Geometrization Ricci pillar to a complete proof (2026-06-05)
 

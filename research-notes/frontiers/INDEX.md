@@ -540,21 +540,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `object1_not_surjective`); the ℤ-unique-faithful-finite corollary witnessed by
   `vp_eq_zero_of_gt` vs `cut`/`zpseq_no_finite_certificate`).  *Open:* C7 (the
   physics closure-form question — for the originator).
-- `descent_schema_universal` — **Finding H** (meta-analysis continuation): the
-  A6 FLOW archetype, stated for self-maps and narrated as geometry-specific, is
-  the **universal descent/normal-form lift** re-proven from scratch in 3 unrelated
-  number-theory domains (`vp_separation`, Markov reachability, `atomic_implies_five`).
-  **Closed ∅-axiom** (`MonovariantFlow.lean`, 18/18 pure): the relation-form
-  generator `descent_reaches` / `descent_invariant` (`Reaches` r.t. closure +
-  fuel recursion + transported invariant) with `flow_reaches_of_relation` proving
-  A6's self-map form is subsumed.  **Instances landed** (PURE): GCD via the
-  invariant-carrying `descent_invariant` (`euclid_via_descent_invariant`) and the
-  **first relational/nondeterministic** instance `MarkovDescentSchema`
-  (`markov_descends_to_root` — Markov descent on `Down = jump ∘ resort`).  Markov
-  permutation subtlety **resolved** (`μ=max` permutation-invariant ⟹ clean fold);
-  atomicity is a *degenerate* boundary case, not a genuine iterated descent (so 4
-  iterated + 1 boundary, not "5"); `propext` blocks Prop-invariants.  *Open*: UFD
-  (`vp_separation`) through the schema → then promote.
+- `descent_schema_universal` (**CLOSED → promoted** →
+  `theory/math/foundations/universal_descent_schema.md`; note archived
+  `research-notes/archive/foundations/`) — **Finding H** (meta-analysis): the A6
+  FLOW archetype is the **universal descent/normal-form lift**.  Generator
+  `descent_reaches`/`descent_invariant` (`MonovariantFlow`, 19 PURE) +
+  `flow_reaches_of_relation` (self-map subsumed) + all **3 number-theory instances
+  landed PURE**: GCD (`euclid_via_descent_invariant`), UFD
+  (`VpSeparationDescent.vp_separation_via_schema`), and the first relational/
+  nondeterministic one Markov (`MarkovDescentSchema.markov_descends_to_root`).
+  Markov permutation subtlety resolved (`μ=max` permutation-invariant ⟹ clean
+  fold); atomicity a *degenerate* boundary case (4 iterated + 1 boundary, not "5");
+  `propext` blocks Prop-invariants (UFD carries valuation-equality in the carrier).
 - `native_contamination_audit` — **standard-common-sense re-examination** (math/
   foundations/lens/meta): corpus is unusually disciplined; one real fix landed —
   the SignedCut "oracle / underlying-real / value-layer" substrate metaphor
