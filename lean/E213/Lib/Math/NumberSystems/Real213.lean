@@ -143,6 +143,7 @@ import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumAssocB3
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpConvergents
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutLogCauchyConvCapstone
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpDerivative
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.PiCut
 import E213.Lib.Math.NumberSystems.Real213.ValidCut.FifthValidCut
 import E213.Lib.Math.NumberSystems.Real213.ValidCut.HalfValidCut

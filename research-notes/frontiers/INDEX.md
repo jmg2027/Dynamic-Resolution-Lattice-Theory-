@@ -727,10 +727,23 @@ real ∅-axiom conquests.
   (`R_0 ≤ 0`), so a bridge-free `LowerBase` needs the *quantitative* "ratio
   reaches `≥ 0` by `J = 2i+1`" — the `LambertBridge` content itself.
 - `transcendentals/transcendental_functions_ladder` — convergent `exp/sin/cos/sqrt`
-  as `Real213` functions with derivative rules (current: `exp` partial sum +
-  stubs).  Rungs T1 exp-modulus → T2 sin/cos series → T3 derivative rules →
-  T4 smooth sqrt → T5 identities.  One of the two hard blocks split off A6's
-  smooth core; ordinary constructive analysis, in-reach ∅-axiom.
+  as `Real213` functions with derivative rules.  Rungs T1 exp-modulus → T2 sin/cos
+  series → T3 derivative rules → T4 smooth sqrt → T5 identities.  **T1 modulus
+  done** (`ExpLog/CutExpModulus`, `CutTrigModulus` — geometric majorant + antitone,
+  even/odd sub-sampling; coefficient-level `d/dx` identities `exp_deriv_coeff_fixed`,
+  `sin/cos_deriv_coeff`).  **T3 cut-level series differentiation CLOSED**
+  (`ExpLog/CutExpDerivative`, 3 PURE): `expPartialSumIsDifferentiable` — the exp
+  Taylor partial sum is differentiable *as a function of the cut* for every `N`
+  (first function-space differentiation of a *series*, not a fixed-degree
+  polynomial); `expPartialSum_derivative_termwise` (`rfl`, the sum-rule composition).
+  *Open seed*: the factorial-shift capstone `expTerm_derivative_shift`
+  (`d/dx[xⁿ/n!] ≡ xⁿ⁻¹/(n-1)!` as `cutEq`, via `exp_deriv_coeff_fixed`).  **Honest
+  walls**: (A) cut-level `sinCut`/`cosCut` (T2 limit) is *blocked upstream* — the
+  signed-cut cross-sign subtraction (`Sum/SignedSum.cutSignedSum`) is a deliberate
+  stub at the cross-sign boundary, exactly the alternating-series case, so
+  `sinCut`/`cosCut` stay `fun _ _ => true`; (B) limit-level re-association hits the
+  `cutSum`-assoc `b≥3` precision wall.  The T3 result dodges both (definitional
+  derivative field, no re-association).
 
 ## PDE a-priori estimates  (`pde_estimates/`)
 
