@@ -46,3 +46,20 @@ self-pointing read under several Lenses*, not a coincidence to reconcile.
 `theory/math/cohomology/bipartite.md` (b₀ / b₁ sections);
 `theory/physics/symmetry/c3_chain.md` (1/α₃ octet);
 `seed/AXIOM/07_primacy.md` §7.1 (domain = Lens readout of the residue).
+
+## Cross-domain resonance (branch ↔ main, to test)
+
+- **The betti `−1` (= `b₀`, the subtracted constant mode) ↔ the
+  Δ-annihilated degree-0 floor of main's dimension calculus.**  In
+  `b₁ = E − V + 1` the `−1`/`+1` is `b₀ = 1`, the lone constant mode of
+  `ker δ⁰` (`bcount_const = 2 = 2¹`).  Main's merged Δ/Σ dimension calculus
+  has `MultSystem.diffIter_dim_zero` — the forward difference annihilates
+  exactly the degree-0 (constant) graded count — and `sumfIter_const_one`
+  builds the ladder up from it (`Σ^k 1 = monoCount(k+1)`).  One Raw — the
+  constant / degree-0 mode — read two ways: the cohomology-Lens subtracts it
+  as `b₀` (the `−1` of `NS² − 1`), the difference-calculus Lens reads it as
+  the bottom rung `Δ` floors to.  The `−1` and the dimension-0 floor are the
+  same lone constant counted once.  *Test*: is `b₀` literally the `Δ`-floor
+  (equivalently `Σ⁰ 1`) of the cohomology graded count — i.e. does
+  `the_minus_one_under_three_lenses` add a fourth (difference-calculus) Lens
+  to the same residue `dimension_is_a_computed_depth` reads?
