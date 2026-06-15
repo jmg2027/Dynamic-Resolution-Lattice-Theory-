@@ -469,6 +469,12 @@ closure → full build → commit.
   `≤2^(2n)`/`≥2^n` bounds already exist (`MultSystem.central_binom_le`, `central_binom_ge_two_pow`);
   `4ⁿ` is cosmetic repackaging of `2^(2n)`.
 
+- **90 — number theory (deep, cross-cluster)**: `NumberTheory/Sqrt2ContinuedFraction.cf_norm`
+  (12 PURE) — **the √2 continued-fraction convergents ARE the Pell solutions**: `[1;2,2,2,…]`
+  convergent denominators `qₙ=P(n+1)`, numerators `pₙ=H(n+1)`, and ★ `pₙ²−2qₙ²=(−1)^{n+1}` (the
+  convergents solve `x²−2y²=±1`).  Bridges the CF and Pell clusters; `cf_norm` is a corollary of
+  `PellNumbers.norm`.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
