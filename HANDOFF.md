@@ -1,7 +1,7 @@
 # Session Handoff — 2026-06-14 (multi-agent math research)
 
 ## Branch
-`claude/multi-agent-math-research-n68ovi` — pushed, **135 ahead of main / 156
+`claude/multi-agent-math-research-n68ovi` — pushed, **136 ahead of main / 156
 behind**.  Working tree clean.  Full `lake build E213.Lib.Math` green
 (**1815/1815**).  Strict ∅-axiom intact for all new work (every new theorem
 PURE-verified with `tools/scan_axioms.py`).
@@ -30,6 +30,8 @@ closure → full build → commit.
   symmetry `C(n,k)=C(n,n−k)`, was claimed in INDEX but absent; recurse on the sum `n`).
 - **17 — combinatorics**: `Combinatorics/Stirling.{stirling2_zero_above, stirling_diag,
   stirling_col1}` (general-n diagonal + column-1, completing the concrete-only table).
+- **18 — probability**: `Foundation/Independence.{joint_assoc_num, joint_assoc_den}`
+  (joint mass is associative ⟹ independent-event masses form a commutative monoid).
 
 **Reverted (marathon discipline)**: a Lipschitz `conj_add` addition broke downstream
 `LipschitzAlgebra213` via a `conj_add` name-clash with `ZI.conj_add` — reverted, no
