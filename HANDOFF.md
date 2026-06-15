@@ -917,6 +917,15 @@ closure → full build → commit.
   determinant smokes).  Distinct from the corpus CF files (`DyadicFSM/ContinuedFraction` = fixed-rational
   FSM expansion; `Sqrt2ContinuedFraction` = the √2 all-2s Pell-norm only).  Genuinely absent.
 
+- **148 — combinatorics (multinomial theorem, trinomial case)**: `Combinatorics/MultinomialTheorem`
+  (NEW file, 11 PURE) — builds on the corpus binomial toolkit (`binom` Pascal recursion +
+  `BollobasSetPair.binom_ab` + `Sperner.binom_mul_fact`).  ★★★ **product-of-binomials structural
+  identity** `multinom3 a b c = C(a+b+c,a)·C(b+c,b)`, proven division-free in the multiplicative form
+  `multinom3 a b c · (a!·b!·c!) = (a+b+c)!` (two applications of `binom_ab`, no division needed) plus
+  the symmetry `multinom3_sym_mul`.  ★★★ **trinomial expansions** `(x+y+z)²`/`(x+y+z)³` as `Int`
+  identities via `ring_intZ` (full 10-term cubic, coeffs {1,1,1,3,3,3,3,3,3,6}).  ★★ **row-sums**
+  `Σ multinom3 = 3ⁿ` (n=2,3 by decide) + coefficient tables.  Zero prior coverage.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
