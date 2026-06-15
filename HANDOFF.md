@@ -129,6 +129,12 @@ closure → full build → commit.
   symmetry), holds for ALL n — unlike the corpus `catalan` which is a finite table (n≤7).
   Plus the bridge `catalan_central_binom` `(n+1)·catalan n = choose(2n,n)` (n=0..7) tying
   the table to `choose`.  (Segner convolution already present as `catalan_recursion_3..7`.)
+- **40 — combinatorics (deep)**: `Combinatorics/PowerSums` (7 PURE) — the classical
+  power-sum closed forms, all genuinely absent (corpus triangular maps use division):
+  **Gauss** `2·Σi=n(n+1)`, **sum of odds** `Σ(2i+1)=n²`, **sum of squares**
+  `6·Σi²=n(n+1)(2n+1)`, and ★ **Nicomachus** `Σi³=(Σi)²` (both `×4` reduce to `n²(n+1)²`,
+  cancel via `Nat.eq_of_mul_eq_mul_left`).  Cross-multiplied (subtraction-free) `sumTo`
+  inductions, `ring_nat`-closed.
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
