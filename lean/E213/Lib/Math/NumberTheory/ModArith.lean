@@ -50,6 +50,7 @@ import E213.Lib.Math.NumberTheory.ModArith.DiscreteLogParity
 import E213.Lib.Math.NumberTheory.Lcm213
 import E213.Lib.Math.NumberTheory.GcdLcmLattice
 import E213.Lib.Math.NumberTheory.GcdLcmDistributive
+import E213.Lib.Math.NumberTheory.Mediant
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.
 

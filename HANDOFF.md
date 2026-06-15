@@ -215,6 +215,13 @@ closure → full build → commit.
   `ZeckendorfCarry` is φ-base carry mechanics, not the representation theorem).  Most
   substantial single result of the marathon.  Uniqueness left open (harder).
 
+- **50 — number theory / Farey (deep)**: `NumberTheory/Mediant` (9 PURE) — the **mediant
+  inequality** `a/b < c/d ⟹ a/b < (a+c)/(b+d) < c/d` (cross-multiplied, Nat) + **Stern–Brocot
+  /Farey adjacency** `b·c−a·d=1 ⟹` mediant adjacent to both parents (Int, the SL₂(ℤ)
+  unimodularity the continuant `(−1)ⁿ` iterates) + **mediant in lowest terms** from adjacency.
+  Genuinely absent (corpus `mediant` is bipartite cell-counts).  Int `dvd_subZ`/`dvd_mul_leftZ`
+  kept local (Int213 still has no shared `∣`-helper module — known consolidation target).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
