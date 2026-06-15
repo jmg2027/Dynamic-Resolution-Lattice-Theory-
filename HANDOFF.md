@@ -322,6 +322,16 @@ closure → full build → commit.
   (the corpus `cassini_fibZ`/`lucasZ_sq` are over a *different* `fibZ` def).  Completes the
   Fibonacci cluster's core identities.
 
+- **65 — number theory (deep)**: `NumberTheory/SumTwoSquares.isSumTwoSq_mul` (9 PURE) —
+  **sum-of-two-squares multiplicative closure** (Gaussian-norm `N(z)N(w)=N(zw)` as an
+  existential): `isSumTwoSq m → isSumTwoSq n → isSumTwoSq (m·n)`, witnesses `(ac−bd, ad+bc)`
+  via Brahmagupta (`ring_intZ`) + the sign-twin.  Genuinely absent (corpus had the Diophantus
+  *identity* but not the `∃`-closure of the predicate).
+- **66 — inequalities (deep)**: `Foundations/Positivity.{qm_am_3, qm_am_2, prod_sum_le_sq_sum}`
+  (3 new PURE, 18 in-file) — **QM–AM / power-mean** `(a+b+c)²≤3(a²+b²+c²)`, `(a+b)²≤2(a²+b²)`,
+  and `ab+bc+ca ≤ a²+b²+c²`, all forced via the A7 POSITIVITY archetype (gap = sum of squares,
+  `positivity_of_sq3`/`positivity_of_sq_double`).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

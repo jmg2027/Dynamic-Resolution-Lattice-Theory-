@@ -54,6 +54,7 @@ import E213.Lib.Math.NumberTheory.GcdLcmLattice
 import E213.Lib.Math.NumberTheory.GcdLcmDistributive
 import E213.Lib.Math.NumberTheory.Mediant
 import E213.Lib.Math.NumberTheory.PythagoreanTriples
+import E213.Lib.Math.NumberTheory.SumTwoSquares
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.
 

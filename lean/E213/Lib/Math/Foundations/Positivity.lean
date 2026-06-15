@@ -195,4 +195,30 @@ theorem rearrangement_2 {a1 a2 b1 b2 : Int}
   rw [hkey]
   exact gap_product_nonneg ha hb
 
+/-! ## POSITIVITY's QM–AM / power-mean face — sum-of-squares gaps -/
+
+/-- ★★★★★ **2-variable QM–AM** `(a+b)² ≤ 2(a²+b²)`, forced because the gap is the
+    single square `(a−b)²`. -/
+theorem qm_am_2 (a b : Int) : (a + b) * (a + b) ≤ 2 * (a * a + b * b) := by
+  have hgap : 2 * (a * a + b * b) - (a + b) * (a + b) = (a - b) * (a - b) := by ring_intZ
+  exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero (positivity_of_sq _ _ hgap))
+
+/-- ★★★★★ **3-variable QM–AM** `(a+b+c)² ≤ 3(a²+b²+c²)`, forced because the gap is
+    the sum of three squares `(a−b)² + (b−c)² + (c−a)²`. -/
+theorem qm_am_3 (a b c : Int) :
+    (a + b + c) * (a + b + c) ≤ 3 * (a * a + b * b + c * c) := by
+  have hgap : 3 * (a * a + b * b + c * c) - (a + b + c) * (a + b + c)
+                = (a - b) * (a - b) + (b - c) * (b - c) + (c - a) * (c - a) := by ring_intZ
+  exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero (positivity_of_sq3 _ _ _ _ hgap))
+
+/-- ★★★★★ **Sum of products ≤ sum of squares** `ab+bc+ca ≤ a²+b²+c²`, forced because
+    **twice** the gap is the sum of three squares
+    `2(a²+b²+c²) − 2(ab+bc+ca) = (a−b)² + (b−c)² + (c−a)²`. -/
+theorem prod_sum_le_sq_sum (a b c : Int) :
+    a * b + b * c + c * a ≤ a * a + b * b + c * c := by
+  have hgap : 2 * ((a * a + b * b + c * c) - (a * b + b * c + c * a))
+                = (a - b) * (a - b) + (b - c) * (b - c) + (c - a) * (c - a) := by ring_intZ
+  exact Order.le_of_sub_nonneg
+    (Order.nonneg_of_le_zero (positivity_of_sq_double _ _ _ _ hgap))
+
 end E213.Lib.Math.Foundations.Positivity
