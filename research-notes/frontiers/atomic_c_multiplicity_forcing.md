@@ -108,6 +108,53 @@ activating the multiplicity-cycle dimension") with an axiom-internal reason
 `c > 1` is required that does not route through the `b₁ = 8` target.  Neither
 is proven.
 
+### Candidate (i) examined — also fails (and the reason is clean)
+
+"Multiplicity binary-ness = the arity-2 forcing acting on edges" **does not
+work**, for a precise reason: **edge multiplicity is not an arity.**  The
+arity-2 forcing (`CombinatorialArity`) is a pigeonhole argument over the
+2-element distinguishing base — it bounds how many *inputs* a relation can
+take.  It says nothing about how many *parallel copies* of an incidence
+exist.  So the genuinely-forced "2" (base size / arity) has no channel by
+which it becomes the edge multiplicity.
+
+The other independent route, the **Möbius-period derivation**
+(`Lib/Math/Foundations/C2DoublingDerivation.lean`), is also non-forcing on
+inspection:
+- `half_period := 5` and `full_period := 10` are **literals**
+  (`C2DoublingDerivation.lean:60,64`), not computed minimal periods — the
+  docstring says "smallest k such that P^k ≡ ±I" but the Lean posits 5, 10.
+- `c := full_period / half_period = 2` is then `decide` on `10/5`.
+- The ratio `= 2` is the **trivial** fact `(−I)² = I`: if `P^k ≡ −I` then
+  `P^{2k} ≡ I`, so full/half = 2 for *any* sign-flipping half-period —
+  no `P`-specific or `5`-specific content; it just re-expresses
+  `|{+1,−1}| = 2`.
+- `c := full/half` identifies edge multiplicity with the period ratio by
+  **definition**, with no structural reason the two are the same 2.
+
+So every route (cohomology, Möbius-period, the `(NT,1,NS)` local signature)
+ties `c` to an already-forced 2 (`NT`, the sign group, the base) **by
+positing the identification**, a coincidence of numerically-equal but
+structurally-distinct 2's.  `C2DoublingDerivation.lean:46` states the
+monism outright ("all of these are the **same atomic 2 = NT**").
+
+The monism does not rescue the forcing: "what the number 2 *is*" (one
+atomic 2, fine) is a different question from "which *quantity* must equal 2
+rather than 1 or 3."  `c = 1` (the bare simple graph `K_{3,2}`, `b₁ = 2`) is
+equally expressible in the framework; `c = 2` is the value the **gauge
+target** (8 gluon channels = `NS²−1`) selects.
+
+### Honest status: 3 forced + 1 posited
+
+`(NS, NT)` are forced (`PairForcing`), `d = NS + NT` is definitional, and
+**`c` is posited** via `c = NT` (the edge-multiplicity-equals-T-axis
+identification, asserted in `V32LocalSignature` / `C2DoublingDerivation`,
+never derived).  The `(3,2,2,5)` headline should read as **three forced
+atomic numbers plus one posited multiplicity**, with `c = 2` selected so the
+cohomology reproduces the SU(3) gauge content.  A genuine forcing of `c`
+would need an axiom-internal principle picking `c = NT` (or `c > 1`) that
+does not name the gauge target — none exists.
+
 ## Secondary symptom: the `C2b` label collision
 
 The same gap shows up as a documentation inconsistency — "C2b" names two
