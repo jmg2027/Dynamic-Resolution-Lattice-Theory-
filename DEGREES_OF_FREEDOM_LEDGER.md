@@ -38,13 +38,20 @@ row to `forced` (a uniqueness proof) or retire it.
 | NS | 3 | **forced** | `Atomicity.NonDecomposable.non_decomposable_iff` + `PairForcing.pair_forcing` |
 | NT | 2 | **forced** | same |
 | d | 5 | **forced** | `Atomicity.Five.atomic_iff_five` |
-| c | 2 | **forced** | `Atomicity.CombinatorialArity.arity_2_unique_via_k_ge_3_vacuous` |
+| c | 2 | **derived** (presentation) | re-presents `NS²−1` as graph cohomology `b₁(K_{NS,NT}^{(c)})`; **not forced** — see below |
 | (NS, det) | (3, 1) | **forced** | `Atomicity.OrbitForcing.orbit_forcing_master` |
 
-**Layer-0 verdict: zero researcher DoF, proven.** This is the floor
-the whole derivation stands on, and it is unimpeachable. Everything
-below is built *from* these — the question is only whether the
-*building* adds freedom.
+**Layer-0 verdict: `(NS, NT, d)` + `(NS, det)` forced, zero researcher DoF.**
+This forced floor is unimpeachable.  The multiplicity `c = 2` is **not** a
+fourth forced primitive: `CombinatorialArity` forces the relation *arity* (how
+many inputs the slash takes), which is a **different** quantity from the edge
+*multiplicity* `c` (parallel-edge count) — conflating them was an error.  `c`
+is the presentation parameter set so the graph cohomology `b₁(K_{NS,NT}^{(c)})
+= c·NS·NT − (NS+NT−1)` reproduces the gauge content `NS² − 1` (already direct
+from the forced `NS`).  It is unforced across five reframings and
+physics-redundant: `research-notes/frontiers/atomic_c_multiplicity_forcing.md`.
+So the atomic floor is `(NS, NT, d) = (3, 2, 5)`, with `c = 2` a derived
+cohomological presentation of `NS²−1`.
 
 ---
 
@@ -108,9 +115,14 @@ physically is (not by arithmetic, which cannot — the values coincide):
 - `c` and `NT` act on the edge count by **different operations**: a
   multiplicity-step adds `NS·NT`, a T-vertex-step adds `c·NS`
   (`nt_step`, `increments_distinguish_c_from_nt`: `15 ≠ 6` at `NT ≠ c`).
-- The two `2`'s are forced by **independent theorems** — `c=2` (arity,
-  `CombinatorialArity`), `NT=2` (pair count, `PairForcing`) — same value,
-  distinct role (`c_and_nt_equal_value_distinct_role`).
+- `NT = 2` is forced (pair count, `PairForcing`).  `c = 2` (edge
+  multiplicity) is **not** independently forced: `CombinatorialArity` forces
+  the relation *arity* (a distinct quantity, not the parallel-edge count), and
+  the edge-count selection of `c·NS·NT` is the **cohomology's presentation**
+  (it re-presents `NS²−1`), not an axiom forcing.  So this resolves the
+  *attribution of the value-2 within the edge-count reading*, but does not
+  upgrade `c` to forced — see
+  `research-notes/frontiers/atomic_c_multiplicity_forcing.md`.
 
 Capstone: `nt_c_degeneracy_resolved`. **The Layer-1 `assignment` row is
 no longer a researcher DoF** — the cohomology's edge-count structure

@@ -4,11 +4,20 @@
 
 ## Overview
 
-The atomic 4-tuple **(NS, NT, c, d) = (3, 2, 2, 5)** is the unique
-integer solution to a small set of self-consistency equations
-derivable from 213-Algebra alone, without external input.
+The triple **(NS, NT, d) = (3, 2, 5)** is forced: `(NS, NT)` is the unique
+non-decomposable atom pair (`PairForcing`, `NonDecomposable`) and `d = NS + NT`.
+The multiplicity **c = 2** is **not** an independently-forced fourth primitive —
+it is the **presentation parameter** set so that the graph cohomology
+`b₁(K_{NS,NT}^{(c)}) = c·NS·NT − (NS+NT−1)` reproduces the gauge content
+`NS² − 1 = 8`, which is already a direct fact about the forced `NS = 3` (the
+SU(3) adjoint dimension).  See `research-notes/frontiers/atomic_c_multiplicity_forcing.md`:
+`c = 2` is unforced across five reframings and physics-redundant (no observable
+needs it; `K_{3,2}^{(c=2)}` re-presents `NS²−1` cohomologically).  So the
+honest atomic content is `(NS, NT, d) = (3, 2, 5)` forced, with `c = 2` a
+derived presentation of `NS²−1`.
 
-The dominant constraint is **C2b**:
+The constraint below ("C2b") makes the dependence explicit — it is exactly the
+requirement that the graph cohomology hit the `NS²−1` target:
 
 ```
 constraint_C2b m n := (c · m · n = m² + m + n − 2) at c = 2
