@@ -408,6 +408,16 @@ closure → full build → commit.
 - **REJECTED (already present)**: sum-of-four-squares multiplicative closure — `FourSquare.isSum4_mul`
   already exists (+ full Lagrange `nat_isSum4`).  Agent honest.
 
+- **80 — number theory (deep)**: `NumberTheory/PellNorm` (6 PURE) — the **ℤ[√2] / Pell-norm
+  multiplicative closures**: `a²+2b²` (`isNorm2_mul`) and the genuine **Pell** `a²−2b²`
+  (`isPell_mul`, witnesses `(ac+2bd, ad+bc)`) + ★ the **Pell-solution group law**
+  `pell_one_compose` (`x²−2y²=1` solutions compose — the engine behind `(1+√2)ⁿ`).  Genuinely
+  absent (only the plus-D *identity* `int_quad_diophantus_sqrt2` existed; the `a²−2b²` form +
+  closures + group law are new).
+- **81 — combinatorics (deep)**: `Combinatorics/TriangularNumbers.{hex_eq_odd_tri, six_sum_tri}`
+  (appended) — **hexagonal = odd-indexed triangular** `tri(2n+1)=(n+1)(2n+1)` + ★ **sum of
+  triangulars = tetrahedral** `6·Σ_{k≤n} tri k = n(n+1)(n+2)` + pronic.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

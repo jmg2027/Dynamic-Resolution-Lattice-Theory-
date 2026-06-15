@@ -57,4 +57,34 @@ theorem eight_tri_add_one (n : Nat) :
 theorem tri_smoke : tri 3 = 6 ∧ 8 * tri 3 + 1 = 7 * 7 := by
   refine ⟨by decide, by decide⟩
 
+/-! ## Figurate cross-relations -/
+
+/-- ★ **Hexagonal = odd-indexed triangular**: `tri (2n+1) = (n+1)(2n+1)`
+    (the `(n+1)`-th hexagonal number is the odd-indexed triangular number). -/
+theorem hex_eq_odd_tri (n : Nat) : tri (2 * n + 1) = (n + 1) * (2 * n + 1) := by
+  have hpos : 0 < 2 := by decide
+  refine Nat.eq_of_mul_eq_mul_left hpos ?_
+  have h := two_tri (2 * n + 1)
+  rw [h]; ring_nat
+
+/-- **Oblong / pronic** (re-export of `two_tri`): `tri n + tri n = n(n+1)`. -/
+theorem pronic (n : Nat) : tri n + tri n = n * (n + 1) := by
+  have h := two_tri n
+  rw [← h]; ring_nat
+
+/-- ★ **Sum of triangular numbers = tetrahedral** (cross form):
+    `6 · Σ_{k≤n} tri k = n(n+1)(n+2)` — `Σ tri = Te n = n(n+1)(n+2)/6`.
+    Induction on `n` via `6·tri(k+1) = 3·(2·tri(k+1)) = 3(k+1)(k+2)`. -/
+theorem six_sum_tri (n : Nat) :
+    6 * sumTo (n + 1) (fun k => tri k) = n * (n + 1) * (n + 2) := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    rw [sumTo_succ]
+    have hsplit : 6 * (sumTo (k + 1) (fun k => tri k) + tri (k + 1))
+        = 6 * sumTo (k + 1) (fun k => tri k) + 3 * (2 * tri (k + 1)) := by ring_nat
+    have ht := two_tri (k + 1)
+    rw [hsplit, ih, ht]
+    ring_nat
+
 end E213.Lib.Math.Combinatorics.TriangularNumbers
