@@ -633,6 +633,14 @@ closure → full build → commit.
   stays open (needs a `muAux`-correctness invariant bridging trial-division `mu` to a structural
   `vp`/`Prime213` valuation) — frontier `research-notes/frontiers/mobius_divisor_sum_general.md`.
 
+- **110 — combinatorics (new sequence, general edges + symmetry)**: `Combinatorics/NarayanaNumbers.{narayana,
+  narayana_one, narayana_diag, narayana_symm}` (NEW file, 10 PURE) — **introduces the Narayana numbers**
+  `N(n,k) = C(n,k)·C(n,k−1)/n` (refine Catalan by peak count) with ★ general edge values
+  `N(n,1)=N(n,n)=1`, ★ **general row symmetry** `N(n,k)=N(n,n+1−k)` (1≤k≤n; numerator reflection via
+  additive `k=1+j, n=(1+j)+m` decomposition to dodge propext-tainted `Nat.sub_sub`), the triangle
+  table, and the row sum `Σ_{k=1}^{n} N(n,k) = catalan n` (n=1..7).  General `Σ N = catN` open (division
+  inside summand).  Genuinely absent (`Fractal/Narayana*` is an unrelated modular recurrence).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

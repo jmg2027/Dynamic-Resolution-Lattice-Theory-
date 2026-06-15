@@ -23,6 +23,7 @@ import E213.Lib.Math.Combinatorics.StirlingFalling
 import E213.Lib.Math.Combinatorics.StirlingFirstKind
 import E213.Lib.Math.Combinatorics.EulerianNumbers
 import E213.Lib.Math.Combinatorics.MotzkinNumbers
+import E213.Lib.Math.Combinatorics.NarayanaNumbers
 import E213.Lib.Math.Combinatorics.GeneratingFunction
 import E213.Lib.Math.Combinatorics.Simplex5
 import E213.Lib.Math.Combinatorics.Capstone
