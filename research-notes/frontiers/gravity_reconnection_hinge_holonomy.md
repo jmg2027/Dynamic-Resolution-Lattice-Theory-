@@ -99,18 +99,33 @@ object, because the metric's defining `J` IS the holonomy generator `S`.  The
 metric is the flat face (`det`-holonomy ≡ 1); the first deficit is the same
 matrix's loop `S² = −I`.  No forced map — only the proven `J` and `S` identified.
 
-Harder, genuinely-open second tier (the curvature *field*):
-1. The curvature *field* — a connection transporting `h` over a **multi-simplex
-   lattice** so curvature varies point-to-point.  The repo has only ONE flat
-   `Δ⁴` (`h = I`) and no transporting connection on `H¹`; the holonomy lives on
-   the `Mat2` modular monoid, not yet on `H¹`-sections over a glued lattice.
-   This is the genuine open substrate (candidate-3 "gluing" has no referent yet).
-2. `G_N` (Newton) — not derived; the `M_Pl/v_H = 5²⁵/6` hierarchy is the only
-   formalized gravitational number.
-3. Extend the `J=S` generator identity to a transport: build the multi-simplex
-   lattice and the `H¹`-connection whose holonomy generator is `S`, so the single
-   deficit `S²=−I` becomes a curvature field.  (Do NOT import the graph
-   `DiscreteGaussBonnet`, which is unconnected — `b₁` differs 2 vs 8.)
+**The curvature FIELD — blocked, naturally (the honest stopping point).**  A
+multi-agent cycle tested whether the modular `HolonomyLattice` is the natural
+substrate.  Finding (both developer + anti-forcing skeptic agree):
+- The modular lattice **is** a genuine multi-cell substrate with a flat
+  connection (`det_holonomy_eq_one`) and a deficit **localized at the elliptic /
+  orbifold point** (`first_loop_is_the_fold`: `holonomy [S,S] = −I ≠ I`, flat on
+  the Stern–Brocot tree `positive_loop_trivial`).  This half is proven, PURE.
+- **But the metric `h` is NOT a section over it.**  There is **no `Mat2`-action
+  on `H¹`** (`holonomy` folds `Mat2`-words; it never acts on the `H¹` 2-plane);
+  no theorem transports `h`.  Grep: nothing couples `hPair`/`GRe` (the metric) to
+  `holonomy`.  `h` is stuck on one flat `Δ⁴`.
+- **Identifying `H¹(Δ⁴)`'s 2-plane with the modular `ℤ²` would be FORCING** — they
+  are equal only by the coincidence of the 2×2 matrix entries `J = S = (0,−1,1,0)`
+  (a shared *generator*, not a shared *space/field*).  So the curvature field is
+  **not naturally available**; building it would require a forced space-identity
+  or a multi-simplex lattice that does not exist.
+
+So natural gravity emergence reaches **two bricks** (the metric/symplectic split;
+the metric-`J` = holonomy-generator identity) and the **curvature field is a
+genuine open construction**, not a natural next step.  Per the discipline, it is
+left open rather than forced.  Remaining (all genuinely open):
+1. A `Mat2`-action on `H¹` + an `h`-transport (the gate; currently absent —
+   asserting the `H¹ = ℤ²` space-identity is the forcing line *not* to cross).
+2. A multi-simplex lattice with a *varying* `h` (only one flat `Δ⁴` exists).
+3. `G_N` (Newton) — not derived; `M_Pl/v_H = 5²⁵/6` is the only formalized
+   gravitational number.
+(Do NOT import the graph `DiscreteGaussBonnet` — unconnected, `b₁` differs 2 vs 8.)
 
 Caveat (honest): only the *polarization skeleton* (`Q`, `h=I`, `J`) is proven;
 `W`-as-metric, any curvature, `G_N`, and the modulus-vs-holonomy question are
