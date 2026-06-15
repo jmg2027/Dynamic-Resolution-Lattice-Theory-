@@ -418,6 +418,10 @@ closure → full build → commit.
   (appended) — **hexagonal = odd-indexed triangular** `tri(2n+1)=(n+1)(2n+1)` + ★ **sum of
   triangulars = tetrahedral** `6·Σ_{k≤n} tri k = n(n+1)(n+2)` + pronic.  Genuinely absent.
 
+- **82 — combinatorics (deep)**: `Combinatorics/TriangularNumbers.chex_sum_cube` (appended) —
+  **centered hexagonal numbers sum to cubes** `Σ_{k≤n} (3k²+3k+1) = (n+1)³` + the cube-shell
+  identity `(k+1)³ = k³ + (3k²+3k+1)`.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

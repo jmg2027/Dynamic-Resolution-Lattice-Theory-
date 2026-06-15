@@ -87,4 +87,29 @@ theorem six_sum_tri (n : Nat) :
     rw [hsplit, ih, ht]
     ring_nat
 
+/-! ## Centered hexagonal numbers sum to cubes -/
+
+/-- The k-th **centered hexagonal number** `3k² + 3k + 1` (1, 7, 19, 37, …). -/
+def chex (k : Nat) : Nat := 3 * (k * k) + 3 * k + 1
+
+/-- **Cube-shell identity** (telescoping basis): `(k+1)³ = k³ + (3k²+3k+1)`. -/
+theorem cube_succ (k : Nat) :
+    (k + 1) * (k + 1) * (k + 1) = k * k * k + (3 * (k * k) + 3 * k + 1) := by
+  ring_nat
+
+/-- ★ **Centered hexagonal numbers sum to a cube**: `Σ_{k=0}^{n} (3k²+3k+1) = (n+1)³`. -/
+theorem chex_sum_cube (n : Nat) :
+    sumTo (n + 1) (fun k => 3 * (k * k) + 3 * k + 1)
+      = (n + 1) * (n + 1) * (n + 1) := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    rw [sumTo_succ, ih]
+    ring_nat
+
+/-- The cube-sum stated via `chex`. -/
+theorem chex_sum_cube' (n : Nat) :
+    sumTo (n + 1) chex = (n + 1) * (n + 1) * (n + 1) :=
+  chex_sum_cube n
+
 end E213.Lib.Math.Combinatorics.TriangularNumbers
