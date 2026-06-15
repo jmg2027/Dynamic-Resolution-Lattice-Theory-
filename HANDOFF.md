@@ -776,6 +776,18 @@ closure → full build → commit.
   lists; recurrence `L(n+1,k+1)=(n+k+1)L(n,k+1)+L(n,k)`) with ★ general `lah_diag` (`L(n,n)=1`),
   ★ `lah_col1` (`L(n+1,1)=(n+1)!`), and the triangle table.  Genuinely absent.
 
+- **NEW AREA round 5 (inequalities / algebra) — iters 128–130:**
+- **128 — inequality (general-n)**: `Foundations/Chebyshev.{chebyshev_identity, chebyshev_sum_ineq}`
+  (NEW file, 10 PURE) — ★★ the **Chebyshev sum identity** `2·[n·Σaᵢbᵢ−(Σaᵢ)(Σbᵢ)] = Σ_{i,j}(aᵢ−aⱼ)(bᵢ−bⱼ)`
+  and ★★★ **Chebyshev's sum inequality** (cross terms ≥ 0 ⇒ `(Σaᵢ)(Σbᵢ) ≤ n·Σaᵢbᵢ`) over Int sequences
+  (bilinear analog of `lagrange_identity`, reusing the `sumZ` toolkit).  Only fixed n=2 existed.
+- **129 — geometry/algebra**: `Foundations/HeronFormula.{heron_identity, heron_pythagorean}` (NEW file,
+  3 PURE) — ★★★ **Heron's identity** `16·Area² = (a+b+c)(−a+b+c)(a−b+c)(a+b−c) = 2a²b²+2b²c²+2c²a²−a⁴−b⁴−c⁴`
+  + the Pythagorean corollary `a²+b²=c² ⇒ 16·Area²=4a²b²`.  Pure `ring_intZ`.  Genuinely absent.
+- **130 — symmetric polynomials**: `NumberTheory/SymmetricPolyIdentities.{newton_p4, power_sum_e}`
+  (appended, +2 PURE) — ★ **Newton's identity at k=4** `p₄ = e₁p₃−e₂p₂+e₃p₁` and the power-sum-in-`e`
+  form `p₄ = e₁⁴−4e₁²e₂+2e₂²+4e₁e₃` (the file already had vieta2/3, newton_p3, e1_sq/cube).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

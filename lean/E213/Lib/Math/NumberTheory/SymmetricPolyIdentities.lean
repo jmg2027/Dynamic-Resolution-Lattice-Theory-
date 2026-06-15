@@ -74,4 +74,21 @@ theorem e1_cube (a b c : Int) :
         + 3*((a + b + c) * (a*b + b*c + c*a))
         - 3*(a*b*c) := by ring_intZ
 
+/-- ★ **Newton's identity at k=4**: `p₄ = e₁·p₃ − e₂·p₂ + e₃·p₁`, i.e.
+    `a⁴+b⁴+c⁴ = (a+b+c)(a³+b³+c³) − (ab+bc+ca)(a²+b²+c²) + (abc)(a+b+c)`. -/
+theorem newton_p4 (a b c : Int) :
+    a*a*a*a + b*b*b*b + c*c*c*c
+      = (a + b + c) * (a*a*a + b*b*b + c*c*c)
+        - (a*b + b*c + c*a) * (a*a + b*b + c*c)
+        + (a*b*c) * (a + b + c) := by ring_intZ
+
+/-- **Power sum in elementary symmetric functions**:
+    `p₄ = e₁⁴ − 4·e₁²·e₂ + 2·e₂² + 4·e₁·e₃`. -/
+theorem power_sum_e (a b c : Int) :
+    a*a*a*a + b*b*b*b + c*c*c*c
+      = (a + b + c)*(a + b + c)*(a + b + c)*(a + b + c)
+        - 4*((a + b + c)*(a + b + c)*(a*b + b*c + c*a))
+        + 2*((a*b + b*c + c*a)*(a*b + b*c + c*a))
+        + 4*((a + b + c)*(a*b*c)) := by ring_intZ
+
 end E213.Lib.Math.NumberTheory.SymmetricPolyIdentities

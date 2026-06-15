@@ -30,6 +30,8 @@ import E213.Lib.Math.Foundations.CauchySchwarzGeneral
 import E213.Lib.Math.Foundations.SumCubesAMGM
 import E213.Lib.Math.Foundations.BernoulliInequality
 import E213.Lib.Math.Foundations.AbelSummation
+import E213.Lib.Math.Foundations.Chebyshev
+import E213.Lib.Math.Foundations.HeronFormula
 import E213.Lib.Math.Analysis.Measure
 import E213.Lib.Math.NumberTheory.ModArith
 import E213.Lib.Math.Analysis.Modulus
