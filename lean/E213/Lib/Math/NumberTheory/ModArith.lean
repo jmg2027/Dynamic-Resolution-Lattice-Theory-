@@ -20,6 +20,7 @@ import E213.Lib.Math.NumberTheory.ModArith.NonFixedExists
 import E213.Lib.Math.NumberTheory.ModArith.QRNegOne
 import E213.Lib.Math.NumberTheory.ModArith.SqPlusOneFrame
 import E213.Lib.Math.NumberTheory.ModArith.SqMinusTwoFrame
+import E213.Lib.Math.NumberTheory.ModArith.QRDescentFrame
 import E213.Lib.Math.NumberTheory.ModArith.EulerCriterion
 import E213.Lib.Math.NumberTheory.ModArith.EulerConverse
 import E213.Lib.Math.NumberTheory.ModArith.EulerFirstSupplement

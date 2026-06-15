@@ -68,6 +68,15 @@ closure → full build → commit.
   `detM` multiplicative (`ring_intZ`) + `detM_contMat = −1` + length-induction; corollary
   = cross-det is a unit `±1` (coprimality witness).  Motivated by `markov_lagrange/`
   G191 continuant program.
+- **33 — number theory (deep, generalization)**: `ModArith/QRDescentFrame.qr_descent_iff`
+  (2 PURE) — the **general QR descent frame** subsuming both supplement frames: for odd
+  prime `p` and `a` a unit mod `p` (`¬p∣a`), `(∃x, a≤x² ∧ p∣(x²−a)) ↔ (∃r, 0<r<p ∧
+  r²≡a mod p)`.  Strips the QR-symbol-specific RHS, keeps only the unbounded-root →
+  bounded-residue descent — the reusable engine both `SqPlusOneFrame`/`SqMinusTwoFrame`
+  factor through.  Cleaner than the SqMinusTwo template (routes through `mod_eq_of_dvd_sub`;
+  the `a=2`-specific ordering step doesn't generalize).  HONEST: original target iff is
+  false without the unit hypothesis (`a≡0` degenerate case); `←` needs the lift `x=r+a*p`
+  (a bounded `r` may have `r²<a`).
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
