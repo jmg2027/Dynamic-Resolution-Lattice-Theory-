@@ -122,6 +122,13 @@ closure → full build → commit.
   + **sum-of-squares** `Σ_{i≤n} Fᵢ² = Fₙ·F_{n+1}` (the φ-rectangle identity).  Induction on
   the recurrence via the `sumTo` toolkit.  NOTE: uses a module-local `fib` (the math corpus
   has ≥3 module-local `fib` defs, no canonical one — consolidation is a known smell, deferred).
+- **39 — combinatorics (deep)**: `Combinatorics/CatalanBinomial.central_binom_recurrence`
+  (5 PURE) — the **universal central-binomial recurrence** `(n+1)·C(2n+2,n+1) =
+  2(2n+1)·C(2n,n)`, the `choose`-level engine behind the Catalan growth law
+  `C_{n+1}/C_n = 2(2n+1)/(n+2)`.  Derived *structurally* (Pascal `choose_succ_mul` +
+  symmetry), holds for ALL n — unlike the corpus `catalan` which is a finite table (n≤7).
+  Plus the bridge `catalan_central_binom` `(n+1)·catalan n = choose(2n,n)` (n=0..7) tying
+  the table to `choose`.  (Segner convolution already present as `catalan_recursion_3..7`.)
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series

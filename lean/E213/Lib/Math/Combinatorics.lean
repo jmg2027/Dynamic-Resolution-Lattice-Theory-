@@ -1,5 +1,6 @@
 import E213.Lib.Math.Combinatorics.Binomial
 import E213.Lib.Math.Combinatorics.Catalan
+import E213.Lib.Math.Combinatorics.CatalanBinomial
 import E213.Lib.Math.Combinatorics.FibonacciSums
 import E213.Lib.Math.Combinatorics.Stirling
 import E213.Lib.Math.Combinatorics.GeneratingFunction
