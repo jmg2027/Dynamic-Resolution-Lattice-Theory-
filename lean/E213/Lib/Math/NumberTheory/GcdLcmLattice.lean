@@ -16,8 +16,8 @@ All proven *unconditionally* (no `0 < a`): the `a = 0` branch is handled directl
 (`lcm213 0 x = 0`), the positivity-requiring lcm lemmas apply only in the
 `a = succ a'` branch.  Commutativity is `gcd213_comm` / the lcm symmetry already
 in the corpus; the **distributive** law `gcd(a, lcm(b,c)) = lcm(gcd(a,b),gcd(a,c))`
-(upgrading to a *distributive* lattice) is left open — it needs the
-prime-valuation `min/max` distributivity, a larger detour.  All ∅-axiom.
+(upgrading to a *distributive* lattice) is proven in the sibling
+`GcdLcmDistributive` via the prime-valuation `min/max` route.  All ∅-axiom.
 -/
 
 namespace E213.Lib.Math.NumberTheory.GcdLcmLattice

@@ -199,6 +199,14 @@ closure → full build → commit.
 > targeted deeper frontier (distributive-lattice L4, a Real213-cut analysis result), rather
 > than more breadth-mining.
 
+- **48 — order/lattice theory (deep)**: `NumberTheory/GcdLcmDistributive.gcd_lcm_distrib`
+  (14 PURE) — the **distributive law** `gcd(a,lcm(b,c)) = lcm(gcd(a,b),gcd(a,c))` (+ dual),
+  upgrading (ℕ,gcd,lcm) to a verified **distributive lattice** — closes the L4 item left open
+  in iter 46.  Route: `vp_separation` (FTA uniqueness, already PURE) reduces per-prime;
+  `vp_gcd_min`/`vp_lcm_max` expand to min/max; the new **(ℕ,min,max) lattice distributivity**
+  `min_max_distrib`/`max_min_distrib` (also absent) closes it.  All infra was present except
+  the min/max distributivity.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
