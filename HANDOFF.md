@@ -662,6 +662,15 @@ closure → full build → commit.
   `eraseV` by-value toolkit preserving inverse-closure, recurses → band ≡ 1; assembly peels `p−1` head
   + `1` tail → `(p−1)·1 ≡ p−1`.  WF via explicit `Nat` fuel; `Bool` `match` not `if`.  Genuinely absent.
 
+- **113 — combinatorics (new sequence, general def)**: `Combinatorics/SchroderNumbers.{schroder,
+  schroder_succ, littleSchroder}` (NEW file, 11 PURE) — **introduces the Schröder numbers** (large
+  A006318: 1,2,6,22,90,…; little/super-Catalan A001003) via the inclusive convolution recurrence
+  `S(n+1) = S(n) + Σ_{k=0}^{n} S(k)·S(n−k)` (fuel-based + `Nat.strongRecOn`, Motzkin pattern), with
+  ★ general `schroder_succ`, `schroder_table` (S0..7), the three-term P-recurrence (additive form,
+  table n=1..6), little Schröder + doubling table `S(n)=2·s(n)`.  Genuinely absent.
+  (Also this round: general Fermat `a^{p−1}≡1 mod p` checked and rejected as duplicate of
+  `UniversalFLT.universal_flt_main` / `MulOrder.fermat`.)
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
