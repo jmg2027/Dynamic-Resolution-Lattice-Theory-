@@ -997,6 +997,16 @@ closure → full build → commit.
   `Sylvester` hits are law-of-inertia / Sylvester–Gallai / matrices).  A companion to FermatNumbers —
   the two fastest classical pairwise-coprime sequences, both ∅-axiom.
 
+- **155 — inequalities (Schur's inequality, t=1 and t=2)**: `Foundations/SchurInequality`
+  (NEW file, 3 PURE) — for ordered `x ≥ y ≥ z ≥ 0` over `Int`: ★★★ **t=1**
+  `x(x−y)(x−z)+y(y−x)(y−z)+z(z−x)(z−y) ≥ 0` and ★★ **t=2** (the `x²,y²,z²`-weighted version), both via an
+  explicit `ring_intZ` regrouping into a manifestly-nonneg two-summand form `(x−y)²·P + Q·(x−z)(y−z)`
+  (t=1: `P=x+y−z=(x−z)+y≥0`; t=2: `P=x²+(x+y)(y−z)≥0`), then `mul_nonneg`/`mul_self_nonneg`/`add_nonneg`.
+  Reuses the corpus Int order infra (`Int213.mul_nonneg`, `IntHelpers.mul_self_nonneg`, `Order.le_trans`);
+  built only two thin PURE wrappers (`sub_nonneg_of_le'`, `sq_nonneg`).  First ordered-Int symmetric
+  inequality of this session — diversifies the inequality corpus (CauchySchwarz/AMGM/Bernoulli/Chebyshev).
+  Genuinely absent (corpus `schur` = Schur reality / Schur's lemma in linalg, unrelated).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
