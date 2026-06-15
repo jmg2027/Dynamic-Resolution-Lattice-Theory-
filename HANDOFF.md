@@ -652,6 +652,16 @@ closure → full build → commit.
   `divisors(p^k·m)≅{0..k}×divisors(m)` (frontier `mobius_divisor_sum_general.md`, updated).  Same
   window-product template would unlock general σ/τ multiplicativity + Möbius inversion.
 
+- **112 — number theory (★★★ HEADLINE, general theorem, closes W3)**: `NumberTheory/ModArith/WilsonTheorem.wilson`
+  (NEW file, 50 PURE) — **Wilson's theorem** ★★★ `IsPrime213 p → (p−1)! ≡ −1 (mod p)`
+  (`(fact (p−1)) % p = p − 1`), general for every prime — closes the W3 obstruction left open by the
+  committed `WilsonInverse.lean` (W1 `self_inverse` + W2 `inverse_exists`/`inverse_unique`).  Proof:
+  `fact (p−1) % p = prodMod p [p−1,…,1]`; the inverse `invF p x = (modBezout x p).2 % p` is an
+  involution on `[1,p−1]` (W2) with no fixed point in the band `[2,p−2]` (W1); the crux
+  `prodMod_pairing_fuel` (fuel-bounded strong recursion) pairs head·inv(head)≡1, erases both via an
+  `eraseV` by-value toolkit preserving inverse-closure, recurses → band ≡ 1; assembly peels `p−1` head
+  + `1` tail → `(p−1)·1 ≡ p−1`.  WF via explicit `Nat` fuel; `Bool` `match` not `if`.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
