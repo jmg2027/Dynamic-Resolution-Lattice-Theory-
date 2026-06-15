@@ -975,6 +975,17 @@ closure → full build → commit.
   `perfect_table` decide-smoke).  A primacy-breadth capstone: the elementary divisor theory
   (φ/μ/σ/τ/σ_k/λ + Möbius inversion + Dirichlet ring + Euclid perfect) now reproduced ∅-axiom.
 
+- **153 — number theory (Vajda's identity — the 2-parameter Fibonacci unifier)**:
+  `NumberTheory/VajdaIdentity` (NEW file, 4 PURE) — ★★★ **Vajda's identity** over ℤ
+  `fibZ_vajda : F(n+i)·F(n+j) − F(n)·F(n+i+j) = (−1)ⁿ·F(i)·F(j)`, the full 2-parameter identity that
+  unifies **Cassini** (`fibZ_cassini`, i=j=1), **Catalan** (`fibZ_catalan`, i=j=r), and **d'Ocagne**
+  (`fibZ_docagne`, i=1) — all derived as one-line corollaries.  Built on the corpus `fibZ` infrastructure
+  (no redefinition): the shift law `fibZ_shift` + addition formula `fibZ_add` rewrite the three displaced
+  Fibonaccis into the `(F(n),F(n+1))` basis, the whole LHS collapses under a single `ring_intZ` to
+  `F(i)·F(j)·(F(n+1)²−F(n)F(n+1)−F(n)²)`, and the inner quadratic *is* `(−1)ⁿ` by `fibZ_cassini_eps` —
+  route (b) pure algebra, no induction, no extra sub-lemmas.  The corpus had only the 1-parameter Cassini
+  unit; the general 2-parameter Vajda + Catalan + d'Ocagne were absent.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
