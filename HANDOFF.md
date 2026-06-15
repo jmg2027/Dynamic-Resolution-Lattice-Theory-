@@ -344,6 +344,13 @@ closure → full build → commit.
   Local PURE `ipow` + Int `∣`-helpers (`Int.sub_self`/`▸` transport leak propext → `show`-decide
   base + explicit-witness `dvd_of_eqZ`).  Genuinely absent.
 
+- **69 — number theory (deep)**: `NumberTheory/FactorIdentities` (8 PURE) — the classical
+  low-degree factorizations: difference of squares, **sum/difference of cubes**
+  `a³±b³=(a±b)(a²∓ab+b²)`, their divisibility corollaries `(a±b)∣(a³±b³)`/`(a±b)∣(a²−b²)`, and
+  the **3-var cubic** `a³+b³+c³−3abc=(a+b+c)(a²+b²+c²−ab−bc−ca)`.  Genuinely absent (only the
+  `(m−n)(m+n)` difference-of-squares mirror existed).  `ring_intZ` identities + `⟨cofactor,
+  ring_intZ⟩` divisibility.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
