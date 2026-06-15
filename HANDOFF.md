@@ -365,6 +365,14 @@ closure → full build → commit.
   physics/interpolation; `prod_sum_le_sq_sum` is the inequality, `sum_cubes_three` a
   factorization).
 
+- **72 — combinatorics (deep)**: `Combinatorics/FactorialSum.fact_telescope` (PURE) —
+  **factorial telescoping** `Σ_{k≤n} k·k! = (n+1)!−1` (shift form `+1=(n+1)!`), the clean
+  telescoping induction reusing `Permutations.fact`.  Genuinely absent.
+- **73 — number theory (deep)**: `NumberTheory/GeometricSeries.geom_sum` (6 PURE) — the
+  **geometric series** `(r−1)·Σ_{k≤n} rᵏ = rⁿ⁺¹−1` (Int) + powers-of-two `Σ 2ᵏ=2ⁿ⁺¹−1`.
+  Genuinely absent at the elementary-Int layer (corpus geom-series work is Real213-cut
+  convergence).  Reuses `DiffPowDvd.ipow`.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

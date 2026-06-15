@@ -6,6 +6,7 @@ import E213.Lib.Math.Combinatorics.FibonacciDivisibility
 import E213.Lib.Math.Combinatorics.FibonacciGcd
 import E213.Lib.Math.Combinatorics.LucasFibonacci
 import E213.Lib.Math.Combinatorics.VandermondeDeterminant
+import E213.Lib.Math.Combinatorics.FactorialSum
 import E213.Lib.Math.Combinatorics.PowerSums
 import E213.Lib.Math.Combinatorics.SumReshape
 import E213.Lib.Math.Combinatorics.Derangements
