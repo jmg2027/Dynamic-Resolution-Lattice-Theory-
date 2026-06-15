@@ -766,6 +766,16 @@ closure → full build → commit.
   `T_succ_rec : T(n+1,m'+1)=((m'+1)−n)·T(n,m'+1)+T(n,m')` + `coeff_delta_zero`, then induction on n.
   (Also rejected this round as duplicates: Pythagorean triples, 2×2 det(AB)=detA·detB, Σk⁵.)
 
+- **126 — analysis (discrete calculus)**: `Foundations/AbelSummation.{telescope, summation_by_parts,
+  partial_summation}` (NEW file, 5 PURE) — ★★ the **discrete FTC** `Σ_{i<n}(f(i+1)−f i)=f n−f 0`,
+  ★★★ **summation by parts** `Σ aᵢ(b_{i+1}−bᵢ) = a_n b_n − a₀ b₀ − Σ(a_{i+1}−aᵢ)b_{i+1}`, and ★★ Abel's
+  **partial summation** (prefix-sum corollary) over Int sequences (induction + ring_intZ, reusing the
+  iter-120 `sumZ` toolkit).  Genuinely absent (only the specific `fact_telescope` + Casoratian existed).
+- **127 — combinatorics (new sequence)**: `Combinatorics/LahNumbers.{lah, lah_rec, lah_diag, lah_col1}`
+  (NEW file, 6 PURE) — the **unsigned Lah numbers** `L(n,k)` (partitions of an n-set into k ordered
+  lists; recurrence `L(n+1,k+1)=(n+k+1)L(n,k+1)+L(n,k)`) with ★ general `lah_diag` (`L(n,n)=1`),
+  ★ `lah_col1` (`L(n+1,1)=(n+1)!`), and the triangle table.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
