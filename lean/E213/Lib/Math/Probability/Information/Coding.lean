@@ -56,6 +56,15 @@ theorem hamming_symm : ∀ xs ys : List Bool, hammingDistance xs ys = hammingDis
        = (if y = x then 0 else 1) + hammingDistance ys xs
     rw [hamming_symm xs ys]; cases x <;> cases y <;> rfl
 
+/-- ★ **Triangle inequality (concrete, equal length)**: `d(a,c) ≤ d(a,b) + d(b,c)`
+    for fixed 3-bit strings — a genuine instance of the metric triangle law (which
+    holds at equal length; the general form fails only via the truncating def on
+    unequal lengths). -/
+theorem hamming_triangle_concrete :
+    hammingDistance [true, true, true] [false, false, true]
+    ≤ hammingDistance [true, true, true] [true, false, false]
+      + hammingDistance [true, false, false] [false, false, true] := by decide
+
 /-- Optimal binary code length for `2^n` distinct symbols is `n` bits.
     Matches Shannon entropy of the uniform distribution on `2^n`. -/
 def optimalCodeLength (n : Nat) : Nat := bitsAfterBisections n
