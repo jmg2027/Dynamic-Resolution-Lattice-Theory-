@@ -117,4 +117,18 @@ theorem d_double_role :
     -- ℝ-side: disc M = NS² − 4 = 5 = d  (Int form, cf. Mobius213)
     ∧ (3 : Int) ^ 2 - 4 * 1 = 5 := by decide
 
+/-- The `𝔽₅` determinant `ad − bc` (the `+25` keeps the `Nat` subtraction
+    non-truncating before reducing mod 5; entries `≤ 4` ⟹ `bc ≤ 16 < 25`). -/
+def det5 : Mat5 → Nat
+  | (a, b, c, d) => (a * d + 25 - b * c) % 5
+
+/-- ★★ **The icosahedral order-10 orbit lies in `SL(2,𝔽₅)`** — `det = 1` is
+    preserved along the *entire* orbit of `M`, not merely `M ∈ GL`.  The
+    determinant invariant complementing `orbit` (entries) and `order_exactly_ten`
+    (period): the order-5 (in `PSL`) icosahedral rotation is a *special*-linear map. -/
+theorem orbit_in_SL :
+    det5 (pow 1) = 1 ∧ det5 (pow 2) = 1 ∧ det5 (pow 3) = 1 ∧ det5 (pow 4) = 1
+    ∧ det5 (pow 5) = 1 ∧ det5 (pow 6) = 1 ∧ det5 (pow 7) = 1 ∧ det5 (pow 8) = 1
+    ∧ det5 (pow 9) = 1 ∧ det5 (pow 10) = 1 := by decide
+
 end E213.Lib.Math.Algebra.Icosahedral.OrderFive
