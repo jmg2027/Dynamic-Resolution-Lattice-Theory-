@@ -332,6 +332,12 @@ closure → full build → commit.
   and `ab+bc+ca ≤ a²+b²+c²`, all forced via the A7 POSITIVITY archetype (gap = sum of squares,
   `positivity_of_sq3`/`positivity_of_sq_double`).  Genuinely absent.
 
+- **67 — number theory (deep)**: `NumberTheory/SophieGermain.sophie_germain` (9 PURE) — the
+  **Sophie Germain identity** `a⁴+4b⁴ = (a²−2ab+2b²)(a²+2ab+2b²)` (`ring_intZ`), with SOS
+  factor forms `(a∓b)²+b²`, both-factors-≥1 (⟹ `a⁴+4b⁴` composite for `a,b≥1`), and the `b=1`
+  case `n⁴+4=(n²−2n+2)(n²+2n+2)`.  Genuinely absent (corpus "Germain/Aurifeuillean" = cohomology
+  cutoffs).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
