@@ -19,6 +19,7 @@ import E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametricDualSpanHardLift
 import E213.Lib.Math.Cohomology.Bipartite.V33Mult1Trivial
 import E213.Lib.Math.Cohomology.Bipartite.V33c3Enriched
 import E213.Lib.Math.Cohomology.Bipartite.V33c3Indeterminacy
+import E213.Lib.Math.Cohomology.Bipartite.OctetCokernel
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.Bipartite`.
 
