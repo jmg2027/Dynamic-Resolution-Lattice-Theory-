@@ -34,6 +34,7 @@ import E213.Lib.Math.Combinatorics.DelannoyNumbers
 import E213.Lib.Math.Combinatorics.ZigzagNumbers
 import E213.Lib.Math.Combinatorics.QBinomial
 import E213.Lib.Math.Combinatorics.FibonacciCatalanIdentity
+import E213.Lib.Math.Combinatorics.LucasStepGeneral
 import E213.Lib.Math.Combinatorics.GeneratingFunction
 import E213.Lib.Math.Combinatorics.Simplex5
 import E213.Lib.Math.Combinatorics.Capstone

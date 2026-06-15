@@ -845,6 +845,15 @@ closure → full build → commit.
   (k+1)·C(x+k,n+1)` (`absorb_shift`, from `choose_succ_mul`) + reindex + matching the Eulerian recurrence
   (`target_eq`), with `eulerian_diag_succ` peeling the top term.  Genuinely new (frontier-closing).
 
+- **140 — number theory (DEEP, closes the Lucas frontier)**: `Combinatorics/LucasStepGeneral.{lucas_step,
+  gen_freshman, choose_pn_pk}` (NEW file, 27 PURE) — ★★★ the **general Lucas digit-step**
+  `choose(p·n+r)(p·k+s) ≡ choose n k·choose r s (mod p)` (digits `r,s<p`), closing the iter-138
+  follow-up.  A fully combinatorial **Vandermonde-collapse** proof (reuses the iter-96 `vandermonde_sum`):
+  ★ `gen_freshman` (`p∤i → choose(pn) i ≡ 0`, induction on n via the Vandermonde step
+  `choose(pn+p)(i) ≡ choose(pn)(i)+choose(pn)(i−p)`), `choose_pn_pk` (`choose(pn)(pk) ≡ choose n k`), then
+  the Vandermonde-split with the prefix vanishing and the suffix collapsing to the `j=pk` survivor.
+  Genuinely new (frontier-closing; lives in Combinatorics since it crucially uses Vandermonde).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
