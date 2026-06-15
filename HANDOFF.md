@@ -358,6 +358,13 @@ closure → full build → commit.
   disc−3 Brahmagupta *identity* in the minus convention `a²−ab+b²`; the plus-convention
   existential closure is new).
 
+- **71 — algebra (deep)**: `NumberTheory/SymmetricPolyIdentities` (9 PURE) — **Vieta's
+  formulas** (roots↔coefficients: `(x−r)(x−s)=x²−(r+s)x+rs`, the cubic, discriminant) +
+  **Newton's identities** (power sums↔elementary symmetric: `p₂=e₁²−2e₂`, ★`p₃=e₁p₂−e₂p₁+3e₃`,
+  `e₁²=p₂+2e₂`, `e₁³=…`).  All `ring_intZ`.  Genuinely absent (corpus Newton/Vieta hits are
+  physics/interpolation; `prod_sum_le_sq_sum` is the inequality, `sum_cubes_three` a
+  factorization).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
