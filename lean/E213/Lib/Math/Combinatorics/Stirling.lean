@@ -55,4 +55,35 @@ theorem stirling_bell_master :
   refine ⟨rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   <;> decide
 
+/-- `S(m, k) = 0` when `m < k` (above the diagonal — can't partition `m` elements
+    into more than `m` nonempty blocks). -/
+theorem stirling2_zero_above : ∀ {m k : Nat}, m < k → stirling2 m k = 0
+  | 0,     0,     h => absurd h (Nat.lt_irrefl 0)
+  | 0,     _ + 1, _ => rfl
+  | _ + 1, 0,     h => absurd h (Nat.not_lt_zero _)
+  | m + 1, k + 1, h => by
+      have hmk : m < k := Nat.lt_of_succ_lt_succ h
+      show (k + 1) * stirling2 m (k + 1) + stirling2 m k = 0
+      rw [stirling2_zero_above (Nat.lt_succ_of_lt hmk), stirling2_zero_above hmk,
+          Nat.mul_zero, Nat.add_zero]
+
+/-- ★ **Stirling diagonal `S(n, n) = 1`** — exactly one way to put `n` elements into
+    `n` nonempty blocks (each its own singleton).  General `n` (the existing table
+    had only concrete `decide` cases). -/
+theorem stirling_diag : ∀ n, stirling2 n n = 1
+  | 0     => rfl
+  | n + 1 => by
+      show (n + 1) * stirling2 n (n + 1) + stirling2 n n = 1
+      rw [stirling2_zero_above (Nat.lt_succ_self n), Nat.mul_zero, Nat.zero_add,
+          stirling_diag n]
+
+/-- ★ **Stirling column-1 `S(n+1, 1) = 1`** — exactly one way to put `n+1` elements
+    into a single block.  General `n`. -/
+theorem stirling_col1 : ∀ n, stirling2 (n + 1) 1 = 1
+  | 0     => rfl
+  | n + 1 => by
+      have h0 : stirling2 (n + 1) 0 = 0 := rfl
+      show 1 * stirling2 (n + 1) 1 + stirling2 (n + 1) 0 = 1
+      rw [stirling_col1 n, h0]
+
 end E213.Lib.Math.Combinatorics.Stirling
