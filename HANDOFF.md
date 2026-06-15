@@ -854,6 +854,14 @@ closure → full build → commit.
   the Vandermonde-split with the prefix vanishing and the suffix collapsing to the `j=pk` survivor.
   Genuinely new (frontier-closing; lives in Combinatorics since it crucially uses Vandermonde).
 
+- **141 — combinatorics (q-analog, closes a follow-up)**: `Combinatorics/QBinomialSymmetry.{qbinom_symm,
+  qbinom_pascal_dual, qbinom_rel}` (NEW file, 12 PURE) — ★★★ **general q-binomial symmetry**
+  `qbinom q n k = qbinom q n (n−k)` (k≤n), closing the iter-134 follow-up.  Via ★★ the **dual q-Pascal**
+  `qbinom_pascal_dual` (corrected convention — power on the *lower* index: `[n+1,k+1]_q = q^(n−k)·[n,k]_q +
+  [n,k+1]_q`) and the reusable ★ `qbinom_rel` (adjacent-column `(q^(n−k)−1)·[n,k] = (q^(k+1)−1)·[n,k+1]`,
+  induction on n).  Symmetry then by induction using both q-Pascal forms.  Genuinely new (frontier-closing).
+  ⟹ **Round 9 closed all three of my recorded open follow-ups (Worpitzky, Lucas, q-symmetry) at T3.**
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
