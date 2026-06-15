@@ -135,7 +135,15 @@ closure → full build → commit.
   `6·Σi²=n(n+1)(2n+1)`, and ★ **Nicomachus** `Σi³=(Σi)²` (both `×4` reduce to `n²(n+1)²`,
   cancel via `Nat.eq_of_mul_eq_mul_left`).  Cross-multiplied (subtraction-free) `sumTo`
   inductions, `ring_nat`-closed.
-
+- **41 — number theory (deep)**: `ModArith/CoprimeMultiplicative.coprime_mul_iff` (7 PURE)
+  — **coprimality is multiplicative**: `gcd(a,b·c)=1 ↔ gcd(a,b)=1 ∧ gcd(a,c)=1`, general
+  over all `a,b,c`.  THE structural lemma behind multiplicativity of every arithmetic
+  function (φ, μ, τ, σ).  Built from the `gcd213` kernel (Euclid's lemma
+  `coprime_dvd_of_dvd_mul` + `gcd213_greatest`).  HONEST: the Möbius-agent recon found NO
+  general μ/φ/divisor-sum infra exists (only `decide`-checked small-n φ facts); building it
+  ∅-axiom = large framework, deferred — this is the genuine result one rung up from the gcd
+  kernel.  GAP NOTED: no computable Möbius/totient + divisor-enumeration → Möbius inversion /
+  Gauss totient-sum `Σ_{d|n}φ(d)=n` remain open frontiers needing that framework.
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
