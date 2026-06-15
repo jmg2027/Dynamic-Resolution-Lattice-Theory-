@@ -530,6 +530,17 @@ closure → full build → commit.
   subtraction-free statement was the gap.  Also rejected this round: the **alternating** binomial
   sum `Σ(−1)ᵏC(n,k)=0` (already present as `…FLT/AlternatingBinomial.alt_binom_sum`).
 
+- **98 — combinatorics (DEEP, cross-cluster, inclusion-exclusion)**: `Combinatorics/DerangementConvolution.derange_convolution`
+  (NEW file, 20 PURE) — **the derangement–permutation convolution**
+  ★ `Σ_{k=0}^{n} C(n,k)·D(n−k) = n!` (permutations partition by fixed-point set).  Route: reverse-index
+  + binomial symmetry (`sumTo_reverse`, `choose_symm_sum`) reduce to the symmetric `Σ C(n,k)·D(k)`,
+  proven `= n!` over Int by paired induction on `(TZ n = n!, BZ n = n·n!)` with `BZ n = Σ C(n,k)·D(k+1)`;
+  recurrences `TZ(n+1)=TZ n+BZ n` (Pascal split) and `BZ(n+1)=(n+1)·BZ n+TZ(n+1)` (consuming
+  `derange_one_term` + `alt_binom_sum` + `choose_succ_mul`).  Cast back via `sumTo_cast` + `Int.ofNat.inj`.
+  Bridges the derangement and binomial clusters.  Genuinely absent (no `choose`×`derange` anywhere).
+  (Index-dependent coeff `(n+1)` blocks the Fibonacci paired-invariant template — needed the Int
+  `sumZ` toolkit + 3-atom algebra helpers `split_succ_mul`/`zero_mul_mul` where `ring_intZ` atom-caps.)
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
