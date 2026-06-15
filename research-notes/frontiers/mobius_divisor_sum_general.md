@@ -1,8 +1,23 @@
 # Frontier: general Möbius divisor-sum `∀ n ≥ 1, Σ_{d∣n} μ(d) = [n=1]`
 
-**Status**: divisor-product reindex ✅ **CLOSED** (`DivisorMultiplicative.lean`) →
-**general σ/τ multiplicativity proven**.  General Möbius divisor-sum + Möbius
-inversion now reachable from the same `divisor_product_reindex` (next step).
+**Status**: ✅ **CLOSED for `muStruct`** (`MobiusDivisorSum.lean`):
+`muStruct_divisor_sum (n) (0<n) : Σ_{d∣n} muStruct d = [n=1]`, general, ∅-axiom.
+Also: divisor-product reindex closed (`DivisorMultiplicative.lean`) + general σ/τ
+multiplicativity.  The **only remaining** open item is the `muStruct = mu` bridge
+(to transport the divisor-sum from the structural `muStruct` to the corpus
+trial-division `mu`) — the open `muAux`-correctness scan invariant (gates 2–3 below).
+Möbius inversion `Σ_{d∣n} μ(d)·g(n/d)` is also now reachable from `divisorSumZ_product_reindex`.
+
+## Update 4 — general Möbius divisor-sum CLOSED for `muStruct` (`MobiusDivisorSum.lean`)
+
+`muStruct_divisor_sum (n) (0<n) : divisorSumZ n muStruct = (n == 1).toNat` — the
+general `Σ_{d∣n} μ(d) = [n=1]` for the structural Möbius (41 PURE).  Pieces:
+`divisorSumZ_product_reindex` (Int reindex), `muStruct_divisorSum_mul`
+(multiplicative divisor-sum), `divisorSumZ_prime_pow_reindex` +
+`muStruct_divisorSum_prime_pow` (= `sumMF k`, 0 for k≥1), `exists_prime_pow_cofactor`
+(smallest-prime split).  Assembly: `n>1 ⇒ n = p^{k+1}·m ⇒ D(μ)(n) = 0·_ = 0`.
+
+The remaining `muStruct = mu` bridge gates (unchanged, the ONLY thing left):
 
 ## Update 3 — the missing tool is BUILT; σ/τ multiplicativity CLOSED (`DivisorMultiplicative.lean`)
 

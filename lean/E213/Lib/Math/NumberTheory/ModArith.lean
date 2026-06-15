@@ -75,6 +75,7 @@ import E213.Lib.Math.NumberTheory.SumOfDivisors
 import E213.Lib.Math.NumberTheory.GaussTotient
 import E213.Lib.Math.NumberTheory.DivisorProductReindex
 import E213.Lib.Math.NumberTheory.DivisorMultiplicative
+import E213.Lib.Math.NumberTheory.MobiusDivisorSum
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.
 

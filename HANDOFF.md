@@ -696,6 +696,17 @@ closure → full build → commit.
   reindex (frontier `mobius_divisor_sum_general.md`, updated).  (First two reindex agents stalled/partial;
   the third closed it fully with the generalize-first `ring_nat` fix + /tmp checkpointing.)
 
+- **116 — number theory (★★★ HEADLINE, general Möbius divisor-sum)**: `NumberTheory/MobiusDivisorSum.muStruct_divisor_sum`
+  (NEW file, 41 PURE) — **the general Möbius divisor-sum** ★★★ `∀n>0, Σ_{d∣n} muStruct d = [n=1]`
+  (`divisorSumZ n muStruct = (n==1).toNat`) for the structural Möbius, built on the iter-115 reindex.
+  Pieces: `divisorSumZ_product_reindex` (Int `sumZ` mirror of the reindex + Int sumZ toolkit),
+  `muStruct_divisorSum_mul` (multiplicative divisor-sum via reindex + `muStruct_mul`),
+  `divisorSumZ_prime_pow_reindex` + `muStruct_divisorSum_prime_pow` (`= sumMF k`, 0 for k≥1),
+  `exists_prime_pow_cofactor` (smallest-prime-power split `n>1 → n=p^k·m`).  Assembly: `n>1 ⇒
+  n=p^{k+1}·m ⇒ D(μ)(n) = D(μ)(p^{k+1})·D(μ)(m) = 0·_ = 0` (no strong induction needed).  The
+  corpus-`mu` version remains gated by the open `muStruct = mu` bridge (the ONLY remaining open item;
+  frontier `mobius_divisor_sum_general.md`).  Möbius inversion now also reachable from the same reindex.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
