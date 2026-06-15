@@ -53,6 +53,12 @@ closure → full build → commit.
   Induction on `a` via the `sumTo` reindex toolkit (`sumTo_split_first` forward/backward,
   `sumTo_add_func`, `Nat.succ_sub_succ` for the `k−j` friction).  The "deeper frontier"
   pivot's first genuine deep win (post-table-completion).
+- **31 — number theory (deep)**: `ModArith/SqMinusTwoFrame.sq_minus_two_dvd_iff` —
+  `(∃x, p∣x²−2) ↔ (m−m/2)%2=0` for odd prime `p=2m+1`, the **second supplement** to
+  quadratic reciprocity framed as divisibility of `x²−2` (2 PURE).  Genuine sibling of
+  T4's `SqPlusOneFrame` (`x²+1`/first supplement): same unbounded-root→bounded-residue
+  bridge (`dvd_sq_sub_mod_sq` + `dvd_sub_213`), plus the extra `r²≥2` lower-bound
+  recovery for the `−2` shift, then `second_supplement_m`.
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
