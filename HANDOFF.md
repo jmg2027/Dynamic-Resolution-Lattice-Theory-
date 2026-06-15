@@ -144,6 +144,11 @@ closure → full build → commit.
   ∅-axiom = large framework, deferred — this is the genuine result one rung up from the gcd
   kernel.  GAP NOTED: no computable Möbius/totient + divisor-enumeration → Möbius inversion /
   Gauss totient-sum `Σ_{d|n}φ(d)=n` remain open frontiers needing that framework.
+- **42 — number theory (deep, corollary)**: `ModArith/CoprimeMultiplicative.coprime_pow_pow`
+  (now 11 PURE in-file) — **coprimality preserved under powers**: `gcd(a,b)=1 ⟹
+  gcd(aᵐ,bⁿ)=1` (+ one-sided `coprime_pow_right/left`).  Direct induction on
+  `coprime_mul_of_coprime` (iter 41).  A lowest-terms ratio stays lowest-terms under powers.
+  Appended to the iter-41 file (same topic).  `Nat.pow_zero/pow_succ` verified PURE here.
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

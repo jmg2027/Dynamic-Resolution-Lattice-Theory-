@@ -14,7 +14,11 @@ repo's ∅-axiom gcd kernel (`gcd213`) — Euclid's lemma
 
 Absent from the corpus: only `ord_mul_coprime` (a *consequence* about
 multiplicative orders) and `gcd_mul_lcm` existed; the general split of
-coprimality across a product is new here.  All ∅-axiom.
+coprimality across a product is new here.
+
+Direct corollaries (`coprime_pow_right/left/pow`): coprimality is preserved
+under powers — `gcd(a,b)=1 ⟹ gcd(aᵐ, bⁿ)=1` (a lowest-terms ratio stays
+lowest-terms under powers).  All ∅-axiom.
 -/
 
 namespace E213.Lib.Math.NumberTheory.ModArith.CoprimeMultiplicative
@@ -22,7 +26,8 @@ namespace E213.Lib.Math.NumberTheory.ModArith.CoprimeMultiplicative
 open E213.Tactic.NatHelper (gcd213)
 open E213.Meta.Nat.Gcd213
   (gcd213_dvd_left gcd213_dvd_right gcd213_greatest
-   mul_eq_one_left coprime_dvd_of_dvd_mul mul_assoc_213)
+   mul_eq_one_left coprime_dvd_of_dvd_mul mul_assoc_213
+   gcd213_comm gcd213_one_left)
 
 /-- `d ∣ 1 → d = 1` (∅-axiom; from `mul_eq_one_left`). -/
 theorem eq_one_of_dvd_one {d : Nat} (h : d ∣ 1) : d = 1 := by
@@ -84,6 +89,32 @@ theorem coprime_mul_iff (a b c : Nat) :
   Iff.intro
     (fun h => ⟨coprime_of_coprime_mul_left h, coprime_of_coprime_mul_right h⟩)
     (fun ⟨hb, hc⟩ => coprime_mul_of_coprime hb hc)
+
+/-! ## Coprimality is preserved under powers (corollaries of `coprime_mul_iff`) -/
+
+/-- `gcd213 a 1 = 1` (base case): via `gcd213_comm` + `gcd213_one_left`. -/
+theorem gcd213_one_right (a : Nat) : gcd213 a 1 = 1 :=
+  (gcd213_comm a 1).trans (gcd213_one_left a)
+
+/-- `gcd(a,b) = 1 → gcd(a, bⁿ) = 1`.  Induction on `n` via `coprime_mul_of_coprime`. -/
+theorem coprime_pow_right {a b : Nat} (h : gcd213 a b = 1) :
+    ∀ n, gcd213 a (b ^ n) = 1
+  | 0 => by rw [Nat.pow_zero]; exact gcd213_one_right a
+  | n + 1 => by
+      rw [Nat.pow_succ]
+      exact coprime_mul_of_coprime (coprime_pow_right h n) h
+
+/-- `gcd(a,b) = 1 → gcd(aᵐ, b) = 1`.  Flip via `gcd213_comm`, use `coprime_pow_right`. -/
+theorem coprime_pow_left {a b : Nat} (h : gcd213 a b = 1) (m : Nat) :
+    gcd213 (a ^ m) b = 1 := by
+  rw [gcd213_comm]
+  exact coprime_pow_right ((gcd213_comm b a).trans h) m
+
+/-- ★ `gcd(a,b) = 1 → gcd(aᵐ, bⁿ) = 1` — a lowest-terms ratio stays lowest-terms
+    under powers.  Composes the two one-sided power lemmas. -/
+theorem coprime_pow_pow {a b : Nat} (h : gcd213 a b = 1) (m n : Nat) :
+    gcd213 (a ^ m) (b ^ n) = 1 :=
+  coprime_pow_left (coprime_pow_right h n) m
 
 /-- Concrete sanity checks: `35 = 5·7` is coprime to `12`, not to `15`. -/
 theorem coprime_mul_smoke :
