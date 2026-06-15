@@ -1,4 +1,6 @@
 import E213.Meta.Tactic.NatHelper
+import E213.Meta.Nat.NatRing213
+import E213.Meta.Nat.PolyNatMTactic
 /-!
 # Binomial coefficients (213-native) — FLT prerequisite
 
@@ -177,5 +179,30 @@ theorem choose_succ_mul : ∀ (n k : Nat),
     rw [Nat.add_comm (choose (n + 1) (k + 1)) ((n + 1) * choose n (k + 1))]
     rw [← Nat.add_assoc ((k + 1) * choose (n + 1) (k + 1))
           ((n + 1) * choose n (k + 1)) (choose (n + 1) (k + 1))]
+
+/-- ★★ **Binomial symmetry** — `C(n,a) = C(n,b)` whenever `a + b = n` (`C(n,k) =
+    C(n,n−k)`, the reflection of Pascal's triangle).  Recursion on the *sum* `n`
+    (not on `a`/`b`) keeps it ∅-axiom: `Nat.add_right_cancel` is propext-tainted,
+    replaced by `nat_add_right_cancel`. -/
+theorem choose_symm_sum : ∀ (n a b : Nat), a + b = n → choose n a = choose n b
+  | 0,     a, b, h => by
+      rw [Nat.eq_zero_of_add_eq_zero_right h, Nat.eq_zero_of_add_eq_zero_left h]
+  | n + 1, 0, b, h => by
+      have hb : b = n + 1 := by rw [← h, Nat.zero_add]
+      rw [hb, choose_zero_right, choose_self]
+  | n + 1, a + 1, 0, h => by
+      have ha : a + 1 = n + 1 := by rw [← h, Nat.add_zero]
+      rw [ha, choose_zero_right, choose_self]
+  | n + 1, a + 1, b + 1, h => by
+      have h' : a + b + 1 = n :=
+        E213.Meta.Nat.NatRing213.nat_add_right_cancel (by rw [← h]; ring_nat)
+      rw [choose_succ_succ n a, choose_succ_succ n b,
+          choose_symm_sum n a (b + 1) (by rw [← h']; ring_nat),
+          choose_symm_sum n (a + 1) b (by rw [← h']; ring_nat),
+          Nat.add_comm]
+
+/-- `C(a+b, a) = C(a+b, b)` — binomial symmetry in additive-split form. -/
+theorem choose_symm_add (a b : Nat) : choose (a + b) a = choose (a + b) b :=
+  choose_symm_sum (a + b) a b rfl
 
 end E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial
