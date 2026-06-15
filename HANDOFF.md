@@ -253,6 +253,12 @@ closure → full build → commit.
   a substantial **Fibonacci cluster** (sums, divisibility, addition formula, gcd, Zeckendorf
   existence+uniqueness, CF Fibonacci floor).
 
+- **55 — combinatorics (deep)**: `Combinatorics/LucasFibonacci` (12 PURE) — the
+  **Lucas–Fibonacci link identities** (none existed; corpus `LucasCutoff.Lucas` is cut-off-only):
+  `luc_eq_fib` `L_{n+1}=Fₙ+F_{n+2}`, **`fib_doubling`** `F_{2n+2}=F_{n+1}·L_{n+1}` (the
+  `F_{2n}=Fₙ·Lₙ` doubling), `fib_odd_doubling` `F_{2n+1}=F_{n+1}²+Fₙ²` (immediate from
+  `fib_add n n`).  Builds on iter-52 `fib_add`.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
