@@ -155,7 +155,21 @@ closure → full build → commit.
   `Σ_{k<m·n} g = Σ_{i<m} Σ_{j<n} g(i·n+j)` — the `|A×B|=|A|·|B|` block decomposition /
   division-algorithm reindexing.  Plus general `sumTo_const = n·c`.  (Agent had re-defined
   `sumTo` locally; re-ported against the real toolkit — corpus def is definitionally
-  identical so proofs transfer.  add-linearity/scaling/congr/fubini already present, skipped.)> NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
+  identical so proofs transfer.  add-linearity/scaling/congr/fubini already present, skipped.)
+- **44 — analysis/continued-fractions (deep, high-value)**: `Real213/ContinuedFraction/
+  ConvergentGrowth.cfQn_ge_fib` (6 PURE) — the **Fibonacci floor** on convergent
+  denominators `fib n ≤ q_n` (partial quotients ≥ 1): denominators grow at least
+  geometrically, so convergent gaps `1/(qₙq_{n+1})` shrink like `φ^{-2n}` — strictly
+  sharper than the existing crude `n ≤ q_n` (`cfQn_ge_self`).  Coupled depth-2 induction on
+  the existing `cfQn_fib` step.  Plus denominator monotonicity `q_n ≤ q_{n+1}` (also absent).
+  Bound is sharp (attained by the all-1s CF = φ: `q₅=8=fib 6`).  Rounds out the CF
+  convergent-arithmetic + growth core.
+- **REJECTED (triplicate)**: Euclid's lemma for primes `p∣ab → p∣a ∨ p∣b` — already in the
+  corpus 3× (`FourSquareSeed.nat_prime_dvd_mul`, `VpMul.euclid_lemma`,
+  `PrimeValuation.prime_dvd_mul`).  Agent honest; the minor `prime_dvd_pow` companion not
+  worth a fresh file on a 4th `prime_dvd_mul` copy.
+
+> NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
 > clean but increasingly *incremental* — completing tables / sibling `decide` facts
