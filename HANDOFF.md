@@ -109,6 +109,13 @@ closure → full build → commit.
   `n`: multiply IH by `(1+x)`, `ring_nat`-expand, drop the `n·x²` surplus.  Consolidated
   into the existing `PowBernoulli.lean` (rule 7, same-topic).  Companion `a≤b → aⁿ≤bⁿ`
   skipped (already present as `ConfigCount.pow_le_pow_base`).
+- **37 — number theory (deep)**: `ModArith/SumOfSquaresObstruction` (6 PURE) — the
+  elementary QR obstructions, general over Nat (corpus's `GaussianTwoSquare` is
+  prime-restricted/Int): **Fermat** `not_sum_two_squares_mod4` (sum of 2 squares ≠ 3 mod 4,
+  squares ∈ {0,1} mod 4) + **Legendre** `three_squares_ne_7_mod8` /
+  `not_three_squares_of_mod8_seven` (sum of 3 squares ≠ 7 mod 8, squares ∈ {0,1,4} mod 8 —
+  the obstruction half of the three-square theorem).  Route: `mul_mod_pure` residue
+  reduction + `match` on `a%m` (mod_lt kills overflow) + `decide` the finite table.
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
