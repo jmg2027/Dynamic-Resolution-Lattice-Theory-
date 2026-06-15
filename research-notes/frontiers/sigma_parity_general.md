@@ -14,8 +14,11 @@ General ⟺ blocked on missing corpus infra.
   `sigma_parity_table` (n=1..30 matching the square-or-twice-square indicator).
 
 ## The three missing corpus crux lemmas (block the general ⟺)
-1. **No 2-adic odd-part decomposition** `n = 2^a · odd` (no `oddPart` / `ord_compl` /
-   `exists_two_pow_mul_odd` under `lean/E213`).
+1. ~~**No 2-adic odd-part decomposition** `n = 2^a · odd`.~~ **CLOSED** (iter 164,
+   `lean/E213/Lib/Math/NumberTheory/OddPartDecomposition.lean`): `decomp : n = 2^(v2 n)·oddPart n`,
+   `oddPart_odd`, `sigma_decomp : σ n = σ(2^(v2 n))·σ(oddPart n)`, and
+   `sigma_odd_iff_oddPart : σ n % 2 = 1 ↔ σ(oddPart n) % 2 = 1` — the general σ-parity ⟺ now reduces
+   to a statement about `oddPart n` only.  Remaining: crux #2 below.
 2. **No `isSquare_iff_all_vp_even`** ("perfect square ⟺ every prime valuation even").
    `Meta/Nat/VpSeparation.vp_separation` proves *injectivity* of the exponent vector,
    not the square criterion.

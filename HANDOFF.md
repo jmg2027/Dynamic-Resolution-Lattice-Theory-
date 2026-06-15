@@ -1083,6 +1083,18 @@ closure → full build → commit.
   theorem.  Each a one-line `Nat.rec` (`sumZ_succ` + `fibZ_rec` + `ring_intZ`).  Committed as toolkit
   completion, flagged low-novelty per the duplicate-honesty discipline.
 
+- **164 — number theory (★★ 2-adic odd-part decomposition — frontier crux #1 CLOSED)**:
+  `NumberTheory/OddPartDecomposition` (NEW file, 20 PURE) — genuinely-novel foundational infra.
+  ★★★ `decomp : 0<n → n = 2^(v2 n) · oddPart n` + `oddPart_odd` (the odd part is odd) via a reducible
+  fuel-based `stripTwo` (the Josephus fuel-irrelevance pattern); ★★ `sigma_decomp :
+  σ n = σ(2^(v2 n))·σ(oddPart n)` (coprime split, `gcd(2^a,oddPart)=1` since oddPart odd, reusing
+  PerfectNumbers' coprimality approach + `sigma_mul`); ★★★ `sigma_odd_iff_oddPart :
+  σ n % 2 = 1 ↔ σ(oddPart n) % 2 = 1` — removes the 2-part from σ-parity entirely (σ(2^a)=2^{a+1}−1 always
+  odd, via iter-162 `sigma_two_pow_odd`).  This **discharges crux #1** of the σ-parity frontier
+  (`research-notes/frontiers/sigma_parity_general.md` updated), reducing the blocked general σ-parity ⟺ to
+  a statement about `oddPart n` only (remaining: crux #2, `IsSquare ⟺ all odd-prime valuations even`).
+  Reusable infra (the corpus had `vp` valuation but NO quotient/odd-part decomposition).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
