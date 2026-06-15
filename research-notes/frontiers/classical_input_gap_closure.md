@@ -88,6 +88,56 @@ physics names (octet, spacetime, mass, CP) are readings, promotable toward force
 only where genuine math sits underneath (octet→cokernel; CP→Hodge star), and even
 then the final SM label stays a reading.**
 
+## The deepest layer — does the discrete forcing climb into the CONTINUOUS?
+
+The readings split discrete vs continuous: the closeable ones stayed **discrete**
+(octet = finite `(F₂)⁸` cohomology; CP = the order-4 group `ℤ[i]^×`), the
+resisting ones need **continuous** objects (SU(3) Lie group, spacetime manifold,
+`π` to ppb).  The π fed as a literal (`GradedFormula.lean:34`) marks the
+discrete→continuous boundary.  But the framework's own `Real213` says the
+continuous is **not above** the discrete — it is the *never-closing modulus* of
+a discrete pointing (`PiCut`, the limit "reached by none").  So the boundary is
+not fundamental; the fed-π is a shortcut.  **Test: can the discrete modulus
+provably bracket a continuous value, ∅-axiom?**
+
+**Finding (two-agent, verified): YES — as a BRACKET (forced-discrete-pointing),
+not a value; achievable now via the framework's own machinery.**
+
+- `Basel/Bound.lean` computes rational endpoints `S(N)`, `upper(N)=S(N)+1/N`
+  (`decide`), but the **bracketing of ζ(2) is asserted in prose, not proven**
+  (`:49-52`: "Proof of ζ(2) ≤ upper(N) ... not needed as a Lean theorem").
+- The genuine closure is the **`Zeta3Cut` template**: define ζ(2) as the
+  `AbCutSeq` limit of `S(N)` (a monotone, positive, rational sequence), then the
+  bracket transports to the real via `AbCutSeq.limit_brackets`
+  (`Real213/AbCutSeq.lean:166`).  Reachable now, **~120–180 lines, easier than
+  `Zeta3Cut.lean` (718 lines)** — Basel needs no holonomic recurrence engine
+  (`S` is a direct partial sum).  Exact construction: `zeta2RawSeq`,
+  `zeta2_isAbMonotonic` (reduces to `0 ≤ S(n).2²`), the single load-bearing new
+  lemma **`S_le_upper`** (`∀ i, S(i) ≤ S(N)+1/N`, the telescoping
+  `1/(n+1)² ≤ 1/(n(n+1)) ⟺ n ≤ n+1`, a `Nat` induction), then instantiate
+  `limit_brackets`.  New file `Real213/Zeta2Cut.lean`.
+- **Honest framing**: the cut is **reached by no finite N** — the modulus never
+  closes (the framework's own "Limit deified" / "reached by none").  So the
+  continuous becomes a **bracket** to any precision, NOT a computed value.  That
+  IS "the continuous is the discrete modulus's never-closing shape."  The
+  completion modulus stays a hypothesis (as for π, ζ(3)) — but Basel is *better*
+  positioned (explicit rate `1/(N(N+1))` via `toCauchySep`, a constructed
+  modulus is plausible).
+- **Honest limit**: closing ζ(2) converts **one of four** coupling terms
+  (`1/α_em = 60ζ(2) + 30 + d²/NS + 1/(NS·NT·π⁵)`) from fed-literal to
+  forced-discrete-bracket.  `π⁵` stays a fed literal (`PiFiveGap.lean:88,96`),
+  and the `5.4×10⁻⁴` central-value gap is **provably bracket-independent**
+  (`StructuralGap.lean:11-15`).  So the *continuous coupling* is not closed by
+  this; one continuous *constant* (ζ(2)) becomes a genuine discrete bracket.
+
+**Deepest answer (drawable).**  The discrete forcing **does** climb into the
+continuous — as a never-closing bracket, via the framework's own `AbCutSeq`.
+"Why does our universe match" at the continuous layer = the discrete modulus
+brackets the continuous value to any precision (forced-discrete-pointing),
+reached by none.  The build (`Zeta2Cut.lean`) is specified and achievable; not
+yet built (substantial unreduced-rational induction) — recorded as the precise
+next construction.
+
 ## Status + next
 
 - **G1 closed** (`OctetCokernel`, PURE, build-green, wired; `IotaKToDelta4`
