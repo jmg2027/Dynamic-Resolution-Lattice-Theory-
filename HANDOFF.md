@@ -798,6 +798,12 @@ closure → full build → commit.
   (strong induction on m+n), and the central-Delannoy table.  Genuinely absent.
   (Also rejected this round: geometric series closed form — `GeometricSeries.geom_sum` already exists.)
 
+- **133 — combinatorics (new sequence)**: `Combinatorics/ZigzagNumbers.{zigzag, zigzag_rec, zigzag_table}`
+  (NEW file, 8 PURE) — the **zigzag / Euler up-down numbers** `A(n)` (alternating permutations, OEIS
+  A000111: 1,1,1,2,5,16,61,272,1385) via the **boustrophedon (Seidel) triangle** `T(n,k)=T(n,k−1)+T(n−1,n−k)`,
+  `A(n)=T(n,n)` (fuel-based).  ★ general fuel-level `zigzag_rec`, the A000111 table, and the boustrophedon
+  entry-fill recurrence (table form, rows 1–5).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
