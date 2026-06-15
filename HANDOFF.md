@@ -149,7 +149,13 @@ closure → full build → commit.
   gcd(aᵐ,bⁿ)=1` (+ one-sided `coprime_pow_right/left`).  Direct induction on
   `coprime_mul_of_coprime` (iter 41).  A lowest-terms ratio stays lowest-terms under powers.
   Appended to the iter-41 file (same topic).  `Nat.pow_zero/pow_succ` verified PURE here.
-> NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
+- **43 — combinatorics (deep)**: `Combinatorics/SumReshape.{sumTo_concat, sumTo_reshape}`
+  (4 PURE) — structural `sumTo` identities for the *corpus* `sumTo`: **range splitting**
+  `Σ_{k<m+n} f = Σ_{k<m} f + Σ_{k<n} f(m+·)` and ★ **1D→2D reshape**
+  `Σ_{k<m·n} g = Σ_{i<m} Σ_{j<n} g(i·n+j)` — the `|A×B|=|A|·|B|` block decomposition /
+  division-algorithm reindexing.  Plus general `sumTo_const = n·c`.  (Agent had re-defined
+  `sumTo` locally; re-ported against the real toolkit — corpus def is definitionally
+  identical so proofs transfer.  add-linearity/scaling/congr/fubini already present, skipped.)> NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
 > clean but increasingly *incremental* — completing tables / sibling `decide` facts
