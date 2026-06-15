@@ -136,9 +136,17 @@ forces `c·NS·NT`, and the NT↔c coincidence is structurally broken.
 |---|---|---|---|---|
 | ζ(2) | π²/6 | **derived** | Basel chapter (repo-derived, not hardcoded; `README.md` "ζ(2) via Basel") | no transcendental constant inserted by hand |
 | α_GUT | `1/α_GUT = d²·ζ(2) = 25·π²/6` | **derived** | `Couplings/AlphaGUT.lean`, `SpectrumComplete.inv_alpha_GUT_eq_25` | **not an external GUT input** — itself a function of `d` and ζ(2) |
-| Basel **resolution depth** `N` | `α_3→1, α_2→2, α_1→∞` | **assignment** (physical range) | `Foundations/ResolutionDepth.depth_principle_witnesses` (PURE) | the genuine "**Dynamic Resolution**": each coupling is the ζ(2) series truncated at depth `N` = the force's range cutoff (confined→1, massive→2, massless→∞).  **Load-bearing** (wrong depth ⇒ wrong answer: `α_2@N=1=24≠30`, `α_3@N=2=10≠8`), but the depth-to-force *map* is set by physical range, not forced from 213 — an un-closed assignment DoF (parallel to the `c` finding). |
+| Basel **resolution depth** `N` | `α_3→1, α_2→2, α_1→∞` | **derived** (rank exhaustion) | `Cosmology.NeffDerivation.basel_formula_axiom_derived` (PURE) | the genuine "**Dynamic Resolution**": each coupling is the ζ(2) series truncated at depth `N` = the Gram-sector rank-exhaustion hop count, **derived from `{NS, NT}`**: `α_3 = C(NS,NS) = 1` (AAA pure sector, `C(NS,NS+1)=0` saturates), `α_2 = NT = 2` (temporal rank cap, `C(NT,NT+1)=0`), `α_1 = ∞` (cross-sector, `NS ≠ NT` ⇒ no saturation).  **Load-bearing** (wrong depth ⇒ wrong answer: `α_2@N=1=24≠30`, `α_3@N=2=10≠8`).  Residual: the **sector↔force naming** (AAA↔color, ABB-temporal↔weak, cross↔EM) — structurally motivated (color = pure NS-sector `SU(NS)`, weak = NT-temporal, EM = cross/U(1)), the genuine minimal physical interface. |
 
-**Layer-2 verdict.** No external physical *constant* is imported: ζ(2) is from
+**Layer-2 verdict.** No external physical *constant* is imported (ζ(2), α_GUT
+residue-derived).  The **Basel resolution depth `N`** — the genuine "Dynamic
+Resolution" of DRLT (Zeno→pixels, `seed/ORIGIN.md`) — is **derived from
+`{NS, NT}`** by Gram-sector rank exhaustion (`NeffDerivation`, PURE), not a free
+physical input: the three depths `(1, 2, ∞)` follow from `C(NS,NS)=1`, `NT=2`,
+and `NS≠NT`.  Unlike the redundant lattice multiplicity `c`, the depth is both
+*load-bearing* and *forced-from-the-atoms*.  The one residual is the
+sector↔force naming (which sector is color/weak/EM) — the minimal physical
+interface, structurally motivated by the group identities.  ζ(2) is from
 Basel, α_GUT from `d²·ζ(2)`. This closes the most common skeptic charge
 ("you smuggled in α_GUT from the Standard Model") — it is refuted by the
 code: α_GUT here is `6/(25π²)`, derived.
