@@ -212,9 +212,41 @@ multiplicity axis must carry the sign/orientation Lens (P3).  P3 is not a
 theorem; its motivation is the gauge target (exterior) and its "minimal"
 selection is the banned level-privileging.  Status stands: **3 forced + 1
 posited**, with the posit now pinpointed to P3 and the forced-given-P3 value
-identified as `|ℤ/2|`.  A genuine closure must derive P3 axiom-internally
-(why must the canonical lattice be read at the *signed* resolution?) without
-naming the gauge target — still open.
+identified as `|ℤ/2|`.
+
+## Chirality round — P3 sharpened to P3′, then REFUTED (∅-axiom)
+
+A follow-up debate chased the originator's recollection of a *chirality*
+derivation of `c = 2`.  The repo does carry internal chirality: the signed
+cup is antisymmetric (`Cup/SignedCup.cup1_antisymmetric`, PURE:
+`e_i ∧ e_j = −e_j ∧ e_i`) and `Aut(K_{3,2}^{(c=2)})` has an internal
+`C₂^(NS·NT)` "sheet-swap" (`Lib/Physics/Symmetry/AutKChiral`).  This route
+genuinely improved the *framing*: it gives the signed reading an **internal**
+source (cup antisymmetry is a theorem, no su(3) named — answering the
+exterior-import objection) and makes the value a **group order** `|ℤ/2| = 2`
+(not a privileged tower level — answering the level-privileging objection).
+
+It thereby sharpened P3 to a single decidable proposition **P3′**: *the
+multiplicity parity (`e % 2`, the sheet-swap ℤ/2) equals the cup-orientation
+parity (`(−1)^inv`, the cup ℤ/2).*
+
+**P3′ is false (proven).**  `V32Betti.mult_parity_orthogonal_to_cup_orientation`
+(PURE): every sheet-pair `(2k, 2k+1)` shares its endpoints `(src, tgt)` yet
+differs in `e % 2`.  The cup-orientation sign is a function of an edge's
+**endpoints**; the sheet-swap **preserves endpoints** and flips only the
+multiplicity bit.  So the two ℤ/2's act on orthogonal data and cannot be
+identified — the repo's cup chirality is the **`NS ≠ NT` endpoint asymmetry**
+(already part of `(NS, NT)` being forced), a *different* ℤ/2 from the
+multiplicity `c`.  The chirality route is the same "two distinct ℤ/2's
+coinciding" pattern, now closed-negative with a Lean witness.
+
+**Net (final).**  Status stands: **3 forced + 1 posited**.  `c = 2` is not
+forced by chirality (orthogonality theorem above), nor by the cohomology
+dimension (`K32Projection §7`, c-line crossing), nor by the Möbius period
+(literals + trivial `(−I)²=I`), nor by minimality (banned level-privileging),
+nor by arity (multiplicity is not an arity).  A genuine closure still needs an
+axiom-internal principle picking `c = 2` that does not name the gauge target —
+none found across five reframings.
 
 ## Secondary symptom: the `C2b` label collision
 
