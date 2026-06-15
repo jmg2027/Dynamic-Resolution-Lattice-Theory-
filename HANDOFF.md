@@ -103,6 +103,12 @@ closure → full build → commit.
   `Tactic/Extras/CauchySchwarz.lean`) has no exact-defect companion stating the slack
   `= (ad−bc)²` — a legitimate (if small) future connective, deliberately deferred as
   too-incremental for the deep-frontier mandate.
+- **36 — inequalities (deep)**: `Meta/Nat/PowBernoulli.bernoulli_classic` (PURE) — the
+  **textbook Bernoulli inequality** `1 + n·x ≤ (1+x)ⁿ` over Nat.  Genuinely absent (the
+  file had only the *additive cross-degree* form `bernoulli_upper/lower`).  Induction on
+  `n`: multiply IH by `(1+x)`, `ring_nat`-expand, drop the `n·x²` surplus.  Consolidated
+  into the existing `PowBernoulli.lean` (rule 7, same-topic).  Companion `a≤b → aⁿ≤bⁿ`
+  skipped (already present as `ConfigCount.pow_le_pow_base`).
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
