@@ -565,6 +565,14 @@ closure → full build → commit.
   — needs partition-by-gcd cardinality (`count{k≤n:gcd(k,n)=g}=φ(n/g)` summed over divisors), a
   reusable `count_partition_by_key` toolkit not yet PURE in the corpus.
 
+- **102 — combinatorics (DEEP, general)**: `Combinatorics/StirlingFirstKind.{stirling1, stirling1_row_sum}`
+  (NEW file, 5 PURE) — **unsigned first-kind Stirling numbers** `c(n,k)` (permutations of `n` by cycle
+  count) + the **row-sum identity** ★ `Σ_{k=0}^{n} c(n,k) = n!` (general).  Recurrence
+  `c(n+1,k+1) = n·c(n,k+1) + c(n,k)` (mirrors `stirling2`).  Induction on `n`: head-peel + reindex +
+  split into `n·Σ c(n,k+1) + Σ c(n,k)`; `reindex_scaled` (the scaled tail = scaled full sum, both
+  collapsing once `c(n,0)=0` head and `c(n,n+1)=0` top vanish) gives `n·n!`, IH gives `n!`, total
+  `(n+1)·n! = (n+1)!`.  Complements the second-kind defining identity (iter 100).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
