@@ -95,6 +95,14 @@ closure → full build → commit.
   recurrence.  Completes the convergent-arithmetic core: determinant (iter 32) +
   coprimality (iter 34) + recurrence (iter 35).  **CF continuant sub-tree now closed** —
   candidate for theory/ promotion.
+- **REJECTED (duplicate/reparametrization)**: NT2 agent's Brahmagupta disc-−4 composition
+  `(ac−bd)²+(ad+bc)²=(a²+b²)(c²+d²)` is **already** `QuadIdentities.int_quad_diophantus`
+  (corpus names it "Diophantus identity", agent grepped "brahmagupta" and missed it);
+  Lagrange `(a²+b²)(c²+d²)−(ac+bd)²=(ad−bc)²` is the `d↦−d` sign-twin of the same
+  polynomial identity.  Not ported.  GAP NOTED: `cs_2d_le` (2D Cauchy–Schwarz inequality,
+  `Tactic/Extras/CauchySchwarz.lean`) has no exact-defect companion stating the slack
+  `= (ad−bc)²` — a legitimate (if small) future connective, deliberately deferred as
+  too-incremental for the deep-frontier mandate.
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
