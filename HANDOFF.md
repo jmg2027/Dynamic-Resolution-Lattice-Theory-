@@ -38,6 +38,24 @@ closure → full build → commit.
   involution of the order-10 group: `M⁵≠I`, `(M⁵)²=I`).
 - **21 — combinatorics**: `Catalan.catalan_growth_ratio` (`C_{n+1} ≤ 4·C_n`, the →4
   asymptotic in division-free form).
+- **22-24 — cohomology** (10th area): `EulerAndCapstone.{eulerChar_G121_family,
+  eulerChar_eq_one_sub_b1_family}` (Euler char family + the Euler–Poincaré bridge
+  `χ=1−b₁`, prose→theorem); `T2nBetti.T2n_full_betti_values` (full Betti row of `T²ⁿ`
+  + total dim `Σ b_k = 2^(2n)`).
+- **25-26 — algebra**: `Cayley.J'_mul_conj_J'` + `CDDouble.Lipschitz.J_mul_conj_J`
+  (octonion/quaternion composition `J·conj J = 1`, completing the generator trios).
+- **27-29 — combinatorics/NT/IT**: `Binomial.binom_4_row` (Pascal row 4 + sum 2⁴);
+  `Lcm213.lcm213_4_6 = 12` (concrete, fuel-gcd kernel reduction); `Coding.
+  hamming_triangle_concrete` (equal-length triangle instance).
+
+> NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
+> promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
+> differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
+> clean but increasingly *incremental* — completing tables / sibling `decide` facts
+> across breadth (cohomology, Cayley-Dickson, Pascal/Stirling/Catalan).  The cheap
+> `decide`/`ring` table-completions are nearly mined out; the next high-*value* work
+> is deeper (the open frontiers: exp T3 power-rule capstone, NT x²−2/Euler-iff/
+> Vandermonde, descent-schema UFD-in-Meta rewiring) or the merge/PR integration.
 
 **Reverted (marathon discipline)**: a Lipschitz `conj_add` addition broke downstream
 `LipschitzAlgebra213` via a `conj_add` name-clash with `ZI.conj_add` — reverted, no
