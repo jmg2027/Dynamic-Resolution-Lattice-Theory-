@@ -388,6 +388,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (currently a structural assertion). Anchors:
   `Lib/Physics/AlphaEM/{GramCubicReduction,GramD2Readings,GramD2Mechanism}`.
 
+- `gravity_reconnection_hinge_holonomy` — **reconnect the early "gravity =
+  hinge area" (Regge) research with current 213.**  Two unconnected gravity
+  pictures: physics-branch Gram-modulus shadow (`GravityShadow`: gauge = phase,
+  gravity = modulus `W=|G|²/d`) vs math-branch discrete curvature (`DiscreteGaussBonnet`:
+  `κ(v)=2−deg(v)`, total `= 2−2·b₁` on `K_{m,n}` — the Regge/hinge machinery,
+  PURE, undeployed).  Bridge already present: total curvature `= 2−2·b₁` ties
+  gravity-curvature to the gauge `b₁=NS²−1` on the same `K ⊂ Δ⁴`.  Deep open
+  question (holonomy/Riemann): is there one connection on `K⊂Δ⁴` whose phase is
+  the SM gauge holonomy and whose geometric part is the Regge deficit (gravity)?
+  Phase(gauge)/modulus(gravity) vs Regge-holonomy(gravity) is the tension. `G_N`
+  undone — a reconnection *opportunity*, not a closed result.
+
 - `atomic_c_multiplicity_forcing` — **is the atomic multiplicity `c = 2`
   axiom-internally forced?** Of `(NS,NT,c,d)=(3,2,2,5)`, arity=2 and the pair
   `(3,2)` are genuinely forced, but the cup/edge multiplicity `c=2` is
