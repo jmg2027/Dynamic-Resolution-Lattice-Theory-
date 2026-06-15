@@ -905,6 +905,18 @@ closure → full build → commit.
   the Vandermonde *determinant* product formula (n=2,3) was also already PURE in the corpus
   (`Combinatorics/VandermondeDeterminant`) — full duplicate, rejected, no file written.
 
+- **147 — continued fractions (★★★ HEADLINE)**: `NumberTheory/ContinuedFractionConvergents`
+  (NEW file, 23 PURE) — the **fundamental determinant identity** of continued-fraction convergents,
+  ★★★ `cf_determinant : p(n+1)·q n − p n·q(n+1) = (−1)^n` for an **arbitrary** partial-quotient
+  sequence `a : Nat → Nat`, by `Nat.rec` (step collapses via the pure `det_step` ring-lemma — the
+  partial quotient cancels — and the sign helper `powNegOne_succ`).  Convergents `p,q` defined via a
+  window helper `cfWindow n = (p n, q n, p(n+1), q(n+1))` by structural `Nat` recursion (no
+  well-founded-recursion non-reduction).  Plus ★★ `cf_coprime` (consecutive convergents coprime — any
+  common Int divisor divides 1, from the Bézout witness + `(−1)^n` a unit) and concrete tables
+  (`fib_table`/`pi_table`: all-1s ⇒ Fibonacci ratios; `[3;7,15,1]` ⇒ 3,22/7,333/106,355/113 Milü;
+  determinant smokes).  Distinct from the corpus CF files (`DyadicFSM/ContinuedFraction` = fixed-rational
+  FSM expansion; `Sqrt2ContinuedFraction` = the √2 all-2s Pell-norm only).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
