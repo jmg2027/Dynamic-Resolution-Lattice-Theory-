@@ -752,6 +752,20 @@ closure → full build → commit.
   (the `b≡1` specialization of the iter-120 general `cauchy_schwarz`).  (Pythagorean-triple parametrization
   checked this round and rejected as duplicate of `NumberTheory/PythagoreanTriples.lean`.)
 
+- **NEW AREA round 3 (combinatorics) — iters 123–125:**
+- **123 — power sums**: `Combinatorics/PowerSums.sum_sixth` (appended, 1 PURE) — **Faulhaber Σk⁶**
+  `42·Σ_{i≤n} i⁶ + 7n³ = 6n⁷+21n⁶+21n⁵+n` (subtraction-free; `sum_fifth` already existed, only k=6 new).
+- **124 — Tribonacci partial sum**: `Cohomology/Fractal/TribonacciCutoff.{Trib_rec, sumTrib_double_succ}`
+  (appended, reuses existing `Trib`) — ★ `2·(Σ_{k≤n} T(k)) + 1 = T(n+2) + T(n)` (subtraction-free form
+  of `Σ T(k) = (T(n)+T(n+2)−1)/2`).  The `Trib` def + table already existed (cohomology cutoff probe);
+  only the partial-sum identity is new (no duplicate def — reused `Trib`).
+- **125 — combinatorics (DEEP, general)**: `Combinatorics/StirlingOrthogonality.stirling_orthogonality`
+  (NEW file, 30 PURE) — ★★★ the **Stirling orthogonality** `Σ_{k} s(n,k)·S(k,m) = [n=m]` (the defining
+  inverse relation between the two Stirling matrices, absent from all three Stirling files).  Signed
+  first-kind `s` via the signed recurrence `s(n+1,k+1)=s(n,k)−n·s(n,k+1)`; heart is
+  `T_succ_rec : T(n+1,m'+1)=((m'+1)−n)·T(n,m'+1)+T(n,m')` + `coeff_delta_zero`, then induction on n.
+  (Also rejected this round as duplicates: Pythagorean triples, 2×2 det(AB)=detA·detB, Σk⁵.)
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

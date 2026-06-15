@@ -136,4 +136,23 @@ theorem sum_fifth (n : Nat) :
     rw [h, ih]
     ring_nat
 
+/-- ★ **Sum of sixth powers** (Faulhaber k=6): `42·Σ_{i≤n} i⁶ + 7n³ = 6n⁷+21n⁶+21n⁵+n`
+    (≡ `42·Σi⁶ = n(n+1)(2n+1)(3n⁴+6n³−3n+1)`).  Subtraction-free additive form. -/
+theorem sum_sixth (n : Nat) :
+    42 * sumTo (n + 1) (fun i => i * i * i * i * i * i) + 7 * (n * n * n)
+      = 6 * (n * n * n * n * n * n * n) + 21 * (n * n * n * n * n * n)
+        + 21 * (n * n * n * n * n) + n := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    rw [sumTo_succ]
+    have h : 42 * (sumTo (k + 1) (fun i => i * i * i * i * i * i)
+          + (k + 1) * (k + 1) * (k + 1) * (k + 1) * (k + 1) * (k + 1))
+          + 7 * ((k + 1) * (k + 1) * (k + 1))
+        = (42 * sumTo (k + 1) (fun i => i * i * i * i * i * i) + 7 * (k * k * k))
+          + (42 * ((k + 1) * (k + 1) * (k + 1) * (k + 1) * (k + 1) * (k + 1))
+            + (21 * (k * k) + 21 * k + 7)) := by ring_nat
+    rw [h, ih]
+    ring_nat
+
 end E213.Lib.Math.Combinatorics.PowerSums

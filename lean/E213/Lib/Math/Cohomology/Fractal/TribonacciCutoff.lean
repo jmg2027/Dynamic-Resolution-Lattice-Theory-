@@ -1,5 +1,7 @@
 import E213.Lib.Math.Cohomology.Fractal.AurifeuilleanFullCutoff
 import E213.Lib.Math.Cohomology.Fractal.AurifeuilleanDepth2Cutoff
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum
+import E213.Meta.Nat.PolyNatMTactic
 
 /-!
 # Tribonacci-sequence cardinality cut-off
@@ -145,5 +147,37 @@ theorem capstone :
     ∧ M2r < Trib 30 :=
   ⟨Trib_4, Trib_6, Trib_7, Trib_16_minus_M1_is_11,
    Trib_16_above_M1, Trib_30_above_M2r⟩
+
+/-! ## §N Tribonacci partial sum -/
+
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
+
+/-- The defining recurrence, as a reusable lemma: `T(n+3) = T(n+2) + T(n+1) + T n`. -/
+theorem Trib_rec (n : Nat) : Trib (n + 3) = Trib (n + 2) + Trib (n + 1) + Trib n := rfl
+
+/-- `sumTrib n = T(0) + T(1) + … + T(n)`. -/
+def sumTrib (n : Nat) : Nat := sumTo (n + 1) Trib
+
+/-- ★ **Tribonacci partial-sum identity** `2·(Σ_{k=0}^{n} T(k)) + 1 = T(n+2) + T(n)`
+    — the subtraction-free additive form of `Σ_{k≤n} T(k) = (T(n) + T(n+2) − 1)/2`.
+    Induction on `n`; the step uses `Trib_rec`. -/
+theorem sumTrib_double_succ (n : Nat) :
+    2 * sumTrib n + 1 = Trib (n + 2) + Trib n := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    show 2 * sumTo (k + 2) Trib + 1 = Trib (k + 3) + Trib (k + 1)
+    rw [sumTo_succ, Trib_rec k]
+    have ih' : 2 * sumTo (k + 1) Trib + 1 = Trib (k + 2) + Trib k := ih
+    generalize hS : sumTo (k + 1) Trib = S at ih' ⊢
+    generalize hA : Trib k = a at ih' ⊢
+    generalize hC : Trib (k + 2) = c at ih' ⊢
+    generalize hB : Trib (k + 1) = b
+    -- ih' : 2*S + 1 = c + a ;  goal: 2*(S + b) + 1 = (c + b + a) + b
+    rw [show 2 * (S + b) + 1 = (2 * S + 1) + 2 * b from by ring_nat, ih']
+    ring_nat
+
+/-- Smoke: `2·(T0+T1+T2+T3) + 1 = 2·(0+0+1+1)+1 = 5 = T5 + T3 = 4 + 1`. -/
+theorem sumTrib_smoke : 2 * sumTrib 3 + 1 = Trib 5 + Trib 3 := by decide
 
 end E213.Lib.Math.Cohomology.Fractal.TribonacciCutoff
