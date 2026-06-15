@@ -116,6 +116,12 @@ closure → full build → commit.
   `not_three_squares_of_mod8_seven` (sum of 3 squares ≠ 7 mod 8, squares ∈ {0,1,4} mod 8 —
   the obstruction half of the three-square theorem).  Route: `mul_mod_pure` residue
   reduction + `match` on `a%m` (mod_lt kills overflow) + `decide` the finite table.
+- **38 — combinatorics (deep)**: `Combinatorics/FibonacciSums.{sumFib_succ_one, sumFibSq_eq}`
+  (8 PURE) — two classical Fibonacci sum identities, both genuinely absent (corpus had
+  Cassini/determinant Fib identities but no sums): **partial-sum** `(Σ_{i≤n} Fᵢ)+1 = F_{n+2}`
+  + **sum-of-squares** `Σ_{i≤n} Fᵢ² = Fₙ·F_{n+1}` (the φ-rectangle identity).  Induction on
+  the recurrence via the `sumTo` toolkit.  NOTE: uses a module-local `fib` (the math corpus
+  has ≥3 module-local `fib` defs, no canonical one — consolidation is a known smell, deferred).
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
