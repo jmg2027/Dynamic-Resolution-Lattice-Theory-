@@ -1,12 +1,13 @@
 # Frontier: general Möbius divisor-sum `∀ n ≥ 1, Σ_{d∣n} μ(d) = [n=1]`
 
-**Status**: ✅ **CLOSED for `muStruct`** (`MobiusDivisorSum.lean`):
-`muStruct_divisor_sum (n) (0<n) : Σ_{d∣n} muStruct d = [n=1]`, general, ∅-axiom.
-Also: divisor-product reindex closed (`DivisorMultiplicative.lean`) + general σ/τ
-multiplicativity.  The **only remaining** open item is the `muStruct = mu` bridge
-(to transport the divisor-sum from the structural `muStruct` to the corpus
-trial-division `mu`) — the open `muAux`-correctness scan invariant (gates 2–3 below).
-Möbius inversion `Σ_{d∣n} μ(d)·g(n/d)` is also now reachable from `divisorSumZ_product_reindex`.
+**Status**: ✅ **Möbius framework COMPLETE for `muStruct`** — divisor-product
+reindex (`DivisorMultiplicative.lean`), general σ/τ multiplicativity, general
+divisor-sum `Σ_{d∣n} muStruct d = [n=1]` (`MobiusDivisorSum.lean`), AND Möbius
+inversion `f n = Σ_{d∣n} muStruct d · g(n/d)` + the reusable `divisor_pair_swap`
+Dirichlet-convolution core (`MobiusInversion.lean`), all ∅-axiom.  The **only**
+remaining open item is the `muStruct = mu` bridge (transport the whole framework
+from structural `muStruct` to the corpus trial-division `mu`) — the open
+`muAux`-correctness scan invariant (gates 2–3 below).
 
 ## Update 4 — general Möbius divisor-sum CLOSED for `muStruct` (`MobiusDivisorSum.lean`)
 

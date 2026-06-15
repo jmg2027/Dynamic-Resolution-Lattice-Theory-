@@ -707,6 +707,17 @@ closure → full build → commit.
   corpus-`mu` version remains gated by the open `muStruct = mu` bridge (the ONLY remaining open item;
   frontier `mobius_divisor_sum_general.md`).  Möbius inversion now also reachable from the same reindex.
 
+- **117 — number theory (★★★ HEADLINE, Möbius inversion — framework complete)**: `NumberTheory/MobiusInversion.{mobius_inversion,
+  mobius_inversion_g, divisor_pair_swap}` (NEW file, 22 PURE) — **Möbius inversion** for the structural
+  Möbius: ★★★ `(∀m>0, g m = Σ_{e∣m} f e) → f n = Σ_{d∣n} muStruct d · g(n/d)` and the `g`-defined form.
+  The reusable core ★★ `divisor_pair_swap`: `Σ_{d∣n}Σ_{e∣(n/d)} h = Σ_{e∣n}Σ_{d∣(n/e)} h` (both = the
+  symmetric `Σ over {(d,e):de∣n}` via `pair_dvd_iff` + `sumZ_fubini`) — the Dirichlet-convolution
+  commutativity core.  Inversion: pull `muStruct(d)` in → swap → pull `f(e)` out → inner
+  `Σ_{d∣(n/e)} muStruct d = [n/e=1] = [e=n]` (`muStruct_divisor_sum`) → single-survivor `f(n)`.
+  **Completes the Möbius framework for `muStruct`** (μ + divisor-sum + σ/τ multiplicativity +
+  inversion); the only remaining open item is the `muStruct = mu` bridge (frontier
+  `mobius_divisor_sum_general.md`).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
