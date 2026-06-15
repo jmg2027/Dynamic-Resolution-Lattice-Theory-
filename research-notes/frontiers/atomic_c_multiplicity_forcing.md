@@ -75,10 +75,38 @@ H¹(K_{NS,NT}^{(c)})  ≅  (the S-side pairwise-distinguishing lattice, dim NS²
 
 from which `NS·NT·c − (NS+NT−1) = NS² − 1` follows **without already naming
 `NS²−1 = 8` as the target**.  With `(NS,NT) = (3,2)` forced, this is
-`6c − 4 = 8 ⟺ c = 2`.  No such isomorphism is built: `b1_eq_NS_sq_minus_1`
-asserts the *value* equality by `decide`; the *construction* (a map between
-the 1-cycle space and the S-vertex automorphism/distinguishing lattice)
-does not exist.
+`6c − 4 = 8 ⟺ c = 2`.
+
+### This route is now proven NON-forcing (∅-axiom)
+
+The proposed isomorphism **cannot exist as a c-natural map**, and the
+obstruction is clean: `b₁(K_{3,2}^{(c)}) = 6c − 4` is **strictly increasing
+in `c`** (each multiplicity layer adds `NS·NT = 6` independent cycles),
+while `dim(su(NS) adjoint) = NS² − 1 = 8` is **constant in `c`**.  A
+c-varying space and a c-constant space cannot be naturally isomorphic; they
+coincide in dimension at *one* `c` only (`c = 2`), and there the "iso" is a
+non-canonical equality of two 8-dim spaces — no forcing content.  Every
+numerical match en route (`NS·NT = NS(NS−1) = 6`; the 2 geometric cycles =
+rank 2) is itself a `NT = NS−1` coincidence, not a canonical correspondence.
+
+Formalized ∅-axiom in `Lib/Math/Cohomology/Cup/K32Projection.lean` §7:
+- `k32_b1_32_is_line` — `b₁(K_{3,2}^{(c)}) = 6c − 4` (a line in `c`).
+- `k32_b1_32_strict_mono` — strictly increasing (`+6` per multiplicity).
+- `k32_b1_32_crosses_adjoint_only_at_2` — `b₁ = NS²−1 ⟺ c = 2` (unique crossing).
+
+So `c = 2` is **selected** (crossing point of a c-line with a c-constant
+target), not **forced**, via the cohomology-dimension route.
+
+### What remains
+
+A genuine forcing must come from **outside** the cohomology-dimension route
+(now closed-negative).  Candidate directions: (i) a reason the *multiplicity
+structure itself* must be binary — i.e. the same arity-2 / NT-2 forcing
+acting on edges, made into a real identity rather than the `decide`
+coincidence of two distinct 2's; (ii) a minimality principle ("smallest `c`
+activating the multiplicity-cycle dimension") with an axiom-internal reason
+`c > 1` is required that does not route through the `b₁ = 8` target.  Neither
+is proven.
 
 ## Secondary symptom: the `C2b` label collision
 
