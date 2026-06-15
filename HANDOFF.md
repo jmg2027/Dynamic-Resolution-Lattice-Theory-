@@ -288,6 +288,15 @@ closure → full build → commit.
   `(k+1)C(n+1,k+1)=(n+1)C(n,k)` (`choose_succ_mul`) + `pascal_row_sum`.  Genuinely absent (the
   unweighted `pascal_row_sum = 2^n` already existed — the redundant wrapper was dropped).
 
+- **60 — number theory (deep, toward Wilson)**: `ModArith/WilsonInverse` (5 PURE) — the two
+  number-theoretic ingredients of **Wilson's theorem**: ★ **`self_inverse`** (`x²≡1 mod p ⟹
+  x≡±1`, the crux — only `±1` are self-inverse in `(ℤ/p)ˣ`, via `p∣(x−1)(x+1)` + Euclid + range)
+  and **`inverse_exists`/`inverse_unique`** (every `x∈[1,p−1]` has a unique inverse there).
+  Genuinely absent (only Frankl–Wilson combinatorics existed).  HONEST: full `(p−1)!≡−1` (W3) not
+  closed — needs "the inverse map is a permutation of `[1..p−1]`" (a length/NoDup
+  bijection-to-permutation fold over the existing `ProdLperm` toolkit), a large combinatorial
+  build, left open.  W1+W2 are the consumed lemmas; the gap is permutation-of-range, not NT.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
