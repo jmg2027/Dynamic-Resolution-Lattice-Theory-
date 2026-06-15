@@ -1058,6 +1058,12 @@ closure → full build → commit.
   undecidable `∃r,r²=n`), and corpus PURE cancellation/monotonicity helpers.  Genuinely absent; the
   `doubleSum_parity` lemma is reusable new infra.  Ties into the σ/τ divisor framework.
 
+- **161 — inequalities (Muirhead [2,1,0]≻[1,1,1])**: `Foundations/MuirheadInequality`
+  (NEW file, 1 PURE) — ★★★ `muirhead_210_111 : 0≤a,b,c → 6abc ≤ Σ_sym a²b` (the symmetric sum
+  `a²b+a²c+b²a+b²c+c²a+c²b`), via the SOS identity `(Σ_sym a²b) − 6abc = a(b−c)²+b(c−a)²+c(a−b)²`.
+  Completes the majorization picture with `SumCubesAMGM.amgm3` (the `[3,0,0]≻[1,1,1]` case
+  `3abc≤a³+b³+c³`, cited not reproved).  Same SOS skeleton as Schur/Nesbitt/Newton.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
