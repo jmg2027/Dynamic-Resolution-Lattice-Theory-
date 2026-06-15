@@ -684,6 +684,18 @@ closure → full build → commit.
   multiplicativity + general Möbius divisor-sum + Möbius inversion together.  (First divisor-reindex
   agent stalled on a `ring_nat` 3-atom step; retry with the generalize-first fix succeeded.)
 
+- **115 — number theory (★★★ HEADLINE, closes divisor-reindex frontier)**: `NumberTheory/DivisorMultiplicative.{divisor_product_reindex,
+  sigma_mul, tau_mul}` (NEW file, 15 PURE) — **the sparse-fiber reindex tool + general σ/τ
+  multiplicativity**.  ★★★ `divisor_product_reindex`: coprime `a,b` ⇒
+  `divisorSum (a·b) f = Σ_{i<a}Σ_{k<b} dvdInd i a·dvdInd k b·f((i+1)(k+1))` — the one tool the iter-114
+  frontier was narrowed to.  ★★★ `sigma_mul`/`tau_mul`: σ, τ multiplicative over coprime products
+  (general).  Built via a double partition-by-key collapsing each cell to its unique survivor
+  (`cell_pointwise` uses the `divisor_factorization` bijection `j+1 = gcd(j+1,a)·gcd(j+1,b)`; cells
+  collapse by `sum_eqInd_weight_eq`) — no contiguous `sumTo_reshape` needed.  Closes the divisor-reindex
+  frontier; the general Möbius divisor-sum + Möbius inversion are now directly reachable from the same
+  reindex (frontier `mobius_divisor_sum_general.md`, updated).  (First two reindex agents stalled/partial;
+  the third closed it fully with the generalize-first `ring_nat` fix + /tmp checkpointing.)
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

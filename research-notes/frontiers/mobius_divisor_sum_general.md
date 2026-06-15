@@ -1,7 +1,27 @@
 # Frontier: general Möbius divisor-sum `∀ n ≥ 1, Σ_{d∣n} μ(d) = [n=1]`
 
-**Status**: PARTIAL (T2.5).  Prime case + structural multiplicativity closed;
-general-n divisor-sum open (now only a combinatorial divisor-product reindex away).
+**Status**: divisor-product reindex ✅ **CLOSED** (`DivisorMultiplicative.lean`) →
+**general σ/τ multiplicativity proven**.  General Möbius divisor-sum + Möbius
+inversion now reachable from the same `divisor_product_reindex` (next step).
+
+## Update 3 — the missing tool is BUILT; σ/τ multiplicativity CLOSED (`DivisorMultiplicative.lean`)
+
+The sparse-fiber reindex is proven:
+- ★★★ `divisor_product_reindex (a b) (gcd a b = 1) (0<a) (0<b) (f) :
+  divisorSum (a·b) f = Σ_{i<a}Σ_{k<b} dvdInd i a · dvdInd k b · f((i+1)(k+1))`.
+- ★★★ `sigma_mul` / `tau_mul` — σ, τ multiplicative over coprime products (general).
+
+Built via a *double partition-by-key collapsing each cell to a single survivor*:
+outer key `gcd(j+1,a)`, inner key `gcd(j+1,b)`; the divisor-factorization bijection
+`j+1 = gcd(j+1,a)·gcd(j+1,b)` pins the unique survivor `j = e(k+1)−1` per cell
+(`cell_pointwise`), each cell sum collapsing by `sum_eqInd_weight_eq`.  No
+contiguous-block `sumTo_reshape` was needed.
+
+**Remaining (general Möbius divisor-sum `Σ_{d∣n} μ(d) = [n=1]`)**: now directly
+reachable — apply `divisor_product_reindex` (with `f = mu`/`muStruct`) to reduce to
+the prime-power core `sumMF_succ_eq_zero` (`MobiusMultiplicative.lean`) via the
+coprime split `n = p^k·m`.  That assembly + Möbius inversion `Σ_{d∣n} μ(d)·g(n/d)`
+are the open follow-ons; the hard reindex tool is done.
 
 ## Update — structural multiplicativity CLOSED (`MobiusMultiplicative.lean`)
 
