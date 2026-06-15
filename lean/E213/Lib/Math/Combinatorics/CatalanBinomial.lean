@@ -1,5 +1,6 @@
 import E213.Lib.Math.Combinatorics.Catalan
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial
+import E213.Meta.Nat.Gcd213
 
 /-!
 # Catalan ↔ central-binomial bridge (∅-axiom)
@@ -28,7 +29,9 @@ namespace E213.Lib.Math.Combinatorics.CatalanBinomial
 open E213.Lib.Math.Combinatorics.Catalan (catalan)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial
   (choose choose_succ_mul choose_symm_sum)
-open E213.Tactic.NatHelper (mul_assoc)
+open E213.Tactic.NatHelper (mul_assoc add_sub_cancel_right gcd213)
+open E213.Meta.Nat.Gcd213
+  (gcd213_comm gcd213_sub_left gcd213_succ_self coprime_dvd_of_dvd_mul)
 
 /-- Helper: `choose (2n+1) n = choose (2n+1) (n+1)` by symmetry (`n + (n+1) = 2n+1`). -/
 theorem choose_symm_2n1 (n : Nat) :
@@ -83,5 +86,36 @@ theorem catalan_ratio_cross :
     ∧ 5 * catalan 4 = 2 * (2 * 3 + 1) * catalan 3
     ∧ 6 * catalan 5 = 2 * (2 * 4 + 1) * catalan 4
     ∧ 7 * catalan 6 = 2 * (2 * 5 + 1) * catalan 5 := by decide
+
+/-! ## Catalan integrality `(n+1) ∣ C(2n,n)` -/
+
+/-- `gcd213 (n+1) (2n+1) = 1`: consecutive-style coprimality.  Since
+    `2n+1 = (n+1) + n`, Euclid's subtraction step reduces `gcd(2n+1, n+1)` to
+    `gcd(n, n+1) = 1`. -/
+theorem gcd_succ_two_succ (n : Nat) : gcd213 (n + 1) (2 * n + 1) = 1 := by
+  have hle : (n + 1) ≤ (2 * n + 1) := by
+    rw [show 2 * n + 1 = n + (n + 1) from by ring_nat]
+    exact Nat.le_add_left (n + 1) n
+  have hsub : (2 * n + 1) - (n + 1) = n := by
+    rw [Nat.succ_sub_succ_eq_sub, show 2 * n = n + n from by ring_nat,
+        add_sub_cancel_right n n]
+  calc gcd213 (n + 1) (2 * n + 1)
+      = gcd213 (2 * n + 1) (n + 1) := gcd213_comm (n + 1) (2 * n + 1)
+    _ = gcd213 ((2 * n + 1) - (n + 1)) (n + 1) := gcd213_sub_left (2 * n + 1) (n + 1) hle
+    _ = gcd213 n (n + 1) := by rw [hsub]
+    _ = gcd213 (n + 1) n := gcd213_comm n (n + 1)
+    _ = 1 := gcd213_succ_self n
+
+/-- `(n+1) ∣ (2n+1) · choose (2n) n` — from `central_succ_mul` the product is
+    `(n+1)·choose(2n+1)(n+1)`, manifestly divisible by `n+1`. -/
+theorem succ_dvd_central_mul (n : Nat) :
+    (n + 1) ∣ (2 * n + 1) * choose (2 * n) n :=
+  ⟨choose (2 * n + 1) (n + 1), (central_succ_mul n).symm⟩
+
+/-- ★★ **Catalan integrality**: `(n+1) ∣ choose (2n) n` — the deep fact behind
+    `Cₙ = C(2n,n)/(n+1) ∈ ℕ`.  `n+1 ⊥ 2n+1` (consecutive coprimality) + Euclid's
+    lemma applied to `(n+1) ∣ (2n+1)·C(2n,n)`. -/
+theorem catalan_integrality (n : Nat) : (n + 1) ∣ choose (2 * n) n :=
+  coprime_dvd_of_dvd_mul (gcd_succ_two_succ n) (succ_dvd_central_mul n)
 
 end E213.Lib.Math.Combinatorics.CatalanBinomial

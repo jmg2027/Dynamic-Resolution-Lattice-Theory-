@@ -449,6 +449,17 @@ closure → full build → commit.
   E213 already has the full 2-element BA in 3 realizations (Raw `Bool213`, predicate calculus,
   Cut min/max lattice).  Agent honest; not ported.
 
+- **87 — combinatorics (deep, high-value)**: `Combinatorics/CatalanBinomial.catalan_integrality`
+  (appended) — ★ **Catalan integrality** `(n+1) ∣ C(2n,n)` (the deep fact behind
+  `Cₙ=C(2n,n)/(n+1)∈ℕ`): `gcd(n+1,2n+1)=1` (Euclid subtraction step) + Euclid's lemma on
+  `(n+1)∣(2n+1)·C(2n,n)` (from `central_succ_mul`).  Genuinely absent.
+- **88 — combinatorics (deep)**: `Cohomology/Fractal/PadovanSum.{Pad_cross, sumPad_succ_two}`
+  (4 PURE) — **Padovan partial-sum identity** `(Σ_{k≤n} Padₖ)+2 = Pad(n+5)` + cross-recurrence
+  `Pad(n+5)=Pad(n+4)+Padₙ`, reusing corpus `PadovanCutoff.Pad`.  Genuinely absent (corpus had
+  the sequence + cut-off tables, no partial sum).
+- **REJECTED (already present)**: sum-of-four-squares closure (`FourSquare.isSum4_mul`); Boolean
+  algebra laws (comprehensive in 3 realizations).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

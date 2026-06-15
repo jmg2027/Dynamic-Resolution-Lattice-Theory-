@@ -9,6 +9,7 @@ import E213.Lib.Math.Cohomology.Fractal.ConfigCountAurifeuilleanParam
 import E213.Lib.Math.Cohomology.Fractal.EventualPeriodicity
 import E213.Lib.Math.Cohomology.Fractal.HunterAtomicClosure
 import E213.Lib.Math.Cohomology.Fractal.PisanoGridCapstone
+import E213.Lib.Math.Cohomology.Fractal.PadovanSum
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.Fractal`.
 
