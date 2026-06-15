@@ -62,4 +62,33 @@ theorem curvature_sign_topology :
     ∧ totalVertexCurv 3 2 = -2 ∧ totalVertexCurv 3 2 < 0 ∧ (0 : Int) < cyclomatic 3 2 := by
   refine ⟨by decide, by decide, by decide, by decide, by decide, by decide⟩
 
+open E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci (formanEdge)
+
+/-- ★★ **Forman edge-curvature = boundary of vertex-curvature.**  The edge curvature
+    `formanEdge du dv` is exactly the sum of the two endpoint vertex curvatures
+    `vertexCurv du + vertexCurv dv` — `(4 − du − dv) = (2 − du) + (2 − dv)`.  The
+    bridge between rung-1 (Forman/Ricci) and rung-4 (Gauss–Bonnet/vertex) of the
+    discrete curvature ladder, previously unconnected across the two modules. -/
+theorem forman_eq_vertexCurv_sum (du dv : Nat) :
+    formanEdge du dv = vertexCurv du + vertexCurv dv := by
+  unfold formanEdge vertexCurv; ring_intZ
+
+/-- Total Forman (edge-summed) curvature of `K_{m,n}`: all `m·n` edges carry the
+    same curvature `formanEdge n m`. -/
+def totalFormanCurv (m n : Nat) : Int := ((m : Int) * (n : Int)) * formanEdge n m
+
+/-- ★★ **Closed form for total Forman curvature**: `Σ_edges = m·n·(4 − m − n)`.
+    The Forman analog of `totalVertexCurv` (= 2χ).  Honest scope: total Forman is
+    *edge*-summed, so it is **not** `2χ` (`−6` vs `2χ(K_{3,2}) = −2`) — it is its
+    own identity, not a Gauss–Bonnet equality. -/
+theorem totalFormanCurv_eq (m n : Nat) :
+    totalFormanCurv m n = (m : Int) * (n : Int) * (4 - (m : Int) - (n : Int)) := by
+  unfold totalFormanCurv formanEdge; ring_intZ
+
+/-- Sign ↔ topology for total Forman: `K_{1,1}` positive (`+2`), `K_{3,2}` negative
+    (`−6`). -/
+theorem totalForman_sign :
+    totalFormanCurv 1 1 = 2 ∧ totalFormanCurv 3 2 = -6 ∧ totalFormanCurv 3 2 < 0 := by
+  refine ⟨by decide, by decide, by decide⟩
+
 end E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussBonnet
