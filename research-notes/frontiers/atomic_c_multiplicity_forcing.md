@@ -248,6 +248,44 @@ nor by arity (multiplicity is not an arity).  A genuine closure still needs an
 axiom-internal principle picking `c = 2` that does not name the gauge target —
 none found across five reframings.
 
+## Is `c = 2` even *needed*?  Removability audit — c=2 is physics-redundant
+
+The sharper question (originator): if `c = 2` is not forced, is the
+edge-multiplicity doubling *needed at all* in the graph structure?  An
+observable-by-observable audit says **no — `c = 2` is removable from every
+physics output**:
+
+- **Gauge dimensions**: `1/α_3 = NS² − 1 = 8`, `1/α_2 = d² − 1 = 24` are
+  defined **directly** from `NS, d` (`SpectrumComplete.lean:60,69`), not from
+  `b₁(K^{(c)})`.  The graph cohomology `b₁ = 6c−4 = 8` (at `c=2`) is a
+  **parallel reading** that reproduces `NS²−1` (a proven non-forced c-line
+  crossing, `K32Projection §7`).
+- **CP phase `i`**: from the Hodge star on `Δ⁴` (`n = d−1 = 4`, pure `d=5`)
+  plus the **`NT=2` Cayley–Dickson** doubling (`Mixing/CPHodgeStructure`) —
+  the CD/`NT` doubling, **not** the edge-multiplicity `c`.
+- **α_em = 137.036**: every coefficient (60, 30, 25, 45) is built from
+  `{NS, NT, d}` + Basel `ζ(2)`; `c` appears only as the bare edge-count
+  multiplier `12 = c·NS·NT` (re-readable as `2·(d+1)`), never as `b₁(K^{(c)})`
+  as a function of `c`.
+
+The **one** structural role of `c = 2`: it realizes the concrete rank-8
+module `H¹(K_{3,2}^{(c=2)})` (`H1K.lean:50`), impossible at `c=1` (`b₁=2`).
+But (i) its dimension is `NS²−1` independently (`H1K.lean:176`); (ii) the
+gauge **group** `Sym(NS) ⊂ SU(3)` already acts at `c=1` (`Sym3IrrepDecomp`);
+(iii) the genuinely-`c=2` structure (the `C₂^(NS·NT)` sheet-swap) is **proven
+physics-inert** — trivial on coboundaries, no octet representation content
+(`C2_6OnH1K.lean:142-163`).
+
+**Conclusion.**  `c = 2` is needed only to *present* the SU(3) adjoint as
+graph cohomology instead of as `NS² − 1` directly.  That presentation adds a
+non-forced parameter to re-derive an already-forced number; it contributes no
+observable, no gauge dimension, no precision digit.  So **the honest atomic
+content is `(NS, NT, d) = (3, 2, 5)`, all forced; `c = 2` is a removable
+cohomological re-presentation of `NS²−1`, not a fourth atomic primitive.**
+Architectural implication (originator's call): demote `c` from the atomic
+tuple to a derived presentation parameter, or keep `K_{3,2}^{(c=2)}` as an
+explicitly-secondary parallel reading of the `NS²−1` gauge content.
+
 ## Secondary symptom: the `C2b` label collision
 
 The same gap shows up as a documentation inconsistency — "C2b" names two
