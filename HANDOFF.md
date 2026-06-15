@@ -951,6 +951,17 @@ closure → full build → commit.
   (core `Int.eq_of_mul_eq_mul_left` is propext-dirty).  Specializes to Fibonacci/Lucas (P=1,Q=−1) and
   Pell (P=2,Q=−1) by `decide` smokes.  Genuinely absent.
 
+- **151 — number theory (★★★ HEADLINE: Fermat numbers + Goldbach coprimality)**:
+  `NumberTheory/FermatNumbers` (NEW file, 23 PURE) — `fermat n = 2^(2^n)+1` (3,5,17,257,65537,…).
+  ★★★ **telescoping product** `fermatProd_add_two : fermatProd n + 2 = fermat n` (`∏_{k<n} F_k = F_n−2`,
+  subtraction-free; induction step via difference-of-squares `step_algebra` after substituting
+  `A=2^(2^n)`).  ★★★ **Goldbach pairwise coprimality** `fermat_coprime : m<n → gcd213(F_m,F_n)=1`
+  (any common divisor divides `F_n` and `fermatProd n = F_n−2`, hence divides 2; but Fermat numbers are
+  odd via `fermat_odd`, so the gcd is 1) — the deep one: each `F_n` carries a prime factor, all distinct,
+  giving an elementary proof of the **infinitude of primes**.  Supporting `fermat_dvd_prod`,
+  `two_pow_two_pow_succ`, inline propext-free dvd-transitivity, hand-proof of `¬2∣1` (the
+  `Decidable (·∣·)` instance leaks propext).  Genuinely absent (corpus `Fermat` hits are FLT/FermatLittle).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
