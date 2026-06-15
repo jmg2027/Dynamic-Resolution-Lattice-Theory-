@@ -77,6 +77,17 @@ closure → full build → commit.
   the `a=2`-specific ordering step doesn't generalize).  HONEST: original target iff is
   false without the unit hypothesis (`a≡0` degenerate case); `←` needs the lift `x=r+a*p`
   (a bounded `r` may have `r²<a`).
+- **34 — analysis/continued-fractions (deep)**: `Real213/ContinuedFraction/
+  ConvergentCoprime.continuant_coprime` (5 PURE) — **consecutive convergents are coprime**:
+  any common divisor of the continuant matrix product's `(1,1)`-entry (`K[a₁..aₙ]`) and
+  `(2,1)`-entry (`K[a₂..aₙ]`) divides `1`.  Built directly on iter-32's
+  `continuant_det_unit`: `g∣a ⟹ g∣a·d`, `g∣c ⟹ g∣b·c`, so `g∣(a·d−b·c)=±1`.  The classical
+  `gcd(pₙ,qₙ)=1` (convergents in lowest terms).  Also added 4 PURE `Int` `∣`-helpers
+  (`dvd_subZ`, `dvd_mul_rightZ/leftZ`, `dvd_one_of_dvd_negOneZ`) — Int213 had no
+  `∣`-infrastructure.
+- **REJECTED (duplicate)**: hockey-stick "parallel-summation form" `Σ C(r+i,i)=C(r+n+1,n)`
+  — equal under choose-symmetry to the existing `BinomialTheorem.hockey_stick`
+  `Σ C(r+j,r)=C(r+m+1,r+1)`.  Not ported (one-topic-per-file; no inflation).
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
