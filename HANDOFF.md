@@ -441,6 +441,14 @@ closure → full build → commit.
   `P(m+1)=Pₘ+Hₘ`, `H(m+1)=2Pₘ+Hₘ`) and **doubling** `P(2n)=2PₙHₙ`, `H(2n)=Hₙ²+2Pₙ²` (from
   `(1+√2)²ⁿ`).  Genuinely absent.
 
+- **86 — number theory (deep)**: `NumberTheory/ConsecutiveProduct` (5 PURE) — **`k! ∣ ∏ k
+  consecutive`** (integrality of binomial coefficients in disguise): `2∣n(n+1)`,
+  `6∣n(n+1)(n+2)`, `24∣n(n+1)(n+2)(n+3)`.  Induction + explicit witnesses (cross-step
+  `(k+1)…(k+j) = k…(k+j−1) + j·(k+1)…` reduces to IH + shifted lower fact).  Genuinely absent.
+- **REJECTED (already comprehensive)**: Boolean-algebra laws (De Morgan/absorption/distrib) —
+  E213 already has the full 2-element BA in 3 realizations (Raw `Bool213`, predicate calculus,
+  Cut min/max lattice).  Agent honest; not ported.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
