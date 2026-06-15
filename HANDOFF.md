@@ -573,6 +573,14 @@ closure → full build → commit.
   collapsing once `c(n,0)=0` head and `c(n,n+1)=0` top vanish) gives `n·n!`, IH gives `n!`, total
   `(n+1)·n! = (n+1)!`.  Complements the second-kind defining identity (iter 100).  Genuinely absent.
 
+- **103 — number theory (Möbius, new def + T2)**: `NumberTheory/MobiusFunction.{mu, mobiusSum,
+  mobiusTotientSum, mobius_divisor_sum_table, mobius_totient_table}` (NEW file, 9 PURE) — **introduces
+  the number-theoretic Möbius function** μ as a **general-computable** PURE def (fuel-bounded trial
+  division: strip smallest prime, detect squared factor → 0, flip sign; `cond`/`Bool` branching, no
+  propext), with ★ `Σ_{d∣n} μ(d) = [n=1]` (n=1..24) and ★ Möbius inversion `Σ_{d∣n} μ(d)·(n/d) = φ(n)`
+  (n=1..20), plus `mobius_table`.  Companion to EulerTotient (reuses `totient`/`dvdInd`).  General
+  theorems share the open partition-by-divisor frontier (`gauss_totient_general.md`).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
