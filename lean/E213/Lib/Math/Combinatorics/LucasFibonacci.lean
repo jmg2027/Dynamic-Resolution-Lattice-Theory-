@@ -1,5 +1,6 @@
 import E213.Lib.Math.Combinatorics.FibonacciDivisibility
 import E213.Meta.Int213.PolyIntMTactic
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum
 
 /-!
 # Lucas–Fibonacci link identities (∅-axiom)
@@ -25,6 +26,7 @@ namespace E213.Lib.Math.Combinatorics.LucasFibonacci
 
 open E213.Lib.Math.Combinatorics.FibonacciDivisibility (fib fib_rec fib_add)
 open E213.Meta.Int213.PolyIntM (powInt)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
 
 /-- Lucas numbers: `luc 0 = 2`, `luc 1 = 1`, `luc (n+2) = luc n + luc (n+1)`. -/
 def luc : Nat → Nat
@@ -176,5 +178,38 @@ theorem lucas_fib_rel (n : Nat) :
   rw [hl, hf2]
   rw [← hc]
   ring_intZ
+
+/-! ## Lucas partial sums -/
+
+/-- `sumLuc n = L_0 + … + L_n`. -/
+def sumLuc (n : Nat) : Nat := sumTo (n + 1) luc
+
+/-- ★ **Lucas partial-sum identity** `(Σ_{k=0}^{n} L_k) + 1 = L_{n+2}`. -/
+theorem sumLuc_succ_one (n : Nat) : sumLuc n + 1 = luc (n + 2) := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    show sumTo (k + 2) luc + 1 = luc (k + 3)
+    rw [sumTo_succ]
+    have ih' : sumTo (k + 1) luc + 1 = luc (k + 2) := ih
+    have hr : luc (k + 3) = luc (k + 1) + luc (k + 2) := luc_rec (k + 1)
+    rw [hr, ← ih']
+    ring_nat
+
+/-- `sumLucSq n = L_0² + … + L_n²`. -/
+def sumLucSq (n : Nat) : Nat := sumTo (n + 1) (fun k => luc k * luc k)
+
+/-- ★ **Lucas sum-of-squares identity** `Σ_{k=0}^{n} L_k² = L_n · L_{n+1} + 2`.
+    (The `+2` is the `L_0 = 2` seed surviving — vs the Fibonacci `Σ F_k² = Fₙ F_{n+1}`.) -/
+theorem sumLucSq_eq (n : Nat) : sumLucSq n = luc n * luc (n + 1) + 2 := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    show sumTo (k + 2) (fun k => luc k * luc k) = luc (k + 1) * luc (k + 2) + 2
+    rw [sumTo_succ]
+    have ih' : sumTo (k + 1) (fun k => luc k * luc k) = luc k * luc (k + 1) + 2 := ih
+    have hr : luc (k + 2) = luc k + luc (k + 1) := luc_rec k
+    rw [ih', hr]
+    ring_nat
 
 end E213.Lib.Math.Combinatorics.LucasFibonacci

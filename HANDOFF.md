@@ -482,6 +482,11 @@ closure → full build → commit.
   (n≤5).  Fuel-based def + `Nat.strongRecOn` fuel-irrelevance (PURE WF-substitute).  Genuinely
   new (recurrence def + theorem).
 
+- **92 — combinatorics (deep)**: `Combinatorics/LucasFibonacci.{sumLuc_succ_one, sumLucSq_eq}`
+  (appended) — **Lucas partial sums** `(Σ_{k≤n} Lₖ)+1 = L_{n+2}` and `Σ_{k≤n} Lₖ² = Lₙ·L_{n+1}+2`
+  (the `+2` = the `L₀=2` seed, vs the Fibonacci `Σ Fₖ²=FₙF_{n+1}`).  Genuinely absent (corpus had
+  Fibonacci sums, no Lucas sums).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
