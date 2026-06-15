@@ -310,6 +310,11 @@ closure → full build → commit.
   needs a prime in `(n,2n]`; misses `p=2` for `n>1`).  (`p∣C(p,k)` already present —
   not reproved.)
 
+- **63 — number theory (deep)**: `NumberTheory/PythagoreanTriples.pyth_param` (8 PURE) —
+  **Euclid's Pythagorean-triple generator** `(m²−n²)² + (2mn)² = (m²+n²)²` (`ring_intZ`), with
+  nondegeneracy (`leg1_pos`, `hyp_gt_leg1` for `0<n<m`) and scaled triples
+  (`pyth_param_scaled`).  Genuinely absent (corpus "Pythagorean" = physics mixing-angle docs).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
