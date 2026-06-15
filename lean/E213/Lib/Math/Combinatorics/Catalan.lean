@@ -97,4 +97,12 @@ theorem catalan_5_times_2 : catalan 5 * catalan 2 = 84 := rfl
 /-- `C₇ + C₆ = 561` (sum check). -/
 theorem catalan_sum_6_7 : catalan 6 + catalan 7 = 561 := rfl
 
+/-- ★ **Catalan growth ratio `C_{n+1} ≤ 4·C_n`** (division-free, across the tabulated
+    range) — the `C_{n+1}/C_n = 2(2n+1)/(n+2) → 4` asymptotic shape in `≤` form. -/
+theorem catalan_growth_ratio :
+    catalan 1 ≤ 4 * catalan 0 ∧ catalan 2 ≤ 4 * catalan 1
+    ∧ catalan 3 ≤ 4 * catalan 2 ∧ catalan 4 ≤ 4 * catalan 3
+    ∧ catalan 5 ≤ 4 * catalan 4 ∧ catalan 6 ≤ 4 * catalan 5
+    ∧ catalan 7 ≤ 4 * catalan 6 := by decide
+
 end E213.Lib.Math.Combinatorics.Catalan

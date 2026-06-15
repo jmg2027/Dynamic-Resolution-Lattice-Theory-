@@ -86,4 +86,12 @@ theorem stirling_col1 : ∀ n, stirling2 (n + 1) 1 = 1
       show 1 * stirling2 (n + 1) 1 + stirling2 (n + 1) 0 = 1
       rw [stirling_col1 n, h0]
 
+/-- ★ **Stirling column-2 recurrence `S(n+2, 2) = 2·S(n+1, 2) + 1`** — the closed
+    form `S(n,2) = 2^(n-1) − 1` as a division-free recurrence (general `n`; the file
+    had only the tabulated values `1,3,7,15`). -/
+theorem stirling_col2_rec (n : Nat) :
+    stirling2 (n + 2) 2 = 2 * stirling2 (n + 1) 2 + 1 := by
+  show 2 * stirling2 (n + 1) 2 + stirling2 (n + 1) 1 = 2 * stirling2 (n + 1) 2 + 1
+  rw [stirling_col1 n]
+
 end E213.Lib.Math.Combinatorics.Stirling
