@@ -874,6 +874,16 @@ closure → full build → commit.
   `λ(mn)=λ(m)λ(n)` (incl. non-coprime) by table.  General complete-mult shares the open muStruct-bridge
   scan invariant.  The `Liouville` elsewhere is the transcendence constant (different object).  Absent.
 
+- **144 — number theory (★★★ HEADLINE, framework capstone)**: `NumberTheory/DirichletConvolution.{dconv,
+  dirichlet_comm, dirichlet_assoc}` (NEW file, 18 PURE) — the **Dirichlet convolution** `dconv f g n =
+  Σ_{d∣n} f(d)·g(n/d)` with ★★★ **commutativity** `dconv f g = dconv g f` and ★★★ **associativity**
+  `dconv (dconv f g) h = dconv f (dconv g h)`, establishing arithmetic functions `Nat→Int` form a
+  **commutative monoid** under `dconv` (the Dirichlet-ring multiplicative structure) — the algebraic
+  capstone of the session's φ/μ/σ/τ/σ_k/λ + Möbius-inversion framework.  Comm via a flat symmetric bridge
+  `dconv_flat` + `sumZ_fubini`; assoc reduces both sides to `Σ_{d∣n}Σ_{e∣(n/d)} f(d)g(e)h(n/(d·e))` via
+  the iter-117 `divisor_pair_swap` + comm + `div_div_pure`.  Plus `divisorSumZ_reflect` (divisor
+  reflection, free from comm).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
