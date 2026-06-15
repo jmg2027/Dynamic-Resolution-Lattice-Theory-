@@ -388,6 +388,19 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (currently a structural assertion). Anchors:
   `Lib/Physics/AlphaEM/{GramCubicReduction,GramD2Readings,GramD2Mechanism}`.
 
+- `atomic_c_multiplicity_forcing` — **is the atomic multiplicity `c = 2`
+  axiom-internally forced?** Of `(NS,NT,c,d)=(3,2,2,5)`, arity=2 and the pair
+  `(3,2)` are genuinely forced, but the cup/edge multiplicity `c=2` is
+  *selected to hit `b₁ = NS²−1 = 8`* (the imported photon-kernel target):
+  `b₁ = NS·NT·c − (NS+NT−1) = 6c−4`, so `b₁=8 ⟺ c=2`, but `b1_eq_NS_sq_minus_1`
+  is `decide` on `8=9−1` over an edge count that already bakes in `c=2`. The
+  candidate `c=NT` handle is a `decide`-coincidence of two distinct 2's
+  (arity-base `Fin 2` vs partition-slot `NT`); orientation-freedom gives `c=1`.
+  *Open*: build the structural iso `H¹(K_{NS,NT}^{(c)}) ≅ S-distinguishing
+  lattice (dim NS²−1)` that forces `6c−4=NS²−1` without naming 8 as target.
+  Companion to `gram_d2_prefactor` (same flavour). Secondary symptom: the
+  "C2b" label denotes two different equations across theory/Lean.
+
 - `headline_precision_scope` — **what the Lean proves vs the README precision
   column**, headline by headline (extends the α_em DoF ledger). First finding:
   `m_μ/m_e` README "0.49 ppb" is PURE-proven only to the *leading integer
