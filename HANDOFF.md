@@ -181,7 +181,25 @@ closure → full build → commit.
   (corpus had only the valuation relation `vp(gcd)+vp(lcm)=vp a+vp b`, no lattice laws).  Via
   the PURE `dvd_antisymm_213` (`Nat.dvd_antisymm` leaks propext), unconditional (a=0 branch
   direct).  Fits the repo's "lattice theory" name.  Distributive law L4
-  `gcd(a,lcm(b,c))=lcm(gcd(a,b),gcd(a,c))` left open (needs min/max valuation distributivity).> NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
+  `gcd(a,lcm(b,c))=lcm(gcd(a,b),gcd(a,c))` left open (needs min/max valuation distributivity).
+- **47 — combinatorics (deep)**: `Combinatorics/Derangements.derange_one_term` (10 PURE) —
+  the **subfactorial one-term recurrence** `(D_{n+1}:ℤ) = (n+1)·Dₙ + (−1)^{n+1}` (the bridge
+  between the two-step `!(n+2)=(n+1)(!(n+1)+!n)` and one-step forms).  Int induction with
+  `powInt`.  Plus `!n ≤ n!` (reusing corpus `Permutations.fact`).  Entirely absent (no
+  `derange`/`subfactorial` in corpus).
+- **REJECTED (duplicate)**: Cayley–Hamilton 2×2 — already fully PURE at
+  `Real213/Mat2/Mat2CayleyHamilton.cayley_hamilton` (+ `charComb`, `Mat2TraceRecurrence`,
+  `CharPolyAdj`, essay).  Agent honest.
+
+> SATURATION NOTE (iters 31–47): the genuine-absent classical-theorem vein is thinning —
+> rising duplicate rate (Cayley–Hamilton, Euclid's-lemma-for-primes, Brahmagupta,
+> hockey-stick all already present).  The corpus has rebuilt a very large swath of standard
+> math.  Next high-value mode is likely **promotion** of closed clusters to `theory/` (the CF
+> continuant cluster determinant→coprimality→recurrence→growth is a complete sub-tree) or a
+> targeted deeper frontier (distributive-lattice L4, a Real213-cut analysis result), rather
+> than more breadth-mining.
+
+> NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
 > clean but increasingly *incremental* — completing tables / sibling `decide` facts

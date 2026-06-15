@@ -4,6 +4,7 @@ import E213.Lib.Math.Combinatorics.CatalanBinomial
 import E213.Lib.Math.Combinatorics.FibonacciSums
 import E213.Lib.Math.Combinatorics.PowerSums
 import E213.Lib.Math.Combinatorics.SumReshape
+import E213.Lib.Math.Combinatorics.Derangements
 import E213.Lib.Math.Combinatorics.Stirling
 import E213.Lib.Math.Combinatorics.GeneratingFunction
 import E213.Lib.Math.Combinatorics.Simplex5
