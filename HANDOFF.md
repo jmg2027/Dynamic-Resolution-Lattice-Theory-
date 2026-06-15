@@ -259,6 +259,14 @@ closure → full build → commit.
   `F_{2n}=Fₙ·Lₙ` doubling), `fib_odd_doubling` `F_{2n+1}=F_{n+1}²+Fₙ²` (immediate from
   `fib_add n n`).  Builds on iter-52 `fib_add`.
 
+- **56 — linear algebra (deep)**: `Real213/Mat2/Mat2Adjugate` (7 PURE) — foundational 2×2
+  facts on the corpus `Mat2` (reusing `ContinuantDeterminant.detM`): **cyclic trace**
+  `tr(AB)=tr(BA)` (`traceM_mul_comm`); **adjugate-inverse** `M·adj M = det·I = adj M·M`
+  entrywise (`mat2_mul_adj`/`mat2_adj_mul`); **det of adjugate** `det(adj M)=det M`
+  (`detM_adj`); `tr(I)=2`.  The facts behind Cramer's rule + the inverse formula, all
+  genuinely absent.  Off-diagonal `=0` entries via `t−t` + `Order.sub_self_zero` (ring_intZ
+  doesn't reduce a cancellation to literal `0`).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

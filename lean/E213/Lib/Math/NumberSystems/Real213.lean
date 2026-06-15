@@ -104,6 +104,7 @@ import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticCycleFixtures
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicBoost
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ParabolicTranslation
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2CayleyHamilton
+import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Adjugate
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice
