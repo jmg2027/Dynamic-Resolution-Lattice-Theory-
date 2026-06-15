@@ -29,8 +29,9 @@ namespace E213.Lib.Math.Combinatorics.CatalanBinomial
 
 open E213.Lib.Math.Combinatorics.Catalan (catalan)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial
-  (choose choose_succ_mul choose_symm_sum)
-open E213.Tactic.NatHelper (mul_assoc add_sub_cancel_right gcd213 mul_left_cancel_pos)
+  (choose choose_succ_mul choose_symm_sum choose_succ_succ)
+open E213.Tactic.NatHelper
+  (mul_assoc add_sub_cancel_right gcd213 mul_left_cancel_pos add_left_cancel)
 open E213.Meta.Nat.NatDiv213 (mul_div_cancel_left_pure)
 open E213.Meta.Nat.Gcd213
   (gcd213_comm gcd213_sub_left gcd213_succ_self coprime_dvd_of_dvd_mul)
@@ -197,5 +198,46 @@ theorem catN_growth_bound (n : Nat) : catN (n + 1) ≤ 4 * catN n := by
 
 /-- Smoke: the general bound at n = 5 (`C₆ = 132 ≤ 4·42`). -/
 theorem catN_growth_smoke : catN 6 ≤ 4 * catN 5 := catN_growth_bound 5
+
+/-! ## Catalan reflection / André's ballot formula -/
+
+/-- **Key absorption**: `(n+1)·choose (2n) (n+1) = n·choose (2n) n`.
+
+    From `choose_succ_mul (2n) n : (n+1)·choose (2n+1) (n+1) = (2n+1)·choose (2n) n`
+    and Pascal `choose (2n+1) (n+1) = choose (2n) n + choose (2n) (n+1)`; the common
+    `(n+1)·choose (2n) n` is additively cancelled (subtraction-free). -/
+theorem choose_central_succ (n : Nat) :
+    (n + 1) * choose (2 * n) (n + 1) = n * choose (2 * n) n := by
+  have hkey : (n + 1) * choose (2 * n + 1) (n + 1)
+      = (2 * n + 1) * choose (2 * n) n := choose_succ_mul (2 * n) n
+  rw [choose_succ_succ (2 * n) n, Nat.mul_add] at hkey
+  have hsplit : (2 * n + 1) * choose (2 * n) n
+      = (n + 1) * choose (2 * n) n + n * choose (2 * n) n := by
+    rw [show 2 * n + 1 = (n + 1) + n from by ring_nat,
+        E213.Tactic.NatHelper.add_mul (n + 1) n (choose (2 * n) n)]
+  rw [hsplit] at hkey
+  exact add_left_cancel hkey
+
+/-- **`catN` form of the absorption**: `choose (2n) (n+1) = n · catN n`. -/
+theorem choose_central_succ_catN (n : Nat) :
+    choose (2 * n) (n + 1) = n * catN n := by
+  have h1 : (n + 1) * choose (2 * n) (n + 1) = n * choose (2 * n) n :=
+    choose_central_succ n
+  have h2 : (n + 1) * catN n = choose (2 * n) n := succ_mul_catN n
+  have h3 : (n + 1) * choose (2 * n) (n + 1) = (n + 1) * (n * catN n) := by
+    rw [h1, ← h2]; ring_nat
+  exact mul_left_cancel_pos (Nat.succ_pos n) h3
+
+/-- ★ **Catalan reflection / ballot formula** (∅-axiom):
+    `catN n + choose (2n) (n+1) = choose (2n) n`, i.e. `C_n = C(2n,n) − C(2n,n+1)`
+    in subtraction-free form. -/
+theorem catalan_reflection (n : Nat) :
+    catN n + choose (2 * n) (n + 1) = choose (2 * n) n := by
+  rw [choose_central_succ_catN n]
+  have h : catN n + n * catN n = (n + 1) * catN n := by ring_nat
+  rw [h, succ_mul_catN n]
+
+/-- Smoke: `catN 3 + choose 6 4 = choose 6 3` (`5 + 15 = 20`). -/
+theorem catalan_reflection_smoke : catN 3 + choose 6 4 = choose 6 3 := by decide
 
 end E213.Lib.Math.Combinatorics.CatalanBinomial

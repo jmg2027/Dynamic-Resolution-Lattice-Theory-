@@ -609,6 +609,21 @@ closure → full build → commit.
   `by_cases` on `∣` via decidable `n%(j+1)` split).  `count_partition_by_key` is generic — unlocks
   general σ/τ/μ-inversion next.  Promotes the φ/μ/σ cluster from table-verified to a proven theorem.
 
+- **107 — combinatorics (general)**: `Combinatorics/CatalanBinomial.{choose_central_succ,
+  choose_central_succ_catN, catalan_reflection}` (appended, +4 PURE) — **the Catalan reflection /
+  André ballot formula** ★ `catN n + C(2n,n+1) = C(2n,n)` (i.e. `C_n = C(2n,n) − C(2n,n+1)`,
+  subtraction-free, general).  Key absorption `(n+1)·C(2n,n+1) = n·C(2n,n)` (from `choose_succ_mul`
+  + Pascal, additive cancel) → `C(2n,n+1) = n·catN n` → `catN n + n·catN n = (n+1)·catN n = C(2n,n)`
+  via `succ_mul_catN`.  Genuinely absent.
+
+- **108 — combinatorics (new sequence, general def)**: `Combinatorics/MotzkinNumbers.{motzkin,
+  motzkin_succ, motzkin_catalan_table}` (NEW file, 9 PURE) — **introduces the Motzkin numbers**
+  M(n) (A001006) via the two-term convolution recurrence `M(n+1) = M(n) + Σ_{k<n} M(k)·M(n−1−k)`
+  (fuel-based def + `Nat.strongRecOn` fuel-irrelevance, `bell` pattern), with ★ the **general**
+  `motzkin_succ` recurrence, `motzkin_table` (M0..9), ★ the **Motzkin–Catalan relation**
+  `M(n) = Σ_k C(n,2k)·catalan(k)` (n=0..6), and the three-term P-recurrence (table n=2..9).
+  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
