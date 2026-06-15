@@ -26,6 +26,8 @@ import E213.Lib.Math.Algebra.CayleyDickson
 import E213.Lib.Math.Algebra.CassiniUnimodular
 import E213.Lib.Math.Algebra.FiveFloorUnification
 import E213.Lib.Math.Foundations.ResidueForm
+import E213.Lib.Math.Foundations.CauchySchwarzGeneral
+import E213.Lib.Math.Foundations.SumCubesAMGM
 import E213.Lib.Math.Analysis.Measure
 import E213.Lib.Math.NumberTheory.ModArith
 import E213.Lib.Math.Analysis.Modulus

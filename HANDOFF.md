@@ -730,6 +730,22 @@ closure → full build → commit.
   (general — generalizes the iter-103 table to all n), ★★★ `mu_mul`, `mu_prime_pow`, ★★★ `mu_mobius_inversion`.
   **Closes the entire `mobius_divisor_sum_general` frontier — NO open items remain.**
 
+- **NEW AREA round 1 (combinatorics / inequalities) — iters 119–121:**
+- **119 — combinatorics (new sequence)**: `Combinatorics/PartitionNumbers.{partition, partN_succ}`
+  (NEW file, 12 PURE) — **the integer partition function** `p(n)` (OEIS A000041, 1,1,2,3,5,7,11,15,22,30,42)
+  via the parts-bounded DP `P(n+1,k+1) = P(n+1,k) + [k+1≤n+1]·P(n+1−(k+1),k+1)` (fuel-based +
+  `Nat.strongRecOn`, stays in Nat — no pentagonal sign alternation).  ★ general `partN_succ` recurrence +
+  `partition_table`.  Genuinely absent (the `partition` elsewhere = set partitions/Bollobás).
+- **120 — inequality (general-n)**: `Foundations/CauchySchwarzGeneral.{lagrange_identity, cauchy_schwarz}`
+  (NEW file, 18 PURE) — **general-n Lagrange identity** `(Σaᵢ²)(Σbᵢ²)−(Σaᵢbᵢ)² = Σ_{m<n}Σ_{i<m}(aᵢb_m−a_mbᵢ)²`
+  and ★★★ **Cauchy–Schwarz** `(Σaᵢbᵢ)² ≤ (Σaᵢ²)(Σbᵢ²)` over Int sequences (induction on n via `gap_succ`;
+  CS since the gap = the nonneg SOS `triSq`).  Not a duplicate — only fixed-dim n=2,3,4 existed
+  (`Foundations/Positivity.lean`).
+- **121 — inequality (algebra)**: `Foundations/SumCubesAMGM.{sum_cubes_factor, amgm3}` (NEW file, 8 PURE)
+  — `a³+b³+c³−3abc = (a+b+c)(a²+b²+c²−ab−bc−ca)`, the SOS `2(…) = (a−b)²+(b−c)²+(c−a)²`, and ★★★
+  **3-var AM–GM** `0≤a,b,c → 3abc ≤ a³+b³+c³` (+ 2-var bonuses).  Note: `ring_intZ` treats `a^k` as
+  an atom; `pow2`/`pow3` bridge `^`→`*` first.  Not a duplicate.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
