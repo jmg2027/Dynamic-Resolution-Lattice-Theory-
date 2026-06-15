@@ -58,8 +58,46 @@ Gate: if it can't be drawn in one plain sentence, it isn't真知.
   `H*(K)` cup-ring quantity or a bare count wearing a cohomology costume?  Audit
   identical to G1 (predict: prose, like G1 was).
 
-## Status
+## Systematic audit — the pattern is universal (multi-agent, verified)
 
-G1 closed (`OctetCokernel`, PURE, build-green, wired to the Bipartite
-aggregator; `IotaKToDelta4`/over-reach docstring softened to cite it + flag the
-reading).  Continue: T1 → T2 → T3, each "close the math, tag the reading."
+A two-agent audit (auditor + anti-forcing skeptic) tested whether the
+"numbers-forced / identifications-prose" split holds across the major
+observables.  **Sharpened verdict: the framework forces (a) integer/combinatorial
+skeletons and (b) a few genuine *counting* structural facts; but every map onto a
+named Standard-Model object (SU(3) octet, SU(5) adjoint, α_i, mass ratios, J∝Im)
+rides on docstring prose or a definition-smuggled projection.**  One line:
+**the numbers and the counting are ∅-axiom; the physics dictionary is not in Lean.**
+
+| Observable | Tier | Forced content (drawable) |
+|---|---|---|
+| `1/α₃ = 8` (octet) | **A math + C label** | `coker(0-map) = H¹(K)` rank 8; "= SU(3)" is a reading |
+| `1/α₂ = 30` | **B** | only the partition `NS²+NT²+2NS·NT = 25`; **no theorem `inv_α₂=30`**; "30"/"SU(5)" prose (and the prefactor-sector is mislabelled in-docstring) |
+| `m_p/m_e = 6π⁵` | **B (purest)** | only `6 = NS·NT`; the falsifier is literally `6=6`; π/1836/ppm all prose.  **π is never derived in these files** (`Basel/Bound.lean:51` disclaims the ζ(2) bracket as "not a Lean theorem") |
+| Basel depths `{1,2,∞}` | **A (integers) + C (force-binding)** | saturation `C(3,3)=1, C(2,3)=0` derived; but **repo self-contradicts**: `NeffDerivation` says "axiom_derived", `WhyBasel.lean:60` says "posited, open" |
+| CP exists, 1 phase | **A (genuine)** | `(3−1)(3−2)/2 = 1` vs `N=2 → 0` — real KM counting, falsifiable |
+| CP phase `= 90°` (C₄) | **A+B+C mixed** | "one phase"/"i²=−1" forced; "J∝Im" (`imPart := u.2`, defined not proven), "∈C₄" (hand-written `def c4`), "360/4=90" (`decide`) are seams |
+
+**Two genuine (A) survivors** (neither a precision number): CP-phase
+existence+uniqueness (`CPPhaseCount`), the depth integers (`NeffDerivation`).
+Every coupling/mass identification is (B).  The repo's own self-flags
+("posited", "open", "conjecture", "hunter-found") confirm the audit.
+
+This is the program's core insight, and the physics form of "don't fix the
+meaning": **the math (numbers, counting, cohomology) is the forced skeleton; the
+physics names (octet, spacetime, mass, CP) are readings, promotable toward forced
+only where genuine math sits underneath (octet→cokernel; CP→Hodge star), and even
+then the final SM label stays a reading.**
+
+## Status + next
+
+- **G1 closed** (`OctetCokernel`, PURE, build-green, wired; `IotaKToDelta4`
+  docstring softened to cite it + flag the reading).
+- **Concrete honesty fixes surfaced by the audit:** (i) `NeffDerivation` vs
+  `WhyBasel` contradiction on the depth force-binding (integers derived, binding
+  posited — reconcile); (ii) `1/α₂ = 30` has no theorem, only a docstring +
+  mislabelled prefactor-sector.
+- **Highest-value B→A target: CP `δ = 90°`** — build the signed ℤ-Hodge star at
+  `n=4` so `⟨⋆⟩ ≅ C₄ ≅ ℤ[i]^×` is a proven iso (not a hand-written `def c4` +
+  `imPart` projection); derive `ckmPhases` as a theorem.  Would make CP the second
+  genuine (A).  Frontier already named in-file (`CPHodgeStructure.lean:38-41`).
+- Then T1 (tree-independence), T2 (relative H²), T3 (α₂ audit — now done: B).
