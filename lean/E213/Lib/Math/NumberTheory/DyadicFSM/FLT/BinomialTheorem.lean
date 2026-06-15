@@ -301,4 +301,26 @@ theorem hockey_stick (r : Nat) :
         = choose ((r + m + 1) + 1) (r + 1)
     rw [choose_succ_succ (r + m + 1) r, Nat.add_comm]
 
+/-- ★ **Weighted row sum** `Σ_{k=0}^{n} k·C(n,k) = n·2^{n-1}` (the "mean of the
+    binomial distribution"), in the subtraction-free shift form
+    `Σ_{k=0}^{n+1} k·C(n+1,k) = (n+1)·2^n`.
+
+    Peel the `k=0` head (`0·C = 0`) with `sumTo_split_first`, reindexing the tail
+    to `Σ (k+1)·C(n+1,k+1)`; the absorption identity
+    `(k+1)·C(n+1,k+1) = (n+1)·C(n,k)` is `choose_succ_mul n k`; `sumTo_mul_left`
+    pulls `(n+1)` out and `pascal_row_sum` collapses `Σ C(n,k) = 2^n`. -/
+theorem pascal_row_sum_weighted (n : Nat) :
+    sumTo (n + 2) (fun k => k * choose (n + 1) k) = (n + 1) * 2 ^ n := by
+  rw [sumTo_split_first (n + 1) (fun k => k * choose (n + 1) k)]
+  show 0 * choose (n + 1) 0
+       + sumTo (n + 1) (fun k => (k + 1) * choose (n + 1) (k + 1))
+     = (n + 1) * 2 ^ n
+  rw [Nat.zero_mul, Nat.zero_add]
+  rw [sumTo_congr (n + 1)
+        (fun k => (k + 1) * choose (n + 1) (k + 1))
+        (fun k => (n + 1) * choose n k)
+        (fun k _ => E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial.choose_succ_mul n k)]
+  rw [← sumTo_mul_left (n + 1) (n + 1) (fun k => choose n k)]
+  rw [pascal_row_sum n]
+
 end E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem

@@ -282,6 +282,12 @@ closure → full build → commit.
   `mod_eq_exists_mul_add` lift.  Genuinely absent; all modular-inverse/gcd infra was present
   (no signed Bézout needed — the modular-inverse route stays in ℕ).
 
+- **59 — combinatorics (deep)**: `BinomialTheorem.pascal_row_sum_weighted` (1 PURE, appended)
+  — the **weighted binomial row sum** `Σ_{k≤n} k·C(n,k) = n·2^{n-1}` (the "mean of the binomial
+  distribution"), shift form `Σ_{k≤n+1} k·C(n+1,k) = (n+1)·2^n`.  Peel head + absorption
+  `(k+1)C(n+1,k+1)=(n+1)C(n,k)` (`choose_succ_mul`) + `pascal_row_sum`.  Genuinely absent (the
+  unweighted `pascal_row_sum = 2^n` already existed — the redundant wrapper was dropped).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
