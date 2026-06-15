@@ -267,6 +267,13 @@ closure → full build → commit.
   genuinely absent.  Off-diagonal `=0` entries via `t−t` + `Order.sub_self_zero` (ring_intZ
   doesn't reduce a cancellation to literal `0`).
 
+- **57 — combinatorics (deep)**: `DyadicFSM/FLT/AlternatingBinomial.alt_binom_sum` (4 PURE) —
+  the **alternating binomial sum** `Σ_{k≤m} (−1)^k C(m,k) = 0` (m ≥ 1), the `(1+(−1))^m=0`
+  case.  Genuinely absent (`(-1)^k·choose` had zero corpus matches).  Via a sharper
+  **telescoping lemma** `alt_partial` (alternating partial sum of a Pascal row = `(−1)^j C(M,j)`,
+  the signed entry of the row above) + `C(n,n+1)=0`.  Local Int fold `sumZ` (corpus `sumTo`
+  is Nat→Nat).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
