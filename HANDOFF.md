@@ -460,6 +460,15 @@ closure → full build → commit.
 - **REJECTED (already present)**: sum-of-four-squares closure (`FourSquare.isSum4_mul`); Boolean
   algebra laws (comprehensive in 3 realizations).
 
+- **89 — combinatorics (deep)**: `Combinatorics/CatalanBinomial.{catN, succ_mul_catN, …}`
+  (appended) — the **general Catalan number** `Cₙ = C(2n,n)/(n+1)`, well-defined as a Nat for
+  all n (vs the corpus table n≤7): ★ **exactness** `(n+1)·catN n = C(2n,n)` (division exact, via
+  iter-87 integrality + `mul_div_cancel_left_pure`), table agreement `catN = catalan` (n≤7), and
+  the **ratio recurrence** `(n+2)·catN(n+1) = 2(2n+1)·catN n`.  Completes the Catalan story.
+- **REJECTED (restatement)**: central-binomial bounds `C(2n,n) ≤ 4ⁿ`, `2ⁿ ≤ C(2n,n)` — the
+  `≤2^(2n)`/`≥2^n` bounds already exist (`MultSystem.central_binom_le`, `central_binom_ge_two_pow`);
+  `4ⁿ` is cosmetic repackaging of `2^(2n)`.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

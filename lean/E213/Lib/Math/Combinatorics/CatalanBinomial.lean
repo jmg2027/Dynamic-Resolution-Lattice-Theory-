@@ -1,6 +1,7 @@
 import E213.Lib.Math.Combinatorics.Catalan
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial
 import E213.Meta.Nat.Gcd213
+import E213.Meta.Nat.NatDiv213
 
 /-!
 # Catalan ↔ central-binomial bridge (∅-axiom)
@@ -29,7 +30,8 @@ namespace E213.Lib.Math.Combinatorics.CatalanBinomial
 open E213.Lib.Math.Combinatorics.Catalan (catalan)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial
   (choose choose_succ_mul choose_symm_sum)
-open E213.Tactic.NatHelper (mul_assoc add_sub_cancel_right gcd213)
+open E213.Tactic.NatHelper (mul_assoc add_sub_cancel_right gcd213 mul_left_cancel_pos)
+open E213.Meta.Nat.NatDiv213 (mul_div_cancel_left_pure)
 open E213.Meta.Nat.Gcd213
   (gcd213_comm gcd213_sub_left gcd213_succ_self coprime_dvd_of_dvd_mul)
 
@@ -117,5 +119,49 @@ theorem succ_dvd_central_mul (n : Nat) :
     lemma applied to `(n+1) ∣ (2n+1)·C(2n,n)`. -/
 theorem catalan_integrality (n : Nat) : (n + 1) ∣ choose (2 * n) n :=
   coprime_dvd_of_dvd_mul (gcd_succ_two_succ n) (succ_dvd_central_mul n)
+
+/-! ## The general Catalan number `Cₙ = C(2n,n)/(n+1)` -/
+
+/-- The **general Catalan number** `Cₙ = C(2n,n)/(n+1)`, well-defined as a `Nat`
+    (exact division licensed by `catalan_integrality`) — unlike the finite
+    `Catalan.catalan` table this is defined for all `n`. -/
+def catN (n : Nat) : Nat := choose (2 * n) n / (n + 1)
+
+/-- ★ **Exactness**: `(n+1) · catN n = choose (2n) n` — the division is exact, so
+    `catN` recovers the central binomial.  From `catalan_integrality` +
+    `mul_div_cancel_left_pure`. -/
+theorem succ_mul_catN (n : Nat) : (n + 1) * catN n = choose (2 * n) n := by
+  obtain ⟨q, hq⟩ := catalan_integrality n
+  have hcat : catN n = q := by
+    show choose (2 * n) n / (n + 1) = q
+    rw [hq]
+    exact mul_div_cancel_left_pure (n + 1) q (Nat.succ_pos n)
+  rw [hcat]; exact hq.symm
+
+/-- Table agreement: `catN 0..7 = 1,1,2,5,14,42,132,429`. -/
+theorem catN_table :
+    catN 0 = 1 ∧ catN 1 = 1 ∧ catN 2 = 2 ∧ catN 3 = 5
+    ∧ catN 4 = 14 ∧ catN 5 = 42 ∧ catN 6 = 132 ∧ catN 7 = 429 := by decide
+
+/-- Bridge to the corpus table: `catN n = catalan n` for n = 0..7. -/
+theorem catN_eq_catalan :
+    catN 0 = catalan 0 ∧ catN 1 = catalan 1 ∧ catN 2 = catalan 2 ∧ catN 3 = catalan 3
+    ∧ catN 4 = catalan 4 ∧ catN 5 = catalan 5 ∧ catN 6 = catalan 6
+    ∧ catN 7 = catalan 7 := by decide
+
+/-- ★ **`catN` ratio recurrence**: `(n+2)·catN (n+1) = 2·(2n+1)·catN n`.
+    From `central_binom_recurrence` + the exactness `succ_mul_catN`, cancelling
+    the positive `(n+1)`. -/
+theorem succ_mul_catN_recurrence (n : Nat) :
+    (n + 2) * catN (n + 1) = 2 * (2 * n + 1) * catN n := by
+  have hL : (n + 2) * catN (n + 1) = choose (2 * (n + 1)) (n + 1) := succ_mul_catN (n + 1)
+  have hR : (n + 1) * catN n = choose (2 * n) n := succ_mul_catN n
+  have key : (n + 1) * ((n + 2) * catN (n + 1))
+      = (n + 1) * (2 * (2 * n + 1) * catN n) := by
+    rw [hL]
+    rw [show 2 * (n + 1) = 2 * n + 2 from by ring_nat]
+    rw [central_binom_recurrence n, ← hR]
+    ring_nat
+  exact mul_left_cancel_pos (Nat.succ_pos n) key
 
 end E213.Lib.Math.Combinatorics.CatalanBinomial
