@@ -746,6 +746,12 @@ closure → full build → commit.
   **3-var AM–GM** `0≤a,b,c → 3abc ≤ a³+b³+c³` (+ 2-var bonuses).  Note: `ring_intZ` treats `a^k` as
   an atom; `pow2`/`pow3` bridge `^`→`*` first.  Not a duplicate.
 
+- **122 — inequality**: `Foundations/BernoulliInequality.{bernoulli, sq_sum_le}` (NEW file, 6 PURE) —
+  ★★★ **Bernoulli's inequality** `0≤x → 1 + n·x ≤ (1+x)ⁿ` over Int (induction on n; step multiplies IH by
+  `(1+x)≥0` and drops the nonneg cross term `n·x²`), and ★★ the **QM–AM corollary** `(Σaᵢ)² ≤ n·(Σaᵢ²)`
+  (the `b≡1` specialization of the iter-120 general `cauchy_schwarz`).  (Pythagorean-triple parametrization
+  checked this round and rejected as duplicate of `NumberTheory/PythagoreanTriples.lean`.)
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
