@@ -68,6 +68,7 @@ import E213.Lib.Math.NumberTheory.SymmetricPolyIdentities
 import E213.Lib.Math.NumberTheory.GeometricSeries
 import E213.Lib.Math.NumberTheory.EulerTotient
 import E213.Lib.Math.NumberTheory.MobiusFunction
+import E213.Lib.Math.NumberTheory.SumOfDivisors
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.
 

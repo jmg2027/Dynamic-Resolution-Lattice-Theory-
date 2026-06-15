@@ -581,6 +581,13 @@ closure → full build → commit.
   (n=1..20), plus `mobius_table`.  Companion to EulerTotient (reuses `totient`/`dvdInd`).  General
   theorems share the open partition-by-divisor frontier (`gauss_totient_general.md`).  Genuinely absent.
 
+- **104 — number theory (σ/τ, new defs + T2)**: `NumberTheory/SumOfDivisors.{sigma, tau, sigma_table,
+  tau_table, perfect_table}` (NEW file, 7 PURE) — **introduces σ (sum of divisors) and τ (divisor
+  count)** as `divisorSum n (fun d => d)` / `divisorSum n (fun _ => 1)`, reusing the EulerTotient
+  propext-free `divisorSum`/`dvdInd`.  Verified σ(1..12), τ(1..12), σ(p)=p+1, σ(p^k) prime-powers, and
+  ★ the **perfect-number condition** `σ(n)=2n` at n=6,28 (capped: σ(496) exceeds `decide`'s maxRecDepth).
+  Completes the multiplicative-function trio φ/μ/σ.  Genuinely absent (`sigma` elsewhere = variable/Gram).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
