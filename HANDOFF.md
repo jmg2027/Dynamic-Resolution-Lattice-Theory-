@@ -962,6 +962,19 @@ closure → full build → commit.
   `two_pow_two_pow_succ`, inline propext-free dvd-transitivity, hand-proof of `¬2∣1` (the
   `Decidable (·∣·)` instance leaks propext).  Genuinely absent (corpus `Fermat` hits are FLT/FermatLittle).
 
+- **152 — number theory (★★★ HEADLINE: Euclid's perfect-number theorem, σ-framework capstone)**:
+  `NumberTheory/PerfectNumbers` (NEW file, 19 PURE) — `Perfect n := σ(n)=2n`.  ★★★ **Euclid's theorem**
+  `euclid_perfect : Prime213 q → q+1=2^(k+1) → Perfect (2^k·q)` at **general k** (if `2^(k+1)−1` is a
+  Mersenne prime, `2^k·(2^(k+1)−1)` is perfect).  Built ENTIRELY on the session's σ-framework:
+  `sigma_mul` (multiplicativity) gives `σ(2^k·q)=σ(2^k)·σ(q)` (q odd ⇒ coprime); `sigma_two_pow_succ`
+  (`σ(2^k)+1=2^(k+1)`, general k) and `sigma_prime` (`σ(q)=q+1`, general prime) BOTH fall out of the
+  single corpus lemma `divisorSumZ_prime_pow_reindex` bridged to Nat-σ via iter-145's
+  `sigma_eq_id_conv_one`+`castSumTo` — no separate prime-power induction.  Instantiated at k=1,2,4
+  (`perfect_6/28/496`, Mersenne primes 3,7,31 via a √q-bounded primality helper).  Subtraction kept out
+  of all ring goals by carrying `q+1=2^(k+1)` as hypothesis.  Genuinely absent (corpus had only a
+  `perfect_table` decide-smoke).  A primacy-breadth capstone: the elementary divisor theory
+  (φ/μ/σ/τ/σ_k/λ + Möbius inversion + Dirichlet ring + Euclid perfect) now reproduced ∅-axiom.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
