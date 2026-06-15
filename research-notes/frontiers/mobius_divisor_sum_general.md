@@ -1,6 +1,25 @@
 # Frontier: general Möbius divisor-sum `∀ n ≥ 1, Σ_{d∣n} μ(d) = [n=1]`
 
-**Status**: PARTIAL (T2.5).  Prime case closed; general n open.
+**Status**: PARTIAL (T2.5).  Prime case + structural multiplicativity closed;
+general-n divisor-sum open (now only a combinatorial divisor-product reindex away).
+
+## Update — structural multiplicativity CLOSED (`MobiusMultiplicative.lean`)
+
+Both classical ingredients of the general identity are now PURE:
+- `muStruct` — a structurally-defined Möbius (`∏_{q=2}^{n} mFactor(vp q n)` at
+  primes, `1` at composites), verified `= mu` on n=1..12.
+- ★★★ `muStruct_mul` — `gcd(a,b)=1 → muStruct(ab) = muStruct a · muStruct b`
+  (general; the corpus's first structurally-defined multiplicative Möbius).
+- ★★ `sumMF_succ_eq_zero` — prime-power core `Σ_i μ(pⁱ) = [k=0]`.
+
+**Remaining gap for the general divisor-sum** is now purely combinatorial: the
+coprime divisor-product factorization
+`Σ_{d∣p^k·m} f = (Σ_i f(pⁱ))·(Σ_{d∣m} f)` over the `sumZ`/`dvdInd` representation —
+needs a divisor-product reindex `divisors(p^k·m) ≅ {0..k}×divisors(m)` carried
+through `sumZ` (the corpus has range-Fubini `sumTo_fubini` but no
+Σ-over-divisors-Fubini for a *product* decomposition / no divisor-set object).
+The same `muStruct_mul` window-product template would also unlock general σ/τ
+multiplicativity + Möbius inversion.
 
 ## Closed (∅-axiom, `lean/E213/Lib/Math/NumberTheory/MobiusPrimeCase.lean`)
 

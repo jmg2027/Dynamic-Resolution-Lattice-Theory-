@@ -641,6 +641,17 @@ closure → full build → commit.
   table, and the row sum `Σ_{k=1}^{n} N(n,k) = catalan n` (n=1..7).  General `Σ N = catN` open (division
   inside summand).  Genuinely absent (`Fractal/Narayana*` is an unrelated modular recurrence).
 
+- **111 — number theory (structural Möbius multiplicativity, general)**: `NumberTheory/MobiusMultiplicative.{muStruct,
+  muStruct_mul, sumMF_succ_eq_zero}` (NEW file, 32 PURE) — **the corpus's first structurally-defined
+  multiplicative Möbius**.  `muStruct n = ∏_{q=2}^{n} guarded(q,n)` (`mFactor(vp q n)` at primes via a
+  sound `Bool` primality test, `1` at composites; verified `= mu` on n=1..12), with ★★★ `muStruct_mul`:
+  `gcd(a,b)=1 → muStruct(a·b) = muStruct a · muStruct b` (general — window-stability + candidate-wise
+  `prodFrom_mul` via per-prime `mFactor_vp_mul` from `vp_mul` + coprime valuation-disjointness), and
+  ★★ `sumMF_succ_eq_zero` (prime-power core `Σ_i μ(pⁱ)=[k=0]`).  These are the two load-bearing halves
+  of the general `Σ_{d∣n}μ(d)=[n=1]`; remaining gap = a combinatorial divisor-product reindex
+  `divisors(p^k·m)≅{0..k}×divisors(m)` (frontier `mobius_divisor_sum_general.md`, updated).  Same
+  window-product template would unlock general σ/τ multiplicativity + Möbius inversion.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
