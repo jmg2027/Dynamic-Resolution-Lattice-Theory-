@@ -804,6 +804,12 @@ closure → full build → commit.
   `A(n)=T(n,n)` (fuel-based).  ★ general fuel-level `zigzag_rec`, the A000111 table, and the boustrophedon
   entry-fill recurrence (table form, rows 1–5).  Genuinely absent.
 
+- **134 — combinatorics (q-analog, new)**: `Combinatorics/QBinomial.{qbinom, qbinom_pascal, qbinom_q1}`
+  (NEW file, 11 PURE) — the **q-binomial (Gaussian binomial) coefficients** `[n choose k]_q` at integer
+  `q` via q-Pascal `[n+1,k+1]_q = q^(k+1)·[n,k+1]_q + [n,k]_q`, with ★ general `qbinom_pascal` and
+  ★ general `qbinom_q1` (the q→1 limit `qbinom 1 n k = choose n k`), plus q=2 + symmetry tables (general
+  symmetry needs the dual q-Pascal — open item).  First q-analog in the corpus.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
