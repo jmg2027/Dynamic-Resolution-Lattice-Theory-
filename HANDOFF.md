@@ -487,6 +487,15 @@ closure → full build → commit.
   (the `+2` = the `L₀=2` seed, vs the Fibonacci `Σ Fₖ²=FₙF_{n+1}`).  Genuinely absent (corpus had
   Fibonacci sums, no Lucas sums).
 
+- **93 — combinatorics (deep, cross-cluster)**: `Combinatorics/FibBinomialConvolution.{fib_binom_sum, fib_binom_sum_shift}`
+  (8 PURE) — **the Fibonacci–binomial convolution** ★ `Σ_{k=0}^{n} C(n,k)·Fₖ = F_{2n}` and the paired
+  companion `Σ_{k=0}^{n} C(n,k)·F_{k+1} = F_{2n+1}` (needed because the Pascal-split step mixes the two).
+  Proof: generalize to `U n s = Σ C(n,k)·F_{k+s}`, shift recurrences `U(n+1) s = U n s + U n (s+1)`
+  (Pascal split + `sumTo` reindex, last term vanishing by `choose_eq_zero_of_lt`) and
+  `U n (s+2) = U n s + U n (s+1)` (Fibonacci recurrence inside the sum), then paired induction on
+  `(U n 0=F_{2n}, U n 1=F_{2n+1})`.  Bridges the binomial and Fibonacci clusters.  Genuinely absent.
+  NEW LANDMINE: `Nat.add_mul` leaks `propext` (while `Nat.mul_add` is clean) → `NatHelper.add_mul`.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
