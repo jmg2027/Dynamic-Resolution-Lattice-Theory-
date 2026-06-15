@@ -392,6 +392,15 @@ closure → full build → commit.
   split + `sumTo` reindex + boundary `choose 0 (n+2)=0` vanishing) + two-step paired induction
   matching `fib`.  Genuinely absent (no `fib`×`choose` connection existed).
 
+- **77 — combinatorics (deep)**: `Combinatorics/FibonacciSums.{sumFibOdd, sumFibEven}`
+  (appended) — **even/odd-indexed Fibonacci partial sums** `Σ_{k≤n} F_{2k+1}=F_{2n+2}` and
+  `Σ_{k≤n} F_{2k}+1=F_{2n+1}`.  Genuinely absent (corpus had full-index sums + even/odd
+  *recurrence* facts, no subsequence sums).
+- **78 — combinatorics (deep)**: `Combinatorics/PowerSums.{sum_fourth, sum_fifth}` (appended)
+  — **Faulhaber k=4,5**: `30·Σi⁴+n = 6n⁵+15n⁴+10n³` (≡ `n(n+1)(2n+1)(3n²+3n−1)`) and
+  `12·Σi⁵+n² = 2n⁶+6n⁵+5n⁴`, additive (subtraction-free) forms extending the Gauss→squares→
+  cubes Faulhaber sequence.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

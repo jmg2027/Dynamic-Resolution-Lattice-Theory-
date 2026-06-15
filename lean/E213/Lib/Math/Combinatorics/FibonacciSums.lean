@@ -80,4 +80,57 @@ theorem sumFibSq_eq (n : Nat) : sumFibSq n = fib n * fib (n + 1) := by
 theorem sumFib_smoke : sumFib 5 = 12 := by decide   -- 0+1+1+2+3+5 = 12 = F_7 - 1
 theorem sumFibSq_smoke : sumFibSq 5 = 40 := by decide -- 0+1+1+4+9+25 = 40 = F_5·F_6 = 5·8
 
+/-! ## Even- and odd-indexed subsequence sums -/
+
+/-- ★ **Odd-indexed Fibonacci partial sum** `Σ_{k=0}^{n} F_{2k+1} = F_{2n+2}`.
+    Step: `S(k+1) = F_{2k+2} + F_{2k+3} = F_{2k+4}` via the recurrence. -/
+theorem sumFibOdd (n : Nat) :
+    sumTo (n + 1) (fun k => fib (2 * k + 1)) = fib (2 * n + 2) := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    show sumTo (k + 2) (fun k => fib (2 * k + 1)) = fib (2 * (k + 1) + 2)
+    rw [sumTo_succ]
+    have ih' : sumTo (k + 1) (fun k => fib (2 * k + 1)) = fib (2 * k + 2) := ih
+    rw [ih']
+    show fib (2 * k + 2) + fib (2 * (k + 1) + 1) = fib (2 * (k + 1) + 2)
+    have hi1 : 2 * (k + 1) + 1 = (2 * k) + 3 := by ring_nat
+    have hi2 : 2 * (k + 1) + 2 = (2 * k) + 4 := by ring_nat
+    rw [hi1, hi2]
+    have hr : fib (2 * k + 4) = fib (2 * k + 2) + fib (2 * k + 3) := by
+      have e : 2 * k + 4 = (2 * k + 2) + 2 := by ring_nat
+      have e2 : (2 * k + 2) + 1 = 2 * k + 3 := by ring_nat
+      rw [e, fib_rec (2 * k + 2), e2]
+    rw [hr]
+
+/-- ★ **Even-indexed Fibonacci partial sum (shift form)**
+    `Σ_{k=0}^{n} F_{2k} + 1 = F_{2n+1}`. -/
+theorem sumFibEven (n : Nat) :
+    sumTo (n + 1) (fun k => fib (2 * k)) + 1 = fib (2 * n + 1) := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    show sumTo (k + 2) (fun k => fib (2 * k)) + 1 = fib (2 * (k + 1) + 1)
+    rw [sumTo_succ]
+    have ih' : sumTo (k + 1) (fun k => fib (2 * k)) + 1 = fib (2 * k + 1) := ih
+    show (sumTo (k + 1) (fun k => fib (2 * k)) + fib (2 * (k + 1))) + 1
+          = fib (2 * (k + 1) + 1)
+    have hi1 : 2 * (k + 1) = (2 * k) + 2 := by ring_nat
+    rw [hi1]
+    have hi2 : (2 * k + 2) + 1 = (2 * k) + 3 := by ring_nat
+    rw [hi2]
+    have hregroup :
+        (sumTo (k + 1) (fun k => fib (2 * k)) + fib (2 * k + 2)) + 1
+          = (sumTo (k + 1) (fun k => fib (2 * k)) + 1) + fib (2 * k + 2) := by
+      ring_nat
+    rw [hregroup, ih']
+    have hr : fib (2 * k + 3) = fib (2 * k + 1) + fib (2 * k + 2) := by
+      have e : 2 * k + 3 = (2 * k + 1) + 2 := by ring_nat
+      have e2 : (2 * k + 1) + 1 = 2 * k + 2 := by ring_nat
+      rw [e, fib_rec (2 * k + 1), e2]
+    rw [hr]
+
+theorem sumFibOdd_smoke : sumTo 3 (fun k => fib (2 * k + 1)) = fib 6 := by decide
+theorem sumFibEven_smoke : sumTo 3 (fun k => fib (2 * k)) + 1 = fib 5 := by decide
+
 end E213.Lib.Math.Combinatorics.FibonacciSums
