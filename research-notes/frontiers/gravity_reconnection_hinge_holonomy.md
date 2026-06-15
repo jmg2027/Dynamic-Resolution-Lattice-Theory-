@@ -88,15 +88,29 @@ physics, no forced map.  *Remaining wiring:* `GravityShadow`'s scalar `W=|G|²/d
 to this `Re(G)=h` (currently the metric lives in the cohomology layer, the scalar
 in the physics file — they still don't import each other).
 
-Harder, genuinely-open second tier:
-1. The curvature *of the proven metric `h`* (a connection / parallel transport on
-   `Δ⁴`'s `H¹`), and whether it matches anything Regge-like — *without* importing
-   the graph `DiscreteGaussBonnet` (which is unconnected; the `b₁` even differs,
-   2 vs 8).
-2. The phase-vs-modulus / holonomy reconciliation: is gravity the metric (real,
-   current) or the holonomy/deficit (phase, Regge)?  Two readings or competing?
-3. `G_N` (Newton) — not derived; the `M_Pl/v_H = 5²⁵/6` hierarchy is the only
+**The second brick — DONE (PURE).**  `Cosmology.MetricHolonomyBridge.metric_J_is_holonomy_S`
+identifies the metric's complex structure `J = (0,−1,1,0)` (which builds
+`h = Q·J`) with the **elliptic holonomy generator** `Mat2.S = ⟨0,−1,1,0⟩` of the
+modular holonomy (`HolonomyLattice`): same 90° matrix, both `² = −I`, and the
+loop `holonomy [S,S] = −I` is the first non-trivial deficit.  This **resolves the
+phase-vs-modulus / holonomy reconciliation at the generator level**: "gravity =
+metric" (current 213) and "gravity = holonomy/deficit" (Regge) are the *same*
+object, because the metric's defining `J` IS the holonomy generator `S`.  The
+metric is the flat face (`det`-holonomy ≡ 1); the first deficit is the same
+matrix's loop `S² = −I`.  No forced map — only the proven `J` and `S` identified.
+
+Harder, genuinely-open second tier (the curvature *field*):
+1. The curvature *field* — a connection transporting `h` over a **multi-simplex
+   lattice** so curvature varies point-to-point.  The repo has only ONE flat
+   `Δ⁴` (`h = I`) and no transporting connection on `H¹`; the holonomy lives on
+   the `Mat2` modular monoid, not yet on `H¹`-sections over a glued lattice.
+   This is the genuine open substrate (candidate-3 "gluing" has no referent yet).
+2. `G_N` (Newton) — not derived; the `M_Pl/v_H = 5²⁵/6` hierarchy is the only
    formalized gravitational number.
+3. Extend the `J=S` generator identity to a transport: build the multi-simplex
+   lattice and the `H¹`-connection whose holonomy generator is `S`, so the single
+   deficit `S²=−I` becomes a curvature field.  (Do NOT import the graph
+   `DiscreteGaussBonnet`, which is unconnected — `b₁` differs 2 vs 8.)
 
 Caveat (honest): only the *polarization skeleton* (`Q`, `h=I`, `J`) is proven;
 `W`-as-metric, any curvature, `G_N`, and the modulus-vs-holonomy question are
