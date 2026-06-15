@@ -1,10 +1,43 @@
 # Session Handoff — 2026-06-14 (multi-agent math research)
 
 ## Branch
-`claude/multi-agent-math-research-n68ovi` — pushed, **127 ahead of main / 156
+`claude/multi-agent-math-research-n68ovi` — pushed, **135 ahead of main / 156
 behind**.  Working tree clean.  Full `lake build E213.Lib.Math` green
 (**1815/1815**).  Strict ∅-axiom intact for all new work (every new theorem
 PURE-verified with `tools/scan_axioms.py`).
+
+## Continued marathon (iterations 11–17, after the iter-10 handoff)
+Seven more iterations across NEW areas (now **9 math areas** total this session,
+~80 PURE theorems).  Each: parallel recon agents → adversarial verify → ∅-axiom
+closure → full build → commit.
+
+- **11 — logic / reverse math**: `Logic/LLPO.wlpo_imp_llpo` (WLPO ⟹ LLPO, the
+  middle strut `LPO⟹WLPO⟹LLPO`; negative WLPO alternative refuted *constructively*,
+  no Markov).  Registered in `reverse_math_ledger` + chapter `reverse_math_213.md`.
+- **12 — information theory**: `Information/MutualInfo.{entropy_subadditive,
+  mutualInfo_genuine}` — `2^j ≤ 2^n·2^m ⟹ j ≤ n+m` (`H(X,Y) ≤ H(X)+H(Y)`), making
+  `I(X;Y) ≥ 0` *non-vacuous* (the old `mutualInfo_clamped` was trivial `Nat.zero_le`).
+- **13 — info theory**: `Information/Coding.hamming_symm` (Hamming symmetry; the
+  truncating def is *not* a metric on unequal lengths, so only symmetry added).
+- **14 — geometry**: `DiscreteGaussBonnet.{forman_eq_vertexCurv_sum, totalFormanCurv_eq,
+  totalForman_sign}` — Forman edge-curvature = vertex-curvature boundary; total
+  Forman of `K_{m,n}` = `m·n·(4−m−n)` (honestly *not* 2χ).
+- **15 — algebra**: `Icosahedral/OrderFive.orbit_in_SL` (det=1 along the order-10
+  orbit, the icosahedral rotation is special-linear); `CayleyDickson/Levels/Cayley.
+  {L_mul_conj_L, I'_mul_conj_I', moufang_basis}` (octonion composition law + a
+  basis-level Moufang `decide`, sidestepping the 12-var cubic wall).
+- **16 — combinatorics**: `FLT/Binomial.{choose_symm_sum, choose_symm_add}` (binomial
+  symmetry `C(n,k)=C(n,n−k)`, was claimed in INDEX but absent; recurse on the sum `n`).
+- **17 — combinatorics**: `Combinatorics/Stirling.{stirling2_zero_above, stirling_diag,
+  stirling_col1}` (general-n diagonal + column-1, completing the concrete-only table).
+
+**Reverted (marathon discipline)**: a Lipschitz `conj_add` addition broke downstream
+`LipschitzAlgebra213` via a `conj_add` name-clash with `ZI.conj_add` — reverted, no
+net change.  **propext-landmine catalog extended**: `Nat.pow_add` (use
+`Pow213.pow_add_two`), `Nat.add_right_cancel` (use `NatRing213.nat_add_right_cancel`),
+and `simp [foo]` can leak propext (prefer `decide`/term-mode); WF-compiled `List`
+defs (e.g. `hammingDistance`) don't reduce definitionally in some positions (the
+length-bound base case had to be dropped).
 
 > NOTE on the divergence: this branch was **not** re-synced with `main` this
 > session (156 behind).  All session work is additive new modules, so no
