@@ -48,6 +48,7 @@ import E213.Lib.Math.NumberTheory.ModArith.EveryOrdDvdMax
 import E213.Lib.Math.NumberTheory.ModArith.PrimitiveRoot
 import E213.Lib.Math.NumberTheory.ModArith.DiscreteLogParity
 import E213.Lib.Math.NumberTheory.Lcm213
+import E213.Lib.Math.NumberTheory.GcdLcmLattice
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.
 

@@ -175,7 +175,13 @@ closure → full build → commit.
   "Chebyshev" hits are LCM/variance bounds).  Added as the **product face** of the A7
   POSITIVITY archetype (gap = product of two like-signed gaps), complementing the existing
   square face (`amgm_2`, `cauchy_schwarz_2d`).
-> NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
+- **46 — order/lattice theory (deep)**: `NumberTheory/GcdLcmLattice` (5 PURE) — the
+  **lattice axioms for (ℕ, gcd, lcm)** under divisibility: **absorption** `gcd(a,lcm(a,b))=a`,
+  `lcm(a,gcd(a,b))=a` + **idempotence** `lcm(a,a)=a` (gcd = `gcd213_self`).  Genuinely absent
+  (corpus had only the valuation relation `vp(gcd)+vp(lcm)=vp a+vp b`, no lattice laws).  Via
+  the PURE `dvd_antisymm_213` (`Nat.dvd_antisymm` leaks propext), unconditional (a=0 branch
+  direct).  Fits the repo's "lattice theory" name.  Distributive law L4
+  `gcd(a,lcm(b,c))=lcm(gcd(a,b),gcd(a,c))` left open (needs min/max valuation distributivity).> NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
 > clean but increasingly *incremental* — completing tables / sibling `decide` facts
