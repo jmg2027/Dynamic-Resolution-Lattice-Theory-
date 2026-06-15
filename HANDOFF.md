@@ -1074,6 +1074,15 @@ closure → full build → commit.
   prime-power divisor reindex + each pⁱ odd), `sigma_three_pow_parity`, even-exponent square cases, and a
   `decide` table n=1..30 matching the square-or-twice-square indicator.  Honest fallback, not an overclaim.
 
+- **163 — number theory (fibZ partial-sum identities — integer-toolkit completion, LOW novelty)**:
+  `NumberTheory/FibZSums` (NEW file, 5 PURE).  Honest framing: the **mathematical content already exists**
+  on the Nat-valued `fib` in `Combinatorics/FibonacciSums` (`sumFib_succ_one`, `sumFibSq_eq`, `sumFibOdd`,
+  `sumFibEven`); this is the **integer-`fibZ` port** (`fibZ_sum : Σ_{k≤n} F_k = F_{n+2}−1`,
+  `fibZ_sq_sum : Σ F_k² = F_n·F_{n+1}`, `fibZ_even_sum`, `fibZ_odd_sum`), genuinely useful only as the
+  natural companions to the existing integer `fibZ` Cassini/Vajda/Catalan (no Nat→ℤ casting), not a new
+  theorem.  Each a one-line `Nat.rec` (`sumZ_succ` + `fibZ_rec` + `ring_intZ`).  Committed as toolkit
+  completion, flagged low-novelty per the duplicate-honesty discipline.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
