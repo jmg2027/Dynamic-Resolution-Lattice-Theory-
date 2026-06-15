@@ -88,6 +88,13 @@ closure → full build → commit.
 - **REJECTED (duplicate)**: hockey-stick "parallel-summation form" `Σ C(r+i,i)=C(r+n+1,n)`
   — equal under choose-symmetry to the existing `BinomialTheorem.hockey_stick`
   `Σ C(r+j,r)=C(r+m+1,r+1)`.  Not ported (one-topic-per-file; no inflation).
+- **35 — analysis/continued-fractions (deep)**: `Real213/ContinuedFraction/
+  ConvergentRecurrence.{cf_num_recurrence, cf_den_recurrence}` (6 PURE) — the **fundamental
+  three-term recurrence** `pₙ=aₙ·pₙ₋₁+pₙ₋₂`, `qₙ=aₙ·qₙ₋₁+qₙ₋₂`.  From `contMatProd_snoc`
+  (right-append = `mul M (contMat a)`): the `(1,1)`/`(2,1)` entries expand to Euler's
+  recurrence.  Completes the convergent-arithmetic core: determinant (iter 32) +
+  coprimality (iter 34) + recurrence (iter 35).  **CF continuant sub-tree now closed** —
+  candidate for theory/ promotion.
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
