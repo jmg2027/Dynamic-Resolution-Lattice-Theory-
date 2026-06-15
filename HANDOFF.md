@@ -206,6 +206,14 @@ closure → full build → commit.
   `vp_gcd_min`/`vp_lcm_max` expand to min/max; the new **(ℕ,min,max) lattice distributivity**
   `min_max_distrib`/`max_min_distrib` (also absent) closes it.  All infra was present except
   the min/max distributivity.
+- **49 — combinatorics (deep, high-value capstone)**: `Combinatorics/Zeckendorf.zeckendorf`
+  (24 PURE) — **Zeckendorf's theorem, existence direction, full non-consecutive form**:
+  every `n` is a sum of Fibonacci numbers (indices ≥ 2) with no two of consecutive index,
+  **constructively** ∅-axiom.  Greedy algorithm: `greedy_gap` (residual `n−fib(k+1)<fib k`
+  forces the ≥2 gap) + `find_max` (maximal index) + `prepend_valid` (gap preserved) +
+  `zeckCore` (fuel-induction, PURE WF substitute).  Genuinely absent (the corpus
+  `ZeckendorfCarry` is φ-base carry mechanics, not the representation theorem).  Most
+  substantial single result of the marathon.  Uniqueness left open (harder).
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
