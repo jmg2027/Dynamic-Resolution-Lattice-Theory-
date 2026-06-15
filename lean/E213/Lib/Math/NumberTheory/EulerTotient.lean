@@ -17,13 +17,10 @@ All declarations PURE (propext-free): indicators are `Bool.toNat` (avoiding the
 `if_pos`/`if_congr` propext leak), sums are the recursive `sumTo`, tables close by
 `decide`.
 
-**Open frontier** (`research-notes/frontiers/gauss_totient_general.md`): the
-*general* theorem `∀ n ≥ 1, Σ_{d∣n} φ(d) = n` needs partition-by-gcd cardinality
-machinery — `count{k ≤ n : gcd(k,n) = g} = φ(n/g)` summed over divisors `g ∣ n`.
-The gcd-scaling fact `gcd213 (k·a) (k·b) = k·gcd213 a b` is PURE (`Gcd213`), but
-lifting it to a count-preserving reindexing + a disjoint-cover cardinality lemma is
-a from-scratch counting build (no `Finset.card` partition API).  Recorded, not yet
-closed.  The totient definition and the verified identity table are genuinely new
+The *general* theorem `∀ n ≥ 1, Σ_{d∣n} φ(d) = n` (all n, not just this table)
+is now **proven ∅-axiom** in `GaussTotient.lean` (`gauss_totient`), via the
+reusable `count_partition_by_key` disjoint-cover lemma + the `gcd_class_count`
+bridge.  The totient definition and divisor-sum machinery here are genuinely new
 ∅-axiom content (the corpus had no `totient`/`eulerPhi`/divisor-sum machinery; the
 `phi` elsewhere is the golden ratio).
 -/

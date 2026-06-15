@@ -1,6 +1,17 @@
 # Frontier: general Gauss totient divisor-sum `Σ_{d∣n} φ(d) = n`
 
-**Status**: OPEN.  T2 closed (def + table); T3 (general theorem) open.
+**Status**: ✅ **CLOSED** (T3 — the general theorem, all n).  Proven ∅-axiom in
+`lean/E213/Lib/Math/NumberTheory/GaussTotient.lean` as `gauss_totient (n) (hn :
+0 < n) : gaussSum n = n`.  Both missing ingredients below were built PURE: the
+reusable `count_partition_by_key` (disjoint-cover cardinality, from `sumTo_fubini`
++ `sum_eqInd_eq_one`) and the `gcd_class_count` bridge (`sumTo_reshape` +
+`gcd213_mul_left`).  The `n/gcd` key lands the partition sum directly on the
+`divisorSum` index order.  `count_partition_by_key` is generic and also unlocks
+σ/τ/μ-inversion general identities — the natural next promotions.
+
+The original open analysis is retained below for the record.
+
+---
 
 ## What is closed (∅-axiom, `lean/E213/Lib/Math/NumberTheory/EulerTotient.lean`)
 

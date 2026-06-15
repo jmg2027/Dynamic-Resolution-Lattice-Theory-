@@ -597,6 +597,18 @@ closure → full build → commit.
   `closed3` by induction on x).  Parallels the Stirling defining identity (iter 100).  The fully-general
   `∀n∀x` Worpitzky (Eulerian/binomial convolution) is left open.  Genuinely absent.
 
+- **106 — number theory (★★★ HEADLINE, general theorem + reusable toolkit)**:
+  `NumberTheory/GaussTotient.{count_partition_by_key, gcd_class_count, gauss_totient}` (NEW file,
+  22 PURE) — **the FULL general Euler–Gauss totient divisor-sum** ★★★ `∀ n ≥ 1, Σ_{d∣n} φ(d) = n`
+  (closes the frontier `gauss_totient_general.md`, opened iter 101).  Standard partition-by-gcd proof
+  made ∅-axiom: (1) ★ `count_partition_by_key` — reusable disjoint-cover cardinality
+  `Σ_{k<n} 1 = Σ_{v<B} count{k<n : key k = v}` (from `sumTo_fubini` + `sum_eqInd_eq_one`); (2)
+  `gcd_class_count` — gcd-class count = totient (via `sumTo_reshape` into d blocks of size e +
+  `gcd213_mul_left`); (3) partition by `key k = n/gcd(k+1,n)` lands directly on the `divisorSum`
+  index order.  Eliminated 2 propext leaks (`Nat.sub_add_cancel` via `e=m+1` form; classical
+  `by_cases` on `∣` via decidable `n%(j+1)` split).  `count_partition_by_key` is generic — unlocks
+  general σ/τ/μ-inversion next.  Promotes the φ/μ/σ cluster from table-verified to a proven theorem.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
