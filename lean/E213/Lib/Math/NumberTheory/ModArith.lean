@@ -61,6 +61,7 @@ import E213.Lib.Math.NumberTheory.SumTwoSquares
 import E213.Lib.Math.NumberTheory.SophieGermain
 import E213.Lib.Math.NumberTheory.PellNorm
 import E213.Lib.Math.NumberTheory.PellNumbers
+import E213.Lib.Math.NumberTheory.LucasSequences
 import E213.Lib.Math.NumberTheory.JacobsthalNumbers
 import E213.Lib.Math.NumberTheory.Sqrt2ContinuedFraction
 import E213.Lib.Math.NumberTheory.ContinuedFractionConvergents

@@ -938,6 +938,19 @@ closure → full build → commit.
   ★ `sum_pent2` (`Σ Pent2 = (n+1)²(n+2)`, by `sumTo` induction).  The triangular/hexagonal/tetrahedral
   ★★★ identities were already present (honestly rejected duplicates).  Genuinely absent.
 
+- **150 — number theory (★★★ HEADLINE: generalized Lucas sequences)**: `NumberTheory/LucasSequences`
+  (NEW file, 36 PURE) — the **parametric Lucas sequences** `U_n(P,Q)`, `V_n(P,Q)` (first/second kind,
+  `U(n+2)=P·U(n+1)−Q·U n`, `V(n+2)=P·V(n+1)−Q·V n`) over `Int`, with discriminant `D=P²−4Q`.  ★★★
+  **fundamental quadratic / norm relation** `lucasQuadratic : V_n² − D·U_n² = 4·Qⁿ` (full generality —
+  the corpus had only the √2/Pell `D=2` special case), ★★★ **doubling** `lucasDouble : U_{2n}=U_n·V_n`,
+  ★★ `lucasVDouble : V_{2n}=V_n²−2Qⁿ`, ★ cross identities `2U_{n+1}=P·U_n+V_n` / `2V_{n+1}=D·U_n+P·V_n`.
+  Window helper `lucWindow n=(U n,U(n+1),V n,V(n+1))` (structural Nat recursion, the `cfWindow` pattern);
+  doubling via a self-advancing 4-tuple invariant `lucasDoubleAll` (U/V at 2n,2n+1) — NO Nat-index
+  subtraction, the step kernel closing only after feeding in both cross identities AND the quadratic
+  relation (which links `Qⁿ` to the sequence values).  Built a PURE Int left-cancellation `mulCancelL`
+  (core `Int.eq_of_mul_eq_mul_left` is propext-dirty).  Specializes to Fibonacci/Lucas (P=1,Q=−1) and
+  Pell (P=2,Q=−1) by `decide` smokes.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
