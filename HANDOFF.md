@@ -338,6 +338,12 @@ closure → full build → commit.
   case `n⁴+4=(n²−2n+2)(n²+2n+2)`.  Genuinely absent (corpus "Germain/Aurifeuillean" = cohomology
   cutoffs).
 
+- **68 — number theory (deep)**: `NumberTheory/DiffPowDvd.sub_dvd_pow_sub_pow` (11 PURE) —
+  **difference-of-powers divisibility** `(a−b) ∣ (aⁿ−bⁿ)` (the geometric-series factorization
+  basis), by induction via `aⁿ⁺¹−bⁿ⁺¹ = a·(aⁿ−bⁿ)+(a−b)·bⁿ`, + companion `(a−1)∣(aⁿ−1)`.
+  Local PURE `ipow` + Int `∣`-helpers (`Int.sub_self`/`▸` transport leak propext → `show`-decide
+  base + explicit-witness `dvd_of_eqZ`).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
