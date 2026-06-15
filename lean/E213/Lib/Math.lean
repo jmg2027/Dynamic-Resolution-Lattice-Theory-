@@ -29,6 +29,7 @@ import E213.Lib.Math.Foundations.ResidueForm
 import E213.Lib.Math.Foundations.CauchySchwarzGeneral
 import E213.Lib.Math.Foundations.SchurInequality
 import E213.Lib.Math.Foundations.NesbittInequality
+import E213.Lib.Math.Foundations.NewtonInequalities
 import E213.Lib.Math.Foundations.SumCubesAMGM
 import E213.Lib.Math.Foundations.BernoulliInequality
 import E213.Lib.Math.Foundations.AbelSummation

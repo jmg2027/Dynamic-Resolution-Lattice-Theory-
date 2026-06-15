@@ -1036,6 +1036,16 @@ closure → full build → commit.
   (the `motzkin`/`bell` pattern); `decide` smokes incl. the classic `josephus 41 = 19`.  All Lean-core
   div/mod leaks swapped for `NatDiv213`/`AddMod213` ∅-axiom replacements.  Genuinely absent.
 
+- **159 — inequalities (Newton's inequalities for elementary symmetric functions)**:
+  `Foundations/NewtonInequalities` (NEW file, 5 PURE) — for `a,b,c : Int` (NO ordering, pure SOS):
+  ★★★ `newton1 : 3(ab+bc+ca) ≤ (a+b+c)²` (`e₁²≥3e₂`, SOS `2(e₁²−3e₂)=Σ(a−b)²`) and ★★★
+  `newton2 : 3(a+b+c)abc ≤ (ab+bc+ca)²` (`e₂²≥3e₁e₃`, SOS `2(e₂²−3e₁e₃)=Σ(ab−bc)²`) — the log-concavity
+  `p_k²≥p_{k−1}p_{k+1}` relations of the normalized elementary-symmetric means (Maclaurin's chain, stated
+  as a remark since the full mean chain needs real roots).  Built a PURE halving lemma
+  `nonneg_of_two_mul_nonneg` (`0≤2t→0≤t`) from `OrderMul.le_of_mul_le_mul_right_pos`.  Reuses the
+  Schur/Nesbitt SOS skeleton (`int_sq_nonneg`,`add_nonneg`,`Order.le_of_sub_nonneg`).  Distinct from
+  `SymmetricPolyIdentities` (Newton/Vieta *equalities*).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
