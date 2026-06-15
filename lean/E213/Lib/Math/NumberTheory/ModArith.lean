@@ -23,6 +23,8 @@ import E213.Lib.Math.NumberTheory.ModArith.SqMinusTwoFrame
 import E213.Lib.Math.NumberTheory.ModArith.QRDescentFrame
 import E213.Lib.Math.NumberTheory.ModArith.SumOfSquaresObstruction
 import E213.Lib.Math.NumberTheory.ModArith.Frobenius
+import E213.Lib.Math.NumberTheory.ModArith.FrobeniusNonRepresentable
+import E213.Lib.Math.NumberTheory.ModArith.LucasTheorem
 import E213.Lib.Math.NumberTheory.ModArith.WilsonInverse
 import E213.Lib.Math.NumberTheory.ModArith.WilsonTheorem
 import E213.Lib.Math.NumberTheory.ModArith.CoprimeMultiplicative

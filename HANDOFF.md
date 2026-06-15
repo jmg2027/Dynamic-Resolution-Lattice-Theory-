@@ -825,6 +825,19 @@ closure → full build → commit.
   fib a·fib(a+r+1) = (−1)^a·fib r`, induction on a) + two `fib_add` expansions + a pure `ring_intZ`
   factorization (no induction on r).  Genuinely absent (only Cassini r=1 existed).
 
+- **137 — number theory (Frobenius, completes theorem)**: `NumberTheory/ModArith/FrobeniusNonRepresentable.frobenius_number_not_representable`
+  (NEW file, 6 PURE) — ★★ the **non-representability** direction of the Frobenius / Chicken-McNugget
+  theorem: for coprime `a,b ≥ 2`, the Frobenius number `ab−a−b` is NOT `a·x+b·y` (companion to the
+  pre-existing `Frobenius.frobenius_representable`).  Proof: add `a+b`, reduce mod a, coprimality ⇒
+  `a∣(y+1)` ⇒ `b(y+1)≥ab` and `a(x+1)≥a` ⇒ `a+ab ≤ ab`, contradiction.  Plus the Frobenius-number table.
+- **138 — number theory (Lucas core)**: `NumberTheory/ModArith/LucasTheorem.{freshman_binom, lucas_step table}`
+  (NEW file, 18 PURE) — ★★ `freshman_binom : Prime213 p → 0<i<p → choose p i % p = 0` (the prime divides
+  interior binomial-row entries) derived from the **abstract `Prime213` predicate** via Euclid's lemma —
+  cleaner than the corpus's gcd-encoded / inverse-witness forms (`UniversalFLT`/`ChoosePrime`) — plus the
+  **Lucas digit-step** `choose(pn+r)(pk+s) ≡ choose n k·choose r s (mod p)` verified for p=2,3,5,7 (table).
+  The general digit-step needs Vandermonde-mod-p (now reachable via the iter-96 Vandermonde — open follow-up).
+  (Central-binomial divisibility checked this round and rejected — `CentralBinomEven`/`CatalanBinomial` cover it.)
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
