@@ -315,6 +315,13 @@ closure → full build → commit.
   nondegeneracy (`leg1_pos`, `hyp_gt_leg1` for `0<n<m`) and scaled triples
   (`pyth_param_scaled`).  Genuinely absent (corpus "Pythagorean" = physics mixing-angle docs).
 
+- **64 — combinatorics (deep)**: `Combinatorics/LucasFibonacci.{cassini, lucas_fib_rel}`
+  (appended, 16 in-file PURE) — **Cassini's identity** `Fₙ·F_{n+2}−F_{n+1}²=(−1)^{n+1}` for the
+  cluster's local `fib` (two-step paired Int induction, sign-flipping) + the **Lucas–Fibonacci
+  relation** `Lₙ²−5Fₙ²=4(−1)ⁿ` (from `luc_eq_fib` + Cassini).  Genuinely absent for `fib`/`luc`
+  (the corpus `cassini_fibZ`/`lucasZ_sq` are over a *different* `fibZ` def).  Completes the
+  Fibonacci cluster's core identities.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

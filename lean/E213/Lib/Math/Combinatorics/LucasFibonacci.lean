@@ -1,4 +1,5 @@
 import E213.Lib.Math.Combinatorics.FibonacciDivisibility
+import E213.Meta.Int213.PolyIntMTactic
 
 /-!
 # Lucas–Fibonacci link identities (∅-axiom)
@@ -23,6 +24,7 @@ All ∅-axiom.
 namespace E213.Lib.Math.Combinatorics.LucasFibonacci
 
 open E213.Lib.Math.Combinatorics.FibonacciDivisibility (fib fib_rec fib_add)
+open E213.Meta.Int213.PolyIntM (powInt)
 
 /-- Lucas numbers: `luc 0 = 2`, `luc 1 = 1`, `luc (n+2) = luc n + luc (n+1)`. -/
 def luc : Nat → Nat
@@ -99,5 +101,80 @@ theorem fib_odd_doubling_smoke :
     fib (4 + 4 + 1) = fib (4 + 1) * fib (4 + 1) + fib 4 * fib 4 :=
   fib_odd_doubling 4
 theorem luc_eq_fib_smoke : luc (5 + 1) = fib 5 + fib (5 + 2) := luc_eq_fib 5
+
+/-! ## Cassini + the Lucas–Fibonacci relation (over `Int`)
+
+Cassini for the cluster's local `fib` (the corpus `cassini_fibZ_eq_altSign` is over
+the *different* `fibZ` C-finite witness), then `Lₙ²−5Fₙ²=4(−1)ⁿ` follows. -/
+
+/-- Cast of the recurrence to `Int`: `(fib (n+2) : Int) = fib n + fib (n+1)`. -/
+theorem fib_rec_cast (n : Nat) :
+    ((fib (n + 2) : Nat) : Int) = (fib n : Int) + (fib (n + 1) : Int) := by
+  rw [fib_rec n]
+  exact Int.ofNat_add (fib n) (fib (n + 1))
+
+/-- Paired two-step form: Cassini at `n` AND `n+1` (so the recurrence has both
+    predecessors and the sign flips each step). -/
+theorem cassini_pair : ∀ n : Nat,
+    ((fib n : Int) * (fib (n + 2) : Int) - (fib (n + 1) : Int) * (fib (n + 1) : Int)
+        = powInt (-1) (n + 1))
+    ∧ ((fib (n + 1) : Int) * (fib (n + 1 + 2) : Int)
+          - (fib (n + 1 + 1) : Int) * (fib (n + 1 + 1) : Int)
+        = powInt (-1) (n + 1 + 1)) := by
+  intro n
+  induction n with
+  | zero =>
+    refine ⟨?_, ?_⟩
+    · show (fib 0 : Int) * (fib 2 : Int) - (fib 1 : Int) * (fib 1 : Int) = powInt (-1) 1
+      rw [show (fib 0 : Int) = 0 from rfl, show (fib 1 : Int) = 1 from rfl,
+          show (fib 2 : Int) = 1 from rfl]
+      decide
+    · show (fib 1 : Int) * (fib 3 : Int) - (fib 2 : Int) * (fib 2 : Int) = powInt (-1) 2
+      rw [show (fib 1 : Int) = 1 from rfl, show (fib 2 : Int) = 1 from rfl,
+          show (fib 3 : Int) = 2 from rfl]
+      decide
+  | succ k ih =>
+    obtain ⟨_, ih1⟩ := ih
+    refine ⟨ih1, ?_⟩
+    have ek4 : ((fib (k + 1 + 1 + 2) : Nat) : Int)
+        = (fib (k + 1 + 1) : Int) + (fib (k + 1 + 1 + 1) : Int) := fib_rec_cast (k + 1 + 1)
+    have ek3 : ((fib (k + 1 + 1 + 1) : Nat) : Int)
+        = (fib (k + 1) : Int) + (fib (k + 1 + 1) : Int) := fib_rec_cast (k + 1)
+    show (fib (k + 1 + 1) : Int) * (fib (k + 1 + 1 + 2) : Int)
+          - (fib (k + 1 + 1 + 1) : Int) * (fib (k + 1 + 1 + 1) : Int)
+        = powInt (-1) (k + 1 + 1 + 1)
+    rw [ek4, ek3]
+    have ihaligned : (fib (k + 1) : Int) * ((fib (k + 1) : Int) + (fib (k + 1 + 1) : Int))
+          - (fib (k + 1 + 1) : Int) * (fib (k + 1 + 1) : Int)
+        = powInt (-1) (k + 1 + 1) := by
+      have e : ((fib (k + 1 + 2) : Nat) : Int)
+          = (fib (k + 1) : Int) + (fib (k + 1 + 1) : Int) := fib_rec_cast (k + 1)
+      rw [← e]; exact ih1
+    rw [show powInt (-1 : Int) (k + 1 + 1 + 1) = powInt (-1) (k + 1 + 1) * (-1) from rfl,
+        ← ihaligned]
+    ring_intZ
+
+/-- ★ **Cassini's identity** (local `fib`, over `Int`):
+    `F_n · F_{n+2} − F_{n+1}² = (−1)^{n+1}`. -/
+theorem cassini (n : Nat) :
+    (fib n : Int) * (fib (n + 2) : Int) - (fib (n + 1) : Int) * (fib (n + 1) : Int)
+      = powInt (-1) (n + 1) :=
+  (cassini_pair n).1
+
+/-- ★★ **Lucas–Fibonacci relation** over `Int`: `L_n² − 5·F_n² = 4·(−1)ⁿ`, shift form
+    `luc(n+1)² − 5·fib(n+1)² = 4·powInt(-1)(n+1)`.  From `luc_eq_fib` + Cassini. -/
+theorem lucas_fib_rel (n : Nat) :
+    (luc (n + 1) : Int) * (luc (n + 1) : Int)
+        - 5 * ((fib (n + 1) : Int) * (fib (n + 1) : Int))
+      = 4 * powInt (-1) (n + 1) := by
+  have hl : ((luc (n + 1) : Nat) : Int) = (fib n : Int) + (fib (n + 2) : Int) := by
+    rw [luc_eq_fib n]; exact Int.ofNat_add (fib n) (fib (n + 2))
+  have hf2 : ((fib (n + 2) : Nat) : Int) = (fib n : Int) + (fib (n + 1) : Int) :=
+    fib_rec_cast n
+  have hc := cassini n
+  rw [hf2] at hc
+  rw [hl, hf2]
+  rw [← hc]
+  ring_intZ
 
 end E213.Lib.Math.Combinatorics.LucasFibonacci
