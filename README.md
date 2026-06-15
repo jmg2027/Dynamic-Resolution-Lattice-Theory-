@@ -138,36 +138,36 @@ Agent guardrails: `LESSONS_LEARNED.md`.
 
 ```
 seed/            axioms + philosophy + falsifiability
-lean/E213/       Lean 4 formal library (~1139 files)
+lean/E213/       Lean 4 formal library (~2000 files; exact: tools/lean_summary.py)
                  — see `lean/E213/ARCHITECTURE.md` for canonical
                    theoretical layer definitions (4 ring + Meta)
-  ├── Term/      17 files — Raw 의 구현체 (deep-embedded Tree
+  ├── Term/      Raw 의 구현체 (deep-embedded Tree
   │              substrate + ∅-axiom Bool comparators / soundness
   │              bridges / Demo / MonomialAxioms).  Theory 가
   │              사용할 base API.  ★ literally 0-axiom.
-  ├── Theory/    24 files — 213 axiom 자체 (Raw + 4-clause
+  ├── Theory/    213 axiom 자체 (Raw + 4-clause
   │              definitional commitments) + Atomicity (forced
   │              d=5, (NS,NT)=(3,2)) + CDDouble + Congruence
   │              + ParenthesizationDistinct.  Term API 만 사용.
   │              (Bool213 / Nat213 / RawCut are Lens-layer
   │              catamorphism artifacts.)
-  ├── Lens/      148 files — Lens framework (catamorphism Raw → α)
+  ├── Lens/      Lens framework (catamorphism Raw → α)
   │              + Algebra/AxiomLenses/Bool213/Cardinality/Compose/
   │              Congruence/Instances/Lattice/Number/Properties/
   │              SyntacticInternalization/Universal sub-clusters.
   │              Theory API 만 사용.
-  ├── Lib/Math/  733 files (42 sub-clusters): CayleyDickson,
+  ├── Lib/Math/  42 sub-clusters: CayleyDickson,
   │              Real213, SignedCut, Probability, Cohomology,
   │              DyadicFSM, HodgeConjecture, Analysis,
   │              Linalg213, Cauchy, ModArith, Modulus, Irrational,
   │              Hyper, Choice, Polynomial213, Trajectory, …
   │              Lens API 만 사용.
-  ├── Lib/Physics/ 171 files (18 sub-clusters): AlphaEM, Couplings,
+  ├── Lib/Physics/ 18 sub-clusters: AlphaEM, Couplings,
   │              Hadron, Higgs, Mass, Mixing, Nuclear, Cosmology,
   │              Atomic, Simplex, Basel, YangMills, Capstones,
   │              AtomicBase, Foundations, Certificates, Quantum,
   │              Symmetry.  Lens API 만 사용.
-  └── Meta/      38 files — ring-independent Lean 4 bridge.
+  └── Meta/      ring-independent Lean 4 bridge.
                  SelfRecognising (CommBinary/NonVanishing/
                  Conjugation Codomain typeclass tower),
                  AxiomMinimality{,Capstone}, LensInternality,

@@ -1,7 +1,7 @@
 # The Verification Spine — axiom → 1/α_em in one sitting
 
-> **Purpose.** The repository is ~1139 Lean files.  No external reader
-> audits 1139 files.  This document is the *single legible path* a
+> **Purpose.** The repository is thousands of Lean files.  No external
+> reader audits them all.  This document is the *single legible path* a
 > skeptic can verify in an afternoon: from the 3-clause Raw axiom,
 > through the forced atomic signature `(NS, NT, c, d) = (3, 2, 2, 5)`,
 > to the headline number `1/α_em` — every step a **named theorem**

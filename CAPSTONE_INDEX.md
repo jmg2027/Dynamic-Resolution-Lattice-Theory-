@@ -182,13 +182,11 @@ lean/E213/
                (Algebra, AxiomLenses, Bool213, Cardinality, Compose,
                 Congruence, Instances, Lattice, Number,
                 Properties, SyntacticInternalization, Universal)
-               (144 files)
   Lib/Math/  — math (Cohomology, Linalg, Real213, CayleyDickson,
-               Probability, …; 727 files in 42 sub-clusters)
-  Lib/Physics/— physics formalization (165 files in 17 sub-clusters)
+               Probability, …; 42 sub-clusters)
+  Lib/Physics/— physics formalization (18 sub-clusters)
   Meta/      — ring-independent Lean bridge (Tactic, SelfRecognising,
-               AxiomMinimality, LensInternality, List213, …;
-               37 files)
+               AxiomMinimality, LensInternality, List213, …)
 ```
 
 ## Key invariants (cross-cutting atomic identities)
