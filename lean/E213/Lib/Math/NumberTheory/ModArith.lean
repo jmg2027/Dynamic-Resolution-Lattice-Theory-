@@ -58,6 +58,7 @@ import E213.Lib.Math.NumberTheory.SumTwoSquares
 import E213.Lib.Math.NumberTheory.SophieGermain
 import E213.Lib.Math.NumberTheory.DiffPowDvd
 import E213.Lib.Math.NumberTheory.FactorIdentities
+import E213.Lib.Math.NumberTheory.EisensteinFormClosure
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.
 

@@ -351,6 +351,13 @@ closure → full build → commit.
   `(m−n)(m+n)` difference-of-squares mirror existed).  `ring_intZ` identities + `⟨cofactor,
   ring_intZ⟩` divisibility.
 
+- **70 — number theory (deep)**: `NumberTheory/EisensteinFormClosure.isEisForm_mul` (8 PURE)
+  — the **Eisenstein-form (disc −3) multiplicative closure**: the Loeschian predicate
+  `∃a b, n=a²+ab+b²` (norm of `ℤ[ω]`) is closed under `·`, witnesses `(ac−bd, ad+bc+bd)`.  The
+  disc−3 analog of iter-65's sum-of-two-squares closure.  Genuinely absent (corpus pins the
+  disc−3 Brahmagupta *identity* in the minus convention `a²−ab+b²`; the plus-convention
+  existential closure is new).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
