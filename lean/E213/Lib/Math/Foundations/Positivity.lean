@@ -221,4 +221,67 @@ theorem prod_sum_le_sq_sum (a b c : Int) :
   exact Order.le_of_sub_nonneg
     (Order.nonneg_of_le_zero (positivity_of_sq_double _ _ _ _ hgap))
 
+/-! ## POSITIVITY at dimension 4 — sum-of-six-squares gaps -/
+
+/-- Sum-of-four-squares positivity. -/
+theorem positivity_of_sq4 (gap s t u v : Int)
+    (h : gap = s * s + t * t + u * u + v * v) : 0 ≤ gap := by
+  rw [h]
+  exact add_nonneg
+    (add_nonneg (add_nonneg (int_sq_nonneg s) (int_sq_nonneg t)) (int_sq_nonneg u))
+    (int_sq_nonneg v)
+
+/-- Sum-of-six-squares positivity. -/
+theorem positivity_of_sq6 (gap s t u v w x : Int)
+    (h : gap = s * s + t * t + u * u + v * v + w * w + x * x) : 0 ≤ gap := by
+  rw [h]
+  exact add_nonneg
+    (add_nonneg
+      (add_nonneg
+        (add_nonneg (add_nonneg (int_sq_nonneg s) (int_sq_nonneg t)) (int_sq_nonneg u))
+        (int_sq_nonneg v))
+      (int_sq_nonneg w))
+    (int_sq_nonneg x)
+
+/-- ★★★★★ **4-variable QM–AM** `(a+b+c+d)² ≤ 4(a²+b²+c²+d²)`, forced because the gap
+    is the sum of the six pairwise squares `Σ_{i<j} (xᵢ−xⱼ)²`. -/
+theorem qm_am_4 (a b c d : Int) :
+    (a + b + c + d) * (a + b + c + d)
+    ≤ 4 * (a * a + b * b + c * c + d * d) := by
+  have hgap : 4 * (a * a + b * b + c * c + d * d)
+                - (a + b + c + d) * (a + b + c + d)
+              = (a - b) * (a - b) + (a - c) * (a - c) + (a - d) * (a - d)
+                + (b - c) * (b - c) + (b - d) * (b - d) + (c - d) * (c - d) := by
+    ring_intZ
+  exact Order.le_of_sub_nonneg
+    (Order.nonneg_of_le_zero (positivity_of_sq6 _ _ _ _ _ _ _ hgap))
+
+/-- **Lagrange identity (4-D)**: the Cauchy–Schwarz gap is a sum of six squares. -/
+theorem lagrange_4d (a0 a1 a2 a3 b0 b1 b2 b3 : Int) :
+    (a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3)
+      * (b0 * b0 + b1 * b1 + b2 * b2 + b3 * b3)
+      - (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3)
+        * (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3)
+    = (a0 * b1 - a1 * b0) * (a0 * b1 - a1 * b0)
+      + (a0 * b2 - a2 * b0) * (a0 * b2 - a2 * b0)
+      + (a0 * b3 - a3 * b0) * (a0 * b3 - a3 * b0)
+      + (a1 * b2 - a2 * b1) * (a1 * b2 - a2 * b1)
+      + (a1 * b3 - a3 * b1) * (a1 * b3 - a3 * b1)
+      + (a2 * b3 - a3 * b2) * (a2 * b3 - a3 * b2) := by
+  ring_intZ
+
+/-- ★★★★★★ **Cauchy–Schwarz (4-D, ℤ) via POSITIVITY**: `⟨u,v⟩² ≤ ⟨u,u⟩⟨v,v⟩`, forced
+    because the gap is the sum of six squares (the 4-D Lagrange identity). -/
+theorem cauchy_schwarz_4d (a0 a1 a2 a3 b0 b1 b2 b3 : Int) :
+    (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3)
+      * (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3)
+    ≤ (a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3)
+      * (b0 * b0 + b1 * b1 + b2 * b2 + b3 * b3) := by
+  have hpos : 0 ≤ (a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3)
+                    * (b0 * b0 + b1 * b1 + b2 * b2 + b3 * b3)
+                  - (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3)
+                    * (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3) :=
+    positivity_of_sq6 _ _ _ _ _ _ _ (lagrange_4d a0 a1 a2 a3 b0 b1 b2 b3)
+  exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero hpos)
+
 end E213.Lib.Math.Foundations.Positivity

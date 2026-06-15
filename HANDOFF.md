@@ -373,6 +373,12 @@ closure → full build → commit.
   Genuinely absent at the elementary-Int layer (corpus geom-series work is Real213-cut
   convergence).  Reuses `DiffPowDvd.ipow`.
 
+- **74 — inequalities (deep)**: `Foundations/Positivity.{qm_am_4, cauchy_schwarz_4d}` (3 new
+  PURE, 23 in-file) — the **4-D** POSITIVITY layer: **4-var QM–AM** `(a+b+c+d)²≤4(a²+b²+c²+d²)`
+  (gap = six pairwise squares) + **4-D Cauchy–Schwarz** via the exact **4-D Lagrange identity**
+  (gap = Σ_{i<j}(aᵢbⱼ−aⱼbᵢ)², six squares) + `positivity_of_sq4/sq6` helpers.  Extends the
+  2-D/3-D archetype.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
