@@ -179,4 +179,20 @@ theorem T2n_middle_betti_central_binomial :
   · intro n; rfl
   all_goals decide
 
+/-- ★★ **Full Betti vector + total dimension of `T²ⁿ`** (`b_k = C(2n,k)`).  Beyond the
+    middle/diagonal values: the off-diagonal degrees AND the exterior-algebra total
+    dimension `Σ_k b_k = 2^(2n)` (rank of `H*(T²ⁿ) = Λ*(ℚ^{2n})`). -/
+theorem T2n_full_betti_values :
+    T2n_betti 1 0 = 1 ∧ T2n_betti 1 1 = 2 ∧ T2n_betti 1 2 = 1
+    ∧ T2n_betti 2 0 = 1 ∧ T2n_betti 2 1 = 4 ∧ T2n_betti 2 2 = 6
+    ∧ T2n_betti 2 3 = 4 ∧ T2n_betti 2 4 = 1
+    ∧ T2n_betti 3 0 = 1 ∧ T2n_betti 3 1 = 6 ∧ T2n_betti 3 2 = 15
+    ∧ T2n_betti 3 3 = 20 ∧ T2n_betti 3 4 = 15 ∧ T2n_betti 3 5 = 6
+    ∧ T2n_betti 3 6 = 1
+    ∧ (T2n_betti 1 0 + T2n_betti 1 1 + T2n_betti 1 2) = 2 ^ 2
+    ∧ (T2n_betti 2 0 + T2n_betti 2 1 + T2n_betti 2 2
+        + T2n_betti 2 3 + T2n_betti 2 4) = 2 ^ 4 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  all_goals decide
+
 end E213.Lib.Math.Cohomology.Surfaces.T2nBetti
