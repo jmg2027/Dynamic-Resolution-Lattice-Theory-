@@ -59,6 +59,15 @@ closure → full build → commit.
   T4's `SqPlusOneFrame` (`x²+1`/first supplement): same unbounded-root→bounded-residue
   bridge (`dvd_sq_sub_mod_sq` + `dvd_sub_213`), plus the extra `r²≥2` lower-bound
   recovery for the `−2` shift, then `second_supplement_m`.
+- **32 — analysis/continued-fractions (deep)**: `Real213/ContinuedFraction/
+  ContinuantDeterminant.{continuant_cross_det, continuant_det_unit}` (9 PURE) —
+  **Euler's continuant determinant identity** `det(∏ᵢ[[aᵢ,1],[1,0]]) = (−1)ⁿ`, the
+  fundamental recurrence of continued fractions (consecutive convergents
+  `pₙqₙ₋₁ − pₙ₋₁qₙ = (−1)ⁿ⁺¹`, source of convergent coprimality + the `1/qₙ²` approx
+  bound).  The one classical continuant theorem absent from `Continuant.lean`.  Proof:
+  `detM` multiplicative (`ring_intZ`) + `detM_contMat = −1` + length-induction; corollary
+  = cross-det is a unit `±1` (coprimality witness).  Motivated by `markov_lagrange/`
+  G191 continuant program.
 
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series

@@ -118,6 +118,7 @@ import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovModularBridge
 import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovInjectivity
 import E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
 import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.Continuant
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuantDeterminant
 import E213.Lib.Math.NumberSystems.Real213.Markov.ContinuantMarkov
 import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniquenessRaw
 import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovDescentSchema
