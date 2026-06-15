@@ -28,6 +28,7 @@ import E213.Lib.Math.Combinatorics.SchroderNumbers
 import E213.Lib.Math.Combinatorics.PartitionNumbers
 import E213.Lib.Math.Combinatorics.StirlingOrthogonality
 import E213.Lib.Math.Combinatorics.LahNumbers
+import E213.Lib.Math.Combinatorics.DelannoyNumbers
 import E213.Lib.Math.Combinatorics.GeneratingFunction
 import E213.Lib.Math.Combinatorics.Simplex5
 import E213.Lib.Math.Combinatorics.Capstone

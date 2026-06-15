@@ -161,8 +161,30 @@ theorem sum_choose_sq (n : Nat) :
   rw [vandermonde n n n]
   rw [show n + n = 2 * n from (E213.Tactic.NatHelper.two_mul n).symm]
 
-/-- Smoke: `Σ_k C(3,k)·C(4,5−k) = C(7,5) = 21` and `Σ C(4,k)² = C(8,4) = 70`. -/
+/-- ★★ **Generalized Vandermonde / Cauchy binomial corollary**:
+    `Σ_{k=0}^{m} C(n,k)·C(m,k) = C(n+m, m)` (the general two-parameter form of which
+    `sum_choose_sq` is the `n=m` case).  Rewrite `C(m,k)=C(m,m−k)` then apply `vandermonde`. -/
+theorem sum_choose_prod (n m : Nat) :
+    sumTo (m + 1) (fun k => choose n k * choose m k) = choose (n + m) m := by
+  have hsym : sumTo (m + 1) (fun k => choose n k * choose m k)
+            = sumTo (m + 1) (fun k => choose n k * choose m (m - k)) := by
+    exact sumTo_congr (m + 1)
+      (fun k => choose n k * choose m k)
+      (fun k => choose n k * choose m (m - k))
+      (fun k hk => by
+        show choose n k * choose m k = choose n k * choose m (m - k)
+        have hkm : k ≤ m := Nat.le_of_lt_succ hk
+        have hadd : k + (m - k) = m := E213.Tactic.NatHelper.add_sub_of_le hkm
+        rw [choose_symm_sum m k (m - k) hadd])
+  rw [hsym]
+  rw [show sumTo (m + 1) (fun k => choose n k * choose m (m - k)) = V n m m from rfl]
+  rw [vandermonde n m m]
+
+/-- Smoke: `Σ_k C(3,k)·C(4,5−k) = C(7,5) = 21`, `Σ C(4,k)² = C(8,4) = 70`,
+    `Σ C(3,k)·C(2,k) = C(5,2) = 10`. -/
 theorem vandermonde_smoke : V 3 4 5 = choose 7 5 := by decide
 theorem sum_choose_sq_smoke : sumTo 5 (fun k => choose 4 k * choose 4 k) = choose 8 4 := by decide
+theorem sum_choose_prod_smoke :
+    sumTo 3 (fun k => choose 3 k * choose 2 k) = choose 5 2 := by decide
 
 end E213.Lib.Math.Combinatorics.Vandermonde

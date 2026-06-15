@@ -788,6 +788,16 @@ closure → full build → commit.
   (appended, +2 PURE) — ★ **Newton's identity at k=4** `p₄ = e₁p₃−e₂p₂+e₃p₁` and the power-sum-in-`e`
   form `p₄ = e₁⁴−4e₁²e₂+2e₂²+4e₁e₃` (the file already had vieta2/3, newton_p3, e1_sq/cube).
 
+- **131 — combinatorics (general)**: `Combinatorics/Vandermonde.sum_choose_prod` (appended, 1 PURE) —
+  ★★ the **generalized Vandermonde / Cauchy corollary** `Σ_{k=0}^{m} C(n,k)·C(m,k) = C(n+m,m)` (the
+  two-parameter form of which `sum_choose_sq` is the `n=m` case; via `choose_symm_sum` + `vandermonde`).
+- **132 — combinatorics (new sequence)**: `Combinatorics/DelannoyNumbers.{delannoy, delannoy_rec,
+  delannoy_symm'}` (NEW file, 9 PURE) — the **Delannoy numbers** `D(m,n)` (lattice paths with E/N/NE
+  steps; central A001850 `1,3,13,63,321`) via `D(m+1,n+1)=D(m,n+1)+D(m+1,n)+D(m,n)` (fuel-based) with
+  ★ general `delannoy_rec`, boundary `delannoy_row0/col0`, ★ general **symmetry** `D(m,n)=D(n,m)`
+  (strong induction on m+n), and the central-Delannoy table.  Genuinely absent.
+  (Also rejected this round: geometric series closed form — `GeometricSeries.geom_sum` already exists.)
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
