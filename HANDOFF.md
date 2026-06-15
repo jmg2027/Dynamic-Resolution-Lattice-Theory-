@@ -1064,6 +1064,16 @@ closure → full build → commit.
   Completes the majorization picture with `SumCubesAMGM.amgm3` (the `[3,0,0]≻[1,1,1]` case
   `3abc≤a³+b³+c³`, cited not reproved).  Same SOS skeleton as Schur/Nesbitt/Newton.  Genuinely absent.
 
+- **162 — number theory (σ-parity partials: σ(p^k) parity general)**: `NumberTheory/SigmaParity`
+  (NEW file, 13 PURE) — companion to iter-160 `TauParity`.  The GENERAL σ-parity iff (σ(n) odd ⟺ n is a
+  square or twice a square) is **blocked** on three missing corpus crux lemmas (no 2-adic odd-part
+  decomposition `n=2^a·odd`; no `isSquare ⟺ all vp even`; no general σ-over-factorization fold) — recorded
+  as frontier `research-notes/frontiers/sigma_parity_general.md`.  Closed the genuine GENERAL partials:
+  `sigma_two_pow_odd` (`σ(2^k)%2=1`, all k), ★ `sigma_odd_prime_pow_parity`
+  (`Prime213 p → p odd → σ(p^k)%2=(k+1)%2`, all odd p, all k — the multiplicative heart, via the
+  prime-power divisor reindex + each pⁱ odd), `sigma_three_pow_parity`, even-exponent square cases, and a
+  `decide` table n=1..30 matching the square-or-twice-square indicator.  Honest fallback, not an overclaim.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
