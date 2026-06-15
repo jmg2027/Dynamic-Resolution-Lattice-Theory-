@@ -16,6 +16,8 @@ its **coefficients** (the elementary symmetric functions `e₁,e₂,e₃`) and t
   * `p2_two`/`p2_three` : `p₂ = e₁² − 2e₂` (2- and 3-variable).
   * `newton_p3` : `p₃ = e₁p₂ − e₂p₁ + 3e₃` (the genuine Newton recurrence).
   * `e1_sq` : `e₁² = p₂ + 2e₂`; `e1_cube` : `e₁³ = p₃ + 3e₁e₂ − 3e₃`.
+  * `newton4_p2`/`newton4_p3`/`newton4_p4` : the **4-variable** recurrence chain,
+    with the `e₄ = xyzw` term absent from the 3-var block.
 
 Genuinely absent (the `Newton`/`Vieta` corpus hits are physics/interpolation
 docstrings; `Positivity.prod_sum_le_sq_sum` is the *inequality* version, and
@@ -90,5 +92,33 @@ theorem power_sum_e (a b c : Int) :
         - 4*((a + b + c)*(a + b + c)*(a*b + b*c + c*a))
         + 2*((a*b + b*c + c*a)*(a*b + b*c + c*a))
         + 4*((a + b + c)*(a*b*c)) := by ring_intZ
+
+/-! ## Newton's identities, 4-variable case
+
+The full recurrence chain over four roots `x,y,z,w`, including the `e₄ = xyzw`
+term absent from the 3-variable block above (where `e₄ ≡ 0`).  `p₁ = e₁` is
+the tautology `x+y+z+w = x+y+z+w` (omitted). -/
+
+/-- **4-var** `p₂ = e₁·p₁ − 2·e₂`. -/
+theorem newton4_p2 (x y z w : Int) :
+    x*x + y*y + z*z + w*w
+      = (x + y + z + w) * (x + y + z + w)
+        - 2*(x*y + x*z + x*w + y*z + y*w + z*w) := by ring_intZ
+
+/-- **4-var** `p₃ = e₁·p₂ − e₂·p₁ + 3·e₃`. -/
+theorem newton4_p3 (x y z w : Int) :
+    x*x*x + y*y*y + z*z*z + w*w*w
+      = (x + y + z + w) * (x*x + y*y + z*z + w*w)
+        - (x*y + x*z + x*w + y*z + y*w + z*w) * (x + y + z + w)
+        + 3*(x*y*z + x*y*w + x*z*w + y*z*w) := by ring_intZ
+
+/-- ★ **4-var** `p₄ = e₁·p₃ − e₂·p₂ + e₃·p₁ − 4·e₄` — the genuine four-root
+    recurrence, with `e₄ = xyzw` (the term that vanishes in the 3-var case). -/
+theorem newton4_p4 (x y z w : Int) :
+    x*x*x*x + y*y*y*y + z*z*z*z + w*w*w*w
+      = (x + y + z + w) * (x*x*x + y*y*y + z*z*z + w*w*w)
+        - (x*y + x*z + x*w + y*z + y*w + z*w) * (x*x + y*y + z*z + w*w)
+        + (x*y*z + x*y*w + x*z*w + y*z*w) * (x + y + z + w)
+        - 4*(x*y*z*w) := by ring_intZ
 
 end E213.Lib.Math.NumberTheory.SymmetricPolyIdentities

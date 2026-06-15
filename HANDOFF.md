@@ -895,6 +895,16 @@ closure → full build → commit.
   comm+assoc, this completes the **commutative-monoid-with-unit** (the full Dirichlet-ring multiplicative
   structure) on arithmetic functions.  Genuinely absent.
 
+- **146 — symmetric polynomials (Newton's identities, 4-variable extension)**: extended
+  `NumberTheory/SymmetricPolyIdentities` (same-topic merge per repo rule 7; +3 thms, file now 14 PURE)
+  with the **4-variable** Newton recurrences `newton4_p2/p3/p4` over `x,y,z,w : Int` —
+  `p₂=e₁p₁−2e₂`, `p₃=e₁p₂−e₂p₁+3e₃`, `p₄=e₁p₃−e₂p₂+e₃p₁−4e₄` — the key new content being the
+  `e₄=xyzw` term that vanishes in the existing 3-variable block.  All one-line `ring_intZ`
+  (4 base atoms within reach since powers are repeated multiplication, not opaque `^`).
+  The 2/3-var Newton + Vieta were already present (partial-duplicate, honestly rejected);
+  the Vandermonde *determinant* product formula (n=2,3) was also already PURE in the corpus
+  (`Combinatorics/VandermondeDeterminant`) — full duplicate, rejected, no file written.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
