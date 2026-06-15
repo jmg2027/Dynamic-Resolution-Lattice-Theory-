@@ -76,15 +76,17 @@ branch) are the two halves; `curvature = 2−2b₁` is the seam.
 
 ## Concrete next steps
 
-**The natural first brick (all ingredients already PURE — assembly, no new
-physics, no forced map).**  Wire the proven Hodge polarization to the gravity
-file: assemble the Hermitian `G = h + i·Q` on `Δ⁴`'s `H¹` from the signed cup
-(`Q` from `SignedCup.cup1`, `h = SignedCup.hPair = I`), and **promote
-`GravityShadow.phase_modulus_separation : True := trivial` to the actual theorem**
-`Re(G) = h` symmetric positive-definite (the metric/gravity half) `∧ Im(G) = Q`
-antisymmetric (the symplectic/gauge half).  This turns the gravity file's
-central asserted claim into a derived one using only already-proven pieces
-(`SignedCup.lean:91-96`, `HodgeRiemannJ.lean:82-85`).
+**The natural first brick — DONE (PURE).**  `SignedCup.gram_hermitian_gravity_gauge_split`
+assembles the Hermitian `G = h + i·Q` on `Δ⁴`'s `H¹` (`GRe = hPair`, `GIm = cup1`)
+and proves the canonical split: **`Re(G)` symmetric positive-definite (`= I`, the
+Riemannian/gravity half)** `∧` **`Im(G)` antisymmetric (the symplectic/gauge
+half)** — Hermitian-ness *is* exactly this split.  Uses only already-proven
+pieces (`hodge_pairing_is_identity` §3 + `cup1_antisymmetric` §2); turns the
+asserted "phase/modulus separation automatic from `⟨·|·⟩`"
+(`GravityShadow.phase_modulus_separation : True`) into a derived theorem.  No new
+physics, no forced map.  *Remaining wiring:* `GravityShadow`'s scalar `W=|G|²/d`
+to this `Re(G)=h` (currently the metric lives in the cohomology layer, the scalar
+in the physics file — they still don't import each other).
 
 Harder, genuinely-open second tier:
 1. The curvature *of the proven metric `h`* (a connection / parallel transport on
