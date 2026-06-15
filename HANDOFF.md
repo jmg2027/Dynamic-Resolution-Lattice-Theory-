@@ -522,6 +522,14 @@ closure → full build → commit.
   reindex template as iter 93; uses `NatHelper.add_mul` (propext-safe).  Genuinely absent (only
   Vandermonde-2 special case `C(a+b,2)` existed).
 
+- **97 — combinatorics (companion)**: `…FLT/BinomialTheorem.two_weighted_binom_sum`
+  (appended) — **weighted binomial sum, subtraction-free doubled form**
+  ★ `2·(Σ_{k=0}^{n} k·C(n,k)) = n·2^n` (the binomial-mean `Σ k·C(n,k) = n·2^{n-1}` without the
+  `n−1` landmine).  Cases on `n`; `n=m+1` reduces to the existing `pascal_row_sum_weighted`
+  (shift form `(m+1)·2^m`) then doubles.  The shift form was already present; the doubled
+  subtraction-free statement was the gap.  Also rejected this round: the **alternating** binomial
+  sum `Σ(−1)ᵏC(n,k)=0` (already present as `…FLT/AlternatingBinomial.alt_binom_sum`).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

@@ -323,4 +323,20 @@ theorem pascal_row_sum_weighted (n : Nat) :
   rw [← sumTo_mul_left (n + 1) (n + 1) (fun k => choose n k)]
   rw [pascal_row_sum n]
 
+/-- ★ **Weighted binomial sum, subtraction-free doubled form**:
+    `2 · (Σ_{k=0}^{n} k·C(n,k)) = n · 2^n` — the binomial-distribution mean
+    `Σ k·C(n,k) = n·2^{n-1}` stated without the `n-1` subtraction.
+
+    `n = 0`: the sum is the single `0·C(0,0) = 0` term.  `n = m+1`: the shift
+    form `pascal_row_sum_weighted m` gives `Σ_{k≤m+1} k·C(m+1,k) = (m+1)·2^m`,
+    so doubling gives `(m+1)·(2·2^m) = (m+1)·2^{m+1}`. -/
+theorem two_weighted_binom_sum (n : Nat) :
+    2 * sumTo (n + 1) (fun k => k * choose n k) = n * 2 ^ n := by
+  cases n with
+  | zero => decide
+  | succ m =>
+    rw [pascal_row_sum_weighted m]
+    show 2 * ((m + 1) * 2 ^ m) = (m + 1) * (2 ^ m * 2)
+    rw [Nat.mul_comm 2 ((m + 1) * 2 ^ m), mul_assoc (m + 1) (2 ^ m) 2]
+
 end E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTheorem
