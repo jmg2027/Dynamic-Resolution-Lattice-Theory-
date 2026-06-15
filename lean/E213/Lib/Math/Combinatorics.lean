@@ -25,6 +25,7 @@ import E213.Lib.Math.Combinatorics.StirlingFirstKind
 import E213.Lib.Math.Combinatorics.EulerianNumbers
 import E213.Lib.Math.Combinatorics.Worpitzky
 import E213.Lib.Math.Combinatorics.MotzkinNumbers
+import E213.Lib.Math.Combinatorics.Josephus
 import E213.Lib.Math.Combinatorics.NarayanaNumbers
 import E213.Lib.Math.Combinatorics.SchroderNumbers
 import E213.Lib.Math.Combinatorics.PartitionNumbers

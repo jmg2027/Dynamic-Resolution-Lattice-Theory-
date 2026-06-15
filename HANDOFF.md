@@ -1026,6 +1026,16 @@ closure → full build → commit.
   iter-150's even-doubling + quadratic, the full index-doubling chain (even AND odd) of the parametric
   Lucas sequences is now ∅-axiom.  Genuinely absent.
 
+- **158 — combinatorics (Josephus problem, k=2 closed form)**: `Combinatorics/Josephus`
+  (NEW file, 20 PURE) — the every-2nd-elimination survivor.  ★★★ **closed form**
+  `josephus_closed_form : L<2^m → josephus (2^m+L) = 2L+1` (the famous binary-rotation solution: J(n)
+  cyclically left-shifts n's binary digits), proved via the 0-indexed `jos0` (`jos0(2^m+L)=2L`,
+  subtraction-free) by induction on m with a parity split.  ★★ defining recurrences
+  `jos0_two_mul`/`jos0_two_mul_add_one` (`J'(2k)=2J'(k)`, `J'(2k+1)=2J'(k)+2`) and 1-indexed forms.
+  Fuel-based structural recursion (`jos0F`, branch on `(n+2)%2`) with `Nat.strongRecOn` fuel-irrelevance
+  (the `motzkin`/`bell` pattern); `decide` smokes incl. the classic `josephus 41 = 19`.  All Lean-core
+  div/mod leaks swapped for `NatDiv213`/`AddMod213` ∅-axiom replacements.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
