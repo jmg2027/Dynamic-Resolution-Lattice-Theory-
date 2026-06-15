@@ -131,4 +131,10 @@ theorem orbit_in_SL :
     ∧ det5 (pow 5) = 1 ∧ det5 (pow 6) = 1 ∧ det5 (pow 7) = 1 ∧ det5 (pow 8) = 1
     ∧ det5 (pow 9) = 1 ∧ det5 (pow 10) = 1 := by decide
 
+/-- ★ **`M⁵ = −I` is the central involution** — the non-trivial element of the
+    centre `{I, −I} ≅ ℤ/2` of the order-10 group: `M⁵ ≠ I` yet `(M⁵)² = I`.  The
+    `PSL`-quotient kernel made explicit (what `order_exactly_ten` implies but does
+    not record as an involution law). -/
+theorem pow_five_order_two : pow 5 ≠ I ∧ mul5 (pow 5) (pow 5) = I := by decide
+
 end E213.Lib.Math.Algebra.Icosahedral.OrderFive
