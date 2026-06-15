@@ -838,6 +838,13 @@ closure → full build → commit.
   The general digit-step needs Vandermonde-mod-p (now reachable via the iter-96 Vandermonde — open follow-up).
   (Central-binomial divisibility checked this round and rejected — `CentralBinomEven`/`CatalanBinomial` cover it.)
 
+- **139 — combinatorics (DEEP, closes a frontier)**: `Combinatorics/Worpitzky.{worpitzky, worpitzky_succ}`
+  (NEW file, 20 PURE) — ★★★ **Worpitzky's identity in full generality** `xⁿ = Σ_k A(n,k)·C(x+k,n)`
+  (∀n ∀x), closing the open follow-up of iter 105 (which had only n=1,2,3).  Induction on n; the
+  coefficient bookkeeping closes via additive upper-index absorption `x·C(x+k,n) = (n−k)·C(x+k+1,n+1) +
+  (k+1)·C(x+k,n+1)` (`absorb_shift`, from `choose_succ_mul`) + reindex + matching the Eulerian recurrence
+  (`target_eq`), with `eulerian_diag_succ` peeling the top term.  Genuinely new (frontier-closing).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
