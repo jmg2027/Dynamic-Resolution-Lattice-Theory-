@@ -28,8 +28,7 @@ identity of the *generator*, NOT yet a curvature *field*.  A curvature field
 needs a connection transporting `h` over a multi-simplex lattice; the repo has
 only one flat `Δ⁴` (`h = I`) and no such connection.  So this brick fuses two
 proven objects (`J = S`); the genuine open work is the curvature field, `G_N`,
-and a varying metric over a glued lattice.  See
-`research-notes/frontiers/gravity_reconnection_hinge_holonomy.md`.
+and a varying metric over a glued lattice.
 
 All theorems PURE.
 -/

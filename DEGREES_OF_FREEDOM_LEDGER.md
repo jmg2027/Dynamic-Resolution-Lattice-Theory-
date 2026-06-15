@@ -49,7 +49,7 @@ many inputs the slash takes), which is a **different** quantity from the edge
 is the presentation parameter set so the graph cohomology `b₁(K_{NS,NT}^{(c)})
 = c·NS·NT − (NS+NT−1)` reproduces the gauge content `NS² − 1` (already direct
 from the forced `NS`).  It is unforced across five reframings and
-physics-redundant: `research-notes/frontiers/atomic_c_multiplicity_forcing.md`.
+physics-redundant.
 So the atomic floor is `(NS, NT, d) = (3, 2, 5)`, with `c = 2` a derived
 cohomological presentation of `NS²−1`.
 
@@ -121,8 +121,7 @@ physically is (not by arithmetic, which cannot — the values coincide):
   the edge-count selection of `c·NS·NT` is the **cohomology's presentation**
   (it re-presents `NS²−1`), not an axiom forcing.  So this resolves the
   *attribution of the value-2 within the edge-count reading*, but does not
-  upgrade `c` to forced — see
-  `research-notes/frontiers/atomic_c_multiplicity_forcing.md`.
+  upgrade `c` to forced.
 
 Capstone: `nt_c_degeneracy_resolved`. **The Layer-1 `assignment` row is
 no longer a researcher DoF** — the cohomology's edge-count structure
@@ -193,8 +192,7 @@ the correction form — it reduces to one sub-question: **why `α²/d²`?**
   forced numerator `α²` (self-energy is `O(α²)`), this grounds `α²/d²` in
   degree-2 structure. **Remaining (narrow)**: a forcing theorem identifying
   the Gram self-energy *as* the `k=1` self-pairing cup term (promote
-  `CupRingTrace`/`SelfPairingTrace` from test to derivation). Frontier:
-  `research-notes/frontiers/gram_d2_prefactor.md`.
+  `CupRingTrace`/`SelfPairingTrace` from test to derivation).
 
 ---
 

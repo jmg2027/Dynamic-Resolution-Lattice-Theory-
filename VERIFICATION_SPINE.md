@@ -59,9 +59,8 @@ this*, not dialed *into* it. (Public surface: `Theory/Raw/API.lean`.)
 `(NS, NT)` and `d = NS + NT` are theorems, not settings (all PURE, §7).  The
 multiplicity `c = 2` is **not** independently forced: it is the presentation
 parameter set so the graph cohomology `b₁(K_{NS,NT}^{(c)})` reproduces the
-gauge content `NS² − 1`, which the forced `NS = 3` already gives directly.
-See `research-notes/frontiers/atomic_c_multiplicity_forcing.md` (unforced
-across five reframings; physics-redundant).
+gauge content `NS² − 1`, which the forced `NS = 3` already gives directly
+(`c = 2` unforced across five reframings; physics-redundant).
 
 ### 2.1 Pair size and closure size → `NT = 2`, `NS = 3`
 

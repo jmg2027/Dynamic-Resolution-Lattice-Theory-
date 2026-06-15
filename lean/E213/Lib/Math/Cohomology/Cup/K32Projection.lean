@@ -155,8 +155,7 @@ target `NS² − 1 = 8` (the SU(NS) adjoint dimension) is **constant in
 `c`**.  A c-varying quantity equals a c-constant one at *one* `c` only —
 here `c = 2`.
 
-Consequence (the gap recorded in
-`research-notes/frontiers/atomic_c_multiplicity_forcing.md`): there is no
+Consequence: there is no
 c-natural isomorphism `H¹(K_{NS,NT}^{(c)}) ≅ su(NS)-adjoint`, because one
 side's dimension depends on `c` and the other's does not.  At `c = 2` any
 such "isomorphism" is a non-canonical equality of two 8-dimensional

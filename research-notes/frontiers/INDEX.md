@@ -388,6 +388,28 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (currently a structural assertion). Anchors:
   `Lib/Physics/AlphaEM/{GramCubicReduction,GramD2Readings,GramD2Mechanism}`.
 
+- `classical_input_gap_closure` — **close the classical-input gaps: forced, not
+  frozen.** The framework forces the *numbers/counting* (∅-axiom) but the
+  physical *identifications* (octet=SU(3), Δ⁴=spacetime, the couplings, mass
+  ratios, J∝Im) ride on docstring prose / a definition-smuggled projection — a
+  pattern verified universal across 6 observables (independent re-audit).  Two
+  typed-but-modelled closures (octet cokernel via a `Unit`-model; CP `C₄` via the
+  matrix `J`) and a recorded honest downgrade.  Deepest open layer: can the
+  discrete modulus *bracket* a continuous value (ζ(2)) ∅-axiom — `Zeta2Cut.lean`
+  specified-not-built (brackets a *hypothesised* limit; the genuine non-trivial
+  lemma is the `Htel` telescoping induction).  The math is closeable to a model;
+  the physics name stays a reading.
+
+- `evidential_overdetermination_count` — **how many INDEPENDENT measured numbers
+  does (3,2,5) pin with 0 dials?** After deduping re-readings of `{3,6,8,12,24}`
+  (the catalog reads each integer 6–12 ways; `FalsifierRosterForced` binds 9
+  "falsifiers" to one (3,2,5) polynomial) and subtracting π-fed precision, the
+  honest count is **K ≈ 3 (tight: N_gen=3, 8-gluon SU(3), Koide 2/3) to ≈ 7
+  (generous)** — not the headline "23 observables".  Genuine over-determination
+  engine: one atom set forced to three coupling skeletons at three forced depths
+  `{1,2,∞}`, un-tunable.  A small honest K with truly 0 dials is real; the
+  headline inflates ~3–7-fold.
+
 - `delta4_dual_defect_status` — **is Δ⁴ forced like (2,3,5)? No — it is 2nd-tier.**
   `(NS,NT,d)=(3,2,5)` and `K_{3,2}` are forced; `Δ⁴` is the "maximal-non-commitment
   filling" (`atomic_constants.md:206`), and "Δ⁴ = spacetime" has zero Lean support
