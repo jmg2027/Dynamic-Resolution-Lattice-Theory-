@@ -496,6 +496,32 @@ closure → full build → commit.
   `(U n 0=F_{2n}, U n 1=F_{2n+1})`.  Bridges the binomial and Fibonacci clusters.  Genuinely absent.
   NEW LANDMINE: `Nat.add_mul` leaks `propext` (while `Nat.mul_add` is clean) → `NatHelper.add_mul`.
 
+- **94 — combinatorics (deep)**: `Combinatorics/LucasFibonacci.{luc_double_nat, luc_doubling}`
+  (appended) — **Lucas doubling** ★ `L_{2n} = Lₙ² − 2·(−1)ⁿ` (Int, shift form `luc(2n+2) = luc(n+1)² −
+  2·powInt(-1)(n+1)`).  Derived from `luc_eq_fib` + `fib_odd_doubling` (= `F_{2n+1}=F_{n+1}²+Fₙ²`) +
+  `cassini`, closed by `ring_intZ`.  The companion `Lₙ²−5Fₙ²=4(−1)ⁿ` was already present as
+  `lucas_fib_rel` — duplicate correctly rejected.  Genuinely absent (no `luc_doubling`).
+
+- **95 — combinatorics (deep, general-n)**: `Combinatorics/CatalanBinomial.{succ_mul_catN_recurrence_4np2,
+  catN_growth_bound}` (appended) — **all-n Catalan growth bound** ★ `catN(n+1) ≤ 4·catN n` on the
+  universal central-binomial Catalan object `catN = C(2n,n)/(n+1)`, generalizing the table-only
+  `catalan_growth_ratio` (n=0..6, `decide`) to every `n`.  From the ratio recurrence
+  `(n+2)·catN(n+1) = (4n+2)·catN n` with `4n+2 ≤ 4(n+2)`, cancelling the positive `(n+2)`.
+  NOTE (honest non-target): the *general* convolution `catalan(n+1)=Σ catalan i·catalan(n-i)` is
+  FALSE for the corpus `catalan` (finite lookup table, =0 for n≥8 while the sum is nonzero) — it
+  holds only n=0..6 (already present as `catalan_recursion_*`); the general object needs the
+  generating-function argument (intractable PURE).  Growth bound is the reachable generalization.
+
+- **96 — combinatorics (DEEP, cross-cluster headline)**: `Combinatorics/Vandermonde.{vandermonde,
+  vandermonde_sum, sum_choose_sq}` (NEW file, 9 PURE) — **the general Vandermonde identity**
+  ★ `Σ_{k=0}^{r} C(m,k)·C(n,r−k) = C(m+n,r)` and its central-binomial corollary
+  ★ `Σ_{k=0}^{n} C(n,k)² = C(2n,n)`.  Proof: induction on `m` via the key recurrence
+  `V(m+1) n (r+1) = V m n (r+1) + V m n r` (Pascal-split the head-peeled tail with `sumTo_add_func`,
+  reindex truncation-free at `r+1` so `(r+1)−(k+1)=r−k`), base `m=0` collapses by `choose 0 (k+1)=0`.
+  Corollary sets `m=n,r=n` + `choose n k = choose n (n−k)` (`choose_symm_sum`).  Same Pascal-split/
+  reindex template as iter 93; uses `NatHelper.add_mul` (propext-safe).  Genuinely absent (only
+  Vandermonde-2 special case `C(a+b,2)` existed).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

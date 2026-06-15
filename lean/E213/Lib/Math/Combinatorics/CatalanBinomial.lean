@@ -164,4 +164,38 @@ theorem succ_mul_catN_recurrence (n : Nat) :
     ring_nat
   exact mul_left_cancel_pos (Nat.succ_pos n) key
 
+/-- ★ **`catN` recurrence, `4n+2` form**: `(n+2)·catN (n+1) = (4n+2)·catN n`
+    (restatement of `succ_mul_catN_recurrence`'s `2·(2n+1)` shape — the bridge to
+    the growth bound). -/
+theorem succ_mul_catN_recurrence_4np2 (n : Nat) :
+    (n + 2) * catN (n + 1) = (4 * n + 2) * catN n := by
+  rw [succ_mul_catN_recurrence n]
+  rw [show 2 * (2 * n + 1) = 4 * n + 2 from by ring_nat]
+
+/-- ★★ **General Catalan growth bound** `catN (n+1) ≤ 4·catN n`, for **every** `n`.
+
+    The `C_{n+1}/C_n = 2(2n+1)/(n+2) → 4` asymptotic in `≤` form, on the universal
+    central-binomial Catalan object `catN` — generalizing the table-only
+    `catalan_growth_ratio` (n = 0..6, by `decide`) to all `n`.
+
+    From the ratio recurrence `(n+2)·catN(n+1) = (4n+2)·catN n` and
+    `4n+2 ≤ 4(n+2) = 4n+8`, so `(n+2)·catN(n+1) ≤ (n+2)·(4·catN n)`; cancel the
+    positive `(n+2)`. -/
+theorem catN_growth_bound (n : Nat) : catN (n + 1) ≤ 4 * catN n := by
+  have hrec : (n + 2) * catN (n + 1) = (4 * n + 2) * catN n :=
+    succ_mul_catN_recurrence_4np2 n
+  have hcoef : (4 * n + 2) ≤ (4 * n + 8) :=
+    Nat.add_le_add_left (by decide) (4 * n)
+  have hmul : (4 * n + 2) * catN n ≤ (4 * n + 8) * catN n :=
+    Nat.mul_le_mul_right (catN n) hcoef
+  have hform : (4 * n + 8) * catN n = (n + 2) * (4 * catN n) := by
+    rw [← mul_assoc (n + 2) 4 (catN n)]
+    rw [show (n + 2) * 4 = 4 * n + 8 from by ring_nat]
+  have hle : (n + 2) * catN (n + 1) ≤ (n + 2) * (4 * catN n) := by
+    rw [hrec, ← hform]; exact hmul
+  exact Nat.le_of_mul_le_mul_left hle (Nat.succ_pos (n + 1))
+
+/-- Smoke: the general bound at n = 5 (`C₆ = 132 ≤ 4·42`). -/
+theorem catN_growth_smoke : catN 6 ≤ 4 * catN 5 := catN_growth_bound 5
+
 end E213.Lib.Math.Combinatorics.CatalanBinomial

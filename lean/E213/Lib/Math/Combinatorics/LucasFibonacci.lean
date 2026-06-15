@@ -179,6 +179,48 @@ theorem lucas_fib_rel (n : Nat) :
   rw [← hc]
   ring_intZ
 
+/-! ## Lucas doubling `L_{2n} = L_n² − 2·(−1)ⁿ` -/
+
+/-- `L_{2n+2}` as a Nat sum of four Fibonacci squares:
+    `L_{2n+2} = F_{2n+1} + F_{2n+3} = (F_{n+1}² + F_n²) + (F_{n+2}² + F_{n+1}²)`. -/
+theorem luc_double_nat (n : Nat) :
+    luc (n + (n + 1) + 1)
+      = (fib (n + 1) * fib (n + 1) + fib n * fib n)
+        + (fib (n + 2) * fib (n + 2) + fib (n + 1) * fib (n + 1)) := by
+  have hL : luc (n + (n + 1) + 1) = fib (n + (n + 1)) + fib (n + (n + 1) + 2) :=
+    luc_eq_fib (n + (n + 1))
+  have hi1 : n + (n + 1) = n + n + 1 := by ring_nat
+  have hi2 : n + (n + 1) + 2 = (n + 1) + (n + 1) + 1 := by ring_nat
+  have hi3 : n + 1 + 1 = n + 2 := by ring_nat
+  have hodd1 : fib (n + n + 1) = fib (n + 1) * fib (n + 1) + fib n * fib n :=
+    fib_odd_doubling n
+  have hodd2 : fib ((n + 1) + (n + 1) + 1)
+      = fib (n + 1 + 1) * fib (n + 1 + 1) + fib (n + 1) * fib (n + 1) :=
+    fib_odd_doubling (n + 1)
+  rw [hi3] at hodd2
+  rw [hL]
+  rw [hi2, hi1]
+  rw [hodd1, hodd2]
+
+/-- ★★ **Lucas doubling** over `Int`: `L_{2n} = L_n² − 2·(−1)ⁿ`, shift form
+    `luc(2n+2) = luc(n+1)² − 2·powInt(-1)(n+1)`.  From `luc_double_nat` + Cassini. -/
+theorem luc_doubling (n : Nat) :
+    (luc (n + (n + 1) + 1) : Int)
+      = (luc (n + 1) : Int) * (luc (n + 1) : Int) - 2 * powInt (-1) (n + 1) := by
+  have hLZ : ((luc (n + (n + 1) + 1) : Nat) : Int)
+      = ((fib (n + 1) : Int) * (fib (n + 1) : Int) + (fib n : Int) * (fib n : Int))
+        + ((fib (n + 2) : Int) * (fib (n + 2) : Int)
+            + (fib (n + 1) : Int) * (fib (n + 1) : Int)) := by
+    rw [luc_double_nat n]
+    rw [Int.ofNat_add, Int.ofNat_add, Int.ofNat_add,
+        Int.ofNat_mul, Int.ofNat_mul, Int.ofNat_mul]
+  have hlucZ : ((luc (n + 1) : Nat) : Int) = (fib n : Int) + (fib (n + 2) : Int) := by
+    rw [luc_eq_fib n]; exact Int.ofNat_add (fib n) (fib (n + 2))
+  have hc : (fib n : Int) * (fib (n + 2) : Int)
+      - (fib (n + 1) : Int) * (fib (n + 1) : Int) = powInt (-1) (n + 1) := cassini n
+  rw [hLZ, hlucZ, ← hc]
+  ring_intZ
+
 /-! ## Lucas partial sums -/
 
 /-- `sumLuc n = L_0 + … + L_n`. -/
