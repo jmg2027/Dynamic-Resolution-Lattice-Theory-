@@ -475,6 +475,13 @@ closure → full build → commit.
   convergents solve `x²−2y²=±1`).  Bridges the CF and Pell clusters; `cf_norm` is a corollary of
   `PellNumbers.norm`.  Genuinely absent.
 
+- **91 — combinatorics (deep)**: `Combinatorics/BellNumbers.{bell, bell_succ, bell_pos}`
+  (9 PURE) — the **Bell numbers via the binomial recurrence** `B(n+1)=Σ C(n,k)·B(k)` (computes
+  all n, vs the corpus `Stirling.bell` table): ★ `bell_succ` (the recurrence, general), `bell_pos`
+  (general positivity), `bell_table` (1,1,2,5,15,52,203), Stirling connection `B_n=Σ_k S(n,k)`
+  (n≤5).  Fuel-based def + `Nat.strongRecOn` fuel-irrelevance (PURE WF-substitute).  Genuinely
+  new (recurrence def + theorem).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
