@@ -25,17 +25,38 @@ reconnection is feasible.
    the discrete Regge picture (curvature concentrated on simplicial loci), but
    it lives as pure math, **not deployed as physics gravity.**
 
-## The bridge that already exists
+## The bridge — and a correction
 
-`DiscreteGaussBonnet`: **total curvature `= 2 − 2·b₁`** on `K`.  But `b₁(K) =
-NS²−1 = 8` IS the gauge content (`K32Projection`).  So the gravitational
-curvature (Regge total) is determined by the same `b₁` that gives the gauge
-adjoint — gauge and curvature are two readings of the topology of the *same*
-`K ⊂ Δ⁴`.  Hinge language is already in the physics (`Simplex/FoccSpectrum`:
-"gauge = hinge k-vertex"; `Simplex/FaceTerms`: "all are cohomology quantities
-of `K_{NS,NT}^{(c)} ⊂ Δ⁴`").
+**The Kähler/polarization skeleton is genuinely proven (Hodge layer), not forced.**
+On `Δ⁴`'s `H¹`, the framework constructs and proves (∅-axiom):
+- **symplectic `Q = [[0,1],[−1,0]]`** (antisymmetric, `Qᵀ=−Q`) — the cup pairing,
+  the **phase/gauge** half (carries the CP `i`, `ℤ[J]≅ℤ[i]`, δ=90°).
+  `HodgeRiemannJ.complex_structure_and_symplectic`, `SignedCup`.
+- **positive-definite metric `h = Q·J = I = diag(+1,+1,+1,+1)`** — the
+  **real/metric** half (gravity's Riemannian side).
+  `HodgeRiemannJ.hodge_riemann_positive`, `SignedCup.hodge_pairing_is_identity`.
+- complex structure `J`, `J²=−I`, `JᵀQJ=Q`, `Q·J≻0` — a genuine **polarization**
+  (= the Kähler condition).
 
-## The deep question (holonomy / Riemannian)
+So gauge = imaginary/symplectic, gravity = real/metric **is really constructed**
+(in the Hodge layer), not a label forced on. **But** it is *not wired to the
+gravity file*: `GravityShadow.lean`'s `W=|G|²/d` is a real **scalar** (`=d=5`),
+its `phase_modulus_separation` is `: True := trivial` (a placeholder), and that
+file imports none of `HodgeRiemannJ`/`SignedCup`/`DiscreteGaussBonnet`.  The
+skeleton is proven; the gravity label is assigned; **the two are not bolted
+together.**
+
+**Correction (an earlier error here):** the `b₁`s do *not* match across the two
+pictures.  `DiscreteGaussBonnet`'s `totalCurv = 2−2·b₁` uses the **simple**
+`K_{3,2}` (6 edges, `b₁ = 2`); the gauge adjoint `b₁ = NS²−1 = 8` is on the
+**multiplicity-2** `K_{3,2}^{(2)}` (12 edges).  Different objects, different
+`b₁` (2 vs 8) — so "gravity-curvature = the same `b₁` as the gauge adjoint" is a
+**conflation, not a seam**.  Connecting the discrete graph curvature to the Gram
+metric would be a forced bridge (the curvature is pure graph combinatorics,
+`κ(v)=2−deg(v)`, with no contact with `⟨·|·⟩`).  The honest curvature question
+is the curvature *of the proven metric `h`*, which the repo does not compute.
+
+## The deep question (holonomy / Riemannian) — unchanged, honestly open
 
 In Regge, **curvature = deficit angle = holonomy** of parallel transport around
 a hinge (a rotation = a *phase*).  But current 213 puts **gravity in the
@@ -55,16 +76,27 @@ branch) are the two halves; `curvature = 2−2b₁` is the seam.
 
 ## Concrete next steps
 
-1. Deploy `DiscreteGaussBonnet` / `DiscreteRicci` (math) as the physics gravity
-   curvature on `Δ⁴` hinges (the 2-faces), re-deriving the Regge "hinge area ×
-   deficit angle" Einstein–Hilbert form 213-natively.
-2. Relate the Regge deficit (holonomy/phase) to the Gram-shadow modulus `W` —
-   are they the same gravity (two Lens readings) or competing?  This is the
-   phase-vs-modulus reconciliation.
-3. Test whether `curvature = 2−2b₁` upgrades to a genuine gauge–gravity
-   identity (gravity's total curvature fixed by the gauge `b₁`), and whether
-   the full holonomy group on `K ⊂ Δ⁴` contains both the SM gauge group and the
-   geometric (Levi-Civita) part.
+**The natural first brick (all ingredients already PURE — assembly, no new
+physics, no forced map).**  Wire the proven Hodge polarization to the gravity
+file: assemble the Hermitian `G = h + i·Q` on `Δ⁴`'s `H¹` from the signed cup
+(`Q` from `SignedCup.cup1`, `h = SignedCup.hPair = I`), and **promote
+`GravityShadow.phase_modulus_separation : True := trivial` to the actual theorem**
+`Re(G) = h` symmetric positive-definite (the metric/gravity half) `∧ Im(G) = Q`
+antisymmetric (the symplectic/gauge half).  This turns the gravity file's
+central asserted claim into a derived one using only already-proven pieces
+(`SignedCup.lean:91-96`, `HodgeRiemannJ.lean:82-85`).
 
-Caveat (honest): `G_N` is not derived; the phase/modulus-vs-Regge question is
-genuinely open; this is a reconnection *opportunity*, not a closed result.
+Harder, genuinely-open second tier:
+1. The curvature *of the proven metric `h`* (a connection / parallel transport on
+   `Δ⁴`'s `H¹`), and whether it matches anything Regge-like — *without* importing
+   the graph `DiscreteGaussBonnet` (which is unconnected; the `b₁` even differs,
+   2 vs 8).
+2. The phase-vs-modulus / holonomy reconciliation: is gravity the metric (real,
+   current) or the holonomy/deficit (phase, Regge)?  Two readings or competing?
+3. `G_N` (Newton) — not derived; the `M_Pl/v_H = 5²⁵/6` hierarchy is the only
+   formalized gravitational number.
+
+Caveat (honest): only the *polarization skeleton* (`Q`, `h=I`, `J`) is proven;
+`W`-as-metric, any curvature, `G_N`, and the modulus-vs-holonomy question are
+open.  This is a reconnection *opportunity* with a proven skeleton and one
+natural assembling theorem — not a closed result.
