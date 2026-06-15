@@ -136,9 +136,9 @@ forces `c·NS·NT`, and the NT↔c coincidence is structurally broken.
 |---|---|---|---|---|
 | ζ(2) | π²/6 | **derived** | Basel chapter (repo-derived, not hardcoded; `README.md` "ζ(2) via Basel") | no transcendental constant inserted by hand |
 | α_GUT | `1/α_GUT = d²·ζ(2) = 25·π²/6` | **derived** | `Couplings/AlphaGUT.lean`, `SpectrumComplete.inv_alpha_GUT_eq_25` | **not an external GUT input** — itself a function of `d` and ζ(2) |
+| Basel **resolution depth** `N` | `α_3→1, α_2→2, α_1→∞` | **assignment** (physical range) | `Foundations/ResolutionDepth.depth_principle_witnesses` (PURE) | the genuine "**Dynamic Resolution**": each coupling is the ζ(2) series truncated at depth `N` = the force's range cutoff (confined→1, massive→2, massless→∞).  **Load-bearing** (wrong depth ⇒ wrong answer: `α_2@N=1=24≠30`, `α_3@N=2=10≠8`), but the depth-to-force *map* is set by physical range, not forced from 213 — an un-closed assignment DoF (parallel to the `c` finding). |
 
-**Layer-2 verdict.** No external physical constant is imported. The two
-"continuous-looking" inputs are themselves residue-derived: ζ(2) from
+**Layer-2 verdict.** No external physical *constant* is imported: ζ(2) is from
 Basel, α_GUT from `d²·ζ(2)`. This closes the most common skeptic charge
 ("you smuggled in α_GUT from the Standard Model") — it is refuted by the
 code: α_GUT here is `6/(25π²)`, derived.
