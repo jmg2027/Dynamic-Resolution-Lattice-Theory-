@@ -1015,6 +1015,17 @@ closure → full build → commit.
   Reuses corpus Int order infra (`mul_nonneg`, `int_sq_nonneg`, `add_nonneg`, `Order.le_of_sub_nonneg`) —
   no new lemmas.  Distinct from `SumCubesAMGM` (the cube-form `3abc≤a³+b³+c³`).  Genuinely absent.
 
+- **157 — number theory (Lucas sequences, odd-index doubling + divisibility)**: extended
+  `NumberTheory/LucasSequences` (same-topic merge per rule 7; +8 thms, file now 44 PURE) with the
+  **odd-index** identities ★★★ `lucU_odd_double : U_{2n+1}=U_{n+1}²−Q·U_n²` (extracted from the
+  `lucasDoubleAll` invariant via a 4×-scaling kernel `U_odd_kernel` feeding the cross relation
+  `2U_{n+1}=P·U_n+V_n` + flipped quadratic `4Qⁿ=V_n²−D·U_n²`, then `mulCancelL`) and ★★★
+  `lucV_odd_double : V_{2n+1}=V_{n+1}·V_n−P·Qⁿ` (a direct projection of the invariant's `.2.2.2`
+  component), plus ★★ `lucU_dvd_double : U_n ∣ U_{2n}` (one-line, witness `V_n` from
+  `U_{2n}=U_n·V_n`).  Fibonacci/Pell `decide` smokes (`F_{2n+1}=F_{n+1}²+F_n²`, `L₇=29`).  Together with
+  iter-150's even-doubling + quadratic, the full index-doubling chain (even AND odd) of the parametric
+  Lucas sequences is now ∅-axiom.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

@@ -328,4 +328,60 @@ theorem pell_quad_smoke :
 theorem fib_double_smoke :
     lucU 1 (-1) (2 * 3) = lucU 1 (-1) 3 * lucV 1 (-1) 3 := by decide
 
+/-! ## §odd — Odd-index doubling identities + divisibility corollary -/
+
+/-- Kernel converting the invariant form `U(n+1)·V_n − q` into `U(n+1)² − Q·U_n²`.
+    Uses cross relation `2·un1 = P·un + vn` and quadratic `4·q = vn² − D·un²`. -/
+theorem U_odd_kernel (P Q un un1 vn q : Int)
+    (hs : 2 * un1 = P * un + vn)
+    (hq : 4 * q = vn * vn - (P * P - 4 * Q) * (un * un)) :
+    un1 * vn - q = un1 * un1 - Q * (un * un) := by
+  apply mulCancelL (show (4 : Int) ≠ 0 by decide)
+  have l : 4 * (un1 * vn - q)
+         = (2 * un1) * (2 * vn) - 4 * q := by ring_intZ
+  have r : 4 * (un1 * un1 - Q * (un * un))
+         = (2 * un1) * (2 * un1) - 4 * (Q * (un * un)) := by ring_intZ
+  rw [l, r, hs, hq]; ring_intZ
+
+/-- ★★★ **Odd-index doubling** (first kind): `U(2n+1) = U(n+1)² − Q·U_n²`. -/
+theorem lucU_odd_double (P Q : Int) (n : Nat) :
+    lucU P Q (2 * n + 1)
+      = lucU P Q (n + 1) * lucU P Q (n + 1) - Q * (lucU P Q n * lucU P Q n) := by
+  rw [(lucasDoubleAll P Q n).2.1]
+  exact U_odd_kernel P Q (lucU P Q n) (lucU P Q (n + 1)) (lucV P Q n) (powInt Q n)
+    (lucUV_cross_U P Q n) (quadFlip P Q n)
+
+/-- ★★★ **Odd-index doubling** (second kind): `V(2n+1) = V(n+1)·V_n − P·Q^n`.
+    Verified directly against the `lucasDoubleAll` invariant (its `.2.2.2` component). -/
+theorem lucV_odd_double (P Q : Int) (n : Nat) :
+    lucV P Q (2 * n + 1)
+      = lucV P Q (n + 1) * lucV P Q n - P * powInt Q n :=
+  (lucasDoubleAll P Q n).2.2.2
+
+/-- ★★ `U_n ∣ U(2n)`, witnessed by `V_n` (from `U(2n) = U_n · V_n`). -/
+theorem lucU_dvd_double (P Q : Int) (n : Nat) :
+    lucU P Q n ∣ lucU P Q (2 * n) :=
+  ⟨lucV P Q n, lucasDouble P Q n⟩
+
+/-- Fibonacci odd-index: `F₇ = 13 = F₄² + F₃² = 3² + 2²`. -/
+theorem fib_odd_double_smoke :
+    lucU 1 (-1) (2 * 3 + 1)
+      = lucU 1 (-1) (3 + 1) * lucU 1 (-1) (3 + 1)
+        - (-1) * (lucU 1 (-1) 3 * lucU 1 (-1) 3) := by decide
+
+/-- Pell odd-index: `P₅ = 29 = P₃² + P₂² = 5² + 2²`. -/
+theorem pell_odd_double_smoke :
+    lucU 2 (-1) (2 * 2 + 1)
+      = lucU 2 (-1) (2 + 1) * lucU 2 (-1) (2 + 1)
+        - (-1) * (lucU 2 (-1) 2 * lucU 2 (-1) 2) := by decide
+
+/-- Fibonacci V odd-index: `L₇ = 29 = L₄·L₃ − 1·(−1)³`. -/
+theorem fibV_odd_double_smoke :
+    lucV 1 (-1) (2 * 3 + 1)
+      = lucV 1 (-1) (3 + 1) * lucV 1 (-1) 3 - 1 * powInt (-1) 3 := by decide
+
+/-- Divisibility smoke (Fibonacci, `n = 3`): `F₃ = 2 ∣ F₆ = 8`. -/
+theorem fib_dvd_smoke : lucU 1 (-1) 3 ∣ lucU 1 (-1) (2 * 3) :=
+  lucU_dvd_double 1 (-1) 3
+
 end E213.Lib.Math.NumberTheory.LucasSequences
