@@ -624,6 +624,15 @@ closure → full build → commit.
   `M(n) = Σ_k C(n,2k)·catalan(k)` (n=0..6), and the three-term P-recurrence (table n=2..9).
   Genuinely absent.
 
+- **109 — number theory (Möbius prime case, general + toolkit)**: `NumberTheory/MobiusPrimeCase.{mu_prime,
+  mu_prime_sq, mobiusSum_prime, muAux_skip}` (NEW file, 19 PURE) — **structural evaluation of the
+  trial-division `mu` on primes** (all primes, not table): ★★ `mu_prime : Prime213 p → mu p = −1`,
+  ★★ `mu_prime_sq : mu(p²) = 0`, ★★ `mobiusSum_prime : Σ_{d∣p} μ(d) = 0` (the **n=prime case** of the
+  general Möbius divisor-sum identity).  Plus a reusable `muAux` branch toolkit (`muAux_skip` scans
+  past a run of non-divisors) + an Int `sumZ` toolkit.  The **general** theorem `∀n, Σ_{d∣n}μ(d)=[n=1]`
+  stays open (needs a `muAux`-correctness invariant bridging trial-division `mu` to a structural
+  `vp`/`Prime213` valuation) — frontier `research-notes/frontiers/mobius_divisor_sum_general.md`.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

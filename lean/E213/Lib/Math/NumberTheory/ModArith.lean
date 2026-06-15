@@ -68,6 +68,7 @@ import E213.Lib.Math.NumberTheory.SymmetricPolyIdentities
 import E213.Lib.Math.NumberTheory.GeometricSeries
 import E213.Lib.Math.NumberTheory.EulerTotient
 import E213.Lib.Math.NumberTheory.MobiusFunction
+import E213.Lib.Math.NumberTheory.MobiusPrimeCase
 import E213.Lib.Math.NumberTheory.SumOfDivisors
 import E213.Lib.Math.NumberTheory.GaussTotient
 
