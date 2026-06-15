@@ -422,6 +422,13 @@ closure → full build → commit.
   **centered hexagonal numbers sum to cubes** `Σ_{k≤n} (3k²+3k+1) = (n+1)³` + the cube-shell
   identity `(k+1)³ = k³ + (3k²+3k+1)`.  Genuinely absent.
 
+- **83 — number theory (deep)**: `NumberTheory/PellNumbers.{cassini, norm}` (13 PURE) — the
+  elementary **Pell numbers** `P`/half-companion `H` with **Pell Cassini** `Pₙ·P_{n+2}−P_{n+1}²
+  =(−1)^{n+1}` and ★ the **norm identity** `Hₙ²−2Pₙ²=(−1)ⁿ` linking them to the Pell equation
+  `x²−2y²=±1` (`(1+√2)ⁿ=Hₙ+Pₙ√2`).  `norm` needs a triple invariant (norm@n, norm@n+1, cross
+  term).  Genuinely absent (corpus had Pell FSM/matrix + the `x²−2y²` form closures, not the
+  elementary sequence/Cassini/norm).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
