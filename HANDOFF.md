@@ -862,6 +862,18 @@ closure → full build → commit.
   induction on n).  Symmetry then by induction using both q-Pascal forms.  Genuinely new (frontier-closing).
   ⟹ **Round 9 closed all three of my recorded open follow-ups (Worpitzky, Lucas, q-symmetry) at T3.**
 
+- **142 — number theory (general σ_k)**: `NumberTheory/GeneralizedDivisorSum.{sigmaK, sigmaK_mul}`
+  (NEW file, 7 PURE) — the **generalized divisor function** `σ_k(n)=Σ_{d∣n} d^k` (σ_0=τ, σ_1=σ) with
+  ★★★ general `sigmaK_mul`: `gcd(a,b)=1 → σ_k(a·b)=σ_k a·σ_k b` for **all k** — directly via the iter-115
+  `divisor_product_reindex` (the only new ingredient over `sigma_mul` is `((i+1)(j+1))^k=(i+1)^k·(j+1)^k`,
+  `mul_pow_pure`).  Genuinely absent (corpus had σ_1, σ_0 only).
+- **143 — number theory (Liouville λ, new def + T2)**: `NumberTheory/LiouvilleFunction.{liouville,
+  liouville_divisor_sum_table, liouville_completely_multiplicative_table}` (NEW file, 6 PURE) — introduces
+  the **Liouville function** `λ(n)=(−1)^Ω(n)` (general-computable count-multiplicity trial division,
+  propext-free) with ★★ `Σ_{d∣n} λ(d) = [n is a perfect square]` (n=1..16) and complete-multiplicativity
+  `λ(mn)=λ(m)λ(n)` (incl. non-coprime) by table.  General complete-mult shares the open muStruct-bridge
+  scan invariant.  The `Liouville` elsewhere is the transcendence constant (different object).  Absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
