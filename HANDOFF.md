@@ -986,6 +986,17 @@ closure → full build → commit.
   route (b) pure algebra, no induction, no extra sub-lemmas.  The corpus had only the 1-parameter Cassini
   unit; the general 2-parameter Vajda + Catalan + d'Ocagne were absent.  Genuinely absent.
 
+- **154 — number theory (Sylvester's sequence: telescoping + coprimality)**:
+  `NumberTheory/SylvesterSequence` (NEW file, 22 PURE) — `syl 0=2`, `syl(n+1)=syl n·(syl n−1)+1`
+  (2,3,7,43,1807,…).  ★★★ **telescoping product** `sylProd_add_one : sylProd n + 1 = syl n`
+  (`∏_{k<n} a_k = a_n−1`), ★★★ **pairwise coprimality** `syl_coprime : m<n → gcd213(syl m,syl n)=1` —
+  *cleaner* than the Fermat case (iter 151): the telescoping difference is **1**, so a common divisor of
+  `syl n` and `sylProd n` divides 1 directly, no oddness lemma needed.  ★ `prime_factor_not_shared`
+  (Euclid–Mullin / infinitude-of-primes corollary: distinct terms share no prime factor).  Reuses the
+  corpus `Gcd213`/`Pow213` PURE helpers (`dvd_sub_213`, `gcd213_greatest`).  Genuinely absent (corpus
+  `Sylvester` hits are law-of-inertia / Sylvester–Gallai / matrices).  A companion to FermatNumbers —
+  the two fastest classical pairwise-coprime sequences, both ∅-axiom.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
