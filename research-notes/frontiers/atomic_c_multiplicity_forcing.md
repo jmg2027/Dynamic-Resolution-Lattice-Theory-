@@ -155,6 +155,67 @@ cohomology reproduces the SU(3) gauge content.  A genuine forcing of `c`
 would need an axiom-internal principle picking `c = NT` (or `c > 1`) that
 does not name the gauge target — none exists.
 
+## Multi-agent debate (fiber / resolution / Raw-explosion reframing)
+
+Seed (originator): *"c is like a fiber → the coefficient of Raw's explosion
+→ then it could be resolution."*  A continuous multi-agent debate (3 framings
+× 1 round + proponent/red-team × 1 round) developed and stress-tested this.
+Outcome: **the gap survives every 213-native reframing, but is now maximally
+sharpened to a single posit, and one tempting wrong intuition is refuted.**
+
+**Refuted (a correction worth keeping).**  "c=1 is degenerate (trivial,
+`Fin 1`, nothing there)" is **false**: `parametric_c_independent_h2_classes`
+gives a genuine non-coboundary H²-class already at `c = 1`, and
+`primary_cup_span_soundness_c1` + `joint_psi_kernel_subset_primary_c1` (51
+PURE) span a full dim-8 ψ-kernel at `c = 1`.  So `c = 1` is the
+**non-degenerate base case**, not a degenerate point — any "minimal
+*non-degenerate* resolution = 2" argument is dead on arrival.
+
+**The sharpened gap (what `c = 1` actually lacks).**  `c = 1` is not
+degenerate but **pre-distinguishing on the multiplicity axis**: the layer
+index runs over `Fin 1`, so the layer signature
+`psi_layer c m' (e_face_layer c m) = decide (m.val = m'.val)`
+(`V33EnrichedParametric.lean:167`) has no off-diagonal — it is constantly
+`true`, the cross-layer distinguishing does not yet exist.  `c = 2` is the
+**first `c` with `∃ m m' : Fin c, m ≠ m'`** — the first multiplicity at which
+the layer axis itself distinguishes.
+
+**The conditional closure (genuine salvage).**  The debate converged (all
+three framings independently) on a `ℤ/2` sign/orientation structure, giving:
+
+> **IF** the multiplicity axis is required to be a genuine distinguishing (an
+> orientation/sign Lens, hence `≥ 2` levels), **THEN** 213's minimal-residue
+> reading forces `c = 2`, and that `2` is provably `|ℤ/2|` — the order of the
+> sign/swap involution (`Int213.neg_subNatNat`, the difference-Lens sign;
+> Bool-style `not∘not = id`, `05_no_exterior.md §5.2`).
+
+Under the antecedent the `2` is the **same structurally-forced 2 as the
+difference-Lens sign**, NOT a renamed multiplicity — this answers the
+"c is just relabelled multiplicity" objection and is the debate's real gain.
+
+**Why it does not close (the single remaining posit, P3).**  The antecedent
+— *the physical/cohomological multiplicity axis must be an orientation
+distinguishing* — is **posited, not derived**:
+- The only axiom-level treatment of orientation is clause 3 (`a/b = b/a`),
+  which *quotients* orientation → would give `c = 1`.  "Retain the
+  orientation" is chosen against that grain.
+- Its only motivation is imported physics (SU(3) roots come in `±` pairs, so
+  the gauge reading wants the signed resolution) — an **exterior**, which
+  no-exterior (§5.1) forbids using to *derive*.
+- Pinning `c = 2` exactly (not just `≥ 2`) invokes minimality as a
+  **selection rule on a strict-mono level axis** — structurally the same
+  move the repo *deleted* `5²⁵ = N_U` for ("no level privileged").  Cannot
+  privilege `c = 2` by the move that retired `N_U`.
+
+**Net.**  The gap is now one clean conditional: `c = 2` is forced **iff** the
+multiplicity axis must carry the sign/orientation Lens (P3).  P3 is not a
+theorem; its motivation is the gauge target (exterior) and its "minimal"
+selection is the banned level-privileging.  Status stands: **3 forced + 1
+posited**, with the posit now pinpointed to P3 and the forced-given-P3 value
+identified as `|ℤ/2|`.  A genuine closure must derive P3 axiom-internally
+(why must the canonical lattice be read at the *signed* resolution?) without
+naming the gauge target — still open.
+
 ## Secondary symptom: the `C2b` label collision
 
 The same gap shows up as a documentation inconsistency — "C2b" names two
