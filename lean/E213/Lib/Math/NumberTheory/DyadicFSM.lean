@@ -42,6 +42,7 @@ import E213.Lib.Math.NumberTheory.DyadicFSM.Signature.WalkUniversal
 import E213.Lib.Math.NumberTheory.DyadicFSM.ContinuedFraction
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialTwoVar
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Vandermonde
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.BinomialSquares
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.PhiFLT
 import E213.Lib.Math.NumberTheory.DyadicFSM.KBonacciRecurrence

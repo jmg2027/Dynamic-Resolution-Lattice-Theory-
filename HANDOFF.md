@@ -237,6 +237,12 @@ closure → full build → commit.
 - **REJECTED (duplicate)**: Euclid's infinitude of primes — already `MultSystemValue.exists_prime_gt`
   (+ `primePi_unbounded` for π(N)→∞).  Agent honest.
 
+- **53 — combinatorics (deep)**: `DyadicFSM/FLT/BinomialSquares.sum_binom_sq` (3 PURE) —
+  **sum of binomial squares** `Σ_{k≤n} C(n,k)² = C(2n,n)`, a clean corollary of the corpus
+  Vandermonde (`vand n n n = C(n+n,n)`) + binomial symmetry collapsing `C(n,j)·C(n,n−j)` to
+  `C(n,j)²`.  Genuinely absent (the corpus `BinomSymm` is for a different `binom`, not FLT
+  `choose`).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
