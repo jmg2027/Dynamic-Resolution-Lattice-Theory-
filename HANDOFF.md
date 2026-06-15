@@ -1046,6 +1046,18 @@ closure → full build → commit.
   Schur/Nesbitt SOS skeleton (`int_sq_nonneg`,`add_nonneg`,`Order.le_of_sub_nonneg`).  Distinct from
   `SymmetricPolyIdentities` (Newton/Vieta *equalities*).  Genuinely absent.
 
+- **160 — number theory (★★★ τ-parity: divisor-count odd ⟺ perfect square)**: `NumberTheory/TauParity`
+  (NEW file, 22 PURE) — ★★★ `tau_odd_iff_square : 0<n → (tau n % 2 = 1) ↔ ∃ r, r*r = n` on the corpus
+  `tau`.  Route A (involution/pairing, NO factorization) formalized as a **symmetric double-sum parity**
+  core: new reusable `doubleSum_parity` (`Σ_{a,b<N} g a b ≡ Σ_a g a a (mod 2)` for symmetric `g` —
+  off-diagonal pairs cancel), `tau_eq_doubleSum` (`tau n = Σ_{a,b<n}[(a+1)(b+1)=n]`, each row collapsing
+  to `dvdInd a n` via the unique cofactor), the weight is symmetric by `×`-commutativity, so
+  `tau n ≡ diagSum (mod 2)`, and the diagonal `Σ_a[(a+1)²=n]` is 1 iff `n` square (unique root by strict
+  square-monotonicity) else 0.  Purity engineering: `dvdInd`-value case (not `by_cases` on Dvd, which
+  leaks propext), a constructive bounded `square_dichotomy` scan (avoids `Classical.choice` on the
+  undecidable `∃r,r²=n`), and corpus PURE cancellation/monotonicity helpers.  Genuinely absent; the
+  `doubleSum_parity` lemma is reusable new infra.  Ties into the σ/τ divisor framework.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
