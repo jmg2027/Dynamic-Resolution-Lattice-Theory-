@@ -220,6 +220,10 @@ theorem L_mul_conj_L : Cayley.L * Cayley.conj Cayley.L = ⟨⟨⟨1, 0⟩, 0⟩,
 /-- ★ **Composition law at `I'`**: `I' · conj I' = 1`. -/
 theorem I'_mul_conj_I' : Cayley.I' * Cayley.conj Cayley.I' = ⟨⟨⟨1, 0⟩, 0⟩, 0⟩ := by decide
 
+/-- ★ **Composition law at `J'`**: `J' · conj J' = 1` — the missing third generator,
+    completing the `{I', J', L}` octonion-norm trio. -/
+theorem J'_mul_conj_J' : Cayley.J' * Cayley.conj Cayley.J' = ⟨⟨⟨1, 0⟩, 0⟩, 0⟩ := by decide
+
 /-- ★★ **Left Moufang identity at the basis triple `(I', J', L)`**:
     `(I'·(J'·I'))·L = I'·(J'·(I'·L))`.  A *basis-level* `decide` instance — the
     sanctioned move (cf. the `alt_*` instances) that sidesteps the 12-variable

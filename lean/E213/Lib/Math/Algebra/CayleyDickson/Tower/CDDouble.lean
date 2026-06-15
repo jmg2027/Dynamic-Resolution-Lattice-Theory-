@@ -225,6 +225,10 @@ theorem J_squared : J * J = ⟨⟨-1, 0⟩, 0⟩ := by decide
 /-- `i² = -1`. -/
 theorem I_squared : I' * I' = ⟨⟨-1, 0⟩, 0⟩ := by decide
 
+/-- ★ **Quaternion composition law at `j`**: `j · conj j = 1` (`N(j) = 1`) — the
+    Lipschitz-level companion to the Cayley `I'_mul_conj_I'` / `L_mul_conj_L`. -/
+theorem J_mul_conj_J : J * conj J = ⟨⟨1, 0⟩, 0⟩ := by decide
+
 -- ═══ Quaternion group Q_8 relations ═══
 -- `K := I' * J` is the derived third generator (quaternion k).
 -- Q₈ relations verify the classical Hamilton table; each
