@@ -2,6 +2,7 @@ import E213.Lib.Math.Combinatorics.Binomial
 import E213.Lib.Math.Combinatorics.Catalan
 import E213.Lib.Math.Combinatorics.CatalanBinomial
 import E213.Lib.Math.Combinatorics.FibonacciSums
+import E213.Lib.Math.Combinatorics.FibonacciDivisibility
 import E213.Lib.Math.Combinatorics.PowerSums
 import E213.Lib.Math.Combinatorics.SumReshape
 import E213.Lib.Math.Combinatorics.Derangements

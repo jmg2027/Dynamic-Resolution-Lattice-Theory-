@@ -229,6 +229,14 @@ closure → full build → commit.
   is forced); `heads_eq` (head bracket-squeeze via trichotomy) + `nat_add_left_cancel` peel +
   tail recursion.  **Zeckendorf's theorem now fully closed (existence + uniqueness).**
 
+- **52 — combinatorics (deep)**: `Combinatorics/FibonacciDivisibility` (11 PURE) — the
+  **Fibonacci addition formula** `fib(m+n+1)=fib(m+1)fib(n+1)+fib m·fib n` (`fib_add`, two-step
+  paired induction) + **`fib m ∣ fib(m·n)`** (`fib_dvd_fib_mul`, the addition formula splits
+  `fib((j+1)k+j+1)` into a `·fib(j+1)` part and an IH-divisible part).  Both genuinely absent
+  (corpus had sum identities + mod-5, no addition formula / index-divisibility).
+- **REJECTED (duplicate)**: Euclid's infinitude of primes — already `MultSystemValue.exists_prime_gt`
+  (+ `primePi_unbounded` for π(N)→∞).  Agent honest.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
