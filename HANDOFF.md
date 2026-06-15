@@ -401,6 +401,13 @@ closure → full build → commit.
   `12·Σi⁵+n² = 2n⁶+6n⁵+5n⁴`, additive (subtraction-free) forms extending the Gauss→squares→
   cubes Faulhaber sequence.  Genuinely absent.
 
+- **79 — combinatorics (deep)**: `Combinatorics/TriangularNumbers` (7 PURE) — the classical
+  triangular-number square-relations: `tri n + tri(n+1) = (n+1)²` (consecutive triangulars sum
+  to a square) + ★ `8·tri n + 1 = (2n+1)²` (triangular↔odd-square bijection), reusing
+  `gauss_sum` as the engine.  Genuinely absent (corpus `tri` maps are division-based / order-only).
+- **REJECTED (already present)**: sum-of-four-squares multiplicative closure — `FourSquare.isSum4_mul`
+  already exists (+ full Lagrange `nat_isSum4`).  Agent honest.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
