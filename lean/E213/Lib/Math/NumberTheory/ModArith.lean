@@ -66,6 +66,7 @@ import E213.Lib.Math.NumberTheory.FactorIdentities
 import E213.Lib.Math.NumberTheory.EisensteinFormClosure
 import E213.Lib.Math.NumberTheory.SymmetricPolyIdentities
 import E213.Lib.Math.NumberTheory.GeometricSeries
+import E213.Lib.Math.NumberTheory.EulerTotient
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.
 

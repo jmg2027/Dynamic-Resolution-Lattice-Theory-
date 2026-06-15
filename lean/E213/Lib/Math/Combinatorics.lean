@@ -19,6 +19,7 @@ import E213.Lib.Math.Combinatorics.DerangementConvolution
 import E213.Lib.Math.Combinatorics.Zeckendorf
 import E213.Lib.Math.Combinatorics.ZeckendorfUniqueness
 import E213.Lib.Math.Combinatorics.Stirling
+import E213.Lib.Math.Combinatorics.StirlingFalling
 import E213.Lib.Math.Combinatorics.GeneratingFunction
 import E213.Lib.Math.Combinatorics.Simplex5
 import E213.Lib.Math.Combinatorics.Capstone

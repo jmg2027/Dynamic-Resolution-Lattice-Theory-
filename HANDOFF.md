@@ -548,6 +548,23 @@ closure → full build → commit.
   `sumTo_succ` + `P_rec`/`H_rec`, closed by `ring_nat` (Pell analogue of the Fibonacci/Lucas sum work).
   Genuinely absent (corpus had Pell product/addition/doubling/Cassini/norm but no partial sums).
 
+- **100 — combinatorics (DEEP, defining identity)**: `Combinatorics/StirlingFalling.{stirling_falling,
+  stirling_falling_sum}` (NEW file, 16 PURE) — **the Stirling second-kind defining identity**
+  ★ `Σ_{k=0}^{n} S(n,k)·x^{(k)} = xⁿ` (general, all x,n : Nat), the change-of-basis from the
+  falling-factorial basis to monomials.  Engine: falling-factorial absorption
+  `x·ff x k = ff x (k+1) + k·ff x k` (`ff` = falling factorial, local def; vanishes for `x<k`).
+  Induction on `n`: compute `x·S x n` two ways (pull-in+absorb `x_mul_S`; head-peel+reindex+Stirling
+  recurrence `S_succ_eq`, closed by `tail_shift`) and match, `x^{n+1}=x·xⁿ`.  Genuinely absent.
+
+- **101 — number theory (Euler totient, new def + T2)**: `NumberTheory/EulerTotient.{totient,
+  divisorSum, gaussSum, gauss_totient_table}` (NEW file, 8 PURE) — **introduces Euler's φ to the
+  corpus** as a PURE count `totient n = Σ [gcd213(k+1,n)=1]` (`Bool.toNat` indicator, no propext) +
+  divisor-sum machinery, with ★ Gauss's identity `Σ_{d∣n} φ(d) = n` verified n=1..24 by `decide`,
+  plus `totient_table`/`totient_prime`.  The corpus had no totient/divisor-sum (the `phi` elsewhere is
+  the golden ratio).  **Open frontier** (general theorem, all n): `research-notes/frontiers/gauss_totient_general.md`
+  — needs partition-by-gcd cardinality (`count{k≤n:gcd(k,n)=g}=φ(n/g)` summed over divisors), a
+  reusable `count_partition_by_key` toolkit not yet PURE in the corpus.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
