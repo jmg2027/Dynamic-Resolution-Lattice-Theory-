@@ -386,6 +386,12 @@ closure → full build → commit.
   = C(a+b+c,a)·C(b+c,b)` by induction on `a`, each step ×`(a+1)` + `choose_succ_mul` 3× then
   cancel.  Genuinely absent.
 
+- **76 — combinatorics (deep, hard)**: `Combinatorics/PascalDiagonalFib.diag_eq_fib` (8 PURE)
+  — **Pascal's shallow diagonal = Fibonacci** `Σ_k C(n−k,k) = F_{n+1}`, the classical
+  Pascal-triangle↔Fibonacci bridge.  `diag_rec` (`diag(n+2)=diag n+diag(n+1)`, via Pascal
+  split + `sumTo` reindex + boundary `choose 0 (n+2)=0` vanishing) + two-step paired induction
+  matching `fib`.  Genuinely absent (no `fib`×`choose` connection existed).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
