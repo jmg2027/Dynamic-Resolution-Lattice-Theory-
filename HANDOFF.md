@@ -435,6 +435,12 @@ closure → full build → commit.
   two-step paired Int induction.  Genuinely absent *as theorems* (corpus `JacobsthalCutoff`
   has the sequence + cut-off tables, states these only in prose).
 
+- **85 — number theory (deep)**: `NumberTheory/PellNumbers.{P_add, H_add, P_double, H_double}`
+  (appended, 21 in-file PURE) — Pell **addition formulas** `P(m+n)=PₘHₙ+HₘPₙ`,
+  `H(m+n)=HₘHₙ+2PₘPₙ` (4-tuple paired induction + the cross-step recurrences
+  `P(m+1)=Pₘ+Hₘ`, `H(m+1)=2Pₘ+Hₘ`) and **doubling** `P(2n)=2PₙHₙ`, `H(2n)=Hₙ²+2Pₙ²` (from
+  `(1+√2)²ⁿ`).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

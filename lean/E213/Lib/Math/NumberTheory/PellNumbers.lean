@@ -1,4 +1,5 @@
 import E213.Meta.Int213.PolyIntMTactic
+import E213.Meta.Nat.PolyNatMTactic
 
 /-!
 # Elementary Pell-number identities (∅-axiom)
@@ -165,5 +166,91 @@ theorem norm_triple : ∀ n : Nat,
 theorem norm (n : Nat) :
     (H n : Int) * (H n : Int) - 2 * ((P n : Int) * (P n : Int)) = powInt (-1) n :=
   (norm_triple n).1
+
+/-! ## Addition and doubling formulas (over Nat)
+
+The cross-step recurrences `P(m+1)=Pₘ+Hₘ`, `H(m+1)=2Pₘ+Hₘ` (from
+`(1+√2)(Hₘ+Pₘ√2) = (Hₘ+2Pₘ)+(Hₘ+Pₘ)√2`) feed the addition formulas
+`P(m+n)=Pₘ·Hₙ+Hₘ·Pₙ`, `H(m+n)=Hₘ·Hₙ+2PₘPₙ`, whence the doublings. -/
+
+/-- Paired step invariant: `P(m+1)=Pₘ+Hₘ` AND `H(m+1)=2Pₘ+Hₘ`. -/
+theorem step_pair : ∀ m : Nat,
+    (P (m + 1) = P m + H m) ∧ (H (m + 1) = 2 * P m + H m) := by
+  intro m
+  induction m with
+  | zero =>
+    refine ⟨?_, ?_⟩
+    · show P 1 = P 0 + H 0
+      rw [show P 1 = 1 from rfl, show P 0 = 0 from rfl, show H 0 = 1 from rfl]
+    · show H 1 = 2 * P 0 + H 0
+      rw [show H 1 = 1 from rfl, show P 0 = 0 from rfl, show H 0 = 1 from rfl]
+  | succ k ih =>
+    obtain ⟨ihP, ihH⟩ := ih
+    refine ⟨?_, ?_⟩
+    · rw [P_rec k, ihP, ihH]; ring_nat
+    · rw [H_rec k, ihP, ihH]; ring_nat
+
+theorem P_step (m : Nat) : P (m + 1) = P m + H m := (step_pair m).1
+theorem H_step (m : Nat) : H (m + 1) = 2 * P m + H m := (step_pair m).2
+
+/-- Paired addition invariant: P-add and H-add at `n` AND at `n+1`. -/
+theorem add_pair (m : Nat) : ∀ n : Nat,
+    (P (m + n) = P m * H n + H m * P n)
+    ∧ (H (m + n) = H m * H n + 2 * (P m * P n))
+    ∧ (P (m + (n + 1)) = P m * H (n + 1) + H m * P (n + 1))
+    ∧ (H (m + (n + 1)) = H m * H (n + 1) + 2 * (P m * P (n + 1))) := by
+  intro n
+  induction n with
+  | zero =>
+    refine ⟨?_, ?_, ?_, ?_⟩
+    · show P (m + 0) = P m * H 0 + H m * P 0
+      rw [show H 0 = 1 from rfl, show P 0 = 0 from rfl, Nat.add_zero,
+          Nat.mul_one, Nat.mul_zero, Nat.add_zero]
+    · show H (m + 0) = H m * H 0 + 2 * (P m * P 0)
+      rw [show H 0 = 1 from rfl, show P 0 = 0 from rfl, Nat.add_zero,
+          Nat.mul_one, Nat.mul_zero, Nat.mul_zero, Nat.add_zero]
+    · show P (m + (0 + 1)) = P m * H (0 + 1) + H m * P (0 + 1)
+      rw [show (0 : Nat) + 1 = 1 from rfl, show H 1 = 1 from rfl,
+          show P 1 = 1 from rfl, P_step m, Nat.mul_one, Nat.mul_one]
+    · show H (m + (0 + 1)) = H m * H (0 + 1) + 2 * (P m * P (0 + 1))
+      rw [show (0 : Nat) + 1 = 1 from rfl, show H 1 = 1 from rfl,
+          show P 1 = 1 from rfl, H_step m, Nat.mul_one, Nat.mul_one]
+      ring_nat
+  | succ k ih =>
+    obtain ⟨ihP0, ihH0, ihP1, ihH1⟩ := ih
+    refine ⟨ihP1, ihH1, ?_, ?_⟩
+    · have ePidx : P (m + (k + 1 + 1)) = 2 * P (m + (k + 1)) + P (m + k) := by
+        rw [show m + (k + 1 + 1) = (m + k) + 2 from by ring_nat,
+            show m + (k + 1) = (m + k) + 1 from by ring_nat]
+        exact P_rec (m + k)
+      have eH : H (k + 1 + 1) = 2 * H (k + 1) + H k := H_rec k
+      have eP : P (k + 1 + 1) = 2 * P (k + 1) + P k := P_rec k
+      rw [ePidx, eH, eP, ihP1, ihP0]
+      ring_nat
+    · have eHidx : H (m + (k + 1 + 1)) = 2 * H (m + (k + 1)) + H (m + k) := by
+        rw [show m + (k + 1 + 1) = (m + k) + 2 from by ring_nat,
+            show m + (k + 1) = (m + k) + 1 from by ring_nat]
+        exact H_rec (m + k)
+      have eH : H (k + 1 + 1) = 2 * H (k + 1) + H k := H_rec k
+      have eP : P (k + 1 + 1) = 2 * P (k + 1) + P k := P_rec k
+      rw [eHidx, eH, eP, ihH1, ihH0]
+      ring_nat
+
+/-- ★ **Pell addition formula (P)**: `P (m+n) = Pₘ·Hₙ + Hₘ·Pₙ`. -/
+theorem P_add (m n : Nat) : P (m + n) = P m * H n + H m * P n :=
+  (add_pair m n).1
+
+/-- ★ **Pell addition formula (H)**: `H (m+n) = Hₘ·Hₙ + 2·Pₘ·Pₙ`. -/
+theorem H_add (m n : Nat) : H (m + n) = H m * H n + 2 * (P m * P n) :=
+  (add_pair m n).2.1
+
+/-- ★ **Pell doubling (P)**: `P (2n) = 2·Pₙ·Hₙ`. -/
+theorem P_double (n : Nat) : P (2 * n) = 2 * (P n * H n) := by
+  rw [show 2 * n = n + n from by ring_nat, P_add n n]
+  ring_nat
+
+/-- ★ **Pell doubling (H)**: `H (2n) = Hₙ² + 2·Pₙ²`. -/
+theorem H_double (n : Nat) : H (2 * n) = H n * H n + 2 * (P n * P n) := by
+  rw [show 2 * n = n + n from by ring_nat, H_add n n]
 
 end E213.Lib.Math.NumberTheory.PellNumbers
