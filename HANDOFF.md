@@ -588,6 +588,15 @@ closure → full build → commit.
   ★ the **perfect-number condition** `σ(n)=2n` at n=6,28 (capped: σ(496) exceeds `decide`'s maxRecDepth).
   Completes the multiplicative-function trio φ/μ/σ.  Genuinely absent (`sigma` elsewhere = variable/Gram).
 
+- **105 — combinatorics (DEEP, general + general-x)**: `Combinatorics/EulerianNumbers.{eulerian,
+  eulerian_row_sum, worpitzky_one/two/three}` (NEW file, 21 PURE) — **introduces the Eulerian numbers**
+  `A(n,k)` (permutations by ascent count; recurrence `A(n+1,k+1)=(k+2)A(n,k+1)+(n−k)A(n,k)`) with
+  ★ the **row sum** `Σ_{k=0}^{n} A(n,k) = n!` (general; coefficient telescope `(j+1)+(n−j)=n+1` via
+  `coeff_collapse`) and ★★ **Worpitzky's identity** `xⁿ = Σ_k A(n,k)·C(x+k,n)` as genuine polynomial
+  identities in `x` for n=1,2,3 (n=2,3 via pure-Pascal basis change `expand3` + closed-form anchor
+  `closed3` by induction on x).  Parallels the Stirling defining identity (iter 100).  The fully-general
+  `∀n∀x` Worpitzky (Eulerian/binomial convolution) is left open.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
