@@ -48,6 +48,12 @@ closure → full build → commit.
   `Lcm213.lcm213_4_6 = 12` (concrete, fuel-gcd kernel reduction); `Coding.
   hamming_triangle_concrete` (equal-length triangle instance).
 
+- **30 — combinatorics (deep)**: `FLT/Vandermonde.vandermonde` —
+  `Σ_{j=0}^k C(a,j)·C(b,k−j) = C(a+b,k)`, the binomial convolution identity (7 PURE).
+  Induction on `a` via the `sumTo` reindex toolkit (`sumTo_split_first` forward/backward,
+  `sumTo_add_func`, `Nat.succ_sub_succ` for the `k−j` friction).  The "deeper frontier"
+  pivot's first genuine deep win (post-table-completion).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
