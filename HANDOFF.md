@@ -429,6 +429,12 @@ closure → full build → commit.
   term).  Genuinely absent (corpus had Pell FSM/matrix + the `x²−2y²` form closures, not the
   elementary sequence/Cassini/norm).
 
+- **84 — number theory (deep)**: `NumberTheory/JacobsthalNumbers.{sum_pow2, closed_form}`
+  (11 PURE) — **Jacobsthal numbers** `J` (`J(n+2)=J(n+1)+2Jn`): `J n + J(n+1) = 2ⁿ`
+  (consecutive sum to a power of 2) + ★ closed form `3·Jn + (−1)ⁿ = 2ⁿ` (`Jn=(2ⁿ−(−1)ⁿ)/3`),
+  two-step paired Int induction.  Genuinely absent *as theorems* (corpus `JacobsthalCutoff`
+  has the sequence + cut-off tables, states these only in prose).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
