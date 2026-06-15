@@ -810,6 +810,14 @@ closure → full build → commit.
   ★ general `qbinom_q1` (the q→1 limit `qbinom 1 n k = choose n k`), plus q=2 + symmetry tables (general
   symmetry needs the dual q-Pascal — open item).  First q-analog in the corpus.  Genuinely absent.
 
+- **135 — combinatorics (DEEP, completes the inverse pair)**: `Combinatorics/StirlingOrthogonality2.stirling_orthogonality2`
+  (NEW file, 12 PURE) — ★★★ the **other Stirling orthogonality direction** `Σ_k S(n,k)·s(k,m) = δ_{nm}`
+  (second-kind ∘ signed-first-kind), the complement of iter 125 — together they establish the two Stirling
+  matrices are **two-sided inverses**.  The `T`-architecture does NOT dualize (the naive recurrence is
+  structurally false); instead the clean ★ `U_succ_rec : U(n+1,m'+1) = U(n,m')` (the `k`-weighted sums
+  from the outer second-kind + inner signed-first-kind recurrences cancel exactly via `G_eq`/`H_eq`),
+  then induction on n.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
