@@ -303,6 +303,13 @@ closure → full build → commit.
   ordered points ⟹ nonzero det, the basis of interpolation uniqueness).  Distinct from the
   binomial Vandermonde *identity* already in the corpus.  Genuinely absent.
 
+- **62 — combinatorics (deep)**: `DyadicFSM/FLT/CentralBinomEven.two_dvd_central_binom`
+  (6 PURE) — **the central binomial coefficient is even**, `2 ∣ C(2m,m)` for `m ≥ 1`
+  (Kummer-lite / Lucas-mod-2 corollary).  Pure Pascal + symmetry: `C(2n+2,n+1) =
+  C(2n+1,n)+C(2n+1,n+1) = 2·C(2n+1,n+1)`.  Genuinely absent (corpus `prime_dvd_central_binom`
+  needs a prime in `(n,2n]`; misses `p=2` for `n>1`).  (`p∣C(p,k)` already present —
+  not reproved.)
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
