@@ -884,6 +884,17 @@ closure → full build → commit.
   the iter-117 `divisor_pair_swap` + comm + `div_div_pure`.  Plus `divisorSumZ_reflect` (divisor
   reflection, free from comm).  Genuinely absent.
 
+- **145 — number theory (★★★ framework closure: named Dirichlet identities)**: `NumberTheory/
+  DirichletIdentities` (NEW file, 9 PURE) — the **Dirichlet identity element** `eps n = [n=1]` and the
+  named convolution identities tying the session's μ/φ/σ framework to `dconv`: ★★★ **`μ ∗ 1 = ε`**
+  (`mu_conv_one`, restating `MobiusBridge.mu_divisor_sum` as a convolution), ★★ **ε two-sided identity**
+  (`dconv_one_eps`/`dconv_eps_one` — the single-survivor collapse: only `d=n` survives since `ε(n/d)=0`
+  unless `d=n`; the genuine-content lemma, left side via `dirichlet_comm`), ★★ **`φ ∗ 1 = id`**
+  (`phi_conv_one`, Gauss totient as convolution), ★ **`σ = id ∗ 1`** (`sigma_eq_id_conv_one`).  Plus
+  reusable infra `castSumTo` (Nat-`sumTo` → Int-`sumZ` cast bridge).  Together with iter-144
+  comm+assoc, this completes the **commutative-monoid-with-unit** (the full Dirichlet-ring multiplicative
+  structure) on arithmetic functions.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

@@ -82,6 +82,7 @@ import E213.Lib.Math.NumberTheory.LiouvilleFunction
 import E213.Lib.Math.NumberTheory.MobiusDivisorSum
 import E213.Lib.Math.NumberTheory.MobiusInversion
 import E213.Lib.Math.NumberTheory.DirichletConvolution
+import E213.Lib.Math.NumberTheory.DirichletIdentities
 import E213.Lib.Math.NumberTheory.MobiusBridge
 
 /-! Spec-as-code entry point for `E213.Lib.Math.NumberTheory.ModArith`.
