@@ -392,10 +392,10 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `(NS,NT,d)=(3,2,5)` and `K_{3,2}` are forced; `Δ⁴` is the "maximal-non-commitment
   filling" (`atomic_constants.md:206`), and "Δ⁴ = spacetime" has zero Lean support
   (a forced map).  The Euler defect `χ(Δ⁴)−χ(K) = 1−(−7) = 8` IS the genuine gauge
-  `b₁` (real relative-χ of `ι: K↪Δ⁴`, octet `= coker ι*`, PURE) — but the gravity
-  extension ("gravity = the defect") is a slogan with no support (rejected as
-  forcing).  Honest gap: `chi_rel=8`'s topology rides on an asserted LES
-  (`H2_relative_dim := H1_K`), not ∅-axiom-derived.
+  `b₁` (real relative-χ of `ι: K↪Δ⁴`) — but the PURE theorem proves only the
+  *supporting numbers* (`H¹(Δ⁴)=0`, `2⁸=256`); the *coker = octet* identification
+  is the classical LES (docstring), not ∅-axiom.  The gravity extension ("gravity
+  = the defect") is a slogan with no support (rejected as forcing).
 
 - `gravity_reconnection_hinge_holonomy` — **reconnect the early "gravity =
   hinge area" (Regge) research with current 213.**  The genuine find: the

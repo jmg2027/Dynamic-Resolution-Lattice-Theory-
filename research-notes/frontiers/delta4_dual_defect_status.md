@@ -26,12 +26,15 @@ of the `Δ⁴ ↔ K_{3,2}` dual-filling frame.
 The Euler defect `χ(Δ⁴) − χ(K) = 1 − (−7) = 8`:
 - **Genuinely the same 8 as the gauge `b₁`** — via real relative-χ, not
   numerology: `ι: K ↪ Δ⁴` exists (`IotaKToDelta4.lean:60`), `Δ⁴` contractible,
-  so `χ(Δ⁴)−χ(K) = rank H¹(K) = E−V+1 = 8`.  Already in the repo:
-  `ChannelCohomologyLoss.lean:77-78` `chi_rel := chi_delta4 − chi_K`,
-  `chi_rel = 8 = NS²−1 = H1_K`; **gluon octet `= coker ι*` PURE**
-  (`IotaKToDelta4.lean:153-167`).  (No b₁=2-vs-8 conflation: `χ=−7` uses the
-  `c=2` 12-edge graph; the simple-K `b₁=2` is tracked separately as
-  `scaffold_loops`, `8 = 6 + 2`.)
+  so `χ(Δ⁴)−χ(K) = rank H¹(K) = E−V+1 = 8`.  But honest precision: the PURE
+  theorem `gluon_octet_identification` (`IotaKToDelta4.lean:157`) proves only the
+  **supporting numbers** (`kerSizeDelta 5 2 = 16` ⇒ `H¹(Δ⁴)=0`; `2⁸ = 256`); the
+  **coker-identification `coker ι* = H¹(K) = octet` is the docstring's classical
+  LES**, not the theorem body.  So the *number* 8 = b₁ is ∅-axiom; the
+  *cohomological identification* (octet IS the cokernel) rides on the LES
+  (`ChannelCohomologyLoss.lean:87` `H2_relative_dim := H1_K`, asserted).  (No
+  b₁=2-vs-8 conflation: `χ=−7` uses the `c=2` 12-edge graph; the simple-K
+  `b₁=2` is tracked separately as `scaffold_loops`, `8 = 6 + 2`.)
 - **Gravity side is a slogan** ("gravity = the defect"): zero Lean support.  The
   `Δ⁴ ↔ K` duality is between two fillings of the *same 5 vertices* (same `V`,
   same `b₀`); it carries no second simplex, no transport, no varying metric — it
