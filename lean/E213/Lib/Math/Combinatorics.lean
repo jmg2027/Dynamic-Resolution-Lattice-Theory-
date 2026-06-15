@@ -13,6 +13,7 @@ import E213.Lib.Math.Combinatorics.FactorialSum
 import E213.Lib.Math.Combinatorics.PascalDiagonalFib
 import E213.Lib.Math.Combinatorics.PowerSums
 import E213.Lib.Math.Combinatorics.TriangularNumbers
+import E213.Lib.Math.Combinatorics.PentagonalNumbers
 import E213.Lib.Math.Combinatorics.SumReshape
 import E213.Lib.Math.Combinatorics.Derangements
 import E213.Lib.Math.Combinatorics.DerangementConvolution

@@ -926,6 +926,18 @@ closure → full build → commit.
   identities via `ring_intZ` (full 10-term cubic, coeffs {1,1,1,3,3,3,3,3,3,6}).  ★★ **row-sums**
   `Σ multinom3 = 3ⁿ` (n=2,3 by decide) + coefficient tables.  Zero prior coverage.  Genuinely absent.
 
+- **149 — combinatorics (figurate pentagonal numbers)**: `Combinatorics/PentagonalNumbers`
+  (NEW file, 13 PURE) — the figurate pentagonal number `Pent n = n(3n−1)/2` (OEIS A000326), genuinely
+  absent (the corpus `pentagonal` hits are all Euler's *partition* pentagonal-number theorem or the
+  Möbius mod-5 rotation closure — different objects; and the elementary `8T+1=□` / `T+T=□` / `Hex=T` /
+  tetrahedral-sum identities already live in `TriangularNumbers`).  Division-free, subtraction-free
+  (`+1`-shift) via `ring_nat`: ★ `pent2_eq_tri` (`Pent = T + 2·T_prev`), ★ `pent2_eq_3tri`
+  (`Pent(n+1)=3T n+(n+1)`), ★ `pent2_succ` (gnomon `+(6n+8)`), ★ `pent2_square`
+  (**`12·Pent2+1=(6n+5)²`** — the pentagonal companion of `8T+1=□`), ★ `pent2_add_tri_eq_hex`
+  (`Pent(n+1)+T n=Hex(n+1)`), ★ `gen2_succ_eq_pent2` (generalized-pentagonal ±-branch step), and
+  ★ `sum_pent2` (`Σ Pent2 = (n+1)²(n+2)`, by `sumTo` induction).  The triangular/hexagonal/tetrahedral
+  ★★★ identities were already present (honestly rejected duplicates).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
