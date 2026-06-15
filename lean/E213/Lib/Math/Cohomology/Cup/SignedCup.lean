@@ -117,7 +117,9 @@ def GRe (i j : Nat) : Int := hPair i j
 /-- Imaginary part of the Hermitian Gram (the symplectic / gauge half). -/
 def GIm (i j : Nat) : Int := cup1 i j
 
-/-- ★★★★★ **Gram Hermitian split = metric (gravity) ⊕ symplectic (gauge).**
+/-- ◑ **Gram Hermitian split = metric (gravity) ⊕ symplectic (gauge).**
+    (Honest tier ◑, not ★★★★★: a `decide` bundle assembling `hPair`/`cup1`; the
+    gravity/gauge *physics* reading is not forced — see header.)
     `G = GRe + 𝐢·GIm` is Hermitian: `Re(G)` is symmetric positive-definite
     (`= I`, the Riemannian/gravity half) and `Im(G)` is antisymmetric (the
     symplectic/gauge half).  Assembles `hodge_pairing_is_identity` (§3) +

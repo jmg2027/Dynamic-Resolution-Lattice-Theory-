@@ -30,7 +30,9 @@ namespace E213.Lib.Physics.Mixing.CPPhaseHodgeBridge
 open E213.Lib.Math.Cohomology.Hodge.SignedStarC4 (mul I negI J elt signed_hodge_is_cp_i)
 open E213.Lib.Physics.Simplex.Counts (NS NT)
 
-/-- ★★★★★ **The CP `C₄` is the signed Hodge star's order-4 group.**
+/-- ◑ **The CP `C₄` units = the powers of the matrix `J = (0,−1,1,0)`.**
+    (Honest tier ◑, not ★★★★★: this is a `decide` bundle of matrix-entry facts;
+    `J`-as-the-Hodge-`⋆`-on-`Δ⁴` is a docstring identification, not `J = hodgeStar`.)
     The four `C₄` Gaussian units `{1, i, −1, −i}` (`elt 1 0, elt 0 1, elt (−1) 0,
     elt 0 (−1)`) are exactly the powers `{J⁰=I, J¹=J, J²=−I, J³}` of the signed
     Hodge star `J = ⋆` on the `d−1=4` simplex; `J` generates `C₄` (order 4),

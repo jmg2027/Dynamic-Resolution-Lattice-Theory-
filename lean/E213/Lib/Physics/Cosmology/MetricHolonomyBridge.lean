@@ -41,11 +41,13 @@ open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicEllipticTrace
 open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice
   (holonomy first_loop_is_the_fold)
 
-/-- ★★★★★ **The gravity metric's complex structure `J` IS the elliptic holonomy
+/-- ◑ **The gravity metric's complex structure `J` IS the elliptic holonomy
     generator `S`.**  Same 90° matrix `(0, −1, 1, 0)`, both squaring to `−I`:
     `J` (Hodge, builds `h = Q·J`) and `S` (holonomy, loop `[S,S] = −I`).  The
     metric is the flat face; the first deficit is the loop holonomy of the *same*
-    generator.  PURE. -/
+    generator.  PURE.
+    (Honest tier ◑, not ★★★★★: a `decide`/`rfl` matrix-entry identity `J = S`;
+    "generator identity, not a curvature field" — see header.) -/
 theorem metric_J_is_holonomy_S :
     -- the Hodge complex structure J (builds the gravity metric h = Q·J)
     (J = (0, -1, 1, 0))
