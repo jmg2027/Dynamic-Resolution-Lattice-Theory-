@@ -57,7 +57,7 @@ theorem ι_star_image_trivial :
     ∀ (x : H1Delta4) (i : Fin 8), ι_star x i = H1K.zero i := by
   intro _ _; rfl
 
-/-- ★★★★★ **Gluon octet as a cokernel, ∅-axiom (no LES).**
+/-- ★★★ **Gluon octet as a cokernel, ∅-axiom (no LES) — Unit-modelled.**
     `coker ι* = H¹(K) / {0} = H¹(K)`, a rank-8 `𝔽₂`-space (`|·| = 2⁸ = 256`).
 
     The four conjuncts are the drawable argument:
@@ -68,8 +68,16 @@ theorem ι_star_image_trivial :
     (3) the codomain `H¹(K)` has rank `8 = NS²−1`;
     (4) so `coker ι* = H¹(K)`, of cardinality `2⁸ = 256`.
 
-    Forces the MATH (rank-8 cokernel); does NOT ontologize "= SU(3) octet"
-    (a reading; see the file header). -/
+    **Honest scope of this theorem (re-examination):** `H¹(Δ⁴)` is *modelled* as
+    `Unit` (justified — a trivial cohomology group is one-element, the only map
+    out is zero), and `ι_star` is *defined* `= 0`, so conjunct (2) is `rfl` by
+    that definition.  This correctly captures the math "`H¹(Δ⁴)=0 ⇒ the unique
+    induced map is zero ⇒ coker = codomain", is LES-free, and fixes the indexing
+    slip — but it does **NOT construct** the genuine induced map `ι*` from the
+    repo's cochain pullback (`IotaKToDelta4.ι_pullback`); that fuller
+    construction (pass `ι_pullback` through `im δ⁰`, prove the induced map zero)
+    remains open.  Forces the MATH (rank-8 cokernel) at the modelled level; does
+    NOT ontologize "= SU(3) octet" (a reading; see the file header). -/
 theorem octet_is_cokernel_of_zero_map :
     -- (1) H¹(Δ⁴) is the trivial group — CORRECT certificate (reduced b̃₁ = 0)
     (kerSizeDelta 5 0 = 1 ∧ kerSizeDelta 5 1 = 2)

@@ -17,7 +17,9 @@ Gate: if it can't be drawn in one plain sentence, it isn't真知.
 
 ### CLOSEABLE
 
-- **G1 — `coker ι* = H¹(K)` (the octet cokernel).  ✅ CLOSED (∅-axiom, no LES).**
+- **G1 — `coker ι* = H¹(K)` (the octet cokernel).  ◑ TYPED + LES-free + bug-fixed
+  (∅-axiom), but Unit-MODELLED, not a genuine `ι*`-construction
+  (re-examination).**
   Was: `ChannelCohomologyLoss.H2_relative_dim := H1_K` (asserted LES, classical);
   `gluon_octet_identification` proved only supporting numbers.  Now:
   `Cohomology/Bipartite/OctetCokernel.octet_is_cokernel_of_zero_map` (PURE) —
@@ -138,15 +140,37 @@ reached by none.  The build (`Zeta2Cut.lean`) is specified and achievable; not
 yet built (substantial unreduced-rational induction) — recorded as the precise
 next construction.
 
+## Re-examination (self-audit of the two closures — honest downgrade)
+
+Both Lean closures are PURE + build-green and remove the worst prose, but a
+critical re-read shows they are **typed/structured arguments resting on a model
+or abstraction at the deepest level**, not full constructions — my earlier
+"genuine (A)" framing over-claimed:
+- **`OctetCokernel`**: `H¹(Δ⁴)` is *modelled* as `Unit` and `ι_star` is *defined*
+  `= 0`, so "image trivial" is `rfl` **by that definition** — it does not
+  construct the induced map from `ι_pullback`.  Correct + LES-free + bug-fixed,
+  but a Unit-model, not an `ι*`-construction.  Honest tier: ◑, not ★★★★★.
+- **`CPPhaseHodgeBridge`**: sounder (ties `c4` to the real matrix `J`), but
+  "`J` = the actual `⋆`-operator on `Δ⁴` cochains" is itself a matrix-level
+  identification (`J` is the abstract 2×2 complex structure; `signed_hodge_is_cp_i`
+  proves matrix facts, not `⋆` acting on constructed cochain spaces).
+So: **two typed arguments that remove prose, each with a residual model/
+abstraction.**  The pattern audit + `K ≈ 3–7` are recorded as honest ranges and
+hold; the ζ(2)-bracket is "achievable, not built" (relying on the agents'
+feasibility, not independently verified).
+
 ## Status + next
 
-- **G1 closed** (`OctetCokernel`, PURE, build-green, wired; `IotaKToDelta4`
-  docstring softened to cite it + flag the reading).
+- **G1 — typed/LES-free/bug-fixed via a Unit-model** (`OctetCokernel`, PURE,
+  build-green, wired; `IotaKToDelta4` docstring softened).  Fuller closure
+  (construct `ι*` from `ι_pullback`) remains.
 - **Concrete honesty fixes surfaced by the audit:** (i) `NeffDerivation` vs
   `WhyBasel` contradiction on the depth force-binding (integers derived, binding
   posited — reconcile); (ii) `1/α₂ = 30` has no theorem, only a docstring +
   mislabelled prefactor-sector.
-- **CP `δ = 90°` C₄ — ✅ CLOSED (the math), second genuine (A).**
+- **CP `δ = 90°` C₄ — ◑ TYPED (ties `c4` to the real matrix `J`), the math
+  removed from `CPPhaseC4Forcing`'s hand-written list; residual: `J`-as-`⋆`-on-`Δ⁴`
+  is a matrix-level identification (re-examination).**
   `Mixing/CPPhaseHodgeBridge.cp_c4_is_signed_hodge_group` (PURE, build-green,
   wired to the Mixing aggregator): the four `C₄` Gaussian units, via `elt`, are
   exactly the powers `{J⁰,J¹,J²,J³}` of the **genuine signed Hodge star `J = ⋆`**
