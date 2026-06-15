@@ -1007,6 +1007,14 @@ closure → full build → commit.
   inequality of this session — diversifies the inequality corpus (CauchySchwarz/AMGM/Bernoulli/Chebyshev).
   Genuinely absent (corpus `schur` = Schur reality / Schur's lemma in linalg, unrelated).
 
+- **156 — inequalities (AM-HM core + Nesbitt's inequality)**: `Foundations/NesbittInequality`
+  (NEW file, 2 PURE) — ★★★ `am_hm_core` (`0≤x,y,z → 9xyz ≤ (x+y+z)(xy+yz+zx)`) via the SOS identity
+  `(x+y+z)(xy+yz+zx) − 9xyz = x(y−z)²+y(z−x)²+z(x−y)²` (no ordering needed), and ★★ `nesbitt_cleared`
+  (Nesbitt `a/(b+c)+b/(c+a)+c/(a+b) ≥ 3/2` in denominator-cleared form `3∏(a+b) ≤ 2Σ a(a+c)(a+b)`) via
+  its own SOS split `(b+c)(c−b)²+(c+a)(a−c)²+(a+b)(b−a)²` (= the AM-HM core at x=b+c,y=c+a,z=a+b).
+  Reuses corpus Int order infra (`mul_nonneg`, `int_sq_nonneg`, `add_nonneg`, `Order.le_of_sub_nonneg`) —
+  no new lemmas.  Distinct from `SumCubesAMGM` (the cube-form `3abc≤a³+b³+c³`).  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
