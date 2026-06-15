@@ -274,6 +274,14 @@ closure → full build → commit.
   the signed entry of the row above) + `C(n,n+1)=0`.  Local Int fold `sumZ` (corpus `sumTo`
   is Nat→Nat).
 
+- **58 — number theory (deep, high-value)**: `ModArith/Frobenius.frobenius_representable`
+  (3 PURE) — the **Frobenius / Chicken-McNugget theorem** for two coprime values: for
+  coprime `a,b ≥ 1`, every `n ≥ (a−1)(b−1)` is representable as `a·x+b·y` (so `ab−a−b` is the
+  Frobenius number).  `residue_hit` (multiples of `a` cover residues mod `b`, via the existing
+  modular-inverse `inverse_of_coprime`) + `residue_le` (threshold forces `j·a ≤ n`) +
+  `mod_eq_exists_mul_add` lift.  Genuinely absent; all modular-inverse/gcd infra was present
+  (no signed Bézout needed — the modular-inverse route stays in ℕ).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
