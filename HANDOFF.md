@@ -1,7 +1,7 @@
 # Session Handoff — 2026-06-14 (multi-agent math research)
 
 ## Branch
-`claude/multi-agent-math-research-n68ovi` — pushed, **136 ahead of main / 156
+`claude/multi-agent-math-research-n68ovi` — pushed, **141 ahead of origin-main-base / 156
 behind**.  Working tree clean.  Full `lake build E213.Lib.Math` green
 (**1815/1815**).  Strict ∅-axiom intact for all new work (every new theorem
 PURE-verified with `tools/scan_axioms.py`).
@@ -32,6 +32,12 @@ closure → full build → commit.
   stirling_col1}` (general-n diagonal + column-1, completing the concrete-only table).
 - **18 — probability**: `Foundation/Independence.{joint_assoc_num, joint_assoc_den}`
   (joint mass is associative ⟹ independent-event masses form a commutative monoid).
+- **19 — combinatorics**: `Stirling.stirling_col2_rec` (`S(n+2,2)=2·S(n+1,2)+1`, the
+  `2^(n-1)−1` recurrence, general `n`).
+- **20 — algebra**: `Icosahedral/OrderFive.pow_five_order_two` (`M⁵=−I` is the central
+  involution of the order-10 group: `M⁵≠I`, `(M⁵)²=I`).
+- **21 — combinatorics**: `Catalan.catalan_growth_ratio` (`C_{n+1} ≤ 4·C_n`, the →4
+  asymptotic in division-free form).
 
 **Reverted (marathon discipline)**: a Lipschitz `conj_add` addition broke downstream
 `LipschitzAlgebra213` via a `conj_add` name-clash with `ZI.conj_add` — reverted, no
@@ -41,10 +47,17 @@ and `simp [foo]` can leak propext (prefer `decide`/term-mode); WF-compiled `List
 defs (e.g. `hammingDistance`) don't reduce definitionally in some positions (the
 length-bound base case had to be dropped).
 
-> NOTE on the divergence: this branch was **not** re-synced with `main` this
-> session (156 behind).  All session work is additive new modules, so no
-> conflicts created — but a merge marathon with `origin/main` is still owed
-> before this branch lands.  Do that first if integrating.
+> ⚠ MERGE NOTE (corrected — do NOT repeat the failed merge): the local `main`
+> ref (tip `246f19e`, dated **2026-06-04**) is a **stale, unrelated-history**
+> snapshot — *older* (10 days) and *smaller* (1720 vs 2011 `.lean` files) than
+> this branch, with a **different root commit** (no common ancestor; `git merge`
+> refuses, `--allow-unrelated-histories` would mean 2256-file / 377-conflict
+> chaos that **deletes ~545 newer files and reverts 377 to old versions** —
+> backward and destructive).  The real **`origin/main` is at `075ab98`** = this
+> branch's base, so the branch is simply **ahead** of remote main by all 21
+> iterations.  **There is nothing beneficial to merge.**  Integration path is a
+> PR from this branch into `origin/main` (not asked for yet), not merging the
+> stale local `main`.  The earlier "156 behind" was a misread of that stale ref.
 
 ## What Was Done This Session
 A **multi-agent autonomous research marathon** — 10 iterations, each: parallel
