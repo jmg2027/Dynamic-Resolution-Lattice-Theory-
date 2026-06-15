@@ -541,6 +541,13 @@ closure → full build → commit.
   (Index-dependent coeff `(n+1)` blocks the Fibonacci paired-invariant template — needed the Int
   `sumZ` toolkit + 3-atom algebra helpers `split_succ_mul`/`zero_mul_mul` where `ring_intZ` atom-caps.)
 
+- **99 — number theory (Pell, deep)**: `NumberTheory/PellNumbers.{sumPell_eq, sumPellSq_eq, sumHalf_eq}`
+  (appended) — **Pell partial-sum identities** ★ `2·(Σ_{k=0}^{n} P_k)+1 = P_n+P_{n+1}`,
+  ★ `2·(Σ P_k²) = P_n·P_{n+1}`, and the half-companion `2·(Σ H_k) = H_n+H_{n+1}` (NO `+1`: the
+  `H_0=1` seed vs `P_0=0` makes `2·Σ H_k` land exactly on `H_n+H_{n+1}`).  Induction on `n`, step via
+  `sumTo_succ` + `P_rec`/`H_rec`, closed by `ring_nat` (Pell analogue of the Fibonacci/Lucas sum work).
+  Genuinely absent (corpus had Pell product/addition/doubling/Cassini/norm but no partial sums).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

@@ -1,5 +1,6 @@
 import E213.Meta.Int213.PolyIntMTactic
 import E213.Meta.Nat.PolyNatMTactic
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum
 
 /-!
 # Elementary Pell-number identities (∅-axiom)
@@ -23,6 +24,7 @@ recurrence expansion mixes both diagonal norms and the cross term.  All ∅-axio
 namespace E213.Lib.Math.NumberTheory.PellNumbers
 
 open E213.Meta.Int213.PolyIntM (powInt)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
 
 /-- Pell numbers: `P 0 = 0`, `P 1 = 1`, `P (n+2) = 2·P(n+1) + P n`. -/
 def P : Nat → Nat
@@ -252,5 +254,52 @@ theorem P_double (n : Nat) : P (2 * n) = 2 * (P n * H n) := by
 /-- ★ **Pell doubling (H)**: `H (2n) = Hₙ² + 2·Pₙ²`. -/
 theorem H_double (n : Nat) : H (2 * n) = H n * H n + 2 * (P n * P n) := by
   rw [show 2 * n = n + n from by ring_nat, H_add n n]
+
+/-! ## Pell partial sums
+
+Subtraction-free partial-sum identities (induction on `n`, step via `sumTo_succ`
++ the recurrence, closed by `ring_nat`).  The `H`-companion sum has no `+1`: the
+`H_0 = 1` seed (vs `P_0 = 0`) makes `2·Σ H_k` land exactly on `H_n + H_{n+1}`. -/
+
+/-- ★ **Pell partial-sum identity** `2·(Σ_{k=0}^{n} P_k) + 1 = P_n + P_{n+1}`. -/
+theorem sumPell_eq (n : Nat) :
+    2 * sumTo (n + 1) P + 1 = P n + P (n + 1) := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    show 2 * sumTo (k + 2) P + 1 = P (k + 1) + P (k + 2)
+    rw [sumTo_succ]
+    have ih' : 2 * sumTo (k + 1) P + 1 = P k + P (k + 1) := ih
+    have hr : P (k + 2) = 2 * P (k + 1) + P k := P_rec k
+    rw [hr, Nat.mul_add]
+    rw [show 2 * sumTo (k + 1) P + 2 * P (k + 1) + 1
+          = 2 * sumTo (k + 1) P + 1 + 2 * P (k + 1) from by ring_nat, ih']
+    ring_nat
+
+/-- ★ **Pell sum-of-squares identity** `2·(Σ_{k=0}^{n} P_k²) = P_n · P_{n+1}`. -/
+theorem sumPellSq_eq (n : Nat) :
+    2 * sumTo (n + 1) (fun k => P k * P k) = P n * P (n + 1) := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    show 2 * sumTo (k + 2) (fun k => P k * P k) = P (k + 1) * P (k + 2)
+    rw [sumTo_succ]
+    have ih' : 2 * sumTo (k + 1) (fun k => P k * P k) = P k * P (k + 1) := ih
+    have hr : P (k + 2) = 2 * P (k + 1) + P k := P_rec k
+    rw [hr, Nat.mul_add, ih']
+    ring_nat
+
+/-- ★ **Half-companion partial-sum identity** `2·(Σ_{k=0}^{n} H_k) = H_n + H_{n+1}`. -/
+theorem sumHalf_eq (n : Nat) :
+    2 * sumTo (n + 1) H = H n + H (n + 1) := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    show 2 * sumTo (k + 2) H = H (k + 1) + H (k + 2)
+    rw [sumTo_succ]
+    have ih' : 2 * sumTo (k + 1) H = H k + H (k + 1) := ih
+    have hr : H (k + 2) = 2 * H (k + 1) + H k := H_rec k
+    rw [hr, Nat.mul_add, ih']
+    ring_nat
 
 end E213.Lib.Math.NumberTheory.PellNumbers
