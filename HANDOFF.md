@@ -671,6 +671,19 @@ closure → full build → commit.
   (Also this round: general Fermat `a^{p−1}≡1 mod p` checked and rejected as duplicate of
   `UniversalFLT.universal_flt_main` / `MulOrder.fermat`.)
 
+- **114 — number theory (divisor-product infrastructure, general)**: `NumberTheory/DivisorProductReindex.{gcd_mul_coprime,
+  divisor_factorization, weighted_partition_by_key, gcd_fiber_forward, sigma_mul_of_reindex,
+  tau_mul_of_reindex}` (NEW file, 16 PURE) — the forward arithmetic toward σ/τ multiplicativity, with
+  ★★ `gcd_mul_coprime`: `gcd(a,b)=1 → gcd(d,a·b)=gcd(d,a)·gcd(d,b)` (corpus-absent gcd multiplicativity
+  over coprime products) and ★★ `divisor_factorization` (coprime `a,b`: every `d∣a·b` splits uniquely
+  `d=gcd(d,a)·gcd(d,b)`), the reusable ★ `weighted_partition_by_key` (weighted disjoint-cover), the
+  fiber condition `gcd_fiber_forward`, the easy grid direction `divisorSum_mul_as_grid`, and conditional
+  `sigma_mul_of_reindex`/`tau_mul_of_reindex` (reindex ⟹ σ/τ multiplicative).  Narrows the open
+  divisor-reindex frontier to exactly ONE missing tool: a sparse-fiber sum-reindex-by-bijection over
+  `sumTo` (frontier `mobius_divisor_sum_general.md`, updated).  This single tool lands σ/τ
+  multiplicativity + general Möbius divisor-sum + Möbius inversion together.  (First divisor-reindex
+  agent stalled on a `ring_nat` 3-atom step; retry with the generalize-first fix succeeded.)
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

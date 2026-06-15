@@ -21,6 +21,27 @@ through `sumZ` (the corpus has range-Fubini `sumTo_fubini` but no
 The same `muStruct_mul` window-product template would also unlock general σ/τ
 multiplicativity + Möbius inversion.
 
+## Update 2 — divisor-product infrastructure CLOSED, gap narrowed to ONE tool (`DivisorProductReindex.lean`)
+
+The forward arithmetic of the divisor-product bijection is now fully PURE:
+- ★★ `gcd_mul_coprime` — `gcd(a,b)=1 → gcd(d,a·b) = gcd(d,a)·gcd(d,b)` (corpus-absent
+  gcd multiplicativity over coprime products).
+- ★★ `divisor_factorization` — coprime `a,b`: every `d ∣ a·b` splits uniquely
+  `d = gcd(d,a)·gcd(d,b)` (+ `divisor_factors_coprime` injectivity witness).
+- `divisorSum_mul_as_grid` — the easy direction (grid double-sum = product of divisor-sums).
+- ★ `weighted_partition_by_key` — reusable weighted disjoint-cover.
+- ★★ `gcd_fiber_forward` — `e∣a, gcd(a,b)=1, d₂∣b ⟹ gcd(e·d₂,a)=e`.
+- `sigma_mul_of_reindex` / `tau_mul_of_reindex` — conditional: reindex ⟹ σ/τ multiplicative.
+
+**The gap is now exactly ONE general tool**: a *sum-reindex-by-bijection over `sumTo`
+for a sparse (non-contiguous) fiber*.  Via `weighted_partition_by_key` (key
+`j ↦ gcd(j+1,a)−1`) the reindex reduces to collapsing the class sum
+`Σ_{j<ab} [gcd(j+1,a)=e]·dvdInd j (ab)·f(j+1)` to `Σ_{k<b} dvdInd k b·f(e·(k+1))` —
+a reindex of `{d∣ab : gcd(d,a)=e} ↔ {d₂∣b}` via `d ↦ d/e`.  `sumTo_reshape` only
+isolates *contiguous* blocks (as in `GaussTotient.gcd_class_count`); this fiber is
+sparse.  Building that one permutation/bijection-sum lemma lands σ/τ multiplicativity,
+the general Möbius divisor-sum, AND Möbius inversion together.
+
 ## Closed (∅-axiom, `lean/E213/Lib/Math/NumberTheory/MobiusPrimeCase.lean`)
 
 - `mu_prime : Prime213 p → mu p = −1` (every prime).
