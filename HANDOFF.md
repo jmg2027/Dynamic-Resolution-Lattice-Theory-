@@ -818,6 +818,13 @@ closure → full build → commit.
   from the outer second-kind + inner signed-first-kind recurrences cancel exactly via `G_eq`/`H_eq`),
   then induction on n.  Genuinely absent.
 
+- **136 — number theory (Fibonacci, general)**: `Combinatorics/FibonacciCatalanIdentity.{docagne,
+  fib_catalan_identity}` (NEW file, 5 PURE) — ★★★ **Catalan's identity for Fibonacci** (general `r`):
+  `fib(a+r)² − fib a·fib(a+2r) = (−1)^a·fib(r)²` (subtraction-free form; Cassini is the r=1 case,
+  `cassini_from_catalan`).  Route: ★ **d'Ocagne's identity** `docagne` (`fib(a+1)fib(a+r) −
+  fib a·fib(a+r+1) = (−1)^a·fib r`, induction on a) + two `fib_add` expansions + a pure `ring_intZ`
+  factorization (no induction on r).  Genuinely absent (only Cassini r=1 existed).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
