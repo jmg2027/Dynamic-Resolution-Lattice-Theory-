@@ -718,6 +718,18 @@ closure → full build → commit.
   inversion); the only remaining open item is the `muStruct = mu` bridge (frontier
   `mobius_divisor_sum_general.md`).
 
+- **118 — number theory (★★★ HEADLINE CAPSTONE, closes the whole frontier)**: `NumberTheory/MobiusBridge.{muStruct_eq_mu,
+  muAux_eq_prodFrom, mu_divisor_sum, mu_mul, mu_mobius_inversion}` (NEW file, 18 PURE) — **the
+  `muStruct = mu` bridge** ★★★ `∀n>0, muStruct n = mu n`, transporting the ENTIRE Möbius framework to
+  the corpus trial-division `mu`.  The scan-correctness obstruction (muAux strips the smallest prime &
+  recurses from `d+1`; muStruct reads valuations independently) is cracked by the reusable invariant
+  ★★★ `muAux_eq_prodFrom : muAux fuel m d sign = sign · prodFrom d m fuel` (under `m < d+fuel`, `NSF d m`)
+  — tying window-length to fuel lets ONE induction handle all three muAux branches (advance/strip/square),
+  `prodFrom_strip_eq` realigning the stripped `m/d`-window; specialize `d=2,fuel=m` → `mu m = muStruct m`.
+  Corpus-`mu` corollaries (the framework on the actual `mu`): ★★★ `mu_divisor_sum : ∀n>0, Σ_{d∣n}mu d=[n=1]`
+  (general — generalizes the iter-103 table to all n), ★★★ `mu_mul`, `mu_prime_pow`, ★★★ `mu_mobius_inversion`.
+  **Closes the entire `mobius_divisor_sum_general` frontier — NO open items remain.**
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

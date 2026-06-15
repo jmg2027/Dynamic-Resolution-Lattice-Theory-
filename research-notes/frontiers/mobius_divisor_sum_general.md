@@ -1,13 +1,20 @@
 # Frontier: general Möbius divisor-sum `∀ n ≥ 1, Σ_{d∣n} μ(d) = [n=1]`
 
-**Status**: ✅ **Möbius framework COMPLETE for `muStruct`** — divisor-product
-reindex (`DivisorMultiplicative.lean`), general σ/τ multiplicativity, general
-divisor-sum `Σ_{d∣n} muStruct d = [n=1]` (`MobiusDivisorSum.lean`), AND Möbius
-inversion `f n = Σ_{d∣n} muStruct d · g(n/d)` + the reusable `divisor_pair_swap`
-Dirichlet-convolution core (`MobiusInversion.lean`), all ∅-axiom.  The **only**
-remaining open item is the `muStruct = mu` bridge (transport the whole framework
-from structural `muStruct` to the corpus trial-division `mu`) — the open
-`muAux`-correctness scan invariant (gates 2–3 below).
+**Status**: ✅✅ **FULLY CLOSED** — the entire Möbius framework holds for the
+**corpus trial-division `mu`** (not just `muStruct`).  `MobiusBridge.lean` proves
+★★★ `muStruct_eq_mu : ∀n>0, muStruct n = mu n` (via the reusable scan invariant
+`muAux_eq_prodFrom`, fuel-tied window), transporting everything:
+- ★★★ `mu_divisor_sum : ∀n>0, Σ_{d∣n} mu d = [n=1]` (general — generalizes the
+  iter-103 table n=1..24 to ALL n).
+- ★★★ `mu_mul` — `gcd(a,b)=1 → mu(a·b)=mu a·mu b`.
+- `mu_prime_pow` — `mu(pⁱ)=mFactor i`.
+- ★★★ `mu_mobius_inversion` — `f n = Σ_{d∣n} mu d · Σ_{e∣(n/d)} f e`.
+Plus the `muStruct`-side framework (`DivisorMultiplicative` / `MobiusDivisorSum` /
+`MobiusInversion`) + general σ/τ multiplicativity.  All ∅-axiom.  NO open items
+remain on this frontier.
+
+The historical analysis (the `muStruct=mu` scan-correctness gates that were the
+final blocker, now resolved by `muAux_eq_prodFrom`) is retained below for the record.
 
 ## Update 4 — general Möbius divisor-sum CLOSED for `muStruct` (`MobiusDivisorSum.lean`)
 
