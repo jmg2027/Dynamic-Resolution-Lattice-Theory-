@@ -297,6 +297,12 @@ closure → full build → commit.
   bijection-to-permutation fold over the existing `ProdLperm` toolkit), a large combinatorial
   build, left open.  W1+W2 are the consumed lemmas; the gap is permutation-of-range, not NT.
 
+- **61 — linear algebra (deep)**: `Combinatorics/VandermondeDeterminant.vanDet3_factored`
+  (7 PURE) — the **Vandermonde matrix determinant** `det[[1,a,a²],[1,b,b²],[1,c,c²]] =
+  (b−a)(c−a)(c−b)` (cofactor expansion + `ring_intZ`), with `vanDet3_ne_zero` (distinct
+  ordered points ⟹ nonzero det, the basis of interpolation uniqueness).  Distinct from the
+  binomial Vandermonde *identity* already in the corpus.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
