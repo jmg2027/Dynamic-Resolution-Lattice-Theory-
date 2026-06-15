@@ -379,6 +379,13 @@ closure → full build → commit.
   (gap = Σ_{i<j}(aᵢbⱼ−aⱼbᵢ)², six squares) + `positivity_of_sq4/sq6` helpers.  Extends the
   2-D/3-D archetype.  Genuinely absent.
 
+- **75 — combinatorics (deep, hard)**: `DyadicFSM/FLT/SubsetOfSubset.choose_mul_choose`
+  (7 PURE) — the **subset-of-a-subset / trinomial revision identity** `C(n,k)·C(k,j) =
+  C(n,j)·C(n−j,k−j)` (`j≤k≤n`).  Genuinely hard with the *recursive* (Pascal) `choose` (no
+  factorial proof available): the **absorption chain** — additive form `C(a+b+c,a+b)·C(a+b,a)
+  = C(a+b+c,a)·C(b+c,b)` by induction on `a`, each step ×`(a+1)` + `choose_succ_mul` 3× then
+  cancel.  Genuinely absent.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
