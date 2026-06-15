@@ -243,6 +243,16 @@ closure → full build → commit.
   `C(n,j)²`.  Genuinely absent (the corpus `BinomSymm` is for a different `binom`, not FLT
   `choose`).
 
+- **54 — combinatorics/NT (deep, high-value capstone)**: `Combinatorics/FibonacciGcd.fib_gcd`
+  (10 PURE) — the **Fibonacci-gcd theorem** `gcd(Fₘ,Fₙ) = F_gcd(m,n)`, the crown jewel of
+  Fibonacci NT.  G1 `fib_consecutive_coprime` (`gcd(Fₙ,F_{n+1})=1`) → G2 `fib_gcd_add_reduce`
+  (`gcd(Fₘ,F_{m+n})=gcd(Fₘ,Fₙ)` via the addition formula + Euclid's lemma) → G3 by
+  `Nat.strongRecOn` mirroring `gcd213`'s `%`-recursion (`fib_gcd_mod_step` aligns the index
+  Euclid step with the Fibonacci step via `div_add_mod` + iterated G2).  Genuinely absent
+  (only a prose mention existed).  Builds on iter-52's `fib_add`/`fib_dvd_fib_mul`.  Completes
+  a substantial **Fibonacci cluster** (sums, divisibility, addition formula, gcd, Zeckendorf
+  existence+uniqueness, CF Fibonacci floor).
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
