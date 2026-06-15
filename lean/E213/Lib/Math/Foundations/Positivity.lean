@@ -149,4 +149,50 @@ theorem dist_sq_zero_imp_eq (a b c d : Int)
   let hpd := positive_definite_2 (a - c) (b - d) h
   ⟨Order.eq_of_sub_eq_zero hpd.1, Order.eq_of_sub_eq_zero hpd.2⟩
 
+/-! ## POSITIVITY's product face — a gap that is a *product of two like-signed
+gaps* forces a bound
+
+The square face above forces a bound when the gap is `s²`.  The complementary
+**product** face: when the gap factors as `(a₂−a₁)·(b₂−b₁)` of two *similarly
+ordered* differences, it is nonnegative (`mul_nonneg`), forcing the
+monotone-correlation inequalities.  This is the sign engine behind **Chebyshev's
+sum inequality** and the **rearrangement inequality**: similarly-sorted sequences
+correlate positively. -/
+
+/-- ★ **The product-of-gaps sign crux**: for similarly-sorted pairs the product
+    of the two gaps is nonnegative — `a₁ ≤ a₂`, `b₁ ≤ b₂` ⟹ `0 ≤ (a₂−a₁)·(b₂−b₁)`. -/
+theorem gap_product_nonneg {a1 a2 b1 b2 : Int}
+    (ha : a1 ≤ a2) (hb : b1 ≤ b2) : (0 : Int) ≤ (a2 - a1) * (b2 - b1) :=
+  mul_nonneg
+    (Order.le_zero_of_nonneg (Order.sub_nonneg_of_le ha))
+    (Order.le_zero_of_nonneg (Order.sub_nonneg_of_le hb))
+
+/-- ★★★★★ **Chebyshev's sum inequality (n=2) via POSITIVITY** — similarly-sorted
+    sequences correlate positively: `a₁ ≤ a₂`, `b₁ ≤ b₂` ⟹
+    `(a₁+a₂)·(b₁+b₂) ≤ 2·(a₁·b₁ + a₂·b₂)`.  Forced because the gap
+    `2(a₁b₁+a₂b₂) − (a₁+a₂)(b₁+b₂) = (a₂−a₁)(b₂−b₁)` is a nonnegative *product*. -/
+theorem chebyshev_sum_2 {a1 a2 b1 b2 : Int}
+    (ha : a1 ≤ a2) (hb : b1 ≤ b2) :
+    (a1 + a2) * (b1 + b2) ≤ 2 * (a1 * b1 + a2 * b2) := by
+  apply Order.le_of_sub_nonneg
+  apply Order.nonneg_of_le_zero
+  have hkey : (2 * (a1 * b1 + a2 * b2)) - (a1 + a2) * (b1 + b2)
+                = (a2 - a1) * (b2 - b1) := by ring_intZ
+  rw [hkey]
+  exact gap_product_nonneg ha hb
+
+/-- ★★★★★ **Rearrangement inequality (n=2) via POSITIVITY** — the sorted pairing
+    dominates the reversed one: `a₁ ≤ a₂`, `b₁ ≤ b₂` ⟹
+    `a₁·b₂ + a₂·b₁ ≤ a₁·b₁ + a₂·b₂`.  Same nonnegative-product gap
+    `(a₁b₁+a₂b₂) − (a₁b₂+a₂b₁) = (a₂−a₁)(b₂−b₁)`. -/
+theorem rearrangement_2 {a1 a2 b1 b2 : Int}
+    (ha : a1 ≤ a2) (hb : b1 ≤ b2) :
+    a1 * b2 + a2 * b1 ≤ a1 * b1 + a2 * b2 := by
+  apply Order.le_of_sub_nonneg
+  apply Order.nonneg_of_le_zero
+  have hkey : (a1 * b1 + a2 * b2) - (a1 * b2 + a2 * b1)
+                = (a2 - a1) * (b2 - b1) := by ring_intZ
+  rw [hkey]
+  exact gap_product_nonneg ha hb
+
 end E213.Lib.Math.Foundations.Positivity

@@ -168,7 +168,13 @@ closure → full build → commit.
   corpus 3× (`FourSquareSeed.nat_prime_dvd_mul`, `VpMul.euclid_lemma`,
   `PrimeValuation.prime_dvd_mul`).  Agent honest; the minor `prime_dvd_pow` companion not
   worth a fresh file on a 4th `prime_dvd_mul` copy.
-
+- **45 — inequalities (deep)**: `Foundations/Positivity.{chebyshev_sum_2, rearrangement_2}`
+  (3 new PURE, 15 in-file) — **Chebyshev's sum inequality** `(a₁+a₂)(b₁+b₂) ≤ 2(a₁b₁+a₂b₂)`
+  + **rearrangement inequality** `a₁b₂+a₂b₁ ≤ a₁b₁+a₂b₂` (n=2, similarly-sorted), both from
+  the one crux `0 ≤ (a₂−a₁)(b₂−b₁)` (`mul_nonneg`).  Genuinely absent (the corpus
+  "Chebyshev" hits are LCM/variance bounds).  Added as the **product face** of the A7
+  POSITIVITY archetype (gap = product of two like-signed gaps), complementing the existing
+  square face (`amgm_2`, `cauchy_schwarz_2d`).
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
