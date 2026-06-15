@@ -18,6 +18,7 @@ import E213.Lib.Physics.Mixing.ApexFitConsistency
 import E213.Lib.Physics.Mixing.A5QuarkApex
 import E213.Lib.Physics.Mixing.CabibboAngle
 import E213.Lib.Physics.Mixing.NeutrinoMixing
+import E213.Lib.Physics.Mixing.CPPhaseHodgeBridge
 
 /-! Spec-as-code entry point for `E213.Lib.Physics.Mixing`.
 

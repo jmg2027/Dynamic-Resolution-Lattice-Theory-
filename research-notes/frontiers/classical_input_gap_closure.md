@@ -96,8 +96,15 @@ then the final SM label stays a reading.**
   `WhyBasel` contradiction on the depth force-binding (integers derived, binding
   posited — reconcile); (ii) `1/α₂ = 30` has no theorem, only a docstring +
   mislabelled prefactor-sector.
-- **Highest-value B→A target: CP `δ = 90°`** — build the signed ℤ-Hodge star at
-  `n=4` so `⟨⋆⟩ ≅ C₄ ≅ ℤ[i]^×` is a proven iso (not a hand-written `def c4` +
-  `imPart` projection); derive `ckmPhases` as a theorem.  Would make CP the second
-  genuine (A).  Frontier already named in-file (`CPHodgeStructure.lean:38-41`).
+- **CP `δ = 90°` C₄ — ✅ CLOSED (the math), second genuine (A).**
+  `Mixing/CPPhaseHodgeBridge.cp_c4_is_signed_hodge_group` (PURE, build-green,
+  wired to the Mixing aggregator): the four `C₄` Gaussian units, via `elt`, are
+  exactly the powers `{J⁰,J¹,J²,J³}` of the **genuine signed Hodge star `J = ⋆`**
+  on the `d−1=4` simplex (`SignedStarC4.signed_hodge_is_cp_i`), which has order 4
+  (`⋆²=−I, ⋆⁴=I, ⋆²≠I`) ⇒ `360/4 = 90°`.  This replaces `CPPhaseC4Forcing`'s
+  hand-written `def c4` with the actual `⋆`-operator — the `C₄ ⇒ 90°` is now
+  structural, from the real Hodge geometry on `Δ⁴`.  Residual readings (kept, not
+  ontologized): "this `⋆`-phase IS the CKM phase" and "Jarlskog `J ∝ Im`" (the
+  `imPart := u.2` projection).  Drawable: *"⋆ on the 4-simplex squares to −1, so
+  ⋆⁴ = id — a 90° rotation; the CP phase is one of its four powers."*
 - Then T1 (tree-independence), T2 (relative H²), T3 (α₂ audit — now done: B).
