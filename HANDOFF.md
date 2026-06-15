@@ -222,6 +222,13 @@ closure → full build → commit.
   Genuinely absent (corpus `mediant` is bipartite cell-counts).  Int `dvd_subZ`/`dvd_mul_leftZ`
   kept local (Int213 still has no shared `∣`-helper module — known consolidation target).
 
+- **51 — combinatorics (deep)**: `Combinatorics/ZeckendorfUniqueness.zeckendorf_unique`
+  (8 PURE) — **Zeckendorf UNIQUENESS**, completing the theorem (existence iter 49 +
+  uniqueness): two valid (`AllGe2`+`NonConsec`) lists with equal Fibonacci sum are equal.
+  Crux `sum_lt_fib_head_succ` (a Zeckendorf sum with top index `i` is `< fib(i+1)` — greedy
+  is forced); `heads_eq` (head bracket-squeeze via trichotomy) + `nat_add_left_cancel` peel +
+  tail recursion.  **Zeckendorf's theorem now fully closed (existence + uniqueness).**
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
