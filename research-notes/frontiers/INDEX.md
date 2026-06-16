@@ -787,3 +787,14 @@ real ∅-axiom conquests.
   home is the open **signed-ℤ Hodge `⋆²=−1` on Δ⁴** (`CPHodgeStructure` is a
   parity skeleton).  Corrects the earlier "fifth-Lens-reading" over-generous
   framing in `c_counter_as_layer_count.md` + the archive bridge note.
+
+## Rebuild roadmaps — genuine reconstructions of the audited-out programmes  (`rebuild_roadmaps/`)
+
+After the 2026-06-16 honesty audit deleted the stereotype-matching / forcible-map
+layer (fake Hodge/Geometrization/Cork conjectures, c-multiplicity selection,
+typed-literal "predictions", value-coincidence "identities"), this cluster gives
+an honest 213-native **rebuild roadmap per deleted programme** — real content on
+real objects, explicit about the substrate's ceilings (no smooth manifold, no
+absolute scale, value-coincidence ≠ structural map).  13 notes + INDEX; model is
+`genuine_hodge_rebuild.md` (Stage 1 done = Lefschetz (1,1) on `T⁴`).  See
+`rebuild_roadmaps/INDEX.md`.
