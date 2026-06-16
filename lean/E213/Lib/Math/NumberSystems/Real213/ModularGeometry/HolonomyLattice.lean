@@ -318,4 +318,11 @@ theorem first_loop_is_the_fold :
     ∧ holonomy [L, R] ≠ Mat2.I := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
+
+/-- ★ **Determinant is multiplicative over holonomy concatenation**:
+    `det(holonomy (p ++ q)) = det(holonomy p) · det(holonomy q)` — `det∘holonomy` is a
+    monoid homomorphism `(List Mat2, ++) → (ℤ, ·)`. -/
+theorem det_holonomy_append (p q : List Mat2) :
+    Mat2.det (holonomy (p ++ q)) = Mat2.det (holonomy p) * Mat2.det (holonomy q) := by
+  rw [holonomy_append, det_mul]
 end E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice

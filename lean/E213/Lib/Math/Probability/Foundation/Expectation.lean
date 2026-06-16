@@ -55,4 +55,14 @@ theorem expectation_master :
   · decide
   · decide
 
+
+/-- ★ **Discrete expectation numerator is additive over concatenation**:
+    `Σ(mass·value)` of `xs ++ ys` splits as the sum over `xs` plus the sum over `ys`
+    (linearity of expectation, numerator form). -/
+theorem discreteNum_append : ∀ (xs ys : List (Nat × Nat)),
+    discreteNum (xs ++ ys) = discreteNum xs + discreteNum ys
+  | [],            ys => by show discreteNum ys = 0 + discreteNum ys; rw [Nat.zero_add]
+  | (m, v) :: xs,  ys => by
+      show m * v + discreteNum (xs ++ ys) = (m * v + discreteNum xs) + discreteNum ys
+      rw [discreteNum_append xs ys, Nat.add_assoc]
 end E213.Lib.Math.Probability.Foundation.Expectation

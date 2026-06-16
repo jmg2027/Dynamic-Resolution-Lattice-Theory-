@@ -231,4 +231,11 @@ theorem moufang_basis :
     `moufang_basis`). -/
 theorem octonion_nonassoc :
     (Cayley.I' * Cayley.J') * Cayley.L ≠ Cayley.I' * (Cayley.J' * Cayley.L) := by decide
+
+/-- ★ **Conjugation is an anti-homomorphism (basis instance)**: `conj(I'·J') = conj J'·conj I'`
+    — at the octonion basis pair, conjugation reverses the product order (the composition-
+    algebra involution property). -/
+theorem conj_mul_basis :
+    Cayley.conj (Cayley.I' * Cayley.J') = Cayley.conj Cayley.J' * Cayley.conj Cayley.I' := by
+  decide
 end E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley
