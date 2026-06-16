@@ -31,11 +31,37 @@ permanent chapter `theory/meta/forcing_versus_bookkeeping.md`. New this leg:
   descent to `a²+b² = p`. All non-constructive content localized to
   `exists_collision_lt` (the Thue box collision). Reuses `QRNegOne`, `IntSqrt`,
   `PolyRoot` Nat↔Int bridges, `Int213`.
-- **In flight**: `x⁴+y⁴=z²` infinite-descent non-existence (vein B; descent =
-  computed constructor vs. classical minimal-counterexample); next-target note
-  in the frontier collection. Two independent agents converged on the
-  `exists_collision` shape — evidence the route is forced, not chosen.
-Full `E213.Lib.Math` green at 1959 modules; all pushed.
+- **`NumberTheory/FermatQuartic`** (29 PURE, vein B capstone) — `x⁴+y⁴≠z²` (and
+  `≠z⁴`), FULL descent. Classical minimal-counterexample → explicit `strongRecOn`
+  on `z` whose step *constructs* the smaller solution (two Pythagorean-converse
+  inversions + coprime-square split returning `a=√r,b=√s,c=√(r²+s²)`). Built the
+  missing `pyth_converse` (Pythagorean converse over Nat). Nat-native.
+- **`NumberTheory/PrimesThreeModFour`** (14 PURE, vein B) — infinitely many
+  primes ≡3 mod 4, `∀ N, ∃ p, N<p ∧ prime p ∧ p%4=3`. Computed Euclid witness
+  (least ≡3-mod-4 prime factor of `4·N!−1`); keystone `exists_prime_factor_3mod4`
+  by least-factor recursion. No finite-list contradiction.
+- **`Combinatorics/ErdosSzekeres`** (29 PURE, vein B, FRESH domain) — monotone
+  subsequence via the `(inc,dec)` label-box `exists_collision_lt`; explicit
+  subsequence extracted choice-free (`inc_subseq`). Third `exists_collision`
+  reuse — broadens beyond number theory.
+- **`NumberTheory/TotientMultiplicative`** (20 PURE, vein A) — `totient_mul`:
+  φ(mn)=φ(m)φ(n) coprime, via the explicit CRT counting bijection. **Closes the
+  leg's own loop**: built on `UnitsOfZn` + `CRTReconstruction` (this leg). CRT
+  iso = reconstruction algorithm; φ-mult = Fubini reindex of the coprimality
+  indicator. (Recovered from a watchdog-stalled agent — core was complete in
+  scratch.)
+
+Meta-finding crystallized in the chapter: **a primitive can be a
+non-constructivity sink** — `exists_collision` localizes the sole non-constructive
+step of THREE classical theorems (DividesPair, TwoSquare, ErdosSzekeres); the
+named primitive, not the individual theorems, is the deliverable.
+
+Honest rejection: √2/√p irrationality by v2-parity — the bare impossibility is
+already PURE in `Irrational/SqrtPure` (via descent); a reproof is a duplicate
+result, not a forcing case.
+
+Full `E213.Lib.Math` green at **1963 modules**; all pushed. Leg total: 7 modules
++ the `exists_collision` primitive, ∅-axiom PURE (12+7+19+29+14+29+20).
 
 ## Post-merge continuation (after merge-to-main; second marathon leg)
 Elementary classical number theory + combinatorics, all ∅-axiom PURE:
