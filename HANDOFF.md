@@ -104,6 +104,22 @@ surfaced: **Bertrand's postulate** (reachable; keystone = primorial bound `∏_{
     `+2`, orthogonal, orthogonal to all 4 NS generators, neither `(1,1)`), completing the full
     intersection-form signature `(3,3) = (1,3)_NS ⊕ (2,0)_transc` on `H²(T⁴;ℤ)=ℤ⁶`.
 
+### Corpus-broadening (autonomous, scout-driven) — reliable ∅-axiom bricks, 10+ domains
+
+Per "primacy = breadth" (`07_primacy.md` §7.1), a steady stream of self-contained ∅-axiom
+bricks across domains, each `#print axioms`-empty, each committed + pushed:
+- **Number theory**: `Norm3` (a²±3b² closures + x²−3y²=1 group law), `Norm5` (the golden
+  ℚ(√5) norm a²±5b² + x²−5y²=1, fundamental (9,4)), `lucasZ_double` (L_{2m}=L_m²−2(−1)ᵐ),
+  `eval_pmoSucc_one` (1 is a root of Tⁿ−1) + `one_pow_int`, `mediant_cross_diff`
+  (Stern–Brocot det) + `mediant_den_gt`.
+- **Cohomology/signature**: `ℙ²` (1,0), `ℙ¹×ℙ¹` (1,1) intersection-form witnesses.
+- **Discrete curvature**: Gauss–Bonnet for K₄, cube Q₃, Petersen, K₅ + Forman `−2`/`−4`.
+- **Algebra**: `octonion_nonassoc` (closed a code-marked "deferred" gap), `cyc3_order3`
+  (S₃ 3-cycle), `cyclicAdd_assoc` (ℤ/n monoid).
+- **Information**: `entropy_additive`, `surprise_additive` (dyadic chain rule).
+- **p-adic**: `vAt_le` (valuation bounded by search depth).
+- **Physics-combinatorics**: `so10_counts` (SO(10) forced integer counts from d=5).
+
 ### Honesty correction (wave 1)
 `research-notes/frontiers/rebuild_roadmaps/proton_electron_ratio_rebuild.md` —
 the Stage-1 bracket claim was **numerically false** (`6π⁵ ∈ (1835.60, 1839.82)`
