@@ -92,17 +92,8 @@ theorem conj_ne_id : ∃ x : Cayley, conj x ≠ x := by
 
 end E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley
 
-/-
-**Classical fact (not yet formalised).**  Cayley at this
-level is **non-associative**: by hand-computation,
-
-  (Cayley.I' · Cayley.J') · L = ⟨0, ⟨0, ZI.I⟩⟩
-  Cayley.I' · (Cayley.J' · L) = ⟨0, ⟨0, ZI.negI⟩⟩
-
-so `(Cayley.I' · Cayley.J') · L ≠ Cayley.I' · (Cayley.J' · L)` — the octonion
-non-associator.  Formalisation requires unfolding the CD
-formula through three layers of nested `mul`; deferred.
--/
+/- The octonion non-associator `(I'·J')·L ≠ I'·(J'·L)` is formalised as
+   `octonion_nonassoc` in the namespace below (`decide`). -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley
 
@@ -232,4 +223,12 @@ theorem moufang_basis :
     (Cayley.I' * (Cayley.J' * Cayley.I')) * Cayley.L
   = Cayley.I' * (Cayley.J' * (Cayley.I' * Cayley.L)) := by decide
 
+
+/-- ★★ **Octonions are non-associative** — the non-associator at the basis triple
+    `(I', J', L)`: `(I'·J')·L = ⟨0,⟨0,ZI.I⟩⟩` while `I'·(J'·L) = ⟨0,⟨0,ZI.negI⟩⟩`, and
+    `ZI.I ≠ ZI.negI`, so the two parenthesisations differ.  The Cayley level is the first
+    non-associative rung of the Cayley–Dickson tower (still alternative/Moufang —
+    `moufang_basis`). -/
+theorem octonion_nonassoc :
+    (Cayley.I' * Cayley.J') * Cayley.L ≠ Cayley.I' * (Cayley.J' * Cayley.L) := by decide
 end E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley
