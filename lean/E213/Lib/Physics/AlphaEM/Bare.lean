@@ -75,7 +75,8 @@ namespace E213.Lib.Physics.AlphaEM.IntegerSkeleton
 
 /-! ## Integer-coefficient origins for `60·ζ(2) + 30 + 25/3 + α_GUT/(NS+1)`.
 
-  E = c·NS·NT = 12     (directed bipartite edges)
+  E = NS·NT² = 12      (c-free octet edge count; the extra NT is the
+                        order-2/signature factor, not a multiplicity)
   d = NS+NT = 5        (atomic dimension)
   60 = E·d              (origin of 60·ζ(2))
   30 = 1/α_2            (paper 2 gauge value)
@@ -84,17 +85,18 @@ namespace E213.Lib.Physics.AlphaEM.IntegerSkeleton
   NS²·d = 45            (proposed gap correction denominator)
 -/
 
-/-- Edge count of K_{3,2}^{(c=2)}: c·NS·NT. -/
-def edge_count : Nat := 2 * 3 * 2
+/-- Octet edge count, c-free: `NS·NT²` (the extra `NT` is the
+    order-2/signature factor, not a parallel-edge multiplicity). -/
+def edge_count : Nat := 3 * 2 * 2
 
 /-- ★ Every integer in 1/α_em is structurally fixed:
-      60 = c·NS·NT·d (edge count × d)
+      60 = NS·NT²·d (edge count × d)
       25 = d²
       45 = NS²·d
       4  = NS + 1
       9  = NS²
       32 = 2^d
-      12 = c·NS·NT  (= edge_count)
+      12 = NS·NT²  (= edge_count)
       8  = NS² − 1 -/
 theorem alpha_em_integer_origins :
     edge_count * 5 = 60
@@ -112,43 +114,48 @@ namespace E213.Lib.Physics.AlphaEM.Prefactors
 
 open E213.Lib.Physics.Simplex.Counts
 
-/-! ## Lattice-primitive derivation of all 1/α_em(IR) prefactors.
+/-! ## Lattice-primitive derivation of all 1/α_em(IR) prefactors (c-free).
 
   Hint 1: 5/3 = d/NS               (Y-norm)
-  Hint 2: 12  = c·NS·NT             (directed bipartite edges)
+  Hint 2: 12  = NS·NT²             (octet edge count; the extra NT is the
+                                    order-2/signature factor, not a
+                                    parallel-edge multiplicity)
   Hint 3: NS²-1 vs NS²              (trace removal)
 
-  ★ c·NS·NT² = 24 = adjoint SU(5) = (d-1)(d+1)
+  ★ NS·NT³ = 24 = adjoint SU(5) = (d-1)(d+1)
     → α_2 prefactor's (12·NT) part *is* adjoint SU(5).
 -/
 
-/-- c_lattice = 2.  Externally consumed by DiamondAudit, DiamondShape,
-    HopHypothesis, FibonacciExtended, plus internal Bare uses. -/
+/-- The order-2/signature factor `= NT = 2`.  Retained under the name
+    `c_lat` for the downstream physics catalog (DiamondAudit, DiamondShape,
+    HopHypothesis, FibonacciExtended, mass/Higgs/Hadron/Cosmology files);
+    its value is `NT`, not an atomic multiplicity `c`. -/
 def c_lat : Nat := 2
 
-/-- ★ Unified prefactor capstone: all prefactors come from {c, NS, NT, d}.
+/-- ★ Unified prefactor capstone: all prefactors come from {NS, NT, d}
+    (c-free).
 
     Bundles:
       · Y-norm 5/3 = d/NS (cross-mult 5·NS = 3·d)
-      · 12 = c·NS·NT = 2·(d+1) (directed bipartite edges)
+      · 12 = NS·NT² = 2·(d+1) (octet edge count)
       · 1/α_3 = NS²−1 = 8 (trace-removed adjoint), NS² = 9
-      · 12·NT = adjoint SU(5) = c·NS·NT² = d²−1 = 24
-      · Y-norm prefactor: c·d·NS·NT = 60 = (c·NS·NT)·d
+      · 12·NT = adjoint SU(5) = NS·NT³ = d²−1 = 24
+      · Y-norm prefactor: NS·NT²·d = 60 = (NS·NT²)·d
       · d²−1 = (d−1)·(d+1) factorization. -/
 theorem all_prefactors_structural :
     -- Hint 1: 5/3 = d/NS
     5 * NS = 3 * d
-    -- Hint 2: 12 = c·NS·NT
-    ∧ c_lat * NS * NT = 12
-    ∧ c_lat * NS * NT = 2 * (d + 1)
+    -- Hint 2: 12 = NS·NT²
+    ∧ NS * NT * NT = 12
+    ∧ NS * NT * NT = 2 * (d + 1)
     -- Hint 3: 1/α_3 = NS² − 1 = 8, NS² = 9
     ∧ NS * NS - (1 : Nat) = 8
     ∧ NS * NS = 9
     -- α_2 prefactor = adjoint SU(5) = d² − 1
-    ∧ c_lat * NS * NT * NT = d * d - 1
+    ∧ NS * NT * NT * NT = d * d - 1
     -- Y-norm α_1 prefactor
-    ∧ c_lat * d * NS * NT = 60
-    ∧ c_lat * d * NS * NT = (c_lat * NS * NT) * d
+    ∧ NS * NT * NT * d = 60
+    ∧ NS * NT * NT * d = (NS * NT * NT) * d
     -- d² − 1 factorization
     ∧ d * d - 1 = (d - 1) * (d + 1) := by decide
 

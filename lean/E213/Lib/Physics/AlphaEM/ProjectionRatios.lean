@@ -43,14 +43,15 @@ open E213.Lib.Physics.Simplex.Counts
 
 /-! ## §1 — Edge counts (Δ⁴ vs K_{3,2}^{(c=2)}) -/
 
-/-- c = lattice multiplicity (= 2 for K_{3,2}^{(c=2)}). -/
+/-- The order-2/signature factor `= NT = 2` (not an atomic multiplicity). -/
 def c_lat : Nat := 2
 
 /-- Total Δ⁴ edges. -/
 def delta4_edges : Nat := binom 5 2
 
-/-- K_{3,2}^{(c=2)} multi-edges = c · NS · NT. -/
-def k32c2_edges : Nat := c_lat * NS * NT
+/-- Octet edge count, c-free: `NS·NT²` (the extra `NT` is the
+    order-2/signature factor). -/
+def k32c2_edges : Nat := NS * NT * NT
 
 /-- Distinct ST edges (Δ⁴ ∩ K-support, ignoring multiplicity). -/
 def st_edges : Nat := NS * NT
@@ -149,14 +150,14 @@ theorem projection_ratios_master :
     -- Decomposition
     ∧ ss_edges + st_edges + tt_edges = delta4_edges
     ∧ kernel_edges + st_edges = delta4_edges
-    -- Sheet collapse
-    ∧ k32c2_edges = c_lat * st_edges
+    -- Signature factor: NT · st_edges = octet edges (NT, not a multiplicity)
+    ∧ k32c2_edges = NT * st_edges
     -- Coverage ratio
     ∧ NS * delta4_edges = d * st_edges
     -- Y-norm
     ∧ 5 * NS = 3 * d
-    -- AlphaEM coefficients
-    ∧ c_lat * NS * NT * d = 60
+    -- AlphaEM coefficients (c-free)
+    ∧ NS * NT * NT * d = 60
     ∧ 30 * 4 = (d * d - 1) * 5
     ∧ d * d = 25
     ∧ NS + 1 = 4
