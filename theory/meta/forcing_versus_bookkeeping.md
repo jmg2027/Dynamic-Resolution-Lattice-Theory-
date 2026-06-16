@@ -136,7 +136,15 @@ more*.
     import is unavoidable, per the no-exterior guard ("say plainly when no internal
     handle is found"). (13 PURE.)
 
-  Together EVT + BW answer the analysis challenge symmetrically: where classical
+  - `Logic/HeineCantor` — **Heine–Cantor** ("pointwise-continuous on `[0,1]` ⟹
+    uniformly continuous") calibrated against the **fan theorem**: the ∅-axiom
+    `heineCantor_of_fan` upgrades pointwise to uniform continuity given the fan
+    theorem (hypothesis), bracketed by `bar_of_pointwiseCont` (pointwise ⟹ `Bar`)
+    and `uniform_of_bounded` (`Bounded` ⟹ uniform modulus), both ∅-axiom. The fan
+    theorem is the load-bearing bridge `Bar → Bounded`. *HC's compactness is named
+    as the fan theorem* — a ledger entry dual to WKL. (10 PURE.)
+
+  Together EVT + BW (+ HC) answer the analysis challenge symmetrically: where classical
   analysis reaches for an axiom, 213 *either* forces the hidden modulus (EVT — the
   modulus is the theorem) *or* names and measures the import (BW — calibrated to
   LPO) — it never smuggles an exterior.

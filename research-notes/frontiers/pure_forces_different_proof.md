@@ -329,6 +329,25 @@ needs an omniscience principle, so the ∅-axiom result is the *calibration*
 213 either forces the hidden modulus or names and measures the import — never
 smuggles an exterior.
 
+### C — Heine–Cantor calibrated against the fan theorem (★ ledger entry, dual to WKL)
+`Logic/HeineCantor`. "A pointwise-continuous function on the compact `[0,1]` is
+uniformly continuous" — classically by compactness; constructively *exactly* the
+**fan theorem** (a Brouwerian/bar-induction principle). The ∅-axiom result is the
+calibration `heineCantor_of_fan : (∀ m, FanTheorem (precTree f m)) →
+PointwiseContinuous f → UniformlyContinuous f`, bracketed by the two ∅-axiom
+halves: `bar_of_pointwiseCont` (pointwise continuity ⟹ the precision tree
+`precTree f m` is a `Bar` — every point/path is eventually pinned to `1/2^m`) and
+`uniform_of_bounded` (a uniform depth `Bounded` ⟹ a uniform modulus). The fan
+theorem is **load-bearing, not decorative**: `UniformlyContinuous` needs one depth
+valid for *all* addresses at once, `PointwiseContinuous` gives only a per-point
+depth, and the sole bridge `Bar → Bounded` IS `FanTheorem`. Reuses the corpus
+`Logic/WKLHeineBorel.{Bar,Bounded,FanTheorem,takePrefix}` verbatim — everything
+stays `Bool`/`List` (decidable), which is what keeps it ∅-axiom (no `Cut` ε-δ
+existentials). Reveals: **HC's classical compactness of `[0,1]` is named and
+measured as the fan theorem; the calibration is the theorem.** Adds HC to the
+reverse-math ledger at the fan rung, dual to `wkl_heineBorel_calibration`'s WKL
+rung. (10 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
