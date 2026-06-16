@@ -516,6 +516,18 @@ forbidden square root of −1 — hence q∣b, then q∣a by Euclid. The descent
 norms; the obstruction is the Euler-criterion sign.** With `SumTwoSquaresCharacterization`
 (the "if" direction) this closes the two-square characterization's core. (7 PURE.)
 
+### B — sum of two squares has even valuation at q≡3mod4 — completes the characterization (★)
+`NumberTheory/SumTwoSquaresOddPower`. `even_vp_three_mod4 : q≡3mod4 prime → 0<n →
+isSumTwoSqNat n → ∃ k, vp q n = 2k` (and the contrapositive `not_isSumTwoSqNat_of_odd_vp`).
+The **inert-prime descent on the q-adic valuation**: by `Nat.strongRecOn` on n — if q∤n
+then vp=0; if q∣n then `inert_three_mod4` gives q∣a,q∣b so n=q²(s²+t²), and IH on the
+strictly-smaller s²+t² gives `vp q n = 2 + vp q(s²+t²) = 2(k'+1)`. With
+`SumTwoSquaresCharacterization` this **closes the two-square characterization both
+directions** — entirely as computed modular facts (no ℤ[i] ideal theory). Reveals: **the
+obstruction's parity is a literal valuation descent the constructive inert-prime lemma
+drives — the classical "ℤ[i] is a PID so q stays prime" is replaced by a `% q`
+computation iterated.** (15 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
