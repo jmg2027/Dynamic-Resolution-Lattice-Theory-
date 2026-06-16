@@ -38,12 +38,36 @@ powers. Proven ∅-axiom over coprime products:
   reindex `divisorSum (a·b) f = Σ_{i<a}Σ_{k<b} dvdInd i a · dvdInd k b ·
   f((i+1)(k+1))`, the combinatorial heart of every multiplicativity proof.
 
+## 2.5 The structural theorems (multiplicative functions as a family)
+
+The per-function results above are instances of three theorems quantified
+over *all* multiplicative `f` — the structure the whole family rests on:
+
+- **Summatory** `SummatoryMultiplicative.summatory_mul`: `f` multiplicative
+  ⟹ `g(n)=Σ_{d∣n} f(d)` multiplicative. `sigma_mul` (`f=id`) and `tau_mul`
+  (`f≡1`) are one-line corollaries.
+- **Convolution** `DirichletMultiplicative.dconv_mul`: `f,g` multiplicative ⟹
+  `f∗g` multiplicative (the full `dconv` version; `summatory_mul` is the
+  `g≡1` case). The multiplicative functions are closed under `∗`.
+- **Uniqueness** `MultiplicativeUniqueness.mult_eq_of_prime_pow`: two
+  multiplicative functions agreeing on every prime power are equal — a
+  multiplicative function *is* determined by its prime-power values
+  (the ×-count-Lens reading axis by axis).
+
+All three close by the same smallest-prime-power strong induction
+(`exists_prime_pow_cofactor`): split `n=p^k·m` (coprime, m<n), factor by
+multiplicativity, recurse on `m`.
+
 ## 3. Divisor-sum identities (general n, not tables)
 
 - **Gauss totient** `GaussTotient.gauss_totient`: `Σ_{d∣n} φ(d) = n`.
 - **Möbius** `MobiusBridge.mu_divisor_sum`: `Σ_{d∣n} μ(d) = [n=1]`.
-- **Liouville** `LiouvilleFunction.liouville_divisor_sum_table`:
-  `Σ_{d∣n} λ(d) = [n is a perfect square]` (verified to n=16).
+- **Liouville** `LiouvilleValuation.lambdaV_divisor_sum_isSquare`:
+  `Σ_{d∣n} λ(d) = [n is a perfect square]` for **all n** — on the
+  valuation-form `λV(n)=∏_p (−1)^{vp p n}`, a completely multiplicative
+  function (`lambdaV_mul`, all m,n) reaching what the trial-division
+  `LiouvilleFunction.liouville` gives only by table (the two agree for
+  n≤16; the general bridge shares μ's open scan-correctness invariant).
 - **Generalized** `GeneralizedDivisorSum.sigmaK` carries `σ_k` for all k.
 
 ## 4. Möbius inversion + the bridge to `mu`
@@ -93,6 +117,11 @@ infrastructure, all ∅-axiom:
   from `uv=r²`.
 - `isSquare_iff` (`IsSquare n ↔ v2 n even ∧ IsSquare(oddPart n)`),
   `sq_or_twice_iff` (`(n square ∨ n twice-square) ↔ IsSquare(oddPart n)`).
+- `SquareValuation.isSquare_iff_all_vp_even`: the all-primes form —
+  `IsSquare n ↔ ∀ p prime, vp p n even` (the general "square ⟺ every
+  exponent even"; the 2-adic `isSquare_iff` is the `p=2` slice). By the
+  same smallest-prime-power descent; `coprime_isSquare_mul` +
+  `isSquare_prime_pow_iff`.
 
 ## Promotion record
 
