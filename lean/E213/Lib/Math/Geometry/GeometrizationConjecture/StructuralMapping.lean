@@ -1,76 +1,32 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.EightGeometries
-import E213.Lib.Math.Cohomology.HodgeConjecture.API
-import E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete
 
 /-!
-# Structural mapping: HC_K32 + universal-8 + ultimate (steps 21, 23, 24)
+# Structural mapping: octet-8 + universal-8 + ultimate (steps 21, 23, 24)
 -/
 
 namespace E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
 
-/-! ## §HC — Hodge-K32 ↔ 8 geometries deeper hint (R1 step 21)
+/-! ## §HC — octet H¹(K_{3,2}^{(c=2)}) ↔ 8 geometries hint (R1 step 21)
 
-**User insight**: "HC_K32: 우리가 앞서 정교하게
-검증했던 K_{3,2}^{(c=2)}라는 유일한 기저 위에서 호지 성질이 8개의
-코호몰로지 클래스 전부에 대해 닫혀 있음을 확인했습니다. 를 보면
-8개 리군도 연결고리가 이미 있을수도?"
+The gluon octet H¹(K_{3,2}^{(c=2)}) has rank 8 = NS² − 1
+(`OctetModule.rank`, `b1_corrected 3 2 2 = 8`), and the full
+cohomology |H¹| = 2⁸ = 256.  Both this octet enumeration and the
+Thurston 8-geometries enumeration land on 8 with a shared Sym(3)
+spine (`X1_sym3_cross_frame_capstone`).
 
-VERIFIED: `HodgeConjecture.API.HC213` + `Foundation.Complete.
-hodge_conjecture_213_complete` already proves:
-  · `HC_K32`: every Hodge class on K_{3,2}^{(c=2)} is
-    edge-algebraic
-  · Cup-subring spans H¹(K_{3,2}^{(c=2)}) = 256 classes,
-    b_1 = 8
-  · ⋆ involution on Δ⁴ strata (5-fold ⋆⋆ = id)
+**STRUCTURAL HINT** for the 8-geometries correspondence:
 
-**KEY STRUCTURAL HINT**: the 8 cohomology classes of
-H¹(K_{3,2}^{(c=2)}) are **all Hodge-closed AND all algebraic**.
-This is stronger than the bare "rank 8" arithmetic parallel
-(step 11 §G).  Now we have:
-
-  · 8 H¹ classes = enumeration of Hodge-closed algebraic
-    representatives in K_{3,2}^{(c=2)} edge cohomology
+  · 8 H¹ classes = rank of the gluon octet on K_{3,2}^{(c=2)}
+    edge cohomology
   · 8 model geometries = enumeration of 3-dim Lie-group
     homogeneous structures (Thurston classification)
 
-**Both enumerations are 8** AND **both characterize a maximal
-property**:
-  · Standard: 8 = maximal homogeneous geometries (Thurston)
-  · 213-Lens: 8 = maximal Hodge-closed algebraic class basis
-    (HC_K32)
-
-This is the **deepest structural hint** yet for the 8-geometries
-correspondence — both sides are *maximal-property enumerations*,
-not just arithmetic count alignments.
-
-**STEREOTYPE MATCHING WARNING (REVISED)**: previous warning
-(step 11) cautioned against direct identification of bare-rank-8
-with Lie-group enumeration.  The deeper insight here is that
-the *algebraic-Hodge-closure* on 8 classes provides
-representation-level analog to *Lie-group homogeneity* on 8
-geometries — both being "closure" properties under appropriate
-operations.  This is **plausible enough** to warrant a
-structural-correspondence theorem, but **full mapping is open
-work**.
-
-**Upgrade**: §G 8-geometries pillar from NARRATIVE ⚠ to
-**STRUCTURAL-HINT ✓** at this layer.  Full structural mapping
-(which class corresponds to which geometry) remains open.
+Full structural mapping (which class corresponds to which geometry)
+remains open.
 -/
 
-/-- HC_K32 invoke: every Hodge class on K_{3,2}^{(c=2)} is
-    edge-algebraic.  Combined with cup-subring spans H¹
-    (256 = 2^8 classes), 8 H¹ basis elements are all
-    Hodge-closed AND algebraic. -/
-theorem K32_eight_classes_hodge_closed :
-    -- HC213 bundle exists (combined Hodge conjecture 213-form)
-    E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.HC_Universal
-    ∧ E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.HC_K32
-    ∧ E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.HC_Involution := by
-  exact E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.hodge_conjecture_213_complete
-
 /-- 8 H¹ classes ↔ 256 cohomology elements (= 2^8 ).
-    All Hodge-closed AND edge-algebraic per HC_K32. -/
+    Octet rank 8 = NS² − 1, full H¹ = 2⁸. -/
 theorem K32_H1_256_classes :
     -- |H¹| = 2^8 = 256
     (2 : Nat) ^ 8 = 256

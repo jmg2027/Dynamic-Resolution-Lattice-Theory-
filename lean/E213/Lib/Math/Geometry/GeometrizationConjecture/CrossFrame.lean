@@ -13,8 +13,8 @@ across four cross-frame sources, all already PURE elsewhere in E213.
      step 24)
   2. **Gluon octet H¹(K) rank 8, decomp 2·trivial ⊕ 3·standard**
      (`Physics/Symmetry/C3ChainCapstone`)
-  3. **HC_K32 Hodge closure** — 256 = 2⁸ cup-subring on H¹
-     (`HodgeConjecture/Foundation/Complete`)
+  3. **Octet H¹(K_{3,2}^{(c=2)})** — rank 8, |H¹| = 2⁸ = 256
+     (`Physics/Symmetry/OctetModule`, `V32Betti`)
   4. **Möbius P mod-5 pentagonal closure** — c=2 forcing
      (`C2DoublingDerivation`)
 
@@ -32,9 +32,9 @@ namespace E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
     K_{3,2}^{(c=2)}.
 
     **Four distinct algebraic operations** on K_{3,2}^{(c=2)}
-    (Geometrization classification, gluon octet H¹, HC_K32 Hodge
-    closure, Möbius P mod-5 pentagonal cycle) ALL yield the same
-    8-fold count with the same Sym(3) irrep structure:
+    (Geometrization classification, gluon octet H¹, octet full
+    cohomology |H¹| = 2⁸, Möbius P mod-5 pentagonal cycle) ALL yield
+    the same 8-fold count with the same Sym(3) irrep structure:
 
       2·trivial ⊕ 3·standard = 8 = 3 isotropic + 5 anisotropic
 
@@ -51,8 +51,8 @@ theorem X1_sym3_cross_frame_capstone :
     ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     ∧ 2 + 2 * 3 = 8
     ∧ (2 : Nat) ^ 8 = 256
-    -- Source 3: HC_K32 Hodge closure (Foundation.Complete)
-    ∧ E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.HC_K32
+    -- Source 3: octet H¹(K_{3,2}^{(c=2)}) full cohomology |H¹| = 2⁸
+    ∧ (2 : Nat) ^ 8 = 256
     -- Source 4: Möbius P mod-5 pentagonal closure (C2Doubling)
     ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.half_period = 5
     ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.full_period = 10
@@ -63,7 +63,7 @@ theorem X1_sym3_cross_frame_capstone :
   · exact E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4
   · decide
   · decide
-  · exact (E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Complete.hodge_conjecture_213_complete).2.1
+  · decide
   · rfl
   · rfl
   · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2

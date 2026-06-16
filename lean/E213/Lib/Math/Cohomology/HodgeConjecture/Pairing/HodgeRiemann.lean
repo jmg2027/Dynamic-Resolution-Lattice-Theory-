@@ -1,4 +1,3 @@
-import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex
 import E213.Lib.Math.Cohomology.Hodge.HodgeRiemannJ
 
 /-!
@@ -33,7 +32,6 @@ STRICT ∅-AXIOM.
 
 namespace E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemann
 
-open E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex (hodge_index_213_capstone)
 open E213.Lib.Math.Cohomology.Hodge.SignedStarC4 (Mat mul I negI J)
 open E213.Lib.Math.Cohomology.Hodge.HodgeRiemannJ (Q transpose)
 
@@ -75,11 +73,8 @@ theorem hodge_riemann_positivity_signed :
     `Jᵀ Q J = Q`, and positive-definite `h = Q·J = I`.  The previously-deferred
     positivity is now supplied (the signed Hodge star `J = ⋆`), not vacuous. -/
 theorem hodge_riemann_213_capstone :
-    -- Hodge Index pieces (re-exported)
-    (8 = 3 * 3 - 1)
-    ∧ (256 = 2 ^ 8)
     -- ★ genuine positivity (signed ℤ): polarization (Q,J), h = Q·J = I ≻ 0
-    ∧ (mul J J = negI ∧ mul (transpose J) (mul Q J) = Q ∧ mul Q J = I) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
+    (mul J J = negI ∧ mul (transpose J) (mul Q J) = Q ∧ mul Q J = I) := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemann

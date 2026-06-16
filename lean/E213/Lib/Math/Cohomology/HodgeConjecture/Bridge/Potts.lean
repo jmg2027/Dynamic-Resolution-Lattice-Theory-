@@ -1,6 +1,5 @@
 import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.Ising
 
-import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.PhaseRouting
 import E213.Lib.Physics.Simplex.Counts
 /-!
 # Potts (q=3) model on K_5 in 213-native form
@@ -32,7 +31,6 @@ STRICT ∅-AXIOM by `decide`.
 namespace E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.Potts
 
 open E213.Lib.Physics.Simplex.Counts (binom)
-open E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.PhaseRouting (Route)
 
 /-! §1  q=3 spin lattice on K_5. -/
 

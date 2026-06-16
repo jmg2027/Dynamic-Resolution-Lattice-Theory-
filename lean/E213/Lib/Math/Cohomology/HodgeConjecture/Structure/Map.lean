@@ -1,5 +1,4 @@
 import E213.Lib.Math.Cohomology.Hodge.InvolutionCapstone
-import E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Hodge.Star
