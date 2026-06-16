@@ -2,6 +2,7 @@ import E213.Lib.Math.Order.GaloisConnection
 import E213.Lib.Math.Order.GaloisConnectionComposition
 import E213.Lib.Math.Order.BooleanAlgebra
 import E213.Lib.Math.Order.KnasterTarski
+import E213.Lib.Math.Order.TarskiLattice
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Order` — order theory.
 
