@@ -125,9 +125,20 @@ bricks across domains, each `#print axioms`-empty, each committed + pushed:
 - **Linear algebra**: `Vec.inner_comm` (inner product symmetric).
 - **Golden bridge**: `lucas_fib_isNorm5neg` (Lucas–Fibonacci pair realizes the ℚ(√5) norm).
 
-Scout-driven loop (cycles 3–6): each cycle finds ~5 verified gaps in distinct domains; all
+- **Probability**: `discreteNum_append` (linearity of expectation numerator).
+- **Holonomy**: `det_holonomy_append` (det∘holonomy is a monoid hom).
+- **Continuants**: `continuant_append_entry` (K(l₁++l₂) top-left via K(l₁)·K(l₂)).
+- **CD algebra**: `conj_mul_basis` (conjugation anti-hom at the octonion basis pair).
+- **GRA**: `canonicalGradeMap_a_slash_b` (grade(slash a b) = 5 = NS+NT, d read off GRA).
+- **Power sums**: `two_mul_sum_first` (2·Σk=n(n+1)), `six_mul_sum_sq_first` (6·Σk²=n(n+1)(2n+1)).
+- **gcd lattice**: `gcd213_assoc` (gcd associativity; gcd commutative-monoid laws complete).
+
+Scout-driven loop (cycles 3–7): each cycle finds verified gaps in distinct domains; all
 closed ∅-axiom, committed + pushed.  Reusable craft: pure-lemma map for the propext-tainted
-core (`Meta.Int213/Nat.*`), `div_eq_of_sandwich` for floors, `sigmaList_*` for finite sums.
+core (`Meta.Int213/Nat.*`; note `Nat.mul_assoc`/`dvd_trans`/`mul_eq_zero`/`div_eq_of_lt_le`
+all carry propext — use `mul_assoc_213`/local `dvdTrans`/`Int213.mul_eq_zero`/`div_eq_of_sandwich`),
+`sigmaList_*` for finite sums.  **Remaining scout-7 leads (deferred, MED):** σ_m(p^k)
+geometric closed form (needs `ipow_mul`), `cutMul_assoc` (needs cutEq-under-cutMul congruence).
 
 ### Honesty correction (wave 1)
 `research-notes/frontiers/rebuild_roadmaps/proton_electron_ratio_rebuild.md` —
