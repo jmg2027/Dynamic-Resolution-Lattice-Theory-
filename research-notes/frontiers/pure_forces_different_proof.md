@@ -233,6 +233,28 @@ factor.** (14 PURE; reuses `PrimeFactorization.minFac`, `VpMul.IsPrime213`,
 `Nat.mod_mod_of_dvd` both carry `propext` → `PureNat.mul_assoc` /
 `AddMod213.mod_mod_of_dvd`.)
 
+### B — Erdős–Szekeres, monotone subsequence via the label box (★ fresh-domain B-case)
+`Combinatorics/ErdosSzekeres`. Any sequence of `> (r−1)(s−1)` distinct values has a
+strictly-increasing subsequence of length `r` or a strictly-decreasing one of
+length `s`: `erdos_szekeres : (r−1)*(s−1) < n → (∀ i j, i≠j → a i ≠ a j) →
+(∃ i, r ≤ incVal a i) ∨ (∃ i, s ≤ decVal a i)`, with the **explicit subsequence
+extracted** (`inc_subseq` returns a strictly-monotone `Fin r → Fin n` with `a`
+increasing along it). Classical Erdős–Szekeres is an abstract pigeonhole `∃` (two
+indices share an `(inc,dec)` label) wrapped in `by_contra`. ∅-axiom forces the
+colliding pair to be **computed**: the label map `g : Fin n → Fin ((r−1)(s−1))`
+packs `(inc−1)(s−1)+(dec−1)`, `exists_collision_lt` *returns* the actual `i≠j`
+with `g i = g j`, and the strict-order step (`a i < a j ⟹ inc i < inc j`) makes
+equal labels with `i<j` impossible — the box overflows. The outer `Or` is a
+constructive bounded search (`scanBox`, mirroring `Pigeonhole.scan`) over `Fin n`
+with `Nat.decLt` — no `by_contra` on a non-decidable `∃`. The subsequence
+extraction is **choice-free**: `incPredData` returns the argmax index *as data*
+(`PSigma`/`Sum`), so iterating the predecessor chain needs no `Classical.choice`.
+Reveals: **the monotone-run witness is an algorithm output — the `inc`/`dec`
+strong recursion + the computed collision + the data-returning argmax — not an
+abstract pigeonhole existential.** A third reuse of `exists_collision`, in a fresh
+domain (sequence/order combinatorics, broadening beyond number theory). (29 PURE;
+reuses `Pigeonhole.exists_collision_lt`, `EncodePair213` decoder, `Max213`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
