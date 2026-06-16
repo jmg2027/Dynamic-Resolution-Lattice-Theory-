@@ -314,11 +314,9 @@ a more general principle: pointwise equality as the bridge that
 replaces `funext`.  The same principle lifts to **arbitrary
 inductive predicates on function-typed arguments**.
 
-Concrete instance: `InPrimaryCupSpanPlusBoundary c`
-(`lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean`)
-is an inductive Prop on `EnrichedFaceVal c = Fin 3 → Fin 3 → Fin
-c → Bool`.  Closing the HARD direction
-`joint ψ-kernel ⊆ InPrimary` requires bridging from a candidate
+Concrete instance: an inductive Prop on a function-typed argument
+(e.g. `EnrichedFaceVal c = Fin 3 → Fin 3 → Fin c → Bool`) where
+closing a membership claim requires bridging from a candidate
 function `⊕ᵢ bᵢ · gᵢ` (built from primary cup-products) to the
 target `v`, which are pointwise-equal but not function-literal
 equal.  Solution: extend the inductive with a `cong` constructor
@@ -366,6 +364,3 @@ class.
     direction: `universalLens_kernel_eq_E_R` (`equivR`-form, PURE), the
     closure companions `recovers_R` / `idempotent_R`, and the `*_pw`
     combine/view/fold companions
-  · `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean`
-    — cong constructor instance; see the `cong` case in
-    `primary_cup_span_soundness_conditional`

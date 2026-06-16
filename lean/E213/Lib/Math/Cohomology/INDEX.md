@@ -22,16 +22,11 @@ across 14 sub-clusters + 17 top-level.
 | `Tripartite/` | 3 | K_{2,1,3} tripartite cohomology (V213 Betti + shadow projection) |
 | `Infrastructure/` | 1 | shared infrastructure |
 
-## Top-level (17 files)
+## Top-level files
 
 Umbrellas: Cochain, Cup, CupAW, Delta, Fractal, Hodge,
 HodgeConjecture, Bipartite, Surfaces, Universal, Tripartite.
 
-Content files: `Capstone.lean` (final bundle),
-`BipartiteStermBrocotClassification.lean`,
-`CrossGraphPattern.lean` (cross-graph pattern transfer),
-`K33Unified.lean` (K_{3,3} unified closure),
-`MediantCohomologyFunctor.lean` (mediant → cohomology functor),
-`NodupAsClause4.lean`.
+Content files: `Capstone.lean` (final bundle).
 
 `Cohomology.lean` — single import for downstream.

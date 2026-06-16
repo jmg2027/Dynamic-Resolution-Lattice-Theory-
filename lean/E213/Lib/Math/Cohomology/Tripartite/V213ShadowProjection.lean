@@ -20,8 +20,7 @@ This **closes** the speculative "Tripartite natural cohomology ↔
 K_{3,2}^{(c=2)} Massey shadow projection" question: the shadow is
 trivially zero, so no non-trivial Massey content transfers from the
 bipartite to the tripartite side.  The Massey content lives
-intrinsically in `K_{3,2}^{(c=2)}` (see `V33EnrichedParametric`
-ψ-discriminators).
+intrinsically in `K_{3,2}^{(c=2)}`.
 
 ## Theoretical role
 

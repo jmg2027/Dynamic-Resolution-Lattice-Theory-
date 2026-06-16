@@ -523,8 +523,6 @@ p-adic library narrative (308 PURE theorems).
 
   · `theory/math/algebra/mobius_canonical_equivalence.md` — P as cut
     equivalence generator (mediant closure side)
-  · `theory/math/cohomology/k_nm_c_classification.md` — the
-    bipartite cohomology side (K_{NS,NT}^{(c)} classification)
   · `theory/math/numbersystems/padic_real213.md` — ∅-axiom p-adic number
     construction (the Lens-arena for mod-p reductions)
   · `theory/essays/p_orbit/p_orbit_naturalness_boundary.md` — synthesis

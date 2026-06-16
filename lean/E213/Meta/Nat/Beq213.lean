@@ -16,10 +16,8 @@ symbolic offset reductions — ring-independent `Nat` plumbing.
     when `a ≠ b`, `r₁ < 9`, `r₂ < 9` (size-9 blocks are disjoint)
 
 These bridge abstract-`m` offsets (`9·m.val + k`) into
-layer-independent `Nat.beq` comparisons.  Used by the parametric
-kill lemmas in `Cohomology/Bipartite/V33EnrichedParametric*`, where
-each K_{3,3}^{(c)} layer occupies a contiguous `[9m, 9m + 9)` range
-of edge indices.
+layer-independent `Nat.beq` comparisons, e.g. where each layer
+occupies a contiguous `[9m, 9m + 9)` range of indices.
 -/
 
 namespace E213.Meta.Nat.Beq213

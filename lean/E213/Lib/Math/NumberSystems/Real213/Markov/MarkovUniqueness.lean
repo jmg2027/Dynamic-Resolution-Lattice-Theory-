@@ -1378,7 +1378,7 @@ theorem markov_reachable_no_3mod4_factor {a b c : Nat} (hc : 1 < c) (h : MarkovR
 
 /-! ## §14 — toward the uniqueness certificate framework: the recovery map
 
-The Stern-Brocot tree node theorem (`Cohomology/BipartiteStermBrocotClassification`) already gives
+The Stern-Brocot tree node theorem (`NumberSystems/Real213/Mobius/Mobius213SternBrocot`) already gives
 that every coprime `(p,q)` is a *unique* tree node — so the Markov uniqueness conjecture is purely
 that the **node ↦ maximum** labelling is injective.  The phantom-root filter
 (`markov_phantom_root_filter`, `markov_composite_separation`) certifies this per-`c` by reducing
