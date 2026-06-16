@@ -816,4 +816,4 @@ real ∅-axiom conquests.
   decay → P3 energy/Dirichlet → P4 Li–Yau → P5 Shi.  P1–P3 reachable; P4–P5 the
   real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.
 | `hall_general_induction.md` | Hall marriage general-n (Halmos–Vaughan induction); framework + n≤2 closed in `Combinatorics/HallMarriage` | open |
-| `analysis_modulus_pending.md` | Cesàro DONE (`Analysis/CesaroMean`); limit-arithmetic/squeeze still open (need additive metric) | partial |
+| `analysis_modulus_pending.md` | Cesàro + limit-arithmetic sum DONE; product/squeeze still open | partial |
