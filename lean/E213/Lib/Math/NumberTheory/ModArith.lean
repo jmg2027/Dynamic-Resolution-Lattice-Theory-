@@ -27,6 +27,7 @@ import E213.Lib.Math.NumberTheory.ModArith.FrobeniusNonRepresentable
 import E213.Lib.Math.NumberTheory.ModArith.LucasTheorem
 import E213.Lib.Math.NumberTheory.ModArith.WilsonInverse
 import E213.Lib.Math.NumberTheory.ModArith.WilsonTheorem
+import E213.Lib.Math.NumberTheory.ModArith.WilsonConverse
 import E213.Lib.Math.NumberTheory.ModArith.CoprimeMultiplicative
 import E213.Lib.Math.NumberTheory.ModArith.EulerCriterion
 import E213.Lib.Math.NumberTheory.ModArith.EulerConverse
