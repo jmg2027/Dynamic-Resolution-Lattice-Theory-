@@ -59,10 +59,15 @@ becomes, ∅-axiom, the **symmetric double-sum parity** lemma `Σ_{a,b<N} g a b 
 multiplicativity table. (Partial: the multiplicativity *could* also be
 factored; the forcing is in choosing the involution-count form.)
 
-### A (candidate, not yet a clean case)
-The number-system corpus already works representative-first (Padic digits, slot
-arithmetic, ℤ-as-difference-Lens). Need a theorem *classically iso-on-a-quotient*
-re-proven as an *explicit bijection* to make a sharp A-case — see forward hunt.
+### A — Chinese Remainder Theorem as an explicit bijection (★ clean A-case)
+`ModArith/CRTReconstruction`. Classical CRT is the quotient-ring iso
+`ℤ/mn ≅ ℤ/m × ℤ/n` whose construction rides on `Quot.sound`. With no quotient,
+CRT is forced into explicit Nat functions: `crtMap x = (x%m, x%n)` and the Bezout
+closed-form `crtSolve`, with `crt_unique` a bare divisibility argument and
+`crt_solve_residues` a modular computation; the two round-trips
+(`crt_map_solve`, `crt_solve_map`) ARE the bijection. Reveals: **the CRT
+isomorphism is literally the reconstruction algorithm `crtSolve`; the quotient
+was packaging, the round-trip is the content.** (12 PURE.)
 
 ## Forward hunt (targets selected by the criterion)
 
