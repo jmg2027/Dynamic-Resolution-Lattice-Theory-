@@ -76,6 +76,17 @@ witness would have to count across the `+`/`×` independence the repo *proves* v
 surfaced: **Bertrand's postulate** (reachable; keystone = primorial bound `∏_{p≤N} p ≤ 4ⁿ`,
 ~1 week) and the **Selberg sieve SOS positivity** (same shape as `colored_confinement_master`).
 
+### Wave 4 bricks (Bertrand infrastructure — autonomous)
+
+10. **Primorial keystones toward Bertrand's postulate** (`MultSystemValue.lean`).
+    `primesIn_split` (`lo≤mid≤hi → primesIn lo hi = primesIn mid hi ++ primesIn lo mid`,
+    the Erdős window split) and `listProd_append` (`∏(xs++ys)=∏xs·∏ys`).  Both PURE.
+    Roadmap + remaining sub-bricks: `research-notes/frontiers/bertrand_postulate.md`.
+    Panel verdict: full Bertrand is ∅-axiom-reachable; the keystone is the primorial
+    `∏_{p≤N} p ≤ 4ⁿ`.  Honest hazard surfaced: the repo has **four** un-bridged `binom`
+    defs + a distinct `choose`, so `odd_central_binom_le` is gated on a def-unification
+    (an `org-audit`/integration task, not the math) — flagged for next session.
+
 ### Honesty correction (wave 1)
 `research-notes/frontiers/rebuild_roadmaps/proton_electron_ratio_rebuild.md` —
 the Stage-1 bracket claim was **numerically false** (`6π⁵ ∈ (1835.60, 1839.82)`
