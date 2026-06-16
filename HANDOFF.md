@@ -130,9 +130,10 @@ chapter's vein-C section. Full Math green at **1972 modules**.
 - **Two-square arc COMPLETE** (∅-axiom, all computed modular facts, no ℤ[i]):
   `TwoSquareTheorem` (hard dir) + `SumTwoSquaresCharacterization` (18 PURE, the
   "if" direction via the Brahmagupta product) + `InertPrimeThreeMod4` (7 PURE,
-  the "only if" core: `inert_three_mod4`, `neg_one_nonresidue_three_mod4`,
-  descent `qsq_dvd_of_dvd_three_mod4`). Remaining: full odd-power statement +
-  Int↔Nat bridge (`frontiers/two_square_only_if.md`). Full Math green at **1981**.
+  the "only if" core) + `SumTwoSquaresOddPower` (15 PURE, `even_vp_three_mod4`:
+  a sum of two squares has even q-adic valuation at every q≡3mod4 — the inert-prime
+  descent on `vp`). **Characterization CLOSED both directions**
+  (`frontiers/two_square_only_if.md` → closed). Full Math green at **1982**.
 
 **Orchestration lesson (for next iteration):** the env cleans agent scratch dirs
 between Bash calls, which RACES any "scratch removed ⟹ done" watcher and gives
