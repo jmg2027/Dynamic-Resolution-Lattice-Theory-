@@ -122,6 +122,19 @@ class-number core (composite `c` with both `3c±2` composite, smallest `1325`).
 Closure record: `theory/math/analysis/{markov_uniqueness,markov_spectrum}.md`.
 **Status of `H`**: maximally localized (terminal, `G197`) — the open residue *is*
 the Frobenius conjecture; the Lean scaffold + finite instances are ∅-axiom.
+**Strip-reframe cap CLOSED ∅-axiom (2026-06-16)** — a multi-agent panel re-examined
+whether the "terminal" verdict could be bypassed (G204 direction-1: iterate Zhang's
+`3c±2` reframe down a proper *factor*).  Verdict: **no**, and now a theorem —
+`MarkovUniqueness.proper_divisor_of_zhang_modulus_lt_two_c` (PURE): *every proper
+divisor of `3c±2` is `< 2c`* (discriminant `9c²−4 = (3c−2)(3c+2)`; a proper divisor
+is `≤ M/2 < 2c`).  So a proper factor leaves the square-collapse with room for the
+`x+y=q` branch and cannot force `δ=δ'`; only `3c±2` itself (`>2c`) closes a case.
+`3c±2` is the **last** parametric family of the linear-invariant kind — a *map cap*
+(it formalizes why the elementary route terminates), not a kernel advance.  The panel
+also gave a sharp irreducibility characterization: the distinguishing `√(−1)`-suborbit
+data provably leaves `c` at every Vieta descent step (`markov_vieta_partner_le` shrinks
+the modulus), so no fixed-`c` finite signature carries it — the uniform residue has no
+local witness.
 
 ## Spiral-axis / modular-tower classification  (`spiral_axis/`)
 
