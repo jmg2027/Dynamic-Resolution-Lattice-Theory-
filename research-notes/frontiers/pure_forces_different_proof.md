@@ -118,6 +118,21 @@ inclusion direction — the reverse is a *signed* Bezout combination (not
 ∅-axiom over Nat), so the generator-is-gcd fact is realized at the **order**
 level (`subgroup_order`) instead, which is the load-bearing content. (17 PURE.)
 
+### B — every n>1 is a product of primes, by the factorization *algorithm* (★ clean B-case)
+`NumberTheory/PrimeFactorization`. Classically the FTA-existence is a
+*least-counterexample* proof (well-ordering + LEM: a minimal non-factorable n
+is composite, n=ab smaller, both factor by minimality → contradiction). With
+no LEM/well-ordering as a proof device, the existence becomes the
+**factorization algorithm** `factorize` (reducible fuel recursion: extract the
+smallest prime factor, recurse on the strictly-smaller quotient);
+`factorize_prod : prodL (factorize n) = n` certifies it, `factorize_all_prime`
+gives primality. A sharp extra forcing point: the corpus's *Prop-valued*
+`exists_prime_factor` (an `∃`) **cannot be used as data** to build `factorize`
+without `Classical.choose` — so a *computable* `minFac` upward search is forced.
+Reveals: **the FTA-existence IS the factorization algorithm — the witness is
+computed (`factorize 12` reduces to `[2,2,3]` by `decide`), not extracted from
+a minimal counterexample**; and a `Prop`-∃ is not data without choice. (16 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
