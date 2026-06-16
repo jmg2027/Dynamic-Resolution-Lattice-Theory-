@@ -33,6 +33,21 @@ Elementary classical number theory + combinatorics, all ∅-axiom PURE:
   degree theory) (44 PURE).
 The multiplicative_divisor_theory.md chapter was updated (§2.5 structural
 theorems, §3/§7 generalizations).
+- **Valuation arc**: `LegendreDePolignac` (Legendre recurrence + de Polignac
+  digit-sum `(p−1)·vp_p(n!)+s_p(n)=n`, 15 PURE) → `KummerTheorem`
+  (`(p−1)·vp_p(C(m+n,m)) = s_p(m)+s_p(n)−s_p(m+n)` = base-p carry count, 7 PURE).
+- **Set-partition combinatorics cluster** (promoted to
+  `theory/math/combinatorics/inclusion_exclusion_set_partitions.md`):
+  `BinomialInversion` (39), `SurjectionCount` (44, + a fresh finite-difference
+  machinery `A_rec`/`PolyLe`), `DerangementInclusionExclusion` (11),
+  `StirlingExplicit` (`surj=n!·S`, 13), `BellStirling` (`B_n=Σ_k S(n,k)` general
+  + the block-conditioning identity, 10).
+- **Order theory (new `Lib/Math/Order/` cluster — fresh domain pivot)**:
+  `GaloisConnection` (unit/counit, monotonicity, triangle identities, the g∘f
+  closure operator; multiply/divide adjunction witness, 15 PURE),
+  `BooleanAlgebra` (Huntington axioms ⟹ complement uniqueness, double-complement,
+  both De Morgan laws; Bool instance, 25 PURE), `KnasterTarski` (lfp/gfp
+  fixed-point theorem on a parametrized complete lattice, 19 PURE).
 
 ## What Was Done This Session (first leg, before merge)
 
