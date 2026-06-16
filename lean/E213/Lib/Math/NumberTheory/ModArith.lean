@@ -89,6 +89,7 @@ import E213.Lib.Math.NumberTheory.GaussTotient
 import E213.Lib.Math.NumberTheory.TotientPairing
 import E213.Lib.Math.NumberTheory.EulerTheorem
 import E213.Lib.Math.NumberTheory.MultiplicativeOrder
+import E213.Lib.Math.NumberTheory.CyclicSubgroupOrbit
 import E213.Lib.Math.NumberTheory.DivisorProductReindex
 import E213.Lib.Math.NumberTheory.DivisorMultiplicative
 import E213.Lib.Math.NumberTheory.SummatoryMultiplicative

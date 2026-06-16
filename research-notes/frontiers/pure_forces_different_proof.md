@@ -92,6 +92,18 @@ bounded search, no `by_contra`). Reveals: **the field/non-field dichotomy IS
 the gcd computation** — invertibility decided by Bezout, failure an explicit
 zero divisor; the quotient ring was packaging. (16 PURE.)
 
+### A — cyclic subgroup `⟨a⟩` as the explicit orbit (★ clean A-case)
+`NumberTheory/CyclicSubgroupOrbit`. Classically `⟨a⟩` is an abstract cyclic
+*subgroup* of the quotient group `(ℤ/n)*`, and `|⟨a⟩| ∣ |(ℤ/n)*|` is Lagrange
+via coset counting. With no quotient/abstract group: `⟨a⟩` is the **explicit
+finite orbit** `{a^k % n : k < ord}` — distinct below the order
+(`pow_inj_below_ord`, via `ord_min` after unit-cancellation), periodic
+(`pow_period`), closed under `·` by folding exponents mod `ord`
+(`orbit_mul_closed`) — and the divisibility `cyclic_lagrange : ord ∣ φ(n)` is
+the **computed** `ord_dvd_of_pow_one` fed by Euler's `a^φ≡1`. Reveals:
+**Lagrange's theorem (cyclic case) is the order-divides-totient computation,
+not coset counting**; the subgroup is the concrete orbit. (14 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
