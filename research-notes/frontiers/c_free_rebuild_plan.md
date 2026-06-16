@@ -128,3 +128,28 @@ no residual `K_{3,2}^{(c)}` / `c·NS·NT` / `(3,2,2,5)` anywhere.
 - **Build coherence**: leaf deletions (Phase B) keep build green; spine deletions
   (Phase C/D) break it until re-rooted — done in the same phase, not left open.
 - **`scan_axioms` purity** preserved throughout.
+
+---
+
+## FINAL STATE (2026-06-16) — c eliminated as forced primitive + physics constant; one residual
+
+**Done, verified green + PURE, pushed:**
+- Atomic signature `(NS,NT,d)=(3,2,5)`, no atomic `c` (A).
+- Leaf c-counter parametric cohomology programme deleted (~48 files) (B).
+- Headline `1/α_em = 137,035,999,111` re-derived c-free, `60 = NS·NT²·d` — preserved exactly (D-core).
+- Signed-ℤ Hodge star built (`SignedHodgeStar`, `⋆∘⋆=(−1)^{k(n−k)}`) — the order-2 `i` (E).
+- Octet re-rooted to `NS²−1`; `K32Projection` deleted; edge counts c-free (`NS·NT²`) (C-clean).
+- C3-chain rep theory ported onto c-free `Symmetry/OctetModule` (rank-8 `Sym(3)` F₂-rep = `NS²−1`);
+  `H1K`+`OctetCokernel`+12 graph-rep files deleted; `c3_chain_master` ★★★★★ + Geometrization gate
+  re-proven PURE (C-port).
+- `c_lat`/`c_lattice`/`C_lat` fully removed (→ `NT`) across ~22 physics files; 0 residual tokens (F-part1).
+
+**Residual (escalated, principled — NOT a forced/physics `c`):** `V32`/`V32Betti` — the concrete
+12-edge `K_{3,2}^{(c=2)}` graph — are retained as the **cochain-level backbone of separate closed
+programmes**: the Hodge-Conjecture-in-213 capstone (`hodge_conjecture_213_lens`, whose *statement* is
+quantified over `CochE = Fin 12 → Bool`), `mult_parity_orthogonal_to_cup_orientation` (the bridge-killer
+itself), Tripartite self-containment, the Mobius signature-axis catalog, and Geometrization examples.
+Deleting them is not a re-rooting — it rebuilds those programmes (whose theorem *statements* reference
+the 12-edge space). Per the hard gate (don't break closed ★★★★★ capstones without a verified
+replacement), this is a dedicated follow-up: re-state the Hodge-213 / Tripartite capstones over a c-free
+cochain space, then delete `V32`/`V32Betti`. The physics spine no longer touches them.
