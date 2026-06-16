@@ -60,8 +60,27 @@ Honest rejection: √2/√p irrationality by v2-parity — the bare impossibilit
 already PURE in `Irrational/SqrtPure` (via descent); a reproof is a duplicate
 result, not a forcing case.
 
-Full `E213.Lib.Math` green at **1963 modules**; all pushed. Leg total: 7 modules
-+ the `exists_collision` primitive, ∅-axiom PURE (12+7+19+29+14+29+20).
+### Analysis sub-arc (answering "do the things that look impossible ∅-axiom")
+On the directive to tackle continuity/limits/analysis — the domains classically
+tied to LEM/compactness/choice. Answered symmetrically (vein C), four cases:
+- **`Analysis/ExtremeValue`** (23 PURE) — EVT modulus form: sup VALUE computable
+  (`CauchyCutSeq.limit` + convergence modulus), located/approached, attained at
+  every finite resolution, but the maximizer `max_reached_by_none` (the argmax
+  moves with resolution — analysis-level `object1_not_surjective`). Unconditional.
+- **`Analysis/UniformLimitContinuous`** (20 PURE) — uniform limit of continuous is
+  continuous: the limit's modulus *computed* `Ω m = ω_{r(m+2)}(m+2)`. Unconditional.
+- **`Logic/BolzanoWeierstrass`** (13 PURE) — binary BW *calibrated*: `lpo_of_bw`
+  (BW ⟹ LPO); `bw_of_lpo` at plain LPO NOT provable (extraction is Π⁰₂, above the
+  ledger). The import named (LPO) and measured (Π⁰₂), not removed.
+- **`Logic/HeineCantor`** (10 PURE) — HC *calibrated* to the fan theorem:
+  `heineCantor_of_fan`, the fan theorem the load-bearing `Bar → Bounded` bridge.
+The symmetry: **EVT + UniformLimit force the hidden modulus; BW + HeineCantor name
+and measure the import** — 213 never smuggles an exterior. Logged in the frontier
+collection + the methodology chapter's vein-C section.
+
+Full `E213.Lib.Math` green at **1967 modules**; all pushed. Leg total: **11
+modules + the `exists_collision` primitive**, ∅-axiom PURE — 7 number-theory/
+combinatorics (12+7+19+29+14+29+20) + 4 analysis (23+20+13+10).
 
 ## Post-merge continuation (after merge-to-main; second marathon leg)
 Elementary classical number theory + combinatorics, all ∅-axiom PURE:
