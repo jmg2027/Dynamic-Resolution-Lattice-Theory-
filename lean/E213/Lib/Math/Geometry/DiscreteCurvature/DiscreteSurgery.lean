@@ -196,4 +196,19 @@ theorem k32_surgery :
     ∧ iter surgeryFlow 2 2 = 0 :=
   ⟨by decide, by decide, by decide, by decide⟩
 
+
+/-! ## §3 — 3-regular (non-bipartite) Gauss–Bonnet instances -/
+
+/-- ★ **Discrete Gauss–Bonnet for `K₄`** (complete graph, 3-regular, non-bipartite):
+    `Σ_v (2 − deg v) = 4·(−1) = −4 = 2·(V − E) = 2·(4 − 6)`.  The handshake `Σ deg = 12 = 2·6`
+    discharges `gauss_bonnet_general` — the conservation law holds beyond the bipartite `K_{m,n}`. -/
+theorem gauss_bonnet_K4 :
+    gridSumZ 4 (fun _ => 2 - ((3 : Nat) : Int)) = 2 * eulerVE 4 6 :=
+  gauss_bonnet_general 4 6 (fun _ => 3) (by decide)
+
+/-- ★ **Discrete Gauss–Bonnet for the cube graph `Q₃`** (3-regular, 8 vertices, 12 edges):
+    `Σ_v (2 − 3) = 8·(−1) = −8 = 2·(8 − 12)`.  Handshake `Σ deg = 24 = 2·12`. -/
+theorem gauss_bonnet_cube :
+    gridSumZ 8 (fun _ => 2 - ((3 : Nat) : Int)) = 2 * eulerVE 8 12 :=
+  gauss_bonnet_general 8 12 (fun _ => 3) (by decide)
 end E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteSurgery
