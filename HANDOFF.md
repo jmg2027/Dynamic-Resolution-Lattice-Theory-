@@ -102,6 +102,16 @@ hidden modulus; BW + HeineCantor + Dini + the real-decision triad
 smuggles an exterior. Logged in the frontier collection + the methodology
 chapter's vein-C section. Full Math green at **1972 modules**.
 
+### Tier-C continuation (autonomous marathon, post-triad)
+- **`Analysis/RiemannContinuous`** (9 PURE) — continuous ⟹ Riemann integrable,
+  convergence modulus *computed* from the u.c. modulus (`riemannSum_cauchy`);
+  integral = explicit Cauchy limit. Reuses `MetricModulus` + `CutRiemann`.
+- **`Combinatorics/HallMarriage`** (36 PURE) — Hall's matching produced as DATA
+  (scan returns the right vertex; Hall = the scan never fails). Closed: framework
+  + counting infra + computed `hall_matching_{zero,one,two}`. General-`n`
+  (Halmos–Vaughan) is OPEN → `frontiers/hall_general_induction.md`; an agent is
+  currently attempting it (scratch `ScratchHG`). Full Math green at **1974**.
+
 Full `E213.Lib.Math` green at **1967 modules**; all pushed. Leg total: **11
 modules + the `exists_collision` primitive**, ∅-axiom PURE — 7 number-theory/
 combinatorics (12+7+19+29+14+29+20) + 4 analysis (23+20+13+10).
