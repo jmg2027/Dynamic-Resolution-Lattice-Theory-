@@ -97,6 +97,7 @@ import E213.Lib.Math.NumberTheory.DividesPairPigeonhole
 import E213.Lib.Math.NumberTheory.TwoSquareTheorem
 import E213.Lib.Math.NumberTheory.FermatQuartic
 import E213.Lib.Math.NumberTheory.PrimesThreeModFour
+import E213.Lib.Math.NumberTheory.TotientMultiplicative
 import E213.Lib.Math.NumberTheory.DivisorProductReindex
 import E213.Lib.Math.NumberTheory.DivisorMultiplicative
 import E213.Lib.Math.NumberTheory.SummatoryMultiplicative

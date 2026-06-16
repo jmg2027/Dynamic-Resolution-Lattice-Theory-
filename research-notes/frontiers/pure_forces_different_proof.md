@@ -255,6 +255,24 @@ abstract pigeonhole existential.** A third reuse of `exists_collision`, in a fre
 domain (sequence/order combinatorics, broadening beyond number theory). (29 PURE;
 reuses `Pigeonhole.exists_collision_lt`, `EncodePair213` decoder, `Max213`.)
 
+### A — Euler's totient is multiplicative, by the explicit CRT counting bijection (★ closes the leg's own loop)
+`NumberTheory/TotientMultiplicative`. `totient_mul : gcd213 m n = 1 → totient(m*n)
+= totient m * totient n` (m,n > 0). Classically a corollary of the **CRT ring
+iso** `ℤ/mn ≅ ℤ/m × ℤ/n` (units ↦ unit-pairs), riding on `Quot.sound`. With no
+quotient ring, ∅-axiom forces the explicit **counting bijection**: `x ↦ (x%m,
+x%n)` is a bijection `[0,mn) ↔ [0,m)×[0,n)` (the corpus `CRTReconstruction`), and
+`gcd(x,mn)=1 ⟺ gcd(x,m)=1 ∧ gcd(x,n)=1` (coprime m,n) splits the coprimality
+indicator as a product (`coprimeInd_mul_split`), so the totient sum reindexes
+(`weighted_partition_by_key` + `sumTo_reshape`, the `rkey x = (x%m)·n + x%n`
+fiber) and factors (`sum_mul_sum`) into `totient m · totient n`. Reveals: **the
+CRT iso is the reconstruction algorithm; φ multiplicative is the Fubini reindex
+of the coprimality-indicator sum, computed — not a quotient-ring corollary.**
+Notably this **closes the leg's own loop**: it is proved on `UnitsOfZn`'s gcd
+mod-invariance + `CRTReconstruction`'s bijection — two vein-A results built
+earlier this same session — demonstrating the representative-level infrastructure
+compounds. (20 PURE; reuses `EulerTotient.{totient,coprimeInd}`,
+`CRTReconstruction`, `CoprimeMultiplicative`, `DivisorProductReindex`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
