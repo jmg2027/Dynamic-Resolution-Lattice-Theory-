@@ -163,7 +163,15 @@ more*.
     sign verdict. The "denominator blow-up" in the separating probe is the
     omniscience cost made visible. (31 PURE.)
 
-  Together EVT + UniformLimit (force the modulus) and BW + HC + Dini +
+  - `Analysis/BanachFixedPoint` — the **Banach contraction-mapping theorem**,
+    modulus form (unconditional). The Picard iterates are Cauchy with a *computed*
+    geometric modulus (`picard_cauchy`, `N(m)=m`); the fixed point is their Cauchy
+    limit (`banach_fixed_point`, located `T x*=x*` to every scale), unique
+    (`banach_unique`). Completeness enters as *data + spec* (`CompleteMetricModulus`),
+    not an existence miracle; the fixed point is approached by every iterate,
+    reached by none. Reuses this session's own `MetricModulus`. (12 PURE.)
+
+  Together EVT + UniformLimit + Banach (force the modulus) and BW + HC + Dini +
   RealDichotomyLLPO (name the import) answer the analysis challenge symmetrically:
   where classical
   analysis reaches for an axiom, 213 *either* forces the hidden modulus (EVT — the

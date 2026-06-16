@@ -400,6 +400,26 @@ precisely because it never makes the global sign verdict, only `cutEq` at a
 tolerance.** The deepest analysis calibration: it locates exactly why the corpus
 does analysis approximately. (31 PURE; reuses `cutLe`/`constCut`, `Logic/LLPO`.)
 
+### C — Banach fixed-point theorem, geometric modulus computed (★ force-the-modulus, reuses our own MetricModulus)
+`Analysis/BanachFixedPoint`. Classically a contraction on a *complete* metric space
+has a unique fixed point — via completeness as an *existence* axiom. ∅-axiom forces
+it computed: the Picard iterates `xₙ = Tⁿx₀` are Cauchy with an **explicit
+geometric modulus**, and the fixed point is their Cauchy limit, approached by every
+iterate but reached by none (the `ExtremeValue` residue picture). `Contraction M T`
+= `T` advances the dyadic scale one level (`close (m+1) x y → close (m+2) (Tx)(Ty)`,
+ratio ≤ 1/2); `picard_step_geometric` (n-th gap at scale `s+1+n`) → `picard_tail`
+(the `Σ1/2^k` tail bounded *uniformly in reach j*) → ★ `picard_cauchy` with the
+**computed modulus `N(m) = m`** (no omniscience). Over a `CompleteMetricModulus`
+(completeness as *data + spec* `lim` + `climconv`, not an existence miracle),
+`banach_fixed_point : ∀ m, close m x* (T x*)` (located equality `T x*=x*` to every
+scale) and `banach_unique` (two exact fixed points in a ball are `close m` for every
+m — the contraction halves their gap with no padding). Non-vacuous (`trivComplete`
+instance). Reveals: **the fixed point's existence is not a completeness miracle —
+the geometric convergence modulus is computed from the ratio + first step; the
+fixed point is the explicit Cauchy limit, approached not attained.** Reuses this
+session's own `UniformLimitContinuous.MetricModulus`/`ctri`/`qtri` — the metric
+infrastructure compounds. (12 PURE + namespaced headlines verified.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
