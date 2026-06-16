@@ -104,7 +104,7 @@ theorem cork_uniqueness_capstone :
     ∧ chartBase 1 1 ≠ chartBase 1 4
     ∧ chartBase 3 1 ≠ chartBase 1 4 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared_pointwise
+  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared
   · rfl
   · rfl
   · decide
@@ -168,6 +168,6 @@ theorem akbulut_cork_213_native :
   · decide
   · decide
   · decide
-  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared_pointwise
+  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared
 
 end E213.Lib.Math.Geometry.AkbulutCork.CorkTheorem

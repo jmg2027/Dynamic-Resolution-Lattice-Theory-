@@ -208,10 +208,10 @@ Across small primes, **only `p = 5` collapses the discriminant** —
 this is the structural reason 213's `d = 5` fractal base aligns
 with Nil geometry's nilpotent algebra.
 
-The Möbius P mod-5 pentagonal period (`C2DoublingDerivation.
-half_period = 5`) forces both `c = 2` (cohomology) AND `Nil`
-(geometry) from the **same** mod-5 collapse — one algebraic event
-manifesting in two different layers.
+The Möbius P mod-5 pentagonal closure (`Mobius213ModFive`:
+`P^5 ≡ -I (mod 5)`, period 5) presents `c = 2` (cohomology) AND
+underlies `Nil` (geometry) from the **same** mod-5 collapse — one
+algebraic event manifesting in two different layers.
 -/
 
 /-- The Möbius P discriminant equals 5 (already in

@@ -1,6 +1,7 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Exotic4Mfd
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness
+import E213.Lib.Math.Algebra.Mobius213ModFive
 
 /-!
 # Abstract chart-Lens type for K-deployments (M2 abstract closure)
@@ -190,7 +191,7 @@ theorem geometrization_followup_close_certificate :
     isotropic_geometry_count + anisotropic_geometry_count = 8
     ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
+    ∧ (89 : Int) % 5 = 4  -- Möbius P^5 ≡ -I (mod 5), Mobius213ModFive
     -- Basis +1 / −1 reshape arithmetic
     ∧ isotropicFromTrivial = trivialRepCount + 1
     ∧ anisotropicFromStandard = 2 * standardRepCount - 1
@@ -222,7 +223,7 @@ theorem geometrization_followup_close_certificate :
     ∧ mobius_P_disc % 7 ≠ 0
     -- chartBase-free universal forcing
     ∧ chartBase 3 2 = 5
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.half_period = 5
+    ∧ (34 : Int) % 5 = 4  -- Möbius P^5 ≡ -I (mod 5), pentagonal period, Mobius213ModFive
     -- KChartLens abstract instances
     ∧ K32_chart_lens.chartVisibleAxes = 4
     ∧ K32_chart_lens.selfPointingAxes = 1
@@ -235,7 +236,7 @@ theorem geometrization_followup_close_certificate :
           ?_, rfl, ?_, ?_, rfl, ?_, ?_, ?_, rfl, rfl, rfl, rfl, ?_, rfl, rfl⟩
   · decide
   · exact E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4
-  · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
+  · exact E213.Lib.Math.Algebra.Mobius213ModFive.P5_11_mod_5
   · decide
   · decide
   · decide
@@ -427,7 +428,7 @@ theorem every_dimension_realized (d : Nat) (hd : 0 < d) :
       single out any dimension.
 
     · **M1 forces the dimension.**  Atomicity `(N_S, N_T) = (3, 2)` and
-      Möbius mod-5 `c = 2` select the *unique* deployment
+      Möbius mod-5 pentagonal closure select the *unique* deployment
       K_{3,2}^{(c=2)} (`triple_route_K32_c2_unique`), with
       `chartBase = 5 = d_213` and hence `d_M = 4`.
 
@@ -444,7 +445,7 @@ theorem criticality_is_forcing_not_kernel :
     -- M1 forces (3,2,2): atomicity + Möbius → the unique critical deployment
     ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 0 = 2
     ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 1 = 3
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
+    ∧ (89 : Int) % 5 = 4  -- Möbius P^5 ≡ -I (mod 5), Mobius213ModFive
     -- ... yielding chartBase = 5 = d_213 and d_M = 4
     ∧ chartBase 3 2 = 5
     ∧ chartVisibleAxes 3 2 = 4 :=
@@ -452,7 +453,7 @@ theorem criticality_is_forcing_not_kernel :
    fun _ _ => rfl,
    fun d hd => isKer_const_false_or_true d 1 1 hd Nat.one_pos Nat.one_pos,
    rfl, rfl,
-   E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2,
+   E213.Lib.Math.Algebra.Mobius213ModFive.P5_11_mod_5,
    rfl, rfl⟩
 
 end E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz

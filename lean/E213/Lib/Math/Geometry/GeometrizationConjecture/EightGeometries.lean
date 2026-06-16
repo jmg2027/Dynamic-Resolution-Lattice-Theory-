@@ -144,14 +144,13 @@ theorem K32_bipartite_split_canonical :
     b_1 = 8 → 5.  Provides partial Geometrization-lift
     infrastructure; full 3-manifold structure remains open. -/
 theorem K32_filling_lifts_partial :
-    -- 4-cycles count (Filled.four_cycles_count)
+    -- 4-cycles count = 3 (Physics/Simplex/FaceTerms.four_cycles_eq_3)
     (3 * 1 = 3)
-    -- b_1 reduction at full filling (Filled.b1_filling_table)
+    -- b_1 reduction at full filling
     ∧ (8 - 3 = 5)
     -- Unfilled b_1 (Bipartite/Parametric/EulerAndCapstone / standard)
-    ∧ (12 - 5 + 1 = 8) :=
-  ⟨E213.Lib.Math.Cohomology.Bipartite.Filled.four_cycles_count,
-   by decide, by decide⟩
+    ∧ (12 - 5 + 1 = 8) := by
+  refine ⟨by decide, by decide, by decide⟩
 
 /-! ## §F — Open work registry (R1 step 11)
 

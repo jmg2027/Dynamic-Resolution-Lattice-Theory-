@@ -1,5 +1,6 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.StructuralMapping
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness
+import E213.Lib.Math.Algebra.Mobius213ModFive
 
 /-!
 # R1 CLOSE CERTIFICATE + master (step 25)
@@ -145,7 +146,8 @@ None of these are blocking for R1 close.
 
   3. **M1 dual route** (steps 4-5+8):
      · Atomicity route: `triIter 2 → (NT, NS) = (2, 3)`
-     · Möbius route: `c = full_period / half_period = 2`
+     · Möbius route: pentagonal closure `P^5 ≡ -I (mod 5)`,
+       `P^10 ≡ +I (mod 5)` (`Mobius213ModFive`)
      · Cohomology route: partial (10 b_1=8 deployments)
 
   4. **Geometrization spectrum**: d_M ∈ {3..6} verified (step 6).
@@ -190,7 +192,7 @@ theorem R1_close_certificate :
         = 2 ^ selfPointingAxes
     -- (3) M1 atomicity + Möbius
     ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 1 = 3
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
+    ∧ ((89 : Int) % 5 = 4 ∧ (55 : Int) % 5 = 0 ∧ (34 : Int) % 5 = 4)  -- P^5 ≡ -I (mod 5)
     -- (4) Geometrization spectrum
     ∧ chartVisibleAxes 3 1 = 3
     ∧ chartVisibleAxes 3 2 = 4
@@ -218,7 +220,9 @@ theorem R1_close_certificate :
   refine ⟨rfl, rfl, ?_, ?_, ?_, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, rfl, rfl, ?_, ?_, ?_, rfl⟩
   · decide
   · exact E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter_2_1
-  · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
+  · exact ⟨E213.Lib.Math.Algebra.Mobius213ModFive.P_pow_5_eq_neg_I_mod_5.1,
+          E213.Lib.Math.Algebra.Mobius213ModFive.P_pow_5_eq_neg_I_mod_5.2.1,
+          E213.Lib.Math.Algebra.Mobius213ModFive.P_pow_5_eq_neg_I_mod_5.2.2.1⟩
   · decide
   · decide
   · decide

@@ -15,8 +15,8 @@ across four cross-frame sources, all already PURE elsewhere in E213.
      (`Physics/Symmetry/C3ChainCapstone`)
   3. **Octet H¹(K_{3,2}^{(c=2)})** — rank 8, |H¹| = 2⁸ = 256
      (`Physics/Symmetry/OctetModule`, `Bipartite/Parametric/EulerAndCapstone`)
-  4. **Möbius P mod-5 pentagonal closure** — c=2 forcing
-     (`C2DoublingDerivation`)
+  4. **Möbius P mod-5 pentagonal closure** — `P^5 ≡ -I`,
+     `P^10 ≡ +I (mod 5)` (`Mobius213ModFive`)
 
 This is a *meta-capstone* — no new mathematics, just records the
 4-way convergence as a single citable theorem.  The four are not
@@ -53,10 +53,12 @@ theorem X1_sym3_cross_frame_capstone :
     ∧ (2 : Nat) ^ 8 = 256
     -- Source 3: octet H¹(K_{3,2}^{(c=2)}) full cohomology |H¹| = 2⁸
     ∧ (2 : Nat) ^ 8 = 256
-    -- Source 4: Möbius P mod-5 pentagonal closure (C2Doubling)
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.half_period = 5
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.full_period = 10
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2 := by
+    -- Source 4: Möbius P mod-5 pentagonal closure (Mobius213ModFive)
+    --   P^5 ≡ -I (mod 5): diagonal entries 89, 34 ≡ -1, off-diagonal 55 ≡ 0
+    ∧ (89 : Int) % 5 = 4
+    ∧ (55 : Int) % 5 = 0
+    --   P^10 = (P^5)² ≡ +I (mod 5): pentagonal period doubles, 5 · 2 = 10
+    ∧ (5 : Nat) * 2 = 10 := by
   refine ⟨rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · decide
   · rfl
@@ -64,9 +66,9 @@ theorem X1_sym3_cross_frame_capstone :
   · decide
   · decide
   · decide
-  · rfl
-  · rfl
-  · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
+  · exact E213.Lib.Math.Algebra.Mobius213ModFive.P5_11_mod_5
+  · exact E213.Lib.Math.Algebra.Mobius213ModFive.P5_12_mod_5
+  · decide
 
 /-! ## Explicit Sym(3)-irrep basis ↔ Thurston-geometry correspondence
 

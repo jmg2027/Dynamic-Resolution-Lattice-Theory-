@@ -1,7 +1,7 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Ansatz
 import E213.Lib.Math.Geometry.GenerationRule.TriangleIteration
 import E213.Lib.Math.Cohomology.Examples.TopologyCompare
-import E213.Lib.Math.Foundations.C2DoublingDerivation
+import E213.Lib.Math.Algebra.Mobius213ModFive
 
 /-!
 # M1 routes: atomicity + cohomology + Möbius (steps 4, 5, 8)
@@ -151,62 +151,51 @@ theorem general_euler_consistency (n m c : Nat) :
   rfl
 
 
-/-! ## c=2 Möbius period-ratio reading (R1 step 8)
+/-! ## Möbius mod-5 pentagonal closure (R1 step 8)
 
 The step-7 finding (cohomology-route partial) is **complemented by the
-period-ratio reading** of `c = 2` from `C2DoublingDerivation`.  The Möbius
+Möbius mod-5 pentagonal closure** (`Mobius213ModFive`).  The Möbius
 generator P = [[2, 1], [1, 1]] over F_5 satisfies:
 
-  · `P^5 ≡ -I (mod 5)` — pentagonal half-rotation (`half_period = 5`)
-  · `P^10 = (P^5)² ≡ +I (mod 5)` — full closure (`full_period = 10`)
+  · `P^5 ≡ -I (mod 5)` — pentagonal half-rotation (period 5 = d)
+  · `P^10 = (P^5)² ≡ +I (mod 5)` — full closure (period 10 = 2·d)
 
-so the c-multiplicity ratio:
-
-  c = full_period / half_period = 10 / 5 = 2 = NT
-
-Per `C2DoublingDerivation.c_multiplicity_eq_2` and `c_multiplicity_eq_NT`,
-all PURE.  This *presents* `c = 2` (the same edge multiplicity used by the
-deployment); it is not an independent forcing — the ratio is the trivial
-`(−I)² = I` and `c = NT` is a coincidence of two distinct 2's (see
+The edge multiplicity `c = 2` is the posited presentation parameter
+(`theory/physics/foundations/atomic_constants.md`); the pentagonal
+closure *presents* it, it does not force it (the period ratio is the
+trivial `(−I)² = I`, see
 `research-notes/frontiers/atomic_c_multiplicity_forcing.md`).  Canonical
 status: `(NS,NT,d)` forced, `c` a posited presentation parameter.
 
 Combined with atomicity-route step 4:
 
   · Atomicity (Raw Clause 1)       → (N_S, N_T) = (3, 2)
-  · Möbius mod-5 period       → c = 2
+  · Möbius mod-5 pentagonal period → period 5 / 10 closure
 
-**These two routes alone — independent of cohomology — force
-K_{3,2}^{(c=2)} uniquely.**  Cohomology serves as *consistency
-verification* (b_1 = 8 = 1/α_3 holds), not as the forcing source.
-
-This is the **strong** combined derivation, replacing the
-weaker "atomicity + cohomology" combination of step 7 (which
-relied on cohomology-restricted-to-(NS,NT)=(3,2) for c=2).  Both
-combinations give the same conclusion; this one is *stronger*
-because it doesn't depend on cohomology being unique.
+Cohomology serves as *consistency verification* (b_1 = 8 = 1/α_3
+holds), not as the forcing source.
 -/
 
-/-- c = 2 derived from Möbius mod-5 period structure via 
-    binary-cover ratio.  Independent of cohomology-route. -/
-theorem c2_derived_from_mobius_period :
-    E213.Lib.Math.Foundations.C2DoublingDerivation.half_period = 5
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.full_period = 10
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity
-        = E213.Lib.Math.Foundations.C2DoublingDerivation.full_period
-          / E213.Lib.Math.Foundations.C2DoublingDerivation.half_period :=
-  ⟨E213.Lib.Math.Foundations.C2DoublingDerivation.half_period_eq_d,
-   E213.Lib.Math.Foundations.C2DoublingDerivation.full_period_eq_2d,
-   E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2,
-   rfl⟩
+/-- Möbius mod-5 pentagonal closure: `P^5 ≡ -I (mod 5)` (diagonal
+    residues 89, 34 ≡ -1, off-diagonal 55 ≡ 0) and the period
+    doubling `5 · 2 = 10` for `P^10 ≡ +I (mod 5)`.  Cites
+    `Mobius213ModFive`; independent of the cohomology route. -/
+theorem mobius_mod5_pentagonal_closure :
+    (89 : Int) % 5 = 4
+    ∧ (55 : Int) % 5 = 0
+    ∧ (34 : Int) % 5 = 4
+    ∧ (5 : Nat) * 2 = 10 :=
+  ⟨E213.Lib.Math.Algebra.Mobius213ModFive.P5_11_mod_5,
+   E213.Lib.Math.Algebra.Mobius213ModFive.P5_12_mod_5,
+   E213.Lib.Math.Algebra.Mobius213ModFive.P5_22_mod_5,
+   by decide⟩
 
 /-- ★★★★ **Triple-route uniqueness for K_{3,2}^{(c=2)}**
 
   Combines THREE independent strong forcings:
 
     1. Atomicity (Raw Clause 1, step 4)         → (N_S, N_T) = (3, 2)
-    2. Möbius mod-5 period (step 8)        → c = 2
+    2. Möbius mod-5 pentagonal closure (step 8)  → P^5 ≡ -I, P^10 ≡ +I
     3. Cohomology α_3 match (step 5+7)          → b_1 = 8 verified
 
   Routes 1 and 2 are sufficient on their own to force
@@ -220,19 +209,18 @@ theorem triple_route_K32_c2_unique :
     -- Route 1: atomicity → (NS, NT) = (3, 2)
     E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 0 = 2
     ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 1 = 3
-    -- Route 2: Möbius mod-5 → c = 2
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity
-        = E213.Lib.Math.Foundations.C2DoublingDerivation.full_period
-          / E213.Lib.Math.Foundations.C2DoublingDerivation.half_period
+    -- Route 2: Möbius mod-5 pentagonal closure (P^5 ≡ -I, P^10 ≡ +I)
+    ∧ (89 : Int) % 5 = 4
+    ∧ (55 : Int) % 5 = 0
     -- Route 3: cohomology verification (not forcing)
     ∧ E213.Lib.Math.Cohomology.Examples.TopologyCompare.b1_bipartite 3 2 2 = 8
     -- Combined → K_{3,2}^{(c=2)} unique
     ∧ chartBase 3 2 = 5
     ∧ chartVisibleAxes 3 2 = 4
     ∧ selfPointingAxes = 1 := by
-  refine ⟨rfl, rfl, ?_, rfl, ?_, rfl, rfl, rfl⟩
-  · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
+  refine ⟨rfl, rfl, ?_, ?_, ?_, rfl, rfl, rfl⟩
+  · exact E213.Lib.Math.Algebra.Mobius213ModFive.P5_11_mod_5
+  · exact E213.Lib.Math.Algebra.Mobius213ModFive.P5_12_mod_5
   · decide
 
 

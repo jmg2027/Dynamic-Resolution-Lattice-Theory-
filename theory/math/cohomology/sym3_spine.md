@@ -109,8 +109,9 @@ theorem X1_sym3_cross_frame_capstone :
     ∧ 2 + 2 * 3 = 8
     -- Reading 1 (octet full cohomology on the same H¹)
     ∧ (2 : Nat) ^ 8 = 256
-    -- Möbius P mod-5 pentagonal closure (c=2 period-ratio reading)
-    ∧ half_period = 5 ∧ full_period = 10 ∧ c_multiplicity = 2
+    -- Möbius P mod-5 pentagonal closure (Mobius213ModFive):
+    --   P^5 ≡ -I (mod 5), P^10 ≡ +I (mod 5)
+    ∧ (89 : Int) % 5 = 4 ∧ (55 : Int) % 5 = 0 ∧ (5 : Nat) * 2 = 10
 ```
 
 The capstone is PURE; each conjunct discharges to a PURE source

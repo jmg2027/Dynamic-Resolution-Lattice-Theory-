@@ -99,8 +99,8 @@ theorem five_way_sym3_cross_frame_capstone :
     ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- 2·trivial + 3·standard = 8 (Source 2 decomp)
     ∧ 2 + 2 * 3 = 8
-    -- Möbius P pentagonal closure (Source 4)
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.half_period = 5
+    -- Möbius P pentagonal closure (Source 4): P^5 ≡ -I (mod 5)
+    ∧ (89 : Int) % 5 = 4
     -- Cork signed count = Sym(3)-fixed (Source 5, ★ new)
     ∧ signedCorkTwistCount = 4
     ∧ signedCorkTwistCount
@@ -122,7 +122,7 @@ theorem five_way_sym3_cross_frame_capstone :
   · decide
   · rfl
   · decide
-  · rfl
+  · decide
   · rw [signedCorkTwistCount_H1_H2_H3_eq_6, signedCorkTwistCount_H1_H2_eq_6]
 
 /-! ## §4 — Master 4-manifolds + Geometrization marathon capstone -/

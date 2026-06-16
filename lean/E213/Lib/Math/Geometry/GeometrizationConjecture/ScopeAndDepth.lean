@@ -297,10 +297,10 @@ def hasNaturalSym3 (n m : Nat) : Bool :=
   decide (n = 3 ∨ m = 3)
 
 /-- c=2 binary-cover compatibility requires c=2 AND a 2-element
-    vertex side (the side hosting the c-doubling).  Per
-    `C2DoublingDerivation.c_multiplicity_eq_NT`, the period-ratio reads
-    c = NT = 2 (a presentation of the edge multiplicity, not a forcing —
-    see `atomic_c_multiplicity_forcing.md`). -/
+    vertex side (the side hosting the c-doubling).  The edge
+    multiplicity `c = 2` is the posited presentation parameter (not a
+    forcing — see `atomic_c_multiplicity_forcing.md`); the Möbius mod-5
+    pentagonal closure (`Mobius213ModFive`) presents it. -/
 def hasC2BinaryCoverMatch (n m c : Nat) : Bool :=
   decide (c = 2 ∧ (n = 2 ∨ m = 2))
 
@@ -384,7 +384,7 @@ theorem depth_filter_strict :
 
   Three-route forcing remains the cleanest derivation:
     · Atomicity (Raw Clause 1)            → (N_S, N_T) = (3, 2)
-    · Möbius mod-5                   → c = 2
+    · Möbius mod-5 pentagonal closure → P^5 ≡ -I, P^10 ≡ +I (mod 5)
     · Cohomology depth (this step)        → K_{3,2}^{(c=2)} unique
                                              ↑ verifies above
 -/
@@ -392,8 +392,8 @@ theorem strong_combined_uniqueness_with_depth :
     -- Atomicity-route (step 4)
     E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 0 = 2
     ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 1 = 3
-    -- Möbius-route (step 8)
-    ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
+    -- Möbius-route (step 8): pentagonal closure P^5 ≡ -I (mod 5)
+    ∧ (89 : Int) % 5 = 4
     -- Cohomology-depth (this step)
     ∧ passesCohomologyDepthFilter 3 2 2 = true
     ∧ passesCohomologyDepthFilter 5 3 1 = false  -- counterexample fails
@@ -402,7 +402,7 @@ theorem strong_combined_uniqueness_with_depth :
     ∧ chartVisibleAxes 3 2 = 4
     ∧ selfPointingAxes = 1 := by
   refine ⟨rfl, rfl, ?_, ?_, ?_, rfl, rfl, rfl⟩
-  · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
+  · exact E213.Lib.Math.Algebra.Mobius213ModFive.P5_11_mod_5
   · decide
   · decide
 

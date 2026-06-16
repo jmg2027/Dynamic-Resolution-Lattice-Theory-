@@ -119,7 +119,7 @@ theorem corkTwist_M_S01_correspondence :
     ∧ (corkTwist K14_cork).twist_parity = 1
     ∧ (corkTwist (corkTwist K14_cork)).twist_parity = 0 := by
   refine ⟨?_, ?_, rfl, rfl, rfl⟩
-  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared_pointwise
+  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared
   · rfl
 
 /-! ## Phase 2 capstone -/
@@ -162,6 +162,6 @@ theorem corkTwist_close_capstone :
           corkTwist_involution_on_K31, rfl, rfl, rfl, ?_, ?_, ?_⟩
   · decide
   · decide
-  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared_pointwise
+  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared
 
 end E213.Lib.Math.Geometry.AkbulutCork.Twist
