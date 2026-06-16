@@ -81,6 +81,7 @@ import E213.Lib.Math.NumberTheory.MobiusPrimeCase
 import E213.Lib.Math.NumberTheory.MobiusMultiplicative
 import E213.Lib.Math.NumberTheory.SumOfDivisors
 import E213.Lib.Math.NumberTheory.GaussTotient
+import E213.Lib.Math.NumberTheory.TotientPairing
 import E213.Lib.Math.NumberTheory.DivisorProductReindex
 import E213.Lib.Math.NumberTheory.DivisorMultiplicative
 import E213.Lib.Math.NumberTheory.SummatoryMultiplicative
