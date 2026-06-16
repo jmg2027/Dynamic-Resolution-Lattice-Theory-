@@ -12,7 +12,7 @@ For connected K (b_0 = 1, verified in `Delta0AndConnectedness`):
 
 This file:
   · Defines the parametric Euler formula
-  · Verifies it matches `V32Betti` at K_{3,2}^{(c=2)}
+  · Specialises it at K_{3,2}^{(c=2)} (b₁ = 8, χ = −7)
   · Provides a capstone bundling the full parametric cohomology
     summary for all chartBase-≤-5 deployments
   · Connects to `KChartLensAbstract` axes-partition data
@@ -35,7 +35,7 @@ def eulerChar (NS NT c : Nat) : Int :=
     Nat version. -/
 def b1Formula (NS NT c : Nat) : Nat := c * NS * NT + 1 - (NS + NT)
 
-/-! ## V32Betti specialization -/
+/-! ## K_{3,2}^{(c=2)} specialization -/
 
 /-- At (NS, NT, c) = (3, 2, 2), Euler char = -7. -/
 theorem eulerChar_K32 : eulerChar 3 2 2 = -7 := by decide
@@ -102,7 +102,7 @@ theorem chartVisibleAxes_chartBase5_witnesses :
     · b_0 = 1 verified across the K-deployment family
     · b_1 formula `c·NS·NT + 1 − (NS + NT)` for connected case
     · Euler characteristic eulerChar = (NS + NT) − c·NS·NT
-    · V32Betti compatibility at (3, 2, 2)
+    · K_{3,2}^{(c=2)} specialisation (b₁ = 8, χ = −7, ker δ⁰ = 2)
 
   The universal `∀ (NS NT c), 1 ≤ NS → 1 ≤ NT → 1 ≤ c → ker δ⁰ =
   constant cochains (dim 1)` is closed structurally and ∅-axiom in
@@ -113,9 +113,9 @@ theorem chartVisibleAxes_chartBase5_witnesses :
 theorem parametric_close_capstone :
     -- Parametric Euler at K_{3,2}^{(c=2)}
     eulerChar 3 2 2 = -7
-    -- Parametric b_1 at K_{3,2}^{(c=2)} matches V32Betti
+    -- Parametric b_1 at K_{3,2}^{(c=2)}
     ∧ b1Formula 3 2 2 = 8
-    -- ker δ⁰ at K_{3,2}^{(c=2)} = 2 (matches V32Betti)
+    -- ker δ⁰ at K_{3,2}^{(c=2)} = 2 (the two constant cochains)
     ∧ kerSizeDelta0Direct 3 2 2 = 2
     -- ker δ⁰ at all tree deployments = 2
     ∧ kerSizeDelta0Direct 1 1 1 = 2
