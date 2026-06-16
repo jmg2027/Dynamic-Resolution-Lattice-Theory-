@@ -141,8 +141,8 @@ def C2_dim_at_3 : Nat := 3
 /-- `rank δ¹` at full simple-cycle filling: 2 (per face dependence). -/
 def rank_delta1_at_3 : Nat := 2
 
-/-- `rank δ⁰` from `V32Betti.kerSizeDelta0 = 2`: `dim C⁰ − dim ker δ⁰
-    = 5 − 1 = 4`. -/
+/-- `rank δ⁰` from `Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2 = 2`
+    (`ker δ⁰` = the 2 constant cochains): `dim C⁰ − dim ker δ⁰ = 5 − 1 = 4`. -/
 def rank_delta0 : Nat := 4
 
 /-- `dim H¹ = dim ker δ¹ − dim im δ⁰` at k = 3.

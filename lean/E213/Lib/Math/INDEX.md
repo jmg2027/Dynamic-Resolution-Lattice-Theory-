@@ -32,8 +32,7 @@
   - `Icosahedral.lean`     — icosahedral / H₃ structure
   - `Mobius213.lean`,
     `Mobius213OneAsGlue.lean`,
-    `Mobius213GrandUnification.lean`,
-    `Mobius213SignatureAxisCatalogPhase2.lean` — Möbius matrix [[2,1],[1,1]] + signature-axis catalogue
+    `Mobius213GrandUnification.lean` — Möbius matrix [[2,1],[1,1]] invariants
 
 ### Topology + structure
   - `Topology.lean`        — base topology

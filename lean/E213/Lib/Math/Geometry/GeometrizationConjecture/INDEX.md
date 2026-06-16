@@ -14,7 +14,7 @@ and the dimension-4 exotic-smoothness anomaly.
 
 | File | Steps | PURE | Content |
 |---|---|---|---|
-| `Ansatz.lean` | 1-3 | ~23 | Core defs (`chartBase`, `selfPointingAxes`, `chartVisibleAxes`) + axiom-level shadow + V32Betti deployment |
+| `Ansatz.lean` | 1-3 | ~23 | Core defs (`chartBase`, `selfPointingAxes`, `chartVisibleAxes`) + axiom-level shadow + parametric δ⁰-kernel deployment |
 | `M1Routes.lean` | 4, 5, 8 | ~7 | M1 atomicity + cohomology route + c=2 Möbius forcing |
 | `ScopeAndDepth.lean` | 7, 9, 10 | ~28 | Cohomology-route scope correction + depth filter (Sym(3) + c=2 binary cover) |
 | `DimSpectrum.lean` | 6, 14 | ~14 | Geometrization dim spectrum d_M ∈ {3..6} + Sym(3)-capable enumeration |
@@ -34,7 +34,7 @@ and the dimension-4 exotic-smoothness anomaly.
 | `CrossFrame.lean` | G123 X-1 + I-1 | ~5 | ★★★★★★ `X1_sym3_cross_frame_capstone` (4-way Sym(3) convergence) + ★★★★★ `sym3_basis_thurston_mapping` (explicit basis ↔ Thurston geometry mapping with +1/-1 reshape arithmetic) |
 | `Exotic4Mfd.lean` | G123 FW-1 substantive + sub-orbit | ~33 | `sym3GaugeInvariant` + ★★★★★★ `exotic_4mfd_scaffold` + per-element fix counts (`fixedSizeS01/S12/S02/Rho = 32, 32, 32, 4`) + Burnside `sym3OrbitCount = 60` + ★★★★★★ `fw1_suborbit_decomposition` `(4, 0, 28, 28)` |
 | `KChartLensAbstract.lean` | M2 abstract + universal close + d_M=4 synthesis | ~20 | `KChartLens NS NT c` structure + canonical instances (`K32_chart_lens`, `K31_chart_lens`, `K14_chart_lens`) + ★★★★★ `m2_abstract_close` + **universal M2**: `forcedKChartLens` (connectedness forces `selfPointingAxes = 1`, `chartVisibleAxes = chartBase − 1` for arbitrary connected K via `Parametric.Betti.KernelConstancyUniversal`) + ★★★★★★ `m2_universal_forced_partition` + ★★★★★★★ `dM_four_via_M1_forced_and_M2_universal_kernel` (M1 forced chartBase 5 ∘ M2 derived 1-dim kernel → d_M = 4) + `every_dimension_realized` + ★★★★★★★ `criticality_is_forcing_not_kernel` (d_M=4 criticality = M1 forcing, M2 kernel is dimension-uniform) + ★★★★★★★★★★★ `geometrization_followup_close_certificate` |
-| `Poincare.lean` (+ I-4) | G123 I-4 | +1 | ★★★★ `poincare_two_layer_trivial_loop` — two-layer reading (b₀ + b₁) via `V32Betti.b0_eq_1` |
+| `Poincare.lean` (+ I-4) | G123 I-4 | +1 | ★★★★ `poincare_two_layer_trivial_loop` — two-layer reading (b₀ + b₁) via `Delta0AndConnectedness.b0_K32_c2` |
 
 ### A6 discrete Ricci core (discrete Forman/Ollivier + smooth 2D-conformal route)
 

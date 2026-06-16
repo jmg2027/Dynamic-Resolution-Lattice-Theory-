@@ -3,7 +3,7 @@ import E213.Lib.Math.Cohomology.Tripartite.V213Betti
 /-!
 # Cohomology.Tripartite.V213ShadowProjection — Massey shadow projection vanishes
 
-The closure-negative result of `V32V213CohomologyBridge` shows
+The closure-negative result `V213Betti.K213_betti_capstone` shows
 `(b₀, b₁, b₂)(K_{2,1,3}) = (1, 0, 0)` — the external tripartite
 graph is cohomologically trivial above H⁰.  This file formalises the
 *shadow projection* statement:
@@ -25,10 +25,11 @@ intrinsically in `K_{3,2}^{(c=2)}` (see `V33EnrichedParametric`
 
 ## Theoretical role
 
-Together with `V32V213CohomologyBridge.self_containment_cohomology_verdict`:
+Together with the cohomology of `K_{2,1,3}` (`V213Betti`):
 
   · Atomic-level duality: `|E(K_{3,2})| = |△(K_{2,1,3})| = 6` ✓
   · Cohomology-level breach: `b₁ = 8 ≠ 0 = b₁(K_{2,1,3})` ✗
+    (b₁ = 8 from the parametric `EulerAndCapstone.b1Formula 3 2 2`)
   · **Massey shadow projection: zero** (this file)
 
 The three results jointly close Direction T (bipartite-tripartite
@@ -100,8 +101,9 @@ theorem massey_shadow_constant (m₁ m₂ : ShadowSrc) :
 
     **Reading**: the cohomological "3" of (2, 1, 3) is intrinsic to
     `K_{3,2}^{(c=2)}` and cannot transfer to the external tripartite
-    extension.  Together with `V32V213CohomologyBridge`, this
-    completes the closure-negative for Direction T (Massey side):
+    extension.  Together with the `K_{2,1,3}` cohomology
+    (`V213Betti`), this completes the closure-negative for Direction
+    T (Massey side):
 
       · Atomic-level: `|E| = |△| = 6` (preserved, atomic-bridge)
       · Cohomology-level: `b₁ = 8 ≠ 0` (broken, b₁-mismatch)
