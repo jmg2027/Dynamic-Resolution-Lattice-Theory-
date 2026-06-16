@@ -9,6 +9,7 @@ import E213.Lib.Math.Analysis.RiemannContinuous
 import E213.Lib.Math.Analysis.ModulusConvergence
 import E213.Lib.Math.Analysis.CesaroMean
 import E213.Lib.Math.Analysis.LimitArithmetic
+import E213.Lib.Math.Analysis.SqueezeProduct
 import E213.Lib.Math.Analysis.FluxMVT
 import E213.Lib.Math.Analysis.Integration
 import E213.Lib.Math.Analysis.ODE

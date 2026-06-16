@@ -24,7 +24,8 @@ interactively with `NatHelper`/`PureNat` twins than in a one-shot prompt.
 **`Analysis/LimitArithmetic` (12 PURE) landed** — the sum limit law on `distMet`:
 `distN_add_le` (additive-compatibility core), `add_converges` (modulus computed
 `m ↦ max(ra(m+1), rb(m+1))`), `closeN_add_core`, `const_add_const_converges`,
-`shift_converges`. Product still open (needs boundedness). Squeeze still open.
+`shift_converges`. Product DONE (`SqueezeProduct.mul_converges_bounded`, modulus shifted by
+bit-length `floorLog 2 K + 1`). Squeeze DONE (`SqueezeProduct.squeeze_converges`).
 
 ### (historical) earlier stall note
 **Limit arithmetic (sum) on `distMet`** — attempted, did NOT close. The blocker is
