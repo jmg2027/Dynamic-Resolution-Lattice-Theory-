@@ -2,7 +2,6 @@ import E213.Lib.Math.Algebra.Mobius213CrossDomainMeta
 import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulN
 import E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCutMul
 import E213.Lib.Math.Algebra.Mobius213.Mobius213K32Bridge
-import E213.Lib.Math.Cohomology.Bipartite.Mobius213K32StateClass
 import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213ContinuedFraction
 import E213.Lib.Math.Algebra.CayleyDickson.Tower.Mobius213CDBridge
 
@@ -27,14 +26,6 @@ converge at this capstone:
   (D) **Bundled multiplication to N²-fiber** — algebraic product
       structure on bundled ValidCutN cuts
       (`Real213/ValidCut/NValidCutMul`)
-  (E) **K_{3,2}^(c=2) numerical signature** — P matrix entries
-      and invariants encode every K-graph count (vertices,
-      edges, pairs, discriminant)
-      (`Mobius213/Mobius213K32Bridge`)
-  (F) **K_{3,2}^(c=2) state-class structure** — cochain side-
-      counts realise the (NS, NT) atomic signature pair at the
-      all-true cochain, equal to `Pseq seedZero 2`
-      (`Cohomology/Bipartite/Mobius213K32StateClass`)
   (G) **Pell-Fibonacci continued-fraction recurrence** — both
       P-orbits satisfy the standard CF [2; 1, 1, 1, ...]
       recurrence `a(n+2) + a(n) = 3 · a(n+1)`
@@ -53,8 +44,8 @@ converge at this capstone:
 The grand master records that every per-domain capstone holds
 simultaneously — establishing the matrix `P` as the single
 algebraic object whose readings span the equality theory, the
-algebraic structure, the bipartite combinatorics, the
-analytic-tower asymptotes, and the Pell-Fibonacci dynamics.
+algebraic structure, the analytic-tower asymptotes, and the
+Pell-Fibonacci dynamics.
 
 All declarations PURE (∅-axiom).
 -/
@@ -63,14 +54,13 @@ namespace E213.Lib.Math.Algebra.Mobius213GrandUnification
 
 /-! ## §1 — Grand-unification capstone
 
-The ★★★★★★★★★★ master statement: ten distinct readings of `P`
+The ★★★★★★★★ master statement: the per-domain readings of `P`
 hold simultaneously.  Re-exports the per-domain capstones into
 one bundled conjunction. -/
 
-/-- ★★★★★★★★★★ **Grand unification of Möbius P readings**:
-    every per-domain master theorem holds.  Ten-conjunct bundle
-    spanning the framework's distinct realisations of `P =
-    [[2,1],[1,1]]`. -/
+/-- ★★★★★★★★ **Grand unification of Möbius P readings**:
+    every per-domain master theorem holds.  Bundle spanning the
+    framework's distinct realisations of `P = [[2,1],[1,1]]`. -/
 theorem grand_unification :
     -- (A) Cross-domain meta (5-domain equality unification)
     (∀ cx cy : Nat → Nat → Bool,
@@ -96,16 +86,6 @@ theorem grand_unification :
               E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv.seedZero n).1
           = 3 * (E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv.Pseq
                   E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv.seedZero (n+1)).1)
-    -- (E) K_{3,2}^(c=2) state class: all-true cochain = (NS, NT)
-    ∧ (E213.Lib.Math.Cohomology.Bipartite.Mobius213K32StateClass.vertexCount
-        E213.Lib.Math.Cohomology.Bipartite.V32.allTrueV
-       = (E213.Lib.Physics.Simplex.Counts.NS,
-          E213.Lib.Physics.Simplex.Counts.NT))
-    -- (F) K_{3,2}^(c=2) state class equals Pseq seedZero 2
-    ∧ (E213.Lib.Math.Cohomology.Bipartite.Mobius213K32StateClass.vertexCount
-        E213.Lib.Math.Cohomology.Bipartite.V32.allTrueV
-       = E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv.Pseq
-          E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213Equiv.seedZero 2)
     -- (G) CD-tower Type C asymptote = (disc P, Pell unit)
     ∧ (E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.asymptote_ab
         .C = (5, -1))
@@ -130,8 +110,6 @@ theorem grand_unification :
    E213.Lib.Math.NumberSystems.Real213.Mul.CutMulN.cutMulN_const_const_forward,
    E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCutMul.mulN_represents,
    E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213ContinuedFraction.Pseq_seedZero_fst_recurrence,
-   by decide,
-   by decide,
    E213.Lib.Math.Algebra.CayleyDickson.Tower.AlgebraTowerAsymptote.rank_1_asymptote_eq,
    by decide,
    E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213PellInvariant.Pseq_cross_pell_invariant,

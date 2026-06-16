@@ -1,24 +1,6 @@
 import E213.Lib.Math.Cohomology.Bipartite.Filled
 import E213.Lib.Math.Cohomology.Bipartite.V32
 import E213.Lib.Math.Cohomology.Bipartite.V32Betti
-import E213.Lib.Math.Cohomology.Bipartite.V32LocalSignature
-import E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.BettiOneUniversal
-import E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.PathCoboundary
-import E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KEdgeCochain
-import E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KerSizeUniversal
-import E213.Lib.Math.Cohomology.Bipartite.AdemUniversal
-import E213.Lib.Math.Cohomology.Bipartite.Filled5CellExtension
-import E213.Lib.Math.Cohomology.Bipartite.MasseyAlternatingUniversal
-import E213.Lib.Math.Cohomology.Bipartite.MasseyTripleOmega
-import E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTcMaster
-import E213.Lib.Math.Cohomology.Bipartite.Parametric.EnrichedKNSNTcUniversal
-import E213.Lib.Math.Cohomology.Bipartite.Parametric.PellOrbitInstances
-import E213.Lib.Math.Cohomology.Bipartite.V22
-import E213.Lib.Math.Cohomology.Bipartite.V31c2
-import E213.Lib.Math.Cohomology.Bipartite.V33EnrichedParametricDualSpanHardLift
-import E213.Lib.Math.Cohomology.Bipartite.V33Mult1Trivial
-import E213.Lib.Math.Cohomology.Bipartite.V33c3Enriched
-import E213.Lib.Math.Cohomology.Bipartite.V33c3Indeterminacy
 import E213.Lib.Math.Cohomology.Bipartite.OctetCokernel
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.Bipartite`.

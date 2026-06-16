@@ -441,8 +441,6 @@ it carries a genuine non-coboundary H²-class (it is *pre-distinguishing*
 on the multiplicity axis, not empty).  See
 `theory/physics/foundations/atomic_constants.md` and
 `research-notes/frontiers/atomic_c_multiplicity_forcing.md`.
-`theory/math/cohomology/k_nm_c_classification.md` develops the
-`c`-counter (`codim ≥ c`, parametric in `c`; 5 directions, all closed).
 
 ### III.3 K_{3,2}^{(c=2)} — the canonical lattice
 
@@ -653,62 +651,6 @@ output, not a universe constant).
 ---
 
 ## Part V — Algebraic and cohomological structure
-
-### V.1 K_{NS, NT}^{(c)} classification — the five-direction c-counter
-
-`theory/math/cohomology/k_nm_c_classification.md` is the
-central chapter.  The c-counter programme decomposes into five
-independent closure routes, each ∅-axiom:
-
-  · **A — `codim ≥ c` parametric**.  `V33EnrichedParametric`
-    proves the lower bound for every `(NS, NT, c)`.  The
-    `9 · m` offset cancellation in `Beq213` absorbs
-    280+ proof sites across 12 templates (L1 parametric
-    consolidation, per Part VIII.4).
-  · **B — `codim ≤ c` unconditional**.  Closed via 8 explicit
-    primary cup generators at `c = 1` plus layer-promotion
-    (`promote_face` / `promote_edge`) lifting to ∀c.  The
-    `cong` constructor (closure under pointwise equality)
-    bridges function-vs-pointwise without `funext`.  See
-    `essays/per_layer_completeness_constructive_closure.md`.
-  · **C — ψ-discriminator joint kernel ⊆ InPrimary**.
-    `V33EnrichedParametricDualSpan*` — the c-many
-    ψ-discriminators *span* the dual of H²_enr; PRIMARY
-    cup-image rather than FULL is the maximal kill-preserving
-    restriction.
-  · **D — mediant cohomology functor**.  V/E/F Vandermonde
-    counts under Stern-Brocot; `K_{4, 3} = K_{1, 1} ⊕ K_{3, 2}`
-    as the marquee identity.  `MediantCohomologyFunctor.
-    mediant_cohomology_functor_capstone`.
-  · **E — c-counter master**.
-    `EnrichedKNSNTcMaster.master_Knn_c_counter_resolved`
-    consolidates A–D.
-
-Companion essays:
-`essays/c_counter_programme_closure.md` (5-direction synthesis),
-`essays/synthesis_interlock_map.md` (parallel with P-orbit's
-6-stage closure), `essays/layer_multiplication_pattern.md`
-(the shared proof-shape: invariant + offset + cancellation).
-
-**Cross-graph universality**.
-`Cohomology/CrossGraphPattern.lean` + `K33Unified.lean` — the
-"face-sum-to-zero" identity on 4-cycles at `NT = 3` is
-universal across `K_{3, 3}` and `K_{4, 3}`, independent of
-`NS`.
-
-### V.2 Stern-Brocot mediant cohomology functor
-
-`theory/math/cohomology/mediant_cohomology_functor.md` — V/E/F
-Vandermonde counts under mediant; K_{4, 3} = K_{1, 1} ⊕ K_{3, 2}
-as the marquee identity.
-
-### V.3 Tripartite self-containment
-
-`theory/math/cohomology/tripartite_self_containment.md` —
-K_{2, 1, 3} cohomology (Betti = (1, 0, 0)) and K_{3, 2}^{(c=2)}'s
-local (2, 1, 3) signature at every point.  Cross-frame verdict:
-atomic-level duality preserved (|E| = |Δ| = 6), cohomology-level
-duality broken (b₁ = 8 ≠ 0).
 
 ### V.4 Hodge conjecture programme
 
