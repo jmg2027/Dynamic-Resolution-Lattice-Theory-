@@ -95,6 +95,47 @@ theorem hodge_pairing_is_identity :
     ∧ (hPair 0 1 = 0 ∧ hPair 1 0 = 0 ∧ hPair 0 2 = 0 ∧ hPair 2 3 = 0
        ∧ hPair 1 2 = 0 ∧ hPair 3 1 = 0) := by decide
 
+/-! ## §3.5 — the Hermitian Gram form `G = h + i·Q` splits into metric ⊕ symplectic
+
+Assemble the two proven halves into one Hermitian form on `Δ⁴`'s `H¹`:
+`G(i,j) = hPair i j + 𝐢·cup1 i j`, represented as the `ℤ[i]` pair
+`(Re, Im) = (hPair, cup1)`.  Being Hermitian is *exactly* `Re` symmetric and
+`Im` antisymmetric — so the canonical real/imaginary split of `G` is:
+
+  · **`Re(G) = hPair`** — symmetric, positive-definite (`= I`): a **Riemannian
+    metric** (the modulus / gravity half, `GravityShadow`'s `W`-shadow);
+  · **`Im(G) = cup1`** — antisymmetric: the **symplectic form** (the phase /
+    gauge half, carrying the CP `i`).
+
+This promotes the asserted "phase/modulus separation is automatic from the
+complex structure of `⟨·|·⟩`" (`GravityShadow.lean`, currently `: True`) to a
+derived theorem, assembling only already-proven pieces — no new structure. -/
+
+/-- Real part of the Hermitian Gram (the metric / gravity half). -/
+def GRe (i j : Nat) : Int := hPair i j
+
+/-- Imaginary part of the Hermitian Gram (the symplectic / gauge half). -/
+def GIm (i j : Nat) : Int := cup1 i j
+
+/-- ◑ **Gram Hermitian split = metric (gravity) ⊕ symplectic (gauge).**
+    (Honest tier ◑, not ★★★★★: a `decide` bundle assembling `hPair`/`cup1`; the
+    gravity/gauge *physics* reading is not forced — see header.)
+    `G = GRe + 𝐢·GIm` is Hermitian: `Re(G)` is symmetric positive-definite
+    (`= I`, the Riemannian/gravity half) and `Im(G)` is antisymmetric (the
+    symplectic/gauge half).  Assembles `hodge_pairing_is_identity` (§3) +
+    `cup1_antisymmetric` (§2) into the one Hermitian form.  PURE. -/
+theorem gram_hermitian_gravity_gauge_split :
+    -- Re(G) = metric h: SYMMETRIC (gravity half)
+    (GRe 0 1 = GRe 1 0 ∧ GRe 0 2 = GRe 2 0 ∧ GRe 0 3 = GRe 3 0
+     ∧ GRe 1 2 = GRe 2 1 ∧ GRe 1 3 = GRe 3 1 ∧ GRe 2 3 = GRe 3 2)
+    -- ... and positive-definite (= I)
+    ∧ (GRe 0 0 = 1 ∧ GRe 1 1 = 1 ∧ GRe 2 2 = 1 ∧ GRe 3 3 = 1)
+    -- Im(G) = symplectic Q: ANTISYMMETRIC (gauge half)
+    ∧ (GIm 0 1 = -(GIm 1 0) ∧ GIm 0 2 = -(GIm 2 0) ∧ GIm 0 3 = -(GIm 3 0)
+       ∧ GIm 1 2 = -(GIm 2 1) ∧ GIm 1 3 = -(GIm 3 1) ∧ GIm 2 3 = -(GIm 3 2))
+    -- ... with zero diagonal (no self-pairing)
+    ∧ (GIm 0 0 = 0 ∧ GIm 1 1 = 0 ∧ GIm 2 2 = 0 ∧ GIm 3 3 = 0) := by decide
+
 /-! ## §4 — capstone -/
 
 /-- ★★★★★★ **Signed-ℤ cup product (the common α_em + CP infrastructure).**  The

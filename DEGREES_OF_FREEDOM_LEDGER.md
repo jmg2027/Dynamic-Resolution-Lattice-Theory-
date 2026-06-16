@@ -38,13 +38,20 @@ row to `forced` (a uniqueness proof) or retire it.
 | NS | 3 | **forced** | `Atomicity.NonDecomposable.non_decomposable_iff` + `PairForcing.pair_forcing` |
 | NT | 2 | **forced** | same |
 | d | 5 | **forced** | `Atomicity.Five.atomic_iff_five` |
-| c | 2 | **forced** | `Atomicity.CombinatorialArity.arity_2_unique_via_k_ge_3_vacuous` |
+| c | 2 | **derived** (presentation) | re-presents `NS²−1` as graph cohomology `b₁(K_{NS,NT}^{(c)})`; **not forced** — see below |
 | (NS, det) | (3, 1) | **forced** | `Atomicity.OrbitForcing.orbit_forcing_master` |
 
-**Layer-0 verdict: zero researcher DoF, proven.** This is the floor
-the whole derivation stands on, and it is unimpeachable. Everything
-below is built *from* these — the question is only whether the
-*building* adds freedom.
+**Layer-0 verdict: `(NS, NT, d)` + `(NS, det)` forced, zero researcher DoF.**
+This forced floor is unimpeachable.  The multiplicity `c = 2` is **not** a
+fourth forced primitive: `CombinatorialArity` forces the relation *arity* (how
+many inputs the slash takes), which is a **different** quantity from the edge
+*multiplicity* `c` (parallel-edge count) — conflating them was an error.  `c`
+is the presentation parameter set so the graph cohomology `b₁(K_{NS,NT}^{(c)})
+= c·NS·NT − (NS+NT−1)` reproduces the gauge content `NS² − 1` (already direct
+from the forced `NS`).  It is unforced across five reframings and
+physics-redundant.
+So the atomic floor is `(NS, NT, d) = (3, 2, 5)`, with `c = 2` a derived
+cohomological presentation of `NS²−1`.
 
 ---
 
@@ -108,9 +115,13 @@ physically is (not by arithmetic, which cannot — the values coincide):
 - `c` and `NT` act on the edge count by **different operations**: a
   multiplicity-step adds `NS·NT`, a T-vertex-step adds `c·NS`
   (`nt_step`, `increments_distinguish_c_from_nt`: `15 ≠ 6` at `NT ≠ c`).
-- The two `2`'s are forced by **independent theorems** — `c=2` (arity,
-  `CombinatorialArity`), `NT=2` (pair count, `PairForcing`) — same value,
-  distinct role (`c_and_nt_equal_value_distinct_role`).
+- `NT = 2` is forced (pair count, `PairForcing`).  `c = 2` (edge
+  multiplicity) is **not** independently forced: `CombinatorialArity` forces
+  the relation *arity* (a distinct quantity, not the parallel-edge count), and
+  the edge-count selection of `c·NS·NT` is the **cohomology's presentation**
+  (it re-presents `NS²−1`), not an axiom forcing.  So this resolves the
+  *attribution of the value-2 within the edge-count reading*, but does not
+  upgrade `c` to forced.
 
 Capstone: `nt_c_degeneracy_resolved`. **The Layer-1 `assignment` row is
 no longer a researcher DoF** — the cohomology's edge-count structure
@@ -124,9 +135,17 @@ forces `c·NS·NT`, and the NT↔c coincidence is structurally broken.
 |---|---|---|---|---|
 | ζ(2) | π²/6 | **derived** | Basel chapter (repo-derived, not hardcoded; `README.md` "ζ(2) via Basel") | no transcendental constant inserted by hand |
 | α_GUT | `1/α_GUT = d²·ζ(2) = 25·π²/6` | **derived** | `Couplings/AlphaGUT.lean`, `SpectrumComplete.inv_alpha_GUT_eq_25` | **not an external GUT input** — itself a function of `d` and ζ(2) |
+| Basel **resolution depth** `N` | `α_3→1, α_2→2, α_1→∞` | **derived** (rank exhaustion) | `Cosmology.NeffDerivation.basel_formula_axiom_derived` (PURE) | the genuine "**Dynamic Resolution**": each coupling is the ζ(2) series truncated at depth `N` = the Gram-sector rank-exhaustion hop count, **derived from `{NS, NT}`**: `α_3 = C(NS,NS) = 1` (AAA pure sector, `C(NS,NS+1)=0` saturates), `α_2 = NT = 2` (temporal rank cap, `C(NT,NT+1)=0`), `α_1 = ∞` (cross-sector, `NS ≠ NT` ⇒ no saturation).  **Load-bearing** (wrong depth ⇒ wrong answer: `α_2@N=1=24≠30`, `α_3@N=2=10≠8`).  Residual: the **sector↔force naming** (AAA↔color, ABB-temporal↔weak, cross↔EM) — structurally motivated (color = pure NS-sector `SU(NS)`, weak = NT-temporal, EM = cross/U(1)), the genuine minimal physical interface. |
 
-**Layer-2 verdict.** No external physical constant is imported. The two
-"continuous-looking" inputs are themselves residue-derived: ζ(2) from
+**Layer-2 verdict.** No external physical *constant* is imported (ζ(2), α_GUT
+residue-derived).  The **Basel resolution depth `N`** — the genuine "Dynamic
+Resolution" of DRLT (Zeno→pixels, `seed/ORIGIN.md`) — is **derived from
+`{NS, NT}`** by Gram-sector rank exhaustion (`NeffDerivation`, PURE), not a free
+physical input: the three depths `(1, 2, ∞)` follow from `C(NS,NS)=1`, `NT=2`,
+and `NS≠NT`.  Unlike the redundant lattice multiplicity `c`, the depth is both
+*load-bearing* and *forced-from-the-atoms*.  The one residual is the
+sector↔force naming (which sector is color/weak/EM) — the minimal physical
+interface, structurally motivated by the group identities.  ζ(2) is from
 Basel, α_GUT from `d²·ζ(2)`. This closes the most common skeptic charge
 ("you smuggled in α_GUT from the Standard Model") — it is refuted by the
 code: α_GUT here is `6/(25π²)`, derived.
@@ -173,8 +192,7 @@ the correction form — it reduces to one sub-question: **why `α²/d²`?**
   forced numerator `α²` (self-energy is `O(α²)`), this grounds `α²/d²` in
   degree-2 structure. **Remaining (narrow)**: a forcing theorem identifying
   the Gram self-energy *as* the `k=1` self-pairing cup term (promote
-  `CupRingTrace`/`SelfPairingTrace` from test to derivation). Frontier:
-  `research-notes/frontiers/gram_d2_prefactor.md`.
+  `CupRingTrace`/`SelfPairingTrace` from test to derivation).
 
 ---
 

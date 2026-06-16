@@ -1,6 +1,7 @@
 import E213.Lib.Physics.Cosmology.Bridge
 import E213.Lib.Physics.Cosmology.DarkEnergy
 import E213.Lib.Physics.Cosmology.GravityShadow
+import E213.Lib.Physics.Cosmology.MetricHolonomyBridge
 import E213.Lib.Physics.Cosmology.HorizonInformation
 import E213.Lib.Physics.Cosmology.HubbleConstant
 import E213.Lib.Physics.Cosmology.NeffDerivation

@@ -1,7 +1,7 @@
 # CAPSTONE INDEX — 213 master theorems organized
 
-Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
-(re-verified each citation against current source).
+Quick navigation for major Lean capstones.  Each citation is verified
+against current source.
 
 ## Top-level achievements
 
@@ -22,7 +22,7 @@ Quick navigation for major Lean capstones.  Updated 2026-05-18 audit
 - `Lib/Physics/Cosmology/DarkEnergy.dark_energy_pattern_capstone`
 - `Lib/Physics/Higgs/Mass` — `alpha_correction_structure`
 
-### Cross-observable bridge — NS·NT·π⁵ skeleton (2026-05-20)
+### Cross-observable bridge — NS·NT·π⁵ skeleton
 - `Lib/Physics/Capstones/NSNTPi5Block.ns_nt_pi5_block_capstone`
   — m_p/m_e and 1/α_em(IR) gap as two readings of the same
   NS·NT·π⁵ skeleton (4 PURE theorems)
@@ -89,10 +89,7 @@ double-counting dual — both proven ∅-axiom.
 
 ## Class C atomic catalog (multi-reading magic integers)
 - `Lib/Physics/Foundations/AtomicSuperCatalog.super_catalog` —
-  consolidated multi-output catalog (absorbs former
-  `FamousCoincidences/{Atomic, MultiReading, GaugeGroup, ExceptionalLie}`
-  cluster 2026-05-05; further moved
-  `AtomicCorrespondences/AtomicSuperCatalog` → `Foundations/`).
+  consolidated multi-output catalog.
   Covers integers 6, 8, 12, 16, 24, 25, 27, 32, 45, 60, 120, 192,
   240, 248 with multi-reading atomic decompositions.
 - Physics-named coincidences live in their natural topical files:
@@ -115,33 +112,32 @@ double-counting dual — both proven ∅-axiom.
 - `Theory/Atomicity/PairForcing.pair_forcing` — (2,3) coprime pair unique
 - `Theory/Raw/ParenthesizationDistinct.parenthesisation_distinct`
   — `(a/b)/z ≠ a/(b/z)` for concrete `z`; no universal `slash`
-  associativity (added 2026-05-18)
+  associativity
 - `Theory/Raw/ParenthesizationDistinct.same_leaves_distinct_parenthesisation`
   — both parenthesisations have leaves count = 5, yet are distinct
   Raws.  The concrete "projection many-to-oneness" witness:
   `Lens.leaves.view` collapses different Raws to the same `Nat`
-  (added 2026-05-18)
 - `Theory/Raw/Congruence` + `Lens/Congruence` — `Eqv (gens) ↔
-  L.equiv` biconditional for any lens (added 2026-05-18);
+  L.equiv` biconditional for any lens;
   `Lens.leaves_view_surjective_on_ge_one` realises every `n ≥ 1`
   as the leaves count of `numeral (n - 1)` — the rigorous form of
   "ℕ₊ = Range(Lens.leaves.view)"
 - `Theory/Raw/Congruence.Eqv.weaken` — `Eqv` is monotone in its
-  generator (added 2026-05-18); `Eqv.of_eq`, `Eqv.empty_iff_eq`
+  generator; `Eqv.of_eq`, `Eqv.empty_iff_eq`
   + `Lens.Eqv_monotone_in_lens` complete the basic `Eqv` API
 - `Lens/Number/Nat213/ChartGeneral.chartChain_value` —
-  chart-invariance over any `(r₀, r')` with `r₀ ≠ r'` (added
-  2026-05-18; explicit form of axiom §9.1's chart-relativity)
+  chart-invariance over any `(r₀, r')` with `r₀ ≠ r'`
+  (explicit form of axiom §9.1's chart-relativity)
 - `Lens/Number/Nat213/ChartGeneral.chartChain_injective` —
   the chain map `n ↦ chartChain r₀ r' h n` is injective in `n`
-  (any chart provides a bijective ℕ → Range labelling; added
-  2026-05-18 via `value_pos` + `mul_left_cancel_pos`)
+  (any chart provides a bijective ℕ → Range labelling, via
+  `value_pos` + `mul_left_cancel_pos`)
 - `Lens/SyntacticInternalization.parseTree_printTree` —
   Polish-prefix universal round-trip
-  `∀ t, parseTree (printTree t) = some t` (added 2026-05-18)
+  `∀ t, parseTree (printTree t) = some t`
 - `Lens/SyntacticInternalization.printTree_parseTree` — reverse
   direction: `parseTree gs = some t → printTree t = gs`
-  (lossless parser; added 2026-05-18 L4 closure)
+  (lossless parser)
 - `Lens/SyntacticInternalization.printTree_injective` —
   `printTree t₁ = printTree t₂ → t₁ = t₂` (closes the bijection
   between `Tree` and `Range(printTree)`)
@@ -172,23 +168,19 @@ Must-read for new sessions:
 ```
 lean/E213/
   Term/      — Raw 의 구현체 (Tree substrate + Bool comparators
-               + Sound bridges; 17 files, ★ literally 0 axiom)
+               + Sound bridges; ★ literally 0 axiom)
   Theory/    — Raw axiom (a, b, slash, slash_comm) + Atomicity
                (d=5, (NS,NT)=(3,2) forced uniqueness) + CDDouble
                + Congruence + ParenthesizationDistinct
-               (24 files post-2026-05-18 cleanup; Bool213 /
-               Nat213 / RawCut migrated to Lens 2026-05-14)
   Lens/      — Lens framework (catamorphism Raw → α) + sub-clusters
                (Algebra, AxiomLenses, Bool213, Cardinality, Compose,
                 Congruence, Instances, Lattice, Number,
                 Properties, SyntacticInternalization, Universal)
-               (144 files)
   Lib/Math/  — math (Cohomology, Linalg, Real213, CayleyDickson,
-               Probability, …; 727 files in 42 sub-clusters)
-  Lib/Physics/— physics formalization (165 files in 17 sub-clusters)
+               Probability, …; 42 sub-clusters)
+  Lib/Physics/— physics formalization (18 sub-clusters)
   Meta/      — ring-independent Lean bridge (Tactic, SelfRecognising,
-               AxiomMinimality, LensInternality, List213, …;
-               37 files)
+               AxiomMinimality, LensInternality, List213, …)
 ```
 
 ## Key invariants (cross-cutting atomic identities)
@@ -202,9 +194,7 @@ lean/E213/
   - NS + 1 = d - 1 = 4  (SU(5) face / Dyson)
   - d^(d²) = 5²⁵ = 298023223876953125 (bare hierarchy value)
 
-## 2026-05-20 — Deep philosophical revision pass additions
-
-New capstones from the 14-agent audit + revision pass:
+## Foundational realisations (by axiom section)
 
 ### §9.3 + §9.5 flat-ontology realisation (Lens)
 
@@ -250,7 +240,7 @@ New capstones from the 14-agent audit + revision pass:
   - `Px.QFibIdentity.Q01_eq_fib` — Q01 n = fib(2n) ∀n.
   - `Px.QFibIdentity.pn_fibonacci_universal` — full P^n entry
     formula ∀n: `P^n = [[fib(2n+1), fib(2n)], [fib(2n), fib(2n-1)]]`.
-  - `Px.FibCassini.fib_cassini_master` — **NEW**: fib(2n+3)·fib(2n+1) =
+  - `Px.FibCassini.fib_cassini_master` — fib(2n+3)·fib(2n+1) =
     fib(2n+2)² + 1 ∀n (Fibonacci Cassini from P^n determinant).
 
 All symbols verified PURE via `tools/scan_axioms.py`.

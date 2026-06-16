@@ -1,7 +1,7 @@
 # The Verification Spine — axiom → 1/α_em in one sitting
 
-> **Purpose.** The repository is ~1139 Lean files.  No external reader
-> audits 1139 files.  This document is the *single legible path* a
+> **Purpose.** The repository is thousands of Lean files.  No external
+> reader audits them all.  This document is the *single legible path* a
 > skeptic can verify in an afternoon: from the 3-clause Raw axiom,
 > through the forced atomic signature `(NS, NT, c, d) = (3, 2, 2, 5)`,
 > to the headline number `1/α_em` — every step a **named theorem**
@@ -54,9 +54,13 @@ this*, not dialed *into* it. (Public surface: `Theory/Raw/API.lean`.)
 
 ---
 
-## 2. The forced signature — `(NS, NT, c, d) = (3, 2, 2, 5)`
+## 2. The signature — `(NS, NT, d) = (3, 2, 5)` forced, `c = 2` a presentation
 
-Each component is a theorem, not a setting. All PURE (verified §7).
+`(NS, NT)` and `d = NS + NT` are theorems, not settings (all PURE, §7).  The
+multiplicity `c = 2` is **not** independently forced: it is the presentation
+parameter set so the graph cohomology `b₁(K_{NS,NT}^{(c)})` reproduces the
+gauge content `NS² − 1`, which the forced `NS = 3` already gives directly
+(`c = 2` unforced across five reframings; physics-redundant).
 
 ### 2.1 Pair size and closure size → `NT = 2`, `NS = 3`
 

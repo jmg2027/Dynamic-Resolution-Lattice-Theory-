@@ -6,11 +6,13 @@ Raw-internal projection onto the two-element canonical form
 `{T, F}`.  `{T, F}` *is* the Raw image.  Cf. `seed/CLOSED_FORM_SPEC.md`
 3-domain table for the ℕ₊ projection comparison.
 
-## Files (2)
+## Files
 
   - `Raw.lean`    — Method A canonical encoding + ops
                     (not, and, isBool, booleanProj, boolValue,
                     fixed-point characterisation).
+  - `SelfReferenceForms.lean` — Bool-style vs Nat-style self-reference
+                    (liar oscillation vs Lambek fixed point).
   - `System.lean` — 메타 (T, F) pattern; arbitrary distinct Raw
                     pair gives valid system; iso preserves
                     not / and (Nat213 의 NumberingSystem과 평행).
@@ -29,8 +31,6 @@ Raw-internal projection onto the two-element canonical form
 ## Discipline
 
 All theorems ∅-axiom (verified via `tools/scan_axioms.py`).
-Migrated 2026-05-14 from `Theory.Closed.{Bool213, Bool213System}`
-under "Raw + catamorphism = Lens-layer artifact" principle.
 
 ## Distinction from existing Lens Bool files
 

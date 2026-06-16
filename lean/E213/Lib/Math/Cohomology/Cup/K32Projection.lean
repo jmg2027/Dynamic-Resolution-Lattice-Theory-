@@ -145,4 +145,47 @@ theorem quadruple_identity_drlt :
     ∧ k32_b1 3 2 2 = 3 * 3 - 1
     ∧ k32_b1 3 2 2 = 8 := by decide
 
+/-! ## §7.  `c = 2` is a crossing of a c-line, not a structural value
+
+The §6 readings all coincide *at* `c = 2`, but coincidence-at-a-point
+is not forcing.  The honest content: `b_1(K_{3,2}^{(c)}) = 6c − 4` is a
+**strictly increasing function of the multiplicity `c`** (each extra
+multiplicity layer adds `NS·NT = 6` independent cycles), whereas the
+target `NS² − 1 = 8` (the SU(NS) adjoint dimension) is **constant in
+`c`**.  A c-varying quantity equals a c-constant one at *one* `c` only —
+here `c = 2`.
+
+Consequence: there is no
+c-natural isomorphism `H¹(K_{NS,NT}^{(c)}) ≅ su(NS)-adjoint`, because one
+side's dimension depends on `c` and the other's does not.  At `c = 2` any
+such "isomorphism" is a non-canonical equality of two 8-dimensional
+spaces, carrying no forcing content.  So `c = 2` is **selected** by
+demanding `b_1 = NS² − 1`, not **forced** by the axiom.  The theorems
+below make that selection explicit and ∅-axiom-checkable. -/
+
+/-- `b_1(K_{3,2}^{(c)}) = 6c − 4` on `c ≤ 12`: the cycle rank is a line in
+    the multiplicity `c`.  (`List.range`/`decide`, PURE.) -/
+def b1_is_line_check : Bool :=
+  (List.range 13).all (fun c => k32_b1 3 2 c == 6 * c - 4)
+
+theorem k32_b1_32_is_line : b1_is_line_check = true := by decide
+
+/-- The line is strictly increasing: each `+1` in `c` adds `NS·NT = 6`
+    cycles (`b_1(c+1) − b_1(c) = 6`).  Checked on `c ≤ 11`.  PURE. -/
+def b1_strict_mono_check : Bool :=
+  (List.range 12).all (fun c => Nat.ble (k32_b1 3 2 c + 1) (k32_b1 3 2 (c + 1)))
+
+theorem k32_b1_32_strict_mono : b1_strict_mono_check = true := by decide
+
+/-- ★★★★★★ **The crossing is unique**: on `c ≤ 12`,
+    `b_1(K_{3,2}^{(c)}) = NS² − 1 = 8  ⟺  c = 2`.  The su(NS)-adjoint
+    value is hit at exactly one multiplicity — `c = 2` is the *crossing
+    point of a c-line with a c-constant target*, i.e. selected, not
+    structurally forced.  PURE. -/
+def b1_crosses_adjoint_only_at_2_check : Bool :=
+  (List.range 13).all (fun c => (k32_b1 3 2 c == 3 * 3 - 1) == (c == 2))
+
+theorem k32_b1_32_crosses_adjoint_only_at_2 :
+    b1_crosses_adjoint_only_at_2_check = true := by decide
+
 end E213.Lib.Math.Cohomology.Cup.K32Projection

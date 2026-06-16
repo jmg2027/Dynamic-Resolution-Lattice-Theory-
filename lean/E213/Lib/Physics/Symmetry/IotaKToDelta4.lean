@@ -150,10 +150,19 @@ theorem cardH1K_eq_256 :
   · exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0_eq_2
   · decide
 
-/-- ★★ **Gluon octet identification**: since H¹(Δ⁴) = 0,
-    `coker ι* = H¹(K) ≃ (F_2)^8`.  The 8 generators correspond to
-    the 8 non-tree edges of K_{3,2}^{(c=2)}, matching the 8 gluons
-    of SU(3) (the QCD octet).  PURE. -/
+/-- ★★ **Gluon octet — supporting numbers** (the cokernel *identification* is
+    now closed ∅-axiom WITHOUT the LES in
+    `Cohomology.Bipartite.OctetCokernel.octet_is_cokernel_of_zero_map`: a linear
+    map out of the one-element group `H¹(Δ⁴)` is zero, so `coker ι* = H¹(K)`,
+    rank 8).  This theorem records the supporting counts only.
+
+    NB the genuine `H¹(Δ⁴) = 0` certificate is reduced `b̃₁ = 0`
+    (`BettiKernel.reduced_betti_d4_contractible`); `kerSizeDelta 5 2` below is the
+    `C²` enumeration, a supporting datum, not the `H¹` certificate.
+
+    Reading the rank-8 `𝔽₂`-module as the SU(3) gluon octet is the
+    Weyl-restriction deployment (`Sym3IrrepDecomp`) — a physics label kept as a
+    *reading*, not forced (the forced content is the number `8 = NS²−1`).  PURE. -/
 theorem gluon_octet_identification :
     kerSizeDelta 5 2 = 16
     ∧ 16 / 16 = 1

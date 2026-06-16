@@ -2,22 +2,24 @@ import E213.Lib.Physics.Simplex.Counts
 import E213.Lib.Physics.Basel.WhyBasel
 
 /-!
-# N_eff per force from Gram-sector rank (0 axioms)
+# N_eff depths from Gram-sector rank exhaustion (0 axioms)
 
-Each force has propagation horizon N_eff equal to
-the rank exhaustion depth of its Gram sector.
+**What is DERIVED (∅-axiom, `decide`):** the depth INTEGERS `{1, 2, ∞}` from
+rank-exhaustion combinatorics:
 
-  α_3 (AAA, pure ℂ³):   C(NS, NS) = C(3,3) = 1 → N_eff = 1
-  α_2 (ABB, temporal):  rank ≤ NT = 2          → N_eff = NT = 2
-  α_1 (cross-sector):   no rank exhaustion      → N_eff = ∞
+  AAA pure sector:  C(NS, NS) = C(3,3) = 1,  saturates `C(3,4)=0`  → depth 1
+  temporal sector:  rank ≤ NT = 2,           saturates `C(2,3)=0`  → depth 2
+  cross-sector:     NS ≠ NT, no saturation                          → depth ∞
 
-This file formalizes the **finite** parts (α_3, α_2) by simple
-combinatorial identities.  The α_1 case is encoded as the absence
-of a rank-saturating Nat — equivalent to using the bracket
-`S(N) ≤ ζ(2) ≤ upper(N)` with no finite cap.
+**What is POSITED (a reading, not derived):** the *binding* of each sector to a
+specific force (AAA↔α_3 color, temporal↔α_2 weak, cross↔α_1 EM).  `WhyBasel.lean`
+states this plainly ("N_eff per force is **posited** from the ch08 Gram-rank
+argument; explicit Lean derivation is open").  So the theorems below force the
+**saturation profile** `{1, 2, never}`; "these three are α_3, α_2, α_1" is the
+sector→force reading, kept honest, not ontologized.
 
-Together with `WhyBasel.lean` (form 1/n²), this completes the
-"why three forces use Basel" derivation chain in Lean.
+The α_1 (∞) case is the absence of a rank-saturating Nat — equivalent to the
+bracket `S(N) ≤ ζ(2) ≤ upper(N)` with no finite cap.
 -/
 
 namespace E213.Lib.Physics.Cosmology.NeffDerivation

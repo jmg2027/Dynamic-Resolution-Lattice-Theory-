@@ -22,7 +22,7 @@ combinatorial, number-theoretic, physics-coupling, information-
 theoretic — projects onto the same set of integers.
 
 This is verified ∅-axiom by 55 Lean theorems in
-`Lib/Math/Mobius213SignatureAxisCatalog` + `…Phase2`, spanning
+`Lib/Math/Algebra/Mobius213SignatureAxisCatalog`, spanning
 11 distinct domains.  The catalog's master statements
 (`signature_axis_master_phase_1`, `…_phase_2`) bundle them as
 20-conjunct and 23-conjunct ∅-axiom propositions.

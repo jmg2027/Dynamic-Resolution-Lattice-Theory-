@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 104 essays are grouped into ten thematic sub-directories — distinct
+The 105 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -153,6 +153,16 @@ mode counted once — `bcount_const = 2`, `isKer_iff_const` — read as the coho
 subtracted (`im_count_inj_complement`, field-free via an involution), the `SU(NS)` adjoint's
 removed trace (`c3_chain`), and the chart's self-pointing axis `d_M = d−1`
 (`forcedKChartLens`); none of the three is what the `−1` IS).
+`what_213_forces_and_what_it_reads` (the originator's foundational question — why
+should a Raw axiom derive physics — answered as the forced/read split: 213 forces
+a small skeleton (the atoms `(NS,NT,d)=(3,2,5)`, the counts `NS²−1=8`,
+`C(NS,NT)=3`, the Basel depths `{1,2,∞}` — all ∅-axiom, `decide`-true) while the
+physical *names* (`8`=gluon octet, `Δ⁴`=spacetime, `6π⁵`=`m_p/m_e`) are readings
+laid on forced numbers; "Raw derives physics" = Raw forces the skeleton our
+universe's numbers exhibit, the particle dictionary is interpretation; the
+forced/read split IS the residue/Lens split at the physics scale
+(`object1_not_surjective`), the genuine zero-dial content small (≈3 independent
+counts) and honest about ◑ closures — octet `Unit`-modelled, CP-phase matrix-`J`).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,

@@ -388,6 +388,64 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (currently a structural assertion). Anchors:
   `Lib/Physics/AlphaEM/{GramCubicReduction,GramD2Readings,GramD2Mechanism}`.
 
+- `classical_input_gap_closure` — **close the classical-input gaps: forced, not
+  frozen.** The framework forces the *numbers/counting* (∅-axiom) but the
+  physical *identifications* (octet=SU(3), Δ⁴=spacetime, the couplings, mass
+  ratios, J∝Im) ride on docstring prose / a definition-smuggled projection — a
+  pattern verified universal across 6 observables (independent re-audit).  Two
+  typed-but-modelled closures (octet cokernel via a `Unit`-model; CP `C₄` via the
+  matrix `J`) and a recorded honest downgrade.  Deepest open layer: can the
+  discrete modulus *bracket* a continuous value (ζ(2)) ∅-axiom — `Zeta2Cut.lean`
+  specified-not-built (brackets a *hypothesised* limit; the genuine non-trivial
+  lemma is the `Htel` telescoping induction).  The math is closeable to a model;
+  the physics name stays a reading.
+
+- `evidential_overdetermination_count` — **how many INDEPENDENT measured numbers
+  does (3,2,5) pin with 0 dials?** After deduping re-readings of `{3,6,8,12,24}`
+  (the catalog reads each integer 6–12 ways; `FalsifierRosterForced` binds 9
+  "falsifiers" to one (3,2,5) polynomial) and subtracting π-fed precision, the
+  honest count is **K ≈ 3 (tight: N_gen=3, 8-gluon SU(3), Koide 2/3) to ≈ 7
+  (generous)** — not the headline "23 observables".  Genuine over-determination
+  engine: one atom set forced to three coupling skeletons at three forced depths
+  `{1,2,∞}`, un-tunable.  A small honest K with truly 0 dials is real; the
+  headline inflates ~3–7-fold.
+
+- `delta4_dual_defect_status` — **is Δ⁴ forced like (2,3,5)? No — it is 2nd-tier.**
+  `(NS,NT,d)=(3,2,5)` and `K_{3,2}` are forced; `Δ⁴` is the "maximal-non-commitment
+  filling" (`atomic_constants.md:206`), and "Δ⁴ = spacetime" has zero Lean support
+  (a forced map).  The Euler defect `χ(Δ⁴)−χ(K) = 1−(−7) = 8` IS the genuine gauge
+  `b₁` (real relative-χ of `ι: K↪Δ⁴`) — but the PURE theorem proves only the
+  *supporting numbers* (`H¹(Δ⁴)=0`, `2⁸=256`); the *coker = octet* identification
+  is the classical LES (docstring), not ∅-axiom.  The gravity extension ("gravity
+  = the defect") is a slogan with no support (rejected as forcing).
+
+- `gravity_reconnection_hinge_holonomy` — **reconnect the early "gravity =
+  hinge area" (Regge) research with current 213.**  The genuine find: the
+  **Kähler polarization is PROVEN** (Hodge layer, `HodgeRiemannJ`/`SignedCup`) —
+  symplectic `Q` (gauge/phase) + positive-definite metric `h=I` (gravity/real) +
+  complex structure `J`, `J²=−I`, `Q·J≻0`.  So gauge=imaginary, gravity=real of
+  one Hermitian Gram form is *constructed*, not forced — but **not wired** to
+  the gravity file (`GravityShadow`'s `W=|G|²/d` is a scalar, its separation is
+  `: True := trivial`).  Natural first brick (all PURE): assemble `G=h+iQ`, prove
+  `Re=h` metric / `Im=Q` symplectic.  Open: curvature of `h`, the phase-vs-modulus
+  (Regge holonomy vs modulus) gravity question, `G_N`.  NB the graph
+  `DiscreteGaussBonnet` (`b₁=2`, simple `K`) is *not* the gauge `b₁=8`
+  (`K^{(2)}`) — connecting it would be a forced bridge.  An opportunity with a
+  proven skeleton, not a closed result.
+
+- `atomic_c_multiplicity_forcing` — **is the atomic multiplicity `c = 2`
+  axiom-internally forced?** Of `(NS,NT,c,d)=(3,2,2,5)`, arity=2 and the pair
+  `(3,2)` are genuinely forced, but the cup/edge multiplicity `c=2` is
+  *selected to hit `b₁ = NS²−1 = 8`* (the imported photon-kernel target):
+  `b₁ = NS·NT·c − (NS+NT−1) = 6c−4`, so `b₁=8 ⟺ c=2`, but `b1_eq_NS_sq_minus_1`
+  is `decide` on `8=9−1` over an edge count that already bakes in `c=2`. The
+  candidate `c=NT` handle is a `decide`-coincidence of two distinct 2's
+  (arity-base `Fin 2` vs partition-slot `NT`); orientation-freedom gives `c=1`.
+  *Open*: build the structural iso `H¹(K_{NS,NT}^{(c)}) ≅ S-distinguishing
+  lattice (dim NS²−1)` that forces `6c−4=NS²−1` without naming 8 as target.
+  Companion to `gram_d2_prefactor` (same flavour). Secondary symptom: the
+  "C2b" label denotes two different equations across theory/Lean.
+
 - `headline_precision_scope` — **what the Lean proves vs the README precision
   column**, headline by headline (extends the α_em DoF ledger). First finding:
   `m_μ/m_e` README "0.49 ppb" is PURE-proven only to the *leading integer

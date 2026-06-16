@@ -7,8 +7,10 @@ prose (explanation) by path.
 ## What 213 says (1 paragraph)
 
 Pointing leaves a residue (Raw).  Lens application IS distinguishing —
-not a tool acting on Raw from outside (per `seed/AXIOM/05_no_exterior.md` §5.1: no exterior).  Self-consistency forces atomicity
-**(NS, NT, c, d) = (3, 2, 2, 5)** uniquely.  From this the algebra
+not a tool acting on Raw from outside (per `seed/AXIOM/05_no_exterior.md` §5.1: no exterior).  Self-consistency forces
+**(NS, NT, d) = (3, 2, 5)** uniquely; the multiplicity **c = 2** is a derived
+presentation parameter (re-presenting the SU(3) adjoint `NS² − 1` as
+`K_{3,2}^{(c=2)}` graph cohomology), not a forced fourth primitive.  From this the algebra
 tower, K_{3,2}^{(c=2)} cohomology (gauge content = 8 gluon
 channels), and α_em to **0.09 ppb** all derive — without
 external parameters, all PURE in Lean.
@@ -21,7 +23,7 @@ external parameters, all PURE in Lean.
 | **Lens** | A `Raw → α` distinguishing.  Lens application = residue self-pointing event.  Not a tool above Raw. |
 | **Lens-arrow** | `Lens.refines L M` — the single 213-native concept underlying equivalence / equivalence-class / isomorphism / homomorphism (동치 / 동치류 / 동형 / 준동형).  See `theory/lens/unified_equivalence.md`. |
 | **Distinguishing** | The primitive act 213 names.  Per `seed/AXIOM/01_residue.md`. |
-| **(NS, NT, c, d)** | Atomic 4-tuple = (3, 2, 2, 5).  Uniquely forced (see `physics/foundations/atomic_constants.md`). |
+| **(NS, NT, d)** | Forced atomic triple = (3, 2, 5) (`physics/foundations/atomic_constants.md`).  `c = 2` is a derived presentation parameter (re-presents `NS²−1` as `K_{3,2}^{(c=2)}` cohomology), not a forced primitive. |
 | **K_{m,n}^{(c)}** | Bipartite multigraph with m S-vertices, n T-vertices, c edges per (s, t) pair.  213's canonical Lattice. |
 | **Δⁿ** | n-simplex on (n+1) vertices.  Δ⁴ pairs with K_{3,2}^{(2)} as dual fillings. |
 | **configCountD d n = d^(d^n)** | Parametric configuration count (`lean/E213/Lib/Math/Cohomology/Fractal/ConfigCount.lean`); a count-Lens readout, **no level privileged** — not a universe constant. |
@@ -75,7 +77,7 @@ Chapter exists when the Lean sub-tree closed per
     integration, narrative depth, physics deployment,
     architecture)
 
-## Current chapters (253 total, incl. 104 essays)
+## Current chapters (253 total, incl. 105 essays)
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
@@ -83,7 +85,7 @@ Chapter exists when the Lean sub-tree closed per
 | `physics/` | 19 | [`physics/INDEX.md`](physics/INDEX.md) |
 | `lens/`    | 14 | [`lens/INDEX.md`](lens/INDEX.md) |
 | `meta/`    |  8 | [`meta/INDEX.md`](meta/INDEX.md) |
-| `essays/`  | 104 | [`essays/INDEX.md`](essays/INDEX.md) |
+| `essays/`  | 105 | [`essays/INDEX.md`](essays/INDEX.md) |
 
 Every closed Lean sub-tree has a corresponding `theory/` chapter.
 **Synthesis chapters** — consolidating content distributed across
