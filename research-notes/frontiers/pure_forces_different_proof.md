@@ -482,6 +482,27 @@ General-`n` (Halmos–Vaughan tight/slack induction) is the open frontier — al
 lemmas built; what remains is subgraph re-indexing after vertex+neighbor deletion.
 (36 PURE; frontier: `frontiers/hall_general_induction.md`.)
 
+### C — general real comparability ⟹ LLPO (★ reals not constructively totally ordered)
+`Logic/RealComparabilityLLPO`. Generalizes `RealDichotomyLLPO` (sign vs `one`) to
+two arbitrary reals: `comparability_imp_llpo : (∀ x y : Cut, cutLe x y ∨ cutLe y x)
+→ LLPO`. A one-liner over the committed dichotomy — instantiate at `y := one`, then
+the encoded cut `yf f` decides the even/odd disjunction. Reveals: **"is `x ≤ y`?"
+for arbitrary reals is an omniscience act; the corpus reals are not constructively
+totally ordered.** (2 PURE; reuses `RealDichotomyLLPO.llpo_of_realDichotomy`.)
+
+### C — Cesàro mean convergence, averaging modulus computed (★ force-the-modulus)
+`Analysis/CesaroMean`. Classical Cesàro is the ε/2 split with `δ` implicit. ∅-axiom
+forces the averaging modulus open: `cesaro_converges` — from `a → L` with modulus
+(eventual-constancy index `N`), the averages converge with the **computed** modulus
+`Nstep m = N + 2^m·E + 1`, where `E = Σ_{k<N}|a k − L|` is the fixed early-term
+spread. The tail contributes exactly 0 (`psum_gap_bounded : n ≥ N ⟹ |P n − n·L| ≤
+E`), the early bump `E` averages away at the explicit rate (`cesaro_step : 2^m·E < n
+⟹ within 1/2^m`); "average within 1/2^m" is the multiplied-out `Nat` inequality
+`closeAvg` (no real division). Non-vacuous (`inhabited_cesaro_bump`: nonzero spread
+averaging away at rate `~2^m`). Reveals: **the Cesàro rate is linear in `2^m` and
+the early-term spread, computed — no `∃δ` hides the bookkeeping.** (16 PURE; reuses
+`UniformLimitContinuous.distN`/`distN_tri`; pure-twin `NatHelper.add_mul`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
