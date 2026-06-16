@@ -239,8 +239,9 @@ theorem R1_close_certificate :
     NS + NT - 1`, parametric in deployment parameters.
   · **Step 2 — Axiom-level shadow**: `Meta.LensInternality` proves
     every `Lens α` has 3 data components = 2 atoms + 1 operator.
-  · **Step 3 — Deployment-level M2 close**: `V32Betti` proves
-    `dim ker δ⁰ = 1` for K_{3,2}^{(c=2)} via connectedness.
+  · **Step 3 — Deployment-level M2 close**: the parametric δ⁰
+    (`Delta0AndConnectedness.b0_K32_c2`) gives `dim ker δ⁰ = 1` for
+    K_{3,2}^{(c=2)} via connectedness.
   · **Step 4 — M1 atomicity-route**: `TriangleIteration` proves
     `(N_S, N_T) = (3, 2)` from atomicity `a₀ = 2`.  **Strong
     forcing** of (NS, NT); c is unconstrained.

@@ -80,8 +80,8 @@ theorem b0_K14_c1 : kerSizeDelta0Direct 1 4 1 = 2 := by decide
 /-- K_{4,1}^{(c=1)}: S/T swap of K_{1,4}.  ker = 2. -/
 theorem b0_K41_c1 : kerSizeDelta0Direct 4 1 1 = 2 := by decide
 
-/-- K_{3,2}^{(c=2)}: the forced critical deployment.  ker = 2
-    (matches `V32Betti.kerSizeDelta0_eq_2`). -/
+/-- K_{3,2}^{(c=2)}: the forced critical deployment.  ker δ⁰ = 2
+    (the two constant cochains) ⇒ b₀ = 1. -/
 theorem b0_K32_c2 : kerSizeDelta0Direct 3 2 2 = 2 := by decide
 
 /-- K_{3,3}^{(c=2)}: 6 vertices, 18 edges.  ker = 2. -/
