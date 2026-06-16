@@ -83,11 +83,24 @@ tied to LEM/compactness/choice. Answered symmetrically (vein C), four cases:
   bisection sign step can't be ∅-axiom (it's LLPO) while the corpus's *approximate*
   IVT (`cutEq … 0`) stays pure. The encoding's "denominator blow-up" is the
   omniscience cost made visible. The deepest analysis calibration.
-The symmetry (now SIX analysis cases): **EVT + UniformLimit force the hidden
-modulus; BW + HeineCantor + Dini + RealDichotomyLLPO name and measure the import**
-— a reverse-math ledger across the LPO / LLPO / fan rungs. 213 never smuggles an
-exterior. Logged in the frontier collection + the methodology chapter's vein-C
-section.
+- **`Analysis/BanachFixedPoint`** (12 PURE) — Banach contraction fixed-point,
+  modulus form: Picard iterates Cauchy with computed geometric modulus `N(m)=m`
+  (`picard_cauchy`); fixed point the Cauchy limit, located + unique. Completeness
+  as data+spec (`CompleteMetricModulus`), not an existence miracle. Reuses this
+  session's own `MetricModulus`. Unconditional.
+- **`Logic/RealEqualityWLPO`** (16 PURE) + **`Logic/RealApartnessMP`** (15 PURE) —
+  the **real-decision triad** with `RealDichotomyLLPO`: sign ⟺ LLPO, equality ⟺
+  WLPO, apartness ⟺ MP (mirrors `lpo_iff_wlpo_and_mp` at the real level). The
+  negation is free; the disjunctive verdict is LLPO/WLPO; locating the apartness
+  witness is MP (a bounded search the located bound makes terminate). Both
+  two-sided.
+
+The symmetry (now NINE analysis cases): **EVT + UniformLimit + Banach force the
+hidden modulus; BW + HeineCantor + Dini + the real-decision triad
+(RealDichotomyLLPO/RealEqualityWLPO/RealApartnessMP) name and measure the import**
+— a reverse-math ledger across the LPO / WLPO / MP / LLPO / fan rungs. 213 never
+smuggles an exterior. Logged in the frontier collection + the methodology
+chapter's vein-C section. Full Math green at **1972 modules**.
 
 Full `E213.Lib.Math` green at **1967 modules**; all pushed. Leg total: **11
 modules + the `exists_collision` primitive**, ∅-axiom PURE — 7 number-theory/
