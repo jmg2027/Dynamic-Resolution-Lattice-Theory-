@@ -120,7 +120,18 @@ chapter's vein-C section. Full Math green at **1972 modules**.
   multiplied-out `Nat` inequality (no division). Pure-twin `NatHelper.add_mul`.
 - **`Logic/RealComparabilityLLPO`** (2 PURE) — general real comparability
   `∀ x y, x≤y ∨ y≤x ⟹ LLPO` (reals not constructively totally ordered); one-liner
-  over `RealDichotomyLLPO`. Full Math green at **1977**.
+  over `RealDichotomyLLPO`.
+- **`Analysis/LimitArithmetic`** (12 PURE) — sum limit law on `distMet` (the
+  additive structure `MetricModulus` lacks): `distN_add_le` +`add_converges`
+  (modulus `max(ra(m+1),rb(m+1))`) + `shift_converges`. Product/squeeze still open
+  (`frontiers/analysis_modulus_pending.md`). Full Math green at **1978**.
+
+**Orchestration lesson (for next iteration):** the env cleans agent scratch dirs
+between Bash calls, which RACES any "scratch removed ⟹ done" watcher and gives
+false "no checkpoint" reads (Cesàro + LimitArithmetic both *succeeded* but read as
+misses first). Reliable signal = the agent's own completion notification (it
+carries the report + checkpoint path); re-check `/tmp/<tag>/Result.lean` after the
+notification, not on scratch-dir poll.
 
 ### Open frontiers (next-iteration targets — recorded per PROCESS frontier rule)
 - `frontiers/hall_general_induction.md` — Hall general-`n` (Halmos–Vaughan);
