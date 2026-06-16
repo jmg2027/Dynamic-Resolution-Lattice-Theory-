@@ -1095,6 +1095,20 @@ closure → full build → commit.
   a statement about `oddPart n` only (remaining: crux #2, `IsSquare ⟺ all odd-prime valuations even`).
   Reusable infra (the corpus had `vp` valuation but NO quotient/odd-part decomposition).  Genuinely absent.
 
+- **165 — number theory (★★★ coprime-square-split + square characterization; σ-parity frontier
+  narrowed to ONE lemma)**: `NumberTheory/SquareCharacterization` (NEW file, 11 PURE).  Recovered from a
+  stalled background agent (SQSP) — I fixed its `rw` over-rewrite bugs (replacing `u`/`r` inside
+  `gcd213 u r`/`vp 2 r`) and wrote the §3 bridges it never reached.  ★★★ `coprime_isSquare_mul`
+  (coprime `u,v` ⟹ `IsSquare(u·v) ↔ IsSquare u ∧ IsSquare v`) — **fully general via a pure-gcd route
+  (NO UFD)**: `u=gcd(u,r)²` from `u·v=r²` + coprimality; ★★ `isSquare_two_pow_iff` (`IsSquare(2^a)↔a even`,
+  via the corpus prime-power-divisor fact `r∣2^a ⟹ r=2^(vp 2 r)`); ★★ `isSquare_iff`
+  (`IsSquare n ↔ v2 n even ∧ IsSquare(oddPart n)`, from the coprime split + iter-164 decomp); ★★
+  `twiceSquare_iff`; ★★★ `sq_or_twice_iff` (`(n square ∨ n twice-square) ↔ IsSquare(oddPart n)` — the
+  σ-parity bridge).  Plus helpers `v2_two_mul`/`oddPart_two_mul` (from `stripTwo_two_mul`), `isSquare_mul`.
+  **Frontier impact**: combined with iter-164 `sigma_odd_iff_oddPart` + iter-162 `sigma_odd_prime_pow_parity`,
+  the general σ-parity ⟺ now reduces to **exactly one** remaining lemma — `for ODD m, σ(m) odd ↔ IsSquare m`
+  (frontier note updated).  The coprime-square-split is broadly reusable infra.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are

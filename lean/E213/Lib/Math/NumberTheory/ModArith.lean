@@ -88,6 +88,7 @@ import E213.Lib.Math.NumberTheory.PerfectNumbers
 import E213.Lib.Math.NumberTheory.TauParity
 import E213.Lib.Math.NumberTheory.SigmaParity
 import E213.Lib.Math.NumberTheory.OddPartDecomposition
+import E213.Lib.Math.NumberTheory.SquareCharacterization
 import E213.Lib.Math.NumberTheory.LiouvilleFunction
 import E213.Lib.Math.NumberTheory.MobiusDivisorSum
 import E213.Lib.Math.NumberTheory.MobiusInversion
