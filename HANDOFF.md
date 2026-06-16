@@ -119,6 +119,15 @@ bricks across domains, each `#print axioms`-empty, each committed + pushed:
 - **Information**: `entropy_additive`, `surprise_additive` (dyadic chain rule).
 - **p-adic**: `vAt_le` (valuation bounded by search depth).
 - **Physics-combinatorics**: `so10_counts` (SO(10) forced integer counts from d=5).
+- **Analysis/measure**: `measure_union_le`, `cardinality_le_union` (monotonicity).
+- **Finite-sum infra**: `foldl_add_acc`, `sigmaList_cons`/`_append`/`_congr` (reusable).
+- **Topology**: `signFlip_no_fixpoint` (order-2 antipode is fixpoint-free).
+- **Linear algebra**: `Vec.inner_comm` (inner product symmetric).
+- **Golden bridge**: `lucas_fib_isNorm5neg` (Lucas–Fibonacci pair realizes the ℚ(√5) norm).
+
+Scout-driven loop (cycles 3–6): each cycle finds ~5 verified gaps in distinct domains; all
+closed ∅-axiom, committed + pushed.  Reusable craft: pure-lemma map for the propext-tainted
+core (`Meta.Int213/Nat.*`), `div_eq_of_sandwich` for floors, `sigmaList_*` for finite sums.
 
 ### Honesty correction (wave 1)
 `research-notes/frontiers/rebuild_roadmaps/proton_electron_ratio_rebuild.md` —
