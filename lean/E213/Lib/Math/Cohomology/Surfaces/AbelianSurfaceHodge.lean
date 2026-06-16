@@ -132,6 +132,44 @@ theorem neron_severi_T4 :
   ⟨hodge11_iff_algebraic, nsComb_isHodge11, @nsComb_injective,
    fun h => absurd h.1 (by decide)⟩
 
+/-! ## The Hodge-index signature `(1, 3)` on the Néron–Severi lattice -/
+
+/-- The cup / intersection form on `H²(T⁴)` in the `Form` coordinates: the coefficient of
+    `e_{0123}` in `F ∪ G`, from the standard `e_ij ∪ e_kl = ±e_{0123}` pairing
+    (`e01∪e23 = +`, `e02∪e13 = −`, `e03∪e12 = +`).  Same intersection form as
+    `Surfaces/T2Squared/HodgeIndex.cup`, expressed in the wedge-coordinate `Form`. -/
+def cupT4 (F G : Form) : Int :=
+  F.c01 * G.c23 + F.c23 * G.c01 - F.c02 * G.c13 - F.c13 * G.c02
+    + F.c03 * G.c12 + F.c12 * G.c03
+
+/-- Self-intersection on a generator: `Q(nsComb 1 1 0 0) = 2` (the polarization is ample).
+    The general self-intersection is `Q(nsComb a b c d) = 2·(ab − c² − d²)` — a hyperbolic
+    plane `ab` (polarization direction, signature `(1,1)`) plus two negatives `−c², −d²`;
+    the witness basis below realizes this `(1,3)` split.  (Stated for `decide`-checkable
+    instances here; the symbolic `∀ a b c d` form needs the `ring_intZ` tactic, which this
+    deliberately import-free file omits.) -/
+theorem cupT4_polarization : cupT4 (nsComb 1 1 0 0) (nsComb 1 1 0 0) = 2 := by decide
+
+/-- ★★★★★ **Hodge-index theorem for `T⁴`: signature `(1,3)` on the `(1,1)`/NS lattice.**
+    ∅-axiom.  An orthogonal ℤ-basis of the rank-4 Néron–Severi lattice with **one positive**
+    self-intersection (the polarization `e01+e23 = nsComb 1 1 0 0`, `Q = +2`, ample) and
+    **three negative** (`Q = −2`, the primitive `(1,1)` classes), all mutually cup-orthogonal.
+    By Sylvester's law of inertia the intersection form on `H^{1,1}∩H²(T⁴)` has signature
+    `(1, 3)` — exactly the Hodge-index prediction (`+` on the polarization, `−` on the
+    primitive part).  Combined with the full-`H²` signature `(3,3)`, the `(2,0)+(0,2)` part
+    contributes the remaining `(2,0)`. -/
+theorem hodge_index_signature_T4 :
+    cupT4 (nsComb 1 1 0 0) (nsComb 1 1 0 0) = 2
+    ∧ cupT4 (nsComb 1 (-1) 0 0) (nsComb 1 (-1) 0 0) = -2
+    ∧ cupT4 (nsComb 0 0 1 0) (nsComb 0 0 1 0) = -2
+    ∧ cupT4 (nsComb 0 0 0 1) (nsComb 0 0 0 1) = -2
+    ∧ cupT4 (nsComb 1 1 0 0) (nsComb 1 (-1) 0 0) = 0
+    ∧ cupT4 (nsComb 1 1 0 0) (nsComb 0 0 1 0) = 0
+    ∧ cupT4 (nsComb 1 1 0 0) (nsComb 0 0 0 1) = 0
+    ∧ cupT4 (nsComb 1 (-1) 0 0) (nsComb 0 0 1 0) = 0
+    ∧ cupT4 (nsComb 1 (-1) 0 0) (nsComb 0 0 0 1) = 0
+    ∧ cupT4 (nsComb 0 0 1 0) (nsComb 0 0 0 1) = 0 := by decide
+
 /-- ★ **Non-vacuity** — the predicate has real content: the `(2,0)+(0,2)`
     class `e02` is **not** `(1,1)` (`J` sends it to `e13`).  Without this, the
     theorem above would be the empty claim the deleted layer made. -/
