@@ -84,6 +84,13 @@ more*.
     `Fin (q²) → Fin p`, the witness `(a,b)` is read off by `i ↦ (i/q, i%q)`, and
     the "multiple of `p` below `2p` is `p`" step is a literal computation. *The
     two-square witness is an algorithm output, not an existential.* (19 PURE.)
+  - `Combinatorics/ErdosSzekeres` — a sequence of `> (r−1)(s−1)` distinct values
+    has a strictly-increasing length-`r` or strictly-decreasing length-`s`
+    subsequence (with the subsequence *extracted*, choice-free). Classical proof
+    is an abstract pigeonhole `∃` on `(inc,dec)` labels wrapped in `by_contra`;
+    ∅-axiom packs the labels into `Fin ((r−1)(s−1))`, `exists_collision_lt`
+    *returns* the colliding pair, and the strict-order step overflows the box.
+    *The monotone-run witness is an algorithm output.* (29 PURE.)
   - `NumberTheory/DividesPairPigeonhole` — "among any `n+1` numbers in `[1,2n]`,
     one divides another." The classical pigeonhole asserts a non-constructive `∃`
     (two share an odd part — *which* pair unstated). ∅-axiom forces the witness
@@ -113,6 +120,24 @@ parity as the **fixed-point count** of the `d ↔ n/d` involution rather than a
 multiplicativity table) is forcing in its *choice of form*, though the
 multiplicativity route also exists — forcing and bookkeeping can co-occur, and
 the claim should track which one the proof actually used.
+
+## A primitive can be a non-constructivity *sink*
+
+A finding from the vein-B cases above: the non-constructive content of several
+*distinct* classical theorems localizes to **one** reusable primitive. The
+constructive pigeonhole `Combinatorics/Pigeonhole.exists_collision` (which
+*returns* the colliding pair, where the classical `no_inj_lt` only refutes
+injectivity → `False`) is the single import that makes
+`DividesPairPigeonhole`, `TwoSquareTheorem` (the Thue box), and `ErdosSzekeres`
+(the `(inc,dec)` label box) all go through ∅-axiom. In each, the textbook proof's
+sole genuinely-non-constructive step is "two of these things collide — but which?"
+— and that step is exactly `exists_collision`. Once the witness-returning
+pigeonhole exists, three classical theorems' "forcing" reduces to bookkeeping on
+top of it. This is itself §7.1 evidence: the residue's constructive content is
+*shared structure*, not per-theorem accident — the same pointing (a decidable
+scan producing the witness) underwrites a whole family. The methodological lesson:
+when several forcing cases share a non-constructive step, factor it into a named
+primitive; the primitive, not the individual theorems, is the deliverable.
 
 ## Why the distinction is the right evidential filter
 
