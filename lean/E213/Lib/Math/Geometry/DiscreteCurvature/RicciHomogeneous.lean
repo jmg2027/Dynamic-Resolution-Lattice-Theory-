@@ -1,4 +1,4 @@
-import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow
+import E213.Lib.Math.Geometry.DiscreteCurvature.RicciSphereFlow
 
 /-!
 # Homogeneous Ricci flow: the Einstein trichotomy (∅-axiom)
@@ -9,14 +9,13 @@ of homogeneous Ricci flow.  On a homogeneous Einstein metric `Ric = λ·g` the f
 Einstein constant `λ` determines the entire qualitative behaviour:
 
   · **λ > 0** (positive Einstein — round sphere): `ρ` decreases linearly, **finite
-    extinction** to a point.  Compiles to **A6 FLOW** (well-founded `ℕ`-descent),
+    extinction** to a point.  Lifts to the FLOW archetype (well-founded `ℕ`-descent),
     `RicciSphereFlow.sphere_reaches_extinction`.
   · **λ = 0** (Ricci-flat — flat torus / Calabi–Yau): `dρ/dt = 0`, the metric is
     **stationary** — every state is already its normal form (`flat_torus_stationary`).
-    A6 at lift-cost zero.
   · **λ < 0** (negative Einstein — hyperbolic): `ρ` grows without bound, the flow
     **diverges**, never reaching a fixed point (`hyperbolic_diverges`,
-    `expand_no_fixed`).  **Not A6** — there is no normal form to descend to.
+    `expand_no_fixed`) — there is no normal form to descend to.
 
 The fixed points of the (unnormalized) homogeneous flow are exactly the
 Ricci-flat metrics (`λ = 0`); the three regimes are the three signs of `λ` — the
@@ -27,15 +26,15 @@ sign sets shrink/steady/expand."
 
 The homogeneous / ODE case (as in `RicciSphereFlow`): the rate `r ∝ |λ|` is the
 geometric *input* (the Einstein constant), not derived; smooth-metric general
-Ricci flow stays the open core.
+Ricci flow is not treated here.
 What is proven is the exact qualitative trichotomy the sign of `λ` forces on the
-size ODE — sub-steps 2 (other homogeneous flows) and 4 (Einstein fixed points).
+size ODE — the other homogeneous flows and the Einstein fixed points.
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.RicciHomogeneous
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.RicciHomogeneous
 
 open E213.Lib.Math.Foundations.MonovariantFlow (iter)
-open E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow (step sphere_reaches_extinction)
+open E213.Lib.Math.Geometry.DiscreteCurvature.RicciSphereFlow (step sphere_reaches_extinction)
 
 /-! ## λ = 0 — Ricci-flat (flat torus): stationary -/
 
@@ -83,8 +82,8 @@ theorem hyperbolic_diverges (r ρ : Nat) (hr : 0 < r) (B : Nat) :
 
 /-- ★★★★★★ **The Einstein trichotomy of homogeneous Ricci flow.**  The sign of
     the Einstein constant `λ` (encoded in the rate `r`) determines the flow:
-    `λ = 0` stationary, `λ > 0` finite extinction (A6), `λ < 0` divergence
-    (no fixed point, not A6). -/
+    `λ = 0` stationary, `λ > 0` finite extinction, `λ < 0` divergence
+    (no fixed point). -/
 theorem einstein_trichotomy (ρ : Nat) :
     -- λ = 0 (Ricci-flat / flat torus): stationary
     (step 0 ρ = ρ)
@@ -97,4 +96,4 @@ theorem einstein_trichotomy (ρ : Nat) :
    fun r hr => sphere_reaches_extinction r hr ρ,
    fun r hr => ⟨hyperbolic_diverges r ρ hr, expand_no_fixed r ρ hr⟩⟩
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.RicciHomogeneous
+end E213.Lib.Math.Geometry.DiscreteCurvature.RicciHomogeneous

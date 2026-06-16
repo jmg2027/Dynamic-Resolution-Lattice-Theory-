@@ -5,10 +5,10 @@ import E213.Meta.Nat.PolyNatMTactic
 /-!
 # The discrete Gaussian heat kernel — `𝓦`-normalization + Li–Yau Harnack (∅-axiom)
 
-Two items of the residual Perelman wall (`ricci_flow_smooth_core.md`): the
-`(4πτ)^{−n/2}e^{−f}` **Gaussian normalization** of the `𝓦`-entropy, and the **Li–Yau
-differential Harnack** estimate.  Both have an exact discrete core on the binomial heat
-kernel, and this file closes that core, `∅`-axiom.
+The `(4πτ)^{−n/2}e^{−f}` **Gaussian normalization** of the `𝓦`-entropy and the **Li–Yau
+differential Harnack** estimate, on the binomial heat kernel.
+Both have an exact discrete core on the binomial heat
+kernel, and this file establishes that core, `∅`-axiom.
 
 **The kernel.**  The fundamental solution of the discrete heat equation on `ℤ` (numerator
 form, stencil `(½,½)`) starting from the `δ`-measure is the **binomial kernel**
@@ -40,7 +40,7 @@ here; the discrete statements are exact.
 is closed is the exact kernel-level estimate the continuum statement discretizes to.
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussian
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteGaussian
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Combinatorics.Binomial
@@ -224,4 +224,4 @@ theorem w_gaussian_package (t x : Nat) :
         ≤ heatKernel t (x + 1) * heatKernel t (x + 1) :=
   ⟨rfl, rfl, gaussian_normalization t, gaussian_li_yau t x⟩
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussian
+end E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteGaussian

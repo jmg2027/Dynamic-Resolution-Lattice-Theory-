@@ -1,18 +1,17 @@
 import E213.Meta.Int213.Core
 
 /-!
-# Discrete (Forman) Ricci curvature — the ∅-axiom route to the A6 core
+# Discrete (Forman) Ricci curvature (∅-axiom)
 
-The smooth-metric general Ricci-flow core (Perelman `𝓕/𝓦`-monotonicity) needs
-Riemannian geometry + PDE and is out of `∅`-axiom reach here.  But **Ricci
+The smooth-metric general Ricci-flow theory (Perelman `𝓕/𝓦`-monotonicity) needs
+Riemannian geometry + PDE and is not treated here.  But **Ricci
 curvature has a genuinely combinatorial incarnation** — *Forman–Ricci curvature*
 — defined directly from cell-complex / graph combinatorics, with no smooth
-manifold.  This is the 213-native route to actually closing A6's conquest: a
-real curvature, real Ricci flow, in the discrete category the repo lives in.
+manifold: a real curvature and a real Ricci flow in the discrete category.
 
 For a triangle-free unweighted graph the Forman curvature of an edge `e = (u,v)`
-is `F(e) = 4 − deg(u) − deg(v)`.  The repo's central object `K_{NS,NT}` is the
-complete bipartite graph (triangle-free), where every `S`-vertex has degree
+is `F(e) = 4 − deg(u) − deg(v)`.  The complete bipartite graph `K_{NS,NT}` is
+triangle-free, where every `S`-vertex has degree
 `NT` and every `T`-vertex degree `NS`, so **every edge carries the same
 curvature** `F = 4 − NS − NT`.
 
@@ -22,16 +21,15 @@ The sign tracks topology (discrete Gauss–Bonnet flavour):
   · `K_{3,2}` (`b₁ = 8`, richly cyclic): `F = −1 < 0` — negatively curved.
 
 Negative discrete curvature ↔ positive `b₁` — the same trivial-loop ↔ rich-loop
-split the Poincaré pillar (`Poincare.lean`) reads off `b₁`, now read off
-curvature.  Edge weights + a discrete Ricci-flow step `w ↦ w − F·w` (the next
-brick) make this an actual flow; convergence/normalization is the A6 target on
-the discrete side.
+split read off `b₁`, here read off curvature.  Edge weights + a discrete
+Ricci-flow step `w ↦ w − F·w` make this an actual flow, with
+convergence/normalization the target on the discrete side.
 
 Scope: this is discrete Ricci flow (Forman/Ollivier), a genuine parallel theory,
-not smooth Perelman.  Programme: `theory/math/geometry/discrete_perelman_core.md`.
+not smooth Perelman.
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteRicci
 
 open E213.Meta.Int213 (neg_add add_assoc)
 
@@ -41,21 +39,10 @@ def formanEdge (du dv : Nat) : Int := 4 - (du : Int) - (dv : Int)
 
 /-- ★★ **Forman curvature is determined by the degree-*sum*.**  Two edges with
     the same `du + dv` carry the same curvature: `4 − du − dv` factors through
-    `du + dv`.
-
-    This pins the cross-domain bridge (frontier `slot_tower_crossdomain.md`
-    §4) honestly.  The metric readout (`Shape213.shape_splits`) is *under-
-    determined* by its count: distinct shapes share an area, so a richer
-    *vector* (the dimension axis) is needed.  Curvature is **not** under-
-    determined by the degree-sum — the degree-sum fixes it completely.  Its
-    "beyond a count" is not a second coordinate but a **sign**: `4 − du − dv`
-    lives in `ℤ`, so it reads the difference-Lens (count + sign), not a
-    longer count-vector.  Shape and curvature therefore enrich the bare count
-    in *different* directions (a vector vs. a sign); they share only the
-    negative claim "a single `ℕ` count is not the terminal readout once the
-    substrate has structure", unified at the level of `Lens.refines`, not by a
-    common positive mechanism.  (In particular a "same degree-sum, different
-    curvature" collision is impossible — exactly what this theorem rules out.) -/
+    `du + dv`.  Curvature is fixed completely by the degree-sum; its content
+    "beyond a count" is a **sign** (`4 − du − dv` lives in `ℤ`), not a longer
+    vector.  In particular a "same degree-sum, different curvature" collision
+    is impossible — exactly what this theorem rules out. -/
 theorem forman_determined_by_degree_sum {du dv du' dv' : Nat}
     (h : du + dv = du' + dv') : formanEdge du dv = formanEdge du' dv' := by
   have key : ∀ a b : Int, (4 : Int) - a - b = 4 - (a + b) := by
@@ -84,9 +71,9 @@ theorem forman_K32 : formanEdge 2 3 = -1 := by decide
 /-- ★★★★★ **Discrete curvature ↔ topology** (Forman / Gauss–Bonnet flavour):
     the tree `K_{1,1}` is positively curved (`b₁ = 0`) while the cyclic
     `K_{3,2}` is negatively curved (`b₁ = 8`).  The trivial-loop ↔ rich-loop
-    split the Poincaré pillar reads off `b₁`, here read off curvature. -/
+    split, read off curvature rather than off `b₁`. -/
 theorem discrete_curvature_topology :
     formanEdge 1 1 = 2 ∧ (0 : Int) < formanEdge 1 1
     ∧ formanEdge 2 3 = -1 ∧ formanEdge 2 3 < 0 := by decide
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci
+end E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteRicci

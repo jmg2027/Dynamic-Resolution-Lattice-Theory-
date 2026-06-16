@@ -15,10 +15,8 @@ on presentations carries a `Nat`-valued monovariant `μ` that strictly decreases
 off fixed points, so iterating `f` reaches a fixed point (a normal / canonical
 form) in finitely many steps.
 
-This is the discrete realization of the geometric-flow shape that
-`Lib/Math/Geometry/GeometrizationConjecture/Ricci.lean` records as the open
-piece: *"monotonicity functional analogous to Perelman's 𝓕 / 𝓦 … none of these
-exist in `lean/E213/`."*  Ricci flow `∂_t g = −2R` drives an arbitrary metric to
+This is the discrete realization of the geometric-flow shape: a monotonicity
+functional analogous to Perelman's 𝓕 / 𝓦.  Ricci flow `∂_t g = −2R` drives an arbitrary metric to
 a canonical (constant-curvature) geometry, its convergence certified by a
 monotone entropy; here `flow_reaches` is exactly that shape with the entropy
 replaced by a `Nat`-monovariant — `∅`-axiom, with no metric tensor.

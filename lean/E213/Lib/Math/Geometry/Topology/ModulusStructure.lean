@@ -1,12 +1,12 @@
 import E213.Lib.Math.Geometry.Topology.Continuity
-import E213.Lib.Math.Geometry.GeometrizationConjecture.Ricci
+import E213.Lib.Math.Geometry.DiscreteCurvature.RicciFlow
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaModulus
 
 /-!
 # Unified modulus-structure framework (Option A typeclass bridge)
 
 `Topology.Continuity.IsContinuousModulus`,
-`GeometrizationConjecture.ChartAxisAnsatz.IsRicciModulus`, and the
+`DiscreteCurvature.RicciFlow.IsRicciModulus`, and the
 `Physics.AlphaEM.FractalLevelZetaModulus.zeta_modulus` (via
 `Math.Modulus.Translation.DepthModulus`) all carry a
 `modulus : Nat → Nat` field expressing "steps required to achieve
@@ -39,7 +39,7 @@ existing modulus families).
 namespace E213.Lib.Math.Geometry.Topology.ModulusStructure
 
 open E213.Lib.Math.Geometry.Topology.Continuity (IsContinuousModulus)
-open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
+open E213.Lib.Math.Geometry.DiscreteCurvature.RicciFlow
   (IsRicciModulus K32_isRicciModulus K32_isRicciModulus_modulus_eq)
 open E213.Lib.Math.Analysis.Modulus.Translation (DepthModulus)
 open E213.Lib.Physics.AlphaEM.FractalLevelZetaModulus (zeta_modulus)
@@ -84,7 +84,7 @@ def fromDepthModulus (d : DepthModulus) : IsModulusStructure :=
 def identityModulus : IsModulusStructure :=
   fromContinuous E213.Lib.Math.Geometry.Topology.Continuity.idContinuous
 
-/-- K_{3,2}^{(c=2)} Ricci-modulus bare structure (modulus = `8 - target`). -/
+/-- K_{3,2} Ricci-modulus bare structure (modulus = `8 - target`). -/
 def K32RicciModulus : IsModulusStructure :=
   fromRicci K32_isRicciModulus
 
@@ -122,12 +122,12 @@ theorem zetaModulusStructure_value (N : Nat) :
   share a common bare framework `IsModulusStructure`:
 
     · `Topology.Continuity.IsContinuousModulus` → identity instance
-    · `GeometrizationConjecture.Ricci.IsRicciModulus` → K_{3,2}^{(c=2)}
+    · `DiscreteCurvature.RicciFlow.IsRicciModulus` → K_{3,2}
       Ricci-flow cell-filling instance
     · `Analysis.BracketCauchyModulus.dyadic_bracket_cauchy_modulus`
       → L·k instance for fixed bracket-length L
 
-  This is the 213-native answer to 's "cross-category functor"
+  This is the 213-native answer to the "cross-category functor"
   question: instead of building a category-theoretic adjunction
   between IsContinuousModulus and IsRicciModulus (different
   underlying types), unify them under a bare-data framework that
@@ -139,7 +139,7 @@ theorem zetaModulusStructure_value (N : Nat) :
 theorem three_way_modulus_framework :
     -- Identity instance (continuous)
     identityModulus.modulus 5 = 5
-    -- Ricci instance (K_{3,2}^{(c=2)} cell-filling)
+    -- Ricci instance (K_{3,2} cell-filling)
     ∧ K32RicciModulus.modulus 5 = 3
     ∧ K32RicciModulus.modulus 8 = 0
     -- BracketCauchy instance (L = 3)
@@ -170,7 +170,7 @@ theorem three_way_modulus_framework :
   `IsModulusStructure` framework:
 
     · `Topology.Continuity.IsContinuousModulus` → identity instance
-    · `GeometrizationConjecture.Ricci.IsRicciModulus` → K_{3,2}^{(c=2)}
+    · `DiscreteCurvature.RicciFlow.IsRicciModulus` → K_{3,2}
       Ricci-flow cell-filling instance
     · `Analysis.BracketCauchyModulus.dyadic_bracket_cauchy_modulus`
       → L·k instance for fixed bracket-length L
@@ -185,7 +185,7 @@ theorem three_way_modulus_framework :
 theorem four_way_modulus_framework :
     -- Identity instance (continuous)
     identityModulus.modulus 5 = 5
-    -- Ricci instance (K_{3,2}^{(c=2)} cell-filling)
+    -- Ricci instance (K_{3,2} cell-filling)
     ∧ K32RicciModulus.modulus 5 = 3
     ∧ K32RicciModulus.modulus 8 = 0
     -- BracketCauchy instance (L = 3)

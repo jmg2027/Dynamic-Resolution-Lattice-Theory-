@@ -1,7 +1,7 @@
 import E213.Lib.Math.Foundations.MonovariantFlow
 
 /-!
-# Round-sphere Ricci flow → finite extinction, via A6 FLOW (∅-axiom)
+# Round-sphere Ricci flow → finite extinction, via the FLOW archetype (∅-axiom)
 
 The genuinely *smooth-metric* simplest case of Ricci flow, done honestly.
 
@@ -20,24 +20,24 @@ theorem.
 
 Because the flow is *linear* in `ρ`, the explicit Euler step `ρ ↦ ρ − 2(n−1)` is
 **exact** (no discretization error) at integer times, so the discrete flow below
-*is* the round-sphere Ricci flow on `ρ`, not an approximation.  It compiles
-directly onto the A6 FLOW archetype (`MonovariantFlow.flow_reaches`): monovariant
+*is* the round-sphere Ricci flow on `ρ`, not an approximation.  It lifts
+directly onto the FLOW archetype (`MonovariantFlow.flow_reaches`): monovariant
 `ρ`, descent rate the genuine Ricci curvature `2(n−1)`, normal form `ρ = 0` =
 extinction (the point).
 
 ## Honest scope — what this is NOT
 
-This is the *homogeneous / ODE* case (the standard first Ricci-flow exercise),
-**not** the core of the conjecture.  The hard content — `𝓕/𝓦`-entropy
+This is the *homogeneous / ODE* case (the standard first Ricci-flow exercise).
+The hard content — `𝓕/𝓦`-entropy
 monotonicity for *arbitrary* metrics (the proof that the descent hypothesis
 holds, which here is trivial), non-collapsing, neck-pinch singularity analysis,
-and surgery — requires Riemannian geometry + PDE theory absent from this repo
-(Mathlib-forbidden) and is genuinely Fields-level.  The curvature value
+and surgery — requires Riemannian geometry + PDE theory (Mathlib-forbidden here).
+The curvature value
 `Ric(round Sⁿ) = (n−1)g` is an **input** here (encoded in `ricciRate`), not
-derived.  The smooth-metric general Ricci flow remains the open core.
+derived.  The smooth-metric general Ricci flow is not treated here.
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.RicciSphereFlow
 
 open E213.Lib.Math.Foundations.MonovariantFlow (iter IsNormalForm flow_reaches)
 
@@ -51,7 +51,7 @@ def ricciRate (n : Nat) : Nat := 2 * (n - 1)
     the absorbing normal form. -/
 def step (r ρ : Nat) : Nat := ρ - r
 
-/-- The squared radius strictly shrinks off extinction (rate `r > 0`): the A6
+/-- The squared radius strictly shrinks off extinction (rate `r > 0`): the
     descent hypothesis, here a one-line consequence of positivity of the
     curvature — *this triviality is exactly what is hard for general metrics*. -/
 theorem step_descent (r : Nat) (hr : 0 < r) :
@@ -61,7 +61,7 @@ theorem step_descent (r : Nat) (hr : 0 < r) :
   | inl h => right; rw [h]; exact Nat.zero_sub r
   | inr h => left; exact Nat.sub_lt h hr
 
-/-- ★★★★★ **A6 FLOW fires: the round-sphere flow converges to a normal form**
+/-- ★★★★★ **The FLOW archetype fires: the round-sphere flow converges to a normal form**
     for any positive curvature rate and any initial radius. -/
 theorem sphere_flow_converges (r : Nat) (hr : 0 < r) (ρ₀ : Nat) :
     ∃ k, IsNormalForm (step r) (iter (step r) k ρ₀) :=
@@ -80,7 +80,7 @@ theorem fixed_imp_zero (r : Nat) (hr : 0 < r) :
 
 /-- ★★★★★ **Finite extinction.**  The round-sphere Ricci flow reaches
     `ρ = 0` (the sphere shrinks to a round point) in finitely many steps —
-    driven by the A6 FLOW archetype, normal form identified as extinction. -/
+    driven by the FLOW archetype, normal form identified as extinction. -/
 theorem sphere_reaches_extinction (r : Nat) (hr : 0 < r) (ρ₀ : Nat) :
     ∃ k, iter (step r) k ρ₀ = 0 := by
   obtain ⟨k, hk⟩ := sphere_flow_converges r hr ρ₀
@@ -101,12 +101,12 @@ theorem round_sphere_extinction (n : Nat) (hn : 2 ≤ n) (ρ₀ : Nat) :
     ∃ k, iter (step (ricciRate n)) k ρ₀ = 0 :=
   sphere_reaches_extinction (ricciRate n) (ricciRate_pos n hn) ρ₀
 
-/-- ★★★★★★ **Round S³ Ricci flow finite extinction (the Poincaré case).**
+/-- ★★★★★★ **Round S³ Ricci flow finite extinction.**
     `Ric(round S³) = 2g`, so `dρ/dt = −4`; the 3-sphere shrinks to a round
     point in finite time — the `n = 3` seed of Perelman's finite-extinction
-    theorem.  Driven by A6 FLOW. -/
+    theorem.  Driven by the FLOW archetype. -/
 theorem round_S3_ricci_extinction (ρ₀ : Nat) :
     ricciRate 3 = 4 ∧ ∃ k, iter (step (ricciRate 3)) k ρ₀ = 0 :=
   ⟨by decide, sphere_reaches_extinction (ricciRate 3) (by decide) ρ₀⟩
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow
+end E213.Lib.Math.Geometry.DiscreteCurvature.RicciSphereFlow

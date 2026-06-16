@@ -1,11 +1,11 @@
-import E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci
+import E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteRicci
 import E213.Meta.Int213
 import E213.Meta.Int213.PolyIntMTactic
 
 /-!
-# Discrete Gauss–Bonnet — curvature sign ↔ topology as a theorem (A6 core, rung 4, ∅-axiom)
+# Discrete Gauss–Bonnet — curvature sign ↔ topology as a theorem (∅-axiom)
 
-Rung 1 (`DiscreteRicci`) read curvature sign against `b₁` from a *table*.  This file makes it a
+Where `DiscreteRicci` read curvature sign against `b₁` from a *table*, this file makes it a
 **theorem**: the combinatorial (vertex) curvature `κ(v) = 2 − deg(v)` (the integer form of the
 Gauss–Bonnet vertex curvature `2(1 − deg/2)`) satisfies the **discrete Gauss–Bonnet identity**
 
@@ -15,15 +15,14 @@ and `χ = 1 − b₁` (connected, `b₁` = cyclomatic number `E − V + 1`).  He
 
   total curvature `= 2 − 2·b₁`:  positive ⟺ `b₁ = 0` (tree), negative ⟺ `b₁ ≥ 1` (cyclic).
 
-Worked on the complete-bipartite `K_{m,n}` (the repo's central object): `m` vertices of degree `n`,
+Worked on the complete bipartite graph `K_{m,n}`: `m` vertices of degree `n`,
 `n` of degree `m`.  Curvature sign ↔ topology is now derived (`ring_intZ`), not tabulated.
 
 Scope: graph (1-complex) Gauss–Bonnet; `χ`/cyclomatic `b₁` are the graph invariants (distinct from
-the cell-complex `b₁` of `Poincare.lean`).  Part of the discrete A6 core
-(`theory/math/geometry/discrete_perelman_core.md`; ladder rung 4).  All zero-axiom.
+the cell-complex `b₁` of a 2-complex).  All zero-axiom.
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussBonnet
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteGaussBonnet
 
 open E213.Meta.Int213
 
@@ -62,4 +61,4 @@ theorem curvature_sign_topology :
     ∧ totalVertexCurv 3 2 = -2 ∧ totalVertexCurv 3 2 < 0 ∧ (0 : Int) < cyclomatic 3 2 := by
   refine ⟨by decide, by decide, by decide, by decide, by decide, by decide⟩
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteGaussBonnet
+end E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteGaussBonnet

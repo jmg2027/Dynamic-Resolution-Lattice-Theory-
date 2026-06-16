@@ -35,7 +35,7 @@ Overall the `A`-vertex curvature is `min(3a−b, b−a+4)/2`, reducing to the st
 at `a = 1` (`BakryEmery.lean` §4).  All `∅`-axiom.
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.BakryEmeryBipartite
 
 open E213.Meta.Int213
 open E213.Lib.Math.Combinatorics.IntGridSum (gridSumZ
@@ -334,4 +334,4 @@ theorem kab_K32_pos (x y : Nat → Int) :
     6 * kabGammaC 2 x ≤ 2 * kabGamma2C 2 2 x y :=
   kab_cd_narrow 2 2 x y (by decide)
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
+end E213.Lib.Math.Geometry.DiscreteCurvature.BakryEmeryBipartite

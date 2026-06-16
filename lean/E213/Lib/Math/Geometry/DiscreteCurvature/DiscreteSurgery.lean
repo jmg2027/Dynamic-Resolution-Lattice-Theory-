@@ -7,10 +7,9 @@ import E213.Lib.Math.Foundations.MonovariantFlow
 /-!
 # Discrete surgery — classification, curvature ledger, and finite termination (∅-axiom)
 
-The last item of the residual Perelman wall (`ricci_flow_smooth_core.md`): **κ-solution /
-surgery classification** — the flow develops necks, one must classify the states, cut and
-cap, and bound the number of surgeries.  This file closes the discrete core of that
-program on the graph (1-complex) category, where curvature ↔ topology is already a
+**κ-solution / surgery classification** — the flow develops necks, one must classify the
+states, cut and cap, and bound the number of surgeries.  This file establishes the discrete
+core of that on the graph (1-complex) category, where curvature ↔ topology is already a
 theorem (`DiscreteGaussBonnet`), all `∅`-axiom:
 
   * **General Gauss–Bonnet** (`gauss_bonnet_general`): for *any* finite graph given its
@@ -26,21 +25,21 @@ theorem (`DiscreteGaussBonnet`), all `∅`-axiom:
     or **neck-bearing** — `b₁ ≥ 1`, total curvature `≤ 0`, surgery applies.  The discrete
     κ-solution classification shape: every state is round or admits a neck to cut.
   * **Finite termination, exact count** (`surgery_terminates`, `surgery_count`): `b₁` is
-    the A6 monovariant — each surgery drops it by exactly `1`, so the flow terminates
-    after **exactly `b₁` surgeries** at the round state (`flow_reaches`, the A6 FLOW
-    archetype).  The discrete "finitely many surgeries, then extinction".
+    the monovariant — each surgery drops it by exactly `1`, so the flow terminates
+    after **exactly `b₁` surgeries** at the round state (via the FLOW archetype
+    `flow_reaches`).  The discrete "finitely many surgeries, then extinction".
 
-Worked DRLT instance: `K_{3,2}` (`V = 5`, `E = 6`, `b₁ = 2`) needs exactly `2` surgeries;
+Worked instance: `K_{3,2}` (`V = 5`, `E = 6`, `b₁ = 2`) needs exactly `2` surgeries;
 its curvature ledger runs `−2 → 0 → +2` (`k32_surgery`).
 
 **Honest boundary**: this is the surgery *ledger* — Euler/curvature bookkeeping, the
-round-or-neck dichotomy, and the A6 termination bound — in the graph category.  The
+round-or-neck dichotomy, and the termination bound — in the graph category.  The
 smooth κ-solution classification (shrinking solitons, Bryant), the neck-detection
-*geometry* (canonical neighbourhoods), and **no-local-collapsing compactness** remain
-open (recorded in `ricci_flow_smooth_core.md`).
+*geometry* (canonical neighbourhoods), and **no-local-collapsing compactness** are not
+treated here.
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteSurgery
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteSurgery
 
 open E213.Meta.Int213
 open E213.Lib.Math.Combinatorics.IntGridSum (gridSumZ gridSumZ_sub gridSumZ_const)
@@ -128,7 +127,7 @@ theorem surgery_dichotomy (m b : Nat) :
           = 2 * ((b' + 1 : Nat) : Int) - 2 from by ring_intZ]
     exact Order.sub_nonneg_of_le h2
 
-/-! ## §4 — A6 termination: exactly `b₁` surgeries, then the round state -/
+/-! ## §4 — termination: exactly `b₁` surgeries, then the round state -/
 
 /-- The surgery flow on the `b₁` ledger: cut one neck while one exists (`b ↦ b − 1`;
     the round state `b = 0` is fixed). -/
@@ -140,9 +139,9 @@ theorem surgeryFlow_descent (b : Nat) : surgeryFlow b < b ∨ surgeryFlow b = b 
   | zero => right; rfl
   | succ b' => left; exact Nat.lt_succ_self b'
 
-/-- ★★★★ **Surgery terminates** (A6 FLOW): from any initial `b₁` the surgery flow
-    reaches a normal form — the surgery count is finite, no infinite surgery cascade
-    (Perelman's finitely-many-surgeries, in the discrete ledger). -/
+/-- ★★★★ **Surgery terminates** (via the FLOW archetype): from any initial `b₁` the
+    surgery flow reaches a normal form — the surgery count is finite, no infinite surgery
+    cascade (Perelman's finitely-many-surgeries, in the discrete ledger). -/
 theorem surgery_terminates (b : Nat) :
     ∃ n, IsNormalForm surgeryFlow (iter surgeryFlow n b) :=
   flow_reaches surgeryFlow (fun b => b) surgeryFlow_descent b
@@ -176,7 +175,7 @@ theorem surgery_count (b : Nat) : iter surgeryFlow b b = 0 := by
   exact Nat.sub_self b
 
 /-- ★★★★★ **The discrete surgery package**: dichotomy (round XOR neck-bearing) +
-    A6 termination + exact count, one bundle — the discrete core of κ-solution /
+    termination + exact count, one bundle — the discrete core of κ-solution /
     surgery classification. -/
 theorem surgery_classification (m b : Nat) :
     ((b = 0 ∧ 2 * eulerVE (m + 1) (m + b) = 2)
@@ -185,10 +184,10 @@ theorem surgery_classification (m b : Nat) :
     ∧ (∀ b', surgeryFlow b' = b' → b' = 0) :=
   ⟨surgery_dichotomy m b, surgery_count b, surgeryFlow_fixed_round⟩
 
-/-! ## §5 — the DRLT instance: `K_{3,2}` needs exactly two surgeries -/
+/-! ## §5 — worked instance: `K_{3,2}` needs exactly two surgeries -/
 
-/-- ★★★ **`K_{3,2}` surgery ledger**: the DRLT core lattice (`V = 5`, `E = 6`,
-    `b₁ = 2`) starts at total curvature `−2`, needs exactly `2` surgeries, and its
+/-- ★★★ **`K_{3,2}` surgery ledger**: the complete bipartite graph `K_{3,2}` (`V = 5`,
+    `E = 6`, `b₁ = 2`) starts at total curvature `−2`, needs exactly `2` surgeries, and its
     ledger runs `−2 → 0 → +2` (each cut `+2`), ending round. -/
 theorem k32_surgery :
     2 * eulerVE 5 6 = -2
@@ -197,4 +196,4 @@ theorem k32_surgery :
     ∧ iter surgeryFlow 2 2 = 0 :=
   ⟨by decide, by decide, by decide, by decide⟩
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteSurgery
+end E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteSurgery

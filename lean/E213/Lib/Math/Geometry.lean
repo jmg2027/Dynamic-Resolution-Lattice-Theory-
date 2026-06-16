@@ -1,7 +1,7 @@
 import E213.Lib.Math.Geometry.AlgebraicGeometry
 import E213.Lib.Math.Geometry.Rotation
 import E213.Lib.Math.Geometry.TensorCalculus
-import E213.Lib.Math.Geometry.AkbulutCork
+import E213.Lib.Math.Geometry.DiscreteCurvature
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Geometry`.
 
@@ -14,4 +14,7 @@ import E213.Lib.Math.Geometry.AkbulutCork
   * `TensorCalculus`    — general-`n` Christoffel symbols of the
     first kind (symmetry, metric compatibility), the inverse-free
     rung of general-metric Riemannian tensor calculus
+  * `DiscreteCurvature` — discrete differential geometry: Forman/Ollivier
+    curvature, discrete Bochner/Bakry-Émery, Lichnerowicz spectral
+    bridge, binomial heat kernel, graph surgery, homogeneous Ricci flow
 -/

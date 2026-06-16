@@ -4,9 +4,9 @@ import E213.Meta.Int213.PolyIntMTactic
 import E213.Lib.Math.Combinatorics.IntGridSum
 
 /-!
-# Discrete Bakry–Émery Γ-calculus + the Bochner identity — A6 core, rung 6 (∅-axiom)
+# Discrete Bakry–Émery Γ-calculus + the Bochner identity (∅-axiom)
 
-The fourth curvature frame (after Forman `DiscreteRicci`, Gauss–Bonnet
+A fourth curvature frame (alongside Forman `DiscreteRicci`, Gauss–Bonnet
 `DiscreteGaussBonnet`, Ollivier `OllivierRicci`): **Bakry–Émery** curvature via the
 carré-du-champ iteration — the discrete Bochner formula.  This is the algebraic
 heart of the smooth Bochner identity `½Δ|∇f|² = |Hess f|² + Ric(∇f,∇f)` made into a
@@ -37,7 +37,7 @@ Stencil-parametrised (à la `ConformalCurvature`): no index arithmetic, the oper
 take the neighbourhood values directly.  All zero-axiom.
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.BakryEmery
 
 open E213.Meta.Int213
 open E213.Lib.Math.Combinatorics.IntGridSum (gridSumZ
@@ -166,8 +166,8 @@ vertices** (values `b 0, …, b (k−1)`), every pair of which is also adjacent.
 "centre + `k` neighbours" presentation keeps the centre value `c` a single
 variable and the neighbour sum a clean `gridSumZ k`; crucially it makes the
 positive-curvature term a **full double sum of squared differences** (the diagonal
-`(b j − b j)² = 0` vanishes on its own, so no index has to be excluded — the wall
-that the §2 hand computation sidestepped only for `m = 3`).
+`(b j − b j)² = 0` vanishes on its own, so no index has to be excluded — the
+index-exclusion that the §2 hand computation sidestepped only for `m = 3`).
 
 The Γ-calculus at the centre, all scaled (`gammaC… = 2Γ`, `gamma2C… = 4Γ₂`):
 
@@ -489,4 +489,4 @@ theorem cd_star_leaf (k : Nat) (o : Nat → Int) (c w : Int) :
         - (4 - (k : Int)) * leafGammaW c w = leafGap k o c w from by ring_intZ]
   exact Order.nonneg_of_le_zero (leafGap_nonneg k o c w)
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery
+end E213.Lib.Math.Geometry.DiscreteCurvature.BakryEmery

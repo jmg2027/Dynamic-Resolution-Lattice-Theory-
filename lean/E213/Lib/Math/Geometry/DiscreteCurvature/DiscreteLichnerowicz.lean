@@ -2,7 +2,7 @@ import E213.Meta.Int213
 import E213.Meta.Int213.Bound
 import E213.Meta.Int213.PolyIntMTactic
 import E213.Lib.Math.Combinatorics.IntGridSum
-import E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
+import E213.Lib.Math.Geometry.DiscreteCurvature.BakryEmeryBipartite
 
 /-!
 # Curvature → spectrum: the integrated Bochner / Lichnerowicz bridge (∅-axiom)
@@ -31,12 +31,12 @@ valid for *every* `f` (not only eigenfunctions).  It says the Rayleigh quotient
 All `∅`-axiom (the identity is pure `gridSumZ` linearity + `ring_intZ`).
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteLichnerowicz
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteLichnerowicz
 
 open E213.Meta.Int213
 open E213.Lib.Math.Combinatorics.IntGridSum (gridSumZ
   gridSumZ_congr gridSumZ_add gridSumZ_sub gridSumZ_mul_left gridSumZ_const gridSumZ_nonneg)
-open E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite (kab_inner)
+open E213.Lib.Math.Geometry.DiscreteCurvature.BakryEmeryBipartite (kab_inner)
 
 /-- Global graph Laplacian of `K_m` at vertex `x`: `Lf(x) = Σ_y (f y − f x) = S − m·f x`
     (`S = Σ f`; the `y = x` term vanishes, so the sum is over all `m` vertices). -/
@@ -270,4 +270,4 @@ theorem km_be_gradient_estimate (m : Nat) (c : Int) (u : Nat → Int) (x : Nat)
         ring_intZ]
   exact hfin
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteLichnerowicz
+end E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteLichnerowicz

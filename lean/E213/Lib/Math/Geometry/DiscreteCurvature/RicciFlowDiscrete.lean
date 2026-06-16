@@ -1,18 +1,16 @@
-import E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteRicci
+import E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteRicci
 import E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay
 import E213.Lib.Math.Foundations.MonovariantFlow
 
 /-!
-# Discrete Ricci flow as heat flow on curvature — A6 core, rungs 2–3 (∅-axiom)
+# Discrete Ricci flow as heat flow on curvature (∅-axiom)
 
-The marathon split off two prerequisites for the A6 Ricci-flow core — **transcendental
-functions** and **(continuous-via-limit) PDE a-priori estimates** — both now delivered.  This file
-spends the PDE estimates on the A6 core the honest, 213-native way.
+This file applies the discrete-heat-equation a-priori estimates to the discrete Ricci flow.
 
 **The bridge.**  Smooth Ricci flow `∂_t g = −2 Ric` *linearizes to the heat equation on the
 curvature*: `∂_t R = ΔR + 2|Ric|²` (Hamilton).  The leading term is exactly heat diffusion, so the
 discrete Ricci flow's curvature is driven by the **discrete heat step** — and the discrete heat
-estimates from the PDE marathon (`Analysis/ODE/Heat*`) *are* the discrete Ricci-flow a-priori
+estimates (`Analysis/ODE/Heat*`) *are* the discrete Ricci-flow a-priori
 estimates.  Concretely, on the edge-curvature field `K : grid → ℕ` (Forman curvature shifted to
 ℕ; the heat step is translation-equivariant so the offset is immaterial to spread/energy):
 
@@ -23,16 +21,15 @@ estimates.  Concretely, on the edge-curvature field `K : grid → ℕ` (Forman c
   * **fixed point** — a uniform-curvature complex (every edge `4−NS−NT`, e.g. `K_{NS,NT}`) is
     stationary (`lazyHeatStep_const`): constant curvature is the normalised fixed point.
   * **convergence witness** — a non-uniform curvature field reaches constant curvature
-    (`lazy_checker_collapses`): the discrete flow homogenises, the A6-core target on the discrete
-    side (rung 3).
+    (`lazy_checker_collapses`): the discrete flow homogenises.
 
-This is A6's conquest core **in the discrete (Forman) theory** — a genuine parallel mathematics,
-not smooth Perelman; the smooth core stays walled.
+This is **the discrete (Forman) theory** — a genuine parallel mathematics,
+not smooth Perelman; the smooth core is not treated here.
 
 All zero-axiom.
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.RicciFlowDiscrete
 
 open E213.Lib.Math.Analysis.ODE.HeatEq.Discrete
 
@@ -60,8 +57,8 @@ theorem ricci_curvature_bounded (n A B t : Nat) (K : Nat → Nat)
 /-- ★★★★ **Curvature-energy monotonicity** (discrete Perelman 𝓦-analog).  One step of the discrete
     Ricci flow does not increase the curvature Dirichlet energy: `E(ricciFlowStep K) ≤ 16·E(K)`
     (the `16 = 4²` is the stencil normalisation, so the *averaged* curvature energy is
-    non-increasing).  The discrete entropy-monotonicity driving curvature homogenisation — A6's
-    monotone quantity, here `∅`-axiom.  Direct from `lazy_energy_decay`. -/
+    non-increasing).  The discrete entropy-monotonicity driving curvature homogenisation, here
+    `∅`-axiom.  Direct from `lazy_energy_decay`. -/
 theorem ricci_energy_monotone (n : Nat) (K : Nat → Nat) :
     dirichletEnergy n (ricciFlowStep n K) ≤ 16 * dirichletEnergy n K :=
   E213.Lib.Math.Analysis.ODE.HeatEq.EnergyDecay.lazy_energy_decay n K
@@ -108,8 +105,8 @@ theorem discrete_ricci_apriori (n A B : Nat) (K : Nat → Nat)
 
 /-! ## §4 — convergence witness: the flow homogenises a non-uniform curvature field -/
 
-/-- ★★★★★ **Discrete Ricci flow homogenises curvature** (rung 3, the A6-core target on the discrete
-    side).  The maximally-oscillating ("checkerboard") curvature field on the length-4 edge cycle
+/-- ★★★★★ **Discrete Ricci flow homogenises curvature.**
+    The maximally-oscillating ("checkerboard") curvature field on the length-4 edge cycle
     — alternating curvatures, the worst case — is driven to **constant curvature** (`= 2` at every
     site, i.e. spread `1 → 0`) in a single discrete Ricci-flow step.  The flow reaches its
     normalised (constant-curvature) state, exactly Perelman's curvature-homogenisation conclusion,
@@ -124,9 +121,9 @@ theorem ricci_flow_homogenises_const (x y : Nat) (hx : x < 4) (hy : y < 4) :
     ricciFlowStep 4 checker x = ricciFlowStep 4 checker y := by
   rw [ricci_flow_homogenises x hx, ricci_flow_homogenises y hy]
 
-/-! ## §5 — convergence via the A6 FLOW archetype (`flow_reaches`)
+/-! ## §5 — convergence via the FLOW archetype (`flow_reaches`)
 
-Rung 3's stated goal: drive the discrete flow to constant curvature **via A6 FLOW** on a
+Drive the discrete flow to constant curvature **via the FLOW archetype** on a
 curvature-spread monovariant.  The curvature inhomogeneity (the spread between two adjacent edge
 curvatures) is a `Nat`-monovariant that the balancing Ricci-flow step strictly reduces (by 2 per
 step) until the normalised state — spread `≤ 1`, constant curvature up to the integer floor.  This
@@ -148,10 +145,10 @@ theorem spreadFlow_descent (g : Nat) : spreadFlow g < g ∨ spreadFlow g = g := 
   · right; show (if 2 ≤ g then g - 2 else g) = g
     rw [if_neg h]
 
-/-- ★★★★★ **Discrete Ricci flow reaches constant curvature (via A6 FLOW).**  From any initial
-    curvature spread `g`, the balancing Ricci-flow step iterated reaches a normalised fixed point
-    (spread `≤ 1` — constant curvature up to the integer floor).  This is rung 3 of the A6 core:
-    the A6 FLOW archetype (`flow_reaches`) drives the discrete Ricci flow to its normalised
+/-- ★★★★★ **Discrete Ricci flow reaches constant curvature (via the FLOW archetype).**  From any
+    initial curvature spread `g`, the balancing Ricci-flow step iterated reaches a normalised fixed
+    point (spread `≤ 1` — constant curvature up to the integer floor):
+    the FLOW archetype (`flow_reaches`) drives the discrete Ricci flow to its normalised
     (constant-curvature) state, the discrete analogue of Perelman's curvature homogenisation. -/
 theorem ricci_flow_reaches_normalized (g : Nat) :
     ∃ n, IsNormalForm spreadFlow (iter spreadFlow n g) :=
@@ -233,4 +230,4 @@ theorem ricci_chi_entropy_monotone (n : Nat) (K : Nat → Nat) :
         = n * (16 * gridSum n (fun x => K x * K x)) from by ring_nat]
   exact Nat.mul_le_mul (Nat.le_refl n) hl2
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlowDiscrete
+end E213.Lib.Math.Geometry.DiscreteCurvature.RicciFlowDiscrete

@@ -3,9 +3,9 @@ import E213.Meta.Int213.PolyIntMTactic
 import E213.Lib.Math.Combinatorics.IntGridSum
 
 /-!
-# Ollivier–Ricci curvature — A6 core, rung 5 (∅-axiom)
+# Ollivier–Ricci curvature (∅-axiom)
 
-The last discrete-curvature rung: **Ollivier–Ricci** curvature, defined by *optimal transport*
+**Ollivier–Ricci** curvature, defined by *optimal transport*
 `κ(x,y) = 1 − W₁(m_x, m_y)/d(x,y)` (`m_x` the one-step random-walk measure at `x`, `W₁` the
 Wasserstein-1 / earth-mover distance).  The mathematical heart is **Kantorovich duality**: `W₁` is
 both a `min` over transport plans (couplings) and a `max` over `1`-Lipschitz potentials.  This file
@@ -14,11 +14,9 @@ cost — which is what pins `W₁` (and hence `κ`) when a coupling and a potent
 
 Worked over ℤ on a finite index set `{0,…,n−1}` (signed potentials/costs).  Infrastructure: an
 integer grid sum `gridSumZ` + Fubini (sum-swap).  All zero-axiom.
-
-A6 discrete Ricci-flow ladder, rung 5.
 -/
 
-namespace E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
+namespace E213.Lib.Math.Geometry.DiscreteCurvature.OllivierRicci
 
 open E213.Meta.Int213
 open E213.Lib.Math.Combinatorics.IntGridSum
@@ -638,4 +636,4 @@ theorem km_plan_optimal (m : Nat) (hm : 2 ≤ m) (pi' : Nat → Nat → Int)
   · rw [(km_coupling m hm).1 x hx, hrow x hx]
   · rw [(km_coupling m hm).2 y hy, hcol y hy]
 
-end E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
+end E213.Lib.Math.Geometry.DiscreteCurvature.OllivierRicci

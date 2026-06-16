@@ -10,8 +10,8 @@ import E213.Lib.Math.Combinatorics.CountExistence
 import E213.Lib.Math.Combinatorics.RamseyLowerBound
 import E213.Lib.Math.Foundations.MonovariantFlow
 import E213.Lib.Math.Foundations.Positivity
-import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow
-import E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow
+import E213.Lib.Math.Geometry.DiscreteCurvature.RicciFlow
+import E213.Lib.Math.Geometry.DiscreteCurvature.RicciSphereFlow
 
 /-!
 # The lift catalog — seven solved finite→uniform lift archetypes on the proof-ISA
@@ -86,9 +86,9 @@ the gcd is the *invariant* the step preserves (`gcd213_rec`), and the normal for
 `(0, gcd a b)` — the gcd **is** the canonical form reached by the descent
 (`euclid_flow_normal_form`).  **Lift cost: a monovariant that strictly descends off fixed points.**
 
-This is the discrete realization of the geometric-flow shape `GeometrizationConjecture/Ricci.lean`
-records as open (*"monotonicity functional analogous to Perelman's 𝓕/𝓦 … none exist in `lean/E213/`"*):
-Ricci flow drives any metric to a canonical geometry, certified by a monotone entropy; `flow_reaches` is
+This is the discrete realization of the geometric-flow shape: a monotonicity functional analogous to
+Perelman's 𝓕/𝓦.  Ricci flow drives any metric to a canonical geometry, certified by a monotone
+entropy; `flow_reaches` is
 that shape with the entropy a `Nat`-monovariant.  FLOW is the *other* completion of in-place monovariant
 exhaustion that REFRAME (A4) is the dual of: when the monovariant exhausts, it drives the object to its
 normal form; when it cannot improve in place, REFRAME transports to a presentation where it can.
@@ -169,20 +169,20 @@ abbrev lift_flow := @E213.Lib.Math.Foundations.MonovariantFlow.flow_reaches
     is the canonical normal form reached by the monovariant descent. -/
 abbrev lift_flow_gcd := @E213.Lib.Math.Foundations.MonovariantFlow.euclid_flow_normal_form
 
-/-- **A6 conquest demonstration** — the FLOW archetype *driving a complete proof of an actual conquest*:
-    the Geometrization Ricci pillar.  The K_{3,2}^{(c=2)} cell-filling coherentization is a convergent
-    monovariant flow reaching the canonical normal form (all 3 cells filled, `b_1 = 5`), compiled down to
+/-- **A6 FLOW demonstration** — the FLOW archetype *driving a complete proof*: the discrete
+    cell-filling flow on `K_{3,2}`.  The cell-filling step is a convergent monovariant flow reaching
+    the canonical normal form (all 3 fillable 4-cycles filled), compiled down to
     `flow_reaches` — the proof-ISA methodology end-to-end, not a fresh problem-specific argument. -/
-abbrev lift_flow_geometrization :=
-  @E213.Lib.Math.Geometry.GeometrizationConjecture.RicciFlow.ricci_pillar_K32_flow_close
+abbrev lift_flow_curvature :=
+  @E213.Lib.Math.Geometry.DiscreteCurvature.RicciFlow.ricci_pillar_K32_flow_close
 
-/-- **A6 conquest (genuine smooth case)** — round Sⁿ *smooth-metric* Ricci flow → finite extinction,
+/-- **A6 FLOW (smooth case)** — round Sⁿ *smooth-metric* Ricci flow → finite extinction,
     the homogeneous case where the PDE collapses to the linear ODE `dρ/dt = −2(n−1)` and the descent rate
-    is the real curvature `Ric=(n−1)g` (`n=3` = Poincaré seed).  The general-metric `𝓦`-monotonicity core
+    is the real curvature `Ric=(n−1)g`.  The general-metric `𝓦`-monotonicity core
     stays OPEN — A6 locates it as the `descent`
     discharge without crossing it. -/
 abbrev lift_flow_sphere :=
-  @E213.Lib.Math.Geometry.GeometrizationConjecture.RicciSphereFlow.round_S3_ricci_extinction
+  @E213.Lib.Math.Geometry.DiscreteCurvature.RicciSphereFlow.round_S3_ricci_extinction
 
 /-- **A7 POSITIVITY** — a bound forced because its gap is a square (a nonnegative fold):
     `gap = s² ⟹ 0 ≤ gap`.  The square/norm twin of A5 COUNT. -/

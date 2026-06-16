@@ -19,7 +19,7 @@ parallel) to a **categorical** formulation.  Per
   · `ModHom.id` — identity morphism (uses `map = id`).
   · `ModHom.comp` — sequential composition.
   · Concrete morphisms between the three canonical instances
-    (identity, K_{3,2}^{(c=2)} Ricci, bracket-Cauchy L=3).
+    (identity, K_{3,2} Ricci, bracket-Cauchy L=3).
 
 ## The functor
 
@@ -138,7 +138,7 @@ theorem identityModulus_id_modulus :
     `IsContinuousModulus` carries identity to identity).
 
     Reading: the three modulus-source structures from
-    `Topology.Continuity`, `GeometrizationConjecture.Ricci`, and
+    `Topology.Continuity`, `DiscreteCurvature.RicciFlow`, and
     bracket-Cauchy moduli are **objects of a Lean-formalised
     category** with `ModHom` arrows, identity, and associative
     composition.
