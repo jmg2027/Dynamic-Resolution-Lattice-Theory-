@@ -1,4 +1,5 @@
 import E213.Lib.Math.Order.GaloisConnection
+import E213.Lib.Math.Order.GaloisConnectionComposition
 import E213.Lib.Math.Order.BooleanAlgebra
 import E213.Lib.Math.Order.KnasterTarski
 
