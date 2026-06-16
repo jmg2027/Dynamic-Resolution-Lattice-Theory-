@@ -74,9 +74,20 @@ tied to LEM/compactness/choice. Answered symmetrically (vein C), four cases:
   ledger). The import named (LPO) and measured (Π⁰₂), not removed.
 - **`Logic/HeineCantor`** (10 PURE) — HC *calibrated* to the fan theorem:
   `heineCantor_of_fan`, the fan theorem the load-bearing `Bar → Bounded` bridge.
-The symmetry: **EVT + UniformLimit force the hidden modulus; BW + HeineCantor name
-and measure the import** — 213 never smuggles an exterior. Logged in the frontier
-collection + the methodology chapter's vein-C section.
+- **`Logic/Dini`** (14 PURE) — Dini's theorem *calibrated* to the fan theorem
+  (sibling of HeineCantor); monotonicity turns the per-interval bound into a
+  uniform convergence index. `dini_of_fan`.
+- **`Logic/RealDichotomyLLPO`** (31 PURE) — the **analytic-LLPO** calibration,
+  two-sided: the real sign-dichotomy `∀ x, x≤0 ∨ 0≤x` IS LLPO
+  (`llpo_of_realDichotomy` + converse). Locates exactly why the *exact* IVT /
+  bisection sign step can't be ∅-axiom (it's LLPO) while the corpus's *approximate*
+  IVT (`cutEq … 0`) stays pure. The encoding's "denominator blow-up" is the
+  omniscience cost made visible. The deepest analysis calibration.
+The symmetry (now SIX analysis cases): **EVT + UniformLimit force the hidden
+modulus; BW + HeineCantor + Dini + RealDichotomyLLPO name and measure the import**
+— a reverse-math ledger across the LPO / LLPO / fan rungs. 213 never smuggles an
+exterior. Logged in the frontier collection + the methodology chapter's vein-C
+section.
 
 Full `E213.Lib.Math` green at **1967 modules**; all pushed. Leg total: **11
 modules + the `exists_collision` primitive**, ∅-axiom PURE — 7 number-theory/
