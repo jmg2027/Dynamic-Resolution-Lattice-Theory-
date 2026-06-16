@@ -1054,6 +1054,44 @@ theorem windowCount_pow_le (n : Nat) : (n + 1) ^ windowCount n ≤ 2 ^ (2 * n) :
     (pow_length_le_prod (n + 1) (primesIn n (2 * n)) (fun _ hp => mem_primesIn_gt hp))
     (window_prod_le n)
 
+/-! ## Primorial infrastructure (toward Bertrand's postulate) -/
+
+/-- `listProd` is multiplicative over concatenation: `∏(xs ++ ys) = ∏xs · ∏ys`. -/
+theorem listProd_append : ∀ (xs ys : List Nat),
+    listProd (xs ++ ys) = listProd xs * listProd ys
+  | [],      ys => by show listProd ys = 1 * listProd ys; ring_nat
+  | x :: xs, ys => by
+      show x * listProd (xs ++ ys) = x * listProd xs * listProd ys
+      rw [listProd_append xs ys]; ring_nat
+
+/-- ★ **Window-split of the prime list.**  For `lo ≤ mid ≤ hi`, the primes in `(lo, hi]`
+    split at `mid`: `primesIn lo hi = primesIn mid hi ++ primesIn lo mid` (the upper window
+    `(mid, hi]` followed by the lower `(lo, mid]`).  The reusable keystone for the primorial
+    bound `∏_{p≤N} p ≤ 4ⁿ` (the odd-`N` Erdős split `∏_{p≤2m+1} = ∏_{p≤m+1}·∏_{(m+1,2m+1]}`). -/
+theorem primesIn_split {lo : Nat} : ∀ {mid hi : Nat}, lo ≤ mid → mid ≤ hi →
+    primesIn lo hi = primesIn mid hi ++ primesIn lo mid := by
+  intro mid hi
+  induction hi with
+  | zero =>
+      intro hlm hmh
+      have hmid0 : mid = 0 := Nat.le_antisymm hmh (Nat.zero_le _)
+      subst hmid0; rfl
+  | succ k ih =>
+      intro hlm hmh
+      rcases Nat.lt_or_ge mid (k + 1) with hmk | hmk
+      · have hmk' : mid ≤ k := Nat.le_of_lt_succ hmk
+        have hlk1 : lo < k + 1 := Nat.lt_of_le_of_lt hlm hmk
+        cases decPrime (k + 1) with
+        | isTrue hp =>
+            rw [primesIn_cons hlk1 hp, primesIn_cons hmk hp, ih hlm hmk']
+            rfl
+        | isFalse hp =>
+            rw [primesIn_skip hlk1 hp, primesIn_skip hmk hp, ih hlm hmk']
+      · have hmid : mid = k + 1 := Nat.le_antisymm hmh hmk
+        subst hmid
+        rw [primesIn_empty (Nat.lt_irrefl (k + 1))]
+        rfl
+
 /-- **The Chebyshev count cap (additive form): `#{primes in (n,2n]} ≤ ⌊log_{n+1}
     2^{2n}⌋`** for `n ≥ 1`.  Apply `floorLog_ge` to `windowCount_pow_le`: the
     multiplicative bound `(n+1)^{windowCount n} ≤ 2^{2n}` is exactly the statement
