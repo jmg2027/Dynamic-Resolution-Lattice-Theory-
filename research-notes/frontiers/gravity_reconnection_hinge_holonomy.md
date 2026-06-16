@@ -7,6 +7,25 @@ physics gravity.  Now that the SM gauge structure is organized
 (`SU(3)×SU(2)×U(1)` from `K_{3,2} ⊂ Δ⁴`, depths from rank exhaustion), the
 reconnection is feasible.
 
+> **⚠ Panel re-audit (2026-06-16) — the premise below is partly stale.**
+> `Lib/Physics/Cosmology/GravityShadow.lean` **no longer exists** (deleted in the
+> "surgical bogus-deletion" pass, precisely because `phase_modulus_separation :
+> True := trivial` and the scalar `W = |G|²/d` were bogus).  References to it below
+> are historical, not live targets.  What is actually built and PURE: the Hermitian
+> Gram split `SignedCup.gram_hermitian_gravity_gauge_split` (`G = h + i·Q`,
+> `Re = h`, `Im = Q`) and `MetricHolonomyBridge.metric_J_is_holonomy_S` (the
+> metric-building `J = (0,−1,1,0)` is the modular generator `Mat2.S`).  **Honest
+> verdict:** "gravity = real part" is a *relabeling*, not a construction — Hermiticity
+> makes `Re` symmetric / `Im` antisymmetric *definitionally*, so the split says nothing
+> beyond the already-proven Kähler triple (`hodge_riemann_positive`, `J_is_Q_isometry`,
+> `J² = −I`).  The one genuinely-more brick: `gram_is_polarization` (assert the Kähler
+> compatibility `Re(G) = Q·J` *with* `J ∈ O(Q)`, `J² = −I` — ties `Re` and `Im` through
+> `J`, not just sym/antisym).  The **walls stand**: no `G_N`, no absolute scale (no
+> exterior dialer), and the **curvature of `h` is genuinely blocked** (no `Mat2`-action
+> on `H¹`, one flat `Δ⁴`); the `b₁=2` graph vs `b₁=8` gauge `K^{(2)}` mismatch must
+> **not** be bridged (a forbidden forced map), and `Δ⁴` itself is 2nd-tier
+> (`delta4_dual_defect_status.md`), so the whole cluster rides on a non-forced filling.
+
 ## The two pictures (currently unconnected)
 
 1. **Physics-branch gravity = Gram modulus shadow.**

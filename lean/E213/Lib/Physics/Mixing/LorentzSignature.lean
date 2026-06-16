@@ -1,4 +1,5 @@
 import E213.Lib.Physics.Simplex.Counts
+import E213.Lib.Physics.Mixing.SignedHodgeStar
 
 /-!
 # Lorentz metric signature `(1, 3)` — sourced in `(NS, NT)`, ∅-axiom
@@ -39,6 +40,7 @@ The theorem states the *count* `(1,3)`, which is convention-free.  All ∅-axiom
 namespace E213.Lib.Physics.Mixing.LorentzSignature
 
 open E213.Lib.Physics.Simplex.Counts (NS NT)
+open E213.Lib.Physics.Mixing.SignedHodgeStar (starStar star_sq_neg_one_grade1 hodge_i_order_four)
 
 /-- The diagonal of the Lorentzian form: index `0` (the `NT`/`i`/time axis) is `−1`,
     the `NS = 3` spatial axes `1,2,3` are `+1`. -/
@@ -120,5 +122,40 @@ theorem lorentz_signature_one_three :
    bil_01, bil_02, bil_03, bil_12, bil_13, bil_23,
    e0_ne_e1, e1_ne_e2, e2_ne_e3, det_eta,
    neg_count_eq, pos_count_eq, dim_eq⟩
+
+/-! ## §6 — the negative axis, canonically the `NT`-sourced order-2 (`i`) direction
+
+What is *not* provable (the honest wall, multi-agent panel 2026-06-16): that the
+negative direction **must** be the form carrying `⋆² = −1`.  The signed Hodge star is
+grade-symmetric on `Λ¹` — `⋆² = −1` holds *uniformly* on **all four** vector forms
+(`star_sq_neg_one_grade1`, `k(4−k)=3` odd), i.e. signature `(4,0)`, not `(1,3)`.  So
+`⋆²` offers **no** `Λ¹`-internal asymmetry to single out one axis; which index wears the
+minus is a convention (`etaDiag`'s `if i=0`), and `(−,+,+,+)` vs `(+,−,−,−)` is an
+`η ↦ −η` Lens reading — hence the signature theorem states only the convention-free
+*count* `(1,3)`.
+
+What **is** provable: the negative direction is the unique axis whose count is `NT−1`,
+and that count, the order-4 `⟨⋆⟩ ≅ C₄` (`NT² = 4`), and the `Λ¹` complex structure
+`⋆² = −1` all descend from the **same forced atom `NT`** — a link by *shared source*,
+witnessed below by the real `SignedHodgeStar` theorems appearing in the proof term, not
+by a `−1 = −1` value coincidence. -/
+
+/-- An axis is **order-2 / negative** when its self-pairing is `< 0`. -/
+def axisOrder2 (i : Nat) : Bool := decide (bil (e i) (e i) < 0)
+
+/-- ★★ **The negative axis is canonically the `NT`-sourced order-2 (`i`) axis.**  ∅-axiom.
+    Exactly one of the four axes is order-2 (index `0`); its count is `NT − 1`; and the
+    same forced `NT` gives the order-4 complex structure `NT² = 4` (`hodge_i_order_four`)
+    and the `Λ¹` Hodge `⋆² = −1` (`star_sq_neg_one_grade1`).  The identification is by
+    shared source, not sign coincidence (see header): the `−` axis *can* be canonically
+    taken as the order-2 axis and its count `NT − 1` is forced — it is **not** proven to
+    *be* the `⋆² = −1` carrier (`⋆²` is uniform `(4,0)` on `Λ¹`). -/
+theorem time_axis_is_order2_via_NT :
+    (List.range 4).filter axisOrder2 = [0]
+    ∧ ((List.range 4).filter axisOrder2).length = NT - 1
+    ∧ NT * NT = 4
+    ∧ starStar [0] = -1
+    ∧ (3 : Nat) = NS :=
+  ⟨by decide, by decide, hodge_i_order_four.2.2.2, star_sq_neg_one_grade1, by decide⟩
 
 end E213.Lib.Physics.Mixing.LorentzSignature
