@@ -104,6 +104,20 @@ the **computed** `ord_dvd_of_pow_one` fed by Euler's `a^φ≡1`. Reveals:
 **Lagrange's theorem (cyclic case) is the order-divides-totient computation,
 not coset counting**; the subgroup is the concrete orbit. (14 PURE.)
 
+### A — subgroups of `(ℤ/n,+)` ↔ divisors of `n` (★ clean A-case)
+`NumberTheory/AdditiveSubgroup`. Classically the subgroups of `ℤ/n` are
+subgroups of a *quotient group* and "subgroups ↔ divisors" is an abstract
+order-iso. On representatives: the additive order of `d` is the **computed**
+`n/gcd(d,n)` (`add_order_smul_zero` + `add_order_min`, load-bearing
+`n ∣ t·d ↔ (n/gcd) ∣ t`), and each divisor `e∣n` gives the subgroup `⟨e⟩` of
+order `n/e` (`subgroup_order`), distinct divisors ↔ distinct subgroups
+(`divisor_subgroup_inj`). Reveals: **the subgroup lattice of `ℤ/n` IS the
+divisor lattice of `n`, realized by gcd; the quotient group was packaging.**
+Honest scope: the full set-equality `⟨d⟩=⟨gcd(d,n)⟩` is given only as the
+inclusion direction — the reverse is a *signed* Bezout combination (not
+∅-axiom over Nat), so the generator-is-gcd fact is realized at the **order**
+level (`subgroup_order`) instead, which is the load-bearing content. (17 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
