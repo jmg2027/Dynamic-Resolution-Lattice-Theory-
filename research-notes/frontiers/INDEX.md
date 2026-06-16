@@ -762,3 +762,13 @@ real ∅-axiom conquests.
   continuous, not discrete-graph).  Rungs P1 maximum principle → P2 oscillation
   decay → P3 energy/Dirichlet → P4 Li–Yau → P5 Shi.  P1–P3 reachable; P4–P5 the
   real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.
+
+## Yang–Mills confinement  (`yang_mills_confinement.md`)
+
+- `yang_mills_confinement` — the **mass-gap** half is *closed*
+  (`YangMills/Gap.lean` `mass_gap_master`: gauge-lattice Laplacian gap
+  `= c·min(NS,NT) = 4 > 0`, ∅-axiom).  Open companion: **confinement** —
+  (1) a general ∅-axiom Rayleigh lower bound (every colored/non-vacuum mode
+  has energy `≥ gap`), upgrading the exhibited eigenbasis to all configs;
+  (2) a 213-native Wilson-loop functional on `K_{NS,NT}^{(c)}` + area-law
+  witness.  Ties to `holonomy_of_the_lattice` + the cup-ring flux machinery.
