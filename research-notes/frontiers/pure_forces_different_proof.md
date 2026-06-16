@@ -420,6 +420,35 @@ fixed point is the explicit Cauchy limit, approached not attained.** Reuses this
 session's own `UniformLimitContinuous.MetricModulus`/`ctri`/`qtri` — the metric
 infrastructure compounds. (12 PURE + namespaced headlines verified.)
 
+### C — the real-decision triad: equality ⟺ WLPO, apartness ⟺ MP (★★ completes sign/equality/apartness ↔ LLPO/WLPO/MP)
+`Logic/RealEqualityWLPO` + `Logic/RealApartnessMP`. With `RealDichotomyLLPO` (sign
+⟺ LLPO) these complete the canonical Bishop triad: the **three basic decisions
+about a real each cost a precisely-named omniscience principle**, mirroring the
+corpus `lpo_iff_wlpo_and_mp` (LPO = WLPO ∧ MP) at the real-number level.
+- **equality ⟺ WLPO** (`RealEqualityWLPO`, 16 PURE, two-sided): deciding whether a
+  real *is* zero is WLPO. Encode `xf f = Σ[f n]/2^(n+1)` (non-negative); `cutEq
+  (xf f) zero ⟺ ∀n, f n = false` (`xf_eq_zero_iff`), so `cutEq x 0 ∨ ¬cutEq x 0`
+  IS WLPO (`wlpo_of_realEqDecision` + converse). A single fire lifts the sum
+  `≥ 1/2^(n+1)`, detected at resolution `k=n+1`.
+- **apartness ⟺ MP** (`RealApartnessMP`, 15 PURE, two-sided): a non-zero real
+  being *apart* from zero (a located positive distance `Apart x := ∃ k, x 0 (k+1)
+  = false`) is Markov's principle. `¬ cutEq (xf f) zero` is purely **negational**
+  (a pointwise case-split, extracting no Nat); the apartness hypothesis upgrades it
+  to a *located* resolution where `xf f` reads strictly above 0, and that bound
+  makes the fire-search **bounded** (`fire_of_Q_pos`, a decidable scan) — turning
+  "not-everywhere-false" into "∃ explicit witness", exactly MP
+  (`mp_of_realApartness` + converse `realApartness_of_mp`). Sharp constructive
+  insight: the naive `∃N, x ≥ 1/2^N` apartness is *genuinely false* for partial-sum
+  cuts (coarse approximants can't see the fire yet), so the cut-bit witness form is
+  forced — the located bound is what makes the otherwise-unbounded search terminate.
+
+Reveals: **the residue's reals are decision-undecided cuts; sign / equality /
+apartness are three distinct verdicts, each = LLPO / WLPO / MP — a complete map of
+where constructive analysis's real-number decisions sit on the omniscience ledger.
+The negation (`¬cutEq`) is free; locating the witness (apartness) is MP; the
+disjunctive verdict (sign/equality) is LLPO/WLPO.** Both reuse the
+`RealDichotomyLLPO` cut-encoding — infrastructure compounding.
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅

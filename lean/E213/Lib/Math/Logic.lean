@@ -12,6 +12,8 @@ import E213.Lib.Math.Logic.BolzanoWeierstrass
 import E213.Lib.Math.Logic.HeineCantor
 import E213.Lib.Math.Logic.Dini
 import E213.Lib.Math.Logic.RealDichotomyLLPO
+import E213.Lib.Math.Logic.RealEqualityWLPO
+import E213.Lib.Math.Logic.RealApartnessMP
 
 /-!
 # Reverse Mathematics 213 — umbrella (`Lib/Math/Logic`)

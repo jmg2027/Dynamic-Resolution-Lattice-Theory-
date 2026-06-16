@@ -171,9 +171,19 @@ more*.
     not an existence miracle; the fixed point is approached by every iterate,
     reached by none. Reuses this session's own `MetricModulus`. (12 PURE.)
 
+  - `Logic/RealEqualityWLPO` + `Logic/RealApartnessMP` — completing the **real-
+    decision triad** with `RealDichotomyLLPO`: the three basic verdicts about a real
+    each cost a named omniscience principle — **sign ⟺ LLPO, equality ⟺ WLPO,
+    apartness ⟺ MP** — mirroring `lpo_iff_wlpo_and_mp` (LPO = WLPO ∧ MP) at the
+    real level. The negation `¬cutEq x 0` is free (a decidable case-split); the
+    *disjunctive* verdict (sign/equality) is LLPO/WLPO; *locating* the apartness
+    witness is MP (a bounded search the located bound makes terminate). A complete
+    map of where constructive analysis's real-number decisions sit. (16 + 15 PURE,
+    both two-sided.)
+
   Together EVT + UniformLimit + Banach (force the modulus) and BW + HC + Dini +
-  RealDichotomyLLPO (name the import) answer the analysis challenge symmetrically:
-  where classical
+  the real-decision triad RealDichotomyLLPO/RealEqualityWLPO/RealApartnessMP (name
+  the import) answer the analysis challenge symmetrically: where classical
   analysis reaches for an axiom, 213 *either* forces the hidden modulus (EVT — the
   modulus is the theorem) *or* names and measures the import (BW — calibrated to
   LPO) — it never smuggles an exterior.
