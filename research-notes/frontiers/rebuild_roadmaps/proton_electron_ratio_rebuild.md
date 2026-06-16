@@ -1,8 +1,34 @@
 # Genuine m_p/m_e rebuild — compute `6·π⁵` from the `PiCut` bracket
 
-**Status**: OPEN (rebuild roadmap). **Domain**: physics (DRLT branch).
+**Status**: OPEN (rebuild roadmap), **DOWNGRADED** by a multi-agent panel audit
+(2026-06-16). **Domain**: physics (DRLT branch).
 **Template**: `research-notes/frontiers/genuine_hodge_rebuild.md` (honesty tone).
-**Most concrete of the four rebuilds** — `PiCut` already gives a usable π bracket.
+
+> **⚠ Panel verdict (2026-06-16): `m_p/m_e ≈ 6π⁵` is numerology, NOT 213-forced —
+> and this roadmap's Stage-1 numbers were wrong.** Two load-bearing corrections:
+>
+> 1. **Stage 1's bracket claim is numerically FALSE.** `π ∈ (311/99, 22/7)` gives
+>    `6π⁵ ∈ (6·(311/99)⁵, 6·(22/7)⁵) = (1835.60, 1839.82)` — which contains 1836,
+>    1837 *and* 1838, 1839: it pins `6π⁵` between **no** pair of consecutive
+>    integers. The proposed `mp_me_bracket_excludes_neighbors` (`1836 < 6π⁵ < 1837`)
+>    is false and would **not** `decide`. The lower endpoint `1835.60 < 1836`, so it
+>    cannot even prove `6π⁵ > 1836`.
+> 2. **Only `6 = NS·NT` is genuinely atomic; the `π⁵` is a reverse-engineered fit.**
+>    The repo carries **two mutually inconsistent** stories for the exponent 5:
+>    `ProtonElectronRatio.lean` says "`π⁵ = π·(6ζ(2))²`", `PiFiveGap.lean` says
+>    "one π per atomic dim, `d = 5`". Two derivations for one number is the
+>    signature of fitting, not forcing (`07_primacy.md` §7.2: this is **fudge**).
+>    No Lean theorem derives the exponent; the `vp_separation`-style forcing
+>    template is never instantiated. Contrast the genuine α_em spine
+>    (`GramStructuralCapstone.invAlphaEm_precision_theorem`), which *computes*
+>    `137035999111`; here nothing computes `6π⁵`.
+>
+> **Honest deliverable**: a *pure-math* computed enclosure of `6π⁵` (reusing
+> `piCut_in_14_5_to_4`), explicitly labelled as **NOT** deriving `m_p/m_e`, to
+> retire the typed `pi_e9` literal and the tautological `6 ≤ NS·NT ≤ 6` "falsifier".
+> The genuine `(1836,1837)` discriminant is a **separate hard sub-project** (see §4):
+> it needs a fast π presentation (Machin/arctan) that does not yet exist, and even at
+> full precision certifies a 19 ppm *coincidence*, not a derivation.
 
 ## 1 — What is deflated, and the bogus mechanism
 
@@ -60,35 +86,32 @@ an `AbCutSeq` (Wallis product) and proves, ∅-axiom, the **localization**
 — and the sharper half-angle `π/2 ∈ (7/5, 2)`.  These are *computed* rational
 brackets from a forced sequence, not typed digits.
 
-### Stage 1 (reachable now) — a genuine computed bracket that excludes 1837
+### Stage 1 — a genuine computed enclosure of `6π⁵` (math-honest, NOT an m_p derivation)
 
-The PiCut localization is too coarse alone (`π ∈ (2.8, 4)` ⇒ `6π⁵ ∈ (1318, ...)`,
-useless).  Stage 1 is to **sharpen the Wallis cut** to a window narrow enough that
-`6·π⁵` is pinned between two consecutive integers:
+The PiCut localization is too coarse alone (`π ∈ (14/5, 4)` ⇒ `6π⁵ ∈ (1032.6, 6144)`,
+useless).  The honest Stage-1 deliverable is a *computed* rational enclosure of `6π⁵`
+from the Wallis cut — replacing the typed `pi_e9` literal — **explicitly not claiming
+it derives `m_p/m_e`**.
 
-1. Extend `PiCut` with a tighter pair, e.g. prove `piCut n 22 7 = true` and
-   `piCut n 311 99 = false` at a concrete layer `n = N₀` by `decide` (Wallis
-   partial-product `wallisNum N₀ / wallisDen N₀` cross-multiplied), giving
-   `π ∈ (311/99, 22/7)` ≈ `(3.14141, 3.142857)`.  Both endpoints are
-   `decide`-checkable rationals from the *same* `wallisRawSeq`.
-2. Define `piFifth_lower, piFifth_upper : Nat × Nat` by raising the bracket
-   endpoints to the 5th power (rational `(num^5, den^5)`), then multiply by
-   `NS·NT = 6`.  All exact `Nat` arithmetic.
-3. **Target theorem** (the genuine Stage-1 falsifier):
-   ```
-   theorem mp_me_bracket_excludes_neighbors :
-       1836 * piFifth_lower.2 < 6 * piFifth_lower.1     -- 6π⁵ > 1836
-     ∧ 6 * piFifth_upper.1 < 1837 * piFifth_upper.2 := by decide
-   ```
-   i.e. `1836 < 6·π⁵ < 1837`, computed from the Wallis cut with **π never typed**.
-   This *excludes* the neighboring integers 1836 and 1837 — a real measurable
-   discriminant (the count-Lens reading lands strictly between them).
+**Corrected feasibility (panel, 2026-06-16) — the earlier "(1836,1837)" plan was wrong:**
 
-   Honest scope of Stage 1: this proves `6π⁵ ∈ (1836,1837)`, consistent with
-   CODATA `1836.1527`.  It does **not** reach 19 ppm, let alone ppb — the bracket
-   width after a feasible `N₀` is ~10⁻²–10⁻³, far wider than the formula's own
-   19 ppm gap.  Stage 1 is a *computed* bracket falsifier, the honest replacement
-   for the typed `6=6`.
+1. A tighter Wallis pair `π ∈ (311/99, 22/7) ≈ (3.14141, 3.142857)` is `decide`-checkable
+   — but raising it to the 5th power × 6 gives `6π⁵ ∈ (1835.60, 1839.82)`, a **width ≈ 4.2**.
+   This pins `6π⁵` between **no** consecutive integers (it straddles 1836–1839).  So the
+   once-proposed `mp_me_bracket_excludes_neighbors : 1836 < 6π⁵ < 1837` is **numerically
+   false** and must not be written.
+2. To actually pin `6π⁵` strictly inside `(1836, 1837)` needs π to absolute width
+   `≈ 3.4×10⁻⁴`.  Wallis converges like `1/(4n)`, so that is `n ≈ 4600` terms; the cut
+   integers grow ≈ 1 digit per 1.3 terms (n=100 → ~377-digit), so `n ≈ 4600` means
+   ~17 000-digit numerators whose **5th powers** (~85 000-digit `Nat` comparisons) must
+   `decide`.  **Infeasible** with kernel `decide`; `native_decide` is forbidden (CLAUDE.md).
+   The formula's own 19 ppm target needs ≈ 66 000 Wallis terms — far beyond reach.
+3. So Stage 1's *honest* form is just: `wallisLower⁵·6 < 6π⁵ < wallisUpper⁵·6` for a
+   feasible small `N₀` (a wide but **computed** enclosure, π never typed), tagged as a
+   pure-math bracket on the *number* `6π⁵`, with a docstring stating plainly it does **not**
+   bracket the *measured* `m_p/m_e` to any useful precision.  A fast π `AbCutSeq`
+   (Machin/`arctan`) — which **does not yet exist** in the repo — would be required for the
+   genuine `(1836,1837)` discriminant; Wallis cannot reach it.
 
 ### Stage 2 — tighten to the formula's intrinsic 19 ppm
 
