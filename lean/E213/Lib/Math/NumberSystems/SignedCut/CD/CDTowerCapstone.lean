@@ -3,12 +3,11 @@ import E213.Lib.Math.NumberSystems.SignedCut.Core.CauchyConvergence
 import E213.Lib.Math.NumberSystems.SignedCut.CD.CDTowerLevel
 
 /-!
-# SignedCut — CD Tower Capstone (∅-axiom)
+# SignedCut — CD Tower bundle (∅-axiom)
 
-4 cluster witnesses + total bundle for the marathon.
-
-Closes the two PR #61 honest-residual items + delivers the
-generalised CD tower skeleton (formalisation):
+Bundle of re-exported witnesses for the CD-tower stack (each conjunct
+is an existing lemma).  Delivers the generalised CD tower skeleton
+(formalisation):
 
   * **Magnitude-sign cancellation**: `signedEq` equivalence
     relation captures `(a+c, b+c) ~ (a, b)` structurally
@@ -33,19 +32,19 @@ open E213.Lib.Math.NumberSystems.SignedCut.CD.CDTowerLevel
    levelDim levelDim_concrete levelDim_25)
 open E213.Lib.Math.NumberSystems.SignedCut.Core.Core (SignedCut)
 
-/-- ★ **Equivalence witness**. -/
+/-- **Equivalence witness**. -/
 theorem equivalence_witness (s : SignedCut) (m k : Nat) :
     signedEqAt s s m k
     ∧ (∀ m' k', signedEqAt s s m' k') :=
   ⟨signedEqAt_refl s m k, signedEq_refl s⟩
 
-/-- ★ **Cauchy convergence witness**. -/
+/-- **Cauchy convergence witness** (trivial baseline modulus). -/
 theorem cauchy_witness (x : Nat → Nat → Bool) (ε : Nat) :
     (trivialGenericGeomCauchy x).N ε = 0 :=
   trivial_modulus_zero x ε
 
-/-- ★ **CD Tower witness** — structural unification at the type
-    level: levels 0/1/2 dimensional checks, level-25 bit-dimension. -/
+/-- **CD Tower witness** — type-level dimensional checks: levels
+    0/1/2, level-25 bit-dimension `2^25`. -/
 theorem cd_tower_witness :
     CDLevel 0 = (Nat → Nat → Bool)
     ∧ levelDim 0 = 1
@@ -57,8 +56,8 @@ theorem cd_tower_witness :
   · exact levelDim_concrete.2.1
   · exact levelDim_concrete.2.2.1
 
-/-- ★★★ **Total witness** ★★★ — all three pieces (cancellation,
-    convergence, CD tower) bundled. -/
+/-- **Total bundle** — cancellation, convergence, CD tower.  Proof
+    term = tuple of existing lemmas. -/
 theorem total_witness (s : SignedCut) (x : Nat → Nat → Bool)
     (m k : Nat) (ε : Nat) :
     signedEqAt s s m k

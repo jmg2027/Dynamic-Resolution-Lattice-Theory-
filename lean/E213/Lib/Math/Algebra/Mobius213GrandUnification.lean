@@ -5,12 +5,13 @@ import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213ContinuedFraction
 import E213.Lib.Math.Algebra.CayleyDickson.Tower.Mobius213CDBridge
 
 /-!
-# Mobius213GrandUnification — the ultimate Möbius P master statement
+# Mobius213GrandUnification — bundle of re-exported Möbius P lemmas
 
-A single grand-unification theorem bundling every Möbius
-P-themed master theorem established across the framework.  Ten
-distinct readings of the Möbius matrix `P = [[2,1],[1,1]]`
-converge at this capstone:
+A single theorem whose proof term is the tuple of already-proven
+per-domain lemmas about the Möbius matrix `P = [[2,1],[1,1]]`.  It
+re-exports, in one conjunction, the following established readings
+(it does not prove anything new — each conjunct is discharged by an
+existing lemma):
 
   (A) **Cut-level canonical equivalence** — `cutEq` factors
       through `sternBrocotEq` mediant-closure on `Nat × Nat`
@@ -40,26 +41,22 @@ converge at this capstone:
       `a · k' + 1 = b · m'` on consecutive P-orbit pairs
       (`Real213/Mobius/Mobius213PellInvariant`)
 
-The grand master records that every per-domain capstone holds
-simultaneously — establishing the matrix `P` as the single
-algebraic object whose readings span the equality theory, the
-algebraic structure, the analytic-tower asymptotes, and the
-Pell-Fibonacci dynamics.
+The bundle records that the listed per-domain lemmas hold
+simultaneously — a convenience re-export, not an independent result.
 
 All declarations PURE (∅-axiom).
 -/
 
 namespace E213.Lib.Math.Algebra.Mobius213GrandUnification
 
-/-! ## §1 — Grand-unification capstone
+/-! ## §1 — Re-export bundle
 
-The ★★★★★★★★ master statement: the per-domain readings of `P`
-hold simultaneously.  Re-exports the per-domain capstones into
-one bundled conjunction. -/
+A conjunction whose proof term is the tuple of per-domain lemmas;
+nothing new is proven here. -/
 
-/-- ★★★★★★★★ **Grand unification of Möbius P readings**:
-    every per-domain master theorem holds.  Bundle spanning the
-    framework's distinct realisations of `P = [[2,1],[1,1]]`. -/
+/-- ★★ **Bundle of re-exported Möbius P lemmas**: the listed
+    per-domain lemmas about `P = [[2,1],[1,1]]` hold simultaneously.
+    Convenience re-export (proof term = tuple of existing lemmas). -/
 theorem grand_unification :
     -- (A) Cross-domain meta (5-domain equality unification)
     (∀ cx cy : Nat → Nat → Bool,

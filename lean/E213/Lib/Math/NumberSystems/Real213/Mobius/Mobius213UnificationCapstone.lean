@@ -3,14 +3,13 @@ import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213SternBrocotApps
 import E213.Lib.Math.NumberSystems.SignedCut.Core.SternBrocotBridge
 
 /-!
-# Mobius213UnificationCapstone — the canonical Möbius-orbit equivalence
+# Mobius213UnificationCapstone — bundle of Stern-Brocot bridge lemmas
 
-A master theorem bundling every Stern-Brocot bridge established so
-far, witnessing the canonical-equivalence claim: every 213 equality
-definition over `Nat → Nat → Bool` cuts factors through the
-mediant-closure equivalence `sternBrocotEq` of the two Möbius seeds
-`(0, 1)` and `(1, 0)`, plus a `(0, 0)` boundary condition that is
-automatic on canonical 213 cuts.
+A theorem whose proof term bundles the already-proven Stern-Brocot
+bridge lemmas: every 213 equality definition over `Nat → Nat → Bool`
+cuts factors through the mediant-closure equivalence `sternBrocotEq`
+of the two Möbius seeds `(0, 1)` and `(1, 0)`, plus a `(0, 0)`
+boundary condition automatic on canonical 213 cuts.
 
 The same matrix `P = [[2,1],[1,1]]` provides:
   · the orbit structure on cuts (`sternBrocotEq`, via mediant
@@ -20,7 +19,8 @@ The same matrix `P = [[2,1],[1,1]]` provides:
   · the Pell unit cross-product `±1` on consecutive P-orbit pairs,
     matching the `det = 1` symplectic invariant.
 
-This file recombines the existing bridges into a single capstone.
+This file recombines the existing bridges into a single bundle (a
+convenience re-export, not an independent result).
 All ingredients PURE (∅-axiom) — see the parent modules.
 -/
 
@@ -42,10 +42,11 @@ open E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut (ValidCutN)
 
 /-! ## §1 — Bundled unification capstone -/
 
-/-- ★★★★★★★★ **Unification capstone**: every 213 equality
-    definition over `Nat → Nat → Bool` cuts established so far
-    factors through `sternBrocotEq`, and the P-orbits carry the
-    Pell unit cross-product invariant.
+/-- ★★ **Bundle of Stern-Brocot bridge lemmas**: every 213
+    equality definition over `Nat → Nat → Bool` cuts established so
+    far factors through `sternBrocotEq`, and the P-orbits carry the
+    Pell unit cross-product invariant.  Proof term = tuple of the
+    existing bridge lemmas (convenience re-export).
 
     Six conjuncts:
     (a) `cutEq ↔ sternBrocotEq ∧ (0, 0)-cond` (general cuts);
@@ -93,10 +94,10 @@ The bundled `ValidCutN N` addition `addN` respects
 entire `cutSumN N` closure (associativity, commutativity, parametric
 capstone) to Stern-Brocot-orbit form. -/
 
-/-- ★★★★★ **Algebra preservation capstone**: `ValidCutN N`'s
-    bundled addition is Stern-Brocot congruent.  Wave 13's
-    cutSumN-based algebra structure is therefore fully realised
-    inside the Stern-Brocot equivalence class. -/
+/-- ★★ **Algebra preservation lemma** (re-export): `ValidCutN N`'s
+    bundled addition is Stern-Brocot congruent.  The cutSumN-based
+    algebra structure is therefore realised inside the Stern-Brocot
+    equivalence class. -/
 theorem algebra_preservation_capstone
     {N : Nat} (hN : 0 < N) {vx vx' vy vy' :
       E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCut.ValidCutN N}
