@@ -108,10 +108,10 @@ theorem K14_twist_alternation :
 theorem corkTwist_M_S01_correspondence :
     -- Matrix layer: M_S01² = Id pointwise (existing result)
     (∀ i j : Fin 8,
-       E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_mul_M
-         E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01
-         E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01 i j
-       = E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.IdMatrix i j)
+       E213.Lib.Physics.Symmetry.OctetModule.M_mul_M
+         E213.Lib.Physics.Symmetry.OctetModule.M_S01
+         E213.Lib.Physics.Symmetry.OctetModule.M_S01 i j
+       = E213.Lib.Physics.Symmetry.OctetModule.IdMatrix i j)
     -- Cork layer: corkTwist² = id on the principal cork
     ∧ corkTwist (corkTwist K14_cork) = K14_cork
     -- Both expressed as Z/2 group structure
@@ -119,7 +119,7 @@ theorem corkTwist_M_S01_correspondence :
     ∧ (corkTwist K14_cork).twist_parity = 1
     ∧ (corkTwist (corkTwist K14_cork)).twist_parity = 0 := by
   refine ⟨?_, ?_, rfl, rfl, rfl⟩
-  · exact E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01_squared_pointwise
+  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared_pointwise
   · rfl
 
 /-! ## Phase 2 capstone -/
@@ -154,14 +154,14 @@ theorem corkTwist_close_capstone :
     ∧ ((0 + 1) % 2 : Nat) = 1
     -- M_S01² = Id matrix-level correspondence
     ∧ (∀ i j : Fin 8,
-         E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_mul_M
-           E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01
-           E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01 i j
-         = E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.IdMatrix i j) := by
+         E213.Lib.Physics.Symmetry.OctetModule.M_mul_M
+           E213.Lib.Physics.Symmetry.OctetModule.M_S01
+           E213.Lib.Physics.Symmetry.OctetModule.M_S01 i j
+         = E213.Lib.Physics.Symmetry.OctetModule.IdMatrix i j) := by
   refine ⟨corkTwist_involution_on_K14, corkTwist_involution_on_K11,
           corkTwist_involution_on_K31, rfl, rfl, rfl, ?_, ?_, ?_⟩
   · decide
   · decide
-  · exact E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01_squared_pointwise
+  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared_pointwise
 
 end E213.Lib.Math.Geometry.AkbulutCork.Twist

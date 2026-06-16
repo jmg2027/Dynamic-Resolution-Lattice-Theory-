@@ -186,8 +186,8 @@ theorem m2_abstract_close :
 theorem geometrization_followup_close_certificate :
     -- Sym(3) 4-way convergence on 8-element substrate
     isotropic_geometry_count + anisotropic_geometry_count = 8
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     ∧ E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity = 2
     -- Basis +1 / −1 reshape arithmetic
     ∧ isotropicFromTrivial = trivialRepCount + 1
@@ -232,7 +232,7 @@ theorem geometrization_followup_close_certificate :
   refine ⟨?_, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, rfl, ?_, ?_, ?_, ?_,
           ?_, rfl, ?_, ?_, rfl, ?_, ?_, ?_, rfl, rfl, rfl, rfl, ?_, rfl, rfl⟩
   · decide
-  · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4
+  · exact E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4
   · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
   · decide
   · decide

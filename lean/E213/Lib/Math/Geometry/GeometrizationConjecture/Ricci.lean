@@ -52,7 +52,7 @@ for the chart-Lens specialization.
     arithmetic analog (dim 2 = "averaging-invariant" core). -/
 theorem ricci_narrative_sym3_invariant :
     -- Sym(3)-fixed subspace cardinality 4 = 2² (dim 2 over F_2)
-    E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- 4 = 2² (dim 2)
     ∧ (4 : Nat) = 2 ^ 2
     -- Total H¹ rank: 2 (trivial = invariant) + 2·3 (standard
@@ -60,7 +60,7 @@ theorem ricci_narrative_sym3_invariant :
     ∧ 2 + 2 * 3 = 8
     -- This is the "averaging-fixed" portion (Ricci analog) +
     -- "deformable" portion (non-Ricci-fixed)
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8 := by
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8 := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
 /-! ## §C — Narrative-deepening completion check (R1 step 16) -/
@@ -91,7 +91,7 @@ theorem ricci_narrative_sym3_invariant :
 -/
 theorem narrative_deepening_completion :
     -- §G (8-geo): arithmetic parallel, no structural mapping
-    E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- §J (JSJ): bipartite split + 2-cell filling infrastructure
     ∧ chartBase 3 2 = 5
     ∧ 3 * 2 * 2 = 12  -- edge count, bipartite structure
@@ -105,7 +105,7 @@ theorem narrative_deepening_completion :
     -- §S (Sym(3) capability): K_{3,2}^{(c=2)} unique full filter
     ∧ passesCohomologyDepthFilter 3 2 2 = true
     -- §R (Ricci): Sym(3)-fixed subspace as averaging-invariant analog
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- Critical regime confirmed at d_M = 4
     ∧ chartVisibleAxes 3 2 = 4
     ∧ selfPointingAxes = 1
@@ -226,7 +226,7 @@ theorem ricci_modulus_bracket_cauchy_parallel :
     -- Monotone decreasing
     ∧ K32_ricci_modulus 5 ≥ K32_ricci_modulus 8
     -- Sym(3)-fixed (Ricci-fixed-point) analog: dim 2 sub
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- chart-Lens at d_M = 4 critical regime
     ∧ chartVisibleAxes 3 2 = 4
     ∧ selfPointingAxes = 1 := by
@@ -322,7 +322,7 @@ theorem ricci_eps_lens_full_integration :
     ∧ K32_isRicciModulus.modulus 8 = 0
     ∧ K32_isRicciModulus.modulus 7 = 1
     -- Sym(3)-fixed averaging-invariant subspace (dim 2 → cardinality 4)
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- Critical dimension d_M = 4 confirmed
     ∧ chartVisibleAxes 3 2 = 4 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, rfl⟩
@@ -330,7 +330,7 @@ theorem ricci_eps_lens_full_integration :
   · intro a b hab; exact K32_isRicciModulus.anti_monotone hab
   · rw [K32_isRicciModulus_modulus_eq]; decide
   · rw [K32_isRicciModulus_modulus_eq]; decide
-  · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4
+  · exact E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4
 
 /-! ## §I-3.A — Fixed-point characterization
 

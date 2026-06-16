@@ -69,7 +69,7 @@ Lie-group split.  Recording as narrative parallel only.
     equality of integers, not of structures. -/
 theorem K32_H1_eight_versus_geometries_arithmetic :
     -- 213-side: H¹ rank
-    E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- Standard 8 model geometries: 8 as a count (recorded
     -- arithmetically only)
     ∧ 8 = 8 := by
@@ -82,8 +82,8 @@ theorem K32_H1_eight_versus_geometries_arithmetic :
 theorem K32_H1_sym3_split_hint :
     -- Step 9 conjuncts re-invoked
     2 + 2 * 3 = 8                                       -- trivial + standard
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4  -- 2-dim trivial subspace
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8 := by
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4  -- 2-dim trivial subspace
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
 /-! ## §J — JSJ correspondence narrative (R1 step 11)

@@ -334,7 +334,7 @@ theorem geometrization_correspondence_capstone :
     ∧ b1_corrected 3 1 1 = 0
     ∧ b1_corrected 3 2 2 = 8
     -- 8 narrative parallel (arithmetic only, NOT structural)
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- Sym(3) decomposition shape: 2·trivial + 3·standard = 8
     ∧ 2 + 2 * 3 = 8
     -- JSJ narrative parallel: bipartite S/T canonical (NS=3, NT=2)

@@ -81,7 +81,7 @@ theorem dim4_information_richness :
     ∧ chartVisibleAxes 4 2 = 5
     -- C3 chain on K_{3,2}^{(c=2)} provides gauge-structure layer
     -- (213-Lens analog of 4-mfd Donaldson gauge theory)
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8 := by
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8 := by
   refine ⟨rfl, ?_, ?_, rfl, rfl, ?_, ?_, ?_, ?_, rfl, rfl, ?_⟩
   all_goals first | rfl | decide
 

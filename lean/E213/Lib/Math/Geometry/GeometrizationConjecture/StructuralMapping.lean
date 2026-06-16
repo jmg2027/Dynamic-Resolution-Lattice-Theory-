@@ -75,7 +75,7 @@ theorem K32_H1_256_classes :
     -- |H¹| = 2^8 = 256
     (2 : Nat) ^ 8 = 256
     -- H¹ rank = 8 (basis dimension)
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- 8 = NS² - 1 (atomicity-derived)
     ∧ (3 : Nat)^2 - 1 = 8 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
@@ -113,7 +113,7 @@ theorem K32_H1_256_classes :
 -/
 theorem geometries_classes_structural_hint :
     -- 8 H¹ basis elements (rank)
-    E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- 256 = 2^8 cohomology elements (full H¹)
     ∧ (2 : Nat) ^ 8 = 256
     -- 8 = NS^2 - 1 atomicity-derived
@@ -124,7 +124,7 @@ theorem geometries_classes_structural_hint :
     -- Sym(3) decomposition: 2·trivial + 3·standard pairs (= 8)
     ∧ 2 + 2 * 3 = 8
     -- Three closure properties all evaluate to 8 for K_{3,2}^{(c=2)}:
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     ∧ 2 + 2 * 3 = 8
     ∧ (3 : Nat)^2 - 1 = 8 := by
   refine ⟨?_, ?_, ?_, rfl, ?_, ?_, ?_, ?_⟩ <;> decide
@@ -175,7 +175,7 @@ deployment — the underlying notion the user identified.
     K_{3,2}^{(c=2)} layer. -/
 theorem universal_eight_via_multiple_routes :
     -- (A) H¹ rank (cohomology dimension)
-    E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- (B) NS² − 1 (atomicity, gluon octet count)
     ∧ (3 : Nat)^2 - 1 = 8
     -- (C) Sym(3) representation decomposition: 2·trivial + 3·standard
@@ -218,7 +218,7 @@ theorem universal_eight_via_multiple_routes :
 theorem operation_closure_universal_eight_capstone :
     -- All 8 = 8 from distinct algebraic-operation layers
     -- (A) H¹ cohomology
-    E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- (B) Atomicity
     ∧ (3 : Nat)^2 - 1 = 8
     -- (C) Sym(3) representation
@@ -234,7 +234,7 @@ theorem operation_closure_universal_eight_capstone :
     -- (H) chartVisibleAxes for K_{3,2}^{(c=2)} (critical)
     ∧ chartVisibleAxes 3 2 = 4
     -- (I) Sym(3)-fixed dim 2 (Ricci-fixed)
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- (J) Möbius P entries sum to d = 5 (OneAsGlue)
     ∧ (2 + 1 + 1 + 1 : Nat) = 5
     -- (K) Möbius P mod 5: N² ≡ 0 (Nil)
@@ -366,7 +366,7 @@ theorem geometrization_8_via_sym3_decomp_structural :
     ∧ (2 + 2 * 3 : Nat)
         = isotropic_geometry_count + anisotropic_geometry_count
     -- Sym(3)-fixed subspace cardinality (from C3 chain master)
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4 := by
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4 := by
   refine ⟨?_, rfl, rfl, ?_, ?_, ?_⟩ <;> decide
 
 /-- ★★★★★ **3-dim confinement forces universal-8**:
@@ -433,9 +433,9 @@ theorem geometrization_ultimate_capstone :
     -- Total: 3 + 5 = 8 = Thurston count
     ∧ isotropic_geometry_count + anisotropic_geometry_count = 8
     -- H¹ rank = 8
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- Sym(3)-fixed subspace dim 4 = 2² (Ricci-fixed analog)
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- 3-dim confinement at K_{3,1}^{(c=1)} (Poincaré tree)
     ∧ chartVisibleAxes 3 1 = 3
     -- 4-dim critical at K_{3,2}^{(c=2)} (forced deployment)

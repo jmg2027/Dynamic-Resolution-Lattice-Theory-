@@ -89,10 +89,10 @@ theorem cork_embedding_capstone :
 theorem cork_uniqueness_capstone :
     -- M_S01 is involutive (matrix layer)
     (∀ i j : Fin 8,
-       E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_mul_M
-         E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01
-         E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01 i j
-       = E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.IdMatrix i j)
+       E213.Lib.Physics.Symmetry.OctetModule.M_mul_M
+         E213.Lib.Physics.Symmetry.OctetModule.M_S01
+         E213.Lib.Physics.Symmetry.OctetModule.M_S01 i j
+       = E213.Lib.Physics.Symmetry.OctetModule.IdMatrix i j)
     -- corkTwist is involutive (cork-data layer)
     ∧ corkTwist (corkTwist K14_cork) = K14_cork
     -- Cork uniqueness at chartBase = 5 (modulo S/T swap):
@@ -104,7 +104,7 @@ theorem cork_uniqueness_capstone :
     ∧ chartBase 1 1 ≠ chartBase 1 4
     ∧ chartBase 3 1 ≠ chartBase 1 4 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · exact E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01_squared_pointwise
+  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared_pointwise
   · rfl
   · rfl
   · decide
@@ -153,10 +153,10 @@ theorem akbulut_cork_213_native :
     ∧ b1_corrected 3 2 2 = 8
     -- Phase 5: cork uniqueness (M_S01 involutive at matrix level)
     ∧ (∀ i j : Fin 8,
-         E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_mul_M
-           E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01
-           E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01 i j
-         = E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.IdMatrix i j)
+         E213.Lib.Physics.Symmetry.OctetModule.M_mul_M
+           E213.Lib.Physics.Symmetry.OctetModule.M_S01
+           E213.Lib.Physics.Symmetry.OctetModule.M_S01 i j
+         = E213.Lib.Physics.Symmetry.OctetModule.IdMatrix i j)
     -- Phase 6: full 60-orbit decomposition cross-check
     ∧ sym3OrbitCount = 60
     ∧ twistEvenOrbits = 32
@@ -168,6 +168,6 @@ theorem akbulut_cork_213_native :
   · decide
   · decide
   · decide
-  · exact E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01_squared_pointwise
+  · exact E213.Lib.Physics.Symmetry.OctetModule.M_S01_squared_pointwise
 
 end E213.Lib.Math.Geometry.AkbulutCork.CorkTheorem

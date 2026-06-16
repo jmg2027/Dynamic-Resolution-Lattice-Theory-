@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.EulerAndCapstone
-import E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix
+import E213.Lib.Physics.Symmetry.OctetModule
 import E213.Lib.Math.Geometry.Topology.EulerChi
 
 /-!

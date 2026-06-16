@@ -59,7 +59,7 @@ namespace E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
     candidate atomic quantity for 4-mfd exotic enumeration, playing
     the structural role of Donaldson's gauge-invariant integer. -/
 def sym3GaugeInvariant : Nat :=
-  E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize
+  E213.Lib.Physics.Symmetry.OctetModule.fixedSize
 
 /-- The gauge invariant equals 4 = 2² (dim of trivial-isotypic
     subspace = 2). -/
@@ -68,19 +68,19 @@ theorem sym3_gauge_invariant_value :
     ∧ sym3GaugeInvariant = 2 ^ 2
     -- Explicit basis: ω_10, ω_01 span the fixed subspace
     ∧ (∀ j : Fin 8,
-         E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_mul_vec
-           E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01
-           E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.ω_10 j
-         = E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.ω_10 j)
+         E213.Lib.Physics.Symmetry.OctetModule.M_mul_vec
+           E213.Lib.Physics.Symmetry.OctetModule.M_S01
+           E213.Lib.Physics.Symmetry.OctetModule.ω_10 j
+         = E213.Lib.Physics.Symmetry.OctetModule.ω_10 j)
     ∧ (∀ j : Fin 8,
-         E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_mul_vec
-           E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix.M_S01
-           E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.ω_01 j
-         = E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.ω_01 j) := by
-  refine ⟨E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4, ?_, ?_, ?_⟩
-  · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4
-  · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.ω_10_fixed_S01
-  · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.ω_01_fixed_S01
+         E213.Lib.Physics.Symmetry.OctetModule.M_mul_vec
+           E213.Lib.Physics.Symmetry.OctetModule.M_S01
+           E213.Lib.Physics.Symmetry.OctetModule.ω_01 j
+         = E213.Lib.Physics.Symmetry.OctetModule.ω_01 j) := by
+  refine ⟨E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4, ?_, ?_, ?_⟩
+  · exact E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4
+  · exact E213.Lib.Physics.Symmetry.OctetModule.ω_10_fixed_S01
+  · exact E213.Lib.Physics.Symmetry.OctetModule.ω_01_fixed_S01
 
 /-! ## 4-mfd exotic-enumeration anchor -/
 
@@ -111,17 +111,16 @@ theorem exotic_4mfd_scaffold :
     ∧ 2 + 2 * 3 = 8 := by
   refine ⟨?_, ?_, ?_, rfl, ?_, rfl, rfl, ?_⟩
   · decide
-  · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4
+  · exact E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4
   · exact (sym3_gauge_invariant_value).2.1
   · decide
   · decide
 
 /-! ## Per-element Sym(3) fix counts (Burnside prerequisites) -/
 
-open E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix
-open E213.Lib.Physics.Symmetry.Sym3OnH1KCayley (M_S12)
-open E213.Lib.Math.Cohomology.Bipartite.H1K (H1K)
-open E213.Lib.Physics.Symmetry.Sym3IrrepDecomp (H1Kat)
+open E213.Lib.Physics.Symmetry.OctetModule
+  (M_S01 M_S12 M_mul_vec M_mul_M IdMatrix Octet OctetAt)
+open E213.Lib.Physics.Symmetry.OctetModule renaming Octet → H1K, OctetAt → H1Kat
 
 /-- Cochain ω fixed by the S01 transposition matrix. -/
 def isFixedByS01 (ω : H1K) : Bool :=
@@ -231,17 +230,17 @@ theorem fw1_substantive_sym3_orbit_count :
     ∧ fixedSizeS12 = 32
     ∧ fixedSizeRho = 4
     -- Singleton orbits = Sym(3)-fixed subspace
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- Non-singleton orbits: 60 - 4 = 56
     ∧ sym3OrbitCount - 4 = 56
     -- Gauge invariant unchanged (atomic count)
     ∧ sym3GaugeInvariant = 4 := by
   refine ⟨rfl, sym3_burnside_sum, fixedSizeS01_eq_32,
           fixedSizeS12_eq_32, fixedSizeRho_eq_4,
-          E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4,
+          E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4,
           ?_, ?_⟩
   · decide
-  · exact E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4
+  · exact E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4
 
 /-! ## Sub-orbit decomposition by stabilizer size
 
@@ -262,12 +261,11 @@ The 0 size-2 orbit count is a non-trivial structural finding:
 transp-fixed, so no cochain has stab exactly = A_3.
 -/
 
-open E213.Lib.Physics.Symmetry.Sym3OnH1KMatrix in
 /-- Third transposition matrix S02 = S01 · S12 · S01 (conjugation
     of S12 by S01 in Sym(3)).  Under the `M_mul_M` convention
     where `M_mul_M A B` represents "apply B then A", this is
     `M_S01 · (M_S12 · M_S01)`. -/
-def M_S02 : Fin 8 → E213.Lib.Math.Cohomology.Bipartite.H1K.H1K :=
+def M_S02 : Fin 8 → E213.Lib.Physics.Symmetry.OctetModule.Octet :=
   M_mul_M M_S01 (M_mul_M M_S12 M_S01)
 
 /-- S02 is involutory: M_S02 · M_S02 = IdMatrix.  Verified pointwise
@@ -366,7 +364,7 @@ theorem fw1_suborbit_decomposition :
     -- Burnside sum: 256 + 3·32 + 2·4 = 360 = 60 · 6
     ∧ 256 + 3 * fixedSizeS01 + 2 * fixedSizeRho = sym3OrbitCount * 6
     -- Structural: no size-2 orbits because |Fix(ρ)| = |Fix(Sym(3))|
-    ∧ fixedSizeRho = E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize
+    ∧ fixedSizeRho = E213.Lib.Physics.Symmetry.OctetModule.fixedSize
     -- Inclusion-exclusion: |∪ Fix(transp)| = 88
     ∧ transpFixedCount = 88 := by
   refine ⟨rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
@@ -375,7 +373,7 @@ theorem fw1_suborbit_decomposition :
   · decide
   · decide
   · exact sym3_burnside_sum
-  · rw [fixedSizeRho_eq_4, E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4]
+  · rw [fixedSizeRho_eq_4, E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4]
   · exact transpFixedCount_eq_88
 
 end E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz

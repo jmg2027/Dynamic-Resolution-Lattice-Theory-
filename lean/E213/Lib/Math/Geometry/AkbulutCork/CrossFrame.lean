@@ -44,9 +44,9 @@ open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
     H¹(K_{3,2}^{(c=2)}). -/
 theorem cork_signed_eq_sym3_fixed :
     signedCorkTwistCount
-      = (E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize : Int) := by
+      = (E213.Lib.Physics.Symmetry.OctetModule.fixedSize : Int) := by
   rw [signedCorkTwistCount_eq_4,
-      E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4]
+      E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4]
   rfl
 
 /-! ## §2 — Cork ↔ Geometrization 3+5 split -/
@@ -94,9 +94,9 @@ theorem five_way_sym3_cross_frame_capstone :
     -- Geometrization 3+5 split (Source 1)
     isotropic_geometry_count + anisotropic_geometry_count = 8
     -- H¹(K) rank 8 (Source 2)
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- Sym(3)-fixed = 4 (cardinality 2²) (Source 2 detail)
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- 2·trivial + 3·standard = 8 (Source 2 decomp)
     ∧ 2 + 2 * 3 = 8
     -- Möbius P pentagonal closure (Source 4)
@@ -104,7 +104,7 @@ theorem five_way_sym3_cross_frame_capstone :
     -- Cork signed count = Sym(3)-fixed (Source 5, ★ new)
     ∧ signedCorkTwistCount = 4
     ∧ signedCorkTwistCount
-        = (E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize : Int)
+        = (E213.Lib.Physics.Symmetry.OctetModule.fixedSize : Int)
     -- Composite cork H¹+H² = +6 = isotropic + anisotropic / -2
     ∧ signedCorkTwistCount_H1_H2 = 6
     -- Cork-isotropic relation
@@ -113,7 +113,7 @@ theorem five_way_sym3_cross_frame_capstone :
     ∧ signedCorkTwistCount_H1_H2 = (anisotropic_geometry_count : Int) + 1
     -- Truncation stabilization holds (H¹+H²+H³ = +6, no new content beyond H²)
     ∧ signedCorkTwistCount_H1_H2_H3 = signedCorkTwistCount_H1_H2 := by
-  refine ⟨?_, ?_, E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4,
+  refine ⟨?_, ?_, E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4,
           ?_, ?_, signedCorkTwistCount_eq_4,
           cork_signed_eq_sym3_fixed,
           signedCorkTwistCount_H1_H2_eq_6,
@@ -189,7 +189,7 @@ theorem four_mfd_geometrization_marathon_capstone :
          signedCorkTwistCountMulti m
            = corkTwistGroupOrder m * corkTwistGroupOrder m)
     -- Sym(3)-fixed = 4 (cork bridge)
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- chartBase 3 2 = 5 (213's fractal base)
     ∧ chartBase 3 2 = 5
     -- d_M = 4 (chart-visible axes at d_213 = 5)
@@ -224,7 +224,7 @@ theorem four_mfd_geometrization_marathon_capstone :
           signedCorkTwistCountMulti_universal,
           corkTwistGroupOrder_universal,
           signed_count_eq_group_order_squared_universal,
-          E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4,
+          E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4,
           ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
           ?_, ?_, ?_, ?_, ?_⟩
   all_goals first | rfl | decide | (unfold K32_ricci_modulus; decide)
@@ -318,7 +318,7 @@ theorem cork_count_eq_two_squared :
 /-- The cork-signed-count `+4` equals the `Sym3IrrepDecomp.fixedSize`
     cardinality (number of Sym(3)-fixed H¹ cochains). -/
 theorem cork_count_eq_sym3_fixed_cardinality :
-    signedCorkTwistCount = (E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize : Int) := by
+    signedCorkTwistCount = (E213.Lib.Physics.Symmetry.OctetModule.fixedSize : Int) := by
   exact cork_signed_eq_sym3_fixed
 
 /-- The cork-signed-count `+4` equals d² with d=2 (Sym(3)-trivial
@@ -350,13 +350,13 @@ theorem cork_cup_ladder_H1_correspondence :
     signedCorkTwistCount = 4
     -- = cardinality of Sym(3)-fixed subspace
     ∧ signedCorkTwistCount
-        = (E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize : Int)
+        = (E213.Lib.Physics.Symmetry.OctetModule.fixedSize : Int)
     -- = 2² (dim Sym(3)-trivial-isotypic = 2 over F_2)
     ∧ signedCorkTwistCount = (2 ^ 2 : Int)
     -- = 2 * 2 (same dim, multiplicative form)
     ∧ signedCorkTwistCount = ((2 : Int)) * (2 : Int)
     -- 4 fixed cochains explicit count
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- The (k+1) cup-ladder graduation: at k=1, α² appears;
     -- at k=2, α³ appears.  Composite H¹+H² has cork count +6.
     ∧ signedCorkTwistCount_H1_H2 = 6
@@ -366,7 +366,7 @@ theorem cork_cup_ladder_H1_correspondence :
           cork_signed_eq_sym3_fixed,
           cork_count_eq_two_squared,
           cork_count_eq_sym3_isotypic_dim_squared,
-          E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4,
+          E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4,
           signedCorkTwistCount_H1_H2_eq_6,
           ?_⟩
   decide
@@ -421,7 +421,7 @@ theorem d_squared_eq_chartBase_squared :
 theorem alpha_em_cork_precision_citation :
     -- Cork side
     signedCorkTwistCount = 4
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- Cup-ladder constants
     ∧ E213.Lib.Physics.AlphaEM.CupLadderFormula.d_squared = 25
     -- Joint structural identity: d² = chartBase²
@@ -432,9 +432,9 @@ theorem alpha_em_cork_precision_citation :
     ∧ E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz.chartBase 3 2 = 5
     -- d²·cork-count = 25 · 4 = 100 (joint precision-stack invariant)
     ∧ E213.Lib.Physics.AlphaEM.CupLadderFormula.d_squared *
-        E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 100 := by
+        E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 100 := by
   refine ⟨signedCorkTwistCount_eq_4,
-          E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize_eq_4,
+          E213.Lib.Physics.Symmetry.OctetModule.fixedSize_eq_4,
           rfl, ?_, rfl, ?_⟩ <;> decide
 
 end E213.Lib.Math.Geometry.AkbulutCork.CrossFrame
