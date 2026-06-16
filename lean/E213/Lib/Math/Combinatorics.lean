@@ -31,6 +31,7 @@ import E213.Lib.Math.Combinatorics.SchroderNumbers
 import E213.Lib.Math.Combinatorics.PartitionNumbers
 import E213.Lib.Math.Combinatorics.StirlingOrthogonality
 import E213.Lib.Math.Combinatorics.BinomialInversion
+import E213.Lib.Math.Combinatorics.SurjectionCount
 import E213.Lib.Math.Combinatorics.StirlingOrthogonality2
 import E213.Lib.Math.Combinatorics.LahNumbers
 import E213.Lib.Math.Combinatorics.DelannoyNumbers
