@@ -17,7 +17,7 @@ namespace E213.Lib.Math.NumberTheory.Primorial
 
 open E213.Lens.Number.Nat213.MultSystemValue
   (fact fact_pos dvd_fact prime_not_dvd_fact primesIn listProd listProd_dvd
-   primesIn_nodup mem_primesIn_le mem_primesIn_gt mem_primesIn_prime pow_length_le_prod)
+   primesIn_nodup mem_primesIn_le mem_primesIn_gt mem_primesIn_prime pow_length_le_prod listProd_pos)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial)
@@ -155,4 +155,31 @@ theorem upper_window_count_pow_le (m : Nat) :
     (pow_length_le_prod (m + 2) (primesIn (m + 1) (2 * m + 1)) (fun _ hp => mem_primesIn_gt hp))
     (window_prod_le_odd m)
 
+
+/-- ★ **Prime-count bound on `(N/2, N]`**: `(N/2+1)^{π(N)−π(N/2)} ≤ 4ᴺ`.  The primes in
+    `(N/2, N]` each exceed `N/2`, and their product is a factor of `∏_{p≤N} p ≤ 4ᴺ` (split
+    at `N/2`), so the count is capped — a Chebyshev-type upper bound on `π(N) − π(N/2)`
+    straight from the primorial. -/
+theorem prime_count_window_le (N : Nat) :
+    (N / 2 + 1) ^ (primesIn (N / 2) N).length ≤ 4 ^ N := by
+  have hle : N / 2 ≤ N := by
+    have h := div_add_mod_pure N 2
+    calc N / 2 ≤ 2 * (N / 2) := by rw [Nat.two_mul]; exact Nat.le_add_left _ _
+      _ ≤ 2 * (N / 2) + N % 2 := Nat.le_add_right _ _
+      _ = N := h
+  have hsplit : primesIn 0 N = primesIn (N / 2) N ++ primesIn 0 (N / 2) :=
+    primesIn_split (Nat.zero_le _) hle
+  have hposB : 0 < listProd (primesIn 0 (N / 2)) :=
+    listProd_pos (fun p hp =>
+      Nat.lt_of_lt_of_le (by decide) (mem_primesIn_prime hp).two_le)
+  have hlow : listProd (primesIn (N / 2) N) ≤ 4 ^ N :=
+    calc listProd (primesIn (N / 2) N)
+        ≤ listProd (primesIn (N / 2) N) * listProd (primesIn 0 (N / 2)) :=
+          Nat.le_mul_of_pos_right _ hposB
+      _ = listProd (primesIn (N / 2) N ++ primesIn 0 (N / 2)) := (listProd_append _ _).symm
+      _ = listProd (primesIn 0 N) := by rw [← hsplit]
+      _ ≤ 4 ^ N := primorial_le_four_pow N
+  exact Nat.le_trans
+    (pow_length_le_prod (N / 2 + 1) (primesIn (N / 2) N) (fun _ hp => mem_primesIn_gt hp))
+    hlow
 end E213.Lib.Math.NumberTheory.Primorial
