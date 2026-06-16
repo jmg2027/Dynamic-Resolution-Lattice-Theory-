@@ -1,7 +1,12 @@
 # Frontier: σ(n) parity — the general ⟺ (square or twice-square)
 
-**Status**: partial closed (`lean/E213/Lib/Math/NumberTheory/SigmaParity.lean`, 13 PURE).
-General ⟺ blocked on missing corpus infra.
+**Status**: ✅ **CLOSED** (iter 166, `lean/E213/Lib/Math/NumberTheory/SigmaParityComplete.lean`,
+6 PURE).  The full theorem
+`sigma_odd_iff (hn : 0 < n) : σ(n) % 2 = 1 ↔ ((∃r,r*r=n) ∨ (∃r,2*(r*r)=n))` is ∅-axiom.
+Path to closure: iter 162 (`sigma_odd_prime_pow_parity`) → iter 164 (`OddPartDecomposition`,
+`sigma_odd_iff_oddPart`) → iter 165 (`SquareCharacterization`: `coprime_isSquare_mul`, `sq_or_twice_iff`)
+→ iter 166 (`sigma_odd_square_odd` for odd m by smallest-prime-power strong induction + final assembly).
+All three original crux lemmas discharged.  History retained below.
 
 ## Target
 `σ(n)` odd ⟺ `n` is a perfect square or twice a perfect square.

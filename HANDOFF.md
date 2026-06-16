@@ -1109,6 +1109,21 @@ closure → full build → commit.
   the general σ-parity ⟺ now reduces to **exactly one** remaining lemma — `for ODD m, σ(m) odd ↔ IsSquare m`
   (frontier note updated).  The coprime-square-split is broadly reusable infra.
 
+- **166 — number theory (★★★ CAPSTONE: general σ-parity theorem COMPLETE)**:
+  `NumberTheory/SigmaParityComplete` (NEW file, 6 PURE) — the **full theorem**
+  `sigma_odd_iff : 0<n → (σ(n) % 2 = 1 ↔ ((∃r,r*r=n) ∨ (∃r,2*(r*r)=n)))` — σ(n) is odd ⟺ n is a perfect
+  square or twice a perfect square.  Closes the σ-parity frontier entirely (all 3 original crux lemmas
+  discharged across iters 162→164→165→166).  The last lemma ★★★ `sigma_odd_square_odd` (for ODD m:
+  σ(m) odd ⟺ IsSquare m) by **smallest-prime-power strong induction**: `exists_prime_pow_cofactor` splits
+  `m = p^k·m'` (coprime, m'<m); `sigma_mul` + `mul_odd_iff` factor the parity; `sigma_odd_prime_pow_parity`
+  (162) gives σ(p^k) odd ⟺ k even; `coprime_isSquare_mul` (165) + new `isSquare_prime_pow_iff` (general
+  prime, generalizing iter-165's p=2 case via `FloorLog.pow_lt_pow_of_lt`) give IsSquare m ⟺ k even ∧
+  IsSquare m'; IH closes m'.  Final assembly: `sigma_odd_iff_oddPart` (164) ∘ `sigma_odd_square_odd`(oddPart)
+  ∘ `sq_or_twice_iff` (165).  Key purity fix: core `Nat.dvd_trans` leaks propext → corpus `dvd_trans_213`;
+  all `rw`-on-`Iff` replaced with `Iff.trans/.mp/.mpr` combinators (rw on Iff pulls propext).  The
+  multiplicative divisor-theory framework (φ/μ/σ/τ/σ_k/λ + Möbius inversion + Dirichlet ring + Euclid
+  perfect + τ-parity + **σ-parity**) is now ∅-axiom end-to-end.
+
 > NOVELTY NOTE: iterations 1–18 were the deep/structural results (descent-schema
 > promotion, rational root all-degrees, T4 Fermat, holonomy freeness, exp-series
 > differentiation, WLPO⟹LLPO, entropy subadditivity, …).  Iterations 19–29 are
