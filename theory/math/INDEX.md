@@ -49,6 +49,8 @@ sandwich-first, the commuting square, layer constants),
 
 ### `combinatorics/` — `combinatorics`, `logic`, `graph_connectivity`, `bool_enumeration`, `inclusion_exclusion_set_partitions`.
 
+### `order/` — `order_theory` (Galois connections, Boolean algebra, Knaster-Tarski).
+
 ### `logic/` — reverse mathematics / omniscience ledger
 `reverse_math_213` (the `Lib/Math/Logic/` mirror — LPO/WLPO/MP/LLPO, the König
 selection cost, `WKL ⟺ Heine–Borel`, the object-level axiom-cost ledger).
