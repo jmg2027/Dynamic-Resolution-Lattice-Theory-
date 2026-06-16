@@ -60,6 +60,14 @@ more*.
   - `ModArith/WilsonConverse` (`exists_nontrivial_factor`) — "least divisor > 1
     is prime" (well-ordering) becomes a **bounded prime search**: an explicit,
     computed factor.
+  - `NumberTheory/TwoSquareTheorem` — **Fermat's two-square theorem, hard
+    direction** (`p ≡ 1 mod 4 ⟹ p = a²+b²`), the capstone B-case. The classical
+    Thue-lemma + size-descent proof is non-constructive throughout (a pigeonhole
+    `∃` + minimal-counterexample). ∅-axiom localizes *all* of it to "produce the
+    box collision": `exists_collision_lt` returns the colliding pair of
+    `Fin (q²) → Fin p`, the witness `(a,b)` is read off by `i ↦ (i/q, i%q)`, and
+    the "multiple of `p` below `2p` is `p`" step is a literal computation. *The
+    two-square witness is an algorithm output, not an existential.* (19 PURE.)
   - `NumberTheory/DividesPairPigeonhole` — "among any `n+1` numbers in `[1,2n]`,
     one divides another." The classical pigeonhole asserts a non-constructive `∃`
     (two share an odd part — *which* pair unstated). ∅-axiom forces the witness

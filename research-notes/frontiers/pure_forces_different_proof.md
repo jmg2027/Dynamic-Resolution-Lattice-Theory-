@@ -167,6 +167,30 @@ pigeonhole is the *witness-returning* form. (DP 7 PURE; `exists_collision`/`scan
 2 PURE in Pigeonhole. Two independent agents converged on exactly this shape —
 itself evidence the route is forced, not chosen.)
 
+### B — Fermat's two-square theorem, hard direction, via Thue (★★ capstone B-case)
+`NumberTheory/TwoSquareTheorem`. Every prime `p ≡ 1 (mod 4)` is a sum of two
+squares: `two_square : ∃ a b : Nat, p = a*a + b*b` (and the `isSumTwoSq` form).
+This was the "Next target" predicted below — and it closed **in full** (19 PURE,
+no fallback), the descent to `a²+b² = p` included. The classical proof is Thue's
+lemma (a `⌊√p⌋`-box pigeonhole giving a small `(a,b)` with `a ≡ x·b (mod p)`) plus
+a minimal-counterexample / size descent — both non-constructive (LEM +
+well-ordering + a pigeonhole `∃` with no extraction). ∅-axiom forces all of it to
+*compute*: `QRNegOne` gives the `x` with `p ∣ x²+1`; the **new
+`Pigeonhole.exists_collision_lt`** produces the actual colliding box pair from
+`Fin (q²) → Fin p` (`q = isqrt p + 1`, `q² > p`); the witness `(a,b)` is read off
+by `i ↦ (i/q, i%q)` and signed differences; the modular core
+`dvd_sq_sum` (`p∣X²+1 → p∣A+XB → p∣A²+B²`, via the Brahmagupta identity
+`A²+B² = (A−XB)(A+XB) + B²(X²+1)`) gives `p ∣ a²+b²`; and the classical "positive
+multiple of `p` below `2p` must be `p`" size argument is a literal computation
+(`eq_p_of_dvd_lt_two_mul`, with `isqrt_sq_lt_of_prime` — a prime is not a perfect
+square — giving the strict `a²+b² ≤ 2·isqrt²p < 2p`). Reveals: **the two-square
+witness `(a,b)` is an algorithm output — the box collision is produced, the
+descent is a bounded computation — not an abstract existential.** This is the
+deepest demonstration so far that `exists_collision` is the right primitive: a
+whole classical theorem's non-constructive content localizes to "produce the
+pigeonhole pair." (19 PURE; reuses `QRNegOne`, `exists_collision_lt`, `IntSqrt`,
+`PolyRoot` Nat↔Int dvd bridges, `Int213`/`ring_intZ`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
@@ -175,14 +199,20 @@ itself evidence the route is forced, not chosen.)
   `ModArith/LensCRT` for overlap first.)
 - **B**: classical results whose only textbook proof is minimal-counterexample
   — and whose descent witness is interesting (not just "a factor exists").
-  - **Next target (selected):** every prime `p ≡ 1 (mod 4)` is a sum of two
-    squares. The corpus has `QRNegOne` (`∃x, p ∣ x²+1`) and the
-    Brahmagupta–Fibonacci multiplicativity (`SumTwoSquares.isSumTwoSq_mul`) but
-    **not** the hard direction. Classical proof = Thue's lemma (a pigeonhole over
-    a `⌊√p⌋`-box giving a small `(a,b)` with `a ≡ xb`) + descent. ∅-axiom forces
-    the **computed** `(a,b)`: the new `Pigeonhole.exists_collision` should supply
-    the Thue collision directly, making the two-square witness explicit rather
-    than an abstract `∃`. (Reuses `QRNegOne`, `exists_collision`.)
+  - ~~**Next target:** every prime `p ≡ 1 (mod 4)` is a sum of two squares.~~
+    **DONE** — `NumberTheory/TwoSquareTheorem`, 19 PURE (see the capstone B-case
+    above). The whole non-constructive content localized to
+    `exists_collision_lt`, exactly as predicted.
+  - **Next target (selected):** infinite descent — `x⁴ + y⁴ = z²` has no
+    positive-integer solution (Fermat). The textbook proof is the archetypal
+    *minimal-counterexample* (well-ordering): assume a solution with least `z`,
+    construct a strictly smaller one, contradiction. ∅-axiom has no well-ordering
+    as a proof device, so the descent must be an **explicit constructor**: from a
+    solution build the smaller solution as a computed function (Pythagorean
+    parametrisation — corpus `NumberTheory/PythagoreanTriples` — feeds the step).
+    Reveals: the descent *map* is the content; "no solution" is "the
+    strictly-decreasing `z`-constructor would not terminate." (Reuses
+    `PythagoreanTriples`, `OddPartDecomposition`/`v2`.)
 - **C**: a classically-non-effective existence (an "∃ by compactness") whose
   ∅-axiom form needs a modulus, where the modulus is the content.
 - **The DIRTY-set test — RESULT (2026-06-16): empty for math.** Scanned the whole
