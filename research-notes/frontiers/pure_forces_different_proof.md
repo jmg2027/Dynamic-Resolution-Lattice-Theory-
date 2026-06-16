@@ -69,6 +69,18 @@ closed-form `crtSolve`, with `crt_unique` a bare divisibility argument and
 isomorphism is literally the reconstruction algorithm `crtSolve`; the quotient
 was packaging, the round-trip is the content.** (12 PURE.)
 
+### A — `ℤ/n` is a field ⟺ n prime, on representatives (★ clean A-case)
+`ModArith/FieldIffPrime`. Classically a statement about the *quotient ring*
+`ℤ/n` (field structure proved by lifting through `Quot.sound`). On
+representatives: `isFieldZn n := 1<n ∧ ∀ a, a%n≠0 → hasInverse n a`. Prime ⟹
+every nonzero residue has an explicit **Bezout inverse** (`prime_imp_field`);
+composite ⟹ an explicit **zero divisor** read straight off the factorization
+`(a·b)%n = n%n = 0` (`composite_imp_zero_divisor`, which can't be invertible).
+`field_iff_prime` packages it (forward via a constructive `prime_or_composite`
+bounded search, no `by_contra`). Reveals: **the field/non-field dichotomy IS
+the gcd computation** — invertibility decided by Bezout, failure an explicit
+zero divisor; the quotient ring was packaging. (16 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅

@@ -6,6 +6,7 @@ import E213.Lib.Math.NumberTheory.ModArith.JoinExample
 import E213.Lib.Math.NumberTheory.ModArith.JoinGCD
 import E213.Lib.Math.NumberTheory.ModArith.LensCRT
 import E213.Lib.Math.NumberTheory.ModArith.CRTReconstruction
+import E213.Lib.Math.NumberTheory.ModArith.FieldIffPrime
 import E213.Lib.Math.NumberTheory.ModArith.PureNatMod3
 import E213.Lib.Math.NumberTheory.ModArith.PureNatMod5
 import E213.Lib.Math.NumberTheory.ModArith.EisensteinFormCharacter
