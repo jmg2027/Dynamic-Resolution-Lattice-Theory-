@@ -78,16 +78,19 @@ surfaced: **Bertrand's postulate** (reachable; keystone = primorial bound `∏_{
 
 ### Wave 4 bricks (Bertrand infrastructure — autonomous)
 
-10. **Toward Bertrand's postulate** (keystone = primorial `∏_{p≤N} p ≤ 4ⁿ`).  Landed PURE:
+10. **★ Primorial bound `∏_{p≤N} p ≤ 4ᴺ` — CLOSED ∅-axiom** (Erdős's Bertrand keystone).
+    `Primorial.primorial_le_four_pow` (PURE), built on the full chain landed this session:
     - `primesIn_split` + `listProd_append` (`MultSystemValue.lean`) — the Erdős window split.
-    - `binom_eq_choose` (`Lib/Math/NumberTheory/BinomChooseBridge.lean`) — the Lens `binom`
-      and Lib `choose` are the identical Pascal recursion (resolves the layer/def hazard via
-      the `Lens.Number` umbrella; the `org-audit`-flagged 4-binom-defs issue).
-    - `odd_central_binom_le : C(2m+1,m) ≤ 4^m` (`Lib/Math/NumberTheory/OddCentralBinom.lean`)
-      — keystone 2, via `choose_symm` + `pascal_row_sum` + new sum helpers + `four_pow_eq`.
-    Remaining (roadmap `research-notes/frontiers/bertrand_postulate.md`): `prime_dvd_odd_binom`
-    (next unit; watch a possible `fact` duplicate-def bridge), `window_prod_le_odd`, the
-    `primorial_le_four_pow` induction, then full Bertrand.
+    - `binom_eq_choose` (`BinomChooseBridge.lean`) — Lens `binom` = Lib `choose` (identical
+      Pascal recursion; resolves the layer/def hazard via the `Lens.Number` umbrella).
+    - `odd_central_binom_le : C(2m+1,m) ≤ 4^m` (`OddCentralBinom.lean`) — `choose_symm` +
+      `pascal_row_sum` + sum helpers + `four_pow_eq`.
+    - `prime_dvd_odd_binom` + `window_prod_le_odd` + `primorial_le_four_pow` (`Primorial.lean`)
+      — the vp divisibility (over the `fact=factorial` bridge), the window bound, the parity
+      strong-induction.
+    A famous theorem, ∅-axiom.  Remaining for *full* Bertrand (roadmap
+    `research-notes/frontiers/bertrand_postulate.md`): the `(2n/3,n]` vanishing window, the
+    prime-range partition + `√`-tail, the crossover past `N₀≈468`, the finite prime chain.
 
 ### Honesty correction (wave 1)
 `research-notes/frontiers/rebuild_roadmaps/proton_electron_ratio_rebuild.md` —
