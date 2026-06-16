@@ -5,10 +5,15 @@ import E213.Lib.Physics.Simplex.Counts
 
 `Hodge/Star.lean` builds the Hodge star over **ℤ/2** (Bool/XOR), where the sign
 `(−1)^{k(n−k)}` collapses, giving `⋆² = +1` at every grade (`InvolutionLifts`).
-This file builds the **signed** companion — the `ℤ`-coefficient Hodge star the
-repo flags as unbuilt (`AlphaEM/CupRingTrace` "needs ℤ-signed pairings";
-`HodgeConjecture/Pairing/HodgeRiemann` vacuous on ℤ/2) — on the grade-pair where
-the sign is `−1`, and proves it is the **complex structure `i`**.
+This file builds the **signed** `ℤ`-coefficient companion on the grade-pair
+where the sign is `−1`, and proves it is the **complex structure `i`**.
+
+This is the **`C₄`/Gaussian-ring model** of the signed Hodge `⋆²=−1`: the `2×2`
+matrix `J`, `J²=−I`, `ℤ[J] ≅ ℤ[i]`.  The companion **exterior-algebra `⋆`
+operator model** — the full `Int`-signed `⋆` on the `2⁴=16` basis forms of
+`Λ(Fin 4)`, with `⋆∘⋆=(−1)^{k(n−k)}` across all grades — is
+`Physics/Mixing/SignedHodgeStar.lean` (`SignedStarFull.lean` lifts the grade-1
+restriction here to the full operator).  Same structure, two models.
 
 ## The construction
 

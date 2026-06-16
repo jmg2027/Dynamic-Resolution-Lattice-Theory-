@@ -3,20 +3,20 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Signed Hodge star on `Λ(Δ⁴)` — the order-2 `i`, built as an operator (∅-axiom)
 
-This is **Phase E** of the c-free rebuild.
-The deep-research finding (`c` is three distinct 2's) established that the
-genuine "2" of the framework is the **signature/order 2** — the binary
+The genuine "2" of the framework is the **signature/order 2** — the binary
 distinguishing = `NT` = the period-2 difference-sign = the imaginary unit `i`
-(`i²=−1`) — whose home is the metric, **not** an edge multiplicity.  Its
-cohomological carrier is the complex structure `⋆²=−1` of the Hodge star on the
-`d−1 = 4`-dimensional simplex `Δ⁴`.
+(`i²=−1`) — whose home is the metric.  Its cohomological carrier is the complex
+structure `⋆²=−1` of the Hodge star on the `d−1 = 4`-dimensional simplex `Δ⁴`.
 
-`CPHodgeStructure` had this only as **parity arithmetic** (`starSqParity`,
-`(k(n−k)) % 2`), flagging the actual **signed-`ℤ` Hodge star as named-unbuilt**.
-This module **builds it**: the star is an explicit `Int`-signed operator on the
-`Λ(Fin 4)` basis (the `2⁴ = 16` forms = sorted subsets of `{0,1,2,3}`), and
-`⋆∘⋆ = (−1)^{k(n−k)}` is proved as a genuine **operator identity**, not a
-parity readout.
+This is the **exterior-algebra `⋆` operator model** of that structure: an
+explicit `Int`-signed operator on the `Λ(Fin 4)` basis (the `2⁴ = 16` forms =
+sorted subsets of `{0,1,2,3}`), with `⋆∘⋆ = (−1)^{k(n−k)}` proved across all
+grades as a genuine **operator identity**, not a parity readout.  The companion
+**`C₄`/Gaussian-ring model** of the same signed `⋆²=−1` — the `2×2` matrix `J`
+with `J²=−I` and `ℤ[J] ≅ ℤ[i]` — is
+`Math/Cohomology/Hodge/SignedStarC4.lean` (`SignedStarFull.lean` lifts it to
+grade 1).  `CPHodgeStructure` carries the parity readout (`starSqParity`,
+`(k(n−k)) % 2`); this module is the operator itself.
 
 ## The construction
 
