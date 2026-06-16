@@ -104,8 +104,8 @@ two independent chapters:
 2. The gluon octet — 1/α₃ = dim adj SU(3) = 8
 
 The readings are Lens-restrictions of the same Sym(3)
-action on the same K₃,₂² H¹.  `X1_sym3_cross_frame_capstone`
-(PURE) records the convergence as a single theorem.
+action on the same K₃,₂² H¹.  `Sym3IrrepDecomp.fixedSize_eq_4`
+and `c3_chain_master` (both PURE) anchor the shared substrate.
 Sym(3) is the necessary symmetry of the forced (NS, NT) = (3, 2)
 — existence, not choice.
 
@@ -146,7 +146,7 @@ face_dependence           : Face₀ ⊕ Face₁ ⊕ Face₂ = 0
 cup₁(ω,ω) = δ²(ω)       : Sq¹(ω) = coboundary
 local_213_at_every_point  : ∀ v e f, is_213_multiset(signature)
 nodup_iff_clause4Nodup    : l.Nodup ↔ IsClause4Nodup l
-X1_sym3_cross_frame_capstone : 4-way Sym(3) convergence
+Sym3IrrepDecomp.fixedSize_eq_4 : Sym(3)-fixed cardinality = 4
 ```
 
 Seven theorems, all ∅-axiom PURE, all issuing from the same
