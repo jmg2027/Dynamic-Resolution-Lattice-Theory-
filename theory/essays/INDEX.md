@@ -144,7 +144,7 @@ certificate whose content is the number's own structure: the strict sandwich at 
 (`vp_separation`, `FoldCriterion.pow_eq_pow_iff_vp`), and the CF/Padé certificate for reals
 (`when_two_pointings_are_one`, size `48` at level one) — one shape at three resolutions; the
 single-schema Lean statement is open).
-`the_minus_one_under_three_lenses` (`b₁ = NS² − 1 = 1/α₃ = 8` is one residue's lone constant
+`the_minus_one_under_two_lenses` (`b₁ = NS² − 1 = 1/α₃ = 8` is one residue's lone constant
 mode counted once — `bcount_const = 2`, `isKer_iff_const` — read as the cohomology `b₀`
 subtracted (`im_count_inj_complement`, field-free via an involution) and the `SU(NS)` adjoint's
 removed trace (`c3_chain`); neither lens is what the `−1` IS).
@@ -179,7 +179,7 @@ counts) and honest about ◑ closures — octet `Unit`-modelled, CP-phase matrix
 `gra_universality_one_principle`, `gra_as_substrate_of_cat_hott`.
 
 **VIII. `topology/` — topology, geometry & 4-manifolds.**
-`cup_ladder_cork_h1_bridge`.
+`cup_ladder_sym3_fixed_h1_bridge`.
 
 **IX. `methodology/` — methodology & PURE-Lean infra.**
 `pure_funext_avoidance`, `pure_nat_ring_methodology`,
@@ -222,7 +222,7 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `cut_off_marathon.md` | What collapsed in the cardinality cut-off 6-direction sweep? | `math/cohomology/aurifeuillean.md` + `meta/cardinality_cutoff_applications.md` |
 | `pure_funext_avoidance.md` | PURE Lean에서 funext-blocked 정리를 어떻게 닫는가? | 4 patterns across `Padic/Neg*` + `Real213/ValidCut/IntValidCut` + `Padic/Setoid*` + `Padic/HenselResidual` |
 | `bool_assoc_failure_meaning.md` | b ≥ 3 cutSum_assoc이 Bool level에서 실패하는 것은 무엇을 의미하는가? | `Real213/Sum/CutSumAssocB3` + `Theory/Atomicity/Five` `atomic_iff_five` + `Physics/Foundations/AtomicConstantsParametricFullIff` `c2b_full_iff` + `Padic/ZpSqrtD` |
-| `cup_ladder_cork_h1_bridge.md` | How do cup-ladder α²/d² Gram and the Sym(3)-fixed +4 share the same H¹ basis? | `math/cohomology/cup_ladder_graduation.md` |
+| `cup_ladder_sym3_fixed_h1_bridge.md` | How do cup-ladder α²/d² Gram and the Sym(3)-fixed +4 share the same H¹ basis? | `math/cohomology/cup_ladder_graduation.md` |
 | `cut_equality_and_atomicity.md` | 213에서 두 cut이 같다는 게 뭐야? Why does one matrix carry both atomicity and cut equality? | `math/mobius_canonical_equivalence.md` + `math/universe_chain.md` + `Theory.Atomicity.Five.atomic_iff_five` |
 | `the_degree_of_a_number.md` | What IS the degree of a number? (degree = growth class of the pointing's receipt; form-receipt vs race-receipt; the number's own degree = a cut over exponent cuts, `powSched_mono`) | `math/analysis/form_margin_modulus.md` + `math/analysis/holonomic_modulus.md` + `Real213/{CubeRootTwoCut,ModulusComposition,Zeta3Cut}` + `essays/foundations/growth_without_a_clock.md` |
 | `pi_as_the_modulus_residue.md` | π read through the modulus family: every lattice period divides 12 (spectrum exactly `{1,2,3,4,6}`, five forbidden), every schedule overtaken (rung ∞), and the ∀-form becomes a constructor exactly when quantified into an escape modulus (`PiHalfMeasure` ⟹ `N = C·(2k)^s + 2`); π's specialness = effectivity gap, not Diophantine exoticism | `Real213/{FiniteOrderSpectrum, ExpLog/PiMeasureModulus, BracketModulus}` + `math/analysis/holonomic_modulus.md` §4 + `essays/analysis/the_modular_group_from_two_folds.md` + `seed/AXIOM/05_no_exterior.md` §5.1 |

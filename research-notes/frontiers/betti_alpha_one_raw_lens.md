@@ -61,5 +61,5 @@ self-pointing read under several Lenses*, not a coincidence to reconcile.
   the bottom rung `Δ` floors to.  The `−1` and the dimension-0 floor are the
   same lone constant counted once.  *Test*: is `b₀` literally the `Δ`-floor
   (equivalently `Σ⁰ 1`) of the cohomology graded count — i.e. does
-  `the_minus_one_under_three_lenses` add a fourth (difference-calculus) Lens
+  `the_minus_one_under_two_lenses` add a fourth (difference-calculus) Lens
   to the same residue `dimension_is_a_computed_depth` reads?
