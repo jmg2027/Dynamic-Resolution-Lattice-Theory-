@@ -21,6 +21,7 @@ import E213.Lib.Physics.Mixing.NeutrinoMixing
 import E213.Lib.Physics.Mixing.CPPhaseHodgeBridge
 import E213.Lib.Physics.Mixing.CPHodgeStructure
 import E213.Lib.Physics.Mixing.SignedHodgeStar
+import E213.Lib.Physics.Mixing.LorentzSignature
 
 /-! Spec-as-code entry point for `E213.Lib.Physics.Mixing`.
 
