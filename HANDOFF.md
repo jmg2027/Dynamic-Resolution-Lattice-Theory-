@@ -114,7 +114,13 @@ chapter's vein-C section. Full Math green at **1972 modules**.
 - **`Analysis/ModulusConvergence`** (6 PURE) — limit theory on `MetricModulus`:
   `limit_unique` (located-unique limit, ∀m close m L L'), `conv_imp_cauchy`
   (Cauchy modulus computed from convergence modulus), `subseq_converges`,
-  `const_converges`. Done directly (not via agent). Full Math green at **1975**.
+  `const_converges`. Done directly (not via agent).
+- **`Analysis/CesaroMean`** (16 PURE) — Cesàro convergence, averaging modulus
+  computed `Nstep m = N + 2^m·E + 1` (`E` = early-term spread); `closeAvg` is the
+  multiplied-out `Nat` inequality (no division). Pure-twin `NatHelper.add_mul`.
+- **`Logic/RealComparabilityLLPO`** (2 PURE) — general real comparability
+  `∀ x y, x≤y ∨ y≤x ⟹ LLPO` (reals not constructively totally ordered); one-liner
+  over `RealDichotomyLLPO`. Full Math green at **1977**.
 
 ### Open frontiers (next-iteration targets — recorded per PROCESS frontier rule)
 - `frontiers/hall_general_induction.md` — Hall general-`n` (Halmos–Vaughan);
