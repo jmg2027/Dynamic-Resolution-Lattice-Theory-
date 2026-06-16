@@ -191,6 +191,27 @@ whole classical theorem's non-constructive content localizes to "produce the
 pigeonhole pair." (19 PURE; reuses `QRNegOne`, `exists_collision_lt`, `IntSqrt`,
 `PolyRoot` Nat↔Int dvd bridges, `Int213`/`ring_intZ`.)
 
+### B — `x⁴ + y⁴ = z²` has no positive solution, by *constructive* descent (★★ capstone B-case)
+`NumberTheory/FermatQuartic`. `no_quartic_sq : ∀ x y z, 0<x → 0<y → x⁴+y⁴ ≠ z²`
+(and `no_quartic_quartic : … ≠ z⁴`). This was the "Next target" — and like the
+two-square capstone it closed **in full** (29 PURE), descent included. The
+textbook proof is the **archetypal minimal-counterexample**: assume a solution
+with least `z` (well-ordering + LEM), derive a smaller one, contradict
+minimality. ∅-axiom has no well-ordering *as a proof device*, so the descent
+becomes an **explicit terminating recursion** — `Nat.strongRecOn` on `z` — where
+the inductive step does not *assume* a minimal witness but **constructs** the
+strictly-smaller solution `(a,b,c)` as a computed function of `(x,y,z)`: two
+applications of a Pythagorean-triple converse (`pyth_converse`, ~90 lines — *not
+in the corpus before*, built here) plus the coprime-square split
+(`SquareCharacterization.coprime_isSquare_mul`, the gcd-route square root) which
+literally *returns* `a = √r`, `b = √s`, `c = √(r²+s²)` with `c ≤ m² < z`. Reveals:
+**"no solution" is not "minimality contradicted" but "the strictly-`z`-decreasing
+constructor `descent_step` cannot keep terminating" — well-founded recursion does
+the work the well-ordering axiom did classically; the descent *map* is the
+content, each smaller leg an explicit gcd-computed number.** Whole proof is
+Nat-native (no signed integers). (29 PURE; reuses `SquareCharacterization`,
+`CoprimeMultiplicative`, `Gcd213`, `Valuation`/`vp`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
@@ -203,16 +224,18 @@ pigeonhole pair." (19 PURE; reuses `QRNegOne`, `exists_collision_lt`, `IntSqrt`,
     **DONE** — `NumberTheory/TwoSquareTheorem`, 19 PURE (see the capstone B-case
     above). The whole non-constructive content localized to
     `exists_collision_lt`, exactly as predicted.
-  - **Next target (selected):** infinite descent — `x⁴ + y⁴ = z²` has no
-    positive-integer solution (Fermat). The textbook proof is the archetypal
-    *minimal-counterexample* (well-ordering): assume a solution with least `z`,
-    construct a strictly smaller one, contradiction. ∅-axiom has no well-ordering
-    as a proof device, so the descent must be an **explicit constructor**: from a
-    solution build the smaller solution as a computed function (Pythagorean
-    parametrisation — corpus `NumberTheory/PythagoreanTriples` — feeds the step).
-    Reveals: the descent *map* is the content; "no solution" is "the
-    strictly-decreasing `z`-constructor would not terminate." (Reuses
-    `PythagoreanTriples`, `OddPartDecomposition`/`v2`.)
+  - ~~**Next target:** `x⁴+y⁴=z²` has no positive solution (Fermat descent).~~
+    **DONE** — `NumberTheory/FermatQuartic`, 29 PURE (capstone B-case above). The
+    descent became an explicit `Nat.strongRecOn` constructor, exactly as
+    predicted; also built the missing `pyth_converse`.
+  - **Next candidates (vein A/B, unselected):** (A) the First Isomorphism
+    Theorem for a concrete `ℤ → ℤ/n` reduction, as an explicit
+    section/retraction on representatives; (B) `√2` (and `√p`) irrational by the
+    *v2-parity* descent (`x²=2y² ⟹ v2(x²) even = v2(2y²) odd`) — a one-line
+    valuation contradiction where the classical proof is "least counterexample";
+    (B) the gcd/Bezout *as the extended-Euclid witness* if not already
+    representative-level in `JoinBezout`. Pick by sharpness of the revealed
+    constructor.
 - **C**: a classically-non-effective existence (an "∃ by compactness") whose
   ∅-axiom form needs a modulus, where the modulus is the content.
 - **The DIRTY-set test — RESULT (2026-06-16): empty for math.** Scanned the whole

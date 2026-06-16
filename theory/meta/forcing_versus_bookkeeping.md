@@ -60,6 +60,15 @@ more*.
   - `ModArith/WilsonConverse` (`exists_nontrivial_factor`) — "least divisor > 1
     is prime" (well-ordering) becomes a **bounded prime search**: an explicit,
     computed factor.
+  - `NumberTheory/FermatQuartic` — **`x⁴+y⁴=z²` has no positive solution**
+    (`no_quartic_sq`, hence `no_quartic_quartic`). The textbook proof is the
+    archetypal *minimal-counterexample* (least `z`, well-ordering + LEM). ∅-axiom
+    has no well-ordering as a proof device, so the descent becomes an explicit
+    `Nat.strongRecOn` on `z` whose step **constructs** the strictly-smaller
+    solution `(a,b,c)` — two Pythagorean-converse inversions + the coprime-square
+    split *returning* `a=√r, b=√s, c=√(r²+s²)`. *"No solution" = "the
+    `z`-decreasing constructor cannot keep terminating"; the descent map is the
+    content, not a contradicted minimality.* (29 PURE, Nat-native.)
   - `NumberTheory/TwoSquareTheorem` — **Fermat's two-square theorem, hard
     direction** (`p ≡ 1 mod 4 ⟹ p = a²+b²`), the capstone B-case. The classical
     Thue-lemma + size-descent proof is non-constructive throughout (a pigeonhole
