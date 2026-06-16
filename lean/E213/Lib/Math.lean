@@ -93,6 +93,7 @@ import E213.Lib.Math.NumberSystems.Padic
 import E213.Lib.Math.NumberTheory.IntSqrt
 import E213.Lib.Math.NumberTheory.AperyIntegrality
 import E213.Lib.Math.NumberTheory.BinomChooseBridge
+import E213.Lib.Math.NumberTheory.BertrandWindow
 import E213.Lib.Math.NumberTheory.FactorialLcmDvd
 import E213.Lib.Math.NumberTheory.LcmBoundMain
 import E213.Lib.Math.NumberTheory.OddCentralBinom
