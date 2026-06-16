@@ -1,3 +1,6 @@
+import E213.Meta.Int213.PolyIntMTactic
+import E213.Meta.Int213.Core
+
 /-!
 # Lefschetz (1,1) / Hodge divisor case on the abelian surface `T⁴` (genuine)
 
@@ -38,6 +41,8 @@ transcendence) is the genuine frontier — `research-notes/frontiers/genuine_hod
 -/
 
 namespace E213.Lib.Math.Cohomology.Surfaces.AbelianSurfaceHodge
+
+open E213.Meta.Int213 (mul_neg neg_mul)
 
 /-- An integral `H²(T⁴)` class: coefficients on the 6 basis 2-forms
     `e01, e02, e03, e12, e13, e23`. -/
@@ -142,12 +147,16 @@ def cupT4 (F G : Form) : Int :=
   F.c01 * G.c23 + F.c23 * G.c01 - F.c02 * G.c13 - F.c13 * G.c02
     + F.c03 * G.c12 + F.c12 * G.c03
 
-/-- Self-intersection on a generator: `Q(nsComb 1 1 0 0) = 2` (the polarization is ample).
-    The general self-intersection is `Q(nsComb a b c d) = 2·(ab − c² − d²)` — a hyperbolic
-    plane `ab` (polarization direction, signature `(1,1)`) plus two negatives `−c², −d²`;
-    the witness basis below realizes this `(1,3)` split.  (Stated for `decide`-checkable
-    instances here; the symbolic `∀ a b c d` form needs the `ring_intZ` tactic, which this
-    deliberately import-free file omits.) -/
+/-- ★ **Self-intersection on Néron–Severi**: `Q(nsComb a b c d) = 2·(ab − c² − d²)` for
+    *every* class — a hyperbolic plane `ab` (the polarization direction, signature `(1,1)`)
+    plus two negatives `−c², −d²`.  So the `(1,3)` signature holds on the whole rank-4
+    lattice, not just the exhibited witness basis below. -/
+theorem cupT4_nsComb (a b c d : Int) :
+    cupT4 (nsComb a b c d) (nsComb a b c d) = 2 * (a * b - c * c - d * d) := by
+  show a * b + b * a - c * c - c * c + d * (-d) + (-d) * d = 2 * (a * b - c * c - d * d)
+  rw [mul_neg, neg_mul]; ring_intZ
+
+/-- The polarization is ample: `Q(nsComb 1 1 0 0) = 2 > 0`. -/
 theorem cupT4_polarization : cupT4 (nsComb 1 1 0 0) (nsComb 1 1 0 0) = 2 := by decide
 
 /-- ★★★★★ **Hodge-index theorem for `T⁴`: signature `(1,3)` on the `(1,1)`/NS lattice.**

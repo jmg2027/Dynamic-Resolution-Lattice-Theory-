@@ -74,6 +74,56 @@ Wave-2 walls confirmed: general Hodge (continuous `J` / `(2,2)`-torsion / transc
 — uncrossable by finite `decide`); the strong "the `−` axis MUST be the `⋆²=−1` carrier"
 (⋆² is uniform `(4,0)` on `Λ¹` — no asymmetry to single out one axis).
 
+## Wave 3 — bricks + a sharpened diagnostic
+
+**Brick landed (∅-axiom):** `hodge_index_signature_T4`
+(`Cohomology/Surfaces/AbelianSurfaceHodge.lean`) — the **Hodge-index theorem for `T⁴`**:
+the intersection form `cupT4` on the rank-4 Néron–Severi lattice has signature `(1,3)`
+(one positive = the ample polarization `nsComb 1 1 0 0`, `Q=+2`; three negative = the
+primitive `(1,1)` classes, `Q=−2`; all cup-orthogonal).  General self-intersection
+`Q(nsComb a b c d) = 2(ab − c² − d²)`.  Completes the T⁴ Hodge package
+(`neron_severi_T4` + this).
+
+### The no-witness wall is a **trichotomy** (Millennium triage panel)
+
+Applying the duality to the full famous-problem landscape refined it from a binary
+(signed-cancellation vs unbounded-uniformity) into **three** negations of a count-Lens
+witness:
+
+1. **Signed cancellation** — RH (`M(N)=Σμ`), BSD (`L(E,s)`, the `aₚ` sum), Goldbach's
+   minor arc, Navier–Stokes' vortex-stretching `∫ω·∇u·ω`.  A difference-Lens `m−n` with
+   no unsigned shadow.
+2. **Uniformity over an unbounded descent** — Markov-`H`, Collatz, P-vs-NP (uniform
+   circuit lower bound; natural-proofs *is* a no-local-witness theorem), the Navier–Stokes
+   supercritical scale-cascade.  The distinguishing datum leaves every modulus.
+3. **Two-Lens interaction (new, 213-native)** — abc, deep BSD.  The witness would have to
+   count *across* the `+`/`×` independence the repo **proves** structurally
+   (`vp_separation`, `TwoThreeUnique`, the `^`-wall): no shared generator ⇒ no joint
+   count.  abc's wall is the additive–multiplicative incompatibility — *visible as a
+   proven obstruction* only because 213 has `vp_separation`, where classically it is
+   heuristic.  This is the marathon's deepest new conceptual yield: 213 turns a heuristic
+   into a structural obstruction.
+
+R/P/W table: BSD W, Navier–Stokes W (doubly: signed + cascade), P-vs-NP W, Goldbach P
+(per-instance R, ∀ walled), twin primes P (sieve positivity R-adjacent, ∞ walled),
+Collatz W, RH W, abc W (two-Lens).
+
+### Top buildable frontiers surfaced (not yet built — multi-week each)
+
+- **Bertrand's postulate** — full Bertrand is ∅-axiom-reachable with current machinery
+  (`IntSqrt.isqrt` for √, `FloorLog` for log, `decPrime` for the finite chain, the Kummer
+  + window-product layer for Erdős's engine).  **Critical missing keystone:** the
+  primorial bound `∏_{p≤N} p ≤ 4ⁿ` (`primorial_le_four_pow`, a new
+  `Lens/Number/Nat213/Primorial.lean`) — strong induction, odd-`N` split, reusing
+  `primesIn`/`listProd_dvd`/`four_pow_le_succ_mul_central_binom`.  ~1 week, MEDIUM, no
+  axiom risk.  The single highest-value ∅-axiom number-theory target.
+- **Selberg/Maynard sieve SOS positivity** (twin-prime row) — `Σ_n (Σ_{d|n} λ_d)² ≥ 0`,
+  the *only* famous-problem sub-statement whose core is an **unsigned positive quadratic
+  form** — the exact shape already closed in `colored_confinement_master`,
+  `cauchy_schwarz_gridZ`, `lagrange_pair_identity`.  Closes the sieve's positivity
+  machinery (not twin-prime-∞, still walled by Bombieri–Vinogradov).  The landscape's best
+  SOS foothold.
+
 ## Honest walls recorded (not reached this session)
 
 - **YM confinement angle 2** (Wilson-loop area law): no embedding on the abstract
