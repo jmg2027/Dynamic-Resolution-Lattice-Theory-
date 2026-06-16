@@ -144,7 +144,15 @@ more*.
     theorem is the load-bearing bridge `Bar → Bounded`. *HC's compactness is named
     as the fan theorem* — a ledger entry dual to WKL. (10 PURE.)
 
-  Together EVT + BW (+ HC) answer the analysis challenge symmetrically: where classical
+  - `Analysis/UniformLimitContinuous` — **the uniform limit of continuous
+    functions is continuous**, modulus form (unconditional ∅-axiom). The classical
+    `∀ε∃δ` "3ε" theorem becomes `uniform_limit_continuous`: the limit's continuity
+    modulus is *computed*, `Ω m = ω_{r(m+2)}(m+2)`, from the convergence rate `r` +
+    one `f_n`'s modulus (quarter-triangle `qtri` sums the three `1/2^(m+2)` gaps).
+    No compactness/omniscience. *The modulus is the theorem.* (20 PURE.)
+
+  Together EVT + UniformLimit (force the modulus) and BW + HC (name the import)
+  answer the analysis challenge symmetrically: where classical
   analysis reaches for an axiom, 213 *either* forces the hidden modulus (EVT — the
   modulus is the theorem) *or* names and measures the import (BW — calibrated to
   LPO) — it never smuggles an exterior.

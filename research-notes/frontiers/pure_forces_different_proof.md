@@ -348,6 +348,22 @@ measured as the fan theorem; the calibration is the theorem.** Adds HC to the
 reverse-math ledger at the fan rung, dual to `wkl_heineBorel_calibration`'s WKL
 rung. (10 PURE.)
 
+### C — uniform limit of continuous functions is continuous, modulus computed (★ unconditional)
+`Analysis/UniformLimitContinuous`. Classically the "3ε" theorem, stated `∀ε∃δ`
+with `δ` left unspecified. ∅-axiom forces the content open: `uniform_limit_continuous`
+takes `F n` each continuous with modulus `ω_ n` and `F → f` uniformly with rate
+`r`, and concludes `f` is continuous with the **explicitly computed** modulus
+`Ω m = ω_{r(m+2)}(m+2)` — borrowing one index's modulus at the index the
+convergence rate delivers, sharpened to scale `m+2` so the three error pieces
+(two convergence gaps + one inner continuity gap), each `< 1/2^(m+2)`, sum to
+`< 1/2^m` via the quarter-triangle `qtri`. No compactness, no omniscience, no
+LPO/fan — the convergence rate `r` plus one `f_n`'s modulus *are* the new modulus.
+Abstract over any `1/2^m`-graduated metric (`structure MetricModulus`), with a
+concrete `distMet`/`Nat`-distance instance + `inhabited_uniform_limit` (the `id`
+sequence) proving it non-vacuous. Reveals: **the limit's continuity modulus is not
+asserted to exist — it is computed from the data; the modulus is the theorem.**
+The "force the modulus" half, companion to the BW/HC calibrations. (20 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
