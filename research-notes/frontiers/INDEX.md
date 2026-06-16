@@ -182,9 +182,25 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   pointing shape `RatTendsToOne`; the `ψ`-form lower `two_pow_le_lcm`; and the
   structural **`vp_factorial_eq_sum_vp_lcm`** (`N! = Π_{i≤N} lcm(1..⌊N/i⌋)`, the
   factorial↔lcm `e`-bridge, `FactorialLcmIdentity`).  **Promoted** →
-  `theory/math/numbertheory/chebyshev_prime_counting.md`.  OPEN (retained here):
-  only PNT `~ N/ln N` (constant `1`, asymptotic horizon) + the interval sharpening
-  (base-`2` lower, base-`≈3.16` upper).
+  `theory/math/numbertheory/chebyshev_prime_counting.md`.  **Lower base sharpened
+  `√2`→`2` (2026-06-16)**: `four_pow_le_lcm_mul` (`ChebyshevLower`, PURE) —
+  `4^n ≤ (2n+1)·lcm(1..2n)`, i.e. `ψ(2n) ≥ 2n·ln2 − ln(2n+1)`, via the new
+  `four_pow_le_succ_mul_central_binom` (`4^n ≤ (2n+1)·C(2n,n)`, the central term
+  dominates the binomial sum; same cleared recurrence as `central_binom_ge_two_pow`,
+  step `4n+4 ≤ 4n+6`).  OPEN (retained here): only PNT `~ N/ln N` (constant `1`).
+  **RH/PNT wall (multi-agent panel, 2026-06-16):** a horizon constant is reachable in
+  213 *as a narrowing computable bracket* exactly when the quantity is an **unsigned
+  monotone count** (`π`, `ψ`, `lcm`) with an elementary two-sided estimate — that is
+  why both Chebyshev bounds and this sharpening are ∅-axiom.  PNT's "constant = 1" =
+  the bracket narrowing to `{1}`; but the two bases (`2`, `≈3.16`) stay on opposite
+  sides of `e`, and collapsing the gap needs the Erdős–Selberg bilinear step, which has
+  **no ∅-axiom shadow**.  **RH is one step further out and has none at all**: it is
+  about **cancellation in a signed sum** (`M(N)=Σμ(n)`, the difference-Lens of the
+  count), whose *size IS the zero locations* — no `M(k)` modulus certifies the exponent
+  `½` without already knowing the zeros.  The 213-native diagnosis: **signed-cancellation
+  has no count-Lens witness** — the exact dual of the Markov-`H` terminal localization
+  (`G197`): pointing at the residue *is* the conjecture (there Frobenius 1913, here the
+  zero-free region), not a bounded step.
 - `chebyshev_lower_bound` — **Chebyshev lower bound `π(N) ≥ c·N/ln N`**.  ✅
   CLOSED ∅-axiom (`chebyshev_lower : n ≤ (⌊log₂(2n)⌋+1)·π(2n)`, via Kummer
   `vp_central_binom_le_floorLog` + `le_pow_primePi`).  **Promoted** →

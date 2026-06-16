@@ -498,6 +498,46 @@ theorem central_binom_ge_two_pow : ∀ n, 2 ^ n ≤ binom (2 * n) n
         _ ≤ 2 * binom (2 * n) n := Nat.mul_le_mul (Nat.le_refl 2) ih
         _ ≤ binom (2 * (n + 1)) (n + 1) := hstep
 
+/-- **Central binomial upper-half bound: `4^n ≤ (2n+1)·C(2n,n)`.**  The sharper companion
+    of `central_binom_ge_two_pow` — the central term dominates the binomial expansion of
+    `4^n = (1+1)^{2n} = Σ_{k≤2n} C(2n,k)` up to the term count `2n+1`.  Proved by the same
+    cleared recurrence `C(2n+2,n+1)·(n+1) = 2(2n+1)·C(2n,n)`: the induction step reduces to
+    `4(n+1) ≤ 2(2n+3)` (i.e. `4n+4 ≤ 4n+6`), no division.  Raises the Chebyshev `ψ`-lower
+    base from `√2` (`two_pow_le_lcm`) to `2`: `ψ(2n) ≥ 2n·ln2 − ln(2n+1)`. -/
+theorem four_pow_le_succ_mul_central_binom : ∀ n, 4 ^ n ≤ (2 * n + 1) * binom (2 * n) n
+  | 0     => by decide
+  | n + 1 => by
+      have ih := four_pow_le_succ_mul_central_binom n
+      have hF : 0 < fact n := fact_pos n
+      have cbn := central_binom_factorial n
+      have cbn1 := central_binom_factorial (n + 1)
+      have hfn1 : fact (n + 1) = (n + 1) * fact n := rfl
+      have hfac : fact (2 * (n + 1)) = (2 * n + 1 + 1) * ((2 * n + 1) * fact (2 * n)) := by
+        rw [show 2 * (n + 1) = 2 * n + 1 + 1 from by ring_nat]; rfl
+      rw [hfn1, hfac, ← cbn] at cbn1
+      have hpos : 0 < (n + 1) * (fact n * fact n) :=
+        Nat.mul_pos (Nat.succ_pos n) (Nat.mul_pos hF hF)
+      have hrec : binom (2 * (n + 1)) (n + 1) * (n + 1) = 2 * (2 * n + 1) * binom (2 * n) n := by
+        apply Nat.eq_of_mul_eq_mul_right hpos
+        calc binom (2 * (n + 1)) (n + 1) * (n + 1) * ((n + 1) * (fact n * fact n))
+            = binom (2 * (n + 1)) (n + 1) * ((n + 1) * fact n * ((n + 1) * fact n)) := by ring_nat
+          _ = (2 * n + 1 + 1) * ((2 * n + 1) * (binom (2 * n) n * (fact n * fact n))) := cbn1
+          _ = 2 * (2 * n + 1) * binom (2 * n) n * ((n + 1) * (fact n * fact n)) := by ring_nat
+      have hslack : 4 * (n + 1) ≤ (2 * (n + 1) + 1) * 2 := by
+        rw [show (2 * (n + 1) + 1) * 2 = 4 * (n + 1) + 2 from by ring_nat]
+        exact Nat.le_add_right _ 2
+      apply le_of_mul_le_mul_right_pure (Nat.succ_pos n)
+      calc 4 ^ (n + 1) * (n + 1)
+          = 4 * 4 ^ n * (n + 1) := by rw [Nat.pow_succ]; ring_nat
+        _ ≤ 4 * ((2 * n + 1) * binom (2 * n) n) * (n + 1) :=
+            Nat.mul_le_mul (Nat.mul_le_mul (Nat.le_refl 4) ih) (Nat.le_refl (n + 1))
+        _ = (4 * (n + 1)) * ((2 * n + 1) * binom (2 * n) n) := by ring_nat
+        _ ≤ ((2 * (n + 1) + 1) * 2) * ((2 * n + 1) * binom (2 * n) n) :=
+            Nat.mul_le_mul hslack (Nat.le_refl _)
+        _ = (2 * (n + 1) + 1) * (2 * (2 * n + 1) * binom (2 * n) n) := by ring_nat
+        _ = (2 * (n + 1) + 1) * (binom (2 * (n + 1)) (n + 1) * (n + 1)) := by rw [hrec]
+        _ = (2 * (n + 1) + 1) * binom (2 * (n + 1)) (n + 1) * (n + 1) := by ring_nat
+
 /-- **Every prime in `(n, 2n]` divides `C(2n,n)`.**  Read `central_binom_factorial`
     through `vp`: `vp_p((2n)!) = vp_p(C(2n,n)) + 2·vp_p(n!) = vp_p(C(2n,n))` (since
     `vp_p(n!)=0` for `p > n`), and `vp_p((2n)!) ≥ 1` (`p ∣ (2n)!`, `p ≤ 2n`).  The
