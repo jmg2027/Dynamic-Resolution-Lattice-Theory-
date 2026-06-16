@@ -151,8 +151,21 @@ more*.
     one `f_n`'s modulus (quarter-triangle `qtri` sums the three `1/2^(m+2)` gaps).
     No compactness/omniscience. *The modulus is the theorem.* (20 PURE.)
 
-  Together EVT + UniformLimit (force the modulus) and BW + HC (name the import)
-  answer the analysis challenge symmetrically: where classical
+  - `Logic/Dini` — **Dini's theorem** calibrated to the fan theorem (sibling of
+    Heine–Cantor): a monotone pointwise-convergent sequence converges uniformly,
+    given the fan theorem. Monotonicity is the load-bearing ingredient that turns
+    the per-interval bound into a uniform convergence index. (14 PURE.)
+  - `Logic/RealDichotomyLLPO` — the **analytic-LLPO** calibration, two-sided: the
+    real sign-dichotomy `∀ x, x ≤ 0 ∨ 0 ≤ x` IS LLPO (`llpo_of_realDichotomy` +
+    converse). This locates exactly why the *exact* IVT / bisection's sign step
+    cannot be ∅-axiom — deciding the sign of the encoded cut is LLPO — while the
+    corpus's *approximate* IVT (`cutEq … 0`) stays pure by never making the global
+    sign verdict. The "denominator blow-up" in the separating probe is the
+    omniscience cost made visible. (31 PURE.)
+
+  Together EVT + UniformLimit (force the modulus) and BW + HC + Dini +
+  RealDichotomyLLPO (name the import) answer the analysis challenge symmetrically:
+  where classical
   analysis reaches for an axiom, 213 *either* forces the hidden modulus (EVT — the
   modulus is the theorem) *or* names and measures the import (BW — calibrated to
   LPO) — it never smuggles an exterior.

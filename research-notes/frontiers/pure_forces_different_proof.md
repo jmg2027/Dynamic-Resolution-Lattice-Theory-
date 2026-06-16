@@ -364,6 +364,42 @@ sequence) proving it non-vacuous. Reveals: **the limit's continuity modulus is n
 asserted to exist — it is computed from the data; the modulus is the theorem.**
 The "force the modulus" half, companion to the BW/HC calibrations. (20 PURE.)
 
+### C — Dini's theorem calibrated against the fan theorem (★ fan rung, sibling of Heine–Cantor)
+`Logic/Dini`. A *monotone* sequence of continuous functions converging *pointwise*
+to a continuous limit on `[0,1]` converges *uniformly* (Dini) — classically by
+compactness, constructively *exactly* the fan theorem. `dini_of_fan : (∀ m,
+FanTheorem (diniTree F f m)) → MonoConv F f → PointwiseConv F f → UniformConvStable
+F f`, bracketed by the two ∅-axiom halves `bar_of_pointwiseConv` (monotone
+pointwise convergence ⟹ the Dini precision tree is a `Bar`) and `uniform_of_bounded`
+(`Bounded` ⟹ a uniform converging depth over the fan). The genuinely-new ingredient
+vs Heine–Cantor is **monotonicity**: `uniformStable_of_bounded_mono` is where
+`MonoConv` turns the per-interval converged depth into a convergence index valid
+for *all larger indices* (the substance of Dini); without it only the plain per-fan
+bound `dini_of_fan_plain` holds. Mirrors `HeineCantor`'s decidable `Bool`/`List`
+style (no `Cut` ε-δ), reuses `WKLHeineBorel.{Bar,Bounded,FanTheorem,takePrefix}`
+verbatim. Reveals: **Dini's compactness is named as the fan theorem; monotonicity
+is what makes the bar's per-interval bound a uniform convergence index.** (14 PURE.)
+
+### C — the real sign-dichotomy IS LLPO: why exact IVT/bisection can't be ∅-axiom (★★ analytic-LLPO calibration, two-sided)
+`Logic/RealDichotomyLLPO`. The canonical constructive-analysis calibration:
+`RealDichotomy := ∀ x : Cut, cutLe x one ∨ cutLe one x` (the sign decision) is
+**equivalent to LLPO** — `llpo_of_realDichotomy : RealDichotomy → LLPO` and the
+converse `encodedDichotomy_of_llpo : LLPO → ∀ f (at-most-one), cutLe (yf f) one ∨
+cutLe one (yf f)`. The encoding: from an at-most-one-true `f`, build the cut `yf f`
+= `1 ± 2^{-(n+1)}` (positive sign if the unique fire is at an even index, negative
+if odd; `1` if `f` never fires — shifted by `+1` since corpus cuts are
+non-negative). Its sign decides the even/odd LLPO disjunction: `cutLe (yf f) one ⟹
+∀k, f(2k)=false` (`noEvenFire_of_le`), `cutLe one (yf f) ⟹ ∀k, f(2k+1)=false`
+(`noOddFire_of_ge`). The odd sign lemma needs a fine separating probe (denominator
+`~2^{n+1}` to fit `2^{-(n+1)}` between `yf f` and `1`) — **that denominator
+blow-up is the omniscience cost made visible**. Reveals: **the corpus real is a
+sign-undecided cut; deciding `x ≤ 0 ∨ 0 ≤ x` for the encoded real IS LLPO, so the
+*exact* IVT / bisection's "is `f(mid) ≤ 0` or `≥ 0`?" step cannot be ∅-axiom — and
+the corpus's *approximate* IVT (`RootCertificate`, `cutEq … 0`) stays ∅-axiom
+precisely because it never makes the global sign verdict, only `cutEq` at a
+tolerance.** The deepest analysis calibration: it locates exactly why the corpus
+does analysis approximately. (31 PURE; reuses `cutLe`/`constCut`, `Logic/LLPO`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
