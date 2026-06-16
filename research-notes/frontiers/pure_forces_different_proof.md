@@ -301,6 +301,34 @@ residue's refused "freeze a transition into a verdict" move, here *named* (LPO)
 and *measured* (Π⁰₂); the calibration implication is the ∅-axiom theorem.**
 (13 PURE; reuses `Logic.Omniscience`, `Logic.Pi01Decision`.)
 
+### C — Extreme Value Theorem, modulus form: max value computable + approached, maximizer reached by none (★★ analysis capstone)
+`Analysis/ExtremeValue`. Classical EVT *attains* the max at a point — needs LEM to
+locate it. ∅-axiom forces the honest form, unconditionally PURE. Over a
+modulus-continuous `f` on the dyadic grid of `[0,1]` (`structure ModContOnGrid`:
+grid values + uniform-continuity modulus `omega`), the supremum **value** `Msup f`
+is a genuinely **computable real** — the corpus `CauchyCutSeq.limit` with a
+convergence modulus `supN` derived from `omega` — and the headline `evt_sup`
+bundles: (i) `Msup` is *located/approached* (`sup_approached`: realized exactly by
+a computed finite-resolution grid-max past `supN`), (ii) `Msup` *bounds* `f` on the
+grid with a convergence modulus (`fval_le_Msup`), (iii) the max is *attained at
+every finite resolution* (`gridMax_attained`, the finite list-max `cutEq` a
+computed grid point). The forcing point `max_reached_by_none`: that finite argmax
+**moves with the resolution** — nothing constructs a single dyadic `x*` with
+`f x* = Msup`; the maximizer is the `n→∞` limit, **reached by none** — the
+analysis-level `object1_not_surjective`. Non-vacuous: `constModCont` (the constant
+function is a `ModContOnGrid`). Reveals: **the modulus `supN`/`omega`, not a
+maximizing point, is the entire computable content classical EVT hides; the
+supremum is located but attained by no pointing — limits reached by none
+(`the_form_of_the_residue.md`).** (23 PURE; reuses `Real213/Core/CutPoset`,
+`Real213/Lattice/CutMaxMin`, `Analysis/CauchyComplete.CauchyCutSeq`.)
+
+The pair calibrates the whole analysis challenge: **EVT** is unconditionally
+∅-axiom once the modulus is supplied (the modulus *is* the theorem); **BW** genuinely
+needs an omniscience principle, so the ∅-axiom result is the *calibration*
+(`BW ⟹ LPO`, Π⁰₂ forward). Together: where classical analysis reaches for an axiom,
+213 either forces the hidden modulus or names and measures the import — never
+smuggles an exterior.
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅

@@ -114,6 +114,32 @@ more*.
     is the corpus's **native** mode — it has no classical non-effective IVT to
     contrast, because 213 does all analysis modulus-first. Where classical math
     imports LEM for existence, 213 was already constructive.
+  - `Analysis/ExtremeValue` — the **Extreme Value Theorem**, modulus form.
+    Classical EVT *attains* the max at a located point (LEM). ∅-axiom forces:
+    the supremum *value* `Msup` is a computable real (`CauchyCutSeq.limit` with a
+    convergence modulus from the uniform-continuity modulus), *located* (approached
+    by a finite-resolution grid-max), bounding `f`, and **attained at every finite
+    resolution** — but the argmax *moves with the resolution*, so the true
+    maximizer is the `n→∞` limit, **reached by none** (`object1_not_surjective` at
+    the analysis level). *The modulus, not a maximizing point, is the computable
+    content classical EVT hides.* (23 PURE.)
+  - `Logic/BolzanoWeierstrass` — the **honest other half**: some analysis theorems
+    are *not* unconditionally ∅-axiom. Binary BW (every `{0,1}`-sequence has a
+    convergent subsequence) genuinely needs an omniscience principle, so the
+    ∅-axiom result is the *calibration*: `lpo_of_bw : BW → LPO` (the strongest base
+    rung), with the constructive cores `subseq_of_unbounded_true` /
+    `subseq_of_eventually_false` (∅-axiom once the witness is data). `bw_of_lpo` at
+    plain LPO is *not* provable — the extraction needs deciding a Π⁰₂ statement,
+    above the ledger. *The classical choice/LEM is not removed — it is named (LPO)
+    and measured (Π⁰₂); the calibration implication is the theorem.* This is the
+    `Math/Logic/` omniscience ledger doing exactly its job: locating where the
+    import is unavoidable, per the no-exterior guard ("say plainly when no internal
+    handle is found"). (13 PURE.)
+
+  Together EVT + BW answer the analysis challenge symmetrically: where classical
+  analysis reaches for an axiom, 213 *either* forces the hidden modulus (EVT — the
+  modulus is the theorem) *or* names and measures the import (BW — calibrated to
+  LPO) — it never smuggles an exterior.
 
 A boundary case worth keeping honest: `TauParity.doubleSum_parity` (the divisor
 parity as the **fixed-point count** of the `d ↔ n/d` involution rather than a

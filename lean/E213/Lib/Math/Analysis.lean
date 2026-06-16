@@ -2,6 +2,7 @@ import E213.Lib.Math.NumberSystems.Real213
 import E213.Lib.Math.Analysis.ClassicCalc
 import E213.Lib.Math.Analysis.Differentiation
 import E213.Lib.Math.Analysis.DyadicSearch
+import E213.Lib.Math.Analysis.ExtremeValue
 import E213.Lib.Math.Analysis.FluxMVT
 import E213.Lib.Math.Analysis.Integration
 import E213.Lib.Math.Analysis.ODE
