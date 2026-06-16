@@ -13,7 +13,7 @@ Blueprint: `blueprints/math/12_information_213.md`.
 
 | File | Topic | Status |
 |---|---|---|
-| `MutualInfo.lean` | jointEntropy, mutualInfoIndependent (= 0), self-mutualInfo = entropy | ∅-axiom |
+| `MutualInfo.lean` | jointEntropy, mutualInfoIndependent (= 0), self-mutualInfo = entropy; **entropy subadditivity** (`entropy_subadditive`: `2^j ≤ 2^n·2^m ⟹ j ≤ n+m`) + non-vacuous `I ≥ 0` (`mutualInfo_genuine`) | ∅-axiom |
 | `KLDivergence.lean` | klBitsDyadic = depth difference, self-KL = 0, non-negativity | ∅-axiom |
 
 ## Channel + coding

@@ -104,9 +104,12 @@ import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticCycleFixtures
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicBoost
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ParabolicTranslation
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2CayleyHamilton
+import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Adjugate
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyOrderLaw
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyFreeness
 import E213.Lib.Math.NumberSystems.Real213.Phi.GoldenAperiodic
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FiniteOrderSpectrum
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticTracePeriodic
@@ -116,8 +119,13 @@ import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovModularBridge
 import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovInjectivity
 import E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
 import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.Continuant
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ContinuantDeterminant
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ConvergentCoprime
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ConvergentRecurrence
+import E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.ConvergentGrowth
 import E213.Lib.Math.NumberSystems.Real213.Markov.ContinuantMarkov
 import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniquenessRaw
+import E213.Lib.Math.NumberSystems.Real213.Markov.MarkovDescentSchema
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularGeodesicLens
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.LagrangeExtremes
 import E213.Lib.Math.NumberSystems.Real213.Phi.PentagonGoldenTrace
@@ -141,6 +149,7 @@ import E213.Lib.Math.NumberSystems.Real213.Sum.CutSumAssocB3
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpConvergents
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutLogCauchyConvCapstone
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutTrigModulus
+import E213.Lib.Math.NumberSystems.Real213.ExpLog.CutExpDerivative
 import E213.Lib.Math.NumberSystems.Real213.ExpLog.PiCut
 import E213.Lib.Math.NumberSystems.Real213.ValidCut.FifthValidCut
 import E213.Lib.Math.NumberSystems.Real213.ValidCut.HalfValidCut

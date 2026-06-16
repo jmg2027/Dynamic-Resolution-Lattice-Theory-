@@ -25,6 +25,16 @@ import E213.Lib.Math.Algebra.CayleyDickson
 import E213.Lib.Math.Algebra.CassiniUnimodular
 import E213.Lib.Math.Algebra.FiveFloorUnification
 import E213.Lib.Math.Foundations.ResidueForm
+import E213.Lib.Math.Foundations.CauchySchwarzGeneral
+import E213.Lib.Math.Foundations.SchurInequality
+import E213.Lib.Math.Foundations.NesbittInequality
+import E213.Lib.Math.Foundations.NewtonInequalities
+import E213.Lib.Math.Foundations.MuirheadInequality
+import E213.Lib.Math.Foundations.SumCubesAMGM
+import E213.Lib.Math.Foundations.BernoulliInequality
+import E213.Lib.Math.Foundations.AbelSummation
+import E213.Lib.Math.Foundations.Chebyshev
+import E213.Lib.Math.Foundations.HeronFormula
 import E213.Lib.Math.Analysis.Measure
 import E213.Lib.Math.NumberTheory.ModArith
 import E213.Lib.Math.Analysis.Modulus
@@ -48,6 +58,7 @@ import E213.Lib.Math.Foundations.ParadigmDomainGraded
 import E213.Lib.Math.Foundations.ParadigmDomainGradedRing
 import E213.Lib.Math.Foundations.ResolutionLimit
 import E213.Lib.Math.Foundations.ProofISALifts
+import E213.Lib.Math.Foundations.VpSeparationDescent
 import E213.Lib.Math.Geometry.Topology
 import E213.Lib.Math.Geometry.TriangularTower
 import E213.Lib.Math.Foundations.UniverseChain

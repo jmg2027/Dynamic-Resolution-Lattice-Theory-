@@ -670,4 +670,19 @@ theorem hyperCount_simplex (k N d : Nat) :
   rw [hm]
   exact monoCount_closed m d
 
+/-- ★★ **The `^`-rung's sorted config-face is strictly below its ordered face.**
+    `hyperCount k N d = C(d+M−1, M−1)` (the sorted/symmetric multiset count over
+    `M = totalCount k N` axes, `hyperCount_simplex`) is strictly below the ordered
+    count `M^d` once there are at least two axes (`2 ≤ M`) and `d ≥ 2`.  The gap
+    `hyperCount < M^d` is exactly the **new-axis distinguishability** of the
+    `^`-rung: `M^d` (the `d^(d^n)`-shaped ordered face) remembers the arrangement
+    the symmetric multiset count is blind to.  The companion of
+    `UnitHyper.pow_twist_is_one_rung_shear`: the shear (the two operand-axes one
+    rung apart) is *why* the two config-faces differ (`simplicial_operation_tower.md`
+    L5). -/
+theorem hyperCount_lt_pow {k N d : Nat} (hM : 2 ≤ totalCount k N) (hd : 2 ≤ d) :
+    hyperCount k N d < (totalCount k N) ^ d := by
+  show monoCount (totalCount k N) d < (totalCount k N) ^ d
+  exact monoCount_lt_pow hM hd
+
 end E213.Lens.Number.Nat213.MultSystem

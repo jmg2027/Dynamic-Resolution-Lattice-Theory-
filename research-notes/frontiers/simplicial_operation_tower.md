@@ -594,10 +594,14 @@ this branch; *resonances to test*, not asserted identities.
    (`count_eq_side_pow_dim`), the per-rung `+1` dimension axis (`dim_hcube_succ`),
    and the climb `count (hcube a (b+1)) = a · count (hcube a b)` (`^` *as*
    `×`-iteration).  The base/exponent asymmetry is captured *positively* as a
-   length-vs-dimension type-mismatch (`swap_changes_dim`).  *Still open*: the
-   precise topological figure for one `^` step — a **3- vs 4-simplex** (the
-   originator's "초위상" question) — i.e. the dimension the dilation axis adds to the
-   `hyperCount` simplex; and the `−1` cross-determinant shadow of the twist (L5).
+   length-vs-dimension type-mismatch (`swap_changes_dim`), and the twist itself is
+   now **measured** as a one-rung shear (`pow_twist_is_one_rung_shear`, see item 3).
+   *Still open*: the precise topological figure for one `^` step — a **3- vs
+   4-simplex** (the originator's "초위상" question) — i.e. the dimension the dilation
+   axis adds to the `hyperCount` simplex; and the `−1` cross-determinant shadow of the
+   twist, positively the **signed area of the shear cell** (floored at `±1` =
+   first non-commutative rung, `CrossDetOvertake.crossdet_floor_eq_point`) — stated in
+   the `pow_twist_is_one_rung_shear` docstring, not yet a joined theorem.
    Anchors: `Mobius213.mobius_213_pell_unit_invariant_forall` (`[∅]`),
    `PairOp.pow_lift_impossible`.
 2. **Simplex theorem (L3)** — count half **CLOSED** (`MultSystem.monoCount_closed`,
@@ -622,9 +626,24 @@ this branch; *resonances to test*, not asserted identities.
    confusion is DISSOLVED** (L3″, originator directive): it conflated three distinct
    "dimensions" — the simplex/lattice dim (A, already `∞` at `×`), the grading (B),
    and the operand-DOF (C, `= rung − 2`).  The cartoon's "`+1` per rung" reads (C),
-   not (A); (A) *jumps* (`1→∞→…`).  *Still open*: whether `^`'s structure carries a
-   *further* finite invariant beyond (C) — but the literal small-simplex question is
-   answered: it was a mislabelling, now firmly separated on the `+`/`×` foundation.
+   not (A); (A) *jumps* (`1→∞→…`).  **The twist is now MEASURED ∅-axiom**
+   (`UnitHyper.pow_twist_is_one_rung_shear`): the `^`-rung is a **one-rung shear** —
+   its two operand-axes transport by operations *exactly one rung apart*.  The
+   **dimension** (exponent) axis transports by `×` (climbing it `c` rungs multiplies
+   the dimension, `(count (hcube a b))^c = count (hcube a (b·c))` — the surviving law
+   `(aᵇ)ᶜ = a^{b·c}` read on the object), while the **side** (base) axis transports by
+   `^` itself (`count (hcube a (b+1)) = a·count (hcube a b)`, genuine ascent).  The
+   twist = the gap between the two transport laws = one rung (`^` vs `×`) = `DOF = 1`,
+   read as a *transport-law gap* not a bare axis count.  This upgrades
+   `swap_changes_dim` (the twist is *nonzero*, a type-mismatch) to a *measurement* (the
+   two transport laws side by side).  *Still open*: the companion sorted-vs-ordered
+   config-face gap at the `^`-axis-count (instantiate `monoCount_lt_pow` at
+   `M = totalCount k N` — `d^(d^n)` ordered face vs nested-binomial sorted face, the
+   gap = new-axis distinguishability); and the `↑↑` rung, where the dimension-axis is
+   itself a tower count (`UnitTetra.dim_tetra_succ`) so its transport law is the
+   gauge-ambiguous Abel/super-log — a genuine reached-by-none point (the single-Nat
+   determinant twist-measurement fails; the *shape* / difference-depth stays finite &
+   ∅-axiom, the *transport coordinate* does not).
 4. **No-identity formalization (L2)** — concrete content **CLOSED ∅-axiom**
    (`MultSystem.monoCountPos_closed` = semigroup count `+ 1` = monoid count, the
    `+1` = the identity; `MultSystemValue.two_le_nonempty_prime_prod` = the natural

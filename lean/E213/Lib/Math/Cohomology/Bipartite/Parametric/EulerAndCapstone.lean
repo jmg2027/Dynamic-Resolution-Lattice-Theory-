@@ -127,4 +127,24 @@ theorem parametric_close_capstone :
     ∧ b1Formula 1 4 1 = 0 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
+/-- ★ **Euler characteristic across the K-deployment family** (`χ = (NS+NT) − c·NS·NT`,
+    Int-valued) — `eulerChar` was only ever evaluated at `(3,2,2)`; this records the
+    whole chartBase-≤-5 family. -/
+theorem eulerChar_G121_family :
+    eulerChar 1 1 1 = 1 ∧ eulerChar 1 3 1 = 1 ∧ eulerChar 3 1 1 = 1
+    ∧ eulerChar 2 2 1 = 0 ∧ eulerChar 2 2 2 = -4 ∧ eulerChar 1 4 1 = 1
+    ∧ eulerChar 3 2 2 = -7 ∧ eulerChar 2 3 2 = -7 ∧ eulerChar 3 3 2 = -12 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- ★★ **Euler–Poincaré bridge `χ = 1 − b₁`** for the connected K-family (`b₀ = 1`) —
+    the relation stated in this file's header prose but never proven as a theorem,
+    tying `eulerChar` to `b1Formula` at each deployment. -/
+theorem eulerChar_eq_one_sub_b1_family :
+    eulerChar 3 2 2 = 1 - (b1Formula 3 2 2 : Int)
+    ∧ eulerChar 2 2 2 = 1 - (b1Formula 2 2 2 : Int)
+    ∧ eulerChar 2 2 1 = 1 - (b1Formula 2 2 1 : Int)
+    ∧ eulerChar 3 3 2 = 1 - (b1Formula 3 3 2 : Int)
+    ∧ eulerChar 1 1 1 = 1 - (b1Formula 1 1 1 : Int) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.EulerAndCapstone

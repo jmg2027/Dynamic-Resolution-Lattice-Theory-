@@ -42,7 +42,7 @@ reached by no convergent yet every cut is decided in finite — `PointingLimit`,
 `the_modular_geodesic_lens`.
 
 **IV. `synthesis/` — synthesis & the master tower.**
-`tower_atlas`,
+`multiplicativity_is_the_x_count_lens`, `tower_atlas`,
 `representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
 `duality_as_one_transpose` (a duality = `sumOver_swap` on one 0/1 incidence +
 a SEPARATE cap per axis; min-cover = max-anti is the transpose),
@@ -235,6 +235,7 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `p_orbit_naturalness_boundary.md` | Where does the "non-atomic" prime 7 come from in mod-13 period? | `math/mobius213_p_orbit_closure.md` + `POrbitClosure.framework_natural_via_p_orbit_closure` |
 | `p_orbit_closure_master.md` | Is the P-orbit closure structurally forced from atomic data? | `CharPolySelf` + `POrbitRing` + `Theory/Atomicity/OrbitForcing` + `PeriodDepthBounds` + `CrossProductAxes` + `Cohomology/Tripartite/V213ShadowProjection` |
 | `pure_nat_ring_methodology.md` | How does PURE Lean prove universal polynomial identities without `ring` / `omega`? | `Meta/Nat/NatRing213` + `Px/CassiniUniversal` + `Px/PnFibonacciUniversal` |
+| `multiplicativity_is_the_x_count_lens.md` | What IS multiplicativity? A function is multiplicative ⟺ it is a readout of the ×-count-Lens (the prime-exponent vector `vp`, faithful by `vp_separation` = the FTA) that factors through the per-prime-power axes; coprimality = disjoint exponent-vector support, so the product splits. Dual: classical "multiplicative function + FTA" with the FTA not invoked but identified as Lens-faithfulness. Cross-frame: multiplicativity exists because ×-atoms (primes) are distinguishable where +-atoms (units, `UnitList.append_comm`) are not — the function form of ×-atom distinguishability | `Meta/Nat/{VpSeparation.vp_separation, UnitList.append_comm, TwoThreeUnique}` + `NumberTheory/{DivisorMultiplicative.divisor_product_reindex, SquareCharacterization.coprime_isSquare_mul, SigmaParityComplete.sigma_odd_iff}` + `math/numbertheory/multiplicative_divisor_theory.md` |
 | `methodology/reframe_presentation_transport.md` | When a reading fails to SEPARATE (over-counts), how does 213 read the same residue at a resolution where it separates? (Markov uniqueness, Zhang's 3c±2, presentation-transport as a lift) | `Foundations/ProofISALifts` (`lift_reframe`) + `math/analysis/markov_uniqueness.md` + `MarkovUniqueness.markov_max_unique_via_3c_pm2` + `MarkovPrimeFactor.sq_eq_collapse_pp` + CLAUDE.md *External-ruler smuggling* |
 | `representation_theorems_one_counting_bound.md` | Why are `p = a²−ab+b²` (disc −3), `p = a²+b²` (disc −4), and the `ℤ[√−D]` family all one theorem? | `PolyRoot/RootBound.eval_zero` + `NonFixedExists.exists_nonfixed_gen` + `Integer/{EisensteinSplit,GaussianSplit,ZSqrtNegSplit}.split_form` + `Integer/ZSqrtNegSharp.descent_false_at_three` |
 | `four_square_additive_pigeonhole.md` | Why is every `n = a²+b²+c²+d²`, and why does this need a *different* engine than the disc-`−D` representation theorems? | `NumberTheory/FourSquare.{four_sq_id,isSum4_mul,descent_core,odd_descent,halve_step,descent_rec,seed_multiple,exists_prime_factor,prime_isSum4,nat_isSum4}` + `FourSquareSeed.four_square_seed` + `Combinatorics/Pigeonhole.no_inj_lt` |

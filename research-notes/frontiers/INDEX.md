@@ -562,9 +562,21 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (`Real213/ModularGeometry/HolonomyLattice`, 25 PURE + chapter `holonomy_of_the_lattice.md`): holonomy =
   net transition around a loop of state-transitions; functoriality + flatness (`det=1=NS−NT`)
   + the ℕ⁺ sector is loop-free (Stern–Brocot tree) + holonomy born from the negation fold
-  (`[S,S]=−I`, order 4).  Open: (1) full freeness of `⟨L,R⟩` (unique-word, via CF/odometer);
-  (2) general order law `holonomy_pow` (lift `FiniteOrderSpectrum` to the fold); (3) the
-  holonomy group as π₁ of the modular orbifold (`PSL(2,ℤ)=ℤ₂*ℤ₃`).
+  (`[S,S]=−I`, order 4).  **(2) general order law CLOSED** (`HolonomyOrderLaw`, 6 PURE):
+  `holonomy_replicate` bridges the right-fold `holonomy` and left-fold `pow`
+  (`holonomy (replicate n g) = pow g n`, via `pow_succ_comm`); `holonomy_pow_order`
+  lifts the crystallographic restriction (`order ∣ 12`) onto holonomy loops; the
+  `S`-loop closing at 4 is now a *corollary* (`holonomy_S_loop_closes`, not a bare
+  `decide`), and `L` never closes (`holonomy_L_loop_never_closes`).  **(1) full
+  freeness of `⟨L,R⟩` CLOSED** (`HolonomyFreeness`, 4 PURE): `holonomy_injective_positive`
+  — `holonomy` is injective on positive words, the unique-word property (the
+  Stern–Brocot monoid is free).  Crux `L_head_ne_R_head` (first-letter determinacy:
+  an `L`-headed positive matrix ≠ an `R`-headed one, forcing `a'=0` against `Pos`) +
+  left-cancellation `mul_L_inj`/`mul_R_inj`, by induction on the word.  Open: (3) the
+  holonomy group as π₁ of
+  the modular orbifold (`PSL(2,ℤ)=ℤ₂*ℤ₃`) — a wall (no Mathlib-free free-product
+  infrastructure; the realizable residue, orders 4,6 generate / 5,7 forbidden, is
+  already proven).
 
 - `simplicial_operation_tower` — **the operation tower builds simplices** (raw gut,
   originator: Mingu Jeong).  The *generative* face of `number_tower_theory` (R4): each
@@ -598,6 +610,34 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   `object1_not_surjective`); the ℤ-unique-faithful-finite corollary witnessed by
   `vp_eq_zero_of_gt` vs `cut`/`zpseq_no_finite_certificate`).  *Open:* C7 (the
   physics closure-form question — for the originator).
+- `descent_schema_universal` (**CLOSED → promoted** →
+  `theory/math/foundations/universal_descent_schema.md`; note archived
+  `research-notes/archive/foundations/`) — **Finding H** (meta-analysis): the A6
+  FLOW archetype is the **universal descent/normal-form lift**.  Generator
+  `descent_reaches`/`descent_invariant` (`MonovariantFlow`, 19 PURE) +
+  `flow_reaches_of_relation` (self-map subsumed) + all **3 number-theory instances
+  landed PURE**: GCD (`euclid_via_descent_invariant`), UFD
+  (`VpSeparationDescent.vp_separation_via_schema`), and the first relational/
+  nondeterministic one Markov (`MarkovDescentSchema.markov_descends_to_root`).
+  Markov permutation subtlety resolved (`μ=max` permutation-invariant ⟹ clean
+  fold); atomicity a *degenerate* boundary case (4 iterated + 1 boundary, not "5");
+  `propext` blocks Prop-invariants (UFD carries valuation-equality in the carrier).
+- `stabilization_schema` — **Finding I** (meta-analysis): the forward/convergence
+  dual of the descent schema.  `Meta/StagedLimit` (PURE) abstracts the
+  modulus-limit "read off the modulus stage = every late stage" (internal-reach
+  complement to `object1_not_surjective`); `CauchyCutSeq` routes its `limit_eq_at`
+  through it (`StagedLimitCauchy`, generic-consumer PASS).  **Cross-domain claim
+  REJECTED with reason**: the p-adic diagonal `Zp.diagLimit`'s real content
+  (`diagLimit_trunc_succ`, a trunc-assembly fold) does not reduce to the
+  per-coordinate map — so Finding I is the Real213 cut/modulus-limit abstracted,
+  not a Padic ⊥ Real213 unifier (same shape as the rejected R-B).
+- `native_contamination_audit` — **standard-common-sense re-examination** (math/
+  foundations/lens/meta): corpus is unusually disciplined; one real fix landed —
+  the SignedCut "oracle / underlying-real / value-layer" substrate metaphor
+  (`SignedCut/Core/{Core,Equivalence}.lean` docstrings) corrected to the
+  difference-Lens reading ("the tuple is the number").  Two minor candidates
+  retained (the `topology.md` `N_U`-ordering smell; the benign DyadicSearch
+  decision-"oracle" recorded as *not* contamination).
 
 - `pure_lean_calibration_synthesis` — **infra frontier** (cross-campaign: determinant/sign +
   Reverse Math 213): the recurring core-`Decidable`/core-lemma **propext leak + hand-rolled-pure
@@ -749,10 +789,23 @@ real ∅-axiom conquests.
   (`R_0 ≤ 0`), so a bridge-free `LowerBase` needs the *quantitative* "ratio
   reaches `≥ 0` by `J = 2i+1`" — the `LambertBridge` content itself.
 - `transcendentals/transcendental_functions_ladder` — convergent `exp/sin/cos/sqrt`
-  as `Real213` functions with derivative rules (current: `exp` partial sum +
-  stubs).  Rungs T1 exp-modulus → T2 sin/cos series → T3 derivative rules →
-  T4 smooth sqrt → T5 identities.  One of the two hard blocks split off A6's
-  smooth core; ordinary constructive analysis, in-reach ∅-axiom.
+  as `Real213` functions with derivative rules.  Rungs T1 exp-modulus → T2 sin/cos
+  series → T3 derivative rules → T4 smooth sqrt → T5 identities.  **T1 modulus
+  done** (`ExpLog/CutExpModulus`, `CutTrigModulus` — geometric majorant + antitone,
+  even/odd sub-sampling; coefficient-level `d/dx` identities `exp_deriv_coeff_fixed`,
+  `sin/cos_deriv_coeff`).  **T3 cut-level series differentiation CLOSED**
+  (`ExpLog/CutExpDerivative`, 3 PURE): `expPartialSumIsDifferentiable` — the exp
+  Taylor partial sum is differentiable *as a function of the cut* for every `N`
+  (first function-space differentiation of a *series*, not a fixed-degree
+  polynomial); `expPartialSum_derivative_termwise` (`rfl`, the sum-rule composition).
+  *Open seed*: the factorial-shift capstone `expTerm_derivative_shift`
+  (`d/dx[xⁿ/n!] ≡ xⁿ⁻¹/(n-1)!` as `cutEq`, via `exp_deriv_coeff_fixed`).  **Honest
+  walls**: (A) cut-level `sinCut`/`cosCut` (T2 limit) is *blocked upstream* — the
+  signed-cut cross-sign subtraction (`Sum/SignedSum.cutSignedSum`) is a deliberate
+  stub at the cross-sign boundary, exactly the alternating-series case, so
+  `sinCut`/`cosCut` stay `fun _ _ => true`; (B) limit-level re-association hits the
+  `cutSum`-assoc `b≥3` precision wall.  The T3 result dodges both (definitional
+  derivative field, no re-association).
 
 ## PDE a-priori estimates  (`pde_estimates/`)
 

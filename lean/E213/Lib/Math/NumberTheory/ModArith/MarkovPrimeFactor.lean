@@ -568,7 +568,7 @@ recovered for `m = 2·pᵏ` by **CRT recombination**: reduce a root mod `2·pᵏ
 (coprimality of `2` and the odd `pᵏ`). -/
 
 /-- `P ∣ x² − (x % P)²` — the square reduces mod `P` (pure: `div_add_mod` + `ring_nat`). -/
-private theorem dvd_sq_sub_mod_sq (P x : Nat) : P ∣ (x * x - (x % P) * (x % P)) := by
+theorem dvd_sq_sub_mod_sq (P x : Nat) : P ∣ (x * x - (x % P) * (x % P)) := by
   have hdm : P * (x / P) + x % P = x := E213.Meta.Nat.AddMod213.div_add_mod x P
   refine ⟨P * (x / P) * (x / P) + 2 * (x / P) * (x % P), ?_⟩
   have hsq : x * x = (P * (x / P) + x % P) * (P * (x / P) + x % P) := by rw [hdm]
@@ -577,7 +577,7 @@ private theorem dvd_sq_sub_mod_sq (P x : Nat) : P ∣ (x * x - (x % P) * (x % P)
   rw [hsq, hexp, Nat.add_comm, E213.Tactic.NatHelper.add_sub_cancel_right]
 
 /-- A root mod `2·…` reduces to a root mod `P`: `P ∣ x²+1 ⟹ (x%P)²+1 ≡ 0 (mod P)`. -/
-private theorem root_mod_P (P x : Nat) (hP1 : 1 < P) (hPx : P ∣ (x * x + 1)) :
+theorem root_mod_P (P x : Nat) (hP1 : 1 < P) (hPx : P ∣ (x * x + 1)) :
     ((x % P) * (x % P) + 1) % P = 0 := by
   have hd : P ∣ (x * x - (x % P) * (x % P)) := dvd_sq_sub_mod_sq P x
   have hle : (x % P) * (x % P) ≤ x * x := Nat.mul_le_mul (Nat.mod_le x P) (Nat.mod_le x P)

@@ -302,4 +302,11 @@ theorem binom_5_row :
     = 4 + 6 = 10. -/
 theorem pascal_5_2 : binom 5 2 = binom 4 1 + binom 4 2 := by decide
 
+/-- ★ **Pascal's row 4** — `1,4,6,4,1` with row-sum `2⁴ = 16` (sibling of
+    `binom_5_row`). -/
+theorem binom_4_row :
+    binom 4 0 = 1 ∧ binom 4 1 = 4 ∧ binom 4 2 = 6
+    ∧ binom 4 3 = 4 ∧ binom 4 4 = 1
+    ∧ binom 4 0 + binom 4 1 + binom 4 2 + binom 4 3 + binom 4 4 = 16 := by decide
+
 end E213.Lib.Math.Combinatorics.Binomial

@@ -65,3 +65,6 @@ prompt-log/*.md
 
 # agent worktrees (ephemeral)
 .claude/worktrees/
+
+# multi-agent scratch dirs (ephemeral; never commit)
+lean/E213/Scratch*/

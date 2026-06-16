@@ -194,4 +194,8 @@ theorem gcd_mul_lcm (a b : Nat) (ha : 0 < a) : gcd213 a b * lcm213 a b = a * b :
   have hbg : g * q = b := by rw [← hq]; exact mul_div_cancel_of_dvd g b hg hgb
   rw [lcm_eq_left a b ha, hgdef, hq, ← hbg]; ring_nat
 
+/-- ★ Concrete: `lcm213 4 6 = 12` (= `4·6 / gcd213 4 6 = 24/2`).  Exercises the
+    fuel-driven `gcd213`/`Nat.div` kernel reduction, ∅-axiom. -/
+theorem lcm213_4_6 : lcm213 4 6 = 12 := by decide
+
 end E213.Lib.Math.NumberTheory.Lcm213

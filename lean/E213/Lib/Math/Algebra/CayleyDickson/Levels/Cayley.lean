@@ -210,4 +210,26 @@ theorem zero_im : (0 : Cayley).im = 0 := rfl
 theorem sub_re (u v : Cayley) : (u - v).re = u.re - v.re := rfl
 theorem sub_im (u v : Cayley) : (u - v).im = u.im - v.im := rfl
 
+/-! ## §4 — composition-algebra norm + a Moufang instance (basis-level) -/
+
+/-- ★ **Composition law at the generator `L`**: `L · conj L = 1` (`= |L|²·1`).  The
+    octonion norm form `N(x) = x·conj x` lands in the scalar line — the
+    composition-algebra property, at a basis generator. -/
+theorem L_mul_conj_L : Cayley.L * Cayley.conj Cayley.L = ⟨⟨⟨1, 0⟩, 0⟩, 0⟩ := by decide
+
+/-- ★ **Composition law at `I'`**: `I' · conj I' = 1`. -/
+theorem I'_mul_conj_I' : Cayley.I' * Cayley.conj Cayley.I' = ⟨⟨⟨1, 0⟩, 0⟩, 0⟩ := by decide
+
+/-- ★ **Composition law at `J'`**: `J' · conj J' = 1` — the missing third generator,
+    completing the `{I', J', L}` octonion-norm trio. -/
+theorem J'_mul_conj_J' : Cayley.J' * Cayley.conj Cayley.J' = ⟨⟨⟨1, 0⟩, 0⟩, 0⟩ := by decide
+
+/-- ★★ **Left Moufang identity at the basis triple `(I', J', L)`**:
+    `(I'·(J'·I'))·L = I'·(J'·(I'·L))`.  A *basis-level* `decide` instance — the
+    sanctioned move (cf. the `alt_*` instances) that sidesteps the 12-variable
+    universal-Moufang cubic wall; octonions are Moufang though non-associative. -/
+theorem moufang_basis :
+    (Cayley.I' * (Cayley.J' * Cayley.I')) * Cayley.L
+  = Cayley.I' * (Cayley.J' * (Cayley.I' * Cayley.L)) := by decide
+
 end E213.Lib.Math.Algebra.CayleyDickson.Levels.Cayley

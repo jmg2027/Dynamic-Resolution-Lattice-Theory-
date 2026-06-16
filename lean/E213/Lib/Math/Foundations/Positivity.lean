@@ -79,6 +79,20 @@ theorem amgm_2 (a b : Int) : 4 * (a * b) ≤ (a + b) * (a + b) := by
   have hpos : 0 ≤ (a + b) * (a + b) - 4 * (a * b) := positivity_of_sq _ _ hgap
   exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero hpos)
 
+/-- ★★★★★ **A7 POSITIVITY (doubling form)**: a bound forced because **twice** its
+    gap is a sum of squares.  The distinctive move for ℤ forms that are not a
+    single SOS — `a²−ab+b²` is not, but `2(a²−ab+b²) = a²+b²+(a−b)²` is, so double
+    and halve.  This is the shared skeleton re-derived inline in the Eisenstein
+    norm forms (`CayleyDickson/.../EisensteinSignature`, `ZOmegaDomain`); named
+    here as the compile-down target (`research-notes/frontiers/
+    inequalities_positivity_fold_crossdomain.md`). -/
+theorem positivity_of_sq_double (gap s t u : Int)
+    (h : 2 * gap = s * s + t * t + u * u) : 0 ≤ gap := by
+  apply nonneg_of_add_self
+  have h2 : gap + gap = s * s + t * t + u * u := by rw [← h]; ring_intZ
+  rw [h2]
+  exact add_nonneg (add_nonneg (int_sq_nonneg s) (int_sq_nonneg t)) (int_sq_nonneg u)
+
 /-- **Lagrange identity (3-D)**: the Cauchy–Schwarz gap is a sum of three
     squares. -/
 theorem lagrange_3d (a0 a1 a2 b0 b1 b2 : Int) :
@@ -134,5 +148,140 @@ theorem dist_sq_zero_imp_eq (a b c d : Int)
     (h : (a - c) * (a - c) + (b - d) * (b - d) = 0) : a = c ∧ b = d :=
   let hpd := positive_definite_2 (a - c) (b - d) h
   ⟨Order.eq_of_sub_eq_zero hpd.1, Order.eq_of_sub_eq_zero hpd.2⟩
+
+/-! ## POSITIVITY's product face — a gap that is a *product of two like-signed
+gaps* forces a bound
+
+The square face above forces a bound when the gap is `s²`.  The complementary
+**product** face: when the gap factors as `(a₂−a₁)·(b₂−b₁)` of two *similarly
+ordered* differences, it is nonnegative (`mul_nonneg`), forcing the
+monotone-correlation inequalities.  This is the sign engine behind **Chebyshev's
+sum inequality** and the **rearrangement inequality**: similarly-sorted sequences
+correlate positively. -/
+
+/-- ★ **The product-of-gaps sign crux**: for similarly-sorted pairs the product
+    of the two gaps is nonnegative — `a₁ ≤ a₂`, `b₁ ≤ b₂` ⟹ `0 ≤ (a₂−a₁)·(b₂−b₁)`. -/
+theorem gap_product_nonneg {a1 a2 b1 b2 : Int}
+    (ha : a1 ≤ a2) (hb : b1 ≤ b2) : (0 : Int) ≤ (a2 - a1) * (b2 - b1) :=
+  mul_nonneg
+    (Order.le_zero_of_nonneg (Order.sub_nonneg_of_le ha))
+    (Order.le_zero_of_nonneg (Order.sub_nonneg_of_le hb))
+
+/-- ★★★★★ **Chebyshev's sum inequality (n=2) via POSITIVITY** — similarly-sorted
+    sequences correlate positively: `a₁ ≤ a₂`, `b₁ ≤ b₂` ⟹
+    `(a₁+a₂)·(b₁+b₂) ≤ 2·(a₁·b₁ + a₂·b₂)`.  Forced because the gap
+    `2(a₁b₁+a₂b₂) − (a₁+a₂)(b₁+b₂) = (a₂−a₁)(b₂−b₁)` is a nonnegative *product*. -/
+theorem chebyshev_sum_2 {a1 a2 b1 b2 : Int}
+    (ha : a1 ≤ a2) (hb : b1 ≤ b2) :
+    (a1 + a2) * (b1 + b2) ≤ 2 * (a1 * b1 + a2 * b2) := by
+  apply Order.le_of_sub_nonneg
+  apply Order.nonneg_of_le_zero
+  have hkey : (2 * (a1 * b1 + a2 * b2)) - (a1 + a2) * (b1 + b2)
+                = (a2 - a1) * (b2 - b1) := by ring_intZ
+  rw [hkey]
+  exact gap_product_nonneg ha hb
+
+/-- ★★★★★ **Rearrangement inequality (n=2) via POSITIVITY** — the sorted pairing
+    dominates the reversed one: `a₁ ≤ a₂`, `b₁ ≤ b₂` ⟹
+    `a₁·b₂ + a₂·b₁ ≤ a₁·b₁ + a₂·b₂`.  Same nonnegative-product gap
+    `(a₁b₁+a₂b₂) − (a₁b₂+a₂b₁) = (a₂−a₁)(b₂−b₁)`. -/
+theorem rearrangement_2 {a1 a2 b1 b2 : Int}
+    (ha : a1 ≤ a2) (hb : b1 ≤ b2) :
+    a1 * b2 + a2 * b1 ≤ a1 * b1 + a2 * b2 := by
+  apply Order.le_of_sub_nonneg
+  apply Order.nonneg_of_le_zero
+  have hkey : (a1 * b1 + a2 * b2) - (a1 * b2 + a2 * b1)
+                = (a2 - a1) * (b2 - b1) := by ring_intZ
+  rw [hkey]
+  exact gap_product_nonneg ha hb
+
+/-! ## POSITIVITY's QM–AM / power-mean face — sum-of-squares gaps -/
+
+/-- ★★★★★ **2-variable QM–AM** `(a+b)² ≤ 2(a²+b²)`, forced because the gap is the
+    single square `(a−b)²`. -/
+theorem qm_am_2 (a b : Int) : (a + b) * (a + b) ≤ 2 * (a * a + b * b) := by
+  have hgap : 2 * (a * a + b * b) - (a + b) * (a + b) = (a - b) * (a - b) := by ring_intZ
+  exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero (positivity_of_sq _ _ hgap))
+
+/-- ★★★★★ **3-variable QM–AM** `(a+b+c)² ≤ 3(a²+b²+c²)`, forced because the gap is
+    the sum of three squares `(a−b)² + (b−c)² + (c−a)²`. -/
+theorem qm_am_3 (a b c : Int) :
+    (a + b + c) * (a + b + c) ≤ 3 * (a * a + b * b + c * c) := by
+  have hgap : 3 * (a * a + b * b + c * c) - (a + b + c) * (a + b + c)
+                = (a - b) * (a - b) + (b - c) * (b - c) + (c - a) * (c - a) := by ring_intZ
+  exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero (positivity_of_sq3 _ _ _ _ hgap))
+
+/-- ★★★★★ **Sum of products ≤ sum of squares** `ab+bc+ca ≤ a²+b²+c²`, forced because
+    **twice** the gap is the sum of three squares
+    `2(a²+b²+c²) − 2(ab+bc+ca) = (a−b)² + (b−c)² + (c−a)²`. -/
+theorem prod_sum_le_sq_sum (a b c : Int) :
+    a * b + b * c + c * a ≤ a * a + b * b + c * c := by
+  have hgap : 2 * ((a * a + b * b + c * c) - (a * b + b * c + c * a))
+                = (a - b) * (a - b) + (b - c) * (b - c) + (c - a) * (c - a) := by ring_intZ
+  exact Order.le_of_sub_nonneg
+    (Order.nonneg_of_le_zero (positivity_of_sq_double _ _ _ _ hgap))
+
+/-! ## POSITIVITY at dimension 4 — sum-of-six-squares gaps -/
+
+/-- Sum-of-four-squares positivity. -/
+theorem positivity_of_sq4 (gap s t u v : Int)
+    (h : gap = s * s + t * t + u * u + v * v) : 0 ≤ gap := by
+  rw [h]
+  exact add_nonneg
+    (add_nonneg (add_nonneg (int_sq_nonneg s) (int_sq_nonneg t)) (int_sq_nonneg u))
+    (int_sq_nonneg v)
+
+/-- Sum-of-six-squares positivity. -/
+theorem positivity_of_sq6 (gap s t u v w x : Int)
+    (h : gap = s * s + t * t + u * u + v * v + w * w + x * x) : 0 ≤ gap := by
+  rw [h]
+  exact add_nonneg
+    (add_nonneg
+      (add_nonneg
+        (add_nonneg (add_nonneg (int_sq_nonneg s) (int_sq_nonneg t)) (int_sq_nonneg u))
+        (int_sq_nonneg v))
+      (int_sq_nonneg w))
+    (int_sq_nonneg x)
+
+/-- ★★★★★ **4-variable QM–AM** `(a+b+c+d)² ≤ 4(a²+b²+c²+d²)`, forced because the gap
+    is the sum of the six pairwise squares `Σ_{i<j} (xᵢ−xⱼ)²`. -/
+theorem qm_am_4 (a b c d : Int) :
+    (a + b + c + d) * (a + b + c + d)
+    ≤ 4 * (a * a + b * b + c * c + d * d) := by
+  have hgap : 4 * (a * a + b * b + c * c + d * d)
+                - (a + b + c + d) * (a + b + c + d)
+              = (a - b) * (a - b) + (a - c) * (a - c) + (a - d) * (a - d)
+                + (b - c) * (b - c) + (b - d) * (b - d) + (c - d) * (c - d) := by
+    ring_intZ
+  exact Order.le_of_sub_nonneg
+    (Order.nonneg_of_le_zero (positivity_of_sq6 _ _ _ _ _ _ _ hgap))
+
+/-- **Lagrange identity (4-D)**: the Cauchy–Schwarz gap is a sum of six squares. -/
+theorem lagrange_4d (a0 a1 a2 a3 b0 b1 b2 b3 : Int) :
+    (a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3)
+      * (b0 * b0 + b1 * b1 + b2 * b2 + b3 * b3)
+      - (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3)
+        * (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3)
+    = (a0 * b1 - a1 * b0) * (a0 * b1 - a1 * b0)
+      + (a0 * b2 - a2 * b0) * (a0 * b2 - a2 * b0)
+      + (a0 * b3 - a3 * b0) * (a0 * b3 - a3 * b0)
+      + (a1 * b2 - a2 * b1) * (a1 * b2 - a2 * b1)
+      + (a1 * b3 - a3 * b1) * (a1 * b3 - a3 * b1)
+      + (a2 * b3 - a3 * b2) * (a2 * b3 - a3 * b2) := by
+  ring_intZ
+
+/-- ★★★★★★ **Cauchy–Schwarz (4-D, ℤ) via POSITIVITY**: `⟨u,v⟩² ≤ ⟨u,u⟩⟨v,v⟩`, forced
+    because the gap is the sum of six squares (the 4-D Lagrange identity). -/
+theorem cauchy_schwarz_4d (a0 a1 a2 a3 b0 b1 b2 b3 : Int) :
+    (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3)
+      * (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3)
+    ≤ (a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3)
+      * (b0 * b0 + b1 * b1 + b2 * b2 + b3 * b3) := by
+  have hpos : 0 ≤ (a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3)
+                    * (b0 * b0 + b1 * b1 + b2 * b2 + b3 * b3)
+                  - (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3)
+                    * (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3) :=
+    positivity_of_sq6 _ _ _ _ _ _ _ (lagrange_4d a0 a1 a2 a3 b0 b1 b2 b3)
+  exact Order.le_of_sub_nonneg (Order.nonneg_of_le_zero hpos)
 
 end E213.Lib.Math.Foundations.Positivity

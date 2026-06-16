@@ -1,4 +1,5 @@
 import E213.Meta.Nat.PureNat
+import E213.Meta.Nat.PowBasic
 import E213.Meta.Nat.UnitList
 import E213.Meta.Nat.UnitGrid
 
@@ -228,6 +229,35 @@ theorem swap_changes_dim : dim (hcube 2 3) ≠ dim (hcube 3 2) := by
   rw [show dim (hcube 2 3) = 3 from dim_hcube 1 3,
       show dim (hcube 3 2) = 2 from dim_hcube 2 2]
   decide
+
+/-! ## ★★ The L5 twist, measured: the `^`-rung is a one-rung shear -/
+
+/-- ★★★ **The `^`-twist as a measured one-rung shear.**  The two operand-axes of
+    `^` transport by operations *exactly one rung apart*:
+
+      * the **dimension** (exponent) axis transports by `×` — climbing it `c`
+        rungs multiplies the dimension:
+        `(count (hcube a b))^c = count (hcube a (b·c))` (the exponent linearises
+        *down* to `×`; this is the surviving law `(aᵇ)ᶜ = a^{b·c}` read on the
+        object);
+      * the **side** (base) axis transports by `^` itself — one step glues `a`
+        copies: `count (hcube a (b+1)) = a · count (hcube a b)` (genuine ascent,
+        `count_hcube_succ`).
+
+    The twist is the *gap* between these two transport laws — one rung (`^` vs
+    `×`) — which is `DOF = rung − 2 = 1` (`HyperLadder.dofOfRung`) read as a
+    *transport-law gap*, not merely an axis count.  This upgrades the
+    type-mismatch witness `swap_changes_dim` (the twist is *nonzero*) to a
+    *measurement* of the twist: the two transport laws, side by side, one rung
+    apart.  A determinant-`0` would mean the axes transport identically
+    (= commutative `×`); the `±1` floor (`CrossDetOvertake.crossdet_floor_eq_point`)
+    is the first nonzero = first non-commutative rung. -/
+theorem pow_twist_is_one_rung_shear (a b c : Nat) :
+    (count (hcube a b)) ^ c = count (hcube a (b * c))
+  ∧ count (hcube a (b + 1)) = a * count (hcube a b) := by
+  refine ⟨?_, count_hcube_succ a b⟩
+  rw [count_hcube, count_hcube]
+  exact (E213.Meta.Nat.PowBasic.pow_mul_pure a b c).symm
 
 /-! ## Bridge: at dimension 2 the `^`-cube IS the `×`-square
 

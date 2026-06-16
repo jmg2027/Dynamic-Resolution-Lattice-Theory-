@@ -11,6 +11,7 @@ subtraction):
     (N+1)^(s+1) ≤ N^(s+1) + (s+1)·(N+1)^s            (`bernoulli_upper`)
     N^(s+1) + (s+1)·N^s ≤ (N+1)^(s+1)                (`bernoulli_lower`)
 
+the textbook **classic** form `1 + n·x ≤ (1+x)ⁿ` (`bernoulli_classic`),
 and their consequence, the **cross-degree power gap** — the arithmetic crux of
 the modulus-degree hierarchy: once the base outpaces the degree,
 
@@ -78,6 +79,28 @@ theorem bernoulli_lower : ∀ (s N : Nat), N^(s+1) + (s+1) * N^s ≤ (N+1)^(s+1)
       rw [Nat.pow_succ N (s+1), Nat.pow_succ (N+1) (s+1)]
       exact blower_core (Nat.pow_succ N s) (powBase_le (Nat.le_succ N) (s+1))
         (bernoulli_lower s N)
+
+/-- **Bernoulli's inequality (classic Nat form).**  `1 + n·x ≤ (1 + x)ⁿ`.
+
+    The first two terms of the binomial expansion of `(1+x)ⁿ` lower-bound the
+    whole.  The Nat form carries no sign issues; the inductive step multiplies the
+    IH by `(1+x)` and drops the `n·x²` surplus.  (The additive `bernoulli_upper`/
+    `bernoulli_lower` above are the *cross-degree* form; this is the textbook
+    `(1+x)ⁿ ≥ 1+nx`.) -/
+theorem bernoulli_classic : ∀ (x n : Nat), 1 + n * x ≤ (1 + x)^n
+  | x, 0 => by
+      show 1 + 0 * x ≤ (1 + x)^0
+      rw [Nat.pow_zero, Nat.zero_mul]
+      exact Nat.le_refl 1
+  | x, n + 1 => by
+      rw [Nat.pow_succ]
+      have ih : 1 + n * x ≤ (1 + x)^n := bernoulli_classic x n
+      have hmul : (1 + n * x) * (1 + x) ≤ (1 + x)^n * (1 + x) :=
+        Nat.mul_le_mul_right (1 + x) ih
+      have hexp : (1 + n * x) * (1 + x) = (1 + (n + 1) * x) + n * x * x := by ring_nat
+      have hdrop : 1 + (n + 1) * x ≤ (1 + n * x) * (1 + x) := by
+        rw [hexp]; exact Nat.le_add_right _ (n * x * x)
+      exact Nat.le_trans hdrop hmul
 
 /-- **Cross-degree power gap.**  Once the (smaller) base `K` exceeds the
     exponent by at least `2`, raising the exponent by one on `K` strictly

@@ -1,5 +1,6 @@
 import E213.Lib.Math.Logic.DiagonalBase
 import E213.Lib.Math.Logic.ChildSelection
+import E213.Lib.Math.Logic.LLPO
 
 /-!
 # Reverse Mathematics 213 — Phase GD: the ledger capstone
@@ -12,7 +13,7 @@ decision it costs, on the residue's own carriers.  The spine, as one ∅-axiom w
 | rung | result | cost |
 |---|---|---|
 | **free interior** | `cantor_stream_not_enumerable` (Cantor diagonal); `object1_not_surjective` | **none** |
-| **omniscience base** | `lpo_imp_wlpo`, `lpo_imp_mp` (LPO ⟹ WLPO, MP) | structural |
+| **omniscience base** | `lpo_imp_wlpo`, `lpo_imp_mp` (LPO ⟹ WLPO, MP); `wlpo_imp_llpo` (WLPO ⟹ LLPO, no Markov) | structural |
 | **Π⁰₁ decision** | `lpo_decides_pi01` — deciding "infinite-below" | **LPO** |
 | **König selection** | `lpo_infChildExistsN` — an infinite node has an infinite child (downward-closed tree) | **LPO** (LLPO suffices) |
 
@@ -32,12 +33,14 @@ theorem reverse_math_ledger :
     (∀ e : Nat → Nat → Bool, ∃ d : Nat → Bool, ∀ k, ∃ n, d n ≠ e k n)
     ∧ (LPO → WLPO)
     ∧ (LPO → MP)
+    ∧ (WLPO → LLPO)
     ∧ (∀ h : Nat → Bool, LPO → (∀ n, h n = true) ∨ ¬ (∀ n, h n = true))
     ∧ (∀ T : List Bool → Bool, LPO → LevelAntitone T → ∀ s, InfB T s →
         InfB T (s ++ [false]) ∨ InfB T (s ++ [true])) :=
   ⟨cantor_stream_not_enumerable,
    lpo_imp_wlpo,
    lpo_imp_mp,
+   wlpo_imp_llpo,
    fun h hlpo => lpo_decides_pi01 hlpo h,
    fun T hlpo hmono s hs => lpo_infChildExistsN hlpo T hmono s hs⟩
 

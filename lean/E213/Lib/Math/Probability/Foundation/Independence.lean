@@ -1,4 +1,5 @@
 import E213.Lib.Math.Probability.Foundation.Cut
+import E213.Meta.Nat.Gcd213
 
 /-!
 # Probability — Independence + conditional (atomic)
@@ -78,5 +79,18 @@ theorem independence_supplementary :
   · intro a; exact Nat.one_mul a.den
   · intro a b; exact Nat.mul_comm a.den b.den
   · intro _ _; rfl
+
+/-- ★ **Joint mass is associative** (numerator): `P((A∩B)∩C) = P(A∩(B∩C))` — the
+    joint operation makes the independent-event masses a commutative monoid (with
+    `joint_comm_num`).  Via the pure `mul_assoc_213` (`Nat.mul_assoc` is
+    propext-tainted). -/
+theorem joint_assoc_num (a b c : ProbabilityCut) :
+    (joint (joint a b) c).num = (joint a (joint b c)).num :=
+  E213.Meta.Nat.Gcd213.mul_assoc_213 a.num b.num c.num
+
+/-- Joint mass is associative (denominator). -/
+theorem joint_assoc_den (a b c : ProbabilityCut) :
+    (joint (joint a b) c).den = (joint a (joint b c)).den :=
+  E213.Meta.Nat.Gcd213.mul_assoc_213 a.den b.den c.den
 
 end E213.Lib.Math.Probability.Foundation.Independence

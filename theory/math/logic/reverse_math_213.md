@@ -31,7 +31,7 @@ line (`theory/essays/methodology/the_omniscience_ledger.md`).
 | `DiagonalBase.lean` | `cantor_stream_not_enumerable` (the cost-0 base) | 4 |
 | `Capstone.lean` | `reverse_math_ledger` (the spine in one witness) | 1 |
 | `KonigBridge.lean` | `infB_iff_infBelow`; pure `append_nil_pure`/`append_assoc_pure` | 5 |
-| `LLPO.lean` | `lpo_imp_llpo` via native `parity`, `even_or_odd`, `even_ne_odd` | 8 |
+| `LLPO.lean` | `lpo_imp_llpo`, `wlpo_imp_llpo` via native `parity`, `even_or_odd`, `even_ne_odd` | 9 |
 | `Interleave.lean` | div/mod-free `interleave`, `ftrue`, `ftrue_all_false` | 6 |
 | `LLPOSelection.lean` | `llpo_infChildExistsN` (König selection from LLPO) | 12 |
 | `WKLHeineBorel.lean` | `WKL ⟺ Heine–Borel`, `wkl_of_oracle`, `FanTheorem`/`Bar` | 13 |
@@ -52,7 +52,13 @@ The structural implications are ∅-axiom: `lpo_imp_wlpo`, `lpo_imp_mp`, the cle
 decomposition `lpo_iff_wlpo_and_mp` (**LPO ⟺ WLPO ∧ MP** — deciding
 "everywhere false" plus extracting a witness), and `lpo_imp_llpo`
 (**LPO ⟹ LLPO** — the unique true index's parity decides which half vanishes,
-via a native Bool `parity`).
+via a native Bool `parity`).  The **middle strut** `wlpo_imp_llpo`
+(**WLPO ⟹ LLPO**) completes `LPO ⟹ WLPO ⟹ LLPO`: applying WLPO to the even
+substream `f(2k)` decides the parity verdict with only firing-*decidability* — the
+negative alternative `¬(∀k, f(2k)=false)` is refuted *constructively* (build
+`∀j, f(2j)=false` from an odd-true assumption), never by extracting a witness
+(no Markov).  The residue's even/odd readout costs strictly less than its witness
+readout.
 
 **How the König thread arithmetized.**  König's lemma ("an infinite,
 finitely-branching tree has an infinite path") splits cleanly on the residue
