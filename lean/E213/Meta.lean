@@ -1,4 +1,5 @@
 import E213.Meta.Algebra213
+import E213.Meta.AxisSeparation
 import E213.Meta.AxiomMinimality
 import E213.Meta.AxiomMinimalityCapstone
 import E213.Meta.BitPatternUniqueness
@@ -19,6 +20,10 @@ import E213.Meta.API
 
   ## Top-level modules
 
+    * `AxisSeparation`          — the atom-forcing criterion as a checkable
+                                  theorem: the one-hot readout collapses ⟺ the
+                                  atom axis is a subsingleton (the cause behind
+                                  `vp_separation` / `append_comm` / `c`-removal)
     * `AxiomMinimality`,
       `AxiomMinimalityCapstone` — minimality of the 213 axiom set
     * `BitPatternUniqueness`    — bit-pattern uniqueness witness

@@ -77,12 +77,32 @@ this criterion applied as hygiene: a `:= True` "conjecture", a `chartVisibleAxes
 := NS+NT−1` "dimension", a typed `:= 137` "prediction" are all readings dressed
 as distinguishings — re-presentations mislabeled as forced.
 
-## Open frontier
+## Open frontier — the kernel is now written (2026-06-16)
 
-The criterion is stated and instantiated at both poles but not abstracted: a
-single 213-native lemma of the form *"a readout is faithful/forced iff its
-indexing axis distinguishes"* that both `vp_separation` and the c-removability
-result are instances of, is not yet written
-(`research-notes/frontiers/crossdomain_divisor_x_branch_merge.md` §3).  Until
-it is, "forced ⟺ distinguishing" is a verified pattern across cases, not a
-proven meta-theorem.
+The **kernel** of the criterion is now a `#print axioms`-checkable theorem:
+`lean/E213/Meta/AxisSeparation.lean`, `subsingleton_iff_collapses` (∅-axiom) —
+*the one-hot (Kronecker) readout on an atom type collapses (carries no
+atom-distinguishing information) iff the atom type is a subsingleton.*  Its dual
+`distinguishes_not_collapses` gives the faithful direction; the three named
+patterns are instantiated as `unit_collapses` (the units/`append_comm` pole),
+`bool_not_collapses` / `fin_succ_succ_distinguishes` (the prime/`vp` and `c`-axis
+poles), `fin_one_collapses` (the removable `c=1` layer).
+
+A multi-agent panel audit (2026-06-16) sharpened *what* is provable here and what
+is not.  Two corrections are load-bearing:
+
+  1. The naïve statement *"the one-hot readout is faithful ⟺ the atoms
+     distinguish"* is **false**: faithfulness (`∀ a a', a≠a' → ∃ axis, …`) is
+     *vacuously true* for a subsingleton, so the iff breaks at the collapsed pole.
+     The correct, non-vacuous kernel is the **collapse** form above.
+  2. The *strong* reading — "one theorem from which `vp_separation` AND
+     c-removal fall out as full corollaries" — is a **forcible map** and is
+     refused.  `vp_separation` carries genuine UFD content (the multiplicative
+     atoms of ℕ *are* the primes), and c-removal carries a physics-inertness
+     bridge; neither is subsumed by a free-monoid slogan.  The kernel names the
+     *cause* (axis (in)distinguishability) common to all three; each instance
+     keeps its own domain proof local.
+
+So "forced ⟺ distinguishing" is now a proven meta-*kernel* with its instances
+cited, not merely a pattern across cases — but it is honestly a near-triviality
+whose value is *unification-as-labelling*, not a deep subsumption theorem.
