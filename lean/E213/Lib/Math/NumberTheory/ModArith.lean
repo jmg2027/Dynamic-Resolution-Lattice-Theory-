@@ -84,6 +84,7 @@ import E213.Lib.Math.NumberTheory.GaussTotient
 import E213.Lib.Math.NumberTheory.DivisorProductReindex
 import E213.Lib.Math.NumberTheory.DivisorMultiplicative
 import E213.Lib.Math.NumberTheory.SummatoryMultiplicative
+import E213.Lib.Math.NumberTheory.MultiplicativeUniqueness
 import E213.Lib.Math.NumberTheory.GeneralizedDivisorSum
 import E213.Lib.Math.NumberTheory.PerfectNumbers
 import E213.Lib.Math.NumberTheory.TauParity
