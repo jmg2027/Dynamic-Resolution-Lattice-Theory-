@@ -16,6 +16,7 @@ import E213.Lib.Math.Probability.Limit.CLTLimit
 import E213.Lib.Math.Probability.Bridge.CauchyModulus
 import E213.Lib.Math.Probability.Bridge.RiemannBridge
 import E213.Lib.Math.Probability.Inequality.Chebyshev
+import E213.Lib.Math.Probability.Inequality.UnionBound
 import E213.Lib.Math.Probability.Distribution.BetaNormalized
 import E213.Lib.Math.Probability.Limit.CLTGeneric
 import E213.Lib.Math.Probability.Inequality.Hoeffding
