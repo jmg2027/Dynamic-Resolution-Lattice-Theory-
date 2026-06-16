@@ -179,6 +179,36 @@ theorem hodge_index_signature_T4 :
     ∧ cupT4 (nsComb 1 (-1) 0 0) (nsComb 0 0 0 1) = 0
     ∧ cupT4 (nsComb 0 0 1 0) (nsComb 0 0 0 1) = 0 := by decide
 
+/-! ## The transcendental complement: signature `(2,0)`, completing `H² = (3,3)` -/
+
+/-- The transcendental class `e02 − e13` (a `(2,0)+(0,2)` class, not `(1,1)`). -/
+def transc1 : Form := { c01 := 0, c02 := 1, c03 := 0, c12 := 0, c13 := -1, c23 := 0 }
+/-- The transcendental class `e03 + e12` (a `(2,0)+(0,2)` class, not `(1,1)`). -/
+def transc2 : Form := { c01 := 0, c02 := 0, c03 := 1, c12 := 1, c13 := 0, c23 := 0 }
+
+/-- ★★★★★ **Full `H²(T⁴)` signature `(3,3) = (1,3)_NS ⊕ (2,0)_transc`** — ∅-axiom.
+
+    The transcendental complement `{e02−e13, e03+e12}` carries signature `(2,0)` (both
+    self-intersections `+2`, mutually orthogonal, and orthogonal to the four NS generators),
+    neither class is `(1,1)`.  Combined with the NS Hodge-index `(1,3)`
+    (`hodge_index_signature_T4`) this realizes the full intersection-form signature `(3,3)`
+    on `H²(T⁴;ℤ) = ℤ⁶` — the Hodge-index theorem `(2p_g, 0) ⊕ (1, h^{1,1}−1)` with
+    `p_g = h^{2,0} = 1`, `h^{1,1} = 4`.  An orthogonal `ℤ`-basis of the whole `H²` with
+    `3` positive (`+2`) and `3` negative (`−2`) self-intersections. -/
+theorem transc_complement_signature :
+    -- the transcendental pair: signature (2,0), mutually orthogonal, neither (1,1)
+    cupT4 transc1 transc1 = 2 ∧ cupT4 transc2 transc2 = 2 ∧ cupT4 transc1 transc2 = 0
+    ∧ ¬ IsHodge11 transc1 ∧ ¬ IsHodge11 transc2
+    -- orthogonal to the four NS generators (so the full 6-vector basis is orthogonal)
+    ∧ cupT4 transc1 (nsComb 1 1 0 0) = 0 ∧ cupT4 transc1 (nsComb 1 (-1) 0 0) = 0
+    ∧ cupT4 transc1 (nsComb 0 0 1 0) = 0 ∧ cupT4 transc1 (nsComb 0 0 0 1) = 0
+    ∧ cupT4 transc2 (nsComb 1 1 0 0) = 0 ∧ cupT4 transc2 (nsComb 1 (-1) 0 0) = 0
+    ∧ cupT4 transc2 (nsComb 0 0 1 0) = 0 ∧ cupT4 transc2 (nsComb 0 0 0 1) = 0 :=
+  ⟨by decide, by decide, by decide,
+   fun h => absurd h.1 (by decide), fun h => absurd h.2 (by decide),
+   by decide, by decide, by decide, by decide,
+   by decide, by decide, by decide, by decide⟩
+
 /-- ★ **Non-vacuity** — the predicate has real content: the `(2,0)+(0,2)`
     class `e02` is **not** `(1,1)` (`J` sends it to `e13`).  Without this, the
     theorem above would be the empty claim the deleted layer made. -/

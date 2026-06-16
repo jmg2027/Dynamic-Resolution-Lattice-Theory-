@@ -17,7 +17,7 @@ namespace E213.Lib.Math.NumberTheory.Primorial
 
 open E213.Lens.Number.Nat213.MultSystemValue
   (fact fact_pos dvd_fact prime_not_dvd_fact primesIn listProd listProd_dvd
-   primesIn_nodup mem_primesIn_le mem_primesIn_gt mem_primesIn_prime)
+   primesIn_nodup mem_primesIn_le mem_primesIn_gt mem_primesIn_prime pow_length_le_prod)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.ChooseFactorial (choose_mul_factorials)
 open E213.Lib.Math.NumberSystems.Real213.ExpLog.CutFactorial (factorial)
@@ -143,5 +143,16 @@ theorem primorial_le_four_pow : ∀ N, listProd (primesIn 0 N) ≤ 4 ^ N := by
               ≤ 4 ^ q * 4 ^ (q + 1) := Nat.mul_le_mul (window_prod_le_odd q) (ih (q + 1) hqlt)
             _ = 4 ^ (2 * q + 1) := by rw [← pow_add, show q + (q + 1) = 2 * q + 1 from by ring_nat]
       exact key (N / 2) (N % 2) hdm hmod
+
+
+/-- ★ **Upper-window prime-count bound**: `(m+2)^{π(2m+1)−π(m+1)} ≤ 4^m`.  Each of the
+    primes in `(m+1, 2m+1]` exceeds `m+1` (so is `≥ m+2`), and their product is `≤ 4^m`
+    (`window_prod_le_odd`); taking the count-th root caps the number of such primes — a
+    primorial corollary (the odd-window analogue of `windowCount_pow_le`). -/
+theorem upper_window_count_pow_le (m : Nat) :
+    (m + 2) ^ (primesIn (m + 1) (2 * m + 1)).length ≤ 4 ^ m :=
+  Nat.le_trans
+    (pow_length_le_prod (m + 2) (primesIn (m + 1) (2 * m + 1)) (fun _ hp => mem_primesIn_gt hp))
+    (window_prod_le_odd m)
 
 end E213.Lib.Math.NumberTheory.Primorial
