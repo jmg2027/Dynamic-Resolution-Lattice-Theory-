@@ -124,6 +124,34 @@ Collatz W, RH W, abc W (two-Lens).
   machinery (not twin-prime-∞, still walled by Bombieri–Vinogradov).  The landscape's best
   SOS foothold.
 
+## Autonomous segment (waves 4–5) — Bertrand + diversified
+
+Driven autonomously after the debate waves.  **All component lemmas of Erdős's Bertrand
+postulate are now ∅-axiom** (only the final assembly — prime-range partition + crossover
+inequality + finite chain — remains, no new ingredient):
+
+| Lemma (file) | Content |
+|---|---|
+| `primorial_le_four_pow` (`Primorial.lean`) | `∏_{p≤N} p ≤ 4ᴺ` — Erdős's keystone |
+| `binom_eq_choose` (`BinomChooseBridge.lean`) | the Lens/Lib binomial defs coincide |
+| `odd_central_binom_le` (`OddCentralBinom.lean`) | `C(2m+1,m) ≤ 4ᵐ` |
+| `prime_dvd_odd_binom`, `window_prod_le_odd` (`Primorial.lean`) | the `(m+1,2m+1]` window |
+| `prime_not_dvd_central_binom_mid` (`BertrandWindow.lean`) | **the `(2n/3,n]` vanishing** (via Legendre) |
+| `prime_count_window_le`, `upper_window_count_pow_le` | Chebyshev-type `π` corollaries |
+
+Diversified reliable bricks (all PURE, `decide`/witness-style):
+- **Hodge T⁴ full signature** `(3,3) = (1,3)_NS ⊕ (2,0)_transc` (`transc_complement_signature`).
+- **Surface signatures**: `ℙ²` `(1,0)` (`P2Minimal`), `ℙ¹×ℙ¹` `(1,1)` (`P1Squared`).
+- **Discrete Gauss–Bonnet** for non-bipartite/named graphs `K₄, Q₃(cube), Petersen, K₅`
+  + Forman `−2` (3-regular), `−4` (4-regular).
+
+Recurring ∅-axiom craft notes (added to the toolkit): `ring_intZ`/`ring_nat` choke on
+`0*x`/`0+x` and bare variable-negation factors (`-d`) — pre-strip; core `Nat`/`Int`
+lemmas `lt_of_mul_lt_mul_left`, `add_right_cancel`, `div_eq_of_lt_le`, `mul_eq_zero`,
+`pow_mul`, `mul_neg` carry `propext`/`Classical` — pure replacements exist
+(`Meta.Int213.*`, `Meta.Nat.{PureNat,NatDiv213}.*`, `div_eq_of_sandwich`) or derive via
+the `lt_or_ge`+`mul_le_mul_left`+`not_lt` cancellation pattern.
+
 ## Honest walls recorded (not reached this session)
 
 - **YM confinement angle 2** (Wilson-loop area law): no embedding on the abstract
