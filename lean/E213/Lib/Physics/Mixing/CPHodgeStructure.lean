@@ -38,14 +38,17 @@ Hodge star the repo flags as unbuilt (`CupRingTrace` "needs ℤ-signed pairings"
 
 `⟨⋆⟩ ≅ C₄ ≅ ℤ[i]^×` — the cohomological `i` (signed `⋆` at `n=4`, grades `1,3`)
 *is* the algebraic CP `i` (the Gaussian unit, `CPPhaseC4Forcing`).  Both are
-`C₄`; proving them the **same** object needs the signed Hodge star (unbuilt).
+`C₄`.  The signed-`ℤ` Hodge star is now **built** as an operator in
+`SignedHodgeStar` (`star_star_eq_sign`: `⋆∘⋆ = (−1)^{k(n−k)}` on all 16 forms
+of `Λ(Δ⁴)`, with `⋆²=−1` at grades 1,3 — `hodge_i_order_four`); proving the
+ring iso `⟨⋆⟩ ≅ ℤ[i]^×` the **same** object is the remaining step.
 A *counting* bridge already exists (`catalogs/cross-domain-identifications.md`
 CDI-2: `b₁(K₅) ≡ δ_CP ≡ SU(5) adjoint = 24`), tying the `d=5` cohomology to the
 CP sector at the integer level — but the **phase** `i` is the missing
 construction.
 
-All theorems PURE (the parity skeleton; the signed `⋆` and the ring iso are the
-named frontier).
+All theorems PURE (the parity skeleton; the signed `⋆` is now built in
+`SignedHodgeStar`, and the ring iso `⟨⋆⟩ ≅ ℤ[i]^×` is the remaining frontier).
 -/
 
 namespace E213.Lib.Physics.Mixing.CPHodgeStructure
@@ -100,7 +103,8 @@ theorem parity_wall_at_n5 :
     (`arg = 90°`).  This is the *same* `d=5` cohomology as `1/α_em`, so CP and
     `α_em` share one cohomological object.  **Frontier**: the repo's ℤ/2 `⋆`
     collapses the sign (`⋆²=+1`); realizing the CP `i` needs the signed `ℤ`-Hodge
-    star at `n=4` (named-unbuilt) + a ring iso `⟨⋆⟩ ≅ ℤ[i]^×`.  PURE: the parity. -/
+    star at `n=4` (now **built** in `SignedHodgeStar`, `star_star_eq_sign`) + a
+    ring iso `⟨⋆⟩ ≅ ℤ[i]^×` (remaining).  PURE: the parity. -/
 theorem cp_i_is_hodge_complex_structure :
     -- the complex grades 1,3 of the (d−1)=4 simplex: ⋆²=−1
     (NS + NT - 1 = 4 ∧ starSqParity 4 1 = 1 ∧ starSqParity 4 3 = 1)
