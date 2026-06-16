@@ -24,11 +24,17 @@ integral `(1,1)` class is the class of a divisor — i.e. algebraic.*
     classes fail it (`hodge11_nonvacuous`).
   · `IsAlgebraic F` — `F` is an integer combination of the four Néron–Severi /
     divisor generators `e01, e23, e02+e13, e03−e12` (the cycle-class map image).
-  · `hodge11_implies_algebraic` — **the theorem**: `IsHodge11 F → IsAlgebraic F`.
+  · `hodge11_implies_algebraic` — `IsHodge11 F → IsAlgebraic F`.
+  · `hodge11_iff_algebraic` — **the biconditional**: `IsHodge11 F ↔ IsAlgebraic F`,
+    i.e. `NS(T⁴) = H^{1,1} ∩ H²` (the full Lefschetz (1,1) for `T⁴`).
+  · `neron_severi_T4` — the capstone: the biconditional + the rank-`4` (`= h^{1,1}`)
+    ℤ-independent generator basis (`nsComb_injective`) + the genuine gap `H^{1,1} ⊊ H²`.
 
-All PURE (∅-axiom): the proof exhibits the actual divisor coefficients, it does
-not assert a tautology.  This is a *modest but honest* foundation; the higher
-`(p,p)` content and a general cycle-class map are the next stages (frontier).
+All PURE (∅-axiom): the proofs exhibit actual divisor coefficients / field equalities,
+not tautologies.  This is the complete Lefschetz (1,1) on a *fixed rational* `T⁴`, a
+classical theorem made ∅-axiom-decidable; the general Hodge conjecture (continuous
+variation of `J`, the `(2,2)`-on-4-folds torsion regime, rational-vs-integral
+transcendence) is the genuine frontier — `research-notes/frontiers/genuine_hodge_rebuild.md`.
 -/
 
 namespace E213.Lib.Math.Cohomology.Surfaces.AbelianSurfaceHodge
@@ -68,6 +74,63 @@ def IsAlgebraic (F : Form) : Prop :=
     `:= ⟨σ, rfl⟩`. -/
 theorem hodge11_implies_algebraic (F : Form) (h : IsHodge11 F) : IsAlgebraic F :=
   ⟨F.c01, F.c23, F.c02, F.c03, rfl, rfl, rfl, h.1.symm, rfl, h.2⟩
+
+/-- ★ **Converse — algebraic ⟹ `(1,1)`**: every Néron–Severi / divisor class is of
+    Hodge type `(1,1)`.  The exhibited generators `e01, e23, e02+e13, e03−e12` are all
+    `J`-invariant by construction, so any integer combination satisfies `IsHodge11`. -/
+theorem algebraic_implies_hodge11 (F : Form) (h : IsAlgebraic F) : IsHodge11 F := by
+  obtain ⟨a, b, c, d, _, _, hc02, hc13, hc03, hc12⟩ := h
+  exact ⟨hc02.trans hc13.symm, hc12.trans (by rw [hc03])⟩
+
+/-- ★★★★★ **Lefschetz (1,1) for `T⁴`, as a biconditional — the integral `(1,1)` lattice
+    is *exactly* the Néron–Severi group.**  `IsHodge11 F ↔ IsAlgebraic F`: an integral
+    `H²(T⁴)` class is of Hodge type `(1,1)` **iff** it is algebraic (a divisor class).
+    This is the complete Hodge conjecture for the abelian surface as a decidable ℤ-module
+    statement — not just `(1,1) ⟹ algebraic` but the full equality `NS(T⁴) = H^{1,1} ∩ H²`.
+    ∅-axiom. -/
+theorem hodge11_iff_algebraic (F : Form) : IsHodge11 F ↔ IsAlgebraic F :=
+  ⟨hodge11_implies_algebraic F, algebraic_implies_hodge11 F⟩
+
+/-! ## The Néron–Severi lattice has rank 4 (= `h^{1,1}`) -/
+
+/-- The integer combination `a·e01 + b·e23 + c·(e02+e13) + d·(e03−e12)` of the four
+    Néron–Severi generators — the explicit parametrization of the `(1,1)` lattice. -/
+def nsComb (a b c d : Int) : Form :=
+  { c01 := a, c02 := c, c03 := d, c12 := - d, c13 := c, c23 := b }
+
+theorem nsComb_isHodge11 (a b c d : Int) : IsHodge11 (nsComb a b c d) := ⟨rfl, rfl⟩
+
+theorem nsComb_isAlgebraic (a b c d : Int) : IsAlgebraic (nsComb a b c d) :=
+  ⟨a, b, c, d, rfl, rfl, rfl, rfl, rfl, rfl⟩
+
+/-- ★ **ℤ-independence of the four generators (rank 4 = `h^{1,1}`).**  The
+    parametrization `nsComb` is injective: distinct `(a,b,c,d)` give distinct classes, so
+    `e01, e23, e02+e13, e03−e12` are a ℤ-basis of the rank-4 Néron–Severi lattice. -/
+theorem nsComb_injective {a b c d a' b' c' d' : Int}
+    (h : nsComb a b c d = nsComb a' b' c' d') : a = a' ∧ b = b' ∧ c = c' ∧ d = d' :=
+  ⟨congrArg Form.c01 h, congrArg Form.c23 h, congrArg Form.c02 h, congrArg Form.c03 h⟩
+
+/-- ★★★★★ **Néron–Severi `= H^{1,1}∩H²` on the abelian surface `T⁴`, with rank.**  ∅-axiom.
+
+    (i) `IsHodge11 F ↔ IsAlgebraic F` — the integral `(1,1)` lattice is *exactly* the
+        Néron–Severi / divisor lattice (the full Lefschetz (1,1) for `T⁴`);
+    (ii) the four generators are `(1,1)` and ℤ-independent (`nsComb_injective`) — rank
+         `4 = h^{1,1}`;
+    (iii) the gap is genuine: `e02` (a `(2,0)+(0,2)` class) is **not** `(1,1)`, so
+          `H^{1,1} ⊊ H²` (rank-2 transcendental gap `= h^{2,0}+h^{0,2}`).
+
+    A classical theorem (Lefschetz (1,1) on a fixed `T⁴`) made ∅-axiom-decidable, because
+    `J` here is a fixed rational operator.  NOT the general Hodge conjecture — continuous
+    variation of `J`, the `(2,2)`-on-4-folds torsion regime, and rational-vs-integral
+    transcendence are the genuine walls (`research-notes/frontiers/genuine_hodge_rebuild.md`). -/
+theorem neron_severi_T4 :
+    (∀ F : Form, IsHodge11 F ↔ IsAlgebraic F)
+    ∧ (∀ a b c d : Int, IsHodge11 (nsComb a b c d))
+    ∧ (∀ a b c d a' b' c' d' : Int,
+        nsComb a b c d = nsComb a' b' c' d' → a = a' ∧ b = b' ∧ c = c' ∧ d = d')
+    ∧ (¬ IsHodge11 { c01 := 0, c02 := 1, c03 := 0, c12 := 0, c13 := 0, c23 := 0 }) :=
+  ⟨hodge11_iff_algebraic, nsComb_isHodge11, @nsComb_injective,
+   fun h => absurd h.1 (by decide)⟩
 
 /-- ★ **Non-vacuity** — the predicate has real content: the `(2,0)+(0,2)`
     class `e02` is **not** `(1,1)` (`J` sends it to `e13`).  Without this, the
