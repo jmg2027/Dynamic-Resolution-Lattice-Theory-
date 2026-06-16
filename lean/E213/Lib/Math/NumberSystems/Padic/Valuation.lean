@@ -174,4 +174,21 @@ theorem valuation_capstone :
   · exact vAt_neg_one_pos (by decide) 3 (by decide)
   · exact vAt_neg_one_pos (by decide) 3 (by decide)
 
+
+/-- The valuation search is bounded by its window: `vAtAcc x start n ≤ start + n`
+    (it either early-stops at `start` or exhausts to `start + n`). -/
+theorem vAtAcc_le {p : Nat} (x : ZpSeq p) : ∀ start n, vAtAcc x start n ≤ start + n
+  | start, 0 => Nat.le_refl _
+  | start, n + 1 => by
+    show (if (x.digits start).val = 0 then vAtAcc x (start + 1) n else start) ≤ start + (n + 1)
+    by_cases h : (x.digits start).val = 0
+    · rw [if_pos h]
+      refine Nat.le_trans (vAtAcc_le x (start + 1) n) (Nat.le_of_eq ?_)
+      rw [Nat.add_assoc, Nat.add_comm 1 n]
+    · rw [if_neg h]; exact Nat.le_add_right start (n + 1)
+
+/-- ★ **`vAt x N ≤ N`**: the `N`-digit p-adic valuation never exceeds the search depth. -/
+theorem vAt_le {p : Nat} (x : ZpSeq p) (N : Nat) : vAt x N ≤ N := by
+  show vAtAcc x 0 N ≤ N
+  exact Nat.le_trans (vAtAcc_le x 0 N) (Nat.le_of_eq (Nat.zero_add N))
 end E213.Lib.Math.NumberSystems.Padic.Valuation
