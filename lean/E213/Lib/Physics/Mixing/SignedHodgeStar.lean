@@ -3,8 +3,8 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Signed Hodge star on `Λ(Δ⁴)` — the order-2 `i`, built as an operator (∅-axiom)
 
-This is **Phase E** of the c-free rebuild (`research-notes/frontiers/c_free_rebuild_plan.md`).
-The deep-research finding `c_is_three_distinct_twos.md` established that the
+This is **Phase E** of the c-free rebuild.
+The deep-research finding (`c` is three distinct 2's) established that the
 genuine "2" of the framework is the **signature/order 2** — the binary
 distinguishing = `NT` = the period-2 difference-sign = the imaginary unit `i`
 (`i²=−1`) — whose home is the metric, **not** an edge multiplicity.  Its
@@ -103,7 +103,7 @@ theorem star_sq_pos_one_grade2 : starStar [0,1] = 1 := by decide
     cyclic group of order `4 = NT²`.  This is the framework's genuine order-2
     `i` (the binary sign of the difference-Lens), realized as a metric operator
     on `Λ(Δ⁴)` — **not** an edge multiplicity.  Same `d=5` cohomology as
-    `1/α_em`.  See `research-notes/frontiers/c_is_three_distinct_twos.md`. -/
+    `1/α_em`. -/
 theorem hodge_i_order_four :
     starStar [0] = -1 ∧ starStar [0,1,2] = -1
     ∧ ((-1 : Int) * (-1) = 1) ∧ (NT * NT = 4) := by decide

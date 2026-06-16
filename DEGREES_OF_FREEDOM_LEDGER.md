@@ -48,9 +48,7 @@ slash takes), a **different** quantity from any edge *multiplicity*, and the
 gauge content is `NS² − 1` directly from the forced `NS = 3` (the SU(3)
 adjoint, no graph needed).  The genuine "2" of the framework is the binary
 distinguishing (arity / period-2 difference-sign / `i`), which lives in the
-metric **signature** `(−,+,+,+)`, not in an edge count.  See
-`research-notes/frontiers/c_is_three_distinct_twos.md` and the rebuild plan
-`c_free_rebuild_plan.md`.
+metric **signature** `(−,+,+,+)`, not in an edge count.
 So the atomic floor is `(NS, NT, d) = (3, 2, 5)` — full stop.  (The former
 "edge-multiplicity `c`" / `K_{NS,NT}^{(c)}` cohomology was a re-presentation of
 `NS²−1`, now being removed; the α_em coefficient table below still shows the

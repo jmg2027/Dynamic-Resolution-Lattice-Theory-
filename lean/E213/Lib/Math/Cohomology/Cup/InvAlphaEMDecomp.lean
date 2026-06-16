@@ -13,8 +13,7 @@ edge multiplicity `c`**:
   · 60 = NS · NT² · d = 3 · 2² · 5
         The extra factor of `NT` is the **order-2 / signature** — the
         spatial information distance being the *square* of the temporal
-        (`W_S = W_T²`, `d_S = 2·d_T`; the recovered anisotropy reading,
-        `research-notes/archive/c_multiplicity/original_lorentz_anisotropy_reading.md`).
+        (`W_S = W_T²`, `d_S = 2·d_T`; the recovered anisotropy reading).
         It is NOT a parallel-edge count: the former "`60 = c·NS·NT·d`"
         attributed this `NT` to a (deleted) edge multiplicity; it is
         properly the temporal axis entering quadratically.
@@ -28,8 +27,7 @@ The leading numerical fit:
 matching `1/α_em ≈ 137.036` (CODATA).  The `25/3` factor encodes
 `d²/NS`; the α_GUT fractional coefficients (1/4, 1/45) sit further down.
 
-PURE.  See `research-notes/frontiers/c_is_three_distinct_twos.md` and the
-rebuild plan `c_free_rebuild_plan.md`.
+PURE.
 -/
 
 namespace E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp

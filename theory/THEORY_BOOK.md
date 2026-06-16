@@ -439,8 +439,7 @@ reframings and removable from every observable (canonical status:
 3 forced `(NS,NT,d)` + 1 posited `c`).  Nor is `c = 1` degenerate —
 it carries a genuine non-coboundary H²-class (it is *pre-distinguishing*
 on the multiplicity axis, not empty).  See
-`theory/physics/foundations/atomic_constants.md` and
-`research-notes/frontiers/atomic_c_multiplicity_forcing.md`.
+`theory/physics/foundations/atomic_constants.md`.
 
 ### III.3 K_{3,2}^{(c=2)} — the canonical lattice
 

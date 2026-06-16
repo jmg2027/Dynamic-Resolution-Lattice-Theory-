@@ -5,7 +5,7 @@ This is the **genuine rebuild** of the Hodge-conjecture content, replacing the
 deleted `HodgeConjecture/Foundation/*` layer — which was stereotype-matching
 (`IsLensHodgeClass := True`, proof `⟨σ, rfl⟩`) on the `K_{3,2}^{(c=2)}` graph
 1-complex, where the real (p,p) conjecture is *vacuous* (a 1-complex has no
-H^{p,p} for `p ≥ 1`).  See `research-notes/frontiers/genuine_hodge_rebuild.md`.
+H^{p,p} for `p ≥ 1`).
 
 Here the object is a **non-trivial** one: the abelian surface `T⁴ = ℝ⁴/ℤ⁴`
 with a complex structure, whose `H²` is the 6-dimensional lattice carried by

@@ -23,8 +23,7 @@ Reduction mod 5:
 This is the **half-period / full-period pentagonal closure**: period
 5 (`P^5 ≡ -I`) doubling to period 10 (`P^10 ≡ +I`).  It *presents* the
 edge multiplicity `c = 2` of `K_{3,2}^{(c=2)}`; it does not force it —
-the period ratio is the trivial `(−I)² = I` (see
-`research-notes/frontiers/atomic_c_multiplicity_forcing.md`; `c` is a
+the period ratio is the trivial `(−I)² = I` (`c` is a
 posited presentation parameter, `(NS,NT,d)` the forced atoms).
 
 PURE.  All decide.

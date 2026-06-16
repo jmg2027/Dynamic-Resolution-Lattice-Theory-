@@ -62,13 +62,13 @@ direct from the forced `NS = 3` (the SU(3) adjoint, `SpectrumComplete.alpha_3_ch
 no graph multiplicity is needed.  The genuine "2" of the framework is the
 binary distinguishing — the relation arity / the period-2 difference-sign /
 the imaginary unit `i` — which lives in the metric **signature** `(−,+,+,+)`,
-not in any edge count (`research-notes/frontiers/c_is_three_distinct_twos.md`).
+not in any edge count.
 
 > **Rebuild in progress.**  The headline `1/α_em` spine in §3 still quotes the
 > Lean as it currently stands, where the leading coefficients are written
 > through an edge count carrying a `c`.  That is being re-derived c-free
 > (`12 = NS·NT²`, …); until the Lean is rebuilt and re-verified to the same
-> ppb, §3 reflects the pre-rebuild form.  Plan: `research-notes/frontiers/c_free_rebuild_plan.md`.
+> ppb, §3 reflects the pre-rebuild form.
 
 ### 2.1 Pair size and closure size → `NT = 2`, `NS = 3`
 
@@ -108,7 +108,7 @@ CombinatorialArity.arity_2_unique_via_k_ge_3_vacuous :
 over a `Fin 2` base: `pigeonhole_fin_to_fin2`).  The relation arity is
 binary.  (This is the arity of the distinguishing slash — a property of
 the relation's *inputs* — not an edge multiplicity; there is no atomic
-`c`.  See `research-notes/frontiers/c_is_three_distinct_twos.md`.)
+`c`.)
 
 ### 2.4 Dynamic confirmation — Pell–Lucas orbit
 
