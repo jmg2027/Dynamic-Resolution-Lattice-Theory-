@@ -111,6 +111,23 @@ chapter's vein-C section. Full Math green at **1972 modules**.
   + counting infra + computed `hall_matching_{zero,one,two}`. General-`n`
   (Halmos–Vaughan) is OPEN → `frontiers/hall_general_induction.md`; an agent is
   currently attempting it (scratch `ScratchHG`). Full Math green at **1974**.
+- **`Analysis/ModulusConvergence`** (6 PURE) — limit theory on `MetricModulus`:
+  `limit_unique` (located-unique limit, ∀m close m L L'), `conv_imp_cauchy`
+  (Cauchy modulus computed from convergence modulus), `subseq_converges`,
+  `const_converges`. Done directly (not via agent). Full Math green at **1975**.
+
+### Open frontiers (next-iteration targets — recorded per PROCESS frontier rule)
+- `frontiers/hall_general_induction.md` — Hall general-`n` (Halmos–Vaughan);
+  framework + n≤2 closed in `Combinatorics/HallMarriage`; remaining = `Fin`
+  subgraph re-indexing after vertex+neighbor deletion. (An agent attempt left no
+  PURE checkpoint — the reindexing is the genuine hard part.)
+- `frontiers/analysis_modulus_pending.md` — Cesàro mean, limit-arithmetic
+  (sum/product need an *additive* metric beyond `MetricModulus`), squeeze. Do
+  **directly**, not via one-shot agent — the obstruction is pure-`Nat`-inequality
+  propext-avoidance, handled interactively with `NatHelper`/`PureNat` twins (as
+  `ModulusConvergence` just demonstrated).
+- Other unselected: fan ⟺ WKL relationship; exact-IVT⟺LLPO (the function-family
+  version, beyond the dichotomy); EGZ / Dilworth / Mirsky (combinatorics).
 
 Full `E213.Lib.Math` green at **1967 modules**; all pushed. Leg total: **11
 modules + the `exists_collision` primitive**, ∅-axiom PURE — 7 number-theory/
