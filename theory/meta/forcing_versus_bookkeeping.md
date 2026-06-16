@@ -60,6 +60,13 @@ more*.
   - `ModArith/WilsonConverse` (`exists_nontrivial_factor`) — "least divisor > 1
     is prime" (well-ordering) becomes a **bounded prime search**: an explicit,
     computed factor.
+  - `NumberTheory/PrimesThreeModFour` — **infinitely many primes `≡ 3 (mod 4)`**
+    (`∀ N, ∃ p, N < p ∧ prime p ∧ p%4=3`). The classical proof posits a finite
+    exhaustive list and contradicts it (LEM + finiteness). ∅-axiom drops both:
+    given `N` it *constructs* `M = 4·N!−1` and *computes* `M`'s least `≡3 mod4`
+    prime factor (keystone `exists_prime_factor_3mod4`, least-factor recursion),
+    which is `> N`. *The new prime is an algorithm output, not a prime extracted
+    from a refuted minimal counterexample.* (14 PURE.)
   - `NumberTheory/FermatQuartic` — **`x⁴+y⁴=z²` has no positive solution**
     (`no_quartic_sq`, hence `no_quartic_quartic`). The textbook proof is the
     archetypal *minimal-counterexample* (least `z`, well-ordering + LEM). ∅-axiom

@@ -212,6 +212,27 @@ content, each smaller leg an explicit gcd-computed number.** Whole proof is
 Nat-native (no signed integers). (29 PURE; reuses `SquareCharacterization`,
 `CoprimeMultiplicative`, `Gcd213`, `Valuation`/`vp`.)
 
+### B — infinitely many primes `≡ 3 (mod 4)`, by a *computed* Euclid witness (★ clean B-case)
+`NumberTheory/PrimesThreeModFour`. `infinitely_many_primes_3mod4 : ∀ N, ∃ p,
+N < p ∧ IsPrime213 p ∧ p%4=3` (the cofinal form — "infinitely many" with the
+prime *exhibited above any bound*). The classical proof posits a **finite
+exhaustive list** `p₁,…,p_k` of all such primes, forms a number, and derives a
+contradiction (LEM + a finiteness assumption). ∅-axiom drops both: given any `N`
+it **constructs** `M = 4·N! − 1` (so `M ≡ 3 mod 4`) and runs the factorization
+search to *compute* a prime `q ≡ 3 mod 4` with `q > N`. Keystone
+`exists_prime_factor_3mod4 : m%4=3 → ∃ q, prime q ∧ q∣m ∧ q%4=3` by strong
+induction (`Nat.strongRecOn`) on `m`: `q = minFac m` is prime and odd (m odd), so
+`q%4 ∈ {1,3}`; if `3` it is the witness, if `1` then `m/q ≡ 3 mod 4` and `< m`,
+recurse. The `q ≤ N` case is refuted by `q ∣ N! ⟹ q ∣ 4·N! = M+1`, so with `q∣M`,
+`q ∣ 1` (using `−1` not `+3` to dodge the `q=3` leak). Reveals: **the new prime
+is an algorithm output (the least `≡3 mod4` prime factor of `4·N!−1`), certified
+by the keystone — not a prime extracted from a refuted minimal counterexample;
+the obstruction "`≡3 mod4` ⟹ has a `≡3 mod4` prime factor" is itself a computed
+factor.** (14 PURE; reuses `PrimeFactorization.minFac`, `VpMul.IsPrime213`,
+`Gcd213.dvd_sub_213`. New pure-twin finds: `Nat.mul_assoc` and
+`Nat.mod_mod_of_dvd` both carry `propext` → `PureNat.mul_assoc` /
+`AddMod213.mod_mod_of_dvd`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
@@ -228,11 +249,8 @@ Nat-native (no signed integers). (29 PURE; reuses `SquareCharacterization`,
     **DONE** — `NumberTheory/FermatQuartic`, 29 PURE (capstone B-case above). The
     descent became an explicit `Nat.strongRecOn` constructor, exactly as
     predicted; also built the missing `pyth_converse`.
-  - **Selected & in flight:** infinitely many primes `≡ 3 (mod 4)`, in the
-    cofinal form `∀ N, ∃ p, N < p ∧ prime p ∧ p%4=3` — the **computed Euclid
-    witness** (least `≡3 mod4` prime factor of `4·N!+3`) vs. the classical
-    finite-list contradiction; keystone `exists_prime_factor_3mod4` (a `≡3 mod4`
-    number has a `≡3 mod4` prime factor, by least-factor recursion).
+  - ~~**Selected:** infinitely many primes `≡ 3 (mod 4)`.~~ **DONE** —
+    `NumberTheory/PrimesThreeModFour`, 14 PURE (clean B-case above).
   - **Rejected (honest, duplicate result):** `√2`/`√p` irrationality by
     v2-parity. The bare impossibility `m² ≠ 2k²` (and `3,5`) is already PURE in
     `NumberSystems/Irrational/SqrtPure` and `Sqrt2KernelFree` — via the *descent*
