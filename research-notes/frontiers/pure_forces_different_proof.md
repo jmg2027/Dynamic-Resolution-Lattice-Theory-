@@ -79,11 +79,19 @@ was packaging, the round-trip is the content.** (12 PURE.)
   — and whose descent witness is interesting (not just "a factor exists").
 - **C**: a classically-non-effective existence (an "∃ by compactness") whose
   ∅-axiom form needs a modulus, where the modulus is the content.
-- **The sharpest test**: take a theorem the corpus *currently has DIRTY*
-  (axiom-carrying) and ask whether a PURE re-derivation forces a different
-  proof. `tools/scan_all_axioms.py` + `STRICT_ZERO_AXIOM.md` locate the DIRTY
-  set; those are the highest-signal candidates (the corpus already judged them
-  worth stating; PURE-ifying tests whether the residue supports them *its* way).
+- **The DIRTY-set test — RESULT (2026-06-16): empty for math.** Scanned the whole
+  corpus (`scan_all_axioms.py`): **19607 PURE / 13 real-DIRTY / 36 sealed-by-design**.
+  The 36 sealed are the *theses* (`propext` = Prop-as-atom, `Quot.sound` = Lens-
+  equality-as-funext). The 13 real-DIRTY are `propext`/`Quot.sound`-only (the same
+  thesis surface, not yet prefix-sealed) plus 3 `E213.Tactic.elab*` tactic
+  elaborators (`Classical.choice` from Lean's `Elab` monad — metaprogramming
+  boundary). **None is a mathematical theorem that is DIRTY because the math needs
+  a non-constructive axiom.** Conclusion: the residue already supports every
+  *math* result PURELY; the "convert DIRTY math → PURE" vein is exhausted. So
+  genuine forcing cases are **forward-only** — new classical theorems whose
+  *textbook/Mathlib* proof is non-constructive, re-derived ∅-axiom (the CRT and
+  Euler template). This is itself evidence for §7.1: nothing mathematical in the
+  corpus needed an exterior import.
 
 ## Why this is the better selector
 Per `seed/AXIOM/07_primacy.md §7.1`, derivation *confirms* primacy. But a PURE
