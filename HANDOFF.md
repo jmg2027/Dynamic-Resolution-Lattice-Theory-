@@ -121,10 +121,18 @@ chapter's vein-C section. Full Math green at **1972 modules**.
 - **`Logic/RealComparabilityLLPO`** (2 PURE) — general real comparability
   `∀ x y, x≤y ∨ y≤x ⟹ LLPO` (reals not constructively totally ordered); one-liner
   over `RealDichotomyLLPO`.
-- **`Analysis/LimitArithmetic`** (12 PURE) — sum limit law on `distMet` (the
-  additive structure `MetricModulus` lacks): `distN_add_le` +`add_converges`
-  (modulus `max(ra(m+1),rb(m+1))`) + `shift_converges`. Product/squeeze still open
-  (`frontiers/analysis_modulus_pending.md`). Full Math green at **1978**.
+- **`Analysis/LimitArithmetic`** (12 PURE) — sum limit law on `distMet`:
+  `distN_add_le` + `add_converges` (modulus `max(ra(m+1),rb(m+1))`) + `shift`.
+- **`Analysis/SqueezeProduct`** (8 PURE) — `squeeze_converges` (a≤c≤b, a,b→L ⟹
+  c→L) + `mul_converges_bounded` (product, modulus shifted by bit-length
+  `floorLog 2 K + 1`). The limit-law thread (sum/product/squeeze/Cesàro/
+  uniqueness/Cauchy) is now comprehensive.
+- **Two-square arc COMPLETE** (∅-axiom, all computed modular facts, no ℤ[i]):
+  `TwoSquareTheorem` (hard dir) + `SumTwoSquaresCharacterization` (18 PURE, the
+  "if" direction via the Brahmagupta product) + `InertPrimeThreeMod4` (7 PURE,
+  the "only if" core: `inert_three_mod4`, `neg_one_nonresidue_three_mod4`,
+  descent `qsq_dvd_of_dvd_three_mod4`). Remaining: full odd-power statement +
+  Int↔Nat bridge (`frontiers/two_square_only_if.md`). Full Math green at **1981**.
 
 **Orchestration lesson (for next iteration):** the env cleans agent scratch dirs
 between Bash calls, which RACES any "scratch removed ⟹ done" watcher and gives
