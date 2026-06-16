@@ -503,6 +503,19 @@ averaging away at rate `~2^m`). Reveals: **the Cesàro rate is linear in `2^m` a
 the early-term spread, computed — no `∃δ` hides the bookkeeping.** (16 PURE; reuses
 `UniformLimitContinuous.distN`/`distN_tri`; pure-twin `NatHelper.add_mul`.)
 
+### B — a prime q ≡ 3 (mod 4) is inert for sums of two squares (★ closes the two-square obstruction)
+`NumberTheory/InertPrimeThreeMod4`. `inert_three_mod4 : q≡3mod4 prime → q ∣ a²+b² →
+q ∣ a ∧ q ∣ b`. Classically this rides on `ℤ[i]` ideal theory (q stays prime —
+"inert"). ∅-axiom makes it a **computed modular contradiction**: `−1` is a quadratic
+non-residue mod q≡3mod4 (`neg_one_nonresidue_three_mod4`, the contrapositive of
+`sq_plus_one_dvd_iff` since (q−1)/2 is odd ⟹ (−1)^((q−1)/2)=−1≠1); so if q∤b, inverting
+b mod q (`inverse_of_coprime`) turns `q ∣ a²+b²` into `q ∣ (a·b⁻¹)²+1`, exhibiting a
+forbidden square root of −1 — hence q∣b, then q∣a by Euclid. The descent step
+`qsq_dvd_of_dvd_three_mod4` (q∣a²+b² ⟹ q²∣a²+b²) forces even q-adic valuation. Reveals:
+**the disc−4 inertness is a `% q` arithmetic fact — no Gaussian integers, ideals, or
+norms; the obstruction is the Euler-criterion sign.** With `SumTwoSquaresCharacterization`
+(the "if" direction) this closes the two-square characterization's core. (7 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅

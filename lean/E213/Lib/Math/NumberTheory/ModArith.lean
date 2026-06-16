@@ -96,6 +96,7 @@ import E213.Lib.Math.NumberTheory.UnitsOfZn
 import E213.Lib.Math.NumberTheory.DividesPairPigeonhole
 import E213.Lib.Math.NumberTheory.TwoSquareTheorem
 import E213.Lib.Math.NumberTheory.SumTwoSquaresCharacterization
+import E213.Lib.Math.NumberTheory.InertPrimeThreeMod4
 import E213.Lib.Math.NumberTheory.FermatQuartic
 import E213.Lib.Math.NumberTheory.PrimesThreeModFour
 import E213.Lib.Math.NumberTheory.TotientMultiplicative
