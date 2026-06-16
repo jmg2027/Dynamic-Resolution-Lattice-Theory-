@@ -36,6 +36,18 @@ The one genuinely missing lemma.  Erdős's proof by strong induction:
    with **no proven bridges**.  So the real first step is a `binom_eq_choose` bridge (or
    reproving the row-sum in `MultSystem.binom`), an *integration* task, not the math.  A
    repo-organization opportunity: unify the binomial defs (`org-audit` candidate).
+
+   **Bridge is mathematically trivial, gated on architecture (2026-06-16):**
+   `MultSystem.binom` and `DyadicFSM.FLT.Binomial.choose` are the **identical Pascal
+   recursion** (`C(n+1,k+1)=C(n,k)+C(n,k+1)`, same bases) — so `binom n k = choose n k`
+   is a 4-line induction.  But `binom` lives in `Lens` and `choose`/`pascal_row_sum`/
+   `choose_symm` in `Lib`; a `Lib`-side bridge file importing the Lens submodule is blocked
+   by the `layer-import-guard` (3+-level reach-in).  **Precise first step:** expose `binom`
+   (and `binom_zero`) through `Lens.API` (or a Lens umbrella), then the bridge file in `Lib`
+   imports `Lens.API` + `Binomial` and proves `binom_eq_choose`.  The row-sum
+   `pascal_row_sum n : sumTo (n+1) (choose n) = 2ⁿ` and `choose_symm` are both already
+   present, so after the bridge, `odd_central_binom_le` needs only a two-term Nat-sum lower
+   bound (`Σ ≥ f i + f j` for `i≠j`).
 2. **`prime_dvd_odd_binom`** — primes `p ∈ (m+1, 2m+1]` divide `C(2m+1, m)` — MEDIUM,
    mirrors `prime_dvd_central_binom` (`vp_p = 1`: `p ≤ 2m+1 < 2p`, `p > m+1` so `p ∤ m!`,
    `p ∤ (m+1)!`).
