@@ -95,4 +95,21 @@ theorem cup_alpha_plus : cup alpha_plus alpha_plus Cell4.vol = 2 := by decide
 theorem cup_alpha_minus : cup alpha_minus alpha_minus Cell4.vol = -2 := by decide
 theorem cup_alpha_ortho : cup alpha_plus alpha_minus Cell4.vol = 0 := by decide
 
+
+/-- α₊ ≠ α₋ (distinct in `C2`: they differ at `H₂`). -/
+theorem alpha_plus_ne_minus : alpha_plus ≠ alpha_minus :=
+  fun h => absurd (congrFun h Cell2.H2) (by decide)
+
+/-- ★★★★★ **Signature `(1, 1)` of `H²(ℙ¹×ℙ¹; ℤ)`** — ∅-axiom.  The cup-pairing admits the
+    ℤ-orthogonal classes `α₊ = H₁+H₂`, `α₋ = H₁−H₂` with `α₊⌣α₊ = +2`, `α₋⌣α₋ = −2`,
+    `α₊⌣α₋ = 0`, `α₊ ≠ α₋`.  With `dim H² = 2` this forces signature `(1, 1)` (Sylvester) —
+    the same hyperbolic intersection form `[[0,1],[1,0]]` as `T²`, on a *different* surface
+    (`cup_H1H1 = cup_H2H2 = 0`, `cup_H1H2 = 1`).  The `decide`-witness analogue of
+    `T2Minimal.Signature.signature_one_one_witness`. -/
+theorem signature_one_one_witness :
+    cup alpha_plus alpha_plus Cell4.vol = 2
+    ∧ cup alpha_minus alpha_minus Cell4.vol = -2
+    ∧ cup alpha_plus alpha_minus Cell4.vol = 0
+    ∧ alpha_plus ≠ alpha_minus :=
+  ⟨cup_alpha_plus, cup_alpha_minus, cup_alpha_ortho, alpha_plus_ne_minus⟩
 end E213.Lib.Math.Cohomology.Surfaces.P1Squared
