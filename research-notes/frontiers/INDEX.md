@@ -815,3 +815,4 @@ real ∅-axiom conquests.
   continuous, not discrete-graph).  Rungs P1 maximum principle → P2 oscillation
   decay → P3 energy/Dirichlet → P4 Li–Yau → P5 Shi.  P1–P3 reachable; P4–P5 the
   real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.
+| `hall_general_induction.md` | Hall marriage general-n (Halmos–Vaughan induction); framework + n≤2 closed in `Combinatorics/HallMarriage` | open |

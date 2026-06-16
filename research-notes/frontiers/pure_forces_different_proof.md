@@ -449,6 +449,39 @@ The negation (`¬cutEq`) is free; locating the witness (apartness) is MP; the
 disjunctive verdict (sign/equality) is LLPO/WLPO.** Both reuse the
 `RealDichotomyLLPO` cut-encoding — infrastructure compounding.
 
+### C — continuous ⟹ Riemann integrable, convergence rate computed (★ force-the-modulus, reuses MetricModulus + CutRiemann)
+`Analysis/RiemannContinuous`. Classically "continuous ⟹ Riemann integrable" rests
+on uniform continuity + completeness as an *existence* axiom — the integral exists,
+the rate stays implicit. ∅-axiom forces the rate open: `riemannSum_cauchy` — the
+dyadic Riemann sums are Cauchy with the **computed modulus `startN`** (read off the
+uniform-continuity modulus `omega`). One grid-refinement is geometric
+(`1/2^(m+2+j)`-fine, the u.c. bound summed over the unit interval), so the sums
+telescope via repeated halving triangles (`tail_telescope`, the constructive
+`Σ1/2^(m+2+j) < 1/2^(m+1)`); the integral is the explicit Cauchy limit
+(`RiemannIntegralData.limit`), with `∫₀¹ c = c` by `rfl`-level reduction
+(`integralConst`). Reveals: **integrability is not a completeness miracle — the
+convergence modulus is computed from the u.c. modulus; the integral is the explicit
+Cauchy limit of the dyadic Riemann sums.** Reuses `UniformLimitContinuous.MetricModulus`
++ `CutRiemann.{riemannSumOnSamples,RiemannIntegralData,unitConstRiemann}` — the
+analysis infrastructure compounds (EVT/Banach/this all share `MetricModulus`). (9 PURE.)
+
+### B — Hall's marriage theorem: the matching computed (★ partial — framework + n≤2; general-n is a frontier)
+`Combinatorics/HallMarriage`. Classical Hall is an *existence* statement closed by
+LP-duality / max-flow-min-cut / minimal-counterexample — none exhibits the matching.
+∅-axiom forbids those, so the matching is **produced as data**: `computeNeighbor` /
+`scanAvoid` literally scan `Fin B` and return the right vertex, `Option.get`
+discharged by a Hall-derived count-positivity proof; Hall's condition appears
+*exactly* as the guarantee the scan never returns `none` — the obstruction the
+augmenting recursion never hits. Closed: the full `Matching`/`HallCond` framework +
+the decidable counting infra (`countB_mono`, `cardN_mono`, `countB_le_one_of_subsingleton`,
+`exists_of_countB_pos`, …) + the computed headline matchings `hall_matching_{zero,one,two}`
+— `hall_matching_two` runs the real augmenting dispatch (compute `r0`, `scanAvoid` for
+`r1≠r0`, else Hall on `{0,1}` forces vertex 0 a neighbor `≠r0`). Reveals: **the
+matching is the recursion's output, not a witness extracted from a duality gap.**
+General-`n` (Halmos–Vaughan tight/slack induction) is the open frontier — all transfer
+lemmas built; what remains is subgraph re-indexing after vertex+neighbor deletion.
+(36 PURE; frontier: `frontiers/hall_general_induction.md`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
