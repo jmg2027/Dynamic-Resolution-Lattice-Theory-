@@ -350,8 +350,8 @@ Open extensions:
     `mobiusP_disc_eq_NSplusNT` — Möbius P signature in Int form.
   · `cassini_at_d`, `cassini_fibonacci` — `d · NT − NS² = 1 =
     F_5 · F_3 − F_4²`.
-  · `ckm_delta_rational`, `ckm_delta_in_bracket`, `ckm_delta_3sig`
-    — `δ_CKM ≈ 176/147 ≈ 1.197 rad` with 3-sig figure check.
+  · `ckm_delta_rational`, `ckm_delta_in_bracket`
+    — `δ_CKM ≈ 176/147 ≈ 1.197 rad` with honest `(1.19, 1.21)` bracket.
   · `atomic_constants_canonical` — `(NS, NT, d, C_lat) =
     (3, 2, 5, 2)`.
   · ★★★★★ `physics_rigor_capstone` packages 12 of these into

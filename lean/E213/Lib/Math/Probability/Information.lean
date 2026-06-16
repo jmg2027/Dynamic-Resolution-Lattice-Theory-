@@ -4,7 +4,6 @@ import E213.Lib.Math.Probability.Information.MutualInfo
 import E213.Lib.Math.Probability.Information.KLDivergence
 import E213.Lib.Math.Probability.Information.Channel
 import E213.Lib.Math.Probability.Information.Coding
-import E213.Lib.Math.Probability.Information.Kolmogorov
 import E213.Lib.Math.Probability.Information.Capstone
 
 /-!

@@ -2,21 +2,21 @@ import E213.Lib.Physics.YangMills.Gap
 import E213.Lib.Physics.Couplings.PhotonKernel
 
 /-!
-# Yang-Mills ↔ Diamond bridge
+# Yang-Mills ↔ Diamond bridge — α₃-channel atomic facts
 
-YM mass gap statement: Δ_SU3 corresponds to color confinement.
-1/α_3 = NS²−1 = 8 = b_1(K_{3,2}^{(2)}) — confined coupling.
+The confined coupling reads `1/α_3 = NS²−1 = 8 = b_1(K_{3,2}^{(2)})`,
+the harmonic gluon octet (adjoint of SU(NS)).
 
-Per `YangMills/Gap.lean`: the mass gap is the smallest nonzero gauge-lattice
-Laplacian eigenvalue = `c·min(NS,NT) = 4 > 0` (`massGap_pos`); `b_1 = 8` here
-is the harmonic gluon octet the gap sits above, not the gap itself.
-Per `Couplings/PhotonKernel.lean`: b_1 = 8 = adjoint SU(NS).
+This file records the α₃-channel atomic integers (`b_1 = 8 = NS²−1`,
+`d²−1 = 24`).  The mass gap itself — the smallest nonzero gauge-lattice
+Laplacian eigenvalue `c·min(NS,NT) = 4 > 0` — lives in `YangMills/Gap.lean`
+(`massGap_pos`); `b_1 = 8` is the octet the gap sits above, not the gap.
 -/
 
 namespace E213.Lib.Physics.YangMills.Bridge
 
-/-- YM mass gap = 1/α_3 confined coupling (cycle space). -/
-theorem ym_gap_atomic :
+/-- `1/α_3 = b_1 = NS²−1 = 8` (confined-coupling cycle space). -/
+theorem alpha3_b1_atomic :
     E213.Lib.Physics.Couplings.PhotonKernel.b_1 = 8
     ∧ (8 : Nat) = 3 * 3 - 1 :=
   ⟨E213.Lib.Physics.Couplings.PhotonKernel.b_1_eq_8, by decide⟩
@@ -27,8 +27,8 @@ theorem adjoint_SU_NS_atomic : 3 * 3 - 1 = 8 := by decide
 /-- adjoint SU(d) = d²−1 = 24 (= α_2 prefactor). -/
 theorem adjoint_SU_d_atomic : 5 * 5 - 1 = 24 := by decide
 
-/-- ★ YM mass gap = b_1 of K_{3,2}^{(2)} graph cohomology. -/
-theorem ym_unified_diamond :
+/-- α₃-channel atomic bundle: `b_1 = 8 = NS²−1` over `(NS,NT,d) = (3,2,5)`. -/
+theorem alpha3_channel_bundle :
     E213.Lib.Physics.Couplings.PhotonKernel.b_1 = 8
     ∧ 3 * 3 - 1 = 8
     ∧ E213.Lib.Physics.Simplex.Counts.NS = 3
@@ -37,8 +37,8 @@ theorem ym_unified_diamond :
   refine ⟨E213.Lib.Physics.Couplings.PhotonKernel.b_1_eq_8, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-/-- ★★★ YM bridge capstone — mass gap = atomic cycle space. -/
-theorem ym_bridge_capstone :
+/-- α₃ + α₂ prefactor bundle: `b_1 = 8 = NS²−1`, `d²−1 = 24`. -/
+theorem alpha3_alpha2_bundle :
     E213.Lib.Physics.Couplings.PhotonKernel.b_1 = 8
     ∧ 3 * 3 - 1 = 8
     ∧ 5 * 5 - 1 = 24

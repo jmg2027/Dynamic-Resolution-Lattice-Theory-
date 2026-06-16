@@ -15,6 +15,6 @@ import E213.Lib.Physics.YangMills.WeinbergAngle
     * `WZBosons`        — W / Z gauge-boson masses
     * `WeinbergAngle`   — sin²θ_W from atomic ratios
     * `Gap`             — Yang–Mills mass-gap structural witness
-    * `Bridge`          — cross-reference layer to
-                          Math.Cohomology / Foundations
+    * `Bridge`          — α₃-channel atomic facts (b_1 = 8 = NS²−1,
+                          d²−1 = 24); cross-reference to Gap / PhotonKernel
 -/

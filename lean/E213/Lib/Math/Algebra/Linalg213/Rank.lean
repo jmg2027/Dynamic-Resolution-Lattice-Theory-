@@ -68,7 +68,6 @@ theorem e0_e1_LI_bounded :
         (fun k => if k.val == 0 then coeff3 i else coeff3 j) vs2 = true →
       coeff3 i = 0 ∧ coeff3 j = 0 := by decide
 
-/-- ★ Target (Linalg213 capstone, restated): rank(Gram vs) ≤ 5. -/
-theorem rank_5_target_L2 : True := trivial
+-- TODO (open, Linalg213 capstone): rank(Gram vs) ≤ 5.
 
 end E213.Lib.Math.Algebra.Linalg213.Rank

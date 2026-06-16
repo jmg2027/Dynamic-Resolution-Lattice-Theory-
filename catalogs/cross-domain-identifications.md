@@ -153,21 +153,6 @@ are atomicity-numeric consequences (d = 5).
 
 ---
 
-## CDI-7 — `Hubble constant ≡ diamond audit falsifier`
-
-**Group size**: 2 decls, 377 nodes  
-**Spans**: Math.Cohomology, Physics.Cosmology
-
-**Decls**:
-  · `Math.Cohomology.Examples.DiamondAudit.diamond_audit_falsifier_coupling`
-  · `Physics.Cosmology.HubbleConstant.hubble_atomic`
-
-**Identification**: Hodge-diamond falsifier coupling proof ≡
-Hubble constant H₀ atomic-derivation.  **Cosmology constant
-emerges from same proof skeleton as the Hodge falsifier check**.
-
----
-
 ## CDI-8 — `Fractal levels ≡ Nuclear magic ≡ Multivariable integral`
 
 **Group size**: 6 decls, 597 nodes  

@@ -20,12 +20,14 @@ import E213.Lib.Physics.Nuclear.MagicNumbers
 import E213.Lib.Physics.Mixing.CabibboAngle
 
 /-!
-# Physics track complete integration (0 axioms)
+# Physics track — shared-atom integration (0 axioms)
 
-Phase 1 completion marker.  Integrates 20+ precision quantities derived
-from the same atomicity-locked atoms into a single theorem.
+Bundles the atomic-integer inputs (leading denominators, atomic ratios,
+the (NS,NT,d) constants) of the physics-track precision quantities into
+a single theorem.  This witnesses the shared atomic source; it does not
+establish the full ppb/ppm values, which live in the per-observable files.
 
-## Quantities formalized (Phase 1 cycle)
+## Quantities whose atomic inputs are bundled here
 
   Couplings:
     1/α_em IR (137.035 vs 137.036, ppm)
@@ -94,11 +96,14 @@ open E213.Lib.Physics.Simplex.Generations
 open E213.Lib.Physics.Nuclear.MagicNumbers
 open E213.Lib.Physics.Mixing.CabibboAngle
 
-/-- ★★★ PHASE 1 COMPLETE CAPSTONE ★★★
+/-- ★★★ Physics-track shared-atom bundle ★★★
 
-  All 20+ precision quantities from single atomicity (3, 2, 5, 2).
-  Phase 1 (methodology accumulation) completion marker. -/
-theorem phase1_complete :
+  Atomic-integer inputs to the physics-track precision quantities —
+  leading denominators, atomic ratios, and the (NS,NT,d) constants —
+  all read off the same (3, 2, 5, 2) configuration.  This bundles
+  those shared atomic equalities; it does NOT prove the full ppb/ppm
+  precision values, nor any completeness/uniqueness claim. -/
+theorem physics_track_shared_atoms :
     -- Couplings
     (b_1 = NS * NS - 1)                      -- α_3 = 8
     ∧ (12 * NT * 5 = 30 * 4)                 -- 1/α_2 = 30

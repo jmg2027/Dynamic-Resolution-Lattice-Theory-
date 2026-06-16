@@ -79,12 +79,6 @@ theorem ckm_delta_in_bracket :
     ∧ delta_approx_num * 1000 < delta_approx_den * 1210 := by
   refine ⟨?_, ?_⟩ <;> decide
 
-/-- ★ δ rational reduction check: `176/147 ≈ 1.1973`.
-    176·10000 = 1760000;  147·11973 = 1760031.  Difference < 100. -/
-theorem ckm_delta_3sig :
-    delta_approx_num * 10000 + 31 = delta_approx_den * 11973 := by
-  decide
-
 /-! ## §5 — Atomic constant rigor -/
 
 /-- ★ All atomic constants take their DRLT-canonical values. -/

@@ -28,7 +28,7 @@ The shared object is the `CoeffSeq = Nat → Nat` graded ring with
 - **Sub-tree**: `lean/E213/Lib/Math/` (4 files + downstream domain
   capstones)
 - **Files**:
-  - `CrossDomainUnification.lean` — Step 1-2: empirical witness across 11 domains
+  - `CrossDomainUnification.lean` — shared grade-truncation identity (`binom 5 k = 0`, k ≥ 6)
   - `ParadigmDomain.lean` — Step 3: `ParadigmWitness` typeclass
   - `ParadigmDomainGraded.lean` — Step 4: shared `trunc_op` operator
   - `ParadigmDomainGradedRing.lean` — Step 5: graded-ring instantiation via `CoeffSeq`
@@ -37,9 +37,9 @@ The shared object is the `CoeffSeq = Nat → Nat` graded ring with
 
 ## The narrative
 
-### Steps 1-2 — Empirical witness across 11 domains
+### Step 1 — Shared grade-truncation identity
 
-The pattern was first observed as a coincidence:
+The pattern was first observed as a coincidence across domains:
 - **Probability**: σ-algebra residue → atomic Boolean event lattice
 - **Information**: continuous entropy → discrete bit-counting
 - **Logic**: classical LEM → atomic Bool decide
@@ -50,9 +50,12 @@ The pattern was first observed as a coincidence:
 - **Measure theory**: σ-measure → cup-product algebra
 - **Cohomology** (D1-D3): cup-chain Δ⁴ / K_{3,2}^{(c=2)}
 
-Step 1 was per-domain witnesses (`CrossDomainUnification.lean`).
-Step 2 extended to 11 domains simultaneously typecheck under one
-∅-axiom proof body — empirical synchronicity.
+The single concrete shared identity is `binom 5 k = 0` for `k ≥ 6`
+(grade overflow), proved by the SAME `decide`-on-Pascal-recursion in
+Combinatorics, GradedDecomposition, and CupChannelInventory.
+`CrossDomainUnification.lean` records that shared identity
+(`shared_grade_truncation`).  The structural content of the unification
+is carried by the graded-ring instantiation (Steps 3-5 below).
 
 ### Step 3 — `ParadigmWitness` typeclass
 

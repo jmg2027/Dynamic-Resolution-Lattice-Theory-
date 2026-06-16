@@ -28,7 +28,7 @@ Sub-trees (each = a sub-directory + a `<DirName>.lean` umbrella):
   AlphaEM       — 1/α_em(IR) = 137.036
   Atomic        — atomic-physics observables (Bohr, BondAngles, IE/)
   Basel         — Basel partial sum S(N) brackets for ζ(2)
-  Cosmology     — Ω_Λ, H_0, N_eff, GravityShadow, HorizonInformation
+  Cosmology     — Ω_Λ, N_eff, HorizonInformation
   Couplings     — α_GUT, α_3, α_2, ColorConfinement, GUTUnification
   Foundations   — configCount cardinality + atomic constants
   Hadron        — m_p, m_n, hadron masses, ProtonG, QuarkHierarchy

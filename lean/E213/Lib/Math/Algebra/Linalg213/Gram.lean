@@ -62,10 +62,8 @@ theorem gram_orthonormal_2 :
     ∧ Gram 2 5 vs2 ⟨1, by decide⟩ ⟨0, by decide⟩ = 0
     ∧ Gram 2 5 vs2 ⟨1, by decide⟩ ⟨1, by decide⟩ = 1 := by decide
 
-/-- ★ Target (not yet proven): for any N and any vector
-    collection `vs : Fin N → Vec 5`, the Gram matrix has rank ≤ 5.
-    This is the **paper 1 chiral compression theorem** in its
-    213-internal form.  Awaits `Rank.lean`. -/
-theorem rank_5_compression_target : True := trivial
+-- TODO (open, not yet proven): for any N and any vector collection
+-- `vs : Fin N → Vec 5`, the Gram matrix has rank ≤ 5 — the chiral
+-- compression statement in its 213-internal form.  Awaits `Rank.lean`.
 
 end E213.Lib.Math.Algebra.Linalg213.Gram
