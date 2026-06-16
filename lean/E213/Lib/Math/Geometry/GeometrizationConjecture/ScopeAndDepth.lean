@@ -219,12 +219,12 @@ records the deeper picture.
 theorem K32_cohomology_depth_features :
     -- Aut(K_{3,2}^{(c=2)}) cardinality = 768 = 6·2·64
     6 * 2 * 64 = 768
-    -- H¹(K_{3,2}^{(c=2)}) rank 8 = NS² - 1 (Sym(3) cocycle dim)
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    -- Octet rank 8 = NS² - 1 (SU(3) adjoint, c-free)
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- Sym(3) representation: 2·trivial ⊕ 3·standard ⟹ 8 = 2 + 2·3
     ∧ 2 + 2 * 3 = 8
     -- Sym(3)-fixed subspace cardinality 4 = 2² (2-dim over F_2)
-    ∧ E213.Lib.Physics.Symmetry.Sym3IrrepDecomp.fixedSize = 4
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.fixedSize = 4
     -- |H¹(K)| = 2^8 = 256 (cardinality at F_2)
     ∧ (2 : Nat) ^ 8 = 256
     -- chartBase 3 2 = 5 (NS + NT)
@@ -236,8 +236,8 @@ theorem K32_cohomology_depth_features :
 theorem K32_depth_via_c3_chain_master :
     -- (a) Aut cardinality
     6 * 2 * 64 = 768
-    -- (d) H1K rank = 8
-    ∧ E213.Lib.Math.Cohomology.Bipartite.H1K.H1K.rank = 8
+    -- (d) octet rank = 8 = NS² − 1 (c-free)
+    ∧ E213.Lib.Physics.Symmetry.OctetModule.rank = 8
     -- (j) representation decomposition multiplicities
     ∧ 2 + 2 * 3 = 8
     -- These conjuncts are subsumed by c3_chain_master; this
