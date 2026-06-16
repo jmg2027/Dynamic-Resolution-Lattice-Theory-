@@ -112,4 +112,15 @@ theorem mediant_lowest_terms (a b c d g : Int)
   rw [heq] at hdiff
   exact hdiff
 
+
+/-- ★ **Mediant cross-difference (Stern–Brocot determinant)**: `b(a+c) − a(b+d) = bc − ad`
+    — the mediant's cross-determinant with its left parent equals the parents'
+    cross-determinant `bc − ad` (the `det = ±1` adjacency invariant of the Stern–Brocot tree). -/
+theorem mediant_cross_diff (a b c d : Int) :
+    b * (a + c) - a * (b + d) = b * c - a * d := by ring_intZ
+
+/-- ★ The mediant denominator strictly exceeds each parent denominator (`b, d > 0`). -/
+theorem mediant_den_gt {b d : Nat} (hb : 0 < b) (hd : 0 < d) :
+    b < b + d ∧ d < b + d :=
+  ⟨Nat.lt_add_of_pos_right hd, Nat.lt_add_of_pos_left hb⟩
 end E213.Lib.Math.NumberTheory.Mediant

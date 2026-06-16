@@ -54,4 +54,21 @@ theorem swap01_involutive (i : Nat) :
   | 1 => rfl
   | n + 2 => rfl
 
+
+/-- The 3-cycle `(0 1 2)` of `S₃`: `0↦1↦2↦0`, fixing `n ≥ 3`. -/
+def cyc3 : Perm
+  | 0 => 1
+  | 1 => 2
+  | 2 => 0
+  | n + 3 => n + 3
+
+/-- ★ **The 3-cycle has order 3**: `cyc3³ = id` (`0→1→2→0`, etc.).  The first
+    odd-order element of `S₃`, complementing the order-2 transposition `swap01`. -/
+theorem cyc3_order3 (i : Nat) :
+    composePerm cyc3 (composePerm cyc3 cyc3) i = identityPerm i := by
+  match i with
+  | 0 => rfl
+  | 1 => rfl
+  | 2 => rfl
+  | n + 3 => rfl
 end E213.Lib.Math.Algebra.Group.Symmetric

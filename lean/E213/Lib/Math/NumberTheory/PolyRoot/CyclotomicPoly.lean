@@ -52,4 +52,14 @@ theorem eval_pmoSucc_zero (k : Nat) : eval (pmoSucc k) 0 = -1 := by
   show (-1 : Int) + 0 * eval (Xp k) 0 = -1
   rw [E213.Meta.Int213.zero_mul]; decide
 
+
+/-- `(1:Int)^k = 1` (pure induction; core `Int.one_pow` is unavailable). -/
+theorem one_pow_int : ∀ k : Nat, (1 : Int) ^ k = 1
+  | 0 => rfl
+  | k + 1 => by rw [Int.pow_succ, one_pow_int k]; decide
+
+/-- ★ **`1` is a root of `Tⁿ − 1`** (`eval (pmoSucc k) 1 = 1^{k+1} − 1 = 0`): every
+    `Tⁿ − 1` vanishes at `1`, the trivial `n`-th root of unity. -/
+theorem eval_pmoSucc_one (k : Nat) : eval (pmoSucc k) 1 = 0 := by
+  rw [eval_pmoSucc, one_pow_int (k + 1)]; decide
 end E213.Lib.Math.NumberTheory.PolyRoot
