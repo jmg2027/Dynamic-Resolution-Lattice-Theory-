@@ -40,24 +40,23 @@ emergence (parallel branch C3 chain).
 
 ---
 
-## CDI-2 — `b₁(K_5) = δ_CP = adjoint_SU(d) = adjoint_SU(NS)`
+## CDI-2 — distinct integers sharing a trivial `a·a−1 = n` proof shape (NOT an identity)
 
 **Spans**: Math.Cohomology, Physics.Mixing, Physics.YangMills
 
 **Decls**:
-  · `Math.Cohomology.Examples.K5.b1_K5`
-  · `Physics.Mixing.Bridge.delta_cp_atomic`
-  · `Physics.YangMills.Bridge.adjoint_SU_d_atomic`
-  · `Physics.YangMills.Bridge.adjoint_SU_NS_atomic`
+  · `Math.Cohomology.Examples.K5.b1_K5`            (value 6)
+  · `Physics.Mixing.Bridge.delta_cp_atomic`        (value 24)
+  · `Physics.YangMills.Bridge.adjoint_SU_d_atomic` (value 24)
+  · `Physics.YangMills.Bridge.adjoint_SU_NS_atomic`(value 8)
 
-**Identification**: First Betti of K_5 ≡ CP-violation angle δ_CP ≡
-SU(d) adjoint dimension ≡ SU(NS) adjoint dimension.  **4-way
-structural identity** spanning cohomology, flavour-mixing,
-Yang-Mills.
-
-**Atomicity origin**: K_5 from d=5.  SU(d) and SU(NS) adjoints
-from atomicity decomposition.  δ_CP arises from the same NS²-1
-counting via CKM matrix structure.
+**Honest reading**: these are **three different integers** (6, 24, 8),
+not a single identified quantity.  A prior version of this entry called
+them a "4-way structural identity"; that was **false** — the only thing
+shared is the trivial proof *shape* `a·a − 1 = n` discharged by
+`decide`.  Same `decide` proof form is not a cross-domain identification
+of *values*.  Retained here only to record that the shape-vector scan
+groups them by proof skeleton, not to claim the numbers coincide.
 
 ---
 
@@ -98,10 +97,11 @@ emerges from this Betti structure.
 literally elaborates to the same Expr as the algebraic
 identity**.
 
-**Reading**: physics constants' algebraic structure isn't
-"chosen to mimic math" — at the Lean elaboration level it IS
-the math.  Atomicity-numeric specialisation of a generic
-algebraic identity.
+**Reading (deflated)**: per its own source note, `sq_of_add` is a
+**deliberately duplicated** lemma `(a+b)² = a² + 2ab + b²` (inlined to
+avoid an upward dependency).  So the byte-identical Expr is expected: it
+is the *same lemma copied*, not two independent derivations converging.
+This records the duplication, not a "physics IS math" bridge.
 
 ---
 
@@ -123,18 +123,13 @@ algebraic identity.
   · `Physics.YangMills.WZBosons.cos2_W_in_75_78`
   · `Physics.AlphaEM.GramSelfEnergy.aug_bracket_contains_observed_high_precision`
 
-**Identification**: **8 distinct physics-domain "observed
-constant X is in DRLT-bracket [low, high]" proofs are byte-
-identical post-normalisation**.  Ω_Λ (cosmology), E_d (nuclear),
-He IE (atomic), Δm_np (hadron), H E1 (atomic), n50 candidate
-(α_em structural gap), cos²θ_W (Yang-Mills), high-precision
-α_em (Gram self-energy) all share the same 321-1077 node
-proof template.
-
-**Implication**: DRLT physics predictions follow a **universal
-bracket-containment pattern**.  Every "predicted constant in
-DRLT-bracket" follows this skeleton.  Candidate for a generic
-`physics_bracket_containment_template` parametric theorem.
+**Honest reading (deflated)**: 8 physics-domain "observed constant X is
+in bracket [low, high]" proofs share the **same `decide` interval-check
+proof shape**.  This is *shared triviality* — every `low < x ∧ x < high`
+discharged by `decide` elaborates the same way — **not** a structural
+bridge between the domains.  The constants and brackets differ; only the
+proof skeleton is shared.  A prior version called this a "universal
+pattern / deep unity"; that framing is retracted.
 
 ---
 
@@ -214,17 +209,15 @@ identification**.  It says:
 > theorem B in namespace Y produce **byte-identical elaborated
 > Expr** post-normalisation.
 
-This is much stronger than "A and B are analogous".  It means:
-
-  · The elaborator produced the same term (modulo named
-    constants).
-  · The mathematical content is the same up to a
-    framework-specific specialisation.
-  · The cross-domain bridge is structural, not coincidental.
-
-CDIs surface the **deep architectural unity** of DRLT — math
-theorems and physics theorems literally share proof skeletons
-at atomicity-numeric instances.
+It means the elaborator produced the same term (modulo named
+constants).  **Caution**: a shared Expr-shape is only as meaningful as
+the proof it encodes.  When the shared shape is a *trivial* tactic
+(`decide` on an interval, `decide` on `a·a−1 = n`, or a duplicated
+lemma), the grouping records shared *triviality*, not a structural
+identity of the *values* — see CDI-2, CDI-4, CDI-5.  A CDI is genuine
+only when the shared term carries non-trivial mathematical content
+(e.g. CDI-1, CDI-9's "det = 1" Pell-unit check); read each entry's own
+"honest reading" before citing it as a bridge.
 
 ---
 

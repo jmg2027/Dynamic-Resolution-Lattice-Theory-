@@ -128,14 +128,6 @@ the framework.
   `lean/E213/Lib/Physics/Foundations/AtomicSuperCatalog.lean`
   (`muon_prefactor_falsifier`).
 
-### F25: m_t/m_c ≈ 137 ∈ [130, 145] (1/α_em atomic match)
-  Top-charm mass ratio coincides with the 1/α_em fine-structure
-  integer.  Same atomic 137 reads out both ratios.  Pairs with
-  `QuarkHierarchy.quark_hierarchy_capstone` chain composition
-  (NS·d² + NS·NT² = 87, + correction → 137).
-  `lean/E213/Lib/Physics/Hadron/MtOverMc.lean`
-  (`mt_mc_falsifier_bracket`).
-
 ### F26: η_B ≈ 6 × 10⁻¹⁰ atomic
   Baryon-to-photon ratio leading integer 6 = NS·NT uniquely fixed
   by atomic (NS, NT) = (3, 2); denominator exponent 10 = d·NT

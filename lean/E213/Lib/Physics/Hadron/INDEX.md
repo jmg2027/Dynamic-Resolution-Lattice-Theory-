@@ -17,7 +17,7 @@ proton ratio, proton g-factor, proton-electron mass ratio.
 ## Top-level
 
   - `Hadron.lean` aggregator
-  - `MtOverMc.lean` — m_t/m_c falsifier bracket pairing for the 1/α_em atomic match
+  - `MtOverMc.lean` — m_t/m_c quark-mass chain atomic skeleton sum (NS·d² + NS·NT² = 87)
 
 ## Where to add new files
 

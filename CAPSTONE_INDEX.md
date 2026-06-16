@@ -95,7 +95,7 @@ double-counting dual — both proven ∅-axiom.
 - Physics-named coincidences live in their natural topical files:
   - `Lib/Physics/Hadron/ProtonElectronRatio.six_atomic_dual` (Lenz)
   - `Lib/Physics/Foundations/KoideFormula.koide_atomic` (Koide)
-  - `Lib/Physics/Hadron/ProtonMass.r_p_v2_atomic` (proton radius)
+  - `Lib/Physics/Hadron/ProtonMass.proton_atomic_readings` (proton atomic readings)
   - `Lib/Physics/Mass/HierarchyTowers.hierarchy_from_cardinality`
 - `Lib/Physics/Nuclear/MagicNumbersAtomic.nuclear_magic_atomic_capstone` — 7/7 magic
 
