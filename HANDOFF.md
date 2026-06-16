@@ -44,7 +44,24 @@ sharpest insight + one ∅-axiom buildable brick + the honest wall.  Six new bri
    `harmonic_recurrence_lcm`: instantiates `harmonic_part_recurrence` at `ℓ = lcm(1..N)³`,
    discharging both divisibility hypotheses via `cube_dvd_lcm_cube`.
 
-### Honesty correction
+### Wave 2 bricks (second debate round)
+
+7. **Hodge conjecture for T⁴ — the biconditional** (`Cohomology/Surfaces/AbelianSurfaceHodge.lean`).
+   `hodge11_iff_algebraic` + `neron_severi_T4`: `IsHodge11 F ↔ IsAlgebraic F`
+   (`NS(T⁴)=H^{1,1}∩H²`, full Lefschetz (1,1) for `T⁴`) + rank-`4` ℤ-independent
+   generator basis + the genuine gap `H^{1,1}⊊H²`.  ∅-axiom-decidable (fixed rational `J`).
+
+8. **Metric signature wiring** (`Physics/Mixing/LorentzSignature.lean`).
+   `time_axis_is_order2_via_NT`: the negative axis is canonically the `NT`-sourced
+   order-2 (`i`) axis — count `NT−1`, tied to `NT²=4` and `Λ¹ ⋆²=−1` by shared source.
+   Honest scope: the strong "MUST be the `⋆²=−1` carrier" is unreachable (`⋆²` is
+   uniform `(4,0)` on `Λ¹`).
+
+Honesty fix: `gravity_reconnection_hinge_holonomy.md` cited the **deleted**
+`GravityShadow.lean`; corrected with the panel verdict ("gravity = real part" is a
+relabeling; standing walls recorded).
+
+### Honesty correction (wave 1)
 `research-notes/frontiers/rebuild_roadmaps/proton_electron_ratio_rebuild.md` —
 the Stage-1 bracket claim was **numerically false** (`6π⁵ ∈ (1835.60, 1839.82)`
 from `π∈(311/99,22/7)` pins no consecutive integers).  Corrected; `6π⁵` recorded

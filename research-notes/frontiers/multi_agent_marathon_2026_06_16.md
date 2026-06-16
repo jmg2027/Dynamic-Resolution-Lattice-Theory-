@@ -57,6 +57,23 @@ witness (signed cancellation, or a residue uniform over an unbounded orbit).  Po
 at that residue **is** the conjecture (Frobenius 1913 / the zero-free region), not a
 bounded step — the terminal-localization pattern, now seen to be a general phenomenon.
 
+## Wave 2 — bricks landed (∅-axiom)
+
+| Frontier | Theorem (file) | What it is |
+|---|---|---|
+| Hodge conjecture (T⁴) | `neron_severi_T4` (`Cohomology/Surfaces/AbelianSurfaceHodge.lean`) | The biconditional `IsHodge11 F ↔ IsAlgebraic F` (`NS(T⁴)=H^{1,1}∩H²`, the full Lefschetz (1,1) for `T⁴`) + rank-`4` ℤ-independent generator basis (`nsComb_injective`) + the genuine gap `H^{1,1}⊊H²`. ∅-axiom-decidable because `J` is a fixed *rational* operator. |
+| Metric signature wiring | `time_axis_is_order2_via_NT` (`Physics/Mixing/LorentzSignature.lean`) | The negative axis is canonically the `NT`-sourced order-2 (`i`) axis — count `NT−1`, tied to `NT²=4` and the `Λ¹ ⋆²=−1` by shared `NT` source. |
+
+Plus an honesty fix: `gravity_reconnection_hinge_holonomy.md` cited the **deleted**
+`GravityShadow.lean` as a live target; corrected, with the panel's verdict that
+"gravity = real part" is a relabeling (the Hermitian split is content-free) and the
+standing walls (no `G_N`/scale, blocked `h`-curvature, the `b₁=2` vs `b₁=8` forbidden
+bridge) recorded.
+
+Wave-2 walls confirmed: general Hodge (continuous `J` / `(2,2)`-torsion / transcendence
+— uncrossable by finite `decide`); the strong "the `−` axis MUST be the `⋆²=−1` carrier"
+(⋆² is uniform `(4,0)` on `Λ¹` — no asymmetry to single out one axis).
+
 ## Honest walls recorded (not reached this session)
 
 - **YM confinement angle 2** (Wilson-loop area law): no embedding on the abstract
