@@ -90,10 +90,14 @@ surfaced: **Bertrand's postulate** (reachable; keystone = primorial bound `∏_{
       strong-induction.
     A famous theorem, ∅-axiom.  Corollaries landed: `upper_window_count_pow_le`,
     `prime_count_window_le` (`(N/2+1)^{π(N)−π(N/2)} ≤ 4ᴺ`, a Chebyshev-type π bound).
-    Remaining for *full* Bertrand (roadmap `research-notes/frontiers/bertrand_postulate.md`):
-    the `(2n/3,n]` vanishing window — **gated on building the exact Legendre formula**
-    `vp(n!) = Σ⌊n/pⁱ⌋` (repo has only the Kummer upper bound; this is the multi-hour gateway)
-    — then the prime-range partition + `√`-tail, the crossover past `N₀≈468`, the finite chain.
+    Corollaries: `upper_window_count_pow_le`, `prime_count_window_le`.
+    **All component lemmas for Erdős's Bertrand are now ∅-axiom** — the `(2n/3,n]` vanishing
+    window landed via the (already-closed) `Legendre.legendre` + the pure
+    `NatDiv213.div_eq_of_sandwich`: `BertrandWindow.prime_not_dvd_central_binom_mid`.  What
+    remains for *full* Bertrand is purely the **assembly** (no new ingredient): partition
+    `C(2n,n)=∏p^{vₚ}` over the four prime ranges, the crossover inequality past `N₀≈468`
+    (the hard pure-`Nat` asymptotic), and the finite prime chain.  Roadmap:
+    `research-notes/frontiers/bertrand_postulate.md`.
 
 11. **Hodge T⁴ — full H² signature** (`AbelianSurfaceHodge.lean`).  `transc_complement_signature`
     (PURE): the transcendental complement `{e02−e13, e03+e12}` is signature `(2,0)` (both

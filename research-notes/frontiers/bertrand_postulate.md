@@ -42,9 +42,12 @@ With the primorial bound `∏_{p≤N} p ≤ 4ᴺ` closed, the Erdős proof needs
 product is `≤ 4^{2n/3}` by the primorial) times the `√(2n)`-bounded prime-power tail
 (Kummer `vp ≤ ⌊log_p 2n⌋`); contradict the lower bound `4ⁿ/(2n+1) ≤ C(2n,n)`.  Pieces:
 
-1. **The `(2n/3, n]` vanishing window** — primes there do not divide `C(2n,n)`
-   (`vp = 0`: `p > 2n/3` and `2p ≤ 2n < 3p` give exactly one factor in numerator and one
-   in each `n!`, cancelling).  MEDIUM.
+1. ~~**The `(2n/3, n]` vanishing window**~~ — ✅ **CLOSED ∅-axiom (2026-06-16)**:
+   `BertrandWindow.prime_not_dvd_central_binom_mid` — for prime `p` with `2n/3 < p ≤ n`,
+   `p² > 2n`, Legendre gives `vₚ(C(2n,n)) = ⌊2n/p⌋ − 2⌊n/p⌋ = 2 − 2 = 0`, so `p ∤ C(2n,n)`.
+   Built on the closed `Legendre.legendre` + the pure floor lemma `NatDiv213.div_eq_of_sandwich`
+   (`⌊n/p⌋=1`, `⌊2n/p⌋=2`) + `Nat.div_eq_of_lt` (higher powers vanish) + the new
+   `sumTo_eq_first`.  **All component lemmas for Erdős's Bertrand are now ∅-axiom.**
 2. **The prime-range partition + small-prime / `√` tail** — split primes `≤ 2n` into
    `≤ 2n/3` (primorial-bounded), `(2n/3, n]` (vanish), `(n, 2n]` (the assumed-empty window),
    with the `≤ √(2n)` primes contributing `≤ (2n)` each (`IntSqrt.isqrt`).  MEDIUM.
@@ -53,6 +56,10 @@ product is `≤ 4^{2n/3}` by the primorial) times the `√(2n)`-bounded prime-po
 4. **The finite prime chain** `2,3,5,7,13,23,43,83,163,317,631,1259,2503` covering `n < N₀`
    (`decide` on primality + the doubling gaps).  MEDIUM, tedious.
 
-No in-principle obstruction; the keystone (the part that needed the binom/fact bridges) is done.
+**All component lemmas are now ∅-axiom** (primorial keystone + binom/fact bridges +
+odd-central bound + the `(n,2n]` and `(2n/3,n]` window facts).  What remains is purely the
+**assembly** (items 2–4): partition the product `C(2n,n) = ∏ p^{vₚ}` over the four prime
+ranges, then the crossover inequality (item 3 — the hard pure-`Nat` asymptotic) + the finite
+chain (item 4).  No new mathematical ingredient; no in-principle obstruction.
 
 (Panel transcript: `/tmp/bertrand_panel.md`.)
