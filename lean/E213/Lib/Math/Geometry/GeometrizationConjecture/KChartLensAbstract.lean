@@ -6,8 +6,9 @@ import E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness
 # Abstract chart-Lens type for K-deployments (M2 abstract closure)
 
 M2 (chart-Lens count = `chartBase NS NT − selfPointingAxes`) was
-closed for the specific K_{3,2}^{(c=2)} deployment via `V32Betti.
-kerSizeDelta0 = 2^1`.  The full M2 closure asks for an abstract
+closed for the specific K_{3,2}^{(c=2)} deployment via
+`Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2 = 2 = 2^1`.
+The full M2 closure asks for an abstract
 chart-Lens type capturing the axes-partition pattern for any
 K_{NS,NT}^{(c)}.
 
@@ -112,8 +113,8 @@ theorem K32_chartVisible_eq_4 : K32_chart_lens.chartVisibleAxes = 4 := rfl
 theorem K32_selfPointing_eq_1 : K32_chart_lens.selfPointingAxes = 1 := rfl
 
 /-- K_{3,2}^{(c=2)} chart-Lens partition matches the
-    `V32Betti.kerSizeDelta0 = 2^selfPointing` deployment-level
-    derivation from `Ansatz.lean`. -/
+    `Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2 = 2^selfPointing`
+    deployment-level derivation from `Ansatz.lean`. -/
 theorem K32_chart_lens_v32betti_compatible :
     K32_chart_lens.selfPointingAxes = 1
     ∧ K32_chart_lens.chartVisibleAxes = 4
@@ -133,7 +134,7 @@ theorem K32_chart_lens_v32betti_compatible :
     · Poincaré tree K_{3,1}^{(c=1)}: visible = 3, self = 1
     · d=4 tree branch K_{1,4}^{(c=1)}: visible = 4, self = 1
 
-  The K_{3,2}^{(c=2)} instance bridges to the V32Betti
+  The K_{3,2}^{(c=2)} instance bridges to the parametric δ⁰
   deployment-level derivation for the forced critical deployment.
   The arbitrary-K generalization of the `selfPointingAxes = 1`
   derivation is the `## Universal M2 close` section below
@@ -257,8 +258,9 @@ theorem geometrization_followup_close_certificate :
 
 /-! ## Universal M2 close
 
-The K_{3,2}^{(c=2)}-specific `selfPointingAxes = 1` (from V32Betti)
-generalizes to *every* connected K_{NS,NT}^{(c)} via
+The K_{3,2}^{(c=2)}-specific `selfPointingAxes = 1` (from the
+parametric δ⁰ at (3,2,2)) generalizes to *every* connected
+K_{NS,NT}^{(c)} via
 `Parametric.Betti.KernelConstancyUniversal`: the δ⁰-kernel is exactly the
 two constant cochains, so the self-pointing residue is 1-dimensional
 and the chart-visible part is `chartBase − 1`, with no per-deployment

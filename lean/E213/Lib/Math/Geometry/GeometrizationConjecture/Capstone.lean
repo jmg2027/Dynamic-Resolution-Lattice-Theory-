@@ -141,7 +141,7 @@ None of these are blocking for R1 close.
 
   2. **R1 / M2 partial close** (steps 2-3):
      · Axiom-level shadow via `LensInternality.lens_is_raw_internal`
-     · Deployment-level via `V32Betti.kerSizeDelta0_eq_2`
+     · Deployment-level via `Delta0AndConnectedness.b0_K32_c2`
 
   3. **M1 dual route** (steps 4-5+8):
      · Atomicity route: `triIter 2 → (NT, NS) = (2, 3)`

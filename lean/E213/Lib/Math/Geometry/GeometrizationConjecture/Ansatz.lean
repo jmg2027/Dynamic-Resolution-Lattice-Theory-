@@ -3,12 +3,13 @@ import E213.Meta.LensInternality
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness
 
 /-!
-# Chart-axis ansatz: core defs + axiom shadow + V32Betti deployment
+# Chart-axis ansatz: core defs + axiom shadow + parametric δ⁰ deployment
 
 Steps 1-3 R1:
   · Step 1: definitional scaffold (chartBase, selfPointingAxes, chartVisibleAxes)
   · Step 2: axiom-level shadow via `Meta.LensInternality.toData`
-  · Step 3: deployment-level derivation via `V32Betti.kerSizeDelta0_eq_2`
+  · Step 3: deployment-level derivation via
+    `Parametric.Delta0AndConnectedness.b0_K32_c2`
 
 Sub-tree: `GeometrizationConjecture/INDEX.md`.
 -/
@@ -212,7 +213,8 @@ theorem lens_toData_split (α : Type) (L : Lens α) :
     (R1 step 3)
 
 The deployment-level `selfPointingAxes := 1` is now **genuinely
-derived** from `V32Betti.kerSizeDelta0_eq_2`:
+derived** from `Parametric.Delta0AndConnectedness.b0_K32_c2`
+(`kerSizeDelta0Direct 3 2 2 = 2`):
 
   · `C⁰ = Fin 5 → Bool` (vertex cochain space)
   · `dim C⁰ = 5 = chartBase 3 2 = N_S + N_T`

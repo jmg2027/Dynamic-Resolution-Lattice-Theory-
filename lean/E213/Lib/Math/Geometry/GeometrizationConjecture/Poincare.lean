@@ -495,8 +495,8 @@ theorem filling_versus_tree_dual_path :
 
 /-- ★★★★ **Poincaré two-layer trivial-loop residue**
 
-  Bring `V32Betti.b0_eq_1` connectedness explicitly into the
-  Poincaré pillar narrative.
+  Bring `Delta0AndConnectedness.b0_K32_c2` connectedness explicitly
+  into the Poincaré pillar narrative.
 
   "Trivial loop residue" splits into two layers in 213-Lens:
 
@@ -507,7 +507,7 @@ theorem filling_versus_tree_dual_path :
   in the Poincaré-analog sense.  At chartBase = 5 (d_M = 4):
 
     · **Critical branch K_{3,2}^{(c=2)}**: Layer A vanishes
-      (`V32Betti.kerSizeDelta0 = 2^1` → b_0 = 1, connected) but
+      (`kerSizeDelta0Direct 3 2 2 = 2 = 2^1` → b_0 = 1, connected) but
       Layer B does NOT (b_1 = 8).  Reading: connected with rich loops.
     · **Tree branch K_{3,1}^{(c=1)}** (and K_{1,3}, K_{1,4}, ...):
       both layers vanish — Layer A by `isTreeDeployment` (a tree

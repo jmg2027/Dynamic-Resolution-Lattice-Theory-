@@ -24,7 +24,7 @@ top entries.
 
 **Decls**:
   · `Math.HodgeConjecture.Foundation.ConjectureLens.b1_eq_NS_sq_minus_one`
-  · `Math.Cohomology.Bipartite.V32Betti.b1_eq_NS_sq_minus_1`
+  · `Math.Cohomology.Bipartite.Parametric.EulerAndCapstone.b1Formula_K32`
   · `Math.HodgeConjecture.Pairing.HodgeIndex.h1_dim_K32`
 
 **Identification**: The first Betti number of K_{NS,NT}^{(c=2)}

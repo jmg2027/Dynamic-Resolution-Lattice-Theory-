@@ -23,7 +23,6 @@ primitives, with two companion volumes:
 
 ### `physics/`
   - `periodic-table.md` — the periodic table, 213 version.
-  - `diamond.md` — diamond crystal narrative (`figures/diamond.svg`).
 
 ## Book ↔ Lean ↔ Catalog synchronization
 
