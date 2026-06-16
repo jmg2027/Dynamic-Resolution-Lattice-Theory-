@@ -88,9 +88,17 @@ surfaced: **Bertrand's postulate** (reachable; keystone = primorial bound `∏_{
     - `prime_dvd_odd_binom` + `window_prod_le_odd` + `primorial_le_four_pow` (`Primorial.lean`)
       — the vp divisibility (over the `fact=factorial` bridge), the window bound, the parity
       strong-induction.
-    A famous theorem, ∅-axiom.  Remaining for *full* Bertrand (roadmap
-    `research-notes/frontiers/bertrand_postulate.md`): the `(2n/3,n]` vanishing window, the
-    prime-range partition + `√`-tail, the crossover past `N₀≈468`, the finite prime chain.
+    A famous theorem, ∅-axiom.  Corollaries landed: `upper_window_count_pow_le`,
+    `prime_count_window_le` (`(N/2+1)^{π(N)−π(N/2)} ≤ 4ᴺ`, a Chebyshev-type π bound).
+    Remaining for *full* Bertrand (roadmap `research-notes/frontiers/bertrand_postulate.md`):
+    the `(2n/3,n]` vanishing window — **gated on building the exact Legendre formula**
+    `vp(n!) = Σ⌊n/pⁱ⌋` (repo has only the Kummer upper bound; this is the multi-hour gateway)
+    — then the prime-range partition + `√`-tail, the crossover past `N₀≈468`, the finite chain.
+
+11. **Hodge T⁴ — full H² signature** (`AbelianSurfaceHodge.lean`).  `transc_complement_signature`
+    (PURE): the transcendental complement `{e02−e13, e03+e12}` is signature `(2,0)` (both
+    `+2`, orthogonal, orthogonal to all 4 NS generators, neither `(1,1)`), completing the full
+    intersection-form signature `(3,3) = (1,3)_NS ⊕ (2,0)_transc` on `H²(T⁴;ℤ)=ℤ⁶`.
 
 ### Honesty correction (wave 1)
 `research-notes/frontiers/rebuild_roadmaps/proton_electron_ratio_rebuild.md` —
