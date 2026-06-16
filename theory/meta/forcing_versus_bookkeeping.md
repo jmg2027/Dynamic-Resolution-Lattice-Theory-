@@ -45,6 +45,11 @@ more*.
   - `ModArith/FieldIffPrime` — `ℤ/n` is a field ⟺ n prime, on residues:
     invertibility decided by Bezout, non-field exhibited as an explicit zero
     divisor `(a·b)%n = n%n = 0`. *The field dichotomy is the gcd computation.*
+  - `NumberTheory/UnitsOfZn` — the multiplicative group `(ℤ/n)^×` on
+    representatives: a unit is a coprime residue, closure under `·` mod `n` is the
+    gcd fact `gcd(ab,n)=1`, inverses are Bezout, and the order is `φ(n)`
+    *definitionally* (`unit_count_eq_totient := rfl`). *The group structure lives
+    on the coprime-residue set; the quotient ring was packaging.*
 - **B — Classical / LEM avoidance.** An existence theorem classically by
   *minimal counterexample / `by_contra`* (LEM + well-ordering), re-proven by
   *explicit descent / bounded search*. Reveals: the witness / algorithm.
@@ -55,6 +60,17 @@ more*.
   - `ModArith/WilsonConverse` (`exists_nontrivial_factor`) — "least divisor > 1
     is prime" (well-ordering) becomes a **bounded prime search**: an explicit,
     computed factor.
+  - `NumberTheory/DividesPairPigeonhole` — "among any `n+1` numbers in `[1,2n]`,
+    one divides another." The classical pigeonhole asserts a non-constructive `∃`
+    (two share an odd part — *which* pair unstated). ∅-axiom forces the witness
+    twice: `same_oddpart_dvd` reads `a ∣ b` straight off the 2-adic valuation
+    comparison (explicit cofactor `2^(v2 b − v2 a)`), and the collision must be
+    *produced* — which forced a new reusable primitive
+    `Combinatorics/Pigeonhole.exists_collision` (a decidable scan + `shiftAround`
+    recursion *returning* the colliding indices, where the prior `no_inj_lt` only
+    refuted injectivity → `False`). *The constructive content of pigeonhole is the
+    witness-returning form; the dividing pair is computed, not asserted.* (Two
+    independent agents converged on this exact shape — the route is forced.)
 - **C — non-effective → effective.** A classically non-effective existence
   forced into a *modulus / constructor*. Reveals: the rate / the construction.
   The corpus modulus programme and the `Math/Logic/` omniscience hierarchy
