@@ -68,23 +68,41 @@ Done (build-green, ∅-pure):
   Cosmology/DarkEnergy, Capstones/{MasterCatalog,PhysicsTrackComplete},
   ClosedPropagator, FibonacciExtended, …).  Removing it is a Phase-F catalog sweep.
 
-**ESCALATED — `V32/V32Betti/H1K/OctetCokernel` deletion is BLOCKED.**
-These are NOT relabelable to `NS²−1`: they are the *substrate* of the 18-phase
-C3-chain representation-theory programme (`Lib/Physics/Symmetry/`): `V32` is the
-concrete 12-edge K_{3,2}^{(c=2)} graph (`srcOf/tgtOf/delta0`, the C₂⁶ sheet-swap);
-`H1K` is the rank-8 ℤ/2-module on which the explicit 8×8 σ-matrices act (matrices
-derived from the c=2 doubled-edge tree decomposition); `Sym3IrrepDecomp` enumerates
-its 256 vectors.  This chain closes in `Symmetry/C3ChainCapstone.c3_chain_master`
-(★★★★★) and is *cited inside* the closed Geometrization capstone
-`Geometry/GeometrizationConjecture/ScopeAndDepth.K32_depth_via_c3_chain_master`
-(uses `H1K.H1K.rank = 8`, `Sym3IrrepDecomp.fixedSize = 4`).  Deleting the carriers =
-rebuilding the entire C3 chain (Aut card 768, σ-matrices, ι-embedding, F₂-irrep
-decomposition) on a different object AND re-closing Geometrization — a multi-file
-rebuild, not a re-rooting.  Per the risk register's hard gate (don't break a closed
-capstone without a verified replacement), this thread is STOPPED for a dedicated
-follow-up (build the c-free rank-8 module + port the C3 chain, verify, *then* delete).
-`OctetCokernel` alone is a clean leaf (only the `Bipartite.lean` aggregator imports
-it) but was left in place to keep the carrier set coherent for the follow-up.
+**C3-chain port DONE (2026-06-16): `H1K`/`OctetCokernel` + c=2-graph
+Symmetry cluster deleted; capstones re-homed c-free.**
+
+The abstract rep-theoretic content was ported onto a new c-free carrier
+`Lib/Physics/Symmetry/OctetModule.lean`: `Octet := Fin 8 → Bool`,
+`rank = NS²−1 = 8` (sourced from `SpectrumComplete.alpha_3_channel`, not a
+graph `b₁`), the two Sym(3) involution generators `M_S01`/`M_S12`, the
+Coxeter presentation `s²=t²=(st)³=e`, the Sym(3)-fixed subspace
+(`fixedSize = 4`), the decomposition `2·trivial ⊕ 3·standard`, and the
+explicit standard 2-rep pairs.  The 8×8 entries are a valid matrix
+realisation of Sym(3) ⊂ GL(8,𝔽₂) (verified by `decide`), carrying no
+edge-multiplicity data — the c=2 graph was only the discovery route.
+
+- `C3ChainCapstone.c3_chain_master` (★★★★★) rebuilt c-free: routes through
+  `OctetModule` + `Sym3Group` + `AutKGroup` + `BettiKernel` (`H¹(Δ⁴)=0`,
+  4-simplex contractibility).  The two graph-embedding conjuncts (ι_edge
+  collapse, ι Sym(3)-equivariance) are replaced by the c-free octet
+  sourcing `8 = NS²−1`; all abstract conjuncts preserved.
+- Geometrization gate `ScopeAndDepth.K32_depth_via_c3_chain_master` +
+  `K32_cohomology_depth_features` re-pointed to `OctetModule.rank` /
+  `OctetModule.fixedSize` — still proven, still PURE.
+- Re-pointed all other consumers (Geometrization/{CrossFrame,Exotic4Mfd,
+  Ricci,StructuralMapping,EightGeometries,KChartLensAbstract,Capstone,
+  Poincare}, AkbulutCork/{Foundation,CrossFrame,Twist,CorkTheorem}) to
+  `OctetModule`.
+- `git rm`: Symmetry/{Sym3OnH1K,Sym3OnH1KMatrix,Sym3OnH1KCayley,
+  Sym3IrrepDecomp,Sym3StandardReps,Sym3StandardRepThird,IotaKToDelta4,
+  IotaSym3Equivariance,Sym3OnKEdges,Sym3BlockDiagonal,C2_6MixedMatrices,
+  C2_6OnH1K}, Cohomology/Bipartite/{H1K,OctetCokernel}.
+
+**`V32`/`V32Betti` KEPT.** They are NOT C3-chain-only: a large non-C3
+consumer base imports them (HodgeConjecture/*, Mobius213*, Tripartite,
+C2DoublingDerivation, DyadicFSM, GeometrizationConjecture/Ansatz, K5,
+DiamondShape).  Their c-free re-rooting / deletion is a separate Phase-B/F
+sweep, out of scope for the octet C3-chain port.
 
 ### Phase D — α_em spine c-free re-derivation (RESEARCH-GRADE; verify before delete)
 The headline `1/α_em = 137.036` (0.2 ppb, `GramStructuralCapstone`) routes the

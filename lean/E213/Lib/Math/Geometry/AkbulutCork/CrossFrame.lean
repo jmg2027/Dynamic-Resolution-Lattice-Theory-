@@ -19,7 +19,7 @@ appears across:
   3. **HC_K32 Hodge closure**: 256 = 2⁸ cup-subring on H¹
   4. **Möbius P mod-5 pentagonal closure**: c=2 forcing
   5. **Akbulut cork-twist** (★ new): `signedCorkTwistCount = +4`
-     = `Sym3IrrepDecomp.fixedSize` = dim of Sym(3)-fixed subspace
+     = `OctetModule.fixedSize` = dim of Sym(3)-fixed subspace
      (= 4 = 2² cochains in F_2, dim 2 over F_2)
 
 All five identify the same Sym(3) algebraic spine.
@@ -39,9 +39,9 @@ open E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
 /-! ## §1 — Cork ↔ Sym(3)-fixed correspondence -/
 
 /-- ★★★★ **Cork-frame ↔ Sym(3)-fixed identification**:
-    `signedCorkTwistCount = Sym3IrrepDecomp.fixedSize = 4`.
+    `signedCorkTwistCount = OctetModule.fixedSize = 4`.
     Both count the Sym(3)-trivial-isotypic component on
-    H¹(K_{3,2}^{(c=2)}). -/
+    the octet (NS²−1 = 8). -/
 theorem cork_signed_eq_sym3_fixed :
     signedCorkTwistCount
       = (E213.Lib.Physics.Symmetry.OctetModule.fixedSize : Int) := by
@@ -79,7 +79,7 @@ theorem cork_H1H2_anisotropic_plus_one :
 
 /-- ★★★★★★★ **5-way Sym(3) cross-frame capstone (cork + 4 prior)**
 
-  Adds the cork-twist signed count `+4 = Sym3IrrepDecomp.fixedSize`
+  Adds the cork-twist signed count `+4 = OctetModule.fixedSize`
   as a fifth convergence source on the Sym(3)-decomposition of the
   8-element K_{3,2}^{(c=2)} substrate.  The original X-1 4-way
   capstone (Geometrization + gluon octet + HC_K32 + Möbius P mod-5)
@@ -293,10 +293,10 @@ theorem four_mfd_geometrization_marathon_capstone_v2 :
 /-! ## §6 — Cup-ladder ↔ cork H¹ basis cross-link
 
 The cork +4 signed count and the cup-ladder graduation formula
-`Δ_H^k(c) = ‖c‖²·α^(k+1)/d^(k+1)` both operate on H¹(K_{3,2}^{(c=2)}).
+`Δ_H^k(c) = ‖c‖²·α^(k+1)/d^(k+1)` both operate on the octet (NS²−1 = 8).
 The bridge:
 
-  · Cork +4 = `Sym3IrrepDecomp.fixedSize` = 4 fixed cochains
+  · Cork +4 = `OctetModule.fixedSize` = 4 fixed cochains
     = 2² = 2-dim Sym(3)-trivial-isotypic subspace over F_2
   · Cup-ladder at k=1 (H¹ Gram): α²/d² coefficient feeds on
     H¹ classes; the trivial-isotypic component (4 fixed) carries
@@ -315,7 +315,7 @@ theorem cork_count_eq_two_squared :
   rw [signedCorkTwistCount_eq_4]
   decide
 
-/-- The cork-signed-count `+4` equals the `Sym3IrrepDecomp.fixedSize`
+/-- The cork-signed-count `+4` equals the `OctetModule.fixedSize`
     cardinality (number of Sym(3)-fixed H¹ cochains). -/
 theorem cork_count_eq_sym3_fixed_cardinality :
     signedCorkTwistCount = (E213.Lib.Physics.Symmetry.OctetModule.fixedSize : Int) := by
@@ -333,7 +333,7 @@ theorem cork_count_eq_sym3_isotypic_dim_squared :
 /-- ★★★★★ **Cork ↔ cup-ladder H¹ basis structural correspondence**
 
   At H¹ level (cup-ladder k=1), the α²/d² Gram coefficient operates
-  on H¹(K_{3,2}^{(c=2)}) cohomology classes.  The Sym(3)-fixed
+  on the octet (NS²−1 = 8) cohomology classes.  The Sym(3)-fixed
   subspace (cardinality 4 = cork-signed-count) carries the
   Sym(3)-invariant component of the precision contribution.
 
@@ -379,7 +379,7 @@ that feed the α_em derivation stack:
   · `CupLadderFormula.d_squared = 25 = 5²` (chartBase d = 5)
   · `CupLadderFormula.cup_ladder_trace_e9 1 = gram_correction_e9`
     (k=1 specialisation gives Gram self-energy α²/d²)
-  · `Sym3IrrepDecomp.fixedSize = 4 = signedCorkTwistCount`
+  · `OctetModule.fixedSize = 4 = signedCorkTwistCount`
     (4 fixed cochains span H¹ Sym(3)-fixed subspace)
 
 The precision derivation stack reaches 0.007 ppb on `1/α_em`

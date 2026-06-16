@@ -3,7 +3,7 @@ import E213.Lib.Math.Geometry.GeometrizationConjecture.CrossFrame
 /-!
 # 4-manifold exotic-enumeration via Sym(3) gauge invariant (anchor)
 
-The Sym(3) gauge action on `H¹(K_{3,2}^{(c=2)})` provides 213-native
+The Sym(3) gauge action on the octet (the SU(3) adjoint, NS²−1 = 8) provides 213-native
 gauge-theoretic data analogous to Donaldson's instanton moduli
 space.  Standard math: Donaldson invariants count distinct smooth
 structures on closed simply-connected 4-manifolds via integer-valued
@@ -18,7 +18,7 @@ Donaldson-style enumeration.
 
   · `c3_chain_master` (`C3ChainCapstone`): full Sym(3) gauge action
     on K_{3,2}^{(c=2)} edge structure, `|Aut(K)| = 768`.
-  · `Sym3IrrepDecomp.fixedSize = 4`: cardinality of the
+  · `OctetModule.fixedSize = 4`: cardinality of the
     Sym(3)-invariant subspace of `H¹(K)` (= 2² = 2-dim subspace).
   · `EightGeometries.all_eight_via_single_mobius_P`: single Möbius P
     realizes all 8 Thurston geometries via 7 mod-k Lenses.
@@ -28,7 +28,7 @@ Donaldson-style enumeration.
 ## What this file adds
 
   · `sym3GaugeInvariant : Nat` — atomic 213-native gauge invariant
-    derived from `Sym3IrrepDecomp.fixedSize`.
+    derived from `OctetModule.fixedSize`.
   · `sym3_gauge_invariant_value` — witness that this equals 4 = 2²
     via the explicit `ω_10`, `ω_01` basis of the fixed subspace.
   · Anchor theorem `exotic_4mfd_scaffold` — bundles the four
@@ -52,7 +52,7 @@ namespace E213.Lib.Math.Geometry.GeometrizationConjecture.ChartAxisAnsatz
 /-! ## Atomic gauge invariant -/
 
 /-- The atomic 213-native Sym(3) gauge invariant: dimension of the
-    Sym(3)-fixed subspace of `H¹(K_{3,2}^{(c=2)})` over F_2,
+    Sym(3)-fixed subspace of the octet (NS²−1 = 8) over F_2,
     measured as cardinality `2^dim`.
 
     This is the count of Sym(3)-invariant cohomology classes — the
@@ -175,7 +175,7 @@ theorem fixedSizeRho_eq_4 : fixedSizeRho = 4 := by decide
 
 /-! ## Burnside-derived Sym(3)-orbit count -/
 
-/-- The Burnside-derived count of Sym(3)-orbits on H¹(K_{3,2}^{(c=2)}).
+/-- The Burnside-derived count of Sym(3)-orbits on the octet (NS²−1 = 8).
 
   By the Burnside formula: `|Orbits| = (Σ |Fix(g)|) / |G|`.
 
@@ -202,7 +202,7 @@ theorem sym3_burnside_sum :
 /-- ★★★★★★ **FW-1 substantive enumeration: Sym(3)-gauge orbit count**
 
   The 213-native gauge-orbit count for the Sym(3) action on
-  H¹(K_{3,2}^{(c=2)}) — the substantive analog of Donaldson's
+  the octet (NS²−1 = 8) — the substantive analog of Donaldson's
   integer-valued instanton-moduli enumeration in standard 4-mfd
   gauge theory.
 
@@ -212,7 +212,7 @@ theorem sym3_burnside_sum :
     · Total: 60 orbits
 
   The 4 singletons are the Sym(3)-invariant cohomology classes
-  `ω_00, ω_10, ω_01, ω_11` from `Sym3IrrepDecomp`.  The other 56
+  `ω_00, ω_10, ω_01, ω_11` from `OctetModule`.  The other 56
   orbits enumerate distinct Sym(3)-gauge-equivalence classes of
   non-invariant cochains.
 
@@ -244,7 +244,7 @@ theorem fw1_substantive_sym3_orbit_count :
 
 /-! ## Sub-orbit decomposition by stabilizer size
 
-The 60 Sym(3)-orbits on H¹(K_{3,2}^{(c=2)}) partition by orbit size
+The 60 Sym(3)-orbits on the octet (NS²−1 = 8) partition by orbit size
 (equivalently, by stabilizer-subgroup size via orbit-stabilizer):
 
   | Stab order | Orbit size | Cochains | Orbits |
@@ -329,7 +329,7 @@ def orbitsOfSizeSix : Nat := stabTrivialCount / 6
 
 /-- ★★★★★★ **FW-1 sub-orbit decomposition (a, b, c, d) = (4, 0, 28, 28)**
 
-  The 60 Sym(3)-orbits on H¹(K_{3,2}^{(c=2)}) partition by orbit
+  The 60 Sym(3)-orbits on the octet (NS²−1 = 8) partition by orbit
   size into:
 
     · 4 orbits of size 1 (Sym(3)-fixed singletons: ω_00, ω_10, ω_01, ω_11)

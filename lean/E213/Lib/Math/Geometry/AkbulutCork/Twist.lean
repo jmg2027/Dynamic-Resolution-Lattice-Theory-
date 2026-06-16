@@ -7,7 +7,7 @@ The cork-twist is the Z/2 involution τ : ∂C → ∂C that distinguishes
 the two diffeomorphism classes obtained by gluing a cork into a
 4-manifold.  213-native realization: a Cork213 → Cork213 endomorphism
 flipping `twist_parity` mod 2, with the boundary-action realized by
-the M_S01 transposition matrix on H¹(K_{3,2}^{(c=2)}).
+the M_S01 transposition matrix on the octet (NS²−1 = 8).
 
 ## Phase 2 contents
 
@@ -96,10 +96,10 @@ theorem K14_twist_alternation :
 /-! ## Correspondence with M_S01 involution -/
 
 /-- The cork-twist parity-flip mirrors the M_S01 transposition's
-    involution at the H¹(K_{3,2}^{(c=2)}) matrix level.
+    involution at the the octet (NS²−1 = 8) matrix level.
 
     Standard fact: `M_S01² = IdMatrix` (per
-    `Sym3OnH1KMatrix.M_S01_squared_pointwise`).
+    `OctetModule.M_S01_squared`).
     Cork analog: `corkTwist (corkTwist c) = c` (for canonical
     instances with twist_parity = 0).
 
@@ -132,7 +132,7 @@ theorem corkTwist_M_S01_correspondence :
 
   Phase-2 correspondence with M_S01: cork-level Z/2 group structure
   mirrors the matrix-level M_S01² = Id involution at the
-  H¹(K_{3,2}^{(c=2)}) cohomology layer.  Same group, two formalization
+  the octet (NS²−1 = 8) cohomology layer.  Same group, two formalization
   levels.
 
   Open in Phase 3: action of corkTwist on H¹ cochains gives a

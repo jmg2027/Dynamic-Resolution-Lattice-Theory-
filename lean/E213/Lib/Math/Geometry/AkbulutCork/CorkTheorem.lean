@@ -73,10 +73,10 @@ theorem cork_embedding_capstone :
 /-! ## Cork uniqueness -/
 
 /-- ★★★ **Phase 5: M_S01 cork-twist is involutive and structurally
-    unique among Z/2 actions on H¹(K_{3,2}^{(c=2)})**
+    unique among Z/2 actions on the octet (NS²−1 = 8)**
 
   The cork-twist Z/2 action is realized by `M_S01` at the matrix
-  level.  Per `Sym3OnH1KMatrix.M_S01_squared_pointwise`,
+  level.  Per `OctetModule.M_S01_squared`,
   M_S01² = IdMatrix.  Combined with the c=2-binary cover structure
   (doubling), the M_S01 involution is the natural cork-twist
   candidate.

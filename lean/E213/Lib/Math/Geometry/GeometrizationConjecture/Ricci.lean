@@ -18,7 +18,7 @@ cut occurs along a singular neck.
 $H^1(K_{3,2}^{(c=2)})$ is the analog of "averaging-invariant
 geometry":
 
-  · `Sym3IrrepDecomp.fixedSize = 4` (cardinality 4 = 2² in F_2,
+  · `OctetModule.fixedSize = 4` (cardinality 4 = 2² in F_2,
     so dimension 2)
   · This 2-dim subspace is the **Sym(3)-invariant cohomology
     classes** — analogous to *Ricci-flow fixed points* (which
@@ -48,7 +48,7 @@ for the chart-Lens specialization.
 -/
 
 /-- §R narrative-seed theorem: the Sym(3)-fixed subspace of
-    `H¹(K_{3,2}^{(c=2)})` provides the Ricci-flow-fixed-point
+    `the octet (NS²−1 = 8)` provides the Ricci-flow-fixed-point
     arithmetic analog (dim 2 = "averaging-invariant" core). -/
 theorem ricci_narrative_sym3_invariant :
     -- Sym(3)-fixed subspace cardinality 4 = 2² (dim 2 over F_2)

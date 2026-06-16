@@ -70,7 +70,7 @@ theorem X1_sym3_cross_frame_capstone :
 
 /-! ## Explicit Sym(3)-irrep basis ↔ Thurston-geometry correspondence
 
-The Sym(3)-irrep decomposition of H¹(K_{3,2}^{(c=2)}) =
+The Sym(3)-irrep decomposition of the octet (NS²−1 = 8) =
 2·trivial ⊕ 3·standard maps onto the Thurston 3 + 5 split of the
 8 model geometries via two arithmetic reshapings:
 
@@ -87,9 +87,9 @@ The Sym(3)-irrep decomposition of H¹(K_{3,2}^{(c=2)}) =
 
   Explicit basis vectors in E213:
 
-  · Trivial: `ω_10`, `ω_01` (`Sym3IrrepDecomp`), Sym(3)-fixed.
-  · Standard pair 1: `std1_v1`, `std1_v2` (`Sym3StandardReps`).
-  · Standard pair 2: `std2_v1`, `std2_v2` (`Sym3StandardReps`).
+  · Trivial: `ω_10`, `ω_01` (`OctetModule`), Sym(3)-fixed.
+  · Standard pair 1: `std1_v1`, `std1_v2` (`OctetModule`).
+  · Standard pair 2: `std2_v1`, `std2_v2` (`OctetModule`).
   · Standard pair 3: not constructed in current Lean infra (lives
     in the remaining 2-dim subspace via tree-decomp row e_3).
     Existence is forced by dim accounting `8 − 4 (trivial) − 4
@@ -101,10 +101,10 @@ Below: the `+1` inflation (curvature signatures) and `−1` collapse
 basis witnesses.  No new construction — bundling only.
 -/
 
-/-- Number of trivial Sym(3) irrep copies in `H¹(K_{3,2}^{(c=2)})`. -/
+/-- Number of trivial Sym(3) irrep copies in `the octet (NS²−1 = 8)`. -/
 def trivialRepCount : Nat := 2
 
-/-- Number of standard Sym(3) irrep copies in `H¹(K_{3,2}^{(c=2)})`. -/
+/-- Number of standard Sym(3) irrep copies in `the octet (NS²−1 = 8)`. -/
 def standardRepCount : Nat := 3
 
 /-- Isotropic geometries from trivial subspace: `+1` curvature
