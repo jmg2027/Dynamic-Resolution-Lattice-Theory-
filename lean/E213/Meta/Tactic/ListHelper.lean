@@ -278,4 +278,35 @@ theorem sigmaList_range_eq_foldl_acc (n : Nat) (r : Nat → Nat) :
   | nil => rfl
   | cons y ys ih => exact ih (acc + r y)
 
+
+/-- Foldl-`(+)` accumulator homomorphism: `foldl (+) a l = a + foldl (+) 0 l`. -/
+theorem foldl_add_acc : ∀ (l : List Nat) (a : Nat),
+    l.foldl (· + ·) a = a + l.foldl (· + ·) 0
+  | [],      a => rfl
+  | x :: xs, a => by
+      show xs.foldl (· + ·) (a + x) = a + xs.foldl (· + ·) (0 + x)
+      rw [foldl_add_acc xs (a + x), foldl_add_acc xs (0 + x), Nat.zero_add, Nat.add_assoc]
+
+/-- ★ `sigmaList (x :: xs) f = f x + sigmaList xs f` — the cons recurrence. -/
+theorem sigmaList_cons {α : Type u} (x : α) (xs : List α) (f : α → Nat) :
+    sigmaList (x :: xs) f = f x + sigmaList xs f := by
+  show (xs.map f).foldl (· + ·) (0 + f x) = f x + (xs.map f).foldl (· + ·) 0
+  rw [Nat.zero_add, foldl_add_acc (xs.map f) (f x)]
+
+/-- ★ `sigmaList (xs ++ ys) f = sigmaList xs f + sigmaList ys f` — additive over `++`. -/
+theorem sigmaList_append {α : Type u} (xs ys : List α) (f : α → Nat) :
+    sigmaList (xs ++ ys) f = sigmaList xs f + sigmaList ys f := by
+  induction xs with
+  | nil => show sigmaList ys f = sigmaList ([] : List α) f + sigmaList ys f
+           rw [sigmaList_nil, Nat.zero_add]
+  | cons x xs ih =>
+      show sigmaList (x :: (xs ++ ys)) f = sigmaList (x :: xs) f + sigmaList ys f
+      rw [sigmaList_cons, ih, sigmaList_cons, Nat.add_assoc]
+
+/-- ★ `sigmaList` respects pointwise equality of the summand. -/
+theorem sigmaList_congr {α : Type u} (xs : List α) (f g : α → Nat)
+    (h : ∀ x, f x = g x) : sigmaList xs f = sigmaList xs g := by
+  induction xs with
+  | nil => rfl
+  | cons x xs ih => rw [sigmaList_cons, sigmaList_cons, h x, ih]
 end E213.Tactic.ListHelper

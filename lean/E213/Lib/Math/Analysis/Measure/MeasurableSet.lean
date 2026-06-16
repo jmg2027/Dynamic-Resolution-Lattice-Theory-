@@ -60,4 +60,10 @@ theorem cardinality_union (s t : DyadicMeasurableSet) :
     cardinality (union s t) = s.length + t.length :=
   E213.Tactic.List213.length_append s t
 
+
+/-- ★ **Cardinality monotonicity**: `|s| ≤ |s ∪ t|` — union never shrinks the count.
+    The monotone companion of `cardinality_union`. -/
+theorem cardinality_le_union (s t : DyadicMeasurableSet) :
+    cardinality s ≤ cardinality (union s t) := by
+  rw [cardinality_union]; exact Nat.le_add_right _ _
 end E213.Lib.Math.Analysis.Measure.MeasurableSet
