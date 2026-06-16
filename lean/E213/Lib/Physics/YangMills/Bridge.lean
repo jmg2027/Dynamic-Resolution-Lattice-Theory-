@@ -7,8 +7,10 @@ import E213.Lib.Physics.Couplings.PhotonKernel
 YM mass gap statement: Δ_SU3 corresponds to color confinement.
 1/α_3 = NS²−1 = 8 = b_1(K_{3,2}^{(2)}) — confined coupling.
 
-Per `Physics/YangMillsGap.lean`: mass gap formal statement.
-Per `Physics/PhotonKernel.lean`: b_1 = 8 = adjoint SU(NS).
+Per `YangMills/Gap.lean`: the mass gap is the smallest nonzero gauge-lattice
+Laplacian eigenvalue = `c·min(NS,NT) = 4 > 0` (`massGap_pos`); `b_1 = 8` here
+is the harmonic gluon octet the gap sits above, not the gap itself.
+Per `Couplings/PhotonKernel.lean`: b_1 = 8 = adjoint SU(NS).
 -/
 
 namespace E213.Lib.Physics.YangMills.Bridge
