@@ -42,6 +42,9 @@ reached by no convergent yet every cut is decided in finite — `PointingLimit`,
 `the_modular_geodesic_lens`.
 
 **IV. `synthesis/` — synthesis & the master tower.**
+`the_forcing_criterion_is_distinguishing` (a quantity is forced ⟺ it names a
+genuine distinguishing axis; faithful ⟺ the axes separate (`vp_separation`);
+removable ⟺ no axis added (`c` not forced) — one criterion, both verdicts),
 `multiplicativity_is_the_x_count_lens`, `tower_atlas`,
 `representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
 `duality_as_one_transpose` (a duality = `sumOver_swap` on one 0/1 incidence +
