@@ -81,4 +81,7 @@ theorem discrete_curvature_topology :
     Non-bipartite companion to `forman_K32 = −1`; every edge of a 3-regular graph
     carries the same Forman value `−2`. -/
 theorem forman_K4 : formanEdge 3 3 = -2 := by decide
+
+/-- **Forman curvature of a 4-regular edge** (`K₅`): `4 − 4 − 4 = −4`. -/
+theorem forman_K5 : formanEdge 4 4 = -4 := by decide
 end E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteRicci

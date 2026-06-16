@@ -211,4 +211,16 @@ theorem gauss_bonnet_K4 :
 theorem gauss_bonnet_cube :
     gridSumZ 8 (fun _ => 2 - ((3 : Nat) : Int)) = 2 * eulerVE 8 12 :=
   gauss_bonnet_general 8 12 (fun _ => 3) (by decide)
+
+/-- ★ **Gauss–Bonnet for the Petersen graph** (3-regular, non-bipartite, `V=10`, `E=15`):
+    `Σ_v (2 − 3) = 10·(−1) = −10 = 2·(10 − 15)`.  Handshake `Σ deg = 30 = 2·15`. -/
+theorem gauss_bonnet_petersen :
+    gridSumZ 10 (fun _ => 2 - ((3 : Nat) : Int)) = 2 * eulerVE 10 15 :=
+  gauss_bonnet_general 10 15 (fun _ => 3) (by decide)
+
+/-- ★ **Gauss–Bonnet for the complete graph `K₅`** (4-regular, `V=5`, `E=10`):
+    `Σ_v (2 − 4) = 5·(−2) = −10 = 2·(5 − 10)`.  Handshake `Σ deg = 20 = 2·10`. -/
+theorem gauss_bonnet_K5 :
+    gridSumZ 5 (fun _ => 2 - ((4 : Nat) : Int)) = 2 * eulerVE 5 10 :=
+  gauss_bonnet_general 5 10 (fun _ => 4) (by decide)
 end E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteSurgery
