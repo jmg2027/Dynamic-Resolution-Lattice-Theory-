@@ -192,4 +192,18 @@ theorem exists_collision : ∀ (N : Nat) (g : Fin (N + 1) → Fin N),
           congrArg (fun x : Fin (M + 2) => x.val) h
         exact hij (Fin.ext hval)
 
+/-- **Constructive pigeonhole, `lt` form.**  When `N < k`, any `g : Fin k → Fin N`
+    has an *exhibited* colliding pair.  Restrict to the first `N+1` indices and
+    apply `exists_collision`.  No `Classical`. -/
+theorem exists_collision_lt {N k : Nat} (h : N < k) (g : Fin k → Fin N) :
+    ∃ i j : Fin k, i ≠ j ∧ g i = g j := by
+  have hk : ∀ i : Fin (N + 1), i.val < k :=
+    fun i => Nat.lt_of_lt_of_le i.isLt (Nat.succ_le_of_lt h)
+  let g' : Fin (N + 1) → Fin N := fun i => g ⟨i.val, hk i⟩
+  obtain ⟨i, j, hij, hg'⟩ := exists_collision N g'
+  refine ⟨⟨i.val, hk i⟩, ⟨j.val, hk j⟩, ?_, hg'⟩
+  intro h'
+  have hval : i.val = j.val := congrArg (fun x : Fin k => x.val) h'
+  exact hij (Fin.ext hval)
+
 end E213.Lib.Math.Combinatorics.Pigeonhole
