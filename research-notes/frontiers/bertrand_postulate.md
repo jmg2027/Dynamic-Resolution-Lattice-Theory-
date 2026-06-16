@@ -18,45 +18,33 @@ The one genuinely missing lemma.  Erdős's proof by strong induction:
 - `N = 2m+1` odd: `∏_{p≤2m+1} = ∏_{p≤m+1} · ∏_{(m+1, 2m+1]}`; the upper window divides
   `C(2m+1,m) ≤ 4^m`, the lower is `≤ 4^{m+1}` (induction), product `≤ 4^{2m+1}`.
 
-## Landed this session (∅-axiom, `MultSystemValue.lean`)
+## Landed this session (∅-axiom)
 
-- **`primesIn_split`** — `lo ≤ mid ≤ hi → primesIn lo hi = primesIn mid hi ++ primesIn lo mid`
-  (the window split realizing the odd-`N` Erdős decomposition).
-- **`listProd_append`** — `∏(xs ++ ys) = ∏xs · ∏ys` (so the split multiplies).
+- **`primesIn_split`** / **`listProd_append`** (`MultSystemValue.lean`, Lens) — the window
+  split realizing the odd-`N` Erdős decomposition + product multiplicativity.
+- **`binom_eq_choose`** (`Lib/Math/NumberTheory/BinomChooseBridge.lean`) — the Lens
+  `MultSystem.binom` and Lib `Binomial.choose` are the identical Pascal recursion; proved
+  equal, composing the two toolboxes (resolves the layer/def hazard via the `Lens.Number`
+  umbrella).
+- **`odd_central_binom_le : C(2m+1,m) ≤ 4^m`** (`Lib/Math/NumberTheory/OddCentralBinom.lean`)
+  — keystone 2, via `choose_symm` + `pascal_row_sum` + the new sum helpers
+  (`term_le_sumTo`, `sumTo_mono_len`, `two_terms_le_sumTo`) + `four_pow_eq` (`4^m = 2^{2m}`,
+  pure induction avoiding the propext-tainted `Nat.pow_mul`).
 
 ## Remaining sub-bricks (precise)
 
-1. **`odd_central_binom_le : C(2m+1, m) ≤ 4^m`** — MEDIUM, **gated on a def-unification
-   hazard**.  Mathematically: binom symmetry `C(2m+1,m) = C(2m+1,m+1)` (have: `choose_symm`)
-   + the row-sum `C(2m+1,m)+C(2m+1,m+1) ≤ 2^{2m+1}` (have: `binomSum a n` with `a=1` gives
-   `Σ_k C(n,k) = 2ⁿ` in `BinomialTheorem`), giving `2·C(2m+1,m) ≤ 2·4^m`.  **Hazard:** the
-   central-binomial machinery uses `MultSystem.binom`, while `choose_symm`/`binomSum` use a
-   *different* `choose` (`DyadicFSM/FLT/Binomial`) — and there are **four** `binom` defs in
-   the repo (`MultSystem`, `Simplex.Counts`, `GenerationCount`, `DepthPRecursiveInstances`)
-   with **no proven bridges**.  So the real first step is a `binom_eq_choose` bridge (or
-   reproving the row-sum in `MultSystem.binom`), an *integration* task, not the math.  A
-   repo-organization opportunity: unify the binomial defs (`org-audit` candidate).
-
-   **Bridge is mathematically trivial, gated on architecture (2026-06-16):**
-   `MultSystem.binom` and `DyadicFSM.FLT.Binomial.choose` are the **identical Pascal
-   recursion** (`C(n+1,k+1)=C(n,k)+C(n,k+1)`, same bases) — so `binom n k = choose n k`
-   is a 4-line induction.  But `binom` lives in `Lens` and `choose`/`pascal_row_sum`/
-   `choose_symm` in `Lib`; a `Lib`-side bridge file importing the Lens submodule is blocked
-   by the `layer-import-guard` (3+-level reach-in).  **Precise first step:** expose `binom`
-   (and `binom_zero`) through `Lens.API` (or a Lens umbrella), then the bridge file in `Lib`
-   imports `Lens.API` + `Binomial` and proves `binom_eq_choose`.  The row-sum
-   `pascal_row_sum n : sumTo (n+1) (choose n) = 2ⁿ` and `choose_symm` are both already
-   present, so after the bridge, `odd_central_binom_le` needs only a two-term Nat-sum lower
-   bound (`Σ ≥ f i + f j` for `i≠j`).
-2. **`prime_dvd_odd_binom`** — primes `p ∈ (m+1, 2m+1]` divide `C(2m+1, m)` — MEDIUM,
-   mirrors `prime_dvd_central_binom` (`vp_p = 1`: `p ≤ 2m+1 < 2p`, `p > m+1` so `p ∤ m!`,
-   `p ∤ (m+1)!`).
-3. **`window_prod_le_odd`** — `∏_{(m+1,2m+1]} p ≤ C(2m+1,m)` — EASY given 1,2, via
-   `listProd_dvd` + `primesIn_nodup` (exactly the `window_prod_dvd_central_binom` pattern,
-   now with `primesIn_split` available).
-4. **`primorial_le_four_pow : listProd (primesIn 0 N) ≤ 4^N`** — the strong induction
-   assembling 1–3 with `primesIn_split` + `listProd_append`.  New file
-   `Lens/Number/Nat213/Primorial.lean`.
+1. **`prime_dvd_odd_binom`** — primes `p ∈ (m+1, 2m+1]` divide `C(2m+1, m)` — MEDIUM,
+   the **next unit**.  Mirror `prime_dvd_central_binom`'s vp argument (`vp_p(C) =
+   vp_p((2m+1)!) − vp_p(m!) − vp_p((m+1)!) ≥ 1`), using `choose_mul_factorials` for the
+   factorial identity.  **Watch a likely second duplicate-def bridge:** `choose_mul_factorials`
+   uses the Lib `fact`, while `prime_not_dvd_fact`/`dvd_fact` use the Lens `fact` — check
+   whether they are the same def or need a `fact`-bridge (the vp tools `vp_mul`,
+   `le_vp_iff`, `vp_eq_zero_of_not_dvd` are in `Meta.Nat`, reachable from both).
+2. **`window_prod_le_odd`** — `∏_{(m+1,2m+1]} p ≤ C(2m+1,m)` — EASY given 1, via
+   `listProd_dvd` + `primesIn_nodup`.
+3. **`primorial_le_four_pow`** — the strong induction assembling 1–2 with `primesIn_split`,
+   `listProd_append`, `odd_central_binom_le`, `binom_eq_choose`.  Lives in `Lib`
+   (cross-layer: Lens `primesIn`/`listProd` + Lib `odd_central_binom_le`).
 
 ## Then full Bertrand (HARD, the real grind)
 

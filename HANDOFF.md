@@ -78,14 +78,16 @@ surfaced: **Bertrand's postulate** (reachable; keystone = primorial bound `∏_{
 
 ### Wave 4 bricks (Bertrand infrastructure — autonomous)
 
-10. **Primorial keystones toward Bertrand's postulate** (`MultSystemValue.lean`).
-    `primesIn_split` (`lo≤mid≤hi → primesIn lo hi = primesIn mid hi ++ primesIn lo mid`,
-    the Erdős window split) and `listProd_append` (`∏(xs++ys)=∏xs·∏ys`).  Both PURE.
-    Roadmap + remaining sub-bricks: `research-notes/frontiers/bertrand_postulate.md`.
-    Panel verdict: full Bertrand is ∅-axiom-reachable; the keystone is the primorial
-    `∏_{p≤N} p ≤ 4ⁿ`.  Honest hazard surfaced: the repo has **four** un-bridged `binom`
-    defs + a distinct `choose`, so `odd_central_binom_le` is gated on a def-unification
-    (an `org-audit`/integration task, not the math) — flagged for next session.
+10. **Toward Bertrand's postulate** (keystone = primorial `∏_{p≤N} p ≤ 4ⁿ`).  Landed PURE:
+    - `primesIn_split` + `listProd_append` (`MultSystemValue.lean`) — the Erdős window split.
+    - `binom_eq_choose` (`Lib/Math/NumberTheory/BinomChooseBridge.lean`) — the Lens `binom`
+      and Lib `choose` are the identical Pascal recursion (resolves the layer/def hazard via
+      the `Lens.Number` umbrella; the `org-audit`-flagged 4-binom-defs issue).
+    - `odd_central_binom_le : C(2m+1,m) ≤ 4^m` (`Lib/Math/NumberTheory/OddCentralBinom.lean`)
+      — keystone 2, via `choose_symm` + `pascal_row_sum` + new sum helpers + `four_pow_eq`.
+    Remaining (roadmap `research-notes/frontiers/bertrand_postulate.md`): `prime_dvd_odd_binom`
+    (next unit; watch a possible `fact` duplicate-def bridge), `window_prod_le_odd`, the
+    `primorial_le_four_pow` induction, then full Bertrand.
 
 ### Honesty correction (wave 1)
 `research-notes/frontiers/rebuild_roadmaps/proton_electron_ratio_rebuild.md` —
