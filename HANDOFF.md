@@ -61,6 +61,21 @@ Honesty fix: `gravity_reconnection_hinge_holonomy.md` cited the **deleted**
 `GravityShadow.lean`; corrected with the panel verdict ("gravity = real part" is a
 relabeling; standing walls recorded).
 
+### Wave 3 bricks (third debate round)
+
+9. **Hodge-index theorem for T⁴** (`Cohomology/Surfaces/AbelianSurfaceHodge.lean`).
+   `cupT4_nsComb`: `Q(nsComb a b c d) = 2(ab − c² − d²)` (general); `hodge_index_signature_T4`:
+   orthogonal basis with one `+2` (the ample polarization) and three `−2` ⇒ signature
+   `(1,3)` on the rank-4 Néron–Severi lattice — completes the T⁴ Hodge package.
+
+Conceptual yield (Millennium triage panel): the no-witness wall is a **trichotomy** —
+(1) signed cancellation (RH, BSD, NS vortex term), (2) uniformity over an unbounded
+descent (Markov-H, Collatz, P-vs-NP), (3) **two-Lens interaction** (abc, deep BSD: the
+witness would have to count across the `+`/`×` independence the repo *proves* via
+`vp_separation` — a heuristic obstruction made structural).  Top buildable frontiers
+surfaced: **Bertrand's postulate** (reachable; keystone = primorial bound `∏_{p≤N} p ≤ 4ⁿ`,
+~1 week) and the **Selberg sieve SOS positivity** (same shape as `colored_confinement_master`).
+
 ### Honesty correction (wave 1)
 `research-notes/frontiers/rebuild_roadmaps/proton_electron_ratio_rebuild.md` —
 the Stage-1 bracket claim was **numerically false** (`6π⁵ ∈ (1835.60, 1839.82)`
