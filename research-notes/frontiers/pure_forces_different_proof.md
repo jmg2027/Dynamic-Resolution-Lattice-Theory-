@@ -273,6 +273,34 @@ earlier this same session — demonstrating the representative-level infrastruct
 compounds. (20 PURE; reuses `EulerTotient.{totient,coprimeInd}`,
 `CRTReconstruction`, `CoprimeMultiplicative`, `DivisorProductReindex`.)
 
+## Vein C — analysis: the modulus is forced, or the import is named and measured
+
+The user's challenge ("do continuity / limits / analysis — the things that *look*
+impossible ∅-axiom"). Analysis splits cleanly: theorems that ARE ∅-axiom once the
+**modulus** classical analysis hides is supplied (the corpus's native mode), and
+theorems that genuinely require an **omniscience principle** — for which the
+honest ∅-axiom result is the *calibration* implication (the principle is a
+hypothesis, not an axiom), placing the theorem on the reverse-math ledger.
+
+### C — Bolzano–Weierstrass calibrated to LPO (★ "name and measure the import")
+`Logic/BolzanoWeierstrass`. Binary BW: every `{0,1}`-sequence has a convergent
+(eventually-constant-valued) subsequence (`HasConstSubseq`). This is **not** an
+unconditional ∅-axiom theorem — and saying so plainly is the no-exterior guard in
+action (no internal handle, so name the import). The honest content is the
+calibration, all PURE (the omniscience principle is a hypothesis variable):
+`lpo_of_bw : (∀ a, HasConstSubseq a) → LPO` (binary BW ⟹ LPO, the **strongest**
+base rung — via feeding BW the monotone prefix-OR stream, whose subsequence value
+decides `f`); the constructive cores `subseq_of_unbounded_true` /
+`subseq_of_eventually_false` (fully ∅-axiom *once the witness is supplied as
+data*); and `lpo_decides_const_false_or_some_true` (LPO settles only the trivial
+Σ⁰₁ dichotomy). Sharp finding: `bw_of_lpo` at **plain LPO is not provable** —
+extracting the subsequence needs deciding "`true` occurs unboundedly often"
+(Π⁰₂), strictly above the ledger's LPO. So BW is pinned at **≥ LPO** with forward
+content at Σ⁰₂. Reveals: **classical BW's choice/LEM is not removable — it is the
+residue's refused "freeze a transition into a verdict" move, here *named* (LPO)
+and *measured* (Π⁰₂); the calibration implication is the ∅-axiom theorem.**
+(13 PURE; reuses `Logic.Omniscience`, `Logic.Pi01Decision`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅

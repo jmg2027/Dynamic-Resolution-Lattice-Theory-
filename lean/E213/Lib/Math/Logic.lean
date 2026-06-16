@@ -8,6 +8,7 @@ import E213.Lib.Math.Logic.LLPO
 import E213.Lib.Math.Logic.Interleave
 import E213.Lib.Math.Logic.LLPOSelection
 import E213.Lib.Math.Logic.WKLHeineBorel
+import E213.Lib.Math.Logic.BolzanoWeierstrass
 
 /-!
 # Reverse Mathematics 213 — umbrella (`Lib/Math/Logic`)
