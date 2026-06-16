@@ -95,24 +95,24 @@ the Lorentz signature, and it descends from `|ψ|² = 1`.
 
 ## Bridge to the current form (edge multiplicity / layer count)
 
-In the current canonical form, `c` is the **edge multiplicity** of
-`K_{NS,NT}^{(c)}` (parallel edge-layers per `(s,t)` incidence) and `c = 2`
-is a **derived presentation parameter** (3 forced `(NS,NT,d)` + 1 posited
-`c`).  The anisotropy reading above is the **geometric / information Lens**
-on the *same* `c = 2`:
+In the current canonical form, the `K_{NS,NT}^{(c)}` `c` is an **edge
+multiplicity** (parallel edge-layers per `(s,t)` incidence) and `c = 2`
+there is a selected re-presentation of `NS²−1` (3 forced `(NS,NT,d)` +
+the K32 `c` posited/removable).  **The anisotropy `c` of this note is NOT
+that quantity** — the deep-research finding
+`research-notes/frontiers/c_is_three_distinct_twos.md` shows they are
+**distinct 2's** that share only the value:
 
-  · the spatial information distance being **double** the temporal
-    (`d_S = 2 d_T`, from `W_S = W_T²`) is the geometric face of "each
-    `(s,t)` incidence carries **2** parallel edge-layers";
-  · both are one number under the multiplicity doctrine
-    (`theory/meta/multiplicity_doctrine.md`) — a geometric vs combinatorial
-    reading — not two competing quantities.
+  · the anisotropy `c = d_S/d_T = 2` is an **order/exponent** (the square
+    `W_S = W_T²` through `−ln`), holds for **every `d`** (no
+    graph-multiplicity content), and is the **Lorentz signature**
+    `(−,+,+,+)`, sourced in `NT` / the period-2 sign / `i`;
+  · the edge multiplicity is a **count** on the `c`-line `b_1 = 6c − 4`.
 
-Honest caveat (current form): this is a **presentation** of `c = 2`, not a
-*forcing* of it.  Identifying the overlap-square anisotropy "2" with the
-edge-multiplicity "2" is the same coincidence-of-two-distinct-2's pattern the
-frontier records for the period-ratio and the `c = NT` readings; the
-anisotropy ratio `d_S/d_T = 2` holds for *every* `d` (no `K`-multiplicity
-content), so it presents the value without forcing the multiplicity.  What
-*is* forced and physical in the original passage is the **signature**
-(`(-,+,+,+)` from `|ψ|²=1` and `i`), independent of how `c` is later read.
+These cannot be identified: `V32Betti.mult_parity_orthogonal_to_cup_orientation`
+proves the sign/`i` ℤ/2 (which carries the anisotropy) and the multiplicity
+ℤ/2 act on **orthogonal data**.  So the earlier "one number, two Lenses"
+bridge was **too generous** — it mislabels a signature/order quantity as a
+reading of the multiplicity.  What *is* forced and physical in the original
+passage is the **signature** (`(−,+,+,+)` from `|ψ|²=1` and `i`); the octet
+`NS²−1` needs neither this anisotropy nor the edge multiplicity.

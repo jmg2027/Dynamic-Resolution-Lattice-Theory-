@@ -772,3 +772,18 @@ real ∅-axiom conquests.
   has energy `≥ gap`), upgrading the exhibited eigenbasis to all configs;
   (2) a 213-native Wilson-loop functional on `K_{NS,NT}^{(c)}` + area-law
   witness.  Ties to `holonomy_of_the_lattice` + the cup-ring flux machinery.
+
+## What `c` properly is — three distinct 2's  (`c_is_three_distinct_twos.md`)
+
+- `c_is_three_distinct_twos` — deep-research finding (3 independent agents +
+  adversarial red-team, converged; red-team could not refute).  The label `c`
+  carries **three structurally distinct 2's**: (S) the *signature/order* 2 (the
+  old `c = d_S/d_T`, `W_S = W_T²`, `d`-independent) = `NT`/sign/`i`, manifesting
+  as the Lorentz `(−,+,+,+)`; (M) the K32 *edge-multiplicity* 2, a selected
+  re-presentation of `NS²−1` (`6c−4` crosses `8` only at `c=2`); (N) the forced
+  count 2 (`NT`, arity).  (S) ≠ (M): `mult_parity_orthogonal_to_cup_orientation`
+  proves the two ℤ/2's orthogonal.  Proper shape: **no fourth atomic `c`**; the
+  octet is `NS²−1` directly; the old `c` is the **signature**, whose ∅-axiom
+  home is the open **signed-ℤ Hodge `⋆²=−1` on Δ⁴** (`CPHodgeStructure` is a
+  parity skeleton).  Corrects the earlier "fifth-Lens-reading" over-generous
+  framing in `c_counter_as_layer_count.md` + the archive bridge note.

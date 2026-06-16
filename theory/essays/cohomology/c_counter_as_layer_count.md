@@ -99,24 +99,30 @@ forces the count to be the same at every level:
   · **Algebraic**: c = number of independent 4-fold Massey
     witnesses (`eta_ab_layer m`, `eta_cd_layer m` parameterised
     over `m ∈ Fin c`, each hitting its own ψ_m).
-  · **Physical (Lorentz anisotropy / information-distance ratio)**:
-    the *originating* reading of `c = 2` (recovered from pre-seed
-    history, `research-notes/archive/c_multiplicity/original_lorentz_anisotropy_reading.md`).
-    On the 4-simplex with information distance `d := −ln(overlap)`,
-    a **temporal** edge `ψ(t)→ψ(t+dt)` is a correlated (unitary)
-    pair with overlap `W_T → 1/d`, so `d_T = ln d`; a **spatial**
-    edge joins independent neighbours with overlap `W_S → 1/d²` (the
-    *square*), so `d_S = 2 ln d`.  Hence `c = d_S/d_T = 2` exactly
-    (every `d`) — "the time edge is twice as short as the space
-    edge", and this anisotropy `ds² = −4dt²+dx²+dy²+dz²` **is** the
-    Lorentz signature `(−,+,+,+)`, rooted in `i` (unitary phase
-    rotation on the time axis only).  In the current form this is
-    the geometric/information Lens on the *same* `c = 2`: the
-    spatial information distance being **double** the temporal
-    (`W_S = W_T²` read through `−ln`) is the geometric face of "each
-    `(s, t)` incidence carries **2** parallel edge-layers".  One
-    number, two Lenses (multiplicity doctrine,
-    `theory/meta/multiplicity_doctrine.md`).
+### A distinct 2 that must NOT be folded in: the Lorentz-anisotropy `c`
+
+The four readings above are the same *layer count*.  The originating
+pre-seed `c = 2` (recovered in
+`research-notes/archive/c_multiplicity/original_lorentz_anisotropy_reading.md`)
+is **not** one of them — it is a structurally different quantity that
+merely shares the value 2.  On the 4-simplex with information distance
+`d := −ln(overlap)`, a temporal edge is a correlated (unitary) pair
+(`W_T → 1/d`, `d_T = ln d`) and a spatial edge joins independent
+neighbours (`W_S → 1/d² = W_T²`, `d_S = 2 ln d`), so
+`c_aniso = d_S/d_T = 2` **exactly, for every `d`** — an order/exponent
+(the *square* `W_S = W_T²`), with **no graph-multiplicity content**.  It
+is the Lorentz **signature** `(−,+,+,+)`, rooted in `i`, and traces to
+`NT` / the period-2 sign — see the deep-research finding
+`research-notes/frontiers/c_is_three_distinct_twos.md`.
+
+Identifying `c_aniso` with the edge multiplicity is a **category error**,
+not a multiplicity-doctrine "one number, two Lenses": the repo proves the
+two ℤ/2's orthogonal (`V32Betti.mult_parity_orthogonal_to_cup_orientation`
+— the sign/`i` ℤ/2 is an endpoint function, the multiplicity ℤ/2 flips
+only the sheet bit), and `c_aniso`'s `d`-independence vs the multiplicity's
+`6c−4` line confirms they share only the value.  So: layer-count `c`
+(this essay) and signature `c_aniso` (the metric) are **distinct 2's**;
+the octet `NS²−1` needs neither.
 
 ### The historical ratio readings, in current form
 
