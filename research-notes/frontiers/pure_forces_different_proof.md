@@ -59,6 +59,17 @@ becomes, ∅-axiom, the **symmetric double-sum parity** lemma `Σ_{a,b<N} g a b 
 multiplicativity table. (Partial: the multiplicativity *could* also be
 factored; the forcing is in choosing the involution-count form.)
 
+### C — the constructive IVT is the corpus's *native* mode (already pervasive)
+Vein C does not need a new entry: `Real213/Bisection/CutBisection` +
+`Analysis/DyadicSearch/{DyadicBracket, RootCertificate, MinimalRootLens}` ARE
+the constructive intermediate-value theorem. Classical IVT bisects by *deciding*
+`f(m) ≷ 0` (LEM on the reals); ∅-axiom forces the **explicit dyadic bracket +
+modulus** — the `RootCertificate` is the rate of convergence to the root, and
+that rate is the content. The corpus has no classical non-effective IVT to
+contrast against because 213 does *all* its analysis modulus-first; vein C is the
+default here, not a collectible. (This is itself the point: where classical math
+imports LEM for existence, 213 was already constructive.)
+
 ### A — Chinese Remainder Theorem as an explicit bijection (★ clean A-case)
 `ModArith/CRTReconstruction`. Classical CRT is the quotient-ring iso
 `ℤ/mn ≅ ℤ/m × ℤ/n` whose construction rides on `Quot.sound`. With no quotient,

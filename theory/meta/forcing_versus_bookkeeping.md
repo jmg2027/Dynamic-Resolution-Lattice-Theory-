@@ -60,6 +60,13 @@ more*.
   The corpus modulus programme and the `Math/Logic/` omniscience hierarchy
   (LLPO / WKL / König / Heine-Borel) are the meta-catalogue of *exactly where*
   classical logic imports — i.e. where forcing is unavoidable.
+  - `Real213/Bisection/CutBisection` + `Analysis/DyadicSearch/RootCertificate`
+    — the constructive intermediate-value theorem. Classical IVT bisects by
+    *deciding* `f(m) ≷ 0` (LEM on the reals); ∅-axiom forces the explicit dyadic
+    bracket + modulus, and *the rate of convergence is the content*. Note vein C
+    is the corpus's **native** mode — it has no classical non-effective IVT to
+    contrast, because 213 does all analysis modulus-first. Where classical math
+    imports LEM for existence, 213 was already constructive.
 
 A boundary case worth keeping honest: `TauParity.doubleSum_parity` (the divisor
 parity as the **fixed-point count** of the `d ↔ n/d` involution rather than a
