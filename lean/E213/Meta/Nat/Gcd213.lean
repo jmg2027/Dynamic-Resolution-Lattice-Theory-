@@ -597,4 +597,26 @@ theorem coprime_repr_unique {p₁ q₁ p₂ q₂ : Nat}
       _ = p₂ * q₁ := h
   exact Nat.eq_of_mul_eq_mul_left hq₁ hp
 
+
+/-- Pure transitivity of `∣` (core `Nat.dvd_trans` carries `propext`). -/
+private theorem dvdTrans {a b c : Nat} (h1 : a ∣ b) (h2 : b ∣ c) : a ∣ c := by
+  obtain ⟨k, hk⟩ := h1; obtain ⟨j, hj⟩ := h2
+  exact ⟨k * j, by rw [hj, hk, mul_assoc_213]⟩
+
+/-- ★ **`gcd` is associative**: `gcd (gcd a b) c = gcd a (gcd b c)` — both are the greatest
+    common divisor of `{a,b,c}` (antisymmetry of `∣` + the universal property
+    `gcd213_greatest`).  With commutativity, `(Nat, gcd)` is a commutative (idempotent) monoid. -/
+theorem gcd213_assoc (a b c : Nat) :
+    gcd213 (gcd213 a b) c = gcd213 a (gcd213 b c) := by
+  apply dvd_antisymm_213
+  · apply gcd213_greatest
+    · exact dvdTrans (gcd213_dvd_left _ _) (gcd213_dvd_left a b)
+    · apply gcd213_greatest
+      · exact dvdTrans (gcd213_dvd_left _ _) (gcd213_dvd_right a b)
+      · exact gcd213_dvd_right _ _
+  · apply gcd213_greatest
+    · apply gcd213_greatest
+      · exact gcd213_dvd_left _ _
+      · exact dvdTrans (gcd213_dvd_right _ _) (gcd213_dvd_left b c)
+    · exact dvdTrans (gcd213_dvd_right _ _) (gcd213_dvd_right b c)
 end E213.Meta.Nat.Gcd213

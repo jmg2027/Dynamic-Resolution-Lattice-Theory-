@@ -99,6 +99,7 @@ import E213.Lib.Math.NumberTheory.LcmBoundMain
 import E213.Lib.Math.NumberTheory.Norm3
 import E213.Lib.Math.NumberTheory.Norm5
 import E213.Lib.Math.NumberTheory.GoldenNormBridge
+import E213.Lib.Math.NumberTheory.SumClosedForms
 import E213.Lib.Math.NumberTheory.OddCentralBinom
 import E213.Lib.Math.NumberTheory.Primorial
 import E213.Lib.Math.NumberTheory.Zeta3Numerator
