@@ -77,11 +77,11 @@ Chapter exists when the Lean sub-tree closed per
     integration, narrative depth, physics deployment,
     architecture)
 
-## Current chapters (255 total, incl. 106 essays)
+## Current chapters (256 total, incl. 106 essays)
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
-| `math/`    | 109 | [`math/INDEX.md`](math/INDEX.md) |
+| `math/`    | 110 | [`math/INDEX.md`](math/INDEX.md) |
 | `physics/` | 19 | [`physics/INDEX.md`](physics/INDEX.md) |
 | `lens/`    | 14 | [`lens/INDEX.md`](lens/INDEX.md) |
 | `meta/`    |  8 | [`meta/INDEX.md`](meta/INDEX.md) |

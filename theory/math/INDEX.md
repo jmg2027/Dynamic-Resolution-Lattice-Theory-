@@ -47,7 +47,7 @@ sandwich-first, the commuting square, layer constants),
 
 ### `probability/` — `probability`, `information`.
 
-### `combinatorics/` — `combinatorics`, `logic`, `graph_connectivity`, `bool_enumeration`.
+### `combinatorics/` — `combinatorics`, `logic`, `graph_connectivity`, `bool_enumeration`, `inclusion_exclusion_set_partitions`.
 
 ### `logic/` — reverse mathematics / omniscience ledger
 `reverse_math_213` (the `Lib/Math/Logic/` mirror — LPO/WLPO/MP/LLPO, the König
