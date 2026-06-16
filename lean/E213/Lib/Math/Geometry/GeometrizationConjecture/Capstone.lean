@@ -111,9 +111,9 @@ candidates for future marathons:
 
 ** candidate — K_{NS,NT}^{(c)} generalization track**:
   · User-deferred at step 17 ("3번은 나중에 일반화").
-  · Goal: generalize cohomology-depth filter, V32Betti-style
-    analysis, and Möbius-P + Lens readings to arbitrary
-    (NS, NT, c).
+  · Goal: generalize cohomology-depth filter, the parametric
+    Betti analysis (`Bipartite/Parametric/EulerAndCapstone`),
+    and Möbius-P + Lens readings to arbitrary (NS, NT, c).
   · Path: parametric versions of step 6, 14, 22 + abstract
     chart-Lens type.
   · Status: OPEN (mechanical generalization, moderate effort).

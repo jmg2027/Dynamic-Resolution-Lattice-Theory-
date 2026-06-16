@@ -14,7 +14,7 @@ across four cross-frame sources, all already PURE elsewhere in E213.
   2. **Gluon octet H¹(K) rank 8, decomp 2·trivial ⊕ 3·standard**
      (`Physics/Symmetry/C3ChainCapstone`)
   3. **Octet H¹(K_{3,2}^{(c=2)})** — rank 8, |H¹| = 2⁸ = 256
-     (`Physics/Symmetry/OctetModule`, `V32Betti`)
+     (`Physics/Symmetry/OctetModule`, `Bipartite/Parametric/EulerAndCapstone`)
   4. **Möbius P mod-5 pentagonal closure** — c=2 forcing
      (`C2DoublingDerivation`)
 

@@ -64,7 +64,8 @@ theorem NS_NT_derived_from_atomicity_two :
 
   Combines the axiom-level shadow (3 = 2 + 1 Lens-data split via
   `Meta.LensInternality`) with the deployment-level derivation
-  (5 = 1 + 4 cochain split via `V32Betti` rank-nullity).
+  (5 = 1 + 4 cochain split via `Bipartite/Parametric/Delta0AndConnectedness`
+  rank-nullity).
 
   Two independent layers both yield `selfPointingAxes = 1`:
 
@@ -78,7 +79,8 @@ theorem NS_NT_derived_from_atomicity_two :
 
   Open work (full R1 close):
   · Generalize the deployment-level derivation to arbitrary
-    K_{NS, NT}^{(c)} (need analogous V32Betti-style files).
+    K_{NS, NT}^{(c)} (`Bipartite/Parametric/*` already provides
+    the parametric δ⁰ and Betti analysis).
   · Formalize the chart-Lens over K_{3,2}^{(c=2)} as a Lean
     type (e.g., `KChartLens : Type → Type` with `view : Lens α →
     (Fin 5 → α)`) and prove its "visible dimension" equals

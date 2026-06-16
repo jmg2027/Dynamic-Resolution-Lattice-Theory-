@@ -148,7 +148,7 @@ theorem K32_filling_lifts_partial :
     (3 * 1 = 3)
     -- b_1 reduction at full filling (Filled.b1_filling_table)
     ∧ (8 - 3 = 5)
-    -- Unfilled b_1 (V32Betti / standard)
+    -- Unfilled b_1 (Bipartite/Parametric/EulerAndCapstone / standard)
     ∧ (12 - 5 + 1 = 8) :=
   ⟨E213.Lib.Math.Cohomology.Bipartite.Filled.four_cycles_count,
    by decide, by decide⟩
@@ -171,7 +171,7 @@ work needed to fully formalize  conjectural rows:
   · **Poincaré conjecture ↔ trivial loop-residue**: needs π₁
     invariance and trivial-class characterization at the
     K-graph level.  Partially related to b_0 = 1 work
-    (`V32Betti`).
+    (`Bipartite/Parametric/Delta0AndConnectedness`).
   · **K_{NS,NT}^{(c)} generalization** to higher chartBase ≥ 8
     exhaustive depth-filter verification (user-deferred to
     generalization track).

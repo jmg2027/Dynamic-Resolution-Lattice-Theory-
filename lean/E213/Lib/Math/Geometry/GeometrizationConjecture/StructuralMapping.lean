@@ -137,7 +137,7 @@ theorem universal_eight_via_multiple_routes :
     ∧ 2 + 2 * 3 = 8
     -- (D) 2^d_M at d_M = 3 (binary depth)
     ∧ (2 : Nat)^3 = 8
-    -- (E) K_{3,2}^{(c=2)} Euler b₁ (V32Betti)
+    -- (E) K_{3,2}^{(c=2)} Euler b₁ (Bipartite/Parametric/EulerAndCapstone)
     ∧ 12 - 5 + 1 = 8
     -- (F) |H¹| / |C⁰| ratio (cohomology shrinkage)
     ∧ (256 : Nat) / 32 = 8
@@ -162,7 +162,7 @@ theorem universal_eight_via_multiple_routes :
       · Atomicity (NS² − 1 gluon octet)
       · Representation (Sym(3) decomp 2 + 2·3)
       · Binary depth (2^d_M)
-      · Euler-characteristic (V32Betti b₁)
+      · Euler-characteristic (Bipartite/Parametric/EulerAndCapstone b₁)
       · Octet full cohomology (|H¹| = 2⁸)
       · Möbius P + 3-Lens (8-geometries via single algebraic source)
 
