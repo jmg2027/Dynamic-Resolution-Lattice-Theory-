@@ -76,8 +76,7 @@ That the ×-count vector is faithful (`vp_separation`) is proven; that an
 arbitrary multiplicative function's *value* is forced by descent over the
 factorization is instantiated (`SigmaParityComplete.sigma_odd_square_odd`, by
 smallest-prime-power induction) but not yet abstracted into a single "any
-multiplicative function descends over the UFD vector" schema — recorded in
-`research-notes/frontiers/crossdomain_divisor_x_branch_merge.md` as a candidate
-member of the iterated-descent catalogue. Whether "multiplicative-function
-descent" is its own rung or the UFD descent read through the counting Lens is
-open.
+multiplicative function descends over the UFD vector" schema — a candidate
+member of the iterated-descent catalogue (`universal_descent_schema`). Whether
+"multiplicative-function descent" is its own rung or the UFD descent read
+through the counting Lens is open.
