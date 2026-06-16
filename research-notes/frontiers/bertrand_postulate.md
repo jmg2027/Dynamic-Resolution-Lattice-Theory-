@@ -55,12 +55,4 @@ product is `≤ 4^{2n/3}` by the primorial) times the `√(2n)`-bounded prime-po
 
 No in-principle obstruction; the keystone (the part that needed the binom/fact bridges) is done.
 
-## Then full Bertrand (HARD, the real grind)
-
-After the primorial: the `(2m/3, m]` vanishing-window lemma, the prime-range partition +
-small-prime count via `isqrt`, the final crossover inequality `4^{n/3} > (2n+1)(2n)^{⌊√2n⌋}`
-past `N₀ ≈ 468` (pure-`Nat`, watch propext-tainted order lemmas — use the pure
-replacements), and the explicit prime-chain finite `decide`
-(2,3,5,7,13,23,43,83,163,317,631,1259,2503).  No in-principle obstruction.
-
 (Panel transcript: `/tmp/bertrand_panel.md`.)
