@@ -20,9 +20,12 @@ Reduction mod 5:
   ⇒ P^5 ≡ [[-1, 0], [0, -1]] = -I (mod 5)
   ⇒ P^10 = (P^5)² ≡ (-I)² = +I (mod 5)
 
-This is the **half-period / full-period pentagonal closure** that
-the pentagonal closure identifies as forcing c = 2 = NT (binary cover doubling) in
-K_{3,2}^{(c=2)}.
+This is the **half-period / full-period pentagonal closure** behind
+the period-ratio reading `c = full/half = 10/5 = 2 = NT` of the edge
+multiplicity in `K_{3,2}^{(c=2)}` (`C2DoublingDerivation`).  It
+*presents* `c = 2`; it does not force it — the ratio is the trivial
+`(−I)² = I` (see `research-notes/frontiers/atomic_c_multiplicity_forcing.md`;
+`c` is a posited presentation parameter, `(NS,NT,d)` the forced atoms).
 
 PURE.  All decide.
 -/

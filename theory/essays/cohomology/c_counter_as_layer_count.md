@@ -84,7 +84,9 @@ Massey witnesses, one per layer, all at the same depth.
 
 ## Cross-frame connections
 
-The reframing connects four distinct readings of "c":
+The reframing connects several readings of "c", all the same number
+for the same structural reason — the disjoint-layer factorisation
+forces the count to be the same at every level:
 
   · **Categorical**: c = number of summands in the direct-sum
     decomposition of the enriched chain complex
@@ -97,10 +99,44 @@ The reframing connects four distinct readings of "c":
   · **Algebraic**: c = number of independent 4-fold Massey
     witnesses (`eta_ab_layer m`, `eta_cd_layer m` parameterised
     over `m ∈ Fin c`, each hitting its own ψ_m).
+  · **Physical (anisotropy / temporal-refinement)**: c = how many
+    times an `(s, t)` incidence is sampled — i.e. the resolution
+    of the temporal axis *relative* to the spatial one.  An earlier
+    reading carried this as a geometric **ratio**: "the temporal
+    domain is sampled `c` times as finely as the spatial one"
+    (lattice step `a_t = a_s / c`; at `c = 2`, "time twice as
+    short").  In the current form that ratio **is** the edge
+    multiplicity: each finer temporal sub-sample is one parallel
+    edge-layer, so `c` finer temporal steps per incidence ≡ `c`
+    sheets per `(s, t)` pair.  The two are one number under a
+    geometric vs combinatorial Lens (multiplicity doctrine,
+    `theory/meta/multiplicity_doctrine.md`).
 
-All four readings are the same number for the same structural
-reason — the disjoint-layer factorisation forces the count to
-be the same at every level.
+### The historical ratio readings, in current form
+
+Two ratio-flavoured presentations of this `c = 2` survive in the
+corpus, both now expressed as *readings of the edge multiplicity*,
+not as forcings of it:
+
+  · **Period-ratio** (`Math/Foundations/C2DoublingDerivation.lean`):
+    `c = full_period / half_period = 10 / 5 = 2` under the Möbius
+    generator `P (mod 5)` (`P⁵ ≡ −I`, `P¹⁰ ≡ +I`) — the "binary
+    cover ratio".  This is the trivial `(−I)² = I`, so it *presents*
+    `c = 2` without forcing it.
+  · **Temporal-axis** (`Cohomology/Bipartite/V32LocalSignature.lean`,
+    `C2DoublingDerivation.c_multiplicity_eq_NT`): `c = NT = 2`, the
+    multiplicity read as the temporal slot count.  A numerical
+    coincidence of two distinct 2's (the temporal count `NT` vs the
+    edge multiplicity `c`), not a structural identity.
+
+Both are analysed and refuted *as forcings* in
+`research-notes/frontiers/atomic_c_multiplicity_forcing.md`.  The
+honest status is `(NS, NT, d) = (3, 2, 5)` forced + `c = 2` a derived
+presentation parameter (set so `b_1(K_{3,2}^{(c=2)}) = 6c − 4 = 8 =
+NS² − 1`).  Keeping the anisotropy/ratio reading is the multiplicity
+doctrine at work: a framework-internal Lens that *presents* the same
+forced/posited number, bridged to the canonical layer-count — not a
+competing claim about what forces `c`.
 
 ## Stern-Brocot decoupling
 

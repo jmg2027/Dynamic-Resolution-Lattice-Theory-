@@ -88,7 +88,7 @@ behind the uniform "− 1" lives in `Combinatorics/GraphConnectivity`
 | File | Steps | PURE | Content |
 |---|---|---|---|
 | `Ansatz.lean` | 1-3 | ~23 | Core defs (`chartBase`, `selfPointingAxes`, `chartVisibleAxes`) + axiom-level shadow + V32Betti deployment |
-| `M1Routes.lean` | 4, 5, 8 | ~7 | M1 atomicity + cohomology route + c=2 Möbius forcing |
+| `M1Routes.lean` | 4, 5, 8 | ~7 | M1 atomicity + cohomology route + c=2 Möbius period-ratio reading (presentation, not forcing) |
 | `ScopeAndDepth.lean` | 7, 9, 10 | ~28 | Cohomology-route scope correction + depth filter (Sym(3) + c=2 binary cover) |
 | `DimSpectrum.lean` | 6, 14 | ~14 | Geometrization dim spectrum d_M ∈ {3..6} + Sym(3)-capable enumeration |
 | `Poincare.lean` | 12, 13, 15 | ~31 | Poincaré pillar (tree + corrected Euler + Generalized + Filled) |
@@ -236,9 +236,11 @@ For full ~149 PURE inventory, see
   `multi_fold_connected_sum_close`, `heegaard_genus_close`.
 - **K_{NS,NT}^{(c)} universal closure** (`Generalization.lean`,
   ~16 PURE): per-chartBase tables extended + **Prop-level
-  universal characterization** `sym3_c2_force_K32` (Sym(3) +
-  c=2-binary-cover ALONE force {n,m}={2,3} ∧ c=2 across all Nat,
-  no chartBase bound) + Boolean ↔ form `passes_filter_universal_bool`
+  universal characterization** `sym3_c2_force_K32` (the Sym(3) +
+  c=2-binary-cover *filters* select `{n,m}={2,3}` with `c=2` across all
+  Nat, no chartBase bound — `c=2` is the presentation input to the
+  filter, not an output forced from below) + Boolean ↔ form
+  `passes_filter_universal_bool`
   + asymptotic `filter_passes_only_chartBase_5`.
 - **Metric geometries direct realization (FW-4) + 8-geo Lie group
   infra** (`MetricGeometries.lean`, ~40 PURE): mod-k Möbius P Lens

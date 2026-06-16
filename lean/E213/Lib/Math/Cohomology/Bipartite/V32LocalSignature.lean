@@ -85,8 +85,10 @@ theorem vertex_signature_is_213 :
 
 K_{3,2}^{(c=2)} has 12 edges (each S-T pair twice).  Each edge
 picks one of NS = 3 S-endpoints, one of NT = 2 T-endpoints, and a
-multiplicity in Fin c = Fin 2.  At c = NT (the canonical
-signature) the local triple is uniformly `(NT, det, NS)`. -/
+multiplicity in Fin c = Fin 2.  Reading the multiplicity as `c = NT`
+(a presentation coincidence of two distinct 2's, not a forcing —
+`atomic_c_multiplicity_forcing.md`), the local triple is uniformly
+`(NT, det, NS)`. -/
 
 /-- Local signature of edge e: uniform (NT, 1, NS) = (2, 1, 3). -/
 def edge_local_signature (_e : Fin 12) : Nat × Nat × Nat :=

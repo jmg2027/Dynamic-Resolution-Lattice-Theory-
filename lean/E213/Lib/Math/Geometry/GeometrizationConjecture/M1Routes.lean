@@ -149,24 +149,25 @@ theorem general_euler_consistency (n m c : Nat) :
   rfl
 
 
-/-! ## c=2 Möbius-route forcing (R1 step 8)
+/-! ## c=2 Möbius period-ratio reading (R1 step 8)
 
-The step-7 finding (cohomology-route partial) is now **complemented
-by an independent c=2 forcing** from `C2DoublingDerivation`.
-
-the
-Möbius generator P = [[2, 1], [1, 1]] over F_5 satisfies:
+The step-7 finding (cohomology-route partial) is **complemented by the
+period-ratio reading** of `c = 2` from `C2DoublingDerivation`.  The Möbius
+generator P = [[2, 1], [1, 1]] over F_5 satisfies:
 
   · `P^5 ≡ -I (mod 5)` — pentagonal half-rotation (`half_period = 5`)
   · `P^10 = (P^5)² ≡ +I (mod 5)` — full closure (`full_period = 10`)
 
-Therefore the c-multiplicity ratio:
+so the c-multiplicity ratio:
 
   c = full_period / half_period = 10 / 5 = 2 = NT
 
-is **structurally forced**, not arbitrary.  Per
-`C2DoublingDerivation.c_multiplicity_eq_2` and
-`c_multiplicity_eq_NT`, all PURE.
+Per `C2DoublingDerivation.c_multiplicity_eq_2` and `c_multiplicity_eq_NT`,
+all PURE.  This *presents* `c = 2` (the same edge multiplicity used by the
+deployment); it is not an independent forcing — the ratio is the trivial
+`(−I)² = I` and `c = NT` is a coincidence of two distinct 2's (see
+`research-notes/frontiers/atomic_c_multiplicity_forcing.md`).  Canonical
+status: `(NS,NT,d)` forced, `c` a posited presentation parameter.
 
 Combined with atomicity-route step 4:
 

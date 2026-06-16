@@ -421,13 +421,28 @@ canonical chapter.  Lean: `lean/E213/Theory/Atomicity/`.
     matches `(3, 2)` (closure relation
     `framework_natural_via_p_orbit_closure`)
 
-### III.2 Arity forcing — `c = 2`
+### III.2 Arity forcing (2) and the edge multiplicity `c`
 
 `lean/E213/Theory/Atomicity/{ArityForcing,CombinatorialArity}`
-— the bipartite multigraph `K_{NS, NT}^{(c)}` has its arity
-forced to `c = 2`.  Below `c = 2` the data is degenerate;
-above, redundant.  `theory/math/cohomology/k_nm_c_classification.md`
-develops the `c`-counter (5 directions, all closed).
+force the **relation arity = 2** — the distinguishing slash is
+binary (a pigeonhole bound on a relation's *inputs*).  This is a
+genuine ∅-axiom forcing.
+
+The **edge multiplicity `c`** of `K_{NS,NT}^{(c)}` (parallel edges
+per `(s,t)` incidence; the layer-count axis, orthogonal to graph
+shape) is a *different* quantity — not an arity — and is **not**
+forced by it: the arity-2 and multiplicity-`c` "2"s are numerically
+equal but structurally distinct.  `c = 2` is a **derived
+presentation parameter**, set so `b_1(K_{3,2}^{(c=2)}) = 6c−4 = 8 =
+NS²−1` re-presents the SU(3) adjoint; it is unforced across five
+reframings and removable from every observable (canonical status:
+3 forced `(NS,NT,d)` + 1 posited `c`).  Nor is `c = 1` degenerate —
+it carries a genuine non-coboundary H²-class (it is *pre-distinguishing*
+on the multiplicity axis, not empty).  See
+`theory/physics/foundations/atomic_constants.md` and
+`research-notes/frontiers/atomic_c_multiplicity_forcing.md`.
+`theory/math/cohomology/k_nm_c_classification.md` develops the
+`c`-counter (`codim ≥ c`, parametric in `c`; 5 directions, all closed).
 
 ### III.3 K_{3,2}^{(c=2)} — the canonical lattice
 

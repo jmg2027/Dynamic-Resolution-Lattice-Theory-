@@ -298,8 +298,9 @@ def hasNaturalSym3 (n m : Nat) : Bool :=
 
 /-- c=2 binary-cover compatibility requires c=2 AND a 2-element
     vertex side (the side hosting the c-doubling).  Per
-    `C2DoublingDerivation.c_multiplicity_eq_NT`, c = NT = 2
-    structurally. -/
+    `C2DoublingDerivation.c_multiplicity_eq_NT`, the period-ratio reads
+    c = NT = 2 (a presentation of the edge multiplicity, not a forcing —
+    see `atomic_c_multiplicity_forcing.md`). -/
 def hasC2BinaryCoverMatch (n m c : Nat) : Bool :=
   decide (c = 2 ∧ (n = 2 ∨ m = 2))
 

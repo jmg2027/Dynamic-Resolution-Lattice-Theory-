@@ -109,7 +109,7 @@ theorem X1_sym3_cross_frame_capstone :
     ∧ 2 + 2 * 3 = 8
     -- Reading 1 (Hodge closure on the same H¹)
     ∧ HC_K32
-    -- Möbius P mod-5 pentagonal closure (c=2 forcing)
+    -- Möbius P mod-5 pentagonal closure (c=2 period-ratio reading)
     ∧ half_period = 5 ∧ full_period = 10 ∧ c_multiplicity = 2
 ```
 

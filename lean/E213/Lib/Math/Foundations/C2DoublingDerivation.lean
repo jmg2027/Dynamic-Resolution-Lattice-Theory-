@@ -3,50 +3,47 @@ import E213.Lib.Physics.Simplex.Counts
 import E213.Lib.Math.Cohomology.Bipartite.V32
 
 /-!
-# C2DoublingDerivation — the structural origin of c=2 in K_{3,2}^{(c=2)}
+# C2DoublingDerivation — the period-ratio reading of c=2 in K_{3,2}^{(c=2)}
 
-Per the **c=2-doubling = pentagonal-binary-cover** reading: the
-multiplicity-2 superscript in `K_{3,2}^{(c=2)}` is NOT arbitrary.
-It corresponds exactly to the **binary cover ratio** required to
-go from pentagonal half-closure to full closure under the Möbius
-generator P = [[2, 1], [1, 1]]:
+In the current canonical form, `c` is the **edge multiplicity / layer
+count** of `K_{NS,NT}^{(c)}` (parallel edges per `(s,t)` incidence; the
+third axis, orthogonal to graph shape) and `c = 2` is a **derived
+presentation parameter** — set so `b_1(K_{3,2}^{(c=2)}) = 6c−4 = 8 = NS²−1`
+reproduces the SU(3) adjoint.  It is NOT a forced 4th atomic primitive:
+canonical status is **3 forced `(NS,NT,d)` + 1 posited `c`**
+(`theory/physics/foundations/atomic_constants.md`,
+`research-notes/frontiers/atomic_c_multiplicity_forcing.md`).
+
+This file records the **period-ratio reading** of that same `c = 2`: under
+the Möbius generator `P = [[2,1],[1,1]] (mod 5)`,
 
 ```
 P^5  ≡ -I (mod 5)    ← pentagonal HALF-rotation (sign flip)
 P^10 = (P^5)² ≡ +I (mod 5)    ← FULL closure (sign restored)
                 ↑
                 │
-            c = 2 multiplicity ratio
+            full / half = 10 / 5 = 2   (binary cover ratio)
 ```
 
-## Structural identification chain
+so `c = full_period / half_period = 10/5 = 2`.  The theorems below verify
+this ratio and its coincidences (`= NT`, the temporal-axis cardinality;
+`= (d+1)/NS`; `= |Sym 2|`) by `decide` — all PURE.
 
-  ① `half_period = 5 = d`           (pentagonal P^5 = -I)
-  ② `full_period = 10 = 2 · d`      (pentagonal P^10 = +I)
-  ③ `c := full_period / half_period`
-  ④ `c = 2`                          (binary cover ratio)
-  ⑤ `c = NT`                         (matches bipartite T-axis)
-  ⑥ K_{3,2}^{(c=2)} edge count: 12 = NS · NT · c
-                                   = 6 · 2 = 6 · NT
-                                   = 6 · binary-cover
+**Status of this as a *forcing* (current form).**  The period-ratio is NOT
+a forcing of `c`: `half_period = 5` and `full_period = 10` are literals, and
+`full/half = 2` is the trivial `(−I)² = I` (any sign-flipping half-period
+gives ratio 2 — it re-expresses `|{+1,−1}| = 2`, no `P`- or `5`-specific
+content).  Likewise `c = NT` is a numerical coincidence of two distinct 2's
+(the temporal slot count vs the edge multiplicity), not a structural
+identity — the same argument would give `c = NS = 3`.  Both routes are
+analysed and refuted-as-forcing in the frontier above.
 
-This is the **"Why c=2 in K_{3,2}^{(c=2)}"** result, lifted
-from research-note prose to a single PURE Lean theorem.
-
-## Cross-domain readings of c=2
-
-The integer 2 = NT = c serves multiple roles in DRLT:
-
-  · Pentagonal binary cover ratio (— this file)
-  · 2-to-1 cover SL(2, F₅) → A₅ (binary icosahedral → icosahedral)
-  · NT = T-axis cardinality in (NS, NT) = (3, 2)
-  · Sym(2) order
-  · c_lat = 2 (lattice doubling in Cayley-Dickson Bool²)
-
-All of these are the **same atomic 2** = NT, manifesting in
-different Lens readings of the same structural primitive.
-
-All theorems below are **PURE** via `decide`.
+So read this file as: **the binary-cover period-ratio and the temporal
+`c = NT` are two Lens readings that *present* the same atomic `2` already
+fixed as the edge multiplicity** (the "anisotropy / temporal-refinement"
+reading of `c`, bridged to the layer count in
+`theory/essays/cohomology/c_counter_as_layer_count.md`) — not an
+independent derivation that forces `c = 2`.
 -/
 
 namespace E213.Lib.Math.Foundations.C2DoublingDerivation
@@ -164,22 +161,25 @@ theorem two_atomic_readings :
 
 /-! ## §6.  Phase capstone -/
 
-/-- ★★ ** c=2 structural derivation capstone**.
+/-- ★★ **c=2 period-ratio capstone**.
 
-    Lifts the §"Why c=2 in K_{3,2}^{(c=2)}" prose argument to
-    a single PURE Lean theorem:
+    Bundles the binary-cover period-ratio reading of `c = 2` into one
+    PURE theorem:
 
       (a) half_period = 5 = d (pentagonal half-rotation)
       (b) full_period = 10 = 2·d (sign-restoration full closure)
       (c) c = full / half = 2 = NT (binary cover ratio)
       (d) K_{3,2}^{(c=2)} edge count: 12 = NS · NT · c
-      (e) Without c=2 doubling: only 6 = NS·NT edges (K_{3,2} bare)
+      (e) Without the doubling: only 6 = NS·NT edges (K_{3,2} bare)
       (f) Matrix-level witnesses cross-link to `Mobius213ModFive`
       (g) Cross-domain integer-2 readings (NT, c_lat, Sym(2) order, ...)
 
-    All quantities are atomically locked to (NS, NT, d) = (3, 2, 5);
-    the c=2 multiplicity is NOT a free parameter but a structural
-    consequence of pentagonal binary covering.  PURE. -/
+    These are the period-ratio + `c = NT` Lens readings that *present*
+    the edge multiplicity `c = 2`.  Per the file header (and the frontier
+    `atomic_c_multiplicity_forcing.md`), they do not *force* `c`: the
+    ratio is the trivial `(−I)² = I` and `c = NT` is a coincidence of two
+    distinct 2's.  Canonical status is 3 forced `(NS,NT,d)` + 1 posited
+    presentation parameter `c`.  PURE. -/
 theorem c2_doubling_derivation_capstone :
     -- Period structure
     half_period = d

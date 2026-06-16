@@ -66,9 +66,12 @@ removes a conditional or stated-but-unproved gap.
     is the ∀ k ≥ 3 generalization.
   · **Anchor**: `lean/E213/Theory/Atomicity/CombinatorialArity.lean`
     (5 PURE).
-  · **Closes**: atomic signature forcing fully formalised at Lean
-    level — 4 of 4 dimensions (NS = 3 + NT = 2 via PairForcing,
-    d = 5 via OrbitForcing + Five, c = 2 via this file).
+  · **Closes**: atomic signature forcing formalised at Lean level —
+    the forced atoms `(NS, NT, d) = (3, 2, 5)` (NS = 3 + NT = 2 via
+    PairForcing, d = 5 via OrbitForcing + Five).  `CombinatorialArity`
+    forces the relation **arity = 2**, a distinct quantity from the edge
+    multiplicity `c`; `c = 2` is a posited presentation parameter
+    (`atomic_c_multiplicity_forcing.md`), not a fourth forced dimension.
 
 ### 1.3 Pell-orbit cohomology extension — CLOSED
 
