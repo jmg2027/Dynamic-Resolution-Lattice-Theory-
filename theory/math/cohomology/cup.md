@@ -397,16 +397,14 @@ of the three under value equality.
 ```bash
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizFinPureForm
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.SelfRefDepth
-cd lean && lake build E213.Lib.Math.Cohomology.Cup.CupAtomicGeneralD
-cd lean && lake build E213.Lib.Math.Cohomology.Cup.K32Projection
+cd lean && lake build E213.Lib.Math.Cohomology.Cup.CupAtomic
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizMirror
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizSym
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizCatalog
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.LeibnizFinPureForm
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.SelfRefDepth
-python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.CupAtomicGeneralD
-python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.K32Projection
+python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.CupAtomic
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.LeibnizMirror
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.LeibnizSym

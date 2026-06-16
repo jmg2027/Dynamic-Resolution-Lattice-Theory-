@@ -118,12 +118,11 @@ as an open one gives a transfer.  The catalog (`lean/E213/Lib/Math/Foundations/P
     strictly descends off fixed points converges to a normal form (`(a,b) ↦ (b%a,a)` reaches
     `(0, gcd a b)`, the gcd the invariant the descent preserves); **cost: a monovariant strictly
     descending off fixed points**.  The discrete realization of the Ricci-flow shape
-    (`GeometrizationConjecture/Ricci.lean`'s open functional, monovariant in place of Perelman's
-    entropy) and the other completion of in-place monovariant exhaustion REFRAME is the dual of.
-    **Conquest demonstration** (the ISA driving a real proof, not a toy): the Geometrization Ricci
-    pillar — the `K_{3,2}` cell-filling coherentization compiled to `flow_reaches`, converging to the
-    canonical normal form (`GeometrizationConjecture.RicciFlow.ricci_pillar_K32_flow_close`,
-    `lift_flow_geometrization`); upgrades that pillar from OPEN to closed.
+    (`Geometry/DiscreteCurvature/RicciFlow.lean`'s monovariant in place of Perelman's
+    entropy): the `K_{3,2}` cell-filling coherentization compiled to `flow_reaches`, converging
+    to the canonical normal form
+    (`Geometry.DiscreteCurvature.RicciFlow.ricci_pillar_K32_flow_close`,
+    `Foundations.ProofISALifts.lift_flow_geometrization`).
   - **POSITIVITY / nonnegative-fold** (`lift_positivity`, `positivity_of_sq`) — the square/norm twin of
     `COUNT`: a bound is forced because its **gap is a square** (`gap = s² ⟹ 0 ≤ gap`), read off the sign of
     a fold, not counted.  Drives **Cauchy–Schwarz** (`lift_positivity_cs`, the gap `= (u₀v₁−u₁v₀)²` via the

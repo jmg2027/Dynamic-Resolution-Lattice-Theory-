@@ -80,9 +80,8 @@ def expectedSign (S : List Nat) : Int :=
 /-- ★★★★★ **Signed Hodge `⋆∘⋆` identity (operator-level, ∅-axiom).**
     On the actual `n = d−1 = 4` simplex, the signed-`ℤ` Hodge star satisfies
     `⋆(⋆ e_S) = (−1)^{|S|(4−|S|)} · e_S` for **every** basis form `S` of
-    `Λ(Fin 4)` — verified on all `2⁴ = 16` forms.  This is the construction
-    `CPHodgeStructure` flagged as named-unbuilt; here it is a real `Int`
-    operator, not parity arithmetic. -/
+    `Λ(Fin 4)` — verified on all `2⁴ = 16` forms.  Where `CPHodgeStructure`
+    carries the parity readout, this is the real `Int` operator. -/
 theorem star_star_eq_sign :
     ∀ S ∈ allForms, starStar S = expectedSign S := by decide
 

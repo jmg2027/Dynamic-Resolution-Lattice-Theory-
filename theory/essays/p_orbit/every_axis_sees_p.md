@@ -62,7 +62,7 @@ the same data through every formalised subsystem:
 
   · `Theory.Atomicity.Five.atomic_iff_five` — `5` is the unique
     Nat with an alive `2a + 3b` decomposition.
-  · `Lib/Math/Cohomology/Bipartite/V32Betti.b1_eq_NS_sq_minus_1`
+  · `Physics/Symmetry/GluonChannelInterpretation.eight_fold_QCD_identification`
     — `b₁(K_{3,2}^(c=2)) = NS² − 1 = 8` (gluon octet).
   · `Lib/Math/Mobius213ModFive.P_pow_5_eq_neg_I_mod_5` — `P⁵
     ≡ -I (mod 5)`; `P¹⁰ ≡ I (mod 5)` (pentagonal closure +

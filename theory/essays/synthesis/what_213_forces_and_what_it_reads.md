@@ -13,7 +13,8 @@ act: how many you need to distinguish (`NT = 2`), what the residue of
 distinguishing yields (`NS = 3`), their atomic closure (`d = NS + NT = 5`) —
 uniquely (`Theory/Atomicity/PairForcing`, `Five`, `NonDecomposable`).  From
 these, more numbers fall out by counting alone: the cohomology rank
-`NS² − 1 = 8` (`Cohomology/Bipartite/V32Betti`), the generation count
+`NS² − 1 = 8` (`Physics/Symmetry/GluonChannelInterpretation.eight_fold_QCD_identification`,
+the rank `b₁(H¹K) = 8 = NS²−1`), the generation count
 `C(NS, NT) = 3` (`Physics/Simplex/Generations`), the Basel truncation depths
 `{1, 2, ∞}` by Gram-sector rank exhaustion
 (`Physics/Cosmology/NeffDerivation`, `basel_formula_axiom_derived`).  These are
@@ -25,7 +26,7 @@ physical objects.  "`8` = the SU(3) gluon octet", "`Δ⁴` = spacetime",
 number, carried in prose or a defined projection, never derived.  The forced
 `(F₂)⁸` cohomology is a characteristic-2 vector space; the SU(3) adjoint is a
 real Lie algebra; the match is the *number* `8`, not the object
-(`Cohomology/Bipartite/OctetCokernel`).  Even where a reading is pushed toward
+(`Physics/Symmetry/OctetModule`, the rank-8 𝔽₂ carrier).  Even where a reading is pushed toward
 forced — the octet read as a cokernel of the zero map out of a contractible
 `Δ⁴`, the CP phase's `C₄` read as the order of a `90°` matrix — the math
 closes (often only *to a model*) while the physical name stays a reading.

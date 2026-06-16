@@ -28,13 +28,13 @@ distinguishes; none can be dialed.
 The criterion's sharp edge is what it *excludes*.  The edge multiplicity `c`
 of `K_{NS,NT}^{(c)}` is **not** an arity and not a distinguishing axis: the
 gauge content `NS² − 1 = 8` is already a fact about the forced `NS = 3`
-(`Couplings/SpectrumComplete.alpha_3_channel`), and the graph cohomology
-`b₁ = 6c − 4` merely *crosses* that constant at one point —
-`Cohomology/Cup/K32Projection.k32_b1_32_crosses_adjoint_only_at_2` proves
-`c = 2` is a selected crossing of a c-line with a c-constant target, not a
-forcing.  `c` adds no distinguishing; it re-presents `NS²−1`.  Hence it is
-removable, and removing it changes no observable
-(`theory/physics/foundations/atomic_constants.md`).
+(`Couplings/SpectrumComplete.alpha_3_channel`).  What the self-consistency
+constraint forces is the *pair* `(NS, NT) = (3, 2)` —
+`Physics/Foundations/AtomicConstantsParametricFullIff.c2b_full_iff` proves
+`constraint_C2b m n` holds for `m, n ≥ 2` iff `(m, n) ∈ {(3,2),(2,3)}`, and
+`c` is **not** among the forced data.  `c` adds no distinguishing; it
+re-presents `NS²−1`.  Hence it is removable, and removing it changes no
+observable (`theory/physics/foundations/atomic_constants.md`).
 
 The same criterion runs in pure number theory, with the opposite verdict.
 A function is multiplicative exactly when it is a readout of the ×-count-Lens

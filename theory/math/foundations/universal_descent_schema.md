@@ -23,7 +23,7 @@ fuel-recursion-on-a-monovariant, and that common skeleton is one Lean object.
   `euclid_via_descent_invariant` (+ the self-map `flow_reaches` and the GCD flow).
 - Instance (UFD): `lean/E213/Lib/Math/Foundations/VpSeparationDescent.lean` (6 PURE).
 - Instance (Markov): `lean/E213/Lib/Math/NumberSystems/Real213/Markov/MarkovDescentSchema.lean` (4 PURE).
-- Instance (Ricci, pre-existing): `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/RicciFlowDiscrete.lean`.
+- Instance (Ricci): `lean/E213/Lib/Math/Geometry/DiscreteCurvature/RicciFlowDiscrete.lean`.
 - ∅-axiom status: 0 DIRTY across all of the above.
 
 ## Narrative
