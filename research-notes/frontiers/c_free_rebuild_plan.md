@@ -53,6 +53,39 @@ Redirect every octet/`8`/`b₁(K32)` derivation to `NS²−1` directly.  Delete
 once importers are re-rooted.  Re-root `PhotonKernel.b_1` → `NS²−1`
 (`SpectrumComplete`) or delete `b_1` in favour of the adjoint.
 
+**Status (2026-06-16): PARTIAL — clean part done, carrier-delete escalated.**
+
+Done (build-green, ∅-pure):
+- `PhotonKernel.b_1 := NS*NS-1` (octet, direct from `NS=3`); `num_edges := NS*NT*NT`
+  (c-free signature form); dropped `Prefactors.c_lat` dep; `b_1_eq_8` preserved.
+- Deleted `Cup/K32Projection.lean` (the explicit c-line `k32_edges=c·NS·NT`,
+  `k32_b1=6c−4`); its sole importer `AssignmentForcing` re-rooted c-free.
+- `Bare` (IntegerSkeleton.edge_count, Prefactors capstone), `ProjectionRatios`,
+  `ChannelCohomologyLoss` (`E_K`, `H1_K:=NS²−1`), `AtomicBase/Edges`: edge counts
+  restated `NS·NT²`; dropped the c-multiplicity-only readings.
+- `Prefactors.c_lat` KEPT (value = `NT`): consumed as a bare `2` by ~17 downstream
+  physics files (TauOverMu, HierarchyTowers, Higgs/{Mass,Quartic,Master}, Hadron,
+  Cosmology/DarkEnergy, Capstones/{MasterCatalog,PhysicsTrackComplete},
+  ClosedPropagator, FibonacciExtended, …).  Removing it is a Phase-F catalog sweep.
+
+**ESCALATED — `V32/V32Betti/H1K/OctetCokernel` deletion is BLOCKED.**
+These are NOT relabelable to `NS²−1`: they are the *substrate* of the 18-phase
+C3-chain representation-theory programme (`Lib/Physics/Symmetry/`): `V32` is the
+concrete 12-edge K_{3,2}^{(c=2)} graph (`srcOf/tgtOf/delta0`, the C₂⁶ sheet-swap);
+`H1K` is the rank-8 ℤ/2-module on which the explicit 8×8 σ-matrices act (matrices
+derived from the c=2 doubled-edge tree decomposition); `Sym3IrrepDecomp` enumerates
+its 256 vectors.  This chain closes in `Symmetry/C3ChainCapstone.c3_chain_master`
+(★★★★★) and is *cited inside* the closed Geometrization capstone
+`Geometry/GeometrizationConjecture/ScopeAndDepth.K32_depth_via_c3_chain_master`
+(uses `H1K.H1K.rank = 8`, `Sym3IrrepDecomp.fixedSize = 4`).  Deleting the carriers =
+rebuilding the entire C3 chain (Aut card 768, σ-matrices, ι-embedding, F₂-irrep
+decomposition) on a different object AND re-closing Geometrization — a multi-file
+rebuild, not a re-rooting.  Per the risk register's hard gate (don't break a closed
+capstone without a verified replacement), this thread is STOPPED for a dedicated
+follow-up (build the c-free rank-8 module + port the C3 chain, verify, *then* delete).
+`OctetCokernel` alone is a clean leaf (only the `Bipartite.lean` aggregator imports
+it) but was left in place to keep the carrier set coherent for the follow-up.
+
 ### Phase D — α_em spine c-free re-derivation (RESEARCH-GRADE; verify before delete)
 The headline `1/α_em = 137.036` (0.2 ppb, `GramStructuralCapstone`) routes the
 prefactors `60/24/12` through `edge_count = c·NS·NT`.  Re-derive c-free:
