@@ -1,4 +1,5 @@
 import E213.Lib.Math.NumberTheory.AperyRecurrence
+import E213.Lib.Math.NumberTheory.AperyIntegrality
 
 /-!
 # Zeta3Numerator — the cleared harmonic part of the numerator recurrence
@@ -19,6 +20,8 @@ namespace E213.Lib.Math.NumberTheory.Zeta3Numerator
 open E213.Lib.Math.NumberTheory.AperyRecurrence (B aperyLead apery_recurrence)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
 open E213.Meta.Nat.NatDiv213 (div_add_mod_pure mul_witness_iff_mod_eq_zero)
+open E213.Lib.Math.NumberTheory.AperyIntegrality (cube_dvd_lcm_cube)
+open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (lcmUpTo)
 
 /-- `a ∣ b → a·(b/a) = b`, ∅-axiom. -/
 private theorem dvd_mul_div {a b : Nat} (h : a ∣ b) : a * (b / a) = b := by
@@ -62,5 +65,30 @@ theorem harmonic_part_recurrence (j ℓ : Nat)
           + (j + 1) * (j + 1) * (j + 1) * B j) + ℓ * B (j + 2) := by ring_nat
     _ = HL ℓ (j + 1) * (aperyLead j * B (j + 1)) + ℓ * B (j + 2) := by rw [hrec]
     _ = aperyLead j * (HL ℓ (j + 1) * B (j + 1)) + ℓ * B (j + 2) := by ring_nat
+
+/-- `x³ = x·x·x` (the explicit-product form `HL`/`harmonic_part_recurrence` use). -/
+private theorem pow_three_eq (x : Nat) : x ^ 3 = x * x * x := by
+  rw [Nat.pow_succ, Nat.pow_succ, Nat.pow_one]
+
+/-- ★★ **The harmonic recurrence with the genuine `lcm³` clearing factor.**  Instantiates
+    `harmonic_part_recurrence` at `ℓ = lcm(1..N)³`, discharging both divisibility
+    hypotheses with `cube_dvd_lcm_cube` (`i³ ∣ lcm(1..N)³` for `1 ≤ i ≤ N`).  This is the
+    chaining step that turns the abstract cleared-harmonic recurrence into the concrete
+    one over the real Apéry clearing factor `lcm(1..N)³` — so `HL (lcm N ³) ·` is the
+    genuine integral `lcm³·H₃`, the `H₃`-part contribution to `(n!)³ ∣ 2·lcm³·zeta3Num n`.
+    (The remaining open half is the *kernel* recurrence, which has no clean WZ certificate;
+    see `research-notes/frontiers/zeta3_wz/numerator_plan.md`.) -/
+theorem harmonic_recurrence_lcm (j N : Nat) (hjN : j + 2 ≤ N) :
+    (j + 2) * (j + 2) * (j + 2) * HL (lcmUpTo N ^ 3) (j + 2) * B (j + 2)
+      + ((j + 1) * (j + 1) * (j + 1) * HL (lcmUpTo N ^ 3) j * B j + lcmUpTo N ^ 3 * B j)
+    = aperyLead j * (HL (lcmUpTo N ^ 3) (j + 1) * B (j + 1)) + lcmUpTo N ^ 3 * B (j + 2) := by
+  have hj1N : j + 1 ≤ N := Nat.le_trans (Nat.le_succ (j + 1)) hjN
+  have h1 : (j + 1) * (j + 1) * (j + 1) ∣ lcmUpTo N ^ 3 := by
+    have hd := cube_dvd_lcm_cube (j := j + 1) (n := N) (Nat.succ_le_succ (Nat.zero_le j)) hj1N
+    rwa [pow_three_eq] at hd
+  have h2 : (j + 2) * (j + 2) * (j + 2) ∣ lcmUpTo N ^ 3 := by
+    have hd := cube_dvd_lcm_cube (j := j + 2) (n := N) (Nat.succ_le_succ (Nat.zero_le (j + 1))) hjN
+    rwa [pow_three_eq] at hd
+  exact harmonic_part_recurrence j (lcmUpTo N ^ 3) h1 h2
 
 end E213.Lib.Math.NumberTheory.Zeta3Numerator

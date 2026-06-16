@@ -313,8 +313,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   the denominator orbit↔sum bridge).
   **Open (the remaining half)**: numerator integrality `(n!)³ ∣ 2lcm³·zeta3Num n`
   — the harmonic-kernel Apéry numerator, **no clean WZ certificate** (the explicit
-  Apéry kernel telescoping route).  First piece landed (`Zeta3Numerator.
-  harmonic_part_recurrence`).  Full roadmap + de-risking in `zeta3_wz/numerator_plan.md`.
+  Apéry kernel telescoping route).  Harmonic-side pieces landed (`Zeta3Numerator.
+  harmonic_part_recurrence`; **`harmonic_recurrence_lcm` (2026-06-16)** — the cleared
+  harmonic recurrence instantiated at the genuine clearing factor `ℓ = lcm(1..N)³`,
+  discharging the divisibility hypotheses via `cube_dvd_lcm_cube`, so `HL (lcm N ³)·`
+  is the integral `lcm³·H₃` H₃-part contribution).  The remaining open half is the
+  *kernel* recurrence (no clean WZ certificate — the certifiability wall, multi-agent
+  panel 2026-06-16).  Full roadmap + de-risking in `zeta3_wz/numerator_plan.md`.
   Then piecewise `(c,p,q)` + `htel` ⟹ `zeta3HolonomicReal` unconditional.
 - **async point–line system ≅ Raw** — CLOSED ∅-axiom (full 8-item agenda,
   74 PURE) and promoted → `theory/math/foundations/async_growth.md`
