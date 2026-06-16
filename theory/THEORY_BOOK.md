@@ -669,11 +669,9 @@ bridge}.md` — 12 sub-clusters under cohomology.
 ### V.6 Sym(3) spine cross-frame
 
 `theory/math/cohomology/sym3_spine.md` — `2 · trivial ⊕ 3 · standard`
-Sym(3)-decomposition appears in K_{3, 2}^{(c=2)} H¹, in
-Thurston's 8 geometries, in the Akbulut cork.  Same
-decomposition, three independent math frames.  (A fourth
-frame — gauge content — surfaces in the eventual physics
-side; out of scope here.)  Capstone:
+Sym(3)-decomposition appears in K_{3, 2}^{(c=2)} H¹ and in the
+gauge content (gluon octet, `1/α_3 = dim adj SU(3) = 8`).  Same
+decomposition, independent frames.  Capstone:
 `X1_sym3_cross_frame_capstone`.
 
 ### V.7 Universe chain
@@ -726,14 +724,6 @@ The fractal `N_U = 5^25` (count-Lens output at level 2) is
 not isolated — `N_U + 1` carries the Aurifeuillean cyclotomic
 structure, providing algebraic-geometric anchoring at every
 fractal turn.
-
-### V.11 H³, H⁴ stable at +6
-
-`theory/math/geometry/exotic_4mfd_cork.md` + `H3Twist.lean` — the
-3-skeleton and 4-skeleton truncations stabilise the signed
-cork-twist count at `+6` (H¹ = +4, H² = +2, H³ = 0, H⁴ = 0).
-The 4-simplex closure of the `K_{3, 2}^{(c=2)} ↪ Δ⁴` dual
-filling.
 
 ---
 

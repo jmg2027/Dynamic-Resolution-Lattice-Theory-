@@ -256,9 +256,8 @@ representing `b_2 = 1` is the all-ones face-vector
 `ω = (1, 1, 1) ∈ C²`, proven Sym(3)-invariant — the third trivial
 irrep adjoining the H¹-only `2·trivial ⊕ 3·standard` decomposition.
 
-This Filled3Cell anchor is the shared prereq for three downstream
-tracks: this sub-ppb α_em refinement, the JSJ-3-mfd deepening,
-and the Akbulut cork higher-cohomology extension.
+This Filled3Cell anchor is the shared prereq for the sub-ppb
+α_em refinement downstream track.
 
 #### The refined cup-ladder rule (Physics/AlphaEM/)
 

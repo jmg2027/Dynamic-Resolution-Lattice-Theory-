@@ -4,8 +4,8 @@
 DIRTY (`WeightedGreen` 11, `DiscreteGaussian` 11,
 `DiscreteSurgery` 15, `RicciFlowDiscrete` 17, `Combinatorics/Binomial` 15).
 Companion chapters: `discrete_curvature.md` (the parametric curvature
-stencils this flow runs on), `geometrization_conjecture.md` (the R1
-reading), `riemannian_curvature_tensor.md` (the smooth-side algebra).
+stencils this flow runs on), `riemannian_curvature_tensor.md` (the
+smooth-side algebra).
 
 ## Overview
 
@@ -22,7 +22,7 @@ is stated at the end).
 
 ## Lean source
 
-- Path: `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/` +
+- Path: `lean/E213/Lib/Math/Geometry/DiscreteCurvature/` +
   `lean/E213/Lib/Math/Combinatorics/Binomial.lean`
 - Files: `WeightedGreen.lean` (11 PURE), `DiscreteGaussian.lean` (11),
   `DiscreteSurgery.lean` (15), `RicciFlowDiscrete.lean` (17),

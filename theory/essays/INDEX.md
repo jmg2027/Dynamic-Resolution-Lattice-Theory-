@@ -180,7 +180,7 @@ counts) and honest about ◑ closures — octet `Unit`-modelled, CP-phase matrix
 `gra_universality_one_principle`, `gra_as_substrate_of_cat_hott`.
 
 **VIII. `topology/` — topology, geometry & 4-manifolds.**
-`4mfd_geometrization_joint_reading`, `cup_ladder_cork_h1_bridge`.
+`cup_ladder_cork_h1_bridge`.
 
 **IX. `methodology/` — methodology & PURE-Lean infra.**
 `pure_funext_avoidance`, `pure_nat_ring_methodology`,
@@ -223,8 +223,7 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `cut_off_marathon.md` | What collapsed in the cardinality cut-off 6-direction sweep? | `math/cohomology/aurifeuillean.md` + `meta/cardinality_cutoff_applications.md` |
 | `pure_funext_avoidance.md` | PURE Lean에서 funext-blocked 정리를 어떻게 닫는가? | 4 patterns across `Padic/Neg*` + `Real213/ValidCut/IntValidCut` + `Padic/Setoid*` + `Padic/HenselResidual` |
 | `bool_assoc_failure_meaning.md` | b ≥ 3 cutSum_assoc이 Bool level에서 실패하는 것은 무엇을 의미하는가? | `Real213/Sum/CutSumAssocB3` + `Theory/Atomicity/Five` `atomic_iff_five` + `Physics/Foundations/AtomicConstantsParametricFullIff` `c2b_full_iff` + `Padic/ZpSqrtD` |
-| `4mfd_geometrization_joint_reading.md` | How does 213 read 4-mfd geometrization (cork twist + JSJ + Heegaard jointly)? | `math/exotic_4mfd_cork.md` + `math/geometrization_conjecture.md` + `lean/E213/Lib/Math/Geometry/AkbulutCork/CrossFrame.lean` |
-| `cup_ladder_cork_h1_bridge.md` | How do cup-ladder α²/d² Gram and cork +4 share the same H¹ basis? | `math/cohomology/cup_ladder_graduation.md` + `math/exotic_4mfd_cork.md` + `lean/E213/Lib/Math/Geometry/AkbulutCork/CrossFrame.lean` |
+| `cup_ladder_cork_h1_bridge.md` | How do cup-ladder α²/d² Gram and the Sym(3)-fixed +4 share the same H¹ basis? | `math/cohomology/cup_ladder_graduation.md` |
 | `cut_equality_and_atomicity.md` | 213에서 두 cut이 같다는 게 뭐야? Why does one matrix carry both atomicity and cut equality? | `math/mobius_canonical_equivalence.md` + `math/universe_chain.md` + `Theory.Atomicity.Five.atomic_iff_five` |
 | `the_degree_of_a_number.md` | What IS the degree of a number? (degree = growth class of the pointing's receipt; form-receipt vs race-receipt; the number's own degree = a cut over exponent cuts, `powSched_mono`) | `math/analysis/form_margin_modulus.md` + `math/analysis/holonomic_modulus.md` + `Real213/{CubeRootTwoCut,ModulusComposition,Zeta3Cut}` + `essays/foundations/growth_without_a_clock.md` |
 | `pi_as_the_modulus_residue.md` | π read through the modulus family: every lattice period divides 12 (spectrum exactly `{1,2,3,4,6}`, five forbidden), every schedule overtaken (rung ∞), and the ∀-form becomes a constructor exactly when quantified into an escape modulus (`PiHalfMeasure` ⟹ `N = C·(2k)^s + 2`); π's specialness = effectivity gap, not Diophantine exoticism | `Real213/{FiniteOrderSpectrum, ExpLog/PiMeasureModulus, BracketModulus}` + `math/analysis/holonomic_modulus.md` §4 + `essays/analysis/the_modular_group_from_two_folds.md` + `seed/AXIOM/05_no_exterior.md` §5.1 |
@@ -240,7 +239,7 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `methodology/reframe_presentation_transport.md` | When a reading fails to SEPARATE (over-counts), how does 213 read the same residue at a resolution where it separates? (Markov uniqueness, Zhang's 3c±2, presentation-transport as a lift) | `Foundations/ProofISALifts` (`lift_reframe`) + `math/analysis/markov_uniqueness.md` + `MarkovUniqueness.markov_max_unique_via_3c_pm2` + `MarkovPrimeFactor.sq_eq_collapse_pp` + CLAUDE.md *External-ruler smuggling* |
 | `representation_theorems_one_counting_bound.md` | Why are `p = a²−ab+b²` (disc −3), `p = a²+b²` (disc −4), and the `ℤ[√−D]` family all one theorem? | `PolyRoot/RootBound.eval_zero` + `NonFixedExists.exists_nonfixed_gen` + `Integer/{EisensteinSplit,GaussianSplit,ZSqrtNegSplit}.split_form` + `Integer/ZSqrtNegSharp.descent_false_at_three` |
 | `four_square_additive_pigeonhole.md` | Why is every `n = a²+b²+c²+d²`, and why does this need a *different* engine than the disc-`−D` representation theorems? | `NumberTheory/FourSquare.{four_sq_id,isSum4_mul,descent_core,odd_descent,halve_step,descent_rec,seed_multiple,exists_prime_factor,prime_isSum4,nat_isSum4}` + `FourSquareSeed.four_square_seed` + `Combinatorics/Pigeonhole.no_inj_lt` |
-| `curvature_as_lens_readout.md` | What is curvature, in 213? Why do Forman, Gauss–Bonnet, Ollivier, Bakry–Émery, and conformal give the same sign↔topology trichotomy? | `Geometry/GeometrizationConjecture/{DiscreteRicci,DiscreteGaussBonnet,OllivierRicci,BakryEmery,ConformalCurvature}` + `seed/AXIOM/06_lens_readings.md` §6.7 |
+| `curvature_as_lens_readout.md` | What is curvature, in 213? Why do Forman, Gauss–Bonnet, Ollivier, Bakry–Émery, and conformal give the same sign↔topology trichotomy? | `Geometry/DiscreteCurvature/{DiscreteRicci,DiscreteGaussBonnet,OllivierRicci,BakryEmery,ConformalCurvature}` + `seed/AXIOM/06_lens_readings.md` §6.7 |
 | `k32_cohomology_simplex_higher_insight.md` | The K_{3,2}^{(c=2)} cohomology simplex, read one level up — `PGeneratesNat` + the Sym(3) spine | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Mobius213K32Bridge` |
 | `mobius_self_form_fixed_point.md` | 모습 자체가 뫼비우스 행렬 — P는 왜 자기 설명 함자의 고정점인가? | `Px/MobiusSelfForm` + `Px/CharPolySelf` + `Px/PnFibonacciUniversal` + `math/mobius213_p_orbit_closure.md` |
 | `gra_universality_one_principle.md` | Walk-length, cup-length, truncation, chromatic height, resolution exponent — why are these the same? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/` umbrella + `GRA/Translation.lean` |

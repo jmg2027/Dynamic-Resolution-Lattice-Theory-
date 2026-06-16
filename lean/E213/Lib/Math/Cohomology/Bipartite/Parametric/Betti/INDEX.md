@@ -19,9 +19,3 @@ CochSpaces (parent dir)
    └── KernelConstancyUniversal
          └── (BoolEnum, ListCount → List213)
 ```
-
-## Consumers
-
-`Math/Geometry/GeometrizationConjecture/KChartLensAbstract.lean` —
-universal M2 chart-axes partition (`selfPointingAxes = 1` derived from
-the 1-dimensional δ⁰-kernel for every connected K).

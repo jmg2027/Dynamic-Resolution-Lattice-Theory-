@@ -100,13 +100,6 @@ operator directly; the product-indexed `KernelConstancyUniversal` is the
 division-free companion that carries the count-form lemmas and the
 graph-connectedness instantiation.
 
-The chart-axis consumer `forcedKChartLens` /
-`m2_universal_forced_partition`
-(`Geometry/GeometrizationConjecture/KChartLensAbstract.lean`) feeds
-this 1-dimensional kernel into the axes partition, forcing
-`selfPointingAxes = 1` and `chartVisibleAxes = chartBase − 1` for
-arbitrary connected K.
-
 ### Universal first Betti number `b₁ = E − V + 1`
 
 `BettiOneUniversal.lean` (`betti_one_universal`) assembles the first
@@ -154,6 +147,3 @@ connected.
 - `theory/math/cohomology/cup_ladder_graduation.md` — physics
   application bridge (α_em residual via `(k+1)` graduation)
 - `theory/math/cohomology/hodge.md` — cup-chain cohomology + ⋆⋆ involution
-- `theory/math/geometry/geometrization_conjecture.md` — KChartLensAbstract +
-  K-deployment family enumeration (consumer of
-  `parametric_close_capstone`)

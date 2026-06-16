@@ -35,7 +35,7 @@ sandwich-first, the commuting square, layer constants),
 ### `numbertheory/` — `dyadic_fsm`, `modular_arithmetic`, `eisenstein_period_arithmetic`, `euclidean_division`, `legendre_symbol`, `quadratic_reciprocity`, `zolotarev`, `primitive_roots`, `fibonacci_5adic_valuation`, `apery_zeta3_arithmetic`, `chebyshev_prime_counting`.
 
 ### `geometry/` — geometric / topological / discrete-substrate
-`geometry`, `topology`, `geometrization_conjecture`, `exotic_4mfd_cork`,
+`geometry`, `topology`,
 `angle_structure`, `number_grid`, `generation_rule`, `triangular_tower`,
 `level_topology`, `operation_topology`, `bipartite_decomp`, `cartesian_vs_disjoint`,
 `riemannian_curvature_tensor`, `discrete_curvature`, `discrete_perelman_core`.

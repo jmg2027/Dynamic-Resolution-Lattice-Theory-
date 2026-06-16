@@ -98,17 +98,14 @@ the other, and the two derivations share one proof shape
 `theory/math/cohomology/sym3_spine.md`: a single
 representation-theoretic decomposition
 `8 = 2·trivial ⊕ 3·standard` recurs as load-bearing structure in
-four independent chapters:
+two independent chapters:
 
 1. K₃,₂² higher cohomology — H¹ rank = NS² − 1 = 8
-2. The 8 Thurston geometries — 3 isotropic + 5 anisotropic
-3. The gluon octet — 1/α₃ = dim adj SU(3) = 8
-4. The Akbulut cork twist — signed orbit count on the 8-dim H¹
-   basis
+2. The gluon octet — 1/α₃ = dim adj SU(3) = 8
 
-The four readings are four Lens-restrictions of the same Sym(3)
+The readings are Lens-restrictions of the same Sym(3)
 action on the same K₃,₂² H¹.  `X1_sym3_cross_frame_capstone`
-(PURE) records the 4-way convergence as a single theorem.
+(PURE) records the convergence as a single theorem.
 Sym(3) is the necessary symmetry of the forced (NS, NT) = (3, 2)
 — existence, not choice.
 

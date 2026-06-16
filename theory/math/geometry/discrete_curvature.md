@@ -4,7 +4,7 @@
 (`OllivierRicci` 60, `BakryEmery` 42, `BakryEmeryBipartite` 16,
 `DiscreteLichnerowicz` 11).  Companion chapters:
 `riemannian_curvature_tensor.md` (the smooth-side algebraic tensor
-calculus) and `geometrization_conjecture.md` (the R1 reading this
+calculus) and `discrete_perelman_core.md` (the discrete-flow core this
 ladder serves).
 
 ## Overview
@@ -23,7 +23,7 @@ no limit.
 
 ## Lean source
 
-- Path: `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/`
+- Path: `lean/E213/Lib/Math/Geometry/DiscreteCurvature/`
 - Files: `OllivierRicci.lean` (60 PURE), `BakryEmery.lean` (42 PURE),
   `BakryEmeryBipartite.lean` (16 PURE), `DiscreteLichnerowicz.lean`
   (11 PURE)
@@ -142,8 +142,8 @@ note there.
 
 ```bash
 cd lean && lake build
-python3 tools/scan_axioms.py E213.Lib.Math.Geometry.GeometrizationConjecture.OllivierRicci
-python3 tools/scan_axioms.py E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmery
-python3 tools/scan_axioms.py E213.Lib.Math.Geometry.GeometrizationConjecture.BakryEmeryBipartite
-python3 tools/scan_axioms.py E213.Lib.Math.Geometry.GeometrizationConjecture.DiscreteLichnerowicz
+python3 tools/scan_axioms.py E213.Lib.Math.Geometry.DiscreteCurvature.OllivierRicci
+python3 tools/scan_axioms.py E213.Lib.Math.Geometry.DiscreteCurvature.BakryEmery
+python3 tools/scan_axioms.py E213.Lib.Math.Geometry.DiscreteCurvature.BakryEmeryBipartite
+python3 tools/scan_axioms.py E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteLichnerowicz
 ```

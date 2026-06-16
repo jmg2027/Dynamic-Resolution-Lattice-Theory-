@@ -153,20 +153,6 @@ chapter section, not a missing theorem.
   · **Tractability**: MED (sketches the conjecture; Lean proof
     is separate).
 
-### 2.4 Geometrization Sym(3) ↔ K_{3, 2} Sym(3) spine
-
-  · **Gap**: `geometrization_conjecture.md` Step 24 names the
-    8-geometries Sym(3) decomposition (3 isotropic + 5
-    anisotropic = 2 fixed + 3 standard).  `c3_chain.md` proves
-    the same `2·trivial ⊕ 3·standard` decomposition on
-    H¹(K_{3, 2}^{(c=2)}).  Connection observed but not stated
-    as a theorem.
-  · **Action**: write explicit cross-frame theorem
-    "Sym(3)-spine unification" naming both decompositions and
-    the gluon-octet isomorphism that connects them.
-  · **Tractability**: MED (the Lean isomorphism may need a
-    new bridge file).
-
 ### 2.5 N_gen and the c-counter
 
   · **Gap**: `Simplex/SubInventory` derives `N_gen = 3` from
@@ -368,11 +354,6 @@ The next-shot focus should be one of:
   · **Tier 2.1 CLOSED**: Hodge ↔ universe-chain.
   · **Tier 2.2 CLOSED**: Cayley-Dickson ↔ Möbius.
   · **Tier 4.1 CLOSED**: catalog 23/23 paired.
-  · **2.4 (Sym(3)-spine unification) needs** a new bridge file
-    if the gluon-octet ↔ 8-geometries isomorphism is to live in
-    Lean rather than only narrative — likely under
-    `lean/E213/Lib/Physics/Symmetry/` cross-cited from
-    `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/`.
   · **5.1 cleans ⇒** unlocks safe motion of 1.1's anchor file
     if any Math/Physics import-graph entanglement surfaces
     during the per-layer completeness work.

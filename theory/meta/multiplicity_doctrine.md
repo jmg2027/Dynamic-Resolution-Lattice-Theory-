@@ -84,7 +84,7 @@ step-count):
 | Realisation | File | Property |
 |---|---|---|
 | `IsContinuousModulus` | `Math/Topology/Continuity.lean` | monotone (`∀ k, modulus k ≥ k`) |
-| `IsRicciModulus` | `Math/GeometrizationConjecture/Ricci.lean` | anti-monotone |
+| `IsRicciModulus` | `Math/Geometry/DiscreteCurvature/RicciFlow.lean` | anti-monotone |
 | `dyadic_bracket_cauchy_modulus` | `Math/Analysis/.../DyadicBracket.lean` | linear `L · k` |
 
 All three are `Nat → Nat` annotated with a positional-control

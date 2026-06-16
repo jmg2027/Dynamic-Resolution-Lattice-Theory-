@@ -223,8 +223,8 @@ the sub-trees of one mathematical area:
     Universal, Examples, Bridge`) + `HodgeConjecture` (the HC programme).
   * `NumberTheory/` — `DyadicFSM` (FSM / Pell / Pisano / Trib / FLT),
     `ModArith` (Bezout / FLT / F_{p²}).
-  * `Geometry/` — `Geometry, Topology, GeometrizationConjecture,
-    AkbulutCork` + the discrete-substrate geometry sub-trees
+  * `Geometry/` — `Geometry, Topology, DiscreteCurvature` + the
+    discrete-substrate geometry sub-trees
     (`AngleStructure, NumberGrid, GenerationRule, TriangularTower,
     LevelTopology, OperationTopology, BipartiteDecomp, CartesianVsDisjoint`).
   * `Foundations/` — `AxiomSystems, PatternCatalog, Choice, UniverseChain`

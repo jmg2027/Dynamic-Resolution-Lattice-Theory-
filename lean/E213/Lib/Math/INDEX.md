@@ -41,7 +41,9 @@
   - `Pigeonhole.lean`      — pigeonhole infrastructure
   - `AngleStructure.lean`  — angle structure
   - `TriangularTower.lean` — triangular tower
-  - `AkbulutCork.lean`     — Akbulut cork (exotic 4-manifold seed)
+  - `Geometry/DiscreteCurvature.lean` — discrete differential geometry
+    (Forman/Ollivier curvature, Bakry-Émery, Lichnerowicz, heat kernel,
+    surgery, homogeneous Ricci flow)
 
 ### Cohomology + Hodge
   - `Cohomology.lean`      — base cohomology (11 sub-dirs)

@@ -1,8 +1,8 @@
-# The "− 1" under three Lenses
+# The "− 1" under two Lenses
 
-`b₁ = NS² − 1 = 1/α₃ = 8` at `K_{3,2}^{(c=2)}` is not three coincident
+`b₁ = NS² − 1 = 1/α₃ = 8` at `K_{3,2}^{(c=2)}` is not two coincident
 numbers. The `−1` is a single residue self-pointing, counted once and
-read out by the cohomology-Lens, the gauge-Lens, and the chart-Lens.
+read out by the cohomology-Lens and the gauge-Lens.
 
 ## 213-native answer
 
@@ -18,7 +18,7 @@ constant mode subtracted off.
 
 ## Derivation
 
-Read that same constant mode three ways.
+Read that same constant mode two ways.
 
 **Cohomology-Lens.** `ker δ⁰` is the constants; `b₀ = 1` is the one
 connected component; the `−1` in `b₁ = E − V + 1` is precisely that one
@@ -36,32 +36,24 @@ octet, `1/α₃` (`theory/physics/symmetry/c3_chain.md`). The constant
 direction that the cohomology-Lens subtracts as `b₀` is the trace
 direction the gauge-Lens subtracts as the `U(1)` center.
 
-**Chart-Lens.** And it is the one self-pointing axis of the forced chart,
-`d_M = d_213 − 1`: `forcedKChartLens` builds the chart in which exactly
-one coordinate is the residue pointing at itself
-(`Geometry/GeometrizationConjecture/KChartLensAbstract.lean`). The `−1`
-is the self-axis quotiented out.
-
-`ker δ⁰`'s lone constant, `SU(NS)`'s removed trace, and the chart's
-self-pointing axis are not three facts about three objects — they are the
-residue read three ways.
+`ker δ⁰`'s lone constant and `SU(NS)`'s removed trace are not two facts
+about two objects — they are the residue read two ways.
 
 ## Dual function
 
 Classically these live in separate disciplines: algebraic topology's
-Euler-characteristic correction, gauge theory's traceless-generator
-count, and differential geometry's chart dimension. The shared `square
-minus one` is the redundant packaging stripped — what survives is one
-count of one residue. 213's reading is sharper than the analogy: the
-involution count (`im_count_inj_complement`) shows the invariant is
-field-free and division-free, so "subtract the trace / subtract `b₀` /
-quotient the self-axis" are not analogous operations but a single
-`bcount_const = 2` read under each domain's Lens.
+Euler-characteristic correction and gauge theory's traceless-generator
+count. The shared `square minus one` is the redundant packaging
+stripped — what survives is one count of one residue. 213's reading is
+sharper than the analogy: the involution count
+(`im_count_inj_complement`) shows the invariant is field-free and
+division-free, so "subtract the trace / subtract `b₀`" are not analogous
+operations but a single `bcount_const = 2` read under each domain's Lens.
 
 ## Cross-frame connections
 
 The guard against over-reading is the *view-promoted-to-identity* failure
-mode: none of cohomology-Lens, gauge-Lens, chart-Lens is what the `−1`
+mode: neither cohomology-Lens nor gauge-Lens is what the `−1`
 *is* — each is a readout, and the residue is outside every view's image
 (`seed/AXIOM/05_no_exterior.md`; primacy as breadth,
 `seed/AXIOM/07_primacy.md` §7.1). The convergence is licensed not by

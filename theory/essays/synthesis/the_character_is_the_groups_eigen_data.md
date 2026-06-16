@@ -26,7 +26,7 @@ The quadratic character is the order-2 eigen-datum of the multiplication action.
 complete graph `K_p` — the Cayley graph of `ℤ/p` on *all* non-zero shifts.  Its
 Laplacian `L = J − p·I` has spectrum `{0, p}`, and the **mean-zero functions**
 (`Σ f = 0`) are exactly the `λ = p` eigenspace, multiplicity `p−1`
-(`lean/E213/Lib/Math/Geometry/GeometrizationConjecture/DiscreteLichnerowicz.lean`,
+(`lean/E213/Lib/Math/Geometry/DiscreteCurvature/DiscreteLichnerowicz.lean`,
 `km_eigenvalue` + `km_meanzero_eigen`: `Σf = 0 ⟹ Lf = −p·f`).  That eigenspace
 is spanned by the non-trivial **additive characters** `χ_a(x) = ζ_p^{ax}`
 (`a ≠ 0`): they sum to zero — the orthogonality `Σ_x χ_a = 0` — hence are
