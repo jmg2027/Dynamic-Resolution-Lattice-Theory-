@@ -21,11 +21,11 @@ General (all-prime, not table) structural evaluations of the corpus trial-divisi
   * `sumZ_{succ,congr,const_zero,split_first}` — an Int divisor-sum toolkit.
 
 These establish the corpus `mu`'s scan is correctly evaluated structurally in the
-closable cases.  The **general** theorem `∀ n ≥ 1, Σ_{d∣n} μ(d) = [n=1]` remains
-open — it needs a `muAux`-correctness invariant (scan interleaving / scan-start
-independence) bridging trial-division `mu` to a structural `vp`/`Prime213`
-valuation.  (Full obstruction analysis since closed in the Möbius-framework
-programme.)
+closable cases.  The **general** theorem `∀ n ≥ 1, Σ_{d∣n} μ(d) = [n=1]` is carried
+in `MobiusBridge` (`mu_divisor_sum`), via the `muStruct = mu` bridge supplying the
+`muAux`-correctness invariant (scan interleaving / scan-start independence) that
+links trial-division `mu` to a structural `vp`/`Prime213` valuation.  This file is
+the prime-case layer that bridge builds on.
 -/
 
 namespace E213.Lib.Math.NumberTheory.MobiusPrimeCase

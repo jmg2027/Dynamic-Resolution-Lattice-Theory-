@@ -8,7 +8,7 @@ import E213.Meta.Nat.MulMod213
 # 2-adic odd-part decomposition + σ-parity reduction to the odd part (∅-axiom)
 
 Provides the 2-adic odd-part decomposition `n = 2^a · odd` (the first crux of the
-σ-parity programme, since closed in `SigmaParityComplete`).
+σ-parity programme, closed in `SigmaParityComplete`).
 
 We define, **subtraction-free** and **reducible** (fuel + `Nat.strongRecOn`
 fuel-irrelevance, the `Josephus.lean` template):
