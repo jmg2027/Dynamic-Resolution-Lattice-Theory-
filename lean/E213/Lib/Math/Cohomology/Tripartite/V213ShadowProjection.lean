@@ -1,5 +1,4 @@
 import E213.Lib.Math.Cohomology.Tripartite.V213Betti
-import E213.Lib.Math.Cohomology.Tripartite.V32V213CohomologyBridge
 
 /-!
 # Cohomology.Tripartite.V213ShadowProjection — Massey shadow projection vanishes

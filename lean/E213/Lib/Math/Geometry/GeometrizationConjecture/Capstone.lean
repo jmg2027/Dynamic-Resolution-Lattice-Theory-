@@ -1,4 +1,5 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.StructuralMapping
+import E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness
 
 /-!
 # R1 CLOSE CERTIFICATE + master (step 25)
@@ -185,7 +186,7 @@ theorem R1_close_certificate :
     chartVisibleAxes 3 2 = 4
     -- (2) R1 M2 dual layers: axiom-level + deployment-level
     ∧ axiomLensDataTotal = axiomAtomComponents + axiomOperatorComponents
-    ∧ E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2
         = 2 ^ selfPointingAxes
     -- (3) M1 atomicity + Möbius
     ∧ E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter 2 1 = 3
@@ -215,7 +216,7 @@ theorem R1_close_certificate :
     -- selfPointingAxes = 1 (derived: dim ker δ⁰ = 1, KChartLensAbstract)
     ∧ selfPointingAxes = 1 := by
   refine ⟨rfl, rfl, ?_, ?_, ?_, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, rfl, rfl, ?_, ?_, ?_, rfl⟩
-  · exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1
+  · decide
   · exact E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter_2_1
   · exact E213.Lib.Math.Foundations.C2DoublingDerivation.c_multiplicity_eq_2
   · decide
@@ -277,8 +278,8 @@ theorem R1_master_capstone :
     -- (Step 2) axiom-level shadow
     ∧ axiomLensDataTotal = axiomAtomComponents + axiomOperatorComponents
     ∧ axiomOperatorComponents = selfPointingAxes
-    -- (Step 3) deployment-level derivation via V32Betti
-    ∧ E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0
+    -- (Step 3) deployment-level derivation via parametric δ⁰
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2
         = 2 ^ selfPointingAxes
     -- (Step 4) M1 atomicity-route close
     ∧ chartBase 3 2
@@ -291,7 +292,7 @@ theorem R1_master_capstone :
     ∧ chartVisibleAxes 3 2 = 4
     ∧ selfPointingAxes = 1 := by
   refine ⟨rfl, rfl, rfl,
-          E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1, ?_,
+          by decide, ?_,
           ?_, ?_, rfl, rfl⟩
   · rw [E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter_2_0,
         E213.Lib.Math.Geometry.GenerationRule.TriangleIteration.triIter_2_1]

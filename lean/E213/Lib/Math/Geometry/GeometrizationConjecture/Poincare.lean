@@ -1,5 +1,6 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.DimSpectrum
 import E213.Lib.Math.Cohomology.Bipartite.Filled
+import E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness
 
 /-!
 # Poincaré pillar (steps 12, 13, 15)
@@ -516,10 +517,10 @@ theorem filling_versus_tree_dual_path :
 
   Refines `Poincare_analog_chartBase_4` and
   `regime_transition_corrected` with explicit connectedness witness
-  from `V32Betti.b0_eq_1`. -/
+  from `Delta0AndConnectedness.b0_K32_c2`. -/
 theorem poincare_two_layer_trivial_loop :
-    -- Layer A for critical branch (V32Betti witness: b_0 = 1)
-    E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 = 2 ^ 1
+    -- Layer A for critical branch (parametric witness: b_0 = 1)
+    E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2 = 2 ^ 1
     -- Layer A for tree branch (encoded in tree predicate)
     ∧ isTreeDeployment 3 1 1 = true
     -- Layer B: critical has rich loops, tree has none
@@ -528,8 +529,7 @@ theorem poincare_two_layer_trivial_loop :
     -- π₁-trivial reading: BOTH layers vanish on tree branch
     ∧ b1_corrected 1 3 1 = 0
     ∧ b1_corrected 1 4 1 = 0 := by
-  refine ⟨E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1,
-          ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨by decide, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
 

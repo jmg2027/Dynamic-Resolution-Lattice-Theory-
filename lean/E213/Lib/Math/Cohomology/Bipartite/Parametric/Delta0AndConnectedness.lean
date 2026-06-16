@@ -1,5 +1,4 @@
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces
-import E213.Lib.Math.Cohomology.Bipartite.V32Betti
 
 /-!
 # Parametric δ⁰ kernel size + connectedness (b_0 = 1)
@@ -117,13 +116,5 @@ theorem b0_eq_1_representative_range :
     ∧ kerSizeDelta0Direct 3 2 2 = 2
     ∧ kerSizeDelta0Direct 2 3 2 = 2 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
-
-/-! ## V32Betti compatibility -/
-
-/-- The parametric kernel-size count at (3, 2, 2) matches V32Betti's
-    K_{3,2}^{(c=2)}-specific `kerSizeDelta0_eq_2`. -/
-theorem K32_matches_V32Betti :
-    kerSizeDelta0Direct 3 2 2
-    = E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 := by decide
 
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness

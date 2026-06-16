@@ -1,6 +1,6 @@
 import E213.Lens.LensCore
 import E213.Meta.LensInternality
-import E213.Lib.Math.Cohomology.Bipartite.V32Betti
+import E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness
 
 /-!
 # Chart-axis ansatz: core defs + axiom shadow + V32Betti deployment
@@ -246,31 +246,31 @@ is for all NS, NT ≥ 1).
     matches the dimension of `ker δ⁰` (vertex coboundary kernel)
     of K_{3,2}^{(c=2)}.
 
-    Per `V32Betti.b0_eq_1`: `kerSizeDelta0 = 2^1 = 2^selfPointingAxes`.
-    Per `V32Betti.kerSizeDelta0_eq_2`: the kernel has exactly 2
-    elements (the all-false and all-true constant cochains). -/
+    Per `Delta0AndConnectedness.b0_K32_c2`: `kerSizeDelta0Direct 3 2 2
+    = 2 = 2^1 = 2^selfPointingAxes` — the kernel of the parametric δ⁰
+    at (NS,NT,c)=(3,2,2) has exactly 2 elements (the all-false and
+    all-true constant cochains). -/
 theorem selfPointingAxes_derived_from_K32Betti :
     selfPointingAxes = 1
-    ∧ E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2
         = 2 ^ selfPointingAxes := by
   refine ⟨rfl, ?_⟩
-  exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1
+  decide
 
 /-- Genuine deployment-level derivation:
     `chartVisibleAxes 3 2 = 4` matches `dim im δ⁰` of K_{3,2}^{(c=2)}.
 
-    Per V32Betti `b1_eq_8_dim_count`: `|im δ⁰| · |ker δ⁰| = |C⁰|`
-    encodes as `16 * 2 = 32`.  So `|im δ⁰| = 16 = 2⁴`, i.e.
-    `dim im δ⁰ = 4 = chartVisibleAxes 3 2`. -/
+    Rank-nullity `|im δ⁰| · |ker δ⁰| = |C⁰|` encodes as `16 * 2 = 32`.
+    So `|im δ⁰| = 16 = 2⁴`, i.e. `dim im δ⁰ = 4 = chartVisibleAxes 3 2`. -/
 theorem chartVisibleAxes_K32_derived_from_rank_nullity :
     chartVisibleAxes 3 2 = 4
     ∧ 2 ^ chartVisibleAxes 3 2
-        * E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0
+        * E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2
       = 2 ^ chartBase 3 2 := by
   refine ⟨rfl, ?_⟩
-  -- `2^4 * 2 = 32 = 2^5`; substitute `kerSizeDelta0 = 2` via
-  -- `kerSizeDelta0_eq_2`, then decide closes the ground equation.
-  rw [E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0_eq_2]
+  -- `2^4 * 2 = 32 = 2^5`; substitute `kerSizeDelta0Direct 3 2 2 = 2`
+  -- via `b0_K32_c2`, then decide closes the ground equation.
+  rw [E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.b0_K32_c2]
   decide
 
 

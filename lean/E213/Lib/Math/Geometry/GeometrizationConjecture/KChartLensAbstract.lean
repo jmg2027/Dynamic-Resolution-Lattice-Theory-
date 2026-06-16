@@ -1,5 +1,6 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.Exotic4Mfd
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal
+import E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness
 
 /-!
 # Abstract chart-Lens type for K-deployments (M2 abstract closure)
@@ -116,10 +117,10 @@ theorem K32_selfPointing_eq_1 : K32_chart_lens.selfPointingAxes = 1 := rfl
 theorem K32_chart_lens_v32betti_compatible :
     K32_chart_lens.selfPointingAxes = 1
     ∧ K32_chart_lens.chartVisibleAxes = 4
-    -- V32Betti deployment-level witness: kerSizeDelta0 = 2^1
-    ∧ E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 = 2 ^ 1 := by
+    -- parametric δ⁰ deployment-level witness: kerSizeDelta0Direct 3 2 2 = 2^1
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2 = 2 ^ 1 := by
   refine ⟨rfl, rfl, ?_⟩
-  exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1
+  decide
 
 /-- ★★★★★ **M2 abstract close capstone**
 
@@ -146,14 +147,14 @@ theorem m2_abstract_close :
     ∧ K31_chart_lens.chartVisibleAxes + K31_chart_lens.selfPointingAxes = 4
     -- K_{1,4}^{(c=1)} partition (tree branch at d=4)
     ∧ K14_chart_lens.chartVisibleAxes + K14_chart_lens.selfPointingAxes = 5
-    -- V32Betti compatibility for K_{3,2}^{(c=2)}
-    ∧ E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0
+    -- parametric δ⁰ compatibility for K_{3,2}^{(c=2)}
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2
         = 2 ^ K32_chart_lens.selfPointingAxes
     -- Three deployments share selfPointingAxes = 1
     ∧ K32_chart_lens.selfPointingAxes = K31_chart_lens.selfPointingAxes
     ∧ K31_chart_lens.selfPointingAxes = K14_chart_lens.selfPointingAxes := by
   refine ⟨rfl, rfl, rfl, ?_, rfl, rfl⟩
-  exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1
+  decide
 
 /-! ## Geometrization-followup close certificate (tip-of-chain capstone) -/
 
@@ -197,7 +198,7 @@ theorem geometrization_followup_close_certificate :
     ∧ K32_isRicciModulus.modulus 5 = 3
     ∧ K32_isRicciModulus.modulus 8 = 0
     -- Two-layer trivial loop (b₀ + b₁)
-    ∧ E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 = 2 ^ 1
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2 = 2 ^ 1
     ∧ b1_corrected 3 1 1 = 0
     ∧ b1_corrected 3 2 2 = 8
     -- Burnside count + sub-orbit decomposition
@@ -239,7 +240,7 @@ theorem geometrization_followup_close_certificate :
   · decide
   · rw [K32_isRicciModulus_modulus_eq]; decide
   · rw [K32_isRicciModulus_modulus_eq]; decide
-  · exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1
+  · decide
   · decide
   · decide
   · exact fixedSizeS01_eq_32

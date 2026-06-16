@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.Bipartite.V32Betti
+import E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness
 import E213.Lib.Math.Cohomology.Delta.SqZero
 import E213.Lib.Math.Cohomology.Bridge.TrivialCases
 
@@ -81,8 +81,8 @@ theorem cohomology_213_capstone :
     -- CD: cup unit
     ∧ (∀ i : Fin (binom 5 1),
          cup 5 0 1 unit_5 v0_5 i = v0_5 i)
-    -- CE: K_{3,2}^{(2)} kernel computed
-    ∧ E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 = 2
+    -- CE: K_{3,2}^{(2)} kernel computed (parametric δ⁰ at (NS,NT,c)=(3,2,2))
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2 = 2
     -- CE: Betti b_1 = NS² − 1
     ∧ (8 : Nat) = 3 * 3 - 1 :=
   ⟨delta_sq_vertex0_n5,
@@ -91,7 +91,7 @@ theorem cohomology_213_capstone :
    kerSize_5_1,
    leibniz_v0_v0_pointwise,
    cup_unit_left_v0,
-   E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0_eq_2,
-   E213.Lib.Math.Cohomology.Bipartite.V32Betti.b1_eq_NS_sq_minus_1⟩
+   E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.b0_K32_c2,
+   by decide⟩
 
 end E213.Lib.Math.Cohomology.Capstone

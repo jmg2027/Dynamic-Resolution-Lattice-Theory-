@@ -124,10 +124,7 @@ theorem parametric_close_capstone :
     -- b_1 = 0 at all tree deployments
     ∧ b1Formula 1 1 1 = 0
     ∧ b1Formula 1 3 1 = 0
-    ∧ b1Formula 1 4 1 = 0
-    -- Connectivity matches V32Betti specialisation
-    ∧ kerSizeDelta0Direct 3 2 2
-        = E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+    ∧ b1Formula 1 4 1 = 0 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.EulerAndCapstone

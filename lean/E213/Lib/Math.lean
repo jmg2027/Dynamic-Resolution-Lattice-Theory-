@@ -76,7 +76,6 @@ import E213.Lib.Math.Algebra.Icosahedral
 import E213.Lib.Math.Algebra.Mobius213.Px
 import E213.Lib.Math.Algebra.Mobius213.TowerConvergence
 import E213.Lib.Math.Algebra.Mobius213GrandUnification
-import E213.Lib.Math.Algebra.Mobius213SignatureAxisCatalog
 import E213.Lib.Math.Foundations.GradedRingConfigCountBridge
 import E213.Lib.Math.Foundations.ParadigmDomainPhysics
 import E213.Lib.Math.Foundations.Search

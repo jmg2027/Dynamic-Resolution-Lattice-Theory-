@@ -89,14 +89,14 @@ theorem deployment_M2_partial_capstone :
     ∧ axiomOperatorComponents = 1
     ∧ axiomOperatorComponents = selfPointingAxes
     -- Deployment-level derivation (K_{3,2}^{(c=2)})
-    ∧ E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0
+    ∧ E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness.kerSizeDelta0Direct 3 2 2
         = 2 ^ selfPointingAxes
     ∧ chartBase 3 2 = 5
     ∧ chartVisibleAxes 3 2 = 4
     -- Two-route convergence
     ∧ selfPointingAxes = 1 :=
   ⟨rfl, rfl, rfl,
-   E213.Lib.Math.Cohomology.Bipartite.V32Betti.b0_eq_1,
+   by decide,
    rfl, rfl, rfl⟩
 
 

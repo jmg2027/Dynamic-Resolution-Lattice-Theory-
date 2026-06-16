@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Bipartite.Filled3Cell
-import E213.Lib.Math.Cohomology.Bipartite.V32Betti
+import E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal
 
 /-!
 # Filled3Cell cohomology functor — Phase 1 anchor
@@ -48,7 +48,10 @@ higher-cohomology candidate for the post-Gram α_em residual.
 
 namespace E213.Lib.Math.Cohomology.Bipartite.Filled3CellCohomology
 
-open E213.Lib.Math.Cohomology.Bipartite.V32 (CochE)
+/-- Edge cochain space of K_{3,2}^{(c=2)}: `Fin 12 → Bool` (12 = NS·NT·c).
+    A bare type alias — the F₂ face algebra below is independent of the
+    concrete edge-endpoint encoding. -/
+abbrev CochE : Type := Fin 12 → Bool
 
 /-! ## §1 — Face boundaries as edge index sets
 
@@ -207,14 +210,18 @@ theorem phase1_cohomology_anchor :
     -- ker δ¹ stays at dim 10 even at k=3 (third constraint redundant)
     ∧ C1_dim - rank_delta1_at_3 = 10
     ∧ 2 ^ (C1_dim - rank_delta1_at_3) = 1024
-    -- Connection to V32Betti at unfilled level
-    ∧ E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 = 2 := by
+    -- Connection to the unfilled-level δ⁰ kernel (b₀ = 1): the kernel of
+    -- K_{3,2}^{(c=2)} is exactly the two constant cochains, the structural
+    -- universal form (`KernelConstancyUniversal.universal_kernel_close 3 2 2`).
+    ∧ (∀ σ, E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal.IsKer
+              3 2 2 σ → (∀ x, σ x = false) ∨ (∀ x, σ x = true)) := by
   refine ⟨face_dependence, ?_, ?_, ?_, ?_, ?_⟩
   · decide
   · decide
   · decide
   · decide
-  · exact E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0_eq_2
+  · exact (E213.Lib.Math.Cohomology.Bipartite.Parametric.Betti.KernelConstancyUniversal.universal_kernel_close
+            3 2 2 (by decide) (by decide) (by decide)).2.2.1
 
 /-! ## §7 — Phase 2: Sym(3) action on the b_2 = 1 class
 

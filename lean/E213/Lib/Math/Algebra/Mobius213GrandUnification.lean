@@ -1,7 +1,6 @@
 import E213.Lib.Math.Algebra.Mobius213CrossDomainMeta
 import E213.Lib.Math.NumberSystems.Real213.Mul.CutMulN
 import E213.Lib.Math.NumberSystems.Real213.ValidCut.NValidCutMul
-import E213.Lib.Math.Algebra.Mobius213.Mobius213K32Bridge
 import E213.Lib.Math.NumberSystems.Real213.Mobius.Mobius213ContinuedFraction
 import E213.Lib.Math.Algebra.CayleyDickson.Tower.Mobius213CDBridge
 

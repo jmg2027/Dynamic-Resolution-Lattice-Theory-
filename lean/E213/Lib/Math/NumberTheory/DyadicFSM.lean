@@ -10,7 +10,6 @@ import E213.Lib.Math.NumberTheory.DyadicFSM.BitAuto2
 import E213.Lib.Math.NumberTheory.DyadicFSM.BitFSM
 import E213.Lib.Math.NumberTheory.DyadicFSM.Signature.Classifier
 import E213.Lib.Math.NumberTheory.DyadicFSM.ConcretePellSig
-import E213.Lib.Math.NumberTheory.DyadicFSM.Signature.Conjecture
 import E213.Lib.Math.NumberTheory.DyadicFSM.Product.CrossClassLens
 import E213.Lib.Math.NumberTheory.DyadicFSM.Fib
 import E213.Lib.Math.NumberTheory.DyadicFSM.FibApparitionMod5
