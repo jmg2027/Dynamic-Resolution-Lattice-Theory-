@@ -74,6 +74,18 @@ antisymmetry closes it. This is the foundation of domain theory / denotational
 semantics, here with the cardinal/typeclass packaging stripped to the bare
 order hypotheses.
 
+`TarskiLattice` carries the **full** Tarski theorem — the genuine content
+beyond a single fixed point: the *set* of fixed points is itself a complete
+lattice. For any set `S` of fixed points (`u = lub S`), the join
+`fixJoin S = glb {y | u ≤ y ∧ f y ≤ y}` is again a fixed point
+(`fixJoin_is_fixed`), is an upper bound of `S` (`fixJoin_ub`), and is the
+least fixed upper bound (`fixJoin_least`); dually `fixMeet`. The subtle step
+is `interval_closed`: `f` carries the up-set `[u, ⊤]` into itself (each
+`x ∈ S` is a fixed point `≤ u ≤ z`, so `f z ≥ lub S = u`), which lets the
+constrained Knaster argument re-qualify `f j` for the `≥ u` pre-fixed set.
+So `lfp`/`gfp` are the bottom/top of the fixed-point lattice, and every
+subfamily has a join and meet within it.
+
 ## Methodology
 
 The whole cluster reads one way: a structure is its axioms-as-hypotheses, an
