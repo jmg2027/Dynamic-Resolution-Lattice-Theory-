@@ -47,9 +47,10 @@ def base_prefactor : Nat := NT ^ NS * NT
     as in α_em IR's 1/NS = NT/(d+1) and Cabibbo Ξ. -/
 def x3_coefficient : (Nat × Nat) := (NS, d + 1)
 
-/-- ★ Bracket: m_τ/m_μ ∈ [16.5, 17.0] brackets measurement-Lens
-    reading 16.817.  Cross-mult: 16.5 = 165/10, 17.0 = 170/10.
-    base · series ≈ 16 · 1.051 = 16.816 — inside [16.5, 17.0]. -/
+/-- Atomic base prefactor: base_prefactor = NT^NS·NT = 16 < 17.
+    (The narrative reads the measured m_τ/m_μ ≈ 16.817 against this
+    integer base; the theorem proves only base_prefactor = 16, not a
+    containment of the measured value.) -/
 theorem tau_mu_in_bracket :
     base_prefactor = 16
     ∧ base_prefactor < 17 := by decide
@@ -75,18 +76,17 @@ theorem tau_mu_simplicial_pattern :
     -- All from atomic primitives
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-/-! ## Falsifier — DRLT pairing completion for m_τ/m_μ
+/-! ## m_τ/m_μ integer base — catalog-aligned name
 
-The pattern theorem above gives the integer skeleton (base 16 + (1/2)·α
-correction).  Observed m_τ/m_μ ≈ 16.817.  The structural prediction
-window is `[16, 17)` — any measured value outside this would falsify
-the simplicial pattern.  Pairs with `tau_mu_simplicial_pattern` to
-close the partial pairing flagged in the plan. -/
+The pattern theorem above gives the integer skeleton (base 16 with a
+(1/2)·α correction in the narrative).  Observed m_τ/m_μ ≈ 16.817.
+The theorem below re-exports the integer base under the catalog name;
+it proves base_prefactor = 16, an atomic integer, not a containment
+of the measured value. -/
 
-/-- ★ **m_τ/m_μ falsifier bracket** — base prefactor 16 ≤ m_τ/m_μ < 17.
-    Re-export of `tau_mu_in_bracket` under the catalog-aligned name
-    so the DRLT Validation Standard pairing for m_τ/m_μ is locatable
-    by falsifier-search.  PURE. -/
+/-- m_τ/m_μ integer base = 16 (catalog-aligned re-export of
+    `tau_mu_in_bracket`).  Proves the atomic integer base, not a
+    measured-value bracket.  PURE. -/
 theorem tau_mu_falsifier_bracket :
     base_prefactor = 16 ∧ base_prefactor < 17 :=
   tau_mu_in_bracket

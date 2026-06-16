@@ -22,10 +22,13 @@ Both factors are 213-internal: 6 is atomic, π via Leibniz bracket,
 
   m_p/m_e = NS·NT · π⁵ = (NS·NT)³ · π · ζ(2)²
 
-is fully bracket-derivable to ppm precision.
+is bracket-derivable from atomic factors.  (The relative-agreement
+figures quoted in this file — "19 ppm", "0.062 ppm", "3 ppm" — are
+informal off-Lean estimates; the Lean theorems below prove only the
+integer atomic skeletons, not a Lean-computed precision.)
 
 Class C (full-lattice bare invariant, no α_GUT correction at this
-precision — 19 ppm is already smaller than α_em ≈ 7×10⁻³).
+precision).
 
 The integer 6 carries two atomic readings (NS·NT and d+1) and the
 deeper triple identity NS·NT = (NS+1)·(NT) − NT = (d+1) · 1.
@@ -36,15 +39,15 @@ namespace E213.Lib.Physics.Hadron.ProtonElectronRatio
 
 open E213.Lib.Physics.Simplex.Counts
 
-/-- ★ m_p/m_e + m_τ/m_e atomic skeletons master.
+/-- m_p/m_e + m_τ/m_e atomic skeletons (integer readings only).
 
-    CODATA m_p/m_e = 1836.153; DRLT NS·NT·π⁵ ≈ 1836.118 (19 ppm
-    bare), tightened to 0.062 ppm via Class B α_GUT/(NS·NT)⁴ leak.
-
+    Narrative: CODATA m_p/m_e = 1836.153; DRLT NS·NT·π⁵ ≈ 1836.118.
     m_τ/m_e ≈ 3477.15 (measurement), with three atomic forms:
-      · Form 1 (direct): (d·NT)²·π³·(1+d·α_GUT), 134 ppm
-      · Form 2 (tighter): 17·NT·π³·ζ(2)²·(1+NS²·α_GUT), 106 ppm
-      · Form 3 (composition): (m_τ/m_μ)·(m_μ/m_e), ~3 ppm ★
+      · Form 1 (direct): (d·NT)²·π³·(1+d·α_GUT)
+      · Form 2 (tighter): 17·NT·π³·ζ(2)²·(1+NS²·α_GUT)
+      · Form 3 (composition): (m_τ/m_μ)·(m_μ/m_e)
+    The ppm figures associated with these forms are informal off-Lean
+    estimates; the theorem proves only the integer atomic skeletons.
 
     Bundles all atomic skeletons: 6 = NS·NT = d+1, 216 = (NS·NT)³,
     1296 = (NS·NT)⁴ 4-edge cup-chain, 100 = (d·NT)² = d²·NT²
@@ -77,17 +80,16 @@ theorem proton_electron_ratio_atomic :
 /-! ## Falsifier — DRLT pairing completion for m_p/m_e
 
 The Lenz 1951 coincidence `m_p/m_e ≈ 6π⁵` is identified with the
-atomic skeleton `NS·NT·π⁵` (Class B, 19 ppm bare, 0.062 ppm with
-α_GUT correction).  Falsifier: any future precision measurement
-that excludes the (NS, NT) = (3, 2) atomic skeleton would falsify
-the lattice.
+atomic skeleton `NS·NT·π⁵`.  Falsifier: any future precision
+measurement that excludes the (NS, NT) = (3, 2) atomic integer
+skeleton (leading prefactor 6 = NS·NT) would falsify the lattice
+reading.
 
 The integer skeleton 6 = NS·NT is uniquely fixed by atomicity. -/
 
-/-- ★ **m_p/m_e ≈ 6π⁵ falsifier** — the atomic integer 6 = NS·NT
-    in the leading prefactor is uniquely determined by (NS, NT) =
-    (3, 2).  Pairs with `proton_electron_ratio_atomic` (precision
-    side at 0.062 ppm).  PURE. -/
+/-- **m_p/m_e ≈ 6π⁵ falsifier** — the atomic integer 6 = NS·NT in
+    the leading prefactor is uniquely determined by (NS, NT) =
+    (3, 2).  Pairs with `proton_electron_ratio_atomic`.  PURE. -/
 theorem proton_electron_falsifier :
     -- Skeleton integer 6 = NS·NT
     NS * NT = 6

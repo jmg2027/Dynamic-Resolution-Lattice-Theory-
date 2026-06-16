@@ -48,8 +48,9 @@ theorem prefactor_recurrence :
     prefactor_12 = NT * NS * NT
     ∧ prefactor_12 = 12 := by decide
 
-/-- Bracket: Δm_np in 5% range [1.20, 1.35] MeV.  Cross-mult
-    with centi-MeV: 120 < 127 < 135. -/
+/-- Consistency check: measured Δm_np ≈ 1.27 MeV (centi-MeV 127)
+    lies in the window [1.20, 1.35] MeV.  The window bounds are not
+    atomic-derived; this is a measured-value-in-window check only. -/
 theorem dmnp_bracket :
     120 < 127 ∧ 127 < 135 := by decide
 

@@ -3,7 +3,7 @@ import E213.Lib.Physics.Atomic.Screening
 import E213.Lib.Physics.Couplings.AlphaGUT
 
 /-!
-# Phase 4 HeliumIEPPM — He IE atomic chain (-0.09% Phase 1)
+# HeliumIEPPM — He IE atomic chain consistency check
 
 Phase 1 result: IE(He) ≈ 4·IE(H)·(1/NT - 2α_GUT) ≈ 24.56 eV.
 Observed: 24.587 eV.  — two Lens readings differ by 0.09%.

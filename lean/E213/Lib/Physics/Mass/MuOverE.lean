@@ -17,9 +17,11 @@ DRLT formula:
   - Cabibbo Ξ form (1-α_GUT)      : Cabibbo + δ₁ in this formula
 
   All structural building blocks are the *same* atomicity-locked lattice quantities.
-  The 0.48 ppb agreement reflects that m_μ/m_e and α_em are
-  both Lens readings of the same simplicial complex
-  K_{NS,NT}^{(c)} — same residue under two readings.
+  m_μ/m_e and α_em are both Lens readings of the same simplicial
+  complex K_{NS,NT}^{(c)} — same residue under two readings.  (Any
+  ppb-level agreement figure is an informal off-Lean estimate; the
+  Lean theorem below proves only the integer leading-bracket
+  containment, not a ppb precision claim.)
 
 ## Numerics
 

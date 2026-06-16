@@ -13,7 +13,11 @@ DRLT atomic candidate (auto-discovered via atomic-hunter):
   g_p ≈ (NS²/d) · ζ(2)² · (1 + NS·NT · α_GUT)
       = (9/5) · ζ(2)² · (1 + 6·α_GUT)
       ≈ 5.5811  (at ζ(2) = π²/6)
-  vs 5.5857  → 828 ppm
+  vs 5.5857
+
+  (Any ppm agreement figure quoted here is an informal off-Lean
+  estimate; the Lean theorems prove only the integer atomic
+  coefficients, not a Lean-computed precision.)
 
 Class B+C (bare ratio NS²/d + α_GUT linear leakage with k=NS·NT).
 
@@ -24,11 +28,10 @@ Geometric reading:
   - 1 + NS·NT·α_GUT = chiral-edge Class B leakage with coefficient
     NS·NT = 6 (= total bipartite spoke count of K_{3,2}^{(c=1)})
 
-828 ppm is an open improvement (4× better than the prior 3980 ppm
-at d·(1+dα)) — the integer structure (9/5) and α-coefficient (6)
-are both purely atomic.  Tighter form likely needs Massey-product
-chained-α corrections (composite-particle higher cohomology),
-deferred to next iteration.
+The integer structure (9/5) and α-coefficient (6) are both purely
+atomic.  A tighter form likely needs Massey-product chained-α
+corrections (composite-particle higher cohomology); see the
+rational-base form below.
 -/
 
 namespace E213.Lib.Physics.Hadron.ProtonG
@@ -58,8 +61,8 @@ Found via atomic-hunter on rational-only bases (no ζ(2)):
                       · (1 − NS²·NT·d · α_em²)
       = (22/4) · (1 + 6·α_GUT) · (1 − 15·α_em) · (1 − 90·α_em²)
 
-  matches CODATA at 0.097 ppm — 8500× tighter than the
-  g_p_atomic_skeleton form above.
+  (The CODATA-agreement figure for this form is an informal off-Lean
+  estimate; the Lean theorems prove only the integer coefficients.)
 
 Reading:
   • 22/4 = (d²−NS)/NT² (Cabibbo-like numerator / chirality phase)
@@ -85,8 +88,9 @@ theorem g_p_v2_alpha_em2_coef :
     NS ^ 2 * NT * d = 90
     ∧ NS ^ 2 * NT * d = NT * (NS ^ 2 * d) := by decide
 
-/-- ★★ g_p tighter atomic skeleton (Class D triple cup, 0.097 ppm).
-    All four coefficients are atomic in (NS, NT, d) primitives. -/
+/-- g_p tighter atomic skeleton (Class D triple cup).
+    All four coefficients are atomic in (NS, NT, d) primitives.
+    (No precision claim; only the integer coefficients are proven.) -/
 theorem g_p_v2_atomic :
     NS = 3 ∧ NT = 2 ∧ d = 5
     -- base: (d²−NS)/NT² = 22/4

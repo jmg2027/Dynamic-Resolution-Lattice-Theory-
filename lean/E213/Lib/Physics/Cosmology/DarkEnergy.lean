@@ -12,9 +12,13 @@ DRLT formula:
 
   Measurement-Lens reading: Ω_Λ ≈ 0.685 ± 0.007  (Planck/DESI).
 
-## Lens-reading agreement: 0.0008%
+## Lens-reading consistency
 
-  This is the most precise DRLT result among cosmological observables.
+  The narrative DRLT value 0.6850 sits within the measured
+  Ω_Λ ≈ 0.685 ± 0.007 (Planck/DESI).  Any percent-level agreement
+  figure here is an informal off-Lean estimate; the Lean theorem
+  proves only the integer atomic readings and the measured-value
+  containment in the stated window.
 
 ## ★ Same trace-correction factor as m_H, He ★
 

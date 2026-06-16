@@ -90,18 +90,20 @@ theorem theta_QCD_pattern :
     -- All atomic
     ∧ (d = 5) ∧ (NS = 3) ∧ (NT = 2) := by decide
 
-/-! ## DRLT Validation Standard precision side
+/-! ## DRLT prediction window
 
-The falsifier (`theta_QCD_pattern`, `drlt_below_bound`) closes the
-upper bracket.  The catalog (`catalogs/falsifiers.md` F4★) states the
-precision range "286 ∈ [251, 300]" matching nEDM next-generation
-discrimination.  We name the precision bracket here for catalog
-cross-reference. -/
+The genuine falsifier is the bound comparison `theta_QCD_pattern` /
+`drlt_below_bound`: the DRLT prediction 286·10⁻¹³ sits a factor ~6
+below the measured nEDM bound 18·10⁻¹¹.  The interval below merely
+asserts the hand-typed prediction literal `theta_QCD_num = 286` lies
+in a stated discrimination window [251, 300]·10⁻¹³; it brackets the
+prediction itself, not a measured value, so it is a prediction-window
+statement, not a measured-precision result. -/
 
-/-- ★ **θ_QCD precision bracket** — DRLT prediction 286·10⁻¹³ sits in
-    [251, 300]·10⁻¹³, the discrimination window for next-gen nEDM
-    (2027-30).  Pairs with the kernel-PURE falsifier F4 to close
-    the DRLT Validation Standard for θ_QCD.  PURE. -/
+/-- θ_QCD prediction window — the DRLT prediction literal 286·10⁻¹³
+    lies in [251, 300]·10⁻¹³ (the next-gen nEDM discrimination window,
+    2027-30).  This brackets the prediction, not a measurement; the
+    genuine falsifier is the bound comparison above.  PURE. -/
 theorem theta_QCD_precision_bracket :
     251 ≤ theta_QCD_num ∧ theta_QCD_num ≤ 300 := by
   refine ⟨?_, ?_⟩ <;> decide

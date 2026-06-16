@@ -71,12 +71,6 @@ the framework.
   Measurement giving > 12 (or strictly > 12 normalised) → discard.
   `lean/E213/Lib/Physics/Quantum/Bell.lean` (`bell_capstone`).
 
-### F16: R_∞ atomic = 13605693 μeV ± 1
-  H ionization energy bracket; pairs with the 4.3 ppb precision.
-  Future ppt-level muonic-H / Lamb-shift outside → discard.
-  `lean/E213/Lib/Physics/Atomic/IE/HydrogenPPM.lean`
-  (`R_infinity_falsifier_bracket`).
-
 ### F17: e-folds N ∈ [50, 60] = d·NT·(d+1)
   Inflation count atomic; pairs with the precision N = 60 reading.
   CMB / B-mode / 21cm outside the bracket → discard.
