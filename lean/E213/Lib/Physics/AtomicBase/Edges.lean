@@ -1,4 +1,5 @@
 import E213.Lib.Physics.AtomicBase.Pairs
+import E213.Lib.Physics.Simplex.Counts
 
 /-!
 # Phase 2 Edges — signature-factor edge count, directed bipartite
@@ -37,12 +38,11 @@ parallel-edge multiplicity.
 
 namespace E213.Lib.Physics.AtomicBase.Edges
 
-/-- The order-2/signature factor `= NT = 2`.  Retained under the name
-    `c_lattice` for downstream consumers (Falsifier, Capstone); its value
-    is `NT`, the period-2 sign, not an atomic multiplicity `c`. -/
-def c_lattice : Nat := 2
+open E213.Lib.Physics.Simplex.Counts (NT)
 
-theorem c_eq_NT_atomic_size : c_lattice = 2 := by decide
+/-- The order-2/signature factor is `NT = 2` (the period-2 sign, the home
+    of `i² = −1`), not an atomic multiplicity `c`. -/
+theorem signature_factor_eq_NT : NT = 2 := by decide
 
 /-- NS = 3 (the other atomic block size). -/
 def NS_atomic : Nat := 3
@@ -88,8 +88,8 @@ theorem cycle_space_dim_via_euler :
   Octet count b_1 = 8 = NS² - 1 = 1/α_3.
   *Axiom-level agreement* with Phase 1 PhotonKernel. -/
 theorem edges_capstone :
-    -- signature factor = 2
-    (c_lattice = 2)
+    -- signature factor = NT = 2
+    (NT = 2)
     -- 12 octet edges
     ∧ (num_directed_edges = 12)
     -- octet count = 8

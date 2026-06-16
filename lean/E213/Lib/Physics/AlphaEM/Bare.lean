@@ -126,12 +126,6 @@ open E213.Lib.Physics.Simplex.Counts
     → α_2 prefactor's (12·NT) part *is* adjoint SU(5).
 -/
 
-/-- The order-2/signature factor `= NT = 2`.  Retained under the name
-    `c_lat` for the downstream physics catalog (DiamondAudit, DiamondShape,
-    HopHypothesis, FibonacciExtended, mass/Higgs/Hadron/Cosmology files);
-    its value is `NT`, not an atomic multiplicity `c`. -/
-def c_lat : Nat := 2
-
 /-- ★ Unified prefactor capstone: all prefactors come from {NS, NT, d}
     (c-free).
 

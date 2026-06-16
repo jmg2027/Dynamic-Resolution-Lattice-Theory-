@@ -85,7 +85,7 @@ theorem hierarchy_towers_master :
     -- Cosmological tower
     ∧ (hier_num = d + 1) ∧ (hier_exp = d * d)
     -- All atomic
-    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
+    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
 /-- ★ DRLT answer to "why hierarchy?" ★
     Lattice cardinality d^(d²) = 5^25, forced by lattice depth.

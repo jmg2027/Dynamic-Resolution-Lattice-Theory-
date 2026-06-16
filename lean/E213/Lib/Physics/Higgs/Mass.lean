@@ -39,8 +39,8 @@ open E213.Lib.Physics.AlphaEM.Prefactors
 open E213.Lib.Physics.Couplings.DysonStructure
 open E213.Lib.Physics.Simplex.FaceTerms
 
-/-- Leading Higgs/v_H ratio at α_GUT → 0: 1/c = 1/2. -/
-def leading_ratio : (Nat × Nat) := (1, c_lat)
+/-- Leading Higgs/v_H ratio at α_GUT → 0: 1/NT = 1/2. -/
+def leading_ratio : (Nat × Nat) := (1, NT)
 
 /-- ★ Capstone — m_H/v_H atomic pattern.
 
@@ -54,11 +54,11 @@ def leading_ratio : (Nat × Nat) := (1, c_lat)
     · Hodge-like c·d = 10 embedding denominator
     · d²−1 = 24 SU(d) adjoint integer (face structure)
     · tetrahedra_per_vertex = NS+1 (lattice cofactor)
-    · Atomic primitives (c_lat, d, NS, NT)
+    · Atomic primitives (d, NS, NT)
     · 0.5097 in 1% bracket [0.50, 0.52]. -/
 theorem higgs_simplicial_pattern :
-    -- Leading 1/c
-    leading_ratio = (1, c_lat)
+    -- Leading 1/NT
+    leading_ratio = (1, NT)
     ∧ leading_ratio = (1, 2)
     -- (d−1) cofactor ubiquity
     ∧ d - 1 = 4
@@ -66,14 +66,14 @@ theorem higgs_simplicial_pattern :
     ∧ NS + 1 = d - 1
     -- α correction (d−1)/d = 4/5 cross-mult
     ∧ 5 * (d - 1) = 4 * d
-    -- Embedding denom c·d = 10
-    ∧ c_lat * d = 10
+    -- Embedding denom NT·d = 10
+    ∧ NT * d = 10
     -- d² − 1 = 24 (SU(d) adjoint)
     ∧ d * d - 1 = 24
     -- Tetrahedra per vertex = NS+1
     ∧ tetrahedra_per_vertex = NS + 1
     -- Atomic primitives
-    ∧ c_lat = 2 ∧ d = 5 ∧ NS = 3 ∧ NT = 2
+    ∧ d = 5 ∧ NS = 3 ∧ NT = 2
     -- 0.5097 in 1% bracket [0.50, 0.52]
     ∧ (50 * 10000 < 5097 * 100 ∧ 5097 * 100 < 52 * 10000) := by decide
 

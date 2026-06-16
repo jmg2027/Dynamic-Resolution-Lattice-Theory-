@@ -89,18 +89,18 @@ theorem master_atomic_catalog :
     ∧ (d - 1 = 4)
     -- (d + 1) = 6 — bipartite edges
     ∧ (d + 1 = 6)
-    -- c·NS·NT = 12 — directed edges
-    ∧ (c_lat * NS * NT = 12)
+    -- NT·NS·NT = 12 — directed edges
+    ∧ (NT * NS * NT = 12)
     -- NS/d = 3/5 — inverse Y-norm (cross-mult)
     ∧ (NS * 5 = 3 * d)
     -- NS² = 9 — GMOR n_eff
     ∧ (NS * NS = 9)
-    -- c^NS · NT = 16 — m_τ base
-    ∧ (c_lat * c_lat * c_lat * NT = 16)
+    -- NT^NS · NT = 16 — m_τ base
+    ∧ (NT * NT * NT * NT = 16)
     -- NS² + NS + 1 = 13 — NH₃ denom
     ∧ (NS * NS + NS + 1 = 13)
     -- All atomic
-    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
+    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
 /- ★ Operational meaning ★
   The above 14-fold conjunction is a summary of atomic identities that recur in

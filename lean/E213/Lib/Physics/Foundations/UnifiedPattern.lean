@@ -14,7 +14,7 @@ sin²θ_W, Ω_Λ, CH₄/NH₃/H₂O bond angles are *all* derived from the same 
 
 ## Universal building blocks
 
-  Atomic primitives:  NS = 3, NT = 2, d = NS+NT = 5, c_lat = 2
+  Atomic primitives:  NS = 3, NT = 2, d = NS+NT = 5
 
   Derived integers (atomicity-forced):
     d² - 1 = 24        = adjoint SU(5)  = (d-1)(d+1)
@@ -101,7 +101,7 @@ theorem master_unified_pattern :
     -- 11) NH₃ cos
     ∧ (NH3_cos_numer = 4) ∧ (NH3_cos_denom = 13)
     -- 12) Atomic config
-    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
+    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
 /- ★ Operational meaning ★
    That this single theorem closes with 0 sorry, 0 axiom is the formal proof

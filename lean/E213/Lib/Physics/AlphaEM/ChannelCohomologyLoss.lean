@@ -49,9 +49,6 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d binom)
 
 /-! ## §1 — Topological / relative invariants (definitions) -/
 
-/-- The order-2/signature factor `= NT = 2` (not an atomic multiplicity). -/
-def c_lat : Nat := 2
-
 /-- Vertex count = NS + NT = d. -/
 def V_K : Nat := d
 

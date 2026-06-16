@@ -41,10 +41,7 @@ namespace E213.Lib.Physics.AlphaEM.ProjectionRatios
 open E213.Lib.Physics.Simplex.Counts
 
 
-/-! ## §1 — Edge counts (Δ⁴ vs K_{3,2}^{(c=2)}) -/
-
-/-- The order-2/signature factor `= NT = 2` (not an atomic multiplicity). -/
-def c_lat : Nat := 2
+/-! ## §1 — Edge counts (Δ⁴ vs octet) -/
 
 /-- Total Δ⁴ edges. -/
 def delta4_edges : Nat := binom 5 2

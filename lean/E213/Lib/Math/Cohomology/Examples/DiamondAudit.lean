@@ -17,10 +17,9 @@ open E213.Lib.Physics.Simplex.Counts
 /-- ★★★ Diamond audit — same atomic primitives across modules. -/
 theorem diamond_audit_unified_atomic :
     NS = 3 ∧ NT = 2 ∧ d = 5
-    ∧ E213.Lib.Physics.AlphaEM.Prefactors.c_lat = 2
     ∧ NS + NT = 5
     ∧ NS * NT = 6
-    ∧ E213.Lib.Physics.AlphaEM.Prefactors.c_lat * NS * NT = 12
+    ∧ NT * NS * NT = 12
     ∧ E213.Lib.Physics.Cosmology.NeffDerivation.alpha_3_Neff = 1
     ∧ E213.Lib.Physics.Cosmology.NeffDerivation.alpha_2_Neff = 2
     ∧ NS * NS - 1 = 8
@@ -29,7 +28,7 @@ theorem diamond_audit_unified_atomic :
     ∧ E213.Lib.Physics.Couplings.PhotonKernel.b_1 = 8 := by
   refine ⟨by decide, by decide, by decide, by decide, by decide,
           by decide, by decide, by decide, by decide, by decide,
-          by decide, by decide, ?_⟩
+          by decide, ?_⟩
   exact E213.Lib.Physics.Couplings.PhotonKernel.b_1_eq_8
 
 /-- ★ Each prediction coefficient factors atomic primitives. -/
@@ -39,7 +38,7 @@ theorem diamond_audit_atomic_factorization :
     ∧ d * d = 25
     ∧ (NS + NT) * (NS + NT) = 25
     ∧ 12 * NT * 5 / 4 = 30
-    ∧ E213.Lib.Physics.AlphaEM.Prefactors.c_lat * NS * NT = 12 := by decide
+    ∧ NT * NS * NT = 12 := by decide
 
 /-- ★ Falsifier coupling: any wrong prediction → atomic mismatch
     → entire framework collapses. -/

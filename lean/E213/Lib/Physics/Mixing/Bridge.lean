@@ -29,8 +29,7 @@ theorem delta_cp_atomic : 5 * 5 - 1 = 24 := by decide
 theorem atomic_check :
     E213.Lib.Physics.Simplex.Counts.NS = 3
     ∧ E213.Lib.Physics.Simplex.Counts.NT = 2
-    ∧ E213.Lib.Physics.Simplex.Counts.d = 5
-    ∧ E213.Lib.Physics.Mixing.CabibboAngle.C_lat = 2 := by decide
+    ∧ E213.Lib.Physics.Simplex.Counts.d = 5 := by decide
 
 /-- ★ Cabibbo + PMNS share Diamond atomic source. -/
 theorem mixing_unified_diamond :
@@ -40,12 +39,11 @@ theorem mixing_unified_diamond :
     ∧ (3 * 2 : Nat) = 6 := by decide  -- NS·NT
 
 /-- ★★★ Mixing-matrix Diamond bridge capstone — all 4 mixing
-    quantities factor through NS, NT, d, c primitives. -/
+    quantities factor through NS, NT, d primitives. -/
 theorem mixing_bridge_capstone :
     E213.Lib.Physics.Simplex.Counts.NS = 3
     ∧ E213.Lib.Physics.Simplex.Counts.NT = 2
     ∧ E213.Lib.Physics.Simplex.Counts.d = 5
-    ∧ E213.Lib.Physics.Mixing.CabibboAngle.C_lat = 2
     ∧ 5 * 5 - 5 + 2 = 22
     ∧ 5 * 5 - 1 = 24
     ∧ (3 + 2 : Nat) = 5 := by decide

@@ -40,8 +40,8 @@ namespace E213.Lib.Physics.Mass.TauOverMu
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Physics.AlphaEM.Prefactors
 
-/-- Base prefactor: c^NS · NT = 16.  Pure integer from {c, NS, NT}. -/
-def base_prefactor : Nat := c_lat ^ NS * NT
+/-- Base prefactor: NT^NS · NT = 16.  Pure integer from {NS, NT}. -/
+def base_prefactor : Nat := NT ^ NS * NT
 
 /-- x³ coefficient = NS/(d+1) = 3/6 = 1/2.  Same (d+1) cofactor
     as in α_em IR's 1/NS = NT/(d+1) and Cabibbo Ξ. -/
@@ -56,15 +56,15 @@ theorem tau_mu_in_bracket :
 
 /-- ★ Capstone — m_τ/m_μ same simplicial pattern.
 
-  All numeric scaffolds (base_prefactor = 16, c_lat^NS = 8,
+  All numeric scaffolds (base_prefactor = 16, NT^NS = 8,
   x3_coefficient = (3, 6) reducing to 1/2, etc.) are conjuncts
   of this master.  No standalone single-equation theorems are
   needed; callers reference the master. -/
 theorem tau_mu_simplicial_pattern :
     -- Base prefactor = atomic integer
     (base_prefactor = 16)
-    -- c^NS structural decomposition
-    ∧ (c_lat ^ NS = 8)
+    -- NT^NS structural decomposition
+    ∧ (NT ^ NS = 8)
     -- x³ coefficient denominator = d + 1 (same as 1/NS)
     ∧ (x3_coefficient.2 = d + 1)
     ∧ (x3_coefficient = (3, 6))
@@ -73,7 +73,7 @@ theorem tau_mu_simplicial_pattern :
     -- Same (d+1) cofactor as α_em IR
     ∧ (NS * NT = d + 1)
     -- All from atomic primitives
-    ∧ (c_lat = 2) ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
+    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
 /-! ## Falsifier — DRLT pairing completion for m_τ/m_μ
 

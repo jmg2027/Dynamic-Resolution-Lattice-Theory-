@@ -74,15 +74,15 @@ theorem fibonacci_deep_atomicity :
 
 F_11..F_15 = 89, 144, 233, 377, 610 (verifiable directly by
 `decide` on `fib n = N`).  The notable structural reading is at
-F_12: it equals `(c · NS · NT)² = 144` — the squared Phase 2
+F_12: it equals `(NT · NS · NT)² = 144` — the squared Phase 2
 edge count.
 -/
 
-/-- F_12 = (c·NS·NT)² — F_12 reads as the squared Phase 2 edge
-    count `c · NS · NT = 12`.  Single insight, not enumeration. -/
+/-- F_12 = (NT·NS·NT)² — F_12 reads as the squared Phase 2 edge
+    count `NT · NS · NT = 12`.  Single insight, not enumeration. -/
 theorem F12_eq_edge_squared :
-    fib 12 = (E213.Lib.Physics.AlphaEM.Prefactors.c_lat * NS * NT)
-              * (E213.Lib.Physics.AlphaEM.Prefactors.c_lat * NS * NT) := by decide
+    fib 12 = (NT * NS * NT)
+              * (NT * NS * NT) := by decide
 
 /-! ## §4 — Möbius ↔ Fibonacci structural identity
 

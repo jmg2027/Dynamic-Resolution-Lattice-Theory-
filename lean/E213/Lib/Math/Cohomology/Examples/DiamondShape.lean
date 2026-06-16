@@ -51,12 +51,12 @@ theorem temporal_axes : NT = 2 := by decide
 /-- Bipartite spokes NS·NT = 6. -/
 theorem bipartite_spokes : NS * NT = 6 := by decide
 
-/-- c = 2 multiplicity. -/
-theorem lattice_cycle : E213.Lib.Physics.AlphaEM.Prefactors.c_lat = 2 := by decide
+/-- Signature factor = NT = 2 (order-2/period-2 sign, not a multiplicity). -/
+theorem lattice_cycle : NT = 2 := by decide
 
-/-- Total edges = c·NS·NT = 12. -/
+/-- Total edges = NT·NS·NT = 12. -/
 theorem total_edges :
-    E213.Lib.Physics.AlphaEM.Prefactors.c_lat * NS * NT = 12 := by decide
+    NT * NS * NT = 12 := by decide
 
 /-- Cycle dim b_1 = 8 = NS²−1 = 1/α_3. -/
 theorem diamond_b1 :
@@ -69,8 +69,8 @@ theorem diamond_crystal_structure :
     NS + NT = 5
     ∧ NS = 3 ∧ NT = 2
     ∧ NS * NT = 6
-    ∧ E213.Lib.Physics.AlphaEM.Prefactors.c_lat = 2
-    ∧ E213.Lib.Physics.AlphaEM.Prefactors.c_lat * NS * NT = 12
+    ∧ NT = 2
+    ∧ NT * NS * NT = 12
     ∧ E213.Lib.Physics.Couplings.PhotonKernel.b_1 = 8
     ∧ (8 : Nat) = NS * NS - 1 := by
   refine ⟨by decide, by decide, by decide, by decide, by decide,

@@ -137,11 +137,11 @@ theorem full_period_matrix_witness :
 
 /-! ## §5.  Cross-domain readings of c=2
 
-The atomic integer 2 appears as c, NT, c_lat, Sym(2) order, ...
+The atomic integer 2 appears as c, NT, Sym(2) order, ...
 verifying it's the **same atomic primitive** across different
 Lens readings. -/
 
-/-- Cross-domain integer-2 readings: c = NT = c_lat = Sym(2) order.
+/-- Cross-domain integer-2 readings: c = NT = Sym(2) order.
     All of these are the **same atomic 2** at the (NS, NT, d) = (3, 2, 5)
     atomic level. -/
 theorem two_atomic_readings :
@@ -172,7 +172,7 @@ theorem two_atomic_readings :
       (d) K_{3,2}^{(c=2)} edge count: 12 = NS · NT · c
       (e) Without the doubling: only 6 = NS·NT edges (K_{3,2} bare)
       (f) Matrix-level witnesses cross-link to `Mobius213ModFive`
-      (g) Cross-domain integer-2 readings (NT, c_lat, Sym(2) order, ...)
+      (g) Cross-domain integer-2 readings (NT, Sym(2) order, ...)
 
     These are the period-ratio + `c = NT` Lens readings that *present*
     the edge multiplicity `c = 2`.  Per the file header (and the frontier

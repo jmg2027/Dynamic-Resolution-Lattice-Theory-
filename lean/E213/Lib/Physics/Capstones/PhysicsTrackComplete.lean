@@ -132,8 +132,8 @@ theorem phase1_complete :
     -- Generations
     ∧ (N_gen = 3)                             -- no 4th gen
     -- Closed propagator universality
-    ∧ (P_numer_x_coef = c_lat)                -- (1+2x) numerator
+    ∧ (P_numer_x_coef = NT)                   -- (1+2x) numerator
     -- Atomic config
-    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
+    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
 end E213.Lib.Physics.Capstones.PhysicsTrackComplete

@@ -38,14 +38,14 @@ namespace E213.Lib.Physics.Hadron.NeutronProton
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Physics.AlphaEM.Prefactors
 
-/-- Prefactor 12 = c·NS·NT — same as PhotonKernel edge count. -/
-def prefactor_12 : Nat := c_lat * NS * NT
+/-- Prefactor 12 = NT·NS·NT — same as PhotonKernel edge count. -/
+def prefactor_12 : Nat := NT * NS * NT
 
 theorem prefactor_eq_12 : prefactor_12 = 12 := by decide
 
 /-- Same atom as α_2 prefactor and bipartite edges. -/
 theorem prefactor_recurrence :
-    prefactor_12 = c_lat * NS * NT
+    prefactor_12 = NT * NS * NT
     ∧ prefactor_12 = 12 := by decide
 
 /-- Bracket: Δm_np in 5% range [1.20, 1.35] MeV.  Cross-mult
@@ -56,6 +56,6 @@ theorem dmnp_bracket :
 /-- ★ Capstone — Δm_np uses same atomic prefactor 12 ★ -/
 theorem np_simplicial :
     (prefactor_12 = 12)
-    ∧ (prefactor_12 = c_lat * NS * NT) := by decide
+    ∧ (prefactor_12 = NT * NS * NT) := by decide
 
 end E213.Lib.Physics.Hadron.NeutronProton
