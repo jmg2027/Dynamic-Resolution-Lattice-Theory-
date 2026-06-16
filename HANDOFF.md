@@ -1,17 +1,40 @@
 # Session Handoff — 2026-06-16
 
 ## Branch
-`claude/multi-agent-math-research-n68ovi` — 37 commits ahead of origin,
-all pushed. Merged with `origin/main` (physics-branch work) this session;
-full repo builds clean (`rm -rf .lake/build && lake build` → 446 modules).
-Ready to merge to main.
+`claude/multi-agent-math-research-n68ovi` — all pushed; **already merged to
+`main`** (fast-forward) at the marathon close-out, then continued. Full Math
+builds clean (`lake build E213.Lib.Math` → 1936 modules).
 
 ## Scope
 Math-only marathon (physics excluded by standing directive — it follows once
 the math is complete). Multi-agent: parallel general-purpose subagents on deep
 ∅-axiom targets, each verified PURE in isolated scratch, ported into the corpus.
 
-## What Was Done This Session
+## Post-merge continuation (after merge-to-main; second marathon leg)
+Elementary classical number theory + combinatorics, all ∅-axiom PURE:
+- **Euler's theorem** `EulerTheorem.euler_theorem`: `a^φ(n) ≡ 1 (mod n)`, all
+  n≥2, coprime a (39 PURE) — Route B (totative-product permutation + unit
+  cancellation; Route A rejected as circular for composite n). HEADLINE.
+- **Multiplicative order** `MultiplicativeOrder.{ord, ord_dvd_of_pow_one,
+  ord_dvd_totient}`: ord divides φ(n) for COMPOSITE n (26 PURE) — generalizes
+  the corpus's prime-only MulOrder, Euler-enabled.
+- **Multiplicative-function structure** (the family-level theorems):
+  `SummatoryMultiplicative.summatory_mul` (f mult ⟹ Σ_{d∣n}f(d) mult),
+  `DirichletMultiplicative.dconv_mul` (f,g mult ⟹ f∗g mult — Dirichlet-ring
+  capstone), `MultiplicativeUniqueness.mult_eq_of_prime_pow` (determined by
+  prime-power values), `SquareValuation.isSquare_iff_all_vp_even` (general
+  square char, frontier crux #2 all-primes), `LiouvilleValuation.lambdaV_*`
+  (completely-multiplicative λV, general divisor-sum=[square]).
+- **Totient pairing** `TotientPairing.{totient_even (φ(n) even, n≥3),
+  sum_totatives (2Σ=nφ), gcd_reflect}` (18 PURE).
+- **Combinatorics** `BinomialInversion.{binomial_orthogonality,
+  binomial_inversion}` (39 PURE), `SurjectionCount.{surj_zero_of_lt,
+  surj_diag}` + a fresh finite-difference machinery (`A_rec`, `PolyLe`
+  degree theory) (44 PURE).
+The multiplicative_divisor_theory.md chapter was updated (§2.5 structural
+theorems, §3/§7 generalizations).
+
+## What Was Done This Session (first leg, before merge)
 
 ### A. Multiplicative divisor theory — closed ∅-axiom end-to-end (capstone)
 The whole elementary multiplicative number-theory framework, all PURE
