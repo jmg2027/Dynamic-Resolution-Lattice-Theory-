@@ -10,6 +10,33 @@ Math-only marathon (physics excluded by standing directive — it follows once
 the math is complete). Multi-agent: parallel general-purpose subagents on deep
 ∅-axiom targets, each verified PURE in isolated scratch, ported into the corpus.
 
+## Forcing-PURE leg (current — "forcing vs bookkeeping" selector)
+
+Per the originator's reframe ("본질적으로 뭘까" → collect theorems where requiring
+∅-axiom *forces a structurally different, revealing proof*, not bookkeeping):
+running collection `research-notes/frontiers/pure_forces_different_proof.md`;
+permanent chapter `theory/meta/forcing_versus_bookkeeping.md`. New this leg:
+- **`NumberTheory/UnitsOfZn`** (12 PURE, vein A) — `(ℤ/n)^×` on representatives:
+  unit = coprime residue, closure = gcd fact, inverses = Bezout, order = φ(n)
+  (`unit_count_eq_totient := rfl`). Quotient ring was packaging.
+- **`NumberTheory/DividesPairPigeonhole`** (7 PURE, vein B) — n+1 in [1,2n] ⟹
+  one divides another; dividing pair computed from v2 comparison.
+- **`Combinatorics/Pigeonhole.exists_collision` / `exists_collision_lt`** (PURE)
+  — NEW reusable primitive: constructive collision-*producing* pigeonhole
+  (returns the pair via decidable `scan` + `shiftAround`), where `no_inj_lt`
+  only refuted injectivity. The witness-returning form is pigeonhole's
+  constructive content.
+- **`NumberTheory/TwoSquareTheorem`** (19 PURE, vein B capstone) — Fermat's
+  two-square theorem, hard direction (`p ≡ 1 mod 4 ⟹ p = a²+b²`), FULL incl.
+  descent to `a²+b² = p`. All non-constructive content localized to
+  `exists_collision_lt` (the Thue box collision). Reuses `QRNegOne`, `IntSqrt`,
+  `PolyRoot` Nat↔Int bridges, `Int213`.
+- **In flight**: `x⁴+y⁴=z²` infinite-descent non-existence (vein B; descent =
+  computed constructor vs. classical minimal-counterexample); next-target note
+  in the frontier collection. Two independent agents converged on the
+  `exists_collision` shape — evidence the route is forced, not chosen.
+Full `E213.Lib.Math` green at 1959 modules; all pushed.
+
 ## Post-merge continuation (after merge-to-main; second marathon leg)
 Elementary classical number theory + combinatorics, all ∅-axiom PURE:
 - **Euler's theorem** `EulerTheorem.euler_theorem`: `a^φ(n) ≡ 1 (mod n)`, all
