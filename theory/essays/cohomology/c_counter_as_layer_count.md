@@ -99,17 +99,23 @@ forces the count to be the same at every level:
   · **Algebraic**: c = number of independent 4-fold Massey
     witnesses (`eta_ab_layer m`, `eta_cd_layer m` parameterised
     over `m ∈ Fin c`, each hitting its own ψ_m).
-  · **Physical (anisotropy / temporal-refinement)**: c = how many
-    times an `(s, t)` incidence is sampled — i.e. the resolution
-    of the temporal axis *relative* to the spatial one.  An earlier
-    reading carried this as a geometric **ratio**: "the temporal
-    domain is sampled `c` times as finely as the spatial one"
-    (lattice step `a_t = a_s / c`; at `c = 2`, "time twice as
-    short").  In the current form that ratio **is** the edge
-    multiplicity: each finer temporal sub-sample is one parallel
-    edge-layer, so `c` finer temporal steps per incidence ≡ `c`
-    sheets per `(s, t)` pair.  The two are one number under a
-    geometric vs combinatorial Lens (multiplicity doctrine,
+  · **Physical (Lorentz anisotropy / information-distance ratio)**:
+    the *originating* reading of `c = 2` (recovered from pre-seed
+    history, `research-notes/archive/c_multiplicity/original_lorentz_anisotropy_reading.md`).
+    On the 4-simplex with information distance `d := −ln(overlap)`,
+    a **temporal** edge `ψ(t)→ψ(t+dt)` is a correlated (unitary)
+    pair with overlap `W_T → 1/d`, so `d_T = ln d`; a **spatial**
+    edge joins independent neighbours with overlap `W_S → 1/d²` (the
+    *square*), so `d_S = 2 ln d`.  Hence `c = d_S/d_T = 2` exactly
+    (every `d`) — "the time edge is twice as short as the space
+    edge", and this anisotropy `ds² = −4dt²+dx²+dy²+dz²` **is** the
+    Lorentz signature `(−,+,+,+)`, rooted in `i` (unitary phase
+    rotation on the time axis only).  In the current form this is
+    the geometric/information Lens on the *same* `c = 2`: the
+    spatial information distance being **double** the temporal
+    (`W_S = W_T²` read through `−ln`) is the geometric face of "each
+    `(s, t)` incidence carries **2** parallel edge-layers".  One
+    number, two Lenses (multiplicity doctrine,
     `theory/meta/multiplicity_doctrine.md`).
 
 ### The historical ratio readings, in current form
