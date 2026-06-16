@@ -1,5 +1,4 @@
 import E213.Lib.Math.Geometry.GeometrizationConjecture.DimSpectrum
-import E213.Lib.Math.Cohomology.Bipartite.Filled
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness
 
 /-!

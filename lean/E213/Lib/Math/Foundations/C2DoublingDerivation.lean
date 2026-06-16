@@ -1,6 +1,5 @@
 import E213.Lib.Math.Algebra.Mobius213ModFive
 import E213.Lib.Physics.Simplex.Counts
-import E213.Lib.Math.Cohomology.Bipartite.V32
 
 /-!
 # C2DoublingDerivation — the period-ratio reading of c=2 in K_{3,2}^{(c=2)}
@@ -85,7 +84,7 @@ theorem c_multiplicity_eq_NT : c_multiplicity = NT := by decide
 The edge count of K_{3,2}^{(c=2)} is:
   |E(K_{3,2}^{(c=2)})| = NS · NT · c = 3 · 2 · 2 = 12
 
-which matches `Cohomology.Bipartite.V32.CochE = Fin 12 → Bool`. -/
+which matches the K_{3,2}^{(c=2)} edge cochain space `Fin 12 → Bool`. -/
 
 /-- The K-edge count is 12 = NS · NT · c.  PURE. -/
 theorem K_edge_count_via_c :

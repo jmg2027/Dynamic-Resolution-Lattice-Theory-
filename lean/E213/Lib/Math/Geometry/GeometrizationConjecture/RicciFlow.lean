@@ -1,5 +1,4 @@
 import E213.Lib.Math.Foundations.MonovariantFlow
-import E213.Lib.Math.Cohomology.Bipartite.Filled
 
 /-!
 # Ricci pillar — closed via the A6 FLOW archetype (∅-axiom)
