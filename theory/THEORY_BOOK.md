@@ -612,10 +612,9 @@ Cayley (integer octonions) → Sedenion → Pathion →
 Trigintaduoionion.  Layers indexed by the CD doubling.
 
 `theory/math/cohomology/sym3_spine.md` — Sym(3) 8-fold decomposition
-appears across CD layers and Thurston geometries (Part V).
-The same decomposition reaches into the eventual physics
-deployment (gauge sector) but that side is out of scope
-here.
+appears in K_{3,2}^{(c=2)} H¹ (Part V).  The same decomposition
+reaches into the physics deployment (gauge sector, the gluon
+octet `1/α_3 = 8`).
 
 ### IV.4 Real213
 
@@ -671,8 +670,8 @@ bridge}.md` — 12 sub-clusters under cohomology.
 `theory/math/cohomology/sym3_spine.md` — `2 · trivial ⊕ 3 · standard`
 Sym(3)-decomposition appears in K_{3, 2}^{(c=2)} H¹ and in the
 gauge content (gluon octet, `1/α_3 = dim adj SU(3) = 8`).  Same
-decomposition, independent frames.  Capstone:
-`X1_sym3_cross_frame_capstone`.
+decomposition, independent frames.  Anchors:
+`Sym3IrrepDecomp.fixedSize_eq_4` + `c3_chain_master`.
 
 ### V.7 Universe chain
 
