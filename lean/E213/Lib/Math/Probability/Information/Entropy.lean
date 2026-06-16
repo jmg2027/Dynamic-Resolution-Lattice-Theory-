@@ -75,4 +75,18 @@ def dyadicProbabilityCut (k : Nat) : ProbabilityCut where
   den_pos := Nat.pos_pow_of_pos k (Nat.zero_lt_succ 1)
   mass_le := Nat.pos_pow_of_pos k (Nat.zero_lt_succ 1)
 
+
+/-- ★ **Entropy additivity for independent dyadic uniforms**: the joint distribution of two
+    independent uniforms over `2^m` and `2^n` is uniform over `2^{m+n}`, so its entropy is
+    `H = m + n`.  `H(X,Y) = H(X) + H(Y)` for independent `X, Y` — the chain rule on the
+    dyadic substrate (`rfl`, the def is the identity). -/
+theorem entropy_additive (m n : Nat) :
+    shannonEntropyUniformBits (m + n)
+      = shannonEntropyUniformBits m + shannonEntropyUniformBits n := rfl
+
+/-- ★ **Surprise is additive over independent rare events**: a `1/2^j` event and a `1/2^k`
+    event jointly have probability `1/2^{j+k}`, so surprise `−log₂ p` adds: `j + k`.  The
+    information-content analogue of `log(ab) = log a + log b` (`rfl`). -/
+theorem surprise_additive (j k : Nat) :
+    surpriseBitsDyadic (j + k) = surpriseBitsDyadic j + surpriseBitsDyadic k := rfl
 end E213.Lib.Math.Probability.Information.Entropy
