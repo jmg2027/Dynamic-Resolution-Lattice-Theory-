@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 105 essays are grouped into ten thematic sub-directories — distinct
+The 96 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -171,7 +171,8 @@ counts) and honest about ◑ closures — octet `Unit`-modelled, CP-phase matrix
 `what_is_a_logarithm`, `what_is_holonomy`,
 `the_modular_group_from_two_folds`, `minkowski_as_modular_cocycle`,
 `bessel_polynomials_are_the_lambert_convergents`, `the_form_forced_by_two`,
-`the_certificate_boundary`.
+`the_certificate_boundary`, `the_degree_of_a_number`,
+`pi_as_the_modulus_residue`.
 
 **VI. `algebra/` — algebra tower & linear algebra.**
 `cd_tower_polarization`, `exceptional_seeds_are_forced`,
