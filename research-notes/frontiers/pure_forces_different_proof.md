@@ -228,14 +228,23 @@ Nat-native (no signed integers). (29 PURE; reuses `SquareCharacterization`,
     **DONE** — `NumberTheory/FermatQuartic`, 29 PURE (capstone B-case above). The
     descent became an explicit `Nat.strongRecOn` constructor, exactly as
     predicted; also built the missing `pyth_converse`.
-  - **Next candidates (vein A/B, unselected):** (A) the First Isomorphism
-    Theorem for a concrete `ℤ → ℤ/n` reduction, as an explicit
-    section/retraction on representatives; (B) `√2` (and `√p`) irrational by the
-    *v2-parity* descent (`x²=2y² ⟹ v2(x²) even = v2(2y²) odd`) — a one-line
-    valuation contradiction where the classical proof is "least counterexample";
-    (B) the gcd/Bezout *as the extended-Euclid witness* if not already
-    representative-level in `JoinBezout`. Pick by sharpness of the revealed
-    constructor.
+  - **Selected & in flight:** infinitely many primes `≡ 3 (mod 4)`, in the
+    cofinal form `∀ N, ∃ p, N < p ∧ prime p ∧ p%4=3` — the **computed Euclid
+    witness** (least `≡3 mod4` prime factor of `4·N!+3`) vs. the classical
+    finite-list contradiction; keystone `exists_prime_factor_3mod4` (a `≡3 mod4`
+    number has a `≡3 mod4` prime factor, by least-factor recursion).
+  - **Rejected (honest, duplicate result):** `√2`/`√p` irrationality by
+    v2-parity. The bare impossibility `m² ≠ 2k²` (and `3,5`) is already PURE in
+    `NumberSystems/Irrational/SqrtPure` and `Sqrt2KernelFree` — via the *descent*
+    route (`DescentBase`/`descent_step`/`m_even_of_sq`). A v2-parity reproof
+    would be a *different proof of an already-proven theorem*, not a case where
+    ∅-axiom forces the new shape — both routes are ∅-axiom. Not collected.
+  - **Unselected candidates:** (A) the First Isomorphism Theorem for a concrete
+    `ℤ → ℤ/n` reduction, as an explicit section/retraction on representatives;
+    (B) Dirichlet's approximation theorem `∀ α N, ∃ p q, q≤N, |qα−p|<1/N` via the
+    box pigeonhole (`exists_collision` on `N+1` fractional parts → `N` boxes) —
+    reuses the new primitive over `Real213`, witness `(p,q)` computed. Pick by
+    sharpness of the revealed constructor.
 - **C**: a classically-non-effective existence (an "∃ by compactness") whose
   ∅-axiom form needs a modulus, where the modulus is the content.
 - **The DIRTY-set test — RESULT (2026-06-16): empty for math.** Scanned the whole
