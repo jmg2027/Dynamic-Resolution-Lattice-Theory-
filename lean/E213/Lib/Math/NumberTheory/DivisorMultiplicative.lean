@@ -11,7 +11,7 @@ import E213.Lib.Math.NumberTheory.DivisorProductReindex
 /-!
 # Divisor-product reindex + σ/τ multiplicativity (∅-axiom)
 
-★★★ Closes the divisor-product frontier (`research-notes/frontiers/mobius_divisor_sum_general.md`):
+★★★ Closes the divisor-product programme:
 the sparse-fiber reindex tool, and the general multiplicativity of σ and τ.
 
   * ★★★ `divisor_product_reindex` : for coprime `a,b` (`0<a`, `0<b`),

@@ -12,8 +12,8 @@ flips the sign, recursing from the same candidate `d` (not `d+1`).
   * ★★ `liouville_divisor_sum_table` — `Σ_{d∣n} λ(d) = [n is a perfect square]` (n=1..16).
   * `liouville_completely_multiplicative_table` — `λ(m·n)=λ(m)·λ(n)` (all m,n, incl. non-coprime).
 
-The general complete-multiplicativity shares the open `muStruct = mu`-style scan
-invariant (`research-notes/frontiers/mobius_divisor_sum_general.md`); verified by
+The general complete-multiplicativity shares the `muStruct = mu`-style scan
+invariant; verified by
 table here.  The corpus `Liouville` elsewhere is the transcendence constant — a
 different object.  All ∅-axiom.
 -/

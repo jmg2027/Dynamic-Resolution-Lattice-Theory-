@@ -104,11 +104,6 @@ slogan but a shared proof-skeleton, verified across four independent files.
 | `vp_separation_via_schema` | `VpSeparationDescent` | UFD separation (`m=n` from equal valuations) as a descent instance |
 | `markov_descends_to_root` | `MarkovDescentSchema` | every Markov triple descends to `(1,1,1)` — first relational instance |
 
-## Research-note provenance
-
-`research-notes/frontiers/descent_schema_universal.md` (Finding H, the corpus-wide
-proof-shape sweep continuing `general_theory_metaanalysis.md`).
-
 ## Open frontier
 
 - **Atomicity is a *degenerate* member, not promoted as a fifth instance.**
@@ -117,8 +112,7 @@ proof-shape sweep continuing `general_theory_metaanalysis.md`).
   point; it fits the schema's shape but not its spirit, so it is recorded as a
   boundary case, not inflated to "5 instances".  Clean unification = 4 iterated
   descents (GCD / UFD / Markov / Ricci).
-- The smooth Ricci flow (Perelman entropy) remains the open geometric side
-  (`research-notes/frontiers/ricci_flow_smooth_core.md`); only the discrete
+- The smooth Ricci flow (Perelman entropy) remains the open geometric side; only the discrete
   monovariant version is a schema instance.
 
 ## How to verify

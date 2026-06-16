@@ -12,8 +12,8 @@ propext-free `divisorSum` (`Bool.toNat` indicator `dvdInd`):
     (with non-perfect counterexamples).
 
 All declarations PURE (compose only `divisorSum`/`dvdInd`/`sumTo`); tables close
-by `decide`.  General multiplicativity (σ, τ multiplicative) shares the open
-partition-by-divisor frontier (`research-notes/frontiers/gauss_totient_general.md`).
+by `decide`.  General multiplicativity (σ, τ multiplicative) is proven via the
+partition-by-divisor toolkit (`DivisorMultiplicative`).
 The corpus had no σ/τ as arithmetic functions (the `sigma` elsewhere is a variable
 name / Gram matrix).
 -/

@@ -18,8 +18,7 @@ unique factorization) is an instance of the universal descent schema
 The start's equality `m = n` is recovered by lifting `t.m = t.n` back up the
 `Reaches` chain (`reaches_eq_back`): each peel multiplied both coordinates by the
 *same* prime, so equality is preserved across every step.  This is the third
-number-theory instance of the descent schema (with GCD and Markov), ∅-axiom —
-`research-notes/frontiers/descent_schema_universal.md`.
+number-theory instance of the descent schema (with GCD and Markov), ∅-axiom.
 -/
 
 namespace E213.Lib.Math.Foundations.VpSeparationDescent

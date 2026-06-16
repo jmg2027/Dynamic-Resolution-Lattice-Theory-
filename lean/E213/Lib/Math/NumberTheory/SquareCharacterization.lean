@@ -6,7 +6,8 @@ import E213.Meta.Nat.Iterate213
 /-!
 # Coprime-square-split + square-or-twice-square ⟺ oddPart-square (∅-axiom)
 
-Advances `research-notes/frontiers/sigma_parity_general.md`.
+Advances the σ-parity programme (square characterization via the odd-part
+decomposition; the programme is closed in `SigmaParityComplete`).
 
 `IsSquare n := ∃ r, r*r = n` (over `Nat`).
 

@@ -26,8 +26,8 @@ for coprimes** — the corpus's first structurally-defined multiplicative Möbiu
 
 `muStruct_mul` is the load-bearing half of the general divisor-sum
 `Σ_{d∣n} μ(d) = [n=1]`, and the same window-product template would unlock general
-σ/τ multiplicativity + Möbius inversion.  Two gaps remain (recorded in
-`research-notes/frontiers/mobius_divisor_sum_general.md`): the combinatorial
+σ/τ multiplicativity + Möbius inversion.  Two gaps remained at the time (since
+closed in `DivisorMultiplicative`/`MobiusBridge`): the combinatorial
 divisor-product reindex `divisors(p^k·m) ≅ {0..k}×divisors(m)` (no PURE
 divisor-set / Σ-over-divisors-Fubini-for-product in the corpus), and the optional
 `muStruct n = mu n` bridge (the open `muAux`-correctness scan invariant).  All

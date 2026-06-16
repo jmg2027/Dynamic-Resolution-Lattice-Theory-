@@ -20,9 +20,8 @@ the sign parity.  PURE (propext-free): branching is `cond`/`Bool.toNat` (no
 `if`/`ite`), recursion is structural on the fuel argument (no termination proof),
 Int signs explicit.  Tables close by `decide`.
 
-The general theorems (all n) share the open partition-by-divisor frontier recorded
-in `research-notes/frontiers/gauss_totient_general.md` (Möbius inversion is the
-dual of the Gauss sum and needs the same `count_partition_by_key` toolkit).
+The general theorems (all n) use the partition-by-divisor toolkit (Möbius inversion
+is the dual of the Gauss sum, sharing the same `count_partition_by_key` toolkit).
 The corpus had no number-theoretic `mu`/`mobius` (the NumberSystems hits are
 poset/p-adic Möbius — a different object).
 -/

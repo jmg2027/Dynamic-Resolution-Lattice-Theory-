@@ -12,8 +12,7 @@ import E213.Lib.Math.NumberTheory.PrimeValuation
 # The `muStruct = mu` bridge + corpus-`mu` Möbius framework (∅-axiom)
 
 ★★★ `muStruct_eq_mu : ∀ n, 0 < n → muStruct n = mu n` — the corpus trial-division
-`mu` agrees with the structural `muStruct` everywhere.  Closes the last open item of
-`research-notes/frontiers/mobius_divisor_sum_general.md`, transporting the WHOLE
+`mu` agrees with the structural `muStruct` everywhere.  Closes the last item of the Möbius-framework programme, transporting the WHOLE
 Möbius framework from `muStruct` to the corpus `mu`.
 
 The scan-correctness obstruction (muAux strips the smallest prime and recurses from

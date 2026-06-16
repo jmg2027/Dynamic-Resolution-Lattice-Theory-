@@ -13,7 +13,7 @@ import E213.Lib.Math.NumberTheory.EulerTotient
 
 ★★★ The full general theorem `gauss_totient (n) (hn : 0 < n) : gaussSum n = n`,
 i.e. `divisorSum n totient = n` — for ALL n ≥ 1, not just a table.  Closes the
-frontier `research-notes/frontiers/gauss_totient_general.md`.  All declarations
+Gauss-totient programme.  All declarations
 PURE.
 
 ## Architecture (the standard partition-by-gcd proof, made ∅-axiom)

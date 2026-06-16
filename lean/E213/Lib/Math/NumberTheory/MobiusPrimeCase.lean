@@ -24,8 +24,8 @@ These establish the corpus `mu`'s scan is correctly evaluated structurally in th
 closable cases.  The **general** theorem `∀ n ≥ 1, Σ_{d∣n} μ(d) = [n=1]` remains
 open — it needs a `muAux`-correctness invariant (scan interleaving / scan-start
 independence) bridging trial-division `mu` to a structural `vp`/`Prime213`
-valuation.  Full obstruction analysis:
-`research-notes/frontiers/mobius_divisor_sum_general.md`.
+valuation.  (Full obstruction analysis since closed in the Möbius-framework
+programme.)
 -/
 
 namespace E213.Lib.Math.NumberTheory.MobiusPrimeCase

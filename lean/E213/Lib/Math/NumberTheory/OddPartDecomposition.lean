@@ -7,8 +7,8 @@ import E213.Meta.Nat.MulMod213
 /-!
 # 2-adic odd-part decomposition + σ-parity reduction to the odd part (∅-axiom)
 
-Advances the frontier `research-notes/frontiers/sigma_parity_general.md` crux #1
-("no 2-adic odd-part decomposition `n = 2^a · odd`").
+Provides the 2-adic odd-part decomposition `n = 2^a · odd` (the first crux of the
+σ-parity programme, since closed in `SigmaParityComplete`).
 
 We define, **subtraction-free** and **reducible** (fuel + `Nat.strongRecOn`
 fuel-irrelevance, the `Josephus.lean` template):

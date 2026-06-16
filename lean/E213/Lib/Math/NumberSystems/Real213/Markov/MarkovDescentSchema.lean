@@ -13,8 +13,7 @@ branches (where the jumped value lands), so `Down` is a relation, not a
 function.  The monovariant `μ = c` (the max) is **invariant under the re-sort**
 (a permutation of the triple) and the jump strictly drops it, so `μ` descends
 across the *bundled* `Down` step — the schema absorbs the permutation with no
-quotient-by-symmetry (`research-notes/frontiers/descent_schema_universal.md`,
-the 5-way fold verdict).
+quotient-by-symmetry (the 5-way fold verdict).
 
 Every piece is reused from `MarkovUniqueness`; this file only re-packages the
 step into the schema's `∀ x, NF x ∨ ∃ y, R x y ∧ μ y < μ x` shape.  ∅-axiom.

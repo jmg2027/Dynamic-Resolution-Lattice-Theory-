@@ -26,7 +26,7 @@ to the single remaining combinatorial gap (a sparse-fiber sum reindex).
   * `sigma_mul_of_reindex`, `tau_mul_of_reindex` — conditional unlock: the reindex
         hypothesis ⟹ σ / τ multiplicative.
 
-**Open** (`research-notes/frontiers/mobius_divisor_sum_general.md`): the
+The
 `divisor_product_reindex` `divisorSum (a·b) f = Σ_{i<a}Σ_{k<b} dvdInd i a·dvdInd k b·f((i+1)(k+1))`.
 All forward arithmetic is in hand; the one missing ingredient is a general
 **sum-reindex-by-bijection over `sumTo` for a sparse (non-contiguous) fiber**

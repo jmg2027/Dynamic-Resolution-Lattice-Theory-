@@ -23,8 +23,7 @@ subsume the p-adic diagonal `Padic.Foundation.Zp.diagLimit`: that object's conte
 is the *trunc-assembly* fold `diagLimit_trunc_succ` under a *trunc-level* one-step
 hypothesis, which does not reduce to this per-coordinate stabilization — the
 digit-level fit would be trivial.  So `StagedLimit` is the cut/modulus-limit
-abstracted, not a cross-domain (Padic ⊥ Real213) unifier
-(`research-notes/frontiers/stabilization_schema.md`).
+abstracted, not a cross-domain (Padic ⊥ Real213) unifier.
 -/
 
 namespace E213.Meta.StagedLimit
