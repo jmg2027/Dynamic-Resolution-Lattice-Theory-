@@ -122,4 +122,74 @@ theorem no_inj_lt {N k : Nat} (h : N < k) (g : Fin k → Fin N)
     fun heqv => hval_ne (congrArg (α := Fin k) Fin.val heqv)
   exact hinj _ _ hidx_ne heq'
 
+/-! ## Constructive collision-finder (produces the pair, not just `False`)
+
+`no_inj_lt` *refutes* injectivity; a divisibility/coincidence argument wants the
+**actual colliding pair**.  The scan below searches a `Fin`-indexed family with
+`DecidableEq (Fin N)` (axiom-clean) — no `Classical`, no decidable-`∃` instance —
+and returns either a witnessed hit or a pointwise miss; `exists_collision` then
+recurses through `shiftAround` to produce the explicit pair. -/
+
+/-- **Bounded membership scan.**  For a family `r : Fin k → Fin N` and a target
+    `v`, decide constructively whether `v` is hit — returning the witnessing
+    index, or a pointwise miss.  Pure linear scan with `DecidableEq (Fin N)`. -/
+theorem scan {N : Nat} (v : Fin N) :
+    ∀ (k : Nat) (r : Fin k → Fin N), (∃ i, r i = v) ∨ (∀ i, r i ≠ v) := by
+  intro k
+  induction k with
+  | zero => intro _; exact Or.inr (fun i => i.elim0)
+  | succ m ih =>
+      intro r
+      let last : Fin (m + 1) := ⟨m, Nat.lt_succ_self m⟩
+      by_cases hlast : r last = v
+      · exact Or.inl ⟨last, hlast⟩
+      · let r' : Fin m → Fin N := fun i => r ⟨i.val, Nat.lt_succ_of_lt i.isLt⟩
+        rcases ih r' with ⟨i, hi⟩ | hmiss
+        · exact Or.inl ⟨⟨i.val, Nat.lt_succ_of_lt i.isLt⟩, hi⟩
+        · refine Or.inr (fun j hj => ?_)
+          by_cases hjm : j.val < m
+          · have : r' ⟨j.val, hjm⟩ = v := by
+              show r ⟨j.val, Nat.lt_succ_of_lt hjm⟩ = v
+              have : (⟨j.val, Nat.lt_succ_of_lt hjm⟩ : Fin (m + 1)) = j :=
+                Fin.ext rfl
+              rw [this]; exact hj
+            exact hmiss ⟨j.val, hjm⟩ this
+          · have hjeq : j.val = m :=
+              Nat.le_antisymm (Nat.le_of_lt_succ j.isLt) (Nat.le_of_not_lt hjm)
+            have : j = last := Fin.ext hjeq
+            exact hlast (this ▸ hj)
+
+/-- **Constructive pigeonhole — the colliding pair.**  Any `g : Fin (N+1) → Fin N`
+    has two distinct indices with `g i = g j`, *exhibited*: scan whether the top
+    value recurs among the earlier indices; on a miss, `shiftAround` drops that
+    value and the recursion returns the pair one level down.  No `Classical`. -/
+theorem exists_collision : ∀ (N : Nat) (g : Fin (N + 1) → Fin N),
+    ∃ i j : Fin (N + 1), i ≠ j ∧ g i = g j := by
+  intro N
+  induction N with
+  | zero => intro g; exact (g ⟨0, Nat.lt_succ_self 0⟩).elim0
+  | succ M ih =>
+      intro g
+      let last : Fin (M + 2) := ⟨M + 1, Nat.lt_succ_self (M + 1)⟩
+      let v : Fin (M + 1) := g last
+      let r : Fin (M + 1) → Fin (M + 1) :=
+        fun k => g ⟨k.val, Nat.lt_succ_of_lt k.isLt⟩
+      rcases scan v (M + 1) r with ⟨k, hk⟩ | hmiss
+      · -- `v` recurs at `k`:  `g ⟨k⟩ = v = g last`, and `⟨k⟩ ≠ last`.
+        refine ⟨⟨k.val, Nat.lt_succ_of_lt k.isLt⟩, last, ?_, ?_⟩
+        · intro h
+          have : k.val = M + 1 := congrArg Fin.val h
+          exact Nat.lt_irrefl _ (this ▸ k.isLt)
+        · exact hk
+      · -- nothing recurs:  drop `v` via `shiftAround`, recurse on `Fin M`.
+        let g' : Fin (M + 1) → Fin M := fun k => shiftAround v (r k) (hmiss k)
+        obtain ⟨i, j, hij, hg'⟩ := ih g'
+        have hrij : r i = r j := shiftAround_inj v (hmiss i) (hmiss j) hg'
+        refine ⟨⟨i.val, Nat.lt_succ_of_lt i.isLt⟩,
+                ⟨j.val, Nat.lt_succ_of_lt j.isLt⟩, ?_, hrij⟩
+        intro h
+        have hval : i.val = j.val :=
+          congrArg (fun x : Fin (M + 2) => x.val) h
+        exact hij (Fin.ext hval)
+
 end E213.Lib.Math.Combinatorics.Pigeonhole

@@ -133,6 +133,40 @@ Reveals: **the FTA-existence IS the factorization algorithm — the witness is
 computed (`factorize 12` reduces to `[2,2,3]` by `decide`), not extracted from
 a minimal counterexample**; and a `Prop`-∃ is not data without choice. (16 PURE.)
 
+### A — `(ℤ/n)^×` as the explicit coprime-residue group, on representatives (★ clean A-case)
+`NumberTheory/UnitsOfZn`. Classically `(ℤ/n)^×` is the group of **units of the
+quotient ring** `ℤ/n` — its very definition presupposes the ring `ℤ/n` and its
+unit set, lifted through `Quot.sound`. On representatives over `Nat` there is no
+quotient ring: a unit is just a coprime residue `isUnit n a := gcd213 a n = 1`,
+and the group structure is read off directly — closure under `·` mod `n` is the
+**gcd fact** `gcd(ab,n)=1` (with gcd mod-invariant, `gcd_mod_left`), the identity
+is `gcd(1,n)=1`, inverses are **Bezout** (`unit_has_inverse`, the inverse-is-a-unit
+half from "any common divisor of `b,n` divides `(a·b)%n = 1`"), and the order is
+`φ(n)` — *definitionally* `unit_count_eq_totient : unitCount n = totient n := rfl`,
+since the corpus `totient` already counts coprime residues. Reveals: **the
+multiplicative group is the explicit coprime-residue set; closure is a gcd fact,
+inverses are Bezout, order is φ(n) — the quotient ring was packaging.** (12 PURE.)
+
+### B — divisibility pigeonhole on `[1,2n]`, with a *computed* dividing pair (★ clean B-case)
+`NumberTheory/DividesPairPigeonhole`. "Among any `n+1` numbers in `{1,…,2n}`, one
+divides another." Classically pigeonhole asserts a **non-constructive `∃`** (two of
+the chosen numbers share an odd part — but *which* pair is never exhibited; the
+textbook proof is the abstract pigeonhole counting). ∅-axiom forces the explicit
+witness in **two** places: (1) the divisibility itself — `same_oddpart_dvd` reads
+`a ∣ b ∨ b ∣ a` straight off the **2-adic valuation comparison** (`v2 a ≤ v2 b`
+gives the explicit cofactor `2^(v2 b − v2 a)`), not from an abstract "same class";
+and (2) the collision — the standard `no_inj_lt` only *refutes* injectivity
+(`→ False`), so a `by_cases` on the existential pulled in `Classical`. This forced
+a **constructive collision-producing pigeonhole** `Combinatorics/Pigeonhole.exists_collision :
+∀ N g, ∃ i j, i ≠ j ∧ g i = g j` (a decidable linear `scan` + `shiftAround`
+recursion that *returns* the colliding indices). Reveals: **the dividing pair is
+computed — odd-part map collides (the collision is produced, not asserted), then
+v2-comparison reads off which divides which — not an abstract pigeonhole `∃`.**
+A new reusable primitive (`exists_collision`) fell out: the constructive content of
+pigeonhole is the *witness-returning* form. (DP 7 PURE; `exists_collision`/`scan`
+2 PURE in Pigeonhole. Two independent agents converged on exactly this shape —
+itself evidence the route is forced, not chosen.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
@@ -141,6 +175,14 @@ a minimal counterexample**; and a `Prop`-∃ is not data without choice. (16 PUR
   `ModArith/LensCRT` for overlap first.)
 - **B**: classical results whose only textbook proof is minimal-counterexample
   — and whose descent witness is interesting (not just "a factor exists").
+  - **Next target (selected):** every prime `p ≡ 1 (mod 4)` is a sum of two
+    squares. The corpus has `QRNegOne` (`∃x, p ∣ x²+1`) and the
+    Brahmagupta–Fibonacci multiplicativity (`SumTwoSquares.isSumTwoSq_mul`) but
+    **not** the hard direction. Classical proof = Thue's lemma (a pigeonhole over
+    a `⌊√p⌋`-box giving a small `(a,b)` with `a ≡ xb`) + descent. ∅-axiom forces
+    the **computed** `(a,b)`: the new `Pigeonhole.exists_collision` should supply
+    the Thue collision directly, making the two-square witness explicit rather
+    than an abstract `∃`. (Reuses `QRNegOne`, `exists_collision`.)
 - **C**: a classically-non-effective existence (an "∃ by compactness") whose
   ∅-axiom form needs a modulus, where the modulus is the content.
 - **The DIRTY-set test — RESULT (2026-06-16): empty for math.** Scanned the whole
