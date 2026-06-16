@@ -6,6 +6,7 @@ import E213.Lib.Math.Analysis.ExtremeValue
 import E213.Lib.Math.Analysis.UniformLimitContinuous
 import E213.Lib.Math.Analysis.BanachFixedPoint
 import E213.Lib.Math.Analysis.RiemannContinuous
+import E213.Lib.Math.Analysis.ModulusConvergence
 import E213.Lib.Math.Analysis.FluxMVT
 import E213.Lib.Math.Analysis.Integration
 import E213.Lib.Math.Analysis.ODE
