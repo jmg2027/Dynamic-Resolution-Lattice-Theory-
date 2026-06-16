@@ -34,12 +34,19 @@ The one genuinely missing lemma.  Erdős's proof by strong induction:
 ## Remaining sub-bricks (precise)
 
 1. **`prime_dvd_odd_binom`** — primes `p ∈ (m+1, 2m+1]` divide `C(2m+1, m)` — MEDIUM,
-   the **next unit**.  Mirror `prime_dvd_central_binom`'s vp argument (`vp_p(C) =
-   vp_p((2m+1)!) − vp_p(m!) − vp_p((m+1)!) ≥ 1`), using `choose_mul_factorials` for the
-   factorial identity.  **Watch a likely second duplicate-def bridge:** `choose_mul_factorials`
-   uses the Lib `fact`, while `prime_not_dvd_fact`/`dvd_fact` use the Lens `fact` — check
-   whether they are the same def or need a `fact`-bridge (the vp tools `vp_mul`,
-   `le_vp_iff`, `vp_eq_zero_of_not_dvd` are in `Meta.Nat`, reachable from both).
+   the **next unit**, but now **gated on a second duplicate-def bridge** (confirmed
+   2026-06-16): `choose_mul_factorials` is stated over `factorial`, while
+   `prime_not_dvd_fact`/`dvd_fact` (the vp argument's inputs) are over `fact` — and the repo
+   has **7+ distinct `fact` defs** plus `factorial`.  So the vp argument needs a
+   `fact = factorial` bridge first (likely trivial — same recursion — like `binom_eq_choose`).
+   The vp tools (`vp_mul`, `le_vp_iff`, `vp_eq_zero_of_not_dvd`) are in `Meta.Nat`, reachable.
+
+   **The real Bertrand blocker is repo-wide def-duplication**, not mathematics: binomial
+   (`binom`×4 + `choose`) and factorial (`fact`×7 + `factorial`).  `binom_eq_choose` is one
+   bridge; the principled fix is an **`org-audit` def-unification pass** (canonicalize one
+   `binom` + one `fact`, re-export via the layer umbrellas), after which `prime_dvd_odd_binom`
+   → `window_prod_le_odd` → `primorial_le_four_pow` → full Bertrand are mechanical given the
+   landed keystones.  Recommended before resuming the chain.
 2. **`window_prod_le_odd`** — `∏_{(m+1,2m+1]} p ≤ C(2m+1,m)` — EASY given 1, via
    `listProd_dvd` + `primesIn_nodup`.
 3. **`primorial_le_four_pow`** — the strong induction assembling 1–2 with `primesIn_split`,
