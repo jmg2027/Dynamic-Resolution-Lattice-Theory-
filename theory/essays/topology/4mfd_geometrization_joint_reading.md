@@ -85,7 +85,7 @@ connected-sum operation.
 
 Same Sym(3) algebraic spine — five frames: Geometrization
 8 = 3 + 5 isotropic / anisotropic; gluon octet H¹ rank 8 = 2·trivial
-⊕ 3·standard; HC_K32 256-cup-subring; Möbius P mod-5 pentagonal
+⊕ 3·standard; octet full cohomology |H¹| = 2⁸ = 256; Möbius P mod-5 pentagonal
 closure; cork signed-count +4.  The
 `five_way_sym3_cross_frame_capstone` records this convergence.
 

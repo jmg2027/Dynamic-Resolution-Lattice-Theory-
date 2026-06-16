@@ -40,23 +40,19 @@ emergence (parallel branch C3 chain).
 
 ---
 
-## CDI-2 — `b₁(K_5) = δ_CP = adjoint_SU(d) = adjoint_SU(NS) = Chern at Δ⁴`
+## CDI-2 — `b₁(K_5) = δ_CP = adjoint_SU(d) = adjoint_SU(NS)`
 
-**Group size**: 5 decls, 301 nodes  
-**Spans**: Math.Cohomology, Math.HodgeConjecture, Physics.Mixing,
-Physics.YangMills
+**Spans**: Math.Cohomology, Physics.Mixing, Physics.YangMills
 
 **Decls**:
   · `Math.Cohomology.Examples.K5.b1_K5`
-  · `Math.HodgeConjecture.MotivicBridge.ChernCharacter.ch_target_even_delta4`
   · `Physics.Mixing.Bridge.delta_cp_atomic`
   · `Physics.YangMills.Bridge.adjoint_SU_d_atomic`
   · `Physics.YangMills.Bridge.adjoint_SU_NS_atomic`
 
-**Identification**: First Betti of K_5 ≡ Chern character target
-at Δ⁴ ≡ CP-violation angle δ_CP ≡ SU(d) adjoint dimension ≡
-SU(NS) adjoint dimension.  **5-way structural identity**
-spanning cohomology, motivic bridge, flavour-mixing,
+**Identification**: First Betti of K_5 ≡ CP-violation angle δ_CP ≡
+SU(d) adjoint dimension ≡ SU(NS) adjoint dimension.  **4-way
+structural identity** spanning cohomology, flavour-mixing,
 Yang-Mills.
 
 **Atomicity origin**: K_5 from d=5.  SU(d) and SU(NS) adjoints

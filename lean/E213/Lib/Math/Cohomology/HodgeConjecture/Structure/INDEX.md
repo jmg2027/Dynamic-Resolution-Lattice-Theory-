@@ -1,23 +1,14 @@
-# `HodgeConjecture/Structure/` — cohomology-ring structure for Hodge
+# `HodgeConjecture/Structure/` — cohomology-ring structure
 
-Algebraic-cohomology-ring structure on H*: ring, map, Poincaré
-duality, Hard Lefschetz theorem.
+Algebraic structure on H*: ring, ⋆-map, Poincaré duality.
 
-## Files (5)
+## Files (3)
 
-  - `Ring.lean`                — H* as a graded ring
-  - `Map.lean`                 — ring map / pullback
-  - `PoincareDuality.lean`     — Poincaré duality on T²ⁿ
-  - `HardLefschetz.lean`       — Hard Lefschetz theorem (general)
-  - `HardLefschetzT2Squared.lean` — Hard Lefschetz on T²×T²
-
-## Where to add new files
-
-  - Specific surface case   → `<Theorem><Surface>.lean`
-  - Ring / map refinement   → `Ring*` / `Map*`
+  - `Ring.lean`                — H* as a graded ring (⋆ × cup compat)
+  - `Map.lean`                 — ⋆ as ℤ/2-bijection + XOR-linearity
+  - `PoincareDuality.lean`     — Poincaré duality H^k ↔ H^{n−k}
 
 ## Companion sub-clusters (in `HodgeConjecture/`)
 
-  - `Foundation/`   — base conjecture
-  - `Pairing/`      — HIT + HR pairings (consumes structure)
-  - `Refinement/`   — Lefschetz refinements
+  - `Pairing/`      — surface intersection forms (consumes structure)
+  - `Refinement/`   — cup-atomic generation

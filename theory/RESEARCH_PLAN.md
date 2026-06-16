@@ -127,7 +127,7 @@ chapter section, not a missing theorem.
 ### 2.1 Hodge involution ↔ universe-chain self-pointing — **CLOSED**
 
   · **Resolved**: Cross-references added in both
-    `hodge_conjecture.md` (§(iii) HC_Involution) and
+    `hodge.md` (⋆⋆ = id involution) and
     `universe_chain.md` (§Eisenstein discovery).  The duality
     between `⋆⋆ = id` and `1 + ω + ω² = 0` is now explicitly
     narrated as a shared self-cancelling complement structure

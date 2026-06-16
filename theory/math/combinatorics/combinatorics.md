@@ -45,4 +45,4 @@ graded-ring underlying type used in:
   as paradigm instance
 - `theory/physics/alpha_em/precision_derivation.md` — `CoeffSeq`
   spectrum bracket
-- `theory/math/cohomology/hodge_conjecture.md` — cup as convolution
+- `theory/math/cohomology/hodge.md` — cup as convolution

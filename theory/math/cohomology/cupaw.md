@@ -91,7 +91,7 @@ infrastructure is structural pre-work toward closure.
 
 ## Connection
 
-- `theory/math/cohomology/hodge_conjecture.md` — HodgeConjecture/ uses CupAW machinery for the Hodge index pairings
+- `theory/math/cohomology/surfaces.md` — surface intersection forms use CupAW machinery for the Hodge index pairings
 - `theory/math/cohomology/cup.md` — strict cup (CupAW's non-Leibniz cousin)
 - `theory/physics/alpha_em/precision_derivation.md` — α_em uses cup-channel inventory built on CupAW
 

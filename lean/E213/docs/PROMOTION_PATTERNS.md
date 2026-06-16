@@ -13,7 +13,7 @@ done, identifying three distinct shapes the source state can take.
 
 | # | Pattern | Source state | Outcome | Example chapter |
 |---|---|---|---|---|
-| 1 | **Multi-note absorption** | One or more closed G-notes covering one topic | Combine into one chapter; `git mv` originals to `research-notes/archive/<topic>/` | `theory/math/cohomology/hodge_conjecture.md` (6 notes G6-G11 → 1) |
+| 1 | **Multi-note absorption** | One or more closed G-notes covering one topic | Combine into one chapter; `git mv` originals to `research-notes/archive/<topic>/` | `theory/math/cohomology/surfaces.md` (surface-form notes → 1) |
 | 2 | **Narrative-from-scratch** | Lean tree closed without source research notes | Read the Lean tree; write narrative; nothing to archive | `theory/physics/symmetry/c3_chain.md` (Lean-only 18-phase work) |
 | 3 | **Mixed-status absorption** | Active multi-topic catalog where only some sub-topics are closed | Extract closed sub-topics; the catalog **stays active** with a status tracker | `theory/physics/alpha_em/precision_derivation.md` (G35 §C1+§C5 extracted; G35 itself stays) |
 
@@ -51,14 +51,14 @@ don't fit go through `AskUserQuestion` before acting.
    notes as **deep-dive reference**.
 8. Update `theory/INDEX.md` and the relevant `theory/<area>/INDEX.md`.
 
-### Example trace (Hodge, commit `905c09a2`)
+### Example trace (cohomology surface forms)
 
 ```
-research-notes/hodge/ (6 G-notes + INDEX)
-  → research-notes/archive/hodge/
-  + theory/math/cohomology/hodge_conjecture.md (new, 253 lines)
-  + 12 Lean docstrings updated via bulk sed
-  + lean/E213/Lib/Math/Cohomology/HodgeConjecture/INDEX.md "Companion narrative" added
+research-notes/<topic>/ (N closed G-notes + INDEX)
+  → research-notes/archive/<topic>/
+  + theory/math/cohomology/<chapter>.md (new narrative)
+  + Lean docstrings updated to cite the theory chapter
+  + lean/.../INDEX.md "Companion narrative" section added
 ```
 
 ### Pitfalls

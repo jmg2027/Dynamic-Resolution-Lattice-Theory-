@@ -67,8 +67,8 @@ are the structural carriers, not arbitrary basis vectors).
 Five-way Sym(3) convergence at
 `five_way_sym3_cross_frame_capstone`: same Sym(3) algebraic spine
 surfaces in (1) Geometrization 8 = 3 isotropic + 5 anisotropic;
-(2) gluon octet H¹ rank 8 = 2·trivial ⊕ 3·standard; (3) HC_K32
-256 = 2⁸ Hodge cup-subring; (4) Möbius P mod-5 pentagonal cycle
+(2) gluon octet H¹ rank 8 = 2·trivial ⊕ 3·standard; (3) octet
+full cohomology |H¹| = 256 = 2⁸; (4) Möbius P mod-5 pentagonal cycle
 (`half_period = 5`, `full_period = 10`); (5) cork signed count
 +4 = trivial-isotypic cardinality.  The cup-ladder
 `α^(k+1)/d^(k+1)` graduation at k = 1, 2 reads the (k+1)-th

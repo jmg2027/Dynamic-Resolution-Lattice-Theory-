@@ -151,7 +151,7 @@ connected.
   structure (2/3/4-skeleton, Steenrod algebra, cup-i ladder)
 - `theory/math/cohomology/cup_ladder_graduation.md` — physics
   application bridge (α_em residual via `(k+1)` graduation)
-- `theory/math/cohomology/hodge_conjecture.md` — HodgeConjecture sub-tree (parent)
+- `theory/math/cohomology/hodge.md` — cup-chain cohomology + ⋆⋆ involution
 - `theory/math/geometry/geometrization_conjecture.md` — KChartLensAbstract +
   K-deployment family enumeration (consumer of
   `parametric_close_capstone`)

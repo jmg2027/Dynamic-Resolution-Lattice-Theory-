@@ -94,7 +94,7 @@ behind the uniform "− 1" lives in `Combinatorics/GraphConnectivity`
 | `Poincare.lean` | 12, 13, 15 | ~31 | Poincaré pillar (tree + corrected Euler + Generalized + Filled) |
 | `Ricci.lean` | 16, 17 | ~9 | Ricci modulus (BracketCauchy parallel) |
 | `EightGeometries.lean` | 11, 18-22 | ~30 | 8 model geometries via single Möbius P + 3 Lenses (ℝ/ℤ/F_5) |
-| `StructuralMapping.lean` | 21, 23, 24 | ~14 | HC_K32 + universal-8 + ultimate structural mapping (Sym(3) decomp = 3 iso + 5 aniso) |
+| `StructuralMapping.lean` | 21, 23, 24 | ~14 | octet-8 + universal-8 + ultimate structural mapping (Sym(3) decomp = 3 iso + 5 aniso) |
 | `Capstone.lean` | 25 | ~5 | d=4 info richness + `R1_close_certificate` |
 
 ### File map (R1+ extensions, partial)
@@ -160,7 +160,7 @@ The 8 geometries decompose under the Sym(3) symmetric-group action:
 
 Connects to:
 - `theory/physics/symmetry/c3_chain.md` — same Sym(3) decomposition of H¹(K_{3,2}^{(c=2)}) = 2 trivial + 3 standard over F_2
-- `theory/math/cohomology/hodge_conjecture.md` HC_K32 — same 8-dim cohomology
+- `theory/math/cohomology/surfaces.md` — octet H¹(K_{3,2}^{(c=2)}), same 8-dim cohomology
 
 **Three apparently distinct objects (Geometrization 8 geometries,
 gluon octet, K_{3,2}^{(c=2)} cohomology) share the same algebraic
@@ -257,8 +257,8 @@ For full ~149 PURE inventory, see
   Bridges to `Geometry/MetricTypes.lean` (16 PURE).
 - **Sym(3) cross-frame capstone** (`CrossFrame.lean`, ~5 PURE):
   `X1_sym3_cross_frame_capstone` bundles the 4-way Sym(3)
-  convergence (Geometrization + gluon octet + HC_K32 + Möbius P
-  mod-5) + `sym3_basis_thurston_mapping` (explicit Sym(3)-irrep
+  convergence (Geometrization + gluon octet + octet full cohomology
+  |H¹| = 2⁸ + Möbius P mod-5) + `sym3_basis_thurston_mapping` (explicit Sym(3)-irrep
   basis ↔ Thurston geometry assignment with the +1/−1 reshape
   arithmetic translating 2+6 → 3+5).
 - **Ricci pillar ε-Lens integration (I-3)** (`Ricci.lean`,
@@ -325,8 +325,8 @@ The 8-geometry decomposition (Geometrization) collapses with:
 - **C3 chain gauge emergence** (`theory/physics/symmetry/c3_chain.md`):
   same Sym(3) decomposition (2 trivial + 3 standard) on the 8-element
   H¹(K_{3,2}^{(c=2)}) substrate
-- **Hodge conjecture HC_K32** (`theory/math/cohomology/hodge_conjecture.md`):
-  same 8-class cohomology
+- **Octet H¹(K_{3,2}^{(c=2)})** (`theory/math/cohomology/surfaces.md`):
+  same 8-class cohomology (rank 8 = NS² − 1)
 - **Universe chain Möbius P** (`theory/math/foundations/universe_chain.md`):
   same generator [[2,1],[1,1]] now read through 7 mod-k Lenses
 - **Algebra tower asymptote φ** (`theory/math/algebra/cayley_dickson/algebra_tower.md`):

@@ -44,10 +44,10 @@ theorem K32_H1_256_classes :
 
   · Standard math: 8 model geometries = maximal homogeneous
     3-dim Lie-group structures (Thurston classification)
-  · 213-Lens: 8 H¹ classes = maximal Hodge-closed edge-algebraic
-    basis of H¹(K_{3,2}^{(c=2)}) (HC_K32 closure)
+  · 213-Lens: 8 H¹ classes = rank of the gluon octet on
+    H¹(K_{3,2}^{(c=2)}) (= NS² − 1, `OctetModule.rank`)
 
-  Both are CLOSURE-MAXIMAL enumerations of 8.
+  Both are enumerations of 8.
 
   Combined with §G step 18-20 partial realizations:
     · S³ = ∂Δ⁴, S² = ∂Δ³ direct
@@ -57,13 +57,12 @@ theorem K32_H1_256_classes :
   The 8-classes ↔ 8-geometries hint suggests that:
     · K_{3,2}^{(c=2)} edge-algebraic classes generate the
       213-Lens analog of Thurston's geometric pieces
-    · Hodge closure ↔ Lie-group homogeneity (both = maximal
+    · octet cohomology ↔ Lie-group homogeneity (both = maximal
       automorphism-stable structures)
 
   **STILL STEREOTYPE-WARNED** at the explicit-mapping level
-  (which class ↔ which geometry).  But the enumeration-and-
-  closure-property parallel is now formally anchored by
-  `hodge_conjecture_213_complete`.
+  (which class ↔ which geometry).  The enumeration parallel is
+  anchored by `OctetModule.rank = 8` and `2^8 = 256`.
 
   §G upgrade: NARRATIVE ⚠ → STRUCTURAL-HINT ✓
 -/
@@ -92,19 +91,19 @@ theorem geometries_classes_structural_hint :
 리 군처럼 대수 연산이고 연산이 가능한 8개 폼만 있다는걸 얘기하는거
 같이 느껴졌거든."
 
-Translation: "Cohomology, Hodge closure, Lie groups — all are
+Translation: "Cohomology, octet closure, Lie groups — all are
 **algebraic operations**.  The count of operation-closed forms
 appears to be universally 8."
 
 This is a UNIFYING THESIS deeper than step 22's "single P + 3
 Lenses": across distinct algebraic-operation LAYERS (cohomology,
-Hodge, Lie group, Sym(3) representation, Möbius P + Lens), the
+octet, Lie group, Sym(3) representation, Möbius P + Lens), the
 count of closure-stable forms is universally 8.
 
 The previous "STEREOTYPE MATCHING" warnings (step 11 §G) were
 overly cautious — the user has identified the *deeper underlying
 notion* that justifies the 8-correspondence: **algebraic-operation
-closure cardinality**.  Cohomology, Hodge, Lie-group are *different
+closure cardinality**.  Cohomology, octet, Lie-group are *different
 algebraic operations*, but their *closure-stable enumeration count*
 converges to 8 in the K_{3,2}^{(c=2)} / 3-dim layer.
 
@@ -117,7 +116,7 @@ converges to 8 in the K_{3,2}^{(c=2)} / 3-dim layer.
   E. K_{3,2}^{(c=2)} Euler b₁ = E − V + 1 = 8     (Euler)
   F. |H¹| / |C⁰| = 256 / 32 = 8                   (cohomology ratio)
   G. 8 model geometries (Thurston)                (Lie-group classification)
-  H. Cup-subring max span = 8 (HC_K32 closure)    (Hodge)
+  H. Octet full cohomology |H¹| = 2⁸ = 256         (cohomology)
   I. Möbius P 8-geometries via 3 Lenses           (algebraic + Lens)
 
 Nine routes from distinct algebraic-operation layers all yield 8.
@@ -146,7 +145,7 @@ theorem universal_eight_via_multiple_routes :
     -- (Arithmetic record only; structural mapping in
     -- all_eight_via_single_mobius_P)
     ∧ 8 = 8
-    -- (H) HC_K32 closure cardinality (cup-subring max)
+    -- (H) octet full cohomology cardinality |H¹| = 2⁸
     ∧ (2 : Nat)^8 = 256 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, rfl, ?_⟩ <;> decide
 
@@ -164,7 +163,7 @@ theorem universal_eight_via_multiple_routes :
       · Representation (Sym(3) decomp 2 + 2·3)
       · Binary depth (2^d_M)
       · Euler-characteristic (V32Betti b₁)
-      · Hodge closure (HC_K32 cup-subring max)
+      · Octet full cohomology (|H¹| = 2⁸)
       · Möbius P + 3-Lens (8-geometries via single algebraic source)
 
     "Stereotype matching" warnings of step 11 are now superseded:
@@ -183,7 +182,7 @@ theorem operation_closure_universal_eight_capstone :
     ∧ (2 : Nat)^3 = 8
     -- (E) Euler b₁
     ∧ 12 - 5 + 1 = 8
-    -- (F) |H¹| = 2⁸ via cup-subring HC_K32 closure
+    -- (F) |H¹| = 2⁸ octet full cohomology
     ∧ (2 : Nat)^8 = 256
     -- (G) chartVisibleAxes for K_{3,1}^{(c=1)} (Poincaré tree)
     ∧ chartVisibleAxes 3 1 = 3
@@ -355,7 +354,7 @@ theorem three_dim_confinement_forces_eight :
 
   CHAIN OF DERIVATIONS (steps 11 → 24):
     · Step 11: 8 = 8 arithmetic parallel (stereotype-warned)
-    · Step 21: HC_K32 closure → structural hint
+    · Step 21: octet cohomology |H¹| = 2⁸ → structural hint
     · Step 22: Möbius P + 3 Lenses → 8 geometries unified
     · Step 23: operation-closure universal-8 thesis
     · Step 24: **2·trivial → 3 iso, 3·standard → 5 anisotropic**
@@ -404,7 +403,7 @@ theorem geometrization_ultimate_capstone :
     ∧ ((2 : Int) * 1 - 1 * 1 = 1)
     -- Möbius P trace = NS = 3 (atomicity-derived, step 4)
     ∧ ((2 : Int) + 1 = 3)
-    -- HC_K32 closure: |H¹| = 2^8 = 256 (Hodge, step 21)
+    -- octet cohomology: |H¹| = 2^8 = 256 (step 21)
     ∧ (2 : Nat)^8 = 256 := by
   refine ⟨?_, rfl, rfl, ?_, ?_, ?_, rfl, rfl, rfl, ?_, ?_, ?_, ?_⟩
   all_goals first | rfl | decide

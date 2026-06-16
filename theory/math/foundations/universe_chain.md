@@ -254,9 +254,10 @@ correspondence is not pure rotation — the further structure (ZI,
 ζ_5) requires non-diagonal quotients.
 
 **Cross-reference — Hodge involution.**  The `1 + ω + ω² = 0`
-relation at k = 3 is dual to the **HC_Involution** (`⋆⋆ = id`) in
-Hodge cohomology (see `theory/math/cohomology/hodge_conjecture.md`
-§(iii)).  Both express a self-cancelling complement: cyclotomic
+relation at k = 3 is dual to the **⋆⋆ = id involution** in
+Hodge cohomology (see `theory/math/cohomology/hodge.md`;
+`Cohomology/Hodge/InvolutionCapstone`).  Both express a
+self-cancelling complement: cyclotomic
 phase-sum vanishing ↔ cochain-complement involution resolving to
 the identity.  The shared NS = 3 axis count drives both phenomena.
 

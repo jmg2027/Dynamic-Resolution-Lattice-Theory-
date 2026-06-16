@@ -21,7 +21,7 @@ and the dimension-4 exotic-smoothness anomaly.
 | `Poincare.lean` | 12, 13, 15 | ~31 | Poincaré pillar (tree + corrected Euler + Generalized + Filled) |
 | `Ricci.lean` | 16, 17 + I-3 | ~21 | Ricci modulus (BracketCauchy parallel) + fixed-point characterisation + saturation cap + bijection on reachable range + composition semantics + ★★★★★★★ `I3_ricci_eps_lens_deepening_close` |
 | `EightGeometries.lean` | 11, 18-22 | ~30 | 8 model geometries via single Möbius P + 3 Lenses (ℝ/ℤ/F_5) |
-| `StructuralMapping.lean` | 21, 23, 24 | ~14 | HC_K32 + universal-8 + ★★★★★★★★★★ ultimate structural mapping |
+| `StructuralMapping.lean` | 21, 23, 24 | ~14 | octet-8 + universal-8 + ★★★★★★★★★★ ultimate structural mapping |
 | `Capstone.lean` | 25 | ~5 | d=4 info richness + ★★★★★★★★★★★ `R1_close_certificate` |
 
 ### R1+ Extensions (G123/G124/G125 partials)

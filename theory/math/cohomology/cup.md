@@ -81,7 +81,7 @@ The capstone Leibniz statement is obtained by:
 
 ## Connection
 
-- `theory/math/cohomology/hodge_conjecture.md` — HodgeConjecture sub-tree (parent)
+- `theory/math/cohomology/hodge.md` — cup-chain cohomology + ⋆⋆ involution
 - `theory/math/cohomology/delta.md` — coboundary δ
 - `theory/math/cohomology/cochain.md` — Cochain definition
 - Other cohomology sub-clusters cite this layer

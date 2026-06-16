@@ -30,6 +30,6 @@ chapter).
 
 ## Connection
 
-- `theory/math/cohomology/hodge_conjecture.md` — algebraic-geometric core
+- `theory/math/cohomology/hodge.md` — algebraic-geometric core
 - `theory/math/foundations/universe_chain.md` — algebraic_geometric_core
 - `theory/math/geometry/angle_structure.md` — rotation order

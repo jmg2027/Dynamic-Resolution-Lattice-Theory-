@@ -107,8 +107,8 @@ theorem X1_sym3_cross_frame_capstone :
     ∧ H1K.rank = 8
     ∧ Sym3IrrepDecomp.fixedSize = 4
     ∧ 2 + 2 * 3 = 8
-    -- Reading 1 (Hodge closure on the same H¹)
-    ∧ HC_K32
+    -- Reading 1 (octet full cohomology on the same H¹)
+    ∧ (2 : Nat) ^ 8 = 256
     -- Möbius P mod-5 pentagonal closure (c=2 period-ratio reading)
     ∧ half_period = 5 ∧ full_period = 10 ∧ c_multiplicity = 2
 ```

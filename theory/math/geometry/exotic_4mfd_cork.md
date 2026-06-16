@@ -89,8 +89,9 @@ discrete and `decide`-resolved.
   - `CrossFrame.lean` (8) — 5-way Sym(3) cross-frame capstone
     bundling cork (`signedCorkTwistCount = +4
     = Sym3IrrepDecomp.fixedSize`) with the 4 prior frames
-    (Geometrization 3+5, gluon octet H¹ rank 8, HC_K32 Hodge,
-    Möbius P mod-5 pentagonal); cork-isotropic +1 relation;
+    (Geometrization 3+5, gluon octet H¹ rank 8, octet full
+    cohomology |H¹| = 2⁸, Möbius P mod-5 pentagonal);
+    cork-isotropic +1 relation;
     cork-anisotropic +1 relation (H¹+H²)
 - ∅-axiom status: PURE (all 197 theorems)
 

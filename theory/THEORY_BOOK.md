@@ -652,12 +652,13 @@ output, not a universe constant).
 
 ## Part V — Algebraic and cohomological structure
 
-### V.4 Hodge conjecture programme
+### V.4 Surface intersection forms
 
-`theory/math/cohomology/hodge_conjecture.md` — 67 files, 6
-layers (Foundation / Structure / Pairing / Refinement / Toolkit
-/ Bridge / MotivicBridge).  Hodge involution ↔ universe-chain
-self-pointing.
+Cup-chain cohomology toolkit + surface intersection-form / signature
+results on real CW surfaces (`lean/.../Cohomology/HodgeConjecture/`,
+`Cohomology/Surfaces/`): Hodge index + Hodge–Riemann signatures on
+T², ℙ², ℙ¹×ℙ¹, T²×T², Σ_g and products.  The ⋆⋆ = id involution lives
+in `Cohomology/Hodge/InvolutionCapstone`.
 
 ### V.5 Cohomology family
 
