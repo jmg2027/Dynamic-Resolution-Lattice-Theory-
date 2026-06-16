@@ -22,8 +22,8 @@ This file gives the **product-indexed** companion: the coboundary
 `(i, j, m)`, no integer decode at all).  It indexes the same graph as
 `CochSpaces.delta0` under `Fin (c·NS·NT) ≃ Fin NS × Fin NT × Fin c`, and
 its purpose here is the **count-form** lemmas and the
-`Combinatorics.GraphConnectivity` instantiation that the chart-axis
-consumers (`forcedKChartLens`, the b₀ count) build on; it does not rely
+`Combinatorics.GraphConnectivity` instantiation that the b₀-count
+consumers build on; it does not rely
 on division.
 
 213-Lens reading: a vertex cochain is a chart-Lens output; the kernel

@@ -146,9 +146,8 @@ certificate whose content is the number's own structure: the strict sandwich at 
 single-schema Lean statement is open).
 `the_minus_one_under_three_lenses` (`b₁ = NS² − 1 = 1/α₃ = 8` is one residue's lone constant
 mode counted once — `bcount_const = 2`, `isKer_iff_const` — read as the cohomology `b₀`
-subtracted (`im_count_inj_complement`, field-free via an involution), the `SU(NS)` adjoint's
-removed trace (`c3_chain`), and the chart's self-pointing axis `d_M = d−1`
-(`forcedKChartLens`); none of the three is what the `−1` IS).
+subtracted (`im_count_inj_complement`, field-free via an involution) and the `SU(NS)` adjoint's
+removed trace (`c3_chain`); neither lens is what the `−1` IS).
 `what_213_forces_and_what_it_reads` (the originator's foundational question — why
 should a Raw axiom derive physics — answered as the forced/read split: 213 forces
 a small skeleton (the atoms `(NS,NT,d)=(3,2,5)`, the counts `NS²−1=8`,
