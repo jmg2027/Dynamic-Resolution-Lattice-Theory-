@@ -817,4 +817,4 @@ real ∅-axiom conquests.
   real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.
 | `hall_general_induction.md` | Hall marriage general-n (Halmos–Vaughan induction); framework + n≤2 closed in `Combinatorics/HallMarriage` | open |
 | `analysis_modulus_pending.md` | Cesàro + limit-arithmetic sum DONE; product/squeeze still open | partial |
-| `two_square_only_if.md` | CLOSED both directions (InertPrimeThreeMod4 + SumTwoSquaresOddPower); optional biconditional-bundle polish | closed |
+| `two_square_only_if.md` | CLOSED end-to-end incl. biconditional (`SumTwoSquaresBiconditional`) | closed |
