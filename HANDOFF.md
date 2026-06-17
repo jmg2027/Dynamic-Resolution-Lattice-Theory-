@@ -16,6 +16,21 @@ Per the originator's reframe ("본질적으로 뭘까" → collect theorems wher
 ∅-axiom *forces a structurally different, revealing proof*, not bookkeeping):
 running collection `research-notes/frontiers/pure_forces_different_proof.md`;
 permanent chapter `theory/meta/forcing_versus_bookkeeping.md`. New this leg:
+
+> **Session running total: ~31 ∅-axiom modules + the `exists_collision` primitive,
+> all PURE, full Math green at 1985.** Two complete classical arcs closed
+> end-to-end: **Euler's theorem** (`EulerTheorem`) and the **Fermat–Gauss
+> two-square characterization** (`TwoSquareTheorem` + `SumTwoSquaresCharacterization`
+> + `InertPrimeThreeMod4` + `SumTwoSquaresOddPower` + `SumTwoSquaresBiconditional`,
+> `isSumTwoSqNat_iff_even_vp`). Comprehensive constructive-analysis ledger
+> (force-the-modulus: EVT/UniformLimit/Banach/Riemann/Cesaro/ModulusConvergence/
+> LimitArithmetic/SqueezeProduct/**AlternatingSeries**; calibrations: BW→LPO,
+> HeineCantor→fan, Dini→fan, real-decision quartet sign/equality/apartness/
+> comparability ↔ LLPO/WLPO/MP). Units thread capped by **`WilsonGeneralization`**
+> (29 PURE, `units_prod_eq_selfinv_prod` — Wilson's ±1 as the inverse-involution
+> fixed-point product). Open frontiers: `hall_general_induction`,
+> `wilson_pm1_classification`, `analysis_modulus_pending` (product/squeeze done;
+> abstract additive-metric only).
 - **`NumberTheory/UnitsOfZn`** (12 PURE, vein A) — `(ℤ/n)^×` on representatives:
   unit = coprime residue, closure = gcd fact, inverses = Bezout, order = φ(n)
   (`unit_count_eq_totient := rfl`). Quotient ring was packaging.
