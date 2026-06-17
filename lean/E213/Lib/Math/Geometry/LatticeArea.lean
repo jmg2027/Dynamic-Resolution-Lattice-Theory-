@@ -21,7 +21,7 @@ All ∅-axiom.
 
 namespace E213.Lib.Math.Geometry.LatticeArea
 
-open E213.Lib.Math.Geometry.StewartTheorem (Pt)
+open E213.Lib.Math.Geometry.StewartTheorem (Pt sq)
 open E213.Meta.Int213.PolyIntM
 open E213.Meta.Int213 (zero_mul)
 open E213.Meta.Int213.Order (sub_self_zero)
@@ -84,5 +84,54 @@ theorem collinear_of_eq_fst (A C : Pt) : Collinear A A C := by
     right triangle of doubled area `1`. -/
 theorem area_smoke :
     area2 (0, 0) (2, 1) (4, 2) = 0 ∧ area2 (0, 0) (1, 0) (0, 1) = 1 := by decide
+
+/-! ## §2 — bridge to squared distances: Lagrange, law of cosines, Cayley–Menger -/
+
+/-- Dot product of the displacement vectors `B−A` and `C−A`. -/
+def dotAt (A B C : Pt) : Int := (B.1 - A.1) * (C.1 - A.1) + (B.2 - A.2) * (C.2 - A.2)
+
+/-- ★★★ **2D Lagrange identity**: `area2² = AB²·AC² − ((B−A)·(C−A))²` — the squared signed area
+    equals the Gram determinant `|u|²|v|² − (u·v)²` (`u×v` squared). -/
+theorem area2_sq_eq_gram (A B C : Pt) :
+    area2 A B C * area2 A B C = sq A B * sq A C - dotAt A B C * dotAt A B C := by
+  show ((B.1-A.1)*(C.2-A.2) - (B.2-A.2)*(C.1-A.1)) * ((B.1-A.1)*(C.2-A.2) - (B.2-A.2)*(C.1-A.1))
+      = ((A.1-B.1)*(A.1-B.1)+(A.2-B.2)*(A.2-B.2)) * ((A.1-C.1)*(A.1-C.1)+(A.2-C.2)*(A.2-C.2))
+        - ((B.1-A.1)*(C.1-A.1)+(B.2-A.2)*(C.2-A.2)) * ((B.1-A.1)*(C.1-A.1)+(B.2-A.2)*(C.2-A.2))
+  ring_intZ
+
+/-- ★★ **Law of cosines** (squared-distance form): `BC² = AB² + AC² − 2·((B−A)·(C−A))`. -/
+theorem law_of_cosines (A B C : Pt) :
+    sq B C = sq A B + sq A C - 2 * dotAt A B C := by
+  show (B.1-C.1)*(B.1-C.1)+(B.2-C.2)*(B.2-C.2)
+      = ((A.1-B.1)*(A.1-B.1)+(A.2-B.2)*(A.2-B.2)) + ((A.1-C.1)*(A.1-C.1)+(A.2-C.2)*(A.2-C.2))
+        - 2 * ((B.1-A.1)*(C.1-A.1)+(B.2-A.2)*(C.2-A.2))
+  ring_intZ
+
+/-- Abstract assembly: from the Gram form `a² = x·y − d²` and the cosine form `z = x+y−2d`,
+    `4·a² = 4·x·y − (x+y−z)²` (the Cayley–Menger shape in `x = AB², y = AC², z = BC²`). -/
+private theorem cayley_menger_abstract (x y z d a : Int)
+    (h1 : a * a = x * y - d * d) (h2 : z = x + y - 2 * d) :
+    4 * (a * a) = 4 * (x * y) - (x + y - z) * (x + y - z) := by
+  rw [h1, h2]; ring_intZ
+
+/-- ★★★ **Cayley–Menger / Heron-squared identity**: `16·Area² = 4·AB²·AC² − (AB²+AC²−BC²)²`,
+    i.e. `4·area2² = 4·AB²·AC² − (AB²+AC²−BC²)²` (since `area2 = 2·Area`).
+
+    The integer-coordinate bridge between the signed area `area2` and the squared side lengths
+    `sq`.  Assembled from `area2_sq_eq_gram` (Lagrange) + `law_of_cosines` via the abstract
+    Cayley–Menger step — sidestepping the degree-8 blow-up that defeats `ring_intZ` directly. -/
+theorem cayley_menger (A B C : Pt) :
+    4 * (area2 A B C * area2 A B C)
+      = 4 * (sq A B * sq A C) - (sq A B + sq A C - sq B C) * (sq A B + sq A C - sq B C) :=
+  cayley_menger_abstract (sq A B) (sq A C) (sq B C) (dotAt A B C) (area2 A B C)
+    (area2_sq_eq_gram A B C) (law_of_cosines A B C)
+
+/-- Smoke: `3-4-5` right triangle `A=(0,0)`, `B=(3,0)`, `C=(0,4)`.
+    `area2 = 12` (Area `6`), `AB²=9`, `AC²=16`, `BC²=25`: `4·144 = 4·9·16 − (9+16−25)² = 576`. -/
+theorem cayley_menger_smoke :
+    4 * (area2 (0, 0) (3, 0) (0, 4) * area2 (0, 0) (3, 0) (0, 4))
+      = 4 * (sq (0, 0) (3, 0) * sq (0, 0) (0, 4))
+        - (sq (0, 0) (3, 0) + sq (0, 0) (0, 4) - sq (3, 0) (0, 4))
+          * (sq (0, 0) (3, 0) + sq (0, 0) (0, 4) - sq (3, 0) (0, 4)) := by decide
 
 end E213.Lib.Math.Geometry.LatticeArea
