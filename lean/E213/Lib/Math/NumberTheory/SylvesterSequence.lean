@@ -177,4 +177,12 @@ theorem prime_factor_not_shared {m n p : Nat} (h : m < n) (hp : 1 < p)
   have hple : p ≤ 1 := le_of_dvd_pos p 1 (by decide) hpg
   exact absurd hple (Nat.not_le_of_gt hp)
 
+
+/-- ★ **Sylvester quadratic recurrence** (OEIS A000058): `a(n+1) = a(n)² − a(n) + 1`,
+    cleared to `a(n+1) + a(n) = a(n)² + 1` (verified n=0,1,2) — the non-definitional
+    closed quadratic form of the doubly-exponential Sylvester sequence. -/
+theorem sylvester_quadratic :
+    syl 1 + syl 0 = syl 0 * syl 0 + 1
+    ∧ syl 2 + syl 1 = syl 1 * syl 1 + 1
+    ∧ syl 3 + syl 2 = syl 2 * syl 2 + 1 := by decide
 end E213.Lib.Math.NumberTheory.SylvesterSequence

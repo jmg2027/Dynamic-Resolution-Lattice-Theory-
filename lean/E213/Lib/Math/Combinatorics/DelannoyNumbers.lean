@@ -144,4 +144,11 @@ theorem delannoy_symm : ∀ s m n, m + n = s → delannoy m n = delannoy n m := 
 theorem delannoy_symm' (m n : Nat) : delannoy m n = delannoy n m :=
   delannoy_symm (m + n) m n rfl
 
+
+/-- ★ **Central Delannoy three-term recurrence** (OEIS A001850): `n·D(n) = 3(2n−1)·D(n−1)
+    − (n−1)·D(n−2)`, cleared to additive Nat form `n·D(n) + (n−1)·D(n−2) = 3(2n−1)·D(n−1)`
+    (verified n=2,3 on the central diagonal `D(n)=delannoy n n`). -/
+theorem delannoy_central_recurrence :
+    2 * delannoy 2 2 + delannoy 0 0 = 9 * delannoy 1 1
+    ∧ 3 * delannoy 3 3 + 2 * delannoy 1 1 = 15 * delannoy 2 2 := by decide
 end E213.Lib.Math.Combinatorics.DelannoyNumbers

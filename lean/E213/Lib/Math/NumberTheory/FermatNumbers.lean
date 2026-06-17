@@ -211,4 +211,11 @@ theorem fermat_coprime {m n : Nat} (h : m < n) :
   · -- g ≥ 2 and g ≤ 2 ⟹ g = 2, contradiction
     exact absurd (Nat.le_antisymm hle hge2) hne
 
+
+/-- ★ **Fermat square recurrence** (OEIS A000215): `F(n+1) = (F(n) − 1)² + 1`
+    (verified n=0,1,2) — since `F(n)−1 = 2^{2ⁿ}`, squaring doubles the exponent. -/
+theorem fermat_square_recurrence :
+    fermat 1 = (fermat 0 - 1) * (fermat 0 - 1) + 1
+    ∧ fermat 2 = (fermat 1 - 1) * (fermat 1 - 1) + 1
+    ∧ fermat 3 = (fermat 2 - 1) * (fermat 2 - 1) + 1 := by decide
 end E213.Lib.Math.NumberTheory.FermatNumbers
