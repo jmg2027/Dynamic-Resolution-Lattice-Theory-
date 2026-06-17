@@ -63,6 +63,7 @@ import E213.Lib.Math.Combinatorics.BollobasCount
 import E213.Lib.Math.Combinatorics.ChainAntichain
 import E213.Lib.Math.Combinatorics.ErdosSzekeres
 import E213.Lib.Math.Combinatorics.ConsecutiveSumDvd
+import E213.Lib.Math.Combinatorics.TournamentHamiltonian
 import E213.Lib.Math.Combinatorics.HallMarriage
 import E213.Lib.Math.Combinatorics.Permutations
 import E213.Lib.Math.Combinatorics.LinearDependence

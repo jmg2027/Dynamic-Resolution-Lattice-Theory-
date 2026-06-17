@@ -580,6 +580,18 @@ colliding prefix indices i<j, and the run `[i,j)` has `segSum = prefixSum j − 
 run is the prefix-sum collision, exhibited — not asserted.** 5th distinct `exists_collision`
 reuse (DividesPair, TwoSquare, ErdosSzekeres, Pisano, now this). (12 PURE.)
 
+### B — Redei: every tournament has a Hamiltonian path, computed by insertion (★ fresh tournament thread)
+`Combinatorics/TournamentHamiltonian`. `redei : IsTournament n beats → ∃ l, l.length = n ∧
+(∀ x, x ∈ l ↔ x < n) ∧ chainBeats beats l` — every tournament (total antisymmetric `beats`)
+has a Hamiltonian path. Classically a non-constructive existence (or "a longest path is
+Hamiltonian" extremal argument). ∅-axiom forces the **insertion algorithm**: the path is built
+vertex-by-vertex (`insertHam` folds over `0..n-1`), each vertex placed at the seam where it
+flips from loser to winner; `insert_into_path` proves the chain is preserved (the seam exists
+by the tournament's totality). Reveals: **the Hamiltonian path is an insertion-sort output —
+computed, not extracted from a maximal path; the tournament's totality is exactly the invariant
+the insertion never violates.** Fully self-contained (0 imports, Lean-core Nat/List/Bool only),
+structural `chainBeats`/`memN` to dodge `List.get`/`List.mem_cons` propext. (29 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
