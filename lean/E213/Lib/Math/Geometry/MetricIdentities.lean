@@ -21,7 +21,9 @@ namespace E213.Lib.Math.Geometry.MetricIdentities
 
 open E213.Lib.Math.Geometry.StewartTheorem (Pt sq)
 open E213.Meta.Int213.PolyIntM
-open E213.Meta.Int213.Order (eq_of_sub_eq_zero)
+open E213.Meta.Int213.PolyIntM (mul_zeroZ)
+open E213.Meta.Int213 (zero_add add_comm)
+open E213.Meta.Int213.Order (eq_of_sub_eq_zero sub_self_zero)
 
 /-- ★★★ **British flag theorem**: for a rectangle with corner `A` and perpendicular adjacent
     side-vectors `u = (ux,uy)`, `v = (vx,vy)` (so `B = A+u`, `D = A+v`, `C = A+u+v`), and any
@@ -77,5 +79,41 @@ theorem pythagoras (B : Pt) (ux uy vx vy : Int) (hperp : ux * vx + uy * vy = 0) 
 /-- Smoke: `3-4-5` right triangle `B=(0,0)`, `A=(3,0)`, `C=(0,4)`: `AC²=25 = 9 + 16`. -/
 theorem pythagoras_smoke :
     sq (3, 0) (0, 4) = sq (3, 0) (0, 0) + sq (0, 4) (0, 0) := by decide
+
+/-- ★★★ **Leibniz centroid formula** (the `n = 3` moment / variance-decomposition identity):
+    for the centroid `G` of triangle `ABC` (`3·G = A + B + C`) and any point `P`,
+
+      `PA² + PB² + PC² = GA² + GB² + GC² + 3·PG²`.
+
+    The cross term `−2·(P−G)·(A+B+C−3G)` vanishes by the centroid condition — this is exactly
+    the parallel-axis theorem / `Var(X) = E[X²] − E[X]²` decomposition in disguise. -/
+theorem leibniz_centroid (A B C G P : Pt)
+    (h1 : 3 * G.1 = A.1 + B.1 + C.1) (h2 : 3 * G.2 = A.2 + B.2 + C.2) :
+    sq P A + sq P B + sq P C = sq G A + sq G B + sq G C + 3 * sq P G := by
+  have key : sq P A + sq P B + sq P C
+      = sq G A + sq G B + sq G C + 3 * sq P G
+          + (-2) * ((P.1 - G.1) * ((A.1 + B.1 + C.1) - 3 * G.1)
+              + (P.2 - G.2) * ((A.2 + B.2 + C.2) - 3 * G.2)) := by
+    show (P.1-A.1)*(P.1-A.1)+(P.2-A.2)*(P.2-A.2)
+        + ((P.1-B.1)*(P.1-B.1)+(P.2-B.2)*(P.2-B.2))
+        + ((P.1-C.1)*(P.1-C.1)+(P.2-C.2)*(P.2-C.2))
+      = (G.1-A.1)*(G.1-A.1)+(G.2-A.2)*(G.2-A.2)
+            + ((G.1-B.1)*(G.1-B.1)+(G.2-B.2)*(G.2-B.2))
+            + ((G.1-C.1)*(G.1-C.1)+(G.2-C.2)*(G.2-C.2))
+            + 3*((P.1-G.1)*(P.1-G.1)+(P.2-G.2)*(P.2-G.2))
+        + (-2) * ((P.1 - G.1) * ((A.1 + B.1 + C.1) - 3 * G.1)
+            + (P.2 - G.2) * ((A.2 + B.2 + C.2) - 3 * G.2))
+    ring_intZ
+  have z1 : (A.1 + B.1 + C.1) - 3 * G.1 = 0 := by rw [← h1]; exact sub_self_zero _
+  have z2 : (A.2 + B.2 + C.2) - 3 * G.2 = 0 := by rw [← h2]; exact sub_self_zero _
+  rw [z1, z2, mul_zeroZ, mul_zeroZ, zero_add, mul_zeroZ] at key
+  rw [key]
+  exact (add_comm _ 0).trans (zero_add _)
+
+/-- Smoke: `A=(0,0)`, `B=(6,0)`, `C=(0,6)`, centroid `G=(2,2)`, `P=(0,0)`.
+    `PA²+PB²+PC² = 0+36+36 = 72`; `GA²+GB²+GC² = 8+20+20 = 48`; `3·PG² = 3·8 = 24`; `48+24=72`. -/
+theorem leibniz_smoke :
+    sq (0, 0) (0, 0) + sq (0, 0) (6, 0) + sq (0, 0) (0, 6)
+      = sq (2, 2) (0, 0) + sq (2, 2) (6, 0) + sq (2, 2) (0, 6) + 3 * sq (0, 0) (2, 2) := by decide
 
 end E213.Lib.Math.Geometry.MetricIdentities
