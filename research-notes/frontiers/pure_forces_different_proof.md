@@ -606,6 +606,17 @@ realized by following the height gradient, and that realization forces the level
 The 6th `exists_collision` reuse. (45 PURE; reuses `Max213`, `exists_collision_lt`,
 ErdosSzekeres-style height recursion.)
 
+### B — Cauchy–Schwarz via Lagrange's identity: the slack is computed (★)
+`Analysis/CauchySchwarz`. `cauchy_schwarz : (Σ_{k<n} a k·b k)² ≤ (Σ a²)(Σ b²)` over `Int`.
+Classically proved via the discriminant of `Σ(aᵢx − bᵢ)² ≥ 0` (a quadratic-positivity /
+inner-product abstraction). ∅-axiom forces **Lagrange's identity** `lagrange_identity`:
+`(Σa²)(Σb²) − (Σab)² = Σ_{i<j}(aᵢbⱼ − aⱼbᵢ)²` (the `crossSum`, proved by induction +
+`ring_intZ` via the per-step kernel `cross_square_sum`). The inequality is then an *equation
+with a manifestly non-negative remainder* — each `(…)² ≥ 0` (`int_sq_nonneg`), summed. Reveals:
+**the Cauchy–Schwarz slack is the explicit, computed cross-square double-sum — the gap exhibited,
+not asserted via positivity of a quadratic.** (17 PURE; reuses `Int213.int_sq_nonneg`,
+`ring_intZ`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
