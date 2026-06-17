@@ -23,13 +23,23 @@ of the `p∤n` case is CLOSED ∅-axiom**; the rest is a precisely-scoped grind.
   (b) the `Int.ofNat`-bridge `geomTwoN ↦ geomTwo` + ofNat-dvd transfer (avoid `Int.ofNat_sub` —
   **propext-dirty**; instead use `a = b + p·k` from `nat_sub_add_cancel`), (c) `vp_mul` + Euclid
   (`p∤(n+1)·bⁿ`).  ~120 lines, mechanical, no new ideas.
-- ❌ **prime-power lifting** `v_p(aᵖ−bᵖ)=v_p(a−b)+1` (the gate to the *full* LTE): the mod-`p²`
-  argument — `geomTwo a b (p−1) ≡ p·b^{p−1} (mod p²)` via the first-order expansion
-  `aⁱ ≡ bⁱ + i·bⁱ⁻¹·(a−b) (mod (a−b)²)` (a "Taylor-mod-square" induction) + `Σᵢ i = p(p−1)/2`
-  with `p` odd ⟹ cross-term `v_p ≥ 2`.  Genuinely heavy (~200+ lines, delicate); **multi-session**.
+- 🔨 **prime-power lifting** `v_p(aᵖ−bᵖ)=v_p(a−b)+1` (the gate to the *full* LTE) — **IN PROGRESS**,
+  binomial route in `LiftingExponentPP.lean`.  Plan: `aᵖ−bᵖ = (b+d)ᵖ−bᵖ = p·b^{p−1}·d + R`,
+  `R = Σ_{k≥2} C(p,k) b^{p−k} dᵏ`; first term has `v_p = v_p(d)+1`, every tail term `v_p ≥ v_p(d)+2`
+  (uses `p∣C(p,k)`), so `vp_add_eq_min` pins `v_p(aᵖ−bᵖ) = v_p(d)+1`.
+  - ✅ **`vp_add_eq_min`** (strict-minimum / ultrametric law) — the assembly tool.
+  - ✅ **`dvd_sumTo` / `le_vp_sumTo`** — the tail-bound tool (`pᵐ∣each term ⟹ m ≤ v_p(Σ)`).
+  - ✅ reusable: `prime_dvd_choose` (`ModArith/LucasTheorem`, `p∣C(p,k)` for `0<k<p`) already exists.
+  - ⏳ **NEXT (the big remaining piece): two-variable binomial theorem** `(b+d)ᵖ = Σ_{k} C(p,k) b^{p−k} dᵏ`
+    over ℕ — repo has only the `b=1` form (`binomSum`); needs the homogeneous version (substantial).
+  - ⏳ then: the decomposition `= p·b^{p−1}·d + R` + per-term `v_p` bounds + `vp_add_eq_min` assembly,
+    + the `v_p`-form ℕ-bridge (as in the p∤exp case).
+  - (alt route avoiding the 2-var binomial: "Taylor-mod-square" `(a−b)²∣(aⁱ⁺¹−bⁱ⁺¹−(i+1)bⁱ(a−b))`
+    + 2nd-order `geomTwo` congruence + `Σi=p(p−1)/2`, p odd — more bespoke.)
 
-Honest verdict: the `p∤exp` case is mathematically done (ℤ form); the full general LTE is gated by
-the prime-power lifting, which is a major formalization not completed this session.
+Honest verdict: the `p∤exp` case is mathematically done (ℤ form); the prime-power lifting's
+**ultrametric foundations are now in place** (3 reusable bricks committed), with the two-variable
+binomial theorem as the next major rung.  Full general LTE remains multi-session.
 
 ## Continuation (2026-06-17) — closures landed PURE this segment
 
