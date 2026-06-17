@@ -113,4 +113,13 @@ theorem ipow_mul (x : Int) (a : Nat) : ∀ b, ipow x (a * b) = ipow (ipow x a) b
   | 0     => rfl
   | b + 1 => by
       rw [show a * (b + 1) = a * b + a from rfl, ipow_add x (a * b) a, ipow_mul x a b, ipow_succ]
+
+/-- ★ **Cast-power bridge**: `↑(pⁱ) = (↑p)ⁱ` (the ℕ→ℤ coercion commutes with powering) —
+    `Int.ofNat (p^i) = ipow (Int.ofNat p) i`.  By induction via the pure `Int.ofNat_mul`. -/
+theorem ofNat_pow_eq_ipow (p : Nat) : ∀ i, Int.ofNat (p ^ i) = ipow (Int.ofNat p) i
+  | 0     => rfl
+  | i + 1 => by
+      rw [show p ^ (i + 1) = p ^ i * p from rfl,
+          show Int.ofNat (p ^ i * p) = Int.ofNat (p ^ i) * Int.ofNat p from Int.ofNat_mul _ _,
+          ofNat_pow_eq_ipow p i, ipow_succ]
 end E213.Lib.Math.NumberTheory.DiffPowDvd
