@@ -24,10 +24,32 @@ committed, pushed; `E213.Lib` green throughout.  Breadth across three domains:
    killed by perpendicularity via `eq_of_sub_eq_zero`).
 3. **Hockey-stick identity** — `Lib/Math/Combinatorics/HockeyStick.{hockey_stick,
    hockey_stick_column}` — Σ C(r+i,r)=C(r+n+1,r+1), Pascal induction.
+4. **Binomial-mean identity** — `Lib/Math/Combinatorics/BinomialMean.binomial_weighted_row_sum`
+   — Σ k·C(m,k)=m·2^{m-1} (choose_succ_mul + sumTo_mul_left + pascal_row_sum).
+5. **General divisor-sum multiplicativity** — `SigmaDivisorClosed.divisorSumZ_mul_of_completely_mult`
+   — `divisorSumZ(ab) g = divisorSumZ a g · divisorSumZ b g` for any completely-mult `g`
+   (coprime a,b>0); `sigma_m_mul` is now a one-line corollary.  Reusable infra.
+6. **Signed lattice area / shoelace** — `Lib/Math/Geometry/LatticeArea.{shoelace, area_additivity,
+   area_translation_invariant, area_cyclic, area_swap_neg, Collinear}` — doubled signed area
+   `area2 = det(B−A,C−A)`; barycentric triangulation additivity; collinearity = area 0.
 
-Scout queue (`/tmp/scout_next.md`) remaining leads: Rolle (analysis, MEDIUM),
-Jacobi triple product (combinatorics, MEDIUM-HARD), Ceva (geometry, HARD).
-Craft note: `ring_intZ` treats `^` as opaque — expand powers to explicit `*`; and
+The Geometry cluster is now 3 files (StewartTheorem, MetricIdentities, LatticeArea) sharing the
+integer `Pt`/`sq`/`area2` vocabulary.
+
+**Repo is exhaustively complete for named classical theorems** — confirmed already-closed by
+grep: Gauss totient, Euclid perfect, σ/τ mult, Nicomachus + Faulhaber k≤6, Vandermonde + ΣC²,
+pascal_row_sum, Lagrange + Cauchy–Schwarz, Brahmagupta–Fibonacci, Gaussian two-square, Wilson,
+FLT, Fibonacci-GCD (`Combinatorics/FibonacciGcd.fib_gcd`), TauParity, SigmaParity, Lucas, Kummer.
+Remaining HIGH-VALUE OPEN frontiers are all heavy / tactic-bound:
+  - **General Rolle/MVT** over arbitrary differentiable functions — needs the extreme-value
+    theorem over Real213 (compactness); current MVT is *witness-at* (square/cube only).  Heavy.
+  - **Jacobi triple product** (truncated) — pentagonal-number induction.  MEDIUM-HARD.
+  - **LTE** (lifting the exponent) — vp infra exists; needs the mod-p binomial step.  MEDIUM.
+  - **Cayley–Menger / Heron-squared** (`4·area2² = 2Σa²b² − Σa⁴`) — TRUE & verified on paper but
+    **`ring_intZ` times out** (degree-8, 6 vars); needs a faster ring normalizer or hand-factoring.
+
+Craft notes: `ring_intZ` treats `^` as opaque (expand to `*`), won't cancel `t+(−t)` (use
+`sub_self_zero`+`zero_mul`/`mul_zeroZ`), and times out beyond ~degree-6 multivariate; and
 `Int.ofNat_mul`'s rw pattern `↑(?n*?m)` needs `show Int.ofNat (a*b) = … from Int.ofNat_mul a b`.
 
 ---
