@@ -17,9 +17,9 @@ Per the originator's reframe ("본질적으로 뭘까" → collect theorems wher
 running collection `research-notes/frontiers/pure_forces_different_proof.md`;
 permanent chapter `theory/meta/forcing_versus_bookkeeping.md`. New this leg:
 
-> **Session running total: ~37 ∅-axiom modules + the `exists_collision` primitive
+> **Session running total: ~39 ∅-axiom modules + the `exists_collision` primitive
 > (now reused in 5 distinct theorems: DividesPair, TwoSquare, ErdosSzekeres,
-> Pisano, ConsecutiveSumDvd), all PURE, full Math green at 1991.** Two complete classical arcs closed
+> Pisano, ConsecutiveSumDvd), all PURE, full Math green at 1993.** Two complete classical arcs closed
 > end-to-end: **Euler's theorem** (`EulerTheorem`) and the **Fermat–Gauss
 > two-square characterization** (`TwoSquareTheorem` + `SumTwoSquaresCharacterization`
 > + `InertPrimeThreeMod4` + `SumTwoSquaresOddPower` + `SumTwoSquaresBiconditional`,
@@ -32,7 +32,7 @@ permanent chapter `theory/meta/forcing_versus_bookkeeping.md`. New this leg:
 > fixed-point product). Fresh recurrence thread: **`PisanoPeriod`**
 > (Fibonacci mod m periodic, period = computed collision gap, backward via ℤ/m
 > cancellation). **`ConsecutiveSumDvd`** (a consecutive run sums ≡0 mod n,
-> computed). Recent combinatorics: Redei (tournament Ham path), Mirsky (poset antichain cover via computed height), ConsecutiveSumDvd; analysis: AlternatingSeries, ComparisonTest, LimitArithmetic, SqueezeProduct. Open frontiers: `hall_general_induction`, `wilson_pm1_classification`,
+> computed). Fibonacci-mod-m sub-arc complete (PisanoPeriod + PisanoPeriodMinimal + FibonacciApparition: rank of apparition, zeros = its multiples). Cauchy–Schwarz via Lagrange (slack = computed cross-square sum). Recent combinatorics: Redei (tournament Ham path), Mirsky (poset antichain cover via computed height), ConsecutiveSumDvd; analysis: AlternatingSeries, ComparisonTest, LimitArithmetic, SqueezeProduct. Open frontiers: `hall_general_induction`, `wilson_pm1_classification`,
 > `analysis_modulus_pending` (product/squeeze done; abstract additive-metric only).
 - **`NumberTheory/UnitsOfZn`** (12 PURE, vein A) — `(ℤ/n)^×` on representatives:
   unit = coprime residue, closure = gcd fact, inverses = Bezout, order = φ(n)
