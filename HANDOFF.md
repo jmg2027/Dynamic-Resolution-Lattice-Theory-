@@ -30,16 +30,18 @@ of the `p∤n` case is CLOSED ∅-axiom**; the rest is a precisely-scoped grind.
   - ✅ **`vp_add_eq_min`** (strict-minimum / ultrametric law) — the assembly tool.
   - ✅ **`dvd_sumTo` / `le_vp_sumTo`** — the tail-bound tool (`pᵐ∣each term ⟹ m ≤ v_p(Σ)`).
   - ✅ reusable: `prime_dvd_choose` (`ModArith/LucasTheorem`, `p∣C(p,k)` for `0<k<p`) already exists.
-  - ⏳ **NEXT (the big remaining piece): two-variable binomial theorem** `(b+d)ᵖ = Σ_{k} C(p,k) b^{p−k} dᵏ`
-    over ℕ — repo has only the `b=1` form (`binomSum`); needs the homogeneous version (substantial).
-  - ⏳ then: the decomposition `= p·b^{p−1}·d + R` + per-term `v_p` bounds + `vp_add_eq_min` assembly,
-    + the `v_p`-form ℕ-bridge (as in the p∤exp case).
-  - (alt route avoiding the 2-var binomial: "Taylor-mod-square" `(a−b)²∣(aⁱ⁺¹−bⁱ⁺¹−(i+1)bⁱ(a−b))`
-    + 2nd-order `geomTwo` congruence + `Σi=p(p−1)/2`, p odd — more bespoke.)
+  - ✅ **`BinomialTwoVar.add_pow`** — the **two-variable binomial theorem** `(b+d)ⁿ = Σ_k C(n,k) b^{n−k} dᵏ`
+    over ℕ (was the big missing rung; repo had only the `b=1` `binomSum`).  Done, PURE.
+  - ⏳ **NEXT — the final assembly** (all tools now in hand): `aᵖ−bᵖ = binom2 b d p − bᵖ`
+    `= p·b^{p−1}·d + R`, `R = Σ_{k=2}^{p} C(p,k) b^{p−k} dᵏ` (extract the `k=0` term `bᵖ` and the
+    `k=1` term `p·b^{p−1}·d` from `binom2`).  Then `v_p(p·b^{p−1}·d) = v_p(d)+1` (`vp_mul`+`vp_pow`+`p∤b`),
+    and `v_p(R) ≥ v_p(d)+2` (each term: `p∣C(p,k)` for `2≤k≤p−1` ⟹ `v_p ≥ 1+2v_p(d) ≥ v_p(d)+2`;
+    `k=p` term `dᵖ` ⟹ `v_p = p·v_p(d) ≥ v_p(d)+2`; via `le_vp_sumTo`).  Finally `vp_add_eq_min` pins
+    `v_p(aᵖ−bᵖ) = v_p(d)+1 = v_p(a−b)+1`.  ~150 lines (sum-restructuring + per-term bounds), no new ideas.
 
-Honest verdict: the `p∤exp` case is mathematically done (ℤ form); the prime-power lifting's
-**ultrametric foundations are now in place** (3 reusable bricks committed), with the two-variable
-binomial theorem as the next major rung.  Full general LTE remains multi-session.
+Honest verdict: the `p∤exp` case is mathematically done (ℤ form); the prime-power lifting now has
+**all its tools** (ultrametric laws + two-variable binomial theorem + `p∣C(p,k)`), with only the
+mechanical final assembly remaining.  The full general LTE is within one more focused session.
 
 ## Continuation (2026-06-17) — closures landed PURE this segment
 
