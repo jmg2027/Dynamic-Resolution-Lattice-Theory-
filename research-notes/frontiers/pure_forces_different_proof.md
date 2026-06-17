@@ -543,6 +543,19 @@ the units — a computed pairing on representatives, not a group-theoretic ident
 (`frontiers/wilson_pm1_classification.md`). (29 PURE; reuses `UnitsOfZn`,
 `EulerTheorem` totative-product, `WilsonInverse`.)
 
+### C — Leibniz alternating series test, rate = term-decay modulus (★ force-the-modulus)
+`Analysis/AlternatingSeries`. Classically the alternating series test asserts convergence via
+monotone bracketing + completeness (an existence claim). ∅-axiom forces the rate open:
+`leibniz_cauchy` — for non-increasing `a → 0` with decay modulus `r`, the alternating partial
+sums are Cauchy with **the same modulus `r`**. The forcing heart is `altTail_le` (the
+alternating tail is bounded by the first omitted term, a parity-free `Nat` nesting recursion
+`altTail a j (len+1) = distN (a j) (altTail a (j+1) len)`), certified to be the genuine signed
+partial-sum gap (`S_gap_natAbs`: `(S(j+len) − S j).natAbs = altTail a j len`, with `S : Nat →
+Int` and `ring_intZ`). Reveals: **the alternating-series convergence rate is computed — it is
+exactly the term-decay modulus, not a completeness/bracketing existence assertion.** (34 PURE;
+reuses `ModulusConvergence`/`UniformLimitContinuous` metric + `Int213` for the signed
+certification.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
