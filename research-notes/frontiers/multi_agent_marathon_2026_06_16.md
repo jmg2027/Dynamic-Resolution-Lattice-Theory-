@@ -152,6 +152,27 @@ lemmas `lt_of_mul_lt_mul_left`, `add_right_cancel`, `div_eq_of_lt_le`, `mul_eq_z
 (`Meta.Int213.*`, `Meta.Nat.{PureNat,NatDiv213}.*`, `div_eq_of_sandwich`) or derive via
 the `lt_or_ge`+`mul_le_mul_left`+`not_lt` cancellation pattern.
 
+## Focused capstone (wave 6) — σ_m fully closed
+
+After "take one focused target", the divisor-power sum `σ_m(n) = Σ_{d∣n} dᵐ` was closed
+end-to-end as a 213-native arithmetic function (∅-axiom):
+
+| Lemma (file) | Content |
+|---|---|
+| `ofNat_pow_eq_ipow` (`DiffPowDvd.lean`) | cast-power bridge `↑(pⁱ) = (↑p)ⁱ` (ℕ→ℤ coercion commutes with powering) |
+| `ipow_base_mul` (`DiffPowDvd.lean`) | `(xy)ⁿ = xⁿyⁿ` — `ipow` completely multiplicative in the base |
+| `sigma_prime_pow_geom` (`SigmaPrimePowGeom.lean`) | abstract geometric form `(pᵐ−1)·Σᵢ p^{mi} = p^{m(k+1)}−1` |
+| `sigma_prime_pow_divisor_geom` (`SigmaDivisorClosed.lean`) | **genuine divisor sum** `(pᵐ−1)·σ_m(pᵏ) = p^{m(k+1)}−1` (via prime-power reindex + cast bridge) |
+| `sigma_m_mul` (`SigmaDivisorClosed.lean`) | **multiplicativity** `σ_m(ab)=σ_m(a)σ_m(b)` for coprime a,b (product reindex + complete-mult cell factor + double-sum separation) |
+
+Closed form + multiplicativity together determine `σ_m` on every `n` from its
+factorization — generalizing the repo's existing `σ`(=σ₁)/`τ`(=σ₀) and the
+`euclid_perfect` machinery to all `m`.  `sumZ_bridge` reconciles the two textually-identical
+corpus `sumZ` recursions (geometric-series vs Möbius-divisor) so the toolboxes compose.
+Craft note: `Int.ofNat_mul`'s rewrite pattern is `↑(?n*?m)` (coercion), which does NOT
+syntactically unify with an explicit `Int.ofNat (a*b)` goal — force it with
+`show Int.ofNat (a*b) = Int.ofNat a * Int.ofNat b from Int.ofNat_mul a b`.
+
 ## Honest walls recorded (not reached this session)
 
 - **YM confinement angle 2** (Wilson-loop area law): no embedding on the abstract
