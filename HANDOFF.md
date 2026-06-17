@@ -5,6 +5,32 @@
 Authoritative build `cd lean && lake build E213.Lib` → **green (1972 modules)**.
 Strict ∅-axiom intact: every theorem added is `#print axioms`-empty.
 
+## LTE (lifting-the-exponent) — status + roadmap (2026-06-17)
+
+Driving toward `v_p(aⁿ−bⁿ) = v_p(a−b) + v_p(n)` (p odd prime, p∣a−b, p∤a,b).  **Algebraic core
+of the `p∤n` case is CLOSED ∅-axiom**; the rest is a precisely-scoped grind.
+
+- ✅ **`PowSubPowFactor.pow_sub_pow_factor`** — `aⁿ⁺¹−bⁿ⁺¹ = (a−b)·geomTwo a b n` (ℤ, the explicit
+  cofactor `geomTwo = Σaⁱbⁿ⁻ⁱ`).
+- ✅ **`LiftingExponent.cofactor_sub_dvd`** — `(a−b) ∣ (geomTwo a b n − (n+1)·bⁿ)` (cofactor
+  congruence — the crux).
+- ✅ **`LiftingExponent.cofactor_not_dvd`** — `q∣(a−b), q∤(n+1)·bⁿ ⟹ q∤geomTwo` — i.e. `aⁿ⁺¹−bⁿ⁺¹`
+  carries the **same power of p** as `a−b` (the `p∤exp` case, ℤ-divisibility form — the substantive
+  content).
+- ⏳ **vp-form of the `p∤n` case** (`v_p(aⁿ−bⁿ)=v_p(a−b)` over ℕ): needs (a) the **ℕ** factorization
+  `a^(n+1)−b^(n+1)=(a−b)·geomTwoN` (addition-form induction; pure pieces ready:
+  `NatRing213.nat_sub_add_cancel`, `PureNat.{add_mul,mul_assoc}`, `Nat.{mul_comm,mul_add,pow_succ}`),
+  (b) the `Int.ofNat`-bridge `geomTwoN ↦ geomTwo` + ofNat-dvd transfer (avoid `Int.ofNat_sub` —
+  **propext-dirty**; instead use `a = b + p·k` from `nat_sub_add_cancel`), (c) `vp_mul` + Euclid
+  (`p∤(n+1)·bⁿ`).  ~120 lines, mechanical, no new ideas.
+- ❌ **prime-power lifting** `v_p(aᵖ−bᵖ)=v_p(a−b)+1` (the gate to the *full* LTE): the mod-`p²`
+  argument — `geomTwo a b (p−1) ≡ p·b^{p−1} (mod p²)` via the first-order expansion
+  `aⁱ ≡ bⁱ + i·bⁱ⁻¹·(a−b) (mod (a−b)²)` (a "Taylor-mod-square" induction) + `Σᵢ i = p(p−1)/2`
+  with `p` odd ⟹ cross-term `v_p ≥ 2`.  Genuinely heavy (~200+ lines, delicate); **multi-session**.
+
+Honest verdict: the `p∤exp` case is mathematically done (ℤ form); the full general LTE is gated by
+the prime-power lifting, which is a major formalization not completed this session.
+
 ## Continuation (2026-06-17) — closures landed PURE this segment
 
 Driven autonomously after the debate marathon; each closure built, axiom-scanned PURE,
