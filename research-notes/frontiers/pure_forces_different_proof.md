@@ -570,6 +570,16 @@ The 4th distinct reuse of `exists_collision` (after DividesPair, TwoSquare, Erdo
 the non-constructivity sink keeps paying. (16 PURE; reuses `exists_collision_lt`,
 `EncodePair213`, `AddMod213`.)
 
+### B — a consecutive run sums to ≡ 0 mod n, run computed (★ 5th exists_collision reuse)
+`Combinatorics/ConsecutiveSumDvd`. `exists_consecutive_sum_dvd : 0<n → (a : Fin n → Nat) →
+∃ i j, i<j ∧ j≤n ∧ segSum a i j % n = 0` — among any n integers, a non-empty consecutive run
+sums to a multiple of n. Classically a non-constructive pigeonhole `∃`. ∅-axiom forces the run
+**computed**: the n+1 prefix sums mod n live in Fin n, `exists_collision_lt` RETURNS the
+colliding prefix indices i<j, and the run `[i,j)` has `segSum = prefixSum j − prefixSum i ≡ 0
+(mod n)` (`mod_diff_eq_zero_of_le`, since the prefixes are congruent). Reveals: **the divisible
+run is the prefix-sum collision, exhibited — not asserted.** 5th distinct `exists_collision`
+reuse (DividesPair, TwoSquare, ErdosSzekeres, Pisano, now this). (12 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
