@@ -126,6 +126,29 @@ theorem cayley_menger (A B C : Pt) :
   cayley_menger_abstract (sq A B) (sq A C) (sq B C) (dotAt A B C) (area2 A B C)
     (area2_sq_eq_gram A B C) (law_of_cosines A B C)
 
+/-! ## §3 — behaviour under linear maps: the determinant scales area -/
+
+/-- The linear map `(x,y) ↦ (p·x+q·y, r·x+s·y)` applied to a point. -/
+def linMap (p q r s : Int) (P : Pt) : Pt := (p * P.1 + q * P.2, r * P.1 + s * P.2)
+
+/-- ★★★ **Signed area scales by the determinant** under a linear map:
+    `area2 (M·A) (M·B) (M·C) = det(M) · area2 A B C` with `M = [[p,q],[r,s]]`, `det = p·s − q·r`.
+
+    In particular **`SL₂(ℤ)` (and `GL₂(ℤ)`, `det = ±1`) preserves lattice area** — the geometric
+    root of the modular group's action on the lattice. -/
+theorem area2_linMap (p q r s : Int) (A B C : Pt) :
+    area2 (linMap p q r s A) (linMap p q r s B) (linMap p q r s C)
+      = (p * s - q * r) * area2 A B C := by
+  show ((p*B.1+q*B.2)-(p*A.1+q*A.2))*((r*C.1+s*C.2)-(r*A.1+s*A.2))
+      - ((r*B.1+s*B.2)-(r*A.1+s*A.2))*((p*C.1+q*C.2)-(p*A.1+q*A.2))
+    = (p*s - q*r) * ((B.1-A.1)*(C.2-A.2) - (B.2-A.2)*(C.1-A.1))
+  ring_intZ
+
+/-- A unimodular map (`det = 1`, e.g. any element of `SL₂(ℤ)`) preserves signed area exactly. -/
+theorem area2_unimodular (p q r s : Int) (hdet : p * s - q * r = 1) (A B C : Pt) :
+    area2 (linMap p q r s A) (linMap p q r s B) (linMap p q r s C) = area2 A B C := by
+  rw [area2_linMap, hdet, one_mulZ]
+
 /-- Smoke: `3-4-5` right triangle `A=(0,0)`, `B=(3,0)`, `C=(0,4)`.
     `area2 = 12` (Area `6`), `AB²=9`, `AC²=16`, `BC²=25`: `4·144 = 4·9·16 − (9+16−25)² = 576`. -/
 theorem cayley_menger_smoke :
