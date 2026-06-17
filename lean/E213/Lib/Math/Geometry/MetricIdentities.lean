@@ -116,4 +116,52 @@ theorem leibniz_smoke :
     sq (0, 0) (0, 0) + sq (0, 0) (6, 0) + sq (0, 0) (0, 6)
       = sq (2, 2) (0, 0) + sq (2, 2) (6, 0) + sq (2, 2) (0, 6) + 3 * sq (0, 0) (2, 2) := by decide
 
+/-- ★★★ **Euler's quadrilateral theorem** (free coordinate form): for any quadrilateral `ABCD`,
+    the sum of the squared sides equals the sum of the squared diagonals plus the squared
+    *connector of the diagonal midpoints*, scaled — `|(A+C) − (B+D)|² = 4·MN²` with `M, N` the
+    midpoints of `AC, BD`:
+
+      `AB² + BC² + CD² + DA² = AC² + BD² + |(A+C) − (B+D)|²`.
+
+    A free `ring_intZ` identity (no hypothesis); the parallelogram law is the special case where
+    the diagonal midpoints coincide (`A+C = B+D`, term `= 0`). -/
+theorem euler_quadrilateral (A B C D : Pt) :
+    sq A B + sq B C + sq C D + sq D A
+      = sq A C + sq B D
+        + (((A.1 + C.1) - (B.1 + D.1)) * ((A.1 + C.1) - (B.1 + D.1))
+            + ((A.2 + C.2) - (B.2 + D.2)) * ((A.2 + C.2) - (B.2 + D.2))) := by
+  show (A.1-B.1)*(A.1-B.1)+(A.2-B.2)*(A.2-B.2)
+      + ((B.1-C.1)*(B.1-C.1)+(B.2-C.2)*(B.2-C.2))
+      + ((C.1-D.1)*(C.1-D.1)+(C.2-D.2)*(C.2-D.2))
+      + ((D.1-A.1)*(D.1-A.1)+(D.2-A.2)*(D.2-A.2))
+    = (A.1-C.1)*(A.1-C.1)+(A.2-C.2)*(A.2-C.2)
+      + ((B.1-D.1)*(B.1-D.1)+(B.2-D.2)*(B.2-D.2))
+      + (((A.1+C.1)-(B.1+D.1))*((A.1+C.1)-(B.1+D.1))
+         + ((A.2+C.2)-(B.2+D.2))*((A.2+C.2)-(B.2+D.2)))
+  ring_intZ
+
+/-- ★★★ **Euler's quadrilateral theorem** (midpoint form): with `M, N` the midpoints of the
+    diagonals (`2M = A+C`, `2N = B+D`),
+
+      `AB² + BC² + CD² + DA² = AC² + BD² + 4·MN²`. -/
+theorem euler_quadrilateral_midpoint (A B C D M N : Pt)
+    (hM1 : 2 * M.1 = A.1 + C.1) (hM2 : 2 * M.2 = A.2 + C.2)
+    (hN1 : 2 * N.1 = B.1 + D.1) (hN2 : 2 * N.2 = B.2 + D.2) :
+    sq A B + sq B C + sq C D + sq D A = sq A C + sq B D + 4 * sq M N := by
+  rw [euler_quadrilateral A B C D]
+  -- rewrite the connector `(A+C)−(B+D) = 2M − 2N` and collapse to `4·MN²`
+  rw [← hM1, ← hM2, ← hN1, ← hN2]
+  show sq A C + sq B D
+      + ((2 * M.1 - 2 * N.1) * (2 * M.1 - 2 * N.1) + (2 * M.2 - 2 * N.2) * (2 * M.2 - 2 * N.2))
+    = sq A C + sq B D + 4 * ((M.1 - N.1) * (M.1 - N.1) + (M.2 - N.2) * (M.2 - N.2))
+  ring_intZ
+
+/-- Smoke: unit square `A=(0,0)`, `B=(2,0)`, `C=(2,2)`, `D=(0,2)`.
+    Sides `4·4=16`; diagonals `8+8=16`; midpoints coincide so connector `0`: `16 = 16 + 0`. -/
+theorem euler_quad_smoke :
+    sq (0, 0) (2, 0) + sq (2, 0) (2, 2) + sq (2, 2) (0, 2) + sq (0, 2) (0, 0)
+      = sq (0, 0) (2, 2) + sq (2, 0) (0, 2)
+        + (((0 + 2) - (2 + 0)) * ((0 + 2) - (2 + 0))
+            + ((0 + 2) - (0 + 2)) * ((0 + 2) - (0 + 2))) := by decide
+
 end E213.Lib.Math.Geometry.MetricIdentities
