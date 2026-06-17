@@ -173,6 +173,31 @@ Craft note: `Int.ofNat_mul`'s rewrite pattern is `↑(?n*?m)` (coercion), which 
 syntactically unify with an explicit `Int.ofNat (a*b)` goal — force it with
 `show Int.ofNat (a*b) = Int.ofNat a * Int.ofNat b from Int.ofNat_mul a b`.
 
+## Wave 7 (2026-06-17) — classical-theorem breadth (scout-guided)
+
+After σ_m, a scout (`/tmp/scout_next.md`) ranked the next open ∅-axiom-reachable targets;
+build proceeded through the high-confidence ones (geometry + combinatorics), each PURE:
+
+| Theorem (file) | Domain | Method |
+|---|---|---|
+| `stewart_identity` / `stewart_scaled` / `apollonius` (`Geometry/StewartTheorem.lean`) | metric geometry | integer squared-distance `sq` + `ring_intZ`; median/Apollonius as `m=n=1` |
+| `british_flag`, `parallelogram_law`, `pythagoras` (`Geometry/MetricIdentities.lean`) | metric geometry | `ring_intZ`; perpendicularity kills the `2(u·v)` residual via `eq_of_sub_eq_zero` |
+| `leibniz_centroid` (`Geometry/MetricIdentities.lean`) | metric geometry | parallel-axis / `Var=E[X²]−E[X]²` decomposition; cross term killed by `3G=A+B+C` |
+| `euler_quadrilateral` (+ midpoint form) (`Geometry/MetricIdentities.lean`) | metric geometry | `AB²+BC²+CD²+DA² = AC²+BD²+4MN²`; generalizes the parallelogram law |
+| `hockey_stick` / `hockey_stick_column` (`Combinatorics/HockeyStick.lean`) | combinatorics | Pascal induction (`choose_succ_succ` + `choose_self`) |
+
+**Method yield**: the integer-coordinate `sq` + `ring_intZ` pair is a productive ∅-axiom
+hammer for *any* Euclidean metric identity expressible without `√` (squared distances stay in
+ℤ); hypotheses (perpendicularity, midpoint, centroid) enter as linear constraints that collapse
+a residual cross-term to `0`.  Craft: `ring_intZ` treats `^` as **opaque** (expand to `*`) and
+its normalizer does **not** cancel `t + (−t)` (collapse zero-factors explicitly with `mul_zeroZ`).
+
+**Non-targets confirmed already-closed** (repo is dense): Gauss totient (general n), Euclid
+perfect numbers, σ/τ multiplicativity, Nicomachus + Faulhaber k≤6, Vandermonde + `Σ C(n,k)²`,
+`pascal_row_sum`, Lagrange identity + Cauchy–Schwarz (general), Brahmagupta–Fibonacci
+(`int_quad_diophantus`), Gaussian two-square (Fermat), Wilson, FLT.  Analysis MVT exists only
+as *witness-at* (specific functions), not general Rolle — a heavy Real213 build, deferred.
+
 ## Honest walls recorded (not reached this session)
 
 - **YM confinement angle 2** (Wilson-loop area law): no embedding on the abstract
