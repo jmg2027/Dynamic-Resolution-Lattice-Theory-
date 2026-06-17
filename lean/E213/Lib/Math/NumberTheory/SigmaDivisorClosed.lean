@@ -106,4 +106,13 @@ theorem sigma_m_mul {a b : Nat} (hab : gcd213 a b = 1) (ha : 0 < a) (hb : 0 < b)
         (fun i => (dvdInd i a : Int) * ipow (Int.ofNat (i + 1)) m)]
   rfl
 
+/-- Smoke: the full σ_m pipeline computes — `σ₂(12) = 210` directly, and equals
+    `σ₂(4)·σ₂(3) = 21·10` through `sigma_m_mul`. -/
+theorem sigma2_12_smoke :
+    divisorSumZ 12 (fun d => ipow (Int.ofNat d) 2) = 210
+    ∧ divisorSumZ 12 (fun d => ipow (Int.ofNat d) 2)
+        = divisorSumZ 4 (fun d => ipow (Int.ofNat d) 2)
+            * divisorSumZ 3 (fun d => ipow (Int.ofNat d) 2) :=
+  ⟨by decide, sigma_m_mul (a := 4) (b := 3) (by decide) (by decide) (by decide) 2⟩
+
 end E213.Lib.Math.NumberTheory.SigmaDivisorClosed
