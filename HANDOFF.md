@@ -29,12 +29,20 @@ committed, pushed; `E213.Lib` green throughout.  Breadth across three domains:
 5. **General divisor-sum multiplicativity** — `SigmaDivisorClosed.divisorSumZ_mul_of_completely_mult`
    — `divisorSumZ(ab) g = divisorSumZ a g · divisorSumZ b g` for any completely-mult `g`
    (coprime a,b>0); `sigma_m_mul` is now a one-line corollary.  Reusable infra.
-6. **Signed lattice area / shoelace** — `Lib/Math/Geometry/LatticeArea.{shoelace, area_additivity,
-   area_translation_invariant, area_cyclic, area_swap_neg, Collinear}` — doubled signed area
-   `area2 = det(B−A,C−A)`; barycentric triangulation additivity; collinearity = area 0.
+6. **Signed lattice area / shoelace** — `Lib/Math/Geometry/LatticeArea` — doubled signed area
+   `area2 = det(B−A,C−A)`; `shoelace`, `area_additivity` (barycentric), translation/cyclic/swap
+   symmetry, `Collinear`; **`area2_sq_eq_gram`** (2D Lagrange `area2²=AB²AC²−(u·v)²`),
+   **`law_of_cosines`**, **`cayley_menger`** (`16·Area²=4AB²AC²−(AB²+AC²−BC²)²`, the area↔distance
+   bridge), **`area2_linMap`/`area2_unimodular`** (signed area scales by `det`; SL₂(ℤ) preserves it).
 
 The Geometry cluster is now 3 files (StewartTheorem, MetricIdentities, LatticeArea) sharing the
-integer `Pt`/`sq`/`area2` vocabulary.
+integer `Pt`/`sq`/`area2` vocabulary — a rounded elementary Euclidean geometry over ℤ.
+
+**Surmounted a flagged wall**: Cayley–Menger (degree-8) defeats `ring_intZ` directly, but
+decomposing through lower-degree lemmas (`area2_sq_eq_gram` deg-4 + `law_of_cosines` deg-2) and an
+**abstract assembly lemma** that keeps `AB²,AC²,BC²,dot,area2` as opaque atoms closes it cleanly.
+**Reusable technique**: factor any high-degree polynomial identity through intermediate named
+quantities held abstract — the `ring_intZ` degree-ceiling is not a hard wall.
 
 **Repo is exhaustively complete for named classical theorems** — confirmed already-closed by
 grep: Gauss totient, Euclid perfect, σ/τ mult, Nicomachus + Faulhaber k≤6, Vandermonde + ΣC²,
@@ -45,12 +53,14 @@ Remaining HIGH-VALUE OPEN frontiers are all heavy / tactic-bound:
     theorem over Real213 (compactness); current MVT is *witness-at* (square/cube only).  Heavy.
   - **Jacobi triple product** (truncated) — pentagonal-number induction.  MEDIUM-HARD.
   - **LTE** (lifting the exponent) — vp infra exists; needs the mod-p binomial step.  MEDIUM.
-  - **Cayley–Menger / Heron-squared** (`4·area2² = 2Σa²b² − Σa⁴`) — TRUE & verified on paper but
-    **`ring_intZ` times out** (degree-8, 6 vars); needs a faster ring normalizer or hand-factoring.
+  - ~~**Cayley–Menger / Heron-squared**~~ — ✅ **CLOSED** (`LatticeArea.cayley_menger`) via the
+    abstract-atom decomposition above; the `ring_intZ` timeout was sidestepped, not fought.
 
 Craft notes: `ring_intZ` treats `^` as opaque (expand to `*`), won't cancel `t+(−t)` (use
-`sub_self_zero`+`zero_mul`/`mul_zeroZ`), and times out beyond ~degree-6 multivariate; and
-`Int.ofNat_mul`'s rw pattern `↑(?n*?m)` needs `show Int.ofNat (a*b) = … from Int.ofNat_mul a b`.
+`sub_self_zero`+`zero_mul`/`mul_zeroZ`), times out beyond ~degree-6 multivariate (decompose
+through abstract-atom lemmas), and does **not** iota-reduce pair projections `(a,b).1` (feed it a
+`show` with projections pre-applied); `1*x` needs `one_mulZ`; and `Int.ofNat_mul`'s rw pattern
+`↑(?n*?m)` needs `show Int.ofNat (a*b) = … from Int.ofNat_mul a b`.
 
 ---
 ## Prior segment — 2026-06-16 (multi-agent debate marathon)
