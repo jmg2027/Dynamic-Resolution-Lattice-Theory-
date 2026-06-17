@@ -122,4 +122,13 @@ theorem ofNat_pow_eq_ipow (p : Nat) : ∀ i, Int.ofNat (p ^ i) = ipow (Int.ofNat
       rw [show p ^ (i + 1) = p ^ i * p from rfl,
           show Int.ofNat (p ^ i * p) = Int.ofNat (p ^ i) * Int.ofNat p from Int.ofNat_mul _ _,
           ofNat_pow_eq_ipow p i, ipow_succ]
+
+/-- ★ **Int-power base multiplicativity**: `ipow (x·y) n = ipow x n · ipow y n`
+    (the `(xy)ⁿ = xⁿyⁿ` law — `ipow` is *completely* multiplicative in the base). -/
+theorem ipow_base_mul (x y : Int) : ∀ n, ipow (x * y) n = ipow x n * ipow y n
+  | 0     => by show (1 : Int) = 1 * 1; decide
+  | n + 1 => by
+      rw [ipow_succ, ipow_base_mul x y n, ipow_succ, ipow_succ]
+      show ipow x n * ipow y n * (x * y) = ipow x n * x * (ipow y n * y)
+      ring_intZ
 end E213.Lib.Math.NumberTheory.DiffPowDvd
