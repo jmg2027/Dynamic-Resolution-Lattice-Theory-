@@ -60,6 +60,7 @@ import E213.Lib.Math.Combinatorics.ParityInvariant
 import E213.Lib.Math.Combinatorics.KonigConditional
 import E213.Lib.Math.Combinatorics.IntGridSum
 import E213.Lib.Math.Combinatorics.Sym3OctetOrbits
+import E213.Lib.Math.Combinatorics.HockeyStick
 
 /-!
 # Combinatorics 213 — umbrella
