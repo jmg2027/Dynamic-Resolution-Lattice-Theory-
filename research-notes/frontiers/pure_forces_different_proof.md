@@ -556,6 +556,20 @@ exactly the term-decay modulus, not a completeness/bracketing existence assertio
 reuses `ModulusConvergence`/`UniformLimitContinuous` metric + `Int213` for the signed
 certification.)
 
+### B/C — the Pisano period: Fibonacci mod m is periodic, period computed (★ 4th exists_collision reuse)
+`NumberTheory/PisanoPeriod`. `pisano_period : 0<m → ∃ p, 0<p ∧ ∀ n, fib(n+p)%m = fib n%m`
+(pure periodicity from 0). Classically "the finite-state sequence eventually repeats" is a
+non-constructive pigeonhole `∃`. ∅-axiom forces the period **computed**: the state at step n is
+the pair `(fib n %m, fib(n+1)%m) ∈ Fin(m²)`; `exists_collision_lt` on `Fin(m²+1) → Fin(m²)`
+RETURNS the colliding indices `i<j`, and `p = j−i` is the period. Forward propagation by the
+recurrence, **backward** by the recurrence inverted in ℤ/m (`mod_add_right_cancel`, no signed
+integers) give pure periodicity. Smokes π(2)=3, π(3)=8, π(10)=60. Reveals: **the Pisano period
+is the computed pigeonhole collision gap on consecutive-pair states — the period is an
+algorithm output, and ℤ/m cancellation runs the recurrence backwards without ever leaving ℕ.**
+The 4th distinct reuse of `exists_collision` (after DividesPair, TwoSquare, ErdosSzekeres) —
+the non-constructivity sink keeps paying. (16 PURE; reuses `exists_collision_lt`,
+`EncodePair213`, `AddMod213`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
