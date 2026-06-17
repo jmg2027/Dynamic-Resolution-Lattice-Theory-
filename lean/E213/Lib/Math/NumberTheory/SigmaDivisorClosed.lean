@@ -68,43 +68,54 @@ theorem ipow_ofNat_mul (m u v : Nat) :
     ipow (Int.ofNat (u * v)) m = ipow (Int.ofNat u) m * ipow (Int.ofNat v) m := by
   rw [show Int.ofNat (u * v) = Int.ofNat u * Int.ofNat v from Int.ofNat_mul u v, ipow_base_mul]
 
-/-- Each cell of the product reindex factors (complete multiplicativity of `dᵐ`):
-    `dᵢ · dₖ · ((i+1)(k+1))ᵐ = (dᵢ·(i+1)ᵐ) · (dₖ·(k+1)ᵐ)`. -/
-theorem sigma_m_cell_factor (m : Nat) {a b : Nat} (i k : Nat) :
-    (dvdInd i a : Int) * (dvdInd k b : Int) * ipow (Int.ofNat ((i + 1) * (k + 1))) m
-      = ((dvdInd i a : Int) * ipow (Int.ofNat (i + 1)) m)
-          * ((dvdInd k b : Int) * ipow (Int.ofNat (k + 1)) m) := by
-  rw [ipow_ofNat_mul m (i + 1) (k + 1),
+/-- Each cell of the product reindex factors for a **completely multiplicative** weight `g`
+    (`g(uv) = g(u)·g(v)`): `dᵢ · dₖ · g((i+1)(k+1)) = (dᵢ·g(i+1)) · (dₖ·g(k+1))`. -/
+theorem cell_factor_of_completely_mult (g : Nat → Int) (hg : ∀ u v, g (u * v) = g u * g v)
+    {a b : Nat} (i k : Nat) :
+    (dvdInd i a : Int) * (dvdInd k b : Int) * g ((i + 1) * (k + 1))
+      = ((dvdInd i a : Int) * g (i + 1)) * ((dvdInd k b : Int) * g (k + 1)) := by
+  rw [hg (i + 1) (k + 1),
       E213.Meta.Int213.mul_mul_mul_comm (dvdInd i a : Int) (dvdInd k b : Int)
-        (ipow (Int.ofNat (i + 1)) m) (ipow (Int.ofNat (k + 1)) m)]
+        (g (i + 1)) (g (k + 1))]
 
-/-- ★★★ **σ_m is multiplicative over coprime products** (∅-axiom):
-    for coprime `a, b > 0`, `σ_m(a·b) = σ_m(a)·σ_m(b)` with `σ_m(n) = Σ_{d ∣ n} dᵐ`.
+/-- ★★★ **Divisor-sum multiplicativity for any completely-multiplicative weight** (∅-axiom):
+    if `g(uv) = g(u)·g(v)` for all `u, v`, then for coprime `a, b > 0`,
+    `divisorSumZ (a·b) g = divisorSumZ a g · divisorSumZ b g`.
 
-    Mirrors `muStruct_divisorSum_mul`: reindex the product, factor each cell via
-    complete multiplicativity of `dᵐ`, then separate the double sum.  Combined with
-    `sigma_prime_pow_divisor_geom`, this yields σ_m on every `n` from its factorization. -/
-theorem sigma_m_mul {a b : Nat} (hab : gcd213 a b = 1) (ha : 0 < a) (hb : 0 < b) (m : Nat) :
-    divisorSumZ (a * b) (fun d => ipow (Int.ofNat d) m)
-      = divisorSumZ a (fun d => ipow (Int.ofNat d) m)
-          * divisorSumZ b (fun d => ipow (Int.ofNat d) m) := by
-  rw [divisorSumZ_product_reindex a b hab ha hb (fun d => ipow (Int.ofNat d) m)]
+    Reusable generalization of `muStruct_divisorSum_mul` (which needs only *coprime*
+    multiplicativity): reindex the product (`divisorSumZ_product_reindex`), factor each cell,
+    then separate the double sum (`inner_factor` + `sumZ_mul_right`). -/
+theorem divisorSumZ_mul_of_completely_mult {a b : Nat} (hab : gcd213 a b = 1)
+    (ha : 0 < a) (hb : 0 < b) (g : Nat → Int) (hg : ∀ u v, g (u * v) = g u * g v) :
+    divisorSumZ (a * b) g = divisorSumZ a g * divisorSumZ b g := by
+  rw [divisorSumZ_product_reindex a b hab ha hb g]
   -- factor each cell
   rw [sumZ_congr a _
         (fun i => sumZ b (fun k =>
-          ((dvdInd i a : Int) * ipow (Int.ofNat (i + 1)) m)
-            * ((dvdInd k b : Int) * ipow (Int.ofNat (k + 1)) m)))
-        (fun i _ => sumZ_congr b _ _ (fun k _ => sigma_m_cell_factor m i k))]
+          ((dvdInd i a : Int) * g (i + 1)) * ((dvdInd k b : Int) * g (k + 1))))
+        (fun i _ => sumZ_congr b _ _ (fun k _ => cell_factor_of_completely_mult g hg i k))]
   -- pull the i-part out of each inner b-sum
   rw [sumZ_congr a _
-        (fun i => ((dvdInd i a : Int) * ipow (Int.ofNat (i + 1)) m)
-            * sumZ b (fun k => (dvdInd k b : Int) * ipow (Int.ofNat (k + 1)) m))
-        (fun i _ => inner_factor ((dvdInd i a : Int) * ipow (Int.ofNat (i + 1)) m) b
-          (fun k => (dvdInd k b : Int) * ipow (Int.ofNat (k + 1)) m))]
+        (fun i => ((dvdInd i a : Int) * g (i + 1))
+            * sumZ b (fun k => (dvdInd k b : Int) * g (k + 1)))
+        (fun i _ => inner_factor ((dvdInd i a : Int) * g (i + 1)) b
+          (fun k => (dvdInd k b : Int) * g (k + 1)))]
   -- pull the constant b-sum out of the a-sum
-  rw [sumZ_mul_right (sumZ b (fun k => (dvdInd k b : Int) * ipow (Int.ofNat (k + 1)) m)) a
-        (fun i => (dvdInd i a : Int) * ipow (Int.ofNat (i + 1)) m)]
+  rw [sumZ_mul_right (sumZ b (fun k => (dvdInd k b : Int) * g (k + 1))) a
+        (fun i => (dvdInd i a : Int) * g (i + 1))]
   rfl
+
+/-- ★★★ **σ_m is multiplicative over coprime products** (∅-axiom):
+    for coprime `a, b > 0`, `σ_m(a·b) = σ_m(a)·σ_m(b)` with `σ_m(n) = Σ_{d ∣ n} dᵐ`.
+    A one-line corollary of `divisorSumZ_mul_of_completely_mult`, since `d ↦ dᵐ` is completely
+    multiplicative (`ipow_ofNat_mul`).  Combined with `sigma_prime_pow_divisor_geom`, this yields
+    σ_m on every `n` from its factorization. -/
+theorem sigma_m_mul {a b : Nat} (hab : gcd213 a b = 1) (ha : 0 < a) (hb : 0 < b) (m : Nat) :
+    divisorSumZ (a * b) (fun d => ipow (Int.ofNat d) m)
+      = divisorSumZ a (fun d => ipow (Int.ofNat d) m)
+          * divisorSumZ b (fun d => ipow (Int.ofNat d) m) :=
+  divisorSumZ_mul_of_completely_mult hab ha hb (fun d => ipow (Int.ofNat d) m)
+    (fun u v => ipow_ofNat_mul m u v)
 
 /-- Smoke: the full σ_m pipeline computes — `σ₂(12) = 210` directly, and equals
     `σ₂(4)·σ₂(3) = 21·10` through `sigma_m_mul`. -/
