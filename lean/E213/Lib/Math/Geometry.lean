@@ -2,6 +2,7 @@ import E213.Lib.Math.Geometry.AlgebraicGeometry
 import E213.Lib.Math.Geometry.Rotation
 import E213.Lib.Math.Geometry.TensorCalculus
 import E213.Lib.Math.Geometry.DiscreteCurvature
+import E213.Lib.Math.Geometry.StewartTheorem
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Geometry`.
 
