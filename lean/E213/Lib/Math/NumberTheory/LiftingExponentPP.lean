@@ -1,4 +1,5 @@
 import E213.Meta.Nat
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum
 
 /-!
 # Prime-power lifting for LTE — foundations (∅-axiom)
@@ -18,6 +19,7 @@ namespace E213.Lib.Math.NumberTheory.LiftingExponentPP
 open E213.Meta.Nat.Valuation (vp pow_vp_dvd vp_not_dvd_succ le_vp_iff)
 open E213.Meta.Nat.Gcd213 (dvd_add_213 dvd_sub_213)
 open E213.Meta.Nat.NatRing213 (nat_add_sub_self_right)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
 
 /-- ★★★ **Strict-minimum valuation law** (ultrametric, the `<` case):
     if `v_p(x) < v_p(y)` then `v_p(x + y) = v_p(x)`.
@@ -50,5 +52,23 @@ theorem vp_add_eq_min {p x y : Nat} (hp : 2 ≤ p) (hx : 0 < x) (hy : 0 < y)
 theorem vp_add_eq_min' {p x y : Nat} (hp : 2 ≤ p) (hx : 0 < x) (hy : 0 < y)
     (hlt : vp p y < vp p x) : vp p (x + y) = vp p y := by
   rw [Nat.add_comm]; exact vp_add_eq_min hp hy hx hlt
+
+/-- ★★ **Sum divisibility**: if `g` divides every term `f k` (`k < n`), it divides `Σ_{k<n} f k`.
+    The other half of the ultrametric package — used to lower-bound the valuation of the binomial
+    tail `Σ_{k≥2} C(p,k) b^{p−k} dᵏ`. -/
+theorem dvd_sumTo (g : Nat) (f : Nat → Nat) :
+    ∀ n, (∀ k, k < n → g ∣ f k) → g ∣ sumTo n f
+  | 0, _ => ⟨0, by rw [Nat.mul_zero]; rfl⟩
+  | n + 1, h => by
+      rw [sumTo_succ]
+      exact dvd_add_213 g (sumTo n f) (f n)
+        (dvd_sumTo g f n (fun k hk => h k (Nat.lt_succ_of_lt hk)))
+        (h n (Nat.lt_succ_self n))
+
+/-- ★★ **Sum valuation lower bound**: if `pᵐ ∣ f k` for every term, then `m ≤ v_p(Σ f)`
+    (for a positive sum). -/
+theorem le_vp_sumTo {p m n : Nat} (f : Nat → Nat) (hp : 2 ≤ p) (hpos : 0 < sumTo n f)
+    (h : ∀ k, k < n → p ^ m ∣ f k) : m ≤ vp p (sumTo n f) :=
+  (le_vp_iff p (sumTo n f) m hp hpos).mp (dvd_sumTo (p ^ m) f n h)
 
 end E213.Lib.Math.NumberTheory.LiftingExponentPP
