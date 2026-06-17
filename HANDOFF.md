@@ -1,8 +1,40 @@
-# Session Handoff — 2026-06-16 (multi-agent debate marathon)
+# Session Handoff — 2026-06-17 (marathon continued: arithmetic-function + classical-theorem breadth)
 
 ## Branch
 `claude/frontier-research-agents-h5okq9` — pushed, ahead of `origin/main`.
-Authoritative build `cd lean && lake build E213.Lib` → **green (1959 modules)**.
+Authoritative build `cd lean && lake build E213.Lib` → **green (1972 modules)**.
+Strict ∅-axiom intact: every theorem added is `#print axioms`-empty.
+
+## Continuation (2026-06-17) — closures landed PURE this segment
+
+Driven autonomously after the debate marathon; each closure built, axiom-scanned PURE,
+committed, pushed; `E213.Lib` green throughout.  Breadth across three domains:
+
+1. **σ_m (divisor-power sum) fully closed** — `Lib/Math/NumberTheory/`:
+   `DiffPowDvd.{ofNat_pow_eq_ipow, ipow_base_mul}` (cast-power bridge `↑(pⁱ)=(↑p)ⁱ` +
+   base-mult `(xy)ⁿ=xⁿyⁿ`); `SigmaPrimePowGeom.sigma_prime_pow_geom` (geometric form);
+   `SigmaDivisorClosed.{sigma_prime_pow_divisor_geom, sigma_m_mul, sumZ_bridge}` —
+   the genuine divisor sum `(pᵐ−1)·σ_m(pᵏ)=p^{m(k+1)}−1` AND multiplicativity
+   `σ_m(ab)=σ_m(a)σ_m(b)`.  Closed form + multiplicativity ⇒ σ_m on every n from its
+   factorization (generalizes the repo's σ/τ + euclid_perfect).  Smoke σ₂(12)=210.
+2. **Classical metric geometry** — `Lib/Math/Geometry/`:
+   `StewartTheorem.{stewart_identity, stewart_scaled, apollonius}` (Stewart's theorem +
+   median/Apollonius, integer squared-distance `sq`, via `ring_intZ`);
+   `MetricIdentities.{british_flag, parallelogram_law, pythagoras}` (residual `2(u·v)`
+   killed by perpendicularity via `eq_of_sub_eq_zero`).
+3. **Hockey-stick identity** — `Lib/Math/Combinatorics/HockeyStick.{hockey_stick,
+   hockey_stick_column}` — Σ C(r+i,r)=C(r+n+1,r+1), Pascal induction.
+
+Scout queue (`/tmp/scout_next.md`) remaining leads: Rolle (analysis, MEDIUM),
+Jacobi triple product (combinatorics, MEDIUM-HARD), Ceva (geometry, HARD).
+Craft note: `ring_intZ` treats `^` as opaque — expand powers to explicit `*`; and
+`Int.ofNat_mul`'s rw pattern `↑(?n*?m)` needs `show Int.ofNat (a*b) = … from Int.ofNat_mul a b`.
+
+---
+## Prior segment — 2026-06-16 (multi-agent debate marathon)
+
+## Branch (prior)
+Authoritative build `cd lean && lake build E213.Lib` → green (1959 modules then).
 Strict ∅-axiom intact: every theorem added this session is `#print axioms`-empty.
 
 ## What Was Done This Session
