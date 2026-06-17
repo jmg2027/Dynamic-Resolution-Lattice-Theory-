@@ -10,6 +10,7 @@ import E213.Lib.Math.Analysis.ModulusConvergence
 import E213.Lib.Math.Analysis.CesaroMean
 import E213.Lib.Math.Analysis.LimitArithmetic
 import E213.Lib.Math.Analysis.AlternatingSeries
+import E213.Lib.Math.Analysis.ComparisonTest
 import E213.Lib.Math.Analysis.SqueezeProduct
 import E213.Lib.Math.Analysis.FluxMVT
 import E213.Lib.Math.Analysis.Integration
