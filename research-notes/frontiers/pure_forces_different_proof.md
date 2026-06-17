@@ -528,6 +528,21 @@ obstruction's parity is a literal valuation descent the constructive inert-prime
 drives — the classical "ℤ[i] is a PID so q stays prime" is replaced by a `% q`
 computation iterated.** (15 PURE.)
 
+### A — Wilson's ±1 is the inverse-involution fixed-point product (★ units thread capstone)
+`NumberTheory/WilsonGeneralization`. Classically `∏(units of ℤ/n) ≡ ±1` is read off the
+abelian group structure of `(ℤ/n)^×` (pair each element with its inverse in the *quotient
+group*). ∅-axiom has no quotient group: the pairing is an **explicit involution
+`u ↦ (modBezout u n).2 % n` on the coprime-residue set**, the cancellation a `% n`
+computation (`u·u⁻¹ ≡ 1`, `unitInv_mul`), and the survivors the *computed* square-roots of
+1 — the involution's fixed points (`unitInv_eq_self_iff : unitInv n u = u ↔ u²≡1`). The
+headline `units_prod_eq_selfinv_prod` reduces `∏ units` to `∏ self-inverse units` (off-pairs
+cancel, `prodMod_pairing_selfinv_fuel`). Smokes show the Gauss split (n=8 all self-inverse →
++1; n=5,10 → −1). Reveals: **Wilson's ±1 is the fixed-point set of the inverse-involution on
+the units — a computed pairing on representatives, not a group-theoretic identity.** The
+`n∈{1,2,4,pᵏ,2pᵏ}⟺−1` value classification is the open stretch
+(`frontiers/wilson_pm1_classification.md`). (29 PURE; reuses `UnitsOfZn`,
+`EulerTheorem` totative-product, `WilsonInverse`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅

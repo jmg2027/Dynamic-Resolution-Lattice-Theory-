@@ -93,6 +93,7 @@ import E213.Lib.Math.NumberTheory.MultiplicativeOrder
 import E213.Lib.Math.NumberTheory.CyclicSubgroupOrbit
 import E213.Lib.Math.NumberTheory.AdditiveSubgroup
 import E213.Lib.Math.NumberTheory.UnitsOfZn
+import E213.Lib.Math.NumberTheory.WilsonGeneralization
 import E213.Lib.Math.NumberTheory.DividesPairPigeonhole
 import E213.Lib.Math.NumberTheory.TwoSquareTheorem
 import E213.Lib.Math.NumberTheory.SumTwoSquaresCharacterization

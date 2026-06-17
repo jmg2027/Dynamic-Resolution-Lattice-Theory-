@@ -818,3 +818,4 @@ real ∅-axiom conquests.
 | `hall_general_induction.md` | Hall marriage general-n (Halmos–Vaughan induction); framework + n≤2 closed in `Combinatorics/HallMarriage` | open |
 | `analysis_modulus_pending.md` | Cesàro + limit-arithmetic sum DONE; product/squeeze still open | partial |
 | `two_square_only_if.md` | CLOSED end-to-end incl. biconditional (`SumTwoSquaresBiconditional`) | closed |
+| `wilson_pm1_classification.md` | Gauss-Wilson ±1 value classification (core DONE in WilsonGeneralization; the n∈{1,2,4,pᵏ,2pᵏ} ⟺ −1 split open) | open |
