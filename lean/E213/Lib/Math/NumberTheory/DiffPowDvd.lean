@@ -99,4 +99,18 @@ theorem one_dvd_pow_sub_one (a : Int) (n : Nat) : (a - 1) ∣ (ipow a n - 1) := 
 theorem smoke_two_dvd_eighty : (3 - 1 : Int) ∣ (ipow 3 4 - ipow 1 4) :=
   sub_dvd_pow_sub_pow 3 1 4
 
+
+/-- ★ **Int-power additivity**: `ipow x (m + n) = ipow x m · ipow x n`. -/
+theorem ipow_add (x : Int) (m : Nat) : ∀ n, ipow x (m + n) = ipow x m * ipow x n
+  | 0     => by show ipow x m = ipow x m * 1; ring_intZ
+  | n + 1 => by
+      rw [show m + (n + 1) = (m + n) + 1 from rfl, ipow_succ, ipow_add x m n, ipow_succ]
+      ring_intZ
+
+/-- ★ **Int-power multiplicativity in the exponent**: `ipow x (a · b) = ipow (ipow x a) b`
+    (the `(xᵃ)ᵇ = x^{ab}` law). -/
+theorem ipow_mul (x : Int) (a : Nat) : ∀ b, ipow x (a * b) = ipow (ipow x a) b
+  | 0     => rfl
+  | b + 1 => by
+      rw [show a * (b + 1) = a * b + a from rfl, ipow_add x (a * b) a, ipow_mul x a b, ipow_succ]
 end E213.Lib.Math.NumberTheory.DiffPowDvd
