@@ -4,6 +4,7 @@ import E213.Lib.Math.Geometry.TensorCalculus
 import E213.Lib.Math.Geometry.DiscreteCurvature
 import E213.Lib.Math.Geometry.StewartTheorem
 import E213.Lib.Math.Geometry.MetricIdentities
+import E213.Lib.Math.Geometry.LatticeArea
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Geometry`.
 
