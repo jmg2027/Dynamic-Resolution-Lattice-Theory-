@@ -592,6 +592,20 @@ computed, not extracted from a maximal path; the tournament's totality is exactl
 the insertion never violates.** Fully self-contained (0 imports, Lean-core Nat/List/Bool only),
 structural `chainBeats`/`memN` to dodge `List.get`/`List.mem_cons` propext. (29 PURE.)
 
+### B — Mirsky: a finite poset is covered by (longest-chain) antichains, via the computed height (★ fresh poset thread, 6th exists_collision reuse)
+`Combinatorics/MirskyTheorem`. `mirsky : IsPoset n le → ∃ H, (∀ i, 1 ≤ height le i ≤ H) ∧
+(∀ i j, height le i = height le j → i ≠ j → incomparable i j)` — the height-level partition
+`height⁻¹(k)` is an antichain cover. Classically the dual-Dilworth antichain cover is a
+non-constructive existence. ∅-axiom forces the **height function** `h i = 1 + max{h j : j ≺ i}`
+(strong recursion, fuel-stabilized by a sum potential ≤ n²), with `height_lt_of_lt` (strict
+predecessor monotonicity) ⟹ `equal_height_antichain` (same height ⟹ incomparable). The bound
+`height ≤ n` is itself *forced*: the height-gradient chain (`predData` argmax, choice-free) is
+an injection `Fin (height i) → Fin n` that `exists_collision_lt` refutes unless `height i ≤ n`.
+Reveals: **the antichain cover is the computed height-level partition; the longest chain is
+realized by following the height gradient, and that realization forces the level count ≤ n.**
+The 6th `exists_collision` reuse. (45 PURE; reuses `Max213`, `exists_collision_lt`,
+ErdosSzekeres-style height recursion.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
