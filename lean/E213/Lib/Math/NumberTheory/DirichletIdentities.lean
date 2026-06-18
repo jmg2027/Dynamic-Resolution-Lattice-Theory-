@@ -182,4 +182,30 @@ theorem tau_eq_one_conv_one (n : Nat) (_hn : 0 < n) :
   exact sumZ_congr n _ _ (fun j _ => by
     rw [Nat.mul_one]; exact E213.Meta.Int213.mul_one _)
 
+
+/-! ## §7 — `φ = μ ∗ id` (the Möbius dual of `φ ∗ 1 = id`) -/
+
+/-- ★★ **`φ = μ ∗ id`** (Gauss/Möbius dual): the Euler totient is the Dirichlet convolution
+    of `μ` with the identity, `dconv μ (fun d => d) n = φ(n)`.  The Möbius inverse of the
+    existing `phi_conv_one` (`φ ∗ 1 = id`), via `mobius_inversion`. -/
+theorem phi_eq_mu_conv_id (n : Nat) (hn : 0 < n) :
+    dconv mu (fun d => (d : Int)) n = (totient n : Int) := by
+  have hg : ∀ m : Nat, 0 < m →
+      ((m : Int)) = divisorSumZ m (fun d => (totient d : Int)) :=
+    fun m hm => ((dconv_one_right (fun d => (totient d : Int)) m).symm.trans
+      (phi_conv_one m hm)).symm
+  have hinv := E213.Lib.Math.NumberTheory.MobiusInversion.mobius_inversion
+    (fun d => (totient d : Int)) (fun d : Nat => (d : Int)) n hn hg
+  have hinv' : (totient n : Int)
+      = divisorSumZ n (fun d => E213.Lib.Math.NumberTheory.MobiusMultiplicative.muStruct d
+          * ((n / d : Nat) : Int)) := hinv
+  show divisorSumZ n (fun d => mu d * ((n / d : Nat) : Int)) = (totient n : Int)
+  rw [hinv']
+  show sumZ n (fun j => (dvdInd j n : Int) * (mu (j + 1) * ((n / (j + 1) : Nat) : Int)))
+      = sumZ n (fun j => (dvdInd j n : Int)
+          * (E213.Lib.Math.NumberTheory.MobiusMultiplicative.muStruct (j + 1)
+              * ((n / (j + 1) : Nat) : Int)))
+  exact sumZ_congr n _ _ (fun j _ => by
+    rw [E213.Lib.Math.NumberTheory.MobiusBridge.muStruct_eq_mu (j + 1) (Nat.succ_pos j)])
+
 end E213.Lib.Math.NumberTheory.DirichletIdentities
