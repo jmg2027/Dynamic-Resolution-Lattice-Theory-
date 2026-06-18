@@ -1,5 +1,6 @@
 import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Tactic.NatHelper
+import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum
 
 /-!
 # CastingOutNines — the divisibility-rule core `bᵏ ≡ 1 (mod b−1)`
@@ -13,6 +14,8 @@ All zero-axiom (pure `Nat`, no subtraction in the core identity).
 -/
 
 namespace E213.Lib.Math.NumberTheory.CastingOutNines
+
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo)
 
 /-- ★★ **`(m+1)ᵏ ≡ 1 (mod m)`**: every power of `m+1` is `m·c + 1` for some `c` — the
     `bᵏ ≡ 1 (mod b−1)` rule (with `b = m+1`), subtraction-free. -/
@@ -28,5 +31,20 @@ theorem base_pred_dvd_pow_pred (m k : Nat) : m ∣ ((m + 1) ^ k - 1) := by
   obtain ⟨c, hc⟩ := pow_succ_base_mod m k
   refine ⟨c, ?_⟩
   rw [hc, E213.Tactic.NatHelper.add_sub_cancel_right]
+
+
+/-- ★★★ **Geometric series sum** (the exact quotient behind casting-out-nines):
+    `(b−1)·Σ_{j<k} bʲ + 1 = bᵏ` (with `b = m+1`): `m·Σ_{j<k} (m+1)ʲ + 1 = (m+1)ᵏ`.  So
+    `Σ_{j<k} bʲ` is exactly the cofactor `c` of `pow_succ_base_mod`, and `bᵏ − 1 = (b−1)·Σ bʲ`. -/
+theorem geom_sum (m : Nat) : ∀ k,
+    m * sumTo k (fun j => (m + 1) ^ j) + 1 = (m + 1) ^ k
+  | 0     => by rw [show sumTo 0 (fun j => (m + 1) ^ j) = 0 from rfl,
+                    Nat.mul_zero, Nat.zero_add, Nat.pow_zero]
+  | k + 1 => by
+      have ih := geom_sum m k
+      show m * (sumTo k (fun j => (m + 1) ^ j) + (m + 1) ^ k) + 1 = (m + 1) ^ (k + 1)
+      rw [Nat.mul_add, Nat.pow_succ,
+          Nat.add_right_comm (m * sumTo k (fun j => (m + 1) ^ j)) (m * (m + 1) ^ k) 1, ih]
+      ring_nat
 
 end E213.Lib.Math.NumberTheory.CastingOutNines
