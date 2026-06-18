@@ -30,4 +30,22 @@ theorem two_sumTo_id : ∀ n, 2 * sumTo (n + 1) (fun i => i) = n * (n + 1)
       show 2 * (sumTo (n + 1) (fun i => i) + (n + 1)) = (n + 1) * (n + 1 + 1)
       rw [Nat.mul_add, two_sumTo_id n]; ring_nat
 
+/-- ★★ **Nicomachus' theorem**: `(Σ_{i≤n} i)² = Σ_{i≤n} i³` — the sum of cubes is the square
+    of the triangular number.  Division-free form `(2·Σ i)² = 4·Σ i³`. -/
+theorem nicomachus : ∀ n,
+    (2 * sumTo (n + 1) (fun i => i)) * (2 * sumTo (n + 1) (fun i => i))
+      = 4 * sumTo (n + 1) (fun i => i * i * i)
+  | 0     => rfl
+  | n + 1 => by
+      have ih := nicomachus n
+      have htri := two_sumTo_id n
+      have key : 2 * (sumTo (n + 1) (fun i => i) + (n + 1)) = n * (n + 1) + 2 * (n + 1) := by
+        rw [Nat.mul_add, htri]
+      show (2 * (sumTo (n + 1) (fun i => i) + (n + 1)))
+            * (2 * (sumTo (n + 1) (fun i => i) + (n + 1)))
+          = 4 * (sumTo (n + 1) (fun i => i * i * i) + (n + 1) * (n + 1) * (n + 1))
+      rw [key, Nat.mul_add 4 (sumTo (n + 1) (fun i => i * i * i)) ((n + 1) * (n + 1) * (n + 1)),
+          ← ih, htri]
+      ring_nat
+
 end E213.Lib.Math.Combinatorics.SumIdentities
