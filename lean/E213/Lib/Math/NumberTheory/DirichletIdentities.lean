@@ -283,4 +283,13 @@ theorem sigmaK_eq_idk_conv_one (k n : Nat) (_hn : 0 < n) :
   rw [castSumTo n (fun j => dvdInd j n * (j + 1) ^ k)]
   exact sumZ_congr n _ _ (fun j _ => by rw [Int.ofNat_mul])
 
+
+/-- ★ **`J_0 = ε`**: the Jordan totient at `k=0` is the Dirichlet unit (`id^0 = 1`, and
+    `μ ∗ 1 = ε`).  The base of the Jordan family, complementing `σ_0 = τ`. -/
+theorem jordan_zero_eq_eps (n : Nat) (hn : 0 < n) : jordanK 0 n = eps n := by
+  show dconv mu (fun d => ((d ^ 0 : Nat) : Int)) n = eps n
+  rw [dconv_congr_right mu (fun d => ((d ^ 0 : Nat) : Int)) (fun _ => ((1 : Nat) : Int))
+        (fun m => by show ((m ^ 0 : Nat) : Int) = ((1 : Nat) : Int); rw [Nat.pow_zero]) n]
+  exact mu_conv_one n hn
+
 end E213.Lib.Math.NumberTheory.DirichletIdentities
