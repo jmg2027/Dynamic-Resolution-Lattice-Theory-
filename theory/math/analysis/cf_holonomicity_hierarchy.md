@@ -95,9 +95,18 @@ the sequence.
 `polyDepth d s ⟹ Δ^{d+1} s = 0` (`polyDepth_diff_recurrence`): a degree-`d` polynomial
 sequence satisfies the homogeneous **constant-coefficient** recurrence given by the
 `(d+1)`-th finite difference.  So each residue section of a Hurwitzian CF is C-finite
-(`quasipoly_section_recurrence`); a finite interleaving of C-finite sections is P-recursive
-by the classical interlacing closure (cited).  Quasi-polynomial ⟹ holonomic, section by
-section.
+(`quasipoly_section_recurrence`); a finite interleaving of C-finite sections is P-recursive.
+This interleaving closure is **now ∅-axiom-internal** (`HolonomicInterleave`, 9 PURE), no
+longer cited: a `QuasiPolyCF p` sequence satisfies **one** whole-index homogeneous
+constant-coefficient recurrence `(E^p − 1)^{D+1} a = 0` (`quasipoly_whole_recurrence`), where
+`liftKP p` is the `p`-shift difference `s(n+p) − s(n)` and `D` the common residue depth.  The
+key identity (`liftKP_section`) is that the `p`-shift difference restricted to a residue class
+**is** that section's ordinary difference, so `(E^p−1)^{D+1}` lands inside each section's
+`Δ^{D+1} = 0`.  (The annihilator is `(E^p−1)^{D+1}`, **not** the ordinary `Δ^{p(D+1)}` — an
+interleaving of polynomials is a quasi-polynomial, which `Δ` alone never kills.)
+Corollary `e_cf_whole_recurrence`: e's partial quotients satisfy one `(E³−1)`-difference
+recurrence — e is holonomic with zero external citation.  Quasi-polynomial ⟹ holonomic, now
+end to end.
 
 The converse fails, and the gap is the crux of honesty here:
 `QuasiPolyCF ⊊ C-finite ⊊ holonomic`, **strictly**.
