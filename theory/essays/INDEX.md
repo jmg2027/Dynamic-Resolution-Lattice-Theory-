@@ -46,7 +46,11 @@ reached by no convergent yet every cut is decided in finite — `PointingLimit`,
 genuine distinguishing axis; faithful ⟺ the axes separate (`vp_separation`);
 removable ⟺ no axis added (`c` not forced) — one criterion, both verdicts),
 `multiplicativity_is_the_x_count_lens`,
-`addition_and_multiplication_are_two_faces_of_one_count`, `tower_atlas`,
+`addition_and_multiplication_are_two_faces_of_one_count`,
+`convolution_is_the_product_dual_to_a_cut` (a convolution = the product dual to a
+cut comultiplication; Cauchy from the additive cut `natSplits`, Dirichlet from the
+multiplicative divisor cut; comm/assoc are the cut's swap/coassoc, multiplicativity =
+`Δ_×`-coalgebra morphism), `tower_atlas`,
 `representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
 `duality_as_one_transpose` (a duality = `sumOver_swap` on one 0/1 incidence +
 a SEPARATE cap per axis; min-cover = max-anti is the transpose),
