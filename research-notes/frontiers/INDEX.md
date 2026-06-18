@@ -820,3 +820,4 @@ real ∅-axiom conquests.
 | `two_square_only_if.md` | CLOSED end-to-end incl. biconditional (`SumTwoSquaresBiconditional`) | closed |
 | `wilson_pm1_classification.md` | Gauss-Wilson ±1 value classification (core DONE in WilsonGeneralization; the n∈{1,2,4,pᵏ,2pᵏ} ⟺ −1 split open) | open |
 | `rearrangement_general_n.md` | rearrangement general-n reverse/permutation form (core + n=2,3 DONE in RearrangementInequality) | open |
+| `wilson_plus_one_argument.md` | RESEARCH FINDING: ∅-axiom argument for Wilson +1 (P = t^(|S|/2), parity finish) — avoids the 2-group order structure | argued, formalizing |
