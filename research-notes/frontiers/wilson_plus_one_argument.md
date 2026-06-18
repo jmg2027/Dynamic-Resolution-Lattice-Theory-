@@ -34,7 +34,16 @@ commutativity of `· mod n`, and `t²≡1`. The only nontrivial machinery is the
 inverse-involution; here the involution is `·t` and each pair *accumulates* `t`
 instead of cancelling to 1).
 
-**Status.** Argument worked out (this note). Formalization: the pairing-accumulation
+**Status — VERIFIED (2026-06-18).** The argument is correct: formalized ∅-axiom as
+`NumberTheory/WilsonPlusOne` (17 PURE), `wilson_plus_one_of_nontrivial_sqrt` + the crux
+`prodMod_pair_accum : prodMod n L ≡ t^(L.length/2)` (the pairing-accumulation, fuel recursion
+mirroring `prodMod_pairing_selfinv_fuel` but accumulating `t`), the parity finish exactly as
+argued (`self_inv_pow_even/_odd`, `t₁=n−1 ≠ t₂=x` force `|S|/2` even). **This completes the
+Wilson VALUE DICHOTOMY**: `∏ units ≡ −1 ⟺ only ±1 are √1` (`WilsonValue`) and
+`≡ +1 ⟺ ∃ a nontrivial √1` (`WilsonPlusOne`). Residual = the existence side below
+(the CRT construction + the `n∉{1,2,4,pᵏ,2pᵏ}` case analysis).
+
+(Original plan:) the pairing-accumulation
 lemma `prodMod S ≡ t ^ (length S / 2)` is the one new piece; the rest is the
 `t₁≠t₂ ∧ k odd → ⊥` finish. Combined with the existing `WilsonValue` (−1 side) and the
 `SqrtOnePrimePower`/`SqrtOneTwoPrimePower` keystones, plus the CRT construction of a
