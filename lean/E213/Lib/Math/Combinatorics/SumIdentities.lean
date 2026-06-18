@@ -56,4 +56,11 @@ theorem six_sumTo_sq : ∀ n, 6 * sumTo (n + 1) (fun i => i * i) = n * (n + 1) *
           = (n + 1) * (n + 1 + 1) * (2 * (n + 1) + 1)
       rw [Nat.mul_add, six_sumTo_sq n]; ring_nat
 
+/-- ★ **Hexagonal numbers are triangular**: the `(n+1)`-th hexagonal number
+    `H_{n+1} = (n+1)(2n+1)` is the `(2n+1)`-th triangular number, division-free
+    `2·H_{n+1} = (2n+1)(2n+2)`. -/
+theorem hexagonal_triangular (n : Nat) :
+    2 * ((n + 1) * (2 * n + 1)) = (2 * n + 1) * (2 * n + 1 + 1) := by
+  ring_nat
+
 end E213.Lib.Math.Combinatorics.SumIdentities
