@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 96 essays are grouped into ten thematic sub-directories — distinct
+The 97 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -45,7 +45,8 @@ reached by no convergent yet every cut is decided in finite — `PointingLimit`,
 `the_forcing_criterion_is_distinguishing` (a quantity is forced ⟺ it names a
 genuine distinguishing axis; faithful ⟺ the axes separate (`vp_separation`);
 removable ⟺ no axis added (`c` not forced) — one criterion, both verdicts),
-`multiplicativity_is_the_x_count_lens`, `tower_atlas`,
+`multiplicativity_is_the_x_count_lens`,
+`addition_and_multiplication_are_two_faces_of_one_count`, `tower_atlas`,
 `representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
 `duality_as_one_transpose` (a duality = `sumOver_swap` on one 0/1 incidence +
 a SEPARATE cap per axis; min-cover = max-anti is the transpose),
