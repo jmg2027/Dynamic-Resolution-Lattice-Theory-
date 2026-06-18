@@ -3,21 +3,21 @@
 **One-paragraph thesis.**  Pointing leaves a residue (Raw).
 Lens application IS distinguishing, not a tool applied to Raw
 from outside.  Self-consistency forces the atomic signature
-`(NS, NT, c, d) = (3, 2, 2, 5)`.  From this the bipartite
-cohomology programme (c-counter, Stern-Brocot mediant), the
-algebraic P-orbit closure (Lucas-Pell trace ring), and the
-physics deployment (α_em at 0.09 ppb, gluon octet from
-b_1 = NS² − 1, etc.) all derive — without external parameters,
-PURE in Lean.
+`(NS, NT, d) = (3, 2, 5)`; the multiplicity `c = 2` is a derived
+presentation parameter (re-presenting `NS² − 1` as
+`K_{3,2}^{(c=2)}` cohomology), not a forced fourth primitive.
+From this the bipartite cohomology, the algebraic P-orbit closure
+(Lucas-Pell trace ring), and the physics deployment (α_em at
+0.09 ppb, gluon octet from b_1 = NS² − 1, etc.) all derive —
+without external parameters, PURE in Lean.
 
 ## Closed at framework level
 
 | Programme | Headline | Lean anchor | Chapter |
 |---|---|---|---|
-| Atomic forcing | **(NS, NT, c, d) = (3, 2, 2, 5)** uniquely forced from atomicity + alive + Pell-Lucas recurrence + k=2 arity (pigeonhole over `Fin 2` base for k ≥ 3 vacuous) | `Theory/Atomicity/{PairForcing, Five, ArityForcing, OrbitForcing, CombinatorialArity}` | `physics/foundations/atomic_constants.md` |
-| c-counter (5-direction) | `codim ≥ c` parametric ∀(NS, NT, c); `codim ≤ c` **unconditional at every c** (per-layer completeness closed via 8 explicit primary cup generators + layer-promotion).  Stern-Brocot mediant extension **fully closed** at K_{5, 4}, K_{7, 4}, K_{8, 5}, K_{13, 8} | `Cohomology/Bipartite/Parametric/EnrichedKNSNTcMaster.master_Knn_c_counter_resolved` + `V33EnrichedParametricDualSpanHard{,Lift}.joint_psi_kernel_subset_primary` + `Parametric/PellOrbitInstances.pell_orbit_stern_brocot_extension_capstone` | `math/cohomology/k_nm_c_classification.md` |
-| Stern-Brocot mediant functor | V/E/F Vandermonde under mediant; K_{4,3} = K_{1,1} ⊕ K_{3,2} | `Cohomology/MediantCohomologyFunctor.mediant_cohomology_functor_capstone` | `math/cohomology/mediant_cohomology_functor.md` |
-| Bipartite-tripartite self-containment | local (2, 1, 3) at every K_{3, 2}^{(c=2)} point + K_{2, 1, 3} cohomology refutes external extension | `Cohomology/Tripartite/V32V213CohomologyBridge.self_containment_cohomology_verdict` | `math/cohomology/tripartite_self_containment.md` |
+| Atomic forcing | **(NS, NT, d) = (3, 2, 5)** uniquely forced from atomicity + alive + Pell-Lucas recurrence + k=2 arity (pigeonhole over `Fin 2` base for k ≥ 3 vacuous); `c = 2` derived, not a fourth primitive | `Theory/Atomicity/{PairForcing, Five, ArityForcing, OrbitForcing, CombinatorialArity}` + `Physics/Foundations/AtomicConstantsParametricFullIff.c2b_full_iff` | `physics/foundations/atomic_constants.md` |
+| Bipartite cohomology (b₀, b₁, b₂) | connected `K_{NS,NT}^{(c)}` kernel = the two constants (`b₀ = 1`) for all NS, NT, c; `b₁ = 6, b₂ = 1` at the K_{3,2}^{(c=2)} full simple-cycle filling | `Cohomology/Bipartite/Parametric/Betti/KernelConstancyUniversal.universal_kernel_close` + `Cohomology/Bipartite/Filled3CellCohomology.phase1_cohomology_anchor` | `math/cohomology/bipartite.md` |
+| Bipartite-tripartite self-containment | K_{2, 1, 3} cohomologically trivial above H⁰ (`(b₀,b₁,b₂)=(1,0,0)`); Massey shadow projection vanishes — external tripartite extension carries no shared cohomology | `Cohomology/Tripartite/V213Betti.K213_betti_capstone` + `V213ShadowProjection` | `math/cohomology/bipartite.md` |
 | P-orbit naturalness | Lucas-Pell trace ring `⟨{L(k)} ∪ {NT, NS, d}⟩_ℤ` exhausts framework-natural integers | `Mobius213/Px/POrbitClosure.framework_natural_via_p_orbit_closure` + `Theory/Atomicity/OrbitForcing` | `math/mobius213_p_orbit_closure.md` |
 | Möbius P canonical equivalence | `cutEq ↔ sternBrocotEq ∧ (0, 0)`; P = mediant generator | `Real213/Mobius213{Equiv, SternBrocot, PellInvariant}` | `math/mobius_canonical_equivalence.md` |
 | α_em precision (0.09 ppb) | Gram structural + cup-ladder + SO(10) tail | `Physics/AlphaEM/Capstone` | `physics/alpha_em/precision_derivation.md` |
@@ -25,27 +25,18 @@ PURE in Lean.
 
 ## Cross-frame synthesis
 
-Three independent closures share **one proof shape**: an
-invariant at a base level, an offset translation indexing
-parallel copies, and a cancellation lemma that absorbs the
-offset.  Stack the copies, count the summands — that is the
-closure.  See `theory/essays/synthesis/layer_multiplication_pattern.md`
-for the shape and `theory/essays/synthesis/synthesis_interlock_map.md`
-for the explicit correspondence between c-counter directions
-and P-orbit stages.
+Independent closures share **one proof shape**: an invariant at a
+base level, an offset translation indexing parallel copies, and a
+cancellation lemma that absorbs the offset.  Stack the copies,
+count the summands — that is the closure.  See
+`theory/essays/synthesis/the_forcing_criterion_is_distinguishing.md`
+for the criterion separating a forced distinguishing axis from a
+removable re-presentation.
 
 ## Genuinely open
 
-  · **Cochain-level mediant functor**: count-level Vandermonde
-    closed; cup-product algebra over the 4 × 9 = 36 mediant
-    sub-cells is the next layer.  Massey-class factorisation
-    `K_{4, 3} Massey ?= K_{1, 1} Massey ⊗ K_{3, 2} Massey` is
-    the named cross-frame conjecture.
   · **Asymptotic P-orbit depth**: empirically `D(p) ≤ 4` for
     `p ≤ 97`; conjectured `O(log p)`; not proved.
-  · **PRIMARY cup-image maximality**: `InPrimaryCupSpanPlusBoundary`
-    is the dual-spanning restriction; whether it is the unique
-    maximal kill-preserving restriction is a structural question.
   · **Geometrization 4-mfd exotic anomaly**: open conjecture;
     below DRLT Validation Standard (no precision theorem, no
     falsifier).  Tracked in `research-notes/G121_*`.
@@ -76,16 +67,11 @@ funext + propext) are catalogued in `STRICT_ZERO_AXIOM.md`
 1. `seed/AXIOM/05_no_exterior.md` §5 — the no-exterior
    philosophical anchor (re-read every session).
 2. This file — current framework state.
-3. `theory/INDEX.md` — book map (117 chapters).
-4. `theory/essays/cohomology/c_counter_programme_closure.md` — the
-   five-direction closure synthesis with parallel to
-   P-orbit closure.
-5. `theory/essays/p_orbit/p_orbit_closure_master.md` — the algebraic
+3. `theory/INDEX.md` — book map.
+4. `theory/essays/p_orbit/p_orbit_closure_master.md` — the algebraic
    side (Lucas-Pell trace ring, OrbitForcing).
-6. `theory/essays/synthesis/layer_multiplication_pattern.md` — the
-   shared proof shape across c-counter, P-orbit, mediant.
-7. `theory/essays/synthesis/synthesis_interlock_map.md` — explicit
-   correspondence table between the three synthesis essays.
+5. `theory/essays/synthesis/the_forcing_criterion_is_distinguishing.md`
+   — the forced-axis vs removable-re-presentation criterion.
 
 ## Volatile session state vs. permanent state
 

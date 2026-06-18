@@ -7,15 +7,12 @@ import E213.Lib.Math.Cohomology.Cochain
 import E213.Lib.Math.Cohomology.Cup
 import E213.Lib.Math.Cohomology.CupAW
 import E213.Lib.Math.Cohomology.Delta
-import E213.Lib.Math.Cohomology.Examples.DiamondAudit
-import E213.Lib.Math.Cohomology.Examples.DiamondShape
 import E213.Lib.Math.Cohomology.Examples.EncodingBijection
 import E213.Lib.Math.Cohomology.Examples.EulerClosed
 import E213.Lib.Math.Cohomology.Fractal
 import E213.Lib.Math.Cohomology.Hodge
 import E213.Lib.Math.Cohomology.Examples.K5
 import E213.Lib.Math.Cohomology.Bridge.LeibnizFinding
-import E213.Lib.Math.Cohomology.NodupAsClause4
 import E213.Lib.Math.Cohomology.Bridge.Paper1Chiral
 import E213.Lib.Math.Cohomology.Bridge.Real213Bridge
 import E213.Lib.Math.Cohomology.Surfaces
@@ -27,9 +24,6 @@ import E213.Lib.Math.Cohomology.Universal
 import E213.Lib.Math.Cohomology.Examples.WhyDimFive
 import E213.Lib.Math.Cohomology.Bridge.XorPairCombine
 import E213.Lib.Math.Cohomology.Bridge.PredicateAsCochain
-import E213.Lib.Math.Cohomology.CrossGraphPattern
-import E213.Lib.Math.Cohomology.K33Unified
-import E213.Lib.Math.Cohomology.MediantCohomologyFunctor
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology`.
 
@@ -40,9 +34,10 @@ import E213.Lib.Math.Cohomology.MediantCohomologyFunctor
   ## Chapters (each = a `<DirName>.lean` umbrella under this dir)
 
     * `Bipartite/` — K_{NS,NT}^{(c)} bipartite graph cohomology
-      (V32 / V32Betti / Filled — 2-cell-filling of 4-cycles).
+      (Parametric δ⁰-kernel / Euler-Betti structural family;
+      Filled3Cell F₂/Sym(3) H² class; multiplicity-parity orthogonality).
     * `Tripartite/` — K_{NT, det, NS} = K_{2,1,3} tripartite
-      cohomology (V213 / V213Betti / cross-frame bridge to V32Betti).
+      cohomology (V213 / V213Betti / shadow projection).
     * `Cochain/`   — Cochain core type + V5 / V5_1 / V5_2
       decomposition lemmas underpinning the cup-AW machinery.
     * `Cup/`       — Strict cup product (Core / Leibniz / Ring).

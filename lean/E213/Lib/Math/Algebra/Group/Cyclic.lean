@@ -1,3 +1,5 @@
+import E213.Meta.Nat.AddMod213
+
 /-!
 # Group Theory 213 — Cyclic group ℤ/nℤ (atomic, Nat-modular)
 
@@ -39,4 +41,16 @@ theorem cyclicAdd_comm (n a b : Nat) :
   show (a + b) % n = (b + a) % n
   rw [Nat.add_comm a b]
 
+
+/-- ★ **`cyclicAdd` is associative**: `(a +ₙ b) +ₙ c = a +ₙ (b +ₙ c)`, both `(a+b+c) % n`.
+    With `cyclicAdd_zero_left` and `cyclicAdd_comm`, `(ℤ/n, +ₙ)` is a commutative monoid. -/
+theorem cyclicAdd_assoc (n a b c : Nat) :
+    cyclicAdd n (cyclicAdd n a b) c = cyclicAdd n a (cyclicAdd n b c) := by
+  show ((a + b) % n + c) % n = (a + (b + c) % n) % n
+  rw [E213.Meta.Nat.AddMod213.add_mod_gen ((a + b) % n) c n,
+      E213.Meta.Nat.AddMod213.add_mod_gen a ((b + c) % n) n,
+      E213.Meta.Nat.AddMod213.mod_mod, E213.Meta.Nat.AddMod213.mod_mod,
+      ← E213.Meta.Nat.AddMod213.add_mod_gen (a + b) c n,
+      ← E213.Meta.Nat.AddMod213.add_mod_gen a (b + c) n,
+      Nat.add_assoc]
 end E213.Lib.Math.Algebra.Group.Cyclic

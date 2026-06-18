@@ -1,6 +1,3 @@
-import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.PhaseRouting
-
-import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.GaloisCounterfactual
 import E213.Lib.Physics.Simplex.Counts
 /-!
 # Ising model on K_5 in 213-native form
@@ -35,8 +32,10 @@ All proofs `decide`-only.  STRICT ∅-AXIOM.
 namespace E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.Ising
 
 open E213.Lib.Physics.Simplex.Counts (binom)
-open E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.GaloisCounterfactual (fixedCount)
-open E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.PhaseRouting (Route)
+
+/-- A route on the K_5 energy trajectory: a config-count per energy
+    parameter.  (Trajectory variable, not a continuum.) -/
+abbrev Route : Type := Nat → Nat
 
 /-! §1  Spin lattice K_5: Fin 5 sites, all pairs as edges. -/
 
@@ -153,14 +152,10 @@ theorem ising_213_capstone :
     -- Z/2 ground-state partition
     ∧ routeGroundUp + routeGroundDown = levelMult 0
     ∧ routeGroundUp + routeGroundDown = 2
-    -- Bridge identifications
-    ∧ levelMult 0 = fixedCount       -- Ising ground = Galois σ-fixed count
+    -- Total atomic config count
     ∧ routeUpTo 6 = 2 ^ 5
     ∧ Z 1 = routeUpTo 6
     ∧ Z 1 = 2 ^ 5                    -- equal-weight sum = total atomic
-    := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
-          ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
-          ?_, ?_, ?_, ?_⟩ <;> decide
+    := by decide
 
 end E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.Ising

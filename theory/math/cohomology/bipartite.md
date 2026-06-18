@@ -15,37 +15,40 @@ truncations and Steenrod-algebra structure (Sq^i, Adem, Cartan,
 cup_i ladder, Steenrod-Whitehead bridge `cup_1(ω, ω) = δ²(ω)`)
 are developed in `k32_higher_cohomology.md`.
 
-A **parametric V32Betti sub-tree** lifts the (NS, NT, c) = (3, 2, 2)
-specialisation to the whole K_{NS,NT}^{(c)} deployment family:
-Euler characteristic `(NS + NT) − c·NS·NT`, b_1 formula
-`c·NS·NT + 1 − (NS + NT)` for the connected case, and δ⁰ kernel
-size = 2 (b_0 = 1) verified across the chartBase-≤-5 deployment
-range via `decide`.
+The whole result is **carrier-free**: there is no 12-edge
+K_{3,2}^{(c=2)} graph file.  The b_0 = 1 / b_1 = 8 content lives
+in the **parametric (NS, NT, c) family**: Euler characteristic
+`(NS + NT) − c·NS·NT`, b_1 formula `c·NS·NT + 1 − (NS + NT)` for
+the connected case, and the structural δ⁰ kernel = constants
+(b_0 = 1) for *every* connected deployment.
 
 ## Lean source
 
 - Sub-tree: `lean/E213/Lib/Math/Cohomology/Bipartite/`
-  - `V32Betti.lean` — (3, 2, 2)-specific cohomology + b_1 = 8
-  - `Filled3Cell*.lean`, `FaceCup*.lean`,
-    `SteenrodSquaresAtOmega.lean`, `AdemUniversal.lean`,
-    `CartanAtTruncation.lean`, `Filled4CellExtension.lean`,
-    `SelfPairingTrace.lean` — higher-cohomology + Steenrod algebra
-    at K_{3,2}^{(c=2)}
   - `Parametric/{CochSpaces, Delta0AndConnectedness,
     EulerAndCapstone}.lean` — parametric (NS, NT, c)-family
     cohomology; capstone `parametric_close_capstone` bundles the
-    deployment-family invariants
-  - `Parametric/KernelConstancyUniversal.lean` — universal
+    deployment-family invariants (b_1 at (3, 2, 2) = 8 via
+    `b1Formula 3 2 2`; ker δ⁰ = 2 via `kerSizeDelta0Direct`)
+  - `Parametric/Betti/KernelConstancyUniversal.lean` — universal
     (∀ NS NT c) structural δ⁰-kernel = constant cochains
+    (`universal_kernel_close`)
+  - `Filled3Cell*.lean`, `FaceCup*.lean`,
+    `SteenrodSquaresAtOmega.lean`, `Filled4CellExtension.lean`,
+    `SelfPairingTrace.lean` — higher-cohomology + Steenrod algebra
+    over the type alias `CochE = Fin 12 → Bool` (no graph carrier)
+  - `MultParityOrthogonal.lean` — multiplicity parity ℤ/2 ⊥
+    cup-orientation ℤ/2 (refutes frontier P3′), over the parametric
+    `srcOf`/`tgtOf` encoding
 - ∅-axiom PURE on production critical path
 
-## Parametric V32Betti — deployment-family closure
+## Parametric family — deployment-family closure
 
 `Parametric/CochSpaces.lean` defines `CochV NS NT` (vertex
 cochains, `Fin (NS + NT) → Bool`) and `CochE NS NT c` (edge
 cochains, `Fin (c·NS·NT) → Bool`) together with parametric
-`srcOf`, `tgtOf`, `delta0` that specialise to the (3, 2, 2)
-versions in `V32Betti.lean`.
+`srcOf`, `tgtOf`, `delta0`; the (3, 2, 2) specialisation recovers
+the K_{3,2}^{(c=2)} numbers (12 edges, 5 vertices) as theorems.
 
 `Delta0AndConnectedness.lean` verifies `ker(δ⁰) = 2` (i.e.
 b_0 = 1) by `decide` across:
@@ -57,9 +60,8 @@ b_0 = 1) by `decide` across:
 
 `EulerAndCapstone.lean` gives the parametric Euler / b_1 formulae
 and bundles the closure as `parametric_close_capstone` — Euler at
-(3, 2, 2) is −7, b_1 at (3, 2, 2) is 8 matching V32Betti exactly,
-b_1 = 0 at tree deployments, kernel-size compatibility with the
-specialisation.
+(3, 2, 2) is −7, b_1 at (3, 2, 2) is 8, b_1 = 0 at tree
+deployments, kernel-size = 2 across the family.
 
 ## Universal kernel = constants (structural b_0 = 1)
 
@@ -97,13 +99,6 @@ integer edge-decode uses the repo's pure division library
 operator directly; the product-indexed `KernelConstancyUniversal` is the
 division-free companion that carries the count-form lemmas and the
 graph-connectedness instantiation.
-
-The chart-axis consumer `forcedKChartLens` /
-`m2_universal_forced_partition`
-(`Geometry/GeometrizationConjecture/KChartLensAbstract.lean`) feeds
-this 1-dimensional kernel into the axes partition, forcing
-`selfPointingAxes = 1` and `chartVisibleAxes = chartBase − 1` for
-arbitrary connected K.
 
 ### Universal first Betti number `b₁ = E − V + 1`
 
@@ -151,7 +146,4 @@ connected.
   structure (2/3/4-skeleton, Steenrod algebra, cup-i ladder)
 - `theory/math/cohomology/cup_ladder_graduation.md` — physics
   application bridge (α_em residual via `(k+1)` graduation)
-- `theory/math/cohomology/hodge_conjecture.md` — HodgeConjecture sub-tree (parent)
-- `theory/math/geometry/geometrization_conjecture.md` — KChartLensAbstract +
-  K-deployment family enumeration (consumer of
-  `parametric_close_capstone`)
+- `theory/math/cohomology/hodge.md` — cup-chain cohomology + ⋆⋆ involution

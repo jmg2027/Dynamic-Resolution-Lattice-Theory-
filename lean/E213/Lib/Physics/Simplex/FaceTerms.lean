@@ -97,15 +97,15 @@ theorem simplex_face_counts :
     Term 4: NS = #4-cycles                            [bipartite cycles]
     Term 5: NS + 1 = #tet per vertex                  [simplex link]
 
-    All atomicity-forced — only at (NS, NT, c, d) = (3, 2, 2, 5)
+    All atomicity-forced — only at (NS, NT, d) = (3, 2, 5)
     do these geometric identities hold. -/
 theorem five_terms_simplicial_origin :
     -- α_3 = b_1 = NS² - 1
     (b_1 = NS * NS - 1)
     -- α_2 prefactor = edge × NT
-    ∧ (num_edges * NT = c_lat * NS * NT * NT)
+    ∧ (num_edges * NT = NT * NS * NT * NT)
     -- α_1 Y-norm = edge × d
-    ∧ (num_edges * d = c_lat * NS * NT * d)
+    ∧ (num_edges * d = NT * NS * NT * d)
     -- 1/NS reciprocal = #4-cycles
     ∧ (four_cycles_count = NS)
     -- NS+1 = #tet per vertex

@@ -77,4 +77,10 @@ theorem measure_pair (db1 db2 : DyadicBracket) :
     = bracketMeasureNum db1 + bracketMeasureNum db2
   exact congrArg (bracketMeasureNum db1 + ·) (Nat.add_zero _)
 
+
+/-- ★ **Measure monotonicity**: `μ(s) ≤ μ(s ∪ t)` — adjoining `t` never decreases the
+    dyadic measure (additivity + `t ≥ 0`).  The monotone companion of `measure_union_additive`. -/
+theorem measure_union_le (s t : DyadicMeasurableSet) :
+    measureNum s ≤ measureNum (union s t) := by
+  rw [measure_union_additive]; exact Nat.le_add_right _ _
 end E213.Lib.Math.Analysis.Measure.DyadicMeasure

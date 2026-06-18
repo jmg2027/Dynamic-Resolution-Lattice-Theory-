@@ -176,7 +176,5 @@ population:
 pentagonal closure; the census cluster's elder sibling);
 `seed/AXIOM/05_no_exterior.md` §5.7 (frozen/dynamic; no external
 time axis — the foliation Lens);
-`theory/math/geometry/geometrization_conjecture.md` (the 5 → 4
-chart readout);
 `Lib/Math/Cohomology/Fractal/ConfigCount.lean` (the parametric
 count family).

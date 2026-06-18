@@ -45,12 +45,12 @@ theorem higgs_master_atomic :
     -- v_H suppression d^(d²)
     ∧ (hier_exp = d * d)
     ∧ (d ^ (d * d) = 298023223876953125)
-    -- m_H/v_H leading = 1/c
-    ∧ (leading_ratio = (1, c_lat))
-    -- λ_H leading = 1/(2c²) = 1/α_3
+    -- m_H/v_H leading = 1/NT
+    ∧ (leading_ratio = (1, NT))
+    -- λ_H leading = 1/(2·NT²) = 1/α_3
     ∧ (lambda_leading_denom = NS * NS - 1)
     -- All atomic
-    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
+    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
 /-- Higgs hierarchy summary:
     v_H ≪ M_Pl by factor 5^25/6
@@ -67,15 +67,15 @@ theorem higgs_hierarchy_summary :
 
 /-- ★ Three Higgs quantities → single atomicity ★
 
-  All three of v_H, m_H, λ_H come from (NS, NT, d, c) = (3, 2, 5, 2)
+  All three of v_H, m_H, λ_H come from (NS, NT, d) = (3, 2, 5)
   + α_GUT (itself atomicity-derived).  No operand position for an
   exterior dialer. -/
 theorem higgs_zero_param :
     -- v_H structural form factors
     (hier_num = NS * NT)        -- d+1 = NS·NT
     ∧ (hier_exp = d * d)         -- d² = 25
-    -- m_H/v_H = 1/c
-    ∧ (leading_ratio.2 = c_lat)
+    -- m_H/v_H = 1/NT
+    ∧ (leading_ratio.2 = NT)
     -- λ_H = 1/(NS²-1)
     ∧ (lambda_leading_denom = NS * NS - 1)
     -- Hierarchy d^(d²) huge

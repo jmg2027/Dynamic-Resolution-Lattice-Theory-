@@ -62,11 +62,14 @@ def inv_alpha_milli : Nat := 137036
 /-- m_e c² in 10⁻² eV (cEV) = 51099895. -/
 def m_e_centi : Nat := 51099895
 
-/-- ★ Formal sub-ppm identity (bracket + exact diff).
+/-- Consistency check among measured inputs (exact diff).
 
-  Exact computation: 2·IE_micro·(1/α_milli)² agrees with
-  m_e_centi · 10¹⁰ to within 2211460256 ≈ 4.3 ppb out of
-  RHS ≈ 5·10¹⁷.  Strict bracket: LHS in (RHS, RHS + 3·10⁹). -/
+  Among the measured-input integers IE_H_micro, inv_alpha_milli,
+  m_e_centi, the product 2·IE_micro·(1/α_milli)² agrees with
+  m_e_centi · 10¹⁰ to within the exact integer 2211460256 out of
+  RHS ≈ 5·10¹⁷ (relative ≈ 4 ppb).  This is an arithmetic
+  consistency check among inputs, not a derivation of any of them.
+  Strict bracket: LHS in (RHS, RHS + 3·10⁹). -/
 theorem IE_formula_sub_ppm :
     2 * IE_H_micro * inv_alpha_milli * inv_alpha_milli
         < m_e_centi * 10000000000 + 3000000000
@@ -75,20 +78,5 @@ theorem IE_formula_sub_ppm :
     ∧ 2 * IE_H_micro * inv_alpha_milli * inv_alpha_milli
         - m_e_centi * 10000000000 = 2211460256 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
-
-/-! ## Falsifier — DRLT pairing completion for R_∞
-
-The precision side (`IE_formula_sub_ppm`) brackets at 4.3 ppb.
-Future muonic-hydrogen / Lamb-shift refinement to ppt precision
-must remain consistent with the bracket below; any measured value
-outside the ±1 μeV window around the DRLT atomic prediction
-falsifies the lattice reading. -/
-
-/-- ★ **R_∞ falsifier bracket** — IE(H) = 13605693 μeV ± 1.
-    Pairs with the precision-side `IE_formula_sub_ppm` to complete
-    the DRLT Validation Standard for H ionization. -/
-theorem R_infinity_falsifier_bracket :
-    13605692 < IE_H_micro ∧ IE_H_micro < 13605694 := by
-  refine ⟨?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Atomic.IE.HydrogenPPM

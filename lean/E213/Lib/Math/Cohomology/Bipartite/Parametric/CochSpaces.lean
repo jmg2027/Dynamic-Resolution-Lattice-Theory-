@@ -19,9 +19,10 @@ NS..NS+NT-1 are T-side.
 
 ## Goal
 
-Provide the parametric Cochain spaces and δ⁰ operator that V32Betti
-uses for K_{3,2}^{(c=2)}; specializations recover the old defs
-exactly when (NS, NT, c) = (3, 2, 2).
+Provide the parametric Cochain spaces and δ⁰ operator for
+K_{NS,NT}^{(c)} (consumed by `Delta0AndConnectedness`,
+`Betti/KernelConstancyUniversal`, `EulerAndCapstone`); the
+K_{3,2}^{(c=2)} cohomology specializes at (NS, NT, c) = (3, 2, 2).
 -/
 
 namespace E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces

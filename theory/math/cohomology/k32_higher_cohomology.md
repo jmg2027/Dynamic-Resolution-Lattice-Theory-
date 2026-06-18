@@ -405,29 +405,6 @@ The c-counter materialises ONE LEVEL DEEPER, in the **enriched
   · `V33c3Indeterminacy.lean` — same at c = 3 (11 PURE).
     Cross-frame: ψ-discriminator survives at BOTH multiplicities,
     so the c-counter is NOT in the principal indeterminacy.
-  · `V33Enriched.lean` (c=2, 23 PURE) + `V33c3Enriched.lean`
-    (c=3, 36 PURE): the enriched complex includes mult-m face
-    cycles for m ∈ {0, …, c−1}; edge sets are disjoint across
-    layers; ψ_m = XOR over m-layer faces gives c independent
-    2-cocycle functionals.  Each kills imδ¹_enr.  Single-face
-    indicators `e_face_(9m)` realise c independent non-coboundary
-    H²-classes.  **Codim ≥ c** at c ∈ {2, 3} in the enriched
-    complex.
-  · `V33EnrichedParametric.lean` (63 PURE) — generalises to
-    arbitrary `c : Nat`:
-    * `parametric_c_independent_h2_classes` — `c` indicators
-      with Kronecker-δ ψ-signatures at any `c`
-    * `parametric_bottom_layer_full_kill_capstone` — at the
-      bottom layer, ψ_0 kills all S_i / T_j primary cup-image
-      (for all `i, j ∈ Fin 3`, any `c ≥ 1`)
-    * `parametric_arbitrary_m_full_kill_capstone` — same bilateral
-      kill at any layer `m : Fin c`, not just the bottom (§20,
-      closes Direction B via `9·m` cancellation; see
-      `theory/essays/cohomology/multiplicity_layer_uniformity.md`)
-    * `c_counter_manifest_at_bottom_c2/3/4/5` — combined Massey
-      witness + kill bundles at concrete c ∈ {2, 3, 4, 5}
-    * `eta_ab_layer`, `eta_cd_layer` — parametric 4-fold Massey
-      η-cochains realising ψ_0 = 1 at the bottom layer
 
 Möbius P bridge:
 

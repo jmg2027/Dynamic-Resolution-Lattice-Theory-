@@ -13,5 +13,5 @@ Cross-discipline bridges. 9 files: AlphaEMBridge, Real213Bridge, Paper1Chiral, C
 
 ## Connection
 
-- `theory/math/cohomology/hodge_conjecture.md` — HodgeConjecture sub-tree (parent)
+- `theory/math/cohomology/hodge.md` — cup-chain cohomology + ⋆⋆ involution
 - Other cohomology sub-clusters cite this layer

@@ -75,6 +75,9 @@ import E213.Lib.Math.Combinatorics.LinearDependence
 import E213.Lib.Math.Combinatorics.ParityInvariant
 import E213.Lib.Math.Combinatorics.KonigConditional
 import E213.Lib.Math.Combinatorics.IntGridSum
+import E213.Lib.Math.Combinatorics.Sym3OctetOrbits
+import E213.Lib.Math.Combinatorics.HockeyStick
+import E213.Lib.Math.Combinatorics.BinomialMean
 
 /-!
 # Combinatorics 213 — umbrella

@@ -4,10 +4,10 @@ import E213.Lib.Math.NumberSystems.SignedCut.Hurwitz.HurwitzNormProduct
 import E213.Lib.Math.NumberSystems.SignedCut.Hurwitz.HurwitzFailure
 
 /-!
-# CD-tower algebra synthesis capstone (∅-axiom)
+# CD-tower algebra — bundle of re-exported lemmas (∅-axiom)
 
-Cluster witnesses + total bundle for the generalised Cayley-Dickson
-tower algebra:
+Bundle of re-exported witnesses for the generalised Cayley-Dickson
+tower algebra (each conjunct is an existing lemma):
 
 > "이 일반화된 대수와 그 성질들(잃는것 남는것 모두)가
 >  수 체계의 전부 + 213 대수인듯"
@@ -30,27 +30,27 @@ open E213.Lib.Math.NumberSystems.SignedCut.Hurwitz.HurwitzNormProduct
 open E213.Lib.Math.NumberSystems.SignedCut.Hurwitz.HurwitzFailure
   (sed_zero_neq_one cut0_cut1_pointwise_distinct)
 
-/-- ★ **Quaternion / Octonion bases witness**. -/
+/-- **Quaternion / Octonion bases witness**: the octonion unit's
+    first half is the quaternion unit. -/
 theorem quat_oct_witness :
-    quatI_imag = quatI_imag
-    ∧ octOne.1 = quatOne :=
-  ⟨rfl, octOne_first⟩
+    octOne.1 = quatOne :=
+  octOne_first
 
-/-- ★ **Hurwitz preservation witness** (level 1 magnitude bound). -/
+/-- **Hurwitz preservation witness** (level 1 magnitude bound). -/
 theorem hurwitz_preservation_witness (a b c d : Nat) :
     (a * c + b * d) * (a * c + b * d)
       ≤ (a * a + b * b) * (c * c + d * d) :=
   hurwitz_magnitude_bound a b c d
 
-/-- ★ **Hurwitz failure witness** at level 4 (sedenion). -/
+/-- **Hurwitz failure witness** at level 4 (sedenion). -/
 theorem hurwitz_failure_witness :
     E213.Lib.Math.NumberSystems.SignedCut.Hurwitz.HurwitzFailure.sedZero
       ≠ E213.Lib.Math.NumberSystems.SignedCut.Hurwitz.HurwitzFailure.sedOne :=
   sed_zero_neq_one
 
-/-- ★★★ **Total witness** ★★★ — the generalised CD-tower algebra:
-    quaternion+octonion levels, Hurwitz preservation (positive),
-    Hurwitz failure at level 4. -/
+/-- **Total bundle** — quaternion+octonion levels, Hurwitz
+    preservation (positive), Hurwitz failure at level 4.  Proof term
+    = tuple of existing lemmas. -/
 theorem total_witness (a b c d : Nat) :
     octOne.1 = quatOne
     ∧ (a * c + b * d) * (a * c + b * d)

@@ -1,5 +1,3 @@
-import E213.Lib.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
-
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Delta.Core
 import E213.Lib.Physics.Simplex.Counts

@@ -1,4 +1,3 @@
-import E213.Lib.Math.Cohomology.Bipartite.V32
 import E213.Lib.Math.Cohomology.Examples.K5
 import E213.Lib.Math.Cohomology.Fractal.Level
 
@@ -14,11 +13,31 @@ underlying simple-edge endpoints, which lie in K₅'s 10 edges.
 
 namespace E213.Lib.Math.Foundations.UniverseChain.BipartiteFractal
 
-open E213.Lib.Math.Cohomology.Bipartite.V32
-  renaming srcFin → srcFinB, tgtFin → tgtFinB
 open E213.Lib.Math.Cohomology.Examples.K5
   renaming srcFin → srcFinK, tgtFin → tgtFinK
 open E213.Lib.Math.Cohomology.Fractal.Level (numV)
+
+/-! ## K_{3,2}^{(c=2)} edge-endpoint encoding (inlined)
+
+The K_{3,2}^{(c=2)} graph has 12 edges (`Fin 12`).  Edge `e` decodes
+to S-index `(e/2)/2 ∈ {0,1,2}`, T-index `(e/2)%2 ∈ {0,1}` (T-vertices
+placed at indices 3, 4 in `Fin 5`), multiplicity `e%2`.  These are the
+endpoint extractors of the bipartite Lattice, inlined here so the
+fractal-embedding statement does not depend on a cohomology carrier. -/
+
+/-- Source vertex (S-idx) of bipartite edge `e`. -/
+def srcOfB (e : Nat) : Nat := (e / 2) / 2
+
+/-- Target vertex (T-idx + 3) of bipartite edge `e`. -/
+def tgtOfB (e : Nat) : Nat := 3 + (e / 2) % 2
+
+/-- Source vertex of edge `e` as `Fin 5`. -/
+def srcFinB (e : Fin 12) : Fin 5 :=
+  ⟨srcOfB e.val % 5, Nat.mod_lt _ (by decide)⟩
+
+/-- Target vertex of edge `e` as `Fin 5`. -/
+def tgtFinB (e : Fin 12) : Fin 5 :=
+  ⟨tgtOfB e.val % 5, Nat.mod_lt _ (by decide)⟩
 
 /-- Bipartite edge `e`'s underlying simple-edge endpoints. -/
 def bipUnderlyingPair (e : Fin 12) : Fin 5 × Fin 5 :=

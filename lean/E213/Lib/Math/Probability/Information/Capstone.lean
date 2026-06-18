@@ -4,7 +4,6 @@ import E213.Lib.Math.Probability.Information.MutualInfo
 import E213.Lib.Math.Probability.Information.KLDivergence
 import E213.Lib.Math.Probability.Information.Channel
 import E213.Lib.Math.Probability.Information.Coding
-import E213.Lib.Math.Probability.Information.Kolmogorov
 
 /-!
 # Information 213 — Capstone synthesis
@@ -14,8 +13,7 @@ Six topical witnesses + one total bundle, all `#print axioms` ∅.
 The 213-native foundation of information theory: **bit = bisection**,
 log₂(2^n) = n atomically (no real-valued logarithm), Shannon
 entropy of uniform on `2^n` is exactly `n` bits, channel capacity
-on noiseless dyadic = 1 bit/symbol, Kolmogorov complexity of 213
-itself = 4 (Raw axiom clauses).
+on noiseless dyadic = 1 bit/symbol.
 -/
 
 namespace E213.Lib.Math.Probability.Information.Capstone
@@ -55,22 +53,16 @@ theorem coding_witness (xs : List Bool) (n : Nat) :
     ∧ E213.Lib.Math.Probability.Information.Coding.optimalCodeLength n = n :=
   ⟨E213.Lib.Math.Probability.Information.Coding.hamming_self xs, rfl⟩
 
-/-- ★ **Kolmogorov witness** ★ — K(213) = 4 (Raw axiom clauses). -/
-theorem kolmogorov_witness :
-    E213.Lib.Math.Probability.Information.Kolmogorov.kolmogorov_213 = 4 :=
-  E213.Lib.Math.Probability.Information.Kolmogorov.kolmogorov_eq_clauses
-
-/-- ★★★ **Total witness** ★★★ — 7-fact grand bundle. -/
+/-- ★★★ **Total witness** ★★★ — 6-fact grand bundle. -/
 theorem total_witness (n m k : Nat) (xs : List Bool) :
     E213.Lib.Math.Probability.Information.Bit.bitsAfterBisections n = n
     ∧ E213.Lib.Math.Probability.Information.Entropy.shannonEntropyUniformBits n = n
     ∧ E213.Lib.Math.Probability.Information.MutualInfo.mutualInfoIndependent n m = 0
     ∧ E213.Lib.Math.Probability.Information.KLDivergence.klBitsDyadic n n = 0
     ∧ E213.Lib.Math.Probability.Information.Channel.noiselessChannel = 1
-    ∧ E213.Lib.Math.Probability.Information.Coding.hammingDistance xs xs = 0
-    ∧ E213.Lib.Math.Probability.Information.Kolmogorov.kolmogorov_213 = 4 :=
+    ∧ E213.Lib.Math.Probability.Information.Coding.hammingDistance xs xs = 0 :=
   ⟨bit_witness n, entropy_witness n, mutualInfo_witness n m,
    (kl_witness n 0).1, (channel_witness k).1,
-   (coding_witness xs 0).1, kolmogorov_witness⟩
+   (coding_witness xs 0).1⟩
 
 end E213.Lib.Math.Probability.Information.Capstone

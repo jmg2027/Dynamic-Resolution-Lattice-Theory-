@@ -20,7 +20,7 @@ contrapositive — formalization of *which observations refute 213*.
   (F4) total pair count ≠ 10 → violates C(5,2).
   (F5) channel count ≠ 3 → violates pair type classification.
   (F6) cycle space dim ≠ 8 → violates atomicity-locked photon.
-  (F7) c_lat ≠ 2 → violates NT atomic.
+  (F7) NT ≠ 2 → violates NT atomic.
 
 Each falsifier is in *contrapositive* form: "If DRLT is correct then X holds.
 If X is false then DRLT is refuted."
@@ -44,7 +44,7 @@ theorem falsifier_d_unique (n : Nat) (hn : n ≠ 5) : ¬ Atomic n := by
     Bundles F1 (d unique), F1' (¬Atomic n for standard candidates),
     F4 (C(5,2)=10 plus the not-9 / not-15 contrapositive bracket),
     F5 (channels=3), F6 (cycle space=8 plus the not-5 contrapositive),
-    F7 (c_lat=2). -/
+    F7 (NT=2). -/
 theorem phase2_falsifiers :
     -- (F1) d unique: n ≠ 5 → ¬ Atomic n
     (∀ n, n ≠ 5 → ¬ Atomic n)
@@ -61,8 +61,8 @@ theorem phase2_falsifiers :
        E213.Lib.Physics.AtomicBase.Edges.NS_atomic - 1 = 8)
     ∧ ¬ (E213.Lib.Physics.AtomicBase.Edges.NS_atomic *
          E213.Lib.Physics.AtomicBase.Edges.NS_atomic - 1 = 5)
-    -- (F7) c_lat = 2
-    ∧ (E213.Lib.Physics.AtomicBase.Edges.c_lattice = 2) := by
+    -- (F7) NT = 2
+    ∧ (E213.Lib.Physics.Simplex.Counts.NT = 2) := by
   refine ⟨falsifier_d_unique, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact falsifier_d_unique 4 (by decide)
   · exact falsifier_d_unique 6 (by decide)

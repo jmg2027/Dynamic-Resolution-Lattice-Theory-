@@ -1,5 +1,3 @@
-import E213.Lib.Math.NumberTheory.DyadicFSM.Signature.Conjecture
-
 /-!
 # K_{3,2}^{(2)} bit-walk universality — chooseEdge witness
 
@@ -19,6 +17,21 @@ question is open.
 -/
 
 namespace E213.Lib.Math.NumberTheory.DyadicFSM.Signature.WalkUniversal
+
+/-- The k-th binary digit of a natural number. -/
+def dyadicBit (n k : Nat) : Bool := (n / 2 ^ k) % 2 == 1
+
+/-- Periodic bit sequence: cycle through `pat` indefinitely. -/
+def periodicBit (pat : List Bool) (k : Nat) : Bool :=
+  if h : pat.length = 0 then false
+  else pat[k % pat.length]'(Nat.mod_lt _ (Nat.pos_of_ne_zero h))
+
+/-- Smoke: 1/3 → [F,T]; 1/5 → [F,F,T,T]; period checks. -/
+theorem period_smoke :
+    periodicBit [false, true] 0 = false
+    ∧ periodicBit [false, true] 3 = true
+    ∧ periodicBit [false, false, true, true] 0 = false
+    ∧ periodicBit [false, false, true, true] 6 = true := by decide
 
 /-- Constructive edge selector by `v.val`. -/
 def chooseEdge (v : Fin 5) (b : Bool) : Fin 12 :=

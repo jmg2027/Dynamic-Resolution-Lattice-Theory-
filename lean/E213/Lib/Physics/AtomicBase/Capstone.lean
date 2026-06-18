@@ -85,8 +85,8 @@ theorem phase2_absolute :
     ∧ (3 * 2 = 2 * 3)
     -- (8) Force: 3 channels (AA, BB, AB)
     ∧ (E213.Lib.Physics.AtomicBase.Force.num_channels = 3)
-    -- (9) Edges: c=2 doubling, 12 directed, b_1 = 8 = NS²-1
-    ∧ (E213.Lib.Physics.AtomicBase.Edges.c_lattice = 2)
+    -- (9) Edges: signature factor NT=2, 12 directed, b_1 = 8 = NS²-1
+    ∧ (E213.Lib.Physics.Simplex.Counts.NT = 2)
     ∧ (E213.Lib.Physics.AtomicBase.Edges.num_directed_edges = 12)
     ∧ (E213.Lib.Physics.AtomicBase.Edges.num_directed_edges - 5 + 1 = 8)
     ∧ (8 = E213.Lib.Physics.AtomicBase.Edges.NS_atomic

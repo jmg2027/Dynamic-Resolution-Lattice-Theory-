@@ -71,8 +71,10 @@ theorem cs6_nontrivial : cs6 ⟨5, by decide⟩ = 1 := by decide
 /-- ★★★ RANK-5 COMPRESSION CONCRETE INSTANCE ★★★
 
     There exist 6 vectors in Vec 5 with non-trivial Int linear
-    dependence (i.e., they span only 5 dimensions).  This is
-    paper 1's chiral compression theorem at concrete level. -/
+    dependence (i.e., they span only 5 dimensions).  This is **one
+    concrete linear-dependence instance**; the universal rank ≤ 5
+    statement (any `vs : Fin N → Vec 5` has Gram rank ≤ 5) is still
+    open (`-- TODO` in `Rank.lean`). -/
 theorem rank_5_concrete_instance :
     -- Non-trivial dependence: cs6 has a nonzero coefficient
     cs6 ⟨5, by decide⟩ = 1

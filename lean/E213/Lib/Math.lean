@@ -13,7 +13,6 @@ import E213.Lib.Math.NumberTheory.DyadicFSM
 import E213.Lib.Math.Tactic.Extras
 import E213.Lib.Math.Analysis.Functional
 import E213.Lib.Math.Geometry.GenerationRule
-import E213.Lib.Math.Geometry.GeometrizationConjecture
 import E213.Lib.Math.Algebra.GRA
 import E213.Lib.Math.Geometry
 import E213.Lib.Math.Algebra.Group
@@ -89,15 +88,31 @@ import E213.Lib.Math.Algebra.Icosahedral
 import E213.Lib.Math.Algebra.Mobius213.Px
 import E213.Lib.Math.Algebra.Mobius213.TowerConvergence
 import E213.Lib.Math.Algebra.Mobius213GrandUnification
-import E213.Lib.Math.Algebra.Mobius213SignatureAxisCatalog
 import E213.Lib.Math.Foundations.GradedRingConfigCountBridge
 import E213.Lib.Math.Foundations.ParadigmDomainPhysics
 import E213.Lib.Math.Foundations.Search
 import E213.Lib.Math.NumberSystems.Padic
 import E213.Lib.Math.NumberTheory.IntSqrt
 import E213.Lib.Math.NumberTheory.AperyIntegrality
+import E213.Lib.Math.NumberTheory.BinomChooseBridge
+import E213.Lib.Math.NumberTheory.BertrandWindow
 import E213.Lib.Math.NumberTheory.FactorialLcmDvd
 import E213.Lib.Math.NumberTheory.LcmBoundMain
+import E213.Lib.Math.NumberTheory.Norm3
+import E213.Lib.Math.NumberTheory.Norm5
+import E213.Lib.Math.NumberTheory.GoldenNormBridge
+import E213.Lib.Math.NumberTheory.SumClosedForms
+import E213.Lib.Math.NumberTheory.SigmaPrimePowGeom
+import E213.Lib.Math.NumberTheory.SigmaDivisorClosed
+import E213.Lib.Math.NumberTheory.PowSubPowFactor
+import E213.Lib.Math.NumberTheory.LiftingExponent
+import E213.Lib.Math.NumberTheory.LiftingExponentPP
+import E213.Lib.Math.NumberTheory.BinomialTwoVar
+import E213.Lib.Math.NumberTheory.LiftingExponentMain
+import E213.Lib.Math.NumberTheory.LiftingExponentCoprime
+import E213.Lib.Math.NumberTheory.LiftingExponentGeneral
+import E213.Lib.Math.NumberTheory.OddCentralBinom
+import E213.Lib.Math.NumberTheory.Primorial
 import E213.Lib.Math.NumberTheory.Zeta3Numerator
 
 /-! Spec-as-code entry point for `E213.Lib.Math` — full 213 mathematics library.
@@ -139,10 +154,6 @@ The directory tree is the spec; this file is the top-level entry.
                           (~100 files)
     * `DyadicFSM`       — dyadic / FSM / Pell / Pisano / Trib / Legendre
                           classification engine (116 files)
-    * `GeometrizationConjecture` — 213-Lens reading of
-                          Thurston/Perelman Geometrization + d=4
-                          exotic-smoothness anomaly (ansatz;
-                          1 file, open conjecture)
     * `HodgeConjecture` — Hodge-conjecture programme (Foundation /
                           Structure / Pairing / Refinement / Toolkit /
                           Bridge / MotivicBridge — 47 files; promoted

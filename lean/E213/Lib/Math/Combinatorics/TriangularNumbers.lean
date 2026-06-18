@@ -112,4 +112,13 @@ theorem chex_sum_cube' (n : Nat) :
     sumTo (n + 1) chex = (n + 1) * (n + 1) * (n + 1) :=
   chex_sum_cube n
 
+
+/-- ★ **Triangular addition formula**: `T_{m+n} = T_m + T_n + m·n` — the figurate cocycle
+    (the `m·n` "interaction rectangle" between the two triangles).  By induction on `n`
+    via `tri_succ`. -/
+theorem tri_add (m : Nat) : ∀ n, tri (m + n) = tri m + tri n + m * n
+  | 0 => rfl
+  | n + 1 => by
+      rw [show m + (n + 1) = (m + n) + 1 from rfl, tri_succ, tri_add m n, tri_succ]
+      ring_nat
 end E213.Lib.Math.Combinatorics.TriangularNumbers

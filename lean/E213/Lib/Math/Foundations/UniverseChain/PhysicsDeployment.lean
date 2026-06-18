@@ -33,19 +33,13 @@ namespace E213.Lib.Math.Foundations.UniverseChain.PhysicsDeployment
 
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
 open E213.Lib.Physics.Foundations.GoldenRatio (fib)
-open E213.Lib.Physics.Mixing.CabibboAngle (C_lat sin_theta_C_bare)
+open E213.Lib.Physics.Mixing.CabibboAngle (sin_theta_C_bare)
 open E213.Lib.Physics.Mixing.CPViolation
   (delta_approx_num delta_approx_den)
 
-/-! ## §1 — Cabibbo derived from chain step 1-5 atomicity + lattice c -/
+/-! ## §1 — Cabibbo derived from chain step 1-5 atomicity -/
 
-/-- `c = lattice speed parameter = 2 = NT`.
-
-    Identifies the lattice speed `C_lat = 2` with the atomic
-    temporal dimension `NT = 2`.  Both are atomic chain values. -/
-theorem c_lat_eq_NT : C_lat = NT := rfl
-
-/-- The Cabibbo bare denominator `d² − d + c = 25 − 5 + 2 = 22`
+/-- The Cabibbo bare denominator `d² − d + NT = 25 − 5 + 2 = 22`
     using ONLY chain values `(d, NT)`. -/
 theorem cabibbo_denom_from_chain :
     d * d - d + NT = 22 := by decide
@@ -131,30 +125,27 @@ constants `(NS, NT, d)`. -/
 
 /-- ★★★★★ **Universe Chain → Physics Deployment capstone**.
 
-    Bundles: (a) `C_lat = NT` (lattice speed = atomic temporal
-    dimension); (b) Cabibbo bare = 5/22 = d / (d² − d + NT);
-    (c) Möbius P signature: trace = NS, det = 1, top-left = NT;
-    (d) chain identity `d · NT − NS² = 1` (Cassini at d=5);
-    (e) CKM δ_CKM rational approximation 176/147 ≈ π/φ².
+    Bundles: (a) Cabibbo bare = 5/22 = d / (d² − d + NT);
+    (b) Möbius P signature: trace = NS, det = 1, top-left = NT;
+    (c) chain identity `d · NT − NS² = 1` (Cassini at d=5);
+    (d) CKM δ_CKM rational approximation 176/147 ≈ π/φ².
 
     Every physics observable on the RHS is a **closed function of
-    the chain values `(NS, NT, d, c) = (3, 2, 5, 2)`** — no
+    the chain values `(NS, NT, d) = (3, 2, 5)`** — no
     additional inputs. -/
 theorem physics_deployment_capstone :
-    -- (a) c = NT
-    C_lat = NT
-    -- (b) Cabibbo 5/22
-    ∧ sin_theta_C_bare = (d, d * d - d + NT)
+    -- (a) Cabibbo 5/22
+    sin_theta_C_bare = (d, d * d - d + NT)
     ∧ sin_theta_C_bare = (5, 22)
-    -- (c) Möbius P signature
+    -- (b) Möbius P signature
     ∧ mobiusP.1.1 + mobiusP.2.2 = NS
     ∧ mobiusP.1.1 = NT
     ∧ mobiusP.1.1 * mobiusP.2.2 - mobiusP.1.2 * mobiusP.2.1 = 1
-    -- (d) d · NT − NS² = 1 (Cassini at chain root)
+    -- (c) d · NT − NS² = 1 (Cassini at chain root)
     ∧ d * NT - NS * NS = 1
-    -- (e) CKM δ rational approximation
+    -- (d) CKM δ rational approximation
     ∧ delta_approx_num = 176
     ∧ delta_approx_den = 147 := by
-  refine ⟨rfl, rfl, ?_, ?_, rfl, ?_, ?_, ?_, ?_⟩ <;> decide
+  refine ⟨rfl, ?_, ?_, rfl, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Math.Foundations.UniverseChain.PhysicsDeployment

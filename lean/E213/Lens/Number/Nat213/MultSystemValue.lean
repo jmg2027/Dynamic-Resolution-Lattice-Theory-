@@ -498,6 +498,46 @@ theorem central_binom_ge_two_pow : ∀ n, 2 ^ n ≤ binom (2 * n) n
         _ ≤ 2 * binom (2 * n) n := Nat.mul_le_mul (Nat.le_refl 2) ih
         _ ≤ binom (2 * (n + 1)) (n + 1) := hstep
 
+/-- **Central binomial upper-half bound: `4^n ≤ (2n+1)·C(2n,n)`.**  The sharper companion
+    of `central_binom_ge_two_pow` — the central term dominates the binomial expansion of
+    `4^n = (1+1)^{2n} = Σ_{k≤2n} C(2n,k)` up to the term count `2n+1`.  Proved by the same
+    cleared recurrence `C(2n+2,n+1)·(n+1) = 2(2n+1)·C(2n,n)`: the induction step reduces to
+    `4(n+1) ≤ 2(2n+3)` (i.e. `4n+4 ≤ 4n+6`), no division.  Raises the Chebyshev `ψ`-lower
+    base from `√2` (`two_pow_le_lcm`) to `2`: `ψ(2n) ≥ 2n·ln2 − ln(2n+1)`. -/
+theorem four_pow_le_succ_mul_central_binom : ∀ n, 4 ^ n ≤ (2 * n + 1) * binom (2 * n) n
+  | 0     => by decide
+  | n + 1 => by
+      have ih := four_pow_le_succ_mul_central_binom n
+      have hF : 0 < fact n := fact_pos n
+      have cbn := central_binom_factorial n
+      have cbn1 := central_binom_factorial (n + 1)
+      have hfn1 : fact (n + 1) = (n + 1) * fact n := rfl
+      have hfac : fact (2 * (n + 1)) = (2 * n + 1 + 1) * ((2 * n + 1) * fact (2 * n)) := by
+        rw [show 2 * (n + 1) = 2 * n + 1 + 1 from by ring_nat]; rfl
+      rw [hfn1, hfac, ← cbn] at cbn1
+      have hpos : 0 < (n + 1) * (fact n * fact n) :=
+        Nat.mul_pos (Nat.succ_pos n) (Nat.mul_pos hF hF)
+      have hrec : binom (2 * (n + 1)) (n + 1) * (n + 1) = 2 * (2 * n + 1) * binom (2 * n) n := by
+        apply Nat.eq_of_mul_eq_mul_right hpos
+        calc binom (2 * (n + 1)) (n + 1) * (n + 1) * ((n + 1) * (fact n * fact n))
+            = binom (2 * (n + 1)) (n + 1) * ((n + 1) * fact n * ((n + 1) * fact n)) := by ring_nat
+          _ = (2 * n + 1 + 1) * ((2 * n + 1) * (binom (2 * n) n * (fact n * fact n))) := cbn1
+          _ = 2 * (2 * n + 1) * binom (2 * n) n * ((n + 1) * (fact n * fact n)) := by ring_nat
+      have hslack : 4 * (n + 1) ≤ (2 * (n + 1) + 1) * 2 := by
+        rw [show (2 * (n + 1) + 1) * 2 = 4 * (n + 1) + 2 from by ring_nat]
+        exact Nat.le_add_right _ 2
+      apply le_of_mul_le_mul_right_pure (Nat.succ_pos n)
+      calc 4 ^ (n + 1) * (n + 1)
+          = 4 * 4 ^ n * (n + 1) := by rw [Nat.pow_succ]; ring_nat
+        _ ≤ 4 * ((2 * n + 1) * binom (2 * n) n) * (n + 1) :=
+            Nat.mul_le_mul (Nat.mul_le_mul (Nat.le_refl 4) ih) (Nat.le_refl (n + 1))
+        _ = (4 * (n + 1)) * ((2 * n + 1) * binom (2 * n) n) := by ring_nat
+        _ ≤ ((2 * (n + 1) + 1) * 2) * ((2 * n + 1) * binom (2 * n) n) :=
+            Nat.mul_le_mul hslack (Nat.le_refl _)
+        _ = (2 * (n + 1) + 1) * (2 * (2 * n + 1) * binom (2 * n) n) := by ring_nat
+        _ = (2 * (n + 1) + 1) * (binom (2 * (n + 1)) (n + 1) * (n + 1)) := by rw [hrec]
+        _ = (2 * (n + 1) + 1) * binom (2 * (n + 1)) (n + 1) * (n + 1) := by ring_nat
+
 /-- **Every prime in `(n, 2n]` divides `C(2n,n)`.**  Read `central_binom_factorial`
     through `vp`: `vp_p((2n)!) = vp_p(C(2n,n)) + 2·vp_p(n!) = vp_p(C(2n,n))` (since
     `vp_p(n!)=0` for `p > n`), and `vp_p((2n)!) ≥ 1` (`p ∣ (2n)!`, `p ≤ 2n`).  The
@@ -1013,6 +1053,44 @@ theorem windowCount_pow_le (n : Nat) : (n + 1) ^ windowCount n ≤ 2 ^ (2 * n) :
   Nat.le_trans
     (pow_length_le_prod (n + 1) (primesIn n (2 * n)) (fun _ hp => mem_primesIn_gt hp))
     (window_prod_le n)
+
+/-! ## Primorial infrastructure (toward Bertrand's postulate) -/
+
+/-- `listProd` is multiplicative over concatenation: `∏(xs ++ ys) = ∏xs · ∏ys`. -/
+theorem listProd_append : ∀ (xs ys : List Nat),
+    listProd (xs ++ ys) = listProd xs * listProd ys
+  | [],      ys => by show listProd ys = 1 * listProd ys; ring_nat
+  | x :: xs, ys => by
+      show x * listProd (xs ++ ys) = x * listProd xs * listProd ys
+      rw [listProd_append xs ys]; ring_nat
+
+/-- ★ **Window-split of the prime list.**  For `lo ≤ mid ≤ hi`, the primes in `(lo, hi]`
+    split at `mid`: `primesIn lo hi = primesIn mid hi ++ primesIn lo mid` (the upper window
+    `(mid, hi]` followed by the lower `(lo, mid]`).  The reusable keystone for the primorial
+    bound `∏_{p≤N} p ≤ 4ⁿ` (the odd-`N` Erdős split `∏_{p≤2m+1} = ∏_{p≤m+1}·∏_{(m+1,2m+1]}`). -/
+theorem primesIn_split {lo : Nat} : ∀ {mid hi : Nat}, lo ≤ mid → mid ≤ hi →
+    primesIn lo hi = primesIn mid hi ++ primesIn lo mid := by
+  intro mid hi
+  induction hi with
+  | zero =>
+      intro hlm hmh
+      have hmid0 : mid = 0 := Nat.le_antisymm hmh (Nat.zero_le _)
+      subst hmid0; rfl
+  | succ k ih =>
+      intro hlm hmh
+      rcases Nat.lt_or_ge mid (k + 1) with hmk | hmk
+      · have hmk' : mid ≤ k := Nat.le_of_lt_succ hmk
+        have hlk1 : lo < k + 1 := Nat.lt_of_le_of_lt hlm hmk
+        cases decPrime (k + 1) with
+        | isTrue hp =>
+            rw [primesIn_cons hlk1 hp, primesIn_cons hmk hp, ih hlm hmk']
+            rfl
+        | isFalse hp =>
+            rw [primesIn_skip hlk1 hp, primesIn_skip hmk hp, ih hlm hmk']
+      · have hmid : mid = k + 1 := Nat.le_antisymm hmh hmk
+        subst hmid
+        rw [primesIn_empty (Nat.lt_irrefl (k + 1))]
+        rfl
 
 /-- **The Chebyshev count cap (additive form): `#{primes in (n,2n]} ≤ ⌊log_{n+1}
     2^{2n}⌋`** for `n ≥ 1`.  Apply `floorLog_ge` to `windowCount_pow_le`: the

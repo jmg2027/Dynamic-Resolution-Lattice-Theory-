@@ -1,7 +1,5 @@
 import E213.Lib.Math.Cohomology.HodgeConjecture.API
 import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge
-import E213.Lib.Math.Cohomology.HodgeConjecture.Foundation
-import E213.Lib.Math.Cohomology.HodgeConjecture.MotivicBridge
 import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing
 import E213.Lib.Math.Cohomology.HodgeConjecture.Refinement
 import E213.Lib.Math.Cohomology.HodgeConjecture.Structure
@@ -9,7 +7,9 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Toolkit
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.HodgeConjecture`.
 
-  213-native Hodge-conjecture bridge stack.
+  Cup-chain cohomology toolkit + surface intersection-form / signature
+  results.  (The genuine ⋆⋆ = id involution lives in
+  `Cohomology.Hodge.InvolutionCapstone`.)
 
   ## Top-level
 
@@ -17,23 +17,14 @@ import E213.Lib.Math.Cohomology.HodgeConjecture.Toolkit
 
   ## Sub-cluster umbrellas
 
-    * `Foundation/`  — Canonical / Complete / Conjecture /
-                       ConjectureLens / Filled / LensCata
-    * `Structure/`   — algebraic structure (HardLefschetz, Map,
+    * `Structure/`   — algebraic structure (Map = ⋆ as ℤ/2-bijection,
                        PoincareDuality, Ring)
-    * `Pairing/`     — Hodge index / Hodge–Riemann pairings
-    * `Refinement/`  — cup-atomic, generalized Hodge,
-                       Lefschetz hyperplane / (1,1), standard
-                       conjectures, Voisin
-    * `Toolkit/`     — LensClassifier, Primitives, RoundTrip*
-    * `Bridge/`      — physics / CS bridges: Beilinson regulator,
-                       discrete geometry, G6 vacuity, Galois
-                       counterfactual, Ising, ML decoder, motive
-                       etale fusion, phase routing, Potts, spin
-                       glass (+ ground state)
-    * `MotivicBridge/` — motivic-cohomology bridges (classical-side
-                         counterparts): Beilinson-Lichtenbaum,
-                         Bloch-Beilinson, ChernCharacter, HodgeTate,
-                         MumfordTate, Tate.  Hosted under OS/ before
-                         Phase A3.
+    * `Pairing/`     — surface intersection forms: Hodge index /
+                       Hodge–Riemann signatures on real CW surfaces
+                       (T², ℙ², ℙ¹×ℙ¹, T²×T², Σ_g, products)
+    * `Refinement/`  — cup-atomic generation at Δ⁴ (k=2 case-work)
+    * `Toolkit/`     — Primitives, RoundTrip*
+    * `Bridge/`      — statistical-mechanics + CS bridges: Ising,
+                       Potts, spin glass (+ ground state), ML decoder,
+                       discrete geometry
 -/

@@ -36,7 +36,7 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d partition_sum)
 
 /-! ## §1 — Stern-Brocot realises the atomic signature -/
 
-/-- ★★★ The Möbius P-orbit from `seedZero` reaches the atomic
+/-- ★★ The Möbius P-orbit from `seedZero` reaches the atomic
     signature `(NS, NT) = (3, 2)` at depth 2.  Direct from
     `orbits_hit_atoms_at_depth_2`, restated via the
     `Physics.Simplex.Counts` aliases. -/
@@ -45,7 +45,7 @@ theorem pseq_seedZero_realises_NS_NT :
   show Pseq seedZero 2 = (3, 2)
   exact orbits_hit_atoms_at_depth_2.1
 
-/-- ★★★ The Möbius P-orbit from `seedInf` reaches
+/-- ★★ The Möbius P-orbit from `seedInf` reaches
     `(NS + NT, NS) = (5, 3)` at depth 2 — the discriminant value
     `d = NS + NT` written explicitly. -/
 theorem pseq_seedInf_realises_d_NS :
@@ -66,15 +66,16 @@ theorem d_NS_reachable : SternBrocotReachable (NS + NT, NS) :=
 
 /-! ## §2 — Atomic / discriminant / orbit unification -/
 
-/-- ★★★★★★ **Cross-frame anchor**: the integer `5 = NS + NT = d`
-    appears simultaneously as
+/-- ★★ **Cross-frame anchor**: the integer `5 = NS + NT = d`
+    appears as
       (a) the unique atomic Nat (`atomic_iff_five`),
       (b) the discriminant of the Möbius matrix P
           (`trace² − 4·det = 3² − 4·1 = 5`),
       (c) the first component of `Pseq seedInf 2` (the P-orbit's
           depth-2 image of `(1, 0)`),
       (d) the sum of the components of `Pseq seedZero 2 = (NS, NT)`.
-    Four a priori unrelated readings of the same integer 5. -/
+    A bundle of these four readings of the integer 5 (each conjunct
+    is an existing lemma). -/
 theorem disc_atom_orbit_master :
     -- (a) NS + NT = 5 = d
     NS + NT = 5

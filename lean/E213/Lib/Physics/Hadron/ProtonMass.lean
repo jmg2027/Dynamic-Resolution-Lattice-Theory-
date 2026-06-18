@@ -1,22 +1,25 @@
 import E213.Lib.Physics.Higgs.Mass
 
 /-!
-# m_p = 938.27 MeV — closed propagator + atomic structure (0 axioms)
+# m_p — closed propagator narrative + proton atomic structure (0 axioms)
 
-DRLT formula:
+DRLT narrative formula (numerical, not Lean-computed):
 
   m_p = NS · Λ_QCD · P(α_GUT · NS / d)
 
   where P(x) = (1 + 2x)/(1 + x)  (closed Dyson resummation)
 
-## Numerical breakdown
+## Numerical narrative (informal)
 
   NS · Λ_QCD   = 3 · 308.32 = 924.97 MeV   [combinatorial 3-quark]
   x = α_GUT · NS / d = 0.0243 · 3/5 = 0.01459
   P(x) = (1 + 0.02918)/(1 + 0.01459) = 1.01438
-  m_p = 924.97 · 1.01438 = 938.27 MeV
+  m_p = 924.97 · 1.01438 ≈ 938 MeV
 
-  Observed: 938.27 MeV  ★ 0.000% match ★
+  This is a narrative breakdown; the Lean theorem below proves only
+  the genuine *integer atomic readings* (NT² = 4, d−1 = 4, d³ = 125,
+  the NS/d = 3/5 closed-propagator argument scale).  m_p itself is
+  not derived as a Lean theorem here.
 
 ## ★ Closed propagator P(x) — universal Dyson form ★
 
@@ -53,23 +56,20 @@ def closed_prop_factor_den : Nat := d   -- = 5
 def closed_prop_num_factor : Nat := 2  -- "1 + 2x" numerator
 def closed_prop_den_factor : Nat := 1  -- "1 + x" (1·x) denominator
 
-/-- ★ Proton mass simplicial pattern + charge-radius atomic skeleton ★
+/-- Proton atomic structure readings (integer arithmetic only).
 
-  m_p = NS · Λ_QCD · (1+2x)/(1+x) with x = α_GUT · NS / d closes to
-  938.27 MeV.  Same closed-propagator P(x) appears in m_μ/m_e
-  Dyson and general fermion masses.
+  The narrative closed-propagator form m_p = NS · Λ_QCD · (1+2x)/(1+x)
+  with x = α_GUT · NS / d is informal (see module docstring); m_p
+  is **not** derived as a Lean theorem.  What is proven here are the
+  genuine integer atomic readings:
 
-  Bundles:
     · NS = 3 valence quarks, d = 5 dimension
-    · NS/d = 3/5 atomic ratio (inverse Y-norm); cross-mult
-      5·3 = 3·5
+    · NS/d = 3/5 atomic ratio (inverse Y-norm); cross-mult 5·3 = 3·5
     · Closed propagator (1+2x)/(1+x) atomic factors (2, 1)
-    · m_p brackets: 1% [930, 945], 0.1% [937, 940], 4-digit match
-    · Proton charge radius r_p · m_p / (ℏc) = NT² = 4 with
-      three atomic readings (NT² = d−1 = NS+1)
-    · r_p v2 sub-ppm tighter via α_GUT/d³ leak: d³ = 125
-      (3D spatial simplex volume). -/
-theorem proton_simplicial_pattern :
+    · Proton charge radius r_p · m_p / (ℏc) = NT² = 4 with three
+      atomic readings (NT² = d−1 = NS+1)
+    · α_GUT/d³ leak coefficient d³ = 125 (3D spatial simplex volume). -/
+theorem proton_atomic_readings :
     -- Atomic primitives
     NS = 3 ∧ NT = 2 ∧ d = 5
     -- NS/d = 3/5 atomic ratio (closed propagator argument scale)
@@ -80,17 +80,13 @@ theorem proton_simplicial_pattern :
     -- Closed propagator P(x) atomic factors
     ∧ closed_prop_num_factor = 2
     ∧ closed_prop_den_factor = 1
-    -- m_p observed 938.27 brackets
-    ∧ (93000 < 93827 ∧ 93827 < 94500)         -- 1%
-    ∧ (93700 < 93827 ∧ 93827 < 94000)         -- 0.1%
-    ∧ (93827 : Nat) = 93827                   -- 4-digit match
     -- r_p · m_p / (ℏc) = NT² = 4 (three atomic readings)
     ∧ NT * NT = 4
     ∧ d - 1 = 4
     ∧ NS + 1 = 4
-    -- r_p v2 sub-ppm: α_GUT/d³ leak coefficient = 125 = 3D volume
+    -- α_GUT/d³ leak coefficient = 125 = 3D volume
     ∧ d ^ 3 = 125 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   <;> decide
 
 end E213.Lib.Physics.Hadron.ProtonMass

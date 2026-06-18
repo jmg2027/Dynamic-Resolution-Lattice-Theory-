@@ -39,8 +39,7 @@ Both satisfy the SL₂(ℤ) determinant unit `|ab + b² − a²| = 1`
 (signed: +1 on seedZero, −1 on seedInf —
 `Mobius213PellInvariant.lean`).
 
-Concrete classification proved in
-`BipartiteStermBrocotClassification.lean`:
+Concrete positions (`Mobius213AtomicityAnchor.lean`):
 
 | Graph | (NS, NT) | Position |
 |---|---|---|
@@ -49,10 +48,12 @@ Concrete classification proved in
 | K_{5,3}^{(c)} | (5, 3) | `Pseq seedInf 2` orbit |
 | K_{3,3}^{(c)} | (3, 3) | 3 · (1, 1) — scale-3 root |
 
-K_{3,2} lies on the seedZero chain; K_{5,3} on the seedInf chain;
-K_{4,3} interior to the tree (mediant of seedZero/seedInf
-depth-1 points); K_{3,3} on the diagonal (scale-3 root).  Every
-small bipartite multigraph is placed.
+K_{3,2} lies on the seedZero chain
+(`pseq_seedZero_realises_NS_NT`: `Pseq seedZero 2 = (NS, NT)`,
+and `NS_NT_reachable`); K_{5,3} on the seedInf chain; K_{4,3}
+interior to the tree (mediant of seedZero/seedInf depth-1
+points); K_{3,3} on the diagonal (scale-3 root).  Every small
+bipartite multigraph is placed.
 
 ## Dual function
 
@@ -77,11 +78,10 @@ as separate combinatorial objects each requiring fresh
 cohomology computation.  The Stern-Brocot reading reveals these
 graphs as samples of ONE lattice — and cohomological proofs
 respect the lattice structure:
-`CrossGraphPattern.cross_graph_S_row_dependence_pattern`
-(PURE) shows the S-row dependence at NT = 3 holds at BOTH
-K_{3,3} (3 instances) and K_{4,3} (6 instances) from the same
-proof template.  Proofs transport along NT-fibres of the
-Stern-Brocot tree.
+`KernelConstancyUniversal.universal_kernel_close` (PURE) shows
+`b₀ = 1` (connectedness) uniformly across the whole
+`K_{NS, NT}^{(c)}` family from a single parametric statement.
+Structural facts transport along the Stern-Brocot tree.
 
 ## Cross-frame connections
 
@@ -95,71 +95,17 @@ Three readings of the same lattice:
     cohomology theory; the Stern-Brocot position parameterises
     the family of cohomologies coherently.
 
-The third reading is what
-`BipartiteStermBrocotClassification.lean` formalises.  Combined
-with the parametric c-counter
-(`V33EnrichedParametric.parametric_c_independent_h2_classes`),
-it gives a 3D parameter space (Stern-Brocot path × scale × c)
-whose cohomology can be navigated systematically.
-
-## Mediant cohomology functor (count level closed)
-
-The mediant `(4, 3) = (1, 1) ⊕ (3, 2)` lifts to a
-**Vandermonde decomposition** of every cell count of
-`K_{NS, NT}^{(c)}` (`MediantCohomologyFunctor.lean`, 22 PURE):
-
-  · `binom_add_2` (Vandermonde-2): `binom (a+b) 2 = binom a 2
-    + binom b 2 + a·b`.  S-pairs split into intra-a, intra-b,
-    and cross-ab.
-  · `vertexCount_mediant`:
-    `V(a+c, b+d) = V(a, b) + V(c, d)` (2-term additive).
-  · `edgeCount_mediant`:
-    `E^m(a+c, b+d) = E^m(a, b) + E^m(a, d) + E^m(c, b) +
-    E^m(c, d)` (4-term Vandermonde).
-  · `faceCount_mediant_factored`:
-    `F(a+c, b+d) = (binom a 2 + binom c 2 + a·c) ·
-    (binom b 2 + binom d 2 + b·d)` (factored Vandermonde²;
-    9 terms total).
-
-Concrete K_{4,3} = K_{1,1} ⊕ K_{3,2} at c = 2:
-`7 = 2 + 5`, `24 = 2 + 4 + 6 + 12`, `18 = 6 · 3` — all
-decide-verified, with the K_{4,3} face count matching
-`V43.K43_simple_face_count` via the mediant rather than direct
-combinatorial computation.
-
-The functor assignment
-`(NS, NT) ↦ (vertexCount, edgeCount, faceCount)` factors
-through the Stern-Brocot mediant inductive structure: every
-Stern-Brocot-reachable `(NS, NT)` count is computable as a
-finite sum of products of `binom` values along the unique
-path from root to (NS, NT).
-
-The lift from **cell-count Vandermonde** to **cochain-space
-and cup-product algebra** is the next layer.  The S-row
-dependence cross-graph result
-(`CrossGraphPattern.cross_graph_S_row_dependence_pattern`)
-is one fragment: a structural identity depending only on
-NT = 3, transporting through the mediant rule because
-mediants preserve the NT-fibre when one summand has NT = 3.
-A full cochain-level mediant functor would identify the 4
-edge classes and 9 face classes as concrete sub-cochain
-sub-spaces and prove the cup-product algebra of
-`K_{a+c, b+d}` factors through the 4 × 9 = 36 mediant
-sub-cells.
-
-`theory/math/cohomology/k_nm_c_classification.md` §"Mediant
-cohomology functor (count level)" hosts the formal
-statements.
+The third reading is anchored by the Betti structure at the
+canonical lattice point: `b₀ = 1` uniformly across the family
+(`KernelConstancyUniversal.universal_kernel_close`) and
+`b₁ = 6`, `b₂ = 1` at the K_{3,2}^{(c=2)} filling
+(`Filled3CellCohomology.phase1_cohomology_anchor`).  The
+Stern-Brocot path × scale axes place each graph; `c` is the
+multiplicity layer count, a derived presentation parameter that
+does not move the lattice position.
 
 ## Open frontier
 
-  · **Cochain-level mediant functor**: count level closed
-    (`MediantCohomologyFunctor.lean`); the lift to
-    cochain-space + cup-product algebra is open.  Requires
-    identifying the 4 edge classes and 9 face classes as
-    concrete sub-cochain sub-spaces of `K_{a+c, b+d}^{(c)}`
-    and proving the cup-product algebra factors through the
-    4 × 9 = 36 mediant sub-cells.
   · **Pell-orbit extension**: cover (8, 5), (5, 4), (7, 4),
     (13, 8) — the next layer of Möbius P lattice anchors.
     Each requires a Lean reachable witness plus cohomology
@@ -167,35 +113,28 @@ statements.
   · **Tree-interior extension**: K_{4,3} is one interior
     sample; what does cohomology look like at (5, 4) (mediant
     of (1, 1) and (4, 3)) and at (7, 5) (mediant of (3, 2) and
-    (4, 3))?  Count-level Vandermonde is available from
-    `MediantCohomologyFunctor`; cohomology-level pattern
-    emergence is open.
-  · **K_{NS, NT}^{(c)} parametric framework**: lifting
-    `V33EnrichedParametric` from NS = NT = 3 to general
-    (NS, NT) needs symbolic `Nat.choose 2`-indexing of S/T
-    pairs.
+    (4, 3))?
 
 ## The thing you can point at
 
-`k32_sternBrocot_position`:
+`Mobius213AtomicityAnchor` (∅-axiom PURE):
 
 ```
-SternBrocotReachable (3, 2) ∧ (3, 2) = Pseq seedZero 2
+pseq_seedZero_realises_NS_NT : Pseq seedZero 2 = (NS, NT)
+disc_atom_orbit_master       : SternBrocotReachable (NS, NT)
+                               ∧ SternBrocotReachable (NS + NT, NS) ∧ ...
 ```
 
-Two clauses, one ∅-axiom theorem.  The atomic signature is
-mediant-reachable AND lies on the P-orbit AND realises the
-depth-2 image of the seed — three readings of the position of
-the same anchor point in the universal lattice, locked into
-one Lean theorem.
+The atomic signature is mediant-reachable AND lies on the
+P-orbit AND realises the depth-2 image of the seed — three
+readings of the position of the same anchor point in the
+universal lattice, locked into ∅-axiom Lean theorems.
 
 ## Cross-references
 
-  · `theory/math/cohomology/k_nm_c_classification.md` — chapter
-    hosting the formal classification + parametric c-counter
   · `theory/math/algebra/mobius_canonical_equivalence.md` — Möbius P as
     cut equivalence generator; Stern-Brocot mediant closure
-  · `theory/essays/cohomology/c_counter_as_layer_count.md` — orthogonal
-    c-axis decoupling from (NS, NT) lattice position
+  · `lean/E213/Theory/Atomicity/Five.lean` — `atomic_iff_five`
+    (5 is the unique atomic Nat = the (3, 2) anchor's d)
   · `theory/essays/p_orbit/every_axis_sees_p.md` — P as the universal
     generator across 55 framework axes

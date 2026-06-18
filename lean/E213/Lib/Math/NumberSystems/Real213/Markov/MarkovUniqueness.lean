@@ -1378,7 +1378,7 @@ theorem markov_reachable_no_3mod4_factor {a b c : Nat} (hc : 1 < c) (h : MarkovR
 
 /-! ## §14 — toward the uniqueness certificate framework: the recovery map
 
-The Stern-Brocot tree node theorem (`Cohomology/BipartiteStermBrocotClassification`) already gives
+The Stern-Brocot tree node theorem (`NumberSystems/Real213/Mobius/Mobius213SternBrocot`) already gives
 that every coprime `(p,q)` is a *unique* tree node — so the Markov uniqueness conjecture is purely
 that the **node ↦ maximum** labelling is injective.  The phantom-root filter
 (`markov_phantom_root_filter`, `markov_composite_separation`) certifies this per-`c` by reducing
@@ -1597,5 +1597,66 @@ set_option maxRecDepth 40000 in
 /-- `MarkovMaxUnique 194` (`194 = 2·97`) — roots `{75,119}`, triple `(5,13,194)`. -/
 theorem markov_max_unique_194 : MarkovMaxUnique 194 :=
   markov_max_unique_of_2roots 194 5 13 75 119 (by decide) (by decide) (by decide) (by decide)
+
+/-! ## The strip-reframe cap — why Zhang's `3c±2` is the *terminal* parametric family
+
+`markov_max_unique_via_3c_pm2` closes a Markov number whose neighbour `c` has `3c±2`
+a prime power, because the modulus `M = 3c±2` exceeds `2c`: the square-collapse
+`δ² ≡ δ'² (mod M)` then forces `δ = δ'` (the alternative branch `δ + δ' = M` is
+excluded by `δ + δ' < 2c < M`).  A natural hope is to *iterate* the reframe down a
+proper **factor** `q` of `3c±2` — reaching composite neighbours.
+
+This is impossible, and the obstruction is one arithmetic fact: **every proper
+divisor of `3c±2` is `< 2c`** (the discriminant is `9c²−4 = (3c−2)(3c+2)`, with
+`(3c−2)+(3c+2)=6c`; a proper divisor is `≤ M/2 < 2c`).  So a proper factor `q` leaves
+the collapse with room for the `x + y = q` branch — it cannot force `δ = δ'`.  Only
+`3c±2` *itself* (`> 2c`) closes a case.  Hence `3c±2` is the **last** parametric family
+of the linear-invariant kind; the lever is exhausted.
+
+This is a **map cap**, not a kernel advance: it records *why* the elementary route
+terminates, sharpening the residual.  The open kernel — realizability of a `√(−1)`-
+suborbit of discriminant `9c²−4` — *is* the Frobenius uniqueness conjecture itself. -/
+theorem proper_divisor_of_zhang_modulus_lt_two_c
+    {c M q : Nat} (hc : 3 ≤ c) (hM : M = 3 * c + 2 ∨ M = 3 * c - 2)
+    (hdvd : q ∣ M) (hne : q ≠ M) : q < 2 * c := by
+  obtain ⟨k, hk⟩ := hdvd
+  have hMpos : 0 < M := by
+    rcases hM with h | h
+    · rw [h]; exact Nat.succ_pos _
+    · rw [h]
+      have h9 : 3 * 3 ≤ 3 * c := Nat.mul_le_mul_left 3 hc
+      exact Nat.lt_of_lt_of_le (show (0:Nat) < 3 * 3 - 2 by decide) (Nat.sub_le_sub_right h9 2)
+  have hk0 : 0 < k := by
+    rcases Nat.eq_zero_or_pos k with h | h
+    · rw [h, Nat.mul_zero] at hk; exact absurd (hk ▸ hMpos) (Nat.lt_irrefl 0)
+    · exact h
+  have hk2 : 2 ≤ k := by
+    rcases Nat.lt_or_ge k 2 with hlt | hge
+    · exfalso
+      have hk1 : k = 1 := Nat.le_antisymm (Nat.le_of_lt_succ hlt) hk0
+      apply hne; rw [hk, hk1, Nat.mul_one]
+    · exact hge
+  have h2q : 2 * q ≤ M := by
+    rw [hk]
+    calc 2 * q = q * 2 := by ring_nat
+      _ ≤ q * k := Nat.mul_le_mul_left q hk2
+  have hM4c : M < 4 * c := by
+    rcases hM with h | h
+    · rw [h]
+      have hcc : 2 < c := Nat.lt_of_succ_le hc
+      calc 3 * c + 2 < 3 * c + c := Nat.add_lt_add_left hcc (3 * c)
+        _ = 4 * c := by ring_nat
+    · rw [h]
+      have hcpos : 0 < c := Nat.lt_of_lt_of_le (by decide) hc
+      have h3c4c : 3 * c < 4 * c := by
+        calc 3 * c < 3 * c + c := Nat.lt_add_of_pos_right hcpos
+          _ = 4 * c := by ring_nat
+      exact Nat.lt_of_le_of_lt (Nat.sub_le (3 * c) 2) h3c4c
+  have h2q4c : 2 * q < 2 * (2 * c) := by
+    have hlt : 2 * q < 4 * c := Nat.lt_of_le_of_lt h2q hM4c
+    rwa [show 4 * c = 2 * (2 * c) from by ring_nat] at hlt
+  rcases Nat.lt_or_ge q (2 * c) with h | h
+  · exact h
+  · exact absurd h2q4c (Nat.not_lt.mpr (Nat.mul_le_mul_left 2 h))
 
 end E213.Lib.Math.NumberSystems.Real213.Markov.MarkovUniqueness

@@ -49,21 +49,21 @@ open E213.Lib.Physics.Simplex.Counts (NS NT d binom)
 
 /-! ## §1 — Topological / relative invariants (definitions) -/
 
-/-- c = lattice multiplicity. -/
-def c_lat : Nat := 2
-
 /-- Vertex count = NS + NT = d. -/
 def V_K : Nat := d
 
-/-- Edge count = c · NS · NT. -/
-def E_K : Nat := c_lat * NS * NT
+/-- Octet edge count, c-free: `NS·NT²` (the extra `NT` is the
+    order-2/signature factor). -/
+def E_K : Nat := NS * NT * NT
 
 /-- Connected: H⁰(K) = ℤ. -/
 def H0_K : Nat := 1
 
-/-- First Betti: dim H¹(K) = E − V + 1.  Externally consumed by
-    `Symmetry/GluonChannelInterpretation`. -/
-def H1_K : Nat := E_K - V_K + 1
+/-- Octet count, sourced directly from the forced `NS = 3`:
+    `H¹ = NS² − 1 = 8` (SU(NS) adjoint).  Externally consumed by
+    `Symmetry/GluonChannelInterpretation`.  Equivalently `E − V + 1`
+    with the c-free edge count.  c-free. -/
+def H1_K : Nat := NS * NS - 1
 
 /-- Euler characteristic χ(K) = V − E. -/
 def chi_K : Int := (V_K : Int) - (E_K : Int)
@@ -86,17 +86,6 @@ def inv_alpha_3 : Nat := NS * NS - 1
     we get H²(Δ⁴, K) ≅ H¹(K) = ℤ⁸. -/
 def H2_relative_dim : Nat := H1_K
 
-/-- The constraint `c · m · n = m² + m + n − 2` must hold
-    for `dim H¹(K_{m,n}^{(c)}) = m² − 1`. -/
-def consistency_check (c m n : Nat) : Bool :=
-  c * m * n == m * m + m + n - 2
-
-/-- Sheet redundancy: 6 = (c−1) · NS · NT = 1 · 6. -/
-def sheet_redundancy : Nat := (c_lat - 1) * NS * NT
-
-/-- Bipartite scaffold loops: b_1 of simple K_{3,2} = NS·NT − NS − NT + 1 = 2. -/
-def scaffold_loops : Nat := NS * NT - NS - NT + 1
-
 /-! ## §2 — Master ChannelCohomologyLoss theorem -/
 
 /-- ★★★★★ Channel Cohomology Loss Master Theorem.
@@ -113,13 +102,9 @@ def scaffold_loops : Nat := NS * NT - NS - NT + 1
     Bundles:
       · Topological invariants (V_K = 5, E_K = 12, H1_K = 8,
         χ(K) = −7, f-vector of Δ⁴, χ(Δ⁴) = 1, χ(Δ⁴, K) = 8)
-      · Six-fold equivalence (H¹(K) = χ_rel = NS²−1 = E−V+1 =
-        inv_alpha_3 = 8)
-      · H²(Δ⁴, K) = H¹(K) = 8 (LES)
-      · Atomic consistency at (NS, NT, c) = (3, 2, 2), and at
-        neighboring solutions (1, 2, 1), (5, 2, 3), no c < 10
-        for (m, n) = (2, 3)
-      · Decomposition 8 = 6 + 2 (sheet redundancy + scaffold loops). -/
+      · Five-fold equivalence (H¹(K) = χ_rel = NS²−1 = E−V+1 =
+        inv_alpha_3 = 8), all c-free
+      · H²(Δ⁴, K) = H¹(K) = 8 (LES). -/
 theorem channel_cohomology_loss_master :
     -- §1 Topological invariants
     V_K = 5
@@ -129,25 +114,15 @@ theorem channel_cohomology_loss_master :
     ∧ f_vec = (5, 10, 10, 5, 1)
     ∧ chi_delta4 = 1
     ∧ chi_rel = 8
-    -- 1/α_3 representations (six-fold equivalence)
+    -- 1/α_3 representations (five-fold equivalence, c-free)
     ∧ inv_alpha_3 = 8
     ∧ NS * NS - 1 = 8
     ∧ E_K - V_K + 1 = 8
     ∧ H1_K = inv_alpha_3
     ∧ chi_rel = (inv_alpha_3 : Int)
     -- H²(Δ⁴, K) via LES
-    ∧ H2_relative_dim = 8
-    -- Atomic consistency at (3, 2, 2)
-    ∧ consistency_check c_lat NS NT = true
-    -- Neighboring consistency-equation solutions
-    ∧ consistency_check 1 1 2 = true
-    ∧ consistency_check 3 5 2 = true
-    ∧ (∀ c : Nat, c < 10 → consistency_check c 2 3 = false)
-    -- Decomposition 8 = 6 + 2
-    ∧ sheet_redundancy = 6
-    ∧ scaffold_loops = 2
-    ∧ H1_K = sheet_redundancy + scaffold_loops := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    ∧ H2_relative_dim = 8 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
 end E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss

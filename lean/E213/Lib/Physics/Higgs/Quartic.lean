@@ -40,8 +40,8 @@ namespace E213.Lib.Physics.Higgs.Quartic
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Physics.AlphaEM.Prefactors
 
-/-- Leading λ_H denominator: 2·c² = 8. -/
-def lambda_leading_denom : Nat := 2 * c_lat * c_lat
+/-- Leading λ_H denominator: 2·NT² = 8. -/
+def lambda_leading_denom : Nat := 2 * NT * NT
 
 /-- f_occ(AABB) numerator = NT.  Self-dual Higgs entry. -/
 def f_occ_AABB_num : Nat := NT
@@ -51,11 +51,11 @@ def f_occ_AABB_den : Nat := NS + NT - 1
 
 /-- ★ Capstone — λ_H atomic structure ★
 
-  Leading 1/(2c²) = 1/8 = 1/α_3 (= NS² − 1, strong adjoint).
-  f_occ(AABB) = NT/(NS+NT−1) = 1/c.  V(x_H) = 1 + α_GUT, same as
+  Leading 1/(2·NT²) = 1/8 = 1/α_3 (= NS² − 1, strong adjoint).
+  f_occ(AABB) = NT/(NS+NT−1) = 1/NT.  V(x_H) = 1 + α_GUT, same as
   closed propagator P(x) = (1+2x)/(1+x) numerator at x = α_GUT/2.
 
-  Bundles: leading-denom = 8 = NS²−1, f_occ = (2, 4) and = 1/c
+  Bundles: leading-denom = 8 = NS²−1, f_occ = (2, 4) and = 1/NT
   cross-mult, leading λ·8 = 1, 2% observed bracket (0.127..0.131),
   atomic primitives. -/
 theorem lambda_H_simplicial_pattern :
@@ -65,11 +65,11 @@ theorem lambda_H_simplicial_pattern :
     -- f_occ atomic table
     ∧ f_occ_AABB_num = 2
     ∧ f_occ_AABB_den = 4
-    -- f_occ = 1/c (cross-mult)
-    ∧ f_occ_AABB_num * c_lat = f_occ_AABB_den
+    -- f_occ = 1/NT (cross-mult)
+    ∧ f_occ_AABB_num * NT = f_occ_AABB_den
     -- Observed bracket 0.127..0.131 (gap < 5/1000 = 0.5 %)
     ∧ (127 < 131 ∧ 131 - 127 < 5)
     -- Atomic primitives
-    ∧ NS = 3 ∧ NT = 2 ∧ c_lat = 2 := by decide
+    ∧ NS = 3 ∧ NT = 2 := by decide
 
 end E213.Lib.Physics.Higgs.Quartic

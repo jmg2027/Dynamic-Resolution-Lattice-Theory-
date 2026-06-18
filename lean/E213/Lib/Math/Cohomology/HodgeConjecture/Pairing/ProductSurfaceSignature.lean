@@ -1,6 +1,5 @@
 import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.GenusGSurface
 import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.TensorSignature
-import E213.Lib.Math.Cohomology.HodgeConjecture.Pairing.SignatureMetaTheorem
 
 /-!
 # Σ_g × Σ_h Product Surface Signature (C4 Step 2)

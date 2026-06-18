@@ -45,7 +45,6 @@ decompositions.
 ## Physics-facing
 
   - `InvAlphaEMDecomp.lean` — integer skeleton of 1/α_em
-  - `K32Projection.lean` — bridge cup-channels ↔ K_{NS,NT}^{(c)}
   - `SignedCup.lean` — signed-ℤ cup (the common α_em + CP
     infrastructure)
 

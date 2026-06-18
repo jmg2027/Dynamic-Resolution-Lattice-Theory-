@@ -42,16 +42,18 @@ row to `forced` (a uniqueness proof) or retire it.
 | (NS, det) | (3, 1) | **forced** | `Atomicity.OrbitForcing.orbit_forcing_master` |
 
 **Layer-0 verdict: `(NS, NT, d)` + `(NS, det)` forced, zero researcher DoF.**
-This forced floor is unimpeachable.  The multiplicity `c = 2` is **not** a
-fourth forced primitive: `CombinatorialArity` forces the relation *arity* (how
-many inputs the slash takes), which is a **different** quantity from the edge
-*multiplicity* `c` (parallel-edge count) — conflating them was an error.  `c`
-is the presentation parameter set so the graph cohomology `b₁(K_{NS,NT}^{(c)})
-= c·NS·NT − (NS+NT−1)` reproduces the gauge content `NS² − 1` (already direct
-from the forced `NS`).  It is unforced across five reframings and
-physics-redundant.
-So the atomic floor is `(NS, NT, d) = (3, 2, 5)`, with `c = 2` a derived
-cohomological presentation of `NS²−1`.
+This forced floor is unimpeachable.  There is **no fourth atomic parameter
+`c`**: `CombinatorialArity` forces the relation *arity* (how many inputs the
+slash takes), a **different** quantity from any edge *multiplicity*, and the
+gauge content is `NS² − 1` directly from the forced `NS = 3` (the SU(3)
+adjoint, no graph needed).  The genuine "2" of the framework is the binary
+distinguishing (arity / period-2 difference-sign / `i`), which lives in the
+metric **signature** `(−,+,+,+)`, not in an edge count.
+So the atomic floor is `(NS, NT, d) = (3, 2, 5)` — full stop.  (The former
+"edge-multiplicity `c`" / `K_{NS,NT}^{(c)}` cohomology was a re-presentation of
+`NS²−1`, now being removed; the α_em coefficient table below still shows the
+pre-rebuild edge-count form, with the c-free reading `60 = NS·NT²·d`
+already proven available — `sixty_split_not_forced`.)
 
 ---
 

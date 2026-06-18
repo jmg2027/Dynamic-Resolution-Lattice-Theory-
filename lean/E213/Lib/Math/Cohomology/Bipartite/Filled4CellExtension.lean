@@ -49,7 +49,6 @@ STRICT ∅-AXIOM.
 
 namespace E213.Lib.Math.Cohomology.Bipartite.Filled4CellExtension
 
-open E213.Lib.Math.Cohomology.Bipartite.V32 (CochE)
 open E213.Lib.Math.Cohomology.Bipartite.Filled3CellCohomology
 open E213.Lib.Math.Cohomology.Bipartite.Filled3CellExtension
 

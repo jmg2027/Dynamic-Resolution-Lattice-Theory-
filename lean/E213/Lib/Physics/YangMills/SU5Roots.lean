@@ -84,4 +84,12 @@ theorem su5_atomic :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
+
+/-- ★ **SO(2d) = SO(10) forced integer counts** (from `d = 5`): adjoint dimension
+    `d(2d−1) = 45`, number of roots `2d(d−1) = 40`, Cartan rank `d = 5`, the decomposition
+    `45 = 40 + 5`, and the spinor dimension `2^{d−1} = 16`.  Forced arithmetic on the atomic
+    `d` — the SO(10)-GUT *reading* is deployment, kept out of the theorem (cf. `su5_atomic`). -/
+theorem so10_counts :
+    d * (2 * d - 1) = 45 ∧ 2 * d * (d - 1) = 40
+    ∧ d * (2 * d - 1) = 2 * d * (d - 1) + d ∧ 2 ^ (d - 1) = 16 := by decide
 end E213.Lib.Physics.YangMills.SU5Roots

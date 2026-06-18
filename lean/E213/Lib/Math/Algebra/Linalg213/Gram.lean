@@ -24,7 +24,7 @@ Rank consequences appear when we add the linear-dependence reading
 namespace E213.Lib.Math.Algebra.Linalg213.Gram
 
 open E213.Lib.Math.Algebra.Linalg213.Vector
-open E213.Tactic.ListHelper (sigmaList)
+open E213.Tactic.ListHelper (sigmaList sigmaList_congr)
 
 /-- Inner product (213-native): Σ vᵢ · wᵢ over ℕ, computed via
     `sigmaList` on `List.range n` for `decide`-friendliness. -/
@@ -62,10 +62,17 @@ theorem gram_orthonormal_2 :
     ∧ Gram 2 5 vs2 ⟨1, by decide⟩ ⟨0, by decide⟩ = 0
     ∧ Gram 2 5 vs2 ⟨1, by decide⟩ ⟨1, by decide⟩ = 1 := by decide
 
-/-- ★ Target (not yet proven): for any N and any vector
-    collection `vs : Fin N → Vec 5`, the Gram matrix has rank ≤ 5.
-    This is the **paper 1 chiral compression theorem** in its
-    213-internal form.  Awaits `Rank.lean`. -/
-theorem rank_5_compression_target : True := trivial
+-- TODO (open, not yet proven): for any N and any vector collection
+-- `vs : Fin N → Vec 5`, the Gram matrix has rank ≤ 5 — the chiral
+-- compression statement in its 213-internal form.  Awaits `Rank.lean`.
 
+
+/-- ★ **Inner product is symmetric**: `⟨v, w⟩ = ⟨w, v⟩` for all `Vec n` — each term
+    `vᵢ·wᵢ = wᵢ·vᵢ` (`Nat.mul_comm`), summed termwise (`sigmaList_congr`). -/
+theorem Vec.inner_comm {n : Nat} (v w : Vec n) : Vec.inner v w = Vec.inner w v := by
+  apply sigmaList_congr
+  intro i
+  by_cases h : i < n
+  · rw [dif_pos h, dif_pos h, Nat.mul_comm]
+  · rw [dif_neg h, dif_neg h]
 end E213.Lib.Math.Algebra.Linalg213.Gram

@@ -3,7 +3,7 @@
 > **Purpose.** The repository is thousands of Lean files.  No external
 > reader audits them all.  This document is the *single legible path* a
 > skeptic can verify in an afternoon: from the 3-clause Raw axiom,
-> through the forced atomic signature `(NS, NT, c, d) = (3, 2, 2, 5)`,
+> through the forced atomic signature `(NS, NT, d) = (3, 2, 5)`,
 > to the headline number `1/α_em` — every step a **named theorem**
 > whose `#print axioms` output is **empty** (∅-axiom / PURE).
 >
@@ -54,13 +54,21 @@ this*, not dialed *into* it. (Public surface: `Theory/Raw/API.lean`.)
 
 ---
 
-## 2. The signature — `(NS, NT, d) = (3, 2, 5)` forced, `c = 2` a presentation
+## 2. The signature — `(NS, NT, d) = (3, 2, 5)` forced (no atomic `c`)
 
-`(NS, NT)` and `d = NS + NT` are theorems, not settings (all PURE, §7).  The
-multiplicity `c = 2` is **not** independently forced: it is the presentation
-parameter set so the graph cohomology `b₁(K_{NS,NT}^{(c)})` reproduces the
-gauge content `NS² − 1`, which the forced `NS = 3` already gives directly
-(`c = 2` unforced across five reframings; physics-redundant).
+`(NS, NT)` and `d = NS + NT` are theorems, not settings (all PURE, §7).
+There is **no fourth atomic parameter `c`**: the gauge content is `NS² − 1`,
+direct from the forced `NS = 3` (the SU(3) adjoint, `SpectrumComplete.alpha_3_channel`);
+no graph multiplicity is needed.  The genuine "2" of the framework is the
+binary distinguishing — the relation arity / the period-2 difference-sign /
+the imaginary unit `i` — which lives in the metric **signature** `(−,+,+,+)`,
+not in any edge count.
+
+> **Rebuild in progress.**  The headline `1/α_em` spine in §3 still quotes the
+> Lean as it currently stands, where the leading coefficients are written
+> through an edge count carrying a `c`.  That is being re-derived c-free
+> (`12 = NS·NT²`, …); until the Lean is rebuilt and re-verified to the same
+> ppb, §3 reflects the pre-rebuild form.
 
 ### 2.1 Pair size and closure size → `NT = 2`, `NS = 3`
 
@@ -89,7 +97,7 @@ PairForcing.atomic_23_iff_five (n : Nat) : Atomic 2 3 n ↔ n = 5
 `lean/E213/Theory/Atomicity/Five.lean` — the atomic structure built
 from `(2, 3)` has exactly `2·1 + 3·1 = 5` cells. `d = 5` is forced.
 
-### 2.3 Combine arity → `c = 2`
+### 2.3 Combine arity = 2 (the binary slash)
 
 ```
 CombinatorialArity.arity_2_unique_via_k_ge_3_vacuous :
@@ -97,8 +105,10 @@ CombinatorialArity.arity_2_unique_via_k_ge_3_vacuous :
 ```
 `lean/E213/Theory/Atomicity/CombinatorialArity.lean` — for every arity
 `k ≥ 3`, the combine constructor is **vacuous** (uniform pigeonhole
-over a `Fin 2` base: `pigeonhole_fin_to_fin2`). Binary (`c = 2`) is the
-unique non-degenerate combine arity.
+over a `Fin 2` base: `pigeonhole_fin_to_fin2`).  The relation arity is
+binary.  (This is the arity of the distinguishing slash — a property of
+the relation's *inputs* — not an edge multiplicity; there is no atomic
+`c`.)
 
 ### 2.4 Dynamic confirmation — Pell–Lucas orbit
 

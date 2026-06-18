@@ -32,8 +32,7 @@
   - `Icosahedral.lean`     — icosahedral / H₃ structure
   - `Mobius213.lean`,
     `Mobius213OneAsGlue.lean`,
-    `Mobius213GrandUnification.lean`,
-    `Mobius213SignatureAxisCatalogPhase2.lean` — Möbius matrix [[2,1],[1,1]] + signature-axis catalogue
+    `Mobius213GrandUnification.lean` — Möbius matrix [[2,1],[1,1]] invariants
 
 ### Topology + structure
   - `Topology.lean`        — base topology
@@ -42,7 +41,9 @@
   - `Pigeonhole.lean`      — pigeonhole infrastructure
   - `AngleStructure.lean`  — angle structure
   - `TriangularTower.lean` — triangular tower
-  - `AkbulutCork.lean`     — Akbulut cork (exotic 4-manifold seed)
+  - `Geometry/DiscreteCurvature.lean` — discrete differential geometry
+    (Forman/Ollivier curvature, Bakry-Émery, Lichnerowicz, heat kernel,
+    surgery, homogeneous Ricci flow)
 
 ### Cohomology + Hodge
   - `Cohomology.lean`      — base cohomology (11 sub-dirs)

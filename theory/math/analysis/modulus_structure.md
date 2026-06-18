@@ -11,7 +11,7 @@ count":
 
   · `IsContinuousModulus` (Topology/Continuity.lean) — cochain
     function with `modulus_pos : ∀ k, modulus k ≥ k` (monotone).
-  · `IsRicciModulus` (GeometrizationConjecture/Ricci.lean) — Ricci
+  · `IsRicciModulus` (Geometry/DiscreteCurvature/RicciFlow.lean) — Ricci
     flow modulus with `anti_monotone` (decreasing as target tightens).
   · `dyadic_bracket_cauchy_modulus` (Analysis) — `L · k` linear
     modulus parametrised by bracket length `L`.
@@ -73,7 +73,7 @@ the only computational content.
   · `theory/math/analysis/modulus.md` — ε-δ modulus combinators (sibling chapter).
   · `theory/math/analysis/cauchy.md` — Cauchy-sequence machinery
     (uses bracket-length L parametrisation).
-  · `theory/math/geometry/geometrization_conjecture.md` — Ricci flow
+  · `theory/math/geometry/discrete_curvature.md` — Ricci flow
     derivation (host of `IsRicciModulus`).
   · `theory/physics/alpha_em/precision_derivation.md` — α_em
     precision stack; C5 Step 6 hosts `zeta_modulus`.
@@ -101,7 +101,7 @@ typeclass parallel to a **category-with-functor** formulation:
     functor witness.
 
 Reading: the three modulus-source structures from
-`Topology.Continuity`, `GeometrizationConjecture.Ricci`, and
+`Topology.Continuity`, `DiscreteCurvature.RicciFlow`, and
 bracket-Cauchy moduli are objects in a Lean-formalised category
 with `ModHom` arrows, identity, and associative composition.
 The functor-level bridge between sources is established;

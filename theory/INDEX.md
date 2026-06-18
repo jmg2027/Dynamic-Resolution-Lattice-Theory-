@@ -48,7 +48,7 @@ for.
 From there, branch:
 - **Physics observables** → `physics/symmetry/c3_chain.md` (gauge emergence) → `physics/alpha_em/precision_derivation.md` (the 0.09 ppb result)
 - **Algebra side** → `math/cayley_dickson/algebra_tower.md` → `math/universe_chain.md`
-- **Cohomology side** → `math/cohomology/hodge_conjecture.md`
+- **Cohomology side** → `math/cohomology/hodge.md` (⋆⋆ = id involution) + `math/cohomology/surfaces.md` (intersection forms)
 - **Equivalence concept side** → `lens/unified_equivalence.md` (single-concept synthesis: 동치 / 동치류 / 동형 / 준동형 as the Lens-arrow)
 
 ## Three-tier discipline

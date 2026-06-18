@@ -46,21 +46,21 @@ namespace E213.Lib.Physics.Couplings.ClosedPropagator
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Physics.AlphaEM.Prefactors
 
-/-- Numerator of P(x): 1 + 2x.  Coefficient on x is 2 = c_lat. -/
+/-- Numerator of P(x): 1 + 2x.  Coefficient on x is 2 = NT. -/
 def P_numer_x_coef : Nat := 2
 
-theorem P_numer_eq_c : P_numer_x_coef = c_lat := by decide
+theorem P_numer_eq_NT : P_numer_x_coef = NT := by decide
 
 /-- Denominator of P(x): 1 + x.  Coefficient on x is 1. -/
 def P_denom_x_coef : Nat := 1
 
 /-- P · (1+x) = 1 + 2x — closed-form identity (in ℚ as cross-mult). -/
 theorem P_closed_form_identity :
-    -- Cross-mult: P_numer = 1 + c_lat · x and P_denom = 1 + x
+    -- Cross-mult: P_numer = 1 + NT · x and P_denom = 1 + x
     -- These differ by exactly x (= "mass shift" in DRLT)
-    P_numer_x_coef = c_lat ∧ P_denom_x_coef = 1
-    -- Difference c - 1 = 1 (since c = 2): "the mass shift is 1·x"
-    ∧ (c_lat - 1 = 1) := by decide
+    P_numer_x_coef = NT ∧ P_denom_x_coef = 1
+    -- Difference NT - 1 = 1 (since NT = 2): "the mass shift is 1·x"
+    ∧ (NT - 1 = 1) := by decide
 
 /-- P(x) family arguments at different physics quantities. -/
 theorem P_arguments_atomic :
@@ -68,19 +68,19 @@ theorem P_arguments_atomic :
     (NS * 5 = 3 * d)
     -- m_μ/m_e Dyson: x = 1/(NS+1) = 1/(d-1)
     ∧ (NS + 1 = d - 1)
-    -- λ_H: x = 1/c
-    ∧ (c_lat = 2) := by decide
+    -- λ_H: x = 1/NT
+    ∧ (NT = 2) := by decide
 
 /-- ★ Closed propagator universality ★
     The same P(x) form appears in m_p, m_μ/m_e, λ_H, fermion masses, heavy
     mesons.  Only the argument differs — a different atomic ratio. -/
 theorem closed_prop_universal :
-    -- P numerator coefficient = c_lat = 2
-    (P_numer_x_coef = c_lat)
+    -- P numerator coefficient = NT = 2
+    (P_numer_x_coef = NT)
     -- P denominator coefficient = 1
     ∧ (P_denom_x_coef = 1)
-    -- Closed-form: numerator - denominator = (c-1)·x = x
-    ∧ (c_lat - 1 = 1) := by decide
+    -- Closed-form: numerator - denominator = (NT-1)·x = x
+    ∧ (NT - 1 = 1) := by decide
 
 /-- ★★ DRLT vs continuum QFT renormalization ★★
     Continuum: Dyson 1 + x + x² + ... diverges (x = coupling)

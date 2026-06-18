@@ -11,31 +11,29 @@ import E213.Lib.Physics.Atomic.IE.Boron
 "correction terms are also simplex edge Lens output"
 → Correct.  The closed propagator P(x) atomic family provides all corrections.
 
-## Precision table
+## Leading-term integer readings (narrative)
 
-| Element | leading | with P | Precision |
-|---|---|---|---|
-| H  | R = 13605693      | n/a            | **4.3 ppb** ★ |
-| He | NT²·R·σ = 24590767 | n/a            | 138 ppm |
-| Li | R·25/64 = 5314723  | P(x): 5391108  | **113 ppm** |
-| Be | R·1089/1600        | P(x/2): 9327300| 493 ppm |
-| B  | R·961/1600         | P(x): 8289344  | 1046 ppm |
+| Element | leading integer | with P |
+|---|---|---|
+| H  | R = 13605693      | n/a            |
+| He | NT²·R·σ = 24590767 | n/a            |
+| Li | R·25/64 = 5314723  | P(x): 5391108  |
+| Be | R·1089/1600        | P(x/2): 9327300|
+| B  | R·961/1600         | P(x): 8289344  |
+
+The relative-agreement figures associated with these chains are
+informal (computed outside Lean from the input integers); they are
+consistency checks among measured/structural inputs, not Lean-proven
+precision results.  The Lean theorem below proves only the genuine
+atomic-integer identities (anchors, 6·NS = 18, d³ = 125, σ numerators).
 
 ## Atomic chain
 
 All leading: R · Z_eff²/n² with Z_eff = atomic σ chain.
 All corrections: P(x/k_Z) closed propagator.
 
-  x = α_GUT · NS/d = 18/(125·π²)  (identical to Phase 1 m_p)
+  x = α_GUT · NS/d = 18/(125·π²)
   k_Z = atomic correlation count
-
-## Key stake
-
-Conventional atomic physics: Slater rules ~5-10%, ad hoc.
-DRLT atomic: 113 ppm (Li) ~ 4.3 ppb (H).
-All achieved *without numerical analysis* via Lean rational arithmetic + decide.
-
-User's "absence of strange correction terms" is *correct*.
 -/
 
 namespace E213.Lib.Physics.Atomic.IE.Capstone

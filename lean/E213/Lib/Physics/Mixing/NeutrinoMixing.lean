@@ -60,10 +60,10 @@ def delta_CP_denom : Nat := d * d - 1
   Bundles:
     · sin²θ₁₂ leading 1/NS, sin²θ₂₃ leading 1/NT, sin²θ₁₃ ↔ α_GUT
     · δ_CP denom (d²−1) = 24, 360/24 = 15, 180+15 = 195°
-    · sin²θ₁₃ tighter (Class D, 14 ppm vs PDG): NT² and NS·NT
-      coefficient identities + NS·NT = d+1 spoke-count
-    · sin²θ₁₂ Pythagorean rational (4/13, 0.054σ vs PDG):
-      Pythagorean magnitude NS² + NT² = 13, ratio NT²/(NS²+NT²) = 4/13
+    · sin²θ₁₃ tighter (Class D): NT² and NS·NT coefficient
+      identities + NS·NT = d+1 spoke-count
+    · sin²θ₁₂ Pythagorean rational (4/13): Pythagorean magnitude
+      NS² + NT² = 13, ratio NT²/(NS²+NT²) = 4/13
     · Adjoint-SU(5) factorization (d−1)·(d+1) = d²−1
     · Atomic primitives. -/
 theorem PMNS_simplicial_pattern :

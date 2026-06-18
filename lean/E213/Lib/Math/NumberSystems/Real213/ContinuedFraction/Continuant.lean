@@ -284,4 +284,12 @@ theorem cohn_trace_examples :
     ∧ (contMatProd ([1, 1] ++ [2, 2])).a + (contMatProd ([1, 1] ++ [2, 2])).d = 15 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
+
+/-- ★ **Continuant-of-append, top-left entry**: the `(0,0)` continuant of `l₁ ++ l₂`
+    decomposes by the matrix product `K(l₁++l₂) = K(l₁)·K(l₂)`:
+    `(K(l₁++l₂)).a = (K l₁).a·(K l₂).a + (K l₁).b·(K l₂).c`. -/
+theorem continuant_append_entry (l₁ l₂ : List Nat) :
+    (contMatProd (l₁ ++ l₂)).a
+      = (contMatProd l₁).a * (contMatProd l₂).a + (contMatProd l₁).b * (contMatProd l₂).c := by
+  rw [contMatProd_append]; rfl
 end E213.Lib.Math.NumberSystems.Real213.ContinuedFraction.Continuant

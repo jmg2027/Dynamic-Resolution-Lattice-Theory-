@@ -57,3 +57,34 @@ recorded only so it is not re-noticed as new.
 ## Status
 Open observations from the branch merge. #1 is a concrete candidate for the
 descent catalogue; #2 is a test (find-the-shared-lemma) not yet run; #3 is parked.
+
+## 3. (branch ↔ main, 2026-06-16) The period-2 involution gains a third leg + the atom-forcing criterion unifies
+
+The c-free rebuild + honesty audit on this branch sharpened both §1 and §2.
+
+**3a — the recurring Z/2 (§2) is the framework's genuine "2".**  The deep-research
+finding `c_is_three_distinct_twos.md` identified the binary distinguishing —
+`NT` = the period-2 difference-Lens sign (`Int213.neg_subNatNat`, `−(−x)=x`) =
+the Cayley–Dickson `i` (`i²=−1`) — and BUILT it as the signed Hodge operator
+`⋆² = −1` (`Mixing/SignedHodgeStar.hodge_i_order_four`; main's
+`Cohomology/Hodge/SignedStarC4` is the same operator).  So the §2 involution-parity
+test now has a **third leg**: `TauParity.doubleSum_parity` (number theory) ≟
+`bcount_const`/`im_count_inj_complement` (cohomology) ≟ `⋆²=−1` /
+`mult_parity_orthogonal_to_cup_orientation` (CP/signed-Hodge).  All three are one
+`ℤ/2` involution (the binary distinguishing); the open question is whether a single
+213-native `Bool`/`ℤ/2` involution lemma instantiates all three categories.
+
+**3b — multiplicativity (main) and the c-critique (branch) are one atom-forcing
+criterion.**  Main's essay `multiplicativity_is_the_x_count_lens` states
+multiplicativity ⟺ a readout of the ×-count-Lens, **faithful by `vp_separation`
+(= the FTA = ×-atoms/primes are distinguishable)**.  The branch's c-critique
+(`atomic_c_multiplicity_forcing` + `c_is_three_distinct_twos`) proved the K32
+edge-multiplicity `c` is **not a forced atom** — it adds no distinguishing axis,
+re-presents `NS²−1`, and is removable.  These are the SAME criterion in two
+domains: **a quantity is forced ⟺ it is a genuine distinguishing (an atom);
+a "parameter" that adds no distinguishing axis is a re-presentation, not forced.**
+`vp_separation` (atoms distinguishable ⇒ faithful readout) is the number-theory
+face; "`c` not forced / removable" (no new distinguishing ⇒ removable) is the
+physics face.  Open: state the shared criterion 213-native — a "faithful iff the
+axis distinguishes" lemma that both `vp_separation` and the c-removability
+audit instantiate.

@@ -4,13 +4,11 @@ Concrete computational examples for the 213 cohomology
 machinery: Δ⁴ simplex, K_{3,2}^{(c=2)} graph, K₅ comparison,
 Betti kernel, encoding bijections, Euler closed-form.
 
-## Files (10)
+## Files (8)
 
 ### Δ⁴ + K examples
   - `SimplexBasis.lean`      — Δ⁴ simplex basis enumeration
-  - `DiamondShape.lean`      — diamond-shape diagrammatic
-  - `DiamondAudit.lean`      — diamond audit verification
-  - `K5.lean`                — K₅ complete graph comparison
+  - `K5.lean`                — K₅ complete graph comparison (b₁ = 6)
   - `WhyDimFive.lean`        — why dim = 5 (5²⁵ derivation echo)
 
 ### Encoding / Betti

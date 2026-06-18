@@ -3,10 +3,10 @@ import E213.Lib.Math.NumberSystems.SignedCut.Octonion.QuaternionMulTable
 import E213.Lib.Math.NumberSystems.SignedCut.Octonion.OctonionMulTable
 
 /-!
-# Math-side closure of the CD-tower marathon (∅-axiom)
+# Math-side bundle for the CD-tower stack (∅-axiom)
 
-5 cluster witnesses + total bundle.  Closes the math-track residuals
-of the SignedCut / CD-tower stack:
+Bundle of re-exported witnesses (each conjunct is an existing lemma)
+for the math-track items of the SignedCut / CD-tower stack:
 
   * **Brahmagupta-Fibonacci concrete witnesses** at numerical
     `(a, b, c, d)` triples → exact Hurwitz preservation at level 1
@@ -16,10 +16,9 @@ of the SignedCut / CD-tower stack:
   * **Octonion basis e₁..e₇ partial distinctness** — e₁ ≠ e₂,
     1 ≠ e₄.
 
-This is the **mathematical closure** of the CD-tower stack on
-the d=5 substrate.  The remaining open items are physics-track
-(charge symmetry bridge) and not addressed here per Mingu's
-direction.
+This bundles the math-track witnesses of the CD-tower stack on
+the d=5 substrate.  Remaining open items are physics-track
+(charge symmetry bridge) and not addressed here.
 -/
 
 namespace E213.Lib.Math.NumberSystems.SignedCut.Core.MathClosureCapstone
@@ -36,7 +35,7 @@ open E213.Lib.Math.NumberSystems.SignedCut.Octonion.QuaternionMulRule
   (quatOne quatI quatJ quatK)
 open E213.Lib.Math.NumberSystems.SignedCut.Octonion.OctonionMulRule (octOne)
 
-/-- ★ **Hurwitz exact at level 1 — concrete witnesses**. -/
+/-- **Hurwitz exact at level 1 — concrete witnesses**. -/
 theorem hurwitz_exact_l1_witness :
     (5*4 + 3*6) * (5*4 + 3*6) + (5*6 - 3*4) * (5*6 - 3*4)
       = (5*5 + 3*3) * (4*4 + 6*6)
@@ -44,17 +43,17 @@ theorem hurwitz_exact_l1_witness :
       = (2*2 + 1*1) * (3*3 + 5*5) :=
   ⟨brahmagupta_concrete_5_3_4_6, brahmagupta_concrete_2_1_3_5⟩
 
-/-- ★ **Nat squared-difference identity** witness. -/
+/-- **Nat squared-difference identity** witness. -/
 theorem nat_sq_diff_witness {m n : Nat} (h : n ≤ m) :
     (m - n) * (m - n) + 2 * (n * m) = m * m + n * n :=
   nat_sq_diff_identity h
 
-/-- ★ **Quaternion basis distinctness** — full Hamilton basis. -/
+/-- **Quaternion basis distinctness** — full Hamilton basis. -/
 theorem quat_basis_distinct :
     quatI ≠ quatJ ∧ quatI ≠ quatK ∧ quatOne ≠ quatI :=
   ⟨quatI_neq_quatJ, quatI_neq_quatK, quatOne_neq_quatI⟩
 
-/-- ★ **Octonion basis distinctness** — e₁ ≠ e₂, 1 ≠ e₄. -/
+/-- **Octonion basis distinctness** — e₁ ≠ e₂, 1 ≠ e₄. -/
 theorem oct_basis_distinct :
     E213.Lib.Math.NumberSystems.SignedCut.Octonion.OctonionMulTable.octE1
       ≠ E213.Lib.Math.NumberSystems.SignedCut.Octonion.OctonionMulTable.octE2
@@ -62,8 +61,8 @@ theorem oct_basis_distinct :
       ≠ E213.Lib.Math.NumberSystems.SignedCut.Octonion.OctonionMulTable.octE4 :=
   ⟨octE1_neq_octE2, octOne_neq_octE4⟩
 
-/-- ★★★ **Total math-closure witness** ★★★ — Hurwitz + basis
-    distinctness across Quat + Oct. -/
+/-- **Total bundle** — Hurwitz + basis distinctness across Quat +
+    Oct.  Proof term = tuple of existing lemmas. -/
 theorem total_witness :
     (5*4 + 3*6) * (5*4 + 3*6) + (5*6 - 3*4) * (5*6 - 3*4)
       = (5*5 + 3*3) * (4*4 + 6*6)

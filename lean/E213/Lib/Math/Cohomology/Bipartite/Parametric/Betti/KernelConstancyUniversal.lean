@@ -22,8 +22,8 @@ This file gives the **product-indexed** companion: the coboundary
 `(i, j, m)`, no integer decode at all).  It indexes the same graph as
 `CochSpaces.delta0` under `Fin (c·NS·NT) ≃ Fin NS × Fin NT × Fin c`, and
 its purpose here is the **count-form** lemmas and the
-`Combinatorics.GraphConnectivity` instantiation that the chart-axis
-consumers (`forcedKChartLens`, the b₀ count) build on; it does not rely
+`Combinatorics.GraphConnectivity` instantiation that the b₀-count
+consumers build on; it does not rely
 on division.
 
 213-Lens reading: a vertex cochain is a chart-Lens output; the kernel
@@ -210,8 +210,9 @@ theorem visible_plus_one (NS NT : Nat) (hS : 0 < NS) :
     · hence the visible part has dimension `(NS + NT) − 1`
       (`visible_plus_one`).
 
-  This is the universal (∀ NS NT c) form of `V32Betti.b0_eq_1`, proved
-  ∅-axiom for all connected K. -/
+  This is the universal (∀ NS NT c) form of the `b₀ = 1` connectedness count
+  (the structural successor of the deleted single-instance graph carrier),
+  proved ∅-axiom for all connected K. -/
 theorem universal_kernel_close (NS NT c : Nat)
     (hS : 0 < NS) (hT : 0 < NT) (hc : 0 < c) :
     -- kernel = constants

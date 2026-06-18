@@ -103,13 +103,13 @@ Assemble the two proven halves into one Hermitian form on `Δ⁴`'s `H¹`:
 `Im` antisymmetric — so the canonical real/imaginary split of `G` is:
 
   · **`Re(G) = hPair`** — symmetric, positive-definite (`= I`): a **Riemannian
-    metric** (the modulus / gravity half, `GravityShadow`'s `W`-shadow);
+    metric** (the modulus half, `W = |G|²/d` shadow);
   · **`Im(G) = cup1`** — antisymmetric: the **symplectic form** (the phase /
     gauge half, carrying the CP `i`).
 
-This promotes the asserted "phase/modulus separation is automatic from the
-complex structure of `⟨·|·⟩`" (`GravityShadow.lean`, currently `: True`) to a
-derived theorem, assembling only already-proven pieces — no new structure. -/
+This is the derived form of "phase/modulus separation from the complex
+structure of `⟨·|·⟩`", assembling only already-proven pieces — no new
+structure. -/
 
 /-- Real part of the Hermitian Gram (the metric / gravity half). -/
 def GRe (i j : Nat) : Int := hPair i j

@@ -67,9 +67,6 @@ open E213.Lib.Physics.Foundations.GoldenRatio
 def delta_approx_num : Nat := 176
 def delta_approx_den : Nat := 147
 
-theorem delta_approx_value :
-    delta_approx_num = 176 ∧ delta_approx_den = 147 := by decide
-
 /-- Approximate δ_CKM ≈ 68.75°.  Cross-mult check:
     176/147 vs 1196/1000 (= 1.196 rad ≈ 68.5°).
     176·1000 = 176000;  147·1196 = 175812.

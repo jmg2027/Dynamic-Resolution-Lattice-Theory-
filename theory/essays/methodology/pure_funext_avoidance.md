@@ -16,12 +16,12 @@
 
 **Residual Induction** (`lean/E213/Lib/Math/NumberSystems/Padic/HenselResidual.lean`, surfacing 기존 `Padic/Hensel.lean`).  Hensel-lifted 역원 `Y_n`의 정확성을 carry chain으로 보이려는 시도는 막히지만, truncation `(X_n · Y_n).trunc (n+1) = 1`의 *잔여항 recurrence*는 carry를 우회한다.  `Zp.mul_invSeq_correct`이 모든 level n에서 truncation 일치를 증명하고, `Zp.invSeq_succ_trunc_extend`가 level n→n+1 lift를 일반적 Nat/Int 산술로만 표현.  Carry-chain의 무한 루프 대신 truncation 단위 *대수적* recurrence.
 
-**Inductive cong constructor** (`lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpan.lean` + `V33EnrichedParametricDualSpanHard.lean`).  HARD direction `joint ψ-kernel ⊆ InPrimary`는 임의 face cochain `v`에 대해 후보 `candidate v = ⊕ᵢ bᵢ·gᵢ` (8개 primary cup generator의 b-coefficient XOR-add)를 구성하지만, candidate는 `v`와 *pointwise 같지만 함수 literal로는 다르다*.  `funext` 없이는 `InPrimary v`에 도달할 수 없는 듯 보인다.  해결: `InPrimaryCupSpanPlusBoundary` inductive type에 새 constructor를 추가
+**Inductive cong constructor**.  함수-typed argument를 가진 inductive predicate `P`에서, 어떤 후보 함수 `candidate`가 target `v`와 *pointwise 같지만 함수 literal로는 다른* 경우 (`candidate v = ⊕ᵢ bᵢ·gᵢ` 같은 generator XOR-add 구성), `funext` 없이는 `P v`에 도달할 수 없는 듯 보인다.  해결: `P` inductive type에 pointwise 동치를 전파하는 새 constructor를 추가
 ```
 | cong (v w : EnrichedFaceVal c) (h : ∀ s t m, v s t m = w s t m) :
-    InPrimaryCupSpanPlusBoundary c w → InPrimaryCupSpanPlusBoundary c v
+    P w → P v
 ```
-— pointwise 동치를 *inductive 구조 자체*에 묶어 InPrimary witness가 pointwise-eq 동치류 전체에 전파되게 함.  Setoid Category가 *외부* 동치 관계로 함수 동일성을 환원하는 데 비해, cong constructor는 *inductive type 안에* 동치를 embedding한다 — pointwise 사실이 *그 자리에서* InPrimary 자격을 부여.  기존 induction 사용처 (`primary_cup_span_soundness_conditional`) 한 곳에 새 case 추가 (`psi_layer_pw_congr`로 dispatch).  이 패턴이 `joint_psi_kernel_subset_primary_c1`을 funext 없이 닫고, 그 다음 `promote_face` 기반 ∀c lift도 `cong`을 통해 layer 간 pointwise eq 전파를 처리.
+— pointwise 동치를 *inductive 구조 자체*에 묶어 witness가 pointwise-eq 동치류 전체에 전파되게 함.  Setoid Category가 *외부* 동치 관계로 함수 동일성을 환원하는 데 비해, cong constructor는 *inductive type 안에* 동치를 embedding한다 — pointwise 사실이 *그 자리에서* membership 자격을 부여 (predicate가 동치류에서 정의된다는 것을 *형태*가 명시).
 
 ## Dual function
 
@@ -73,7 +73,7 @@
 | Bundled Subtype | `ValidCutFramework` + `IntValidCut` | cutSum_assoc |
 | Setoid Category | `SetoidFramework` + `SetoidAlgebra` + `ZpSqrtDSetoid` | funext-free function eq |
 | Residual Induction | `HenselResidual` (surfacing `Padic/Hensel`) | Hensel correctness |
-| Inductive cong constructor | `V33EnrichedParametricDualSpan` (cong case) + `V33EnrichedParametricDualSpanHard` | HARD direction `joint ψ-kernel ⊆ InPrimary` candidate-to-target bridge |
+| Inductive cong constructor | inductive predicate에 pointwise-eq `cong` case 추가 | function-typed argument candidate-to-target bridge |
 
 External LLM이 213의 입장을 명시적으로 알지 않더라도, *MLTT 내부에서 extensionality를 어떻게 다루는가*라는 동일 구조 문제에 대한 architectural 통찰이 곧장 213-native 실현으로 번역된 사례.
 

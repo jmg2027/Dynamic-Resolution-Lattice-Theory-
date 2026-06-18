@@ -1,8 +1,8 @@
-# Session Handoff — 2026-06-16
+# Session Handoff — 2026-06-18
 
 ## Branch
-`claude/multi-agent-math-research-n68ovi` — all pushed; **already merged to
-`main`** (fast-forward) at the marathon close-out, then continued. Full Math
+`claude/multi-agent-math-research-n68ovi` — all pushed; **merged `origin/main`
+in** (the `frontier-research-agents` work now fully contained). Full Math
 builds clean (`lake build E213.Lib.Math` → 1936 modules).
 
 ## Scope
@@ -218,111 +218,109 @@ theorems, §3/§7 generalizations).
 
 ## What Was Done This Session (first leg, before merge)
 
-### A. Multiplicative divisor theory — closed ∅-axiom end-to-end (capstone)
-The whole elementary multiplicative number-theory framework, all PURE
-(`#print axioms → none`), promoted to `theory/math/numbertheory/multiplicative_divisor_theory.md`:
-- **Dirichlet ring**: `DirichletConvolution` (comm+assoc) + `DirichletIdentities`
-  (`μ∗1=ε`, `φ∗1=id`, `σ=id∗1`, ε the unit) — 9 PURE.
-- **Euclid's perfect-number theorem** `PerfectNumbers.euclid_perfect` (general k) — 19 PURE.
-- **τ-parity** `TauParity.tau_odd_iff_square` (τ(n) odd ⟺ n square), via a symmetric
-  double-sum parity core (`doubleSum_parity`) — 22 PURE.
-- **σ-parity COMPLETE** `SigmaParityComplete.sigma_odd_iff` (σ(n) odd ⟺ n square or
-  twice-square) — 6 PURE. Closed across 4 files: `SigmaParity` (σ(p^k) parity, 13),
-  `OddPartDecomposition` (2-adic split, 20), `SquareCharacterization`
-  (`coprime_isSquare_mul` general/no-UFD + `sq_or_twice_iff`, 11), `SigmaParityComplete`
-  (smallest-prime-power strong induction). Recovered `SquareCharacterization` by hand
-  after the SQSP agent stalled (fixed `rw` over-rewrite bugs, wrote the §3 bridges).
+A long autonomous research marathon followed by a structured close-out (process → promotion →
+cross-domain → essay → org-audit → purity → ready-to-merge → handoff).
 
-### B. Recurrence sequences / classical identities (all PURE)
-- `LucasSequences` (44) — parametric `U_n(P,Q)`, `V_n(P,Q)`: quadratic relation
-  `V²−DU²=4Qⁿ`, even+odd index doubling, `U_n∣U_{2n}`.
-- `ContinuedFractionConvergents` (23) — `p(n+1)q(n)−p(n)q(n+1)=(−1)ⁿ` + coprimality.
-- `FermatNumbers` (23) — telescoping product + Goldbach pairwise coprimality.
-- `SylvesterSequence` (22) — telescoping + pairwise coprimality.
-- `VajdaIdentity` (4) — the 2-parameter Fibonacci unifier (Cassini/Catalan/d'Ocagne).
-- `Combinatorics/MultinomialTheorem` (11), `Combinatorics/PentagonalNumbers` (13),
-  `Combinatorics/Josephus` (20, closed-form `J(2^m+L)=2L+1`),
-  `SymmetricPolyIdentities` +Newton 4-var, `FibZSums` (5, low-novelty toolkit port).
+### 1. Lifting-the-Exponent — FULLY CLOSED ∅-axiom (headline)
+`LiftingExponentGeneral.lte` : `v_p(aⁿ − bⁿ) = v_p(a−b) + v_p(n)` for an odd prime `p` (`3 ≤ p`),
+`p ∣ (a−b)`, `p ∤ b`, `b < a`, `n ≥ 1`.  Proof stack (all PURE):
+- `BinomialTwoVar.add_pow` — two-variable binomial theorem `(b+d)ⁿ = Σ C(n,k) b^{n−k} dᵏ` (repo had
+  only the `b=1` `binomSum`; this was the missing infra).
+- `LiftingExponentPP.{vp_add_eq_min, dvd_sumTo, le_vp_sumTo}` — ultrametric strict-min law + tail bound.
+- `LiftingExponentMain.lifting_prime_power` — kernel `v_p(aᵖ−bᵖ)=v_p(a−b)+1` (binomial route).
+- `LiftingExponentCoprime.lifting_coprime` — `v_p(aᵐ−bᵐ)=v_p(a−b)` for `p∤m`.
+- `LiftingExponentGeneral.{vp_pow_pk, lte}` — iterate kernel + factor `n=pᵏ·m`.
+- Promoted to `theory/math/numbertheory/lifting_the_exponent.md`.
 
-### C. Inequalities cluster (SOS over Int, all PURE)
-`Foundations/{SchurInequality (3), NesbittInequality (2), NewtonInequalities (5),
-MuirheadInequality (1)}` — each via an explicit `ring_intZ` SOS identity + nonneg
-regrouping. Complete the AM-GM/majorization picture with the existing `SumCubesAMGM`.
+### 2. σ_m (divisor-power sum) — fully closed
+`SigmaPrimePowGeom` + `SigmaDivisorClosed`: prime-power closed form `(pᵐ−1)σ_m(pᵏ)=p^{m(k+1)}−1`,
+and `divisorSumZ_mul_of_completely_mult` (the reusable general law: divisor-sum multiplicativity for
+*any* completely-multiplicative weight — σ/τ/σ_m all corollaries).  Promoted as §8 of
+`theory/math/numbertheory/multiplicative_divisor_theory.md`.
 
-### D. Marathon close-out (this session's second half)
-Merge main → `/process` (16 sink-rule decouplings) → promotion (divisor framework
-chapter + 3 frontiers archived) → cross-domain note → `/essay`
-(`multiplicativity_is_the_x_count_lens`) → `/org-audit` (narrative hygiene) →
-`/purity-check` (276 PURE / 0 dirty) → `/ready-to-merge` (READY) → this handoff.
+### 3. Euclidean lattice metric geometry — new cluster
+`StewartTheorem` (Stewart, Apollonius), `MetricIdentities` (British-flag, parallelogram, Pythagoras,
+Leibniz centroid, Euler quadrilateral), `LatticeArea` (shoelace, signed-area additivity/symmetry,
+2D Lagrange, law of cosines, **Cayley–Menger**, SL₂(ℤ) area invariance).  Integer `sq`/`area2`, all
+`ring_intZ`/`decide`.  Promoted to `theory/math/geometry/euclidean_lattice_metric.md`.
 
-## Precision results (physics)
-Unchanged this session (physics out of scope). The merged-in physics state lives
-in `catalogs/physics-constants.md` + `STRICT_ZERO_AXIOM.md`; main's recent work
-(CP δ octet, gravity Gram = metric⊕symplectic, Basel-depth "dynamic resolution",
-forced/read split) is summarized in `theory/STATE.md`.
+### 4. Combinatorics + factorization
+Hockey-stick identity (`HockeyStick`), binomial-mean `Σ k·C(m,k)=m·2^{m-1}` (`BinomialMean`),
+homogeneous power-difference factorization (`PowSubPowFactor`), ℤ cofactor congruence
+(`LiftingExponent`).
 
-## Open Problems (priority order)
-### 1. Multiplicative-function descent abstraction
-`SigmaParityComplete.sigma_odd_square_odd` forces a multiplicative function's value
-by smallest-prime-power descent, but this isn't abstracted into a general "any
-multiplicative function descends over the UFD vector" schema. Is it a distinct
-descent rung or the UFD rung read through the counting Lens?
-Frontier: `research-notes/frontiers/crossdomain_divisor_x_branch_merge.md` (§1).
+### 5. Close-out
+- `/process`: decoupled 5 `lean/` docstrings from `research-notes/frontiers/` notes (sink rule → 0).
+- `/promotion`: 3 promotions (LTE, σ_m §8, geometry) logged #93-95 in `promotion_essay_log.md`.
+- cross-domain note `research-notes/frontiers/lte_geometry_crossdomain.md` (6 main×branch links).
+- `/essay`: `theory/essays/synthesis/addition_and_multiplication_are_two_faces_of_one_count.md`
+  (vp's additive face `vp_add_eq_min` = the dual of multiplicativity; logged #96).
+- `/org-audit`: fixed one dated note in `theory/`; no orphans; new Lean docstrings clean.
+- `/purity-check` + `/ready-to-merge`: passed (0 forbidden, full build green, 0 sink leaks).
 
-### 2. Involution-parity shared lemma (cross-domain test)
-Test whether `TauParity.doubleSum_parity` (Z/2 involution parity = fixed-point count
-mod 2) and the cohomology constant-mode count (`bcount_const`/`im_count_inj_complement`)
-instantiate one shared 213-native involution lemma, or are merely analogous.
-Frontier: `research-notes/frontiers/crossdomain_divisor_x_branch_merge.md` (§2).
+## Current Precision Results (0 free parameters)
+Unchanged this session — no physics-branch work.  See `catalogs/physics-constants.md` for the
+constant/precision table; `STRICT_ZERO_AXIOM.md` for the PURE/DIRTY catalog.  This session's
+additions are all pure-math (number theory / geometry / combinatorics), `#print axioms`-empty.
 
-### 3. (carried) Open frontiers from main
-57 live notes in `research-notes/frontiers/` — Markov uniqueness, π non-holonomicity,
-c=2 forcing residue, Ricci-flow smooth core, etc. See `research-notes/frontiers/INDEX.md`.
+## Open Problems (Priority Order)
+
+### 1. General Rolle / MVT over arbitrary differentiable functions
+Current MVT is *witness-at* only (`FluxMVT.DyadicMVTWitness`, specific polynomials).  General Rolle
+needs the extreme-value theorem over `Real213` (compactness on the cut algebra) — heavy multi-file
+build, no missing ∅-axiom *ingredient*, just assembly.
+Frontier note: `research-notes/frontiers/multi_agent_marathon_2026_06_16.md` ("Open frontier — general Rolle / MVT").
+
+### 2. LTE at `p = 2`
+The `p=2` variant (`v_2(aⁿ−bⁿ) = v_2(a−b)+v_2(a+b)+v_2(n)−1` for even `n`) is not formalized; the
+strict-minimum face ties when the two least terms coincide.
+Frontier note: same marathon note + `theory/math/numbertheory/lifting_the_exponent.md` "Scope / open edge".
+
+### 3. Bertrand's postulate — final assembly
+All component lemmas ∅-axiom (primorial keystone, binom/fact bridges, window-vanishing); remaining
+is the prime-range partition + crossover inequality + finite chain.
+Frontier note: `research-notes/frontiers/bertrand_postulate.md`.
+
+### 4. Multiplicative-function abstraction
+"Any multiplicative function's value forced by descent over the UFD vector" — `divisorSumZ_mul_of_completely_mult`
+is a step; the full abstraction is open.
+Frontier note: `research-notes/frontiers/multi_agent_marathon_2026_06_16.md` + the multiplicativity essay's open frontier.
 
 ## Unresolved from This Session
-- The SQSP agent stalled without checkpointing (left a broken scratch with `rw`
-  over-rewrite bugs); recovered by hand. Lesson reinforced: subagents on hard proofs
-  must `/tmp`-checkpoint frequently (now in the dispatch prompts).
-- Saturation rising in elementary number theory / combinatorics — several probes
-  this session returned near-duplicates (e.g. `FibZSums` mirrors the Nat-`fib`
-  `FibonacciSums`); honestly flagged. Favor framework-extension over fact-hunting.
+- `ring_intZ` performance ceiling: degree-8 multivariate (Cayley–Menger) times out directly —
+  surmounted by abstract-atom decomposition, but the ceiling itself remains (a faster reflective
+  normalizer would unlock higher-degree algebraic geometry directly).
 
 ## Next
-- Merge this branch to main (final marathon step).
-- Then: the multiplicative-function-descent abstraction (Open Problem #1) is the
-  crispest next math target — it would add a rung to the descent schema
-  (`universal_descent_schema`) and unify the σ-parity induction with GCD/UFD/Markov/Ricci.
+Either (a) the `p=2` LTE variant (smaller, well-scoped), (b) Bertrand final assembly (item 3),
+or (c) push the general Rolle/MVT (the one major untouched domain — heavy).
 
 ## Three-tier state
-- **Promotions this session**: `theory/math/numbertheory/multiplicative_divisor_theory.md`
-  ← (closed frontiers gauss_totient_general / mobius_divisor_sum_general /
-  sigma_parity_general, archived to `research-notes/archive/numbertheory/`).
-  Essay: `theory/essays/synthesis/multiplicativity_is_the_x_count_lens.md`.
-- **Promotion candidates**: the standalone PURE sub-trees (Lucas / Fermat / Sylvester /
-  continued-fraction / Josephus / inequalities) are tier-2 closed but don't yet warrant
-  individual theory chapters (single-file topics); revisit if they grow.
-- **Active scratchpad**: `research-notes/frontiers/` (57 live notes).
+- **Promotions this session**: `theory/math/numbertheory/lifting_the_exponent.md` (new),
+  `multiplicative_divisor_theory.md` §8 (append), `theory/math/geometry/euclidean_lattice_metric.md`
+  (new) ← the LTE / σ_m / lattice-geometry Lean sub-trees.  Logged #93-96 in `promotion_essay_log.md`.
+- **Promotion candidates**: Hockey-stick + Binomial-mean (`Combinatorics/`) — PURE, no chapter yet.
+- **Active scratchpad**: `research-notes/frontiers/` (lte_geometry_crossdomain, marathon note).
 
 ## File Map
 ```
-lean/E213/Lib/Math/NumberTheory/DirichletIdentities.lean          ← μ∗1=ε, φ∗1=id, ε unit
-lean/E213/Lib/Math/NumberTheory/PerfectNumbers.lean               ← Euclid perfect numbers
-lean/E213/Lib/Math/NumberTheory/TauParity.lean                    ← τ odd ⟺ square
-lean/E213/Lib/Math/NumberTheory/SigmaParity.lean                  ← σ(p^k) parity (general)
-lean/E213/Lib/Math/NumberTheory/OddPartDecomposition.lean         ← 2-adic odd-part split
-lean/E213/Lib/Math/NumberTheory/SquareCharacterization.lean       ← coprime-square-split
-lean/E213/Lib/Math/NumberTheory/SigmaParityComplete.lean          ← σ-parity CAPSTONE
-lean/E213/Lib/Math/NumberTheory/LucasSequences.lean               ← parametric U/V
-lean/E213/Lib/Math/NumberTheory/ContinuedFractionConvergents.lean ← convergent determinant
-lean/E213/Lib/Math/NumberTheory/FermatNumbers.lean                ← Goldbach coprimality
-lean/E213/Lib/Math/NumberTheory/SylvesterSequence.lean            ← telescoping coprimality
-lean/E213/Lib/Math/NumberTheory/VajdaIdentity.lean                ← Fibonacci 2-param unifier
-lean/E213/Lib/Math/NumberTheory/FibZSums.lean                     ← fibZ partial sums
-lean/E213/Lib/Math/Combinatorics/{MultinomialTheorem,PentagonalNumbers,Josephus}.lean
-lean/E213/Lib/Math/Foundations/{Schur,Nesbitt,Newton,Muirhead}Inequality.lean
-lean/E213/Lib/Math/NumberTheory/SymmetricPolyIdentities.lean      ← +Newton 4-variable
-theory/math/numbertheory/multiplicative_divisor_theory.md         ← promoted framework chapter
-theory/essays/synthesis/multiplicativity_is_the_x_count_lens.md   ← promoted essay
-research-notes/frontiers/crossdomain_divisor_x_branch_merge.md    ← cross-domain note
-research-notes/archive/numbertheory/{gauss_totient,mobius_divisor_sum,sigma_parity}_general.md
+lean/E213/Lib/Math/NumberTheory/PowSubPowFactor.lean      ← homogeneous aⁿ−bⁿ factorization (ℤ)
+lean/E213/Lib/Math/NumberTheory/LiftingExponent.lean      ← ℤ cofactor congruence (p∤exp core)
+lean/E213/Lib/Math/NumberTheory/BinomialTwoVar.lean       ← two-variable binomial theorem
+lean/E213/Lib/Math/NumberTheory/LiftingExponentPP.lean    ← ultrametric strict-min + sum bound
+lean/E213/Lib/Math/NumberTheory/LiftingExponentMain.lean  ← prime-power kernel v_p(aᵖ−bᵖ)=v_p(a−b)+1
+lean/E213/Lib/Math/NumberTheory/LiftingExponentCoprime.lean ← coprime case v_p(aᵐ−bᵐ)=v_p(a−b)
+lean/E213/Lib/Math/NumberTheory/LiftingExponentGeneral.lean ← general LTE
+lean/E213/Lib/Math/NumberTheory/SigmaPrimePowGeom.lean    ← σ_m prime-power geometric form
+lean/E213/Lib/Math/NumberTheory/SigmaDivisorClosed.lean   ← σ_m divisor sum + general mult law
+lean/E213/Lib/Math/NumberTheory/HockeyStick.lean          ← hockey-stick identities
+lean/E213/Lib/Math/NumberTheory/BinomialMean.lean         ← Σ k·C(m,k)=m·2^{m-1}
+lean/E213/Lib/Math/Geometry/StewartTheorem.lean           ← Stewart + Apollonius (sq)
+lean/E213/Lib/Math/Geometry/MetricIdentities.lean         ← parallelogram/Pythagoras/Leibniz/Euler-quad
+lean/E213/Lib/Math/Geometry/LatticeArea.lean              ← signed area, Cayley–Menger, SL₂(ℤ)
+theory/math/numbertheory/lifting_the_exponent.md          ← NEW chapter (LTE)
+theory/math/geometry/euclidean_lattice_metric.md          ← NEW chapter (lattice geometry)
+theory/essays/synthesis/addition_and_multiplication_are_two_faces_of_one_count.md ← NEW essay
+research-notes/frontiers/lte_geometry_crossdomain.md       ← cross-domain insights
+research-notes/promotion_essay_log.md                     ← #93-96 appended
 ```

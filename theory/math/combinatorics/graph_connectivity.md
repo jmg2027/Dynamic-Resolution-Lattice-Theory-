@@ -59,6 +59,3 @@ The only graph fact special to the bipartite deployment is
 
 - `theory/math/cohomology/bipartite.md` — the universal δ⁰-kernel =
   constants result this framework underwrites
-- `theory/math/geometry/geometrization_conjecture.md` — the
-  `d_M = d_213 − 1` chart-axis reading consuming the 1-dimensional
-  self-pointing kernel

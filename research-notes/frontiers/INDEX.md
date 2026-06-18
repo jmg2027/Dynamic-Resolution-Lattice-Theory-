@@ -122,6 +122,19 @@ class-number core (composite `c` with both `3c±2` composite, smallest `1325`).
 Closure record: `theory/math/analysis/{markov_uniqueness,markov_spectrum}.md`.
 **Status of `H`**: maximally localized (terminal, `G197`) — the open residue *is*
 the Frobenius conjecture; the Lean scaffold + finite instances are ∅-axiom.
+**Strip-reframe cap CLOSED ∅-axiom (2026-06-16)** — a multi-agent panel re-examined
+whether the "terminal" verdict could be bypassed (G204 direction-1: iterate Zhang's
+`3c±2` reframe down a proper *factor*).  Verdict: **no**, and now a theorem —
+`MarkovUniqueness.proper_divisor_of_zhang_modulus_lt_two_c` (PURE): *every proper
+divisor of `3c±2` is `< 2c`* (discriminant `9c²−4 = (3c−2)(3c+2)`; a proper divisor
+is `≤ M/2 < 2c`).  So a proper factor leaves the square-collapse with room for the
+`x+y=q` branch and cannot force `δ=δ'`; only `3c±2` itself (`>2c`) closes a case.
+`3c±2` is the **last** parametric family of the linear-invariant kind — a *map cap*
+(it formalizes why the elementary route terminates), not a kernel advance.  The panel
+also gave a sharp irreducibility characterization: the distinguishing `√(−1)`-suborbit
+data provably leaves `c` at every Vieta descent step (`markov_vieta_partner_le` shrinks
+the modulus), so no fixed-`c` finite signature carries it — the uniform residue has no
+local witness.
 
 ## Spiral-axis / modular-tower classification  (`spiral_axis/`)
 
@@ -182,9 +195,25 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   pointing shape `RatTendsToOne`; the `ψ`-form lower `two_pow_le_lcm`; and the
   structural **`vp_factorial_eq_sum_vp_lcm`** (`N! = Π_{i≤N} lcm(1..⌊N/i⌋)`, the
   factorial↔lcm `e`-bridge, `FactorialLcmIdentity`).  **Promoted** →
-  `theory/math/numbertheory/chebyshev_prime_counting.md`.  OPEN (retained here):
-  only PNT `~ N/ln N` (constant `1`, asymptotic horizon) + the interval sharpening
-  (base-`2` lower, base-`≈3.16` upper).
+  `theory/math/numbertheory/chebyshev_prime_counting.md`.  **Lower base sharpened
+  `√2`→`2` (2026-06-16)**: `four_pow_le_lcm_mul` (`ChebyshevLower`, PURE) —
+  `4^n ≤ (2n+1)·lcm(1..2n)`, i.e. `ψ(2n) ≥ 2n·ln2 − ln(2n+1)`, via the new
+  `four_pow_le_succ_mul_central_binom` (`4^n ≤ (2n+1)·C(2n,n)`, the central term
+  dominates the binomial sum; same cleared recurrence as `central_binom_ge_two_pow`,
+  step `4n+4 ≤ 4n+6`).  OPEN (retained here): only PNT `~ N/ln N` (constant `1`).
+  **RH/PNT wall (multi-agent panel, 2026-06-16):** a horizon constant is reachable in
+  213 *as a narrowing computable bracket* exactly when the quantity is an **unsigned
+  monotone count** (`π`, `ψ`, `lcm`) with an elementary two-sided estimate — that is
+  why both Chebyshev bounds and this sharpening are ∅-axiom.  PNT's "constant = 1" =
+  the bracket narrowing to `{1}`; but the two bases (`2`, `≈3.16`) stay on opposite
+  sides of `e`, and collapsing the gap needs the Erdős–Selberg bilinear step, which has
+  **no ∅-axiom shadow**.  **RH is one step further out and has none at all**: it is
+  about **cancellation in a signed sum** (`M(N)=Σμ(n)`, the difference-Lens of the
+  count), whose *size IS the zero locations* — no `M(k)` modulus certifies the exponent
+  `½` without already knowing the zeros.  The 213-native diagnosis: **signed-cancellation
+  has no count-Lens witness** — the exact dual of the Markov-`H` terminal localization
+  (`G197`): pointing at the residue *is* the conjecture (there Frobenius 1913, here the
+  zero-free region), not a bounded step.
 - `chebyshev_lower_bound` — **Chebyshev lower bound `π(N) ≥ c·N/ln N`**.  ✅
   CLOSED ∅-axiom (`chebyshev_lower : n ≤ (⌊log₂(2n)⌋+1)·π(2n)`, via Kummer
   `vp_central_binom_le_floorLog` + `le_pow_primePi`).  **Promoted** →
@@ -284,8 +313,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   the denominator orbit↔sum bridge).
   **Open (the remaining half)**: numerator integrality `(n!)³ ∣ 2lcm³·zeta3Num n`
   — the harmonic-kernel Apéry numerator, **no clean WZ certificate** (the explicit
-  Apéry kernel telescoping route).  First piece landed (`Zeta3Numerator.
-  harmonic_part_recurrence`).  Full roadmap + de-risking in `zeta3_wz/numerator_plan.md`.
+  Apéry kernel telescoping route).  Harmonic-side pieces landed (`Zeta3Numerator.
+  harmonic_part_recurrence`; **`harmonic_recurrence_lcm` (2026-06-16)** — the cleared
+  harmonic recurrence instantiated at the genuine clearing factor `ℓ = lcm(1..N)³`,
+  discharging the divisibility hypotheses via `cube_dvd_lcm_cube`, so `HL (lcm N ³)·`
+  is the integral `lcm³·H₃` H₃-part contribution).  The remaining open half is the
+  *kernel* recurrence (no clean WZ certificate — the certifiability wall, multi-agent
+  panel 2026-06-16).  Full roadmap + de-risking in `zeta3_wz/numerator_plan.md`.
   Then piecewise `(c,p,q)` + `htel` ⟹ `zeta3HolonomicReal` unconditional.
 - **async point–line system ≅ Raw** — CLOSED ∅-axiom (full 8-item agenda,
   74 PURE) and promoted → `theory/math/foundations/async_growth.md`
@@ -821,3 +855,39 @@ real ∅-axiom conquests.
 | `wilson_pm1_classification.md` | Gauss-Wilson ±1 value classification (core DONE in WilsonGeneralization; the n∈{1,2,4,pᵏ,2pᵏ} ⟺ −1 split open) | open |
 | `rearrangement_general_n.md` | rearrangement general-n reverse/permutation form (core + n=2,3 DONE in RearrangementInequality) | open |
 | `wilson_plus_one_argument.md` | RESEARCH FINDING: ∅-axiom argument for Wilson +1 (P = t^(|S|/2), parity finish) — avoids the 2-group order structure | argued, formalizing |
+
+## Yang–Mills confinement  (`yang_mills_confinement.md`)
+
+- `yang_mills_confinement` — the **mass-gap** half is *closed*
+  (`YangMills/Gap.lean` `mass_gap_master`: gauge-lattice Laplacian gap
+  `= c·min(NS,NT) = 4 > 0`, ∅-axiom).  Open companion: **confinement** —
+  (1) a general ∅-axiom Rayleigh lower bound (every colored/non-vacuum mode
+  has energy `≥ gap`), upgrading the exhibited eigenbasis to all configs;
+  (2) a 213-native Wilson-loop functional on `K_{NS,NT}^{(c)}` + area-law
+  witness.  Ties to `holonomy_of_the_lattice` + the cup-ring flux machinery.
+
+## What `c` properly is — three distinct 2's  (`c_is_three_distinct_twos.md`)
+
+- `c_is_three_distinct_twos` — deep-research finding (3 independent agents +
+  adversarial red-team, converged; red-team could not refute).  The label `c`
+  carries **three structurally distinct 2's**: (S) the *signature/order* 2 (the
+  old `c = d_S/d_T`, `W_S = W_T²`, `d`-independent) = `NT`/sign/`i`, manifesting
+  as the Lorentz `(−,+,+,+)`; (M) the K32 *edge-multiplicity* 2, a selected
+  re-presentation of `NS²−1` (`6c−4` crosses `8` only at `c=2`); (N) the forced
+  count 2 (`NT`, arity).  (S) ≠ (M): `mult_parity_orthogonal_to_cup_orientation`
+  proves the two ℤ/2's orthogonal.  Proper shape: **no fourth atomic `c`**; the
+  octet is `NS²−1` directly; the old `c` is the **signature**, whose ∅-axiom
+  home is the open **signed-ℤ Hodge `⋆²=−1` on Δ⁴** (`CPHodgeStructure` is a
+  parity skeleton).  Corrects the earlier "fifth-Lens-reading" over-generous
+  framing in `c_counter_as_layer_count.md` + the archive bridge note.
+
+## Rebuild roadmaps — genuine reconstructions of the audited-out programmes  (`rebuild_roadmaps/`)
+
+After the 2026-06-16 honesty audit deleted the stereotype-matching / forcible-map
+layer (fake Hodge/Geometrization/Cork conjectures, c-multiplicity selection,
+typed-literal "predictions", value-coincidence "identities"), this cluster gives
+an honest 213-native **rebuild roadmap per deleted programme** — real content on
+real objects, explicit about the substrate's ceilings (no smooth manifold, no
+absolute scale, value-coincidence ≠ structural map).  13 notes + INDEX; model is
+`genuine_hodge_rebuild.md` (Stage 1 done = Lefschetz (1,1) on `T⁴`).  See
+`rebuild_roadmaps/INDEX.md`.

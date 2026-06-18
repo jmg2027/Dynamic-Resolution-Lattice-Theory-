@@ -99,4 +99,36 @@ theorem one_dvd_pow_sub_one (a : Int) (n : Nat) : (a - 1) ∣ (ipow a n - 1) := 
 theorem smoke_two_dvd_eighty : (3 - 1 : Int) ∣ (ipow 3 4 - ipow 1 4) :=
   sub_dvd_pow_sub_pow 3 1 4
 
+
+/-- ★ **Int-power additivity**: `ipow x (m + n) = ipow x m · ipow x n`. -/
+theorem ipow_add (x : Int) (m : Nat) : ∀ n, ipow x (m + n) = ipow x m * ipow x n
+  | 0     => by show ipow x m = ipow x m * 1; ring_intZ
+  | n + 1 => by
+      rw [show m + (n + 1) = (m + n) + 1 from rfl, ipow_succ, ipow_add x m n, ipow_succ]
+      ring_intZ
+
+/-- ★ **Int-power multiplicativity in the exponent**: `ipow x (a · b) = ipow (ipow x a) b`
+    (the `(xᵃ)ᵇ = x^{ab}` law). -/
+theorem ipow_mul (x : Int) (a : Nat) : ∀ b, ipow x (a * b) = ipow (ipow x a) b
+  | 0     => rfl
+  | b + 1 => by
+      rw [show a * (b + 1) = a * b + a from rfl, ipow_add x (a * b) a, ipow_mul x a b, ipow_succ]
+
+/-- ★ **Cast-power bridge**: `↑(pⁱ) = (↑p)ⁱ` (the ℕ→ℤ coercion commutes with powering) —
+    `Int.ofNat (p^i) = ipow (Int.ofNat p) i`.  By induction via the pure `Int.ofNat_mul`. -/
+theorem ofNat_pow_eq_ipow (p : Nat) : ∀ i, Int.ofNat (p ^ i) = ipow (Int.ofNat p) i
+  | 0     => rfl
+  | i + 1 => by
+      rw [show p ^ (i + 1) = p ^ i * p from rfl,
+          show Int.ofNat (p ^ i * p) = Int.ofNat (p ^ i) * Int.ofNat p from Int.ofNat_mul _ _,
+          ofNat_pow_eq_ipow p i, ipow_succ]
+
+/-- ★ **Int-power base multiplicativity**: `ipow (x·y) n = ipow x n · ipow y n`
+    (the `(xy)ⁿ = xⁿyⁿ` law — `ipow` is *completely* multiplicative in the base). -/
+theorem ipow_base_mul (x y : Int) : ∀ n, ipow (x * y) n = ipow x n * ipow y n
+  | 0     => by show (1 : Int) = 1 * 1; decide
+  | n + 1 => by
+      rw [ipow_succ, ipow_base_mul x y n, ipow_succ, ipow_succ]
+      show ipow x n * ipow y n * (x * y) = ipow x n * x * (ipow y n * y)
+      ring_intZ
 end E213.Lib.Math.NumberTheory.DiffPowDvd

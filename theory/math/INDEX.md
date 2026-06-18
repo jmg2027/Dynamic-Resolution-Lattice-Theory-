@@ -28,17 +28,17 @@ sandwich-first, the commuting square, layer constants),
 
 ### `cohomology/` — the K_{NS,NT}^{(c)} programme
 `cochain`, `cup`, `cupaw`, `delta`, `bipartite`, `fractal`, `aurifeuillean`,
-`hodge`, `hodge_conjecture`, `surfaces`, `universal`, `examples`, `bridge`,
-`cup_ladder_graduation`, `k32_higher_cohomology`, `k_nm_c_classification`,
-`mediant_cohomology_functor`, `tripartite_self_containment`, `sym3_spine`.
+`hodge`, `surfaces`, `universal`, `examples`, `bridge`,
+`cup_ladder_graduation`, `k32_higher_cohomology`, `sym3_spine`.
 
-### `numbertheory/` — `dyadic_fsm`, `modular_arithmetic`, `eisenstein_period_arithmetic`, `euclidean_division`, `legendre_symbol`, `quadratic_reciprocity`, `zolotarev`, `primitive_roots`, `fibonacci_5adic_valuation`, `apery_zeta3_arithmetic`, `chebyshev_prime_counting`, `multiplicative_divisor_theory`.
+### `numbertheory/` — `dyadic_fsm`, `modular_arithmetic`, `eisenstein_period_arithmetic`, `euclidean_division`, `legendre_symbol`, `quadratic_reciprocity`, `zolotarev`, `primitive_roots`, `fibonacci_5adic_valuation`, `apery_zeta3_arithmetic`, `chebyshev_prime_counting`, `multiplicative_divisor_theory`, `lifting_the_exponent`.
 
 ### `geometry/` — geometric / topological / discrete-substrate
-`geometry`, `topology`, `geometrization_conjecture`, `exotic_4mfd_cork`,
+`geometry`, `topology`,
 `angle_structure`, `number_grid`, `generation_rule`, `triangular_tower`,
 `level_topology`, `operation_topology`, `bipartite_decomp`, `cartesian_vs_disjoint`,
-`riemannian_curvature_tensor`, `discrete_curvature`, `discrete_perelman_core`.
+`riemannian_curvature_tensor`, `discrete_curvature`, `discrete_perelman_core`,
+`euclidean_lattice_metric`.
 
 ### `foundations/` — meta / cross-domain anchors
 `axiom_systems`, `pattern_catalog/`, `choice`, `universe_chain`,

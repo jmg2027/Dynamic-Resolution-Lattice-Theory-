@@ -2,11 +2,11 @@ import E213.Lib.Math.Cohomology.Surfaces.T2Minimal
 import E213.Lib.Math.Cohomology.Surfaces.T2Minimal.CupPairing
 import E213.Lib.Math.Cohomology.Surfaces.T2Minimal.Signature
 import E213.Lib.Math.Cohomology.Surfaces.T2Squared
-import E213.Lib.Math.Cohomology.Surfaces.T2Squared.HardLefschetz
 import E213.Lib.Math.Cohomology.Surfaces.T2Squared.HodgeIndex
 import E213.Lib.Math.Cohomology.Surfaces.T2nBetti
 import E213.Lib.Math.Cohomology.Surfaces.P2Minimal
 import E213.Lib.Math.Cohomology.Surfaces.P1Squared
+import E213.Lib.Math.Cohomology.Surfaces.AbelianSurfaceHodge
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.Surfaces`.
 
@@ -26,10 +26,6 @@ import E213.Lib.Math.Cohomology.Surfaces.P1Squared
 
   · `T2Squared.lean`         — Künneth product cells
                                 (1+4+6+4+1 = 16 cells)
-  · `HardLefschetz.lean`     — Kähler ω = a₁b₁ + a₂b₂;
-                                L² : H⁰ → H⁴ mult-by-2;
-                                L : H¹ → H³ 4×4 permutation
-                                (det +1 ⟹ iso ℤ)
   · `HodgeIndex.lean`        — cup C² × C² → C⁴; 3 hyperbolic
                                 blocks ⟹ signature (3, 3)
 

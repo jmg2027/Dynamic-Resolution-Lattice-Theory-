@@ -201,8 +201,8 @@ catalog (17 domains, 6 C-conjectures C1-C6) is tracked separately.
 | `research-notes/G35_*.md` §C4 | Σ-spectral signature theorem | covered by `lean/E213/Lib/Math/Cohomology/HodgeConjecture/Pairing/` |
 | `research-notes/G35_*.md` §C6 | Cross-domain unification | covered by `Lib/Math/Foundations/CrossDomainUnification.lean` |
 
-Hodge §C4 results live with the Hodge chapter
-(`theory/math/cohomology/hodge_conjecture.md`).  C3 §C3 results live
+Hodge §C4 results live with the cohomology chapter
+(`theory/math/cohomology/hodge.md`).  C3 §C3 results live
 with the C3 chain chapter.  C2 / C6 await their own future
 promotions.
 
@@ -256,9 +256,8 @@ representing `b_2 = 1` is the all-ones face-vector
 `ω = (1, 1, 1) ∈ C²`, proven Sym(3)-invariant — the third trivial
 irrep adjoining the H¹-only `2·trivial ⊕ 3·standard` decomposition.
 
-This Filled3Cell anchor is the shared prereq for three downstream
-tracks: this sub-ppb α_em refinement, the JSJ-3-mfd deepening,
-and the Akbulut cork higher-cohomology extension.
+This Filled3Cell anchor is the shared prereq for the sub-ppb
+α_em refinement downstream track.
 
 #### The refined cup-ladder rule (Physics/AlphaEM/)
 

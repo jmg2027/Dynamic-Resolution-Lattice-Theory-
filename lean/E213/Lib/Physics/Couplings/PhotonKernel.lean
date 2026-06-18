@@ -1,86 +1,81 @@
 import E213.Lib.Physics.AlphaEM.Bare
 
 /-!
-# Photon = K_{NS,NT}^{(c)} cycle space (0 axioms part)
+# Photon = octet cycle count, c-free (0 axioms part)
 
 User insight: defining the photon as the incidence matrix kernel.
-Direct LA is difficult without Mathlib, but the **first Betti number** form
-(`b_1 = E - V + 1` for connected) carries the same information + is decidable.
+Direct LA is difficult without Mathlib, but the **octet count** form
+(`NS² − 1`) carries the same information + is decidable.
 
 ## ★ Atomicity-forced identity ★
 
-For bipartite multigraph K_{NS,NT} with c-fold edge multiplicity:
-  E (edges)        = c · NS · NT       = 12  (Hint 2)
-  V (vertices)     = NS + NT           = d = 5
-  b_0 (components) = 1                   (connected)
-  b_1 (cycles)     = E - V + b_0        = 12 - 5 + 1 = 8
+The gluon octet count is the **SU(NS) adjoint dimension**, read
+directly off the forced `NS = 3`:
+
+  b_1 (octet) = NS² − 1 = 8
 
 **b_1 = NS² - 1 = adjoint SU(NS) = 1/α_3 (confined)**
 
-This identity holds only for (NS, NT, c) = (3, 2, 2) —
-i.e., PairForcing → Atomicity forces the equivalence between b_1 and 1/α_3.
+The edge form is **c-free**: the order-2/signature factor `NT`
+enters the temporal axis quadratically, giving the edge count
 
-## Three force prefactors as edge weights
+  E = NS · NT · NT = 3 · 2 · 2 = 12
 
-  α_3:  b_1 = E - V + 1 = NS² - 1            [cycle space]
-  α_2:  E · NT = c·NS·NT² = 24 = d²-1         [full adjoint!]
-  α_1 Y-norm: E · d = c·NS·NT·d = 60          [full dimension]
+(the extra `NT` is the signature factor, not a parallel-edge count).
 
-  α_3: *cycle space dim* (Euler formula)
+## Three force prefactors (c-free)
+
+  α_3:  b_1 = NS² − 1                       = 8   [octet / cycle count]
+  α_2:  E · NT = NS·NT³ = d²−1              = 24   [edge × temporal depth]
+  α_1 Y-norm: E · d = NS·NT²·d             = 60   [edge × total dim d]
+
+  α_3: *octet count* (SU(NS) adjoint)
   α_2: *edge × temporal depth* (rank exhaustion form)
   α_1: *edge × total dim d* (no rank exhaustion, full d)
-
-All three prefactors generated from the *same graph* K_{NS,NT}^{(c)} by different operations.
-Three different cohomologies on one lattice.
 -/
 
 namespace E213.Lib.Physics.Couplings.PhotonKernel
 
 open E213.Lib.Physics.Simplex.Counts
-open E213.Lib.Physics.AlphaEM.Prefactors
 
-/-- Number of edges in the K_{NS,NT}^{(c)} multigraph where the photon lives.
-    c-fold multiplicity = directed K_{NS,NT}. -/
-def num_edges : Nat := c_lat * NS * NT
+/-- Octet edge count, **c-free**: `NS · NT · NT` (the extra `NT`
+    is the order-2/signature factor, not a parallel-edge count). -/
+def num_edges : Nat := NS * NT * NT
 
 /-- Vertex count = NS + NT = d. -/
 def num_vertices : Nat := NS + NT
 
-/-- Connected → b_0 = 1.  K_{NS,NT} is always connected (every A
-    vertex connects to every B vertex). -/
+/-- Connected → b_0 = 1. -/
 def num_components : Nat := 1
 
-/-- First Betti number (cycle space dimension):
-    b_1 = E - V + b_0 = 12 - 5 + 1 = 8. -/
-def b_1 : Nat := num_edges - num_vertices + num_components
+/-- Octet count (SU(NS) adjoint dimension), sourced directly from
+    the forced `NS = 3`: `b_1 = NS² − 1 = 8`.  c-free. -/
+def b_1 : Nat := NS * NS - 1
 
 theorem b_1_eq_8 : b_1 = 8 := by decide
 
-/-- ★★★ **Photon kernel + three-prefactor master** ★★★
+/-- ★★★ **Photon kernel + three-prefactor master (c-free)** ★★★
 
-  The bipartite multigraph K_{NS,NT}^{(c=2)} has cycle space
-  dimension exactly NS² − 1 = 8 = adjoint SU(NS) = 1/α_3
-  (confined).  This identity is NOT generic — it requires the
-  atomic configuration (NS, NT, c) = (3, 2, 2); e.g., (3, 3, 2)
-  gives 13 ≠ 8.  PairForcing → Atomicity forces it.
+  The gluon octet count is `NS² − 1 = 8 = adjoint SU(NS) = 1/α_3`
+  (confined), direct from the forced `NS = 3`.
 
-  All three force prefactors come from the SAME graph:
-    α_3 (cycle space):      b_1 = NS² − 1                  = 8
-    α_2 (edge × NT):        E · NT = c·NS·NT² = d² − 1     = 24
-    α_1 (edge × d, Y-norm): E · d = c·NS·NT·d              = 60 -/
+  All three force prefactors are c-free:
+    α_3 (octet count):      b_1 = NS² − 1                  = 8
+    α_2 (edge × NT):        E · NT = NS·NT³ = d² − 1       = 24
+    α_1 (edge × d, Y-norm): E · d = NS·NT²·d               = 60 -/
 theorem photon_kernel_master :
     -- atomic counts
     num_edges = 12
     ∧ num_vertices = d
-    -- cycle space = α_3 in two forms
+    -- octet count = α_3
     ∧ b_1 = NS * NS - 1
-    ∧ c_lat * NS * NT - (NS + NT) + 1 = NS * NS - 1
+    ∧ b_1 = 8
     -- α_2 prefactor: edge × NT
-    ∧ num_edges * NT = c_lat * NS * NT * NT
+    ∧ num_edges * NT = NS * NT * NT * NT
     ∧ num_edges * NT = d * d - 1
     -- α_1 (Y-norm): edge × d
     ∧ num_edges * d = 60
-    ∧ num_edges * d = c_lat * NS * NT * d := by
+    ∧ num_edges * d = NS * NT * NT * d := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Lib.Physics.Couplings.PhotonKernel

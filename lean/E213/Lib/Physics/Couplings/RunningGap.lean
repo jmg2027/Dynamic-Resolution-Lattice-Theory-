@@ -30,7 +30,7 @@ Total Gram channels: d² = 25.  By PairForcing + Atomicity:
   - NS² = 9     : AAA pure spatial channels
   - NT² = 4     : BBB pure temporal channels
   - 2·NS·NT = 12: AAB + ABA + BAA + ABB + BAB + BBA mixed
-                 (factor 2 = c_lattice)
+                 (factor 2 = NT)
 
 The IR gauge boson (photon) is the cross-sector U(1) — relative
 V_A and V_B.  At IR (Q=0), it couples to all d²

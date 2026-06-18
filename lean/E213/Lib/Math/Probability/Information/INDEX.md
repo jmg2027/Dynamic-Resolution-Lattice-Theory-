@@ -23,17 +23,11 @@ Blueprint: `blueprints/math/12_information_213.md`.
 | `Channel.lean` | noiselessChannel = 1, BSC capacity (atomic dyadic) | ∅-axiom |
 | `Coding.lean` | hammingDistance + self-distance 0; optimalCodeLength = log alphabet | ∅-axiom |
 
-## Kolmogorov
-
-| File | Topic | Status |
-|---|---|---|
-| `Kolmogorov.lean` | kolmogorov_213 = 4 (Raw axiom clauses); axiom minimality | ∅-axiom |
-
 ## Synthesis
 
 | File | Topic | Status |
 |---|---|---|
-| `Capstone.lean` | 7 cluster witnesses + total_witness | ∅-axiom |
+| `Capstone.lean` | 6 cluster witnesses + total_witness | ∅-axiom |
 | `Information.lean` | umbrella | — |
 
 ## Atomic content highlights
@@ -49,9 +43,6 @@ Blueprint: `blueprints/math/12_information_213.md`.
     distributions, clamped to 0 (Jensen's inequality
     automatically via `Nat.zero_le`).
   * **Noiseless channel capacity = 1 bit/symbol** (rfl).
-  * **K(213) = 4**: the Raw axiom's 4 clauses are the minimum
-    description of the entire 213 framework — Kolmogorov-minimal
-    by construction (cf. `seed/AXIOM/08_falsifiability.md` §8.2: any extra axiom = theory falsified).
 
 ## Next continuations (out of scope here)
 

@@ -1,5 +1,4 @@
 import E213.Lib.Math.Cohomology.Bipartite.Parametric.CochSpaces
-import E213.Lib.Math.Cohomology.Bipartite.V32Betti
 
 /-!
 # Parametric δ⁰ kernel size + connectedness (b_0 = 1)
@@ -81,8 +80,8 @@ theorem b0_K14_c1 : kerSizeDelta0Direct 1 4 1 = 2 := by decide
 /-- K_{4,1}^{(c=1)}: S/T swap of K_{1,4}.  ker = 2. -/
 theorem b0_K41_c1 : kerSizeDelta0Direct 4 1 1 = 2 := by decide
 
-/-- K_{3,2}^{(c=2)}: the forced critical deployment.  ker = 2
-    (matches `V32Betti.kerSizeDelta0_eq_2`). -/
+/-- K_{3,2}^{(c=2)}: the forced critical deployment.  ker δ⁰ = 2
+    (the two constant cochains) ⇒ b₀ = 1. -/
 theorem b0_K32_c2 : kerSizeDelta0Direct 3 2 2 = 2 := by decide
 
 /-- K_{3,3}^{(c=2)}: 6 vertices, 18 edges.  ker = 2. -/
@@ -117,13 +116,5 @@ theorem b0_eq_1_representative_range :
     ∧ kerSizeDelta0Direct 3 2 2 = 2
     ∧ kerSizeDelta0Direct 2 3 2 = 2 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
-
-/-! ## V32Betti compatibility -/
-
-/-- The parametric kernel-size count at (3, 2, 2) matches V32Betti's
-    K_{3,2}^{(c=2)}-specific `kerSizeDelta0_eq_2`. -/
-theorem K32_matches_V32Betti :
-    kerSizeDelta0Direct 3 2 2
-    = E213.Lib.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 := by decide
 
 end E213.Lib.Math.Cohomology.Bipartite.Parametric.Delta0AndConnectedness

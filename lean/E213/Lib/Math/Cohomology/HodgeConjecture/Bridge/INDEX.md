@@ -1,26 +1,19 @@
-# `HodgeConjecture/Bridge/` — Hodge ↔ physics / statmech / CS bridges
+# `HodgeConjecture/Bridge/` — cohomology ↔ statmech / CS bridges
 
-Bridge layer connecting Hodge-conjecture cohomology to external
-models: algebraic geometry, statistical mechanics, discrete
-geometry / phase, machine-learning decoders.
+Bridge layer connecting cup-chain cohomology on K_5 / K_{3,2}^{(c=2)}
+to statistical-mechanics + discrete-geometry + ML-decoder models.
 
-## Files (11)
-
-### Algebraic geometry (3)
-  - `BeilinsonRegulator.lean`   — Beilinson regulator construction
-  - `MotiveEtaleFusion.lean`    — motive / étale fusion bridge
-  - `GaloisCounterfactual.lean` — Galois-action counterfactual
+## Files (7)
 
 ### Statistical-mechanics models (4)
-  - `Ising.lean`                — Ising-model Hodge-class encoding
-  - `Potts.lean`                — Potts-model variant
+  - `Ising.lean`                — K_5 Ising energy spectrum + routing
+  - `Potts.lean`                — q=3 Potts variant
   - `SpinGlass.lean`            — spin-glass setup
   - `SpinGlassGroundState.lean` — spin-glass ground-state classification
 
-### Discrete geometry / phase (3)
+### Discrete geometry (2)
   - `DiscreteGeometry.lean`     — discrete-geometry bridge
-  - `PhaseRouting.lean`         — phase-routing model
-  - `G6Vacuity.lean`            — G6 vacuity claim
+  - `ClassAExactWitnesses.lean` — exact-witness vacuity classification
 
 ### Computer science (1)
   - `MLDecoder.lean`            — ML-decoder bridge (algorithmic
@@ -30,17 +23,7 @@ geometry / phase, machine-learning decoders.
 
   - `Bridge.lean` aggregator (anti-corruption layer)
 
-## Where to add new files
-
-  - Algebraic-geometry bridge   → `<theorem-name>.lean` (Beilinson*,
-                                  Motive*, Galois*)
-  - Statmech model              → `<Model>.lean` (Ising-style)
-  - Discrete / phase            → `Phase*` / `DiscreteGeometry*`
-  - Algorithmic / CS            → `MLDecoder` family
-
 ## Bridge discipline
 
-Per CLAUDE.md "Bridge.lean" pattern: this cluster is an
-anti-corruption layer between Hodge cohomology and external
-models.  External vocabulary stays inside the bridge; internal
-results re-stated in 213-native terms.
+Per CLAUDE.md "Bridge.lean" pattern: external vocabulary stays inside
+the bridge; internal results re-stated in 213-native terms.

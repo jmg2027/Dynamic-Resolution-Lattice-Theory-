@@ -64,5 +64,5 @@ narrative + cross-frame discussion: `theory/math/analysis/modulus_structure.md`.
 - `theory/math/analysis/modulus.md` — `HasModulus` / `StrongModulus` family
   in `Lib/Math/Analysis/Modulus/` (separate sub-tree, same underlying
   Skolem-modulus principle)
-- `theory/math/geometry/geometrization_conjecture.md` "Open frontier" —
+- `theory/math/geometry/discrete_curvature.md` —
   `IsRicciModulus` source typeclass

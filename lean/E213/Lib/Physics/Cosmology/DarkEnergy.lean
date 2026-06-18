@@ -12,9 +12,13 @@ DRLT formula:
 
   Measurement-Lens reading: Ω_Λ ≈ 0.685 ± 0.007  (Planck/DESI).
 
-## Lens-reading agreement: 0.0008%
+## Lens-reading consistency
 
-  This is the most precise DRLT result among cosmological observables.
+  The narrative DRLT value 0.6850 sits within the measured
+  Ω_Λ ≈ 0.685 ± 0.007 (Planck/DESI).  Any percent-level agreement
+  figure here is an informal off-Lean estimate; the Lean theorem
+  proves only the integer atomic readings and the measured-value
+  containment in the stated window.
 
 ## ★ Same trace-correction factor as m_H, He ★
 
@@ -52,9 +56,9 @@ def trace_correction_denom : Nat := d  -- α_GUT/d uses denom d
 /-- ★ Capstone — Ω_Λ shares trace-correction pattern ★
 
   The (1 + α_GUT/d) factor unites m_H, Ω_Λ, He IE.  Same atomicity
-  (NS, NT, d, c) = (3, 2, 5, 2).
+  (NS, NT, d) = (3, 2, 5).
 
-  Bundles: trace_correction_denom = d = 5, c_lat = 2 (bare = 1/π),
+  Bundles: trace_correction_denom = d = 5, NT = 2 (bare = 1/π),
   upper π bracket bare < 15/22 = 0.6818, observed Ω_Λ = 0.685 in
   0.1% bracket [0.684, 0.686], NS + NT = d atomic primitive. -/
 theorem dark_energy_pattern_capstone :
@@ -62,8 +66,8 @@ theorem dark_energy_pattern_capstone :
     trace_correction_denom = d
     ∧ trace_correction_denom = 5
     ∧ d = 5
-    -- c = 2 from lattice (bare angular deficit c/(2π) = 1/π)
-    ∧ c_lat = 2
+    -- NT = 2 from lattice (bare angular deficit NT/(2π) = 1/π)
+    ∧ NT = 2
     -- Bare upper bound: 1 − 1/π < 15/22 = 0.6818 (observed bare ≈ 0.6817)
     ∧ (68170 < 68182)
     -- Observed Ω_Λ = 0.685 in 0.1% bracket [0.684, 0.686]

@@ -81,7 +81,7 @@ The capstone Leibniz statement is obtained by:
 
 ## Connection
 
-- `theory/math/cohomology/hodge_conjecture.md` — HodgeConjecture sub-tree (parent)
+- `theory/math/cohomology/hodge.md` — cup-chain cohomology + ⋆⋆ involution
 - `theory/math/cohomology/delta.md` — coboundary δ
 - `theory/math/cohomology/cochain.md` — Cochain definition
 - Other cohomology sub-clusters cite this layer
@@ -397,16 +397,14 @@ of the three under value equality.
 ```bash
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizFinPureForm
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.SelfRefDepth
-cd lean && lake build E213.Lib.Math.Cohomology.Cup.CupAtomicGeneralD
-cd lean && lake build E213.Lib.Math.Cohomology.Cup.K32Projection
+cd lean && lake build E213.Lib.Math.Cohomology.Cup.CupAtomic
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizMirror
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizSym
 cd lean && lake build E213.Lib.Math.Cohomology.Cup.LeibnizCatalog
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.LeibnizFinPureForm
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.SelfRefDepth
-python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.CupAtomicGeneralD
-python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.K32Projection
+python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.CupAtomic
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.LeibnizMirror
 python3 tools/scan_axioms.py E213.Lib.Math.Cohomology.Cup.LeibnizSym

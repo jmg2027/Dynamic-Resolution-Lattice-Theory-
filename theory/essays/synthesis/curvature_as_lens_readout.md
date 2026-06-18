@@ -18,7 +18,7 @@ substance claim; it is the sign bit of a difference-Lens readout.
 ## Derivation across frames
 
 **Frame 1 — Forman (edge count).** `formanEdge du dv = 4 − du − dv`
-(`Geometry/GeometrizationConjecture/DiscreteRicci.lean`).  One subtraction of
+(`Geometry/DiscreteCurvature/DiscreteRicci.lean`).  One subtraction of
 two degree-counts.  `K_{1,1}` reads `+2`, `K_{1,3}` reads `0`, `K_{3,2}` reads
 `−1` (`forman_K11`/`forman_K13`/`forman_K32`), and `discrete_curvature_topology`
 ties the sign to `b₁`.

@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 105 essays are grouped into ten thematic sub-directories — distinct
+The 97 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -31,22 +31,22 @@ others together):
 reached by no convergent yet every cut is decided in finite — `PointingLimit`,
 `BestApproximation`; the residue's shape characterises ∞ without deifying it).
 
-**II. `cohomology/` — the c-counter programme.**
-`c_counter_as_layer_count`, `disjoint_layers_as_direct_sum`,
-`multiplicity_layer_uniformity`, `cup_image_dual_span`,
-`per_layer_completeness_constructive_closure`, `c_counter_programme_closure`,
+**II. `cohomology/`.**
 `kplus1_alpha_power_graduation`, `steenrod_whitehead_bridge`,
-`vandermonde_mediant_counts`, `k32_cohomology_simplex_higher_insight`,
-`cut_off_marathon`.
+`k32_cohomology_simplex_higher_insight`, `cut_off_marathon`.
 
 **III. `p_orbit/` — P-orbit, Möbius & atomic signature.**
 `p_orbit_closure_master`, `p_orbit_naturalness_boundary`,
 `mobius_self_form_fixed_point`, `every_axis_sees_p`,
 `cut_equality_and_atomicity`, `stern_brocot_as_universal_lattice`,
-`bipartite_tripartite_self_containment`, `the_modular_geodesic_lens`.
+`the_modular_geodesic_lens`.
 
 **IV. `synthesis/` — synthesis & the master tower.**
-`multiplicativity_is_the_x_count_lens`, `synthesis_interlock_map`, `layer_multiplication_pattern`, `tower_atlas`,
+`the_forcing_criterion_is_distinguishing` (a quantity is forced ⟺ it names a
+genuine distinguishing axis; faithful ⟺ the axes separate (`vp_separation`);
+removable ⟺ no axis added (`c` not forced) — one criterion, both verdicts),
+`multiplicativity_is_the_x_count_lens`,
+`addition_and_multiplication_are_two_faces_of_one_count`, `tower_atlas`,
 `representation_theorems_one_counting_bound`, `four_square_additive_pigeonhole`,
 `duality_as_one_transpose` (a duality = `sumOver_swap` on one 0/1 incidence +
 a SEPARATE cap per axis; min-cover = max-anti is the transpose),
@@ -148,11 +148,10 @@ certificate whose content is the number's own structure: the strict sandwich at 
 (`vp_separation`, `FoldCriterion.pow_eq_pow_iff_vp`), and the CF/Padé certificate for reals
 (`when_two_pointings_are_one`, size `48` at level one) — one shape at three resolutions; the
 single-schema Lean statement is open).
-`the_minus_one_under_three_lenses` (`b₁ = NS² − 1 = 1/α₃ = 8` is one residue's lone constant
+`the_minus_one_under_two_lenses` (`b₁ = NS² − 1 = 1/α₃ = 8` is one residue's lone constant
 mode counted once — `bcount_const = 2`, `isKer_iff_const` — read as the cohomology `b₀`
-subtracted (`im_count_inj_complement`, field-free via an involution), the `SU(NS)` adjoint's
-removed trace (`c3_chain`), and the chart's self-pointing axis `d_M = d−1`
-(`forcedKChartLens`); none of the three is what the `−1` IS).
+subtracted (`im_count_inj_complement`, field-free via an involution) and the `SU(NS)` adjoint's
+removed trace (`c3_chain`); neither lens is what the `−1` IS).
 `what_213_forces_and_what_it_reads` (the originator's foundational question — why
 should a Raw axiom derive physics — answered as the forced/read split: 213 forces
 a small skeleton (the atoms `(NS,NT,d)=(3,2,5)`, the counts `NS²−1=8`,
@@ -173,7 +172,8 @@ counts) and honest about ◑ closures — octet `Unit`-modelled, CP-phase matrix
 `what_is_a_logarithm`, `what_is_holonomy`,
 `the_modular_group_from_two_folds`, `minkowski_as_modular_cocycle`,
 `bessel_polynomials_are_the_lambert_convergents`, `the_form_forced_by_two`,
-`the_certificate_boundary`.
+`the_certificate_boundary`, `the_degree_of_a_number`,
+`pi_as_the_modulus_residue`.
 
 **VI. `algebra/` — algebra tower & linear algebra.**
 `cd_tower_polarization`, `exceptional_seeds_are_forced`,
@@ -184,7 +184,7 @@ counts) and honest about ◑ closures — octet `Unit`-modelled, CP-phase matrix
 `gra_universality_one_principle`, `gra_as_substrate_of_cat_hott`.
 
 **VIII. `topology/` — topology, geometry & 4-manifolds.**
-`4mfd_geometrization_joint_reading`, `cup_ladder_cork_h1_bridge`.
+`cup_ladder_sym3_fixed_h1_bridge`.
 
 **IX. `methodology/` — methodology & PURE-Lean infra.**
 `pure_funext_avoidance`, `pure_nat_ring_methodology`,
@@ -227,10 +227,8 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `cut_off_marathon.md` | What collapsed in the cardinality cut-off 6-direction sweep? | `math/cohomology/aurifeuillean.md` + `meta/cardinality_cutoff_applications.md` |
 | `pure_funext_avoidance.md` | PURE Lean에서 funext-blocked 정리를 어떻게 닫는가? | 4 patterns across `Padic/Neg*` + `Real213/ValidCut/IntValidCut` + `Padic/Setoid*` + `Padic/HenselResidual` |
 | `bool_assoc_failure_meaning.md` | b ≥ 3 cutSum_assoc이 Bool level에서 실패하는 것은 무엇을 의미하는가? | `Real213/Sum/CutSumAssocB3` + `Theory/Atomicity/Five` `atomic_iff_five` + `Physics/Foundations/AtomicConstantsParametricFullIff` `c2b_full_iff` + `Padic/ZpSqrtD` |
-| `4mfd_geometrization_joint_reading.md` | How does 213 read 4-mfd geometrization (cork twist + JSJ + Heegaard jointly)? | `math/exotic_4mfd_cork.md` + `math/geometrization_conjecture.md` + `lean/E213/Lib/Math/Geometry/AkbulutCork/CrossFrame.lean` |
-| `cup_ladder_cork_h1_bridge.md` | How do cup-ladder α²/d² Gram and cork +4 share the same H¹ basis? | `math/cohomology/cup_ladder_graduation.md` + `math/exotic_4mfd_cork.md` + `lean/E213/Lib/Math/Geometry/AkbulutCork/CrossFrame.lean` |
+| `cup_ladder_sym3_fixed_h1_bridge.md` | How do cup-ladder α²/d² Gram and the Sym(3)-fixed +4 share the same H¹ basis? | `math/cohomology/cup_ladder_graduation.md` |
 | `cut_equality_and_atomicity.md` | 213에서 두 cut이 같다는 게 뭐야? Why does one matrix carry both atomicity and cut equality? | `math/mobius_canonical_equivalence.md` + `math/universe_chain.md` + `Theory.Atomicity.Five.atomic_iff_five` |
-| `c_counter_as_layer_count.md` | What is `c` in K_{NS, NT}^{(c)} cohomology? Why is the c-counter not a depth parameter? | `math/cohomology/k_nm_c_classification.md` + `V33EnrichedParametric.parametric_c_independent_h2_classes` |
 | `the_degree_of_a_number.md` | What IS the degree of a number? (degree = growth class of the pointing's receipt; form-receipt vs race-receipt; the number's own degree = a cut over exponent cuts, `powSched_mono`) | `math/analysis/form_margin_modulus.md` + `math/analysis/holonomic_modulus.md` + `Real213/{CubeRootTwoCut,ModulusComposition,Zeta3Cut}` + `essays/foundations/growth_without_a_clock.md` |
 | `pi_as_the_modulus_residue.md` | π read through the modulus family: every lattice period divides 12 (spectrum exactly `{1,2,3,4,6}`, five forbidden), every schedule overtaken (rung ∞), and the ∀-form becomes a constructor exactly when quantified into an escape modulus (`PiHalfMeasure` ⟹ `N = C·(2k)^s + 2`); π's specialness = effectivity gap, not Diophantine exoticism | `Real213/{FiniteOrderSpectrum, ExpLog/PiMeasureModulus, BracketModulus}` + `math/analysis/holonomic_modulus.md` §4 + `essays/analysis/the_modular_group_from_two_folds.md` + `seed/AXIOM/05_no_exterior.md` §5.1 |
 | `when_two_pointings_are_one.md` | **What does it mean for two pointings to point at one real?**  Probe-wise agreement of limit cuts — a theorem with a per-level price, paid in exact coin: the weld's diagonal Padé flip `cfpos n n = (4i+2)!!` absorbs all sub-diagonal slack (`weld_closed`); uniqueness-of-limits, classically free, becomes a certificate with a size (`48` at level one); the `cross =0/=1/≥1` regimes of the pair-layer expression unified | `math/analysis/lambert_weld.md` + `lens/unified_equivalence.md` + `Real213/PresentationDependence` + `object1_not_surjective` + `math/numbersystems/real213.md` |
@@ -238,25 +236,16 @@ dual (min chain cover `=` max antichain `= C(n,⌊n/2⌋)`).
 | `bessel_polynomials_are_the_lambert_convergents.md` | The Lambert CF convergent coefficient arrays `apF`/`bpF` **are the reversed Bessel polynomials** (in `u=z²`): the three-term ladder is the Bessel recurrence, constant term `(2n−1)!!`, leading coeff the Padé flip `cfpos = 2^n·descFac = (4i+2)!!`, `minor_all` = Bessel total positivity; the weld = the two Bessel families (denominator `θ_n` = convergents, numerator `F_n` = series) meeting at the double-factorial flip | `ExpLog/{LambertMinor (apF/bpF, minor_all), LambertMasterId (cfpos, master_odd), LambertWeld §1 (Bessel ladder F_n), ContinuedFractionModulus (cothCF)}` + `math/analysis/lambert_weld.md` + `essays/analysis/when_two_pointings_are_one.md` + `weld_casoratian_development.md` (bilinear unification) |
 | `the_form_forced_by_two.md` | Why is the weld's shape forced? The solution space is **exactly 2-dimensional** (`coth = cosh/sinh`, two solutions of `y''=y`), and rank-2 forces everything: the unique alternating form (Casoratian `K`), the bilinear collapse (every cross = `det(coeff)·K`, `weld_bilinear_casoratian`), the unimodular CF-determinant transform (`weld_cosh_RM`, det `−1`), the det-floor `+1` as residue unit, the double-factorial flip as the accumulated determinant; no exterior dialer chooses the form, "two" forces it (rank 1 = rational, rank 3+ = more than one invariant) | `math/analysis/lambert_weld.md` §9 + `ExpLog/LambertOrder` (`weld_bilinear_casoratian`, `weld_cosh_RM`, `*_basis`) + `seed/AXIOM/{05_no_exterior.md §5.1, 06_lens_readings.md}` + `essays/analysis/bessel_polynomials_are_the_lambert_convergents.md` |
 | `the_certificate_boundary.md` | When does a holonomic recurrence carry its own proof? A **certificate** `Ĝ(j,k)` with `F(j,k)=Ĝ(j,k+1)−Ĝ(j,k)` (a finite telescoping witness) exists exactly when the summand is **proper hypergeometric** (rational term ratio); Apéry's denominator `B=ΣC(n,k)²C(n+k,k)²` is certifiable (clean `Ĝ`, found+verified), the harmonic numerator `A=H₃B+K` satisfies the **same** recurrence but has **no clean certificate** — certifiability ends precisely at the hypergeometric/harmonic = algebraic/archimedean-log boundary (the same divide as `vp` vs `ln`); shape is forced by rank-2, certifiability by the term class | `math/numbertheory/apery_zeta3_arithmetic.md` + `NumberTheory/AperyRecurrence` (`per_k`, `sumTo_shift_eq`, `colrec`/`lowrec`) + `NumberTheory/Zeta3Numerator` (`harmonic_part_recurrence`) + `essays/synthesis/equality_is_a_certificate.md` + `essays/analysis/what_is_a_logarithm.md` + `essays/analysis/the_form_forced_by_two.md` |
-| `disjoint_layers_as_direct_sum.md` | Why does cup-image codim grow linearly with c? | `math/cohomology/k_nm_c_classification.md` + categorical direct sum reading + `parametric_c_independent_h2_classes` |
-| `stern_brocot_as_universal_lattice.md` | Where does K_{NS, NT}^{(c)} sit, and why is (3, 2) the atomic anchor? | `math/cohomology/k_nm_c_classification.md` + `math/mobius_canonical_equivalence.md` + `BipartiteStermBrocotClassification` |
-| `bipartite_tripartite_self_containment.md` | Why is the framework called 2-1-3 but the cohomology programme bipartite? | `math/mobius213_p_orbit_closure.md` + `TripartiteK213` + Lean-deferred Option I (V32LocalSignature) |
+| `stern_brocot_as_universal_lattice.md` | Where does the Stern-Brocot lattice sit, and why is (3, 2) the atomic anchor? | `math/mobius_canonical_equivalence.md` + `Theory.Atomicity.Five.atomic_iff_five` |
 | `p_orbit_naturalness_boundary.md` | Where does the "non-atomic" prime 7 come from in mod-13 period? | `math/mobius213_p_orbit_closure.md` + `POrbitClosure.framework_natural_via_p_orbit_closure` |
-| `vandermonde_mediant_counts.md` | How do K_{NS, NT}^{(c)} cell counts split under the Stern-Brocot mediant? | `math/cohomology/k_nm_c_classification.md` §"Mediant cohomology functor" + `MediantCohomologyFunctor.mediant_cohomology_functor_capstone` |
 | `p_orbit_closure_master.md` | Is the P-orbit closure structurally forced from atomic data? | `CharPolySelf` + `POrbitRing` + `Theory/Atomicity/OrbitForcing` + `PeriodDepthBounds` + `CrossProductAxes` + `Cohomology/Tripartite/V213ShadowProjection` |
 | `pure_nat_ring_methodology.md` | How does PURE Lean prove universal polynomial identities without `ring` / `omega`? | `Meta/Nat/NatRing213` + `Px/CassiniUniversal` + `Px/PnFibonacciUniversal` |
-| `multiplicity_layer_uniformity.md` | 모든 multiplicity layer 에서 같은 ψ-kill 이 작동하는 이유?  `9·m` cancellation 의 구조적 의미? | `math/cohomology/k_nm_c_classification.md` §"Arbitrary-m bilateral kill" + `V33EnrichedParametric.parametric_arbitrary_m_full_kill_capstone` + `Beq213.nat_decide_add_left_assoc{1,2}` |
-| `cup_image_dual_span.md` | What does it mean for the c ψ-discriminators to SPAN the dual of H²_enr / cup-image? Why PRIMARY (not FULL) cup-image? | `math/cohomology/k_nm_c_classification.md` §"Cup-image dual span" + `V33EnrichedParametricDualSpan.parametric_dual_span_capstone` + `Beq213.nine_block_disjoint` |
-| `per_layer_completeness_constructive_closure.md` | What are the 8 explicit generators that close `joint ψ-kernel ⊆ InPrimary` at c=1, and how does layer-promotion lift them to ∀c? | `math/cohomology/k_nm_c_classification.md` §"Per-layer completeness" + §"∀c lift via layer-promotion" + `V33EnrichedParametricDualSpanHard.joint_psi_kernel_subset_primary_c1` + `V33EnrichedParametricDualSpanHardLift.joint_psi_kernel_subset_primary` + cong constructor |
-| `c_counter_programme_closure.md` | How do the five directions (A/B/C/E/T) of the c-counter programme interlock?  Same-shape parallel to P-orbit closure? | `math/cohomology/k_nm_c_classification.md` + `master_Knn_c_counter_resolved` + `parametric_arbitrary_m_full_kill_capstone` + `parametric_dual_span_capstone` + `mediant_cohomology_functor_capstone` + `self_containment_cohomology_verdict` |
 | `multiplicativity_is_the_x_count_lens.md` | What IS multiplicativity? A function is multiplicative ⟺ it is a readout of the ×-count-Lens (the prime-exponent vector `vp`, faithful by `vp_separation` = the FTA) that factors through the per-prime-power axes; coprimality = disjoint exponent-vector support, so the product splits. Dual: classical "multiplicative function + FTA" with the FTA not invoked but identified as Lens-faithfulness. Cross-frame: multiplicativity exists because ×-atoms (primes) are distinguishable where +-atoms (units, `UnitList.append_comm`) are not — the function form of ×-atom distinguishability | `Meta/Nat/{VpSeparation.vp_separation, UnitList.append_comm, TwoThreeUnique}` + `NumberTheory/{DivisorMultiplicative.divisor_product_reindex, SquareCharacterization.coprime_isSquare_mul, SigmaParityComplete.sigma_odd_iff}` + `math/numbertheory/multiplicative_divisor_theory.md` |
-| `layer_multiplication_pattern.md` | Why does the same proof shape (invariant + offset + cancellation) appear in cohomology layers, P-orbit depth, AND mediant Vandermonde? | `theory/essays/cohomology/c_counter_as_layer_count.md` + `theory/essays/p_orbit/p_orbit_closure_master.md` + `theory/essays/cohomology/vandermonde_mediant_counts.md` + `Beq213.nat_decide_add_left_assoc{1,2}` + `Combinatorics/Binomial.binom_add_2` + `Px/CharPolySelf.L_recurrence_2` |
-| `synthesis_interlock_map.md` | How do the three synthesis essays (c-counter, P-orbit, layer-multiplication) explicitly correspond row by row? | `theory/essays/cohomology/c_counter_programme_closure.md` + `theory/essays/p_orbit/p_orbit_closure_master.md` + `theory/essays/synthesis/layer_multiplication_pattern.md` |
 | `methodology/reframe_presentation_transport.md` | When a reading fails to SEPARATE (over-counts), how does 213 read the same residue at a resolution where it separates? (Markov uniqueness, Zhang's 3c±2, presentation-transport as a lift) | `Foundations/ProofISALifts` (`lift_reframe`) + `math/analysis/markov_uniqueness.md` + `MarkovUniqueness.markov_max_unique_via_3c_pm2` + `MarkovPrimeFactor.sq_eq_collapse_pp` + CLAUDE.md *External-ruler smuggling* |
 | `representation_theorems_one_counting_bound.md` | Why are `p = a²−ab+b²` (disc −3), `p = a²+b²` (disc −4), and the `ℤ[√−D]` family all one theorem? | `PolyRoot/RootBound.eval_zero` + `NonFixedExists.exists_nonfixed_gen` + `Integer/{EisensteinSplit,GaussianSplit,ZSqrtNegSplit}.split_form` + `Integer/ZSqrtNegSharp.descent_false_at_three` |
 | `four_square_additive_pigeonhole.md` | Why is every `n = a²+b²+c²+d²`, and why does this need a *different* engine than the disc-`−D` representation theorems? | `NumberTheory/FourSquare.{four_sq_id,isSum4_mul,descent_core,odd_descent,halve_step,descent_rec,seed_multiple,exists_prime_factor,prime_isSum4,nat_isSum4}` + `FourSquareSeed.four_square_seed` + `Combinatorics/Pigeonhole.no_inj_lt` |
-| `curvature_as_lens_readout.md` | What is curvature, in 213? Why do Forman, Gauss–Bonnet, Ollivier, Bakry–Émery, and conformal give the same sign↔topology trichotomy? | `Geometry/GeometrizationConjecture/{DiscreteRicci,DiscreteGaussBonnet,OllivierRicci,BakryEmery,ConformalCurvature}` + `seed/AXIOM/06_lens_readings.md` §6.7 |
-| `k32_cohomology_simplex_higher_insight.md` | The K_{3,2}^{(c=2)} cohomology simplex, read one level up — `PGeneratesNat` + the Sym(3) spine + Nodup-as-Clause-4 tied together | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Cohomology/NodupAsClause4` + `Mobius213K32Bridge` + `synthesis_interlock_map.md` |
+| `curvature_as_lens_readout.md` | What is curvature, in 213? Why do Forman, Gauss–Bonnet, Ollivier, Bakry–Émery, and conformal give the same sign↔topology trichotomy? | `Geometry/DiscreteCurvature/{DiscreteRicci,DiscreteGaussBonnet,OllivierRicci,BakryEmery,ConformalCurvature}` + `seed/AXIOM/06_lens_readings.md` §6.7 |
+| `k32_cohomology_simplex_higher_insight.md` | The K_{3,2}^{(c=2)} cohomology simplex, read one level up — `PGeneratesNat` + the Sym(3) spine | `Px/PGeneratesNat` + `math/sym3_spine.md` + `Filled3CellCohomology.phase1_cohomology_anchor` |
 | `mobius_self_form_fixed_point.md` | 모습 자체가 뫼비우스 행렬 — P는 왜 자기 설명 함자의 고정점인가? | `Px/MobiusSelfForm` + `Px/CharPolySelf` + `Px/PnFibonacciUniversal` + `math/mobius213_p_orbit_closure.md` |
 | `gra_universality_one_principle.md` | Walk-length, cup-length, truncation, chromatic height, resolution exponent — why are these the same? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/` umbrella + `GRA/Translation.lean` |
 | `gra_as_substrate_of_cat_hott.md` | Could GRA play the role Category theory / HoTT normally occupy, but from a more fundamental position? | `math/gra_book.md` + `lean/E213/Lib/Math/Algebra/GRA/LensBridge.lean` (`Raw.fold 2 3 (· + ·)` as canonical grade map; `truncation_operad_grade_agree` as the HoTT ↔ Higher Algebra Lens equation) |

@@ -98,4 +98,11 @@ theorem bipartite_realize_b :
     (Raw.fold BipartiteCarrier.two BipartiteCarrier.three
               BipartiteCarrier.combine Raw.b).n = 3 := rfl
 
+
+/-- ★ **The GRA grade of `slash a b` is `5 = NS + NT`**: grade-additivity sends the first
+    distinguishing `a ∤ b` (`a≠b`) to `canonicalGradeMap a + canonicalGradeMap b = 2 + 3 = 5`
+    — the atomic `d` read off the universal grade map. -/
+theorem canonicalGradeMap_a_slash_b (h : Raw.a ≠ Raw.b) :
+    canonicalGradeMap (Raw.slash Raw.a Raw.b h) = 5 := by
+  rw [canonicalGradeMap_slash Raw.a Raw.b h, canonicalGradeMap_a, canonicalGradeMap_b]
 end E213.Lib.Math.Algebra.GRA.LensBridge

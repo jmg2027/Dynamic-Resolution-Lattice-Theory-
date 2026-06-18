@@ -14,7 +14,7 @@ sin²θ_W, Ω_Λ, CH₄/NH₃/H₂O bond angles are *all* derived from the same 
 
 ## Universal building blocks
 
-  Atomic primitives:  NS = 3, NT = 2, d = NS+NT = 5, c_lat = 2
+  Atomic primitives:  NS = 3, NT = 2, d = NS+NT = 5
 
   Derived integers (atomicity-forced):
     d² - 1 = 24        = adjoint SU(5)  = (d-1)(d+1)
@@ -53,10 +53,13 @@ sin²θ_W, Ω_Λ, CH₄/NH₃/H₂O bond angles are *all* derived from the same 
   NH₃ cos   = -(NS+1)/(NS²+NS+1)    = -4/13
               [pure rational from NS]
 
-## ★ Single atomicity forcing ★
+## ★ Shared atomic source ★
 
-  (NS, NT, d, c) = (3, 2, 5, 2) simultaneously forces *all* of the identities above.
-  No other combination of (NS, NT, d, c) satisfies them *simultaneously*.
+  At (NS, NT, d, c) = (3, 2, 5, 2) every identity above holds
+  simultaneously (verified by `decide` below).  The theorem witnesses
+  that these identities are all closed functions of the *same* atomic
+  constants; it does NOT assert uniqueness — no claim that some other
+  (NS, NT, d, c) fails them is proven here.
 -/
 
 namespace E213.Lib.Physics.Foundations.UnifiedPattern
@@ -70,12 +73,13 @@ open E213.Lib.Physics.Higgs.Mass
 open E213.Lib.Physics.Mass.TauOverMu
 open E213.Lib.Physics.Atomic.BondAngles
 
-/-- ★★★ MASTER CAPSTONE ★★★
+/-- ★★★ Shared-atom witness ★★★
 
-  *Seven precision quantities* all from the same atomicity-locked atoms.
-
-  α_em IR + m_μ/m_e + m_τ/m_μ + m_H/v_H + sin²θ_W + Ω_Λ +
-  bond angles — forced by single (3, 2, 5, 2) atomicity. -/
+  Atomic-integer inputs to seven precision quantities — α_em IR,
+  m_μ/m_e, m_τ/m_μ, m_H/v_H, sin²θ_W, Ω_Λ, bond angles — all read
+  off the same (NS, NT, d, c) = (3, 2, 5, 2) constants.  This bundles
+  those shared atomic equalities; it is not a uniqueness/completeness
+  claim for the full precision formulas. -/
 theorem master_unified_pattern :
     -- 1) α_em cycle space (PhotonKernel)
     (b_1 = NS * NS - 1)
@@ -101,17 +105,14 @@ theorem master_unified_pattern :
     -- 11) NH₃ cos
     ∧ (NH3_cos_numer = 4) ∧ (NH3_cos_denom = 13)
     -- 12) Atomic config
-    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
+    ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
 /- ★ Operational meaning ★
-   That this single theorem closes with 0 sorry, 0 axiom is the formal proof
-   that "diverse precision quantities are *all* derived from the
-   simplicial cohomology decomposition of the same (3,2,5,2) atomic configuration."
-
-   For any other (NS, NT, d, c) combination, many of the 14 equalities above
-   become simultaneously false.  Only single atomicity forcing explains all precision formulas.
-
-   This is the structural reading of DRLT's "no exterior dialer"
-   claim (cf. `seed/AXIOM/05_no_exterior.md` §5.1). -/
+   This theorem closes with 0 sorry, 0 axiom: the listed atomic
+   integers feeding the precision quantities are all closed functions
+   of the same (3,2,5,2) constants.  It witnesses the *shared source*,
+   not a uniqueness or completeness claim — it does not prove that
+   other (NS, NT, d, c) fail, nor that every precision formula is
+   thereby predicted.  Cf. `seed/AXIOM/05_no_exterior.md` §5.1. -/
 
 end E213.Lib.Physics.Foundations.UnifiedPattern

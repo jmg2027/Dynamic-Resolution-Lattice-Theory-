@@ -1,16 +1,16 @@
-# `Lib/Math/Cohomology/HodgeConjecture/Pairing/` — H* pairings (Hodge Index + Hodge-Riemann)
+# `Lib/Math/Cohomology/HodgeConjecture/Pairing/` — surface intersection forms
 
-Cup-product pairings on H* and their signatures.  Hodge Index
-Theorem (HIT) and Hodge-Riemann positivity (HR) — first vacuously
-on K_{3,2}^{(c=2)}, then non-vacuously on Kähler 2-folds (T², ℙ²,
-ℙ¹×ℙ¹, T²×T²) and parametric generalisations.
+Cup-product pairings and their signatures on real CW surfaces:
+Hodge Index signatures and the signed-ℤ Hodge–Riemann polarization,
+on Kähler 2-folds (T², ℙ², ℙ¹×ℙ¹, T²×T²) and parametric
+generalisations.
 
-## Files (21)
+## Files (18)
 
-### Base capstones (vacuous on K, non-vacuous lifts) (4)
-  - `HodgeIndex.lean`       — base on K_{3,2}^{(c=2)} (cup vacuously 0)
-  - `HodgeRiemann.lean`     — base HR (positivity vacuous in ℤ/2)
-  - `HodgeIndexT2.lean`     — ★ non-vacuous lift to T² (sig (1,1))
+### T² + signed HR (2)
+  - `HodgeRiemann.lean`     — signed-ℤ HR polarization (Q, J),
+                              positive-definite `h = Q·J = I`
+  - `HodgeIndexT2.lean`     — ★ T² (sig (1,1))
   - `HodgeRiemannT2.lean`   — ★ Kähler class on T² with cup>0
 
 ### Kähler 2-fold cases (4)
@@ -20,9 +20,8 @@ on K_{3,2}^{(c=2)}, then non-vacuously on Kähler 2-folds (T², ℙ²,
   - `HodgeRiemannT2Squared.lean`— ★★★ HR ℚ-positivity refinement on
                                   P^{1,1} ⊂ T²×T²
 
-### Comparison + Hirzebruch (3)
+### Comparison + Künneth (2)
   - `SurfaceComparisonTheorem.lean` — 4-fold cross comparison
-  - `HirzebruchMultiplicative.lean` — Hirzebruch multiplicativity
   - `TensorSignature.lean`          — ★★★ Künneth pair-level
 
 ### T²ⁿ pattern + genus-g (3)
@@ -34,12 +33,11 @@ on K_{3,2}^{(c=2)}, then non-vacuously on Kähler 2-folds (T², ℙ²,
   - `TripleProductSurface.lean`            — triple product surface
   - `TripleProductSurfaceParametric.lean`  — parametric variant
 
-### Grade structure + balanced (5)
+### Grade structure + balanced (4)
   - `HodgeIndexGradeStructure.lean`        — grade-aware HIT
   - `KahlerGradeStructure.lean`            — grade-aware Kähler
   - `BalancedSignature.lean`               — balanced (p,p) signature
   - `ProductSurfaceSignature.lean`         — product-surface signature
-  - `SignatureMetaTheorem.lean`            — meta-level statement
 
 ## Pattern (∅-axiom)
 
@@ -62,5 +60,5 @@ details.
 
   - New Kähler surface       → `HodgeIndex<name>` / `HodgeRiemann<name>`
   - Pattern extension        → `T2n*` / `GenusG*`
-  - Künneth / multiplicative → `TensorSignature` / `Hirzebruch*`
+  - Künneth / multiplicative → `TensorSignature`
   - Triple-product variants  → `TripleProduct*`

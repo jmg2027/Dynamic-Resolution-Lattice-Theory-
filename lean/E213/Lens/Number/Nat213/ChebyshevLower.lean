@@ -39,7 +39,8 @@ open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (sumTo_le_sumTo lcmExpCount_e
 open E213.Meta.Nat.FloorLog (floorLog_pow_le lt_pow_floorLog_succ pow_lt_pow_of_lt floorLog_pow_self)
 open E213.Meta.Nat.PowBasic (pow_mul_pure)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
-open E213.Lens.Number.Nat213.MultSystemValue (central_binom_ge_two_pow prime_not_dvd_fact)
+open E213.Lens.Number.Nat213.MultSystemValue
+  (central_binom_ge_two_pow four_pow_le_succ_mul_central_binom prime_not_dvd_fact)
 open E213.Meta.Nat.Valuation (pow_vp_dvd)
 open E213.Meta.Nat.VpMul (IsPrime213 vp_pow vp_self_pow)
 open E213.Meta.Nat.VpSeparation (exists_prime_factor vp_eq_zero_of_not_dvd dvd_iff_one_le_vp dvd_of_forall_vp_le)
@@ -424,5 +425,21 @@ theorem central_binom_dvd_lcm {n : Nat} (hn : 1 ≤ n) :
 theorem two_pow_le_lcm {n : Nat} (hn : 1 ≤ n) : 2 ^ n ≤ lcmUpTo (2 * n) :=
   Nat.le_trans (central_binom_ge_two_pow n)
     (le_of_dvd_pos _ _ (lcmUpTo_pos _) (central_binom_dvd_lcm hn))
+
+/-- ★ **`4^n ≤ (2n+1)·lcm(1..2n)`** (`n ≥ 1`) — the **base-`2` `ψ`-lower**, one genuine
+    rung sharper than `two_pow_le_lcm` (base `√2`).  `4^n ≤ (2n+1)·C(2n,n)`
+    (`four_pow_le_succ_mul_central_binom`, the central term dominates the binomial sum)
+    composed with `C(2n,n) ∣ lcm(1..2n)` (`central_binom_dvd_lcm`).  Equivalently
+    `ψ(2n) ≥ 2n·ln2 − ln(2n+1)` — the textbook elementary Chebyshev `ψ`-lower bound, with
+    the constant moved from `√2 ≈ 1.414` to `2` (a `ln(2n+1)` polynomial drag).  Narrows
+    the lower endpoint of the Chebyshev constant bracket toward the PNT value `1` from
+    below; the upper base stays `≈ 3.16` (`LcmGrowthChebyshev`), so the gap does not yet
+    collapse — pinning the constant to exactly `1` needs the Erdős–Selberg step, which has
+    no ∅-axiom shadow (the signed-cancellation wall; see `chebyshev_prime_counting.md`). -/
+theorem four_pow_le_lcm_mul {n : Nat} (hn : 1 ≤ n) :
+    4 ^ n ≤ (2 * n + 1) * lcmUpTo (2 * n) :=
+  Nat.le_trans (four_pow_le_succ_mul_central_binom n)
+    (Nat.mul_le_mul (Nat.le_refl (2 * n + 1))
+      (le_of_dvd_pos _ _ (lcmUpTo_pos _) (central_binom_dvd_lcm hn)))
 
 end E213.Lens.Number.Nat213.ChebyshevLower

@@ -62,4 +62,8 @@ def edgeCount : Nat := 1
 theorem K2_structure :
     nodeCount = 2 ∧ edgeCount = 1 := ⟨rfl, rfl⟩
 
+
+/-- ★ **Sign-flip is fixpoint-free**: `signFlip n ≠ n` for every node (`!b ≠ b` on `Bool`).
+    The order-2 sign involution has no fixed point — the discrete antipode. -/
+theorem signFlip_no_fixpoint (n : SignNode) : signFlip n ≠ n := by cases n <;> decide
 end E213.Lib.Math.Geometry.LevelTopology.SignTopology

@@ -12,7 +12,7 @@ Blueprint: `blueprints/math/03_topology_213.md` (retired).
 | `ContinuityArith.lean` | Continuity under arithmetic operations | 4 | ∅-axiom |
 | `Connectedness.lean` | `adjacent` predicate; `Chain` finite-list adjacency; `chain_finite` | 7 | ∅-axiom |
 | `EulerChi.lean` | χ(Δ⁴) = 1, χ(S³) = 0, χ(K_{3,2}^{(c=2)}) = −7; face count totals | 10 | ∅-axiom |
-| `ModulusStructure.lean` | bare `IsModulusStructure` typeclass; 3-way bridge across `IsContinuousModulus` (Topology), `IsRicciModulus` (GeometrizationConjecture), `BracketCauchyModulus` (Analysis) | 12 | ∅-axiom |
+| `ModulusStructure.lean` | bare `IsModulusStructure` typeclass; 3-way bridge across `IsContinuousModulus` (Topology), `IsRicciModulus` (DiscreteCurvature), `BracketCauchyModulus` (Analysis) | 12 | ∅-axiom |
 | `Capstone.lean` | 5 cluster witnesses + `total_witness` | 6 | ∅-axiom |
 | `Topology.lean` | umbrella | — | — |
 

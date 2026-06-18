@@ -421,13 +421,25 @@ canonical chapter.  Lean: `lean/E213/Theory/Atomicity/`.
     matches `(3, 2)` (closure relation
     `framework_natural_via_p_orbit_closure`)
 
-### III.2 Arity forcing — `c = 2`
+### III.2 Arity forcing (2) and the edge multiplicity `c`
 
 `lean/E213/Theory/Atomicity/{ArityForcing,CombinatorialArity}`
-— the bipartite multigraph `K_{NS, NT}^{(c)}` has its arity
-forced to `c = 2`.  Below `c = 2` the data is degenerate;
-above, redundant.  `theory/math/cohomology/k_nm_c_classification.md`
-develops the `c`-counter (5 directions, all closed).
+force the **relation arity = 2** — the distinguishing slash is
+binary (a pigeonhole bound on a relation's *inputs*).  This is a
+genuine ∅-axiom forcing.
+
+The **edge multiplicity `c`** of `K_{NS,NT}^{(c)}` (parallel edges
+per `(s,t)` incidence; the layer-count axis, orthogonal to graph
+shape) is a *different* quantity — not an arity — and is **not**
+forced by it: the arity-2 and multiplicity-`c` "2"s are numerically
+equal but structurally distinct.  `c = 2` is a **derived
+presentation parameter**, set so `b_1(K_{3,2}^{(c=2)}) = 6c−4 = 8 =
+NS²−1` re-presents the SU(3) adjoint; it is unforced across five
+reframings and removable from every observable (canonical status:
+3 forced `(NS,NT,d)` + 1 posited `c`).  Nor is `c = 1` degenerate —
+it carries a genuine non-coboundary H²-class (it is *pre-distinguishing*
+on the multiplicity axis, not empty).  See
+`theory/physics/foundations/atomic_constants.md`.
 
 ### III.3 K_{3,2}^{(c=2)} — the canonical lattice
 
@@ -599,10 +611,9 @@ Cayley (integer octonions) → Sedenion → Pathion →
 Trigintaduoionion.  Layers indexed by the CD doubling.
 
 `theory/math/cohomology/sym3_spine.md` — Sym(3) 8-fold decomposition
-appears across CD layers and Thurston geometries (Part V).
-The same decomposition reaches into the eventual physics
-deployment (gauge sector) but that side is out of scope
-here.
+appears in K_{3,2}^{(c=2)} H¹ (Part V).  The same decomposition
+reaches into the physics deployment (gauge sector, the gluon
+octet `1/α_3 = 8`).
 
 ### IV.4 Real213
 
@@ -639,68 +650,13 @@ output, not a universe constant).
 
 ## Part V — Algebraic and cohomological structure
 
-### V.1 K_{NS, NT}^{(c)} classification — the five-direction c-counter
+### V.4 Surface intersection forms
 
-`theory/math/cohomology/k_nm_c_classification.md` is the
-central chapter.  The c-counter programme decomposes into five
-independent closure routes, each ∅-axiom:
-
-  · **A — `codim ≥ c` parametric**.  `V33EnrichedParametric`
-    proves the lower bound for every `(NS, NT, c)`.  The
-    `9 · m` offset cancellation in `Beq213` absorbs
-    280+ proof sites across 12 templates (L1 parametric
-    consolidation, per Part VIII.4).
-  · **B — `codim ≤ c` unconditional**.  Closed via 8 explicit
-    primary cup generators at `c = 1` plus layer-promotion
-    (`promote_face` / `promote_edge`) lifting to ∀c.  The
-    `cong` constructor (closure under pointwise equality)
-    bridges function-vs-pointwise without `funext`.  See
-    `essays/per_layer_completeness_constructive_closure.md`.
-  · **C — ψ-discriminator joint kernel ⊆ InPrimary**.
-    `V33EnrichedParametricDualSpan*` — the c-many
-    ψ-discriminators *span* the dual of H²_enr; PRIMARY
-    cup-image rather than FULL is the maximal kill-preserving
-    restriction.
-  · **D — mediant cohomology functor**.  V/E/F Vandermonde
-    counts under Stern-Brocot; `K_{4, 3} = K_{1, 1} ⊕ K_{3, 2}`
-    as the marquee identity.  `MediantCohomologyFunctor.
-    mediant_cohomology_functor_capstone`.
-  · **E — c-counter master**.
-    `EnrichedKNSNTcMaster.master_Knn_c_counter_resolved`
-    consolidates A–D.
-
-Companion essays:
-`essays/c_counter_programme_closure.md` (5-direction synthesis),
-`essays/synthesis_interlock_map.md` (parallel with P-orbit's
-6-stage closure), `essays/layer_multiplication_pattern.md`
-(the shared proof-shape: invariant + offset + cancellation).
-
-**Cross-graph universality**.
-`Cohomology/CrossGraphPattern.lean` + `K33Unified.lean` — the
-"face-sum-to-zero" identity on 4-cycles at `NT = 3` is
-universal across `K_{3, 3}` and `K_{4, 3}`, independent of
-`NS`.
-
-### V.2 Stern-Brocot mediant cohomology functor
-
-`theory/math/cohomology/mediant_cohomology_functor.md` — V/E/F
-Vandermonde counts under mediant; K_{4, 3} = K_{1, 1} ⊕ K_{3, 2}
-as the marquee identity.
-
-### V.3 Tripartite self-containment
-
-`theory/math/cohomology/tripartite_self_containment.md` —
-K_{2, 1, 3} cohomology (Betti = (1, 0, 0)) and K_{3, 2}^{(c=2)}'s
-local (2, 1, 3) signature at every point.  Cross-frame verdict:
-atomic-level duality preserved (|E| = |Δ| = 6), cohomology-level
-duality broken (b₁ = 8 ≠ 0).
-
-### V.4 Hodge conjecture programme
-
-`theory/math/cohomology/hodge_conjecture.md` — 67 files, 6
-layers (Foundation / Structure / Pairing / Refinement / Toolkit
-/ Bridge / MotivicBridge).  Hodge involution ↔ universe-chain
-self-pointing.
+Cup-chain cohomology toolkit + surface intersection-form / signature
+results on real CW surfaces (`lean/.../Cohomology/HodgeConjecture/`,
+`Cohomology/Surfaces/`): Hodge index + Hodge–Riemann signatures on
+T², ℙ², ℙ¹×ℙ¹, T²×T², Σ_g and products.  The ⋆⋆ = id involution lives
+in `Cohomology/Hodge/InvolutionCapstone`.
 
 ### V.5 Cohomology family
 
@@ -711,12 +667,10 @@ bridge}.md` — 12 sub-clusters under cohomology.
 ### V.6 Sym(3) spine cross-frame
 
 `theory/math/cohomology/sym3_spine.md` — `2 · trivial ⊕ 3 · standard`
-Sym(3)-decomposition appears in K_{3, 2}^{(c=2)} H¹, in
-Thurston's 8 geometries, in the Akbulut cork.  Same
-decomposition, three independent math frames.  (A fourth
-frame — gauge content — surfaces in the eventual physics
-side; out of scope here.)  Capstone:
-`X1_sym3_cross_frame_capstone`.
+Sym(3)-decomposition appears in K_{3, 2}^{(c=2)} H¹ and in the
+gauge content (gluon octet, `1/α_3 = dim adj SU(3) = 8`).  Same
+decomposition, independent frames.  Anchors:
+`Sym3IrrepDecomp.fixedSize_eq_4` + `c3_chain_master`.
 
 ### V.7 Universe chain
 
@@ -768,14 +722,6 @@ The fractal `N_U = 5^25` (count-Lens output at level 2) is
 not isolated — `N_U + 1` carries the Aurifeuillean cyclotomic
 structure, providing algebraic-geometric anchoring at every
 fractal turn.
-
-### V.11 H³, H⁴ stable at +6
-
-`theory/math/geometry/exotic_4mfd_cork.md` + `H3Twist.lean` — the
-3-skeleton and 4-skeleton truncations stabilise the signed
-cork-twist count at `+6` (H¹ = +4, H² = +2, H³ = 0, H⁴ = 0).
-The 4-simplex closure of the `K_{3, 2}^{(c=2)} ↪ Δ⁴` dual
-filling.
 
 ---
 

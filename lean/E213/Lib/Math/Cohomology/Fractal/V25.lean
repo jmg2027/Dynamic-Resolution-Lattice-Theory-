@@ -13,8 +13,8 @@ as a finite complete graph K_{25}.
   Level 1: each vertex of level-0 becomes a 4-simplex.
   Level 2: 5 × 5 = 25 leaf vertices, complete graph K_{25}.
 
-The two-level depth matches **c = 2** (lattice cycle, see
-`Physics/SimplexCounts.c_lat`).
+The two-level depth matches **NT = 2** (the temporal/signature
+factor, see `Physics/Simplex/Counts.NT`).
 
 ## Cohomology of K_{25}
 

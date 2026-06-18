@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.Bipartite.V32
+import E213.Lib.Math.Cohomology.Cup.Ring
 
 /-!
 # Cohomology of K₅ — single 4-simplex 1-skeleton
@@ -19,9 +19,6 @@ yielding the 25-vertex level-2 graph (treated in `Fractal25.lean`).
 -/
 
 namespace E213.Lib.Math.Cohomology.Examples.K5
-
-open E213.Lib.Math.Cohomology.Bipartite.V32 (CochE CochV delta0 srcFin tgtFin)
-
 
 /-- Edge enumeration: e ∈ Fin 10 → (i, j) with i < j ≤ 4.
     Order: (0,1), (0,2), (0,3), (0,4), (1,2), (1,3), (1,4),

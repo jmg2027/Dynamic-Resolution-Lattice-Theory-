@@ -1,9 +1,7 @@
-import E213.Lib.Math.Cohomology.Bipartite.Filled
-
 /-!
 # 3-cell extension of the K_{3,2}^{(c=2)} cell complex
 
-Extends `Filled.lean` (2-cell attachment via 4-cycle filling) to
+Extends the 2-cell attachment (4-cycle filling) to
 include 3-cells attached along 2-cell boundaries.  Provides the
 cell-complex infrastructure needed for closed 3-manifold realization
 on the K_{3,2}^{(c=2)} substrate.

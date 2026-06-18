@@ -118,7 +118,7 @@ theorem betti_numerics :
       · b₂ = 0   (δ¹ surjective via direct-edge pivots)
 
     Total cohomology dimension = 1 (just the H⁰ constant).
-    Compare K_{3,2}^{(c=2)} (V32Betti): b₁ = 8.
+    Compare K_{3,2}^{(c=2)} (`Bipartite/Parametric/EulerAndCapstone`): b₁ = 8.
 
     This shows that the bipartite-tripartite duality at the
     **atomic level** (edge count 6 = triangle count 6) does NOT

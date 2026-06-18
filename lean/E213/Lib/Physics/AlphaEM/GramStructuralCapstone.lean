@@ -44,12 +44,11 @@ open E213.Lib.Physics.AlphaEM.GramStructuralNewton
    gram_correction_structural_value alphaInv_structural_value
    structural_vs_observed_27 structural_equals_observed_at_e9)
 open E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp
-  (d_drlt NS_drlt NT_drlt c_drlt
-   inv_alpha_em_60_eq_E_d inv_alpha_em_30_eq_NS_NT_d
+  (d_drlt NS_drlt NT_drlt
+   inv_alpha_em_60_eq_NS_NT2_d inv_alpha_em_30_eq_NS_NT_d
    inv_alpha_em_25_over_3 inv_alpha_em_alpha_gut_4
    inv_alpha_em_alpha_gut_45
    inv_alpha_em_full_denominator_catalog)
-open E213.Lib.Math.Cohomology.Cup.K32Projection (k32_edges)
 
 /-! ## §1 — 5-layer base coefficients structurally derived -/
 
@@ -57,8 +56,8 @@ open E213.Lib.Math.Cohomology.Cup.K32Projection (k32_edges)
     are all structurally derived from (NS, NT, c, d) = (3, 2, 2, 5)
     per `InvAlphaEMDecomp`. -/
 theorem base_formula_denominators_structural :
-    -- 60 = E · d = c · NS · NT · d
-    k32_edges NS_drlt NT_drlt c_drlt * d_drlt = 60
+    -- 60 = NS · NT² · d (order-2 / signature square)
+    NS_drlt * NT_drlt * NT_drlt * d_drlt = 60
     -- 30 = NS · NT · d (= cup-channels · d at d = 5)
     ∧ NS_drlt * NT_drlt * d_drlt = 30
     -- 25 = d² (chiral-dim numerator)
@@ -132,7 +131,7 @@ theorem alphaInv_structural_residual_27 :
   at the 0.2 ppb tier. -/
 theorem invAlphaEm_precision_theorem :
     -- (1) Base formula coefficients structural
-    k32_edges NS_drlt NT_drlt c_drlt * d_drlt = 60
+    NS_drlt * NT_drlt * NT_drlt * d_drlt = 60
     ∧ NS_drlt * NT_drlt * d_drlt = 30
     ∧ d_drlt * d_drlt = 25
     ∧ NS_drlt + 1 = 4
@@ -148,13 +147,12 @@ theorem invAlphaEm_precision_theorem :
     ∧ alphaInv_structural_e9 = observed_e9 + 27
     -- (6) Structural Gram = observed-based Gram at e9 (no precision loss)
     ∧ gram_correction_e9 = gram_correction_structural
-    -- (7) Atomic-parameter independence: only (NS, NT, c, d) appear
+    -- (7) Atomic-parameter independence: only (NS, NT, d) appear — no c
     ∧ NS_drlt = 3
     ∧ NT_drlt = 2
-    ∧ c_drlt = 2
     ∧ d_drlt = 5 := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · exact inv_alpha_em_60_eq_E_d
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · exact inv_alpha_em_60_eq_NS_NT2_d
   · exact inv_alpha_em_30_eq_NS_NT_d
   · exact (inv_alpha_em_25_over_3).1
   · exact (inv_alpha_em_alpha_gut_4).2
@@ -165,7 +163,6 @@ theorem invAlphaEm_precision_theorem :
   · exact alphaInv_structural_value
   · exact structural_vs_observed_27
   · exact structural_equals_observed_at_e9
-  · rfl
   · rfl
   · rfl
   · rfl

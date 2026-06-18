@@ -16,7 +16,7 @@ All declarations PURE.
 namespace E213.Lib.Math.Foundations.UniverseChain.PhysicsRigor
 
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
-open E213.Lib.Physics.Mixing.CabibboAngle (C_lat sin_theta_C_bare)
+open E213.Lib.Physics.Mixing.CabibboAngle (sin_theta_C_bare)
 open E213.Lib.Physics.Mixing.CPViolation
   (delta_approx_num delta_approx_den)
 
@@ -79,19 +79,13 @@ theorem ckm_delta_in_bracket :
     ∧ delta_approx_num * 1000 < delta_approx_den * 1210 := by
   refine ⟨?_, ?_⟩ <;> decide
 
-/-- ★ δ rational reduction check: `176/147 ≈ 1.1973`.
-    176·10000 = 1760000;  147·11973 = 1760031.  Difference < 100. -/
-theorem ckm_delta_3sig :
-    delta_approx_num * 10000 + 31 = delta_approx_den * 11973 := by
-  decide
-
 /-! ## §5 — Atomic constant rigor -/
 
 /-- ★ All atomic constants take their DRLT-canonical values. -/
 theorem atomic_constants_canonical :
-    NS = 3 ∧ NT = 2 ∧ d = 5 ∧ C_lat = 2
+    NS = 3 ∧ NT = 2 ∧ d = 5
     ∧ NS + NT = d := by
-  refine ⟨rfl, rfl, rfl, rfl, ?_⟩
+  refine ⟨rfl, rfl, rfl, ?_⟩
   decide
 
 /-! ## §6 — Capstone -/
@@ -106,7 +100,7 @@ theorem atomic_constants_canonical :
 
     Reading: rigorous Nat-decidable verification of every numerical
     identity in `PhysicsDeployment.lean`.  Every observable is a
-    closed function of `(NS, NT, d, C_lat) = (3, 2, 5, 2)` with
+    closed function of `(NS, NT, d) = (3, 2, 5)` with
     decided value bounds. -/
 theorem physics_rigor_capstone :
     -- (a) Cabibbo

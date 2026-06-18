@@ -1,27 +1,14 @@
-# `HodgeConjecture/Refinement/` — refinement variants of Hodge conjecture
+# `HodgeConjecture/Refinement/` — cup-atomic generation
 
-Refinement-side machinery: Lefschetz (hyperplane / (1,1)), standard
-conjectures, Voisin's refinement, generalized Hodge.
+## Files (1)
 
-## Files (7)
-
-  - `LefschetzHyperplane.lean`    — Lefschetz hyperplane theorem
-  - `LefschetzOneOne.lean`        — Lefschetz (1,1) theorem
-  - `StandardConjectures.lean`    — Grothendieck standard conjectures
-  - `Voisin.lean`                 — Voisin's refinement
-  - `GeneralizedHodge.lean`       — generalized Hodge conjecture
-  - `CupAtomicGeneration.lean`    — cup-atomic generation refinement
-  - `AtomicGenerationHeptad.lean` — HC²¹³ atomic-generation heptad capstone
-
-## Where to add new files
-
-  - New Lefschetz variant       → `Lefschetz<...>`
-  - New conjecture variant      → `<conjecturer>.lean` (e.g. Voisin)
-  - Refinement variant          → `Generalized<...>` / `<...>Refinement`
+  - `CupAtomicGeneration.lean`    — on Δ⁴, the 5 vertex indicators'
+                                    pairwise cup products realise the
+                                    10 atomic edge indicators of C²
+                                    (Alexander–Whitney, k=2 case-work)
 
 ## Companion sub-clusters (in `HodgeConjecture/`)
 
-  - `Foundation/`     — base conjecture statement
-  - `Pairing/`        — HIT + HR pairings
-  - `MotivicBridge/`  — motive / étale bridge
-  - `Toolkit/`        — auxiliary toolkit
+  - `Pairing/`        — surface intersection forms
+  - `Structure/`      — cohomology-ring structure
+  - `Toolkit/`        — operational primitives

@@ -71,12 +71,6 @@ the framework.
   Measurement giving > 12 (or strictly > 12 normalised) → discard.
   `lean/E213/Lib/Physics/Quantum/Bell.lean` (`bell_capstone`).
 
-### F16: R_∞ atomic = 13605693 μeV ± 1
-  H ionization energy bracket; pairs with the 4.3 ppb precision.
-  Future ppt-level muonic-H / Lamb-shift outside → discard.
-  `lean/E213/Lib/Physics/Atomic/IE/HydrogenPPM.lean`
-  (`R_infinity_falsifier_bracket`).
-
 ### F17: e-folds N ∈ [50, 60] = d·NT·(d+1)
   Inflation count atomic; pairs with the precision N = 60 reading.
   CMB / B-mode / 21cm outside the bracket → discard.
@@ -127,14 +121,6 @@ the framework.
   by SU(3)·SU(5) adjoint structure (NS, d) = (3, 5).
   `lean/E213/Lib/Physics/Foundations/AtomicSuperCatalog.lean`
   (`muon_prefactor_falsifier`).
-
-### F25: m_t/m_c ≈ 137 ∈ [130, 145] (1/α_em atomic match)
-  Top-charm mass ratio coincides with the 1/α_em fine-structure
-  integer.  Same atomic 137 reads out both ratios.  Pairs with
-  `QuarkHierarchy.quark_hierarchy_capstone` chain composition
-  (NS·d² + NS·NT² = 87, + correction → 137).
-  `lean/E213/Lib/Physics/Hadron/MtOverMc.lean`
-  (`mt_mc_falsifier_bracket`).
 
 ### F26: η_B ≈ 6 × 10⁻¹⁰ atomic
   Baryon-to-photon ratio leading integer 6 = NS·NT uniquely fixed

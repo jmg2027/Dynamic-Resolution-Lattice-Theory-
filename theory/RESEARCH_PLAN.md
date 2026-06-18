@@ -11,41 +11,27 @@ hosts it.
 These should close in 1–3 sessions of focused work; each
 removes a conditional or stated-but-unproved gap.
 
-### 1.1 Per-layer ψ-kernel completeness (Direction C unconditional) — CLOSED
+### 1.1 b₀/b₁/b₂ Betti structure at K_{3,2}^{(c=2)} — CLOSED
 
-  · **What**: prove joint ψ-kernel ⊆ `InPrimaryCupSpanPlusBoundary`
-    for every `c ≥ 1`, removing the conditional in
-    `codim_upper_bound_conditional`.
-  · **Status**: BOTH DIRECTIONS CLOSED
-    unconditionally at every c.
-      · EASY (`InPrimary ⊆ joint ψ-kernel`):
-        `primary_cup_span_soundness_all_c` — closed by
-        chaining `primary_cup_span_soundness_on_layer` with
-        Direction B's `parametric_arbitrary_m_full_kill_capstone`.
-      · HARD (`joint ψ-kernel ⊆ InPrimary`):
-        `joint_psi_kernel_subset_primary` — closed
-        in `V33EnrichedParametricDualSpanHardLift`.  Strategy:
-          1. c=1 base case: 8 explicit primary cup-product generators
-             (`g_1 … g_8`) span the dim-8 ψ-kernel at single-layer
-             K_{3,3}.  Closed in `V33EnrichedParametricDualSpanHard`
-             via the candidate-decomposition theorem
-             `joint_psi_kernel_subset_primary_c1`.
-          2. ∀c lift: `promote_face`/`promote_edge` lift each c=1
-             InPrimary witness to layer m of `InPrimary c`,
-             preserved inductively across all 5 constructors plus
-             the new `cong` constructor (closure under pointwise
-             equality, added to bridge function-vs-pointwise
-             without using `funext`).  `xor_aggregate` over
-             m ∈ Fin c composes the layer-m promotes into a full
-             reconstruction of v.
-  · **Anchor**: `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpanHard.lean`
-    (c=1 base, 51 PURE) and
-    `lean/E213/Lib/Math/Cohomology/Bipartite/V33EnrichedParametricDualSpanHardLift.lean`
-    (c-lift + unconditional capstones, 21 PURE).
-  · **Closes**: `codim = c` UNCONDITIONAL at every Stern-Brocot
-    position.  `parametric_dual_span_unconditional` and
-    `codim_upper_bound_unconditional` discharge the
-    `H_kernel_in_span` hypothesis of the conditional capstones.
+  · **What**: pin the cohomology Betti numbers of the canonical
+    filled graph — connectedness across the family and the
+    filled-3-cell anchor.
+  · **Status**: CLOSED.
+      · `b₀ = 1` (connectedness) for every `K_{NS,NT}^{(c)}`:
+        `KernelConstancyUniversal.universal_kernel_close`.
+      · `b₁ = 6`, `b₂ = 1` at the K_{3,2}^{(c=2)} filling:
+        `Filled3CellCohomology.phase1_cohomology_anchor`, with the
+        generating relation `Filled3CellCohomology.face_dependence`
+        (`Face₀ ⊕ Face₁ ⊕ Face₂ = 0`).
+      · `b₁ = 8 = NS² − 1` gluon-octet reading:
+        `GluonChannelInterpretation.eight_fold_QCD_identification`.
+  · **Anchor**:
+    `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/Betti/KernelConstancyUniversal.lean`,
+    `lean/E213/Lib/Math/Cohomology/Bipartite/Filled3CellCohomology.lean`,
+    `lean/E213/Lib/Physics/Symmetry/GluonChannelInterpretation.lean`.
+  · **Closes**: the Betti structure of the canonical lattice graph
+    is fixed in Lean, with the connectedness statement holding
+    uniformly across the whole `K_{NS,NT}^{(c)}` family.
 
 ### 1.2 Arity `c = 2` Lean theorem — CLOSED
 
@@ -66,33 +52,14 @@ removes a conditional or stated-but-unproved gap.
     is the ∀ k ≥ 3 generalization.
   · **Anchor**: `lean/E213/Theory/Atomicity/CombinatorialArity.lean`
     (5 PURE).
-  · **Closes**: atomic signature forcing fully formalised at Lean
-    level — 4 of 4 dimensions (NS = 3 + NT = 2 via PairForcing,
-    d = 5 via OrbitForcing + Five, c = 2 via this file).
+  · **Closes**: atomic signature forcing formalised at Lean level —
+    the forced atoms `(NS, NT, d) = (3, 2, 5)` (NS = 3 + NT = 2 via
+    PairForcing, d = 5 via OrbitForcing + Five).  `CombinatorialArity`
+    forces the relation **arity = 2**, a distinct quantity from the edge
+    multiplicity `c`; `c = 2` is a posited presentation parameter
+    (`atomic_c_multiplicity_forcing.md`), not a fourth forced dimension.
 
-### 1.3 Pell-orbit cohomology extension — CLOSED
-
-  · **What**: verify `master_Knn_c_counter_resolved`'s universal
-    framework transports to (8, 5), (5, 4), (7, 4), (13, 8) —
-    the next Stern-Brocot layer.
-  · **Status**: ALL FOUR CLOSED.
-      · **K_{5, 4}** — closed via `K54_c_independent_h2_classes_via_framework`
-        (NT=5 odd) and re-exported `K54_via_KNS4` (NT=4 even).
-      · **K_{8, 5}** — closed via `kills_delta1_KNS5 8 c pairEnum8`
-        (NT=5 odd route; `pairEnum8`).
-      · **K_{7, 4}** — closed via `KNS4_c_independent_h2_classes 7 c
-        (by decide) pairEnum7` (NT=4 even excl-T route; `pairEnum7`).
-      · **K_{13, 8}** — closed via `KNS8_c_independent_h2_classes 13 c
-        (by decide) pairEnum13` (NT=8 even excl-T route; new
-        `psi_excl_T0_NT8` family with 21-fold XOR + 7-bool
-        case-bash; new `pairEnum13` for NS=13).
-  · **Anchor**: `lean/E213/Lib/Math/Cohomology/Bipartite/Parametric/PellOrbitInstances.lean`
-    + `EnrichedKNSNTcEvenEven.lean` §13.5–§14 (NT=8 family).
-  · **Closes**: Direction A generalises beyond `K_{n, n}` for
-    `n ∈ {3, 4, 5, 6}` — all four Stern-Brocot mediant positions
-    of the next layer verified.
-
-### 1.4 α_em Step 5 capstone purity confirmation — CLOSED (already)
+### 1.3 α_em Step 5 capstone purity confirmation — CLOSED (already)
 
   · **What**: confirm `GramStructuralCapstone` +
     `invAlphaEm_precision_theorem` build as PURE, removing the
@@ -124,7 +91,7 @@ chapter section, not a missing theorem.
 ### 2.1 Hodge involution ↔ universe-chain self-pointing — **CLOSED**
 
   · **Resolved**: Cross-references added in both
-    `hodge_conjecture.md` (§(iii) HC_Involution) and
+    `hodge.md` (⋆⋆ = id involution) and
     `universe_chain.md` (§Eisenstein discovery).  The duality
     between `⋆⋆ = id` and `1 + ω + ω² = 0` is now explicitly
     narrated as a shared self-cancelling complement structure
@@ -150,59 +117,11 @@ chapter section, not a missing theorem.
   · **Tractability**: MED (sketches the conjecture; Lean proof
     is separate).
 
-### 2.4 Geometrization Sym(3) ↔ K_{3, 2} Sym(3) spine
-
-  · **Gap**: `geometrization_conjecture.md` Step 24 names the
-    8-geometries Sym(3) decomposition (3 isotropic + 5
-    anisotropic = 2 fixed + 3 standard).  `c3_chain.md` proves
-    the same `2·trivial ⊕ 3·standard` decomposition on
-    H¹(K_{3, 2}^{(c=2)}).  Connection observed but not stated
-    as a theorem.
-  · **Action**: write explicit cross-frame theorem
-    "Sym(3)-spine unification" naming both decompositions and
-    the gluon-octet isomorphism that connects them.
-  · **Tractability**: MED (the Lean isomorphism may need a
-    new bridge file).
-
-### 2.5 N_gen and the c-counter
-
-  · **Gap**: `Simplex/SubInventory` derives `N_gen = 3` from
-    Δ⁴ sub-face count; the c-counter layers in
-    `k_nm_c_classification.md` use a different mechanism.
-    Currently these are independent.
-  · **Action**: investigate whether `N_gen` and per-layer
-    c-counter share a deeper Stern-Brocot / Pell origin.  If
-    yes, write the bridge.  If no, document the layer at which
-    each operates within the same residue (Δ⁴ sub-face count vs.
-    enriched cohomology block index) — not as a substrate/
-    superstructure split.
-  · **Tractability**: LOW–MED (research question).
-
 ## Tier 3 — Narrative depth deficits (chapter-local)
 
 Sections that are PROVABLE in Lean but UNEXPLAINED in chapter
-narrative.  Readers can verify but not understand.
-
-### 3.1 ψ-discriminator WHY (Cohomology) — **CLOSED**
-
-  · **Resolved**: `k_nm_c_classification.md`
-    now leads the c-counter narrative with the enriched
-    direct-sum decomposition
-    `C¹_enr = ⊕_{m ∈ Fin c} C¹_simple_m`,
-    `C²_enr = ⊕_{m ∈ Fin c} C²_simple_m`, and then explains
-    `9·m` cancellation as the proof-level shadow of that
-    disjoint-layer translation symmetry.  The ψ-functional is
-    now motivated structurally before technical lemmas.
-
-### 3.2 PRIMARY cup-image naturality — **CLOSED**
-
-  · **Resolved**: `k_nm_c_classification.md`
-    §"Why PRIMARY (not FULL) cup-image" was rewritten to drop the
-    unsupported naturality/maximality framing and present PRIMARY as
-    an explicit design boundary for the ψ-kill/soundness pipeline.
-    The section now states clearly that FULL cup-image collapses the
-    quotient (`span = EnrichedFaceVal c`) and that no global
-    uniqueness/maximality claim is asserted in that chapter.
+narrative.  Readers can verify but not understand.  No open
+items at present.
 
 ## Tier 4 — Physics deployment extensions
 
@@ -229,8 +148,9 @@ narrative.  Readers can verify but not understand.
 
   · **Gap**: Cabibbo λ = 5/22 = d/(d² − NS) is closed in
     catalog.  Remaining 8 CKM parameters are open.
-  · **Action**: deploy the mediant-functor machinery from
-    `mediant_cohomology_functor.md` to generate
+  · **Action**: derive the remaining mixing angles from the
+    Stern-Brocot mediant positions of the atomic signature
+    (`Mobius213SternBrocot`) to generate
     `θ_12, θ_23, θ_13, δ_CP`.
   · **Tractability**: MED.
 
@@ -329,8 +249,8 @@ narrative.  Readers can verify but not understand.
 
 ## Priority ranking (one-shot session leverage)
 
-All Tier 1 items are CLOSED (1.1, 1.2, 1.3, 1.4).
-Tier 2.1, 2.2, Tier 3.1, Tier 3.2, and Tier 4.1 are CLOSED .
+All Tier 1 items are CLOSED (1.1, 1.2, 1.3).
+Tier 2.1, 2.2, and Tier 4.1 are CLOSED.
 The next-shot focus should be one of:
 
   · **Tier 2.3 p-adic_real213 ↔ Möbius P mod-p periods** — MED
@@ -341,38 +261,29 @@ The next-shot focus should be one of:
 
 ## Inter-item dependencies
 
-  · **1.1 SATISFIED (closed)**: `codim = c` is now
-    unconditional at every c via
-    `joint_psi_kernel_subset_primary` +
-    `parametric_dual_span_unconditional`.  Downstream updates
-    applied: `theory/math/cohomology/k_nm_c_classification.md`
-    overview + key-results + open frontier; STATE.md c-counter
-    row.  Follow-on essay update in
-    `theory/essays/cohomology/c_counter_programme_closure.md` still
-    pending.
+  · **1.1 SATISFIED (closed)**: the Betti structure at
+    K_{3,2}^{(c=2)} is fixed — `b₀ = 1` uniformly via
+    `KernelConstancyUniversal.universal_kernel_close`, `b₁ = 6`
+    and `b₂ = 1` via `Filled3CellCohomology.phase1_cohomology_anchor`,
+    `b₁ = 8 = NS² − 1` gluon octet via
+    `GluonChannelInterpretation.eight_fold_QCD_identification`.
   · **1.2 SATISFIED (closed)**: atomic forcing chain
-    (NS, NT, d, c) = (3, 2, 5, 2) is now fully Lean-formalised
-    via `CombinatorialArity.arity_2_unique_via_k_ge_3_vacuous`
-    (parametric ∀ k ≥ 3 pigeonhole over `Fin 2` base).  Downstream
-    update applied to `STATE.md` Closed table; chapter
-    `physics/foundations/atomic_constants.md` already noted "all
-    four forced" via the narrative chain.
-  · **1.3 SATISFIED (closed)**: all four Pell-orbit
-    pairs closed — K_{5, 4}, K_{7, 4}, K_{8, 5}, K_{13, 8} via
-    KNS4 / KNS5 / KNS8 routes.  The NT=8 `psi_excl_T0_NT8`
-    family + `pairEnum13` completed the extension.  Capstone
-    `pell_orbit_stern_brocot_extension_capstone` bundles 4/4.
+    `(NS, NT, d) = (3, 2, 5)` (with `c` a derived presentation
+    parameter, not a fourth forced primitive) is now fully
+    Lean-formalised via
+    `CombinatorialArity.arity_2_unique_via_k_ge_3_vacuous`
+    (parametric ∀ k ≥ 3 pigeonhole over `Fin 2` base, forcing the
+    relation arity = 2).  Downstream update applied to `STATE.md`
+    Closed table; chapter `physics/foundations/atomic_constants.md`
+    notes the forced atoms via the narrative chain.  `(NS, NT)`
+    forced and `c` not forced is anchored in
+    `AtomicConstantsParametricFullIff.c2b_full_iff`.
   · **Tier 2.1 CLOSED**: Hodge ↔ universe-chain.
   · **Tier 2.2 CLOSED**: Cayley-Dickson ↔ Möbius.
   · **Tier 4.1 CLOSED**: catalog 23/23 paired.
-  · **2.4 (Sym(3)-spine unification) needs** a new bridge file
-    if the gluon-octet ↔ 8-geometries isomorphism is to live in
-    Lean rather than only narrative — likely under
-    `lean/E213/Lib/Physics/Symmetry/` cross-cited from
-    `lean/E213/Lib/Math/Geometry/GeometrizationConjecture/`.
-  · **5.1 cleans ⇒** unlocks safe motion of 1.1's anchor file
-    if any Math/Physics import-graph entanglement surfaces
-    during the per-layer completeness work.
+  · **5.1 cleans ⇒** unlocks safe motion of the cohomology
+    anchor files if any Math/Physics import-graph entanglement
+    surfaces during further cohomology work.
 
 ## Anti-goals (what this plan is NOT)
 
@@ -384,10 +295,9 @@ scope and should not appear in any item's "Action":
     only.
   · Stereotype matching ("this corresponds to standard math
     X") in chapter narrative.
-  · Substrate/superstructure framing (Tier 2.5 wording fix
-    applies repo-wide; same caution for 5.1 "Math context vs
-    Physics context" — they are bounded-context labels, not
-    layered ontologies).
+  · Substrate/superstructure framing (applies repo-wide; same
+    caution for 5.1 "Math context vs Physics context" — they are
+    bounded-context labels, not layered ontologies).
   · Forcible map onto existing physics in Tier 4 items —
     numerical disagreement is a missing-physics signal, not a
     target to fit.
@@ -399,9 +309,7 @@ scope and should not appear in any item's "Action":
   · `theory/INDEX.md` — book map
   · `HANDOFF.md` — volatile session state
     conjecture catalog (active scratch)
-  · `theory/essays/cohomology/c_counter_programme_closure.md` — Tier-1
-    items 1.1–1.3 anchor essay
   · `theory/essays/p_orbit/p_orbit_closure_master.md` — Tier-2 item
     2.3 anchor essay
-  · `theory/essays/synthesis/synthesis_interlock_map.md` — the c-counter
-    ↔ P-orbit ↔ layer-multiplication correspondence
+  · `theory/essays/synthesis/the_forcing_criterion_is_distinguishing.md`
+    — the forcing-criterion synthesis essay

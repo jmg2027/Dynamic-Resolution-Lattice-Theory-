@@ -89,10 +89,11 @@ bridge `cup_1(ω, ω) = δ²(ω)` is the LEAN-CHECKABLE expression of
 all three readings collapsed to one identity.
 
 A further cross-frame: the ω face-vector `(1, 1, 1)` evaluating
-to NS is the same Hunter-atomicity reading as
-`NS = 3 = number of simple 4-cycles in K_{3,2}^{(c=2)}`
-(`Cohomology/Bipartite/K32Projection`).  The `b_2 = 1` class IS
-the NS-counting atom of the filled bipartite skeleton.
+to NS is the same Hunter-atomicity reading as the single non-trivial
+`H²` class of the filled bipartite skeleton — `b_2 = 1` at the
+full simple-cycle filling
+(`Cohomology/Bipartite/Filled3CellCohomology.phase1_cohomology_anchor`).
+The `b_2 = 1` class IS the NS-counting atom of the filled bipartite skeleton.
 
 ## Open frontier
 

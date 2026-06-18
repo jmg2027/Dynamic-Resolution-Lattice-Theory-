@@ -72,9 +72,7 @@ theorem phase_L5_capstone :
     -- Atomic source: both equal NS, NT
     ∧ dimVecS = NS ∧ dimVecT = NT := by decide
 
-/-- ★ Target (statement only): full chiral compression theorem
-    combining Linalg213 rank-5 + Cohomology bigrading.  Awaits
-    future formalization. -/
-theorem chiral_compression_target : True := trivial
+-- TODO (open): full chiral compression theorem combining Linalg213
+-- rank-5 + Cohomology bigrading.  Awaits future formalization.
 
 end E213.Lib.Math.Algebra.Linalg213.Bridge

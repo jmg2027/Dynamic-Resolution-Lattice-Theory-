@@ -1,38 +1,27 @@
-import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
 import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.DiscreteGeometry
 import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.ClassAExactWitnesses
-import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.GaloisCounterfactual
 import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.Ising
 import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.MLDecoder
-import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.MotiveEtaleFusion
-import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.PhaseRouting
 import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.Potts
 import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.SpinGlass
 import E213.Lib.Math.Cohomology.HodgeConjecture.Bridge.SpinGlassGroundState
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.HodgeConjecture.Bridge`.
 
-  Bridge layer connecting Hodge-conjecture cohomology to physics
-  + statistical-mechanics + computer-science models.
-
-  ## Algebraic geometry
-
-    * `BeilinsonRegulator`   — Beilinson regulator construction
-    * `MotiveEtaleFusion`    — motive / étale fusion bridge
-    * `GaloisCounterfactual` — Galois-action counterfactual
+  Bridge layer connecting cup-chain cohomology to statistical-
+  mechanics + computer-science models on K_5 / K_{3,2}^{(c=2)}.
 
   ## Statistical-mechanics models
 
-    * `Ising`              — Ising-model Hodge-class encoding
-    * `Potts`              — Potts-model variant
+    * `Ising`              — K_5 Ising-model energy spectrum + routing
+    * `Potts`              — q=3 Potts-model variant
     * `SpinGlass`,
       `SpinGlassGroundState` — spin-glass ground-state classification
 
-  ## Discrete geometry / phase
+  ## Discrete geometry
 
     * `DiscreteGeometry`   — discrete-geometry bridge
-    * `PhaseRouting`       — phase-routing model
-    * `ClassAExactWitnesses`          — G6 vacuity claim
+    * `ClassAExactWitnesses` — exact-witness vacuity classification
 
   ## Computer science
 

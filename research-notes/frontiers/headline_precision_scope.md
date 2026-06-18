@@ -50,8 +50,10 @@ It does **not** prove 206.768, nor 0.49 ppb.
 - `Λ_QCD = 308.32 MeV` appears **only in the docstring numerics**; there is no
   Lean def/theorem deriving `308.32` from atomics (the "QCD-scale chain" is
   prose-referenced, not located). So `Λ_QCD` is effectively an **input scale**.
-- The PURE capstone `proton_simplicial_pattern` proves m_p ∈ brackets at **0.1%**
-  (`93700 < 93827 < 94000`), not 1.56 ppm and not "0.000%".
+- The PURE theorem `proton_atomic_readings` proves only the genuine integer
+  atomic readings (NT² = 4, d−1 = 4, d³ = 125, NS/d = 3/5); the all-literal m_p
+  brackets and the "0.000%" claim were removed (they bracketed a hand-typed
+  literal 93827 against literal bounds, not a measured input).
 - Honest content: DRLT predicts the **dimensionless** `m_p/Λ_QCD = NS·P(x) =
   3·1.014 = 3.043` (3-quark combinatorial × Dyson tail). The absolute 938.27 MeV
   needs the input scale `Λ_QCD`.

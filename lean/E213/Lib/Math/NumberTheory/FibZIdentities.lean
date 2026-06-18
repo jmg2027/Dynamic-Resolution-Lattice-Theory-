@@ -199,4 +199,18 @@ theorem five_dvd_fibZ_quintuple (m : Nat) :
     (5 : Int) ∣ fibZ (m + m + m + m + m) :=
   ⟨_, fibZ_quintuple_factored m⟩
 
+
+/-- ★ **Lucas doubling**: `L_{2m} = L_m² − 2·(−1)ᵐ`.  The Lucas companion of the Fibonacci
+    doublings `F_{2m}=F_m L_m`, `F_{2m+1}=F_{m+1}²+F_m²`; expand `L_{2m}=2F_{2m+1}−F_{2m}`
+    via those, substitute the Cassini value of `(−1)ᵐ`, then `ring_intZ`. -/
+theorem lucasZ_double (m : Nat) :
+    lucasZ (m + m) = lucasZ m * lucasZ m - 2 * altSign m := by
+  show 2 * fibZ (m + m + 1) - fibZ (m + m)
+     = (2 * fibZ (m + 1) - fibZ m) * (2 * fibZ (m + 1) - fibZ m) - 2 * altSign m
+  rw [fibZ_two_mul_succ m, fibZ_two_mul m]
+  show 2 * (fibZ (m + 1) * fibZ (m + 1) + fibZ m * fibZ m)
+        - fibZ m * (2 * fibZ (m + 1) - fibZ m)
+     = (2 * fibZ (m + 1) - fibZ m) * (2 * fibZ (m + 1) - fibZ m) - 2 * altSign m
+  rw [← fibZ_cassini_eps m]
+  ring_intZ
 end E213.Lib.Math.NumberTheory.FibZIdentities
