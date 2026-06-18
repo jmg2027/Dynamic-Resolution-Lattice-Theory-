@@ -117,5 +117,5 @@ Promoted from the closed frontiers `gauss_totient_general`,
 `mobius_divisor_sum_general`, `sigma_parity_general` (all ✅ closed;
 archived under `research-notes/archive/numbertheory/`). The framework is
 PURE end-to-end; this chapter is the permanent-tier narrative.  §8 (σ_m
-closed form + general completely-multiplicative divisor-sum law) added
-2026-06-18 from the `SigmaDivisorClosed` closure.
+closed form + general completely-multiplicative divisor-sum law) mirrors
+the `SigmaPrimePowGeom` / `SigmaDivisorClosed` sub-tree.
