@@ -292,4 +292,36 @@ theorem jordan_zero_eq_eps (n : Nat) (hn : 0 < n) : jordanK 0 n = eps n := by
         (fun m => by show ((m ^ 0 : Nat) : Int) = ((1 : Nat) : Int); rw [Nat.pow_zero]) n]
   exact mu_conv_one n hn
 
+
+/-! ## §10 — `id^k = μ ∗ σ_k` (the Möbius dual of `σ_k = id^k ∗ 1`) -/
+
+/-- ★★ **`id^k = μ ∗ σ_k`**: the Möbius inverse of `σ_k = id^k ∗ 1`, i.e.
+    `n^k = Σ_{d∣n} μ(d)·σ_k(n/d)`, `dconv μ σ_k n = n^k`.  Completes the `id^k`-graded
+    Möbius-dual pair (`σ_k = id^k ∗ 1`, `id^k = μ ∗ σ_k`); the `k=1` case is `Σ μ(d)σ(n/d)=n`. -/
+theorem idk_eq_mu_conv_sigmaK (k n : Nat) (hn : 0 < n) :
+    dconv mu (fun d => ((E213.Lib.Math.NumberTheory.GeneralizedDivisorSum.sigmaK k d : Nat) : Int)) n
+      = ((n ^ k : Nat) : Int) := by
+  have hg : ∀ m : Nat, 0 < m →
+      ((E213.Lib.Math.NumberTheory.GeneralizedDivisorSum.sigmaK k m : Nat) : Int)
+        = divisorSumZ m (fun d => ((d ^ k : Nat) : Int)) :=
+    fun m hm => ((dconv_one_right (fun d => ((d ^ k : Nat) : Int)) m).symm.trans
+      (sigmaK_eq_idk_conv_one k m hm)).symm
+  have hinv := E213.Lib.Math.NumberTheory.MobiusInversion.mobius_inversion
+    (fun d => ((d ^ k : Nat) : Int))
+    (fun d => ((E213.Lib.Math.NumberTheory.GeneralizedDivisorSum.sigmaK k d : Nat) : Int)) n hn hg
+  have hinv' : ((n ^ k : Nat) : Int)
+      = divisorSumZ n (fun d => E213.Lib.Math.NumberTheory.MobiusMultiplicative.muStruct d
+          * ((E213.Lib.Math.NumberTheory.GeneralizedDivisorSum.sigmaK k (n / d) : Nat) : Int)) := hinv
+  show divisorSumZ n (fun d => mu d
+        * ((E213.Lib.Math.NumberTheory.GeneralizedDivisorSum.sigmaK k (n / d) : Nat) : Int))
+      = ((n ^ k : Nat) : Int)
+  rw [hinv']
+  show sumZ n (fun j => (dvdInd j n : Int) * (mu (j + 1)
+        * ((E213.Lib.Math.NumberTheory.GeneralizedDivisorSum.sigmaK k (n / (j + 1)) : Nat) : Int)))
+      = sumZ n (fun j => (dvdInd j n : Int)
+        * (E213.Lib.Math.NumberTheory.MobiusMultiplicative.muStruct (j + 1)
+            * ((E213.Lib.Math.NumberTheory.GeneralizedDivisorSum.sigmaK k (n / (j + 1)) : Nat) : Int)))
+  exact sumZ_congr n _ _ (fun j _ => by
+    rw [E213.Lib.Math.NumberTheory.MobiusBridge.muStruct_eq_mu (j + 1) (Nat.succ_pos j)])
+
 end E213.Lib.Math.NumberTheory.DirichletIdentities
