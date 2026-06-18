@@ -118,6 +118,37 @@ Field 17 (`blueprints/math/17_reverse_math_213.md`); readable book
 `theory/essays/methodology/the_omniscience_ledger.md`.  No open field-17 source
 note remains in `research-notes/`.
 
+## The cost is sharp — the minimal certifying denominator
+
+The LLPO calibration (`RealDichotomyLLPO`) encodes an at-most-one-true `f` as a
+cut `y_f ∈ {1, 1±2^{-(n+1)}}` (fire at index `n`); the sign decision against the
+threshold `1` is the omniscience act.  `OmniscienceCostSharp` makes the cost
+*quantitative and sharp*.  Calling `k` a certifying denominator when some
+rational `m/k` separates `y_f` strictly below `1` (`OddCertifies f k`):
+
+> **`odd_min_cert_denom`** — for an odd fire at `n`, the **least** certifying
+> denominator is **exactly `2^{n+1}`**: it certifies (`odd_cert_at_pow`, the
+> boundary rational `(2^{n+1}−1)/2^{n+1} = y_f`), and **no** `k < 2^{n+1}`
+> certifies for any `m` (`odd_no_cert_below`).
+
+This is the price of the LLPO-gated order decision, made an explicit,
+fire-index-indexed modulus.  It respects non-uniformity rather than contradicting
+it: the bound is *per-instance* (`2^{n+1}` grows with the fire index `n`), so no
+single `f`-independent certifying denominator exists — exactly the discontinuity
+of LLPO, now pinned as a sharp per-instance lower bound rather than left
+qualitative.  The standard located-real picture supplies only the *upper*
+(existence) side (a separating precision exists); the matching **lower bound**
+and the exact constant are the new content (lit. check: not found in the
+omniscience / computable-analysis / Weihrauch literature — Brattka–Gherardi is
+degree-theoretic with no modulus; Ko's bit-cost is the modulus of an already-total
+map).
+
+The cost is **one-sided** (`even_cert_cheap` + `cost_asymmetric`): the dual even
+case (`y_f > 1`) is certified by the threshold rational `1 = k/k` itself at
+denominator `n+1`, far below `2^{n+1}`.  The exponential price attaches *only* to
+separating a value approaching `1` from below by a sub-threshold rational — there
+is no symmetric mirror.
+
 ## Open frontier
 
 By design external (named and isolated, not "to fix"):
